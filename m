@@ -1,95 +1,100 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-166.mta1.migadu.com [95.215.58.166])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2351727A91D;
-	Thu,  3 Sep 2026 05:36:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 524213909B8
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 05:36:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.166
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788413762; cv=none; b=ulhoyzll/DrRvOz62wctcBfc7TagOCQVElZUBSaqJIFru894wuRauai91WMlA2rYlwpcR3b+wheVV4+jyEqdsztWRZ7a14NEUtTx1YqcRCVVqCYwpnD4QkZV+gFMHPRYutwpZ4UWTYVNetdTBL4gFQ7PYGtz4oYtAdr/8p1hwQY=
+	t=1788413766; cv=none; b=S2v8PGCp17iV8z6WtgFYSuDRv+5BVBujBqeIZeuI9NNvdGi2nZGN1KGX1ZKmyGxgYEP6Ps4j+kpkIu9ivsVYm0g2zyjS9J+ziKdFaWab27qtfI/kl/yuuLBD3dgmudbUiTKgpKjs0g+1iVywqCXRXBF+I07ukcWYEAtiy0F/4qk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788413762; c=relaxed/simple;
-	bh=m6s7G1Z5GduH34WPHbUvn9l9NjcI+pmZA5DaoDuGT+s=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Xx2d27Kw+Kw4dXPwbBX4pARO3RAbfNvB2p7/Ubl7R7hRtm6EHk2SoGYcLuioZvWq5wx0y/2upIecqBZ3WlqB/XriQ93RfKGXFWYQfNh0ZpNlotRo7o6+8DsdssHWH0hwgZIqrulczzGjDMBuUdNq4moKnFW4DubIrh2FRfK9nL0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=J8EPFsrV; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788413766; c=relaxed/simple;
+	bh=pFx9cx0I838cE2nczWgH9ctLbDnOiEyF5R1ouuYP4NQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=qJefNUtniVf5TMBCTMrDlWwrOu+KrKo3xI7cfGB9Pf8tx7zmFK37avoUxZ0uW5Qel8SrsxQjYL1JEBeRKpSv+5XS8EwqMnQ9Q1rRsNC4Mj/tU+21heNQGtv53ULlB+EO7mA8hVo0XttL9geiY4GDX90iRfwrkWiWvU4Vjnsea10=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=mbe/UGMJ; arc=none smtp.client-ip=95.215.58.166
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="J8EPFsrV"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5ACFB1F00A3E;
-	Thu,  3 Sep 2026 05:35:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788413760;
-	bh=tUA6cs7SSO7VGHiCSGmJHENTOug33QoHWUSWBFOuFB4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=J8EPFsrVc1+TQ3jk1dYqkSHyOXPwkBJKZp5QF/xXkKTNsYbV5wL6sqo/ZyRI4Zp6C
-	 PeIdU+cOPjPtYK6I/NjoGysTJ3S7ooQliGfd7uS5iolcYPk+r8OWbTQS0YdB1lnoYH
-	 sAdrHc1Xhv4WdDlnT7yOZa2Jb9zzcZYTAFwd8kwJdbFTlZAsCAPFq3g2mmpDuDrIGM
-	 7W1Q2X4Kja+o09f6ryKhmfs739UcbNRwRX+655jSVwlKPHOQNlBn4eg2HvZFVxV4St
-	 flGsNRS1o2J6Z5Oh5kqFb1T7EzDOkxGbDl//d1Jv99BYuSstd1akpqvAw9wDthXeAs
-	 KtLjuUzrVvq0w==
-Date: Thu, 3 Sep 2026 07:35:44 +0200
-From: Manivannan Sadhasivam <mani@kernel.org>
-To: Konrad Dybcio <konradybcio@gmail.com>
-Cc: Bjorn Helgaas <helgaas@kernel.org>, 
-	Bjorn Helgaas <bhelgaas@google.com>, linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Lukas Wunner <lukas@wunner.de>
-Subject: Re: [PATCH v2] PCI: Allow D3 for native Hotplug capable Root Ports
- on non-x86 platforms
-Message-ID: <eefir4nbvksvuhh2dzvwaojifdiuyj5fo3jy2jnsendg5tdvlx@id3vn34pbd4w>
-References: <20260811232245.GA805297@bhelgaas>
- <3eeb3465-a1e6-4fdc-8019-3907d9c55691@gmail.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="mbe/UGMJ"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=pFx9cx0I838cE2nczWgH9ctLbDnOiEyF5R1ouuYP4NQ=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788413762; v=1; x=1789018562;
+ b=mbe/UGMJyH1rOfM5Ld/5vxSk9loP41r8KSqZ9An9nyPJeO8fCLPWYanz+WJxMgt6PvZddoSi
+ ku7uZp+Ho69Y4IkrmvIqMCxEV0vmjzhKpyJhCYNX2SnoLhE+7QiihBv9L+ucnepxsAy5VZ8TS62
+ uv1V9KQYurYNPg+nKrygATbU=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id cee8c7a11c707db3;
+	Thu, 03 Sep 2026 05:36:02 +0000
+X-Mizu-Trace-ID: cee8c7a11c707db3
+X-Migadu-Flow: FLOW_OUT
+From: Kaitao Cheng <kaitao.cheng@linux.dev>
+To: Andrew Morton <akpm@linux-foundation.org>,
+	David Hildenbrand <david@kernel.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	"Liam R . Howlett" <liam@infradead.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>,
+	Dan Williams <djbw@kernel.org>,
+	Vishal Verma <vishal.l.verma@intel.com>,
+	Dave Jiang <dave.jiang@intel.com>,
+	Alison Schofield <alison.schofield@intel.com>,
+	Ira Weiny <iweiny@kernel.org>
+Cc: Muchun Song <muchun.song@linux.dev>,
+	linux-mm@kvack.org,
+	nvdimm@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Kaitao Cheng <chengkaitao@kylinos.cn>
+Subject: [PATCH 1/2] mm/page-flags: Define HWPoison test-and-change helpers unconditionally
+Date: Thu,  3 Sep 2026 13:35:34 +0800
+Message-ID: <20260903053535.17611-2-kaitao.cheng@linux.dev>
+X-Mailer: git-send-email 2.50.1
+In-Reply-To: <20260903053535.17611-1-kaitao.cheng@linux.dev>
+References: <20260903053535.17611-1-kaitao.cheng@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <3eeb3465-a1e6-4fdc-8019-3907d9c55691@gmail.com>
 
-On Wed, Sep 02, 2026 at 07:09:58PM +0200, Konrad Dybcio wrote:
-> On 8/12/26 1:22 AM, Bjorn Helgaas wrote:
-> > On Wed, Jul 29, 2026 at 06:50:05PM +0200, Manivannan Sadhasivam wrote:
-> >> Commit eb3b5bf1a88d ("PCI: Whitelist native hotplug ports for runtime D3"),
-> >> prevented native Hotplug capable Root Ports from entering D3 citing issues
-> >> on old Intel SkyLake Xeon-SP platform.
-> >>
-> >> But there is no reason to restrict D3 for native Hotplug capable Root
-> >> Ports on non-x86 platforms. We recently enabled D3 on non-Hotplug capable
-> >> Root Ports on non-x86 platforms (specifically for DT platforms) in commit
-> >> a5fb3ff63287 ("PCI: Allow PCI bridges to go to D3Hot on all non-x86"). So
-> >> do the same for native Hotplug capable Root Ports as well.
-> >>
-> >> Signed-off-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
-> > 
-> > Applied to pci/pm for v7.3, thanks!
-> 
-> This breaks system suspend entry (crashes the system) on Qualcomm SC8280XP
-> CRD.. this SoC is known for fragile PCIe.
-> 
+From: Kaitao Cheng <chengkaitao@kylinos.cn>
 
-If RP D3 is what breaking the suspend, then the breakage should've been present
-between below commits:
+Page flag helpers for configuration-dependent flags provide false or no-op
+variants so that their users can be independent of the configuration.
 
-a5fb3ff63287 ("PCI: Allow PCI bridges to go to D3Hot on all non-x86")
-33a76fc3c3e6 ("PCI: qcom: Advertise Hotplug Slot Capability with no Command Completion support")
+The HWPoison helpers do not fully follow this pattern. When
+CONFIG_MEMORY_FAILURE is enabled, PAGEFLAG() and TESTSCFLAG() provide the
+regular, test-and-set, and test-and-clear operations. When it is disabled,
+only PAGEFLAG_FALSE() is instantiated, leaving TestSetPageHWPoison() and
+TestClearPageHWPoison() undefined.
 
-First one allowed D3 on all non-x86 platforms and should've broke suspend. Then
-second commit enabled Hotplug for RPs, which prevented D3 until *this* patch
-landed.
+Use TESTSCFLAG_FALSE() to provide the missing accessors when memory failure
+handling is disabled. Both accessors return false, which is consistent with
+HWPoison state being unavailable, and makes the accessor interface
+consistent across configurations.
 
-> It doesn't repro on e.g. the Qualcomm Glymur CRD (2 gens newer), perhaps we
-> need an explicit opt-out like
-> 
-> if (of_machine_is_compatible("qcom,sc8280xp"))
-> 
-> or some targetted fix inside the qcom driver
-> 
+Signed-off-by: Kaitao Cheng <chengkaitao@kylinos.cn>
+---
+ include/linux/page-flags.h | 1 +
+ 1 file changed, 1 insertion(+)
 
-Will investigate a bit more and come back. Thanks for reporting!
-
-- Mani
-
+diff --git a/include/linux/page-flags.h b/include/linux/page-flags.h
+index 7a863572adce..a2315ab1dd3a 100644
+--- a/include/linux/page-flags.h
++++ b/include/linux/page-flags.h
+@@ -656,6 +656,7 @@ TESTSCFLAG(HWPoison, hwpoison, PF_ANY)
+ #define __PG_HWPOISON (1UL << PG_hwpoison)
+ #else
+ PAGEFLAG_FALSE(HWPoison, hwpoison)
++TESTSCFLAG_FALSE(HWPoison, hwpoison)
+ #define __PG_HWPOISON 0
+ #endif
+ 
 -- 
-மணிவண்ணன் சதாசிவம்
+2.50.1 (Apple Git-155)
+
