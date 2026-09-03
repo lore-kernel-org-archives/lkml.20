@@ -1,163 +1,93 @@
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89FBC440657
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 08:12:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02007429038;
+	Thu,  3 Sep 2026 08:12:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.9
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788423158; cv=none; b=TiQNy8YGcw3xVOL3D0yMsW+5UptqRizML2WDZVFvhLJlp4zU5Y2Ob06CtKWHEx9B/JX7+59tcX57dSKtIpvPoRadftYYeOAcNw+pK0akAJE3K5K8JyqKl1CJvpJMHCrsfdabJY+ea9yLE376EEJHhdDwVmG46NvwGYsX8ixEGyc=
+	t=1788423161; cv=none; b=eYqmsMHvhIxh5FojO8qodjSUVeCrWFcvP/V/2x9WSD2d1PizEsZ3Rc5mTOHjb677gNTNvfk4kP2hp1TQw/BZPaas6cKzjko8Cn+QwumtsH30xu2YsHhLeazu7Dl0AjrxE2qQB9+eS8f+AA1MUA9Lcx+4FvJfOS+k1Oili1naXdw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788423158; c=relaxed/simple;
-	bh=fF3iHgWXPvx6SC76CyGomOwbVg0zpEAmwQ1B/WDgxPA=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=AMzNaNiAl3CSeW6DHEqN6XkqzRzYGhSkyWfw7ESNL1sXCxUyxqmPOSFVnIhQS7gq+SzNl186TOe9CBJomyf6OCiusQbEKvwtz00/Yerqg53RIbnGvIePmiwTXIDG+aXA5RCoAwceYD2MvOKgNG6dmqWaChErH5m3ptT3/9dTpMk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=a++VYWRo; arc=none smtp.client-ip=185.246.85.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1788423161; c=relaxed/simple;
+	bh=05YqIAB3Hi+10tqPXqbRfid7oamabNtLXWeKZGjES44=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Cdf5FmRGgmJmWkwDUQ1MAU/2qjxbvDXVOsNrMYVYFgN5J/XHVtHirXW76b+33oFDwDPvSH11yfs19MHuJv//ygtngMXsHMOfXJZ58U9hTXBsmLoU94D0LsfFZkMrwKW9RYcCHgNYVBMoJ92ltWFkmxVigyKrYbRM58CuRpSWXiQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=U2t3j1O2; arc=none smtp.client-ip=192.198.163.9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="a++VYWRo"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id DE4224E414F4;
-	Thu,  3 Sep 2026 08:12:34 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id AA6BD602B8;
-	Thu,  3 Sep 2026 08:12:34 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 342E311C791C9;
-	Thu,  3 Sep 2026 10:12:29 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1788423153; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=E+i/7CDSkS0WtOD/C7Io90FrN1Ou/szitASTdt3wMjo=;
-	b=a++VYWRoLEYVIGfoCrjrdEd/z+kpaDH6nDm0VOnVOfY7J+NWyd78gtwz/DrqIpd0VB0ZNk
-	M/sNVcR1ATutuLKIJHXiK9mlrDF6yg3flvPaD++smcGb6LCcDsym30LnrRocTDEMc7sibn
-	XEbiqz+o8y++99MoCjSttT/m+AdA1Rr3sE74kQzorklRBNZjg12ONlldtYpB4za0Dm+W5u
-	ie+QHDR/ziiAHftjCRL00xc95Y+j3Zi+0fdDsdeQBGL3k539/kTdWZORYjv0vGAU/ITfSl
-	8ID60w0b1LY5IbWhrPeekD7+D9dWx32TR2rlTL32x7Jtf1lwdD5fVAK6ONBv4g==
-From: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Date: Thu, 03 Sep 2026 10:11:14 +0200
-Subject: [PATCH RFC v2 11/19] drm/bridge: fsl-ldb: don't create a
- panel_bridge
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="U2t3j1O2"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788423160; x=1819959160;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=05YqIAB3Hi+10tqPXqbRfid7oamabNtLXWeKZGjES44=;
+  b=U2t3j1O2GFhr0njUETlUgMXlBhLG57r6e0M8NlC+i6uR1Jx7aRk+isPJ
+   0jOIEeU2V9kWNif/2L1Lu9i3RjFls0mJFOzJl9YhO8IIFeBZvAddOk1wu
+   e1YfHWeb6Ce3G2i/U/9ToyehR+xcPC62rfSq0ox4ghVS2wedCaUtwntlG
+   mqW5BztvqCmOb4HqnbHjvn+FVTSY7Qbam97UZ+6N56tbfkXPHsWIwngfm
+   jqPFNWgOW/p3QIE+KuAvvNLkLAHnYa16NTfvzcjPTRhd3dT/e+djimubc
+   W67nmtX4CKNsNXNzKV2cRUZ6dTn8jPgnkXzLjnbbxUqEFiAhDQgkqklNJ
+   A==;
+X-CSE-ConnectionGUID: ZmPAr4pfSo+TiE1t+bSI3A==
+X-CSE-MsgGUID: 6PJUlgEdTe6w1YYbRYOeQw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11894"; a="99557869"
+X-IronPort-AV: E=Sophos;i="6.25,258,1779174000"; 
+   d="scan'208";a="99557869"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Sep 2026 01:12:38 -0700
+X-CSE-ConnectionGUID: ebcaxZTOTZyQmKhH7pXHsg==
+X-CSE-MsgGUID: VSY9bY4eQY6UKBYeZAoSvw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,258,1779174000"; 
+   d="scan'208";a="293150793"
+Received: from smoticic-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.28])
+  by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Sep 2026 01:12:35 -0700
+Date: Thu, 3 Sep 2026 11:12:33 +0300
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: "Rafael J. Wysocki" <rafael@kernel.org>
+Cc: Linux ACPI <linux-acpi@vger.kernel.org>,
+	Linux PM <linux-pm@vger.kernel.org>,
+	LKML <linux-kernel@vger.kernel.org>,
+	Mika Westerberg <mika.westerberg@linux.intel.com>,
+	Peixin Xie <peixin.xie@linux.spacemit.com>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Lukas Wunner <lukas@wunner.de>,
+	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	Linux PCI <linux-pci@vger.kernel.org>,
+	Bjorn Helgaas <helgaas@kernel.org>,
+	Hans de Goede <hansg@kernel.org>
+Subject: Re: [PATCH v2 6/6] ACPI: scan: Take PCI device enumeration into
+ account directly
+Message-ID: <apkr8cm-Hg3KZ6HD@ashevche-desk.local>
+References: <5144065.31r3eYUQgx@rafael.j.wysocki>
+ <6207934.MhkbZ0Pkbq@rafael.j.wysocki>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260903-drm-bridge-every-panel-v2-11-2ab8ee24538e@bootlin.com>
-References: <20260903-drm-bridge-every-panel-v2-0-2ab8ee24538e@bootlin.com>
-In-Reply-To: <20260903-drm-bridge-every-panel-v2-0-2ab8ee24538e@bootlin.com>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Jessica Zhang <jesszhan0024@gmail.com>, Linus Walleij <linusw@kernel.org>, 
- Inki Dae <inki.dae@samsung.com>, Jagan Teki <jagan@amarulasolutions.com>, 
- Marek Szyprowski <m.szyprowski@samsung.com>
-Cc: Albert Esteve <aesteve@redhat.com>, 
- Anusha Srivatsa <asrivats@redhat.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
- Hui Pu <Hui.Pu@gehealthcare.com>, Ian Ray <ian.ray@gehealthcare.com>, 
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- Luca Ceresoli <luca.ceresoli@bootlin.com>
-X-Mailer: b4 0.16.0
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <6207934.MhkbZ0Pkbq@rafael.j.wysocki>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Now a panel_bridge is automatically created for every drm_panel, so this
-code, looking only for a panel and unconditionally creating a panel_bridge
-for it, would lead to creating a second bridge for the same panel.
+On Wed, Sep 02, 2026 at 09:36:54PM +0200, Rafael J. Wysocki wrote:
 
-Fix and simplify the code by just getting a reference to the
-already-existing bridge from of_drm_find_and_get_bridge().
+> The ACPI companions of PCI devices are associated with the corresponding
+> PCI devices before being processed by acpi_scan_attach() and by the time
+> they are passed to attach_subtree(), the PCI devices associated with
+> them have been already enumerated and initialized.
+> 
+> Accordingly, it is not necessary or even useful to check their status in
+> attach_subtree(), so do not do that.
 
-And since of_drm_find_and_get_bridge() returns a refcounted bridge, take
-care of putting the bridge reference by using bridge->next_bridge.
-
-Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
----
- drivers/gpu/drm/bridge/Kconfig   |  1 -
- drivers/gpu/drm/bridge/fsl-ldb.c | 19 +++++--------------
- 2 files changed, 5 insertions(+), 15 deletions(-)
-
-diff --git a/drivers/gpu/drm/bridge/Kconfig b/drivers/gpu/drm/bridge/Kconfig
-index 30f71654eaeb..0a1e617b3007 100644
---- a/drivers/gpu/drm/bridge/Kconfig
-+++ b/drivers/gpu/drm/bridge/Kconfig
-@@ -87,7 +87,6 @@ config DRM_FSL_LDB
- 	depends on OF
- 	depends on ARCH_MXC || COMPILE_TEST
- 	select DRM_KMS_HELPER
--	select DRM_PANEL_BRIDGE
- 	help
- 	  Support for i.MX8MP DPI-to-LVDS on-SoC encoder.
- 
-diff --git a/drivers/gpu/drm/bridge/fsl-ldb.c b/drivers/gpu/drm/bridge/fsl-ldb.c
-index 26cc72948f31..7ec84c81cd78 100644
---- a/drivers/gpu/drm/bridge/fsl-ldb.c
-+++ b/drivers/gpu/drm/bridge/fsl-ldb.c
-@@ -15,7 +15,6 @@
- #include <drm/drm_atomic_helper.h>
- #include <drm/drm_bridge.h>
- #include <drm/drm_of.h>
--#include <drm/drm_panel.h>
- 
- #define LDB_CTRL_CH0_ENABLE			BIT(0)
- #define LDB_CTRL_CH0_DI_SELECT			BIT(1)
-@@ -86,7 +85,6 @@ static const struct fsl_ldb_devdata fsl_ldb_devdata[] = {
- struct fsl_ldb {
- 	struct device *dev;
- 	struct drm_bridge bridge;
--	struct drm_bridge *panel_bridge;
- 	struct clk *clk;
- 	struct regmap *regmap;
- 	const struct fsl_ldb_devdata *devdata;
-@@ -119,7 +117,7 @@ static int fsl_ldb_attach(struct drm_bridge *bridge,
- {
- 	struct fsl_ldb *fsl_ldb = to_fsl_ldb(bridge);
- 
--	return drm_bridge_attach(encoder, fsl_ldb->panel_bridge,
-+	return drm_bridge_attach(encoder, fsl_ldb->bridge.next_bridge,
- 				 bridge, flags);
- }
- 
-@@ -298,7 +296,6 @@ static int fsl_ldb_probe(struct platform_device *pdev)
- 	struct device *dev = &pdev->dev;
- 	struct device_node *panel_node;
- 	struct device_node *remote1, *remote2;
--	struct drm_panel *panel;
- 	struct fsl_ldb *fsl_ldb;
- 	int dual_link;
- 
-@@ -339,19 +336,13 @@ static int fsl_ldb_probe(struct platform_device *pdev)
- 		fsl_ldb_is_dual(fsl_ldb) ? "dual-link mode" :
- 		fsl_ldb->ch0_enabled ? "channel 0" : "channel 1");
- 
--	panel = of_drm_find_panel(panel_node);
--	of_node_put(panel_node);
--	if (IS_ERR(panel))
--		return PTR_ERR(panel);
--
- 	if (of_property_present(dev->of_node, "nxp,enable-termination-resistor"))
- 		fsl_ldb->use_termination_resistor = true;
- 
--	fsl_ldb->panel_bridge = devm_drm_panel_bridge_add(dev, panel);
--	drm_panel_put(panel);
--	if (IS_ERR(fsl_ldb->panel_bridge))
--		return PTR_ERR(fsl_ldb->panel_bridge);
--
-+	fsl_ldb->bridge.next_bridge = of_drm_find_and_get_bridge(panel_node);
-+	of_node_put(panel_node);
-+	if (!fsl_ldb->bridge.next_bridge)
-+		return -ENODEV;
- 
- 	if (fsl_ldb_is_dual(fsl_ldb)) {
- 		struct device_node *port1, *port2;
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 
 -- 
-2.55.0
+With Best Regards,
+Andy Shevchenko
+
 
