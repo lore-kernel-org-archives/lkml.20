@@ -1,135 +1,70 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14DF84DF4DF;
-	Thu,  3 Sep 2026 15:30:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7A9F349CC4;
+	Thu,  3 Sep 2026 15:30:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788449411; cv=none; b=kurD630B0YRiVM0kskOPoyNK77nc5nnfPMVAQRqk9t66BKDyJKSJQVSn63R2uBhEfrY2eIHFiZgvwrKbnkhYZwoonmtSXiR1CeGJKHFW3UBawQHgOztJpbiHpi7yImDvlMhoSGBYDUXFUlkF6A8Fper8ivQiPuIBPRHXaSj8aSw=
+	t=1788449424; cv=none; b=hRBaK7RFPbsrBNjg7XRu5+iVt2uWFG6Du/TJ8fR23qtnGWiRWLDUJpfiKA4RigmtrGQW8QpxhWZGOUh/MUR+4cYkkwt2xs0tgTAAJMaBNIdqwtnH8BUvaDOxU/sxxXXu5rkLiHTIe3FvGzw6D682wVGhZJV0FseBZDQ1i2ZKgZo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788449411; c=relaxed/simple;
-	bh=ojYeKCCdFhZpK0bR3rhIX9knyfYki43NxDV5nJWjKZM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=pmC/SANUxJFserkIgyK13tRgwjFhu8OIGcAXJpRS0EQCbxYj4jIPkyFk5fMcTKl0/XcAdZkTSoXn6Q9B2Mg8HMkjPuiwmwYXUuFVV8xPpd+RShZG8XSFmLlzbG+EJJg6kpuKGpI6xDB/XrX9FUQMvxhx+O27aE3AuIwvuBb5vq8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=KPjAlIEv; arc=none smtp.client-ip=192.198.163.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1788449424; c=relaxed/simple;
+	bh=igK2Lbyd0R2qypC3ipHfU3Ogcj7yNt62I8Ee/RUj+ZY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=SA/+IbcEj/58LXIY/7snqe1ndLw+sY2QEk/zu1MzBPVQ2hm+sTufmlpSPYNP3BOmFq+XekolRof/GEZtLSaJnSQlUrXQ8OZShi7sWOrfkk6JSJGSUXXpeB1Kf/OSOH6GCcTUoLTKevxYkwcJKtZSrYiN/vYWhNree66yeWbw5Po=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=V92bK3R7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="KPjAlIEv"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788449409; x=1819985409;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=ojYeKCCdFhZpK0bR3rhIX9knyfYki43NxDV5nJWjKZM=;
-  b=KPjAlIEvwTYAkrnE50ydIfTir4T2gl76rHNKu0gIfk4bdN8rJ9yHJZBJ
-   MTs/sdpwnB/EJmsoJsC7Op68i1z5w87oWGdqHHz/tn/km8XZj86tqu8Zc
-   5kLckuvFGnU6cgkLwx4Gfjxp3kfosp1b84rPgENC3z1o3VpraPGg8fZ5V
-   Q7OUDd4R4VAiXmrkwRDIAoXzp7e4+Vj2vC3egv6A66rknWIZmTy98slX+
-   50amCGnsJDySGeFtsCncJ6GpH1pnyDZyMgIZ9L+Ezuc24Zpm3aIuOLUnR
-   yuUNLoFaI0ZEdMwYkHW24FVYIq/lMQuISMTFT2Pvt5LnX+eQDAEYe+Fx7
-   A==;
-X-CSE-ConnectionGUID: WkImOjT9T02JNFUUvqcRGw==
-X-CSE-MsgGUID: ru2XCjbCTcabRnGCiPoJ3Q==
-X-IronPort-AV: E=McAfee;i="6800,10657,11895"; a="91446851"
-X-IronPort-AV: E=Sophos;i="6.25,260,1779174000"; 
-   d="scan'208";a="91446851"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
-  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Sep 2026 08:30:08 -0700
-X-CSE-ConnectionGUID: oD391dvFTTCjfntVOZkhHg==
-X-CSE-MsgGUID: V5vfDEIBQbG3N96Ei31ZYw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,260,1779174000"; 
-   d="scan'208";a="267999154"
-Received: from jmaxwel1-mobl.amr.corp.intel.com (HELO [10.125.110.172]) ([10.125.110.172])
-  by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Sep 2026 08:30:08 -0700
-Message-ID: <a8243fed-c2ee-4032-a273-a5737e270889@intel.com>
-Date: Thu, 3 Sep 2026 08:30:07 -0700
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="V92bK3R7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4C5681F000E9;
+	Thu,  3 Sep 2026 15:30:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788449422;
+	bh=0ixQOJk67cBcJbThkafmo3RCGMIWaXaMC6Fp5HtEZNQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=V92bK3R7qq3PiksGb5nn60rPlDZFJ7nTkCbV6qn6Ad5XdVk/hvPe4/pdPjD0NeUPU
+	 qdasZvZnzjlB2/BySMvfrJEErmvFGDzVvPk1CfDO54erX6oJZ1XKO7Gs0KZBaS6nUt
+	 hvcdRRZ1z5oUnlZ3t0Ly2rD+UVQVM4jV7wgsXTyEptXJt/P5GX93e3VnR6qNkZPdF3
+	 j7Az9XPTSDJYrLjvu3NlGjvP36vlms0L38pEvXXUNYNmSWneIw7kP/LdTohru9HYZI
+	 X8GQ4MfTgy2UO2MkelKzzjDYuWmFMlb9wuRMlWhbH+LetvBkLd4izBVxnnOjoJONYe
+	 xERDXMqGfcJJg==
+Date: Thu, 3 Sep 2026 17:30:18 +0200
+From: Niklas Cassel <cassel@kernel.org>
+To: Xincheng Zhang <zhangxincheng@ultrarisc.com>
+Cc: jingoohan1@gmail.com, mani@kernel.org, lpieralisi@kernel.org,
+	kwilczynski@kernel.org, robh@kernel.org, bhelgaas@google.com,
+	wangjia@ultrarisc.com, linux-pci@vger.kernel.org,
+	linux-kernel@vger.kernel.org, Frank Li <Frank.Li@kernel.org>
+Subject: Re: [PATCH 1/2] PCI: dwc: Allow drivers to skip MEM outbound iATU
+ setup
+Message-ID: <apmSiooxKzb9l-TB@ryzen>
+References: <20260827055448.1818858-1-zhangxincheng@ultrarisc.com>
+ <20260827055448.1818858-2-zhangxincheng@ultrarisc.com>
+ <apmPeZEdanf80HVB@ryzen>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v10 04/11] x86/virt/tdx: Allocate refcounts for Dynamic
- PAMT memory
-To: Rick Edgecombe <rick.p.edgecombe@intel.com>, bp@alien8.de, hpa@zytor.com,
- kas@kernel.org, kvm@vger.kernel.org, linux-coco@lists.linux.dev,
- linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, mingo@redhat.com,
- nik.borisov@suse.com, pbonzini@redhat.com, seanjc@google.com,
- tglx@kernel.org, vannapurve@google.com, x86@kernel.org, chao.gao@intel.com,
- yan.y.zhao@intel.com, kai.huang@intel.com, tony.lindgren@linux.intel.com,
- binbin.wu@intel.com, sohil.mehta@intel.com
-Cc: Hongyu Ning <hongyu.ning@linux.intel.com>,
- Binbin Wu <binbin.wu@linux.intel.com>
-References: <20260903015113.93343-1-rick.p.edgecombe@intel.com>
- <20260903015113.93343-5-rick.p.edgecombe@intel.com>
-From: Dave Hansen <dave.hansen@intel.com>
-Content-Language: en-US
-Autocrypt: addr=dave.hansen@intel.com; keydata=
- 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
-In-Reply-To: <20260903015113.93343-5-rick.p.edgecombe@intel.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <apmPeZEdanf80HVB@ryzen>
 
-On 9/2/26 18:51, Rick Edgecombe wrote:
-> @@ -2159,7 +2210,7 @@ static void __tdx_pamt_put(kvm_pfn_t pfn)
->   * This function is currently only safe to call once. And not safe to call
->   * if __tdx_pamt_get() is called before or after.
->   */
-> -static struct page * __maybe_unused __tdx_alloc_control_page(void)
-> +static __maybe_unused struct page *__tdx_alloc_control_page(void)
->  {
->  	struct page *page;
->  
-> @@ -2184,7 +2235,7 @@ static struct page * __maybe_unused __tdx_alloc_control_page(void)
->   * it, and no other pages in the aligned 2MB physical region will
->   * still need the backing.
->   */
-> -static void __maybe_unused __tdx_free_control_page(struct page *page)
-> +static __maybe_unused void __tdx_free_control_page(struct page *page)
->  {
+On Thu, Sep 03, 2026 at 05:17:13PM +0200, Niklas Cassel wrote:
+> 
+> To consider allowing this, at the bare minimum you would have to:
+> 
+> if pp->bypass_ob_mem_iatu is set:
+> 
+> 1) Verify that the glue driver has no .cpu_addr_fixup callback defined.
 
-What's with all the __maybe_unused order flipping?
+Looking at dw_pcie_parent_bus_offset(), I can see that it already computes
+pci->parent_bus_offset correctly, regardless of pci->ops->cpu_addr_fixup and
+pci->use_parent_dt_ranges, so atu.parent_bus_addr will be set correctly.
+
+Thus, you can ignore 1).
+
+But 2) would still be very much needed.
+
+
+Kind regards,
+Niklas
