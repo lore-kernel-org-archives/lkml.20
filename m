@@ -1,239 +1,165 @@
-Received: from SEYPR02CU001.outbound.protection.outlook.com (mail-koreacentralazolkn19013080.outbound.protection.outlook.com [52.103.74.80])
+Received: from dggsgout12.his.huawei.com (dggsgout12.his.huawei.com [45.249.212.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B19A481255;
-	Thu,  3 Sep 2026 12:47:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.103.74.80
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788439631; cv=fail; b=cSFmF2H/f4gGr/B+mRy/tKxQsM4JbK0GtoUY1nVbyZAebPaN9qQu2iKogZ+PHierXuObcuqO8uVIltHaUPijGIjDOntVJXjbj2pyJw0nm/jlaQOTUYNzWV8KzRJf8H5UNziJxSse2wIYgNdnngRPnkH1hI75uLPYAaAiRIJrT44=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788439631; c=relaxed/simple;
-	bh=K8K4bj+qcbMQ7yOIvocpHsYHXps7ut6nSEX68bgKt+4=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=bRl+b7/HSNNuR2Jpd91yDd7MW271KJvPQqCMILaomJ+ISB/hl7JApnENzQjDNkLkuA46/1ZwjCptoXW+/DZAmhH9ZFb+yheJ5bZ5fxoHOJoAy6s0MK1BgSnpTRCsRRofh3gmsHlQB+Bciwv+FKMF46DKosbTAaBUAhcnRPnyGOE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hotmail.com; spf=pass smtp.mailfrom=hotmail.com; dkim=pass (2048-bit key) header.d=hotmail.com header.i=@hotmail.com header.b=frpbRYlZ; arc=fail smtp.client-ip=52.103.74.80
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hotmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=hotmail.com header.i=@hotmail.com header.b="frpbRYlZ"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=UyG+TIU/767Vz2sVUbZLEv6+RWcNrEbQVqoW/rCWmUgrSjtIt3UIS1SrlBwfrK6cvZTDojEM7t2002kkRX5uFn843aCxjtI3b2wvkifwlOT7pjsYu8ZsSnLsaDtWVG5uq31D37RxRVu4fj2Az6WbjvX0hOSh7N7/+EqQkvFGqRA3I0iYjGrVmuWnb8GqrGoZhT/axtdcy7R3hR+vOO62d03e+iqxYNxc3zqoptXYn4NUoKmu5XViVxDBlqM/yzvfs/3l1cOFAWw9v239XEfNrZHfmH2FWVlnEEUx5K4KgvTbqkpztuH1k4FYH8BR9D+SaMBINYK7wDqcpd37NXRcJg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=agvJ8Z2r6S2iTrGv3xWNNtuqPZkkRxNrY/R6ayJ12vU=;
- b=eGG/Ds9Y6EX/4YuKrQ2xpgBZ7gnq6LZDlpCr7vMP787miUKYPPbfQhqC/g2dCLM1eWOaK8mJvlvjUKvqeur7fm/5kjzKCjAUiPvRkrDeWGap+EngVJOJQqswqWPn9ZP7QZhVYhu2UuSqBuXd7gR0ChW/KPtD3cvzOt9j65535hfoihm11G39UrdCFVD7W7zUbrcrjGeXiBJwc14POyBQm6y1UCIyRW9qCNcfJXrIwjCOotjNWaR2SdXMLjqnHc39Zfmyn9J9ZS1W2LnfB1felMm2ejNogmA/9aDNzVP3XUTovA3VOq9RA8zBA2+PC3gy4Ub7k2bYz/CngBRjmfhfAA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=hotmail.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=agvJ8Z2r6S2iTrGv3xWNNtuqPZkkRxNrY/R6ayJ12vU=;
- b=frpbRYlZKIKt4cQqe9CIvMy9QguDDm3vBjLaW4R3kUtxAdhszj0buItsxhoueGmi+QamGXgmNPfQ5l9rr/5kQdRm5vG4r1Qusv6nBADQyzu7JU+Ez+2t4Xfnbfm6uqS/UiYD7lzgN3pGuampNOHh0B4Y/IuPj1EO8Ct0E8r+lAkEu+c2dMIJdeu6J5gAk/7RyFexwl3/nN8lhLSQ7Y/qMhpZOApinNpI9qoPqkmqz5IpFirSzsXCICUkJF7en/eNog7/yAWRwub2D5IVEjnMr5xzqtY41V+OfLKCYM6IklsSthGaYJqDMyamEG4ywkLMK3TKEr8BAO8C4XfnAA9RSw==
-Received: from SI2PR01MB4393.apcprd01.prod.exchangelabs.com
- (2603:1096:4:1b0::7) by SEYPR01MB4535.apcprd01.prod.exchangelabs.com
- (2603:1096:101:86::8) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Thu, 3 Sep
- 2026 12:47:03 +0000
-Received: from SI2PR01MB4393.apcprd01.prod.exchangelabs.com
- ([fe80::c735:fab8:6e3d:6d1c]) by SI2PR01MB4393.apcprd01.prod.exchangelabs.com
- ([fe80::c735:fab8:6e3d:6d1c%4]) with mapi id 15.21.0382.007; Thu, 3 Sep 2026
- 12:47:03 +0000
-Message-ID:
- <SI2PR01MB43933D84E2DDE0C3F4998D1BDCB62@SI2PR01MB4393.apcprd01.prod.exchangelabs.com>
-Date: Thu, 3 Sep 2026 20:46:55 +0800
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v9 6/6] PCI: Add the enhanced ACS controls check to
- pci_acs_flags_enabled()
-To: =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Cc: bhelgaas@google.com, jgg@nvidia.com, jic23@kernel.org, error27@gmail.com,
- kwilczynski@kernel.org, rdunlap@infradead.org, akpm@linux-foundation.org,
- bp@alien8.de, alex@shazbot.org, kevin.tian@intel.com,
- manivannan.sadhasivam@oss.qualcomm.com, LKML <linux-kernel@vger.kernel.org>,
- linux-pci@vger.kernel.org
-References: <SI2PR01MB4393F337A792CB3258C2E073DCB62@SI2PR01MB4393.apcprd01.prod.exchangelabs.com>
- <SI2PR01MB439314CABFD64FC0586F2FF8DCB62@SI2PR01MB4393.apcprd01.prod.exchangelabs.com>
- <59e3d834-2628-7ef3-b07a-33ce6e7dd482@linux.intel.com>
-Content-Language: en-US
-From: Wei Wang <wei.w.wang@hotmail.com>
-In-Reply-To: <59e3d834-2628-7ef3-b07a-33ce6e7dd482@linux.intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: SEWP216CA0136.KORP216.PROD.OUTLOOK.COM
- (2603:1096:101:2c0::11) To SI2PR01MB4393.apcprd01.prod.exchangelabs.com
- (2603:1096:4:1b0::7)
-X-Microsoft-Original-Message-ID:
- <f4de3918-da09-421a-8056-f8748911e774@hotmail.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 520234AA596;
+	Thu,  3 Sep 2026 12:47:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.249.212.56
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788439650; cv=none; b=eBirztBjqPJu1b1LEHXS9o70K10dmUe3mk4qy5EynfYG2ipfdTMynVUMrogsCa3EGTlKqppfZzNfgtMYiJhn75ghRatR45/vs0UGDGggoccsMB4Y7IsWZ/4MryoUYY2//rXwJL6ldbP9CwO4xLDXr3OaKPXKdx4LXkLqyE+kLu8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788439650; c=relaxed/simple;
+	bh=i0SMlCJYTjlbA13Cu4HRUD83Ic60VoD+gJj3EtNTv2c=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=a/G/v3c3kJCLf+tPkgd57INUzYXUeSXUkehc58LEU/kGP9IyGykneF9lhfvihXJ94fUVZ3TpuPYas43Z1FSF9qPvXdP+tf5u0HXgmp38In1IDu9bCuoDIv81fHH4rZAGtpONVHHzycUu7UbtNejHXA2fkEoRIxCibe3HTIM7SjA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com; spf=pass smtp.mailfrom=huaweicloud.com; arc=none smtp.client-ip=45.249.212.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huaweicloud.com
+Received: from mail.maildlp.com (unknown [172.19.163.170])
+	by dggsgout12.his.huawei.com (SkyGuard) with ESMTPS id 4hbK934yXRzKHMRr;
+	Thu,  3 Sep 2026 20:46:31 +0800 (CST)
+Received: from mail02.huawei.com (unknown [10.116.40.112])
+	by mail.maildlp.com (Postfix) with ESMTP id 200114056F;
+	Thu,  3 Sep 2026 20:47:25 +0800 (CST)
+Received: from huaweicloud.com (unknown [10.50.85.155])
+	by APP1 (Coremail) with UTF8SMTPSA id cCh0CgBnUAtUbJlqlPhrAg--.37288S6;
+	Thu, 03 Sep 2026 20:47:24 +0800 (CST)
+From: Zhang Yi <yi.zhang@huaweicloud.com>
+To: linux-ext4@vger.kernel.org,
+	linux-fsdevel@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	tytso@mit.edu,
+	adilger.kernel@dilger.ca,
+	libaokun@linux.alibaba.com,
+	jack@suse.cz,
+	ojaswin@linux.ibm.com,
+	ritesh.list@gmail.com,
+	djwong@kernel.org,
+	hch@infradead.org,
+	yi.zhang@huawei.com,
+	yi.zhang@huaweicloud.com,
+	yizhang089@gmail.com,
+	chengzhihao1@huawei.com,
+	yangerkun@huawei.com,
+	wangkefeng.wang@huawei.com,
+	yukuai@fnnas.com
+Subject: [PATCH v6 31/31] ext4: introduce a mount option for iomap buffered I/O path
+Date: Thu,  3 Sep 2026 20:40:17 +0800
+Message-ID: <20260903124017.2325538-3-yi.zhang@huaweicloud.com>
+X-Mailer: git-send-email 2.52.0
+In-Reply-To: <20260903123543.2302999-1-yi.zhang@huaweicloud.com>
+References: <20260903123543.2302999-1-yi.zhang@huaweicloud.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SI2PR01MB4393:EE_|SEYPR01MB4535:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5506e5b2-5e10-4681-2026-08df09b9734f
-X-MS-Exchange-SLBlob-MailProps:
-	WaIXnCbdHrO+2YmbT5jW+WUSUt4IT5vRlUMF+bqfOb2T6ZrVSLVUtXU22rJYTx9HROdoTlmBWu+HPABRNccT7TZ4JaOuSekzJcNuwQnEahEzo5wt3Ehrf77nbrg+aMFHncb0XJgu9V4Wqq995Q2nujOHctN6Ub3LZ9mtunY3TaTyfBrJVzr7HQxbdYwS22bOb0y62Qbz2K2hchgoWvY1RXorX/djoeEXUCQQIWc6paHOBhjZaz46duWLQ2LyPlc9mUFemctZRvkovK9EyGw2DsVWKtZUfpmEncKt9HIbnLX54qmVjUdDuKyjacwQb7hQLI8Pv4oJCaes2GXFW/jxdcf3eK6Ey+T4aoqstR0Nqa0xFWfH8cxU9exnQaOuO51a3abczcIWB1i8wnOx+d8uGqUt9VP85YviLQDhn7dhd7fBa6yORkzW3HIjFTXZgBVxntKTcA1D68ThU+Y9qC84+IU33CUgMGwDaCfH8P6oGMU7yR+JgRuZkPgEg+degBmQbo9qHo8g4M4HbNbOf64irQ5S36HdCVJSPMUErxQULrHO38fkuzypAceoX43iHU2tHqSjINhVuxyH2g1SFSz4NEUstnBouDoprShuEqAanm+QuyxlbZzB6XcPYIhyb5/wUsHVbED4kvvk0QlPs8TtIyNiUjq1F/xQuisZxuwOc5MHbE0G/98pigKvUWZsehiPpYICvtNhsEL4ZZVqveG9oUjtS3XjgRaDu3ArtUAetzEapGs1C83PigSQXvRkDmvBBfIFTukUtLU=
-X-Microsoft-Antispam:
-	BCL:0;ARA:14566002|45011099003|2604032031799003|51005399006|15080799012|5072599009|6090799003|12121999013|41001999006|19110799012|8060799015|23021999003|37011999003|25010399006|40105399003|2607281247196008|3412199025|440099028;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?T0tBc0NadjdKako5Ui9kWVhMUXNaVENzdHlZYVMrVFNiMG9odUtHZzhBUlgr?=
- =?utf-8?B?MFkxSlJyTHBscmV1b1laN2Q5OEdHTFFwak1KbU5HeklJczFIMm9BL2dLRHJF?=
- =?utf-8?B?RDRISHBsUUJBcHM2bSt3L2pOOEdMYTZKT2FRYjZ3dWxyMm1TV2VENFZ5VnJo?=
- =?utf-8?B?V0ZocFlrR2FycVNhT1Fhdkdhcjh2ZlF1Mzc0OXBTZEVYcWFtRDREbGNIOHo1?=
- =?utf-8?B?ZGF4aHluTkNzSzFxV2lISnhnTWpyOFpaVlhTbUhxSDliVDFDbVhJVlpua0pu?=
- =?utf-8?B?V210TTZqQjJsM2dSUmh6Q3o1RHVNdGo4L0NtaHpUTkM4Q3d4K1QyUWVGNk9t?=
- =?utf-8?B?cXExK0RZOFVFbjUweERrSzBLSk1tSDVnTGZrcCsxaFNMb1FwNkxVYlpzeUcy?=
- =?utf-8?B?NU56NXRxejFUM241OVNxZVU5SjdZalQrZTF5WlEvSnNqZ1RrSjRQUGVPdzdY?=
- =?utf-8?B?Z1p1QUQzLy9qTnJsWEZtNXhVOTRHdXJrRXYzeTl4aFRyaFhna1BTMjhhUVIr?=
- =?utf-8?B?eVB3RlBnSFB6MDdGYUpKSnJ4NXFuRGZBS0lOKzBldjZkQ3FjZ3V2MWdzY2t1?=
- =?utf-8?B?VGY3TGRDUTVPWHc2TnkyNGRjRWsxK0xXZVR1VStBME41NzRHbmlQRjMvcTN1?=
- =?utf-8?B?RUdZajM0MUg0c3d1ZVR1TW9IRGtDM250MXRjeE9HY3Q1SjRYUlF4UHpLbFRB?=
- =?utf-8?B?ajJsL1BNTEhBNnFBc05oZ2kxK0pnN1pGcThhQnRhZ3VlZXluMi9pWkpHbUpn?=
- =?utf-8?B?a3R1QlQzWVpiTDRHdVdwbHU1SGorZjlPUGZBQ01OeHEycGVGQ1N3OTZ5NGp3?=
- =?utf-8?B?eHk0a0RlVEVWZU43cjhwTjhTYWo4SzFIT0l4YlY4SEo3VmFGMm5jQWxVc2Jv?=
- =?utf-8?B?dVlRaXF5Y2M5TjFMNVZwWWp1bzhEZTZUQ3B0ZHRZWGxOMUZrUTUxWWZSZHRB?=
- =?utf-8?B?cDl4ZjVBNHVJSHJETW9XcTRoNEVWcDhZSmlVWjdUSVJHK3I3TVBTSnY5Wlh4?=
- =?utf-8?B?OWJsV21HNFdGUVhaemFDWE5Zekx5bmdEb3o1VDh4M3RXVmF6Nk13UVpVRjds?=
- =?utf-8?B?cFEvUWJnclNySkhxQU9nMytnaW1TOWFzendkOHd5dHZMNkxwek5xVlhkdWp6?=
- =?utf-8?B?UUJ0cEgzbGVMdytxVEEyQ1ZHS3pXbVJyTUNldGN6eVE1b2Ntc1RuNHhjamF1?=
- =?utf-8?B?OU10clp2VE9yRndUN0xLczVNOWowUFFwRUNLTkgzMDZTSngrZHlpUGdGSEQz?=
- =?utf-8?B?bXExVW1UbWMxcERTYkNTZ1JjWnFxTDIvZi9mV3ZwYkMrSmxKNTBkcXdRWUNG?=
- =?utf-8?B?SCsxSmJHczVuWVFsaUFrZUJNendqejV3TG8xK3hYRGJPMzVSNkIxR3VkbkJS?=
- =?utf-8?B?bHNMWXZ0Nmd5a3hwK003WDlJK1Z3UkZOOXlSVUc0bVVwVmdkZ1kvQWd0VGpo?=
- =?utf-8?B?MlJhalhlUlYxbUF6eUw2SlZRcVN5RXdhYXRGRDYvN3lGakVzUHZVNVJtbHZF?=
- =?utf-8?Q?ZMGzPI=3D?=
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?OVVYcU9yL2NuQnhTQzRuSXVhcnJtT1VIWlg3clFFZlBCbEYwZEhPVUw2QjA5?=
- =?utf-8?B?TTN2c1dvRWpxQ3pISDFCdzMzOVVKcFpsdWZ0RlZJMVJycFFpb29JcEEzcW15?=
- =?utf-8?B?TkRDSUlHMmxnczFuSFdyR1k1NzQrUGJNaDJmem9zOTNUREtYTUhQazFlK0pm?=
- =?utf-8?B?Z2puK3BEYkI5a3l3ekg1bFlYSm1EVnpKWnRmRjQ0TWhhNlh0ZFpudmQ1US9p?=
- =?utf-8?B?S0NJVTU3a2IyczYvRGdxTlQxT3AreHd3ZXdpc0N2dC90S1RTbmVWTG94TUlZ?=
- =?utf-8?B?TXJoSHpEYTVDbmJBTEFnb2ZrUGkxNDVjVG5BS2NuRUhFQytmRjd3TVRqYkU4?=
- =?utf-8?B?RlFHd3hrbGxabC9vbGF2NHBLL2lHZkxzMXBlb3NVd3lWcFhxSi95RVpGejhk?=
- =?utf-8?B?YWZwTDBoYlpJdGdmdXdFdk9TWTQ0WklqSzBSbnNFOGJnZm9OR0h6VGIxczNq?=
- =?utf-8?B?dVU0TWZRdzNIZ25LOWl3ejhUOFJWS2Z1VjJsRnVqMHNpQURKdUdRNWQ1NVdy?=
- =?utf-8?B?YkRCY29Rc3NsSnZxS1FOTTlrKzBQRVc5MzVtT2wyQ21WSUM5N0FRdUR6K2tL?=
- =?utf-8?B?Sy9HMktsdVh4eThmZDRKQ3M4ZE1XUjNxNi9qZ3lxbkxPdEJFZFI5bjVuTTky?=
- =?utf-8?B?Z3BIellIb0wvQTF0QmdkeCtjSTA4dU13UE5mQ09UUXVFVG84dTdCTGZNaU9j?=
- =?utf-8?B?TGFSZHdKSkU1bkY0VmRvbzFhMFNUckRRSnQ2K2p6dmdzdDZzcWZTTEJNS3Vh?=
- =?utf-8?B?cUpha3hrL0xIdGRSdGRDaXVqYlVOQ0d0M2d2VktPQlF6alBTalZxd09JZzF0?=
- =?utf-8?B?WWJnaCtic0wwN1FObElJcmNTWDRVZUdNRlgzZ2lGSTIweTFlbS9hNGt6Mkd2?=
- =?utf-8?B?NDVNVzRCWnRlclgzOHB5UnorRnZwUFNXbnl4SzlrdTJ2aUVlV2lGS1Ayblh3?=
- =?utf-8?B?MGo5M3ZhWHVYK09RRWxFZUZLTTUrbnREZ045UE9NeTV2OGtNb2pLRmUxVmNh?=
- =?utf-8?B?MG03N2pxTmhvL0N4bHE0STBlLzk3YmNTd1ltam52K24vNDUwdmpZKy81aTNw?=
- =?utf-8?B?UC82R3RTQTZ6czYxYUlyUFpyVS8yK2VBTFVNbzV2OXB5TG1kWHJ6V0tkVWZL?=
- =?utf-8?B?TU9zZ2VlcmdnUWR6VklBamphUm9FRk5yTFI2WW5nVmZLQW83bm5hL3ZmdWJz?=
- =?utf-8?B?TllmaWdrTWJZbXBhMEsvUmw4dUhGK0NhUWxRZy9jUHBJQ3dteVllTkhvcHg2?=
- =?utf-8?B?dTFMNTVCZks5ZlRvUW1Na2tteUQxNHJOVlRFMjZyOTJYMVZqcnVXQ1JEYmd2?=
- =?utf-8?B?OEQ5SVBtcC9zSnlNdWhEM3NTNHZXajlsU3ZNRytJalZvMWsweDZYOEVaYmJI?=
- =?utf-8?B?d2JvZithTG9FbU05KzQ5MjNWM2tjZU5HN01JVndtTDNHMytiNzFzdkJzWGow?=
- =?utf-8?B?QkNNL1huNTJzYXlYQUY1MWRVUUFPL2RESVhkWGllSCt5WVFidDdjNHh4Z01k?=
- =?utf-8?B?R28yOGdzRmNYT2lVUFJ2WWI3aFlpT0Y0VzJVNDlITHJwQmY3bVVIVXN4R0Qw?=
- =?utf-8?B?eFJaOW01RFNZc2lsUStzV0Nhd0tMa3ovZzg4cVdFQmZQU2VnQnJFcWJyZ2p4?=
- =?utf-8?B?a3RTdFVCbFJCa3ZVOHBDVjZQZmRlTWZhYi94NGFSY3lHSWJod0FtaEMrYU9B?=
- =?utf-8?B?TmxXa2ZRVlN2MUdvbEV3Z0tvcnZWTmwzcUd1TkhiOHRhc01sS2h2TzUxTzFp?=
- =?utf-8?B?TnBWemRhZXc1cW9BN2RvK1B6TWVOVmhZaDF5YldrbVhzMTJlbnVGV3JDYUxZ?=
- =?utf-8?B?dXRHZTN5K0xRakpqUDdLY29vQzlDMEFJZjZrczQxWnVLZDVYeHBMdW5RTVA0?=
- =?utf-8?Q?ImieLv6gxcakp?=
-X-OriginatorOrg: sct-15-20-9412-4-msonline-outlook-3e488.templateTenant
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5506e5b2-5e10-4681-2026-08df09b9734f
-X-MS-Exchange-CrossTenant-AuthSource: SI2PR01MB4393.apcprd01.prod.exchangelabs.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Sep 2026 12:47:03.2844
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
-X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
-	00000000-0000-0000-0000-000000000000
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SEYPR01MB4535
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:cCh0CgBnUAtUbJlqlPhrAg--.37288S6
+X-Coremail-Antispam: 1UD129KBjvJXoWxWr47Kr15Gr1xZry3ZFy7KFg_yoWrGr1xpr
+	W5KFyrGr1kXr9Y9w4xuF4kXr1Fy3ZIka1UCrZYgr47Ga9rAryIqFyfKF15AF4agrW8X340
+	qF1Fgw17Wa17CrDanT9S1TB71UUUUUDqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUmY14x267AKxVWrJVCq3wAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2048vs2IY020E87I2jVAFwI0_Jryl82xGYIkIc2
+	x26xkF7I0E14v26ryj6s0DM28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8wA2z4x0
+	Y4vE2Ix0cI8IcVAFwI0_Ar0_tr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Cr1j6rxdM2
+	8EF7xvwVC2z280aVAFwI0_Cr1j6rxdM28EF7xvwVC2z280aVCY1x0267AKxVW0oVCq3wAS
+	0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2
+	IY67AKxVWUAVWUtwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0
+	Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02628vn2kIc2
+	xKxwCY1x0262kKe7AKxVW8ZVWrXwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWU
+	JVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67
+	kF1VAFwI0_GFv_WrylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVW5JVW7JwCI42IY
+	6xIIjxv20xvEc7CjxVAFwI0_Cr1j6rxdMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42
+	IY6I8E87Iv67AKxVW8JVWxJwCI42IY6I8E87Iv6xkF7I0E14v26F4UJVW0obIYCTnIWIev
+	Ja73UjIFyTuYvjTRMWlyDUUUU
+X-CM-SenderInfo: d1lo6xhdqjqx5xdzvxpfor3voofrz/
 
-On 9/3/26 7:09 PM, Ilpo Järvinen wrote:
-> On Thu, 3 Sep 2026, Wei Wang wrote:
-> 
->> The enhanced ACS controls introduced by PCIe Gen 5 ensures better device
->> isolation. On devices that support the PCI_ACS_ECAP capability, the
->> controls are required to be enabled properly:
->> - ACS I/O Request Blocking needs to be enabled to avoid unintended
->>    upstream I/O requests.
->> - ACS DSP and USP Memory Target Access Control needs to be set with
->>    Request Redirect or Request Blocking to ensure the Downstream and
->>    Upstream Port memory resource ranges are not accessed by upstream
->>    memory requests.
->> - ACS Unclaimed Request Redirect needs to be enabled to ensure accesses to
->>    areas that lies within a Switch's Upstream Port memory apertures but not
->>    within any Downstream Port memory apertures get redirected.
->>
->> To maintain compatibility with legacy devices that lack PCI_ACS_ECAP
->> support, pci_acs_enabled() skips checking for the capability.
->>
->> Signed-off-by: Wei Wang <wei.w.wang@hotmail.com>
->> Reviewed-by: Jason Gunthorpe <jgg@nvidia.com>
->> ---
->>   drivers/pci/pci.c | 65 +++++++++++++++++++++++++++++++++++++++++++++++
->>   1 file changed, 65 insertions(+)
->>
->> diff --git a/drivers/pci/pci.c b/drivers/pci/pci.c
->> index 50a3b61f9898..b951195d5adc 100644
->> --- a/drivers/pci/pci.c
->> +++ b/drivers/pci/pci.c
->> @@ -3648,6 +3648,57 @@ void pci_configure_ari(struct pci_dev *dev)
->>   	}
->>   }
->>   
->> +static bool pci_dev_has_memory_bars(struct pci_dev *pdev)
->> +{
->> +	int i;
->> +
->> +	for (i = 0; i <= PCI_ROM_RESOURCE; i++) {
->> +		if (pci_resource_flags(pdev, i) & IORESOURCE_MEM)
->> +			return true;
->> +	}
->> +
->> +	return false;
->> +}
->> +
->> +static bool pci_acs_ecap_enabled(struct pci_dev *pdev, u16 ctrl)
->> +{
->> +	struct pci_dev *upstream_pdev;
->> +
->> +	/*
->> +	 * For ACS DSP/USP Memory Target Access Control, either Request
->> +	 * Redirect or Request Blocking must be enabled to enforce isolation.
->> +	 * According to PCIe spec 7.0, the DSP Memory Target Access is
->> +	 * applicable to both Root Ports and Switch Downstream Ports that have
->> +	 * applicable Memory BAR space to protect. So if the device does not
->> +	 * have a Memory BAR, it skips the check.
->> +	 */
->> +	if (pci_dev_has_memory_bars(pdev) &&
->> +	    FIELD_GET(PCI_ACS_DMAC_MASK, ctrl) != PCI_ACS_MAC_RB &&
->> +	    FIELD_GET(PCI_ACS_DMAC_MASK, ctrl) != PCI_ACS_MAC_RR)
->> +		return false;
->> +
->> +	if (pci_pcie_type(pdev) == PCI_EXP_TYPE_DOWNSTREAM) {
->> +		upstream_pdev = pci_upstream_bridge(pdev);
->> +
->> +		/*
->> +		 * The USP Memory Target Access is only applicable to
->> +		 * downstream ports that have applicable Memory BAR space in
->> +		 * the Switch Upstream Port to protect.
->> +		 */
->> +		if (upstream_pdev && pci_dev_has_memory_bars(upstream_pdev) &&
->> +		    FIELD_GET(PCI_ACS_UMAC_MASK, ctrl) != PCI_ACS_MAC_RB &&
->> +		    FIELD_GET(PCI_ACS_UMAC_MASK, ctrl) != PCI_ACS_MAC_RR)
->> +			return false;
->> +
->> +		/* PCI_ACS_URRC is applicable to Downstream Ports only. */
->> +		if (!(ctrl & PCI_ACS_URRC))
->> +			return false;
->> +	}
->> +
->> +	/* PCI_ACS_IB is applicable to both Root and Downstream Ports. */
->> +	return !!(ctrl & PCI_ACS_IB);
-> 
-> When the return type is bool, !!() construct is unnecessary.
+From: Zhang Yi <yi.zhang@huawei.com>
 
-Good catch, thanks. The compiler already does the conversion for bool.
+Since the iomap buffered I/O path does not yet support all existing ext4
+features, it cannot be enabled by default. Introduce the
+'buffered_iomap' and 'nobuffered_iomap' mount options to explicitly
+enable or disable the iomap buffered I/O path for regular files.
+
+Toggling this option via remount is allowed. The change of I/O path will
+not take effect immediately. It will be deferred. The new setting will
+only take effect after the inode is re-initialized (i.e., after the last
+reference is dropped and the inode is re-read from disk).
+
+Signed-off-by: Zhang Yi <yi.zhang@huawei.com>
+---
+ fs/ext4/ext4.h  | 1 +
+ fs/ext4/inode.c | 6 ++++++
+ fs/ext4/super.c | 7 +++++++
+ 3 files changed, 14 insertions(+)
+
+diff --git a/fs/ext4/ext4.h b/fs/ext4/ext4.h
+index 405e256a1802..8cfe77b45e21 100644
+--- a/fs/ext4/ext4.h
++++ b/fs/ext4/ext4.h
+@@ -1321,6 +1321,7 @@ struct ext4_inode_info {
+ 						    * scanning in mballoc
+ 						    */
+ #define EXT4_MOUNT2_ABORT		0x00000100 /* Abort filesystem */
++#define EXT4_MOUNT2_BUFFERED_IOMAP	0x00000200 /* Use iomap for buffered I/O */
+ 
+ #define clear_opt(sb, opt)		EXT4_SB(sb)->s_mount_opt &= \
+ 						~EXT4_MOUNT_##opt
+diff --git a/fs/ext4/inode.c b/fs/ext4/inode.c
+index e7849c25c110..6e6c32b8a556 100644
+--- a/fs/ext4/inode.c
++++ b/fs/ext4/inode.c
+@@ -6101,11 +6101,17 @@ static int check_igot_inode(struct inode *inode, ext4_iget_flags flags,
+  * For extent-to-indirect block migration (via EXT4_IOC_SETFLAGS
+  * clearing EXT4_EXTENTS_FL), this operation is directly rejected for
+  * inodes using the iomap path.
++ *
++ * When remounting to toggle the buffered_iomap mount option, the change
++ * of I/O path is deferred as well, it will be available after the inode
++ * is re-initialized.
+  */
+ void ext4_enable_buffered_iomap(struct inode *inode)
+ {
+ 	struct super_block *sb = inode->i_sb;
+ 
++	if (!test_opt2(sb, BUFFERED_IOMAP))
++		return;
+ 	if (!S_ISREG(inode->i_mode))
+ 		return;
+ 	if (ext4_test_inode_flag(inode, EXT4_INODE_EA_INODE))
+diff --git a/fs/ext4/super.c b/fs/ext4/super.c
+index 73735fd336b9..7db34ba0ea59 100644
+--- a/fs/ext4/super.c
++++ b/fs/ext4/super.c
+@@ -1747,6 +1747,7 @@ enum {
+ 	Opt_discard, Opt_nodiscard, Opt_init_itable, Opt_noinit_itable,
+ 	Opt_max_dir_size_kb, Opt_nojournal_checksum, Opt_nombcache,
+ 	Opt_no_prefetch_block_bitmaps, Opt_mb_optimize_scan,
++	Opt_buffered_iomap, Opt_nobuffered_iomap,
+ 	Opt_errors, Opt_data, Opt_data_err, Opt_jqfmt, Opt_dax_type,
+ #ifdef CONFIG_EXT4_DEBUG
+ 	Opt_fc_debug_max_replay, Opt_fc_debug_force
+@@ -1885,6 +1886,8 @@ static const struct fs_parameter_spec ext4_param_specs[] = {
+ 	fsparam_flag	("no_prefetch_block_bitmaps",
+ 						Opt_no_prefetch_block_bitmaps),
+ 	fsparam_s32	("mb_optimize_scan",	Opt_mb_optimize_scan),
++	fsparam_flag	("buffered_iomap",	Opt_buffered_iomap),
++	fsparam_flag	("nobuffered_iomap",	Opt_nobuffered_iomap),
+ 	fsparam_string	("check",		Opt_removed),	/* mount option from ext2/3 */
+ 	fsparam_flag	("nocheck",		Opt_removed),	/* mount option from ext2/3 */
+ 	fsparam_flag	("reservation",		Opt_removed),	/* mount option from ext2/3 */
+@@ -1978,6 +1981,10 @@ static const struct mount_opts {
+ 	{Opt_nombcache, EXT4_MOUNT_NO_MBCACHE, MOPT_SET},
+ 	{Opt_no_prefetch_block_bitmaps, EXT4_MOUNT_NO_PREFETCH_BLOCK_BITMAPS,
+ 	 MOPT_SET},
++	{Opt_buffered_iomap, EXT4_MOUNT2_BUFFERED_IOMAP,
++	 MOPT_SET | MOPT_2 | MOPT_EXT4_ONLY},
++	{Opt_nobuffered_iomap, EXT4_MOUNT2_BUFFERED_IOMAP,
++	 MOPT_CLEAR | MOPT_2 | MOPT_EXT4_ONLY},
+ #ifdef CONFIG_EXT4_DEBUG
+ 	{Opt_fc_debug_force, EXT4_MOUNT2_JOURNAL_FAST_COMMIT,
+ 	 MOPT_SET | MOPT_2 | MOPT_EXT4_ONLY},
+-- 
+2.52.0
+
