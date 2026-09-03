@@ -1,143 +1,144 @@
-Received: from mail-pf1-f170.google.com (mail-pf1-f170.google.com [209.85.210.170])
+Received: from mail-qt1-f182.google.com (mail-qt1-f182.google.com [209.85.160.182])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51E9C3793A2
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 08:45:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.170
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788425158; cv=none; b=iXPPHyqQcKzkDo4oDv1AGNtpEK36BiZ37GBNFDyUM7dNWIJbXtqLKTfYHqQTUvCPa2ew8jRQ3u+idW1ZCTi7O33fxpyvX6cFc+n/A0s6XX0TgooTVos1hEiO/Ax3xNsDsNatMTKw1aKLZ35cnJ7ZQOTp/uik54jPLjqMn2Ct+WQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788425158; c=relaxed/simple;
-	bh=tpyUzXZw87JQOB2A0BtVRjrqgVQvcnGOu2KYNihB4wE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=fSTKksj3D2DgEz+YkSkSY52ss3fLzXXBlK5f4ycN02Q8iEPrJlN2iufQaUgVkz20LOTYsGSwPHXspCc7D2v++hi2mKhHA4x0g+X/BsnohHrKZHdoyMbH+tB0nEXiJ+f/Adlmv+9gMx+1rSw8Eo+aiwmaH7q7duqTUQ3Kfu0TKNo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=EXbL89DH; arc=none smtp.client-ip=209.85.210.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE9B238330F
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 08:47:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.182
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788425259; cv=pass; b=FLubzZGq/S1HO4Qhkn4LmsZymyQAd/31Yky8c4W8KVPrStghF1qzORm2Uj6T0ef6Ubm4NH/UcpMw2zV0isdB9R5LGrolvb9rCm9raksL5WELn8XV94lHyC7HLKUhtaguwBr02QPrCAUQroxkhGaxvZCiWtnJ+ZiupVrAB2V1mhM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788425259; c=relaxed/simple;
+	bh=05J8FDGfobF9lm48BNn5ph4iz34rcbzc9v4CylZoeOw=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=co9AC1GxdjfpaBj9W624R+TcFdYFmHVEGosk84nb1MjKjyYOqYSjQFd5ajtjVu2g8NJqDrAsb4ZnXt7G9tnZ6Wa4pRGVYqksj1c8JM5r0hYx1BU3CSKJmWkaRZlpfJ2FAZJaFqjDURuMib+zpLI5RZ4Ft1vyoqoWUUQitOa18aw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=g+tF0twS; arc=pass smtp.client-ip=209.85.160.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EXbL89DH"
-Received: by mail-pf1-f170.google.com with SMTP id d2e1a72fcca58-84830c774a0so2330402b3a.1
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 01:45:56 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="g+tF0twS"
+Received: by mail-qt1-f182.google.com with SMTP id d75a77b69052e-529a1ee0e62so23865021cf.2
+        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 01:47:37 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788425256; cv=none;
+        d=google.com; s=arc-20260327;
+        b=ARS8sXe2K/yBInlw9BM9p+XF707X7fUOqnZMvyxRIyvVcds+oxfRfeBBl/UjCVJW/+
+         1BhkAmf/7ejD7fpcAaNO1eJCIiuLdyHBXoqgeH0zUGvdmXiS/tSREbx/lFV/SBlVwHqK
+         bQ0k7l6lo0HA09+SqfT8aGT3cmKwJM/HQHxQ1oq5jOJR0XlT2NDxMPnbUV6a0TdpCe87
+         2h5us45nH9VTClBFDPYR5PKftOrVxv5HXhfhyZQkwcM5NE5nZW/6oCV4qzuzmx/LBHQR
+         kjjY5RowxsiBcewD4XnkzM9KEdXUxEVMM8O+tMxE1DotQh3/Hl/CJzw27TcgSTNh17pD
+         vWvg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=dlvqRataTugdfjdd+6DiNrkrIH6F8Qpk4TF7K6+Vpt0=;
+        fh=GvLVuxVqaPEuwT/2M6J3KJ3WVfINBVbu35/V6pt67MA=;
+        b=loJ44p1MFhr9QZxaavYQG4X5uOwmMjRAXlSq146yNGHznxW+VFDTbsH8Vjqod7AwFq
+         avOx6bV/sqjEpDgpBYcUlx1mNWjsdqaNuKlQbcFqBmsoA8V/vaJQeWP7dYcEv9tUjNOM
+         60pBM6+f1gTTEFslhwiYelAC4juTr3X1CpdlWSl6iFN0UOJ5/OSU1y5DElbwQLrT+LCb
+         gJkxkDnXdL/ptvhULE+S68XtCDR+k+JMf0sbar67Qs7SYpqYOe61lr/CRmc1ddqpAhiZ
+         Bl4wr0OgOCEF6mv6wuPzyyXZ2VWFvM7CbFmEtOvmaKGoSj1fPIGSpAtHS3yGhOVh/diU
+         KY2A==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788425155; x=1789029955; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=RIa1KcxtKlzePvmdnnhCHyjrKBpT+nlLmPKgX7ZVzsY=;
-        b=EXbL89DH86K9Q/xBSWhqNdc1sWketkV4MZJaJRdqayK94TMtbc+VeZ5cez/Hvz1bX9
-         3B1tdExzyreKdZDptsiEeOMsKAI+P/1QTuoWJmcK2eudKLOFjiB64fzwaeG/lr/8vjx1
-         /CDuOvCOyJQj/XS0ZhgGPoB8RjD+yziG2puvTE9vd9Kay4OIhqIdMTqv9KuV9v3AtoMO
-         rSChWBngw95V6y86vm36VyF9gkOAKRG3vbml/KDxQa8T0iOcByVnMZEa+CA7J2aCdpJ8
-         42iyny+Cu4zubgyEpOmGwY0IkIs6V9jOEQEAHh9CI0319hlbbeoEwP1Om1SwOevpdi/h
-         8NIw==
+        d=google.com; s=20251104; t=1788425256; x=1789030056; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=dlvqRataTugdfjdd+6DiNrkrIH6F8Qpk4TF7K6+Vpt0=;
+        b=g+tF0twSgUEAxJF0BJuirdtu3AzUTNJKteFVswI6HGVdiDlBPnA3TCXxmwWjMXV7uA
+         rkoAXFRs5Xtbot4LmqoRk6ag1G4+v0Y5QGscNvagixNl71uZY6Aa35Pe2/ZFfKRiBkpC
+         11046PP9nSej0c38wfNTekbdStVrSBd2KV+EpgT+mWolpg5VJcQWl359FNstJtwSyrc1
+         QeOc0TbiJlNnhYsLldvK8o4mWSe70cvvOnUiP5bsmS+JzsBaenM0QjyGO0KFKBiOJC8K
+         ktM4s9yfih4ERtUe7MG5n71/SGy8FAgVK+XwTVG0c/z1uVrFELvSTxlGpyWkb8o+Q5rJ
+         +vEQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788425155; x=1789029955;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=RIa1KcxtKlzePvmdnnhCHyjrKBpT+nlLmPKgX7ZVzsY=;
-        b=mjdWmw9U7dSB+UAgB8MZtZVP3INod4r7XOOze0G2xIsu1AIEj4VOEfuRddVhH4XSpN
-         bZ4GRK8H7RQiMShy3GQPJW941mlOGT2x0Qo2ET0gv61wVYp1EUMybLLA7DnNuVF3qvhp
-         qXLhnKbde78jGrYQkbn4ToIgv8z42PphOCg2JSM5nq3222w3jbM9zQf+g8g+AmKNi7/o
-         4j6aT1RbMnGbimDhsuv4rEdQ8ljGb/BaeEYEnh+w69yAIV+n+NXRb7hyf1JTaegX/6i2
-         B0FpwM+HNbjreFlB+oh1OqW7PgJy6uUCMwK3oCeSKo0xMzbh0nM3lYek5t0bvFe5xaIO
-         tgNg==
-X-Forwarded-Encrypted: i=1; AKwUvBz4QuHRpDHsve4kz1ar5xqy6erqSN5ndkfdwMXzQMn3qegxsVQAAVcvbz7RR0QYN1kwK8rtjrWjOHTf0cI=@vger.kernel.org
-X-Gm-Message-State: AFuF++mkXd3e6AuVytNFUpDSAsQrZVpJgaNxcmRNxKeKVPOpBhhpRofE
-	zg6QdE3/I6QjS8pmJtcOs7c40/NzlMpbavzTv4xDrctTsf/DSNFci2OU
-X-Gm-Gg: AYBFou0EhfqZi7dxM+xrlKgXN8TcJZG5tRWlrWqxVvxn4bUKHCM47W9RCrGIot+edjd
-	l6EwC1/1r1NGjQGac4Yd9/2ShNYkDLHRtDc1SCpENLfDCKtvxYxicK6bWORMpQmODH9wub3vZQN
-	wqxctC8BPb9UIsiAaKI9o3DCo+9Wj1C4y81CkNV6MOB4+/tNcobkxUsOIcQ2BoVH1migOmDWtGd
-	JLzxW4ftovOR8QpsVBkTVXtUHE+1Ho1Gfhuiq/b9J+Qhf5q+OM1wATAlyh+MNOymN+3y5Ucr6MY
-	R/mzCMZ1OJLbD0vRjmJeoQtb3CvKEZi0iNlQKCC1rGdh0b1n+/uzwpZp9FRVBm5LlJWRsCBAmGl
-	bv4L9Auw4dYCnB7wDKcSBL2L0nDY1AsdMRWSph29LVN+NsbqaY6SkJZHfuyNwaBQQYGVms6KJ0O
-	TSU0lIGkaEfLF5H+WmXAwOXRDnjL9ytClOxr3EnKRzx96rrSbNnaMcMBL4cts=
-X-Received: by 2002:a05:6a00:3696:b0:845:e8b5:8c49 with SMTP id d2e1a72fcca58-85ed24e33ebmr16410228b3a.10.1788425154963;
-        Thu, 03 Sep 2026 01:45:54 -0700 (PDT)
-Received: from gmail.com ([185.220.238.35])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-85db24f2e82sm2494935b3a.3.2026.09.03.01.45.51
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 03 Sep 2026 01:45:54 -0700 (PDT)
-From: Kunwu Chan <kunwu.chan@gmail.com>
-X-Google-Original-From: Kunwu Chan <kunwu.chan@linux.dev>
-To: SJ Park <sj@kernel.org>
-Cc: Kunwu Chan <kunwu.chan@linux.dev>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	stable@vger.kernel.org,
-	Ravi Jonnalagadda <ravis.opensrc@gmail.com>,
-	damon@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org,
-	Kunwu Chan <kunwu.chan@gmail.com>
-Subject: Re: [PATCH 3/4] mm/damon/core: copy nid for eligible_mem_bp damos quota goal commit
-Date: Thu,  3 Sep 2026 16:45:45 +0800
-Message-ID: <20260903084547.960584-1-kunwu.chan@linux.dev>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260902002725.108635-4-sj@kernel.org>
-References: 
+        d=1e100.net; s=20251104; t=1788425256; x=1789030056;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=dlvqRataTugdfjdd+6DiNrkrIH6F8Qpk4TF7K6+Vpt0=;
+        b=Bui0b3wyWlOUQhWbOvfFUWwWbaHEGermncAQIZ2soJDzcqAztgThm3D/fXsyMs/swm
+         fyv5e7dpTo17M/xc8h4/98nWpPeWEuN6EyIzGCviaomh3IzwyWsrJS2syedCmcO1tibD
+         ApFowut2zX9Z5+1Ww/RzidGF8Y3MY94jGFQUxkDSpgOmJ/npjifdnQgErKuUY2OxuFmp
+         CuQRYlViB6MiLPD8EV8JSdoeo5aJSR65HdXdRIL5J46wI8TzW729kn8R46joR/32uQ19
+         RDj+7ukmsb77gKbK+LmaojBh/b0mH0yMtqozHuircaYqcdnC21yMUhKqLj+fPk8XIvGg
+         9vJQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxSiVl+LofMw0Bxmf5WFzyI5v8rTTL6BT2s5qij9Di39VCLZJtSyyxqgsW/3+7Blz8DlExNLnlyNN3X5mQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++lJ1mgbtP3YmQokl8cqx+DXktq0zk+0rkPB7GBAUHQlMuxPR/8l
+	1nfmOmrK0PCjpqKJBNQGFrHzuj2d6fDK4Ts/ErjKT23uPdkjahmYTKv11gc7A2ias6QUK1er1C2
+	YrZbSlbssTQhkPHA5qa3kXRJlvZALAAeevVQ1vxFk
+X-Gm-Gg: AYBFou2+NSxkNtnFWQdKqJtpFKh8LEGW1/hpC3sDZ4B1NiN8eygxuhZI01+mHLBZkC3
+	qMIl8c7/lgcC7GoXBp2agfocJcksyCmEJUIO1PdltzrYA6Zg6PXYSz/vVMDOmgWAodzMQgWXUgI
+	SlmqvX4nxi8j+YUjVzEhAJ5R1QzSCMzwG9ThArJN5VjavB0FDB1RMfj3+oGT+m8A2mRxWtwH5b1
+	KIG+YY78LQXpYInNwTSeYmefJj5yya6Xk/Ezm6161/rcTzxdEMo4hcYE9NKiPFAc3ReBbZCdl6h
+	XEj6FKntTzH3xEM51creYglFgHXk3GQi/EQOrrjLSFpRW6ioSNKmXts9+oqHdx0HuXCd0fniGgw
+	+TVtgtdkX59j/7WemO5nD1f24n4+C1v+FF/5crzAAJa6h+XIJWdcagf4znQ==
+X-Received: by 2002:ac8:5f96:0:b0:530:2b31:a294 with SMTP id
+ d75a77b69052e-53036cef643mr123350521cf.26.1788425255796; Thu, 03 Sep 2026
+ 01:47:35 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260903-seg6-l2cow-v2-1-f37b3b35416f@gmail.com>
+In-Reply-To: <20260903-seg6-l2cow-v2-1-f37b3b35416f@gmail.com>
+From: Eric Dumazet <edumazet@google.com>
+Date: Thu, 3 Sep 2026 10:47:24 +0200
+X-Gm-Features: AcwNN1UNEffLCiS4uuycKstKIm2Kxs7muBvBi_-Ls_uLI52ZvwsZQISghlLpd6U
+Message-ID: <CANn89iJ=atViUvhNJejKTJ=u6EyQ+8Zs=dLLUudu=d7-zcFBWQ@mail.gmail.com>
+Subject: Re: [PATCH net-next v2] seg6: reallocate the skb head on L2
+ encapsulation only when needed
+To: Yuya Kusakabe <yuya.kusakabe@gmail.com>
+Cc: Andrea Mayer <andrea.mayer@uniroma2.it>, "David S. Miller" <davem@davemloft.net>, 
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Tue,  1 Sep 2026 17:27:22 -0700 SJ Park <sj@kernel.org> wrote:
+On Thu, Sep 3, 2026 at 10:23=E2=80=AFAM Yuya Kusakabe <yuya.kusakabe@gmail.=
+com> wrote:
+>
+> The L2 encapsulation modes of the seg6 lwtunnel reallocate the skb head
+> on every packet, where the IPv6 encapsulation modes reallocate only when
+> they have to.  Ask for the whole encapsulation up front instead, so that
+> the reallocation happens at most once and only when the headroom really
+> is too small:
+>
+>   skb->mac_len + sizeof(struct ipv6hdr) + ipv6_optlen(tinfo->srh)
+>   + dst_dev_overhead(cache_dst, skb)
+>
+> __seg6_do_srh_encap() then finds the room it needs and its own
+> skb_cow_head() becomes a no-op.
+>
+> Drivers reserve more than that on the forwarding path, so the
+> reallocation usually disappears altogether.  A single-segment policy
+> on ixgbe needs
+>
+>   14 (mac_len) + 40 (ipv6hdr) + 24 (SRH) + 16 (LL_RESERVED_SPACE) =3D 94
+>
+> against the 206 bytes the driver leaves.  Where the headroom is
+> smaller, as on a veth pair, pskb_expand_head() is called once per
+> forwarded packet instead of twice.  Asking only for skb->mac_len would
+> still take two whenever the skb is header-cloned, because the cow that
+> unclones it does not also make room for the outer header.
+>
+> The cost is amplified by CONFIG_INIT_ON_ALLOC_DEFAULT_ON, which many
+> distributions enable: every new head is zeroed in full, and that memset
+> alone accounts for 16% of the datapath profile.
+>
+> Throughput at 0.5% packet loss, 64-byte frames forwarded through one
+> 2.30 GHz core (Xeon E5-2650 v3, ixgbe 82599ES), offered by TRex and
+> binary-searched over 10 runs of 10 s:
+>
+>   Before: 654.6 kpps
+>   After:  965.7 kpps
+>
+> Assisted-by: Claude:claude-opus-5
+> Signed-off-by: Yuya Kusakabe <yuya.kusakabe@gmail.com>
 
-> damos_commit_quota_goal_union() is not updating the ->nid union field
-> when the goal metric is DAMOS_QUITA_NODE_ELIGIBLE_MEM_BP.  Hence, if a
-> DAMOS quota goal of the type is online committed in a way that it will
-> reuse other quota goal's memory space, the new goal will work with a
-> garbage nid value.  As a result, the DAMOS scheme can show unexpected
-> aggressiveness.  Do the update.
-> 
-> The user impact is not catastrophic.  No leak or crash happens.  Doing
-> the quota goal online commit that can reproduce the issue is expected to
-> be not common.  This issue was not found by real users but the AI
-> review.  That said, the issue can reliably be reproduced.
-> 
-> This issue was discovered [1] by Sashiko.
-> 
-> [1] https://lore.kkernel.org/20260827045035.94611-1-sj@kernel.org
+Reviewed-by: Eric Dumazet <edumazet@google.com>
 
-Hi SJ,
-
-The fix is consistent with the other node-based quota metrics. I also 
-checked that damos_get_node_eligible_mem_bp() directly uses goal->nid 
-when calculating the current value.
-
-One minor typo: the [1] has an extra k (kkernel should be kernel).
-
-Reviewed-by: Kunwu Chan <kunwu.chan@gmail.com>
-
-Thanks,
-Kunwu
-
-> 
-> Fixes: 9138e27a3bc3 ("mm/damon: add node_eligible_mem_bp goal metric")
-> Cc: <stable@vger.kernel.org> # 7.2.x
-> Signed-off-by: SJ Park <sj@kernel.org>
-> ---
->  mm/damon/core.c | 3 +++
->  1 file changed, 3 insertions(+)
-> 
-> diff --git a/mm/damon/core.c b/mm/damon/core.c
-> index 20748b0a71026..53c3f97e3f126 100644
-> --- a/mm/damon/core.c
-> +++ b/mm/damon/core.c
-> @@ -1143,6 +1143,9 @@ static void damos_commit_quota_goal_union(
->  		dst->nid = src->nid;
->  		dst->memcg_id = src->memcg_id;
->  		break;
-> +	case DAMOS_QUOTA_NODE_ELIGIBLE_MEM_BP:
-> +		dst->nid = src->nid;
-> +		break;
->  	default:
->  		break;
->  	}
-> -- 
-> 2.47.3
-> 
-
-Sent using hkml (https://github.com/sjp38/hackermail)
+Thanks!
