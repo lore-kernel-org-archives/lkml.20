@@ -1,60 +1,105 @@
-Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [80.241.56.152])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24AF2486B9B;
-	Thu,  3 Sep 2026 10:31:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.152
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 134E44908C2;
+	Thu,  3 Sep 2026 10:31:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788431520; cv=none; b=rrx8fHGNXZijpKWXLrfs2jFajke1ISS28x7Fh3Zu/hVPrl+SDru/UCvlXRkj4+sfV+PMlF0CwzPObnrgt+EciyFso6z1qLhrlWNC0HvIqIVhAiZv1AgbIMXam/fn9omrWXSRdKH6depOFDzZ34tHyzsX98hyP9VhUf9UhafT3Bc=
+	t=1788431532; cv=none; b=hrvJRc+xsT9sAQLEYcAEFU34kiX9nDGM+7v8GxZRwmVCIfqMQvSpvjqMPcRXVGl9748b3CiomqJ8IM/QAj/euPfB9/mfjhn6nsUMlVAXnGGExUXnLg2SvX+eOTe0AUUtlpHR3t6xWoW5m9Llt0C0kZXqdef4PSLOpos3A6B7u0g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788431520; c=relaxed/simple;
-	bh=Ehc4EZl2SLZA27hMfqTgeHRd8H54myUhxffBoclnWqE=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=cj8yq6d0aTvxkHlSBw448HrUVidGYG6DfUqqIjhyTJRTTg/6MzzrH34yjTry8UGS/B0rmbEmtMCJxA3VW4LfS3XqlsmgJxdMQXY1CLVv6aV90V/ezQ7cNjqKph22/lOkl1K6kihXBzmlzI3qlftk3NXum/yZPCkW+AfUCM4ZgTc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=Bu63qK3j; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=ypUX7iXH; arc=none smtp.client-ip=80.241.56.152
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	s=arc-20240116; t=1788431532; c=relaxed/simple;
+	bh=w5U+egOeicWr0JE6SxpCSEkSHT/w8+Jal3XqpPBc6p0=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=X7WTFAOSIWFy2ooVaFIPUlaS5NrhmqCOfJf/xYPM8T0AyjfuAjG3ObEsgonhM6BGSZ4ozSApXaqLcY9C5ZzHq91oslu/BCZ1rp/eHntRjjvrNWR2MuUH0Qjg7WkHGdx7wSh4EOtbv6aJIG4zcK/pa9Y5a6kvLzf8gw0Cg/7iwQM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=fCi9FIbO; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="Bu63qK3j";
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="ypUX7iXH"
-Received: from smtp102.mailbox.org (smtp102.mailbox.org [IPv6:2001:67c:2050:b231:465::102])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4hbG9Y1TbGzKmst;
-	Thu, 03 Sep 2026 12:31:45 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1788431505;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=BiK27gDNsR2NI/ibcQp/wTsdch5dOdFbw9RLGjdnjhQ=;
-	b=Bu63qK3j0/pruYAxenYyBN8V5WOraspMBkozBA7R8crf7tHsax8I5DhSgotMhNpfQlKCp4
-	Ly43fsx/fSGfIFQw9Shzy115GLINBF8JYllj7Jo8lsXewPKsV0eeXjnY9b4K9tyn338R2E
-	J2wBpLHKPrGIkjJWPgVNqCjovRXKjble3Lni+gjnozk2tawfxkYms9bvp114qWVgqkBH+7
-	c+HOu8b/YZy1d30RbhwV09HTuvDUB8pTE2Yr3VkfVxHbaajLpm/OTctJg4zyJteQx5sg5B
-	eEuYByN7brMF9hcUuPmsVbGHgzAbJZZTsQGcV2vwoyqwtDikP+GCKtAifE6s4A==
-Authentication-Results: outgoing_mbo_mout;
-	dkim=pass header.d=mailbox.org header.s=mail20150812 header.b=ypUX7iXH;
-	spf=pass (outgoing_mbo_mout: domain of byt.es@mailbox.org designates 2001:67c:2050:b231:465::102 as permitted sender) smtp.mailfrom=byt.es@mailbox.org
-From: Erich Sartison <byt.es@mailbox.org>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1788431502;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=BiK27gDNsR2NI/ibcQp/wTsdch5dOdFbw9RLGjdnjhQ=;
-	b=ypUX7iXHffS0jwEjYyt5x5JhXiGEpMm6zNi0p2QaWuEGSqWUA9WbUNZUughIdYJ0G0mGGV
-	HDnGoRsOvzz9EDchB+Zu2/b0ybn/AQ0xGUlFBTq8Drx15AXXxbPYM4shtHGaHr1OoNnb4r
-	5TC3ZvVsN3ZPpYAJaMkXNwbkaAneqK8s1A9lyJUeIyChKi9MAmLcN5E/6/O8H3t1T/EW3K
-	9X4hPxfdKSEGGeCCiWeq1lbT0lE07N3T+Pa6adlMhYDkrU7vq5WBz1Iy768O019RFUMyA6
-	4Bg/H976Hl/LQqqPWO/Ty0TNH5IrnVCH545d4cvDYiazhqOr0Cb4nTgM44c2xA==
-To: dmitry.torokhov@gmail.com
-Cc: linux-input@vger.kernel.org,
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="fCi9FIbO"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id CE9851F02;
+	Thu,  3 Sep 2026 03:31:49 -0700 (PDT)
+Received: from e142334-100.cambridge.arm.com (e142334-100.cambridge.arm.com [10.2.198.93])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 72E5A3F673;
+	Thu,  3 Sep 2026 03:31:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1788431513; bh=w5U+egOeicWr0JE6SxpCSEkSHT/w8+Jal3XqpPBc6p0=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=fCi9FIbOxN1jAWaeu8417km2w3h5m6j38WVFLaXWNwK9oAUqbXpEZ0Y0M46SfnfHU
+	 is2CQLtW+RScu0xIwHD95QlemNucqa3eQLNLFkarQYw2QAH7o1yuYnaYCycw3vrZRL
+	 6/l1lRwWzVc9APR0jQ4tBwoWuIBVD/rN/qIPAsKg=
+From: Muhammad Usama Anjum <usama.anjum@arm.com>
+To: Jani Nikula <jani.nikula@linux.intel.com>,
+	Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+	Rodrigo Vivi <rodrigo.vivi@intel.com>,
+	Tvrtko Ursulin <tursulin@ursulin.net>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Dimitri Sivanich <dimitri.sivanich@hpe.com>,
+	Arnd Bergmann <arnd@arndb.de>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	"James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
+	Helge Deller <deller@gmx.de>,
+	Juergen Gross <jgross@suse.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Muchun Song <muchun.song@linux.dev>,
+	Oscar Salvador <osalvador@suse.de>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	Will Deacon <will@kernel.org>,
+	"Aneesh Kumar K.V" <aneesh.kumar@kernel.org>,
+	Nick Piggin <npiggin@gmail.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Andrey Ryabinin <ryabinin.a.a@gmail.com>,
+	David Hildenbrand <david@kernel.org>,
+	Pasha Tatashin <pasha.tatashin@soleen.com>,
+	Chris Li <chrisl@kernel.org>,
+	Kairui Song <kasong@tencent.com>,
+	Uladzislau Rezki <urezki@gmail.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Alexei Starovoitov <ast@kernel.org>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Andrii Nakryiko <andrii@kernel.org>,
+	Eduard Zingerman <eddyz87@gmail.com>,
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+	Ingo Molnar <mingo@redhat.com>,
+	Arnaldo Carvalho de Melo <acme@kernel.org>,
+	Namhyung Kim <namhyung@kernel.org>,
+	SJ Park <sj@kernel.org>,
+	"Matthew Wilcox (Oracle)" <willy@infradead.org>,
+	Jan Kara <jack@suse.cz>,
+	Jason Gunthorpe <jgg@ziepe.ca>,
+	Leon Romanovsky <leon@kernel.org>,
+	Miaohe Lin <linmiaohe@huawei.com>,
+	Dennis Zhou <dennis@kernel.org>,
+	Tejun Heo <tj@kernel.org>,
+	Christoph Lameter <cl@gentwo.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	ziy@nvidia.com,
+	pfalcato@suse.de,
+	agordeev@linux.ibm.com,
+	ryan.roberts@arm.com
+Cc: Muhammad Usama Anjum <usama.anjum@arm.com>,
 	linux-kernel@vger.kernel.org,
-	Erich Sartison <byt.es@mailbox.org>
-Subject: [PATCH] Input: xpad - add support for Victrix Pro BFG Controller
-Date: Thu,  3 Sep 2026 12:31:37 +0200
-Message-ID: <20260903103137.630170-1-byt.es@mailbox.org>
+	intel-gfx@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org,
+	linux-parisc@vger.kernel.org,
+	xen-devel@lists.xenproject.org,
+	linux-mm@kvack.org,
+	linux-fsdevel@vger.kernel.org,
+	linux-arch@vger.kernel.org,
+	kasan-dev@googlegroups.com,
+	linux-trace-kernel@vger.kernel.org,
+	bpf@vger.kernel.org,
+	linux-perf-users@vger.kernel.org,
+	damon@lists.linux.dev
+Subject: [PATCH v2 7/8] drm/i915: use hw_pte_t for PTE range callbacks
+Date: Thu,  3 Sep 2026 11:29:59 +0100
+Message-ID: <20260903103002.1091859-8-usama.anjum@arm.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260903103002.1091859-1-usama.anjum@arm.com>
+References: <20260903103002.1091859-1-usama.anjum@arm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -62,29 +107,71 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-MBO-RS-ID: 31d3c39caf6fb18a151
-X-MBO-RS-META: 91h7r6yjnrq1oh7ew4j8myjsw1guferp
-X-Rspamd-Queue-Id: 4hbG9Y1TbGzKmst
 
-The controller doesn't currently work via USB-cable.
+apply_to_page_range() now passes PTE table storage to its callback as
+hw_pte_t *. Update the i915 remap and selftest callbacks to match the new
+type.
 
-Signed-off-by: Erich Sartison <byt.es@mailbox.org>
+Continue to use ptep_get() for software PTE values and set_pte_at() for
+updates.
+The type remains an alias of pte_t on x86 until that architecture opts in.
+
+Signed-off-by: Muhammad Usama Anjum <usama.anjum@arm.com>
 ---
- drivers/input/joystick/xpad.c | 1 +
- 1 file changed, 1 insertion(+)
+Changes since v1:
+- Use software PTE value terminology.
 
-diff --git a/drivers/input/joystick/xpad.c b/drivers/input/joystick/xpad.c
-index 2da0b7f17..da7602eab 100644
---- a/drivers/input/joystick/xpad.c
-+++ b/drivers/input/joystick/xpad.c
-@@ -227,6 +227,7 @@ static const struct xpad_device {
- 	{ 0x0e6f, 0x0213, "Afterglow Gamepad for Xbox 360", 0, XTYPE_XBOX360 },
- 	{ 0x0e6f, 0x021f, "Rock Candy Gamepad for Xbox 360", 0, XTYPE_XBOX360 },
- 	{ 0x0e6f, 0x0246, "Rock Candy Gamepad for Xbox One 2015", 0, XTYPE_XBOXONE },
-+	{ 0x0e6f, 0x024c, "PDP Victrix Pro BFG Wired Controller for Xbox", 0, XTYPE_XBOXONE },
- 	{ 0x0e6f, 0x02a0, "PDP Xbox One Controller", 0, XTYPE_XBOXONE },
- 	{ 0x0e6f, 0x02a1, "PDP Xbox One Controller", 0, XTYPE_XBOXONE },
- 	{ 0x0e6f, 0x02a2, "PDP Wired Controller for Xbox One - Crimson Red", 0, XTYPE_XBOXONE },
+Changes since RFC v1:
+- Clarify the effect on architectures that have not opted in.
+---
+ drivers/gpu/drm/i915/gem/selftests/i915_gem_mman.c | 4 ++--
+ drivers/gpu/drm/i915/i915_mm.c                     | 4 ++--
+ 2 files changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/gpu/drm/i915/gem/selftests/i915_gem_mman.c b/drivers/gpu/drm/i915/gem/selftests/i915_gem_mman.c
+index d01acfb7d93d0..056faf4a3618b 100644
+--- a/drivers/gpu/drm/i915/gem/selftests/i915_gem_mman.c
++++ b/drivers/gpu/drm/i915/gem/selftests/i915_gem_mman.c
+@@ -1690,7 +1690,7 @@ static int igt_mmap_gpu(void *arg)
+ 	return 0;
+ }
+ 
+-static int check_present_pte(pte_t *pte, unsigned long addr, void *data)
++static int check_present_pte(hw_pte_t *pte, unsigned long addr, void *data)
+ {
+ 	pte_t ptent = ptep_get(pte);
+ 
+@@ -1703,7 +1703,7 @@ static int check_present_pte(pte_t *pte, unsigned long addr, void *data)
+ 	return 0;
+ }
+ 
+-static int check_absent_pte(pte_t *pte, unsigned long addr, void *data)
++static int check_absent_pte(hw_pte_t *pte, unsigned long addr, void *data)
+ {
+ 	pte_t ptent = ptep_get(pte);
+ 
+diff --git a/drivers/gpu/drm/i915/i915_mm.c b/drivers/gpu/drm/i915/i915_mm.c
+index fd89e7c7d8d6f..aab88e8edf946 100644
+--- a/drivers/gpu/drm/i915/i915_mm.c
++++ b/drivers/gpu/drm/i915/i915_mm.c
+@@ -48,7 +48,7 @@ static inline unsigned long sgt_pfn(const struct remap_pfn *r)
+ 		return r->sgt.pfn + (r->sgt.curr >> PAGE_SHIFT);
+ }
+ 
+-static int remap_sg(pte_t *pte, unsigned long addr, void *data)
++static int remap_sg(hw_pte_t *pte, unsigned long addr, void *data)
+ {
+ 	struct remap_pfn *r = data;
+ 
+@@ -70,7 +70,7 @@ static int remap_sg(pte_t *pte, unsigned long addr, void *data)
+ #define EXPECTED_FLAGS (VM_PFNMAP | VM_DONTEXPAND | VM_DONTDUMP)
+ 
+ #if IS_ENABLED(CONFIG_X86)
+-static int remap_pfn(pte_t *pte, unsigned long addr, void *data)
++static int remap_pfn(hw_pte_t *pte, unsigned long addr, void *data)
+ {
+ 	struct remap_pfn *r = data;
+ 
 -- 
-2.55.0
+2.47.3
 
