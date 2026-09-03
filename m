@@ -1,94 +1,142 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66669C2EA
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 02:34:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D3E42D8364
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 02:34:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.70
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788402882; cv=none; b=sdES60q7ClaDj/w+WY8SuAjMnU+Sr2aikTIMukTJm7MbqEENJHqtsDfrbGdHWhldxbZwCeZr9UfWNEqFz8zYJcnrDSuhMQIdMh5+VkiWQ3unDF311WMdFsfLTghkZARRMA1SZ63h31t9Yc3Sqt2CPCvh5zGM8nmzXdsTbZNLU1I=
+	t=1788402901; cv=none; b=fprSmUVlJyOkeRPh6erGb1eT30Xjp3Up37q5ZUj44oweV7sI9xWRWKFV0H2QbKysVYt4mB7sQDQXAlHBuDt7779oAllNHuzBhx8qhQZxCij9sTRAQQZsCVXEFIYlq8kZZZgbGRJhMvn6OXK9VFPjvIAdTrXLXkXN9wIuGsvLeuY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788402882; c=relaxed/simple;
-	bh=sWSLxruTK9WmZri21uyuwlacuTgh2JWpQ5alvCVv6tU=;
-	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
-	 Mime-Version:Content-Type; b=t0P4xsSfuh3/bPWMoiysVqV0mC+oQW5BJboHPvzyNhsbN+ECLCA/L70YSepSyZVrl63nxruEIiG3KTu58r+RWVSnh4VrsmDjtOqVO+wwvlUascdeFIVDOshgkJ1KFOfKCwo6x50efViIdXhJQoTcQhD+zZLQI2L5l5b7Y4GsTIQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=i+e75T3Q; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788402901; c=relaxed/simple;
+	bh=KttI8yN3SEE9knj1xRs/FNrG5jE/gzLZlVVCanD/Yjg=;
+	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=e/F8r4DJNrIB70LNjDm+bAxmQ7AF9KB8bcvXKBdX7HgUqzFsrRTSPQb/0409B+AkZP8rt2QhSHPOtt3JmQZZygOWxD5Fx+fDRJvx9eLVf8YiZnAPQspk1MW+yb0NBkPEX6veyKq5Qinx3mmFq6BNgdaE4tjk2jm/8yHwK8qOQVg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--loganodell.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=JKRSKjDP; arc=none smtp.client-ip=209.85.216.70
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--loganodell.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="i+e75T3Q"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E512F1F000E9;
-	Thu,  3 Sep 2026 02:34:38 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="JKRSKjDP"
+Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-38f97b3f853so3215503a91.3
+        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 19:34:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1788402879;
-	bh=R+fWXehxaYYCzvlRSEIRP+NK5n3Ol710P9XjHwbzJIk=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=i+e75T3QIFabgdq4302+e/kAAWTtzWgtO+55pSIvME9tAcEFC9IdLKuwSXWkr3ev2
-	 mKtF8FGkjcZ9gFMt02ZfCXsxE1v+7eSbDFWoAI7EGYwYkkXR0L8ovgyp8ulCCWd52Q
-	 uGw5lCOdCAr40/87QDQuNJc6zE5LfRktXgWm0f1M=
-Date: Wed, 2 Sep 2026 19:34:38 -0700
-From: Andrew Morton <akpm@linux-foundation.org>
-To: Kaitao Cheng <kaitao.cheng@linux.dev>
-Cc: David Hildenbrand <david@kernel.org>, Zi Yan <ziy@nvidia.com>, Matthew
- Brost <matthew.brost@intel.com>, Joshua Hahn <joshua.hahnjy@gmail.com>,
- Rakie Kim <rakie.kim@sk.com>, Byungchul Park <byungchul@sk.com>, Gregory
- Price <gourry@gourry.net>, Ying Huang <ying.huang@linux.alibaba.com>,
- Alistair Popple <apopple@nvidia.com>, Naoya Horiguchi
- <nao.horiguchi@gmail.com>, Mel Gorman <mel@csn.ul.ie>, Andi Kleen
- <ak@linux.intel.com>, Muchun Song <muchun.song@linux.dev>, Jun'ichi Nomura
- <j-nomura@ce.jp.nec.com>, linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- Kaitao Cheng <chengkaitao@kylinos.cn>
-Subject: Re: [PATCH] migrate: Skip hwpoisoned hugetlb folios during
- migration
-Message-Id: <20260902193438.232552868db3af5d54ae3fa1@linux-foundation.org>
-In-Reply-To: <20260701105544.97059-1-kaitao.cheng@linux.dev>
-References: <20260701105544.97059-1-kaitao.cheng@linux.dev>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+        d=google.com; s=20251104; t=1788402896; x=1789007696; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Z/CUOTjDyaAxtZC1lTIYdZbcKOF2SIWxflbwVxpxItE=;
+        b=JKRSKjDPVk0FFsbYxUN8rh23atvO0BGLo2l3Ks8shrfBJHKyupH84uaTVmVhlhgbqC
+         18LH/IN4BB17i9S++NQrSkJeh9KO1YPa5D9KUQAK1/bpwfRSdiJx1MbpQ6k/L/uSr2At
+         4VILdEOzvdycnbiae+QyQaM1fYRQv74kqDgQufzjn3PnkJ8/34nk8O/sumZX0wLMYMES
+         YsNohw0fzbT0Ns4S60MeuyjFyAVFi+XdrvuMAw/xlJhvQtlN4y+0aA8p4tAVY7108Tjo
+         hUL9t8/h0MrjaL7b6p9PxycrKxAYjK0oI08YxCuv4conWs/RU7eIbr2a18cxuPWDlVtQ
+         5EPA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788402896; x=1789007696;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Z/CUOTjDyaAxtZC1lTIYdZbcKOF2SIWxflbwVxpxItE=;
+        b=XCNoH5oCk1kqaBEs4WrG8NM+2AtyKHdXdFH85WdzA/rwweDiHtxEpPNmAi6woOYIAP
+         RJvcE1bwV9Q47KUWVkmDxGmf3WfxHu/HiQN9bjmwnn+8h50AKeaLrM/sJI0Ikx5iR/2P
+         bg9EhJctieU1HvbL0urs7e5jF/eYvUcoETQHSftVMLI+ZsujibvYbxRLzJQ2JUogFsxc
+         LJL6TlyzEYbRybqySjMSfud3mFDWhmCiZrhKQPrcIuQVSxa8eD6I/R94TGkemngqFA+Y
+         U3QDUai/dsajTerlGGgaLrg2ndjRLIDW+9LgCw/Z7sE+cOL6ULQMHf1nnbo9UNEPdDvn
+         tOYw==
+X-Forwarded-Encrypted: i=1; AKwUvBzF4JMra4kTFSMLgCqDN1eEMrywWPfKR4l9jszEbHqMUoj1NN4nPyYlvWgar2cgB7fVNq7nis4S7rSaeU8=@vger.kernel.org
+X-Gm-Message-State: AFuF++lw8azSM1imfAld4ey2aVP9j8sstU3WfU3TqlWc1oCNR5y7zfR6
+	ps1mhLFIBr5XV4v0HwEFSqevlyJdTNkyCi7WW/1A9DmSzbyem6c55/45mSKa5b5yPZA3vNJ5aAL
+	7i0j6vVS7B9kDL2K/wBzDig==
+X-Received: from dysc26.prod.google.com ([2002:a05:7300:3b1a:b0:332:2edd:e13a])
+ (user=loganodell job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a17:90b:2d85:b0:398:9c00:29f0 with SMTP id 98e67ed59e1d1-39aee249bd7mr14082963a91.24.1788402895806;
+ Wed, 02 Sep 2026 19:34:55 -0700 (PDT)
+Date: Wed,  2 Sep 2026 19:34:49 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+X-Mailer: git-send-email 2.55.0.979.g7e5102b832-goog
+Message-ID: <20260903023452.721732-1-loganodell@google.com>
+Subject: [RFC PATCH 0/3] liveupdate: Move to feature flags for LUO and memfd
+ ABI compatibility
+From: Logan Odell <loganodell@google.com>
+To: arnd@arndb.de, pasha.tatashin@soleen.com, rppt@kernel.org, 
+	pratyush@kernel.org, graf@amazon.com, akpm@linux-foundation.org, 
+	pbonzini@redhat.com, maz@kernel.org, oupton@kernel.org, seanjc@google.com, 
+	bhelgaas@google.com, alex@shazbot.org, jgg@nvidia.com, kevin.tian@intel.com, 
+	dwmw2@infradead.org, baolu.lu@linux.intel.com, joro@8bytes.org, 
+	will@kernel.org, robin.murphy@arm.com
+Cc: linux-arch@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	kexec@lists.infradead.org, linux-mm@kvack.org, kvm@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev, 
+	linux-pci@vger.kernel.org, iommu@lists.linux.dev, 
+	Logan Odell <loganodell@google.com>
+Content-Type: text/plain; charset="UTF-8"
 
-On Wed,  1 Jul 2026 18:55:44 +0800 Kaitao Cheng <kaitao.cheng@linux.dev> wrote:
+We're including maintainers from all subsystems that currently is or
+will be expected to participate in live update to ensure alignment on
+the path forward for compatibility.
 
-> Date: Wed,  1 Jul 2026 18:55:44 +0800
+Currently, Live Update Orchestrator (LUO) and its file handlers rely on
+monolithic compatibility strings (such as "luo-v5" and "memfd-v1") to
+validate ABI compatibility across kexec live updates. Any modification
+to serialized structures requires bumping the version string, which
+strictly breaks compatibility between adjacent kernels even when changes
+are additive, backwards-compatible, or optional.
 
-Well.
+This RFC series transitions LUO and subsystem file handlers to use
+granular feature bitmasks instead of compatibility strings. We replace
+the compatibility string with a header structure that includes some
+reserved space to define the features that are included after the
+feature.
 
-> Hugetlb migration does not check whether the source folio contains
-> hwpoisoned memory before trying to move it.  After the folio is unmapped,
-> the move path can reach hugetlbfs_migrate_folio() and then
-> migrate_huge_page_move_mapping(), which copies the source folio into the
-> new folio.
-> 
-> That copy uses folio_mc_copy(), so architectures with recoverable
-> machine-check copy support can fail the copy with -EHWPOISON.  However,
-> there is no reason to attempt the move once the source folio is already
-> known to contain poisoned memory.  Architectures without such copy_mc
-> support also fall back to a normal copy, which can consume the poison.
-> 
-> Check folio_contain_hwpoisoned_page() after locking the source hugetlb
-> folio and fail the migration with -EHWPOISON before unmapping or copying
-> it.  This covers both a hwpoisoned hugetlb head folio and large folios
-> that only have the has_hwpoisoned summary flag set.
+We include 3 bits of data for each feature: supported, active, and
+required. When the supported bit is set in the next kernel, the previous
+kernel can serialize the feature and pass it to the next kernel. When
+the active bit is set, it means the previous occurred and the data for
+that feature is valid. When the required bit is set, it means that the
+next kernel must have the associated supported bit in order to be
+compatible.
 
-As always: please provide a description of the userspace-visible
-runtime effects of the bug.
+If a feature is required in that it cannot live update to a kernel that
+does not support the feature, it is expected that the feature not be
+active or required initially. This allows for an intermediate upgrade
+path.
 
-Even better if you can present a reproducer.
+Overview of Changes:
+1. Define feature header and migrate luo_ser (Patch 1):
+  - Introudce the feature header with the supported, active, and
+    required bits.
+  - Replace the luo compatibility string with this new header.
+  - Validate the preserved size is at least the size of the header. This
+    breaks compatibility with the old way.
 
-> Fixes: 290408d4a250 ("hugetlb: hugepage migration core")
+2. Export feature header information to vmlinux (Patch 2):
+  - Adds a .liveupdate_features section in vmlinux containing
+  - Adds helper macros to export feature information for a given
+    subsystem
+  - Export luo's feature information
 
-Oct, 2010.  So I'm assuming this isn't super-urgent.
+3. Memfd Handler Migration (Patch 3):
+  - Migrate memfd to use the feature header instead of compatibility
+    strings
 
-otoh, now it's out there and known about, perhaps Bad Guys can find a
-way of triggering this, so the urgency becomes higher.
+Logan Odell (3):
+  luo: Move to feature flags instead of compatibility strings
+  luo: Export feature support to vmlinux section
+  luo: memfd: Move to feature flags instead of compatibility strings
 
+ include/asm-generic/vmlinux.lds.h |  12 ++++
+ include/linux/kho/abi/luo.h       | 114 +++++++++++++++++++++++++-----
+ include/linux/kho/abi/memfd.h     |  41 +++++++----
+ include/linux/liveupdate.h        |  22 ++++--
+ kernel/liveupdate/luo_core.c      |  60 ++++++++++++----
+ kernel/liveupdate/luo_file.c      |  28 ++++----
+ kernel/liveupdate/luo_flb.c       |   2 +-
+ lib/tests/liveupdate.c            |   2 +-
+ mm/memfd_luo.c                    |  40 ++++++++---
+ 9 files changed, 246 insertions(+), 75 deletions(-)
 
-Anyway, please consider the Sashiko report
-(https://sashiko.dev/#/patchset/20260701105544.97059-1-kaitao.cheng@linux.dev)
-then update the changelog with the above info.  Decide whether we
-should cc:stable (and describe why) then resend?
+-- 
+2.55.0.979.g7e5102b832-goog
 
-Thanks.
