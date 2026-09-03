@@ -1,36 +1,33 @@
-Received: from mta1.migadu.com (out-139.mta1.migadu.com [95.215.58.139])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D37574052A2
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 09:40:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.139
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0C4339A070;
+	Thu,  3 Sep 2026 09:40:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788428426; cv=none; b=XZKYfuSUJp8QV1ZEmxUNz7NEDE96zHy2QWTlo9F6PYZ3WGfrrd7w0Nv7VJCvI0AGhGiz9V/w9t9TjcX34qYdI+Jon7lf5Aw1RarH6QAmnqXvldB50Yxom49sH+0vk8n3xhPzcfqTwiy9UNZhCCieVBXkMnQtw7SOx/pitNvIR44=
+	t=1788428444; cv=none; b=kv5XbEw2vO33kpstdZj1uSSHlY4UT0fnngehnG38P2A8ilQpf1L0KaASTrcW7jRDP70ltlZZ5jrL9WWQoF6qFWSUumh5D8AKuj8vPJTUZ6UeDdf7TMn8+E3q/JouDLjxU3LvijM0tz7JVCDq1eQEDIuE+6K+zcCgmL3jOBsIwCQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788428426; c=relaxed/simple;
-	bh=li0QtrKSoF1w5akDTx2Tm8g+pJQlMKfNm+NiL9GmhYQ=;
+	s=arc-20240116; t=1788428444; c=relaxed/simple;
+	bh=tmHhKD81GJ5Ayj6i4mrf+MgwpD93bsG6PHd4SfYJx7M=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=AQDPFKZEJa8oM+g4D0E7pLOMTJKNKDptdF6SB3WyFmqrVBoq+qkbN8yJgzpNbnzvbowbdB5Ch/SOcf0/3FhcJlJUTa8hSHidP8ZIJd6GDsd6e+vZDVqF1PhFKMrdBTIr0o8Aoe4pn/cv9z9pFi/XJKrW3rRTiUAmJaBGZ5s8a5k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=eZhWx7wB; arc=none smtp.client-ip=95.215.58.139
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	 In-Reply-To:Content-Type; b=rrz0GMpG6OuWMMRYp8kPFW1Ph4OwuLMyuTSvQp22r6nXdLNtKkuDQvfd6Jfy9WTtRVe1HML6yqFjTBpli1wYqaX0GFdhOxRQZVuZkkmzs3Htvna1hdV5kpr/gtpmq4CPuodIfwhclarLpTn6+LmgZsWZVcIUqOE/O5U7nP7oER0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=e6pWuoaz; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="eZhWx7wB"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=li0QtrKSoF1w5akDTx2Tm8g+pJQlMKfNm+NiL9GmhYQ=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788428422; v=1; x=1789033222;
- b=eZhWx7wBHRR/Ph6P+nMqRG2JBBF2FineSMg+Bv+q5CrDf3Ro2+/s6+6VgP40BUccRsQwIAZG
- DBVT/SsPyhYgIUC9/V54ohrKnpH33QJdX4Y6gS96vrddGPYmUWG1DwVzqUax3LorqYamD7QVotG
- oHrExYWk6z/1O3+2I88ZxRW0=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 9f4276aec2f9c0a2;
-	Thu, 03 Sep 2026 09:40:22 +0000
-X-Mizu-Trace-ID: 9f4276aec2f9c0a2
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <7735a43a-98f4-4402-8bb7-790bee064f7f@linux.dev>
-Date: Thu, 3 Sep 2026 17:40:13 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="e6pWuoaz"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 937581F000E9;
+	Thu,  3 Sep 2026 09:40:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788428442;
+	bh=pTYfmYEwT0KA9fc4+fPHisf+4KclABADdQHaSCS0zDI=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=e6pWuoazL41rcTT1UePOwc1t6Ew83DCs0FoGLb8/a2tIWqc7Pv8frl+f85fNus4BN
+	 cb83dknR+yW5qsaF2UHiMgxJvCeWUd9NJtsi8BAUypZUNex9s2NkNzkIs1kFCczUxk
+	 N16YRWSxl4Pxf1qkITPc991qXX5QC8EXTS7/RWbenYSGKi/sTiXdB90dd30XiR3OOB
+	 9pgu2ydXirfdzOuxNy6MacXacqX7qiBf8bhsUa4GBXhDcH07k+v7nUtBxUq6WdF4aH
+	 /86yrQoNCnka6sSXP1ZV19jz4QsERRMRVJY++1DwFyQSZzd1RoLnAnIIpM+0SNI+5n
+	 K+la+0YO/JXDg==
+Message-ID: <05b84fc9-e71f-412f-bdf2-c0847c2441ff@kernel.org>
+Date: Thu, 3 Sep 2026 11:40:36 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -38,75 +35,95 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net v2] tls: fix the open record check in the max payload
- size setsockopt
-To: Paolo Abeni <pabeni@redhat.com>, netdev@vger.kernel.org
-Cc: John Fastabend <john.fastabend@gmail.com>,
- Jakub Kicinski <kuba@kernel.org>, Sabrina Dubroca <sd@queasysnail.net>,
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Simon Horman <horms@kernel.org>, Wilfred Mallawa <wilfred.mallawa@wdc.com>,
+Subject: Re: [PATCH v2 1/2] dt-bindings: phy: airoha: Document support for
+ AN7583 Gen3 PCIe PHY
+To: Christian Marangi <ansuelsmth@gmail.com>
+Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong
+ <neil.armstrong@linaro.org>, Manivannan Sadhasivam <mani@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, linux-arm-kernel@lists.infradead.org,
+ linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org
-References: <20260901072927.128688-1-jiayuan.chen@linux.dev>
- <2ba43d6b-f521-415e-a4a1-64b313051c88@redhat.com>
-From: Jiayuan Chen <jiayuan.chen@linux.dev>
-In-Reply-To: <2ba43d6b-f521-415e-a4a1-64b313051c88@redhat.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+References: <20260827122127.18874-1-ansuelsmth@gmail.com>
+ <20260827122127.18874-2-ansuelsmth@gmail.com>
+ <20260831-elastic-turquoise-puma-f032fc@quoll>
+ <6a96cef9.1f1211b9.23c693.9e1e@mx.google.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <6a96cef9.1f1211b9.23c693.9e1e@mx.google.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
+On 01/09/2026 15:11, Christian Marangi wrote:
+> On Mon, Aug 31, 2026 at 08:51:46AM +0200, Krzysztof Kozlowski wrote:
+>> On Thu, Aug 27, 2026 at 02:21:20PM +0200, Christian Marangi wrote:
+>>> +
+>>> +examples:
+>>> +  - |
+>>> +    #include <dt-bindings/phy/phy.h>
+>>> +
+>>> +    phy@1fc7f000 {
+>>> +        compatible = "airoha,an7583-pcie-gen3-phy";
+>>> +        reg = <0x1fc7f000 0xfff>,
+>>> +              <0x1fc7e000 0xfff>,
+>>
+>> Sashiko has a valid point here.
+>>
+>> This should reflect real hardware, not current driver. It is very, very
+>> unlikely that hardware designers designed a block of 0xfff size or 0x4
+>>
+> 
+> Hi for 0xfff yes the block is 0x1000 but I was reporting how it was defined
+> in the original DTS. For the 0x4 is for real a single register for that
 
-在 9/3/26 5:06 PM, Paolo Abeni 写道:
-> On 9/1/26 9:29 AM, Jiayuan Chen wrote:
->> @@ -862,6 +876,7 @@ static int do_tls_setsockopt_tx_payload_len(struct sock *sk, sockptr_t optval,
->>   static int do_tls_setsockopt(struct sock *sk, int optname, sockptr_t optval,
->>   			     unsigned int optlen)
->>   {
->> +	struct tls_context *ctx;
->>   	int rc = 0;
->>   
->>   	switch (optname) {
->> @@ -881,9 +896,17 @@ static int do_tls_setsockopt(struct sock *sk, int optname, sockptr_t optval,
->>   		rc = do_tls_setsockopt_no_pad(sk, optval, optlen);
->>   		break;
->>   	case TLS_TX_MAX_PAYLOAD_LEN:
->> +		/* Take tx_lock like the sendmsg paths do, the socket lock is
->> +		 * dropped while a sender waits for memory, with no record open.
->> +		 */
->> +		ctx = tls_get_ctx(sk);
->> +		rc = mutex_lock_interruptible(&ctx->tx_lock);
->> +		if (rc)
-> Why using the interruptible variant? the blocking lock just after will
-> still ignore signals, and this sockopt will now surprisingly fail if a
-> signal happens at the wrong time.
->
-> /P
+And the original DTS was likely wrong...
 
+> usage. Documentation is scarce for that single block but this also reflect
+> the same implementation used on EN7581. I updated the example to address
+> the strange block of 0xfff.
 
-Hi Paolo,
-
-
-The two waits are very different. The xmit path holds tx_lock across
-sk_stream_wait_memory(), which can sleep for an undetermined time (until
-the peer reads):
-
-   tls_device_sendmsg()
-      mutex_lock(&tls_ctx->tx_lock);
-      lock_sock(sk);
-      tls_push_data()
-        sk_stream_wait_memory()   <- releases sk lock, keeps tx_lock
-      release_sock(sk);
-      mutex_unlock(&tls_ctx->tx_lock);
-
-
-So waiting for tx_lock with plain mutex_lock() can leave the process in
-
-D state for a long time. The lock_sock() after it is fine: the sleeping
-
-sender drops the socket lock, so that wait is only for short critical 
-sections, never across the long sleep.
-
-
-tls_sw_sendmsg() also uses  mutex_lock_interruptible but 
-tls_device_sendmsg() still
-
-uses plain mutex_lock() indeed, but that's another topic.
-
+Best regards,
+Krzysztof
