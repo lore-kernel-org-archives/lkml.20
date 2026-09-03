@@ -1,249 +1,641 @@
-Received: from outboundhk.mxmail.xiaomi.com (outboundhk.mxmail.xiaomi.com [118.143.206.90])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9B57E3F1ABE
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 06:33:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=118.143.206.90
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C76273F164C;
+	Thu,  3 Sep 2026 06:33:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788417214; cv=none; b=TUwABsak8GtCCaLK78D2LUf8ujbnG9Wv6+aqjnD7FM+bt/T1UUJ3fAYSqTuZ8OCxWvpK4U8SppyBUBc8bZAny8Cltf0yVdrphoANKNE54hmIORGCzNgz7utd5CWJvi/4xk/8C3usLjsx34xdytidsh0+j3fqpuCgyLr6BhEonhY=
+	t=1788417217; cv=none; b=VbK103sznsavSpSmi9M9M6qubL8l7y+dy0jK7raU7FaI0wGoeqXTeIVNt+vPHO+VfKjwQlwyIqSahIWcAgK5VcXQ1SbbXIrNAFd/Vhj3dYrK1Ov9ByQL9bPe0wWsNCF6zrBVYb4+G8GOKq8kkh1R4x8S5cQ584FYjb+AGDcMhSk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788417214; c=relaxed/simple;
-	bh=Bg8Pyj40Qp7XNBb8ZsG+4JuPP0uWQJjSIpYmxH8ewEs=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=fZSuRIBN0Ef8fE1bf9iMbkf5m/2add9dRHB07uFTBLjnI2CjP57bij8acayazYO+N9hvdLgeZDn6AFhCZQauz7DgDmCQtvHsceibUeFkCXM1R/Vmu0nvbmKUwfFyD8N9X3fnopqXC2ToYkWQ5MqjLY3POA7YqYVAdlF6dd7UzrA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=xiaomi.com; spf=pass smtp.mailfrom=xiaomi.com; arc=none smtp.client-ip=118.143.206.90
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=xiaomi.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaomi.com
-X-CSE-ConnectionGUID: Or8IsnrbT3iAGP4hNK/UQA==
-X-CSE-MsgGUID: KbHS2GKTQ7i6p51oxEoYnw==
-X-IronPort-AV: E=Sophos;i="6.25,258,1779120000"; 
-   d="scan'208";a="161397705"
-From: =?utf-8?B?5YiY5pyv6auY?= <liushugao@xiaomi.com>
-To: Thomas Gleixner <tglx@linutronix.de>, =?utf-8?B?5pyx5oG65Lm+?=
-	<zhukaiqian@xiaomi.com>, Daniel Lezcano <daniel.lezcano@linaro.org>,
-	=?utf-8?B?J+W8oOWYieS8nyc=?= <zhangjiawei8@xiaomi.com>
-CC: "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	=?utf-8?B?546L6Z+s?= <lingyue@xiaomi.com>, =?utf-8?B?54aK5Lqu?=
-	<xiongliang@xiaomi.com>, "isaacmanjarres@google.com"
-	<isaacmanjarres@google.com>, Frederic Weisbecker <frederic@kernel.org>,
-	Anna-Maria Behnsen <anna-maria@linutronix.de>, =?utf-8?B?5qKB5Lyf6bmP?=
-	<weipengliang@xiaomi.com>, =?utf-8?B?57+B6YeR6aOe?= <wengjinfei@xiaomi.com>
-Subject: =?utf-8?B?5Zue5aSNOiBbRXh0ZXJuYWwgTWFpbF1bUEFUQ0hdIHRpY2svYnJvYWRjYXN0?=
- =?utf-8?Q?:_Plug_clockevents_replacement_race?=
-Thread-Topic: [External Mail][PATCH] tick/broadcast: Plug clockevents
- replacement race
-Thread-Index: AQHa7MK0Vqp0kbQNSkKwEnDO0Z5mtLa3v96ggAlCo9A=
-Date: Thu, 3 Sep 2026 06:33:21 +0000
-Message-ID: <e52a3bfe9e444c14bc6281b1075c1fb2@xiaomi.com>
-References: <042520850d394f0bb0004a226db63d0d@xiaomi.com>
- <87o77m1v9r.ffs@tglx> <b07f9746a58d46919b1600b22f5dff05@xiaomi.com>
- <835d5847-1aa0-4852-89c7-6a6996b3eb65@linaro.org>
- <bc1a086b932f454f9379c49221983675@xiaomi.com> <87o775uh0y.ffs@tglx>
- <87frrs8lsg.ffs@tglx> <87cymdsu0r.ffs@tglx>
- <6eb4fac303f4457f9686510664e79bff@xiaomi.com>
-In-Reply-To: <6eb4fac303f4457f9686510664e79bff@xiaomi.com>
-Accept-Language: zh-CN, en-US
-Content-Language: zh-CN
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+	s=arc-20240116; t=1788417217; c=relaxed/simple;
+	bh=Efj5/Cdi33RWQLbtvYqSGaqW8Tscni/udCMstzRMViE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=TwgmFAUyKcS6tQBDjWiRdAh0F7pU/ZB/cc9pDNZetzKOq8tn7t+Y5EDAHmtLTIJ3gM2yylfroSbxo6n8e+9ojzZpKZUKZTrP9OOBVTMEhTCb5mMJcMlS2OI79eKE+9Z6ycjKmq4hU7hKl1i5OAA5zagGhHDq0mCDz1egm+ZLiK8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=oefqD9JS; arc=none smtp.client-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="oefqD9JS"
+Received: from pps.filterd (m0353729.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68361p2S311833;
+	Thu, 3 Sep 2026 06:33:02 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=pp1; bh=l36BE2CuZ1S0xQPX/ipHBkEy33d5
+	AE+cGkz1upqO/wg=; b=oefqD9JS5e9BpHuYQyldOroGQ8uKSDaC9r/pSlOxjdF5
+	CmNi/szktynf8MvoaLlnMJw6OhmcEEmuzog9VfZrYg2FevtxXICiX0a7Eu9ETuUu
+	RFwLRPJaqW2JRt9ZPSNnMCyy+6z1ABOMyTrKC/U0JTehSaE+gKuq7mHbq4M/nAV8
+	hZci2QBQzMtp+C0l6SV3Nw7u2kRb36CPDGfL15S84fPSnA9cuhYfLuyM1YTcGwlg
+	qnDwMSc2nWW39MHxW2wfMr4/I0v6PwtLQ72dfl6RzlWXtQDhE8q9P+iOKvCKFRwU
+	iMJRRvq6ePt+JToWK0VSPlNZsBlStmGOmkgn0PTjhg==
+Received: from ppma21.wdc07v.mail.ibm.com (5b.69.3da9.ip4.static.sl-reverse.com [169.61.105.91])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gbq3rkdg0-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 03 Sep 2026 06:33:00 +0000 (GMT)
+Received: from pps.filterd (ppma21.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma21.wdc07v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 6836QOWk024039;
+	Thu, 3 Sep 2026 06:32:59 GMT
+Received: from smtprelay02.fra02v.mail.ibm.com ([9.218.2.226])
+	by ppma21.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4gcarkecj6-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 03 Sep 2026 06:32:59 +0000 (GMT)
+Received: from smtpav05.fra02v.mail.ibm.com (smtpav05.fra02v.mail.ibm.com [10.20.54.104])
+	by smtprelay02.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6836WtDE42598882
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Thu, 3 Sep 2026 06:32:55 GMT
+Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 20C992004B;
+	Thu,  3 Sep 2026 06:32:55 +0000 (GMT)
+Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 7526820040;
+	Thu,  3 Sep 2026 06:32:46 +0000 (GMT)
+Received: from li-7bb28a4c-2dab-11b2-a85c-887b5c60d769.ibm.com.com (unknown [9.39.27.193])
+	by smtpav05.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Thu,  3 Sep 2026 06:32:46 +0000 (GMT)
+From: Shrikanth Hegde <sshegde@linux.ibm.com>
+To: linux-kernel@vger.kernel.org, mingo@kernel.org, peterz@infradead.org,
+        juri.lelli@redhat.com, vincent.guittot@linaro.org,
+        yury.norov@gmail.com, kprateek.nayak@amd.com, iii@linux.ibm.com,
+        corbet@lwn.net, meted@linux.ibm.com, ynorov@nvidia.com
+Cc: sshegde@linux.ibm.com, tglx@kernel.org, gregkh@linuxfoundation.org,
+        pbonzini@redhat.com, seanjc@google.com, vschneid@redhat.com,
+        huschle@linux.ibm.com, rostedt@goodmis.org, dietmar.eggemann@arm.com,
+        maddy@linux.ibm.com, srikar@linux.ibm.com, hdanton@sina.com,
+        chleroy@kernel.org, vineeth@bitbyteword.org, frederic@kernel.org,
+        arighi@nvidia.com, pauld@redhat.com, christian.loehle@arm.com,
+        tj@kernel.org, tommaso.cucinotta@gmail.com, maz@kernel.org,
+        rafael@kernel.org, rdunlap@infradead.org, kernellwp@gmail.com,
+        linux-doc@vger.kernel.org, jgross@suse.com,
+        virtualization@lists.linux.dev, sunlightlinux@gmail.com
+Subject: [PATCH v12 00/13] sched, steal_governor: Introduce preferred CPUs and steal-driven vCPU backoff
+Date: Thu,  3 Sep 2026 12:02:27 +0530
+Message-ID: <20260903063240.268775-1-sshegde@linux.ibm.com>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Authority-Analysis: v=2.4 cv=EIc2FVZC c=1 sm=1 tr=0 ts=6a99149d cx=c_pps
+ a=GFwsV6G8L6GxiO2Y/PsHdQ==:117 a=GFwsV6G8L6GxiO2Y/PsHdQ==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=uAbxVGIbfxUO_5tXvNgY:22 a=jJrOw3FHAAAA:8
+ a=VnNF1IyMAAAA:8 a=VwQbUJbxAAAA:8 a=L6LalbJ2hlVtWKjWbVoA:9 a=3ZKOabzyN94A:10
+ a=QEXdDO2ut3YA:10 a=O8hF6Hzn-FEA:10
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAzMDA1NyBTYWx0ZWRfX2IzyDvUE5SW3
+ 6TK5WVK/0NIEajxeDqxbxYRLwdHbH+9TKctEr2l4lVhJNCeB/eM1/GoOyRNn/KRaVLgNVMJN581
+ AAe9IdB1ay5anHpZr9vPAFPCg9eTgYHMd7sAUIOCmLjsytuD4/PBRyvVjbfgmGNcPhCFhSubeUz
+ jUMdIyUaU2ioj0V8FbXSLpwA7vhO7qT8pHrIim2/7TE1yx8UMEFKev4YOLdz1AkiRiYqPa95A0w
+ P8OKyKeCWNDrw3eyHK7WLrPvCXosLWPiPONI9smftZEwdIqqf74ZUqbl8Ror/R3BtagdyZpUmiL
+ IMza7r2Q0557gyIeLmljlm+AaQ0pdHwUU+ODJFuW4msG/dMKEe7pAF6kjExbrMrZwkgpEGPJTd8
+ GK2CxnqHww5Z4BbYu0pcyj3vRbampLid1Heu3kDtWSzyJtfWtqR7A8RBJxkqhWsmW0hHGGG9wzw
+ h+VHixkQysAHekmQcGA==
+X-Proofpoint-GUID: AxOdXQIDtZauorfj5CTZVdFsKW286wnb
+X-Proofpoint-ORIG-GUID: HXB4WesKDyu0lqNNM4IJKpfSMrmJ7hL6
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAzMDA1NyBTYWx0ZWRfX/oxXit/zNsm3
+ m9vI/L0Bj726rOduvS4MmNCiNzMCsA2Z/zlxUTQB1W4YnY3TG+PUdpMcnfTk7q2EuoRF3hDPyFg
+ vA8S9Yv/29LHlZ6YbiP3OzVr09UksTY=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-03_02,2026-09-02_04,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 impostorscore=0 suspectscore=0 priorityscore=1501 clxscore=1015
+ phishscore=0 spamscore=0 adultscore=0 lowpriorityscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609030057
 
-SGksDQoNCldlIGhhdmUgdmVyaWZpZWQgdGhpcyBwYXRjaCBvbiBvdXIgcGxhdGZvcm0gKGtlcm5l
-bCB2Ni4xOCAvIEFuZHJvaWQgMTcpIGFuZCBjYW4gY29uZmlybSBpdCByZXNvbHZlcyB0aGUgcmFj
-ZSBjb25kaXRpb24gaXNzdWUuIFRoZSBwcm9ibGVtIGlzIHRoYXQNCnRpY2tfaW5zdGFsbF9icm9h
-ZGNhc3RfZGV2aWNlKCkgY2FsbHMgY2xvY2tldmVudHNfZXhjaGFuZ2VfZGV2aWNlKCkgdG8gbW92
-ZSB0aGUgb2xkIGRldmljZSB0byB0aGUgcmVsZWFzZWQgbGlzdCAoc2V0dGluZyBpdCB0byBERVRB
-Q0hFRCBzdGF0ZSksIHRoZW4gdXBkYXRlcyB0aWNrX2Jyb2FkY2FzdF9kZXZpY2UuZXZ0ZGV2IHRv
-IHRoZSBuZXcgZGV2aWNlIOKAlCBidXQgdGhpcyBzZXF1ZW5jZSBpcyBub3QgcHJvdGVjdGVkIGJ5
-IHRpY2tfYnJvYWRjYXN0X2xvY2suIFRoZSBjcHVpZGxlL2hydGltZXIgcGF0aHMgY2FuIG9ic2Vy
-dmUgdGhlIG9sZCBkZXZpY2UgaW4gREVUQUNIRUQgc3RhdGUgZHVyaW5nIHRoaXMgd2luZG93LCBs
-ZWFkaW5nIHRvIHVuZXhwZWN0ZWQgYmVoYXZpb3IuDQoNCkFmdGVyIGFwcGx5aW5nIHRoZSBwYXRj
-aCwgdGhlIGlzc3VlIG5vIGxvbmdlciByZXByb2R1Y2VzIHVuZGVyIG91ciBjb25jdXJyZW50IENQ
-VSBpZGxlICsgY2xvY2tldmVudCBkZXZpY2UgcmVnaXN0cmF0aW9uIHRlc3RpbmcuDQoNCkNvdWxk
-IHlvdSBwbGVhc2Ugc2hhcmUgdGhlIGV4cGVjdGVkIHRpbWVsaW5lIGZvciBtZXJnaW5nIHRoaXMg
-Zml4IGludG8gdGhlIG1haW5saW5lIGtlcm5lbD8gV2UgaGF2ZSBkb3duc3RyZWFtIHByb2R1Y3Rz
-IGRlcGVuZGluZyBvbiB0aGlzIGZpeCBhbmQgd291bGQgYXBwcmVjaWF0ZSBpdCBpZiB0aGUgbWVy
-Z2UgY291bGQgYmUgZXhwZWRpdGVkLg0KDQpUZXN0IGVudmlyb25tZW50Og0KICAtIEtlcm5lbDog
-Ni4xOA0KICAtIFBsYXRmb3JtOiBBbmRyb2lkIDE3DQogIC0gVGVzdDogQ29uY3VycmVudCBDUFUg
-aWRsZSArIGNsb2NrZXZlbnQgZGV2aWNlIHJlZ2lzdHJhdGlvbg0KDQpUaGFua3MsDQpsaXVzaHVn
-YW8NCg0KLS0tLS3pgq7ku7bljp/ku7YtLS0tLQ0K5Y+R5Lu25Lq6OiDliJjmnK/pq5ggDQrlj5Hp
-gIHml7bpl7Q6IDIwMjblubQ45pyIMjjml6UgMTc6MDkNCuaUtuS7tuS6ujogJ1Rob21hcyBHbGVp
-eG5lcicgPHRnbHhAbGludXRyb25peC5kZT47IOacseaBuuS5viA8emh1a2FpcWlhbkB4aWFvbWku
-Y29tPjsgRGFuaWVsIExlemNhbm8gPGRhbmllbC5sZXpjYW5vQGxpbmFyby5vcmc+OyDlvKDlmInk
-vJ8gPHpoYW5namlhd2VpOEB4aWFvbWkuY29tPg0K5oqE6YCBOiBsaW51eC1rZXJuZWxAdmdlci5r
-ZXJuZWwub3JnOyDnjovpn6wgPGxpbmd5dWVAeGlhb21pLmNvbT47IOeGiuS6riA8eGlvbmdsaWFu
-Z0B4aWFvbWkuY29tPjsgaXNhYWNtYW5qYXJyZXNAZ29vZ2xlLmNvbTsgRnJlZGVyaWMgV2Vpc2Jl
-Y2tlciA8ZnJlZGVyaWNAa2VybmVsLm9yZz47IEFubmEtTWFyaWEgQmVobnNlbiA8YW5uYS1tYXJp
-YUBsaW51dHJvbml4LmRlPjsg5qKB5Lyf6bmPIDx3ZWlwZW5nbGlhbmdAeGlhb21pLmNvbT47IOe/
-gemHkemjniA8d2VuZ2ppbmZlaUB4aWFvbWkuY29tPg0K5Li76aKYOiDlm57lpI06IFtFeHRlcm5h
-bCBNYWlsXVtQQVRDSF0gdGljay9icm9hZGNhc3Q6IFBsdWcgY2xvY2tldmVudHMgcmVwbGFjZW1l
-bnQgcmFjZQ0KDQpIaSwNCg0KV2UgaGF2ZSB2ZXJpZmllZCB0aGlzIHBhdGNoIG9uIG91ciBwbGF0
-Zm9ybSAoa2VybmVsIHY2LjE4IC8gQW5kcm9pZCAxNykgYW5kIGNhbiBjb25maXJtIGl0IHJlc29s
-dmVzIHRoZSByYWNlIGNvbmRpdGlvbiBpc3N1ZS4gVGhlIHByb2JsZW0gaXMgdGhhdA0KdGlja19p
-bnN0YWxsX2Jyb2FkY2FzdF9kZXZpY2UoKSBjYWxscyBjbG9ja2V2ZW50c19leGNoYW5nZV9kZXZp
-Y2UoKSB0byBtb3ZlIHRoZSBvbGQgZGV2aWNlIHRvIHRoZSByZWxlYXNlZCBsaXN0IChzZXR0aW5n
-IGl0IHRvIERFVEFDSEVEIHN0YXRlKSwgdGhlbiB1cGRhdGVzIHRpY2tfYnJvYWRjYXN0X2Rldmlj
-ZS5ldnRkZXYgdG8gdGhlIG5ldyBkZXZpY2Ug4oCUIGJ1dCB0aGlzIHNlcXVlbmNlIGlzIG5vdCBw
-cm90ZWN0ZWQgYnkgdGlja19icm9hZGNhc3RfbG9jay4gVGhlIGNwdWlkbGUvaHJ0aW1lciBwYXRo
-cyBjYW4gb2JzZXJ2ZSB0aGUgb2xkIGRldmljZSBpbiBERVRBQ0hFRCBzdGF0ZSBkdXJpbmcgdGhp
-cyB3aW5kb3csIGxlYWRpbmcgdG8gdW5leHBlY3RlZCBiZWhhdmlvci4NCg0KQWZ0ZXIgYXBwbHlp
-bmcgdGhlIHBhdGNoLCB0aGUgaXNzdWUgbm8gbG9uZ2VyIHJlcHJvZHVjZXMgdW5kZXIgb3VyIGNv
-bmN1cnJlbnQgQ1BVIGlkbGUgKyBjbG9ja2V2ZW50IGRldmljZSByZWdpc3RyYXRpb24gdGVzdGlu
-Zy4NCg0KQ291bGQgeW91IHBsZWFzZSBzaGFyZSB0aGUgZXhwZWN0ZWQgdGltZWxpbmUgZm9yIG1l
-cmdpbmcgdGhpcyBmaXggaW50byB0aGUgbWFpbmxpbmUga2VybmVsPyBXZSBoYXZlIGRvd25zdHJl
-YW0gcHJvZHVjdHMgZGVwZW5kaW5nIG9uIHRoaXMgZml4IGFuZCB3b3VsZCBhcHByZWNpYXRlIGl0
-IGlmIHRoZSBtZXJnZSBjb3VsZCBiZSBleHBlZGl0ZWQuDQoNClRlc3QgZW52aXJvbm1lbnQ6DQog
-IC0gS2VybmVsOiA2LjE4DQogIC0gUGxhdGZvcm06IEFuZHJvaWQgMTcNCiAgLSBUZXN0OiBDb25j
-dXJyZW50IENQVSBpZGxlICsgY2xvY2tldmVudCBkZXZpY2UgcmVnaXN0cmF0aW9uDQoNClRoYW5r
-cywNCmxpdXNodWdhbw0KDQotLS0tLemCruS7tuWOn+S7ti0tLS0tDQrlj5Hku7bkuro6IFRob21h
-cyBHbGVpeG5lciA8dGdseEBsaW51dHJvbml4LmRlPg0K5Y+R6YCB5pe26Ze0OiAyMDI05bm0OOac
-iDEy5pelIDIyOjIwDQrmlLbku7bkuro6IOacseaBuuS5viA8emh1a2FpcWlhbkB4aWFvbWkuY29t
-PjsgRGFuaWVsIExlemNhbm8gPGRhbmllbC5sZXpjYW5vQGxpbmFyby5vcmc+OyDlvKDlmInkvJ8g
-PHpoYW5namlhd2VpOEB4aWFvbWkuY29tPg0K5oqE6YCBOiBsaW51eC1rZXJuZWxAdmdlci5rZXJu
-ZWwub3JnOyDnjovpn6wgPGxpbmd5dWVAeGlhb21pLmNvbT47IOeGiuS6riA8eGlvbmdsaWFuZ0B4
-aWFvbWkuY29tPjsgaXNhYWNtYW5qYXJyZXNAZ29vZ2xlLmNvbTsgRnJlZGVyaWMgV2Vpc2JlY2tl
-ciA8ZnJlZGVyaWNAa2VybmVsLm9yZz47IEFubmEtTWFyaWEgQmVobnNlbiA8YW5uYS1tYXJpYUBs
-aW51dHJvbml4LmRlPjsg5qKB5Lyf6bmPIDx3ZWlwZW5nbGlhbmdAeGlhb21pLmNvbT47IOe/gemH
-kemjniA8d2VuZ2ppbmZlaUB4aWFvbWkuY29tPg0K5Li76aKYOiBbRXh0ZXJuYWwgTWFpbF1bUEFU
-Q0hdIHRpY2svYnJvYWRjYXN0OiBQbHVnIGNsb2NrZXZlbnRzIHJlcGxhY2VtZW50IHJhY2UNCg0K
-W+WklumDqOmCruS7tl0g5q2k6YKu5Lu25p2l5rqQ5LqO5bCP57Gz5YWs5Y+45aSW6YOo77yM6K+3
-6LCo5oWO5aSE55CG44CC6Iul5a+56YKu5Lu25a6J5YWo5oCn5a2Y55aR77yM6K+35bCG6YKu5Lu2
-6L2s5Y+R57uZbWlzZWNAeGlhb21pLmNvbei/m+ihjOWPjemmiA0KDQrmnLHmgbrkub4gcmVwb3J0
-ZWQgYW5kIGRlY29kZWQgdGhlIGZvbGxvd2luZyByYWNlIGNvbmRpdGlvbiB3aGVuIGEgYnJvYWRj
-YXN0IGRldmljZSBpcyByZXBsYWNlZDoNCg0KQ1BVQSAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgIENQVUINCiBfX3RpY2tfYnJvYWRjYXN0X29uZXNob3RfY29udHJvbCgpDQogICBi
-YyA9IHRpY2tfYnJvYWRjYXN0X2RldmljZS5ldnRkZXY7DQogICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgdGlja19pbnN0YWxsX2Jyb2FkY2FzdF9kZXZpY2UoZGV2KQ0KICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGNsb2NrZXZlbnRzX2V4Y2hhbmdl
-X2RldmljZShjdXIsIGRldikNCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICBzaHV0ZG93bihjdXIpOw0KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgIGRldGFjaChjdXIpOw0KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgIGN1ci0+aGFuZGxlciA9IG5vb3A7DQogICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgdGlja19icm9hZGNhc3RfZGV2aWNlLmV2dGRldiA9IGRldjsNCg0KICB0
-aWNrX2Jyb2FkY2FzdF9zZXRfZXZlbnQoYmMsIG5leHRfZXZlbnQpOyA8LSBGQUlMOiBhcm1zIGEg
-ZGV0YWNoZWQgZGV2aWNlLg0KDQpJZiB0aGUgb3JpZ2luYWwgYnJvYWRjYXN0IGRldmljZSBoYXMg
-YSByZXN0cmljdGVkIGludGVycnVwdCBhZmZpbml0eSBtYXNrIGFuZCB0aGUgbGFzdCBDUFUgaW4g
-dGhhdCBtYXNrIGdvZXMgb2ZmbGluZSB0aGVuIHRoZSBCVUcoKSBpbg0KdGlja19jbGVhbnVwX2Rl
-YWRfY3B1KCkgdHJpZ2dlcnMgYmVjYXVzZSB0aGUgY2xvY2tldmVudCBkZXZpY2UgaXMgbm90IGlu
-IGRldGFjaGVkIHN0YXRlLg0KDQpUaGUgcmVhc29uIGZvciB0aGlzIGlzIHRoYXQgdGlja19pbnN0
-YWxsX2Jyb2FkY2FzdF9kZXZpY2UoKSBpcyBub3Qgc2VyaWFsaXplZCB2cy4gdGljayBicm9hZGNh
-c3Qgb3BlcmF0aW9ucy4NCg0KVGhlIG9idmlvdXMgY3VyZSBpcyB0byBzZXJpYWxpemUgdGlja19p
-bnN0YWxsX2Jyb2FkY2FzdF9kZXZpY2UoKSB3aXRoIHRpY2tfYnJvYWRjYXN0X2xvY2sgYWdhaW5z
-dCBhIGNvbmN1cnJlbnQgdGljayBicm9hZGNhc3Qgb3BlcmF0aW9uLg0KDQpUaGF0IHJlcXVpcmVz
-IHRvIHNwbGl0IGNsb2NrZXZlbnRzX2V4Y2hhbmdlX2RldmljZSgpIGludG8gdHdvIHBhcnRzLCBv
-bmUgd2hpY2ggZG9lcyB0aGUgZXhjaGFuZ2UsIHNodXRkb3duIGFuZCBkZXRhY2ggb3BlcmF0aW9u
-IGFuZCB0aGUgb3RoZXIgd2hpY2ggZHJvcHMgdGhlIG1vZHVsZSByZWZlcmVuY2UgY291bnQuIFRo
-aXMgaXMgcmVxdWlyZWQgYmVjYXVzZSB0aGUgbW9kdWxlIHJlZmVyZW5jZSBjYW5ub3QgYmUgZHJv
-cHBlZCB3aGlsZSBob2xkaW5nIHRpY2tfYnJvYWRjYXN0X2xvY2suDQoNCkxldCBjbG9ja2V2ZW50
-c19leGNoYW5nZV9kZXZpY2UoKSBkbyBib3RoIG9wZXJhdGlvbnMgYXMgYmVmb3JlLCBidXQgbGV0
-IHRoZSBicm9hZGNhc3QgZGV2aWNlIGNvZGUgdGFrZSB0aGUgdHdvIHN0ZXAgYXBwcm9hY2ggYW5k
-IGRvIHRoZSBkZXZpY2UgZXhjaGFuZ2UgdW5kZXIgdGlja19icm9hZGNhc3RfbG9jayBhbmQgZHJv
-cCB0aGUgbW9kdWxlIHJlZmVyZW5jZSBjb3VudCBhZnRlciByZWxlYXNpbmcgaXQuDQoNCkZpeGVz
-OiBmODM4MWNiYTA0YmEgKCJbUEFUQ0hdIHRpY2stbWFuYWdlbWVudDogYnJvYWRjYXN0IGZ1bmN0
-aW9uYWxpdHkiKQ0KUmVwb3J0ZWQtYnk6IOacseaBuuS5viA8emh1a2FpcWlhbkB4aWFvbWkuY29t
-Pg0KU2lnbmVkLW9mZi1ieTogVGhvbWFzIEdsZWl4bmVyIDx0Z2x4QGxpbnV0cm9uaXguZGU+DQot
-LS0NCiBrZXJuZWwvdGltZS9jbG9ja2V2ZW50cy5jICAgIHwgICAzMyArKysrKysrKysrKysrKysr
-KysrKy0tLS0tLS0tLS0tLS0NCiBrZXJuZWwvdGltZS90aWNrLWJyb2FkY2FzdC5jIHwgICAzNiAr
-KysrKysrKysrKysrKysrKysrKysrLS0tLS0tLS0tLS0tLS0NCiBrZXJuZWwvdGltZS90aWNrLWlu
-dGVybmFsLmggIHwgICAgMiArKw0KIDMgZmlsZXMgY2hhbmdlZCwgNDQgaW5zZXJ0aW9ucygrKSwg
-MjcgZGVsZXRpb25zKC0pDQoNCi0tLSBhL2tlcm5lbC90aW1lL2Nsb2NrZXZlbnRzLmMNCisrKyBi
-L2tlcm5lbC90aW1lL2Nsb2NrZXZlbnRzLmMNCkBAIC01NTcsMzQgKzU1Nyw0MSBAQCB2b2lkIGNs
-b2NrZXZlbnRzX2hhbmRsZV9ub29wKHN0cnVjdCBjbG9jICB7ICB9DQoNCi0vKioNCi0gKiBjbG9j
-a2V2ZW50c19leGNoYW5nZV9kZXZpY2UgLSByZWxlYXNlIGFuZCByZXF1ZXN0IGNsb2NrIGRldmlj
-ZXMNCi0gKiBAb2xkOiAgICAgICBkZXZpY2UgdG8gcmVsZWFzZSAoY2FuIGJlIE5VTEwpDQotICog
-QG5ldzogICAgICAgZGV2aWNlIHRvIHJlcXVlc3QgKGNhbiBiZSBOVUxMKQ0KLSAqDQotICogQ2Fs
-bGVkIGZyb20gdmFyaW91cyB0aWNrIGZ1bmN0aW9ucyB3aXRoIGNsb2NrZXZlbnRzX2xvY2sgaGVs
-ZCBhbmQNCi0gKiBpbnRlcnJ1cHRzIGRpc2FibGVkLg0KLSAqLw0KLXZvaWQgY2xvY2tldmVudHNf
-ZXhjaGFuZ2VfZGV2aWNlKHN0cnVjdCBjbG9ja19ldmVudF9kZXZpY2UgKm9sZCwNCi0gICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgIHN0cnVjdCBjbG9ja19ldmVudF9kZXZpY2UgKm5ldykN
-Cit2b2lkIF9fY2xvY2tldmVudHNfZXhjaGFuZ2VfZGV2aWNlKHN0cnVjdCBjbG9ja19ldmVudF9k
-ZXZpY2UgKm9sZCwNCisgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgc3RydWN0IGNs
-b2NrX2V2ZW50X2RldmljZSAqbmV3KQ0KIHsNCiAgICAgICAgLyoNCiAgICAgICAgICogQ2FsbGVy
-IHJlbGVhc2VzIGEgY2xvY2sgZXZlbnQgZGV2aWNlLiBXZSBxdWV1ZSBpdCBpbnRvIHRoZQ0KICAg
-ICAgICAgKiByZWxlYXNlZCBsaXN0IGFuZCBkbyBhIG5vdGlmeSBhZGQgbGF0ZXIuDQogICAgICAg
-ICAqLw0KICAgICAgICBpZiAob2xkKSB7DQotICAgICAgICAgICAgICAgbW9kdWxlX3B1dChvbGQt
-Pm93bmVyKTsNCiAgICAgICAgICAgICAgICBjbG9ja2V2ZW50c19zd2l0Y2hfc3RhdGUob2xkLCBD
-TE9DS19FVlRfU1RBVEVfREVUQUNIRUQpOw0KICAgICAgICAgICAgICAgIGxpc3RfbW92ZSgmb2xk
-LT5saXN0LCAmY2xvY2tldmVudHNfcmVsZWFzZWQpOw0KICAgICAgICB9DQoNCiAgICAgICAgaWYg
-KG5ldykgew0KLSAgICAgICAgICAgICAgIEJVR19PTighY2xvY2tldmVudF9zdGF0ZV9kZXRhY2hl
-ZChuZXcpKTsNCisgICAgICAgICAgICAgICBXQVJOX09OKCFjbG9ja2V2ZW50X3N0YXRlX2RldGFj
-aGVkKG5ldykpOw0KICAgICAgICAgICAgICAgIGNsb2NrZXZlbnRzX3NodXRkb3duKG5ldyk7DQog
-ICAgICAgIH0NCiB9DQoNCiAvKioNCisgKiBjbG9ja2V2ZW50c19leGNoYW5nZV9kZXZpY2UgLSBy
-ZWxlYXNlIGFuZCByZXF1ZXN0IGNsb2NrIGRldmljZXMNCisgKiBAb2xkOiAgICAgICBkZXZpY2Ug
-dG8gcmVsZWFzZSAoY2FuIGJlIE5VTEwpDQorICogQG5ldzogICAgICAgZGV2aWNlIHRvIHJlcXVl
-c3QgKGNhbiBiZSBOVUxMKQ0KKyAqDQorICogQ2FsbGVkIGZyb20gdmFyaW91cyB0aWNrIGZ1bmN0
-aW9ucyB3aXRoIGNsb2NrZXZlbnRzX2xvY2sgaGVsZCBhbmQNCisgKiBpbnRlcnJ1cHRzIGRpc2Fi
-bGVkLg0KKyAqLw0KK3ZvaWQgY2xvY2tldmVudHNfZXhjaGFuZ2VfZGV2aWNlKHN0cnVjdCBjbG9j
-a19ldmVudF9kZXZpY2UgKm9sZCwNCisgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHN0
-cnVjdCBjbG9ja19ldmVudF9kZXZpY2UgKm5ldykgew0KKyAgICAgICBfX2Nsb2NrZXZlbnRzX2V4
-Y2hhbmdlX2RldmljZShvbGQsIG5ldyk7DQorICAgICAgIGlmIChvbGQpDQorICAgICAgICAgICAg
-ICAgbW9kdWxlX3B1dChvbGQtPm93bmVyKTsNCit9DQorDQorLyoqDQogICogY2xvY2tldmVudHNf
-c3VzcGVuZCAtIHN1c3BlbmQgY2xvY2sgZGV2aWNlcw0KICAqLw0KIHZvaWQgY2xvY2tldmVudHNf
-c3VzcGVuZCh2b2lkKQ0KQEAgLTY1MCw3ICs2NTcsNyBAQCB2b2lkIHRpY2tfY2xlYW51cF9kZWFk
-X2NwdShpbnQgY3B1KQ0KICAgICAgICAgICAgICAgIGlmIChjcHVtYXNrX3Rlc3RfY3B1KGNwdSwg
-ZGV2LT5jcHVtYXNrKSAmJg0KICAgICAgICAgICAgICAgICAgICBjcHVtYXNrX3dlaWdodChkZXYt
-PmNwdW1hc2spID09IDEgJiYNCiAgICAgICAgICAgICAgICAgICAgIXRpY2tfaXNfYnJvYWRjYXN0
-X2RldmljZShkZXYpKSB7DQotICAgICAgICAgICAgICAgICAgICAgICBCVUdfT04oIWNsb2NrZXZl
-bnRfc3RhdGVfZGV0YWNoZWQoZGV2KSk7DQorICAgICAgICAgICAgICAgICAgICAgICBXQVJOX09O
-KCFjbG9ja2V2ZW50X3N0YXRlX2RldGFjaGVkKGRldikpOw0KICAgICAgICAgICAgICAgICAgICAg
-ICAgbGlzdF9kZWwoJmRldi0+bGlzdCk7DQogICAgICAgICAgICAgICAgfQ0KICAgICAgICB9DQot
-LS0gYS9rZXJuZWwvdGltZS90aWNrLWJyb2FkY2FzdC5jDQorKysgYi9rZXJuZWwvdGltZS90aWNr
-LWJyb2FkY2FzdC5jDQpAQCAtMTYyLDIzICsxNjIsMzEgQEAgc3RhdGljIGJvb2wgdGlja19zZXRf
-b25lc2hvdF93YWtldXBfZGV2aQ0KICAqLw0KIHZvaWQgdGlja19pbnN0YWxsX2Jyb2FkY2FzdF9k
-ZXZpY2Uoc3RydWN0IGNsb2NrX2V2ZW50X2RldmljZSAqZGV2LCBpbnQgY3B1KSAgew0KLSAgICAg
-ICBzdHJ1Y3QgY2xvY2tfZXZlbnRfZGV2aWNlICpjdXIgPSB0aWNrX2Jyb2FkY2FzdF9kZXZpY2Uu
-ZXZ0ZGV2Ow0KKyAgICAgICBzdHJ1Y3QgY2xvY2tfZXZlbnRfZGV2aWNlICpjdXI7DQoNCi0gICAg
-ICAgaWYgKHRpY2tfc2V0X29uZXNob3Rfd2FrZXVwX2RldmljZShkZXYsIGNwdSkpDQotICAgICAg
-ICAgICAgICAgcmV0dXJuOw0KKyAgICAgICBzY29wZWRfZ3VhcmQocmF3X3NwaW5sb2NrX2lycXNh
-dmUsICZ0aWNrX2Jyb2FkY2FzdF9sb2NrKSB7DQoNCi0gICAgICAgaWYgKCF0aWNrX2NoZWNrX2Jy
-b2FkY2FzdF9kZXZpY2UoY3VyLCBkZXYpKQ0KLSAgICAgICAgICAgICAgIHJldHVybjsNCisgICAg
-ICAgICAgICAgICBpZiAodGlja19zZXRfb25lc2hvdF93YWtldXBfZGV2aWNlKGRldiwgY3B1KSkN
-CisgICAgICAgICAgICAgICAgICAgICAgIHJldHVybjsNCg0KLSAgICAgICBpZiAoIXRyeV9tb2R1
-bGVfZ2V0KGRldi0+b3duZXIpKQ0KLSAgICAgICAgICAgICAgIHJldHVybjsNCisgICAgICAgICAg
-ICAgICBjdXIgPSB0aWNrX2Jyb2FkY2FzdF9kZXZpY2UuZXZ0ZGV2Ow0KKyAgICAgICAgICAgICAg
-IGlmICghdGlja19jaGVja19icm9hZGNhc3RfZGV2aWNlKGN1ciwgZGV2KSkNCisgICAgICAgICAg
-ICAgICAgICAgICAgIHJldHVybjsNCg0KLSAgICAgICBjbG9ja2V2ZW50c19leGNoYW5nZV9kZXZp
-Y2UoY3VyLCBkZXYpOw0KKyAgICAgICAgICAgICAgIGlmICghdHJ5X21vZHVsZV9nZXQoZGV2LT5v
-d25lcikpDQorICAgICAgICAgICAgICAgICAgICAgICByZXR1cm47DQorDQorICAgICAgICAgICAg
-ICAgX19jbG9ja2V2ZW50c19leGNoYW5nZV9kZXZpY2UoY3VyLCBkZXYpOw0KKyAgICAgICAgICAg
-ICAgIGlmIChjdXIpDQorICAgICAgICAgICAgICAgICAgICAgICBjdXItPmV2ZW50X2hhbmRsZXIg
-PSBjbG9ja2V2ZW50c19oYW5kbGVfbm9vcDsNCisgICAgICAgICAgICAgICBXUklURV9PTkNFKHRp
-Y2tfYnJvYWRjYXN0X2RldmljZS5ldnRkZXYsIGRldik7DQorICAgICAgICAgICAgICAgaWYgKCFj
-cHVtYXNrX2VtcHR5KHRpY2tfYnJvYWRjYXN0X21hc2spKQ0KKyAgICAgICAgICAgICAgICAgICAg
-ICAgdGlja19icm9hZGNhc3Rfc3RhcnRfcGVyaW9kaWMoZGV2KTsNCisgICAgICAgfQ0KKw0KKyAg
-ICAgICAvKiBNb2R1bGUgcmVsZWFzZSBtdXN0IGJlIG91dHNpZGUgb2YgdGhlIGxvY2sgKi8NCiAg
-ICAgICAgaWYgKGN1cikNCi0gICAgICAgICAgICAgICBjdXItPmV2ZW50X2hhbmRsZXIgPSBjbG9j
-a2V2ZW50c19oYW5kbGVfbm9vcDsNCi0gICAgICAgdGlja19icm9hZGNhc3RfZGV2aWNlLmV2dGRl
-diA9IGRldjsNCi0gICAgICAgaWYgKCFjcHVtYXNrX2VtcHR5KHRpY2tfYnJvYWRjYXN0X21hc2sp
-KQ0KLSAgICAgICAgICAgICAgIHRpY2tfYnJvYWRjYXN0X3N0YXJ0X3BlcmlvZGljKGRldik7DQor
-ICAgICAgICAgICAgICAgbW9kdWxlX3B1dChjdXItPm93bmVyKTsNCg0KICAgICAgICBpZiAoIShk
-ZXYtPmZlYXR1cmVzICYgQ0xPQ0tfRVZUX0ZFQVRfT05FU0hPVCkpDQogICAgICAgICAgICAgICAg
-cmV0dXJuOw0KQEAgLTEyMDksNyArMTIxNyw3IEBAIGludCB0aWNrX2Jyb2FkY2FzdF9vbmVzaG90
-X2FjdGl2ZSh2b2lkKQ0KICAqLw0KIGJvb2wgdGlja19icm9hZGNhc3Rfb25lc2hvdF9hdmFpbGFi
-bGUodm9pZCkNCiB7DQotICAgICAgIHN0cnVjdCBjbG9ja19ldmVudF9kZXZpY2UgKmJjID0gdGlj
-a19icm9hZGNhc3RfZGV2aWNlLmV2dGRldjsNCisgICAgICAgc3RydWN0IGNsb2NrX2V2ZW50X2Rl
-dmljZSAqYmMgPSANCisgUkVBRF9PTkNFKHRpY2tfYnJvYWRjYXN0X2RldmljZS5ldnRkZXYpOw0K
-DQogICAgICAgIHJldHVybiBiYyA/IGJjLT5mZWF0dXJlcyAmIENMT0NLX0VWVF9GRUFUX09ORVNI
-T1QgOiBmYWxzZTsgIH0gQEAgLTEyMTcsNyArMTIyNSw3IEBAIGJvb2wgdGlja19icm9hZGNhc3Rf
-b25lc2hvdF9hdmFpbGFibGUodm8NCiAjZWxzZQ0KIGludCBfX3RpY2tfYnJvYWRjYXN0X29uZXNo
-b3RfY29udHJvbChlbnVtIHRpY2tfYnJvYWRjYXN0X3N0YXRlIHN0YXRlKSAgew0KLSAgICAgICBz
-dHJ1Y3QgY2xvY2tfZXZlbnRfZGV2aWNlICpiYyA9IHRpY2tfYnJvYWRjYXN0X2RldmljZS5ldnRk
-ZXY7DQorICAgICAgIHN0cnVjdCBjbG9ja19ldmVudF9kZXZpY2UgKmJjID0gDQorIFJFQURfT05D
-RSh0aWNrX2Jyb2FkY2FzdF9kZXZpY2UuZXZ0ZGV2KTsNCg0KICAgICAgICBpZiAoIWJjIHx8IChi
-Yy0+ZmVhdHVyZXMgJiBDTE9DS19FVlRfRkVBVF9IUlRJTUVSKSkNCiAgICAgICAgICAgICAgICBy
-ZXR1cm4gLUVCVVNZOw0KLS0tIGEva2VybmVsL3RpbWUvdGljay1pbnRlcm5hbC5oDQorKysgYi9r
-ZXJuZWwvdGltZS90aWNrLWludGVybmFsLmgNCkBAIC01Myw2ICs1Myw4IEBAIHN0YXRpYyBpbmxp
-bmUgdm9pZCBjbG9ja2V2ZW50X3NldF9zdGF0ZSggIH0NCg0KIGV4dGVybiB2b2lkIGNsb2NrZXZl
-bnRzX3NodXRkb3duKHN0cnVjdCBjbG9ja19ldmVudF9kZXZpY2UgKmRldik7DQorZXh0ZXJuIHZv
-aWQgX19jbG9ja2V2ZW50c19leGNoYW5nZV9kZXZpY2Uoc3RydWN0IGNsb2NrX2V2ZW50X2Rldmlj
-ZSAqb2xkLA0KKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgc3RydWN0
-IGNsb2NrX2V2ZW50X2RldmljZSANCisqbmV3KTsNCiBleHRlcm4gdm9pZCBjbG9ja2V2ZW50c19l
-eGNoYW5nZV9kZXZpY2Uoc3RydWN0IGNsb2NrX2V2ZW50X2RldmljZSAqb2xkLA0KICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHN0cnVjdCBjbG9ja19ldmVudF9kZXZpY2Ug
-Km5ldyk7ICBleHRlcm4gdm9pZCBjbG9ja2V2ZW50c19zd2l0Y2hfc3RhdGUoc3RydWN0IGNsb2Nr
-X2V2ZW50X2RldmljZSAqZGV2LA0KDQo=
+tl;dr
+
+This patch series represents the result of multiple iterations, 
+redesigns and community feedback. What started as an arch-specific RFC
+has evolved into a scheduler mechanism paired with a virtualization
+driver.
+
+The feature is intended for workloads where vCPU preemption has costs
+beyond the lost CPU time, such as lock-holder preemption, critical
+sections and TLB/cache misses. Database workloads, for example,
+contain a mixture of OLTP/OLAP activity and are prone to these costs.
+Reducing vCPU preemption in these cases can help improve overall system
+throughput. It may regress slightly for pure CPU-time workloads.
+
+I believe the series has now converged and is ready for merge
+consideration. The implementation has been deliberately kept simple.
+It performs well for real-life workloads on PowerPC, and earlier KVM
+testing also showed improvements on s390 and x86.
+
+Peter, Ingo,
+
+Could this series be considered for queuing in sched/core, targeting
+inclusion in 7.4?
+
+The feature could also benefit from a good testing cycle in the tip tree.
+
+The following work is planned post the merge: 
+- Design for arch specific interface which could help to bring out
+  additional performance gains.
+- A test framework for the feature.
+
+Feature has been kept as generic solution for all arch which support
+paravirtualization and steal time accounting. If a need arises, arch specific
+gating could be introduced.
+
+Special thanks to Yury Norov for the rigorous reviews that greatly 
+improved the series and to everyone who have provided their review
+comments so far. (including sashiko) Really appreciated! _/\_
+
+Those who have read previous cover-letters (after v8) may skip to 
+revision history :) 
+
+Detailed Background and Problem Statement
+=========================================
+
+As hardware scales, the density of physical CPUs (pCPUs) per server is
+increasing across many architectures. On these massive systems, deploying
+a single bare-metal OS for general workloads becomes increasingly difficult
+to manage if not impossible. The natural shift is to deploy
+Virtual Machines(VMs). For example, on IBM PowerPC architecture customers
+frequently deploy Shared Processor LPARs (SPLPARs) to maximize hardware ROI.
+
+Typical enterprise workloads are combination of bursty and long running;
+their average CPU utilization is low, but they require high core counts
+during peak transactions. To accommodate this, customers often
+use CPU overcommit strategies i.e. configuring VMs with a large number
+of virtual CPUs (vCPUs) while backing them with a smaller, shared pool
+of physical CPUs (pCPUs). This achieves a high server consolidation
+and excellent cost efficiency.
+
+However, when multiple such VMs have high utilization simultaneously,
+the shared pCPU pool becomes contended. The hypervisor is forced to preempt
+one vCPU to run another to maintain fairness. It maybe schedule vCPU of same
+VM or different VM.  If a vCPU is preempted while holding a lock or
+irq disabled section etc, overall forward progress collapses. There are some
+mitigation strategies such as yielding the vCPU to lock-holder, but they
+don't cover all the cases. In addition there are hidden costs such as cache,
+tlb misses, cost of vCPU preemption, host scheduling overheads etc.
+
+Under heavy contention, an effective mitigation strategy for workloads
+sensitive to vCPU preemption is for guests/VMs to voluntarily fold their
+workloads onto a smaller subset of vCPUs. By demanding fewer pCPUs,
+the VMs reduce overall host contention, which decreases vCPU preemption
+and improves total throughput for the system. 
+
+Limitations of Existing Approaches
+==================================
+
+CPU Hotplug, Isolated cpusets, cpuset: 
+- This is a heavy and administrative operation that requires topology rebuild.
+  Crucially, it breaks userspace CPU affinities. 
+
+Explicit task affinity:
+- Very difficult to manage for the users, if not impossible.
+
+We need a fast, co-operative backoff mechanism inside the kernel that can
+dynamically react to contention without violating user/task affinity
+contracts. Since reacting to the contention is agnostic to the user
+it cannot violate user affinity contracts.
+
+When there is high contention, fold the workload and use limited vCPUs
+and when there is no contention, use all the vCPUs again. This natural
+expansion/contraction gives the better performance to the users
+based on the underlying contention.
+
+Proposed Architecture
+=====================
+
+Current design is built on basis that contention is effectively
+quantified by steal time as seen in guest kernel.
+Steal time is already a well established construct today in
+para-virtualization world.  All major archs support this feature.
+It is indication of the contention of physical CPU. It scales according
+to the amount of contention. Today it is used by administrative users
+for changing the VM configurations. During high contention the steal
+time shows up in each guest based on its configuration. The proposed
+solution works well when all VMs honor the hint and work in co-operative
+manner. Note there is still no inter-guest communication to achieve this
+co-operation. Read the section on best practises on how to get the
+best out of this solution.
+
+This series introduces a dynamic vCPU backoff mechanism.
+It is separated into a core scheduler mechanism and a loadable
+virtualization policy module.
+
+Layer A: The Scheduler Mechanism (preferred CPUs)
+=================================================
+
+Series introduces a new CPU state called preferred. It indicates that
+vCPU can be safely used and using that vCPU won't increase contention
+for underlying physical CPUs. This state info is made available via
+cpu_preferred_mask, which is strictly maintained as a subset of
+cpu_active_mask.
+
+The scheduler uses this mask as a hint to fold workloads onto preferred
+CPUs using a few mechanisms.
+
+1. Wakeup: is_cpu_allowed() checks if CPU is preferred. If not calls
+   select_fallback_rq, which selects a preferred CPU if tasks's affinity
+   permits.
+
+2. The Tick (Push): During sched_tick(), if the current CPU is non-preferred,
+   the scheduler actively pushes the running task onto a preferred CPU
+   using a stopper thread. 
+
+3. Load Balance: sched_balance_rq restricts its domain span to
+   cpu_preferred_mask, preventing tasks from being pulled toward
+   non-preferred CPUs.
+
+Design Constraint: The scheduler strictly respects user affinities.
+If a task is pinned exclusively to non-preferred CPUs, it will remain there.
+The kernel will not break user/task affinity contracts.
+
+Layer B: The Policy Engine (virt/steal_governor)
+================================================
+
+The core scheduler should not dictate virtualization policy.
+Therefore, the policy is isolated into a new driver: steal_governor.
+(Can be selected by CONFIG_STEAL_GOVERNOR)
+This module latches onto that concept that contention is quantified by
+steal time. It periodically samples the steal time values across the
+system and depending on high/low steal values, takes appropriate action.
+
+When it sees high steal times, i.e. steal time exceeds high_threshold
+(default 5%), driver reduces the preferred CPUs by 1 core. 
+When it sees Low Steal Times, i.e.  steal time drops below low_threshold
+(default 2%), driver increases the preferred CPUs by 1 core.
+
+This creates a dynamic, self-maintained stepwise loop. The guest automatically
+shrinks its pCPU footprint when the host is saturated, and expands it when
+the noise clears while requiring zero cross-VM communication.
+
+Policy Design Constraints:
+- Ensure at least one core is kept as preferred.
+- Ensure preferred is always subset of active.
+
+Best Practises
+==============
+1. Ensure all the VM run kernel which has the patches.
+
+2. Keep CONFIG_STEAL_GOVERNOR=m. Build it as module, but don't load it by
+   default. When the administrative user enables it in one VM, he/she
+   will likely enable it in all VMs. Also module parameters can
+   only be changed at module load. Having it as module also allows one
+   to disable it to remove additional overhead it brings.
+
+3. Keep the interval_ms=500 to 5000. I.e. between 500ms to 5 second.
+   Though parameters allows slightly higher range. 
+
+4. Fine tune low and high threshold depending on your platform for best
+   results. Even where is no contention, very small steal values
+   might show up. So it might be better to keep low threshold higher
+   than 0.
+
+Baseline and Revision History
+==============================
+
+tip/sched/core at commit: 'ef9293b3b797 ("sched: dynamic: Fix preemption model strings")'
+
+For the talk on the problem and discussion on this issue, one can also
+refer to the OSPM26 talk[1]. 
+
+[1]: https://youtu.be/adxUKFPlOp0
+[2]: https://www.ibm.com/support/pages/ibm-power-virtualization-best-practices-guide
+[3]: https://www.ibm.com/docs/en/linux-on-systems?topic=bad-daytrader
+
+v11->v12:
+- Simplify the ARM64's 32 bit task case where p->cpus_ptr
+  may contain architecturally impossible CPUs.
+  (Dietmar Eggemann, Vincent Guittot)
+- Introduce cpumask_intersects_and for that simplification
+  (Yury Norov)
+- Keep the feature without any arch specific kconfig gating
+  for now. (Vincent Guittot)
+  If a need arises, it can be brought in
+
+v10->v11:
+- Return active CPUs instead of possible CPUs for steal ratio
+  denominator. This helps to avoid dilution of thresholds. 
+  (Yury Norov, Ionut Nechita)
+- Add XEN dom0 blocking check. (Ionut Nechita)
+- Update documentation/changelogs.
+- Multi arch framework has been deferred. Will be designed after
+  this series gets merged upstream. It would depend on enhancement requests.
+- Collected tags for patch 1
+- Fix possible crash for 32-bit tasks on arm64 (sashiko)
+- Fix possible race for task affinity due to abort in __migrate_task
+  (sashiko)
+- Fix unused variable for patch 1 (sashiko)
+- Disable interrupt when taking rq lock in a small window (sashiko)
+- Queue stopper iff migration is enabled. (sashiko)
+- Document workload characteristics and the possible regression
+  for pure CPU-time workloads.
+
+v9->v10:
+- Introduce kcpustat_field_total helper. (Yury Norov)
+- Always do the design checks. This helps to avoid placing design
+  constraints in core hotplug code. 
+- Remove cpu_preferred check in idle balancing. This helps to naturally
+  take care update of nohz.next_balance.
+- find_new_ilb changes are deferred as it isn't applicable for most
+  common use cases.
+- Move scheduler documentation to sched-paravirt.rst. (Yury Norov)
+- Add details of limitation of default values in documentation. (Yury Norov)
+- Remove task_can_sched_on_preferred out of sched.h (Mete Durlu)
+- Updated suggested-by tags for few patches. (I know i should have
+  done it earlier, sorry about that)
+- Minor polish of all changelogs.
+
+v8->v9:
+- Move to simpler layout. Everything in drivers/virt/steal_governor.c
+  (Yury Norov)
+- Move design checks into a helper function (Yury Norov)
+- Comments update (Yury Norov)
+- Requeue work without further checks when steal ratio is within the 
+  low/high threshold window. (Yury Norov)
+- Renamed sg_core_ctx to sg_ctx.
+
+v7->v8:
+- Rename to STEAL_GOVERNOR from STEAL_MONITOR.
+- Remove additional defaults.c and move it to core.c (Yury Norov)
+- Remove SM_DIR gating for direction control. (Yury Norov)
+- Enforce design constraint and restore the state if not met (Yury
+  Norov)
+- Drop nohz_full tick enable patch.
+- Move Kconfig patch as the last patch for enablement. (Yury Norov)
+- Use disable_delayed_work_sync to avoid race condition during
+  module unload. (Yury Norov)
+- Add same kconfig dependency and fail to compile the driver (Yury Norov)
+- Make low < high comparison during module init instead as they
+  are dependent parameters (Sashiko)
+- Update sysfs file helper section (Yury Norov)
+- Make preferred sysfs file available only with CONFIG_PREFERRED_CPU=y
+  (Yury Norov)
+- A few documentation and comments fixes. (Randy Dunlap)
+- Fix possible race in sched_push_current_non_preferred_cpu (Yury Norov)
+- Move is_migration_disabled check just before actual migration.
+- Make 100ms as minimal interval_ms from 10ms.
+- Make helper functions static and remove from header file as there
+  are no other callers.
+- Collapse helper functions and periodic work into one patch.
+
+Short summary on previous versions:
+v6->v7:
+- Consolidate new driver code to 4-5 patches.
+- defer the arch specific interface.
+- Use possible CPUs instead of active for steal value calculations.
+- Simplify is_cpu_allowed.
+- Make module parameters fixed at module load
+- Define CONFIG_STEAL_MONITOR and Make it select CONFIG_PREFERRED_CPU
+
+v5->v6:
+- Drop the optimization of caching the preferred state
+  in select_fallback_rq
+- Drop wakeup patch
+
+v4->v5:
+- Move the computation of steal time and decide on preferred CPU state
+  to a driver. i.e new driver called STEAL_MONITOR
+
+v3->v4:
+- Make preferred subset of active instead of online. 
+- Dropped RT patch and Defer sched_ext. Support only FAIR class.
+
+v2->v3:
+- Introduce a new config CONFIG_PREFERRED_CPU
+
+v1->v2:
+- A new name - Preferred CPUs and cpu_preferred_mask
+- Arch independent code. Everything happens in scheduler.
+- Steal time computation is gated with sched feature STEAL_MONITOR
+
+RFC v3-> RFC v4:
+- Introduced computation of steal time in arch/powerpc.
+
+RFC PATCH v1:
+- push task mechanism.
+- No steal time computation. Manual sysfs hint for preferred CPUs 
+
+v1: https://lore.kernel.org/all/236f4925-dd3c-41ef-be04-47708c9ce129@linux.ibm.com/
+v2: https://lore.kernel.org/all/20260407191950.643549-1-sshegde@linux.ibm.com/#t
+v3: https://lore.kernel.org/all/20260514152204.481115-1-sshegde@linux.ibm.com/#r
+v4: https://lore.kernel.org/all/20260617174139.155540-1-sshegde@linux.ibm.com/#t
+v5: https://lore.kernel.org/all/20260625124648.802832-1-sshegde@linux.ibm.com/
+v6: https://lore.kernel.org/all/20260701141654.500125-1-sshegde@linux.ibm.com/#t
+v7: https://lore.kernel.org/all/20260709215648.1246821-1-sshegde@linux.ibm.com/
+v8: https://lore.kernel.org/all/20260720172250.2257582-1-sshegde@linux.ibm.com/
+v9: https://lore.kernel.org/all/20260724140732.2683314-1-sshegde@linux.ibm.com/
+v10: https://lore.kernel.org/all/20260812054033.95658-1-sshegde@linux.ibm.com/
+v11: https://lore.kernel.org/all/20260825103855.721013-1-sshegde@linux.ibm.com/
+Even earlier version:
+https://lore.kernel.org/all/236f4925-dd3c-41ef-be04-47708c9ce129@linux.ibm.com/ 
+
+========================================
+Performance Numbers (powerpc, x86, s390)
+========================================
+
+PowerPC:
+===================
+VM1: 60VP/30EC and VM2: 30VP/20EC
+Shared physical CPU pool size: 50 Cores. Each core is SMT8.
+(VP - Virtual Core, EC - Entitles Core) -  PowerVM terminologies of SPLPAR[2]
+
+Default parameter values: 1000ms, 200 low threshold, 500 high threshold
+Both the VMs are running the same workload. Total throughput/time of VM1+VM2
+is being mentioned in all cases.
+
+Hackbench
+              baseline    steal_governor        steal_governor
+                             disabled               enabled
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+10 groups        5.20   |    5.40 (-3.85%)  |     4.65 (+10.58%)
+20 groups       11.39   |   12.01 (-5.44%)  |     7.09 (+37.75%)
+40 groups       20.32   |   19.80 (+2.56%)  |    11.31 (+44.34%)
+10 groups(-p)    2.37   |    2.26 (+4.64%)  |     2.06 (+13.08%)
+20 groups(-p)    3.34   |    3.28 (+1.80%)  |     3.20 (+4.19%)
+40 groups(-p)    4.46   |    4.83 (-8.30%)  |     4.26 (+4.48%)
+Remarks: Net improvement with steal_governor specially high load points.
+
+schbench ( -L -n 0 -r 30 -s 0)
+              baseline    steal_governor          steal_governor
+                             disabled                 enabled
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+-m 1 -t 128     2475162 |    2621246 (+5.90%)  |      2527299 (+2.11%)
+-m 1 -t 256     1467350 |    1470032 (+0.18%)  |      1492372 (+1.71%)
+-m 1 -t 512     1408813 |    1454687 (+3.26%)  |      1437605 (+2.04%)
+Remarks: Effectively means no-improvements or regressions
+
+kernbench	baseline    steal_governor     steal_governor
+(elapsed time)	               disabled            enabled
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+-j nr_cpus	231      |      235 (-1.7%) |    199 (+14%)
+Remarks: Net improvement in elapsed time.
+
+Daytrader - A real life work which is a proxy for trading based
+on db2[3]
+              baseline      steal_governor   steal_governor
+                              disabled          enabled
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Load@30%	1x	|	0.96x	|	 1.53x			
+Load@60%	1x	|	0.94x	|	 1.41x
+Remarks: Very good improvement seen at different load points.
+
+When there is no steal time (such as dedicated LPAR, or only VM2
+is running) throughput was same with steal_governor enabled/disabled
+which indicates minimal overhead of steal_governor. 
+
+=======================================================================
+
+Data from x86,s390 KVM which Ilya Leoshkevich carried out during OSPM26
+time. *This was based on v2*. The core idea remains the same, although the
+implementation has changed and some overhead has been removed since then.
+Note: Other variations of the benchmark shows no observable difference.
+
+x86:
+====
+cascade-lake: 32 threads = 16 cores
+Benchmark      #VMs    #CPUs/VM  ΔRPS     (%std)
+===============================================
+hackbench         8          16  90.73% ± 9.97%
+hackbench         4          24  52.67% ± 7.43%
+hackbench         4          16  37.96% ± 11.19%
+hackbench         4          32  37.82% ± 4.38%
+hackbench        12           8  36.90% ± 4.74%
+hackbench         8           8  35.30% ± 3.61%
+pgbench          16           4  31.77% ± 2.44%
+hackbench         2          24  25.85% ± 8.63%
+hackbench        16           8  24.87% ± 3.46%
+pgbench          16           8  21.83% ± 2.20%
+pgbench          12           8  21.35% ± 2.15%
+pgbench           8           8  18.46% ± 1.01%
+hackbench         2          32  15.56% ± 4.53%
+pgbench          12           4  14.28% ± 2.04%
+hackbench        16           4  14.07% ± 2.90%
+hackbench        12           4  9.60% ± 3.49%
+[...]
+pgbench           4           8  -1.16% ± 3.60%
+hackbench         4           4  -1.80% ± 9.55%
+sysbench         12           4  -2.19% ± 0.78%
+pgbench           4          24  -2.43% ± 4.38%
+pgbench           4          32  -3.21% ± 0.79%
+sysbench         16           4  -3.22% ± 1.09%
+
+S390:
+=====
+z16: 16 threads = 8 cores (SMT-2)
+Benchmark      #VMs    #CPUs/VM  ΔRPS    (std%)
+===============================================
+pgbench           2           8  73.50% ± 35.91%
+pgbench          16           4  61.30% ± 4.09%
+hackbench        16           4  54.11% ± 4.38%
+hackbench        12           4  36.34% ± 4.63%
+pgbench          12           4  34.83% ± 2.57%
+hackbench         8           4  29.75% ± 5.86%
+hackbench         8           8  25.98% ± 5.09%
+pgbench           2           4  23.31% ± 33.44%
+pgbench           2          16  19.95% ± 17.12%
+hackbench         4           8  19.43% ± 9.33%
+pgbench           8           4  19.32% ± 4.50%
+[...]
+schbench          8           8  -0.79% ± 0.33%
+sysbench          8           8  -0.81% ± 0.39%
+hackbench         4          16  -1.11% ± 5.82%
+sysbench          8           4  -1.62% ± 0.49%
+sysbench         16           4  -2.70% ± 0.58%
+schbench         16           4  -2.73% ± 0.91%
+sysbench         12           4  -2.91% ± 0.61%
+hackbench         2          24  -4.99% ± 3.31%
+
+Summary:
+- Many improvement across archs specially with real life workloads.
+- Overhead of steal_governor looks minimal when there is no steal time.
+- Overhead when STEAL_GOVERNOR=n is negligible.
+- Pure CPU-time workloads may see a small regression.
+
+Testing and Validation
+======================
+
+Apart from performance, To ensure the robustness of the preferred
+CPU masking and push mechanisms, the following scenarios were tested:
+- CPU Hotplug: bringing CPUs up/down change the preferred mask
+  accordingly under no-contention and contention.
+- Housekeeping cores: Verified with different combinations of
+  nohz_full=<beginning, middle, end set of CPUs> to ensure that
+  policy engine restricts to first housekeeping core in extreme cases.
+- User Affinity: Confirmed that tasks explicitly pinned to non-preferred
+  CPUs via taskset remain on their assigned CPUs.
+- Affine Move: Confirmed the affinity move using "taskset -cp" happens
+  on all combinations of non-preferred, preferred under contention.
+- Affinity and hotplug: It works as expected. I.e affinity gets
+  reset if all the CPUs of p->cpus_ptr go offline even if they are
+  non-preferred CPUs.
+- Extreme load and running threads: for example 4800 stress-ng threads
+  on 480 CPU system and it still packs to preferred CPUs.
+
+Known Limitations & Future Work
+===============================
+
+To keep this initial implementation clean and minimal, a few optimizations
+have been deferred:
+
+- Push all tasks on rq: Currently, the stopper thread only pushes the current
+  running task off a non-preferred CPU. Future optimizations may look into
+  migrating all queued tasks on that runqueue.
+
+- Sched Classes: This feature currently only works for the FAIR
+  class. Real-time (RT) and sched_ext classes are deferred for now,
+  as there is no need for it.
+
+- NUMA Splicing: The steal_governor currently removes last active core
+  based on CPU number. It does not yet do complex NUMA-aware splicing,
+  expecting that CPUs are spread out uniformly across nodes in
+  most cases.
+
+Shrikanth Hegde (13):
+  sched/cputime: Add kcpustat_field_total helper
+  cpumask: Introduce cpumask_intersects_and
+  sched/docs: Document cpu_preferred_mask and Preferred CPU concept
+  cpumask: Introduce cpu_preferred_mask
+  sysfs: Add preferred CPU file
+  sched/core: Try to use a preferred CPU in is_cpu_allowed
+  sched/fair: Load balance only among preferred CPUs
+  sched/core: Push current task from non preferred CPU
+  sched/debug: Add migration stats due to non preferred CPUs
+  virt: Introduce steal governor driver
+  virt/steal_governor: Add control knobs for handling steal values
+  virt/steal_governor: Implement steal_governor policy loop
+  virt/steal_governor: Enable the driver
+
+ .../ABI/testing/sysfs-devices-system-cpu      |  14 +
+ Documentation/driver-api/index.rst            |   1 +
+ Documentation/driver-api/steal-governor.rst   | 151 +++++++++
+ Documentation/scheduler/index.rst             |   1 +
+ Documentation/scheduler/sched-paravirt.rst    |  67 ++++
+ MAINTAINERS                                   |   9 +
+ arch/s390/kernel/hiperdispatch.c              |  10 +-
+ drivers/base/cpu.c                            |  12 +
+ drivers/virt/Kconfig                          |  17 +
+ drivers/virt/Makefile                         |   1 +
+ drivers/virt/steal_governor.c                 | 296 ++++++++++++++++++
+ fs/proc/uptime.c                              |   6 +-
+ include/linux/bitmap.h                        |  14 +
+ include/linux/cpumask.h                       |  42 +++
+ include/linux/kernel_stat.h                   |  11 +
+ include/linux/sched.h                         |   1 +
+ kernel/Kconfig.preempt                        |   4 +
+ kernel/cpu.c                                  |   6 +
+ kernel/sched/core.c                           | 120 ++++++-
+ kernel/sched/debug.c                          |   1 +
+ kernel/sched/fair.c                           |   8 +-
+ kernel/sched/sched.h                          |   8 +
+ lib/bitmap.c                                  |  17 +
+ 23 files changed, 798 insertions(+), 19 deletions(-)
+ create mode 100644 Documentation/driver-api/steal-governor.rst
+ create mode 100644 Documentation/scheduler/sched-paravirt.rst
+ create mode 100644 drivers/virt/steal_governor.c
+
+-- 
+2.52.0
+
