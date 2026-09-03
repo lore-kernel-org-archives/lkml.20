@@ -1,77 +1,108 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from forwardcorp1d.mail.yandex.net (forwardcorp1d.mail.yandex.net [178.154.239.200])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CB2A49F11B;
-	Thu,  3 Sep 2026 12:03:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45CB232937A;
+	Thu,  3 Sep 2026 12:04:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.154.239.200
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788437036; cv=none; b=UO9knQPCH3Te7JHf0UrAfGXgLU3w4xAGrlysBovTmqpQKXbyXvmjy1a2Tyfd8g+a4pkGdhCz873qMovkBGXgM2IszYIFfR72A5wJe+Yx1f+NavcU3jAgLA/RudP/w1FVGbRzWnc3eQKXDdpI1ibnhH1V0hEgDyk2Pk1CTkVcDlg=
+	t=1788437050; cv=none; b=uSGtZ8ZTDn2x8NMBFgTkugrBRpAZywLVpIjiYI/wjTe6ZFCrB10Fm7LwnrV8PArEMwaQRMY4Y23qgiRe8b9CDtzQBczPRwcQKCZFldL9yLosIO9aJFQbikNGg0REoHLsiU9HtqnFCb80y1Eb/nXQogWICZH9twU/e+TC9PrsHlE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788437036; c=relaxed/simple;
-	bh=bYWU7J3LzTLt01IWwStr02unJlD2QYQqsa5rWqDkxFM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=s4BncbJFLb0hU5DB+kvdV1RztnbqW+Xs3OC3CrZscdem+xNa9+aUFqUo/wxCY/CfH/HZ5yR+t4WW4bB2EVAuNbaUTBJtDd5M04xjrhIN/SL38WXpCHBw5qEOCnHkskGoVhwk202zLR40qu0rMCAtPr6f9z0hK+hnVih5yYcSjGc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2279F1F000E9;
-	Thu,  3 Sep 2026 12:03:52 +0000 (UTC)
-From: Geert Uytterhoeven <geert+renesas@glider.be>
-To: Eric Biggers <ebiggers@kernel.org>,
-	Ard Biesheuvel <ardb@kernel.org>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>
-Cc: linux-crypto@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Geert Uytterhoeven <geert+renesas@glider.be>
-Subject: [PATCH] lib/crc: arm64: Fix const keyword in asm prototypes
-Date: Thu,  3 Sep 2026 14:03:50 +0200
-Message-ID: <1073b77747354d8d46d8804970acd80245e4c318.1788436846.git.geert+renesas@glider.be>
-X-Mailer: git-send-email 2.43.0
+	s=arc-20240116; t=1788437050; c=relaxed/simple;
+	bh=M6A05OEKRI8aV92fPYmcQc5HME2uGARcHn1GvM9pIvI=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=JcpNHEh8UtCz+B1EzkyioHndYXUI7Qt0ovFYHT9VdfzTDkbuSFYVC/xvK8mwqLSKm6efmfoq/2mI6J7RLHuQcblkzx/heZahQjCGxdBdkUXs2KqEfLUKJjVPKr36qHkW4ODMnWAdQXpAnJ6C0FtXwZdn4klGKn0sN0j2+LLqmNY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=yandex-team.ru; spf=pass smtp.mailfrom=yandex-team.ru; dkim=pass (1024-bit key) header.d=yandex-team.ru header.i=@yandex-team.ru header.b=pkDzc2ze; arc=none smtp.client-ip=178.154.239.200
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=yandex-team.ru
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yandex-team.ru
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=yandex-team.ru header.i=@yandex-team.ru header.b="pkDzc2ze"
+Received: from mail-nwsmtp-smtp-corp-main-56.klg.yp-c.yandex.net (mail-nwsmtp-smtp-corp-main-56.klg.yp-c.yandex.net [IPv6:2a02:6b8:c42:65a0:0:640:e1de:0])
+	by forwardcorp1d.mail.yandex.net (postfix) with ESMTPS id A961A80769;
+	Thu, 03 Sep 2026 15:03:57 +0300 (MSK)
+Received: from [127.0.1.1] (unknown [2a02:6bf:8009:1403:13e2:aa39:7988:f1b2])
+	by mail-nwsmtp-smtp-corp-main-56.klg.yp-c.yandex.net (smtpcorp) with ESMTPSA id u3kPrH5XViE0-YIPre64s;
+	Thu, 03 Sep 2026 15:03:57 +0300
+X-Yandex-Fwd: 1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yandex-team.ru;
+	s=default; t=1788437037;
+	bh=Df7xCZqqZ1aQpHN0K+/HVHczZNeqgBe2XscfGWdDMak=;
+	h=Cc:Message-Id:To:From:Date:Subject;
+	b=pkDzc2zeIK9qWmv9suqN7qXgDw0NIoUb51rgR3X0sx52gV+ny/lAag6jWuMyjegT4
+	 CqnGCvkzHybQmhfguQdlv8Mvu4bEylJDmzoP1C087jdGciJ8qGcFi9Fo+zMaCeA9jY
+	 DJhRhXfOzgMiVwOx7Jw2Le8LdAklBMX9Kj5Xeqvo=
+Authentication-Results: mail-nwsmtp-smtp-corp-main-56.klg.yp-c.yandex.net; dkim=pass header.i=@yandex-team.ru
+From: Mikhail Rudenko <xyzzy@yandex-team.ru>
+Date: Thu, 03 Sep 2026 14:54:17 +0300
+Subject: [PATCH] blk-throttle: reject IOPS limits above UINT_MAX for legacy
+ interface
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260903-throttl-truncation-fix-v1-1-c6a864c8bc17@yandex-team.ru>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWM0QqDMAxFf0XyvECtMuh+RfbQdlEzRpU0joH47
+ 8vc47ncc3aoJEwVbs0OQm+uvBSD9tJAnmOZCPlhDN75qwuuQ51lUX2hylZyVLvjyB/s+pRdCiH
+ 63oPJq5DNZ3i4/7lu6UlZfzU4ji9lJG9negAAAA==
+X-Change-ID: 20260903-throttl-truncation-fix-34bc0b99a242
+To: Tejun Heo <tj@kernel.org>, Josef Bacik <josef@toxicpanda.com>, 
+ Jens Axboe <axboe@kernel.dk>
+Cc: cgroups@vger.kernel.org, linux-block@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+ Mikhail Rudenko <xyzzy@yandex-team.ru>
+X-Mailer: b4 0.15.2
 
-Commit d36cebe03c3ae4ea ("lib/crc32: improve support for arch-specific
-overrides") corrected the position of the "const" keyword in the
-arch-specific funcions, and replaced "unsigned char" by "u8" for
-consistency.
+tg_set_conf(), used for blkio.throttle.{read,write}_iops_device legacy
+blkio cgroup sysfs knobs, parses limits as u64 but stores them in
+unsigned int, silently truncating values above UINT_MAX. In addition
+to being an obvios correctness issue, this may result in division by
+zero in tg_within_iops_limit(), if the value is truncated to zero.
 
-Make the same change to the forward declarations for the asm
-implementations.
+Reject such values with -EINVAL and explicitly use UINT_MAX as
+a sentinel value for IOPS limits.
 
-Signed-off-by: Geert Uytterhoeven <geert+renesas@glider.be>
+Fixes: 3a8b31d396b2 ("blkcg: restructure blkio_group configruation setting")
+Cc: stable@vger.kernel.org
+Signed-off-by: Mikhail Rudenko <xyzzy@yandex-team.ru>
 ---
- lib/crc/arm64/crc32.h | 12 ++++++------
- 1 file changed, 6 insertions(+), 6 deletions(-)
+This was found by a local Sashiko instance when reviewing an unrelated
+patch. Idk if Assisted-by: is required in this case. This patch was
+written manually, though.
 
-diff --git a/lib/crc/arm64/crc32.h b/lib/crc/arm64/crc32.h
-index 1939a5dee4772972..332d9092ba2f3875 100644
---- a/lib/crc/arm64/crc32.h
-+++ b/lib/crc/arm64/crc32.h
-@@ -7,13 +7,13 @@
- // The minimum input length to consider the 4-way interleaved code path
- static const size_t min_len = 1024;
+Exact commit for Fixes: was a bit difficult to track, since the code
+went through multiple refactorings. I believe that it's 3a8b31d396b2,
+where (temp > THROTL_IOPS_MAX) check was dropped. Anyway, all the
+maintained LTS releases are affected.
+---
+ block/blk-throttle.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
+
+diff --git a/block/blk-throttle.c b/block/blk-throttle.c
+index ffc3b70065d4..d2d46aeb24e1 100644
+--- a/block/blk-throttle.c
++++ b/block/blk-throttle.c
+@@ -1377,8 +1377,12 @@ static ssize_t tg_set_conf(struct kernfs_open_file *of,
+ 	ret = -EINVAL;
+ 	if (sscanf(ctx.body, "%llu", &v) != 1)
+ 		goto unprep;
++
++	if (!is_u64 && v > UINT_MAX)
++		goto unprep;
++
+ 	if (!v)
+-		v = U64_MAX;
++		v = is_u64 ? U64_MAX : UINT_MAX;
  
--asmlinkage u32 crc32_le_arm64(u32 crc, unsigned char const *p, size_t len);
--asmlinkage u32 crc32c_le_arm64(u32 crc, unsigned char const *p, size_t len);
--asmlinkage u32 crc32_be_arm64(u32 crc, unsigned char const *p, size_t len);
-+asmlinkage u32 crc32_le_arm64(u32 crc, const u8 *p, size_t len);
-+asmlinkage u32 crc32c_le_arm64(u32 crc, const u8 *p, size_t len);
-+asmlinkage u32 crc32_be_arm64(u32 crc, const u8 *p, size_t len);
- 
--asmlinkage u32 crc32_le_arm64_4way(u32 crc, unsigned char const *p, size_t len);
--asmlinkage u32 crc32c_le_arm64_4way(u32 crc, unsigned char const *p, size_t len);
--asmlinkage u32 crc32_be_arm64_4way(u32 crc, unsigned char const *p, size_t len);
-+asmlinkage u32 crc32_le_arm64_4way(u32 crc, const u8 *p, size_t len);
-+asmlinkage u32 crc32c_le_arm64_4way(u32 crc, const u8 *p, size_t len);
-+asmlinkage u32 crc32_be_arm64_4way(u32 crc, const u8 *p, size_t len);
- 
- static inline u32 crc32_le_arch(u32 crc, const u8 *p, size_t len)
- {
--- 
-2.43.0
+ 	tg = blkg_to_tg(ctx.blkg);
+ 	tg_update_carryover(tg);
+
+---
+base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+change-id: 20260903-throttl-truncation-fix-34bc0b99a242
+
+Best regards,
+--  
+Mikhail Rudenko <xyzzy@yandex-team.ru>
 
