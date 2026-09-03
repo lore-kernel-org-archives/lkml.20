@@ -1,236 +1,210 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A0B53E5EFA;
-	Thu,  3 Sep 2026 07:00:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.9
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 178143E172D
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 07:00:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788418824; cv=none; b=mYoXa3JPXzOcg4MerVSYKy4qRY9iPzOP6VtnFgjo7xVhx1UOWVLRqdeOOw2k2UmflG7XIrk1jHZnZMCLZm8tnleva5xHR1606dSre3n7NQWBhROXnXAnM52sjR3m1d9rlIOvDgCdfj6GH08zFpzprTSN0GE3yDMSo8LYZkmKs5c=
+	t=1788418847; cv=none; b=bpSLWPDjsSIsj8UVsEoHMfFldG39qblEUjwZ+AhvhaXcMYSFe3kN88XaGN39Dkrtk60HEhi4r/pxe0O4wkKN8Ykzf4LFewoY0dsXYJqheefHqVzzFZJuyT4URkFpJZAPXRKUuo1MLrVWY+DaEuY4c1cvxxZm9FkD47VOVn41/Hw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788418824; c=relaxed/simple;
-	bh=QOYufKxH+f3YmteiwiPOwFOBIKX7A7dTy+IgOo6PyDI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=CfzhRWS2G2m5hcDep71rcshvs7I5vqgufcNmqU68WDgwRtknv3zJOj0WIngldHCqSFaqMj8NMisC/TBBgf8r5ru7BS8wdS9YzEM7KZKlMIm4hF6wCxz4f+Wit8iYVK1vk35eBZrGJMP7Pxsk88JsWVFvFM/VRr8DqozkzJhFQx4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=fMQAqH82; arc=none smtp.client-ip=198.175.65.9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1788418847; c=relaxed/simple;
+	bh=HfSAyLNGvAfTt040f/crFsUGn1kbwdcfpl1RSRwclb8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=d0z7c2DOsrA+Mei15rwzjySQOYh+ONwc7kUtBGvyJ5dgJhu2PQUMDKJJoqbpaMRvOuOlYvpXUXY5MIwAOe0Aj8nE0O3Q33P7QyFADyk3x2WSPBtDSuqHrP4VJS4YtsdE6ItwpJjfJEU8Cf9+mnSbOkOrQA12vSGiAwv23coItZA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=ca0ZmIHp; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=Hv15/f+/; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=yIrtd9u2; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=gFDhiFRU; arc=none smtp.client-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="fMQAqH82"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788418823; x=1819954823;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=QOYufKxH+f3YmteiwiPOwFOBIKX7A7dTy+IgOo6PyDI=;
-  b=fMQAqH82Wyc3CCC5ab1dEYKRgiOSrdK9wnBY1YIYdRqb4lYImet92gjo
-   OcRwRmRYqB3zh4FpUVpDAs9XYtZ+JJBBSA/+RGsHELMWJAdfWZrjsLHpM
-   +fvah+G7oFtrB3/QudHVnSOHy61+c+FKEXCzBR/DxhDSDjpQtcpWgGwP4
-   tWzawJ0cI/qOF3eo0zJaQbOuZUojY/QlVvgSc+tjxwz7ywFx0B/QOhdLr
-   4i7d4J73HgBvS4++iOITAyWiZyRy8y5pMVT/70CQ3KHp7mbc2q0wt2nDy
-   xjNt34SIw1FU/kTZKJbPHHNCWT/FEVTvN1Nb8bblC1rcgwabiLTUUQqWI
-   g==;
-X-CSE-ConnectionGUID: twhwRkbYQlq1Y9ZfkCEJYQ==
-X-CSE-MsgGUID: NsUtAu5aTMaVvtZ9H9GqdQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11894"; a="111663389"
-X-IronPort-AV: E=Sophos;i="6.25,258,1779174000"; 
-   d="scan'208";a="111663389"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
-  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Sep 2026 00:00:22 -0700
-X-CSE-ConnectionGUID: GDejSu/6T5GxuGFpNnwcmw==
-X-CSE-MsgGUID: 8O6qrlUKSkeMsw66MPn5jg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,258,1779174000"; 
-   d="scan'208";a="267874393"
-Received: from smoticic-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.28])
-  by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Sep 2026 00:00:19 -0700
-Date: Thu, 3 Sep 2026 10:00:16 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Marcelo Schmitt <marcelo.schmitt@analog.com>
-Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux@analog.com, jic23@kernel.org,
-	nuno.sa@analog.com, dlechner@baylibre.com, andy@kernel.org,
-	Michael.Hennerich@analog.com, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, corbet@lwn.net, skhan@linuxfoundation.org,
-	marcelo.schmitt1@gmail.com
-Subject: Re: [PATCH v1 12/13] iio: adc: ad4134: Support high-speed data
- capture
-Message-ID: <apkbAMQ0J2_wJRTv@ashevche-desk.local>
-References: <cover.1788368334.git.marcelo.schmitt@analog.com>
- <53d79eed25795db5076d7c591f6dd8cf4feedfec.1788368334.git.marcelo.schmitt@analog.com>
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="ca0ZmIHp";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="Hv15/f+/";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="yIrtd9u2";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="gFDhiFRU"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 0F6D41FDB8;
+	Thu,  3 Sep 2026 07:00:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1788418837; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=sAG9cDrf6xBo+FEbVMo3Fg8Oo+JsskIBDIN13dkCH/M=;
+	b=ca0ZmIHp/jfxgiC/j0cQM3dO+U/j2f6SzVC8r42KASK1ryPTVaNerbEUx5q04GpeSDDGBS
+	FtaI2grx0B9hFYF2FAH9b/+2kDW5rk3LjvB5PR0vvHFAGSiZveS+QDC2lKAjwdUZdQxi/a
+	F3fmZtn+yKBcgxHzpbnZ6Gwg1vpBumo=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1788418837;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=sAG9cDrf6xBo+FEbVMo3Fg8Oo+JsskIBDIN13dkCH/M=;
+	b=Hv15/f+/CcrJiMZr7ujsNyEs7l2J10Gnzo7WAjBLQc9T2GDM0Cj9rRGRfZlG6lMZ7ZPM+N
+	4MErsL9DuYzlsGBA==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1788418833; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=sAG9cDrf6xBo+FEbVMo3Fg8Oo+JsskIBDIN13dkCH/M=;
+	b=yIrtd9u2rTlpIKJK6bqWO6CF1l2zjjdnIA/PbX98J9QrASGIC9ibEvd/QBFLpw1eyqMBo0
+	TS3ZKhNtxPMOn7njzyPmMO94bBqKFcxaWab0W4A2ZC2Aipfs+o+JANQsrXUs1bOQI63611
+	BqfKqLFI7bamXqycRU+tuvp4iMfhSJs=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1788418833;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=sAG9cDrf6xBo+FEbVMo3Fg8Oo+JsskIBDIN13dkCH/M=;
+	b=gFDhiFRUVPzGy2O/Po1f68k+be6dAC/J6rLnJE7bf4flFFqj0J6gPd1WoCGp6F5P3vipDx
+	TP3I9V+GiyRwcYCg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 7C6E313736;
+	Thu,  3 Sep 2026 07:00:32 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id 9wTrHBAbmWqTTgAAD6G6ig
+	(envelope-from <tzimmermann@suse.de>); Thu, 03 Sep 2026 07:00:32 +0000
+Message-ID: <12087ae2-972a-48fd-932a-89772597f59c@suse.de>
+Date: Thu, 3 Sep 2026 09:00:31 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <53d79eed25795db5076d7c591f6dd8cf4feedfec.1788368334.git.marcelo.schmitt@analog.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 4/4] drm/vboxvideo: create blend mode property on
+ planes
+To: Qinyun Tan <qinyuntan@linux.alibaba.com>, dri-devel@lists.freedesktop.org
+Cc: airlied@redhat.com, jfalempe@redhat.com, kraxel@redhat.com,
+ dmitry.osipenko@collabora.com, hansg@kernel.org,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, simona@ffwll.ch,
+ leandro.ribeiro@collabora.com, daniels@collabora.com,
+ pekka.paalanen@collabora.com, virtualization@lists.linux.dev,
+ spice-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+References: <20260901083234.1828755-1-qinyuntan@linux.alibaba.com>
+ <20260901083234.1828755-5-qinyuntan@linux.alibaba.com>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <20260901083234.1828755-5-qinyuntan@linux.alibaba.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Spam-Level: 
+X-Spam-Score: -4.30
+X-Spam-Flag: NO
+X-Spamd-Result: default: False [-4.30 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-0.993];
+	MIME_GOOD(-0.10)[text/plain];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[16];
+	MID_RHS_MATCH_FROM(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	FROM_HAS_DN(0.00)[];
+	TO_DN_SOME(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[alibaba.com:email,imap1.dmz-prg2.suse.org:helo,suse.de:email,suse.de:mid,suse.com:url]
 
-On Wed, Sep 02, 2026 at 02:25:26PM -0300, Marcelo Schmitt wrote:
-> Make use of SPI transfer offloading to speed up data capture, enabling data
-> acquisition at faster sample rates (up to 1.496 MSPS).
 
-...
 
-> +static int ad4134_update_conversion_rate(struct ad4134_state *st,
-> +					 unsigned int freq_Hz)
-> +{
-> +	struct spi_offload_trigger_config config = st->offload_trigger_config;
-> +	struct pwm_waveform odr_wf = { };
-> +	u64 offload_period_ns;
-> +	u64 offload_offset_ns;
-> +	u64 odr_high_time_ns;
-> +	unsigned int count;
-> +	u64 target = 10;
+Am 01.09.26 um 10:32 schrieb Qinyun Tan:
+> Since commit 860e748bddcc ("drm: ensure blend mode supported if pixel
+> format with alpha exposed"), drm_mode_config_validate() warns when a
+> plane exposes an alpha pixel format but not the "pixel blend mode"
+> property. Both the vboxvideo primary and cursor planes expose ARGB8888
+> and trip this on driver load.
+>
+> VirtualBox draws the cursor through the host windowing system, which
+> treats the guest-supplied pointer shape as straight
+> (non-pre-multiplied) alpha: the host frontend loads the pixels
+> verbatim into an unpremultiplied ARGB image before handing them to the
+> host cursor APIs. This corresponds to DRM_MODE_BLEND_COVERAGE. Expose
+> a "pixel blend mode" property advertising only DRM_MODE_BLEND_COVERAGE
+> to make these semantics explicit and silence the warning. The primary
+> plane's alpha channel is ignored by the host (opaque blit) and it is
+> the bottom-most plane anyway; advertise the same value there for
+> consistency.
+>
+> Fixes: 860e748bddcc ("drm: ensure blend mode supported if pixel format with alpha exposed")
+> Signed-off-by: Qinyun Tan <qinyuntan@linux.alibaba.com>
 
-Split assignment and move it closer to its first user.
+Acked-by: Thomas Zimmermann <tzimmermann@suse.de>
 
-> +	int ret;
+> ---
+> v2: advertise DRM_MODE_BLEND_COVERAGE instead of PREMULTI after
+> checking how the VirtualBox host composites the pointer shape.
+>
+>   drivers/gpu/drm/vboxvideo/vbox_mode.c | 4 ++++
+>   1 file changed, 4 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/vboxvideo/vbox_mode.c b/drivers/gpu/drm/vboxvideo/vbox_mode.c
+> index 8e4e5fc9d3c5a..3c41238a82685 100644
+> --- a/drivers/gpu/drm/vboxvideo/vbox_mode.c
+> +++ b/drivers/gpu/drm/vboxvideo/vbox_mode.c
+> @@ -15,6 +15,7 @@
+>   
+>   #include <drm/drm_atomic.h>
+>   #include <drm/drm_atomic_helper.h>
+> +#include <drm/drm_blend.h>
+>   #include <drm/drm_edid.h>
+>   #include <drm/drm_fb_helper.h>
+>   #include <drm/drm_fourcc.h>
+> @@ -540,6 +541,9 @@ static struct drm_plane *vbox_create_plane(struct vbox_private *vbox,
+>   
+>   	drm_plane_helper_add(plane, helper_funcs);
+>   
+> +	drm_plane_create_blend_mode_property(plane,
+> +					     BIT(DRM_MODE_BLEND_COVERAGE));
 > +
-> +	if (!in_range(freq_Hz, AD4134_MIN_ODR_FREQ_HZ, AD4134_MAX_ODR_FREQ_HZ))
-> +		return -ERANGE;
-> +
-> +	odr_wf.period_length_ns = DIV_ROUND_UP_ULL(NSEC_PER_SEC, freq_Hz);
-> +	/*
-> +	 * Set the PWM duty cycle to keep ODR high for at least minimum required
-> +	 * time. If the rounded PWM's value is less than the minimum required,
-> +	 * increase the target value by 10 and attempt to round the waveform
-> +	 * again, until the minimum (or try count limit) is reached.
-> +	 */
-> +	odr_high_time_ns = div64_ul(6ULL * NSEC_PER_SEC, st->sys_clk_hz);
-
-	target = 0;
-
-> +	count = 100;
-> +	do {
-
-		target += 10; /* Increment by PWM duty cycle period */
-
-> +		odr_wf.duty_length_ns = target;
-> +		ret = pwm_round_waveform_might_sleep(st->odr_pwm, &odr_wf);
-> +		if (ret)
-> +			return ret;
-
-> +		target += 10; /* Increment by PWM duty cycle period */
-
-In the above way I think it clarifies the initial setting to 10.
-
-Shouldn't be target named as target_ns? Can we use odr_wf.duty_length_ns
-directly?
-
-> +	} while (count-- && odr_wf.duty_length_ns < odr_high_time_ns);
-> +
-> +	/* Check the minimum ODR high time is met */
-> +	if (odr_wf.duty_length_ns < odr_high_time_ns)
-> +		return -EDOM;
-> +
-> +	if (odr_wf.period_length_ns < 2 * odr_high_time_ns)
-> +		return -EDOM;
-> +
-> +	/*
-> +	 * Configure SPI offload PWM trigger.
-> +	 * For gated DCLK, the minimum required time between ODR rising edge
-> +	 * and DCLK rising edge is the sum of ODR high time and ODR falling
-> +	 * edge to DCLK rising edge time. Delay the offload trigger for at least
-> +	 * that amount of time so the ADC sample data will be available when the
-> +	 * SPI transfer begin.
-> +	 *
-> +	 * Use the same period as ODR PWM to avoid timing issues.
-> +	 * Convert back from period to frequency for the SPI offload API.
-> +	 */
-> +	offload_period_ns = odr_wf.period_length_ns;
-> +	config.periodic.frequency_hz = DIV_ROUND_UP_ULL(HZ_PER_GHZ, offload_period_ns);
-> +	offload_offset_ns = odr_high_time_ns + AD4134_DCLK_RISING_OFFSET_NS;
-> +	count = 100;
-> +	do {
-> +		config.periodic.offset_ns = offload_offset_ns;
-> +		ret = spi_offload_trigger_validate(st->offload_trigger, &config);
-> +		if (ret)
-> +			return ret;
-> +
-> +		offload_offset_ns += 10;
-
-Does this need the similar comment as per above?
-
-> +	} while (count-- && config.periodic.offset_ns < odr_high_time_ns +
-> +							AD4134_DCLK_RISING_OFFSET_NS);
-> +
-> +	/* Check the minimum ODR to DCLK delay is met */
-> +	if (config.periodic.offset_ns < odr_high_time_ns + AD4134_DCLK_RISING_OFFSET_NS)
-> +		return -EDOM;
-> +
-> +	/* Check the PWM periods remain the same */
-> +	offload_period_ns = DIV_ROUND_UP_ULL(HZ_PER_GHZ, config.periodic.frequency_hz);
-> +	if (odr_wf.period_length_ns != offload_period_ns)
-> +		return -EDOM;
-> +
-> +	ret = pwm_set_waveform_might_sleep(st->odr_pwm, &odr_wf, false);
-> +	if (ret)
-> +		return ret;
-> +
-> +	st->offload_trigger_config = config;
-> +	st->odr_wf = odr_wf;
-> +	st->odr_hz = DIV_ROUND_UP_ULL(NSEC_PER_SEC, odr_wf.period_length_ns);
-> +
-> +	return 0;
-> +}
-
-...
-
-> +static int ad4134_offload_buffer_postenable(struct iio_dev *indio_dev)
-> +{
-> +	struct ad4134_state *st = iio_priv(indio_dev);
-> +	int ret, ret2;
-
-These ret2:s in the cases of _set_register_() can be named accordingly.
-
-> +	if (st->spi_mode == AD4134_SPI_MODE_4_WIRE) {
-> +		ret = ad4134_set_sample_access(st);
-> +		if (ret)
-> +			return ret;
-> +	}
-> +
-> +	ad4134_prepare_offload_msg(indio_dev);
-> +	st->msg.offload = st->offload;
-> +	ret = spi_optimize_message(st->spi, &st->msg);
-> +	if (ret)
-> +		goto out_set_register_input;
-> +
-> +	ret = spi_offload_trigger_enable(st->offload, st->offload_trigger,
-> +					 &st->offload_trigger_config);
-> +	if (ret)
-> +		goto out_unoptimize;
-> +
-> +	return 0;
-> +
-> +out_unoptimize:
-> +	spi_unoptimize_message(&st->msg);
-> +
-> +out_set_register_input:
-> +	ret2 = ad4134_set_register_access(st);
-> +	if (ret2)
-> +		dev_err(&st->spi->dev, "reg input select error: %d\n", ret2);
-> +
-> +	return ret;
-> +}
-
-...
-
-> +/* The chip converts and outputs all 4 channels on each sample request */
-> +static const unsigned long ad4134_scan_masks[] = {
-> +	GENMASK(3, 0),
-
-IIRC Jonathan wants to see this as BIT(x) | BIT(y) | ... to clarify that each
-bit is semantically independent.
-
-> +	0
-> +};
+>   	return plane;
+>   
+>   free_plane:
 
 -- 
-With Best Regards,
-Andy Shevchenko
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Jochen Jaser, Andrew McDonald, (HRB 36809, AG Nürnberg)
 
 
