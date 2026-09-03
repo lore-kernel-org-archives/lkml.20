@@ -1,125 +1,109 @@
-Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B4CD4E8DF5
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 15:56:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 514504D8DB5;
+	Thu,  3 Sep 2026 15:56:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788450983; cv=none; b=oPGltcsct+vp2eJDPII7Db/m0DK0gYlWCsTdfQJinkds2ayHBLOnfDjNR5Wn4mk/SjLInh4ty9NagKEYR9O+hS0bh2BKlaZBbXQERg6Ljx42itfg1AlyyJ0D4ZisG2u9Qw1buUuDcVjB/9/YVt6FJtKKZbGwAKPZB91NPTM3W7E=
+	t=1788450993; cv=none; b=MNZAP/4H0eRPQkpoLr4p4Ab0zt9gAhPpzmDVYksfz+4KZSymrKha2bWVNQwiIDXI25MUaTHErcaQvDMBlcT6gotI42LnjYLGzmvcLm1DfLbg42fO3K7Ts1ITWNXGsW7wTKQJxJqBHbLH75EOrx/75yWx89HreeHgr1vzI+WtnnY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788450983; c=relaxed/simple;
-	bh=9BK1kyxk5Z0/CaDbriSQ++DzrreFQG+kLaclcVYwGN0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=o9ESAQRDew+HdO/0ZsbyTvBkov2EonTT/y/5/k4C7e+7Wio+h6aYTiTT7LsWImmUsG6iHxCTQxcw7JcnLROIbFTDA++LFhonILw91H8+b8TNr3Gy0V2vTy1a/uL3pXrCSI5s6Yn9YGnL/XeHYsBroQ+KTb2nPRJPF61N2dQRo4A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=btkRkqlf; arc=none smtp.client-ip=209.85.221.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788450993; c=relaxed/simple;
+	bh=DQLgwFyklyQY+Ul3sU7ZxseEkrVOZ6GPPNvBm61Thvk=;
+	h=Date:Content-Type:MIME-Version:From:Cc:To:In-Reply-To:References:
+	 Message-Id:Subject; b=XRffBYnpR9L+v3wkdNnJ63bAitFEqVn3tjfP10JR4pPNUAgRQkJDO/fqOelb4UqV5/0neCgVhgtJB4oNRhMkXqAF4qY6kPmvmMsofQ53CcxiHvlhiEL/cIWe64h/Ufbn2j22/eZuCsztjLH/VWBECcaFN9b7gJP6CkYDW6fb6T0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bmf/f666; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="btkRkqlf"
-Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-482e2fdf5abso9375f8f.2
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 08:56:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788450979; x=1789055779; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Qf5A2iWXrze7f/WQGCmLESIXScEzdMF2bet/pRtY3Is=;
-        b=btkRkqlfotTbaNJJyaxS4LwL7rBuN8VRekBWvzMifhXVTv7st8iBwhg2et4/seMKtS
-         5kuo1D/4VmvPntokf67cJPDTL4LNAz+SGUysGEw3s5N98UdMU1ZtwhVAvhi+ugahidtT
-         jfSwJQ7pt+GVLsXUHRvvPtjmuMziLsx0F1yEEAC8PWrg/W1mpyacXoyLgZGqnQVA273r
-         n2i5GatRaL7j9G+lbpjzzjimD0AMbaXAu3o3KhOAfahyW52IJHcUxKg0SCr+TeVFtSYl
-         LGlpsCEQRtO0rJ3q7SZbTqvR4ugigRDWDeGnU0OgmVdqIfW8u//Ii3evKOY6AJACEg0S
-         DACw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788450979; x=1789055779;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Qf5A2iWXrze7f/WQGCmLESIXScEzdMF2bet/pRtY3Is=;
-        b=CLOL6SQBTkaAT/ADPX8aC7e0Ra5LwZTRopbpT3iMY6oj7YlZszFcwOC3nTOZM0n69w
-         bzb8nZwLCyEYuKnZvZEAh708bwpO0nW8YLNHgrQffrrKPA6KYNGDfTls2pM4gVzN0J0T
-         kN6R1YOseB/q2miu7eXdqar4LADoe7eF+56K+j3Y66sNAB5SI4pXimSam8ClK0qr1uEq
-         Vem2T3lyMfewES9O2BKrPKfYtVBQMwngPs1+xCa/wm95l+cVQVFwHHm7pFdQblrN72X6
-         wwah9hxuxcwNMRajQaqUtw2TdPvmJ7BumotDq64CQDEYS4ojCTdt9Syju2T8kf/OPlLU
-         keJw==
-X-Forwarded-Encrypted: i=1; AKwUvBzrRvQOXxzk4+YDKZcVjEtioGWHIRekWam5Zp4IKaAhd16OFzj8MV9KqXdntGQq42gsPsuodbFYbH90Ow0=@vger.kernel.org
-X-Gm-Message-State: AFuF++nMq97k2P/g594TzrYmpyXPKeOXUQo0tkjUFspKuPNIdDX/yknA
-	5eG3xEPKyuiXh9xLIsmASzndKwmoEYyN0ST/tihyGxFniLTZk18KWUwt
-X-Gm-Gg: AYBFou3zkuZ2cVyay1j+wmA8PiRp5MrPpMLvi2ogJf6yO3lyNdhQJeZvhFb1UzX4PDG
-	SEI6pg51a/++5K3G1tq6aq2ODhGBt8UPrvUwEX5cI2aCOio0dAgOC/rDcjSWU5fCURm+UT///W0
-	CrI0yAtn0kHkfGLoSSbCSxMjS2GHE3UaQbaiXqFRfQfhbHjp6TAGI6HaMdL5fYtrosvxLVgVyvb
-	ZS80oZgS8IeCZ6noM6NYsHWbwzTYHjJNxhFwQ615cCIHGLwFUtlEK4jAsQLAA5vdZ/fkO3qW45F
-	14060T8WPW1+rzSz/xWaGBzshL04f/nr+SkrspFkU1C2zampz+OHsuLuUtRJ9EE6d3iiA82uIs2
-	hpyxHFIcae4bmA1NwSot3mDdBDNPAj2i+iYNRHUvpLN9oV7LPPCV7paFCDLK0S54xyPNdIV+aYZ
-	0uZV43FAXarf4AP66AEit6byP+FFqH1D0MBqJ7VyPZ+OWpBfPeC/cMvIlBt1xDlcWdeltU31Tip
-	pTLWZePo0EExvFH/8/yNHX4AiTPrQrKc44xEQ==
-X-Received: by 2002:a05:600c:354b:b0:49b:d03:8d3a with SMTP id 5b1f17b1804b1-49ce58180bbmr220232615e9.11.1788450978626;
-        Thu, 03 Sep 2026 08:56:18 -0700 (PDT)
-Received: from omos-acer (109-81-21-204.rct.o2.cz. [109.81.21.204])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cee6024a8sm80527185e9.6.2026.09.03.08.56.16
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 03 Sep 2026 08:56:17 -0700 (PDT)
-From: =?UTF-8?q?Ondrej=20Mosn=C3=A1=C4=8Dek?= <omosnacek@gmail.com>
-To: Paul Moore <paul@paul-moore.com>
-Cc: selinux@vger.kernel.org,
-	linux-security-module@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] =?UTF-8?q?MAINTAINERS,=20mailmap:=20update=20email=20addr?= =?UTF-8?q?ess=20for=20Ondrej=20Mosn=C3=A1=C4=8Dek?=
-Date: Thu,  3 Sep 2026 17:56:15 +0200
-Message-ID: <20260903155615.516010-1-omosnacek@gmail.com>
-X-Mailer: git-send-email 2.54.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bmf/f666"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9DEB31F000E9;
+	Thu,  3 Sep 2026 15:56:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788450991;
+	bh=bhTCUaiiZ8A0gGUxDFrs3mg1RzINT0VFaxoNylx2xNU=;
+	h=Date:From:Cc:To:In-Reply-To:References:Subject;
+	b=bmf/f666i5KsF1D9J1jgfnJU5WzmYmsn2GVaC3M2Bjo0mBeMEaA7qjVs6ba7A1YWM
+	 6inYhBqR5dLgfnB9e+1pczT7b/NF3WOKNrYCvBQaDWQ0lN/fl+auPqqf8aNEfXPqWQ
+	 EBvrdKsKPZyfkQi/irV9bdklW2sd+g/z9MUlLUKuw+JXefX6vrmsCmKDyL/124Xgbr
+	 50l/wSM2zy+gBOAgej7u/2WKtPLmni+cNVY5aExVPUHZoOKK/jwjGDhfKU9e2M0lHp
+	 BPqjbV8hWgjnFyXVbwFUi7/+ps26a90QVw+Pm8WEQAOdTZfgh+3zFA/GjjjM4a/j9C
+	 kjOZl7FA9VeTQ==
+Date: Thu, 03 Sep 2026 10:56:31 -0500
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+From: "Rob Herring (Arm)" <robh@kernel.org>
+Cc: linux-kernel@vger.kernel.org, Fabio Estevam <festevam@gmail.com>, 
+ devicetree@vger.kernel.org, Abel Vesa <abelvesa@kernel.org>, 
+ Brian Masney <bmasney+clk@redhat.com>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>, linux-clk@vger.kernel.org, 
+ Conor Dooley <conor+dt@kernel.org>, Peng Fan <peng.fan@nxp.com>, 
+ Sascha Hauer <s.hauer@pengutronix.de>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Stephen Boyd <sboyd@kernel.org>, 
+ Jerome Brunet <jbrunet+clk@baylibre.com>, 
+ linux-arm-kernel@lists.infradead.org, imx@lists.linux.dev, 
+ Frank Li <Frank.Li@nxp.com>
+To: Frank.Li@oss.nxp.com
+In-Reply-To: <20260901193720.1066686-1-Frank.Li@oss.nxp.com>
+References: <20260901193720.1066686-1-Frank.Li@oss.nxp.com>
+Message-Id: <178845094493.3613943.7561968637437394338.robh@kernel.org>
+Subject: Re: [PATCH 1/1] dt-bindings: clock: imx5: add assigned-clock*
+ properties
 
-I'm going to use my personal email for kernel contributions from now on.
-Update MAINTAINERS and .mailmap to reflect this.
 
-Also switch to use proper spelling with diacritics, since I normally use
-the full Unicode name with my personal email address. I'm leaving
-in-code occurences unchanged though, as that would be just unnecessary
-churn.
+On Tue, 01 Sep 2026 15:37:19 -0400, Frank.Li@oss.nxp.com wrote:
+> From: Frank Li <Frank.Li@nxp.com>
+> 
+> The i.MX5 CCM is a pure clock provider with no 'clocks' consumer
+> property in its binding. The dtschema framework only merges the
+> clocks.yaml meta-schema properties (which include assigned-clocks,
+> assigned-clock-parents, and assigned-clock-rates) into a binding
+> when the binding itself declares 'clocks:'.
+> 
+> For example, imx53-m53menlo.dts configures the CKO1 output clock
+> by setting assigned-clocks on the &clks node:
+> 
+>   &clks {
+>     assigned-clocks = <&clks IMX5_CLK_CKO1_SEL>, ...;
+>     assigned-clock-parents = <&clks IMX5_CLK_AHB>;
+>     assigned-clock-rates = <133333334>, <33333334>, <33333334>;
+>   };
+> 
+> Without explicit declarations this triggers a dtbs_check error:
+>   arch/arm/boot/dts/nxp/imx/imx53-m53menlo.dtb: ccm@53fd4000 (fsl,imx53-ccm): 'assigned-clock-parents', 'assigned-clock-rates', 'assigned-clocks' do not match any of the regexes: '^pinctrl-[0-9]+$'
+> 
+> Assisted-by: Claude:claude-sonnet-4.6
+> Signed-off-by: Frank Li <Frank.Li@nxp.com>
+> ---
+>  .../devicetree/bindings/clock/imx5-clock.yaml        | 12 ++++++++++++
+>  1 file changed, 12 insertions(+)
+> 
 
-Link: https://lore.kernel.org/lkml/CAFqZXNvOGbzy8-ZnJtKi94jfu2H173Tz7VYpK8KuseMQS-9tNA@mail.gmail.com/
-Signed-off-by: Ondrej Mosnáček <omosnacek@gmail.com>
----
+My bot found errors running 'make dt_binding_check' on your patch:
 
-Hoping for this to get picked up via the SELinux tree, since the main
-change is in the SELinux MAINTAINERS entry.
+yamllint warnings/errors:
 
- .mailmap    | 1 +
- MAINTAINERS | 2 +-
- 2 files changed, 2 insertions(+), 1 deletion(-)
+dtschema/dtc warnings/errors:
+/builds/robherring/linux-dt-review/Documentation/devicetree/bindings/clock/imx5-clock.yaml: properties: 'clocks' is a dependency of 'assigned-clocks'
+	from schema $id: http://devicetree.org/meta-schemas/clocks.yaml
 
-diff --git a/.mailmap b/.mailmap
-index 6803f3bd2865..0e672a60afdc 100644
---- a/.mailmap
-+++ b/.mailmap
-@@ -699,6 +699,7 @@ Oliver Hartkopp <socketcan@hartkopp.net> <oliver.hartkopp@volkswagen.de>
- Oliver Hartkopp <socketcan@hartkopp.net> <oliver@hartkopp.net>
- Oliver Upton <oupton@kernel.org> <oupton@google.com>
- Oliver Upton <oupton@kernel.org> <oliver.upton@linux.dev>
-+Ondrej Mosnáček <omosnacek@gmail.com> <omosnace@redhat.com>
- Ondřej Jirman <megi@xff.cz> <megous@megous.com>
- Oza Pawandeep <quic_poza@quicinc.com> <poza@codeaurora.org>
- Pali Rohár <pali@kernel.org> <pali.rohar@gmail.com>
-diff --git a/MAINTAINERS b/MAINTAINERS
-index fc320b373656..875d0baed8b9 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -24772,7 +24772,7 @@ K:	\bsecurity_[a-z_0-9]\+\b
- SELINUX SECURITY MODULE
- M:	Paul Moore <paul@paul-moore.com>
- M:	Stephen Smalley <stephen.smalley.work@gmail.com>
--R:	Ondrej Mosnacek <omosnace@redhat.com>
-+R:	Ondrej Mosnáček <omosnacek@gmail.com>
- L:	selinux@vger.kernel.org
- S:	Supported
- W:	https://github.com/SELinuxProject
--- 
-2.54.0
+doc reference errors (make refcheckdocs):
+
+See https://patchwork.kernel.org/project/devicetree/patch/20260901193720.1066686-1-Frank.Li@oss.nxp.com
+
+The base for the series is generally the latest rc1. A different dependency
+should be noted in *this* patch.
+
+If you already ran 'make dt_binding_check' and didn't see the above
+error(s), then make sure 'yamllint' is installed and dt-schema is up to
+date:
+
+pip3 install dtschema --upgrade
+
+Please check and re-submit after running the above command yourself. Note
+that DT_SCHEMA_FILES can be set to your schema file to speed up checking
+your schema. However, it must be unset to test all examples with your schema.
 
