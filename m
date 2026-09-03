@@ -1,161 +1,97 @@
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 976C542B327
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 08:12:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A8FB42E420;
+	Thu,  3 Sep 2026 08:12:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788423131; cv=none; b=X+4pL6WBF64ATGZNlTpCeGgS/LGEu7+L5rhazf+JmpUwzLYJh7EtLXCl5VPZlcNaLNK1uaF7Hg9WtAbZGz6MkXDqKPORnUKmKyfvguATBcvAvCTsQdS10Sctqjsnje7g9fCpqSSdzICGF5ToGN0LOqWyerjoSc2ijK895riyyMQ=
+	t=1788423134; cv=none; b=AVMMWIov9tBU+S55aichNc+Y+NLKEd2fGGOplQUqVc0uike2qNXCi/w+UcN06sNKG3Ae/fEeW5nvtMimMDhPAWtBZxFU00FfzC3ZF529cgo8dWBtNsJufWo05Ej05C4awhbHJFIAuPMmGfY+l28ktT3cFWXQQpIho2A8xgY1AIs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788423131; c=relaxed/simple;
-	bh=qzbvgtAzkE606tnCLKbUVIPm5A0hlnGf6s9jhgt84Hg=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=oSUI3dzct1BAPT1pfGyHF8qVjDz+TLHQDRm2gy4gkLuD68dyFgMgRdtp10aiaCB+XshxF/Cs21PTVAp/SCc3jpTIlucsT+T4gZmLK49ReltAM00fubyVJnxkHML+spnnhbJ+qPBH7FKKN4vOvyiVFOBYZt1/PLYTcToIzzwujjM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=fZjUcWN2; arc=none smtp.client-ip=185.246.85.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="fZjUcWN2"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id 924234E414EF;
-	Thu,  3 Sep 2026 08:12:07 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 63FD1602B8;
-	Thu,  3 Sep 2026 08:12:07 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 56B6111C79B6F;
-	Thu,  3 Sep 2026 10:11:58 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1788423121; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=3+q8zzzDphveu7bIj+tmklM+ZbtSGClka2kHOxOdEUE=;
-	b=fZjUcWN2SEaG5+lt/vdkn6/7ZrRGBZ9m7nW/1FAKSqjxzAxS4eIn3QSPZGiciofBKXyw1/
-	HtsDTZg8oBVZxqcTVGQtzsSwuK/lzAcKVTkkBAqqlU23frjCS6qK1OLULxaSIPAGr+pWKE
-	oEN05SWtGm6AwdKRmBUcu56gZNMpYXs6XI8alp5qd43txVCZmAsPy7lbfOsSp5vDrSO71u
-	BduyBPdHWksMT6YMJgPjnCFe2Z8ufY7tXDSKecqypiWJn8X13UPmwk75wwmJszKwMQrEK4
-	Xkp/vWK5I5QJGlu92tqphgT4AF2D/t+qlXrAwFtx54DdqZ/UIFS/pbkhuedHwA==
-From: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Date: Thu, 03 Sep 2026 10:11:07 +0200
-Subject: [PATCH RFC v2 04/19] drm/bridge: panel: rename
- drm_bridge_is_panel() -> drm_bridge_is_panel_bridge()
+	s=arc-20240116; t=1788423134; c=relaxed/simple;
+	bh=MIHSYS07q4uwcFA4MbFu3S/olppq06bL+JWmRGhocLM=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=Gbl2AIqyAaHc4Zub+uRTv6CYPNiNwSXLEU8coGUKpu363MPvqX3qycJ1kjXHcIXCJctWtZzNd8JViF4Sx3JHsPjSuVPHqvdvV3VxY6vs+xFsKiI/oFoRpZ+ZEKKR2ZJjFO3bkPiPglgXYkPU0L/H6t6V1fqRQZJqOc4oqiElof8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: 26314d1aa76f11f19a56ed5b684f684d-20260903
+X-CTIC-Tags:
+	HR_CC_COUNT, HR_CC_DOMAIN_COUNT, HR_CC_NO_NAME, HR_CTE_8B, HR_CTT_MISS
+	HR_DATE_H, HR_DATE_WKD, HR_DATE_ZONE, HR_FROM_DIGIT_LEN, HR_FROM_NAME
+	HR_SJ_DIGIT_LEN, HR_SJ_LANG, HR_SJ_LEN, HR_SJ_LETTER, HR_SJ_NOR_SYM
+	HR_SJ_PHRASE, HR_SJ_PHRASE_LEN, HR_SJ_WS, HR_TO_COUNT, HR_TO_DOMAIN_COUNT
+	HR_TO_NO_NAME, IP_UNTRUSTED, SRC_UNTRUSTED, IP_UNFAMILIAR, SRC_UNFAMILIAR
+	DN_TRUSTED, SRC_TRUSTED, SA_TRUSTED, SA_EXISTED, SN_TRUSTED
+	SN_EXISTED, SPF_NOPASS, DKIM_NOPASS, DMARC_NOPASS, CIE_GOOD_SPF
+	CIE_UNKNOWN, GTI_FG_BS, GTI_RG_INFO, GTI_C_BU, AMN_GOOD
+	ABX_MISS_RDNS
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:b09a396d-3e08-4346-a70f-dc2feb628c4c,IP:10,
+	URL:0,TC:0,Content:-5,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTI
+	ON:release,TS:30
+X-CID-INFO: VERSION:1.3.19,REQID:b09a396d-3e08-4346-a70f-dc2feb628c4c,IP:10,UR
+	L:0,TC:0,Content:-5,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
+	:release,TS:30
+X-CID-META: VersionHash:7db8b62,CLOUDID:ee3e79dd0a867c557cbd0d21772ae162,BulkI
+	D:260903161207NA2A594Q,BulkQuantity:0,SF:17|19|66|78|102|127|850|865|898,T
+	C:nil,Content:0|15|50,EDM:5,IP:-2,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BE
+	C:nil,COL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR,TF_CID_SPAM_FAS,TF_CID_SPAM_FSD
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 26314d1aa76f11f19a56ed5b684f684d-20260903
+X-User: wangyan01@kylinos.cn
+Received: from localhost.localdomain [(223.104.132.142)] by mailgw.kylinos.cn
+	(envelope-from <wangyan01@kylinos.cn>)
+	(Generic MTA)
+	with ESMTP id 695768317; Thu, 03 Sep 2026 16:12:04 +0800
+From: Wang Yan <wangyan01@kylinos.cn>
+To: chunkeey@googlemail.com
+Cc: johannes.berg@intel.com,
+	zilin@seu.edu.cn,
+	wangyan01@kylinos.cn,
+	linville@tuxdriver.com,
+	Larry.Finger@lwfinger.net,
+	linux-wireless@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] wifi: p54: fix incorrect frame length check in p54_find_ie()
+Date: Thu,  3 Sep 2026 16:12:00 +0800
+Message-Id: <20260903081200.267514-1-wangyan01@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260903-drm-bridge-every-panel-v2-4-2ab8ee24538e@bootlin.com>
-References: <20260903-drm-bridge-every-panel-v2-0-2ab8ee24538e@bootlin.com>
-In-Reply-To: <20260903-drm-bridge-every-panel-v2-0-2ab8ee24538e@bootlin.com>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Jessica Zhang <jesszhan0024@gmail.com>, Linus Walleij <linusw@kernel.org>, 
- Inki Dae <inki.dae@samsung.com>, Jagan Teki <jagan@amarulasolutions.com>, 
- Marek Szyprowski <m.szyprowski@samsung.com>
-Cc: Albert Esteve <aesteve@redhat.com>, 
- Anusha Srivatsa <asrivats@redhat.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
- Hui Pu <Hui.Pu@gehealthcare.com>, Ian Ray <ian.ray@gehealthcare.com>, 
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- Luca Ceresoli <luca.ceresoli@bootlin.com>
-X-Mailer: b4 0.16.0
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Transfer-Encoding: 8bit
 
-Work is in progress for every drm_panel to embed a drm_bridge, and for that
-a function will be needed in the drm_panel API to tell whether a bridge
-represents a panel or something else. The ideal name for that will be
-drm_bridge_is_panel(), which however is already in use by the panel_bridge.
+In p54_find_ie(), mgmt is a pointer to struct ieee80211_mgmt, so
+sizeof(mgmt) evaluates to the size of the pointer rather than the size
+of the management frame header.
 
-Rename the current function in the panel_bridge API to
-drm_bridge_is_panel_bridge(), which is more precise and frees up the
-drm_bridge_is_panel() for future use in the drm_panel API.
+Use sizeof(*mgmt) instead so that the skb length is compared against
+the actual size of the management frame header.
 
-No functional changes, just renaming a function treewide.
-
-Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+Fixes: 0ac0d6cedf61 ("p54: Move mac80211 glue code")
+Signed-off-by: Wang Yan <wangyan01@kylinos.cn>
 ---
- drivers/gpu/drm/bridge/panel.c                 | 8 ++++----
- drivers/gpu/drm/display/drm_bridge_connector.c | 2 +-
- include/drm/drm_bridge.h                       | 4 ++--
- 3 files changed, 7 insertions(+), 7 deletions(-)
+ drivers/net/wireless/intersil/p54/main.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/bridge/panel.c b/drivers/gpu/drm/bridge/panel.c
-index 40e3970e8b76..0582c708957c 100644
---- a/drivers/gpu/drm/bridge/panel.c
-+++ b/drivers/gpu/drm/bridge/panel.c
-@@ -221,17 +221,17 @@ static const struct drm_bridge_funcs panel_bridge_bridge_funcs = {
- };
+diff --git a/drivers/net/wireless/intersil/p54/main.c b/drivers/net/wireless/intersil/p54/main.c
+index 57a62108cbc3..d3e1776174f9 100644
+--- a/drivers/net/wireless/intersil/p54/main.c
++++ b/drivers/net/wireless/intersil/p54/main.c
+@@ -76,7 +76,7 @@ u8 *p54_find_ie(struct sk_buff *skb, u8 ie)
+ 	struct ieee80211_mgmt *mgmt = (void *)skb->data;
+ 	u8 *pos, *end;
  
- /**
-- * drm_bridge_is_panel - Checks if a drm_bridge is a panel_bridge.
-+ * drm_bridge_is_panel_bridge - Checks if a drm_bridge is a panel_bridge.
-  *
-  * @bridge: The drm_bridge to be checked.
-  *
-  * Returns true if the bridge is a panel bridge, or false otherwise.
-  */
--bool drm_bridge_is_panel(const struct drm_bridge *bridge)
-+bool drm_bridge_is_panel_bridge(const struct drm_bridge *bridge)
- {
- 	return bridge->funcs == &panel_bridge_bridge_funcs;
- }
--EXPORT_SYMBOL(drm_bridge_is_panel);
-+EXPORT_SYMBOL(drm_bridge_is_panel_bridge);
+-	if (skb->len <= sizeof(mgmt))
++	if (skb->len <= sizeof(*mgmt))
+ 		return NULL;
  
- /**
-  * drm_panel_bridge_add - Creates a &drm_bridge and &drm_connector that
-@@ -321,7 +321,7 @@ void drm_panel_bridge_remove(struct drm_bridge *bridge)
- 	if (!bridge)
- 		return;
- 
--	if (!drm_bridge_is_panel(bridge)) {
-+	if (!drm_bridge_is_panel_bridge(bridge)) {
- 		drm_warn(bridge->dev, "%s: called on non-panel bridge!\n", __func__);
- 		return;
- 	}
-diff --git a/drivers/gpu/drm/display/drm_bridge_connector.c b/drivers/gpu/drm/display/drm_bridge_connector.c
-index 00feb73e63d7..5de9b76f345b 100644
---- a/drivers/gpu/drm/display/drm_bridge_connector.c
-+++ b/drivers/gpu/drm/display/drm_bridge_connector.c
-@@ -983,7 +983,7 @@ struct drm_connector *drm_bridge_connector_init(struct drm_device *drm,
- 		if (bridge->ddc)
- 			ddc = bridge->ddc;
- 
--		if (drm_bridge_is_panel(bridge)) {
-+		if (drm_bridge_is_panel_bridge(bridge)) {
- 			drm_bridge_put(panel_bridge);
- 			panel_bridge = drm_bridge_get(bridge);
- 		}
-diff --git a/include/drm/drm_bridge.h b/include/drm/drm_bridge.h
-index 9f2294957669..b29096d624d5 100644
---- a/include/drm/drm_bridge.h
-+++ b/include/drm/drm_bridge.h
-@@ -1474,7 +1474,7 @@ void drm_bridge_hpd_notify(struct drm_bridge *bridge,
- 			   enum drm_connector_status status);
- 
- #if IS_ENABLED(CONFIG_DRM_PANEL_BRIDGE)
--bool drm_bridge_is_panel(const struct drm_bridge *bridge);
-+bool drm_bridge_is_panel_bridge(const struct drm_bridge *bridge);
- struct drm_bridge *drm_panel_bridge_add(struct drm_panel *panel);
- struct drm_bridge *drm_panel_bridge_add_typed(struct drm_panel *panel,
- 					      u32 connector_type);
-@@ -1490,7 +1490,7 @@ struct drm_bridge *drmm_panel_bridge_add(struct drm_device *drm,
- 					     struct drm_panel *panel);
- struct drm_connector *drm_panel_bridge_connector(struct drm_bridge *bridge);
- #else
--static inline bool drm_bridge_is_panel(const struct drm_bridge *bridge)
-+static inline bool drm_bridge_is_panel_bridge(const struct drm_bridge *bridge)
- {
- 	return false;
- }
-
+ 	pos = (u8 *)mgmt->u.beacon.variable;
 -- 
-2.55.0
+2.25.1
 
