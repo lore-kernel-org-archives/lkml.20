@@ -1,183 +1,230 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com [209.85.214.172])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9355750C2B0;
-	Thu,  3 Sep 2026 19:43:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=198.175.65.15
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788464628; cv=fail; b=rqFegyjegOg+kT/DGk7J0cmOoKTQFx9vfKKrTk8PsHIcryg4Qz+Z3f4GJjZWXmqsjtobsC7AzWr+iSSxrcbvTHhoQMgycBdLLFtryZb36/Nowg/CRH8TzrJuAud4l0mHCoOHBb5Dsq9JGSE5XUcYIcd6RuEYfriIptll8Ae4IRY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788464628; c=relaxed/simple;
-	bh=eR+0FF0ca/40HVqpzoyUuV7lBgR8ACXe0fHjRzNBBhM=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=AGogJXaxX7X7eXrBx9gwoga6qYwMxZCTHizAp4Fzntuulbyy8rmrEPSZg9t+e1bjc9GQm+UbTZKU8vQeHWDmumikwiA+JU4mLnSHJjxySZLXWxnZOC3V72WIdWPSLeoQNai36+LRIvvktdr/WtSYRLdh+sYwKIfE7hyDsYPtHJo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=VheggrWU; arc=fail smtp.client-ip=198.175.65.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4054950C2B8
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 19:43:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.172
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788464636; cv=none; b=C6+s4YGRrbDLv3d6sOFgIaFbQDbFwrQW0XOOV+goGjuxIh8CLp417PZpNOOvUCHovyOOnLCaDwZPtoJK/TtFMjsRf6Y+0CPdgK5kT/l4SPLAFKngi29vaM3yohGCCo6atLRa8cS8EDMafVU/mMoAAnCHHUB/rWxGG/YhuVyxzdI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788464636; c=relaxed/simple;
+	bh=AUwUXYTSiLg+4+ZgzE1c1EjhRaY9RHvKMoQpUgZSGH0=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=JngVztvFdp9zkr51sr1ysh5FcNf0fr32gmrOI22A8/JbHmKilhWRzc5KJZm8UhpFOhveWPOk25nA1DIzRk9tl6nw2qA105fnXnkcEFE5n2w9T3K/enrFWXyFO9iq+TF11dprNxCNxgs/wy4tWAiRuK3pSrxjusNCcNSRqhn45TE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OoP6Jj7i; arc=none smtp.client-ip=209.85.214.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="VheggrWU"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788464618; x=1820000618;
-  h=from:to:cc:subject:date:message-id:references:
-   in-reply-to:content-transfer-encoding:mime-version;
-  bh=eR+0FF0ca/40HVqpzoyUuV7lBgR8ACXe0fHjRzNBBhM=;
-  b=VheggrWUbh52sXp2MQmcTFa/9UdAfjbkf6yzMVSZr8ZxV8VJeyE+pvzX
-   8dWSCN4ZBwZ/CcNDLN7caRGl0SWrdqF12O7uEnf+RIqoSGJz0P6c75IFA
-   JA3IIXyiQzU4075Ucf+Uj6EMEw43CUZrJIvnsRaVsxCO5Uqjta5da6RMh
-   9uN83r/22DhsRjkiRBp/Fiyvlk67HaKb0+LvRYpIgpqmBQeeUoF06mkAT
-   +9+f4goipDDmgGou4aibFEQ687UXsdDBYheug9DDkZ9WlZntHS4dQ+JRS
-   TG51qpYCvFGeepzodgDjubVkb1iHcvkRIVKJ428eKGg7IBZRPES3jiFa6
-   Q==;
-X-CSE-ConnectionGUID: tTxIuoB7SYu9XDG0QhoYZw==
-X-CSE-MsgGUID: uEbLolgUR/23VUP9F3JtFg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11895"; a="92658410"
-X-IronPort-AV: E=Sophos;i="6.25,260,1779174000"; 
-   d="scan'208";a="92658410"
-Received: from orviesa009.jf.intel.com ([10.64.159.149])
-  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Sep 2026 12:43:32 -0700
-X-CSE-ConnectionGUID: 0N8Ff5obSX2WA85fcGmtDw==
-X-CSE-MsgGUID: GQxkjbMSSjynA3ogkgp7lg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,260,1779174000"; 
-   d="scan'208";a="270353025"
-Received: from orsmsx903.amr.corp.intel.com ([10.22.229.25])
-  by orviesa009.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Sep 2026 12:43:31 -0700
-Received: from ORSMSX903.amr.corp.intel.com (10.22.229.25) by
- ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Thu, 3 Sep 2026 12:43:31 -0700
-Received: from ORSEDG903.ED.cps.intel.com (10.7.248.13) by
- ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46 via Frontend Transport; Thu, 3 Sep 2026 12:43:31 -0700
-Received: from SN4PR2101CU001.outbound.protection.outlook.com (40.93.195.11)
- by edgegateway.intel.com (134.134.137.113) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Thu, 3 Sep 2026 12:43:31 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=hq4ZzMaMh+rgIaWyibtkHrmsoZPtBAgfk8IQpOPOsJjgrh6+4SCSbGOIAxh140WdBOJVVyrCBq9F8egfv/aHcRxz3xZWZc3ZgxSgyp+G+/YAeeBXIcc3lTEwYLbGLqpFi1AltF4sEXHkM1ItZREBOH0NsD2Uj1kcsZV299YhUNmm6kjesGczs0eXa2Il+hH3QQn+9iBrVmu7bMFgFutG8G3gjyuHKcEVtp8yR7WK4v+3bQtrYWS5hBpUjQHCugaGVdK3LN4g6j4XLNOY3MY1U8JbgwIrEY4sR2Yj7qeOCvOuY2bXs9SSCVEt+lRi/x1oxhnYA/2f3FTA6ZBqBInDiw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=eR+0FF0ca/40HVqpzoyUuV7lBgR8ACXe0fHjRzNBBhM=;
- b=c7xXGMiPnA84ij7kcYUXTBLO5BPFkTmXK9q9Hw/p5nF/XoYcB950EVMoeNCrgfTyWegRcIT7JUIFVojLlB5A/4eqNiM9tMfDbgFtaaiX8n+9LQk4EhydIiq/azzNCcXmg0OntIney77MdVXL4SyupY0J8rqg9Np89Y0T4c56sBE1cO4oMbZlyc0rl6GR+1losO5wJL054a/PV1eCY+9TR5V7GiGzcqSPoeZbhmmSpinJNUe7KSSz/kosje1rDZDVatySZhOZq5m/ME2uFYx5fVMWUleRGGzYNQ1xrYPjcQVjQanapXHb/uye8NW/p9BLgnLQD3M07y2nz38barE6HQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Received: from SJ1PR11MB6083.namprd11.prod.outlook.com (2603:10b6:a03:48a::9)
- by DS4PR11MB131308.namprd11.prod.outlook.com (2603:10b6:8:502::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Thu, 3 Sep
- 2026 19:43:28 +0000
-Received: from SJ1PR11MB6083.namprd11.prod.outlook.com
- ([fe80::3454:2577:75f2:60a6]) by SJ1PR11MB6083.namprd11.prod.outlook.com
- ([fe80::3454:2577:75f2:60a6%4]) with mapi id 15.21.0360.008; Thu, 3 Sep 2026
- 19:43:28 +0000
-From: "Luck, Tony" <tony.luck@intel.com>
-To: Aaron Tomlin <atomlin@atomlin.com>, Marco Crivellari
-	<marco.crivellari@suse.com>
-CC: "bp@alien8.de" <bp@alien8.de>, "tglx@kernel.org" <tglx@kernel.org>,
-	"mingo@redhat.com" <mingo@redhat.com>, "dave.hansen@linux.intel.com"
-	<dave.hansen@linux.intel.com>, "x86@kernel.org" <x86@kernel.org>,
-	"hpa@zytor.com" <hpa@zytor.com>, "frederic@kernel.org" <frederic@kernel.org>,
-	"neelx@suse.com" <neelx@suse.com>, "sean@ashe.io" <sean@ashe.io>,
-	"chjohnst@gmail.com" <chjohnst@gmail.com>, "mproche@gmail.com"
-	<mproche@gmail.com>, "nick.lange@gmail.com" <nick.lange@gmail.com>,
-	"linux-edac@vger.kernel.org" <linux-edac@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: RE: [PATCH v4 2/2] x86/mce: Avoid arming periodic polling timer when
- not required
-Thread-Topic: [PATCH v4 2/2] x86/mce: Avoid arming periodic polling timer when
- not required
-Thread-Index: AQHdO1qbO7zN8Pg6EE2Ffh60tVK1era8i5MAgACvuQCAAAZ5YA==
-Date: Thu, 3 Sep 2026 19:43:28 +0000
-Message-ID: <SJ1PR11MB60838CF1E66802F66273CD26FCB62@SJ1PR11MB6083.namprd11.prod.outlook.com>
-References: <20260903041320.179965-1-atomlin@atomlin.com>
- <20260903041320.179965-3-atomlin@atomlin.com>
- <CAAofZF7rNbEZuiGJXyjn+wwtdF0Y9vDEo2hGhJak6CCkP8YB-g@mail.gmail.com>
- <meco6huj6tnwozht5h3zrp22f5ljtvyulphesu7csou7y64uoz@4zkit3wvrtea>
-In-Reply-To: <meco6huj6tnwozht5h3zrp22f5ljtvyulphesu7csou7y64uoz@4zkit3wvrtea>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: SJ1PR11MB6083:EE_|DS4PR11MB131308:EE_
-x-ms-office365-filtering-correlation-id: 7290f5a8-098a-4386-32c3-08df09f3a063
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;ARA:13230040|376014|1800799024|23010399003|7416014|366016|38070700021|56012099006|10067099003|11063799006|4143699003|22082099003|18002099003;
-x-microsoft-antispam-message-info: UTRqRPsI3wdbdrwiQFDohdKvE7AgagdVGy7WBLCAzcZzKhFxkNN0bWfoUYVWLEID4SPYYKnLQE4CSy7ra2D5FLyqsgil/GBMyM8UvpC9lMDY1YymdO3drV0E3k/LuggnY3XGsYbrHobwQlpmJgfq3TFDwMos9Oinsi9QxmfiOcH+DRAfCuXY1y+OY3RLZnAslllBFNr0vEH0q03EiAB2fYPpSP7Oqda5FuI0CnNwzH9pipl9l5WAGprtYwktfrH3PG9DT2q2X4VvFrc6UzFB+9dNNsgCFJlN55bis403UjT2RiXJgkDwADxpIv+Wa2rXOci75XjbIJPLrN5TI2EaU9Oek0Wrw/YQ03iTCJEXr1s4jqD+Mir/QyQTMh3P/LUPprD0AgnaLxhawEqbbsmshEO88czPw3CBD9l/dUhinjq3a4VhUgOk0WdpnTSvLwmWAR8NjaiReV5aTlBD4dKrqo+kZBbby3UdvG08GTCb9NwDs4IdJgWfVJJx9v+ve7sOblwYbCGxB9lGp6SqXMoHGbRoYRoTs7Jw2Icig8LcL4ZYJXtgQ052ZD35Iax5+O5lVGHvBJxpiR9sCKwfu9irwhEebNNOW5aG4fxYanGiaNHAcUQbB+y6A6Ap860AIoLpnFzwldKi5ozKM6QhXBRFyQXZt13jTay8BJ3V3LJmGFY=
-x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ1PR11MB6083.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(23010399003)(7416014)(366016)(38070700021)(56012099006)(10067099003)(11063799006)(4143699003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?SVZiU2ZvalQ5Uk40Q3k4MXlEb3BweVFCS0RITHVBYmkwYlpaNHpock9IK201?=
- =?utf-8?B?R2lvaHdyOEJ5d2c1TDhIRmxjREdlanJqcFBpbnNnekNvWkFLcGxmRzNQOHpv?=
- =?utf-8?B?N3ZiRkxQeU9DMDJYUHlMajdEOCtpUk5EWUVkQmpFNll1d0FlWlFyRTk2M09C?=
- =?utf-8?B?RkRhTXZkZkFtSlBDbFVsVG53T1VxSmgxV1I5SEtTZ3hjV3YyZUQ1TkhhVk9o?=
- =?utf-8?B?WHY0RU55YVJ2K1Q1WjZJaXFDUnV3ZWx4aDQyTDRURjk0N3REZTU3ckY0Z2Yr?=
- =?utf-8?B?bnI2S2V4cWU3UzJ0NndjSE4vUktRdVhZVjM0bkl0dGVscHVkOS8yM2pDdkNO?=
- =?utf-8?B?MVNpSUZtZ3piZWxnSmY5K2p0a28vaVF2ZkFjdy9PRk9Jc1RQeitMaGhQdWxD?=
- =?utf-8?B?aWV4elQvV1VIaGpiTTc1K294RjF3VjlTMEJwMnNzMDJVWU9HVmRzRlZ5bTdt?=
- =?utf-8?B?NGNzdmM2S2V3TGpOY29LYnplcms4WGFneEFpZ2pNWGNHem1xNTRkVnlXVW9C?=
- =?utf-8?B?RndGVzFHaXZLSWpkOEpOckZzTkVOSmlLTXFHM0hsby9YNXdXWURxT1VsYTQr?=
- =?utf-8?B?Wi9OTUZMamFlOE80UkNvKzB1VHRmZzFhNXJDT1p3Uko0SHUwM0Y2SE1CSm5x?=
- =?utf-8?B?eWJGOXgwVXBDU1JURDBnaklubTNvUUt5cC9WTzJqQmxIS1h3VUFTNnY1eVVN?=
- =?utf-8?B?ZHFRNVMzR1A0cHN6Ylg4M2Vncmkza0VreThJVEZOVFViL3ZqQ1hyQ3BRZmoy?=
- =?utf-8?B?elJqaWFHMXlGZEMweGxPaklSbm90aDZSekpyTmZXR2RKR0lRb3RrZWJOblNk?=
- =?utf-8?B?SlFNdUxRWWVFcThLTmlsKzgvcnAwdjN4ZGg5L0Z4V2NDQXJNa2o4WWxoZWpT?=
- =?utf-8?B?NFRTVE8xcFVNamJJRlV6aGppR3VTYWREK3pwUUxPSzY0S013U0ZhbnlzNE13?=
- =?utf-8?B?Y0xtZXVrNkF0VUg3dW12eE9nNWE3SFppM2xEeERIclhQaUpkcE5XdWdONEZT?=
- =?utf-8?B?S1RyWFpUcDdORWw4WXhnaW9IK2N4Q2xsUURyWlhUZU5EWkhrY3Fib1JNVUJN?=
- =?utf-8?B?cURzbU9EZkxZbExKdFJNK0lYQ1Y5alZxQUNPMDVXUDNlU0JCMGhPSWJDRmZV?=
- =?utf-8?B?YzQ5bm9lU1ROaG45OXduc1BsQUxVWDRGWVFCSDBYM0pCSTNHS3JjcjZGNHh1?=
- =?utf-8?B?bjBTd1RqbXp4S0k5S1daZi9vemJnSDVCb0lQdHc2Q1dYUWVVZlJZb1oyeU1v?=
- =?utf-8?B?TmlGTm1tWlY0TVRpMWsrYWVGQlJjK1I3WGtQMzdtYXRLcnNCQk50VWU0cGtE?=
- =?utf-8?B?ZW91VU5MdE9jdm1tZkZBNkNXUmlKS1pqSVNsUTlJMm84WWNOZ0tOcVg5RklS?=
- =?utf-8?B?aStYTGZaRGVPcURoTCtxY1pQMlNrSTlvMnNXU3hUdFJ2RzhCS1BiZUtqVFd1?=
- =?utf-8?B?Vk1RQUZPZW82S3g2cld6cTJkZzdvVkdURVFyYTdYQjNCaVUxNDJNL0lLUWRL?=
- =?utf-8?B?SEc1RVFtVFduSnNxbjJDaDNHeUJxSXgzS0M1OWVMSzkrTDJ3SUxaQit3WU5s?=
- =?utf-8?B?QjV0SjhEeUtFQWg3dmdISnpaWk9TR3hvU1NDVWtVUVltdnd1UEFZUFpQTkJQ?=
- =?utf-8?B?bU5EUHRMTXRkaHBRQXRSWVdoaUtDU2ZZZUZYcnlVNVgvR0dzekZMTkRXMmd6?=
- =?utf-8?B?R2V4c0llZnBySXRJYXZpQ0dOVHh2dEh5cnJjL20xc0hEZS93YkhRZ2w3WkE4?=
- =?utf-8?B?a0dlZ1Y3aVUxU3dXNVZHU3ptWExCbGZ5bnQyeG9IWkFzY0tENW4rTWMzcW9C?=
- =?utf-8?B?aFBzbzgrWTU1aDBtUEYwdkkvS2xIVndNalAwelhDQ2piL0xrT0xVb216VDBS?=
- =?utf-8?B?Tld4UEhTemJlUWt3bloycFpGN3RtYTUyYkdXZTJlalluMlNKbzZ0dTRKOTNR?=
- =?utf-8?B?NjBoS1FoVHpTMnBjb2YvQzFQelAyVVpCbVpiaXpVOXFzbTBFVFE1SHlFSWtX?=
- =?utf-8?B?SHRIRTRoeThkZnlWK1lGZGU3bHp2VS92dE4rMSsvdEtBWjcrdG1jTm9jRlQx?=
- =?utf-8?B?OFdUWTJaZ0RYTVp3ZVJmRHFoTXpCcnRMc3R0eVFkM1lMTXZNaFo3bjcreG8z?=
- =?utf-8?B?RnhpQU5vY0wxYUxzVmoyM3pmM21TcUR2V0F1TEFvWittejJaQ2VISG05aWhN?=
- =?utf-8?B?eGx4TTBvSHN6NmZySkROM3JHRHRRMUZOdWVyVU02ZlRvWGRsdEdHTng3cG1k?=
- =?utf-8?B?ZmE1SmgyTkNnWSs3cnNlNnZXOHJQQjE3dFdSZHJSSzV0UkRWemM1TGFjQWQx?=
- =?utf-8?Q?2Oeiakjs/fxmBVbGrO?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OoP6Jj7i"
+Received: by mail-pl1-f172.google.com with SMTP id d9443c01a7336-2d72ae08fa1so2018485ad.2
+        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 12:43:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788464627; x=1789069427; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=AahTyLWLBHNpF3GBq6NBDmCN0xxivJBqCrlvcZaObVE=;
+        b=OoP6Jj7iDa0tNQ2HEjkY8fjezPYzwIE4Tmj+LEoC7P6yxhHZvEx+7GkleYpGdD0yhV
+         EWgdFHEWcOrfe/eC+WbmHPmKs8ePyr1ymQwYpGM4QMtMOB4H68Q6JU2xVFnBaWeOfk2R
+         IU2wlLvfTXlHXh2RpAqdai9ZXToD31HntHH2PBHlS5eGFBNa1iilZAokE2V64xkRLSsn
+         YWeKM5TTfMU95qW5pWq/gzPbOKmEMKjI0B92L9UeeXU5LqUj9VFPmERkfKj0SKtdKJZJ
+         swU1YwTu6uhRllBpj2Nppemja3hj1h43T27i32QTNHVYm6GgsI4jBTtxJIHBLzHcVDlG
+         743w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788464627; x=1789069427;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=AahTyLWLBHNpF3GBq6NBDmCN0xxivJBqCrlvcZaObVE=;
+        b=ClfpgW/13eBlDRExBpW8fgTASlsFU866BKwynKEptROFvQsN9kaUaoqnf5UY010+Si
+         tq0SO0xhF1ZBZvXeyTh1fC90QYQO22DyULWdaqSahd/so4mU//pGdhQY/IszSiIZtrpe
+         SmLGqrZ4fpKF7yE5VbfQaJaxKcTFO2kFcsSJA48I6HHyICVSnLHQTWL17uJ5zYQTkzHE
+         vHGXcu5LoLYDswtzI0WNSukeIeCzc1qjXcuthDozcfOygj/5SpJD9yo7rd1zIoqqVPN4
+         uyDsxx5lLZUP/KJh/56s6cXMisXAsrwJts5n4femswzOpnzbeBEqJ+IIr1qSO+uka20z
+         PH1Q==
+X-Forwarded-Encrypted: i=1; AKwUvByCCDHUWw4N9aEVEYs9Nx4HLsQPZRu1VEm/+Zs3sCRc+rgubXid7OWMWV7WLnSnCSXVYMukalgHhiedSJU=@vger.kernel.org
+X-Gm-Message-State: AFuF++kc8GHYkHVbf/HrrOjVoXFy+J4L2Bk7c1awsa4rBnHSxe6EFJMM
+	ImflbUepdISATTL5prm2u7ZhePPAS/9F2RiHJIr0iaQkThoZ/JQ01i7BKknNlQ==
+X-Gm-Gg: AYBFou25yD35dZQjEMQ1VZc0McJzFrmzwpvhCjx6SPErCfsQzrlAAAZjjE3MZKqf8O+
+	9EGMLLRY2AsjMnZpssyehZ7HO+kCn/9GJ4LHJinxDz2DaHpJu1mOTOoAgHe6j5I4IYatrbpQAdC
+	wamJ2mgb61xIp8KhNVshl2sMuaKH3tUu23PbaVhbbiba9PSX3lQMrFNcg03b+4ZGlZ+1Hd3TLLY
+	EoyxAydXhkf/MIaUDbWDvnSnscxsjSou/spoc91WLp1Io/p7xaVOkdePo+Ky8tNIjrGGcbmf45K
+	BO64OWwfqChTP7Z7cet0yFJptaZgavrQQwsvJ71o45ceLIAuAQy66t1DG7LwpJF8T07PA8eY+83
+	GmOkdAeQ737+cwC9JSELq12/hNOBopmdLZM9urlBjxTzYJ0TSwsBAViez1eDDCcxdGmGQwTD0iC
+	WnGH+naJj3YohA2midzcnd2TPO3GABU84jM6yEmALR7OLiY37VOzUAmZk2vaaWAZfN6UtUOhzzS
+	GG8rRVQ9XmNkWmgRaEGOgpVmMGdNOYAfjELEn5hhP4WtqKnwUP+6UX/31GQJDY4MigoXPN79W66
+X-Received: by 2002:a17:90b:510c:b0:398:9be6:f999 with SMTP id 98e67ed59e1d1-39b262e27a9mr1194828a91.24.1788464626540;
+        Thu, 03 Sep 2026 12:43:46 -0700 (PDT)
+Received: from mac.localdomain ([12.162.234.74])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339885ce11sm1201335eec.3.2026.09.03.12.43.45
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 03 Sep 2026 12:43:45 -0700 (PDT)
+From: Ahmad Byagowi <ahmadexp@gmail.com>
+To: Andi Shyti <andi.shyti@kernel.org>
+Cc: Peter Rosin <peda@lysator.liu.se>,
+	Andy Shevchenko <andy@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	linux-i2c@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Ahmad Byagowi <ahmadexp@gmail.com>
+Subject: [PATCH v9 2/2] i2c: mux: Propagate firmware nodes to channel adapters
+Date: Thu,  3 Sep 2026 12:40:56 -0700
+Message-ID: <fbc7f6e21c12b87f56cc8593b380e7460440bab3.1788298883.git.ahmadexp@gmail.com>
+X-Mailer: git-send-email 2.50.1
+In-Reply-To: <cover.1788298883.git.ahmadexp@gmail.com>
+References: <cover.1788298883.git.ahmadexp@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked: xtXx7dGg8/rIiswrNTOr7XSG42MjLopPPkMg3mDIlm5j+LOcvcX7TEm7zwL7IMeoV1B0xfrkHPg7xkjKxa56RXeAafU74H5dOfG/pzS40SR28Qc1tPpUUkpnQxme9ubGcfOwl4BU2C3g99vOZkNlvUYwnckn0uwukoB8WgoOWj5Hxq8pdTpd+nY3ZlrVaMFNYwLpe/LyUOvW5macNwUMLZKSATOGBrVdUONYXp8wBx3ji223Vnb0MCljPv9JOeR9ND7DrELQT75EYZuzLM2BhpDEzfyoy0FgOgGQT6qUSU6QukyxonTND50TfgNsF8FiThubNI743j1CS0+Eyc80DQ==
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: SJ1PR11MB6083.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7290f5a8-098a-4386-32c3-08df09f3a063
-X-MS-Exchange-CrossTenant-originalarrivaltime: 03 Sep 2026 19:43:28.2288
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: DIlH3dYNhD2bK59VU0+G/iZhF32wY1zQqbfILfZTddXs9cH2CXiKwPtbH2SKYYxsSY8b5HwVzcP9hoxXu8VDPA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS4PR11MB131308
-X-OriginatorOrg: intel.com
+Content-Transfer-Encoding: 8bit
 
-PiBZZXMsIHRoZSBwZXItQ1BVIHZhcmlhYmxlIG1jZV9wb2xsX2JhbmtzIGNhbiBpbmRlZWQgYmUg
-bW9kaWZpZWQgYWNyb3NzDQo+IGRpZmZlcmVudCBleGVjdXRpb24gY29udGV4dHMgb24gdGhlIHNh
-bWUgQ1BVLg0KPg0KPiBUb255LCBJIHdpbGwgYWRkcmVzcyB3aGF0IFNhc2hpa28gWzFdIHJlcG9y
-dGVkIGluIHRoZSBuZXh0IGl0ZXJhdGlvbi4NCj4NCj4gWzFdOiBodHRwczovL3Nhc2hpa28uZGV2
-LyMvcGF0Y2hzZXQvMjAyNjA5MDMwNDEzMjAuMTc5OTY1LTEtYXRvbWxpbiU0MGF0b21saW4uY29t
-DQoNCkhpIEFhcm9uLA0KDQpPSy4gSXQncyBhIHNlcGFyYXRlIGlzc3VlLCBzbyBwdXQgdGhlIGNo
-YW5nZSBpbiBpdCdzIG93biBwYXRjaC4NCg0KUGF0Y2hlcyAxICYgMiBub3cgbG9vayB0byBiZSBp
-biBnb29kIHNoYXBlLg0KDQotVG9ueQ0K
+Device Tree channel nodes are associated with the adapters created by
+i2c-mux, but equivalent firmware-node descriptions are not.
+
+Use generic firmware-node operations for the existing channel lookup
+and associate the returned node with the adapter. Do not restrict the
+lookup by firmware-node type, so Device Tree, software nodes, and ACPI
+descriptions all follow the same property traversal. The existing
+acpi_preset_companion() call remains in place for the standard ACPI
+channel association.
+
+Keep a separate reference to the node returned by the generic lookup
+because acpi_preset_companion() may replace the device's primary
+firmware node. Release the saved reference after adapter deletion.
+
+Signed-off-by: Ahmad Byagowi <ahmadexp@gmail.com>
+---
+ drivers/i2c/i2c-mux.c | 44 +++++++++++++++++++++----------------------
+ 1 file changed, 21 insertions(+), 23 deletions(-)
+
+diff --git a/drivers/i2c/i2c-mux.c b/drivers/i2c/i2c-mux.c
+index 37529c7627a6..e0b0116d5b6d 100644
+--- a/drivers/i2c/i2c-mux.c
++++ b/drivers/i2c/i2c-mux.c
+@@ -24,7 +24,7 @@
+ #include <linux/i2c-mux.h>
+ #include <linux/kernel.h>
+ #include <linux/module.h>
+-#include <linux/of.h>
++#include <linux/property.h>
+ #include <linux/slab.h>
+ #include <linux/sysfs.h>
+ 
+@@ -33,6 +33,7 @@ struct i2c_mux_priv {
+ 	struct i2c_adapter adap;
+ 	struct i2c_algorithm algo;
+ 	struct i2c_mux_core *muxc;
++	struct fwnode_handle *channel_node;
+ 	u32 chan_id;
+ };
+ 
+@@ -264,47 +265,47 @@ static const struct i2c_lock_operations i2c_parent_lock_ops = {
+ 	.unlock_bus =  i2c_parent_unlock_bus,
+ };
+ 
+-static struct device_node *
++static struct fwnode_handle *
+ i2c_mux_get_channel_node(struct i2c_mux_core *muxc, u32 chan_id)
+ {
+-	struct device_node *dev_node;
+-	struct device_node *mux_node, *child;
++	struct fwnode_handle *dev_node;
++	struct fwnode_handle *mux_node, *child;
+ 	u32 reg;
+ 	int ret;
+ 
+-	dev_node = dev_of_node(muxc->dev);
++	dev_node = dev_fwnode(muxc->dev);
+ 	if (!dev_node)
+ 		return NULL;
+ 
+ 	if (muxc->arbitrator)
+-		mux_node = of_get_child_by_name(dev_node, "i2c-arb");
++		mux_node = fwnode_get_named_child_node(dev_node, "i2c-arb");
+ 	else if (muxc->gate)
+-		mux_node = of_get_child_by_name(dev_node, "i2c-gate");
++		mux_node = fwnode_get_named_child_node(dev_node, "i2c-gate");
+ 	else
+-		mux_node = of_get_child_by_name(dev_node, "i2c-mux");
++		mux_node = fwnode_get_named_child_node(dev_node, "i2c-mux");
+ 
+ 	if (mux_node) {
+-		/* A "reg" property indicates an old-style DT entry */
+-		if (!of_property_read_u32(mux_node, "reg", &reg)) {
+-			of_node_put(mux_node);
++		/* A "reg" property indicates an old-style firmware entry. */
++		if (!fwnode_property_read_u32(mux_node, "reg", &reg)) {
++			fwnode_handle_put(mux_node);
+ 			mux_node = NULL;
+ 		}
+ 	}
+ 
+ 	if (!mux_node)
+-		mux_node = of_node_get(dev_node);
++		mux_node = fwnode_handle_get(dev_node);
+ 	else if (muxc->arbitrator || muxc->gate)
+ 		return mux_node;
+ 
+-	for_each_child_of_node(mux_node, child) {
+-		ret = of_property_read_u32(child, "reg", &reg);
++	fwnode_for_each_child_node(mux_node, child) {
++		ret = fwnode_property_read_u32(child, "reg", &reg);
+ 		if (ret)
+ 			continue;
+ 		if (chan_id == reg)
+ 			break;
+ 	}
+ 
+-	of_node_put(mux_node);
++	fwnode_handle_put(mux_node);
+ 	return child;
+ }
+ 
+@@ -367,11 +368,9 @@ int i2c_mux_add_adapter(struct i2c_mux_core *muxc,
+ 	else
+ 		priv->adap.lock_ops = &i2c_parent_lock_ops;
+ 
+-	/*
+-	 * Try to populate the mux adapter's of_node, expands to
+-	 * nothing if !CONFIG_OF.
+-	 */
+-	priv->adap.dev.of_node = i2c_mux_get_channel_node(muxc, chan_id);
++	/* Associate the mux adapter with its channel firmware node. */
++	priv->channel_node = i2c_mux_get_channel_node(muxc, chan_id);
++	device_set_node(&priv->adap.dev, priv->channel_node);
+ 
+ 	/*
+ 	 * Associate the mux channel with an ACPI node.
+@@ -415,7 +414,7 @@ int i2c_mux_add_adapter(struct i2c_mux_core *muxc,
+ 	return 0;
+ 
+ err_free_priv:
+-	of_node_put(priv->adap.dev.of_node);
++	fwnode_handle_put(priv->channel_node);
+ 	kfree(priv);
+ 	return ret;
+ }
+@@ -428,7 +427,6 @@ void i2c_mux_del_adapters(struct i2c_mux_core *muxc)
+ 	while (muxc->num_adapters) {
+ 		struct i2c_adapter *adap = muxc->adapter[--muxc->num_adapters];
+ 		struct i2c_mux_priv *priv = adap->algo_data;
+-		struct device_node *np = adap->dev.of_node;
+ 
+ 		muxc->adapter[muxc->num_adapters] = NULL;
+ 
+@@ -438,7 +436,7 @@ void i2c_mux_del_adapters(struct i2c_mux_core *muxc)
+ 
+ 		sysfs_remove_link(&priv->adap.dev.kobj, "mux_device");
+ 		i2c_del_adapter(adap);
+-		of_node_put(np);
++		fwnode_handle_put(priv->channel_node);
+ 		kfree(priv);
+ 	}
+ }
+-- 
+2.50.1 (Apple Git-155)
+
+
