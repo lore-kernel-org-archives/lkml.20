@@ -1,63 +1,42 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 083ED4F55B2;
-	Thu,  3 Sep 2026 19:26:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.14
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4EDAB4EE869;
+	Thu,  3 Sep 2026 19:27:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788463583; cv=none; b=LfYxNS9cnV4usP7B6NSS4dYqu6kLl5zq5nvyu98UBPH/ZwJx00x7m2XbhbNnH8o9BSV4X4DnrN2nFzebtRSOHQhBEXl3Jv0VXm6dDoOvXeRzs7ALwyCBrtD/MxzRsCS5XKh9/oYe25PZhAzPZ6gurLrLuHczJIL4cK8fqKCZkbU=
+	t=1788463628; cv=none; b=Sbppym602OFFRvaHJLZsNdaLzDKcHRJ30fY/oOqmFI6ovWZltXOEC4nITtOPJ5ASYI7wBhtbxAi0ngirPLUYHElRbJvj32QVTgrXRHrXPzrIIb4j+3b9WrDGhyb+OUsVm3hiLB+4IUsqKgTY6ju9dt4i97AIsqgaWigRtk6wo0M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788463583; c=relaxed/simple;
-	bh=lD2RsRY9rXCI10YrLYKJnzSLwzrR+W32yJXpv0AEvMA=;
+	s=arc-20240116; t=1788463628; c=relaxed/simple;
+	bh=BgP8+95/6vEmrlIraHj47/zkIwElt+b1Drvj5uQW69w=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=F/7iLbjxtoRIc6yJWr9K9k5RoOAwtbHDAREIVRaidhHgsjIGPlX5HPDDvFp1QNIeBqEfbM2WG6xrsZtzxnyUT592je/3PinzLyIpnx11VgVQFgIklLVSXE8ms+fAkM2pSC7/ZLr6rt41HHpAihfrOwgbd6Gs/PPwvYQQkjZi4z0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=UfobrVgn; arc=none smtp.client-ip=198.175.65.14
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=B1zKsuynIa4ofiIV7gcSyM7VJLef66GiH2tC0CJ1/bWv+wIibQxxVJVspZ0TNLLMlLjMF/94OtM09G5PVnGXPtp+p9g7CDES+vH2tmNx6JuFcG7IQc+Eo6gr6Dc6dUw0k2wgR8SAIL9a20hEgq9PwMygfGtSiZ5VsTY1J8VYtZY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iR+n84GJ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="UfobrVgn"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788463575; x=1819999575;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=lD2RsRY9rXCI10YrLYKJnzSLwzrR+W32yJXpv0AEvMA=;
-  b=UfobrVgnr4I7zKXywz396ameSE/etI9r/Fq2ULjM/N0SC8WxbxUYTUV+
-   MNDeK0istHarvYpKHzF2Uy28r8YWbUTaqz1H4/yN6PsRBxFjw5sBDK8QO
-   LMCEmVbeLCSpVVMZ4PRK456QhEBZNvPie6SS+QNIjt7caVsz0RAIR30m2
-   2gDL+Zxq4BpVKjJumJ9A8OI6RCDhVIpG5uxvlj7Il4zqMPWAtWtwmidfv
-   zHfwfaSTHOGNQp5Qwg2SzkkMP/EcCM/LxCMPfeXSVlyPrN8xwONwTJZnY
-   lJ3GQ/boirESNVj/5CeYR7xvWnPtVvlXrhNiOpd+djMdGtJpd6/hZw1t3
-   w==;
-X-CSE-ConnectionGUID: tuqhaPe1QhSf/5cvAXAD4Q==
-X-CSE-MsgGUID: hnsb+v2ORTG7AgwajE3iVQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11895"; a="92828298"
-X-IronPort-AV: E=Sophos;i="6.25,260,1779174000"; 
-   d="scan'208";a="92828298"
-Received: from orviesa005.jf.intel.com ([10.64.159.145])
-  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Sep 2026 12:26:07 -0700
-X-CSE-ConnectionGUID: GsUAz88HQX2GkpjnX3e7ow==
-X-CSE-MsgGUID: DBnmtXTISPSBDAHxq/j/Gw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,260,1779174000"; 
-   d="scan'208";a="273969149"
-Received: from alekseim-mobl.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.184])
-  by orviesa005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Sep 2026 12:26:06 -0700
-Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with SMTP id 870E8121BCF;
-	Thu, 03 Sep 2026 22:26:03 +0300 (EEST)
-Date: Thu, 3 Sep 2026 22:26:03 +0300
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: Pierre Pinon <pierre@pinon1.fr>
-Cc: Miguel Vadillo <miguel.vadillo@intel.com>, linux-media@vger.kernel.org,
-	Bingbu Cao <bingbu.cao@intel.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] media: i2c: cvs: register subdev nodes when the remote
- sensor binds
-Message-ID: <apnJyxxoHz3TTZur@kekkonen.localdomain>
-References: <20260903125014.612053-1-pierre@pinon1.fr>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iR+n84GJ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3B22F1F000E9;
+	Thu,  3 Sep 2026 19:26:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788463620;
+	bh=OvxzmwmAQY0Tv3mevNOknHbiI1QZip1if+quZm55a0Q=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=iR+n84GJ2aCL6sHqe5gvYhazIQroLXGxeWI5qlY5mq+gXYKcaimflwMa1EMJzd718
+	 CVk+c5qDFzZ6DoCiHVlp8/VLy9KcYecVKSIldSNBzv9uX3rngRvu2TBVuXuBiLgIZ8
+	 mvcj4wrdqh4HqM/tFS4hLHs7XuhcEn3DSz/ICeUePlrhGmoRYcVFHxd2PB+4r8OKtA
+	 W8g3RXTYo1pzhv3zSw4prgEQgtjWBndz/Mf8vk6KehojQGIaIdtWBah0h2HtUv/vo0
+	 iCSXm0ajhs1oNDmT7/b5aLCeCH0CKlPO57TU5VWzQRFFDcIAfMlNCe1AV5sHwF3h0o
+	 0IWVUxCqNokZw==
+Date: Thu, 3 Sep 2026 14:26:57 -0500
+From: Eric Biggers <ebiggers@kernel.org>
+To: Geert Uytterhoeven <geert+renesas@glider.be>
+Cc: Ard Biesheuvel <ardb@kernel.org>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+	linux-crypto@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] lib/crc: arm64: Fix const keyword in asm prototypes
+Message-ID: <20260903192657.GA2344@quark>
+References: <1073b77747354d8d46d8804970acd80245e4c318.1788436846.git.geert+renesas@glider.be>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -66,29 +45,45 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260903125014.612053-1-pierre@pinon1.fr>
+In-Reply-To: <1073b77747354d8d46d8804970acd80245e4c318.1788436846.git.geert+renesas@glider.be>
 
-Hi Pierre,
-
-On Thu, Sep 03, 2026 at 02:50:13PM +0200, Pierre Pinon wrote:
-> The CVS bridge picks up the remote sensor through a v4l2 subdev notifier
-> of its own, but nothing in that path creates the sensor's device node.
-> The IPU7 ISYS driver calls v4l2_device_register_subdev_nodes() from its
-> own .bound -- which runs for the CVS subdev itself, before the sensor
-> behind it is bound -- and from .complete. The sensor's node therefore
-> depends entirely on .complete being reached.
+On Thu, Sep 03, 2026 at 02:03:50PM +0200, Geert Uytterhoeven wrote:
+> Commit d36cebe03c3ae4ea ("lib/crc32: improve support for arch-specific
+> overrides") corrected the position of the "const" keyword in the
+> arch-specific funcions, and replaced "unsigned char" by "u8" for
+> consistency.
 > 
-> That does not happen when another sensor on the same notifier has no
-> driver. On a Panther Lake laptop ipu-bridge instantiates two camera
-> endpoints, OVTI08F4 (ov08x40) and HIMX1092; there is no driver for the
-> latter, so it stays in the notifier's waiting list forever:
+> Make the same change to the forward declarations for the asm
+> implementations.
+> 
+> Signed-off-by: Geert Uytterhoeven <geert+renesas@glider.be>
+> ---
+>  lib/crc/arm64/crc32.h | 12 ++++++------
+>  1 file changed, 6 insertions(+), 6 deletions(-)
+> 
+> diff --git a/lib/crc/arm64/crc32.h b/lib/crc/arm64/crc32.h
+> index 1939a5dee4772972..332d9092ba2f3875 100644
+> --- a/lib/crc/arm64/crc32.h
+> +++ b/lib/crc/arm64/crc32.h
+> @@ -7,13 +7,13 @@
+>  // The minimum input length to consider the 4-way interleaved code path
+>  static const size_t min_len = 1024;
+>  
+> -asmlinkage u32 crc32_le_arm64(u32 crc, unsigned char const *p, size_t len);
+> -asmlinkage u32 crc32c_le_arm64(u32 crc, unsigned char const *p, size_t len);
+> -asmlinkage u32 crc32_be_arm64(u32 crc, unsigned char const *p, size_t len);
+> +asmlinkage u32 crc32_le_arm64(u32 crc, const u8 *p, size_t len);
+> +asmlinkage u32 crc32c_le_arm64(u32 crc, const u8 *p, size_t len);
+> +asmlinkage u32 crc32_be_arm64(u32 crc, const u8 *p, size_t len);
+>  
+> -asmlinkage u32 crc32_le_arm64_4way(u32 crc, unsigned char const *p, size_t len);
+> -asmlinkage u32 crc32c_le_arm64_4way(u32 crc, unsigned char const *p, size_t len);
+> -asmlinkage u32 crc32_be_arm64_4way(u32 crc, unsigned char const *p, size_t len);
+> +asmlinkage u32 crc32_le_arm64_4way(u32 crc, const u8 *p, size_t len);
+> +asmlinkage u32 crc32c_le_arm64_4way(u32 crc, const u8 *p, size_t len);
+> +asmlinkage u32 crc32_be_arm64_4way(u32 crc, const u8 *p, size_t len);
 
-Thanks for the patch.
+It's worth cleaning this up to use the usual convention, but we
+shouldn't claim that this is a "fix".
 
-Antti sent a patch to address the same issue a moment earlier and that has
-been now merged (commit 7456b40bc992a3fc34b587545716729923d507b9).
-
--- 
-Kind regards,
-
-Sakari Ailus
+- Eric
