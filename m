@@ -1,131 +1,193 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75EB64B714F
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 14:30:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30ADB4BAA12;
+	Thu,  3 Sep 2026 14:32:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788445865; cv=none; b=ifz/PdNw8sg0JEpf5HhmBccL27O1STraRf3/ifdaYxX7H/LsfGRUU9xqAw7UqABcrkeh36io+msMcPtPm2vxwKxoKYWbM9P0uUsJ1sml4Og5kumpd/deX3jup4sSMX1zVde7/+9c1FLJ7heFExwqPPVJXF5J+z2BCtjksuj1zMI=
+	t=1788445970; cv=none; b=d1gA7Gd2pi1cwkMVbkwKp5Z1o+VTmGUd0q93CEOdS+N8DuuVFY4xR05zCfS0S/Q6V+yRPPwkBtfFuDVP841qabvGv9LPqaCU0Nhuo+TpG+02Bz2mckPGy0CH7VhpF4jFzC0NbSHzRCjshGeGJFl5jB4Ffije/NQNap3TgqdFpdA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788445865; c=relaxed/simple;
-	bh=4RmvyYzsnNP3pW0btebvjEbTtN5cAxfs/47s7tajBZo=;
-	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type; b=ZTulVaEwNlKl3EbzOI5wqrGtclkyGE0zyzKcbAcR15fCHK7U6+d/lWbieqqD4AU85X6IQkP6LWIZcQbqo71W5VIhbQCYTOrB6D2w5Zh0N8OuX5GAXSrgJlcgV6SeQm1c5SKRrjviWvrbyzfBPGSNlBGQITcPZjk+1Eh5Q7PxTPQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=c4El62E2; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788445970; c=relaxed/simple;
+	bh=z09N1ErYZ7i9jcGioZjvMG2NoFquC+Afw8lh+lAHrlw=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=r4s3wLGLDf9HlpvDh7Q+rLb/al0jg9QT33c8d8ReOMFydes2a7BnE8ERcXoUS2XdRO6babuXZKabR123B5oucF+VxAB4xSFAdybXP/1doPMkoAmpIOl5Oin4fqFR5vVYk0lc/gIdw7DXFEEGBgqEBe3+7lt4xeOrdfiKdseQa54=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aGIIX70d; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="c4El62E2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4374D1F00ACA
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 14:30:47 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aGIIX70d"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 53AC81F00A3A;
+	Thu,  3 Sep 2026 14:32:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788445847;
-	bh=yr9VEKF3amJuy7pbkO0vq+lPvoLFNuFDsi5DRMmpSVk=;
-	h=Date:From:To:Cc:In-Reply-To:References:Subject;
-	b=c4El62E2uNuqjnfuo77sgR+QUkmrq2a/P8WBso+WUW1nU9B4SSmaU56Gnz8FfGD7E
-	 BJ5RqwSZQFFdrZ/RtkG+cbQ18sGQKuWPhtuFUQGx81dIHYgByV3FLlGQg0fb4HEDp2
-	 695wujgm4csUFRi+CwJ6IO4MKq6s6fwS+aMPldz7JTEHpaeEDkhDAj1Ff4e9NQ+BOQ
-	 4M5/0f+1cmAvuf0uL17w39Bo/+Ej05dPO3M7WQBEkr5WOeLHico5nc8xpXQK6Rlzu4
-	 057WswzWVcfsb78YnMpxtMa13omdybgOCtB/xUYid5qOrx2Ty1BK/qLYfl9pLVBotD
-	 5GJGo8wYJ4bHQ==
-Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
-	by mailfauth.ams.internal (Postfix) with ESMTP id E56C8198003A;
-	Thu,  3 Sep 2026 10:30:45 -0400 (EDT)
-Received: from ams-imap-11 ([10.64.2.31])
-  by ams-compute-02.internal (MEProxy); Thu, 03 Sep 2026 10:30:45 -0400
-X-ME-Sender: <xms:lISZauISCXxwrlqf-LS7Vb-pfts7YmSieSMzZV0RdrpJD_y0UaUmhQ>
-    <xme:lISZag_qujYKPkEGitu10YBR6FNfMRjypHW6vCmsZLsTfvb0rOQCDPeJOrm2fVEQg
-    Jn3KBGT0644MaYyx-lKzisaODxE4kwsIcg9lb_yV0jTv28xCuiA6yZgTg>
-X-ME-Proxy-Cause: dmFkZTGqH/m0k0GH0fPGqch2QPbBB9gnBhhGEEYIr/OjFY0atwaSaAzTSkP9nFUNronmya
-    GKw8Em9qcH3YggllhOgeGV//fscvhyXTLTswaEffnsT7/WNKNJeYRQWCpU6rK5aA3KqkST
-    9DRFLEHj+x4B5ZlClyjO2SYNV7cAvtHG9o+Gp1yVACxy/tOpQirFO47wSr9Azs888WkO+Q
-    2i2U57utOQEXhrKVJG3b+u4gNzAz/N8csFhR3xB8xWsA7Itt22PdLObEAKy7ymN+gCWOUI
-    YqmE5Vd5Ih1dz/NEA72uEvDX930T561WmoLhw496YLiRK3YAEXojcluiuUoszKGstBzkbp
-    ROqoeCOmCW4VuRxRaveuqwEnU52AVCPSyExe5hXB90qnCTkmvTd5AC+ze3wX/NBXaDgklk
-    u753b+eek8NVP6Dm1U2O3XjPPGKPC5LAfqHyQdqUJ3H+34OgX4zDkRZ9zaZpwjuKVoNlgo
-    6J3QyqOwEtKiiO4NYbSy9HlBoEeLemyvlnfRT+B7RIXBorsiRYDpUk9LbLL7ZPaLAsCn7c
-    TOxKrvK4LXBaMwZi1FR5MsdvB76y4xUuM1euEPe8pjqzTwk4aSryanSRLO9ee9LqqwSiOy
-    y8Q2n9EyGIDvL3K6UlBLeV8wZPYDZsnQpYbbEdKuYETxHh9qDktp+tosar1Q
-X-ME-Proxy: <xmx:lYSZalLnYrfEPaTP4eGZMK7p5Q-LhHJJuANgG5JnzeJ5iid0iUqEbw>
-    <xmx:lYSZasFIuNvprPc387mhRfUmdP5Li3ukrhjCnLUuRdqDfgJ9qdwQrw>
-    <xmx:lYSZasvWyJya8mH8lUy-A1D1g-tOXC4cfF1M1BHfg10JSogCSqTYow>
-    <xmx:lYSZarvabz6o_JfGvSDFcBaBafR4Qg0BBiuv9Q_PYdvRbIiAsgFkjQ>
-    <xmx:lYSZaqD_y834MkBRdsIyrAf89uTYtyZAaRv6cJFXNG8VuvINW3H9R4O3>
-Feedback-ID: ice86485a:Fastmail
-Received: by mailuser.ams.internal (Postfix, from userid 501)
-	id 9E24DF8007B; Thu,  3 Sep 2026 10:30:44 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	s=k20260515; t=1788445961;
+	bh=PdgEsXurPZK89WvQIyjXxZ95EwgJUTCrcbPCaco3wJ4=;
+	h=From:Date:Subject:To:Cc;
+	b=aGIIX70dSJhwGxEftvQp860ilXanbZ9XdDadPziZloXejX7omdRF+k1bi9BUvtbWq
+	 0c02KJrV96Z087pnPJ3D7CLQP8fUuLdYR4hNZ3RqooHYLOTNo2KJjjpm0PlXD1akUv
+	 f1MAn6PUGMi20CM5/q2kVA6lDBpzcM3ewJ4WmQzgUf4k1cNBc1FJTaD9SOfhf4AEKh
+	 lW8AYWpEq3YU7ZiN2/fCyKWCHk1FZ98huuPHIbibAtFQkoQquExvZ/U0G+JMwL4ilv
+	 aDISIKT9PeJF9LdDuhJFg3sXYqz2K+3ybdpOY6cKSK6g4t3Cn8wLJ3Fq6EOAfs2K5n
+	 cjUjng5HPMB5Q==
+From: "Harry Yoo (Meta)" <harry@kernel.org>
+Date: Thu, 03 Sep 2026 15:32:26 +0100
+Subject: [PATCH v3] mm/slab: take n->list_lock in
+ __slab_try_return_freelist() to avoid race
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Thu, 03 Sep 2026 16:30:24 +0200
-From: "Ard Biesheuvel" <ardb@kernel.org>
-To: "Yeoreum Yun" <yeoreum.yun@arm.com>
-Cc: linux-efi@vger.kernel.org, linux-kernel@vger.kernel.org,
- "Ilias Apalodimas" <ilias.apalodimas@linaro.org>,
- "Breno Leitao" <leitao@debian.org>,
- "sami.mujawar@arm.com" <Sami.Mujawar@arm.com>
-Message-Id: <23ce2fb0-1002-409f-bb84-f592db9d0b89@app.fastmail.com>
-In-Reply-To: <44097058-9fdc-4e9f-a277-d63e3876b035@app.fastmail.com>
-References: <20260903113238.2291844-1-yeoreum.yun@arm.com>
- <960e985e-b338-4648-a29b-1f8a31e00599@app.fastmail.com>
- <apl_29t7Jxr2mv9C@e129823.arm.com>
- <44097058-9fdc-4e9f-a277-d63e3876b035@app.fastmail.com>
-Subject: Re: [PATCH] firmware: efi: add a separate timeout for UpdateCapsule()
-Content-Type: text/plain
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-Id: <20260903-slab-fix-aba-v3-1-b44cb6badd54@kernel.org>
+X-B4-Tracking: v=1; b=H4sIAPmEmWoC/22Nuw6CMBSGX8Wc2WPagmidWIyLg7thKO0BGhsgL
+ WkkhHe3MDt+/3WBQN5SgNthAU/RBjv0CbLjAXSn+pbQmsQgmCiYZAKDUzU29ouqVmgK1mSy0dI
+ QQaqMnpK1z72rxJ0N0+DnfT3yTQU1vhTqx1PPk2QO72XMa3KwpaPYE/+vokCOhpMmflbXnF/KD
+ /me3GnwLVTruv4AEPjmJ8sAAAA=
+X-Change-ID: 20260902-slab-fix-aba-d60f39fc9dee
+To: Vlastimil Babka <vbabka@kernel.org>, 
+ Andrew Morton <akpm@linux-foundation.org>, Hao Li <hao.li@linux.dev>, 
+ Christoph Lameter <cl@gentwo.org>, David Rientjes <rientjes@google.com>, 
+ Roman Gushchin <roman.gushchin@linux.dev>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+ Hyunwoo Kim <imv4bel@gmail.com>, stable@vger.kernel.org, 
+ "Harry Yoo (Meta)" <harry@kernel.org>
+X-Mailer: b4 0.15.2
 
+Commit ba7425312607 ("mm, slab: add an optimistic
+__slab_try_return_freelist()") incorrectly assumed that nobody has freed
+an object to the slab as long as slab->freelist is NULL and cmpxchg
+succeeds.
 
+However, as reported by Hyunwoo Kim [1], other CPUs might have freed
+an object to the slab, insert the slab to the partial list, then
+allocated an object from the slab, and be in the middle of removing
+the slab from the list under n->list_lock.
 
-On Thu, 3 Sep 2026, at 16:29, Ard Biesheuvel wrote:
-> On Thu, 3 Sep 2026, at 16:10, Yeoreum Yun wrote:
->> Hi Ard,
->>
->>> Hello Yeoreum Yun,
->>> 
->>> On Thu, 3 Sep 2026, at 13:32, Yeoreum Yun wrote:
->>> > On platforms that allows to update firmware in runtime, UpdateCapsule()
->>> > may immediately write a firmware image to persistent storage.
->>> > This operation can take longer than EFI_RTS_TIMEOUT.
->>> >
->>> > Use a separate timeout for the UpdateCapsule() runtime service. By
->>> > default, wait indefinitely to avoid interrupting an ongoing firmware
->>> > update. Administrators may configure an appropriate timeout, in seconds,
->>> > through /sys/firmware/efi/capsule_update_timeout.
->>> >
->>> > Signed-off-by: Yeoreum Yun <yeoreum.yun@arm.com>
->>> > ---
->>> >  drivers/firmware/efi/efi.c              | 41 +++++++++++++++++++++++++
->>> >  drivers/firmware/efi/runtime-wrappers.c | 14 +++------
->>> >  include/linux/efi.h                     | 10 ++++++
->>> >  3 files changed, 55 insertions(+), 10 deletions(-)
->>> >
->>> 
->>> Given that UpdateCapsule() is rarely used these days at runtime, I
->>> wonder if we should just call it synchronously instead of via the
->>> EFI workqueue.
->>> 
->>> I assume that would also solve the timeout issue?
->>
->> Might be. But it would make *non-preemptible* for UpdateCapsule().
->> AFAIK the purpose of running runtime service with efi_queue to
->> run it in indepdent context and to be preemtible in case of arm64.
->>
->
-> No.
->
->> Since most of UpdateCapsule() will be called via capsule-loader's misc
->> device, if UpdateCaspule() is called synchronously, It would be
->> non-preemtible in arm64 platform.
->>
->> But, some platform could be preemptible while updating firmware so
->> I think it would be better that it would be called via EFI workqueue.
->>
->
-> EFI runtime service invocations are preemptible on arm64, so this is
-> not a problem.
+Since __refill_objects_node() puts the slab back on pc.slabs
+outside n->list_lock, it might insert the slab into that list while
+the slab is concurrently being removed from n->partial.
+This led to a list corruption [1]:
 
-Ah wait - you're right, they are only preemptible when invoked from the
-work queue.
+  list_add corruption. next->prev should be prev
+  (ffff888100000248), but was dead000000000122.
+  (next=ffffea000416e410).
+  kernel BUG at lib/list_debug.c:29!
+  Oops: invalid opcode: 0000 [#1] SMP NOPTI
+  CPU: 1 UID: 65534 PID: 144 Comm: poc Not tainted
+  7.2.0-16172-gcf72cbb39da8-dirty #1 PREEMPT(lazy)
+  RIP: 0010:__list_add_valid_or_report+0x80/0xd0
+  ...
+  Call Trace:
+   alloc_from_new_slab+0x183/0x300
+   ___slab_alloc+0x31c/0x890
+   __kmalloc_noprof+0x3d4/0x800
+   lsm_blob_alloc+0x2d/0x50
+   security_msg_msg_alloc+0x26/0x90
+   load_msg+0x1aa/0x210
+   do_msgsnd+0x91/0x800
+   do_syscall_64+0x109/0x5d0
+   entry_SYSCALL_64_after_hwframe+0x77/0x7f
+  ...
+  Kernel panic - not syncing: Fatal exception
+
+This is a classic ABA problem where cmpxchg succeeds but the state has
+changed since __refill_objects_node() took the freelist from the slab.
+
+As Vlastimil Babka mentioned [2], it should be rare to return more than
+one slab (due to the racy read of slab->counters in
+get_partial_node_bulk()). Therefore, instead of introducing additional
+complexity, acquire and release n->list_lock twice in the worst case.
+
+Return the slab directly to the partial list and hold n->list_lock
+across the cmpxchg and add_partial(). This is similar to the initial
+version of commit ba7425312607 [3]. This is enough to avoid the race as
+the list manipulation is serialized by n->list_lock. While at it,
+bring back unlikely() hint now that the condition is unlikely.
+
+Reported-by: Hyunwoo Kim <imv4bel@gmail.com>
+Closes: https://lore.kernel.org/linux-mm/apPa-cGLcyt90l-E@v4bel [1]
+Link: https://lore.kernel.org/linux-mm/ae25c193-b95f-40c1-83b6-1c2546467e41@kernel.org [2]
+Link: https://lore.kernel.org/all/20260421-b4-refill-optimistic-return-v1-1-24f0bfc1acff@kernel.org [3]
+Fixes: ba7425312607 ("mm, slab: add an optimistic __slab_try_return_freelist()")
+Cc: stable@vger.kernel.org
+Signed-off-by: Harry Yoo (Meta) <harry@kernel.org>
+---
+Changes in v3:
+- Don't repeat "As reported by Hyunwoo Kim" in changelog (Vlastimil)
+- Pass kmem_cache_node pointer directly to __slab_try_return_freelist() (Vlastimil)
+- Link to v2: https://lore.kernel.org/r/20260902-slab-fix-aba-v2-1-d1ece15a8417@kernel.org
+
+Changes in v2:
+- Simplify the code to hold n->list_lock across cmpxchg + add_partial()
+  and acquire the lock twice in the rare worst case.
+- Link to v1: https://lore.kernel.org/r/apPa-cGLcyt90l-E@v4bel
+---
+ mm/slub.c | 20 +++++++++++++-------
+ 1 file changed, 13 insertions(+), 7 deletions(-)
+
+diff --git a/mm/slub.c b/mm/slub.c
+index f9b56cb439e7..eac95b8f94c3 100644
+--- a/mm/slub.c
++++ b/mm/slub.c
+@@ -5680,10 +5680,12 @@ static noinline void free_to_partial_list(
+  *
+  * Fail if the slab isn't full anymore due to a concurrent free.
+  */
+-static bool __slab_try_return_freelist(struct kmem_cache *s, struct slab *slab,
+-				       void *head, int cnt)
++static bool __slab_try_return_freelist(struct kmem_cache *s,
++				       struct kmem_cache_node *n,
++				       struct slab *slab, void *head, int cnt)
+ {
+ 	struct freelist_counters old, new;
++	unsigned long flags;
+ 
+ 	old.freelist = slab->freelist;
+ 	old.counters = slab->counters;
+@@ -5695,9 +5697,15 @@ static bool __slab_try_return_freelist(struct kmem_cache *s, struct slab *slab,
+ 	new.counters = old.counters;
+ 	new.inuse -= cnt;
+ 
+-	if (!slab_update_freelist(s, slab, &old, &new, "__slab_try_return_freelist"))
++	spin_lock_irqsave(&n->list_lock, flags);
++
++	if (!slab_update_freelist(s, slab, &old, &new, "__slab_try_return_freelist")) {
++		spin_unlock_irqrestore(&n->list_lock, flags);
+ 		return false;
++	}
+ 
++	add_partial(n, slab, ADD_TO_TAIL);
++	spin_unlock_irqrestore(&n->list_lock, flags);
+ 	return true;
+ }
+ 
+@@ -7296,10 +7304,8 @@ __refill_objects_node(struct kmem_cache *s, void **p, gfp_t gfp, unsigned int mi
+ 			void *head = object;
+ 			void *tail;
+ 
+-			if (__slab_try_return_freelist(s, slab, head, count)) {
+-				list_add(&slab->slab_list, &pc.slabs);
++			if (__slab_try_return_freelist(s, n, slab, head, count))
+ 				break;
+-			}
+ 
+ 			do {
+ 				tail = object;
+@@ -7312,7 +7318,7 @@ __refill_objects_node(struct kmem_cache *s, void **p, gfp_t gfp, unsigned int mi
+ 			break;
+ 	}
+ 
+-	if (!list_empty(&pc.slabs)) {
++	if (unlikely(!list_empty(&pc.slabs))) {
+ 		spin_lock_irqsave(&n->list_lock, flags);
+ 
+ 		list_for_each_entry(slab, &pc.slabs, slab_list)
+
+---
+base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+change-id: 20260902-slab-fix-aba-d60f39fc9dee
+
+Best regards,
+--  
+Cheers,
+Harry / Hyeonggon
 
