@@ -1,322 +1,157 @@
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB61E3537F1;
-	Thu,  3 Sep 2026 09:22:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.200.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A943396D15
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 09:23:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788427338; cv=none; b=EEbyZHIXlQPsF7TANTPi2cghKXi2/5YOGGLrbF2A2NMPJEGzCmogK9iijfNxQO76iT+1RtvuBDjs6LNjGHWlN4hAetAdNZimaVtTwGv1Y1l7s+hpQJpdPNkaBn8KR8cUEsDT1VlPU7F75c8smP4i2j8FysJjVJaFMLjaK1/4tyE=
+	t=1788427386; cv=none; b=OWMXDvdlSE3wTEfpboJRQuCw+tXVySKTq8M1lHpOaBMPVBlR5pGkpE2Dt8A7Ia5TmvUtCMUfGfAlxT0kvCv/pdUd3z5yahiivHOaHTcTmBLZ9+9VR1UqPz303W9SdskY+7FHHtn43mgETkhDhAT9RGYjEJ1SH6FLOhelGGPL7V4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788427338; c=relaxed/simple;
-	bh=EddAB/RZ82XkL1s19+fofO1O4RUc2aivkyFDQwK9erw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=UGgqmzNgwmyiRd+tkPiVUTCKNJLjgrNZZ8/6h2VC5tSpHjbGWAjutLDz1eBDO63O+XotAgbjnHPjo9HGz0VGGL1O6P7/MJhXx7UKc8ZYT5e/CXfkyarZVVxfgTEzK3AoJKixJZFj4Yw0Xn224V4Y9/MF3IGdKAhqGsjSYkwbI50=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.200.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
-Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
-	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id C68502058DA;
-	Thu, 03 Sep 2026 11:22:12 +0200 (CEST)
-Received: from dude04.red.stw.pengutronix.de ([2a0a:edc0:0:1101:1d::ac] helo=dude04)
-	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <ore@pengutronix.de>)
-	id 1x23e8-004jIg-2J;
-	Thu, 03 Sep 2026 11:22:12 +0200
-Received: from ore by dude04 with local (Exim 4.98.2)
-	(envelope-from <ore@pengutronix.de>)
-	id 1x23e8-0000000CGAu-2ceC;
-	Thu, 03 Sep 2026 11:22:12 +0200
-From: Oleksij Rempel <o.rempel@pengutronix.de>
-To: Linus Walleij <linusw@kernel.org>,
-	Luiz Angelo Daros de Luca <luizluca@gmail.com>,
-	Andrew Lunn <andrew@lunn.ch>,
-	Vladimir Oltean <olteanv@gmail.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>
-Cc: Oleksij Rempel <o.rempel@pengutronix.de>,
-	kernel@pengutronix.de,
-	linux-kernel@vger.kernel.org,
-	Ahmad Fatoum <a.fatoum@pengutronix.de>,
-	=?UTF-8?q?Alvin=20=C5=A0ipraga?= <alvin.sipraga@analog.com>,
-	netdev@vger.kernel.org
-Subject: [PATCH net-next v2 2/2] net: dsa: realtek: rtl8365mb: add EEE support
-Date: Thu,  3 Sep 2026 11:22:11 +0200
-Message-ID: <20260903092211.2922058-3-o.rempel@pengutronix.de>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260903092211.2922058-1-o.rempel@pengutronix.de>
-References: <20260903092211.2922058-1-o.rempel@pengutronix.de>
+	s=arc-20240116; t=1788427386; c=relaxed/simple;
+	bh=QJzTl9mpfbcR/ern5So2dPo/+BdDFUSyA8/TbaT21bI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=FzK+aXxKLfoUb65Sxa6F9Bw1hwj2Q4K4TyuxWc0BeRtC/XbP/F5twLL+PNZEQCeb0WoIs2gdQf8SrdgzSjpVhy4V2fMLKZRRvPagoRnRyjNI781R7kDNEgA3sQiNPrCjZFv7eEZ8kbTBVc2AFecMOvh13bAzRU9l6sf9QqF+hxQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CsLTmwDY; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CsLTmwDY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 969871F000E9;
+	Thu,  3 Sep 2026 09:22:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788427376;
+	bh=CVH46s0TiBnSL1nhlyLYQT7Nebe0o5BJiT5/S7ZnuZY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=CsLTmwDYUQuPdEGJ2URh4YYrVQjku/PYtQd8szB9HFBHKuxNiHG8jlkrL7gi1baJv
+	 baOlP721yc+Gapvn+co/bsCE+vzOe7wj38uGpYqZPkxomRAwIz0bQTUhRLhTAuqqra
+	 dcAYfgKFIupV+om73sgPaweqXIGMwkg5fWtKJMpvY7FG1n04OkQOJYThS8OWkrXRF/
+	 6d+zCI/PEFFnvI3TBktpF/UQ7XAfs6aQrSu5o0XLNpvLlz/KIh0d4q4F8mng6kmC35
+	 gHgYzeK4HV1Zw3Tpumbe8aupeoEBK6jboDtDlQeHq19XetZJxR/N2esfUJW+ShNiZf
+	 qTij8AvQ7COkA==
+Date: Thu, 3 Sep 2026 12:22:45 +0300
+From: Mike Rapoport <rppt@kernel.org>
+To: Xueyuan Chen <xueyuan.chen21@gmail.com>
+Cc: akpm@linux-foundation.org, david@kernel.org, ljs@kernel.org,
+	usama.arif@linux.dev, ziy@nvidia.com, baolin.wang@linux.alibaba.com,
+	liam@infradead.org, nico.pache@linux.dev, ryan.roberts@arm.com,
+	dev.jain@arm.com, baohua@kernel.org, lance.yang@linux.dev,
+	kas@kernel.org, catalin.marinas@arm.com, will@kernel.org,
+	mark.rutland@arm.com, linux-arm-kernel@lists.infradead.org,
+	tglx@kernel.org, mingo@redhat.com, bp@alien8.de,
+	dave.hansen@linux.intel.com, x86@kernel.org, hpa@zytor.com,
+	luto@kernel.org, peterz@infradead.org, linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v7 1/3] mm: make persistent huge zero folio read-only
+Message-ID: <apk8ZRr6do_YAlzf@kernel.org>
+References: <20260901151818.3191443-1-xueyuan.chen21@gmail.com>
+ <20260901151818.3191443-2-xueyuan.chen21@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260901151818.3191443-2-xueyuan.chen21@gmail.com>
 
-Add EEE support on the integrated-PHY ports, controllable per port via
-ethtool.
+On Tue, Sep 01, 2026 at 11:18:16PM +0800, Xueyuan Chen wrote:
+> The persistent huge zero folio is shared globally and should stay zero
+> after initialization. As Jann Horn pointed out [1], kernel bugs have
+> ended up writing to pages that were meant to be read-only, including in
+> security-sensitive cases. Making the folio read-only in the direct map
+> turns such writes into faults instead of silent zero-page corruption.
+> 
+> Add a page-based helper consistent with the existing direct-map interfaces.
+> Handle TLB invalidation in the architecture implementation; unsupported
+> architectures retain their current behavior.
+> 
+> Protect the folio after initialization. Skip highmem folios, which have no
+> permanent direct-map mapping.
+> 
+> Inspired by Jann Horn's read-only zero page work [1] and follow-up
+> discussion [3] with Yang Shi.
+> 
+> Link: https://lore.kernel.org/r/20260508-ro-zeropage-v1-1-9808abc20b49@google.com [1]
+> Link: https://lore.kernel.org/r/0e5b23a6-4895-454a-9dfa-6dc21adc2991@kernel.org [2]
+> Link: https://lore.kernel.org/r/CAHbLzkrXXe7r3n3jXgDKtwZhRqj=jDx9E6dLOULohnhBguvi9A@mail.gmail.com [3]
+> 
+> Suggested-by: David Hildenbrand <david@kernel.org>
+> Suggested-by: Usama Arif <usama.arif@linux.dev>
+> Co-developed-by: Lance Yang <lance.yang@linux.dev>
+> Signed-off-by: Lance Yang <lance.yang@linux.dev>
+> Signed-off-by: Xueyuan Chen <xueyuan.chen21@gmail.com>
+> ---
+>  include/linux/set_memory.h | 17 +++++++++++++++++
+>  mm/huge_memory.c           | 13 ++++++++++---
+>  2 files changed, 27 insertions(+), 3 deletions(-)
+> 
+> diff --git a/include/linux/set_memory.h b/include/linux/set_memory.h
+> index 3fe293cfed8c..ed9ce04b18a1 100644
+> --- a/include/linux/set_memory.h
+> +++ b/include/linux/set_memory.h
+> @@ -54,6 +54,23 @@ static inline bool can_set_direct_map(void)
+>  #endif
+>  #endif /* CONFIG_ARCH_HAS_SET_DIRECT_MAP */
+>  
+> +#ifndef set_direct_map_ro
+> +/**
+> + * set_direct_map_ro - make a direct-map range read-only
+> + * @page: first page in the direct-map range
+> + * @nr: number of pages in the range
+> + *
+> + * Make the direct-map range starting at @page read-only and invalidate stale
+> + * writable translations before returning.
+> + *
+> + * Return: 0 on success, or a negative error code on failure.
+> + */
+> +static inline int set_direct_map_ro(struct page *page, unsigned int nr)
+> +{
+> +	return 0;
+> +}
+> +#endif
+> +
+>  #ifdef CONFIG_X86_64
+>  int set_mce_nospec(unsigned long pfn);
+>  int clear_mce_nospec(unsigned long pfn);
+> diff --git a/mm/huge_memory.c b/mm/huge_memory.c
+> index 54494c3fa983..742283b36d74 100644
+> --- a/mm/huge_memory.c
+> +++ b/mm/huge_memory.c
+> @@ -42,6 +42,7 @@
+>  #include <linux/pgalloc_tag.h>
+>  #include <linux/pagewalk.h>
+>  #include <linux/cleanup.h>
+> +#include <linux/set_memory.h>
+>  
+>  #include <asm/tlb.h>
+>  #include "internal.h"
+> @@ -291,10 +292,16 @@ static int __init huge_zero_init(void)
+>  	huge_zero_folio = alloc_huge_zero_folio();
+>  	if (!huge_zero_folio) {
+>  		pr_warn("Allocating persistent huge zero folio failed\n");
+> -	} else {
+> -		huge_zero_pfn = folio_pfn(huge_zero_folio);
+> -		count_vm_event(THP_ZERO_PAGE_ALLOC);
+> +		return 0;
+>  	}
+> +
+> +	huge_zero_pfn = folio_pfn(huge_zero_folio);
+> +	count_vm_event(THP_ZERO_PAGE_ALLOC);
+> +
+> +	/* Highmem folios have no permanent direct-map mapping to protect. */
+> +	if (!folio_test_highmem(huge_zero_folio))
+> +		set_direct_map_ro(folio_page(huge_zero_folio, 0), HPAGE_PMD_NR);
 
-The integrated PHYs have no MMD registers; their EEE registers live in the
-switch's OCP space. phylib accesses EEE as MMD registers, so add
-phy_{read,write}_c45 realtek_ops that map those MMD accesses onto their OCP
-addresses, wired as the user MII bus C45 handlers when the chip provides
-them (rtl8366rb etc. unaffected).
+Sorry, I don't remember if it was discussed previously, but why can't we
+use the existing set_memory_ro() here?
 
-The hardware manages LPI on its own, so advertise EEE to phylink with
-no-op mac_{en,dis}able_tx_lpi callbacks. The LPI timer is a single global
-per-speed register, so .set_mac_eee rejects the per-port TX LPI knobs
-rather than silently ignoring them.
+> +
+>  	return 0;
+>  }
+>  
+> -- 
+> 2.47.3
+> 
 
-Signed-off-by: Oleksij Rempel <o.rempel@pengutronix.de>
----
-Changes since v1:
-- .set_mac_eee: return -EOPNOTSUPP instead of -EINVAL for the rejected
-  TX LPI cases -- the hardware cannot support them, it is not an invalid
-  configuration (Andrew Lunn).
----
- drivers/net/dsa/realtek/realtek.h        |   4 +
- drivers/net/dsa/realtek/rtl8365mb_main.c | 123 +++++++++++++++++++++++
- drivers/net/dsa/realtek/rtl83xx.c        |  20 ++++
- 3 files changed, 147 insertions(+)
-
-diff --git a/drivers/net/dsa/realtek/realtek.h b/drivers/net/dsa/realtek/realtek.h
-index 75a127545e5d..1c0ca6daf545 100644
---- a/drivers/net/dsa/realtek/realtek.h
-+++ b/drivers/net/dsa/realtek/realtek.h
-@@ -156,6 +156,10 @@ struct realtek_ops {
- 	int	(*phy_read)(struct realtek_priv *priv, int phy, int regnum);
- 	int	(*phy_write)(struct realtek_priv *priv, int phy, int regnum,
- 			     u16 val);
-+	int	(*phy_read_c45)(struct realtek_priv *priv, int phy, int devad,
-+				int regnum);
-+	int	(*phy_write_c45)(struct realtek_priv *priv, int phy, int devad,
-+				 int regnum, u16 val);
- };
- 
- struct realtek_variant {
-diff --git a/drivers/net/dsa/realtek/rtl8365mb_main.c b/drivers/net/dsa/realtek/rtl8365mb_main.c
-index 4c305756116c..998f6b2ad140 100644
---- a/drivers/net/dsa/realtek/rtl8365mb_main.c
-+++ b/drivers/net/dsa/realtek/rtl8365mb_main.c
-@@ -101,6 +101,7 @@
- #include <linux/regmap.h>
- #include <linux/if_bridge.h>
- #include <linux/if_vlan.h>
-+#include <linux/mdio.h>
- #include <linux/phylink.h>
- 
- #include "realtek.h"
-@@ -202,6 +203,10 @@
- /* The PHY OCP addresses of PHY registers 0~31 start here */
- #define RTL8365MB_PHY_OCP_ADDR_PHYREG_BASE		0xA400
- 
-+#define RTL8365MB_PHY_OCP_ADDR_EEE_ABLE			0xA5C4
-+#define RTL8365MB_PHY_OCP_ADDR_EEE_ADV			0xA5D0
-+#define RTL8365MB_PHY_OCP_ADDR_EEE_LPABLE		0xA5D2
-+
- /* External interface port mode values - used in DIGITAL_INTERFACE_SELECT */
- #define RTL8365MB_EXT_PORT_MODE_DISABLE		0
- #define RTL8365MB_EXT_PORT_MODE_RGMII		1
-@@ -1040,6 +1045,66 @@ static int rtl8365mb_phy_write(struct realtek_priv *priv, int phy, int regnum,
- 	return 0;
- }
- 
-+static int rtl8365mb_phy_read_c45(struct realtek_priv *priv, int phy, int devad,
-+				  int regnum)
-+{
-+	u32 ocp_addr;
-+	u16 val;
-+	int ret;
-+
-+	if (phy > RTL8365MB_PHYADDRMAX)
-+		return -EINVAL;
-+
-+	if (devad == MDIO_MMD_PCS && regnum == MDIO_PCS_EEE_ABLE)
-+		ocp_addr = RTL8365MB_PHY_OCP_ADDR_EEE_ABLE;
-+	else if (devad == MDIO_MMD_AN && regnum == MDIO_AN_EEE_ADV)
-+		ocp_addr = RTL8365MB_PHY_OCP_ADDR_EEE_ADV;
-+	else if (devad == MDIO_MMD_AN && regnum == MDIO_AN_EEE_LPABLE)
-+		ocp_addr = RTL8365MB_PHY_OCP_ADDR_EEE_LPABLE;
-+	else
-+		/* Only the EEE registers are mapped; others read as 0, as the
-+		 * hardware does, so the generic MMD code is not tripped up by
-+		 * an error.
-+		 */
-+		return 0;
-+
-+	ret = rtl8365mb_phy_ocp_read(priv, phy, ocp_addr, &val);
-+	if (ret) {
-+		dev_err(priv->dev,
-+			"failed to read PHY%d OCP %04x, ret %d\n", phy, ocp_addr,
-+			ret);
-+		return ret;
-+	}
-+
-+	return val;
-+}
-+
-+static int rtl8365mb_phy_write_c45(struct realtek_priv *priv, int phy,
-+				   int devad, int regnum, u16 val)
-+{
-+	int ret;
-+
-+	if (phy > RTL8365MB_PHYADDRMAX)
-+		return -EINVAL;
-+
-+	/* Only the EEE advertisement register is writable; writes to other
-+	 * registers are ignored, as the hardware does.
-+	 */
-+	if (devad != MDIO_MMD_AN || regnum != MDIO_AN_EEE_ADV)
-+		return 0;
-+
-+	ret = rtl8365mb_phy_ocp_write(priv, phy, RTL8365MB_PHY_OCP_ADDR_EEE_ADV,
-+				      val);
-+	if (ret) {
-+		dev_err(priv->dev,
-+			"failed to write PHY%d OCP %04x, ret %d\n", phy,
-+			RTL8365MB_PHY_OCP_ADDR_EEE_ADV, ret);
-+		return ret;
-+	}
-+
-+	return 0;
-+}
-+
- static const struct rtl8365mb_extint *
- rtl8365mb_get_port_extint(struct realtek_priv *priv, int port)
- {
-@@ -1639,6 +1704,14 @@ static void rtl8365mb_phylink_get_caps(struct dsa_switch *ds, int port,
- 		 */
- 		__set_bit(PHY_INTERFACE_MODE_GMII,
- 			  config->supported_interfaces);
-+
-+		/* Integrated PHYs support EEE at 100M/1G; the hardware manages
-+		 * LPI on its own, so just advertise LPI awareness to phylink.
-+		 */
-+		memcpy(config->lpi_interfaces, config->supported_interfaces,
-+		       sizeof(config->lpi_interfaces));
-+		config->lpi_capabilities = MAC_100FD | MAC_1000FD;
-+		config->eee_enabled_default = true;
- 		return;
- 	}
- 
-@@ -3275,18 +3348,66 @@ static int rtl8365mb_detect(struct realtek_priv *priv)
- 	return 0;
- }
- 
-+static int rtl8365mb_phylink_mac_enable_tx_lpi(struct phylink_config *config,
-+					       u32 timer, bool tx_clock_stop)
-+{
-+	/* The hardware manages LPI itself; there is no MAC-level LPI control.
-+	 * This callback only signals LPI awareness to phylink.
-+	 */
-+	return 0;
-+}
-+
-+static void rtl8365mb_phylink_mac_disable_tx_lpi(struct phylink_config *config)
-+{
-+}
-+
- static const struct phylink_mac_ops rtl8365mb_phylink_mac_ops = {
- 	.mac_select_pcs = rtl8365mb_phylink_mac_select_pcs,
- 	.mac_config = rtl8365mb_phylink_mac_config,
- 	.mac_link_down = rtl8365mb_phylink_mac_link_down,
- 	.mac_link_up = rtl8365mb_phylink_mac_link_up,
-+	.mac_enable_tx_lpi = rtl8365mb_phylink_mac_enable_tx_lpi,
-+	.mac_disable_tx_lpi = rtl8365mb_phylink_mac_disable_tx_lpi,
- };
- 
-+static bool rtl8365mb_support_eee(struct dsa_switch *ds, int port)
-+{
-+	/* Only integrated-PHY ports support EEE, not the external RGMII ports. */
-+	return !rtl8365mb_get_port_extint(ds->priv, port);
-+}
-+
-+static int rtl8365mb_set_mac_eee(struct dsa_switch *ds, int port,
-+				 struct ethtool_keee *e)
-+{
-+	struct realtek_priv *priv = ds->priv;
-+
-+	/* The only LPI timing control (tx_lpi_timer) is a single global
-+	 * per-speed register shared by all ports, so it cannot be set from this
-+	 * per-port callback; leave it at its reset default. Per-port EEE is
-+	 * driven through the PHY advertisement. Reject the per-port TX LPI knobs
-+	 * rather than silently ignoring them.
-+	 */
-+	if (!e->tx_lpi_enabled) {
-+		dev_err(priv->dev, "disabling EEE TX LPI is not supported\n");
-+		return -EOPNOTSUPP;
-+	}
-+
-+	if (e->tx_lpi_timer) {
-+		dev_err(priv->dev,
-+			"setting the EEE TX LPI timer is not supported\n");
-+		return -EOPNOTSUPP;
-+	}
-+
-+	return 0;
-+}
-+
- static const struct dsa_switch_ops rtl8365mb_switch_ops = {
- 	.get_tag_protocol = rtl8365mb_get_tag_protocol,
- 	.change_tag_protocol = rtl8365mb_change_tag_protocol,
- 	.setup = rtl8365mb_setup,
- 	.teardown = rtl8365mb_teardown,
-+	.support_eee = rtl8365mb_support_eee,
-+	.set_mac_eee = rtl8365mb_set_mac_eee,
- 	.phylink_get_caps = rtl8365mb_phylink_get_caps,
- 	.port_bridge_join = rtl83xx_port_bridge_join,
- 	.port_bridge_leave = rtl83xx_port_bridge_leave,
-@@ -3332,6 +3453,8 @@ static const struct realtek_ops rtl8365mb_ops = {
- 	.l2_flush = rtl8365mb_l2_flush,
- 	.phy_read = rtl8365mb_phy_read,
- 	.phy_write = rtl8365mb_phy_write,
-+	.phy_read_c45 = rtl8365mb_phy_read_c45,
-+	.phy_write_c45 = rtl8365mb_phy_write_c45,
- };
- 
- static const char *const rtl8365mb_supplies[] = {
-diff --git a/drivers/net/dsa/realtek/rtl83xx.c b/drivers/net/dsa/realtek/rtl83xx.c
-index 8121ec12fd8b..ad42c05d0a88 100644
---- a/drivers/net/dsa/realtek/rtl83xx.c
-+++ b/drivers/net/dsa/realtek/rtl83xx.c
-@@ -62,6 +62,22 @@ static int rtl83xx_user_mdio_write(struct mii_bus *bus, int addr, int regnum,
- 	return priv->ops->phy_write(priv, addr, regnum, val);
- }
- 
-+static int rtl83xx_user_mdio_read_c45(struct mii_bus *bus, int addr, int devad,
-+				      int regnum)
-+{
-+	struct realtek_priv *priv = bus->priv;
-+
-+	return priv->ops->phy_read_c45(priv, addr, devad, regnum);
-+}
-+
-+static int rtl83xx_user_mdio_write_c45(struct mii_bus *bus, int addr, int devad,
-+				       int regnum, u16 val)
-+{
-+	struct realtek_priv *priv = bus->priv;
-+
-+	return priv->ops->phy_write_c45(priv, addr, devad, regnum, val);
-+}
-+
- /**
-  * rtl83xx_setup_user_mdio() - register the user mii bus driver
-  * @ds: DSA switch associated with this user_mii_bus
-@@ -95,6 +111,10 @@ int rtl83xx_setup_user_mdio(struct dsa_switch *ds)
- 	bus->name = "Realtek user MII";
- 	bus->read = rtl83xx_user_mdio_read;
- 	bus->write = rtl83xx_user_mdio_write;
-+	if (priv->ops->phy_read_c45)
-+		bus->read_c45 = rtl83xx_user_mdio_read_c45;
-+	if (priv->ops->phy_write_c45)
-+		bus->write_c45 = rtl83xx_user_mdio_write_c45;
- 	snprintf(bus->id, MII_BUS_ID_SIZE, "%s:user_mii", dev_name(priv->dev));
- 	bus->parent = priv->dev;
- 
 -- 
-2.47.3
-
+Sincerely yours,
+Mike.
