@@ -1,115 +1,119 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE740415F23
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 11:02:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.15
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 516B743802B;
+	Thu,  3 Sep 2026 11:05:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788433359; cv=none; b=Ps0EGCmmvUdE55sRug3Wjz5MwMkq53xlyTUaNemsOl2o1eoYgUfhwZPIEBc3dW5R6DCzp4e3ZoSkPzUpQq5UjX8qG0F8wRQBsD43AKIGGJRrINZj9lGDGnO9pA1Rq9wedXyRhbdSAif2CD278LUnTo+zTKb0VffDmJVouTa/0ZI=
+	t=1788433502; cv=none; b=bdh6JbA1AyeK/Gpiou9+hU4CLx9QRjv0/y4qUm+7Yqdu+R55muq4lEiv0A9INNZX8vOvk0ckG/Bz0bwoDXOuWg4uASyK9UyqOCCVSYGCrCGHCjH+xvxaH7nMnt+5NpbGmotuHPGc3QXuwpO/AGd+K9u35Eb4EbxmnDAAHghxiN0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788433359; c=relaxed/simple;
-	bh=QWMidPirRXa6F9fmIzFknlhgq28okBEJEXkXiaxIc28=;
-	h=From:Date:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=MMssxu/2Z0X9Mwp8GJmxzUDaj9XmBziMhFxyzJAb1oSp4sIWp1AayCO19FrNn35XJHdItsaA3S+0Fc2GVQSbN6Izi6weZVfilGxLLo3b6hidQeSBC35nElwXtFDoAju6/dDmHuqoLoCMg15nL7Xfp+CvKTr1NZ+OTJ6iuzFDcFo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Eubt7svM; arc=none smtp.client-ip=192.198.163.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1788433502; c=relaxed/simple;
+	bh=fjTgsBxrgzCHCQ91O9VNEkGJ05DbXsonzo80saT7PMk=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=YCbRibP+aH5B4DWzVCMP0Zm0Tr7fK2AUpySbPMAW4i9T3qO72UYF0sTHJ1dW23fogSHo8uvfADoIfdw9d6APMgvFEkNNRbtv/sMxBwWNWyS/jbuW0VgxXzlD8pbgd3VmdabxJEgSU0Pi1yf/GjAbVx1pmzxGY9RSgRyw0/kvKmc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mFCkdzTr; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Eubt7svM"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788433357; x=1819969357;
-  h=from:date:to:cc:subject:in-reply-to:message-id:
-   references:mime-version;
-  bh=QWMidPirRXa6F9fmIzFknlhgq28okBEJEXkXiaxIc28=;
-  b=Eubt7svMsaN3Fx3F+jn0f6wk6a0e8DlvtHppbVTZ03+QHcGdWa9BvcHd
-   M5GzPJaAIAKfUVtNOUcZecdojI5KwOUt1JZNDNs//INt9aLAea75uVvkO
-   Lczs0VFIICehcGG4hk2WFTg8sJdp0SVDnkm77BrWpsf7YqIvhY9N4R1RA
-   8XNYnjYfOM2YvXGEv6p0Hq6lhMm/6jREcs41DQ+6TINQrSBqTOMji3X7A
-   ykoJ9KKjr+DgsXm9/PbcDfclkl2QFsXozA+peTv+G0MBSjs2iGE45bK/d
-   pAP1VpTnEAZStOGw5hSfgq8PN/CM4quEw7RZ/0xY6tfC0RuaBIibpKYYG
-   A==;
-X-CSE-ConnectionGUID: /jYvxgECSeaizW4tf+Vlbw==
-X-CSE-MsgGUID: dz0mePjGQya0BEi7daWPOg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11894"; a="89033552"
-X-IronPort-AV: E=Sophos;i="6.25,259,1779174000"; 
-   d="scan'208";a="89033552"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
-  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Sep 2026 04:02:17 -0700
-X-CSE-ConnectionGUID: ULxSbh1DSgeVIm2OtMKFVg==
-X-CSE-MsgGUID: JE/+53GlQqyA4fJUOyV/KQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,259,1779174000"; 
-   d="scan'208";a="267098636"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.119])
-  by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Sep 2026 04:02:13 -0700
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Date: Thu, 3 Sep 2026 14:02:09 +0300 (EEST)
-To: kernel test robot <lkp@intel.com>, James Morse <james.morse@arm.com>
-cc: Ben Horgan <ben.horgan@arm.com>, oe-kbuild-all@lists.linux.dev, 
-    LKML <linux-kernel@vger.kernel.org>, Zeng Heng <zengheng4@huawei.com>, 
-    Shaopeng Tan <tan.shaopeng@jp.fujitsu.com>, 
-    Jonathan Cameron <jonathan.cameron@huawei.com>, 
-    Gavin Shan <gshan@redhat.com>
-Subject: Re: drivers/resctrl/mpam_devices.c:1860:35-38: WARNING: Suspicious
- code. resource_size is maybe missing with msc_res
-In-Reply-To: <202609030809.ObirDhR3-lkp@intel.com>
-Message-ID: <555e6b9d-cff8-ef10-42e9-5e469550292b@linux.intel.com>
-References: <202609030809.ObirDhR3-lkp@intel.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mFCkdzTr"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id C1BFAC2BCB8;
+	Thu,  3 Sep 2026 11:05:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1788433501;
+	bh=fjTgsBxrgzCHCQ91O9VNEkGJ05DbXsonzo80saT7PMk=;
+	h=From:Subject:Date:To:Cc:Reply-To:From;
+	b=mFCkdzTrcSdmyR5iKFV9USwemu8vEWao1HKaZnWhteT7j1xIV+9/XxudH48leb4mI
+	 XZYQNIYqz0eHJTY9n6W3YOn4m17F2EQyLuVzPdH0AxAKuaCmL34qOijSpshpJiy/0j
+	 1LHN3pl6/h6Tu5Ddb1DGVOt9KavphcTzoTYe2hCyfRAI4fBVF4rnDrPkhuJsNVMWue
+	 4ANp1YqHymwKE/IYqbmj7yeAQci39dnOownBdkvsEvrsIo98fRWCoPhTWKUiPVZv5E
+	 +eYNkkVQmpvuCe+G29W/mmS5iCySQi8OZ1Gr5NaJscB3PdC/x40MyO53YSQxDxVzjN
+	 V0MD3cyAUVTjw==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 95839C624A4;
+	Thu,  3 Sep 2026 11:05:01 +0000 (UTC)
+From: Mark Amirkan via B4 Relay <devnull+markdamirkan.gmail.com@kernel.org>
+Subject: [PATCH v2 0/2] perf evsel: Validate cross-endian samples before
+ byte swapping
+Date: Thu, 03 Sep 2026 04:04:19 -0700
+Message-Id: <20260903-sympwn-linux-002-final-v2-v2-0-0aee1fca1f95@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/42NQQ6CMBBFr0K6dkxbSEVX3sOwKGWAMdCSFiqEc
+ HcBL+DyJe+/v7KAnjCwR7Iyj5ECObuDvCTMtNo2CFTtzCSXit95CmHph4+Fjuw0A+cSarK6gyg
+ BU67zqpaCG8H2/eCxpvlsv4ofh6l8oxmP4GG0FEbnl/M8isP75ycKEHAzCjOhVJmL7Nn0mrqrc
+ T0rtm37AtTpQTXUAAAA
+X-Change-ID: 20260903-sympwn-linux-002-final-v2-e30a8df210c1
+To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
+ Arnaldo Carvalho de Melo <acme@kernel.org>, 
+ Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>, 
+ Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>, 
+ Adrian Hunter <adrian.hunter@intel.com>, 
+ James Clark <james.clark@linaro.org>
+Cc: Mark Amirkan <markdamirkan@gmail.com>, linux-perf-users@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788433501; l=1879;
+ i=markdamirkan@gmail.com; s=pscsi-20260818; h=from:subject:message-id;
+ bh=fjTgsBxrgzCHCQ91O9VNEkGJ05DbXsonzo80saT7PMk=;
+ b=GpM47J3aBt0a9DqS1ASyqN8OypFVI95A2mbLkewsLzx9dio0alYw/4LnMDxNyc4d1utR2ynbE
+ 4YbH83CSykhD+DCIwF8V3HDNEeN8uHKdr7err1DcrwNpeaezl8hTpYq
+X-Developer-Key: i=markdamirkan@gmail.com; a=ed25519;
+ pk=/wb49ibt4gZFDncmhFQBYtjPvzT1tfJtvK4Mqt1P2Wc=
+X-Endpoint-Received: by B4 Relay for markdamirkan@gmail.com/pscsi-20260818
+ with auth_id=961
+X-Original-From: Mark Amirkan <markdamirkan@gmail.com>
+Reply-To: markdamirkan@gmail.com
 
-On Thu, 3 Sep 2026, kernel test robot wrote:
+Two paths in __evsel__parse_sample() use values from an
+opposite-endian perf.data record to modify the record before checking that
+the data fits within event->header.size.
 
-> Hi Ben,
-> 
-> First bad commit (maybe != root cause):
-> 
-> tree:   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
-> head:   89a312991dc6e638a36adc43ccb91dbc25504c04
-> commit: c544f00a473239835d22e7109b403314d8b85974 arm64: mpam: Drop the CONFIG_EXPERT restriction
-> date:   5 months ago
-> config: arm64-randconfig-r051-20260902 (https://download.01.org/0day-ci/archive/20260903/202609030809.ObirDhR3-lkp@intel.com/config)
-> compiler: clang version 24.0.0git (https://github.com/llvm/llvm-project 2c2cffa015e9549aafba9e514384b08204c7cc4b)
-> 
-> If you fix the issue in a separate patch/commit (i.e. not just a new version of
-> the same patch/commit), kindly add following tags
-> | Fixes: c544f00a4732 ("arm64: mpam: Drop the CONFIG_EXPERT restriction")
-> | Reported-by: kernel test robot <lkp@intel.com>
-> | Closes: https://lore.kernel.org/oe-kbuild-all/202609030809.ObirDhR3-lkp@intel.com/
-> 
-> cocci warnings: (new ones prefixed by >>)
-> >> drivers/resctrl/mpam_devices.c:1860:35-38: WARNING: Suspicious code. resource_size is maybe missing with msc_res
-> 
-> vim +1860 drivers/resctrl/mpam_devices.c
-> 
-> f04046f2577a5c James Morse 2025-11-19 @1860  		msc->mapped_hwpage_sz = msc_res->end - msc_res->start;
+Patch 1 checks the complete branch stack before swapping entry flags.
+Patch 2 checks the RAW payload and the complete 64-bit words touched by
+mem_bswap_64() before swapping the data.
 
-> :::::: The code at line 1860 was first introduced by commit
-> :::::: f04046f2577a5c76167333ca99d3903ee5331ba0 arm_mpam: Add probe/remove for mpam msc driver and kbuild boiler plate
-> 
-> :::::: TO: James Morse <james.morse@arm.com>
-> :::::: CC: Catalin Marinas <catalin.marinas@arm.com>
+The malformed branch-stack and RAW records reproduce as out-of-bounds
+reads and writes. Each patch adds a Sample parsing regression test that
+checks rejected records do not modify data past the declared event.
 
-Hi all,
+Signed-off-by: Mark Amirkan <markdamirkan@gmail.com>
+---
+Changes in v2:
+- Add the adjacent PERF_SAMPLE_RAW fix found during v1 review.
+- Keep the branch-stack fix unchanged.
+- Link to v1: https://patch.msgid.link/20260903-sympwn-linux-002-final-v2-v1-1-7c6e4166b814@gmail.com
 
-This report has some validity but the code doesn't look buggy as is, just 
-off-by-one errors correcting each other. The variable is called "..._sz" 
-(~ size), but the resource size calculation is off-by-one because trying 
-to do it by hand instead of using the resource_size() helper.
+To: Peter Zijlstra <peterz@infradead.org>
+To: Ingo Molnar <mingo@redhat.com>
+To: Arnaldo Carvalho de Melo <acme@kernel.org>
+To: Namhyung Kim <namhyung@kernel.org>
+To: Mark Rutland <mark.rutland@arm.com>
+To: Alexander Shishkin <alexander.shishkin@linux.intel.com>
+To: Jiri Olsa <jolsa@kernel.org>
+To: Ian Rogers <irogers@google.com>
+To: Adrian Hunter <adrian.hunter@intel.com>
+To: James Clark <james.clark@linaro.org>
+Cc: linux-perf-users@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
 
-The mapped_hwpage_sz value is only used for register write offset 
-sanity checks, which use > countering the off-by-one error.
+---
+Mark Amirkan (2):
+      perf evsel: Validate branch stack before byte swapping
+      perf evsel: Validate RAW sample before byte swapping
 
-IMO, it would be better to use resource_size() and change those sanity 
-checks to use >= instead of > but this doesn't look a major problem by 
-any means.
+ tools/perf/tests/sample-parsing.c | 109 ++++++++++++++++++++++++++++++++++++++
+ tools/perf/util/evsel.c           |  20 +++----
+ 2 files changed, 120 insertions(+), 9 deletions(-)
+---
+base-commit: aadea57f532882d8bab444646863c7ef8a778ff1
+change-id: 20260903-sympwn-linux-002-final-v2-e30a8df210c1
 
--- 
- i.
+Best regards,
+--  
+Mark Amirkan <markdamirkan@gmail.com>
+
 
