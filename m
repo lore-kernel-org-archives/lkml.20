@@ -1,150 +1,127 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0C214EC65C;
-	Thu,  3 Sep 2026 16:32:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA361484257
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 16:33:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.197
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788453172; cv=none; b=KsgoOQSZHanR05Iz0MNFvtqH8RisWMyQXKUThYeCXxDLXAfZJpG8A0hsvk8tH1asHODduSXPb8JPusVcexHpK2+WsbYV5Gv9BqFKehlHcVOE+ryrKfWewxHuWIpei0HMN933hFKLhb8umILSa174T8GY5KBOkZ353prqHdl1Djk=
+	t=1788453218; cv=none; b=stkAfTdTN4WKd+XceFZ1scVvpW78WwpURIowUPruvTpt1iIw8wXBJTu9TeKl90u06pNyvK39Bu3Q5urehRoLqJxEn9ltG9d9hwvcczkm8p8coD6TyiFT6dbyU42hMGcTpMBTvyHL2rq98zCalOTDgS5mJJBg/gJ0MhxjevkXNgI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788453172; c=relaxed/simple;
-	bh=6pHy9//q9H0Ofm6mQAv5BYFGgr3Hvu8T1FCebCcnZo4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=hoP1Sc39zbAUWscGLcUn1bASnBWYkgd+9eZ05tdgAHhzUv8jPUlYepJEWlg4+Y9OXvvhEP/vR8EO/USMwsryt7bYWahOCOs3UDGFGWPTHKy5xfpLHW5CPGXYU0vUCZRBwuZcFy+7RmpCL/FAVlbgdk93EBY+0+mcFFM5R+GIAC0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BDF5D1F000E9;
-	Thu,  3 Sep 2026 16:32:47 +0000 (UTC)
-Message-ID: <40c96e12-f2f1-4d95-a95f-d4a9cbde7ab4@tuxon.dev>
-Date: Thu, 3 Sep 2026 19:32:45 +0300
+	s=arc-20240116; t=1788453218; c=relaxed/simple;
+	bh=J9DTYWyQiUh6lX22wglRoT5QWIUixAxZgYaHJuhSa4k=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=EFPQWuqXfwx5LpYHmdE9Ebbl5JgePaWV2AJv+8lcus+l0iDTcsQyevR+o+FRpcU4mYjobSNuVdLyN5su6o/uMPCIxflh3iNc7xbFsNXltXwRO3+fMXYrsI+R+MDwr/Wu2rrdO9znI+x8hFED65pQfhP8vd3gWW5VTluYixtqJII=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=tfkDCCKV; arc=none smtp.client-ip=209.85.214.197
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="tfkDCCKV"
+Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2db0a41434bso413655ad.0
+        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 09:33:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1788453216; x=1789058016; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=yud1zWjg0T0unucnpCnDX+16TCQDlpqp9KH31E+tKFs=;
+        b=tfkDCCKVclbpyW+qt0I0wNtovxpVolfyEf2Dpx+iMpUDnK5ur8CbzWEtxvv24omyLG
+         N/icn/ilGhiOwHUsbgSZnlpiCc3cMDQNy+r2KJoDyE2uTx1HiK8Y0A4fum2AC/SlaELy
+         qkhO87ECAfzx4IwYNdZTJDq7ZPgQRxVTAC5ukJ57AKkYZoXThWwAxX7hjePlq79PFseC
+         VQ/hkaXHMFe4U2kSFoRPD20VAG3/a4QVeZfiTcMRICE60OvuXdpg6qrCoUORGy61xnhq
+         lSy1GpmRS+Vi776JdCLpa6J798nh0+3uxC4coaZmsgUpsrF/BeW9BL5kcmmVQDmFSjtD
+         Lf0Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788453216; x=1789058016;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=yud1zWjg0T0unucnpCnDX+16TCQDlpqp9KH31E+tKFs=;
+        b=qKFFOfjLWtsUn7xg+if2mrxLxLPGCXfmpG0tLWHbp+nrUN02nzkXhdlNP2ONyAOLPz
+         w/JfSJtVitgM0JKKWjgbGPnnzGpW7LaItGDnMJEPvTBec2Lxq62G3pXqOZ9UZtHDJNam
+         j2QrBZfLe5Y8FGuZtkjfpH5Qv6z6su5Z5mCbmYY76BbkPN9XHJZCLEsFt79vZkw5aOMC
+         YRTjxUJanVEQKPmZVaxN1znM9i7bRTSk4fAP21XyRoROTjUNtaKjBnuq89YnmESoU041
+         6Yp11YLnx95BxO9l9F1KCVbOuEHaF8RihWMg/yRQq7mTJb0GTNxDDEvYoBq3T7pDEtHq
+         IA8w==
+X-Forwarded-Encrypted: i=1; AKwUvBz6NuBq72ul4/f8zxrwchlFQJMo51H3/O7JJKPvdfNOuLBWaJRU77Q8IR4EnpmumlO3lqQfGx9WNrRTlSg=@vger.kernel.org
+X-Gm-Message-State: AFuF++lSgkKuZvAnOxbkk6EXOI5Iq/vua49Yuk/Rotd1RQOvuCT37M4w
+	aaP0ToRGgi6K2+y79qC6ehwdAPZmZUoNeYvzq7Uf235M3HE1GBsRCI4Ql6Oq9eEVaviko3HFhrK
+	gpcJzAA==
+X-Received: from plcl4.prod.google.com ([2002:a17:902:e2c4:b0:2ca:ceab:34a3])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:903:9cf:b0:2d8:d4d1:313a
+ with SMTP id d9443c01a7336-2db12634535mr3213635ad.17.1788453215940; Thu, 03
+ Sep 2026 09:33:35 -0700 (PDT)
+Date: Thu, 3 Sep 2026 09:33:35 -0700
+In-Reply-To: <20260903154317.246414-A-seiden@linux.ibm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 3/5] pinctrl: renesas: rzg2l: Unify the power source
- handling
-To: Geert Uytterhoeven <geert@linux-m68k.org>
-Cc: linusw@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, magnus.damm@gmail.com,
- prabhakar.mahadev-lad.rj@bp.renesas.com, claudiu.beznea@tuxon.dev,
- linux-renesas-soc@vger.kernel.org, linux-gpio@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
-References: <20260903113327.1217457-1-claudiu.beznea+renesas@tuxon.dev>
- <20260903113327.1217457-4-claudiu.beznea+renesas@tuxon.dev>
- <CAMuHMdV9C6LVBqYWo=Njgf3v4a5R1LhBwKuB5H3TFctOCr338g@mail.gmail.com>
-Content-Language: en-US
-From: Claudiu Beznea <claudiu.beznea+renesas@tuxon.dev>
-In-Reply-To: <CAMuHMdV9C6LVBqYWo=Njgf3v4a5R1LhBwKuB5H3TFctOCr338g@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Mime-Version: 1.0
+References: <20260831144802.834315-1-seiden@linux.ibm.com> <20260831144802.834315-24-seiden@linux.ibm.com>
+ <aphMx5hsoXwIpNjt@google.com> <20260903083857.33034-B-seiden@linux.ibm.com>
+ <apmHrnxRLl9BuVhn@google.com> <20260903154317.246414-A-seiden@linux.ibm.com>
+Message-ID: <apmhX8H-WUc3U4_N@google.com>
+Subject: Re: [PATCH v7 23/23] KVM: s390: arm64: Add KVM_S390_ARM64 Kconfig and Makefile
+From: Sean Christopherson <seanjc@google.com>
+To: Steffen Eiden <seiden@linux.ibm.com>
+Cc: kvm@vger.kernel.org, kvmarm@lists.linux.dev, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	linux-s390@vger.kernel.org, Alexander Gordeev <agordeev@linux.ibm.com>, 
+	Andreas Grapentin <gra@linux.ibm.com>, Arnd Bergmann <arnd@arndb.de>, 
+	Catalin Marinas <catalin.marinas@arm.com>, Christian Borntraeger <borntraeger@linux.ibm.com>, 
+	Claudio Imbrenda <imbrenda@linux.ibm.com>, David Hildenbrand <david@kernel.org>, 
+	Friedrich Welter <fritz@linux.ibm.com>, Fuad Tabba <tabba@google.com>, 
+	Gautam Gala <ggala@linux.ibm.com>, Hariharan Mari <hari55@linux.ibm.com>, 
+	Heiko Carstens <hca@linux.ibm.com>, Hendrik Brueckner <brueckner@linux.ibm.com>, 
+	Ilya Leoshkevich <iii@linux.ibm.com>, Janosch Frank <frankja@linux.ibm.com>, 
+	Joey Gouly <joey.gouly@arm.com>, Marc Zyngier <maz@kernel.org>, Nico Boehr <nrb@linux.ibm.com>, 
+	Nina Schoetterl-Glausch <oss@nina.schoetterlglausch.eu>, Oliver Upton <oupton@kernel.org>, 
+	Paolo Bonzini <pbonzini@redhat.com>, Suzuki K Poulose <suzuki.poulose@arm.com>, 
+	Sven Schnelle <svens@linux.ibm.com>, Ulrich Weigand <Ulrich.Weigand@de.ibm.com>, 
+	Vasily Gorbik <gor@linux.ibm.com>, Will Deacon <will@kernel.org>, Zenghui Yu <yuzenghui@huawei.com>
+Content-Type: text/plain; charset="us-ascii"
 
-Hi, Geert,
+On Thu, Sep 03, 2026, Steffen Eiden wrote:
+> On Thu, Sep 03, 2026 at 07:43:58AM -0700, Sean Christopherson wrote:
+> > And FWIW, while it might seem daunting, from my perspective it's not actually that
+> > much churn to do things "right".  Provide KVM_S390_NATIVE, and then have KVM reflect
+> > the "weakest" of S390_NATIVE vs. S390_ARCH.  I.e. make KVM=m if either of the "real"
+> > KVMs will be a module.  That requires some creative shenanigans, but it's not hard,
+> > just weird.
+> 
+> FYI the first versions of this series had a 3 configs approach very
+> similar to yours. 
+> 
+> IIRC it was not so much the churn we have in (upstream) kernel code but
+> more on the distro side and to everyone building the kernel in their
+> favourite architecture (s390 :))
 
-On 9/3/26 18:32, Geert Uytterhoeven wrote:
-> Hi Claudiu,
-> 
-> On Thu, 3 Sept 2026 at 13:34, Claudiu Beznea
-> <claudiu.beznea+renesas@tuxon.dev> wrote:
->> From: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
->>
->> The previous code handled power sources using a mixture of power
->> source specific definitions and lookups in the available_ps[] array.
->> Unify the power source handling by introducing
->> struct rzg2l_pinctrl_ps_desc, whose purpose is to describe a power
->> source through its power source value, associated register value,
->> associated capabilities (e.g. Ethernet), and associated IOLH index.
->>
->> Introduce two new functions, rzg2l_ps_to_desc() and
->> rzg2l_pwr_reg_val_to_desc(), using the
->> RZG2L_PINCTRL_PS_DESC_MEMBER_TO_DESC_FUNC() macro, as their
->> implementations are similar.
->>
->> These functions retrieve a power source descriptor based on either a
->> power source value or a power source register value. Other functions
->> that need to perform power source specific operations can call them to
->> retrieve the corresponding power source descriptor.
->>
->> The register values for the soft power sources were kept to zero since
->> they are not used across the driver's code.
->>
->> Signed-off-by: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
->> ---
->>
->> Changes in v6:
->> - described all the available power sources in the available_ps[]
->>    array and dropped to wildcard approach to avoid letting the user
->>    selecting unavailable power source for pins
->> - simplified RZG2L_PINCTRL_PS_DESC_MEMBER_TO_DESC_FUNC()
->> - for these two points ^ didn't collect the Wolfram's Tb tag
->> - dropped rzg2l_ps_is_supported()
->> - used conditional operator in rzg2l_ps_to_iolh_idx()
->> - adjusted the patch description
-> 
-> Thanks for the update!
-> 
->> --- a/drivers/pinctrl/renesas/pinctrl-rzg2l.c
->> +++ b/drivers/pinctrl/renesas/pinctrl-rzg2l.c
-> 
->> +static const struct rzg2l_pinctrl_ps_desc available_ps[] = {
->> +       /* Ethernet I/O voltage domains */
->> +       RZG2L_PINCTRL_PS_DESC(1800, 1, PIN_CFG_IO_VMC_ETH0 | PIN_CFG_IO_VMC_ETH1,
->> +                             RZG2L_IOLH_IDX_1V8),
->> +       RZG2L_PINCTRL_PS_DESC(2500, 2, PIN_CFG_IO_VMC_ETH0 | PIN_CFG_IO_VMC_ETH1,
->> +                             RZG2L_IOLH_IDX_2V5),
->> +       RZG2L_PINCTRL_PS_DESC(3300, 0, PIN_CFG_IO_VMC_ETH0 | PIN_CFG_IO_VMC_ETH1,
->> +                             RZG2L_IOLH_IDX_3V3),
->> +
->> +       /* SD I/O voltage domains */
->> +       RZG2L_PINCTRL_PS_DESC(1800, 1, PIN_CFG_IO_VMC_SD0 | PIN_CFG_IO_VMC_SD1 |
->> +                             PIN_CFG_IO_VMC_SD2, RZG2L_IOLH_IDX_1V8),
->> +       RZG2L_PINCTRL_PS_DESC(2500, 2, PIN_CFG_IO_VMC_SD0 | PIN_CFG_IO_VMC_SD1 |
->> +                             PIN_CFG_IO_VMC_SD2, RZG2L_IOLH_IDX_2V5),
-> 
-> Before (see below), only Ethernet could select the 2.5V domain, so
-> shouldn't this entry be dropped?
+How many people are running distro kernels on s390 hardware?  And how many distros
+actually change the default KVM settings, e.g. to build KVM as a module instead of
+baking it into the kernel?  My guess is "not many" and "almost none", i.e. the
+actual impact on downstream users is likely miniscule.
 
-That's a mistake. I'll drop it from here and from QSPI section.
+> Suddenly the KVM config changed its behaviour (effectively becoming a noop)
 
-> 
->> +       RZG2L_PINCTRL_PS_DESC(3300, 0, PIN_CFG_IO_VMC_SD0 | PIN_CFG_IO_VMC_SD1 |
->> +                             PIN_CFG_IO_VMC_SD2, RZG2L_IOLH_IDX_3V3),
->> +
->> +       /* QSPI I/O voltage domains */
->> +       RZG2L_PINCTRL_PS_DESC(1800, 1, PIN_CFG_IO_VMC_QSPI, RZG2L_IOLH_IDX_1V8),
->> +       RZG2L_PINCTRL_PS_DESC(2500, 2, PIN_CFG_IO_VMC_QSPI, RZG2L_IOLH_IDX_2V5),
-> 
-> Same here?
-> 
->> +       RZG2L_PINCTRL_PS_DESC(3300, 0, PIN_CFG_IO_VMC_QSPI, RZG2L_IOLH_IDX_3V3),
->> +
->> +       /* AWO I/O voltage domains */
->> +       RZG2L_PINCTRL_PS_DESC(1800, 1, PIN_CFG_PVDD1833_OTH_AWO_POC,
->> +                             RZG2L_IOLH_IDX_1V8),
->> +       RZG2L_PINCTRL_PS_DESC(3300, 0, PIN_CFG_PVDD1833_OTH_AWO_POC,
->> +                             RZG2L_IOLH_IDX_3V3),
->> +
->> +       /* ISO I/O voltage domains */
->> +       RZG2L_PINCTRL_PS_DESC(1800, 1, PIN_CFG_PVDD1833_OTH_ISO_POC,
->> +                             RZG2L_IOLH_IDX_1V8),
->> +       RZG2L_PINCTRL_PS_DESC(3300, 0, PIN_CFG_PVDD1833_OTH_ISO_POC,
->> +                             RZG2L_IOLH_IDX_3V3),
->> +
->> +       /* WDTOVF I/O voltage domains */
->> +       RZG2L_PINCTRL_PS_DESC(1800, 1, PIN_CFG_WDTOVF_N_POC, RZG2L_IOLH_IDX_1V8),
->> +       RZG2L_PINCTRL_PS_DESC(3300, 0, PIN_CFG_WDTOVF_N_POC, RZG2L_IOLH_IDX_3V3),
->> +
->> +       /* Software voltage domains */
->> +       RZG2L_PINCTRL_PS_DESC(1800, 0, PIN_CFG_SOFT_PS, RZG2L_IOLH_IDX_1V8),
->> +       RZG2L_PINCTRL_PS_DESC(2500, 0, PIN_CFG_SOFT_PS, RZG2L_IOLH_IDX_2V5),
->> +       RZG2L_PINCTRL_PS_DESC(3300, 0, PIN_CFG_SOFT_PS, RZG2L_IOLH_IDX_3V3),
-> 
-> I never really understood PIN_CFG_SOFT_PS...
+Not really, because "KVM" itself is inaccessible (well, unless someone is hand-
+editing .configs or generating them by script, but that's their own fault).
+E.g. upgrading to a new kernel will explicitly prompt the user to choose for both
+KVM_S390_NATIVE and KVM_S390_ARM64 (or whatever they get called).
 
-That was to match b/w a voltage and an IOLH value according to the table from 
-45.3.7 Driving Ability Control Register (IOLH_m) in the RZ/G3S manual (rev.1.30)
+> I am starting to think that having no separate config option for arm on
+> s390 might be the easisest way. Just KVM and guard both modules behind
+> it. It reduces the config space bloat and I do not see a reason why somoeone
+> should only compile one KVM module but not the other. kvm-arm64 won't
+> load if you do not have the hardware anyways.
 
-Thank you,
-Claudiu
+Because there may be an unforseen need down the road?  Smushing things together
+after the fact is generally easy, pulling things apart without breaking everything
+is usually much, much harder.
+
+> But I am not opposed to the x86 approach. Just thinking loud.
+> 
+> Anyways, I am off for vacation expect a reduced reply frequency from my
+> side :) 
+
+Enjoy your holiday!
