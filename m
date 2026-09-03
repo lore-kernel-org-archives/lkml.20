@@ -1,89 +1,148 @@
-Received: from hognose1.porkbun.com (hognose1.porkbun.com [35.82.102.206])
+Received: from relay.hostedemail.com (smtprelay0011.hostedemail.com [216.40.44.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2CFE48C3FF;
-	Thu,  3 Sep 2026 17:12:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=35.82.102.206
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEFC54F0551;
+	Thu,  3 Sep 2026 17:15:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=216.40.44.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788455579; cv=none; b=Lc/6Y0vSHSAm4AVb8D+nQulNApbByBrDl5Tvw5ETcyiwVvUMpFqCoaa9xrq+NK0/YL4lTVpM3yQxik0676t+PsmXn66moneoaAUKRu/bVGJuLNJGGkkExs0XpfCd0fnwg0zExNzGIJ2YrJhKktFTX5LQrnvyf80PVEDjNZVGh1I=
+	t=1788455704; cv=none; b=uR43r54p8U4lniWCEYfz1fzgCut/KUTOGyFgxiNbeV8O+5TQhEci0EWevzNCIAvugQI0AtmSMeCfWk9YWcx4WnVvImoIwt1GUHnLJd8hLin1ZXZARrAJqrnRMunX3DmM70/kQu6Tss18HySqFmUuULJSO4YdCba4/te3DUKLdvY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788455579; c=relaxed/simple;
-	bh=hwRYynNvJulkks5OvxSq1SFaO+mjn+PsVkm4aHLVj3Y=;
-	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
-	 Message-ID:Content-Type; b=YSMb2v4WeFbcbgzOQqZHqYJ9yXJRZA0tHnnJXSt79aRlpAScYpJfrsVNxoS4LM/VFzYNUZyly//RoHFoiE41k3H8xrCEOXy8H12s/TMkn7bPzYIHhn1mTb+vKMjkGaRxZ7mIy1eCC+1pVfIRIir2sonrpYTpmLLKCG0CDQ9vBnA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=samaritansolutions.net; spf=pass smtp.mailfrom=samaritansolutions.net; dkim=pass (1024-bit key) header.d=samaritansolutions.net header.i=@samaritansolutions.net header.b=KsfMH+6l; arc=none smtp.client-ip=35.82.102.206
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=samaritansolutions.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samaritansolutions.net
+	s=arc-20240116; t=1788455704; c=relaxed/simple;
+	bh=a3738ygz6RB4MyKQnuW2ftvleHfzZqbrsTcw5Ymo/BQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=QSwz/8ocHY6URiHf5tdujR1Fya11vmckYQ4eI1MEaoBASw2ealce/eu3RYpHDOnFT0vKejwPKapXLdeDIBKctCMh6XNWQ0JQgMaNorJYujaZcO+3Jv9te9ZeC6uVmBIwisk5vvCol+yDHi35gHMHd64BWEEliCnAiZrN5RCSAMo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org; spf=pass smtp.mailfrom=goodmis.org; dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b=0MuYsfb4; arc=none smtp.client-ip=216.40.44.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=samaritansolutions.net header.i=@samaritansolutions.net header.b="KsfMH+6l"
-Received: from webmail.porkbun.com (unknown [52.88.61.100])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(Client did not present a certificate)
-	(Authenticated sender: casey@samaritansolutions.net)
-	by hognose1.porkbun.com (Postfix) with ESMTPSA id 35249463C85;
-	Thu,  3 Sep 2026 17:12:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=samaritansolutions.net; s=default; t=1788455577;
-	bh=DwJo6R1fAwLAtgbBpyESZ8JkErY7ihRhTUlfibmWXnA=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=KsfMH+6lecQmZa1OO8JqmhoRmbjFGSdWkDekRan4ixvyJ/8OPUhpft3eeTYQFLfcz
-	 ME30cqQociQOFDDDZM9PGbYwTYFFX4mFkx1WrhEDwwF6vy3iGJgr4+83UZLFUtMU8B
-	 /daHpILrRuS5ZfZqpQxnwMHOh1f9lFlvMW4XrOH4=
+	dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b="0MuYsfb4"
+Received: from omf14.hostedemail.com (lb01a-stub [10.200.18.249])
+	by unirelay02.hostedemail.com (Postfix) with ESMTP id 602EE1201BC;
+	Thu,  3 Sep 2026 17:15:00 +0000 (UTC)
+Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf14.hostedemail.com (Postfix) with ESMTPA id 81CC630;
+	Thu,  3 Sep 2026 17:14:58 +0000 (UTC)
+Date: Thu, 3 Sep 2026 13:16:01 -0400
+From: Steven Rostedt <rostedt@goodmis.org>
+To: Vincent Donnefort <vdonnefort@google.com>
+Cc: mhiramat@kernel.org, linux-trace-kernel@vger.kernel.org,
+ mathieu.desnoyers@efficios.com, kernel-team@android.com,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v9 4/4] ring-buffer: Prevent truncation of nr_pages /
+ nr_subbufs
+Message-ID: <20260903131601.4e4caa0d@gandalf.local.home>
+In-Reply-To: <20260901155445.1475405-5-vdonnefort@google.com>
+References: <20260901155445.1475405-1-vdonnefort@google.com>
+	<20260901155445.1475405-5-vdonnefort@google.com>
+X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Thu, 03 Sep 2026 13:12:57 -0400
-From: Casey Tunturi <casey@samaritansolutions.net>
-To: Takashi Iwai <tiwai@suse.de>
-Cc: Casey Tunturi via B4 Relay
- <devnull+casey.samaritansolutions.net@kernel.org>, Jaroslav Kysela
- <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] ALSA: hda: intel: reset link for HP ENVY 27-p014
-In-Reply-To: <87o6ehcgzk.wl-tiwai@suse.de>
-References: <20260828-hp-envy-27-hda-reset-v1-1-0da50c215148@samaritansolutions.net>
- <87o6ehcgzk.wl-tiwai@suse.de>
-Message-ID: <4875e82cbae39f7ea1a18e11fe47c7e2@samaritansolutions.net>
-X-Sender: casey@samaritansolutions.net
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
+X-Rspamd-Server: rspamout01
+X-Rspamd-Queue-Id: 81CC630
+X-Stat-Signature: da1hmw91c4gsry6ue9ycm9kg5oeaddpg
+X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
+X-Session-ID: U2FsdGVkX18IcofMKkcu31DbAJGvIB0pRIYN1S4spLs=
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=EQM0VIYmSSZJcx2CTQCUz+pGnyeUaj8iMc9UDxBrZMg=; b=0MuYsfb4RRC34mSamzdeXyelgnxjNrKrClN27u29M8i64A4Z+Lqd3YToXObHwzVi019rKsYKQCZaV8m6967BHKEVYgRvext1yRfkp0ZyGORaGqQwmgGeHDH7Vtfr1pRuaKh2TkZWeKwcN6qYeCyEorRI3XiStvuJzHqzdo6m88Y=
+X-HE-Tag: 1788455698-761224
+X-HE-Meta: U2FsdGVkX1/AJxdCkMF9L+1ixN7J4/qoeoSfFi2be4yh2tIQr8Y4hsfhVo1zAyZ+vb8+L6tDXzlxPD/WzNflWLUDv0icU1lPTm+llAo9xwoWRPjNBKwKMTOpUDtfYti6u0Agg/g8s1Mm4cM+04k1YPwOEq7eXiwY0uCSi1NdUhOo1h5PEvdmevg+ToArfUtlaOO5lJOC3hmADS66pbKlZYxLWJ8R41U9KpqHw/Z/5Hdppj57KvTk9A3dHx7PtVdVln42hvb+9x+xn5H7h+e56LIxjwqw3uuDL1A/EFdkF59A0YOr5L7CVvjJlREQeB2N51hn1qNTwj5Sw/J+aiZI4nBaj4GuiWxntuKxHDutPdDfH4o38jVKBuZ0hRDkL1lF+GXsaRTCRQOIwba4fwIOePrYol9Rfc1ivXjQjeFhxMQ=
 
-On Tue, Sep 1, 2026 at 8:07 AM Takashi Iwai <tiwai@suse.de> wrote:
-> Thanks for the patch. But I must say that it's very hackish, and we 
-> should
-> reconsider to make the changes a bit more generic or cleaner.
-> 
-> But, first off, could you give more details about your hardware? At 
-> best,
-> give alsa-info.sh output (run with --no-upload option and attach the 
-> output).
+On Tue,  1 Sep 2026 16:54:45 +0100
+Vincent Donnefort <vdonnefort@google.com> wrote:
+
+> -static void *rb_range_buffer(struct ring_buffer_per_cpu *cpu_buffer, int idx)
+> +static void *rb_range_buffer(struct ring_buffer_per_cpu *cpu_buffer, unsigned int idx)
+>  {
+>  	struct ring_buffer_cpu_meta *meta;
+> +	unsigned int subbuf_size;
+>  	unsigned long ptr;
+> -	int subbuf_size;
+>  
+>  	meta = rb_range_meta(cpu_buffer->buffer, 0, cpu_buffer->cpu);
+>  	if (!meta)
+> @@ -1777,7 +1776,7 @@ static void *rb_range_buffer(struct ring_buffer_per_cpu *cpu_buffer, int idx)
+>  
+>  	ptr = (unsigned long)rb_subbufs_from_meta(meta);
+>  
+> -	ptr += subbuf_size * idx;
+> +	ptr += (unsigned long)subbuf_size * idx;
+
+Really, it looks like the idx should be typecasted, as it is the number of
+subbuffers. Maybe even pass it in as unsigned long?
+
+>  	if (ptr + subbuf_size > cpu_buffer->buffer->range_addr_end)
+>  		return NULL;
+>  
+> @@ -1854,13 +1853,13 @@ static bool rb_meta_init(struct trace_buffer *buffer, int scratch_size)
+>   * must be the same.
+>   */
+>  static bool rb_cpu_meta_valid(struct ring_buffer_cpu_meta *meta, int cpu,
+> -			      struct trace_buffer *buffer, int nr_pages,
+> +			      struct trace_buffer *buffer, unsigned long nr_pages,
+>  			      unsigned long *subbuf_mask)
+>  {
+> -	int subbuf_size = PAGE_SIZE;
+> +	unsigned long subbuf_size = PAGE_SIZE;
+
+Why the long? Shouldn't it be unsigned int?
+
+>  	unsigned long buffers_start;
+>  	unsigned long buffers_end;
+> -	int i;
+> +	unsigned long i;
+>  
+>  	if (!subbuf_mask)
+>  		return false;
+> @@ -2109,8 +2108,8 @@ static void rb_meta_validate_events(struct ring_buffer_per_cpu *cpu_buffer)
+>  	struct buffer_page *head_page, *orig_head, *orig_reader;
+>  	struct rb_validation_state state = { 0 };
+>  	bool skip = false;
+> +	unsigned long i;
+>  	int ret;
+> -	int i;
+>  
+>  	if (!meta || !meta->head_buffer)
+>  		return;
+> @@ -2161,7 +2160,7 @@ static void rb_meta_validate_events(struct ring_buffer_per_cpu *cpu_buffer)
+>  		rb_validate_buffer(head_page, cpu_buffer, meta, &state, 0, state.ts);
+>  	}
+>  	if (i)
+> -		pr_info("Ring buffer [%d] rewound %d pages\n", cpu_buffer->cpu, i);
+> +		pr_info("Ring buffer [%d] rewound %lu pages\n", cpu_buffer->cpu, i);
+>  
+>  	/* The last rewound page must be skipped. */
+>  	if (head_page != orig_head)
+> @@ -2245,7 +2244,8 @@ static void rb_meta_validate_events(struct ring_buffer_per_cpu *cpu_buffer)
+>  	}
+>  }
+>  
+> -static void rb_range_meta_init(struct trace_buffer *buffer, int nr_pages, int scratch_size)
+> +static void rb_range_meta_init(struct trace_buffer *buffer,
+> +			       unsigned long nr_pages, int scratch_size)
+
+static void rb_range_meta_init(struct trace_buffer *buffer, unsigned long nr_pages,
+			       int scratch_size)
+
+looks better ;-)
+
+>  {
+>  	struct ring_buffer_cpu_meta *meta;
+>  	unsigned long *subbuf_mask;
+> @@ -2345,8 +2345,8 @@ static int rbm_show(struct seq_file *m, void *v)
+>  			   rb_meta_subbuf_idx(meta, (void *)meta->head_buffer));
+>  		seq_printf(m, "commit_buffer: %d\n",
+>  			   rb_meta_subbuf_idx(meta, (void *)meta->commit_buffer));
+> -		seq_printf(m, "subbuf_size:   %d\n", meta->subbuf_size);
+> -		seq_printf(m, "nr_subbufs:    %d\n", meta->nr_subbufs);
+> +		seq_printf(m, "subbuf_size:   %u\n", meta->subbuf_size);
+> +		seq_printf(m, "nr_subbufs:    %u\n", meta->nr_subbufs);
+>  		return 0;
+>  	}
+>  
 
 
-Thank you for taking the time to review it!
-
-Oh yes, I think it's cursed. This is a hack.
-
-I submitted it just before leaving my in-laws' place so it wouldn't stay 
-isolated to that one machine. It has been running for about four months, 
-and it was the only thing I found so far that made the codec enumerate 
-and gave my father-in-law working analog audio under Linux.
-
-I don't have the machine in front of me now. I'll have it again just 
-short of two weeks. I'll rerun the tests, collect the alsa-info output, 
-and work through the reset and PIO questions then.
-
-> Can't the standard snd_hdac_bus_reset_link() work? If not, we may tweak
-> there in the standard code instead of open-code here.
-
-I knew I was probably forcing the issue at the wrong layer. I asked 
-around on Matrix with a couple of devs and couldn't get the standard 
-reset path to work on this hardware.
-
-I'd appreciate any pointers to code or docs I should read. I'd like to 
-understand the right fix rather than just keep the workaround.
-
-Casey
+-- Steve
