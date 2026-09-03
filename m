@@ -1,103 +1,165 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com [209.85.216.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 128634D8DB8;
-	Thu,  3 Sep 2026 16:07:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91AEE4D9901
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 16:07:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788451635; cv=none; b=BnCQ4Nt57QgPdYWLSvMzJLFvui/5YHPefVHl+PppPruxc315CvMkVgb1vBVDy/Gim5Ijz9tQzHtKu1E0rnfS+dQ5D5NEwwBoXTC7VvGiYQ+cOuqJVwyJgEYC1ZaMyV0BRTdXuz0Jg/2R9EqP4sMy3QUDW92ovVVL+wvE4AWfmlc=
+	t=1788451640; cv=none; b=h2LrksJLluAAHSAo2yEWuVL8vu//DX/oISsCEG8a1w4KoAcnSsJ7pHY4On2XDokeyagJSUXqzU905rEpYFppUPDPYyoyXW+eZJPT+CmpF3wM9kBpILmNnaWVrWegN1MEt/9OC5+jlHOHC/tnTS1awMS8PTkeo5gK9u+qznUmpBo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788451635; c=relaxed/simple;
-	bh=NhSt2URDT+IepuxkSnn7wmrY/hgpQI5zr5eWhS5hcGA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=DpUibXbzUdNWhtN393WDWd+NpkTwrKFB9PBRF5/Rv3l++BX2sK+Umsai5I2l6LoKSa6cHqArqRw+Yc+RdkBqLy2/ewf8I61p04kw9TvHWvF6lxk8FVhGlh4gDYP+Sf2++m4bl6uWzyCqmbg1piEvufkhEJggNkzFtRQfz+G131Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=xuZVTd+3; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=T8kn4im/; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	s=arc-20240116; t=1788451640; c=relaxed/simple;
+	bh=xd7QfPoBvok/Ce3FnOcL4vksYEdiJx5bQP+Bx/J5PtU=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=Gu+1klI+I24wEjxLbbhyBwl8QU9a7auX65y6VKRX+lmvf4FdIiMuQa9MSH8ZsiuVJBkTpfPIbbgC2VyKLlKXYk2rAGBwV5DI6RO/T1Mhgtx8zjzXhcykaEIrW2LZmxCg1ag6nFfLs8U/lc/vAYcT/XawR5K1YWavTz2z4XQOXqg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lkQvsfgS; arc=none smtp.client-ip=209.85.216.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="xuZVTd+3";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="T8kn4im/"
-Date: Thu, 3 Sep 2026 18:07:10 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1788451632;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=/vbjCRdrjxVp6fckV1i3kt+QR+aoKiSt4PvLxtPMrkc=;
-	b=xuZVTd+3e+XOsFzlbevv8WgpKXG5gTsuBBMkBxlya3sozHHOlzgelbcrxTZ3dc2S2fKUZH
-	Eo2ofpB9QXz++1nNA+l2nW//I/NpSXT/vrPva2BUML6aRc3DqfHqlGlE1V2t3JJo/nIQwC
-	4hoXTVevZUC8QVTDO0/gyce7p2CXCRV/uUfesLEFjgZfm0uG4U8QpsjXpPq1tbDCSMX+mx
-	7gIEzaiL+A0P1bxr9Si/kf123/uOYqAAZha/i9aojgU1F18YicgLIuc7upSmZ7pQYX5oKR
-	1iFVmlocKFD2B1HAW245xFUSV6/LtXCqmDzblVKJLJ/iTvmhYNie9oQEQsHYVA==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1788451632;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=/vbjCRdrjxVp6fckV1i3kt+QR+aoKiSt4PvLxtPMrkc=;
-	b=T8kn4im/sQC5stFlPR2Bqz8b9qO4j+lZamw3HssQ6xL7wclpxMen7l/f/4CP0sh13GTOKy
-	vasVqJQNc7WAdJBA==
-From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-To: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	linux-rt-devel@lists.linux.dev, linux-perf-users@vger.kernel.org,
-	loongarch@lists.linux.dev
-Cc: "Luis Claudio R. Goncalves" <lgoncalv@redhat.com>,
-	Waiman Long <longman@redhat.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
-	Clark Williams <clrkwllms@kernel.org>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Ada Couprie Diaz <ada.coupriediaz@arm.com>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-	Arnaldo Carvalho de Melo <acme@kernel.org>,
-	Huacai Chen <chenhuacai@kernel.org>,
-	Ian Rogers <irogers@google.com>, Ingo Molnar <mingo@redhat.com>,
-	James Clark <james.clark@linaro.org>, Jiri Olsa <jolsa@kernel.org>,
-	Namhyung Kim <namhyung@kernel.org>, Oleg Nesterov <oleg@redhat.com>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Russell King <linux@armlinux.org.uk>,
-	WANG Xuerui <kernel@xen0n.name>
-Subject: Re: [PATCH v2] ARM, ARM64, LONGARCH: Delay HW BP notification to
- task_work()
-Message-ID: <20260903160710.vVf4gEL2@linutronix.de>
-References: <20260814085118.OPEA_Ssn@linutronix.de>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lkQvsfgS"
+Received: by mail-pj1-f49.google.com with SMTP id 98e67ed59e1d1-39647184c73so1198720a91.1
+        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 09:07:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788451638; x=1789056438; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:reply-to:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=xyyusPI3FD+mQJM1H+4lN3LfiPaBkg/Gx00WGPfPItc=;
+        b=lkQvsfgS+idHRawxzjt9k6zh8JLmR7pjTKtQMEL0WEYCIFd38dWAzRO1U0JVenUT7F
+         tFMBJoFy4KLaVpHx4KHTJeXhVF563de9cXuaM8Vxd2rTi+Y3n1B8HkCCTe69WEd5/ATo
+         cJoMppkf4c16BNAANW97+xzWI3wpgGLjwXl902yBoGpK9jQJGG4o71b9zrFshuRrvwfp
+         INyHvo1YfYlZcLMszXtIe75EaSSyZwINaeq0PMyT+PTJCcjh1++KOjx0wExuO0Kofz9k
+         czQq0+yz596FwAOXKfP448TJxMOiX3V5uFZ88j5cLRJ9nt2uzb/JPD0VGE52lPPYiRpS
+         tszQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788451638; x=1789056438;
+        h=content-transfer-encoding:mime-version:reply-to:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=xyyusPI3FD+mQJM1H+4lN3LfiPaBkg/Gx00WGPfPItc=;
+        b=kgipVw9VO0vFQbpFk3ooFQvLTqd6Zq9Gdf+44TlnXcqUqn3RgOqTF6nqLx1cbO/pw2
+         ++c+sf/jGMaPa9KdTpFManimb6JFtaJd6Eq8PH+Nu1zjXA7MBE+hNvtppR5q3GRVBwtF
+         HAg0hw5RPtxx33XXgFNu2Zi4b0nHVFWo4OHilX9dPWZ6B8sTZ6u1emWztg0TdxPUGRWZ
+         V5sJgtyhVP6IsW9k6zPJ0uopKC54TDxw+Od27K7JARNc7S6fsfm3aG7YxtVGUXEz3SVr
+         lGR1b4he/ZC6O+yRIHuYOFuroacO89NY4Fm8IlkKM6mUesFtOR4vvJUIgb31p1cJEqxw
+         +/FA==
+X-Forwarded-Encrypted: i=1; AKwUvBxKAMm9qs3KXovnAmd/SQtevjxCm/dLN3sWxmCGvy4otJp27NKF6neFhLaTFJRq5UmGGL4mOXqvafnXKPo=@vger.kernel.org
+X-Gm-Message-State: AFuF++nHjhF7vYVFOAiXaswIRhZyUXuoq2XmLPiSAlettEvy0aCebUro
+	3GBkKBhOD+7zshV0TlNkIxTjPmTqtdhulUhqCWb3Ec73fVShgr2QklxB
+X-Gm-Gg: AYBFou3gYSc6p8zmyLDKA9gB0zDX8F1pCrN81mxv+3X9Y2qcf+f5mgzqB0VvBPU88Ts
+	lpQaPAd54zHBal71Jj94Bw8NOc7UEoupqGcXC/vo4LgKMQFmOFPTn4LJURjHZs6N1iaUxL4kR+k
+	MlspbNK53N9jaC1Sd6BTFFTtWh+taXzBYs2hvhZtaaQp+14c4UhN39+tdBql3manNlfkAWSoaDe
+	3tKKwyU+rpTG8CTvXVASFxfD6FgjHxz/1Z7sw45DPfJRjCYIg4T17yJbW6kjUVY1Hf1mtiJEjCe
+	snKlv5mVsTK2hCRxSOLYt48wg+hcAKm8rXTt2/shLc7kgbcNsztq9AzS4WUVnsBu9+jr79TQLe3
+	z/Paevz0JASCtgOOvMC/XWys+iingzgbyVfE9ufNs+qijkdHFKZI2WF2RnF5QZRJaFj+dEEc5yZ
+	QWa93ugDR/TUOSuWat2eabTC0mMEM/iHkJmu6v7buD8ReuyoN5EDCr/2c0IrkeXlUucw==
+X-Received: by 2002:a17:90b:4c4c:b0:395:8124:ac53 with SMTP id 98e67ed59e1d1-39b1322464emr3752631a91.6.1788451637343;
+        Thu, 03 Sep 2026 09:07:17 -0700 (PDT)
+Received: from mhkubun.mshome.net ([50.34.2.22])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39ae8ccc72fsm3702020a91.2.2026.09.03.09.07.16
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 03 Sep 2026 09:07:16 -0700 (PDT)
+From: Michael Kelley <mhkelley58@gmail.com>
+X-Google-Original-From: Michael Kelley <mhklinux@outlook.com>
+To: kys@microsoft.com,
+	haiyangz@microsoft.com,
+	wei.liu@kernel.org,
+	decui@microsoft.com,
+	longli@microsoft.com,
+	andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com
+Cc: linux-hyperv@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	netdev@vger.kernel.org
+Subject: [PATCH 1/2] Drivers: hv: Add vmbus_leak_buffer()
+Date: Thu,  3 Sep 2026 09:06:50 -0700
+Message-Id: <20260903160651.1637-2-mhklinux@outlook.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20260903160651.1637-1-mhklinux@outlook.com>
+References: <20260903160651.1637-1-mhklinux@outlook.com>
+Reply-To: mhklinux@outlook.com
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260814085118.OPEA_Ssn@linutronix.de>
+Content-Transfer-Encoding: 8bit
 
-On 2026-08-14 10:51:18 [+0200], To linux-arm-kernel@lists.infradead.org wrote:
-> Waiman, Luis, Ada reported that HW breakpoints on ARM64 trigger
-> "sleeping while atomic" warnings on PREEMPT_RT. The hardware event is
-> delivered with disabled interrupts and perf intrastrucure expects
-> disabled interrupts while the overflow callback is invoked.
-> 
-> The callback then sends a SIGTRAP signal for which it acquires
-> sighand_struct::siglock, a spinlock_t which becomes a sleeping lock and
-> must not be acquired in atomic context.
-> 
-> Delay the event callback until the return to userland.
-> Add perf_arch_hwbp_notify(), a generic perf callback which delayes the
-> actual callback invocation to task_work_add() callback. This callback
-> invokes the architecture defines callback arch_hwbp_send_sig().
-> This requires struct callback_head and the functions require
-> ARCH_NEED_PERF_HW_NOTIF to be defined.
-> 
-> This was reported against ARM64. ARM and LongARCH follow the same
-> pattern are also converted.
-> 
-> Reported-by: Luis Claudio R. Goncalves <lgoncalv@redhat.com>
-> Reported-by: Waiman Long <longman@redhat.com>
-> Closes: https://lore.kernel.org/all/aho0eqjMESuHxECr@redhat.com/
-> Signed-off-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+If an error case needs to leak the buffer memory allocated by
+vmbus_alloc_buffer(), doing so requires knowledge of how
+vmbus_free_buffer() works. In a CoCo VM buffers are allocated
+differently from a normal VM, and vmbus_free_buffer() handles
+the difference.
 
-Did this get lost, should I repost it or is there something obviously
-wrong with it and nobody wanted to hurt my feelings by telling me?
+Encapsulate this knowledge in a new function, vmbus_leak_buffer(),
+that error paths can call. After calling vmbus_leak_buffer(), a
+subsequent call to vmbus_free_buffer() frees the additional
+resources used in the CoCo VM case but does not free the actual
+buffer memory. As such, vmbus_leak_buffer() is callable in a
+context where accesses to the buffer memory may be in flight.
 
-Sebastian
+Signed-off-by: Michael Kelley <mhklinux@outlook.com>
+---
+ drivers/hv/channel.c   | 26 ++++++++++++++++++++++++++
+ include/linux/hyperv.h |  4 ++++
+ 2 files changed, 30 insertions(+)
+
+diff --git a/drivers/hv/channel.c b/drivers/hv/channel.c
+index f4370617deac..d5d20e322831 100644
+--- a/drivers/hv/channel.c
++++ b/drivers/hv/channel.c
+@@ -648,6 +648,32 @@ void vmbus_free_buffer(void *addr, struct page **chunks, u32 chunk_cnt)
+ }
+ EXPORT_SYMBOL_GPL(vmbus_free_buffer);
+ 
++/**
++ * vmbus_leak_buffer - set up a buffer to be leaked by vmbus_free_buffer().
++ *
++ * @addr: buffer address
++ * @chunks: chunks array from vmbus_alloc_buffer()
++ * @chunk_cnt: number of entries in @chunks
++ *
++ * When @chunks is NULL the buffer is a plain vzalloc() allocation and
++ * the buffer is leaked by setting @addr to NULL. Otherwise set
++ * @chunk_cnt to 0 so that vmbus_free_buffer() does not try to re-encrypt
++ * or free the buffer memory, but still releases the vmap address and
++ * the chunks memory.
++ *
++ * This function may be called in a context where the buffer is still
++ * being accessed. It must not remove any kernel virtual addresses of
++ * the buffer or change its encryption status.
++ */
++void vmbus_leak_buffer(void **addr, struct page ***chunks, u32 *chunk_cnt)
++{
++	if (*chunks)
++		*chunk_cnt = 0;
++	else
++		*addr = NULL;
++}
++EXPORT_SYMBOL_GPL(vmbus_leak_buffer);
++
+ /**
+  * vmbus_alloc_buffer - allocate a host-visible, virtually-contiguous buffer.
+  *
+diff --git a/include/linux/hyperv.h b/include/linux/hyperv.h
+index e61f9a4cb7c3..c55de4d01cbb 100644
+--- a/include/linux/hyperv.h
++++ b/include/linux/hyperv.h
+@@ -1220,6 +1220,10 @@ extern void *vmbus_alloc_buffer(struct vmbus_channel *channel,
+ 
+ extern void vmbus_free_buffer(void *addr, struct page **chunks, u32 chunk_cnt);
+ 
++extern void vmbus_leak_buffer(void **addr,
++			      struct page ***chunks,
++			      u32 *chunk_cnt);
++
+ void vmbus_reset_channel_cb(struct vmbus_channel *channel);
+ 
+ extern int vmbus_recvpacket(struct vmbus_channel *channel,
+-- 
+2.25.1
+
