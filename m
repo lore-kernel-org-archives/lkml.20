@@ -1,242 +1,139 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail01.salmtek.com (mail01.salmtek.com [65.108.149.29])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FF9E4C042F;
-	Thu,  3 Sep 2026 14:58:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC80B4BB5D5;
+	Thu,  3 Sep 2026 15:00:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.108.149.29
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788447499; cv=none; b=A+ohbkbCmM3r5vXFzXbt+EJXdkqx2eo1jal/GQsTEwrPX5sn6vKp8VRbg9HMfnAeGD21x0Q/BU9RVSVQUNhmPYHC8XvU1NHUrf+kCEPN9r3WXUKYCOzAE4CFJXDQNBI43duv9AuEbF59esFNdzwQTr6DNsmYA2CVInRkauDPvgY=
+	t=1788447635; cv=none; b=ZwXyzKAiLqOwzHnf79ylCw4iG6zTgugKgaGMi90pQMIIJU8J0zXh2lvcRs6UZD7Ydcb0XhbwmO7/Q2AE+vC5Iz17fFzD0hSYljtIjQ8OSTbVEANrUI/1/NeQ8QFFXMAunNp86vTG7+R+aOd15nLhnKFOUO3rew1nSTZMEYUwF7w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788447499; c=relaxed/simple;
-	bh=OdGGL7/uw8ix/rT8+5KDTQ/A+0Ul9UYhbOn8oX/N70M=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=o7AQTKY83uxJxZTr3s5U92Led58LFWw1W3ZmLeBTopD7JxEoJqvYAL8YiflLhkG3saVRi189QkgXbNOupIco1FjUYpvc6o0CAYuV7fli0r/B10fybm8qvdNT2640L/dfYdQOw93CSU75lu3w2UtNl5Nk4rGt9D8PTk3Y0IsMHQY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=A2H16TFn; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788447635; c=relaxed/simple;
+	bh=Knp04GX35Uv1sDTbNkONfQcmM0uAfalH2x++UFeVV8s=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=fALriX5FfrOByVok4yfTFvR6Ie/h1oSDEXxuMUVWM027EgaqaEuMO/NRu4jbAIm2kLg6VqZxbKWg0mTUwEHNynfX9L/1LAdOsedIrcjlx0fBbPiYGP5FSB+jo7/DQpQVjYKvZsojZSl0I/SWn4GFGbSRFia+foc9UcuumcwGAKM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=salmtek.com; spf=none smtp.mailfrom=salmtek.com; dkim=pass (2048-bit key) header.d=salmtek.com header.i=@salmtek.com header.b=dfD8eQ8R; arc=none smtp.client-ip=65.108.149.29
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=salmtek.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=salmtek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="A2H16TFn"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C60771F00A3D;
-	Thu,  3 Sep 2026 14:58:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788447498;
-	bh=Tq2q0X2TCIg1RYPUl77QjJVvArODC8F8r/cAjMqavk8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=A2H16TFnJdCm3D1ArQxYXYApV1G2CDOst3QP6KYgtT3p1+oW3MTgIxBHK+2gKoN20
-	 Y1BrFO6/DVa1RH/lqFiL+ySdhTs5qmcP/Zb8bCaP8Cw26/e1hbtdjK0QQVJQPDe+HV
-	 VxD9bncCwxGC+o++sSJtGyr8dE+dHD1KtVHm/dESgmtdQBKSnMWDx9GIZ6lXNaZ5M/
-	 W0S2KaMjQv1Ax2S+nC9nPHFxbmw6UMw/i/xBGcQmHsjBzR8aOxtxBrGsTpsMWJICfF
-	 KTPoEabvlKJKpBm25mmjoO2JuYGQk0XAPhQ8yMyoDQ3DbM8ajWNlOOAucAGF1mEqg9
-	 Ijj+11Q1SQvfA==
-Date: Thu, 3 Sep 2026 09:58:14 -0500
-From: Bjorn Andersson <andersson@kernel.org>
-To: Avaneesh Kumar Dwivedi <avaneesh.dwivedi@oss.qualcomm.com>
-Cc: Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Akash Kumar <akakum@qti.qualcomm.com>, Khalid Faisal Ansari <khalid.ansari@oss.qualcomm.com>, 
-	Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>, Nirmesh Kumar Singh <nirmesh.singh@oss.qualcomm.com>
-Subject: Re: [PATCH 3/3] arm64: dts: qcom: Add Talos Lyra EVK board
-Message-ID: <apmK3AKEcEo5AUqI@baldur>
-References: <20260901-lyra_upstreaming-v1-0-e3a76dc9e21c@oss.qualcomm.com>
- <20260901-lyra_upstreaming-v1-3-e3a76dc9e21c@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=salmtek.com header.i=@salmtek.com header.b="dfD8eQ8R"
+Received: from mail01.salmtek.com (localhost.localdomain [127.0.0.1])
+	by mail01.salmtek.com (Proxmox) with ESMTP id D6AE440925;
+	Thu, 03 Sep 2026 12:00:25 -0300 (-03)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=salmtek.com; h=
+	cc:cc:content-transfer-encoding:content-type:content-type:date
+	:from:from:in-reply-to:message-id:mime-version:references
+	:reply-to:subject:subject:to:to; s=selector01; bh=1J5YWfIaliRnkR
+	MI/8B08F7xEXXPvDk24J81082ruWw=; b=dfD8eQ8R+x6IFOQsNEcMAqLNcfmXOi
+	R3ytSap652IMxEmJeV1bWZP4vJl1t56v4qomSiW6l/+t2+S8R76McKYmUVn++4yR
+	iz8GRMGmxjDF/J3ambzLBMf10OtBVaAR174wt/M17OZG3Dbpn/StvFHjk/a2K0uR
+	1FnrKg9Tb/bnaezI+YhljPphQHRPBMk8mWLw998HDKz4xXI411n1AKcO8ZJu3Cv5
+	Pdo0shEpU4HPOcRd+5OlAOFIwwBKFCOzfbL0pISjZT0nw8wsq+QYDJa+EoCnBhlx
+	uMgnbj5EjGUUO1d+itkpVVfx+zVMGIKb7ywUTfxBSpEbjcA0pd/EHr/A==
+Message-ID: <376dbf6f-ecda-49ca-a7c0-af2a4077e945@salmtek.com>
+Date: Thu, 3 Sep 2026 12:00:06 -0300
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260901-lyra_upstreaming-v1-3-e3a76dc9e21c@oss.qualcomm.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] wifi: ath12k: flush REO queue extension descriptors
+ before freeing the qdesc
+To: Baochen Qiang <baochen.qiang@oss.qualcomm.com>, jjohnson@kernel.org
+Cc: ath12k@lists.infradead.org, linux-wireless@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260831151011.2336305-1-sebastian.salmhofer@salmtek.com>
+ <265ee3ce-b953-4cef-a34e-c2f51a86ec26@oss.qualcomm.com>
+Content-Language: en-US
+From: Sebastian Salmhofer <sebastian.salmhofer@salmtek.com>
+Organization: SalmTek LLC
+In-Reply-To: <265ee3ce-b953-4cef-a34e-c2f51a86ec26@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Tue, Sep 01, 2026 at 07:14:03PM +0530, Avaneesh Kumar Dwivedi wrote:
-> Add the device tree for the Talos Lyra EVK platform which combines
-> the Talos Lyra EVK SoM and Lyra carrier board.
-> 
-> This device tree adds board-specific peripheral configuration on top
-> of the SoM, including:
-> 
-> - Native DisplayPort output
-> - GPIO expanders on i2c5
-> - SPI-attached TPM (ST33)
-> - USB host and peripheral controllers
-> - Power and reset keys
-> 
-> Co-developed-by: Akash Kumar <akakum@qti.qualcomm.com>
-> Signed-off-by: Akash Kumar <akakum@qti.qualcomm.com>
-> Co-developed-by: Khalid Faisal Ansari <khalid.ansari@oss.qualcomm.com>
-> Signed-off-by: Khalid Faisal Ansari <khalid.ansari@oss.qualcomm.com>
-> Co-developed-by: Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>
-> Signed-off-by: Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>
-> Signed-off-by: Nirmesh Kumar Singh <nirmesh.singh@oss.qualcomm.com>
-> Signed-off-by: Avaneesh Kumar Dwivedi <avaneesh.dwivedi@oss.qualcomm.com>
+On 9/3/2026 5:07 AM, Baochen Qiang wrote:
+ >> The faulting addresses always fall at offsets 0x100..0x580 of a
+ >> retired qdesc and never at 0x000 or 0x080, i.e. exactly the ten
+ >> extension descriptors and never the queue descriptor or the 1K bitmap
+ >
+ > the queue desc offset should be 0x000, and the offset of the first 
+extension descriptor
+ > should at 0x080. However the IOMMU warning starts at 0x100, which 
+does not make sense ...
 
-Please fix authorship, subject prefix and the top-level compatible. Rest
-looks good.
+You are right that under the driver's struct layout ext_desc[0] sits at
+0x080, so that sentence of the commit message was an interpretation on
+my part, not an observed fact. The observed facts, across about ten
+days of logs and more than a dozen retired qdescs, are:
 
-Regards,
-Bjorn
+- every fault falls at an offset in 0x100..0x580 of a retired
+   1536-byte qdesc (bases are 2KB-aligned from kmalloc-2k, so the
+   offsets are unambiguous),
+- no fault was ever seen at 0x000 or 0x080,
+- within one qdesc the faulting lines are 0x80-strided runs, sometimes
+   the full 0x100..0x580 sweep, sometimes a subset, and lines of one
+   qdesc can be written back in separate bursts minutes apart.
 
-> ---
->  arch/arm64/boot/dts/qcom/Makefile           |   1 +
->  arch/arm64/boot/dts/qcom/talos-lyra-evk.dts | 137 ++++++++++++++++++++++++++++
->  2 files changed, 138 insertions(+)
-> 
-> diff --git a/arch/arm64/boot/dts/qcom/Makefile b/arch/arm64/boot/dts/qcom/Makefile
-> index 1c86e7e98f55..9818568912fd 100644
-> --- a/arch/arm64/boot/dts/qcom/Makefile
-> +++ b/arch/arm64/boot/dts/qcom/Makefile
-> @@ -409,6 +409,7 @@ dtb-$(CONFIG_ARCH_QCOM)	+= sm8650-qrd.dtb
->  dtb-$(CONFIG_ARCH_QCOM)	+= sm8750-mtp.dtb
->  dtb-$(CONFIG_ARCH_QCOM)	+= sm8750-qrd.dtb
->  dtb-$(CONFIG_ARCH_QCOM)	+= talos-evk.dtb
-> +dtb-$(CONFIG_ARCH_QCOM)	+= talos-lyra-evk.dtb
->  
->  talos-evk-el2-dtbs	:= talos-evk.dtb talos-el2.dtbo
->  
-> diff --git a/arch/arm64/boot/dts/qcom/talos-lyra-evk.dts b/arch/arm64/boot/dts/qcom/talos-lyra-evk.dts
-> new file mode 100644
-> index 000000000000..7974e5bad24c
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/qcom/talos-lyra-evk.dts
-> @@ -0,0 +1,137 @@
-> +// SPDX-License-Identifier: BSD-3-Clause
-> +/*
-> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-> + */
-> +/dts-v1/;
-> +
-> +#include "talos-lyra-evk-som.dtsi"
-> +
-> +/ {
-> +	model = "Qualcomm QCS615 Talos Lyra EVK";
-> +	compatible = "qcom,talos-lyra-evk", "qcom,talos-lyra-evk-som", "qcom,qcs615",
-> +		     "qcom,sm6150";
-> +	chassis-type = "embedded";
-> +
-> +	dp0-connector {
-> +		compatible = "dp-connector";
-> +		label = "DP0";
-> +		type = "full-size";
-> +
-> +		hpd-gpios = <&tlmm 104 GPIO_ACTIVE_HIGH>;
-> +
-> +		port {
-> +			dp0_connector_in: endpoint {
-> +				remote-endpoint = <&mdss_dp0_out>;
-> +			};
-> +		};
-> +	};
-> +
-> +};
-> +
-> +&i2c5 {
-> +	clock-frequency = <100000>;
-> +	status = "okay";
-> +
-> +	expander0: gpio@20 {
-> +		compatible = "kinetic,kts1622", "ti,tcal6416";
-> +		reg = <0x20>;
-> +		#gpio-cells = <2>;
-> +		gpio-controller;
-> +	};
-> +
-> +	expander1: gpio@21 {
-> +		compatible = "kinetic,kts1622", "ti,tcal6416";
-> +		reg = <0x21>;
-> +		#gpio-cells = <2>;
-> +		gpio-controller;
-> +	};
-> +
-> +	expander2: gpio@38 {
-> +		compatible = "ti,tca9538";
-> +		reg = <0x38>;
-> +		#gpio-cells = <2>;
-> +		gpio-controller;
-> +	};
-> +
-> +	expander3: gpio@3c {
-> +		compatible = "ti,tca9538";
-> +		reg = <0x3c>;
-> +		#gpio-cells = <2>;
-> +		gpio-controller;
-> +	};
-> +};
-> +
-> +&mdss {
-> +	status = "okay";
-> +};
-> +
-> +&mdss_dp0 {
-> +	status = "okay";
-> +};
-> +
-> +&mdss_dp0_out {
-> +	link-frequencies = /bits/ 64 <1620000000 2700000000 5400000000>;
-> +	remote-endpoint = <&dp0_connector_in>;
-> +};
-> +
-> +&pon_pwrkey {
-> +	status = "okay";
-> +};
-> +
-> +&pon_resin {
-> +	linux,code = <KEY_VOLUMEDOWN>;
-> +
-> +	status = "okay";
-> +};
-> +
-> +&spi6 {
-> +	status = "okay";
-> +
-> +	tpm@0 {
-> +		compatible = "st,st33htpm-spi", "tcg,tpm_tis-spi";
-> +		reg = <0>;
-> +		spi-max-frequency = <20000000>;
-> +	};
-> +};
-> +
-> +&usb_1 {
-> +	dr_mode = "peripheral";
-> +
-> +	status = "okay";
-> +};
-> +
-> +&usb_1_hsphy {
-> +	vdd-supply = <&vreg_l5a>;
-> +	vdda-pll-supply = <&vreg_l12a>;
-> +	vdda-phy-dpdm-supply = <&vreg_l13a>;
-> +
-> +	status = "okay";
-> +};
-> +
-> +&usb_2 {
-> +	dr_mode = "host";
-> +
-> +	status = "okay";
-> +};
-> +
-> +&usb_2_hsphy {
-> +	vdd-supply = <&vreg_l5a>;
-> +	vdda-pll-supply = <&vreg_l12a>;
-> +	vdda-phy-dpdm-supply = <&vreg_l13a>;
-> +
-> +	status = "okay";
-> +};
-> +
-> +&usb_qmpphy {
-> +	vdda-phy-supply = <&vreg_l5a>;
-> +	vdda-pll-supply = <&vreg_l12a>;
-> +
-> +	status = "okay";
-> +};
-> +
-> +&usb_qmpphy_2 {
-> +	vdda-phy-supply = <&vreg_l5a>;
-> +	vdda-pll-supply = <&vreg_l12a>;
-> +
-> +	status = "okay";
-> +};
-> 
-> -- 
-> 2.34.1
-> 
+Two explanations would fit that pattern: either the hardware expects
+the 1K bitmap descriptor directly after the base queue structure (so
+extension descriptors effectively start at 0x100 from the hardware's
+point of view), or FLUSH_QUEUE_1K_DESC covers the first 256 bytes of
+the queue as one object. I don't have documentation for the REO cache
+controller, so I can only report that on QCN9274 hw2.0 with
+WLAN.WBE.1.6-01243 the single 1K flush demonstrably leaves everything
+from 0x100 upward dirty. Could you check internally what the 1K flush
+actually covers on this target, and where the hardware expects the 1K
+bitmap? I will reword the commit message to stay purely with the
+observed offsets in v2.
+
+ >> The writes are triggered by later REO activity, typically
+ >> a new station association, so they can occur minutes or hours after the
+ >> memory was freed, and the blocked transactions stall the data path for
+ >> several seconds.
+ >
+ > then what happens? the new sta association succeeds?
+
+Yes, the association succeeds. The IOMMU blocks the writes, so nothing
+is corrupted; the user-visible symptom is that the data path stalls
+for several seconds around each fault burst, for all connected
+stations, which is how this was noticed (periodic freezes of
+latency-sensitive traffic). With the fix applied the stalls are gone
+along with the faults. Without an IOMMU the same writes would land in
+freed memory. I will make that explicit in v2.
+
+ >> +    while (off > HAL_LINK_DESC_ALIGN) {
+ >> +        off -= HAL_LINK_DESC_ALIGN;
+ >> +        memset(&cmd, 0, sizeof(cmd));
+ >
+ > unnecessary cleanup since all required fields are refilled in each 
+iteration.
+
+Right, and the same for the one before the base flush - cmd is
+zero-initialized and both sites set every field the flush-cache
+command reads. Will drop both in v2.
+
+ >> +    if (rx_tid->tid != HAL_DESC_REO_NON_QOS_TID)
+ >> +        cmd.flag |= HAL_REO_CMD_FLG_FLUSH_QUEUE_1K_DESC;
+ >
+ > HAL_REO_CMD_FLG_FLUSH_QUEUE_1K_DESC is used to flush all in a single 
+cmd. since we switch
+ > back to the per segment flush, do we still need it?
+
+I kept it deliberately. The per-segment loop covers every 128-byte
+line from 0x080 upward, and the flag makes the final base flush cover
+whatever the "1K descriptor" object is, so the sequence is correct
+under either interpretation above, at no extra cost. Dropping the flag
+would restore the exact pre-b706fb4e580b sequence; that may well be
+sufficient, but if the 1K-window queue is cached as an object larger
+than 128 bytes on this target, a plain flush of the base address might
+not cover its tail, and I cannot rule that out from here. If you can
+confirm that plain 128-byte flushes fully cover a 1K-window queue
+descriptor, I am happy to drop the flag in v2.
+
+I will send v2 with the memsets removed and the commit message
+clarified once the 1K flush semantics are settled.
+
+Thanks for the review,
+Sebastian
+
