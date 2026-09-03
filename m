@@ -1,225 +1,174 @@
-Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com [209.85.216.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from CWXP265CU009.outbound.protection.outlook.com (mail-ukwestazon11021140.outbound.protection.outlook.com [52.101.100.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE14E2E7380
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 01:38:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.216.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A95591D63F3;
+	Thu,  3 Sep 2026 01:39:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.100.140
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788399514; cv=pass; b=mF9Enw5BoUbi1XGcXgTXbRdwLdwOtt6mYi4/R3iNP9e5uoDonRA6lM6KWTQ38f6Hr2c8cFUtRXLxbRax2YPjcd9tfHN5ydX+YOQ2Rarjrohk3tJMGgwQQ69uDJHklCbM5Y6s0GFHSoLQnN9T/RuCeGvh/X7vyhf5RbwNeiDJie4=
+	t=1788399585; cv=fail; b=eBRHdKbum/fRkD+wBaYCt4wddNL8XHIl3eVK3ZHfTzuhqnRYLIms3uoQD5BcJ30U0TjJ1iqOhacrlb5XTHq5Zvzaj17FvkYLqMmsQg2wwT/p4L9271CHqArBiNWq0qyZiY/pgOnZ5lJ9zN0yj8aYhsL1Kbgjav1seUEgjQeC/Og=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788399514; c=relaxed/simple;
-	bh=Az8ML3xziSsQ3jStY9KH6BKlBem4EKxqSIFS0wdqnVo=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=PdQK7lcHHTvCN1M9gkVbP7GnD1zGDv+cDeKVARkomKixl83M3jDIJVPRqIBHmQgI1xoDJUQ/PdEY1buwIxAKKP36+ZvqvIRyqxTqkh7nYOksP04F0kIw3ddjf2MYdSVzv9tqmedxxCFfG6Hi4Dx+3WotRoHPFBparLRzbQi2rZE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=ieMt5XrW; arc=pass smtp.client-ip=209.85.216.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="ieMt5XrW"
-Received: by mail-pj1-f45.google.com with SMTP id 98e67ed59e1d1-38d489b6b71so2198730a91.0
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 18:38:32 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788399512; cv=none;
-        d=google.com; s=arc-20260327;
-        b=d6vs2QUQG8nXv1XnOk78fAGttjZBB1jFgCdGHgC+MZiZDtN5MqiYTRnCvGtKKKI+Qy
-         uT2qJdqKhNWLfJOB/2cHhBS01g6vi8cqOdbTi00Ub7sYDtEpTmZVwECylo1E6gKLnRTN
-         3wbHS9XzkvqiT7YqG2IYKuEWtlBOwZLxpSkFXt5fGF7s6cxQLDvCtoYOuALP1Zp2QTJD
-         1j2M/VugAsvc2mQ008H6GXUJGh0dYQk1PiahWEWFcVOmMawkbYb0DvzersHn5Dv/UiXu
-         wPPuw0d/8KAA4Q5eRPswK0JpD2G1jj+DMT9pSv4JPDIw2d7KOomtTNviNs6emSG4kO1g
-         8Oig==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=V64QR1IsR8MyGUl9CMimjz0m+06sJhfAIW6p6kz46nA=;
-        fh=7u/s2NNmMN+txaY9sxkuaH8aCUR301vM/KB9rp/bxbA=;
-        b=DXO11QEPJT+ogolw3SFX2DLjG3RpVrkW5tcnrrjE/chFzHAR5FKjAMGeS5uhoreOZB
-         KiZfU1USW+ouxpjXAaQ+vtNPJb70HBCyc7X8JQJmxZ92IEHI1sYOMpGyPAfoECE+qgxq
-         iY4rWc8INYQCVmHaVaRgAyb3xcR2vQWRxPbb7XV5YxM/iAIJcJjGglyT+/INK14w16p5
-         8CJ2ctywyG91VHMtGqhldQjkzSBzGVIdgDgiaG3QQsydJmFo45HeRoKU1r/EBbxdBh3w
-         hY4YwDKUqXXiMumDlv9ZEotyOYjyawRCWdX90N8QA+Fa+DhrJadr5M/p5zAZFTcLbWFZ
-         Hk8w==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1788399512; x=1789004312; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=V64QR1IsR8MyGUl9CMimjz0m+06sJhfAIW6p6kz46nA=;
-        b=ieMt5XrWd/F2asW2oeONrumun9WGXZFvz32TcoQYBhzLUd9Eous5nDRCsjE1gkIJow
-         euZTRZWFfh1FxrazNwawDR2EopRRy9oHytGWh/gperNGNBFMrEygCNVSIY/M8O03STQL
-         eH4xRrkIzUObT+5CBkWcSRrg/A8qG4fGUGu9fPS+tuWX+J1Hy2p5Dvq7lGBX750CA7l+
-         IN4RmV3hvXc/nVPoY0oc6qpebwGuI3l3JemGo22AowhZclmnZdDEvLNVJ7bi+z7QDCDi
-         j3Hgc2lawmfIFkLotCEUhwZur5FI7n/wCNPAUQXa2nvIj1lJugj5MRlCBfoGd+FCzEq7
-         nALw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788399512; x=1789004312;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=V64QR1IsR8MyGUl9CMimjz0m+06sJhfAIW6p6kz46nA=;
-        b=Q3ThfaNGHV4sVG8AsOgUs2W8RAy4+yGUkeb6i2g3kNN/UzqFWBgUa7/38TGIle3cjv
-         WOMxhlis2GbRyKJeh7BzFGdWnWXiAd7AQSbVdbuoe76db0YqgUkiHiVIz4zS0whTIHTD
-         HzOinLoOTYzadBSM+B7t/zpwEgUGM/LLd4yTeCVRI5znBxBXcslY1SGElNglRBaaugyZ
-         ZVGi5X0ANwZrT5iKEZU+NasQZPkvLNTfKyncBXLrqgXZpCz/1fFp6SsIfPGIFRi3/0X8
-         xZbwPPzYsYcgKDRIBMugtVWcEoLGYQF/tZfAjsbdI8vdT6plaBNYDa+sLCtCjrB011RJ
-         COUg==
-X-Forwarded-Encrypted: i=1; AKwUvBwXP6n2vfV4oesYxeWHIIyT0hGLkFKnoz5iLGQNIy/oty1Y3mRVv6nwCC+0cKcm1byD2UaViIfAGMNy1Lc=@vger.kernel.org
-X-Gm-Message-State: AFuF++n5y/IMdw/lneFUBzs5lm9y4SdV+avCETwcwMn5BnBB1dsjovZN
-	SnW1S6zVVlC/o4Jvdh+s3BGfEjd/xQWyVhK7HK+qRE57lG7dLoRwZ4L1hHKWWkVpoh2oJ28boEM
-	JKGVwBu71iRSEFyMrMKai7k9l2p7EM42pTg8Y5vePpk6gA2a2Cq9ctkypm5U=
-X-Gm-Gg: AYBFou08O6dEYZ5HGSpSE4qFR0OKbpx2L7fFEA4b7wSE63UC/fPgY3TFrzn4i1HyyvL
-	dZD9098/jMDOnS61bQYymR7S2npDLLG8+TGzMyfr+Q00BVrD8KeMaETb6JZo7qvp+bIaiviQqvr
-	sik2S9etFXjz7W6tQgk5RDVmBxTquSCRO0/i4Lk73yYQhhTBd4EWwJxSJLFD/NY5mDwrMttuvvV
-	z+ZoIx33gZH8MAcYcxpuSvnR29GH05utXpUHBIyp/bDDEWqwS2tP3yzftpQ9+OR/6/SgfIXu6AW
-	L4piI/t8ys6K5Lq1ExRDXGNrMfUt0GbkzhGqqSqJMu6LEKhqMsavpY72bwoqJjDsl3O0DAWC0/k
-	oUCcxrK/5wSEt3S5ncDGYFc2FitOUuX8h0G7uT0gD0nMNq2XRyh2yS1L+mmAeCbVj0lIQ6YielG
-	M0H2RUo+50Fi9L
-X-Received: by 2002:a17:90b:3fc7:b0:398:9be8:ea69 with SMTP id
- 98e67ed59e1d1-39aee251837mr14335412a91.22.1788399511412; Wed, 02 Sep 2026
- 18:38:31 -0700 (PDT)
+	s=arc-20240116; t=1788399585; c=relaxed/simple;
+	bh=ezFZDn+nK4eT6xnu4pbaxxWnX6V0BhOXHsCclREqiRE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=jqJ870qHlDHFdSZho+M/8xuT4ZRp1+Wjfx8IhOA1EqX9nlxlgHQQ0cgwG2cSR0YRv8HGmaTggBlO7B9qnR9qicfnpR2g8KJ5SOvFY+sOa5VRPCh+qngiR/qYhIzF+KZjMNa3Lg3XmRTyOYag9mcPLCo3/pCA5hG80pQ2aEYPTlM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=atomlin.com; spf=pass smtp.mailfrom=atomlin.com; arc=fail smtp.client-ip=52.101.100.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=atomlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=atomlin.com
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ob8+lj/4vNYYeYVebxat/+rBVQvUI7YyNw5CK32YGXSd6wM65xbOMsbQ2vZUYS3UgQlXgG/npOr6Mh7UrXbo48YhxsjQncFfXxgk8RXDGPsNbgCWD2l7T1BfO0qlFeotjupLkHre/w2yaw4PCLubV59P/ApL2Xoo28zMNMlhOmQk2bhF2J8QiTiEYADESg1HPT1+RhD+D5+tKmFMNabjUI7SPrT91C6gwkFWNHxBKHDZ+jGQfk32qsrYh+/o7rSWn2ySVXJV3CaKo/X6P6vugcukffSedDvhBPcyKkibAap2NrmgnOVn1pl7e1ap6jep0Tpl+oWkC+fxnCDOZB8wQA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001; h=From:Date:Subject:Message-ID:MIME-Version;
+ bh=1nHxhrK5XASI/i8SjDEdO/bffHrIEYRR+FQg8rh1rpg=;
+ b=mWXrjJ1cgrNQ+dV/PfNmv0F1x/urf9MBBicRwIEbUkx/D3Q/D5nBX6hynK4JdJXjsX3rMkpLFOWtX+ZUcKuG8re/chddoOPTRvLPZWDMcCkGGft3Trzulx/f/4ixWIH+ZeYbr+yGA3cj73WDmfRHbpG6FAVc4bRsV1ybm+lOE5tduMz2OdaP1Uo4yLP+EZ0HutSdcKvkGvIvBAaRARJC0poLtPy0AHDnV+W0zjGBizNG0JZD6kwA0C8LIgKeRQfSS9L9jenysKfd4mCTahZX4Wj/9774eurgm/Uiz5aHI+d7pD1f0JPaa5ZT/3nzpJQmB7Anx4gnIMpguE8b95kkaQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=atomlin.com; dmarc=pass action=none header.from=atomlin.com;
+ dkim=pass header.d=atomlin.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=atomlin.com;
+Received: from CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM (2603:10a6:400:183::5)
+ by LO4P123MB6532.GBRP123.PROD.OUTLOOK.COM (2603:10a6:600:2aa::5) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.10; Thu, 3 Sep
+ 2026 01:39:40 +0000
+Received: from CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
+ ([fe80::cec4:77ab:262e:d230]) by CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
+ ([fe80::cec4:77ab:262e:d230%4]) with mapi id 15.21.0360.008; Thu, 3 Sep 2026
+ 01:39:40 +0000
+From: Aaron Tomlin <atomlin@atomlin.com>
+To: tony.luck@intel.com,
+	bp@alien8.de,
+	tglx@kernel.org,
+	mingo@redhat.com,
+	dave.hansen@linux.intel.com
+Cc: x86@kernel.org,
+	hpa@zytor.com,
+	frederic@kernel.org,
+	marco.crivellari@suse.com,
+	sean@ashe.io,
+	chjohnst@gmail.com,
+	mproche@gmail.com,
+	nick.lange@gmail.com,
+	linux-edac@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v3 1/2] x86/mce: Do not reinitialise mce_timer structure on CPU restart
+Date: Wed,  2 Sep 2026 21:39:32 -0400
+Message-ID: <20260903013933.172063-2-atomlin@atomlin.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260903013933.172063-1-atomlin@atomlin.com>
+References: <20260903013933.172063-1-atomlin@atomlin.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: BN9PR03CA0096.namprd03.prod.outlook.com
+ (2603:10b6:408:fd::11) To CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:400:183::5)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <CAAE3jtcL0b8YsNiJpcXkUVoZRxFetU9o8z=JVNUCnDXN=seUmg@mail.gmail.com>
-In-Reply-To: <CAAE3jtcL0b8YsNiJpcXkUVoZRxFetU9o8z=JVNUCnDXN=seUmg@mail.gmail.com>
-From: Kuniyuki Iwashima <kuniyu@google.com>
-Date: Wed, 2 Sep 2026 18:38:18 -0700
-X-Gm-Features: AcwNN1V2Dk1ZXSLu1Azh2xjqw6dIZJAN5we8KwxOa0fvJ97gB8WYOupXivWTtro
-Message-ID: <CAAVpQUC6RHs+ODtKtgSDy=oxV12azk5QkjO50yUDJpOAHiv3qA@mail.gmail.com>
-Subject: Re: [RFC] splice: add wait-all semantics for socket-to-pipe reads
-To: =?UTF-8?B?5aSp54u8?= <rockeet@gmail.com>
-Cc: linux-api@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org, brauner@kernel.org, 
-	viro@zeniv.linux.org.uk, edumazet@google.com, ncardwell@google.com, 
-	alx@kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CWLP123MB6607:EE_|LO4P123MB6532:EE_
+X-MS-Office365-Filtering-Correlation-Id: 449b39c3-e82a-41cd-b8a1-08df095c3884
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|23010399003|1800799024|376014|366016|6133799003|56012099006|5023799004|10067099003|3023799007|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	e41gM0BPwWeFxV44gn6tczeodcSJznKsAP6ho5iXXUgYvV6YQQWzEjMOlQsSjEK3O/TwxqoovR2NeQD97Rl1REcGcoNlDejVwjPPLUBaTRA03ap58a3QW3WIH4Or39w0G4316e0u60N7bk/l1pdTOxgo6IF32EuyVzA5KRrhdkFdTrgP1ecZDk1eDr72w/3WuuKPDtxeZ4z+wnXGmzovkA5+TmIa5hVwVflpjFwbIkKf4NUusmeDEteJaDHCx4bPvmgSB8oHhvSXfD+SZE0UfD78XeONriYwDFVeQ0ZeDH+VHF0jzC4kIjtba7OlluBe/dqueo5+c6NSzFRthl3VJ5gHGJIxP3AtiXyLUNHIW7vS/ye/rFeH4ItiWpFV1/HIFcjoGeM19lweE3juBa6mmgAwXZJGD8kKjDM3bM9nWcGQ+zxvwHLFgcy3kmmddVkmKyAfD9QpVVtU7B1sdEEUcNpFel0t5P5t5T4WLc0q9mv2G2sY6+wN36YcDMV5RuG+0xkWJH/QOEn2sA293jctGyQ5eVHYcFE7k3+8D3G44lHhMv9a8Ch8hPPNuooQ2GHLs/HRzAXRQlwrdCtws85l4eXcWTXDvya8HLeJ7FUesK+hT5XmynmSOgvcRMBQFR78bVnOl+0F47NvXOZMQ73xSTGWkZWSglpNxNSE+GKag3o=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(7416014)(23010399003)(1800799024)(376014)(366016)(6133799003)(56012099006)(5023799004)(10067099003)(3023799007)(22082099003)(18002099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?b1dmx4IFs1ls99tX2/Sh1V+e2Vesgle5FDR2etO3Ip7OFwMzpwC2p2KDsVOl?=
+ =?us-ascii?Q?9iJAEZeys4WkMJZzt9D3g/h2G1PgUDkfoqY21UC4S8OwSb5YIkFgS9OEYLyA?=
+ =?us-ascii?Q?1bVtulr7DXYdRyzBcP9S3E8an4ei+pFTpj5Ofh9/kOaaQGBIgCVKCZV6vt3K?=
+ =?us-ascii?Q?+zENySMDdgmYOtuS+JzDX2HgQxt7WHN+NwWvG6ybMt6/Ozza/onWUY3+IK0n?=
+ =?us-ascii?Q?DfvuQFN9l0IyM706CLbIJ1wD0IVv29q8AKHhCs8ORL/ocSIQszaXzH3Us5gL?=
+ =?us-ascii?Q?hnyrCpMQ5fOpjxlqfdd4dUCuR/OE/7ioVrVzc7p8o5hHnKxoK+yZT1lvfgF5?=
+ =?us-ascii?Q?J9Ov6IirGwOhlKcAZ/KsAuAIZMuunAK/XQXyIyI8Ufbrct7XEvbuapNwgxMQ?=
+ =?us-ascii?Q?f9h/LrZ6vuA+ZuU14IhslV+OWVmSuOX0lh5HMAezKMSPMPjgRs9U3SHd869Y?=
+ =?us-ascii?Q?RQW6ezkNUebFgGDt/CXf9A4EmBWHW1Z/+zZ3orhezvmSqo9EB6ORxATGS/Bc?=
+ =?us-ascii?Q?8nyQO/rLLNcqUfWzHQvFI8ttvr0lg6J968JcXGA28wsXjAWTbMgFOJqmea/l?=
+ =?us-ascii?Q?U/sKZ51FfBA7D9gLigVz4CLEzkJrtZoCrsFiTfBV8NMdgYwZIfQ+By12Dh0X?=
+ =?us-ascii?Q?3AT36biV4gmmzI8CnBTp+2xH+sbMRkmQRjJ09tpwzugJOQz7Fr3r4eXbhfvb?=
+ =?us-ascii?Q?0VWtxD2YwjH1R2BziADJe7jPGsTvr2v6cQl8LrKoPlo4ef1X/5ha/OMcE0dI?=
+ =?us-ascii?Q?8zPo5VGk7qon6RQ948tr/aCLHxHIoupUci8QzidC5b4lxLRNdTS/fDAw++2D?=
+ =?us-ascii?Q?epV9vGYtL8V7RFp2SlbXaJaGRpglImyBg7yhZy2y5Fnqn11EtpQcbA54g7rv?=
+ =?us-ascii?Q?aoUYefGdGeif5TyZg1gE03TXiqR1V19YAiBjxjsFPuB/GkOsY+XQ6G1vRqCj?=
+ =?us-ascii?Q?jkrO3ldDuXgRItBtA2L47N4zmj5O910opQLv5RD1tybL8WwZbcgys5liNhe3?=
+ =?us-ascii?Q?sD46Zs9f5L+bIVfwlIRXpqGBTeOElVcXIv9uHCEJWipRD7VXomKJV4oO30u+?=
+ =?us-ascii?Q?2RH0+qSqwOoidvt2JrFlJEF3ahV843iR9kPE9369h7FYxRwpPC44G9uQOKDN?=
+ =?us-ascii?Q?GwVpx5jCJLEK++M8DqFBtvCJF7X/58+9jjAj/zJUZazQvrnUjPCIFYSl43P2?=
+ =?us-ascii?Q?9gS8SCQrjMDbCnMS98e0OVt6QhX8eBbgfQspj7Mf1EoX2JRJ6WaB1CGcORMR?=
+ =?us-ascii?Q?4gFFFGD9mjCkuYIYd47VAHV+RrNsWZMNa8UOh1yphGvAbcYgVr3IY5CRcXVY?=
+ =?us-ascii?Q?vaS5sjlWH0du41rfoHThcN8PQW9LC5AqbnIdbRkreKqv3b45Ypep/w0qOvKK?=
+ =?us-ascii?Q?bBv0uS7ieGsVqk06rMY2oXUy38JbOb4q5HLX+t+nu+wwM/gSy7pM2lxPI+lV?=
+ =?us-ascii?Q?bZx9h3tCSa6ThveVtG05fUB/ZDV3nN6stp6CLDSBFdp7U5IqD7NkGmwFkbd8?=
+ =?us-ascii?Q?VfUx4wsiTjCg1GCGTjzgV7RqlVi9i0deNPUWj1l1u8GjmtzwljnAW5DuBn9V?=
+ =?us-ascii?Q?VzUqimykaEafZx+PvgGS8aeK6xoqU7pkoF0/vYCh03npjDNJXPL0J6aDOP4H?=
+ =?us-ascii?Q?un/1wh8JSxGxY5ShUtpzNSmWMlITVkQuNP9chPVSmhUVXvxstJGY5CiwdvNT?=
+ =?us-ascii?Q?1prMuq2TPPMAJwAMQYRFFEEaMEMndyfQPdpdXgntZq7mopGkv66/p3C11/0d?=
+ =?us-ascii?Q?TEXVh6qImQ=3D=3D?=
+X-OriginatorOrg: atomlin.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 449b39c3-e82a-41cd-b8a1-08df095c3884
+X-MS-Exchange-CrossTenant-AuthSource: CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Sep 2026 01:39:40.0737
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: e6a32402-7d7b-4830-9a2b-76945bbbcb57
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: g3TAjEquQM7BpU0FFiS3ys4PAuBTyXBdvsSZyfe1iIEfQEhVnZhftyCtefkxWaa5Rh08AyuwbXGzcOmUYdEPLQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO4P123MB6532
 
-On Tue, Sep 1, 2026 at 8:53=E2=80=AFPM =E5=A4=A9=E7=8B=BC <rockeet@gmail.co=
-m> wrote:
->
-> Hi,
->
-> I would like to ask whether splice(2) could gain wait-all semantics for
-> blocking socket-to-pipe transfers, analogous to recv(MSG_WAITALL).
->
-> The concrete use case is a high-performance S3 FUSE client.  Once an HTTP
-> response header has been parsed, the response body length and the exact r=
-ange
-> requested by FUSE are known.  The body is moved from a TCP socket into a =
-pipe
-> used for an fd-backed FUSE reply.  No userspace data buffer is needed.
->
-> Today userspace has to loop around splice() until the requested length ha=
-s
-> been transferred.  On a fast local network this commonly turns one logica=
-l
-> read into several splice syscalls and scheduling transitions.  In one rec=
-ent
-> profile, 3,475 S3 GET requests caused 25,463 splice syscalls (7.33 per GE=
-T).
-> The profile contained no poll or setsockopt calls in the hot path, and 80=
-.86%
-> of the sampled CPU time was in the kernel.
->
-> The obvious workarounds all have undesirable properties:
->
->   - looping over splice() in userspace adds syscalls and wakeups for shor=
-t
->     positive returns;
->   - poll plus SO_RCVLOWAT waits for data to accumulate in the socket rece=
-ive
->     buffer, adds another syscall, and couples latency to an advisory read=
-iness
->     threshold;
->   - recv(MSG_WAITALL) requires a userspace buffer and loses the socket-to=
--pipe
->     splice path;
->   - increasing SO_RCVBUF does not make splice wait for the requested leng=
-th.
->
-> The current TCP implementation is already close to providing the desired
-> behavior.  tcp_splice_read() obtains its time budget with sock_rcvtimeo()=
- and
-> loops while data remains immediately available.  However, after making an=
-y
-> positive progress, a later iteration that finds no data returns immediate=
-ly
-> because of:
->
->         else if (!ret) {
->                 if (spliced)
->                         break;
->                 ...
->                 ret =3D sk_wait_data(sk, &timeo, NULL);
->         }
->
-> Would a new flag such as SPLICE_F_WAITALL be acceptable?
+During early CPU initialisation, mcheck_cpu_init() invokes
+__mcheck_cpu_setup_timer(), which initialises the per-CPU mce_timer
+descriptor via timer_setup(t, mce_timer_fn, TIMER_PINNED).
 
-The use case makes sense, but I think it depends on the numbers.
+However, __mcheck_cpu_init_timer() is also called at runtime during
+sysfs reconfiguration (via mce_cpu_restart() and mce_enable_ce()),
+redundantly re-initialising mce_timer with timer_setup().
 
-Another aspect would be whether we want to add a new (potentially
-buggy) feature for a single user in this AI era.
+This introduces a race condition against asynchronous CMCI interrupts.
+When mce_restart() runs, it invokes mce_timer_delete_all() before
+broadcasting an IPI to execute mce_cpu_restart() on all CPUs. If a
+hardware CMCI interrupt fires on another CPU before the IPI is serviced,
+the CMCI handler triggers storm tracking and arms mce_timer via
+mce_timer_kick(true), enqueuing it in the active timer wheel.
 
-It would be great if the change is proven to improve performance
-of the official client that has a lot more users worldwide.
-https://github.com/awslabs/mountpoint-s3/
+When mce_cpu_restart() runs subsequently in IPI context,
+__mcheck_cpu_init_timer() calls timer_setup(), which invokes
+__init_timer() on the already-queued timer. This clears the timer's
+internal list pointers (entry.next and entry.pprev) whilst it remains
+linked in the active timer wheel bucket, causing linked list corruption,
+softirq lockups, or kernel panics during timer expiration.
 
+Fix this by removing the redundant timer_setup() call from
+__mcheck_cpu_init_timer(). The timer is already initialised once during
+CPU setup; runtime restart paths only need to arm it via
+mce_start_timer().
 
->  For a blocking
-> socket-to-pipe splice it would mean:
->
->   - keep transferring until len bytes have entered the pipe;
->   - after a short positive transfer followed by temporary lack of input,
->     wait in the kernel with sk_wait_data() instead of returning;
->   - use the socket's existing SO_RCVTIMEO as the total receive wait budge=
-t;
->   - still return early for EOF, shutdown, a pending socket error, or a si=
-gnal;
->   - on timeout/error/signal after partial progress, return the partial by=
-te
->     count, matching the usual stream-receive convention; otherwise return=
- the
->     corresponding error;
->   - retain the existing behavior when SPLICE_F_WAITALL is absent.
->
-> SPLICE_F_NONBLOCK/O_NONBLOCK would remain orthogonal: WAITALL would not c=
-ause
-> sleeping on a nonblocking descriptor.  The destination pipe must either h=
-ave
-> enough capacity for len or be drained concurrently, as with blocking spli=
-ce
-> today.  For the motivating workload the pipe is sized for the FUSE reques=
-t.
->
-> The important property is that data can be spliced into the pipe immediat=
-ely
-> as TCP data arrives.  Unlike poll plus SO_RCVLOWAT, this does not require=
- the
-> whole range to accumulate in the socket buffer before transfer begins, wh=
-ile
-> still keeping the wait-and-retry loop inside one syscall.
->
-> This appears implementable as a small conditional change in the TCP splic=
-e
-> read loop plus UAPI documentation and selftests.  I am sending this RFC f=
-irst
-> to confirm whether a splice flag is the right interface and whether the
-> SO_RCVTIMEO-based partial-return semantics are acceptable before preparin=
-g a
-> patch.
->
-> The userspace implementation and CI profile that motivated this request a=
-re
-> available here:
->
->   https://github.com/topling/ngs3fs/commit/4b8f5a69ceebd9211021a5d1149637=
-3d63f2e43d
->   https://github.com/topling/ngs3fs/actions/runs/33586457571
->
-> Thanks,
-> leipeng
+Fixes: 26c3c283c5b0 ("x86: mce: Split timer init")
+Reported-by: sashiko-bot <sashiko-bot@kernel.org>
+Cc: stable@vger.kernel.org
+Signed-off-by: Aaron Tomlin <atomlin@atomlin.com>
+---
+ arch/x86/kernel/cpu/mce/core.c | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/arch/x86/kernel/cpu/mce/core.c b/arch/x86/kernel/cpu/mce/core.c
+index ab469605fc89..765e8103b0d2 100644
+--- a/arch/x86/kernel/cpu/mce/core.c
++++ b/arch/x86/kernel/cpu/mce/core.c
+@@ -2091,7 +2091,6 @@ static void __mcheck_cpu_init_timer(void)
+ {
+ 	struct timer_list *t = this_cpu_ptr(&mce_timer);
+ 
+-	timer_setup(t, mce_timer_fn, TIMER_PINNED);
+ 	mce_start_timer(t);
+ }
+ 
+-- 
+2.55.0
+
