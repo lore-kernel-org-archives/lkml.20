@@ -1,173 +1,140 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20917409121
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 09:55:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id D339D3F5BD7;
+	Thu,  3 Sep 2026 09:55:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788429331; cv=none; b=rO50q6Cb+oHO3UL524LA21DHCJ+HRxnbwsZeVhxLZ6LIxTZhfRFdQcTr4oOZwRz1Vca3hyncqktGUtsdZmVgGgm58zGs9+oPCmguAZVVfp/E5Zlb+EnAJI9auapqvvZ5246s9eveOKdu+GATqlHI5fs9hsvhEgM722dQ1woTmrA=
+	t=1788429335; cv=none; b=fdfp79tYLGgQ+WvUTchfbcW3FYC6ioFKZXXS6T45hh4qnYsDkFPLWa08MQfzVYJwiDHO34GeN7oYn4kJ1Fzdg8zyGMwLlz3OQ5YVdUx3PG5q9CJcNgHNoA4U6q3J6BXemVPXpfSpwGF27kr3fF6JLeJFYNoobIJNM4fPk/KfAB4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788429331; c=relaxed/simple;
-	bh=5D5RioOePvVVVpqlzVLVZzhRBSmcrL+ZmJ7BWotiz0g=;
-	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type; b=XdCEDMtEMNfhQmkDL2j4CbtDPlUXoBdogHzQscSWKR17N+Kje75rv3QtPNonA2khEPIfBTlLziypbeVagVSNsgP7ftP1rqUlYOYkPK/Oh34FkbBerw1LQ+aLG1gk+5RFuJlO7bRmNwENJVgq73kFPzw1eCLF5pGJTDkCTW6RlWs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PhVSO4Tp; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788429335; c=relaxed/simple;
+	bh=rYT2ngj/FwG91uxpynt3KrjHU3NlWy5URZZ6/mx9JVs=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=hCZ4zFhAoKWP4h/0p8TS3K8MRxuMjt+4Teg9khVrX0URRLX6TXrzL8BBFWz2/a3WQDkSp8BHD1dkmlDEAdXodiAJc4TVjppolLPkZpEDiapIrvJN5hrUNClEGFTCQ/YGaU0H3RJK/vVrJ+JdZ5dA+nZ3E03lJ407CLiTJpyVCgs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=UwhhZT6k; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PhVSO4Tp"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 57A841F00A3E;
-	Thu,  3 Sep 2026 09:55:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788429329;
-	bh=edAs9iwUUkB+qKwn4NBrCpSSruEg/xQFdmG7j35BHQY=;
-	h=Date:From:To:Cc:In-Reply-To:References:Subject;
-	b=PhVSO4TpalnfcAeBc6GvXbNTICbMv6rJ8Bv591egbWVVVMz4a70BVRj9OchwvAg2/
-	 vf3Ce0LhtWa5sbrCmHOluaU8+WmM61eM7XIEo4GaE+nqIXQB1K3YyHhXFV1fl2fZkB
-	 PzG3oGB2Sw4YyExzJt/iltwPiw1pMK/CdmO5Bkhu0bbTWD/aVTJ0Ebhzfkz1sYjB9W
-	 7po05NFz9WVhLhNzMbLs0Qhc5FbJCtiJSDHsKmMDFeh3q5OlCe5Nn+83Yw0wWJ1EYS
-	 uxj5A4KYqPQL5fBhgXeSEHhWhEqH+ir+jK/ERnEcwX+NBKdg2gFKv5vHaSXTSGR2nI
-	 MuDp32JP5IIhA==
-Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
-	by mailfauth.ams.internal (Postfix) with ESMTP id 07D6A198004A;
-	Thu,  3 Sep 2026 05:55:28 -0400 (EDT)
-Received: from ams-imap-11 ([10.64.2.31])
-  by ams-compute-02.internal (MEProxy); Thu, 03 Sep 2026 05:55:28 -0400
-X-ME-Sender: <xms:DkSZaio7-YJd86itkj7QUc4k3lrLiCRTKakONjHctj7PXdpL48d4QQ>
-    <xme:DkSZarfAjIHe8AmCSxGy0titkHAULOAUNlzit1MfWR_YsFSZWk8Jqtw4OfyFupal6
-    9IB0iGGznF6XOqysnvBodivsyuIQp3Obwm71eoQhrbHst5eYI8BXlTG>
-X-ME-Proxy-Cause: dmFkZTFXvIm2nLWDRS+GlxQzSpTVvLiNwldFZ85yC5hu3iZ+vpblvux6xymJ1M3oKFaNOZ
-    awHr8IIr+s0sORHGVgpgqxqnGSf7Gh0ruBCsoQPQoTdF6+miGXAqFRenrQzzM3gHiw6JfG
-    O20ZG4FzPkhxBacIInOb9tg7WAtc/ofXx7lkuFJBljjs+3frJVNPRS3/enZhOtlTZDE6fx
-    sH4gVSpobS8sUjZjlGmasQDxSLLsYgn7hzhg9uSxBJtuZ/xkK89cu6APGOzFueM7OqHDel
-    vpSeoey1vI+LHdzduGfdONUb/HGa86ZqPikoWYqTLBSSYhigyIFOGoHOjxsFg90sza3gCV
-    +OU0Lr6hi1UZ4ZVcQDDpF1PmOBQOO7SdWrPUFEpVozSTIh34R4qN7WFM368vZO+D5iCnAt
-    g8/tshrpujT/FuhDk9176OxgKgilxUmBamu6Oc2e0uhVGCWCueUgYw/vC8lLrl0eaHP5Bz
-    57aVE1TJ79FwLuNFziESn8YEWSOi1eFuJLF+Z5XWCLpW5LijH4xlSDgxjC02zfS7MLTrwu
-    IlR1pQOTPwCbBsVfqt9qDP6QrDNiQz9igTXUokfefQ4/OpPU7mLCe6+uX7Uu7msVY260Om
-    0Rv0j0+50fa3TnrBTTbDOI/Rp763JeYYfDeHbKjg9pQUY6dyJ8Dcga+sCnhw
-X-ME-Proxy: <xmx:EESZaioBkv0kWLyCO1mBfRPyAj5A2d2kGufuI3Te9hYx2EmD4pIZhQ>
-    <xmx:EESZaso4poOahvOib_qybRi6RLjyJmTQ1RGWey9TJ6gxNOY1k2lUpg>
-    <xmx:EESZapb6xm1NtpwJ0xC57Pes3W-0SnHso8CCiSpuYUcmq1Mr4HjIVA>
-    <xmx:EESZai9W18uBhwjZVk0uRI06eFtbQXpszuU9A9F-806ta-pkAKUWyQ>
-    <xmx:EESZavnAj_66rpFJ-hKSfGVTo7gGGCrg9fswTwbmfIrgsYix4UtiX0xi>
-Feedback-ID: ice86485a:Fastmail
-Received: by mailuser.ams.internal (Postfix, from userid 501)
-	id 2DB08F8007B; Thu,  3 Sep 2026 05:55:26 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="UwhhZT6k"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 39A2B1596;
+	Thu,  3 Sep 2026 02:55:29 -0700 (PDT)
+Received: from [10.2.212.8] (e134344.arm.com [10.2.212.8])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id DC0663F7D8;
+	Thu,  3 Sep 2026 02:55:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1788429333; bh=rYT2ngj/FwG91uxpynt3KrjHU3NlWy5URZZ6/mx9JVs=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=UwhhZT6k7FMgAbxYwl0HA26uB6aszzFw7Y9VKMCeYl0sx492ifctABc2/3FO+G88F
+	 Fh6EdVfFLhX0ORxarxS/kbO0C9re3LmmrI/V7ceQNdTurPX1ca5MzS+aEDG+q0mkuv
+	 4jTvSiRRLrv3gP5CybPusumL7J0pLP0ZogVafpm4=
+Message-ID: <cf59d824-80dc-446f-9b1b-ac9841a96a9d@arm.com>
+Date: Thu, 3 Sep 2026 10:55:29 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Thu, 03 Sep 2026 11:55:06 +0200
-From: "Ard Biesheuvel" <ardb@kernel.org>
-To: "Jonggeun Park" <jakejgpark@gmail.com>, "Jeremy Kerr" <jk@ozlabs.org>
-Cc: "Kees Cook" <kees@kernel.org>, "Tony Luck" <tony.luck@intel.com>,
- "Guilherme G. Piccoli" <gpiccoli@igalia.com>,
- "Ilias Apalodimas" <ilias.apalodimas@linaro.org>, linux-efi@vger.kernel.org,
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] arm64: mpam: Document when to set arm64.nompam
+To: Fuad Tabba <fuad.tabba@linux.dev>,
+ Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>
+Cc: Mark Rutland <mark.rutland@arm.com>, Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap
+ <rdunlap@infradead.org>, James Morse <james.morse@arm.com>,
+ Xi Ruoyao <xry111@xry111.site>, Marc Zyngier <maz@kernel.org>,
+ Bradley Morgan <brads@mainlining.org>, Fuad Tabba <tabba@google.com>,
+ linux-arm-kernel@lists.infradead.org, linux-doc@vger.kernel.org,
  linux-kernel@vger.kernel.org
-Message-Id: <b567665e-9792-42e1-a37a-3ea245ccf9bd@app.fastmail.com>
-In-Reply-To: <20260815074844.1330-1-jakejgpark@gmail.com>
-References: <20260815074844.1330-1-jakejgpark@gmail.com>
-Subject: Re: [PATCH] efi: vars: commonize the 512-byte name buffer quirk
-Content-Type: text/plain
+References: <20260903084809.2027326-1-fuad.tabba@linux.dev>
+Content-Language: en-US
+From: Ben Horgan <ben.horgan@arm.com>
+In-Reply-To: <20260903084809.2027326-1-fuad.tabba@linux.dev>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-Hello Jonggeun,
+Hi Fuad,
 
-
-On Sat, 15 Aug 2026, at 09:48, Jonggeun Park wrote:
-> Some old UEFI implementations reject GetNextVariableName() calls with
-> a name buffer size larger than 512 bytes. Both efivar_init() and
-> efi_pstore_read() open-code the same workaround of resetting the size
-> to 512 on every iteration.
->
-> Introduce efivar_get_next_variable_safe() which keeps this quirk in a
-> single place, resolving the TODO in efi-pstore.c.
->
+On 03/09/2026 09:48, Fuad Tabba wrote:
+> arm64.nompam skips the MPAM2_EL2 and MPAMHCR_EL2 writes in
+> finalise_el2_state and leaves the ARM64_MPAM cpucap unset. Where EL3
+> firmware has enabled MPAM, the EL2 trap controls are left unwritten, at
+> reset values that are UNKNOWN, and KVM still hides MPAM from the guest
+> but no longer enables the traps that stop a guest from using it. The
+> kernel cannot restore the writes: they trap to EL3 on the firmware the
+> option exists for, and MPAM3_EL3.TRAPLOWER cannot be read below EL3.
+> 
+> Say so in mpam.rst, and add the rule and a pointer to the
+> kernel-parameters entry.
+> 
 > No functional change intended.
->
-> Signed-off-by: Jonggeun Park <jakejgpark@gmail.com>
+> 
+> Suggested-by: Ben Horgan <ben.horgan@arm.com>
+> Link: https://lore.kernel.org/all/CA+EHjTxeWxZiuSmnKLGLxTBXP4oJT7-LuffbPAyCSZZ5TW=5Ew@mail.gmail.com/
+> Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
 > ---
->  drivers/firmware/efi/efi-pstore.c | 16 +++++-----------
->  drivers/firmware/efi/vars.c       | 21 +++++++++++++++++++++
->  fs/efivarfs/vars.c                |  4 +---
->  include/linux/efi.h               |  4 ++++
->  4 files changed, 31 insertions(+), 14 deletions(-)
->
-> diff --git a/drivers/firmware/efi/efi-pstore.c 
-> b/drivers/firmware/efi/efi-pstore.c
-> index a5db3534f..a135d6e2f 100644
-> --- a/drivers/firmware/efi/efi-pstore.c
-> +++ b/drivers/firmware/efi/efi-pstore.c
-> @@ -164,16 +164,6 @@ static ssize_t efi_pstore_read(struct 
-> pstore_record *record)
->  	efi_status_t status;
+>  Documentation/admin-guide/kernel-parameters.txt |  3 ++-
+>  Documentation/arch/arm64/mpam.rst               | 17 +++++++++++++++++
+>  2 files changed, 19 insertions(+), 1 deletion(-)
 > 
->  	for (;;) {
-> -		/*
-> -		 * A small set of old UEFI implementations reject sizes
-> -		 * above a certain threshold, the lowest seen in the wild
-> -		 * is 512.
-> -		 *
-> -		 * TODO: Commonize with the iteration implementation in
-> -		 *       fs/efivarfs to keep all the quirks in one place.
-> -		 */
-> -		varname_size = 512;
-> -
->  		/*
->  		 * If this is the first read() call in the pstore enumeration,
->  		 * varname will be the empty string, and the GetNextVariable()
-> @@ -185,8 +175,12 @@ static ssize_t efi_pstore_read(struct 
-> pstore_record *record)
->  		 * store varname in record->psi->data. Given that we only
->  		 * enumerate variables with the efi-pstore GUID, there is no
->  		 * need to record the guid return value.
-> +		 *
-> +		 * The 512-byte name buffer quirk is handled inside
-> +		 * efivar_get_next_variable_safe().
->  		 */
-> -		status = efivar_get_next_variable(&varname_size, varname, &guid);
-> +		status = efivar_get_next_variable_safe(&varname_size, varname,
-> +						       &guid);
->  		if (status == EFI_NOT_FOUND)
->  			return 0;
-> 
-> diff --git a/drivers/firmware/efi/vars.c b/drivers/firmware/efi/vars.c
-> index 3700e9869..8e69f3632 100644
-> --- a/drivers/firmware/efi/vars.c
-> +++ b/drivers/firmware/efi/vars.c
-> @@ -265,3 +265,24 @@ efi_status_t efivar_query_variable_info(u32 attr,
->  			remaining_space, max_variable_size);
->  }
->  EXPORT_SYMBOL_NS_GPL(efivar_query_variable_info, "EFIVAR");
-> +
-> +/*
-> + * efivar_get_next_variable_safe() - enumerate the next name/vendor 
-> pair
-> + *
-> + * Wrapper around efivar_get_next_variable() that keeps the 512-byte 
-> name
-> + * buffer quirk in one place. Some old UEFI implementations reject 
-> name buffer
-> + * sizes larger than 512 bytes (the lowest seen in the wild), so this 
-> always
-> + * requests 512 bytes; callers must provide a buffer of at least that 
-> size.
-> + *
-> + * Must be called with efivars_lock held.
-> + */
-> +efi_status_t efivar_get_next_variable_safe(unsigned long *name_size,
-> +					   efi_char16_t *name,
-> +					   efi_guid_t *vendor)
-> +{
-> +	BUILD_BUG_ON(EFI_VAR_NAME_LEN < 512);
-> +	*name_size = 512;
-> +
-> +	return efivar_get_next_variable(name_size, name, vendor);
-> +}
-> +EXPORT_SYMBOL_NS_GPL(efivar_get_next_variable_safe, "EFIVAR");
+> diff --git a/Documentation/admin-guide/kernel-parameters.txt b/Documentation/admin-guide/kernel-parameters.txt
+> index 68647ff4bdd24..e6d543de3cde5 100644
+> --- a/Documentation/admin-guide/kernel-parameters.txt
+> +++ b/Documentation/admin-guide/kernel-parameters.txt
+> @@ -575,7 +575,8 @@ Kernel parameters
+>  			Set instructions support
+>  
+>  	arm64.nompam	[ARM64] Unconditionally disable Memory Partitioning And
+> -			Monitoring support
+> +			Monitoring support. Only for a machine that does not
+> +			boot without it. See Documentation/arch/arm64/mpam.rst
+>  
+>  	arm64.nomte	[ARM64] Unconditionally disable Memory Tagging Extension
+>  			support
+> diff --git a/Documentation/arch/arm64/mpam.rst b/Documentation/arch/arm64/mpam.rst
+> index 67fe515ed501c..67c8a95391171 100644
+> --- a/Documentation/arch/arm64/mpam.rst
+> +++ b/Documentation/arch/arm64/mpam.rst
+> @@ -87,6 +87,23 @@ The supported features are:
+>    MBWU monitors can be exposed to the user after support for more monitoring
+>    scopes is added to resctrl.
+>  
+> +arm64.nompam
+> +============
 
-Don't add a new function here - just move the logic into the existing
-efivar_get_next_variable(), which has only two callers.
+This assumes that the reader already knows or can guess that arm64.nompam is a command line
+parameter. Perhaps the section name can be 'Command line parameters' with a single 'arm64.nompam'
+subsection underneath or all in the section name.
+
+> +Firmware must enable MPAM at the highest implemented exception level and
+> +leave the MPAM system registers accessible to the kernel, or trap the
+> +accesses and emulate MPAM as disabled. Where it does neither, the CPUs
+> +still advertise MPAM in the ID registers, the first kernel access to an
+> +MPAM register traps to EL3, and the boot fails. ``arm64.nompam`` exists
+> +for that firmware: it makes the kernel treat the CPUs as not implementing
+> +MPAM, so no MPAM system register is accessed. Set it only on a machine
+> +that does not boot without it.
+> +
+> +It is not a way to turn MPAM off. On a system whose firmware has enabled
+> +MPAM at EL3, the option leaves the trap controls in MPAM2_EL2 and> +MPAMHCR_EL2 unwritten, and their reset values are UNKNOWN.
+
+Enabling MPAM at EL3 is separate from disabling traps. Setting MPAM3_EL3.MPAMEN to 1 means that the
+values in MPAMn_ELx are used to determine the PARTID and PMG for CPU requests. At this point EL3 can
+configure the PARTID and PMG for the different exception levels and MPAM can be used in the system
+under firmware control. Setting MPAM3_EL3.TRAPLOWER to 0 is what enables EL2 to access the MPAM
+registers without trapping and configure the traps for MPAM register accesses at EL1.
+
+> KVM still
+> +hides MPAM from guests but no longer enables the traps that stop a guest
+> +from using it, so a guest may be able to choose its own PARTID and PMG.
+>
+Shouldn't this also mention that the MPAM_*_EL1 are not save restored and so if the traps aren't
+enabled provide a side channel between guests.
+
+Thanks,
+
+Ben
+
+>  Reporting Bugs
+>  ==============
+>  If you are not seeing the counters or controls you expect please share the
 
