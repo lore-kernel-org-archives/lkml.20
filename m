@@ -1,132 +1,161 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f181.google.com (mail-pf1-f181.google.com [209.85.210.181])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35FF1472796;
-	Thu,  3 Sep 2026 18:01:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.10
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 991E34F7988
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 18:01:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788458470; cv=none; b=snF2VzRFUIgVENN1gZrPi/wbFF5IUO3QpBdP2gUx3uQExjgG2jP/5C5kYoqV9aGt1hd/BSNYFMlWM400p0arxJJkqvPJ0jxn9rOryUdt2Sh1w11SZES1opJlyvFIokjIfyKdq4cMzViJ30NQSEMunT0qMffVVGzOFoJt7leEhFQ=
+	t=1788458504; cv=none; b=YSDF1cKD+k6aPPhpWI8cGVN1MTntQDv5tAVu0g30A3VSkCaHJYRh2YymQVdhSUqRgyUIj+ja8GZBoYavuSvrAYML2sX7Lly4/M/ZZ55jOEIqUlAkJM/9UJIbjLfb4M1QNyMX9co0Oows8tyvp1d6lMfJCk23UF2nv94SAyd9ilE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788458470; c=relaxed/simple;
-	bh=myw9lum/wtXW47OZZ78rbnHjpSuH4H0DVNUt5/i1wH8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=NfHwtf+R7VMlB+mCcfOhSmGWv9OJZh+x1FC+Fw045oOVFejFDrb39ZzCu5MXbgK2tTk9G9jktaiqnTz17e+E74261sOIlam5Twjp4yeXRjh9wM8oS8daN8oUqNIicmYmw+ocH+yL7vpEN4ih3Ncl/oHF5oJucS6fmIMwOXhIE7w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Jp6GiZA6; arc=none smtp.client-ip=192.198.163.10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1788458504; c=relaxed/simple;
+	bh=c9h8sTgQRIIMSv/aHlWA8Z3GOaXQdFc0sgBc/6SZt4Q=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Q8IPb6GxompLH2G9GQC2Ab5oU6fLtyHAdFyeysWXn6g80K8eYGeFbYYwolb9O2J44PdBWDqy240OLW9plIIbjj/zu14ydP+giXVfCx7L2I54ofziO9fx5vYy+MGkSZa2cC/TY3aZPc/d4rQwDTDFOdUb9uwndhiHdcvgJ3BHvrE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NPKRVHPD; arc=none smtp.client-ip=209.85.210.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Jp6GiZA6"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788458467; x=1819994467;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=myw9lum/wtXW47OZZ78rbnHjpSuH4H0DVNUt5/i1wH8=;
-  b=Jp6GiZA6ubEk8t2I9yrdCCV6Zo9b/FfT+eqIgjDUN4/VzfnAPblawZwP
-   TsO4cYW1zb05UBiyLG3QA9YjNzxcnwUEA4aCOtsOTjc1rqmdMgmFABAlq
-   63sp7+PXgMnT+7CQUtztCp5LzPVMqD6HpsOKZ/JSQO6+C8JDPs5qAbF+4
-   QuH8FYWy/5PM/3txPxg1RBj+v3UaXWqX/i+NEm7yNWQFCnW7AQGKJbIEt
-   kpcE2Ds1aCXnV6S8NqEoUb3dqCpzKd8ZMo3sQjV1j5rBCP6+b29DUXcN8
-   J+ZlA8MhHj+HS/oer/FnZDWORROOxUNXfpaNJ5SR5GhDV0G5edO8tD/y7
-   g==;
-X-CSE-ConnectionGUID: wiKkscY7SUOqExqcuWMPSQ==
-X-CSE-MsgGUID: euvU2l0HQzy2hbLYOl9y2w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11895"; a="100311102"
-X-IronPort-AV: E=Sophos;i="6.25,260,1779174000"; 
-   d="scan'208";a="100311102"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
-  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Sep 2026 11:01:05 -0700
-X-CSE-ConnectionGUID: cr/tNbkQRX+qB83RA4fr3g==
-X-CSE-MsgGUID: 3pkmEssaRpu8jSjByM2iuw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,260,1779174000"; 
-   d="scan'208";a="263612036"
-Received: from jmaxwel1-mobl.amr.corp.intel.com (HELO [10.125.110.172]) ([10.125.110.172])
-  by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Sep 2026 11:01:06 -0700
-Message-ID: <0b084321-0898-44fe-8c69-7aeb171eb8af@intel.com>
-Date: Thu, 3 Sep 2026 11:01:05 -0700
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NPKRVHPD"
+Received: by mail-pf1-f181.google.com with SMTP id d2e1a72fcca58-84864086bfeso79224b3a.1
+        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 11:01:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788458502; x=1789063302; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=xjazdtGuj7thY8vVrVUeII/vHI3KkN+Fj8pG30w25iU=;
+        b=NPKRVHPDvYym000DYQUBcdl8xxX7rA/Nkp5WkmOW91Z55U68Fy+Y0AaXm3fmCSlgrR
+         W6A3LItszAkYhFz5f4yGS6thqzV9geJAGi6Yw72AC8G0it8PN+NgQcTrEusaTWnAIe4c
+         2BSqcW9cAb1nhzZPTuxOGWdFiMbDycezhAoYj6J2bfB4qSzbkwhk5DrTzbPcNF5vtX0P
+         EczxuoajNdvm9Xs7BAy8tH1MQ2hnKZiZ1DxM2AhqsCQxsKUBkxqENDEFVfSbkufR7e8s
+         WwlKaov4MhknSBy1P2xn/cyTxduALd5+U4VbwUPi3OAbo7Dz7hTAnyEKeuJHu0foUiNh
+         +g9Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788458502; x=1789063302;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=xjazdtGuj7thY8vVrVUeII/vHI3KkN+Fj8pG30w25iU=;
+        b=BLgYcGJGPFmqYdQbPbDibMn6mZGim99M9J8u0XYE4YllQvNG81lK8cXPj0DTpeoRO3
+         XqiKP9Re2bZ3u9Gl/cwYsSDBKhw14Llq/IQZDOnAvSjNQIHzv5QIzj9PjIwdjm8iY0E2
+         FwoZfHdkHPSFouBs/KxVWzK2o1KBSLLE1/uxnfEcbR7H2dY0n/i2kEu+n1QdMO36KQSF
+         ItkxMZ/uVBCUMNRCRUi5z7BSMRBWjqSFQiCtq1Tm+6sZdNophSA0xBvfT20Mvn8YGXB+
+         4Q3S7oyme48GI00nZjHosUb0Tvhw7Pr6PjaRNfgLUMKB6QEBh/OBOwkCul99hSOplb4g
+         ivIw==
+X-Forwarded-Encrypted: i=1; AKwUvBxjkriOQ73ycGwGocxAZ1UqyfOfltGZ9hjyFctol74ct4wDgSo8IFiMgK9JleArqBIVmSRTiSpCeWjDXKY=@vger.kernel.org
+X-Gm-Message-State: AFuF++lFRg0V3Fc8dRtBnXpp4IBeisIHDO5DQdMl3bLlhB9MKVPrNA9j
+	uHNR4yGnBmhsm7Tu939cOaxKqEy6wLdtE3tU4Gf0zJkZ8ScT1xHmyNc=
+X-Gm-Gg: AYBFou3LGf8finoWrGNd/wUuW/02kZh/ZrKSDdfG4yx6w+9Chpm4gZvydlheyKNnsP/
+	P0c58DaftfmHj/xSyJI359nuq+audlGvsIemqxyY+YKFtVlEMDspjMdyk7euJEAKdJuUb6bAtE3
+	OjajsVoT14F1zkxSdssAit0c2oE7EOPhVyYkp+a8i556yvw8UPwae/P3viT26IN930wjxJ+DmMU
+	dHiECkD1vXqdSDZCkreGh8Hc1egtEbfxZqv7bjKLvmr3BFcI7yl0ESL9goNc7eIbG0dNLLpR7Ph
+	/c4g1ezKZiT28zJkyzSada8F5PWuOvVRwjRYKl0C1SB2QrpyGTcVyIMUSeq8yHs6MhLB4rikU8V
+	M0wTO5L6+/31Wmsf4e+pfY+6/5mdQmBPAL+uNYuiX5VhSVxWZuWZhJfGQe067g/54JXy2K5iu/y
+	y5nO5arrM+HWrrrmBN0spWDtDnoBsaz+AJh6xFw5Aj4hUcaqdwyOgyLiVIEE1VleBkwBcygk8Fx
+	Bx3tmYPAufMzgtf6tIMUsXnv6g=
+X-Received: by 2002:a05:6a00:1950:b0:85c:3922:25d5 with SMTP id d2e1a72fcca58-8616aa68194mr968000b3a.21.1788458501589;
+        Thu, 03 Sep 2026 11:01:41 -0700 (PDT)
+Received: from MalHyuk.localdomain ([211.201.32.99])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-86152d29654sm248926b3a.33.2026.09.03.11.01.38
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 03 Sep 2026 11:01:40 -0700 (PDT)
+From: "Jonghyuk Kim(MalHyuk)" <malhyuk97@gmail.com>
+To: phasta@kernel.org,
+	christian.koenig@amd.com,
+	tursulin@ursulin.net,
+	matthew.brost@intel.com,
+	dakr@kernel.org
+Cc: "Jonghyuk Kim(MalHyuk)" <malhyuk97@gmail.com>,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	mdaenzer@redhat.com,
+	alessio.belle@imgtec.com,
+	luigi.santivetti@imgtec.com
+Subject: Re: [PATCH v3 1/2] drm/sched: fix use-after-free of the fence timeline name
+Date: Fri,  4 Sep 2026 03:01:34 +0900
+Message-ID: <20260903180134.950043-1-malhyuk97@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <611c2624e60ea422229e666480da3e504d126682.camel@mailbox.org>
+References: <20260902144204.1843670-2-malhyuk97@gmail.com> <611c2624e60ea422229e666480da3e504d126682.camel@mailbox.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86/mm: Fix pmd_modify() dropping the dirty bit
-To: "Edgecombe, Rick P" <rick.p.edgecombe@intel.com>,
- "vernon2gm@gmail.com" <vernon2gm@gmail.com>, "kas@kernel.org"
- <kas@kernel.org>
-Cc: "andrew+kernel@donnellan.id.au" <andrew+kernel@donnellan.id.au>,
- "rppt@kernel.org" <rppt@kernel.org>,
- "pasha.tatashin@soleen.com" <pasha.tatashin@soleen.com>,
- "yanglincheng@kylinos.cn" <yanglincheng@kylinos.cn>,
- "dave.hansen@linux.intel.com" <dave.hansen@linux.intel.com>,
- "stable@vger.kernel.org" <stable@vger.kernel.org>,
- "david@kernel.org" <david@kernel.org>,
- "akpm@linux-foundation.org" <akpm@linux-foundation.org>,
- "mingo@redhat.com" <mingo@redhat.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "linux-mm@kvack.org" <linux-mm@kvack.org>, "tj@kernel.org" <tj@kernel.org>,
- "orsonpeters@gmail.com" <orsonpeters@gmail.com>,
- "hpa@zytor.com" <hpa@zytor.com>, "tglx@kernel.org" <tglx@kernel.org>,
- "rmclure@linux.ibm.com" <rmclure@linux.ibm.com>, "bp@alien8.de"
- <bp@alien8.de>, "Yu, Yu-cheng" <yu-cheng.yu@intel.com>,
- "x86@kernel.org" <x86@kernel.org>
-References: <20260903031608.1194238-1-vernon2gm@gmail.com>
- <aplfcTfjeQUgnrvH@thinkstation>
- <314f11c1-ce5e-4b36-b296-0ab742550851@intel.com>
- <c15c2b17e110782d966751dbf3c487a6db837a87.camel@intel.com>
-From: Dave Hansen <dave.hansen@intel.com>
-Content-Language: en-US
-Autocrypt: addr=dave.hansen@intel.com; keydata=
- xsFNBE6HMP0BEADIMA3XYkQfF3dwHlj58Yjsc4E5y5G67cfbt8dvaUq2fx1lR0K9h1bOI6fC
- oAiUXvGAOxPDsB/P6UEOISPpLl5IuYsSwAeZGkdQ5g6m1xq7AlDJQZddhr/1DC/nMVa/2BoY
- 2UnKuZuSBu7lgOE193+7Uks3416N2hTkyKUSNkduyoZ9F5twiBhxPJwPtn/wnch6n5RsoXsb
- ygOEDxLEsSk/7eyFycjE+btUtAWZtx+HseyaGfqkZK0Z9bT1lsaHecmB203xShwCPT49Blxz
- VOab8668QpaEOdLGhtvrVYVK7x4skyT3nGWcgDCl5/Vp3TWA4K+IofwvXzX2ON/Mj7aQwf5W
- iC+3nWC7q0uxKwwsddJ0Nu+dpA/UORQWa1NiAftEoSpk5+nUUi0WE+5DRm0H+TXKBWMGNCFn
- c6+EKg5zQaa8KqymHcOrSXNPmzJuXvDQ8uj2J8XuzCZfK4uy1+YdIr0yyEMI7mdh4KX50LO1
- pmowEqDh7dLShTOif/7UtQYrzYq9cPnjU2ZW4qd5Qz2joSGTG9eCXLz5PRe5SqHxv6ljk8mb
- ApNuY7bOXO/A7T2j5RwXIlcmssqIjBcxsRRoIbpCwWWGjkYjzYCjgsNFL6rt4OL11OUF37wL
- QcTl7fbCGv53KfKPdYD5hcbguLKi/aCccJK18ZwNjFhqr4MliQARAQABzUVEYXZpZCBDaHJp
- c3RvcGhlciBIYW5zZW4gKEludGVsIFdvcmsgQWRkcmVzcykgPGRhdmUuaGFuc2VuQGludGVs
- LmNvbT7CwXgEEwECACIFAlQ+9J0CGwMGCwkIBwMCBhUIAgkKCwQWAgMBAh4BAheAAAoJEGg1
- lTBwyZKwLZUP/0dnbhDc229u2u6WtK1s1cSd9WsflGXGagkR6liJ4um3XCfYWDHvIdkHYC1t
- MNcVHFBwmQkawxsYvgO8kXT3SaFZe4ISfB4K4CL2qp4JO+nJdlFUbZI7cz/Td9z8nHjMcWYF
- IQuTsWOLs/LBMTs+ANumibtw6UkiGVD3dfHJAOPNApjVr+M0P/lVmTeP8w0uVcd2syiaU5jB
- aht9CYATn+ytFGWZnBEEQFnqcibIaOrmoBLu2b3fKJEd8Jp7NHDSIdrvrMjYynmc6sZKUqH2
- I1qOevaa8jUg7wlLJAWGfIqnu85kkqrVOkbNbk4TPub7VOqA6qG5GCNEIv6ZY7HLYd/vAkVY
- E8Plzq/NwLAuOWxvGrOl7OPuwVeR4hBDfcrNb990MFPpjGgACzAZyjdmYoMu8j3/MAEW4P0z
- F5+EYJAOZ+z212y1pchNNauehORXgjrNKsZwxwKpPY9qb84E3O9KYpwfATsqOoQ6tTgr+1BR
- CCwP712H+E9U5HJ0iibN/CDZFVPL1bRerHziuwuQuvE0qWg0+0SChFe9oq0KAwEkVs6ZDMB2
- P16MieEEQ6StQRlvy2YBv80L1TMl3T90Bo1UUn6ARXEpcbFE0/aORH/jEXcRteb+vuik5UGY
- 5TsyLYdPur3TXm7XDBdmmyQVJjnJKYK9AQxj95KlXLVO38lczsFNBFRjzmoBEACyAxbvUEhd
- GDGNg0JhDdezyTdN8C9BFsdxyTLnSH31NRiyp1QtuxvcqGZjb2trDVuCbIzRrgMZLVgo3upr
- MIOx1CXEgmn23Zhh0EpdVHM8IKx9Z7V0r+rrpRWFE8/wQZngKYVi49PGoZj50ZEifEJ5qn/H
- Nsp2+Y+bTUjDdgWMATg9DiFMyv8fvoqgNsNyrrZTnSgoLzdxr89FGHZCoSoAK8gfgFHuO54B
- lI8QOfPDG9WDPJ66HCodjTlBEr/Cwq6GruxS5i2Y33YVqxvFvDa1tUtl+iJ2SWKS9kCai2DR
- 3BwVONJEYSDQaven/EHMlY1q8Vln3lGPsS11vSUK3QcNJjmrgYxH5KsVsf6PNRj9mp8Z1kIG
- qjRx08+nnyStWC0gZH6NrYyS9rpqH3j+hA2WcI7De51L4Rv9pFwzp161mvtc6eC/GxaiUGuH
- BNAVP0PY0fqvIC68p3rLIAW3f97uv4ce2RSQ7LbsPsimOeCo/5vgS6YQsj83E+AipPr09Caj
- 0hloj+hFoqiticNpmsxdWKoOsV0PftcQvBCCYuhKbZV9s5hjt9qn8CE86A5g5KqDf83Fxqm/
- vXKgHNFHE5zgXGZnrmaf6resQzbvJHO0Fb0CcIohzrpPaL3YepcLDoCCgElGMGQjdCcSQ+Ci
- FCRl0Bvyj1YZUql+ZkptgGjikQARAQABwsFfBBgBAgAJBQJUY85qAhsMAAoJEGg1lTBwyZKw
- l4IQAIKHs/9po4spZDFyfDjunimEhVHqlUt7ggR1Hsl/tkvTSze8pI1P6dGp2XW6AnH1iayn
- yRcoyT0ZJ+Zmm4xAH1zqKjWplzqdb/dO28qk0bPso8+1oPO8oDhLm1+tY+cOvufXkBTm+whm
- +AyNTjaCRt6aSMnA/QHVGSJ8grrTJCoACVNhnXg/R0g90g8iV8Q+IBZyDkG0tBThaDdw1B2l
- asInUTeb9EiVfL/Zjdg5VWiF9LL7iS+9hTeVdR09vThQ/DhVbCNxVk+DtyBHsjOKifrVsYep
- WpRGBIAu3bK8eXtyvrw1igWTNs2wazJ71+0z2jMzbclKAyRHKU9JdN6Hkkgr2nPb561yjcB8
- sIq1pFXKyO+nKy6SZYxOvHxCcjk2fkw6UmPU6/j/nQlj2lfOAgNVKuDLothIxzi8pndB8Jju
- KktE5HJqUUMXePkAYIxEQ0mMc8Po7tuXdejgPMwgP7x65xtfEqI0RuzbUioFltsp1jUaRwQZ
- MTsCeQDdjpgHsj+P2ZDeEKCbma4m6Ez/YWs4+zDm1X8uZDkZcfQlD9NldbKDJEXLIjYWo1PH
- hYepSffIWPyvBMBTW2W5FRjJ4vLRrJSUoEfJuPQ3vW9Y73foyo/qFoURHO48AinGPZ7PC7TF
- vUaNOTjKedrqHkaOcqB185ahG2had0xnFsDPlx5y
-In-Reply-To: <c15c2b17e110782d966751dbf3c487a6db837a87.camel@intel.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 9/3/26 10:58, Edgecombe, Rick P wrote:
-> I can't find anything back then that would have prevented it. The bug cause and
-> fix looks correct to me.
+Thanks a lot for the thorough review, and for pulling in the pvr folks.
 
-Is that a Reviewed-by? ;)
+First, the important one. You flagged the ops-detach as dangerous, and after
+your and the bot's pointers I agree it is not viable as-is:
+
+ - amdgpu dereferences the helper unconditionally, e.g.
+   amdgpu_cs_p2_dependencies() and amdgpu_ctx_fence_time() do
+   to_drm_sched_fence(fence) and then touch ->scheduled without a NULL check.
+   Once the finished fence detaches its ops on signalling, to_drm_sched_fence()
+   returns NULL for it, so this is a deterministic NULL deref an unprivileged
+   process can reach by submitting and then referencing completed jobs. That is
+   the bot's [Critical], and it checks out.
+ - pvr is worse in the way you described: pvr_queue_fence_is_native() uses the
+   ops pointer as an *identity* test, so detaching ops makes it race between
+   "native" and "foreign" for one and the same fence.
+
+So detaching the ops breaks the "identify a drm_sched_fence by its ops"
+contract that these drivers rely on, and papering over it would mean auditing
+every to_drm_sched_fence() caller. I don't think that is the right trade for a
+fix we want to backport.
+
+Christian's point that the finished/scheduled .release callbacks are
+"unproblematic for the problem at hand" matches this: the release callbacks do
+not need to be removed to fix the timeline-name UAF, so keeping them (and thus
+the ops attached, and to_drm_sched_fence() working) is fine.
+
+Given that, I'd like to fall back to the minimal caching fix and drop the
+ops/refcount rework entirely:
+
+ - get_timeline_name() caches the name in drm_sched_fence_init() and returns
+   the cached value, so it never dereferences ->sched. Everything else - both
+   .release callbacks, the shared allocation, the call_rcu() free,
+   to_drm_sched_fence() - stays exactly as today, so there is no amdgpu/pvr
+   regression and nothing new for the backend to reason about.
+ - This also addresses Christian's point that the reference must go from the
+   finished to the scheduled fence, not the other way around: the caching fix
+   keeps the existing finished->scheduled reference untouched and does not
+   invert it, so the finished->scheduled conversions that rely on that keep
+   working.
+ - This makes most of the per-patch comments on v3 (the shared-allocation
+   lifetime, the extra dma_fence_get(), the "last put" wording, moving
+   call_rcu) moot, since that rework goes away. I'll keep the ones that still
+   apply.
+
+On the specific points:
+
+ - get_driver_name(): it returns the literal "drm_sched" and never touches
+   ->sched, so unlike get_timeline_name() it isn't exposed. Only the timeline
+   name needs the fix.
+ - The "already-satisfied dependency / dependency-collapsing" wording and the
+   whole to_drm_sched_fence()-returns-NULL discussion only existed to justify
+   the ops-detach; with caching, to_drm_sched_fence() keeps working as today,
+   so that reasoning (and the confusion around it) goes away entirely.
+ - Caching only the pointer: the earlier objection was that it doesn't help
+   drivers whose name is freed together with the scheduler. The mainline
+   drivers that actually hit this (amdxdna, nouveau, msm VM_BIND) pass a name
+   that lives as long as the scheduler, and panthor/xe (dynamically allocated
+   names) are already fixed per-driver. If you'd rather close the dynamic-name
+   case generically in the core too, I can kstrdup() the name into the fence at
+   init and free it on fence release - one small alloc per fence. I'm happy to
+   go pointer-cache or kstrdup, whichever you and Tvrtko prefer.
+ - Cc: stable: will add "Cc: stable@vger.kernel.org # we don't know since when"
+   and let the stable folks pick the backport depth, as you suggested.
+ - Whitespace/doc reflow: will split into its own patch and keep the fix patch
+   free of unrelated formatting churn.
+ - kmemleak: the caching fix doesn't change any refcounts, but I'll re-run the
+   KUnit suite under kmemleak as well as KASAN before resending.
+
+Unless someone would prefer to keep ops-detach and fix the two callers instead,
+I'll respin as the caching v4 once Tvrtko and the pvr folks have had a chance to
+look as well.
+
+Thanks again,
+Jonghyuk
