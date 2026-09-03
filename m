@@ -1,137 +1,211 @@
-Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com [209.85.216.47])
+Received: from mail-vk1-f177.google.com (mail-vk1-f177.google.com [209.85.221.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A623935CB6D
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 15:32:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 325564DF4A0
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 15:32:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.177
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788449537; cv=none; b=Z+YHoiod9puv5FzYTSFFSAOpTOj1CJ4XihtAYFj3BFJ8Hd3SHClXELHncWmJizOizIiVhO2JQG4LNNz3jGLk/y9RcHJN3Rt1MBsv6QRdkBMf3VgpkFmGDQ4ovoeVLP5egMUdlBcKihH+zduJqXNWLHfsUxpaWis4YcnEAkUU3CI=
+	t=1788449540; cv=none; b=RKHmwHxjjk7JGPZcH7Dyjk22HHeeUd7bR2hehKMHbA+FM/ytqmE+vVmyKrnJ4IURvnnoDpUE+hCVIfXz6HEgxBxHaK85CjFfJsVpMapT682dDp9iEirgSRBc4zg6QcVI2dqopjl2xEGD9BZgZHt0bCSCNXe9fuFarpL9E20hIZE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788449537; c=relaxed/simple;
-	bh=ExNl+FukFqy1rN7N2zPL9sZ0q1gZ5e7QZC7RycA/QTU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=G1CUNN2QrEBZPQpM0Gitfnxrca1SN25KWbLnHByCWhrJD3f69+34639JjZ91W4eBsoyetvDS8CvFOsS4VvqLXAWRNeLRVNKlBAAl+KxzxgEy8xQoHBiECjISaKcbKaoPxuDHeImhDYfnX4U7fG1M+b/zLIJdAGIK4FV6yZ7utxU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Jzoa9xC6; arc=none smtp.client-ip=209.85.216.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+	s=arc-20240116; t=1788449540; c=relaxed/simple;
+	bh=O1T/S/tnLkdqmvZL1LvuEUmH7Qo5CdEtlWyLMpBc4J0=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=sqBGhj5/cfp0bfMkRxBvK5YBeN7p0MTbH14aMOEJQn/Hqa2Kn81xAlTCjvUjA/Q3aNRi5qaM0LDF///ps/cJ90WGQ4OddQHp7omP96PwivTKZ+VXjjqrzKZv5c3c+ZTJKzA0YJ+kEufZpQX/2vkZHkCaxsIKBMrdc9AemZFuQdk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.221.177
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Jzoa9xC6"
-Received: by mail-pj1-f47.google.com with SMTP id 98e67ed59e1d1-3964dfb5b9aso3389011a91.1
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 08:32:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788449535; x=1789054335; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=mtKAnkMlbAEzfViPsH8OxGe1C1IurvV/p7tdYhcgQzI=;
-        b=Jzoa9xC6/1ol7MsAg9sLkKu2j4n2spDJ398Wi6ae0+QTSIxuSWDpKLcdS1mmGbT5+g
-         9uka4BdJNEaMITttnt3YaD45tG60/EoZS2N4EM7H1Cdr1mb4ES9aYz2vFhAWugEqYxsN
-         ZywYhd4fDPPuuheVUFB8stTTUSgXXnrpKGS4n6j9TZlyiGgEZYtNb02C6891PZt/jsHl
-         G+XD+pWGELL291kS/9ixTQ12idRO3/JbCuarPzlta+oBTfJLCw9s6Tspf1L+pm/CrPaG
-         E6SGXtNqWjrYwD5iHBh8CBimKLO40+1I3EI821YTiXZaaoIv+GmcvORJ3pp2gfbZLgM7
-         zckg==
+Received: by mail-vk1-f177.google.com with SMTP id 71dfb90a1353d-59b074ec7ceso1046329e0c.1
+        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 08:32:17 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788449535; x=1789054335;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=mtKAnkMlbAEzfViPsH8OxGe1C1IurvV/p7tdYhcgQzI=;
-        b=aGwNL5xmuYKhx1PfEbbK6p+TQf0NUa6hLxceT6mWxTK0vaXWI/HtTekiGk7XhTosrw
-         yNkYahydb3XStXrVnV7PowDjs6JDOr8r8gyBBtBgcjLUAoia1LQJIHefjjQFlfifKL6q
-         t9NiiNcM4MEhJOpRL22Flukbuh78CImyR/oGojJEoWsferqf7brLMvE5oAPQN4kf9F1C
-         ho6URewNnu/SgIG7WsTKQjPeEREi0bb+Npk/opAkC9VvIzWiX4n3YNuY3NBsno9lJUBx
-         5g8oTEB6pq4CRIYPyO3BUyxJjJW3pVJoFZ+I+qDcF7A+O/AtWa+ehvMsB886fzyKW0y/
-         MMMQ==
-X-Forwarded-Encrypted: i=1; AKwUvByP3VScZOFFVoHeOviLHr5X/weKFfvQfrLJ9JmAjtqQtqx0cdE9hsRaBrCP608Cu+J3YWjUVWRwWzyuCx0=@vger.kernel.org
-X-Gm-Message-State: AFuF++mS6D1nzaA/mNJfP5jEDCYPti5zjazE/cllVaJVUCrhwF9SiUat
-	umhpFS2C2O8Seih+D2Gk52bG7n4B4EGO4J1Z7aI9RgWSO/P6ZJcafHiELjNtV4Qn
-X-Gm-Gg: AYBFou0yNe15OAfuRJn6wlFwveMULhMxEfZZ0EUXO97OOhWAnkUc0vsceOJ12BYQbtm
-	cDUr3SEe6SDE7EGOmEVBbKlpdrR7wGIdQkAWTABjapab4yvUCcA3zc9DUkyGEVKP01kwlmHBjd6
-	RYW+p7DAUbkUeR2OliXKB1s9WQu/PLTaAnD7PYdCCW+/al+jyDJ5FwtSzbaKl7xVF5bazllPIko
-	O3rQ3RZbJ8opHbETjPl+tH2pcZ/pNS4t6n9L3MMDA3NAps8uDC346JZh7ftqAuNOzfAhUjkbPpL
-	VTSQ9HHTSkH0gnMRp8A0LeK2f4MoaSMEy8lIHlm+b3w8zYJWvmQKJPTREM8o+zogyL/2IVWZrxt
-	3d8g83PkD3/c8uj4NPKlRlp0rsRJLTwQYrS7XR5G89FpGNIjrxJdcB58k0spCZ5VLZqA9cpp47L
-	L/zONUeTetZvawzcKSsekzgW/MzaVREibhZDK7fJhN+E4nXwp97Wc6+wf8pbNEP0jCjYlajBLMh
-	ZfbJqdY1Ex6+Nt8Mw==
-X-Received: by 2002:a17:90b:17c3:b0:398:dcef:c040 with SMTP id 98e67ed59e1d1-39aee1d6bf3mr17931236a91.19.1788449534662;
-        Thu, 03 Sep 2026 08:32:14 -0700 (PDT)
-Received: from kernel ([45.251.35.126])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1432435648esm355669c88.5.2026.09.03.08.32.11
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 03 Sep 2026 08:32:14 -0700 (PDT)
-Date: Thu, 3 Sep 2026 21:02:08 +0530
-From: Mohamad Raizudeen <raizudeen.kerneldev@gmail.com>
-To: Alex Williamson <alex@shazbot.org>
-Cc: bhelgaas@google.com, skhan@linuxfoundation.org, jkoolstra@xs4all.nl,
-	linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] PCI: quirks: Fix out-of-bounds MMIO read in
- nvme_disable_and_flr()
-Message-ID: <apmS-K35HCY0usrZ@kernel>
-References: <20260903040049.5460-1-raizudeen.kerneldev@gmail.com>
- <20260903083443.400dfdc9@shazbot.org>
+        d=1e100.net; s=20251104; t=1788449537; x=1789054337;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=smhgAnbElT93Xc14KAwXUjbx11QNBeL7p1UChIAHiR4=;
+        b=jDuJkXqfZzdyXVNI3fejiu5ESeqQf0nzbmt1Ih3vn3v8WlxZ+9ponYISuUmRFrEQ/2
+         zzUxgEI7s9U32EuCL8WVedHuopEke8mUiw6f87H8tbujzusMrz3OTVBi0rbS152FC6FT
+         hFepdEvDabkUnVA3GoiazYHz2mK4vaFNPejeTp9X38wFNUl+nSiFfrlEBy3ePA5qnlTu
+         ttijZvAyGoQk+1qGhEdC3RuVfEV4rTXDKzaceIfMieN57Cprnv0x5GyXMv8Jr2exBx1z
+         +WhtQWZDPZhWH7QsR5bUQOda3/R/mySyWrV00yvkegWImdHsoCf8ugcnBoR5nzQAmyBW
+         kntg==
+X-Forwarded-Encrypted: i=1; AKwUvBwnAGbtT2O3AHeRhQanKrvPbaQTMgzqzLCjEyJ8f4VsPLt+WgXof7thJuj7jbrPJBRQ3PvoZ4Unnlg+60s=@vger.kernel.org
+X-Gm-Message-State: AFuF++ne9R/e7yxi5x3qE+pmHyRx07A6Ic9XQO2EnLfXVFP+1utOylRJ
+	v8Ev5Tis+KCXF53IZiDDuo8W7W7LOp1p2RHPcPCyjASKmeqWQZ9ojTpy+fem0bRMI9A=
+X-Gm-Gg: AYBFou1BsDv/vhCxsuthCakp2AoGWA7SHb5NkSx05IXNTBrzK4/gwZzevxdSI0meCpp
+	76mMziJkQWGLPT8hWXO4f+XWYnVhr9N/rJKpoJDgubGmReJuD3FJaCmqisUOzDuOXOHWQ+N0Mw8
+	2ZggswRP/9aoOv5GNj+Y1BwyZyOpWwhytn+Dl83pWt7zu0EotdpuG8o18clh4dgNjr/ICI14dub
+	9rawtXFh+pn0ICaE6yalJN/EoILE8hHtDaOk99uXAz9MRw+jzW4ywPyd81lG2xjaythwjOPV6PR
+	rRIFkO/baF3I1NddRx+mLVxu5XGWyL5n8KVCjWlCk8dp5DIP3VEUPgo1pIiVCvKY+PiqCnJ8hE0
+	l9y3OV4T9bAz5pLFx7270SpNNLMhIoMG1d2eXpUNogasm6BDZRE3i9W1d8FVGtGVBOXQ3eewDeB
+	cUZGcPZ6SWn9wKITqzBDQnFaLgp1sgyvxTSggcUFoyeXrGFJ2tp+C0Kwa8ULkZXrjywryqe5yjM
+	T5Iw9Psde0uifVTv2XNjba5rA==
+X-Received: by 2002:a05:6122:1781:b0:5bc:42be:f758 with SMTP id 71dfb90a1353d-5c7d2832974mr5384083e0c.3.1788449536671;
+        Thu, 03 Sep 2026 08:32:16 -0700 (PDT)
+Received: from mail-ua1-f50.google.com (mail-ua1-f50.google.com. [209.85.222.50])
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5c7cd92817asm4694974e0c.17.2026.09.03.08.32.15
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 03 Sep 2026 08:32:15 -0700 (PDT)
+Received: by mail-ua1-f50.google.com with SMTP id a1e0cc1a2514c-97bf91b2e6eso10805241.2
+        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 08:32:15 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBzaaMELSl1a+ovP0Ckuxn5cOguHHOxXa0PrQq9aVIOy/nV51hTKgYjPPvKFEQyTywYeC2iovi7j2fozUCY=@vger.kernel.org
+X-Received: by 2002:a05:6102:e0d:b0:789:5f54:2367 with SMTP id
+ ada2fe7eead31-78a1f1f13e9mr4112330137.4.1788449534923; Thu, 03 Sep 2026
+ 08:32:14 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260903083443.400dfdc9@shazbot.org>
+References: <20260903113327.1217457-1-claudiu.beznea+renesas@tuxon.dev> <20260903113327.1217457-4-claudiu.beznea+renesas@tuxon.dev>
+In-Reply-To: <20260903113327.1217457-4-claudiu.beznea+renesas@tuxon.dev>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Thu, 3 Sep 2026 17:32:03 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdV9C6LVBqYWo=Njgf3v4a5R1LhBwKuB5H3TFctOCr338g@mail.gmail.com>
+X-Gm-Features: AcwNN1WnpoMcG4OiqSwpOhcE41-w5QvCDbZ1B83z-OJyrnfhHqNepFiL_pVw_TE
+Message-ID: <CAMuHMdV9C6LVBqYWo=Njgf3v4a5R1LhBwKuB5H3TFctOCr338g@mail.gmail.com>
+Subject: Re: [PATCH v6 3/5] pinctrl: renesas: rzg2l: Unify the power source handling
+To: Claudiu Beznea <claudiu.beznea+renesas@tuxon.dev>
+Cc: linusw@kernel.org, robh@kernel.org, krzk+dt@kernel.org, 
+	conor+dt@kernel.org, magnus.damm@gmail.com, 
+	prabhakar.mahadev-lad.rj@bp.renesas.com, claudiu.beznea@tuxon.dev, 
+	linux-renesas-soc@vger.kernel.org, linux-gpio@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
+Content-Type: text/plain; charset="UTF-8"
 
-On Thu, Sep 03, 2026 at 08:34:43AM -0600, Alex Williamson wrote:
-> On Thu,  3 Sep 2026 09:30:49 +0530
-> Mohamad Raizudeen <raizudeen.kerneldev@gmail.com> wrote:
-> 
-> > In nvme_disable_and_flr(), the PCI bar is mapped using
-> > NVME_REG_CC + sizeof(cfg) which is (0x14 + 4 = 0x18 bytes)
-> > 
-> > However, the function later reads the controller status from
-> > NVME_REG_CSTS - offset 0x1C, which is outside the mapped 0x18 byte
-> > boundary. Reading past the mapped MMIO region is undefined behavior and
-> > can return invalid data.
-> 
-> "Undefined behavior" still seems an overstatement.  The code violates
-> the API contract, it should be fixed, but it's effectively harmless
-> afaict.
->  
-> > Fix this by increasing the mapping size to include NVME_REG_CSTS.
-> > 
-> > Fixes: ffb0863426eb9 ("PCI: Disable Samsung SM961/PM961 NVMe before
-> > FLR") Signed-off-by: Mohamad Raizudeen <raizudeen.kerneldev@gmail.com>
-> > ---
-> > Changes in v2:
-> > - Changed the commit message to avoid overstating the risk as pointed
-> >   out by Alex Williamson, to be more accurate about the actual
-> > behavior.
-> > 
-> >  drivers/pci/quirks.c | 2 +-
-> >  1 file changed, 1 insertion(+), 1 deletion(-)
-> > 
-> > diff --git a/drivers/pci/quirks.c b/drivers/pci/quirks.c
-> > index b09f27f7846f..ed03892cc960 100644
-> > --- a/drivers/pci/quirks.c
-> > +++ b/drivers/pci/quirks.c
-> > @@ -4090,7 +4090,7 @@ static int nvme_disable_and_flr(struct pci_dev
-> > *dev, bool probe) if (probe)
-> >  		return 0;
-> >  
-> > -	bar = pci_iomap(dev, 0, NVME_REG_CC + sizeof(cfg));
-> > +	bar = pci_iomap(dev, 0, NVME_REG_CSTS + sizeof(cfg));
-> >  	if (!bar)
-> >  		return -ENOTTY;
-> >  
-> 
-> The cfg variable is no longer related to the mapping size now, it
-> happens to be the same size, but this should be sizeof(u32) to avoid
-> confusion.  Thanks,
-> 
-> Alex
+Hi Claudiu,
 
-Hi Alex,
+On Thu, 3 Sept 2026 at 13:34, Claudiu Beznea
+<claudiu.beznea+renesas@tuxon.dev> wrote:
+> From: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
+>
+> The previous code handled power sources using a mixture of power
+> source specific definitions and lookups in the available_ps[] array.
+> Unify the power source handling by introducing
+> struct rzg2l_pinctrl_ps_desc, whose purpose is to describe a power
+> source through its power source value, associated register value,
+> associated capabilities (e.g. Ethernet), and associated IOLH index.
+>
+> Introduce two new functions, rzg2l_ps_to_desc() and
+> rzg2l_pwr_reg_val_to_desc(), using the
+> RZG2L_PINCTRL_PS_DESC_MEMBER_TO_DESC_FUNC() macro, as their
+> implementations are similar.
+>
+> These functions retrieve a power source descriptor based on either a
+> power source value or a power source register value. Other functions
+> that need to perform power source specific operations can call them to
+> retrieve the corresponding power source descriptor.
+>
+> The register values for the soft power sources were kept to zero since
+> they are not used across the driver's code.
+>
+> Signed-off-by: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
+> ---
+>
+> Changes in v6:
+> - described all the available power sources in the available_ps[]
+>   array and dropped to wildcard approach to avoid letting the user
+>   selecting unavailable power source for pins
+> - simplified RZG2L_PINCTRL_PS_DESC_MEMBER_TO_DESC_FUNC()
+> - for these two points ^ didn't collect the Wolfram's Tb tag
+> - dropped rzg2l_ps_is_supported()
+> - used conditional operator in rzg2l_ps_to_iolh_idx()
+> - adjusted the patch description
 
-I will make that change and update the commit message for v3.
+Thanks for the update!
 
-Thanks,
-Mohamad Raizudeen
+> --- a/drivers/pinctrl/renesas/pinctrl-rzg2l.c
+> +++ b/drivers/pinctrl/renesas/pinctrl-rzg2l.c
+
+> +static const struct rzg2l_pinctrl_ps_desc available_ps[] = {
+> +       /* Ethernet I/O voltage domains */
+> +       RZG2L_PINCTRL_PS_DESC(1800, 1, PIN_CFG_IO_VMC_ETH0 | PIN_CFG_IO_VMC_ETH1,
+> +                             RZG2L_IOLH_IDX_1V8),
+> +       RZG2L_PINCTRL_PS_DESC(2500, 2, PIN_CFG_IO_VMC_ETH0 | PIN_CFG_IO_VMC_ETH1,
+> +                             RZG2L_IOLH_IDX_2V5),
+> +       RZG2L_PINCTRL_PS_DESC(3300, 0, PIN_CFG_IO_VMC_ETH0 | PIN_CFG_IO_VMC_ETH1,
+> +                             RZG2L_IOLH_IDX_3V3),
+> +
+> +       /* SD I/O voltage domains */
+> +       RZG2L_PINCTRL_PS_DESC(1800, 1, PIN_CFG_IO_VMC_SD0 | PIN_CFG_IO_VMC_SD1 |
+> +                             PIN_CFG_IO_VMC_SD2, RZG2L_IOLH_IDX_1V8),
+> +       RZG2L_PINCTRL_PS_DESC(2500, 2, PIN_CFG_IO_VMC_SD0 | PIN_CFG_IO_VMC_SD1 |
+> +                             PIN_CFG_IO_VMC_SD2, RZG2L_IOLH_IDX_2V5),
+
+Before (see below), only Ethernet could select the 2.5V domain, so
+shouldn't this entry be dropped?
+
+> +       RZG2L_PINCTRL_PS_DESC(3300, 0, PIN_CFG_IO_VMC_SD0 | PIN_CFG_IO_VMC_SD1 |
+> +                             PIN_CFG_IO_VMC_SD2, RZG2L_IOLH_IDX_3V3),
+> +
+> +       /* QSPI I/O voltage domains */
+> +       RZG2L_PINCTRL_PS_DESC(1800, 1, PIN_CFG_IO_VMC_QSPI, RZG2L_IOLH_IDX_1V8),
+> +       RZG2L_PINCTRL_PS_DESC(2500, 2, PIN_CFG_IO_VMC_QSPI, RZG2L_IOLH_IDX_2V5),
+
+Same here?
+
+> +       RZG2L_PINCTRL_PS_DESC(3300, 0, PIN_CFG_IO_VMC_QSPI, RZG2L_IOLH_IDX_3V3),
+> +
+> +       /* AWO I/O voltage domains */
+> +       RZG2L_PINCTRL_PS_DESC(1800, 1, PIN_CFG_PVDD1833_OTH_AWO_POC,
+> +                             RZG2L_IOLH_IDX_1V8),
+> +       RZG2L_PINCTRL_PS_DESC(3300, 0, PIN_CFG_PVDD1833_OTH_AWO_POC,
+> +                             RZG2L_IOLH_IDX_3V3),
+> +
+> +       /* ISO I/O voltage domains */
+> +       RZG2L_PINCTRL_PS_DESC(1800, 1, PIN_CFG_PVDD1833_OTH_ISO_POC,
+> +                             RZG2L_IOLH_IDX_1V8),
+> +       RZG2L_PINCTRL_PS_DESC(3300, 0, PIN_CFG_PVDD1833_OTH_ISO_POC,
+> +                             RZG2L_IOLH_IDX_3V3),
+> +
+> +       /* WDTOVF I/O voltage domains */
+> +       RZG2L_PINCTRL_PS_DESC(1800, 1, PIN_CFG_WDTOVF_N_POC, RZG2L_IOLH_IDX_1V8),
+> +       RZG2L_PINCTRL_PS_DESC(3300, 0, PIN_CFG_WDTOVF_N_POC, RZG2L_IOLH_IDX_3V3),
+> +
+> +       /* Software voltage domains */
+> +       RZG2L_PINCTRL_PS_DESC(1800, 0, PIN_CFG_SOFT_PS, RZG2L_IOLH_IDX_1V8),
+> +       RZG2L_PINCTRL_PS_DESC(2500, 0, PIN_CFG_SOFT_PS, RZG2L_IOLH_IDX_2V5),
+> +       RZG2L_PINCTRL_PS_DESC(3300, 0, PIN_CFG_SOFT_PS, RZG2L_IOLH_IDX_3V3),
+
+I never really understood PIN_CFG_SOFT_PS...
+
+> +};
+
+> -static int rzg2l_ps_to_pwr_reg_val(u32 ps, u32 caps)
+> +static int rzg2l_ps_to_pwr_reg_val(u16 ps, u32 caps)
+>  {
+> -       switch (ps) {
+> -       case 1800:
+> -               return PVDD_1800;
+> -       case 2500:
+> -               if (!(caps & (PIN_CFG_IO_VMC_ETH0 | PIN_CFG_IO_VMC_ETH1)))
+> -                       return -EINVAL;
+> -               return PVDD_2500;
+> -       case 3300:
+> -               return PVDD_3300;
+> -       }
+> +       const struct rzg2l_pinctrl_ps_desc *desc;
+>
+> -       return -EINVAL;
+> +       desc = rzg2l_ps_to_desc(ps, caps);
+> +       if (!desc)
+> +               return -EINVAL;
+> +
+> +       return desc->pwr_reg_val;
+>  }
+>
+>  static int rzg2l_get_power_source(struct rzg2l_pinctrl *pctrl, u32 pin, u32 caps)
+
+Gr{oetje,eeting}s,
+
+                        Geert
+
+
+--
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
