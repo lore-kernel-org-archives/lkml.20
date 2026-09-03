@@ -1,173 +1,183 @@
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
+Received: from mail-oo1-f72.google.com (mail-oo1-f72.google.com [209.85.161.72])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A6C643B4B7
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 20:07:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC2474F4724
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 20:08:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788466083; cv=none; b=PTNfu6ALHR3Si9CC+d0hL+SsJW0ROtpNz0mCNgZedzY4PtrZKOIYr6g5kmACv9ugzuaSt4zAm8EaBs4RH54MIvuyxG8u1FXf40F4DzUkiCQt3vZ3MB63De4tqjDuGm2XDRo2aDWb5n+SuyweSzmawlJRMGCiY2aIywByEAd/aSc=
+	t=1788466127; cv=none; b=NP3TCW+cWNm91K1TpFTq6DnEfv2MymRMMG9+Za4JJDbjEsK5cCzXm4iTgpClG/yimrQD7lrdQqJU36DZnq7Jo+o67/zNCCkMwTsxGQO6fcgzBw8rcM7jyGEenShDzoHr/aKfjwBesuL+NX1hjlJLtSfc3GH2WgXvgp23xSyHejg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788466083; c=relaxed/simple;
-	bh=KKQRjTnbbi03SF4QrsbxyQRZEuOt84yDjPrhPIt1HPQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=GQbqY26ym71KJW1xRYxlBa+0U+IUTE5jDfuRy2UNfjYE6cltBplpuUPvKcq8Up+G8qkum+5hiUQx/bogHzUmFjmDHn7NR9nFw9Q+DJhA7ZiEWMU4Mcko31FVP1EErFnmkRwahADXAkOAKGTuPQsIfkMFMDRVxiV8RhR8azzZpSY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=debian.org; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ls+YW+pf; arc=none smtp.client-ip=209.85.128.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=debian.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ls+YW+pf"
-Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-49cdc81f40eso1972285e9.2
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 13:07:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788466064; x=1789070864; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:sender:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=e7urBqs1yQ/qOhZ2GYLJeqmnou9jkoySIxXngdzIimQ=;
-        b=ls+YW+pfZ7GyxdxELlYWV95YEIKJN5IsFaDyIWkbtjYroz62MWSP4hqE3CQYoBM0nQ
-         B5uzSCrZvAffTcfDw1Ie8NXseYvD0hB/k4Gh60o1aUFjKc0483+fSVWqimENRKQ6RyPq
-         t55YwzBFCd0IdylZP7lJzR1ZjgpiQY3tSsUQZ2mWXFebRYKFFz/N6/HDAaipGM2O+ysu
-         jn4vHjINlcCK/ks8IGvqNAIJjMeWxV1RXaSv3YVhjm+BxLnoB5mt3wvL32HdR3p181+A
-         xA8zCgWyAH051FpD/JybJIprfmNjBuu6CVv4Z5s6HMN/lnKNGu98Km90rV4Zn4U5W0YV
-         0vgQ==
+	s=arc-20240116; t=1788466127; c=relaxed/simple;
+	bh=hsrgcgU9CZNuY0+VZvpv/GXeh+OPQpXqePsOLlbif7E=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=Gc3DYx3Al4GNSgce/WeVrFKeN9NXvriR+WR6rYcG3tewjGbX00FoL8X9VXASCzvotOTRfxfZbwBI4LKBQJUXS8BUYMPTbW0IVcgrKGXJE/ZMBOacZrmdlJ+P+OFH1zmm9VKCyQXMR3qsqB13obrcdw8+LFXVdVI3k8rbRucS5GU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.161.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oo1-f72.google.com with SMTP id 006d021491bc7-6b352d9062fso237449eaf.3
+        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 13:08:32 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788466064; x=1789070864;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:sender:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=e7urBqs1yQ/qOhZ2GYLJeqmnou9jkoySIxXngdzIimQ=;
-        b=C/+wCHX3q0uGbV2FVb6aBmUxZyRPAomOC0Q0UqCiWkREQtwsTVa4hMiAX7CVReuLJB
-         Dg5VOO2QOleBUwuKxsO0L+j9CrQzrYlVVMlSo8u/FUBkAi4NgIuT+RKnzcozynKZsz60
-         6xB7XxFXVRVA2u8v0RsiJ3Kbz7NyHYHiIwxDwGy9sl2KQe1FblXRDohkKGfMJOwoyf4v
-         FQmmpfhoiia1NxLnCdfx+LUFdAlJe/Sh45CJSLvLoXlYytQnFe0vpYlcnhZli0qCRT4R
-         xRaQKni+UiT8sTAZBFs7QlxJDKqUT0FdpnvIz/+FWqrHpP31sHxwJW5+2DhNqA6n6Yze
-         X0jQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwgG2IoZqnsPQlsODx3hU2XilhFC/yKxgc6ApeIWZB1mG6+K/Ogsz/Bx5s81eRzjGYMnqcGDhF5DJGDUTI=@vger.kernel.org
-X-Gm-Message-State: AFuF++n3UeB7bRMTs7CiZ4dmdm7ADdCpSQl+9nseVIDxKfx4ltr/pFOR
-	U4xWCOHafC15N4M2G58iO7L2o0hyAxBNcZfWL9RGVcPxEToegO+viEAb
-X-Gm-Gg: AYBFou2b7WdJlMiivieRpaOV8DotbscxLWBGaas0/X+keJ63arBT+uTmJyTsEdx2gJT
-	cgJM0SBkNDjINYgASW6vgh+XG3wNfbyXRWcdz/QRlbBKg96PlphzM6bP4ZtimiwlaLcBL7g1SKk
-	QAhQfyfq3EWWm0Prr57FzdLPaEq6uY1gASPRD1k4YSpDvlvbQTh5ODnIMVOdSbs5azbZtpA7Cqz
-	D/i+HNCZgLm10dRJfW28ETsRZVC0CnQF0frzgetSfPzNeU4fpacjouDDPEs2wfudyR5vScgASut
-	k8i1m817+Ped2qN26N3pzpsc8FYs+DsKyExxQN05RznPoSClJTjI0L4itve5XjaWUZjPYMMdP5A
-	j1XgpeDDntlOwP4XFE7apC17STab35vc7f0C/da48hriQ7FL0iG5G3ne7SdFtT4sNEv/mPFnd6i
-	/EL027UYdvahl9wJi7kOjPOpRRJMnhFocnMntx04UbUIIaZ5ecby/uDQuaqPIihUU104VWzFB9E
-	ZLG4iofiKF0udAylbAHYZk=
-X-Received: by 2002:a05:600c:3b01:b0:49b:4d64:bbc4 with SMTP id 5b1f17b1804b1-49cf81f1592mr4839615e9.8.1788466064353;
-        Thu, 03 Sep 2026 13:07:44 -0700 (PDT)
-Received: from eldamar.lan (c-82-192-247-196.customer.ggaweb.ch. [82.192.247.196])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ce58d1c9esm68315165e9.0.2026.09.03.13.07.42
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 03 Sep 2026 13:07:43 -0700 (PDT)
-Sender: Salvatore Bonaccorso <salvatore.bonaccorso@gmail.com>
-Received: by eldamar.lan (Postfix, from userid 1000)
-	id A8CE3BE2DE0; Thu, 03 Sep 2026 22:07:41 +0200 (CEST)
-Date: Thu, 3 Sep 2026 22:07:41 +0200
-From: Salvatore Bonaccorso <carnil@debian.org>
-To: Michal =?iso-8859-1?Q?Koutn=FD?= <mkoutny@suse.com>
-Cc: Tejun Heo <tj@kernel.org>, cgroups@vger.kernel.org,
-	linux-kernel@vger.kernel.org, Dan Schatzberg <dschatzberg@meta.com>,
-	Peter Zijlstra <peterz@infradead.org>, stable@vger.kernel.org,
-	Noah Elias Feldt <N.Feldt@mittwald.de>,
-	Johannes Weiner <hannes@cmpxchg.org>
-Subject: Re: [PATCH] cgroup: Avoid iteration of dying tasks with zero refcount
-Message-ID: <apnTjQvt_FbQfm_r@eldamar.lan>
-References: <20260902161653.1051794-1-mkoutny@suse.com>
+        d=1e100.net; s=20251104; t=1788466108; x=1789070908;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=VnMzAUyte/LPqtrh3wboPC3T/dDvfiZgFPOrJVHL5rY=;
+        b=R6z2aWQ3BSxle5t+zXWjKr0PuAbyIvQk1Lv9tGvk0yCFB2cFs2EtxmovbiuyVG2GUn
+         +LvPNG24ILKDhu/e1hx3Eajo883xPUkhHAMkQAAJT8EQdj3nFr3ntPpn+cxpPTBc87eB
+         v0AUk8BD2sZivPHtRyrUrwPXtoIp6Jc+4yzP0OOnqTv27awQYhfdl11cSab/z7CX1R2i
+         PDa2zNT5d8NfGWvWyGtgs2jbEJHynZ33OVhAT5MeTGYoeP/sb+Am1PTFwvaPfcoCldKM
+         Vr2vYqmXc6n0yto4/banrZi9QifHdZAooEQGyN5AaIa+v80v1bQ1JFJyHiBCdDzB3Dnn
+         MUMw==
+X-Gm-Message-State: AFuF++mzJjQsH1E/MuVrNSUv6hbGXBUr/HBYbMWs7A5YkTMXZlsQRF9s
+	U1E5SODeYtJbobdFa/IOfSqPygHceBU7KKEUbgDHeudSfpxIMrERpyYDAXMqVzF3qUXLmKp07gP
+	rp+f8qW+VzgPTNNjWhuBc9myh7rryMAgkn5SrMe+hnaC95Jwr8NYP61vnhqg=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260902161653.1051794-1-mkoutny@suse.com>
+X-Received: by 2002:a05:6820:4c84:b0:6b1:8780:70fe with SMTP id
+ 006d021491bc7-6b6f98d1493mr1231975eaf.2.1788466108549; Thu, 03 Sep 2026
+ 13:08:28 -0700 (PDT)
+Date: Thu, 03 Sep 2026 13:08:28 -0700
+In-Reply-To: <6a917b28.4d659fcc.734b4.001e.GAE@google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6a99d3bc.9266084e.bf0d7.027a.GAE@google.com>
+Subject: Forwarded: [PATCH] blktrace: always record ftrace events as blk_io_trace2
+From: syzbot <syzbot+4dfd96209d744263a972@syzkaller.appspotmail.com>
+To: linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-Hi Michal,
+For archival purposes, forwarding an incoming command email to
+linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com.
 
-On Wed, Sep 02, 2026 at 06:16:52PM +0200, Michal Koutný wrote:
-> The commit 260fbcb92bbea ("cgroup: Move dying_tasks cleanup from
-> cgroup_task_release() to cgroup_task_free()") extended the lifetime of
-> tasks on the dying_tasks list.
-> The iterators have provision to go through dying_tasks because of
-> dying threadgroup leaders or explicit CSS_TASK_ITER_WITH_DEAD, however,
-> it was expected that such tasks can obtain a new reference (that is
-> possible before cgroup_task_release()/put_task_struct_rcu_user()).
-> The tasks after cgroup_task_release() and before cgroup_task_free()
-> are subject to race when they may or may not have usage count > 0.
-> The iterator should not attempt to resurrect tasks whose usage count
-> dropped to zero. (When that happens, __put_task_struct_rcu_cb() is
-> already imminent and the returned task_struct would could be used
-> after free.)
-> 
-> As a band-aid, filter tasks returned from css_task_iter_next() only to
-> those that have positive usage count (whose reference's lifetime can be
-> extended).
-> 
-> Rough illustration of the possible race
-> 
->   R (reader of cgroup.procs)         T (thread)                       L (group leader)
->   ---------------------------------  -------------------------------- --------------------------------
->                                                                       L exits, signal->live > 0
->                                                                       cgroup_task_dead(L)
->                                                                         css_set_skip_task_iters() // skips only cset->tasks
->                                                                         list_add_tail(&L->cg_list, &cset->dying_tasks)
->   css_task_iter_next()
->     take css_set_lock
->     css_task_iter_advance()
->       leader && signal->live != 0
->       => it->task_pos = &L->cg_list
->                                      T exits
->                                      --signal->live == 0
->                                      release_task(T)
->                                        cgroup_task_release(T)
->                                        release_task(L) // zap_leader
->                                          cgroup_task_release(L)
->                                          put_task_struct_rcu_user(L)
->                                          ...RCU...
->                                          put_task_struct(L)
->                                            L->usage = 0
->                                            /* L still on dying_tasks */
->                                            ...RCU...
->                                            __put_task_struct(L)
->     it->task_pos = &L->cg_list
->     get_task_struct(L)
->       => addition on 0
->     drop css_set_lock
->                                            cgroup_task_free(L)
->                                              css_set_skip_task_iters() // dying skip comes too late
->                                            free_task(L)
->   cgroup_procs_show()
->     task_pid_vnr(L)
-> 
-> cgroup_task_release() is not synced via css_set_lock hence the race
-> possibility. (I'm not 100% convinced about this LLM-assisted
-> interleaving, multiple css_task_iter_next() calls may be involved with
-> css_set_lock released.)
-> 
-> Fixes: 260fbcb92bbea ("cgroup: Move dying_tasks cleanup from cgroup_task_release() to cgroup_task_free()")
-> Cc: stable@vger.kernel.org # v6.19+
-> Link: https://lists.debian.org/debian-kernel/2026/08/msg00220.html
-> Reported-by: Noah Elias Feldt <N.Feldt@mittwald.de>
-> Reported-by: Salvatore Bonaccorso <carnil@debian.org>
-> Signed-off-by: Michal Koutný <mkoutny@suse.com>
-> ---
->  kernel/cgroup/cgroup.c | 7 +++++--
->  1 file changed, 5 insertions(+), 2 deletions(-)
-> 
-> Salvatore,
-> I was able to trigger the issue with your reproducer on 7.1.8
-> (occassionally, not always). With the patch on top of v7.3-rc1, I cannot
-> reproduce it (different base though). If you can confirm that in your
-> env, it'd be good.
+***
 
-I tested it with the additional poc which Noah did sent to us (not
-public) and with your patch it survives. 
+Subject: [PATCH] blktrace: always record ftrace events as blk_io_trace2
+Author: adrianox@gmail.com
 
-Tested-by: Salvatore Bonaccorso <carnil@debian.org>
+#syz test: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
+The ftrace ring buffer always uses the v2 (blk_io_trace2) format, but
+__blk_add_trace() switched the reserve size and record format on
+bt->version. That field only describes the relay/classic blktrace record
+format and must not change what goes into the ftrace buffer: the ftrace
+readers (print_one_line() and friends) unconditionally parse blk_io_trace2.
 
-Regards,
-Salvatore
+The BLKTRACESETUP ioctl sets bt->version to 1. With the blk tracer also
+enabled, __blk_add_trace() recorded a 48-byte v1 event into the ftrace
+ring buffer, but the reader parses the 64-byte v2 layout, so pdu_start()
+points 16 bytes past the PDU and blk_log_remap() reads out of bounds - a
+use-after-free when the ring buffer page is resized concurrently.
+
+Always use the v2 format in the blk_tracer path, and initialize
+bt->version to 2 in blk_trace_setup_queue() so the sysfs-enabled path no
+longer leaves it uninitialized.
+
+Fixes: e48886b9d668 ("blktrace: for ftrace use correct trace format ver")
+---
+ kernel/trace/blktrace.c | 74 +++++++++++------------------------------
+ 1 file changed, 20 insertions(+), 54 deletions(-)
+
+diff --git a/kernel/trace/blktrace.c b/kernel/trace/blktrace.c
+index 8cd2520b4c99..ae010969c144 100644
+--- a/kernel/trace/blktrace.c
++++ b/kernel/trace/blktrace.c
+@@ -385,66 +385,26 @@ static void __blk_add_trace(struct blk_trace *bt, sector_t sector, int bytes,
+ 	if (blk_tracer) {
+ 		buffer = blk_tr->array_buffer.buffer;
+ 		trace_ctx = tracing_gen_ctx_flags(0);
+-		switch (bt->version) {
+-		case 1:
+-			trace_len = sizeof(struct blk_io_trace);
+-			break;
+-		case 2:
+-		default:
+-			/*
+-			 * ftrace always uses v2 (blk_io_trace2) format.
+-			 *
+-			 * For sysfs-enabled tracing path (enabled via
+-			 * /sys/block/DEV/trace/enable), blk_trace_setup_queue()
+-			 * never initializes bt->version, leaving it 0 from
+-			 * kzalloc(). We must handle version==0 safely here.
+-			 *
+-			 * Fall through to default to ensure we never hit the
+-			 * old bug where default set trace_len=0, causing
+-			 * buffer underflow and memory corruption.
+-			 *
+-			 * Always use v2 format for ftrace and normalize
+-			 * bt->version to 2 when uninitialized.
+-			 */
+-			trace_len = sizeof(struct blk_io_trace2);
+-			if (bt->version == 0)
+-				bt->version = 2;
+-			break;
+-		}
+-		trace_len += pdu_len + cgid_len;
++		/*
++		 * The ftrace ring buffer always uses the v2 (blk_io_trace2)
++		 * format; the ftrace readers parse only that. bt->version
++		 * describes just the relay/classic blktrace record format.
++		 * Recording a v1-sized event here would shift pdu_start() 16
++		 * bytes past the PDU and make blk_log_remap() read past the
++		 * event (a use-after-free on concurrent buffer resize), and v1
++		 * cannot represent the newer 64-bit zone actions anyway.
++		 */
++		trace_len = sizeof(struct blk_io_trace2) + pdu_len + cgid_len;
+ 		event = trace_buffer_lock_reserve(buffer, TRACE_BLK,
+ 						  trace_len, trace_ctx);
+ 		if (!event)
+ 			return;
+ 
+ 		tracing_record_cmdline(current);
+-		switch (bt->version) {
+-		case 1:
+-			record_blktrace_event(ring_buffer_event_data(event),
+-					      pid, cpu, sector, bytes,
+-					      what, bt->dev, error, cgid, cgid_len,
+-					      pdu_data, pdu_len);
+-			break;
+-		case 2:
+-		default:
+-			/*
+-			 * Use v2 recording function (record_blktrace_event2)
+-			 * which writes blk_io_trace2 structure with correct
+-			 * field layout:
+-			 *   - 32-bit pid at offset 28
+-			 *   - 64-bit action at offset 32
+-			 *
+-			 * Fall through to default handles version==0 case
+-			 * (from sysfs path), ensuring we always use correct
+-			 * v2 recording function to match the v2 buffer
+-			 * allocated above.
+-			 */
+-			record_blktrace_event2(ring_buffer_event_data(event),
+-					       pid, cpu, sector, bytes,
+-					       what, bt->dev, error, cgid, cgid_len,
+-					       pdu_data, pdu_len);
+-			break;
+-		}
++		record_blktrace_event2(ring_buffer_event_data(event),
++				       pid, cpu, sector, bytes,
++				       what, bt->dev, error, cgid, cgid_len,
++				       pdu_data, pdu_len);
+ 
+ 		trace_buffer_unlock_commit(blk_tr, buffer, event, trace_ctx);
+ 		return;
+@@ -1913,6 +1873,12 @@ static int blk_trace_setup_queue(struct request_queue *q,
+ 
+ 	bt->dev = bdev->bd_dev;
+ 	bt->act_mask = (u16)-1;
++	/*
++	 * This sysfs-enabled path feeds the ftrace blk tracer, which always
++	 * uses the v2 (blk_io_trace2) format. Initialize the version so it is
++	 * never left dangling as 0 for future consumers.
++	 */
++	bt->version = 2;
+ 
+ 	blk_trace_setup_lba(bt, bdev);
+ 
+-- 
+2.51.0
+
