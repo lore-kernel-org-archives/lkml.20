@@ -1,123 +1,62 @@
-Received: from mta0.migadu.com (out-104.mta0.migadu.com [91.218.175.104])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A0083F23B5
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 06:44:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.104
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C87BE3EFFD1;
+	Thu,  3 Sep 2026 06:44:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788417867; cv=none; b=p6uLtK25GvSjOIM9/0fKbCSaalSwRjDOH5nWflNdh0aEsVo+o4+o364UQ1v9hvjJ5Ni2juaLFZmodWHopHr/2u52b98nMOofOIcHdJZBYtFD97gvKd+bTYrYEmxrYki2HRgfA7X4kSaKZR0mlCwAoJHfvBih2x46roy10X9qE88=
+	t=1788417906; cv=none; b=gdVwWMQObQtLHIvM6lP1fSqBMwn4k7Ch8SSqUQH2dcjFmXlYCE6LyLmmkEpliVIsUSKTk7iDWIBds86ompc+MxG2Q/2h7MsqOBuddkRUN3j1QTB0qUBTcGWKyueJUUUMOx8WWy0JjsJU/nIoVq+IUJih1JwSNkic7LAnrTPMCm0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788417867; c=relaxed/simple;
-	bh=rt0uf5ENDUFezdgnDnZTZzJtTUD/9Ca8kwTZGSnZtmU=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=abB2hV0GVnZQIW8q2pXVBr8NDHeh5uPSIMCrS9b5bZgKqYhWqifiMx+PxiPV1kwMwoN4u34kw0nuyRVRxQO4xuPeBjt/fZA4GSGIHSyN6pDG1ctiWNIFPfb4Z3fMr2RXthE2pokbi5Jt21Ogz15bCgIXYmXSXH90W/NOlbJ1sFw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=w9rOz+Q0; arc=none smtp.client-ip=91.218.175.104
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="w9rOz+Q0"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=rt0uf5ENDUFezdgnDnZTZzJtTUD/9Ca8kwTZGSnZtmU=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788417857; v=1; x=1789022657;
- b=w9rOz+Q0Ceb36XjiKUW0oT0cQBlYWCgfZ5t6eog7/wK5Ymzsd7K+PET8Igsm8Jpw0gKP0lDG
- UgQ2/MLbt2dqYFAYJvb3naEzDuSp2PcOkwVAO+sXaJLgdOfoPHurRKD+za+QrvlSU9jwG4K017R
- egktj/LrTX1fG74KK7xRJsAU=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id bb1b68e32c3346e3;
-	Thu, 03 Sep 2026 06:44:17 +0000
-X-Mizu-Trace-ID: bb1b68e32c3346e3
-X-Migadu-Flow: FLOW_OUT
-From: Aditya Garg <aditya.garg@linux.dev>
-To: Jiri Kosina <jikos@kernel.org>,
-	Benjamin Tissoires <bentiss@kernel.org>
-Cc: Linux Input Mailing List <linux-input@vger.kernel.org>,
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
-Subject: [PATCH] HID: apple: ignore the trackpad on T2 Macs
-Date: Thu,  3 Sep 2026 12:14:07 +0530
-Message-ID: <20260903064407.27755-1-aditya.garg@linux.dev>
-X-Mailer: git-send-email 2.53.0
+	s=arc-20240116; t=1788417906; c=relaxed/simple;
+	bh=DrF3jvrVM6IOupsbsQh1LJr9Yw6vuZDqhSj2bF72WME=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=sjA5zFDdbRbzHxrUk0QTG1e/jF2FjcbQD9i7zFrXrVqT3QMZCS2ZCYM317QFxYQmFOqeMCazxqCTcUFcD6Kd3NHLVMErjxJ11Q9xi5lEo/W7wzqW3ekyO8inGnWjbhmYTzva8ag+uziZ/wm4gowV2DBup0FqfvlYZDmXW/T+MHc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: f7172b3ca76211f19a56ed5b684f684d-20260903
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:94c12622-973b-473b-8cf6-e397eded272a,IP:0,U
+	RL:0,TC:0,Content:-5,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
+	:release,TS:-5
+X-CID-META: VersionHash:7db8b62,CLOUDID:627dc1d0ff5cd5c6053f3d3a7eb0218b,BulkI
+	D:nil,BulkQuantity:0,SF:81|82|83|102|850|865|898,TC:nil,Content:0|15|50,ED
+	M:-3,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:
+	0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: f7172b3ca76211f19a56ed5b684f684d-20260903
+X-User: huangwei@kylinos.cn
+Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
+	(envelope-from <huangwei@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+	with ESMTP id 681169013; Thu, 03 Sep 2026 14:44:51 +0800
+From: Huang Wei <huangwei@kylinos.cn>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Huang Wei <huangwei@kylinos.cn>,
+	linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] usb: dwc2: debugfs: fix memory leak of hsotg->regset
+Date: Thu,  3 Sep 2026 14:44:49 +0800
+Message-Id: <20260903064449.3359239-1-huangwei@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <2026090200-mothproof-snowplow-f443@gregkh>
+References: <20260807100400.3179625-1-huangwei@kylinos.cn> <20260902090541.2134430-1-huangwei@kylinos.cn> <2026090200-mothproof-snowplow-f443@gregkh>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-The trackpad on T2 Macs is incorrectly bound by the hid-apple driver.
-This is due to both trackpad and keyboard sharing the same VID/PID.
-Use the existing APPLE_IGNORE_MOUSE quirk for the same.
+Hi Greg,
 
-Signed-off-by: Aditya Garg <aditya.garg@linux.dev>
----
- drivers/hid/hid-apple.c | 27 +++++++++++++++++----------
- 1 file changed, 17 insertions(+), 10 deletions(-)
+Thanks — no rush on my patch, understood. I'll start helping review
+others on the list.
 
-diff --git a/drivers/hid/hid-apple.c b/drivers/hid/hid-apple.c
-index 4505e5839..cdc008c66 100644
---- a/drivers/hid/hid-apple.c
-+++ b/drivers/hid/hid-apple.c
-@@ -30,7 +30,7 @@
- #include "hid-ids.h"
- 
- #define APPLE_RDESC_JIS		BIT(0)
--/* BIT(1) reserved, was: APPLE_IGNORE_MOUSE */
-+#define APPLE_IGNORE_MOUSE	BIT(1)
- #define APPLE_HAS_FN		BIT(2)
- /* BIT(3) reserved, was: APPLE_HIDDEV */
- #define APPLE_ISO_TILDE_QUIRK	BIT(4)
-@@ -951,6 +951,9 @@ static int apple_probe(struct hid_device *hdev,
- 	    hdev->type != HID_TYPE_SPI_KEYBOARD)
- 		return -ENODEV;
- 
-+	if (quirks & APPLE_IGNORE_MOUSE && hdev->type == HID_TYPE_USBMOUSE)
-+		return -ENODEV;
-+
- 	asc = devm_kzalloc(&hdev->dev, sizeof(*asc), GFP_KERNEL);
- 	if (asc == NULL) {
- 		hid_err(hdev, "can't alloc apple descriptor\n");
-@@ -1173,27 +1176,31 @@ static const struct hid_device_id apple_devices[] = {
- 	{ HID_USB_DEVICE(USB_VENDOR_ID_APPLE, USB_DEVICE_ID_APPLE_WELLSPRING9_JIS),
- 		.driver_data = APPLE_HAS_FN | APPLE_RDESC_JIS },
- 	{ HID_USB_DEVICE(USB_VENDOR_ID_APPLE, USB_DEVICE_ID_APPLE_WELLSPRINGT2_J140K),
--		.driver_data = APPLE_HAS_FN | APPLE_BACKLIGHT_CTL | APPLE_ISO_TILDE_QUIRK },
-+		.driver_data = APPLE_HAS_FN | APPLE_BACKLIGHT_CTL | APPLE_ISO_TILDE_QUIRK |
-+				APPLE_IGNORE_MOUSE },
- 	{ HID_USB_DEVICE(USB_VENDOR_ID_APPLE, USB_DEVICE_ID_APPLE_WELLSPRINGT2_J132),
- 		.driver_data = APPLE_HAS_FN | APPLE_BACKLIGHT_CTL | APPLE_ISO_TILDE_QUIRK |
--			APPLE_DISABLE_FKEYS },
-+			APPLE_DISABLE_FKEYS | APPLE_IGNORE_MOUSE },
- 	{ HID_USB_DEVICE(USB_VENDOR_ID_APPLE, USB_DEVICE_ID_APPLE_WELLSPRINGT2_J680),
- 		.driver_data = APPLE_HAS_FN | APPLE_BACKLIGHT_CTL | APPLE_ISO_TILDE_QUIRK |
--			APPLE_DISABLE_FKEYS },
-+			APPLE_DISABLE_FKEYS | APPLE_IGNORE_MOUSE },
- 	{ HID_USB_DEVICE(USB_VENDOR_ID_APPLE, USB_DEVICE_ID_APPLE_WELLSPRINGT2_J680_ALT),
- 		.driver_data = APPLE_HAS_FN | APPLE_BACKLIGHT_CTL | APPLE_ISO_TILDE_QUIRK |
--			APPLE_DISABLE_FKEYS },
-+			APPLE_DISABLE_FKEYS | APPLE_IGNORE_MOUSE },
- 	{ HID_USB_DEVICE(USB_VENDOR_ID_APPLE, USB_DEVICE_ID_APPLE_WELLSPRINGT2_J213),
- 		.driver_data = APPLE_HAS_FN | APPLE_BACKLIGHT_CTL | APPLE_ISO_TILDE_QUIRK |
--			APPLE_DISABLE_FKEYS },
-+			APPLE_DISABLE_FKEYS | APPLE_IGNORE_MOUSE },
- 	{ HID_USB_DEVICE(USB_VENDOR_ID_APPLE, USB_DEVICE_ID_APPLE_WELLSPRINGT2_J214K),
--		.driver_data = APPLE_HAS_FN | APPLE_ISO_TILDE_QUIRK | APPLE_DISABLE_FKEYS },
-+		.driver_data = APPLE_HAS_FN | APPLE_ISO_TILDE_QUIRK | APPLE_DISABLE_FKEYS |
-+				APPLE_IGNORE_MOUSE },
- 	{ HID_USB_DEVICE(USB_VENDOR_ID_APPLE, USB_DEVICE_ID_APPLE_WELLSPRINGT2_J223),
--		.driver_data = APPLE_HAS_FN | APPLE_ISO_TILDE_QUIRK | APPLE_DISABLE_FKEYS },
-+		.driver_data = APPLE_HAS_FN | APPLE_ISO_TILDE_QUIRK | APPLE_DISABLE_FKEYS |
-+				APPLE_IGNORE_MOUSE },
- 	{ HID_USB_DEVICE(USB_VENDOR_ID_APPLE, USB_DEVICE_ID_APPLE_WELLSPRINGT2_J230K),
--		.driver_data = APPLE_HAS_FN | APPLE_ISO_TILDE_QUIRK },
-+		.driver_data = APPLE_HAS_FN | APPLE_ISO_TILDE_QUIRK | APPLE_IGNORE_MOUSE },
- 	{ HID_USB_DEVICE(USB_VENDOR_ID_APPLE, USB_DEVICE_ID_APPLE_WELLSPRINGT2_J152F),
--		.driver_data = APPLE_HAS_FN | APPLE_ISO_TILDE_QUIRK | APPLE_DISABLE_FKEYS },
-+		.driver_data = APPLE_HAS_FN | APPLE_ISO_TILDE_QUIRK | APPLE_DISABLE_FKEYS |
-+				APPLE_IGNORE_MOUSE },
- 	{ HID_BLUETOOTH_DEVICE(USB_VENDOR_ID_APPLE, USB_DEVICE_ID_APPLE_ALU_WIRELESS_2009_ANSI),
- 		.driver_data = APPLE_NUMLOCK_EMULATION | APPLE_HAS_FN },
- 	{ HID_BLUETOOTH_DEVICE(USB_VENDOR_ID_APPLE, USB_DEVICE_ID_APPLE_ALU_WIRELESS_2009_ISO),
--- 
-2.50.1
-
+Best regards,
+Huang Wei
