@@ -1,42 +1,72 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f42.google.com (mail-ed1-f42.google.com [209.85.208.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94BCD4FDE4F;
-	Thu,  3 Sep 2026 17:59:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 535E24772A1
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 18:00:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788458358; cv=none; b=V0I8r2rpN3er04Zs+vVU4TdiKICHmddCNPe7u4y3ZkRY2QDwSQlYsRVPY4npm0pRCZutulQI4r36RLeHuqBf24jKjple7pobvTlwrDHf7Tlwl7mT3s0Qvu5HjPqVLFcD+vN92vZ0aKUaD5GkKpVwaH6ue42V7weZg+fHDT4FnN8=
+	t=1788458440; cv=none; b=IXNvea3v0Q8BdOa78TH0DE7rNU7K71zstlhbxrbKNgdoXFQProRLJFe9I+ka398kWD1HS/OG1kuisTK4ihwtFphGuIcl4uwAUCtN7wAYH6lBd41Iuyk8STlUArY8KdJZf2PmjIz329Ssd1VSmYFOTv1Xd8K5VYk/CbD1NzjRDmc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788458358; c=relaxed/simple;
-	bh=hx43v5sS0Y/tpZQvSdhQ/UqotO5OPdqG9PuCXH8pTSA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=gybkGFb6zjHmpMFu9ZHumk+3skTlzj6JbihXiVIv+HI4VQ4rAWYVljDp6D0jRpDLA9afYJZIDdEJ2dFT1sBUO1m1FQsutSeRYUwe8Q1qkveDc5UC9UbWpcPxDuCslfyE2SmbOLcsHy3LV6hvTwSZd255yoPFDHkrlNi/Kmit0vA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Bd0PyZGY; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788458440; c=relaxed/simple;
+	bh=IUxKvcbhvJ1WlqN1g75W7GmTyjgiIIsKfODG+6due40=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=eZ8kHyci7fjBWbYhnfbk8h/p1HQieoTSql55VDlTMyRkrB5svjLR5wp7L7ufMHOqgjpUrrJA+eV9u5nUjpjXVgss3p3X4Hys8RlagimyeRl++wOFI0csdMyq63Y3d9yGrzr6h7wTVBKjzICXq6ihtQ29MczBz0r5dgTu3RO/9PE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dzvfBGcJ; arc=none smtp.client-ip=209.85.208.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Bd0PyZGY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A15061F000E9;
-	Thu,  3 Sep 2026 17:59:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788458355;
-	bh=ITOPJ3u0XbOMCv25iKhwDg/KIQlm1rJM+YomdYdjXTo=;
-	h=From:To:Cc:Subject:Date;
-	b=Bd0PyZGY05mG/D2ndzjXPc3KtOTUWjWpOA7m/2wsIMVWwM2dDG+ikcJFAe0sL6n9O
-	 woG0M2akZltiuzBYpi0EcAWld446f3nyau8ZjcmQXYqpXW8S9QnNLYaMpoouRg549t
-	 y6rwc9WZsgzQKj58SXAyXrJ6RGUkbaOUP8RX0K227+lWIMuyxbvuJXfi35B6UZ6qsR
-	 SHOonpLG4sPWPv5PX1xfCTMvfs4b1TOduPkZ6ZLNDdPpR3/93WtysHWUKFO0z9gW8Z
-	 MH73Qa6FwbDXe+RnYDlppudHVrq38OqWsTYyXN7FyQR4q2UniFIcU6qsPlx+hoAoA/
-	 SfxmcUJecY46A==
-From: Yosry Ahmed <yosry@kernel.org>
-To: Sean Christopherson <seanjc@google.com>
-Cc: Paolo Bonzini <pbonzini@redhat.com>,
-	kvm@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dzvfBGcJ"
+Received: by mail-ed1-f42.google.com with SMTP id 4fb4d7f45d1cf-6a374bea882so36375a12.1
+        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 11:00:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788458436; x=1789063236; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=laP9SL4wV0LhItGTQrHhZYn1jphGll7QdwUkXmYDmvU=;
+        b=dzvfBGcJ9HFntU0RSqEz2JM7qEvUxPnoGoBDO85tVw8Od6B0HF6Hd3LsZRCLlBBPln
+         NGeK7NJp+rwgAjnj2hiGEzSPZvDRo1gGUynULqiiuyLF7ZBsqTXSFe/6z0dHlyiLz2CR
+         EGi7IJ7aUMtyOm1/2EwRi+2JW2PsJBiJHS2C+O58/JucbRBc9qJdqZrZho4Rn7gPTlPR
+         FRxtB8KT7d0JZ83qb1qQgw88nCSVvtOY9fnjUqUQ58cBZy0D5f+VtIr7gHNmWGrR1Qyt
+         4OBa7TxXAAN830ZmDQq1TDLbeNBpLLr+A9khM2ZJYTPSr3Djbaa+hSyr4Z3mwBb1hB57
+         gGnQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788458436; x=1789063236;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=laP9SL4wV0LhItGTQrHhZYn1jphGll7QdwUkXmYDmvU=;
+        b=ZFdKh4ZXERyGqe0PpB9pDCpLsSDtvn1N/SYcfWtaw/c0bZs9m+P04Ovx+Bu6zyZFCH
+         0IKpfAY/UbSLbl3kHLCHdIIuP0WYvAdVAcHl7/foaOjwKLOB45CfUwVmwyZveKGzT2R6
+         +6sZzN7AvjGWz7C3PZde5Ej+OER482fsi5TfHDUvm3jP7Jl4favN/6dPanOhJGGAuu+q
+         LTFz6w8KVMNJdv8kP6Qznhuvbx8ZTa0nVj7y0BWBWQG10peD752yQ624yZiZ5tpC52CS
+         tYqH6CskYNWkZMgJ6WyuGm7QTc/Jlz7jyTG+DFg4LyLETMPlDQE8R8kkv8vkuI4UQ9cG
+         Hykg==
+X-Forwarded-Encrypted: i=1; AKwUvBwvkaqIQIBaUjze4gjdzk2gf7Bx7u+YQ4c8ssH79O53luynENdpGxyvOU29TqNP++bYLIZqM2RkiKB9f7s=@vger.kernel.org
+X-Gm-Message-State: AFuF++miMk1h2XTJhSl7BsIU6pY7heDNdoJGTdHvrZ0H9yVssxwpCtuw
+	SVq+cCdjiZrQaRcWewduSD8z9t+s4vIQVE/p1NapqjbjPIme5/qEM6Et
+X-Gm-Gg: AYBFou3ZbuBaGsUm9nQYEUeoh7Ufy0zRscwvPB4hhYoUxSJDyA3EuDsCgywbUYOU0yg
+	dRqbUmTGy5UTgswBHN/2rwocKPuLmNHP9Qofdk0gK9qnn6lMJap6O3ifonSoq9wS1zTAY1V/IWn
+	4fKzIUd/dFzlV/souWzhSaTz+EDnmF5vsdJRa88kqyZKBb46Xq2HReV92P8r7megchfzHXOgwRm
+	bJXGAzzrDf+iqS/tvmyc5bZQlMf+/Nv1eLM/qKr93Q1NfPyvX+mpMvLDgThjEyh4IRzCDuyrAiS
+	JNnZo30/8mFl4AzNgnezLeHuXBTu/+RlG03miRVivWpBOsMQr98TGcCif+ZqT0LdpSDO/5umQ6n
+	2lHEiqjwTe9YZwl4oZRHlAetMYpZ2viq4QQQw2hW7gqGzHjZfPSswj8POu8MdM7s2fwlsfoQeg6
+	LqKLb5GK8712pR6reEbfO49pD0EaDM4UoZ2tT0qxmaCSB2uwXykeSgRMF+oec1Jul7QdSqdL5UK
+	gqh1OnW2I5s4OHYMGnXwlVL8gszoAJ9JoYzQANDKFyLh+S9vI7gll4lq5FSZxArTA==
+X-Received: by 2002:a05:6402:4347:b0:698:c13e:179a with SMTP id 4fb4d7f45d1cf-6a6829afda3mr9886022a12.10.1788458436110;
+        Thu, 03 Sep 2026 11:00:36 -0700 (PDT)
+Received: from localhost.localdomain (185-130-167-72.kund.ip-osteraker.se. [185.130.167.72])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a7e68a6c2asm95575a12.6.2026.09.03.11.00.34
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Thu, 03 Sep 2026 11:00:35 -0700 (PDT)
+From: Sebastian Sjoholm <sebastian.sjoholm@gmail.com>
+To: johan@kernel.org
+Cc: gregkh@linuxfoundation.org,
+	linux-usb@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Yosry Ahmed <yosry@kernel.org>,
-	stable@vger.kernel.org,
-	Stefan Teodorescu <fane@google.com>
-Subject: [PATCH] KVM: SVM: Trigger new ASID allocation in both VMCBs on pCPU switch
-Date: Thu,  3 Sep 2026 17:58:56 +0000
-Message-ID: <20260903175856.4065099-1-yosry@kernel.org>
-X-Mailer: git-send-email 2.55.0.979.g7e5102b832-goog
+	Sebastian Sjoholm <sebastian.sjoholm@gmail.com>
+Subject: [PATCH] USB: serial: option: add Quectel RG660QB
+Date: Thu,  3 Sep 2026 20:00:29 +0200
+Message-ID: <20260903180029.6155-1-sebastian.sjoholm@gmail.com>
+X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -45,112 +75,312 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-When the pCPU where the VMCB was mostly recently used is switched, reset
-the ASID generation in both VMCBs, triggering new ASID allocation for
-the immediate VMRUN as well as the next VMRUN on the other VMCB.
+Add support for the Quectel RG660QB 5G module (USB ID 2c7c:013d).
+The interface layout is the same as the RG650V:
 
-The ASID is shared between vmcb01 and vmcb02, and gets flushed on every
-nested transition. However, since pCPU tracking is done per VMCB, it is
-possible for one VMCB to allocate a new ASID when migrated to a new
-pCPU, and then the other VMCB reuses that ASID on the old pCPU. This can
-result in the same ASID being used by multiple vCPUs on the old pCPU.
+  If 0: DIAG   ff/ff/30, 2 endpoints
+  If 1: NMEA   ff/00/00, 2 endpoints
+  If 2: AT     ff/00/00, 3 endpoints
+  If 3: Modem  ff/00/00, 3 endpoints
+  If 4: QMI    ff/ff/ff, 3 endpoints
 
-Example scenario:
-- vCPU runs on pCPU A, vmcb01 is active, asid=1.
-- vCPU migrates to pCPU B, vmcb01 pCPU changes, new asid=2.
-- Another vCPU runs on pCPU A and allocates asid=2 as well.
-- vCPU migrates back to pCPU A, and then switches to vmcb02 before it
-  runs again with vmcb01.
-- No pCPU switch is detected for vmcb02, so VMRUN is done with asid=2.
-- Two vCPUs end up using asid=2 on the same pCPU.
+Match the serial interfaces on class/subclass/protocol so that the QMI
+interface is left to qmi_wwan.
 
-Keep the VMCB dirtying to the active VMCB only. Clean bits are tracked
-by a pCPU for each VMCB, so do not unnecessarily dirty a VMCB if its
-pCPU does not change.
+  # lsusb -v -d 2c7c:013d
 
-Additionally, initialize the tracker pCPU for vmcb02 to -1 on nested
-enablement, so that the new ASID allocation in the scenario above
-happens even if EFER.SVME is disabled in L1 before migrating to the new
-pCPU (so asid_generation in vmcb02 is not reset), but enabled before
-returning to the old pCPU.
+  Bus 004 Device 002: ID 2c7c:013d Quectel Wireless Solutions Co., Ltd. RG660QB-EU
+  Device Descriptor:
+    bLength                18
+    bDescriptorType         1
+    bcdUSB               3.20
+    bDeviceClass            0
+    bDeviceSubClass         0
+    bDeviceProtocol         0
+    bMaxPacketSize0         9
+    idVendor           0x2c7c Quectel Wireless Solutions Co., Ltd.
+    idProduct          0x013d
+    bcdDevice            6.06
+    iManufacturer           1 Quectel
+    iProduct                2 RG660QB-EU
+    iSerial                 3 f50119d0
+    bNumConfigurations      1
+    Configuration Descriptor:
+      bLength                 9
+      bDescriptorType         2
+      wTotalLength       0x0105
+      bNumInterfaces          5
+      bConfigurationValue     1
+      iConfiguration          4 DIAG_SER_RMNET
+      bmAttributes         0xa0
+        (Bus Powered)
+        Remote Wakeup
+      MaxPower              896mA
+      Interface Descriptor:
+        bLength                 9
+        bDescriptorType         4
+        bInterfaceNumber        0
+        bAlternateSetting       0
+        bNumEndpoints           2
+        bInterfaceClass       255 Vendor Specific Class
+        bInterfaceSubClass    255 Vendor Specific Subclass
+        bInterfaceProtocol     48
+        iInterface              0
+        Endpoint Descriptor:
+          bLength                 7
+          bDescriptorType         5
+          bEndpointAddress     0x01  EP 1 OUT
+          bmAttributes            2
+            Transfer Type            Bulk
+            Synch Type               None
+            Usage Type               Data
+          wMaxPacketSize     0x0400  1x 1024 bytes
+          bInterval               0
+          bMaxBurst               0
+        Endpoint Descriptor:
+          bLength                 7
+          bDescriptorType         5
+          bEndpointAddress     0x81  EP 1 IN
+          bmAttributes            2
+            Transfer Type            Bulk
+            Synch Type               None
+            Usage Type               Data
+          wMaxPacketSize     0x0400  1x 1024 bytes
+          bInterval               0
+          bMaxBurst               0
+      Interface Descriptor:
+        bLength                 9
+        bDescriptorType         4
+        bInterfaceNumber        1
+        bAlternateSetting       0
+        bNumEndpoints           2
+        bInterfaceClass       255 Vendor Specific Class
+        bInterfaceSubClass      0
+        bInterfaceProtocol      0
+        iInterface              0
+        Endpoint Descriptor:
+          bLength                 7
+          bDescriptorType         5
+          bEndpointAddress     0x82  EP 2 IN
+          bmAttributes            2
+            Transfer Type            Bulk
+            Synch Type               None
+            Usage Type               Data
+          wMaxPacketSize     0x0400  1x 1024 bytes
+          bInterval               0
+          bMaxBurst               0
+        Endpoint Descriptor:
+          bLength                 7
+          bDescriptorType         5
+          bEndpointAddress     0x02  EP 2 OUT
+          bmAttributes            2
+            Transfer Type            Bulk
+            Synch Type               None
+            Usage Type               Data
+          wMaxPacketSize     0x0400  1x 1024 bytes
+          bInterval               0
+          bMaxBurst               0
+      Interface Descriptor:
+        bLength                 9
+        bDescriptorType         4
+        bInterfaceNumber        2
+        bAlternateSetting       0
+        bNumEndpoints           3
+        bInterfaceClass       255 Vendor Specific Class
+        bInterfaceSubClass      0
+        bInterfaceProtocol      0
+        iInterface              6 CDEV Serial
+        ** UNRECOGNIZED:  05 24 00 10 01
+        ** UNRECOGNIZED:  05 24 01 00 00
+        ** UNRECOGNIZED:  04 24 02 02
+        ** UNRECOGNIZED:  05 24 06 00 00
+        Endpoint Descriptor:
+          bLength                 7
+          bDescriptorType         5
+          bEndpointAddress     0x84  EP 4 IN
+          bmAttributes            3
+            Transfer Type            Interrupt
+            Synch Type               None
+            Usage Type               Data
+          wMaxPacketSize     0x000a  1x 10 bytes
+          bInterval               9
+          bMaxBurst               0
+        Endpoint Descriptor:
+          bLength                 7
+          bDescriptorType         5
+          bEndpointAddress     0x83  EP 3 IN
+          bmAttributes            2
+            Transfer Type            Bulk
+            Synch Type               None
+            Usage Type               Data
+          wMaxPacketSize     0x0400  1x 1024 bytes
+          bInterval               0
+          bMaxBurst               0
+        Endpoint Descriptor:
+          bLength                 7
+          bDescriptorType         5
+          bEndpointAddress     0x03  EP 3 OUT
+          bmAttributes            2
+            Transfer Type            Bulk
+            Synch Type               None
+            Usage Type               Data
+          wMaxPacketSize     0x0400  1x 1024 bytes
+          bInterval               0
+          bMaxBurst               0
+      Interface Descriptor:
+        bLength                 9
+        bDescriptorType         4
+        bInterfaceNumber        3
+        bAlternateSetting       0
+        bNumEndpoints           3
+        bInterfaceClass       255 Vendor Specific Class
+        bInterfaceSubClass      0
+        bInterfaceProtocol      0
+        iInterface              6 CDEV Serial
+        ** UNRECOGNIZED:  05 24 00 10 01
+        ** UNRECOGNIZED:  05 24 01 00 00
+        ** UNRECOGNIZED:  04 24 02 02
+        ** UNRECOGNIZED:  05 24 06 00 00
+        Endpoint Descriptor:
+          bLength                 7
+          bDescriptorType         5
+          bEndpointAddress     0x86  EP 6 IN
+          bmAttributes            3
+            Transfer Type            Interrupt
+            Synch Type               None
+            Usage Type               Data
+          wMaxPacketSize     0x000a  1x 10 bytes
+          bInterval               9
+          bMaxBurst               0
+        Endpoint Descriptor:
+          bLength                 7
+          bDescriptorType         5
+          bEndpointAddress     0x85  EP 5 IN
+          bmAttributes            2
+            Transfer Type            Bulk
+            Synch Type               None
+            Usage Type               Data
+          wMaxPacketSize     0x0400  1x 1024 bytes
+          bInterval               0
+          bMaxBurst               0
+        Endpoint Descriptor:
+          bLength                 7
+          bDescriptorType         5
+          bEndpointAddress     0x04  EP 4 OUT
+          bmAttributes            2
+            Transfer Type            Bulk
+            Synch Type               None
+            Usage Type               Data
+          wMaxPacketSize     0x0400  1x 1024 bytes
+          bInterval               0
+          bMaxBurst               0
+      Interface Descriptor:
+        bLength                 9
+        bDescriptorType         4
+        bInterfaceNumber        4
+        bAlternateSetting       0
+        bNumEndpoints           3
+        bInterfaceClass       255 Vendor Specific Class
+        bInterfaceSubClass    255 Vendor Specific Subclass
+        bInterfaceProtocol    255 Vendor Specific Protocol
+        iInterface              7 RmNet
+        Endpoint Descriptor:
+          bLength                 7
+          bDescriptorType         5
+          bEndpointAddress     0x88  EP 8 IN
+          bmAttributes            3
+            Transfer Type            Interrupt
+            Synch Type               None
+            Usage Type               Data
+          wMaxPacketSize     0x0008  1x 8 bytes
+          bInterval               9
+          bMaxBurst               0
+        Endpoint Descriptor:
+          bLength                 7
+          bDescriptorType         5
+          bEndpointAddress     0x87  EP 7 IN
+          bmAttributes            2
+            Transfer Type            Bulk
+            Synch Type               None
+            Usage Type               Data
+          wMaxPacketSize     0x0400  1x 1024 bytes
+          bInterval               0
+          bMaxBurst               6
+        Endpoint Descriptor:
+          bLength                 7
+          bDescriptorType         5
+          bEndpointAddress     0x05  EP 5 OUT
+          bmAttributes            2
+            Transfer Type            Bulk
+            Synch Type               None
+            Usage Type               Data
+          wMaxPacketSize     0x0400  1x 1024 bytes
+          bInterval               0
+          bMaxBurst               2
+  Binary Object Store Descriptor:
+    bLength                 5
+    bDescriptorType        15
+    wTotalLength       0x0023
+    bNumDeviceCaps          2
+    SuperSpeed USB Device Capability:
+      bLength                10
+      bDescriptorType        16
+      bDevCapabilityType      3
+      bmAttributes         0x00
+      wSpeedsSupported   0x000f
+        Device can operate at Low Speed (1Mbps)
+        Device can operate at Full Speed (12Mbps)
+        Device can operate at High Speed (480Mbps)
+        Device can operate at SuperSpeed (5Gbps)
+      bFunctionalitySupport   1
+        Lowest fully-functional device speed is Full Speed (12Mbps)
+      bU1DevExitLat           0 micro seconds
+      bU2DevExitLat           0 micro seconds
+    SuperSpeedPlus USB Device Capability:
+      bLength                20
+      bDescriptorType        16
+      bDevCapabilityType     10
+      bmAttributes         0x00000001
+        Sublink Speed Attribute count 1
+        Sublink Speed ID count 0
+      wFunctionalitySupport   0x1100
+      bmSublinkSpeedAttr[0]   0x000a4030
+        Speed Attribute ID: 0 10Gb/s Symmetric RX SuperSpeedPlus
+      bmSublinkSpeedAttr[1]   0x000a40b0
+        Speed Attribute ID: 0 10Gb/s Symmetric TX SuperSpeedPlus
+  Device Status:     0x0000
+    (Bus Powered)
 
-No performance regression was noticed when overcommitting L1 vCPUs in L0
-(to force rescheduling), pinning L1 <-> L2 vCPUs, and running CPUID in a
-tight loop bouncing between 2 vCPUs in L2.
+Tested with an early sample of the module on a Quectel 5G EVB connected
+over USB 3 to a Raspberry Pi 5.
 
-An alternative (and perhaps more proper) fix would be tracking the ASID
-per-VMCB instead (e.g. [1]). However, that's a more involved change, and
-it would result in having different ASIDs for L1 and L2 without actually
-properly maintaining them. It would probably work because all TLB
-flushes target the current VMCB, and the other VMCB is always flushed on
-nested transitions, but the code ends up in an arguably more fragile
-state. Punt a proper clean fix to an incoming (and overdue) overhaul of
-SVM's ASID usage [2].
-
-[1]https://lore.kernel.org/lkml/20250205182402.2147495-2-yosry.ahmed@linux.dev/
-[2]https://lore.kernel.org/kvm/20260728003557.1136583-1-yosry@kernel.org/
-
-Cc: stable@vger.kernel.org
-Reported-by: Stefan Teodorescu <fane@google.com>
-Signed-off-by: Yosry Ahmed <yosry@kernel.org>
+Assisted-by: LLM
+Signed-off-by: Sebastian Sjoholm <sebastian.sjoholm@gmail.com>
 ---
+ drivers/usb/serial/option.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-I wasn't sure if the last paragraph (or parts of it) fit in the
-changelog or below ---, so I just put it all in the changelog, but feel
-free to move things around.
-
----
- arch/x86/kvm/svm/nested.c |  1 +
- arch/x86/kvm/svm/svm.c    | 20 ++++++++++++++++----
- 2 files changed, 17 insertions(+), 4 deletions(-)
-
-diff --git a/arch/x86/kvm/svm/nested.c b/arch/x86/kvm/svm/nested.c
-index 73f37b050d0a0..0c55c71fc6010 100644
---- a/arch/x86/kvm/svm/nested.c
-+++ b/arch/x86/kvm/svm/nested.c
-@@ -1494,6 +1494,7 @@ int svm_allocate_nested(struct vcpu_svm *svm)
- 	if (!svm->nested.msrpm)
- 		goto err_free_vmcb02;
- 
-+	svm->nested.vmcb02.cpu = -1;
- 	svm->nested.initialized = true;
- 	return 0;
- 
-diff --git a/arch/x86/kvm/svm/svm.c b/arch/x86/kvm/svm/svm.c
-index ea647938a2a65..c388c6598463e 100644
---- a/arch/x86/kvm/svm/svm.c
-+++ b/arch/x86/kvm/svm/svm.c
-@@ -3765,14 +3765,26 @@ static int pre_svm_run(struct kvm_vcpu *vcpu)
- 	struct vcpu_svm *svm = to_svm(vcpu);
- 
- 	/*
--	 * If the previous vmrun of the vmcb occurred on a different physical
--	 * cpu, then mark the vmcb dirty and assign a new asid.  Hardware's
--	 * vmcb clean bits are per logical CPU, as are KVM's asid assignments.
-+	 * If the previous VMRUN of the VMCB occurred on a different physical
-+	 * cpu, then mark the VMCB dirty as hardware's clean bits are per pCPU.
-+	 *
-+	 * Reset the ASID generation in both VMCBs. This will lead to assigning
-+	 * a new ASID now, and then again when switching to the other VMCB.
-+	 * However, this is needed as the ASID is shared between the VMCBs, and
-+	 * otherwise it would be possible to use an ASID allocated on one pCPU
-+	 * on another, for example:
-+	 * - vCPU migrates from pCPU A to pCPU B, allocates a new ASID.
-+	 * - vCPU migrates back to pCPU A, and then switches the VMCB.
-+	 * - The new VMCB does not detect a pCPU change and runs on pCPU A with
-+	 *   the new ASID allocated on pCPU B, which is potentially used by
-+	 *   another vCPU/VM.
- 	 */
- 	if (unlikely(svm->current_vmcb->cpu != vcpu->cpu)) {
--		svm->current_vmcb->asid_generation = 0;
- 		vmcb_mark_all_dirty(svm->vmcb);
- 		svm->current_vmcb->cpu = vcpu->cpu;
-+		svm->vmcb01.asid_generation = 0;
-+		if (svm->nested.initialized)
-+			svm->nested.vmcb02.asid_generation = 0;
-         }
- 
- 	if (is_sev_guest(vcpu))
+diff --git a/drivers/usb/serial/option.c b/drivers/usb/serial/option.c
+index e4ad14375..7a712b018 100644
+--- a/drivers/usb/serial/option.c
++++ b/drivers/usb/serial/option.c
+@@ -260,6 +260,7 @@ static void option_instat_callback(struct urb *urb);
+ #define QUECTEL_PRODUCT_EM060K_12a		0x012a
+ #define QUECTEL_PRODUCT_EM060K_12b		0x012b
+ #define QUECTEL_PRODUCT_EM060K_12c		0x012c
++#define QUECTEL_PRODUCT_RG660QB			0x013d
+ #define QUECTEL_PRODUCT_EG91			0x0191
+ #define QUECTEL_PRODUCT_EG95			0x0195
+ #define QUECTEL_PRODUCT_BG96			0x0296
+@@ -1274,6 +1275,8 @@ static const struct usb_device_id option_ids[] = {
+ 	{ USB_DEVICE_AND_INTERFACE_INFO(QUECTEL_VENDOR_ID, QUECTEL_PRODUCT_RM500K, 0xff, 0x00, 0x00) },
+ 	{ USB_DEVICE_AND_INTERFACE_INFO(QUECTEL_VENDOR_ID, QUECTEL_PRODUCT_RG650V, 0xff, 0xff, 0x30) },
+ 	{ USB_DEVICE_AND_INTERFACE_INFO(QUECTEL_VENDOR_ID, QUECTEL_PRODUCT_RG650V, 0xff, 0, 0) },
++	{ USB_DEVICE_AND_INTERFACE_INFO(QUECTEL_VENDOR_ID, QUECTEL_PRODUCT_RG660QB, 0xff, 0xff, 0x30) },
++	{ USB_DEVICE_AND_INTERFACE_INFO(QUECTEL_VENDOR_ID, QUECTEL_PRODUCT_RG660QB, 0xff, 0, 0) },
+ 	{ USB_DEVICE_AND_INTERFACE_INFO(QUECTEL_VENDOR_ID, QUECTEL_PRODUCT_RG255C, 0xff, 0xff, 0x30) },
+ 	{ USB_DEVICE_AND_INTERFACE_INFO(QUECTEL_VENDOR_ID, QUECTEL_PRODUCT_RG255C, 0xff, 0, 0) },
+ 	{ USB_DEVICE_AND_INTERFACE_INFO(QUECTEL_VENDOR_ID, QUECTEL_PRODUCT_RG255C, 0xff, 0xff, 0x40) },
 -- 
-2.55.0.979.g7e5102b832-goog
+2.43.0
 
