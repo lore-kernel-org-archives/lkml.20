@@ -1,212 +1,139 @@
-Received: from CH1PR05CU001.outbound.protection.outlook.com (mail-northcentralusazon11010027.outbound.protection.outlook.com [52.101.193.27])
+Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com [165.173.180.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEFF34EC653
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 22:15:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.193.27
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F24C92931FC;
+	Thu,  3 Sep 2026 22:17:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.180.11
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788473726; cv=fail; b=UUnmq2N8uRSUHNQhdRd+CKio/HRk5maoetoRMD7nkNXlv19q3q7j7iA02YC0Fn8UWRK8VbVRFBem1fBfx8JTIMB7SPHF2XGnZmj8DVLtA/GB/ndYWLGpKrKitJ+FKJwn40MQmREdxxhubr0OlIE+UMO+qdRTmveyWOEaHYgoRng=
+	t=1788473845; cv=pass; b=g0vxAmY9BPTedo7tHLKwSgXLaeKPeSuiqJcbsg2L9NR/89HqStedXQ5E1d3hCTOcHiMS5kM8yI+PHpD2LSw6D4MQlnaDssHFvh3rV3vzsJmVGT9EpfE6XXMg+GpWLRr5ZfYcFImTDWf/i/81ZEPQ+m4ULmV4PQ0Qwgqh9qV2jDM=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788473726; c=relaxed/simple;
-	bh=IQfCYzcyWrY5+PiAy6+/B72hWhWtPAWCUODi+tpk4yM=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=QarI0fsVPpP/nzfNQfKdwUfvvaUo0wIj8HxjX/vwAJVOpGE5u/rfF1/5gebra7b0trW2Xu6gVGLhFxlCnELqA4Pdakm26g+P+MwuHPpLgly6JqGT25sq8fBvTG8nqXThOBmym8Obpn2ACFapysCtDTcc8xiWZyqyWRVItuEgLYg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=pQl469DN; arc=fail smtp.client-ip=52.101.193.27
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	s=arc-20240116; t=1788473845; c=relaxed/simple;
+	bh=CgMwsgsSYPg0EHBJRtTnvIZXVYywmfyjrzBpgv9NiCc=;
+	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
+	 Message-Id:References:To; b=fTDUP5ixXdbEFtUNevNYfXPv6fV09elFsJEJv1Lw1BySe/CcyE4TNxFkLkTvNA+iB92axwTOpuye3o20X8OqQEnThxuWSD6iSIDHa5FFvxs/gsr1l8LS2RkA7P1QnqbdQG3FzHwcQVsOkH8FG6eSsu6zTrqHY1dhxXP+gPI5oDQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=daniel.almeida@collabora.com header.b=Gnepje8Y; arc=pass smtp.client-ip=165.173.180.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="pQl469DN"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Nx+ZKDODJmPHPcAKx/Dtv7Du7ib2Hcu6BP1oDUbW30/IXXwPZRG/LzioEHoXFqeNHv+tJoGVmg47ivf/amjuDmu+8DExBEVe5qEHk5oYrhv3I9AGBprpmCnhgL9KdzEKagE11qL+e4Gmhia9On4yaFlIn7woGLSCeeBKFfqKkRrw/IMVuLjiPFNi6B8tXKIYQWzBJV9+VHhwKjXKp7SUFfCawv/Wx2D3vnjGlOyoR8L1hu2jn1/9Txr9fPyL0qcQNv9oJVobz5knWkiT2LxCQKcrFe2iL2uNJuHV9atIeDjNO43YE50D5WLmeY7YI/pove29UzIgDTMZ89teFT/jWA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=RAudpi5SRrAAmkKxGGLYMfykKz+A4EGkiRpJC3kzBZM=;
- b=o0JZPK7MRbRsOQ0lp5AzMo5y5VmeOM8EWffZN3grR/Le5v7HszDSFBT/rQ6mADw/rZ/V41ZsKP7ql4Vigv3zji/I8hNqhfbLCUeHC179ZlzHqN62wa1DHZeQNf0EF3Sbs0dTdoc7lBqmoiafFf16DhajFKrZmeL0R4+SaVUefosbhzyOJyKAd7a4C22dkZOrCdenCLcEyC2anOKlFLv/+pccaYW4vsZ2to1p2puuwkGwpxgr8CjxdkKgTSOSAGoWjJ2erez2bQsFXpugj1sYiMEjudPUGfEgRd5THx2Jzpd+IvtNfh8GZRsW4X/62mtltmRMf4R/4q+ZFITCApX7TQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=RAudpi5SRrAAmkKxGGLYMfykKz+A4EGkiRpJC3kzBZM=;
- b=pQl469DNP8UUXXWkMZ2JE797w+6LQzFaTE64daq8CwqCOZnb1NdkosFCwQ+h9T+HpqW7ZtKcHII0pmIcxMWt0Hfkgksq6SF2WKTcC7oBK/fhjaaufidvgkorJ8FJjg8smk4vtN60qcpjc6gc9Ov/ntYHLjxYo2qnhuMlnN7YcIA=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from CH3PR12MB8660.namprd12.prod.outlook.com (2603:10b6:610:177::5)
- by DM4PR12MB8569.namprd12.prod.outlook.com (2603:10b6:8:18a::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Thu, 3 Sep
- 2026 22:15:15 +0000
-Received: from CH3PR12MB8660.namprd12.prod.outlook.com
- ([fe80::87aa:52e5:4b72:d5f3]) by CH3PR12MB8660.namprd12.prod.outlook.com
- ([fe80::87aa:52e5:4b72:d5f3%5]) with mapi id 15.21.0382.007; Thu, 3 Sep 2026
- 22:15:15 +0000
-Message-ID: <4977aa83-ed7d-4947-9577-faab57d4ccc3@amd.com>
-Date: Thu, 3 Sep 2026 18:15:12 -0400
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/3] firmware_loader: Fix shutdown ordering and reference
- counting
-To: linux-kernel@vger.kernel.org
-Cc: Chao Gao <chao.gao@intel.com>, Dan Williams <djbw@kernel.org>,
- Dan Williams <dan.j.williams@intel.com>, mcgrof@kernel.org, dakr@kernel.org,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- "Rafael J. Wysocki" <rafael@kernel.org>, russ.weight@linux.dev,
- conor@kernel.org
-References: <20260331214726.903274-1-dan.j.williams@intel.com>
- <l5c5kckmjkey7yxfmrkahgumrc6pgnz6kunmqxovopifflwimx@65n66fqrxhz7>
- <adW8uyfRnnoA9T14@intel.com> <69d5be99ca69d_46de10093@djbw-dev.notmuch>
-Content-Language: en-US
-From: "Pratik R. Sampat" <prsampat@amd.com>
-In-Reply-To: <69d5be99ca69d_46de10093@djbw-dev.notmuch>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: CH0PR03CA0367.namprd03.prod.outlook.com
- (2603:10b6:610:119::24) To CH3PR12MB8660.namprd12.prod.outlook.com
- (2603:10b6:610:177::5)
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=daniel.almeida@collabora.com header.b="Gnepje8Y"
+ARC-Seal: i=1; a=rsa-sha256; t=1788473791; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=JKScbrY8mJKFBOk4gWjHsQ2eUiuL+OzJxuFYDly+hE86c+necr/CDKVWJ+uz/q7FBweNJsYrBzjIJHUiBlmi832Xb+qX2GHyePbp7dCvuEZmrkd6OI3vkcIwqFL3RRFd193tKr60GiTvXx3q9O3TS+LAjlBYbwKMITbmNVLYQzc=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1788473791; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=RWOu6GJfHwlVwN5aizsAATz9AbxY/g0p76dvf7h/0WM=; 
+	b=QFt+zF66oIB+oaebcKpgUyaDst/ujMpTCCIfaVnfuv/ualsr7Kx5POjZVndqNr7Iz3fgNzjo6CSmDpFYYWjF6usfkxB1JAwFs9YdB+z2KHm8vmTuyOV+7L3l5SO6D+fNbwrG/EVPtw56k44HKva5huU00puWRJWXHwD9U3hLckw=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=daniel.almeida@collabora.com;
+	dmarc=pass header.from=<daniel.almeida@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1788473791;
+	s=zohomail; d=collabora.com; i=daniel.almeida@collabora.com;
+	h=Content-Type:Mime-Version:Subject:Subject:From:From:In-Reply-To:Date:Date:Cc:Cc:Content-Transfer-Encoding:Message-Id:Message-Id:To:To:Reply-To;
+	bh=RWOu6GJfHwlVwN5aizsAATz9AbxY/g0p76dvf7h/0WM=;
+	b=Gnepje8YnI0WypZChVR+bwIMVMs9Q4fMv5KTsV0j22N671f3pwyPR0ipgke5NPF6
+	nqlhMB06Os1SP10rAUCS2wAEe4hFCrb0Y/wzo4WXdW96RKQv43BofKpG1rPtYuhFled
+	1KyYc0rqrhQoMm4V7ZAQfBbiKOV2Gx3qPI/UoOdE=
+Received: by mx.zohomail.com with SMTPS id 1788473791201272.4860508436931;
+	Thu, 3 Sep 2026 15:16:31 -0700 (PDT)
+Content-Type: text/plain;
+	charset=us-ascii
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH3PR12MB8660:EE_|DM4PR12MB8569:EE_
-X-MS-Office365-Filtering-Correlation-Id: 35c4e66a-379a-47ac-ab80-08df0a08d439
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|7416014|23010399003|1800799024|366016|11063799006|10067099003|4143699003|22082099003|18002099003|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	7oYjgh28+gTkUoAIj1JnpK/Ne1QBlQRMLIxBs8Z3jScaWD1zGmvF9xQqGDJlPn3Yi+XH4LzmtwLvgPANbUU8NBW0KqLWZAqbRYGafq7jLY7hIwkpXZEdbE+3wp6AmIa+h8A3sFjFqXKn/fD7ahmenInnSEV65G3Spw9nttisopjjGAEjofg/CjdwY13EKCrr92CIzrIUXrNUPIUhSy1CD8R+/x0hDAavaO2d39zvgRqmNBn0BSNKhKzAPZKaH7F+Mvz94l1a6CyGohKUuDXMRcrpaU0kiQgidCl1gAKjb3d42EN9kw1p0VehoJOWGJ5/kc46h/fw8KMZlcofc1qv6Z3gH5p8ErHWE0C5QqkVBtr3RAf3Yr3mujki2o92NtJrkfuHFwIwUqNA8pmKC4FVKp2tRTm5v29SJZGbFKzC3C54VLWo44beQdlHVpH0fE5lWEkr0e7kPcYgAGUkhR/C81PvCegp6OAz070zbZHQMgORBbCh2Ayi8tjd++mkaOHrmKmWnwFvn+BFt2cHZCE6e8GYT5U5myZ4HHC2jsL68/GNUmDuMI0dNSyzxBuEqwYVLBVDAZAOEGbvsuZpnKNQUoQ2E3SFuRZYmLaCr3AOfMk=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH3PR12MB8660.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(23010399003)(1800799024)(366016)(11063799006)(10067099003)(4143699003)(22082099003)(18002099003)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?a216WldiS1pQc3BUWlI0TytUVzJITEZnZGxJQVdPemlUY29iTHMwS3FsZ2w5?=
- =?utf-8?B?NERwQ0EyRjJqSDJ6WDlJMVU3eDRJT2l1VU0zWVFYb1FzY3M4eVc5OGVGYXJC?=
- =?utf-8?B?NXpxd1BpUi9ibno5Y09DcXVLaEhHODVUZnRhVEpCRHVaR1E3dEZTOVB1QWtj?=
- =?utf-8?B?aGk0RjNrSzhLRERmTzhpMTdwdlo3UkU2UUxTb2RuMWFWSmpNZHgvYy8wdW9p?=
- =?utf-8?B?R2dycC9nVlhLdzNwWGV5STNYaEY0dTdjeDgzeGt3cHdMNmVWell1SkppM01n?=
- =?utf-8?B?RTRKNnByQmlKOWg0cmZtVzJHUUNjU1BsaEUrak5OanlHNkNJK1ovcHRMUmRk?=
- =?utf-8?B?ZnpKM0UvY3FYU2xZMUVvdzJta1hRUjR1OGxXSW5KdUdJL21xWkpVT2ptZ3J1?=
- =?utf-8?B?byt1NGVRQzI5VjBjNXJIMmpPT0RxakhTWHNIdlhrdHBoK2JqRk05R0V5L2Na?=
- =?utf-8?B?dFg2di9jYWlHZWc2SVRoank5TCtSYnNXcXR0UStEVWFqVW5UZ2hRUXVlQnV3?=
- =?utf-8?B?dDhFRG43Vy83dEVTSmIrNnZXYXBickpPUnoxeFBZeTEzYm1rWjc5NXJqN3JB?=
- =?utf-8?B?WDJOeCtxV0NKWGJiV2FMekN1R0d5cnU4dUJvWXB0aE5Nb29CQVowcDY3M0R5?=
- =?utf-8?B?SCs3bzFaR3ZxTFBsQnBDcUJSRDFHVDFIczN1bGYvYTFWYXZCTDAza2toK0NK?=
- =?utf-8?B?dzFmcjcyTm5PdG8wbERhVVRrbHI1MnpUTDIydHBGU2wrdUNwYVpyMkFiWW1q?=
- =?utf-8?B?UVlFZ09DcmlSTG1ydjJ3WkUwU1hxTzZmN1U0cjdqRHhQS29VYzhyVFFzUHpq?=
- =?utf-8?B?VjlVRWRPUWgxVnFqN2N2djgrelVDalV2akk3a3RYZHpsaDZRem1Gdy9uOG1p?=
- =?utf-8?B?eFEvRHNtdjhGRkEwNVBwU1hyNXZYMGwyRFVqZVE5WE1JenNua2YyRWswbDNQ?=
- =?utf-8?B?YThKVzAwZkNIODI0dno2Z29pUjd3c0pKK292TnVIZHREZWtSWHNzTllSbm1s?=
- =?utf-8?B?aEVKRGRMeDZIeDY2dU9oNk5VZ1Z1K1UvZEQ3VW5tQlpmSjUvYjBaN0l4K3Zl?=
- =?utf-8?B?a2hjWjhXU2l4VjVjVkdkM3ZjazVkZ3Z6WVhXY2tZQXFaMDZIM0hrZWF6bFlh?=
- =?utf-8?B?NHc3Y0Q0NVhzejRyNXZPQlNwckRiWm5oZFBuS3drczJ2V1loNTJJOU0wdVhw?=
- =?utf-8?B?ZHpmUTZvRG5OaE9SREpVaUNybDNCZklkMitzRmxtT05CT0tSa0tnM3NsZUpO?=
- =?utf-8?B?blVXZFNWYXZJL0Y0T1FhNjdHWHVCK0ptMU5RL2oxTzFlcGh1eklPejFlbGc3?=
- =?utf-8?B?RGtNdUxwbEhGTjR4YnN4dXVzUjNXNWZjeFRiaE96cCtFdGhlZnRvTWJjZWNB?=
- =?utf-8?B?Tm1xSGpwWFJib2RCbWxsSE11T2hvYkRKNnUvMlVhVEIyN3ozeEdUOENYRzFE?=
- =?utf-8?B?RWFWRE55N1pBVUN3K3R1SGVCYzZ0MndMc0piZGIrUENTZ2FLQnQ4TnNQUlJK?=
- =?utf-8?B?MFhmUXI3VVcyUmJWdEFIeW15cCtCMnBUVnMvS3ZUd0wvVitBTS9Ob0dTYk5l?=
- =?utf-8?B?VnVkOTFUbmR5U243TGs1Yms5ZkZZYlJjZnY0NHFRTXAyTVBqNUVOWTcyd2Zw?=
- =?utf-8?B?aDlaVEtrZFZlUW1LRStNUENpcmpkY2pTejFtWnBQY1pjTGJIdHhtQ1BVNlM2?=
- =?utf-8?B?aWUycnBTMnBqcVFEbXBNSmRtRHBNa1FIdGthNFdOSVlSY2V1OFFSY093dXdn?=
- =?utf-8?B?R3VxeUhPTjF1Y3ZlNEtRMlZ3Z1ZyWUUwNXRKS0tkaERPVWdyM2Q0bS8rZE15?=
- =?utf-8?B?QW5Yc0VqZlBYZVErN2Y0MnpJZmlkbTkrZTJrVXFjVlE1c1RxSjc2T21US2kv?=
- =?utf-8?B?TkE3RVZyYU9wZFZacDNWTlM0T1VaakdQMEZsTWN1SEpFbkV0Ly9zTHpmczFo?=
- =?utf-8?B?L0UzUnU0SjZiQnd5dWRBaFZRMW5CdkRTTy9KdHdHSU1ybXJ0S2VwTDBvOVF1?=
- =?utf-8?B?c0RmNW1TdzZ0a2I5ZERXenlSNkNwSDR6VjQ4Z0YrS1ZJL2FUT1daeUU2N0R0?=
- =?utf-8?B?QWZBclhndk5hbEliWk9qVVAvRnBsMFQrR3U5SjM1NkNkQ3g0K0JYZ1R1QXhY?=
- =?utf-8?B?aWJhYy80RGNTMGI4d3FObGdPcXJlQkN5eFF4QWIxT3ZqRjNacExTUTRWTWxa?=
- =?utf-8?B?WXZxbmFXc3VDZktTWDJqTnVCQnJjRjU0YytyVTB4c3F2T01uaG1wa3Jac2Vs?=
- =?utf-8?B?R2todjVzM3VJR1cvOTV2TlpXT0ExN0JlZmRMNkdrNlRSaGZUdGIzUU1tSG5Q?=
- =?utf-8?Q?9RB4ggmmYk+RHSF9DG?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 35c4e66a-379a-47ac-ab80-08df0a08d439
-X-MS-Exchange-CrossTenant-AuthSource: CH3PR12MB8660.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Sep 2026 22:15:14.9709
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: IsCkuwdeIENBNYcxRYmQE9Slkfcar7Tvgd7LFrlMi1zZtZKyShY5Sr4A64eSOGXTuSrKzmoq1oHTr/T2zQDmCQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB8569
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3826.700.81\))
+Subject: Re: [PATCH 7/9] drm/tyr: refactor new_dummy_object to use new_object
+From: Daniel Almeida <daniel.almeida@collabora.com>
+In-Reply-To: <20260902-tyr-ioctls-v1-7-e0fdbf8bd108@kylinos.cn>
+Date: Thu, 3 Sep 2026 19:16:12 -0300
+Cc: rust-for-linux@vger.kernel.org,
+ Miguel Ojeda <ojeda@kernel.org>,
+ Boqun Feng <boqun@kernel.org>,
+ Gary Guo <gary@garyguo.net>,
+ =?utf-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>,
+ Benno Lossin <lossin@kernel.org>,
+ Andreas Hindborg <a.hindborg@kernel.org>,
+ Alice Ryhl <aliceryhl@google.com>,
+ Trevor Gross <tmgross@umich.edu>,
+ Danilo Krummrich <dakr@kernel.org>,
+ Tamir Duberstein <tamird@kernel.org>,
+ Alexandre Courbot <acourbot@nvidia.com>,
+ =?utf-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
+ Lorenzo Stoakes <ljs@kernel.org>,
+ "Liam R. Howlett" <liam@infradead.org>,
+ Lyude Paul <lyude@redhat.com>,
+ David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ linux-kernel@vger.kernel.org,
+ linux-mm@kvack.org,
+ dri-devel@lists.freedesktop.org,
+ Alvin Sun <alvin.sun@linux.dev>
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <260753A3-F6C0-426F-B640-C397BC4EA3D7@collabora.com>
+References: <20260902-tyr-ioctls-v1-0-e0fdbf8bd108@kylinos.cn>
+ <20260902-tyr-ioctls-v1-7-e0fdbf8bd108@kylinos.cn>
+To: sunke@kylinos.cn
+X-Mailer: Apple Mail (2.3826.700.81)
+X-ZohoMailClient: External
 
 
 
-On 4/7/26 10:34 PM, Dan Williams wrote:
-> Chao Gao wrote:
->> On Tue, Apr 07, 2026 at 01:24:03PM -0600, Russ Weight wrote:
->>> On Tue, Mar 31, 2026 at 02:47:23PM -0700, Dan Williams wrote:
->>>> Chao Gao raised a module reference circular dependency report resulting
->>>> from *correct* usage of the firmware_upload_register() API [1]. The
->>>> module reference count is not necessary nor sufficient for protecting
->>>> against racing unregister against in-flight requests. After that is
->>>> fixed, a couple more cleanups fall out.
->>>>
->>>> [1]: https://sashiko.dev/#/patchset/20260326084448.29947-1-chao.gao%40intel.com?patch=10705
->>>>
->>>>
->>>> Dan Williams (3):
->>>>   firmware_loader: Stop pinning modules on registration
->>>>   firmware_loader: Stop pinning parent device per workqueue invocation
->>>>   treewide: firmware_loader: Drop the unused @module argument
->>>>
+> On 1 Sep 2026, at 13:09, Ke Sun via B4 Relay =
+<devnull+sunke.kylinos.cn@kernel.org> wrote:
+>=20
+> From: Alvin Sun <alvin.sun@linux.dev>
+>=20
+> new_dummy_object() duplicated the BO creation code that new_object()
+> now provides; call new_object() instead.
+>=20
+> Signed-off-by: Alvin Sun <alvin.sun@linux.dev>
+> ---
+> drivers/gpu/drm/tyr/gem.rs | 13 ++-----------
+> 1 file changed, 2 insertions(+), 11 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/tyr/gem.rs b/drivers/gpu/drm/tyr/gem.rs
+> index be1affe80db1a..d9ddcb287f52b 100644
+> --- a/drivers/gpu/drm/tyr/gem.rs
+> +++ b/drivers/gpu/drm/tyr/gem.rs
+> @@ -82,17 +82,8 @@ pub(crate) fn lookup_handle(file: &TyrDrmFile, =
+handle: u32) -> Result<ARef<Bo>>
+>=20
+> /// Creates a dummy GEM object to serve as the root of a GPUVM.
+> pub(crate) fn new_dummy_object(ddev: &TyrDrmDevice) -> =
+Result<ARef<Bo>> {
+> -    let bo =3D Bo::new(
+> -        ddev,
+> -        4096,
+> -        shmem::ObjectConfig {
+> -            map_wc: true,
+> -            parent_resv_obj: None,
+> -        },
+> -        BoCreateArgs { flags: 0 },
+> -    )?;
+> -
+> -    Ok(bo)
+> +    // FIXME: use a Rust resv-object abstraction once available, =
+rather than a real BO.
+> +    new_object(ddev, 4096, 0)
 
+For the same reason as the previous patch, I think this needs to be =
+PAGE_SIZE too.
 
-Hi all,
+Feel free to work on the FIXME itself separately, if you want.
 
-I am preparing a download_firmware_ex live update series and, since these
-patches were close to complete, I would like to introduce them as a
-precursor to my patches.
+> }
+>=20
+> /// Specifies how to choose a GPU virtual address for a [`KernelBo`].
+>=20
+> --=20
+> 2.43.0
+>=20
+>=20
+>=20
 
-I will rebase and fold in Chao's build fixups from this thread, and
-preserve the rest of the attributions.
+With the change above,
 
-Please let me know if you'd rather they go in through another tree first
-instead of being bundled with the SEV live firmware update patches.
-
-Thanks,
-Pratik
-
->>>>  .../driver-api/firmware/fw_upload.rst         |  2 +-
->>>>  include/linux/firmware.h                      | 15 +++---
->>>>  drivers/base/firmware_loader/sysfs_upload.c   | 48 ++++++++-----------
->>>>  drivers/cxl/core/memdev.c                     |  4 +-
->>>>  drivers/firmware/microchip/mpfs-auto-update.c |  2 +-
->>>>  drivers/fpga/intel-m10-bmc-sec-update.c       |  4 +-
->>>>  drivers/greybus/gb-beagleplay.c               |  2 +-
->>>>  drivers/media/i2c/thp7312.c                   |  2 +-
->>>>  drivers/net/pse-pd/pd692x0.c                  |  4 +-
->>>>  lib/test_firmware.c                           |  3 +-
->>>>  10 files changed, 38 insertions(+), 48 deletions(-)
->>>>
->>>>
->>>> base-commit: f338e77383789c0cae23ca3d48adcc5e9e137e3c
->>>
->>> Hi Dan,
->>>
->>> Thanks for making these changes! Overall, the changes look good to
->>> me. However, when I apply these changes to the specified base-commit
->>> and attempt to build, I'm getting these errors:
->>
->> (+Dan's new email)
-> 
-> Thanks! I will note that thanks to the korgalore tool I am subscribed to my old
-> email, at least if someone also copies a public-inbox list.
-> 
->> Yes, I noticed that Sashiko reported them.
-> 
-> Let's just say last week was "hectic". Sorry the noise.
-> 
->>> drivers/base/firmware_loader/sysfs_upload.c:229:24: warning: unused variable ‘fw_dev’ [-Wunused-variable]
->>>  229 |         struct device *fw_dev = &fw_sysfs->dev;
->>>      |                        ^~~~~~
->>
->> This can be fixed by applying the following diff to patch 2:
-> [..]
->> the @module field should be removed in patch 3:
-> 
-> Fixups look good.
+Reviewed-by: Daniel Almeida <daniel.almeida@collabora.com>
 
