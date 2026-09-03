@@ -1,236 +1,198 @@
-Received: from mail-oa1-f47.google.com (mail-oa1-f47.google.com [209.85.160.47])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from SJ2PR03CU001.outbound.protection.outlook.com (mail-westusazon11012070.outbound.protection.outlook.com [52.101.43.70])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B06845562F
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 11:47:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4C89495515;
+	Thu,  3 Sep 2026 11:47:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.43.70
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788436038; cv=pass; b=OQQuUcDXxdwhv1vOEo097thSaUwmtBEENkCXqiDJKi0x3ya/WIcNMo6P2lM6JLcSuPl+jGaC1R0jvVlObMCw/o55xbdYbfX3EDzhyqGq18hpaegn+Eh4w0DYfsJ8UZ1/5tfiJKHUSUtsOgin9jiqwNgvKYTfQ4+gLh3KkUE5Qz8=
+	t=1788436041; cv=fail; b=Xewzg6fkEgUbJLo7Rzk+/DgzJZcOFevQW1RN23Y7rXjqSRVv12xJzIRFsrcI7anZveSyqkbOIgJvhJ9uMuJm5BRLxprwIzjq+7RBWj88T87T19jVBG09Sb+XcqrQkrjmQ9T9RgrbzkKa/Tk1kK0TuQ4UOWCp6rDfIzDSXymJeVQ=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788436038; c=relaxed/simple;
-	bh=5yzaVabpPxw5RXtOFZG6OegQNvc0fKUaFe2aJ4JqkjY=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=MSu3YEE0ZysmbBtOvVWRnanwzQd6zAGMLOH1hVwePL8LYPynRjZuZz05DVIdg0tGPUAlyDoXah1dPhsehmxQI799djtg2U/IDg8CRZ2gyByoKnvOSbNBsSsx9U0K+GanS//IyhXgXwAgJrvhNDkmRUvhp5UcD2PTQcFscyTSJ3Q=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com; spf=pass smtp.mailfrom=raspberrypi.com; dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b=kYjHylo+; arc=pass smtp.client-ip=209.85.160.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=raspberrypi.com
+	s=arc-20240116; t=1788436041; c=relaxed/simple;
+	bh=JXkigm7UUwRmo86dGaMQAfS5+XpoVzFecfiJPMZhehI=;
+	h=Content-Type:Date:Message-Id:From:To:Cc:Subject:References:
+	 In-Reply-To:MIME-Version; b=BEL6x2dVzp5UiPd4C5vPSydb6BHYANaMTaxg5dOxyaFT723aCKy/fhnWIjDrI01aZOMhZYe6IorDiI/7g3rJLTbA2BbqMJNIunZfgUE84HjYF/YGYIy11tbudoT08IRrL/Wz9GuvGGF4UervG9JBYeV5jG4K5yrtCR57+eWNPYg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=GrsAvrTL; arc=fail smtp.client-ip=52.101.43.70
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b="kYjHylo+"
-Received: by mail-oa1-f47.google.com with SMTP id 586e51a60fabf-459281bc13bso1561279fac.2
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 04:47:08 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788436026; cv=none;
-        d=google.com; s=arc-20260327;
-        b=it3hNmffLv9JHxu8i2Bs2zWi6bGRHjhryVhKznVl6qZvNVmVzkTFKMAV1qj/NduiXq
-         mIaa53zIg/o8O24pxRWglraOoVyKcPUrmxIKMVem3Llp6VhXVn3D/JAhQGdHKo4GGj5t
-         0p82nvgCzbTppOBkiGgcASFer5DOpzIraG57FVMsTNdjtTPoTWK54BZGP39dCexYZj1j
-         W6PmnbG1frCtqYOZJaKaDBJ2exWWTJh9K9zBgWvq+z5mdIO6KZN/QGbHXyn0u50Pu2f5
-         JjQJZUbthCobaIl0Mm3I03qds3IcIDtRiH67OB/VkTTiWqLO7geFlysOxiDvgO205a8Z
-         99UQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=RBEbqnMOR/S2Zl8aGgmKKnttxc/jbqek/oBPL6ncjNM=;
-        fh=OQMqNTkONCRXohIU6WrvSptqMWfP4mZg5Wld5h+8ljE=;
-        b=UcflGx9oGQKWK6Pk9o+dk4eYHqAj8AY4ERgjAYmKnMSA/bMaDlkLIegtA91wrR/sM7
-         5RzPiFvzd1TxMc+C08XPCGl5+ENKy0hVxOgo9MYwVA4sf4QTBvLv+/eYPPo2ZMpN8VM7
-         jhafILFlU452QJOskHksRmM8xtHmKQU4g1/6HkzAr66Wum5xaXLklt8idLtD0zuSJxNH
-         tRknUjwuMA1rpIT750bDiN6MCAX57/dkCOf/5Jya/ddtu2idkB2qV/UJFpLwjFURq1nI
-         YaAZv33zd1NaAXF+Jw6ZnRpNGFmWqDtoCNZ6jBn+JONOFPlM0SI2cdxeSXeKyAGYIZR6
-         TZXw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=raspberrypi.com; s=google; t=1788436026; x=1789040826; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=RBEbqnMOR/S2Zl8aGgmKKnttxc/jbqek/oBPL6ncjNM=;
-        b=kYjHylo+ex1HszaofgBXyyVB+T/8rEM4tHaEz/5GJrNwxO4j8q2D8TFA7vW8CGpIUJ
-         Ii6Hy9VdLdzYSTu6DjEnIX4aahzvbg0H5Qk+JpV4R5fWTMU6MNA0g5ucQtOEkKI9g3p/
-         RDn0m90CE71BtPbDGNcDJsVn31nQj0Ur+7MP44N/Y4bUml7PwAAAWjJpxfCtMR3tA+K5
-         H7bjiq2A/5SXAp3iXALUp+Xkm5JgHvipLtm0yyhW+G1ujOA9RbBShIlKRpfCKyk0NH62
-         jqDU0HMsL20zZFinL/VyjDYFgiZ12NxDaHUpUbGiRz/b7WYqKPvTd7rZ84hGT7j7ySVi
-         DPqA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788436026; x=1789040826;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=RBEbqnMOR/S2Zl8aGgmKKnttxc/jbqek/oBPL6ncjNM=;
-        b=sNemRofUXT5IhwXOHfGWcQEoG+TXW8N4Zh9nqzzxcSSKK4i5fKj1b0BLCF29z3Ha5U
-         +beAheZj+dPR8rdsH3jbqPgTVOMkGbHe6uLqaMD+x9Bh5qXnGp5BN9YwSz4EiXHK0RLJ
-         TBeWQVit8WTcWy8G5HTKurot5EwBYS52bND5swErUwWtIClDOt8RpFKpyHJBiywthV7K
-         qmxs4GrHvD66j1iGYARTWyGdpfWecVEDdY27vUGI6WwTdFCKe251kwRijrlaxHrfa/B6
-         1NvFGScebH1VCVHXshL8+HoiRaLbkjdI/McJfuKwXQKkR1dhRq5hA2j26kkWhfW1unxr
-         XGUA==
-X-Forwarded-Encrypted: i=1; AKwUvBzk19Z1MPXLIssqx+vJ5fb6BJZxvYbHa19+oJr58JHjlLCOi6nnaqjUwImB8FR7v/hczT/zpJOBODclv8Y=@vger.kernel.org
-X-Gm-Message-State: AFuF++k/OI5aDVCqXDb3zz+nf6x0zb8KQ6GtHPqC68oxwo/tXAxDfasu
-	WO3oBTjm1TwcB1wY6V4QVFvXcbsa00V8ZTmDbj73KdfFyQSW13lDst3aMfUPg63uqmeFJxCXo2+
-	MG4QhshVx9e/Ei7mMOjlvqYH3Vn7mIyKiR3zurRdjkA==
-X-Gm-Gg: AYBFou3LZpC6Q3W4a0wjZZysxBrF6Fqxiy2M4M0MxOjxhwwXsvnHPHUtTD/dmfRD5um
-	7zosicHQWxVdC/WdHvTjNVgk+xfuulGft4CWpGhJdUeHBbRvJ8iHncPbAOsyrrENda/JnYdUSpN
-	Gw123aZoUMyFVyQUqXpeLhgErd0vQ+IWvVfk+yUnAb7xGR8CWFZ0xSZ6CMwkWKo3/Mez66pNV6T
-	vDHFEXDHsSPxS4AjmNF0u28EnVA/egQnAy1BcyLqXzFaMXE7sf+OZswcw3MtNi7eMyc7kVImEPM
-	0qjIGKbBVqIFX0ivOIa8HR/JmzAPTpbVxkU/s0R/qIbRx62dxjKPXBX4sL8ZXIF4OoJbfiC3xhu
-	8iRoETlSx2HztDtDWw5ytNvUFbAn4Mdk0OisKD9RI4vNpPIYTcDLb1dH84OM/RQ==
-X-Received: by 2002:a05:6871:c921:b0:442:175:cea7 with SMTP id
- 586e51a60fabf-46f85e01f72mr10128824fac.1.1788436026484; Thu, 03 Sep 2026
- 04:47:06 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="GrsAvrTL"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=y1f+lNw4izv8OfmFoJUCJRB8CHZuLSHwehkahQTD6ZthwQiE9nGNl+Bcmac4YO3Pq8MkHB/OfQIYsF9Lhg3BSBs+QQdUV1ZBULPJotuUbi6iN11vXAff/1xFYSZQ0D2bPm0Q1A0Leaoxcn65he3bLrIv8bnFd8NTsU8HN7Bf8/u4WeXmMXkOp93G+V/voeuX4Y83A9Y4khPqOmJ0JHxXLL/N1dfK8hBj6MVnmBaiSXl5aNbDyhnjDc200Ilv1n2ewwdmocsOLygBI44rRcblAniUl9lspuit87Oj+J7Vz4VCC9655IoPQ0B7bEWwxp7bC3J2Wy0mJ97JeOS9ILs+Aw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=nRD0bUK5Iurm8ftoMfilRqs7LIHBy+x14Lxlaqf46oA=;
+ b=iZNWGKgnwOHe4bJoiltOfhnZwKV3sBlzRCOpeNrfjPeogreq6faCGpJoM/+Nio03mHNe7PCvo/cCPf7OKGFLBYigHAmKoogjHgGp15rr5i+TfL9e1I79v34sepaooGMO2X3qUOuJLkxq3brV8gRbVyYEplf8M/RHStjBFJisIPX2gYSk2SFvduyIxibfcOCpqQ1jYm9dL/1BMR+FTZ0Sfz+is3xWzW2x0zrQ6cOvW3DXXZB1z5sBPMd63jYMPbdxP2cgXlnyZFFsDwWAoe8lMjJYuapMLBnAVHvWjDYH8xeoOkeTuDIYQiOOlnnQquxgbrKvQTafKj7MW35JTYMr1w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=nRD0bUK5Iurm8ftoMfilRqs7LIHBy+x14Lxlaqf46oA=;
+ b=GrsAvrTLJAFt5E7VRqH1tqW/m6Y2EeoZ9z0GTYwzCnpnrNJe0lWxJ0tLlUrmdFUShk6W0jk8bv7iHR7hD+fCxQ8DiGB3Lphz+O/kktzSKNzfvpTERg2JSXJLoXkjehKddLCq26j+BX+/FziSW+mYULdHL2azldbNvI7oF96WrfzVinUmOFgNcIMvFNnzzfhJIGaFF3a+2VtTheaPTAXfHh+jpbQCjRuxcehJBjMdOxkkgz2Tj/R5zf0QznMVwQZeiNr0FgzrSuICY6IWJElHgEaeF3VjW8CLwsFrGrreA0A78WQsAKxduIgXEZYWbfVTXiJ1vHRwTvqAHGRPxC6f1w==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from MW4PR12MB6873.namprd12.prod.outlook.com (2603:10b6:303:20c::17)
+ by PH7PR12MB9150.namprd12.prod.outlook.com (2603:10b6:510:2eb::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Thu, 3 Sep
+ 2026 11:46:58 +0000
+Received: from MW4PR12MB6873.namprd12.prod.outlook.com
+ ([fe80::a338:bd2c:3a38:ece1]) by MW4PR12MB6873.namprd12.prod.outlook.com
+ ([fe80::a338:bd2c:3a38:ece1%5]) with mapi id 15.21.0382.007; Thu, 3 Sep 2026
+ 11:46:58 +0000
+Content-Type: text/plain; charset=UTF-8
+Date: Thu, 03 Sep 2026 20:46:55 +0900
+Message-Id: <DL5NNNDKFTQZ.3IEWFNTS1GQ6I@nvidia.com>
+From: "Alexandre Courbot" <acourbot@nvidia.com>
+To: "Gary Guo" <gary@garyguo.net>
+Cc: "Danilo Krummrich" <dakr@kernel.org>, "Alice Ryhl"
+ <aliceryhl@google.com>, "Daniel Almeida" <daniel.almeida@collabora.com>,
+ "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>,
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
+ <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Trevor
+ Gross" <tmgross@umich.edu>, "Tamir Duberstein" <tamird@kernel.org>,
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, "David Airlie"
+ <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Bjorn Helgaas"
+ <bhelgaas@google.com>, =?utf-8?q?Krzysztof_Wilczy=C5=84ski?=
+ <kwilczynski@kernel.org>, <driver-core@lists.linux.dev>,
+ <rust-for-linux@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+ <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
+ <linux-pci@vger.kernel.org>
+Subject: Re: [PATCH v4 02/16] rust: mem: add `transmute` with deferred size
+ check
+Content-Transfer-Encoding: quoted-printable
+References: <20260901-typed_register-v4-0-5552b1d59525@garyguo.net>
+ <20260901-typed_register-v4-2-5552b1d59525@garyguo.net>
+In-Reply-To: <20260901-typed_register-v4-2-5552b1d59525@garyguo.net>
+X-ClientProxiedBy: TYCP301CA0076.JPNP301.PROD.OUTLOOK.COM
+ (2603:1096:405:7b::10) To MW4PR12MB6873.namprd12.prod.outlook.com
+ (2603:10b6:303:20c::17)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260805-media-starvis2-v1-0-91e8e4eae44f@raspberrypi.com>
- <20260805-media-starvis2-v1-3-91e8e4eae44f@raspberrypi.com> <178840924662.11722.12680340547715469059@freya>
-In-Reply-To: <178840924662.11722.12680340547715469059@freya>
-From: Dave Stevenson <dave.stevenson@raspberrypi.com>
-Date: Thu, 3 Sep 2026 12:46:48 +0100
-X-Gm-Features: AcwNN1V_rdED1LTqBqth4XivSuKPAiq1rGIGwj4L0ffVbXE0kyqHxqrMRNIHSmk
-Message-ID: <CAPY8ntCQQhPiGoJFOADY-0q7QtKbi3XiCYHz1A6qogwhUdnL6A@mail.gmail.com>
-Subject: Re: [PATCH RFC 3/4] media: i2c: imx678: Add imx662 support to the driver
-To: Jai Luthra <jai.luthra@ideasonboard.com>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, Sakari Ailus <sakari.ailus@linux.intel.com>, 
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
-	Alexander Shiyan <eagle.alexander923@gmail.com>, linux-media@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MW4PR12MB6873:EE_|PH7PR12MB9150:EE_
+X-MS-Office365-Filtering-Correlation-Id: 601f23e9-a296-4a42-b7bb-08df09b10f85
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|7416014|23010399003|1800799024|10070799003|366016|3023799007|11063799006|6133799003|10067099003|4143699003|22082099003|18002099003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	3f9VPit8sLsNbddbnaoCSe6Tl7gQieIanyveNokvDBf1dQsy9nrtPRZfpTNG/kq4F4TbCSvJuDQMFh+wGGb8RnuGD0u0noO45ZVq8xEvAXTZsaKr8aOp/6MVF1gO1Q/GlX81HPCIPhc+lf6bKegxKKABGjw6uM45vxZxaqu9BsJ2vDIMoZ4AGEZ9NY85rzkhaOuT1UgSMr71oJJMyeQyZ+wn/ql8IHGzS6UnJCcZPyP+UGRt8or9o/o8UlKwWckzJgXKa3Uyh98bv6zuD5rFgRaAV3Kv2N7aoyPQi31C/FDnrQljYOVAjTvJhxNGOn1RlbcJR+WBsO0rjVGWXdmcT/gdZnD/Oyx3XzIOpi+BkdjqbZvzTvyhc8LKKiRmJpLcAUs+bI5iGaJMjxwuDQt6Oj+QYbTDQsSqI/Ufjy0tJBW7mqHzuqo/Ep3G35KH+C/AgaPAUXB0tOpo1bvD6FuaIzjz+KYdbmKssu3a97g+p/duyZ1TD0T/53qxRGmak9CGIDjV3QstacTpYy/6i0YtiLEGSU52EzmdYxQwR2XXS9+/uqvfKcAJ3dbOmuDMpJAL6lunLj4X2iu4ilbkKKGdpjLBEo4JpdTGf6I9rRl49F2y15UWTIK3v9e+8UXhziqLnm7ofEmistnotyHixWP2zH1D8DFZxtKGAYOrh+fcOWA=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW4PR12MB6873.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(23010399003)(1800799024)(10070799003)(366016)(3023799007)(11063799006)(6133799003)(10067099003)(4143699003)(22082099003)(18002099003)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?UWZiS2tIYWV2ZGVCQTF2aDZRdzBzWC8rZHBlUFJqSnowTUZiWktIdklYY1Jp?=
+ =?utf-8?B?S0k5WGxjWUNvbXBFS0p4cE5OajFuUzM5UnJMUVF6OUYycDRmREE3THoza2tH?=
+ =?utf-8?B?L3ZXRTE5dG1Ia0xFN290S1RibDdUY0xrN2g3dGNQbVVQcU5tandtRGE5VkpI?=
+ =?utf-8?B?Q0FoV09ONGpnR0VaNTRRY3htU1Jubk1OKzlYR1dYaWhCd0RmT3VSSEtLVGxI?=
+ =?utf-8?B?VERsckhCQkhjZzhMMUVPaHhJZUkwOGVpazFZVFBZQ2xtSTdzT3pLaWhLZVNF?=
+ =?utf-8?B?WUxSb0VsL2RmVkRVa0V3U2hKMkY2NlJiWkZXOXZ1cDBNQVZudE8xclVtdkVK?=
+ =?utf-8?B?eWZxV1BXNVRQYU9GekxFVWgweU5tWFVUUmUvT1dYam1pQVF3V2xXNUF4aEs5?=
+ =?utf-8?B?L1pxZU92REp5b3JpT1IrQWsrdVVxUUFGdEhsRWxWMjA3YmxMQzJwRUpYcGRQ?=
+ =?utf-8?B?YkJuVzVUVkZpZ1oyVy8xTGVvMzVKOEh4RFFXSjNISHlYL2pMaVg1Q0JXWEFJ?=
+ =?utf-8?B?L0g2NUNxVG9VWUc2ZVh3LzMzOEMrVkpTdkxDRDR1SEx5QVZRMnlPOTEvY0l2?=
+ =?utf-8?B?dlduVmptbisvQVNqQ2VWSkIyZU9wQ0pPVDUvQk9sVko0cXYybmtraFhSbWhM?=
+ =?utf-8?B?WUFQekczRVc4bFA3K2hxc0hOdjZmWWJFazdjY3BUNXBOVXVLN25BRS96a0Rp?=
+ =?utf-8?B?MDZGQmZCSEQ4RWZPRXQzck5JUmFPTUZLTG9CSE9QcWMyVWpWQ3lLYVladG0r?=
+ =?utf-8?B?VzRzZGNtWGwvTUs2bmFCaEJadmdndGxsWFZXckVnTE9zdXp4cnBTTUhxaEdl?=
+ =?utf-8?B?ZFN6R3FPc09GVzlMQjJXV2d6UHE0M2JjSDZnR0VHcDhlVDdkeEprZlBjYThl?=
+ =?utf-8?B?UmVNNDBBWHlHZlB6dThNYVYwR2hwd0tpZW5FRVhzWFl2L29OOFExTWRUbnY1?=
+ =?utf-8?B?UU9rVHNVSWc4TElMZ0VUNFlCWXdOVUNJQkZHVVgvWWo3OTlNMURRbU8zUWFB?=
+ =?utf-8?B?QmN0Q0l4eW5mNlpDM3hzamEvaTVBOGpYallJWmo0ZlM0cVpyYUJaY1Awd2p1?=
+ =?utf-8?B?TCticnhmT1d3eERMRmdvbXdBakZtUUdqMHFuU21Vc01Ea0lXMWdUNWJaZnFp?=
+ =?utf-8?B?Z0ZicWdvTXhNYmZndk5PYXp4d0p2NkNXWGVCdmdLMHJ3UFE4QXhnWEk2ZFU0?=
+ =?utf-8?B?eFI2aitmcDFrMnZTWkl3TmJkd0UxOVkrS0ZOditxM2puNEUzT3JKbFlwTFBn?=
+ =?utf-8?B?eE1YYVhPcGdMakZTbEZ1OHhhZ3V5M2F3dzhkbVVmK1ROeW5kWE95azNWLzU1?=
+ =?utf-8?B?dVZ3TWdLeDZzWDlXV2lTSk1pQUhaRE0xMmlZSTlkeGtOL1JIQ2tPZk1YUTdz?=
+ =?utf-8?B?WjNwVkJLUldwbHNPYnJXRDVmclYzRDcvLzhrdCsyem9IL0xaT0NqR0Z6VWJF?=
+ =?utf-8?B?QUx3MCtaVXVnQ00yQ0tFdnhIRmYwUW9SZzY2cWorbktab2JCZkRuSTZWS1Iy?=
+ =?utf-8?B?ZVZWcDBvQTRoN0hvdzU0RW9iMzF6aXhTdnVJT1h2RTNJMjFVSmc4WFZ2N2Zu?=
+ =?utf-8?B?c3pLR3ZjQytYcnN2d2F0T3J6L2hGVXNXS29uaWpVSkJELytJMG9HZzZwODc0?=
+ =?utf-8?B?S0ZkckdCUmdBNFlWK3lSTXhLSUFZNDFrOEZGZ0NqUWJxNmRSYk94cnF3cDkv?=
+ =?utf-8?B?bGloVFNSSkxpYjMyQWdJaTlPZkFZZDVNc2ZVdzdTVGN3TGV6N05va0FPckZt?=
+ =?utf-8?B?TEUrVUhHbDNjdDBycldKdHZBbnRvY29OanJnT0grc3l3citUOFZDV1JhSXhi?=
+ =?utf-8?B?aTlET2xDZDhwNjkxd1p5dEo2YmVoczNEcjd3NWkySFlzdTVmT1B6M0MyaWRo?=
+ =?utf-8?B?elNsL2RucmIwTzdtMnFMQXBoaU1qQlc0b0oxZWFUS1llRDE5U3ErcTZGcHBU?=
+ =?utf-8?B?cktHSHBZbStXN0NzY1VMYnEvbDZVQXVUSmlvVlVBL3VITW5PL2g3TWRrcDAv?=
+ =?utf-8?B?RHpHTk5xOUVoMHRUWUIvZWZDcHExNitpRlB1R1ZaVy82YVhlZVZ6VUxsZmg4?=
+ =?utf-8?B?TWFwNzU2MWhkN0pGazEvd0dObzNtUFlab3RMY1l3QmJuYmtIdnBRU3B5Ukta?=
+ =?utf-8?B?UkV4UzNKamVIN0J5YVZvZDUyWGluMUV3NElqcVM5MHRDNUV4d1NqSUgvQlNZ?=
+ =?utf-8?B?eDBEQTArR3p3aFNnTjB3THNKR1JYSkdTY0x2UUNNc2hMUG4valhtVzdta3pL?=
+ =?utf-8?B?NkZmL3VnYzBSVUNIVjEzdWxhaklDcjk2SUJjUnZnWUNxU2VvdXhPb1ZFYkVF?=
+ =?utf-8?B?WXJKOGV4Y0NMd1MxbmlLd1hhQmp0SCtKemFGV2RzZXFBMUdJOVFrSGxjN1Na?=
+ =?utf-8?Q?eMaMaqKFdshXDZwlbHh81/5Nfsf37aVphRtePGE1D/C8T?=
+X-MS-Exchange-AntiSpam-MessageData-1: qcx/dLjluq1slw==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 601f23e9-a296-4a42-b7bb-08df09b10f85
+X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6873.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Sep 2026 11:46:58.5669
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Xo1kiwUc3aNDnWe2px7kZDlzr174jqsz24h3wRQTCgK9E3LWsB92d8iVZh+8j4euOaw+3/N5r9yvnSNSYjX6/g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB9150
 
-Hi Jai
+On Wed Sep 2, 2026 at 1:50 AM JST, Gary Guo wrote:
+<...>
+> diff --git a/rust/kernel/mem.rs b/rust/kernel/mem.rs
+> new file mode 100644
+> index 000000000000..958e43bbcc3a
+> --- /dev/null
+> +++ b/rust/kernel/mem.rs
+> @@ -0,0 +1,99 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +
+> +//! Basic utilities for dealing with memory, values, and types.
+> +
+> +use crate::prelude::*;
+> +
+> +/// Transmute between two types.
+> +///
+> +/// Use this instead of [`core::mem::transmute`] when it is known that s=
+izes are identical but this
+> +/// cannot be proven by the compiler.
+> +///
+> +/// This is equivalent to Rust's `transmute_unchecked` intrinsics.
+> +///
+> +/// # Safety
+> +///
+> +/// All safety requirements of [`core::mem::transmute`] apply, plus that=
+ the size `Src` and `Dst`
+> +/// must match.
+> +///
+> +/// # Example
 
-On Thu, 3 Sept 2026 at 05:20, Jai Luthra <jai.luthra@ideasonboard.com> wrote:
->
-> Hi Dave,
->
-> Quoting Dave Stevenson (2026-08-05 21:39:18)
-> > IMX662 is a 1080p Starvis 2 sensor that follows the same programming
-> > pattern as IMX678, so add it to the newly parameterised driver.
-> >
-> > FIXME: Update the common registers based on the Sony spreadsheet.
-> >
-> > Signed-off-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
-> > ---
-> >  drivers/media/i2c/imx678.c | 64 ++++++++++++++++++++++++++++++++++++++++++++++
-> >  1 file changed, 64 insertions(+)
-> >
-> > diff --git a/drivers/media/i2c/imx678.c b/drivers/media/i2c/imx678.c
-> > index 40ba6661b366..9083f2744510 100644
-> > --- a/drivers/media/i2c/imx678.c
-> > +++ b/drivers/media/i2c/imx678.c
-> > @@ -673,6 +673,47 @@ const struct imx678_variant imx678_variant_def = {
-> >         .hmax_min = imx678_min_hmax_4lane,
-> >  };
-> >
-> > +static const struct cci_reg_sequence imx662_common_regs[] = {
-> > +       { IMX678_REG_WDMODE, 0x00 },
-> > +       { IMX678_REG_MDBIT, 0x01 },
-> > +       { IMX678_REG_XXS_DRV, 0x00 },
-> > +};
-> > +
-> > +static const u16 imx662_min_hmax_4lane[] = {
-> > +       [IMX678_LINK_FREQ_297MHZ] = 990,
-> > +       [IMX678_LINK_FREQ_360MHZ] = 990,
-> > +       [IMX678_LINK_FREQ_445MHZ] = 990,
-> > +       [IMX678_LINK_FREQ_594MHZ] = 990,
-> > +       [IMX678_LINK_FREQ_720MHZ] = 990,
-> > +       [IMX678_LINK_FREQ_891MHZ] = 990,
-> > +       [IMX678_LINK_FREQ_1039MHZ] = 990,
-> > +       [IMX678_LINK_FREQ_1188MHZ] = 990,
-> > +};
-> > +
-> > +const struct imx678_variant imx662_variant_def = {
-> > +       .name = "imx662",
-> > +       .id_reg = IMX678_REG_MODULE_ID,
-> > +       .id_value = 0x296,
-> > +       .native_area = {
-> > +               .top = 0,
-> > +               .left = 0,
-> > +               .width = 1937,
-> > +               .height = 1101,
-> > +       },
-> > +       .active_area = {
-> > +               .top = 0,
-> > +               .left = 0,
-> > +               .width = 1936,
-> > +               .height = 1096,
-> > +       },
-> > +       .pixel_rate = 222750000,
-> > +       .pix_per_clk = 3,
-> > +       .common_regs = imx662_common_regs,
-> > +       .num_common_regs = ARRAY_SIZE(imx662_common_regs),
-> > +       .vmax_default = 1096 + 40,
->
-> From the IMX662 SRM I see the following constraints for minimum:
->
->     VTTL >= PIX_VWIDTH + 70
->     VTTL >= 820
->
-> And the table giving round FPS numbers like 30/60/90 assumes VMAX = 1250.
+nit: IIUC the convention is to always use the plural `Examples`.
 
-I find it weird that Sony's datasheets fix the number of vertical
-lines and extend horizontal blanking for frame rate control. That'll
-give you the worst case for the rolling shutter effect, so why would
-you want to do that?
+> +///
+> +/// This can be used when types are known to have the same size, but onl=
+y at runtime.
+> +/// ```no_run
+> +/// # use core::any::TypeId;
+> +/// fn to_u32<T: 'static>(v: T) -> Option<u32> {
+> +///     if TypeId::of::<T>() !=3D TypeId::of::<u32>() {
+> +///         return None;
+> +///     }
+> +///
+> +///     // `core::mem::transmute` won't work here.
+> +///     // SAFETY: We've checked that `T` is u32!
+> +///     Some(unsafe { kernel::mem::transmute_unchecked(v) })
+> +/// }
+> +///
+> +/// to_u32(1u32);
 
-> Did you manually verify that setting blanking to 40 also works?
+Missing closing code block here - interestingly, without it this block
+triggers a "function has unnecessary safety comment" warning.
 
-Yes, I've verified that vblank of 40 works.
-This is why I queried the values in the IMX908 driver that Lachlan
-sent, as the datasheets always seem overly conservative. There may be
-further restrictions if you enable the various HDR modes, but we're
-not there yet.
+With this,
 
-  Dave
-
-> Thanks,
->     Jai
-> > +       .hmax_min = imx662_min_hmax_4lane,
-> > +};
-> > +
-> >  struct imx678_model_info {
-> >         enum imx678_type type;
-> >         const u32 *codes;
-> > @@ -703,6 +744,26 @@ static const struct imx678_model_info imx678_autodetect_info = {
-> >         .auto_detect_mono = &imx678_aamr_info,
-> >  };
-> >
-> > +static const struct imx678_model_info imx662_aaqr_info = {
-> > +       .type = IMX678_COLOR,
-> > +       .codes = codes_bayer,
-> > +       .num_codes = ARRAY_SIZE(codes_bayer),
-> > +       .variant = &imx662_variant_def,
-> > +};
-> > +
-> > +static const struct imx678_model_info imx662_aamr_info = {
-> > +       .type = IMX678_MONOCHROME,
-> > +       .codes = codes_monochrome,
-> > +       .num_codes = ARRAY_SIZE(codes_monochrome),
-> > +       .variant = &imx662_variant_def,
-> > +};
-> > +
-> > +static const struct imx678_model_info imx662_autodetect_info = {
-> > +       .variant = &imx662_variant_def,
-> > +       .auto_detect_colour = &imx662_aaqr_info,
-> > +       .auto_detect_mono = &imx662_aamr_info,
-> > +};
-> > +
-> >  static const char * const imx678_supply_name[] = {
-> >         "avdd",  /* Analog (3.3V) supply */
-> >         "dvdd",  /* Digital Core (1.1V) supply */
-> > @@ -1470,8 +1531,11 @@ static const struct dev_pm_ops imx678_pm_ops = {
-> >  static const struct of_device_id imx678_of_match[] = {
-> >         { .compatible = "sony,imx678-aamr", .data = &imx678_aamr_info },
-> >         { .compatible = "sony,imx678-aaqr", .data = &imx678_aaqr_info },
-> > +       { .compatible = "sony,imx662-aamr", .data = &imx662_aamr_info },
-> > +       { .compatible = "sony,imx662-aaqr", .data = &imx662_aaqr_info },
-> >         /* for non-conforming DTs that rely on runtime check */
-> >         { .compatible = "sony,imx678", .data = &imx678_autodetect_info },
-> > +       { .compatible = "sony,imx662", .data = &imx662_autodetect_info },
-> >         { /* sentinel */ }
-> >  };
-> >
-> >
-> > --
-> > 2.34.1
-> >
+Reviewed-by: Alexandre Courbot <acourbot@nvidia.com>
