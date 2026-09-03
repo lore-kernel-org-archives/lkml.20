@@ -1,263 +1,165 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0445338332F
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 04:45:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42FF82F12AB
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 04:49:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.54
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788410733; cv=pass; b=mWtYsWQCWVbhk64p7ufIGP9i1tUfopDct69iWr/jOdJ19kjchRhtkEJHSea/G+uOTtOCVdCNZ+FJS9qD4MFz/XxwFZUZANrZmgAH4dG7GhzQq6WWw4E/nIHaF9WDfSWGCxHKLxK1aMQxYJMekMMi4PEozQOE28PscP/Qk/h+GOg=
+	t=1788410980; cv=pass; b=D+rhrJx8ByLgxwyHVfK3xkkice7LjTBQxWPOyns2NBDyZfWAe1Az3J5kzOMdFWPAkQFg0JqF1po7K5xO8gZX4FXuf2JndS9ZcFz2gTaFfM+rMphI4mTLa3YccsNS/EIUuODWtC01my2vZFUFFmqPHKjwsrt8LcOViE2rhgMTPWk=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788410733; c=relaxed/simple;
-	bh=zI+ifEyxByjM6Y9TrkSsIST3zFDRCsE93qCLJwvC3Hk=;
+	s=arc-20240116; t=1788410980; c=relaxed/simple;
+	bh=WDBujGpFF48g9BOWj7qHVl6o2U9PlRL0uaEjw17S59Q=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=HEbhKCBqAkQvxDHOM1W24vVHaGKcytqmOaugQgcsiwP+VLlSoHo5bk7kiXsVaU28pW2aTe5sTqeXgIb0iTK1Y63Hgh96MrHAfgICRKDtxGvCvB01gSSK1+ZcEDWNnllQnUtiBFxSlx9vPGrFyzQVqMw5VLWh0EQU8LJmOrkryTU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=GT6WQFDv; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=MQ+jA1hy; arc=pass smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	 To:Cc:Content-Type; b=gDTLcHYDw/a9Fo6NKqr/PZ57t6P0Kzqyfq9yzut5l7YdeM4uqRcY0l1LAH0kQnQxWXgN7wJiBPPsbuRvdjdQLWUPRSM29VrubsJ9JjvFyCWKZWh0W/LklajJ4gsMTzKfmyaLOhtmxdayWkCQlg0xuRg7CUf0KIOoSKveE9AgJmE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=c4LT84AR; arc=pass smtp.client-ip=209.85.128.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="GT6WQFDv";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="MQ+jA1hy"
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6832xwBj2751676
-	for <linux-kernel@vger.kernel.org>; Thu, 3 Sep 2026 04:45:31 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:to; s=
-	qcppdkim1; bh=Sc3WkFAgGyNV3trhZQm/9QMD1pz+GBXUg/MNSusqdCk=; b=GT
-	6WQFDv9pLArywxCmT3lPlnoXr2OAUvu7mqcefxYUUQuUunKAa5VlMOYVhi1XHofF
-	wNp7i1KmIYwmZiVe735eI4cQHXKDmCFkr6yMJdPFaUc/NwzdHYyHYzUClpEYYgie
-	yvQv0yMi4H5DAe8jPsq4Xb1aXKV4a4AH592GoLt4RMYMq86gHdsyJ2gaU4UQGByS
-	b0gSWRpCIJPxNqaNqfgiDWP0Df9bwLAp4TI28lcvgSpD55UJxpE/3ynVVsLXxaJv
-	k02kp6hfeHLbzushzd7gKW96sI6q7AiOPsWX1ak+MOq2YWPSgXTkCDWH4aKaFCvG
-	hVD2/xRAwJBROlTjq2IQ==
-Received: from mail-yw1-f199.google.com (mail-yw1-f199.google.com [209.85.128.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gf0gjramh-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 04:45:31 +0000 (GMT)
-Received: by mail-yw1-f199.google.com with SMTP id 00721157ae682-7f5b54da461so32753697b3.3
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 21:45:31 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788410730; cv=none;
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="c4LT84AR"
+Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-49b392ccaacso27635565e9.2
+        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 21:49:38 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788410976; cv=none;
         d=google.com; s=arc-20260327;
-        b=W6lRQ286ohPKBb73v3C3o79wwLkINT8USvIzW5C7RUD5AgtLumrgGBPag8dvgeW+x9
-         +CZ38rOUd2BFg6QqUwXrWq8ectvX9rqBS+uG1OPNwDcp527ee6D5LCIOuSrwnGx1GQAQ
-         dx92G66iUo+SwZnaFsDceO8WFYbWBAmWEIzpsk6rawpxFDAItP3vlq79ctwjG3umCXw1
-         GQWBG9wmba3ZsaiwFrKSGO3KOOPOEubzKCCctwtXFgzmarwrNA+uGi5RU/WZB3O3gvjZ
-         P7RncD+BmvpOouPmrF7V/9/zRW5+RulSvqLVbpnv2C6UAjyLI8jgv5DioFqdrLnXazYA
-         n95A==
+        b=clXxdaxeJGVW/cK4F8acAZoDDSVzn1R+YjfQ0WA3CICt3YCLtPagibNXCF3bEKYMKB
+         EYPTFzHrz9s1St4viGpnK4QPJw73zgqdr8WRX+r9f0PmmWrBelhHe0IBz/T7GE+Hi/Fk
+         U/04p6hff9mo4IS+GmVjN537uqkgYvYas/HjR0pX/haZ+5RC8zv2UeXElGK1lKKI4Nze
+         mqeQDtWOR7/DF/4ZNKTZeHVvo/T4zK1FnbhHMp3VeXEwGO39r9p0WrEQgfANc7PxPkRf
+         1X7k1yYGRG0f3nuE9dR21KcerR8thWckpvzd9PxsksV2OLdDB4qZenxmtAWr8DFQsHD7
+         fElw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :reply-to:in-reply-to:references:mime-version:dkim-signature;
-        bh=Sc3WkFAgGyNV3trhZQm/9QMD1pz+GBXUg/MNSusqdCk=;
-        fh=+ppsHBRXrrAUs8mrUmknXI/KpYa7MeFDMM3uyQtqUho=;
-        b=fsxdCaBseDkRpoc9nUJtNSvVAUdY3Yk7kLOI+Zw/58iFth8dNxWc+HoFkuihICzC3E
-         Fijm8CRlFMTYUVXg2asJWKITCXA3NjfY5R8hGJyKjGuobWINM3WzleDovMbRda9yfprc
-         UvyFVD7T2HDI4qJtiZ42pUDuZ2U3tzlB3+WGnh+SYdM5iPBihkRXrAd4s2HPf2CuW19N
-         nlSGgWD0qGzPNkP0oHox7rYJ2P7m9JFqVKUOBRPgcTauPMHFKTD/QYKMxzUFyP6XCEhn
-         287j7MZqIXmCeLc+bUoCdMkiiFC0+HCTQe4+bVS4zqTt/uQwAqVl9lOeW+0AzZVf5rKU
-         kDsw==;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=l0mlOS54FKRStMTSYedi1p7aaRjCgF5zp/ehhypn8MY=;
+        fh=KjIjqPwS+pWymH5pGm08QkRze7rlp6bzg1as3fBDt3Q=;
+        b=qAUG86zaVPn1+O5DNIobrXih337Y9Vzw7Zot3FiAC5cKwbmp4KRFzvSJ60YeGtLM3n
+         /dTrNZLEMxf3/IyCehVKJMX9EKoZVL21GwSsqI/NEuuLe+ZRPzrqQv3hu9OsIkdC/qR4
+         GH8N73FYpvXvmtrqhsYOU4JWcnla+p7wRiC6QEo8lm5PK63om+ANkiG4ztgohMCecw67
+         251PCiiJYZBngqUxJQR+j5Vp4Z+2TQHlx/4nTVSTADTxgVdBUeq7veN4Vb4o8WJbqm4k
+         50AnHGC5KrCBCzjzQvkIdY5WXPmXjfgS4jWfStOGLkh3LcalO7IC1ORTyk/oF2pE09aA
+         T6WQ==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1788410730; x=1789015530; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:reply-to:in-reply-to:references:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=Sc3WkFAgGyNV3trhZQm/9QMD1pz+GBXUg/MNSusqdCk=;
-        b=MQ+jA1hyaEbvKWipdi9ZoxVrVootKLkGlwXwikdGWvv84ML6DOAUR3Boqaz6JZCitW
-         F/KLSIgSImg5jmnD+5CmhY6ZkFyqETGkAi7YNB4lNTA7bdW/bS5tkuU6VTP9KHVg7Q30
-         tD8YoM/ewXlypHYfzR/2hrw5bnMIaFWdYw+8XU8vhAwQ0kSopKMgUl5gKaalxxjnbIQK
-         gHlfOIx5DHQ+X2mmoNscFFOAnD9eb1M6NVrNEs/UnesZN4luJLKcbFCEchk4q2fZMn1f
-         qt3aPQuW7xcoBqS+kU5cFuUZFX8z9ODeIZwZoQkqAIZmmTjZgiAy4OZHaYqcM7OJtQ42
-         w68g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788410730; x=1789015530;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:reply-to:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=suse.com; s=google; t=1788410976; x=1789015776; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Sc3WkFAgGyNV3trhZQm/9QMD1pz+GBXUg/MNSusqdCk=;
-        b=RmLqGHc+DG2achgcYbprv2OtZ9LC56A+tX0wDVT1yKWAwMuuq+qVyifR2iUsInxLl3
-         97UydzK+dNCm3+BsRe2k+oKyVPPhvWpKZYo7Rkf/KOE0pQUCUb8jR+WVUE3n0fjPEHm1
-         J6C+tkSSgUZ+f2NK/p5CLmu47XWcMWnOUp1T6knV9Kk4tTZzqM3jBCIZs4mp/BXUa92T
-         2yi32SvHy0tBzOlZ7SAyMo7NUV9V3FUohv9Obzd9WIgeMjQ+Y+HvWVW4gaGI5v3UAqQl
-         E3VRnJC9xy7d+lB9aaeF4NLu7yQTbR6N0tTGsAemi7mTU4626II61bsWulE9zvx6SgXi
-         JGhg==
-X-Forwarded-Encrypted: i=1; AKwUvBwnyycA8lkS2oJC1xkn2D+wBhAFFz9bpY7H63It77/qvHF/vj0E5+nqjKlcv1orzb0K53v4cQ4h3e88OVo=@vger.kernel.org
-X-Gm-Message-State: AFuF++khyW3E/1zIsDnY4ujFTs7qAcT38WwS/j62y3UEOQr8VB4jy5J+
-	Y0zN4jE1fk/4kHrBXOAJDFRHwl5oxqRO/0UWMY7++0LrK0YkhxhS180yYy61Vi/lpqz6hnKdDCn
-	3DVfLDJXpvUJ6Mow17mVVHXvdKEAYJjLKW42T1foP419jLXMZi3iwelgUIV3PKiUnL6usyVWPCb
-	VK24NQzLGrnIaBuFhoSIjTua44HvSMOa5Az/LOy/eH3JJQisouUzr9
-X-Gm-Gg: AYBFou0PGbxjQmexSbW442B0sTNX7tlbDDZAAv3lSsmub9VHh3LJYqsTE9Tw22WaUOy
-	17xkgPwPEpY44BHu2FL5d+VW2219vbDNu7JgfeWbjCmVJn0u9ynLMGzRj4ezcb+cflMjNItQ3eK
-	Z4ko91htFHJ9jXJ63Dm65Io8GmLPuAZDYDV2w/em5BXO2ub7UfQU49tFYa6A==
-X-Received: by 2002:a53:ac93:0:b0:66c:85e3:7f28 with SMTP id 956f58d0204a3-66f9be6b625mr3646102d50.48.1788410730227;
-        Wed, 02 Sep 2026 21:45:30 -0700 (PDT)
-X-Received: by 2002:a53:ac93:0:b0:66c:85e3:7f28 with SMTP id
- 956f58d0204a3-66f9be6b625mr3646094d50.48.1788410729854; Wed, 02 Sep 2026
- 21:45:29 -0700 (PDT)
+        bh=l0mlOS54FKRStMTSYedi1p7aaRjCgF5zp/ehhypn8MY=;
+        b=c4LT84ARytV838sTxSqEl5AAdfW5APzG2BRYNvaWazEAuIAGrRys6rP8ftDHAY6zG9
+         DrmXEyUBQLjlpz7n63KmGTERrbaNgykLAUmKBTWvidO7JeijjkFSPIlYId6yXFLWl1jr
+         GwQXOmBifLEbu77ixKlEoEyY+v1rcUcSar3kx19LXxNN2IPlJ+uGtx9VwSj9TmUz7etB
+         Kbn6di/TA0/NgXQuF65fl10fledj7T2LYRhOADYLgc4aeSU2h5U43jwU5p3FiZN1hecM
+         MPeN347NtQAUYv511NocAgLy5sD+vFjkvRwaZ3G6jWJNhjnb4xCPZT7NugI7wVqqY7EN
+         95Yw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788410976; x=1789015776;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=l0mlOS54FKRStMTSYedi1p7aaRjCgF5zp/ehhypn8MY=;
+        b=XxweiXaMyxzfngkjAGhkFyKrvledMEWDe6MSEptDeBUaUk9RBwGJUW21K/BP3l81Gb
+         JXt8fUC1TM8GlA730Z2rBcz9X0wgZOz4pafNEHGeRMC+k9LrLqh8sEfcacEZmn1vTX2T
+         t4oWDwBRYdoM9UoAk6co/lx5bMt+EPcMYlCOy/jUXPD8m0tv3Nnbh4yDDEZyoJFcfc1Z
+         2kRym/LgIgqXBVyImcw0LYQgIjS73J5FWZnc2oooI/t3fTRjYcmdWNvPWVns05H14H0l
+         mVnAwVChTMP/ey0/rsWMtHnPnJD8XP53Q5xjm/ipYhnp3X8KuPElhIJtKlLxhsTeyB8q
+         5AWg==
+X-Forwarded-Encrypted: i=1; AKwUvBylfNNP6F/wisGXyEPanBWigeg4Ol1HgENdeqtE9C+ICeM9LSSZqPRYGGpTYI10OUW0sisc7qHqKuvtKL4=@vger.kernel.org
+X-Gm-Message-State: AFuF++najON0wdO0ZDHoMVtNHJFaHVvH5ZlzYU+1PdTZ/g3cbMJat6WD
+	3yoCqZpHbq9QDTcm+UMYQLNGbDuO+Pbi0sMiLegv8CJcwIEqHaQ2Nh6uKK8N1qlNGFAOfCNWAf3
+	ML8WTPs5hOGAxH9yvvhh1jKEXZt7nWmOHkdgADI9ZIg==
+X-Gm-Gg: AYBFou1tGSN/BDhpJXaEw9UXXEv0wZJ3TLvNYa/lACuUAXSeFITVEd9oc2CHI4pgqvb
+	AXyPOXcp+EMkoSo+NqHCYOyY6gmMBhBoBy5Fra6gLbTJ8fuT8fkcVeCol1RNQWoDQXYloUkOky8
+	nDfoFFieYRz7IARjIwR4la6lRKXdTQRTkU5Qq+z7CPpILHrqimCy3hzrAzIhYXWI0Ym9hqqNzGI
+	n7oWtDfku82r73dUUAep4ls8k9dpDD66CmCCK3NOyrB+aQByS6/8pHYEBekYhGJJosYdvzzDfRu
+	38SuEW9B1yD+xQVZ3X4zC0E81CmUrLquL7IqY45ZzeWEsyfUj4d51bVVAhOCdmaMEuXNouybGtr
+	nwZFFQ0WkZqpvptIws7mvaAZLHSSjuvu2xoZOsGSJIw==
+X-Received: by 2002:a05:6000:2f8a:b0:482:e64d:a1f7 with SMTP id
+ ffacd0b85a97d-48488e0371cmr14895217f8f.11.1788410976438; Wed, 02 Sep 2026
+ 21:49:36 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260902140145.42094-1-fangyu.yu@linux.alibaba.com>
-In-Reply-To: <20260902140145.42094-1-fangyu.yu@linux.alibaba.com>
-Reply-To: sunilvl@oss.qualcomm.com
-From: Sunil V L <sunilvl@oss.qualcomm.com>
-Date: Thu, 3 Sep 2026 10:15:18 +0530
-X-Gm-Features: AcwNN1UQoEUyCiHFoU50MMSvS7TZQc6s0bZHcLqzyxXDTbBAI2PWHTUKR2JHNJY
-Message-ID: <CAB19ukHwcDnApuWcn4MWm=bJZS2=UqbLT2=MnpfsJePG=qA_wA@mail.gmail.com>
-Subject: Re: [PATCH] ACPI: RIMT: Enable PCI ACS for root complexes mapped to
- an IOMMU
-To: fangyu.yu@linux.alibaba.com
-Cc: sunilvl@ventanamicro.com, rafael@kernel.org, lenb@kernel.org,
-        pjw@kernel.org, palmer@dabbelt.com, aou@eecs.berkeley.edu,
-        alex@ghiti.fr, guoren@kernel.org, linux-acpi@vger.kernel.org,
-        iommu@lists.linux.dev, linux-kernel@vger.kernel.org,
-        linux-riscv@lists.infradead.org
+References: <20260902165137.3781696-1-neelx@suse.com> <20260902165137.3781696-2-neelx@suse.com>
+In-Reply-To: <20260902165137.3781696-2-neelx@suse.com>
+From: Daniel Vacek <neelx@suse.com>
+Date: Thu, 3 Sep 2026 06:49:25 +0200
+X-Gm-Features: AcwNN1VDTxHl42Z1UbHon5enp5quP2u_4g3m91jG3ZzMwFnTqsQRlff87BfDWkQ
+Message-ID: <CAPjX3Fcqyn1dFWqAYqPe+49zGQ3gSqXnet8riqH=-PnaamxaAw@mail.gmail.com>
+Subject: Re: [PATCH 1/2] btrfs: consume the given iter directly instead of
+ copying in csum_one_bio()
+To: David Sterba <dsterba@suse.com>, Chris Mason <mason@kernel.org>
+Cc: linux-btrfs@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Qu Wenruo <wqu@suse.com>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAzMDAzOSBTYWx0ZWRfX50b0VNt54mAZ
- UantEnvn2hbO0NJYAvre4IpvExshaOY/3+ozo1lOHq7xkbMFokGsvIsrQ2acxTv1CbFpPGCyhN6
- ckKLReBxckBfM74Jv2ThQja3D4K4k55yjT/xecS1+pV3y2wM+XG5JIq5xPtMGNOsHZG8vg2Cgkv
- zuw2anHod3YA2l31T6GAND7GpRG5wSszddfVklG3lAuzGSaIXW1c680tMMky8hma6LFtcHUSLUS
- xjPktz2OEFmv6cSX8a6j39v9bba2/B5UM69n9p3MNF2s9JVLXkUp/OkA99p2Ya/aIIfMp94VmKJ
- 6GbGcYsY+2fHc7M4PQVpV2lVe9z6lgyGh44kfaoz0LH/Yq42QcQbK5nFvaEVA0GS3MLomlUdNQl
- s2UvD1E4RXg9wk6oXEC+t5NXhb5q7hykM2yrGlbyVvuKjufaxizz2V9iW/AU9FBhsZooFeY5PHi
- LzGw5jKciO/y50T8UjA==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAzMDAzOSBTYWx0ZWRfX8ripoxshzWSZ
- P361kyiklhFB70vJglCSdIBwEG4Qe1SVI0+hayG+meGvKb5zBBpjYpINMtXBVYWBHD2xoP1sgir
- opmvsR7uMzPHpWCQs313qPTljIh5xM4=
-X-Proofpoint-GUID: bx49Ijj1S-k1tVbssenVqPPtsI_FV39-
-X-Proofpoint-ORIG-GUID: bx49Ijj1S-k1tVbssenVqPPtsI_FV39-
-X-Authority-Analysis: v=2.4 cv=LZ4MLDfi c=1 sm=1 tr=0 ts=6a98fb6b cx=c_pps
- a=72HoHk1woDtn7btP4rdmlg==:117 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
- a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=YMgV9FUhrdKAYTUUvYB2:22 a=SRrdq9N9AAAA:8 a=EUspDBNiAAAA:8
- a=wQ6y6Ln1IUvFgne-YVsA:9 a=QEXdDO2ut3YA:10 a=kA6IBgd4cpdPkAWqgNAz:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-03_01,2026-09-02_04,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 spamscore=0 lowpriorityscore=0 adultscore=0 clxscore=1015
- bulkscore=0 priorityscore=1501 impostorscore=0 malwarescore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609030039
 
-On Wed, Sep 2, 2026 at 7:31=E2=80=AFPM <fangyu.yu@linux.alibaba.com> wrote:
+On Wed, 2 Sept 2026 at 18:51, Daniel Vacek <neelx@suse.com> wrote:
+> This is just a small cleanup to avoid copying the iter twice in async case.
+> We already have a copy csum_one_bio() can consume directly. No need to copy
+> again the second time.
+> In the sync case we can copy in the caller (as we did before dd57c78aec39
+> ("btrfs: introduce btrfs_bio::async_csum")).
 >
-> From: Fangyu Yu <fangyu.yu@linux.alibaba.com>
->
-> Mirror the ACPI IORT solution used on arm64 (see iort_enable_acs())
-> by scanning the RIMT table for PCIe root complex nodes during
-> riscv_acpi_rimt_init(), which runs before ACPI PCI enumeration. If a
-> root complex node's ID mapping points at an IOMMU node, call
-> pci_request_acs() immediately, so pci_acs_enable is already set by
-> the time any PCI device is scanned and pci_enable_acs() runs.
->
-> Only one call to pci_request_acs() is needed regardless of how many
-> root complexes are found, so track that with a static acs_enabled
-> flag, same as iort_enable_acs() does.
->
-> Signed-off-by: Fangyu Yu <fangyu.yu@linux.alibaba.com>
+> Signed-off-by: Daniel Vacek <neelx@suse.com>
 > ---
->  drivers/acpi/riscv/rimt.c | 56 +++++++++++++++++++++++++++++++++++++++
->  1 file changed, 56 insertions(+)
+>  fs/btrfs/file-item.c | 14 +++++++-------
+>  1 file changed, 7 insertions(+), 7 deletions(-)
 >
-> diff --git a/drivers/acpi/riscv/rimt.c b/drivers/acpi/riscv/rimt.c
-> index e4538fa6c2c8..f22e28c8211e 100644
-> --- a/drivers/acpi/riscv/rimt.c
-> +++ b/drivers/acpi/riscv/rimt.c
-> @@ -179,6 +179,42 @@ static struct acpi_rimt_node *rimt_scan_node(enum ac=
-pi_rimt_node_type type,
->         return NULL;
+> diff --git a/fs/btrfs/file-item.c b/fs/btrfs/file-item.c
+> index 581ca5653be9..5a5cffb18922 100644
+> --- a/fs/btrfs/file-item.c
+> +++ b/fs/btrfs/file-item.c
+> @@ -797,18 +797,16 @@ int btrfs_lookup_csums_bitmap(struct btrfs_root *root, struct btrfs_path *path,
+>         return ret;
 >  }
 >
-> +#ifdef CONFIG_PCI
-> +static void __init rimt_enable_acs(struct acpi_rimt_node *rimt_node)
-> +{
-> +       static bool acs_enabled __initdata;
-> +       struct acpi_rimt_pcie_rc *pci_rc;
-> +       struct acpi_rimt_id_mapping *map;
-> +       struct acpi_rimt_node *parent;
-> +       int i;
-> +
-> +       if (acs_enabled || rimt_node->type !=3D ACPI_RIMT_NODE_TYPE_PCIE_=
-ROOT_COMPLEX)
-> +               return;
-> +
-> +       pci_rc =3D (struct acpi_rimt_pcie_rc *)rimt_node->node_data;
-> +       if (!pci_rc->id_mapping_offset || !pci_rc->num_id_mappings)
-> +               return;
-> +
-> +       map =3D ACPI_ADD_PTR(struct acpi_rimt_id_mapping, rimt_node,
-> +                          pci_rc->id_mapping_offset);
-> +
-> +       for (i =3D 0; i < pci_rc->num_id_mappings; i++, map++) {
-> +               if (!map->dest_offset)
-> +                       continue;
-> +
-> +               parent =3D ACPI_ADD_PTR(struct acpi_rimt_node, rimt_table=
-,
-> +                                     map->dest_offset);
-> +               if (parent->type =3D=3D ACPI_RIMT_NODE_TYPE_IOMMU) {
-> +                       pci_request_acs();
-> +                       acs_enabled =3D true;
-> +                       return;
-> +               }
-> +       }
-> +}
-> +#else
-> +static inline void rimt_enable_acs(struct acpi_rimt_node *rimt_node) { }
-> +#endif
-> +
->  /*
->   * RISC-V supports IOMMU as a PCI device or a platform device.
->   * When it is a platform device, there should be a namespace device as
-> @@ -509,7 +545,10 @@ int rimt_iommu_configure_id(struct device *dev, cons=
-t u32 *id_in)
->
->  void __init riscv_acpi_rimt_init(void)
+> -static void csum_one_bio(struct btrfs_bio *bbio, struct bvec_iter *src)
+> +static void csum_one_bio(struct btrfs_bio *bbio, struct bvec_iter *iter)
 >  {
-> +       struct acpi_rimt_node *rimt_node, *rimt_end;
-> +       struct acpi_table_rimt *rimt;
->         acpi_status status;
-> +       int i;
+>         struct btrfs_inode *inode = bbio->inode;
+>         struct btrfs_fs_info *fs_info = inode->root->fs_info;
+>         struct btrfs_ordered_sum *sums = bbio->sums;
+> -       struct bvec_iter iter;
+>         const u32 blocksize = fs_info->sectorsize;
+>         int index = 0;
 >
->         /* rimt_table will be used at runtime after the rimt init,
->          * so we don't need to call acpi_put_table() to release
-> @@ -525,4 +564,21 @@ void __init riscv_acpi_rimt_init(void)
+> -       for (iter = *src; iter.bi_size; bio_advance_iter(&bbio->bio, &iter, blocksize)) {
+> -               btrfs_csum_one_bio_block(fs_info, &bbio->bio, &iter,
+> -                                        sums->sums + index);
+> +       for (; iter->bi_size; bio_advance_iter(&bbio->bio, iter, blocksize)) {
+> +               btrfs_csum_one_bio_block(fs_info, &bbio->bio, iter, sums->sums + index);
 >
->                 return;
+>                 index += fs_info->csum_size;
 >         }
-> +
-> +       rimt =3D (struct acpi_table_rimt *)rimt_table;
-> +       rimt_node =3D ACPI_ADD_PTR(struct acpi_rimt_node, rimt,
-> +                                rimt->node_offset);
-> +       rimt_end =3D ACPI_ADD_PTR(struct acpi_rimt_node, rimt_table,
-> +                               rimt_table->length);
-> +
-> +       for (i =3D 0; i < rimt->num_nodes; i++) {
-> +               if (rimt_node >=3D rimt_end) {
-> +                       pr_err("RIMT node pointer overflows, bad table\n"=
-);
-> +                       return;
-> +               }
-> +
-> +               rimt_enable_acs(rimt_node);
+> @@ -851,12 +849,14 @@ int btrfs_csum_one_bio(struct btrfs_bio *bbio, bool async)
+>         btrfs_add_ordered_sum(ordered, sums);
 >
-NIT: Can we check here itself if it is a PCI RC node and then only
-call enable_acs()?
+>         if (!async) {
+> -               csum_one_bio(bbio, &bbio->bio.bi_iter);
+> +               struct bvec_iter iter = bio->bi_iter;
+> +
+> +               csum_one_bio(bbio, &iter);
+>                 return 0;
+>         }
+>         init_completion(&bbio->csum_done);
+>         bbio->async_csum = true;
+> -       bbio->csum_saved_iter = bbio->bio.bi_iter;
+> +       bbio->csum_saved_iter = bio->bi_iter;
 
-> +               rimt_node =3D ACPI_ADD_PTR(struct acpi_rimt_node, rimt_no=
-de,
-> +                                        rimt_node->length);
-> +       }
->  }
+Actually we can use this one unconditionally in both cases and save
+the stack space.
+
+And unifying both cases will allow us getting rid of the paramert.
+
+I'll send a v2 shortly.
+
+--nX
+
+>         INIT_WORK(&bbio->csum_work, csum_one_bio_work);
+>         schedule_work(&bbio->csum_work);
+>         return 0;
 > --
-> 2.50.1
+> 2.53.0
 >
-Otherwise, LGTM.
-
-Reviewed-by: Sunil V L <sunilvl@oss.qualcomm.com>
