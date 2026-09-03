@@ -1,69 +1,84 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 841D14EC66C;
-	Thu,  3 Sep 2026 16:29:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C5034EC65A;
+	Thu,  3 Sep 2026 16:30:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.133
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788452974; cv=none; b=F176fHUPTmJYibbI8ptdrr9qDdvdi4UwQm0OIIjtp4BRjEj4Wt+2CfOpMgSiF6YgZeAwYTy6j9FuvBeuaU75xhvmqoa0tFhAPtL4q3406Odfd4+rT5vBMV2UIQ2SxtPzVcTTpbS/KXSq5Lhm+VBpCIKIJ+H8UX8woi3k8nziW0w=
+	t=1788453047; cv=none; b=L3aqFz0i7F0gt9UpWKhXeskRBnWAT13feo8dr88JOUpLqOJ9CH56xNpuRxDFa76ixA0CpfWrgNJBTrPtUkZ00gju4csNi9XLuGI4UqoKUnawxxplKT9rwsNN8ek+qzz+d4zYzmjSesMQ5rrQ0sPvKmqAKAJmVOlg5CsRDhHxmEw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788452974; c=relaxed/simple;
-	bh=GHdMxXhpt/f2xcL1eGNyB4/iMa5i1iZwnf3eipotpwc=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=INiuXaNKHNYG1uyrlay2HGiSmRTjyslJIUJk/N01TvO5cUB+eSe0pasHs9bC+45w7Z92QAep6ks4q58Sdx7BMFccy/MZs8Tn56gbAnqasbpwlD1xGSnpELIVF6J6KWx7lIRLvvpWcgw+biONpiZLRonL/8RQfVxZO4aH7Bcn480=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=g4Dc7aDz; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788453047; c=relaxed/simple;
+	bh=UiCheDARnKCI8xw2+dJakBmfbsl/wpri2oQgJ2kElTg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=AKHsFkP48OrWLodN1tvbGPiRNCnBuNL6jMWM1nwQBDcSoSFQmL1eK6U30IprZ/AmVa/4gU67UsEA/jHSnvV9F2bJrSE/39bc+G3bwXeTl9Ty3qfCP3alOALYMQksiB4tyNYEZl2Rz4mz+b3DdMN6NfrLJXV2w6/XYvJB0zyAD7Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=HWpx2Bd6; arc=none smtp.client-ip=198.137.202.133
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="g4Dc7aDz"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CBB911F000E9;
-	Thu,  3 Sep 2026 16:29:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788452973;
-	bh=LRMNrFp5oyG03PXJEJtG731mEFzWgSM8xfjF3tnbMsE=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=g4Dc7aDz2FYmVlEsJCVpdUuO1Bjcy5LYXAfOEujr213p/vveO6i/fBhQJsGCk9bJi
-	 9vsNPymhUGIhFddu3xFzvEN5ltyPjm9bn6x7YpPl4H2HwPkxfCbQCLzENhnE+LIz8u
-	 ulaPzW1SUWYNAN5OQGy1jT7fIgT/l/i7tW9+/RWQcnhXE/i4qidTrHMrHzMLNQktMv
-	 3nnZ/hhelqpwBdsGn5fFMiNOeIXzFof3e2GkoLvMGILlyok8BI2c1eNEtMRNQL5KFA
-	 y32DKj1kOCa1S8VQTXpDRNXlu529uDPrDc13Tg71Mt9rRBXU2kmZnSTF9XyBgPtL+j
-	 UtKjQVb8laggA==
-From: Vinod Koul <vkoul@kernel.org>
-To: dmaengine@vger.kernel.org, Ruoyu Wang <ruoyuw560@gmail.com>
-Cc: Frank.Li@kernel.org, orsonzhai@gmail.com, baolin.wang@linux.alibaba.com, 
- zhang.lyra@gmail.com, linux-kernel@vger.kernel.org
-In-Reply-To: <20260813153149.3953497-1-ruoyuw560@gmail.com>
-References: <20260813153149.3953497-1-ruoyuw560@gmail.com>
-Subject: Re: [PATCH] dmaengine: sprd: Fix runtime PM reference leak in
- probe
-Message-Id: <178845297038.1679748.17132954988792576970.b4-ty@kernel.org>
-Date: Thu, 03 Sep 2026 21:59:30 +0530
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="HWpx2Bd6"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
+	Content-Type:In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
+	Message-ID:Sender:Reply-To:Content-ID:Content-Description;
+	bh=xaEEHQ1BUNZREtnsfwQo0FuvZfEQBGqzpKlB97rC5do=; b=HWpx2Bd63QkCWzrGCD3cYFZYbQ
+	HaM78Aw0Hytv42/V+wfjUMRttOs1VKxNTGaXnxUKyBmZn67Q2+PlQSDPcwyezVhBo5uMVWFx1zrs3
+	gzN/UdT1kh81kMoT1QFDN4q2iaw948ITSKJB9CWuafArHlGtUDrl/iYpzXO7DP5sCR5MvngRHjDh/
+	af9GU92r9LD3LOG95JNO91EL6o7PpmP+Lln6wmYkzY+bU826iDTmp66lKkQFHbpW14p7k0KnuiAlE
+	xV508j1BOmiNh+t4Trxl5ndg5EI2xopEOUVYgjM1qHPPuiJhk8pMTLyqEzzjhW8Oophznu9kIWxoY
+	HrSB57rQ==;
+Received: from [50.53.43.113] (helo=[192.168.254.34])
+	by bombadil.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
+	id 1x2AKq-00000000Anh-31Vi;
+	Thu, 03 Sep 2026 16:30:44 +0000
+Message-ID: <626e7372-352e-4339-8e3d-022bdb1b2625@infradead.org>
+Date: Thu, 3 Sep 2026 09:30:42 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] docs: hwmon: sysfs-interface: Fix bracket
+To: Manuel Ebner <manuelebnerli@mailbox.org>,
+ Guenter Roeck <linux@roeck-us.net>, Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>
+Cc: linux-hwmon@vger.kernel.org, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260903161204.735276-2-manuelebnerli@mailbox.org>
+Content-Language: en-US
+From: Randy Dunlap <rdunlap@infradead.org>
+In-Reply-To: <20260903161204.735276-2-manuelebnerli@mailbox.org>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.13.0
 
 
-On Thu, 13 Aug 2026 23:31:49 +0800, Ruoyu Wang wrote:
-> pm_runtime_get_sync() increments a device's usage counter even when it
-> fails. sprd_dma_probe() currently jumps directly to controller clock
-> cleanup on that error, bypassing both pm_runtime_put_noidle() and
-> pm_runtime_disable(). This can happen if the preceding unchecked
-> pm_runtime_set_active() fails and the following runtime-resume attempt
-> also returns an error.
+
+On 9/3/26 9:12 AM, Manuel Ebner wrote:
+> Add missing ')'.
 > 
-> [...]
+> Signed-off-by: Manuel Ebner <manuelebnerli@mailbox.org>
 
-Applied, thanks!
+Acked-by: Randy Dunlap <rdunlap@infradead.org>
+Thanks.
 
-[1/1] dmaengine: sprd: Fix runtime PM reference leak in probe
-      commit: a7df136ec529ee49a789c5029bc37b98b0d4bedd
+> ---
+>  Documentation/hwmon/sysfs-interface.rst | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/Documentation/hwmon/sysfs-interface.rst b/Documentation/hwmon/sysfs-interface.rst
+> index 94e1bbce1..7cf4178c3 100644
+> --- a/Documentation/hwmon/sysfs-interface.rst
+> +++ b/Documentation/hwmon/sysfs-interface.rst
+> @@ -47,7 +47,7 @@ There is only one value per file, unlike the older /proc specification.
+>  The common scheme for files naming is: <type><number>_<item>. Usual
+>  types for sensor chips are "in" (voltage), "temp" (temperature) and
+>  "fan" (fan). Usual items are "input" (measured value), "max" (high
+> -threshold, "min" (low threshold). Numbering usually starts from 1,
+> +threshold), "min" (low threshold). Numbering usually starts from 1,
+>  except for voltages which start from 0 (because most data sheets use
+>  this). A number is always used for elements that can be present more
+>  than once, even if there is a single element of the given type on the
 
-Best regards,
 -- 
-~Vinod
-
-
+~Randy
