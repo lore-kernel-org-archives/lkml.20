@@ -1,52 +1,74 @@
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com [209.85.214.172])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 408F6351C04;
-	Thu,  3 Sep 2026 03:58:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5193E37F30E
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 04:00:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788407929; cv=none; b=ofXI5x4gJuKqnaYRltS9KyNvsgAJ52zD9MUMwWGJW40Tv1wLrxWyjAoGUNBaz8ucZH/JS/V6p+MQ4BnvUPNEoZmoBJWVhCWTndfNJGIAKvatTdtvhVAMQHErV0PSEQPtHxLEm7Lk40y3Bcgl58oYiTTUGj24wGoE+y/8IAbjPIE=
+	t=1788408060; cv=none; b=nsS1Nc7/KbI9/5xH3SHhCzZssbI8+DiOtDJUT+Fucijso1FbKuQPs5Etv+HQGcWpW6NV64+9p1xmlos4UgHtCoUK6GEbkbH20J/S+EM1d73TzAkpK3qrtiJkxyvm7+Bvz3ojlREHdBEFafn97x1whR4J1Zs8bTQuVZEHc5m8VJw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788407929; c=relaxed/simple;
-	bh=Og1Iw0roLZA/csEIQPZmStLSzUTB+tbGQqFWQzD/4tI=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=Jm1IO7ese2Ulbay+oyHNoRW+Jc7SjWURmwyf7oXIjLmoF0Xkh5x/H56mOg4AXtdVuge8++EKFUwZErCbanJQbtwrJF2yrvDx8uLg9gRoIVc8vmK6N+BYEUbJJH3f8bLd03VwE/XnOVs/VmAhKXkDpOQXhYZNPEDsN7DP43o5H78=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: c044e322a74b11f19a56ed5b684f684d-20260903
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:169575db-8284-4043-8f65-60f49d873fe5,IP:0,U
-	RL:25,TC:0,Content:-25,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACT
-	ION:release,TS:25
-X-CID-META: VersionHash:7db8b62,CLOUDID:76f79b66bd9105c7f99d59bf1986ee0c,BulkI
-	D:nil,BulkQuantity:0,SF:102|850|865|898,TC:nil,Content:0|15|50,EDM:5,IP:ni
-	l,URL:11|93|82|1,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0
-	,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR,TF_CID_SPAM_ULN
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: c044e322a74b11f19a56ed5b684f684d-20260903
-X-User: yijiangshan@kylinos.cn
-Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
-	(envelope-from <yijiangshan@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 303310129; Thu, 03 Sep 2026 11:58:41 +0800
-From: Jiangshan Yi <yijiangshan@kylinos.cn>
-To: peterhuewe@gmx.de,
-	jarkko@kernel.org
-Cc: jgg@ziepe.ca,
-	James.Bottomley@HansenPartnership.com,
-	linux-integrity@vger.kernel.org,
+	s=arc-20240116; t=1788408060; c=relaxed/simple;
+	bh=TnImqjW8TcInoI3ORtw+3Y6VYINgKHJTYPIbwbTyVzI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=NHkFvzM6JVUHJE4vFHw8OGM2tOhICMZjOPc1jgRO1QBqRednrBb1kxqxbW1vbzkSYgVBpmo7Fvlnk2Fi/4wNGe0nyTyhDbDFZUHAPsXeBfeSHKYgRBECB5qgAKOJFGxO5XrmBHVdgaThfpyNnGFjjyv58cyiBu3oIYtrFlaugNg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BrxKBmD1; arc=none smtp.client-ip=209.85.214.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BrxKBmD1"
+Received: by mail-pl1-f172.google.com with SMTP id d9443c01a7336-2d6d28aa26cso12245325ad.2
+        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 21:00:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788408059; x=1789012859; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=iKQr7/qeF4NbbcRbpSyy8OQJWHUjQqXu07B0Cb4xDE8=;
+        b=BrxKBmD1EDCsSuShG2xaFFRLsmKFqrBgxK3cUbc1uhO9OUAMW4AFKQ4YFNWLJfPxXr
+         GcuKX/2xREr+LsUkTCZfrlAElL38dXvmm3yDLNsHveMFwj2Yxlxf3NgVsz2bFJDDbUNY
+         lyQNKqEfI9M8fZ03CcKp6kzk+mHl9vjfrzjcaNMpb76lsKIzPxXcBREt5jGEVr/EIU0X
+         H3WUTRzFpuuzj7dDjJMTQp35M7eTGelRM7zsLM0pqMu3ogVLweTVHlxfX54qxnbxbRLZ
+         0S1OoAtVYR3SszKNPAUm0bSqP10BQkZ5jRxIjfxXRtUtcWEJwfSV2O6sVw9+QZXc2rhs
+         NeZA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788408059; x=1789012859;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=iKQr7/qeF4NbbcRbpSyy8OQJWHUjQqXu07B0Cb4xDE8=;
+        b=TpeoRQGJGlToAhOMZZa2O+GX3nhVBqRKO8v1e2CbCjixaVhhz3p+OZTl4dpsaqQ9xv
+         ulKV1+MXaBZ17n5SD8pTaCYlYY9GNdTY6v6sQreB5CbZWZDUY+UCdV5KLnfdg8a/3lhc
+         /C9jWjIzD8fzIchvX2lLWHTTgAVOK8v9F2ezWur90rwZJGQuQOBtErl3n/SipJ6FlJ7l
+         MdDXow7URCuJSReozlRiHCXCSm8EcPAtLHTkAVyyMML/KlI8GSgLG7FtojADEUCy1pp/
+         HbtUvAKXOqhvuFTN1CYZTln6l7gZclh3R5RUPkf3PmUDHb3Fxlx+gKV/N0S8pE9vR+qZ
+         TikA==
+X-Forwarded-Encrypted: i=1; AKwUvBy3QbizmmMmGv1PzDRWGPRrqr95cV9/bh4hkqfwMHFkQGgYD5aZKA6WUg+F27IPxOP/ieuhqATJx0lynbc=@vger.kernel.org
+X-Gm-Message-State: AFuF++n1GmlLYo4wsTkSzw21vIfNksgtFFFE4cnbhwp/pIWjty55GtBY
+	OGWbNLrBi6hAYzLDPn4sMx8PeivasVK/vIilqVQwnOwLpY0KwMI5y9tL
+X-Gm-Gg: AYBFou0bmHUb+1rU8yzU4BknpRSG4fXBKtaecPYdrQgLmAAHWLR8+/7NmX0iFnZoobQ
+	0m78+iLJQ+fet8IVqntUBJ7iAZksEW4kXKQTpo/v920rOkHC23GMiaXPwc5CYrYhyjuGPsTHW09
+	iBoZqexalFgzwqamLnOG2Use1it7RNAn4yIcZbdamEaRgrqJ3IyzN8IJjkD52aOO5VIkI2/mAuT
+	2RTuwnAAK+e7DZEqgp7zU/Ii3P0nF8g8zjmrxsA0Hzg2dKk4zJArJ8V711EAzZWnw98Wtir5LVd
+	MT2yB9QiohYqcRmCz48gY7GXJnHeiEcaeKVEG/cdIjwLcUqjPfbZHVdVhyFJkzcdZpc5Diud+0T
+	uAW7yW70el20CBIGy/wmVHTOd8GdoPRJs3qDnxfe7xQtnV/qOdB6TczrweTReVAewGtUkLi16PI
+	OlQNma0RTLX86WT1Oqw7G/BDCvHc5WiNWFpjh57Vg3A5tBe6favp1sQ/yOFvGi9ULWtB78eVjoz
+	LewOSu3eaK6niyRuw==
+X-Received: by 2002:a17:90a:d2c7:b0:398:9c39:520f with SMTP id 98e67ed59e1d1-39aee084513mr15049410a91.15.1788408058395;
+        Wed, 02 Sep 2026 21:00:58 -0700 (PDT)
+Received: from kernel ([45.251.35.126])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3325534c324sm2597713eec.5.2026.09.02.21.00.55
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 02 Sep 2026 21:00:57 -0700 (PDT)
+From: Mohamad Raizudeen <raizudeen.kerneldev@gmail.com>
+To: bhelgaas@google.com,
+	alex@shazbot.org
+Cc: skhan@linuxfoundation.org,
+	jkoolstra@xs4all.nl,
+	linux-pci@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	13667453960@163.com,
-	Jiangshan Yi <yijiangshan@kylinos.cn>,
-	Sashiko <sashiko-bot@kernel.org>,
-	stable@vger.kernel.org
-Subject: [PATCH] tpm: fix off-by-four bounds check in tpm2_get_random()
-Date: Thu,  3 Sep 2026 11:58:37 +0800
-Message-Id: <20260903035837.219284-1-yijiangshan@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
+	Mohamad Raizudeen <raizudeen.kerneldev@gmail.com>
+Subject: [PATCH v2] PCI: quirks: Fix out-of-bounds MMIO read in nvme_disable_and_flr()
+Date: Thu,  3 Sep 2026 09:30:49 +0530
+Message-ID: <20260903040049.5460-1-raizudeen.kerneldev@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -55,38 +77,39 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-When the response carries the TPM2_ST_SESSIONS tag, tpm2_get_random()
-skips the 4-byte parameter size field before locating the random data,
-but the bounds check still validates the response length against
-TPM_HEADER_SIZE.  A truncated response can pass the check and make
-memcpy() read up to 4 bytes past the response end, so stale buffer
-contents end up in the caller's random bytes.
+In nvme_disable_and_flr(), the PCI bar is mapped using
+NVME_REG_CC + sizeof(cfg) which is (0x14 + 4 = 0x18 bytes)
 
-Fix this by checking the response length against 'offset', which
-already includes the skipped parameter size field.
+However, the function later reads the controller status from
+NVME_REG_CSTS - offset 0x1C, which is outside the mapped 0x18 byte
+boundary. Reading past the mapped MMIO region is undefined behavior and
+can return invalid data.
 
-Fixes: 1b6d7f9eb150 ("tpm: add session encryption protection to tpm2_get_random()")
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://sashiko.dev/#/patchset/20260902074839.417419-1-yijiangshan%40kylinos.cn
-Cc: stable@vger.kernel.org
-Signed-off-by: Jiangshan Yi <yijiangshan@kylinos.cn>
+Fix this by increasing the mapping size to include NVME_REG_CSTS.
+
+Fixes: ffb0863426eb9 ("PCI: Disable Samsung SM961/PM961 NVMe before FLR")
+Signed-off-by: Mohamad Raizudeen <raizudeen.kerneldev@gmail.com>
 ---
- drivers/char/tpm/tpm2-cmd.c | 2 +-
+Changes in v2:
+- Changed the commit message to avoid overstating the risk as pointed
+  out by Alex Williamson, to be more accurate about the actual behavior.
+
+ drivers/pci/quirks.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/char/tpm/tpm2-cmd.c b/drivers/char/tpm/tpm2-cmd.c
-index 48cec39995fe..d74df7808a3f 100644
---- a/drivers/char/tpm/tpm2-cmd.c
-+++ b/drivers/char/tpm/tpm2-cmd.c
-@@ -305,7 +305,7 @@ int tpm2_get_random(struct tpm_chip *chip, u8 *dest, size_t max)
- 		out = (struct tpm2_get_random_out *)&buf->data[offset];
- 		recd = min_t(u32, be16_to_cpu(out->size), num_bytes);
- 		if (tpm_buf_length(buf) <
--		    TPM_HEADER_SIZE +
-+		    offset +
- 		    offsetof(struct tpm2_get_random_out, buffer) +
- 		    recd) {
- 			tpm2_end_auth_session(chip);
+diff --git a/drivers/pci/quirks.c b/drivers/pci/quirks.c
+index b09f27f7846f..ed03892cc960 100644
+--- a/drivers/pci/quirks.c
++++ b/drivers/pci/quirks.c
+@@ -4090,7 +4090,7 @@ static int nvme_disable_and_flr(struct pci_dev *dev, bool probe)
+ 	if (probe)
+ 		return 0;
+ 
+-	bar = pci_iomap(dev, 0, NVME_REG_CC + sizeof(cfg));
++	bar = pci_iomap(dev, 0, NVME_REG_CSTS + sizeof(cfg));
+ 	if (!bar)
+ 		return -ENOTTY;
+ 
 -- 
-2.25.1
+2.53.0
 
