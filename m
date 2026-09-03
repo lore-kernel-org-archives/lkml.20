@@ -1,35 +1,47 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-49.mta0.migadu.com [91.218.175.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F612367280;
-	Thu,  3 Sep 2026 03:31:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A589A36604B
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 03:34:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788406275; cv=none; b=W29hFmwBy1m9DYRhz0En++21WTL2+FBmTwgLG1R3N/oyOXWEKy7+u7MuEeA22tlGq7FVtgcuAzFz6nJmfkXFIlv4/yEgnkSfXxgrBrxIb+c3W/LnTa+g6ol8U75YK22J9SGH/My+LQeoCA2gmO4MaAsSVKk3mqD5W5Uz9nBl0w8=
+	t=1788406456; cv=none; b=O+XkTOg13nRdVk/RF/WibIEiiw5RtdGi/yc68BxU4iCmUJJsaa6kxgv6v+LVXfCUCU2GnA2URgeo3BkihDH31GwuXSduO5mzNKq+k7K4ud7+cEU4Qk9WbRMs7RAU/AEgnyOKp1msl04nS88z3qEf2Zv5webjvK0bvyvZcYMxLuo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788406275; c=relaxed/simple;
-	bh=Zeh7rn/x5nvnvU54QjjKRdGjjAWgfX+uS5GjFSA+QkE=;
-	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc; b=hhg/XGZSg7HfSdJOjGUmf0xd8IXuJGWyJLua/yyfijA95AlNSWYIbEPdQvRleWzeedFtRsrVdeXvXZK1UYycMRkJ5Zu+fKH8EABIoUBhG6XI1/8zDwdR2g5D07WffLsyfxwi0h/5eVL2BUDYtIMK2dWs60YPv7JJmVJ+MOxfDow=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=W+auT/re; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788406456; c=relaxed/simple;
+	bh=1KMp/FOl0LyWPvCuKijZ4ceqVvuUTUzcJmSfy/YwVyk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=L8IKRtVyEMVAsrsL+qfJpW7mnDWvDQ9FbMsnlr2jr2M/+fTRzcQlqt/Vl0JgCU1TVUTYOIFjtk1ftb/EFoCi3WDRiYn/A6/to3AhnD+a8jKYUjX9nohnDYL7tTn1Qn2Z6QWZXnvfkB0NqqxqV3OvIGFzRMhIHDwPBKoRGbK10WY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=UAB79+zm; arc=none smtp.client-ip=91.218.175.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="W+auT/re"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4376C1F00A3A;
-	Thu,  3 Sep 2026 03:31:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788406274;
-	bh=KGFtclhnf2ezPaAOlcnrR8I+0hi3TVV0iugo6nKpjC0=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=W+auT/re0CSm+7EN7E7KcLFBlVA39dq6VBWu93y/GKtoqzdKOsaV6NFvzJojvtric
-	 yU/4r/O/uYDfaJfEa9zm9zyz9BP8uHETibM2Br9mBxT4gKuf7/eMy+xuzSY1qW9bna
-	 ML8meEdM1Y0g5p3w62uPCc4a5FqpabTj9oCHB9bzhah2+wuQEJo8waomnueW9Qr5WK
-	 wd5tLOcblkQp2KpmEQ49mndwjARCQFhsW7Xz35M+KeJhm67uM9yXotgLc4Ucls0XEU
-	 /s0qmnF+61hW9PJAzZi4TXFThyxZJ6J8fGZEIGMn2hv0Iw58WUUy3BmVYhGJT9qAg5
-	 E+V6MojcuH6BQ==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 19BA8392705C;
-	Thu,  3 Sep 2026 03:30:17 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="UAB79+zm"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=1KMp/FOl0LyWPvCuKijZ4ceqVvuUTUzcJmSfy/YwVyk=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788406451; v=1; x=1789011251;
+ b=UAB79+zmoW119l1raAHb1WADzD+ghefSqyWc7R+eVB1ssXPC9j5WehaUN0awtBZfy+RCxT0w
+ cn9zaTvTod3ctSOvikhiC3wzzhIyfnJe3KlllsiLb7f3pZ3g16FQGrM34kDrfH74mA4anNDYybR
+ 1uAC1JPfX3oYvFQJaNbAun30=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id e20257ac234d1e26;
+	Thu, 03 Sep 2026 03:34:11 +0000
+X-Mizu-Trace-ID: e20257ac234d1e26
+X-Migadu-Flow: FLOW_OUT
+From: Tao Cui <cui.tao@linux.dev>
+To: linux-unionfs@vger.kernel.org,
+	miklos@szeredi.hu,
+	amir73il@gmail.com
+Cc: linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	brauner@kernel.org,
+	jlayton@kernel.org,
+	cui.tao@linux.dev,
+	Tao Cui <cuitao@kylinos.cn>
+Subject: [PATCH] overlayfs.rst: document cross-layer file lock and lease semantics
+Date: Thu,  3 Sep 2026 11:33:59 +0800
+Message-ID: <20260903033359.1042529-1-cui.tao@linux.dev>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -37,75 +49,65 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net-next v12 0/5] net: dsa: motorcomm: Add LED support
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <178840621563.3072235.4183497708325455365.git-patchwork-notify@kernel.org>
-Date: Thu, 03 Sep 2026 03:30:15 +0000
-References: <20260903031630.356840-1-mmyangfl@gmail.com>
-In-Reply-To: <20260903031630.356840-1-mmyangfl@gmail.com>
-To: David Yang <mmyangfl@gmail.com>
-Cc: netdev@vger.kernel.org, andrew@lunn.ch, olteanv@gmail.com,
- davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
- robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
 
-Hello:
+From: Tao Cui <cuitao@kylinos.cn>
 
-This series was applied to netdev/net-next.git (main)
-by Jakub Kicinski <kuba@kernel.org>:
+Locks and leases taken through an overlay attach to the overlay inode,
+while opens of the same on-disk file through its real upper/lower path
+operate on the underlying inode.  The two do not conflict, so an
+"exclusive" flock/POSIX/OFD lock or a write lease held via the overlay
+is silently bypassed by anyone reaching the file through the layers
+directly, e.g. backup tools walking a container's upperdir or another
+overlay mount over the same layers.
 
-On Thu,  3 Sep 2026 11:16:21 +0800 you wrote:
-> LEDs can be described in the device tree using the standard LED node
-> notation. Currently, only parallel mode and strict 1:1 mapping (i.e. the
-> HW default) are supported.
-> 
-> v11: https://lore.kernel.org/r/20260831044818.4103477-1-mmyangfl@gmail.com
->   - handle one of *delay_on / *delay_off is zero
->   - fix error path for yt921x_led_setup()
-> v10: https://lore.kernel.org/r/20260816193905.218112-1-mmyangfl@gmail.com
->   - new patch to fix lock status check
->   - LED control block redesigned
-> v9: https://lore.kernel.org/r/20260726162731.1005803-1-mmyangfl@gmail.com
->   - LED initialization sequence adjusted
->   - add DT description
-> v8: https://lore.kernel.org/r/20260725045008.858692-1-mmyangfl@gmail.com
->   - limit the led port number
-> v7: https://lore.kernel.org/r/20260723195335.806002-1-mmyangfl@gmail.com
->   - rebase
-> v6: https://lore.kernel.org/r/20260709014812.1158178-1-mmyangfl@gmail.com
->   - per-port initialization support
-> v5: https://lore.kernel.org/r/20260707064752.1030345-1-mmyangfl@gmail.com
->   - improve trigger selection
-> v4: https://lore.kernel.org/r/20260703165241.542195-1-mmyangfl@gmail.com
->   - fix some reg op typos
-> v3: https://lore.kernel.org/r/20260701155519.273212-1-mmyangfl@gmail.com
->   - fix null pointer dereference
->   - support polarity auto-configuration
-> v2: https://lore.kernel.org/r/20260629183137.541341-1-mmyangfl@gmail.com
->   - allocate LED structures only
->   - eliminate double locking
-> v1: https://lore.kernel.org/r/20260618202716.2166450-1-mmyangfl@gmail.com
->   - set up polarity correctly
->   - do not set up .brightness_get() to prevent dead lo
-> 
-> [...]
+Locking through the overlay succeeds and appears to work, so the lack
+of mutual exclusion only shows up as data corruption when the two
+sides write concurrently.  Document the semantics, the affected
+scenarios and the recommended practice.
 
-Here is the summary with links:
-  - [net-next,v12,1/5] net: dsa: yt921x: Check lock status with lockdep_assert_held_once()
-    https://git.kernel.org/netdev/net-next/c/b1950d0426aa
-  - [net-next,v12,2/5] net: dsa: motorcomm: Move to subdirectory
-    https://git.kernel.org/netdev/net-next/c/9c472a0d7c38
-  - [net-next,v12,3/5] net: dsa: motorcomm: Split SMI module
-    https://git.kernel.org/netdev/net-next/c/e9423a64d382
-  - [net-next,v12,4/5] net: dsa: motorcomm: Add LED support
-    (no matching commit)
-  - [net-next,v12,5/5] dt-bindings: net: dsa: yt921x: Add LEDs definition example
-    https://git.kernel.org/netdev/net-next/c/5f28f63c5d19
+Signed-off-by: Tao Cui <cuitao@kylinos.cn>
+---
+ Documentation/filesystems/overlayfs.rst | 27 +++++++++++++++++++++++++
+ 1 file changed, 27 insertions(+)
 
-You are awesome, thank you!
+diff --git a/Documentation/filesystems/overlayfs.rst b/Documentation/filesystems/overlayfs.rst
+index 16c35b491dad..546b77e66016 100644
+--- a/Documentation/filesystems/overlayfs.rst
++++ b/Documentation/filesystems/overlayfs.rst
+@@ -884,6 +884,33 @@ The "-o userxattr" mount option forces overlayfs to use the
+ useful for unprivileged mounting of overlayfs.
+ 
+ 
++File locks and leases
++---------------------
++
++File locks (flock, POSIX record locks and OFD locks) and file leases
++taken on a file through the overlay attach to the overlay inode.  The
++same on-disk file opened through its real upper or lower path is a
++different inode object, so locks and leases acquired through one path
++do not conflict with locks and leases acquired through the other.
++
++An "exclusive" lock or a write lease held by a task that opened the
++file through the overlay does not prevent another task from acquiring
++the same lock or opening the file if the latter reaches the file
++through the underlying layer directly, e.g.:
++
++- a tool running outside the container accesses the container's
++  upperdir/workdir or the image layers below it directly,
++- a second overlay mount is stacked over the same upperdir,
++- the same layers are shared between different overlay mounts.
++
++Locks and leases do provide mutual exclusion between tasks that all
++reach the file through the same overlay mount, and a lease taken
++through the overlay is broken by opens through that overlay.
++
++Do not rely on file locking for mutual exclusion between overlay
++users and anything that may touch the underlying layers directly.
++
++
+ Testsuite
+ ---------
+ 
 -- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
+2.43.0
 
