@@ -1,64 +1,63 @@
 Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADEE4375AC6
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 07:59:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CBB8368941
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 07:59:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788422382; cv=none; b=Nj8uLjrfnZy2AStXlsmTaPXTC+Dx8A0TbFUhcyRAo7zr+mCKA61RJZgQFME0VlKHsXD7S120/ChUP6HavTki4K82/RNWGl1WuRqLqZbKHMGP+XztKKLYC8OeRkdC7ZmPvRjM6pgBPNDDRYyLbtTT+tyGf2CPmDmrOXCInE0EG4c=
+	t=1788422383; cv=none; b=kN636O5nADjIAgYkEfcph943dLfH1d/38biYTSNMaENmaXiNKR+p2w1506afMx7gOs++AaeuuZFMoLW0Qqb9ZRbKBNpmbeEhW1OlximuAouo3FVgkpkkqVm+h1HpYU5q4M11ENErXUDxtX14cUi2z2frdM3g2zfPSkuaWALmuNE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788422382; c=relaxed/simple;
-	bh=gyV9BSPjMnPGkLtAXxZ0BHhZYYFuPfmyciIi8M78Li4=;
+	s=arc-20240116; t=1788422383; c=relaxed/simple;
+	bh=bQnH6oPwh2rgmIIUJ5Tnv4TB9rJdFNh4J+fzYdpOCl8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=uJRuKq25E7rFR1hx3ezaO9KARf/yBDLXz7QMGX0TpD/29t20Js+nXlOnYqs/rgO5KHwXXnfBEMg6PAhMusXW5/z+KxxhsLE59+wU0FiQxv7m7Xatck4CCgzKnawUV8MInnLKbT0EgQNtKl04k8QM55lRNNrIE3qMR++aEXH3UXs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CzPV10l+; arc=none smtp.client-ip=209.85.221.47
+	 MIME-Version; b=evwpASF3BEHN29siqQFRENS2XNz8L5cPf9ToB3DllQcA0JUNLFGeTgw0+imlgE8JjXzCLOXGd7gZwZpyi2MFXe/ILU/eFlcrNYKj/RTry6NdHZasHpdlHC81l7SJ0gip8XAYNcQY4oEqiJAvtqdi+cDIQnyLyarNBJiv82t6mZk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HsBuX0gr; arc=none smtp.client-ip=209.85.221.47
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CzPV10l+"
-Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-48584dc164fso1137f8f.0
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 00:59:40 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HsBuX0gr"
+Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-48584dc164fso1154f8f.0
+        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 00:59:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788422379; x=1789027179; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1788422380; x=1789027180; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=gyV9BSPjMnPGkLtAXxZ0BHhZYYFuPfmyciIi8M78Li4=;
-        b=CzPV10l+p2sjcseqG5+rISj6wSfljw507YRrEiZIX/nHDmQGSB3WF5XaKAVlCemYmI
-         VEM3/fTF/D6cvRSVKztO+1bnVuq6uZb/j2bm32d7iqF491GbVniXyBuJTXp1Y4wlD9xa
-         iE6HGU225t4pgBGNO6eFtEt0Im4ddnvD81bSSE9B9D9R3TDqCQVVVEfI3XUK7fAXyYVy
-         2kVGbzDEUdWye3zPwoaBMdqCEZBem+ukv2wBcqWX+lGuQfigWfkDfOViIMKFflNjMld4
-         Ur9TaNVtQcl8cTH9Yg/5iKUZ2+xfyNcWxm/q/9D0B6UEpW6eQSXrmkfgIFCAa8SXnTIc
-         b4bA==
+        bh=bQnH6oPwh2rgmIIUJ5Tnv4TB9rJdFNh4J+fzYdpOCl8=;
+        b=HsBuX0grnkXPgoq0sC5ucMO8GR3gzi864esVYlyAfAch+ejmOqANLUveI9sM+t7sv0
+         JU5gbgggI3X5wpTxHrApZNS7VsQ/ISwLBgcXAdb9nt+qMM16UbEnc6xNQh2dYvNnlN2G
+         SzETfkI39nyYtH8gS+d90ZDgDLN6IhvLW7T7eQV7I7uT9KenDqU0aDb9PnnykXxmrjBU
+         lkkONnUxkl/Sjr6tAJ55eto0kZHprHUcD2dUATYd2O0Og5+y7BndjXxFdQXgez8QMTrs
+         PDfKQrDsZDZJKEKVgq84J+j4cnH7hm1Y32r9aKDOnOLKk842jHEjomPhivpVkKggWaXx
+         biDw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788422379; x=1789027179;
+        d=1e100.net; s=20251104; t=1788422380; x=1789027180;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=gyV9BSPjMnPGkLtAXxZ0BHhZYYFuPfmyciIi8M78Li4=;
-        b=VPBb4hrGN1zwxkPzr9A7IuGMAe+VD7L9DuS2LQbXtdpTXzvkvV8BaYFLSfgU7fz94n
-         5jCkejEtGiCOvTRutWiz7Iqkolu3pq8XXPHAEGR9tKdw3wG0+5J8q+VRfPldSB9xTg3r
-         AYRcRZyVp1w9aOfwOPGYcheUfEp3PY6ihqVeExe1+ByKsmzppwkD5G5aLffdf4Zqsult
-         XZRjMt7W0X/Ouhyn8KqaBQpcSVkV4DvxMw+cpSKthN+NJuslnVVuNxRTsOV0vAbtwkRP
-         k4a44OTkCvXThhcVhU7l9gXNVwL0cHagFbLUolmLdWZ5FgjVdtVkY9HJL+1QIYqnqTqL
-         CuZA==
-X-Forwarded-Encrypted: i=1; AKwUvBxZV7tia2HbGJo/geKtBbVXxMQAGxG8sws0Uohgj1nWGNT5sShuNoyzjTg6WxUSdxaEMR4ENLRQsuyMDf0=@vger.kernel.org
-X-Gm-Message-State: AFuF++ljA13gbFf30OO7m5dMkSRMY6uOfGTNxbJCcGSYTLYkqgoo49zt
-	Zw9HghbomHQfz50Hxp1Luj4goVq2b4Fi5fdqi+KPgRddKAEs4R4bWUo5
-X-Gm-Gg: AYBFou2CzfGuPAErol0rs9Ub2aYeKEvC2UKe98rsOBwQtssgojvdm6pC63eJBWFb1/0
-	3XzUwnDJGj1g1VvpYItI1bz4THIgfy+5wmJRX/3H/lAVVypo5nI5hPbKYCPd3cj79qGy3CkeET4
-	2DdY8jZJtwpwnMQmckj75nELIBt7uxfqqXTXfCL8zgNY5MlPCHDaqW/Wk/kSrJ3OmCkW9sw/pHw
-	+YjVOWzUeqANS9eMOzFr7qSSJ7GVWnXaXKP8esHdbk92LG5ha94koJKTq/OFix2G0v5Q93IW+8X
-	qeMjPRpNdM0v8X7HIEXr8IKpTDbetpwSsJfgKgvxMUd+XPDFfXouLqCgyoPh9gVPVnBIb0Gh5Uf
-	uMD1diSOlvsHlh+OGPXJt+Fm8Gx0rk1n3xOxY98w7GBglZ66rezw/YAc15FxrFr01YPhAhv23k/
-	oxoXpf3+6GYMkmlrZBMWqTyqkvYROx7rDpinzDHFu5nl7LNJDYsEC5wTEVrf6sxguoC8DtvvYWD
-	vzbhXc=
-X-Received: by 2002:adf:e18e:0:b0:47f:e721:1f77 with SMTP id ffacd0b85a97d-48488f0f80dmr20736014f8f.13.1788422378643;
-        Thu, 03 Sep 2026 00:59:38 -0700 (PDT)
+        bh=bQnH6oPwh2rgmIIUJ5Tnv4TB9rJdFNh4J+fzYdpOCl8=;
+        b=CnMK1mbqDlhxABlSy9v1xTD16yPGV/8uHSbFhPkjXz0krRVYihFpW8GihKWMe0HX8A
+         Fxgb3Gy6zRHIHALDmCJsZG1oK2pAnjLSzy/UFnnquiLyHOwIedfSq9aUvVEbTRYrhc4T
+         f2e/iV3RWVsYatv+WPZBzRKLkEBR0U3nGQjHvHwCRQ55ZFWaa332lqb94Pg2grCt73hY
+         5hpZLJb0J4idrSliF1SVoi+ei9THuUxmGH96rk4QZpXVH3rFBhsIPN56EjvGWNlXQwdm
+         t+iUlKewdjJfm4Z//KvSD/BwV/iAqppcEiTs77X4IsQD8Ml2KLdmigyOFG1Vds2Myd7z
+         lOtg==
+X-Forwarded-Encrypted: i=1; AKwUvByl92U6OenH9IQ7lkdN1ik8zf3UKXP1UIPCFNVzrnac6D0/hdUBvLYzC+ZhbMeTV/AG8qSnrC5R0jz/OFU=@vger.kernel.org
+X-Gm-Message-State: AFuF++lHd3O92rq9m4mcGuO3QoYMGk5bVMxSkkvkbmXwWyxnMduEin1i
+	ex4JqtE+cYg77nNmCtxwCcisokVYJIuq6u9snLaxZ3WAaj7yzVflTPUV
+X-Gm-Gg: AYBFou3GhXGYhThy4C3uKsVKOKK0E0h2XU8peWglZR/w8ZCrQznJhegTfdFM70mpp85
+	a0lPs2/YSa8hR5rrSoyq0XE/VYYCaqynLpIwI2Ld4wnI7u+2iykQjgA35MQRuI8wtRy0JWSSJAK
+	TdCunk54xRoC35zBgg1Smida4NMiR/ecsDr9/rkam9Od6mP9IaoZN0zUmrCPgNyz+osUteLkrOi
+	Y3uQa/evJPAnbHt0Di1eSHcUbCE1xUQaMNUPOdVdGzbFWEqWYFGLEYXMKxw3zyBES/8cfB8G5WV
+	BNTM8t6TuWgO+NA0ChmRB0/v5K2hcbu966u4DR3zp7+91qwTccEXPb7aHnqL2oxFbkqrrzidHEK
+	Ly7r59bLh5SV2Yo8/Xa8DTNocuoEqs4Rjojlk3pxrQz1Fw0U1IgWwusi6ntgTiJq226niPPluBX
+	waXF9EF2KeBFgnsA+grcIPfYqUy7Ldbd+n2nhF9Eex+r+dVhFDpoM6vorkaPzEWj281g==
+X-Received: by 2002:adf:e196:0:b0:484:3311:3703 with SMTP id ffacd0b85a97d-48488f222d6mr21633674f8f.26.1788422379658;
+        Thu, 03 Sep 2026 00:59:39 -0700 (PDT)
 Received: from deb05.proceq.com ([213.160.61.66])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48448e72c28sm12914843f8f.6.2026.09.03.00.59.37
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48448e72c28sm12914843f8f.6.2026.09.03.00.59.38
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 03 Sep 2026 00:59:37 -0700 (PDT)
+        Thu, 03 Sep 2026 00:59:39 -0700 (PDT)
 From: Mehmet Fide <mehmet.fide@gmail.com>
 To: Bartosz Golaszewski <brgl@kernel.org>,
 	Linus Walleij <linusw@kernel.org>
@@ -74,12 +73,12 @@ Cc: Dong Aisheng <aisheng.dong@nxp.com>,
 	linux-kernel@vger.kernel.org,
 	Mehmet Fide <mehmet.fide@screeningeagle.com>,
 	sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 1/3] pinctrl: imx: answer OUTPUT_ENABLE/INPUT_ENABLE queries from the pad register
-Date: Thu,  3 Sep 2026 09:59:34 +0200
-Message-ID: <20260903075936.2089280-1-mehmet.fide@gmail.com>
+Subject: Re: [PATCH v4 2/3] gpiolib: add get_config() and gpiochip_generic_get_config()
+Date: Thu,  3 Sep 2026 09:59:35 +0200
+Message-ID: <20260903075936.2089280-2-mehmet.fide@gmail.com>
 X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260903074348.8F2DF1F000E9@smtp.kernel.org>
-References: <20260903073143.2068494-2-mehmet.fide@gmail.com> <20260903074348.8F2DF1F000E9@smtp.kernel.org>
+In-Reply-To: <20260903074509.F36471F000E9@smtp.kernel.org>
+References: <20260903073143.2068494-3-mehmet.fide@gmail.com> <20260903074509.F36471F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -90,13 +89,16 @@ Content-Transfer-Encoding: 8bit
 
 From: Mehmet Fide <mehmet.fide@screeningeagle.com>
 
-> [Severity: Critical]
-> This is a pre-existing issue, but can an unvalidated pin_id derived from the
-> device tree cause an out-of-bounds access on ipctl->pin_regs here?
+> [Severity: Medium]
+> Does pinctrl_gpio_get_config() actually return a packed answer?
+>
+> Looking at drivers/pinctrl/core.c, pinctrl_gpio_get_config() intentionally
+> strips the parameter and returns only the unpacked argument:
 
-Same finding as on v2 and v3, same answer: yes, the parser trusts the
-fsl,pins value, this series does not touch it, and I will send a
-separate bounds check for imx_pinctrl_parse_pin_mmio() and
-imx_pinctrl_parse_pin_scu() once this series is in.
+It does not, you are right, and the documentation I wrote is wrong: the
+packed parameter goes in and the bare argument comes out, exactly what
+pinctrl_gpio_get_config() does, and what gpio-mmio relies on in patch 3.
+The code is fine, the kernel-doc in driver.h and gpiolib.c and the
+driver.rst paragraph are not. v5 fixes the three texts; no code change.
 
 Mehmet
