@@ -1,339 +1,166 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from CY3PR05CU001.outbound.protection.outlook.com (mail-westcentralusazon11013060.outbound.protection.outlook.com [40.93.201.60])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C8754E3EF7
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 15:46:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788450389; cv=none; b=BbFgA6Ay1Ofq+IhPa31s+/mYx1F3TWmP8iRHhml0qFQ1XSbxXA/EzWcCwHIKZO9QosIxpw9C2DiBHvgyE5Ng50z3TtJPTpQGg+yjBXD1BkcZu6MSOV8KygOhhSclUueolAZr8LxVDWR1srs6UP0YOxVYjl196HMcsIqFjkziKrc=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788450389; c=relaxed/simple;
-	bh=DwnjUZYyoA/GLlhrEzBe1OT6w/1/WKAWN2BgHensPfk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=C0vWXp9BPtekmIwtRIDLAasF7ToCap/Yix37g2+PSwHrIu7kVtCwT+dxkDzCQbNJ8pjNbLzQZC0ocNA4NMTKIO2pHhi03x8p9pSvvmK6kUnFAJqQn/4doV6uxDjX0bZobP0U5H4wDabHvtUct99Cd4Mv8ao8dISlslviv815Kws=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LrsSshXH; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCE084E3EE1
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 15:46:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.201.60
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788450393; cv=fail; b=VfjDAyW6tR2KU1uoatVZOM6d1wObg8U+WbRwguqu9S1g38VenLd/901so4L5xnNxOXv+0D0dAl8SLEEnyTXGg1NLPaUHTuYtYML3zGLDwso6OCt9oVMMXsDEUCJviAf/oC6bKmqtaZuPh7yerAZ4oc78yS70jnVfWZtCy34MKRw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788450393; c=relaxed/simple;
+	bh=EohvMs46pLcZibIn35p5jIZPTL5JpaslsbAMaxvmMwY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=p3YMkfeyfox2WGTaIBDYntvZonFCOapMpSbiHbZbB2l0uOtoiUlXKwKcKjaeU/eATDn1F8zvaxypbSYigJcUn8FZSN5AmlzTZv8zQpF/UZPYP7jUaNSv8McUjGkXl5JzdwF0MnjFOXzvfBpRt7qhYHfIVdItSqwW+/h5w2yYCIk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=GFTR4jff; arc=fail smtp.client-ip=40.93.201.60
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LrsSshXH"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6B9591F00A3F;
-	Thu,  3 Sep 2026 15:46:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788450387;
-	bh=bvtuy6huBs7QxtTxtr9G7+YTzTpQucZ/JdRFZvmmlOU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=LrsSshXHnCWaUcDt77DVY1qL1MfXSWLZCXdVUI25lmldx1Lz7tj9UI69Q5vnukpJK
-	 em9BoxtW9nmH0Wwh3xNg3V8Y0NLsqz/1sxeYKXnGEejJSvFdoSXMHXKlJZ7tLca64p
-	 0neBXfVW5sBqrgzdyyscV42oMZ9RpSxH/pYvMS13YCFiWu7PWfHZB0AajbVXkoJAGN
-	 0l2NJmv3GL0Tj4+42k87hN/kR54sOeR0nh73vSKFpAHvrD3p+xLM0RD3mAv09n0hwb
-	 gJRLPoRag0TiwxIpPTny0N7lpY8aQHRTOV1S2BExqLu1G5KcFH3+1U1px9lTdbRM8E
-	 ZgDkbKpaRd9fw==
-Date: Thu, 3 Sep 2026 16:46:18 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Johannes Weiner <hannes@cmpxchg.org>
-Cc: Nimrod Oren <noren@nvidia.com>, 
-	Andrew Morton <akpm@linux-foundation.org>, David Hildenbrand <david@kernel.org>, Zi Yan <ziy@nvidia.com>, 
-	Baolin Wang <baolin.wang@linux.alibaba.com>, "Liam R. Howlett" <liam@infradead.org>, 
-	Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
-	Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
-	Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, 
-	Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
-	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
-	Brendan Jackman <brendan.jackman@linux.dev>, Hugh Dickins <hughd@google.com>, Nirmoy Das <nirmoyd@nvidia.com>, 
-	Dragos Tatulea <dtatulea@nvidia.com>, linux-mm@kvack.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3] mm: remove min_free_kbytes adjustment for THP
-Message-ID: <aplzo5Jsb6f1MdaM@gremlin>
-References: <20260901190123.3511535-1-noren@nvidia.com>
- <20260902162323.GO3004@cmpxchg.org>
- <aphS2TancJAZLND7@gremlin>
- <20260902183752.GP3004@cmpxchg.org>
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="GFTR4jff"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=WsfPZb1Bs3uQQp2G+F7+G/zMOW/nxSYtkQoaeFoWBKWuIDbLZOheFVW2vwAWp/fWe7XdGu5dmgqTFo3v8htRXsDdE0u5kZ2WIQ3ERsMR/9QEdiZqaKrSzKZg5vqb7z4NKUuczHP7i32RjcfXzY4YHDOx5m3+ILNFL73XjDrlTP97m/QdaSkT/R00Me1QT9vqut/MD9oYR8FGtzt7SSjX7V1RachPjLtoy5U9ckvXekjYcuwStk/1ka5J0g1buYGNSC3X3bhvMYv3ws9y+yc+y3FoGOQ1EA59QTPFdeOIpKXpsnZnn4qvwkzMP89+hj/s9gFmdW2IUlFRWrU0mvg6Jw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=lVbFDdYMTBCjcAyPvBikVlQ8KJoqAqw46vpMHvZC7mM=;
+ b=TO7pKEydaPcGAShaKLhrI5OBd+GfoBLWh75xLi81vI5P4ZnQPt4NT0sLHXrdNnaxORc9sJRDOtXAW7jZJOm1fB63ngfsohcFwJi6ecBnPknINv59d8EawMOUkrosXEZLIFOklsvk+ZFrW0nza92DmZCTyzZLlMfLaRxkODx2uUd7KSRSXzM2W7P2+2dj1Ti7ViHwIi7blm5atI2h0TpgQlsT2nEs4wpciBQvEk7fQmuI6/Lfd790ipT8HewxH6UXrCBSR814FndlicSYqA9trFDlkDsGmDhOoqk/77aYnAVplpR+PbgieTWQPQBj5czA8MjlI3rdZtbQMiKmjpQQ7g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=lVbFDdYMTBCjcAyPvBikVlQ8KJoqAqw46vpMHvZC7mM=;
+ b=GFTR4jfflhlhKd9zJgme+Jo2okrCslvPkHSeDvU+eq+XJSiRy8tyOxl6x3jqCYLCVMrQXaUENJENuQ7LO96DIbSmas+Gb1zt3DeMhtunZAyq33uz7hdpm8FPvvBVLZHCJ4etpfcqE8fKLfQHEAL0bgMDErUZnBAPR6xUjfTHO71tRW+Z61ekkRZgfdiobUzuq1a6eRtTds5vMmrWZQGCOwJPDlj5/W2YzbMQQoaXEpwu1G++yOxySdCjXemPWrREkXCPCFGAGONgjDldCWKYPz9zTJHk2whaWUcZbRg1Mq4uQr/HGrhR5t94d33h66LL0plu2xyC00NgDNPlokWtGQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from LV8PR12MB9620.namprd12.prod.outlook.com (2603:10b6:408:2a1::19)
+ by DS6PR12MB600424.namprd12.prod.outlook.com (2603:10b6:8:499::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.10; Thu, 3 Sep
+ 2026 15:46:27 +0000
+Received: from LV8PR12MB9620.namprd12.prod.outlook.com
+ ([fe80::299d:f5e0:3550:1528]) by LV8PR12MB9620.namprd12.prod.outlook.com
+ ([fe80::299d:f5e0:3550:1528%4]) with mapi id 15.21.0360.008; Thu, 3 Sep 2026
+ 15:46:27 +0000
+Date: Thu, 3 Sep 2026 12:46:26 -0300
+From: Jason Gunthorpe <jgg@nvidia.com>
+To: "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>
+Cc: linux-coco@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Greg KH <gregkh@linuxfoundation.org>,
+	Jeremy Linton <jeremy.linton@arm.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Sudeep Holla <sudeep.holla@arm.com>, Will Deacon <will@kernel.org>,
+	Steven Price <steven.price@arm.com>,
+	Suzuki K Poulose <Suzuki.Poulose@arm.com>,
+	Andre Przywara <andre.przywara@arm.com>,
+	Sudeep Holla <sudeep.holla@kernel.org>
+Subject: Re: [PATCH v9 1/7] firmware: smccc: Add an Arm SMCCC bus
+Message-ID: <20260903154626.GL4157646@nvidia.com>
+References: <20260805063255.1638614-1-aneesh.kumar@kernel.org>
+ <20260805063255.1638614-2-aneesh.kumar@kernel.org>
+ <178794567779.4159892.8785590655735217125.b4-review@b4>
+ <yq5ay0diyavw.fsf@kernel.org>
+ <20260903125718.GI4157646@nvidia.com>
+ <yq5av78mxv0j.fsf@kernel.org>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <yq5av78mxv0j.fsf@kernel.org>
+X-ClientProxiedBy: YT1PR01CA0086.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:2d::25) To LV8PR12MB9620.namprd12.prod.outlook.com
+ (2603:10b6:408:2a1::19)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260902183752.GP3004@cmpxchg.org>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LV8PR12MB9620:EE_|DS6PR12MB600424:EE_
+X-MS-Office365-Filtering-Correlation-Id: b64090bf-e389-4f19-d5a7-08df09d283f8
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|7416014|376014|23010399003|366016|22082099003|18002099003|56012099006|11063799006|10067099003|4143699003;
+X-Microsoft-Antispam-Message-Info:
+	ZYEWZOsdMDchbqr9lVBniN1+OQTF6VZ8wcxNJcyBfhAxekhzRL7I/Iu3jE4g4kUW6aK9qet8XibUO5jCYgMBkb4YPbQPtbOkkITICJs5tJUAPXzwmKfmW4SVNB/dAmMJPyaKHWDgTE7A2+Q0S7kG42MGrdB4gEAJMHBGsDI7vyvbeB53fCvTTTCtTtznm2evyipr7mBG0oHiVkCX92EvutDHl4V6hP4E7lqqc2n4tnhXLbvbMz+IjWGmnVAlufCc3snxaZTwKxY6CfHnvBKeuASN97468e7Kp8wsI+D9QrV8qJGHa8dbQgCqjO98CJJYXjLTMk/vQR09R/95GuMILQEwnX/LW8RUqU5rTOKwDwkXEKFaSVS+qAgHeCU7Dn/uxyHXvgYqMw3+Bi9YgCoYqws70BPcrPMNVc8QuDhCaXSB4s4pvyHASlya3wTUyfg0LFQJiDX1HsDpMI0CiHWqolBt7HEeoSVwynLWy78ZlkLCMv82kfsLT3S9ewlK2lS5Zx9FjMVnSqMq3bYj73T3BFUXnS0pUaQlUweo8hpSwAZiCploGpJTsL9qR1pO0g7afeUwarcnlMj/T+NccQlmB2O2k1E4xYmQn8vrwbbAYuZA53qYd41V/s65iQfKtZrom9XSrCTqrFEgNSvhBwRrXlrIE5qvWhaaatu3FNygDKA=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LV8PR12MB9620.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(7416014)(376014)(23010399003)(366016)(22082099003)(18002099003)(56012099006)(11063799006)(10067099003)(4143699003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?xL5B9j7iClWPj7bymG2QnAkrIzKBDYJa5rf94uounbuh2CL4ZYUQKoEeQ0/t?=
+ =?us-ascii?Q?IIt8r+s1QGBGQqpHRDR6Si4gfnbD/JDOJVeJe3mPUwPyAB0gRQRs0RKuF4+4?=
+ =?us-ascii?Q?g/1yAPxYUXDRVjkI5DZHbmJrcVCaIpjY7Sfzv94/kLT/L3ZHDxYNKMiFccFC?=
+ =?us-ascii?Q?Y3FLKkgpmWrIvaPM6v45vPRRX6V1ZDoS+i6QIwsYizNvemJsT6JMO2/sqaEi?=
+ =?us-ascii?Q?yRTe0RRvPcfIk/GP2GT2MIyKAW7Bd6O1TECY0th8ku+l6vMA3/wYEFwy13Rs?=
+ =?us-ascii?Q?aiVRJBUkd4X5PnR2J4oemK4C8qUKPuPWZXjXHjz9TF+Y1b1+bmeGt48w9L/Q?=
+ =?us-ascii?Q?LYXE4qEx/Cx3MzN+bVvNlZxNYaLt7vJAjMGq4eL1jA4kTsWnFpsD1IDz+ccl?=
+ =?us-ascii?Q?uMOk34YitF2ZRXVIKkwEZPmnb5NEp8YseG9i8JzLBJ2hoRGi4BlzwehJc7OV?=
+ =?us-ascii?Q?4Xyp5eIInQa300z4Ui2+G6rbwCW1eG53l6mozjW6M3FUJ24mikId/g9N0R/K?=
+ =?us-ascii?Q?reGeEBcNgJe26/HO4+cbxHqZeAaK19zkSLMHIAXcLwmyBIEZ3OR5AXQQIzl6?=
+ =?us-ascii?Q?qa9n4SQFUkuowhaFxyoMkAwnUMHpVbaCTOju3ulT1PtCk/IrKp5oNy61a6mw?=
+ =?us-ascii?Q?BucdQ49Zxtin18Sc6JmyW9ZC+PuOACxynLSyAFL5ji3x7dT96wVe9YMldE81?=
+ =?us-ascii?Q?tCrAcuVOflNl4jUQeVAEfFtMtL6eqoUZaKwO6AykeFXZioy6MHNLEvUAkXEe?=
+ =?us-ascii?Q?BEiVAii4DTjFVpct6gXf3Ryil9LddunHuLGKkl6jZN1ofrgok4Czkyo2euVW?=
+ =?us-ascii?Q?L0vuRHGep4aMpb4Sqfj+oTX7eDmronU5IWPIRM0sq/Mq1llcPDZUciHjypsD?=
+ =?us-ascii?Q?U86nJNp/stfCoXeE191R4NuGugVJ5FfW6/iwUc1tP0BxlOohkX+RlTvB/epY?=
+ =?us-ascii?Q?srfoZi2qJHqFlnS+eUgpdrBjlH6hJjt0rVu1nPGtRyraBqVafo5QJhyhm1YH?=
+ =?us-ascii?Q?PBsp0hsF948iJvs0z/5bxiP64Ceh3jhzFs/9nu2qGaoeHbkdx6dvUZbgEnRl?=
+ =?us-ascii?Q?S+yB2pcblLY3zl/l08Kh2QpH4Fft+/qOntDmEN0TbWGAmNsBHZelSUpK6LoG?=
+ =?us-ascii?Q?xQqhDeiTTLJa5l+qP8A5+LhAKKALDQgDYQy/7sfo0byoXaucHONMdybh17ZN?=
+ =?us-ascii?Q?hEEUSJ+7f0Ltao09bQYjgiKTP+8BseaESlf4s59MYKqm4/WkX8ndnlgKFkQl?=
+ =?us-ascii?Q?zwKBLvYrIe8QsGFLb1bhMiy8prWWKNzjljzoc8PpIIa42OLViO1sqHApA8jM?=
+ =?us-ascii?Q?cQVCeuoJOB2jn7ujsOYAU0R2Wa+64exLt2Am5bdn53KLK7lBy+aQAe0xmyxp?=
+ =?us-ascii?Q?WdC5FiNMRAm8ihbkxKh33lkb/Aj7YhYbOnLFlhsfy8L5+TuXBUl78zRo1dcg?=
+ =?us-ascii?Q?c4MVnv03m5GJ5TgoQ7xh9qHa712Ehj5LT3d0hRuipvyB5pYmOKee+jGhDAkP?=
+ =?us-ascii?Q?P8jOo1okbkrmp1/OO4knubI8hjwAqbyioZcU2WBGXVbRyxLgRVAB6b/59Lb6?=
+ =?us-ascii?Q?KN1LZ9RzrFjPTuIgu87VUDo+GKB8lcmQsBXhjH2nV58DMsb//XJszF4BubkL?=
+ =?us-ascii?Q?vAHP5utL653y9mkLxUCqPNkE3fj4ng6jX8+gBv3rbWeRreUWypgOP5L8e3XV?=
+ =?us-ascii?Q?Zo7Cp+a4QBiA5KSdJkAo9HLwCyXXG1IEYOFo5teYhjKs8b2m?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b64090bf-e389-4f19-d5a7-08df09d283f8
+X-MS-Exchange-CrossTenant-AuthSource: LV8PR12MB9620.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Sep 2026 15:46:27.3520
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: JKIOhABhMYDJXv458yzX6UGd6g2CqzeKr5tJvLfaHwCpRK63kTODdzR6rRASkvnj
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS6PR12MB600424
 
-On Wed, Sep 02, 2026 at 02:37:52PM -0400, Johannes Weiner wrote:
-> On Wed, Sep 02, 2026 at 06:00:55PM +0100, Lorenzo Stoakes (ARM) wrote:
-> > On Wed, Sep 02, 2026 at 12:23:23PM -0400, Johannes Weiner wrote:
-> > > Just to summarize my take from the subthread with Zi: the premise of
-> > > this patch is to roll the regression dice on every THP setup out there
-> > > because certain ARM configurations result in a questionable pageblock size.
-> > >
-> > > I'm not against carefully evaluating and testing out today's need for
-> > > set_recommended_min_free_kbytes() in real world examples. But this is
-> > > not that.
-> > >
-> > > Nacked-by: Johannes Weiner <hannes@cmpxchg.org>
+On Thu, Sep 03, 2026 at 08:05:40PM +0530, Aneesh Kumar K.V wrote:
+> Jason Gunthorpe <jgg@nvidia.com> writes:
+> 
+> > On Thu, Sep 03, 2026 at 02:22:51PM +0530, Aneesh Kumar K.V wrote:
 > >
-> > Well you don't have to listen to me any more as ex-THP M ;) but my 2
-> > pence...
->
-> I'll always listen to you, Lorenzo. <3
-
-<3 ;)
-
->
-> > Isn't every possible change to address this kind of issue subject to
-> > exactly the same kind of constraint?
+> >> I have updated the bus to match devices using func_id.
 > >
-> > I'd like to know what not rolling that dice looks like :) or what
-> > constitutes 'careful evaluation'.
->
-> Usama gave some great examples in his other email. I'm not really
-> arguing to keep things out of tradition. But I think it's fair to say
-> let's at least test the common 4k/2M THP setups under memory pressure
-> before and after the change. Or be more specific about which changes
-> obviated the additional pageblock reserves, and how.
-
-Looking over the sub-thread (correct me if I'm wrong) the issues seem to be:
-
-- 512 MB pageblocks become unmoveable quicker than expected
-
-- When trying to convert a pageblock in try_to_claim_block() 256 MiB is required
-  to be of the desired migratetype, and this is difficult to achieve vs. 1 MiB
-  (yes clearly :)
-
-- AI training checkpointing was a problematic workload - big latency spikes and
-  timeouts. Tonnes of unmoveable memory, order-0 allocations falling back to
-  MIGRATE_MOVABLE (ugh), exhibiting try_to_claim_block() symptoms above.
-
-I hear all of this, and to be clear - this kind of real-world data, at scale, is
-the kind of thing we should base decisions on more than anything else.
-
-Reality > theory every time (and the more you look into the kernel you more you
-realise it's a tower of heuristics anyway, especially in classical reclaim :)
-
-I guess what you're trying to say here is the only way in these circumstances to
-make headway would be to have more memory reserved.
-
-But is that the right conclusion? Aren't you still screwed once those reserves
-are chomped up?
-
-Or are you saying the increased watermark levels gets you effective
-kcompactd/kswapd sooner?
-
-The TL;DR for me is - you have a workload that's broken already with larger
-pageblock size - maybe you could test that with/without this patch and see if it
-really does help?
-
-Anyway it seems to me all of this is essentially a (valid!) critique of
-assumptions backed into the page allocator code.
-
-Which is again what I think about this change - we need a short-term fix of
-_some kind,_ and a longer term fix in compaction, page alloc, reclaim.
-
->
-> > It feels like in certain areas we paint ourselves into a corner where
-> > everybody's too scared to change anything until we're sure nobody in the
-> > world is broken*.
->
-> I'm fine with calculated risks, actually. A bit more surprised that
-> Michal was so readily on board with this :)
->
-> > And so we continue to ride the merry-go-round of proposals/rejections
-> > indefinitely.
+> > Did you have any thoughts on how to handle ARM's versioning scheme
+> > too?
 > >
-> > All the while regressions in tip kernel are a regular occurrence (yes we
-> > don't want that, but they happen), and they are resolved as they arise.
-> >
-> > I wonder if we aren't limiting ourselves by thinking this way.
-> >
-> > Michal's proposal was that the original code was written _long_ before
-> > improvements in the compaction algorithm and fails to account for those.
-> >
-> > It seems odd to retain the same constraints given the rest of the kernel
-> > has changed.
->
-> That's a great motivation to take a closer look at whether we still
-> need it. I'm not attached to anything that's plausibly shown to be
-> unnecessary.
->
-> But I think there are levels of argument quality:
->
-> 1. This code is old as in time
-> 2. This code is old as in the surroundings have changed
-> 3. This code is not needed due to sha1, sha2, sha3 supplanting it thusly: ...
-> 4. This code is not making a difference in represenative tests
->
-> The patch is at 2 and I would really prefer we get to 3 or 4. That's
-> not the same as saying we should stop making changes.
+> > I'm not sure what the rules are but it seems like if the major changes
+> > then the API is incompatible? So shouldn't every driver advertise a
+> > supported major, and the major be in the modalias and checked by match
+> > too?
+> 
+> I expect a single driver to handle the RSI features and determine the
+> version range it supports. I don't think we want multiple drivers, each
+> handling a different major version of the RMM release. 
 
-1 nearly always implies 2 because computers become radically different over
-time (cache hierarchy + latencies, memory model, I/O bandwidth etc.)
+I thought the plan was we are only going to support RMM V2 and there
+will, never, ever be a V3. :) So RMM is maybe a bit different..
 
-3 feels like a totally different category - there's just no heuristic in mm
-that would match that.
+> Given that, wouldn't it be sufficient for the driver's probe routine
+> to check the supported version range and return -ENODEV if it is
+> unsupported?
 
-and 4 I think is the crux of it - we lack any such agreed-upon
-'representative tests' and I fear that getting them might be an impossible
-problem (TM) as people will argue endlessly about what's representative and
-what's not.
+It is sufficient, but is that what you want? Every driver needs to
+manually check these version things, do they? Do we want this
+duplication? Missing a check means FW upgrades might become Linux
+breaking.
 
-(I'm reminded of discussions at LSF about MGLRU and how exactly we decide
-classic vs. MGLRU - Kairu had some nice ideas - but it's another of those
-'will we ever agree on this?' situations).
-
->
-> And honestly, while we tend to claim we want 4 for everything, we're
-> happy many times to roll the dice at 3 - iff the story is specific and
-> plausible. And I believe that touches on your footnote ;)
-
-I really feel 3 is a different class of problem. When would that apply to a
-heuristic?
-
->
-> But let's talk about plausible. Because I'm reading what
-> set_recommended_min_free_kbytes() does, along with its comments, and
-> can't help but think that this still applies in the current world.
-
-Hmm really? The calculation is:
-
-	min_pages = nr_zones * nr_pblock_pgs * (2 + MIGRATE_PCPTYPES ^ 2)
-
-But __setup_per_zone_wmarks() does:
-
-	tmp = min_pages * (managed pages) / (total lowmem pages)
-
-Looking at an x86 box:
-
-dma    3840	<- give an extra nr_pblock_pgs * (2 + MIGRATE_PCPTYPES ^ 2) pgs
-dma32  592222   <- give an extra nr_pblock_pgs * (2 + MIGRATE_PCPTYPES ^ 2) pgs
-normal 15682190 <- give an extra nr_pblock_pgs * (2 + MIGRATE_PCPTYPES ^ 2) pgs
-
-So you end up with 6 * nr_pblock_pgs + 3 * MIGRATE_PCPTYPES ^2 but 96.3% of
-that goes to ZONE_NORMAL, which is now arbitrarily bumped up by a factor of
-~3 for... what reason? And dma/dma32 get tiny fractions (more understandable).
-
-So that definitely doesn't make sense.
-
-Many arm64 machines only have one zone and solve things that way, but
-that's effectively by mistake (the algorithm says scale by zone irrelevant
-of further scaling).
-
-And then the arbitrary 5% rule - it's mostly irrelevant for modern systems,
-and a 64 KiB page size system is likely to run significant RAM (my 16 KiB
-page system with 352 MiB min_kbytes would need < 8 GiB to get capped.
-
-So I honestly think that sucks too.
-
-And also - MADV_COLLAPSE can get you THP _even with all the
-/sys/kernel/mm/transparent_hugepage knobs turned off_, i.e. with no
-additional reserves. So turning it on/off on based on the knobs seems
-broken in itself, at least partly.
-
-I guess Michal can expand on why he feels that perhaps even the
-nr_pblock_pgs * (2 + MIGRATE_PCPTYPES ^2).
-
-Now that's not to say the non-THP heuristic isn't open to scrutiny too :)
-
->
-> The compaction aid is/was always incidental. Yeah it would suck if
-> that is/was (still) an implicit dependency, but ridding us of that
-> could be a more deeper-reaching change than you would want to make to
-> fix that pressing reserves issue with 64k pages.
-
-I don't think it is incidental?
-
-How else do you get huge pages under memory pressure? It feels like
-compaction + defrag are intimately linked to THP.
-
->
-> The fallback avoidance reasoning OTOH still seems cogent to me. The
-> mechanism it references is about passive fragmentation avoidance by
-> giving the allocator placement options, before compaction gets
-> involved. That makes sense in how I understand page_alloc.c today.
-
-See above.
-
-I guess we have to answer whether the heuristic in
-calculate_min_free_kbytes() suffices vs. set_recommended_min_free_kbytes()...
-
-That's not to say we couldn't just change calculate_min_free_kbytes() to a
-sensible heuristic.
-
-I guess the v2 hard cap wasn't desirable, but since the heuristic already
-caps regardless of the rest of the arithmetic maybe:
-
-- Cap to a hardcoded max reserve value [v2 of this series]
-- Cap to a bigger % of free memory?
-
-Are short-term options here?
-
-And on the 'changes are outlandish' side of things, well the vast majority
-of users are at 4 KiB base page size, 2 MiB PMD - so maybe we could retain
-the exact same values you have now in that case, and get experimental with
-bigger page sizes?
-
-Would that then carry less risk in your view?
-
->
-> > Perhaps a compromise would be to put the ability to disable this behind a
-> > config option or maybe a kernel arg? Of course that becomes something of a
-> > uAPI... but at least it gives the option to constrian this for those who
-> > want it.
->
-> I can't force you to engage with the idea of capping the pageblock
-> instead. But I'm still kind of dying to know what the reluctance is ;)
-> And I apologize if I missed any prior arguments on this specifically.
-
-Because fragmentation avoidance, compaction and the highatomic/boost reserves
-are all at the granularity of page blocks, so a PMD spanning several pageblocks
-is not given any help at all.
-
-The underlying problem is that "THP == PMD" is a fiction at 64 KiB.
-
-A 512 MiB PMD is not a useful default unit, so both the pageblock size and
-the reserve derived from it are sized for something nobody wants.
-
-You can't have it both ways:
-
-1.  Complain the defaults reserve too much on 64 KiB while THP defaults to
-    madvise/always for a 512 MiB PMD you'll never use, with no effort to set mTHP
-    sizes instead.
-
-2. "Fix" it by shrinking pageblocks below PMD, keeping the reserve whose sole
-   purpose is PMD THP allocation while removing its ability to serve that
-   purpose.
-
-Really the issue is that actually PMD THP is _not_ the primary need here. For
-most normal uses at 16 KiB page it's dubious at best, at 64 KiB page size it's
-ludicrous.
-
-What we want to do is to stop treating PMD as the unit-of-measure everywhere
-instead of hacking stuff in. Kiryl's work on THP promises us this.
-
-(Note that it's not as simple btw as saying 'oh mTHP is available for 64
-KiB page size, let's reduce reserves to scale to mTHP sizes' - you require
-mappings and alignment at PMD size even with mTHP, so it's still useless :)
-
-We want to account for the fact we want defragmentation for:
-
-- PMD THP at smaller page size
-- mTHP
-- page cache large folios
-- drivers-wanting-higher-order allocations
-
-So I think the long-term solution is to stop pretending and to do this.
-
-Also we have this weird thing of CONFIG_TRANSPARENT_HUGEPAGE gating large
-folio stuff in general.
-
-Oh and as noted above MADV_COLLAPSE can get you huge pages even when all
-the knobs at /sys/kernel/mm/transparent_hugepage are switched off - so
-_without_ any additional reserves :)
-
-I feel the short-term solution is to attack the issue where it exists - the
-uptick in reserves taking a pragmatic approach. And long term the above.
-
-Anyway a request:
-
-can you actually run the problematic workloads with and without this patch and
-tell us whether you see a meaningful regression?
-
-Let's get some data for this :)
-
---
-Cheers, Lorenzo
+Jason
