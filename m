@@ -1,71 +1,71 @@
-Received: from mx0b-0016f401.pphosted.com (mx0a-0016f401.pphosted.com [67.231.148.174])
+Received: from mout-p-103.mailbox.org (mout-p-103.mailbox.org [80.241.56.161])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E30374EA361;
-	Thu,  3 Sep 2026 16:11:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=67.231.148.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD21C4EBAC1;
+	Thu,  3 Sep 2026 16:11:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.161
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788451896; cv=none; b=h7N2aDprKsbQNtYsYMKR51pej99ogzyIBT8MdRcljkF43iAYLoUdShvVlizqfTxwYcDWV063VKn5sia5xtrh3/G3Nu0wM1/WVI8C7RsCd5hARo2t4rUiEhHEpTbVbqLn3SHLpgPtEO/gLMbyZr1N3o6nmY5haIPw4msbssedX5c=
+	t=1788451900; cv=none; b=FF+xAKj23gDicZI2iHodN2lunF6E0jKXDSp8bF2TqdK9M2fq+aJEvaojk5GCtcEtqsoAQzmrOe5D6Pcb6dXiJmZA/naSOa8JddGRc6x2xEHT1Ab5Fl8I6qilZFPS1SHnFzkJPGtJmsIPWMGDVyrbOPHKAiVHVf2t7xFTC3hpIi0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788451896; c=relaxed/simple;
-	bh=09ziLNC0bkLsTmgMG4PhrQqdi09zCihTIjajLC7U9J8=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=hvy0wuLKfZbRf8vs0YglrxXUVF1Ianl0fKAGL1TkeLc6V515600gxa+MqWW6K6s9M5SvpxT/011lZBvqz+St18fINrNguyTjKplSdHUn7jSlVjVqPORlIMfwo1XMSb/Nqyu+e611bkd7zpv9UDqVNSKIiIwb5dG8Jd0lwka7Qgg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=marvell.com; spf=pass smtp.mailfrom=marvell.com; dkim=pass (2048-bit key) header.d=marvell.com header.i=@marvell.com header.b=Z0MaIcIS; arc=none smtp.client-ip=67.231.148.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=marvell.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=marvell.com
+	s=arc-20240116; t=1788451900; c=relaxed/simple;
+	bh=7zVtRm1NEDIYKsOZ6ADBgCUoB8FdH0b1+13dugt/0BY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Ki0cQUutCLzdF7NxIl+YX/+ltcY6wrxzmUXtCdfJuFrlvwGuXobp82WfZ6iZ+LsYmn3zWiHLFoWsxGHINguenC54fbaWCUD+alBmGMAx5HGavVvAKX9VPMXUPaI+7fWSbwCOp3cEN5zKTQmWHyqkvHw9x/26U9DKlr2Wof6N+ls=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=DLwZzZ8d; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=voRj94yu; arc=none smtp.client-ip=80.241.56.161
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=marvell.com header.i=@marvell.com header.b="Z0MaIcIS"
-Received: from pps.filterd (m0045849.ppops.net [127.0.0.1])
-	by mx0a-0016f401.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 683G9KPi1341998;
-	Thu, 3 Sep 2026 09:11:25 -0700
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=marvell.com; h=
-	cc:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=pfpt0220; bh=gzeDU9um1jAYuDEMPjMsxXO
-	DB2aqVTNmcDZoJtxG/OY=; b=Z0MaIcIS8hLCkAg+w8XZfEK/ksGuH6IgnlhfM3h
-	QHLAanVfLraAVISiMfKFUwLkv/36HsAYwoUysglzMqbva9hDd+44G394D7mlFLMm
-	TAq7VA6iCWWE+6ZbsCtXnQcuQBtfUDpeSxyJiFXkGfY9Pyl9W9+pstreseZFlqq2
-	Vfk+HGxwdJe0aJlB8gLz+hHUUU/1xCD8c//BUFpl9FuIU8+Lp6LHH0ylFBJ9zyQL
-	wAO6b06X30UEOORQa5MEPK/5Oa5x1Y8P+d0E7kWaokHp6TeDl5jgd/9sQQJZ9XbW
-	vsD8Dtbha8UPbowbAwmWaHZ5MYyNobfgToFF5aMAdC1X3xQ==
-Received: from dc5-exch05.marvell.com ([199.233.59.128])
-	by mx0a-0016f401.pphosted.com (PPS) with ESMTPS id 4gew3k2xde-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 03 Sep 2026 09:11:25 -0700 (PDT)
-Received: from DC5-EXCH05.marvell.com (10.69.176.209) by
- DC5-EXCH05.marvell.com (10.69.176.209) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.25; Thu, 3 Sep 2026 09:11:24 -0700
-Received: from maili.marvell.com (10.69.176.80) by DC5-EXCH05.marvell.com
- (10.69.176.209) with Microsoft SMTP Server id 15.2.1544.25 via Frontend
- Transport; Thu, 3 Sep 2026 09:11:24 -0700
-Received: from kernel-ep2.caveonetworks.com (unknown [10.29.36.53])
-	by maili.marvell.com (Postfix) with ESMTP id 3DB9E3F7063;
-	Thu,  3 Sep 2026 09:11:20 -0700 (PDT)
-From: <nshettyj@marvell.com>
-To: <netdev@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-CC: Hariprasad Kelam <hkelam@marvell.com>,
-        Nitin Shetty J
-	<nshettyj@marvell.com>,
-        Sunil Goutham <sgoutham@marvell.com>,
-        Geetha sowjanya
-	<gakula@marvell.com>,
-        Ratheesh Kannoth <rkannoth@marvell.com>,
-        "Subbaraya
- Sundeep" <sbhatta@marvell.com>,
-        Bharat Bhushan <bbhushan2@marvell.com>,
-        "Andrew Lunn" <andrew+netdev@lunn.ch>,
-        "David S. Miller"
-	<davem@davemloft.net>,
-        "Eric Dumazet" <edumazet@google.com>,
-        Jakub Kicinski
-	<kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-        Christina Jacob
-	<cjacob@marvell.com>,
-        Jesse Brandeburg <jbrandeb@kernel.org>
-Subject: [PATCH net] octeontx2-pf: Fix autoneg reporting in ethtool
-Date: Thu, 3 Sep 2026 21:41:16 +0530
-Message-ID: <20260903161117.2856633-1-nshettyj@marvell.com>
-X-Mailer: git-send-email 2.48.1
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="DLwZzZ8d";
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="voRj94yu"
+Received: from smtp102.mailbox.org (smtp102.mailbox.org [10.196.197.102])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-103.mailbox.org (Postfix) with ESMTPS id 4hbPjb06DCzKnRy;
+	Thu, 03 Sep 2026 18:11:31 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1788451891;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=svi1ggILW4Mv3CIMN+p0lTo381ICzKT26uBQmK6xM4M=;
+	b=DLwZzZ8dD/+Zv9IbdPnbDCvbKMlmR8n9pgJjdLl/a/zlIWvD4jF8B8qTbnPJolw5P8ydef
+	Ai5I9oraGfXQNB+TzmyDTpKDiNjBbgN3eaC90zEIQj8MtqVYqpg+fcPT3l2PwrRTFWo8qZ
+	rdG6VI4OZNe4cu3XquBik6wzIzUu4BXkEv+cXPH0syDktKDAP0M9YNyZQ5L6HJlTAYxIMY
+	OdtB8xoNenXh5KJrzD/WcQuc5pKnCScRSyVHblTBv9umF9ZZtjn2MaW5rTSp54vxtF4VoU
+	/eEWUyZH4dRv1bvDVf0m4kMuX62RcZPsVl4BYy84r7CB7eZof8pyUt4xYXupFg==
+From: Manuel Ebner <manuelebnerli@mailbox.org>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1788451889;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=svi1ggILW4Mv3CIMN+p0lTo381ICzKT26uBQmK6xM4M=;
+	b=voRj94yuSXd7BUv88LQujGUziZK5SDNy4rwInM8MWXdq5+UdX+Hz1hAriFJhZIjwbRHFR+
+	N2A91lszoyo65F7r/ZVdZkaMhoADACdlwis95IdYMzmvV3fpiX2NFPi+37ET87SnhqeqiI
+	i1W8uHeUbN+7OVSgsAPtaKQh1AGZNCEmZdN4HPoIWYylnpvRzZa0OTrPXk1rgd8QHDz9Lk
+	tY8PP5/NxKwumW+O0bsUJdsKVJrTuGO9UwtrFDqnoT5DAt/SQo88FVpTy2hpuhpRuPZJjy
+	A/qPMg7q26+BVvplG/uXVAtIBQF2QHhYnGlAm4X8LzOk7hZJGIrXhxH/v8+qOQ==
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Alexandre Courbot <acourbot@nvidia.com>,
+	Sumit Semwal <sumit.semwal@linaro.org>,
+	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: Manuel Ebner <manuelebnerli@mailbox.org>,
+	dri-devel@lists.freedesktop.org,
+	linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	nouveau@lists.freedesktop.org,
+	linux-media@vger.kernel.org,
+	linaro-mm-sig@lists.linaro.org
+Subject: [PATCH] Documentation/gpu: Fix brackets
+Date: Thu,  3 Sep 2026 18:10:05 +0200
+Message-ID: <20260903161006.735038-2-manuelebnerli@mailbox.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -73,78 +73,43 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Proofpoint-ORIG-GUID: 0zmHevKY1Vpdmro97tLSYzp8ULKLaK0M
-X-Authority-Analysis: v=2.4 cv=OYSoyBTY c=1 sm=1 tr=0 ts=6a999c2d cx=c_pps
- a=rEv8fa4AjpPjGxpoe8rlIQ==:117 a=rEv8fa4AjpPjGxpoe8rlIQ==:17
- a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22 a=l0iWHRpgs5sLHlkKQ1IR:22
- a=EAYMVhzMl8SCOHhVQcBL:22 a=M5GUcnROAAAA:8 a=jf-fmDdCkoYWP8ysx5oA:9
- a=OBjm3rFKGHvpk9ecZwUJ:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAzMDEzOSBTYWx0ZWRfX6U/dvkTS1sdW
- ai+JOerXTUfNz22ERGA6XlPZfjYo4WkoObqXLyLLxFoIwBZhBUc+MG5Dal0i/Tb4Z7vk7XAKJ/3
- /SUa2cBcVrSBtej+t80SekoW/OG8/UWdQWLGaS4p1CDF8H25prifL5MrxlXR7WHIrO5Yi4Im+fL
- mYEepYGrIqgRrPspRYE8d655zDwO+B64GC7dL0FMrP+Mr3JJNfDZyUPqx0IymeXHVhAVmqCbsTz
- Xna/IcK6cF6YFum5mfeNFncCbH2h0VtzEtruzqmm7aGTWv2nSs/TIOnVYeUF6xb3XmF4+7r6EOC
- L+wlkesI0Wth0LJfUPurwSmC1jiTKplLQ/fEeeapv8+2Ba84RD5H1q96pvnmEyShuVEWadlkKpg
- ni2XuH+jdJfHyD/Yl82yYQBisXSBPrrONMZw55/NtbwIYDDv44nUmGSjYwXkkc4z9Um5L+2jMNr
- 5cjFrYN/cJiky6mXFIg==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAzMDEzOSBTYWx0ZWRfX5JqNAe9heGUU
- rVzjIuSDujfWlkEatCN4MX2PguRitVkuk93E8JK/hqIHKi3od3JwVQ+ukqJWLwlTarASbD+Otcj
- cLuLmXYo4kQ7ZEtpJFgXWkr1WSx41nI=
-X-Proofpoint-GUID: 0zmHevKY1Vpdmro97tLSYzp8ULKLaK0M
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-03_05,2026-09-03_01,2025-10-01_01
+X-MBO-RS-META: 7khs7mwymocfwygepsxtd7gbx5951f3t
+X-MBO-RS-ID: 0a3e879bd0546b84173
 
-From: Hariprasad Kelam <hkelam@marvell.com>
+Remove needless '(' and add missing ')'.
 
-The driver adds the supported autoneg bit before copying the supported
-link modes. The copy clears the bit, so ethtool does not report
-supported autoneg correctly.
-
-Add the supported autoneg bit after copying the supported link modes.
-Also add the advertised autoneg bit when firmware reports it.
-
-Fixes: 1a50280c25ec ("octeontx2-pf: ethtool physical link status")
-Signed-off-by: Nitin Shetty J <nshettyj@marvell.com>
-Signed-off-by: Hariprasad Kelam <hkelam@marvell.com>
+Signed-off-by: Manuel Ebner <manuelebnerli@mailbox.org>
 ---
- .../ethernet/marvell/octeontx2/nic/otx2_ethtool.c  | 14 +++++++++-----
- 1 file changed, 9 insertions(+), 5 deletions(-)
+ Documentation/gpu/drm-vm-bind-locking.rst | 2 +-
+ Documentation/gpu/nova/core/todo.rst      | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/net/ethernet/marvell/octeontx2/nic/otx2_ethtool.c b/drivers/net/ethernet/marvell/octeontx2/nic/otx2_ethtool.c
-index 9bee1b91eeaa..612fefc41a17 100644
---- a/drivers/net/ethernet/marvell/octeontx2/nic/otx2_ethtool.c
-+++ b/drivers/net/ethernet/marvell/octeontx2/nic/otx2_ethtool.c
-@@ -1218,19 +1218,23 @@ static int otx2_get_link_ksettings(struct net_device *netdev,
- 	if (IS_ERR(rsp))
- 		return PTR_ERR(rsp);
+diff --git a/Documentation/gpu/drm-vm-bind-locking.rst b/Documentation/gpu/drm-vm-bind-locking.rst
+index a345aa513..df6cf0132 100644
+--- a/Documentation/gpu/drm-vm-bind-locking.rst
++++ b/Documentation/gpu/drm-vm-bind-locking.rst
+@@ -170,7 +170,7 @@ submission is therefore preceded with a re-validation section:
+            validate_gem_bo(&gpu_vm_bo->gem_bo);
  
--	if (rsp->fwdata.supported_an)
--		ethtool_link_ksettings_add_link_mode(cmd,
--						     supported,
--						     Autoneg);
--
- 	otx2_get_link_mode_info(rsp->fwdata.advertised_link_modes,
- 				OTX2_MODE_ADVERTISED, cmd);
- 	otx2_get_fec_info(rsp->fwdata.advertised_fec,
- 			  OTX2_MODE_ADVERTISED, cmd);
-+	if (rsp->fwdata.advertised_an)
-+		ethtool_link_ksettings_add_link_mode(cmd,
-+						     advertising,
-+						     Autoneg);
-+
- 	otx2_get_link_mode_info(rsp->fwdata.supported_link_modes,
- 				OTX2_MODE_SUPPORTED, cmd);
- 	otx2_get_fec_info(rsp->fwdata.supported_fec,
- 			  OTX2_MODE_SUPPORTED, cmd);
-+	if (rsp->fwdata.supported_an)
-+		ethtool_link_ksettings_add_link_mode(cmd,
-+						     supported,
-+						     Autoneg);
- 	return 0;
- }
+            // The following list iteration needs the Gem object's
+-           // dma_resv to be held (it protects the gpu_vm_bo's list of
++           // dma_resv to be held. It protects the gpu_vm_bo's list of
+            // gpu_vmas, but since local gem objects share the gpu_vm's
+            // dma_resv, it is already held at this point.
+            for_each_gpu_vma_of_gpu_vm_bo(&gpu_vm_bo, &gpu_vma)
+diff --git a/Documentation/gpu/nova/core/todo.rst b/Documentation/gpu/nova/core/todo.rst
+index d5130b2b0..a01c362b1 100644
+--- a/Documentation/gpu/nova/core/todo.rst
++++ b/Documentation/gpu/nova/core/todo.rst
+@@ -33,7 +33,7 @@ A good example from nova-core would be the ``Chipset`` enum type, which defines
+ the value ``AD102``. When probing the GPU the value ``0x192`` can be read from a
+ certain register indication the chipset AD102. Hence, the enum value ``AD102``
+ should be derived from the number ``0x192``. Currently, nova-core uses a custom
+-implementation (``Chipset::from_u32`` for this.
++implementation (``Chipset::from_u32``) for this.
  
+ Instead, it would be desirable to have something like the ``FromPrimitive``
+ trait [1] from the num crate.
 -- 
-2.48.1
+2.54.0
 
