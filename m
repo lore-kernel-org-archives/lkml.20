@@ -1,133 +1,213 @@
-Received: from mail-pg1-f170.google.com (mail-pg1-f170.google.com [209.85.215.170])
+Received: from mail-oi1-f197.google.com (mail-oi1-f197.google.com [209.85.167.197])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EABBA43553D
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 08:33:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2D1D3655EA
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 08:34:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.197
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788424412; cv=none; b=lMD2Xq5prJfXcvNOfTGhzSe105qVwp8MJpO20ShgVg9HrXbSl5x+lcPZT9ecn4uLszRaV6owZT+8EAd8adD+hXTAXakKOrSIERntkTLiNhxvMRvwGlhZNDi9J4uupf3tUYaL8iKa2Zt2UrHmcVy9e47won8KoV83LKvO8T6J0JQ=
+	t=1788424448; cv=none; b=UfxpovxQkleT8/nto7jYg05/sSxLPSEPNucohOSkZYb7aE+n3fcC5vqlyCWqXFyAzDOq1UyeuRuKfnyWzFMt3uGh1r1FoVvY+ett7mHW8s4KsLwN1F+dKHip7uR8LmXcPtBwI07nI9fEY7czM4hISq6CKZ18GzIZqYCsZKpc4UI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788424412; c=relaxed/simple;
-	bh=D6LEF5qrYz6DbFwcjMxDSZY/iZagbFXt2muTMD4vUes=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=fNQYNrSOH8s16jFduPQ+lkHU40APEAzQHiUM/qlBL2lxxZ3CS2RhZaiSxm2SG7zTbezjlrM4b8n4/5AVnL+ylYjESIZMR9gnExRmH6R4qxy824WRzWLePvz5Hyz2RE4oceRYlxBAtjKNrQZ7jpKf5jJ60ozA6jmjf0xi5/wzpZ8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=M5t8ubOs; arc=none smtp.client-ip=209.85.215.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="M5t8ubOs"
-Received: by mail-pg1-f170.google.com with SMTP id 41be03b00d2f7-ca80d708489so583428a12.1
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 01:33:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788424410; x=1789029210; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=OociqrsBmV/E6a5jpk0qDALr4bKhrSE+A8mgKI0tJ1g=;
-        b=M5t8ubOsX6jeEy4gU7oPAUeJVi7f+V9euo3pYU7IgkCvU7XTCjpajBwqPZ2Jn3/p5/
-         7Fvr3lMNi1sR+VRMwI9vwKYtCsmXQOgcBrpjdB2cxRRd20Yo2fkMsyqCzRkAy8nvw0Pd
-         SdDnNaZEiK/udGXTBvlmqzx1AjSI5WkFnjAPA3A9RkW0/MMb0srbLnV3oSmqeq7N6gbg
-         3yj8vZ+RkjOR8UUlEjc23eWAO00IiS1WJbPiYnULvFB/Onjm9H3Uur9ksXqku1sRq4ix
-         vQoAxmy9qQvxbMbAb7kjHJ1nWCzLuqNLyx+GHT/z/TyvBcryFaNByA0HAFzUjKKHVXHF
-         EoxA==
+	s=arc-20240116; t=1788424448; c=relaxed/simple;
+	bh=IlLxJb6GL7PfjaveLvsDRODuBDC9KnK9zOO6l8x+rAg=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=rD6ctkD+FA5pyYSNrE8zPX5Y+uwlfI53Zitk+qh2FlnL1bVMEfrLmCFrB86CUY4VzB3PjJbIPDSIbULITS0axatG1t/iFv7m+3qaQlnClXLDmZIkh8pONKHf2buesd9QasialhSZxbzwYSlwIDK0BXR59pNvUpPA5ZSIt4nCcQU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.197
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f197.google.com with SMTP id 5614622812f47-4ab260600easo994461b6e.1
+        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 01:34:06 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788424410; x=1789029210;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=OociqrsBmV/E6a5jpk0qDALr4bKhrSE+A8mgKI0tJ1g=;
-        b=SrpBfglq/NjYqQf39CaCuiaK0JqY1JQJuRXW06yEbuyMQJO6/tlfQx92ciFb904ViL
-         9xych8kkY+N+9uBmK0U/UtUTnL+po5NjKydA/g1sbjkFtwJUBzI1lSabqRN59aW+pgjE
-         LmOF3sNGhafw5KRHa7zipfgn+UU7XK9AAILM7oEbvjyrpk4wDqU/Kjq8/O4NwRlQ0JZN
-         nDzRkNofix1ktEsfrBuRF045JjQ7dsbR8oQIvi+401VXg6VeaG74lCaMFWpLt7CfQKMi
-         Ij0lY5cIhX96NF+LcJey+86sjL8CnkXd2Tc70e8yAKsXe0yjjIRT8VGQk5kx2dnK04IA
-         KiWw==
-X-Forwarded-Encrypted: i=1; AKwUvBz3v0wLQ8BwTNozxYc2M14PJk+dxLfGDL6I4xIrfZrl025cqApmjzHJtY4lK9gJAqyzxL/UOazg7ivhhgY=@vger.kernel.org
-X-Gm-Message-State: AFuF++lBstkdB+wPklzi7f/YOPzAS9Mxi1UTn0OqKHoTpYblb03UuJVJ
-	6G546FIrGPcUj7G5dQyvQM13Kmoio0KQkrV/FKt3Lw8QHJJyjAGLsjWB
-X-Gm-Gg: AYBFou1tNPcxUE1DKuKVUzPYwgIDg5fybSDb2yDfB6R1Z6jyDP3lrOMOfvfhG2dVwmp
-	DRCntTZ8gE0AY44wF8cwTRruCBAwripMxdPz54/2jRPVes4eAf1kffIWlExYuVwyIfzYeRSkYWK
-	O2Cy667wMnNpY9qWNEzL5X6F24Y2PvTaiKAm5vpyRQmXkFgVQJ6q4qibc22/bxBjY+2CFBu/fDU
-	H/ZXXls16xX7IrlrFd98A53Kckn9PbkMuN9736j67IFGUP4D9m3WkMezgSaP/M1x3vzsChQ079D
-	EJTWLNJSYS2DwPYpuMAL9D/eiAzofVqWDx0Wp1gJp/VqVKUzxUCWjLjx4lo0h4qDS0E4Pu9ZJ7h
-	98+Sf32DJdYNOW6ySqb1hvh2FeDtSNZ5M1M5/FlT1r1JeqjcyKuCQ3iP+UfJ+Og67yiBMicUwT5
-	x0+xwWCPkgD6u+4uOlmjdG/7qLnqLpNiBjZ13LhDdLqdo9YfFwA3FGhxf0a6myBvAJI5MOA9A0
-X-Received: by 2002:a17:90b:3cc3:b0:398:9bd3:d6d4 with SMTP id 98e67ed59e1d1-39b132d819emr1843780a91.14.1788424410133;
-        Thu, 03 Sep 2026 01:33:30 -0700 (PDT)
-Received: from gmail.com ([185.220.238.35])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b083e4fafsm4001175a91.1.2026.09.03.01.33.26
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 03 Sep 2026 01:33:29 -0700 (PDT)
-From: Kunwu Chan <kunwu.chan@gmail.com>
-X-Google-Original-From: Kunwu Chan <kunwu.chan@linux.dev>
-To: SJ Park <sj@kernel.org>
-Cc: Kunwu Chan <kunwu.chan@linux.dev>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	stable@vger.kernel.org,
-	Brendan Higgins <brendan.higgins@linux.dev>,
-	David Gow <davidgow@davidgow.net>,
-	damon@lists.linux.dev,
-	kunit-dev@googlegroups.com,
-	linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	linux-mm@kvack.org,
-	Kunwu Chan <kunwu.chan@gmail.com>
-Subject: Re: [PATCH 1/4] mm/damon/tests/core-kunit: test committing psi goal to psi goal
-Date: Thu,  3 Sep 2026 16:33:18 +0800
-Message-ID: <20260903083319.451754-1-kunwu.chan@linux.dev>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260902002725.108635-2-sj@kernel.org>
-References: 
+        d=1e100.net; s=20251104; t=1788424445; x=1789029245;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=viGOS+P6Odypp8+i4ycwr/lY/oGZw9QBQqF49wPd7hk=;
+        b=HG2fVIe5VT+KL2W1PAxlgu9NVJ1R84fmsBFadmH1Xklyg3Vuei/n5Hls0Pjl4v0TOD
+         mtYpiJIAkmlmPhRiKZHtC991Qalk8HbMT6WV51UrjBv0CqF/yq+Kx8TuXCYqHGB9SFht
+         iY/lKihcoub5BLvUTiw8IuCXDd1rPE9CRjWkdIxP+tIzNQNIFpx1lLuQ4r576MoOzbUb
+         izcxj3UDg+TZVOYIWbRJkxkmyqPs+lde673Sq3s6OVmUQF1HfVUpzLHUYbnKx9xwyy/R
+         SBnQDtKhKHo5bMjtlrgOgSu3sZ4uICaEe0S6kl3bviKCoFxEVZ/Apq4RBUpNrQY4t2ru
+         A26g==
+X-Forwarded-Encrypted: i=1; AKwUvBzvNjBfHp+9n3w1gKllE74GKkxeOLZ3jd9iNEPrbuQtRVsNmzSCrcm7Mxo/2f3tUrfZHlhCRuxKjcESOlU=@vger.kernel.org
+X-Gm-Message-State: AFuF++lUNPDseyIacsw0pBOz7p8VsUuRiFiMrbKZnB/g2FPTxcUKwqE6
+	wF3AZS+4B0Qtw2jVRvJpLRuB73CupkfgnAkvyvam523SQirPTUMSdOtcS8RZTouAm+/JrtOFB9v
+	WYzoovBO0NlIuRcIEw4lGf3BsAThwlhWr6BU8/VY01rSK4oyLjV6WujsIyl8=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-Received: by 2002:a05:6820:1789:b0:6aa:e367:a3e2 with SMTP id
+ 006d021491bc7-6b585dada5dmr2529237eaf.19.1788424445319; Thu, 03 Sep 2026
+ 01:34:05 -0700 (PDT)
+Date: Thu, 03 Sep 2026 01:34:05 -0700
+In-Reply-To: <20260903061045.525053-1-eadavis@sina.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6a9930fd.9266084e.bf0d7.016a.GAE@google.com>
+Subject: Re: [syzbot] [autofs?] memory leak in autofs_new_ino
+From: syzbot <syzbot+df1db6e034b3953e19f5@syzkaller.appspotmail.com>
+To: eadavis@sina.com, linux-kernel@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-On Tue,  1 Sep 2026 17:27:20 -0700 SJ Park <sj@kernel.org> wrote:
+Hello,
 
-> damon_test_commit_quota_goal_for() is set to test committing a new psi
-> goal on an existing psi goal.  However, damon_test_commit_quota_goal()
-> is mistakenly not covering the test case.  Add the test case.
-> 
-> Fixes: 99f89debafc5 ("mm/damon/tests/core-kunit: add damos_commit_quota_goal() test")
-> Cc: <stable@vger.kernel.org> # 6.19.x
-> Signed-off-by: SJ Park <sj@kernel.org>
-> ---
->  mm/damon/tests/core-kunit.h | 7 +++++++
->  1 file changed, 7 insertions(+)
-> 
-> diff --git a/mm/damon/tests/core-kunit.h b/mm/damon/tests/core-kunit.h
-> index 7071ec277b007..f1e11548c771b 100644
-> --- a/mm/damon/tests/core-kunit.h
-> +++ b/mm/damon/tests/core-kunit.h
-> @@ -793,6 +793,13 @@ static void damos_test_commit_quota_goal(struct kunit *test)
->  		.last_psi_total = 456,
->  	};
->  
-> +	damos_test_commit_quota_goal_for(test, &dst,
-> +			&(struct damos_quota_goal) {
-> +			.metric = DAMOS_QUOTA_SOME_MEM_PSI_US,
-> +			.target_value = 234,
-> +			.current_value = 345,
-> +			.last_psi_total = 567,
-> +			});
->  	damos_test_commit_quota_goal_for(test, &dst,
->  			&(struct damos_quota_goal){
->  			.metric = DAMOS_QUOTA_USER_INPUT,
-> -- 
-> 2.47.3
-> 
+syzbot has tested the proposed patch but the reproducer is still triggering an issue:
+memory leak in prepare_creds
 
-Thanks SJ. The added case correctly exercises the PSI -> PSI commit 
-path before the existing tests change the destination metric.
+BUG: memory leak
+unreferenced object 0xffff888109c2f180 (size 184):
+  comm "syz-executor", pid 6487, jiffies 4294948020
+  hex dump (first 32 bytes):
+    01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
+    00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
+  backtrace (crc 1a243f47):
+    kmemleak_alloc_recursive include/linux/kmemleak.h:44 [inline]
+    slab_post_alloc_hook mm/slub.c:4597 [inline]
+    slab_alloc_node mm/slub.c:4917 [inline]
+    kmem_cache_alloc_noprof+0x34f/0x440 mm/slub.c:4931
+    prepare_creds+0x22/0x570 kernel/cred.c:185
+    copy_creds+0x44/0x290 kernel/cred.c:286
+    copy_process+0x988/0x2d70 kernel/fork.c:2153
+    kernel_clone+0x101/0x710 kernel/fork.c:2748
+    __do_sys_clone+0x7f/0xb0 kernel/fork.c:2889
+    do_syscall_x64 arch/x86/entry/syscall_64.c:63 [inline]
+    do_syscall_64+0xf8/0x610 arch/x86/entry/syscall_64.c:94
+    entry_SYSCALL_64_after_hwframe+0x77/0x7f
 
-Reviewed-by: Kunwu Chan <kunwu.chan@gmail.com>
+BUG: memory leak
+unreferenced object 0xffff8881019c8600 (size 176):
+  comm "syz.0.18", pid 6603, jiffies 4294948020
+  hex dump (first 32 bytes):
+    00 00 00 00 02 00 2c 0c 60 a4 87 85 ff ff ff ff  ......,.`.......
+    d0 b9 e9 0c 81 88 ff ff 00 e3 06 01 81 88 ff ff  ................
+  backtrace (crc d2f375e0):
+    kmemleak_alloc_recursive include/linux/kmemleak.h:44 [inline]
+    slab_post_alloc_hook mm/slub.c:4597 [inline]
+    slab_alloc_node mm/slub.c:4917 [inline]
+    kmem_cache_alloc_noprof+0x34f/0x440 mm/slub.c:4931
+    alloc_empty_file+0x57/0x180 fs/file_table.c:262
+    alloc_file fs/file_table.c:396 [inline]
+    alloc_file_pseudo+0xd3/0x180 fs/file_table.c:427
+    create_pipe_files+0x106/0x2f0 fs/pipe.c:1042
+    __do_pipe_flags fs/pipe.c:1088 [inline]
+    do_pipe2+0x6c/0x160 fs/pipe.c:1136
+    __do_sys_pipe fs/pipe.c:1159 [inline]
+    __se_sys_pipe fs/pipe.c:1157 [inline]
+    __x64_sys_pipe+0x18/0x20 fs/pipe.c:1157
+    do_syscall_x64 arch/x86/entry/syscall_64.c:63 [inline]
+    do_syscall_64+0xf8/0x610 arch/x86/entry/syscall_64.c:94
+    entry_SYSCALL_64_after_hwframe+0x77/0x7f
 
-Thanks,
-Kunwu
+BUG: memory leak
+unreferenced object 0xffff88810d168f18 (size 56):
+  comm "syz.0.18", pid 6603, jiffies 4294948020
+  hex dump (first 32 bytes):
+    ff ff 01 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
+    00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
+  backtrace (crc 2672a0c6):
+    kmemleak_alloc_recursive include/linux/kmemleak.h:44 [inline]
+    slab_post_alloc_hook mm/slub.c:4597 [inline]
+    slab_alloc_node mm/slub.c:4917 [inline]
+    kmem_cache_alloc_noprof+0x34f/0x440 mm/slub.c:4931
+    lsm_file_alloc security/security.c:171 [inline]
+    security_file_alloc+0x30/0x250 security/security.c:2406
+    init_file+0x3e/0x160 fs/file_table.c:184
+    alloc_empty_file+0x75/0x180 fs/file_table.c:266
+    alloc_file fs/file_table.c:396 [inline]
+    alloc_file_pseudo+0xd3/0x180 fs/file_table.c:427
+    create_pipe_files+0x106/0x2f0 fs/pipe.c:1042
+    __do_pipe_flags fs/pipe.c:1088 [inline]
+    do_pipe2+0x6c/0x160 fs/pipe.c:1136
+    __do_sys_pipe fs/pipe.c:1159 [inline]
+    __se_sys_pipe fs/pipe.c:1157 [inline]
+    __x64_sys_pipe+0x18/0x20 fs/pipe.c:1157
+    do_syscall_x64 arch/x86/entry/syscall_64.c:63 [inline]
+    do_syscall_64+0xf8/0x610 arch/x86/entry/syscall_64.c:94
+    entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+BUG: memory leak
+unreferenced object 0xffff888102dc7300 (size 184):
+  comm "syz-executor", pid 6487, jiffies 4294948082
+  hex dump (first 32 bytes):
+    01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
+    00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
+  backtrace (crc 7611ee4d):
+    kmemleak_alloc_recursive include/linux/kmemleak.h:44 [inline]
+    slab_post_alloc_hook mm/slub.c:4597 [inline]
+    slab_alloc_node mm/slub.c:4917 [inline]
+    kmem_cache_alloc_noprof+0x34f/0x440 mm/slub.c:4931
+    prepare_creds+0x22/0x570 kernel/cred.c:185
+    copy_creds+0x44/0x290 kernel/cred.c:286
+    copy_process+0x988/0x2d70 kernel/fork.c:2153
+    kernel_clone+0x101/0x710 kernel/fork.c:2748
+    __do_sys_clone+0x7f/0xb0 kernel/fork.c:2889
+    do_syscall_x64 arch/x86/entry/syscall_64.c:63 [inline]
+    do_syscall_64+0xf8/0x610 arch/x86/entry/syscall_64.c:94
+    entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+BUG: memory leak
+unreferenced object 0xffff8881027737e0 (size 32):
+  comm "syz-executor", pid 6487, jiffies 4294948082
+  hex dump (first 32 bytes):
+    00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
+    f8 52 0a 00 81 88 ff ff 00 00 00 00 00 00 00 00  .R..............
+  backtrace (crc 9ae86290):
+    kmemleak_alloc_recursive include/linux/kmemleak.h:44 [inline]
+    slab_post_alloc_hook mm/slub.c:4597 [inline]
+    slab_alloc_node mm/slub.c:4917 [inline]
+    __do_kmalloc_node mm/slub.c:5333 [inline]
+    __kmalloc_noprof+0x3bf/0x550 mm/slub.c:5359
+    _kmalloc_noprof include/linux/slab.h:992 [inline]
+    _kzalloc_noprof include/linux/slab.h:1309 [inline]
+    lsm_blob_alloc+0x4d/0x80 security/security.c:218
+    lsm_cred_alloc security/security.c:235 [inline]
+    security_prepare_creds+0x2d/0x290 security/security.c:2866
+    prepare_creds+0x317/0x570 kernel/cred.c:215
+    copy_creds+0x44/0x290 kernel/cred.c:286
+    copy_process+0x988/0x2d70 kernel/fork.c:2153
+    kernel_clone+0x101/0x710 kernel/fork.c:2748
+    __do_sys_clone+0x7f/0xb0 kernel/fork.c:2889
+    do_syscall_x64 arch/x86/entry/syscall_64.c:63 [inline]
+    do_syscall_64+0xf8/0x610 arch/x86/entry/syscall_64.c:94
+    entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+BUG: memory leak
+unreferenced object 0xffff88810d41acc0 (size 176):
+  comm "syz.0.19", pid 6624, jiffies 4294948082
+  hex dump (first 32 bytes):
+    00 00 00 00 02 00 2c 0c 60 a4 87 85 ff ff ff ff  ......,.`.......
+    28 f3 f5 0c 81 88 ff ff c0 26 2b 16 81 88 ff ff  (........&+.....
+  backtrace (crc fec2fe67):
+    kmemleak_alloc_recursive include/linux/kmemleak.h:44 [inline]
+    slab_post_alloc_hook mm/slub.c:4597 [inline]
+    slab_alloc_node mm/slub.c:4917 [inline]
+    kmem_cache_alloc_noprof+0x34f/0x440 mm/slub.c:4931
+    alloc_empty_file+0x57/0x180 fs/file_table.c:262
+    alloc_file fs/file_table.c:396 [inline]
+    alloc_file_pseudo+0xd3/0x180 fs/file_table.c:427
+    create_pipe_files+0x106/0x2f0 fs/pipe.c:1042
+    __do_pipe_flags fs/pipe.c:1088 [inline]
+    do_pipe2+0x6c/0x160 fs/pipe.c:1136
+    __do_sys_pipe fs/pipe.c:1159 [inline]
+    __se_sys_pipe fs/pipe.c:1157 [inline]
+    __x64_sys_pipe+0x18/0x20 fs/pipe.c:1157
+    do_syscall_x64 arch/x86/entry/syscall_64.c:63 [inline]
+    do_syscall_64+0xf8/0x610 arch/x86/entry/syscall_64.c:94
+    entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+connection error: failed to recv *flatrpc.ExecutorMessageRawT: EOF
 
 
-Sent using hkml (https://github.com/sjp38/hackermail)
+Tested on:
+
+commit:         8d3ae592 Linux 7.2
+git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
+console output: https://syzkaller.appspot.com/x/log.txt?x=17fb1f79580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=11ad91fcc8fa7933
+dashboard link: https://syzkaller.appspot.com/bug?extid=df1db6e034b3953e19f5
+compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
+patch:          https://syzkaller.appspot.com/x/patch.diff?x=17a870f9580000
+
