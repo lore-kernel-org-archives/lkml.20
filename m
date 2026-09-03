@@ -1,18 +1,19 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A517F3D47B4;
-	Thu,  3 Sep 2026 09:06:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2E8E39060A;
+	Thu,  3 Sep 2026 09:06:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788426399; cv=none; b=qTL9Ed1GnQf0/mJ4xWiSHvmX7M4hUhjh7yQ+PPlxhw5XHfcKT1o+EPvL10B17Nl8cubq9AJCZLXlV/KM5tb+I/1+zbCehQor2XX7RnmZ4CgHk3JI8e4k4J5swzsHmgaCWVHTbJXDqpdlX+07dMgylhx2dU6IQC8BdudLyMbNJzw=
+	t=1788426401; cv=none; b=K8+HW0JaTy2K0Z/M7QeEf12JtEvlLZx+PS5gpnynT2UEGSU/9foBjXDJpsh+ECvFs3cYUaGKIuuM4aR3LRjrVx14/Z4NSFbwaDXNLLZJ9By29vbsN83ksXdSWu/0fG76NL8Sf+Ux/T5D6vgWrHz2X76hUvLYaUAktx0fNMx7kzQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788426399; c=relaxed/simple;
-	bh=empd1I3pye12Yer9YdrvvpikdTGqNJQmKeox7d4xCIo=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=lwNS0jQppLEXM9hKoGs4crFsN3sYjN7Y7qNR0YSxacotqi7clbgUHLwhZuB5SvKJKHIzeVQ4b2GBrzHYaW2ujg+BKA/aNoPWSJV/ua1kIMaPPmdVlEw7yIeZOtIFExDHSzZ0HP+hTDlaUOE2SaA+hSengY+Y0U1uA895oOLM114=
+	s=arc-20240116; t=1788426401; c=relaxed/simple;
+	bh=u4iGjar6bn8Lvh9PQHV7dttFtTzigdiCq4bcyI1D6u4=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=OXHmz6N0V+wZD85gNXEe49qDob2hr13ZtXKV+oPzygd7PdsamIAFbIfwir3idJ0Pd8vd8eacP6MAfq8L15h1B9AxCaSjv3lmJQb8H1jOUCip3dJX/lmfLw68KPQsr+PERSkwHkCMHLeQlMUtSIZMqeMGXnK7DB64qoLyAG5qlqo=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2CB671F000E9;
-	Thu,  3 Sep 2026 09:06:34 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 688061F00A3A;
+	Thu,  3 Sep 2026 09:06:37 +0000 (UTC)
 From: Geert Uytterhoeven <geert+renesas@glider.be>
 To: Thomas Gleixner <tglx@kernel.org>,
 	Radu Rendec <radu@rendec.net>,
@@ -22,10 +23,12 @@ To: Thomas Gleixner <tglx@kernel.org>,
 Cc: devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Geert Uytterhoeven <geert+renesas@glider.be>
-Subject: [PATCH 0/2] dt-bindings: interrupt-controller: chrp,open-pic: Miscellaneous fixes
-Date: Thu,  3 Sep 2026 11:06:28 +0200
-Message-ID: <cover.1788426169.git.geert+renesas@glider.be>
+Subject: [PATCH 1/2] dt-bindings: interrupt-controller: chrp,open-pic: Typo s/pci/pic/
+Date: Thu,  3 Sep 2026 11:06:29 +0200
+Message-ID: <f2cc11922b3e5dd73997ef8c673137951d3fe715.1788426169.git.geert+renesas@glider.be>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <cover.1788426169.git.geert+renesas@glider.be>
+References: <cover.1788426169.git.geert+renesas@glider.be>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -34,31 +37,27 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-	Hi all,
+The device_type for an OpenPIC node is "open-pic", not "open-pci".
 
-Just two miscellaneous fixes for the OpenPIC DT bindings.
-Don't ask why I looked at that file (my CHRP box died 22y ago)...
+Fixes: a241f1a1b338b714 ("dt-bindings: interrupt-controller: Convert chrp,open-pic to DT schema")
+Signed-off-by: Geert Uytterhoeven <geert+renesas@glider.be>
+---
+ .../devicetree/bindings/interrupt-controller/chrp,open-pic.yaml | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Thanks for your comments!
-
-Geert Uytterhoeven (2):
-  dt-bindings: interrupt-controller: chrp,open-pic: Typo s/pci/pic/
-  dt-bindings: interrupt-controller: chrp,open-pic: Fix dangling
-    reference
-
- .../bindings/interrupt-controller/chrp,open-pic.yaml       | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
-
+diff --git a/Documentation/devicetree/bindings/interrupt-controller/chrp,open-pic.yaml b/Documentation/devicetree/bindings/interrupt-controller/chrp,open-pic.yaml
+index 642738512f3ce1a9..5363f4c6ffbcfe4c 100644
+--- a/Documentation/devicetree/bindings/interrupt-controller/chrp,open-pic.yaml
++++ b/Documentation/devicetree/bindings/interrupt-controller/chrp,open-pic.yaml
+@@ -24,7 +24,7 @@ properties:
+       - const: chrp,open-pic
+ 
+   device_type:
+-    const: open-pci
++    const: open-pic
+     deprecated: true
+ 
+   reg:
 -- 
 2.43.0
 
-Gr{oetje,eeting}s,
-
-						Geert
-
---
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
-
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-							    -- Linus Torvalds
