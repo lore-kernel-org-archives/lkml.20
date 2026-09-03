@@ -1,52 +1,59 @@
-Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
+Received: from mout-p-103.mailbox.org (mout-p-103.mailbox.org [80.241.56.161])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA6083AA4EB;
-	Thu,  3 Sep 2026 21:30:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74DDF4B2CCE;
+	Thu,  3 Sep 2026 21:30:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.161
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788471051; cv=none; b=fzG2RJcnvWf0gobRlqIpTqHzLNDDIrq8P8DSGbzeV48JNJ1LjeylY0lJnlFDnIT4+2Dj3kIzVlO8Gz1UATI1Saxojf0A3dGb6khwAlSzZYrHtiLUHr0T5fj3F3M2mRIXb/yjyVGXwDUjwBTST93cXDxF4A5GpmoUU8DGJ2Zhb6M=
+	t=1788471055; cv=none; b=UUh05OU3p6y4Ct9AlG76/ee4kiZLzsIMxrWpg6MR26htDCtL02pTqC73PiTBMJiEXrIcXZjv2j/Bs3kj4hYUZmDMPpMAixvHAPeD9MepQS4xFaw9hq31/cq8zWraEE/CymCR/bTL37cv7mQPOij2Rl1VvpfVf25R2LvNsOPApJU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788471051; c=relaxed/simple;
-	bh=ZZtxQNVj4tl0N/GQjslPoOPYR67df+21ghPTlgKU4oA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=uav7pCp4H1zJMghQJpE4Zrk/aZ30+Sprf5IN92LtkeLIuY3AZ8ibDYzZcOtjg3UrXctNv/DpOJat6b8iCAgOk92JT/Dgwui4sF30L05d1mykes4YRaoeDXOskz6UgwPQZ/XrW+pmaYAjzWxrOBMo/KDVepBFsh65LWdv6i5lW9I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=pfMuFqCR; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=MLcZq/Bd; arc=none smtp.client-ip=80.241.56.172
+	s=arc-20240116; t=1788471055; c=relaxed/simple;
+	bh=XkqN1IjRk04NwJ6TyxleolJqB05VK+OaICfHk08aPXQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=TP3aIIjRdx9fHfN75dGHfyqW0WwQZYRYGA3rsw+zPONkAb8y2pXsT6llY5V8OWnpgswUBMw2YFJPFS4FgFJYEEITBzNHI53CFO0FbJXoE5sxMfO3drymM0SX3UL5XxUoFaNg7mTHhVo/BwaiQY/tjVdcZg9O0zRxtfv0Q0I9jyI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=rkxrpc9N; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=EiXfFW8C; arc=none smtp.client-ip=80.241.56.161
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="pfMuFqCR";
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="MLcZq/Bd"
-Received: from smtp102.mailbox.org (smtp102.mailbox.org [10.196.197.102])
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="rkxrpc9N";
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="EiXfFW8C"
+Received: from smtp102.mailbox.org (smtp102.mailbox.org [IPv6:2001:67c:2050:b231:465::102])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4hbXnw1V1xzMlGj;
-	Thu, 03 Sep 2026 23:30:44 +0200 (CEST)
+	by mout-p-103.mailbox.org (Postfix) with ESMTPS id 4hbXny5bzLzKn6X;
+	Thu, 03 Sep 2026 23:30:46 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1788471044;
+	t=1788471046;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=LFAs0ptpwlphm32MxyaDcUmBXKWrJhAcDg58F+8Ug0Y=;
-	b=pfMuFqCRBRxwUPZCLh9Tm710lpeBQ47eSuT9bBFTWxtGZfE+sjmCNOINaCPGdjttG8qpxa
-	eEWMwp2DEwo2+GJ0+eAl5Sp5ico07Cz7b+SRec4RrksMhQPv6R+n95HAg+ut+3pFUao+77
-	SmgSCMdOPFCn1LzaC8AZMqbzAfrRhV4tkXes9jj3COFBz9E9hHT/ZupmVablD0n1xavFYC
-	eNQGkOZCthtD4aNroaB+1n4J0xnY/WZBRTW8K5NlErINwYayHhM/Zmtw37kdmL561xuGU8
-	Cas77TVEekjoljXXXSxCtlMrl2SxXlqKu2nRjAdrC6/LYTHE27LnmHTMTd/pKg==
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=l+4LUXQHvRUwo1jUDMgrbuAgaRkEPK5f7h1+QbzM+Io=;
+	b=rkxrpc9NE8035ymTrGZHbEMEAWCc5Kwv+Ew2Dl8TaVqD8SPBwoVEtVCo5owEwInIPs8Uf8
+	sOEWbuRaqQNTC6iHWKLDSQzB7shMK1+BPXJ2dQTk298cmuPNZ/RMDfen9KUUf5mgMpPXp2
+	F9bg4nIdZ161goZ9MWsPSkksv/eBpZJE9dtfunP5Pgz+g5L2P1BU/xc/74uS5UA7ThuPsU
+	GB2wg8CO+8EsJ/OGFaauEX13yulXLnGMejcbY6pU3bS4tV5vuWa0kkC+C1BUFsYqA4HG0c
+	FeXnKwn5AlZgtqjUd23bIoCJViU6QyMNNFuRAWgrz8jIlKav8VdPcc99TG2A5A==
+Authentication-Results: outgoing_mbo_mout;
+	dkim=pass header.d=mailbox.org header.s=mail20150812 header.b=EiXfFW8C;
+	spf=pass (outgoing_mbo_mout: domain of marek.vasut+renesas@mailbox.org designates 2001:67c:2050:b231:465::102 as permitted sender) smtp.mailfrom=marek.vasut+renesas@mailbox.org
 From: Marek Vasut <marek.vasut+renesas@mailbox.org>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1788471042;
+	t=1788471045;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=LFAs0ptpwlphm32MxyaDcUmBXKWrJhAcDg58F+8Ug0Y=;
-	b=MLcZq/BdOpGkzfiw+s/wB7/y78fW7rwI2z3zXGUiEHXM8x2spWdjJQLCIzIltCj4+nOz1u
-	G9ISgxi81SIXSrq/HqQ2MibfFoOf49Ajv9diJcKRKVWF3+KFABNyKM3h4H7FLAOnSmMGI+
-	DO9oPfxIlir29coN+16hJpmSHnff+C8egYDyjb4F0KxMLaItco0PldMbQ6DVd9rCRcE0y8
-	S2JXaKyZH8zhup1q80DlqYuuQqD4nlu0ykK1M/w4SpnKKdv3QCT0/8emZ1byuEkneBhCXG
-	fhutULyYLNb2sr3OirxpADl9jdpwJhH55dC1ffZ+2h57AFOpnZOYIDeLvGeycQ==
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=l+4LUXQHvRUwo1jUDMgrbuAgaRkEPK5f7h1+QbzM+Io=;
+	b=EiXfFW8C6q/rK2EnO7iLDHiCxr78qaqfzL5GYrRkvuMolkdjUJgYdaFl85VksuQfRmKJcP
+	cKklCSAE3XsGGjH6KS+66KtjBY/OKvR1n+ppXuCejrUfqqzaEEOc41KgpY3jUINZatbXfS
+	GThKgZKZ49I1IXomYR/ndINohWLQeAozZVMMeRBrl5CpcK4e5RDfR6ZEsKvaSeh4SFdRF9
+	14z6/zAyVx1iYTR95b5tMgHmBA5/XGI5QKu2TjOWCikn58vBwip1Xkoxm3mmGqESpFEiWl
+	fGp/oPSWQit/gdO54oMuJoo1yJqtFbiO3LIgURL3nd4KRmk0m24lI9Ta6qu/NA==
 To: linux-usb@vger.kernel.org
-Cc: Marek Vasut <marek.vasut+renesas@mailbox.org>,
+Cc: Thanh Quan <thanh.quan.xn@renesas.com>,
+	Marek Vasut <marek.vasut+renesas@mailbox.org>,
 	Conor Dooley <conor+dt@kernel.org>,
 	Geert Uytterhoeven <geert+renesas@glider.be>,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
@@ -56,9 +63,11 @@ Cc: Marek Vasut <marek.vasut+renesas@mailbox.org>,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	linux-renesas-soc@vger.kernel.org
-Subject: [PATCH v7 1/2] dt-bindings: usb: dwc3: Document Renesas R-Car Gen5 DWC3 xHCI USB controller
-Date: Thu,  3 Sep 2026 23:30:12 +0200
-Message-ID: <20260903213031.314473-1-marek.vasut+renesas@mailbox.org>
+Subject: [PATCH v7 2/2] usb: dwc3: dwc3-generic-plat: Add Renesas R-Car Gen5 DWC3 xHCI USB controller glue
+Date: Thu,  3 Sep 2026 23:30:13 +0200
+Message-ID: <20260903213031.314473-2-marek.vasut+renesas@mailbox.org>
+In-Reply-To: <20260903213031.314473-1-marek.vasut+renesas@mailbox.org>
+References: <20260903213031.314473-1-marek.vasut+renesas@mailbox.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -66,13 +75,18 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-MBO-RS-META: drxtybm4ou571wqymr3ps6own1xoxix6
-X-MBO-RS-ID: dd3476d4b890582c824
+X-MBO-RS-META: 45w35m6ik6oaop7ptyw74wj8mmyj4nnb
+X-MBO-RS-ID: 6e8cb524237f119b4e0
+X-Rspamd-Queue-Id: 4hbXny5bzLzKn6X
+
+From: Thanh Quan <thanh.quan.xn@renesas.com>
 
 The Renesas R-Car Gen5 SoC contains multiple instances of DWC3 USB
-controller with glue logic wrapper around them. Document the glue
-logic and DWC3 controller.
+controller with glue logic wrapper around them. Extend the generic
+DWC3 platform driver with Renesas R-Car Gen5 glue logic specifics.
 
+Signed-off-by: Thanh Quan <thanh.quan.xn@renesas.com>
+Co-developed-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
 Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
 ---
 Cc: Conor Dooley <conor+dt@kernel.org>
@@ -86,101 +100,95 @@ Cc: linux-kernel@vger.kernel.org
 Cc: linux-renesas-soc@vger.kernel.org
 Cc: linux-usb@vger.kernel.org
 ---
-V2: Rework to use flat bindings for generic plat driver
-V3: - Support one or two PHYs to correctly describe the hardware
-    - Make maximum-speed optional
-V4: - Use ref: snps,dwc3-common.yaml and drop generic dr_mode/maximum-speed/phys/phy-names
-    - Switch to unevaluatedProperties: false
-V5: - Limit maximum PHY count to 2
-V6: No change
-V7: No change
+V2: Extend dwc3-generic-plat driver instead
+V3: Handle maximum-speed as optional property, test for USB 3 PHY
+    non-presence to determine whether the controller is USB 2 only,
+    consider optional maximum-speed DT property, but if it is missing
+    then default to maximum controller capabilities based on the
+    presence of PHY phandles.
+V4: No change
+V5: - Drop superfluous code comment
+    - Drop duplicate speed >= USB_SPEED_LOW test
+V6: Reinstate speed >= USB_SPEED_LOW test to avoid triggering on USB_SPEED_UNKNOWN
+V7: Drop wireless USB check
 ---
- .../bindings/usb/renesas,rcar-gen5-dwc3.yaml  | 76 +++++++++++++++++++
- 1 file changed, 76 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/usb/renesas,rcar-gen5-dwc3.yaml
+ drivers/usb/dwc3/dwc3-generic-plat.c | 51 ++++++++++++++++++++++++++++
+ 1 file changed, 51 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/usb/renesas,rcar-gen5-dwc3.yaml b/Documentation/devicetree/bindings/usb/renesas,rcar-gen5-dwc3.yaml
-new file mode 100644
-index 0000000000000..c8a770d7e0241
---- /dev/null
-+++ b/Documentation/devicetree/bindings/usb/renesas,rcar-gen5-dwc3.yaml
-@@ -0,0 +1,76 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/usb/renesas,rcar-gen5-dwc3.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
+diff --git a/drivers/usb/dwc3/dwc3-generic-plat.c b/drivers/usb/dwc3/dwc3-generic-plat.c
+index ca69ac0eb07ce..32497ab6f065e 100644
+--- a/drivers/usb/dwc3/dwc3-generic-plat.c
++++ b/drivers/usb/dwc3/dwc3-generic-plat.c
+@@ -71,6 +71,51 @@ static int dwc3_eic7700_init(struct dwc3_generic *dwc3g)
+ 	return 0;
+ }
+ 
++static int dwc3_renesas_rcar_gen5_init(struct dwc3_generic *dwc3g)
++{
++	struct device *dev = dwc3g->dev;
++	struct platform_device *pdev = to_platform_device(dev);
++	enum usb_device_speed speed = usb_get_maximum_speed(dev);
++	bool usb2only = false;
++	void __iomem *glue;
 +
-+title: Renesas R-Car Gen5 DWC3 xHCI USB controller
++	/* No USB 3 PHY in DT means this is surely USB 2 controller */
++	if (device_property_match_string(dev, "phy-names", "usb3-phy") < 0)
++		usb2only = true;
 +
-+maintainers:
-+  - Marek Vasut <marek.vasut+renesas@mailbox.org>
++	if (speed >= USB_SPEED_LOW && speed <= USB_SPEED_HIGH)
++		usb2only = true;
 +
-+allOf:
-+  - $ref: snps,dwc3-common.yaml#
++	glue = devm_platform_ioremap_resource_byname(pdev, "glue");
++	if (IS_ERR(glue))
++		return PTR_ERR(glue);
 +
-+properties:
-+  compatible:
-+    items:
-+      - const: renesas,r8a78000-dwc3
-+      - const: renesas,rcar-gen5-dwc3
++	/*
++	 * The datasheet describes initialization procedure without full
++	 * information about the registers. Therefore, the source code is
++	 * based on the bare metal code shared by the board team.
++	 */
++	writew(0x211, glue + 0x26);
 +
-+  reg:
-+    maxItems: 2
++	/* USB2 does need additional register programming. */
++	if (!usb2only)
++		return 0;
 +
-+  reg-names:
-+    items:
-+      - const: dwc3
-+      - const: glue
++	writew(0x11, glue + 0x81c);
++	writew(0x0, glue + 0x81a);
++	writew(0x1, glue + 0x802);
 +
-+  clocks:
-+    maxItems: 1
++	usleep_range(10000, 20000);
 +
-+  interrupts:
-+    maxItems: 1
++	writew(0x0, glue + 0x802);
++	writew(0x1, glue + 0x2a);
++	writew(0x1, glue + 0x81a);
 +
-+  phys:
-+    minItems: 1
-+    maxItems: 2
++	usleep_range(10000, 20000);
 +
-+  phy-names:
-+    minItems: 1
-+    maxItems: 2
++	return 0;
++}
 +
-+  power-domains:
-+    maxItems: 1
+ static int dwc3_spacemit_k1_init(struct dwc3_generic *dwc3g)
+ {
+ 	struct device *dev = dwc3g->dev;
+@@ -231,11 +276,17 @@ static const struct dwc3_generic_config eic7700_dwc3 =  {
+ 	.properties = DWC3_DEFAULT_PROPERTIES,
+ };
+ 
++static const struct dwc3_generic_config renesas_rcar_gen5_dwc3 = {
++	.init = dwc3_renesas_rcar_gen5_init,
++	.properties = DWC3_DEFAULT_PROPERTIES,
++};
 +
-+  resets:
-+    maxItems: 1
-+
-+required:
-+  - compatible
-+  - reg
-+  - reg-names
-+  - clocks
-+  - interrupts
-+  - phys
-+  - phy-names
-+  - power-domains
-+  - resets
-+
-+unevaluatedProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/interrupt-controller/arm-gic.h>
-+
-+    usb@c8800000 {
-+        compatible = "renesas,r8a78000-dwc3", "renesas,rcar-gen5-dwc3";
-+        reg = <0xc8800000 0x100000>, <0xc9c54000 0x2000>;
-+        reg-names = "dwc3", "glue";
-+        clocks = <&scmi_clk 336>;
-+        interrupts = <GIC_SPI 795 IRQ_TYPE_LEVEL_HIGH>;
-+        phys = <&usb30_phy>, <&mp_phy 2>;
-+        phy-names = "usb2-phy", "usb3-phy";
-+        power-domains = <&scmi_devpd 16>;
-+        resets = <&scmi_reset 336>;
-+    };
+ static const struct of_device_id dwc3_generic_of_match[] = {
+ 	{ .compatible = "spacemit,k1-dwc3", &spacemit_k1_dwc3},
+ 	{ .compatible = "spacemit,k3-dwc3", },
+ 	{ .compatible = "fsl,ls1028a-dwc3", &fsl_ls1028_dwc3},
+ 	{ .compatible = "eswin,eic7700-dwc3", &eic7700_dwc3},
++	{ .compatible = "renesas,rcar-gen5-dwc3", &renesas_rcar_gen5_dwc3},
+ 	{ .compatible = "starfive,jhb100-dwc3", },
+ 	{ /* sentinel */ }
+ };
 -- 
 2.53.0
 
