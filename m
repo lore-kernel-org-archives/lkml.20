@@ -1,294 +1,263 @@
-Received: from www262.sakura.ne.jp (www262.sakura.ne.jp [202.181.97.72])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com [209.85.214.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B48E31E855;
-	Thu,  3 Sep 2026 23:17:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.181.97.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C60531B80D
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 23:17:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788477435; cv=none; b=YvXvIga/6b4zdJ3amXyEBuDjQ+KyfElF6NizkmnnvolJcCEyGACbApUb/kfeodALMpET4ujFJSS7W+uITPgD/zDIe8OffscIxm4Z4y6mxZbMG+me/TZSz4d/5sbWKsFqvlSrI75RzXahVxB4ydJFN89OyIf8dNL6R0oiyoDnMAA=
+	t=1788477444; cv=none; b=M3GccR1FZZKTmEVFTO+r2T45wXMfFTa2B2sE324crBnro+w8HMOrQBc63LKwHRU7WafiObi4IQJs/5eLLRBMGlqByHx8CwHQwVv8IpiGunB5z3+kkgtSJUHFZwxxKW3WEb6IOdh/48VpPV4spZGwwNpEYimxkyjvRP9Mm0Rmebk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788477435; c=relaxed/simple;
-	bh=OcraPRWToqpWgIaAhNICXIMXXlLZJ8IO7GQah7aYTWk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=rx2VTHtb5xYRHOEgXSWR/KPy9wFwdzZHY8qtzkHGadbsOhCxoR/W0yra1n+Pp40NWu/3MmhQ+NwsYJ2oU6Vs5kWajkOnnV7dfQ7XgdUvzranKApUBFY3KJtrRbor1pSUZtHx9A2HUIR5H3Eo88JBMAyevrYbf0U+XdQTUnUcwfc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=I-love.SAKURA.ne.jp; spf=pass smtp.mailfrom=I-love.SAKURA.ne.jp; arc=none smtp.client-ip=202.181.97.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=I-love.SAKURA.ne.jp
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=I-love.SAKURA.ne.jp
-Received: from www262.sakura.ne.jp (localhost [127.0.0.1])
-	by www262.sakura.ne.jp (8.15.2/8.15.2) with ESMTP id 683NFuGC006373;
-	Fri, 4 Sep 2026 08:15:56 +0900 (JST)
-	(envelope-from penguin-kernel@I-love.SAKURA.ne.jp)
-Received: from [192.168.1.6] (M106072072000.v4.enabler.ne.jp [106.72.72.0])
-	(authenticated bits=0)
-	by www262.sakura.ne.jp (8.15.2/8.15.2) with ESMTPSA id 683NFugi006370
-	(version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NO);
-	Fri, 4 Sep 2026 08:15:56 +0900 (JST)
-	(envelope-from penguin-kernel@I-love.SAKURA.ne.jp)
-Message-ID: <9ac07477-b2be-482b-9e97-87acf9635307@I-love.SAKURA.ne.jp>
-Date: Fri, 4 Sep 2026 08:15:55 +0900
+	s=arc-20240116; t=1788477444; c=relaxed/simple;
+	bh=2gfvM5RuYUvtDsXo945J8ygSVYYnP2P9eEs513EGLro=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=KmAx0g+8Gg6a6Xp04kYQEpoW8js2R4NKYXGcSp8v1Y3la9diGoI0hmn2tIZhC4RzBIxytGrbLr2HameaIgpgxfkyz1APVgbFuFE0uxCPGhgv37uFi6n8S5ToWJ4/iL8CpSqW2e/7YBiXwjvfE+lYU2EyAEd5yUOyKU28msiV2Zk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WyzELWtO; arc=none smtp.client-ip=209.85.214.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WyzELWtO"
+Received: by mail-pl1-f170.google.com with SMTP id d9443c01a7336-2d944747d41so4770535ad.0
+        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 16:17:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788477442; x=1789082242; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=uIfe5s7ZFcdqKOOrAIL/cJfuy5I0dWNvdDFRtudxhJU=;
+        b=WyzELWtOyg+yUFxqBQjOElBaTF/GEzeBqvKoALO0gUlaQW4oqJrnHWkZWizavmtwhb
+         J+fgd548qAMxBUdEWelMMFfRzHMp9EgBgeYL1FkZtduqO4iLJbHu1ZUeww/T+RJPoDrP
+         myQ5Yqosk3+rPiicr9cxuhZBinThKAKf9U88eoNe0dat2fRoRDXNNd6SRRb8MpGKGZlV
+         QG4Ctv2UFipI5tkll8isPOOqCGnpWO1ubCh9wP83fY5gsZed6l9wsAf1VOMa++LlifIO
+         sZb88AFC7D2Zug3rrBQEqGb0YR8Kck0JV+Otc+p48/lJOfbiQfnKns0TYwsPEhhWlhys
+         2V/Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788477442; x=1789082242;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=uIfe5s7ZFcdqKOOrAIL/cJfuy5I0dWNvdDFRtudxhJU=;
+        b=QhnzH0nroJD0KpRSF3SFwpY79lUSmPZz2FF0LsUkcT9yt7xAJpWpc0bUt/zJntWp56
+         Kp9K+XVAfTLqqCvKgOQhaXxmar4cczdzvMtVFDr/a0X6Lz5LW8ihgs53Ns0cWT23DuiT
+         ko94Qfefzcyrt+1c8MYowRZ0EKcmVaz0GLjXrjB72wPyDcRlIUI9KpX0vXF+3OQRXHZL
+         ascIObiDspvH/mbQM08JgdKPLaDHm/3n7APe/6g1TjDH/sg9OXrQVrXpOsubzR6PX2O+
+         FbxvkKzmKvUtuY3IntH4d9bbpiItMvLMI27mwArdTvqx88lRUROfWVKXkyHbyp+w+Rlt
+         AcXA==
+X-Forwarded-Encrypted: i=1; AKwUvBx+WadMJBoMSLUkkPbxpWpqtuJnnIGpspurqRsAEX7SVQl/mA0/YNCLUbzNHtLLgXkc5fqMA+soun7/1Q0=@vger.kernel.org
+X-Gm-Message-State: AFuF++ky2MtZIC+ThrHiq50cYNo0x/zz3p2rlrEAD8TLdxo5wIQ3SY5K
+	8KrKUY14gHKDU7ckyHJARhYQcvh/fFPIOHqny/6G6EFczeVJxO1QOfhZ
+X-Gm-Gg: AYBFou1dsymPLV/X0Bora2LUv8vY4j6VqevhQgKcvLHXoSkT2v3DT2S1sSweLSS2X8B
+	w8vM7XfkI9715LmGQeCdP+TAmLY8fiEdVWKtutYbr0Ga6Afd83XL7fCYVNj4yNNlwa+/ABCQD3z
+	by1z9cnKBhxwtTTmXm0VGvP5DpMKhE3zgEX9hEbr4EsNWFDGjsbZQhqo9OUkNtDvuaD34vJ81Ou
+	bYsoPV1vIeGSUOq4a1qgonhC9SCtoeKtQifzbW5Q0GXWBcSd2IDCYOK3saWKyKl2N4gMNYP7+4Z
+	EtPGGjxdt4WfrOrAfm7TFko5WPwaMfK3RWKxtaL0zSIMx6wHCTnwNu1LXvBrHzpMbJi7IfXMapW
+	qWZHiHjYWNo79kubHOaFo5GNRfpVkNvGRFTXPQHLcVijGrk3LOzTB+S05s894FfATfgO2FzS2t7
+	jebiEW0gIpBQz97C4vpR9IBskQEUvYg1FeL7JDnXhZqCEZY+VexGNfN3SQLOQ5quonkx7Hbk/D8
+	A==
+X-Received: by 2002:a17:90a:51c6:b0:39b:29ca:3d23 with SMTP id 98e67ed59e1d1-39b29ca41d5mr539417a91.17.1788477441778;
+        Thu, 03 Sep 2026 16:17:21 -0700 (PDT)
+Received: from localhost.localdomain ([2001:1960:1401:126c:876e:d154:517e:4c6f])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339a534df1sm2072759eec.7.2026.09.03.16.17.21
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 03 Sep 2026 16:17:21 -0700 (PDT)
+From: Hanh Kieu <hhkieu@gmail.com>
+To: perex@perex.cz,
+	tiwai@suse.com
+Cc: linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] ALSA: usb-audio: add Pioneer DJ DDJ-SZ support
+Date: Thu,  3 Sep 2026 16:16:41 -0700
+Message-ID: <20260903231641.18536-1-hhkieu@gmail.com>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: [PATCH v7.1] loop: Fix NULL pointer dereference in lo_rw_aio()
-To: Bart Van Assche <bvanassche@acm.org>,
-        Markus Elfring <Markus.Elfring@web.de>, linux-block@vger.kernel.org,
-        linux-fsdevel@vger.kernel.org,
-        Alexander Viro <viro@zeniv.linux.org.uk>,
-        Damien Le Moal <dlemoal@kernel.org>, Jens Axboe <axboe@kernel.dk>
-Cc: linux-kernel@vger.kernel.org, linux-next@vger.kernel.org, lkp@intel.com,
-        oe-lkp@lists.linux.dev, Christian Brauner <brauner@kernel.org>,
-        Christoph Hellwig <hch@infradead.org>, Christoph Hellwig <hch@lst.de>,
-        Hillf Danton <hdanton@sina.com>,
-        Linus Torvalds <torvalds@linux-foundation.org>,
-        Mark Brown <broonie@kernel.org>, Oliver Sang <oliver.sang@intel.com>,
-        linux-btrfs@vger.kernel.org
-References: <8dedfc40-9cae-44ff-9960-e0eb1825e963@I-love.SAKURA.ne.jp>
- <550ff0b4-df39-46d2-9781-c8688df10c93@web.de>
- <38ad64c1-edc7-431d-8f52-fba572ebf3eb@I-love.SAKURA.ne.jp>
- <372ca5f6-81a0-4f6c-8f55-ebeeada9f955@acm.org>
- <27bcb147-bead-4432-8cd0-981489f36228@acm.org>
- <c41e9198-86a8-4bcd-a608-6f457b24f345@I-love.SAKURA.ne.jp>
- <7e51bca8-218a-40b8-8ff8-fc59671f5add@acm.org>
- <3bb080d0-4421-4012-8a62-6a2bf165cbd9@I-love.SAKURA.ne.jp>
- <d2f387b9-031a-4306-9323-56f98a8241b7@acm.org>
- <e5518546-701e-4d3c-a077-18e34aa8c188@I-love.SAKURA.ne.jp>
- <c0df5f39-d103-4e36-9807-df0ae0247772@acm.org>
- <c2ab2547-63b3-48cf-87c1-fc53219e360a@I-love.SAKURA.ne.jp>
- <d0471919-9b71-4d24-9fb8-5f1d7f3792ca@acm.org>
- <903a22a2-432c-4e72-bc09-7898becf2f3e@I-love.SAKURA.ne.jp>
- <d7e26d4b-d9b9-47c0-9658-c241499209b5@acm.org>
-Content-Language: en-US
-From: Tetsuo Handa <penguin-kernel@I-love.SAKURA.ne.jp>
-In-Reply-To: <d7e26d4b-d9b9-47c0-9658-c241499209b5@acm.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Anti-Virus-Server: fsav311.rs.sakura.ne.jp
-X-Virus-Status: clean
+Content-Transfer-Encoding: 8bit
 
-syzbot is reporting NULL pointer dereference in lo_rw_aio() [1][2].
-An analysis by the Gemini AI collaborator [3] considers that this problem
-is caused by a timing shift primarily exposed by commit 65565ca5f99b
-("block: unify the synchronous bi_end_io callbacks"), along with helper
-refactorings like commit 92c3737a2473 ("block: add a bio_submit_or_kill
-helper").
+The Pioneer DJ DDJ-SZ exposes its audio interface as USB vendor-specific
+class (0xFF) rather than USB Audio Class, so it needs a quirks-table
+entry like its sibling Pioneer devices (DJM-750, DJM-850, DJM-900NXS2,
+DJM-450, DJM-V10) already have.
 
-But due to difficulty of reproducing this race, discussion about what is
-happening and how to fix this problem is stalling. Also, we haven't
-identified how many filesystems are subjected to this problem.
+The device presents 10 channels of S24_3LE audio in both directions,
+fixed at 44.1kHz, on interface 0 altsetting 1: playback on endpoint
+0x01, capture on endpoint 0x82. The unit contains its own analog mixer,
+and each playback channel pair feeds one of its physical channel strips:
+0/1, 2/3, 4/5 and 6/7 feed strips 1-4 respectively, and 8/9 feed the
+booth output. The master output is produced in analog by that mixer and
+is not carried over USB at all. On the capture side, channels 8/9 are
+the mic input; capture channels 0-7 are not yet mapped to specific
+physical inputs.
 
-Therefore, introduce a grace period for flushing outstanding I/O
-(which should be a good thing from the perspective of defensive
-programming) so that we won't hit NULL pointer dereference problem.
+Implicit feedback needs no quirk flag here: is_pioneer_implicit_fb() in
+implicit.c already covers vendor 0x08e4 with a vendor-spec class
+interface and two endpoints, and the driver duly reports endpoint 0x82
+as the playback sync endpoint.
 
-However, calling drain_workqueue() from __loop_clr_fd() with
-disk->open_mutex held causes lockdep warnings. We need to flush
-outstanding I/O without disk->open_mutex held. Therefore, defer
-__loop_clr_fd() to WQ context, like commit 322c4293ecc5 ("loop: make
-autoclear operation asynchronous") did.
+Activation reuses the existing pioneer_djm_set_format_quirk() used by
+the DJM-750/850/900NXS2/450/V10 (SET_INTERFACE to altsetting 1, then a
+UAC-shaped SET_CUR sample-rate control transfer) with this device's own
+captured wIndex (0x0082). Unlike those devices, the DDJ-SZ additionally
+needs a vendor "arm" sequence before its capture path produces real
+audio -- without it, capture opens and runs with no USB/ALSA errors
+but delivers silence (a hard zero on every channel) rather than any
+error, so this is easy to miss. The arm sequence is six vendor control
+transfers (bmRequestType=0x40, bRequest=3, varying wValue/wIndex, each
+followed by a bmRequestType=0xc0, bRequest=0 status read), replicated
+byte-for-byte from a USB capture of the official Windows driver.
 
-The past attempt was reverted by commit bf23747ee053 ("loop: revert "make
-autoclear operation asynchronous"") for two reasons:
+All of the above -- endpoint numbers, format, channel mapping, and the
+arm sequence bytes -- were determined by capturing and decoding real USB
+traffic from the Windows driver (USBPcap + Wireshark) during
+enumeration, playback, and mic recording, then verifying the format
+hypothesis against actual de-interleaved payload data rather than
+packet-size arithmetic alone. Both playback and capture have been
+verified working with real audio, not just clean enumeration.
 
-  (1) Userspace might be expecting that fput() on the backing file is
-      processed before lo_release() from close() returns to user mode.
-      But a debug patch [4] suggested me that this teardown operation is
-      racy regardless of whether disk->open_mutex is temporarily released
-      or not, and therefore the xfs/259 breakage should be addressed on
-      the xfstests side.
-
-  (2) Lockdep reported circular locking dependency caused by flushing
-      system-wide WQs. But we no longer need to worry that dependency
-      because all in-tree users no longer flush system-wide WQs.
-
-Therefore, let's retry deferring __loop_clr_fd() to WQ context.
-
-Link: https://syzkaller.appspot.com/bug?extid=cd8a9a308e879a4e2c28 [1]
-Link: https://syzkaller.appspot.com/bug?extid=bc273027d5643e48e5b3 [2]
-Link: https://lkml.kernel.org/r/fbb3edda-f108-4e5b-acf2-266f043f8125@I-love.SAKURA.ne.jp [3]
-Link: https://lkml.kernel.org/r/9f8b5ab0-efbc-4cf3-a1f8-b43377416946@I-love.SAKURA.ne.jp [4]
-Fixes: 65565ca5f99b ("block: unify the synchronous bi_end_io callbacks")
-Assisted-by: Gemini-Pro
-Signed-off-by: Tetsuo Handa <penguin-kernel@I-love.SAKURA.ne.jp>
+Signed-off-by: Hanh Kieu <hhkieu@gmail.com>
 ---
-What an AI coding assistant based on Gemini told Bart about the v7.1 patch:
+ sound/usb/quirks-table.h | 47 +++++++++++++++++++++++++++++++
+ sound/usb/quirks.c       | 60 ++++++++++++++++++++++++++++++++++++++++
+ 2 files changed, 107 insertions(+)
 
-  1. Userspace ABI / Teardown Regression (Asynchronous Autoclear)
-
-  The Regression: When a loop device configured with LO_FLAGS_AUTOCLEAR is
-  closed (such as during unmounting with umount -d or mount -o loop),
-  userspace expects that close() synchronously tears down the device and
-  releases the backing file (fput()) before returning to user mode.
-
-  Prior History: This exact asynchronous deferral was merged in commit
-  322c4293ecc5 ("loop: make autoclear operation asynchronous") and had to
-  be reverted in commit bf23747ee053 ("loop: revert 'make autoclear
-  operation asynchronous'") because standard filesystem unmount sequences
-  (such as umount ext4_on_xfs; umount /xfs) broke with -EBUSY in xfstests
-  (e.g., xfs/259).
-
-  Kernel Policy: Handwaving this in the commit log ("the xfs/259 breakage
-  should be addressed on the xfstests side") is not acceptable. Breaking
-  synchronous teardown semantics violates the core Linux kernel rule: never
-  break userspace. Real-world container engines, test suites, and system
-  utilities rely on fput() having completed when lo_release() / close()
-  returns.
-
-What Bart says about the v6 patch which does synchronous teardown:
-
-  Releasing and reacquiring disk->open_mutex from __loop_clr_fd() seems
-  risky to me. There is plenty of code in block/bdev.c that assumes that
-  disk->open_mutex is not released by lo_release().
-
-Then, what direction can we go?
-
- drivers/block/loop.c | 74 +++++++++++++++++++++++++++++++++++---------
- 1 file changed, 60 insertions(+), 14 deletions(-)
-
-diff --git a/drivers/block/loop.c b/drivers/block/loop.c
-index 6f12976035b0..516118b3a16c 100644
---- a/drivers/block/loop.c
-+++ b/drivers/block/loop.c
-@@ -75,6 +75,7 @@ struct loop_device {
- 	struct gendisk		*lo_disk;
- 	struct mutex		lo_mutex;
- 	bool			idr_visible;
-+	struct work_struct	lo_clr_work;
- };
- 
- struct loop_cmd {
-@@ -1134,13 +1135,42 @@ static int loop_configure(struct loop_device *lo, blk_mode_t mode,
- 	return error;
- }
- 
--static void __loop_clr_fd(struct loop_device *lo)
-+static void __loop_clr_fd(struct work_struct *work)
+diff --git a/sound/usb/quirks-table.h b/sound/usb/quirks-table.h
+index a1a33f11d..2da8cbe3e 100644
+--- a/sound/usb/quirks-table.h
++++ b/sound/usb/quirks-table.h
+@@ -3731,6 +3731,53 @@ YAMAHA_DEVICE(0x7010, "UB99"),
+ 		}
+ 	}
+ },
++{
++	/*
++	 * Pioneer DJ DDJ-SZ
++	 * 10 channels playback & 10 channels capture @ 44.1kHz S24LE
++	 */
++	USB_DEVICE_VENDOR_SPEC(0x08e4, 0x0191),
++	QUIRK_DRIVER_INFO {
++		QUIRK_DATA_COMPOSITE {
++			{
++				QUIRK_DATA_AUDIOFORMAT(0) {
++					.formats = SNDRV_PCM_FMTBIT_S24_3LE,
++					.channels = 10,
++					.iface = 0,
++					.altsetting = 1,
++					.altset_idx = 1,
++					.endpoint = 0x01,
++					.ep_attr = USB_ENDPOINT_XFER_ISOC|
++						   USB_ENDPOINT_SYNC_ASYNC,
++					.rates = SNDRV_PCM_RATE_44100,
++					.rate_min = 44100,
++					.rate_max = 44100,
++					.nr_rates = 1,
++					.rate_table = (unsigned int[]) { 44100 }
++				}
++			},
++			{
++				QUIRK_DATA_AUDIOFORMAT(0) {
++					.formats = SNDRV_PCM_FMTBIT_S24_3LE,
++					.channels = 10,
++					.iface = 0,
++					.altsetting = 1,
++					.altset_idx = 1,
++					.endpoint = 0x82,
++					.ep_idx = 1,
++					.ep_attr = USB_ENDPOINT_XFER_ISOC|
++						   USB_ENDPOINT_SYNC_ASYNC,
++					.rates = SNDRV_PCM_RATE_44100,
++					.rate_min = 44100,
++					.rate_max = 44100,
++					.nr_rates = 1,
++					.rate_table = (unsigned int[]) { 44100 }
++				}
++			},
++			QUIRK_COMPOSITE_END
++		}
++	}
++},
  {
-+	struct loop_device *lo = container_of(work, struct loop_device, lo_clr_work);
-+	struct gendisk *disk = lo->lo_disk;
- 	struct queue_limits lim;
- 	struct file *filp;
- 	gfp_t gfp = lo->old_gfp_mask;
- 	int err;
- 
-+	/* Step 1: Flush all outstanding I/O, without open_mutex held. */
-+	/*
-+	 * Since loop_queue_rq() is called with RCU read lock, this synchronize_rcu()
-+	 * makes sure that no more queue_work() calls are made from loop_queue_work()
-+	 * from loop_queue_rq(). Subsequent loop_queue_rq() calls which are made after
-+	 * this synchronize_rcu() returned shall see lo->lo_state != Lo_bound and
-+	 * return with BLK_STS_IOERR.
-+	 */
-+	synchronize_rcu();
-+	/*
-+	 * This drain_workqueue() makes sure that no more loop_handle_cmd() calls are
-+	 * made from loop_process_work() from loop_workfn()/loop_rootcg_workfn().
-+	 */
-+	drain_workqueue(lo->workqueue);
-+	/*
-+	 * This blk_mq_freeze_queue() waits for completion of all outstanding I/O
-+	 * which has been scheduled via loop_queue_rq(), by waiting for q_usage_counter
-+	 * to reach 0. Since the lo->lo_state != Lo_bound check in loop_queue_rq()
-+	 * guarantees that no more new I/O requests are made, we can call
-+	 * blk_mq_unfreeze_queue() immediately after blk_mq_freeze_queue() returns.
-+	 */
-+	blk_mq_unfreeze_queue(lo->lo_queue, blk_mq_freeze_queue(lo->lo_queue));
-+
-+	/* Step 2: Perform remaining cleanup, with open_mutex held. */
-+	mutex_lock(&disk->open_mutex);
-+	WARN_ON_ONCE(lo->lo_state != Lo_rundown);
-+
- 	spin_lock_irq(&lo->lo_lock);
- 	filp = lo->lo_backing_file;
- 	lo->lo_backing_file = NULL;
-@@ -1151,12 +1181,7 @@ static void __loop_clr_fd(struct loop_device *lo)
- 	lo->lo_sizelimit = 0;
- 	memset(lo->lo_file_name, 0, LO_NAME_SIZE);
- 
--	/*
--	 * Reset the block size to the default.
--	 *
--	 * No queue freezing needed because this is called from the final
--	 * ->release call only, so there can't be any outstanding I/O.
--	 */
-+	/* Reset the block size to the default. */
- 	lim = queue_limits_start_update(lo->lo_queue);
- 	lim.logical_block_size = SECTOR_SIZE;
- 	lim.physical_block_size = SECTOR_SIZE;
-@@ -1168,8 +1193,6 @@ static void __loop_clr_fd(struct loop_device *lo)
- 	/* let user-space know about this change */
- 	kobject_uevent(&disk_to_dev(lo->lo_disk)->kobj, KOBJ_CHANGE);
- 	mapping_set_gfp_mask(filp->f_mapping, gfp);
--	/* This is safe: open() is still holding a reference. */
--	module_put(THIS_MODULE);
- 
- 	disk_force_media_change(lo->lo_disk);
- 
-@@ -1199,11 +1222,18 @@ static void __loop_clr_fd(struct loop_device *lo)
- 	WRITE_ONCE(lo->lo_state, Lo_unbound);
- 	mutex_unlock(&lo->lo_mutex);
- 
-+	/* Step 3: Drop refcounts, without open_mutex held. */
-+	mutex_unlock(&disk->open_mutex);
-+
-+	put_device(disk_to_dev(disk));
-+
  	/*
--	 * Need not hold lo_mutex to fput backing file. Calling fput holding
--	 * lo_mutex triggers a circular lock dependency possibility warning as
--	 * fput can take open_mutex which is usually taken before lo_mutex.
-+	 * This is safe: flush_work() from loop_remove() from loop_exit() waits
-+	 * until this function returns; effectively dropping the final module
-+	 * references synchronously.
- 	 */
-+	module_put(THIS_MODULE);
+ 	 * Pioneer DJ DJM-750MK2
+diff --git a/sound/usb/quirks.c b/sound/usb/quirks.c
+index 4936d66f9..f09599c0d 100644
+--- a/sound/usb/quirks.c
++++ b/sound/usb/quirks.c
+@@ -1767,6 +1767,62 @@ static void set_format_emu_quirk(struct snd_usb_substream *subs,
+ 	subs->pkt_offset_adj = (emu_samplerate_id >= EMU_QUIRK_SR_176400HZ) ? 4 : 0;
+ }
+ 
++/*
++ * The DDJ-SZ needs a vendor "arm" sequence before its capture path
++ * produces real audio; without it capture runs with no USB or ALSA error
++ * but delivers a hard zero on every channel. The sequence is replicated
++ * byte-for-byte from a USB capture of the Windows driver: each write is
++ * followed by a status read whose content is a fixed value regardless of
++ * what was written, but the read is replicated too, since it is unclear
++ * whether the device requires it to process the preceding write.
++ *
++ * This runs from snd_usb_set_format_quirk(), i.e. on every format setup
++ * rather than once per device. Re-arming is harmless in practice and
++ * keeps the device armed if it is reset behind our back.
++ */
++static void ddj_sz_arm_quirk(struct usb_device *dev)
++{
++	static const struct {
++		u16 value;
++		u16 index;
++		u8 read_len;
++	} cmds[] = {
++		{ 0x0100, 0x8002, 6 },
++		{ 0x0200, 0x8002, 6 },
++		{ 0x0303, 0x8002, 6 },
++		{ 0x0403, 0x8002, 6 },
++		{ 0x050a, 0x8002, 6 },
++		{ 0x0000, 0x8003, 2 },
++	};
++	u8 buf[6];
++	unsigned int i;
++	int err;
 +
- 	fput(filp);
- }
- 
-@@ -1769,8 +1799,20 @@ static void lo_release(struct gendisk *disk)
- 	need_clear = (lo->lo_state == Lo_rundown);
- 	mutex_unlock(&lo->lo_mutex);
- 
--	if (need_clear)
--		__loop_clr_fd(lo);
-+	if (!need_clear)
-+		return;
-+	/*
-+	 * In order to flush outstanding I/O before clearing the backing
-+	 * device, defer __loop_clr_fd() to WQ context. The Lo_rundown state
-+	 * guarantees that lo_open() will fail with -ENXIO.
-+	 *
-+	 * Grab disk reference which will be dropped as soon as
-+	 * returning from lo_release() and releasing disk->open_mutex.
-+	 * We don't need to grab disk->fops->owner reference because
-+	 * we are holding one obtained by loop_configure().
-+	 */
-+	get_device(disk_to_dev(disk));
-+	queue_work(system_long_wq, &lo->lo_clr_work);
- }
- 
- static void lo_free_disk(struct gendisk *disk)
-@@ -2034,6 +2076,7 @@ static int loop_add(int i)
- 	lo = kzalloc_obj(*lo);
- 	if (!lo)
- 		goto out;
-+	INIT_WORK(&lo->lo_clr_work, __loop_clr_fd);
- 	lo->worker_tree = RB_ROOT;
- 	INIT_LIST_HEAD(&lo->idle_worker_list);
- 	timer_setup(&lo->timer, loop_free_idle_workers_timer, TIMER_DEFERRABLE);
-@@ -2138,6 +2181,9 @@ static int loop_add(int i)
- 
- static void loop_remove(struct loop_device *lo)
++	for (i = 0; i < ARRAY_SIZE(cmds); i++) {
++		err = snd_usb_ctl_msg(dev, usb_sndctrlpipe(dev, 0), 3,
++				      USB_DIR_OUT | USB_TYPE_VENDOR |
++				      USB_RECIP_DEVICE,
++				      cmds[i].value, cmds[i].index, NULL, 0);
++		if (err < 0)
++			goto err_out;
++
++		err = snd_usb_ctl_msg(dev, usb_rcvctrlpipe(dev, 0), 0,
++				      USB_DIR_IN | USB_TYPE_VENDOR |
++				      USB_RECIP_DEVICE,
++				      0x0000, cmds[i].index, buf,
++				      cmds[i].read_len);
++		if (err < 0)
++			goto err_out;
++	}
++
++	return;
++
++err_out:
++	dev_warn(&dev->dev,
++		 "DDJ-SZ: arm sequence step %u failed (%d), capture may be silent\n",
++		 i, err);
++}
++
+ static int pioneer_djm_set_format_quirk(struct snd_usb_substream *subs,
+ 					u16 windex)
  {
-+	/* Wait for __loop_clr_fd() to complete. */
-+	flush_work(&lo->lo_clr_work);
-+
- 	/* Make this loop device unreachable from pathname. */
- 	del_gendisk(lo->lo_disk);
- 	blk_mq_free_tag_set(&lo->tag_set);
+@@ -1948,6 +2004,10 @@ void snd_usb_set_format_quirk(struct snd_usb_substream *subs,
+ 	case USB_ID(0x08e4, 0x0163): /* Pioneer DJM-850 */
+ 		pioneer_djm_set_format_quirk(subs, 0x0086);
+ 		break;
++	case USB_ID(0x08e4, 0x0191): /* Pioneer DDJ-SZ */
++		ddj_sz_arm_quirk(subs->dev);
++		pioneer_djm_set_format_quirk(subs, 0x0082);
++		break;
+ 	case USB_ID(0x0dba, 0x5000):
+ 		mbox3_set_format_quirk(subs, fmt); /* Digidesign Mbox 3 */
+ 		break;
+
+base-commit: 4c4e4be4edd5dbf5f7f6a3ef4fc0c243f2d01b3c
 -- 
-2.55.0
+2.47.3
+
