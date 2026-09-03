@@ -1,130 +1,270 @@
-Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [80.241.56.152])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCE243F12C4;
-	Thu,  3 Sep 2026 07:13:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.152
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83D4038398F
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 07:14:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788419625; cv=none; b=Riw/yN49FawQEYv3jOd/mJovlFmCjm6yE4cuVG3Y5+EO3f5WX8aIfpu9d5wAhgi6xlAGH4tOEHhsMbbjMVu8E4iAVXz9Njk6X5ly7D4gWVGNMT9sb/r4kOZTpyDFFtjEj0XLwDKRBKclOVktqLS2Vsohe4HQInQTfUOvt35iDXY=
+	t=1788419645; cv=none; b=vE5JNbTEQncY+fhLqNt2agjLkvJif4twpuZ8BVfNRPZOUU8RBNpxpXxsSkbCyvlIP/ykxeJ4e0+rjVaniChUriXKaArfxn/mMO/vFN0ysXQfHrVCZHT7kuVjg8rZjH6DfFYFQw+r1H6DFWNRLSrF66rt5OOC2tHPRdvPfST/lLo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788419625; c=relaxed/simple;
-	bh=Lx4HaE9/zI4yZt20nbJr8PLbaPbxanYfNMyZ1nBAmxg=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ERNvy8H3HwMJ2cU2nUgcLB5FxfsWmLQ6g/eId5ykhS9CrOwpnW4dC/25SNkdv9HPwGwIOrOFxF6rQu+aXNngw0JIEL+ZLguVgx1O/LaWQSJAdL6/vD7AFavy6H5iwLMLiNCrSK0B2Rj4Ra+kSpOGSIv9VC+8yfRyzOM0ixN74vU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=JpyWLiSV; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=Si8KeBPB; arc=none smtp.client-ip=80.241.56.152
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	s=arc-20240116; t=1788419645; c=relaxed/simple;
+	bh=Xa5G4mhQl38Wew636ZQ6vmEJaM4aGAdkb3PaAexBHv8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=egQMVfk5jpJ5EBQJnV1ApdGVzJewszxkRwqwoHMqjS3cXIvUWTyHAdQwHGs0u2sq+at9WFuFgV/epit5bhSlyV6FMHFE4TTZWnDGjDA9rIZxVzeQQ2zlhydXBGVmq2Vfo4opVJyadqbZJ7IFBAoQ2HGSWaoAJ324Q+Wvl/XR54o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=dzeMZMN6; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=A4g07mdi; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="JpyWLiSV";
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="Si8KeBPB"
-Received: from smtp1.mailbox.org (smtp1.mailbox.org [IPv6:2001:67c:2050:b231:465::1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4hb9mx1KFjzKw2t;
-	Thu, 03 Sep 2026 09:13:37 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1788419617;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=mhVzuNfs214pBfjxrEWTK1wGYLUc4myD0XNH0Nog408=;
-	b=JpyWLiSVouzuNePf0RYJPJjfgm6hQi9u9bOkMSv2ZwuyEbqML4i7xB9Gnn/oMpBzBJi9Ly
-	07wphsgMD0e6U0arggyIHd0J5fG8rfeNh8c6AMf9eA4T2tnlbqrDH1gOBV/cgRJyQ5Yw9G
-	jhAUFJMqhaljxcm918ctjT87HsM++aANNnE2FXTMLNzRDCtgSgrQizC364XebW9jSVuOgJ
-	/AoCf1iL0NuErsvhFeUW3vxhYBLibgz7gJdeK0layTAIBLx1c7HYkP98yp4e04odF6OjG0
-	DtYD1cPQNSnDsGBknDkEvlWEK7Rw1n6fCdEdG2vaKboKaItP0/+aehubby28yg==
-Authentication-Results: outgoing_mbo_mout;
-	dkim=pass header.d=mailbox.org header.s=mail20150812 header.b=Si8KeBPB;
-	spf=pass (outgoing_mbo_mout: domain of manuelebnerli@mailbox.org designates 2001:67c:2050:b231:465::1 as permitted sender) smtp.mailfrom=manuelebnerli@mailbox.org
-From: Manuel Ebner <manuelebnerli@mailbox.org>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1788419616;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=mhVzuNfs214pBfjxrEWTK1wGYLUc4myD0XNH0Nog408=;
-	b=Si8KeBPBD7E1o6ad6JHPxy2+biBTjQuqPnVYELCCL2S6+O2jByvWpjJqtP1PVs9S32eELp
-	sRYPdVSfQFUBlwWtO5gEEbmXGJsV1xRXqOS7SBJHfKeOO9vN8JOTu6QXQfyAhjpusNTzTx
-	J+ILqpWmnOtTA6FvifNZsHMAT/8gUXAsh/vXl6lWPXtw3KJ162lu8By7pPtbIZ085if2L2
-	swVe7XiHcrxZTxC5LSkPKE4vh6sv2S0q0jIgRvIeGIdNXgF5aJenuzlsvllTdB1bVneJc6
-	7L2FS8hgRN1Zdjq/56/MyV79yp73ACu8CsfDndmhM52xd8PZi7ssbiax6ZTvmg==
-To: Steven Rostedt <rostedt@goodmis.org>,
-	Masami Hiramatsu <mhiramat@kernel.org>,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>
-Cc: Manuel Ebner <manuelebnerli@mailbox.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	linux-kernel@vger.kernel.org,
-	linux-trace-kernel@vger.kernel.org,
-	linux-doc@vger.kernel.org
-Subject: [PATCH v2] Documentation: trace: histogram-design: fix bracket, improve wording
-Date: Thu,  3 Sep 2026 09:11:05 +0200
-Message-ID: <20260903071105.714325-3-manuelebnerli@mailbox.org>
-In-Reply-To: <20260903070249.713483-2-manuelebnerli@mailbox.org>
-References: <20260903070249.713483-2-manuelebnerli@mailbox.org>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="dzeMZMN6";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="A4g07mdi"
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6835lKQV721298
+	for <linux-kernel@vger.kernel.org>; Thu, 3 Sep 2026 07:14:03 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	1tI3L93136NevpSwOUQHK1YeEJCgS9S8zFneCM0oV/4=; b=dzeMZMN6XBGBcXkz
+	quikUGIqz2nAjlgzrxJXHtQuzLLNzCo+cD+JuGoszsxm+4Oyy5JvhCsy0881EOFQ
+	2MwoIFz4wRzmXH0IKEmi1exXzSw3SHnAGgrebRdSFPJG2fpydax4Y/tJ0QLLz2WK
+	0x24s5jmNVPUdg2GWXTvc1KOqmZeFXXterNljeU+crNguieG/u9K9OI24gQCd+iS
+	JauVipEXK965O3ZNaEZuFIXRjGjcGvH9DUlDYq5itu4lLaFfET+Lcf3SkK2g3xnx
+	DkyX+JuWBEiIczoSoqRzrmFvut9ifxS30fJY3iT+GNNGa2ejbLTv9sYd2SVJYq+j
+	F1HWaw==
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4genrnksh9-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 07:14:02 +0000 (GMT)
+Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-93821883e26so52059985a.2
+        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 00:14:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1788419642; x=1789024442; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=1tI3L93136NevpSwOUQHK1YeEJCgS9S8zFneCM0oV/4=;
+        b=A4g07mdihzFWp4l1lHhv2cdxmxegF0TkeBdUc/hy9+GCSYbn5uIiqigU7xOv5NRRGq
+         eHYcujtWhwxZlduModiR2Kvz5cEMQXuFbeEV7JD93sr0qhm705pcUalVrUemtxh9Yv51
+         yGZxLS+HSAdyfay/66bOj55DgRcRtXka6OcARhB5oWSbXUq1ntpBIDg+jZDJoHFo/7O8
+         n7AMdOi/+zozOsYltMqn7O9ykr410M1vJt09Gbic7umAr4UgYb/rbq4CeE+6vlkTxdN7
+         ldw3NWWwkGBmdt2KlO/6oygVH9Cc/IjAxw9qrCneIXQq00zZoND3QAoC/YaUOIujmme+
+         LEgw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788419642; x=1789024442;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=1tI3L93136NevpSwOUQHK1YeEJCgS9S8zFneCM0oV/4=;
+        b=gzsNJDuySr2qGv7SumX1wExVefJvyN0hlX6Ea8bHWd/ad+4QdyT++S4dih9op/51fI
+         zkBhsdsCE9dp8qMLkOns7SYH1vfCb6W2252O40XYbtoJqSeCGriSW2YwHSUbmJbEXMoC
+         Dp4AC8mfIb9CfIvpiPGxFc88K7U+/Xu+677ztdqGmXhkFW61WfwLNS8CK4aGoXEf+bZu
+         akCUl4GFmmJoeT0Qo3/QwGlXKvsMWk4VTsdGrApBp7hRDP6n7+8WsSgi5Sz8HW1XNuZh
+         uzg/ledcb0JH4bLzx0RyXnU+3Q0yvFCVjdydx9msxvoqj1tE/GbzKZMFtZrXA/ArFCeh
+         QIxA==
+X-Forwarded-Encrypted: i=1; AKwUvBw6zw5WsdFojCzPvuoTc+6GpJ7qbP3MMzqxvRIJUeASOv822FfgSbcXooIS7gDz2+2yM5kQXOy+87nXNM8=@vger.kernel.org
+X-Gm-Message-State: AFuF++mwPIWKj2iKUbMQyYBasX5/rZeNu2tnEF2Hwj4sCo2NU0WJ48Gq
+	2h89QCDmT3LJAY9HrjC0LH+ezEZm0L6R7M4E0J7YzfiYecF3WswfHypIW9+cz2YEzaR+TLurvWK
+	6UEhABhayAJBNUW/TiO+oTBYvqiVyHta74i1zeDN/KQ8xE8zewETOi2R/p3EjM5yuuiM=
+X-Gm-Gg: AYBFou1FdbST7vt//3eb431izpsgOygGPczx+vd3LH3s6E+OL/v0kRufU/Q5RIoqc5J
+	dhIuU6qyfkBssNZ/6T0pYnIyHfJNoxxCAe+mPIgTeHSRpCaZN6UxTfB73kv7MBNe5VKaDMQ3fAu
+	6x6igUyG43UdxHqgWvkVNYun2kL59FmWuwW5zgpDLAbqj1Lw7fEyEFn94DQEBP++qURnSgjzmJR
+	T7xEkSesd7TGcdspg7eXthpoKCRhZe8E0+iTxZf6zONhRc2dYmqTtFJes7SBTpijit2318BSTQv
+	s3UZWLN7P5zk1XPwBEvjWH1ZMWkdwzUJIELlVg61s1YJWgKu1BS+ouQdz1ioopZRF4vBsClzYkg
+	s12ZTu6oa0JLuK6f+OFLE7Q==
+X-Received: by 2002:a05:620a:2915:b0:92e:9cb3:3f67 with SMTP id af79cd13be357-93960e022f7mr811310685a.2.1788419641535;
+        Thu, 03 Sep 2026 00:14:01 -0700 (PDT)
+X-Received: by 2002:a05:620a:2915:b0:92e:9cb3:3f67 with SMTP id af79cd13be357-93960e022f7mr811306985a.2.1788419640917;
+        Thu, 03 Sep 2026 00:14:00 -0700 (PDT)
+Received: from [192.168.202.12] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c25f422ef61sm55632066b.52.2026.09.03.00.13.58
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 03 Sep 2026 00:14:00 -0700 (PDT)
+Message-ID: <be340fda-a8d6-40ab-a073-5acce519a90f@oss.qualcomm.com>
+Date: Thu, 3 Sep 2026 09:13:58 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-MBO-RS-META: 7r7bpx36cphoewr3uqb6817abkwecypd
-X-MBO-RS-ID: 772a1b30ccd34e4c01f
-X-Rspamd-Queue-Id: 4hb9mx1KFjzKw2t
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] power: supply: qcom_battmgr: Add multi-port USB-C
+ power supply support
+To: Kamal Wadhwa <kamal.wadhwa@oss.qualcomm.com>,
+        Sebastian Reichel <sre@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-pm@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+References: <20260806-b4-battmgr-multiport-usb-v2-1-1a6dd1e06cc2@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260806-b4-battmgr-multiport-usb-v2-1-1a6dd1e06cc2@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: kKRicTz9MoxBFwGLrPqhw5gXIRnuZkN3
+X-Proofpoint-ORIG-GUID: kKRicTz9MoxBFwGLrPqhw5gXIRnuZkN3
+X-Authority-Analysis: v=2.4 cv=YKuvDxGx c=1 sm=1 tr=0 ts=6a991e3a cx=c_pps
+ a=HLyN3IcIa5EE8TELMZ618Q==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
+ a=Qrz6jqPncDHAnAyxcuYA:9 a=QEXdDO2ut3YA:10 a=bTQJ7kPSJx9SKPbeHEYW:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAzMDA2MyBTYWx0ZWRfX23sQwB+5xLTx
+ AKczQLJRXU6Y7n2szR1XUKboqWAlSLdriv+hLHNHS3DnFSd9tTj895QRWa2dEIIWsnkOz6tzgOo
+ CXnNhNVN2US8LS8CrqIKRZ5ZL4XaSy4gmYyf2PEInEuU8gkX0M6f2jRsdOMYWHz0/yVYNqvV3+d
+ GfLOSCruzWBFYGPfbeS23tOTDrgMSJwnTgNMK4qoae8cW3O6DyVB5AjZHOmNdEM6RwSlMjPxhuU
+ AJbxXckgq+2pnz3wuwVoO1Hep/gl9ElECbxMJqOPVCl2B3dWKMA3nZsSf6YnTbUvE9EM+7wt8Tg
+ 6px+c56dgXQ+zfZJcabqFnQrxxIjcmUaci9HA+kmgyj8LIZ/vmH8LBiDUrhLdj38ZiZiysKqQvT
+ Of/yPpFMHf69dNSmVql5W90UKFir2alGW1nbaCPdjmjxijflKuFGOfcAh5BPWZuUkO3OYKvDb4y
+ VgO0s0voeHcumvXSlgA==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAzMDA2MyBTYWx0ZWRfX3rgqNGEOjrj1
+ hrhk5kzH0VlFmcAj48NJF88kQKLJ+nIYCAd+l5f2f1R3aJjnPSM04lSy8dUMoOyAFMwJuOldT8d
+ Iu9tUNtqJ5X8Hu4ocqH2gS3HFBRIqwA=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-03_02,2026-09-02_04,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 spamscore=0 adultscore=0 impostorscore=0 malwarescore=0
+ phishscore=0 clxscore=1015 priorityscore=1501 lowpriorityscore=0
+ suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2609030063
 
-Add missing ')' and add note about the new way of triggering an event.
+On 8/6/26 5:06 PM, Kamal Wadhwa wrote:
+> Extend the qcom_battmgr driver to report up to MAX_USB_PORTS (3)
+> USB-C power supply ports on the X1E80100 & Glymur platform, which
+> exposes more than one charger port to firmware.
 
-CC: Randy Dunlap <rdunlap@infradead.org>
-Suggested-by: Steven Rostedt <rostedt@goodmis.org>
-Signed-off-by: Manuel Ebner <manuelebnerli@mailbox.org>
----
-I sent the previous mail on accident, sorry.
+[...]
 
-@ Steven, I added this line to your suggestion because else the references
-wouldn't make sense. References: $wakeup_lat, next_pid
-Let me know what you think.
+>  #define BATTMGR_USB_PROPERTY_GET	0x32
+>  #define BATTMGR_USB_PROPERTY_SET	0x33
+> +#define BATTMGR_USB2_PROPERTY_GET	0xC0
+> +#define BATTMGR_USB2_PROPERTY_SET	0xC1
+> +#define BATTMGR_USB3_PROPERTY_GET	0xC2
+> +#define BATTMGR_USB3_PROPERTY_SET	0xC3
 
-+ ... (which
-+could equivalently be written trace(wakeup_latency,$wakeup_lat,next_pid)
- are implemented, the parameters specified to the trace handler must be
- variables.  In this case, $wakeup_lat is obviously a variable, but
- next_pid isn't, since it's just naming a field in the sched_switch
----
- Documentation/trace/histogram-design.rst | 9 ++++++++-
- 1 file changed, 8 insertions(+), 1 deletion(-)
+nit: let's keep the defines lowercase
 
-diff --git a/Documentation/trace/histogram-design.rst b/Documentation/trace/histogram-design.rst
-index 41a726cd3..c0271463b 100644
---- a/Documentation/trace/histogram-design.rst
-+++ b/Documentation/trace/histogram-design.rst
-@@ -877,7 +877,7 @@ variables specified in the wakeup_latency() trace action, and use
- them to generate a new wakeup_latency event into the trace stream.
- 
- Note that the way the trace handlers such as wakeup_latency() (which
--could equivalently be written trace(wakeup_latency,$wakeup_lat,next_pid)
-+could equivalently be written trace(wakeup_latency,$wakeup_lat,next_pid))
- are implemented, the parameters specified to the trace handler must be
- variables.  In this case, $wakeup_lat is obviously a variable, but
- next_pid isn't, since it's just naming a field in the sched_switch
-@@ -916,6 +916,13 @@ means it will be automatically converted into a field variable::
-           onmatch(sched.sched_waking).wakeup_latency($wakeup_lat,next_pid)' >>
- 	  /sys/kernel/tracing/events/sched/sched_switch/trigger
- 
-+Note that the above is the old way to trigger a synthetic event, whereas the
-+newer way is preferred, which uses the trace() action handler::
-+
-+  # echo 'hist:keys=next_pid:wakeup_lat=common_timestamp.usecs-$ts0: \
-+          onmatch(sched.sched_waking).trace(wakeup_latency,$wakeup_lat,next_pid)' >>
-+	  /sys/kernel/tracing/events/sched/sched_switch/trigger
-+
- The diagram for the sched_switch event is similar to previous examples
- but shows the additional field_vars[] array for hist_data and shows
- the linkages between the field_vars and the variables and references
--- 
-2.54.0
+[...]
 
+
+> +static int qcom_battmgr_usb_x1e80100_update(struct qcom_battmgr *battmgr,
+> +					    enum power_supply_property psp)
+> +{
+> +	unsigned int prop;
+> +	int ret;
+> +
+> +	if (psp >= ARRAY_SIZE(x1e80100_usb_prop_map))
+> +		return -EINVAL;
+> +
+> +	prop = x1e80100_usb_prop_map[psp];
+> +
+> +	mutex_lock(&battmgr->lock);
+> +	ret = qcom_battmgr_request_property(battmgr, BATTMGR_USB_PROPERTY_GET, prop, 0);
+> +	mutex_unlock(&battmgr->lock);
+> +
+> +	return ret;
+> +}
+
+I'd rather you pass the array and its size to this function rather than
+wholly duplicating it
+
+[...]
+
+> +static int qcom_battmgr_usb_x1e80100_get_property(struct power_supply *psy,
+> +						   enum power_supply_property psp,
+> +						   union power_supply_propval *val)
+
+Likewise there's no reason to duplicate this one
+
+[...]
+
+> +static int qcom_battmgr_usb2_x1e80100_update(struct qcom_battmgr *battmgr,
+> +					     enum power_supply_property psp)
+
+We can add another parameter for the property and save some duplication
+as well
+
+[...]
+
+> +static int qcom_battmgr_usb2_get_property(struct power_supply *psy,
+> +					  enum power_supply_property psp,
+> +					  union power_supply_propval *val)
+> +{
+
+This function is also wholly duplicated, we can extract out the common
+part
+
+[...]
+
+>  static const enum power_supply_property sc8280xp_usb_props[] = {
+>  	POWER_SUPPLY_PROP_ONLINE,
+> +	POWER_SUPPLY_PROP_VOLTAGE_NOW,
+> +	POWER_SUPPLY_PROP_VOLTAGE_MAX,
+> +	POWER_SUPPLY_PROP_CURRENT_NOW,
+> +	POWER_SUPPLY_PROP_CURRENT_MAX,
+> +	POWER_SUPPLY_PROP_INPUT_CURRENT_LIMIT,
+> +	POWER_SUPPLY_PROP_USB_TYPE,
+>  };
+
+Hm, no one noticed this list was very short for a long time..
+
+[...]
+
+> +	case BATTMGR_USB_PROPERTY_GET:
+> +		property = le32_to_cpu(resp->intval.property);
+> +		if (payload_len != sizeof(resp->intval)) {
+> +			dev_warn(battmgr->dev,
+> +				 "invalid payload length for %#x request: %zd\n",
+> +				 property, payload_len);
+> +			battmgr->error = -ENODATA;
+> +			return;
+> +		}
+
+We can do something like:
+
+if (opcode == BATTMGR_USB2_PROPERTY_GET)
+	usb_info = &battmgr->usb2;
+else if (opcode == BATTMGR_USB3_PROPERTY_GET)
+	usb_info = &battmgr->usb3;
+else
+	usb_info = &battmgr->usb;
+
+and then have a shared case for all 3 in the switch-statement
+
+[...]
+
+> +static char *qcom_battmgr_battery[] = { "battery" };
+> +
+>  static void qcom_battmgr_enable_worker(struct work_struct *work)
+>  {
+>  	struct qcom_battmgr *battmgr = container_of(work, struct qcom_battmgr, enable_work);
+> @@ -1591,11 +1989,53 @@ static void qcom_battmgr_enable_worker(struct work_struct *work)
+>  		.hdr.type = cpu_to_le32(PMIC_GLINK_NOTIFY),
+>  		.hdr.opcode = cpu_to_le32(BATTMGR_REQUEST_NOTIFICATION),
+>  	};
+> +	struct power_supply *psy;
+>  	int ret;
+> +	int num_ports_fw = 0;
+>  
+>  	ret = qcom_battmgr_request(battmgr, &req, sizeof(req));
+>  	if (ret)
+>  		dev_err(battmgr->dev, "failed to request power notifications\n");
+> +
+> +	if (battmgr->variant == QCOM_BATTMGR_X1E80100) {
+> +		mutex_lock(&battmgr->lock);
+> +		ret = qcom_battmgr_request_property(battmgr, BATTMGR_USB_PROPERTY_GET,
+> +						     USB_NUM_PORTS, 0);
+> +		mutex_unlock(&battmgr->lock);
+> +		if (ret < 0) {
+> +			dev_dbg(battmgr->dev, "Failed to read USB_NUM_PORTS from SoCCP, rc=%d\n",
+> +				ret);
+
+The pmic-glink drivers are supposed not to care what's on the other end,
+let's just drop the "from SoCCP" part.
+
+Also, the existing way this driver prints errors is:
+
+"A problem occured: %d\n", without a 'rc=' prefix
+
+Konrad
