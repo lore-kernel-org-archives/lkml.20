@@ -1,85 +1,102 @@
-Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 639524EA367
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 15:39:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED32A4EBAD6
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 15:39:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788449944; cv=none; b=iAR7ylvLa604UBcyg/2guPLvYcE5waB40wy0qZ8iLZRoH8sI/TjGHTONA4S68VQhJvyDfUWFvZAI41oA//NOBTwH6IVVZHbaLkS8pmIUlerWoJdvr2R5lKRAKMnxrEY2TichlLhheb0zRv8zshSlVGO+J93if4ocmhI+D0fsikc=
+	t=1788449947; cv=none; b=dQcSTuy5mg5KDz6BsAsJl/aHsRJghIxe3xzfOMdQYe8jMySn5ikFd5QkHCtcDzphY/m2h/nz3gyBlETYbrOe3olwqMzTauRY9Bl0DjDNZOcicGm6dPEsCtiriRqw3Rqckf7ZNI02jEr//VwuEoAuDf5uQlb1dFqXNCOeIDJw0fE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788449944; c=relaxed/simple;
-	bh=5VcRoJMWHY4qVgnecHiIGpAC6SQWrjspNdzORitn378=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=kMQPbmfA2PLCC0Qb9dHgTqGJYNfJjwdjCbnlN1XNcW7jE4DA6N9/hMTzv5pMeVIRCOrXVlKoNiFOfbg0hC1k5l832G5bcnGDZE6ZFT0T3snWDKlIdCsOlKT3dAvU9+4rbj+msYfpcuKVZvWw+L6YnoBFtKJpeWFUPSXmR+5EZBw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=amarulasolutions.com; spf=pass smtp.mailfrom=amarulasolutions.com; dkim=pass (1024-bit key) header.d=amarulasolutions.com header.i=@amarulasolutions.com header.b=RPZ0qdM0; arc=none smtp.client-ip=209.85.221.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=amarulasolutions.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amarulasolutions.com
+	s=arc-20240116; t=1788449947; c=relaxed/simple;
+	bh=mst0BKwNQI5xzsAgPU0b63vSk4pLGpAaOz+r5wcrQHQ=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=S9XXSo7OQv0nrVXwe1CwfoPgmIjCq7LGQk7QB+Wh/AstiUlGcYoFvmY1AVqzv3GK+Y5OZS9CvhzoYamzYurzBzoDfh47AdvQABkfUdQrQx87K1aao/VLtaecLhzqoA9wCMAn26uuCkBaUY+4a8+fMree8CYTc9WgYzGR3DnDMJo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=cKu1Kj8h; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=fhY5x19W; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amarulasolutions.com header.i=@amarulasolutions.com header.b="RPZ0qdM0"
-Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-48441a2ba14so7601f8f.1
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 08:39:02 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="cKu1Kj8h";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="fhY5x19W"
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 683DAe624158208
+	for <linux-kernel@vger.kernel.org>; Thu, 3 Sep 2026 15:39:03 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:in-reply-to:message-id
+	:mime-version:references:subject:to; s=qcppdkim1; bh=h63WXqFvCbF
+	y3gKLgyxNvCWEvPKYpY2mQIKN7hO7nws=; b=cKu1Kj8hW6VbYnqRIufNTYuaAj5
+	pCFmfEMHXoUljJlOc38xxTGDhXwL5sIEQJJnmzlCXLyfegABjH98HPWawQhrDl/Z
+	3F9VZjCzu03Rqt+vFMUrkDiJ4t6hAfHwQ/sIF/eTNOZ35rS0lC7u6zmrNNb9QLcH
+	08trlMbGPvCpBhP8ipa7pFbdYzjSaJjrctNotK7bNP+9KXDYx+njuaT/UoLUGMbl
+	UM62QqtzCR+FNi9/9i0JtqHLk01dcFEgBe5IhSG8qZXt7iKFUbq3Wi+8QXUWkW7F
+	LljxuGOpj4ydM3+dLQ0y23LeRWo8NYEhz4HZnvZTAnQQsDN7QYuqNCLXrDA==
+Received: from mail-pg1-f199.google.com (mail-pg1-f199.google.com [209.85.215.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gf5pdsr2a-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 15:39:03 +0000 (GMT)
+Received: by mail-pg1-f199.google.com with SMTP id 41be03b00d2f7-cc39363cc88so61579a12.0
+        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 08:39:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=amarulasolutions.com; s=google; t=1788449940; x=1789054740; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1788449942; x=1789054742; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=cm4uXra2L9WOBsP9ackTlqi/Ub+9G7ZP+SENv4y3Q0o=;
-        b=RPZ0qdM0ADegwUVmfNDD/y0tiBym8CzDqc253AecJBQFIM81AUcj5GzJ1ImJtaELJb
-         v4a4DLNn8tS6ksroetUOQlYOsgzOn+c63zNRcGyiev9WmtGkz3oRGDv6CbSN5PmHAbJ9
-         3G6XAVCChPgWP4xebVfks7lVLH21XdGGMD7/w=
+        bh=h63WXqFvCbFy3gKLgyxNvCWEvPKYpY2mQIKN7hO7nws=;
+        b=fhY5x19WcYuT9lbgwCDUAECybbd8xdLmiNUhqXlwFQtMmg4JziZZJUmWBXwj2Wuiq5
+         R+LjI8oBw5O4+dejuu1/NoXoisd5lB7MfgU52b3mxvhIGPp7ljFqCIbMN89V4O0ftVO4
+         31IvX0m9UAPA6BsiLOxC1flrR/CZIk+nkKWfcVNOINtllMnIcb23JEvl5p6qEFD57rwB
+         2n2+z1ufpQ3M5k7FlqFrmb9KLvDYlizrRKlgtL5VhPK67VI9HhDsOZxIu0/QKcqCfjdf
+         uLqzgj23cixYRE7JwlMy8EBxDMT8gYjzi0Ihga4OiYaPoZnitwsjBWuEBaG6bOTElsb8
+         M3DQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788449940; x=1789054740;
+        d=1e100.net; s=20251104; t=1788449942; x=1789054742;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=cm4uXra2L9WOBsP9ackTlqi/Ub+9G7ZP+SENv4y3Q0o=;
-        b=KmsgLeWoHvFkYWzFohDbcox0Xi+BJS/TkrpdLhOyJnSmNEK1creAc5PP8bPXGlmrR+
-         nmJPdzcqnq7odlSwadk9ork/A9U675sr3gMl0QFyb567KBUKPjZsGYX8kd4EjmtqJPs1
-         ukZWOagSsaQCDjjWSE1nq5KOUWT1y1ncWTvdhbJ6q2nwPPnUU9xDaucRIb7imga4AyYK
-         Ap64qkTcqij1pRpD7nmmPt9lzxABn547t+tSFnPEqdwztrw0704JnX97Q0UO6+FG5x+v
-         iVeAZGgsKFdmMPMcXkRohXJj2IRCGKAkPX2XKCJzrx5nE6n1QFfNfCwf9COnETjhSrot
-         okYw==
-X-Gm-Message-State: AFuF++mNhjR7qBnop4TD2dNRyalzU2q6cCDSqe/eNexhkqsNUCO/wsRO
-	2tIEson0JGmPoQaUcUsJ8+HnEMxMq7DwKR+lggxagcTqCnt0WFnUuohkP6Vnca8YVPB8EvddvBu
-	HQngG7SI=
-X-Gm-Gg: AYBFou17Jd+0B5PuqX3Va4ZWIPB6qyy6btMorWGYq5Etl5IBz2RPvCpDb5W4aNS0S0t
-	jn58UCUR93rLpSMagNHcFp9M3QFrAT05fciM6wuXEH9x4AAF5JiaEDC8ThA4MDEsD3F1HajyQff
-	gK3Xj3LZtO4+dm3JodsEmr+m+JPyyfUq2MNX8BFjDfVKyxyA7GuadH+6kezMVXb+EdENY02kJAJ
-	D1ONDK+kXMCjbvA3nk50uBS1SIc+BYoFE1L6w8laJAWlgYoL9Igcinccr+m4x+I3L17bXFyFWkK
-	MEhmrM22nbRH5bM+JynUdyUt1N3/b7o4zTIAeFprP22n7eFOPCX7fGf2YyzBw0BXXL7ezjz7ACU
-	TMYtgXCgGKRu22lUawGkWOzG9QX40Xsd/JmKc+Hd9vXTWTtbao5uA/VhY9uu8DzV/fTiEnuf4KV
-	vFNfiasQN3IFMi5R4VrMidC7kGpS5WXRL+nItHISC/rHt0uEt4DQZ4ZVwzuC7aYgXEWs9xiNz/9
-	mbnwGZYZ+HJXwzOdohTOaK4R+h75RJSnc4huPEBtW4qi9VhHP4i4aQRHkBGuMOXqtHpndxpN+ZM
-	/xD8VvMEgMs31OwJ+jZ6uTJ/RYc9r600em+M3T66B0QIIODmZ3cACmkvgXqFfiLTqUY=
-X-Received: by 2002:a05:6000:2210:b0:47f:ec8a:214f with SMTP id ffacd0b85a97d-48488f0f6c6mr22597779f8f.15.1788449940413;
-        Thu, 03 Sep 2026 08:39:00 -0700 (PDT)
-Received: from dario-ThinkPad-P14s-Gen-5.amarulasolutions.com (host-95-245-93-90.retail.telecomitalia.it. [95.245.93.90])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48448e72df2sm15366301f8f.1.2026.09.03.08.38.58
+        bh=h63WXqFvCbFy3gKLgyxNvCWEvPKYpY2mQIKN7hO7nws=;
+        b=HIXd9/CNWS0MVQ7b+99OKEuwxmZri+qyXSCM0G44X4EMyOENvxlTvdPZTlesodEm8U
+         rmqrLQ0UN69O1rcaMZUnqdB8O71vmgDnBZq4W5btlkPexkg5irbCefQa5f7dYaBjI/aP
+         yvMR/wYat5oId55x9fc1unrndJ812BGHsyveyTfhKPzim02ais2FI+TIZWRGK7OTjXZB
+         /T05ovcfwPju8wy9+T8MQg3stGHL7vTg7DnIvuV+uaRJhx75VB5h4NRttea85OaaNipc
+         w3fOk6Hsvhf27DggsY1jwRDnpXtILaehjyVChNH4/5YgNUblU7cPkN3ZBzU1X+RLyhp8
+         UWAg==
+X-Forwarded-Encrypted: i=1; AKwUvBzB9deiQQ4t1lssSwNpkf7R1ddS8TFmHD22t97tdCUGBPXKCVwhlRuIDr0inEJzP18csAQkvJPv8yhVYjo=@vger.kernel.org
+X-Gm-Message-State: AFuF++lLdt+sxbyTIKXscw4ANnHC9iP2F+dkAjShRCqDpjRqEkG7Ek4J
+	FMXPUw4pRHSsSSITQF90Vac/iF6cIAyRlsMJunpSru6lKneAF3w09nMFqBAgyDDnkkGCV38lU5l
+	Kopk5MHb1NSW8jt8swffZrndkK7gh+KN7SgISwowt0jeOajvGv3Eed02pKpbU5Ma6kN0=
+X-Gm-Gg: AYBFou3AD3bVIfSUzbqsqgbjX8yIFwuTtL5YMb0eBzBSl4tpF9KtYPm+bc1HVnscvh1
+	PXIAOnzpvpv09JLDv1CaR3yhWJl2FeAa1Z5l/0UUDuSWn8axJ5V3hq1mihYuEYKtHx9I0RdyP9p
+	cU/a06Nb513gogeDRSV/0AmDTTEr/o7lMOAKJ5isioD1YzLinH5Dw+VvFZafr2HzXMf2H80ha/5
+	amFjo+PBroEbjqKu1ggSAoiLBPDYJvCNZrYhfdpTpNB1DO4zchT5nJn0J9nS3JTW4N+9eIOMEvp
+	b+Q/9zqlXOfaBRmcr1GALcCWUr13QdQz9Hhb/TW4v5T/TRXKjMzoBggk0ASX+Zykj8kSMEw0O+b
+	zTwVjxjfdfLz8HAsoQs9Mv8jkvjCp7B2M
+X-Received: by 2002:a05:6a00:8e02:b0:857:727c:a1f1 with SMTP id d2e1a72fcca58-8613fc1f0a5mr1326601b3a.19.1788449942230;
+        Thu, 03 Sep 2026 08:39:02 -0700 (PDT)
+X-Received: by 2002:a05:6a00:8e02:b0:857:727c:a1f1 with SMTP id d2e1a72fcca58-8613fc1f0a5mr1326448b3a.19.1788449941199;
+        Thu, 03 Sep 2026 08:39:01 -0700 (PDT)
+Received: from hu-faisalh-hyd.qualcomm.com ([202.46.23.25])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-86153027951sm81069b3a.40.2026.09.03.08.38.56
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 03 Sep 2026 08:38:59 -0700 (PDT)
-From: Dario Binacchi <dario.binacchi@amarulasolutions.com>
-To: linux-kernel@vger.kernel.org
-Cc: michael@amarulasolutions.com,
-	linux-amarula@amarulasolutions.com,
-	Dario Binacchi <dario.binacchi@amarulasolutions.com>,
-	Abel Vesa <abelvesa@kernel.org>,
-	Brian Masney <bmasney+clk@redhat.com>,
-	Fabio Estevam <festevam@gmail.com>,
-	Frank Li <Frank.Li@nxp.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	Peng Fan <peng.fan@nxp.com>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Stephen Boyd <sboyd@kernel.org>,
-	imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	linux-clk@vger.kernel.org
-Subject: [PATCH v13 4/4] clk: imx: pll14xx: support spread spectrum clock generation
-Date: Thu,  3 Sep 2026 17:32:16 +0200
-Message-ID: <20260903153836.373267-5-dario.binacchi@amarulasolutions.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260903153836.373267-1-dario.binacchi@amarulasolutions.com>
-References: <20260903153836.373267-1-dario.binacchi@amarulasolutions.com>
+        Thu, 03 Sep 2026 08:39:00 -0700 (PDT)
+From: Faisal Hassan <faisal.hassan@oss.qualcomm.com>
+To: Thinh Nguyen <Thinh.Nguyen@synopsys.com>,
+        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+        Mathias Nyman <mathias.nyman@intel.com>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Philipp Zabel <p.zabel@pengutronix.de>,
+        Wesley Cheng <wesley.cheng@oss.qualcomm.com>
+Cc: Sriram Dash <sriram.dash@oss.qualcomm.com>,
+        Jack Pham <jack.pham@oss.qualcomm.com>,
+        Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>,
+        Shazad Hussain <shazad.hussain@oss.qualcomm.com>,
+        linux-arm-msm@vger.kernel.org, linux-usb@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: [PATCH v2 5/7] usb: dwc3: add xhci-reset-on-resume property for power-loss resume
+Date: Thu,  3 Sep 2026 21:08:25 +0530
+Message-Id: <20260903153827.3463313-6-faisal.hassan@oss.qualcomm.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260903153827.3463313-1-faisal.hassan@oss.qualcomm.com>
+References: <20260903153827.3463313-1-faisal.hassan@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -87,216 +104,116 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAzMDEzNiBTYWx0ZWRfX4v32Us/29Wxh
+ To6SveM0hWn5ys8m8VBtZYPZNqhuI8sT8IpYBrnsJWWBQjXHuS63i8pjuRQW9D4DrU2wiobu89G
+ FtZgAtr3tHk9L4p0Np7xGO9DqsWZFHY=
+X-Proofpoint-ORIG-GUID: co7vnMI0oGm_v_vM5hc1fC_ldDjfN8Hv
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAzMDEzNiBTYWx0ZWRfX3XY2kb9z0dAk
+ GBPukZ8Hl2HVYehTOnzZNBWdWV07KBcfcj5mfsQZnn2qiP+pRN7aZ7J3TZPw88oXGg+ZBYW4ZHF
+ vK0ZjwqbEbcr7JlYl2ajs3WvSJ4xgh/m7CIDkyBUz5NgEDAT6sSt8TIHckssxrUeCg6Xb0k+rAc
+ tD+YCN7P9gaJwwinyteBKcoay/nJAirbhSchkS+935IYi3mWWoNKhvoEqAI1KQY01V5Fh65VhPW
+ q0dmF1e7paMuaypbaVT0AphINWTukE3eN/j06RXxa4j9flpJbM6D5dMRdfZdUYKzmGaxgKhZvxL
+ Mcyg6cZV4PR1VAFTq4NOrRmYiUGvaaI9/32WMH6zXOXRPWY58I85ljPsrR9p9W+Y0pWxT6bIhRg
+ rX5X57rYBJanpkhLoz16CwRX34O1ad8XbRDUde9z+cv+eybNxGy4oVwrGnFNbacXgFIWnRi3gNx
+ aCnSjQGl/1U7XkH/77g==
+X-Authority-Analysis: v=2.4 cv=RsL16imK c=1 sm=1 tr=0 ts=6a999497 cx=c_pps
+ a=Oh5Dbbf/trHjhBongsHeRQ==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22 a=EUspDBNiAAAA:8
+ a=7YzMA-XWCf9gdZAyNeMA:9 a=_Vgx9l1VpLgwpw_dHYaR:22
+X-Proofpoint-GUID: co7vnMI0oGm_v_vM5hc1fC_ldDjfN8Hv
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-03_04,2026-09-03_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 phishscore=0 priorityscore=1501 suspectscore=0 clxscore=1015
+ lowpriorityscore=0 adultscore=0 bulkscore=0 malwarescore=0 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609030136
 
-Add support for spread spectrum clock (SSC) generation to the pll14xx
-driver.
+On platforms where the USB controller loses power during system
+suspend, like SA8255P, resume triggers a Host Controller Error
+requiring full reinitialization.
 
-Tested on the video PLL of i.MX8MN and i.MX8MP based boards.
+The xhci driver supports XHCI_RESET_ON_RESUME to handle this,
+but dwc3 previously lacked platform-specific quirk configuration.
+Add a device property "xhci-reset-on-resume" that enables this
+quirk for controllers needing complete reinitialization after
+power loss during suspend.
 
-Signed-off-by: Dario Binacchi <dario.binacchi@amarulasolutions.com>
+Let dwc3 manage the quirk for the usb controller using
+software properties.
 
+Co-developed-by: Sriram Dash <sriram.dash@oss.qualcomm.com>
+Signed-off-by: Sriram Dash <sriram.dash@oss.qualcomm.com>
+Signed-off-by: Faisal Hassan <faisal.hassan@oss.qualcomm.com>
 ---
+ drivers/usb/dwc3/core.c | 4 ++++
+ drivers/usb/dwc3/core.h | 5 +++++
+ drivers/usb/dwc3/host.c | 5 ++++-
+ 3 files changed, 13 insertions(+), 1 deletion(-)
 
-(no changes since v12)
-
-Changes in v12:
- - Apply the SSC settings also from the set_spread_spectrum() callback
-   to handle the case the clock framework skips set_rate() if the
-   requested rate is unchanged.
-
-Changes in v11:
- - Drop the dt-bindings/clock/clock.h include and use the enum
-   clk_ssc_method values from clk-provider.h, as clk-scmi-oem.c does.
- - Disable SSC and clear the modulation fields in SSCG_CTRL when no
-   spread method is configured, so that a setup left enabled by the
-   bootloader is not kept active.
- - Skip the SSC setup instead of dividing by zero when modfreq_hz is
-   zero or mfr truncates to zero.
- - Reject mfr and mrr values that do not fit the MFREQ_CTL and MRAT_CTL
-   register fields instead of letting FIELD_PREP silently truncate
-   them. This also prevents the 10000 * mfr multiplication from
-   overflowing.
- - Compute the mfr divisor in 64-bit arithmetic, as the 32-bit product
-   could wrap with out of range modfreq_hz values.
-
-Changes in v10:
-- Drop 'Reviewed-by' tag of Peng Fan.
-- Adapt the driver to the new infrastructure. Implement the
-  set_spread_spectrum() and get the modulation parameters from
-  struct clk_spread_spectrum.
-
-Changes in v9:
-- Add 'Reviewed-by' tag of Peng Fan.
-
- drivers/clk/imx/clk-pll14xx.c | 99 +++++++++++++++++++++++++++++++++++
- 1 file changed, 99 insertions(+)
-
-diff --git a/drivers/clk/imx/clk-pll14xx.c b/drivers/clk/imx/clk-pll14xx.c
-index b6f1cc9f5700..5b187101c558 100644
---- a/drivers/clk/imx/clk-pll14xx.c
-+++ b/drivers/clk/imx/clk-pll14xx.c
-@@ -13,6 +13,7 @@
- #include <linux/export.h>
- #include <linux/io.h>
- #include <linux/iopoll.h>
-+#include <linux/math64.h>
- #include <linux/slab.h>
- #include <linux/spinlock.h>
- #include <linux/jiffies.h>
-@@ -22,6 +23,8 @@
- #define GNRL_CTL	0x0
- #define DIV_CTL0	0x4
- #define DIV_CTL1	0x8
-+#define SSCG_CTRL	0xc
+diff --git a/drivers/usb/dwc3/core.c b/drivers/usb/dwc3/core.c
+index fd5c2cd36c59..eb6ffd5148a7 100644
+--- a/drivers/usb/dwc3/core.c
++++ b/drivers/usb/dwc3/core.c
+@@ -1712,6 +1712,10 @@ static void dwc3_get_software_properties(struct dwc3 *dwc,
+ 					       &gsbuscfg0_reqinfo);
+ 		if (!ret)
+ 			dwc->gsbuscfg0_reqinfo = gsbuscfg0_reqinfo;
 +
- #define LOCK_STATUS	BIT(31)
- #define LOCK_SEL_MASK	BIT(29)
- #define CLKE_MASK	BIT(11)
-@@ -33,6 +36,13 @@
- #define KDIV_MASK	GENMASK(15, 0)
- #define KDIV_MIN	SHRT_MIN
- #define KDIV_MAX	SHRT_MAX
-+#define SSCG_ENABLE	BIT(31)
-+#define MFREQ_CTL_MASK	GENMASK(19, 12)
-+#define MRAT_CTL_MASK	GENMASK(9, 4)
-+#define SEL_PF_DOWN_SPREAD	0
-+#define SEL_PF_UP_SPREAD	1
-+#define SEL_PF_CENTER_SPREAD	2
-+#define SEL_PF_MASK	GENMASK(1, 0)
- 
- #define LOCK_TIMEOUT_US		10000
- 
-@@ -44,6 +54,7 @@ struct clk_pll14xx {
- 	int rate_count;
- 	s16 delta_k;
- 	spinlock_t lock;
-+	struct clk_spread_spectrum ss_conf;
- };
- 
- #define to_clk_pll14xx(_hw) container_of(_hw, struct clk_pll14xx, hw)
-@@ -366,6 +377,58 @@ static int clk_pll1416x_set_rate(struct clk_hw *hw, unsigned long drate,
- 	return 0;
++		if (!dwc->xhci_reset_on_resume &&
++		    device_property_read_bool(tmpdev, "xhci-reset-on-resume"))
++			dwc->xhci_reset_on_resume = true;
+ 	}
  }
  
-+static void __clk_pll1443x_set_spread_spectrum(struct clk_hw *hw,
-+					       unsigned long parent_rate,
-+					       unsigned int pdiv,
-+					       unsigned int mdiv)
-+{
-+	struct clk_pll14xx *pll = to_clk_pll14xx(hw);
-+	struct clk_spread_spectrum *conf = &pll->ss_conf;
-+	u32 sscg_ctrl, mfr, mrr, sel_pf;
-+
-+	sscg_ctrl = readl_relaxed(pll->base + SSCG_CTRL);
-+	sscg_ctrl &= ~(SSCG_ENABLE | MFREQ_CTL_MASK | MRAT_CTL_MASK | SEL_PF_MASK);
-+
-+	switch (conf->method) {
-+	case CLK_SPREAD_CENTER:
-+		sel_pf = SEL_PF_CENTER_SPREAD;
-+		break;
-+	case CLK_SPREAD_UP:
-+		sel_pf = SEL_PF_UP_SPREAD;
-+		break;
-+	case CLK_SPREAD_DOWN:
-+		sel_pf = SEL_PF_DOWN_SPREAD;
-+		break;
-+	default:
-+		/* No spread: disable modulation and clear any stale state */
-+		goto out;
-+	}
-+
-+	if (!conf->modfreq_hz || !parent_rate || !pdiv)
-+		goto out;
-+
-+	mfr = div64_u64(parent_rate, (u64)conf->modfreq_hz * pdiv * BIT(5));
-+	if (!mfr || mfr > FIELD_MAX(MFREQ_CTL_MASK)) {
-+		pr_warn("%s: SSC disabled, modulation frequency (%u Hz) out of range\n",
-+			clk_hw_get_name(hw), conf->modfreq_hz);
-+		goto out;
-+	}
-+
-+	mrr = (conf->spread_bp * mdiv * BIT(6)) / (10000 * mfr);
-+	if (!mrr || mrr > FIELD_MAX(MRAT_CTL_MASK)) {
-+		pr_warn("%s: SSC disabled, spread (%u permyriad) out of range\n",
-+			clk_hw_get_name(hw), conf->spread_bp);
-+		goto out;
-+	}
-+
-+	sscg_ctrl |= SSCG_ENABLE | FIELD_PREP(MFREQ_CTL_MASK, mfr) |
-+		FIELD_PREP(MRAT_CTL_MASK, mrr) |
-+		FIELD_PREP(SEL_PF_MASK, sel_pf);
-+
-+out:
-+	writel_relaxed(sscg_ctrl, pll->base + SSCG_CTRL);
-+}
-+
- static int clk_pll1443x_set_rate(struct clk_hw *hw, unsigned long drate,
- 				 unsigned long prate)
+diff --git a/drivers/usb/dwc3/core.h b/drivers/usb/dwc3/core.h
+index 608daeb7ef10..0ff23eb217bc 100644
+--- a/drivers/usb/dwc3/core.h
++++ b/drivers/usb/dwc3/core.h
+@@ -1172,6 +1172,10 @@ struct dwc3_glue_ops {
+  * @suspended: set to track suspend event due to U3/L2.
+  * @susphy_state: state of DWC3_GUSB2PHYCFG_SUSPHY + DWC3_GUSB3PIPECTL_SUSPHY
+  *		  before PM suspend.
++ * @xhci_reset_on_resume: Enable XHCI_RESET_ON_RESUME quirk for the xHCI
++ *			  host controller. Set to true for platforms where
++ *			  the USB controller loses power during system suspend,
++ *			  requiring complete reinitialization on resume.
+  * @imod_interval: set the interrupt moderation interval in 250ns
+  *			increments or 0 to disable.
+  * @max_cfg_eps: current max number of IN eps used across all USB configs.
+@@ -1420,6 +1424,7 @@ struct dwc3 {
+ 	unsigned		wakeup_configured:1;
+ 	unsigned		suspended:1;
+ 	unsigned		susphy_state:1;
++	unsigned		xhci_reset_on_resume:1;
+ 
+ 	u16			imod_interval;
+ 
+diff --git a/drivers/usb/dwc3/host.c b/drivers/usb/dwc3/host.c
+index 96b588bd08cd..2170fcafc889 100644
+--- a/drivers/usb/dwc3/host.c
++++ b/drivers/usb/dwc3/host.c
+@@ -129,7 +129,7 @@ static int dwc3_host_get_irq(struct dwc3 *dwc)
+ 
+ int dwc3_host_init(struct dwc3 *dwc)
  {
-@@ -390,6 +453,9 @@ static int clk_pll1443x_set_rate(struct clk_hw *hw, unsigned long drate,
- 		writel_relaxed(FIELD_PREP(KDIV_MASK, rate.kdiv),
- 			       pll->base + DIV_CTL1);
+-	struct property_entry	props[6];
++	struct property_entry	props[7];
+ 	struct platform_device	*xhci;
+ 	int			ret, irq;
+ 	int			prop_idx = 0;
+@@ -173,6 +173,9 @@ int dwc3_host_init(struct dwc3 *dwc)
+ 	if (dwc->usb2_lpm_disable)
+ 		props[prop_idx++] = PROPERTY_ENTRY_BOOL("usb2-lpm-disable");
  
-+		__clk_pll1443x_set_spread_spectrum(hw, prate, rate.pdiv,
-+						   rate.mdiv);
++	if (dwc->xhci_reset_on_resume)
++		props[prop_idx++] = PROPERTY_ENTRY_BOOL("xhci-reset-on-resume-quirk");
 +
- 		spin_unlock_irqrestore(&pll->lock, flags);
- 
- 		return 0;
-@@ -411,6 +477,8 @@ static int clk_pll1443x_set_rate(struct clk_hw *hw, unsigned long drate,
- 
- 	writel_relaxed(FIELD_PREP(KDIV_MASK, rate.kdiv), pll->base + DIV_CTL1);
- 
-+	__clk_pll1443x_set_spread_spectrum(hw, prate, rate.pdiv, rate.mdiv);
-+
- 	spin_unlock_irqrestore(&pll->lock, flags);
- 
- 	/*
-@@ -437,6 +505,36 @@ static int clk_pll1443x_set_rate(struct clk_hw *hw, unsigned long drate,
- 	return 0;
- }
- 
-+static int clk_pll1443x_set_spread_spectrum(struct clk_hw *hw,
-+					    const struct clk_spread_spectrum *ss_conf)
-+{
-+	struct clk_pll14xx *pll = to_clk_pll14xx(hw);
-+	struct clk_hw *parent = clk_hw_get_parent(hw);
-+	unsigned long parent_rate = parent ? clk_hw_get_rate(parent) : 0;
-+	unsigned long flags;
-+	u32 div_ctl0;
-+
-+	spin_lock_irqsave(&pll->lock, flags);
-+
-+	pll->ss_conf = *ss_conf;
-+
-+	/*
-+	 * Apply the configuration to the hardware right away, using the
-+	 * current PLL dividers: the clock framework does not call set_rate()
-+	 * if the requested rate is unchanged, so relying on it would leave
-+	 * the SSC settings unapplied when the PLL is already at the target
-+	 * rate (e.g. configured by the bootloader).
-+	 */
-+	div_ctl0 = readl_relaxed(pll->base + DIV_CTL0);
-+	__clk_pll1443x_set_spread_spectrum(hw, parent_rate,
-+					   FIELD_GET(PDIV_MASK, div_ctl0),
-+					   FIELD_GET(MDIV_MASK, div_ctl0));
-+
-+	spin_unlock_irqrestore(&pll->lock, flags);
-+
-+	return 0;
-+}
-+
- static int clk_pll14xx_prepare(struct clk_hw *hw)
- {
- 	struct clk_pll14xx *pll = to_clk_pll14xx(hw);
-@@ -509,6 +607,7 @@ static const struct clk_ops clk_pll1443x_ops = {
- 	.recalc_rate	= clk_pll14xx_recalc_rate,
- 	.determine_rate = clk_pll1443x_determine_rate,
- 	.set_rate	= clk_pll1443x_set_rate,
-+	.set_spread_spectrum = clk_pll1443x_set_spread_spectrum,
- };
- 
- struct clk_hw *imx_dev_clk_hw_pll14xx(struct device *dev, const char *name,
+ 	/**
+ 	 * WORKAROUND: dwc3 revisions <=3.00a have a limitation
+ 	 * where Port Disable command doesn't work.
 -- 
-2.43.0
+2.34.1
 
