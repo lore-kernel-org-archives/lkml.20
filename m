@@ -1,150 +1,153 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+Received: from mail-ed1-f41.google.com (mail-ed1-f41.google.com [209.85.208.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CC76382F23
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 21:01:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788469277; cv=none; b=RKZIyJgvgHx5PcCRbDsBAyaUxi4hKAbm887g3pqVgv0egmtEyAvsOCKlSWAdMvdDfm/EQCzz/kME8U/dQQ9gysKkK1ID7XlPOfF0aCnZkOrvJpjOM6LKWtP2PymtZrgHCOcyH/PS5cVxam+S7I7+BhxSPoO/lu+24CIGq5Nt5mI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788469277; c=relaxed/simple;
-	bh=JSc3hB5pLYdZH8UknDATBVIxmfDjkSlYj2vg/FKzkkg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=iiB/1LeT9e5KFkfaNBqsBn9tJZycMcQNcsPaYGwXFJuWlfxHdJoyjTcPxmDlP2XU7PI7OzESLfTwjPpAyybz2w/j6rJX8QCkRUr13rfZ1w1LmVT6hVjJ+Fs0RLLHziWIdpAAwu3gGEUF9QGp/ZTJ6wqJ19nMqLoOGa6SPyB18yk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=tLrOJ3D8; arc=none smtp.client-ip=74.125.227.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33D7A4A5EBE
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 21:01:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.41
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788469324; cv=pass; b=gqpUl4J5JL/qczepH/pZLJlb8Ukyou6+jGW1di6tH4gZkB4kb6fwcXFvMeHrspmDwVzzxm841FEvXKZ6wCTTLrYG2F4/PPj9m0Vfkt3yEV/4VA5eyOfVr4sc1rqh13iUDpCl1nI3pclhS6+D9Yi1DR1TgBfCPiyc68XC2ibe5dU=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788469324; c=relaxed/simple;
+	bh=4yuOkHyQOJFHYoOA3DdV+zE9rezwn3b+EymmrWKCfO0=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=kAje1nqbLPXOumLmRBvVJmKHEYNTy5VrJdw59t/gSxKbke6Z8kDYNl9/k8Ujy9l0pa/IWX7X0Xq+t69iP2ve4wIA3HfDSGot19iVl2ZtMvJHVDAY1XUsQtGvvzoTsdXSWvdORPyyuNDqwcoWYfnVjZ0sUKYObbzN2pc6cuneAIU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=N5xt2vE2; arc=pass smtp.client-ip=209.85.208.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="tLrOJ3D8"
-Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2d6ff3aca07so5215ad.1
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 14:01:08 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="N5xt2vE2"
+Received: by mail-ed1-f41.google.com with SMTP id 4fb4d7f45d1cf-6a051b737d8so191221a12.1
+        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 14:01:58 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788469314; cv=none;
+        d=google.com; s=arc-20260327;
+        b=mKS56QH+R66nOhKvIlBs0UsKnJVwl7mtQUSCDt6ubqgXf4Kb9ulAbA7tDmSU0WMSEa
+         R18OYDwBtYb1CBoEPbl5863xDE2AySFe12aNgtreOAvkXzLAv8+0qME2MPSzx8XDCews
+         21rT16AEacJNfYK8yJiJNCKAMXh0buerELiUYyNhv4FO/YcBhqCe+O/7q1HUGCcXkgaW
+         ejZtd3Z9X5n4iXnhS3/gNpLEKVb3wVolF/s22ivMQ7eivBOIFyASgGNo79rcHIQgx4dQ
+         5XOx2pIFBlEW/JmApgpDyPgJw8XeXJtORVO4WZm8InWgeBTSoECvuS31pRGO0xn/eteW
+         WvdQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=4yuOkHyQOJFHYoOA3DdV+zE9rezwn3b+EymmrWKCfO0=;
+        fh=xcVT0U3Kc2XquDwi6S3G4mniX6RdAYMsbD6zKNd9ljk=;
+        b=NeFdUKIkS5t37j0YJSfGmQ9ZBfucfdkKdfudb7DN7LE5zsujlJbTU3eHHvX+rP7DOg
+         TdbQUlmYKDjP/13/WbKjADLD2shme8/OH6mDeogkA6kvtRQYm8kEFlLCMRcxFKDca3PX
+         tVNKvPSb206Kw+J3EhYTWrFKiKt0JfLoiioqodMDtqsXi1/ecbclD1JhLCKNrasFlSqu
+         EnzTgv6IXgVQ1AaJ4kgHMnkqSd70dwwZSNBlLRbJKphkCKXXJV+3vl5+h7YqN7xyFaTT
+         4hZSgeXOdjqkouTI0oqJcViV9wk0CuHT+mcXTScbcfPV4InZi3D85sRX2XfBjF6KRh+K
+         0oig==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1788469266; x=1789074066; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+        d=gmail.com; s=20251104; t=1788469314; x=1789074114; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=F8WxM8+POfE1P9m9JpepW1Kq4nxPF3SUoeDA/+jcOrg=;
-        b=tLrOJ3D8Xf9pEXkzlFAA12n9KJmB8pQ12FPmDGiFN9+LvanFJBtmbd+u/ui9C0BB08
-         H/eS4u8OGdcnCNN/QfcyEgqWJ47KCMFV8kGzFBi55Nr6UYEgWbD/YzMckJ1Usd6dfzbJ
-         tBSlY+bLcA9+j3QFuQdnekE085ea0SYviVoQNYkWFuxcjVj70Za8PxMdTqi0SviZ8fKH
-         u6rIUQgpq6dtFY/ohEv6CCIFO+eJFI2xSoFl1bkiBHtKCMo0Ch8BepeNZ2FLRvOoYl2n
-         Q5X2gQBCTjVEAREjxNf5kp1Pq6uRoQuAEoMqpvxGzR+Sh/uDXB/dd0ms0HCBzc+INSLN
-         v+rg==
+        bh=4yuOkHyQOJFHYoOA3DdV+zE9rezwn3b+EymmrWKCfO0=;
+        b=N5xt2vE2RzJ/NfHM7WD28B6f7yv1s/jTdsfkwSI/n/ccrJSgp8f6v/hrHPgW9JQ23Y
+         hSj78PUuRWnKrHvt9u/40pDvz8yR3zi6j08AYlBcPH03wM1eVTRW2KbYnvGXPfWA1Yp3
+         p1WuCdoOyqzZmO1Zvtnw00UKNHx08zAJpZhLb2XIXgKfo+2F/YFA+Vr+Ur1J1uiJXmbD
+         dk8zXV4xA0/p0DCyF+gSWNrnAf9498VzQFXHAWoNa0L/oD96CTZTdYj0PTMQfuz1jkgE
+         F8dH7y8EnHt+oGup1ALB1CS2cUffSMxP9F3YPqNjFNYhjH2ofGK6EMJD+ZGD6Yd9XPmq
+         2W6A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788469266; x=1789074066;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20251104; t=1788469314; x=1789074114;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=F8WxM8+POfE1P9m9JpepW1Kq4nxPF3SUoeDA/+jcOrg=;
-        b=ktKqdlX2mIo+Q7Pu016RhjZ3zqDVVyLP+U8FualplCZtdO/ru129iQ30s17Osd8Ovf
-         N1M1pHMLkbNThZas7U68JcLaWIYlPWgoV1Rcjc+KVt2DFd1X7nZdEA9+Wz/Kxo71W5GU
-         JdfY1BCw1e+1tud9Xou0hXyZtlqeHm7RJQu2++R+lyRnCsa8499h+QyMhhtJR838+3V1
-         NJrZ855axnX7yvfCs6IsLbP4QCo5weADUczEdvpkbcw577BGXQWfDoA5aZNUgzA9Ym7j
-         S5l5QQSq5dqe2+wExO7vS7iVTD4jTsayV6Y5oUa6mYmANi10WO75F0srrppeM9Dl8xg7
-         Sx3w==
-X-Forwarded-Encrypted: i=1; AKwUvBwL3xXQM3YgnFaRX0dwXGqu5d29c8NvPotoUP48E/UPUDY1JxExCf5Hojk9Rx9GH4TK4cGX7h3Z1lheeKM=@vger.kernel.org
-X-Gm-Message-State: AFuF++kosaP6ELTzO6T+TswDMuYvTw+HwtXr83qJvx3opGiv5I75xmlS
-	Ky9o/V2CsutTK3VCjWqSC2FPAyhLCeF/rRn6ZOEojMjrQGi8LRE915WWlt4MpQraXQ==
-X-Gm-Gg: AYBFou1iRJ2e+nzAzn0BxrEbOrpF0juKg09HgsiHelwC0yAMgll3tBRKSrbRbR8Q/oj
-	ZCIQxzi5wNztj60grunNMZCHOb9XBlk/LPqFGBQ0uGs6D+q55x94jXyLPo+SLmnb8NY2mwk1TAy
-	LjIC6ctaskix8KxhA/RpfWJygle5bcpM2WkiDhwA++Tiy0L3af73kViiPRlsP2zLH/hakvMG0ss
-	viTS6VOXDQ1IRKSrXpdzRXnb+4L2xIeC9b4NqQ1UuRYR3yCc5ZG/89GusK54P9X04zxV03a/ION
-	AAjMmviKRTbbXAmXheTNEYZOiJH0Hmeh7HAPQqgBMDxuirMWANqu6gsVG9w5dt7ydbCMsgsipA6
-	WYfypqZSduTg44JECTfkaf0yXMfQUHnjO1yCAQ6U0Nk+QYJe7AKY6bVPAV+9WCN6vL78isXFscL
-	kweeC1ZFsdU1roFOcLZGvkMzapmMtobHXCcwhgy3L6H8Z2IjOBXCIP92YkUxsfc77BSjcbXZRUl
-	4epFvxN1hspfmabYJnQM/l++SyqzudD7PvwaXg0Q00iYXpobANULreO9PJShZWFwNYd8Hkuj4DI
-	yvfuf3E=
-X-Received: by 2002:a17:903:287:b0:2bf:3579:cdaa with SMTP id d9443c01a7336-2db155f53d6mr1113975ad.10.1788469265229;
-        Thu, 03 Sep 2026 14:01:05 -0700 (PDT)
-Received: from google.com (193.67.125.34.bc.googleusercontent.com. [34.125.67.193])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc454e22cb8sm100218a12.0.2026.09.03.14.01.03
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 03 Sep 2026 14:01:04 -0700 (PDT)
-Date: Thu, 3 Sep 2026 21:01:00 +0000
-From: Carlos Llamas <cmllamas@google.com>
-To: "Liam R. Howlett" <liam@infradead.org>
-Cc: Alice Ryhl <aliceryhl@google.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Suren Baghdasaryan <surenb@google.com>, dave.hansen@linux.intel.com,
-	Liam.Howlett@oracle.com, ljs@kernel.org, david@redhat.com,
-	willy@infradead.org, shakeel.butt@linux.dev, vbabka@kernel.org,
-	jannh@google.com, arve@android.com, christian@brauner.io,
-	tkjos@android.com, dsahern@kernel.org, davem@davemloft.net,
-	gregkh@linuxfoundation.org, linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org, netdev@vger.kernel.org
-Subject: Re: [PATCH v6 0/5] mm: Unconditional per-VMA locks and cleanups
-Message-ID: <apngDH-dLve0HvgG@google.com>
-References: <20260813193433.3318288-1-surenb@google.com>
- <20260829185625.f5ee1b2931818843a78af88d@linux-foundation.org>
- <apVhzM2501wSiGGg@google.com>
- <aalhqe37szvcitr46c4fk6xcjtjjzm4zfm7ltrno2spipvq2q5@7svyjfbegb3s>
+        bh=4yuOkHyQOJFHYoOA3DdV+zE9rezwn3b+EymmrWKCfO0=;
+        b=XbwkFQmTi7KBxui9wQrXM1dQxpwyr4XDInSL6Ev4x4A/fz1AJfUNcAlW8JD+LFJfQU
+         wLCJzNz7tl7+a3n7Rt5Ss1PUslw3DG5MFk/SuY6sY/JRq5E7zbdqrBXibolXOPwun+HD
+         R2FYBwg+qJhwUWjlyBkfSpJXoiVIXa3VHqPL9HqnbNufBHxbPmoWxLL3e0ZGUs4SPjW+
+         b88nsCvRfWmPcoQMSrCxYiSbNadaPx/pmXPm90c91S5Gp8ljv+S/8GXhMlgtEZBBuIJX
+         2cCDrMWL88KHk68fVjwFr1JuMk0kIHoll/RkqkZB2a1MqvIQhFToZPFoEq6yaWVfqetI
+         UYPA==
+X-Forwarded-Encrypted: i=1; AKwUvBwaJjDCNcxpOFNIQxiH7wPW5Xj+jqSCV2H253zCy6WnnXxlYdn1EGwV54APqZ4ZcfSPk5li/wGGB07YCsg=@vger.kernel.org
+X-Gm-Message-State: AFuF++nKdHmKvI653i98oe1RgAtMjYoGobjn8UslT6iDLt7FWF5b58uZ
+	8mNk3Kl/Z0F3jUYY2TPdGBxvbqHx8aJ8QSZNP/omcSqTL7V5HIbSMfHnI4B0FB5ybcHIoXSu/Yd
+	2lGDmB4GVr3w+zCgSGHepU9UXQo8dD724yTjA
+X-Gm-Gg: AYBFou0QH1XbaROeFHnM18JAzag4obTKnYlrGLdljUUz4wya9js6X+inYV8yCkzlyBD
+	+CwVr9HK+63uGs9wOUBWCs4PseCii446n8b7Tu69niUKhCQ2akIXMU0pa+Yljt/YeMG9QLe+VHo
+	tXnF9HUrhRTzLVL5YrTw9bC9cZfYYpKsLVJAsCjkYmgb4HhlXbu/V2rxW+Z8ujN+OaK4H+z6TSG
+	J7H4b0eWe/gTxcnF03p7ToP4h8Ub02nYflkFc2w/7N5DqTCugwAOT0zYio1tTtnEHpYsaUqfZEf
+	EnbivYm38UMIjwIhTsCytIq+yiJJ81p0sRxKOiLgnivAgIutJKlZHc90Ei6I0gPo7RfB7SerMdt
+	eApCHACQH8/DAgln/KPR2z6TScd/a1G0=
+X-Received: by 2002:a05:6402:3203:b0:6a5:f9ab:bdfd with SMTP id
+ 4fb4d7f45d1cf-6a7e8cb104fmr612198a12.0.1788469314120; Thu, 03 Sep 2026
+ 14:01:54 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <aalhqe37szvcitr46c4fk6xcjtjjzm4zfm7ltrno2spipvq2q5@7svyjfbegb3s>
+References: <cover.1788277742.git.mattst88@gmail.com> <6e7a5e56a201a74c00d1615a7ac1d58d385194eb.1788277742.git.mattst88@gmail.com>
+In-Reply-To: <6e7a5e56a201a74c00d1615a7ac1d58d385194eb.1788277742.git.mattst88@gmail.com>
+From: Magnus Lindholm <linmag7@gmail.com>
+Date: Thu, 3 Sep 2026 23:01:41 +0200
+X-Gm-Features: AcwNN1UctXBCyXjdQB9DOXuPKYOdbWfSfCWoFp7K2RjPmXxy_RlgE8G6kc8THUI
+Message-ID: <CA+=Fv5TkaU7+yoU-MeHUo5Qs0jhVCexahSubAkzqSyhN+HSdXw@mail.gmail.com>
+Subject: Re: [PATCH 22/24] alpha: add HAVE_PERF_REGS and HAVE_PERF_USER_STACK_DUMP
+ support
+To: Matt Turner <mattst88@gmail.com>
+Cc: linux-alpha@vger.kernel.org, richard.henderson@linaro.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Thu, Sep 03, 2026 at 04:48:31PM -0400, Liam R. Howlett wrote:
-> On 26/08/31 11:13AM, Alice Ryhl wrote:
-> > On Sat, Aug 29, 2026 at 06:56:25PM -0700, Andrew Morton wrote:
-> > > On Thu, 13 Aug 2026 12:34:28 -0700 Suren Baghdasaryan <surenb@google.com> wrote:
-> > > 
-> > > > v2 version of this patchset [1] was written by Dave Hansen and per his
-> > > > request, I'm taking over this series.
-> > > > 
-> > > > tl;dr: Make per-VMA locks available in all configs. Simplify some
-> > > > of the per-VMA lock users now that they can rely on them being
-> > > > always available.
-> > > 
-> > > It's been 2+ weeks so perhaps a refresh-and-remind would be helpful.
-> > > 
-> > > But it applies well enough and is adequately reviewed so I put it in
-> > > there for testing, thanks.
-> > > 
-> > > AI review might have found a couple of pre-existing binder bugs:
-> > > 
-> > > 	https://sashiko.dev/#/patchset/20260813193433.3318288-1-surenb@google.com
-> > > 
-> > > and a small rusty thing which you might wish to attend to.
-> > 
-> > The binder bug is not actually a bug. When using VM_MIXEDMAP and
-> > vm_insert_page(), the vma takes a refcount on the page, so there is no
-> > use-after-free even if free_page() is invoked without removing it from
-> > the vma.
-> > 
-> > Adding an INVARIANT: comment to the Rust code SGTM.
-> > 
-> 
-> I think you are correct about no UAF here, but the page isn't exactly
-> pinned to the vma - which is what I thought you were saying when I first
-> read your reply.  It's sort of misplaced in another vma by an mremap().
-> 
-> vm_insert_page() will increment the ref count, but if the vma is
-> mremap()'ed with the same size vma (ie, not expanding), then move_vma()
-> will relocate the pte and the old vma will be closed and set the
-> binder's mapped = false without a change to alloc->vm_start.
-> 
-> Binder now thinks there is no mapping but the mapping has an address so
-> it can't map anything new.  You could get around it by replacing the
-> vma, but I don't think that leads to anything interesting.
-> 
-> So we still have a ref count that's okay, but now binder has an
-> alloc->vm_start that's stale and a mapped = false which leaves binder in
-> a bad state (one might say a bind).
+Hi Matt,
 
-Right, binder should really reject mremap(). And partial munmap() too.
-The is no use case for them in binder and it only brings problems such
-as the stale alloc->vm_start you mention.
+On Tue, Sep 1, 2026 at 5:51=E2=80=AFPM Matt Turner <mattst88@gmail.com> wro=
+te:
+>
+> Implement the perf register sampling interface for Alpha. This enables
+> perf to capture register state and user stack dumps with samples,
+> supporting --call-graph dwarf.
+>
+> The perf_regs enum exposes the registers available in pt_regs: r0-r8,
+> r16-r28, gp, pc, and ps. Registers r9-r15 are callee-saved and live
+> in switch_stack, not pt_regs, so they are not included.
+>
+> A switch statement maps perf register indices to pt_regs fields since
+> Alpha's pt_regs layout is non-contiguous (unlike architectures where
+> direct array indexing works).
+>
 
-I sent out fixes for these issues here:
-https://lore.kernel.org/all/20260901205250.1638304-1-cmllamas@google.com/
+I tested this on an Alpha UP2000. Basic perf recording works, but
+user-register and user-stack sampling still appear to need some
+additional work.
 
-I'll Cc you on the next round if needed. Thanks Liam.
+`perf record --user-regs=3D?` reports an empty register list, since
+tools/perf does not yet provide the Alpha register mask, names, or
+IP/SP mappings. Adding DWARF call-graph sampling consequently fails
+with EINVAL. I think the corresponding tools/perf support could be
+added as a separate patch in this series.
 
---
-Carlos Llamas
+There also appears to be one kernel-side issue with user-stack
+sampling. The generic code obtains the stack pointer through
+user_stack_pointer(regs), which returns regs->usp on Alpha.
+
+Alpha already has alpha_snapshot_usp(), which initializes this field
+for user-mode register frames, but it is currently local to traps.c
+and is only called from do_entArith() and do_entIF(). The interrupt
+entry path through do_entInt() does not call it.
+
+Perhaps alpha_snapshot_usp() could be moved to a shared header and
+called near the beginning of do_entInt(), before dispatching the
+interrupt. That would ensure that perf_irq() receives a valid
+regs->usp for interrupts taken from userspace, without adding this
+work to the SAVE_ALL assembly macro.
+
+The perf register ABI also appears to be missing SP. This could be
+provided using current_user_stack_pointer(), as in the older Alpha
+implementation.
+
+I have some older Alpha kernel and tools/perf patches which implement
+similar support. They target an older API, but I will send them
+off-list in case any of the code is useful. Please feel free to reuse
+or adapt whatever helps.
+
+Regards,
+Magnus
