@@ -1,174 +1,59 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 442864B5150
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 15:13:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C047647042C
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 15:13:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788448382; cv=none; b=hj6xU1DFy4GfX+0ZL8WsJESqTviGtNkxM7AEf/QltsiVNO+BAdTyrKGyMf8s0sQ7tURGUFYUEBpM8xYFNdJwHpL/L1Ufxr+bcVYuc8V9hYkK7+6r+Lf3pwy/m5lfsXK9C1ikSt2Igkq4GyZqlIfrMR4mGD4ZAIV07X1SqTCU6Ag=
+	t=1788448388; cv=none; b=LGe04LB4r4g/qJU9f1h3rGyNKl0qmjgPeaXUTEIRNP4e026t+DMnUoDDF/yeSaQGUIZRj7G0+8O1vHLzrmsDwyPPxyEUVNxckyzgsl0Xt4wE0d8pjU4hak4RR1JVMsJX1IAqoJwzSKE+hdSNijPFT4zgNqtZX6XjFrB9ae1F5w8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788448382; c=relaxed/simple;
-	bh=pFn+8lzB9TchkFoaG/Zxl2sUGOgulez6aeHdDcljBiE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=RbwX+UvkpLcejLwE7bke+fD48VDV0q3A2k+Va1kOYNPeDZ89CxqeaYRG9WXeW+FDzFj+gPq1imDrffpHY+4zRytfgOAtVT8f+SuhYzF+Hy0KaX/2zNkvuUSDbi0LYYfeyJ6rEvyskB4XEPwdzMJUhyu1a84uzlh3x/63O+ZnbL0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=WRPdTR6T; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1788448388; c=relaxed/simple;
+	bh=qThTJjLpt0sryJGngi+7eyqj3UrW8IsmsdoICmO1Y1A=;
+	h=Date:From:To:CC:Subject:In-Reply-To:Message-ID:MIME-Version:
+	 Content-Type; b=fGYO+fzBfDf1fMV4k+Ci9NmwDtvEEsoV9SIIWrSJb/ECdGUMPn8nG/NlBVDlByu1GczscGYP4b424DZPoQkqTqReCMHYZD5D5O2hKxncvqzKnEK3TND1urbRoPqbeuhIVOQCAn84XZX0JjPbjdul4rbD8vAvQQkrit9qp+RYnHM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=rhXW7smv; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=pyjCt9Os; arc=none smtp.client-ip=5.75.144.95
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="WRPdTR6T"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id D02281596;
-	Thu,  3 Sep 2026 08:12:55 -0700 (PDT)
-Received: from e143914.arm.com (e143914.arm.com [10.2.213.21])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id B30C73F7D8;
-	Thu,  3 Sep 2026 08:12:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1788448379; bh=pFn+8lzB9TchkFoaG/Zxl2sUGOgulez6aeHdDcljBiE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=WRPdTR6Tfsl6kjrQK7+PKOVQPM/bANn7UhLKM+YEw7lrw7rQqG4CNPqBeZroiWbqg
-	 LnaN92KhavA9OsIDnVF+QOW3dMaATHKJs2GLJO9ksLUrBHJ21ME9RNVr6wbUVOf6Zm
-	 27OyLdDeoAEdHIEgFVpvD7is2stHzygp4Vf0U4ko=
-Date: Thu, 3 Sep 2026 16:12:55 +0100
-From: Joey Gouly <joey.gouly@arm.com>
-To: Fuad Tabba <fuad.tabba@linux.dev>
-Cc: Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>,
-	kvmarm@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>, Steffen Eiden <seiden@linux.ibm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Zenghui Yu <yuzenghui@huawei.com>,
-	Vincent Donnefort <vdonnefort@google.com>,
-	Quentin Perret <qperret@google.com>, Fuad Tabba <tabba@google.com>
-Subject: Re: [PATCH 08/17] KVM: arm64: Implement HVC handling for protected
- guests at EL2
-Message-ID: <apmOd-KTA3dSp30S@e143914.arm.com>
-References: <20260831163421.272420-1-fuad.tabba@linux.dev>
- <20260831163421.272420-9-fuad.tabba@linux.dev>
+	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="rhXW7smv";
+	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="pyjCt9Os"
+DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Subject:To:From:Date; t=1788448378; bh=qThTJjLpt0sryJGngi+7eyq
+	j3UrW8IsmsdoICmO1Y1A=; b=rhXW7smv72K3MHJnQrR09RMnvoqcTWJHMnFizKuw2zXeMvaPP5
+	tmbcQs6n4wgteaPBauCvJ0BwBfT2ROPBw5RuQ8lSZefI1/CBn385AdSmkYopQdTukS6yPvTxFEa
+	Ut2VNZTT5berIurOrtWVxPXEm8p/6B1cxooIQoIBkNDiBo2qHaQxRRsU/VDWGrR5nC81nK74mJx
+	WxUeyNYVeeR7TQWrMZHy3/S1jcHnGuSx8sVDzIwXH2Q017GitJRSOEyo4ZhRmRYdK0J7SqYpm63
+	83Segk7h/XWoBkqxq86sfpLRMolf2A79tw1iE62X4ATAlIoBvXuQfHguDsqZMaJYM3g==;
+DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Subject:To:From:Date; t=1788448378; bh=qThTJjLpt0sryJGngi+7eyq
+	j3UrW8IsmsdoICmO1Y1A=; b=pyjCt9OscFXpSOB9C9AEfzKST5ZfKmoMemaEQBIqU+s4S+Xy6r
+	6geN+YBg+HevrbKT151FBiX+xeMYWN6nh7Ag==;
+Date: Thu, 03 Sep 2026 16:12:56 +0100
+From: Bradley Morgan <brads@mainlining.org>
+To: liushugao@xiaomi.com
+CC: anna-maria@linutronix.de, daniel.lezcano@linaro.org, frederic@kernel.org,
+ isaacmanjarres@google.com, lingyue@xiaomi.com, linux-kernel@vger.kernel.org,
+ tglx@linutronix.de, weipengliang@xiaomi.com, wengjinfei@xiaomi.com,
+ xiongliang@xiaomi.com, zhangjiawei8@xiaomi.com, zhukaiqian@xiaomi.com
+Subject: =?UTF-8?Q?Re=3A_=E5=9B=9E=E5=A4=8D=3A_=5BExternal_Ma?=
+ =?UTF-8?Q?il=5D=5BPATCH=5D_tick/broa?=
+ =?UTF-8?Q?dcast=3A_Plug_clockevents_replacement_race?=
+In-Reply-To: <e52a3bfe9e444c14bc6281b1075c1fb2@xiaomi.com>
+Message-ID: <20361A3E-0D14-4CC5-946E-D75244CB4A45@mainlining.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260831163421.272420-9-fuad.tabba@linux.dev>
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: 8bit
 
-On Mon, Aug 31, 2026 at 05:34:12PM +0100, Fuad Tabba wrote:
-> Extend kvm_handle_pvm_hvc64() to handle SMCCC_VERSION,
-> SMCCC_ARCH_FEATURES and the vendor hypervisor call UID at EL2, so
-> these queries do not reach the host. ARCH_FEATURES is mandatory from
-> SMCCC 1.1, the version EL2 reports: it returns SUCCESS for itself and
-> for SMCCC_VERSION, and NOT_SUPPORTED for anything else.
-> 
-> Add handle_pvm_entry_hvc64() and handle_pvm_exit_hvc64(), which
-> forward a protected guest's HVCs to the host and return the reply; a
-> later patch wires them into the per-EC dispatch tables.
+Hi, I have a pixel 7, if I could be asked to backport this, then I'll be
+happy to, for the fix, add:
 
-These two functions are unused in this commit, and are modified in the
-next commit, while still being unused. Then handle_pvm_entry_hvc64()
-becomes a wrapper for handle_pvm_entry_psci() (which was the whole body
-of handle_pvm_entry_hvc64). It's quite hard to follow. If these
-functions are really unused and then modified, maybe it's just better to
-remove them from this commit?
+Reviewed-by: Bradley Morgan <brads@mainlining.org>
 
-Thanks,
-Joey
-
-> 
-> Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
-> ---
->  arch/arm64/kvm/hyp/nvhe/hyp-main.c | 28 ++++++++++++++++++++++++++++
->  arch/arm64/kvm/hyp/nvhe/pkvm.c     | 29 +++++++++++++++++++++++++++++
->  2 files changed, 57 insertions(+)
-> 
-> diff --git a/arch/arm64/kvm/hyp/nvhe/hyp-main.c b/arch/arm64/kvm/hyp/nvhe/hyp-main.c
-> index d4b0f69ff130c..62864db1e099a 100644
-> --- a/arch/arm64/kvm/hyp/nvhe/hyp-main.c
-> +++ b/arch/arm64/kvm/hyp/nvhe/hyp-main.c
-> @@ -4,6 +4,8 @@
->   * Author: Andrew Scull <ascull@google.com>
->   */
->  
-> +#include <kvm/arm_hypercalls.h>
-> +
->  #include <hyp/adjust_pc.h>
->  #include <hyp/switch.h>
->  
-> @@ -33,6 +35,32 @@ void __kvm_hyp_host_forward_smc(struct kvm_cpu_context *host_ctxt);
->  
->  typedef void (*hyp_entry_exit_handler_fn)(struct pkvm_hyp_vcpu *);
->  
-> +static void __maybe_unused handle_pvm_entry_hvc64(struct pkvm_hyp_vcpu *hyp_vcpu)
-> +{
-> +	int i;
-> +
-> +	for (i = 0; i < 4; i++) {
-> +		u64 ret =
-> +			READ_ONCE(hyp_vcpu->host_vcpu->arch.ctxt.regs.regs[i]);
-> +		vcpu_set_reg(&hyp_vcpu->vcpu, i, ret);
-> +	}
-> +}
-> +
-> +static void __maybe_unused handle_pvm_exit_hvc64(struct pkvm_hyp_vcpu *hyp_vcpu)
-> +{
-> +	struct kvm_vcpu *host_vcpu = hyp_vcpu->host_vcpu;
-> +	int i;
-> +
-> +	WRITE_ONCE(host_vcpu->arch.fault.esr_el2,
-> +		   hyp_vcpu->vcpu.arch.fault.esr_el2);
-> +
-> +	/* Pass the HVC function id (r0) and its arguments. */
-> +	for (i = 0; i < 8; i++) {
-> +		WRITE_ONCE(host_vcpu->arch.ctxt.regs.regs[i],
-> +			   vcpu_get_reg(&hyp_vcpu->vcpu, i));
-> +	}
-> +}
-> +
->  static void handle_vm_entry_generic(struct pkvm_hyp_vcpu *hyp_vcpu)
->  {
->  	vcpu_copy_flag(&hyp_vcpu->vcpu, hyp_vcpu->host_vcpu, PC_UPDATE_REQ);
-> diff --git a/arch/arm64/kvm/hyp/nvhe/pkvm.c b/arch/arm64/kvm/hyp/nvhe/pkvm.c
-> index af334318d0a03..0fe11f95e2e26 100644
-> --- a/arch/arm64/kvm/hyp/nvhe/pkvm.c
-> +++ b/arch/arm64/kvm/hyp/nvhe/pkvm.c
-> @@ -1144,8 +1144,37 @@ bool kvm_handle_pvm_hvc64(struct kvm_vcpu *vcpu, u64 *exit_code)
->  {
->  	u64 val[4] = { SMCCC_RET_INVALID_PARAMETER };
->  	bool handled = true;
-> +	u32 feature;
-> +	uuid_t uuid;
->  
->  	switch (smccc_get_function(vcpu)) {
-> +	case ARM_SMCCC_VERSION_FUNC_ID:
-> +		/* Nothing to be handled by the host. Go back to the guest. */
-> +		val[0] = ARM_SMCCC_VERSION_1_1;
-> +		val[1] = 0;
-> +		val[2] = 0;
-> +		val[3] = 0;
-> +		break;
-> +	case ARM_SMCCC_ARCH_FEATURES_FUNC_ID:
-> +		/* SUCCESS only for the architecture calls EL2 implements. */
-> +		feature = smccc_get_arg1(vcpu);
-> +		switch (feature) {
-> +		case ARM_SMCCC_VERSION_FUNC_ID:
-> +		case ARM_SMCCC_ARCH_FEATURES_FUNC_ID:
-> +			val[0] = SMCCC_RET_SUCCESS;
-> +			break;
-> +		default:
-> +			val[0] = SMCCC_RET_NOT_SUPPORTED;
-> +			break;
-> +		}
-> +		break;
-> +	case ARM_SMCCC_VENDOR_HYP_CALL_UID_FUNC_ID:
-> +		uuid = ARM_SMCCC_VENDOR_HYP_UID_KVM;
-> +		val[0] = smccc_uuid_to_reg(&uuid, 0);
-> +		val[1] = smccc_uuid_to_reg(&uuid, 1);
-> +		val[2] = smccc_uuid_to_reg(&uuid, 2);
-> +		val[3] = smccc_uuid_to_reg(&uuid, 3);
-> +		break;
->  	case ARM_SMCCC_VENDOR_HYP_KVM_FEATURES_FUNC_ID:
->  		val[0] = BIT(ARM_SMCCC_KVM_FUNC_FEATURES);
->  		val[0] |= BIT(ARM_SMCCC_KVM_FUNC_HYP_MEMINFO);
-> -- 
-> 2.39.5
-> 
+--- Thanks!
+https://lore.kernel.org/all/EE579805-42F2-4C58-B752-F28779EEB717@grrlz.net/
