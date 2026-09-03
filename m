@@ -1,148 +1,257 @@
-Received: from relay.hostedemail.com (smtprelay0011.hostedemail.com [216.40.44.11])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qv1-f49.google.com (mail-qv1-f49.google.com [209.85.219.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEFC54F0551;
-	Thu,  3 Sep 2026 17:15:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=216.40.44.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE1254AEBCA
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 17:17:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788455704; cv=none; b=uR43r54p8U4lniWCEYfz1fzgCut/KUTOGyFgxiNbeV8O+5TQhEci0EWevzNCIAvugQI0AtmSMeCfWk9YWcx4WnVvImoIwt1GUHnLJd8hLin1ZXZARrAJqrnRMunX3DmM70/kQu6Tss18HySqFmUuULJSO4YdCba4/te3DUKLdvY=
+	t=1788455830; cv=none; b=HOLij4p9b7tJJttX5FO9mwHFT6yLMxD3DQBAmvDsaDb6cRjvMPujl73ThNvnY3/DH0LrwVQ7ZdxrCUdhVEAOtmtcKuvlhQQJm2dsUnE+CK12dFfsxSX+Dcs0BSYKrnFa98hV2uiGCIWj8YxCfkXGyUEUczjeZGk+H7uLL9UBWa0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788455704; c=relaxed/simple;
-	bh=a3738ygz6RB4MyKQnuW2ftvleHfzZqbrsTcw5Ymo/BQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=QSwz/8ocHY6URiHf5tdujR1Fya11vmckYQ4eI1MEaoBASw2ealce/eu3RYpHDOnFT0vKejwPKapXLdeDIBKctCMh6XNWQ0JQgMaNorJYujaZcO+3Jv9te9ZeC6uVmBIwisk5vvCol+yDHi35gHMHd64BWEEliCnAiZrN5RCSAMo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org; spf=pass smtp.mailfrom=goodmis.org; dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b=0MuYsfb4; arc=none smtp.client-ip=216.40.44.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
+	s=arc-20240116; t=1788455830; c=relaxed/simple;
+	bh=1Vs/QSikNTCs7J6jqrx8XHtOqyj60Qiq6SQhxgAPom0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=gaiq8GEYfXcVySxEuCsFQR0s9bde+FqFurj2O6DObqLaBDYeNFZhYveRT3IXO3WH2UYFpJxNSB7rhEhNT3XJAg7WGc04Vhih5oxm9Av3kuk2nz2xaGIraHbGPpFsUIPt5xQ9TvUkNIauUc8uYqTvfzGIMJdr39qa6tMdKM9990I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca; spf=pass smtp.mailfrom=ziepe.ca; dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b=Bf/sQXsl; arc=none smtp.client-ip=209.85.219.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b="0MuYsfb4"
-Received: from omf14.hostedemail.com (lb01a-stub [10.200.18.249])
-	by unirelay02.hostedemail.com (Postfix) with ESMTP id 602EE1201BC;
-	Thu,  3 Sep 2026 17:15:00 +0000 (UTC)
-Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf14.hostedemail.com (Postfix) with ESMTPA id 81CC630;
-	Thu,  3 Sep 2026 17:14:58 +0000 (UTC)
-Date: Thu, 3 Sep 2026 13:16:01 -0400
-From: Steven Rostedt <rostedt@goodmis.org>
-To: Vincent Donnefort <vdonnefort@google.com>
-Cc: mhiramat@kernel.org, linux-trace-kernel@vger.kernel.org,
- mathieu.desnoyers@efficios.com, kernel-team@android.com,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v9 4/4] ring-buffer: Prevent truncation of nr_pages /
- nr_subbufs
-Message-ID: <20260903131601.4e4caa0d@gandalf.local.home>
-In-Reply-To: <20260901155445.1475405-5-vdonnefort@google.com>
-References: <20260901155445.1475405-1-vdonnefort@google.com>
-	<20260901155445.1475405-5-vdonnefort@google.com>
-X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b="Bf/sQXsl"
+Received: by mail-qv1-f49.google.com with SMTP id 6a1803df08f44-90e7d9c747eso1400216d6.2
+        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 10:17:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=ziepe.ca; s=google; t=1788455827; x=1789060627; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=AZhtG1wx2jm/FfrEGQtp35GRqcBVCx7bZi9IJYydKpM=;
+        b=Bf/sQXslKLqhLRx2AikNAiBi/QpgZdjUIgL+gzOyd7vTfjdmOKuQC6BJARLP6lUPIH
+         G/tpgQmGBklSbtSYkh5abJ7sNpqqnXhk/4ZN7vrvVf4fX8djPH8c5mx+g7B0gQw1Mfl0
+         YjunvC1wATZ+pv6At4TR/28ehXjNN5/E8xTYDkewxZ71vEwrGes5WASpamjoMKGm4/gt
+         mdsSpXH4hUEQSbEFl1wLn7YQDcNK8mgcYCS2l4gY44Iuba4yp4MQCjSnSUOn2eLwVzSa
+         YxVikSz3UTV7WdWrLPE0NzdkGMexUNuEgywHK/HVl3qQBTU64ncwIGBzvQTW10SmC/UC
+         M0rA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788455827; x=1789060627;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=AZhtG1wx2jm/FfrEGQtp35GRqcBVCx7bZi9IJYydKpM=;
+        b=jXgVYjJJbStkJp5G6bni/xm/qS+2blP/QMUea9+1sETf9LG7GdTSSWyDUkoYlbhmOX
+         znc8Iy+bayUwfOQ27lZPNqjWdHtT7YSuqpeYRk2Udjgol/f3sxlz1SlFExwkCS9AJ3Vd
+         Fi03bMsatIUwlxzKoIdOo8gHXQ9he2CKpToAphNNl65Bfz4NVd+Yvb6BLtTCdkdSWkBz
+         RUuOlORdMSJwpHWHKuJ3OxB1MahSaJMFvaONZkEN4p5l+kwuNZGRkkiwA8oqD7+DyAp8
+         gBNe0e73rFWEYRpGk6DoRnDxhkx/p9cbJb3WeUc61XuTnxJ/h6mbWrk22IIZFb2O76S3
+         MiLQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwZhkvakSCuBntU/uz6WpxIgIM4N8GyLMX7meQZOvOSUZAkkqg/OlDMYTpTSYC5gFpUZD/l9E5rjImTRhM=@vger.kernel.org
+X-Gm-Message-State: AFuF++kyqpeR6hUkbtDqTvyXO8siZLnh2msYdthcQ/xE7u5PU9xB//Ib
+	pKd1c3/sysA6kPNlNxVNTgdjSmkXU85tibzZC7R2RhDDsjsmovJI1jDHBvN+w27eW84=
+X-Gm-Gg: AYBFou32E+FYY6upRU4sy45UG/szk/5QllkcrzjFsadhQ756lcRP42wH2EF7IGgqm2u
+	+cU6xiQRqmB8uBYaO3dHl77gSVY3CTFUJtgLL6Nn9Z5TmO3zhGWg+cBGQb4PWkZWseVKI6/utmz
+	+pWzcielXyFX3w4uHlckxpx7l5D9/cFEQCAlyxE1Ugm/woJRGo8ry2pZFnEm8yEAxF3hTbpDtAC
+	4fALwIGFFMGZlKxnVWriEZFFxQIPyDcHe/DxI91uQ7v1s7N/tpTBykL+F4nXEwMxgYzvksMsJYp
+	M91uFonp5qnh+uuv7vYPkOwrhYFLP8KK4wiV0M7aWzU/HR/mOY+X6DWDnhsIM/G/ZyzlKV0XKEa
+	tOJd7/ed59BCaLIdXnVa7lk4gMj+vWqso31V79yOeiJ0f8quAulRDz8tPvWfLmZjGJ17AOCHelP
+	LFYSqd4LzOgXF3XRMWY9y48rFgfET+m48Ak5xJ1GOjE3qwFTJcF5B2WPDvBouqnj1o+XEQZ5lH0
+	MJMsjpCZpT5scktKCPWJz7ymDY6rHg3pdVgbwIso+Abf+59tJut3op1oQ==
+X-Received: by 2002:a05:620a:4448:b0:936:a407:98bb with SMTP id af79cd13be357-9396f65f15cmr827993085a.9.1788455826461;
+        Thu, 03 Sep 2026 10:17:06 -0700 (PDT)
+Received: from ziepe.ca (hlfxns010zw-159-2-239-150.pppoe-dynamic.high-speed.ns.bellaliant.net. [159.2.239.150])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-9397fb678b8sm13297985a.30.2026.09.03.10.17.05
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 03 Sep 2026 10:17:05 -0700 (PDT)
+Received: from jgg by wakko with local (Exim 4.97)
+	(envelope-from <jgg@ziepe.ca>)
+	id 1x2B3g-0000000HY70-3vJi;
+	Thu, 03 Sep 2026 14:17:04 -0300
+Date: Thu, 3 Sep 2026 14:17:04 -0300
+From: Jason Gunthorpe <jgg@ziepe.ca>
+To: "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>
+Cc: Nicolin Chen <nicolinc@nvidia.com>, linux-coco@lists.linux.dev,
+	kvmarm@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org, Alexey Kardashevskiy <aik@amd.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Dan Williams <dan.j.williams@intel.com>,
+	Joerg Roedel <joro@8bytes.org>, Jonathan Cameron <jic23@kernel.org>,
+	Marc Zyngier <maz@kernel.org>,
+	Pranjal Shrivastava <praan@google.com>,
+	Robin Murphy <robin.murphy@arm.com>,
+	Samuel Ortiz <sameo@rivosinc.com>,
+	Steven Price <steven.price@arm.com>,
+	Suzuki K Poulose <Suzuki.Poulose@arm.com>,
+	Will Deacon <will@kernel.org>, Xu Yilun <yilun.xu@linux.intel.com>,
+	Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>
+Subject: Re: [RFC PATCH v4 03/16] iommu/arm-smmu-v3: Add initial pSMMU realm
+ viommu plumbing
+Message-ID: <20260903171704.GK2890729@ziepe.ca>
+References: <apM6dOHcEI2ztWS0@nvidia.com>
+ <yq5a8q5lz5yn.fsf@kernel.org>
+ <yq5aecfdnv4i.fsf@kernel.org>
+ <20260901143445.GC56830@ziepe.ca>
+ <yq5a8q5kkoz3.fsf@kernel.org>
+ <20260902121700.GC2890729@ziepe.ca>
+ <yq5aik4nztdt.fsf@kernel.org>
+ <yq5aecfbzjyk.fsf@kernel.org>
+ <20260902235609.GG2890729@ziepe.ca>
+ <yq5a8q5izxz4.fsf@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-X-Rspamd-Server: rspamout01
-X-Rspamd-Queue-Id: 81CC630
-X-Stat-Signature: da1hmw91c4gsry6ue9ycm9kg5oeaddpg
-X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
-X-Session-ID: U2FsdGVkX18IcofMKkcu31DbAJGvIB0pRIYN1S4spLs=
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=EQM0VIYmSSZJcx2CTQCUz+pGnyeUaj8iMc9UDxBrZMg=; b=0MuYsfb4RRC34mSamzdeXyelgnxjNrKrClN27u29M8i64A4Z+Lqd3YToXObHwzVi019rKsYKQCZaV8m6967BHKEVYgRvext1yRfkp0ZyGORaGqQwmgGeHDH7Vtfr1pRuaKh2TkZWeKwcN6qYeCyEorRI3XiStvuJzHqzdo6m88Y=
-X-HE-Tag: 1788455698-761224
-X-HE-Meta: U2FsdGVkX1/AJxdCkMF9L+1ixN7J4/qoeoSfFi2be4yh2tIQr8Y4hsfhVo1zAyZ+vb8+L6tDXzlxPD/WzNflWLUDv0icU1lPTm+llAo9xwoWRPjNBKwKMTOpUDtfYti6u0Agg/g8s1Mm4cM+04k1YPwOEq7eXiwY0uCSi1NdUhOo1h5PEvdmevg+ToArfUtlaOO5lJOC3hmADS66pbKlZYxLWJ8R41U9KpqHw/Z/5Hdppj57KvTk9A3dHx7PtVdVln42hvb+9x+xn5H7h+e56LIxjwqw3uuDL1A/EFdkF59A0YOr5L7CVvjJlREQeB2N51hn1qNTwj5Sw/J+aiZI4nBaj4GuiWxntuKxHDutPdDfH4o38jVKBuZ0hRDkL1lF+GXsaRTCRQOIwba4fwIOePrYol9Rfc1ivXjQjeFhxMQ=
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <yq5a8q5izxz4.fsf@kernel.org>
 
-On Tue,  1 Sep 2026 16:54:45 +0100
-Vincent Donnefort <vdonnefort@google.com> wrote:
+On Thu, Sep 03, 2026 at 11:18:47AM +0530, Aneesh Kumar K.V wrote:
+> >> 	vdev->destroy = arm_realm_smmu_v3_vdevice_destroy;
+> >> 	return tsm_bind(dev, kvm, vdev->virt_id);
+> >
+> > I think we should drop tsm_bind() as an abstraction. It doesn't make
+> > sense to take that round about path when we are calling RMIs directly
+> > above. It was intended to be an abstraction, but it isn't working out
+> > with this viommu based abstraction.
+> >
+> 
+> I was considering using the viommu only for explicit pSMMU/vSMMU setup,
+> SID/STE management, and realm stream-table creation. I expected other
+> operations, such as vdevice creation and lock/run state transitions, to
+> be driven by IOMMUFD ioctls and dispatched to the TSM backend through
+> abstractions such as tsm_bind() and tsm_guest_req(). This results in the
+> following split:
+> 
+> - Arm SMMU: pSMMU/vSMMU setup, SID/STE management, and Realm
+>   stream-table creation.
+> - PCI TSM: device association, bind lifetime, DSM lookup, and TDI state.
+> - arm-cca-host: PDEV/VDEV operations, TDISP transitions, reports,
+>   measurements, and IDE interaction.
+> - IOMMUFD: route userspace requests using the vdevice ID.
 
-> -static void *rb_range_buffer(struct ring_buffer_per_cpu *cpu_buffer, int idx)
-> +static void *rb_range_buffer(struct ring_buffer_per_cpu *cpu_buffer, unsigned int idx)
->  {
->  	struct ring_buffer_cpu_meta *meta;
-> +	unsigned int subbuf_size;
->  	unsigned long ptr;
-> -	int subbuf_size;
->  
->  	meta = rb_range_meta(cpu_buffer->buffer, 0, cpu_buffer->cpu);
->  	if (!meta)
-> @@ -1777,7 +1776,7 @@ static void *rb_range_buffer(struct ring_buffer_per_cpu *cpu_buffer, int idx)
->  
->  	ptr = (unsigned long)rb_subbufs_from_meta(meta);
->  
-> -	ptr += subbuf_size * idx;
-> +	ptr += (unsigned long)subbuf_size * idx;
+I don't really like it, I think the viommu code should handle the
+VDEV and VSMU, TSM should handle SPDM.
 
-Really, it looks like the idx should be typecasted, as it is the number of
-subbuffers. Maybe even pass it in as unsigned long?
+"TDI state" is the existance of a iommufd vdevice, it doesn't make
+sense to have a seperate "TDI state" concept and a parallel set of
+APIs out side the iommufd object model that concretely defines the
+lifecylce of the VDEV.
 
->  	if (ptr + subbuf_size > cpu_buffer->buffer->range_addr_end)
->  		return NULL;
->  
-> @@ -1854,13 +1853,13 @@ static bool rb_meta_init(struct trace_buffer *buffer, int scratch_size)
->   * must be the same.
->   */
->  static bool rb_cpu_meta_valid(struct ring_buffer_cpu_meta *meta, int cpu,
-> -			      struct trace_buffer *buffer, int nr_pages,
-> +			      struct trace_buffer *buffer, unsigned long nr_pages,
->  			      unsigned long *subbuf_mask)
->  {
-> -	int subbuf_size = PAGE_SIZE;
-> +	unsigned long subbuf_size = PAGE_SIZE;
+Is there a reason to have this split aside from it matches the tsm
+prototypes that were sketched?
 
-Why the long? Shouldn't it be unsigned int?
+> >> @@ -513,10 +514,16 @@ static ssize_t cca_tsm_guest_req(struct pci_tdi *tdi,
+> >>  		if (copy_from_user((void *)&req_obj, req.user, req_len))
+> >>  			return -EFAULT;
+> >>  
+> >> -		if (req_obj.tdi_state != RHI_DA_TDI_CONFIG_RUN)
+> >> +		switch (req_obj.tdi_state) {
+> >> +		case RHI_DA_TDI_CONFIG_UNLOCKED:
+> >> +			return cca_vdev_device_unlock(pdev);
+> >> +		case RHI_DA_TDI_CONFIG_LOCKED:
+> >> +			return cca_vdev_device_lock(pdev);
+> >> +		case RHI_DA_TDI_CONFIG_RUN:
+> >> +			return cca_vdev_device_start(pdev);
+> >> +		default:
+> >>  			return -EINVAL;
+> >> -
+> >> -		return cca_vdev_device_start(pdev);
+> >> +		}
+> >>  	}
+> >
+> > This stuff cannot flow through sysfs. The VMM must support running in
+> > a sandbox so it cannot easially call out to sysfs while the VM is
+> > running. That makes the sandboxing more complex and ugly. The flow we
+> > have now relies on fd passing from the launcher into the sandbox to
+> > get things like vfio and iommufd into the VMM.
+> >
+> 
+> This does not go through sysfs. It uses the following IOMMUFD ioctl:
+> 
+> IOCTL_OP(IOMMU_VDEVICE_TSM_REQ, iommufd_vdevice_tsm_req_ioctl,
+> 	 struct iommu_vdevice_tsm_req, tsm_code),
 
->  	unsigned long buffers_start;
->  	unsigned long buffers_end;
-> -	int i;
-> +	unsigned long i;
->  
->  	if (!subbuf_mask)
->  		return false;
-> @@ -2109,8 +2108,8 @@ static void rb_meta_validate_events(struct ring_buffer_per_cpu *cpu_buffer)
->  	struct buffer_page *head_page, *orig_head, *orig_reader;
->  	struct rb_validation_state state = { 0 };
->  	bool skip = false;
-> +	unsigned long i;
->  	int ret;
-> -	int i;
->  
->  	if (!meta || !meta->head_buffer)
->  		return;
-> @@ -2161,7 +2160,7 @@ static void rb_meta_validate_events(struct ring_buffer_per_cpu *cpu_buffer)
->  		rb_validate_buffer(head_page, cpu_buffer, meta, &state, 0, state.ts);
->  	}
->  	if (i)
-> -		pr_info("Ring buffer [%d] rewound %d pages\n", cpu_buffer->cpu, i);
-> +		pr_info("Ring buffer [%d] rewound %lu pages\n", cpu_buffer->cpu, i);
->  
->  	/* The last rewound page must be skipped. */
->  	if (head_page != orig_head)
-> @@ -2245,7 +2244,8 @@ static void rb_meta_validate_events(struct ring_buffer_per_cpu *cpu_buffer)
->  	}
->  }
->  
-> -static void rb_range_meta_init(struct trace_buffer *buffer, int nr_pages, int scratch_size)
-> +static void rb_range_meta_init(struct trace_buffer *buffer,
-> +			       unsigned long nr_pages, int scratch_size)
+I see, I saw this when I was grepping:
 
-static void rb_range_meta_init(struct trace_buffer *buffer, unsigned long nr_pages,
-			       int scratch_size)
+static ssize_t tsm_request_store(struct device *dev,
+				 struct device_attribute *attr,
+				 const char *__buf, size_t count)
 
-looks better ;-)
+Which the name and sysfs parts confused me, it looked like core
+code. Turns out it is the sample driver.
 
->  {
->  	struct ring_buffer_cpu_meta *meta;
->  	unsigned long *subbuf_mask;
-> @@ -2345,8 +2345,8 @@ static int rbm_show(struct seq_file *m, void *v)
->  			   rb_meta_subbuf_idx(meta, (void *)meta->head_buffer));
->  		seq_printf(m, "commit_buffer: %d\n",
->  			   rb_meta_subbuf_idx(meta, (void *)meta->commit_buffer));
-> -		seq_printf(m, "subbuf_size:   %d\n", meta->subbuf_size);
-> -		seq_printf(m, "nr_subbufs:    %d\n", meta->nr_subbufs);
-> +		seq_printf(m, "subbuf_size:   %u\n", meta->subbuf_size);
-> +		seq_printf(m, "nr_subbufs:    %u\n", meta->nr_subbufs);
->  		return 0;
->  	}
->  
+> I need to spend more time considering your suggestion to handle guest
+> requests through viommu_ops rather than as TSM backend operations. The
+> split described below seemed more natural to me.
+> 
+> - Arm SMMU: pSMMU/vSMMU setup, SID/STE management, and Realm
+>   stream-table creation.
+> - PCI TSM: device association, bind lifetime, DSM lookup, and TDI state.
+> - arm-cca-host: PDEV/VDEV operations, TDISP transitions, reports,
+>   measurements, and IDE interaction.
+> - IOMMUFD: route userspace requests using the vdevice ID.
+> 
+> It is not yet clear to me whether operations such as MMIO validation
+> (TSM_REQ_VALIDATE_MMIO), setting the TDI lock/unlock/run state
+> (TSM_REQ_SET_TDI_STATE), querying TDISP object details
+> (TSM_REQ_OBJECT_INFO), and reading or regenerating TDISP objects
+> (TSM_REQ_READ_OBJECT and TSM_REQ_REGEN_OBJECT) belong in viommu_ops.
 
+They way I'm looking at it is the "TDI" is the RMM's VDEV.
 
--- Steve
+The RMM VDEV has to be created from an iommufd vdevice and be 1:1 with
+that. Thus the iommufd vdevice is the TDI.
+
+Therefore, the struct cca_host_tdi should be the driver specific
+struct of a struct iommufd_vdevice.
+
+So if you want to get the information in the cca_host_tdi you have to
+come in through the viommu ops with a vdevice object in hand.
+
+This seems like a much cleaner logical seperation than trying to
+maintain a cca_host_tdi external to the iommufd vdevice object that
+actually directly controls its lifecycle.
+
+So if you did this then the cca_tsm_guest_req would flow through some
+generic viommu op similar to what AMD proposed:
+
+struct iommu_viommu_op {
+	__u32 size;
+	__u32 vdevice_id;
+	__u32 viommu_type;  // enum iommu_viommu_type
+	__u32 operation; // unique enum per type
+	__u32 req_len;
+	__u32 resp_len;
+	__aligned_u64 req_uptr;
+	__aligned_u64 resp_uptr;
+};
+
+enum {
+ IOMMUFD_VIOMMU_OP_CCA_OBJECT_SIZE
+ IOMMUFD_VIOMMU_OP_CCA_OBJECT_READ
+ IOMMUFD_VIOMMU_OP_CCA_UPDATE_INTERFACE_REPORT
+ IOMMUFD_VIOMMU_OP_CCA_UPDATE_MEASUREMENTS
+ IOMMUFD_VIOMMU_OP_CCA_VDEV_MAP
+ IOMMUFD_VIOMMU_OP_CCA_SET_TDI_STATE
+
+And none of the TDI information leaks out side the iommufd world.
+
+The iommufd side change to introduce CCA support would then only be
+adding the IOCTL for iommu_viommu_op and some fiddling with how the
+viommu is created.
+
+Then everyone can use the same infrastructure for their related
+problems.
+
+> Meanwhile, I will clean up my changes and post them as a patch series so
+> that we can review them more closely?
+
+Well, OK, but I'm am still very interested in focusing on the
+viommu. I cc'd you on another thread so you can see the other topics
+I'm looking at here that all come down to very similar patterns.
+
+I think the TDI related tsm ops were developed well before iommufd was
+completed and you have raised a good point now to re-evaluate if the
+we even need them since we now understand that the iommufd vdevice is
+in fact the concrete TDI object in the uAPI.
+
+Jason
