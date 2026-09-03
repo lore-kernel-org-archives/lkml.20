@@ -1,27 +1,28 @@
-Received: from CY7PR03CU001.outbound.protection.outlook.com (mail-westcentralusazon11020114.outbound.protection.outlook.com [40.93.198.114])
+Received: from BL0PR03CU003.outbound.protection.outlook.com (mail-eastusazon11022136.outbound.protection.outlook.com [52.101.53.136])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40507442FD4;
-	Thu,  3 Sep 2026 08:38:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.198.114
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A185445AFE;
+	Thu,  3 Sep 2026 08:38:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.53.136
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788424737; cv=fail; b=Fx+rYzyuKBTyUw0uXMGffGtiJf30CPMozNCEvc+2qwS1xA46AXKhOUAOM+dcx1h1lD/7+KNKNEabRQHEBzDOGJMqE1JNeRpw9FU1xhXjxXiMVvn38XPGQteOOmU2ZT24/f6NzTi2jAvVh/AhxVCt0bEyZ9i43LgDK1VI8x9pOPE=
+	t=1788424738; cv=fail; b=qs9SF3rlWD5mn13mLTetWH/OwenqcXyyAdRDwkPHjf3uvKN82GnMIA6Orn2AZGwzx6JiqJLAjQv8yB2uUMG7ciZuoD0h3mRG6vv2O1hAYCePnVV4SuI9GqQTdn22wZPkryK1w0H+yDSwKnlnpfRnPkvC1SnvOSEJMFVls+F78Ro=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788424737; c=relaxed/simple;
-	bh=0biORINxenIWidbUx4xnKlZ9WpZ01AHkHaOslYvDE00=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=p7usenO4BAIAnIlwUicCvp3GtjcI+5ZTiRikM6rqGjsoe7TQ+pOogURzoFAtolRDR4UGoXH9uj68PUuqYt4d69Bc4iAL0WIC4C43Xjxfc+Z3FM6Wyyz9rcp5EWO1/sOHLJ4Ss+F6O2XTANZ+M6nKUExqcEpQTBgyO/3A9zp97N0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=axiado.com; spf=pass smtp.mailfrom=axiado.com; dkim=pass (2048-bit key) header.d=axiado.com header.i=@axiado.com header.b=BiedX/F6; arc=fail smtp.client-ip=40.93.198.114
+	s=arc-20240116; t=1788424738; c=relaxed/simple;
+	bh=1wsiHjFzaw2UFt0Og2ZlWvpyEzP94+01p2oPEMdSZU4=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=YrgCTQgliIlNHfU9xX+H3cizg1MAwpX3QF8MuythWImGGCerxApZD1LaF5xR5R0sz3fI908mp9E3Z53KoGMhKmTNGvyx/xZDnEFpkLTxUjG+n97kQgwnOog+I0n8lckjx5c7mMmJJ42pu4/gbxV5TQ2o+wZ0dH+1qCi3v+KSZd4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=axiado.com; spf=pass smtp.mailfrom=axiado.com; dkim=pass (2048-bit key) header.d=axiado.com header.i=@axiado.com header.b=FlUMb3+v; arc=fail smtp.client-ip=52.101.53.136
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=axiado.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=axiado.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=axiado.com header.i=@axiado.com header.b="BiedX/F6"
+	dkim=pass (2048-bit key) header.d=axiado.com header.i=@axiado.com header.b="FlUMb3+v"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=bMEAAFXNG8IY1NP9ylGwk6Xj370A3XY3gfUt8fzE0uhm0Tulp1PP1zbeRn+9piAwzgwm3nZlUQDoda0NOIWjQ1b2xI5gzevxuEKI/1E8ZrSfYdl/r21vQ2IdIk3SBl9d/XqDLPdHjNfswzDFUKtT78Tz0oVZAQqNK4riAx7SY4B7OGNbbbjwcfJ/S2vqZz9VNuNUiSl3EVeRpNZne7YENmNAPOgh5FJTJeZavqmxfFSuo9Bn/WIplA85cOqyCLJGi7RoqFLn7gGn+gbkhH1XeRYwBYKP45388xL3qMXsfDiUBtBg1UovfBn3vicNs9QqcikTi4xqWKt6k0aUd3pweQ==
+ b=sdYKWW3xUIJvLKksBicSBjE5HvhabHt1m86DayZaHZIle/W5ZpYx9DnAlVIfdDRSX52tIfxrCInKAgEm60CkyliPOkEhuGYOKRDkV83KRAd12ZO2V5KOx42tXpq1LlpjLQL7GEYprgHtBYJNnu2NLo3zrYZBzkmlud8c5BngPQaOclsLx3hLDltzWjnjFjfkY27+RrL+8tJeoDnmd58JDO+TMPTXGDE0DXmy7fC9J7oL3Osd/VaOswZDi2ejbPMSTkXw2mN0g6kGvwD3pN8PNvTp41SNqEuJUQKgSUO7oRdqbsMprSMrkTLTvsAXUgDxULFyh3U7rQXKiR1mhnkmEw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=s9ezJFL4KMnUCUV31nLlX7gzBOJI4SelpaoBkq/V2/c=;
- b=uSTcNZqzLE9TeIi63UyYl+0GJM/MI7JfU3tYgdkAdHmPTmLqDHCsHPxr+uUGISyHnaTfygljkBS59CktfkOvqYaNtHFgY53c3yvCd5TrSTGZbz3X87dciKiSDVX4qC3dPb/70NjUYDoGglyPlXeCzH07dL446sgwbIIM2GdPoo+UeFOyGHpTi/d25c6fVf+2COLHSmFbP+H8fe3DAAlsDqQjIZd7bUvRGJ4FawyDw5GUj0AgUYDYsH54fjibJSrsRy0ugbnx8U77nyeBrMVC/aTNz+4Zi5xjplLN3fDAa6TzXy8eYvPnT0CAt+D6v5+chxyA7pd9hQC6uoM0TUp/QQ==
+ bh=u9TIVJt9XaPRxgZpZvcOGFCKfso0OD5+aohza1Pg3s4=;
+ b=M5ZUlGFoqiPqSExX5fwyl1Skz+5GXTV0eZHZlijlXeagyyaKXglpFs46B0V4nluQk/TdeV4wM3noFFOdA8/+3ukk7KcYe5HLxOra7e5D19A8l/2wfZ0On+cuU5DPs4JxF9WGDwtVrbnYs6LwWVv92E2DyoRIP3dwtqaIxN5Gl3eyVuPuISzBFADSpnTzTIeF/C+4jEdoreXBZrwjSIZcZeeIeyzKcWxRXJlunc4NjE+DgRgpFauc31ZRbsNbiTHRsKON82a47R1sWksIqcuVH9NaE+Qknc0cb2qW6VgZIMtJPFaQpweXxKEZIy+V176+y3ZXiWoj2Y0E3wGabh7Dkg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
  64.62.143.114) smtp.rcpttodomain=axiado.com smtp.mailfrom=axiado.com;
  dmarc=none action=none header.from=axiado.com; dkim=none (message not
@@ -29,35 +30,35 @@ ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=axiado.com;
  s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=s9ezJFL4KMnUCUV31nLlX7gzBOJI4SelpaoBkq/V2/c=;
- b=BiedX/F60cRRK575QdUH/T/DpXALxIQqWNHsKzbOg2URgYoj/lxKysvQwnckFDA14s+rqA4E4oWVzx7Sjg58vO1MK7Rm7SeMuBl2FOraSIfffFGmfHZMVTmk2TANdpSNwhNWyciGdpn3vQm+34JIcjoI7aUNjb/b1cQRW1X8z6ReWkaNjVIwMWbEwXFuoprP7TUCZY+kNdDhbdaAk4AkrBaK4aj2n2C+YuG3dMBRVF/q5+BLK3yf22vDK3+5PbMtkjYV8dMVIkdp7DcFOUX8WKsgICwxK+IlfqaYcGPqyZVPzVB9wcTC+fl5cx5lHssGXRBg3X5BhdyDu0hRNJUW0g==
-Received: from BN0PR04CA0074.namprd04.prod.outlook.com (2603:10b6:408:ea::19)
- by LV3PR18MB6349.namprd18.prod.outlook.com (2603:10b6:408:26a::5) with
+ bh=u9TIVJt9XaPRxgZpZvcOGFCKfso0OD5+aohza1Pg3s4=;
+ b=FlUMb3+v9O9O7MsHMxEwlrvaKmEFr6yppEEmbOG8UJt0VmwOVEMc/o1OqkWhdjN+uXn0xKylkMK5CPKcY8oyweqzcCB22rU5KOxfkszDYWmBakvtWfU0JBXRSOliC8gvUkbWcs8jCJFy96mi2K+/Hn5wwVze0SUvRq2/4YLA154bVAlHmaiZg1uEl+MooVp6PyS1gYWb9XW8l3S+RjoKYw+lTyCFBgnHCqrj6ozh95VYYiu0F/F5nUXlosizG1bdGNzME2rFScLexfY/giNX+g36JZ/LNdtlWiB8GG6SypdyB6K5LrF+qdleqCKI2oK/tZQwztJ2ZVLFo0Bez4b5gw==
+Received: from BN0PR07CA0003.namprd07.prod.outlook.com (2603:10b6:408:141::15)
+ by SJ0PR18MB4393.namprd18.prod.outlook.com (2603:10b6:a03:2e1::5) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Thu, 3 Sep
  2026 08:38:51 +0000
-Received: from BN2PEPF000055DD.namprd21.prod.outlook.com
- (2603:10b6:408:ea:cafe::29) by BN0PR04CA0074.outlook.office365.com
- (2603:10b6:408:ea::19) with Microsoft SMTP Server (version=TLS1_3,
+Received: from LV8PEPF00000060.namprd02.prod.outlook.com
+ (2603:10b6:408:141:cafe::6b) by BN0PR07CA0003.outlook.office365.com
+ (2603:10b6:408:141::15) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.12 via Frontend Transport; Thu, 3
- Sep 2026 08:38:51 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=fail (sender IP
- is 64.62.143.114) smtp.mailfrom=axiado.com; dkim=none (message not signed)
+ Sep 2026 08:38:50 +0000
+X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 64.62.143.114)
+ smtp.mailfrom=axiado.com; dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=axiado.com;
 Received-SPF: Fail (protection.outlook.com: domain of axiado.com does not
  designate 64.62.143.114 as permitted sender) receiver=protection.outlook.com;
  client-ip=64.62.143.114; helo=smtp.corp.axiado.com;
 Received: from smtp.corp.axiado.com (64.62.143.114) by
- BN2PEPF000055DD.mail.protection.outlook.com (10.167.245.7) with Microsoft
- SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.0
+ LV8PEPF00000060.mail.protection.outlook.com (10.167.245.139) with Microsoft
+ SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.8
  via Frontend Transport; Thu, 3 Sep 2026 08:38:49 +0000
 Received: from axz-uw1-build-vm02.corp.axiado.com (unknown [10.14.1.22])
-	by smtp.corp.axiado.com (Postfix) with ESMTP id ED0AF4186B51;
-	Thu,  3 Sep 2026 01:38:47 -0700 (PDT)
+	by smtp.corp.axiado.com (Postfix) with ESMTP id 949174186B5D;
+	Thu,  3 Sep 2026 01:38:48 -0700 (PDT)
 From: Petar Stepanovic <pstepanovic@axiado.com>
-Subject: [PATCH v2 0/2] hwmon: add Axiado AX3000 and AX3005 PWM fan support
-Date: Thu, 03 Sep 2026 01:38:38 -0700
-Message-Id: <20260903-axiado-ax3000-pwm-fan-v2-0-ef43df46163e@axiado.com>
+Date: Thu, 03 Sep 2026 01:38:39 -0700
+Subject: [PATCH v2 1/2] dt-bindings: hwmon: add Axiado AX3000 and AX3005
+ PWM fan controller
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -65,12 +66,10 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-B4-Tracking: v=1; b=H4sIAA4ymWoC/3WNQQ6CMBBFr0Jm7Zhp0Qm64h6GRaGtzAJKWoMYw
- t2tsHY1eT//v1khuSguwb1YIbpZkoQxgz4V0PVmfDoUmxk0aaarJjSLGBvyKYkIp/eA3oxYsql
- u1rFtWUHeTtF5WXbvo8ncS3qF+NnfzOqXHsaK+I9xVkjos/DSea2Y2/ronbswQLNt2xcLp8PBu
- wAAAA==
-X-Change-ID: 20260520-axiado-ax3000-pwm-fan-36a89de6db61
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260903-axiado-ax3000-pwm-fan-v2-1-ef43df46163e@axiado.com>
+References: <20260903-axiado-ax3000-pwm-fan-v2-0-ef43df46163e@axiado.com>
+In-Reply-To: <20260903-axiado-ax3000-pwm-fan-v2-0-ef43df46163e@axiado.com>
 To: Petar Stepanovic <pstepanovic@axiado.com>, 
  Akhila Kavi <akavi@axiado.com>, Prasad Bolisetty <pbolisetty@axiado.com>, 
  Guenter Roeck <linux@roeck-us.net>, Rob Herring <robh@kernel.org>, 
@@ -84,122 +83,153 @@ Cc: linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org,
  linux-pwm@vger.kernel.org, linux-doc@vger.kernel.org, 
  openbmc@lists.ozlabs.org
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788424727; l=3416;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788424727; l=3223;
  i=pstepanovic@axiado.com; s=20250916; h=from:subject:message-id;
- bh=0biORINxenIWidbUx4xnKlZ9WpZ01AHkHaOslYvDE00=;
- b=SpVawK7uxO9lUp16MSINq6DksDjkjPbxWOh60c+LHVBL+enVzE5mm5QBxQCP1EmhKb5+RQlI/
- p+Ngl05LjgRAkWHuTRkMuuzThqTurjx3ytRFBIiiIiYESrqSyg1gVhR
+ bh=1wsiHjFzaw2UFt0Og2ZlWvpyEzP94+01p2oPEMdSZU4=;
+ b=ryYo31Q4IyZ9OyGJMlNFU7jCrvOn4s/DWWG0Dxif1G9x7GoSjFRqU4oWJDLE+uvTyFi4B57bm
+ LNdEerdU9aZDotcA2VSnEMzTvWvaljI4WwN7CidbTI/42IEo5k0Sabm
 X-Developer-Key: i=pstepanovic@axiado.com; a=ed25519;
  pk=70f1UJOGT9U11ZK6o+ENXtv0I5wBE3e+Y9YWODzRsdI=
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN2PEPF000055DD:EE_|LV3PR18MB6349:EE_
-X-MS-Office365-Filtering-Correlation-Id: 528a7a4c-3eb8-4274-fac8-08df0996c6b2
+X-MS-TrafficTypeDiagnostic: LV8PEPF00000060:EE_|SJ0PR18MB4393:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9576ad04-43bd-4369-691b-08df0996c6e6
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|7416014|23010399003|82310400026|36860700016|1800799024|921020|10067099003|18002099003|56012099006;
+	BCL:0;ARA:13230040|36860700016|82310400026|1800799024|23010399003|7416014|376014|10067099003|3023799007|22082099003|56012099006|18002099003|13003099007|921020;
 X-Microsoft-Antispam-Message-Info:
-	JgRnQF4NWhzAQegmvhshQbxW3vCat/VRXbee4xm9XYmCYaEB38foaEKu838uyzvpqE+C37lneqkM2nstS7X23LAmjS9gCBZJc9wpOCp7SbRWjVw8v4Cj9CNRrI60CDls91/v3LfuHTuNZWjSoIaDVCeNQ+H6YoI8KHyGEoEa+BblNfrgRjagVmPf6fENnVCzvjDMuaxlaAA4BjkTPFFOGoxkI5oXUSJ8N2Ie4fFzwxQJ5ZZBNs7eje3uE/a3OPt5mC4+dgHsZGviOR7n0prO7PppUN5Hcih13+FSll7FaiqxHuh/zFkjIX1dzfbMJuxhQ49eGc848tPhTTHgvEJ/7+9+Q6AgFhv6xahsbHSwdtCl41oue/sm7gBfk3Mxt/1ACCiYIovPeor034S3nxN24WtpqvqJfIIWudSb07o0AuFvijRJ50p/CLjIJ9/QyPVNhs2y3rR9q3vgCPg4DzUTuL5IQHfal8exjOpwR5roMXvCGNbKx0+BrLceed/HXe+X9eoZ8N5TIOJtWJoFSK7PFrfbUAdoZqgmA/nW81ehHp8b9LpWOf/Fi5l0Lp6u/YALsDO1jXkPJMWdtRukXb+l0h7d5JVFmTeZVAWZX3olKy/6E95/z/DFKlAIEOY3GnKgXx7krstgLBGNiQhz2JMkqZJ4zoRRfQXqWBt8C02JFqgIabB/luU84Gmuh/cfhU2XY8udLjBOWGmTVFgRpj7hj/wIo3qHc/lfRZ6GYQhKH/VJmrF/iE8XMvW8oO4dX1fF
+	Z+BULH++wRDbd7efjIoAt27CEjvnVWCeGhTo/3jvE2WWByGDcsb620Em5E+JIlPU8vkdhxcNlT/v63VFx1OhC6w9eofyj0paXhll0CqFeWToFKz2GyopzYknvK996AbCbP8YdRO7ThFjYqCvoJx4A421JAFRRj1Yt3nUjbJW+IIo9wD9Eo6BsZVZ+J8RzL9vXj8pubzYRTXe/N+0i4puOnfpTpwbywMpudM44+9yI+oXSM2antqKms9eOhKhucy5M6+ftc/F5Krqssr4LgYYMUt4mlO4JOfSZArkOxq6NXFlVGV5Qm916dAyjTsqIxAPZAuJ9KhCWuAAryjld51CzW9TmuNimO6Yf44NjEwLaRYOS4XZ/pIG6A+taEhKTbOZVtUAIoaXU8hyqbUMsJqxPVRpK0762tY8l8Qx+QoSdY2JmJbwTh7QRorALc57lndG8k/YITGkfyMp/KizvRjGitMzQEVH5KZYYPDJOfc/F5+G4yfxQq2QM53ax6TLkeJgdkxvx9f8CmZgU1isRDyPUwOnHcoZJRUVnPkbAtb3wfkVuwr03VFLK3SF++ZCtGb1wKyaBDKDpuMhEtLayLFFKOWwPFFHcsgUmXn71IUGQkNVu/7I5LdGWg8XK5x6YGDFn+33I2FoY8SrDHSke9zapSNVwVlQdes1XJFwrIrHsM/lGmcLVKdZkNP8To+g6HjF
 X-Forefront-Antispam-Report:
-	CIP:64.62.143.114;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:smtp.corp.axiado.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(7416014)(23010399003)(82310400026)(36860700016)(1800799024)(921020)(10067099003)(18002099003)(56012099006);DIR:OUT;SFP:1102;
+	CIP:64.62.143.114;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:smtp.corp.axiado.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(82310400026)(1800799024)(23010399003)(7416014)(376014)(10067099003)(3023799007)(22082099003)(56012099006)(18002099003)(13003099007)(921020);DIR:OUT;SFP:1102;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	y57G+u67mxxdSi7oMZdPpbV0zLYID3eMHDeaK2ess7UpyCxmILWXrhsrsjggDKySIN8Am01tPDfgOgqyMpCF5I06GZxIihgO5tpzjif5r4RDpUV9FHAnQO4KbX7APr8bVtbJLxt5+1xEKZdhxGj0PVzwWycZQ2JOQT83Hhtop+RKbWLaK0TvbH+gPZ8gQH3XKGiWKltouoXWn/50IbJ0EU/MMYzqCCaDvNfQk6ez2JaJWiQ5NzQYNsjTdcFFNMrJdt6q6qOu9u3sm7gfC1TClRhSvkfasMHTRIHTpmAU1RSm+MYfljpozyC1hGs/tBOvXL5+RWKm8PHs4ColSumndbrdwPrAxJPHsBzfegDP3lbSR8vy+OGvQp8hmivBekyVcHonCtoYfsRI55tsfecPTDeydGoWBegFstoTgTqLb/T7DOhQgbm0ex+Iq66ubymg
+	cYWlNRX7ciHUXemJSkh4Yl6PaCPZi3DeAeS4SNZfnd9DhCABoEUDPuwNG7jnQ+Ut8f2iMgF7556ThpSRZrBttlrtwXwGZfdsyPes3qTJGRdQo/DrG+OflDiqXP3ZtkfIsrAjlgMNVbXZ2mIx3bcLD0DfRGn95UJ9Yr6jym4wjHSH4c7D4948nUUEbAjccbyed/1xssA5NYxXnnmA/1CfhsGN+CNhMJmrLrJNKGncyEm/wK4nv+mPaUwi6nVxEyhqtfMDhfkH46OVJ/f7HaJ82JCRGFfkb0EtvcQA+0VdRVfKeLdYqrbKGjU6Gq1zOCb5aqPsY388qGWrGo1qg6lIIrW5iJmVeZ4SllJs3g1ax0Y0cuov4TM7QlQPOZNvg1BDcpXfWsMe69zPZoxmNkdp88es70vOY5Se4D0ygHR222u5+0eZV04S6CHFKQT/tuYy
 X-OriginatorOrg: axiado.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Sep 2026 08:38:49.1598
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Sep 2026 08:38:49.4960
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 528a7a4c-3eb8-4274-fac8-08df0996c6b2
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9576ad04-43bd-4369-691b-08df0996c6e6
 X-MS-Exchange-CrossTenant-Id: ff2db17c-4338-408e-9036-2dee8e3e17d7
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=ff2db17c-4338-408e-9036-2dee8e3e17d7;Ip=[64.62.143.114];Helo=[smtp.corp.axiado.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	BN2PEPF000055DD.namprd21.prod.outlook.com
+	LV8PEPF00000060.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV3PR18MB6349
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR18MB4393
 
-This series adds support for the fan controller found on the Axiado
-AX3000 and AX3005 SoCs.
+Add a Devicetree binding for the PWM fan controller found on the
+Axiado AX3000 and AX3005 SoCs.
 
-The controller provides a hardware tachometer block for measuring the
-rotational speed of one fan. Fan speed is controlled through a PWM
-signal supplied by an external PWM controller.
+The controller measures fan speed using a hardware tachometer block.
+Fan speed is controlled through a PWM signal supplied by an external
+PWM controller.
 
-The tachometer counts fan pulses in hardware and reports the accumulated
-count through an MMIO register when the measurement interval expires.
-The generic pwm-fan driver counts tachometer interrupts in software and
-therefore cannot directly operate this hardware counter block.
-
-The driver registers with the hwmon subsystem and provides the
-following standard sysfs attributes:
-
-  - fan1_input for the measured fan speed in RPM
-  - pwm1 for fan-speed control in the range 0 to 255
-
-The number of tachometer pulses generated per fan revolution can be
-configured using the pulses-per-revolution devicetree property. If the
-property is not specified, the driver uses two pulses per revolution.
-
-The series includes:
-
-  - Devicetree binding documentation
-  - Axiado PWM fan hwmon driver
-  - hwmon driver documentation
-  - MAINTAINERS entry
-
-The driver was tested on AX3000 and AX3005 platforms.
+Add a MAINTAINERS entry for the binding.
 
 Signed-off-by: Petar Stepanovic <pstepanovic@axiado.com>
 ---
-Changes in v2:
-- Represent the physical fan as a child node of the tachometer 
-  controller and reference fan-common.yaml. 
-- Move pwms and pulses-per-revolution to the fan child node. 
-- Update the driver to obtain the PWM and pulses-per-revolution 
-  property from the fan child node.  
-- Rename PWM_MAX to AX_TACH_PWM_VAL_MAX. 
-- Remove unnecessary locking when reading the cached PWM value. 
-- Remove the trailing comma from the OF match-table terminator. 
-- Fix minor formatting issues.
-- Link to v1: https://lore.kernel.org/r/20260806-axiado-ax3000-pwm-fan-v1-0-f6db4cf2166b@axiado.com
+ .../bindings/hwmon/axiado,ax3000-pwm-fan.yaml      | 72 ++++++++++++++++++++++
+ MAINTAINERS                                        |  8 +++
+ 2 files changed, 80 insertions(+)
 
-To: Petar Stepanovic <pstepanovic@axiado.com>
-To: Akhila Kavi <akavi@axiado.com>
-To: Prasad Bolisetty <pbolisetty@axiado.com>
-To: Guenter Roeck <linux@roeck-us.net>
-To: Rob Herring <robh@kernel.org>
-To: Krzysztof Kozlowski <krzk+dt@kernel.org>
-To: Conor Dooley <conor+dt@kernel.org>
-To: Tzu-Hao Wei <twei@axiado.com>
-To: Karthikeyan Mitran <kmitran@axiado.com>
-To: Jonathan Corbet <corbet@lwn.net>
-To: Shuah Khan <skhan@linuxfoundation.org>
-To: Uwe Kleine-König <ukleinek@kernel.org>
-Cc: linux-hwmon@vger.kernel.org
-Cc: devicetree@vger.kernel.org
-Cc: linux-arm-kernel@lists.infradead.org
-Cc: linux-kernel@vger.kernel.org
-Cc: linux-doc@vger.kernel.org
-Cc: linux-pwm@vger.kernel.org
+diff --git a/Documentation/devicetree/bindings/hwmon/axiado,ax3000-pwm-fan.yaml b/Documentation/devicetree/bindings/hwmon/axiado,ax3000-pwm-fan.yaml
+new file mode 100644
+index 000000000000..76a3e12fc656
+--- /dev/null
++++ b/Documentation/devicetree/bindings/hwmon/axiado,ax3000-pwm-fan.yaml
+@@ -0,0 +1,72 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/hwmon/axiado,ax3000-pwm-fan.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Axiado AX3000 and AX3005 PWM Fan Controller
++
++maintainers:
++  - Petar Stepanovic <pstepanovic@axiado.com>
++  - Akhila Kavi <akavi@axiado.com>
++  - Prasad Bolisetty <pbolisetty@axiado.com>
++
++description:
++  The Axiado AX3000 and AX3005 fan controllers use a hardware tachometer
++  block to measure fan speed. Fan speed is controlled through a PWM signal
++  supplied by an external PWM controller.
++
++properties:
++  compatible:
++    oneOf:
++      - const: axiado,ax3000-pwm-fan
++      - items:
++          - const: axiado,ax3005-pwm-fan
++          - const: axiado,ax3000-pwm-fan
++
++  reg:
++    maxItems: 1
++
++  interrupts:
++    maxItems: 1
++
++  clocks:
++    maxItems: 1
++
++  fan:
++    type: object
++    $ref: fan-common.yaml#
++    unevaluatedProperties: false
++    properties:
++      pulses-per-revolution:
++        minimum: 1
++        default: 2
++
++    required:
++      - pwms
++
++required:
++  - compatible
++  - reg
++  - interrupts
++  - clocks
++  - fan
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/interrupt-controller/arm-gic.h>
++
++    fan-controller@33001400 {
++        compatible = "axiado,ax3000-pwm-fan";
++        reg = <0x33001400 0x400>;
++        interrupts = <GIC_SPI 150 IRQ_TYPE_LEVEL_HIGH>;
++        clocks = <&clk>;
++
++        fan {
++            pwms = <&pwm0 0 400>;
++            pulses-per-revolution = <2>;
++        };
++    };
++...
+diff --git a/MAINTAINERS b/MAINTAINERS
+index a674e36529f7..f528b1a42e0f 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -4457,6 +4457,14 @@ W:	https://ez.analog.com/linux-software-drivers
+ F:	Documentation/devicetree/bindings/pwm/adi,axi-pwmgen.yaml
+ F:	drivers/pwm/pwm-axi-pwmgen.c
+ 
++AXIADO PWM FAN CONTROLLER DRIVER
++M:	Petar Stepanovic <pstepanovic@axiado.com>
++M:	Akhila Kavi <akavi@axiado.com>
++M:	Prasad Bolisetty <pbolisetty@axiado.com>
++L:	linux-hwmon@vger.kernel.org
++S:	Supported
++F:	Documentation/devicetree/bindings/hwmon/axiado,ax3000-pwm-fan.yaml
++
+ AXIADO SPI DB DRIVER
+ M:	Vladimir Moravcevic <vmoravcevic@axiado.com>
+ M:	Tzu-Hao Wei <twei@axiado.com>
 
----
-Petar Stepanovic (2):
-      dt-bindings: hwmon: add Axiado AX3000 and AX3005 PWM fan controller
-      hwmon: add Axiado AX3000 and AX3005 PWM fan controller driver
-
- .../bindings/hwmon/axiado,ax3000-pwm-fan.yaml      |  72 ++++
- Documentation/hwmon/axiado-pwm-fan.rst             |  38 ++
- Documentation/hwmon/index.rst                      |   1 +
- MAINTAINERS                                        |  10 +
- drivers/hwmon/Kconfig                              |  12 +
- drivers/hwmon/Makefile                             |   1 +
- drivers/hwmon/axiado-pwm-fan.c                     | 412 +++++++++++++++++++++
- 7 files changed, 546 insertions(+)
----
-base-commit: 28807a684f870463e059fbc8cb22f5b780b94fe4
-change-id: 20260520-axiado-ax3000-pwm-fan-36a89de6db61
-
-Best regards,
---  
-Petar Stepanovic <pstepanovic@axiado.com>
+-- 
+2.34.1
 
