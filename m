@@ -1,187 +1,140 @@
-Received: from mail-m49222.qiye.163.com (mail-m49222.qiye.163.com [45.254.49.222])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com [209.85.216.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C27F52F12AB;
-	Thu,  3 Sep 2026 04:54:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.222
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42BCE309EF2
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 04:54:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788411251; cv=none; b=n2NXaCUyzBT/KjFkObWba4+tvtwxYE7cBN2ATZrPcug4vDTuU+rIUIEgSaRNIZXiWx+73kGQqrRlzlLQz3Mm1oIt0D+TyZTB/E1lOj61rXW1cLkI0FRjfXi7m3XEQ6bv/jMUiD5ySmPPkGwNR4ZPG/Vn545Aq6SPuBvmc4AuYwE=
+	t=1788411256; cv=none; b=EBNXMvV1NRViVNnTRmQ4ddgEwZCiBB0NUHUscm/XQQFbssknMBAwvytTE9xNDGg4HRRXk6r5HMhsjHK0NE+6o9uSH4YYjn6mdZU/CPZuSVtuZDChwHNvepkBdj/fbCYAo+/4sCvE/qYYlEsrDDA7qa0VSFUCo8MNXwPYULLtg+I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788411251; c=relaxed/simple;
-	bh=qsUiLptmguihPzrubbX2s/IxMHBUPJXt1P1mqviGJ9Y=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=b/Hc4EqMU5TAi+TSGD6I/i0//uAb9GzyA+ZlTozDlzEGMgmDU5dkysMfCyH46YnKmKqBbE3WMd+SvQGPfgTka9SzSJefB3+QiyNyUX+HvhejczlJSWGphcY81Y8GjBNfqcXeBPYDrE+MO20YUCQNogEZRdUCJq4u7CRlqrMPzKo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=easystack.cn; spf=pass smtp.mailfrom=easystack.cn; arc=none smtp.client-ip=45.254.49.222
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=easystack.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=easystack.cn
-Received: from localhost.localdomain (unknown [218.94.118.90])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 1ea3ea3af;
-	Thu, 3 Sep 2026 12:18:32 +0800 (GMT+08:00)
-From: Zhen Ni <zhen.ni@easystack.cn>
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: David Hildenbrand <david@kernel.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	"Liam R . Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Brendan Jackman <brendan.jackman@linux.dev>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	Zi Yan <ziy@nvidia.com>,
-	linux-mm@kvack.org,
-	linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Zhen Ni <zhen.ni@easystack.cn>
-Subject: [PATCH v2 2/8] mm/page_owner: Add TGID filtering support
-Date: Thu,  3 Sep 2026 12:18:13 +0800
-Message-Id: <20260903041819.1776630-3-zhen.ni@easystack.cn>
-X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20260903041819.1776630-1-zhen.ni@easystack.cn>
-References: <20260903041819.1776630-1-zhen.ni@easystack.cn>
+	s=arc-20240116; t=1788411256; c=relaxed/simple;
+	bh=5fclEXDDuT+sXtJg4ceME5bBs86atFjTAHlF5i9HdDc=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=ZsXkZyhnmcFsyc5OT3hj+vG+9RjzCej7Fj9nf1tvCT3UePfk27ajXGyUpuT65phDfkf6PEeICThU0Lalt1+C4d4IDwj0LaVCtvybAVAAfyBbzbbCynCO6UH2yN2R1co9LvQC6T7EPqb3s9kyHtKocjQygW6ZtfB1Uq2yYpVpdxI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UFOM7NRs; arc=none smtp.client-ip=209.85.216.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UFOM7NRs"
+Received: by mail-pj1-f53.google.com with SMTP id 98e67ed59e1d1-38dc4553f62so2483839a91.0
+        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 21:54:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788411254; x=1789016054; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=Ra+ZPy+hnKesC8Sn+un1UOlkqTiaEK8VZmbFv/xFnwc=;
+        b=UFOM7NRsG4JT/UbkFQ76RwBRliOQ70TEC8ZsYWx6rOPg0hiFzOGQYgnj5YLm15b8n3
+         BD2JPa+tcEfG5dBlSXx5HhdusNCTI0w+z5yQtILD4XTClfZw0RwlMIru1QyRITBhcVNR
+         nenMpPO5tPUEUpJkfqpDBL/Vkf1tyaqhb/6iHHaa0eBPwstqB/AAqMy/elbuiteUxbMU
+         yt6p05JAGh8la3oXxYmJbsvNCIODD0IKWq6nR5Q5tVokLB/VHCX+LIU7ugbm0nfyT/WF
+         B9Tp2m6YdW2g9VfOigCWAsoHtzsV1rS3CfE51Z+w5fCsZP+0ArOpAia2h7pd/sxCd8Vd
+         vh/Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788411254; x=1789016054;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=Ra+ZPy+hnKesC8Sn+un1UOlkqTiaEK8VZmbFv/xFnwc=;
+        b=mI2IER6Ra6OSL4nDUEKHAnd1s94tZjWKG7tpV6MokEFUFc67ti27haZ59BsXP8nRrq
+         Lmo/3dOc5lNfOuY7HPvfgV0OghdDQx15l9vNoEhMXEZrFBVG+uNBfIKKEmDhYKJN7G43
+         MvGlggBnR2owB/GbNcAP2qGc0bH+aOkEhyFSC2caMpCtlo72ZfqfnRHc6O8QW9kghYhG
+         GP7dpKMoHjCqc/26If70zfwky5xSzOdihYgdVyc1Hu2f6Lisx49bveLkDfAsmg8so4nr
+         r0RvdZPVcBlDYifd/Uni3JzfNGnnNwIKqw8HmfC8cYGlqrzbEW22k8x5sBiR+Tch9WSh
+         dCnQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxtRGD+6WHsJ/PHfWwkHsxp9sDspIR2mIUaikJfylEtKb6tbZuiebxgQzq12zWcfTfBxylZBzXUdBiVLpY=@vger.kernel.org
+X-Gm-Message-State: AFuF++k0vjCHFwpHDy0CWZcMY/otm5skBNQ4uN822gsHnfKMfJB4w8Zc
+	Wl0u0hDEnHOAdQ3RT8kfjCnK6NGOl0ugNwudzfqls5tkVdO2pM0MB0t3
+X-Gm-Gg: AYBFou2Uhr67Giacr4kTD7jpYLB/Y8UTdt2qrXuutkdIq9cqQmKCu6WwJrgFk+k7Mqz
+	Ki1WKZMRgiNaeDH6miicWtlIz0fYE/ADqlokPjGAfVWy533wpROni9xVoGIxsTZybtQJjRLvrUV
+	J5A3OaG0ukgb5/1NAFVZCt/s1GNJwAK78V5mhQHDdXpExjDkEsnL4Z/Yc6cAk7iYAd8Wk5nt49W
+	dVWCnuFM+DqhVCSj0kdd1/tc7uL7IQq/duPOtlq4CPRY8Q4Khiwn14cQUyP6aQS5m9dfN2iQujk
+	ZOQU7KneKJ+2nLuUhDOIiZP6lPxqbKD5rqC+AeJCRjdqhPo7/vzkFzQ8nix44WAjAN4cc3R7YpZ
+	Jvyq58sZ8XAIWQOW8zkqpFPm+z9c2bo2o+a6dk7MxMPthiSXqLTONM/yD5KXSntJ4wTTwz3e42Y
+	SWXYhCyHcEctQdt2FnD3Il999PSJYAM4uHqyJl3vwJbEK4EDPBSlJHVriNcPf8rZKd2g==
+X-Received: by 2002:a17:90b:1e04:b0:38f:57f0:1f5d with SMTP id 98e67ed59e1d1-39aee16ffd9mr12393903a91.15.1788411254557;
+        Wed, 02 Sep 2026 21:54:14 -0700 (PDT)
+Received: from [192.168.20.42] ([115.70.157.242])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39ae8f1cf6dsm2300801a91.3.2026.09.02.21.54.11
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 02 Sep 2026 21:54:14 -0700 (PDT)
+From: Tsz Shan Chan <tsz.chan.dev@gmail.com>
+X-Google-Original-From: Tsz Shan Chan <tchan@jacques.com.au>
+Subject: [PATCH v3 0/5] iio: light: vcnl4000: support shared IRQs
+Date: Thu, 03 Sep 2026 14:53:45 +1000
+Message-Id: <20260903-vcnl4000-v3-0-5e69c2e715a8@jacques.com.au>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa0657d69820229kunm7336907a330a6
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFJQjdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaSE0ZVkoaSUpNSUtOGkNOGVYVFA
-	kWGhdVGRETFhoSFyQUDg9ZV1kYEgtZQVlJSkNVQk9VSkpDVUJLWVdZFhoPEhUdFFlBWU9LSFVKS0
-	lPT09IVUpLS1VKQktLWQY+
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/2XMQQ6CMBCF4auQri2ZqdBaV97DuIAySI0WbaXRE
+ O5uITGSuHyT+b+RBfKWAttnI/MUbbC9S2O7yZjpKncmbpu0mQAhYYfAo3HXAgA4CELdKiAFkqX
+ 3u6fWvhbqeEq7s+HZ+/ciR5yvXwR/SEQOvExGW8tSSS0Ol8o8Bgq56W95NbBZimJdF6tapFrXS
+ qHQYAw2f/U0TR8yjq6P4wAAAA==
+X-Change-ID: 20260810-vcnl4000-02e19f70e706
+To: Jonathan Cameron <jic23@kernel.org>, 
+ David Lechner <dlechner@baylibre.com>, 
+ =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
+ Andy Shevchenko <andy@kernel.org>
+Cc: linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Tsz Shan Chan <tchan@jacques.com.au>
+X-Mailer: b4 0.14.3
 
-Extend filter to support thread group ID (TGID) filtering alongside
-PID filtering. Reuses existing PID parsing and binary search
-infrastructure with separate TGID list and count fields.
+This series contains changes for the vcnl4000 driver.
 
-Signed-off-by: Zhen Ni <zhen.ni@easystack.cn>
+Patch 1 makes .num_channels match .channels for vcnl4200. vcnl4040 and
+vcnl4000 channel arrays have the same size, so no functional change.
+
+Patch 2 prepares the driver for level-triggered irq by making sure the
+DRDY interrupt is explicitly cleared when the iio buffer is disabled.
+
+Patch 3 refactors the interrupt configuration help functions. It also
+standardizes the hardware disable order (clearing INT_CTRL before
+COMMAND).
+
+Patch 4 adds a devm action to explicitly disable hardware interrupts
+during driver removal. This prevents unhandled interrupt during devm
+teardown.
+
+Patch 5 adds shared IRQ support. It changes the trigger type from
+falling edge to low level and adds IRQF_SHARED. The IRQ handlers return
+IRQ_NONE when the device did not generate the interrupt.
+
 ---
+Changes in v3:
+- 2/5: Clear the DRDY interrupt when the IIO buffer is disabled to
+  prevent interrupt storms (sashiko)
+- 3/5: Refactor interrupt configuration and adjust the vcnl4010/4020
+  disable order to safely stop interrupt generation.
+- 4/5: Add a devm action to disable hardware interrupts during driver
+  removal (sashiko)
+- Link to v2: https://lore.kernel.org/r/20260814-vcnl4000-v2-0-9b771290cc1d@jacques.com.au
+
 Changes in v2:
-- No change.
+- 1/2: Clarify in the commit message that the channel arrays have the
+  same size.
+- 2/2: Drop IRQ trigger type checking and use IRQF_TRIGGER_LOW directly.
+- 2/2: Check the interrupt source bits handled by the driver.
+- Link to v1: https://lore.kernel.org/r/20260811-vcnl4000-v1-0-50e7fb657692@jacques.com.au
 
-v1: https://lore.kernel.org/linux-mm/20260828031339.1270699-3-zhen.ni@easystack.cn/
 ---
- mm/page_owner.c | 43 ++++++++++++++++++++++++++++++++++++-------
- 1 file changed, 36 insertions(+), 7 deletions(-)
+Tsz Shan Chan (5):
+      iio: light: vcnl4000: use correct channel array size
+      iio: light: vcnl4000: clear DRDY interrupt when buffer disabled
+      iio: light: vcnl4000: refactor interrupt config functions
+      iio: light: vcnl4000: Add IRQ disable callback on cleanup
+      iio: light: vcnl4000: add shared IRQ support
 
-diff --git a/mm/page_owner.c b/mm/page_owner.c
-index 0ef081e443f9..e046e61eb98a 100644
---- a/mm/page_owner.c
-+++ b/mm/page_owner.c
-@@ -71,6 +71,7 @@ static const char * const page_owner_print_mode_strings[] = {
- /* PID_MAX_LIMIT = 4,194,304 (7 decimal digits) */
- #define PID_MAX_DIGITS  	7
- #define MAX_FILTER_PIDS 	16
-+#define MAX_FILTER_TGIDS	16
- 
- struct page_owner_filter_state {
- 	enum page_owner_print_mode print_mode;
-@@ -78,7 +79,9 @@ struct page_owner_filter_state {
- 	bool proc_filter_enabled;
- 	nodemask_t nid_filter;
- 	int pid_count;
-+	int tgid_count;
- 	pid_t pid_list[MAX_FILTER_PIDS];
-+	pid_t tgid_list[MAX_FILTER_TGIDS];
- };
- 
- static int cmp_pid_t(const void *a, const void *b)
-@@ -837,11 +840,19 @@ read_page_owner(struct file *file, char __user *buf, size_t count, loff_t *ppos)
- 		if (state->proc_filter_enabled) {
- 			bool proc_match = false;
- 
--			proc_match = bsearch(&page_owner->pid,
--					    state->pid_list,
--					    state->pid_count,
--					    sizeof(pid_t),
--					    cmp_pid_t) != NULL;
-+			if (state->pid_count > 0)
-+				proc_match = bsearch(&page_owner->pid,
-+						    state->pid_list,
-+						    state->pid_count,
-+						    sizeof(pid_t),
-+						    cmp_pid_t) != NULL;
-+
-+			if (!proc_match && state->tgid_count > 0)
-+				proc_match = bsearch(&page_owner->tgid,
-+						    state->tgid_list,
-+						    state->tgid_count,
-+						    sizeof(pid_t),
-+						    cmp_pid_t) != NULL;
- 
- 			if (!proc_match)
- 				goto ext_put_continue;
-@@ -1000,7 +1011,9 @@ static ssize_t page_owner_write(struct file *file,
- 	bool new_nid_filter_enabled;
- 	bool new_proc_filter_enabled;
- 	pid_t new_pid_list[MAX_FILTER_PIDS];
-+	pid_t new_tgid_list[MAX_FILTER_TGIDS];
- 	int new_pid_count = 0;
-+	int new_tgid_count = 0;
- 
- 	/*
- 	 * Maximum input length for filter commands:
-@@ -1011,7 +1024,8 @@ static ssize_t page_owner_write(struct file *file,
- 	 * - For list filters: (digit+comma) * count + prefix
- 	 */
- 	if (count > 32 + 6 * MAX_NUMNODES +
--			(PID_MAX_DIGITS + 1) * MAX_FILTER_PIDS + 4)
-+			(PID_MAX_DIGITS + 1) * MAX_FILTER_PIDS + 4 +
-+			(PID_MAX_DIGITS + 1) * MAX_FILTER_TGIDS + 5)
- 		return -EINVAL;
- 
- 	kbuf = memdup_user_nul(buf, count);
-@@ -1028,6 +1042,10 @@ static ssize_t page_owner_write(struct file *file,
- 		memcpy(new_pid_list, state->pid_list, sizeof(state->pid_list));
- 		new_pid_count = state->pid_count;
- 	}
-+	if (state->tgid_count > 0) {
-+		memcpy(new_tgid_list, state->tgid_list, sizeof(state->tgid_list));
-+		new_tgid_count = state->tgid_count;
-+	}
- 
- 	while ((token = strsep(&kbuf, " \t\n")) != NULL) {
- 		if (*token == '\0')
-@@ -1063,6 +1081,10 @@ static ssize_t page_owner_write(struct file *file,
- 			ret = parse_pid_t_list(token + 4, new_pid_list, &new_pid_count);
- 			if (ret < 0)
- 				goto out_free;
-+		} else if (!strncmp(token, "tgid=", 5)) {
-+			ret = parse_pid_t_list(token + 5, new_tgid_list, &new_tgid_count);
-+			if (ret < 0)
-+				goto out_free;
- 		} else {
- 			ret = -EINVAL;
- 			goto out_free;
-@@ -1073,7 +1095,7 @@ static ssize_t page_owner_write(struct file *file,
- 	state->print_mode = new_print_mode;
- 	state->nid_filter = new_nid_filter;
- 	state->nid_filter_enabled = new_nid_filter_enabled;
--	state->proc_filter_enabled = new_pid_count > 0;
-+	state->proc_filter_enabled = new_pid_count > 0 || new_tgid_count > 0;
- 	if (new_pid_count > 0) {
- 		memcpy(state->pid_list, new_pid_list, sizeof(state->pid_list));
- 		state->pid_count = new_pid_count;
-@@ -1081,6 +1103,13 @@ static ssize_t page_owner_write(struct file *file,
- 	if (state->pid_count > 1)
- 		sort(state->pid_list, state->pid_count, sizeof(pid_t),
- 		     cmp_pid_t, NULL);
-+	if (new_tgid_count > 0) {
-+		memcpy(state->tgid_list, new_tgid_list, sizeof(state->tgid_list));
-+		state->tgid_count = new_tgid_count;
-+	}
-+	if (state->tgid_count > 1)
-+		sort(state->tgid_list, state->tgid_count, sizeof(pid_t),
-+		     cmp_pid_t, NULL);
- 
- 	ret = count;
- 
+ drivers/iio/light/vcnl4000.c | 173 ++++++++++++++++++++++++++++++++-----------
+ 1 file changed, 130 insertions(+), 43 deletions(-)
+---
+base-commit: 940de590b839f71d6dc846160534bf202401b8b7
+change-id: 20260810-vcnl4000-02e19f70e706
+
+Best regards,
 -- 
-2.20.1
+Tsz Shan Chan <tchan@jacques.com.au>
 
