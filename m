@@ -1,69 +1,87 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oo1-f70.google.com (mail-oo1-f70.google.com [209.85.161.70])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94F6234CFCA;
-	Thu,  3 Sep 2026 23:09:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C011E37F8D6
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 23:09:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.70
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788476963; cv=none; b=FQSjX5b0Y7yDG8sjVEyv0LUC6PPBg+y03wpK9WZ/vK4iZkyN47ndjHtwFyGG5yaJYhhNKlk45JqPr9+teBc9e+F4Oix3CH3SmnJt7Daa42GyD5dzdUEYTrtKEhsg2gkJNEsCIxetaSjTx/1AeKF9g/V9S2M7skSEMwgb122RaCw=
+	t=1788476969; cv=none; b=lHzBSHZmAfwUjmnzNK/vXZD5LcpkkDZPXq1pdVsZgIWFMp9/j8eidFulEVC6/4kHT+x1YsXO2bmdY7EG3B5AXC0n+IzW7kyRql0LCybO+VLre6Ch5np84nm1Y5MorgWKeC/wT8Hz3DLqYM5go8RAOdD9qKvZ7DaXLBw7M+cbU0w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788476963; c=relaxed/simple;
-	bh=6rcZAMWgIi+KZKSXFJ/0fk/gdtoBfa8p1RUDAQQsR40=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=j9fs9bNRqCDlMHn5/DA5CO2TA5WjJIODOMZJNNqOCC5Lwj/MVd3ensMZb14Av5bTMMuKH2XmX9HUQ1sf4n5A/Q6V/gdXW4zMSJ5Zbfrj+EDCfnWa9VP2kgZX5dhm+0YgdIlym3H+jZQMMZqf3moiX98Slarf3naWownA71teFN8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SMrFl5y1; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SMrFl5y1"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C6EFC1F000E9;
-	Thu,  3 Sep 2026 23:09:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788476962;
-	bh=7HebtJAgpTwpQUKv9N4H6F1loY4uPBv+ObzdRVGZik8=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=SMrFl5y1M2g1Fkz5yeymSelT+0xGT7v7eRGluKTynOLqMYIydyb5/dLpjI1rv8Z6F
-	 gLOD9EVck7MPrRzD5oZ3H7fZi6vwf6NPtgWQAa+ZefgQLPCRyn9AO9EGvRUt+Xd5ju
-	 fD9QHACdud0V6szt2J92dpEddAvh7/eYUgoDHubMJEMx06UDMTn3IjLGt3I2AGeNHP
-	 PXICIl4VCLmFyydpT2dNWGjt/XSORbVHiphwASs2DUF3HpzzzidkDUzFaZdOeShZMe
-	 TmKBeKQxAer4fnv3Qc6NGCYc8KZuq/YjDnwQEiTafjqjgaZVVgemTtYb1CjZ2p7kay
-	 pTOs4tqBJ5lsA==
-Date: Thu, 3 Sep 2026 16:09:21 -0700
-From: Jakub Kicinski <kuba@kernel.org>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: netdev-bot+sashiko@kernel.org, j.bhargav.u@gmail.com,
- andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
- pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, tony@atomide.com, netdev@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- goledhruva@gmail.com, m-chawdhry@ti.com, daniel.baluta@gmail.com,
- simona.toaca@nxp.com
-Subject: Re: [v3] dt-bindings: net: ti,davinci-emac: Convert to DT schema
-Message-ID: <20260903160921.547dabf4@kernel.org>
-In-Reply-To: <33fe3846-eb8d-4b0b-9355-46388c1db2d3@kernel.org>
-References: <20260901-ti-davinci-emac-v3-1-db41e32f3f6d@gmail.com>
-	<178844863252.3394541.10006643092711574384@kernel.org>
-	<33fe3846-eb8d-4b0b-9355-46388c1db2d3@kernel.org>
+	s=arc-20240116; t=1788476969; c=relaxed/simple;
+	bh=P8RUFfmeAnm/5LIA07tpJfOn1lfOF5+Ue/6jgBrHPnc=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:Cc:
+	 Content-Type; b=RHR/xDOoJI1BJgQKgw5IvW1n0YNRHuVQbiTkynKA2z7WTlWI0li0XOlfZu3gRN4JPhwihtYzuiFgPbrdXa/DC2jxrdRGDCnsPZvxXw46hhu7nWWP3MvvJtaImaD78odc8bHBBSfVtquE8FZfeeQaFamnDAzCEgmI59LT+KcKyOo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.161.70
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oo1-f70.google.com with SMTP id 006d021491bc7-6b131719584so396120eaf.2
+        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 16:09:27 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788476966; x=1789081766;
+        h=content-transfer-encoding:content-type:cc:to:from:subject
+         :message-id:in-reply-to:date:mime-version:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=P8RUFfmeAnm/5LIA07tpJfOn1lfOF5+Ue/6jgBrHPnc=;
+        b=ZyWTBuz9BE0jpzUzcKDxK4jhtTxxa0q0TEoFxZqxGFdYkPfHK8nOz16/1Xou/IUpkL
+         3Nj/m4UK9VX5Ysxfvb+6K53IdcgZYm5Kk91qQO+Xw6BO4bQidjbKyKT5Fq0RFhbazPzg
+         5AGLJwItcg5InCDKWXj5e4Bq5TyvljrOCCm4BW3iyylXWc7JIgzjVpGNfxb4xrfAPzQN
+         0xfpN804ix7MEjG7S3whiucqCnwbTRHE4oajHBptpnU36yKmvxd1W92s0pLrkz2ywavi
+         iDdZ6m5WGkEiVeKGbEN857ZiFasgHeF+WLEI/QNph46kKFA8zZmJJ0GYfY/jT16N6uK+
+         3fAA==
+X-Gm-Message-State: AFuF++k+FezSNw6SAh0WiYupJyDTtORSaBWc560ZyqFY5GXemya9O+s3
+	rP/mXc4zuIiueitjsL0VCT4aKv3blDlYsdvqUx95zjFFq6bbonAaIOp+Jb5E9M/sGYoA7wG9nOK
+	6RsKd2mMmewHom6N+hjsX2XwcsCL4+XsiCtye5UQ8e9mCwNZciwo0aIwPozI=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+X-Received: by 2002:a05:6820:a50e:20b0:6b7:46fa:16ac with SMTP id
+ 006d021491bc7-6b746fa1b09mr153167eaf.65.1788476966736; Thu, 03 Sep 2026
+ 16:09:26 -0700 (PDT)
+Date: Thu, 03 Sep 2026 16:09:26 -0700
+In-Reply-To: <56eb8af7-8f1f-43ef-9f77-6afb526b2d82@me.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6a99fe26.9266084e.bf0d7.028a.GAE@google.com>
+Subject: Re: [syzbot] [media?] WARNING in cx25840_init
+From: syzbot <syzbot+9123948aef13fe92d706@syzkaller.appspotmail.com>
+To: m.harisawan@icloud.com
+Cc: linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, 
+	m.harisawan@icloud.com, syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Thu, 3 Sep 2026 17:22:54 +0200 Krzysztof Kozlowski wrote:
-> On 03/09/2026 17:17, netdev-bot+sashiko@kernel.org wrote:
-> > Thank you for your contribution! Sashiko AI review found 2 potential
-> > issue(s) to consider:
-> 
-> Jakub and other netdev folks,
-> 
-> I got this week a lot of new netdev Sashiko emails on my mailbox. All of
-> them escape filtering, because they do not use PATCH keyword. Can you
-> please fix that? PATCH is essential... For now I will just add a filter
-> to drop sashiko to dev null instead based on recipient, because I am not
-> going to add filters classifying email as patch just because "From" is
-> matching something.
+> #syz test: git:// git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.=
+git 940de590b839f71d6dc846160534bf202401b8b7 diff --git a/drivers/media/i2c=
+/cx25840/cx25840-core.c b/drivers/media/i2c/cx25840/cx25840-core.c index a8=
+e21a28174f..6df912c9381b 100644 --- a/drivers/media/i2c/cx25840/cx25840-cor=
+e.c +++ b/drivers/media/i2c/cx25840/cx25840-core.c @@ -2298,28 +2298,26 @@ =
+static int cx25840_init(struct v4l2_subdev *sd, u32 val) struct cx25840_sta=
+te *state =3D to_state(sd); + if (!is_cx2584x(state)) + return -EOPNOTSUPP;=
+ + state->generic_mode =3D true; - if (is_cx2584x(state)) { - /* set datash=
+eet video output defaults */ - state->vid_config =3D CX25840_VCONFIG_FMT_BT=
+656 | - CX25840_VCONFIG_RES_8BIT | - CX25840_VCONFIG_VBIRAW_DISABLED | - CX=
+25840_VCONFIG_ANCDATA_ENABLED | - CX25840_VCONFIG_TASKBIT_ONE | - CX25840_V=
+CONFIG_ACTIVE_HORIZONTAL | - CX25840_VCONFIG_VALID_NORMAL | - CX25840_VCONF=
+IG_HRESETW_NORMAL | - CX25840_VCONFIG_CLKGATE_NONE | - CX25840_VCONFIG_DCMO=
+DE_DWORDS | - CX25840_VCONFIG_IDID0S_NORMAL | - CX25840_VCONFIG_VIPCLAMP_DI=
+SABLED; - - /* add additional settings */ - cx25840_vconfig_add(state, val)=
+; - } else { - /* TODO: generic mode needs to be developed for other chips =
+*/ - WARN_ON(1); - } + /* set datasheet video output defaults */ + state->v=
+id_config =3D CX25840_VCONFIG_FMT_BT656 | + CX25840_VCONFIG_RES_8BIT | + CX=
+25840_VCONFIG_VBIRAW_DISABLED | + CX25840_VCONFIG_ANCDATA_ENABLED | + CX258=
+40_VCONFIG_TASKBIT_ONE | + CX25840_VCONFIG_ACTIVE_HORIZONTAL | + CX25840_VC=
+ONFIG_VALID_NORMAL | + CX25840_VCONFIG_HRESETW_NORMAL | + CX25840_VCONFIG_C=
+LKGATE_NONE | + CX25840_VCONFIG_DCMODE_DWORDS | + CX25840_VCONFIG_IDID0S_NO=
+RMAL | + CX25840_VCONFIG_VIPCLAMP_DISABLED; + + /* add additional settings =
+*/ + cx25840_vconfig_add(state, val); return 0; }
 
-Ugh, not the first time we have this bug either, sorry.
-Should be fixed now.
+I've failed to parse your command.
+Did you perhaps forget to provide the branch name, or added an extra ':'?
+Please use one of the two supported formats:
+1. #syz test
+2. #syz test: repo branch-or-commit-hash
+Note the lack of ':' in option 1.
+
