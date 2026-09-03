@@ -1,106 +1,164 @@
-Received: from mail-pf1-f170.google.com (mail-pf1-f170.google.com [209.85.210.170])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6FF6381B16
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 04:15:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.210.170
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788408906; cv=pass; b=Ro4FNux5q2Tw7/rkThuM+P2FgbhLRJHZ6HWvjeVarviUmzcy9xwK0bamOKRoqvHeb9FRaKxFSMANjj8lu8HIyZ0oEPyIGj3PMIUy94SHp2Mi1blliWJOZ8h94nXyNri/cL6mAMeLpqUA3Uch/yQGzm3JLwBxQbWY6LlQdDbcUFQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788408906; c=relaxed/simple;
-	bh=/CdnSkAI/SEeFBhKT8eXTMpB/EwyptIYnhSh6zIHjt0=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=nvKfexPuLl/M0tZQon2LE5hfCQqvqx255MYq57+VK5m7zlX2/iGLcPlMmFgF9iUZeL5+V/CYicH9lbhN8WRTPGp562FUpWnVmSuRJGN6NXRiCqaLACajnirIXtfQiLM+a8Nm8/NjW0LbKi8APV9uxGUXVRbvrGAs1guY1Qq9ZOU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=f9LFUedB; arc=pass smtp.client-ip=209.85.210.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5128737F305;
+	Thu,  3 Sep 2026 04:15:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788408955; cv=none; b=gYT5TMpiSVK8EAumsEa9+2ogZuiWSwamzbRvxynu0jkyVJApUPBq6bdcjRZc8nymmP75sed9ERkLF1wGdb3gNPuyZZU2QVnmQA/FiQFURlY6IgtY0PgcnNx44UODi0S6Mb3iEkxZtBdjU4v6NfRHmRx9DdYpQSfsTCAuLFzNKkQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788408955; c=relaxed/simple;
+	bh=yh3NuS6enqFa8OlPnMhE/7uKF6ShgM4rx83iOmkm4ss=;
+	h=Content-Type:MIME-Version:In-Reply-To:References:Subject:From:Cc:
+	 To:Date:Message-ID; b=maYSlLpCOSb3OB2rPkuu7Ih7lYG69gitkXPwpNPzy2aRXaJC51fzY14ep3iTpEzWF4teFlOA+F+6PYD5PyvbibIdo2dWN4GicvgwRpOPSRmLZfBeAmW6jAYt6S+10juGDpFApxth9aNcEoJBPbYjcv7RwQ4ztJxYtD0JrK/TiN0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=v71WRO38; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="f9LFUedB"
-Received: by mail-pf1-f170.google.com with SMTP id d2e1a72fcca58-852c481415fso2228792b3a.3
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 21:15:04 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788408904; cv=none;
-        d=google.com; s=arc-20260327;
-        b=daOMfy05E7CGHSUEUWcwSdKOzPqhnLfY9EmHhilnNK22TiT0t82cJNHlbv+H/S6vJe
-         da7uAjeMXNXnSHBrWpaP4FfINdpm/QDUTcrQR7c2YdQlHLUdJvumA6W7RmqZeaV1Y1IK
-         qYHGa0h6hFtShl/F5AGmIGuJYVbep2a/vu3JLBSBypR8Y8x3iGAiBHP+zPBPLoBnya6i
-         s4kn/rM5g58hhAywWEI0leftg1VPPJJnOuccgl2ICOLt0pKu6j3Fa/+ZlvwxtfW6F7Tb
-         PLqoRyrNOjLGi2A2YDDrbJCXgwLb9txNhWZ/01Cc9LI0GKr2itheKVJcwoL4fCVTugzZ
-         qPEQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=/CdnSkAI/SEeFBhKT8eXTMpB/EwyptIYnhSh6zIHjt0=;
-        fh=dAGqUUGRyeczEdVuPj8k/XgmPXySUvdf7sYHcUDICY8=;
-        b=dp3d8cSihTRoPyX6QEdSOd9F+AZmQEe3DjFam9gkbYQU3PPPoFxqKrkSuAxk9Cax2j
-         6ueobapwagkS7VKtMoA01JKfD1s2C9dZ5Y90OSHuWr+usQgjGop2AuKWyOV76wFXBtNA
-         ZXluKpjeczTCBD63D7WCLbkyLMSRhDva1B36R1pPqNmjihmLIHFnwpqhiIVW9Ro0AhQv
-         uNcUTHHrxvQoVZ8Q4bWRm0LIIPB3pbcOByasfXP8HalIpYSEeblOWo4KSBoQCHMhvubv
-         VxOvicF3jHchd3SOF4nnj3C1dwWRIDp+Px4Q31xwW1P2/uqAFvI0C7PEGbau6jVvZvs4
-         Nn/Q==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788408904; x=1789013704; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=/CdnSkAI/SEeFBhKT8eXTMpB/EwyptIYnhSh6zIHjt0=;
-        b=f9LFUedBAQgroo545PFYs7yYkfn+d/YqcmRHCbFtOj6Flp8IRA1m2E03JxSIJ1hkMO
-         uI+XqK5Zc7xT5idotqW6vwkr6nBsAkYxRI/x2f3SZtBPyu/JZIjpiUj63r1vrXacKjP5
-         DVkNYIxDOjKb/V9mWvNA96zijOcmcKIQAGMrk09X2ZBNynAPsSmrU5MxLlXz3k07p0io
-         dKy2fUdhDSw/OJ3WWK/99GIKmLNR+Ion/TDQTTZRZSgEB3B6P6r4NfMDO2LttKgs4oAO
-         ZzL6BEq/WarE9w74sDLE86ATOoTxvrxoy0KlUkB8/e3AlhSMGru+3rb+RJTHfmEbRxyj
-         Fubg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788408904; x=1789013704;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=/CdnSkAI/SEeFBhKT8eXTMpB/EwyptIYnhSh6zIHjt0=;
-        b=IijrbNqPxySTODkPkv5v2Yh1F2c0v/Az/uPgLuG74jByIRGNWTok40HaVGJbLsFOZt
-         xlHD+w5XN7vQlquLEXWCVozXKcWLGv/bW7w0kvZXk+LWUaZsfb2QLW0bnIFBzAyVuOyJ
-         puoBZ/pfLmL/dJRKJkLHgZMemNRadDfcD2G2o02NTj20C2xw6w/bI9fDxSmHNDSmg12f
-         uRdBfj+VXUhpdxdgUrQEmm3u0i/91cHGFLR7NzIBHA4Q9Qm4WvAfs5oXjSPTzSgumcDP
-         FkNqbwnYO5yJOtQMjfKzoctrdeWt80jvq722okZGVIih5UfEcVeS/4SUwHV4dGawpe0u
-         raXg==
-X-Forwarded-Encrypted: i=1; AKwUvBz9tMUZCH1pJQ8nlrTGWqRR73311hT36brZRd+j5ZwJ5/NjjbI3yj8u6l/9SM8C9+aq4a+AVMwG7agAl0Y=@vger.kernel.org
-X-Gm-Message-State: AFuF++lfaF4FYRtKm6ypMy7UqxG5n+ch27R09oKGmxCzAc0//iFXJF38
-	G9oePax5dvm5nTGswHIC8LICFzD5qIMcaoewHC1nVez8V5WeMgCwUPLcK+JU1CilUvA05bFki1G
-	5nvY9zp6iymGX5jnPyLm7VtakYiGYqx8=
-X-Gm-Gg: AYBFou1GbLlHET7Exn9zAsZam93dMVcBJD2JvLgWc06K3/HdU1HBAMWCwrHP0GExLR3
-	AWL+uIeXH20sZK61N1tAcNEBVOdywGOU4AIZZr20EYnwbaHdJro088qygA26NHa8C4Y7/p+TblC
-	JYR+P0AfGct+fXv13fI4alhECLwKvu59ZkEtcX4aPJt7mCItW/AUU/+pxmQzwnqkKoCTHEMwx4Y
-	/Xlxiv3O3f7Rw4ocICp4venIQ/IbMVTvorq0kFAETlQ8Bc0ajQMPAeVEA4FEtrixJgCND9uoMgr
-	ingA8+ZqpPc5Vaa6hPgDENWzcddOsMgREyrUpCM5tzT/TvAYUFgqJVHMypcJGJC+dg9QFGrmIJK
-	K856i+LSlOwBELkdbjbHWWIFYl3lMup+oeW6JDhzaPlkbLqqsJlzq0kcY
-X-Received: by 2002:a05:6a00:23c1:b0:848:62ab:7b7 with SMTP id
- d2e1a72fcca58-85ed93bfe5dmr11990726b3a.16.1788408903612; Wed, 02 Sep 2026
- 21:15:03 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="v71WRO38"
+Received: from mail.ideasonboard.com (unknown [IPv6:2401:4900:1c68:42c8:e78d:2576:d7c8:5aa9])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 2F6F8874;
+	Thu,  3 Sep 2026 06:14:18 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1788408859;
+	bh=yh3NuS6enqFa8OlPnMhE/7uKF6ShgM4rx83iOmkm4ss=;
+	h=In-Reply-To:References:Subject:From:Cc:To:Date:From;
+	b=v71WRO38loz6IbDRMMLRdB0Q4yxDU2L6knAxjklUJ8ss6XPAxoXYYNHP3qn+EEHQ+
+	 /ROWzTSD17xAzxO+PyWra8ttxsrZrtY2OPU6QzlDZr9MzjIMTApUz1ZCZPgHOAw8Yp
+	 ztcgdbliiXLK/Rzla13og5J7M9jMmecuEIEmZCmY=
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <apgNYDiSiPmNZspF@sirena.org.uk> <CAABR9nFEbNxQ_oWCvZobOJnmCBdhAdTYfrm=sMzygh28CMFFtA@mail.gmail.com>
-In-Reply-To: <CAABR9nFEbNxQ_oWCvZobOJnmCBdhAdTYfrm=sMzygh28CMFFtA@mail.gmail.com>
-From: Bui Duc Phuc <phucduc.bui@gmail.com>
-Date: Thu, 3 Sep 2026 11:14:51 +0700
-X-Gm-Features: AcwNN1UMURtyEGzADFhhZXlM-8xROk25l_3NLc5C7-jyAaxvLqbjAJcXuOLei6Q
-Message-ID: <CAABR9nG4f=3wjoXh7FYLs7R3T1N-wRtPD=UrfPJmuZnhjBf6GA@mail.gmail.com>
-Subject: Re: linux-next: build failure after merge of the gpio-brgl tree
-To: Mark Brown <broonie@kernel.org>
-Cc: Bartosz Golaszewski <brgl@bgdev.pl>, Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, 
-	Linux Next Mailing List <linux-next@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <20260805-media-starvis2-v1-2-91e8e4eae44f@raspberrypi.com>
+References: <20260805-media-starvis2-v1-0-91e8e4eae44f@raspberrypi.com> <20260805-media-starvis2-v1-2-91e8e4eae44f@raspberrypi.com>
+Subject: Re: [PATCH RFC 2/4] media: i2c: imx678: Parameterise the configuration to allow for other models
+From: Jai Luthra <jai.luthra@ideasonboard.com>
+Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Alexander Shiyan <eagle.alexander923@gmail.com>, linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, Dave Stevenson <dave.stevenson@raspberrypi.com>
+To: Dave Stevenson <dave.stevenson@raspberrypi.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, Sakari Ailus <sakari.ailus@linux.intel.com>
+Date: Thu, 03 Sep 2026 09:45:46 +0530
+Message-ID: <178840894612.11722.991560430853331683@freya>
+User-Agent: alot/0.13.dev35+g4a69c46ca
 
-Hi all,
+Quoting Dave Stevenson (2026-08-05 21:39:17)
+> Several of the Sony Starvis 2 sensors are identical in the
+> majority of their programming, but differ largely only in the
+> size of pixel array and some timing parameters.
+>=20
+> Parameterise those parameters in preparation for supporting other
+> variants.
+>=20
+> Signed-off-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
+> ---
+>  drivers/media/i2c/imx678.c | 161 +++++++++++++++++++++++++++++----------=
+------
+>  1 file changed, 106 insertions(+), 55 deletions(-)
+>=20
+> diff --git a/drivers/media/i2c/imx678.c b/drivers/media/i2c/imx678.c
+> index f7b988dca2ac..40ba6661b366 100644
+> --- a/drivers/media/i2c/imx678.c
+> +++ b/drivers/media/i2c/imx678.c
+> @@ -148,32 +148,11 @@
+>  /* Subdev pads */
+>  #define IMX678_SOURCE_PAD              0
+> =20
+> -/* IMX678 native and active pixel array size. */
+> -static const struct v4l2_rect imx678_native_area =3D {
+> -       .top =3D 0,
+> -       .left =3D 0,
+> -       .width =3D 3857,
+> -       .height =3D 2201,
+> -};
+> -
+> -static const struct v4l2_rect imx678_active_area =3D {
+> -       .top =3D 20,
+> -       .left =3D 0,
+> -       .width =3D 3856,
+> -       .height =3D 2180,
+> -};
+> -
+>  enum imx678_type {
+>         IMX678_COLOR =3D 0,
+>         IMX678_MONOCHROME =3D 1,
+>  };
+> =20
+> -struct imx678_model_info {
+> -       enum imx678_type type;
+> -       const u32 *codes;
+> -       unsigned int num_codes;
+> -};
+> -
+>  enum imx678_lanemode {
+>         IMX678_LANEMODE_2L =3D 1,
+>         IMX678_LANEMODE_4L =3D 3,
+> @@ -213,7 +192,7 @@ static const u64 link_freqs[] =3D {
+>         [IMX678_LINK_FREQ_1188MHZ] =3D 1188000000,
+>  };
+> =20
+> -static const u16 min_hmax_4lane[] =3D {
+> +static const u16 imx678_min_hmax_4lane[] =3D {
+>         [IMX678_LINK_FREQ_297MHZ] =3D 1584,
+>         [IMX678_LINK_FREQ_360MHZ] =3D 1320,
+>         [IMX678_LINK_FREQ_445MHZ] =3D 1100,
+> @@ -273,7 +252,7 @@ static const int imx678_tpg_val[] =3D {
+>  };
+> =20
+>  /* Common configuration */
+> -static const struct cci_reg_sequence common_regs[] =3D {
+> +static const struct cci_reg_sequence imx678_common_regs[] =3D {
+>         { IMX678_REG_THIN_V_EN, 0x00 },
+>         { IMX678_REG_VCMODE, 0x01 },
+>         { CCI_REG8(0x306b), 0x00 },
+> @@ -656,16 +635,72 @@ static const u32 codes_monochrome[] =3D {
+>         MEDIA_BUS_FMT_Y12_1X12,
+>  };
+> =20
+> +struct imx678_variant {
+> +       const char *name;
+> +       u32 id_reg;
+> +       u32 id_value;
+> +       struct v4l2_rect native_area;
+> +       struct v4l2_rect active_area;
+> +       u64 pixel_rate;
+> +       unsigned int pix_per_clk;
+> +       const struct cci_reg_sequence *common_regs;
+> +       unsigned int num_common_regs;
+> +       unsigned int vmax_default;
+> +       const u16 *hmax_min;
+> +};
+> +
+> +const struct imx678_variant imx678_variant_def =3D {
+> +       .name =3D "imx678",
+> +       .id_reg =3D IMX678_REG_MODULE_ID,
+> +       .id_value =3D IMX678_ID,
+> +       .native_area =3D {
+> +               .top =3D 0,
+> +               .left =3D 0,
+> +               .width =3D 3857,
+> +               .height =3D 2201,
+> +       },
+> +       .active_area =3D {
+> +               .top =3D 20,
+> +               .left =3D 0,
+> +               .width =3D 3856,
+> +               .height =3D 2180,
+> +       },
+> +       .pixel_rate =3D IMX678_PIXEL_RATE,
+> +       .pix_per_clk =3D IMX678_PIX_PER_CLK,
+> +       .common_regs =3D imx678_common_regs,
+> +       .num_common_regs =3D ARRAY_SIZE(imx678_common_regs),
+> +       .vmax_default =3D IMX678_VMAX_DEFAULT,
 
-I have sent a fix for this issue:
+There are a couple of places where IMX678_PIX_PER_CLK and
+IMX678_VMAX_DEFAULT were still being used. I've fixed those in my branch:
+https://github.com/jailuthra/linux/commit/3c656e370e06ceb41e69ba0406f685d45=
+56133d0
 
-https://lore.kernel.org/all/20260903030700.132068-1-phucduc.bui@gmail.com/
+Thanks,
+Jai
 
-The patch is based on brgl/gpio/for-next.
-
-Best regards,
-Phuc
+[...]
