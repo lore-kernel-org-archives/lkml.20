@@ -1,45 +1,43 @@
-Received: from mta1.migadu.com (out-29.mta1.migadu.com [95.215.58.29])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30CDE4BCAC9
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 14:54:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.29
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8215C4BD0E3;
+	Thu,  3 Sep 2026 14:54:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788447263; cv=none; b=aGps0ICPvokWe5YQ6YowahqqrW2l65cDo27r35hgB4XAEg1n4mP4exfnEg6JyFXM8rABreizhaekZzcNzK5QZ/+OwEoDgNKhtw6O5PwRzLSSX36jp/qxSIsgwGur0rpk2W+6KCl2k97IpYvZENjo1XuHW9M6O1XqjAfGZolWLp8=
+	t=1788447283; cv=none; b=SBxfguEiPK4lpySzxAUlEjHGQTnh3LEq+27F930UHaWGaMvvetFXfh2Aents+QZw6h5LydB5sgbVLD6SRD0lmyeR0sRmwWHiD2xEMNWa+coo04/fbV9a9XLwEkmKrMIWb6/hZa0I3pzxtD3uapBuEEfQvRq5VoMhJa6as2y3WwA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788447263; c=relaxed/simple;
-	bh=tkk36hhnqCNnAczCtVtvfHNcA6tWuFttAc23e/8SJ3E=;
+	s=arc-20240116; t=1788447283; c=relaxed/simple;
+	bh=lnPcEb6R2k2cn9mdx4M1XD7sEW7ehiJJvyYxQXElP/8=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Wv2jZo1dSVr8DqHv/5ixpnyreeDTz9bfrQJvg6+hwBRzwe+vA1OVhjlvE7zeU2FLu+08hMbvZujr44u3THd76lbQBJhCHDeYaW+/iNUl5E/ne1s97YRk6R68eBTEmtDTqbLcAAI3/8PxC9X/B6zU0Y5DtaVIuL9M9M41wawaVBU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=Qq4Prwh7; arc=none smtp.client-ip=95.215.58.29
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	 Content-Type:Content-Disposition:In-Reply-To; b=ry/p0ZPifUgWe7/w6i9IdVvQh6Xi4VvurAYSOsc6YNa2SBDWRnA/IP3QOKK2FbS+Q0l4GnKFGvmhJsvCPgag3d7f+1DX5zKF7tnwzfc+t8AtqJ5ECZXPLCL7PI4inZm0BKKvj2eClHocrWkUnOH3JTWMhWHX4KQTfaCYjw+WgV0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=P/fieQkU; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="Qq4Prwh7"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=tkk36hhnqCNnAczCtVtvfHNcA6tWuFttAc23e/8SJ3E=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788447258; v=1; x=1789052058;
- b=Qq4Prwh7yEGvKcJ0+su0Uc7Sj2d9OoBAzuavOeCDWf7t3/BBku/Fwhfpuk12UDH43SOPmIpe
- gexi/r+zdsn7ywPhfXjp6FPtaLYgBz46nNkuk2sx772LZsjQa4weAMCDltes3sJA7sNmZMvnxx5
- +/RCm1dZAewTFdmXftt4HkC8=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 05c2eb3fd5c9c093;
-	Thu, 03 Sep 2026 14:54:08 +0000
-X-Mizu-Trace-ID: 05c2eb3fd5c9c093
-X-Migadu-Flow: FLOW_OUT
-Date: Thu, 3 Sep 2026 22:53:51 +0800
-From: Hao Li <hao.li@linux.dev>
-To: "Harry Yoo (Meta)" <harry@kernel.org>
-Cc: Vlastimil Babka <vbabka@kernel.org>, 
-	Andrew Morton <akpm@linux-foundation.org>, Christoph Lameter <cl@gentwo.org>, 
-	David Rientjes <rientjes@google.com>, Roman Gushchin <roman.gushchin@linux.dev>, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, Hyunwoo Kim <imv4bel@gmail.com>, stable@vger.kernel.org
-Subject: Re: [PATCH v3] mm/slab: take n->list_lock in
- __slab_try_return_freelist() to avoid race
-Message-ID: <apmJiWakiBw3VAgb@fedora>
-References: <20260903-slab-fix-aba-v3-1-b44cb6badd54@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="P/fieQkU"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 810DE1F000E9;
+	Thu,  3 Sep 2026 14:54:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788447280;
+	bh=VuHMey/Yf4fc8xGmHLFRa2OsL+j/sTY/3VihKlmU5Ek=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=P/fieQkUzgyIvKF6UvtSps60A3DUv5ti/1dtRytlQbMTsClG7xJNSNLPItw/8qflZ
+	 nrRtONrafv3VVJNuhnuEe0WIv8FI16RsA7bhR266AJsbsgHjutdW1Y610+JuIcA9qt
+	 f1Ep5rzDQCbQ1wPoX0QAiCx3SPjEsl6NdpmujejI2pKqPF0LjrMpCDmpxDGHCcRgfU
+	 nX6496sDCbueA/fDpIrGeC9PK+59nGbCL4teUMWtEiUzUfAd3nsyLbEoLs7u9d7DqV
+	 JXgn5Y2YwRc/x+XCosbYev4Sl7iufOGJGR7EvGlORsYS8A3K5dfphO+xmRdi0AgpCM
+	 A/C0Ge/d/Bbag==
+Date: Thu, 3 Sep 2026 09:54:36 -0500
+From: Bjorn Andersson <andersson@kernel.org>
+To: Avaneesh Kumar Dwivedi <avaneesh.dwivedi@oss.qualcomm.com>
+Cc: Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Monish Chunara <quic_mchunara@quicinc.com>, Rakesh Kota <rakesh.kota@oss.qualcomm.com>, 
+	Sayali Lokhande <sayalil@qti.qualcomm.com>, Nirmesh Kumar Singh <nirmesh.singh@oss.qualcomm.com>
+Subject: Re: [PATCH 2/3] arm64: dts: qcom: Add Talos Lyra EVK SoM platform
+Message-ID: <apmH0PSegmgOBqo6@baldur>
+References: <20260901-lyra_upstreaming-v1-0-e3a76dc9e21c@oss.qualcomm.com>
+ <20260901-lyra_upstreaming-v1-2-e3a76dc9e21c@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -48,85 +46,354 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260903-slab-fix-aba-v3-1-b44cb6badd54@kernel.org>
+In-Reply-To: <20260901-lyra_upstreaming-v1-2-e3a76dc9e21c@oss.qualcomm.com>
 
-On Thu, Sep 03, 2026 at 03:32:26PM +0100, Harry Yoo (Meta) wrote:
-> Commit ba7425312607 ("mm, slab: add an optimistic
-> __slab_try_return_freelist()") incorrectly assumed that nobody has freed
-> an object to the slab as long as slab->freelist is NULL and cmpxchg
-> succeeds.
+On Tue, Sep 01, 2026 at 07:14:02PM +0530, Avaneesh Kumar Dwivedi wrote:
+
+Please make subject prefix arm64: dts: qcom: talos: ... so that it
+groups nicely in a git log --oneline.
+
+> Introduce the device tree for the QCS615-based Talos Lyra EVK SoM.
+> Lyra EVK SoM a compact compute module integrating the QCS615 SoC,
+> PMIC, and essential connectivity, designed to mount on carrier boards.
 > 
-> However, as reported by Hyunwoo Kim [1], other CPUs might have freed
-> an object to the slab, insert the slab to the partial list, then
-> allocated an object from the slab, and be in the middle of removing
-> the slab from the list under n->list_lock.
+> The initial SoM device tree includes basic support for:
 > 
-> Since __refill_objects_node() puts the slab back on pc.slabs
-> outside n->list_lock, it might insert the slab into that list while
-> the slab is concurrently being removed from n->partial.
-> This led to a list corruption [1]:
+> - CPU and memory
+> - PMIC and board-level regulators
+> - UFS and SD card storage
+> - QUPv3 (I2C/SPI/UART) instances
+> - ADSP/CDSP remoteprocs
+> - GPU
 > 
->   list_add corruption. next->prev should be prev
->   (ffff888100000248), but was dead000000000122.
->   (next=ffffea000416e410).
->   kernel BUG at lib/list_debug.c:29!
->   Oops: invalid opcode: 0000 [#1] SMP NOPTI
->   CPU: 1 UID: 65534 PID: 144 Comm: poc Not tainted
->   7.2.0-16172-gcf72cbb39da8-dirty #1 PREEMPT(lazy)
->   RIP: 0010:__list_add_valid_or_report+0x80/0xd0
->   ...
->   Call Trace:
->    alloc_from_new_slab+0x183/0x300
->    ___slab_alloc+0x31c/0x890
->    __kmalloc_noprof+0x3d4/0x800
->    lsm_blob_alloc+0x2d/0x50
->    security_msg_msg_alloc+0x26/0x90
->    load_msg+0x1aa/0x210
->    do_msgsnd+0x91/0x800
->    do_syscall_64+0x109/0x5d0
->    entry_SYSCALL_64_after_hwframe+0x77/0x7f
->   ...
->   Kernel panic - not syncing: Fatal exception
-> 
-> This is a classic ABA problem where cmpxchg succeeds but the state has
-> changed since __refill_objects_node() took the freelist from the slab.
-> 
-> As Vlastimil Babka mentioned [2], it should be rare to return more than
-> one slab (due to the racy read of slab->counters in
-> get_partial_node_bulk()). Therefore, instead of introducing additional
-> complexity, acquire and release n->list_lock twice in the worst case.
-> 
-> Return the slab directly to the partial list and hold n->list_lock
-> across the cmpxchg and add_partial(). This is similar to the initial
-> version of commit ba7425312607 [3]. This is enough to avoid the race as
-> the list manipulation is serialized by n->list_lock. While at it,
-> bring back unlikely() hint now that the condition is unlikely.
-> 
-> Reported-by: Hyunwoo Kim <imv4bel@gmail.com>
-> Closes: https://lore.kernel.org/linux-mm/apPa-cGLcyt90l-E@v4bel [1]
-> Link: https://lore.kernel.org/linux-mm/ae25c193-b95f-40c1-83b6-1c2546467e41@kernel.org [2]
-> Link: https://lore.kernel.org/all/20260421-b4-refill-optimistic-return-v1-1-24f0bfc1acff@kernel.org [3]
-> Fixes: ba7425312607 ("mm, slab: add an optimistic __slab_try_return_freelist()")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Harry Yoo (Meta) <harry@kernel.org>
+> Co-developed-by: Monish Chunara <quic_mchunara@quicinc.com>
+> Signed-off-by: Monish Chunara <quic_mchunara@quicinc.com>
+> Co-developed-by: Rakesh Kota <rakesh.kota@oss.qualcomm.com>
+> Signed-off-by: Rakesh Kota <rakesh.kota@oss.qualcomm.com>
+> Co-developed-by: Sayali Lokhande <sayalil@qti.qualcomm.com>
+> Signed-off-by: Sayali Lokhande <sayalil@qti.qualcomm.com>
+> Signed-off-by: Nirmesh Kumar Singh <nirmesh.singh@oss.qualcomm.com>
+> Signed-off-by: Avaneesh Kumar Dwivedi <avaneesh.dwivedi@oss.qualcomm.com>
+
+This s-o-b chain says Monish, Rakesh, Sayali, and Nirmesh first wrote
+the patch, but the way you sent it claims you authored it. Retain
+Nirmesh as author or fix the chain.
+
 > ---
-> Changes in v3:
-> - Don't repeat "As reported by Hyunwoo Kim" in changelog (Vlastimil)
-> - Pass kmem_cache_node pointer directly to __slab_try_return_freelist() (Vlastimil)
-> - Link to v2: https://lore.kernel.org/r/20260902-slab-fix-aba-v2-1-d1ece15a8417@kernel.org
+>  arch/arm64/boot/dts/qcom/talos-lyra-evk-som.dtsi | 282 +++++++++++++++++++++++
+>  1 file changed, 282 insertions(+)
 > 
-> Changes in v2:
-> - Simplify the code to hold n->list_lock across cmpxchg + add_partial()
->   and acquire the lock twice in the rare worst case.
-> - Link to v1: https://lore.kernel.org/r/apPa-cGLcyt90l-E@v4bel
-> ---
->  mm/slub.c | 20 +++++++++++++-------
->  1 file changed, 13 insertions(+), 7 deletions(-)
+> diff --git a/arch/arm64/boot/dts/qcom/talos-lyra-evk-som.dtsi b/arch/arm64/boot/dts/qcom/talos-lyra-evk-som.dtsi
+> new file mode 100644
+> index 000000000000..8c19f050d5b3
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/qcom/talos-lyra-evk-som.dtsi
+> @@ -0,0 +1,282 @@
+> +// SPDX-License-Identifier: BSD-3-Clause
+> +/*
+> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+> + */
+> +
+> +#include <dt-bindings/gpio/gpio.h>
+> +#include <dt-bindings/regulator/qcom,rpmh-regulator.h>
+> +#include "talos.dtsi"
+> +#include "pm8150.dtsi"
+> +/ {
+> +	aliases {
+> +		mmc0 = &sdhc_1;
+> +		mmc1 = &sdhc_2;
+> +		serial0 = &uart0;
+> +	};
+> +
+> +	chosen {
+> +		stdout-path = "serial0:115200n8";
+> +	};
+> +
+> +	clocks {
+> +		sleep_clk: sleep-clk {
+> +			compatible = "fixed-clock";
+> +			clock-frequency = <32764>;
+> +			#clock-cells = <0>;
+> +		};
+> +
+> +		xo_board_clk: xo-board-clk {
+> +			compatible = "fixed-clock";
+> +			clock-frequency = <38400000>;
+> +			#clock-cells = <0>;
+> +		};
+> +	};
+> +};
+> +
+> +&apps_rsc {
+> +	regulators-0 {
+> +		compatible = "qcom,pm8150-rpmh-regulators";
+> +		qcom,pmic-id = "a";
+> +
+> +		vreg_s3a: smps3 {
+
+I don't see anything referencing s3a, s5a, and s6a, are you sure that
+rpmh doesn't handle the SMPSs for us automatically?
+
+Do we actually want to vote for s4a from Linux?
+
+> +			regulator-name = "vreg_s3a";
+> +			regulator-min-microvolt = <600000>;
+> +			regulator-max-microvolt = <650000>;
+> +			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
+> +		};
+> +
+> +		vreg_s4a: smps4 {
+> +			regulator-name = "vreg_s4a";
+> +			regulator-min-microvolt = <1800000>;
+> +			regulator-max-microvolt = <1829000>;
+> +			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
+> +		};
+> +
+> +		vreg_s5a: smps5 {
+> +			regulator-name = "vreg_s5a";
+> +			regulator-min-microvolt = <1896000>;
+> +			regulator-max-microvolt = <2040000>;
+> +			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
+> +		};
+> +
+> +		vreg_s6a: smps6 {
+> +			regulator-name = "vreg_s6a";
+> +			regulator-min-microvolt = <1304000>;
+> +			regulator-max-microvolt = <1404000>;
+> +			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
+> +		};
+> +
+> +		vreg_l1a: ldo1 {
+> +			regulator-name = "vreg_l1a";
+> +			regulator-min-microvolt = <488000>;
+> +			regulator-max-microvolt = <852000>;
+
+That's a wide span, narrow it to what the consumers need.
+
+> +			regulator-initial-mode = <RPMH_REGULATOR_MODE_LPM>;
+
+Are you sure you want to go LPM here?
+
+> +			regulator-allow-set-load;
+> +			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
+> +						   RPMH_REGULATOR_MODE_HPM>;
+> +		};
+> +
+> +		vreg_l2a: ldo2 {
+> +			regulator-name = "vreg_l2a";
+> +			regulator-min-microvolt = <1650000>;
+> +			regulator-max-microvolt = <3100000>;
+> +			regulator-initial-mode = <RPMH_REGULATOR_MODE_LPM>;
+> +			regulator-allow-set-load;
+> +			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
+> +						   RPMH_REGULATOR_MODE_HPM>;
+> +		};
+> +
+> +		vreg_l3a: ldo3 {
+> +			regulator-name = "vreg_l3a";
+> +			regulator-min-microvolt = <1000000>;
+> +			regulator-max-microvolt = <1248000>;
+> +			regulator-initial-mode = <RPMH_REGULATOR_MODE_LPM>;
+> +			regulator-allow-set-load;
+> +			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
+> +						   RPMH_REGULATOR_MODE_HPM>;
+> +		};
+> +
+> +		vreg_l5a: ldo5 {
+> +			regulator-name = "vreg_l5a";
+> +			regulator-min-microvolt = <875000>;
+> +			regulator-max-microvolt = <975000>;
+> +			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
+> +			regulator-allow-set-load;
+> +			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
+> +						   RPMH_REGULATOR_MODE_HPM>;
+> +		};
+> +
+> +		vreg_l7a: ldo7 {
+> +			regulator-name = "vreg_l7a";
+> +			regulator-min-microvolt = <1800000>;
+> +			regulator-max-microvolt = <1900000>;
+> +			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
+> +			regulator-allow-set-load;
+> +			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
+> +						   RPMH_REGULATOR_MODE_HPM>;
+> +		};
+> +
+> +		vreg_l8a: ldo8 {
+> +			regulator-name = "vreg_l8a";
+> +			regulator-min-microvolt = <1150000>;
+> +			regulator-max-microvolt = <1350000>;
+> +			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
+> +			regulator-allow-set-load;
+> +			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
+> +						   RPMH_REGULATOR_MODE_HPM>;
+> +		};
+> +
+> +		vreg_l10a: ldo10 {
+> +			regulator-name = "vreg_l10a";
+> +			regulator-min-microvolt = <2950000>;
+> +			regulator-max-microvolt = <3312000>;
+> +			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
+> +			regulator-allow-set-load;
+> +			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
+> +						   RPMH_REGULATOR_MODE_HPM>;
+> +		};
+> +
+> +		vreg_l11a: ldo11 {
+> +			regulator-name = "vreg_l11a";
+> +			regulator-min-microvolt = <1232000>;
+> +			regulator-max-microvolt = <1260000>;
+> +			regulator-initial-mode = <RPMH_REGULATOR_MODE_LPM>;
+> +			regulator-allow-set-load;
+> +			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
+> +						   RPMH_REGULATOR_MODE_HPM>;
+> +		};
+> +
+> +		vreg_l12a: ldo12 {
+> +			regulator-name = "vreg_l12a";
+> +			regulator-min-microvolt = <1800000>;
+> +			regulator-max-microvolt = <1890000>;
+> +			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
+> +		};
+> +
+> +		vreg_l13a: ldo13 {
+> +			regulator-name = "vreg_l13a";
+> +			regulator-min-microvolt = <3000000>;
+> +			regulator-max-microvolt = <3230000>;
+> +			regulator-initial-mode = <RPMH_REGULATOR_MODE_LPM>;
+> +			regulator-allow-set-load;
+> +			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
+> +						   RPMH_REGULATOR_MODE_HPM>;
+> +		};
+> +
+> +		vreg_l15a: ldo15 {
+> +			regulator-name = "vreg_l15a";
+> +			regulator-min-microvolt = <1800000>;
+> +			regulator-max-microvolt = <1904000>;
+> +			regulator-initial-mode = <RPMH_REGULATOR_MODE_LPM>;
+> +			regulator-allow-set-load;
+> +			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
+> +						   RPMH_REGULATOR_MODE_HPM>;
+> +		};
+> +
+> +		vreg_l16a: ldo16 {
+> +			regulator-name = "vreg_l16a";
+> +			regulator-min-microvolt = <3000000>;
+> +			regulator-max-microvolt = <3312000>;
+> +			regulator-initial-mode = <RPMH_REGULATOR_MODE_LPM>;
+> +			regulator-allow-set-load;
+> +			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
+> +						   RPMH_REGULATOR_MODE_HPM>;
+> +		};
+> +
+> +		vreg_l17a: ldo17 {
+> +			regulator-name = "vreg_l17a";
+> +			regulator-min-microvolt = <2950000>;
+> +			regulator-max-microvolt = <3312000>;
+> +			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
+> +		};
+> +	};
+> +};
+> +
+> +&gcc {
+> +	clocks = <&rpmhcc RPMH_CXO_CLK>,
+> +		 <&rpmhcc RPMH_CXO_CLK_A>,
+> +		 <&sleep_clk>;
+
+I'm failing to see how that differs from that talos.dtsi already says.
+
+That said, this list is incomplete and needs to be corrected - can be
+done separately.
+
+> +};
+> +
+> +&gpu {
+> +	status = "okay";
+> +};
+> +
+> +&gpu_zap_shader {
+> +	firmware-name = "qcom/qcs615/a612_zap.mbn";
+> +};
+> +
+> +&qupv3_id_0 {
+> +	status = "okay";
+> +};
+> +
+> +&qupv3_id_1 {
+> +	status = "okay";
+> +};
+> +
+> +&remoteproc_adsp {
+> +	firmware-name = "qcom/qcs615/adsp.mbn";
+> +
+> +	status = "okay";
+> +};
+> +
+> +&remoteproc_cdsp {
+> +	firmware-name = "qcom/qcs615/cdsp.mbn";
+> +
+> +	status = "okay";
+> +};
+> +
+> +&rpmhcc {
+> +	clocks = <&xo_board_clk>;
+
+That's what it says in talos.dtsi already. I must be misunderstanding
+something?
+
+> +};
+> +
+> +&sdhc_1 {
+> +	pinctrl-0 = <&sdc1_state_on>;
+> +	pinctrl-1 = <&sdc1_state_off>;
+> +	pinctrl-names = "default", "sleep";
+> +	bus-width = <8>;
+> +	mmc-ddr-1_8v;
+> +	mmc-hs200-1_8v;
+> +	mmc-hs400-1_8v;
+> +	mmc-hs400-enhanced-strobe;
+> +	vmmc-supply = <&vreg_l17a>;
+> +	vqmmc-supply = <&vreg_s4a>;
+> +	non-removable;
+> +	no-sd;
+> +	no-sdio;
+> +
+> +	status = "okay";
+> +};
+> +
+> +&sdhc_2 {
+> +	pinctrl-0 = <&sdc2_state_on>;
+> +	pinctrl-1 = <&sdc2_state_off>;
+> +	pinctrl-names = "default", "sleep";
+> +	bus-width = <4>;
+> +	cd-gpios = <&tlmm 99 GPIO_ACTIVE_LOW>;
+> +	vmmc-supply = <&vreg_l10a>;
+> +	vqmmc-supply = <&vreg_s4a>;
+> +
+> +	status = "okay";
+> +};
+> +
+> +&uart0 {
+> +	status = "okay";
+> +};
+> +
+> +&ufs_mem_hc {
+> +	reset-gpios = <&tlmm 123 GPIO_ACTIVE_LOW>;
+> +	vcc-supply = <&vreg_l17a>;
+> +	vcc-max-microamp = <600000>;
+> +	vccq2-supply = <&vreg_s4a>;
+> +	vccq2-max-microamp = <600000>;
+> +
+> +	status = "okay";
+> +};
+> +
+> +&ufs_mem_phy {
+> +	vdda-phy-supply = <&vreg_l5a>;
+> +	vdda-pll-supply = <&vreg_l12a>;
+> +
+> +	status = "okay";
+> +};
 > 
-
-Looks good to me! Thanks for the fix!
-Reviewed-by: Hao Li <hao.li@linux.dev>
-
--- 
-Thanks,
-Hao
+> -- 
+> 2.34.1
+> 
