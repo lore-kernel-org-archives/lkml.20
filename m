@@ -1,110 +1,120 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 844C34B26FC
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 14:10:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE1A54AFE0A;
+	Thu,  3 Sep 2026 14:10:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788444654; cv=none; b=iBv6tCG/pRI96MmpPC84eIAtY79ROL6fv8DFfhdOjsDhe3MIs9MAKFWCOqc2KCVy+jHml+mnysWxh3+jWJSFyz31gLbWY3N+g3uexK2pxPy0ieHiTybjfMwKHlaWVTKKl8xZVLifTWoqgTZlcD/cLYjQJG7XlA2t59GMyESMUW4=
+	t=1788444665; cv=none; b=MqLcQVxCNqwRGvnBVHLoXRz4MIvKHAPqW9MSAnvDwotu4qhFYVritNQ/D8sYGL7SGDZerTDnPpRrW4bgZfYj+UgrmPkArdM6GH2O7rW90wNSYGaCYNmT8cJgV3H+NFOItBV2yYKOcQmYICCh7Ii9BvhKhA/5cRM/7JcdOujxbgc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788444654; c=relaxed/simple;
-	bh=uyaj7kG6TPS6LEfhjwIhpsOwcFNptcTWq6h8aScAAaA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=sJfUN5ZvakeWUuaFjoPa9OaRkexSITUTNpfDPU6KJep1XpOPf1L/09mJvBdKswZNPSxwmUvHm0ObFFNXHcDkDMO6n69KPjAssAsJXOjdveEPFRWNyX0kgqCKTfS17lW/RKeKFWuetfEhXoSk7mO5YfSzAIZb6BO9hRBeCodya+k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jygmUT9I; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788444665; c=relaxed/simple;
+	bh=+d+bjC4x0lbjpgAmyrHEGnjV0aNXaFhqAikeqeRAa4g=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=N/MSE56N2zPsvWFjBH2mgvuW9XebU5rpK3r28+zAkLzWq53mPnZBsNBUOwAilmxDXcLqu/8o2n9GLFCOTTK1NXGopGrhkp4NCtKukz72qZH4lI3AGLCnixbmMSV7gDBnwj3ygA+c2QLQD1k5H8g2wAapIYhOkecxKNuHDNDn+Qw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=axPgdyqE; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jygmUT9I"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 04B131F000E9;
-	Thu,  3 Sep 2026 14:10:41 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="axPgdyqE"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 84F0A1F00A3D;
+	Thu,  3 Sep 2026 14:10:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788444645;
-	bh=3JZzmgG9bG+UNAMwOnm5lvihONair7Pb+TlG3wgKfYE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=jygmUT9I2xlA9gFXYgsMjQnieC9T4700PPohryUEchjY9qdyFurXttHb/9ScGKasp
-	 p/6yyvXWyKak+rj+jCkxoAKJSG2mYUuM3ZfRJT0u0LPIzdpjHRfDUxArBrhmtTLMkP
-	 OuzjGv3w8HqZAY9nskFe1nP6D+3HSC5IZl4AeyXMPenTlWaC+n2qzuDxpC5way5ZCf
-	 kGE+P/qYXmD0QnB1+vuyXte9h5HZ2orivrgTMbbLj8pBFnhlVbi0X3hkLahkoJL+u9
-	 iBP8TxMau6ClWm9iHmKoRz0aYWFHSewpMoeDVtJzpmvJNoj0Gtiqlu/GBow7WEsoS/
-	 USHFM1ZcYVHyw==
-Date: Thu, 3 Sep 2026 15:10:39 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Christos Skarlos <christosskarlos.kernel@gmail.com>
-Cc: akpm@linux-foundation.org, david@kernel.org, ziy@nvidia.com, 
-	baolin.wang@linux.alibaba.com, liam@infradead.org, nico.pache@linux.dev, ryan.roberts@arm.com, 
-	dev.jain@arm.com, baohua@kernel.org, lance.yang@linux.dev, usama.arif@linux.dev, 
-	linux-mm@kvack.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] mm/huge_memory: fix various coding style warnings
-Message-ID: <apl_vDvfWZldRknr@gremlin>
-References: <20260903092200.88910-1-christosskarlos.kernel@gmail.com>
+	s=k20260515; t=1788444649;
+	bh=ZZJEZYPm8MBCp2p89iEXjKw3ibTfDOJb3HE6/QLyx5Y=;
+	h=Date:From:To:Cc:Subject;
+	b=axPgdyqEKXlrfIbsBTwLS5DeTSys/z/G7RUW+k4VQuCMRKUFI697tCvglZxpE30No
+	 GkpwTnkaF+XwMKsKfQV0QpOIAHe23D5QcKAc1ophLLPL9xdqY2qKDaGvYz2aJ9WmH+
+	 A0DhWLLwyORZDX+M5XMDO0Q2pyEsOiG6uRy6PZ1wwKZ0vXhsKkACYp9RSTs0U16o7O
+	 RV1RDdEJu6249otAzpQWJCs+s9MpesyipQJwYi5143mx2miBjI9pv8v5UCJqArhDuK
+	 t/qmYyuLA/M1UMppRKtnLfX+MHhBVnKY9qNb1fCZ8+TvyL44T2YbRSBZMY/k5aiEZT
+	 m3GuJM6NnPrMQ==
+Date: Thu, 3 Sep 2026 15:10:44 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Daniel Borkmann <daniel@iogearbox.net>,
+	Alexei Starovoitov <ast@kernel.org>,
+	Andrii Nakryiko <andrii@kernel.org>, bpf <bpf@vger.kernel.org>,
+	Networking <netdev@vger.kernel.org>
+Cc: Eduard Zingerman <eddyz87@gmail.com>,
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+	Linux Next Mailing List <linux-next@vger.kernel.org>,
+	Yonghong Song <yonghong.song@linux.dev>
+Subject: linux-next: manual merge of the bpf-next tree with the bpf tree
+Message-ID: <apl_5AVsAYLjVX5C@sirena.org.uk>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="Ei65IbMqjqK5SCjo"
+Content-Disposition: inline
+
+
+--Ei65IbMqjqK5SCjo
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260903092200.88910-1-christosskarlos.kernel@gmail.com>
+Content-Transfer-Encoding: quoted-printable
 
-On Thu, Sep 03, 2026 at 12:22:00PM +0300, Christos Skarlos wrote:
-> Resolve coding style issues flagged by checkpatch.pl Specifically:
-> - Add missing blank lines after variable declarations.
-> - Remove unnecessary braces {} for a single statement block.
->
-> No functional changes are introduced.
->
-> Signed-off-by: Christos Skarlos <christosskarlos.kernel@gmail.com>
+Hi all,
 
-LGTM so:
+Today's linux-next merge of the bpf-next tree got a conflict in:
 
-Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+  kernel/bpf/backtrack.c
 
-> ---
->  mm/huge_memory.c | 6 ++++--
->  1 file changed, 4 insertions(+), 2 deletions(-)
->
-> diff --git a/mm/huge_memory.c b/mm/huge_memory.c
-> index ced400f72d43..371ee8d38c45 100644
-> --- a/mm/huge_memory.c
-> +++ b/mm/huge_memory.c
-> @@ -1104,6 +1104,7 @@ subsys_initcall(hugepage_init);
->  static int __init setup_transparent_hugepage(char *str)
->  {
->  	int ret = 0;
-> +
->  	if (!str)
->  		goto out;
->  	if (!strcmp(str, "always")) {
-> @@ -1510,6 +1511,7 @@ static void set_huge_zero_folio(pgtable_t pgtable, struct mm_struct *mm,
->  		struct folio *zero_folio)
->  {
->  	pmd_t entry;
-> +
->  	entry = folio_mk_pmd(zero_folio, vma->vm_page_prot);
->  	entry = pmd_mkspecial(entry);
->  	pgtable_trans_huge_deposit(mm, pmd, pgtable);
-> @@ -2613,6 +2615,7 @@ bool move_huge_pmd(struct vm_area_struct *vma, unsigned long old_addr,
->
->  		if (pmd_move_must_withdraw(new_ptl, old_ptl, vma)) {
->  			pgtable_t pgtable;
-> +
->  			pgtable = pgtable_trans_huge_withdraw(mm, old_pmd);
->  			pgtable_trans_huge_deposit(mm, new_pmd, pgtable);
->  		}
-> @@ -3901,9 +3904,8 @@ int folio_check_splittable(struct folio *folio, unsigned int new_order,
->  	 * swapcache folio split. Only uniform split to order-0 can be used
->  	 * here.
->  	 */
-> -	if ((split_type == SPLIT_TYPE_NON_UNIFORM || new_order) && folio_test_swapcache(folio)) {
-> +	if ((split_type == SPLIT_TYPE_NON_UNIFORM || new_order) && folio_test_swapcache(folio))
->  		return -EINVAL;
-> -	}
->
->  	if (is_huge_zero_folio(folio))
->  		return -EINVAL;
-> --
-> 2.55.0
->
+between commit:
 
---
-Cheers, Lorenzo
+  e3e4f66cc4b72 ("bpf: backtracking shouldn't clear outer frame R1-R5 for c=
+allbacks")
+
+=66rom the bpf tree and commit:
+
+  5bbb242c08590 ("bpf: Handle R2 as a return register in precision backtrac=
+king")
+
+=66rom the bpf-next tree.
+
+I fixed it up (see below) and can carry the fix as necessary. This
+is now fixed as far as linux-next is concerned, but any non trivial
+conflicts should be mentioned to your upstream maintainer when your tree
+is submitted for merging.  You may also want to consider cooperating
+with the maintainer of the conflicting tree to minimise any particularly
+complex conflicts.
+
+I'm not entirely happy with this resolution but I think it's OK?
+
+diff --cc kernel/bpf/backtrack.c
+index 47282ffeeaf94,653db80bcc47b..0000000000000
+--- a/kernel/bpf/backtrack.c
++++ b/kernel/bpf/backtrack.c
+@@@ -533,8 -538,12 +537,12 @@@ static int backtrack_insn(struct bpf_ve
+  			from_subprog_call =3D subseq_idx - 1 >=3D 0 &&
+  					    bpf_pseudo_call(&env->prog->insnsi[subseq_idx - 1]);
+ =20
+ -			/* Sample the return registers before the callback
+ -			 * handling below clears R1-R5.
+ -			 */
+  			r0_precise =3D from_subprog_call && bt_is_reg_set(bt, BPF_REG_0);
++ 			r2_precise =3D from_subprog_call && bt_is_reg_set(bt, BPF_REG_2);
++=20
+++			bt_clear_reg(bt, BPF_REG_0);
+++			bt_clear_reg(bt, BPF_REG_2);
+ +
+  			/* Backtracking to a nested function call, 'idx' is a part of
+  			 * the inner frame 'subseq_idx' is a part of the outer frame.
+  			 * In case of a regular function call, instructions giving
+
+--Ei65IbMqjqK5SCjo
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqZf+QACgkQJNaLcl1U
+h9CnRgf+PvXoNtZE2tNRIPZoZN4iHF5zEoniJpjMEYOQ2E/xYTA+49p0bw7ucxFB
+zXD8MRSgj8nvHNNaLURov3Pumj81tWNy7gZzeM47MmMdQTZCo3fkoUyuU8bKVRUo
+Q3erVBrlpSrvaXv/3mQ2YqZmLklRLOLyVXSE7/cjjvfgh+fjZQpaJIDnwt6WcNd0
+y7qQdqDFaT4NCzPYhjiCrH4vBoxI4jY9ybmlo3kbR0uXlQC+AiGHrIgXKKQsvww5
+qrkA+pi+ATLUGy036Xg9NpoMw1nwTTUoC63AxwwHtRgoyX5che4MpV6Bv6EK/69V
+gVJsf7J84IJA1sr0Xa+VS3eLBr5r8Q==
+=2M/o
+-----END PGP SIGNATURE-----
+
+--Ei65IbMqjqK5SCjo--
