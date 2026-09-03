@@ -1,166 +1,215 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B165C33AD8C
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 07:54:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 238F6397933;
+	Thu,  3 Sep 2026 07:54:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788422089; cv=none; b=lZhhXtlcBqeX1BqWWDld25xEVWpkCnnz3AR4i+kkKKhPDi3j8p+lPEhAsT3BPeLSvvZ8TBglB0VwLAS7r0Ms3mhXno34eZ5ycQlbSVqWCLRQld2aetCv9b5GO54W0TFouq+t4MykEDshnzJe0VJaTjTnIl76cmkwv9d3Ashewtk=
+	t=1788422097; cv=none; b=g0k0DpTxyRXlduDnZfF1x4SkMWR6q0bcq9zN2XEPQmgxcWX2Bt2A0RWmiC4QH+/4WccAkgSNX7Ozr512jiJwiXQGY9ISE/ymHzAFjsCBgFEDmCCYz0yo0Mw8nn54IGG7lh9EfxzUzUFAwBpcciGpFXVDrmnvfxAtuKAoaqaGiPE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788422089; c=relaxed/simple;
-	bh=iB18IptzooZUR/n3KqRc65pMlvfNH60ITGcEGbAT4So=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ghNfqOPdjA1h/I3wf5/1zSKY/ZLFKPPtzbUzDh1qyraigRj75TztTWscha7trW9oy6DrKOq4I993uFzCwGbTWnW8mlyPGKQPFdKqvuUgUc+/TrT9cdWRBzU0nawNTbvjAg89ayydFJ8k1dEhGvQK0IUMiyThEmhnQpWwuC5nkbc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=RAskscrQ; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=CIjxJsJN; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="RAskscrQ";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="CIjxJsJN"
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6835lccv3641941
-	for <linux-kernel@vger.kernel.org>; Thu, 3 Sep 2026 07:54:46 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	c2fcDfowcmb0Fy77GnQQJjE8UHWSmrNgm2oaE6E2N+Y=; b=RAskscrQsCQcVvY4
-	dm9EQJRTocP2QJ1QuFuAVLvf35m2BJoNnRJJ4ntBNCxWxMMrfbJ2pLxeZnKO1pk3
-	v8BIH8PoUh6QyAnHlusBCCSRxQhNoSoSkdtxcRSv+Q+uQf2ZmRRhqms15LYn19eO
-	B8lH+jpaAnXSEjsy1EO2aSI1MJ1x0YdzMC/n70OFjiEj+Yi+PVNZilQU+PhA/9UZ
-	EkKxXIfsqtVZTLTbrpMa+FgzgElM05Q7S17GBKMapUPm79fZ3uMhh6QQ+eT3B3Sr
-	H9b3LHmj1nZT37fADALhLB2Gx6QgfNIDtGkZaIVIXYUtsYLdg3xlQW5Y9V0BlUfX
-	0O3zlQ==
-Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4genrdut4k-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 07:54:46 +0000 (GMT)
-Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-92eebb130dcso50490085a.1
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 00:54:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1788422086; x=1789026886; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=c2fcDfowcmb0Fy77GnQQJjE8UHWSmrNgm2oaE6E2N+Y=;
-        b=CIjxJsJNZUI0I5WX3Qt6bBq85jGd1h9i/AAjPQzYMhIPl79YbsC9OuyDefKwXJ0Ln9
-         IT9JEtWmLv3fXZAXU9B77czM2Q4mJYrxZJKLQhvf5QEzEe4904x+VwFSQBue0ooSSWUx
-         N55nDIQG4Xnf1ltZpwtiwOFecq1vavyW1mqapoAzqa4d0FOCNMudWjECRXJzoopV3Loq
-         Opzay19BYsIvXV6VYiiFRsR9+69kFJDs61VvDGty32T7rHeU6x0GneSXHKvuIlh2ckt9
-         1aaNp0MAIdFXAFuVOTqvT4iBqyEupmr87cLslAn9U7zntYgD3OWPYkVyOsPymIoTS3yY
-         aT6g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788422086; x=1789026886;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=c2fcDfowcmb0Fy77GnQQJjE8UHWSmrNgm2oaE6E2N+Y=;
-        b=lQ/mo3j31kevyxaX7vcgbNEZ1obqQ7JRcT1+e/2BRoQViQ+mQxsRprUtzQqzMW+IJp
-         42ZNXgVXZ95fg5fbafArJiVy2TJgsTWLjPQY8h4kWjbhf6MkYqa5cwrC3ESx2V0lrQNA
-         Pwz3xApcG7WoePIDkpKXaVao1i4ePfXTBrK+tt+m7YgKoDIpTQ0RVnBHTzlL7oGHPPWQ
-         eqAv3N68/R1QuNYlAzsw06lEMM6qRAOdRUrCm2C4b2wBWyNAdSTMsp1fjAHxza5jKGIa
-         S5/jXV2usIQxBFwhaR/HG30m18yqJG2sBy3EL8VDFiHtp24lmCCtvR8V/gsy2DI0vTN9
-         OP6w==
-X-Forwarded-Encrypted: i=1; AKwUvBwNLZl+3GIqrjoUoNisYHKLMw0z7eMhI/FkpknvLa/SI82UoKeyBCrMNaI8jyIzxLJdSGxO10jOdN6LugY=@vger.kernel.org
-X-Gm-Message-State: AFuF++k6MPxzBRFf/Y1KhKy2kqSWd8vQKydrGUpqmgbJwV1c7sXmbvOy
-	XjIwO2HhKVO6Zr8PddP6pB+s+Dctvw73B43W2mc3P/nMH2VlkuefabLDyjQx8r5v+Kg0onwkF/X
-	a8aNxsY/VARB+2ebB8tTU/FuIIpWy7KPrVahGYumXur9B1NaYlitc9iyxgVXBxUm1o6Q=
-X-Gm-Gg: AYBFou1DZziPHIgSccbeXf0ya0PECn+cI4dfkhZn9FzvS7+CwxX8pqYCwUrWx+j+OOB
-	sQBsUPKWhEn5Blt+HZj2pbbbGXaOSouje6eBphsUbDd7bX3uq9kvQVohK7bpE4/czI+8iKXufWh
-	kAhG0vMyWOkyhPUcFsYFJ2Pl5SBrfw0E5T1dw1wAV4GMjFyhJ0UNYZlILpgqMFjgjGHS+Uzgyga
-	ND2sSUcTY2n0MPe93wZ0IOQjgoBJADf9QPit8ltVRDjbvcSW6YyJd3770XeJqc3YpS3GcgT3RiQ
-	S6EWRL83LUlPAfYP12RB5JmA31a4gm6ZJko/RMyWkhVuDievMaZFlo9FL5+Er4+ggPTBms2NT8n
-	XXN3VgP+1iU3pRB1XAto5ow==
-X-Received: by 2002:a05:620a:2704:b0:939:288a:8a0c with SMTP id af79cd13be357-939610b5598mr723258485a.6.1788422080672;
-        Thu, 03 Sep 2026 00:54:40 -0700 (PDT)
-X-Received: by 2002:a05:620a:2704:b0:939:288a:8a0c with SMTP id af79cd13be357-939610b5598mr723257285a.6.1788422080144;
-        Thu, 03 Sep 2026 00:54:40 -0700 (PDT)
-Received: from [192.168.202.12] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c25f41733b2sm60942866b.17.2026.09.03.00.54.36
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 03 Sep 2026 00:54:39 -0700 (PDT)
-Message-ID: <fe6dfaf1-521b-4818-890c-1bb1c413ee44@oss.qualcomm.com>
-Date: Thu, 3 Sep 2026 09:54:36 +0200
+	s=arc-20240116; t=1788422097; c=relaxed/simple;
+	bh=hxhngAuDx8GSokc6rP4LurdJaNYN0GNhcknj23j6Gkw=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=n7vi8/BrOTSDq1liTKeL165xjYsWftA1gPojDkcA7W7CuAAJ6e4Fo+837WiDpW4dHPvqJPwYPmOQilarnA2KLZe7Nw0JqxgVwNbzLNT0wZ6szbZk7gcSI88dmSXrS/Qlmy4fAuo17kjT+HTfbt3PIoRmUar7kEMXdQNSI95+DCs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: b9637e76a76c11f19a56ed5b684f684d-20260903
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:6d97758a-eaf8-4add-97d3-c86c06cb0074,IP:0,U
+	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
+	release,TS:0
+X-CID-META: VersionHash:7db8b62,CLOUDID:92a878cece5ccbfd7dbe8a35f3c3a7ba,BulkI
+	D:nil,BulkQuantity:0,SF:102|136|850|865|898,TC:nil,Content:0|15|50,EDM:-3|
+	-100,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:
+	0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: b9637e76a76c11f19a56ed5b684f684d-20260903
+X-User: zenghongling@kylinos.cn
+Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
+	(envelope-from <zenghongling@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+	with ESMTP id 841964489; Thu, 03 Sep 2026 15:54:43 +0800
+From: Hongling Zeng <zenghongling@kylinos.cn>
+To: linkinjeon@kernel.org,
+	hyc.lee@gmail.com
+Cc: ntfs@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	zhongling0719@126.com,
+	Hongling Zeng <zenghongling@kylinos.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH v2 1/3] ntfs: fix volume flag update races
+Date: Thu,  3 Sep 2026 15:54:36 +0800
+Message-Id: <20260903075438.306793-1-zenghongling@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 00/12] Enable USB3 for Qualcomm IPQ5018
-To: george.moussalem@outlook.com, Vinod Koul <vkoul@kernel.org>,
-        Neil Armstrong <neil.armstrong@linaro.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        Praveenkumar I <praveenkumar.i@oss.qualcomm.com>,
-        Philipp Zabel <p.zabel@pengutronix.de>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-        Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>,
-        Nitheesh Sekar <quic_nsekar@quicinc.com>,
-        Wesley Cheng <quic_wcheng@quicinc.com>,
-        Manivannan Sadhasivam <mani@kernel.org>,
-        Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>
-Cc: linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-usb@vger.kernel.org,
-        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-References: <20260825-ipq5018-usb3-v3-0-39be0955a6aa@outlook.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260825-ipq5018-usb3-v3-0-39be0955a6aa@outlook.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=H4/rBeYi c=1 sm=1 tr=0 ts=6a9927c6 cx=c_pps
- a=HLyN3IcIa5EE8TELMZ618Q==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
- a=cwIZyh-EchK-Zb-g6cYA:9 a=QEXdDO2ut3YA:10 a=bTQJ7kPSJx9SKPbeHEYW:22
-X-Proofpoint-GUID: AMP-aiYaUEAAc1kaFBKKsqNlU5lzWgT1
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAzMDA2OSBTYWx0ZWRfX66q79UMZMiRJ
- J1dkOKYJEL5sWRcqhHPYmHjqIPP7QSvGeL08DXhq80wC4Zej9praa3kNacObbKgSSzExDXvgjMn
- xqnt5Nocv2fz9Tl8PKrcSRBs0JJrkD8UN7yZGsUXnGH+f7fc/q4dQYYZPlqw7iD1oBetf+XloSa
- ooB5MKx6SRakUnplQ2yEarqlRWTe373Jsi32WbxXfmOlYc86lNLm8Uh8XOEWGfOKpwUy+D33LMX
- 9lE3hDI09+BMdVxQEWpjFrpcejKybKHC1aMmuuMNVBRc1zIogm7gl6Q+ozbPKco+FSnZbvC8L0+
- nq4KV6STovWqYDaXK1+UTaWW8LRkeMDhN+JF0n90dnRY5z1WojKDH+vCiRkoPlRnU+RiD0bkK7x
- xunQkH2TyHQ+fzIgi7XjGHwCxp47HaqHBrNunnDT+TeQPzAHaasf60XsVkjkl9jk+tWumJonSu3
- 14buzy3OGxl20z/tXqQ==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAzMDA2OSBTYWx0ZWRfX8oW7rEio/30j
- UySlU+kwB0AlPFkHaSAd01nkNrvYSn9GrVyZPL1rdF0APxLDBeAJx2AVaiJ9RSh5Z9Bfsy2K+U7
- re9TvxMvVPNi4nAsJYgh6eNOztMKXs4=
-X-Proofpoint-ORIG-GUID: AMP-aiYaUEAAc1kaFBKKsqNlU5lzWgT1
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-03_02,2026-09-02_04,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 priorityscore=1501 adultscore=0 bulkscore=0 clxscore=1015
- malwarescore=0 spamscore=0 phishscore=0 impostorscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609030069
+Content-Transfer-Encoding: 8bit
 
-On 8/25/26 2:37 PM, George Moussalem via B4 Relay wrote:
-> Patch series adds Qualcomm 22ull Super-Speed USB UNIPHY driver support
-> present in Qualcomm IPQ5018 and IPQ5332 SoC which is required to enable
-> USB3. This PHY is interfaced with SNPS DWC3 USB and SNPS DWC PCIe.
-> Either one of the interface can use it via the mux selection present in
-> the TCSR register. Current patch series adds the support for UNIPHY with
-> DWC3 USB.
+ntfs_set_volume_flags() and ntfs_clear_volume_flags() both read
+vol->vol_flags outside any lock to compute the new value before handing
+it to ntfs_write_volume_flags(), which only takes ni->mrec_lock around
+the actual write. The read-modify-write is therefore not atomic, and two
+concurrent callers can lose an update: ntfs_sync_fs() may derive a
+"clean" value from vol->vol_flags while a writer concurrently records an
+error and sets VOLUME_IS_DIRTY; the locked write then silently
+overwrites the freshly-set dirty bit. The on-disk volume looks clean
+despite the recorded errors, so chkdsk will not run on the next mount
+and corrupted metadata can persist.
 
-I tried to get to the bottom of it:
+Fix by moving the read-modify-write inside the mrec_lock: pass the bits
+to set and to clear separately, and combine them with the current flag
+state under the lock inside ntfs_write_volume_flags(). The set/clear
+helpers pass only the bits to modify, not the complete flag state. The
+bit manipulation is done on CPU-endian values, and the result is
+converted back to little-endian before storing it. The wrappers keep
+their signatures so callers are unchanged.
 
-0x5d_000 -> usb3+pcie (muxable?)
-0x7e_000 -> usb3+pcie (not muxable?) / for PCIe1
-0x86_000 -> pciex2 / for PCIe0
+Cc: stable@vger.kernel.org
+Signed-off-by: Hongling Zeng <zenghongling@kylinos.cn>
+---
+- Also fix the ntfs_sync_fs() race by checking NVolErrors() and clearing
+  VOLUME_IS_DIRTY under ni->mrec_lock.
+- Keep ntfs_set_volume_flags() and ntfs_clear_volume_flags() semantics
+  unchanged.
+- Do not tie setting VOLUME_IS_DIRTY to NVolSetErrors() in the generic
+  set helper.
+---
+ fs/ntfs/super.c | 62 +++++++++++++++++++++++++++++++++++--------------
+ 1 file changed, 45 insertions(+), 17 deletions(-)
 
-_however_ there are only 2 PCIe hosts and 1 USB host.. 
+diff --git a/fs/ntfs/super.c b/fs/ntfs/super.c
+index a1813093222b..a7977b95b967 100644
+--- a/fs/ntfs/super.c
++++ b/fs/ntfs/super.c
+@@ -353,31 +353,45 @@ void ntfs_handle_error(struct super_block *sb)
+ }
+ 
+ /*
+- * ntfs_write_volume_flags - write new flags to the volume information flags
++ * ntfs_write_volume_flags - apply flag changes to the volume information flags
+  * @vol:	ntfs volume on which to modify the flags
+- * @flags:	new flags value for the volume information flags
++ * @set_bits:	bits to set in the volume information flags
++ * @clear_bits:	bits to clear in the volume information flags
+  *
+  * Internal function.  You probably want to use ntfs_{set,clear}_volume_flags()
+  * instead (see below).
+  *
+- * Replace the volume information flags on the volume @vol with the value
+- * supplied in @flags.  Note, this overwrites the volume information flags, so
+- * make sure to combine the flags you want to modify with the old flags and use
+- * the result when calling ntfs_write_volume_flags().
++ * Combine @set_bits and @clear_bits with the current in-memory flag state and
++ * write the result back.  The set/clear helpers pass only the bits to modify,
++ * not the complete flag state.  The read-modify-write happens under
++ * ni->mrec_lock so that concurrent set/clear operations cannot lose updates.
++ * All bit manipulation is done on CPU-endian values, and the result is
++ * converted back to little-endian before storing it.
+  *
+  * Return 0 on success and -errno on error.
+  */
+-static int ntfs_write_volume_flags(struct ntfs_volume *vol, const __le16 flags)
++static int ntfs_write_volume_flags(struct ntfs_volume *vol,
++		const __le16 set_bits, const __le16 clear_bits,
++		const bool skip_if_errors)
+ {
+ 	struct ntfs_inode *ni = NTFS_I(vol->vol_ino);
+ 	struct volume_information *vi;
+ 	struct ntfs_attr_search_ctx *ctx;
++	u16 flags;
+ 	int err;
+ 
+-	ntfs_debug("Entering, old flags = 0x%x, new flags = 0x%x.",
+-			le16_to_cpu(vol->vol_flags), le16_to_cpu(flags));
+ 	mutex_lock(&ni->mrec_lock);
+-	if (vol->vol_flags == flags)
++
++	if (skip_if_errors && NVolErrors(vol))
++		goto done;
++
++	flags = le16_to_cpu(vol->vol_flags);
++	flags |= le16_to_cpu(set_bits) & le16_to_cpu(VOLUME_FLAGS_MASK);
++	flags &= ~(le16_to_cpu(clear_bits) & le16_to_cpu(VOLUME_FLAGS_MASK));
++	ntfs_debug("Entering, old flags = 0x%x, new flags = 0x%x.",
++			le16_to_cpu(vol->vol_flags), flags);
++
++	if (le16_to_cpu(vol->vol_flags) == flags)
+ 		goto done;
+ 
+ 	ctx = ntfs_attr_get_search_ctx(ni, NULL);
+@@ -393,7 +407,7 @@ static int ntfs_write_volume_flags(struct ntfs_volume *vol, const __le16 flags)
+ 
+ 	vi = (struct volume_information *)((u8 *)ctx->attr +
+ 			le16_to_cpu(ctx->attr->data.resident.value_offset));
+-	vol->vol_flags = vi->flags = flags;
++	vol->vol_flags = vi->flags = cpu_to_le16(flags);
+ 	mark_mft_record_dirty(ctx->ntfs_ino);
+ 	ntfs_attr_put_search_ctx(ctx);
+ done:
+@@ -414,13 +428,14 @@ static int ntfs_write_volume_flags(struct ntfs_volume *vol, const __le16 flags)
+  * @flags:	flags to set on the volume
+  *
+  * Set the bits in @flags in the volume information flags on the volume @vol.
++ * The bits are combined with the current flag state under the lock in
++ * ntfs_write_volume_flags(), so concurrent updates are not lost.
+  *
+  * Return 0 on success and -errno on error.
+  */
+ int ntfs_set_volume_flags(struct ntfs_volume *vol, __le16 flags)
+ {
+-	flags &= VOLUME_FLAGS_MASK;
+-	return ntfs_write_volume_flags(vol, vol->vol_flags | flags);
++	return ntfs_write_volume_flags(vol, flags, 0, false);
+ }
+ 
+ /*
+@@ -429,14 +444,27 @@ int ntfs_set_volume_flags(struct ntfs_volume *vol, __le16 flags)
+  * @flags:	flags to clear on the volume
+  *
+  * Clear the bits in @flags in the volume information flags on the volume @vol.
++ * The bits are combined with the current flag state under the lock in
++ * ntfs_write_volume_flags(), so concurrent updates are not lost.
+  *
+  * Return 0 on success and -errno on error.
+  */
+ int ntfs_clear_volume_flags(struct ntfs_volume *vol, __le16 flags)
+ {
+-	flags &= VOLUME_FLAGS_MASK;
+-	flags = vol->vol_flags & cpu_to_le16(~le16_to_cpu(flags));
+-	return ntfs_write_volume_flags(vol, flags);
++	return ntfs_write_volume_flags(vol, 0, flags, false);
++}
++
++/*
++ * ntfs_clear_volume_dirty_if_no_errors - clear dirty bit if no errors exist
++ * @vol:	ntfs volume whose dirty bit should be cleared
++ *
++ * Check NVolErrors() and clear VOLUME_IS_DIRTY under the same mrec_lock so
++ * ntfs_sync_fs() cannot clear the dirty bit after a concurrent error has been
++ * recorded.
++ */
++static int ntfs_clear_volume_dirty_if_no_errors(struct ntfs_volume *vol)
++{
++	return ntfs_write_volume_flags(vol, 0, VOLUME_IS_DIRTY, true);
+ }
+ 
+ int ntfs_write_volume_label(struct ntfs_volume *vol, char *label)
+@@ -1862,7 +1890,7 @@ static int ntfs_sync_fs(struct super_block *sb, int wait)
+ 		return 0;
+ 
+ 	/* If there are some dirty buffers in the bdev inode */
+-	if (ntfs_clear_volume_flags(vol, VOLUME_IS_DIRTY)) {
++	if (ntfs_clear_volume_dirty_if_no_errors(vol)) {
+ 		ntfs_warning(sb, "Failed to clear dirty bit in volume information flags.  Run chkdsk.");
+ 		err = -EIO;
+ 	}
+-- 
+2.25.1
 
-Unfortunately the router SoC docs are very limited for me.. maybe
-+Kathiravan can help.. 
-
-Konrad
