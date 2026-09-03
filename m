@@ -1,157 +1,137 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 45A704E379B
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 16:17:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788452262; cv=none; b=kbwYOjJ8hzgj0JDcYYkDIInvMSOC01HIMhb/9JnI7zuBn9dHFddwePRs1453UhHUPTX9knXOEcPOy1qhGeQnNT6DKNXka5Qs9o3K86H7200B9O5RyzEucsKRN5Pbd/TZp7dwPlINlW1SgRu93Lxs8uiqZYl1+9VqEQwdOHgKysA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788452262; c=relaxed/simple;
-	bh=IGCjKrKbxdeYpXYZSvcnw7WtqBMc/XxE/M/sNq1isXU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=bVg2mk7odNazLev0Xgc2HT3BjCUzKHJMZWPcm439KaY7yv7wYXnj9SKR8Vz8ZIJ2IFl0ftHqQlNCKwJwXZf1BFnOiP4Po2uch8Io6LYlwfG2XGnmVQ4f7ThzeaFI+1vmLSKA4wYKrEet3r/NUa74Wa5C71Dn/8lktAApKP9Puvs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=WQPzl4p+; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CACED4DC550
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 16:17:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.221.53
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788452277; cv=pass; b=NUBMRY0v+Fr6L+A77bZmwxcm0JqoDduOdNUjNY+m+OuErKBQ8EPM/t1jF02msq5lFq0/mTNm0HIwtQCvTpBFqS+jJQLEVLVht2Hs15GOxXfDkKSAA9zmaaSrrIfcPmetnnaDzwbbLZH4ODsoD3pp3PIcnwknjuK4Di5B4Vc4oAE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788452277; c=relaxed/simple;
+	bh=I2Ev0IXa8GGGWJ2nSFpo3xbbr0CICv2DhUn3e/W1AwU=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=edEaD2c25mCAaz/9r0Cy220XgcVFzjQfVFlYxDELeN/5XqayE69UgmRUn6WUQT5sBVu2UE16FMV7cAqfr3BuLiYpSoqakxUzwWJOpYQUSUgnxu6gsBVJdFKI1Z6OgSXUAAmr6CWf71r0TQH3+yh2yIjmTpir7eIXTsaq/C/tAqw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=vjgl+rth; arc=pass smtp.client-ip=209.85.221.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="WQPzl4p+"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id BCDBD1596;
-	Thu,  3 Sep 2026 09:17:36 -0700 (PDT)
-Received: from [10.163.139.221] (unknown [10.163.139.221])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id BE5C93F673;
-	Thu,  3 Sep 2026 09:17:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1788452260; bh=IGCjKrKbxdeYpXYZSvcnw7WtqBMc/XxE/M/sNq1isXU=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=WQPzl4p+HAJJT3jsTl/2zRjvDVPFttOla1UX2/d2fnrmHSi/X9XHK6EUHX86G52sl
-	 aFC0pXXEixydbGJmrY7+FmHm2AJEi6SywD11/HP5SrdlLNCzmEuNeuiY+f242VepQL
-	 LXKrXyZOLn3ldtBr3xwOJPf52LEwEBXJ/ZMDjR0s=
-Message-ID: <925c45d9-91dc-406a-9ff5-8c16f3ee0d9f@arm.com>
-Date: Thu, 3 Sep 2026 21:47:34 +0530
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="vjgl+rth"
+Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-47fe89fb333so30585f8f.3
+        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 09:17:55 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788452274; cv=none;
+        d=google.com; s=arc-20260327;
+        b=C6VLj05itQopmO6u21nfkZBUYm6kGDCcrLdoxILISc56IFm6AXc0fwEcfFpCls0nIp
+         EqS0YXh0tq9f/UJ/zMcvMhcNQHJ3dW6EXHDMs/1SwS1FAVFVWBnScLY2hf5FPK5BzBXE
+         EJMjwgvO9FXgOMC2dDDR+ojEkzmu5NB7x5OzsVmW/6MNzr0/xxDZENS8hJZUhw+psESQ
+         YU86q9jaOpt0v8ZbW6W5HZt6JyWd+UiyW10hwqP7KcvlKNLiupOpTYyW5mt36KX88rmo
+         4ywdeihNuDwQyoJ5oJKwHRHPz3xXUN4f/SvXTFxzJS4436zGQRj6fQmvMlglzJ6KRsj1
+         LFig==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=I2Ev0IXa8GGGWJ2nSFpo3xbbr0CICv2DhUn3e/W1AwU=;
+        fh=bjqAOjHzVyscGrlbDdP7Xr+vnIXJPUc1Y3aNnRLzLYY=;
+        b=a4Ge+/iVs/jI2h+4VHS3CX2Jqa59xUh+908TP/UOxIMRaOFQfv/OxUCnv+RIJBWRXe
+         hv1KehP/tf/jU9/hIbfr+vlpDfYJsNVY4KZXG6XZQhCd/Na0Edoh/MOcZeHqw+vNij4k
+         6oe6bRtQ1mVZFZQJQ9vrZcKfg+ABp5owZoFJ3e4MtlnwpHawACAiC1C7eFvtasTgjPVM
+         8146g6NwCg2Zig0SVbAh0Llz8UK+Dl1OzGPHzZ+fiLSLBa+F5DmQuxhVgbjDdD+FD2qv
+         JcW1X+EBk+MSRZtEl2S63UaEXN+Ntn1xALof36T+jtq+nrS+5vm8Y0Ewa0eG/Tu5Uks7
+         uC6w==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1788452274; x=1789057074; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=I2Ev0IXa8GGGWJ2nSFpo3xbbr0CICv2DhUn3e/W1AwU=;
+        b=vjgl+rthtCNMfENALqjrxXnweESYzhy0+pKg4BgC8cT8O3HNjA/l0XCrEE1gtVaaq1
+         3SsvXCsOO5aKwRtTPX4sM27LWNV7havTPRt/K4VM1YeEfQI4EwANX8sv6Bmwtr3vgblr
+         gIKdu06e8j7VU9pk/lBecFIw4WkwLYAGRrgZ7LMPUWE8p8oXZcPeEV0T9lCfsQQ2ZwcQ
+         u+6OYxwfTV/6EjHLADts2xiTfeGI8ZBQmMRS3zH+CB/O4GsG4R8ZKVPofoEFL7hfcteZ
+         Y+0ta0jC6GY+Zea8mRcaoztvNv5QoQtZCyPCN1eqRbLiQ36Q6fblQ0J75kXKlN6SBkFm
+         2pjA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788452274; x=1789057074;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=I2Ev0IXa8GGGWJ2nSFpo3xbbr0CICv2DhUn3e/W1AwU=;
+        b=LQArlY4MCg29PRF3gYOFvIM+2YQuWMRIuund1HWJ0uD96qJ3bH2usJJVH7zrfD7Rzd
+         B2KEOiYwOTEBc7mbAkP3DxCmZhIpkDzM5YivSXfE2Fr+kZgzLx9XhR9alHOWQXH7CW/d
+         q93lA6cV5IvP5dBEnwTCbr7AnrCSCO9w7IvsuHhtOR601+99pFIIPs5cGcC5rT028L6N
+         mH/LMpXqvGxXwUN7ppa91oA2mNPPEvBv+ppmPvqDhpeORGBQ13CpadRjC+sNQORwTPKG
+         1Ji+Y8ju3wVcLun4sfaPrFmwpvo15LxmAoAXDCTGA7PJes42eu6pYsI62WLpVgcEariT
+         9NDA==
+X-Forwarded-Encrypted: i=1; AKwUvBz2LYiaijgF7gkbWCo5ADiW6CBeItuOD+ec9yEYtXY6GCb2VLMqhCK6MG9ijE4CtvitoqINAU2KimQepL0=@vger.kernel.org
+X-Gm-Message-State: AFuF++lJGOnhe/CY5ZwlfuzbWv5TGm4QLYraYMJyYAxtN0bNqeBbmfXX
+	fWC4DCZj/mOmX6OUk65FyWj8XGVzKHmEfkPRzFwt8bY1FG8ETYXDmgYN1uvAvtTqYTA28Qb0Wv5
+	EDxv1ebcVY9aaI2Bn+rws/6JgXLUGRnFq2vSDr98f
+X-Gm-Gg: AYBFou0hV6h0S9jYs39r61dr4qraPKW+ma189KIFCowXD8xs7e3TBCXQojdwoj29+Ac
+	zRxGSc7bmLxi7OoCYK144agRlO17InM1MGIocNIMzxBAm9vgknficWqHuzQpjLhtYJbKTzA2BDE
+	ig2YDFl9yWhG2TmmJvDS+PldnNaj57oeqTXnwgtxrRbUZv4fLX+zxd8IqhAnFpEkIhbvltY6DpT
+	qq2YIINfb6XziKFmOlr0BjqQxEwLqN/hBuEGdvGWvRtb47ooCYXtsCoqRvtSFyTGx8DWOJnyonW
+	/cZ94piAXxBZX95BeOZLtliq8HyRigkGqPBMaGtL8ZndpSjCAFpu3qNJUFkIcXxqivOFrl+okAq
+	7P6E6iD1ut8JV/Ggs9x+Af1Z4D3mK8ZKHROEhDHR7/YlbrEeaHwK1dJw=
+X-Received: by 2002:a05:6000:25e1:b0:482:f270:65c5 with SMTP id
+ ffacd0b85a97d-4858708dcdamr364644f8f.9.1788452272960; Thu, 03 Sep 2026
+ 09:17:52 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] memblock: use binary search to locate candidate regions
-To: Tarun Sahu <tarunsahu@google.com>, dmatlack@google.com,
- Pasha Tatashin <pasha.tatashin@soleen.com>, Mike Rapoport <rppt@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>,
- Pratyush Yadav <pratyush@kernel.org>
-Cc: linux-kernel@vger.kernel.org, kexec@lists.infradead.org,
- linux-mm@kvack.org
-References: <20260903155907.1065681-1-tarunsahu@google.com>
-Content-Language: en-US
-From: Dev Jain <dev.jain@arm.com>
-In-Reply-To: <20260903155907.1065681-1-tarunsahu@google.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20260902-checkstack_llvm_objdump-v1-1-edb4eca5f163@google.com> <20260902175154.14870f981733146727c67c20@linux-foundation.org>
+In-Reply-To: <20260902175154.14870f981733146727c67c20@linux-foundation.org>
+From: Nick Desaulniers <ndesaulniers@google.com>
+Date: Thu, 3 Sep 2026 09:17:41 -0700
+X-Gm-Features: AcwNN1X6P51z_SmCYkBPOVdoAklFk1QzWRkytYd-vXw09T7vR9Dr79krTAbesqQ
+Message-ID: <CAKwvOdneQYJ+sHj1jFUJfV6oLty55e5p9x-VoAKz_oehschdfA@mail.gmail.com>
+Subject: Re: [PATCH] scripts/checkstack.pl: support llvm-objdump disassembly
+ for x86
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: Nathan Chancellor <nathan@kernel.org>, Bill Wendling <morbo@google.com>, 
+	Justin Stitt <justinstitt@google.com>, linux-kernel@vger.kernel.org, llvm@lists.linux.dev
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+On Wed, Sep 2, 2026 at 5:51=E2=80=AFPM Andrew Morton <akpm@linux-foundation=
+.org> wrote:
+>
+> On Wed, 02 Sep 2026 14:01:53 -0700 Nick Desaulniers <ndesaulniers@google.=
+com> wrote:
+>
+> > When running `make LLVM=3D1 checkstack`, OBJDUMP is set to llvm-objdump=
+.
+> > llvm-objdump outputs disassembly with instruction size suffixes (such a=
+s
+> > subq/addq/subl/addl), tabs/whitespace differences, spaces after commas,
+> > and trailing comments (e.g. `# imm =3D 0x...`).
+> >
+> > Because scripts/checkstack.pl used rigid regular expressions specifical=
+ly
+> > tuned to GNU objdump format (e.g. requiring exactly four spaces, no
+> > suffix, and no space after comma), checkstack.pl failed to match any
+> > stack adjustment instructions and yielded no output when using
+> > llvm-objdump on x86.
+> >
+> > Update the regular expressions for x86 to match optional suffixes,
+> > variable whitespace, and trailing comments.
+>
+> OK, so checkstack is broken with LLVM.
+>
+> Users of checkstack/LLVM in earlier kernels won't like that, so
+> should we backport this with cc:stable?
+>
 
+/me looks around
 
-On 03/09/26 9:29 pm, Tarun Sahu wrote:
-> Use binary search (memblock_bsearch_start) in memblock_add_range() and
-> memblock_isolate_range() to locate candidate regions instead of linearly
-> scanning from index 0.
-> 
-> Under heavy memory fragmentation (such as KHO page preservation registering
-> hundreds of thousands of disjoint folios), scanning from index 0 on every
-> insertion and isolation results in O(N^2) complexity, causing boot-time
-> memory retrieval to take several minutes (~268s for 393k pages).
-> 
-> Using binary search reduces the worst-case complexity to O(N log N)
-> (and O(N) for sequential appends), cutting KHO memory retrieval time
-> from ~268s to ~50ms.
-> 
-> Signed-off-by: Tarun Sahu <tarunsahu@google.com>
-> ---
+yeah, all...one of us!
 
-I recall noticing this 2 years ago : ) but then abandoned because
-I couldn't think of a usecase.
+I'm kidding, thanks for picking up the patch.
 
-I have forgotten memblock and no idea on KHO, but are you sure
-this patch won't have negative consequence for the usual cases?
-In other words is this something KHO specific, and in the usual
-cases a linear search is more cache/CPU friendly?
-
-Also below I see you have implemented a custom binary search helper.
-I recall a generic one is there in some .h file somewhere in the
-codebase, perhaps that may be useful, just FYI, ignore if already
-tried that.
-
->  mm/memblock.c | 38 ++++++++++++++++++++++++++++++++++++--
->  1 file changed, 36 insertions(+), 2 deletions(-)
-> 
-> diff --git a/mm/memblock.c b/mm/memblock.c
-> index 9ce86349a29f..88940474b020 100644
-> --- a/mm/memblock.c
-> +++ b/mm/memblock.c
-> @@ -160,6 +160,11 @@ static __refdata struct memblock_type *memblock_memory = &memblock.memory;
->  	     i < memblock_type->cnt;					\
->  	     i++, rgn = &memblock_type->regions[i])
->  
-> +#define for_each_memblock_type_from(i, memblock_type, rgn, start)	\
-> +	for (i = (start), rgn = &memblock_type->regions[i];		\
-> +	     i < memblock_type->cnt;					\
-> +	     i++, rgn = &memblock_type->regions[i])
-> +
->  #define memblock_dbg(fmt, ...)						\
->  	do {								\
->  		if (memblock_debug)					\
-> @@ -591,6 +596,33 @@ static void __init_memblock memblock_insert_region(struct memblock_type *type,
->  	type->total_size += size;
->  }
->  
-> +/**
-> + * memblock_bsearch_start - Find the first region index where rend > base
-> + * @type: memblock type to search
-> + * @base: base physical address of the candidate range
-> + *
-> + * Returns the first region index that could potentially overlap @base.
-> + */
-> +static int __init_memblock memblock_bsearch_start(struct memblock_type *type,
-> +						  phys_addr_t base)
-> +{
-> +	int mid, low = 0;
-> +	int high = type->cnt;
-> +
-> +	if (type->cnt && base >= type->regions[type->cnt - 1].base +
-> +				 type->regions[type->cnt - 1].size)
-> +		return type->cnt;
-> +
-> +	while (low < high) {
-> +		mid = (low + high) / 2;
-> +		if (type->regions[mid].base + type->regions[mid].size <= base)
-> +			low = mid + 1;
-> +		else
-> +			high = mid;
-> +	}
-> +	return low;
-> +}
-> +
->  /**
->   * memblock_add_range - add new memblock region
->   * @type: memblock type to add new region into
-> @@ -651,7 +683,8 @@ static int __init_memblock memblock_add_range(struct memblock_type *type,
->  	base = obase;
->  	nr_new = 0;
->  
-> -	for_each_memblock_type(idx, type, rgn) {
-> +	for_each_memblock_type_from(idx, type, rgn,
-> +				    memblock_bsearch_start(type, base)) {
->  		phys_addr_t rbase = rgn->base;
->  		phys_addr_t rend = rbase + rgn->size;
->  
-> @@ -827,7 +860,8 @@ static int __init_memblock memblock_isolate_range(struct memblock_type *type,
->  		if (memblock_double_array(type, base, size) < 0)
->  			return -ENOMEM;
->  
-> -	for_each_memblock_type(idx, type, rgn) {
-> +	for_each_memblock_type_from(idx, type, rgn,
-> +				    memblock_bsearch_start(type, base)) {
->  		phys_addr_t rbase = rgn->base;
->  		phys_addr_t rend = rbase + rgn->size;
->  
-
+--=20
+Thanks,
+~Nick Desaulniers
