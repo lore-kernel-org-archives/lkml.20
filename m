@@ -1,156 +1,240 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-00128a01.pphosted.com (mx0a-00128a01.pphosted.com [148.163.135.77])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D76794A1DF7
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 12:39:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788439170; cv=none; b=SkzNSKSdjYxImZrkYlXNdueknO0DITxRB3D0vZzJjs7UQ5YFx6R0klNv4evtmFQmHQarVaHPfaZXoHa9UKuHYpchaZMksuVuhzrtLM23HqhBwRwZJhLNAQFwD0gp+jNzZBwyJdJFlrI+Lago/hUni5sN6iHvr+yhj1/RCCDvGOo=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788439170; c=relaxed/simple;
-	bh=y3sEyJ9cEnffrNDW84pQaeftTV0gUQIfo8/BTHG9Hnw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=LsYlgMTTTz8N33+hbhAQLTAOpPU9H4PLsT75Rc6KaN91kI59iHZ+zH9Yu+hLo7U7RqWlBW141oYQGciRiFWyVmys8dBaOAW1AdJUi5FvN+T5BtY5bgt8WFlifnHFtNOLafctodqjdHSawCJUAhyviL8SlUKoSfISdREliqqqmrk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Inoo8fUP; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45B6D49EC75
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 12:39:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.135.77
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788439182; cv=fail; b=DoBp94tDTGiA/Rn534SshVUYlyF8FlR6wWBMeyEvkqZ89LyC2uI9GpbGfBOxjyB0vEc4lDmSIOl1u6WoWv4r3gXihaKOJk41jBI4Dx67ISVVxJhAcBUZxCXE/8L7qlE2wg2fz2nFxItgtlqHUbV5v4JRjdpR9LhJETm3FGUUueQ=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788439182; c=relaxed/simple;
+	bh=V6hSFxtC55a1FDUkjDAsbgVx0cKIhEry5YqSDk42Wt4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=df1L+MLxVLVnB7woHbk119miJubWW70jk0/g7x0N98CwyweGxUyAzAxtFgzexoeG3pazrpVXbp82DPLwvsW0fqw4LTnsCr4syarRL2Zwn2ctQ7lxflNgOt7Ezw1M7oGrKaITA1aUwYgvMAmpc2gLXLyJCAALsL5UishTeQOrYbg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com; spf=pass smtp.mailfrom=analog.com; dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b=fcy9dlNI; arc=fail smtp.client-ip=148.163.135.77
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=analog.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Inoo8fUP"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C05C51F00A3A;
-	Thu,  3 Sep 2026 12:39:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788439168;
-	bh=9ryI59nFheCyodltaNYiaFw2/xCwHS5lRcpCtYO6UO8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Inoo8fUPGSNJErxjcu2YCMxci49DLzOd5zaOA4Vbj0yx43UjFdql/ieUY8GuVL5VR
-	 UYBNyKpbpS+1IQjpAPSKab2ElCpMF+xXLZuvq1USTjFRLmfzYn9dVFTMmKOicqCmvv
-	 wLofrQxS3HJh27LqOGEqJCd3TqPGazfJfh/6xsTy1xzUw3VM8wGxjhp1y8hEsNicTk
-	 7uZCZa0CnfhWVb+Q/a9v1X21NoaQjTBEGCg5yOFr3ddY2AK5OUHc0ypyt6rvPDouao
-	 scyo46aH+/bgUPEqhMj1m9k7vlezKCy1TO+isK9/RFIn8qrVgxkmFX3J040v8mkxDX
-	 8J53zeGgvxvkg==
-Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
-	by mailfauth.ams.internal (Postfix) with ESMTP id 8B196198003A;
-	Thu,  3 Sep 2026 08:39:24 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-05.internal (MEProxy); Thu, 03 Sep 2026 08:39:26 -0400
-X-ME-Sender: <xms:fGqZauPqkognvLO22ue7MYKMtaaL06W0DJXtdhbCF1OGIlfm9ocDxg>
-    <xme:fGqZakjEa9-8LgEmHQN0uURotx45Ldev0j-KRJ4fOWn9ZABkC6P9qNlMYvuTgnYhy
-    Y6ZrbycAL7K8359QtaemOuZu-Mh3FSX8y2Vgm8FAR9HTBoY4NHLnh0o>
-X-ME-Received: <xmr:fGqZak5NRnAjj-ZvDc06pxtf0rfSJb_xQO1UPA5thiNXRRe-n99fIP67zZY>
-X-ME-Proxy-Cause: dmFkZTF3zqPAAnIhb1YeMy24bRFWG3v32j09ZcqUOBuX3KYWzX7uJHPyWLP1Hj9+S4IwNa
-    PEy+WtiDNm+MM9ovDxTHTFHgV04t/PKrt0NTN2ImGOgKC4nHBzHRP+V+NxyT+08Bw87TIP
-    xDC4nnEMRVpoPDvzrvVp9/5IZQW8mgfOG0RwDIlK2TCv0z/bMQfFNMgnsMbeO0IPRHxTqE
-    iW97TQlsSv9lKHgjhUMt4Sbntwm6GwEkMRqP0CPAl7hHyI006Lnh3QbvG4Wjp+y1LpKi8x
-    rTWSl+P8HlEZ3jJJh9dvoiRgnQ3kpBf8Z3mAxfDoB8l/wr5EUjDhaN7di1qQ8wqK5RwRcg
-    Tq1uklzx6pXzETlUF0tyDjbgcjmvjl7QmUvkQjOMPzvrColSeg5ZmXqq510TJyG/7ZyPyh
-    RJCoz2aQNYCKgDtjTYbz3puc4VdUHq2W4TZ2YC+GaDCN6d0b07AwRoj0Ue/2fHA8M4hSP4
-    8KqmvyJ2odJp7N61NrgMzMvbPE76WPVOGQLYG8ARqhApN6595Owmkzn7hEhaVQct5WLi7c
-    Db27T3XWTxzdKzVCOI8Ay045x4cc2Nkri+oSRFoRA++Onlp0P7ayTUlt0ga6SCgFWxxQP8
-    6e94A5yG7KJDM3FibVG+VZjuBXbOL/O3Kx9KU+PuL/NNWqDLGGyO2vkG+OVg
-X-ME-Proxy: <xmx:fGqZardd_pIo-mypn-5cHUYN5lCsKTQy5MDZCbcxrXqDiG3q9LzCvQ>
-    <xmx:fGqZatDYhUl6DJFgIzmturDS6uUSJbhUSSP2ywuuSxMkYiNO3pMyQg>
-    <xmx:fGqZaqBuDq6kROnAhM9fG3_dWo6DCopeBGn-5mo2ukRZWLKVNu8NuA>
-    <xmx:fGqZavb1BEVb8GbuaBEXLt1WMLttuqklOmmIo-Hq3n4oDlLXCCEehQ>
-    <xmx:fGqZanwJRry7LHd7EMAiJvVYi6vDq9ESarqQgB8I0vLYmqNXbkZFQB8b>
-Feedback-ID: i10464835:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 3 Sep 2026 08:39:23 -0400 (EDT)
-Date: Thu, 3 Sep 2026 13:39:22 +0100
-From: Kiryl Shutsemau <kas@kernel.org>
-To: Sarthak Sharma <sarthak.sharma@arm.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
-	David Hildenbrand <david@kernel.org>, Jason Gunthorpe <jgg@ziepe.ca>, 
-	John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4] mm/gup_test: safely calculate GUP batch size
-Message-ID: <aplp-uM2oQtjuWnZ@thinkstation>
-References: <20260903115033.162218-1-sarthak.sharma@arm.com>
+	dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b="fcy9dlNI"
+Received: from pps.filterd (m0167089.ppops.net [127.0.0.1])
+	by mx0a-00128a01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 683AFS82851052;
+	Thu, 3 Sep 2026 08:39:25 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=analog.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=DKIM; bh=+C/8l
+	DC6LCOTk3Gwy6DIh8WoPH3szjMLYujc7yAd0GU=; b=fcy9dlNIpkBI5M/lUXvEA
+	SrEhQZUFB8I5UPpB6GtaeQxPYK/QMO+3/tWutkoMloV0FI4UeF4LoQSxV71hojsb
+	lRdse/sH/tPUZSDb6QWKBtmMTifbLIs8Qmm4EYO3Uf8Eq+6lUDeZ1kM9sWtJeH3x
+	PWpBV9HYLXlhgBr5bQ4wUjWsARnSsE6wMa4hpU8huUOeCrAiuTk3iAvwzWGASzro
+	+pN8svKqdi5/6dFdSu7OODetVHM3D5GcrgfJ1icb5TVHoosyJ1Gvzs9W/vdhJF4h
+	TtQYCXUnr47/moRk3vmsPYc7wFJQIsT0cClfoVsmvU7d+Wba7Y4UkcGWtus1JqmW
+	g==
+Received: from ch5pr02cu005.outbound.protection.outlook.com (mail-northcentralusazon11012055.outbound.protection.outlook.com [40.107.200.55])
+	by mx0a-00128a01.pphosted.com (PPS) with ESMTPS id 4gea7ufpp4-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Thu, 03 Sep 2026 08:39:25 -0400 (EDT)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=V42qEi/CbHAUzh8NlHVpzMWKM6X8ita64YuAlsBiV3E9MePf5q35GjAc4IR+JO6nrbcSaAV+sX/hE2SPB7XvkGi9VMVn9RZljrDYdKPzRVm93urKn2StHrAe2RXzkZMk0PoSqgW+dXdvhEk4rEDaTFKscPrNmrp87T3LdaO3qdfqBk4LiOI19Eh47CeYTesxto8CE1soQx6tRbF+/CdgSwgLGbIv6VoGT59eDAFlVfXbj+yzaZ73KuvoOTtQD5n1w0beVRoMzFTgNfJppALbeAphGNObQ7NRlb06DMoF4kU1RKziSXVVpTAWW9Lwhy/lcpoBsugy96c4rEZhO3kTMQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=+C/8lDC6LCOTk3Gwy6DIh8WoPH3szjMLYujc7yAd0GU=;
+ b=yKr6qhLhIXn4kb6yDVI9z0CdmjIHMrZS/Q2pKQq5LACOYQNrtsHolGLi/h9jJiSRBYLCzLqcNpPWZETy6ST3oRsgfuL1hW8v0EnmE/gsFUQWitRl5shXAwfxhcPly44bI1hM4fuPwqAs8S2zewThGLUouI2LPZ1vO7fnLi17XuK5YLO50irn+wSbz2lA7BEd/a5XkjMpUoz8dBUPHwmFOjbTmHLdAjVvNzBxc34gFQ8lVP4O0wxM7B4EP0fOUXmcV2wpMX0Yp2AW/KfgtlYjSpVRC9DAqcqX5JLxRNm31DAjnSA2AUAWc2afvX+Vmddy/+ZtRSKD8I9qMisyFJhCxQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=analog.com; dmarc=pass action=none header.from=analog.com;
+ dkim=pass header.d=analog.com; arc=none
+Received: from SJ0PR03MB5469.namprd03.prod.outlook.com (2603:10b6:a03:28a::17)
+ by SJ2PR03MB7476.namprd03.prod.outlook.com (2603:10b6:a03:55d::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Thu, 3 Sep
+ 2026 12:39:18 +0000
+Received: from SJ0PR03MB5469.namprd03.prod.outlook.com
+ ([fe80::2a19:76b2:e731:8c5a]) by SJ0PR03MB5469.namprd03.prod.outlook.com
+ ([fe80::2a19:76b2:e731:8c5a%6]) with mapi id 15.21.0360.008; Thu, 3 Sep 2026
+ 12:39:18 +0000
+Date: Thu, 3 Sep 2026 13:40:22 +0100
+From: Nuno =?utf-8?B?U8Oh?= <nuno.sa@analog.com>
+To: Miquel Raynal <miquel.raynal@bootlin.com>
+Cc: linux-mtd@lists.infradead.org, linux-kernel@vger.kernel.org,
+        Richard Weinberger <richard@nod.at>,
+        Vignesh Raghavendra <vigneshr@ti.com>
+Subject: Re: [PATCH] mtd: spinand: winbond: Add support for W25N08LW
+Message-ID: <aplqm-84OXtDF4oV@nsa>
+References: <20260831-mtd-nand-new-chip-support-v1-1-dca9f63ac0f9@analog.com>
+ <87h5k64pa8.fsf@bootlin.com>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <87h5k64pa8.fsf@bootlin.com>
+X-ClientProxiedBy: MR1P264CA0159.FRAP264.PROD.OUTLOOK.COM
+ (2603:10a6:501:54::19) To SJ0PR03MB5469.namprd03.prod.outlook.com
+ (2603:10b6:a03:28a::17)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260903115033.162218-1-sarthak.sharma@arm.com>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ0PR03MB5469:EE_|SJ2PR03MB7476:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0181fbe5-df0e-4c6d-eea5-08df09b85eaa
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|366016|23010399003|376014|18002099003|22082099003|56012099006|10067099003|6133799003|4143699003|11063799006;
+X-Microsoft-Antispam-Message-Info:
+	EgD0uUraQ9ZexGuRXV27vwKlRloFo4przkHXS80nYyzMaVFCmI7Bwq47jEC5UnRlRjEJhT5CH2BV7u2qD+2JYPmjeodSlxQOgo8WkonP/1umWTyYMPd5NSqq8weqpb13PrnfENyzYyj7HNlCQBg3L1gXwI307G6DHcw98VFyfnmZQMDDteFkR7qnU3R271w/DMLfzN/B1TtvUGJKlY2CeYwGY7gR7yWHiYctsNTv6XMPY1JA/ZUk9nY71A+l3yqH4y3RzjJycI89fmKwEGLsgVA/nVHiFrhk/G6whLgFT7u2/HoI6TjpQWJC6LIPtY8AsTN5MwB+09i5kwNFGG6cTYyD0OVOn6OFtaCoUdPfgyK7JTDFhLTvpUxvNfB0egpIczg1sUjVzdZTqYsnB4+e0e5Sy+bcERCITxqgkTSE+4tNb5lmtpjSSel52lpoDz0j9brKGLzuoBjdHITW6tFpb8IUbldvqDCT4ntFoyXEAGDtgFxBjwhtyOnTDGkrbKvj8Rp7pUowSGF1BeuqYr+cV0XfEZX+PI1OnzWZBD1/Qpa03CBEuPqYTEhkBvy/ve81iVkoQwDnJQI0VL8rrhmkbnlOuXU7beni3PHkrIMg0Uo=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ0PR03MB5469.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(23010399003)(376014)(18002099003)(22082099003)(56012099006)(10067099003)(6133799003)(4143699003)(11063799006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?ZkUrZDVOZDJCeHhxeDlYOWUyYWVSK1dPNkdkWVNzVW1DRnV3TDE2MWJwWFdy?=
+ =?utf-8?B?WkI1bzVRNHI4KzdFTjgvNENDZW9WT0pnQVMwbE5jamdPU0x4WTVlb0x1a3J5?=
+ =?utf-8?B?MFpjcU1NSDhoSzlhNXA0R1NieVhHUHJwYnJ0ODNMQU9sNXdKUVZuOTZURkdF?=
+ =?utf-8?B?UHpzZHYvb2pYeG9ubkdkcEFvdHJ0cEVSTjhQdzVGRi9Lc04xNnJkOFpQelNM?=
+ =?utf-8?B?S1VqZDdHbDhGR0JnYVVyQWhWV3BEeFMxckNOY3pubWpXc044Y3pVMWVva0M3?=
+ =?utf-8?B?VVNYVVpXVVV6cHc0Nzd3VWErSEw4V3NVRVJBK01xcmpyY0IwbS9OOTRnbHhL?=
+ =?utf-8?B?M05mZ1RMNlVzVUhpcHNVbXhERlZubWFyWWtjbmE0V09PcDB5QTZoUVFGcmVG?=
+ =?utf-8?B?RERwRVFhaDI0M0lqRElwMnlRK2NXblFPWmRUL1VrNXBtRnNvRUxDVkFINTdE?=
+ =?utf-8?B?Wk1oV1gvZlNhakNndElmdjRzcHUvOTRjYkYraFN5V3FXTm5RNlZySFVNcVRE?=
+ =?utf-8?B?MWl4T3BVeDI5WEs3b3p6YmVOQmphWk11Y28rWDRnS3V5MEpkaytobzZ4VlQz?=
+ =?utf-8?B?cVB4Q1NPZ09veE0vSUxzTXJPd05LUS9WUExvUllFZHlUa0Nwd0lEYVh3NjlG?=
+ =?utf-8?B?bnRhN2Y0dzJqRmtTSVgyeEJxUTJpZTBkbHRDaDY1MFFpWTd5alFGM1pmaWlZ?=
+ =?utf-8?B?cmtsVzIyTjdzQ3kyTFE0Tmk5STdvNk1raXBnSnRPS0UzbnhXbXlWYzFrUjNl?=
+ =?utf-8?B?VWhLVThsdkxTa25YV3Vyd0plbUUyR1lqVjZLT3JrSkJGWmhjY2tVVkNyd250?=
+ =?utf-8?B?aGN0aXhsSkN4bE5Za3N2L3hiNVJXendZZ2xFNi85ak5CeEc2YmZkTG5Od1Rp?=
+ =?utf-8?B?d3VRVjFXbHJXNkxRd1QxK1VudUVpRkF4dEhEU3RQVUhLSFd3SmJUTE1KUDVE?=
+ =?utf-8?B?eW1sVDdmS0xNWHdqQzJhREIySm44bms3ek1rUEgxL1hkbXpabm8zM3dXOXlu?=
+ =?utf-8?B?ZXplSGlKSURNY1NzUnBMWktkWUNYanoxTEZ2allKME0vVmFadmt3YkNFcHUy?=
+ =?utf-8?B?c1J1Mmp4TGkxYSswd1kvOEZkWS9pKytwVHZtWjc3dmNMOUdCakZyS2VWaXpt?=
+ =?utf-8?B?dy9yamsyRmU0bjdpVnJCQ2lrUU9JMmQ5bThkWU02UmFRUFV3QUJUUTV6aUFB?=
+ =?utf-8?B?ekZtMVhQZXNTd3JJdU11c04xbDZjalVTZXVvNlJPV0NmUk1SOEpJSVRTU1B5?=
+ =?utf-8?B?UVVpOEc4eUZpbWlIMnZNd1k0Zy9HaFhhUW5RRjh5NlpmcWdwZjFWcFJKak0z?=
+ =?utf-8?B?Ni9LQTVHbUpaNWVmVzBZS2M1bUxVZ2dTby9KR3NJSWo2S0hIeGsrNVoyNi9G?=
+ =?utf-8?B?VlVsWkNpRTlFNHE1NmJpbUQvUUU0VzBjQjc4YlloRVZaQWtPazZNNWdqVjZE?=
+ =?utf-8?B?ZGptUnhpUkpQbnZhSXB0S3A5TFVFQmN4YUMyU3F2bXhpTE5oQTdzaUxMWlY2?=
+ =?utf-8?B?bkE3YWVieHRWRHhJOGFiT0xjYnBXbmY3N203ZnUwNUhoejN4b3BLRVJ3T3Ex?=
+ =?utf-8?B?a0tRWGtoSWc4bXJsNkxhZVV2MWxabXN1M3l5ZTk3MU9uWUk4NTV3RzVMTXVr?=
+ =?utf-8?B?YlVnMnBrcVZiSm5tQWx3MndmRDdOREZ3TXRnTkkvRGV6aGdCZ3NLbVN4cURM?=
+ =?utf-8?B?S0hkRjNOTjhJYmNQR0lrNDR3cHRQWHNFVHhOOUZmNnRpdm1lK2dWMmxRTDhS?=
+ =?utf-8?B?eVZSdHpZeHlKK0ZsWlk4YytIMHpBWnEwTFRrVHpxT1NqVk9kcjZScDU2dEVZ?=
+ =?utf-8?B?YVMzdmhmV0dPelhKSW9MenlFc09tYTJHbENaanJGSml0cUhZNDdWTHRzWEFU?=
+ =?utf-8?B?dXkrUTVPWXUySkxjSWxXbHRtbFlWNmpEL0Zpc0ZrODRuRUhUVG1WMkVneVRI?=
+ =?utf-8?B?NGgwRHQwSmZxcEhHemsyTkU1cTRqSk1tMHZxVytVWVVKSGtYYUZYbXJKVXFw?=
+ =?utf-8?B?Rkd2U2FJQ2xBZkNNL2FZbHlVZTBHVUVtRjhndHZlcE5jRnpKZDUzU3BZelNG?=
+ =?utf-8?B?cHE4cDJFM00xS0xtMUp6a1FVZ3B2Y0FXeVpxNHBWUkx2RTNRWDdMMW5KWVJQ?=
+ =?utf-8?B?bzc4WkM4cmo2SHhJb1JSeUoyZFpHbzg2WHJIUE5NbXFmSmg5SWdJenJudzlL?=
+ =?utf-8?B?Qy95Q2ZReTFZRVVWeGFkMVZjSkdsdjBQcGQyS1RwU01nWUpnUW5haEdaTTFO?=
+ =?utf-8?B?ODBuZzNxM2IzRHpKbk1VTm42ZkR3Yk5UZlVneUt4c2JVZ280MWlEWGVaeWFw?=
+ =?utf-8?B?VnN5QUkvK0ZHT1ZTbElFaXZYeUtMY3JicjBMbFdBdGZHaDBXODRJQT09?=
+X-Exchange-RoutingPolicyChecked:
+	wZE8w0fCV9kDzAa848y7p4pvpDopquRFtuXMXZLW4KDH+9gMmp7agg23D5RQDxd1z0+1i+ngVDshW3/hyGGv6ICo2uzDZFcqEeX5B49XRoDlIkAxK6mzAwfjECXaiR4XjY6VL/kd8dEJjSFa1mW8LTd1z9Rki42FZp32PI5K6oPagHS09szWiA1rN31VoFkt+CCtydeNX0ZOXZOhHyarrNIwKro2aNYvyDkXXZRrKDjvHhJMASYaDo3JD3WhUOJyqHSfXVkNokzBbzAGNoVQ/U8K8eMezkgG95qTTgGIQJ3mATqHW9ivbPhw2kmCOD9U6bD0IaxcxbVLJsKNd8sx8g==
+X-OriginatorOrg: analog.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0181fbe5-df0e-4c6d-eea5-08df09b85eaa
+X-MS-Exchange-CrossTenant-AuthSource: SJ0PR03MB5469.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Sep 2026 12:39:18.1625
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: eaa689b4-8f87-40e0-9c6f-7228de4d754a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: SGQ6KuT0GCZjD4Ly0b7UXPfVonIEXBlYy+pX9yfXNWn/uc3FtqiZOpjUH8P6nssCq/nIwzht3066O9mP7/FTNQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR03MB7476
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAzMDExMCBTYWx0ZWRfXw1r5TQywBFtp
+ W4xH9KnBJJjpBSKf0CxKn6XloRZBrTUrFl6je4TWdaobQpYhTQz6Kc9l1OwHWa4hqhVBYSEH0yn
+ yp7pb7a1LAasjlQutNrGghSeI5ks0UQf8YlJHD+JjIUJMpFSdV8HwZ8tn2V8aKAKQNXW4b8cxuD
+ cuBNEmbAcrhB8Mrnm0i0abTjSzWPWhuvoT9erhrPkIAEoNcOtcrOEy8VwZu+BNQQlj0DlcCfdwt
+ 2xYp4JnLzeGqW+3oTIJbsGcTVmqBkiz10CHuv3qVn+kJuQGrpK0tIwSdxOPi9TC+yzczL/H0G3S
+ FjZd3dz2Ku9T/J3Y4mYjgmxOXFAn91q4XdlLShTI942YVwTFWf/f70o6kyCd8jZhSuXqY1yTkE2
+ Fh6IusHUvFFi0VxteWcbVXwWZeOyZZtZTnyyJhRfKGq1iA/9MMjGgSpZwwYNZnSvfs0G9UbFjns
+ Q0Pqfb7hL30Ur3bisyQ==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAzMDExMCBTYWx0ZWRfX3FQPw37nSs/a
+ 2S1rd4/T+ZeVDIwXrC6TBd5zHNcSKvH2Zq9/B4rOcPsr1cJiagTY7oIMXiB5BT9jCrnMaVBEa/7
+ UharQ1Co+uhvEbco7hdBjTfMuNt2OlGho01Xs2TgSVnOW8OOp1cA
+X-Proofpoint-GUID: 0uqxgkIFZKcjph7YH9e0JN6CzovOBGy2
+X-Authority-Analysis: v=2.4 cv=a6EAM0SF c=1 sm=1 tr=0 ts=6a996a7d cx=c_pps
+ a=JQIjQaBRt2POjw1IEeT7Rg==:117 a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19
+ a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19 a=lCpzRmAYbLLaTzLvsPZ7Mbvzbb8=:19
+ a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=M51BFTxLslgA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=0sLvza09kfJOxVLZPwjg:22 a=Z0pTeXoby7EwIRygza74:22
+ a=JfrnYn6hAAAA:8 a=gAnH3GRIAAAA:8 a=LETaAwOYFzcmk1KyIxkA:9 a=3ZKOabzyN94A:10
+ a=QEXdDO2ut3YA:10 a=1CNFftbPRP8L7MoqJWF3:22
+X-Proofpoint-ORIG-GUID: 0uqxgkIFZKcjph7YH9e0JN6CzovOBGy2
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-03_03,2026-09-03_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 clxscore=1015 lowpriorityscore=0 priorityscore=1501
+ malwarescore=0 spamscore=0 phishscore=0 bulkscore=0 impostorscore=0
+ adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2609030110
 
-On Thu, Sep 03, 2026 at 05:20:33PM +0530, Sarthak Sharma wrote:
-> __gup_test_ioctl() calculates the end of a GUP batch using:
+On Thu, Sep 03, 2026 at 12:12:15PM +0200, Miquel Raynal wrote:
+> On 31/08/2026 at 16:38:10 +01, Nuno Sá <nuno.sa@analog.com> wrote:
 > 
-> next = addr + nr * PAGE_SIZE;
+> > Add support for the W25N08LW, a 1.8V 8Gbit SPI-NAND made of two
+> > 4Gbit LUNs, with 4096-byte pages and 256 bytes of spare area.
+> >
+> > The chip reuses the KV ECC status helper, but needs its own OOB
+> > layout because the geometry of its spare area differs from the
+> > existing Winbond parts. Only half of it is visible while the
+> > internal ECC is enabled, so the ECC region is reported as
+> > inaccessible and just the free bytes are exposed.
+> >
+> > Assisted-by: Claude:Opus-5
+> > Signed-off-by: Nuno Sá <nuno.sa@analog.com>
+> > ---
+> >  drivers/mtd/nand/spi/winbond.c | 45 ++++++++++++++++++++++++++++++++++++++++++
+> >  1 file changed, 45 insertions(+)
+> >
+> > diff --git a/drivers/mtd/nand/spi/winbond.c b/drivers/mtd/nand/spi/winbond.c
+> > index 9b78c1e6cbc9..c2c4cc306f05 100644
+> > --- a/drivers/mtd/nand/spi/winbond.c
+> > +++ b/drivers/mtd/nand/spi/winbond.c
+> > @@ -345,6 +345,41 @@ static const struct mtd_ooblayout_ops w25n02kv_ooblayout = {
+> >  	.free = w25n02kv_ooblayout_free,
+> >  };
+> >  
+> > +static int w25n08lw_ooblayout_ecc(struct mtd_info *mtd, int section,
+> > +				  struct mtd_oob_region *region)
+> > +{
+> > +	/*
+> > +	 * With ecc enabled the parity bits are not accessible. So we can
+> > +	 * only see page + 128. Without ecc the full page + 256 is accessible.
+> > +	 * To make it simple just return the area as not accessible.
+> > +	 */
+> > +	return -ERANGE;
+> > +}
+> > +
+> > +static int w25n08lw_ooblayout_free(struct mtd_info *mtd, int section,
+> > +				   struct mtd_oob_region *region)
+> > +{
+> > +	if (section > 7)
+> > +		return -ERANGE;
+> > +
+> > +	region->offset = (16 * section);
+> > +	/* Note that we include User Data 2 which is not protected by ECC */
 > 
-> If nr is too large, it can cause next to overflow and wrap around.
-> If it wraps, the next > end check is bypassed and a large value
-> of nr is passed to the GUP call, even though the pages array was
-> allocated according to gup->size. This can lead to out of bounds writes.
+> The more I think about these free bytes, the more I get convinced that
+> we should only expose ECC protected bytes. I honestly do not remember
+> any guarantee regarding these officially stated, the common case
+> (eg. UBI) there is no impact, but maybe it is best to only expose the
+> bytes that are actually protected, since the thresholds are getting
+> lower and lower (and chances to get bitflips there increase with the
+> optimizations of the technology).
 > 
-> Also, when fewer than PAGE_SIZE bytes remain, the calculated batch
-> contains zero pages. The code still calls GUP functions with pages + i,
-> which can point past the allocated array.
-> 
-> Calculate nr by taking the minimum of the number of pages per call and
-> the pages remaining in the address range. Stop processing when no
-> pages remain and calculate the end of the batch using this bounded
-> value of nr.
-> 
-> Fixes: 64c349f4ae78 ("mm: add infrastructure for get_user_pages_fast() benchmarking")
-> Signed-off-by: Sarthak Sharma <sarthak.sharma@arm.com>
+> Do you mind only exposing User Data 1?
 
-Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+Not at all! Will re-spin with that in mind!
 
-On nit below.
+Thx!
+- Nuno Sá
 
-> ---
-> Sashiko reported the issue fixed by this patch while reviewing the patch
-> "mm/gup_test: report actual pinned bytes". That patch has been applied to
-> mm-new. Since the two fixes are independent, this revision contains
-> only the GUP batch size fix.
 > 
-> Changes in v4:
-> - Simplify batch clamping logic as suggested by Kiryl
-> - Don't call GUP functions for an empty batch
-> - Drop the pinned byte reporting patch since it has been applied to mm-new
+> Thanks,
+> Miquèl
 > 
-> v3: https://lore.kernel.org/all/20260901083452.115365-1-sarthak.sharma@arm.com/
-> 
->  mm/gup_test.c | 9 +++++----
->  1 file changed, 5 insertions(+), 4 deletions(-)
-> 
-> diff --git a/mm/gup_test.c b/mm/gup_test.c
-> index 185ba3bb8ed1..1b64e932c4c5 100644
-> --- a/mm/gup_test.c
-> +++ b/mm/gup_test.c
-> @@ -139,11 +139,12 @@ static int __gup_test_ioctl(unsigned int cmd,
->  		if (nr != gup->nr_pages_per_call)
->  			break;
->  
-> +		nr = min_t(unsigned long, gup->nr_pages_per_call,
-> +			   (end - addr) / PAGE_SIZE);
-
-I personally would rather have it in two statements, as I suggested
-initially:
-
-		nr = gup->nr_pages_per_call;
-		nr = min_t(unsigned long, nr, (end - addr) / PAGE_SIZE);
-
-It seems to be more readable to me.
-
-
-> +		if (!nr)
-> +			break;
-> +
->  		next = addr + nr * PAGE_SIZE;
-> -		if (next > end) {
-> -			next = end;
-> -			nr = (next - addr) / PAGE_SIZE;
-> -		}
->  
->  		switch (cmd) {
->  		case GUP_FAST_BENCHMARK:
-> 
-> base-commit: 178b3d97bf1f15f598ea7cc615a40c115e528e1c
-> -- 
-> 2.53.0
-> 
-
--- 
-  Kiryl Shutsemau / Kirill A. Shutemov
+> ______________________________________________________
+> Linux MTD discussion mailing list
+> http://lists.infradead.org/mailman/listinfo/linux-mtd/
