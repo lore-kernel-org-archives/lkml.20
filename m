@@ -1,114 +1,536 @@
-Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com [209.85.216.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 560DA415F28
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 08:11:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C09B415F06
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 08:11:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788423105; cv=none; b=W6t+UfAjfrZQ246lZLodMZNzHrkT5cTDlSLK6kGK/c3m5coVnt+RJar5IlAcpr4ZaiPk5TXUP3IZudeap3rvIqZAfchJZ4KXn+VEN+Ga3UPn6XomqapDAKLvXojhqaJFWe/585poX4D4TF4SsoTAJ7sQ4k2ro4oICXMinqEq8ZE=
+	t=1788423109; cv=none; b=UlJXQBh0Hp3LwWFokzAIUh/xk7IQAKVlpPTItYnht+IF2OUWU39h/87vR7BLRliCAoxjwNxpfcEg1fbkrvxVgeJOlW7hpZCMMIOVdXASVk0P9CZhIp6nk3CdlkX+LX9947q8KyQpNNQaJH21gvZRz2dKGT41uHWeq7eddn+2UDg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788423105; c=relaxed/simple;
-	bh=Xghtyt6ElU9KfeHqS2XyTMJZnCsweO3xMPanse4xLdE=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=mbR52a/LpGYe9LwIyKsUnPi7bqK6pxvkvVmcDlnR8arH9dEoWmCJB9zSkd0Oaj6PpCpyykFvDT0Y2VpEGuW9jrKsWIEmkn3FBG5EIR7z64n9uFFsr9WTzwrTg3ztXA44I94IGGFIpveXDg8nE0ZzWMruS1tuRaIhCajHzxuqTjU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KIHvzsjV; arc=none smtp.client-ip=209.85.216.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788423109; c=relaxed/simple;
+	bh=ykgHUGUzN8UjzUKiuL/28UmAzhU1ozIUeTJD2vthkUU=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=EIAGVGEqTAO7xpy3otVpO3FrB3AG73L/8vJ0dUhHBanFTOIqZQrTB9y5LFxfwLQLbvUd7jcqRllfUrljr2PXGudcSU97HqpuAb00ExnQRnvpXWEvHQiKz+T0iL3qGBvWuStIYsDR8buSAwme0SDetSaRwA58npIkThj3bGb/aJQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=BJlLrS9Y; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KIHvzsjV"
-Received: by mail-pj1-f50.google.com with SMTP id 98e67ed59e1d1-3965d3d9ab8so1818899a91.3
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 01:11:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788423104; x=1789027904; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=/Yz/sPhDz2lFb8/Y0OGM2xcNq9RbNJiy8D9exw5GDnk=;
-        b=KIHvzsjVVGHJzw2KxZdaPTKQlhgFP0ze6y/rIyiIzoEV7ibu+o7125fKOo/V01R4Df
-         xQSrtOhwFVWtnOhKHH2tYSwFool/JhxLIswxcYtAc9M25JxILIuCYtiE9ySLV0BO4WUo
-         xzxdH75ckaUA8S37Rxb1Z27HPe90K+dJSTcMGNdn0VkBKPtcyCl4quj4SitdM/XhSe4t
-         HbNVGuuezgPVtiYo/DFcYbunjWlS7PadLMfxBPJlqI3j6bDm3RFSA49Q07Mw7Ze2xBQy
-         Zzc9V4r9tk+mLCoWzcpGCW9d/qmr+qymbFLcL0awzj7PSmrTCNiqoSyHUAjtEKFOngIm
-         fgpg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788423104; x=1789027904;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=/Yz/sPhDz2lFb8/Y0OGM2xcNq9RbNJiy8D9exw5GDnk=;
-        b=GpgIXQwubFVX6orMdIb6TGY5rZdmLZPBy2y7xngxHq5EdmcGh6BceiF+yLw1oYGnyT
-         EPsuTay+Etn0JL1yS3s5YJ3bLBFtnRZo1HKQvbQZngRByuMFsp+zbkHCoW8hv796+1N+
-         Ljjg5UequhnBqS9YzK7ySqLlIxWNTLkAUXphG63QDOWqMQmm6INcBykOuPLHvaypORxu
-         8IE85zJNBp7aWOGt2KAe3xG0vvVy9bdm8CMWCfjGMQyWdamyGV1eYo145vtRsiNaH2w4
-         mX65MNJrCJZ3vmmTdROwmkRhlNUOfGtwJv8y50IWqMZhgLaesL+FRgzjoSFJtn43uqAT
-         a+Yw==
-X-Forwarded-Encrypted: i=1; AKwUvBzWIRjV7hW1JNlLd+8ShWf31L6D8Kzzc4lBIQUFB7Dt1f0LGsFKRPqUSR1+kBxy1VfU83lLapBcunQUyZM=@vger.kernel.org
-X-Gm-Message-State: AFuF++mGG8OQJNhosoWmIpThbq21G7KttLI01ork/t6voZlcjIWbSdqG
-	wBLkRduv6GpSHK25ibSg2xkLzh2upJXOoXl9vLdDWY/u8AgY0ROXRXYG
-X-Gm-Gg: AYBFou3LPNGMCmeZpriuxKTbioXuvEEQMN3Ib66xw3bftlLMhgFwOVJMAVPvnQlYrxU
-	KUt3taCQ+i36HZTe7DazErzGR66DFMYZ060IxWVaA0PhaALck9Y1mbl7Vb3mu0GKExZ+NqkFfLe
-	kpFzwnie84AXPVETmiMi+u/bYlNSC3KJP2wc1P9VSKVG1eOAg2xKFEozD0QqdNPzE3MyQGz6vLZ
-	C3+LifRmkJ4WCid+0TE1YLDRLm4wtfT7stWfYoXI+RMnCnsT7GVOKD5XFfo0SCnXMhhOPDZrXhm
-	u+hwABPwq49qB/h0Q3F7aIa/cN6JkcON9qgQU8EFKjaL+0G9y16kjyIlsBonwOtpjkheCwgR3/Z
-	G/4W4ZjKcZf/Vw3c0hAsq9KOydPw/wMhhPCy0Egr2V9A+eBIo/ubPF9IohCkIn1HEkfX5Xn3uqo
-	miJfXz7XaWv67svuJDVaXDBZVU+oeSiKxM608mvsARo95T/XehXtfJK7fA/g5p0N4P+A==
-X-Received: by 2002:a17:90b:1dc1:b0:398:d6f4:c61a with SMTP id 98e67ed59e1d1-39aee13c22dmr16834798a91.17.1788423103692;
-        Thu, 03 Sep 2026 01:11:43 -0700 (PDT)
-Received: from Default ([2409:40f4:101d:c1aa:6821:531d:eb9f:2aaa])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3326e39365dsm4519895eec.20.2026.09.03.01.11.38
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 03 Sep 2026 01:11:43 -0700 (PDT)
-From: Jeffin Philip <jeffinphilip14@gmail.com>
-To: raven@themaw.net
-Cc: bodonnel@redhat.com,
-	brauner@kernel.org,
-	autofs@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Jeffin Philip <jeffinphilip14@gmail.com>,
-	syzbot+df1db6e034b3953e19f5@syzkaller.appspotmail.com,
-	stable@vger.kernel.org
-Subject: [PATCH] fs: autofs: fix memory leak in autofs_fill_super()
-Date: Thu,  3 Sep 2026 13:40:48 +0530
-Message-ID: <20260903081048.132524-1-jeffinphilip14@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="BJlLrS9Y"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 1FD231A1985;
+	Thu,  3 Sep 2026 08:11:44 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id E6CD5602B8;
+	Thu,  3 Sep 2026 08:11:43 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 3CE0211C791C9;
+	Thu,  3 Sep 2026 10:11:35 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1788423098; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=05b7F7Hrky5smdfqg7ON/5g4roZyfLJRD1uAubvwvFU=;
+	b=BJlLrS9Y0b0D8X08SmF5OOd7NP0AX3nMr348qxVtJmSdgn+uEyAd8VAcTSfIlrjQ7Z8k0L
+	aO1DjCPkJlyQn+vz2rxNZ1G/CpR8pwDYnx49TypXSfpoxRIe2eLpDGEgTobXZZYMHhdqux
+	9BW4Vw260E0fkPrvB2nR3/0aYkrD+cSZGWSeggbkjkO94NQndlZBL+J0SsvJXUppatc+Z5
+	72+yzRMYBKFdZmNzVjcHDOtzx5pfoP7j131VVcfOEcqo38QDPQtEx4l2HTlam+CZ87cyn5
+	EmkpsSQuHbxHBtLxyKNbb1QEFXLWuX8KKYpZczHyLEAW0D3JAlhRgtLQ9PEdcQ==
+From: Luca Ceresoli <luca.ceresoli@bootlin.com>
+Date: Thu, 03 Sep 2026 10:11:04 +0200
+Subject: [PATCH RFC v2 01/19] drm: of: move drm_of_find_panel_or_bridge()
+ from drm_of.c to bridge/panel.c
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260903-drm-bridge-every-panel-v2-1-2ab8ee24538e@bootlin.com>
+References: <20260903-drm-bridge-every-panel-v2-0-2ab8ee24538e@bootlin.com>
+In-Reply-To: <20260903-drm-bridge-every-panel-v2-0-2ab8ee24538e@bootlin.com>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, Linus Walleij <linusw@kernel.org>, 
+ Inki Dae <inki.dae@samsung.com>, Jagan Teki <jagan@amarulasolutions.com>, 
+ Marek Szyprowski <m.szyprowski@samsung.com>
+Cc: Albert Esteve <aesteve@redhat.com>, 
+ Anusha Srivatsa <asrivats@redhat.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
+ Hui Pu <Hui.Pu@gehealthcare.com>, Ian Ray <ian.ray@gehealthcare.com>, 
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ Luca Ceresoli <luca.ceresoli@bootlin.com>
+X-Mailer: b4 0.16.0
+X-Last-TLS-Session-Version: TLSv1.3
 
-In autofs_fill_super(), we create a new inode using
-autofs_new_ino(), however, if we fail to create root_inode,
-(that is, root_inode failure path), we return -ENOMEM without
-freeing the new inode(ino) that we created causing a memory leak.
-Fix this by adding autofs_free_ino() to free the inode we created
-in root_inode failure path before returning ENOMEM.
+We want to move drm_panel.o from the main drm module to a new drm_panel
+module, but there is one function in the drm module that calls into
+drm_panel.c code:
 
-Reported-by: syzbot+df1db6e034b3953e19f5@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=df1db6e034b3953e19f5
-Fixes: 66917f85db60 ("autofs: add: new_inode check in autofs_fill_super()")
-Cc: stable@vger.kernel.org
-Signed-off-by: Jeffin Philip <jeffinphilip14@gmail.com>
+  drm_of_find_panel_or_bridge() (in drm_of.c, drm module)
+     -> calls of_drm_find_panel (in drm_panel.c, would-be the new drm_panel module)
+
+Avoid this issue by moving drm_of_find_panel_or_bridge() to bridge/panel.c
+(which is currently in the drm_kms_helper module).
+
+As a result drm_kms_helper will depend on the new drm_panel module, which
+is fine because there is no dependency of drm_panel on drm_kms_helper.
+
+After this change, all drivers using drm_of_find_panel_or_bridge() will
+have to select DRM_PANEL_BRIDGE (and DRM_PANEL, recursively). Add that for
+affected drivers. While there, also add DRM_PANEL on drivers selecting
+DRM_PANEL_BRIDGE.
+
+No functional changes, just moving code around.
+
+[AI used to add 'select DRM_PANEL[_BRIDGE]' for affected drivers]
+Assisted-by: opencode:deepseek-v4-flash-0731
+Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
 ---
- fs/autofs/inode.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/bridge/Kconfig          |  2 ++
+ drivers/gpu/drm/bridge/analogix/Kconfig |  4 +++
+ drivers/gpu/drm/bridge/panel.c          | 63 +++++++++++++++++++++++++++++++++
+ drivers/gpu/drm/drm_of.c                | 63 ---------------------------------
+ drivers/gpu/drm/fsl-dcu/Kconfig         |  1 +
+ drivers/gpu/drm/imx/dcss/Kconfig        |  2 ++
+ drivers/gpu/drm/ingenic/Kconfig         |  1 +
+ drivers/gpu/drm/logicvc/Kconfig         |  2 ++
+ drivers/gpu/drm/mcde/Kconfig            |  1 +
+ drivers/gpu/drm/pl111/Kconfig           |  1 +
+ drivers/gpu/drm/renesas/rcar-du/Kconfig |  1 +
+ drivers/gpu/drm/rockchip/Kconfig        |  4 +++
+ drivers/gpu/drm/stm/Kconfig             |  1 +
+ drivers/gpu/drm/sun4i/Kconfig           |  1 +
+ drivers/gpu/drm/tegra/Kconfig           |  1 +
+ drivers/gpu/drm/tidss/Kconfig           |  2 ++
+ drivers/gpu/drm/tve200/Kconfig          |  1 +
+ include/drm/drm_bridge.h                | 12 +++++++
+ include/drm/drm_of.h                    | 12 -------
+ 19 files changed, 100 insertions(+), 75 deletions(-)
 
-diff --git a/fs/autofs/inode.c b/fs/autofs/inode.c
-index c1e210cec436..6b15a3717ba7 100644
---- a/fs/autofs/inode.c
-+++ b/fs/autofs/inode.c
-@@ -323,8 +323,10 @@ static int autofs_fill_super(struct super_block *s, struct fs_context *fc)
- 		return -ENOMEM;
+diff --git a/drivers/gpu/drm/bridge/Kconfig b/drivers/gpu/drm/bridge/Kconfig
+index f2db7f60d40f..89e87460aefc 100644
+--- a/drivers/gpu/drm/bridge/Kconfig
++++ b/drivers/gpu/drm/bridge/Kconfig
+@@ -151,6 +151,7 @@ config DRM_LONTIUM_LT8912B
+ config DRM_LONTIUM_LT9211
+ 	tristate "Lontium LT9211 DSI/LVDS/DPI bridge"
+ 	depends on OF
++	select DRM_PANEL
+ 	select DRM_PANEL_BRIDGE
+ 	select DRM_KMS_HELPER
+ 	select DRM_MIPI_DSI
+@@ -498,6 +499,7 @@ config DRM_WAVESHARE_BRIDGE
+ 	tristate "Waveshare DSI bridge"
+ 	depends on OF
+ 	depends on BACKLIGHT_CLASS_DEVICE
++	select DRM_PANEL
+ 	select DRM_PANEL_BRIDGE
+ 	select DRM_KMS_HELPER
+ 	select DRM_MIPI_DSI
+diff --git a/drivers/gpu/drm/bridge/analogix/Kconfig b/drivers/gpu/drm/bridge/analogix/Kconfig
+index 57bb2daa5aaf..d07431788fcb 100644
+--- a/drivers/gpu/drm/bridge/analogix/Kconfig
++++ b/drivers/gpu/drm/bridge/analogix/Kconfig
+@@ -6,6 +6,8 @@ config DRM_ANALOGIX_ANX6345
+ 	select DRM_DISPLAY_DP_HELPER
+ 	select DRM_DISPLAY_HELPER
+ 	select DRM_KMS_HELPER
++	select DRM_PANEL
++	select DRM_PANEL_BRIDGE
+ 	select REGMAP_I2C
+ 	help
+ 	  ANX6345 is an ultra-low power Full-HD DisplayPort/eDP
+@@ -32,6 +34,8 @@ config DRM_ANALOGIX_DP
+ 	depends on DRM
+ 	depends on OF
+ 	select DRM_DISPLAY_DP_AUX_BUS
++	select DRM_PANEL
++	select DRM_PANEL_BRIDGE
  
- 	root_inode = autofs_get_inode(s, S_IFDIR | 0755);
--	if (!root_inode)
-+	if (!root_inode) {
-+		autofs_free_ino(ino);
- 		return -ENOMEM;
+ config DRM_ANALOGIX_ANX7625
+ 	tristate "Analogix Anx7625 MIPI to DP interface support"
+diff --git a/drivers/gpu/drm/bridge/panel.c b/drivers/gpu/drm/bridge/panel.c
+index 02388a3de626..83be09641582 100644
+--- a/drivers/gpu/drm/bridge/panel.c
++++ b/drivers/gpu/drm/bridge/panel.c
+@@ -560,4 +560,67 @@ struct drm_bridge *drmm_of_get_bridge(struct drm_device *drm,
+ }
+ EXPORT_SYMBOL(drmm_of_get_bridge);
+ 
++/**
++ * drm_of_find_panel_or_bridge - return connected panel or bridge device
++ * @np: device tree node containing encoder output ports
++ * @port: port in the device tree node
++ * @endpoint: endpoint in the device tree node
++ * @panel: pointer to hold returned drm_panel, must not be NULL. On success
++ *         the caller must call drm_panel_put() when done with the panel
++ * @bridge: pointer to hold returned drm_bridge
++ *
++ * Given a DT node's port and endpoint number, find the connected node and
++ * return either the associated struct drm_panel or drm_bridge device.
++ *
++ * This function is deprecated and should not be used in new drivers. Use
++ * of_drm_get_bridge_by_endpoint() instead when not looking for a panel, or
++ * devm_drm_of_get_bridge() otherwise.
++ *
++ * Returns zero if successful, or one of the standard error codes if it fails.
++ */
++int drm_of_find_panel_or_bridge(const struct device_node *np,
++				int port, int endpoint,
++				struct drm_panel **panel,
++				struct drm_bridge **bridge)
++{
++	if (WARN_ON(!panel))
++		return -EINVAL;
++
++	*panel = NULL;
++	if (bridge)
++		*bridge = NULL;
++
++	/*
++	 * of_graph_get_remote_node() produces a noisy error message if port
++	 * node isn't found and the absence of the port is a legit case here,
++	 * so at first we silently check whether a graph is present in the
++	 * device-tree node.
++	 */
++	if (!of_graph_is_present(np))
++		return -ENODEV;
++
++	struct device_node *remote __free(device_node) =
++		of_graph_get_remote_node(np, port, endpoint);
++	if (!remote)
++		return -ENODEV;
++
++	*panel = of_drm_find_panel(remote);
++	if (!IS_ERR(*panel))
++		return 0;
++
++	*panel = NULL;
++
++	if (bridge) {
++		/* No panel found yet, check for a bridge next. */
++		*bridge = of_drm_find_bridge(remote);
++		if (*bridge)
++			return 0;
++
++		*bridge = NULL;
 +	}
++
++	return -EPROBE_DEFER;
++}
++EXPORT_SYMBOL_GPL(drm_of_find_panel_or_bridge);
++
+ #endif
+diff --git a/drivers/gpu/drm/drm_of.c b/drivers/gpu/drm/drm_of.c
+index 2b53124ded68..411f258d9f91 100644
+--- a/drivers/gpu/drm/drm_of.c
++++ b/drivers/gpu/drm/drm_of.c
+@@ -264,69 +264,6 @@ int drm_of_get_panel_orientation(const struct device_node *np,
+ }
+ EXPORT_SYMBOL_GPL(drm_of_get_panel_orientation);
  
- 	root_inode->i_uid = ctx->uid;
- 	root_inode->i_gid = ctx->gid;
+-/**
+- * drm_of_find_panel_or_bridge - return connected panel or bridge device
+- * @np: device tree node containing encoder output ports
+- * @port: port in the device tree node
+- * @endpoint: endpoint in the device tree node
+- * @panel: pointer to hold returned drm_panel, must not be NULL. On success
+- *         the caller must call drm_panel_put() when done with the panel
+- * @bridge: pointer to hold returned drm_bridge
+- *
+- * Given a DT node's port and endpoint number, find the connected node and
+- * return either the associated struct drm_panel or drm_bridge device.
+- *
+- * This function is deprecated and should not be used in new drivers. Use
+- * of_drm_get_bridge_by_endpoint() instead when not looking for a panel, or
+- * devm_drm_of_get_bridge() otherwise.
+- *
+- * Returns zero if successful, or one of the standard error codes if it fails.
+- */
+-int drm_of_find_panel_or_bridge(const struct device_node *np,
+-				int port, int endpoint,
+-				struct drm_panel **panel,
+-				struct drm_bridge **bridge)
+-{
+-	if (WARN_ON(!panel))
+-		return -EINVAL;
+-
+-	*panel = NULL;
+-	if (bridge)
+-		*bridge = NULL;
+-
+-	/*
+-	 * of_graph_get_remote_node() produces a noisy error message if port
+-	 * node isn't found and the absence of the port is a legit case here,
+-	 * so at first we silently check whether a graph is present in the
+-	 * device-tree node.
+-	 */
+-	if (!of_graph_is_present(np))
+-		return -ENODEV;
+-
+-	struct device_node *remote __free(device_node) =
+-		of_graph_get_remote_node(np, port, endpoint);
+-	if (!remote)
+-		return -ENODEV;
+-
+-	*panel = of_drm_find_panel(remote);
+-	if (!IS_ERR(*panel))
+-		return 0;
+-
+-	*panel = NULL;
+-
+-	if (bridge) {
+-		/* No panel found yet, check for a bridge next. */
+-		*bridge = of_drm_find_bridge(remote);
+-		if (*bridge)
+-			return 0;
+-
+-		*bridge = NULL;
+-	}
+-
+-	return -EPROBE_DEFER;
+-}
+-EXPORT_SYMBOL_GPL(drm_of_find_panel_or_bridge);
+-
+ enum drm_of_lvds_pixels {
+ 	DRM_OF_LVDS_EVEN = BIT(0),
+ 	DRM_OF_LVDS_ODD = BIT(1),
+diff --git a/drivers/gpu/drm/fsl-dcu/Kconfig b/drivers/gpu/drm/fsl-dcu/Kconfig
+index 0e0f910ceb9f..7f0e851e8508 100644
+--- a/drivers/gpu/drm/fsl-dcu/Kconfig
++++ b/drivers/gpu/drm/fsl-dcu/Kconfig
+@@ -7,6 +7,7 @@ config DRM_FSL_DCU
+ 	select DRM_GEM_DMA_HELPER
+ 	select DRM_KMS_HELPER
+ 	select DRM_PANEL
++	select DRM_PANEL_BRIDGE
+ 	select REGMAP_MMIO
+ 	select VIDEOMODE_HELPERS
+ 	select MFD_SYSCON if SOC_LS1021A
+diff --git a/drivers/gpu/drm/imx/dcss/Kconfig b/drivers/gpu/drm/imx/dcss/Kconfig
+index e014ed3ae66c..aa2a20ef5910 100644
+--- a/drivers/gpu/drm/imx/dcss/Kconfig
++++ b/drivers/gpu/drm/imx/dcss/Kconfig
+@@ -6,6 +6,8 @@ config DRM_IMX_DCSS
+ 	select DRM_DISPLAY_HELPER
+ 	select DRM_BRIDGE_CONNECTOR
+ 	select DRM_GEM_DMA_HELPER
++	select DRM_PANEL
++	select DRM_PANEL_BRIDGE
+ 	select VIDEOMODE_HELPERS
+ 	depends on DRM && ((ARCH_MXC && ARM64) || COMPILE_TEST)
+ 	help
+diff --git a/drivers/gpu/drm/ingenic/Kconfig b/drivers/gpu/drm/ingenic/Kconfig
+index 04ecfb0c5dd6..987ed42f6f7a 100644
+--- a/drivers/gpu/drm/ingenic/Kconfig
++++ b/drivers/gpu/drm/ingenic/Kconfig
+@@ -7,6 +7,7 @@ config DRM_INGENIC
+ 	depends on COMMON_CLK
+ 	select DRM_BRIDGE
+ 	select DRM_CLIENT_SELECTION
++	select DRM_PANEL
+ 	select DRM_PANEL_BRIDGE
+ 	select DRM_KMS_HELPER
+ 	select DRM_DISPLAY_HELPER
+diff --git a/drivers/gpu/drm/logicvc/Kconfig b/drivers/gpu/drm/logicvc/Kconfig
+index 579a358ed5cf..7d2c0a460eec 100644
+--- a/drivers/gpu/drm/logicvc/Kconfig
++++ b/drivers/gpu/drm/logicvc/Kconfig
+@@ -6,6 +6,8 @@ config DRM_LOGICVC
+ 	select DRM_KMS_HELPER
+ 	select DRM_KMS_DMA_HELPER
+ 	select DRM_GEM_DMA_HELPER
++	select DRM_PANEL
++	select DRM_PANEL_BRIDGE
+ 	select REGMAP
+ 	select REGMAP_MMIO
+ 	help
+diff --git a/drivers/gpu/drm/mcde/Kconfig b/drivers/gpu/drm/mcde/Kconfig
+index 3516c8d2a5d9..6ebfb930cbfa 100644
+--- a/drivers/gpu/drm/mcde/Kconfig
++++ b/drivers/gpu/drm/mcde/Kconfig
+@@ -9,6 +9,7 @@ config DRM_MCDE
+ 	select DRM_CLIENT_SELECTION
+ 	select DRM_MIPI_DSI
+ 	select DRM_BRIDGE
++	select DRM_PANEL
+ 	select DRM_PANEL_BRIDGE
+ 	select DRM_KMS_HELPER
+ 	select DRM_GEM_DMA_HELPER
+diff --git a/drivers/gpu/drm/pl111/Kconfig b/drivers/gpu/drm/pl111/Kconfig
+index 82e918820950..20201ec20aa7 100644
+--- a/drivers/gpu/drm/pl111/Kconfig
++++ b/drivers/gpu/drm/pl111/Kconfig
+@@ -9,6 +9,7 @@ config DRM_PL111
+ 	select DRM_KMS_HELPER
+ 	select DRM_GEM_DMA_HELPER
+ 	select DRM_BRIDGE
++	select DRM_PANEL
+ 	select DRM_PANEL_BRIDGE
+ 	help
+ 	  Choose this option for DRM support for the PL111 CLCD controller.
+diff --git a/drivers/gpu/drm/renesas/rcar-du/Kconfig b/drivers/gpu/drm/renesas/rcar-du/Kconfig
+index 840305fdeb49..051b0967008c 100644
+--- a/drivers/gpu/drm/renesas/rcar-du/Kconfig
++++ b/drivers/gpu/drm/renesas/rcar-du/Kconfig
+@@ -47,6 +47,7 @@ config DRM_RCAR_LVDS
+ 	depends on PM
+ 	select DRM_KMS_HELPER
+ 	select DRM_PANEL
++	select DRM_PANEL_BRIDGE
+ 	select RESET_CONTROLLER
+ 
+ config DRM_RCAR_USE_MIPI_DSI
+diff --git a/drivers/gpu/drm/rockchip/Kconfig b/drivers/gpu/drm/rockchip/Kconfig
+index e7f49fe845ea..0b20f472dbd1 100644
+--- a/drivers/gpu/drm/rockchip/Kconfig
++++ b/drivers/gpu/drm/rockchip/Kconfig
+@@ -124,6 +124,8 @@ config ROCKCHIP_LVDS
+ 	depends on PINCTRL && OF
+ 	select DRM_DISPLAY_HELPER
+ 	select DRM_BRIDGE_CONNECTOR
++	select DRM_PANEL
++	select DRM_PANEL_BRIDGE
+ 	help
+ 	  Choose this option to enable support for Rockchip LVDS controllers.
+ 	  Rockchip rk3288 SoC has LVDS TX Controller can be used, and it
+@@ -136,6 +138,8 @@ config ROCKCHIP_RGB
+ 	depends on PINCTRL
+ 	select DRM_DISPLAY_HELPER
+ 	select DRM_BRIDGE_CONNECTOR
++	select DRM_PANEL
++	select DRM_PANEL_BRIDGE
+ 	help
+ 	  Choose this option to enable support for Rockchip RGB output.
+ 	  Some Rockchip CRTCs, like rv1108, can directly output parallel
+diff --git a/drivers/gpu/drm/stm/Kconfig b/drivers/gpu/drm/stm/Kconfig
+index 635be0ac00af..1e3205aa2c7e 100644
+--- a/drivers/gpu/drm/stm/Kconfig
++++ b/drivers/gpu/drm/stm/Kconfig
+@@ -6,6 +6,7 @@ config DRM_STM
+ 	select DRM_CLIENT_SELECTION
+ 	select DRM_KMS_HELPER
+ 	select DRM_GEM_DMA_HELPER
++	select DRM_PANEL
+ 	select DRM_PANEL_BRIDGE
+ 	select VIDEOMODE_HELPERS
+ 	select FB_PROVIDE_GET_FB_UNMAPPED_AREA if FB
+diff --git a/drivers/gpu/drm/sun4i/Kconfig b/drivers/gpu/drm/sun4i/Kconfig
+index b56ba00aabca..32c30e08cf5c 100644
+--- a/drivers/gpu/drm/sun4i/Kconfig
++++ b/drivers/gpu/drm/sun4i/Kconfig
+@@ -7,6 +7,7 @@ config DRM_SUN4I
+ 	select DRM_GEM_DMA_HELPER
+ 	select DRM_KMS_HELPER
+ 	select DRM_PANEL
++	select DRM_PANEL_BRIDGE
+ 	select REGMAP_MMIO
+ 	select VIDEOMODE_HELPERS
+ 	help
+diff --git a/drivers/gpu/drm/tegra/Kconfig b/drivers/gpu/drm/tegra/Kconfig
+index 8a3b16aac5d6..fdcb10a4c7b5 100644
+--- a/drivers/gpu/drm/tegra/Kconfig
++++ b/drivers/gpu/drm/tegra/Kconfig
+@@ -14,6 +14,7 @@ config DRM_TEGRA
+ 	select DRM_KMS_HELPER
+ 	select DRM_MIPI_DSI
+ 	select DRM_PANEL
++	select DRM_PANEL_BRIDGE
+ 	select FB_DMAMEM_HELPERS if DRM_FBDEV_EMULATION
+ 	select TEGRA_HOST1X
+ 	select INTERCONNECT
+diff --git a/drivers/gpu/drm/tidss/Kconfig b/drivers/gpu/drm/tidss/Kconfig
+index 31ad582b7602..863930ecda1e 100644
+--- a/drivers/gpu/drm/tidss/Kconfig
++++ b/drivers/gpu/drm/tidss/Kconfig
+@@ -7,6 +7,8 @@ config DRM_TIDSS
+ 	select DRM_DISPLAY_HELPER
+ 	select DRM_BRIDGE_CONNECTOR
+ 	select DRM_GEM_DMA_HELPER
++	select DRM_PANEL
++	select DRM_PANEL_BRIDGE
+ 	help
+ 	  The TI Keystone family SoCs introduced a new generation of
+ 	  Display SubSystem. There is currently three Keystone family
+diff --git a/drivers/gpu/drm/tve200/Kconfig b/drivers/gpu/drm/tve200/Kconfig
+index a9d6fe535d88..c0746ae8f703 100644
+--- a/drivers/gpu/drm/tve200/Kconfig
++++ b/drivers/gpu/drm/tve200/Kconfig
+@@ -7,6 +7,7 @@ config DRM_TVE200
+ 	depends on OF
+ 	select DRM_BRIDGE
+ 	select DRM_CLIENT_SELECTION
++	select DRM_PANEL
+ 	select DRM_PANEL_BRIDGE
+ 	select DRM_KMS_HELPER
+ 	select DRM_GEM_DMA_HELPER
+diff --git a/include/drm/drm_bridge.h b/include/drm/drm_bridge.h
+index 58fff047f43b..c5b82e6946f5 100644
+--- a/include/drm/drm_bridge.h
++++ b/include/drm/drm_bridge.h
+@@ -1507,6 +1507,10 @@ struct drm_bridge *devm_drm_of_get_bridge(struct device *dev, struct device_node
+ 					  u32 port, u32 endpoint);
+ struct drm_bridge *drmm_of_get_bridge(struct drm_device *drm, struct device_node *node,
+ 					  u32 port, u32 endpoint);
++int drm_of_find_panel_or_bridge(const struct device_node *np,
++				int port, int endpoint,
++				struct drm_panel **panel,
++				struct drm_bridge **bridge);
+ #else
+ static inline struct drm_bridge *devm_drm_of_get_bridge(struct device *dev,
+ 							struct device_node *node,
+@@ -1523,6 +1527,14 @@ static inline struct drm_bridge *drmm_of_get_bridge(struct drm_device *drm,
+ {
+ 	return ERR_PTR(-ENODEV);
+ }
++
++static inline int drm_of_find_panel_or_bridge(const struct device_node *np,
++					      int port, int endpoint,
++					      struct drm_panel **panel,
++					      struct drm_bridge **bridge)
++{
++	return -EINVAL;
++}
+ #endif
+ 
+ void devm_drm_put_bridge(struct device *dev, struct drm_bridge *bridge);
+diff --git a/include/drm/drm_of.h b/include/drm/drm_of.h
+index ebebed14c611..402f5db11e47 100644
+--- a/include/drm/drm_of.h
++++ b/include/drm/drm_of.h
+@@ -51,10 +51,6 @@ int drm_of_encoder_active_endpoint(struct device_node *node,
+ 				   struct of_endpoint *endpoint);
+ int drm_of_get_panel_orientation(const struct device_node *np,
+ 				 enum drm_panel_orientation *orientation);
+-int drm_of_find_panel_or_bridge(const struct device_node *np,
+-				int port, int endpoint,
+-				struct drm_panel **panel,
+-				struct drm_bridge **bridge);
+ int drm_of_lvds_get_dual_link_pixel_order(const struct device_node *port1,
+ 					  const struct device_node *port2);
+ int drm_of_lvds_get_dual_link_pixel_order_sink(struct device_node *port1,
+@@ -112,14 +108,6 @@ static inline int drm_of_get_panel_orientation(const struct device_node *np,
+ 	return -EINVAL;
+ }
+ 
+-static inline int drm_of_find_panel_or_bridge(const struct device_node *np,
+-					      int port, int endpoint,
+-					      struct drm_panel **panel,
+-					      struct drm_bridge **bridge)
+-{
+-	return -EINVAL;
+-}
+-
+ static inline int
+ drm_of_lvds_get_dual_link_pixel_order(const struct device_node *port1,
+ 				      const struct device_node *port2)
+
 -- 
 2.55.0
 
