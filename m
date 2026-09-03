@@ -1,87 +1,157 @@
-Received: from mx1.manguebit.org (mx1.manguebit.org [143.255.12.172])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3B134D90D4;
-	Thu,  3 Sep 2026 15:24:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=143.255.12.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CACB74DF4A8
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 15:24:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788449061; cv=none; b=nEQLNwuwfFrdj48VjaAHvVsS7+YsJJfQ8Gsb1ouJVWshXYB4eVZBnasJ/TgUbbHJ4jepkOoRA7xV4fPe+eiUVSTsxpgJ/vFNyZ7N/8inKmMJieisx5ebrVFSOQQ8WKKjYpebyKWQTIXxPiX7ZC4vsX9weAMYef2jLbALSBWlxtk=
+	t=1788449067; cv=none; b=g2B68JpJtOR4WOl04g9G6nAe+2yDz/evTkB9d1FoI+zx1ljFAMeNU2DRqkjsJ3nROwKvdmy3NyCRLSeIlY0znNwCqH/cwbNUCGLfIQNTQCJrFZmspCnEJ6eIkx9Tm+ziPNLmERhYstFNuQSO3uudnm1ATtR+MuKWfySfGD/O4lY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788449061; c=relaxed/simple;
-	bh=3/LaprFL7fPD/EUitNi5bAcVZllnn68Uw9zQakVAN+k=;
-	h=Message-ID:From:To:Cc:Subject:In-Reply-To:References:Date:
-	 MIME-Version:Content-Type; b=Tlnsk2+AZVpf7iBjNbTDwlxvH+R69c3fD/wq/lKbmf/UrBShCXl4iKDgwUstYTM7IsqY3fiizr4op81oSySTIgtaFR2+B4Oh5aIh6+ebDRUY0kiH/CIYpxb1bbjf0JKzPUpQItQSjxrElvWppfsmwGq3W7Z8X0bDDqMkVZwk8P4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=manguebit.org; spf=pass smtp.mailfrom=manguebit.org; dkim=pass (2048-bit key) header.d=manguebit.org header.i=@manguebit.org header.b=Ne1Iucou; arc=none smtp.client-ip=143.255.12.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=manguebit.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=manguebit.org
+	s=arc-20240116; t=1788449067; c=relaxed/simple;
+	bh=hiRQlPpIGglFRXty3EYqUEUerglqeZb/X1JgjZonIb0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Coj4pwEdht4wUHBkODiooLAvIsQ3iWnUnFJ0dWwDuMvxByz1TYBaL762dM03y9DNxFc+SjxbBXjwJJ8Qzz4Ah+88LQyVgX/yKdXgRdLOwCyEZVx/stOlWmC18dSG/e1XXPIRwybMYo3XRpKQTIUEj06OZv1NHgO3YB2as8W04HI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=a3rm6rR2; arc=none smtp.client-ip=209.85.128.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=manguebit.org header.i=@manguebit.org header.b="Ne1Iucou"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=manguebit.org; s=dkim; h=Content-Transfer-Encoding:Content-Type:
-	MIME-Version:Date:References:In-Reply-To:Subject:Cc:To:From:Message-ID:Sender
-	:Reply-To:Content-ID:Content-Description;
-	bh=YZCj2ROELgXCqd6M7StQliH6xymvS6urbbG0vCxfe8A=; b=Ne1IucoujV9nFxoMDe8KENOChk
-	YZrUyfey7zAYy5iS8mIDn5gkUjb6Y2FcpiNRK2yb5YRnneSAknCe5488okUJGXcRxbLhpS6uoPMja
-	Rb74Gx4h6LYEwgRZJR+a5jPj81d8VG76RsBo0Ou5/cxBYWgZ2pkBz0tddvwcBzh1R0sFBpQtkSd0H
-	yuyoBPVrU/+5JRHYaudBncGFf94i1U5qK6HT64FPogCj7/HiDYbD9zNiP1FEW1h++1aMb0N35Si9o
-	txnpbnPgKD8gGGnQo6qJTJwTIBhzlxPtX2K4ZfxMHajpOan3dFt2n8eCLdTrsrySZhBUMH8abaWnt
-	evuRFlWQ==;
-Received: from pc by mx1.manguebit.org with local (Exim 4.99.5)
-	id 1x29IQ-00000000cD2-33TS;
-	Thu, 03 Sep 2026 12:24:10 -0300
-Message-ID: <86b3d1476eff0ad8286da11cfdad3070@manguebit.org>
-From: Paulo Alcantara <pc@manguebit.org>
-To: Diego Oliva <diego@bynar.io>
-Cc: sorenson@redhat.com, Namjae Jeon <linkinjeon@kernel.org>, Ronnie
- Sahlberg <ronniesahlberg@gmail.com>, Shyam Prasad N
- <sprasad@microsoft.com>, Tom Talpey <tom@talpey.com>, Bharath SM
- <bharathsm@microsoft.com>, linux-cifs@vger.kernel.org,
- samba-technical@lists.samba.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 0/2] smb: client: fix out-of-bounds reads in
- CIFSSMBRead()
-In-Reply-To: <CAExJZk3gfbM4LkvN-zJGt6sQ3AKN+huZuhEatMswx2nYHyu7Og@mail.gmail.com>
-References: <20260902104207.1820332-1-diego@bynar.io>
- <e5dec57a-0186-4087-9de4-5037f0a09879@redhat.com>
- <498fd2508ad66ac9d8fd19cbd4b4a02b@manguebit.org>
- <CAExJZk3gfbM4LkvN-zJGt6sQ3AKN+huZuhEatMswx2nYHyu7Og@mail.gmail.com>
-Date: Thu, 03 Sep 2026 12:24:10 -0300
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="a3rm6rR2"
+Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4954c08a7c8so2229175e9.3
+        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 08:24:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788449064; x=1789053864; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=fKRvoFT0iXNtYocSHfeIp3eZzwJLnARoSnyrks3zVww=;
+        b=a3rm6rR2VzC2DjoCMYpu/51tp4kJsSlCTlyXIFe8sLzTEgr8cmyl4TXsATSQN7qmh5
+         ExBYf0WSpsQHt8lSo649XNihnRkxxxgsa7jAnNymL6bwZzhrXUI1FrsaX8bOExNrz1Md
+         Q1wMqdYpyw5Yi6gAettqJ7Eo9onsMm20BLbCcLFABCKRvJEvdZItsiXRjKg/HD1Ly6iY
+         JPGyieFbe7wwwqRN3Yr8s0K8+39wTjW+zHkM2tnALOWbcnCfELsaX6zfulZJjp4UJc8d
+         OJTZMF8tiP1ZusOVm8vHsuLYAxfLlnZqwHbkL0QbUDpC7UT3ZBfv0LK9Rb6XhT7lDifV
+         jFyQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788449064; x=1789053864;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=fKRvoFT0iXNtYocSHfeIp3eZzwJLnARoSnyrks3zVww=;
+        b=hwndR0zTrM3X9KH4P8koHCJvoPgLcF1qsRf5ne0tdvPoDDFaAx+WoVpWzge6+TSW4E
+         RMSUMxnck2EkfYmBGzLgEt9KPMiU1t58qmPnwZ1GJz+BvSRWnzJx2r0wwJ3rKktwOY0L
+         gYrJu6iBxDrdg0WY+yRLshsgvb4gxp7GBwH3O+JLEMYUCChDOh97iGNDaMihV73aXWyP
+         e5IO64ZpI3e6Xq0XArb0o8NIH8pEv40NRSx63E6jJIchHK3T7OAEoSWtNGYdgQ3AkddQ
+         Yt2qTC7SouUtWgjHZg4lg8wzcmmS3Q6q1xd21WPeVivZKJpnkcWpi1UijVN6MK24mYH/
+         XneA==
+X-Forwarded-Encrypted: i=1; AKwUvBytVwC8xCLUG9LSM1czHMbNQbiq8BYZzNhBZtCf2RsfWpsb3t/omrjqudNeqMHG+LFfygFKIuxSzlyY8xg=@vger.kernel.org
+X-Gm-Message-State: AFuF++lXoFMhapkX5Rb4WvFjg4rsBG6S6vBTwgpS5VUiV/Dtp6dMpa7f
+	ih/1NpBuZfBDWpw4HFWXveNGaWo/s1Bp28Js7iJTqy728MELElmVX9Xs
+X-Gm-Gg: AYBFou2VKVsRBHPLRC5M7eVkipCpcccxsndu3xMXGj3jAFXKUZvY9IbDCZcAccs0fiT
+	vw6FGyhU32VwJPMoid425X6IRx2F55msDr1RHtIpypQcB5dr4v2KBghbmLAWCh1HmeaYQ1q/Oeh
+	gaVxppvNuUZVRc2MeI4j5vBUS7QBIB97n7qjc5xC1DjgVb3qm96l+m0tyhBPcJTu3kzbfZI+QxX
+	edff1s+egzZvVlUzDeL2cJ3zUw+sZfkLoba5WXDFy8eTLEncqBygEfKMc6ZW5YqMZyJ0fhVHgiE
+	dFJWm0ELC2ZGmWY0f/IDlWYzwDKZZGvImHMD7RPqyf/1gekSMbYJHGuIn9Q+y6DgCkgafhVs6Ky
+	JPhdTLorV6D3cR8HclLp/544IH9p0C2YqnP2hIrBmYxmSChkq5zDx4LAh/LNkEGPJz+jbT7yDVn
+	JINK0n0ZEya2vhk5RTqoeFxVSsPpWO7FnN/nf9PlpACFP1iXazm/I4c+QIlAEjCUq8Ckb45fCvS
+	4oMqlLZhcvARzVKo+VyI8RThMsL5teG1QvwvVhXPN6ZUy55U5bNLBA//tTSKyxTD7fs/PWtDW8Q
+	t8/eQYojFakR3Q==
+X-Received: by 2002:a05:600c:310e:b0:49b:9241:7ff0 with SMTP id 5b1f17b1804b1-49ce558f8d6mr118094475e9.0.1788449063470;
+        Thu, 03 Sep 2026 08:24:23 -0700 (PDT)
+Received: from pop-os.. (98.102.222.87.dynamic.jazztel.es. [87.222.102.98])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cee60bae6sm96098935e9.9.2026.09.03.08.24.22
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 03 Sep 2026 08:24:22 -0700 (PDT)
+From: Miguel Garcia <miguelgarciaroman8@gmail.com>
+To: stable@vger.kernel.org
+Cc: pvmohammedanees2003@gmail.com,
+	akpm@linux-foundation.org,
+	joseph.qi@linux.alibaba.com,
+	mark@fasheh.com,
+	jlbec@evilplan.org,
+	ocfs2-devel@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 6.1.y] ocfs2: fix deadlock in ocfs2_get_system_file_inode
+Date: Thu,  3 Sep 2026 17:24:21 +0200
+Message-ID: <20260903152421.1801322-1-miguelgarciaroman8@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-Diego Oliva <diego@bynar.io> writes:
+From: Mohammed Anees <pvmohammedanees2003@gmail.com>
 
-> On Wed, Sep 2, 2026 at 11:32=E2=80=AFPM Paulo Alcantara <pc@manguebit.org=
-> wrote:
->>
->> Diego, do you want me to fold this in:
->>
->> diff --git a/fs/smb/client/cifssmb.c b/fs/smb/client/cifssmb.c
->> index f3cba16f6e17..f9aff0712794 100644
->> --- a/fs/smb/client/cifssmb.c
->> +++ b/fs/smb/client/cifssmb.c
->> @@ -1742,7 +1742,8 @@ CIFSSMBRead(const unsigned int xid, struct cifs_io=
-_parms *io_parms,
->>                         rc =3D smb_EIO2(smb_eio_trace_read_overlarge,
->>                                       data_length, count);
->>                         *nbytes =3D 0;
->> -               } else if ((size_t)data_offset + data_length > rsp_iov.i=
-ov_len) {
->> +               } else if (data_offset < sizeof(*pSMBr) ||
->> +                          (size_t)data_offset + data_length > rsp_iov.i=
-ov_len) {
->>                         /* check that the data lies within the received =
-response */
->>                         cifs_dbg(FYI, "%s: bad data offset %u length %u =
-for response of %zu\n",
->>                                  __func__, data_offset, data_length, rsp=
-_iov.iov_len);
->
-> Looks good to me, thanks Paulo!
+commit 7bf1823e010e8db2fb649c790bd1b449a75f52d8 upstream.
 
-Done, thanks.  Updated #cifs-next with it.
+syzbot has found a possible deadlock in ocfs2_get_system_file_inode [1].
+
+The scenario is depicted here,
+
+	CPU0					CPU1
+lock(&ocfs2_file_ip_alloc_sem_key);
+                               lock(&osb->system_file_mutex);
+                               lock(&ocfs2_file_ip_alloc_sem_key);
+lock(&osb->system_file_mutex);
+
+The function calls which could lead to this are:
+
+CPU0
+ocfs2_mknod - lock(&ocfs2_file_ip_alloc_sem_key);
+.
+.
+.
+ocfs2_get_system_file_inode - lock(&osb->system_file_mutex);
+
+CPU1 -
+ocfs2_fill_super - lock(&osb->system_file_mutex);
+.
+.
+.
+ocfs2_read_virt_blocks - lock(&ocfs2_file_ip_alloc_sem_key);
+
+This issue can be resolved by making the down_read -> down_read_try
+in the ocfs2_read_virt_blocks.
+
+[1] https://syzkaller.appspot.com/bug?extid=e0055ea09f1f5e6fabdd
+
+Link: https://lkml.kernel.org/r/20240924093257.7181-1-pvmohammedanees2003@gmail.com
+Signed-off-by: Mohammed Anees <pvmohammedanees2003@gmail.com>
+Reviewed-by: Joseph Qi <joseph.qi@linux.alibaba.com>
+Reported-by: <syzbot+e0055ea09f1f5e6fabdd@syzkaller.appspotmail.com>
+Closes: https://syzkaller.appspot.com/bug?extid=e0055ea09f1f5e6fabdd
+Tested-by: syzbot+e0055ea09f1f5e6fabdd@syzkaller.appspotmail.com
+Cc: Mark Fasheh <mark@fasheh.com>
+Cc: Joel Becker <jlbec@evilplan.org>
+Cc: Junxiao Bi <junxiao.bi@oracle.com>
+Cc: Changwei Ge <gechangwei@live.cn>
+Cc: Gang He <ghe@suse.com>
+Cc: Jun Piao <piaojun@huawei.com>
+Cc:  <stable@vger.kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Signed-off-by: Miguel Garcia <miguelgarciaroman8@gmail.com>
+---
+ fs/ocfs2/extent_map.c | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
+
+diff --git a/fs/ocfs2/extent_map.c b/fs/ocfs2/extent_map.c
+index bb3a56b7f9a7c..5e86c7e2c8212 100644
+--- a/fs/ocfs2/extent_map.c
++++ b/fs/ocfs2/extent_map.c
+@@ -981,7 +981,13 @@ int ocfs2_read_virt_blocks(struct inode *inode, u64 v_block, int nr,
+ 	}
+ 
+ 	while (done < nr) {
+-		down_read(&OCFS2_I(inode)->ip_alloc_sem);
++		if (!down_read_trylock(&OCFS2_I(inode)->ip_alloc_sem)) {
++			rc = -EAGAIN;
++			mlog(ML_ERROR,
++				 "Inode #%llu ip_alloc_sem is temporarily unavailable\n",
++				 (unsigned long long)OCFS2_I(inode)->ip_blkno);
++			break;
++		}
+ 		rc = ocfs2_extent_map_get_blocks(inode, v_block + done,
+ 						 &p_block, &p_count, NULL);
+ 		up_read(&OCFS2_I(inode)->ip_alloc_sem);
+-- 
+2.43.0
+
