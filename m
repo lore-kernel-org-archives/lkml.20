@@ -1,234 +1,226 @@
-Received: from smtp-relay-internal-0.canonical.com (smtp-relay-internal-0.canonical.com [185.125.188.122])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7395369D54
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 05:48:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.125.188.122
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFF3E37188A;
+	Thu,  3 Sep 2026 05:48:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788414521; cv=none; b=GrV1inAPPDpS2dXpV75EAjOTYwOCE1jjMfiiaXHLYYD/U9lAlOJgOxMai2VEvH1XVBgzDg49XjPx2OKmT66uM6tRF3KkuMIOCyL5swcT+xxRrbwoMs2PM0l7INA71scBN2AjDdHPF+1vyauw2nhr1Lm6/qiNu/9REGXngXBLeEg=
+	t=1788414539; cv=none; b=OxwP/Ax/7tF2UNLNzxAZh6FKxHwW/N53DlakdFkbAxilFzhYZBCx6IU2L/kV6Jb6Z1Bea7SwqamzI+VC0W5GRzb38NvBLG8PTbUB6YSIVXDiIoDTfSmIY80IAlEtOoEyBar//PcAhCEdZneL5lJLThFcOtxM7d2PuL263LY1nqw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788414521; c=relaxed/simple;
-	bh=J6hwIKBIlfwXraFxsAEvKLrG6777CIBkog13CKrWnwo=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=aZDNd5ODgma+QsgvjaTgDHWDqFG5tfoYgQWv+PtqfdNnruCjMQX7yt9CFJ0I+Tigu7iudtjiMV2Pxu5QzKGnnUbAdzu5YVYN2ZhM16IXTEuGmvIwm/kzNgHwA0KjDBJZRA8Y1xkWB7doE391xOZqKM5yDoTYQoLBUEl5IOc3UIY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=canonical.com; spf=pass smtp.mailfrom=canonical.com; dkim=pass (4096-bit key) header.d=canonical.com header.i=@canonical.com header.b=tGlHYdtj; arc=none smtp.client-ip=185.125.188.122
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=canonical.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=canonical.com
+	s=arc-20240116; t=1788414539; c=relaxed/simple;
+	bh=yzuJBxIRtaIfQsH1de3sgHj464RsqHc8IKoLu0fnB+M=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=u50iLYnlQ8eVZBQExKdXZP7aGwAeThHYFwFVMDg44ZdbLfXwtru+Tp/54WuJzFUoansFE1iWZzWsvc6zlRur9XKum8ZQOSFu9L0bzSHaHlB3cyWAXCCm/KrdhPmoYsZu6BLSemZhJzaoDBxukpRUI06ZzE3o81Ix3FJAIeYl94w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FPjdHGnG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key) header.d=canonical.com header.i=@canonical.com header.b="tGlHYdtj"
-Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-relay-internal-0.canonical.com (Postfix) with ESMTPS id 077053F457
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 05:48:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
-	s=20251003; t=1788414517;
-	bh=HSTdOF4JkwWaIEqcAJaXFfNGVdCez5AeJ6hkT0u40HA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version;
-	b=tGlHYdtjZpdr/fi6vuJAKA4CYXo9KURES/RY3/gPNPEqfWMCp16JFC5yuMh/hzYlt
-	 QL9oL+w+O/0163PTGqhMOrS6/o3HrLUTazLZnfZ2Tgui35L0OsN+lmRtr+ZRNffrGH
-	 v/30cF+6NhMZc6l4TcDHQlzctmiEe8Tvl5SIBY3oiTiH7KNCPMDZYf+lGVv1HrRTRs
-	 +rI+I5l90L7gieirqwzJedCNQ48i8q/UvL/2xLtEq842fQO2KgvT4Fdy7Q/GDjkU+1
-	 M5EsKT2Ymr2F6QFfYGoPxuO2sxxaG3ilPpFZ67SFddY8wacoCYjiQzi7ER3J4Jaukm
-	 yZ5FlmhqDrujRe7u7yGu/2Q+VylyiJGIXO9p1secRk2OWFnHLSLHLkcFDZwtC01PxG
-	 jI8gOAj2IPPHg4MLRE9dgQAWbKRQng1fks/BM8m8G4QpD4G+7oX1LhKxwSDtkIgC2o
-	 oCUlfP/cbnfZ8RR35GrRUBW+tVWPn6s9l6tcOw/v2nDduenrGCoySuu0zQhTE0Uc34
-	 z0DC83sQiMhgSEcnO6E1cW4XxRRGObfns3jZ8WOJfk3ptVW2RWJMJHCzNN1CauEVoJ
-	 DZQe2F+9sU4FbXUrBISIzUQgesvKT5JqOXfBktdnqVoIAQrO3W+pt7/3RTg3vmcHbP
-	 8YaJiVGiUImoxAu8TnqHHuME=
-Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-396638f9a18so3432360a91.2
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 22:48:36 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788414515; x=1789019315;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=HSTdOF4JkwWaIEqcAJaXFfNGVdCez5AeJ6hkT0u40HA=;
-        b=qYMtc/8KK0vHIMrFUUoKOfC9SmQlwVANK0DJQreFXsPhrV1eoZU/NRnWCZsJa6jkQZ
-         LU6gUWUdHoZsmYwSey00vpkt1OXCJcpKHgdqX4hbQnTp6G04bQwNNLvn8xdNUq0KzPT7
-         PSI3UD9cHqU+7m9MjQgEwpr6085WfRM7Z43ZrvMpLdVzh5ur4hOES7axSF2zd7bRUmaK
-         7DsFHw1CKY6IWkB7tBnDJvSmyCRE6v1KF4PJ62H8gOoCiZdvI2U+rZeZFs6EhgBsKvtm
-         JyJ8GSKTOiW79ugigiEry522D/8oRklHEaePbMVM5/DuL5X/M4LUE5btTyidnD5dK07s
-         tchw==
-X-Forwarded-Encrypted: i=1; AKwUvBwIHWKMwIZNfwstbqxO3kod5jfIIeHL90YWs+Cuv1gQ8zD830pulloaNQW1J6g6pbyqbdTkdk3CNjT4KEs=@vger.kernel.org
-X-Gm-Message-State: AFuF++nWx+o1KaBlzFfCCz7gOuy9ZwZcGJEdxixYHrVOyaCQvu3bHPD9
-	dzGW8eOgeslYaVoCbEoI1WD9XXZByN5r2bKjjx2tD9xyTTXHHJpT7NWu8ljRqLlRasaIzmK9KWI
-	pNft0HC8Av2B99/Zs8ZLVzAT8ByHqsQ9ie1RRwJ2IYoTY3YVkTEoJJGYukqWHatEbZX9jf+FUQy
-	XXJ5Y4bQ==
-X-Gm-Gg: AYBFou3qgvQIptGMh4h28lRHpcOdIXXKPN9Trx8izbtEuggI7s2RSZLRci8fNn4W1ov
-	Zo9xxzezIfmi5kr40CW+xdEzkTbAh4zTvl4qvM/7M/6VzW/MI804mREFZ5q+kMY83HMyQR3LSSN
-	/Q7Z6apWzI94Y+o46kbGPR9iOcDkRkB9ZfQzyRNrCGlhRDKqBFGEiXAOJtPWg9jWQvPNBekM0ng
-	W3nTYKcpH9v8ZKWLPcAs8rdtEHUeIORsfJRCRn5N90Ez613R2wEgl2noqLjqL+uv+IuvWl4UcIy
-	J9/bNzTBR7vXYAfF3lqfP9v1bRQgFdvNFxkpyEdI2cUJhZ5gMgGVbtq2BDFzwp78hXb0U8BU5CB
-	lwQQY/Amng8lDs1IS9qF92J6ZC2X6viqLj8SO5GmN4BX4m9x0ucvKjnCSeU5TCb2DRPSrvXJKgu
-	U=
-X-Received: by 2002:a17:90b:3949:b0:398:9c00:29ee with SMTP id 98e67ed59e1d1-39aee208a63mr16324666a91.22.1788414515441;
-        Wed, 02 Sep 2026 22:48:35 -0700 (PDT)
-X-Received: by 2002:a17:90b:3949:b0:398:9c00:29ee with SMTP id 98e67ed59e1d1-39aee208a63mr16324592a91.22.1788414514888;
-        Wed, 02 Sep 2026 22:48:34 -0700 (PDT)
-Received: from resolute-linux.tail872496.ts.net (124-218-37-86.cm.dynamic.apol.com.tw. [124.218.37.86])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b08d086adsm3055228a91.15.2026.09.02.22.48.32
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 02 Sep 2026 22:48:34 -0700 (PDT)
-From: Aristo Chen <aristo.chen@canonical.com>
-To: Vinod Koul <vkoul@kernel.org>,
-	linux-phy@lists.infradead.org
-Cc: Neil Armstrong <neil.armstrong@linaro.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Brian Masney <bmasney@redhat.com>,
-	Fabio Estevam <festevam@nabladev.com>,
-	Lucas Stach <l.stach@pengutronix.de>,
-	Adam Ford <aford173@gmail.com>,
-	Marco Felsch <m.felsch@pengutronix.de>,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FPjdHGnG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B067B1F000E9;
+	Thu,  3 Sep 2026 05:48:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788414537;
+	bh=5NNeIbtC3B5Ouf6ooroHN5kj+0AOD3+qypfVw4RP8Ow=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date;
+	b=FPjdHGnG1RS4rnYNG4qC5oRYYol5VjixtNrmfVkcj8vFliZN7Te2jtt+feu55/AVb
+	 rb0IyWQs5M+p36QNKkqdkwY+GeCIG9TsbIFsCPxygCw0ABafofJEYF3Mzgk65Ebgo1
+	 KMTZQcakrrmAHJbJWtY3WViUih/OH5bkVFq4C2Iod4VFUIIC6TTkImPrrhLjdIKEHV
+	 BMe73Vu5A+nvS80UVV1s6Ji2PJfo8+l0a4t+CKkD6j0gkHtTCetAbFzPmVgnAvPeMo
+	 LgdAP2hW1fELky9BNgq2JkK0so6SKd97UUIbzoesphHeZ+xNHEChV5nKGGj3EJwuGG
+	 Q6CR2+xAwCIiA==
+X-Mailer: emacs 31.1 (via feedmail 11-beta-1 I)
+From: Aneesh Kumar K.V <aneesh.kumar@kernel.org>
+To: Jason Gunthorpe <jgg@ziepe.ca>
+Cc: Nicolin Chen <nicolinc@nvidia.com>, linux-coco@lists.linux.dev,
+	kvmarm@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
-	Aristo Chen <aristo.chen@canonical.com>
-Subject: [PATCH 1/1] phy: freescale: fsl-samsung-hdmi: initialize default rate
-Date: Thu,  3 Sep 2026 05:47:58 +0000
-Message-ID: <20260903054811.9720-1-aristo.chen@canonical.com>
-X-Mailer: git-send-email 2.53.0
+	Alexey Kardashevskiy <aik@amd.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Dan Williams <dan.j.williams@intel.com>,
+	Joerg Roedel <joro@8bytes.org>,
+	Jonathan Cameron <jic23@kernel.org>,
+	Marc Zyngier <maz@kernel.org>,
+	Pranjal Shrivastava <praan@google.com>,
+	Robin Murphy <robin.murphy@arm.com>,
+	Samuel Ortiz <sameo@rivosinc.com>,
+	Steven Price <steven.price@arm.com>,
+	Suzuki K Poulose <Suzuki.Poulose@arm.com>,
+	Will Deacon <will@kernel.org>,
+	Xu Yilun <yilun.xu@linux.intel.com>
+Subject: Re: [RFC PATCH v4 03/16] iommu/arm-smmu-v3: Add initial pSMMU realm
+ viommu plumbing
+In-Reply-To: <20260902235609.GG2890729@ziepe.ca>
+References: <20260427085344.941627-1-aneesh.kumar@kernel.org>
+ <20260427085344.941627-4-aneesh.kumar@kernel.org>
+ <apM6dOHcEI2ztWS0@nvidia.com> <yq5a8q5lz5yn.fsf@kernel.org>
+ <yq5aecfdnv4i.fsf@kernel.org> <20260901143445.GC56830@ziepe.ca>
+ <yq5a8q5kkoz3.fsf@kernel.org> <20260902121700.GC2890729@ziepe.ca>
+ <yq5aik4nztdt.fsf@kernel.org> <yq5aecfbzjyk.fsf@kernel.org>
+ <20260902235609.GG2890729@ziepe.ca>
+Date: Thu, 03 Sep 2026 11:18:47 +0530
+Message-ID: <yq5a8q5izxz4.fsf@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 
-The HDMI PHY clock reports 74.25 MHz when cur_cfg is unset, but does
-not establish that rate in hardware. The common clock framework caches
-the reported rate when registering the clock and skips a first
-clk_set_rate(74250000) request because the rate appears unchanged.
+Jason Gunthorpe <jgg@ziepe.ca> writes:
 
-Consequently, a display whose initial mode uses a 74.25 MHz pixel clock
-can leave the PHY with its bootloader register state and receive no
-TMDS signal. Requesting another rate first avoids the issue because the
-set_rate callback configures the PHY.
+> On Wed, Sep 02, 2026 at 10:09:15PM +0530, Aneesh Kumar K.V wrote:
+>> static int arm_realm_smmu_v3_vdevice_init(struct iommufd_vdevice *vdev)
+>> {
+>> 	struct device *dev = iommufd_vdevice_to_device(vdev);
+>> 	struct kvm *kvm = vdev->viommu->kvm_file->private_data;
+>> 	struct arm_smmu_device *smmu;
+>> 	struct arm_smmu_stream *stream;
+>> 	struct arm_smmu_master *master;
+>> 	unsigned long rmi_ret = 0;
+>> 	unsigned long l2_sid;
+>> 	int ret;
+>> 
+>> 	if (!tsm_is_configured(dev))
+>> 		return 0;
+>> 
+>> 	master = dev_iommu_priv_get(dev);
+>> 	/* FIXME which stream to pick */
+>> 	/* At this moment, iommufd only supports PCI device that has one SID */
+>> 	stream = &master->streams[0];
+>> 	smmu = master->smmu;
+>> 
+>> 	l2_sid = ALIGN_DOWN(stream->id, STRTAB_NUM_L2_STES);
+>> 
+>> 	{
+>> 		guard(mutex)(&smmu->realm.mutex);
+>> 
+>> 		if (!arm_realm_smmu_active(smmu))
+>> 			return -EINVAL;
+>> 
+>> 		ret = rmi_psmmu_st_l2_create(smmu->base_phys, l2_sid,
+>> 					     &rmi_ret);
+>> 		if (ret || rmi_ret) {
+>> 			if (!ret)
+>> 				return -EIO;
+>> 			if (RMI_RETURN_STATUS(rmi_ret) != RMI_ERROR_PSMMU_ST ||
+>> 			    RMI_RETURN_INDEX(rmi_ret) != 2) {
+>> 				dev_warn(dev, "failed to create realm stream mapping\n");
+>> 				return -EIO;
+>> 			}
+>> 			/* The L2 stream table already exists. */
+>> 		}
+>> 	}
+>> 
+>> 	vdev->destroy = arm_realm_smmu_v3_vdevice_destroy;
+>> 	return tsm_bind(dev, kvm, vdev->virt_id);
+>
+> I think we should drop tsm_bind() as an abstraction. It doesn't make
+> sense to take that round about path when we are calling RMIs directly
+> above. It was intended to be an abstraction, but it isn't working out
+> with this viommu based abstraction.
+>
 
-Program the 74.25 MHz table entry with the reference clock enabled
-before registering the clock provider. recalc_rate can then report the
-configured rate, and a skipped first rate change is safe. Also enable
-the reference clock when restoring that configuration on resume.
+I was considering using the viommu only for explicit pSMMU/vSMMU setup,
+SID/STE management, and realm stream-table creation. I expected other
+operations, such as vdevice creation and lock/run state transitions, to
+be driven by IOMMUFD ioctls and dispatched to the TSM backend through
+abstractions such as tsm_bind() and tsm_guest_req(). This results in the
+following split:
 
-Fixes: 6ad082bee902 ("phy: freescale: add Samsung HDMI PHY")
-Signed-off-by: Aristo Chen <aristo.chen@canonical.com>
----
- drivers/phy/freescale/phy-fsl-samsung-hdmi.c | 59 +++++++++++++++-----
- 1 file changed, 44 insertions(+), 15 deletions(-)
+- Arm SMMU: pSMMU/vSMMU setup, SID/STE management, and Realm
+  stream-table creation.
+- PCI TSM: device association, bind lifetime, DSM lookup, and TDI state.
+- arm-cca-host: PDEV/VDEV operations, TDISP transitions, reports,
+  measurements, and IDE interaction.
+- IOMMUFD: route userspace requests using the vdevice ID.
 
-diff --git a/drivers/phy/freescale/phy-fsl-samsung-hdmi.c b/drivers/phy/freescale/phy-fsl-samsung-hdmi.c
-index 0f25d81de61b..41addd4ad414 100644
---- a/drivers/phy/freescale/phy-fsl-samsung-hdmi.c
-+++ b/drivers/phy/freescale/phy-fsl-samsung-hdmi.c
-@@ -44,6 +44,8 @@
- #define MHZ	(1000UL * 1000UL)
- #endif
- 
-+#define PHY_DEFAULT_RATE	74250000
-+
- #define PHY_PLL_DIV_REGS_NUM 7
- 
- struct phy_config {
-@@ -489,17 +491,6 @@ static int fsl_samsung_hdmi_phy_configure(struct fsl_samsung_hdmi_phy *phy,
- 	return ret;
- }
- 
--static unsigned long phy_clk_recalc_rate(struct clk_hw *hw,
--					 unsigned long parent_rate)
--{
--	struct fsl_samsung_hdmi_phy *phy = to_fsl_samsung_hdmi_phy(hw);
--
--	if (!phy->cur_cfg)
--		return 74250000;
--
--	return phy->cur_cfg->pixclk;
--}
--
- /* Helper function to lookup the available fractional-divider rate */
- static const struct phy_config *fsl_samsung_hdmi_phy_lookup_rate(unsigned long rate)
- {
-@@ -520,6 +511,14 @@ static const struct phy_config *fsl_samsung_hdmi_phy_lookup_rate(unsigned long r
- 		&phy_pll_cfg[i] : &phy_pll_cfg[i+1]);
- }
- 
-+static unsigned long phy_clk_recalc_rate(struct clk_hw *hw,
-+					 unsigned long parent_rate)
-+{
-+	struct fsl_samsung_hdmi_phy *phy = to_fsl_samsung_hdmi_phy(hw);
-+
-+	return phy->cur_cfg->pixclk;
-+}
-+
- static void fsl_samsung_hdmi_calculate_phy(struct phy_config *cal_phy, unsigned long rate,
- 				    u8 p, u16 m, u8 s)
- {
-@@ -640,6 +639,7 @@ static int phy_clk_register(struct fsl_samsung_hdmi_phy *phy)
- 
- static int fsl_samsung_hdmi_phy_probe(struct platform_device *pdev)
- {
-+	const struct phy_config *default_cfg;
- 	struct fsl_samsung_hdmi_phy *phy;
- 	int ret;
- 
-@@ -664,6 +664,23 @@ static int fsl_samsung_hdmi_phy_probe(struct platform_device *pdev)
- 		return dev_err_probe(phy->dev, PTR_ERR(phy->refclk),
- 				     "failed to get ref clk\n");
- 
-+	/*
-+	 * Establish the rate reported by recalc_rate() before registering the
-+	 * clock. Otherwise CCF may skip the first set_rate() when it requests
-+	 * the assumed default rate, leaving the PHY unconfigured.
-+	 */
-+	ret = clk_prepare_enable(phy->refclk);
-+	if (ret)
-+		return dev_err_probe(phy->dev, ret,
-+				     "failed to enable ref clk\n");
-+
-+	default_cfg = fsl_samsung_hdmi_phy_lookup_rate(PHY_DEFAULT_RATE);
-+	ret = fsl_samsung_hdmi_phy_configure(phy, default_cfg);
-+	clk_disable_unprepare(phy->refclk);
-+	if (ret)
-+		return dev_err_probe(phy->dev, ret,
-+				     "failed to configure default rate\n");
-+
- 	pm_runtime_get_noresume(phy->dev);
- 	pm_runtime_set_active(phy->dev);
- 	pm_runtime_enable(phy->dev);
-@@ -702,7 +719,7 @@ static int __maybe_unused fsl_samsung_hdmi_phy_suspend(struct device *dev)
- static int __maybe_unused fsl_samsung_hdmi_phy_resume(struct device *dev)
- {
- 	struct fsl_samsung_hdmi_phy *phy = dev_get_drvdata(dev);
--	int ret = 0;
-+	int ret;
- 
- 	ret = clk_prepare_enable(phy->apbclk);
- 	if (ret) {
-@@ -710,11 +727,23 @@ static int __maybe_unused fsl_samsung_hdmi_phy_resume(struct device *dev)
- 		return ret;
- 	}
- 
--	if (phy->cur_cfg)
--		ret = fsl_samsung_hdmi_phy_configure(phy, phy->cur_cfg);
-+	if (!phy->cur_cfg)
-+		return 0;
- 
--	return ret;
-+	ret = clk_prepare_enable(phy->refclk);
-+	if (ret) {
-+		dev_err(phy->dev, "failed to enable ref clk\n");
-+		goto disable_apbclk;
-+	}
-+
-+	ret = fsl_samsung_hdmi_phy_configure(phy, phy->cur_cfg);
-+	clk_disable_unprepare(phy->refclk);
-+	if (!ret)
-+		return 0;
- 
-+disable_apbclk:
-+	clk_disable_unprepare(phy->apbclk);
-+	return ret;
- }
- 
- static DEFINE_RUNTIME_DEV_PM_OPS(fsl_samsung_hdmi_phy_pm_ops,
--- 
-2.53.0
 
+>
+>> @@ -513,10 +514,16 @@ static ssize_t cca_tsm_guest_req(struct pci_tdi *tdi,
+>>  		if (copy_from_user((void *)&req_obj, req.user, req_len))
+>>  			return -EFAULT;
+>>  
+>> -		if (req_obj.tdi_state != RHI_DA_TDI_CONFIG_RUN)
+>> +		switch (req_obj.tdi_state) {
+>> +		case RHI_DA_TDI_CONFIG_UNLOCKED:
+>> +			return cca_vdev_device_unlock(pdev);
+>> +		case RHI_DA_TDI_CONFIG_LOCKED:
+>> +			return cca_vdev_device_lock(pdev);
+>> +		case RHI_DA_TDI_CONFIG_RUN:
+>> +			return cca_vdev_device_start(pdev);
+>> +		default:
+>>  			return -EINVAL;
+>> -
+>> -		return cca_vdev_device_start(pdev);
+>> +		}
+>>  	}
+>
+> This stuff cannot flow through sysfs. The VMM must support running in
+> a sandbox so it cannot easially call out to sysfs while the VM is
+> running. That makes the sandboxing more complex and ugly. The flow we
+> have now relies on fd passing from the launcher into the sandbox to
+> get things like vfio and iommufd into the VMM.
+>
+
+This does not go through sysfs. It uses the following IOMMUFD ioctl:
+
+IOCTL_OP(IOMMU_VDEVICE_TSM_REQ, iommufd_vdevice_tsm_req_ioctl,
+	 struct iommu_vdevice_tsm_req, tsm_code),
+
+I need to spend more time considering your suggestion to handle guest
+requests through viommu_ops rather than as TSM backend operations. The
+split described below seemed more natural to me.
+
+- Arm SMMU: pSMMU/vSMMU setup, SID/STE management, and Realm
+  stream-table creation.
+- PCI TSM: device association, bind lifetime, DSM lookup, and TDI state.
+- arm-cca-host: PDEV/VDEV operations, TDISP transitions, reports,
+  measurements, and IDE interaction.
+- IOMMUFD: route userspace requests using the vdevice ID.
+
+It is not yet clear to me whether operations such as MMIO validation
+(TSM_REQ_VALIDATE_MMIO), setting the TDI lock/unlock/run state
+(TSM_REQ_SET_TDI_STATE), querying TDISP object details
+(TSM_REQ_OBJECT_INFO), and reading or regenerating TDISP objects
+(TSM_REQ_READ_OBJECT and TSM_REQ_REGEN_OBJECT) belong in viommu_ops.
+
+Meanwhile, I will clean up my changes and post them as a patch series so
+that we can review them more closely?
+
+>
+> So these actions really should work the same way unless there is a
+> strong reason to do otherwise.
+>
+> Given these are all acting on bound devices, and those can only be
+> created by iommufd, it makes more sense to feed the operations through
+> iommufd into the viommu and vdevice ops. AMD wanted to create such
+> general command ops anyhow for their viommu emulation (non cc).
+>
+> And.. then you don't need struct pci_tdi. The vdevice is effectively
+> the tdi and the existing locking scheme in iommufd for vdevice takes
+> care of everything the tsm code was trying to do, except in a way that
+> applies to every viommu out there.. This actually makes a lot of sense
+> because the tdi is not really separable from vfio. You cannot have a
+> tdi without a kvm and you cannot link a pci dev to a kvm without vfio.
+>
+> Finally, there is really nothing about the viommu_ops that has much to
+> do with smmuv3. It would be fairly straightforward for the tsm_ops to
+> be able to create the viommu and provide the viommu_ops. We can get
+> there based on the IOMMU_VIOMMU_TYPE_ARM_REALM_SMMUV3.
+>
+> This then would open up a much nicer split where arm-cca-guest.ko can
+> provide a realm smmuv3, and inside those viommu_ops are all the realm
+> & tdi related ops, psmmu, vsmmu, vdevice, "guest req".
+>
+> The arm-cca-guest can just make a simple function call to SMMUv3 to
+> get the phys and interrupts. Somehow I think Will would like this
+> better than adding to SMMUv3.
+>
+> Now that the viommu stuff is more developed on the iommufd end, and
+> the RMM spec is more complete with vsmmu, I think this arrangement
+> becomes visible.
+>
+> What do you think?
+>
+> Jason
+
+-aneesh
