@@ -1,153 +1,284 @@
-Received: from mail-ed1-f41.google.com (mail-ed1-f41.google.com [209.85.208.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33D7A4A5EBE
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 21:01:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A888C378D93;
+	Thu,  3 Sep 2026 21:04:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=192.198.163.16
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788469324; cv=pass; b=gqpUl4J5JL/qczepH/pZLJlb8Ukyou6+jGW1di6tH4gZkB4kb6fwcXFvMeHrspmDwVzzxm841FEvXKZ6wCTTLrYG2F4/PPj9m0Vfkt3yEV/4VA5eyOfVr4sc1rqh13iUDpCl1nI3pclhS6+D9Yi1DR1TgBfCPiyc68XC2ibe5dU=
+	t=1788469476; cv=fail; b=T17cyqG//r1VNUJQvna6cfqhwlnPoGXkdT/vTnxVpC7SL4OVda+RD8q45VXU/wyb5lsZRM5oeGbzpvDa3063DRJC9wwZXAmc4hErR1ZpXl9D3Mri40fI8CwEJZ3VnLSJi22qRJSK6NKbWqnc1YJf+pLnMGf0MCJs2VTZRFIrCw0=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788469324; c=relaxed/simple;
-	bh=4yuOkHyQOJFHYoOA3DdV+zE9rezwn3b+EymmrWKCfO0=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=kAje1nqbLPXOumLmRBvVJmKHEYNTy5VrJdw59t/gSxKbke6Z8kDYNl9/k8Ujy9l0pa/IWX7X0Xq+t69iP2ve4wIA3HfDSGot19iVl2ZtMvJHVDAY1XUsQtGvvzoTsdXSWvdORPyyuNDqwcoWYfnVjZ0sUKYObbzN2pc6cuneAIU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=N5xt2vE2; arc=pass smtp.client-ip=209.85.208.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788469476; c=relaxed/simple;
+	bh=2EELXHOi12sG8UfBM/fFxCr/rAU5Keg8EmpZ2/wl49g=;
+	h=Message-ID:Date:Subject:To:CC:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=LuF4HEeOMO+IpISwUB/isvYubljkel/7OMeeEEwNZGr5ELg6gC1AEztK8pb33AK05xSP4o04XSQ74MO8bDIAGqsxikRzmpQIGcBZREOBp/+HXyDlnAhA4/0ZUuQGPgKqRLMOjgMvCc6fZPDRYheXvpeE0vhKQ+1G5uJHEHWGelc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=TNScuQsM; arc=fail smtp.client-ip=192.198.163.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="N5xt2vE2"
-Received: by mail-ed1-f41.google.com with SMTP id 4fb4d7f45d1cf-6a051b737d8so191221a12.1
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 14:01:58 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788469314; cv=none;
-        d=google.com; s=arc-20260327;
-        b=mKS56QH+R66nOhKvIlBs0UsKnJVwl7mtQUSCDt6ubqgXf4Kb9ulAbA7tDmSU0WMSEa
-         R18OYDwBtYb1CBoEPbl5863xDE2AySFe12aNgtreOAvkXzLAv8+0qME2MPSzx8XDCews
-         21rT16AEacJNfYK8yJiJNCKAMXh0buerELiUYyNhv4FO/YcBhqCe+O/7q1HUGCcXkgaW
-         ejZtd3Z9X5n4iXnhS3/gNpLEKVb3wVolF/s22ivMQ7eivBOIFyASgGNo79rcHIQgx4dQ
-         5XOx2pIFBlEW/JmApgpDyPgJw8XeXJtORVO4WZm8InWgeBTSoECvuS31pRGO0xn/eteW
-         WvdQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=4yuOkHyQOJFHYoOA3DdV+zE9rezwn3b+EymmrWKCfO0=;
-        fh=xcVT0U3Kc2XquDwi6S3G4mniX6RdAYMsbD6zKNd9ljk=;
-        b=NeFdUKIkS5t37j0YJSfGmQ9ZBfucfdkKdfudb7DN7LE5zsujlJbTU3eHHvX+rP7DOg
-         TdbQUlmYKDjP/13/WbKjADLD2shme8/OH6mDeogkA6kvtRQYm8kEFlLCMRcxFKDca3PX
-         tVNKvPSb206Kw+J3EhYTWrFKiKt0JfLoiioqodMDtqsXi1/ecbclD1JhLCKNrasFlSqu
-         EnzTgv6IXgVQ1AaJ4kgHMnkqSd70dwwZSNBlLRbJKphkCKXXJV+3vl5+h7YqN7xyFaTT
-         4hZSgeXOdjqkouTI0oqJcViV9wk0CuHT+mcXTScbcfPV4InZi3D85sRX2XfBjF6KRh+K
-         0oig==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788469314; x=1789074114; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=4yuOkHyQOJFHYoOA3DdV+zE9rezwn3b+EymmrWKCfO0=;
-        b=N5xt2vE2RzJ/NfHM7WD28B6f7yv1s/jTdsfkwSI/n/ccrJSgp8f6v/hrHPgW9JQ23Y
-         hSj78PUuRWnKrHvt9u/40pDvz8yR3zi6j08AYlBcPH03wM1eVTRW2KbYnvGXPfWA1Yp3
-         p1WuCdoOyqzZmO1Zvtnw00UKNHx08zAJpZhLb2XIXgKfo+2F/YFA+Vr+Ur1J1uiJXmbD
-         dk8zXV4xA0/p0DCyF+gSWNrnAf9498VzQFXHAWoNa0L/oD96CTZTdYj0PTMQfuz1jkgE
-         F8dH7y8EnHt+oGup1ALB1CS2cUffSMxP9F3YPqNjFNYhjH2ofGK6EMJD+ZGD6Yd9XPmq
-         2W6A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788469314; x=1789074114;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=4yuOkHyQOJFHYoOA3DdV+zE9rezwn3b+EymmrWKCfO0=;
-        b=XbwkFQmTi7KBxui9wQrXM1dQxpwyr4XDInSL6Ev4x4A/fz1AJfUNcAlW8JD+LFJfQU
-         wLCJzNz7tl7+a3n7Rt5Ss1PUslw3DG5MFk/SuY6sY/JRq5E7zbdqrBXibolXOPwun+HD
-         R2FYBwg+qJhwUWjlyBkfSpJXoiVIXa3VHqPL9HqnbNufBHxbPmoWxLL3e0ZGUs4SPjW+
-         b88nsCvRfWmPcoQMSrCxYiSbNadaPx/pmXPm90c91S5Gp8ljv+S/8GXhMlgtEZBBuIJX
-         2cCDrMWL88KHk68fVjwFr1JuMk0kIHoll/RkqkZB2a1MqvIQhFToZPFoEq6yaWVfqetI
-         UYPA==
-X-Forwarded-Encrypted: i=1; AKwUvBwaJjDCNcxpOFNIQxiH7wPW5Xj+jqSCV2H253zCy6WnnXxlYdn1EGwV54APqZ4ZcfSPk5li/wGGB07YCsg=@vger.kernel.org
-X-Gm-Message-State: AFuF++nKdHmKvI653i98oe1RgAtMjYoGobjn8UslT6iDLt7FWF5b58uZ
-	8mNk3Kl/Z0F3jUYY2TPdGBxvbqHx8aJ8QSZNP/omcSqTL7V5HIbSMfHnI4B0FB5ybcHIoXSu/Yd
-	2lGDmB4GVr3w+zCgSGHepU9UXQo8dD724yTjA
-X-Gm-Gg: AYBFou0QH1XbaROeFHnM18JAzag4obTKnYlrGLdljUUz4wya9js6X+inYV8yCkzlyBD
-	+CwVr9HK+63uGs9wOUBWCs4PseCii446n8b7Tu69niUKhCQ2akIXMU0pa+Yljt/YeMG9QLe+VHo
-	tXnF9HUrhRTzLVL5YrTw9bC9cZfYYpKsLVJAsCjkYmgb4HhlXbu/V2rxW+Z8ujN+OaK4H+z6TSG
-	J7H4b0eWe/gTxcnF03p7ToP4h8Ub02nYflkFc2w/7N5DqTCugwAOT0zYio1tTtnEHpYsaUqfZEf
-	EnbivYm38UMIjwIhTsCytIq+yiJJ81p0sRxKOiLgnivAgIutJKlZHc90Ei6I0gPo7RfB7SerMdt
-	eApCHACQH8/DAgln/KPR2z6TScd/a1G0=
-X-Received: by 2002:a05:6402:3203:b0:6a5:f9ab:bdfd with SMTP id
- 4fb4d7f45d1cf-6a7e8cb104fmr612198a12.0.1788469314120; Thu, 03 Sep 2026
- 14:01:54 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="TNScuQsM"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788469474; x=1820005474;
+  h=message-id:date:subject:to:cc:references:from:
+   in-reply-to:content-transfer-encoding:mime-version;
+  bh=2EELXHOi12sG8UfBM/fFxCr/rAU5Keg8EmpZ2/wl49g=;
+  b=TNScuQsMpXsOB9pWULNxDLIivQVnTw+s+wo9JQQorZPDMEPyGaWoRA4J
+   HyUyNDxMO95IM7B5BOCBVY6S+ZNiJDuGvxzGWIjV+H1BDQL/NzbqkZGz6
+   uIEIPlso3w/iJmFoWDxEOMVFVgkIlfZH40t+4xRbbifjH7IiAE3IKHW3X
+   eIcfrPQ1h6SszYtB5DyqUPnbLEdtqNsl1f0hJe9Kusber21CqetzIWetk
+   f5/YSijC1YezIJqOe8M8A1bTPvccJn9v9h8ZdFL1eOpt8Oj9T5qL10OcG
+   o8pO0JSkorTpOpTRT4NmydnoT9XQsM1acr7uCUulThWTyxS38+jpofVrs
+   g==;
+X-CSE-ConnectionGUID: fIoei6HDToq2Jugouxd1iw==
+X-CSE-MsgGUID: ZzVIRMxvS3GRYEEGPGCIuw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11895"; a="76520757"
+X-IronPort-AV: E=Sophos;i="6.25,260,1779174000"; 
+   d="scan'208";a="76520757"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Sep 2026 14:04:32 -0700
+X-CSE-ConnectionGUID: eHurqparQwmk73CFBdc6Rg==
+X-CSE-MsgGUID: jkItDA0ZQ7G+sLqzHBeNiw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,260,1779174000"; 
+   d="scan'208";a="294707337"
+Received: from orsmsx903.amr.corp.intel.com ([10.22.229.25])
+  by fmviesa001.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Sep 2026 14:04:32 -0700
+Received: from ORSMSX902.amr.corp.intel.com (10.22.229.24) by
+ ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Thu, 3 Sep 2026 14:04:31 -0700
+Received: from ORSEDG901.ED.cps.intel.com (10.7.248.11) by
+ ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46 via Frontend Transport; Thu, 3 Sep 2026 14:04:31 -0700
+Received: from DM5PR21CU001.outbound.protection.outlook.com (52.101.62.38) by
+ edgegateway.intel.com (134.134.137.111) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Thu, 3 Sep 2026 14:04:31 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=NhGOdhvwK1whtxF+Rq1yC3sfC0XFA4nZIOzBXVrDCKH5XxrDOcbWXAALUvxBNlA+8tC1l0aH66iXBPuIuzCwdz2PKpYo0BE6TEpMtbTyb57aILxr0t8YH3+kfPmKXTUuDm+xQObIe2kvDpt+RLFZz1YsZaaWa/3FMC9ebaAztXsWBnuTonUNq6dTbZmcUG4XN32XrKsbpRO76L60/0sL7kGCVx2ju5Jfcq5SPD4qei8x/mU2tZun20fBODmZRjmMKJOp1H+9FKFrH0uGNKKhgipnrP7iM43B+fC6S1MBt4u74bQlZT5CPS7rC4CztKWga++35HNTEFb5yo8qi7tkww==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Gh4svpHZlb6ODgSBqtA1ng8YnJoR6nR3Zn7xHpa0Nuk=;
+ b=pujVTWrDJnG5Eu9T0X4pZDLjHaMfbTT8xE3YnwWLHAlUWXRYPQyvNrfIOYYpl7iTon4O0aUgGAnXYKXcWx9Bw4+E02gcBiQsSn6njM5uhS7bcdpKVEezQfv6wzBhRBKnBSKIlPhP6I+zB1Lpqq6ZCEgwI8ZF+XPIRuoptt2Z74dNZcqey3NbfK5AToewCXZBpeQ6IyW6qsSP3Dtm2mp3tTaqyZXUK4HIltq4hd2txSka2a6hfSlxpHmz9o5pP6jPK2tOeOtJw9TdRuOt2jgu0BMDpX0iVbXUiM6KfqoKpBh/KW+GBkV4lkjeYTAOfYjBq4Urx92hm0ZvLlV0mGzG9w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from DS0PR11MB7925.namprd11.prod.outlook.com (2603:10b6:8:f8::18) by
+ DSWPR11MB9821.namprd11.prod.outlook.com (2603:10b6:8:4e1::19) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.360.13; Thu, 3 Sep 2026 21:04:30 +0000
+Received: from DS0PR11MB7925.namprd11.prod.outlook.com
+ ([fe80::60af:89a0:65dc:9c84]) by DS0PR11MB7925.namprd11.prod.outlook.com
+ ([fe80::60af:89a0:65dc:9c84%7]) with mapi id 15.21.0360.008; Thu, 3 Sep 2026
+ 21:04:29 +0000
+Message-ID: <96ca6bc4-a03a-4e4e-b82c-f5202cdf21ac@intel.com>
+Date: Thu, 3 Sep 2026 14:04:28 -0700
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/8] x86/microcode/intel: Reject problematic loading on
+ GNR systems
+To: Borislav Petkov <bp@alien8.de>
+CC: <linux-kernel@vger.kernel.org>, <x86@kernel.org>, <tglx@kernel.org>,
+	<mingo@redhat.com>, <dave.hansen@linux.intel.com>, <hpa@zytor.com>,
+	<andrew.cooper3@citrix.com>, <arjan.van.de.ven@intel.com>,
+	<stable@vger.kernel.org>
+References: <20260901231634.714144-1-chang.seok.bae@intel.com>
+ <20260901231634.714144-2-chang.seok.bae@intel.com>
+ <20260903015154.GMapjSujbkKGzyihVB@fat_crate.local>
+Content-Language: en-US
+From: "Chang S. Bae" <chang.seok.bae@intel.com>
+In-Reply-To: <20260903015154.GMapjSujbkKGzyihVB@fat_crate.local>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: BY3PR03CA0003.namprd03.prod.outlook.com
+ (2603:10b6:a03:39a::8) To DS0PR11MB7925.namprd11.prod.outlook.com
+ (2603:10b6:8:f8::18)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <cover.1788277742.git.mattst88@gmail.com> <6e7a5e56a201a74c00d1615a7ac1d58d385194eb.1788277742.git.mattst88@gmail.com>
-In-Reply-To: <6e7a5e56a201a74c00d1615a7ac1d58d385194eb.1788277742.git.mattst88@gmail.com>
-From: Magnus Lindholm <linmag7@gmail.com>
-Date: Thu, 3 Sep 2026 23:01:41 +0200
-X-Gm-Features: AcwNN1UctXBCyXjdQB9DOXuPKYOdbWfSfCWoFp7K2RjPmXxy_RlgE8G6kc8THUI
-Message-ID: <CA+=Fv5TkaU7+yoU-MeHUo5Qs0jhVCexahSubAkzqSyhN+HSdXw@mail.gmail.com>
-Subject: Re: [PATCH 22/24] alpha: add HAVE_PERF_REGS and HAVE_PERF_USER_STACK_DUMP
- support
-To: Matt Turner <mattst88@gmail.com>
-Cc: linux-alpha@vger.kernel.org, richard.henderson@linaro.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS0PR11MB7925:EE_|DSWPR11MB9821:EE_
+X-MS-Office365-Filtering-Correlation-Id: 16fe747c-54bb-4f3b-a591-08df09fef205
+X-LD-Processed: 46c98d88-e344-4ed4-8496-4ed7712e255d,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|23010399003|366016|1800799024|4143699003|10067099003|11063799006|56012099006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: MPoikdqfKe4SO4DypCiM6ik5OPahp0HfmXHg0rL+1GW8pKxDyJzMB+fYwqhv0KXlNIhK56rAZXDMIVXtK9QARkmmHfUwVuYSiW/z3HEUhV6h5SMTdkF2QVq6/WyCAbA6xi/utg4AARVJ76igflsh+qNpIW7n57ukwW5m2mUFA9sZuhp2D4hbYEEsiWSTYCMiKu7mkvm4IrzFfCV/yH+qSIf76RE1hhaBMbkqD4AkH7Q1wy4+Nkj58KAUhKcyVF2HR/dckkLXkVOe+3N97ueg42a7UZkI2N/Tgz+vs9jfg9tNngFhNutGzn+i8K92GRnz9dCOvYmcXQ8baLrhgf1Kd+FdiHflT4mVCtrD99rIJy4n3Bq5HA/rY240smmXn9u9QALJGYZcL2qoAAh2MJppHbxwtYo7CaqqnVgwfq0Omr2iBUAru7F4bMhxlnyGXevDhr1dGzNnyBP04kcR611GV1b6lXpKE0W8tAVEMueon5NbunypuB1pklSa1UwnuskT1UJKeeF9Ym6jMW/+NEf+cReqgO2/vZElSh+AeItPWbWucaKj9dluiAXTeCIpz0V32/WCPoemzHEcQmRRY3XXn5rlYICdCmKSH0isus3DmFmZwRvAYOmxOaVZo2FJy/9OTuz4SKLTjCofJlC+zHggrYIAYV7DBCJlaqTs4xtiu6s=
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS0PR11MB7925.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(23010399003)(366016)(1800799024)(4143699003)(10067099003)(11063799006)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?alhQdHE1eHFnWEo4NFJUcEgxME5RendrVWwzVm1yVzdkZHlIejRGUkt2cy9o?=
+ =?utf-8?B?NTczaWxjTlZtSWVQNHdsWml0YUhYSHdNUWRxM2VSRE8ydTBBaDlrWEhjc0ND?=
+ =?utf-8?B?SWg1eVlwTC9JMTRGOG5LRnpqWVNua3ZqRUVIQTVwVEdsNVBSdWE1Snoxd1d3?=
+ =?utf-8?B?RkJmS3duVFd2Qk1ObHpJeHVoZWFPdXBlbkdaQWlETmZ4d3BmTlFNc0k1bi9n?=
+ =?utf-8?B?dW9CbXNkMyt3bkxmSHlXMmROZWRFWnNXcCtxdXRTU3hMNjByRkFzMnZmK1RT?=
+ =?utf-8?B?RGZQOGhhUVFqR2lJV29FT3BYUW1Qd284VVkxVjhBeC9oeitqMDVnWHlaT0p6?=
+ =?utf-8?B?dVVQUlYwd2ppVVV6ekhlbzVwbDdKUU5DZFdNbUZlOCtWWlNLcW1WaWJqVEdh?=
+ =?utf-8?B?ZXFMWXl4a3ZQbzhqL2F3WHBkd0J3d1k5ZzF6TnRvSUhsdUVJR1d6RDJIeExm?=
+ =?utf-8?B?OHZNdmtUN3N3RWFuNVNVQmUvZVhrNmNGVVZXaXZvcFdkMm1UY2c3VTRueW5n?=
+ =?utf-8?B?ZzAvNzhqRnRtYWM4NWF4UGptWDJSSFNldTg2WjRBS3ZJVUQ0dFF2ejRNSTNR?=
+ =?utf-8?B?QkRIcUtWaTJ4UGFrUnJYRHpqclhOalYwTmcveFVFQmkxY0wrOWFxak5DNzFl?=
+ =?utf-8?B?T0NUUUNHVmxVZ2ZLVHFJcHFnTklCaFN1QzFKbFBXQWFxOGlaMkp5NThoWlFw?=
+ =?utf-8?B?U0FmWEowZTVwSC90ZnAzSWFVMjBwZTA5a0VCaEJUQVBwZ0Zac1N4T3lsMnZO?=
+ =?utf-8?B?WHV6YkNGZUVwMzFCYzJrQWxkVUlZbTNCYy84V3pPZHFUY25hb016clZOcGpj?=
+ =?utf-8?B?d3V6aFRJaFZEdXVtTEx4NHkrQ0sxbVB6ZmQzYUd0eE9tcWdKa1JITTY0UWhY?=
+ =?utf-8?B?NmI1cUVjdzRxK0pMeXZoa01tc1RwMTdibXhMaGRDbUNJQXBjSlBuOXZaNnMr?=
+ =?utf-8?B?M0RpSXI5WE53SG13QkNYbjVSSVJ5UGgxaE5nbzZORUhmWmVNSUtHd1Y0RTlv?=
+ =?utf-8?B?TVZTeXRRMlJwSmNwZkxRY3RhbVUwWHJkYUs5YWhFVVpZdXdjaFZ5NURHN09W?=
+ =?utf-8?B?K255cExuMXdhcTdvVmhLemVqQmxwMnJNV2pzd2NWOTdvWGp1Sk5TSW1JN2Rz?=
+ =?utf-8?B?RStQaGE2elZwaWVZaFFhQWh6dGd4ZmNvdDlvMTNiekJXaGVpOGNLU1RqWGdt?=
+ =?utf-8?B?SFZBSWx1RUlVTkFxQkZqYWxaWUpBZ2pzamxmbEwrMGVFbGY5ZVJocGZhVHJM?=
+ =?utf-8?B?WDIzL0g1cjZzM2orcDRQcUtPK2NXZ1loL0d3OGVjU3lIaUNRQzgyR2FMRTY4?=
+ =?utf-8?B?S2pjOTVhNnlHZG0zZFdlTlBqVVlWV3lMYXRJODFaOUZ3aGxtRGRranhCZUFn?=
+ =?utf-8?B?VEd4K0N5N2pDa1IrbS9rZ1lsdTl2R1krRGhsQXZYdGM4Nm9yK252N0FzN3pn?=
+ =?utf-8?B?bmlZNEN5YUZxSmpEeldBdGszdlNMSjlUVVZqTDBCcEVBRHlkVUxCMG5kNU52?=
+ =?utf-8?B?blMwWVE3bVZrYm9jRUlDWUlTT1hPUkZKcWI5Tzg0blo0T3NsaENNS3RTT3pU?=
+ =?utf-8?B?QkJwck9NU1R0R2RCVVEwL3lFbjNKaHVrbjZhaDZLL2IxYkZIV1c3bjlTMWk1?=
+ =?utf-8?B?S2xQZGQvbFlRTEtReEdLUFRTM0Fub2lhL01aOHBCTFZsQkhPUWUzOW1ieWo2?=
+ =?utf-8?B?NHE3S1ByeE9ST1JPeVR6eVhxVWV6OTVzTGdtWE1PcDVHT2ZDVGhwN2cvc1dN?=
+ =?utf-8?B?UmNkOGM2VjlTUkdNTE5jWEVRdUt4WGh2UTR5ZVhkY1dpNlFQWVFPTWVqZVFs?=
+ =?utf-8?B?QUtVSmhXY0x6RFhmOUo2S0ZnSW5WbTR4WDh6L0hweC91QkF6bE53c1FqZm5r?=
+ =?utf-8?B?SHVZWXhXNTVZVGFhYWhIdHcydytQUzRDSFVBZzJVbU8xbDRVczlObHdRci96?=
+ =?utf-8?B?Ly81VHFXeVRzN1JTbHhVb2VBK05Xa3d4ZVh1QVQ5Z2JwWlJEblEreWZPVVZ4?=
+ =?utf-8?B?eHlRWis4SXFyRk9CcXRPK0c2ZnppN2VWSVVOeGw1OFB0amFEbVBESFRtZWVx?=
+ =?utf-8?B?YlVHSDFuU0dSOXJidXRha3p4OGY2Q2VOT1FOc1ltUDdHbDFnS2lMUDdKRXh0?=
+ =?utf-8?B?TXFjckpMTmtPbGdhSWVveFRTeHI0ck5IRkt2ZjhZWTlmWHBKZlJRQVB5cTRW?=
+ =?utf-8?B?cElEQ1RpREhWdlpudW9nbnN5eVdjZm12NHBiY21WWXRmWW5lYjczbDVrTngw?=
+ =?utf-8?B?c3VxTE1WUDN5R3ZuY1FPb1J0WEJ5WHdseHVoSzBsL0JLZVQzaFNxdktQMUNo?=
+ =?utf-8?B?dExDa0hJeHdiYVcwcnhaNUVjbXh1QXh2WGlVSHV1SzZGSXFtREpWZz09?=
+X-Exchange-RoutingPolicyChecked: kG4CslXdASwioUuQ8+FPe1i2tyARQPT4BSYcHOKjGnUZqpKjTWh5K2cStL2lx8U9GeOhvWgcjPw8maXfFmEHMPxH4Jeo6zP5ziENS5JRT4dE5zSdlXnWDar3gpbD1DzxQx9igDBSLa26Ar+BFAy6YlpzQM6myME4bdvMG0bthRdO3QhWYocwoE80XDw9JW9Oi68byt7AXu7Ldk/2g73GD47PAx2I3E5onxJQhZXEuRUEpWvxpEiOTbIifBiRJ+qJk3YBWQQeF0mY4uliOd0CoeuX88Whkk2uEp/ELG2kuAJVh5c+rJb/ESYgZ9r+gBNunHmoYVUEAcwNmRZfezJohA==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 16fe747c-54bb-4f3b-a591-08df09fef205
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR11MB7925.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Sep 2026 21:04:29.8911
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: petdxpNdTVWSJXwT+SMaRMEHCAX8hb0d/L2TC6gYBmIxLmu0CE1Uirg2JzD6qvIaPeNATWQ/Zl9yh2SZgHnSvewxpOhouF7WyPi9tENcrkU=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DSWPR11MB9821
+X-OriginatorOrg: intel.com
 
-Hi Matt,
+On 9/2/2026 6:51 PM, Borislav Petkov wrote:
+> On Tue, Sep 01, 2026 at 11:16:26PM +0000, Chang S. Bae wrote:
+>> +static bool is_loading_denied(struct cpu_signature *sig, u32 rev)
+> 
+> This naming is not better, sorry.
+> 
+> Is loading denied means the loading in general is denied because <raisin> or
+> are you trying to check whether this particular revision should not be loaded?
+> 
+> I think it is latter.
+> 
+> So you wanna say
+> 
+> 	revision_blacklisted()
+> 
+> or so.
 
-On Tue, Sep 1, 2026 at 5:51=E2=80=AFPM Matt Turner <mattst88@gmail.com> wro=
-te:
->
-> Implement the perf register sampling interface for Alpha. This enables
-> perf to capture register state and user stack dumps with samples,
-> supporting --call-graph dwarf.
->
-> The perf_regs enum exposes the registers available in pt_regs: r0-r8,
-> r16-r28, gp, pc, and ps. Registers r9-r15 are callee-saved and live
-> in switch_stack, not pt_regs, so they are not included.
->
-> A switch statement maps perf register indices to pt_regs fields since
-> Alpha's pt_regs layout is non-contiguous (unlike architectures where
-> direct array indexing works).
->
+Maybe revision_banned()?
 
-I tested this on an Alpha UP2000. Basic perf recording works, but
-user-register and user-stack sampling still appear to need some
-additional work.
+> 
+>> +{
+>> +	u32 vfm = IFM(x86_family(sig->sig), x86_model(sig->sig));
+>> +
+>> +	/*
+>> +	 * Revision 0x1000405 contains prerequisite changes for subsequent
+>> +	 * microcode updates on Granite Rapids systems. Updates directly from
+>> +	 * an older revision to this or a newer one can result in #MC (GNR98).
+>> +	 *
+>> +	 * This dependency can be indicated from the minimum revision field.
+>> +	 * However, revision 0x1000423 has an incorrect minimum revision in its
+> 
+> So you lost me here: 0x1000423 is not tested anywhere - just mentioned here.
+> 
+> So what I understand is: usually, dependencies like that can be expressed with
+> minrev but *in addition* to the current issue, patch 0x1000423 has minrev
+> wrong so that dependency cannot be upheld there either.
+> 
+> But then why even mention it if you're not going to test it?
+> 
+> Why do we care about GNR101 at all?
+> 
 
-`perf record --user-regs=3D?` reports an empty register list, since
-tools/perf does not yet provide the Alpha register mask, names, or
-IP/SP mappings. Adding DWARF call-graph sampling consequently fails
-with EINVAL. I think the corresponding tools/perf support could be
-added as a separate patch in this series.
+My original intention was to explain why rejection is need for the late 
+loading path. There is a minrev check, but broken with that case.
 
-There also appears to be one kernel-side issue with user-stack
-sampling. The generic code obtains the stack pointer through
-user_stack_pointer(regs), which returns regs->usp on Alpha.
+But to preserve the legacy behavior, the minrev check isn't enforced by 
+default. So what's the point of mentioning? Yes, if we need to ban 
+particular revisions, we need to do it everywhere.
 
-Alpha already has alpha_snapshot_usp(), which initializes this field
-for user-mode register frames, but it is currently local to traps.c
-and is only called from do_entArith() and do_entIF(). The interrupt
-entry path through do_entInt() does not call it.
+So mentioning minrev is just distracting readers as long as rejection is 
+based on revision number in the first place. Let me remove minrev 
+wording from this patch.
 
-Perhaps alpha_snapshot_usp() could be moved to a shared header and
-called near the beginning of do_entInt(), before dispatching the
-interrupt. That would ensure that perf_irq() receives a valid
-regs->usp for interrupts taken from userspace, without adding this
-work to the SAVE_ALL assembly macro.
+>> +	 * header (GNR101).
+>> +	 *
+>> +	 * Prevent loading 0x1000405 or later unless the CPU has already been
+>> +	 * updated to 0x1000405 or later.
+>> +	 */
+>> +	if (vfm == INTEL_GRANITERAPIDS_X &&
+>> +	    x86_stepping(sig->sig) == 1 &&
+>> +	    sig->pf & 0x95 &&
+>> +	    sig->rev < 0x1000405 &&
+>> +	    rev >= 0x1000405) {
+> 
+> You don't really need to test rev here - it is enough that sig->rev is
+> < 0x1000405 - that already makes you susceptible and then you can check rev
+> inside the { }.
 
-The perf register ABI also appears to be missing SP. This could be
-provided using current_user_stack_pointer(), as in the older Alpha
-implementation.
+Yeah, I'd like to simplify like that, though. Intel repository looks to 
+have three published revisions before 0x1000405. So there can be a valid 
+update between those revisions.
 
-I have some older Alpha kernel and tools/perf patches which implement
-similar support. They target an older API, but I will send them
-off-list in case any of the code is useful. Please feel free to reuse
-or adapt whatever helps.
+So still need to allow:
+   old_rev < 0x1000405 -> new_rev < 0x1000405
 
-Regards,
-Magnus
+while rejecting:
+   old_rev < 0x1000405 -> new_rev >= 0x1000405
+
+> 
+>> +		if (rev == 0x1000405)
+>> +			pr_err_once("Erratum GNR98: 0x1000405 is not loadable.\n");
+>> +		else
+>> +			pr_err_once("Erratum GNR98: 0x1000405 is required before 0x%x.\n", rev);
+>> +		pr_err_once("Please update the system BIOS or firmware.\n");
+> 
+> This is useless most of the time because client won't usually get BIOS
+> updates. You can tell people they should update their microcode packages
+> instead. That's where we can really help.
+> 
+
+I see.
+
+I think anyone seeing this message has probably already tried updating 
+microcode. With `GNR98` in the message, they would still need to decode 
+it by looking up the erratum and its workaround if want to follow up on it:
+
+   Workaround: None identified. Software should avoid updating MCU
+   versions earlier than 0x1000405 to 0x1000405 or later until the system
+   is Firmware Interface Table (FIT) loaded with UEFI FW/BIOS to
+   0x1000405 or later.
+
+Then there isn't much point of the additional message, I suppose. I'll 
+remove it.
+
+>>   
+>> -	if (is_blacklisted(cpu))
+>> +	if (is_late_loading_denied(cpu))
+> 
+> Aaaah, you wanna be politically correct and can't use "blacklisted" anymore.
+> 
+> Well, you're not introducing new usage so you don't have to touch old usage.
+> And "is denied" does not express the situation properly. Try a better one.
+Okay. I'll leave the existing "is_blacklisted(cpu)" as it-is since it 
+already exists and probably descriptive enough. Also assuming it will 
+remain distinctive from the new one, e.g. revision_banned(...).
+
+Thanks,
+Chang
