@@ -1,75 +1,59 @@
-Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
+Received: from mta0.migadu.com (out-78.mta0.migadu.com [91.218.175.78])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 431454B129E
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 13:52:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F090F4B2CA7
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 13:53:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.78
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788443572; cv=none; b=JHbmyJX84t+oAA8isYrfinHKxFLLTzhcNOLp6JH7fmP7yrKuZY4nOVVyfkXe1LeUwD/wmMbYVP11XgVMD+AZ/oFplIHNwR+YQeIehRdftUUszUhFJkqdU/hOS/qLgFG5npitg8P40u33ffwOuPVrh/pDUFBt7gY2On3yqPfcgpU=
+	t=1788443608; cv=none; b=Dt7tRcfaAsWkMoJtye0W6gWWT6i28depytk0P+R6Ck5katE4YtYOkVeyD+fy1qSSUyr3WZs3b8okM7hz/FhpHei3wlYL9WDcO7RnjBTaNV78Du7Ok1SUXkf9c6OyBsKWMHm8s4e19TQYujk1zCEbIWRJ4s9USxLjbblTu1sydrg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788443572; c=relaxed/simple;
-	bh=A9tFXtu0XWRFcdfwCqDHDr5yuN/58LVPsyUpMIW1Ps0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=bFDKbDW7pOn/pt9scb6Mn8YG15d0PAZ+zMSphf5tvMn7485cpttOE7iGTSoU+I/+qx/J1fy7pv46jViX3RqKbuK5cJLp015K0ZamI52YegCiMxGhJJPCOrFJRp7YCNmjT2BuEAdSr0Yv5yiTJP2rJSGuOwOiN5FGKJo3TPxTJDc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BxDtd7Rr; arc=none smtp.client-ip=209.85.221.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788443608; c=relaxed/simple;
+	bh=5COp11tZRoN06Ewjs47lpm9CAHf1L73x0BPSB614Wpk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=RLx1b+aTzaVjy6tDnZhqiZP11tc9P21bzDi/wQm7SDGGOdlIrGUn58Zsc3J3Rh1b2XDcCtDYz5gONQ9557K3DDbPLJA0O9a4GpNUuUnBQKcIp7A/AX6EvQbm3tlLjSxLJAXmyIwurepL4OcfRQI486b0MA8WjEGPM5jxJv0OdNI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=ProqK7T9; arc=none smtp.client-ip=91.218.175.78
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BxDtd7Rr"
-Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-48433e9562bso553092f8f.3
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 06:52:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788443553; x=1789048353; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=csh27SRclgEY3hCLE8xf3YTKQW4fhH5v82nkgEIQKps=;
-        b=BxDtd7RrTkSLcDHlzFqae6piLIxi8lklen/ukPmCL4yQ08H/IOd+MDidvLFiQ0me0f
-         QKMo5JLGhZS6WRMECBXIIr+ke0mUNF+6ktCQby+V+un0exzlbpJB62RmaUAqRWjp8EHK
-         WI+FRUHf7dg30Q99Lpd6ffB3vhlaRo/cQcKzv7pDhCxC8nS4TTtLB1gI0u/tY23P/Vk0
-         LmIhZ4NhcIdUtpNuwk+wGLYd/ZJqAEFY1/TEU1nShT9/1AVytLb6UvqYJwYykXmat3oI
-         77w8rcJhceYhR/SRuv5uX/xGvaE8EKQGJv6NP2O7Po2oHow+sNnZG/mGNU3osD2uw8xU
-         6VuA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788443553; x=1789048353;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=csh27SRclgEY3hCLE8xf3YTKQW4fhH5v82nkgEIQKps=;
-        b=A/UELNM6A6+MTj8/mL45smHhqrhO/PUZlC8vY49G6ouE5fcEHdejLwDdyJqj+BmTXZ
-         bFsN24ZPjsQ2LszR8K+e+TX+tnH30+/DVqE7dnCISRkJcbL2hTtRDFOaPIAXuI5E5cfx
-         lQWppEXde8bBweRhEvDN3rODuAc/+t35GnzbMBdVsqx+X1AVibU5+tuxy9LzQ1RGbJRp
-         cWA7zT7skf0lExjIUmwEe5XABa3VoQiumuSWMjeZg991TjZT5UThwBCrkKsyxpw6c3c1
-         AmJoBsAWZxPBFZcA2k3KQThilfDyEJbDOUVRQvnXpgagyF6B869XtEDGBLnZhYubB1qA
-         hvGw==
-X-Forwarded-Encrypted: i=1; AKwUvBwKolU7iNIiX6OvLryQhAqrzhRiaaHmfD74E1knihHtFr4NmUwB6kChM++8/OCY5t7lpUxosQPTpF2w8AM=@vger.kernel.org
-X-Gm-Message-State: AFuF++nAan9ACVzFXzQr6vLyMEQq4BL4wUpccJ0Yu+PS/geU5NLnElUv
-	gS7q8ZjEOrAjLXwdjhJcsVyP9bc6CHt0Vyr9sZDORVOexv1CzkmhJfZm
-X-Gm-Gg: AYBFou22zF7I/zZBVgYZG8nHRjn4Qm3A4cu6UtXNrsKVsufYhKiW83+x5on23a+5ALL
-	kwYo30DjNRV0QbkBPZWsV2y34IiAzmh/a02yoNiJImlTPv5rcwwf/B++3WV9cHCX7uUZLvKNEI/
-	qM9e/FAOI5btc2F6D3Eux1Dw07mTr4BW71bqkc4DK5F3+VdTFexTughFzXErMm4/2I4Is2vQVfb
-	FtRT9iBfBs2BBB351YkVLql3B6XbWqjvzGOw8dklgaLqbyAEFvUkD1tyXufPVPzTXoxcGgpbBWM
-	o36fyDPptMMqexpMUkJQ7oat/2NNfxD9ycu9br1cSnsx9Fv9u4FbhjzBhdKS42enDtxI5yqa4Rt
-	t0EvUckkPcux0BJnxQNO0g7uio4xkVFxbdk7MXPj2UkCd586owtDslrULc2/KRwZVRs/Ao6UJTu
-	GhE4bn+g8ifIHCPJD+obnzXrGcQfu9882VuEKZLk+aoE0DYP42CUiy8O/0qnoohbAdU5O4oCIGK
-	BBDQncBAC/iQF5cSaLsXq0SMDQMByxbbVqjzStfgMl9runEBEqSszO2LPOmQQ==
-X-Received: by 2002:a05:6000:178e:b0:483:3695:6ea6 with SMTP id ffacd0b85a97d-48488f1b111mr21280968f8f.20.1788443553101;
-        Thu, 03 Sep 2026 06:52:33 -0700 (PDT)
-Received: from chubuchnyi-ThinkPad-P1-Gen-4i.tail30ebf2.ts.net ([158.173.155.197])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48448ed2edfsm13597771f8f.23.2026.09.03.06.52.31
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 03 Sep 2026 06:52:32 -0700 (PDT)
-From: Aleksandr Chubuchnyi <chubuchnyi@gmail.com>
-To: Thierry Reding <thierry.reding@kernel.org>,
-	Jonathan Hunter <jonathanh@nvidia.com>,
-	Sowjanya Komatineni <skomatineni@nvidia.com>,
-	Luca Ceresoli <luca.ceresoli@bootlin.com>
-Cc: linux-media@vger.kernel.org,
-	linux-tegra@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Aleksandr Chubuchnyi <chubuchnyi@gmail.com>
-Subject: [PATCH] MAINTAINERS: add Tegra CSI bindings to TEGRA VIDEO DRIVER
-Date: Thu,  3 Sep 2026 16:50:58 +0300
-Message-ID: <20260903135058.2598642-2-chubuchnyi@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="ProqK7T9"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=5COp11tZRoN06Ewjs47lpm9CAHf1L73x0BPSB614Wpk=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788443597; v=1; x=1789048397;
+ b=ProqK7T9pFb5BfRGKbjWo7Uw/ZAZVlw15lalAAmqYl8AjK+2OGVSQDJ+Z+Ic8iOwcpXRgjlz
+ zwpePtDJOpUD/VdG/4YDjzAs/o46x9gFc0nKYM3zJwUR8y9uaj7ykuH89jhrmISlFxvrta5+4y0
+ q8wBvCuU0610lm/0p5pg8ry4=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 8502ee06491f0eca;
+	Thu, 03 Sep 2026 13:53:17 +0000
+X-Mizu-Trace-ID: 8502ee06491f0eca
+X-Migadu-Flow: FLOW_OUT
+From: Zenghui Yu <zenghui.yu@linux.dev>
+To: linux-mm@kvack.org,
+	linux-kselftest@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: akpm@linux-foundation.org,
+	david@kernel.org,
+	ljs@kernel.org,
+	liam@infradead.org,
+	vbabka@kernel.org,
+	rppt@kernel.org,
+	surenb@google.com,
+	mhocko@suse.com,
+	shuah@kernel.org,
+	ziy@nvidia.com,
+	baolin.wang@linux.alibaba.com,
+	nico.pache@linux.dev,
+	ryan.roberts@arm.com,
+	dev.jain@arm.com,
+	baohua@kernel.org,
+	lance.yang@linux.dev,
+	usama.arif@linux.dev,
+	"Zenghui Yu (Huawei)" <zenghui.yu@linux.dev>
+Subject: [PATCH] selftests/mm: remove unreachable returns after ksft exit helpers
+Date: Thu,  3 Sep 2026 21:52:51 +0800
+Message-ID: <20260903135251.39593-1-zenghui.yu@linux.dev>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -78,35 +62,85 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The tegra20 and tegra210 CSI bindings are not listed in any MAINTAINERS
-entry, so get_maintainer.pl does not match TEGRA VIDEO DRIVER for changes
-to them and reports neither linux-media nor two of the four maintainers
-of that entry.
+From: "Zenghui Yu (Huawei)" <zenghui.yu@linux.dev>
 
-The entry already covers the VI and VIP bindings, and csi.c binds to the
-compatibles documented by both files. Add them as well.
+The ksft_exit*() helpers such as ksft_exit_fail_msg() are declared
+__noreturn, and the ksft_exit() and ksft_finished() macros expand to calls
+of them, always terminating the process via exit().  Any return statements
+following such calls are unreachable, both at the end of main() and on
+error paths of helper functions.
 
-Signed-off-by: Aleksandr Chubuchnyi <chubuchnyi@gmail.com>
+Remove all of them.  No functional change.
+
+Assisted-by: GLM-5.3 OpenCode
+Signed-off-by: Zenghui Yu (Huawei) <zenghui.yu@linux.dev>
 ---
- MAINTAINERS | 2 ++
- 1 file changed, 2 insertions(+)
+ tools/testing/selftests/mm/folio_split_race_test.c | 2 --
+ tools/testing/selftests/mm/mlock-random-test.c     | 1 -
+ tools/testing/selftests/mm/pkey_sighandler_tests.c | 1 -
+ tools/testing/selftests/mm/split_huge_page_test.c  | 4 ----
+ 4 files changed, 8 deletions(-)
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index fc320b373..e4f50fe24 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -26924,9 +26924,11 @@ M:	Luca Ceresoli <luca.ceresoli@bootlin.com>
- L:	linux-media@vger.kernel.org
- L:	linux-tegra@vger.kernel.org
- S:	Maintained
-+F:	Documentation/devicetree/bindings/display/tegra/nvidia,tegra20-csi.yaml
- F:	Documentation/devicetree/bindings/display/tegra/nvidia,tegra20-host1x.yaml
- F:	Documentation/devicetree/bindings/display/tegra/nvidia,tegra20-vi.yaml
- F:	Documentation/devicetree/bindings/display/tegra/nvidia,tegra20-vip.yaml
-+F:	Documentation/devicetree/bindings/display/tegra/nvidia,tegra210-csi.yaml
- F:	drivers/staging/media/tegra-video/
+diff --git a/tools/testing/selftests/mm/folio_split_race_test.c b/tools/testing/selftests/mm/folio_split_race_test.c
+index 45b84f7b364e..1960635a953e 100644
+--- a/tools/testing/selftests/mm/folio_split_race_test.c
++++ b/tools/testing/selftests/mm/folio_split_race_test.c
+@@ -269,6 +269,4 @@ int main(void)
+ 				      NUM_ITERATIONS);
  
- TEGRA XUSB PADCTL DRIVER
+ 	ksft_exit(iter == NUM_ITERATIONS);
+-
+-	return 0;
+ }
+diff --git a/tools/testing/selftests/mm/mlock-random-test.c b/tools/testing/selftests/mm/mlock-random-test.c
+index 16294bc7dae6..58772914fd79 100644
+--- a/tools/testing/selftests/mm/mlock-random-test.c
++++ b/tools/testing/selftests/mm/mlock-random-test.c
+@@ -71,7 +71,6 @@ int get_proc_locked_vm_size(void)
+ 
+ 	fclose(f);
+ 	ksft_exit_fail_msg("cannot parse VmLck in /proc/self/status: %s\n", strerror(errno));
+-	return -1;
+ }
+ 
+ /*
+diff --git a/tools/testing/selftests/mm/pkey_sighandler_tests.c b/tools/testing/selftests/mm/pkey_sighandler_tests.c
+index 74bf79a5399d..f9c728ba96a5 100644
+--- a/tools/testing/selftests/mm/pkey_sighandler_tests.c
++++ b/tools/testing/selftests/mm/pkey_sighandler_tests.c
+@@ -556,5 +556,4 @@ int main(int argc, char *argv[])
+ 	}
+ 
+ 	ksft_finished();
+-	return 0;
+ }
+diff --git a/tools/testing/selftests/mm/split_huge_page_test.c b/tools/testing/selftests/mm/split_huge_page_test.c
+index 86a603692826..c01d227d7fd6 100644
+--- a/tools/testing/selftests/mm/split_huge_page_test.c
++++ b/tools/testing/selftests/mm/split_huge_page_test.c
+@@ -101,7 +101,6 @@ static bool is_backed_by_folio(char *vaddr, int order, int pagemap_fd,
+ 	return (pfn_flags & folio_tail_flags) != folio_tail_flags;
+ fail:
+ 	ksft_exit_fail_msg("Failed to get folio info\n");
+-	return false;
+ }
+ 
+ static int check_after_split_folio_orders(char *vaddr_start, size_t len,
+@@ -548,7 +547,6 @@ static int create_pagecache_thp_and_fd(const char *testfile, size_t fd_size,
+ err_out_unlink:
+ 	unlink(testfile);
+ 	ksft_exit_fail_msg("Failed to create large pagecache folios\n");
+-	return -1;
+ }
+ 
+ static void split_thp_in_pagecache_to_order_at(size_t fd_size,
+@@ -711,6 +709,4 @@ int main(int argc, char **argv)
+ 	free(expected_orders);
+ 
+ 	ksft_finished();
+-
+-	return 0;
+ }
 -- 
-2.43.0
+2.53.0
 
