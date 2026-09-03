@@ -1,113 +1,108 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6EE8C403EA1;
-	Thu,  3 Sep 2026 09:35:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B063138A725
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 09:35:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788428134; cv=none; b=PO0OQgkBHRjQgMstDfdlyAJPsu7Mxkq6blSwDhrjYjONOJB5GBiiRNyns7tYeBhrbZsLoYIszoA31Lxvrhp1rUWgXIsEHpQnyclyRyv313C+T6G7kF9rjaNP+uMNN0ddku5ISpyvWJFWf4Clmn/uJ8TAefvwWv8/ukHUah9yGDE=
+	t=1788428157; cv=none; b=Ud1YoVqacVT6tdI4qXdlymcFbBOl77jzsa9w3SnQEvWuP59uLdsBSOE1o/92gR/UR+qbarElepol1/X+ejzsr4aNNHGAzVWk2gSMrrx7GkbEhUCuy5goIvfzRAHwkstvRqtI6b5E1pn5gogLkOC4BGldRR/6DB/2zflTPoOijaY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788428134; c=relaxed/simple;
-	bh=P/gApI/jTGDCX/7W6Htuiuu7577T7jl7mGMwxwH5xcM=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=Rn2aSTcSczOvHDrF/jBxFVAkQn4/mefmOGtwbZ80k1SzZWw/DKpYUf20+z7tjr3+kNm6C4Kkf+HzbdSh3uAtJRlyvbTqiD4QLBUdsLImbAcGuaHvbG3ws46B6HwUR/C01ECord5V4lBpUb89tB5wFuht32WwN8bLxHhyCzLW51k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=CWSreIME; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1788428157; c=relaxed/simple;
+	bh=6dxSwnVMhBQ6QrxcI00aXBMeMsbJMY0TD4I+y+LKu/c=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=gk+f5/S+YUMYiH3JpB3iDc8P6Suzw65t8KvP1SkWVD4Pm4sjyhgKvMufznIe6TiJ1ICbNEynzirHQiNoBR5LpCGYJxxdYRvmhT+ECcEC/8uGaoFPGi6qGImT09WRheE2Z+VNDkcrF+sqgprBLDrhKRu1Z2bpHfTNwMcWAFq+FsE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=exUGNFig; arc=none smtp.client-ip=209.85.128.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="CWSreIME"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 403A21596;
-	Thu,  3 Sep 2026 02:35:27 -0700 (PDT)
-Received: from e132581.arm.com (unknown [10.2.196.114])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 385E53F7D8;
-	Thu,  3 Sep 2026 02:35:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1788428131; bh=P/gApI/jTGDCX/7W6Htuiuu7577T7jl7mGMwxwH5xcM=;
-	h=From:Date:Subject:To:Cc:From;
-	b=CWSreIMEuFcfa6KgwoQQVDfM2rqzA3Nh7LUthlB3EX5gpnkxeOtdAcwmyYoLg8dSt
-	 2fUOOvFRcyO/sCsoq7blJRu88dRyDP8ZL7LANuEiIJAWIyPztrzAjEHMyx8Nw+eZth
-	 ClGbEgo7p+ujAWKvADMzUB/oW5iB/2HrsF7YzrYc=
-From: Leo Yan <leo.yan@arm.com>
-Date: Thu, 03 Sep 2026 10:35:12 +0100
-Subject: [PATCH] perf/core: Fix ITRACE start suppression for inherited
- events
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="exUGNFig"
+Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-49b0d78a801so17518255e9.2
+        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 02:35:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1788428154; x=1789032954; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=SA0YMkKZrk5pHRtNM6ynurrEGkiVyx5dwe1u190lCDo=;
+        b=exUGNFigLqG7qUWyYpfXvNYjTx/7yDbbBtTm/KWAsQhVB4CYbGOUHDf8wYBy6sCAhw
+         1FsCyDToJJWi/T0jsZNlAx3vvXNG7Umlr7QMUFHTTI3mOo8KAeea+M6yYNAM6351/4zc
+         aqC0Qfekez5FKPZGgqI15mgdQuvmbNhWV3abWKd2ZaJTjJbU/+aoUq9BRIP77f9llJA3
+         luOztfFpL9WqdtmXjpeJdq/oUTTTMYS3iZMXq1YK0RjtJO+IwREWyyWNTat31yeU2+mw
+         e5pYvFaMROzMXnmWB7CYfHoKJ9+GwdyjNB2t1tLB1Q/1KXNjvOTRtx85yPKJcUSLKF3w
+         HdLQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788428154; x=1789032954;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=SA0YMkKZrk5pHRtNM6ynurrEGkiVyx5dwe1u190lCDo=;
+        b=gsXiwui51HZ/WqoMaLZfgY/vv2gyQ6sk4FsxVDbq9XG64qpyr9EmMkGrdAbjRdQf+L
+         mYq6b/dU8x8v7gW3MMRvn7HtJHKmAs+KViICli1YD0/WgS3DZofAPVp8Ezt+LmHA+toV
+         zOK27jnwSmjKF+Ir/E+qpsBJYATbMjIJPX7tOVyjaEgj8J/VIv9kFAMoPJX9+1Zwdhta
+         oTaUpcVppS/aAHsmwJb4pinDoMIwiCjvnHfL7Cz2IZoPOm+B9TFsXvcczIWzyYynjBJ4
+         TrWYtRJYimZtEJplNqfiKKnMAZF/+LyeGhoSwJa8PeKs2zenz/dwHGESSkNL95PBP6vg
+         biHA==
+X-Forwarded-Encrypted: i=1; AKwUvBzqZPDmwJAvU+Qcqg/mO7+fpzIhzceSrlABQMPs+CH0DjzEH68kiZyu2uFIoNHV/jdp3bO4qwcmZceYq3Y=@vger.kernel.org
+X-Gm-Message-State: AFuF++nQ5ntAfWECaM76iKDDfHqylbXveunvtxVCUx9ToUfOqOi5yLxc
+	/4Zy4elztAy7KaL1g1nvQRN3vG2oT00WNLbzQLw0wobIHRz2kTpg7PG1hpGVTVsThA==
+X-Gm-Gg: AYBFou2Drz3IOjr6E6Yes7qZhhA7RH9SCqs9HeFUQQsHMkoePUZET+30NqtdtbVbwNw
+	07mzZC6adaI+mVzg7vNGnzEuKl/QlALaxN+tz7LT0tPNdF/D++FGK+3GHk9dCWBwKu+hNXxMI//
+	ceycnDjhJDkn9ffj4ELmPEHUeZ5Un96J/MkA08w1ofBw1Nkc4ZHmEjpcJUHSYiIGGdb4rI1oVPv
+	aX8BZ39+wEZC8hgTgxCtzDnO1VZ1stEuf1NIy73YEK41gsXmB7Oenl4OcSDqB9c/LGOxOoyQzv5
+	BS85JS0yLKEgdG0MZIB5z03TLSwrq9NjXrIESOYyHKY+Omc5iKrdrclN/q7uPeWVDlZXLrI17Bz
+	slsKRtruFak+o2dxkc4Iil+2I4IW1wwvxzKvmCjUI5MeTGZco2s0LKe/leQZGjJxNz+BrmFGtg9
+	PYJx5KG6dfh7VKwqoONeAAhzHzMQHkieNn7gzT4FFQpNEShFm05nU2O4aiIobQ1YQwfFVo7854O
+	GHD4wJkeen7O4gXOVsFnj7VAm/KYZnU
+X-Received: by 2002:a05:600c:4ed0:b0:499:726a:a017 with SMTP id 5b1f17b1804b1-49ce57ec163mr200889865e9.1.1788428153444;
+        Thu, 03 Sep 2026 02:35:53 -0700 (PDT)
+Received: from google.com (135.91.155.104.bc.googleusercontent.com. [104.155.91.135])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cee80eda4sm55247145e9.15.2026.09.03.02.35.52
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 03 Sep 2026 02:35:52 -0700 (PDT)
+Date: Thu, 3 Sep 2026 10:35:49 +0100
+From: Vincent Donnefort <vdonnefort@google.com>
+To: Sasha Levin <sashal@kernel.org>
+Cc: stable@vger.kernel.org, rostedt@goodmis.org, mhiramat@kernel.org,
+	linux-trace-kernel@vger.kernel.org, mathieu.desnoyers@efficios.com,
+	kernel-team@android.com, linux-kernel@vger.kernel.org,
+	Lee Jones <lee@kernel.org>
+Subject: Re: STABLE REQ: [PATCH v5 06/10] tracing: Fix subbuf resize races
+ with trace_pipe_raw readers
+Message-ID: <apk_dQ4Q6msdw_Ub@google.com>
+References: <20260901123444.GA1350131@google.com>
+ <20260902-daily-reply-0006-tracing-subbuf-resize-7-2@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260903-perf_core_itrace_start_fix_inherit_event-v1-1-6bff7e675af5@arm.com>
-X-B4-Tracking: v=1; b=H4sIAE8/mWoC/x2N0QqDMAwAf0XyvEJXQc1+ZYxQapx5qZIGEcR/X
- 9jjwXF3QWMVbvDqLlA+pMlWHZ6PDsqa65eDzM6QYhoixj7srAuVTZnENBemZlmNFjlJ6uoxIz6
- 4WsgT9nEeMU2I4Lld2aX/6v257x8C9B6wegAAAA==
-X-Change-ID: 20260903-perf_core_itrace_start_fix_inherit_event-a8930d792899
-To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
- Arnaldo Carvalho de Melo <acme@kernel.org>, 
- Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
- Alexander Shishkin <alexander.shishkin@linux.intel.com>, 
- Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>, 
- Adrian Hunter <adrian.hunter@intel.com>, 
- James Clark <james.clark@linaro.org>
-Cc: Ingo Molnar <mingo@kernel.org>, linux-perf-users@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Sashiko AI <sashiko-bot@kernel.org>, 
- Leo Yan <leo.yan@arm.com>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788428129; l=1944;
- i=leo.yan@arm.com; s=20250604; h=from:subject:message-id;
- bh=P/gApI/jTGDCX/7W6Htuiuu7577T7jl7mGMwxwH5xcM=;
- b=7AToI7D2MoDKTHUcW/Lhn7qNF5k4sJ/nXZCHpXwQZrQNqrvnaxX0R3eTorRoSMLVuIqQBl1oe
- 4Tk9aZEOiWTBUNOQEqvf7bB51kd3G5OWnFAaoVlQCbHsWnELWQv7v0q
-X-Developer-Key: i=leo.yan@arm.com; a=ed25519;
- pk=k4BaDbvkCXzBFA7Nw184KHGP5thju8lKqJYIrOWxDhI=
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260902-daily-reply-0006-tracing-subbuf-resize-7-2@kernel.org>
 
-PMU drivers call perf_event_itrace_started() for the event that has
-started tracing. This sets PERF_ATTACH_ITRACE in that event's
-attach_state.
+On Wed, Sep 02, 2026 at 06:14:05PM -0400, Sasha Levin wrote:
+> > Concurrent subbuffer resizes may crash trace_pipe_raw readers or leak
+> > uninitialized memory to userspace due to stale size values.
+> >
+> > Fixes: bce761d75745 ("ring-buffer: Read and write to ring buffers with custom sub buffer size")
+> > Signed-off-by: Vincent Donnefort <vdonnefort@google.com>
+> >
+> > Not sure if this is the latest version or not?
+> >
+> > I see review comments, but no v6.  Anyway, no matter, it'll do.
+> 
+> Queued for 7.2, thanks.
+> 
+> -- 
+> Thanks,
+> Sasha
 
-For inherited events, however, perf_log_itrace_start() replaces the
-child event with its parent before checking PERF_ATTACH_ITRACE. The
-setter and checker therefore operate on different events. If the
-parent's flag is clear, the child continues to emit ITRACE_START
-records on subsequent schedule-ins. If the parent has already started,
-its flag can instead suppress the child's initial record.
+This isn't the last version of this patch, I have just posted a v9 [1] and
+Steven hasn't reviewed it yet.
 
-Remove the parent substitution so that perf_log_itrace_start() checks
-the same event that the PMU driver marks as started.
+[1] https://lore.kernel.org/all/20260901155445.1475405-3-vdonnefort@google.com/
 
-This is safe for tool consumers. Intel PT uses the ITRACE_START record
-to set the current thread context. CoreSight ETM uses the record only
-to find or create the corresponding thread. Neither decoder depends on
-the parent event.
-
-Reported-by: Sashiko AI <sashiko-bot@kernel.org>
-Closes: https://lore.kernel.org/linux-perf-users/20260901164705.042781F000E9@smtp.kernel.org/
-Fixes: 9a6694cfa239 ("perf/x86/intel/pt: Do not force sync packets on every schedule-in")
-Signed-off-by: Leo Yan <leo.yan@arm.com>
----
- kernel/events/core.c | 3 ---
- 1 file changed, 3 deletions(-)
-
-diff --git a/kernel/events/core.c b/kernel/events/core.c
-index a6c8e38a311042afab6b65814a84c67b87ba929b..991ae214d46ebe8b0d9de497255f25a4ad12397f 100644
---- a/kernel/events/core.c
-+++ b/kernel/events/core.c
-@@ -10572,9 +10572,6 @@ static void perf_log_itrace_start(struct perf_event *event)
- 	} rec;
- 	int ret;
- 
--	if (event->parent)
--		event = event->parent;
--
- 	if (!(event->pmu->capabilities & PERF_PMU_CAP_ITRACE) ||
- 	    event->attach_state & PERF_ATTACH_ITRACE)
- 		return;
-
----
-base-commit: 940de590b839f71d6dc846160534bf202401b8b7
-change-id: 20260903-perf_core_itrace_start_fix_inherit_event-a8930d792899
-
-Best regards,
 -- 
-Leo Yan <leo.yan@arm.com>
-
+Vincent
