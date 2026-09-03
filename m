@@ -1,169 +1,211 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
+Received: from ixit.cz (ixit.cz [84.42.129.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAE1929898F
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 17:02:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=198.175.65.18
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788454940; cv=fail; b=i6uREFDeSszg/5J0CCwi5fGSTq9cMnEhixgOszrje7eX1IBd3wKCtCFEeO4Xw5ZXWhoFJYR5BToQh2hcNwM0Wb/tp4L0m4zs7MMthERhhELSNEcHQaKpgvJWs8twFkCplbTCEfmtMbX10/vv47QxsDgzt0pzR+c++y6oQr1+Fi0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788454940; c=relaxed/simple;
-	bh=pHg5fl6zNmQqSnyAS3XbwiZ/A/kVjdDxf6SSrxSvdnI=;
-	h=Message-ID:Date:Subject:To:CC:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=gKKmr7aEH8atzJTEPWHP4R4DSJH0tOrjcFoKuOfPX7FAbrwfTU/ULgQweSvW+TX4ZDzOw8aCBPmxgfLbEfTB7jYQ1VsBF30XQroYEA1D6Dsf+FuebN/aSJLXOEn9S4ddUnzC/suAq4AvN0+QE6Ongf0A3RSdGhox2ChB5GZ9bAs=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=mijftTs0; arc=fail smtp.client-ip=198.175.65.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA6494A8FC7;
+	Thu,  3 Sep 2026 17:02:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=84.42.129.46
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788454975; cv=none; b=qE5W3mHMm+9aTIyLgZOWaiFdMQywosZTrJbUCDo0XMBBlbbODMQgyDimV0S2n4lc4Z51ZrjrqwK94bZci5zzWFHAkrSsAVRyg+SJKEatuJg3kNo3rC3Q6qNUUxUzJzd+rfnJNj7bEwPZexNwnpX3RNXpG1Vxu08GDQuLk5T0PIo=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788454975; c=relaxed/simple;
+	bh=7dS65mLqS5TaYH+jrH1I8s0IhvEwTBq61zxYxCN2BtI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=rwnFDEIvi9+TZSGmqXVrvAvNgJ1H3+yuIjax/5YxeJBFyqI7EoxMLbywEJXz9+mowvqo0eu6jT58mZgz/A4GeSAlYn4qH/5yIyXcPPI/txW+GVF+CSXpoKG4gRxayGHGtkrYl5NTaFrTMYb7U5JHAZPTz8/2bYBFjgJ4sOzOfpY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz; spf=pass smtp.mailfrom=ixit.cz; dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b=cNSaZdy8; arc=none smtp.client-ip=84.42.129.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="mijftTs0"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788454940; x=1819990940;
-  h=message-id:date:subject:to:cc:references:from:
-   in-reply-to:content-transfer-encoding:mime-version;
-  bh=pHg5fl6zNmQqSnyAS3XbwiZ/A/kVjdDxf6SSrxSvdnI=;
-  b=mijftTs02YHM4sY0FaVxdwtzaKL6qBjxuv9tSY2eQwIOve5HfkLRiVTC
-   rVDdM7p/XT4MCXjL0yaI37nAzfb3zn9jNADghv/ka6YqtkBnjcL3QljvS
-   zep+3UvGE01dlqPwipHJE0x7cjvi4clDNGt8TA2uj6MBOGpAp7a4yXKYM
-   /c+W50CbNCG8Ww1WBhekLQ469S/LJr/iRkT6ROCtJuHQv8IdQjKy58HjV
-   n5VsxD4IgVmLzcgfKepZ9woMJ3kS7WPJe1GgxylBDbPE7kJkCgLvsnmX+
-   zBN257Rw2qxuYe1W4E+UrBztnAzcHx4PoPlZazRULmR1AgSsniOGMBOZx
-   A==;
-X-CSE-ConnectionGUID: 0NlfZIWrQqK9OZ0WRDeRSw==
-X-CSE-MsgGUID: F3i2iO/TTTeNfTPSICfAtw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11895"; a="88999894"
-X-IronPort-AV: E=Sophos;i="6.25,260,1779174000"; 
-   d="scan'208";a="88999894"
-Received: from orviesa010.jf.intel.com ([10.64.159.150])
-  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Sep 2026 10:02:19 -0700
-X-CSE-ConnectionGUID: w9q3UKyyRaqWELrNoY+ebA==
-X-CSE-MsgGUID: XVxbKoRzRzyKUx6El5S1nQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,260,1779174000"; 
-   d="scan'208";a="268472346"
-Received: from orsmsx901.amr.corp.intel.com ([10.22.229.23])
-  by orviesa010.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Sep 2026 10:02:18 -0700
-Received: from ORSMSX903.amr.corp.intel.com (10.22.229.25) by
- ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Thu, 3 Sep 2026 10:02:18 -0700
-Received: from ORSEDG903.ED.cps.intel.com (10.7.248.13) by
- ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46 via Frontend Transport; Thu, 3 Sep 2026 10:02:18 -0700
-Received: from SJ2PR03CU001.outbound.protection.outlook.com (52.101.43.11) by
- edgegateway.intel.com (134.134.137.113) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Thu, 3 Sep 2026 10:02:15 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=J3PZ3A/yykKefeHpXynisC+QrtomF3TwTFd7Lj/yKoLF2wBCgXn5ACAIo0XvhE+ozksZXsWCtud+yDzoNatBFAY+QGVP3P/2YWRSXKj6jMScrG0aD5cN5ZcLarNFnJz8Gm/bXz1FBXVlN84DDeHp95lzfAxJ2rVF8nFaa9fQxc1Jfmp8ZWjNc+B6SUOTD0QwKVH6Vh8xulTHT1oFu0hWt3bfcZ6180lXmxQNVopQ2ecfJ56wn4Q477Mk0A8PseM8q/C45aNRwJvZ9ddUkRxMwoB1lyiM4I+NFBMNtelZ4MkdZvErfO45gYkgWDhJUM9ZWpOMl4nvWz+459cWXtMdZQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=K+vAvhtKaBcLx+Cp8YXqGHptlroq9deAlvv2XlD75sY=;
- b=xQ5WM8sX0ufO1Dy122dCUk1NXkt8OD0uiSF3RxmgswsVOQwrwYldEwhT7d1sqUHlwVeESsQGobMqEbDaVy7ZO21PiXUVIg1w/wP8ICLnrTMwKLVUKbD2FF79SPkIMxfq80rOAArOb/kPSC5XAPbFdkglPvXF515I2wRRzfeuoM3NMSF2ROQRhrwBcJQEbPjhsTbe/7UB+xnX1poWUxha6avMxpilHiQ8cTfA7HjTUCrvMVRkKp1wH7EY0dQV4ano0kWNkHTFLDA2rKFSUnQw9ollmBtKSFP/+Rw4qZGy3hosRixLOJJ5x925yVA72uymT81+QoVQHoUYKoTj4t5e1w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from SJ2PR11MB8370.namprd11.prod.outlook.com (2603:10b6:a03:540::20)
- by PH7PR11MB6449.namprd11.prod.outlook.com (2603:10b6:510:1f7::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Thu, 3 Sep
- 2026 17:02:13 +0000
-Received: from SJ2PR11MB8370.namprd11.prod.outlook.com
- ([fe80::b6cf:ce77:3cdf:7cc]) by SJ2PR11MB8370.namprd11.prod.outlook.com
- ([fe80::b6cf:ce77:3cdf:7cc%5]) with mapi id 15.21.0360.008; Thu, 3 Sep 2026
- 17:02:11 +0000
-Message-ID: <01d907ef-430e-4b11-b00f-342c21572ba7@intel.com>
-Date: Thu, 3 Sep 2026 10:02:09 -0700
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/5] x86,fs/resctrl: Cleanups in preparation for multiple
-To: <tony.luck@intel.com>, <ben.horgan@arm.com>, <james.morse@arm.com>,
-	<Dave.Martin@arm.com>, <babu.moger@amd.com>, <bp@alien8.de>,
-	<tglx@linutronix.de>, <dave.hansen@linux.intel.com>
-CC: <x86@kernel.org>, <hpa@zytor.com>, <fustini@kernel.org>,
-	<fenghuay@nvidia.com>, <peternewman@google.com>, <yu.c.chen@intel.com>,
-	<linux-kernel@vger.kernel.org>, <patches@lists.linux.dev>
-References: <cover.1788452481.git.reinette.chatre@intel.com>
-Content-Language: en-US
-From: Reinette Chatre <reinette.chatre@intel.com>
-In-Reply-To: <cover.1788452481.git.reinette.chatre@intel.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MW4PR04CA0098.namprd04.prod.outlook.com
- (2603:10b6:303:83::13) To SJ2PR11MB8370.namprd11.prod.outlook.com
- (2603:10b6:a03:540::20)
+	dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b="cNSaZdy8"
+Received: from [10.0.0.152] (unknown [10.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by ixit.cz (Postfix) with ESMTPSA id 55629534032A;
+	Thu, 03 Sep 2026 19:02:50 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
+	t=1788454970;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=Q4dUwejdRJI2qLkZSXJEkJxoQfGOS6BIS0QFYJOq8yQ=;
+	b=cNSaZdy8kfXM68HQ7QZzyWeDLc5ztf22U/gd+IXjIvg90zLkq7eM4JmaIvUk1sq8XVrwXJ
+	+GOA9Uprue3SBsMckV8BneaZkcEMW2tBdRMKBDG2d4gNKbNRtCC/T6eaF1WBQuFpzW++9+
+	7UoIdKocS4BdDfz+0EK8QHKzhcsY+h4=
+Message-ID: <e4b32a40-4432-40c0-8e57-f5602c98f096@ixit.cz>
+Date: Thu, 3 Sep 2026 19:02:50 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ2PR11MB8370:EE_|PH7PR11MB6449:EE_
-X-MS-Office365-Filtering-Correlation-Id: 944e5a3c-df6b-4d19-2588-08df09dd1888
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|366016|23010399003|376014|7416014|10067099003|22082099003|18002099003|11063799006|56012099006;
-X-Microsoft-Antispam-Message-Info: f/e+GCwpDNcMLR50/fUhvtG+dS7EvepwrIPPatMylKyY+uycMTgK0FNK0DhEkTPJE+Tyfeh9aVnxjMnNZwTZsIWfUpz63GfqAzht00xDCkvZTlCGZo0YJO9nv1MEDRZ350r3QH1Vvlofx1OVPxWsN56OUYrsohQVJNKuU6HE4SdOod4C52RKgO9NUHjmvvnarv9cmR9FVaSRnMo8Z+pulRBqFIHa4hJTq8d6nHjYY7i1dH25IhcVXlFfR8iyvdyrclMfnPDDX2fp0qojUjh39nbHTZJfCrTPhOAGxDr5j9Lz6x0GkWxg7vzbcd9Z35Vu9uzUl7YSoiRd9fAzGmfL3mazyFUO0xLSs0hOVpytw4toR7dce+zvzUjo7zz5kyQPjg+OU4OHodQg9RDOCJdeAUVkT+SGFszdVY6czQW3sHy/lQkGhg/4BDPtOv704kldHh8x17mr1VF0HJzqKAs+nDgpOwCEG4WSbXqrN/XEKjWt/Ca5N9MfV6hDaXMboTs2xdrPBkEP1qjg4zM8XwDPDQRtdCZ575c3WdQqqQOsJ35PR4eAIA0OH0q3i1lpxHK/HJzF5bGr4Ia4AtjCe8U5ieTz4i/5sCdQfwusxBu7AmwkFtz+v0UIPS8vwsRO9ZOfLqpuEw4JOAw2vEMIyxOm0sLEO48S/V+wsYq5zaoEdd8=
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ2PR11MB8370.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(23010399003)(376014)(7416014)(10067099003)(22082099003)(18002099003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?TGplaFdab1dJRkt3dHFoTURRcTBrS2RxN1h0RXFEbFFrUlFDYVJRQ21nRTRq?=
- =?utf-8?B?RlhlUnE4RGlYYW41bURiekV3TndPa0ZjZ0hncDFNNCthUVM1R2d3bWRZem5y?=
- =?utf-8?B?RUlJTzFMK0d0VjJGRjBYdzE3NGVLTVpRcEZaM0hRMlF4LzFRQ1dLT2h4bHdx?=
- =?utf-8?B?NThiNURLYmdxbGQ1VmdjMzNGd1FkVWtSa2FJZW91VGh4blgrSGIzU0JWcDNm?=
- =?utf-8?B?TTM0d2JjSS9URkh1dW1jdnB4YWxMa3ZXS3J6aUI3b3E2Y3p1WW13QVdGVTB2?=
- =?utf-8?B?M0hIa0o5L25DSkQyV21ST1Noalp6NEJTTFdhOGtPaTcxT0tQWFFrRUlaajlo?=
- =?utf-8?B?ZEhpM2JIVHlKdVdjc3ZFYUJnQlFWalVpeE9tSThyb2RjNmY1eWNoT1pqeWFB?=
- =?utf-8?B?Zk1JS0hTUHh1K2xLLzJVQVZCQkpDK1UzZGpmTVFTOGx2eTJacnk5ajhjeGlO?=
- =?utf-8?B?MGhhY3FHRlFuL2xEdFBnQ2wwV0I0VXZFNkdEbUVmazZwMFRWNnpNclFxOU5i?=
- =?utf-8?B?czNTWGU2N2FnQXd1UlYwR3JqclhvaVhEbXpZOWRhcE55b1JwaFZvOVJ3ZFk1?=
- =?utf-8?B?bzRtcmJGRnBhdXRQZE5Zc0wwMXBhNDNCOHdhb3ZqOG9ROFNUTVJkdnFidlhy?=
- =?utf-8?B?eEd6SWx1dlJjaG16d1A2QXNSN0JpeUFPRUcrV0JDUjRvN2dKWkJBcytGeVIr?=
- =?utf-8?B?UXp2U3hPTEpFdlhyTXNndVFwWnMycGo0dnVvQ25nMzJOQTZUWjFiWmNGQWlq?=
- =?utf-8?B?a0xmTlZCb0dKcXQyMDZjaWhzZ01RMGV3aGJQODI4dmxWVVcybmZhNVdpNDhG?=
- =?utf-8?B?YXNTMzJMV0RFaG43M09Ia1RiSHJkVWEzbkRtVDFwdHh2eUkxdHJFei90U3ZL?=
- =?utf-8?B?S2ttb0RkajBYR29aZTJvTWgxVmtXNXl5VEoxOERqNy95RW1WdXNqdENETFIr?=
- =?utf-8?B?NTYwQURYaWV2N1FSMTZOZ2hLNXhhMnJxN1VJbmRCS1VYVCsvTUF4VlBOK3NB?=
- =?utf-8?B?NU1OWmVQWSt4akVXMjNRd1NBK3c3aHl5RUlsVm9XMERMekduVkFiSkRiSys1?=
- =?utf-8?B?WXRydjNFWm93bVRhaERSWFZoRFJLakE0bDFzd05aaVpiY09walIzUXNuZERu?=
- =?utf-8?B?K0haSWJlWmtoYTRoK2NCM0lBWjA5YkcwTll4R21LK3hieDE4aC96RWJrL05O?=
- =?utf-8?B?VlVRbWsvTG1abVdJcXVVUG5jY1BqS3VITnJiNFhLK0tLWnRFNWxJZGM5YWdJ?=
- =?utf-8?B?WmZQY1A3d0M5V2tsbVpBYU5ac0ZSTWs0NmRoZldsYVV1dHJCMlRORFRSVHBR?=
- =?utf-8?B?SnVWVTc2RzA5NTUwaGh3SDRMbkJQU0pUQTNrTDFaV21EdkJpL2t4Tmg3UzR6?=
- =?utf-8?B?WTU3TFc0OVl6MlRFQ1ZXNEw0WlJteXkrQ2hTUStQSWUrL2p2bDdYRjU3MTht?=
- =?utf-8?B?VW03eWIzcHRSM2t2eDFiUmpXWVNVRWFxSHI5YXcvNmRWNGtVRGVGcmxPSG1G?=
- =?utf-8?B?Wlk0bVM1blpGbFl0N3V5b1BtY0F3N2xaZUZiZGY0Wi94RG1zM3BjWkNLV0x0?=
- =?utf-8?B?TUVpNk02UnA1T2pSZHdVUG5XdDN2UXB1bXFuR2hBUm9MTnNPaGc1VENXTkt4?=
- =?utf-8?B?bWRjM0ZSdU5jZ0dqSGFUSy9BckI4a0xONWVUSllwYUF3MTRpYlFxV1V5YVdX?=
- =?utf-8?B?YnlnME9valF5MWJBeWJiYkd1VXVoQ0JMbGwyVTNrZktCeE9jVWN1UFZiaThM?=
- =?utf-8?B?aEQ1Q0VaMlUwdElkbjhpdlhVY1Nvc0lmRk9EZGR4ZEJiVHVMUEVqWTRRTWdu?=
- =?utf-8?B?QTJ3TXlBMEgvZUhxQ3JlT0FBUkdyMnN2NjJZQWZ2R013K01vWmZwNC9qek8r?=
- =?utf-8?B?eU4wUWZHbTRFK3pkckRYT1RVcG9Pdk4vcWZRNUpIUCtSOFNYK1VXQUtYclQ3?=
- =?utf-8?B?MTFNYmV2aTM4cVEwMkhVZ0JtZUVISHFDYnNQZjZiQjJCeHBDRWFCOTc5OFZJ?=
- =?utf-8?B?V2N4QlJEZFRBQUt2d3k0ZDJLbUhtbVQ1MWFKdVdRSTd2aktpbTh2eXVnYjUr?=
- =?utf-8?B?RGxtQmVZN3d1enNRd0svTXBtN21YQ3ZjWG15R05WaUNndUo4WjVTdzdMNjY5?=
- =?utf-8?B?c2ZMdVVyMmpJYzc5ZGVuTW1ISHhaM3FNNC9iMVRNa01FRmJCR2cwUTVKUTRx?=
- =?utf-8?B?d080elcyc1pNUWhRYnA5YkxaUnJTRm0wOGdudHBrYjBaS1QrbElFNkJhNXZv?=
- =?utf-8?B?YndrOEVRdE54NmJZR1l5b0xOSjVvN0plcVJMNUdvb2t0RW1qcUtEanl3Qkps?=
- =?utf-8?B?WnZPN1luaDZnMDV4bUhUOERuajNsbVU4cDIyNGtrVnU5b204cndkdDNvOGRj?=
- =?utf-8?Q?1MM0C4cAZMrQkL7c=3D?=
-X-Exchange-RoutingPolicyChecked: uHgZzZySvB0i+gccXTozDj/hemsfnIz+tFHehKiea0H7tGf0m3nLRJMBe8EPIxZ0KziUWLYNXOyiV9qZcmlD7RM6u+yIaU5Is09d/NbJLiI+hzEYQsA9wHGqUAWElFrha7jw48H8Ho0FtjJj/0CgbgaLi0WD4PvEGChrTqMgrQTe9WyCVcRKTAyVvQBEvA8ZEO0fhBe+6uv7x/KM+BLIa3dvZ9b/To39GeCegaP2l8jDIrSNXe0KU8l7wmPpRfbueGhbJGNmu8Vxxy3Z8D5KmiTQLxVyHQ8BDtabZwBUbBo4L5iPRla36yrhhhvduAKmc3/zjF4y45f5BK+dsuDqGw==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 944e5a3c-df6b-4d19-2588-08df09dd1888
-X-MS-Exchange-CrossTenant-AuthSource: SJ2PR11MB8370.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Sep 2026 17:02:11.6344
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: RPtGcyvGj8ZDL8t4AVhLfO/8H9iyraM/YPfGaUx6OTg9PvxU+vcGfRF2RZ8rc+l9PHxqm6scSsGVlESLF4muYBh2QH/4Deai+GEXOKOm25E=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR11MB6449
-X-OriginatorOrg: intel.com
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH RFC 6/6] arm64: dts: qcom: sdm845-google: Add basic audio
+ support
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+ Srinivas Kandagatla <srini@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
+ Mark Brown <broonie@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>, David Rhodes <david.rhodes@cirrus.com>,
+ Richard Fitzgerald <rf@opensource.cirrus.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ David Rhodes <drhodes@opensource.cirrus.com>,
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, patches@opensource.cirrus.com,
+ devicetree@vger.kernel.org, phone-devel@vger.kernel.org
+References: <20260705-pixel3-audio-v1-0-3b66f33859f1@ixit.cz>
+ <20260705-pixel3-audio-v1-6-3b66f33859f1@ixit.cz>
+ <71e04eae-7826-4f51-bd6a-318ea1108c08@oss.qualcomm.com>
+Content-Language: en-US, cs-CZ
+From: David Heidelberg <david@ixit.cz>
+Autocrypt: addr=david@ixit.cz; keydata=
+ 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
+In-Reply-To: <71e04eae-7826-4f51-bd6a-318ea1108c08@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-I don't know what caused subject to be trimmed. It is intended to be:
+On 06/07/2026 14:00, Konrad Dybcio wrote:
+> On 7/5/26 10:06 PM, David Heidelberg via B4 Relay wrote:
+>> From: David Heidelberg <david@ixit.cz>
+>>
+>> Introduce support for sound card and wire two CS35L36 audio codecs for
+>> top and bottom speakers.
+>>
+>> Inspired by commit from Joel Selvaraj.
+>>
+>> Signed-off-by: David Heidelberg <david@ixit.cz>
+>> ---
+> 
+> [...]
+> 
+>> +	/* CS35L36, Bottom Speaker */
+>> +	cs35l36_bottom: audio-codec@40 {
+>> +		compatible = "cirrus,cs35l36";
+>> +		reg = <0x40>;
+>> +		reset-gpios = <&tlmm 112 GPIO_ACTIVE_HIGH>;
+>> +		#sound-dai-cells = <0>;
+>> +		sound-name-prefix = "Right"; /* Bottom */
+> 
+> One comment's enough (either above the node or here)
+> 
+> [...]
+> 
+>> +	mm1-dai-link {
+>> +		link-name = "MultiMedia1";
+>> +
+>> +		cpu {
+>> +			sound-dai = <&q6asmdai MSM_FRONTEND_DAI_MULTIMEDIA1>;
+>> +		};
+>> +	};
+>> +
+>> +	cs35l36-dai-link {
+>> +		link-name = "Speaker Playback";
+>> +
+>> +		cpu {
+>> +			sound-dai = <&q6afedai QUATERNARY_TDM_RX_0>;
+>> +		};
+>> +
+>> +		platform {
+>> +			sound-dai = <&q6routing>;
+>> +		};
+>> +
+>> +		codec {
+>> +			sound-dai = <&cs35l36_bottom>, <&cs35l36_top>;
+>> +		};
+> 
+> nit: 'co'dec < 'cp'u < 'p'latform
+> 
+> also 'c's35l36-dai-link < `m`m1-dai-link
 
-	x86,fs/resctrl: Cleanups in preparation for multiple controller support
+... aaaand **sorting nodes** broke audio.
+
+Moving `mm1-dai-link` behind `cs35l36-dai-link` broke the audio.
+
+For now I'm keeping m1-dai-link at the begging and added the comment why is it 
+there, but I guess would be nice to have this solved properly.
+
+---
+   What actually happens in the core. In soc_probe_component() the ASoC core 
+creates a component's widgets, probes it, and immediately adds that component's own
+   routes. Card-level routes, including the DT audio-routing ones, are only 
+added after every component is probed. So a component whose routes point at another
+   component's widgets, which is exactly what q6routing does with MM_DL* and 
+MM_UL*, only works if the other component happens to be probed earlier. Probe 
+order is
+   the DT link order, so this becomes a hidden DT contract.
+
+   Upstream does not actually sort these nodes. The binding matches .*-dai-link$ 
+and the reference boards rely on the order: db845c lists mm1 to mm4 and then
+   hdmi-dai-link, sm8250-mtp lists mm1 to mm3 and then wcd-..., wsa-..., 
+va-dai-link. Neither is alphabetical. So "sorted by name" is not the convention 
+being
+   followed for these children, and cs35l36-dai-link sorting before mm1-dai-link 
+is precisely why an alphabetical rework breaks.
+
+   Where a fix would belong. Two options, in order of preference:
+
+   - In the ASoC core: defer component routes until after 
+soc_probe_link_components() finishes, next to where the card routes are added. 
+That removes the dependency
+     for every driver with cross-component routes. It is a small change, but it 
+touches every card, so it needs a wide audience on alsa-devel.
+   - In qcom_snd_parse_of(): it already knows which links are frontends (no 
+codec and no platform child, marked dynamic) and which are backends (no_pcm). 
+Two passes
+     over the children, frontends first, make the order independent of the DT. 
+That is local and would be acceptable to the Qualcomm audio maintainers, but it 
+papers
+     over a core problem.
+
+> 
+> otherwise:
+> 
+> Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+>   
+> Konrad
+> 
 
