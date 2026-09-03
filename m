@@ -1,88 +1,95 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E9B23769FC;
-	Thu,  3 Sep 2026 22:10:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F16824570CF
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 22:11:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.117.254.33
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788473446; cv=none; b=sh+kQiyIqQujJ4IGcm7d4/fDmaAiWNTlx1rDLFmippZlwb8Bm4xHKLsCSeeuhWQNL8QST0WuHDYhUo4+WHDQmEyfQAIWzhojO2LOvkRncrkcbMnh0onYpQS6mmFwR+8Qe88W4xIDPN5l4mMeYEq96FFmEbDEAfHUynEE7hy3MU4=
+	t=1788473467; cv=none; b=BGh4CGOSxvSFAd2cwNwLfhE/Wio4EK1ElUzsnwx5vZX9qp/iOYWoln1zF888H0DT/RCGYIlpWkeKXfDO+iIpJF9X6DVlMI3p3rluYeWahsPmgTyTL64oiGb1jViPg644+2wYdLccOB2SR8K7QiU7DfZkLWtuOh3DRbd5MZH7VIU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788473446; c=relaxed/simple;
-	bh=ZxozKSVTbBT5hj7zg9nyzlZgMGGN2I0QCbDFdyFg0ww=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To; b=Y53BpTKNTsKEHlNHZp5wDndlcLCEP3sKQoIAGMRFz8Y6F81NhT+6VDCIlGgEyyCaUIHUmJh3bq5qXD7GNkgMGaj0CF38vFswosBRdXZnFDh5z5sUz8qftuuHfs5DJS7aw0d1mZZHsZcF+UCnvQ8Rl2WaG9fXxodm7bSDZuJa6K4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YLc4CWxC; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788473467; c=relaxed/simple;
+	bh=XkxG3nEF7DPQ7pAxi7ZRjlDAd2bjT9OCIQ1il2jyVT4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=n8WklyqRFsyHNEDArO1/rzzEGPJrbfgBImmqGuI59tyFF4SN84LvwYeKAdZTamtzmsW5NfH0PFnUbnGpc51W+LLLhMBiZOS2R5apahPnpFEUsBJ1EVpgaO+1wNtD2q2c+sqpkI2jxiIb8xchCF89kUiA7iMB2ui37qDP0HdLgvw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com; spf=pass smtp.mailfrom=sang-engineering.com; dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b=kvg900Uj; arc=none smtp.client-ip=194.117.254.33
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YLc4CWxC"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BA6CD1F00A3E;
-	Thu,  3 Sep 2026 22:10:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788473445;
-	bh=AFBKP7wRv5e8i4drcjFlsNAiTtTSgtaTlcwi2V+PEnY=;
-	h=Date:From:To:Cc:Subject:In-Reply-To;
-	b=YLc4CWxCfK8TO614oYfKC4+YjhuYrU2yCEsWSTusLSyWI1az0tN1t2RY0+tbzmh2F
-	 B1M7K7J2/xuzueuALpPTSCcBYhLDVyB4Il4EG+X0N0PjRATSddwkP3DiJ3QgcaKVKl
-	 jViCgf52cXKeymFEVORQML0ff2o1rSVPb+OjoFQmpPyrRRtpyIKegsZ6HPRzxXZYrB
-	 fKkJmH3AkT/kC3uZHPyhGWR4UL+nZziFlC1ULzZD+7Vij1PH42Oi38f4pgTTIa7Skg
-	 BNBndr3w22FA0c21GiyShR9mTTkdS1NztODboDD9PAbThI+uVgmNw9Z6biD90FWDzd
-	 V8HIYOPPit57Q==
-Date: Thu, 3 Sep 2026 17:10:43 -0500
-From: Bjorn Helgaas <helgaas@kernel.org>
-To: Lin Wang <wanglin@open-hieco.net>
-Cc: Borislav Petkov <bp@alien8.de>, yazen.ghannam@amd.com,
-	mario.limonciello@amd.com, tglx@linutronix.de, mingo@redhat.com,
-	dave.hansen@linux.intel.com, "H. Peter Anvin" <hpa@zytor.com>,
-	bhelgaas@google.com, x86@kernel.org, linux-pci@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 1/5] pci_ids: Add Hygon Family 0x18 DF F3/F4 device IDs
-Message-ID: <20260903221043.GA2261875@bhelgaas>
+	dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b="kvg900Uj"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	sang-engineering.com; h=date:from:to:cc:subject:message-id
+	:references:mime-version:content-type:in-reply-to; s=k1; bh=XkxG
+	3nEF7DPQ7pAxi7ZRjlDAd2bjT9OCIQ1il2jyVT4=; b=kvg900UjjMPGrNTEcKyx
+	G+aX3D9t4w2PozlBzzIXhcdVoOwLYEnmeZUIYounq5Jbfw/LylfFHrjHCs+Y2bJB
+	URxAHAR6s0sJ4OU19q9W5FgjVhjPz8G3Y+mqDxIncBocio6yl/zlaaMIRwRYgYQC
+	LqVl8GAkbOGrZSAh12AZC7Mjs2400T4wgzbVm7wxmFVC+kl8wDt/y2o07Z7SAww2
+	pfq6OiPggDIsHrq/CzxouQ+gJmATdTE/Cg4ASsW24i60NuNvAMotMWsWIbCpBOAB
+	885nvew8bas6CuV7BLoVsRnkqqxILcMJ8Y2J37nk824oKhb2SDMezU2hOZp5Ga93
+	eg==
+Received: (qmail 1198926 invoked from network); 4 Sep 2026 00:11:03 +0200
+Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 4 Sep 2026 00:11:03 +0200
+X-UD-Smtp-Session: l3s3148p1@Nkl9bZtaCt8ujntC
+Date: Fri, 4 Sep 2026 00:11:03 +0200
+From: Wolfram Sang <wsa+renesas@sang-engineering.com>
+To: Claudiu Beznea <claudiu.beznea+renesas@tuxon.dev>
+Cc: geert+renesas@glider.be, linusw@kernel.org, robh@kernel.org,
+	krzk+dt@kernel.org, conor+dt@kernel.org, magnus.damm@gmail.com,
+	prabhakar.mahadev-lad.rj@bp.renesas.com, claudiu.beznea@tuxon.dev,
+	linux-renesas-soc@vger.kernel.org, linux-gpio@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
+Subject: Re: [PATCH v6 5/5] pinctrl: renesas: rzg2l: Add RZ/G3S support for
+ selecting the I3C power source
+Message-ID: <apnwdyh8bhwwYZqM@ninjato>
+References: <20260903113327.1217457-1-claudiu.beznea+renesas@tuxon.dev>
+ <20260903113327.1217457-6-claudiu.beznea+renesas@tuxon.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="ayzMqwrzNndV3fmH"
+Content-Disposition: inline
+In-Reply-To: <20260903113327.1217457-6-claudiu.beznea+renesas@tuxon.dev>
+
+--ayzMqwrzNndV3fmH
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260901071700.3255382-2-wanglin@open-hieco.net>
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, Sep 01, 2026 at 03:16:56PM +0800, Lin Wang wrote:
-> Hygon Family 0x18 node discovery identifies Data Fabric misc (F3) and
-> link (F4) functions by PCI ID rather than a fixed PCI slot.
-> 
-> Models 0x04 use 0x1463/0x1464, with 0x1493/0x1494 on the mixed-silicon
-> variant. Models 0x05 through 0x08 use 0x14b3/0x14b4.
-> 
-> Some IDs have the same numeric values as AMD DF devices. PCI identity
-> also includes the vendor, so Hygon-prefixed names keep the two vendors'
-> definitions independent.
-> 
-> Signed-off-by: Lin Wang <wanglin@open-hieco.net>
-> ---
->  include/linux/pci_ids.h | 6 ++++++
->  1 file changed, 6 insertions(+)
-> 
-> diff --git a/include/linux/pci_ids.h b/include/linux/pci_ids.h
-> index 63774ae2bf71..d9f3e01033f9 100644
-> --- a/include/linux/pci_ids.h
-> +++ b/include/linux/pci_ids.h
-> @@ -2615,6 +2615,12 @@
->  #define PCI_VENDOR_ID_ROCKCHIP		0x1d87
->  
->  #define PCI_VENDOR_ID_HYGON		0x1d94
-> +#define PCI_DEVICE_ID_HYGON_18H_M04H_DF_F3	0x1463
-> +#define PCI_DEVICE_ID_HYGON_18H_M04H_DF_F4	0x1464
-> +#define PCI_DEVICE_ID_HYGON_18H_M04H_DF_F3B	0x1493
-> +#define PCI_DEVICE_ID_HYGON_18H_M04H_DF_F4B	0x1494
-> +#define PCI_DEVICE_ID_HYGON_18H_M05H_DF_F3	0x14b3
-> +#define PCI_DEVICE_ID_HYGON_18H_M05H_DF_F4	0x14b4
+On Thu, Sep 03, 2026 at 02:33:27PM +0300, Claudiu Beznea wrote:
+> From: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
+>=20
+> The Renesas RZ/G3S I3C pins can be powered at either 1.8V or 1.2V. The
+> pin controller provides a register to select between these two options.
+> Update the Renesas RZ/G2L pin controller driver to allow selecting the
+> I3C power source on RZ/G3S SoC.
+>=20
+> Signed-off-by: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
 
-It looks like these are only needed in one place, so per the note:
+Tested-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
 
- *      Do not add new entries to this file unless the definitions
- *      are shared between multiple drivers.
 
-the #defines should probably be added in the
-arch/x86/kernel/hygon_node.c (or just use the raw hex values).
+--ayzMqwrzNndV3fmH
+Content-Type: application/pgp-signature; name=signature.asc
 
-This helps reduce conflicts when backporting changes like this.
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAmqZ8HcACgkQFA3kzBSg
+KbZn0xAAh/XrlWFWE8JatSEW8r/ZYEKMq3zvxgf8yveiVQvmO6DRs61coLyel4/e
+jbcsMCxwKjUlOb8/3i4eILdTnZP2/LXAREa3RUlpIbh3HkMYFtUOzVSkJSL70cFR
+oBRNyA3nytHOmskkfTEExP+Tba1A4Xjau/CAhRZYkBAGHFnqfTD9fxNimu+lFH/e
+m+ZMb+Jzj3vAPuw65gB2et13LEW0/sAvnJqXzN6xgJkAPYqJT/l580VLZrWEOEBV
+TyuQv/9ow33RGErZBw6YSKpW8Ob8Lq9+wlhXYwOs0A/CBHGitan0L/LuI5v+xBE7
+C/4mCfHQtqWPsUXFLakuBFk1YOJrq5enxo2ReVEK44gvKUXwPkVebZCipk8HOkmO
+VNGHQgqA0AtpSG5H7E1Y0MTs9P5B4zd01h2xw6JJvZJvw4ZwmymW1aQYkhyqVUbt
+4R1aXFU0Z5jhMiElavJB+aoqffsJqXnVc1t/Q1tY8wRZi8wFDvlOmDVl5q6JbA3t
+wFskDfsgaMhA01qHpO4QdF977NQ4NKoyjH0GA7ddJrykrYL44Dwglngr9EYjNoHN
+p+pSeyYb9qcAD/AAF3nVHzNTdJQxd6h9vDf+z+5xB0KOv/jSPtuXqke/oRAGHncU
+COWf7ASBOBx1f1nNPWmHsfWEvpFcz0dAErNXDLL8E/Fuzplhulo=
+=1a5X
+-----END PGP SIGNATURE-----
+
+--ayzMqwrzNndV3fmH--
