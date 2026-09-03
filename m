@@ -1,127 +1,122 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 702A64E3ED9
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 15:37:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED4E44E3ECB
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 15:37:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788449859; cv=none; b=OcuaUfadZsA+tDhszcYM7KPZeDtDIBthA8RMXQmn8SG2/X0Sw8avAF1nOe/Y20qI/15KFR2e9Ieyrbqx63p9UK1JS8YhbsbblAFgvpvzz+XQzchThZHycX3hsDLm4U14zATFi9yxg56WlDX854zMdXFvhZMCs1eRu+gO8kyf6/c=
+	t=1788449861; cv=none; b=dSOeYO+GzPm3/vv5eCeYw1Z/T90wyVLqA9denkTzc+YOhBjl/OQ5300vmQ1mKDVl4RT1Z39+Oaz6eidYep3xyOBxyiVOp/qrVGznYYyKXIKVsAhS3S9oEG3LYjgkF5f4l8Nn2DCnTsxnRQ1/WxsWXMDA4wUx97l23Yv5vZY8vmU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788449859; c=relaxed/simple;
-	bh=AC6m4U7iNqEMPUbp6Jh+8AXrCxPJ51XZjA9Q/0NExg8=;
+	s=arc-20240116; t=1788449861; c=relaxed/simple;
+	bh=FJqZHBnUwF7ywu5IWsSHGCTzQfz54Nov+7cjYEyTOI4=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ZdmFpMZGKXIPQtumZ/Xj0q8VdZ2EM22/dq4veWBwvagexmpJYIBpbKIesfsCF7M2+EcX+HcCzLGMz0eU6Bdvfks0mWBGYzXvGPwwN4eP/Aei//Ldoh8aYA+ifppXThf5C/9YAswDfNgg1UbIfOBESzcgZ+KFkcFT25mam0hKAqw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XwbiNMYl; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=lJCwcDWwZlkMonZ2ZKC+M4pWcTAUokTcGPSOeyOq1dUjgJt2H3chpi5l8QF3syv53yrJW/tHP4CoyxDtzmjJJdH7zqzgwsd9Mn9ku/qed5S14MgHhSW+qpo5eGFjwUcIR3E1IIen18EF7kuxTOQko3qbScW1E5J6MYTArau/9CE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=bFSmbP7M; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=HmLN8x2q; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XwbiNMYl"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1A1A21F00A3A;
-	Thu,  3 Sep 2026 15:37:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788449858;
-	bh=SAaGuiuwmKSEyoiV8Zah8K/3km4skoA5hchj++a6j6E=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=XwbiNMYlFIe5noAKSrlUGhYbLna2L+uP8lSXziXkAW62TAf8hQPWn9u+lWp6iYyo4
-	 2406vNU8X6hwJGPli4Z0q2ege3NMjGMxsocs4c0PQ+1U/F7zAodiC1YypWAr0O5cy4
-	 JvFisieON+V/L86uWXU8vC5wKcx8Q6Qq/rjmneZl4FpCLZj/CgxrhuDEI0TmUN61y9
-	 jlbnpKu3/KYACkoWnURxOuutOBHRIFQ+cB9Qf1djpVCrt86thiQG0Qgm/le+dZBfqH
-	 JTXDJXvobCVYMvtofNtJ6HRcgwWaVWeQ/J7GSBdP4bQ81ERzGbrHQfpvFQcV0FeHCi
-	 uM0wXamhjq7Sw==
-Date: Thu, 3 Sep 2026 15:37:35 +0000
-From: Jaegeuk Kim <jaegeuk@kernel.org>
-To: Zi Yan <ziy@nvidia.com>
-Cc: David Hildenbrand <david@kernel.org>,
-	"Matthew Wilcox (Oracle)" <willy@infradead.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Muchun Song <muchun.song@linux.dev>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	Nico Pache <nico.pache@linux.dev>,
-	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
-	Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
-	Usama Arif <usama.arif@linux.dev>,
-	Gregory Price <gourry@gourry.net>,
-	Ying Huang <ying.huang@linux.alibaba.com>,
-	Alistair Popple <apopple@nvidia.com>,
-	Johannes Weiner <hannes@cmpxchg.org>, Qi Zheng <qi.zheng@linux.dev>,
-	Shakeel Butt <shakeel.butt@linux.dev>,
-	Kairui Song <kasong@tencent.com>, linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org, Chao Yu <chao@kernel.org>,
-	linux-f2fs-devel@lists.sourceforge.net
-Subject: Re: [PATCH v2 06/14] f2fs: stop using PG_private
-Message-ID: <apmUP1p1TPDOaBe_@google.com>
-References: <20260831-remove-pg_private-v2-0-3668159cd9e8@nvidia.com>
- <20260831-remove-pg_private-v2-6-3668159cd9e8@nvidia.com>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="bFSmbP7M";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="HmLN8x2q"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1788449858;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=tlh82xrPwDINnfVqunMzUUIpa/VwVqsR+3LDv7/ZZTU=;
+	b=bFSmbP7Mfk2Gq8++w6um51wR9XBygGFUkk3AG4YFFvRppvcM2D1y7mICajy1aCrrrD1x0N
+	2gWXIEkIYBGo/IRpqL0J/EMvf6obpn/VjiLL8yMmFxHXdaTldRNMvmOAsSAlYwtu4G6Dtj
+	NSILnNQf65p1me063mlzZXc96QZRUTU=
+Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com
+ [209.85.222.198]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-327-QP3UgQ-uMO2BqnDWzC47qQ-1; Thu, 03 Sep 2026 11:37:37 -0400
+X-MC-Unique: QP3UgQ-uMO2BqnDWzC47qQ-1
+X-Mimecast-MFC-AGG-ID: QP3UgQ-uMO2BqnDWzC47qQ_1788449857
+Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-930b571432fso196830185a.0
+        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 08:37:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1788449857; x=1789054657; darn=vger.kernel.org;
+        h=user-agent:in-reply-to:content-transfer-encoding
+         :content-disposition:content-type:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=tlh82xrPwDINnfVqunMzUUIpa/VwVqsR+3LDv7/ZZTU=;
+        b=HmLN8x2qX3HR5qsne+SCmn8zXjlor5euy9UCKmJS+CQ5Dod3yh0Hjw7nPcCGbAJ2WL
+         5nG4CpzKcPNNeQ//F9nTNl/idb2Dj47XXTnYCNVDbkRfhTjDdOfoE34WmhQEVlEMmR0J
+         8GJB90BVun3N2SWiTWbHLeCdNDwg8i1m2UdjH2NGHDiyBdHiFCCSjRlkro7k/OzAMtAy
+         NLmieWNicyj9ptee9ju8tPAp4HLJmcRR4Nsd0zjyr+rMnN0q2ogoF2NeLeomAmEkFC5o
+         YCF0yM+ID/hO4UqoTuKL66IlcqlOYoQWYnocC7nCX1JTz4HdiOax4XXXHtP8rhPjmAaZ
+         hUIg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788449857; x=1789054657;
+        h=user-agent:in-reply-to:content-transfer-encoding
+         :content-disposition:content-type:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=tlh82xrPwDINnfVqunMzUUIpa/VwVqsR+3LDv7/ZZTU=;
+        b=SwXNSnIDewDmDUI5WZuCj+7E7nuKPcxEat9ockQC3HaQVvZj5Af/EQC+FKScZlp9FQ
+         jp0Cuggx4Rj1as+gpmwSWabMWuOQ0ZyU69IbOZwWMBTsivRg8NZIhIA2NDLsyiZ+weGK
+         LcOXdVboYAx2J3E4VnQA3TeCcHslKWicrQGpa0rfVkFACjMs19e5TJ2fj3i1ShxhqKE6
+         DPAXXYfjRofjo/W7qoiOV6PVoGhuM0jXFkii6SLPD8UsMWTS16GqnpIXkKhDLcklLYit
+         pAkSWvIPc3VjzVVoirHCOMrb09jfCMkvzppXMbDztiokt7GUR98FkXibzYqrvARScTor
+         u1Pw==
+X-Forwarded-Encrypted: i=1; AKwUvBwOwcZf8DpTkvw6Og8/Epm85I0lOZsVIfvzoha7s4Gvyb7X9+ukSYDQpFYDEN8pmpN0kgX4F+ZQSgmQNMY=@vger.kernel.org
+X-Gm-Message-State: AFuF++mmJCktqc0TOKE5ubv1XyR0cKUEVkq28FKsL6erjKqvrE9SS+Ma
+	oGxbRhFeDl0uRpxZoj33t881iJ1Yjv8dFaO5DUofQshfu/xrcU1Ffvu0IMzCJZvENpc2y8wfupp
+	/kbWEBDevyjr9pnP37Gnzyvya/i/f+nwRr5rCzRjUa8B970YxZESKphV6M0B/WZ/eBA==
+X-Gm-Gg: AYBFou0Chjq+xocsEJFO3qo5ZAIfE1FUjj4rbwUieoT8OlMv2Y1GKZe7qQQ78Zp5eEd
+	V20yHmKkFEAR8e1TcfBbUh0ou3trnbkcTuSuCiGkGldctIZuTf61mXvdS7Nq8WWKS66pgCD3Q8l
+	EG1nTT9h6BaiPSVJ3X5wlUdHCPpeP+cWwCSPHCJqKW2XZ40xGYkgncPF9amGyD8c8RUQ1oFjoCP
+	wWnOjOlA6Hguv4nVbW3m4Ylt3BiPMYNwDNT2RiURLjVQ1If53F1ygr7iJMYxp2rG1cgJbJIFgEg
+	zu5MdCEUSvqewAHND1Vl3yXfF2TWQto6dxMHs7g+t505caGx2y7aZIA1wjuk/Aqw2JsLbbMQXcV
+	fwreMiM+0Uyw9ZiC7tbFdOiQ2mNuGHKb5MPA=
+X-Received: by 2002:a05:620a:469f:b0:939:6c9d:5270 with SMTP id af79cd13be357-93972ef3d3amr342317085a.8.1788449857015;
+        Thu, 03 Sep 2026 08:37:37 -0700 (PDT)
+X-Received: by 2002:a05:620a:469f:b0:939:6c9d:5270 with SMTP id af79cd13be357-93972ef3d3amr342310585a.8.1788449856415;
+        Thu, 03 Sep 2026 08:37:36 -0700 (PDT)
+Received: from redhat.com (c-73-183-53-213.hsd1.pa.comcast.net. [73.183.53.213])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-9395f18801asm536836385a.16.2026.09.03.08.37.34
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 03 Sep 2026 08:37:35 -0700 (PDT)
+Date: Thu, 3 Sep 2026 11:37:33 -0400
+From: Brian Masney <bmasney@redhat.com>
+To: Onur =?iso-8859-1?Q?=D6zkan?= <work@onurozkan.dev>
+Cc: linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org,
+	mturquette@baylibre.com, sboyd@kernel.org,
+	daniel.almeida@collabora.com
+Subject: Re: [PATCH v2] clk: devres: fix cleanup in
+ devm_clk_get_optional_enabled_with_rate()
+Message-ID: <apmUPdYtdIM0dQbF@redhat.com>
+References: <20260809095413.150069-1-work@onurozkan.dev>
+ <apib9XCsTNGA3-u3@redhat.com>
+ <20260903074110.101285-1-work@onurozkan.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
-In-Reply-To: <20260831-remove-pg_private-v2-6-3668159cd9e8@nvidia.com>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260903074110.101285-1-work@onurozkan.dev>
+User-Agent: Mutt/2.4.0 (2026-06-19)
 
-Let me take this patch in f2fs tree, which looks like a clean up.
+Hi Onur,
 
-On 08/31, Zi Yan wrote:
-> f2fs sets its PAGE_PRIVATE_* flags in page->private and checking
-> page->private != NULL is equivalent to checking PG_private. Change
-> PagePrivate() to page_private(). Meanwhile, in set_page_private_##name(),
-> page->private is first set to 0/NULL before an PAGE_PRIVATE_* flag is set,
-> but it can cause confusion when PG_private is removed and
-> page->private != NULL is used instead. Change it to initialize
-> page->private to PAGE_PRIVATE_NOT_POINTER instead and retain the original
-> semantics.
+On Thu, Sep 03, 2026 at 10:41:08AM +0300, Onur Özkan wrote:
+> It seems that the fix has already been applied, but v1 was picked instead of v2.
+> I sent v2 the next day after receiving warnings from the kernel bot [1], at
+> which point v1 had not yet been applied anywhere.
 > 
-> It prepares for a future commit that removes PG_private.
+> [1]: https://lore.kernel.org/all/202608090025.dwxdfqFr-lkp@intel.com
 > 
-> No functional change intended.
-> 
-> Assisted-by: Claude:claude-opus-4-8
-> Assisted-by: Codex:gpt-5
-> To: Jaegeuk Kim <jaegeuk@kernel.org>
-> To: Chao Yu <chao@kernel.org>
-> Cc: linux-f2fs-devel@lists.sourceforge.net
-> Cc: linux-kernel@vger.kernel.org
-> Acked-by: Usama Arif <usama.arif@linux.dev>
-> Acked-by: Chao Yu <chao@kernel.org>
-> Signed-off-by: Zi Yan <ziy@nvidia.com>
-> ---
->  fs/f2fs/f2fs.h | 8 ++++----
->  1 file changed, 4 insertions(+), 4 deletions(-)
-> 
-> diff --git a/fs/f2fs/f2fs.h b/fs/f2fs/f2fs.h
-> index 9940a6cecf1a2..2f7ab5888b078 100644
-> --- a/fs/f2fs/f2fs.h
-> +++ b/fs/f2fs/f2fs.h
-> @@ -2691,7 +2691,7 @@ static inline bool folio_test_f2fs_##name(const struct folio *folio)	\
->  }									\
->  static inline bool page_private_##name(struct page *page) \
->  { \
-> -	return PagePrivate(page) && \
-> +	return page_private(page) && \
->  		test_bit(PAGE_PRIVATE_NOT_POINTER, &page_private(page)) && \
->  		test_bit(PAGE_PRIVATE_##flagname, &page_private(page)); \
->  }
-> @@ -2710,9 +2710,9 @@ static inline void folio_set_f2fs_##name(struct folio *folio)		\
->  }									\
->  static inline void set_page_private_##name(struct page *page) \
->  { \
-> -	if (!PagePrivate(page)) \
-> -		attach_page_private(page, (void *)0); \
-> -	set_bit(PAGE_PRIVATE_NOT_POINTER, &page_private(page)); \
-> +	if (!page_private(page)) \
-> +		attach_page_private(page, \
-> +				(void *)BIT(PAGE_PRIVATE_NOT_POINTER)); \
->  	set_bit(PAGE_PRIVATE_##flagname, &page_private(page)); \
->  }
->  
-> 
-> -- 
-> 2.53.0
-> 
+> So this patch itself is no longer necessary since the fix is already there. If
+> you still want to get rid of the warnings I can send another patch for it.
+
+Please submit a separate patch to get rid of the warnings.
+
+Thanks,
+Brian
+
