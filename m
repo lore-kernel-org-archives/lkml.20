@@ -1,156 +1,119 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22E843E5EFA;
-	Thu,  3 Sep 2026 06:30:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 306E03E5A08
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 06:30:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788417025; cv=none; b=u0swNhXkY+jJwuwverbO8I4unvxC41ZhUVrphxlmTViugQ606qYRO6SYZxjHeo2pUi4nbAtZwmEN3EzJJxuOwEnFbBLIXOL5XY5JHqCoBJ41nYhriTexLMmz1IlQSpsOpK6SpouSBT8PXQ/uIa21kFZQlq1kR7p5i6xzxJfS200=
+	t=1788417028; cv=none; b=edmyHVui8lrVWElgCERdrjs71AsejFh6Ro0m6RutVKw2Eqoh6fa9IbAq9/9HX4otCBBuiCHbWQyPtf0Bn9kNNhzD/OUEZZRlad9uKpp4Zm/Tebcrf0IbkMn6imHU2cjcXgskjrGL9hl3sZeA7f2s4OD+k/FowVd8QaI51vixm9w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788417025; c=relaxed/simple;
-	bh=K0mIDOj1jh/DIVga59w8LwhKbcyWJv95VugPIdNx+Cw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=oLY1ljyplkdiXvPEH4aVqMWlcAvx1C1hOr7elqXty24AeOHcQLriI/FF8HZX4Hmr3zSHYheIFF6EGL2G7F39DSXfQLsh4ngJdfrgFWE95YhgEC1Nh61Vjon0OHuTUce24gtEYlDtkqlVnqvT1QgSpyBNTqX1VbKf1t3MQBekdu4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MVfxUnqT; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788417028; c=relaxed/simple;
+	bh=R2/gjhxWyyUZ0jBNMDGGTiujSGfQ32xuIupRnERfeRw=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=ZItUYFVNGrYXKWzTkksIZMWFIFEmtwNx14wg+/VfdS7X/FQBWeNmakjENKRZDBF/sLKv1jZsVx2aClIJbvrDWEUPDyZDsShqeQj9YsH2z+A+jX5xsA2XOEzrrrgrYVGIp+y1gWZ0fJ/tZ3kOoyUgMdEaV9d8BX08fr6YPek5hjc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NQEgvfbF; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MVfxUnqT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 909D11F000E9;
-	Thu,  3 Sep 2026 06:30:16 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NQEgvfbF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8D9681F00AC4
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 06:30:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788417022;
-	bh=rIPeNlXft5qwGDCPcStsc5nZyiqlws4Zz6uCNrYyQyw=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=MVfxUnqTqzgIOA7Stjk2sqCaMIwJHJR6btTQ4cX8mfQ2icxuWipuP0pX9C4OMlJWa
-	 FPOTO0sd+enJCX7IUzVrVcJaLWn7m03XIlLRDdyJBueIjhX0ewV4d2yO+dXLJYaFO2
-	 qcWMXM1xhKnJwyX6aYAp87iHjfV/qaVkc4FCWBbDkUXYMIwFishNeg4hLghHi4u31s
-	 KKx3nF8OnJyc/Zkr640S+C1jgfrt/leuDDxiAvm3xKbUSHiDWRm+soC6Gcajyhmf/w
-	 qaotj/umUpBgoIVjJ2SlKheRgPxgIWW59tpNwerALUo7ewpDK1LTIYRRoDtWJUU33A
-	 kmWr9YXcCopLw==
-Message-ID: <791fe5ba-5110-47d8-b0a8-9ab447762671@kernel.org>
-Date: Thu, 3 Sep 2026 08:30:13 +0200
+	s=k20260515; t=1788417023;
+	bh=z36InkbgZ5czLNoME51lvPgrfTTVurywTjIuByWup8c=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=NQEgvfbFEiEVrwFSBb/9E5aGP1yluPqmMKNMROwPv43STzTUF6Nd7VzSo4LqIes+B
+	 vS33elFpG3DqJVJp7oXlNn0Qz4hD8DvzMCc6Ht0jI36l0/gOETnGOukv7PX5NkJ1md
+	 99z/lxcYVTCKfNPOOqTFJJMa/ChgMj9aL1If6GAvBJdjVlrHD6VnkGGwjX0v0EsM99
+	 oQBnuE9Fzx82MuO4xrlTW0e+PZqHg2hT5cxPU4Ecc714jXMIednN6MjlIjyGDgf8o/
+	 a0M1NZ9tBvErUImCCyjYSMPOu9PV2DglTKjiGBUaGwzaxISTriJLtM8lTnRyiCGWIW
+	 dpnbekKaUUqFg==
+Received: by mail-qk1-f170.google.com with SMTP id af79cd13be357-930c0f9c1b1so215944985a.1
+        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 23:30:23 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBxRBvQIulQah/AoT8XTDrle/wGawpmgBu1piuudzevuY2I4WwUz/Zlq1y3MqaJbH4ZMONmO3n9AXcGQu5E=@vger.kernel.org
+X-Gm-Message-State: AFuF++mluwCJ8KEt1Abn/TrJFFfzEHiTJ4XkgA+4OysZoJGUTm2D8AyB
+	es8KSbQQZped5l6B8qPUK1EQr0n2YmY11V97zOsNTpjQgktNMzdcG4QTV38pdHiJWXW4wYtl9if
+	e/pW+chm01w7iyZ6UNId7G93CSoWcFO4=
+X-Received: by 2002:a05:620a:f13:b0:937:2ac8:bbda with SMTP id
+ af79cd13be357-93960f52da3mr1075847085a.35.1788417022888; Wed, 02 Sep 2026
+ 23:30:22 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/5] dt-bindings: usb: Add CIX Sky1 USBSSP controller
-To: Hongliang Yang <hongliang.yang@cixtech.com>
-Cc: cix-kernel-upstream@cixtech.com, conor+dt@kernel.org,
- devicetree@vger.kernel.org, fugang.duan@cixtech.com,
- gregkh@linuxfoundation.org, krzk+dt@kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- linux-phy@lists.infradead.org, linux-usb@vger.kernel.org,
- neil.armstrong@linaro.org, p.zabel@pengutronix.de, pawell@cadence.com,
- peter.chen@kernel.org, robh@kernel.org, rogerq@kernel.org, vkoul@kernel.org
-References: <503e87d9-3311-413a-98c0-e02a02c4a354@kernel.org>
- <20260903023521.2064986-1-hongliang.yang@cixtech.com>
- <20260903023521.2064986-3-hongliang.yang@cixtech.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20260903023521.2064986-3-hongliang.yang@cixtech.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20260903031952.1120321-1-ridong.chen@linux.dev> <20260903031952.1120321-3-ridong.chen@linux.dev>
+In-Reply-To: <20260903031952.1120321-3-ridong.chen@linux.dev>
+From: Barry Song <baohua@kernel.org>
+Date: Thu, 3 Sep 2026 14:30:11 +0800
+X-Gmail-Original-Message-ID: <CAGsJ_4wKaboESQfUJPi8y4BNJuxpEWG2Prjb44NvFKDV_aeVhw@mail.gmail.com>
+X-Gm-Features: AcwNN1Xa9LjF9LvOPJz6jmGmZsvCdU3Ed2O2AMgXfYG7RHIlGiW-5e7M8Zr3wao
+Message-ID: <CAGsJ_4wKaboESQfUJPi8y4BNJuxpEWG2Prjb44NvFKDV_aeVhw@mail.gmail.com>
+Subject: Re: [PATCH v3 2/2] mm/mglru: fix ineffective memory protection for
+ non-kswapd reclaim
+To: Ridong Chen <ridong.chen@linux.dev>
+Cc: Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, 
+	Roman Gushchin <roman.gushchin@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
+	Andrew Morton <akpm@linux-foundation.org>, Muchun Song <muchun.song@linux.dev>, 
+	Kairui Song <kasong@tencent.com>, Qi Zheng <qi.zheng@linux.dev>, 
+	Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
+	Wei Xu <weixugc@google.com>, David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
+	Chris Down <chris@chrisdown.name>, Tejun Heo <tj@kernel.org>, Yu Zhao <yuzhao@google.com>, 
+	"open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)" <cgroups@vger.kernel.org>, 
+	"open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)" <linux-mm@kvack.org>, linux-kernel@vger.kernel.org, 
+	Ridong Chen <chenridong@xiaomi.com>, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 03/09/2026 04:35, Hongliang Yang wrote:
-> Add device tree binding for the CIX Sky1 Cadence USBSSP controller
-> glue layer. The integration adds glue registers and mode strap
-> controls in the Sky1 S5 system controller. The CIX glue node wraps
-> a Cadence USBSSP core as a child node.
+On Thu, Sep 3, 2026 at 11:20=E2=80=AFAM Ridong Chen <ridong.chen@linux.dev>=
+ wrote:
+>
+> From: Ridong Chen <chenridong@xiaomi.com>
+>
+> For MGLRU, memory.min/low is not honored during global proactive reclaim
+> (writing to the root memory.reclaim) and global direct reclaim, because
+> these paths shrink memcgs using stale or effective protection (emin/elow)=
+.
 
+Are you sure it should be =E2=80=9Cstale or effective=E2=80=9D?
+My gut feeling is that we don't need the =E2=80=9Cor=E2=80=9D here.
 
-Do not attach (thread) your patchsets to some other threads (unrelated
-or older versions). This buries them deep in the mailbox and might
-interfere with applying entire sets. See also:
-https://elixir.bootlin.com/linux/v6.16-rc2/source/Documentation/process/submitting-patches.rst#L830
-
-> 
-> Signed-off-by: Hongliang Yang <hongliang.yang@cixtech.com>
+[...]
+>
+> Fixes: e4dde56cd208 ("mm: multi-gen LRU: per-node lru_gen_folio lists")
+> Cc: stable@vger.kernel.org
+> Assisted-by: Claude:claude-opus-4-8
+> Signed-off-by: Ridong Chen <chenridong@xiaomi.com>
 > ---
->  .../bindings/usb/cix,sky1-usbssp.yaml         | 137 ++++++++++++++++++
->  MAINTAINERS                                   |   3 +
->  2 files changed, 140 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/usb/cix,sky1-usbssp.yaml
-> 
-> diff --git a/Documentation/devicetree/bindings/usb/cix,sky1-usbssp.yaml b/Documentation/devicetree/bindings/usb/cix,sky1-usbssp.yaml
-> new file mode 100644
-> index 000000000000..73231a2741bc
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/usb/cix,sky1-usbssp.yaml
-> @@ -0,0 +1,137 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/usb/cix,sky1-usbssp.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: CIX Sky1 Cadence USBSSP Controller
-> +
-> +maintainers:
-> +  - Hongliang Yang <hongliang.yang@cixtech.com>
-> +
-> +description:
-> +  The CIX Sky1 USBSSP controller is based on the Cadence USBSSP DRD
-> +  controller. The integration adds glue registers and mode strap controls
-> +  in the Sky1 S5 system controller. The CIX glue node wraps a Cadence
-> +  USBSSP core as a child node.
-> +
-> +properties:
-> +  compatible:
-> +    const: cix,sky1-usbssp
-> +
-> +  reg:
-> +    items:
-> +      - description: AXI property configuration register
-> +      - description: Controller status register
 
-Same comments. Individual registers are not a device.
+With a few nits:
 
-What is the actual memory map there?
+Reviewed-by: Barry Song <baohua@kernel.org>
 
-Best regards,
-Krzysztof
+[...]
+> diff --git a/mm/vmscan.c b/mm/vmscan.c
+> index b4c9b8f3dfe9..500cc2051d13 100644
+> --- a/mm/vmscan.c
+> +++ b/mm/vmscan.c
+> @@ -5111,7 +5111,13 @@ static int shrink_one(struct lruvec *lruvec, struc=
+t scan_control *sc)
+>         struct mem_cgroup *memcg =3D lruvec_memcg(lruvec);
+>         struct pglist_data *pgdat =3D lruvec_pgdat(lruvec);
+>
+> -       /* lru_gen_age_node() called mem_cgroup_calculate_protection() */
+> +       /*
+> +        * For kswapd, lru_gen_age_node() has already called
+> +        * mem_cgroup_calculate_protection()
+> +        */
+
+Could be clearer:
+
+/*
+ * For kswapd, mem_cgroup_calculate_protection() has already
+ * been called during the top-down cgroup traversal.
+ */
+
+> +       if (!current_is_kswapd())
+> +               mem_cgroup_calculate_protection_path(NULL, memcg);
+
+Best Regards
+Barry
