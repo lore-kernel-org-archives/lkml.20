@@ -1,42 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD73B4F55DC;
-	Thu,  3 Sep 2026 17:04:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C1784F475D;
+	Thu,  3 Sep 2026 17:04:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788455074; cv=none; b=u27jPHc92E6dV+a30NlPVj6kmgYoYkG+U+QsbWgRWZRjTDO8bmyOFkRtXbEoWncpldGwNyAPiwPSDdpioV7u23j/W/+Fcob1l2dNory9uApxiHxhzhseN/193Eazv5u7ux0mTmqkiYjUdh6VbYrghUQP8UY04Hv80AEWtO5FDj0=
+	t=1788455080; cv=none; b=eRG7Awh/+dfN0ao57458EDGCJEHe7UeVmWecJGgY5dybFFYBnI1rVDzzDc4mcd/f+x6qKEgN3ijJ5cWpEBNvB8PkZX1ZP3mW78SYoaSr+xRA/UhtS2MIpDxcRki8mQ4+iBbWsKa44ic6LFxZr80SzqNNSf84pqJWReQ2co9UUOY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788455074; c=relaxed/simple;
-	bh=X2VryrLfGXrW1SfVo+b55sti0YlJA348GbYlDpm9EPY=;
+	s=arc-20240116; t=1788455080; c=relaxed/simple;
+	bh=MfHeeeoKrS/KB1o9abSpjm7+fYph1lRRsen1hbP65Eo=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=rinR6ZDUlH9y+Ir/cQK5dbmvJiTjo/7dVJ3fvN9u4s8xniFfL4S9RhfCKJxyJcKKsZxhPqm9s+LAtTdwf0/NWV5h+3cbyrZJrchMRImKh/lBPB+l3QA5I1y/dQ75w7r0WpMENFptgYT23Lmh+iTnWZFOTWNZnmgycljfiAEfQV0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RXr0mG4h; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=EO3PYU+6QymEikYbcXfhH6OAqEaEfnpHetzYB/jHVu1zGmJVwd2UsAuqk7brqqoJSlqYLA3VeHxpcykYPA3DChG/u+QwDIcXZmD3h0Zf9Tv/28o027ah78GNNwtjEEkS3BqbDhAydhB0BbMzZ9Zab9dnGhm6XtvBKkVn+s2ip30=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MJ2t9Cc8; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RXr0mG4h"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7E4D91F00A3D;
-	Thu,  3 Sep 2026 17:04:30 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MJ2t9Cc8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2CBA81F00A3D;
+	Thu,  3 Sep 2026 17:04:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788455072;
-	bh=LZiAV52RXDf9JNv3eWNabRO2S8ojqaaHKEbseO6JITU=;
+	s=k20260515; t=1788455078;
+	bh=OsL8COcN47dIjt+ojWT5bl43xpZgyyoBi0nMf0bCno4=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=RXr0mG4hKlQlbjXzwrpGilppMChl7pCmG/J93JekPdtUYOIRj5R2Pb8pUZTeuW3rY
-	 lxrbx/y4mKtbcepTwZ5IHr49daDGy5O/3dA1kC3P9gvvY3WzqQSzWn+k+symlZZ6lm
-	 O1xi+6geFbUiwTfvxCZMghnG2VB35+lGsuAe9d7GytFApj578Iul+eOT66Lla7uXcH
-	 Npr2oYhbYfcxHfH8idYnoVZl3bsLn//kfMpDfZWjBeSDc0JadzjL5uWCPnzut1D5bh
-	 Wx3xVWIHIrSXZStQTIb1Q6z2O6VSFZG5cjKQ+pXw0h8D8GcILtaUpnnLiDgorkJjMu
-	 f31rbCNwcUDLw==
+	b=MJ2t9Cc8Igi16lCvCOYOJlM6pM8aMUIB0IBoLrpDl39XLHXjMCAZVn//u3JdhCmFN
+	 D6aiGSxFG1DXFN6qyRwUNJ4fUBt/pl2+rQsyeWZurKqa/HWJH7z82Zi5k7st7Edz3n
+	 7Csylr2WemNYThnbfai3cybES9HNyT6NmnX0FWHUjNeXgWSNODbQ0NgtK8GTeHSmtQ
+	 /5YqgM9hTwfda48Fl0oSATgicZCu/a+Zr/Od+drYKTmzbCyZpdfVh2SFExqbZSK15P
+	 U3Y56mO9wc2IhCZJKAxyYJ/KPd7XrmFTARHMewtE04pK2/DM4ehKPbS5uHzqXh4xWe
+	 M1hnn4eWnrqoA==
 From: Vinod Koul <vkoul@kernel.org>
-To: dmaengine@vger.kernel.org, Rosen Penev <rosenp@gmail.com>
-Cc: Ludovic Desroches <ludovic.desroches@microchip.com>, 
- Frank Li <Frank.Li@kernel.org>, Eugen Hristev <ehristev@kernel.org>, 
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20260724225958.43925-1-rosenp@gmail.com>
-References: <20260724225958.43925-1-rosenp@gmail.com>
-Subject: Re: [PATCHv2] dmaengine: at_hdmac: fix sparse '__iomem' cast
- warning in memset helpers
-Message-Id: <178845507006.1711546.1241811743699948076.b4-ty@kernel.org>
-Date: Thu, 03 Sep 2026 22:34:30 +0530
+To: Frank.Li@kernel.org, wens@kernel.org, jernej.skrabec@gmail.com, 
+ samuel@sholland.org, mripard@kernel.org, arnd@arndb.de, 
+ Hongling Zeng <zenghongling@kylinos.cn>
+Cc: dmaengine@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org, 
+ zhongling0719@126.com
+In-Reply-To: <20260727061142.44195-1-zenghongling@kylinos.cn>
+References: <20260727061142.44195-1-zenghongling@kylinos.cn>
+Subject: Re: [PATCH RESEND v5] dmaengine: sun6i-dma: Fix use-after-free in
+ error handling paths
+Message-Id: <178845507472.1711546.14595232689588667911.b4-ty@kernel.org>
+Date: Thu, 03 Sep 2026 22:34:34 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -48,22 +50,21 @@ Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.13.0
 
 
-On Fri, 24 Jul 2026 15:59:58 -0700, Rosen Penev wrote:
-> Both atc_prep_dma_memset() and atc_prep_dma_memset_sg() declare vaddr
-> as 'void __iomem *' but assign the return of dma_pool_alloc(), which
-> returns 'void *' (not iomem memory). This causes sparse to warn about
-> a cast removing the __iomem address space at the dereference site.
+On Mon, 27 Jul 2026 14:11:42 +0800, Hongling Zeng wrote:
+> In error handling paths, the for loop frees v_lli in the loop body,
+> then accesses v_lli->v_lli_next and v_lli->p_lli_next in the
+> increment expression, which is use-after-free.
 > 
-> The struct field memset_vaddr is also typed as 'int *', which is
-> neither the type returned by dma_pool_alloc() nor the type used for
-> the actual writes.
+> Fix by refactoring the cleanup into a helper function sun6i_dma_free_desc()
+> that saves both the next virtual and physical pointers before freeing the
+> current node, preventing the use-after-free.
 > 
 > [...]
 
 Applied, thanks!
 
-[1/1] dmaengine: at_hdmac: fix sparse '__iomem' cast warning in memset helpers
-      commit: fdae0d0f096c92dd05d3722759fd614ea341e0dc
+[1/1] dmaengine: sun6i-dma: Fix use-after-free in error handling paths
+      commit: 3d2c0d555d34e661d3280f85bf01ec7ed63a8f44
 
 Best regards,
 -- 
