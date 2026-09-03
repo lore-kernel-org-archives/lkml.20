@@ -1,39 +1,67 @@
-Received: from mail.tuxedocomputers.com (mail.tuxedocomputers.com [157.90.84.7])
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57172367B79;
-	Thu,  3 Sep 2026 09:31:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=157.90.84.7
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CEC7D397937
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 09:31:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788427902; cv=none; b=Vt3DSdKJzjqHT2CAz0f584vI/kpIvysZzBrFs+6ZdU1LxChGw3/rPir5mt76YzBe2Agxfv0NH7v85FDTtcke3qSx+ex0RiNDCR9MabHmQvbVYjOEN+9d93VwNtv1up3eImbNry47+yyxBdSOIbIrHXfhQtEN+J7Rh/ibkBJ7NBs=
+	t=1788427916; cv=none; b=sv8g9Z2HJG7pmH7Ge1bcletiUs3XRkjLjcierQtxFf+l1PBPks7AFxE9OZx7xCdYgvg6bcehp32+RHUEg/9eWsErwEx21vv6OHN5HpnjxjsIyE0J+d7Pm+PpEV3DaEIZx4L8uDaYrSJTtpIqbraBvYefoD02/OOaWs0PokR4hZA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788427902; c=relaxed/simple;
-	bh=bgYjAczjSqCq1HkjokxhnudCSCwCew73jGcW2XLeUTw=;
+	s=arc-20240116; t=1788427916; c=relaxed/simple;
+	bh=lI2mxNE9KnVCsl0teA51X5qx5kUoJhxl9QfZ4/JhFr0=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=RCajA40MmmPf6o2jTu1uUYMssTLiSGFo4GsMT/iH1wXuCGpd0XK2JpJBJWFDyQVzgZpH1nurhY+ajxhc3WwOVmEUVhRCDM6FffU74UBzNDhSqaSLT7Io/zo/0kPmts6oL59snGxX1biF3/tUCE/2tnXvr4uFUQYMYGpnhj5v/Tc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=tuxedocomputers.com; spf=pass smtp.mailfrom=tuxedocomputers.com; dkim=pass (1024-bit key) header.d=tuxedocomputers.com header.i=@tuxedocomputers.com header.b=IAm3q5pC; arc=none smtp.client-ip=157.90.84.7
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=tuxedocomputers.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tuxedocomputers.com
+	 In-Reply-To:Content-Type; b=nHrYn7rKrBD6/zK39Poyjol/OuJDZM56ATUjGiocZl0J0FQe1SUmRXQxgVxA5DggbFp+3SzyviPwcyEWpsghh9KuOm6VFMmMIWqc0WPb/SY/lawC0qV2ldUSx/DvRqDVVDpPghiNSUUKr9OznR2BRMi+zgLQfSvKEhwbBL08ESQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=blackwall.org; spf=none smtp.mailfrom=blackwall.org; dkim=pass (2048-bit key) header.d=blackwall.org header.i=@blackwall.org header.b=DCvhpAVG; arc=none smtp.client-ip=209.85.128.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=blackwall.org
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=blackwall.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=tuxedocomputers.com header.i=@tuxedocomputers.com header.b="IAm3q5pC"
-Received: from [10.10.11.33] (host-212-18-30-247.customer.m-online.net [212.18.30.247])
-	(Authenticated sender: a.erhardt@tuxedocomputers.com)
-	by mail.tuxedocomputers.com (Postfix) with ESMTPSA id C866B2FC007D;
-	Thu,  3 Sep 2026 11:31:34 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tuxedocomputers.com;
-	s=default; t=1788427895;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=x7nBwgVlEfqpnTySlx9U+AI/L2fpp8CKG27e/r6cXBM=;
-	b=IAm3q5pC1cbcJcT1ZOp9FMeUBYg+HtNfMTx+xHi9z9/RI1/lCcCu+ZeAcBN1AP9SRUtMIY
-	VabXBmBRer0Ua1nz0b42co7WJlD4QePRr7a3WZDdfx/+ROjE1iK0tuiXibcHLVE2bntBqC
-	bfnemveI2IFGfa5cCUyhZQfuL4umXxc=
-Authentication-Results: mail.tuxedocomputers.com;
-	auth=pass smtp.auth=a.erhardt@tuxedocomputers.com smtp.mailfrom=aer@tuxedocomputers.com
-Message-ID: <175591b0-37ed-4143-9c99-f5da1988d686@tuxedocomputers.com>
-Date: Thu, 3 Sep 2026 11:31:34 +0200
+	dkim=pass (2048-bit key) header.d=blackwall.org header.i=@blackwall.org header.b="DCvhpAVG"
+Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-49b8687630fso17753695e9.3
+        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 02:31:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=blackwall.org; s=google; t=1788427913; x=1789032713; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:content-language:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=+YoJRVDKsxA+JZQB/DUL9Ib2BpXMsLJBJ11fKOwMq4g=;
+        b=DCvhpAVGDLRLPpY8mcQsF9vKis843htQECInKdLB+q92oUwr8+UwC4X0kzBmf2Zjmn
+         HsxpK7OvxR+ZCviQJJHw0XhrCKcBgGtpz+1fdOttH2a3C2FGxKLwjTyGXzXlzcqQnphY
+         WRdqO4bSabUXnWwi34d3E6Evm7Qd7lecHKpN84zmjI4w5RBUnWxAfNacrV8MUiIicks3
+         kIAhQQX5iDueTW/C/VfoDGKlgbyWpLto91kpHJuK52Sg+qR+CJyhv7vR67kt4PiNWPU7
+         4jFntZf36Qfs3CsC/JZYzXPEIb7bF4N+bJ8xaskCY+ITp+CainrBV04etEaHfjMzGS4Z
+         2VgQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788427913; x=1789032713;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:content-language:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=+YoJRVDKsxA+JZQB/DUL9Ib2BpXMsLJBJ11fKOwMq4g=;
+        b=U0OP8cmNcG5Lg9gMj1MZiCS4lq2aclikas4Ks+nPQtHoekOUGmCsv6Cb6qM4B4N4Yu
+         R5ZaNG/3OKgJN95FRrQdXn82JtNMghcio5/xHNFgVJHehP7PuwSuHA61IfY2R4dgmLjs
+         WDwr5avh6LcpVFWLVkHGCA1A3iOXdYmqsOZNyTtBIfLH0gwDiEqN+xViBJqm5luKfXLQ
+         L45MiwWWL50pNZKagYQAW68kkmsZkSrUKn35krm1AVhyIMW5jwAP+krvL8j08b0H6AHK
+         GnAPdUegyQLbAxGamUBreiKi4XVqFqpZthCVV6Uo3ba6m6xDuQ8hzC4BdxoPdLj/B/1Z
+         jGqA==
+X-Forwarded-Encrypted: i=1; AKwUvByY3ov+dk9SogCzxPD9qe2A4NvJjh23WGB/nvSOUdXSZqmM8FAt+7f7yOPl0nSZCdiDyVbjiBrWhyixg60=@vger.kernel.org
+X-Gm-Message-State: AFuF++lVRDw+coN+t31idQQgICmUZcxiEGc9TSuzB+zqUmFcdIdNmijB
+	4cvVRhJ78I5K6f9CZjv2wAIcl7G0hJryKrOnb6ZjJSRUXEJX01qCXfzWKHSm7sOD3DQ=
+X-Gm-Gg: AYBFou1ZWHH5KHODGGX5H//jyitR/+FyTTIH6Ojcm2LhzAFpfNKW+Wqr9XLdNzIVicE
+	KNoKk8aBFr4u1f1Kue9toGkqCnjYleGceQDKp//M1HxpyZJGLIdiLMcpNqG66pG2dMp1MX/BFJd
+	+p/DViE1Aa1u2A8otQ7bcpU+lwvh9l74lQsFujIp6cl9/VE6ix1/n1muKraPF6YvQlheecm+2R1
+	/WHMBvgrvQIYrMXrDeRMukOr5zNeTCucmyn5t4lEIVwi4r/d1/CRKe4OkjjKKiKncykmpB7A1N+
+	aGfaX3uCOQnct7rYt+pIUs+ljEIdLIfVQ7+PnTtS3yBZ04gJdq8gMNEhJhIr35frnmUzOLpmRfG
+	Nl3CmpTmhG9KOwGR/wnCeL8z0+ResWG8ZmO8mafRh/BOSygQorhidHffMvHaMJKxIolsSxchdyw
+	d//plN/1QpTbPu2khMdzq7rDjKzYSeexaHGgXhovWtKouPDbU/RwhRz3dzWN59ec6JLPhzxWDng
+	KViTu7exMnNF+3dV0M=
+X-Received: by 2002:a05:600c:4e8f:b0:499:bf0e:95c8 with SMTP id 5b1f17b1804b1-49ce57f5647mr162091905e9.1.1788427912710;
+        Thu, 03 Sep 2026 02:31:52 -0700 (PDT)
+Received: from [192.168.0.161] (78-154-15-182.ip.btc-net.bg. [78.154.15.182])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48448e80020sm12835333f8f.10.2026.09.03.02.31.51
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 03 Sep 2026 02:31:52 -0700 (PDT)
+Message-ID: <80d9e50b-fdc6-4337-9adb-8db1bd194ce4@blackwall.org>
+Date: Thu, 3 Sep 2026 12:31:51 +0300
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -41,89 +69,60 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4] HID: generic: add LampArray support via hid-lamparray
- helper
-To: Cristian Mazzotta <cmmazzo@icloud.com>
-Cc: bentiss@kernel.org, hansg@kernel.org, jikos@kernel.org,
- linux-input@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-leds@vger.kernel.org, tgu@tuxedocomputers.com, wse@tuxedocomputers.com
-References: <d54951b4-8216-49eb-9c3e-ed49ab3d4355@tuxedocomputers.com>
- <20260828144510.158538-1-cmmazzo@icloud.com>
-Content-Language: en-US
-From: Aaron Erhardt <aer@tuxedocomputers.com>
-In-Reply-To: <20260828144510.158538-1-cmmazzo@icloud.com>
-Content-Type: text/plain; charset=UTF-8
+Subject: Re: [PATCH net v2] bonding: fix slave_cnt leak on XDP error paths
+Content-Language: en-US, bg
+To: Hangbin Liu <hangbin.liu@linux.dev>
+Cc: Jay Vosburgh <jv@jvosburgh.net>, Andrew Lunn <andrew+netdev@lunn.ch>,
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Daniel Borkmann <daniel@iogearbox.net>, Jussi Maki <joamaki@gmail.com>,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Hangbin Liu <liuhangbin@kylinos.cn>
+References: <20260903-bond_slave_cnt-v2-1-02e27304ca36@kylinos.cn>
+ <30c405c0-d17b-4107-a4f4-d2595c661892@blackwall.org>
+ <apk9eDWX069eRKCF@fedora>
+From: Nikolay Aleksandrov <razor@blackwall.org>
+In-Reply-To: <apk9eDWX069eRKCF@fedora>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-Hi Cristian,
+On 03/09/2026 12:27, Hangbin Liu wrote:
+> On Thu, Sep 03, 2026 at 11:18:32AM +0300, Nikolay Aleksandrov wrote:
+>>> diff --git a/drivers/net/bonding/bond_main.c b/drivers/net/bonding/bond_main.c
+>>> index 947d92a669b6..f3290aee50d1 100644
+>>> --- a/drivers/net/bonding/bond_main.c
+>>> +++ b/drivers/net/bonding/bond_main.c
+>>> @@ -2284,7 +2284,6 @@ int bond_enslave(struct net_device *bond_dev, struct net_device *slave_dev,
+>>>    		}
+>>>    	}
+>>> -	WRITE_ONCE(bond->slave_cnt, bond->slave_cnt + 1);
+>>>    	netdev_compute_master_upper_features(bond->dev, true);
+>>>    	bond_set_carrier(bond);
+>>> @@ -2339,6 +2338,8 @@ int bond_enslave(struct net_device *bond_dev, struct net_device *slave_dev,
+>>>    	bond_xdp_set_features(bond_dev);
+>>> +	WRITE_ONCE(bond->slave_cnt, bond->slave_cnt + 1);
+>>> +
+>>>    	slave_info(bond_dev, slave_dev, "Enslaving as %s interface with %s link\n",
+>>>    		   bond_is_active_slave(new_slave) ? "an active" : "a backup",
+>>>    		   new_slave->link != BOND_LINK_DOWN ? "an up" : "a down");
+>>>
+>>> ---
+>>> base-commit: 70f3995830d3f1e79faa14eb0605914f778feca9
+>>> change-id: 20260807-bond_slave_cnt-88e78c5f0ab9
+>>>
+>>> Best regards,
+>>
+>> Thanks, looks good to me. One minor nit if there's another version - mention
+>> also the WRITE_ONCE() in the commit message or better yet do it in a separate
+>> commit that properly annotates slave_cnt everywhere.
+> 
+> The WRITE_ONCE() change is made by Eric's recent fix
+> bc93419130bb ("net: bonding: annotate lockless writes with WRITE_ONCE()").
+> 
+> Do you mean add a comment for all the slave_cnt usage?
+> 
+> Thanks
+> Hangbin
 
-I just posted the patch with the updated driver.
-
-Please test it and feel free to provide feedback :)
-
-https://lore.kernel.org/linux-input/20260903073602.3815258-1-aer@tuxedocomputers.com/T/#m1b8fdad3bb17ddf6f9139b373ef41c626e52e44f
-
-Best regards
-Aaron
-
-Am 28.08.26 um 16:45 schrieb Cristian Mazzotta:
-> Am 27.08.26 um 22:13 schrieb Werner Sembach:
->> I think it's best for Aaron sending his version first and then you
->> reacting on that on the LKML and getting in touch.
-> 
-> Sounds good, I'll hold off and review Aaron's version when it lands.
-> 
->> Unregistering is important for userspace to know what happens
-> 
-> That's fair, I'll be sure to change that.
-> 
-> As for multi-zone, my I2C controller has more than one
-> LampArrayAttributesReport, and has 2 zones in effect, so the original
-> would only grab one of them. I'm not sure if my device is spec compliant,
-> but my implementation is agnostic to the zone count; I'll come back to it
-> with Aaron's version. Quirks get an entry for each zone too.
-> 
-> To clarify, each zone in my implementation gets its own dev class where
-> /sys/class/leds/<hid-id>:rgb:lamparray-<zone_number>
-> And use_leds_uapi is accessible from both
-> /sys/class/leds/<hid-id>:rgb:lamparray-<zone_number>/device/use_leds_uapi
-> and /sys/bus/hid/devices/<hid-id>/use_leds_uapi.
-> 
-> For Aaron when he gets to see this, here are some things I noticed while
-> testing on real hardware:
-> 
-> 1) lamparray_read_lamp_count() reads
->    lamp_count_field->value[lamp_count_index] immediately after
->    hid_hw_request(HID_REQ_GET_REPORT). As mentioned above, that call is
->    asynchronous, so the read races the transfer and returns stale values.
->    On my devices it consistently returned 0. hid_hw_raw_request() with a
->    heap buffer works.
-> 2) In lamparray_parse_update_report(), usage 0x0003 is not unique within
->    the Lighting page, and the switch has no guard, so lamp_count_field ends
->    up bound to whichever match the parser saw last rather than the actual
->    LampCount field. I added a simple guard so only the first one binds.
->    Whether the first match will always be correct is an open question
->    however.
-> 3) Both of my devices need the autonomous-mode disable re-asserted on S4
->    resume; without it they come back in firmware-driven mode and ignore
->    SET_REPORT.
-> 4) I don't believe this would be consistent with all LampArray devices,
->    but mine in particular would ignore any change to the lighting that
->    was within 4 values of its current state, so consecutive updates that
->    are too similar silently do nothing.
-> 5) My hardware did not support reading back the current state of the lamps
->    at all, so GET_REPORT and in effect, lamparray_hw_get_state(), can't
->    work here. Plenty of LED drivers return the cached value when getting
->    the state, which might be the safer default.
-> 
-> Also let me know if you want me to send my HID descriptors from
-> hid-recorder or similar.
-> 
-> In the meantime, I will definitely go look at OpenRGB's implementation.
-> I may also work on a driver that will fix s2idle residency on my laptop;
-> it's part of what brought me here and this is just step one.
-> 
-> Thanks a lot,
-> Cristian Mazzotta
-> 
-
+Oops, my tree was older, forgot to sync it, my bad.
+All looks good.
