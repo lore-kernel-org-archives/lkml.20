@@ -1,93 +1,214 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from dggsgout12.his.huawei.com (dggsgout12.his.huawei.com [45.249.212.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C429B4A8A1E
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 12:43:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 479BC4A8A37;
+	Thu,  3 Sep 2026 12:43:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.249.212.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788439385; cv=none; b=SfEMpUR13QI0uKKzhLSX36mI+eGNvgyRUYHmfmXefDuscy1uOtE04CZm+X8NoXQHCYj7H2KujNzF/cYaJ3+gYweCnqc350UVBkNE8CcRgkpGu2WZZjRGOKuRx/lrVYZyDpoXAyBfh/DQfhQjstZBNpCaV4LsQLhlymnkHOIxS24=
+	t=1788439386; cv=none; b=Ta7kQgYSrp2ZF/e5MGelPD0hjIxivVumW0KpQ73plbSDOXzxdZUQS5gPZdfrEJnpgl/qfZ57DzQ+fLK4q3ybG9sa/sFTjeFxJAQd8+tkCIebMToqN7J+SlYbpA/rEsgcsbhNjnYlvfROkWYGZnYPMpORi0OFBoZ38wVLaAea+hY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788439385; c=relaxed/simple;
-	bh=kNU/k11BVa8SD18dvZpEVQtHVQvQQgOOZ50l+boBbK0=;
-	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=LkFDuL+BfEaFcI2Xf40rAuakcbvs4pJfTBqAvn7auODhzSxWOhv2+FDQaJtu3JdpzKy8L6lVdzQLDS2bKUd/5SiYTNofL6ONqulvgiXQrQk/iiIqceXLvdT7ya+CI7/mL1MorIjQe19C5rH5nsdWV0E8wT7HjM3ldjyv82F+kQM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AJu5++RJ; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AJu5++RJ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7A1551F0155A
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 12:43:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788439382;
-	bh=aR99XB3BjQrnv0W3ztdKLJH/R2+wXXStLVC5XuteylA=;
-	h=From:In-Reply-To:References:Date:Subject:To:Cc;
-	b=AJu5++RJGHcdv/OWtoTrrIm0RqfRdt1QHjy1go4yfHObJMiH5LV0EcBV6D2roLGuB
-	 3YsrDhr2AZ7bOHUeT+S31K3T1lSD2z3BXUhNBtLw4EMEXpA05xTkxMX4ao9Dwzf9tp
-	 QfWyqIsffjsFBZQlE51AhOjCyHJtESOd5nAOOFmapiuS69inhWFr3U3lM1rBnWlwsj
-	 ZzyW/2g+8vbm7qpB7FtLd88MUNQHC4FOaD2WZu1zWzL/hEkfJ9lJqAkZ9LgFtqPz9+
-	 4AY6qbrjs3CKOiHlKfkuJLpTwxUNgHzc1ia6xF9bXppf11neZwyx7dezkNv3FLdP3O
-	 IBu2oGxbctYLA==
-Received: by mail-lf1-f49.google.com with SMTP id 2adb3069b0e04-5b01910b499so1016343e87.0
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 05:43:02 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBxZwKIhIl1kv1rNJlEcOdY+AbzIUfAUaFjiy1HU6I/jBZLsdXhTJcvA77ddAHQ+4opiL1hJM79V6Wfn5oo=@vger.kernel.org
-X-Gm-Message-State: AFuF++lgo/717WIDlP2/LcFO+6YIu+dFQPSIm5M06OyQaDJfzugFKJ1n
-	fguuvkupv9cYx3xcVD9LBSFFaeDKJzGyVrFQkmq5VGWaWfhgmfok9ZEBiDbEM5cT4rQrPMo9HJN
-	PQfDKkJznsiMGhf09xQppcTFvp3VAcD5Y69lokLs5XA==
-X-Received: by 2002:a05:6512:3e07:b0:5b6:10bc:dc46 with SMTP id
- 2adb3069b0e04-5b610bcdcefmr604327e87.29.1788439381082; Thu, 03 Sep 2026
- 05:43:01 -0700 (PDT)
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Thu, 3 Sep 2026 05:42:59 -0700
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Thu, 3 Sep 2026 05:42:58 -0700
-From: Bartosz Golaszewski <brgl@kernel.org>
-In-Reply-To: <aplfrNXzNvgbMJf1@ashevche-desk.local>
+	s=arc-20240116; t=1788439386; c=relaxed/simple;
+	bh=SZMagkK25oSY05PCLhsOvzXaJ5cZ9+K47vUGegN5ZN8=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=AlMKaKd12Z283bpGT2iQQvKXOw8iCTBN/wqifPU8uO2LRxtzenG4i57YrdxxVlB6U0NGiZU68AWwxHaxtS2gYY/AS+LjAmN0UMNPMbpaSk0ygBDcqogdCmlVz7ldAsa8KMUZJzl06AY6ZvTfAV55KbGVT5S30HTWSLvEPCHlvX4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com; spf=pass smtp.mailfrom=huaweicloud.com; arc=none smtp.client-ip=45.249.212.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huaweicloud.com
+Received: from mail.maildlp.com (unknown [172.19.163.177])
+	by dggsgout12.his.huawei.com (SkyGuard) with ESMTPS id 4hbK3q4HWJzKHMn4;
+	Thu,  3 Sep 2026 20:41:59 +0800 (CST)
+Received: from mail02.huawei.com (unknown [10.116.40.112])
+	by mail.maildlp.com (Postfix) with ESMTP id 433374058F;
+	Thu,  3 Sep 2026 20:42:53 +0800 (CST)
+Received: from huaweicloud.com (unknown [10.50.85.155])
+	by APP1 (Coremail) with UTF8SMTPSA id cCh0CgA3HglDa5lqAJVrAg--.30843S31;
+	Thu, 03 Sep 2026 20:42:52 +0800 (CST)
+From: Zhang Yi <yi.zhang@huaweicloud.com>
+To: linux-ext4@vger.kernel.org,
+	linux-fsdevel@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	tytso@mit.edu,
+	adilger.kernel@dilger.ca,
+	libaokun@linux.alibaba.com,
+	jack@suse.cz,
+	ojaswin@linux.ibm.com,
+	ritesh.list@gmail.com,
+	djwong@kernel.org,
+	hch@infradead.org,
+	yi.zhang@huawei.com,
+	yi.zhang@huaweicloud.com,
+	yizhang089@gmail.com,
+	chengzhihao1@huawei.com,
+	yangerkun@huawei.com,
+	wangkefeng.wang@huawei.com,
+	yukuai@fnnas.com
+Subject: [PATCH v6 27/31] ext4: set DISKSIZE_GROW_PENDING after zeroing unaligned EOF block
+Date: Thu,  3 Sep 2026 20:35:39 +0800
+Message-ID: <20260903123543.2302999-28-yi.zhang@huaweicloud.com>
+X-Mailer: git-send-email 2.52.0
+In-Reply-To: <20260903123543.2302999-1-yi.zhang@huaweicloud.com>
+References: <20260903123543.2302999-1-yi.zhang@huaweicloud.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260821070651.39763-1-vaknins33@gmail.com> <178827844334.39529.382963115769227795.b4-ty@oss.qualcomm.com>
- <aplfrNXzNvgbMJf1@ashevche-desk.local>
-Date: Thu, 3 Sep 2026 05:42:58 -0700
-X-Gmail-Original-Message-ID: <CAMRc=Mck+ft9wmWQLcq4uFTvH9u_rB_bFQ6tGtG7YkYdbowJaw@mail.gmail.com>
-X-Gm-Features: AcwNN1WJs57t_o6KckC2mhjZxrGSza3_cvZkypNljGQrIWUv_ioLQdYmRwBlG6E
-Message-ID: <CAMRc=Mck+ft9wmWQLcq4uFTvH9u_rB_bFQ6tGtG7YkYdbowJaw@mail.gmail.com>
-Subject: Re: [PATCH] gpiolib: acpi: Add ignore_wake quirk for ASUS ZenBook UX425UA_UM425UA
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Cc: Mika Westerberg <westeri@kernel.org>, Kivan <vaknins33@gmail.com>, 
-	Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, 
-	Mario Limonciello <mario.limonciello@amd.com>, linux-gpio@vger.kernel.org, 
-	linux-acpi@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Hans de Goede <hansg@kernel.org>, 
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:cCh0CgA3HglDa5lqAJVrAg--.30843S31
+X-Coremail-Antispam: 1UD129KBjvJXoW3ArWxXF4UurW8Cw17Xw48tFb_yoW7WFyfp3
+	y5K3s5Cr4DKr9F9r4Sqw1Sqr1Y93yrJayUGFZ7WrW2va45W3WIgFyxt348uFyUJrZxWa12
+	qF45GFWku3WjyrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUmI14x267AKxVWrJVCq3wAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2048vs2IY020E87I2jVAFwI0_JF0E3s1l82xGYI
+	kIc2x26xkF7I0E14v26ryj6s0DM28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8wA2
+	z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Cr1j6r
+	xdM28EF7xvwVC2z280aVAFwI0_Cr1j6rxdM28EF7xvwVC2z280aVCY1x0267AKxVW0oVCq
+	3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7
+	IYx2IY67AKxVWUXVWUAwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4U
+	M4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02628vn2
+	kIc2xKxwCY1x0262kKe7AKxVW8ZVWrXwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkE
+	bVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67
+	AF67kF1VAFwI0_GFv_WrylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVW5JVW7JwCI
+	42IY6xIIjxv20xvEc7CjxVAFwI0_Cr1j6rxdMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCw
+	CI42IY6I8E87Iv67AKxVW8JVWxJwCI42IY6I8E87Iv6xkF7I0E14v26F4UJVW0obIYCTnI
+	WIevJa73UjIFyTuYvjTR_nYFDUUUU
+X-CM-SenderInfo: d1lo6xhdqjqx5xdzvxpfor3voofrz/
 
-On Thu, 3 Sep 2026 13:53:16 +0200, Andy Shevchenko
-<andriy.shevchenko@linux.intel.com> said:
-> On Tue, Sep 01, 2026 at 06:00:46PM +0200, Bartosz Golaszewski wrote:
->>
->> On Fri, 21 Aug 2026 10:06:50 +0300, Kivan wrote:
->> > The ASUS ZenBook UX425UA_UM425UA (with AMD Ryzen 7 5700U SoC) fails
->> > to stay suspended in s2idle (Modern Standby), prematurely waking
->> > after 1-3 seconds with 0% hardware sleep achieved.
->> >
->> > In the laptop's ACPI SSDT tables (SSDT15), GPIO Pin 24 (hex 0x18) is
->> > defined in _AEI as ExclusiveAndWake targeting the PCIe bridge device
->> > \_SB.PCI0.GPP3:
->
-> [...]
->
->> Applied, thanks!
->>
->> [1/1] gpiolib: acpi: Add ignore_wake quirk for ASUS ZenBook UX425UA_UM425UA
->>       https://git.kernel.org/brgl/c/1900b5a41493e7050c68c1e62780d6fb9a209457
->
-> I thought I am going to pick this up via my tree...
-> But okay, not a big deal, I don't expect any conflict in that area.
->
+From: Zhang Yi <yi.zhang@huawei.com>
 
-Oops, sorry. If any conflict does occur let me know, I can revert it or we can
-fix it in tree.
+In the iomap buffered I/O path, data=ordered mode is not used, so the
+zeroed EOF block has no implicit ordering with later i_disksize updates.
+Without the pending state being set, i_disksize can be advanced past the
+zeroed block before writeback completes, exposing stale data after a
+crash.
 
-Bartosz
+Previous patches added the consumer side of the
+disksize-grow-pending mechanism: the state bit, clear and wait helpers,
+and ioend tagging. Now add ext4_iomap_mark_disksize_pending() and call
+it from ext4_block_zero_eof() after zeroing the tail of the block that
+straddles i_disksize.
+
+The helper locks the folio, waits for any in-flight writeback on it to
+complete, then sets EXT4_STATE_DISKSIZE_GROW_PENDING only if the folio
+is still dirty. Waiting for writeback prevents folio_test_dirty() from
+returning false mid-writeback, which would cause us to skip the pending
+state while zeroed data is still in flight. The dirty check then avoids
+setting the bit when the data has already been written back.
+
+Suggested-by: Jan Kara <jack@suse.cz>
+Signed-off-by: Zhang Yi <yi.zhang@huawei.com>
+---
+ fs/ext4/inode.c | 85 ++++++++++++++++++++++++++++++++++++++++++-------
+ 1 file changed, 73 insertions(+), 12 deletions(-)
+
+diff --git a/fs/ext4/inode.c b/fs/ext4/inode.c
+index 8e8859c8f5b0..4cb0ea82f58c 100644
+--- a/fs/ext4/inode.c
++++ b/fs/ext4/inode.c
+@@ -4838,6 +4838,68 @@ static int ext4_block_zero_range(struct inode *inode,
+ 					zero_written);
+ }
+ 
++/*
++ * Inodes using the iomap buffered I/O path do not use data=ordered mode.
++ * Therefore, we mark the inode as disksize-grow-pending after zeroing the
++ * EOF block. The zeroed block will be submitted before any subsequent
++ * data.
++ *
++ * In the I/O completion path, ext4_iomap_wb_disksize_pending_wait() will
++ * wait for I/O completion before advancing i_disksize if the write
++ * extends beyond the zeroed boundary.
++ *
++ * When zeroed I/O is in progress, operations that extend i_disksize are
++ * handled as follows:
++ *
++ *  - Truncate up, append fallocate and zero_range:
++ *    Defer the update. The file size will be updated to i_size by the
++ *    end_io handler once the ongoing pending I/O completes.
++ *
++ *  - Insert range and collapse range operations:
++ *    Wait synchronously for the relevant I/O to complete before updating
++ *    i_disksize.
++ */
++static int ext4_iomap_mark_disksize_pending(struct inode *inode, loff_t from)
++{
++	struct folio *folio;
++
++	folio = filemap_lock_folio(inode->i_mapping, from >> PAGE_SHIFT);
++	if (IS_ERR(folio))
++		/* Already in writeback and cleared? */
++		return PTR_ERR(folio) == -ENOENT ? 0 : PTR_ERR(folio);
++
++	/*
++	 * Ensure that in-flight writeback, possibly started after
++	 * iomap_zero_range() unlocked the folio, has completed. Without
++	 * this wait folio_test_dirty() below may miss the zeroed data
++	 * (writeback clears PG_dirty), causing us to skip the
++	 * disksize-grow-pending tracking and potentially expose stale
++	 * on-disk data.
++	 */
++	folio_wait_writeback(folio);
++	WARN_ON_ONCE(folio_test_writeback(folio));
++
++	/*
++	 * Mark the inode as disksize-grow-pending. The zeroed block will
++	 * be written out by the generic writepages cycle or any other
++	 * syncing operation.
++	 *
++	 * Multiple overlapping unaligned EOF writes should not happen,
++	 * because we only mark the pending state after zeroing the on-disk
++	 * EOF block, and i_disksize can only be updated after the previous
++	 * zeroed pending block has been written back or the dirty folio
++	 * has been discared.
++	 */
++	if (likely(folio_test_dirty(folio) &&
++		   !ext4_test_inode_state(inode,
++					  EXT4_STATE_DISKSIZE_GROW_PENDING)))
++		ext4_set_inode_state(inode, EXT4_STATE_DISKSIZE_GROW_PENDING);
++
++	folio_unlock(folio);
++	folio_put(folio);
++	return 0;
++}
++
+ /*
+  * Submit and wait for the pending zeroed EOF block range to complete
+  * if the given range [@offset, @end) fully covers it.  Must be called
+@@ -4926,22 +4988,21 @@ int ext4_block_zero_eof(struct inode *inode, loff_t from, loff_t end)
+ 	 * concurrent writeback that updates i_disksize. And if such a race
+ 	 * occurs, it means the previous unaligned EOF block has already been
+ 	 * zeroed (if needed) and persisted to disk.
+-	 *
+-	 * TODO: In the iomap path, handle this by tracking the ordered range
+-	 * and updating i_disksize to i_size after the zeroed data has been
+-	 * written back.
+ 	 */
+-	if (ext4_should_order_data(inode) &&
+-	    did_zero && zero_written && !IS_DAX(inode) &&
++	if (did_zero && zero_written && !IS_DAX(inode) &&
+ 	    from < round_up(READ_ONCE(EXT4_I(inode)->i_disksize), blocksize)) {
+-		handle_t *handle;
++		if (ext4_should_order_data(inode)) {
++			handle_t *handle;
+ 
+-		handle = ext4_journal_start(inode, EXT4_HT_MISC, 1);
+-		if (IS_ERR(handle))
+-			return PTR_ERR(handle);
++			handle = ext4_journal_start(inode, EXT4_HT_MISC, 1);
++			if (IS_ERR(handle))
++				return PTR_ERR(handle);
+ 
+-		err = ext4_jbd2_inode_add_write(handle, inode, from, length);
+-		ext4_journal_stop(handle);
++			err = ext4_jbd2_inode_add_write(handle, inode, from,
++							length);
++			ext4_journal_stop(handle);
++		} else if (ext4_inode_buffered_iomap(inode))
++			err = ext4_iomap_mark_disksize_pending(inode, from);
+ 		if (err)
+ 			return err;
+ 	}
+-- 
+2.52.0
+
