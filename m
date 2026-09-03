@@ -1,151 +1,70 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A893E3EDAA0;
-	Thu,  3 Sep 2026 06:52:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.8
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F02193FB055
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 06:52:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788418332; cv=none; b=JiD8c0RM/+5Zn2rwolrpDrfs28Dl6/3zTifZ3L1vpdzHnnI73poVBTOvm1NwiIsGtjk8kH83ULD66/taLDQO4HRma+a3f/QVDz8AdAC+ATvy6uMKnxB03jHY5f6llOWLiKPRSG7h2gloqddXpvG3FVQug84KFjVTWPnjE1QnAVQ=
+	t=1788418346; cv=none; b=F6O+VN5x/vouuO1r5UQ4UE2jxy/JGrZk4sdhWhq90jdEt/5CS9ZjGsq6YA26BM8S3TXseIgO1Re8jHI1bu75qBY4lzuFc0H78ehtEK24Pd9ZVrb5WRaiykO0eUFP0Fc8ipff7F2WWO4CMWPfce3W99YRIlGz8Wv54gUQqE6jm6Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788418332; c=relaxed/simple;
-	bh=UBP2ZlvBFV2v+MwOAsqYB6RadAJRiLG8Nce7MoBGlzg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=OqF4JKFlIG+ymaCNo3TY7vw7F9hI86uEeubKHFT5hMmYQWA3ANNaC3zKYbiRjErRbWfsbSzpZgUTmQzFkUnOXIVeH9E8dBVk19wUoHZRYM5AE/rLqh0hRYCryjBMYfYYp1XNROm57pVpQ+q6GpSsIiU3nebShYN/wjv/XHr9SJc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=JCoP8jSp; arc=none smtp.client-ip=192.198.163.8
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1788418346; c=relaxed/simple;
+	bh=juDibPFdV4XeXyvEQkdMQXjUe3swBYMVBGeVShAtfic=;
+	h=Date:From:To:Cc:Subject:Content-Type:MIME-Version:Message-ID; b=ZSrl5AagAwr1yDNJ5SHzIEahV8MSvwkbhQ6svopKERCa+KhVWzq3WOHfmIUatHIHRg76v6gergP45BWmr1KPELiYiNa3j82JbgHMOOyKfk2xjUBKF+nzMx4t0D0hdwnFX4Al0hJ06ebTxXR6V4r1JDH+sA5koSmnnLZtmcHoBCw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=BiQ6Dp9U; arc=none smtp.client-ip=220.197.31.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="JCoP8jSp"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788418331; x=1819954331;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=UBP2ZlvBFV2v+MwOAsqYB6RadAJRiLG8Nce7MoBGlzg=;
-  b=JCoP8jSpGUguHUDXYJm8765fF1L6+5aRh9WxMYgIIvUXUp4TXtISx+WE
-   XRm8viUEU20zzoTvIXRGR12UKf7/4yP0+Ds+sd5daBWsuOZRvnVu7KhGX
-   t/OvqNmWTOQ+eNcg8Z5pPGV7TzFXzHhcETG88iwy7hqD9Zyc2TIwnrEKf
-   zx6uhww9UC7svF4YPNfY1RzcxRFXs/NDVWtcM/tN4fyslb/Q7t+SUydEu
-   NYUNrXAAK1pU0g0hERbs2Sm9hllpbf0VcnZHcQajSJFn8C8Vn2k4gTddU
-   GVUOXoXXhqiYA9AdQqxygnsOu9p3E3WXJAjGQS+6vjM1zuLqap0rxB9NX
-   Q==;
-X-CSE-ConnectionGUID: pgeuXlsKQEuNn0OocTMYqw==
-X-CSE-MsgGUID: wOjrcHBiS/SCydjHX0EK4g==
-X-IronPort-AV: E=McAfee;i="6800,10657,11894"; a="106409675"
-X-IronPort-AV: E=Sophos;i="6.25,258,1779174000"; 
-   d="scan'208";a="106409675"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
-  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Sep 2026 23:52:10 -0700
-X-CSE-ConnectionGUID: 1/Rlu0gBSqC5CWaszdgSOg==
-X-CSE-MsgGUID: BmBIMcb3QnW+b2MuWOQ2dw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,258,1779174000"; 
-   d="scan'208";a="265304827"
-Received: from smoticic-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.28])
-  by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Sep 2026 23:52:07 -0700
-Date: Thu, 3 Sep 2026 09:52:04 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Andrei Stancovici <andrei.stancovici@analog.com>
-Cc: Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Michael Hennerich <Michael.Hennerich@analog.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Liam Beguin <liambeguin@gmail.com>, linux@analog.com,
-	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 3/3] iio: adc: ltc2497: add 2x conversion speed mode
-Message-ID: <apkZFOmT01nNnNb4@ashevche-desk.local>
-References: <20260902064415.132588-1-andrei.stancovici@analog.com>
- <20260902064415.132588-4-andrei.stancovici@analog.com>
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="BiQ6Dp9U"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
+	Message-ID; bh=juDibPFdV4XeXyvEQkdMQXjUe3swBYMVBGeVShAtfic=; b=B
+	iQ6Dp9UvVff9Pq2R/xTT47HxScpObjO41d40RPxdda5wOSaq3AQa7vQbGp0n5+cH
+	euEy18yNPVstiOMKjMJym9FEgCn5gMAK91q61/UBZ8o+6KPOReV7myA/ldySIhz8
+	xNYRwpveVqEI2kkbVAqmDB8wY2NuSpmHqKawzvl7vU=
+Date: Thu, 3 Sep 2026 14:51:30 +0800 (CST)
+From: CJ <firefly0158@163.com>
+To: mark@fasheh.com, jlbec@evilplan.org, joseph.qi@linux.alibaba.com
+Cc: ocfs2-devel@oss.oracle.com, linux-kernel@vger.kernel.org,
+	syzbot+1782a3a587bc53dc10cf@syzkaller.appspotmail.com
+Subject:  [BUG] ocfs2: possible deadlock in ocfs2_write_begin_nolock on
+ v7.2-rc3
+X-Priority: 3
+X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
+ 20260511(2e539873) Copyright (c) 2002-2026 www.mailtech.cn 163com
+X-NTES-SC: AL_Qu2TCviat0oi5iWeZOkdnk8aj+g+UcCwufkj24Bfc+8GgRv84DoEfW1FPnbL6uekLwG0vT6TaBlX0txmU4J4EHgR+H3MM9dULc0RvYkGyA==
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset=GBK
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260902064415.132588-4-andrei.stancovici@analog.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Message-ID: <4a9f1b94.5284.1a066097387.Coremail.firefly0158@163.com>
+X-Coremail-Locale: zh_CN
+X-CM-TRANSID:kygvCgD3X+ryGJlqm4E+AA--.7584W
+X-CM-SenderInfo: piluvw1o1qikqy6rljoofrz/xtbC+hJD9GqZGPJn-gAA3f
+X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
 
-On Wed, Sep 02, 2026 at 09:44:12AM +0300, Andrei Stancovici wrote:
-> The LTC2499 supports a 2x output rate (SPD bit in the second
-> configuration byte).  In 2x mode the offset auto-calibration is
-> disabled, roughly doubling the conversion rate (~13.6Hz vs ~6.8Hz in
-> simultaneous 50/60Hz rejection) while leaving linearity and full-scale
-> errors unchanged (datasheet).  During a temperature measurement the part
-> always converts at 1x regardless of SPD.
-> 
-> Expose the rate through the standard sampling_frequency /
-> sampling_frequency_available ABI on the voltage channels only: SPD is
-> ignored for temperature conversions, so the temperature channel
-> deliberately carries no SAMP_FREQ attribute.  A new has_speed_mode
-> capability flag gates the feature (LTC2499); the two-byte command path
-> is now taken for has_temp || has_speed_mode, since both features need the
-> second config byte.
-> 
-> The conversion-time wait becomes mode dependent: 150ms at 1x, 76ms at 2x
-> (datasheet t_CONV max, simultaneous rejection, rounded up).  The wait is
-> keyed on the conversion currently in flight, whose duration is fixed by
-> the mode that was active when it started - not by the newly selected
-> mode.  This matters on a 1x->2x switch: a 1x conversion may still be
-> running when the first 2x read arrives, and reprogramming the device
-> before it finishes would be NACKed with -EIO.  Timing is centralized in
-> ltc2497core_conv_time_ms() so a future FA/FB rejection-mode selection
-> can extend it into a [rejection][speed] lookup without touching callers.
-> 
-> LTC2496/LTC2497 (no speed mode) keep the single-byte path and the
-> unchanged 150ms wait.
-> 
-> Validated on a live LTC2499: 20 reads take ~3.1s at 1x and ~1.6s at 2x
-> (~0.5x, no -EIO), voltage and temperature readings stay sane in both
-> modes, and the temperature/voltage interleave (sticky-PTAT) regression
-> still passes at 1x and 2x.
-
-Are the commit messages written with AI assistance?
-If so, can you shorten them straight to the point?
-Some of the details can be read in the datasheet or code, I think.
-(For datasheet it makes sense to add Datasheet tag).
-
-...
-
-> +	/*
-> +	 * Parts with a speed mode expose in_voltage_sampling_frequency and
-> +	 * in_voltage_sampling_frequency_available on the voltage channels only.
-> +	 * SPD is ignored during a temperature measurement, so the temperature
-> +	 * channel deliberately carries no SAMP_FREQ attribute.  Patch a private
-> +	 * copy of the shared channel array so parts without a speed mode stay
-> +	 * untouched.
-> +	 */
-> +	if (ddata->chip_info->has_speed_mode) {
-> +		struct iio_chan_spec *channels;
-> +
-> +		channels = devm_kmemdup(dev, ltc2497core_channel,
-> +					sizeof(ltc2497core_channel), GFP_KERNEL);
-> +		if (!channels)
-> +			return -ENOMEM;
-> +
-> +		for (unsigned int i = 0; i < indio_dev->num_channels; i++) {
-> +			if (channels[i].type != IIO_VOLTAGE)
-> +				continue;
-
-+ blank line.
-
-> +			channels[i].info_mask_shared_by_type |=
-> +				BIT(IIO_CHAN_INFO_SAMP_FREQ);
-> +			channels[i].info_mask_shared_by_type_available |=
-> +				BIT(IIO_CHAN_INFO_SAMP_FREQ);
-> +		}
-> +
-> +		indio_dev->channels = channels;
-> +	}
-
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+CgpIaSwKCkkgYW0gcmVwb3J0aW5nIHRoYXQgcG9zc2libGUgZGVhZGxvY2sgaW4gb2NmczJfd3Jp
+dGVfYmVnaW5fbm9sb2NrIHJlbWFpbnMKcmVwcm9kdWNpYmxlIHdpdGggYSBtaWdyYXRlZCBzeXpr
+YWxsZXIgcmVwcm9kdWNlciBvbiBMaW51eCA3LjItcmMzLiBUaGUKdGVzdGVkIEhFQUQgY29tbWl0
+IGlzIGExM2MxNDBjYzI4OWMwYjdiMzc3MGJjZTViM2FkNDJhYjM1MDc0YWEuCgpUaGUgcmVwcm9k
+dWNlciBtb3VudHMgYSBjcmFmdGVkIE9DRlMyIGltYWdlIGFuZCBwZXJmb3JtcyBmaWxlIGFuZCB4
+YXR0cgpvcGVyYXRpb25zIHRoYXQgZW50ZXIgdGhlIGJ1ZmZlcmVkIHdyaXRlIHBhdGguCgpMb2Nr
+ZGVwIHJlcG9ydHMgYSBjaXJjdWxhciBkZXBlbmRlbmN5IHdoZW4gb2NmczJfd3JpdGVfYmVnaW5f
+bm9sb2NrKCkgc3RhcnRzCmEgdHJhbnNhY3Rpb24gd2hpbGUgdGhlIGlub2RlIGFsbG9jYXRpb24g
+c2VtYXBob3JlIGlzIGFscmVhZHkgaGVsZC4gVGhlCnJldmVyc2UgZGVwZW5kZW5jeSBpcyBlc3Rh
+Ymxpc2hlZCB0aHJvdWdoIE9DRlMyIHJlZmNvdW50LXRyZWUgYW5kIHhhdHRyCmhhbmRsaW5nLgoK
+VGhpcyBsb29rcyBsaWtlIGFuIGluY29uc2lzdGVudCBsb2NrIG9yZGVyaW5nIGJldHdlZW4gdGhl
+IGlub2RlIGFsbG9jYXRpb24Kc2VtYXBob3JlIGFuZCB0aGUgZmlsZXN5c3RlbSB0cmFuc2FjdGlv
+biBsb2NrIGluIHRoZSBPQ0ZTMiB3cml0ZSBwYXRoLgoKVGhpcyBpc3N1ZSB3YXMgcHJldmlvdXNs
+eSByZXBvcnRlZCBhdDoKCmh0dHBzOi8vc3l6a2FsbGVyLmFwcHNwb3QuY29tL2J1Zz9leHRpZD0x
+NzgyYTNhNTg3YmM1M2RjMTBjZgoKUmVwcm9kdWNlcjoKCnN5eiByZXByb2R1Y2VyOiBodHRwczov
+L3Bhc3RlYmluLmNvbS9yYXcvQ2g5RTdnQWkKCmNvbnNvbGUgb3V0cHV0OiBodHRwczovL3Bhc3Rl
+YmluLmNvbS9yYXcvMDJaajJnTGIKa2VybmVsIGNvbmZpZzogaHR0cHM6Ly9wYXN0ZWJpbi5jb20v
+cmF3L1JMU21SazVqCktlcm5lbDoKCkhFQUQgY29tbWl0OiBhMTNjMTQwY2MyODljMGI3YjM3NzBi
+Y2U1YjNhZDQyYWIzNTA3NGFhCmdpdCB0cmVlOiB0b3J2YWxkcy9saW51eAprZXJuZWwgdmVyc2lv
+bjogNy4yLjAtcmMzICMxIFBSRUVNUFQoZnVsbCkKdGVzdGVkIHRhZzogdjcuMi1yYzMKCkxldCBt
+ZSBrbm93IGlmIHlvdSBuZWVkIG1vcmUgZGV0YWlscyBvciB0ZXN0aW5nLgoKQmVzdCByZWdhcmRz
+LApYaWFueWluZwo=
