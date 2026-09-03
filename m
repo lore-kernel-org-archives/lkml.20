@@ -1,115 +1,104 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A1F63E1203;
-	Thu,  3 Sep 2026 07:41:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6040B42BEA4;
+	Thu,  3 Sep 2026 07:41:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788421265; cv=none; b=gz4yEWXkKm7byTAVMcIgAPhXwGdJU55SFXcE1OSF3tvD4ugOpYWKIdYcuAV9jqToOD2UAfseMNlVWPGckye6QIr3RR6+FkC24RStBrt1jtIlN0yYhWP+T3ke76DDWk1D4g8OuZJHi/Ms01juZIdPdSXbeZgH0v513FuYiWly51g=
+	t=1788421290; cv=none; b=tyoqpiBxSE/+S/3k7lwSjdec6qYH1mBR35+tI+L/ga0PASZbMJtyV1wJG5gyxR6/hJm7Oe+u9i68uYIxiFpccwnrmvNSe63scAYHifRpzzkYeipCJMn9npWN1snvI6cIrR9xw4OzLfdmQUOcscL0u5HEdwp9y1fw+KyB1eYbWPI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788421265; c=relaxed/simple;
-	bh=qo0/0Kbl34o+Co/Ux6VTpNaUX6+7ozohwBQzZ+gw/+w=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=aJ+UqBPoM79m2TZ9or0LFWBEqL5g0nE1pujxpn9z46mhpMPQLADjhj+Cxs+n8FsYR6wTZMDQ4qwqS6T+k0eAr4S0F3AV323fGEZV3/WkYRxOiHIvZDp7rVCtEoY9WIPVLyyjVzLPG3f0zuJ+VANevKtHGuFD4eh0H9hyZaJ7V74=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=L8Toqm3j; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788421290; c=relaxed/simple;
+	bh=Nm/6hJEAPks30y7LVA2Wwufq3vVlMHx1IoW0kUFRRys=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=Z4wJztjUsiFoleCM4/mOfvpF7QccTiAhgd8VCf3RkQ6pbIEfgkqDWq4HILfByPXiKXuPIN9SbKit242iA8JUA/BDl803Ve2+yyP0QSztl2qo+VFMHCAvHKyVH0g5ffecm7tR9DUkXAz80bn9lnUCvhw6pwcATk3dDaMzPgD3E4E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=zc+fw1vP; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=rh+ETLVc; arc=none smtp.client-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="L8Toqm3j"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4805F1F000E9;
-	Thu,  3 Sep 2026 07:41:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788421264;
-	bh=Q7QeevBEbZ4oPLBHotvagfn70D9GPK8CaP83w10N/rM=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=L8Toqm3jJhG+mVofDNTBTMmarZU/u0VhjXNviZn9GeI/Y+i+1bCcI2rN3tquq8m5V
-	 BLzMduZ5oRjXajf4L0VkyuX74aEez9p5OhKFHh12uOtQkrlTE+b6ocODKuqB5uVkXX
-	 aRyUTvM63lewstITt1VCxla2lfRQ3pKcMXVpqQIfAw+v8/Moh4U3YPfWbj383mKDBH
-	 nN4/KUsTqm374Mh1BFXNE+7+Roey34KWA9Xt9Lg1resLmnh3pektk4SMCGkMXlqoq+
-	 S5xLvJsYTjzK2r756SOcd3tGaQ3UuSg49Dm9XMaHCDyUeWz8oB/8J5aKfXNVY3lbBi
-	 ftgkDYRU+XMOg==
-Received: from sofa.misterjones.org ([185.219.108.64] helo=lobster-girl.misterjones.org)
-	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.98.2)
-	(envelope-from <maz@kernel.org>)
-	id 1x224E-00000004Esh-1iSG;
-	Thu, 03 Sep 2026 07:41:02 +0000
-Date: Thu, 03 Sep 2026 08:43:35 +0100
-Message-ID: <877bl26aqg.wl-maz@kernel.org>
-From: Marc Zyngier <maz@kernel.org>
-To: Wang Han <wanghan@linux.alibaba.com>
-Cc: weilin.chang@arm.com,
-	linux-arm-kernel@lists.infradead.org,
-	kvmarm@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	oupton@kernel.org,
-	tabba@google.com,
-	joey.gouly@arm.com,
-	seiden@linux.ibm.com,
-	suzuki.poulose@arm.com,
-	catalin.marinas@arm.com,
-	will@kernel.org,
-	ljs@kernel.org,
-	itaru.kitayama@fujitsu.com
-Subject: Re: [PATCH v5 0/6] KVM: arm64: nv: Implement nested stage-2 reverse map (new data structure)
-In-Reply-To: <20260902163500.1841671-1-wanghan@linux.alibaba.com>
-References: <20260810205038.118843-1-weilin.chang@arm.com>
-	<20260902163500.1841671-1-wanghan@linux.alibaba.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
- FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
- (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="zc+fw1vP";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="rh+ETLVc"
+From: =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1788421287;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=HcMZPcEqwvVMhaVCt8MkUvZh7YAwKSLLYydvmnNx69g=;
+	b=zc+fw1vPS28yXzWhjuVq688bLTlDJP+PQOO2TZg5QcxVNPZStsrnS4EMvXTkuI9WChAUF6
+	e98Za95kruhvUKHM3/b34Kuksc7kVeCyI/v89gq/la6051sO7iVJiyemzT0SlIcVMLtp3V
+	LBVntQcEnLcQP4mEFAOmRCGnVFjObZYQoy8t1OzlP6lakHcsrKvjUzVXe8XXr5xuJfGQOC
+	1qK1oo84uH3RvHqkEN4CnRtgprm3+1bwVoDYK5JM2mCOVa3NMbngliORKzy3gImZ0p3Mdn
+	KA4/eGPfFEVefv27hiUMV5YSZZf9/EbNiLhBwaHSRIcgEWjR+hD3IjTxfTw0+w==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1788421287;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=HcMZPcEqwvVMhaVCt8MkUvZh7YAwKSLLYydvmnNx69g=;
+	b=rh+ETLVcunE+DHaXRlcjbRGQypXlRas7Gz8RSxyOEQznbIdmSjOOp7xhZp8qA1klyLJlHr
+	4QVBYU6drJOyTJAg==
+Date: Thu, 03 Sep 2026 09:41:16 +0200
+Subject: [PATCH v2 01/15] MAINTAINERS: exec: Add more auxvec.h variants
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-SA-Exim-Connect-IP: 185.219.108.64
-X-SA-Exim-Rcpt-To: wanghan@linux.alibaba.com, weilin.chang@arm.com, linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev, linux-kernel@vger.kernel.org, oupton@kernel.org, tabba@google.com, joey.gouly@arm.com, seiden@linux.ibm.com, suzuki.poulose@arm.com, catalin.marinas@arm.com, will@kernel.org, ljs@kernel.org, itaru.kitayama@fujitsu.com
-X-SA-Exim-Mail-From: maz@kernel.org
-X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Message-Id: <20260903-at-vector-size-arch-v2-1-5bc32a71e3d8@linutronix.de>
+References: <20260903-at-vector-size-arch-v2-0-5bc32a71e3d8@linutronix.de>
+In-Reply-To: <20260903-at-vector-size-arch-v2-0-5bc32a71e3d8@linutronix.de>
+To: Kees Cook <kees@kernel.org>, Arnd Bergmann <arnd@arndb.de>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+ linux-arch@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-riscv@lists.infradead.org, loongarch@lists.linux.dev, 
+ linux-s390@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, 
+ linux-mips@vger.kernel.org, sparclinux@vger.kernel.org, 
+ linux-sh@vger.kernel.org, linux-alpha@vger.kernel.org, 
+ =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788421286; l=977;
+ i=thomas.weissschuh@linutronix.de; s=20240209; h=from:subject:message-id;
+ bh=Nm/6hJEAPks30y7LVA2Wwufq3vVlMHx1IoW0kUFRRys=;
+ b=qmIl+ksPTFbWALcvC6gLtF0MRDI5uk7fAOGtmCm6fQ86AWfo/5KOuP/P3VXL2cXkfCyJKwCbQ
+ KGGjiCPlRFCAaRujs1d1gu5uZskagQtGmtcqSJJWjBWfEVKN728cCnc
+X-Developer-Key: i=thomas.weissschuh@linutronix.de; a=ed25519;
+ pk=pfvxvpFUDJV2h2nY0FidLUml22uGLSjByFbM6aqQQws=
 
-On Wed, 02 Sep 2026 17:35:00 +0100,
-Wang Han <wanghan@linux.alibaba.com> wrote:
-> 
-> Hi Wei-Lin,
-> 
-> I tested this series on a Yitian 710 system with an ARM Neoverse-N2 CPU
-> (128 CPUs, 2 NUMA nodes).
-> 
-> Test environment
-> ----------------
-> 
->   L0 kernel: Linux v7.2-rc6
->   L1 guest: Ubuntu 26.04 LTS, kernel 7.0.0-27-generic (aarch64)
->   QEMU: 10.2.3
-> 
-> L0 NUMA balancing was enabled (`/proc/sys/kernel/numa_balancing=1`).
-> The host was booted with `kvm_arm.mode=nested`.
-> 
-> This series fixes a functional hang that is exposed when NUMA balancing is
-> enabled.  The previous nested stage-2 unmap path is too slow for this
-> workload, making the performance problem user-visible: NUMA balancing can
-> leave the L1 guest unable to make progress and eventually hang during boot.
->
-> The L1 was started with 8 vCPUs and 32 GiB of RAM using:
-> 
->   qemu-system-aarch64 -smp 8 -m 32G \
->     -machine virt,accel=kvm,gic-version=3,virtualization=on \
->     -cpu host -nographic -enable-kvm \
->     -drive if=pflash,format=raw,readonly=on,file=pflash0_bak.img \
->     -drive if=pflash,format=raw,file=pflash1_bak.img \
->     -drive file=./ubuntu-vm.qcow2,format=qcow2,if=virtio,cache=none,aio=native \
->     -nic user,model=virtio-net-pci,hostfwd=tcp::11234-:22 \
->     -serial mon:stdio
-> 
+There are quite a few auxvec.h headers. Mark all of them maintained
+as part of 'EXEC & BINFMT API, ELF'.
 
-Puzzling. If you are only running an L1 in VHE mode, there is no
-shadow S2, and therefore nothing to unmap. For shadow S2s to be built
-and affect the MMU notifiers, you need to run an L2.
+Signed-off-by: Thomas Weißschuh <thomas.weissschuh@linutronix.de>
+Reviewed-by: Kees Cook <kees@kernel.org>
+---
+ MAINTAINERS | 3 +++
+ 1 file changed, 3 insertions(+)
 
-So what are your actual test conditions?
-
-	M.
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 3a19da74d00c..42715aea210b 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -9808,13 +9808,16 @@ L:	linux-mm@kvack.org
+ S:	Supported
+ T:	git git://git.kernel.org/pub/scm/linux/kernel/git/kees/linux.git for-next/execve
+ F:	Documentation/userspace-api/ELF.rst
++F:	arch/*/include/uapi/asm/auxvec.h
+ F:	fs/*binfmt_*.c
+ F:	fs/Kconfig.binfmt
+ F:	fs/exec.c
+ F:	fs/tests/binfmt_*_kunit.c
+ F:	fs/tests/exec_kunit.c
++F:	include/linux/auxvec.h
+ F:	include/linux/binfmts.h
+ F:	include/linux/elf.h
++F:	include/uapi/asm-generic/auxvec.h
+ F:	include/uapi/linux/auxvec.h
+ F:	include/uapi/linux/binfmts.h
+ F:	include/uapi/linux/elf.h
 
 -- 
-Jazz isn't dead. It just smells funny.
+2.55.0
+
