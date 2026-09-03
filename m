@@ -1,83 +1,77 @@
-Received: from mail-pg1-f172.google.com (mail-pg1-f172.google.com [209.85.215.172])
+Received: from mail-pf1-f177.google.com (mail-pf1-f177.google.com [209.85.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02A914EE847
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 16:36:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 563324EE845
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 16:37:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.177
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788453415; cv=none; b=aRdFDM6/2kKcqYZYRUT9XfpE5+3A5CJ60bxiSPEWEHQBG5DsKlMMgpbs7wo7aYStTMixPuB0PioS2hBbdDRIH/0jubZ527KekE6en56T5lh29Mg+OpkUD7zfYhAxsw53q2N18d1saG+jaulq+p2M2JpDlmUDBreNpp29mqx+97o=
+	t=1788453458; cv=none; b=IcAcERikOs1FWaB5LdqOOqaAOWJdxIjp+SQM3e/56Gi7AYndLToQk+BtzlzTHdysiFXaB3OOwRItBHarsCyPmTUULLhEzmtdTVLAoNRpayIJ59OIbTgRvNYHYRIZ2uQGB6SahsyB5m8TCSa8FQ5427KjFHIBuY8V6xoNHC2SL9o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788453415; c=relaxed/simple;
-	bh=XydwLZg79QE9i6WsiKtoR53n4EvTxMwuiXwTwuu7/ro=;
+	s=arc-20240116; t=1788453458; c=relaxed/simple;
+	bh=DHU0rPfE8pNw4y8f4EIiMA8AyjtO5KJ1FJuAuI0+mmI=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=C0Hy32Xa7PISTd9IigUdDFPISLlI+3aCGHObujpIv3tYrNO9ZiMFaBtgogsBlcPSHa4NQssUHg7IeS5ePf++ojGxK2j4TdO8+/z2GUHBKPQz/5CgpeLbICWq8FLvEfSpbup/ClWPBMDqXwl4TCUivjHwNgQ2srKHs0azxY/i04k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WyisQV7n; arc=none smtp.client-ip=209.85.215.172
+	 Content-Type:Content-Disposition:In-Reply-To; b=BS5y+NKVMKZFIOdUK482iLixQVfUZV3mDRsj9MHSBljQJgv7GRfzcExiFZ6IOMV4l9hSk1MaD4hfMXJQQt4F8Auh1b4DEe/K73RVwgqe4ta5K/x9s6j+llSGifOiLbM/GiYuyT0vMLClKFH5hcuCmTvUeqnA76bSkZ3s3AOtF7Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NcbRr86S; arc=none smtp.client-ip=209.85.210.177
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WyisQV7n"
-Received: by mail-pg1-f172.google.com with SMTP id 41be03b00d2f7-cc1cbb64a1fso156027a12.1
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 09:36:53 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NcbRr86S"
+Received: by mail-pf1-f177.google.com with SMTP id d2e1a72fcca58-84f38f3b36eso2261382b3a.1
+        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 09:37:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788453413; x=1789058213; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1788453456; x=1789058256; darn=vger.kernel.org;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=Mx2bivaT9nHj/TUUekmKHf7Mi+OS/7gBxKis+Uo212E=;
-        b=WyisQV7nHcq7D3yVSGIrgaS6K23pR0zNRJWSQ+EEYpJxqVo7Mx5liNvczDdr+N/fVz
-         Qf8pF4Jwk6gN8XFCGBbljYJta0T/yzbHICyBTuptxBBFWP/qEj3GMfzw45BZRb8Q9qyc
-         +kF/XQbP1gtE5C3i12Vw/uAfuSlyog+YLUZ3XaU2X0tdyTyxFZAUN7WJrW9cSg+F4K/1
-         UpQtGw8a14MwGzhhv3tc/adck7aI++sszr/Y8LI57Y7zR6CPG+WOEbveqQO6MY4hq+bY
-         fHgw7RedIOn0Ujtbo3wOrWUvNA7L8TcGhkr1mReXvPFmnhccPa/iB1zkL4H5jQKB+5Y2
-         yNRA==
+        bh=lUZB+Y/RFFX7U5B1GssgETxfMaouezB0VLydJYjs6v0=;
+        b=NcbRr86SwjtDYcr0LYOS/0WeBTIbyh048e+GFTE6zRhR1pHyVAFZ6yys9EXJT2RXmi
+         lHtzWGeXE4MCLnQzc0bnrrediUAEuhuQBtT0pwzjjG8mdYsvrXt5W4+oarXuTavPO3a9
+         z0NYNUMP9LXiE7AaOI7BHdRnWkbGCozQr3arFPaJXJ0tDnBnS2Rs9cefrZNkPy9YELhR
+         cvuGTtZxQm/0u9hYsy+NtY7IXp+cfYESm7MgwpoNA/tZRmE4Y3H3Jd7lne5T1h3UwRos
+         m7xNiBvIVqvsvupia/HLFIXGONcqN47YK8C1/g+YYvNl7hKmvQLoMQZD8EuP671+iSpL
+         iT2A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788453413; x=1789058213;
+        d=1e100.net; s=20251104; t=1788453456; x=1789058256;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Mx2bivaT9nHj/TUUekmKHf7Mi+OS/7gBxKis+Uo212E=;
-        b=XGVvRS0GTYZwbXZUC9JuWBsM/laCTmWEWiWNX2W4uUkTyNcpksyg/pXA1PUcz558oI
-         6Omhfn0AuUjZW0QDM5GYdjYkXeWffpJlT6uvPV3TyAihjEiyTcbA1+E2L2jsigdR8iqM
-         HN2G3BbPabuVrFO2w1DVh6c7qIgFFPfmVUkwwRwu7NgoKGo6n33w3h+io2f5lHXzvd4R
-         drIGN4m3+5eO+zJsxWq68RwM9i8duK1GP8LviXXqWoxhwRJRN7326/EjQWzvrmIGbgiN
-         7+FsNIQ9y3fc2txcjMa6Urt6sRpJwSfez4Flm5V2Or+e1DGhfUwDR2QBBGq14xFTo/fs
-         szJw==
-X-Forwarded-Encrypted: i=1; AKwUvBz5i5G7HK57f4ZsdydcXKOrmif8puPGSe8uH2RFSOXQBqVbp4zq61zLfQi4PcP2c7WZAzydhorQjVF+xW0=@vger.kernel.org
-X-Gm-Message-State: AFuF++n66wbCWoUaL8+VnhAwDdE9mP2rCfugNFNPrkwiulzaHYqpIag1
-	I7NjdQdDaJTywYVL+ACgOwDSDzg579DPt5io5klsMpccWfwgwkm79FVS
-X-Gm-Gg: AYBFou1bU2gtvt+jqcSUaKFhrP4n4WhTFA4Qsgl+notw5R9CQ8WjgCe7SXoyghu4rZh
-	pecV7rIIpcj/nv/PPbn135OaXsH7h/S+gkrrJocMvlNjoWLL3Ijqs0Jtq53GXiuPwbdtb2+yIjr
-	Uf0qLdWyN9hcsIcgsrM9ExwWmxv0XzERmqfqCqfJVz6PH08xW5XYJTQgKP3Dc6vnRcO0U4K+xMf
-	VstLyPrBHXh2zGi6sYjAr8ylZHFnooeWuHPie8x75SGRp3Uvh3CkfkZdiBK6iUpjMxCWb9fjBEI
-	jfzqTLm05cOwmQppIG1JeD/NuInhk2mjHq/J6QTaF9hpBnNUmzoZk8lSVuOyN3M5t1zE8EqCum6
-	ViqYkN3V1Nmystalpr6E3FX5xjgx3OXKaiGwb5cNHXlon/2nx70ZLUa/Au51WvbbTdpqRpWHaOL
-	WYEq9z1eRAPj7yX2GvyER/72PPLsrKDAduMKYLMXh3rMjecOZxzVOSd0CLPHDFIXW0C7M=
-X-Received: by 2002:a17:90b:2d83:b0:38f:5801:dc0e with SMTP id 98e67ed59e1d1-39aee049464mr22342206a91.15.1788453413101;
-        Thu, 03 Sep 2026 09:36:53 -0700 (PDT)
-Received: from leonardoc-nb ([179.160.36.119])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339b8f44d7sm115281eec.22.2026.09.03.09.36.49
+        bh=lUZB+Y/RFFX7U5B1GssgETxfMaouezB0VLydJYjs6v0=;
+        b=ZWhXE8sXxfazZuyOHffwGMjfd1q99FJxZeeiAGX0cv1/Z18ez++JOohbxOxG/sk0Dn
+         Dwbc0XvTGHd01FXfz/Pbw9406UhlWpfs4X1U6s2JJtM9QctcmA9fLY4XyiM5+QqPSAMr
+         dgGj3C2epC9UC+lY8mNpWyysO7B4Uc/kikhLRcb4YKD73ci0sd0fr6burwJ3+I+bpOiI
+         SCDi0LwiTdkKFBe/LceFHa/3mK4On5dSsWMCka5gl8v7uyvsRyEazxDhXIL8jcjXi4+F
+         IqnJufRlxIwOAqdULw8H3TUvlBujJvhjLcbZa7EcYqsch6LJAhC1gVEz7kmq6R92xxV7
+         tb3A==
+X-Forwarded-Encrypted: i=1; AKwUvBw8SCg/WUQ6nVh3EEVBvWQLxUMmNn7LdnwLnDMl1oXqS2cTp/OBYh9uUoq1/Kq24LB7KtIPKz/fvmtrUeY=@vger.kernel.org
+X-Gm-Message-State: AFuF++nxg3Qs9bx7E6wRDfa0jbp1voE2qaeb6sdz5y2w86RZK8FeNkPg
+	0YtSZj2LJ6KAIhlpo8VqakjhBh7+t+BoPzi2UATmOT9wxs8qOGAyVfO2FcbdMg==
+X-Gm-Gg: AYBFou0beq0HC10ctNBRKkDSurLE+E8zjqmHtph2TXNXwQ8m0QO+Ui6QkhVEYyZtQWA
+	ACS16TnWJquvjiN2zK4IZemZ9U3DNjiF54LvVv/4m44WQKGyxLezFtfhe/LImeVnsLcLxlrjPHh
+	EvsdOpglSWA7/E3Y9HzrDf4lYTgBL3hltAqnh9FT3DktiTcHkyHqlPTggXyJL2cwEd0EsVOFCD5
+	CyoALpwHcVFBB6gSfrXYJdfBGAelHBxiwUFk/mhOe1UPhAN9E8YECrVDvbNMdri93FbzvXEWSUa
+	G4UjhERBENkzLopv47jABEmJhs3DfMXSBt8usuetiQG8PmflZEkq4jhS8eyrX83sHDOtQx53WsW
+	BQMuu7ioDldclhD8Be2xSSdm/9hGuOz4WhQlh0lePi+JP5sUfImrOdf82+/Is+KM7wrZj1/O6Hw
+	ud0mERgHxe9bqwHNhO+wjPetYLo72x4P/31NcEvCcGhas0dy3tqTGn4DO7z/bI158LSoByZ4Ul+
+	oJNqby6gFY3T47xo9+ohthgari2vXF6ZjDeGrgqpg==
+X-Received: by 2002:a05:6a00:3d48:b0:84e:4d6:78fe with SMTP id d2e1a72fcca58-861679a5642mr313171b3a.3.1788453456351;
+        Thu, 03 Sep 2026 09:37:36 -0700 (PDT)
+Received: from skinsburskii (c-98-225-44-182.hsd1.wa.comcast.net. [98.225.44.182])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8615273a099sm174320b3a.22.2026.09.03.09.37.35
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 03 Sep 2026 09:36:52 -0700 (PDT)
-Date: Thu, 3 Sep 2026 13:36:47 -0300
-From: Leonardo Costa <leoreis.costa@gmail.com>
-To: Frank Li <Frank.li@oss.nxp.com>
-Cc: Frank.Li@nxp.com, s.hauer@pengutronix.de, kernel@pengutronix.de, 
-	festevam@gmail.com, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
-	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Leonardo Costa <leonardo.costa@toradex.com>
-Subject: Re: [PATCH 6/6] arm64: dts: freescale: imx8mp-verdin: Add Mezzanine
- with Toradex Display 10.1" LVDS V2
-Message-ID: <tu5f2ffhfe4vxw2mmdz5qy7svu5a2wi4on3ixrx7zn66chnim2@3tb2jnwp5eke>
-References: <20260813133335.1941580-1-leoreis.costa@gmail.com>
- <20260813133335.1941580-7-leoreis.costa@gmail.com>
- <an3brO5COdw_F76m@SMW015318>
- <rglymw6p4c65yoqz3pjn6e6nq7cil2fa7m7dqghshgdpavby7d@kyza3ceavq6z>
- <an3tiDOUUYLb8PAq@SMW015318>
- <juuc4af7ndbajcl7gzf4tg5qz2q2j5tt3rvql4jbauradujrre@gc5nbdhhixaf>
- <aoSqJ7pHEgJ_RZmr@SMW015318>
- <gsihg6tzkrq6gcygquzbjtiqntvoxp67lo6mqntnmbyvyw7s3y@suv4t26pl5eh>
- <aoW7M1CmaPWDxvhE@SMW015318>
+        Thu, 03 Sep 2026 09:37:35 -0700 (PDT)
+Date: Thu, 3 Sep 2026 09:37:33 -0700
+From: Stanislav Kinsburskii <skinsburskii@gmail.com>
+To: Paul Moore <paul@paul-moore.com>
+Cc: Shuah Khan <shuah@kernel.org>, Eric Paris <eparis@redhat.com>,
+	Al Viro <viro@zeniv.linux.org.uk>, Amy Griffis <amy.griffis@hp.com>,
+	Frank Hofmann <hofmann@deshaw.com>,
+	Noah Orlando <orlandon@deshaw.com>, linux-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org, audit@vger.kernel.org
+Subject: Re: [PATCH 3/3] audit: Skip exit filtering for syscalls without rules
+Message-ID: <apmiTQqF8lJ50sNC@skinsburskii>
+References: <20260806-audit-v1-3-ddd0d94ff0b6@gmail.com>
+ <23b54475e31ed2c5248650d5aca830f5@paul-moore.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -86,71 +80,112 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <aoW7M1CmaPWDxvhE@SMW015318>
+In-Reply-To: <23b54475e31ed2c5248650d5aca830f5@paul-moore.com>
 
-On Wed, Aug 19, 2026 at 09:18:27AM -0500, Frank Li wrote:
-> On Wed, Aug 19, 2026 at 08:56:53AM -0300, Leonardo Costa wrote:
-> > On Tue, Aug 18, 2026 at 01:53:27PM -0500, Frank Li wrote:
-> > > On Tue, Aug 18, 2026 at 03:08:33PM -0300, Leonardo Costa wrote:
-> > > > It seems that the drivers are being deferred at boot start by the
-> > > > device_links_check_suppliers() function. It runs through the drivers before
-> > > > they're initialized and defers them if their suppliers are not available. The
-> > > > GPIO and PWM drivers are able to follow the gpio-map and pwm-map properties
-> > > > (through the of_parse_phandle_with_args_map() function), but from what I see,
-> > > > device_links_check_suppliers() has no such mechanism. It follows the phandle to
-> > > > the nexus connector node only, and since there's no compatible driver for it,
-> > > > the function defers the consumer drivers used in the overlay.
-> > > >
-> > > > I think this is what is happening mainly because setting the
-> > > > fw_devlink=permissive kernel parameter (which sets the DL_FLAG_SYNC_STATE_ONLY
-> > > > flag) solved the issue, though I could be misunderstanding something.
-> > > >
-> > > > 	int device_links_check_suppliers(struct device *dev)
-> > > > 	{
-> > > > 		...
-> > > > 		list_for_each_entry(link, &dev->links.suppliers, c_node) {
-> > > > 			...
-> > > >
-> > > > 			if (link->status != DL_STATE_AVAILABLE &&
-> > > > 			    !device_link_test(link, DL_FLAG_SYNC_STATE_ONLY)) {
-> > > >
-> > > > 				...
-> > > > 				device_links_missing_supplier(dev);
-> > > > 				ret = dev_err_probe(dev, -EPROBE_DEFER,
-> > > > 						    "supplier %s not ready\n", dev_name(link->supplier));
-> > > > 				break;
-> > > > 			}
-> > > > 			WRITE_ONCE(link->status, DL_STATE_CONSUMER_PROBE);
-> > > > 		}
-> > > > 		...
-> > > > 	}
-> > > >
-> > > > Has this behavior been observed before? Do you know of any work being done that
-> > > > addresses this?
-> > >
-> > > Does a dummy container driver (for debug) to proof your analyer?  Let
-> > > me to find time to debug it.
-> > >
-> > > Frank
-> >
-> > I made a dummy driver matching that compatible string, and yes, it did
-> > solve the issue.
+On Tue, Sep 01, 2026 at 05:35:16PM -0400, Paul Moore wrote:
+> On Aug  6, 2026 Stanislav Kinsburskii <skinsburskii@gmail.com> wrote:
+> > 
+> > Audit walks every exit filter rule for each audited syscall, even when no
+> > rule contains the current syscall number. Policies with many unrelated
+> > rules therefore add linear overhead to otherwise uninteresting syscalls.
+> > 
+> > Maintain a reference count for each syscall bit present in exit filter
+> > rules and derive an aggregate interest mask. Update the mask through the
+> > centralized rule lifecycle helpers, which cover explicit and automatic
+> > rule removal. Use the mask as a lockless rejection test before entering
+> > the exit filter RCU traversal.
+> > 
+> > The mask is architecture-independent. Syscall number overlap between
+> > architectures can cause an unnecessary scan but cannot suppress a match.
+> > 
+> > The aggregate bit must be set before list_add_rcu() publishes a new rule.
+> > Otherwise, a reader could observe the rule after publication while the
+> > aggregate mask still rejects its syscall. Move audit_rule_account()
+> > before the list insertion to provide this ordering. Rule removal already
+> > uses the inverse safe ordering: it unlinks the rule before clearing the
+> > aggregate bit, so a concurrent reader can only perform an unnecessary
+> > scan, not miss a rule.
+> > 
+> > To measure the effect, install increasing numbers of distinct statx rules
+> > in a disposable VM and benchmark the unrelated getpid syscall after each
+> > set is installed:
+> > 
+> >   for nr_rules in 1 32 128 256; do
+> >           auditctl -D
+> >           for uid in $(seq 1 $nr_rules); do
+> >                   auditctl -a always,exit -F arch=b64 -S statx \
+> >                            -F uid=$uid
+> >           done
+> >           audit_bench
+> >   done
+> > 
+> > Without this change, the same unpinned VM produced:
+> > 
+> >   1 rule:
+> >     median=55 ns/op
+> >   32 rules:
+> >     median=71 ns/op
+> >   128 rules:
+> >     median=428 ns/op
+> >   256 rules:
+> >     median=791 ns/op
+> > 
+> > With this change, it produced:
+> > 
+> >   1 rule:
+> >     median=55 ns/op
+> >   32 rules:
+> >     median=55 ns/op
+> >   128 rules:
+> >     median=55 ns/op
+> >   256 rules:
+> >     median=55 ns/op
+> > 
+> > Signed-off-by: Stanislav Kinsburskii <skinsburskii@gmail.com>
+> > ---
+> >  kernel/audit.h       |  2 ++
+> >  kernel/auditfilter.c | 56 +++++++++++++++++++++++++++++++++++++++++++++++++++-
+> >  kernel/auditsc.c     | 13 ++++++++++++
+> >  3 files changed, 70 insertions(+), 1 deletion(-)
 > 
-> Thank you very much. Let me think how to fix this problem. Nexus node
-> should be direction overall.
+> We've had similar proposals in the past, and I'll say the same thing I've
+> said in the past: I'm not certain that our answer to filter performance is
+> to add additional complexity and filtering.  It may turn out that an
+> approach like this is the only option, but I'd really like to see more
+> effort put into improving a singular filter mechanism (either the current
+> approach or a replacement design) before we start layering on additional
+> complexity.
 > 
-> Frank
 
-Hi Frank,
+I see. Indeed, the mask is effectively another filter in front of the
+existing rule list.
 
-FYI, this patch sent as an RFC addresses and solves this issue:
+One alternative would be to replace the global runtime exit-rule
+traversal with an array of RCU-protected, ordered candidate lists,
+conceptually:
 
-Link: https://lore.kernel.org/all/20260902-fw-devlink-nexus-ready-v1-0-68fe1996e78a@toradex.com/T/#t
+  candidates[__NR_getpid] = {
+          rules whose syscall mask includes __NR_getpid
+  }
 
-In the meantime, could we have these overlays merged as they are right now, and
-refactor them to use the nexus connectors later, when that patch is more
-concretely established? We'd like to be able to have these overlays on upstream,
-but we're not sure how long it'll be until that patch is mature enough to be
-accepted and merged.
+Filtering would then look roughly like:
 
-Leonardo
+  rcu_read_lock();
+  list_for_each_entry_rcu(candidate, &candidates[syscall], list) {
+          if (audit_filter_rules(...))
+                  break;
+  }
+  rcu_read_unlock();
+
+A canonical registry would still keep each rule once for rule management
+and listing, while the syscall path would use only the candidate index.
+This would make the index the runtime filtering mechanism, rather than
+another filter layered in front of the existing traversal.
+
+What do you think about this approach?
+
+Thanks,
+Stanislav
+
+> --
+> paul-moore.com
