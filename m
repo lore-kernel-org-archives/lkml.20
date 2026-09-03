@@ -1,142 +1,103 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+Received: from mail-106111.protonmail.ch (mail-106111.protonmail.ch [79.135.106.111])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6035E42B33E;
-	Thu,  3 Sep 2026 07:41:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 290E23E1203
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 07:41:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.111
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788421291; cv=none; b=YQ8vhp7UpVYOcyAYsnWKtGXvrIUx0JygDHkupOmJdsg2j5cRfPja5q8vFDzpj/SH0cFNOmISHJq/Usveg+6ZBD4bFgl1ke8hKQ/TiRFqOBGaYK2wgHeE/cPn8iZVGamoE0ttW0i+IqF81iDNV+Z2cenzJqUIoVd25XbPQxU6VcI=
+	t=1788421284; cv=none; b=mFQt7czqfxf4doOWcBfV2rZwVKjouZsa4DJhHPz3QHc/whdtYdYs/TyAoR9/LwixJecbW/GizsdLzhmoeOzcAZKc1DGTi7xSTkMrAVl1sSeqqYcd2l9QI4i1ysO2lgXGymxLvGToqJuXnVxhG8Am5F1bpzEP0lmzcKKtrHeg9hI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788421291; c=relaxed/simple;
-	bh=3s3XptoE1X5UpOSAIz59e0R0lZLIvWXcerejp7RbE+E=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=dBWdHXNVtek76E2YfvEyHdjQvpc5wj9aK7o7wDU8CDzKfxYhyLsCrYNSvkfmryAeUG9uokYJ4XntYmlGjErkBQR9Jx3v1xSrsMaKl+0Ekm6VWd7eQfEHeD1++YUQmYI7+ZCQ45zypJEDJ9k/Miey5jBFvUK66x50B2OXr9EzBY8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=sP4GAzlf; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=74b6hxEu; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	s=arc-20240116; t=1788421284; c=relaxed/simple;
+	bh=unaWM7BrO6F4HYlrzqWPdL/PRtBfcelsNoWi1/wzGzo=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=Rg7fJrtGO7bPTTu+PvpKLc9gq5lLo24Cet2vOnmj218aKPumqiqmvJMcw5ehSC55tGCHldthQhKCelR1hrAsLnMVEGFyJLgxeRGKDcPttXRmsDAH+rVttM4r0PBk0b6nRrV4W2jcfTTQr9hK8QZ1MHDePgdTyEyuU4H8zVktL9o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=onurozkan.dev; spf=pass smtp.mailfrom=onurozkan.dev; dkim=pass (2048-bit key) header.d=onurozkan.dev header.i=@onurozkan.dev header.b=IDd0MOAY; arc=none smtp.client-ip=79.135.106.111
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=onurozkan.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=onurozkan.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="sP4GAzlf";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="74b6hxEu"
-From: =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1788421287;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=5KW4JSiXbH9maSfkULvZaqX7CoVimn1QeXod/ruf3No=;
-	b=sP4GAzlfiwyJ8SlAiXB9hhGatHqYn5Vcn3KyodxJkAO1wj/PHMlbdW77kFZude743RnLhd
-	B5QZwXUkCLLV6Wvnob5GUovY1H43zZVNWtGF5UOAyDtw0h84ySpzYI64iVVJEIHvicRsJY
-	pD1ld4DRhtbdgnX9NNClO75WOFLSWKxzBq3iHywNs/5YkMjYPN/hkHQCvUYgFe8rIWuTxq
-	ufYRd2Yn9ZInjWVURzxboS8uymqnHI7MPJc3Ye+zTbYZ7DuMs5zMOjmE9Qpb0t7EMovaQc
-	99zQAQl51CjfPmTlBPFogtZ+kwL7ycovS8bv8r+JCiyjj17qoIK0POFSFj9veQ==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1788421287;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=5KW4JSiXbH9maSfkULvZaqX7CoVimn1QeXod/ruf3No=;
-	b=74b6hxEuHiaYbO16J3R8hRN+sLyi/sfMIBBYDtJQpn5U/qxoOZMHYwATNk199oaBFFJwuk
-	Q6njN3w1wiL/mPDw==
-Subject: [PATCH v2 00/15] exec: Remove AT_VECTOR_SIZE_ARCH from UAPI
-Date: Thu, 03 Sep 2026 09:41:15 +0200
-Message-Id: <20260903-at-vector-size-arch-v2-0-5bc32a71e3d8@linutronix.de>
+	dkim=pass (2048-bit key) header.d=onurozkan.dev header.i=@onurozkan.dev header.b="IDd0MOAY"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=onurozkan.dev;
+	s=protonmail; t=1788421273; x=1788680473;
+	bh=unaWM7BrO6F4HYlrzqWPdL/PRtBfcelsNoWi1/wzGzo=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:From:To:
+	 Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=IDd0MOAY5akUlOL70WgsQOXjtdCUMxerD7rkLet1xhynoIWleEh22Ownb54Nk7G76
+	 Udgjw+hVxDzr6j8lrKpGpCOIm/O4yxMPpGdR65XowD1iL/z4WShmQtWjeQCnkoPT8w
+	 txTl8y6Uo/9PQ1wqSfiTy3r2O7JYlsGdIuK/5NOnSQZPaRnaDR26npa2aEVF9POmPl
+	 x8cKyiLVXEcv1MRYi2m7pxNzpxbG5N6tOpahKz/NZYYX1aY+NIzdd5TqFjAQV6/4RW
+	 iY9fI35FiHsE82CzlEPvRe3yKF5Ow4LtDhHDO7DVY/TS/QS0aLmnl2wWJ3d7uBS3Y6
+	 BcIH8UVierCtw==
+X-Pm-Submission-Id: 4hbBNl5shzz2SdmB
+From: =?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>
+To: Brian Masney <bmasney@redhat.com>
+Cc: linux-clk@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	mturquette@baylibre.com,
+	sboyd@kernel.org,
+	daniel.almeida@collabora.com
+Subject: Re: [PATCH v2] clk: devres: fix cleanup in devm_clk_get_optional_enabled_with_rate()
+Date: Thu,  3 Sep 2026 10:41:08 +0300
+Message-ID: <20260903074110.101285-1-work@onurozkan.dev>
+X-Mailer: git-send-email 2.51.2
+In-Reply-To: <apib9XCsTNGA3-u3@redhat.com>
+References: <20260809095413.150069-1-work@onurozkan.dev> <apib9XCsTNGA3-u3@redhat.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/22NQQ6CMBBFr0Jm7ZhpSQi48h6GRSlTmcQU05YGJ
- dzdiluX7yfv/Q0iB+EIl2qDwFmizL6APlVgJ+PvjDIWBk26IUUdmoSZbZoDRnkzmmAnbJic5s6
- 5dmigmM/ATtajeusLTxKL8DpOsvquv15N+m8vKyQ0SjmqB6Otaa8P8UsKs5f1PDL0+75/AAd6e
- Um6AAAA
-X-Change-ID: 20260109-at-vector-size-arch-6e0f2e9ff8b6
-To: Kees Cook <kees@kernel.org>, Arnd Bergmann <arnd@arndb.de>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
- linux-arch@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-riscv@lists.infradead.org, loongarch@lists.linux.dev, 
- linux-s390@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, 
- linux-mips@vger.kernel.org, sparclinux@vger.kernel.org, 
- linux-sh@vger.kernel.org, linux-alpha@vger.kernel.org, 
- =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>, 
- Paul Walmsley <pjw@kernel.org>, Andy Chiu <andybnac@gmail.com>, 
- Magnus Lindholm <linmag7@gmail.com>
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788421286; l=3129;
- i=thomas.weissschuh@linutronix.de; s=20240209; h=from:subject:message-id;
- bh=3s3XptoE1X5UpOSAIz59e0R0lZLIvWXcerejp7RbE+E=;
- b=XVy2EwXriKXi49fdKmjGDzcDgmWqDqa4Nz8coc0Bonz8f2R5uqRepUP5lWAxCUStMn+bsNf9+
- GanZj2c8Z3BAevBQ7Rcfu7kM1Xymj/tUjcr033fxv07isChfPk+ufoG
-X-Developer-Key: i=thomas.weissschuh@linutronix.de; a=ed25519;
- pk=pfvxvpFUDJV2h2nY0FidLUml22uGLSjByFbM6aqQQws=
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-There is nothing userspace can do with this value. In the kernel is
-always combined with AT_VECTOR_SIZE_BASE, which is not exposed to
-userspace and also changes from time to time.
-
-Move the symbol to kernel-internal headers.
-
-Meant to be applied through the asm-generic or execve tree.
-The default recipient list was huge. I trimmed it to only the
-architecture lists.
-
-Signed-off-by: Thomas Weißschuh <thomas.weissschuh@linutronix.de>
----
-Changes in v2:
-- Rebase on v7.3-rc1.
-- Pick up tags.
-- Link to v1: https://lore.kernel.org/r/20260302-at-vector-size-arch-v1-0-a11f03ba2ca8@linutronix.de
-
----
-Thomas Weißschuh (15):
-      MAINTAINERS: exec: Add more auxvec.h variants
-      auxvec.h: Move AT_VECTOR_SIZE definitions to linux/auxvec.h
-      asm-generic: add an in-kernel auxvec.h header
-      ARM: drop custom asm/auxvec.h
-      x86: Remove AT_VECTOR_SIZE_ARCH from UAPI
-      arm64: Remove AT_VECTOR_SIZE_ARCH from UAPI
-      RISC-V: Remove AT_VECTOR_SIZE_ARCH from UAPI
-      LoongArch: Remove AT_VECTOR_SIZE_ARCH from UAPI
-      s390: Remove AT_VECTOR_SIZE_ARCH from UAPI
-      powerpc: Remove AT_VECTOR_SIZE_ARCH from UAPI
-      MIPS: Remove AT_VECTOR_SIZE_ARCH from UAPI
-      sparc: Remove AT_VECTOR_SIZE_ARCH from UAPI
-      sh: Remove AT_VECTOR_SIZE_ARCH from UAPI
-      alpha: remove AT_VECTOR_SIZE_ARCH from UAPI
-      auxvec.h: Drop fallback AT_VECTOR_SIZE_ARCH
-
- MAINTAINERS                              |  5 +++++
- arch/alpha/include/asm/auxvec.h          |  7 +++++++
- arch/alpha/include/uapi/asm/auxvec.h     |  8 +++-----
- arch/arm/include/asm/auxvec.h            |  1 -
- arch/arm64/include/asm/auxvec.h          |  7 +++++++
- arch/arm64/include/uapi/asm/auxvec.h     |  6 ++----
- arch/loongarch/include/asm/auxvec.h      | 14 ++++++++++++++
- arch/loongarch/include/uapi/asm/auxvec.h |  8 +++-----
- arch/mips/include/asm/auxvec.h           | 17 +++++++++++++++++
- arch/mips/include/uapi/asm/auxvec.h      |  8 +++-----
- arch/powerpc/include/asm/auxvec.h        |  7 +++++++
- arch/powerpc/include/uapi/asm/auxvec.h   |  6 ++----
- arch/riscv/include/asm/auxvec.h          | 13 +++++++++++++
- arch/riscv/include/uapi/asm/auxvec.h     |  2 --
- arch/s390/include/asm/auxvec.h           |  7 +++++++
- arch/s390/include/uapi/asm/auxvec.h      |  6 ++----
- arch/sh/include/asm/auxvec.h             |  7 +++++++
- arch/sh/include/uapi/asm/auxvec.h        |  8 +++-----
- arch/sparc/include/asm/auxvec.h          |  6 ++++++
- arch/sparc/include/uapi/asm/auxvec.h     |  8 +++-----
- arch/x86/include/asm/auxvec.h            | 12 ++++++++++++
- arch/x86/include/uapi/asm/auxvec.h       | 13 +++----------
- include/asm-generic/Kbuild               |  1 +
- include/asm-generic/auxvec.h             |  7 +++++++
- include/linux/auxvec.h                   |  5 +++++
- include/linux/mm_types.h                 |  6 ------
- 26 files changed, 139 insertions(+), 56 deletions(-)
----
-base-commit: 2698961599195990117a0fa240118ecf2f8e7453
-change-id: 20260109-at-vector-size-arch-6e0f2e9ff8b6
-
-Best regards,
---  
-Thomas Weißschuh <thomas.weissschuh@linutronix.de>
-
+On Wed, 02 Sep 2026 17:58:13 -0400=0D
+Brian Masney <bmasney@redhat.com> wrote:=0D
+=0D
+> Hi Onur,=0D
+> =0D
+> On Sun, Aug 09, 2026 at 12:54:04PM +0300, Onur =C3=96zkan wrote:=0D
+> > devm_clk_get_optional_enabled_with_rate() registers its cleanup action=
+=0D
+> > before setting the clock rate. If setting the rate fails, it attempts t=
+o=0D
+> > disable and unprepare a clock that was never enabled. This issue was=0D
+> > spotted while reviewing "rust: clk: add devres-managed clks" [1].=0D
+> > =0D
+> > Register the cleanup action only after successfully preparing and enabl=
+ing=0D
+> > the clock.=0D
+> > =0D
+> > [1]: https://lore.kernel.org/rust-for-linux/20260706-clk-type-state-v5-=
+3-67c5f326a16c@collabora.com=0D
+> > =0D
+> > Fixes: 9934a1bd45b2 ("clk: provide devm_clk_get_optional_enabled_with_r=
+ate()")=0D
+> > Reviewed-by: Brian Masney <bmasney@redhat.com>=0D
+> > Signed-off-by: Onur =C3=96zkan <work@onurozkan.dev>=0D
+> =0D
+> This series no longer applies against the latest clk-next branch. Can you=
+=0D
+> rebase this, and submit a new version? I'll be able to pick it up quickly=
+.=0D
+> =0D
+> Thanks,=0D
+> =0D
+> Brian=0D
+> =0D
+=0D
+Hi Brian,=0D
+=0D
+It seems that the fix has already been applied, but v1 was picked instead o=
+f v2.=0D
+I sent v2 the next day after receiving warnings from the kernel bot [1], at=
+=0D
+which point v1 had not yet been applied anywhere.=0D
+=0D
+[1]: https://lore.kernel.org/all/202608090025.dwxdfqFr-lkp@intel.com=0D
+=0D
+So this patch itself is no longer necessary since the fix is already there.=
+ If=0D
+you still want to get rid of the warnings I can send another patch for it.=
+=0D
+=0D
+- Onur=0D
