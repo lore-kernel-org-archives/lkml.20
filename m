@@ -1,72 +1,54 @@
-Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com [209.85.167.200])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from Chamillionaire.breakpoint.cc (Chamillionaire.breakpoint.cc [91.216.245.30])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E59285478D
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 06:55:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.200
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07C90331ED0;
+	Thu,  3 Sep 2026 06:58:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.216.245.30
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788418510; cv=none; b=qMwaMDJMSvo2mDQLA5pCuuOmbmiSUVlu4WwlhowvbpUp/nTMRN+DxTAfjLyTD+kFCp/2SMDv5GgPqG7J6M72id1J9TilQ0vqZWtZ62GRDaj0yUF6Y5ZEHq72dZEt9VJF0xp37KYefHCM9ItRrKVQ53UV3xsKeXtSzAFNRAtHJ4Q=
+	t=1788418699; cv=none; b=I1AuX+TTPkwS7Cb5RoQ2p2WAwIOFWrmY//O5PcOf0f7tEU8VfiOb+Igp2sWIFj0etR2RbIO3vH33mxlwCt572AiqZCH0jkJEAgMRlQIKY7cpVKLfdASu76r+tE1UCcMN0Rha3m4XZAguUItjQfqWXvR59DKnvRY4bex9hOxueRo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788418510; c=relaxed/simple;
-	bh=No1cHkDz8JoE48rAylEYShi15Y5Fa7Rj8vRDeEt13nQ=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=DqUIoTQspJXw5uSVO+jkvv5Z7sMgkiFQGlcNEMjymG185Jj6jq72UNiB5PeQKzOPLQ8icmgsJzskawON8pUDoMfBFa6jVtTnFhzyBHN2em+RXiYXRmSjErPNoQnwSFpNbI1Ewm77pZkYIP49m3g2PLAIoEfa1Oz/p5FDeYS7/Js=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.200
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f200.google.com with SMTP id 5614622812f47-4b37733badcso2664876b6e.1
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 23:55:07 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788418506; x=1789023306;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=SE+ZuHQS6fXZHug+4iltSFb/rTmBoti6wlPJg5ueiv8=;
-        b=VW0uYsPYC5XYGgZX9nUh1l3uTx/crLIG5jcH6nlmQm9W17DzJja/jjLuBgLw0r7GQi
-         4rPxt/UbzWlgKQMf7tCkQycX6BKiVUORZodjjDn8Fni0SpcCMKqT5MVrIJifgWEui1vl
-         fhooB4VT5aJpL6uBpve955PKA/wKtJFdrLO42b9q+LiE7rs9QggLfhZt+286XIG0ajyb
-         gChAUGiFMrhftGas5QlKiglSlwPBvcsDRDVkEsu3EXKTkRNRkLXErcZ97xRXZEoRwFsm
-         GPrwCE1Deniu3l1crgRW6pML09aV4s2hyJqos8BM5ZkQE/gYRRLgiAAS8pldtnRfaeYP
-         gHnw==
-X-Forwarded-Encrypted: i=1; AKwUvBx0OUeJumBT4FPXW7NUE8mn1iCJk/ByGscK2BcMGEuZvwewnKiNVZcVQ8spAT/10edmn7860sPkjto6P6Y=@vger.kernel.org
-X-Gm-Message-State: AFuF++kOJgrq/cImnAEz9yL/bqpsKVEzXh01bqpKoDzK4w1Hyh+ThJag
-	2oKIFLBpqV01f+rns3fS8slB6P5wKVrtHQFC2qFRBvCpNbmeOpHj5ZNAmHsvV+DHpjZtwKh/HFW
-	wSyKY6FlvJkYltPY4LomOY44Mhv5pC24bt/gi4e0QgAP0Au7r0sFnAWeOVNc=
+	s=arc-20240116; t=1788418699; c=relaxed/simple;
+	bh=jd4g6n0K3Z9u5xj+BbuCKna0mV3cLVe7KwV+/JhTnWk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=vGYpd4ppKC0Sv03liNh6zK0CK30YuWrphazs8/pzC5EKnuPMJCZvcQJvHMqimc2D2vukisCrSG72mDAUD9/GO7HjaEV8EQWsx/xyt/eMMd8ERyrwgVnjlnQF4GAzcDryqQc79yn8lcQxKXqDT1Y8Ukj1bJvCEWlrdDHLAOcYl80=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=strlen.de; spf=pass smtp.mailfrom=strlen.de; arc=none smtp.client-ip=91.216.245.30
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=strlen.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=strlen.de
+Received: by Chamillionaire.breakpoint.cc (Postfix, from userid 1003)
+	id 76E5C6032B; Thu, 03 Sep 2026 08:58:15 +0200 (CEST)
+Date: Thu, 3 Sep 2026 08:58:15 +0200
+From: Florian Westphal <fw@strlen.de>
+To: zihan xi <zihanx@nebusec.ai>
+Cc: Pablo Neira Ayuso <pablo@netfilter.org>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Phil Sutter <phil@nwl.cc>, Simon Horman <horms@kernel.org>,
+	netfilter-devel@vger.kernel.org, netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org, coreteam@netfilter.org,
+	stable@vger.kernel.org, Vega <vega@nebusec.ai>
+Subject: Re: [PATCH nf 1/1] netfilter: nf_dup: prevent asynchronous duplicate
+ recursion
+Message-ID: <apkahwSdQhuE6gRV@strlen.de>
+References: <cover.1787903722.git.zihanx@nebusec.ai>
+ <8e45ea5d0cf764267a90d959fa40f0f831aabf08.1787903722.git.zihanx@nebusec.ai>
+ <apKl65BbdyWCtre7@strlen.de>
+ <CAANe3eT8ycDkomgpzZmni7hMrUX1fr2dE4QvQOcKCPEcw=J=2A@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:4de3:b0:6b1:c181:9386 with SMTP id
- 006d021491bc7-6b47efeea96mr8387817eaf.29.1788418506127; Wed, 02 Sep 2026
- 23:55:06 -0700 (PDT)
-Date: Wed, 02 Sep 2026 23:55:06 -0700
-In-Reply-To: <CAEe5be69a2xT7z7pn8c9Fqex2u2VJTn-3jsuZn7ZcVeiuEBsYQ@mail.gmail.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6a9919ca.0b659fcc.16ebfd.0001.GAE@google.com>
-Subject: Re: [syzbot] [usb?] general protection fault in bus_remove_device
-From: syzbot <syzbot+87188222c77c0dbbdb4d@syzkaller.appspotmail.com>
-To: khiemtranzo532001@gmail.com, linux-kernel@vger.kernel.org, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAANe3eT8ycDkomgpzZmni7hMrUX1fr2dE4QvQOcKCPEcw=J=2A@mail.gmail.com>
 
-Hello,
+zihan xi <zihanx@nebusec.ai> wrote:
+> If you do prefer to keep a small nf_dup-only change, I can prepare either:
+> 
+> 1. disable IPv4/IPv6 dup in network namespaces owned by a non-initial user
+>    namespace; or
 
-syzbot tried to test the proposed patch but the build/boot failed:
-
-failed to apply patch:
-error: corrupt patch at line 6
-
-
-
-Tested on:
-
-commit:         940de590 Merge tag 'hardening-v7.3-rc2' of git://git.k..
-git tree:       upstream
-kernel config:  https://syzkaller.appspot.com/x/.config?x=1d67342c314f228d
-dashboard link: https://syzkaller.appspot.com/bug?extid=87188222c77c0dbbdb4d
-compiler:       
-patch:          https://syzkaller.appspot.com/x/patch.diff?x=17551f79580000
-
+I think this is the better option, someone would have to explain
+the use-case for DUP in a user netns.
