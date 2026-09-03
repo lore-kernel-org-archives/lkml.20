@@ -1,102 +1,111 @@
-Received: from mta0.migadu.com (out-65.mta0.migadu.com [91.218.175.65])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from esa2.hc555-34.eu.iphmx.com (esa2.hc555-34.eu.iphmx.com [23.90.104.147])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23274349CFF
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 05:37:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.65
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7B753446CE;
+	Thu,  3 Sep 2026 05:38:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=23.90.104.147
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788413850; cv=none; b=MFSaYJV4NmVzufJNZV3PQfxvWp8pP6N+O1nBCS6Y86QSk6GRzWP4BVZXaIAGK7wqWOa80VpxescJqy4wVvJYwJNdO9q56dNOOkRg6KAnwmdzIWwXSB4JfZZJEOFOLghiPdmAt/G7csfgysOo7fmOeFdHYtvGfzDFdj+9JnBjgmE=
+	t=1788413933; cv=none; b=ALCUEAzI1CUF8zxAw6SRaKQ1a7W2GdE50jFF1NSWgQ/lLqGqWOb+FQV5D52Fujd+h30i8mTZPSETLQjVRJ7M29OcDZxKdXyDQx788JI86X5b2HyGbs3IsdsWW74yU9CjaQEJWeGXUYx0jwAu2lt+1FyVwCXM5jwI+TPAX95pVjg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788413850; c=relaxed/simple;
-	bh=GUra9Sz1ZsJBvBMzdUk5ZKkwM32xrfNY9UlZVLF9CBw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=dsNmSJMKoCWygOvvh6oNbU2Ep91P4QLfd27rByhwKVF7eUB0IOMcnMQxRV7TsSNpoebXWdqaLwZX/OYRL+DAfs9oQZ5xODEPd46cSUGYpS7SlpafPqO8ePSAk80rkYkThwHp8QAdxyUxQV/w1n6F86Y2UujTAfS1tA0eVpDcR8Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=U+r/bmwK; arc=none smtp.client-ip=91.218.175.65
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1788413933; c=relaxed/simple;
+	bh=nlZNbwIyTEpADUlhze0eaVgSfFmoT/5b05U10+WjG/M=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=UOU6eq5JL9FMbEu4jNCKQef50bvvGXMEQTNN2FpX8FGlvfJCr/tnDsoCfopQu09JAYQwyAPEXgjivpAi4Quw9gKkiKnygjoBkc9z5bJMZnbp13sWNl9YXHVirjpfvobFJirUgI93IwN49tcdAeVarvcB5zhhoI1c1IFqetFaf50=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mobileye.com; spf=pass smtp.mailfrom=mobileye.com; dkim=fail (0-bit key) header.d=mobileye.com header.i=@mobileye.com header.b=PngKJ1Vv reason="key not found in DNS"; arc=none smtp.client-ip=23.90.104.147
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mobileye.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mobileye.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="U+r/bmwK"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=GUra9Sz1ZsJBvBMzdUk5ZKkwM32xrfNY9UlZVLF9CBw=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788413847; v=1; x=1789018647;
- b=U+r/bmwKHwc/2GSw7taX7xlq3WSkSI+ubK/Wigo/T0FnELu45/VTHFyl1R8Yr7Id+JzIIoUM
- 3n7Uh6ZtdnaZU67OFM3qJhReq6IACfmrxbO0skZpFFHbuVwC+Uhu/5u9zTNU32azQ82/uLf9JnT
- 0Szm+LxFR3lGsCUKg2XXCiPg=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 34ba9696c4835a6b;
-	Thu, 03 Sep 2026 05:37:27 +0000
-X-Mizu-Trace-ID: 34ba9696c4835a6b
-X-Migadu-Flow: FLOW_OUT
-Date: Wed, 2 Sep 2026 22:37:21 -0700
-From: Shakeel Butt <shakeel.butt@linux.dev>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Tejun Heo <tj@kernel.org>, Christian Brauner <christian@brauner.io>, 
-	Meta kernel team <kernel-team@meta.com>, linux-kselftest@vger.kernel.org, driver-core@lists.linux.dev, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/3] kernfs: take kernfs_rename_lock for same-parent
- renames too
-Message-ID: <20260903053226.GA15581@shakeel.butt@linux.dev>
-References: <20260903040253.670020-1-shakeel.butt@linux.dev>
- <2026090330-cytoplasm-resilient-900b@gregkh>
+	dkim=fail reason="key not found in DNS" (0-bit key) header.d=mobileye.com header.i=@mobileye.com header.b="PngKJ1Vv"
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=mobileye.com; i=@mobileye.com; q=dns/txt; s=MoEyIP;
+  t=1788413929; x=1819949929;
+  h=from:date:subject:mime-version:content-transfer-encoding:
+   message-id:references:in-reply-to:to:cc;
+  bh=nlZNbwIyTEpADUlhze0eaVgSfFmoT/5b05U10+WjG/M=;
+  b=PngKJ1Vv61tC69Ymm2HzSHKL+qI/uFA7l7VZo7VvSFnRnwcpwy+8lpJ9
+   5zdGOHQJxe610zFdy7vvT8/abzyq938Ss7UVNTNtlU2U21ekxk8X5592p
+   pC17+JrYjTxob3fUABgGzZoywm8QQKCYP2Fm+Ar/QZ+EhjwQ+5likzACJ
+   8A7/2eCvG8OB/p9Zy6PO3un+zFqGJxGXLtJmz1s0PsDQwdNiiOoCk7CdN
+   hwBwxT+lmGVCZ+75Or0u+UW2R6xyjPm5TtmZvHMq8/sQt44j89nXpjaOf
+   nJW0/T+ztsQSrwod1gFIaKcsTfSTk0j06S1/A8H7JKuv0RtaFa5/CDz3U
+   g==;
+X-CSE-ConnectionGUID: WLsDcoMiRqeta1S+3AaaXA==
+X-CSE-MsgGUID: qPMyAe9NRcqGeLolwasNGw==
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from unknown (HELO ces03_data.me-corp.lan) ([146.255.191.134])
+  by esa2.hc555-34.eu.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Sep 2026 08:38:42 +0300
+X-CSE-ConnectionGUID: abxc5S9CQ2SBHX1Nd2NPmw==
+X-CSE-MsgGUID: ZuKQV8clSlyTOQVNKYtjJA==
+Received: from unknown (HELO epgd056.me-corp.lan) ([10.154.54.3])
+  by ces03_data.me-corp.lan with SMTP; 03 Sep 2026 08:45:09 +0300
+Received: by epgd056.me-corp.lan (sSMTP sendmail emulation); Thu, 03 Sep 2026 08:38:41 +0300
+From: Dmitry Guzman <Dmitry.Guzman@mobileye.com>
+Date: Thu, 03 Sep 2026 08:38:12 +0300
+Subject: [PATCH v2 05/12] i2c: nomadik: change print level for fault
+ messages to debug
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <2026090330-cytoplasm-resilient-900b@gregkh>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260903-i2c-fault-reporting-v2-5-fedeb91792e6@mobileye.com>
+References: <20260903-i2c-fault-reporting-v2-0-fedeb91792e6@mobileye.com>
+In-Reply-To: <20260903-i2c-fault-reporting-v2-0-fedeb91792e6@mobileye.com>
+To: Andi Shyti <andi.shyti@kernel.org>, 
+ Steven Rostedt <rostedt@goodmis.org>, 
+ Masami Hiramatsu <mhiramat@kernel.org>, 
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
+ Linus Walleij <linusw@kernel.org>, 
+ Mika Westerberg <mika.westerberg@linux.intel.com>, 
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Cc: linux-i2c@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-trace-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ =?utf-8?q?Beno=C3=AEt_Monin?= <benoit.monin@bootlin.com>, 
+ Dmitry Guzman <Dmitry.Guzman@mobileye.com>
+X-Mailer: b4 0.14.2
 
-On Thu, Sep 03, 2026 at 06:31:58AM +0200, Greg Kroah-Hartman wrote:
-> On Wed, Sep 02, 2026 at 09:02:51PM -0700, Shakeel Butt wrote:
-> > kernfs_rename_ns() only takes kernfs_rename_lock when the rename moves
-> > the node to a new parent.  A rename that keeps the same parent, like
-> > renaming a network interface, changes kernfs_node::name with only
-> > kernfs_rwsem held.  So the lock protects ->__parent but not ->name, and
-> > a reader that wants a stable name has to take kernfs_rwsem, the same
-> > lock every path lookup needs.
-> > 
-> > That also makes for a small but real bug.  kernfs_path_from_node()
-> > takes kernfs_rename_lock for reading, and kernfs_path_from_node_locked()
-> > then reads the name of each ancestor.  It reads each one once, so a
-> > single same-parent rename only moves the answer from the old path to the
-> > new one, but two of them landing inside one walk build a path that never
-> > existed:
-> > 
-> >   CPU0                                   CPU1
-> >   kernfs_path_from_node() on /a/b/c
-> >     reads the name of a, gets "a"
-> >                                          renames a to a2
-> >                                          renames b to b2
-> >     reads the name of b, gets "b2"
-> >     returns "/a/b2/c"
-> > 
-> > This hits roots without KERNFS_ROOT_INVARIANT_PARENT: sysfs, where the
-> > bad path can reach sysfs_warn_dup() and pr_cont_kernfs_path(), and
-> > resctrl, which renames a mon group inside its mon_groups directory.
-> > cgroup sets the flag, so it skips the lock and reads names under RCU
-> > alone; that case needs something else and is not addressed here.
-> > 
-> > So take the lock in both cases, and let kernfs_rcu_name() accept it the
-> > way kernfs_parent() already does for ->__parent.  Same-parent renames
-> > are rare, the lock is per filesystem, and the locked section is at most
-> > three stores.  It also gives a future rename sequence counter one place
-> > to sit that covers every rename.
-> > 
-> > Fixes: 741c10b096bc ("kernfs: Use RCU to access kernfs_node::name.")
-> > Signed-off-by: Shakeel Butt <shakeel.butt@linux.dev>
-> > ---
-> >  fs/kernfs/dir.c             | 28 +++++++++++++++-------------
-> >  fs/kernfs/kernfs-internal.h |  9 ++++++++-
-> >  2 files changed, 23 insertions(+), 14 deletions(-)
-> 
-> How was this found and tested?  Did you forget an Assisted-by: tag?
+i2c-nomadik driver prints error message on every faulted message. This
+is not a good practice, because in I2C a fault not always is an error,
+sometimes it is the expected result. For example, scanning bus with
+`i2cdetects` prints over 100 messages in dmesg (two messages per each
+target address).
 
-I am working on a series to improve kernfs_rwsem and going through
-review-prompt with AI to review my series and these were existing 
-issues AI found. I have created reproducers with AI for these and
-tested that these patches those.
+To avoid excessive prints in the log, change the print level from err to
+debug.
+
+Reviewed-by: Linus Walleij <linusw@kernel.org>
+Signed-off-by: Dmitry Guzman <Dmitry.Guzman@mobileye.com>
+---
+ drivers/i2c/busses/i2c-nomadik.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/i2c/busses/i2c-nomadik.c b/drivers/i2c/busses/i2c-nomadik.c
+index a3cef4b66190a9e45898e25867a3ceefce5d3d0a..9c7658148bd45ecdaef1f998558315580233555d 100644
+--- a/drivers/i2c/busses/i2c-nomadik.c
++++ b/drivers/i2c/busses/i2c-nomadik.c
+@@ -627,7 +627,7 @@ static int write_i2c(struct nmk_i2c_dev *priv, u16 flags)
+ 
+ 	if (!xfer_done) {
+ 		/* Controller timed out */
+-		dev_err(&priv->adev->dev, "write to slave 0x%x timed out\n",
++		dev_dbg(&priv->adev->dev, "write to slave 0x%x timed out\n",
+ 			priv->cli.slave_adr);
+ 		status = -ETIMEDOUT;
+ 	}
+@@ -661,7 +661,7 @@ static int nmk_i2c_xfer_one(struct nmk_i2c_dev *priv, u16 flags)
+ 		i2c_sr = readl(priv->virtbase + I2C_SR);
+ 		if (FIELD_GET(I2C_SR_STATUS, i2c_sr) == I2C_ABORT) {
+ 			cause = FIELD_GET(I2C_SR_CAUSE, i2c_sr);
+-			dev_err(&priv->adev->dev, "%s\n",
++			dev_dbg(&priv->adev->dev, "%s\n",
+ 				cause >= ARRAY_SIZE(abort_causes) ?
+ 				"unknown reason" :
+ 				abort_causes[cause]);
+
+-- 
+2.43.0
 
