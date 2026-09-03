@@ -1,242 +1,300 @@
-Received: from mail.parknet.co.jp (mail.parknet.co.jp [210.171.160.6])
+Received: from relay2-d.mail.gandi.net (relay2-d.mail.gandi.net [217.70.183.194])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFBC94AC171
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 13:07:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.171.160.6
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E11324A840C;
+	Thu,  3 Sep 2026 13:08:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.70.183.194
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788440885; cv=none; b=PWOllvNmDHFiwGLmd01brZF/eh+mlD5fi0rwXoTNMwcTmSyOwnXfsyFjFG4nfBfwBBKb6D4dhOMNnZmMh6nI71U3z24Y9gyH07SoU/Ftk7EaRDtE5ZJoJXqdyBIy3rJ9/gXEq3ozaVO4GYlxpDI4sP+qE6q1b7WDf1JPk8zPVsw=
+	t=1788440927; cv=none; b=nvQrH/2u59WpTDvSchocawAsVwC6uJefINCcR0AoIhZ1CI3E3Z1xVaVWpUtdn+FGrO4hh+Y1/TqvnZmDmxG1dFBc5EPhFBf1W2h6amaLuGu9QaGXUR+cA3sIa0bQwDvM9VvkKQ1xwZcJqM0ts+D4RQ3i3pFJPHGzwGBoott6cqc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788440885; c=relaxed/simple;
-	bh=1v7KX+C+tu2AqnQKZ695+6Gpsh2RG2eu61erNbbBFhI=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=u/oZm2ViA0dDXEZv/ig+ckrfBy7b8fJAo03zbol/28ysQdyxT0tBrE2DAo+5gAeYk6i66a8Yv/8SXwCRXyxnH0rxUltKsKDn4f+k/55Gob4Y8Bvx82ZfzR3AROzWldskPenFuBEnrgxBRewKQ/0JsOdUEVQdRxqKfk8Kd55uFEg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mail.parknet.co.jp; spf=pass smtp.mailfrom=parknet.co.jp; dkim=pass (2048-bit key) header.d=parknet.co.jp header.i=@parknet.co.jp header.b=b8wOpEAh; dkim=permerror (0-bit key) header.d=parknet.co.jp header.i=@parknet.co.jp header.b=BpIcMdXj; arc=none smtp.client-ip=210.171.160.6
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mail.parknet.co.jp
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=parknet.co.jp
+	s=arc-20240116; t=1788440927; c=relaxed/simple;
+	bh=B7gP3NvBRh0rhjmEr6G22KSrhqGQckl4vySMbPcxqsU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=hm6/Og/EMD3oKrgNtVRLSUCyoqpcvPz1TaC229zXZNVzYS80hdrHJtig1HUXCnXDVMsxfkt+gP8SdLpYryS6P2NSDIaLbxIe2OGx4gixtXztq9sqLQ1PTRn8vs1DD/D9f3/wPzNHnxAp9XzKJiwReYdJHNSu37/Dhy4K8Wze974=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=marmottus.net; spf=pass smtp.mailfrom=marmottus.net; dkim=pass (2048-bit key) header.d=marmottus.net header.i=@marmottus.net header.b=I8h9zvhq; arc=none smtp.client-ip=217.70.183.194
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=marmottus.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=marmottus.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=parknet.co.jp header.i=@parknet.co.jp header.b="b8wOpEAh";
-	dkim=permerror (0-bit key) header.d=parknet.co.jp header.i=@parknet.co.jp header.b="BpIcMdXj"
-Received: from ibmpc.myhome.or.jp (server.parknet.ne.jp [210.171.168.39])
-	by mail.parknet.co.jp (Postfix) with ESMTPSA id F035126F76A0;
-	Thu,  3 Sep 2026 22:07:47 +0900 (JST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=parknet.co.jp;
-	s=20250114; t=1788440868;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	dkim=pass (2048-bit key) header.d=marmottus.net header.i=@marmottus.net header.b="I8h9zvhq"
+Received: by mail.gandi.net (Postfix) with ESMTPSA id 27B033EB9F;
+	Thu,  3 Sep 2026 13:08:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=marmottus.net;
+	s=gm1; t=1788440904; h=from:from:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=Ip+eNZuGNEyfB9bWU2A3VV4XQHzqkbqxrO5K29H1sy8=;
-	b=b8wOpEAhTz52TKCmKQTzDStvcMK9Ee2H1wtI62QM+vbVWb8NrlmAW3khNv90unDRScLgU1
-	HfkJGGjP3x4QsU0M5E0BTcYsf2Jvkq7cQbKQnXCs5T3VAb8ryz8uZDNQXkAhP79SLAevOV
-	JsE9dS7x78lzYQ7/lCDDCxfq0y4+LjIGRsY3ZgUugyuCtnjR94ot1ZYb7qbVGVBVxPadz9
-	eAGb9wc44i0C9OD4nn2k26S1Di9XO9pn4SACFUonol1NRuftffDCWrJKYVRCHFJuFmFpC7
-	m1deh0/f4XEbt1rPz+dyPBRroaf8u6XR2XgTT7LmfKWFZ9vlg5aCmVFi3QcIcw==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=parknet.co.jp;
-	s=20250114-ed25519; t=1788440868;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Ip+eNZuGNEyfB9bWU2A3VV4XQHzqkbqxrO5K29H1sy8=;
-	b=BpIcMdXj9vfqK728bs0nDaAnVfE2vsM/qjrT40lmA3g5LIeRD1lMgwEdzSAtlOTppm4VwG
-	glje+3Sqk68BqsBQ==
-Received: from devron.myhome.or.jp (devron.myhome.or.jp [192.168.0.3])
-	by ibmpc.myhome.or.jp (Postfix) with ESMTPS id 6F69EE0050C;
-	Thu, 03 Sep 2026 22:07:47 +0900 (JST)
-Received: by devron.myhome.or.jp (Postfix, from userid 1000)
-	id 66A112200237; Thu, 03 Sep 2026 22:07:47 +0900 (JST)
-From: OGAWA Hirofumi <hirofumi@mail.parknet.co.jp>
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: hengyul@cs.unc.edu, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3] fat: calculate data area start without overflow
-In-Reply-To: <20260902170115.4162222-1-hengyul@cs.unc.edu>
-References: <20260902170115.4162222-1-hengyul@cs.unc.edu>
-Date: Thu, 03 Sep 2026 22:07:47 +0900
-Message-ID: <87o6eejxek.fsf@mail.parknet.co.jp>
-User-Agent: Gnus/5.13 (Gnus v5.13)
+	bh=ezftVVWjg4mTK3jr/ZWAuNM0boK7VeRLMet+FZYTEIg=;
+	b=I8h9zvhq07zCES0kkREqe2quRwg8DIpCkgMEBT8hk8GA9mxMwlNphKcOK7m0+O0P9BuWGr
+	Bw7MXFlUP+XVoGZQ77UuO9GJfG0GGGJsEjX2FdG+rtUlacV0EK4iYwki51h327CpNfNy3c
+	GeX8rvi/JE/ImkcylQU1BZTkpVWyu+fWnqWucFm8bLiAn5xviaHY8x6ekDVLsFPkw8WqAo
+	gGEZP5qNKz3hlmG8fBrFehxN71sSt6W3aeXp+kFSfdjhNTJFd1YEeuO2/ii0WZFGcUFhrA
+	I4uKCVrNx3g+w3ekAIb1VvDQYSZqCwYW2jvOGjcRdhwne4bRTiskHoEJKu0dNA==
+Date: Thu, 3 Sep 2026 15:08:20 +0200
+From: Arthur Crepin Leblond <arthur@marmottus.net>
+To: netdev-bot+sashiko@kernel.org
+Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+	kuba@kernel.org, pabeni@redhat.com, robh@kernel.org,
+	krzk+dt@kernel.org, conor+dt@kernel.org, arnd@arndb.de,
+	netdev@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [net-next,v6,3/3] w5100: detect carrier state using link status
+ bit and optional interrupt
+Message-ID: <20260903130820.GA21664@marmottus.net>
+Reply-To: arthur@marmottus.net
+References: <20260831-wiznet-link-gpio-v6-3-abee6c5c966e@marmottus.net>
+ <178839696443.3394541.11998106403165239318@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <178839696443.3394541.11998106403165239318@kernel.org>
+X-GND-Sasl: arthur@marmottus.net
+X-GND-Score: 0
+X-GND-Cause: dmFkZTFN9/iVgFO0LR/rgx/+R/0XfJacygIZvmGlzeXxQuFPVoK8LUoPUEvJqepmnWLKhWKR1gJMVlovry/3niCx4teN7dlqx5f72f1njn1ToMYuInFpAklslcFZrof12Cj6Gn6mqpImlOsvPbsgVQ5B8DhGYDCnc0DVwgvhh0/nBZaXhbJL+cQTWmDv8SCKTWyoW8h6iNNsHZ8CMuAh66MxeodOf2M8ARp+KtsUzx9hcRrNvTnbbxZ9Lps10ACPQ7t8Qg7FD3fVZg3UnluR9UClgXOTu2PKFaXz1T7jdNSuOevXzFMNOp4h9QStZNUY+LI0KWpwOR7mX6YYA9qETJiUcVvMhUugQ3dWYlK884RMjdquiwI3WxtZEnqxWEBa7tMZxlkW9+hOSnyEcSaYb/N2e0bEYyu2ot3gEikqRESjas102ktBwLz7gKDlgk3euJ+pnKHe1wqE7k5m7RtDb0zbyD5rxGxsnX5s7Y43zLoTs7IFSBcO9Mo50OP7pObKkp8RJhaFPRh5LzuZs5U6qg7Rab46OiqZjif0TC11Szq/GgfvSZ/HUCPxDGu9/t1YZH57BAnl5TMrP90NS2BJbLgdXTH9eZcjT+HCrjfAND5MhxEh8PoJQ3sM7YuzNPpAagbQ5plm0wky0LMqodz6zNmspsBCBvGog6s6WPMAeeLDV89uPg
+X-GND-State: clean
 
-hengyul@cs.unc.edu writes:
+On Thu, Sep 03, 2026 at 12:56:04AM +0000, netdev-bot+sashiko@kernel.org wrote:
+>> +static int w5500_get_phycfgr_lnk(struct net_device *ndev)
+>> +{
+>> +	struct w5100_priv *priv = netdev_priv(ndev);
+>> +	int ret = w5100_read(priv, W5500_PHYCFGR);
+>> +
+>> +	if (ret < 0) {
+>> +		netif_err(priv, link, ndev,
+>> +			  "failed to read link status: %d\n", ret);
+>> +		return 0;
+>> +	}
+>> +
+>> +	return ret & PHYCFGR_LNK;
+>> +}
+>
+>[Severity: Medium]
+>
+>Returning 0 on a failed read makes a bus error indistinguishable from a
+>genuine LNK=0 for every caller.  For the w5500, w5100_read() ends up in
+>w5500_spi_read():
+>
+>drivers/net/ethernet/wiznet/w5100-spi.c:w5100_spi_read() {
+>	ret = spi_write_then_read(spi, cmd, sizeof(cmd), &data, 1);
+>
+>	return ret ? ret : data;
+>}
+>
+>so negative returns are reachable (spi_write_then_read() can fail with
+>-ENOMEM on its internal buffer, or with any controller error).
+>
+>If that happens once inside w5100_open(), the else branch latches
+>netif_carrier_off(); inside w5100_resume() it just skips netif_carrier_on()
+>and the carrier stays off.  After that, the only code that ever touches the
+>carrier again is w5500_detect_link(), which runs on a LINKLED edge only, so
+>if the cable is left plugged in does the interface stay carrier-down for the
+>rest of its lifetime with no retry or re-read anywhere?
+>
+>Would returning the error to the callers, and leaving the carrier state
+>unchanged on a failed read, be preferable?
 
-> From: Hengyu Liang <hengyul@cs.unc.edu>
->
-> On 32-bit architectures, sbi->fat_length, sbi->dir_start and
-> sbi->data_start are unsigned long. The number of FATs is an 8-bit BPB
-> field, while the FAT32 length is a 32-bit BPB field. Therefore, the
-> calculation
->
->     sbi->fat_start + sbi->fats * sbi->fat_length
->
-> can wrap before data_start is checked against total_sectors.
->
-> For example, with fat_start=32, fats=2 and fat_length=0x80000001,
-> the unwrapped data area start is 0x100000022 (4294967330), but the
-> calculation wraps to 34 on i386. With total_sectors=36, the
-> validation then incorrectly passes.
->
-> The following script creates an image that demonstrates the problem:
->
->     python3 - <<'PY'
->     import struct
->
->     S = 512
->     b = bytearray(36 * S)
->
->     def p(off, fmt, value):
->         struct.pack_into(fmt, b, off, value)
->
->     # FAT32 BPB
->     b[0:3] = b'\xeb\x58\x90'
->     b[3:11] = b'MSWIN4.1'
->     p(11, '<H', 512)
->     b[13] = 1
->     p(14, '<H', 32)             # reserved sectors
->     b[16] = 2                   # number of FATs
->     p(17, '<H', 0)
->     p(19, '<H', 0)
->     b[21] = 0xf8
->     p(22, '<H', 0)
->     p(24, '<H', 1)
->     p(26, '<H', 1)
->     p(32, '<I', 36)             # total sectors
->     p(36, '<I', 0x80000001)     # FAT32 length
->     p(44, '<I', 2)              # root cluster
->     p(48, '<H', 1)              # FSINFO sector
->     b[64] = 0x80
->     b[66] = 0x29
->     p(67, '<I', 0x12345678)
->     b[71:82] = b'OVERFLOW   '
->     b[82:90] = b'FAT32   '
->     b[510:512] = b'\x55\xaa'
->
->     # FSINFO
->     p(S, '<I', 0x41615252)
->     p(S + 484, '<I', 0x61417272)
->     p(S + 488, '<I', 0xffffffff)
->     p(S + 492, '<I', 0xffffffff)
->
->     # Wrapped FAT starts at sector 32
->     fat = 32 * S
->     p(fat + 8, '<I', 0x0fffffff)   # FAT[2]
->     p(fat + 12, '<I', 0x0fffffff)  # FAT[3]
->
->     # Wrapped data_start == 34
->     root = 34 * S
->     b[root:root + 11] = b'ESCAPE  TXT'
->     b[root + 11] = 0x20
->     p(root + 26, '<H', 3)
->     p(root + 28, '<I', 4)
->     b[35 * S:35 * S + 4] = b'OOB!'
->
->     open('fat-overflow.img', 'wb').write(b)
->     PY
->
-> Attach fat-overflow.img as /dev/sdb and run:
->
->     mount -t vfat -o ro /dev/sdb /mnt
->     cat /mnt/ESCAPE.TXT
->
-> On an unpatched i386 kernel, the mount succeeds and reading the file
-> returns:
->
->     OOB!
->
-> On an x86-64 kernel and on a patched i386 kernel, mounting is rejected
-> with:
->
->     mount: mounting /dev/sdb on /mnt failed: Invalid argument
->
-> Calculate dir_start and data_start in u32 using
-> check_mul_overflow() and check_add_overflow(). Since total_sectors is
-> also a u32 value, any result that overflows u32 cannot describe a valid
-> volume. Reject such layouts before storing the values in the existing
-> unsigned long fields. The existing total_sectors check handles values
-> that fit in u32 but still lie beyond the volume.
->
-> Signed-off-by: Hengyu Liang <hengyul@cs.unc.edu>
+Good point, I can propagate the error and handle it in the caller and
+leave the carrier state unchanged.
 
-Thank you. Looks good.
+>One more note on the diagnostic: priv->msg_enable is never initialised in
+>w5100_probe() (the priv area comes from the zeroed alloc_etherdev()) and the
+>only writer is w5100_set_msglevel(), so netif_msg_link(priv) is false by
+>default and this netif_err() prints nothing unless the message level was
+>raised beforehand.
 
-Acked-by: OGAWA Hirofumi <hirofumi@mail.parknet.co.jp>
+I guess it would be up to the userland to decide if they want to have
+error messages enabled?
 
-> ---
-> Changes in v3:
-> - Keep the multiplication check on one line for readability.
-> - Report overflow before rejecting the volume.
+>> @@ -659,6 +705,15 @@ static int w5100_open(struct net_device *ndev)
+>>  	w5100_hw_start(priv);
+>>  	napi_enable(&priv->napi);
+>>  	netif_start_queue(ndev);
+>> +
+>> +	if (priv->link_irq < 0 || w5100_get_link(ndev))
+>> +		netif_carrier_on(ndev);
+>> +	else
+>> +		netif_carrier_off(ndev);
 >
->  fs/fat/inode.c | 23 +++++++++++++++++------
->  1 file changed, 17 insertions(+), 6 deletions(-)
+>[Severity: Medium]
 >
-> diff --git a/fs/fat/inode.c b/fs/fat/inode.c
-> index f775a004cae1..0b0bbe777842 100644
-> --- a/fs/fat/inode.c
-> +++ b/fs/fat/inode.c
-> @@ -20,6 +20,7 @@
->  #include <linux/blkdev.h>
->  #include <linux/backing-dev.h>
->  #include <linux/unaligned.h>
-> +#include <linux/overflow.h>
->  #include <linux/random.h>
->  #include <linux/iversion.h>
->  #include <linux/fs_struct.h>
-> @@ -1577,6 +1578,7 @@ int fat_fill_super(struct super_block *sb, struct fs_context *fc,
->  	struct msdos_sb_info *sbi;
->  	u16 logical_sector_size;
->  	u32 total_sectors, total_clusters, fat_clusters, rootdir_sectors;
-> +	u32 dir_start, data_start;
->  	long error;
->  	char buf[50];
->  	struct timespec64 ts;
-> @@ -1752,7 +1754,6 @@ int fat_fill_super(struct super_block *sb, struct fs_context *fc,
->  	sbi->dir_per_block = sb->s_blocksize / sizeof(struct msdos_dir_entry);
->  	sbi->dir_per_block_bits = ffs(sbi->dir_per_block) - 1;
->  
-> -	sbi->dir_start = sbi->fat_start + sbi->fats * sbi->fat_length;
->  	sbi->dir_entries = bpb.fat_dir_entries;
->  	if (sbi->dir_entries & (sbi->dir_per_block - 1)) {
->  		if (!silent)
-> @@ -1763,20 +1764,30 @@ int fat_fill_super(struct super_block *sb, struct fs_context *fc,
->  
->  	rootdir_sectors = sbi->dir_entries
->  		* sizeof(struct msdos_dir_entry) / sb->s_blocksize;
-> -	sbi->data_start = sbi->dir_start + rootdir_sectors;
-> +	if (check_mul_overflow(sbi->fats, sbi->fat_length, &dir_start) ||
-> +	    check_add_overflow(sbi->fat_start, dir_start, &dir_start) ||
-> +	    check_add_overflow(dir_start, rootdir_sectors, &data_start)) {
-> +		if (!silent)
-> +			fat_msg(sb, KERN_ERR,
-> +				"overflow of root dir or data layout");
-> +		goto out_invalid;
-> +	}
-> +
->  	total_sectors = bpb.fat_sectors;
->  	if (total_sectors == 0)
->  		total_sectors = bpb.fat_total_sect;
->  
-> -	if (total_sectors < sbi->data_start) {
-> +	if (total_sectors < data_start) {
->  		if (!silent)
->  			fat_msg(sb, KERN_ERR,
-> -				"data area starts beyond volume (%lu > %u)",
-> -				sbi->data_start, total_sectors);
-> +				"data area starts beyond volume (%u > %u)",
-> +				data_start, total_sectors);
->  		goto out_invalid;
->  	}
->  
-> -	total_clusters = (total_sectors - sbi->data_start) / sbi->sec_per_clus;
-> +	sbi->dir_start = dir_start;
-> +	sbi->data_start = data_start;
-> +	total_clusters = (total_sectors - data_start) / sbi->sec_per_clus;
->  
->  	if (!is_fat32(sbi))
->  		sbi->fat_bits = (total_clusters > MAX_FAT12) ? 16 : 12;
+>Since || short-circuits, w5100_get_link() is not called at all when link_irq
+>is negative and the carrier is unconditionally turned on.  The ethtool
+>callback added just above, however, keys on the chip id rather than on
+>link_irq:
+>
+>	if (priv->ops->chip_id == W5500)
+>		return w5500_get_phycfgr_lnk(ndev);
 >
 
--- 
-OGAWA Hirofumi <hirofumi@mail.parknet.co.jp>
+Again, good catch! One could setup the w5500 without the link IRQ but
+still use the PHCFGR register for the carrier state.
+
+>> +
+>> +	if (priv->link_irq >= 0)
+>> +		enable_irq(priv->link_irq);
+>
+>[Severity: Medium]
+>
+>The link bit is sampled and the carrier committed before the LINKLED source
+>is armed here.  The interrupt is requested with IRQF_NO_AUTOEN, so this
+>first enable_irq() is what performs irq_startup(); can an edge that arrives
+>between the PHYCFGR read (an SPI transfer) and enable_irq() be dropped
+>rather than replayed by check_irq_resend()?
+>
+>w5100_resume() has the same order, right after w5100_hw_reset() /
+>w5100_hw_start() where the PHY renegotiates, which looks like a spot where a
+>link-up edge is likely to land in the window.
+>
+>Since w5500_detect_link() also writes the carrier from its own PHYCFGR
+>sample, with no lock in common with open/resume, would swapping these two
+>statements be sufficient on its own, or does the "sample plus carrier
+>update" pair need serializing against the handler (or a re-sample after
+>enable_irq())?
+>
+>If a transition is lost here, the carrier stays stale until the next
+>physical link change.
+
+Chances are probably low but I can enable the irq after the get_link
+check.
+
+>> @@ -820,14 +902,20 @@ void w5100_remove(struct device *dev)
+>>  	struct net_device *ndev = dev_get_drvdata(dev);
+>>  	struct w5100_priv *priv = netdev_priv(ndev);
+>>
+>> +	if (priv->link_irq >= 0) {
+>> +		free_irq(priv->link_irq, ndev);
+>> +		priv->link_irq = -ENODEV;
+>> +	}
+>> +
+>>  	w5100_hw_reset(priv);
+>>  	free_irq(priv->irq, ndev);
+>>
+>> +	unregister_netdev(ndev);
+>> +
+>
+>[Severity: Medium]
+>
+>Both interrupts are freed and the chip is reset here while the netdev is
+>still registered and possibly up, and priv->link_irq = -ENODEV is used as
+>the only guard against the other side.  Driver unbind
+>(device_release_driver() -> w5100_remove()) holds no rtnl, while
+>w5100_open() / w5100_stop() run under rtnl, and both read priv->link_irq
+>with no lock, barrier or READ_ONCE/WRITE_ONCE.
+>
+>Can this interleaving happen?
+>
+>CPU0 (unbind, no rtnl)			CPU1 (ip link set dev down, rtnl)
+>w5100_remove()				w5100_stop()
+>					if (priv->link_irq >= 0)  /* true */
+>free_irq(priv->link_irq, ndev);
+>priv->link_irq = -ENODEV;
+>					disable_irq(priv->link_irq);
+>
+>disable_irq() on a descriptor with no installed action leaves desc->depth
+>unbalanced; after a re-bind, request_threaded_irq() with IRQF_NO_AUTOEN plus
+>the single enable_irq() in w5100_open() would not bring the depth back to
+>zero, so would link detection stay dead until reboot?
+>
+>The mirror case is w5100_open() calling enable_irq() on a just-freed link
+>irq, and running w5100_hw_start() / w5100_get_link() against a chip that
+>w5100_hw_reset() has already reset and whose main irq handler has already
+>been released by free_irq(priv->irq, ndev).  The window covers several
+>sleeping SPI transfers plus a synchronize_irq(), so it is not narrow.
+>
+>Would calling unregister_netdev() first, before free_irq(priv->link_irq),
+>free_irq(priv->irq) and w5100_hw_reset(), close this?  It closes the device
+>under rtnl and guarantees no further ndo_ or ethtool callbacks can start,
+>which would also make the priv->link_irq = -ENODEV store unnecessary.
+
+That should work, calling unregister_netdev earlier would disable ndo_ calls.
+
+>> @@ -24,7 +24,11 @@ properties:
+>>        - wiznet,w5500
+>>
+>>    interrupts:
+>> -    maxItems: 1
+>> +    minItems: 1
+>> +    items:
+>> +      - description: Main interrupt (INT pin on the device).
+>> +      - description:
+>> +          Optional interrupt for link status changes (LINKLED pin on w5500).
+>
+>[Severity: Low]
+>
+>This relaxes the count to two entries for all three compatibles, including
+>wiznet,w5100 and wiznet,w5200, even though the second item's own description
+>says the pin only exists on the w5500, and the driver only resolves index 1
+>for that chip:
+>
+>	priv->link_irq = ops->chip_id == W5500 ?
+>			 fwnode_irq_get(dev_fwnode(dev), 1) : -ENODEV;
+>
+>Should this be expressed with an allOf / if-then block, so that
+>
+>  if:
+>    properties:
+>      compatible:
+>        contains:
+>          enum:
+>            - wiznet,w5100
+>            - wiznet,w5200
+>
+>keeps interrupts at maxItems: 1, and only wiznet,w5500 allows maxItems: 2?
+>As it stands a w5100/w5200 tree with a second interrupt passes
+>dt_binding_check while the driver ignores the line.
+
+I think the user should also be able to read the document and know
+which hardware they are using? But yes, adding allOf with a condition
+would be bullet proof.
+
+>>
+>>    reg:
+>>      maxItems: 1
+>> @@ -58,7 +62,8 @@ examples:
+>>              pinctrl-names = "default";
+>>              pinctrl-0 = <&eth1_pins>;
+>>              interrupt-parent = <&gpio>;
+>> -            interrupts = <25 IRQ_TYPE_EDGE_FALLING>;
+>> +            interrupts = <25 IRQ_TYPE_EDGE_FALLING>,
+>> +                         <24 IRQ_TYPE_EDGE_BOTH>;
+>
+>[Severity: Low]
+>
+>This isn't an issue introduced by this series, but the example describes the
+>main interrupt as IRQ_TYPE_EDGE_FALLING while the driver requests that same
+>line with a hard-coded IRQF_TRIGGER_LOW in both paths:
+>
+>	err = request_threaded_irq(priv->irq, NULL, w5100_interrupt,
+>				   IRQF_TRIGGER_LOW | IRQF_ONESHOT,
+>				   dev_name(dev), ndev);
+>	...
+>	err = request_irq(priv->irq, w5100_interrupt,
+>			  IRQF_TRIGGER_LOW, dev_name(dev), ndev);
+>
+>A non-zero IRQF_TRIGGER_ mask makes __setup_irq() call __irq_set_trigger()
+>and reprogram the controller, so the type from the device tree is
+>discarded.  The same example text came from the deleted
+>Documentation/devicetree/bindings/net/wiznet,w5x00.txt.  Since the file is
+>being touched anyway, is it worth aligning the example with what the driver
+>actually programs?  The second entry is consistent, IRQ_TYPE_EDGE_BOTH
+>matches IRQF_TRIGGER_RISING | IRQF_TRIGGER_FALLING.
+>
+>>              spi-max-frequency = <30000000>;
+>>              local-mac-address = [ a0 b0 c0 d0 e0 f0 ];
+>>          };
+>
+
+Right, the DT binding is not aligned with the implementation.
+
+>--
+>Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260831-wiznet-link-gpio-v6-0-abee6c5c966e%40marmottus.net
+
+Thank you!
+
+Arthur
