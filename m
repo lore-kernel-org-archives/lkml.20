@@ -1,57 +1,111 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from siberian.tulip.relay.mailchannels.net (siberian.tulip.relay.mailchannels.net [23.83.218.246])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9546D3254BB;
-	Thu,  3 Sep 2026 01:47:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53E7231327F;
+	Thu,  3 Sep 2026 01:47:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=23.83.218.246
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788400059; cv=none; b=Tpx0C2PEHYTTZq50YH/Njkme+ZLD4YWF1lIJpY2kmOFqhO6xpk4nkpzJueyqbkBx7GX/RoHh6Plkt2dO7pJmkksnFQPiBZVk+18e3IZN2sRcMhh7Alofvc5Wxj7nI6w/8DLMNt33rBa63T89UnHd33BbqZqHTK+QxZxsI7Rxs+c=
+	t=1788400065; cv=none; b=gvD9jwIEyNK5hM/HZ8nEkdzAMlI+x3mLZ5I9LPJj5xkRTL9iXHeIZENne81wSgRH3IySg6SsWc1jSJ3H1VaZcJirBoVAMgfm6trOv1FyZg0gQVkV0QUp17CBKNxvDptvqu1mHgUajZpwpr611KLuaXJhvA8b/hiQcQzY1o05PP4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788400059; c=relaxed/simple;
-	bh=Z2vdgSWItcetD74S6X9ZsV6CPy0kPzH1zCMH388VmWs=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=OC5f6oLTBMQTbt03dSTU32fc495R0L/2OnaJ083V4mZxeGPJjAv35hw4rMBde7DYQflletk2Kpu1ZMn5hRcjWn+F8WnuEd0ymcpG0ucSwXhN/HR++fswcS0jMVWvovy5w3jXMk2oWU9ldtmhnqpUWhlRb62gnE0B2hZgRwq4P0E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iBsuTlba; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788400065; c=relaxed/simple;
+	bh=WmhNfmfG8dQE5KrX2lTKKCoxne+vqe9dgpbyiznrHxM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=syJKYmjGSqKaEsirGV8y0quO/GiZnhnCuJkVrnQ5G9SqyP+BjvCVgCPdFd1j/nVTDkHNsEFq2d8ZpOd2adBtYj48Y1iMF9ZittUlFRLgOO3v2luUMLk4P07tBOIVchBOn4H50uj8c430qFgmg75pJn7nZJyUm/LKwqIpSE51v3o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=stgolabs.net; spf=fail smtp.mailfrom=stgolabs.net; dkim=pass (2048-bit key) header.d=stgolabs.net header.i=@stgolabs.net header.b=ejUYuHkA; arc=none smtp.client-ip=23.83.218.246
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=stgolabs.net
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=stgolabs.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iBsuTlba"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3B2F31F000E9;
-	Thu,  3 Sep 2026 01:47:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788400051;
-	bh=hgosZq1frgpNB/Tk6pRLvAQCSSRGEoSPrEg6i1jaqys=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=iBsuTlbaXTIxoJRqzWYMk99BgEoiK4cyhWubvQ+rLvm+4hai3znt6mbVZ0Cn8+NCJ
-	 oy9hjbO/o2Tmj/ibjEEbCtsWYIg+hC0z75ZDhqsvgPVAlfCgHK9izdMY8cypk2i8AX
-	 LUi8VjtpMPzL8mlhG8C3rVpKNDRgCWlKxNxfEEAOlcPwfON8OMdaWinHDv/eZNfTy2
-	 kgk5dkldNh0uVuTQUgGtojh+HccQK88b3WKYgk0z5EMkSmaPyUKVOGZOYFEO2e67E3
-	 i+l13LGx+IuHnJFvbDvuvRtbjIX/6Ohd4AcfPVxeOjWoA2L7czPNzscyrkOuC/zOyX
-	 AZWAQu+4BIzlQ==
-Date: Wed, 2 Sep 2026 18:47:30 -0700
-From: Jakub Kicinski <kuba@kernel.org>
-To: Anton Danilov <littlesmilingcloud@gmail.com>
-Cc: netdev@vger.kernel.org, "David S . Miller" <davem@davemloft.net>, Eric
- Dumazet <edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>, David Ahern
- <dsahern@kernel.org>, Simon Horman <horms@kernel.org>, Shuah Khan
- <shuah@kernel.org>, linux-kernel@vger.kernel.org,
- linux-kselftest@vger.kernel.org
-Subject: Re: [PATCH net-next 01/11] ip_tunnel: add drop reasons to the
- generic RX path
-Message-ID: <20260902184730.304d2d34@kernel.org>
-In-Reply-To: <20260831215137.549324-2-littlesmilingcloud@gmail.com>
-References: <20260831215137.549324-1-littlesmilingcloud@gmail.com>
-	<20260831215137.549324-2-littlesmilingcloud@gmail.com>
+	dkim=pass (2048-bit key) header.d=stgolabs.net header.i=@stgolabs.net header.b="ejUYuHkA"
+X-Sender-Id: dreamhost|x-authsender|dave@stgolabs.net
+Received: from relay.mailchannels.net (localhost [127.0.0.1])
+	by relay.mailchannels.net (Postfix) with ESMTP id 005F07E1AC1;
+	Thu, 03 Sep 2026 00:31:01 +0000 (UTC)
+Received: from pdx1-sub0-mail-a217.dreamhost.com (100-96-173-63.trex-nlb.outbound.svc.cluster.local [100.96.173.63])
+	(Authenticated sender: dreamhost)
+	by relay.mailchannels.net (Postfix) with ESMTPA id 891BB7E205C;
+	Thu, 03 Sep 2026 00:30:56 +0000 (UTC)
+X-Sender-Id: dreamhost|x-authsender|dave@stgolabs.net
+X-MC-Relay: Neutral
+X-MailChannels-SenderId: dreamhost|x-authsender|dave@stgolabs.net
+X-MailChannels-Auth-Id: dreamhost
+X-Descriptive-Thoughtful: 377d3f9c71ca33bd_1788395460809_2385034430
+X-MC-Loop-Signature: 1788395460809:3850894733
+X-MC-Ingress-Time: 1788395460808
+Received: from pdx1-sub0-mail-a217.dreamhost.com (pop.dreamhost.com
+ [64.90.62.162])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384)
+	by 100.96.173.63 (trex/8.0.2);
+	Thu, 03 Sep 2026 00:31:00 +0000
+Received: from offworld (unknown [76.167.199.67])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: dave@stgolabs.net)
+	by pdx1-sub0-mail-a217.dreamhost.com (Postfix) with ESMTPSA id 4hb0rH6ndZz2h;
+	Wed,  2 Sep 2026 17:30:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=stgolabs.net;
+	s=dreamhost; t=1788395456;
+	bh=JvtxgVNlZzjEobYeplB2jpWqIQAhMXTpfQsMGk30O5Y=;
+	h=Date:From:To:Cc:Subject:Content-Type;
+	b=ejUYuHkA0r8+aN4wjmFFTUzRCwS31gby7n4U4S2Dh7SRikpihIYDrPjW8T6UC+Msl
+	 42CZJwmPM4kUkDDli5LWF97NFsgosytazFyR9CyyWdKcItZaree1qgB5PMLTpwFd5b
+	 tPYmMDMhlTDqO13Ps5WBZFMtvG+H67msO1f226Ub1/Hm/NhypaYNsvmeofRqjXtA9A
+	 aKuc6GaAwWLTpuyqmTWrnSCyRgpyoi0UPq5NIUVMBiM2a1FITxQMK9y0ABJaqOLWM8
+	 hTezkOLcWIJU8a0c3z8hIuurMP1sdYNsWBSZGvXZxrfjDttt2+6F/U/Lc3boiMzzST
+	 6lRA9ufMNi+xg==
+Date: Wed, 2 Sep 2026 17:30:53 -0700
+From: Davidlohr Bueso <dave@stgolabs.net>
+To: Dave Jiang <dave.jiang@intel.com>
+Cc: linux-cxl@vger.kernel.org, linux-kernel@vger.kernel.org,
+	jonathan.cameron@huawei.com, alison.schofield@intel.com,
+	icheng@nvidia.com, Jonathan Cameron <jic23@kernel.org>,
+	Vishal Verma <vishal.l.verma@intel.com>
+Subject: Re: [PATCH] MAINTAINERS: Add Richard Cheng to CXL subsystem as a
+ Reviewer
+Message-ID: <20260903003053.qkzjtb6c2xe6fpq3@offworld>
+References: <20260902235348.3563444-1-dave.jiang@intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii; format=flowed
+Content-Disposition: inline
+In-Reply-To: <20260902235348.3563444-1-dave.jiang@intel.com>
+User-Agent: NeoMutt/20220429
 
-On Tue,  1 Sep 2026 00:51:27 +0300 Anton Danilov wrote:
->  	const struct iphdr *iph = ip_hdr(skb);
-> +	enum skb_drop_reason reason = SKB_DROP_REASON_NOT_SPECIFIED;
->  	int nh, err;
+On Wed, 02 Sep 2026, Dave Jiang wrote:
 
-reverse xmas tree
+>Add Richard as a reviewer for CXL subsystem.
+>
+>Cc: Davidlohr Bueso <dave@stgolabs.net>
+>Cc: Jonathan Cameron <jic23@kernel.org>
+>Cc: Alison Schofield <alison.schofield@intel.com>
+>Cc: Vishal Verma <vishal.l.verma@intel.com>
+>Cc: Richard Cheng <icheng@nvidia.com>
+>Signed-off-by: Dave Jiang <dave.jiang@intel.com>
+
+Acked-by: Davidlohr Bueso <dave@stgolabs.net>
+
+>---
+> MAINTAINERS | 1 +
+> 1 file changed, 1 insertion(+)
+>
+>diff --git a/MAINTAINERS b/MAINTAINERS
+>index 3a19da74d00c..25d61ce9506a 100644
+>--- a/MAINTAINERS
+>+++ b/MAINTAINERS
+>@@ -6567,6 +6567,7 @@ M:	Vishal Verma <vishal.l.verma@intel.com>
+> M:	Dan Williams <djbw@kernel.org>
+> R:	Ira Weiny <iweiny@kernel.org>
+> R:	Li Ming <ming.li@zohomail.com>
+>+R:	Richard Cheng <icheng@nvidia.com>
+> L:	linux-cxl@vger.kernel.org
+> S:	Maintained
+> F:	Documentation/driver-api/cxl
+>
+>base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+>-- 
+>2.54.0
+>
