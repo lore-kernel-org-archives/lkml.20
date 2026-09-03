@@ -1,99 +1,105 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46F043254AE;
-	Thu,  3 Sep 2026 15:30:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E0FB30569A;
+	Thu,  3 Sep 2026 15:31:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788449439; cv=none; b=FySF8gxDbRWORA9GQdYNPCBC5EGDf57QK+opOkB1Ang8g3eXjWsKsAFTPtpS3pS53+dkctiE59izAVoMNv11F+wcFQ/x2IPTKGlSmzLj4lcBnYmiroXVH+YH10aO4+G7C5+tx9wrs0tTMxl5aa3fhyLmQ0teYvG5dDt+pfjweBU=
+	t=1788449495; cv=none; b=g5rantEHOQHRx46BBeMq4iiRve/yvI/nmG3gi8WFN5Wpi4Tg6n1XKGQxNjLlxwvFHchrzV7vC65xAJYhtZBj+m/fbhLrfNPhQOoEpJwdOxMu7RgPcsY2bzo3E3Uc2aZNGr8nJmQAlFSQxqtjHn4NuKCFXtF2CvoRYY0MQMN+oJA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788449439; c=relaxed/simple;
-	bh=BA4H61lpz6nFag17hxqCNMJXbpLrSo/paYU7SFaVE1I=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=CyduPtTkUOBhaNCxHTfdBwCPhQhvDEq7T+QfLaeYhFR0DwvmPjpqexWISMGAi4hU0/t1DgAQiWnXVb5c3OUtxp+SPXMXC8IzfVwbKs80efz+J4S6HQfIpGfmMw+nbRG/2j35+W4oQqKRbCn/5rnRbNgBpzUi8a1a9SkLCPN68GU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gQOIpJ/c; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788449495; c=relaxed/simple;
+	bh=EyDl/FWGpYfHrWymKsn/ykHOvKhYJJifQ09CWbzilJ8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=VC5Wy+/sctiV5JGKyxZzTqqMZyzXkdXTCd92WXCTIurAfDbBLY1ERxR7+f4xAgcIdINzXp2yjz1TiRqntLaxNWGF+DFruUWJV0WcSmPGeGizBeV5sdgx6g2mNeb3E9FviC89S9P2kg4k9/bM/CWWmDDiEycud4dJ0MDzQDMcK/4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FHZl1nls; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gQOIpJ/c"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1401C1F00A3A;
-	Thu,  3 Sep 2026 15:30:38 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FHZl1nls"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D0BB41F00A3A;
+	Thu,  3 Sep 2026 15:31:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788449438;
-	bh=R648ZI74sZFQouKv2MQWcoWwcBh7a9P4pnvTLHKWOto=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=gQOIpJ/cMg0VZuRR54cY7vSJdBz3iqV0LRWr3BI4dE/X03BCOGaCSpIyrIwreShlm
-	 EBJBcHdoNux1xPak7tG/k8lqwVEaZvddwpIuq9yl8uc9ghAhhYysziILev8w/9OVnS
-	 quECwaOw8sg091j6j2QCG3enJKolCNb4nDW0tr+OaB9wOQNbr/v53XdKZfdVXQkCL3
-	 VbV38/3q6O6Cf7tNcEgLESi4Q+m8n4zI1mK91YEICFOX4mdJS0OzVQY4C9UFF1uIPv
-	 O9EW44325i9D3F2sFsbG2xrCHxv/KfnYaj9a4kPftP+wGURiKttbr8tiGOp4H8SCJM
-	 VG3HIzgJe+dBw==
-Received: from localhost ([::1])
-	by mail.kernel.org with esmtp (Exim 4.99.5)
-	(envelope-from <mchehab+huawei@kernel.org>)
-	id 1x29Od-00000002Fzl-2PQ6;
-	Thu, 03 Sep 2026 17:30:35 +0200
-Date: Thu, 3 Sep 2026 17:30:34 +0200
-From: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
-To: Manuel Ebner <manuelebnerli@mailbox.org>
-Cc: Jonathan Corbet <corbet@lwn.net>, Weijie Yuan <wy@wyuan.org>, Mauro
- Carvalho Chehab <mchehab@kernel.org>, Shuah Khan 
- <skhan@linuxfoundation.org>, "open list:DOCUMENTATION PROCESS" 
- <workflows@vger.kernel.org>, "open list:DOCUMENTATION" 
- <linux-doc@vger.kernel.org>, open list <linux-kernel@vger.kernel.org>
-Subject: Re: [Issue] sphinx: incorrect high-lighting
-Message-ID: <20260903173034.46b50b59@localhost>
-In-Reply-To: <f0ccda934d2747f7d39d5c263116ec046c7450e2.camel@mailbox.org>
-References: <bba57d51c72d9387ccef2b5979fa618e980c3ebf.camel@mailbox.org>
-	<aosYfdfH6Z7ai5M2@wyuan.org>
-	<c7a3db22f56c598ef35676288d10303af21098bf.camel@mailbox.org>
-	<87mrub1wfv.fsf@trenco.lwn.net>
-	<f0ccda934d2747f7d39d5c263116ec046c7450e2.camel@mailbox.org>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+	s=k20260515; t=1788449493;
+	bh=/5eQMdeKRH6pLoh681oacpbkpiM7jYz3GIWcNRfH/PA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=FHZl1nlsmTToJJd5gnqal1dom8qN9pCsuc2R1/o+MbUr4IV/SFl3M2cmrb9M3CwHU
+	 4E8I9RhK/20+L5fuUcFtG3OWG86ZjdPcjff8NBHtaajMmlONXfPG917w04YtI4s9jc
+	 M9oQaoncy2bm1h+8ORXHH02A5MI/T6S3tlOTMDwN0O2zAIzd6A+IFOpQKMZYFhNUw0
+	 z5oIHpOGfBemlPaXLJKLnNdCM2DHXOy8Ibre2fVfVsq1Eu90b67KqGr8nsSo8SOyc/
+	 Oxd4cWN7/xJxUHhdpBC5KCqDgZdczS/APj7xUQAisClVkA3AqrV9wqsVKcx/hKBybm
+	 CfIlnKORdsmBg==
+Received: from johan by xi.lan with local (Exim 4.99.4)
+	(envelope-from <johan@kernel.org>)
+	id 1x29PX-00000006FLj-2jBh;
+	Thu, 03 Sep 2026 17:31:31 +0200
+Date: Thu, 3 Sep 2026 17:31:31 +0200
+From: Johan Hovold <johan@kernel.org>
+To: Zhao Dongdong <winter91@foxmail.com>
+Cc: gregkh@linuxfoundation.org, linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Zhao Dongdong <zhaodongdong@kylinos.cn>
+Subject: Re: [PATCH v3] USB: serial: option: add support for SIMCom SIM8260C
+Message-ID: <apmS07JLY44gttFM@hovoldconsulting.com>
+References: <tencent_B18DE28D9B60D11077C30C3297EDF6CF3B07@qq.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <tencent_B18DE28D9B60D11077C30C3297EDF6CF3B07@qq.com>
 
-On Sun, 30 Aug 2026 09:13:31 +0200
-Manuel Ebner <manuelebnerli@mailbox.org> wrote:
+On Mon, Aug 17, 2026 at 03:14:27PM +0800, Zhao Dongdong wrote:
+> From: Zhao Dongdong <zhaodongdong@kylinos.cn>
+> 
+> Add support for SIMCom SIM8260C (1e0e:902b).
+> 
+> T:  Bus=08 Lev=01 Prnt=01 Port=00 Cnt=01 Dev#=  2 Spd=5000 MxCh= 0
+> D:  Ver= 3.20 Cls=00(>ifc ) Sub=00 Prot=00 MxPS= 9 #Cfgs=  1
+> P:  Vendor=1e0e ProdID=902b Rev= 5.04
+> S:  Manufacturer=SIMCOM
+> S:  Product=SDXLEMUR-LITE-MTP _SN:120696AB
+> S:  SerialNumber=0123456789ABCDEF
+> C:* #Ifs= 8 Cfg#= 1 Atr=a0 MxPwr=896mA
+> A:  FirstIf#= 5 IfCount= 3 Cls=01(audio) Sub=00 Prot=20
+> I:* If#= 0 Alt= 0 #EPs= 2 Cls=ff(vend.) Sub=ff Prot=30 Driver=option
+> E:  Ad=01(O) Atr=02(Bulk) MxPS=1024 Ivl=0ms
+> E:  Ad=81(I) Atr=02(Bulk) MxPS=1024 Ivl=0ms
+> I:* If#= 1 Alt= 0 #EPs= 3 Cls=ff(vend.) Sub=ff Prot=60 Driver=option
+> E:  Ad=83(I) Atr=03(Int.) MxPS=  10 Ivl=32ms
+> E:  Ad=82(I) Atr=02(Bulk) MxPS=1024 Ivl=0ms
+> E:  Ad=02(O) Atr=02(Bulk) MxPS=1024 Ivl=0ms
+> I:* If#= 2 Alt= 0 #EPs= 3 Cls=ff(vend.) Sub=ff Prot=40 Driver=option
+> E:  Ad=85(I) Atr=03(Int.) MxPS=  10 Ivl=32ms
+> E:  Ad=84(I) Atr=02(Bulk) MxPS=1024 Ivl=0ms
+> E:  Ad=03(O) Atr=02(Bulk) MxPS=1024 Ivl=0ms
+> I:* If#= 3 Alt= 0 #EPs= 3 Cls=ff(vend.) Sub=ff Prot=40 Driver=option
+> E:  Ad=87(I) Atr=03(Int.) MxPS=  10 Ivl=32ms
+> E:  Ad=86(I) Atr=02(Bulk) MxPS=1024 Ivl=0ms
+> E:  Ad=04(O) Atr=02(Bulk) MxPS=1024 Ivl=0ms
+> I:* If#= 4 Alt= 0 #EPs= 3 Cls=ff(vend.) Sub=ff Prot=50 Driver=qmi_wwan_simcom
+> E:  Ad=88(I) Atr=03(Int.) MxPS=   8 Ivl=32ms
+> E:  Ad=8e(I) Atr=02(Bulk) MxPS=1024 Ivl=0ms
+> E:  Ad=0f(O) Atr=02(Bulk) MxPS=1024 Ivl=0ms
+> I:* If#= 5 Alt= 0 #EPs= 0 Cls=01(audio) Sub=01 Prot=20 Driver=snd-usb-audio
+> I:* If#= 6 Alt= 0 #EPs= 0 Cls=01(audio) Sub=02 Prot=20 Driver=snd-usb-audio
+> I:  If#= 6 Alt= 1 #EPs= 1 Cls=01(audio) Sub=02 Prot=20 Driver=snd-usb-audio
+> E:  Ad=05(O) Atr=0d(Isoc) MxPS=  34 Ivl=1ms
+> I:* If#= 7 Alt= 0 #EPs= 0 Cls=01(audio) Sub=02 Prot=20 Driver=option
+> I:  If#= 7 Alt= 1 #EPs= 1 Cls=01(audio) Sub=02 Prot=20 Driver=option
 
-> On Mon, 2026-08-24 at 07:26 -0600, Jonathan Corbet wrote:
-> > Manuel Ebner <manuelebnerli@mailbox.org> writes:
-> >  =20
-> > > It would be this list:
-> > > Skipidentifiers =3D [ 'and', 'are', 'as', 'containing', 'element', 'i=
-n',
-> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 'including', 'is', 'name', 'n=
-eeds', 'of', 'or',=C2=A0 'page',
-> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 'pages', 'passed', 'randomiza=
-tion', 'request', 'that',
-> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 'to', 'where', 'which', 'whos=
-e', 'will' ] =20
-> >=20
-> > So this is an error-prone game of whac-a-mole...as Randy pointed out,
-> > "struct page" is a rather important one in the kernel.
-> >=20
-> > I can apply your updated version of this as a short-term fix, I guess,
-> > but a better solution is probably to only apply markup to "struct foo"
-> > if we have documentation for that type.=C2=A0 I can look into that late=
-r. =20
+I changed these entries to read
 
-There is actually a way to do that. See
-Documentation/sphinx/kernel_include.py the code related to this:
+	Driver=(none)
 
-    app.connect("missing-reference", check_missing_refs)
+> E:  Ad=89(I) Atr=0d(Isoc) MxPS=  34 Ivl=1ms
+> 
+> Signed-off-by: Zhao Dongdong <zhaodongdong@kylinos.cn>
+> ---
+> v3: Use USB_DEVICE_INTERFACE_CLASS.
+> v2: https://lore.kernel.org/all/tencent_E58647B4DE1D2583D785AFDDE58EB278FD05@qq.com/
+> v1: https://lore.kernel.org/all/tencent_CDB9F0B44FDD051447DCF48862B8E764E80A@qq.com/
 
-One option would be to re-convert such missing references back into
-a normal "struct foo" if the reference was not found.
+Now applied, thanks.
 
-Not sure, however, how much this would affect Sphinx build time.
-
---=20
-Thanks,
-Mauro
+Johan
