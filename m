@@ -1,78 +1,69 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2433E3769FD;
-	Thu,  3 Sep 2026 23:08:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94F6234CFCA;
+	Thu,  3 Sep 2026 23:09:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788476927; cv=none; b=Zt1fnFbCaB7tJ5fEhcG1xyaAdd8TGb3Ui1ZXNsGmHx2YoBf5NdH990po9v1aPiWLPRRSflZWKm3/4S6S8nDJfUvvw3HL5WLLgDp2S1mqgMs6sl7ty+oI3zxKSryB54w54ZipCAP+S+rUj/qN3AaaaiS2+n6MNlh0u8d+sRniqNE=
+	t=1788476963; cv=none; b=FQSjX5b0Y7yDG8sjVEyv0LUC6PPBg+y03wpK9WZ/vK4iZkyN47ndjHtwFyGG5yaJYhhNKlk45JqPr9+teBc9e+F4Oix3CH3SmnJt7Daa42GyD5dzdUEYTrtKEhsg2gkJNEsCIxetaSjTx/1AeKF9g/V9S2M7skSEMwgb122RaCw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788476927; c=relaxed/simple;
-	bh=18DPBe0iwWQ7yGhF5eQtvhLFjh9Wglm6olsLtIjVhKc=;
-	h=Message-ID:Date:MIME-Version:Cc:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=NFQLBksoXsY9lwjXq1f8BDCmUHeT41zH1MV90dJEC8RpJFwFNeHkRtU4SpGxd+37AHSSYBwnmcFZyswPucyfYa+bNhQoCzkbHLSU+pNwovYv/XtV4cQbecT6mzDT1nzQ0jw50hlebmTv6Puv16l/oR9g+YJ8UkME0m8Q7/3nwjk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MGp5qUEN; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788476963; c=relaxed/simple;
+	bh=6rcZAMWgIi+KZKSXFJ/0fk/gdtoBfa8p1RUDAQQsR40=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=j9fs9bNRqCDlMHn5/DA5CO2TA5WjJIODOMZJNNqOCC5Lwj/MVd3ensMZb14Av5bTMMuKH2XmX9HUQ1sf4n5A/Q6V/gdXW4zMSJ5Zbfrj+EDCfnWa9VP2kgZX5dhm+0YgdIlym3H+jZQMMZqf3moiX98Slarf3naWownA71teFN8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SMrFl5y1; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MGp5qUEN"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3E1631F000E9;
-	Thu,  3 Sep 2026 23:08:44 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SMrFl5y1"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C6EFC1F000E9;
+	Thu,  3 Sep 2026 23:09:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788476925;
-	bh=hHj79ivnCIVQ9oSllj2cnlRWSVM8NqFq3uES2gy708g=;
-	h=Date:Cc:Subject:To:References:From:In-Reply-To;
-	b=MGp5qUENaJhoALBIifj9MxMBnpcVab85xm/plvjj3SBjz5XgEeG0DCEqwe68cAhTS
-	 Udfv3C17JKhGtkpIN09P+mqW3DSi8B1xdzsGoQpir/j3E+33Qsc0brhii8U3YWy661
-	 y/1LO8syJYXy1c0UsiHlTuLVa+gQdOlkodGyrbGNbbqmvlsFY8sNrhSEtFQxZkCUKo
-	 g5SkZFC7b8Xrh2/72cbvhQUlG/1Po41bUVpJl+FTJ6r21c0P32Xs/MZo2jeoyzt1IA
-	 6mt/aPoofbJ6cmMpgRR8Ynz7Sv+Vo+WT3RoT+JvsfYb7j9YeMBhr8ASsammssxEpo+
-	 hz1hGSxTa8H7w==
-Message-ID: <12ea8eda-403b-4932-90ba-beadb1354533@kernel.org>
-Date: Fri, 4 Sep 2026 07:08:42 +0800
+	s=k20260515; t=1788476962;
+	bh=7HebtJAgpTwpQUKv9N4H6F1loY4uPBv+ObzdRVGZik8=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=SMrFl5y1M2g1Fkz5yeymSelT+0xGT7v7eRGluKTynOLqMYIydyb5/dLpjI1rv8Z6F
+	 gLOD9EVck7MPrRzD5oZ3H7fZi6vwf6NPtgWQAa+ZefgQLPCRyn9AO9EGvRUt+Xd5ju
+	 fD9QHACdud0V6szt2J92dpEddAvh7/eYUgoDHubMJEMx06UDMTn3IjLGt3I2AGeNHP
+	 PXICIl4VCLmFyydpT2dNWGjt/XSORbVHiphwASs2DUF3HpzzzidkDUzFaZdOeShZMe
+	 TmKBeKQxAer4fnv3Qc6NGCYc8KZuq/YjDnwQEiTafjqjgaZVVgemTtYb1CjZ2p7kay
+	 pTOs4tqBJ5lsA==
+Date: Thu, 3 Sep 2026 16:09:21 -0700
+From: Jakub Kicinski <kuba@kernel.org>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: netdev-bot+sashiko@kernel.org, j.bhargav.u@gmail.com,
+ andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+ pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, tony@atomide.com, netdev@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ goledhruva@gmail.com, m-chawdhry@ti.com, daniel.baluta@gmail.com,
+ simona.toaca@nxp.com
+Subject: Re: [v3] dt-bindings: net: ti,davinci-emac: Convert to DT schema
+Message-ID: <20260903160921.547dabf4@kernel.org>
+In-Reply-To: <33fe3846-eb8d-4b0b-9355-46388c1db2d3@kernel.org>
+References: <20260901-ti-davinci-emac-v3-1-db41e32f3f6d@gmail.com>
+	<178844863252.3394541.10006643092711574384@kernel.org>
+	<33fe3846-eb8d-4b0b-9355-46388c1db2d3@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Cc: chao@kernel.org, Daeho Jeong <daehojeong@google.com>,
- stable@vger.kernel.org, Wenjie Qi <qiwenjie@xiaomi.com>
-Subject: Re: [f2fs-dev] [PATCH v4] f2fs: drop pending discard commands before
- reserving device alias
-To: Daeho Jeong <daeho43@gmail.com>, linux-kernel@vger.kernel.org,
- linux-f2fs-devel@lists.sourceforge.net, kernel-team@android.com
-References: <20260903161031.1280195-1-daeho43@gmail.com>
-Content-Language: en-US
-From: Chao Yu <chao@kernel.org>
-In-Reply-To: <20260903161031.1280195-1-daeho43@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
 
-On 9/4/2026 12:10 AM, Daeho Jeong wrote:
-> From: Daeho Jeong <daehojeong@google.com>
+On Thu, 3 Sep 2026 17:22:54 +0200 Krzysztof Kozlowski wrote:
+> On 03/09/2026 17:17, netdev-bot+sashiko@kernel.org wrote:
+> > Thank you for your contribution! Sashiko AI review found 2 potential
+> > issue(s) to consider:
 > 
-> When reserving a device alias via f2fs_ioc_reserve_dev_alias(),
-> f2fs_reserve_device_alias() bulk-marks all blocks in the target device
-> range as valid in SIT.
+> Jakub and other netdev folks,
 > 
-> However, if the device was previously in the released state, stale
-> pending discard commands covering that range may still exist in dcc->root.
-> When f2fs_issue_discard_thread later processes those commands,
-> __check_sit_bitmap() detects valid blocks in the discard range and
-> triggers a kernel BUG().
-> 
-> To fix this:
-> 1. Introduce f2fs_drop_discard_cmd_range() to traverse the discard rbtree,
->     drop all pending D_PREP discard commands in the range,
->     and wait for any in-flight discard bios under dcc->cmd_lock.
-> 2. Call f2fs_drop_discard_cmd_range() in f2fs_ioc_reserve_dev_alias()
->     before f2fs_reserve_device_alias().
-> 
-> Reported-by: Wenjie Qi <qiwenjie@xiaomi.com>
-> Fixes: eae3faf210bd ("f2fs: support dynamic reserve/release for device aliasing")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Daeho Jeong <daehojeong@google.com>
+> I got this week a lot of new netdev Sashiko emails on my mailbox. All of
+> them escape filtering, because they do not use PATCH keyword. Can you
+> please fix that? PATCH is essential... For now I will just add a filter
+> to drop sashiko to dev null instead based on recipient, because I am not
+> going to add filters classifying email as patch just because "From" is
+> matching something.
 
-Reviewed-by: Chao Yu <chao@kernel.org>
-
-Thanks,
+Ugh, not the first time we have this bug either, sorry.
+Should be fixed now.
