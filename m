@@ -1,114 +1,121 @@
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6453B4078CB
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 09:29:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE4BD44C4EA;
+	Thu,  3 Sep 2026 09:29:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788427759; cv=none; b=giAL8LzrtNyPl+4ga6UWkIdTSm+bndrdTHEBAi7mrzWd7d+B1eB2YTAusDjMQ9SRoQSD9vTagbR9n1xkJSno9V8IBr/TKOQYWdTgr/Ztmh/X+9Zar1YNuXgl4OqvDu4I71mzCRtr9kWgzDEbDTaoEpOVtAhoNY/zdsRRmgDz7nI=
+	t=1788427760; cv=none; b=USH4aDbcvODQx+iwM5RK42eMa57pQmGYT+8jLYc1ajmQ4Lxnbn5gZiCwXjCfwulsYZUm3ViOPGFNgxsH6dtv2RreuizevXJyVw5a6+TjM1f3eC5KEfJBdquGT5dQhp/pG+CFIL8YXx5Lo9mclWdgAI1GOKWyULaIE7F1xIcQOHs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788427759; c=relaxed/simple;
-	bh=eZIruiu6THRv9MJciGolWELIK1WoaJG6izbe1gji4QA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=B6kzRdfbGdGyxA5rPyQXv9EY9TpMqPdOOzkDK9wFvcbVyV8K+Aq78vJ/UXM9ZqD9LJANjbTbcqmaVqVy+XB6F1nD6Kwz1Fu9IdqEza1yylMB4VTukf64TwhYFXCB9b5uSqip9gKQ080xhYn8tLZW4EKmHJp3Ho8IGk4naDwQ60Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Bq40oymi; arc=none smtp.client-ip=209.85.128.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788427760; c=relaxed/simple;
+	bh=nn6iME8vaNp2UgCAoNFVxRTydFn/sut+ZKMPmrBTGcY=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=JFqEdqNuqbbWYIt0trpJgSH7RWt3SUVk74dD+hRpZ8XeV6oOZOxdWesijVUzX8cxdMxMbpa163C9WkgbowKbaHr6q6viGZatumWSTKe6VbQDyk7wvbqooxzOdPYnQdC/ZC63NjfrP5wFerrx+1Nh7eCenvt8lzM76AZ+E6hJKRc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Dc6BWw33; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Bq40oymi"
-Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-49b8be0409fso15653385e9.2
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 02:29:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788427755; x=1789032555; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=0wHxMHZKSGsfKZNy4gytEu0vYIPsIVcY74N/oalHblk=;
-        b=Bq40oymiNKJ9zi5eheppeEaY/A3w7l6v/4TaoXgQq4T3HbxdjcCUhE/qrg5gyix+dM
-         hXzA0dY31uyLEuLjPX/p6CKzJmFZ77OQ7ycXoyNFwIEOD6u+o7RoDCROk5PbSyOwgmHU
-         xNm4KdHUnX7nT5Iqd4p2+XvE/QQ6zWh4/nc63aE9L/cgMpV6yktPqZeBpN/6biY3rAH0
-         AYMih/3oXQ3EiKLomIj35+bO5dPBiwl2gTJfFzCADV1+pKM8qTBNRzB/dTEMBLhTbbAK
-         qVjhdX/Re5lw86IGYhDo6Nian0g/6ZJa0lEt3aqDIiZH18NymdZNpkrroUoaffJbp46Q
-         kPYg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788427755; x=1789032555;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=0wHxMHZKSGsfKZNy4gytEu0vYIPsIVcY74N/oalHblk=;
-        b=Z1si8wFYM0BRHh0WPdYWfPNdFYEMIFe0WJEVpApgAavb7lbsJnTUp8yhco8M1QDZCD
-         0hDUBEoYdRFrFQG/OU6ftsNltLxVN9YxthF+0053kEHxoyuZbsV+F+5A/EZlSQe+qhmG
-         3snHuRZD5F7HIB9vXuivJ6yfQOfLRGxUmUame5InZ0+rcrStLvLRqrB3hUsAf4BmbOmP
-         JEBItLFHtWMGaiSgB5FrIGjw5CdaLJyJ9wRVWcu0th41V0Lhtn3katBIMqZB+AL2SFE0
-         PNTvvrmMCd0wmwebbTIvC5F1IFF3vvVETPISvagv/YyR2cRrN/HKxoRqX4qkDOZdQvL1
-         5RKQ==
-X-Forwarded-Encrypted: i=1; AKwUvBymnN1WT3opaze51ve+T4PoEOvtYNDgPeJ8ixxF+O5smrgIetvvxangM2W2BSoQT74jhqNrrG9JHtClF6g=@vger.kernel.org
-X-Gm-Message-State: AFuF++lxJgu9tAhzGSTluyqs2bOoNJtGZ4atCMtlXYoRygMgIDqlMCs5
-	tdHvglbz2gEZAi26PpFPm8NVL/ofKUIohrsaaFK5z8aOBHk/dxBfdHkugG2jPA==
-X-Gm-Gg: AYBFou2X25jNbenLhSaOXgxlv0frm3M/PAvMEYrWHiZaphSahYiCd2bXp2eZP4N83v7
-	3kpWRKItJWJBNOf8+yUZ7nvnq/hAl+4EFL8Cuuxc34ze35MezOJeeFcCqbiy5vzKElee1dgpoZZ
-	MgP+s/jzsLqr7dPGJrHds1IlCudOAhgMQg+rGvTuTPEAtKNYqw+7GnZI4qFSiPHbCLlOBEGqO6n
-	w6Ml+7GQL5RYMb2fyTfTvpi1OZhVzUDyBdWl9ZqfA9+ktQYPuich5JtW3LTSb1IMQiyQ4kDbGEf
-	s0/aM8whQjqBrA+VkfCinQfuIwUvB6YRVLfHRQdAfM+vjC4IZ/PibwxBlbCONFt3VZkHcr8ib4s
-	ZztJOQoHMxYWI4R3OEt1M5c7+NKL7u0vy0yz6gdWNu8t8yGiDeEriKYNY6iRYjyhdE10rnBHqfx
-	9POg0+2tZs2nbnCLCShUDX73qFH63BfUUQdfV8EjscfXlWsf284Ma15RlFB6Tg1ot4loY=
-X-Received: by 2002:a05:600c:4f0b:b0:493:bd2a:93be with SMTP id 5b1f17b1804b1-49ce581316dmr158158385e9.6.1788427755504;
-        Thu, 03 Sep 2026 02:29:15 -0700 (PDT)
-Received: from SurHub.localdomain ([196.188.114.38])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cee5d4938sm56821575e9.2.2026.09.03.02.29.14
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 03 Sep 2026 02:29:15 -0700 (PDT)
-From: Abdifatah Suruur <suruurism@gmail.com>
-To: kvm@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: Ioana Ciornei <ioana.ciornei@nxp.com>,
-	Alex Williamson <alex@shazbot.org>
-Subject: [PATCH v3] vfio/fsl-mc: prevent read-only region mappings from becoming writable
-Date: Thu,  3 Sep 2026 12:29:12 +0300
-Message-ID: <20260903092912.444-1-suruurism@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Dc6BWw33"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 68CC71F00A3A;
+	Thu,  3 Sep 2026 09:29:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788427758;
+	bh=Vh6C9475l7fwGbJW046+hBcY6H+bSMsG/gNT4fxLjjs=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=Dc6BWw33eFqwAnKvbc/2ePznb+TuDl0/311Ux4UcmLpxp+Q7abEWleHxCmOOjQISw
+	 oxCvkgwUnvtbnN1PkSRcDoVvsxlVhC+tVD0ujqYa0LKTnJBa1Lxkpx/clqx1AifPrg
+	 89KPF1umm9Vn3HD8boxt8mlCJEBKSPLFszutpFOFbMTY0woer4WLnp/ulHkGjUvo65
+	 byO2lSGgdZd2gn6wbRjX2cmc6YakGRyG6RGGlMcDzz4zQ3AjxSuDeNrUrFMYvkfXow
+	 Ssj5NCfXrndepmRJnJTTmdkwbXvvAPcREhb15+xSkqIijaAybqP3yKMoF8SGTPEpxF
+	 QgQ0M0o4xuRvg==
+From: "Mike Rapoport (Microsoft)" <rppt@kernel.org>
+Date: Thu, 03 Sep 2026 12:28:30 +0300
+Subject: [PATCH v3 4/6] mm/vmalloc: make set_area_direct_map HUGE_VMAP
+ friendly
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260903-execmem-set-vm-perms-v0-2-v3-4-949b64a9f755@kernel.org>
+References: <20260903-execmem-set-vm-perms-v0-2-v3-0-949b64a9f755@kernel.org>
+In-Reply-To: <20260903-execmem-set-vm-perms-v0-2-v3-0-949b64a9f755@kernel.org>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: =?utf-8?q?Adrian_Barna=C5=9B?= <abarnas@google.com>, 
+ Albert Ou <aou@eecs.berkeley.edu>, 
+ Alexander Gordeev <agordeev@linux.ibm.com>, Alexandre Ghiti <alex@ghiti.fr>, 
+ Andy Lutomirski <luto@kernel.org>, Borislav Petkov <bp@alien8.de>, 
+ Brendan Jackman <brendan.jackman@linux.dev>, 
+ Catalin Marinas <catalin.marinas@arm.com>, 
+ Christian Borntraeger <borntraeger@linux.ibm.com>, 
+ Dave Hansen <dave.hansen@linux.intel.com>, 
+ David Hildenbrand <david@kernel.org>, 
+ Gerald Schaefer <gerald.schaefer@linux.ibm.com>, 
+ Heiko Carstens <hca@linux.ibm.com>, Huacai Chen <chenhuacai@kernel.org>, 
+ Ingo Molnar <mingo@redhat.com>, Len Brown <lenb@kernel.org>, 
+ Mike Rapoport <rppt@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+ Paul Walmsley <pjw@kernel.org>, Pavel Machek <pavel@kernel.org>, 
+ Peter Zijlstra <peterz@infradead.org>, "H. Peter Anvin" <hpa@zytor.com>, 
+ "Rafael J. Wysocki" <rafael@kernel.org>, 
+ Ryan Roberts <ryan.roberts@arm.com>, Sven Schnelle <svens@linux.ibm.com>, 
+ Thomas Gleixner <tglx@kernel.org>, Uladzislau Rezki <urezki@gmail.com>, 
+ Vasily Gorbik <gor@linux.ibm.com>, WANG Xuerui <kernel@xen0n.name>, 
+ Will Deacon <will@kernel.org>, x86@kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ linux-mm@kvack.org, linux-pm@vger.kernel.org, 
+ linux-riscv@lists.infradead.org, linux-s390@vger.kernel.org, 
+ loongarch@lists.linux.dev
+X-Mailer: b4 0.17-dev
 
-vfio_fsl_mc_mmap() rejects writable mappings of regions without the
-WRITE flag, but leaves VM_MAYWRITE set.  Userspace can map such a region
-read-only and then upgrade the mapping to writable with mprotect().
+set_area_direct_map() always updates direct map alias permissions in
+single page increments.
 
-Clear VM_MAYWRITE for regions without the WRITE flag, as i915 does for
-its read-only objects and as fixed in drm/vc4 (CVE-2026-68445),
-drm/panthor (CVE-2024-53071) and commit a5edadbae57e ("ptp: vmclock:
-prevent read-only mappings from becoming writable").
+For HUGE_VMAP areas it's suboptimal. Not only the loop in
+set_area_direct_map() needlessly has more iterations (e.g times 512 on
+x86), but it also causes fragmentation of the direct map that could be
+avoided for the HUGE_VMAP areas populated with large pages.
 
-Note this is defensive hardening: the fsl-mc bus publishes all device
-regions with the WRITE flag set, so no device can currently reach the
-read-only path.  The guard costs nothing and keeps the mmap() interface
-honest if a read-only region ever appears.
+All pages in an area are always of the same order: either same-order
+large pages when VM_ALLOW_HUGE_VMAP is set and all huge pages were
+successfully allocated, or order-0 page when VM_ALLOW_HUGE_VMAP is
+cleared or when huge pages allocation fails and fallback path is taken.
 
-Fixes: 67247289688d4 ("vfio/fsl-mc: Allow userspace to MMAP fsl-mc device MMIO regions")
-Signed-off-by: Abdifatah Suruur <suruurism@gmail.com>
+Instead of updating the direct map permissions for every order-0 page in
+an area, use the area's page_order as the loop increment and update the
+large pages in one call to set_direct_map_{invalid,default}_noflush().
+
+Signed-off-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
 ---
-v2: commit log now states plainly that the read-only path is
-unreachable in practice, per Alex's review; dropped Cc: stable as
-there is no reachable issue to backport.
-v3: use 'commit <sha> ("<title>")' style for the vmclock reference
-and point Fixes at the MMAP support commit, matching the same review
-points on the vfio/platform patch.
+ mm/vmalloc.c | 13 ++++++++-----
+ 1 file changed, 8 insertions(+), 5 deletions(-)
 
---- a/drivers/vfio/fsl-mc/vfio_fsl_mc.c
-+++ b/drivers/vfio/fsl-mc/vfio_fsl_mc.c
-@@ -406,7 +406,11 @@
- 	if (!(vdev->regions[index].flags & VFIO_REGION_INFO_FLAG_WRITE)
- 			&& (vma->vm_flags & VM_WRITE))
- 		return -EINVAL;
-
-+	/* Prevent read-only region mappings from being upgraded with mprotect() */
-+	if (!(vdev->regions[index].flags & VFIO_REGION_INFO_FLAG_WRITE))
-+		vm_flags_clear(vma, VM_MAYWRITE);
+diff --git a/mm/vmalloc.c b/mm/vmalloc.c
+index 5506b180f5c27..6ed6c160abed7 100644
+--- a/mm/vmalloc.c
++++ b/mm/vmalloc.c
+@@ -3367,12 +3367,15 @@ static inline void set_area_direct_map(const struct vm_struct *area,
+ 				       int (*set_direct_map)(struct page *page,
+ 							     unsigned int nr))
+ {
+-	unsigned long i;
++	unsigned int nr = (1U << vm_area_page_order(area));
 +
- 	vma->vm_private_data = mc_dev;
-
- 	return vfio_fsl_mc_mmap_mmio(vdev->regions[index], vma);
++	for (unsigned long i = 0; i < area->nr_pages; i += nr) {
++		if (page_address(area->pages[i])) {
++			int err = set_direct_map(area->pages[i], nr);
+ 
+-	/* HUGE_VMALLOC passes small pages to set_direct_map */
+-	for (i = 0; i < area->nr_pages; i++)
+-		if (page_address(area->pages[i]))
+-			set_direct_map(area->pages[i], 1);
++			WARN_ON_ONCE(err);
++		}
++	}
  }
+ 
+ /*
+
+-- 
+2.53.0
+
