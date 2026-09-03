@@ -1,125 +1,84 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B54AE363090;
-	Thu,  3 Sep 2026 03:29:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB4D0369D51
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 03:29:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788406185; cv=none; b=tElZ0J4X4Gj8sgyY6i0sPjVYvzU+3YQ9Ggm/w128s8TNPN3mCC50IFr5DZUdWpLvheUVKDWkYzVdbfb1Qr7/M9qxBYBNRBekT085pTbgqijgY+Nei0wyt6d+vGaHRMa+exoRdFCCz8OmOn8k7D0DKU85GIstrp+Q0BflDdqbE2Y=
+	t=1788406189; cv=none; b=rCYP3CAHfmNH6NfwdKgjxSHqW1CdD9EuX6yyLevZPImyCQzDYQy3C9HHX/XBaxuFa5XJ9bCIT15gq7pr3VcK9QMY1iq+DHHe1KUxrIG2C32np7XtdLDASP6XtJRHYu35nGJao10k3WD8As47/FnD5HzN4wHBtOkSGeGN7+ddJ1U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788406185; c=relaxed/simple;
-	bh=WtQED53sr+PQqXAcbFjxIuqVh8jO7xe4FRlTH3xXhWw=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=TcEn6znHDjjSB2msrhCi+COM3BZFQEgJ92KzfcDCRVVS+TTLEGrX7m68HoI7cw6+JICZK02iKyteX4kRSs5daHi/MYRFL3W1crMUMy8sCV4nwnwdltmt7q/i5s0GySl2XdWGLWfdgNQyv4rfHWXYx0nkS22lIj3UZgkI6k5ZD+g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Kd0L77x8; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788406189; c=relaxed/simple;
+	bh=joE8kO9v/f9BQEH9ifxEms+kQ7kJk6lnsVm/NZLnDM8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=MVDntUl7s4W3ZqQ0JF3J+vpwwnPKkOkekBkb5aebiDE4zy1okboVycX8bLaL3BnjmVCMZbPv01lwuZSaLVIRHdK7wnntI8Nr8w0+Xu0Ba4SsUTqy4QFSh8lCwy2Vs+vTC945n0ggJrPVBfCmMgomSxTqKNudFxYZyrcX3BIzPjI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=d8g9eALU; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Kd0L77x8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2DA621F000E9;
-	Thu,  3 Sep 2026 03:29:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788406183;
-	bh=xONfOGAmd1pVhxSdrwbZxTD9yz+LelsOgMqighMVnCc=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Kd0L77x8a2OGmTVCEXAfCwNxzlw8HFzRnyGvEQjO7k4hLeJ6/u3VN9V/kP0CGMvXy
-	 6ZLwCk9al6hOM05OUJmyFdr2E2IuaOFZk2R5rbfkEVTk7BzcJ2oVD7nHLRNXEh0l2p
-	 4h/reKMvPJJLCoFEohkwq+GhaZTZWurnaGYO7zPkJG1eNzFI3gIdEi6/t/+ynteM71
-	 7gJoxrln6pxELUoFWnnQU6K1QiDw744Q0/9WDM5d5/3CXGsR9zLniIu0ryGIIiHbs6
-	 Zcm/WZ5h0Kzk9Upw69CcwTON04eqsyBnGeVVp9EMttmKnrKwx6z6C+xYhfO5O57DcP
-	 Em9A2WHdaSz+A==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 07/14] gpu: nova-core: add an interrupt delivery
- self-test
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Danilo Krummrich" <dakr@kernel.org>, "Alexandre Courbot" <acourbot@nvidia.com>, "John
- Hubbard" <jhubbard@nvidia.com>
-Cc: "Will Pierce" <wpierce@nvidia.com>, "Alex Gaynor" <alex.gaynor@gmail.com>, "Bjorn
- Helgaas" <bhelgaas@google.com>, "Boqun Feng" <boqun.feng@gmail.com>, "Zhi
- Wang" <zhiw@nvidia.com>, "Alexandre Courbot" <acourbot@nvidia.com>, "Simona
- Vetter" <simona@ffwll.ch>, "Gary Guo" <gary@garyguo.net>, "Joel Fernandes" <joelagnelf@nvidia.com>, "Timur
- Tabi" <ttabi@nvidia.com>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Danilo
- Krummrich" <dakr@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>, "Trevor
- Gross" <tmgross@umich.edu>, "David Airlie" <airlied@gmail.com>, LKML <linux-kernel@vger.kernel.org>, "Miguel
- Ojeda" <ojeda@kernel.org>, "Alistair Popple" <apopple@nvidia.com>, nova-gpu@lists.linux.dev,
- =?utf-8?b?QmrDtnJuIFJveSBCYXJvbg==?= <bjorn3_gh@protonmail.com>, "Benno
- Lossin" <lossin@kernel.org>, "Eliot Courtney" <ecourtney@nvidia.com>
-In-Reply-To: <20260903031514.1515905-8-jhubbard@nvidia.com>
-References: <20260903031514.1515905-1-jhubbard@nvidia.com>
- <20260903031514.1515905-8-jhubbard@nvidia.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 03 Sep 2026 03:29:41 +0000
-Message-Id: <20260903032942.2DA621F000E9@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="d8g9eALU"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1788406186;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=S7RoM7uAUzcvJDJLLqQgasYrLIMEII37o4yhCAkc1RA=;
+	b=d8g9eALUMYC5EgTP9RjAGKBpFbl/opFmtkgzUMrbL539DE16STBqsSiDo9o04ZKX3iyhhS
+	NR6GJARamSVX0u4S4jIlMPue5K3Ewsuv2igFAdKiZTUNLysYeyuF6RBwXI+U5mK0BLN4p1
+	K8APJJzdUiy8pKpiiysrileEKryl+cQ=
+Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-348-6eKHUyGFOQaXlkdI0bhd3g-1; Wed,
+ 02 Sep 2026 23:29:45 -0400
+X-MC-Unique: 6eKHUyGFOQaXlkdI0bhd3g-1
+X-Mimecast-MFC-AGG-ID: 6eKHUyGFOQaXlkdI0bhd3g_1788406184
+Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 8B8931944B03;
+	Thu,  3 Sep 2026 03:29:43 +0000 (UTC)
+Received: from [100.91.18.181] (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
+	by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 07D063001D3F;
+	Thu,  3 Sep 2026 03:29:41 +0000 (UTC)
+Message-ID: <fda9189a-93d1-44bc-8c69-766c687c0ed5@redhat.com>
+Date: Wed, 2 Sep 2026 23:29:41 -0400
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] cgroup/cpuset: Handle cpu hotplug race in
+ guarantee_active_cpus()
+To: Farhad Alemi <farhad.alemi@berkeley.edu>
+Cc: Ridong Chen <ridong.chen@linux.dev>, Tejun Heo <tj@kernel.org>,
+ Johannes Weiner <hannes@cmpxchg.org>, =?UTF-8?Q?Michal_Koutn=C3=BD?=
+ <mkoutny@suse.com>, cgroups@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260828180322.730419-1-longman@redhat.com>
+ <ba138f23-6972-44c8-8ce5-80de1f50891c@linux.dev>
+ <85411b3f-bcbd-4a7e-99a5-49a465ca2df8@redhat.com>
+ <CA+0ovCg3BcogTUuqZwboEaZW41dkcsAV3nWjENOHc5ZFGaEarA@mail.gmail.com>
+Content-Language: en-US
+From: Waiman Long <longman@redhat.com>
+In-Reply-To: <CA+0ovCg3BcogTUuqZwboEaZW41dkcsAV3nWjENOHc5ZFGaEarA@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] The `vectors_ref` field introduces a self-referential struct using=
- a reference derived from a short-lived macro-local `&mut` binding. `try_pi=
-n_init!` provides access to previously initialized fields via local variabl=
-e bindings, which expire at the end of the initialization closure. Taking a=
- reference from this local variable and artificially extending its lifetime=
- to `'gpu` via `unsafe { &*... }` violates strict aliasing rules (Stacked B=
-orrows / Tree Borrows). When the closure returns, the local variable goes o=
-ut of scope, its provenance tag is popped, and `vectors_ref` becomes a dang=
-ling pointer under the Rust memory model. Furthermore, the `pin-init` crate=
- explicitly documents: "IMPORTANT: You are not allowed to create references=
- to fields of the struct inside of the initializer."
---
+On 9/1/26 4:55 PM, Farhad Alemi wrote:
+> Apologies for the delay in response. Upon our run, the patched kernel
+> 388b607d107c07aaade04c7f22f344cab6bdccd3 no longer panics when facing
+> the attached reproducer.
 
-commit 9bb2c0e6b8faa56d9fead3fb4f99c60340b45be0
-Author: John Hubbard <jhubbard@nvidia.com>
+Thanks for verifying the patch. Would you mind if I added the following 
+Tested-by tag to the patch?
 
-gpu: nova-core: add an interrupt delivery self-test
+Tested-by: Farhad Alemi <farhad.alemi@berkeley.edu>
 
-Add an optional probe-time self-test that injects the CPU doorbell
-through the GIN software trigger. It confirms the interrupt reaches
-the driver's handler to validate the PCI interrupt path without GSP firmwar=
-e.
+Thanks,
+Longman
 
-> diff --git a/drivers/gpu/nova-core/gpu.rs b/drivers/gpu/nova-core/gpu.rs
-> index e1ac8ee9ba4db..8a9bc4baf9ac0 100644
-> --- a/drivers/gpu/nova-core/gpu.rs
-> +++ b/drivers/gpu/nova-core/gpu.rs
 
-[ ... ]
-
-> @@ -330,6 +337,12 @@ pub(crate) fn new<'a>(
->          let dev =3D pdev.as_ref();
-> =20
->          try_pin_init!(Self {
-> +            vectors: crate::irq::alloc_vectors(pdev, crate::irq::SERVICE=
-D_SUBTREE.into())?,
-> +
-> +            // SAFETY: `vectors` is initialized above, lives at a pinned=
- stable address, and is
-> +            // dropped after every field that uses `vectors_ref` (struct=
- field drop order).
-> +            vectors_ref: unsafe { &*core::ptr::from_ref(vectors.as_ref()=
-.get_ref()) },
-
-[Severity: High]
-Does this create a dangling pointer under the Rust memory model?
-
-`try_pin_init!` provides access to previously initialized fields via local
-variable bindings, which expire at the end of the initialization closure.
-Taking a reference from this local variable and artificially extending its
-lifetime to `'gpu` via `unsafe { &*... }` violates strict aliasing rules
-(Stacked Borrows / Tree Borrows).
-
-When the closure returns, the local variable goes out of scope, its
-provenance tag is popped, and `vectors_ref` becomes a dangling pointer.
-The `pin-init` crate also explicitly documents that creating references to
-fields of the struct inside the initializer is not allowed.
-
-> +
->              spec: Spec::new(dev, bar).inspect(|spec| {
->                  dev_info!(dev,"NVIDIA ({})\n", spec);
->              })?,
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260903031514.1515=
-905-1-jhubbard@nvidia.com?part=3D7
