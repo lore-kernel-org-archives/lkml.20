@@ -1,64 +1,75 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D52C1380FEB
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 09:53:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EAEF40DB27
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 09:53:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788429224; cv=none; b=L0ufoAdFXcHKDAAgI9d148gYwCHJ4WLBkVccTZXfhwpzqzqYUICHiZ3g5jDUUZRlX67zY9THIU9/XxOydMG7EFIzDgccIPi9j9FSpjMEZ5HFVKO+T5ZN+LB3mHSVJ3QDUIbQKAAtIqne7oi4gJQMnvuBr0oW5ypuFSahUK7oVWM=
+	t=1788429224; cv=none; b=CuGjGqxePl45waoU8EP57Z/aOw0KQoJ9v+eNZmhRZZYYfUBNlEfGJYn16vbFzr1UNdHQmq0V7F6TGBJ1zeDOfnmW7+buv7KiISqM4ZSnxGZu9MsIdQNLXaWRxhrT6UA2QwrVaztRmx4UFuTZLg14IA/u3cus2TQun1Pre3MKh38=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788429224; c=relaxed/simple;
-	bh=d4y5Hn0EBhF1grLy92/G1W/mcg/unwEoTt2qMQQaKU0=;
-	h=Mime-Version:Content-Type:Date:Message-Id:From:Subject:Cc:To:
-	 References:In-Reply-To; b=FqtpopWm8+jOKQCK3+fu5XsID2A8jq50CzTagE+VpAbGFSozXuccdt0SvSq1DbrUH3nYymkeAFnuyksIBspo/F9R+oHBjhAWaXV6nGUcf1MH5cQNZKyyGKW1cGRywXmPDhNcYUyszf+GEqw2hU69KgpFK4co2EpZAEBwwA8LgkY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Wl2HdFNv; arc=none smtp.client-ip=100.103.45.18
+	bh=n1/oASmskaKb4TsNyOYMfthg/1r5aRlEXI5W1jIUH+s=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=dQCR/CPr2cq4VQxUG8Lrks82/YwATW+vKDd5300voQXu0WoHWGM0ybDkoz9AMS/GvGAUAJHKb7MTnOGKXLzel1AY/QmVXk12eLHLL5rdxrWkXXpmxq9RHB21yJfyv89k+zbNfH2kE81Kqh31MJlqWpFx/A+ra3c17YHVK/70XqY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NLq3ID7q; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Wl2HdFNv"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1BDED1F000E9;
-	Thu,  3 Sep 2026 09:53:39 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NLq3ID7q"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B48871F00ADB
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 09:53:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1788429222;
-	bh=d4y5Hn0EBhF1grLy92/G1W/mcg/unwEoTt2qMQQaKU0=;
-	h=Date:From:Subject:Cc:To:References:In-Reply-To;
-	b=Wl2HdFNv9ck/rElbAHmVFE7nflBnSrTW/tfAbnLXNxct+5s8QoGWdWEuLrtkVAgIH
-	 aubllsRn5anEp99KO2S53jDaNAV4Sdkxg2EHuyNG10qKEogM0O8B/ZDQ94VRWGkCc9
-	 kRPfwxJNU5iNQhCdr3ol7l6l/XBXOMBdfX9gQptSmoTJSBKUnndiJv6MHhOMVnt04h
-	 BKBtHga7MjLjXl3WK2L1l9HmTwPY4i9sP7BiZvkt+7TuJrR1bnda03AwXPkX9A+NXN
-	 9T6KF4eleru0QB7elLk23qFg4IGxhsf9BJuqqVJV6gJ/yfayZNfGg6BIX5/+aH3/Z4
-	 6SAks6FXSpRaQ==
+	bh=n1/oASmskaKb4TsNyOYMfthg/1r5aRlEXI5W1jIUH+s=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=NLq3ID7qomrpEicl7Svgl27Pfcm1MOzPSQq+TmuZOZulKLCHi2DolCibki9OBqnS/
+	 Mc9zagXCHlPCwo8srvdflY6bs653i7/+NQ84V7IWpW05xYpW4mMewG0mdLg+tTq5w6
+	 fJbBUS1J6SD6ajHrlboMRyPO4UvGCntbRSVslDcDz6ioU6DzqxLH/h1TncwOgaH2jp
+	 Tlq0EYigqggrWW4K1u2RN9z62GLO0tgzynP53kVI1uQh/Cycif+rgkL3H8WCFughD2
+	 SvdYmnbMzWU9+zrktu07Rs3sZwZXXg17isk2+wpjqPuCK5gLM1/npTGTsDgBbUryAF
+	 uVRZJeevzhyWA==
+Received: by mail-qk1-f176.google.com with SMTP id af79cd13be357-936e8bd9caaso194083985a.2
+        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 02:53:42 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBwPurJCKUQVdOUDoCS96hAhd5QMOfK9+2DlpIXTus0Sx2HBUW2FfpAiFhQlKgjOSyDgVeUXJcMVIkS+P94=@vger.kernel.org
+X-Gm-Message-State: AFuF++lQAwXJrHrjRreR9Au9Xcc9k7EB21zeD1ZcW+HS3SBp2H12nY2l
+	6jtkOF6BsAOi9mbf1bfYTSDWKJsKS727OOgdMvOvemAt/4CWwrs5IeVcGjThevXLudEjEBSf8DP
+	5VvTsEdxgbCeBtJysflS5xuUZ95ZHwxU=
+X-Received: by 2002:a05:620a:5ee1:b0:939:6de9:4cff with SMTP id
+ af79cd13be357-9396de96ebbmr435711985a.45.1788429221948; Thu, 03 Sep 2026
+ 02:53:41 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
+MIME-Version: 1.0
+References: <20260903092200.88910-1-christosskarlos.kernel@gmail.com>
+In-Reply-To: <20260903092200.88910-1-christosskarlos.kernel@gmail.com>
+From: Barry Song <baohua@kernel.org>
+Date: Thu, 3 Sep 2026 17:53:30 +0800
+X-Gmail-Original-Message-ID: <CAGsJ_4yym2=iQdG0O8VZAAt-peB+0hoBUMf8rjpA966V6p0TGQ@mail.gmail.com>
+X-Gm-Features: AcwNN1UMw0DE17Op2qfHPQ76NzPZzsK2TCPKbbNYcvIiaGvhscL5UNOsV5_q-9M
+Message-ID: <CAGsJ_4yym2=iQdG0O8VZAAt-peB+0hoBUMf8rjpA966V6p0TGQ@mail.gmail.com>
+Subject: Re: [PATCH] mm/huge_memory: fix various coding style warnings
+To: Christos Skarlos <christosskarlos.kernel@gmail.com>
+Cc: akpm@linux-foundation.org, david@kernel.org, ljs@kernel.org, 
+	ziy@nvidia.com, baolin.wang@linux.alibaba.com, liam@infradead.org, 
+	nico.pache@linux.dev, ryan.roberts@arm.com, dev.jain@arm.com, 
+	lance.yang@linux.dev, usama.arif@linux.dev, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Thu, 03 Sep 2026 11:53:38 +0200
-Message-Id: <DL5L8WQLEHTO.145VJ5NIXMCHE@kernel.org>
-From: "Danilo Krummrich" <dakr@kernel.org>
-Subject: Re: [PATCH RESEND] drm/sched: Create faux device for KUnit tests
-Cc: <oushixiong1025@163.com>, "Matthew Brost" <matthew.brost@intel.com>,
- "Philipp Stanner" <phasta@kernel.org>, =?utf-8?q?Christian_K=C3=B6nig?=
- <ckoenig.leichtzumerken@gmail.com>, "Maarten Lankhorst"
- <maarten.lankhorst@linux.intel.com>, "Thomas Zimmermann"
- <tzimmermann@suse.de>, "David Airlie" <airlied@gmail.com>, "Simona Vetter"
- <simona@ffwll.ch>, <dri-devel@lists.freedesktop.org>,
- <linux-kernel@vger.kernel.org>, "Shixiong Ou" <oushixiong@kylinos.cn>
-To: "Maxime Ripard" <mripard@kernel.org>
-References: <20260903090256.552317-1-oushixiong1025@163.com>
- <apk_YgCd8fbXC7Lx@houat>
-In-Reply-To: <apk_YgCd8fbXC7Lx@houat>
 
-On Thu Sep 3, 2026 at 11:36 AM CEST, Maxime Ripard wrote:
-> What's wrong with drm_kunit_helper_alloc_device(), or kunit_device_regist=
-er()?
+On Thu, Sep 3, 2026 at 5:25=E2=80=AFPM Christos Skarlos
+<christosskarlos.kernel@gmail.com> wrote:
+>
+> Resolve coding style issues flagged by checkpatch.pl Specifically:
+> - Add missing blank lines after variable declarations.
+> - Remove unnecessary braces {} for a single statement block.
+>
+> No functional changes are introduced.
+>
+> Signed-off-by: Christos Skarlos <christosskarlos.kernel@gmail.com>
+> ---
 
-That's probably may bad, in a previous patch that tried to support a NULL d=
-evice
-in the scheduler instead I mistakenly mentioned faux while making the point=
- that
-we should use some mock device instead.
+LGTM,
 
-Thanks,
-Danilo
+Reviewed-by: Barry Song <baohua@kernel.org>
