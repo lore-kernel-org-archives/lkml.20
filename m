@@ -1,90 +1,188 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com [209.85.214.200])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC5CA328267;
-	Thu,  3 Sep 2026 22:17:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AA4F4570CF
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 22:18:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.200
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788473875; cv=none; b=snMy4OV4HTw+eQsTTexgSbK9BVGI1/U0YjhZxsjPIW/IGnPvcQ961PtADrh0F7hmw1zZElLCI5zv59w0FSZaDbI3AV0AbRG/CHMcyV8o3O6wUxYMBZYB3W6sXYjFNBWV97G4x79GHoO+qY8k2aHoJ4NlgXLq3YL99Ry/dVk2JSk=
+	t=1788473899; cv=none; b=txwjVCnn+NiLiORw778tfQ4H70Num30dy/w+9wB2SKxrwtgR3Gnv4/fhYS3FAE4fQiI8gcO6yxZeryU13pv2v3MrFd/qkJcH5r9UtUVlQ79kBE7nVX3POy6vRZhA0wI2+VbQvZomHN7QqukEwrYjlTsWHsHRl02+qxVHOm4CM3k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788473875; c=relaxed/simple;
-	bh=WmSIN4aqynxXVJ4QHAsHJKb4FC8Tq+HJsC5nkI3IaiY=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To; b=qzk+sZqPy6hcPnfDN7L3z3Gs/JcC5lr9KrPwxiFJ1bdrjP9B/qTga85E/asMUCSC8hGVzUGrH/q37MklSZwN4k78Kp03sBiUi/H+KLY0lgkIShoh6AuXYclhFb+VbaQCHwxfxca9oTfVfhwfURwjha07GbGUK8MIq6XwWzCIV0g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=O8+4s0TL; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788473899; c=relaxed/simple;
+	bh=+wE9E9jL9x1acVAF/xZjpv+w+t6AX4qnd2tXKkPaYZo=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=p+oz1rohXUUbF6Y/tCzEsIzpOJMhiIEIDktoDjSv/C/CeXA01jI9mozqGGd3G0n/96P3cuU1Pc6uXIYtXSWavT0hQtekD9AyYgjR4lFkZ6FXeZwTNULqmLGupQtOCd+fCLmIw28cbd7g+BqjODTYpaETixXNiWjuoMlFakl1G2M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=VpiHWsI1; arc=none smtp.client-ip=209.85.214.200
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="O8+4s0TL"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 16E551F000E9;
-	Thu,  3 Sep 2026 22:17:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788473874;
-	bh=CB1xkpplzPJhyqXKWJWGeJ4rJLJCwQWrNJJOr4em59c=;
-	h=Date:From:To:Cc:Subject:In-Reply-To;
-	b=O8+4s0TLieIT8aAw1m5u+P/RocZZTAU5sUTQYxcbjifmPeHRpey9nNSYS8HwU9CFT
-	 qfcN6uLP5Biu40ZNZQ8Lgdv6rOONA/r8GhtZDA31sqN7+9sC8n+BGf9gn8rbuMpK+X
-	 SqbVIS7sH4xJmW7gUSbwqoquJTURpva2lpTxHZgyZxKUj1hV45hAcS8yvfNSHUBre5
-	 9TPwO0s+GXK5Ak8S+Uttqt5PdT1zcZkZaX4c0Y2Up+TbTKFmLPMaslgmFYbRJIZHDD
-	 cAuzMeUSangQRJzUZYl57VFS1EXn3V/qtiayRFqchSUtg+jgyjau78r3eo3cB+6t0S
-	 aiEG8aoqeZuhA==
-Date: Thu, 3 Sep 2026 17:17:52 -0500
-From: Bjorn Helgaas <helgaas@kernel.org>
-To: LeoLiu-oc <leoliu-oc@zhaoxin.com>
-Cc: Bjorn Helgaas <bhelgaas@google.com>,
-	Logan Gunthorpe <logang@deltatee.com>, linux-pci@vger.kernel.org,
-	linux-kernel@vger.kernel.org, Eros Zhang <eroszhang@zhaoxin.com>,
-	Cobe Chen <cobechen@zhaoxin.com>,
-	"Tony W . Wang" <tonywwang@zhaoxin.com>
-Subject: Re: [PATCH] PCI/P2PDMA: Add Zhaoxin host bridges to whitelist
-Message-ID: <20260903221752.GA2266182@bhelgaas>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="VpiHWsI1"
+Received: by mail-pl1-f200.google.com with SMTP id d9443c01a7336-2d9057fab9eso5474295ad.1
+        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 15:18:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1788473897; x=1789078697; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:from:subject
+         :message-id:references:mime-version:in-reply-to:date:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=xMhTt4jexs1ASzs4/CO4GgX4E09m8qb9vlwIOP+7h7E=;
+        b=VpiHWsI1dC06F7FLteXdX7dGh4TLujNxE1o0oDpb0hWii1bN5kNbNiT1a4CzwUyOXX
+         GPhAIuuiVruzaRhkvCEY92p9P0s1gYZoJrdOzaSvC20S29CJrZPmQruGNB08nHykDcc1
+         BKSJuXkPBcBGiv9/WdI0oNDSY9xZmDKLFauEGx3TuvZjVW9w9BCbb2kpJeAFRJLlcQWO
+         eEZO98quYzjTyPlOuJElHMasFiJ3eprFQHaOT6ggmY+eyeCkNnSJ2GbbrgfJTXIdnfi5
+         eZsfU+UHzgnsI0YbCmyJfqNNzwT4i+cmuealyePxWBqoayratJiXufSNu9BCvsLh52tU
+         Ahag==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788473897; x=1789078697;
+        h=content-transfer-encoding:content-type:cc:to:from:subject
+         :message-id:references:mime-version:in-reply-to:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=xMhTt4jexs1ASzs4/CO4GgX4E09m8qb9vlwIOP+7h7E=;
+        b=pYLC7kEqCRhQ9I/RBMJM6sYAXeDZ2RT/eFJaQ6Phr+PlIjfJ5xOgKXMkFWPoBpWupR
+         gBmjG6BT87GGrG5TfZ/iJgK/FSucPMqK5scBgin9aFuZpj5cq8ICyEU2AINY/qu6EeY7
+         ziHIvi4bpiI6Q+QFmA26xZ8EUNcFVMDSS9FYHzh9oaSMCOIBv2aCMMIww52w6/rFPuhw
+         2WaukwoV7mg3fxC1z45mIA3ICCf6N4fVGat1h+VuK4Mvhj21FRLloBRPVk6oRyiVufZg
+         P69ivBK/fbkfStL+qSEv50saPVNf+Id4nwxo7/SScOvdGH6gzIPkECXXSZNjRDBFJwIU
+         j/BA==
+X-Forwarded-Encrypted: i=1; AKwUvBzTWs4vFW46Zr5eKJ9bvpDuub+rdojPEVdy/b8Xtq7fTCDFnW8Dz7C5usUIaVuZv7LQ+FOOrpA5t4QDYpk=@vger.kernel.org
+X-Gm-Message-State: AFuF++kPkYUr9WUc65Mr9a9st8+kixjm9j9CyfWp2PLagXzN2awAJ+7H
+	p1qrjlVx+iGGwRT15et6WDYh/bPyw6Z0BamyTUbKUry4dwHwBLhTWE8m7AXyxrJQD71658Nr6LG
+	pOWOXeA==
+X-Received: from plbbg4.prod.google.com ([2002:a17:902:8e84:b0:2ce:d2e2:393])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:903:b8d:b0:2d7:1e07:4859
+ with SMTP id d9443c01a7336-2db125cd33emr33796695ad.2.1788473897204; Thu, 03
+ Sep 2026 15:18:17 -0700 (PDT)
+Date: Thu, 3 Sep 2026 15:18:16 -0700
+In-Reply-To: <CAO9r8zPcvZpy=379oWNY_+p2XZ74On5LPL+53evbRqq5OD1H=g@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260901083653.48890-1-leoliu-oc@zhaoxin.com>
+Mime-Version: 1.0
+References: <20260903175856.4065099-1-yosry@kernel.org> <apnqonqMBZ2GeGEq@google.com>
+ <CAO9r8zPcvZpy=379oWNY_+p2XZ74On5LPL+53evbRqq5OD1H=g@mail.gmail.com>
+Message-ID: <apnyKNY_FKFWtDNK@google.com>
+Subject: Re: [PATCH] KVM: SVM: Trigger new ASID allocation in both VMCBs on
+ pCPU switch
+From: Sean Christopherson <seanjc@google.com>
+To: Yosry Ahmed <yosry@kernel.org>
+Cc: Paolo Bonzini <pbonzini@redhat.com>, kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org, Stefan Teodorescu <fane@google.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, Sep 01, 2026 at 04:36:53PM +0800, LeoLiu-oc wrote:
-> Zhaoxin host bridges support peer-to-peer DMA. Add their device IDs
-> (0x1003, 0x1005-0x1008) to the whitelist so that p2pdma works on these
-> platforms.
-> 
-> The entries cover the KX-6000, KH-40000, KX-6000G, KX-7000 and KH-50000
-> families.
-> 
-> The KX-6000/KH-40000/KX-6000G/KX-7000 entries are marked
-> REQ_SAME_HOST_BRIDGE because P2P requests crossing different host bridges
-> are not supported on these parts. The KH-50000 entry is whitelisted
-> without this restriction.
-> 
-> Signed-off-by: LeoLiu-oc <leoliu-oc@zhaoxin.com>
+On Thu, Sep 03, 2026, Yosry Ahmed wrote:
+> On Thu, Sep 3, 2026 at 2:53=E2=80=AFPM Sean Christopherson <seanjc@google=
+.com> wrote:
+> > >       if (unlikely(svm->current_vmcb->cpu !=3D vcpu->cpu)) {
+> > > -             svm->current_vmcb->asid_generation =3D 0;
+> > >               vmcb_mark_all_dirty(svm->vmcb);
+> > >               svm->current_vmcb->cpu =3D vcpu->cpu;
+> > > +             svm->vmcb01.asid_generation =3D 0;
+> > > +             if (svm->nested.initialized)
+> >
+> > Isn't conditioning the clear on nested.initialized wrong?  It's stupidl=
+y contrived,
+> > but I think it can happen?  Even if it can't, I don't see any reason to=
+ conditionally
+> > zero vmcb02.asid_generation.  Either it's buggy or it's a wash in terms=
+ of performance.
+>=20
+> Oh yeah it's not needed. I thought the generation is only allocated
+> when svm->nested.initialized, but that's not true it's always there.
+> So yeah we can just always zero it, and then we can drop the change in
+> svm_allocate_nested() too, or keep it as hardening (it seems like a
+> good idea in general)?
 
-Applied to pci/p2pdma for v7.4, thank you!
+Definitely keep it as hardening.
 
-> ---
->  drivers/pci/p2pdma.c | 6 ++++++
->  1 file changed, 6 insertions(+)
-> 
-> diff --git a/drivers/pci/p2pdma.c b/drivers/pci/p2pdma.c
-> index 9334eb314663..9fbbf1692f0e 100644
-> --- a/drivers/pci/p2pdma.c
-> +++ b/drivers/pci/p2pdma.c
-> @@ -569,6 +569,12 @@ static const struct pci_p2pdma_whitelist_entry {
->  	{PCI_VENDOR_ID_NVIDIA, 0x2f96, 0},
->  	{PCI_VENDOR_ID_NVIDIA, 0x2f97, 0},
->  	{PCI_VENDOR_ID_NVIDIA, 0x2f98, 0},
-> +	/* Zhaoxin KX-6000/KH-40000/KX-6000G/KX-7000/KH-50000 */
-> +	{PCI_VENDOR_ID_ZHAOXIN, 0x1003, REQ_SAME_HOST_BRIDGE},
-> +	{PCI_VENDOR_ID_ZHAOXIN, 0x1005, REQ_SAME_HOST_BRIDGE},
-> +	{PCI_VENDOR_ID_ZHAOXIN, 0x1006, REQ_SAME_HOST_BRIDGE},
-> +	{PCI_VENDOR_ID_ZHAOXIN, 0x1007, REQ_SAME_HOST_BRIDGE},
-> +	{PCI_VENDOR_ID_ZHAOXIN, 0x1008, 0},
->  	{}
->  };
->  
-> -- 
-> 2.43.0
-> 
-> 
+> >  - vCPUx runs on pCPU A, vmcb02 is active, asid=3D1.
+> >  - vCPUx migrates to pCPU B, vmcb02 pCPU changes, new asid=3D2.
+> >  - vCPUz runs on pCPU A and allocates asid=3D2 as well.
+> >  - vCPUx switches to vmbc01 and disabled nested, but doesn't run, e.g. =
+because
+> >    userspace stuffs EFER.
+>=20
+> IIUC, here userspace wrote EFER.SVME=3D0..
+>=20
+> >  - vCPUx migrates back to pCPU A, and zeroes vmcb01.asid_generation, bu=
+t not
+> >    vmcb02.asid_generation.
+> >  - vCPUx switches to vmcb02, without running vmcb01, again thanks to us=
+erspace.
+>=20
+> ..and here it wrote EFER.SVME=3D1, in which case svm_allocate_nested()
+> should set svm->nested.vmcb02.cpu =3D -1..
+>=20
+> >  - vCPUx does VMRUN on vmcb02 with asid=3D2.
+>=20
+> ..and we allocate a new ASID here?
+
+Oh, right.  Yeesh, that's subtle.  All the more reason to burn with fire.
+
+> >  - Two vCPUs end up using asid=3D2 on the same pCPU.
+> >
+> > The "svm->current_vmcb->cpu !=3D vcpu->cpu" check is also sketchy, but =
+I don't think
+> > it's outright wrong?
+> >
+> > Ugh.  Jumping back a bit, I _was_ going to say that we could revert 193=
+015adf40d
+> > and then do:
+> >
+> > diff --git arch/x86/kvm/svm/svm.c arch/x86/kvm/svm/svm.c
+> > index b4845e452e69..4c8e2fcd378e 100644
+> > --- arch/x86/kvm/svm/svm.c
+> > +++ arch/x86/kvm/svm/svm.c
+> > @@ -1310,12 +1310,6 @@ void svm_switch_vmcb(struct vcpu_svm *svm, struc=
+t kvm_vmcb_info *target_vmcb)
+> >  {
+> >         svm->current_vmcb =3D target_vmcb;
+> >         svm->vmcb =3D target_vmcb->ptr;
+> > -
+> > -       /*
+> > -       * Workaround: we don't yet track the ASID generation
+> > -       * that was active the last time target_vmcb was run.
+> > -       */
+> > -       svm->asid_generation =3D 0;
+> >  }
+> >
+> >  static int svm_vcpu_create(struct kvm_vcpu *vcpu)
+> > @@ -4531,6 +4525,9 @@ static __no_kcsan fastpath_t svm_vcpu_run(struct =
+kvm_vcpu *vcpu, u64 run_flags)
+> >         sync_lapic_to_cr8(vcpu);
+> >
+> >         if (unlikely(svm->asid !=3D svm->vmcb->control.asid)) {
+> > +               if (svm->vmcb->control.tlb_ctl !=3D TLB_CONTROL_FLUSH_A=
+LL_ASID)
+> > +                       svm->vmcb->control.tlb_ctl =3D TLB_CONTROL_FLUS=
+H_ASID;
+> > +
+> >                 svm->vmcb->control.asid =3D svm->asid;
+> >                 vmcb_mark_dirty(svm->vmcb, VMCB_ASID);
+> >         }
+> >
+> >
+> > But after reading the cover letter[*], I can't tell if 193015adf40d was=
+ a bug
+> > fix for a dirty/clean bits bug, a bug fix for ASID reuse, or an optimiz=
+ation (I
+> > thought it was an optimization until reading the cover letter and looki=
+ng more
+> > at commit af18fa775d07 ("KVM: nSVM: Track the physical cpu of the vmcb =
+vmrun
+> > through the vmcb").
+> >
+> > So yeah, hit this with a hammer and defer the proper fix to your cleanu=
+p series,
+> > because I have low confidence that doing a proper fix is the safest app=
+roach for
+> > LTS kernels.
+>=20
+> I can send a new version dropping conditioning the reset on
+> svm->nested.initialized and dropping the change in
+> svm_allocate_nested(), is this what you had in mind?
+
+Keep the change in svm_allocate_nested().  Or just do nothing, I'll happily=
+ drop
+the svm->nested.initialized check when applying.
