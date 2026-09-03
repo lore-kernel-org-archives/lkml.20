@@ -1,230 +1,220 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 339343F5BDB
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 09:44:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F8234334A9;
+	Thu,  3 Sep 2026 09:44:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788428687; cv=none; b=OkfQWjC0zbx4RdrPiVA22X9fMc8RZTPL05cPknJ2HcVv8+xiOQnlDeghW2/RvbIydcbzwCN7xJmJg9BGbb2ZhCoUmVc4ve9mNdztY3VFgK0tcvAyf7FQajzqgrlrkKnFdrUvzQlUW1Q05+kaAZB0SlsqMrT3AgIhwdeajRJ9bGE=
+	t=1788428698; cv=none; b=UdGdPsq23BjfYs8bA80KZJoA5GPACk4dYmXLUd267Vh5hh49DIURQcv4oOOOF7LK/5H9LHBnEQYIns/Z6asGRHk3m8Ub06PEEH3HXksdOUcTCCnKvX7afXS3XMTl57jZBT80bWmX0dMMe4cbUEWMa+VhNOqHDZFlhKpPlADGDoM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788428687; c=relaxed/simple;
-	bh=xU0NyaueGoXHo/a1dYxZZQyNgAVnM0vSEw6tinwiCBA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=fqzGUPTwssfFHbccxXVnkuiD+v0CCuI0rWmhRg/HjoSWsGxb+SRTUAdTdNRx1q73fkifsAwno5Xgnecy4Su71MkktozoY6UlUAuUjXAgQyFIkC4QwFiQJEG69c/+yA9GWAX2EKV6pZ8qctkvX1CE8944Zr/IHoSj7aAe/ZxflFg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cV+4jopX; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788428698; c=relaxed/simple;
+	bh=1HcaO00vdh7fbIN8UIVc1AZzdZeIJ5kFG2af2++MRL4=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=uSub1RQOQSk4abFAZJNE8E+fN4IeMOEFMih17/Nr8h4DAFKeyAUaUJ1OE5Td/Rd9aXUv8AYc07bdocKkmJCrsTrmE1KaXzK1fzKIaM+S+kdoq8z9U5zVbg980FWPGJ+Q7kvuLnLGWY6At9TfYZaE9R2UXJG/RIKkW6JhospcRVw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=Vpp16Fxp; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=Q4O1r6H+; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=mO1Doftg; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=aUKhck05; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cV+4jopX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 16CC81F000E9;
-	Thu,  3 Sep 2026 09:44:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788428684;
-	bh=BPIrzGXFmYZL8iESiUY0g2CdGvAzJs2/CqbLP3w0BY0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=cV+4jopXQqF1iiDCAQD3G7L2xjP67etsD/rBK76YdP9Ysxz/nDhnLbYk+AZT79CFU
-	 U+VUCENcNmgkaFSpWt6HGoAiSl5Irj08IUXOZWBv7GDIXCsrQ+AKQ0ZpBVsJeXKZvQ
-	 Tuea08Y0Zkx5oHowcTwqA6By15+zJ968Y5gZQqGqHBXS+38aFInrNYjT1vCMwoUk2y
-	 6uvX5Tdxg6jYqq6Ja7ncfHKv1+/8/Fi08Og/KDoWMm6CxXuUp/hX8aUv8r0Gg3xbJB
-	 LBjLekLfAlo+8F+NJB+bsGbqy7IQm2OifHh+K5PwoXaNSu+0s5h0lfk9lZF/+dMLyO
-	 hU8CseuEmc1LQ==
-Date: Thu, 3 Sep 2026 11:44:41 +0200
-From: Maxime Ripard <mripard@kernel.org>
-To: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
-	Simona Vetter <simona@ffwll.ch>, Andrzej Hajda <andrzej.hajda@intel.com>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
-	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, Jonas Karlman <jonas@kwiboo.se>, 
-	Jernej Skrabec <jernej.skrabec@gmail.com>, Jessica Zhang <jesszhan0024@gmail.com>, 
-	Linus Walleij <linusw@kernel.org>, Inki Dae <inki.dae@samsung.com>, 
-	Jagan Teki <jagan@amarulasolutions.com>, Marek Szyprowski <m.szyprowski@samsung.com>, 
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, Hui Pu <Hui.Pu@gehealthcare.com>, 
-	Ian Ray <ian.ray@gehealthcare.com>, Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
-	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 04/11] drm/panel: merge the drm_kms_helper module into
- the drm module
-Message-ID: <aplA6Q2yfp5Tdchs@houat>
-References: <DKR7VTBLRBQW.2LLJMDO74KXNO@bootlin.com>
- <20260824-cuddly-aardwark-of-reward-0d93d4@houat>
- <DKX8KDDOTPM7.3OS616IO3E4UA@bootlin.com>
- <apBGjqt9GI5egQW6@houat>
- <DL3ZJBN3TALE.XBW7KL51XGBO@bootlin.com>
- <DL41VXI6IT94.CXUS4CYX1WJO@bootlin.com>
- <apgW0P4drLEZUB7s@houat>
- <DL4VJG42D5IG.32LF3WUGUPSOI@bootlin.com>
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="Vpp16Fxp";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="Q4O1r6H+";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="mO1Doftg";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="aUKhck05"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id EBC4B21ECC;
+	Thu,  3 Sep 2026 09:44:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1788428690; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=A3/wSTW1MhRqb806sXDSM4CH0tyIBJp1UTl32VjE50Y=;
+	b=Vpp16FxpaYh9cMqbiVuk3ZEB4YRRwahYr4XA1DsPf1TuXM5+ImngDjdFhHCmOS4kwBMks6
+	TZMnNkxEvL6qg8ROPNg8Ne+E72vayP8v5gvFF2obht1jjM6okM8HFKWI1M4Fw/2Vm09wu0
+	kvd6GrWxtsDEIsX1E/e5hFNyD09nIMA=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1788428690;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=A3/wSTW1MhRqb806sXDSM4CH0tyIBJp1UTl32VjE50Y=;
+	b=Q4O1r6H+KJmjd/XMqznRwGUYrFDB7tpoV5Pp5cSduTxdhCSW0sSigsfAl2muQoopFVvu0/
+	GvV6x7ooljz6CMCQ==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1788428686; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=A3/wSTW1MhRqb806sXDSM4CH0tyIBJp1UTl32VjE50Y=;
+	b=mO1DoftgFbMWQjYSWGkH07FqWGhAHnck/MQofpUODk7GM0rKBMCbwfHzp1LPgBdmttIgaC
+	41v39VeFedb9lisPSa7q5fULiN/OUOcBidD8WfN+neRgVs2WUga9cImvPMb/UUNZ8MZcXO
+	6SIJhRrCtw93Ifh/0d3sdbzXGHOLguw=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1788428686;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=A3/wSTW1MhRqb806sXDSM4CH0tyIBJp1UTl32VjE50Y=;
+	b=aUKhck05NIf3I9tJmQrlrIGwiekW0x7vxbquiBx7HgV6o4ej3EFtjcji2p+Fd0ELF07Ap6
+	JKa0FyhtBu4skBBg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 871A513738;
+	Thu,  3 Sep 2026 09:44:45 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id VAHIH41BmWrSdAAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Thu, 03 Sep 2026 09:44:45 +0000
+Date: Thu, 03 Sep 2026 11:44:45 +0200
+Message-ID: <87o6ee8y9e.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Michal Pecio <michal.pecio@gmail.com>
+Cc: syzbot <syzbot+832ce9fa3face1b7d44d@syzkaller.appspotmail.com>,
+	bolewara@gmail.com,
+	devnull@kernel.org,
+	gregkh@linuxfoundation.org,
+	linux-kernel@vger.kernel.org,
+	linux-media@vger.kernel.org,
+	linux-usb@vger.kernel.org,
+	mchehab@kernel.org,
+	syzkaller-bugs@googlegroups.com,
+	Daniel Mack <zonque@gmail.com>,
+	Takashi
+ Iwai <tiwai@suse.com>,
+	linux-sound@vger.kernel.org
+Subject: Re: [syzbot] [usb?] KASAN: slab-use-after-free Write in usb_free_urb
+In-Reply-To: <20260903112417.21b76017.michal.pecio@gmail.com>
+References: <6a6e9502.f794c993.27aeb.0018.GAE@google.com>
+	<6a97af8d.27a413cd.1e878c.0004.GAE@google.com>
+	<20260903112417.21b76017.michal.pecio@gmail.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha384;
-	protocol="application/pgp-signature"; boundary="wd77ieiavvmjfjnc"
-Content-Disposition: inline
-In-Reply-To: <DL4VJG42D5IG.32LF3WUGUPSOI@bootlin.com>
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Spam-Score: -0.80
+X-Spam-Level: 
+X-Spamd-Result: default: False [-0.80 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	URI_HIDDEN_PATH(1.00)[https://syzkaller.appspot.com/x/.config?x=b454dc6b1b7acd30];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	TAGGED_RCPT(0.00)[832ce9fa3face1b7d44d];
+	RCVD_TLS_ALL(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[13];
+	FREEMAIL_TO(0.00)[gmail.com];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[syzkaller.appspotmail.com,gmail.com,kernel.org,linuxfoundation.org,vger.kernel.org,googlegroups.com,suse.com];
+	TO_DN_SOME(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:mid,storage.googleapis.com:url,appspotmail.com:email,syzkaller.appspot.com:url,imap1.dmz-prg2.suse.org:helo];
+	SUBJECT_HAS_QUESTION(0.00)[]
+X-Spam-Flag: NO
+
+On Thu, 03 Sep 2026 11:24:17 +0200,
+Michal Pecio wrote:
+> 
+> On Tue, 01 Sep 2026 22:09:33 -0700, syzbot wrote:
+> > syzbot has found a reproducer for the following issue on:
+> > 
+> > HEAD commit:    786262be6048 Merge tag 'edac_updates_for_v7.3_rc2' of git:..
+> > git tree:       upstream
+> > console+strace: https://syzkaller.appspot.com/x/log.txt?x=12a28125580000
+> > kernel config:  https://syzkaller.appspot.com/x/.config?x=b454dc6b1b7acd30
+> > dashboard link: https://syzkaller.appspot.com/bug?extid=832ce9fa3face1b7d44d
+> > compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
+> > syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=1735af79580000
+> > C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=135b7f79580000
+> > 
+> > Downloadable assets:
+> > disk image: https://storage.googleapis.com/syzbot-assets/c3e528ebf709/disk-786262be.raw.xz
+> > vmlinux: https://storage.googleapis.com/syzbot-assets/46f3418d2828/vmlinux-786262be.xz
+> > kernel image: https://storage.googleapis.com/syzbot-assets/60ab8a27c4f7/bzImage-786262be.xz
+> > 
+> > IMPORTANT: if you fix the issue, please add the following tag to the commit:
+> > Reported-by: syzbot+832ce9fa3face1b7d44d@syzkaller.appspotmail.com
+> > 
+> > usb 1-1: received EP1 urb->status = -2
+> > ==================================================================
+> > BUG: KASAN: slab-use-after-free in instrument_atomic_read_write include/linux/instrumented.h:112 [inline]
+> > BUG: KASAN: slab-use-after-free in atomic_fetch_sub_release include/linux/atomic/atomic-instrumented.h:400 [inline]
+> > BUG: KASAN: slab-use-after-free in __refcount_sub_and_test include/linux/refcount.h:389 [inline]
+> > BUG: KASAN: slab-use-after-free in __refcount_dec_and_test include/linux/refcount.h:432 [inline]
+> > BUG: KASAN: slab-use-after-free in refcount_dec_and_test include/linux/refcount.h:450 [inline]
+> > BUG: KASAN: slab-use-after-free in kref_put include/linux/kref.h:64 [inline]
+> > BUG: KASAN: slab-use-after-free in usb_free_urb+0x24/0x120 drivers/usb/core/urb.c:96
+> > Write of size 4 at addr ffff88803cee1050 by task ktimers/1/29
+> > 
+> > CPU: 1 UID: 0 PID: 29 Comm: ktimers/1 Not tainted syzkaller #0 PREEMPT_{RT,(full)} 
+> > Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 07/24/2026
+> > Call Trace:
+> >  <TASK>
+> >  dump_stack_lvl+0xe8/0x150 lib/dump_stack.c:120
+> >  print_address_description+0x55/0x1e0 mm/kasan/report.c:378
+> >  print_report+0x58/0x70 mm/kasan/report.c:482
+> >  kasan_report+0x117/0x150 mm/kasan/report.c:595
+> >  check_region_inline mm/kasan/generic.c:-1 [inline]
+> >  kasan_check_range+0x264/0x2c0 mm/kasan/generic.c:200
+> >  instrument_atomic_read_write include/linux/instrumented.h:112 [inline]
+> >  atomic_fetch_sub_release include/linux/atomic/atomic-instrumented.h:400 [inline]
+> >  __refcount_sub_and_test include/linux/refcount.h:389 [inline]
+> >  __refcount_dec_and_test include/linux/refcount.h:432 [inline]
+> >  refcount_dec_and_test include/linux/refcount.h:450 [inline]
+> >  kref_put include/linux/kref.h:64 [inline]
+> >  usb_free_urb+0x24/0x120 drivers/usb/core/urb.c:96
+> >  dummy_timer+0xaac/0x4d50 drivers/usb/gadget/udc/dummy_hcd.c:2019
+> >  __run_hrtimer kernel/time/hrtimer.c:2067 [inline]
+> >  __hrtimer_run_queues+0x3eb/0xaf0 kernel/time/hrtimer.c:2124
+> >  hrtimer_run_softirq+0x1e1/0x2e0 kernel/time/hrtimer.c:2141
+> >  handle_softirqs+0x1da/0x6d0 kernel/softirq.c:645
+> >  __do_softirq kernel/softirq.c:679 [inline]
+> >  run_ktimerd+0x6a/0x100 kernel/softirq.c:1183
+> >  smpboot_thread_fn+0x565/0xa70 kernel/smpboot.c:160
+> >  kthread+0x38b/0x470 kernel/kthread.c:436
+> >  ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
+> >  ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+> >  </TASK>
+> 
+> [Adding sound people]
+> 
+> So what happens here is that USB core continues to use a URB after
+> completion to implement things like usb_kill_urb(), so URBs are
+> reference counted. Then core decrements the count - one more use.
+> 
+> If a driver waits for completion or even usb_kill_urb() to return
+> and then proceeds to free the URB's storage, this becomes a UAF.
+> This driver embeds 2 URBs in its priv and does just that.
+> 
+> A URB can only exist as an independent allocation, core will free
+> it if upon finding zero reference count in such case.
+> 
+> This is a mechanical conversion, untested. I don't have the HW.
+
+This should work, and we've received another similar patch submission
+already.
+
+So, IIUC, now the URB *must* be always allocated via usb_alloc_urb()
+and an embedded URB isn't allowed?  If so, we'd need to address other
+drivers, too.
 
 
---wd77ieiavvmjfjnc
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH 04/11] drm/panel: merge the drm_kms_helper module into
- the drm module
-MIME-Version: 1.0
+thanks,
 
-On Wed, Sep 02, 2026 at 03:44:55PM +0200, Luca Ceresoli wrote:
-> Hi Maxime,
->=20
-> On Wed Sep 2, 2026 at 2:36 PM CEST, Maxime Ripard wrote:
-> > On Tue, Sep 01, 2026 at 04:30:40PM +0200, Luca Ceresoli wrote:
-> >> On Tue Sep 1, 2026 at 2:40 PM CEST, Luca Ceresoli wrote:
-> >>
-> >> [...]
-> >>
-> >> >>> >> > And we'd essentially move drm_panel_bridge into drm_panel.c, =
-and make it
-> >> >>> >> > private.
-> >> >>> >>
-> >> >>> >> Yes in theory, but the panel_bridge code uses other parts of the
-> >> >>> >> drm_kms_helper module: drm_atomic_helper and drm_probe_helper, =
-maybe more,
-> >> >>> >> so we'd have to move them into the drm module too.
-> >> >>> >
-> >> >>> > Ah, right. What would happen if we were doing it the other way a=
-round
-> >> >>> > then? Move drm_panel out of the main drm module?
-> >> >>>
-> >> >>> Into the drm_kms_helper module?
-> >> >>>
-> >> >>> I had a look and did some experiments and I found at least one use=
-r in the drm
-> >> >>> module calling a drm_panel API, and guess who:
-> >> >>>
-> >> >>>  drm_of_find_panel_or_bridge() (in drm_of.c, drm module)
-> >> >>>     -> calls of_drm_find_panel (in drm_panel.c, drm_kms_helper mod=
-ule)
-> >> >>>
-> >> >>> Based on our discussion after patch 3, I'm not sure
-> >> >>> drm_of_find_panel_or_bridge() will disappear soon. If it doesn't, =
-I guess
-> >> >>> we can try to move drm_of_find_panel_or_bridge() into bridge/panel=
-=2Ec which
-> >> >>> is in the drm_kms_helper module (and from drm_of.h info
-> >> >>> drm_bridge.h?). That however might trigger build failures for driv=
-ers which
-> >> >>> currently don't select DRM_KMS_HELPER and which would have to sele=
-ct it.
-> >> >>>
-> >> >>> I'll give it a try, and if I see major drawbacks I will get back t=
-o moving
-> >> >>> all the drm_kms_helper code into the main drm module.
-> >> >>
-> >> >> No, I meant into its own module.
-> >> >
-> >> > Looks like a good idea indeed, making the design more modular and
-> >> > dependencies cleaner.
-> >> >
-> >> >> Do we have any dependency from the main
-> >> >> drm module into drm_panel?
-> >> >
-> >> > As far as I can see there is only the one mentioned above:
-> >> >
-> >> >   drm_of_find_panel_or_bridge() (in drm_of.c, drm module)
-> >> >      -> calls of_drm_find_panel (in drm_panel.c, would-be the new dr=
-m_panel module)
-> >> >
-> >> > And while drm_of_find_panel_or_bridge() is possibly going to disappe=
-ar at
-> >> > the end of my series, moving drm_panel.c to its own module would mak=
-e the
-> >> > series non-build-bisectable, which would be very annoying.
-> >> >
-> >> > However there seem to be no calls from the drm module to
-> >> > drm_of_find_panel_or_bridge(), so we could move it out as well. What=
- about
-> >> > a series doing, in this order:
-> >> >
-> >> >  - move drm_of_find_panel_or_bridge() from the drm module to the
-> >> >    drm_kms_helper module
-> >> >  - move drm_panel.c to a new drm_panel module
-> >> >  - Main change: embed a drm_bridge into every panel
-> >> >  - convert drivers to stop using the panel_bridge, hopefully removin=
-g all
-> >> >    calls to drm_of_find_panel_or_bridge()
-> >> >  - remove drm_of_find_panel_or_bridge()
-> >>
-> >> Ah, no, that won't work. There would be a circular module dependency l=
-oop
-> >> later on when we embed a drm_bridge into evern drm_panel: indeed at th=
-at
-> >> point drm_panel will use the atomic and probe helpers to implement the
-> >> embedded drm_bridge, resulting in:
-> >>
-> >>  * the panel_bridge code in bridge/panel.c [drm_kms_helper module]
-> >>    already depends on the drm_panel.c code (it manipulates a drm_panel=
-, OK)
-> >>  * additionally, the drm_panel.c code, in order to create a drm_bridge,
-> >>    will depend on the helpers in drm_atomic_helper and drm_probe_helper
-> >>    code [drm_kms_helper module]
-> >>
-> >> The loop is only between kernel modules (.ko), not in actual code. So I
-> >> think this revised plan should work (the 2nd bullet is key):
-> >>
-> >>  - move drm_of_find_panel_or_bridge() from the drm module to
-> >>    bridge/panel.c [currently drm_kms_helper module]
-> >>  - move bridge/panel.o to a new drm_panel_bridge module (NEW)
-> >>  - move drm_panel.c to a new drm_panel module
-> >
-> > Looks good on principle, but iirc the starting point of that discussion
-> > was to move bridge panel into the new panel module,
->=20
-> That was the starting point, but working on it I realized it was very
-> tricky. So I tried instead copying the relevant bridge/panel.c code into
-> drm_panel.c, but with more suitable function names, and the result is way
-> cleaner.
-
-I don't see the difference, but I guess that's a good thing anyway :)
-
-> This changed the steps, but not the end result: remove
-> drm_of_find_panel_or_bridge() and bridge/panel.c entirely.
->=20
-> > so I guess we could:
-> >
-> > 1) Move drm_of_find_panel_or_bridge() to drm_panel.c. Both are still in
-> > the drm module at this point, so it should be ok.
-> > 2) Create a new panel module, with a dependency on bridge
-> > 3) Move the bridge/panel.c code into the new panel module to create the
-> > bridge at the same time we create the panel.
-> >
-> > Would that work?
->=20
-> Maybe, but as above, my plan has changed a bit.
->=20
-> My opinion is that for this tricky task we should focus more on the end
-> result (embed a bridge into every panel, remove
-> drm_of_find_panel_or_bridge() and bridge/panel.c) than on finding the most
-> optimal path to get there. So I'm aiming at a path that is
-> build-bisectable, clean and understandable.
->=20
-> What do you think about this principle?
-
-I somewhat agree, the somewhat being I don't think we should go for that
-end result at all cost. We don't know how long it's going to complete,
-how much you're going to be involved in this going forward, etc. so I
-think the intermediate steps should be reasonable (even if not perfect)
-and ok to carry for an indefinite amount of time.
-
-Maxime
-
---wd77ieiavvmjfjnc
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCaplBiAAKCRAnX84Zoj2+
-dgkxAX9PJK9hBt8zYACkDfa6CxmC0TJXpl8ryCUWstuQytBSSlGW0N+GlfcEm+Vs
-WxCWHa8BgKIQLIxtiyRbLQ/6WfbgrEad81k3rTOSSsH9m3MhhIPhVLj9ly2TPjIi
-vbS2quffDg==
-=sl8N
------END PGP SIGNATURE-----
-
---wd77ieiavvmjfjnc--
+Takashi
