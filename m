@@ -1,140 +1,115 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D9B34CB8DF;
-	Thu,  3 Sep 2026 15:17:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68AB04CB8CC;
+	Thu,  3 Sep 2026 15:18:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788448641; cv=none; b=YEkFjCSw4TN2R6tHw4Ot7LtZt/T8zd6PcvlrDEHs9yjKoHnW7SGhG/rpUrT5rxr/+CLMYbE3yephEjOaZlY+pXwoGeZ5kaxnJYZ15Gdtftnxe5ZposPTaQY1L/kr5ShSB22V9R7RGSmjqxBoUDc9DPeJkO9CFk8jYNbq/0/dH5I=
+	t=1788448704; cv=none; b=LW9Z9jjRXt5x5ILNOaTXDvn6wGGutZcYuKQbKKvIMJeg0e569YPq2m9FRmbvJ2FwjMkrMSnwkYpzzQqBN+kpWGGrHzazED56HVxKLSrxv+L2d4UXOiFA0haGREn50ZnpQ3NaEcfEE2Z2JEmZqDOc9DlhSfZr+YzA0XBvyb7IBhw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788448641; c=relaxed/simple;
-	bh=gQFkf+fRPtF+FgNHZ9IWTfVdjfwG9PrGNTkqxrN8zuk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=XpHB3c25TdD4EX0+G7ZwaqCzqZHCQfZwF0XAkCShCFLUwvAPkWMqgU1/G2/9X/o31NRv/27sFXCLX14/LXAAMUI4DvEHkD5TvxAag6mxMm5bGuJqosCBv5hvsp3Fx6cXNBKSCD+FMM/xwB4IOQ3jkR17YUmuj1HAO/Fo/G3d1L4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bwm+Xoig; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788448704; c=relaxed/simple;
+	bh=K+3XtnaLaBRlMJPB0HqYncegYf6uuHGpL2ye+UaIzDI=;
+	h=Content-Type:MIME-Version:Message-Id:In-Reply-To:References:
+	 Subject:From:To:Cc:Date; b=RNSv/EZaq4PACdO2lfyQ3UfklEpbADeNQARUhop0lOgLAIATPpA7KeimxyfvQNw00lO5jcTtHuna+u7FdImsnWXRLx2Ww1kfqk4f2qENoUGtOPryklHIy69jX6eEXjsejUg7TaARDMPs0lJnn+MXzWySyU5GDcAHllGj4ajohQ8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JOdy5/tp; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bwm+Xoig"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5AE191F00A3A;
-	Thu,  3 Sep 2026 15:17:16 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JOdy5/tp"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 520051F000E9;
+	Thu,  3 Sep 2026 15:18:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788448638;
-	bh=mCqw6k31K7MtCiREluZ7jzV6zUYfn2lqNKSmtp272tw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=bwm+Xoige4d1IsG7ahmwsgfsAuNBlIbKyxRZv/M+kWV05EcMOD+pfzlALQd6AFwq/
-	 5gHYPIhpPkuYhFyUEsFheNnNc3crh4kAgbrud40zgjxMY0FcSf2q4AA87+wFWfTgar
-	 nu40DUvF2z85SwkpnjV9CMaCM4ozeNbDqUluvQXoC0p6CE2EjBmFbwhU7TJrzWf9v/
-	 0cJdwB83bqlgVy3sRDMT6s3ey7oAv5yRJBSRl8LY/LnmcWt8E/nbdLHnus/mf4va6U
-	 AqzoJXY+RtqXFGMh1PdGvHNEFMH9QtVZ4zXJuTeCkMbNZJvs0s75jRE/j9AKilWxCd
-	 Hd56lnEhyiNBw==
-Date: Thu, 3 Sep 2026 17:17:13 +0200
-From: Niklas Cassel <cassel@kernel.org>
-To: Xincheng Zhang <zhangxincheng@ultrarisc.com>
-Cc: jingoohan1@gmail.com, mani@kernel.org, lpieralisi@kernel.org,
-	kwilczynski@kernel.org, robh@kernel.org, bhelgaas@google.com,
-	wangjia@ultrarisc.com, linux-pci@vger.kernel.org,
-	linux-kernel@vger.kernel.org, Frank Li <Frank.Li@kernel.org>
-Subject: Re: [PATCH 1/2] PCI: dwc: Allow drivers to skip MEM outbound iATU
- setup
-Message-ID: <apmPeZEdanf80HVB@ryzen>
-References: <20260827055448.1818858-1-zhangxincheng@ultrarisc.com>
- <20260827055448.1818858-2-zhangxincheng@ultrarisc.com>
+	s=k20260515; t=1788448701;
+	bh=KS7VzY6XVTvxoOS9vBIQvuzrq/thBiw/e/tBSedfwmo=;
+	h=In-Reply-To:References:Subject:From:To:Cc:Date;
+	b=JOdy5/tpltyrZGwwrgKdAos529q42Romwrzx1S77tZZWW3zvQy2MLldaPo1JOBzL0
+	 dL6uH1IKQvQEol/cW1331WXNgzlBXV5NR46qgrj/rw6zxLdo0X2WtkWMsqzLYNhxKU
+	 osxvFrTu9i7yF+zmcqyiDhSPjUfiOAEh+VADvGFFuLG0U8dJu5qB9USUNRjvBXtmlb
+	 1jrmNda2AXO2dX5xN4faERvPn96/FxMad2o0y07p9oalKimCc/jFkXfN+mDjF7gp6i
+	 /gbwiUPW1VG1POpWaAVYkNXRSKYIxctVdGUcKaekJalJPQKp3ajYsnG5d5yr3ek8lZ
+	 ffiscBSfjjJ/g==
+Content-Type: multipart/mixed; boundary="===============7840538112734453755=="
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260827055448.1818858-2-zhangxincheng@ultrarisc.com>
+Message-Id: <aaaee75404be1c0851e0da15b1f2903eb6bf768bc2e763fcfa5a1d45e1ffc498@mail.kernel.org>
+In-Reply-To: <20260903-kasan-v9-4-2407fe99255a@bootlin.com>
+References: <20260903-kasan-v9-4-2407fe99255a@bootlin.com>
+Subject: Re: [PATCH bpf-next v9 4/8] bpf, x86: emit KASAN checks in x86 JITed programs
+From: bot+bpf-ci@kernel.org
+To: alexis.lothore@bootlin.com,ast@kernel.org,daniel@iogearbox.net,john.fastabend@gmail.com,andrii@kernel.org,martin.lau@linux.dev,eddyz87@gmail.com,memxor@gmail.com,song@kernel.org,yonghong.song@linux.dev,jolsa@kernel.org,tglx@kernel.org,bp@alien8.de,dave.hansen@linux.intel.com,x86@kernel.org,hpa@zytor.com,shuah@kernel.org,mingo@redhat.com,andreyknvl@gmail.com,emil@etsalapatis.com,ihor.solodrai@linux.dev,laoar.shao@gmail.com
+Cc: ebpf@linuxfoundation.org,bastien.curutchet@bootlin.com,thomas.petazzoni@bootlin.com,bpf@vger.kernel.org,linux-kernel@vger.kernel.org,linux-kselftest@vger.kernel.org,alexis.lothore@bootlin.com,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
+Date: Thu,  3 Sep 2026 15:18:20 +0000 (UTC)
 
-On Thu, Aug 27, 2026 at 01:54:47PM +0800, Xincheng Zhang wrote:
-> Some DWC-based controllers do not require outbound iATU windows for MEM
-> transactions. For those platforms, programming outbound iATU windows for
-> host bridge MEM ranges is unnecessary and may constrain the available MEM
-> aperture.
+--===============7840538112734453755==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-Please give a reference to a specific section in a specific version of the
-DWC databook.
+> The main instructions being targeted are BPF_ST, BPF_STX and BPF_LDX,
+> but not all of them are being instrumented:
+> - if the load/store instruction is in fact accessing the program stack,
+>   emit_kasan_check silently skips the instrumentation, as we can already
+>   benefit from guard pages to monitor stack accesses.
+> - if the load/store instruction is a BPF_PROBE_MEM or a BPF_PROBE_ATOMIC
+>   instruction, we do not instrument it, as the passed address can fault
+>   (hence the custom fault management with BPF_PROBE_XXX instructions),
+>   and so the corresponding kasan check could fault as well.
 
-My guess is that you are relying on the behavior defined in:
+This isn't a bug, but could the changelog be more precise about where
+the stack-access skip happens?
 
-DWC EP Databook version 5.96a, section "3.10.5.5 No Address Match Result":
-""""
-Overview: When there is no address match then the address is untranslated but the TLP header information
-(for fields that are programmable) comes from the relevant fields on the application transmit interface
-XALI*1.
-""""
+The text says emit_kasan_check() "silently skips the instrumentation"
+for stack accesses, but the decision is actually made in do_jit() by the
+new accesses_stack_only test:
 
+arch/x86/net/bpf_jit_comp.c:do_jit() {
+    ...
+    insn_idx = i - 1 + bpf_prog->aux->subprog_start;
+    accesses_stack_only =
+        env ? !env->insn_aux_data[insn_idx].non_stack_access :
+              false;
+    ...
+}
 
-> 
-> Add dw_pcie_rp::bypass_ob_mem_iatu so drivers can skip generic MEM iATU
-> setup while using the common DWC host init path.
-> 
-> Existing drivers keep the current behavior because the flag defaults to
-> false. The I/O iATU setup does not use the MEM resource iterator, and the
-> iterator may be uninitialized when MEM setup is skipped. Avoid using it in
-> the I/O iATU error path.
-> 
-> Signed-off-by: Xincheng Zhang <zhangxincheng@ultrarisc.com>
-> ---
->  drivers/pci/controller/dwc/pcie-designware-host.c | 6 +++---
->  drivers/pci/controller/dwc/pcie-designware.h      | 1 +
->  2 files changed, 4 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/pci/controller/dwc/pcie-designware-host.c b/drivers/pci/controller/dwc/pcie-designware-host.c
-> index f5a38e6fd8d79..3c5f5ff080818 100644
-> --- a/drivers/pci/controller/dwc/pcie-designware-host.c
-> +++ b/drivers/pci/controller/dwc/pcie-designware-host.c
-> @@ -911,7 +911,8 @@ static int dw_pcie_iatu_setup(struct dw_pcie_rp *pp)
->  	resource_list_for_each_entry(entry, &pp->bridge->windows) {
->  		resource_size_t res_size;
->  
-> -		if (resource_type(entry->res) != IORESOURCE_MEM)
-> +		if (pp->bypass_ob_mem_iatu ||
-> +		    resource_type(entry->res) != IORESOURCE_MEM)
->  			continue;
+which reads the verifier's per-instruction non_stack_access flag set by
+mark_non_stack_access() at kernel/bpf/verifier.c:6665.
 
-To consider allowing this, at the bare minimum you would have to:
+emit_kasan_check() only skips when the address register is literally
+BPF_REG_FP or BPF_REG_PARAMS. The list also omits BPF_PROBE_MEM32
+(arena) accesses, which are handled by separate case labels and likewise
+left uninstrumented.
 
-if pp->bypass_ob_mem_iatu is set:
+[ ... ]
 
-1) Verify that the glue driver has no .cpu_addr_fixup callback defined.
+> @@ -1914,6 +2032,10 @@
+>  		EMIT_ENDBR();
+>
+>  	ip = image + addrs[i - 1] + (prog - temp);
+> +	insn_idx = i - 1 + bpf_prog->aux->subprog_start;
+> +	accesses_stack_only =
+> +		env ? !env->insn_aux_data[insn_idx].non_stack_access :
+> +		      false;
 
-2) For each resource entry that you skip, verify that the atu.parent_bus_addr
-is equal to the atu.pci_addr.
+This isn't a bug, but would a positively named predicate read more
+directly here?
 
-Just because pp->bypass_ob_mem_iatu is set in the driver, does not mean that
-all device trees for SoCs that is using that driver have defined the PCI range
-and the parent CPU range in a way where this would work.
+When env is NULL the fallback value false means "this access is not
+stack-only", so every load/store takes the !accesses_stack_only path and
+calls emit_kasan_check(), which immediately returns 0 because of its own
+if (!env) return 0; guard at arch/x86/net/bpf_jit_comp.c:1129.
 
-
-A concrete example:
-rk3588 pcie3x4 ranges in v7.0:
-https://github.com/torvalds/linux/blob/v7.0/arch/arm64/boot/dts/rockchip/rk3588-extra.dtsi#L378
-
-<0x03000000 0x9 0x00000000 0x9 0x00000000 0x0 0x40000000>;
-
-PCI address range: 0x900000000-0x93fffffff
-parent CPU range:  0x900000000-0x93fffffff
-
-
-rk3588 pcie3x4 ranges in v6.19:
-https://github.com/torvalds/linux/blob/v6.19/arch/arm64/boot/dts/rockchip/rk3588-extra.dtsi#L378
-
-<0x03000000 0x0 0x40000000 0x9 0x00000000 0x0 0x40000000>;
-
-PCI address range: 0x040000000-0x07fffffff
-parent CPU range:  0x900000000-0x93fffffff
+The intent (no instrumentation without a verifier env) is expressed
+through a double negative plus a second guard in the callee. Would
+accesses_stack_only = !env || !env->insn_aux_data[insn_idx].non_stack_access
+(or a want_kasan_check predicate) make the no-env case self-evident and
+drop the redundant callee check?
 
 
-E.g. for rk3588, a kernel which has pp->bypass_ob_mem_iatu set in the driver
-would work with a device tree from v7.0 and newer, but would send TLPs with
-an invalid PCI address when used with a device tree from v6.19 or older.
+---
+AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
+See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
 
-Since the device tree can be updated independently of the kernel, having this
-safety check would be very important IMO.
-
-
-Kind regards,
-Niklas
+CI run summary: https://github.com/kernel-patches/bpf/actions/runs/33766012402
+--===============7840538112734453755==--
