@@ -1,104 +1,94 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B1C533F385
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 03:02:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64FCB1DDC33;
+	Thu,  3 Sep 2026 03:02:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788404544; cv=none; b=EVTPR/IzqXeke3gGQR256112iXdGyicFfKnmbO1iKDX87FjXgHszLCOTHv/upJXOxeHzojerWsG4goZDxE9WLyVV//3Qe4fVa6KH1gdhbIm1+EzFXsbraY+XVC6FYw7KiWV5qENWPC5zzczF+hKEOrvgss6W8b+661VSgKtAex0=
+	t=1788404569; cv=none; b=IYZ/zZnMox93bm/g45wLuqgiIN1sk4sOfcfY6zatt46K6SfCciuzTt9WQI1IE03/wjQ+cHaPAXo56aVbTs4JnVi89xW9zRwAmTYeqSHDKIg5QtomjtUpyhQ1zDYMEhBva+nK6M2RKeLQ5szxhUtOirc2JSYYEe97hhM6Lf6I+vM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788404544; c=relaxed/simple;
-	bh=M3g3YwF1NJZTlh6jbpswmAlwPOEuJxSp8reqh00uYOI=;
-	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
-	 Mime-Version:Content-Type; b=h0R4WEEnjAaXV/H8O1ZZHeEMjC9ptkcLjpetpi3piyr6WknWvdarQvgCbhrQSYSD9DR7v5gUhc802a2H3ulKF0PnGdwkzyMb8ugBpfkJu/0RUTCIDDHYITwo0v71aYnKUlBUKXIp4wg1zztMQYAxnnNQe29BsN0cYaE1jnaNpok=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=t3iiBiFf; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788404569; c=relaxed/simple;
+	bh=e8pcwYPmhYJSARoMTl3ToBSeVLD9KxiOmZ6Ov1D71II=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=FLikQZsFehDW+n+t9bNNMXYqyInh2JrtNBLyWWASk8cPncqydh9TSnMswXUL1fvT0FB92wN1NrvagVWSNRn//kyrDzPnzKdwd28A/gtZ8x8a8bR3R/7FZc3wAqx04iYYzmYhyxxb/Mu7pTO+v+8Z2gLIlQIkG6lqAwpR4Fu3DyE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com; spf=pass smtp.mailfrom=realtek.com; dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b=ibs6A0HE; arc=none smtp.client-ip=211.75.126.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="t3iiBiFf"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 487FF1F000E9;
-	Thu,  3 Sep 2026 03:02:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1788404541;
-	bh=E6fpnYgQzDhI+g8OqpnRixNH2BQW4d1tJxRUcM7JXB8=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=t3iiBiFfRRLEbBH6VG0Yzu05L5kwyfurUSxpLlfb2DiO5C+lNRJXCo0xT/W9NQH+y
-	 QyKASfWpjDvvvMzQzM5Ji1ORGcIqNRBgLxqEgzCHT47Id1NnnQJ1g7YBfaWfTamDIq
-	 47vKTtt86AodzSavp4ePH9BN463gU6ZN6n3amXCI=
-Date: Wed, 2 Sep 2026 20:02:20 -0700
-From: Andrew Morton <akpm@linux-foundation.org>
-To: Wei Yang <richard.weiyang@gmail.com>
-Cc: david@kernel.org, ljs@kernel.org, riel@surriel.com, liam@infradead.org,
- vbabka@kernel.org, harry@kernel.org, jannh@google.com, willy@infradead.org,
- linux-mm@kvack.org, linux-kernel@vger.kernel.org, lance.yang@linux.dev,
- Kiryl Shutsemau <kas@kernel.org>, Hugh Dickins <hughd@google.com>
-Subject: Re: [PATCH] mm/page_vma_mapped: guard check_pmd() with
- CONFIG_TRANSPARENT_HUGEPAGE
-Message-Id: <20260902200220.408ae7e8a28d3af4e82fd060@linux-foundation.org>
-In-Reply-To: <20260624082359.2869-1-richard.weiyang@gmail.com>
-References: <20260624082359.2869-1-richard.weiyang@gmail.com>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b="ibs6A0HE"
+X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 68332KlyC3156757, This message is accepted by code: ctloc85258
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
+	t=1788404540; bh=fgtKjoPi6U7bT/rFmBhlhYYPrzREZH7M4efGzNo80HE=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:MIME-Version;
+	b=ibs6A0HEFIesGQMiPfbZ9Y56m8IXQYmqorXFohIq501BtufXxf01EvB5gy5yS5bRU
+	 HFIiykwFRD2Q6T0PWwkdW/FgnrzZX727kXlbWX1VGGoNHArvf64eY9ikWvG2W5PK1A
+	 2IsV9vwBYyVI4zOpHy5Iwv2Lwunh5wp3LOgNxb6GerWKptFzz/rn20KWKL398vqIAe
+	 AL8qIW7PSy/k+1FW2IMDdZGx7cJBKR0qYz49h/wfttOZaX+yG0okTKeB77u7AFUT9h
+	 t4xKYTCCMq7D/2Opnl3Jb0GB5GYdcKpWFx+Ly0R0HJzz+xIRnjqgf5XoAZpaKp0zY4
+	 MLYeOnozvnjlA==
+Received: from mail.realtek.com (rtkexhmbs02.realtek.com.tw[172.21.6.41])
+	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 68332KlyC3156757
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Thu, 3 Sep 2026 11:02:20 +0800
+Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
+ RTKEXHMBS02.realtek.com.tw (172.21.6.41) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.43; Thu, 3 Sep 2026 11:02:20 +0800
+Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
+ RTKEXHMBS06.realtek.com.tw (10.21.1.56) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.43; Thu, 3 Sep 2026 11:02:19 +0800
+Received: from RTKEXHMBS06.realtek.com.tw ([::1]) by
+ RTKEXHMBS06.realtek.com.tw ([fe80::126f:59ad:658:674d%10]) with mapi id
+ 15.02.2562.043; Thu, 3 Sep 2026 11:02:19 +0800
+From: Chih Kai Hsu <hsu.chih.kai@realtek.com>
+To: Andrew Lunn <andrew@lunn.ch>
+CC: "davem@davemloft.net" <davem@davemloft.net>, "kuba@kernel.org"
+	<kuba@kernel.org>, "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+	nic_swsd <nic_swsd@realtek.com>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>, "linux-usb@vger.kernel.org"
+	<linux-usb@vger.kernel.org>, "edumazet@google.com" <edumazet@google.com>,
+	"bjorn@mork.no" <bjorn@mork.no>, "pabeni@redhat.com" <pabeni@redhat.com>,
+	"andrew+netdev@lunn.ch" <andrew+netdev@lunn.ch>
+Subject: RE: [PATCH net-next 2/8] r8152: support RTL8159 for different
+ packages
+Thread-Topic: [PATCH net-next 2/8] r8152: support RTL8159 for different
+ packages
+Thread-Index: AQHdOrpfzoLR/svszkuPY2lF0UmrGba6uQ0AgAFxhXA=
+Date: Thu, 3 Sep 2026 03:02:19 +0000
+Message-ID: <5952224f4bd3406b9f396b39c496d83b@realtek.com>
+References: <20260902090632.41844-1-nic_swsd@realtek.com>
+ <20260902090632.41844-3-nic_swsd@realtek.com>
+ <0ce46ce7-2edf-4464-8029-cdc6e9b9f854@lunn.ch>
+In-Reply-To: <0ce46ce7-2edf-4464-8029-cdc6e9b9f854@lunn.ch>
+Accept-Language: zh-TW, en-US
+Content-Language: zh-TW
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
 
-On Wed, 24 Jun 2026 08:23:59 +0000 Wei Yang <richard.weiyang@gmail.com> wrote:
+On Wed, Sep 2, 2026 8:55 PM +0800, Andrew wrote:
+>=20
+> On Wed, Sep 02, 2026 at 05:06:26PM +0800, Chih Kai Hsu wrote:
+> > RTL8159 has two different packages, QFN68 and QFN100. Therefore, split
+> > RTL_VER_17 into RTL_VER_17_QFN68 and RTL_VER_17_QFN100.
+>=20
+> Why does the package matter. The commit message is about answering the
+> question "Why?".
+>=20
+>     Andrew
+>=20
 
-> The kernel test robot reported a build failure on the parisc architecture
-> when expanding HPAGE_PMD_NR in check_pmd().
-> 
->    mm/page_vma_mapped.c:142:13: note: in expansion of macro 'HPAGE_PMD_NR'
->      if ((pfn + HPAGE_PMD_NR - 1) < pvmw->pfn)
->                 ^~~~~~~~~~~~
-> 
-> The config [1] in report link shows neither TRANSPARENT_HUGEPAGE nor
-> HUGETLB_PAGE is defined. Then trigger the BUILD_BUG.
-> 
-> Fix it by define check_pmd() under CONFIG_TRANSPARENT_HUGEPAGE.
-> 
-> [1]: https://download.01.org/0day-ci/archive/20260624/202606240042.ffPsEXVc-lkp@intel.com/config
-> 
-> Fixes: 2aff7a4755be ("mm: Convert page_vma_mapped_walk to work on PFNs")
-> Signed-off-by: Wei Yang <richard.weiyang@gmail.com>
-> Reported-by: kernel test robot <lkp@intel.com>
-> Closes: https://lore.kernel.org/oe-kbuild-all/202606240042.ffPsEXVc-lkp@intel.com/
->
-> ...
->
-> --- a/mm/page_vma_mapped.c
-> +++ b/mm/page_vma_mapped.c
-> @@ -136,6 +136,7 @@ static bool check_pte(struct page_vma_mapped_walk *pvmw, unsigned long pte_nr)
->  	return true;
->  }
->  
-> +#ifdef CONFIG_TRANSPARENT_HUGEPAGE
->  /* Returns true if the two ranges overlap.  Careful to not overflow. */
->  static bool check_pmd(unsigned long pfn, struct page_vma_mapped_walk *pvmw)
->  {
-> @@ -145,6 +146,12 @@ static bool check_pmd(unsigned long pfn, struct page_vma_mapped_walk *pvmw)
->  		return false;
->  	return true;
->  }
-> +#else
-> +static bool check_pmd(unsigned long pfn, struct page_vma_mapped_walk *pvmw)
-> +{
-> +	return false;
-> +}
-> +#endif
->  
->  static void step_forward(struct page_vma_mapped_walk *pvmw, unsigned long size)
->  {
+I will rewrite the commit message in the next version.
 
-lgtm, thanks.
+Thank you,
+Chih-Kai
 
-You provoked Sashiko into talking about memory corruption and kernel
-panics in page_vma_mapped.c.  Usual stuff.
-
-	https://sashiko.dev/#/patchset/20260624082359.2869-1-richard.weiyang@gmail.com
-
-I'll cc likely suspects but boy do we need a way of being more
-organized about this.
-
+> ---
+> pw-bot: cr
