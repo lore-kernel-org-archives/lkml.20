@@ -1,165 +1,154 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E0FE426D0A
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 09:36:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D88C3AC0DC
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 09:36:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788428163; cv=none; b=PXkFxH+bIAjdV7HtzEU9K3fqFpPnX/bjcER0ZZknBJR0LgAqLHjJXnW0DiXXTrtQ+t0+k76EwC86IufeDcmW564cUym/0oVeAlVqgkS5Dws4/TAFKN5AxLHzYnVWHUMBSeWNzmIy42PLnvKax8FIPLVuwzyhrnFAD5pEDmqtwVY=
+	t=1788428190; cv=none; b=jJY4x/plSfif+iilGXMMXTNlkAXBtbmDQC3rk/81rg1/viGRKRy8JjxaIBdcROqg2mq5eTsLOppAoLJ32O34qaU7L9M/lLQHUV/zhH+6L1qZJP3NpcAMRjDo5gVJ/J7jnyN9d3sqbSUnoErkY5jiRi5VXGAGZZAtgjwy5nXV9TY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788428163; c=relaxed/simple;
-	bh=oPVsqXoZyPeTg36URmaN5Iw3DnLJlzjYxHnkAlYg7Uc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=Gjiw+bVD7vCKuYGieAJ4D2+pVLeIuUCMQzuF207725+3b9NtNIlQwww5bUNvML8pHIbp+uB2TdQ65gcxCPBDP2o1+cICz1ES/NRcXwovfXzU0RUEulLTgHuktnDadSBhUBwlkk9Pq/DnKnL9UQrqAndTGf6pOxaY+PVl514dfCY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=PLkOi2Mp; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=hgAhsGox; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1788428190; c=relaxed/simple;
+	bh=Q8LghgCE/zgIXQhozr/WYjRrR9/ZvNYImG1MfSyFxnI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=BqEtBu+TX78ngigetkN1KDBjMt5FridJl4KV/JXqIGQcvMgWWeGP6BJD0M0wC3/wdHsUCfCJjX92Jn0EaUijFEka04nAOf/6NQjWCipH92fZe+DFnmRVO6hMpOvxepLoiyqsmQ21UAmCMUDYnmHv0XCoRoeJ5wwfHa1YgQFyyXw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=O6GCz86u; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="PLkOi2Mp";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="hgAhsGox"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1788428160;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=UIVrwf02TP+O59kLnBOVNF6PWYsBEmmPNbrz+e5p2HQ=;
-	b=PLkOi2MplsqDOUDIt7pNf4JE3Pofp6e6YbLbn5ZhCqJO/lBWX/crAx4TZmmQCDbxA6xsqq
-	/nHovelAvRBjwmlTUEA6aDfUVlgL3GydKQcxyAQUwSOcrrl1X++DxVZOdGb5StE8qJkbci
-	POcEtiw5rymYys3Pyp5v9BFGt8/LJ2Y=
-Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
- [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-375-X6TqrPbQMH-9VfRy4pWTNg-1; Thu, 03 Sep 2026 05:35:59 -0400
-X-MC-Unique: X6TqrPbQMH-9VfRy4pWTNg-1
-X-Mimecast-MFC-AGG-ID: X6TqrPbQMH-9VfRy4pWTNg_1788428158
-Received: by mail-wm1-f72.google.com with SMTP id 5b1f17b1804b1-495529a93f9so20015405e9.3
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 02:35:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1788428158; x=1789032958; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=UIVrwf02TP+O59kLnBOVNF6PWYsBEmmPNbrz+e5p2HQ=;
-        b=hgAhsGoxKmxmL0DZ/XDJeOFCA7BGVxLu8PasuoWft+zNfwfAkd3Gqg3RUXgHklV97v
-         zeLZbDrXP57HoJ7MON4I89MGw/5I7bPzfGmR4ZMmkJcFGRw0vm62kIL7k4QF03Z6NS3D
-         gM8yFK/X8U8NNzYgJWk4oOeehnsatu8z1y/jlVGmAJXL3mXgJ7FyBCvencL0vEwVfsmS
-         awPYRIdJWJ6Ses4T5E+RbdgVdzgY4CBpyAt0dJtM8OmbEawpePJZsOOCufsiu2f8kl1L
-         YKhmHZF7N0j7hy3t+O6vJu1N/Mec3laRonAFDUvI3x0A/wI6UYkFQemSxZq4G+U3FJ1m
-         Torg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788428158; x=1789032958;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=UIVrwf02TP+O59kLnBOVNF6PWYsBEmmPNbrz+e5p2HQ=;
-        b=k2Y1864ZfuCbslaVcRuX0W4d+vIjVRLUyA67Gb0ty7XogtUOoQ5ZMEnwCvo5Jw3U+m
-         oAliKqboObZ5tkOp2hj81r8nAeDltUZP9QHKHLmgwpxdiX4aAobbx8Gif76DdzA28IIJ
-         9ve+mnAa321g59Wk2MnFgNrUJ+BnL0TXKRq3yFyfpEkXwH8UIDAZasdXni/jWJE1UFaP
-         CkJIqHooKYZ1v8sWEwna21xa5vPcpqqMhhvEhopB8h2dFoBSsFTRiWIy1RxUKsaRCW6K
-         O4VuzQxeyN6VF/zS9rv1EHWIavbMB3PB5e9Ulzogj2yhhyVwCwZe+mg4d2Tvk9ZO3bR+
-         sV7A==
-X-Forwarded-Encrypted: i=1; AKwUvBwavbf/3oXjyHOBnEp0mBxB2sREl/eqdabO1A8xGva08rm/GdLqiwmGhwPWVII+6w9G3uMp+WBcFn5pPz4=@vger.kernel.org
-X-Gm-Message-State: AFuF++lesWKXnwNakx+rUrdWsZ8ORDIgQ/L8jJxx9VZOt7rTva3hQ5Xx
-	3h997Ho7mML3los85vewJYc4wA8zdkP2bWh0RWkvw1bFMGAiyNUju6I+z2NHWFJZ7YZnxNNhqwQ
-	UXFNSy8EBBRg6bv63iZvLyFf37p/8cTAtLd6IVazS0JpnDgUn8ylr9Wj2QPPOsmemoQ==
-X-Gm-Gg: AYBFou3QMORZAiChh8APfSmW2PGznc1bsS97XZ7yvHks8tZMsL/7vYQbV9sAxdMTVQO
-	xpYKAkuo2dYfJZOZYAkv5U0xw+NvWpDBIHG74+ZriOHudL7/Qq8+25NP0xRU1Un4d5bC0LYRao3
-	kY9nawPJn/FxHlR4yNu3BRpsg/xHo3MWIYdKMUrYhXic2kMFMzAuIcctg+x0iHxah9c56hHpE3p
-	9AxjRPVVoomP/vqO2lM/ht8WpzRMJISvUEcKJQ4Y/2el37fwwhPMFB3XpGoFXU4b+/a3B0ZjhZS
-	7wfHyCzhIfbrvYkCGtkeB+mTnzuSeenIOliACx73j8hix1e0XIyry7z+w+r02DytqRPoBSm+t1s
-	mYiGjj2lURe50j41Fi7HDcV17EazKEuS0uUS8Jxi9xIvbxoE30bb5NJYp/CSGeiDmCZ80XMZE2A
-	==
-X-Received: by 2002:a05:600c:4693:b0:499:484a:81d0 with SMTP id 5b1f17b1804b1-49ce5817d63mr163904725e9.9.1788428158014;
-        Thu, 03 Sep 2026 02:35:58 -0700 (PDT)
-X-Received: by 2002:a05:600c:4693:b0:499:484a:81d0 with SMTP id 5b1f17b1804b1-49ce5817d63mr163904005e9.9.1788428157541;
-        Thu, 03 Sep 2026 02:35:57 -0700 (PDT)
-Received: from [192.168.188.218] (ip232-47-231-195.pool-bba.aruba.it. [195.231.47.232])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ce55259ecsm81914915e9.2.2026.09.03.02.35.55
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 03 Sep 2026 02:35:56 -0700 (PDT)
-Message-ID: <8f1c4df1-726e-4bcb-addc-b1fcf329013f@redhat.com>
-Date: Thu, 3 Sep 2026 11:35:55 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="O6GCz86u"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 779821F000E9;
+	Thu,  3 Sep 2026 09:36:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788428189;
+	bh=eEVXzclCY3N/gsaKYs1NrOcPH/+3yo1KDKKfVvSeYqQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=O6GCz86uTNsnRwq4BI0UdNM+4FoZnpEKT+zkv92LME7ynDS5sHLRu08zO5EfJ1tCc
+	 HiH5V6UvjPm+RajqcS0u7X1HrRczMhfLqyM40Wuq7FAkDJV9YlrsSQkbYBjxFHtWsB
+	 mivZjEwuEg5jY7wuwpEt9Sl8LiX9iWG3nzXrO7cKqEsygl4ajmbQ3HrGTFXcex9/x7
+	 dwvUSlNm97bpZw831VTpYZ8yR65zd93GEhLCEGfow34BWYv8Nl3j56hClnF7vB3jxU
+	 nvykuzHi4B8soBC+tTf7ZYD8zDKmYozNSai/DUKFMcunjNBJZv/qf3LBDqeRuGMxL5
+	 3hXNCL8xkGpVA==
+Date: Thu, 3 Sep 2026 11:36:25 +0200
+From: Maxime Ripard <mripard@kernel.org>
+To: oushixiong1025@163.com
+Cc: Matthew Brost <matthew.brost@intel.com>, 
+	Danilo Krummrich <dakr@kernel.org>, Philipp Stanner <phasta@kernel.org>, 
+	Christian =?utf-8?B?S8O2bmln?= <ckoenig.leichtzumerken@gmail.com>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+	Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+	Shixiong Ou <oushixiong@kylinos.cn>
+Subject: Re: [PATCH RESEND] drm/sched: Create faux device for KUnit tests
+Message-ID: <apk_YgCd8fbXC7Lx@houat>
+References: <20260903090256.552317-1-oushixiong1025@163.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net v4] bnxt_en: Bound SW TPA IDs to prevent crashes
-To: Joe Damato <joe@dama.to>, netdev@vger.kernel.org,
- Michael Chan <michael.chan@broadcom.com>,
- Pavan Chebbi <pavan.chebbi@broadcom.com>, Andrew Lunn
- <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
- Nathan Chancellor <nathan@kernel.org>,
- Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling
- <morbo@google.com>, Justin Stitt <justinstitt@google.com>,
- Kalesh AP <kalesh-anakkur.purayil@broadcom.com>,
- Rukhsana Ansari <rukhsana.ansari@broadcom.com>, horms@kernel.org,
- colin.winegarden@broadcom.com, linux-kernel@vger.kernel.org,
- raphaelcf@meta.com, stable@vger.kernel.org, llvm@lists.linux.dev
-References: <20260828190900.1767611-1-joe@dama.to>
- <1c87458d-7d76-4da4-9981-51756cef391b@redhat.com>
- <apa9qofhuatqGTra@devvm20253.cco0.facebook.com>
- <b8b6db7b-353d-4d6a-b0b6-3b5e1be22008@redhat.com>
- <apbpWrfu3VQu+CUz@devvm20253.cco0.facebook.com>
-Content-Language: en-US
-From: Paolo Abeni <pabeni@redhat.com>
-In-Reply-To: <apbpWrfu3VQu+CUz@devvm20253.cco0.facebook.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha384;
+	protocol="application/pgp-signature"; boundary="vuulpcyigbnspu6n"
+Content-Disposition: inline
+In-Reply-To: <20260903090256.552317-1-oushixiong1025@163.com>
+
+
+--vuulpcyigbnspu6n
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH RESEND] drm/sched: Create faux device for KUnit tests
+MIME-Version: 1.0
 
 Hi,
 
-sorry for the latency here.
+On Thu, Sep 03, 2026 at 05:02:56PM +0800, oushixiong1025@163.com wrote:
+> From: Shixiong Ou <oushixiong@kylinos.cn>
+>=20
+> The DRM scheduler KUnit tests currently pass NULL for the dev field in
+> drm_sched_init_args, which causes a NULL pointer dereference in the
+> drm_sched_job trace event when it calls dev_name() on sched->dev.
+>=20
+> Use faux_device_create() to create a fake device for the mock scheduler,
+> so the scheduler always has a valid device pointer. This avoids the
+> trace event crash without requiring the production code to accept a NULL
+> device pointer, which conceptually makes no sense for a scheduler.
+>=20
+> An atomic counter is used to generate unique device names, since
+> multiple mock schedulers can exist simultaneously across different
+> test suites.
+>=20
+> Signed-off-by: Shixiong Ou <oushixiong@kylinos.cn>
+> ---
+>  drivers/gpu/drm/scheduler/tests/mock_scheduler.c | 14 ++++++++++++++
+>  drivers/gpu/drm/scheduler/tests/sched_tests.h    |  2 ++
+>  2 files changed, 16 insertions(+)
+>=20
+> diff --git a/drivers/gpu/drm/scheduler/tests/mock_scheduler.c b/drivers/g=
+pu/drm/scheduler/tests/mock_scheduler.c
+> index 14403a762335..cd87e405bb1e 100644
+> --- a/drivers/gpu/drm/scheduler/tests/mock_scheduler.c
+> +++ b/drivers/gpu/drm/scheduler/tests/mock_scheduler.c
+> @@ -1,6 +1,8 @@
+>  // SPDX-License-Identifier: GPL-2.0
+>  /* Copyright (c) 2025 Valve Corporation */
+> =20
+> +#include <linux/device/faux.h>
+> +
+>  #include "sched_tests.h"
+> =20
+>  /*
+> @@ -10,6 +12,8 @@
+>   * Test cases are implemented in a separate file.
+>   */
+> =20
+> +static atomic_t drm_mock_sched_instance =3D ATOMIC_INIT(0);
+> +
+>  /**
+>   * drm_mock_sched_entity_new - Create a new mock scheduler entity
+>   *
+> @@ -296,11 +300,20 @@ struct drm_mock_scheduler *drm_mock_sched_new(struc=
+t kunit *test, long timeout)
+>  		.name		=3D "drm-mock-scheduler",
+>  	};
+>  	struct drm_mock_scheduler *sched;
+> +	char name[64];
+>  	int ret;
+> =20
+>  	sched =3D kunit_kzalloc(test, sizeof(*sched), GFP_KERNEL);
+>  	KUNIT_ASSERT_NOT_NULL(test, sched);
+> =20
+> +	snprintf(name, sizeof(name), "drm-mock-scheduler-%d",
+> +		 atomic_inc_return(&drm_mock_sched_instance));
+> +
+> +	sched->faux_dev =3D faux_device_create(name, NULL, NULL);
+> +	KUNIT_ASSERT_NOT_NULL(test, sched->faux_dev);
+> +
+> +	args.dev =3D &sched->faux_dev->dev;
+> +
+>  	ret =3D drm_sched_init(&sched->base, &args);
+>  	KUNIT_ASSERT_EQ(test, ret, 0);
+> =20
+> @@ -323,6 +336,7 @@ struct drm_mock_scheduler *drm_mock_sched_new(struct =
+kunit *test, long timeout)
+>  void drm_mock_sched_fini(struct drm_mock_scheduler *sched)
+>  {
+>  	drm_sched_fini(&sched->base);
+> +	faux_device_destroy(sched->faux_dev);
+>  }
 
-On 9/1/26 5:03 PM, Joe Damato wrote:
-> On Tue, Sep 01, 2026 at 02:10:04PM +0200, Paolo Abeni wrote:
->> On 9/1/26 1:57 PM, Joe Damato wrote:
->>> On Tue, Sep 01, 2026 at 10:16:54AM +0200, Paolo Abeni wrote:
->>>> On 8/28/26 9:08 PM, Joe Damato wrote:
->>>>>   - Moved bp->max_tpa_roundup_size init out of the early return path and
->>>>>     documented that TPA is unsupported there, as suggested by Michael.
->>>>
->>>> Clashiko quite convincingly elaborates that the above is not enough:
->>>>
->>>> https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260828190900.1767611-1-joe%40dama.to
->>>>
->>>> Could you please have a look?
->> [...]
->>> 3.) "The new assignment sits after the max_tpa_v2 == 0 early return, so on a P5+
->>> device whose firmware reports max_aggs_supported == 0, does
->>> bp->max_tpa_roundup_size stay 0 while BNXT_FLAG_TPA is set? ..."
->>>
->>> Michael commented in the v3 that this is a false positive, hence why I changed
->>> the code from what it was in the v3 to this.
->>
->> This is the comment I referred to.
->>
->> AFAICS the problem is that the driver sets
->>
->> 	bp->dev->hw_features |= NETIF_F_LRO;
->>
->> regardless of the supported capabilities, and that seams to disagree
->> with Michael.
-> 
-> OK, after re-reading this here's what I see: NETIF_F_LRO gets added with no
-> capability check and bnxt_fix_features() won't strip it afterwards. I think
-> the fix there is to add a BNXT_SUPPORTS_TPA() test, as a Fixes for
-> f0aa6a37a3db ("eth: bnxt: always recalculate features after XDP clearing, fix
-> null-deref").
-> 
-> I can send a separate patch for that, but it is unrelated to this patch which
-> fixes a crash on boot for Thor2 devices.
+What's wrong with drm_kunit_helper_alloc_device(), or kunit_device_register=
+()?
 
-With my limited knowledge of this driver, I thought the report being
-more strictly related to this patch, and the fix for them should land
-together.
+Maxime
 
-I'm fine with v5 approach.
+--vuulpcyigbnspu6n
+Content-Type: application/pgp-signature; name="signature.asc"
 
-/P
+-----BEGIN PGP SIGNATURE-----
 
+iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCapk/mAAKCRAnX84Zoj2+
+dq36AYCmkQLjePG4c0c/9Q7SCXi6p+2rTtN49hAqC27AranW/qxBLY14QxYSbj/F
+hR7gMnABgLth8E7SzxyPLv4bbgibQbYcBJNMitXrWtmUqq8pFrNiGY/GE58CozHF
+VjJHgT+tiQ==
+=g0bm
+-----END PGP SIGNATURE-----
+
+--vuulpcyigbnspu6n--
