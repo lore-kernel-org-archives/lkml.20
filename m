@@ -1,131 +1,117 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81B764334AD
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 07:36:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEAA333AD8C;
+	Thu,  3 Sep 2026 07:38:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788420987; cv=none; b=fOEi3h4cU3NBAhCmY99ZdvF2p4jXKlH/ka+ICiOxiGRLB6LjgZzhQh11VhnsKXxPQ9dOQmUi5lCGuwrprjd+u7CSYoKCedaRhj090pAj1uKtSTqAADCPX5D3/Ce+qaD6CKT4ODYby6ffZu20CoG8NHq+occ91tmcS8MEABPiqhE=
+	t=1788421107; cv=none; b=kWUwhJo7jlFbRNu/0VukS1niTjDx9SXVUF5qJrIxwyM42pRMAGDQhw1RxSicjV5rqF7hULdJd/ag/bKB6LHCWIA8obKFNytQiKzrdaOVA/SntLd/01ynVIkZaQ84+nrtUSYcWSlcTHHmdb5brEq7ZNaICh5l3IXXyGEtKlSxg8E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788420987; c=relaxed/simple;
-	bh=Aii2dVuPvBApXPQfvnroOB8Iu8zKlFukUJulXOZfnvM=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=lBY7wbPIKND/KbaLHKv78upRaeK/xQbOGKYFdp0k7WfpMvDibhufJGjt0UY+vHc/i4DP0yjtNTJc1f2iVCbJXSYqEACLGO1TGqrknHEkXC/94Ef7v950MgE7x1vxfwouLGoevLYEIMF7QcR0a7xPQHx1MJQo5aXVNbzBuQLq81A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iEcuTLoG; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788421107; c=relaxed/simple;
+	bh=Z1m8YlWqbN772ba8GsyS01fNbHHwITa1zD0swwlZtTc=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=dmrour7powvqaVuiRVBjTybnBZuIM+0TI1LNGWdbXAYaDVUf6bZbLpnD4wLrfQIaEj5BTqS+VAuzzt/H00BI3JXeV9rT4+XZ2WvyYfXBQ7GjZ5Xo2E9SNZ9dFVMo4XHd1oJ0cwDDhsa2c+pjWVKww1YmZaIxCUcEUfhGeimG5vo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=fiQCk18O; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=GnBGHLHC; arc=none smtp.client-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iEcuTLoG"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0FB4C1F000E9;
-	Thu,  3 Sep 2026 07:36:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788420986;
-	bh=v3Y0pF6qaEUidBIul6qJ8AoENef+pkWSii7H+USK2Xw=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=iEcuTLoG5eyYSRVRMKPZDL4De+trkH8sGOxaZG+sxaDCAHFp9LVl0/36eZMo2RrDi
-	 RmYQuenIFi0Zew+rim0i4aqZ90qvDkJc19IbVUTyUeP7EJNkiUnYu2M0SxWlOFRMlU
-	 KslqrExVumKUkLPScCy5fhe9sETmBETxMbCvDvQuwmE1fmYqJ9dLCKkD89DX3sGUHE
-	 Up31+Rg8eUNgK0m0Jf5vbSSJNpcIWUVW1qxoknhNqJxvR59x28TmUME1dnG7SoCMma
-	 CM78HPRCgraCRqaS2DzNr/vW2v0H54F6Gy9twvDk2aaUbPEw4okfG1/8YaKS3LsX45
-	 rcEc+grfobqog==
-Received: from sofa.misterjones.org ([185.219.108.64] helo=lobster-girl.misterjones.org)
-	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.98.2)
-	(envelope-from <maz@kernel.org>)
-	id 1x21zj-00000004Ekw-3455;
-	Thu, 03 Sep 2026 07:36:23 +0000
-Date: Thu, 03 Sep 2026 08:38:57 +0100
-Message-ID: <878q5i6ay6.wl-maz@kernel.org>
-From: Marc Zyngier <maz@kernel.org>
-To: Yao Yuan <yaoyuan@linux.alibaba.com>
-Cc: Feng Tang <feng.tang@linux.alibaba.com>,
-	Thomas Gleixner <tglx@kernel.org>,
-	John Stultz <jstultz@google.com>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Miroslav Lichvar <mlichvar@redhat.com>,
-	Daniel Lezcano <daniel.lezcano@kernel.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Petr Mladek <pmladek@suse.com>,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] sched_clock: Add option to use absolute time against hardware clock reset
-In-Reply-To: <ayvjcnerxbgffnpv6j2kxs2vxfu54gynu6oxv3j2u44he55o4p@pq42xsh4qkrg>
-References: <20260902082123.95770-1-feng.tang@linux.alibaba.com>
-	<87h5k7mzxy.wl-maz@kernel.org>
-	<ayvjcnerxbgffnpv6j2kxs2vxfu54gynu6oxv3j2u44he55o4p@pq42xsh4qkrg>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
- FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
- (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="fiQCk18O";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="GnBGHLHC"
+From: =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1788421098;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=P72WK2dflpRUDrQ2I5ggLeZ9cbv2ljHeu+k9A1omFm4=;
+	b=fiQCk18OlJXgE3uCfKLzKTIOfjKxnZ6QMePaFwyXYkhHPMZyh7nBAVJqyL60lFAXXnS04/
+	sZ7uL145FgHNpGodPskOUEof5mvDuV6oBOzDlLgwe+w2bd8rKJcP5OAsl9Ac4QdDOpuuFh
+	eaP3zlP/Y3GmVlx5MpDNQWmtkIVF17xZeylGG4YcesB9IcKb7A7PKOgFZ6ORsOiLJtBjy5
+	cNhpGObsk69gYVxOrgLhFMj3SnTpPCM5Z2tU/i2mn3IorpIvUHPuTdWJ1QhD6faAkWoRpu
+	0Z5YlX0uO0dT4Bj6npvHJ8HSnrrRTmcz6mb7yGgR8cPARfPps7bcGmaV21myBA==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1788421098;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=P72WK2dflpRUDrQ2I5ggLeZ9cbv2ljHeu+k9A1omFm4=;
+	b=GnBGHLHCFVSVHNgLuXVhqU3vgazMTxtWSHXH45Wv0EaekAslNCMxjQsHQLCGAMBLPspu7y
+	TmEgRD2pt9jr+DCw==
+Subject: [PATCH v2 0/8] selftests: vDSO: Stop using libc types for vDSO
+ calls
+Date: Thu, 03 Sep 2026 09:38:12 +0200
+Message-Id: <20260903-vdso-test-types-v2-0-1eec04eb3658@linutronix.de>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-SA-Exim-Connect-IP: 185.219.108.64
-X-SA-Exim-Rcpt-To: yaoyuan@linux.alibaba.com, feng.tang@linux.alibaba.com, tglx@kernel.org, jstultz@google.com, sboyd@kernel.org, mlichvar@redhat.com, daniel.lezcano@kernel.org, peterz@infradead.org, pmladek@suse.com, linux-kernel@vger.kernel.org
-X-SA-Exim-Mail-From: maz@kernel.org
-X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/2WNywrCMBBFf6XM2kgmpS9X/od0YdOpHZBEMjG0l
+ P67seDK5Tlwz91AKDAJXIoNAiUW9i6DORVg57t7kOIxMxhtKkTUKo3iVSSJKq4vElW3lrRt0Ax
+ NB3n1CjTxchRvfeaZJfqwHgcJv/bXwr9WQqWVLocSp7a1ddVdn+zeMXjHy3kk6Pd9/wCpuBlTs
+ gAAAA==
+X-Change-ID: 20251110-vdso-test-types-68ce0c712b79
+To: Andy Lutomirski <luto@kernel.org>, 
+ Vincenzo Frascino <vincenzo.frascino@arm.com>, 
+ Shuah Khan <shuah@kernel.org>, Thomas Gleixner <tglx@kernel.org>
+Cc: Arnd Bergmann <arnd@arndb.de>, linux-kernel@vger.kernel.org, 
+ linux-kselftest@vger.kernel.org, 
+ =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788421097; l=2089;
+ i=thomas.weissschuh@linutronix.de; s=20240209; h=from:subject:message-id;
+ bh=Z1m8YlWqbN772ba8GsyS01fNbHHwITa1zD0swwlZtTc=;
+ b=XbizUGGgXkcA2XZCL/GS35erBVEDJzRydfElaua6KWf+JaRTbiCovjAogzvggk0LI4lcF/pZ9
+ FbLYFCjYg5HC7tPh/t/rUKcmz16gXJMHJwKAChWZ9EV4eiVd+nq3WYJ
+X-Developer-Key: i=thomas.weissschuh@linutronix.de; a=ed25519;
+ pk=pfvxvpFUDJV2h2nY0FidLUml22uGLSjByFbM6aqQQws=
 
-On Thu, 03 Sep 2026 07:51:03 +0100,
-Yao Yuan <yaoyuan@linux.alibaba.com> wrote:
-> 
-> On Wed, Sep 02, 2026 at 04:32:25PM +0800, Marc Zyngier wrote:
-> > On Wed, 02 Sep 2026 09:21:23 +0100,
-> > Feng Tang <feng.tang@linux.alibaba.com> wrote:
-> > >
-> > > Currently sched_clock shows the relative time to the boot starting of
-> > > kernel, while there could be long firmware start time before it and
-> > > after the hardware reset.
-> > >
-> > > On modern server platforms, there could be several software running in
-> > > parallel. Like for arm64, it could have  SCP (System Control Processor)
-> > > firmware running on SCP processor, and ATF (Arm Trusted Firmware) and
-> > > Linux OS on the main processor.
-> > >
-> > > Debugging some nasty issues on these platform may need to cross-check
-> > > the logs from these firmwares and Linux kernel for specific events,
-> > > where a unified reference timeline is critical. All these software can
-> > > read the hardware timer, which is also the base of sched_clock for
-> > > Linux kernel. Using the absolute counter since hardware timer reset
-> > > makes it possible for all kinds of software to have a same time base.
-> > >
-> > > Add 'abs_sched_clock' parameter to provide an option for using absolute
-> > > counter, and users should make sure their sched_clock (hardware timer)
-> > > is capable of supporting absolute counter before enabling the option.
-> > >
-> > > Locally, it did help on chasing some RAS issues which needed cooperation
-> > > between kernel, SCP firmware and ATF, by mapping the actions from each
-> > > players into one timeline based on the timestamps in their logs.
-> >
-> > I really have to ask: why isn't this just a one-off sampling of the
-> > counter, kept in some user accessible location (debugfs or something
-> > else), and ultimately post-processed to align your logs? People have
-> > been doing this... forever, and that has been "good enough" so far.
-> >
-> 
-> Hi Marc,
-> 
-> > The other thing is that your "absolute" clock isn't absolute at
-> > all. This doesn't consider SW running at EL2 that could happily offset
-> > thing by an arbitrary value.
-> 
-> Do you mean the VM case that VM's vcounter can be changed by hypervisor
-> in EL2, Thus it's not that absolute in such scenario ?
+Currently the vDSO selftests use the time-related types from libc.
+This works on glibc by chance today but will break with other libc
+implementations or on distributions which switch to 64-bit times
+everywhere.
 
-That's indeed one of the possibilities. EL2 controls both virtual and
-physical offsets, and therefore provides the kernel with a different
-view of time.
+The kernel's UAPI headers provide the proper types to use with the vDSO
+(and raw syscalls) but are not necessarily compatible with libc types.
+Introduce a new header which makes the UAPI headers compatible with the
+libc.
 
-This doesn't even have to be a VM. There is a lot of non-hypervisor SW
-out there that just hogs EL2 for more or less nefarious purposes (such
-as "protecting" the kernel), and offsetting the counter values is one
-of thing they could do to hide what they are doing.
+Also contains some related cleanups.
 
-The other thing is that this change seems to break the sched_clock()
-handover, since the new clock doesn't start where the old one ends.
-This doesn't affect arm64, which can only have one true source of
-time, but other archs would probably suffer from this.
+Signed-off-by: Thomas Weißschuh <thomas.weissschuh@linutronix.de>
+---
+Changes in v2:
+- Rebase on v7.13-rc1.
+- Use __kernel_old_time_t in vdso_time_t.
+- Add vdso_syscalls.h.
+- Add a test for the time() function.
+- Use __NR_* over SYS_* syscall constants.
+- Drop already applied patches.
+- Link to v1: https://lore.kernel.org/r/20251111-vdso-test-types-v1-0-03b31f88c659@linutronix.de
 
-	M.
+---
+Thomas Weißschuh (8):
+      selftests: vDSO: Introduce vdso_types.h
+      selftests: vDSO: Introduce vdso_syscalls.h
+      selftests: vDSO: vdso_test_abi: Use types from vdso_types.h
+      selftests: vDSO: vdso_test_abi: Use system call wrappers from vdso_syscalls.h
+      selftests: vDSO: vdso_test_gettimeofday: Use types from vdso_types.h
+      selftests: vDSO: vdso_test_correctness: Make ts_leq() and tv_leq() more generic
+      selftests: vDSO: vdso_test_correctness: Use types from vdso_types.h
+      selftests: vDSO: vdso_test_correctness: Use system call wrappers from vdso_syscalls.h
 
--- 
-Jazz isn't dead. It just smells funny.
+ tools/testing/selftests/vDSO/vdso_syscalls.h       |  92 +++++++++++++++
+ tools/testing/selftests/vDSO/vdso_test_abi.c       |  40 +++----
+ .../testing/selftests/vDSO/vdso_test_correctness.c | 126 +++++++--------------
+ .../selftests/vDSO/vdso_test_gettimeofday.c        |   7 +-
+ tools/testing/selftests/vDSO/vdso_types.h          |  75 ++++++++++++
+ 5 files changed, 225 insertions(+), 115 deletions(-)
+---
+base-commit: 058d40ae995fbcdd8342ef875c4e94df6b93a8b4
+change-id: 20251110-vdso-test-types-68ce0c712b79
+
+Best regards,
+--  
+Thomas Weißschuh <thomas.weissschuh@linutronix.de>
+
