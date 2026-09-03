@@ -1,126 +1,163 @@
-Received: from mail-pf1-f173.google.com (mail-pf1-f173.google.com [209.85.210.173])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 823B343305A
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 17:17:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 608611FF7C8;
+	Thu,  3 Sep 2026 17:18:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788455859; cv=none; b=OW0nv+GFMAHegXudxZ2BpzI65FN0ZagTq2v6lN7+54oz9zek7QEZjXdK+c7zEjmJvCL8jh0GOWTz53KToinrtjVddgSWcJH9j82o/+4bCTmH+JPq/X/m8UIm0tJvly5y1t5c8kQ6BlrcI5ZA3y6uYhd3YjXz/EihK+wIQT+tq44=
+	t=1788455915; cv=none; b=TTl9hFhX/UFZ0e7yE6Ni3MLwyLYRagOKWq2IJLjez3DpzeOv3dLW4WG1IUIXu8o1ujhPMZQz+QwJ6k9EyOaGVOHb90Tge+ziMzsbWcFMP5e+Z+IZHuJnuh9n7GgBTzovzh7Mu2QAJGK7nm9PkEyBRPsa91qoTpUgwvb1I5RHzOw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788455859; c=relaxed/simple;
-	bh=s13LO4jmhqa32TTsrgNB+snIxVM0c2Gb5dUrD5UQwEo=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=Ojnek6+CMrXIkmoWvs+hOi1A39ixArCV5soNnQc3ZFi2utA5w2i7t4JWDL0PV7YASbewBD5THw4nY2SRZ2HWkAbrzZU7jnj1CBRwAKGvX6I9CxT+urARkWLulhHkGGeackVOygovFEERwk2byi06FzoFfwkdRkCamUGA8LB/lnI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=s7wq80Rf; arc=none smtp.client-ip=209.85.210.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788455915; c=relaxed/simple;
+	bh=p6rS8X9u8AcSZpDVLpcO4p1MdnCNksBdWa0CcN1a6uc=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=bdoESDFD2ZP6R1hCMdWdwQgfFd22H6gCHHXBlJlabdEGWAc5SLE1pqZ9VS29PXSK0LNW8dpecOyEIaW9MXD3fbhH6P0IFZJbSOowH4MCft0r7mhC0Qshv6f7wMNjxti+U/uK5E+5FEDNimwm4fxCseg1wiWSCrDbnt+V8ynB36s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=efuwS3Ky; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="s7wq80Rf"
-Received: by mail-pf1-f173.google.com with SMTP id d2e1a72fcca58-8518b3ff3e9so21128b3a.2
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 10:17:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788455858; x=1789060658; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=4OW8N4LOmIMt30hc5K4M99zY33Wer7M4hf+pik4VRUs=;
-        b=s7wq80RfVgg7w87WJwTLXfheHdV+X9bvoQpCN+sLH6lc6d70vKi8TwujfdX/xgqfen
-         gAmnO98HGKpRCa0a1JQxNcLCofLnkMwtpKiSjB3SAcVY1l4fuqkYej1+Nwh7uu/YDtE/
-         w1fvkMoxtgU5Wxpt76jQaTjwnR6GRH9Nn5MAY1nXHx/0olEz/0mqDrpGRy7APp1gqM2D
-         wNdkAHqKncqMqK0q6oVJY71eUK4WjnGm6WZUlxDvb22rWY2MAkyHSQwGysWpS8XTu8lB
-         kmh+qOMk6fqBy9TE/mJp7ZQa5xikWCzyGnSBhBSjRMoQceho3U9T8IGrNtxUM/F1qduu
-         ZpDQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788455858; x=1789060658;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=4OW8N4LOmIMt30hc5K4M99zY33Wer7M4hf+pik4VRUs=;
-        b=gTZKnstOAq0n1g8XAfN5aRWYwhXxt4Z+feFYIZToE7FEE/ofjIa7NN1PQMeT0xMO7s
-         4NL377RgxXn6vhjPhNKmJQXkcTXXPvCL2Zvi3aPTT+gocjiPQHMqapPhyd16RvDnxgKo
-         pH26khYL2D1fJRcHBdldywDans1y2m/YOhy5HEiFy5A9CnePgZjQyqky+cCxnl/RcncH
-         o6PcK0Wh7bgtN1rbizt1QscEB/yzmfJgIgBzoomUdaSsXNiU7EGa8Wc+l9xmiQ1XN5Gt
-         7fMLGPAAuIkKOr/x+Xwm8/eWsJBAwvNSZ4gnOgd3s/TNGtXXIbykIs8yKUpBXqs25Qgj
-         fZyg==
-X-Forwarded-Encrypted: i=1; AKwUvBwZvvPgPfNLusRhExy54B/5OMLKfS/uhmjoBrzA5pDQHRCt0ECay+tcTj5dqRLRmDwd/rrZr1tiEM3uq9Y=@vger.kernel.org
-X-Gm-Message-State: AFuF++kofRshIpP+vRXbExLg/UxosIgcnTVVKurA8c0ouO8Q7YnzKryt
-	BrYWRcWARBliEJoqyhgZp6nCjS1E1ftaVOs7s/R4+qHNH2MgbX1P2o8n
-X-Gm-Gg: AYBFou2OJwmb9S2gS/oJi6maxFU2XFbQoip0Oqb4hn91z1iuPntVaWq/N4z0EuBfRCt
-	o95ahBUexdyoKhBALeguqtFmaP6ACB9t3S+Z7Ym48OJ+p1tZ3Ts5m0nZcLPXEFrf+42UPenRs0N
-	4pIf/9Sy/zOIb0vCZi7PMIrfawi0KpYd/3apsi5dDzpkGzMpoArVSF7EqjD+wyEELecwCXzLIm/
-	EC3lx/RrGwWT7Mw/HRUOXQ+kM94s77g3irfPaSxf07qOSK2rQ1LrPkIr8qWTwdeT64feQrMegj8
-	XpDQE9EUgnFv3ZKWLnRfqAqbnxOIXSGKg2cisGlTuwNu4PsEhS+QIkPnHEbBRCbJG3tOSMQ6PDX
-	NJLR1r7FNZhyRxcNJvVKGuh3/Cbb8TfX/jDjHVT3d9uxKP3uzt/yT7YtbN7hnUkaqqgfQUSbuza
-	dKSKHMxReyiq/Kz0Z+/lzHI9sDkuKSsQp6dzRJ+i50YW40KLJKoVFf9A3+WRhShldDz5AhkcWxN
-	BJbwDZiU51zhc4xvZI=
-X-Received: by 2002:a05:6a00:2d24:b0:846:22ea:e171 with SMTP id d2e1a72fcca58-8616809b0ddmr723389b3a.3.1788455857667;
-        Thu, 03 Sep 2026 10:17:37 -0700 (PDT)
-Received: from [127.0.0.1] ([2407:cdc0:f001::1020])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-86153e3ac5fsm199982b3a.54.2026.09.03.10.17.35
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 03 Sep 2026 10:17:37 -0700 (PDT)
-From: Felix Gu <ustc.gu@gmail.com>
-Date: Fri, 04 Sep 2026 01:17:33 +0800
-Subject: [PATCH] spi: ingenic: release tx DMA channel when rx request fails
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="efuwS3Ky"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 027F61F000E9;
+	Thu,  3 Sep 2026 17:18:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788455914;
+	bh=VaNiKLjrBkXnRrP+B04GwooKadFpzdr1nDGvyAAiQEg=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=efuwS3KyGVnO3KhfxaLo5r1/iLyUjlvyS0Ywu0t+kDTzEp+dW+QQzoHgkNOpsegVO
+	 fYMOR0+UXSDx6Sh3frJBtlbhwDLEY1tdzg5AHfO8mjFZ+Sv4MaWO64u3HxsiuwndsS
+	 lxIj3dA2GW3/BNS94ZIZgWNMODCqXL26yLDCgBs9O9vpdiPgBHru38kt81u5ompWW+
+	 lLpFAzg3OlCo2wTxzbj4u8S0w/sxZOJGLHcq4EhFD8iIF72nBbxnEV4r7sDRYROvP8
+	 846OFAA1o15l7hfbkkoxa1akw2JVMEl8TJfQE0JvCGWdhlNE73r88YW6KXLzXclvnG
+	 iwbibbMU9pT/Q==
+Subject:
+ Re: [v26,net-next,01/10] net/nebula-matrix: add minimum nbl build framework
+From: netdev-bot+sashiko@kernel.org
+To: illusion.wang@nebula-matrix.com
+Cc: dimon.zhao@nebula-matrix.com, alvin.wang@nebula-matrix.com,
+ sam.chen@nebula-matrix.com, netdev@vger.kernel.org, andrew+netdev@lunn.ch,
+ corbet@lwn.net, kuba@kernel.org, horms@kernel.org, linux-doc@vger.kernel.org,
+ pabeni@redhat.com, vadim.fedorenko@linux.dev, lukas.bulwahn@redhat.com,
+ edumazet@google.com, enelsonmoore@gmail.com, skhan@linuxfoundation.org,
+ hkallweit1@gmail.com, linux-kernel@vger.kernel.org
+Date: Thu, 03 Sep 2026 17:18:32 +0000
+Message-ID: <178845591249.3394541.8367854604654150435@kernel.org>
+In-Reply-To: <20260831021408.2325-2-illusion.wang@nebula-matrix.com>
+References: <20260831021408.2325-2-illusion.wang@nebula-matrix.com>
+X-sashiko-severity: Low
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260904-ingenic-v1-1-06218181a4f8@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAKyrmWoC/yXMwQ5AMBAE0F+RPWuymmrwK+JAbVmHkhaRSP9dc
- XyTmbkhkGcK0GQ3eDo58OoSijwDM/duIsFjMkiUGmtUglPm2Iiq1HbQiKpCCam9ebJ8fU9t9zs
- cw0Jmf+cQ4wNk5AvcawAAAA==
-X-Change-ID: 20260904-ingenic-856fb6004802
-To: Mark Brown <broonie@kernel.org>
-Cc: linux-spi@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Felix Gu <ustc.gu@gmail.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788455855; l=1071;
- i=ustc.gu@gmail.com; h=from:subject:message-id;
- bh=s13LO4jmhqa32TTsrgNB+snIxVM0c2Gb5dUrD5UQwEo=;
- b=CvuQZtJv09/+3m1XgKCPQLRl50ZrhSOh37pRY3C1QwUN7kEfl8b5Gk5RrcmUK3KqIkH6kyHr/
- TnTs0S8WRidAhvb8SIc6mX2Cmdsx1JWIb5ViaSf94ZLqxR6EwL9sY1c
-X-Developer-Key: i=ustc.gu@gmail.com; a=ed25519;
- pk=fjUXwmjchVN7Ja6KGP55IXOzFeCl9edaHoQIEUA+/hw=
 
-When the rx channel request fails, the driver carries on without DMA
-but the tx channel it already acquired stayed claimed until devm
-teardown.
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider:
 
-Release it on the error path so it goes straight back to the DMA
-engine for other users.
+Critical: 0 · High: 0 · Medium: 0 · Low: 1
 
-Signed-off-by: Felix Gu <ustc.gu@gmail.com>
----
- drivers/spi/spi-ingenic.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+- [Low] The documentation file added by this patch,
+  Documentation/networking/device_drivers/ethernet/nebula-matrix/nbl.rst…
 
-diff --git a/drivers/spi/spi-ingenic.c b/drivers/spi/spi-ingenic.c
-index adcf85bccbcc..7ce4fe965cac 100644
---- a/drivers/spi/spi-ingenic.c
-+++ b/drivers/spi/spi-ingenic.c
-@@ -354,8 +354,11 @@ static int spi_ingenic_request_dma(struct spi_controller *ctlr,
- 	ctlr->dma_tx = chan;
- 
- 	chan = dma_request_chan(dev, "rx");
--	if (IS_ERR(chan))
-+	if (IS_ERR(chan)) {
-+		dma_release_channel(ctlr->dma_tx);
-+		ctlr->dma_tx = NULL;
- 		return PTR_ERR(chan);
-+	}
- 	ctlr->dma_rx = chan;
- 
- 	ctlr->can_dma = spi_ingenic_can_dma;
+--
 
----
-base-commit: 89c07d98716a13454ec3fd9f97689e812cc71bd4
-change-id: 20260904-ingenic-856fb6004802
+net/nebula-matrix: add minimum nbl build framework
 
-Best regards,
---  
-Felix Gu <ustc.gu@gmail.com>
+This adds the Kconfig/Makefile/MAINTAINERS entries for a new
+drivers/net/ethernet/nebula-matrix/ vendor directory, a driver
+documentation file, and a PCI driver skeleton (nbl_main.c) whose probe
+and remove callbacks are stubs.
 
+> diff --git a/Documentation/networking/device_drivers/ethernet/nebula-matrix/nbl.rst b/Documentation/networking/device_drivers/ethernet/nebula-matrix/nbl.rst
+> new file mode 100644
+> index 000000000000..ff38302968c5
+> --- /dev/null
+> +++ b/Documentation/networking/device_drivers/ethernet/nebula-matrix/nbl.rst
+> @@ -0,0 +1,28 @@
+> +.. SPDX-License-Identifier: GPL-2.0
+> +
+> +================================================================
+> +Linux Base Driver for Nebula-matrix m18110-NIC/m18000-NIC family
+> +================================================================
+> +
+> +Overview:
+> +=========
+> +The m18110-NIC/m18000-NIC is a series of network interface cards for the Data
+> +Center Area.
+> +
+> +The driver supports link-speed 100GbE/25GE/10GE.
+> +
+> +m18110-NIC/m18000-NIC devices support MSI-X interrupt vector for each Tx/Rx
+> +queue and interrupt moderation.
+> +
+> +m18110-NIC/m18000-NIC devices support also various offload features such as
+> +checksum offload, Receive-Side Scaling(RSS).
+
+[Severity: Low]
+Do these three statements describe what the driver actually does, either
+at this commit or at the end of the series?
+
+Grepping the vendor directory at the last patch of the series
+("net/nebula-matrix: add common dev start/stop operation",
+9b90629960395de83faaf5146e29ffc3cb854c5b) finds nothing for any of the
+netdev or offload plumbing these sentences describe:
+
+  git grep -E 'register_netdev|netdev_ops|alloc_etherdev|ethtool_ops|NETIF_F_' \
+      drivers/net/ethernet/nebula-matrix/
+  (no matches)
+
+The directory at that point contains only nbl_main.c plus nbl_channel/,
+nbl_common/, nbl_core/, nbl_hw/ and nbl_include/, so the code binds the
+PCI function, maps the BARs and brings up the PF mailbox, but never
+registers a net_device, never programs per-queue Tx/Rx MSI-X vectors, and
+has no RSS, checksum offload, interrupt moderation or link-speed
+reporting.
+
+Would it make sense to describe only what is implemented, and add the
+link speed / per-queue MSI-X / moderation / RSS / checksum text in the
+patches that introduce those features?
+
+> +
+> +Support
+> +=======
+> +
+> +For more information about m18110-NIC/m18000-NIC, please visit the following URL:
+> +https://www.nebula-matrix.com/snic_s1000_en
+
+Is this the right product page?  The URL names snic_s1000, while
+nbl_main.c documents the matched IDs as "SNIC v3r1 product Device IDs
+range: 0x3403-0x3412" for m18110/m18000.
+
+> +
+> +If an issue is identified with the released source code on the supported kernel
+> +with a supported adapter, email the specific information related to the issue to
+> +open@nebula-matrix.com.
+
+[ ... ]
+
+> diff --git a/drivers/net/ethernet/nebula-matrix/Kconfig b/drivers/net/ethernet/nebula-matrix/Kconfig
+> new file mode 100644
+> index 000000000000..f16e9663eaed
+> --- /dev/null
+> +++ b/drivers/net/ethernet/nebula-matrix/Kconfig
+
+[ ... ]
+
+> +config NBL
+> +	tristate "Nebula-matrix Ethernet Controller m18110/m18000 support"
+> +	depends on PCI && (64BIT || COMPILE_TEST) && !CPU_BIG_ENDIAN
+> +	help
+> +	  This driver supports Nebula-matrix Ethernet Controller m18110/m18000
+> +	  Family of devices.
+> +
+> +	  More specific information on configuring the driver is in
+> +	  <file:Documentation/networking/device_drivers/ethernet/nebula-matrix/nbl.rst>.
+
+The help text points users at the .rst above as the description of the
+option's capabilities, so the same over-claim reaches anyone selecting
+CONFIG_NBL: the prompt says "Ethernet Controller m18110/m18000 support",
+but no network interface is created by any commit in this series.
+
+[ ... ]
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260831021408.2325-1-illusion.wang%40nebula-matrix.com
