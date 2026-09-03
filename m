@@ -1,46 +1,50 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEC594FC8EC;
-	Thu,  3 Sep 2026 17:21:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 934594FDE44;
+	Thu,  3 Sep 2026 17:21:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788456067; cv=none; b=IFZahskv8e0RUkQUFSwApXam/ZEcXyooP+jQpyca1w5r0gOqriWVQHTXkfiFi+KeJ5UhuwYoOGaCqTv/Dw7HSot9BFbIQLzu2Cm/tB7GtipzkY8LxrSnOTW+HflnNkI8GcoK9Z3xoAn2qBUFqmuW2CQe06711MSEQhYF8fvU6Jo=
+	t=1788456067; cv=none; b=WzZrq/XuQ/FESNM54WoAmUcRtFcZIM/aWlNCU98cPbJA0Z/NV21sE1Vu0Kok2uVMPgs9k7ewZpAnN0bC8X2qQaEN9eXmdJotTbo9o5M71MmH0NnJYbKOoKuhPWbTZ9jNt+1LxvjTn5yf4bH1jcBmbbgPhy5wxkB6k42r65NK0rI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788456067; c=relaxed/simple;
-	bh=X7kaNJwpg0PqYsmUaoEMLMVVv5vWfkyL5FAMgwIaa9I=;
+	bh=BsFYeHJFbRkN7L4/X1cjaPBklsEheoLOioZXmpi1FNk=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=cKCxVNag9EtH9vazh7WP5tHQjPrj1U7+5mjyvITWSobUXke/+qUftbQzhT5DiFuUsisOOROS9FQMP9+hlTzlfHBV6oBTiCpKoD69c7mdXTRmgLIeFmkYjPX/SGsqcylnLiWF8hOIdlKWyo2ePiM8wkpyUHwM6v5v1dWL6k9qtlo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WhNGnFNK; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=CfK27GxIeb0wT6tpey2Wmm9kHwpMnDmurvKX4fRdBO3bWhq++GqJef83V7HECFHBPVYeyq0hW4IpADUFz/XtBNjTwa2fIlk8BcNUfPEIdVCI6hqPkdpwhIaDg7W4SS+R3eJBt4/D0y5WIiBrh/kT5pcf/1V7BSeWQ3H3pRDZG0k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kGgWdgaK; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WhNGnFNK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D4F6D1F00A3E;
-	Thu,  3 Sep 2026 17:21:04 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kGgWdgaK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A60751F000E9;
+	Thu,  3 Sep 2026 17:21:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788456065;
-	bh=kyTaYmLuCLAQEEmr077mrhIVOGTumtoSrSPeJjIGhXo=;
+	s=k20260515; t=1788456066;
+	bh=CElnlB33TsaQSwBCd0+edg2HvwemWlkaUgyejN9+fXo=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=WhNGnFNKfSjwMnEUfXLSlxB14ux7JwtbyYLBTv0TO4ACN6s9AFuwecFLWGWazbsL5
-	 ER/I4eJeBfWwR7h8HOEHdR0DFeST8LeUCJJSXZ545hAQSM6LkgBmHxaWF0BsoncaB/
-	 7EZtY36CsATeq22jAVRFiWzkoXuPNxFoQKCwXTMotvB8H1A/NCVXvENhICHu0cdHcH
-	 MpNdHfdsN0pw/iqceoO7pBZwMRq2lXsKH1jPxy4BImniKNuxgE1RIRkOFMA69QIIAu
-	 n2J29wvatU2n2iSJ08zEC8TK2nmZ94x8k1beH/yOgbJ6W0SOtmZK5Dasa6qHteQzqD
-	 z+pe43xQZwlIw==
+	b=kGgWdgaKYFX744X+Slpg/0UIDCMYrqakbC4Ep/dE4xvecOtNncd4aWO11QITa63Jx
+	 JTyHk4grGWAeOmbQmpHuS3ZIYm4VxY1yZKwnR4F8YeIhbGnL0zFzpS9wGZ9kkFo5Qd
+	 /P1hRn5ryVV2TWIlzR7/WoBniHYb6LXnlsAgACEuGd5Gel8hWFATAy0QcsPQG/jTji
+	 fUTF2j39kOdXcmpsmOYL3Ak0B7t2/at6zvRtnvmowZMoR0FiLgmJ0bIlglggt5sk6s
+	 vCXOWrFm/IZot2d0erGR+U3z+oKyKlYMf3mKsZHDO68bdFx6RE83QpvJ4IXede5bfx
+	 yVBDsxkNHF5LA==
 From: Bjorn Andersson <andersson@kernel.org>
-To: Konrad Dybcio <konradybcio@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Xilin Wu <sophon@radxa.com>
+To: konradybcio@kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	richardcochran@gmail.com,
+	Umang Chheda <umang.chheda@oss.qualcomm.com>
 Cc: linux-arm-msm@vger.kernel.org,
 	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] arm64: dts: qcom: sc8280xp: Add more thermal zones
-Date: Thu,  3 Sep 2026 12:20:37 -0500
-Message-ID: <178845603565.348193.12611424083377253410.b4-ty@kernel.org>
+	linux-kernel@vger.kernel.org,
+	mohd.anwar@oss.qualcomm.com,
+	krishna.chundru@oss.qualcomm.com,
+	monish.chunara@oss.qualcomm.com
+Subject: Re: (subset) [PATCH v5 0/2] arm64: dts: qcom: Introduce support for Monaco-ac-sku Evaluation Kit
+Date: Thu,  3 Sep 2026 12:20:38 -0500
+Message-ID: <178845603580.348193.12141040001593368130.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260831-sc8280xp-thermal-zones-v2-1-8c2b89b4c9c5@radxa.com>
-References: <20260831-sc8280xp-thermal-zones-v2-1-8c2b89b4c9c5@radxa.com>
+In-Reply-To: <20260626111301.3479559-1-umang.chheda@oss.qualcomm.com>
+References: <20260626111301.3479559-1-umang.chheda@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -51,16 +55,22 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Mon, 31 Aug 2026 18:19:06 +0800, Xilin Wu wrote:
-> The SC8280XP contains a lot of TSENS sensors which are not yet described.
-> Add the thermal zones for them.
+On Fri, 26 Jun 2026 16:42:58 +0530, Umang Chheda wrote:
+> Add support for Qualcomm's Monaco-ac-sku Evaluation Kit (EVK) without
+> safety monitoring feature of Safety Island(SAIL) subsystem.
+> This board is based on Qualcomm's QCS8300-AC variant SoC.
 > 
+> Monaco-ac-sku EVK board is a single board computer (SBC) that supports various
+> industrial applications, including factory automation, industrial
+> robots, drones, edge AI boxes, machine vision, autonomous mobile
+> robots (AMRs), and industrial gateways.
 > 
+> [...]
 
 Applied, thanks!
 
-[1/1] arm64: dts: qcom: sc8280xp: Add more thermal zones
-      commit: e47310db5e7aa53b2a135a86db7cdc308d9af542
+[3/3] arm64: dts: qcom: monaco-ac-evk: Add IFP mezzanine
+      commit: 0fb8fb4e7377d999456e184503d053429fd605ab
 
 Best regards,
 -- 
