@@ -1,191 +1,164 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+Received: from mta1.migadu.com (out-106.mta1.migadu.com [95.215.58.106])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB926490BF2
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 10:53:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C96B6492181
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 10:53:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.106
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788432801; cv=none; b=GRcve91EBy34OiwpkccVEDPbinL1vU3TzbUmR7kqyNQTRfqFK7hpAx6HkhdvEatv0BkyK6baI3xOslC3sDsSUZn1bkPVntBK12SvcaWQYoSDd8Jt3lCOpdLhCo8BqIlGb7aoPgz59szF/x9cOiabxuoc6NH15stnCEwMdrrkTxw=
+	t=1788432808; cv=none; b=awXkL2efONOH7awOTEkH/FqiVh7RYBGh8FG+4/835HVGYfKmEkF9FhrFCZRc4VFV17eE+XaT/U9hDWX8Y91Tl4dnMYYfcLJ0Ytuv9RB+Cvc1RC0QmNYp1ABDkcK2RPzaRci0T+IyiZkl9F2BY7KviB+8TlqhWZCdYNPM70rsgok=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788432801; c=relaxed/simple;
-	bh=K5/5a8tz01vve08ekdabKuDGn37Py/ouODSDMzhNlSE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ERmEKFWjniPUy/Jbxu9BzLxlVfTFdBQ0YIC+0pdSvHSBFo41TdoYrUerf9ZBOLWqtva4gzWsC6uEOYwy+MYZImRAGTcKaOHaUhhf4jpLPQrt3Rhnio3ZPmhLUvKFN69MmbaMSFxx/4EqDqfw6ppsd9y6B7dVXPcNBpsqF06oAwQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=vNtKS3sR; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=lhWElenk; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=OYTRYWJL; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=qTm9WZjb; arc=none smtp.client-ip=195.135.223.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+	s=arc-20240116; t=1788432808; c=relaxed/simple;
+	bh=VlMMvVJ41d2u+4R9bBTJzfMSe3YQWI02/WQr8XoAc6M=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=NjI0L84KAoFdoO4vLXtF+FDmXB1ZBQgM+AfonBRYLwz31qvU2tj7TLLv+VVLlBK56wM9avp7uIAjuPPTwaGhom2j/68mlr9osCU5ajLp17KjcSJY4lqzDGouziXx9ct4zzcmvsU1ItXLZmbvoPxbdgocqssr6UHYgq5C8ZdMQnQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=G93kLrYi; arc=none smtp.client-ip=95.215.58.106
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="vNtKS3sR";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="lhWElenk";
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="OYTRYWJL";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="qTm9WZjb"
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 80DC921CF5;
-	Thu,  3 Sep 2026 10:53:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1788432793; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=6bT2W1NJX2HLlcsptLyaoYCmw7rdef1LdiLQlhEHcBY=;
-	b=vNtKS3sRLXHYQxumqU5HKH6Ghvsim6rCmdfwt9kTvh52eSeAiTBl/QTDIlXrHz7PNGWqu+
-	sCXtS4AqPONvn0ALOGZfMLq5DKONdKWjX2vt3EJJsu+Q5RmR+XykKYCEXnhwNPsJlf4A8B
-	EKIm2EcZRdkdFBytmH3rz2OpUhtcYUs=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1788432793;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=6bT2W1NJX2HLlcsptLyaoYCmw7rdef1LdiLQlhEHcBY=;
-	b=lhWElenkV/DcqzzICeqLAT74fT2LzmS0uE2O2kwjzKRy5ZQ/7MX3AQ7zji4E2DoVWnZ0om
-	sidYnGrOtddYaoCw==
-Authentication-Results: smtp-out1.suse.de;
-	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=OYTRYWJL;
-	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=qTm9WZjb
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1788432789; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=6bT2W1NJX2HLlcsptLyaoYCmw7rdef1LdiLQlhEHcBY=;
-	b=OYTRYWJL1u/OsiAtw238oHOT4uUXejETj7JQ0Dxb5Dxalb7mdxhxy5eVq6dNOK5dzyGAIa
-	5gtTWr13VRdCIcsu8iDYlud3o3qpU28XxZt5sbL/5zpWVTBtx++lNpRLWmPkLMSOnQ7wWR
-	OW4xSJjJorNe+Qnm2v3poE8VdnE0cRg=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1788432789;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=6bT2W1NJX2HLlcsptLyaoYCmw7rdef1LdiLQlhEHcBY=;
-	b=qTm9WZjbZs6VZIWW6B+F/Whikik8m6OHZppZwqyO6VcvgMp+sLsxfpoHitq9nA4hRL/TT2
-	RtFQOqzcTG7293DA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 621BB136E6;
-	Thu,  3 Sep 2026 10:53:09 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id RnvnF5VRmWouOgAAD6G6ig
-	(envelope-from <jack@suse.cz>); Thu, 03 Sep 2026 10:53:09 +0000
-Received: by quack3.suse.cz (Postfix, from userid 1000)
-	id EF9C0A13AC; Thu, 03 Sep 2026 12:53:04 +0200 (CEST)
-Date: Thu, 3 Sep 2026 12:53:04 +0200
-From: Jan Kara <jack@suse.cz>
-To: CJ <firefly0158@163.com>
-Cc: jack@suse.com, linux-kernel@vger.kernel.org, 
-	syzbot+61564e5023b7229ec85d@syzkaller.appspotmail.com
-Subject: Re: [BUG] udf: possible use-after-free in udf_close_lvid
-Message-ID: <xxp4ckrjkhch6fjccjic62jm4cejqudp5yiokoqd2sl37pukrm@nxi3ijmxzrny>
-References: <451669fc.58e2.1a0661e7329.Coremail.firefly0158@163.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="G93kLrYi"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=VlMMvVJ41d2u+4R9bBTJzfMSe3YQWI02/WQr8XoAc6M=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788432803; v=1; x=1789037603;
+ b=G93kLrYiCnUl4kWBO/KjYoY9Vl4SMyQXUQPUIgQ4CP8XCo8eW7o6/ORszu3R09LtS4Eo3m+Z
+ rm5yR3Eb9qKjZ3bB4WP6xa2Rq4CS0ceFX+Z9Uiiw+9nBDzClTD+ZeMaNI7j//ISZ2YIPqIB1yr0
+ mlUzgySDzyDIQgvqmTdgKoPo=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 2402af79b84f2c7f;
+	Thu, 03 Sep 2026 10:53:23 +0000
+X-Mizu-Trace-ID: 2402af79b84f2c7f
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <5fa70fc4-9b01-4303-85f1-bcffbb877789@linux.dev>
+Date: Thu, 3 Sep 2026 11:53:21 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <451669fc.58e2.1a0661e7329.Coremail.firefly0158@163.com>
-X-Spam-Level: 
-X-Rspamd-Action: no action
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Queue-Id: 80DC921CF5
-X-Spamd-Result: default: False [-2.51 / 50.00];
-	BAYES_HAM(-3.00)[99.99%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_RHS_NOT_FQDN(0.50)[];
-	R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	RCVD_COUNT_THREE(0.00)[3];
-	MIME_TRACE(0.00)[0:+];
-	FREEMAIL_TO(0.00)[163.com];
-	ARC_NA(0.00)[];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	RCVD_TLS_LAST(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[163.com];
-	TO_DN_SOME(0.00)[];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	TAGGED_RCPT(0.00)[61564e5023b7229ec85d];
-	MISSING_XM_UA(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DKIM_TRACE(0.00)[suse.cz:+];
-	RCPT_COUNT_THREE(0.00)[4];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:dkim,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,syzkaller.appspot.com:url,suse.com:email]
-X-Spam-Flag: NO
-X-Spam-Score: -2.51
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 2/2] zstd: use cpu_feature_enabled() for in-kernel BMI2
+ dispatch
+To: Dhruva G <goledhruva@gmail.com>, dsterba@suse.com,
+ linux-kernel@vger.kernel.org, terrelln@fb.com, terrelln@meta.com,
+ linux-crypto@vger.kernel.org, yosry@kernel.org, ebiggers@kernel.org,
+ torvalds@linux-foundation.org
+Cc: hannes@cmpxchg.org, nphamcs@gmail.com, chengming.zhou@linux.dev,
+ shakeel.butt@linux.dev, kernel-team@meta.com
+References: <20260901110850.1805747-1-usama.arif@linux.dev>
+ <20260901110850.1805747-3-usama.arif@linux.dev>
+ <d1b78cdd-33f6-447c-8a0d-ce79fe1e6c28@gmail.com>
+Content-Language: en-US
+From: Usama Arif <usama.arif@linux.dev>
+In-Reply-To: <d1b78cdd-33f6-447c-8a0d-ce79fe1e6c28@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hello!
 
-On Thu 03-09-26 15:14:26, CJ wrote:
-> I am reporting that use-after-free in udf_close_lvid appears to remain
-> reproducible with a migrated syzkaller reproducer on Linux 7.2-rc3. The
-> tested HEAD commit is a13c140cc289c0b7b3770bce5b3ad42ab35074aa.
 
-You can try with linux-next. I have queued one UDF fix for incorrect LVID
-handling.
+On 02/09/2026 18:40, Dhruva G wrote:
+> Hi Usama,
+> 
+> On 01-09-2026 16:37, Usama Arif wrote:
+>> Zstd's dynamic BMI2 implementation probes CPUID when a compression or
+>> decompression context is initialized, stores the result in the context,
+>> and tests that value at every dispatch site. In normal kernel builds this
+>> bypasses the x86 feature policy and uses ordinary runtime branches instead
+>> of allowing x86 alternatives to resolve the feature check at boot.
+>>
+>> Add ZSTD_USE_BMI2() and use it at every runtime BMI2/default selector. For
+>> normal x86 kernel objects, the predicate expands directly to
+>> cpu_feature_enabled(X86_FEATURE_BMI2). When dynamic BMI2 dispatch is not
+>> available it is false; other builds retain the caller-provided flag. Keep
+>> the existing HUF conditional layout because DYNAMIC_BMI2 also controls
+>> whether target-attributed variants are emitted.
+>>
+>> Add the matching ZSTD_SET_BMI2() abstraction for context initialization.
+>> Normal x86 kernel objects and builds without dynamic BMI2 do not cache CPU
+>> state. Other builds with dynamic dispatch, including preboot, retain the
+>> existing behavior. Keep the BMI2 members in the context structures so
+>> their layouts do not change, and make the accessors return zero when
+>> cached state is unused.
+>>
+>> Select the normal-kernel policy in zstd_deps.h. Builds which define
+>> __DISABLE_EXPORTS, including the x86 preboot decompressor, retain the existing
+>> CPUID-backed dispatch because the normal alternatives infrastructure is not
+>> available there.
+>>
+>> A 4 KiB zstd-generic crypto_acomp benchmark in a one-vCPU KVM guest gave
+>> these median results:
+>>
+>>                         Before      After     Change
+>>   Compression      16,634 ns/op  13,394 ns/op  -19.5%
+>>   Decompression     3,480 ns/op     963 ns/op  -72.3%
+>>
+>> Signed-off-by: Usama Arif <usama.arif@linux.dev>
+>> ---
+> 
+> These comments still say BMI2 support is determined once per context:
+> - lib/zstd/compress/zstd_compress_internal.h:473
+> - lib/zstd/decompress/zstd_decompress_internal.h:159
 
-> The reproducer mounts and unmounts a crafted UDF image, reaching
-> udf_put_super() and udf_close_lvid() during superblock teardown.
+Good catch! Thanks. I will change to:
 
-I'm sorry but I don't have capacity to address all these "maliciously
-corrupted image causes issues" bugs and I'm even less willing to run random
-code fetched from pastebin.com. If the report is from official syzbot
-instance, I might have a look on time-permitting basis. BTW the syzbot
-report you reference below has long been fixed so that's a different bug
-(although a similar backtrace).
+Cached for per-context dispatch: 1 if the CPU supports BMI2, 0 otherwise.
 
-								Honza
+> 
+>>  lib/zstd/common/compiler.h                    | 12 ++++++++++++
+>>  lib/zstd/common/entropy_common.c              | 12 ++++++------
+>>  lib/zstd/common/fse_decompress.c              |  7 ++++---
+>>  lib/zstd/common/zstd_deps.h                   |  5 +++++
+>>  lib/zstd/compress/huf_compress.c              |  6 +++++-
+>>  lib/zstd/compress/zstd_compress.c             | 12 ++++++------
+>>  lib/zstd/compress/zstd_compress_internal.h    |  9 +++++++++
+>>  lib/zstd/compress/zstd_compress_sequences.c   |  8 +++++---
+>>  lib/zstd/compress/zstd_compress_superblock.c  |  2 +-
+>>  lib/zstd/decompress/huf_decompress.c          | 18 +++++++++---------
+>>  lib/zstd/decompress/zstd_decompress.c         |  4 +---
+>>  lib/zstd/decompress/zstd_decompress_block.c   | 19 +++++++------------
+>>  .../decompress/zstd_decompress_internal.h     |  2 +-
+>>  13 files changed, 71 insertions(+), 45 deletions(-)
+>>
+>> diff --git a/lib/zstd/common/compiler.h b/lib/zstd/common/compiler.h
+>> index dc9bd15e174e9..47f6c0372c58c 100644
+>> --- a/lib/zstd/common/compiler.h
+>> +++ b/lib/zstd/common/compiler.h
+>> @@ -14,6 +14,7 @@
+>>  
+>>  #include <linux/types.h>
+>>  
+>> +#include "zstd_deps.h"
+>>  #include "portability_macros.h"
+>>  
+>>  /*-*******************************************************
+>> @@ -96,6 +97,17 @@
+>>   */
+>>  #define BMI2_TARGET_ATTRIBUTE TARGET_ATTRIBUTE("lzcnt,bmi,bmi2")
+>>  
+>> +#if !DYNAMIC_BMI2
+>> +#  define ZSTD_USE_BMI2(bmi2) 0
+>> +#  define ZSTD_SET_BMI2(state, value) do { } while (0)
+>> +#elif defined(ZSTD_USE_KERNEL_CPU_FEATURES)
+>> +#  define ZSTD_USE_BMI2(bmi2) cpu_feature_enabled(X86_FEATURE_BMI2)
+> 
+> Here, we do not include <asm/cpufeature.h>. Instead, every current .c user includes that header separately.
+> This works today, but it maybe fragile: the next user of ZSTD_USE_BMI2() can fail to compile unless they know
+> about this hidden requirement. 
+> Do you think perhaps we should provide that here in this header itself?
 
-> The target run faults in udf_close_lvid(), while the structurally matching
-> archived report identifies a use-after-free write in the same function and
-> teardown path.
+I tried that, but compiler.h is included by unrelated zstd translation units.
+On x86, <asm/cpufeature.h> eventually includes <asm/current.h>, which defines
+current as get_current(). This breaks the existing local variable named current 
+in zstd_double_fast.c.
+
+I think the current apporach is ok?
+
 > 
+> With that, feel free to add
 > 
-> This looks like lifetime or teardown ordering around the logical volume
-> integrity descriptor, allowing udf_close_lvid() to access storage that has
-> already been released.
-> 
-> 
-> This issue was previously reported at:
-> 
-> 
-> https://syzkaller.appspot.com/bug?extid=61564e5023b7229ec85d
-> 
-> 
-> Reproducer:
-> 
-> 
-> syz reproducer:https://pastebin.com/raw/TS2t3YbZ
-> 
-> 
-> console output: https://pastebin.com/raw/F3Kw8uUb
-> kernel config: https://pastebin.com/raw/8dTgtKu5
-> 
-> 
-> Kernel:
-> 
-> 
-> HEAD commit: a13c140cc289c0b7b3770bce5b3ad42ab35074aa
-> git tree: torvalds/linux
-> kernel version: 7.2.0-rc3 #1 PREEMPT(full)
-> tested tag: v7.2-rc3
-> 
-> 
-> Let me know if you need more details or testing.
-> 
-> 
-> Best regards
-> 
--- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+> Reviewed-by: Dhruva Gole <goledhruva@gmail.com>
+
+Thanks for the review!
+
+
