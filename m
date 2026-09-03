@@ -1,594 +1,177 @@
-Received: from sender4-op-o12.zoho.com (sender4-op-o12.zoho.com [136.143.188.12])
+Received: from DM1PR04CU001.outbound.protection.outlook.com (mail-centralusazon11010070.outbound.protection.outlook.com [52.101.61.70])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4C134A0EED;
-	Thu,  3 Sep 2026 12:09:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1EEF4A0F19;
+	Thu,  3 Sep 2026 12:09:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.61.70
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788437344; cv=pass; b=ZQVC5wBHA/+wYwIaFvDumKf1mLuqWnrRL79PKzO6E0HMoMJifkCYU0eup9P305pTci4NUFE/Ybpd2OQfkLZcPkK1VoD/C1In3nMIGcl7mcOoKwcStJdaieVeO2FNdI4oSQdkNH8eXbdqSFg3buq7OCLxnMUA97JZrX3LJNWTWgs=
+	t=1788437359; cv=fail; b=NUHFJLA7yQO3jeYuTkHdSoi05bw9aCDnrxYn1iKdHEbWTLXpM6eTNy4i/AJtic9bMcOIw05+ZKAQrtkIVPa8HjySg1LYdE30YfPww6QoLNShH67EIV+jQvLSejKnqDmE1Z7bCIrGGnp3Js/1NbltVUTHcK/8kMOM7WfTN11fVNI=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788437344; c=relaxed/simple;
-	bh=rX55GGfXsDXJoZPuL1Fm1SFRGf9o4ipPkAEVo1jh288=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=KiFg8i+iMbaV1P0IStS/9kORGdTUezBJJoDw+7hjuWuKmlwuOx1ONJejY0kNuTVTAek8dfF32V8NQtX3KkcICXd0SIlh54yg9inFiaBAS49XsjSdoyccNMt7wLVPHtKWd5izlmz/cW5OV+FXWIQf0Iez4SMdHjMILsLHk/SEQZM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=icenowy.me; spf=pass smtp.mailfrom=icenowy.me; dkim=pass (2048-bit key) header.d=icenowy.me header.i=uwu@icenowy.me header.b=Z3NNrYox; arc=pass smtp.client-ip=136.143.188.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=icenowy.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=icenowy.me
+	s=arc-20240116; t=1788437359; c=relaxed/simple;
+	bh=V0qgE4Cg9Q6lADsnWWN6wG8uks2XUSd6TeAiBniY728=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=BEUbpgHUDyMCOgJuiSCWy7ubFfMcrK0y4/I31rNeabe7yNht3ur3s0rLlMYa0S2NnGkkj1FvMFZXqRd3DWUHouA33cCXOyR5uqGBJWjj1ZL7eZ1EzH92yDwrF8YWUP0dQ5M45zL3B7MLdt9vMuSS84Id+n8IX29lK0yh3VEZz3U=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=xY58r+XZ; arc=fail smtp.client-ip=52.101.61.70
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=icenowy.me header.i=uwu@icenowy.me header.b="Z3NNrYox"
-ARC-Seal: i=1; a=rsa-sha256; t=1788437300; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=WzoqmzNw6gKNA2X+QB01ANc0mvhxUrftIFL7kJGY1A/6rzZA5mNKxoipPWNdGDYL24hnm7aHlLFDWDhPrVsxRpojSANT62aXhW671OQuuU2Smms2OTYCsa7M8pOxvsm/jkZjXcC6p08+8Ced+TGmY4W8jfEJrs9S9XjTmtQ7boY=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1788437300; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=iwMAkCD0RcmKVfoSuKy9lBJqcRb9khWXwRY8bg45kSM=; 
-	b=QygDsNjCQfRRDCqfSGIrZWwqBK/UXPxNJzvOZU2kO3b7p0sWVeOPb5fiz5e2FN32G8PjDH8kyDaKsyNMsBtNzojkCCUQuhhXw99rlkFL0xFKfq5/1hLyOrBnsbeVGUTARjdHzOow1GxDQR28GrjOakz1laHy0RjBV999u6dbzQ0=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=icenowy.me;
-	spf=pass  smtp.mailfrom=uwu@icenowy.me;
-	dmarc=pass header.from=<uwu@icenowy.me>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1788437300;
-	s=zmail2; d=icenowy.me; i=uwu@icenowy.me;
-	h=Message-ID:Subject:Subject:From:From:To:To:Cc:Cc:Date:Date:In-Reply-To:Content-Type:Content-Transfer-Encoding:MIME-Version:Message-Id:Reply-To;
-	bh=iwMAkCD0RcmKVfoSuKy9lBJqcRb9khWXwRY8bg45kSM=;
-	b=Z3NNrYoxPIZNwwt8pkBvBisQYQgiMUNE02r0MTecABe8CiIYpAQeIoDCzGuENcl2
-	D+MjGqty10wR6hrtW+23PzPpyUHTzZjxnrzHyG635f3koxxi/fLjKg/CZJbLHln/i0j
-	5DUcvqZXMST5+z8BuKxLycX3d8w6QZJA5U+b7mW3NbyAcOWfZbk3+rNlkHArlZXBBMI
-	PKE976oE8CSvtVvnG4YqIt3gHoeCLtz2GKOqEvJWf3jwUaUP6Kt+5GOFoMv/1xHtfm4
-	nT5mq8HqURTyE+PtNIdRJL3rE3VdjXEnm9kJW361jgCIqNiUpDWCAbqPI3FVRdMjLrs
-	DH11X5UvlQ==
-Received: by mx.zohomail.com with SMTPS id 1788437298187433.9861181594147;
-	Thu, 3 Sep 2026 05:08:18 -0700 (PDT)
-Message-ID: <edd7ae1b38ebc687d0b2bfb2509c40fb8a45e625.camel@icenowy.me>
-Subject: Re: [PATCH v2 07/17] drm/spacemit: add Saturn DPU register model
-From: Icenowy Zheng <uwu@icenowy.me>
-To: codykang.hk@gmail.com, David Airlie <airlied@gmail.com>, Simona Vetter	
- <simona@ffwll.ch>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann
- <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,  Krzysztof Kozlowski	
- <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Yixun Lan	
- <dlan@kernel.org>, Vinod Koul <vkoul@kernel.org>, Neil Armstrong	
- <neil.armstrong@linaro.org>, Haylen Chu <heylenay@4d2.org>, Michael
- Turquette	 <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>,
- Brian Masney	 <bmasney@redhat.com>, Philipp Zabel <p.zabel@pengutronix.de>,
- Paul Walmsley	 <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
- Albert Ou	 <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, Yao Zi
- <me@ziyao.cc>,  Uwe =?ISO-8859-1?Q?Kleine-K=F6nig?=	
- <u.kleine-koenig@baylibre.com>, Guodong Xu <docular.xu@gmail.com>
-Cc: dri-devel@lists.freedesktop.org, linux-riscv@lists.infradead.org, 
-	devicetree@vger.kernel.org, spacemit@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org, 
-	linux-clk@vger.kernel.org
-Date: Thu, 03 Sep 2026 20:08:10 +0800
-In-Reply-To: <20260809-k3-display-v2-7-327d7910bf71@gmail.com>
-References: <20260809-k3-display-v2-0-327d7910bf71@gmail.com>
-	 <20260809-k3-display-v2-7-327d7910bf71@gmail.com>
-Organization: Anthon Open-Source Community
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="xY58r+XZ"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Nl25N3IFwjSju+R7de4NEs6CCWcNlOxKrgmcNOvNA4T2NTYw0MjAWeGyqYLYR+AenqLQ1vb6UrkeVdVuDA0JWdilk76JOeOHMk329WV5Hmd5J7IyhWyonWomrVf0kxcN8kyWil2vI/tlZjduUrRSa+9i+lDqV6UVKzTDDOuZh2LqiyrNqsSq7AcEG9HRSxA/Rm6Z4ZDP2+n2K13r7SjlM8j+e4/S/02gNwmoaO5gxZ0bU8aXHOG7uhCBUQDhzJTuefEzC+hLOeWpOUbYaoXn5Hq+89E91OUHM2cCnhUOx19MPfearcLBPv2Yz8Ym/mg9XgNOzMM3EfwPJGEk/WLjmA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=BmfTvrmGVdFpZagr8ArJgp6Hpn2EOBA2Y6CLoMdg4U8=;
+ b=TWuKLDXbneZHls/5wLacV1g3OMSJ7tfzvFpT92cIzzgHexSGXr2+oz9jUuicqNHosvJTspoeykRcqYQYgBezA93a/zs1Wr3Dfpg3qxb40ZXBM4xltUytuORzBoVuXqijEvoUtasHNdDcI1G7Zfezp8qV3WJ2rsMAjXOsmmg+h3yEgwwh7GjULhl2aAEHknl6XW08t+1Kz3QbuER/wknM24UXRg+ASwsDGHniw2PLVFYnSOZzPg4f0WObd45wmsyvYSlx6iyOj784XdL3zlOGFTaALUEWm1H0N3/woys/HWdMuDDtnvSmzlV/m2yYsLSmdLme2YWF5c06+bfU/2RZ/A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=BmfTvrmGVdFpZagr8ArJgp6Hpn2EOBA2Y6CLoMdg4U8=;
+ b=xY58r+XZZIAOfWqVUUggpbEuW6k3mgmJAW2D5GGCjnChMegCTcI4nzer7lUQIrlUIIzXaURK9uU663skoWk1XWAp8bryXSLzj5az8yCKVsyFxuOD74PpdbMu1Bz5yF2KduL3aRKQaVPGVCyYh6Pfpf+M/tzwbGqqufvfUNkM0ro=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by DS7PR12MB6312.namprd12.prod.outlook.com (2603:10b6:8:93::6) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.360.13; Thu, 3 Sep 2026 12:09:12 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0339.007; Thu, 3 Sep 2026
+ 12:09:12 +0000
+Message-ID: <ecf98a97-a5b6-4829-92e8-0d1f47c44d7f@amd.com>
+Date: Thu, 3 Sep 2026 14:09:08 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] PCI: Accept AtomicOps already enabled by the hypervisor
+To: Nikola Prica <nikprica@amd.com>, bhelgaas@google.com
+Cc: linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
+ jerry.jiang@amd.com, haijun.chang@amd.com, andy.zhang@amd.com,
+ Nikola Prica <nikola.prica@amd.com>
+References: <20260903121218.4955-1-nikprica@amd.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20260903121218.4955-1-nikprica@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR4P281CA0373.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:f8::20) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-ZohoMailClient: External
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|DS7PR12MB6312:EE_
+X-MS-Office365-Filtering-Correlation-Id: ff455715-8467-45ba-51b1-08df09b42a5f
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|23010399003|1800799024|366016|5023799004|10067099003|11063799006|22082099003|18002099003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	yJ5BKk4aqh95NlunOGx30MGpE8dC2ddv/1/zuoIdtNXKqhZ9vG7cDOGa5U1VeO9s1RPvnbu5mM5FblSVIXbKiNnffSOr/5WVsnCPpiRPVU/NJgFhpsU59l1ylS5AScADi1TKE8qYEfnGzArwNjIvyTYXkxi4htZ2+geuRxhrnxNGJ338bj2q6HgSXduYREDmJfCA6opVvBNh+FRxjQ0YEf7ZSOR14V8F+uLX9uicI8Rn1XgsRKS0LriyLiX6JvJGUmN3emlbZY0jUNvF9VwQSXiyeR8tODCdJ8QrtoZKUZgkipbCVxt/OsCqRp1MEC8BRbmYQ8rjCRt6e4XXIrSAgYFYnrWKiuudO7RrmpYNiuS6FiLb7ngp6LTPV0taJUlwWdzAX8VX4spSSDTwNrus0QPsJC7oX7q3zlecVJrFSZd2XREqynlybHiwAtRIIQJ1uBRyD7ql8SurlyVkzBqmNi6AGP2sQETPUcTYaiMKykhEcvlfdnzfoFEVr4S2MzQRyAdRCBqtQeRW3Up+WXeWWsN3wU20Qs4ivcqenC1uN0Y9Fcp6YYqmze3itp+4Jyth12sSTlq3bWQxBQSTd6z3fY/wWOftJCxJ4+3QcaXjSJrte/2TiNbVdczUB5qVSBpoHzYgOlfQw/0N8ax7CsuFRkfdth6olkZejIrmDwgA93c=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB5685.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(23010399003)(1800799024)(366016)(5023799004)(10067099003)(11063799006)(22082099003)(18002099003)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?UmtKQUJRN3FaVzVBQ01wS1QwY3lmWUhYbGVoRnF4bGE5bkdMZmZVckJXczdw?=
+ =?utf-8?B?dVBoMmtmNndoWUNHUTFObFI2cXRjYkR6RDYzanB0TE1hQjBWeXN1MUx5eWpP?=
+ =?utf-8?B?WXMxQ2Q2bzZWWkE2TVY0MXRKNzVXaVVUbEE3WldhaGVjc0ZUZjRRSHdOZ2t6?=
+ =?utf-8?B?R3JlenpPeVRjcHlKYVBMckxGMU5TZE1yYUZ6eURUN0drQU1NUlMxMkY4L0R0?=
+ =?utf-8?B?V1dMdFl6R1M1N0ZESXZiWFFtR0tzSjI0SkN1dVFqSktyM21QdGNnMFh0bThw?=
+ =?utf-8?B?T0xtUkVPREdjNVhmQ1BMWlB3cUk1Mkc5dWlPMzBld1pOVGtUaitZRUt3MEdo?=
+ =?utf-8?B?Nml2QzF1bUdXK3A4OTJzcGd6Q3lLR2xCM2taekRHL3JJMHp1V1AyK29KREs1?=
+ =?utf-8?B?RmNBNkJGZGNITGliSU9NelRMa0tnSjk3dlNCeVFBMXE2ZWxacndSaVFFb1Z0?=
+ =?utf-8?B?T0EvMGNzSk4wNnpBbnlibGU3REFYQlZrN3JhM1BnWVJNUHVZaURiNENEclBI?=
+ =?utf-8?B?NXlQTUF3MzYzaWp0SlJtQldGbytjaXVFSDNpRFk3OC9BTExMb1c3eHFMS2F5?=
+ =?utf-8?B?eEFObVhIWUNFeFBrTCtnZ0RXZGxBaUxTSWkvcFg2ckJlZDhsOGgwb2x3MGhz?=
+ =?utf-8?B?VGh2NVhMd3E3VjYvOXFBdnRaV3RLelZVMDRlUm13d1VyUjRLRkUweVVxbElv?=
+ =?utf-8?B?dE92QjVJY1pSdHdSYTR2STVjMDd2REVSQzdrNmF3KzRXVzNQclp1QURyMUNs?=
+ =?utf-8?B?eURLMW03WDNmeEd4a2JQeHNNWnlLZVJJUTJGMHF3RmUrOXphNlFRdTFJd0x1?=
+ =?utf-8?B?TERXaEo0SlpnWnZqeUMxWDFVc3J3T3pRZ3ZoV3BFVnBKd1lRMzNYKzJ6dGdz?=
+ =?utf-8?B?eWg5WmVEd0UweHAwRFJKU3NtR2JJMG56bGUwbVY4UUFYdGNCbktsUEpVc1B6?=
+ =?utf-8?B?dzBoRXhZRU9rbFBIU2IxRzhudEFOVytUaTZ2a0NEVVFpU0dFbFNXUmo1T0hW?=
+ =?utf-8?B?OTZlS0VHVXF5NEk0UVpaWlVpTFBlYWxlaFQ4V1JTdFd5a3hIV3phUXBIMXBI?=
+ =?utf-8?B?YlgybG5hdGtoTldpRkIydEJ1LzdjY05qN1lXL1JsR21MSWdjRjVpazhhL290?=
+ =?utf-8?B?TWtqU0RhejU5QWM2bXF0WkV2V29XbmxFb3piTm5VSkdidWdGVk5IMEZ2ZGxw?=
+ =?utf-8?B?Mk9oZ3RsMjZhTksvcTN0elZyZ0FFTkZlelNZN0ZaRXhPYXJ6dUZyNVRmaVJC?=
+ =?utf-8?B?R3BlMkdQbExwWm5JTWxWSDd5QUp1NXI5d05YeVlrYWc5YTEvSTV2TUFpS0pU?=
+ =?utf-8?B?Z3RteEhPTE1KTzRnMXpOWktVb0JVWk1HS1FlTG9uY1VuOWpMcW1vOSs4UVVW?=
+ =?utf-8?B?Sk1HQXBNRG45TlA2RnpHTmFPZ0REMEdHYzdoS3UyOWdyZ2x3ZDZxZDJ3cmhT?=
+ =?utf-8?B?Ly9PaEZkU3ZBNjRuQkp6NnJPRlRGdXhmZy9aTWorcHQxSnBKK0I1MWhlUDZS?=
+ =?utf-8?B?NituUUJIeVdWWFJmVnFQRFZZS0FKSEVqdnc1ZVNnVFpqZnBnamFqcnRLZENi?=
+ =?utf-8?B?UzcweGJnbU9yK1VwOGhuY1BZOGszdTNiT0diZUFzM21KNkdJRHE5aGNRMlJZ?=
+ =?utf-8?B?TFpsaTN3VUpPcmJVTk92SW83aUxuSTd2aWh2MTFmM2FyYUptSkpSelVqQWNX?=
+ =?utf-8?B?a2JYaVhzTS9OcFNwS1ZuNGd2V2pMWkRWUUNnMzhCSGw5aHZrY2N0b3NYZ0xx?=
+ =?utf-8?B?NlNKSFJyNG9Wc3JsMDVnT3VoY1ZkeHBnQmYzVnAxS0RQQ3gwNDU3M2FGRWJo?=
+ =?utf-8?B?aTFadGpNNTdBRy9ZaGZOcWdXazVWM3BYSzlOb3dsdERLRm1YYjlTNzlQY1Zw?=
+ =?utf-8?B?TGRWMjJkcm1kdXhnblNjWjk1RGNhcTFOaDlZNDNkeXVQWXNIR2wzZzlYT3FW?=
+ =?utf-8?B?L2hXRzBVdHg5d3VrNTVhSG1QNmwwNnRkL0ZwTXNUZGpLOVhJcWd2SmVDdnYx?=
+ =?utf-8?B?V216bGg2MmpGUG55UE9OMldkRjlNM2tHKzBDSlM1bTMrdlpRVHBKNnE5bWt2?=
+ =?utf-8?B?NHI1eXl3anFTR2ZvZW56d0IzRzVkVU1WMFkwM05EZXJDVlFheWdaRGx5UnJQ?=
+ =?utf-8?B?TThySU9zVEFnd04rNHczRmltRGo3K3oyRUNOSGlDMDA4ZVVKTjVIbDMyVjNS?=
+ =?utf-8?B?L0JRaUgzbXc3SjZwMWxiVGdRK1JsVHU2MUFUNFJDeUdGT3FObENCK1VJTFEz?=
+ =?utf-8?B?MTQ4UDI3cUtEaVJTU0hZZTRPbklZcEhHR0ZMUmNEdDlPd1pSSGFGZHlQWUdj?=
+ =?utf-8?Q?UDLWIc/BCWuYlSK5LN?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: ff455715-8467-45ba-51b1-08df09b42a5f
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Sep 2026 12:09:12.2970
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 3n93w5r/OAVAqcmdRGDxESAQmTde2BR6zbW8RDtO5WkBWJLvCoKKS4qlSyx1jMp8
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB6312
 
-=E5=9C=A8 2026-08-09=E6=97=A5=E7=9A=84 21:14 +0800=EF=BC=8CCody Kang via B4=
- Relay=E5=86=99=E9=81=93=EF=BC=9A
-> From: Cody Kang <codykang.hk@gmail.com>
->=20
-> The Saturn display processing unit is programmed through a set of
-> register blocks (composer, RDMA, timing generator, cmdlist engine,
-> display MMU) laid out identically in both SoC instances. Add the
-> block
-> address map, the per-field word offset and mask tables consumed by
-> the
-> field accessors, the interrupt bit layout and the compositor and
-> output-format ID encodings. The address map describes the whole
-> IP block on purpose, including blocks the driver does not touch; the
-> field tables carry the fields the driver programs, with each block's
-> full word count kept as its NWORDS extent.
->=20
-> Consumers arrive with the following patches; the driver only becomes
-> buildable once the final patch adds the Kconfig and Makefile glue.
->=20
-> Signed-off-by: Cody Kang <codykang.hk@gmail.com>
->=20
+On 9/3/26 14:12, Nikola Prica wrote:
+> From: Nikola Prica <nikola.prica@amd.com>
+> 
+> pci_enable_atomic_ops_to_root() currently fails when no Root Port is
+> visible. That is common in passthrough guests (ESXi, Hyper-V): the
+> endpoint is assigned to the VM, but the guest topology has no Root
+> Port above it.
+> 
+> In those setups the hypervisor may already have enabled AtomicOp
+> Requester Enable on the device. If PCI_EXP_DEVCTL2_ATOMIC_REQ is set,
+> treat AtomicOps as already enabled and return success instead of
+> failing the Root Port walk.
+> 
+> Signed-off-by: Nikola Prica <nikola.prica@amd.com>
 > ---
-> v2:
-> - no change
-> ---
-> =C2=A0drivers/gpu/drm/spacemit/dpu/saturn_regs/dpu_int.h |=C2=A0 25 ++
+>  drivers/pci/pci.c | 8 ++++++++
+>  1 file changed, 8 insertions(+)
+> 
+> diff --git a/drivers/pci/pci.c b/drivers/pci/pci.c
+> index b2879a6be5f8..7c62c7f31757 100644
+> --- a/drivers/pci/pci.c
+> +++ b/drivers/pci/pci.c
+> @@ -3768,6 +3768,14 @@ int pci_enable_atomic_ops_to_root(struct pci_dev *dev, u32 cap_mask)
+>  		return -EINVAL;
+>  	}
+>  
+> +	/*
+> +	 * Some hypervisors already set AtomicOp Requester Enable.  If it
+> +	 * is already set, there is nothing more to do.
+> +	 */
+> +	pcie_capability_read_dword(dev, PCI_EXP_DEVCTL2, &ctl2);
+> +	if (ctl2 & PCI_EXP_DEVCTL2_ATOMIC_REQ)
+> +		return 0;
+> +
 
-Is the slightly different K1 Saturn DPU registers considered?
+I think for a bit more defensiveness we should only do this when we can't find a root port. E.g. under the if (!root) below.
 
-Thanks,
-Icenowy
+Apart from that looks totally sane to me.
 
-> =C2=A0.../gpu/drm/spacemit/dpu/saturn_regs/reg_map_hee.h |=C2=A0 64 +++++
-> =C2=A0.../drm/spacemit/dpu/saturn_regs/saturn_fields.h=C2=A0=C2=A0 | 298
-> +++++++++++++++++++++
-> =C2=A0drivers/gpu/drm/spacemit/spacemit_dpu_ids.h=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0 |=C2=A0 22 ++
-> =C2=A04 files changed, 409 insertions(+)
->=20
-> diff --git a/drivers/gpu/drm/spacemit/dpu/saturn_regs/dpu_int.h
-> b/drivers/gpu/drm/spacemit/dpu/saturn_regs/dpu_int.h
-> new file mode 100644
-> index 0000000000000..2c7fa00ba31e9
-> --- /dev/null
-> +++ b/drivers/gpu/drm/spacemit/dpu/saturn_regs/dpu_int.h
-> @@ -0,0 +1,25 @@
-> +/* SPDX-License-Identifier: GPL-2.0 */
-> +/*
-> + * Copyright (C) 2025-2026 SpacemiT Co., Ltd.
-> + *
-> + */
-> +
-> +#ifndef DPU_INT_REG_H
-> +#define DPU_INT_REG_H
-> +
-> +#include <linux/bits.h>
-> +
-> +#define DPU_INT_CMDLIST_CH_FRM_CFG_DONE_MASK	(0xff)
-> +#define
-> DPU_INT_CMDLIST_CH_FRM_CFG_DONE		(DPU_INT_CMDLIST_CH_FRM_CFG_DONE_MASK<<1=
-1)
-> +#define DPU_INT_FRM_TIMING_UNFLOW		BIT(8)
-> +#define DPU_INT_CFG_RDY_CLR			BIT(5)
-> +#define DPU_INT_FRM_TIMING_CFG_LINE		BIT(4)
-> +#define DPU_INT_FRM_TIMING_CFG_EOF		(BIT(2) | BIT(3))
-> +#define DPU_INT_FRM_TIMING_EOF			BIT(1)
-> +#define DPU_INT_FRM_TIMING_VSYNC		BIT(0)
-> +#define
-> DPU_REST_INT_BITS			(DPU_INT_FRM_TIMING_CFG_EOF | \
-> +					=09
-> DPU_INT_FRM_TIMING_CFG_LINE | \
-> +					=09
-> DPU_INT_FRM_TIMING_EOF | \
-> +					=09
-> DPU_INT_CMDLIST_CH_FRM_CFG_DONE)
-> +
-> +#endif
-> diff --git a/drivers/gpu/drm/spacemit/dpu/saturn_regs/reg_map_hee.h
-> b/drivers/gpu/drm/spacemit/dpu/saturn_regs/reg_map_hee.h
-> new file mode 100644
-> index 0000000000000..9490021cdb918
-> --- /dev/null
-> +++ b/drivers/gpu/drm/spacemit/dpu/saturn_regs/reg_map_hee.h
-> @@ -0,0 +1,64 @@
-> +/* SPDX-License-Identifier: GPL-2.0 */
-> +/*
-> + * Copyright (C) 2025-2026 SpacemiT Co., Ltd.
-> + *
-> + */
-> +
-> +#ifndef _SATURN_REG_MAP_hee_H_
-> +#define _SATURN_REG_MAP_hee_H_
-> +
-> +#include "dpu_int.h"
-> +
-> +/* Base address, then bit definitions */
-> +
-> +#define DPU_TOP_BASE_ADDR 0x0
-> +#define DPU_CTRL_BASE_ADDR 0x3c0 /* dpu_ctl_top start address */
-> +#define CMDLIST_BASE_ADDR 0x500
-> +#define DPU_INT_BASE_ADDR 0x700
-> +
-> +#define DPU_ONLINE_IRQ_MSK	(3 * 4)
-> +#define DPU_ONLINE_IRQ_STS	(12 * 4)
-> +
-> +#define DMA_TOP_BASE_ADDR (RDMA0_BASE_ADDR + 0x280)
-> +
-> +#define RDMA0_BASE_ADDR (0x00001000)
-> +#define RDMA1_BASE_ADDR (RDMA0_BASE_ADDR + 0x1000)
-> +#define RDMA2_BASE_ADDR (RDMA0_BASE_ADDR + 0xa000)
-> +#define RDMA3_BASE_ADDR (RDMA0_BASE_ADDR + 0xb000)
-> +
-> +#define MMU_BASE_ADDR (0x1100)
-> +#define MMU_TOP_BASE_ADDR (MMU_BASE_ADDR + 0x100)
-> +
-> +#define TBU0_ADDR 0x1100
-> +#define TBU1_ADDR 0x1180
-> +#define TBU2_ADDR 0x2100
-> +#define TBU3_ADDR 0x2180
-> +#define TBU4_ADDR 0xb100
-> +#define TBU5_ADDR 0xb180
-> +#define TBU6_ADDR 0xc100
-> +#define TBU7_ADDR 0xc180
-> +
-> +#define CMP0_BASE_ADDR 0x00018000
-> +#define CMP1_BASE_ADDR (CMP0_BASE_ADDR + 0x18000)
-> +#define CMP2_BASE_ADDR (CMP0_BASE_ADDR + 0x30000)
-> +
-> +#define PREPIPE_SCAL0_BASE_ADDR 0x14000
-> +#define PREPIPE_SCAL1_BASE_ADDR 0x14400
-> +#define PREPIPE_SCAL2_BASE_ADDR 0x14800
-> +#define PREPIPE_SCAL3_BASE_ADDR 0x14c00
-> +
-> +#define POST_PIPE_ADDR (CMP1_BASE_ADDR + 0x300)
-> +
-> +#define EE_ADDR (CMP1_BASE_ADDR + 0xd00)
-> +
-> +#define DPU_SCENE_CTL_BASE_ADDR (0x300)
-> +#define DPU_SCENE_CTL_SIZE 0x40
-> +#define DPU_SCENE_CTL_ADDR(i) (DPU_SCENE_CTL_BASE_ADDR + (i) *
-> DPU_SCENE_CTL_SIZE)
-> +
-> +#define TMG0_BASE_ADDR (0x00051000 + 0x200)
-> +
-> +#define CMDLIST_CH_Y=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 0x188
-> +#define CMDLIST_CH_START_CMPS_Y=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 0x90
-> +#define CMDLIST_CFG_READY=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0 0x34
-> +
-> +#endif
-> diff --git a/drivers/gpu/drm/spacemit/dpu/saturn_regs/saturn_fields.h
-> b/drivers/gpu/drm/spacemit/dpu/saturn_regs/saturn_fields.h
-> new file mode 100644
-> index 0000000000000..f745dfdaa83de
-> --- /dev/null
-> +++ b/drivers/gpu/drm/spacemit/dpu/saturn_regs/saturn_fields.h
-> @@ -0,0 +1,298 @@
-> +/* SPDX-License-Identifier: GPL-2.0 */
-> +/*
-> + * Copyright (C) 2025-2026 SpacemiT Co., Ltd.
-> + *
-> + * Saturn DPU register field map: word offset and mask per field,
-> consumed by
-> + * the dpu_write()/dpu_read() accessors.
-> + */
-> +
-> +#ifndef SATURN_FIELDS_H
-> +#define SATURN_FIELDS_H
-> +
-> +#include <linux/bits.h>
-> +
-> +/* CMDLIST_REG: 128 x 32-bit registers */
-> +#define CMDLIST_REG__NWORDS	128
-> +#define
-> CMDLIST_REG__cmdlist_reg_0__cmdlist_ch_start_addrl_WORD(i)	(0 + (i))
-> +#define
-> CMDLIST_REG__cmdlist_reg_0__cmdlist_ch_start_addrl_MASK	GENMASK(31,
-> 4)
-> +#define
-> CMDLIST_REG__cmdlist_reg_16__cmdlist_ch_start_addrh_WORD(i)	(16 +
-> (i))
-> +#define
-> CMDLIST_REG__cmdlist_reg_16__cmdlist_ch_start_addrh_MASK	GENMASK(5,
-> 0)
-> +#define
-> CMDLIST_REG__cmdlist_reg_48__cmdlist_ch_y_first_WORD(i)	(48 + (i))
-> +#define
-> CMDLIST_REG__cmdlist_reg_48__cmdlist_ch_y_first_MASK	GENMASK(24, 12)
-> +
-> +/* CMPS_X_REG: 146 x 32-bit registers */
-> +#define CMPS_X_REG__NWORDS	146
-> +#define CMPS_X_REG__module_enable_WORD	0
-> +#define CMPS_X_REG__module_enable_MASK	GENMASK(0, 0)
-> +#define CMPS_X_REG__dst_w_WORD	1
-> +#define CMPS_X_REG__dst_w_MASK	GENMASK(15, 0)
-> +#define CMPS_X_REG__dst_h_WORD	1
-> +#define CMPS_X_REG__dst_h_MASK	GENMASK(31, 16)
-> +#define CMPS_X_REG__bg_color_r_WORD	2
-> +#define CMPS_X_REG__bg_color_r_MASK	GENMASK(9, 0)
-> +#define CMPS_X_REG__bg_color_g_WORD	3
-> +#define CMPS_X_REG__bg_color_g_MASK	GENMASK(9, 0)
-> +#define CMPS_X_REG__bg_color_b_WORD	4
-> +#define CMPS_X_REG__bg_color_b_MASK	GENMASK(9, 0)
-> +#define CMPS_X_REG__bg_color_a_WORD	5
-> +#define CMPS_X_REG__bg_color_a_MASK	GENMASK(7, 0)
-> +#define CMPS_X_REG__layer00_area_left_WORD	8
-> +#define CMPS_X_REG__layer00_area_left_MASK	GENMASK(15, 0)
-> +#define CMPS_X_REG__layer00_area_right_WORD	8
-> +#define CMPS_X_REG__layer00_area_right_MASK	GENMASK(31, 16)
-> +#define CMPS_X_REG__layer00_area_top_WORD	9
-> +#define CMPS_X_REG__layer00_area_top_MASK	GENMASK(15, 0)
-> +#define CMPS_X_REG__layer00_area_bottom_WORD	9
-> +#define CMPS_X_REG__layer00_area_bottom_MASK	GENMASK(31, 16)
-> +#define CMPS_X_REG__layer00_solid_color_r_WORD	10
-> +#define CMPS_X_REG__layer00_solid_color_r_MASK	GENMASK(9, 0)
-> +#define CMPS_X_REG__layer00_solid_color_g_WORD	11
-> +#define CMPS_X_REG__layer00_solid_color_g_MASK	GENMASK(9, 0)
-> +#define CMPS_X_REG__layer00_solid_color_b_WORD	12
-> +#define CMPS_X_REG__layer00_solid_color_b_MASK	GENMASK(9, 0)
-> +#define CMPS_X_REG__layer00_solid_color_a_WORD	13
-> +#define CMPS_X_REG__layer00_solid_color_a_MASK	GENMASK(7, 0)
-> +#define CMPS_X_REG__layer00_blend_mode_WORD	13
-> +#define CMPS_X_REG__layer00_blend_mode_MASK	GENMASK(15, 14)
-> +#define CMPS_X_REG__layer00_colorkey_en_WORD	13
-> +#define CMPS_X_REG__layer00_colorkey_en_MASK	GENMASK(18, 18)
-> +#define CMPS_X_REG__layer00_en_WORD	14
-> +#define CMPS_X_REG__layer00_en_MASK	GENMASK(0, 0)
-> +#define CMPS_X_REG__layer00_blend_sel_WORD	14
-> +#define CMPS_X_REG__layer00_blend_sel_MASK	GENMASK(2, 1)
-> +#define CMPS_X_REG__layer00_solid_en_WORD	14
-> +#define CMPS_X_REG__layer00_solid_en_MASK	GENMASK(3, 3)
-> +#define CMPS_X_REG__layer00_dma_id_WORD	14
-> +#define CMPS_X_REG__layer00_dma_id_MASK	GENMASK(7, 4)
-> +#define CMPS_X_REG__layer00_layer_alpha_WORD	14
-> +#define CMPS_X_REG__layer00_layer_alpha_MASK	GENMASK(15, 8)
-> +#define CMPS_X_REG__layer00_alpha_ratio_WORD	14
-> +#define CMPS_X_REG__layer00_alpha_ratio_MASK	GENMASK(23, 16)
-> +#define CMPS_X_REG__layer01_en_WORD	21
-> +#define CMPS_X_REG__layer01_en_MASK	GENMASK(0, 0)
-> +#define CMPS_X_REG__layer02_en_WORD	28
-> +#define CMPS_X_REG__layer02_en_MASK	GENMASK(0, 0)
-> +#define CMPS_X_REG__layer03_en_WORD	35
-> +#define CMPS_X_REG__layer03_en_MASK	GENMASK(0, 0)
-> +#define CMPS_X_REG__layer04_en_WORD	42
-> +#define CMPS_X_REG__layer04_en_MASK	GENMASK(0, 0)
-> +#define CMPS_X_REG__layer05_en_WORD	49
-> +#define CMPS_X_REG__layer05_en_MASK	GENMASK(0, 0)
-> +#define CMPS_X_REG__layer06_en_WORD	56
-> +#define CMPS_X_REG__layer06_en_MASK	GENMASK(0, 0)
-> +#define CMPS_X_REG__layer07_en_WORD	63
-> +#define CMPS_X_REG__layer07_en_MASK	GENMASK(0, 0)
-> +#define CMPS_X_REG__layer08_en_WORD	70
-> +#define CMPS_X_REG__layer08_en_MASK	GENMASK(0, 0)
-> +#define CMPS_X_REG__layer09_en_WORD	77
-> +#define CMPS_X_REG__layer09_en_MASK	GENMASK(0, 0)
-> +#define CMPS_X_REG__layer10_en_WORD	84
-> +#define CMPS_X_REG__layer10_en_MASK	GENMASK(0, 0)
-> +#define CMPS_X_REG__layer11_en_WORD	91
-> +#define CMPS_X_REG__layer11_en_MASK	GENMASK(0, 0)
-> +#define CMPS_X_REG__layer12_en_WORD	98
-> +#define CMPS_X_REG__layer12_en_MASK	GENMASK(0, 0)
-> +#define CMPS_X_REG__layer13_en_WORD	105
-> +#define CMPS_X_REG__layer13_en_MASK	GENMASK(0, 0)
-> +#define CMPS_X_REG__layer14_en_WORD	112
-> +#define CMPS_X_REG__layer14_en_MASK	GENMASK(0, 0)
-> +#define CMPS_X_REG__layer15_en_WORD	119
-> +#define CMPS_X_REG__layer15_en_MASK	GENMASK(0, 0)
-> +
-> +/* DMA_TOP_REG: 25 x 32-bit registers */
-> +#define DMA_TOP_REG__NWORDS	25
-> +#define DMA_TOP_REG__image_rr_ratio_WORD	1
-> +#define DMA_TOP_REG__image_rr_ratio_MASK	GENMASK(7, 0)
-> +#define DMA_TOP_REG__pixel_num_th_WORD	1
-> +#define DMA_TOP_REG__pixel_num_th_MASK	GENMASK(14, 9)
-> +#define DMA_TOP_REG__rdma_timeout_limit_WORD	2
-> +#define DMA_TOP_REG__rdma_timeout_limit_MASK	GENMASK(15, 0)
-> +#define DMA_TOP_REG__wdma_timeout_limit_WORD	2
-> +#define DMA_TOP_REG__wdma_timeout_limit_MASK	GENMASK(31, 16)
-> +
-> +/* DPU_CTL_REG: 15 x 32-bit registers */
-> +#define DPU_CTL_REG__NWORDS	15
-> +#define DPU_CTL_REG__nml_rch_en_WORD	0
-> +#define DPU_CTL_REG__nml_rch_en_MASK	GENMASK(9, 0)
-> +#define DPU_CTL_REG__nml_scl_en_WORD	0
-> +#define DPU_CTL_REG__nml_scl_en_MASK	GENMASK(13, 10)
-> +#define DPU_CTL_REG__nml_outctl_en_WORD	0
-> +#define DPU_CTL_REG__nml_outctl_en_MASK	GENMASK(18, 18)
-> +#define DPU_CTL_REG__nml_frm_timing_en_WORD	0
-> +#define DPU_CTL_REG__nml_frm_timing_en_MASK	GENMASK(25, 23)
-> +#define DPU_CTL_REG__both_cfg_rdy_WORD	2
-> +#define DPU_CTL_REG__both_cfg_rdy_MASK	GENMASK(0, 0)
-> +#define DPU_CTL_REG__video_mod_WORD	3
-> +#define DPU_CTL_REG__video_mod_MASK	GENMASK(0, 0)
-> +#define DPU_CTL_REG__dbg_mod_WORD	3
-> +#define DPU_CTL_REG__dbg_mod_MASK	GENMASK(1, 1)
-> +#define DPU_CTL_REG__timing_inter0_WORD	3
-> +#define DPU_CTL_REG__timing_inter0_MASK	GENMASK(7, 2)
-> +#define DPU_CTL_REG__timing_inter1_WORD	3
-> +#define DPU_CTL_REG__timing_inter1_MASK	GENMASK(13, 8)
-> +#define DPU_CTL_REG__sw_start_WORD	4
-> +#define DPU_CTL_REG__sw_start_MASK	GENMASK(0, 0)
-> +#define DPU_CTL_REG__nml_rch_vrt_reuse_WORD	7
-> +#define DPU_CTL_REG__nml_rch_vrt_reuse_MASK	GENMASK(9, 0)
-> +
-> +/* DPU_CTL_TOP_REG: 53 x 32-bit registers */
-> +#define DPU_CTL_TOP_REG__NWORDS	53
-> +#define
-> DPU_CTL_TOP_REG__dpu_ctl_top_reg_0__cmdlist_rch_en_WORD(i)	(0 + (i))
-> +#define
-> DPU_CTL_TOP_REG__dpu_ctl_top_reg_0__cmdlist_rch_en_MASK	GENMASK(0, 0)
-> +#define
-> DPU_CTL_TOP_REG__dpu_ctl_top_reg_10__cmdlist_cmps_other_en_WORD(i)
-> 	(10 + (i))
-> +#define
-> DPU_CTL_TOP_REG__dpu_ctl_top_reg_10__cmdlist_cmps_other_en_MASK	GENM
-> ASK(0, 0)
-> +#define
-> DPU_CTL_TOP_REG__dpu_ctl_top_reg_10__cmdlist_cmps_top_en_WORD(i)
-> 	(10 + (i))
-> +#define
-> DPU_CTL_TOP_REG__dpu_ctl_top_reg_10__cmdlist_cmps_top_en_MASK	GENM
-> ASK(1, 1)
-> +
-> +/* DPU_INTP_REG: 50 x 32-bit registers */
-> +#define DPU_INTP_REG__NWORDS	50
-> +
-> +/* EE_REG: 51 x 32-bit registers */
-> +#define EE_REG__NWORDS	51
-> +#define EE_REG__m_benable_WORD	0
-> +#define EE_REG__m_benable_MASK	GENMASK(0, 0)
-> +
-> +/* MMU_TBU_REG: 21 x 32-bit registers */
-> +#define MMU_TBU_REG__NWORDS	21
-> +#define MMU_TBU_REG__tbu_base_addr0_low_WORD	1
-> +#define MMU_TBU_REG__tbu_base_addr0_low_MASK	GENMASK(31, 0)
-> +#define MMU_TBU_REG__tbu_base_addr0_high_WORD	2
-> +#define MMU_TBU_REG__tbu_base_addr0_high_MASK	GENMASK(11, 0)
-> +#define MMU_TBU_REG__tbu_base_addr1_low_WORD	3
-> +#define MMU_TBU_REG__tbu_base_addr1_low_MASK	GENMASK(31, 0)
-> +#define MMU_TBU_REG__tbu_base_addr1_high_WORD	4
-> +#define MMU_TBU_REG__tbu_base_addr1_high_MASK	GENMASK(11, 0)
-> +#define MMU_TBU_REG__tbu_base_addr2_low_WORD	5
-> +#define MMU_TBU_REG__tbu_base_addr2_low_MASK	GENMASK(31, 0)
-> +#define MMU_TBU_REG__tbu_base_addr2_high_WORD	6
-> +#define MMU_TBU_REG__tbu_base_addr2_high_MASK	GENMASK(11, 0)
-> +#define MMU_TBU_REG__tbu_va0_WORD	7
-> +#define MMU_TBU_REG__tbu_va0_MASK	GENMASK(31, 0)
-> +#define MMU_TBU_REG__tbu_va1_WORD	8
-> +#define MMU_TBU_REG__tbu_va1_MASK	GENMASK(31, 0)
-> +#define MMU_TBU_REG__tbu_va2_WORD	9
-> +#define MMU_TBU_REG__tbu_va2_MASK	GENMASK(31, 0)
-> +#define MMU_TBU_REG__tbu_size0_WORD	10
-> +#define MMU_TBU_REG__tbu_size0_MASK	GENMASK(15, 0)
-> +#define MMU_TBU_REG__tbu_size1_WORD	11
-> +#define MMU_TBU_REG__tbu_size1_MASK	GENMASK(15, 0)
-> +#define MMU_TBU_REG__tbu_size2_WORD	12
-> +#define MMU_TBU_REG__tbu_size2_MASK	GENMASK(15, 0)
-> +#define MMU_TBU_REG__vsync_update_en_WORD	13
-> +#define MMU_TBU_REG__vsync_update_en_MASK	GENMASK(1, 1)
-> +
-> +/* MMU_TOP_REG: 23 x 32-bit registers */
-> +#define MMU_TOP_REG__NWORDS	23
-> +#define MMU_TOP_REG__rdma_timelimit_WORD	0
-> +#define MMU_TOP_REG__rdma_timelimit_MASK	GENMASK(31, 16)
-> +#define MMU_TOP_REG__sram0_tlb_axi_port_sel_WORD	1
-> +#define MMU_TOP_REG__sram0_tlb_axi_port_sel_MASK	GENMASK(1,
-> 0)
-> +#define MMU_TOP_REG__sram1_tlb_axi_port_sel_WORD	1
-> +#define MMU_TOP_REG__sram1_tlb_axi_port_sel_MASK	GENMASK(3,
-> 2)
-> +#define MMU_TOP_REG__dmac0_rd_outs_num_WORD	2
-> +#define MMU_TOP_REG__dmac0_rd_outs_num_MASK	GENMASK(7, 0)
-> +#define MMU_TOP_REG__dmac1_rd_outs_num_WORD	3
-> +#define MMU_TOP_REG__dmac1_rd_outs_num_MASK	GENMASK(7, 0)
-> +
-> +/* POSTPIPE_REG: 50 x 32-bit registers */
-> +#define POSTPIPE_REG__NWORDS	50
-> +#define POSTPIPE_REG__m_inwidth_WORD	13
-> +#define POSTPIPE_REG__m_inwidth_MASK	GENMASK(15, 0)
-> +#define POSTPIPE_REG__m_inheight_WORD	13
-> +#define POSTPIPE_REG__m_inheight_MASK	GENMASK(31, 16)
-> +
-> +/* RDMA_PATH_X_REG: 60 x 32-bit registers */
-> +#define RDMA_PATH_X_REG__NWORDS	60
-> +#define RDMA_PATH_X_REG__layer_mode_WORD	0
-> +#define RDMA_PATH_X_REG__layer_mode_MASK	GENMASK(1, 0)
-> +#define RDMA_PATH_X_REG__layer_cmpsr_id_WORD	0
-> +#define RDMA_PATH_X_REG__layer_cmpsr_id_MASK	GENMASK(15, 13)
-> +#define RDMA_PATH_X_REG__is_two_layers_WORD	1
-> +#define RDMA_PATH_X_REG__is_two_layers_MASK	GENMASK(0, 0)
-> +#define RDMA_PATH_X_REG__is_offline_WORD	1
-> +#define RDMA_PATH_X_REG__is_offline_MASK	GENMASK(1, 1)
-> +#define RDMA_PATH_X_REG__base_addr0_low_ly0_WORD	9
-> +#define RDMA_PATH_X_REG__base_addr0_low_ly0_MASK	GENMASK(31,
-> 0)
-> +#define RDMA_PATH_X_REG__base_addr0_high_ly0_WORD	10
-> +#define RDMA_PATH_X_REG__base_addr0_high_ly0_MASK	GENMASK(1,
-> 0)
-> +#define RDMA_PATH_X_REG__base_addr1_low_ly0_WORD	11
-> +#define RDMA_PATH_X_REG__base_addr1_low_ly0_MASK	GENMASK(31,
-> 0)
-> +#define RDMA_PATH_X_REG__base_addr1_high_ly0_WORD	12
-> +#define RDMA_PATH_X_REG__base_addr1_high_ly0_MASK	GENMASK(1,
-> 0)
-> +#define RDMA_PATH_X_REG__base_addr2_low_ly0_WORD	13
-> +#define RDMA_PATH_X_REG__base_addr2_low_ly0_MASK	GENMASK(31,
-> 0)
-> +#define RDMA_PATH_X_REG__base_addr2_high_ly0_WORD	14
-> +#define RDMA_PATH_X_REG__base_addr2_high_ly0_MASK	GENMASK(1,
-> 0)
-> +#define RDMA_PATH_X_REG__rdma_stride0_layer0_WORD	15
-> +#define RDMA_PATH_X_REG__rdma_stride0_layer0_MASK	GENMASK(15,
-> 0)
-> +#define RDMA_PATH_X_REG__rdma_stride1_layer0_WORD	15
-> +#define RDMA_PATH_X_REG__rdma_stride1_layer0_MASK	GENMASK(31,
-> 16)
-> +#define RDMA_PATH_X_REG__img_width_ly0_WORD	16
-> +#define RDMA_PATH_X_REG__img_width_ly0_MASK	GENMASK(15, 0)
-> +#define RDMA_PATH_X_REG__img_height_ly0_WORD	16
-> +#define RDMA_PATH_X_REG__img_height_ly0_MASK	GENMASK(31, 16)
-> +#define RDMA_PATH_X_REG__bbox_start_x_ly0_WORD	17
-> +#define RDMA_PATH_X_REG__bbox_start_x_ly0_MASK	GENMASK(15, 0)
-> +#define RDMA_PATH_X_REG__bbox_start_y_ly0_WORD	17
-> +#define RDMA_PATH_X_REG__bbox_start_y_ly0_MASK	GENMASK(31, 16)
-> +#define RDMA_PATH_X_REG__bbox_end_x_ly0_WORD	18
-> +#define RDMA_PATH_X_REG__bbox_end_x_ly0_MASK	GENMASK(15, 0)
-> +#define RDMA_PATH_X_REG__bbox_end_y_ly0_WORD	18
-> +#define RDMA_PATH_X_REG__bbox_end_y_ly0_MASK	GENMASK(31, 16)
-> +#define RDMA_PATH_X_REG__pixel_format_WORD	29
-> +#define RDMA_PATH_X_REG__pixel_format_MASK	GENMASK(5, 0)
-> +#define RDMA_PATH_X_REG__uv_swap_WORD	29
-> +#define RDMA_PATH_X_REG__uv_swap_MASK	GENMASK(6, 6)
-> +#define RDMA_PATH_X_REG__rot_mode_ly0_WORD	29
-> +#define RDMA_PATH_X_REG__rot_mode_ly0_MASK	GENMASK(10, 8)
-> +
-> +/* TMG_REG: 30 x 32-bit registers */
-> +#define TMG_REG__NWORDS	30
-> +#define TMG_REG__split_en_WORD	0
-> +#define TMG_REG__split_en_MASK	GENMASK(0, 0)
-> +#define TMG_REG__cmd_screen_WORD	0
-> +#define TMG_REG__cmd_screen_MASK	GENMASK(1, 1)
-> +#define TMG_REG__fm_timing_en_WORD	0
-> +#define TMG_REG__fm_timing_en_MASK	GENMASK(2, 2)
-> +#define TMG_REG__cmd_wait_en_WORD	0
-> +#define TMG_REG__cmd_wait_en_MASK	GENMASK(3, 3)
-> +#define TMG_REG__cmd_wait_te_WORD	0
-> +#define TMG_REG__cmd_wait_te_MASK	GENMASK(4, 4)
-> +#define TMG_REG__disp_ready_man_en_WORD	0
-> +#define TMG_REG__disp_ready_man_en_MASK	GENMASK(5, 5)
-> +#define TMG_REG__hsp_WORD	0
-> +#define TMG_REG__hsp_MASK	GENMASK(7, 7)
-> +#define TMG_REG__vsp_WORD	0
-> +#define TMG_REG__vsp_MASK	GENMASK(8, 8)
-> +#define TMG_REG__user_WORD	2
-> +#define TMG_REG__user_MASK	GENMASK(15, 12)
-> +#define TMG_REG__hfp_WORD	3
-> +#define TMG_REG__hfp_MASK	GENMASK(27, 16)
-> +#define TMG_REG__hsync_width_WORD	4
-> +#define TMG_REG__hsync_width_MASK	GENMASK(9, 0)
-> +#define TMG_REG__hbp_WORD	4
-> +#define TMG_REG__hbp_MASK	GENMASK(27, 16)
-> +#define TMG_REG__vfp_WORD	5
-> +#define TMG_REG__vfp_MASK	GENMASK(15, 0)
-> +#define TMG_REG__vsync_width_WORD	5
-> +#define TMG_REG__vsync_width_MASK	GENMASK(25, 16)
-> +#define TMG_REG__vbp_WORD	6
-> +#define TMG_REG__vbp_MASK	GENMASK(11, 0)
-> +#define TMG_REG__h_active_WORD	6
-> +#define TMG_REG__h_active_MASK	GENMASK(29, 16)
-> +#define TMG_REG__v_active_WORD	7
-> +#define TMG_REG__v_active_MASK	GENMASK(13, 0)
-> +#define TMG_REG__background_r_WORD	9
-> +#define TMG_REG__background_r_MASK	GENMASK(11, 0)
-> +#define TMG_REG__background_g_WORD	9
-> +#define TMG_REG__background_g_MASK	GENMASK(27, 16)
-> +#define TMG_REG__background_b_WORD	10
-> +#define TMG_REG__background_b_MASK	GENMASK(11, 0)
-> +#define TMG_REG__eof_1st_ln_dly_num_WORD	11
-> +#define TMG_REG__eof_1st_ln_dly_num_MASK	GENMASK(15, 0)
-> +#define TMG_REG__eof_2nd_ln_dly_num_WORD	11
-> +#define TMG_REG__eof_2nd_ln_dly_num_MASK	GENMASK(31, 16)
-> +#define TMG_REG__sof_pre_ln_num_WORD	14
-> +#define TMG_REG__sof_pre_ln_num_MASK	GENMASK(16, 0)
-> +
-> +#endif /* SATURN_FIELDS_H */
-> diff --git a/drivers/gpu/drm/spacemit/spacemit_dpu_ids.h
-> b/drivers/gpu/drm/spacemit/spacemit_dpu_ids.h
-> new file mode 100644
-> index 0000000000000..41014dda927b9
-> --- /dev/null
-> +++ b/drivers/gpu/drm/spacemit/spacemit_dpu_ids.h
-> @@ -0,0 +1,22 @@
-> +/* SPDX-License-Identifier: GPL-2.0 */
-> +/*
-> + * Copyright (C) 2025-2026 SpacemiT Co., Ltd.
-> + */
-> +
-> +#ifndef _SPACEMIT_DPU_IDS_H_
-> +#define _SPACEMIT_DPU_IDS_H_
-> +
-> +/* Saturn online compositor instance ids (hardware IRQ-table
-> indices). */
-> +#define COMPOSER0	0
-> +#define COMPOSER1	1
-> +#define COMPOSER2	2
-> +#define COMPOSER3	3
-> +
-> +/* DPU output-format field encoding (dpuctrl out-format register).
-> */
-> +#define OUTFMT_RGB121212	0
-> +#define OUTFMT_RGB101010	1
-> +#define OUTFMT_RGB888		2
-> +#define OUTFMT_RGB666		12
-> +#define OUTFMT_RGB565		13
-> +
-> +#endif /* _SPACEMIT_DPU_IDS_H_ */
+Regards,
+Christian.
+
+>  	root = pcie_find_root_port(dev);
+>  	if (!root)
+>  		return -EINVAL;
+> 
+> base-commit: 89a312991dc6e638a36adc43ccb91dbc25504c04
+
