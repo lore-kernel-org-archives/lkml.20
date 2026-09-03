@@ -1,149 +1,141 @@
-Received: from smtpo63.interia.pl (smtpo63.interia.pl [217.74.67.63])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2F3649483B
-	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 14:05:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.74.67.63
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 211494AE12E
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 14:06:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788444370; cv=none; b=UH6iQ0cLuZz9jVr9urYexPFO3B0EyFHH0UXMEHz6cOfffYffHp+eoVeUr6qRESDJ1xF46jWf21MkEOhoYpp3L/morPyl4XKseYPvv9JWiVDdrpgIH0e86cZp/DagujhEuVus3zA+WKVmEQ+gv0weG4Smc8L8uKEKB2ikdM7e/v0=
+	t=1788444381; cv=none; b=V1P7mY73xhb+/ktQXui1OIhUFLxYmYewvL3FV9BXHuiIW+xOEO37vROUYtUTG1RJet66VEZbaPxH+svnp4z2BltZmQTQYt2kR479vVTb6RI8wzf78gK1T57Mr41zXEaehtTawK0NLd9UcC6NC9dex8ZCmzpkCgp5wtD2AvO3v4c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788444370; c=relaxed/simple;
-	bh=jIg0gQVea/HpkmYQ6hpRxOBNe+E0GsfphvWvKN4xPmE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=nFJj1UE1j4HTtl1OD2JO8RcAVQAd3d6K+fGezatJkiDY3qdq/BGbZsiyKPt7GxBRFg+G1ho2p+HtmVEgFLJbODB7ph05ArLXk/P4DiC4/RUPp6uIo58WLptoFt6DGmB9VDPPz3Zkih8yaWta1yXb0jeRO+6EFetqtH/Z9sdoM2M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=poczta.fm; spf=pass smtp.mailfrom=poczta.fm; dkim=pass (1024-bit key) header.d=poczta.fm header.i=@poczta.fm header.b=nU0Dj+Yc; arc=none smtp.client-ip=217.74.67.63
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=poczta.fm
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=poczta.fm
+	s=arc-20240116; t=1788444381; c=relaxed/simple;
+	bh=wd8NoMhaS+dG3/aVXJkECCuK1QJVgKv2k75i6W52E+c=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=nY6Y1l9U50ZRK9txqN8A6QbKB87yzQx46Sp0P3CQSjlvNeMux+NzBp63nAeGdM/Pwqs9cAr5XHWjXcwT6AQ3mAJbfHsSx9FtYxWfXk/fG33ynbrQaIM6ZNlKkdZkLm5Skdc6KF+yQfioK47Bvyly8CD7V4K3pZXGTEOpOy0DiR4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ea9Ee6Sa; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=poczta.fm header.i=@poczta.fm header.b="nU0Dj+Yc"
-Received: from nr200 (unknown [80.68.231.31])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-256) server-digest SHA256)
-	(No client certificate requested)
-	by poczta.interia.pl (INTERIA.PL) with ESMTPSA;
-	Thu,  3 Sep 2026 16:05:50 +0200 (CEST)
-Date: Thu, 3 Sep 2026 16:05:47 +0200
-From: Slawomir Stepien <sst@poczta.fm>
-To: Chuck Lever <cel@kernel.org>
-Cc: syzbot <syzbot@kernel.org>, syzkaller-bugs@googlegroups.com,
-	Anna Schumaker <anna@kernel.org>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jeff Layton <jlayton@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
-	linux-nfs@vger.kernel.org, netdev@vger.kernel.org,
-	Paolo Abeni <pabeni@redhat.com>,
-	Trond Myklebust <trondmy@kernel.org>,
-	Trond Myklebust <trond.myklebust@primarydata.com>,
-	Dai Ngo <Dai.Ngo@oracle.com>, Simon Horman <horms@kernel.org>,
-	linux-kernel@vger.kernel.org, NeilBrown <neil@brown.name>,
-	Olga Kornievskaia <okorniev@redhat.com>, syzbot@lists.linux.dev,
-	Tom Talpey <tom@talpey.com>
-Subject: Re: [PATCH] sunrpc: reject socket already in use in svc_addsock()
-Message-ID: <apl-u5wtRUO6o5wC@nr200>
-References: <554e50fa-697c-4e57-b5a5-a1c280816436@mail.kernel.org>
- <c31de847-f77f-4dd8-87c4-46e3d21c57a9@app.fastmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ea9Ee6Sa"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DCBBE1F00AC4
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 14:06:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788444375;
+	bh=KWSSDYXbxafLtJPXW3Njj6zXDgKYuFr+JGnh2XXB+W0=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=Ea9Ee6SapoZLH6Zs7KC2ZuW0jgAiFh3EBaz/GnCvmEvWX25JJHnb3zoEauFUpsQkF
+	 TptAbQ1TkGcu1ZhZuQklfJe+hdga4AiaZbP/cD2s9C7ZspKuAb7oqm2pg2Y8Lrketf
+	 Dd0IPZhB8D/UwLAtaKSCloab06EJzFXIVz1ANnOHEn+yrMCsYxr1kuZcJaykr3fns4
+	 E29BTNB1+F6AZ89V4p0XS5H7Mi5oO1dzfrs3orGcVzvtRdcdKykKlNJyXIk7Z3Ziv5
+	 DASa+9HRispx66kxLd3WgAf1L3uenuzBBo/IN+mkQp7TO83X7StYqfj7skPuSYdpwf
+	 iNqcn/Gs5qL/w==
+Received: by mail-ed1-f50.google.com with SMTP id 4fb4d7f45d1cf-6a18840e2abso709209a12.0
+        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 07:06:15 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBySGZrrLa01kVatncxTkxFQZbVN8TYfjyVQbehto9g6YFwwx3dFbU8PiVLagu/dtKGiZLOeX7AyX1AWXPA=@vger.kernel.org
+X-Gm-Message-State: AFuF++l800eFC0YKV382jC5+Ibau3M8hXzXosXqhH0a3CJPHCOR2ajeK
+	TnxWJXhVPTOGIaHYspM2zDVdJ3f3UN4hwwYEy0KRUjFifhUsqHGZCB8C2hCQudPHLheBoH5enPx
+	ev9dnJf43F/7XXNN7NfxZSwVOTcezuhM=
+X-Received: by 2002:a17:907:3e91:b0:c25:192:99ee with SMTP id
+ a640c23a62f3a-c25d5509226mr871430666b.19.1788444374630; Thu, 03 Sep 2026
+ 07:06:14 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <c31de847-f77f-4dd8-87c4-46e3d21c57a9@app.fastmail.com>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=poczta.fm; s=dk;
-	t=1788444353; bh=4yzE0r6uHgl6auw9ViVevz1l+8qKEPBoHma3z4nNR2U=;
-	h=Date:From:To:Subject:Message-ID:MIME-Version:Content-Type;
-	b=nU0Dj+YcWB8dzesRuOdepnOzLEnxTfRXHtH3xyuzIM8MPUznP1whML583lcbWvA2V
-	 7zCNtepXFEZv0HxIFP1tTXNmOEzCG6tIN7AXIjuA/NE3Ng58j/uBGaZGNEqNU/eYXh
-	 BW4suu84bIyRxBIgEjMcQazuy+NqPCI8pljVV0po=
+References: <CAO9r8zNJ3mSRf5YyRQYYW-eM2eiFvQMXW4Rh0cT=31jsKZpuSQ@mail.gmail.com>
+ <20260903072625.62694-2-itazur@amazon.com>
+In-Reply-To: <20260903072625.62694-2-itazur@amazon.com>
+From: Yosry Ahmed <yosry@kernel.org>
+Date: Thu, 3 Sep 2026 07:06:02 -0700
+X-Gmail-Original-Message-ID: <CAO9r8zMxdg2BTFguwcRQn8n-2CPaEJJfg+T8dWcgO2eV4uNaHQ@mail.gmail.com>
+X-Gm-Features: AcwNN1WucjHD1N3a6o32XyIZFyKC9j2svL8NXQIbhxUtIFR94fN3vSg-L59gUkA
+Message-ID: <CAO9r8zMxdg2BTFguwcRQn8n-2CPaEJJfg+T8dWcgO2eV4uNaHQ@mail.gmail.com>
+Subject: Re: [PATCH v3 03/26] mm: introduce AS_NO_DIRECT_MAP
+To: Takahiro Itazuri <itazur@amazon.com>
+Cc: Sean Christopherson <seanjc@google.com>, Brendan Jackman <brendan.jackman@linux.dev>, 
+	Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, 
+	Peter Zijlstra <peterz@infradead.org>, Andrew Morton <akpm@linux-foundation.org>, 
+	David Hildenbrand <david@kernel.org>, Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+	Wei Xu <weixugc@google.com>, Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>, 
+	Lorenzo Stoakes <ljs@kernel.org>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+	x86@kernel.org, Sumit Garg <sumit.garg@oss.qualcomm.com>, Will Deacon <will@kernel.org>, 
+	rientjes@google.com, Roy Patrick <patrick.roy@linux.dev>, 
+	Andy Lutomirski <luto@kernel.org>, David Kaplan <david.kaplan@amd.com>, 
+	Thomas Gleixner <tglx@kernel.org>, Patrick Bellasi <derkling@google.com>, 
+	Reiji Watanabe <reijiw@google.com>, Nikita Kalyazin <nikita.kalyazin@linux.dev>, 
+	Ackerley Tng <ackerleytng@google.com>, Takahiro Itazuri <zulinx86@gmail.com>, cc-open-source@amazon.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On wrz 03, 2026 09:48, Chuck Lever wrote:
-> On Thu, Sep 3, 2026, at 9:28 AM, syzbot wrote:
-> > From: Slawomir Stepien <sst@poczta.fm>
-> >
-> > When a socket is added to an RPC service via svc_addsock() (for example, by
-> > writing its file descriptor to /proc/fs/nfsd/portlist), svc_setup_socket()
-> > saves the original socket callbacks (such as sk_state_change) into struct
-> > svc_sock and replaces them with RPC-specific callbacks (such as
-> > svc_tcp_state_change). It also attaches the new svc_sock to
-> > sk->sk_user_data.
-> >
-> > If the same socket file descriptor is added to an RPC service again,
-> > svc_addsock() invokes svc_setup_socket() a second time on the same socket.
-> > During the second setup, svsk->sk_ostate is assigned the socket's current
-> > sk_state_change callback, which was already replaced with
-> > svc_tcp_state_change. When a state change event subsequently occurs on the
-> > socket (for example, when connect() is called), svc_tcp_state_change()
-> > invokes svsk->sk_ostate, calling itself in an infinite recursion until the
-> > kernel stack overflows and triggers a stack guard page fault:
-> >
-> > BUG: TASK stack guard page was hit at ffffc900030b7ff8 (stack is
-> > ffffc900030b8000..ffffc900030c0000)
-> > Oops: stack guard page: 0000 [#1] SMP KASAN NOPTI
-> > ...
-> > Call Trace:
-> >  <TASK>
-> >  svc_tcp_state_change+0x76/0x2e0 net/sunrpc/svcsock.c:917
-> >  svc_tcp_state_change+0x76/0x2e0 net/sunrpc/svcsock.c:917
-> >  svc_tcp_state_change+0x76/0x2e0 net/sunrpc/svcsock.c:917
-> >  ...
-> >  tcp_done_with_error net/ipv4/tcp_input.c:4877 [inline]
-> >  tcp_reset+0x176/0x380 net/ipv4/tcp_input.c:4909
-> >  tcp_rcv_synsent_state_process net/ipv4/tcp_input.c:6903 [inline]
-> >  tcp_rcv_state_process+0x13bc/0x48a0 net/ipv4/tcp_input.c:7197
-> >  tcp_v4_do_rcv+0xafc/0x1530 net/ipv4/tcp_ipv4.c:1876
-> >  sk_backlog_rcv include/net/sock.h:1192 [inline]
-> >  __release_sock+0x25b/0x390 net/core/sock.c:3260
-> >  release_sock+0x190/0x260 net/core/sock.c:3859
-> >  inet_wait_for_connect net/ipv4/af_inet.c:616 [inline]
-> >  __inet_stream_connect+0x863/0xe00 net/ipv4/af_inet.c:710
-> >  inet_stream_connect+0x66/0xa0 net/ipv4/af_inet.c:755
-> >  connect_socket net/socket.c:2141 [inline]
-> >  __sys_connect_file net/socket.c:2166 [inline]
-> >  __sys_connect+0x316/0x450 net/socket.c:2183
-> >  ...
-> >  </TASK>
-> >
-> > Fix this by checking if so->sk->sk_user_data is already set in
-> > svc_addsock() before proceeding with svc_setup_socket(). If it is already
-> > non-NULL, return -EBUSY to prevent re-initializing an active socket.
-> >
-> > Fixes: fa9251afc33c ("SUNRPC: Call the default socket callbacks instead 
-> > of open coding")
-> > Assisted-by: Gemini:gemini-3.7-flash Gemini:gemini-3.1-pro-preview 
-> > syzbot
-> > Reported-by: syzbot+c9834a0c0215e6d8697a@syzkaller.appspotmail.com
-> > Closes: https://syzkaller.appspot.com/bug?extid=c9834a0c0215e6d8697a
-> > Link: 
-> > https://syzkaller.appspot.com/ai_job?id=30de91d1-1d14-4676-8c38-a3564f7acf48
-> > Signed-off-by: Slawomir Stepien <sst@poczta.fm>
-> >
-> > ---
-> > diff --git a/net/sunrpc/svcsock.c b/net/sunrpc/svcsock.c
-> > index 50e5e7f5b..e8cc4329f 100644
-> > --- a/net/sunrpc/svcsock.c
-> > +++ b/net/sunrpc/svcsock.c
-> > @@ -1541,6 +1541,9 @@ int svc_addsock(struct svc_serv *serv, struct net 
-> > *net, const int fd,
-> >  	err = -EISCONN;
-> >  	if (so->state > SS_UNCONNECTED)
-> >  		goto out;
-> > +	err = -EBUSY;
-> > +	if (so->sk->sk_user_data)
-> > +		goto out;
-> >  	err = -ENOENT;
-> >  	if (!try_module_get(THIS_MODULE))
-> >  		goto out;
-> >
-> >
-> > base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
-> 
-> A similar fix is already in nfsd-testing:
-> 
-> https://git.kernel.org/pub/scm/linux/kernel/git/cel/linux.git/commit/net/sunrpc/svcsock.c?h=nfsd-testing&id=7e8d1b4845aac4ad3c7bcd39032754917f5b966d
+On Thu, Sep 3, 2026 at 12:27=E2=80=AFAM Takahiro Itazuri <itazur@amazon.com=
+> wrote:
+>
+> Some of you on the KVM side already know this, but for those on the MM
+> side who may not, I am taking over the guest_memfd direct-map removal
+> series.  I have finally caught up with this thread, and I sincerely
+> apologize for joining so late; other commitments kept me from catching
+> up sooner.
 
-Ah ok, a different extid of syzbug that's why I've missed it. Thanks!
+Hi Takahiro!
 
--- 
-Slawomir Stepien
+>
+> On Fri, 7 Aug 2026 15:48:24 -0700, Yosry Ahmed <yosry@kernel.org> wrote:
+> > > I'm not ok punting on that, i.e. whatever we come up with needs to la=
+nd alongside
+> > > AS_NO_DIRECT_MAP, or at least before guest_memfd tries to use AS_NO_D=
+IRECT_MAP.
+> >
+> > Yup, I meant the latter.
+> >
+> > > The only way KVM can use AS_NO_DIRECT_MAP without GUP is with a massi=
+ve list of
+> > > caveats and addendums on things the VMM and guest can't do.  I'm not =
+ok merging
+> > > guest_memfd support for AS_NO_DIRECT_MAP with such a list.
+> >
+> > This series is not adding the support in guest_memfd, just adding the
+> > generic AS_NO_DIRECT_MAP and using it for secretmem. Followup work is
+> > needed to plumb it for guest_memfd anyway, and I am proposing that we
+> > also punt the GUP story to that (when we have an actual user).
+>
+> My reading of the discussion is that the generic AS_NO_DIRECT_MAP support
+> can land with GUP rejecting such mappings, provided that a generic GUP-li=
+ke
+> access mechanism is in place before guest_memfd starts using
+> AS_NO_DIRECT_MAP.
+
+That's my understanding as well.
+
+> As far as I know, Brendan is no longer at Google.  I do not know whether
+> he plans to continue the ALLOC_UNMAPPED / mermap work, or whether someone
+> else at Google has taken it over.
+
+I am currently working on a new version of the ALLOC_UNMAPPED series,
+I am hoping to send something out soon.
+
+> If that work is not already underway,
+> I would like to respin the AS_NO_DIRECT_MAP introduction and secretmem
+> adoption as a standalone MM series, separate from ALLOC_UNMAPPED and
+> mermap.  The AS_NO_DIRECT_MAP changes originated in the guest_memfd
+> direct-map removal series, and splitting the MM and KVM parts was already
+> requested during review.
+>
+> The proposed MM series would include:
+>
+>   - the folio direct-map helpers;
+>   - the AS_NO_DIRECT_MAP flag and filemap lifecycle;
+>   - the current GUP and build-ID rejections, while keeping the mlock
+>     check specific to secretmem; and
+>   - the secretmem conversion.
+>
+> I would leave ALLOC_UNMAPPED, freetypes, mermap, the allocator fast path,
+> and the KVM / guest_memfd integration out of that series.  This would not
+> change the requirement discussed by Sean and Yosry above: the GUP-like
+> access problem would still need to be resolved before enabling
+> AS_NO_DIRECT_MAP for guest_memfd.
+>
+> Please let me know if this work is already being continued; if not, does
+> the standalone MM series described above sound reasonable?
+
+Perhaps wait until I send the new version, then we can discuss if we
+want to split it based on how the feedback looks like. Does this work
+for you?
