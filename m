@@ -1,132 +1,102 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi1-f174.google.com (mail-oi1-f174.google.com [209.85.167.174])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E138947B43A;
-	Fri,  4 Sep 2026 11:41:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB6FC46A611
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 11:42:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788522081; cv=none; b=mkXWooj5B11HJyUcJnfxKqFvtGM9buVx3TT0K+/Gk6i7rD9Qx2HdHcfKOL1Ol56QsBQFE+U210H7Cwfwm/qLPwUZuxSXqZcQVlbIfWAnEklh4lrzB/KLa/iWCnPtTlhfeAi6t9mCI5NeJKKeFx/plvQjodoQ6qyKRkucPLsZrOY=
+	t=1788522124; cv=none; b=USIQlciTTBIdrbo7EX2SePIRJdjP69WK8/Fts3v2GPnsGlvtdECe2fl8VTdRRsPq2YXOUYHEyKjQn0BuAnll4uGKHmg7Vn2t78lhzPAeIzOfQ3dKN+vO41kcCaUtCGVYohZ7bg9U6hSfWJ+py5lpimVb4oUWEvMwEFsWWA5Vq/0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788522081; c=relaxed/simple;
-	bh=Q1NvEJXFyy5z7/NMmrTiOmbn6NbJe0qgf75i2SY26DE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Zn6cBI33ifgQz42Kvg0tPcYOylljuaCRVnHw9jYj9iHWZtPK1OwH2qZ7nlZ26zfLdB0xRwLRX4iLkVd3UD1GN4u+EsjDE/nbcxuGYj8GZ3nOWeAEZsI5/LJm9jeD+byc4BWqy31IkAnZ4PPe4vWIZPnFBh2hLhIU8d1ncdcEez8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AiADOeqn; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788522124; c=relaxed/simple;
+	bh=p10aG1VrG/oNHV9Fr/mk0dU+qJCL08DYoYmeQJrFZ7s=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=dUHNugwZptZPlb0LLDOyYADAnOPip53ZQYzN+rJFDycZyfIcZvAd285nN9xZO6HCIQwjRycBsP+iEXXzcwIYK257kTgjSZrqpbnnFCEhwp43RSQwXi9wgNHN52eNmSpCkJEsrtGS8mGT7Wjc84n9h9IElze4Q46rw1dr0n6J47w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LMTvEBIK; arc=none smtp.client-ip=209.85.167.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AiADOeqn"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6381A1F00A3E;
-	Fri,  4 Sep 2026 11:41:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788522079;
-	bh=AVcKEaA4QKNBqPQxG7kCkdRB1jRFfjMN2gDUjmG9sC4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=AiADOeqnGMHeLkfaGNji1T3Dj3iV1UB/ASC2xLDgi7AfO3Xx5O8iq6YxSwXlm2j4e
-	 +kp9dklRJ7+iqSVX2PJ5wPUaOLeh0xL3AG7uZXSajQB8Ueai6Q/MwLs+2KsniKywT4
-	 ng5I34uDzQcmVKk7eyz2TXtpx4Ht+KP87LPZnCDOBaW8k2Rs8suvD9hMRM0s3nI03H
-	 khymos7oQULP1MD/xvWmlFFMgkHQ9XejH5YMHiX3uh0rmk92ZYbQ98AlvpLzDSohTg
-	 v3IUX38C/8KGCNvpFnTzHhpBe9kqorbNRNmkYYevlia5fsjiGh0O87jfvbAnvMeM0J
-	 1APOUvIK5UabA==
-Date: Fri, 4 Sep 2026 12:41:05 +0100
-From: Will Deacon <will@kernel.org>
-To: Thierry Reding <thierry.reding@kernel.org>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Jonathan Hunter <jonathanh@nvidia.com>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	Sowjanya Komatineni <skomatineni@nvidia.com>,
-	Luca Ceresoli <luca.ceresoli@bootlin.com>,
-	Mikko Perttunen <mperttunen@nvidia.com>,
-	Yury Norov <yury.norov@gmail.com>,
-	Rasmus Villemoes <linux@rasmusvillemoes.dk>,
-	Russell King <linux@armlinux.org.uk>,
-	Alexander Gordeev <agordeev@linux.ibm.com>,
-	Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
-	Heiko Carstens <hca@linux.ibm.com>,
-	Vasily Gorbik <gor@linux.ibm.com>,
-	Christian Borntraeger <borntraeger@linux.ibm.com>,
-	Sven Schnelle <svens@linux.ibm.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	David Hildenbrand <david@kernel.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>,
-	Marek Szyprowski <m.szyprowski@samsung.com>,
-	Robin Murphy <robin.murphy@arm.com>,
-	Sumit Semwal <sumit.semwal@linaro.org>,
-	Benjamin Gaignard <benjamin.gaignard@collabora.com>,
-	Brian Starkey <Brian.Starkey@arm.com>,
-	John Stultz <jstultz@google.com>,
-	"T.J. Mercier" <tjmercier@google.com>,
-	Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Masami Hiramatsu <mhiramat@kernel.org>,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Chun Ng <chunn@nvidia.com>, Mark Rutland <mark.rutland@arm.com>,
-	Saravana Kannan <saravanak@kernel.org>,
-	Thierry Reding <thierry.reding@gmail.com>,
-	devicetree@vger.kernel.org, linux-tegra@vger.kernel.org,
-	linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
-	linux-media@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-s390@vger.kernel.org, linux-mm@kvack.org,
-	iommu@lists.linux.dev, linaro-mm-sig@lists.linaro.org,
-	linux-trace-kernel@vger.kernel.org,
-	Thierry Reding <treding@nvidia.com>, vdonnefort@google.com
-Subject: Re: [PATCH v6 00/12] dma-buf: heaps: Add support for Tegra VPR
-Message-ID: <apquUWgrD9C2jWQ0@willie-the-truck>
-References: <20260904-tegra-vpr-v6-0-79042cfa8de5@nvidia.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LMTvEBIK"
+Received: by mail-oi1-f174.google.com with SMTP id 5614622812f47-4a451915d8aso895939b6e.2
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 04:42:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788522121; x=1789126921; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=qDvusaMxs91qsVo5E1DtVwwyTkHxBb9758PdKXK8IE0=;
+        b=LMTvEBIKC7ILOuqcu2YHlloRCdFoHWDijVFyxHvWy9l77x6YWsSsmv5wER+oIFkhzb
+         HrNK5k5pH5rIijcI5+TTWDGyHzM3UGqeAljxHZga+gXIgyXlmlU0EmCGSiXEHExiJvwI
+         Xg3K7ziURfuFP+CnMqufCNqgXZxb763M92qCzKfWrEz6mgUmmYNBxldTrXGmQoyrAyEV
+         gfs1nWezDsJ9Vh7jdN3ABTnvQxL0n2T3lS1BaKTwRoaP6lylHvFlW8ZUkqLWNqzjRXnx
+         kFqZjPHgxHY6c6dwNCBgit8q7uQcP1oHD2PFz6eJbmoAijKyiiFzG9c1SuCPizByka7T
+         Bn0w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788522121; x=1789126921;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=qDvusaMxs91qsVo5E1DtVwwyTkHxBb9758PdKXK8IE0=;
+        b=NLn/3ZQbLmjJQNCRmg/cRcHToK50ZlTVsZleCfgG/3tYiXPnVjyqgHsjU9TCvanv//
+         pagL8Sj/gKothAcijDZ4mBM0jljzL3AveyOsH5Emg665/xVx+en8TAFsgdX9NrTU+C7+
+         kk5T86A4PsbVwkni4PrUX4o8KednnFWnjHVIuTFMumyoI1w1HSoeHq4csMQcXbyFFxUQ
+         vcc2u90NTD4vfoXlMfK5QIFrXGUEe8y1HrNtWrToGSlAEJBoSma6E44L9KNP2UHalf9T
+         WI/chg1oS4gEbAsJP7gJ9u7wKs1lRdxgMsLSde3CKjwQMotJ8uJbjtYCeRWHzEruS2Uo
+         /T2A==
+X-Gm-Message-State: AFuF++m0UcBELzSpsTBQh8NJgwN58y/rF+UVDRqHDG5cy5NWa2u7cgK3
+	WN4Ug41iNVcBKU3pSUBeGQzYFeQ+gr07pGgoHNPposAQlvGuOZd1pS0w
+X-Gm-Gg: AYBFou1pTUfNMZ3NABG3HxYxZDLvkrWeFc2sp/E3InLSYjmtmL/t9qR6OfZ6SVgqwpI
+	ktOIudHmJVHrwwlo+HjWrCee+i5KqHwvf8RFLKZV0B8LHVblkACgcXpgbTwOVN7qWUf62r3PItb
+	p6+/2eQiEgSj94TEWQtd+gca4cD+QV+9wWzKyn1fm10dZdrwM2sDeo9NI4hSFPo+4Hb+fRf6eYQ
+	RE9iZ1m9v3F5B61VL00TxjPp+8YX38LRjF9E+9XMgHyZvyQhvveFZbQPMOdtToWZOjW+JK4sYqk
+	M/QcXgHqgrQ4T4aE3Hmtz86yVlaW+Gf05aBw4JNwz5J7l/i5hJl972kXjV9KBp1HJhslsneZTHH
+	um4SdfLxjO2XeP6f6xWczdH9vbkHE4pCh6MQx5GhsaqDgINaOhCboh7DZbqMy8vJOqo3ZAKySkl
+	ucwTcMVB0vkCaRA9b7U5+hyQBto2O6EdyO3hmkufzQ2wYRd/a1lmxuQzfSvVkK9gH9J2aZzDSnm
+	SQgCoCXtp2Jypx1RI3rbSpH3bk=
+X-Received: by 2002:a05:6820:221c:b0:6ac:a5a3:460f with SMTP id 006d021491bc7-6b6fc6d1c21mr3837745eaf.25.1788522120730;
+        Fri, 04 Sep 2026 04:42:00 -0700 (PDT)
+Received: from volcano9f6e-hostos.amd.com ([165.204.217.251])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339ac24d7esm9146527eec.15.2026.09.04.04.41.58
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 04 Sep 2026 04:42:00 -0700 (PDT)
+From: Hemanth Selam <hemanth.selam@gmail.com>
+To: Johan Hovold <johan@kernel.org>,
+	Alex Elder <elder@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: linux-kernel@vger.kernel.org,
+	greybus-dev@lists.linaro.org
+Subject: [PATCH] greybus: fix typo "registerd" in comment
+Date: Fri,  4 Sep 2026 17:11:54 +0530
+Message-ID: <20260904114155.25434-1-hemanth.selam@gmail.com>
+X-Mailer: git-send-email 2.48.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260904-tegra-vpr-v6-0-79042cfa8de5@nvidia.com>
+Content-Transfer-Encoding: 8bit
 
-Hi Thierry,
+Correct "registerd" to "registered", reported by scripts/checkpatch.pl
+using the misspelling list in scripts/spelling.txt.  Only touches comments,
+no code changes.
 
-On Fri, Sep 04, 2026 at 12:44:51PM +0200, Thierry Reding wrote:
-> This series adds support for the video protection region (VPR) used on
-> Tegra SoC devices. It's a special region of memory that is protected
-> from accesses by the CPU and used to store DRM protected content (both
-> decrypted stream data as well as decoded video frames).
-> 
-> Patches 1 through 3 add DT binding documentation for the VPR and add the
-> VPR to the list of memory-region items for display, host1x and NVDEC.
-> 
-> The set_direct_map_*_noflush() functions that will be used later in this
-> series are exported in patch 4 so that the drivers that use them can be
-> built as a module.
-> 
-> Patch 5 adds bitmap_allocate(), which is like bitmap_allocate_region()
-> but works on sizes that are not a power of two.
-> 
-> The of_node_to_nid() function is exported in patch 6 because it is used
-> in a later patch adding a driver that can be built as a module.
-> 
-> Patch 7 introduces new APIs needed by the Tegra VPR implementation that
-> allow memory to be allocated at a fixed offset within a CMA area. Tegra
-> VPR needs this in order to implement its own allocator on top of CMA to
-> meet the strict hardware requirements. This replaces the dynamic CMA
-> area creation patch from earlier versions.
+Assisted-by: Cursor:claude-opus-5
+Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
+---
+ drivers/greybus/greybus_trace.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Did you get a chance to see how this could work with Vincent's series:
+diff --git a/drivers/greybus/greybus_trace.h b/drivers/greybus/greybus_trace.h
+index 616a3bd61aa6..3c331e09ea83 100644
+--- a/drivers/greybus/greybus_trace.h
++++ b/drivers/greybus/greybus_trace.h
+@@ -339,7 +339,7 @@ DEFINE_INTERFACE_EVENT(gb_interface_create);
+ DEFINE_INTERFACE_EVENT(gb_interface_release);
+ 
+ /*
+- * Occurs after an interface been registerd.
++ * Occurs after an interface been registered.
+  */
+ DEFINE_INTERFACE_EVENT(gb_interface_add);
+ 
+-- 
+2.48.1
 
-https://lore.kernel.org/r/20260902104712.2399797-1-vdonnefort@google.com
-
-? I think that should remove your reliance on can_set_direct_map() and
-mean that you can retain block mappings for most of the linear mapping.
-
-Looks like you forgot to cc him, so I added him here.
-
-Cheers,
-
-Will
