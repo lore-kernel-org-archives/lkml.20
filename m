@@ -1,164 +1,115 @@
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 156535221F0
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 19:03:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED81A525A8C
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 19:03:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788548614; cv=none; b=CJ1pACCW38UVfZEC40e3rstia5zNgHI5gBjeWdUpSQShflItaVo3vqnKlZfU/fPqMJbf+1XEz20kgZGuOH1ZAN5GCzLInXF+kUbNOjCSZA0pc0zoBFKVf6Mbhmq8jGE4Y22FQGYseiwjVH5Z/lS6mZ3lOWtOn/5lMPxFyu/Son8=
+	t=1788548629; cv=none; b=Z7w2glSpqbHiV7GgxLN+I/nX5eih0u+BxUK4iyNLtl/w0ylPffm4SAGJVG8nbzVW0GcaiAtCuGQ1/5KYMrDbrPshMboudrKmto3eYByzLZpruIkhas/Sx3YwwpllaCbRxYpui48SABCQi77uIw8f5RX3/9M+FPs6T28oCjZaGFs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788548614; c=relaxed/simple;
-	bh=yfXfFA1c3vQG1+Ye7UxWHbvarQ+1G95ouDiPWPxXcDY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=VLiOTvWpyPzO4vdMtmVFEtX5oM5StAWRDpGxrA++lYSDFkRGpdmUlcP6waDUsB+2ekMn2kv6RGmNn9M9pcHjmrcRtUaaH+kgz9NB9TFgVM3/qrWWEkGQ+U/JXBw8vGsfweTGkSh7K5KuXaS8h0edowwvpOKQ3o9yy4DgYN1olSQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=lex.la; spf=pass smtp.mailfrom=lex.la; dkim=pass (2048-bit key) header.d=lex.la header.i=@lex.la header.b=REvQzaHS; arc=none smtp.client-ip=209.85.128.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=lex.la
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lex.la
+	s=arc-20240116; t=1788548629; c=relaxed/simple;
+	bh=A9m0mh8f8IjC95C1zkUbGFWy89TvGySuHobeN9QBoX0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=Gb9U5ojIGVtiYKsXGToV/dpRyr0LeQUzyvGVX8cqrI1cAML/2nC/SXhPad4N4pz8ISjNT+h8RqNZSh1JCbsgpjJhix3M2AaYnP6ib4K2IEDC8JIgFHzAZyYieKo/j11vlteHJwtldiAU/Sr3+PPi/QvBYsW7izqwRHNpiuVztbI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XM+tpk/l; arc=none smtp.client-ip=209.85.128.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=lex.la header.i=@lex.la header.b="REvQzaHS"
-Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-499ac87c92bso15409775e9.1
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 12:03:26 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XM+tpk/l"
+Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-49b8f86c6deso9437055e9.0
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 12:03:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=lex.la; s=google; t=1788548601; x=1789153401; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=CMh5lYeH3aGg59+QPJC3P1Oz0qgidcMVPi+b3gENV5I=;
-        b=REvQzaHSJtV3hEBDt0Zye8R4e1GhaX3CB5shzqz/lZhvQXG+J4PxnVyoKbZFmAD64k
-         NZ40P2MeQLhrnOdpPvM2Ym/lb0LLFBbQNAJmLZ4kg/npdsWD0sIAiwyxOq6dAfupXGlb
-         vESAxdyUmmNHCKeVCp566frDoJld/t+TgG3+W55VlmdZmEMkPhQo5pbHI34o+fKvZldi
-         kl0WeSs8T/R5pselR0H2HYy6bFcWWAKQvuck5i0jioLJmzwMgNHH/dwguhRrnOwM4Cvc
-         lc+oc0fxf5nkBYEildoOGcx7bKXwSNU7m0psAOlZF/Tk2+1k/rNWEyOIMbpD/WD9xMa6
-         E3sw==
+        d=gmail.com; s=20251104; t=1788548617; x=1789153417; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:sender:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=sRadvJkA6sgMBOr6kXGejRWQtN1yeGZ40ycoOtIUIEg=;
+        b=XM+tpk/lRu2df499Giyb1E5V78kZ4IZQr8hT0+ror06fT881fL0E6Oo0hFsT67ftuG
+         FQhkM3ae6Ogk2RD5LWtCd1LHJdtd7snXpGDhCghetyVGWu5BW44jztsCBVEm7PbRfa3e
+         iUWxPq3o/I4kMilCXU1OZx/GxfYumeVSaIZ/u7LhLfFKYtDKhxGHUhMovo4yJ8wGLYRA
+         aYrnS++jlSdz2ZvglMCQ0+iZlhp4vK+SchayAYzdCHvplRsI0Iw2hnYj5O3Sybuxlp2C
+         e1vwEfL7x0m6oaWMTv4XqKXJZSZDZ8UIQHSJlGRr9F9LR0/w2Q/JRFcgYeSwBO17+TwX
+         la5A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788548601; x=1789153401;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=CMh5lYeH3aGg59+QPJC3P1Oz0qgidcMVPi+b3gENV5I=;
-        b=ZTC7HLj3GDuDxzk4XRzpYpPUYHPnOuaxfEuOgzjEmi7BmvMrKGqqUl+VpQ3R0TDgw7
-         yhL1A4lVbn7YYvgIp7d/aE1/fQKY4gDq30n2vExEySM6m5eSpBT7IJMlAHTBL6ZPUkXj
-         WuzN0D/SYvN7acW1fO1sgD9ko1TDnQZbr0gZGuQLkrWyifgbz2R7sSBI0ANZVy6pR6xB
-         bMLci4qQ+qEymKaO9ZSw5Q/3ZRf6mJCUmb/FouvVKxd/7iBrP9bZ+WJ+qT/82dlCJ4tq
-         0hKI9mMucqG4LOL756KR/UYgUmjfhrdKltFCLjdqlJFnS7IGR3/zxGOJazc/MyCEcvWy
-         unsA==
-X-Forwarded-Encrypted: i=1; AKwUvBwaeMnWJoE3gxUT5MymupsOCi4DQLaTKtu2hCZ82GuXNpaRMNcBMFXJYyP2dzszQDJkmbyf80VgBRTGm94=@vger.kernel.org
-X-Gm-Message-State: AFuF++n5jdGRCkba0vr5ny7gw1y1sDlB8e090nYQCKbo/Jrk8cMlqbcX
-	BCgJTzblXJpM0yVwUC1ZVhZHjLOwF7hfkkGtpZ/S7B/DQsILP49LCx4M8id94v6W8Rs=
-X-Gm-Gg: AYBFou0fpIKLULj02AYqt52w1dEqQAnFARVuiYUZB7VfWfOsSsSuaAmYrCE4Fd9RJKD
-	QjF62uVDMQa5AHLm0lhEvoPWXlr6seNpcbCg0EWr/RxYOwdjb6MDwu2A9nWOBzgszCW0bYJLi2b
-	sP3q2kcpr1UNCDPYrGF3as8+7WGBNurEPPsnQWZ0LWAJZlzreyeXyRpv7MlR//rX9xWHb+/MhVd
-	LgxzLyzJzNdNEMYKJkBt5dsqJziznXj+Wv2kUG0gmbmMzpN3jpHNPjeb+crFhv6Lj/J0IaKS3kD
-	moDRfVkxjk8CDZcKlgUy/M/w42gLn6s0rduVTTmN0j8tTI6gDP889w845sGzo/R8lL92ZnaOnA7
-	X+wAZ3vTWw5c7beMIFM7iVLI68Lzrib50nIsb9OfK+Lzb2fh44/9f++zPT1HMuZ/2eVlGlYw5gm
-	CXO1RN+dKmoHsNeeXY26Kkrzpm6TnVi+sZ8ZWiUDg=
-X-Received: by 2002:a05:600c:4e11:b0:49c:f2f4:eddd with SMTP id 5b1f17b1804b1-49cf8268795mr95772385e9.16.1788548600659;
-        Fri, 04 Sep 2026 12:03:20 -0700 (PDT)
-Received: from remote-01 ([84.17.55.227])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cee60d8a6sm172195485e9.10.2026.09.04.12.03.19
+        d=1e100.net; s=20251104; t=1788548617; x=1789153417;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:sender:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=sRadvJkA6sgMBOr6kXGejRWQtN1yeGZ40ycoOtIUIEg=;
+        b=CI24rUopEi8Wu4+gv8x7vX6joz+yl0Py8j9Fry1l1cK9MC2NWK4oYbcJSzdSDQ/5E/
+         PaIUw4kclVP2Z+2V08pigFmeNVruADtUTvBW2TKFTDkYVmb6eIqacIp5ZvLmiSdaVyu1
+         nV+hU+PNY6RSela0W8zGu2B72PanK9VU6SMef2/Hf0LExkZkhmPKLbPiCHJR79rZ1XMt
+         joRn4FWxnikd2/71q3F61bjqMF5JlL7UaKw3dweoEwWYvZ7TJ5WhMOVT54cNZ0tanjOt
+         DKvHsT+W+BnKJ1jMd0zOzgzFxyuxBYJo94quRDemysO/XqzI+PjMSRU9hkmsHcOfd8zR
+         lmZQ==
+X-Gm-Message-State: AFuF++k7nlaho95tcX0lfb/KgKANogPFRx94FiU5+JAJln+eHmRDpTZD
+	C+S117DY5lWcujysy38sz9KwH++WR9CbqLRMBAyi5GDnis0DxfpPgY0Sn7wm
+X-Gm-Gg: AYBFou0Mik/QzeJ9xtyy46NM+SVZ/Z7/pmIkAlf+QUPC+8AykL68EXHCgQMTLsAbv39
+	JY2HVS5N7yXzGkTRo7bs07oCNOjZk1ULKmK3pU6SjODK8WptF1TesE1j0JT8gPOylPNAexJTl1/
+	4zPAn13U8FUG2HhVusbYya4uzc0fNiYKst3AXHzamllUeXoll0os1wHcGjR8WNH1OZFyWtQMcz1
+	MHI/NWtxKRm48Gw+uI8zLLkO37AhyEGr91AlwmGYCih/FhV8ZTohd85D0fCNY0yzj1AAUa4GQsI
+	8QPIbETpk6DQMyJH4VoC02IIys8rscedmTGlYRqZejzmbrI3yZbJFu9lJHxOwgJVZ7w9+n13a3e
+	zOIPcClTgpo31bAOKW2gjXhF4dj4nbB+p2qJ2Mf4jG7JlEPvYtxPJU0cBjjxB+iASAzaMzxMtNU
+	gEBdQTaxKQUJbLxq/O2wQn77lAzHTCTp7ji1ePNUc214s3JsTGnN0F5MUmbwV6YKmPboNmhfCLS
+	ZZI7nchbyvV+0mNnELatCUEuMmvHda1XxBlGJdq0h33PQ3OeZX7tY4xkMo6/ZoeniWDqVSU2bGo
+	MkRA
+X-Received: by 2002:a05:600c:8b05:b0:49c:edd2:855 with SMTP id 5b1f17b1804b1-49cf823c411mr86248715e9.6.1788548617299;
+        Fri, 04 Sep 2026 12:03:37 -0700 (PDT)
+Received: from nn ([2001:1ab8:1003:0:5454:f357:ba89:4e22])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cf7710aa5sm89643535e9.7.2026.09.04.12.03.36
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 04 Sep 2026 12:03:20 -0700 (PDT)
-From: Aleksei Sviridkin <f@lex.la>
-To: Andrew Lunn <andrew@lunn.ch>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	Russell King <linux@armlinux.org.uk>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Cc: Eric Woudstra <ericwouds@gmail.com>,
-	netdev@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [RFC PATCH net-next v2 10/10] net: phylink: report no link modes while a late PHY is missing
-Date: Fri,  4 Sep 2026 19:03:04 +0000
-Message-ID: <dd73c57289fb07fef0da931709ae4a957b5fdf69.1788548229.git.f@lex.la>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <cover.1788548229.git.f@lex.la>
-References: <cover.1788548229.git.f@lex.la>
+        Fri, 04 Sep 2026 12:03:36 -0700 (PDT)
+Sender: N B <gen.benner@gmail.com>
+From: =?UTF-8?q?Nerijus=20Bend=C5=BEi=C5=ABnas?= <nerijus.bendziunas@gmail.com>
+To: =?UTF-8?q?Toke=20H=C3=B8iland-J=C3=B8rgensen?= <toke@toke.dk>,
+	linux-wireless@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Subject: [PATCH v2 0/2] wifi: ath9k_htc: cope with lost WMI reads
+Date: Fri,  4 Sep 2026 22:03:30 +0300
+Message-ID: <20260904190332.815525-1-nerijus.bendziunas@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-A port waiting for its PHY reported the MAC's full set of link modes and
-accepted settings for them, which describes a link that cannot come up.
-Report an empty set and refuse to configure until the PHY arrives. Every
-path through net/ethtool/ zeroes the reply before the get op, so the
-pending path only stamps the unknown speed and duplex.
+On the USB devices every register read is a WMI round trip that can
+time out, and ath9k_regread() reports a timeout as -1, the same as an
+all-ones register. Two patches already on the list handle the reads
+that caused the most damage: the spectral trigger no longer reads the
+filter back [1], and a failed multi-read returns all ones [2].
 
-Setting pause parameters needs the same guard, because it is gated on
-the same MAC-derived mask; reading them does not, since it reports the
-configured request rather than a capability. The EEE calls need no guard
-either: they already return -EOPNOTSUPP when no PHY is attached.
+Patch 1 stops ath9k_htc_calcrxfilter() reading AR_RX_FILTER and
+AR_PHY_ERR back to find out whether a spectral scan set the PHY error
+bits, and sets them from spec_priv instead. Patch 2 counts WMI commands
+issued and timed out in a new debugfs file, so a timeout can be seen on
+a kernel without debug output.
 
-Assisted-by: LLM
-Signed-off-by: Aleksei Sviridkin <f@lex.la>
----
- drivers/net/phy/phylink.c | 21 +++++++++++++++++++++
- 1 file changed, 21 insertions(+)
+[1] https://lore.kernel.org/linux-wireless/20260904181709.788886-1-nerijus.bendziunas@gmail.com/
+[2] https://lore.kernel.org/linux-wireless/20260904185253.809209-2-nerijus.bendziunas@gmail.com/
 
-diff --git a/drivers/net/phy/phylink.c b/drivers/net/phy/phylink.c
-index bceeac954779..942d5fe943a1 100644
---- a/drivers/net/phy/phylink.c
-+++ b/drivers/net/phy/phylink.c
-@@ -2290,6 +2290,11 @@ EXPORT_SYMBOL_GPL(phylink_connect_phy);
- #define PHYLINK_SLOW_PHY_WARN_MS	60000
- #define PHYLINK_SLOW_PHY_POLL_MAX_MS	30000
- 
-+static bool phylink_slow_phy_pending(struct phylink *pl)
-+{
-+	return pl->slow_phy_fwnode && !pl->phydev;
-+}
-+
- /* Bound, not drv: drv is published before the driver's probe runs. The
-  * device lock cannot be taken under rtnl, and losing this race costs a
-  * generic-driver attach, not memory safety.
-@@ -3087,6 +3092,14 @@ int phylink_ethtool_ksettings_get(struct phylink *pl,
- 
- 	ASSERT_RTNL();
- 
-+	/* No PHY yet: the port supports nothing, not what the MAC alone can. */
-+	if (phylink_slow_phy_pending(pl)) {
-+		kset->base.port = pl->link_port;
-+		kset->base.speed = SPEED_UNKNOWN;
-+		kset->base.duplex = DUPLEX_UNKNOWN;
-+		return 0;
-+	}
-+
- 	if (pl->phydev)
- 		phy_ethtool_ksettings_get(pl->phydev, kset);
- 	else
-@@ -3159,6 +3172,10 @@ int phylink_ethtool_ksettings_set(struct phylink *pl,
- 
- 	ASSERT_RTNL();
- 
-+	/* Would configure the MAC alone, for a link that cannot come up. */
-+	if (phylink_slow_phy_pending(pl))
-+		return -EOPNOTSUPP;
-+
- 	if (pl->phydev) {
- 		struct ethtool_link_ksettings phy_kset = *kset;
- 
-@@ -3373,6 +3390,10 @@ int phylink_ethtool_set_pauseparam(struct phylink *pl,
- 	if (pl->req_link_an_mode == MLO_AN_FIXED)
- 		return -EOPNOTSUPP;
- 
-+	/* pl->supported still describes the MAC, so the test below passes. */
-+	if (phylink_slow_phy_pending(pl))
-+		return -EOPNOTSUPP;
-+
- 	if (!phylink_test(pl->supported, Pause) &&
- 	    !phylink_test(pl->supported, Asym_Pause))
- 		return -EOPNOTSUPP;
+Changes in v2:
+- Drop the length-drop counter patch from the series; it is sent on
+  its own, it has nothing to do with WMI reads.
+- Patch 2: the counter is named "Issued", it counts commands that were
+  handed to the device.
+- Add Assisted-by, rewrite the commit messages, rebase onto ath-next.
+
+Nerijus Bendžiūnas (2):
+  wifi: ath9k_htc: derive the PHY error filter bits from software state
+  wifi: ath9k_htc: count WMI commands and timeouts in debugfs
+
+ .../net/wireless/ath/ath9k/htc_drv_debug.c    | 25 +++++++++++++++++++
+ drivers/net/wireless/ath/ath9k/htc_drv_txrx.c | 12 ++++-----
+ drivers/net/wireless/ath/ath9k/wmi.c          |  2 ++
+ drivers/net/wireless/ath/ath9k/wmi.h          |  2 ++
+ 4 files changed, 34 insertions(+), 7 deletions(-)
+
+
+base-commit: 1d8e73163ef933624341075f576e2f36ef9133f7
 -- 
-2.53.0
+2.55.0
 
