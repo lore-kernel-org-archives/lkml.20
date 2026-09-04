@@ -1,86 +1,111 @@
-Received: from relay.hostedemail.com (smtprelay0011.hostedemail.com [216.40.44.11])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com [209.85.216.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC7964FECD3;
-	Fri,  4 Sep 2026 16:30:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=216.40.44.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1B90501F3A
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 16:31:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788539414; cv=none; b=uGgVSGPbswhnjpqJxzvCfFAFnDF1XbW3lFoH44qh03DvoHjUrA2c3QTnnjuygqQ2MI42HO3Eq/sokDt0ygYWXrYeFzdxR9HLCwMfTNuAezOG/ZwT8h+R3v15DFaCm//Epvr1iz5xkcktUoUsgb6QVHs58XKp54E8opuj84Poa18=
+	t=1788539469; cv=none; b=JoMYnc/L7s76gy8MhLpJfWww9FIUONsfhZvHuj5pZ3A+0ec3tD2Dc+Pqq5znRbdkdZtDOFnWkprcWaeeeZsz/pmogXA+s3tCVUGZCwpCJU5Vcv2U/PAYiKsEcV7Ap/2gd2HQ5P+X/I6R4Jq3vxWOmfqfeQtLmt6c3gtZMPzQT+M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788539414; c=relaxed/simple;
-	bh=TXxtulEj8I0CB6Un45dWCWX/x1I/VebmxSfxyNoMKgw=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=GTbmA3uzFmGhhBhfoYfbEP86O1QK7AeHCRuBe14PMqH555I+8dufVHnEcwW//90yCUwen3BD2/t7sPYAmho+2S20wNPU5rNNZq4/4vggteoSX/gCLay4+yqte92KIMZW27AN1jtfRdCoINnkvksXybX+mp5M1E1eWcBArK07J1Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org; spf=pass smtp.mailfrom=goodmis.org; dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b=VOioYwo5; arc=none smtp.client-ip=216.40.44.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
+	s=arc-20240116; t=1788539469; c=relaxed/simple;
+	bh=BRtus3WijRKxop17C3IlkNpfnbhJFmybZrEroOANEU4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=J8qQp36ocTW6RDycKBEifipk+BXYrJ2SMdOyO+WZFq9Thn43s7HGYmP1YovGZrTWKfZyEbzJKEIUQUDD2sMcHn1Y9VBzAjMEyCI4y68vreonnUKr2fQ/U2jv5BG1IBf7wtDwreNkUGtVudBtvvnoDDuReWNJ8Gvy/jQWYPAU3c8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GkMyqC9s; arc=none smtp.client-ip=209.85.216.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b="VOioYwo5"
-Received: from omf17.hostedemail.com (lb01a-stub [10.200.18.249])
-	by unirelay02.hostedemail.com (Postfix) with ESMTP id 5B0AD120134;
-	Fri,  4 Sep 2026 16:30:05 +0000 (UTC)
-Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf17.hostedemail.com (Postfix) with ESMTPA id 0F9C218;
-	Fri,  4 Sep 2026 16:30:02 +0000 (UTC)
-Date: Fri, 4 Sep 2026 12:31:08 -0400
-From: Steven Rostedt <rostedt@goodmis.org>
-To: "Alexei Starovoitov" <alexei.starovoitov@gmail.com>
-Cc: "Gabriele Monaco" <gmonaco@redhat.com>, "Nam Cao"
- <namcao@linutronix.de>, "LKML" <linux-kernel@vger.kernel.org>,
- "linux-trace-kernel" <linux-trace-kernel@vger.kernel.org>, "bpf"
- <bpf@vger.kernel.org>, "Wen Yang" <wen.yang@linux.dev>, "Tobias Schaffner"
- <tobias.schaffner@siemens.com>, "Viktor Malik" <vmalik@redhat.com>, "Linus
- Torvalds" <torvalds@linux-foundation.org>
-Subject: Re: [RFC PATCH 00/20] rv: Add support for BPF monitors
-Message-ID: <20260904123108.1fa1d815@gandalf.local.home>
-In-Reply-To: <DL6O0KLPXLTA.2HJJUXQUVCP5@gmail.com>
-References: <20260831090524.106845-1-gmonaco@redhat.com>
-	<87se3sakgi.fsf@yellow.woof>
-	<df6e9168cb06c35e21db7f9d17cfbca6bd87005b.camel@redhat.com>
-	<DL5B40CU17WD.3KD75URQZ6RRR@gmail.com>
-	<eb3dd8158942d663ec8ad4c529eacd666c5f96d9.camel@redhat.com>
-	<20260903090211.50d15220@gandalf.local.home>
-	<CAADnVQK8e1Qp9rf1zThZxb3vr4Gc_bpo0nqpEO2LdnEwHdKokA@mail.gmail.com>
-	<20260904074317.01b2c0e1@robin>
-	<DL6O0KLPXLTA.2HJJUXQUVCP5@gmail.com>
-X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GkMyqC9s"
+Received: by mail-pj1-f42.google.com with SMTP id 98e67ed59e1d1-38e041ea211so1002680a91.0
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 09:31:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788539466; x=1789144266; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=bn24/hQ8WxHkOsr+OJr9JovsNTvE+u6NKHbDOA+BSjg=;
+        b=GkMyqC9srbI1v0hDJgBDiTNGgg7bGFyE5AWVwRNWAxLu9exT4alynzHk8O8YAnZlFV
+         IIMOFYadMsPVUiTTjUsjpWjyjG8QS/SgIqpVJVOQJ1lryACKAG1BFb+xEcx4MNJ3aUE6
+         w19JAwKX7b14jv5Dz9fuosuk9aU6vPjG0r3ANDd8BS6nXFlgmF/QKOOhL/gCOGIaWh46
+         NYV71WtmqtXXSGAb2LIFLqtRBoIY40L0OSjNUv2qMl0IjYxdEYqtexzeRWZhhiR+ytzk
+         QWuNcnNvNyepgZaQYOrH3ZQM7WaEO5OKZfOD1S66hB7iyXo1AaC2lT8Uz7wMETMzGNYb
+         R3Iw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788539466; x=1789144266;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=bn24/hQ8WxHkOsr+OJr9JovsNTvE+u6NKHbDOA+BSjg=;
+        b=VDQj+Kf/dE1otCmL3uxv1qp2/0qCfo//iknMqI+A0x78l/RKZBWMkh4M1D+9G8yBO4
+         ira+vBJDstGCouKRlY4ShVjwot3kYjHrHADibfZ+xEOVMbVjpilKZTT0Oaosy/Nar/VM
+         PfPoK+9EcfNoFIBkfIZDZh5JaXicZ/F+EWc7bUcgq1saoLLaWQBgu0By5bZXUqLyYQ3b
+         oUnceTMKV3oDxENJM3BqX/KaClDom0koNlIUibpbPCOGEHwQDTZHQ513NXVDdOXWdBmS
+         JrxX8fqcDP5sTIgfEPbcKRGDITGZ8JfXM82IrzENQAnXt9v4SYOXNz6ERpQzta50Jcpm
+         +IBQ==
+X-Forwarded-Encrypted: i=1; AKwUvBynJA+PxVApCzwUwxNLzGE6VznAMMRNCsVgv8fVUhHpot3EEYl4FxQZFOCfxEkClA7E0GBH0udhfjFMgh8=@vger.kernel.org
+X-Gm-Message-State: AFuF++npRuuRPRsuqw0XpRHC/nO7AGLbLMaAQ/dSkA2A+YCbCrqTieGk
+	Zv+aJRzoW6FYogWqeV1sCFEo/4G5hOQET/7KBQ/HhvZ+ZF5Aidx9MJGz4t6eOcy7
+X-Gm-Gg: AYBFou2I742qPMytKn1jT6E1v4O4nfwdDNvJPDw036QwJvT4kqkiVGMfDXvBRSIwKd6
+	iW8nwtlmGB2SGloyXPGnVEV4as88oz1eH2ujZSaoORdLI1fFC8pvKOGMUYiMPtLQUVX6UGXthtm
+	1d68Pwgdz7Csn6U3OaYYpBBqCRB7BW8RKIkxqMtrs9T8D9Isk4tD/+njMdkGOtLo6Cb8Xv6iwZG
+	qSVsnkmOpT0ULyvKamOlGsaiWTM1EE57MyUEj2ug7NVqu/n3EqrIPPbNLvlPP8zczZt7oi4+OBh
+	OzJ9e1Hr4iy0BsFgyu8qSVEc/oh/xL6nwyn4ayaCJ8XKF0WpUVtG1fc7x2LNTckie5D3PaXCwZk
+	xZgc2DGmlV2/geBTbzzu0To+vIpmt77z7Wsk++g/QXrYK2tgww9clA276uHUybxYB+GWxFJuOr4
+	n2WsQlqJHf8gMsFlsFGpSVdYOLQk8D1HMZ5y7Jm33y8oeUZw6uoL+olNc7eWelldo8zTP7oXFUp
+	750mJNhDCdVqcM=
+X-Received: by 2002:a17:90b:2808:b0:398:b46d:48c0 with SMTP id 98e67ed59e1d1-39b262aaeb7mr11728166a91.18.1788539465405;
+        Fri, 04 Sep 2026 09:31:05 -0700 (PDT)
+Received: from d.home.yangfl.dn42 ([2a09:bac5:661b:3050::4d0:46])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b25c974cfsm5383010a91.0.2026.09.04.09.31.01
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 04 Sep 2026 09:31:04 -0700 (PDT)
+From: David Yang <mmyangfl@gmail.com>
+To: netdev@vger.kernel.org
+Cc: David Yang <mmyangfl@gmail.com>,
+	Andrew Lunn <andrew@lunn.ch>,
+	Vladimir Oltean <olteanv@gmail.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Russell King <linux@armlinux.org.uk>,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH net-next v2 0/6] net: dsa: motorcomm: MIB fixup
+Date: Sat,  5 Sep 2026 00:29:42 +0800
+Message-ID: <20260904162952.709368-1-mmyangfl@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-X-Rspamd-Server: rspamout05
-X-Rspamd-Queue-Id: 0F9C218
-X-Stat-Signature: i3t6jwjjocy3by9p9t5ttg5q7p6wwnkk
-X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
-X-Session-ID: U2FsdGVkX1/udEqlQ3DfV28hAfWdP9Q6Hcj2odL1m5g=
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=y5+ZcOiopCfkKRJx022RKf8Hjr7n9jWmU6NpW0k7akc=; b=VOioYwo5LSWjE//yjjC2XovpgVNriHV/OdtJ/oA0BEB+3TF2oC6fKtiPrTf7weTt8FPsAfwhb58HRu3s7hbFdP951AoLmtnRukLHeih3EVTAhliyLnd432Sf7Gd4LA4V3P+KQSAl0g2F2OQEtaZkolMzePUK75Ww4Ajt5hn9M3M=
-X-HE-Tag: 1788539402-400731
-X-HE-Meta: U2FsdGVkX1+RIKJGqaaRHhNIqF68av7jRYbgDurG8vV/0QagXQPWz1WnJ8lLYq9vQFmics/15u9hDM9jHCispwe3CjhY49+RKXjW5aGgkv21Pv0YMftvvyGnjuRsqzzeSzq1Rjs433t3CgeqZBCuK0OxTqOW3pLVb5dt4rKm3aI7MWLFG45GqBRO72xJsniGj8wnmMIXioUjpiGWv1ov4CqbAS8gw3S1Kdf061TSQbJTsBOsj8YLFjF+3T5GvZwbD2RBK0Dun7aG1oqGSMTpq15N0W1L2H1s8hHVjcteinyyWoNj8DPLbzaSbNa3WMldqa/QsV/soOiSH0x3vlbc9LoJlM1tIgxU
+Content-Transfer-Encoding: 8bit
 
-On Fri, 04 Sep 2026 09:16:28 -0700
-"Alexei Starovoitov" <alexei.starovoitov@gmail.com> wrote:
+Fix (theoretical) MIB inconsistency and prepare for new devices. No new
+features are introduced.
 
-> You added a whole bunch of hardcoded "monitors". None of them were
-> necessary. The whole RV is imo a waste of kernel code.
-> All of that could have been done via existing bpf tracing functionality.
-> One can delete kernel/trace/rv and do the same thing with bpf.
-> So I'm strongly against bolting bpf to RV as yet another "monitor".
-> It's a wrong design. Keep adding hard coded monitors and don't mess
-> with bpf.
+v2:
+  - split patches
+v1: https://lore.kernel.org/r/20260903143514.532023-1-mmyangfl@gmail.com
 
-In the beginning, Daniel Bristot looked into doing this with BPF and found
-issues with it. I do not recall what they were and unfortunately Daniel is
-no longer around to explain it. Maybe Gabriele knows what they were.
+David Yang (6):
+  net: dsa: motorcomm: Rename MIB stuffs
+  net: dsa: motorcomm: Split MIB buffers
+  net: dsa: motorcomm: Split MIB module
+  net: dsa: motorcomm: Use u64_stats_t for MIB stats
+  net: dsa: motorcomm: Fix MIB synchronization
+  net: dsa: motorcomm: Use safe 64-bit counter reader
 
-> 
-> > Gabriele will be presenting this work at Linux Plumbers[1]. This will  
-> 
-> I didn't vote for it. Other bpf maintainers did. Hence it's in schedule.
-> But my stance is still a nack.
+ drivers/net/dsa/motorcomm/Makefile |   1 +
+ drivers/net/dsa/motorcomm/chip.c   | 408 +++------------------------
+ drivers/net/dsa/motorcomm/chip.h   | 122 +-------
+ drivers/net/dsa/motorcomm/mib.c    | 431 +++++++++++++++++++++++++++++
+ drivers/net/dsa/motorcomm/mib.h    | 167 +++++++++++
+ drivers/net/dsa/motorcomm/smi.c    |  30 ++
+ drivers/net/dsa/motorcomm/smi.h    |   2 +
+ 7 files changed, 669 insertions(+), 492 deletions(-)
+ create mode 100644 drivers/net/dsa/motorcomm/mib.c
+ create mode 100644 drivers/net/dsa/motorcomm/mib.h
 
-So be it, it will likely be a lively discussion ;-)
+-- 
+2.53.0
 
--- Steve
