@@ -1,136 +1,106 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4045733ADB1;
-	Fri,  4 Sep 2026 07:22:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.2
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3B9D3A5E6F
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 07:25:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788506569; cv=none; b=CkevLvxi10E8ecpXPqR3siV63SXUBFCoaNNPwbxa1Gdm1vUxOFqip3p5cYgv9qvQD2H3EVSILAw6z8VrkuvkiN/iLlUZwnROn8mGPdb9mQyt+imhB322xy1Uj4bh7mWZf1Ojr4uDMcuw0G7ezGua0ROBUenXeRkHWB95Of9a1sM=
+	t=1788506730; cv=none; b=MOz9YRLLBszIctRtD64Dk706PRw1uEtHaeM9T4xqyjgSE7PmusbtJSp2uD4y2K4x/S6qme14opY+tqyRvNRjtxAafbSqY1/yMKmRpVDCkSQnPe68s9iuUrZ7AlRt1fyEHAKDARsemV3QeMEyNoBqvbdAGJDB4Y0XqEA4nUwHL0c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788506569; c=relaxed/simple;
-	bh=D7bVhypGupwM/Y/83ZpXa5JAiJLWhYilm4oW0puKuwA=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=hnBEE3ogah0Jor18ZGR6plj/Jqp9wDZj9yvGDprgEWkPNIR28PiUtz2rM53PNr9OwunzRlxLS2kMLp4QrXHrqYpcwkSxOCX2CkZQe2xr7wmPZkiP57Fblil1rImnHaNXB8XZ5e9VTJej7hqenjPeVbsvxgSqOoA4L0M47Q9Iy6g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=YuMDPtMJ; arc=none smtp.client-ip=220.197.31.2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="YuMDPtMJ"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=Lu
-	cGUmViYLeOIbWfZ0Po7eORJRG/Yi9Oov7C9edhbA8=; b=YuMDPtMJlJF6MN/4Ke
-	SwUMmrFt6feQFgSnajj3k9wasW4pkYq6CLNxuOoW8ofe4qONz8usJt8qfkBwD/KM
-	a90ITnAaL2Hai4Tu6/CAmN8LWZ6Q8w43rpETuIlMGz+6h78qllvptk+SNWJ+InXb
-	QphR1hJeMTIRghSWSP8Vg7j8A=
-Received: from localhost.localdomain (unknown [])
-	by gzga-smtp-mtada-g0-4 (Coremail) with SMTP id _____wD3n7SPcZpqE9NwAg--.42593S2;
-	Fri, 04 Sep 2026 15:21:53 +0800 (CST)
-From: oushixiong1025@163.com
-To: Matthew Brost <matthew.brost@intel.com>
-Cc: Danilo Krummrich <dakr@kernel.org>,
-	Philipp Stanner <phasta@kernel.org>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	Shixiong Ou <oushixiong@kylinos.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH v3] drm/sched: Create a fake device for KUnit tests
-Date: Fri,  4 Sep 2026 15:21:49 +0800
-Message-Id: <20260904072149.436181-1-oushixiong1025@163.com>
-X-Mailer: git-send-email 2.25.1
+	s=arc-20240116; t=1788506730; c=relaxed/simple;
+	bh=a8RNW8w/Vucy4VhVEd8OLPOx5A8x6Z634T5Eww05iMk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=EV/lxX5FoccpXF9UcOFgeYniX/w1RtuoWZ/HuOWdBDjKfiKcAHcUcHHBF4JOOYS7Prgou0lODPlY1aMkxNsm5dFiMPOPGeWDCw0twMIdMNy8p0THY5Aihb/EiZOPq/v04y6Dr9JAnxYuWRzCopAZDEW8eRDNB4WkputDTGYS1LE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: c98a075aa83111f19a56ed5b684f684d-20260904
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:50e605c4-f68b-45a1-8e51-fd3bf5dcb3c8,IP:0,U
+	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
+	release,TS:0
+X-CID-META: VersionHash:7db8b62,CLOUDID:f9aefe99cd78329a414e15b45e7ae4d0,BulkI
+	D:nil,BulkQuantity:0,SF:80|81|82|83|102|865|898,TC:nil,Content:0|15|52|99,
+	EDM:-3,IP:nil,URL:99|1,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0
+	,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR,TF_CID_SPAM_ULS
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: c98a075aa83111f19a56ed5b684f684d-20260904
+X-User: fuqingshuang@kylinos.cn
+Received: from [10.42.20.11] [(10.44.16.150)] by mailgw.kylinos.cn
+	(envelope-from <fuqingshuang@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_128_GCM_SHA256 128/128)
+	with ESMTP id 1140970297; Fri, 04 Sep 2026 15:25:21 +0800
+Message-ID: <15346ce5-14e1-4511-bf3f-64ea9d536ee1@kylinos.cn>
+Date: Fri, 4 Sep 2026 15:25:18 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] genirq/generic-chip: Set IRQ_DOMAIN_FLAG_DESTROY_GC in
+ irq_domain_alloc_generic_chips()
+To: Thomas Gleixner <tglx@kernel.org>, Herve Codina <herve.codina@bootlin.com>
+Cc: Radu Rendec <radu@rendec.net>, Andy Whitcroft <apw@canonical.com>,
+ Joe Perches <joe@perches.com>, linux-kernel@vger.kernel.org
+References: <20260902065939.441981-1-fuqingshuang@kylinos.cn>
+ <20260904003731.2fed5a25@bootlin.com> <87v78l8rcd.ffs@fw13>
+Content-Language: en-US
+From: Qingshuang Fu <fuqingshuang@kylinos.cn>
+In-Reply-To: <87v78l8rcd.ffs@fw13>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3n7SPcZpqE9NwAg--.42593S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxGFW5ur1xJry8Cr1rKw47twb_yoW5XF4xpF
-	WkXFWYgr4rtrZFg3y3ua95XFyfGwsrA3yxKr1kX34a9F1qgFyfJr1UKrW3J34UArWkZFWS
-	q3Z0qw47Gr4jyw7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jnsqXUUUUU=
-X-CM-SenderInfo: xrxvxxx0lr0wirqskqqrwthudrp/xtbC4hHB0GqacZGHcwAA3G
 
-From: Shixiong Ou <oushixiong@kylinos.cn>
+在 2026/9/4 14:26, Thomas Gleixner 写道:
+> On Fri, Sep 04 2026 at 00:37, Herve Codina wrote:
+>> On Wed,  2 Sep 2026 14:59:39 +0800
+>> Qingshuang Fu <fuqingshuang@kylinos.cn> wrote:
+>>> diff --git a/kernel/irq/generic-chip.c b/kernel/irq/generic-chip.c
+>>> index 2c8bc6ce082e..13b634053a3e 100644
+>>> --- a/kernel/irq/generic-chip.c
+>>> +++ b/kernel/irq/generic-chip.c
+>>> @@ -308,6 +308,7 @@ int irq_domain_alloc_generic_chips(struct irq_domain *d,
+>>>   	dgc->gc_flags = info->gc_flags;
+>>>   	dgc->exit = info->exit;
+>>>   	d->gc = dgc;
+>>> +	d->flags |= IRQ_DOMAIN_FLAG_DESTROY_GC;
+>>>   
+>>>   	/* Calc pointer to the first generic chip */
+>>>   	tmp += dgc_sz;
+>> The flag has been intended to be use with irq_domain_instantiate() which can call
+>> irq_domain_alloc_generic_chips() internally. Callers of irq_domain_instantiate()
+>> call only irq_remove_domain().
+>>
+>> Indeed calling only irq_domain_instantiate() and calling both
+>> irq_domain_remove_generic_chips() followed by irq_remove_domain() is, in that case,
+>> not consistent too.
+>>
+>> IHMO, if the flag IRQ_DOMAIN_FLAG_DESTROY_GC need to be automatically set
+>> somewhere, it could be in irq_domain_instantiate().
+> 
+> Yes, in the 'if (info->dgc_info)' branch.
 
-The DRM scheduler KUnit tests pass NULL for the dev field in
-drm_sched_init_args, which NULL-pointer dereferences in the drm_sched_job
-trace event via dev_name() on sched->dev.
+Hi,
 
-Give the mock scheduler a device with kunit_device_register(), which is
-also cleaned up at test exit. A per-function counter keeps the device
-names unique, since some tests create several mock schedulers.
+Thank you very much for your valuable suggestion.
 
-Fixes: 5a99350794fe ("drm/sched: Add scheduler unit testing infrastructure and some basic tests")
-Cc: stable@vger.kernel.org
-Signed-off-by: Shixiong Ou <oushixiong@kylinos.cn>
-Acked-by: Maxime Ripard <mripard@kernel.org>
+I have posted the v2 patch here:
+https://lore.kernel.org/all/20260904070943.934476-1-fuqingshuang@kylinos.cn/
 
----
-v2->v3:
-  - Start the mock scheduler device numbering at 0, using
-    instance++ instead of ++instance
+In v2, IRQ_DOMAIN_FLAG_DESTROY_GC is now set inside the info->dgc_info
+branch within __irq_domain_instantiate(), right after 
+irq_domain_alloc_generic_chips()
+succeeds.
 
-v1->v2:
-  - Switch from faux_device_create() to kunit_device_register(), which also
-    cleans the device up automatically at test exit (Maxime Ripard)
-  - Build the device name on top of args.name (Philipp Stanner)
-  - Make the instance counter a static unsigned int local to
-    drm_mock_sched_new() (Philipp Stanner)
-  - Add a Fixes: tag and Cc: stable for the NULL dev dereference
+Now only domains created via irq_domain_instantiate() with dgc_info get
+IRQ_DOMAIN_FLAG_DESTROY_GC automatically. Explicit callers of
+irq_domain_alloc_generic_chips() remain untouched and are still responsible
+for cleaning‑up generic chips manually.
 
- drivers/gpu/drm/scheduler/tests/mock_scheduler.c | 11 ++++++++
- 1 file changed, 11 insertions(+)
-
-diff --git a/drivers/gpu/drm/scheduler/tests/mock_scheduler.c b/drivers/gpu/drm/scheduler/tests/mock_scheduler.c
-index 8e9ae7d980eb..12dc61f56192 100644
---- a/drivers/gpu/drm/scheduler/tests/mock_scheduler.c
-+++ b/drivers/gpu/drm/scheduler/tests/mock_scheduler.c
-@@ -1,6 +1,8 @@
- // SPDX-License-Identifier: GPL-2.0
- /* Copyright (c) 2025 Valve Corporation */
- 
-+#include <kunit/device.h>
-+
- #include "sched_tests.h"
- 
- /*
-@@ -288,6 +290,7 @@ static const struct drm_sched_backend_ops drm_mock_scheduler_ops = {
-  */
- struct drm_mock_scheduler *drm_mock_sched_new(struct kunit *test, long timeout)
- {
-+	static unsigned int instance;
- 	struct drm_sched_init_args args = {
- 		.ops		= &drm_mock_scheduler_ops,
- 		.num_rqs	= DRM_SCHED_PRIORITY_COUNT,
-@@ -297,11 +300,19 @@ struct drm_mock_scheduler *drm_mock_sched_new(struct kunit *test, long timeout)
- 		.name		= "drm-mock-scheduler",
- 	};
- 	struct drm_mock_scheduler *sched;
-+	struct device *dev;
-+	char name[64];
- 	int ret;
- 
- 	sched = kunit_kzalloc(test, sizeof(*sched), GFP_KERNEL);
- 	KUNIT_ASSERT_NOT_NULL(test, sched);
- 
-+	snprintf(name, sizeof(name), "%s-%u", args.name, instance++);
-+	dev = kunit_device_register(test, name);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, dev);
-+
-+	args.dev = dev;
-+
- 	ret = drm_sched_init(&sched->base, &args);
- 	KUNIT_ASSERT_EQ(test, ret, 0);
- 
--- 
-2.43.0
-
-No virus found
-		Checked by Hillstone Network AntiVirus
+Regards,
+Qingshuang Fu
 
