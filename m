@@ -1,99 +1,177 @@
-Received: from mta1.migadu.com (out-179.mta1.migadu.com [95.215.58.179])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A2E0485CF2
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 12:21:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 092A2175A9D;
+	Fri,  4 Sep 2026 12:21:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788524487; cv=none; b=nOr9rBOf7gMopODgwxRgxFWkdcZ5vOzGXJFROopEymEufrz18EEA/LZoDcc/1D6Ia0fE61aJnKLqgH8K73LAQ1ik/xxXnEcA+4QiOSlzpumVyg3m3Yve2aBaM44rUs5ZBxLLbhpMu0gJn12JHxBP47fE9fORsGKE2MkTDHWLzwM=
+	t=1788524508; cv=none; b=f/DYKgOf3sdEFtlRGGk1XFO7x/yaHZQ7aAlDy65lqcDr3euL7yhuNvT/pJ4PGw5LZ8ApnnYtVUZ8Ljt40Gty4ngUp6MrILDZMN6L2SQHwhZqYXhYhEiayJfJqbZ6Xhi4mC7TdmhMvoOuRs23BruNg8J6i4r90UC7Q036WACAni4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788524487; c=relaxed/simple;
-	bh=MWnONv/mcSy1ZzvbBOJBF9sO7kdoah8czNuibP8g/Js=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=uhn+Oc7BJY5orJ/u66o2wbrwbL2vTJkL0Cgb697hgB9icaSTucMFmGwBuEUeCt+RvgaWWvjjibDCKpt2nSb0HIkIdF2VjtA7fBvsDWi04MitOGYzuz2jf+iTRYIyl4uq84yKsZLAr0TKfmPgP4E0dnwz80Pf2z4VrPHbmumKaS0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=KbP4l1J9; arc=none smtp.client-ip=95.215.58.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1788524508; c=relaxed/simple;
+	bh=dGEwsl/QZPhzvlA+Mi/r76rmR6CKptJayLW6wdJ2m34=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=PMWXxUwciM8KHX6iBG3U2r/Urag9dI7GBAXraBMj75kVDCRfVDuinA9xeNEq7vfsV++dznQyFlFPPk2ylSdin1k/7juNXsIdysgIntKayhj+j4skqMAfbTnhQM1kpDgBDOBAQ7J5roeC6DBCjseScJqTB4Yv/x+X4ypxakcsjWA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=YS/gc8PL; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="KbP4l1J9"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=MWnONv/mcSy1ZzvbBOJBF9sO7kdoah8czNuibP8g/Js=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788524482; v=1; x=1789129282;
- b=KbP4l1J9k+ZgJ1GVOEbzWQitMdbk0qmyLmyhsmrFKX/WP+L+yqYjRjUGj4ZmuUJu8fpX2iZr
- ww9XZaFpmGRMpo/miQTzrlgabqU2LCuK47YgRkRMF6h1loMMAxFQSlXxYFrWwj5yL884wFAtH4M
- I4ewp1uiKQggxfsCIfUF32D4=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 73cc01226bc9b45c;
-	Fri, 04 Sep 2026 12:21:22 +0000
-X-Mizu-Trace-ID: 73cc01226bc9b45c
-X-Migadu-Flow: FLOW_OUT
-Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b4a0b17359so5635e87.0
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 05:21:21 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvByF9iJwCyPhsbztcXuwuEnTHoIIYQN/Zo3KJgPShdFlozA8yTYZdrezSEpJ0yZyKAIkH+ItzeJ7DFr67no=@vger.kernel.org
-X-Gm-Message-State: AFuF++laDyx/rNEDGW0A1zldf0YEczl2QWZKq1B7s6TzERMp/QVr2MEZ
-	KjpY/SzjjyLajhy20g23m3D9iK2gv5FTNyfEQnZ8e1mOI75rLY/VjddUoXr50J6Pivon1w9OB5w
-	05DzQJPZN74PWWpK6aMHoLtMa0PaxkmFq1HBhfKNG
-X-Received: by 2002:a05:6512:a348:b0:5b6:186e:682f with SMTP id
- 2adb3069b0e04-5b6186e6924mr49450e87.0.1788524480459; Fri, 04 Sep 2026
- 05:21:20 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="YS/gc8PL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A78D91F00A3D;
+	Fri,  4 Sep 2026 12:21:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1788524505;
+	bh=n0Ai26c+BBRDL6nXffU6QVI3E3AyrZw/QywDCntvJXw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=YS/gc8PLWOxND3JfXW3uxDEITVnYv+tTnEDDPxhxeMRAKYroLEr8inBUP4WK83rLR
+	 zIuRyMuxYnD4xgXAcW3s4VF3Rjg7Vk8ZCHLprV0IdH+sEdREfcApZUE5zElmq0d84y
+	 NKrVJpBZEQUgErkhyHtAkmB7fXdZrRXKLnHckniA=
+Date: Fri, 4 Sep 2026 14:19:59 +0200
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Petr Pavlu <petr.pavlu@suse.com>
+Cc: Luis Chamberlain <mcgrof@kernel.org>,
+	Daniel Gomez <da.gomez@kernel.org>,
+	Sami Tolvanen <samitolvanen@google.com>,
+	Aaron Tomlin <atomlin@atomlin.com>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	Bradley Morgan <brads@mainlining.org>,
+	Aleksandr Nogikh <nogikh@google.com>, linux-modules@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
+	linux-usb@vger.kernel.org, driver-core@lists.linux.dev,
+	linux-trace-kernel@vger.kernel.org, Johan Hovold <johan@kernel.org>
+Subject: Re: [PATCH v3 1/2] module: pull out add_taint_module() to be public
+Message-ID: <2026090432-outlying-glitch-9295@gregkh>
+References: <20260904-bind_taint-v3-0-30025465f38a@linuxfoundation.org>
+ <20260904-bind_taint-v3-1-30025465f38a@linuxfoundation.org>
+ <a79a6a06-cc48-4036-882d-95e9b4cc01cf@suse.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260904-kvm-arm64-nvhe-pie-v1-0-29d59f245e6c@kernel.org>
- <20260904-kvm-arm64-nvhe-pie-v1-2-29d59f245e6c@kernel.org>
- <86pkyt4gvt.wl-maz@kernel.org> <eb788ad5-5bb3-4767-87b8-d35d9e3ab220@sirena.org.uk>
- <apqrky27mJmUV9UA@willie-the-truck> <05f1e2f4-173a-4226-8c98-1452c20f0a47@sirena.org.uk>
-In-Reply-To: <05f1e2f4-173a-4226-8c98-1452c20f0a47@sirena.org.uk>
-From: Fuad Tabba <fuad.tabba@linux.dev>
-Date: Fri, 4 Sep 2026 13:20:44 +0100
-X-Gmail-Original-Message-ID: <CA+EHjTx87SnshzrUF69hGTSA9JmjW9oKbx+GbKjx5W+gnWYRgg@mail.gmail.com>
-X-Gm-Features: AcwNN1XeCRX4giVtMT6c-n59qRC6UqdpZVxqwiiImVnvjhpDgql12CaOGJS8YCo
-Message-ID: <CA+EHjTx87SnshzrUF69hGTSA9JmjW9oKbx+GbKjx5W+gnWYRgg@mail.gmail.com>
-Subject: Re: [PATCH 2/2] KVM: arm64: Enable S1PIE for nVHE and hVHE
-To: Mark Brown <broonie@kernel.org>
-Cc: Will Deacon <will@kernel.org>, Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, 
-	Joey Gouly <joey.gouly@arm.com>, Steffen Eiden <seiden@linux.ibm.com>, 
-	Suzuki K Poulose <suzuki.poulose@arm.com>, Zenghui Yu <yuzenghui@huawei.com>, 
-	Catalin Marinas <catalin.marinas@arm.com>, Mark Rutland <mark.rutland@arm.com>, 
-	linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <a79a6a06-cc48-4036-882d-95e9b4cc01cf@suse.com>
 
-On Fri, 4 Sept 2026 at 12:48, Mark Brown <broonie@kernel.org> wrote:
->
-> On Fri, Sep 04, 2026 at 12:29:23PM +0100, Will Deacon wrote:
-> > On Fri, Sep 04, 2026 at 11:33:24AM +0100, Mark Brown wrote:
->
-> > > What about pKVM, my understanding was that that is very much an ongoing
-> > > concern and uses the nVHE hypervisor?  My expectation was that this
-> > > would only ever get used in hVHE configurations when people enable pKVM
-> > > on modern hardware, actual nVHE mode was mostly just carried along with
-> > > that.
->
-> > pKVM uses hVHE wherever it can nowadays, so I'm fine with only supporting
-> > S1PIE on hVHE and VHE configurations if that's easier to maintain. We
-> > just need to make sure that the failure mode for nVHE results in the
-> > feature being gracefully disabled, rather than e.g. crashing or quietly
-> > doing the wrong thing.
->
-> I figure that if we're supporting hVHE it will end up less complicated
-> to also enable nVHE, it reduces the potential for having bad or missing
-> fallback paths for features downstream of S1POE.  It's not like it's a
-> huge extra bit of code and it seems likely to save hassle down the line.
+On Fri, Sep 04, 2026 at 11:25:01AM +0200, Petr Pavlu wrote:
+> On 9/4/26 7:10 AM, Greg Kroah-Hartman wrote:
+> > Other kernel code might want to call add_taint_module() so pull it out
+> > and make it global.  If modules are not enabled, this defaults to a call
+> > to add_taint(), so all is fine.
+> > 
+> > Reviewed-by: Johan Hovold <johan@kernel.org>
+> > Tested-by: Johan Hovold <johan@kernel.org>
+> > Reviewed-by: Bradley Morgan <brads@mainlining.org>
+> > Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+> > ---
+> >  include/linux/module.h | 10 ++++++++++
+> >  kernel/module/main.c   | 16 +++++++++++++---
+> >  2 files changed, 23 insertions(+), 3 deletions(-)
+> > 
+> > diff --git a/include/linux/module.h b/include/linux/module.h
+> > index 96cc98568eea..f6f90cd88f15 100644
+> > --- a/include/linux/module.h
+> > +++ b/include/linux/module.h
+> > @@ -29,6 +29,7 @@
+> >  #include <linux/srcu.h>
+> >  #include <linux/static_call_types.h>
+> >  #include <linux/dynamic_debug.h>
+> > +#include <linux/panic.h>
+> 
+> Note that I'm working on cleaning up linux/module.h to reduce its
+> preprocessed size. The main motivation is to shorten the compilation
+> time of all the small *.mod.c files. Since linux/module.h already
+> includes linux/panic.h indirectly, adding this include explicitly seems
+> fine to me for now. In the future, I think we should introduce something
+> like kernel/module/stubs.c where the CONFIG_MODULES=n variants of
+> add_taint_module() and other similar functions can live without bloating
+> linux/module.h.
+> 
+> >  
+> >  #include <linux/percpu.h>
+> >  #include <asm/module.h>
+> > @@ -770,6 +771,9 @@ static inline bool is_livepatch_module(struct module *mod)
+> >  
+> >  void module_for_each_mod(int(*func)(struct module *mod, void *data), void *data);
+> >  
+> > +void add_taint_module(struct module *mod, unsigned flag,
+> > +		      enum lockdep_ok lockdep_ok);
+> > +
+> >  #else /* !CONFIG_MODULES... */
+> >  
+> >  static inline struct module *__module_address(unsigned long addr)
+> > @@ -877,6 +881,12 @@ static inline bool module_is_coming(struct module *mod)
+> >  static inline void module_for_each_mod(int(*func)(struct module *mod, void *data), void *data)
+> >  {
+> >  }
+> > +
+> > +static inline void add_taint_module(struct module *mod, unsigned flag,
+> > +				    enum lockdep_ok lockdep_ok)
+> > +{
+> > +	add_taint(flag, lockdep_ok);
+> > +}
+> >  #endif /* CONFIG_MODULES */
+> >  
+> >  #ifdef CONFIG_SYSFS
+> > diff --git a/kernel/module/main.c b/kernel/module/main.c
+> > index d0e1e0bd2ad0..444d990c9983 100644
+> > --- a/kernel/module/main.c
+> > +++ b/kernel/module/main.c
+> > @@ -191,11 +191,21 @@ static inline int strong_try_module_get(struct module *mod)
+> >  		return -ENOENT;
+> >  }
+> >  
+> > -static inline void add_taint_module(struct module *mod, unsigned flag,
+> > -				    enum lockdep_ok lockdep_ok)
+> > +/**
+> > + * add_taint_module: add a taint flag if not already set for a specific module
+> > + * @mod: pointer to the module that caused the problem
+> > + * @flag: one of the TAINT_* constants.
+> > + * @lockdep_ok: whether lock debugging is still OK.
+> > + *
+> > + * If something bad has gone wrong, you'll want @lockdebug_ok = false, but for
+> > + * some noteworthy-but-not-corrupting cases, it can be set to true.
+> 
+> Nit: The final paragraph is mostly copied from the description of
+> add_taint() but I don't think it is quite right. The parameter name
+> should be lockdep_ok, not lockdebug_ok and the values are
+> LOCKDEP_STILL_OK / LOCKDEP_NOW_UNRELIABLE, not true / false.
+> 
+> I suggest updating this part for both add_taint() and add_taint_module()
+> to something like:
+> 
+>  * Use @lockdep_ok = LOCKDEP_NOW_UNRELIABLE if something serious has gone wrong.
+>  * For noteworthy but non-corrupting cases, use LOCKDEP_STILL_OK instead.
 
-For pKVM there's no fallback path to get wrong: any CPU with S1PIE has
-VHE, so pKVM runs hVHE on it, and a CPU without VHE has no S1PIE to
-disable. I couldn't construct the protected nVHE plus S1PIE case under
-QEMU at all.
+How about I add another patch to the series that fixes up the
+documentation for both functions?  They both should be fixed up and I
+might as well get them in sync properly.
 
-Where I think it applies is kvm-arm.mode=nvhe on S1PIE hardware. That
-boots, and it's the one configuration where the nVHE side of the patch
-would run.
+> > + */
+> > +void add_taint_module(struct module *mod, unsigned flag,
+> > +		      enum lockdep_ok lockdep_ok)
+> >  {
+> >  	add_taint(flag, lockdep_ok);
+> > -	set_bit(flag, &mod->taints);
+> > +	if (mod)
+> > +		set_bit(flag, &mod->taints);
+> >  }
+> >  
+> >  /*
+> > 
+> 
+> Otherwise, this looks ok to me. Feel free to add:
+> 
+> Reviewed-by: Petr Pavlu <petr.pavlu@suse.com>
 
-Cheers,
-/fuad
+Great, will do, and I'll do a v4 early next week with the documentation
+fixes.
+
+thanks,
+
+greg k-h
