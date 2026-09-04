@@ -1,108 +1,113 @@
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from relay.yourmailgateway.de (relay.yourmailgateway.de [185.244.194.184])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D742218ADD
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 15:22:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F262C4EBAEC
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 15:23:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.244.194.184
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788535356; cv=none; b=tYTlDYKoKrabMOBN2oN//AHeAN0RNuBGrhZHBMD2NDvky1CtxrXcbzAFZcYMCsbDgi46Tk5aU8cETjVWxfqbTy6ROl90sc5fLemH6qKlSkc4tY3cqBz/RxZ2DhLw+MhkNKugIhZf5WVRsnUBR1D57vUzz/lvS3AQSuA8c/+Rp3A=
+	t=1788535384; cv=none; b=piVBfHE1OXfjiBtcDuoYlgjWqVLAmEZpwG98Fch082ZI/N8ds+KXa5nwdxitzU6XKgM+dN8JN3mj+PfOVSl0Y7XBjdXWeLbiwscLeB6p+vsPICz8nfVhDJU01la6gS8sm3Dxrhxprx85kMllFRJZWNQ9DFXO/uW4A7kEEmZhlQA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788535356; c=relaxed/simple;
-	bh=M4+ki+Py0psA74hqxlO+alXPMyKGmPPSW1IzTNtzjz8=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=FF1Yyqaf20T3bmbin9jO69y+QCpYpRp77CN28BU6k8mnelKXb3A+cETZ4UsWUUKvGrbAFVnYDHE/2DAuXEATR3N2FDD8dSN9eaG11uyvrdPBDRvljh/KfvTdi8bIRf3soWBpKJd07PDM05Tl6P4K46HAKPK5foXQ9ts7W1JLR0I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Tm057xqo; arc=none smtp.client-ip=209.85.128.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788535384; c=relaxed/simple;
+	bh=nxI97ubcEM5+2BBS4utR3zx7Wwf4emiSTt1Vf7EV6EU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ier08k3bgW9/PXTbXwUydbNj0j+PADjVsKZ52EPhaL4zHjtJA1AW7IBZPFwPvo3HTmYQuHte8pHeCSddbrihiz15MTmhU2ZH21SecHsOye8AGEgbGAZDwq+ML0hs1be89Mnz0mCi4Vmslvmgm3bEb/0R26P0cg05/kCx+c54+to=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=leemhuis.info; spf=pass smtp.mailfrom=leemhuis.info; dkim=pass (2048-bit key) header.d=leemhuis.info header.i=@leemhuis.info header.b=CS8zyAGO; arc=none smtp.client-ip=185.244.194.184
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=leemhuis.info
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=leemhuis.info
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Tm057xqo"
-Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-495437bb891so8438835e9.1
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 08:22:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788535354; x=1789140154; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Vs3gmdekTNn5iwIXejCrVVf7IaQmTpkBLLWvv7YBNgA=;
-        b=Tm057xqowst/FOp+M6pHPuoCOsg6pACoXsuk3E0X4A3bgKnOEJFnva3s9XNMXZ21OB
-         HLtbqVYEgIu5kcqVstEqO5r0FzO/3/V8GK4usvIAu0J8zx4E57pBUaiV6ZoqsxkWKknB
-         pnT1jrlUINt4m/2R6CxyIW5iIyRCJbxvb3rw9sgRrZJmnVnDTiBSRT9XZSHvI1zXUqsR
-         0GXazLlcuoqNcHRr7riB49FdUK60lmJnEqWq1SQgtNZlprc0mOKd4g6+Qmm8CwIPij9a
-         JUyJU13fjyQl2GZ8FDLIj0iBleyZzwZCzTAyO1N2C82bhWx/6KZLwYxK5eXNC3hAVpvR
-         KkXg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788535354; x=1789140154;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Vs3gmdekTNn5iwIXejCrVVf7IaQmTpkBLLWvv7YBNgA=;
-        b=U4a3gR0/OLMMK29e9CF2dUpmuVhvG+vcziaUYrQTvviQNkf/LPHVqC2UodWV3l/tl0
-         KUrrG+uVQVmo4NtUoWh65HLOtZkrMCcuCrBvdhrQnnIDrcSyNcaGwe4YBC/siCcfYqjX
-         njnfLUv7ENMCE2mNhQFUTR+kHrUpCR1ai/FU4eJ9tInsnnkNkbHnsfljcXtH6Iep7WS6
-         G/5SRHsC9U/Z033A04jqD2SlNeuBapD0WU5/7RW43+m8BTko2HmdHxRr8aYxbeLu39Nh
-         8oGImKGlntMoUFbQ8+WQhJ0eIQOhaM9UDvkQEUAAQysyA0g+06TxIifas7wEIMDBD3v7
-         ljBg==
-X-Forwarded-Encrypted: i=1; AKwUvByZ5lSKQds43DRFDFlGjgBC9JYZ2mClaF6CTZBFEa7pEvHgkuXw66NJhlZ23F+zn2iX2dkiFgSSUAGQI74=@vger.kernel.org
-X-Gm-Message-State: AFuF++nMjB31AJMoSBp8MvdumeQv78nhgS2oD4vZ0N1vZhGQjcPJmn4r
-	QUjds7VxqZia1hiX4smlNFzkTQG9UPkjKHW7zhhAXOKQqAi+WE/cB4N2
-X-Gm-Gg: AYBFou2PeWiA1ODNyQFKISMZJukw0iTpU6R3ST23swcF3h0s8sG/+wldBgqjmD1geEc
-	7/ak02FSrR9D7GmNG2upVok7yYTJvvzLbK00+KZarwZoLRX/KVTm0PQzmFQuM4+FOXDS6Z0INuM
-	b+25P4Mq7ff5mbvcUREFANpQQkphplhvx33ri6b0n1fakjFwXSsVZzv3bAuqY+G7m7zShwJ53QR
-	wup4UOrkSlJLrj97bDRajuOOyJbro6FDNhb1KvUZosvmeM/eNvK+jGt9SZ+M0kixy9wuyulAjyX
-	JBooaa1tiY8aAw4IYdqFe16oJ6GgvDVegcXpaAMwLMSWASmLL6oZqwZmKt5TBdFK6Jt5nhxa0xJ
-	4j2IW9T2Ck9rHHYHdsrP7iM11y4+JNkcaB8DqwreRuuuDTG9070kTOMLSxxIWZ51hl4spGFISdf
-	nrmOEE55YEuUSABLp0p9ayV6KTD5Kf74rtFuMKbGvKZteTvxyrqvfvnrmlmdwv3gnRRW6PR7+Gx
-	R8+mpBTti9iTaJTg38Mbsj+ri9fCpuB+YljLeIUnV6+o8j6HOJIoOsQlWWS8C4q26DGOyOqjGJX
-	vjCjJKwvZyk7q2XeWp+ULCbqN1VFEZOUWodhrKqv56WEWig/bE0zMIDZ44cvVtiiKRD5pf8wLRU
-	YUPKQKdt0FsLtiff2eaBHYDAV06anYpIoUoqZz4kqejaSmMjZt+FvDQh6P+rr/eOGyx8ycazJCk
-	R52FcHZckSAi+GFGe+
-X-Received: by 2002:a05:600c:871b:b0:49b:4eb6:6ffd with SMTP id 5b1f17b1804b1-49cf82cbac2mr58224775e9.5.1788535353501;
-        Fri, 04 Sep 2026 08:22:33 -0700 (PDT)
-Received: from localhost (90-182-112-124.rcp.o2.cz. [90.182.112.124])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cf7740d44sm160442515e9.15.2026.09.04.08.22.32
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 04 Sep 2026 08:22:33 -0700 (PDT)
-Date: Fri, 4 Sep 2026 17:22:31 +0200
-From: Joshua Crofts <joshua.crofts1@gmail.com>
-To: Hemanth Selam <hemanth.selam@gmail.com>
-Cc: Nuno =?ISO-8859-1?Q?S=E1?= <nuno.sa@analog.com>, Michael Hennerich
- <Michael.Hennerich@analog.com>, Mariel Tinaco <Mariel.Tinaco@analog.com>,
- Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>,
- Andy Shevchenko <andy@kernel.org>, Matti Vaittinen
- <mazziesaccount@gmail.com>, linux-kernel@vger.kernel.org, linux@analog.com,
- linux-iio@vger.kernel.org
-Subject: Re: [PATCH] iio: fix typos in comments
-Message-ID: <20260904172231.00004b28@gmail.com>
-In-Reply-To: <20260904121628.25537-1-hemanth.selam@gmail.com>
-References: <20260904121628.25537-1-hemanth.selam@gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-w64-mingw32)
+	dkim=pass (2048-bit key) header.d=leemhuis.info header.i=@leemhuis.info header.b="CS8zyAGO"
+Received: from relay01-mors.netcup.net (localhost [127.0.0.1])
+	by relay01-mors.netcup.net (Postfix) with ESMTPS id 4hc0b13zTjz9MW5;
+	Fri,  4 Sep 2026 17:22:53 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=leemhuis.info;
+	s=key2; t=1788535373;
+	bh=nxI97ubcEM5+2BBS4utR3zx7Wwf4emiSTt1Vf7EV6EU=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=CS8zyAGOP9LXa05GPpn9Vq1he1xRlR/5ZxoiFbeciZjmClL3Xcr1Ow8oTETujBzml
+	 RN57ezgBln53pwYuG0ZGfFNwsN1IJFKdYsJ/I/R4PtYVyY9VaZHhHUxRGFIqYgv/60
+	 UUXGGQR73bzVi4E4LdONz8HkaFND4h6JQZ40egYoyEUSmnBkBhJgCleo7fNODJIiTC
+	 r2RSOBv2I10GYgJUvVin7pqTrcaDhkHKX9m2NMsm8O3P0/ks5HDXI7BtHRRY3oetxS
+	 /gzgwzKQ4nEuY3Vrobi+eoDJFvjkbawSXrYztgOHG4fTM8FICGScP/t39z7CK+PP2F
+	 DJMoqo95Dq4Ww==
+Received: from policy02-mors.netcup.net (unknown [46.38.225.35])
+	by relay01-mors.netcup.net (Postfix) with ESMTPS id 4hc0b13HR1z7xH9;
+	Fri,  4 Sep 2026 17:22:53 +0200 (CEST)
+Received: from mxe9fb.netcup.net (unknown [10.243.12.53])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by policy02-mors.netcup.net (Postfix) with ESMTPS id 4hc0b00M77z8sgw;
+	Fri,  4 Sep 2026 17:22:52 +0200 (CEST)
+Received: from [IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f] (unknown [IPv6:2a02:8108:8984:1d00:a0cf:1912:4be:477f])
+	by mxe9fb.netcup.net (Postfix) with ESMTPSA id 276FA5FAB5;
+	Fri,  4 Sep 2026 17:22:47 +0200 (CEST)
+Authentication-Results: mxe9fb;
+        spf=pass (sender IP is 2a02:8108:8984:1d00:a0cf:1912:4be:477f) smtp.mailfrom=regressions@leemhuis.info smtp.helo=[IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f]
+Received-SPF: pass (mxe9fb: connection is authenticated)
+Message-ID: <10138a14-a7c6-424e-950e-c1e5f878beac@leemhuis.info>
+Date: Fri, 4 Sep 2026 17:22:46 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla Thunderbird
+Subject: Re: [REGRESSION] Power9 pseries boot hang in v7.2-rc6, narrowed to
+ PowerPC GENERIC_ENTRY conversion window
+To: Mukesh Kumar Chaurasiya <mkchauras@gmail.com>
+Cc: Venkat Rao Bagalkote <venkat88@linux.ibm.com>,
+ Shrikanth Hegde <sshegde@linux.ibm.com>, LKML
+ <linux-kernel@vger.kernel.org>, linuxppc-dev
+ <linuxppc-dev@lists.ozlabs.org>, Madhavan Srinivasan <maddy@linux.ibm.com>,
+ "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+ Peter Zijlstra <peterz@infradead.org>,
+ Linux kernel regressions list <regressions@lists.linux.dev>
+References: <96dae110-f79b-4e54-8a9b-514369019b5d@linux.ibm.com>
+ <e27eeaf4-c2c9-4ef7-9e1c-0a5fb45755d0@linux.ibm.com>
+ <6d1b5f38-f4e4-46ca-88b4-7c18dd6c6280@linux.ibm.com>
+ <anq72IebDSu-wWbb@li-1a3e774c-28e4-11b2-a85c-acc9f2883e29.ibm.com>
+ <ansZjSJMWMV8DDF-@li-1a3e774c-28e4-11b2-a85c-acc9f2883e29.ibm.com>
+ <2f7e6c34-7258-4b20-a38e-cedebccb835f@linux.ibm.com>
+ <985770a7-e488-456a-a9fa-aa71f1cbafd5@leemhuis.info>
+ <appZ1UB1tzKz3IY9@li-1a3e774c-28e4-11b2-a85c-acc9f2883e29.ibm.com>
+From: Thorsten Leemhuis <regressions@leemhuis.info>
+Content-Language: de-DE, en-US
+In-Reply-To: 
+ <appZ1UB1tzKz3IY9@li-1a3e774c-28e4-11b2-a85c-acc9f2883e29.ibm.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
+X-PPP-Message-ID: <178853536760.332824.6991298509015054257@mxe9fb.netcup.net>
+X-Rspamd-Server: rspamd-worker-8404
+X-Rspamd-Queue-Id: 276FA5FAB5
+X-NC-CID: o/w1lT5fDgOK6gXaBrvPIBFhIb+UL7T+sDpvHEat68+j6lsB9MY=
 
-On Fri,  4 Sep 2026 17:46:25 +0530
-Hemanth Selam <hemanth.selam@gmail.com> wrote:
+On 9/4/26 07:43, Mukesh Kumar Chaurasiya wrote:
+> On Thu, Sep 03, 2026 at 01:22:35PM +0200, Thorsten Leemhuis wrote:
+>> On 8/12/26 07:16, Venkat Rao Bagalkote wrote:
+>>> On 11/08/26 6:16 pm, Mukesh Kumar Chaurasiya wrote:
+>>>> On Tue, Aug 11, 2026 at 11:37:45AM +0530, Mukesh Kumar Chaurasiya wrote:
+>>>>> On Mon, Aug 10, 2026 at 05:19:27PM +0530, Venkat Rao Bagalkote wrote:
+>>>>>> On 04/08/26 8:23 pm, Shrikanth Hegde wrote:
+>>>>>>> On 8/4/26 2:04 PM, Venkat Rao Bagalkote wrote:
+>>>>>>>>
+>>>>>>>> I'm seeing a boot regression on a Power9 pseries LPAR. The system
+>>>>>>>> hangs very early during boot after:
+>>>>>>>>
+>>>>>>>> Quiescing Open Firmware ...
+>>>>>>>> Booting Linux via __start() ...
+>>>>>>>>
+>>>>>>> That is strange. not sure where to look at without any logs.
+>>>>>>> Is it a specific config that fails or this specific LPAR that fails?
+>>>>>>>
+>>>>> Is this a specific lpar or all power9 pseries are exhibiting same
+>>>>> behaviour?
+>>> Its specific to a lpar.
+>
+> I am working on this, [...]
+Great, thx.
+> Can you also confirm the same.
+Na, sorry, can't help, I'm not affected, I'm just keeping an eye on
+regression to ensure they are fixed.
 
-> Fix typos in comments, reported by scripts/checkpatch.pl using the
-> misspelling list in scripts/spelling.txt.  Only touches comments, no code
-> changes.
-> 
-> Assisted-by: Cursor:claude-opus-5
-
-FYI, the process now is to just add 'Assisted-by: LLM' as to prevent
-free advertising in commit messages.
-
-> Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
-> ---
-
-Reviewed-by: Joshua Crofts <joshua.crofts1@gmail.com>
-
--- 
-Kind regards,
-Joshua Crofts
+Ciao, Thorsten
