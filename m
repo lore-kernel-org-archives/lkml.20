@@ -1,143 +1,100 @@
-Received: from va-2-46.ptr.blmpb.com (va-2-46.ptr.blmpb.com [209.127.231.46])
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D07F3B0595
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 03:13:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.231.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A11CE253B42;
+	Fri,  4 Sep 2026 03:13:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788491584; cv=none; b=PuG+0ONrn37B+UguutrdTXPKWnGZksbVgyIRddMZmKTAsyLdjmXGe5ZwS00Cxah32BoLLppoV7Yr0yP79O0iGTfJQfxif0CYB938eEmj1brCXeriZEp9UVvDl87tB1RU9TbJwFASvZwTz2bMOJ+QtfaxG5H6EFyhF/iA5YDiMoU=
+	t=1788491640; cv=none; b=GenaHdRXEy5N2LhkBHXiH1E/exZuEzWphrpU5aoJdXi4dI19qDRfpe7hIHuXK5tciiT+8PIxGCZhh1RUebIgNGvIu5v1nMITU4m+Jedf1AHYNyc4BJoOKpzgXli7lS3LCWcNmE9w+0+v9bJxS0U5wn1cQ+aLa2QgfCzHSsjsQFk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788491584; c=relaxed/simple;
-	bh=7ZYURzTjNpp5Jb3huda0uhTCqkZeMQ88SC6undWpr6s=;
-	h=References:Date:Message-Id:In-Reply-To:Cc:From:Subject:To:
-	 Mime-Version:Content-Type; b=PEobLGzFwYkV4ZZsrWMQMfeBECRsKFBKpg2Gcxf5TICByToOJEq0i2fJAMXtioXFy4r58vOdz2Kha+YqriUPgkoZ2qNNNgwMUko/BnhXv8lew7LiEsICclpUexIQlT1ekcZZA5P7ugwKOjKJLJ51p0MRFRM9Uik7empH7F7ReeM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fygo.io; spf=pass smtp.mailfrom=fygo.io; dkim=pass (2048-bit key) header.d=fygo-io.20200929.dkim.larksuite.com header.i=@fygo-io.20200929.dkim.larksuite.com header.b=SKbpGInE; arc=none smtp.client-ip=209.127.231.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fygo.io
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fygo.io
+	s=arc-20240116; t=1788491640; c=relaxed/simple;
+	bh=fg2bsL2pyLeKWO4ca9K3vU48m47qLXISWTiyTOg57hQ=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=VHXGpNt0ytuG+nD50xYtEISEP3LSY7+jxK0B6zPOf/4m3TRIJUtXBlRr9BNBsrqVe16O3hEtRHskm188ziB0z9KRKAbgdAvtCOjRD6yjTB3edJ5KJZyCO/AqvYWCuubp+bEbHidqB+0YQ8k/fFnlCikCkBfnyJpgbaBfD/wzX4k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com; spf=pass smtp.mailfrom=realtek.com; dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b=F0U1/avG; arc=none smtp.client-ip=211.75.126.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fygo-io.20200929.dkim.larksuite.com header.i=@fygo-io.20200929.dkim.larksuite.com header.b="SKbpGInE"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=s1; d=fygo-io.20200929.dkim.larksuite.com; t=1788491571;
-  h=from:subject:mime-version:from:date:message-id:subject:to:cc:
- reply-to:content-type:mime-version:in-reply-to:message-id;
- bh=0eB8FmLlkMeY0eoTlosmEVMIfxb8DfMhD7pOp16Dnzs=;
- b=SKbpGInEy5OHEPdbZ65Xl6TrNqBnUBt0g+LdHz7D41PwG0zGkO9DvFFe3xJwUCWvRvsUL3
- lYV9zHNhNKYFycf+9cxS7jbb4GnrCNPHVFrLUw8zjdPTwpcKKASb5G6qw29oGnuZL5myaf
- P15dLgYERK52rEQayyXVnfbBaSCbn4XuzLpQXcZ9thxQb+exa2c8kILxMcYny85WgUPqn5
- 5/xy0mlcnvxEC9F723h8KaRXDArZoEHWFmyf8+lD43mEYQP6YKZoESrWLIZgiSvjgacpdR
- YsYYWvzpNesCh/nBIwwIj6DERCVLGoangKaJ5mW2VTWYOLxRNHh0vSMwz5YiJw==
-References: <20260904030607.1193800-1-cui.tao@linux.dev>
-Reply-To: yukuai@fygo.io
-User-Agent: Mozilla Thunderbird
-X-Original-From: yu kuai <yukuai@fygo.io>
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 4 Sep 2026 11:12:45 +0800
-Message-Id: <63b0770e-844a-4249-a64e-85b1e1978fab@fygo.io>
-In-Reply-To: <20260904030607.1193800-1-cui.tao@linux.dev>
-X-Lms-Return-Path: <lba+26a9a3732+d20b5f+vger.kernel.org+yukuai@fygo.io>
-Received: from [192.168.1.104] ([39.182.0.178]) by smtp.larksuite.com with ESMTPS; Fri, 04 Sep 2026 03:12:50 +0000
-Cc: <tj@kernel.org>, <linux-block@vger.kernel.org>, <josef@toxicpanda.com>, 
-	<cgroups@vger.kernel.org>, <linux-kernel@vger.kernel.org>, 
-	<david.laight.linux@gmail.com>, <haris.iqbal@linux.dev>, 
-	<cuitao@kylinos.cn>, "Yu Kuai" <yukuai@huawei.com>
-From: "yu kuai" <yukuai@fygo.io>
-Subject: Re: [PATCH v5] blk-throttle: fix divide-by-zero on legacy iops limit of 0
-To: "Tao Cui" <cui.tao@linux.dev>, <axboe@kernel.dk>, 
-	"yu kuai" <yukuai@fygo.io>
+	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b="F0U1/avG"
+X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 6843CqdfE4114200, This message is accepted by code: ctloc85258
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
+	t=1788491572; bh=+3dQ4EXCJkdc+MbQXCx9yljD58LDbDwzPzubxY8NvWU=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:
+	 Content-Transfer-Encoding:Content-Type;
+	b=F0U1/avGNFsH8gJptrdkod8ybG6hWdmsu8sj94EQpTsl5DZcFjW5u1+bX/xbFt3Gz
+	 G74xqQGYqIG5B+TmNaXbpgcu3W79akvVOUD/l9sEUzkUGykIk6YKKWXD3U46hox6vV
+	 S7VOcmESUdU4Vh5XpQYLVyLzFD8htsCvxf7UvoT3osHwYXzzvveFLBqLfa6qYcTPsZ
+	 MiuFDTG7Whzamb4RaV603kFrtJQy5gm8GTxxb01DOPy+RgbqsN6KegcSR2VDE3WlBk
+	 EWk34d9SdIv2cIDgOUM2w+FUM3PeKO60GUfFkjH0yMrIMgVNZdmDACO30sV9OgqIxn
+	 XUUxX2hhCMHiQ==
+Received: from mail.realtek.com (rtkexhmbs03.realtek.com.tw[10.21.1.53])
+	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 6843CqdfE4114200
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Fri, 4 Sep 2026 11:12:52 +0800
+Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
+ RTKEXHMBS03.realtek.com.tw (10.21.1.53) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.43; Fri, 4 Sep 2026 11:12:53 +0800
+Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
+ RTKEXHMBS06.realtek.com.tw (10.21.1.56) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.43; Fri, 4 Sep 2026 11:12:52 +0800
+Received: from cn1dhc-k02 (172.21.252.101) by RTKEXHMBS06.realtek.com.tw
+ (10.21.1.56) with Microsoft SMTP Server id 15.2.2562.43 via Frontend
+ Transport; Fri, 4 Sep 2026 11:12:52 +0800
+From: Yu-Chun Lin <eleanor.lin@realtek.com>
+To: <broonie@kernel.org>, <robh@kernel.org>, <krzk+dt@kernel.org>,
+	<conor+dt@kernel.org>, <afaerber@suse.com>
+CC: <bartosz.golaszewski@oss.qualcomm.com>, <james.tai@realtek.com>,
+	<cy.huang@realtek.com>, <stanley_chang@realtek.com>,
+	<eleanor.lin@realtek.com>, <jyanchou@realtek.com>,
+	<linux-spi@vger.kernel.org>, <devicetree@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
+	<linux-realtek-soc@lists.infradead.org>
+Subject: [PATCH 0/3] spi: realtek: Add support for RTD1625 SPI Flash Controller
+Date: Fri, 4 Sep 2026 11:12:49 +0800
+Message-ID: <20260904031252.244280-1-eleanor.lin@realtek.com>
+X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 
-Hi,
+Hi all,
 
-=E5=9C=A8 2026/9/4 11:06, Tao Cui =E5=86=99=E9=81=93:
-> From: Tao Cui <cuitao@kylinos.cn>
->
-> Writing a multiple of 2^32 (e.g. 4294967296) to a legacy cgroup v1
-> throttle iops file (blkio.throttle.{read,write}_iops_device) silently
-> truncates to 0: tg_set_conf() stores the sscanf-parsed u64 value into
-> an unsigned int field with no clamping. The cgroup v2 path,
-> tg_set_limit(), already clamps the same kind of value with
-> min_t(u64, val, UINT_MAX), but the legacy path never did. Note that
-> the "!v -> U64_MAX" mapping only catches an explicit zero and does not
-> catch a value that truncates to zero.
->
-> With iops stored as 0, tg_update_has_rules() sets has_rules_iops[] and
-> the next IO reaches tg_within_iops_limit(), which computes
->
->      jiffy_wait =3D max(jiffy_wait, HZ / iops_limit + 1);
->
-> triggering a divide-by-zero oops.
->
-> Fix it in tg_set_conf() by clamping the value to UINT_MAX, consistent
-> with tg_set_limit(). This closes the truncation root cause: with 0 no
-> longer reachable as a stored limit, the HZ / iops_limit divide is never
-> hit.
->
-> Signed-off-by: Tao Cui <cuitao@kylinos.cn>
-> Reviewed-by: Yu Kuai <yukuai@huawei.com>
-This tag is wrong, please use yukuai@fygo.io.
->
-> ---
-> Changes in v5:
-> - Rebase onto current linux-next head (no code change, context shifted on=
-ly).
-> - Add the Reviewed-by tag collected on v4.
-> - Link to v4: https://lore.kernel.org/r/20260722102459.253189-1-cui.tao@l=
-inux.dev
->
-> Changes in v4:
-> - Drop the defensive "iops_limit =3D=3D 0" check in tg_dispatch_iops_time=
-():
->    with the tg_set_conf() clamp in place, 0 can never be stored as a limi=
-t,
->    so the runtime check only guards an unreachable state. (Yu Kuai)
-> - Drop the Fixes: tag: the unclamped write -- and the iops=3D0 behavior i=
-t
->    can produce (calculate_io_allowed() returns 0, so no IO is issued) --
->    long predates the commit that added the HZ / iops_limit divide, so
->    attributing it there was incorrect. (Yu Kuai)
->
-> Changes in v3:
-> - Drop the (u64) cast on UINT_MAX: the kernel's type-checked min() accept=
-s
->    two unsigned types of different width (both >=3D 4 bytes), so
->    min(v, UINT_MAX) compiles clean. (David Laight)
->
-> Changes in v2:
-> - Use a "void *field" local for the config write so the assignment reads
->    *(u64 *)field / *(unsigned int *)field instead of the
->    (type *)((void *)tg + of_cft(of)->private) casts.
-> - Use min(v, UINT_MAX) instead of min_t(u64, v, UINT_MAX).
-> ---
->   block/blk-throttle.c | 6 ++++--
->   1 file changed, 4 insertions(+), 2 deletions(-)
->
-> diff --git a/block/blk-throttle.c b/block/blk-throttle.c
-> index ffc3b70065d4..97ad7959d006 100644
-> --- a/block/blk-throttle.c
-> +++ b/block/blk-throttle.c
-> @@ -1383,10 +1383,12 @@ static ssize_t tg_set_conf(struct kernfs_open_fil=
-e *of,
->   	tg =3D blkg_to_tg(ctx.blkg);
->   	tg_update_carryover(tg);
->  =20
-> +	void *field =3D (void *)tg + of_cft(of)->private;
-> +
->   	if (is_u64)
-> -		*(u64 *)((void *)tg + of_cft(of)->private) =3D v;
-> +		*(u64 *)field =3D v;
->   	else
-> -		*(unsigned int *)((void *)tg + of_cft(of)->private) =3D v;
-> +		*(unsigned int *)field =3D min(v, UINT_MAX);
->  =20
->   	tg_conf_updated(tg, false);
->   	ret =3D 0;
+This patch series introduces support for the Realtek RTD1625 SPI Flash
+controller. 
 
---=20
-Thanks,
-Kuai
+Please note, this series depends on the RTD1625 clock driver patch series,
+which is currently under review.
+
+Link: https://lore.kernel.org/lkml/20260901072446.2563145-1-eleanor.lin@realtek.com/
+
+Thansk,
+Yu-Chun
+
+Jyan Chou (2):
+  dt-bindings: spi: Add Realtek RTD1625 SPI support
+  spi: spi-mem: Add Realtek SPI flash controller driver
+
+Yu-Chun Lin (1):
+  arm64: dts: realtek: Add SPI NOR flash node for RTD1625
+
+ .../bindings/spi/realtek,rtd1625-nor.yaml     |  68 ++
+ MAINTAINERS                                   |   6 +
+ arch/arm64/boot/dts/realtek/kent-pinctrl.dtsi |  16 +
+ arch/arm64/boot/dts/realtek/kent.dtsi         |  26 +
+ drivers/spi/Kconfig                           |  10 +
+ drivers/spi/Makefile                          |   1 +
+ drivers/spi/spi-rtk-nor.c                     | 637 ++++++++++++++++++
+ 7 files changed, 764 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/spi/realtek,rtd1625-nor.yaml
+ create mode 100644 arch/arm64/boot/dts/realtek/kent-pinctrl.dtsi
+ create mode 100644 drivers/spi/spi-rtk-nor.c
+
+-- 
+2.43.0
+
