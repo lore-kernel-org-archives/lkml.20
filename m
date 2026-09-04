@@ -1,71 +1,69 @@
-Received: from mail-oo1-f43.google.com (mail-oo1-f43.google.com [209.85.161.43])
+Received: from mail-pg1-f182.google.com (mail-pg1-f182.google.com [209.85.215.182])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C585473C84
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 11:27:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1049E39478B
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 11:28:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788521251; cv=none; b=Z/3IsxQM7+hbgJM/Qk+0S91UPC8phkcSKQCOARoH4WexsXRnXf6mFRlBJ9/9Kz7WdmFo/NUHYkpWG+ucxrOduJ72qvvqYUPa5u7JmDEKDeflIOFvYhJ23e3jeKLy9EmXKaIlGJzo4gBX7VffGa7szOwh6zMN0n0FDp9+k9HDR7s=
+	t=1788521301; cv=none; b=GsyT4XX9gAnK6qvBs/ogNumGo3KboHa2LUOg/FKJTQ3YgALfj+V7cxE8vMf2tydsRHUte3mCEpFi/N5itu7f68y/3ZMBssnJXUhU3Yu/GoAFgYkZp/XFoGTl30gQYI+fmxZl75zC/3RTZEVRPxyZLGKKaOnnsSVX0gTxmpQhkWY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788521251; c=relaxed/simple;
-	bh=iqfElsXaJRgSBfylr8LqH0mszsAyVH3LytnZSHXWZPs=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=btvHADV/HBI10luoMSjbsKSETO7zQENZgWSBVFTeXMqMnfjUhJZ3oxCZfk19OsmbQGVSxTzyq2xywJGBDRtiQZYPbDP/4B1clvu1tcRv/HsnLAQifoywTgSM0szTYmHreyqAgyYzctQNqAbmcYLEmL6agtmcTGNQ+QuxU39N7Ng=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Cb0sZSpv; arc=none smtp.client-ip=209.85.161.43
+	s=arc-20240116; t=1788521301; c=relaxed/simple;
+	bh=qXHYWU0R/4Pnp7Yf3UOK2FhGhxVUvbkSvsebkptITDM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=jaRotGslGZ27T+CjVBG9/wtahV7idKgUaLJgGPDIZhzeXnmYP2VJAF/w00sA5gCZgxu6RexUNnxyXX+kfwkw1K2Y6cPzU4QsnIP8ShoKky/nCwg145/UUFfPMRqKg6Nuw9w9wRH6W3AfE4AR2Swjib2akwQuriTY9z/hVoQCqOg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bUlByFwO; arc=none smtp.client-ip=209.85.215.182
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Cb0sZSpv"
-Received: by mail-oo1-f43.google.com with SMTP id 006d021491bc7-6b1b233ca8dso419458eaf.2
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 04:27:28 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bUlByFwO"
+Received: by mail-pg1-f182.google.com with SMTP id 41be03b00d2f7-cc439bfb2d8so687855a12.2
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 04:28:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788521248; x=1789126048; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1788521299; x=1789126099; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=LMuldKzRZKnRRVnCUZ2I1QR7ouYQcPdcuex/lnXCBdk=;
-        b=Cb0sZSpvuNA/RunzaiDMhQwNFQkOYrjzrmZnMwiFey6YBUVaGWC3aY8O9gLGTUcVk3
-         PG/pA32PHi0RBt/ZAWBotCBrLHOLxd8jyv30ZWWJ64skfdMCJhgbeWJgfV7Oz6qhX4dM
-         kpHZVJcyvY4YPvyemWKAYnRzBDMHM1FiqS8mJ5ly7/c8m+mAuO7xjln18VBC6Rxw/ce1
-         G7/1ttn37NCN9PTVlb1/ZmrT2eTPlnihhC77w9o7WqbnOeoXRAQZlsHRqDlzXUeg3Zry
-         mBFHaL60SnhPSk2Uuztb6fRgkLfMQYdFr9N8IBXkYuWEvKTYu2k0Ld0AkzqsRRwm1JRq
-         122Q==
+        bh=D+UaSlxxJLcYKsp2FD1tG5uc8a4SQbta1aiPoRmuIHg=;
+        b=bUlByFwO91qWjTi5+6m16vvEY+B558zLcp8iR4+umDFAQem+ezUc1m8ej7TdygFhCr
+         F496ZTJMg8HXQzwitD/HmTizrktKIfCySpxGFKsJJjpOpCI+GUnxBDmoxfki5RFtu+Xt
+         ViQRc3QBJLfY/n1HAqqzHmXj+E8udODo2tPFTfIVWz/JcEVWOWFJEfqBDyNsz2gF6Qan
+         FlKTciSKuiFlOszO4O0uCKRA8en9nGO2Ju6H0BzkGKgMY8ayReERKMCdKCRmRXbEyl0l
+         K8trpQTpbfSUS4Ak0ZqGzUlC3bzWO5BuADA/BfTe1+YFg7ENrVhrBuhGDssaMQWoeVd/
+         PGMg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788521248; x=1789126048;
+        d=1e100.net; s=20251104; t=1788521299; x=1789126099;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=LMuldKzRZKnRRVnCUZ2I1QR7ouYQcPdcuex/lnXCBdk=;
-        b=G6oYUWDETYyDw4YUVfWdFIKqpsnJBT7YWIDh9e+oJt5LzE47OIlodNygEUdOrOYhJV
-         hbLt04lH3o8SA2fFGgwP2NM793EFI7yXQ5gBitexPlhnahD+8c9CdvbwAtjPFsy6IxeF
-         wgbxDf6DlfgJaVMGtEdXTH2lYLD364tqxq2lCPpMMh85bEUP/h+p9IQva/Q6m9WflXkB
-         zCWUr8Tuh6mG7YKaiX9F1KlgdfMAuMYPX9sk/f+7R/sCF2HuwA0ym90D6EDX+ZUkRr/1
-         LphfUjNpWt9S0QQNL/W9PZslpKtPay30nrZtRCEM047qYaGqxzSuza53HEqBxB5HAIn/
-         qCvA==
-X-Gm-Message-State: AFuF++kdJJ4h2gX6dSvjRv60vi1UfoKPGRopZvC++BS5ly9IDyPTKXF0
-	+hli818xtkpK/ORb4A+Xh7YPDed/2pD7HqEzQX0lln78xL37n7w5Z/QRg+bPxVR6QPc=
-X-Gm-Gg: AYBFou2fHdoqnuKrwUbJr3eoPgYP2zXy45exaRWUpy05A7ICfyBFdjes4zzsS5gLT7U
-	jiILjhfEGvVCmnPoKE4kj12ETscoPc7I/LtKAcAxbYcM1hjgNZAm4Pb9L1ufX5BVDyIrSKXQVU8
-	hNscWwg4jaoTVQ7IkURUIfcR88Br8KTotpZ2n6umbvz3OUwUKFmmYbadJTxO+QuFa5KJTZyvNhv
-	+NZDwrC8JZUh60jMVXYPxbT5reaW6YI/Nc8V2BnYjpNQck1w0XU4Yy0UFJtG7zHmcCr0481CwPK
-	9gK4poOT04DRbvwLKRaq0Uelks/kivqxDN+91DpuH9zF/o9TvnHcwzhFpJ6KIXO2STStVbzdQba
-	jChUZmGW2bU7P6v5TouAL2DfoT3omnC9P29XTJvmYCSFXNiLjRmSgYO7ADBRqn3VddzeZ078XN4
-	9CdxziR2F1zpuyZ+1jleWbFEOh/G831agOqZPzuTd9Wr6G0xTPxQjDxLPGT6TjRFe3tT0Subp6O
-	qGCQRLt81bVzmSDHNHVKSXDCA==
-X-Received: by 2002:a05:6820:2217:b0:6b7:8396:f3c3 with SMTP id 006d021491bc7-6b78396f8dcmr1217555eaf.37.1788521247704;
-        Fri, 04 Sep 2026 04:27:27 -0700 (PDT)
+        bh=D+UaSlxxJLcYKsp2FD1tG5uc8a4SQbta1aiPoRmuIHg=;
+        b=l079vLV3+owkd22SGK0eZ6AEqBtgY7FbwjKnm4SgzOpO24IMtSPCyP7FqcB9RB7nDW
+         FCPy7WLwj+Yfr8O9IV6O0kQqWAbeAWD8BDJnAUGFxVA3DTKW6/yZZhcmnn4pKMpEM79i
+         aZcvGy4VFD2HDxVOi7gdeJ2AfupcPXIr14JKkQeBATsCwN6oOJPLI8vdFT1ozsPMtK6t
+         f6dyrrq0xZhA3GkcW6I0HAUteVuBW4q7tdIQXvEYzRpV5OleEdMP8lqzxhRZmlNoWrJs
+         JXMKhMyzuLjXqKk9SDVz3OKBtBmdpTeQNeBkTMTywrQPwv7N3L6Rr2dXPPYckblgd8Vz
+         ubOg==
+X-Gm-Message-State: AFuF++lLgNrM3jPx80EHvrXiIL9Rezbty+IZHbRu2+z6dEVDh45wnG+A
+	x8pHZ+EcAanfDbeSwmGvLtyE3SdHROaeV8bNRhStPupm0xWDoxHN7Ns5
+X-Gm-Gg: AYBFou1TYmqhE0iOk6jiaCmCUYia9Ut5/VucZEuxl60qYlMNsZGh2W2dO1lB4d0Xm28
+	bnNuNyRuEUyQakJOX2M4ofgaZC3hBrRfHSOx6Rdb3cCgCfF+1OK1BUAwe5vPbJ5Q6I07bh2G4A8
+	d17n9Miey2HIwqfi/okmSXir629YylWGe9qrFec3HzKdrvpqTR/EbQNmM8BQiD6EPwXgmIzeti4
+	rCLpb+zyUdj/zFj6CAPQwGeAfWNlsGhP5L6hZ8JQ9O3zyS4I4fuOdFyBqp19C4r8Pspzz7o6z++
+	CJPZh5q4xxNwZFjo2PwjCOSh+BlrlI0qVUVlE8DAxq3fd7ztZryhs2BIGYhY1LyqgnD0P3vuSvt
+	j+gDPbG0hYWFL6wkWPN9+vzdOH52JoQNFakwmxwMBovcQ6+bfxX5bIi33VR5q8tFxTa8NyQrF6V
+	OYuleKN8TT+OQ992B89oL5DipSCi4Lu/qU26/p3Xs5J/MZrXzHmnHP4HmKSjQpSeBtjck24VWAX
+	0oJPh+0hf/0/28=
+X-Received: by 2002:a17:90b:4c86:b0:395:5f43:4ec4 with SMTP id 98e67ed59e1d1-39b25f78ab8mr7839413a91.0.1788521299198;
+        Fri, 04 Sep 2026 04:28:19 -0700 (PDT)
 Received: from volcano9f6e-hostos.amd.com ([165.204.217.251])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339a534df1sm7037586eec.7.2026.09.04.04.27.25
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-143243a9388sm6005996c88.10.2026.09.04.04.28.17
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 04 Sep 2026 04:27:27 -0700 (PDT)
+        Fri, 04 Sep 2026 04:28:18 -0700 (PDT)
 From: Hemanth Selam <hemanth.selam@gmail.com>
-To: Keith Busch <kbusch@kernel.org>,
-	Jens Axboe <axboe@kernel.dk>,
-	Christoph Hellwig <hch@lst.de>,
-	Sagi Grimberg <sagi@grimberg.me>
+To: David Woodhouse <dwmw2@infradead.org>,
+	Richard Weinberger <richard@nod.at>
 Cc: linux-kernel@vger.kernel.org,
-	linux-nvme@lists.infradead.org
-Subject: [PATCH] nvme: fix typo "occuring" in comment
-Date: Fri,  4 Sep 2026 16:57:21 +0530
-Message-ID: <20260904112722.5618-1-hemanth.selam@gmail.com>
+	linux-mtd@lists.infradead.org
+Subject: [PATCH] jffs2: fix typo "informations" in comments
+Date: Fri,  4 Sep 2026 16:58:13 +0530
+Message-ID: <20260904112814.6768-1-hemanth.selam@gmail.com>
 X-Mailer: git-send-email 2.48.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -75,29 +73,31 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Correct "occuring" to "occurring", reported by scripts/checkpatch.pl using
-the misspelling list in scripts/spelling.txt.  Only touches comments, no
-code changes.
+Correct "informations" to "information", reported by scripts/checkpatch.pl
+using the misspelling list in scripts/spelling.txt.  Only touches comments,
+no code changes.
 
 Assisted-by: Cursor:claude-opus-5
 Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
 ---
- drivers/nvme/host/multipath.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ fs/jffs2/xattr.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/nvme/host/multipath.c b/drivers/nvme/host/multipath.c
-index 75dbb58286a3..4d931cb1162f 100644
---- a/drivers/nvme/host/multipath.c
-+++ b/drivers/nvme/host/multipath.c
-@@ -773,7 +773,7 @@ int nvme_mpath_alloc_disk(struct nvme_ctrl *ctrl, struct nvme_ns_head *head)
- 	head->disk->private_data = head;
- 
- 	/*
--	 * We need to suppress the partition scan from occuring within the
-+	 * We need to suppress the partition scan from occurring within the
- 	 * controller's scan_work context. If a path error occurs here, the IO
- 	 * will wait until a path becomes available or all paths are torn down,
- 	 * but that action also occurs within scan_work, so it would deadlock.
+diff --git a/fs/jffs2/xattr.c b/fs/jffs2/xattr.c
+index 6b4f68593c29..c91ade74c5a8 100644
+--- a/fs/jffs2/xattr.c
++++ b/fs/jffs2/xattr.c
+@@ -39,8 +39,8 @@
+  *   memory usage by cache is over c->xdatum_mem_threshold. Currently, this threshold
+  *   is hard coded as 32KiB.
+  * do_verify_xattr_datum(c, xd)
+- *   is used to load the xdatum informations without name/value pair from the medium.
+- *   It's necessary once, because those informations are not collected during mounting
++ *   is used to load the xdatum information without name/value pair from the medium.
++ *   It's necessary once, because those information are not collected during mounting
+  *   process when EBS is enabled.
+  *   0 will be returned, if success. An negative return value means recoverable error, and
+  *   positive return value means unrecoverable error. Thus, caller must remove this xdatum
 -- 
 2.48.1
 
