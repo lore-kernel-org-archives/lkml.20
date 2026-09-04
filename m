@@ -1,130 +1,87 @@
-Received: from mail-ej1-f54.google.com (mail-ej1-f54.google.com [209.85.218.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp14.infineon.com (smtp14.infineon.com [217.10.52.160])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8AB37420490
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 09:07:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1138241D624;
+	Fri,  4 Sep 2026 09:07:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.10.52.160
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788512849; cv=none; b=DcBo/PKUdmHI8bNNAs0xzuBuxO7EEIZ03dqNyHN1tFfXdRbgbxjYxowFJ989P3m5DneUf0RC/4m1U0gIzXzvUIYHpNLJZzXaKD4akRzZYHNJP3syWD6GN/7J6HF5XIvGWIKpTKVz0LGdid6Ibbsyo+uit7dtlipgRIZXyZQreFE=
+	t=1788512855; cv=none; b=Jpi9YCI4+h21uBbM+wNqZrsbEG/S3NiWWFnvL/TbE2eWBJ0A8e0zq7ovcGcKSK7bh8S/oEgecjngYd08lvOO/d8wKNl7flRcatLpz1Vm3QGcdLTQA68I9z+QpB7SWcx7ExCHpqnLmDzGQB+uSffxYLrgKyEDrl2b/QImSNvTgB4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788512849; c=relaxed/simple;
-	bh=wMYxpGpJt34AzXu9fEuBcpdkz1RLmyxJEpe/9vdx1gU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=vFrmvUe4BbNJX5tunrk5jloCraEdY/LfPK1QWmVTURYNvexlvSCPIOb4o0AiG56CROy2Elk0pSG4CNLRZ6jSa3RGP5h2+eCxgX4rVCrYsgZ9M8oKsKdtBfB9+KNxV8NhHKqH8aZIanEbOGrn7rNN51y1hm6WKEswJCSApA4LtEM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ursulin.net; spf=pass smtp.mailfrom=ursulin.net; dkim=pass (2048-bit key) header.d=ursulin.net header.i=@ursulin.net header.b=H4m5ZwpF; arc=none smtp.client-ip=209.85.218.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ursulin.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ursulin.net
+	s=arc-20240116; t=1788512855; c=relaxed/simple;
+	bh=7MoKXvC6968eejIFP7iCwt2T4ExB49oBcRo4K3eSCKI=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=VQA6bIX5btUOUWgvsD0ve/oeiwrFwiRUY0bOH9YL0dsbK1sBGGpFH99jyY91pY/QufpxTnmbB4T6yjScjta7I72BfteL2uszV5+3tGLIA0Rz0MbILhCwgoxCRqjVKLuMHvWLOcgyQKzH9RioMTeLbwrdsXm6RkC7VUT5U6uq4OU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=infineon.com; spf=pass smtp.mailfrom=infineon.com; dkim=pass (1024-bit key) header.d=infineon.com header.i=@infineon.com header.b=SQpqb2Sr; arc=none smtp.client-ip=217.10.52.160
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=infineon.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infineon.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ursulin.net header.i=@ursulin.net header.b="H4m5ZwpF"
-Received: by mail-ej1-f54.google.com with SMTP id a640c23a62f3a-c169ae1cb26so349510566b.1
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 02:07:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ursulin.net; s=google; t=1788512846; x=1789117646; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=m7wdy2Og9YO6nxxlPkfUyoT4MUWUNJ9x4RWvdbL0oNU=;
-        b=H4m5ZwpFa6jpq+fEAHyBocEC6QgCx6VnhWb13r82jurvPNenXmtcSG7vA2DjH0na9s
-         HC/1heqf9pVlNNr1TXKaQ/HNfeK+Pbw5yPaoZKqFRAMKfCu5Yuk/xJFwZhDsO50QrRRZ
-         TUKurEnc2+9btFpHESheqqX3mnSaaUUQMI/IHLGnyIMqqx9bTul6V+gXpOVuLiQROO1O
-         p6wWoNdaHguGshlboix84ZxUJ30lM4MvAzF/ytIOY3vWtFFrBspIhN+0vfpX+hr3Ggg+
-         MVuEv+t8Lf0bQn/QhtGysR0igK12VPZEERABUw/aDugu2ZNLj+QBushnLBbQ35wrmGj0
-         OMuQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788512846; x=1789117646;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=m7wdy2Og9YO6nxxlPkfUyoT4MUWUNJ9x4RWvdbL0oNU=;
-        b=UBqLop5UEzpQ5/u7m6eB2qNqDI9qfplRgLIOaGXcgLHMpJrnCxYDuylz3nYRcXHYu0
-         s8xDS05HLJnGMieN2MFPw72G4Wkwo9n4f7NvsvyBOeVp0pUohj6hJXbuGVWRSaMtFnUh
-         kD9bvGBZ2aDlATheLDY/3kdakc5fMLSIzqPQn+E5nPqa4t15U9ZvMMJRsMiEYHsO/NgI
-         N5KlMaA8Aq6TQ6xmQxPVNBGd4jW3Aa285Aj7UlTuzJL8mjiD9CPXC6XiA94Dy0omfmB/
-         oz5+esQwM8pDUikFSiXGqtFtjlNbjo/z5jzOghWZQDMWINsihSLa7aKuQBwEEQL9YSaD
-         QJUw==
-X-Forwarded-Encrypted: i=1; AKwUvBzmBF/yknxkwaUpsNLbFG1zQ1DCz/2k4HPuj930yFuKpBDtKmMDWCpLWQMgkMnYoGsKxmyesqEatpHpI/Q=@vger.kernel.org
-X-Gm-Message-State: AFuF++ngA+BV9Fd/6UFziSJAFqobUZTnKXBtZ5eERek5NdFktFLwL4uT
-	yaC1S6Mp9GJA9WMIN8li/YMm2dxN8vjOXztuhu5ZmAeUYC5Ft3GUvaZP52cy1K+XiIo=
-X-Gm-Gg: AYBFou2nlsiOFP8QnxyJAqqDKw1eQ44z9N0aXyOBxnZhrFH7raouZiFW9HKvBXqcNi4
-	3hxqyH0i2BNRuj4pMPu0eHDch7/ke2693405AE/OgWwqHYIT53lfAjCX90zFiuEiXzRPckHeSkE
-	iysUMLE6PJYbuI0UjJuSGDJdC0ffJ5DqmfXVNYGMe8plTEkmAQxyoSTdIFd91u7cwEL29YSeFr6
-	Jhp+d0UnQVXvTypgoPodYBSZna7EJZl2/+oqFu83w2gInRAxabSS2tSUs+HSwELryU7UiF8msn/
-	Spb8P/RPnwV00/ng+/Fy6DIL0vzuJpc7ItSwWztsMilYh0F3X8odGc3++4mmmbslZLNi/fcRTC/
-	Fg4r6h2Suh+HSZLTY0ApOeFWCOUZXkmnvozcguEHoGxdV48sfxLZRw1WOqCf2KT1rGLh9WwWEV2
-	RaPDn9RTkg3aoG7ts5jIKd8T5oBItTfC8KmZNxgBsWb185ZdSH0Lp8Rs854biX6mu/BDD3w9lHe
-	2bT
-X-Received: by 2002:a17:907:c011:b0:c25:f7dc:2d3 with SMTP id a640c23a62f3a-c25f7dc08eemr348191166b.20.1788512845236;
-        Fri, 04 Sep 2026 02:07:25 -0700 (PDT)
-Received: from [192.168.0.116] ([81.79.79.1])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c260d4a8b89sm77245566b.10.2026.09.04.02.07.24
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 04 Sep 2026 02:07:24 -0700 (PDT)
-Message-ID: <161c4e19-bff5-4dd9-ab24-10c5893047d6@ursulin.net>
-Date: Fri, 4 Sep 2026 10:07:24 +0100
+	dkim=pass (1024-bit key) header.d=infineon.com header.i=@infineon.com header.b="SQpqb2Sr"
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=infineon.com; i=@infineon.com; q=dns/txt; s=IFXMAIL;
+  t=1788512853; x=1820048853;
+  h=from:to:cc:subject:date:message-id:references:
+   in-reply-to:content-transfer-encoding:mime-version;
+  bh=7MoKXvC6968eejIFP7iCwt2T4ExB49oBcRo4K3eSCKI=;
+  b=SQpqb2SrCHPDa/2N0vswPvg7qoh8RZ9wvoflb1GS955sFMxnn3SzmYKn
+   J7KasPS4shFrh8l33h+zhTKIQEbs6Qbhg31Aqy00Htq0OC0pBSFZnO2ku
+   TeR8q0DvyM0Ys/V6gGwZq9jEct/WxAVm1Lt3X+IPoS1FmcCYgsvJ0WPRT
+   E=;
+X-CSE-ConnectionGUID: uJTRJ/DhRNev+wUkTRcQKg==
+X-CSE-MsgGUID: 9jXa/FKoS4qX45ndJbitBA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11895"; a="145631225"
+X-IronPort-AV: E=Sophos;i="6.25,260,1779141600"; 
+   d="scan'208";a="145631225"
+X-Amp-Result: SKIPPED(no attachment in message)
+Received: from unknown (HELO MUCSE819.infineon.com) ([172.23.29.45])
+  by smtp14.infineon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Sep 2026 11:07:25 +0200
+Received: from MUCSE815.infineon.com (172.23.29.41) by MUCSE819.infineon.com
+ (172.23.29.45) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Fri, 4 Sep
+ 2026 11:07:24 +0200
+Received: from MUCSE815.infineon.com ([fe80::b54c:c0bd:546c:c9be]) by
+ MUCSE815.infineon.com ([fe80::b54c:c0bd:546c:c9be%12]) with mapi id
+ 15.02.2562.046; Fri, 4 Sep 2026 11:07:24 +0200
+From: <Takahiro.Kuwano@infineon.com>
+To: <miquel.raynal@bootlin.com>, <pratyush@kernel.org>, <mwalle@kernel.org>,
+	<richard@nod.at>, <vigneshr@ti.com>, <nicolas.ferre@microchip.com>,
+	<alexandre.belloni@bootlin.com>, <claudiu.beznea@tuxon.dev>,
+	<corbet@lwn.net>, <skhan@linuxfoundation.org>
+CC: <STLin2@winbond.com>, <hsinyi@chromium.org>,
+	<thomas.petazzoni@bootlin.com>, <linux-mtd@lists.infradead.org>,
+	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
+	<linux-doc@vger.kernel.org>
+Subject: RE: [PATCH v4 12/25] mtd: spi-nor: winbond: Add support for
+ W25Q12RV-Q/N
+Thread-Topic: [PATCH v4 12/25] mtd: spi-nor: winbond: Add support for
+ W25Q12RV-Q/N
+Thread-Index: AQHdOvyPDTQdnozUAk+qARRuXX3Ydba+Hwgw
+Date: Fri, 4 Sep 2026 09:07:24 +0000
+Message-ID: <a6f90df0e0f742ddbbaea48ec5c0cc59@infineon.com>
+References: <20260902-winbond-v7-1-spi-nor-rv-addition-v4-0-779d35303dff@bootlin.com>
+ <20260902-winbond-v7-1-spi-nor-rv-addition-v4-12-779d35303dff@bootlin.com>
+In-Reply-To: <20260902-winbond-v7-1-spi-nor-rv-addition-v4-12-779d35303dff@bootlin.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 1/3] drm/sched: cache the timeline name to fix a
- use-after-free
-To: "Jonghyuk Kim(MalHyuk)" <malhyuk97@gmail.com>, christian.koenig@amd.com,
- phasta@kernel.org, matthew.brost@intel.com, dakr@kernel.org
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- mdaenzer@redhat.com, alessio.belle@imgtec.com, luigi.santivetti@imgtec.com
-References: <20260904080618.2098450-1-malhyuk97@gmail.com>
- <20260904080618.2098450-2-malhyuk97@gmail.com>
- <f25f2a91-b72e-4392-ab53-c11ef60e0fe0@amd.com>
- <20260904083138.2135429-1-malhyuk97@gmail.com>
-Content-Language: en-GB
-From: Tvrtko Ursulin <tursulin@ursulin.net>
-In-Reply-To: <20260904083138.2135429-1-malhyuk97@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
 
-
-To address only one narrow point quickly, I haven't had the time to 
-catch up with the thread yet:
-
-On 04/09/2026 09:31, Jonghyuk Kim(MalHyuk) wrote:
-
-8><
-
-> One thing I noticed while checking the callers: the tracepoints in
-> include/trace/events/dma_fence.h and drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h
-> call fence->ops->get_driver_name() / get_timeline_name() directly instead of
-> going through the helpers, so they are not covered by the above. That looks
-> like a pre-existing and much narrower exposure (tracing only), but let me know
-> if you want it addressed in the same series or separately.
-
-For the dma_fence.h see the comment:
-
-/*
-  * Safe only for call sites which are guaranteed to not race with fence
-  * signaling, holding the fence->lock and having checked for not 
-signaled, or
-  * the signaling path itself.
-  *
-  * TODO: Remove the need for this event class when drivers switch to 
-independent
-  *       fences.
-  */
-
-
-These tracepoints call the name vfuncs directly: dma_fence_init, 
-dma_fence_enable_signal, dma_fence_signaled. So those are supposed to be 
-safe as per comment and changing them to use the helper would create a 
-different issue (can't remember from the top of my head which one - but 
-the thread is moving fast so I wanted to reply quickly).
-
-amdgpu_trace.h also look safe on a quick look because they are called 
-before the job which can signal the fence is submitted.
-
-Regards,
-
-Tvrtko
-
+SGkgTWlxdWVsLA0KDQo+IFRoZXJlIGlzIGFuIElEIGNvbGxpc2lvbiB3aXRoIHRoZSBjaGlwIG9m
+IHNhbWUgZGVuc2l0eSBmcm9tIHRoZSBKVg0KPiBmYW1pbHkuIEJvdGggY2hpcHMgYXJlIHZlcnkg
+c2ltaWxhciBpbiBwcmFjdGljZSwgaXQgaXMgbW9zdGx5IGEgbWF0dGVyDQo+IG9mIGVsZWN0cmlj
+YWwgZGlmZmVyZW5jZXMgKG1vc3RseSBwb3dlciBjb25zdW1wdGlvbiBiZWluZyBsb3dlcikuDQo+
+IA0KPiBBcyBhIHNpZ25pZmljYW50IGRpZmZlcmVuY2UsIFJWIGNoaXBzIGlkZW50aWZ5IHRoZW1z
+ZWx2ZXMgYXMgc3VwcG9ydGluZw0KPiB0aGUgbmV3IFNGRFAgKHJldiBGKSBmaWVsZCB3aGljaCBm
+b3JjZXMgYW4gYWx0ZXJuYXRlIHdyaXRlIFNSMg0KPiBvcGNvZGUgKDB4MzEpLg0KPiANCj4gVGhp
+cyBkZW5zaXR5IHdyb25seSBhZHZlcnRpemVzIGl0cyBzaXplIGFuZCByZXF1aXJlcyBhIGZpeHVw
+IGZvcg0KDQpUeXBvPyAnd3JvbmdseScNClNhbWUgaW4gcGF0Y2ggIzIwLg0KDQo+IFsuLi5dDQo+
+ICsgbXRkX2RlYnVnIGluZm8gL2Rldi9tdGQwDQo+IG10ZC50eXBlID0gTVREX05PUkZMQVNIDQo+
+IG10ZC5mbGFncyA9IE1URF9DQVBfTk9SRkxBU0gNCj4gbXRkLnNpemUgPSA4Mzg4NjA4ICg4TSkN
+Cg0KSXMgbXRkMCBhIDhNQiBwYXJ0aXRpb24/DQoNClRoYW5rcywNClRha2FoaXJvDQoNCg==
