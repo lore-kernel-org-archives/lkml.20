@@ -1,57 +1,57 @@
-Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com [209.85.210.200])
+Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com [209.85.215.200])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 850872DA757
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 00:24:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.200
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00DF72EEE75
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 00:24:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.200
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788481483; cv=none; b=QbLarpjPME0L5KKMmRSl9amRGR5VnwIPxwMeA2tqP54/OtDUjFEaqc9kHpSheFlHGz0PGeUjTniR01gYS+dZofNn1IKi3pekRwIbXZQGaDPDIHiJXG0OF18vVC8R9MRi8VJvGwJnU2/wyIUZwG7Vl9jhXT3h2xF8TR+bLUyn1TE=
+	t=1788481487; cv=none; b=IVHvIBGzrwBOGr58jVZP4Z1UpOLwXloFZc4mwm0ktTMjXKZOncjhVD3wBzHrWAmU+kz0+3rKyFvXFKIMQJ3qLlqJ1Ax7XzNh7I+oFjTv6bce4t81yKycAu+EVZ9VzTmlBDRsQndL5tAFbkDrnuvGxWSdkelTxDpBb6CE8rMKSMc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788481483; c=relaxed/simple;
-	bh=HzkKv4Q2MLa0YGb5Rcn1Fmbo1i7nWyNpJmAS6K5V44c=;
+	s=arc-20240116; t=1788481487; c=relaxed/simple;
+	bh=JROQpRJndZZZP209SuX2wjyaL8u5hx8u19eSloFQfmU=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=flRSPhiuKpEkprGZcxiRP7Qh8pBrStuMt1JP0VN1CA+ctXBHIt0y0TZLj0zO4dCRiefTr6ePOZ1qHzy3nQb0WT+ytqlGCZ93w2V8fv3KzNe0U/7ASwQWrgPc7UMlEDazOisM2tRWPKojn7HeyzIXzLQNZbguYYUXdUGpT4Uwq7c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=CFfuAOve; arc=none smtp.client-ip=209.85.210.200
+	 To:Cc:Content-Type; b=N+tGMRluNWUtsBzyl/SYp/OaqvDBIjlDst9OKMfHAqsTw8L4P7BxuQxxN4oSlYlYoGABqmwyrH8PMinKpMAy3wBy9uYyEZgfnbnRgZvygNow3Uqv8Tw+eLL3WiNBI6M4xrrP8+cGxrKRzv/Wxo/TvgVsUhLpu/Qg7JBgkUujj0U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=q+lYFkFE; arc=none smtp.client-ip=209.85.215.200
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="CFfuAOve"
-Received: by mail-pf1-f200.google.com with SMTP id d2e1a72fcca58-84eee2147ffso478758b3a.0
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 17:24:40 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="q+lYFkFE"
+Received: by mail-pg1-f200.google.com with SMTP id 41be03b00d2f7-cc1bbd7d6e6so614774a12.3
+        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 17:24:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1788481478; x=1789086278; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1788481484; x=1789086284; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:reply-to:from:to:cc:subject:date:message-id
          :reply-to:content-type;
-        bh=4lP+McG+LuzSZSEuCYz5r9zqeKYerKG2G8XKDFbEV6M=;
-        b=CFfuAOveNUvU6qfzFz7wvPg8ajbPpfpIKCNnT5skMuaCKbOaWKaY/kYMY/+C/+YYAX
-         YuCXqJSjN1p2l4uKu/sFMRWkVh1OWystgGMROhyjL0mUKdKlnXjmdwr46Nmh1v2MiWdM
-         v1np07m2rtpNbMFQ0/Vfe/f59+zEvX+MK4JtD8KT2eFIU+0J+s6kFEZuqBxuArk2vl9F
-         eeEJ4b/ydncHI+M6bzVdwDPm0R2xmrTN/sfrVof3W58TH04EzLynlOtTtF+VJDu2J/v0
-         BoCk7nxBvXA6Nfjcrivq69nA5pBxpso8RMfHOW3jILeZLOLjX2Zj/E4FY2HFrFBh+80s
-         EUHg==
+        bh=8DzzgIr+0cObo03tv5BPb8/ieIObvKNOGQaJvCJlMNs=;
+        b=q+lYFkFEsK84al204dJeuuzKt0C9HVf1x8jbaG0oIm0jyVCKCi1JFxRmoh2Vbshvjq
+         ZOEXxuSl/i6i9xO17WtnPoODxUI01b0meR5e8HYV/zF2A3aCsAtbpAZvCJFLmyHzQXkJ
+         88THCnR7CBvegnXh2PC+xjFFXHMbFFg3N+x8GK3qXgzfnSEZZ3WrGOLi+Ybx9NzAvDgr
+         O8EPuY1Lv0QBplZduDI5ab/zYNcTM4bEtw1ArANfDQJmSjhzA+xGh5ZrtKrmPXEZHT4D
+         Lr+O2b8x0rsYyrCn4lsZZ8ECpVDiy73QOKo9RHGO4RLPDNrLOpMLBynRAkwgX5WFK9pR
+         fvvg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788481478; x=1789086278;
+        d=1e100.net; s=20251104; t=1788481484; x=1789086284;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:reply-to:x-gm-message-state:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=4lP+McG+LuzSZSEuCYz5r9zqeKYerKG2G8XKDFbEV6M=;
-        b=ocjOIV9ugKNsiphbV6mxKSDWkkxU/9JVxZ1xNCh5enlLUVc3XVjfPruGRcxw3xySiM
-         oPT5o7S3Z81eaKrQnshKf2DUEABQ/tkT9uoo7KGeVk1GbCekMqEPuEU/neHFzITYo5Zb
-         c1XdpTKOA7Tpd6muRAMx81jwd5yrP9uKInLTdx5kosiyiUFzZYlljVGMdYeJ4jzoMx2Q
-         b+g7ZpbUFQaJ9VdSTqVevcP1UOEQkROLjq+pICsNOl4Cgv9hKqwNNWYDiA5KYIFuxP2F
-         8o/99yh7fO0ZQ0R3+f6P9bNYOYuLhPylMHBvKc1P+ve/9mkaSBDaiskIfgL98FbkryJU
-         UFYw==
-X-Forwarded-Encrypted: i=1; AKwUvBwO7ZALTRveN9wJKCFsB6H1MaMEpDgFRgn9P4VGyE7H9IngGcMCnpc4EldOX0s91pprOsSBYDGrq/B/2ZE=@vger.kernel.org
-X-Gm-Message-State: AFuF++nLOCZCc0RlaGOyGtw3Ov2TFEhQLOoNuHYAWKgY/aBC8lulh2PD
-	NhB6VF8Esut+dyFThMkeQGPeZ82aTrbDEOZBg7loO8Y0aDoseUb8wVb/Q+5tNXEWgXAraqfA+LK
-	6gga7Ow==
-X-Received: from pgak18.prod.google.com ([2002:a05:6a02:6752:b0:cc4:33fd:a4f7])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a20:1441:b0:3c3:9070:96b3
- with SMTP id adf61e73a8af0-3da39cffff0mr3643079637.3.1788481477405; Thu, 03
- Sep 2026 17:24:37 -0700 (PDT)
+        bh=8DzzgIr+0cObo03tv5BPb8/ieIObvKNOGQaJvCJlMNs=;
+        b=rUw4YIrtQfFyACf5PpeyYSsPJRQC/T2aSFl4+4wwrmy5rSPXL+QcqYnoRsxZIma54L
+         bf/+iYu5v3V9i0lY9EHwvl8RTOWJibgQHNAH9tGLD2JtQrq2tZAiawllxM3pLY9/tEYw
+         Up7z6ntuDk/QLB6Zfk3iqQRCNNODLSpD/4B7I/7BGkCsuS6HzJJJkcrBgvj5J5zGe0Lb
+         3qXD/UDAmtGsrlmEdkLJ0yUY6ukMjR4arnF65x8FcSYLl760CH47fnOGKVDy5lfjoOqb
+         Ur6vDPNExOiU/eTaPwX8d7HWpb1xVEJzFb5LlAXx6li+wP8FHDapNXcDNnI/46K7cNtb
+         YEmA==
+X-Forwarded-Encrypted: i=1; AKwUvByEP7iyoo4UN9nIQ8pdvHaKE3zZtRK7g/q947BZb955sVfPzDFv4jSUr1rO86tgvsAlIPX9ew+/tJctIv4=@vger.kernel.org
+X-Gm-Message-State: AFuF++lj6qJQOcnHI0FhcTlzyG9jrSnFjmonM6Jxa58CsG56/5YLmKLE
+	i/D036snNTlPU60cWvemUpKd64bbJL7TL4YCaW2Q0BNs/zrdEAhhRK7J9mbR9nBgZplAJCUoozX
+	uM6OSQA==
+X-Received: from pgee1.prod.google.com ([2002:a63:1e01:0:b0:cc4:31fa:cb70])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a20:450f:b0:3d1:ae83:6fc2
+ with SMTP id adf61e73a8af0-3da39d2824amr3452857637.9.1788481484209; Thu, 03
+ Sep 2026 17:24:44 -0700 (PDT)
 Reply-To: Sean Christopherson <seanjc@google.com>
-Date: Thu,  3 Sep 2026 17:24:16 -0700
+Date: Thu,  3 Sep 2026 17:24:22 -0700
 In-Reply-To: <20260904002423.3154436-1-seanjc@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -61,8 +61,8 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
 References: <20260904002423.3154436-1-seanjc@google.com>
 X-Mailer: git-send-email 2.55.0.979.g7e5102b832-goog
-Message-ID: <20260904002423.3154436-11-seanjc@google.com>
-Subject: [PATCH v4 10/17] KVM: selftests: Drop useless return code from load_vmcs()
+Message-ID: <20260904002423.3154436-17-seanjc@google.com>
+Subject: [PATCH v4 16/17] KVM: selftests: Always assert that vmwrite() succeeds
 From: Sean Christopherson <seanjc@google.com>
 To: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>
 Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org, f734222792@gmail.com, 
@@ -70,330 +70,177 @@ Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org, f734222792@gmail.com,
 	Yosry Ahmed <yosry@kernel.org>
 Content-Type: text/plain; charset="UTF-8"
 
-Now that load_vmcs() either asserts or returns success, drop the return
-code and the many asserts in its callers.
+Assert that vmwrite() succeeds instead of forcing all callers to do the
+same (or as is much more common, ignoring VM-Fail and likely letting the
+test fail in weird ways), opportunistically provide a more verbose error
+message on failure.
 
+All usage of vmwrite() "guarantees" success, either because the field in
+question is unconditionally emulated by KVM, by virtue of earlier support
+checks, or by falling over (later in the test) if the VMWRITE fails.
+
+Cc: Yosry Ahmed <yosry@kernel.org>
 Signed-off-by: Sean Christopherson <seanjc@google.com>
 ---
- tools/testing/selftests/kvm/include/x86/vmx.h                 | 2 +-
- tools/testing/selftests/kvm/lib/x86/memstress.c               | 2 +-
- tools/testing/selftests/kvm/lib/x86/vmx.c                     | 4 +---
- tools/testing/selftests/kvm/x86/aperfmperf_test.c             | 2 +-
- tools/testing/selftests/kvm/x86/kvm_buslock_test.c            | 2 +-
- tools/testing/selftests/kvm/x86/nested_close_kvm_test.c       | 2 +-
- tools/testing/selftests/kvm/x86/nested_dirty_log_test.c       | 2 +-
- tools/testing/selftests/kvm/x86/nested_emulation_test.c       | 2 +-
- tools/testing/selftests/kvm/x86/nested_exceptions_test.c      | 2 +-
- tools/testing/selftests/kvm/x86/nested_invalid_cr3_test.c     | 2 +-
- tools/testing/selftests/kvm/x86/nested_tdp_fault_test.c       | 2 +-
- tools/testing/selftests/kvm/x86/nested_tsc_adjust_test.c      | 2 +-
- tools/testing/selftests/kvm/x86/nested_tsc_scaling_test.c     | 2 +-
- tools/testing/selftests/kvm/x86/save_restore_pf_stress_test.c | 2 +-
- tools/testing/selftests/kvm/x86/smm_test.c                    | 2 +-
- tools/testing/selftests/kvm/x86/state_test.c                  | 2 +-
- tools/testing/selftests/kvm/x86/triple_fault_event_test.c     | 2 +-
- tools/testing/selftests/kvm/x86/vmx_apic_access_test.c        | 2 +-
- tools/testing/selftests/kvm/x86/vmx_apicv_updates_test.c      | 2 +-
- .../selftests/kvm/x86/vmx_invalid_nested_guest_state.c        | 2 +-
- tools/testing/selftests/kvm/x86/vmx_nested_la57_state_test.c  | 2 +-
- tools/testing/selftests/kvm/x86/vmx_preemption_timer_test.c   | 2 +-
- 22 files changed, 22 insertions(+), 24 deletions(-)
+ tools/testing/selftests/kvm/include/x86/vmx.h          |  5 +++--
+ tools/testing/selftests/kvm/x86/aperfmperf_test.c      |  2 +-
+ tools/testing/selftests/kvm/x86/kvm_buslock_test.c     |  2 +-
+ .../testing/selftests/kvm/x86/nested_emulation_test.c  |  6 +++---
+ .../testing/selftests/kvm/x86/nested_exceptions_test.c | 10 +++++-----
+ .../selftests/kvm/x86/save_restore_pf_stress_test.c    |  2 +-
+ tools/testing/selftests/kvm/x86/state_test.c           |  4 ++--
+ .../selftests/kvm/x86/vmx_preemption_timer_test.c      |  8 +++-----
+ 8 files changed, 19 insertions(+), 20 deletions(-)
 
 diff --git a/tools/testing/selftests/kvm/include/x86/vmx.h b/tools/testing/selftests/kvm/include/x86/vmx.h
-index 8f004b946826..5c46ae95c4c3 100644
+index 40111db580a8..be10028c51b9 100644
 --- a/tools/testing/selftests/kvm/include/x86/vmx.h
 +++ b/tools/testing/selftests/kvm/include/x86/vmx.h
-@@ -550,7 +550,7 @@ union vmx_ctrl_msr {
- struct vmx_pages *vcpu_alloc_vmx(struct kvm_vm *vm, gva_t *p_vmx_gva);
- void prepare_for_vmx_operation(struct vmx_pages *vmx);
- void prepare_vmcs(struct vmx_pages *vmx, void *guest_rip);
--bool load_vmcs(struct vmx_pages *vmx);
-+void load_vmcs(struct vmx_pages *vmx);
- 
- bool ept_1g_pages_supported(void);
- 
-diff --git a/tools/testing/selftests/kvm/lib/x86/memstress.c b/tools/testing/selftests/kvm/lib/x86/memstress.c
-index 2fa39470c1b3..207350ab6114 100644
---- a/tools/testing/selftests/kvm/lib/x86/memstress.c
-+++ b/tools/testing/selftests/kvm/lib/x86/memstress.c
-@@ -34,7 +34,7 @@ static void l1_vmx_code(struct vmx_pages *vmx, u64 vcpu_id)
- {
- 	GUEST_ASSERT(vmx->vmcs_gpa);
- 	prepare_for_vmx_operation(vmx);
--	GUEST_ASSERT(load_vmcs(vmx));
-+	load_vmcs(vmx);
- 	GUEST_ASSERT(ept_1g_pages_supported());
- 
- 	*(u64 *)vmx->stack = vcpu_id;
-diff --git a/tools/testing/selftests/kvm/lib/x86/vmx.c b/tools/testing/selftests/kvm/lib/x86/vmx.c
-index e65024b9ea0d..5c6cadc08405 100644
---- a/tools/testing/selftests/kvm/lib/x86/vmx.c
-+++ b/tools/testing/selftests/kvm/lib/x86/vmx.c
-@@ -166,7 +166,7 @@ void prepare_for_vmx_operation(struct vmx_pages *vmx)
- 	vmxon(vmx->vmxon_gpa);
+@@ -429,9 +429,10 @@ static __always_inline int __vmwrite(u64 encoding, u64 value)
+ 	return ret;
  }
  
--bool load_vmcs(struct vmx_pages *vmx)
-+void load_vmcs(struct vmx_pages *vmx)
+-static inline int vmwrite(u64 encoding, u64 value)
++static inline void vmwrite(u64 encoding, u64 value)
  {
- 	/* Load a VMCS. */
- 	*(u32 *)(vmx->vmcs) = vmcs_revision();
-@@ -177,8 +177,6 @@ bool load_vmcs(struct vmx_pages *vmx)
- 	/* Setup shadow VMCS, do not load it yet. */
- 	*(u32 *)(vmx->shadow_vmcs) = vmcs_revision() | 0x80000000ul;
- 	vmclear(vmx->shadow_vmcs_gpa);
--
--	return true;
+-	return __vmwrite(encoding, value);
++	__GUEST_ASSERT(!__vmwrite(encoding, value),
++		       "vmwrite[0x%lx] = 0x%lx hit VM-Fail", encoding, value);
  }
  
- static bool ept_vpid_cap_supported(u64 mask)
+ static inline u32 vmcs_revision(void)
 diff --git a/tools/testing/selftests/kvm/x86/aperfmperf_test.c b/tools/testing/selftests/kvm/x86/aperfmperf_test.c
-index e32131cd6ed1..11f5894d8ac7 100644
+index a082658c1e48..7761a8bdf5f6 100644
 --- a/tools/testing/selftests/kvm/x86/aperfmperf_test.c
 +++ b/tools/testing/selftests/kvm/x86/aperfmperf_test.c
-@@ -71,7 +71,7 @@ static void l1_svm_code(struct svm_test_data *svm)
- static void l1_vmx_code(struct vmx_pages *vmx)
- {
- 	prepare_for_vmx_operation(vmx);
--	GUEST_ASSERT_EQ(load_vmcs(vmx), true);
-+	load_vmcs(vmx);
+@@ -82,7 +82,7 @@ static void l1_vmx_code(struct vmx_pages *vmx)
+ 	vmwrite(CPU_BASED_VM_EXEC_CONTROL,
+ 		vmreadz(CPU_BASED_VM_EXEC_CONTROL) | CPU_BASED_USE_MSR_BITMAPS);
  
- 	prepare_vmcs(vmx, NULL);
+-	GUEST_ASSERT(!vmwrite(GUEST_RIP, (u64)l2_guest_code));
++	vmwrite(GUEST_RIP, (u64)l2_guest_code);
+ 	vmlaunch();
+ }
  
 diff --git a/tools/testing/selftests/kvm/x86/kvm_buslock_test.c b/tools/testing/selftests/kvm/x86/kvm_buslock_test.c
-index 2e006ce95896..22993ec697fa 100644
+index 337d3c28bc6d..e1d2730b16ba 100644
 --- a/tools/testing/selftests/kvm/x86/kvm_buslock_test.c
 +++ b/tools/testing/selftests/kvm/x86/kvm_buslock_test.c
-@@ -43,7 +43,7 @@ static void l1_svm_code(struct svm_test_data *svm)
- static void l1_vmx_code(struct vmx_pages *vmx)
- {
- 	prepare_for_vmx_operation(vmx);
--	GUEST_ASSERT_EQ(load_vmcs(vmx), true);
-+	load_vmcs(vmx);
+@@ -47,7 +47,7 @@ static void l1_vmx_code(struct vmx_pages *vmx)
  
  	prepare_vmcs(vmx, NULL);
  
-diff --git a/tools/testing/selftests/kvm/x86/nested_close_kvm_test.c b/tools/testing/selftests/kvm/x86/nested_close_kvm_test.c
-index 479e9adcc20b..309cab009929 100644
---- a/tools/testing/selftests/kvm/x86/nested_close_kvm_test.c
-+++ b/tools/testing/selftests/kvm/x86/nested_close_kvm_test.c
-@@ -31,7 +31,7 @@ static void l2_guest_code(void)
- static void l1_vmx_code(struct vmx_pages *vmx_pages)
- {
- 	prepare_for_vmx_operation(vmx_pages);
--	GUEST_ASSERT(load_vmcs(vmx_pages));
-+	load_vmcs(vmx_pages);
+-	GUEST_ASSERT(!vmwrite(GUEST_RIP, (u64)l2_guest_code));
++	vmwrite(GUEST_RIP, (u64)l2_guest_code);
+ 	vmlaunch();
+ }
  
- 	/* Prepare the VMCS for L2 execution. */
- 	prepare_vmcs(vmx_pages, l2_guest_code);
-diff --git a/tools/testing/selftests/kvm/x86/nested_dirty_log_test.c b/tools/testing/selftests/kvm/x86/nested_dirty_log_test.c
-index 57f49471f4aa..dca2bfc8b158 100644
---- a/tools/testing/selftests/kvm/x86/nested_dirty_log_test.c
-+++ b/tools/testing/selftests/kvm/x86/nested_dirty_log_test.c
-@@ -94,7 +94,7 @@ void l1_vmx_code(struct vmx_pages *vmx)
- 
- 	GUEST_ASSERT(vmx->vmcs_gpa);
- 	prepare_for_vmx_operation(vmx);
--	GUEST_ASSERT(load_vmcs(vmx));
-+	load_vmcs(vmx);
- 
- 	if (vmx->eptp_gpa)
- 		l2_rip = l2_guest_code_tdp_enabled;
 diff --git a/tools/testing/selftests/kvm/x86/nested_emulation_test.c b/tools/testing/selftests/kvm/x86/nested_emulation_test.c
-index 6f27930bb6b5..2b38eff4f516 100644
+index 51e2f7e386c1..009932b1604e 100644
 --- a/tools/testing/selftests/kvm/x86/nested_emulation_test.c
 +++ b/tools/testing/selftests/kvm/x86/nested_emulation_test.c
-@@ -67,7 +67,7 @@ static void guest_code(void *test_data)
- 		vmcb->control.intercept_exceptions = 0;
- 	} else {
- 		prepare_for_vmx_operation(test_data);
--		GUEST_ASSERT(load_vmcs(test_data));
-+		load_vmcs(test_data);
+@@ -70,9 +70,9 @@ static void guest_code(void *test_data)
+ 		load_vmcs(test_data);
  
  		prepare_vmcs(test_data, NULL);
- 		GUEST_ASSERT(!vmwrite(GUEST_IDTR_LIMIT, 0));
+-		GUEST_ASSERT(!vmwrite(GUEST_IDTR_LIMIT, 0));
+-		GUEST_ASSERT(!vmwrite(GUEST_RIP, (u64)l2_guest_code));
+-		GUEST_ASSERT(!vmwrite(EXCEPTION_BITMAP, 0));
++		vmwrite(GUEST_IDTR_LIMIT, 0);
++		vmwrite(GUEST_RIP, (u64)l2_guest_code);
++		vmwrite(EXCEPTION_BITMAP, 0);
+ 
+ 		vmwrite(CPU_BASED_VM_EXEC_CONTROL, vmreadz(CPU_BASED_VM_EXEC_CONTROL) |
+ 						   CPU_BASED_PAUSE_EXITING |
 diff --git a/tools/testing/selftests/kvm/x86/nested_exceptions_test.c b/tools/testing/selftests/kvm/x86/nested_exceptions_test.c
-index 6a36cf4d1eab..50c271a03692 100644
+index 031eb84229dc..d0beaa7b280b 100644
 --- a/tools/testing/selftests/kvm/x86/nested_exceptions_test.c
 +++ b/tools/testing/selftests/kvm/x86/nested_exceptions_test.c
-@@ -127,7 +127,7 @@ static void l1_vmx_code(struct vmx_pages *vmx)
- {
- 	prepare_for_vmx_operation(vmx);
+@@ -110,7 +110,7 @@ static void l1_svm_code(struct svm_test_data *svm)
  
--	GUEST_ASSERT_EQ(load_vmcs(vmx), true);
-+	load_vmcs(vmx);
+ static void vmx_run_l2(void *l2_code, int vector, u32 error_code)
+ {
+-	GUEST_ASSERT(!vmwrite(GUEST_RIP, (u64)l2_code));
++	vmwrite(GUEST_RIP, (u64)l2_code);
+ 
+ 	if (vector == SS_VECTOR)
+ 		vmlaunch();
+@@ -133,21 +133,21 @@ static void l1_vmx_code(struct vmx_pages *vmx)
+ 	load_vmcs(vmx);
  
  	prepare_vmcs(vmx, NULL);
- 	GUEST_ASSERT_EQ(vmwrite(GUEST_IDTR_LIMIT, 0), 0);
-diff --git a/tools/testing/selftests/kvm/x86/nested_invalid_cr3_test.c b/tools/testing/selftests/kvm/x86/nested_invalid_cr3_test.c
-index 749a93c318fe..43deb3b358ea 100644
---- a/tools/testing/selftests/kvm/x86/nested_invalid_cr3_test.c
-+++ b/tools/testing/selftests/kvm/x86/nested_invalid_cr3_test.c
-@@ -41,7 +41,7 @@ static void l1_vmx_code(struct vmx_pages *vmx_pages)
- 	uintptr_t save_cr3;
+-	GUEST_ASSERT_EQ(vmwrite(GUEST_IDTR_LIMIT, 0), 0);
++	vmwrite(GUEST_IDTR_LIMIT, 0);
  
- 	prepare_for_vmx_operation(vmx_pages);
--	GUEST_ASSERT(load_vmcs(vmx_pages));
-+	load_vmcs(vmx_pages);
+ 	/*
+ 	 * VMX disallows injecting an exception with error_code[31:16] != 0,
+ 	 * and hardware will never generate a VM-Exit with bits 31:16 set.
+ 	 * KVM should likewise truncate the "bad" userspace value.
+ 	 */
+-	GUEST_ASSERT_EQ(vmwrite(EXCEPTION_BITMAP, INTERCEPT_SS_GP_DF), 0);
++	vmwrite(EXCEPTION_BITMAP, INTERCEPT_SS_GP_DF);
+ 	vmx_run_l2(l2_ss_pending_test, SS_VECTOR, (u16)SS_ERROR_CODE);
+ 	vmx_run_l2(l2_ss_injected_gp_test, GP_VECTOR, GP_ERROR_CODE_INTEL);
  
- 	prepare_vmcs(vmx_pages, l2_guest_code);
+-	GUEST_ASSERT_EQ(vmwrite(EXCEPTION_BITMAP, INTERCEPT_SS_DF), 0);
++	vmwrite(EXCEPTION_BITMAP, INTERCEPT_SS_DF);
+ 	vmx_run_l2(l2_ss_injected_df_test, DF_VECTOR, DF_ERROR_CODE);
  
-diff --git a/tools/testing/selftests/kvm/x86/nested_tdp_fault_test.c b/tools/testing/selftests/kvm/x86/nested_tdp_fault_test.c
-index b143ebe710e7..52df467e9c44 100644
---- a/tools/testing/selftests/kvm/x86/nested_tdp_fault_test.c
-+++ b/tools/testing/selftests/kvm/x86/nested_tdp_fault_test.c
-@@ -56,7 +56,7 @@ static void l1_vmx_code(struct vmx_pages *vmx, u64 expected_fault_gpa,
+-	GUEST_ASSERT_EQ(vmwrite(EXCEPTION_BITMAP, INTERCEPT_SS), 0);
++	vmwrite(EXCEPTION_BITMAP, INTERCEPT_SS);
+ 	vmx_run_l2(l2_ss_injected_tf_test, FAKE_TRIPLE_FAULT_VECTOR, 0);
+ 	GUEST_ASSERT_EQ(vmreadz(VM_EXIT_REASON), EXIT_REASON_TRIPLE_FAULT);
  
- 	GUEST_ASSERT(vmx->vmcs_gpa);
- 	prepare_for_vmx_operation(vmx);
--	GUEST_ASSERT(load_vmcs(vmx));
-+	load_vmcs(vmx);
- 
- 	prepare_vmcs(vmx, l2_entry);
- 
-diff --git a/tools/testing/selftests/kvm/x86/nested_tsc_adjust_test.c b/tools/testing/selftests/kvm/x86/nested_tsc_adjust_test.c
-index 3d2eae848ba6..05194762ed33 100644
---- a/tools/testing/selftests/kvm/x86/nested_tsc_adjust_test.c
-+++ b/tools/testing/selftests/kvm/x86/nested_tsc_adjust_test.c
-@@ -87,7 +87,7 @@ static void l1_guest_code(void *data)
- 		u32 control;
- 
- 		prepare_for_vmx_operation(vmx_pages);
--		GUEST_ASSERT(load_vmcs(vmx_pages));
-+		load_vmcs(vmx_pages);
- 
- 		prepare_vmcs(vmx_pages, l2_guest_code);
- 		control = vmreadz(CPU_BASED_VM_EXEC_CONTROL);
-diff --git a/tools/testing/selftests/kvm/x86/nested_tsc_scaling_test.c b/tools/testing/selftests/kvm/x86/nested_tsc_scaling_test.c
-index 584071146b69..b9fae268a9ec 100644
---- a/tools/testing/selftests/kvm/x86/nested_tsc_scaling_test.c
-+++ b/tools/testing/selftests/kvm/x86/nested_tsc_scaling_test.c
-@@ -106,7 +106,7 @@ static void l1_vmx_code(struct vmx_pages *vmx_pages)
- 	check_tsc_freq(UCHECK_L1);
- 
- 	prepare_for_vmx_operation(vmx_pages);
--	GUEST_ASSERT(load_vmcs(vmx_pages));
-+	load_vmcs(vmx_pages);
- 
- 	/* prepare the VMCS for L2 execution */
- 	prepare_vmcs(vmx_pages, l2_guest_code);
 diff --git a/tools/testing/selftests/kvm/x86/save_restore_pf_stress_test.c b/tools/testing/selftests/kvm/x86/save_restore_pf_stress_test.c
-index 6ab73a0bd34a..c0e4d6e156ad 100644
+index f88427e925fc..e728f040916f 100644
 --- a/tools/testing/selftests/kvm/x86/save_restore_pf_stress_test.c
 +++ b/tools/testing/selftests/kvm/x86/save_restore_pf_stress_test.c
-@@ -99,7 +99,7 @@ static void l1_svm_code(struct svm_test_data *svm)
- static void l1_vmx_code(struct vmx_pages *vmx)
- {
- 	prepare_for_vmx_operation(vmx);
--	GUEST_ASSERT(load_vmcs(vmx));
-+	load_vmcs(vmx);
+@@ -102,7 +102,7 @@ static void l1_vmx_code(struct vmx_pages *vmx)
+ 	load_vmcs(vmx);
  	prepare_vmcs(vmx, guest_access_memory);
  
- 	GUEST_ASSERT(!vmwrite(EXCEPTION_BITMAP, BIT(UD_VECTOR)));
-diff --git a/tools/testing/selftests/kvm/x86/smm_test.c b/tools/testing/selftests/kvm/x86/smm_test.c
-index be5662792ec8..377df09e582a 100644
---- a/tools/testing/selftests/kvm/x86/smm_test.c
-+++ b/tools/testing/selftests/kvm/x86/smm_test.c
-@@ -79,7 +79,7 @@ static void guest_code(void *arg)
- 			generic_svm_setup(svm, l2_guest_code);
- 		} else {
- 			prepare_for_vmx_operation(vmx_pages);
--			GUEST_ASSERT(load_vmcs(vmx_pages));
-+			load_vmcs(vmx_pages);
- 			prepare_vmcs(vmx_pages, l2_guest_code);
- 		}
+-	GUEST_ASSERT(!vmwrite(EXCEPTION_BITMAP, BIT(UD_VECTOR)));
++	vmwrite(EXCEPTION_BITMAP, BIT(UD_VECTOR));
  
+ 	vmlaunch();
+ 	while (1) {
 diff --git a/tools/testing/selftests/kvm/x86/state_test.c b/tools/testing/selftests/kvm/x86/state_test.c
-index a7786f478be0..bd5e9e36b2c9 100644
+index 38c9689ac601..7cb1d160e2d9 100644
 --- a/tools/testing/selftests/kvm/x86/state_test.c
 +++ b/tools/testing/selftests/kvm/x86/state_test.c
-@@ -77,7 +77,7 @@ static void vmx_l1_guest_code(struct vmx_pages *vmx_pages)
- 	GUEST_ASSERT(vmx_pages->vmcs_gpa);
- 	prepare_for_vmx_operation(vmx_pages);
- 	GUEST_SYNC(3);
--	GUEST_ASSERT(load_vmcs(vmx_pages));
-+	load_vmcs(vmx_pages);
- 	GUEST_ASSERT(vmptrst() == vmx_pages->vmcs_gpa);
+@@ -62,10 +62,10 @@ void vmx_l2_guest_code(void)
+ 	GUEST_ASSERT(vmreadz(GUEST_RIP) == 0xc0ffee);
+ 	GUEST_SYNC(10);
+ 	GUEST_ASSERT(vmreadz(GUEST_RIP) == 0xc0ffee);
+-	GUEST_ASSERT(!vmwrite(GUEST_RIP, 0xc0fffee));
++	vmwrite(GUEST_RIP, 0xc0fffee);
+ 	GUEST_SYNC(11);
+ 	GUEST_ASSERT(vmreadz(GUEST_RIP) == 0xc0fffee);
+-	GUEST_ASSERT(!vmwrite(GUEST_RIP, 0xc0ffffee));
++	vmwrite(GUEST_RIP, 0xc0ffffee);
+ 	GUEST_SYNC(12);
  
- 	GUEST_SYNC(4);
-diff --git a/tools/testing/selftests/kvm/x86/triple_fault_event_test.c b/tools/testing/selftests/kvm/x86/triple_fault_event_test.c
-index 57e79922b16b..a9fb7046ea4f 100644
---- a/tools/testing/selftests/kvm/x86/triple_fault_event_test.c
-+++ b/tools/testing/selftests/kvm/x86/triple_fault_event_test.c
-@@ -26,7 +26,7 @@ void l1_guest_code_vmx(struct vmx_pages *vmx)
- 
- 	GUEST_ASSERT(vmx->vmcs_gpa);
- 	prepare_for_vmx_operation(vmx);
--	GUEST_ASSERT(load_vmcs(vmx));
-+	load_vmcs(vmx);
- 
- 	prepare_vmcs(vmx, l2_guest_code);
- 
-diff --git a/tools/testing/selftests/kvm/x86/vmx_apic_access_test.c b/tools/testing/selftests/kvm/x86/vmx_apic_access_test.c
-index 7df9ab833cb2..1793f7b02219 100644
---- a/tools/testing/selftests/kvm/x86/vmx_apic_access_test.c
-+++ b/tools/testing/selftests/kvm/x86/vmx_apic_access_test.c
-@@ -39,7 +39,7 @@ static void l1_guest_code(struct vmx_pages *vmx_pages, unsigned long high_gpa)
- 	u32 control;
- 
- 	prepare_for_vmx_operation(vmx_pages);
--	GUEST_ASSERT(load_vmcs(vmx_pages));
-+	load_vmcs(vmx_pages);
- 
- 	/* Prepare the VMCS for L2 execution. */
- 	prepare_vmcs(vmx_pages, l2_guest_code);
-diff --git a/tools/testing/selftests/kvm/x86/vmx_apicv_updates_test.c b/tools/testing/selftests/kvm/x86/vmx_apicv_updates_test.c
-index 8e4dc304533a..f7ebc9b15629 100644
---- a/tools/testing/selftests/kvm/x86/vmx_apicv_updates_test.c
-+++ b/tools/testing/selftests/kvm/x86/vmx_apicv_updates_test.c
-@@ -34,7 +34,7 @@ static void l1_guest_code(struct vmx_pages *vmx_pages)
- 	u32 control;
- 
- 	prepare_for_vmx_operation(vmx_pages);
--	GUEST_ASSERT(load_vmcs(vmx_pages));
-+	load_vmcs(vmx_pages);
- 
- 	/* Prepare the VMCS for L2 execution. */
- 	prepare_vmcs(vmx_pages, l2_guest_code);
-diff --git a/tools/testing/selftests/kvm/x86/vmx_invalid_nested_guest_state.c b/tools/testing/selftests/kvm/x86/vmx_invalid_nested_guest_state.c
-index 8999f0458aa1..4a6445958cf4 100644
---- a/tools/testing/selftests/kvm/x86/vmx_invalid_nested_guest_state.c
-+++ b/tools/testing/selftests/kvm/x86/vmx_invalid_nested_guest_state.c
-@@ -42,7 +42,7 @@ static void l2_guest_code(void)
- static void l1_guest_code(struct vmx_pages *vmx_pages)
- {
- 	prepare_for_vmx_operation(vmx_pages);
--	GUEST_ASSERT(load_vmcs(vmx_pages));
-+	load_vmcs(vmx_pages);
- 
- 	/* Prepare the VMCS for L2 execution. */
- 	prepare_vmcs(vmx_pages, l2_guest_code);
-diff --git a/tools/testing/selftests/kvm/x86/vmx_nested_la57_state_test.c b/tools/testing/selftests/kvm/x86/vmx_nested_la57_state_test.c
-index 444596ab1592..04c2d5113e84 100644
---- a/tools/testing/selftests/kvm/x86/vmx_nested_la57_state_test.c
-+++ b/tools/testing/selftests/kvm/x86/vmx_nested_la57_state_test.c
-@@ -38,7 +38,7 @@ static void l1_guest_code(struct vmx_pages *vmx_pages)
- 
- 	GUEST_ASSERT(vmx_pages->vmcs_gpa);
- 	prepare_for_vmx_operation(vmx_pages);
--	GUEST_ASSERT(load_vmcs(vmx_pages));
-+	load_vmcs(vmx_pages);
- 
- 	prepare_vmcs(vmx_pages, l2_guest_code);
- 
+ 	/* Done, exit to L1 and never come back.  */
 diff --git a/tools/testing/selftests/kvm/x86/vmx_preemption_timer_test.c b/tools/testing/selftests/kvm/x86/vmx_preemption_timer_test.c
-index 09f9686657ad..50fc9309158f 100644
+index cda53df33888..c5f9d9879f61 100644
 --- a/tools/testing/selftests/kvm/x86/vmx_preemption_timer_test.c
 +++ b/tools/testing/selftests/kvm/x86/vmx_preemption_timer_test.c
-@@ -72,7 +72,7 @@ void l1_guest_code(struct vmx_pages *vmx_pages)
+@@ -97,12 +97,10 @@ void l1_guest_code(struct vmx_pages *vmx_pages)
+ 	/*
+ 	 * Turn on PIN control and resume the guest
+ 	 */
+-	GUEST_ASSERT(!vmwrite(PIN_BASED_VM_EXEC_CONTROL,
+-			      vmreadz(PIN_BASED_VM_EXEC_CONTROL) |
+-			      PIN_BASED_VMX_PREEMPTION_TIMER));
++	vmwrite(PIN_BASED_VM_EXEC_CONTROL,
++		vmreadz(PIN_BASED_VM_EXEC_CONTROL) | PIN_BASED_VMX_PREEMPTION_TIMER);
  
- 	GUEST_ASSERT(vmx_pages->vmcs_gpa);
- 	prepare_for_vmx_operation(vmx_pages);
--	GUEST_ASSERT(load_vmcs(vmx_pages));
-+	load_vmcs(vmx_pages);
- 	GUEST_ASSERT(vmptrst() == vmx_pages->vmcs_gpa);
+-	GUEST_ASSERT(!vmwrite(VMX_PREEMPTION_TIMER_VALUE,
+-			      PREEMPTION_TIMER_VALUE));
++	vmwrite(VMX_PREEMPTION_TIMER_VALUE, PREEMPTION_TIMER_VALUE);
  
- 	prepare_vmcs(vmx_pages, l2_guest_code);
+ 	vmx_pt_rate = rdmsr(MSR_IA32_VMX_MISC) & 0x1F;
+ 
 -- 
 2.55.0.979.g7e5102b832-goog
 
