@@ -1,53 +1,93 @@
-Received: from mail.toke.dk (mail.toke.dk [45.145.95.4])
+Received: from smtpbgjp3.qq.com (smtpbgjp3.qq.com [54.92.39.34])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC54646AA97;
-	Fri,  4 Sep 2026 11:59:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.145.95.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E750C378824
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 12:00:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.92.39.34
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788523193; cv=none; b=dB5++vyb2ZBrjMMJkmOUON7/3A//rcWmuX2pf8Fo4AAJ7o7QMWWngt50cU8OIOm4tpgbnsPnC0CHbw2afrJg2KGAyaI2JYjqFWxAjYJFXp2EhlUShAIIex9GMOjulZvtpvsx+fVPB1Z6M29z8kYSHmbk+BjaB8CkQ1sTcmKKWl8=
+	t=1788523211; cv=none; b=PZjyOa0We5LBUgL3pj0GgfMBIoFXhh3FoSFIhqM9d0oz5HYlO8397fYf4MtGhmCNEFgTCKs/61A/EQsx10lMWamTKOBpv09HoTYZjwlFRtX0+zMTkWmop5LixWH34ESfgNSy0WxEZVv/iS+azxgOQnVUkYtN5BWXI4Ka0uAB+T8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788523193; c=relaxed/simple;
-	bh=Xj8TA1cKS7tAXlzA1b88MAJM5sgtnSyLe1xDNVRbAAI=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=l20E+hJmvYFq2tmelGt+ZOxvQtFyh28kYf8xn5+c9OLw2QMdfQ+YhhkRCWkabLxkMYzFMDnICctYalDXn/zKx8Av1GQTuIG5k5OBgh7ax/ygkb17RiXsZ+v8VLskWrLDgAVHI4fxwZGkK/IPIWR2hudo0fZDQ2pmsLVdFc/Q8Ps=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=toke.dk; spf=pass smtp.mailfrom=toke.dk; arc=none smtp.client-ip=45.145.95.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=toke.dk
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=toke.dk
-Authentication-Results: mail.toke.dk; dkim=none
-From: Toke =?utf-8?Q?H=C3=B8iland-J=C3=B8rgensen?= <toke@toke.dk>
-To: Pengpeng Hou <pengpeng@iscas.ac.cn>
-Cc: Pengpeng Hou <pengpeng@iscas.ac.cn>, linux-wireless@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] wifi: ath9k: validate RX stream lengths before copying
-In-Reply-To: <20260701053823.49801-1-pengpeng@iscas.ac.cn>
-References: <20260701053823.49801-1-pengpeng@iscas.ac.cn>
-Date: Fri, 04 Sep 2026 13:59:49 +0200
-X-Clacks-Overhead: GNU Terry Pratchett
-Message-ID: <87qzj9tefe.fsf@toke.dk>
+	s=arc-20240116; t=1788523211; c=relaxed/simple;
+	bh=CgQf+B3SvYZRu1f3QssxgcgWnfYZODXI8JXRV6DDSrI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=QtGdY4Hu9rUAtvhSR/2/jkufl+UWF2uFkCLOYst61yx4/4xkOw2tnTqsJ/TCvAltyQO9KJpdMoV8ioDVJ+nyK3TiMVe6W79i4pUZl3CEHXmg7hgkIc12hRHiJB/kktIQTqZ0krACP/HI9RDLauvacAVFoCDx7L54QZzzLs7UJUI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=G5dofKio; arc=none smtp.client-ip=54.92.39.34
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="G5dofKio"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
+	s=onoh2408; t=1788523116;
+	bh=CgQf+B3SvYZRu1f3QssxgcgWnfYZODXI8JXRV6DDSrI=;
+	h=From:To:Subject:Date:Message-ID:MIME-Version;
+	b=G5dofKio1U5ZeIPAVQ3CvYobA4Qxf/xZMUoO2Nb70cdyEzx2ywLWJXbAuBFPcF0ET
+	 NHZhCd61+NcrgPjUtMusP0MgoE8fd1TlriDg/ZAIbPhVIr9mmoi5IGshLAHg+yC23w
+	 IuwWAmWm3tFdMm98xm6EF5z9FU5Dafno8JTTiAZg=
+X-QQ-mid: zesmtpsz7t1788523109t32eeaed7
+X-QQ-Originating-IP: Yf6zIeMAQMXg7vQ9lJEY7WQGlVEiqJORvs6GqIv+C3s=
+Received: from ggx-PC ( [113.57.152.160])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Fri, 04 Sep 2026 19:58:26 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 1
+X-BIZMAIL-ID: 3520154375068366657
+From: gaoguixing <gaoguixing@uniontech.com>
+To: Kairui Song <kasong@tencent.com>
+Cc: linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Chris Li <chrisl@kernel.org>,
+	Kemeng Shi <shikemeng@huaweicloud.com>,
+	Nhat Pham <nphamcs@gmail.com>,
+	Baoquan He <bhe@redhat.com>,
+	Barry Song <baohua@kernel.org>
+Subject: Re: [RFC PATCH] mm/swap: fix swap table count encoding for empty slots
+Date: Fri,  4 Sep 2026 19:58:26 +0800
+Message-ID: <4442A232A068B3D9+20260904115826.193612-1-gaoguixing@uniontech.com>
+X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: zesmtpsz:uniontech.com:qybglogicsvrsz:qybglogicsvrsz3b-0
+X-QQ-XMAILINFO: Nv1Zs1ssfOILZ2647zMltOD2pep99YXU4SI5Z9vviMHKTOkhPGUIP9zF
+	GUX4fB3GyU5NNhQB4zLiKR+mUeAHqBgJ4pTOrWRbo5C5Ix4nGvuDphlwSxqDVRyXxVjmwMq
+	Yr7A4h+8ompDAuv+K8xorFBdRR3gAci/52pKyX5PSPfulDz3yZDVl20vWpqXylGepIshCM8
+	inuH6OtQ2H/NQbHJ977v/ymKqkOQTK7ZrNu7ebbIzqvcNQZnT4qMe934zK7iPgztBvrX+5r
+	R2BoX5ttFth3EFJnHzD6gmNoYR8nQVOtBrkeq6x/1F2wPcUWHJvDmB30adqZEPnqVMJxS2i
+	wceV962hu0+ZJPxcqBASn9U4AaOYHVlAe231mjVoSTZp01c4reG5WBWp6HfkEUcAtQibM8f
+	LRW/GWt6ind5QzMvRl6fJZ8yH4sBsGO1wzZcY4OL5rlFcDOBXV22HK1vmhn2oh7yLSRqA5r
+	O405BrEGXRNMPeoXYGRaiqaLIcLjRpG9BWi6I9AHqsIC0rSlPC40/r10vd9NoiR/0ogPzBJ
+	+6+G7k7dvrePuA2p5Xd3HpBcocOYp58kD2y/wfZj96IvcmQrkDb/b0gsGBAAer8xxtCW3up
+	F45k7N91P0WucssxkKRwvIPQa7REYX/5xQevHXDZg4A+g9H7BtPRxbeJNwATEELiwm2LJjS
+	1rwmrHqC9nQoQcHrWIEW19LKhP42WX5IwI6qry/7iB7+Y0pHh3ZpOc/1EdPDXNSzHDgCQTo
+	ETcBBYC8UArzSybPsEnCXR17YOvWs7GmKieOkqesJ7/g29zCemgBLPxxbeOLYBSbZ+wLiju
+	C+VFtrCzqyTUd7129eDKZ6L9f67n+h/3uFXtc/aj5eyadG8lRGjo1+abAJq6aiNYru0CYaL
+	SEdrSQv9h1wMprAJkD3danqFBJf3S3FdMMHqdge9Flu0ms2OLKb3m3iiv7AQTDAw24RP9Og
+	vYBRMh7cvh0uB2Y/QXOaKvUQOxO7F59zBR0Ysfw+8Di6TItWGUVRsAvTe927HJxKcUYAFq4
+	/YoFHqboxQfLcgsQJUoL7f4+UNf2Ur6Ag5SmDvxA==
+X-QQ-XMRINFO: NS+P29fieYNwqS3WCnRCOn9D1NpZuCnCRA==
+X-QQ-RECHKSPAM: 0
 
-Pengpeng Hou <pengpeng@iscas.ac.cn> writes:
+Hello,
 
-> ath9k_hif_usb_rx_stream() reads RX stream headers and copies payload
-> bytes from the current skb into newly allocated skbs. It also completes
-> packets that span two URBs by copying the remaining bytes from the next
-> skb into hif_dev->remain_skb.
->
-> The parser checked the stream tag and an upper bound on pkt_len, but it
-> did not first prove that the fixed header, the non-fragmented payload,
-> or the bytes needed to complete a fragmented packet are present in the
-> current skb. Reject malformed RX stream data before reading or copying
-> beyond the received buffer.
->
-> Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
+Sorry for the confusion and for sending the RFC without sufficient
+context.
 
-Acked-by: Toke H=C3=B8iland-J=C3=B8rgensen <toke@toke.dk>
+You are correct: __swap_table_update_count() comes from my local 6.18.y
+adaptation and is not present in the upstream series. The issue is in my
+adaptation, which incorrectly passed a count-only value to a helper that
+expects the complete flags field.
 
+The current diff is therefore not directly applicable upstream. Please
+disregard it for now. I will rebase the adaptation onto the upstream
+series, verify the issue independently, and send a proper patch with the
+necessary rationale and test results.
+
+Thank you for pointing this out.
+
+Best regards,
+Guoxing
