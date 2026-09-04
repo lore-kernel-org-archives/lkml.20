@@ -1,227 +1,152 @@
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
+Received: from mta0.migadu.com (out-35.mta0.migadu.com [91.218.175.35])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8530F377ABF
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 02:42:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28C2E392C29
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 02:42:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.35
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788489740; cv=none; b=NDVBHKpDD6NiLAFkPcCqPQRSTQsmF6AnBqKO7qLU7QzgG+aSNVsCob+IIssAtJ0PugPztLt8/NT16dj3dhkob8OtQN69tONtF4TI5aeA6ZXfWvqZ6oHDUd4w1koYMtAg5AIuKM98SMrDR3zXW6eC9B7IaLBqBbE5voMu79A4TYo=
+	t=1788489756; cv=none; b=ua0WkhmkQOf1GjJHEioPaQGV1svhKALm8LHX+NV5GUXnXC5k+op6+QE+QDR/y33Jx9mqTdNes+n8QiwiGxxkUUz0e5h4tdlQ18fsGktxe1TbTGaD9leZKpULL5yelmTDjlTcTqQBlucHeaV3zfdICOJVBkze0aAGXmUYw/NZfWQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788489740; c=relaxed/simple;
-	bh=SL9uOnCvlABtmJYf+nsrBBVra8CdnLHPfpXHILvzBNw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=PenRC9pX7onc0kZ4nAAKyASWKNa0pTb0QmxkvkU+rbd26VALXBVF2Zdrw5OQdjNqMlqE1T2Kq9k4N08ZzXYWKOtIImb/j/hEiKukPgYbXLZ4LYUNOEISjHq4eT/tMns4iKT/+7Q/OFawbPfei91vsJzh3u2wTUizL5/04q34M18=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kYf0a4cf; arc=none smtp.client-ip=209.85.128.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788489756; c=relaxed/simple;
+	bh=lDr50yiDvYV5VZ9MgxKYG1BSJ1Fz54tjH96Y89/BBrE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=U5GArsboSBsS+CVAIE2T4NTO8FsD+J+HcJjEG2MVw4e6/0PIdIraqyLGvWsu6fz/6DJSDLPSH78YskuVMPAi2FugF3sYwD81DaL3qwxmnAPxpyDgoOFq8pBW0fLqyCWJjuZm7JPd8UzMJtgdC92JMbLDvipiIqNFSodFmC3TMAw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=vYlW6SLb; arc=none smtp.client-ip=91.218.175.35
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kYf0a4cf"
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-499b2981a7bso5118845e9.3
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 19:42:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788489737; x=1789094537; darn=vger.kernel.org;
-        h=user-agent:in-reply-to:content-disposition:content-type
-         :mime-version:references:reply-to:message-id:subject:cc:to:from:date
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=jByX/hUOJR9metF+xa8zMsLgboYN/Yuc7pkgyEeawdI=;
-        b=kYf0a4cfqDU4A8+4l3K65e/bn8w3DIoT+njWilGdwGZ5bXvrFWpLcGMLLdhBMUjd5H
-         od4UcAEIVclVlF2S0foozNDodBxPXNhLo9enfn+NM7KRnHhEDMnuJzH9IHCIGbGyWPrq
-         lItt64gESJBQGznnodZ/fyvcrqLtyGadmKQcux04cR+6zIYyfNNwEDNs/+XqYUtNfuCP
-         WL59hJayGdbqpS8fJAqamRIvzdDtgkU4fUX6hk4qXHPRZkTvO72taJtHkBjtt+KAiF59
-         NBthPrhCRc/hdQpoN7SvJzX6soTpeqjlWb/WxHTK4OzA00N4y2QBacLtTTwo2JdJW3B8
-         +gUg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788489737; x=1789094537;
-        h=user-agent:in-reply-to:content-disposition:content-type
-         :mime-version:references:reply-to:message-id:subject:cc:to:from:date
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=jByX/hUOJR9metF+xa8zMsLgboYN/Yuc7pkgyEeawdI=;
-        b=YM4lL/jvQrkGH1qaJEGX4Y4YReyjRLBJJ07YkFBynFE/baXowTFsv09fCg9NhBQNhr
-         lD8TuoaokfOqqaTx5Go4t2emBwdXIeUQpYA3y/KOsk/6dKkHPnizSvwGm8CSWEfZL4+K
-         k60MNNCfskhGESntrMrWn3bChnMP7yMmFDBKn7VvaxokHiGIVNi9cnQ4aj9mKnUrNzf7
-         20VSfgILCTpcUwP8nxmJgYXBu0HoOBOaDuj3+5rVOsJJeu+8Utm9oBHD39LmkLfXE++r
-         zsCu/DaA59iY+2dWNmW0cVQ3emL7zLoxHlvHbwH/EqDWtbL1hEGb7Q5wG1WNe91ikOtr
-         SMpA==
-X-Forwarded-Encrypted: i=1; AKwUvBxoe6d/lMod8bZpQhQ0pVnLfNfbrPBmZKkDyJzqe0NhSax8oXxLUrQ0ANh2v0zlgphIEH8oH9Q0aB/7EPU=@vger.kernel.org
-X-Gm-Message-State: AFuF++lIbGwn7eSDBxggBXXFsvv2Jbw8NBp9bwwRSoHv4IMFOextVDI9
-	kJDL9tIIjwGJqPEpeVhGFGo56+biO7rOjcl1BICbHXGsw1R/A5T8RLM/
-X-Gm-Gg: AYBFou3aySfYwDqPygc39OoluuvJPpC4TAzGfTjHqMd+uQYBr8kMTal7+WmRtZZ4N2O
-	KW8AMjznHt6axqOL62+gRe0oQrADL+Agl8WEt4vWtSOezoelbh2xs3cBSY79NPSwzxLI3ky+i44
-	LRckeQBl6yHa5Npb1Bv5DBjExZCVJ56sj02iHc5Llyy6vNlFbYiJ2x0i6QcwP8wwnwHemeJwRf4
-	IiYrCLVHo7mbatP4kVVXpVWRiSSF9MNJpuWU4tzXbx4N+JHLpU2hf6t1FhwCCyJPc0cOfYRYnVO
-	ewb5bjWA+gSqO4ZoQ7swFSaR0YtpXLcm3624uVL3uztLSS93KarXb6nirNYReNNjUb0YW5M7PsU
-	0RuPmYFHlgWuWqtqVCLd44tbtHBXQvBLF9U09n6R0Sbxkq7jmNJNOyHkgDMInc+hnFI94fiEp7C
-	FjOadluoGcGfmCOZIIMhdD2FcfX4xFAW9l7DCt5buP+lCdEQ1tFpUtT+DG4tY=
-X-Received: by 2002:a05:600c:4f4b:b0:499:83f1:398 with SMTP id 5b1f17b1804b1-49cf823f53emr34860435e9.9.1788489736619;
-        Thu, 03 Sep 2026 19:42:16 -0700 (PDT)
-Received: from localhost ([185.92.221.13])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cee3b0af8sm118348575e9.0.2026.09.03.19.42.15
-        (version=TLS1_2 cipher=ECDHE-ECDSA-CHACHA20-POLY1305 bits=256/256);
-        Thu, 03 Sep 2026 19:42:16 -0700 (PDT)
-Date: Fri, 4 Sep 2026 02:42:15 +0000
-From: Wei Yang <richard.weiyang@gmail.com>
-To: Yuan Liu <yuan1.liu@intel.com>
-Cc: David Hildenbrand <david@kernel.org>,
-	Oscar Salvador <osalvador@suse.de>, Mike Rapoport <rppt@kernel.org>,
-	Wei Yang <richard.weiyang@gmail.com>, linux-mm@kvack.org,
-	Nanhai Zou <nanhai.zou@intel.com>,
-	Chen Zhang <zhangchen.kidd@jd.com>,
-	Jason Zeng <jason.zeng@intel.com>, Chen Yu <yu.c.chen@intel.com>,
-	Pan Deng <pan.deng@intel.com>, Tianyou Li <tianyou.li@intel.com>,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v8 1/2] mm/memory_hotplug: make shrink_zone_span() more
- robust
-Message-ID: <20260904024215.2vg2j77kopwfv54e@master>
-Reply-To: Wei Yang <richard.weiyang@gmail.com>
-References: <20260901052950.3284540-1-yuan1.liu@intel.com>
- <20260901052950.3284540-2-yuan1.liu@intel.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="vYlW6SLb"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=lDr50yiDvYV5VZ9MgxKYG1BSJ1Fz54tjH96Y89/BBrE=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788489751; v=1; x=1789094551;
+ b=vYlW6SLbzNKW+pHHzcR7iohGmohEfVftqzata+lCbaR+wPStWrRUnbMCxStQk66YCaQAe0fP
+ sUl1FLbluXfNM41mItlmJpek1MEDGBpcfq9F8/fKEQsjvk0Dd6sCAfphjpjqHpfE57A8BeBfamz
+ ezWwxmVFkN1WlLvLAI6h89Ss=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 3a4ee7a862d7483b;
+	Fri, 04 Sep 2026 02:42:30 +0000
+X-Mizu-Trace-ID: 3a4ee7a862d7483b
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <2e302fc8-b3ed-4441-bb62-9e509baa3868@linux.dev>
+Date: Fri, 4 Sep 2026 10:42:05 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260901052950.3284540-2-yuan1.liu@intel.com>
-User-Agent: NeoMutt/20170113 (1.7.2)
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net] net/tcp-ao: transfer tcp_ao_info to the TIME_WAIT
+ socket
+To: Xiang Mei <xmei5@asu.edu>, Eric Dumazet <edumazet@google.com>,
+ Neal Cardwell <ncardwell@google.com>, Kuniyuki Iwashima <kuniyu@google.com>,
+ "David S . Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>
+Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Dmitry Safonov <0x7f454c46@gmail.com>,
+ Salam Noureddine <noureddine@arista.com>,
+ Francesco Ruggeri <fruggeri@arista.com>, David Ahern <dsahern@kernel.org>,
+ co+2c72469dbbec34af@bugs.sh, stable@vger.kernel.org
+References: <20260904005851.149071-1-xmei5@asu.edu>
+From: Jiayuan Chen <jiayuan.chen@linux.dev>
+In-Reply-To: <20260904005851.149071-1-xmei5@asu.edu>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Tue, Sep 01, 2026 at 01:29:49AM -0400, Yuan Liu wrote:
->From: "David Hildenbrand (Arm)" <david@kernel.org>
+
+on 9/4/26 8:58 AM, Xiang Mei wrote:
+> tcp_ao_time_wait() gives the TIME_WAIT socket a reference to the full
+> socket's tcp_ao_info but leaves tp->ao_info pointing at the same object.
+> That is only safe if the full socket is going away. On the tcp_fin()
+> FIN_WAIT2 path (and TCP_CLOSING in tcp_rcv_state_process()) tcp_done()
+> skips inet_csk_destroy_sock(), so the socket lives on in TCP_CLOSE with
+> its fd open while the hashed TIME_WAIT socket reads the same tcp_ao_info
+> from softirq, serialised against nothing.
 >
->Let's make shrink_zone_span() more robust by checking in
->find_smallest_section_pfn() / find_biggest_section_pfn() that the
->start and end PFNs of the subsection are within the zone.
-
-Either the start or end PFN is within the zone?
-
+> An unprivileged user can turn that into a NULL deref: tcp_disconnect()
+> does not clear ao_info, so connect(AF_UNSPEC) + listen() reaches
+> TCP_LISTEN where TCP_AO_DEL_KEY accepts del_async=1 and NULLs
+> ao_info->rnext_key, which tcp_v4_timewait_ack() then dereferences
+> unchecked. The triggering segment need not be authenticated, as
+> tcp_v4_rcv()'s do_time_wait: path skips tcp_inbound_hash().
 >
->While at it, clean up the function by factoring the core check out
->into subsection_overlaps_zone().
+> The refcount keeps the object allocated for both sockets, but nothing
+> keeps its contents coherent: the setsockopt writers hold the full
+> socket's lock while the TIME_WAIT reader runs in softirq, and no lock
+> spans the two. Make the transition a handover, as the sk_omem_alloc
+> charge moved here already implies: clear tp->ao_info instead of taking a
+> second reference, leaving the TIME_WAIT socket as sole owner. Such a
+> socket no longer exposes TCP-AO state (TCP_AO_INFO and TCP_AO_DEL_KEY
+> return -ENOENT); that state describes the finished connection and
+> belongs to the TIME_WAIT socket that keeps updating it.
 >
->There likely is no need to check the nid first. We require
->SPARSEMEM_VMEMMAP_ENABLE, where pfn_to_page() is cheap, and
->pfn_to_nid() on CONFIG_NUMA would call pfn_to_page() either way.
->So let's just drop that for now.
+>    Oops: general protection fault, probably for non-canonical address
+>      0xdffffc0000000010: 0000 [#1] SMP KASAN NOPTI
+>    KASAN: null-ptr-deref in range [0x0000000000000080-0x0000000000000087]
+>    RIP: 0010:tcp_v4_rcv (net/ipv4/tcp_ipv4.c:1055 net/ipv4/tcp_ipv4.c:2333)
+>    Call Trace:
+>     <IRQ>
+>     ip_protocol_deliver_rcu (net/ipv4/ip_input.c:207)
+>     ip_local_deliver_finish (net/ipv4/ip_input.c:241)
+>     ip_local_deliver (net/ipv4/ip_input.c:262)
+>     ip_rcv (net/ipv4/ip_input.c:612)
+>     __netif_receive_skb_one_core (net/core/dev.c:6264)
+>     process_backlog (net/core/dev.c:6728)
+>     __napi_poll (net/core/dev.c:7787)
+>     net_rx_action (net/core/dev.c:8007)
+>     handle_softirqs (kernel/softirq.c:645)
+>     do_softirq.part.0 (kernel/softirq.c:546)
+>     </IRQ>
+>     <TASK>
+>     __local_bh_enable_ip (kernel/softirq.c:473)
+>     __dev_queue_xmit (net/core/dev.c:4961)
+>     ip_finish_output2 (net/ipv4/ip_output.c:236)
+>     ip_output (net/ipv4/ip_output.c:437)
+>     __ip_queue_xmit (net/ipv4/ip_output.c:533)
+>     __tcp_transmit_skb (net/ipv4/tcp_output.c:1716)
+>     tcp_connect (net/ipv4/tcp_output.c:4383)
+>     tcp_v4_connect (net/ipv4/tcp_ipv4.c:345)
+>     __inet_stream_connect (net/ipv4/af_inet.c:684)
+>     inet_stream_connect (net/ipv4/af_inet.c:755)
+>     __sys_connect (net/socket.c:2183)
+>     __x64_sys_connect (net/socket.c:2189)
+>     do_syscall_64 (arch/x86/entry/syscall_64.c:84)
+>     entry_SYSCALL_64_after_hwframe (arch/x86/entry/entry_64.S:121)
+>     </TASK>
+>    Kernel panic - not syncing: Fatal exception in interrupt
 >
->Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
->Tested-by: Yuan Liu <yuan1.liu@intel.com>
->Signed-off-by: Yuan Liu <yuan1.liu@intel.com>
-
-Otherwise, LGTM.
-
-Reviewed-by: Wei Yang <richard.weiyang@gmail.com>
-
->---
-> mm/memory_hotplug.c | 59 ++++++++++++++++++---------------------------
-> 1 file changed, 24 insertions(+), 35 deletions(-)
+> Fixes: decde2586b34 ("net/tcp: Add TCP-AO sign to twsk")
+> Cc: stable@vger.kernel.org
+> Reported-by: co+2c72469dbbec34af@bugs.sh
+> Closes: https://lore.kernel.org/all/YG9s0PiBKJZcXAKld3MToa1IVRJOUoKiaA57%40bugs.sh/
+> Assisted-by: Claude:claude-opus-4-8
+> Signed-off-by: Xiang Mei <xmei5@asu.edu>
+> ---
+>   net/ipv4/tcp_ao.c | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
 >
->diff --git a/mm/memory_hotplug.c b/mm/memory_hotplug.c
->index 226ab9cb078a..9f19876ec3ec 100644
->--- a/mm/memory_hotplug.c
->+++ b/mm/memory_hotplug.c
->@@ -425,49 +425,39 @@ int __add_pages(int nid, unsigned long pfn, unsigned long nr_pages,
-> 	return err;
-> }
-> 
->-/* find the smallest valid pfn in the range [start_pfn, end_pfn) */
->-static unsigned long find_smallest_section_pfn(int nid, struct zone *zone,
->-				     unsigned long start_pfn,
->-				     unsigned long end_pfn)
->+static bool subsection_overlaps_zone(unsigned long pfn, struct zone *zone)
-> {
->-	for (; start_pfn < end_pfn; start_pfn += PAGES_PER_SUBSECTION) {
->-		if (unlikely(!pfn_to_online_page(start_pfn)))
->-			continue;
->+	const unsigned long start_pfn = ALIGN_DOWN(pfn, PAGES_PER_SUBSECTION);
->+	const unsigned long end_pfn = start_pfn + PAGES_PER_SUBSECTION - 1;
-> 
->-		if (unlikely(pfn_to_nid(start_pfn) != nid))
->-			continue;
->+	/* All pages in a subsection are either online or offline. */
->+	if (unlikely(!pfn_to_online_page(start_pfn)))
->+		return false;
-> 
->-		if (zone != page_zone(pfn_to_page(start_pfn)))
->-			continue;
->+	/* Checking start+end is sufficient. */
->+	return zone == page_zone(pfn_to_page(start_pfn)) ||
->+	       zone == page_zone(pfn_to_page(end_pfn));
->+}
-> 
->-		return start_pfn;
->+/* find the smallest valid pfn in the range [start_pfn, end_pfn) */
->+static unsigned long find_smallest_section_pfn(struct zone *zone,
->+		unsigned long start_pfn, unsigned long end_pfn)
->+{
->+	for (; start_pfn < end_pfn; start_pfn += PAGES_PER_SUBSECTION) {
->+		if (subsection_overlaps_zone(start_pfn, zone))
->+			return start_pfn;
-> 	}
->-
-> 	return 0;
-> }
-> 
-> /* find the biggest valid pfn in the range [start_pfn, end_pfn). */
->-static unsigned long find_biggest_section_pfn(int nid, struct zone *zone,
->-				    unsigned long start_pfn,
->-				    unsigned long end_pfn)
->+static unsigned long find_biggest_section_pfn(struct zone *zone,
->+		unsigned long start_pfn, unsigned long end_pfn)
-> {
->-	unsigned long pfn;
->-
->-	/* pfn is the end pfn of a memory section. */
->-	pfn = end_pfn - 1;
->-	for (; pfn >= start_pfn; pfn -= PAGES_PER_SUBSECTION) {
->-		if (unlikely(!pfn_to_online_page(pfn)))
->-			continue;
->-
->-		if (unlikely(pfn_to_nid(pfn) != nid))
->-			continue;
->-
->-		if (zone != page_zone(pfn_to_page(pfn)))
->-			continue;
->-
->-		return pfn;
->+	for (; end_pfn > start_pfn; end_pfn -= PAGES_PER_SUBSECTION) {
->+		if (subsection_overlaps_zone(end_pfn - 1, zone))
->+			return end_pfn - 1;
-> 	}
->-
-> 	return 0;
-> }
-> 
->@@ -475,7 +465,6 @@ static void shrink_zone_span(struct zone *zone, unsigned long start_pfn,
-> 			     unsigned long end_pfn)
-> {
-> 	unsigned long pfn;
->-	int nid = zone_to_nid(zone);
-> 
-> 	if (zone->zone_start_pfn == start_pfn) {
-> 		/*
->@@ -484,7 +473,7 @@ static void shrink_zone_span(struct zone *zone, unsigned long start_pfn,
-> 		 * In this case, we find second smallest valid mem_section
-> 		 * for shrinking zone.
-> 		 */
->-		pfn = find_smallest_section_pfn(nid, zone, end_pfn,
->+		pfn = find_smallest_section_pfn(zone, end_pfn,
-> 						zone_end_pfn(zone));
-> 		if (pfn) {
-> 			zone->spanned_pages = zone_end_pfn(zone) - pfn;
->@@ -500,7 +489,7 @@ static void shrink_zone_span(struct zone *zone, unsigned long start_pfn,
-> 		 * In this case, we find second biggest valid mem_section for
-> 		 * shrinking zone.
-> 		 */
->-		pfn = find_biggest_section_pfn(nid, zone, zone->zone_start_pfn,
->+		pfn = find_biggest_section_pfn(zone, zone->zone_start_pfn,
-> 					       start_pfn);
-> 		if (pfn)
-> 			zone->spanned_pages = pfn - zone->zone_start_pfn + 1;
->-- 
->2.47.3
+> diff --git a/net/ipv4/tcp_ao.c b/net/ipv4/tcp_ao.c
+> index bb7bbc20ba3f..27525f90398b 100644
+> --- a/net/ipv4/tcp_ao.c
+> +++ b/net/ipv4/tcp_ao.c
+> @@ -428,7 +428,7 @@ void tcp_ao_time_wait(struct tcp_timewait_sock *tcptw, struct tcp_sock *tp)
+>   			omem += tcp_ao_sizeof_key(key);
+>   		}
+>   
+> -		refcount_inc(&ao_info->refcnt);
+> +		rcu_assign_pointer(tp->ao_info, NULL);
+>   		atomic_sub(omem, &(((struct sock *)tp)->sk_omem_alloc));
+>   		rcu_assign_pointer(tcptw->ao_info, ao_info);
+>   	} else {
 
--- 
-Wei Yang
-Help you, Help me
+
+This looks like the simplest fix.
+
+But this fix moves ownership of ao_info. Before, when a socket reconnects,
+we didn't need to add new ao_key info — we could just reuse it. Now 
+after this
+fix, we have to re-add it on reconnect. I'm not sure if that case really 
+exists.
+
