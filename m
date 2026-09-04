@@ -1,190 +1,236 @@
-Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
+Received: from fhigh-b3-smtp.messagingengine.com (fhigh-b3-smtp.messagingengine.com [202.12.124.154])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9077A51E437;
-	Fri,  4 Sep 2026 19:06:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.151
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F19693932EA;
+	Fri,  4 Sep 2026 19:09:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.154
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788548803; cv=none; b=npiZC6VFu0H1MIsn4FHec9HUwOq7Azqtl5a6I51bAbUsxD52cIPk2CfXqS02MjA75vPfKuFJ1ihajmRXgcAYjJA4H155gQFKiK5OzkeDz5D9cwHohIs3q1gQYJM5jCOkTnYcRQ0feh4lNkNc2QGURxZx42lnU00Ezem5gxVf2hQ=
+	t=1788548984; cv=none; b=TEfhOQM1Tde+TvuC3V5hAUokcnQvg0XuQ6sBIlNu3+UfwXyhiaI53rhllF/mSYkifl9VEUhxRrMysUYp8UMkc9msfFkznQUJTuKrrqx/8AUjcbpI5Fx3/tmfOOHfEddEgKYEGeF5yN1fyGx1b0e7L5MzWEMvhLbr6kYoyw69kz8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788548803; c=relaxed/simple;
-	bh=BPD4fIE2hQPUTf0oTIx+CTkhgcJjNoGrsoDwgxoCIRw=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=A0fJJLiIp7rarJjasiB0e8rGf8OCXWO+TY5/48c6eWJiAq81TDKR9v7DZVpsXRKYYSWC5BFa+QRjYvUwLRAhbI8tHaZyfSdWznfFp2nRSqTegy3KeUpp/qbTQiUcvWXnpFCTJ2+kVoW97zKdP/NEYHcq3trBLKcAI+WbS5gVphM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=IcP9Q/jl; arc=none smtp.client-ip=80.241.56.151
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	s=arc-20240116; t=1788548984; c=relaxed/simple;
+	bh=yWPKa06wdV33sHqlVbOx/I7hTCE70vq1eC2Tx3A9yTk=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=hCeq8M3Jy+RUEkTYx8lzzwxgM1gKM2GwcPy9w8L/EuOhK4pkddLLezC+gg7kiGJW5z768NXoTsRwQSPh6RX2nOK18vlXgd3DLIqKa315o7HC3h+Kd03Wd1pO8JeN0BrNFjI8nF848uBuPrmEDwjPxBFv59LIjhsBCTSt794GiXM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=shazbot.org; spf=pass smtp.mailfrom=shazbot.org; dkim=pass (2048-bit key) header.d=shazbot.org header.i=@shazbot.org header.b=jq/mNMIB; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=nIxBGEEJ; arc=none smtp.client-ip=202.12.124.154
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=shazbot.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=shazbot.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="IcP9Q/jl"
-Received: from smtp102.mailbox.org (smtp102.mailbox.org [IPv6:2001:67c:2050:b231:465::102])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4hc5Y411JPz8sZs;
-	Fri, 04 Sep 2026 21:06:32 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1788548792; h=from:from:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=BPD4fIE2hQPUTf0oTIx+CTkhgcJjNoGrsoDwgxoCIRw=;
-	b=IcP9Q/jlU3GD+WteFSdXisILUqTCOPkmKmbsWQdAnMn4fA56SAlBscpRgXBKr8AtONeQhX
-	BVfdLHl4RddM8Qdnh79CPCeDC7mLMjmL1xEaJ6yy5GspcYFVeLpopDjiI02yuZurggwJ2V
-	YemJwHmgwcYu3E5ClOMA0NAKOI82mD6wmLClQBDfYV2z4AnO8d9gPpTMP14jo0NiTn3RI4
-	KZR4GGXbCst2pqowkaixF3vLWBDVYD7/g+6tzQ+NL85u8QIyQ/FRhsFXzZFG12YIXuwMBg
-	6f1FRndku5/bexC57K1akKR2SkVj93a29YddVmcw5Q/auXh5oJ1/G3+F/Wl29g==
-Message-ID: <7e4497506bb051fd1c25ed54f88a8036084e779c.camel@mailbox.org>
-Subject: Re: [PATCH v4 1/3] drm/sched: cache the timeline name to fix a
- use-after-free
-From: Philipp Stanner <phasta@mailbox.org>
-Reply-To: phasta@kernel.org
-To: Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, 
-	phasta@kernel.org, "Jonghyuk Kim(MalHyuk)" <malhyuk97@gmail.com>, 
-	tursulin@ursulin.net, matthew.brost@intel.com, dakr@kernel.org
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
-	mdaenzer@redhat.com, alessio.belle@imgtec.com, luigi.santivetti@imgtec.com,
- 	stable@vger.kernel.org
-Date: Fri, 04 Sep 2026 21:06:27 +0200
-In-Reply-To: <a41a35b8-c78b-4c18-af11-26374918f222@amd.com>
-References: <20260904080618.2098450-1-malhyuk97@gmail.com>
-	 <20260904080618.2098450-2-malhyuk97@gmail.com>
-	 <f25f2a91-b72e-4392-ab53-c11ef60e0fe0@amd.com>
-	 <ee27d37269f609192cdfd7a217d9731d7dca04c8.camel@mailbox.org>
-	 <a41a35b8-c78b-4c18-af11-26374918f222@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=shazbot.org header.i=@shazbot.org header.b="jq/mNMIB";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="nIxBGEEJ"
+Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
+	by mailfhigh.stl.internal (Postfix) with ESMTP id B511F7A00F8;
+	Fri,  4 Sep 2026 15:09:32 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-03.internal (MEProxy); Fri, 04 Sep 2026 15:09:33 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shazbot.org; h=
+	cc:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm3; t=1788548972;
+	 x=1788635372; bh=5lMGz/z9spGna6kQNQ5IoPLGwwwI+xjju3MdKu2x6uw=; b=
+	jq/mNMIBi9cvY0h1nfSJpzCstgNCyRktuPNQPrhjr++EQ5lq+Isas5ShlePXLbHU
+	oScCIngyuu9Zc8xe5dpqVTE6SeTnhF3+WLPEqbMr64RglLIePxHnHewtbsl6hTw0
+	Sn/i6ZM9WDWaX1eR6usVJYBH5ZfN5oeBaMoJbG9+Krv6C5mpT3GoyOZLlJ4lnvAt
+	mhH7cneQSafg7GG1a6OZKs1w9glC+TwSX3wIUaLquZMyk3tA3q/Fkz6F687wJ8LO
+	c5SM8p7ZL+qY99Z47h2wuxjUGulP/JlLXMkp+tPAe4aaa6Lf1uA//ljVqtFOqeSk
+	y5+X7amUcfG8cJtLqBIrNA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1788548972; x=
+	1788635372; bh=5lMGz/z9spGna6kQNQ5IoPLGwwwI+xjju3MdKu2x6uw=; b=n
+	IxBGEEJcpEzqlCBzJo9l6bEyS+QBIqTHANd6Vfl9Mw/gOeZGnMOp0lzwJ8NMP/5K
+	JcwuVhbRkKgOW88zk7nCntxHrolaOBn13iRhxvqTpQ0iIuDPsViS9Xu8nTP3uzx4
+	IqoHSsVCOuK+Us8x9J8wYVUZGV3Ju0OVAQsSGoR9rNyK2qaJuvZCjiMOUPUK2rqt
+	zHmYf86HYpPhTxX9+g4ZvwcJsBj+fGI2+FzOjnitUaGntfuTO2AoME0BfE5738LM
+	saiZlB9AUWaPEqhqVKOFlAt70yRID5t86paM2UrHQWP6DOPWrUVJTdTYX/wiYWIa
+	XEQM8kks8U3gcU49B/7Wg==
+X-ME-Sender: <xms:bBebaqBnLjZiPWng4I6BkBXlRl5oGOhEiMS9HgVEALbCWG50aAqIpg>
+    <xme:bBebahMrBhhuANVAiH3fHJzVjxuRd9Unhf9w0WsHuG5JnwSWg2wK419ljSA59gPS1
+    uYgN6hwRDs8srs1HwVAOo6ICWqT2A8QvwOLtUmMngik73Ot96YL_iA>
+X-ME-Received: <xmr:bBebahdMxW5ry8666S63gmlvBLgJPeGZnaMaWRmVEdVPObiLz8OOwhwti8PoVA>
+X-ME-Proxy-Cause: dmFkZTGcr6jmw64IquojJXpO2xtMve9/1B/qGAWt8VlMJG3AMBpF8pcof42bRMl7lkRST6
+    V3TFG3M9cRm1maws1qb7zDhAolJbFVF8lpoq3lKiIUGn+BtFvUTtqbIy0OGFM5WPhNBenm
+    PPzUpC0RF26LrjGDdPx4tAX8Qg1FikmK53UEqVvSuMCc/VTwz5ZYmWXfIttjajpmrIm8YS
+    QJ2yF6FJnA/2cuPPlan0lVU10TaWYop87ozaSzVZHVa9BSJFidAvmcloEBchiWvEEP+a3d
+    Xx4tVbJ8657Pq6IPXY0rYEl1NvfOsEikDTwkFOVZwItcIR/MJLEPhgzv+T27OehKZBHxZ1
+    FnL+ga564ONOzNqA2cITQdPH2rAbgaYVebENDpjGtn8ywguojwQuE5/mMNpRv4BUPCs5DP
+    dUY1c6i3vUVaNaXTg6orJI/XQc+XOPM+D5j+GLmKbVS3I825KVsNNOgjxg1rQHFOpilG2L
+    F1p5jgTmNvkZILNPMPr/Yo+jZxYV3h/RbQ9cPFQTfLIuJTEHU2mtl3az3DYuqrR7OtCtZI
+    d9WlVUb1TYEe0WRqJCHqCWzCbfAB37E1oQ2rb2wzhf7i4dgJZyfjrpkTCUN1aT7yMjUAqR
+    PKe7GOoxtmmnSeK1jlO02YNpFFOM3E9ej8C4gA6or1ZhMkuDPhFDh3my24cg
+X-ME-Proxy: <xmx:bBebai4DWCF_TRw33uGRKWDLWN6-e42jEqnKfERWu_ACrFCcWTTNjA>
+    <xmx:bBebajL8M9-uZMPayhjUqs7IgX_OaKkh6rD1N8yMXcXUgWtiNzW4qA>
+    <xmx:bBebasWUT8iamnE9TDUu1QIKfdkxCUKOcm9LAhudO-9HQJ0RNybLwA>
+    <xmx:bBebavHdkeTsKvtT3Ewb-zJwUWCFhIGvgormc4EoKbpV4ZWWooCwcg>
+    <xmx:bBebaj64aH-6QVOwj2TAs96utFYYvZfNcuv-AjiaFJ4H0sQqCh_FhwAy>
+Feedback-ID: i03f14258:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
+ 4 Sep 2026 15:09:30 -0400 (EDT)
+Date: Fri, 4 Sep 2026 13:09:27 -0600
+From: Alex Williamson <alex@shazbot.org>
+To: Shameer Kolothum <skolothumtho@nvidia.com>
+Cc: <kvm@vger.kernel.org>, <linux-pci@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <jgg@ziepe.ca>, <kevin.tian@intel.com>,
+ <kbusch@meta.com>, <michal.winiarski@intel.com>,
+ <satyanarayana.k.v.p@intel.com>, <sonangp@nvidia.com>,
+ <nathanc@nvidia.com>, <mochs@nvidia.com>, alex@shazbot.org
+Subject: Re: [RFC PATCH 00/19] vfio/pci: Handle PCI error recovery and
+ report state to userspace
+Message-ID: <20260904130927.2e234a21@shazbot.org>
+In-Reply-To: <20260901093217.8539-1-skolothumtho@nvidia.com>
+References: <20260901093217.8539-1-skolothumtho@nvidia.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MBO-RS-META: rshw34mo1xxwztyre7cgrfju8ajtnzzf
-X-MBO-RS-ID: eb457b034488acf701f
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Fri, 2026-09-04 at 14:49 +0200, Christian K=C3=B6nig wrote:
-> On 9/4/26 10:31, Philipp Stanner wrote:
-> > On Fri, 2026-09-04 at 10:20 +0200, Christian K=C3=B6nig wrote:
-> > >=20
+On Tue, 1 Sep 2026 10:31:58 +0100
+Shameer Kolothum <skolothumtho@nvidia.com> wrote:
 
-[=E2=80=A6]
+> Hi,
+> 
+> Currently, vfio-pci takes almost no part in PCI error recovery. It
+> implements error_detected() and neither of the other two callbacks. That
+> one callback ignores the pci_channel_state_t it is given, signals the
+> error eventfd, and returns PCI_ERS_RESULT_CAN_RECOVER for every error, a
+> permanent failure included. Nothing implements slot_reset() or resume(),
+> so vfio-pci never learns that the host reset the device, or that
+> recovery finished.
+> 
+> Userspace gets one eventfd signal with nothing attached to it. It cannot
+> tell a non-fatal error the host recovered from apart from a permanent
+> failure, and it is never told when recovery is over. With nothing to go
+> on, QEMU assumes the worst and calls vm_stop(RUN_STATE_INTERNAL_ERROR),
+> which the VM cannot come back from.
+> 
+> Any device assigned through vfio-pci can hit this. A non-fatal
+> uncorrectable error is reported, the host AER path recovers the device
+> fine, and the VM is killed anyway.
+> 
+> This series lets userspace observe host recovery state, and keeps it off
+> the device while recovery is running. With that state visible, userspace
+> can decide what to do with the guest rather than assuming the worst.
+> 
+> The approach here comes from an earlier discussion with Alex.
+> 
+> https://lore.kernel.org/qemu-devel/20260707161234.23ed28db@nvidia.com/
+> https://lore.kernel.org/all/20260818083754.7ccf76d9@shazbot.org/
+> 
+> Design
+> ------
+> 
+> The VMM watches recovery. It does not take part in it. The kernel runs
+> the recovery sequence and tells userspace what happened and when it is
+> done.
+> 
+> vfio-pci already has error_detected(). This series extends it and adds
+> the other two callbacks:
+> 
+>   - error_detected() now records the channel state, blocks new device
+>     access, revokes BAR mappings and exported DMA-BUFs, and quiesces
+>     INTx. It still signals err_trigger as it does today. It votes on
+>     severity rather than always claiming it can recover: CAN_RECOVER for
+>     a non-fatal error, NEED_RESET for a frozen channel, DISCONNECT for a
+>     permanent failure, and NONE if our own quiesce failed, which leaves
+>     the rest of the domain alone.
+>   - slot_reset() is new. It restores config state after the host has
+>     reset the device. Nothing does that today, which is why a device
+>     comes back from an AER reset with its config lost.
+>   - resume() is new. It restores PCI_COMMAND, unblocks access and wakes
+>     waiters.
+>   - A new device feature reports the state and carries an eventfd.
+> 
+> A non-fatal error gets the same quiesce as a frozen one. The host has not
+> finished deciding what the error was, and can still escalate to a reset,
+> so the device is not the user's again until resume() says so.
+> 
+> The support is opt-in. Until userspace installs the recovery eventfd,
+> generic vfio-pci behaves as it does today. error_detected() takes its
+> existing path and signals the same eventfd. VFIO variant driver support
+> is not added for now.
+> 
+> The uAPI is VFIO_DEVICE_FEATURE_PCI_ERROR_RECOVERY. It carries the
+> eventfd and reports a status word plus a sequence number, so userspace
+> can tell coalesced notifications apart. IN_PROGRESS is set while a
+> recovery is running. CHANNEL_FROZEN says the link went down.
+> DEVICE_RESET says the host reset the device. FAILED says the device
+> cannot be used again until close and reopen. ENABLED says userspace has
+> opted in.
+> 
+> A non-fatal recovery can complete before userspace reacts to the eventfd,
+> so IN_PROGRESS may already be clear by the time the feature is read. Work
+> from the sequence number and the status bits rather than expecting to
+> catch the event while it runs.
+> 
+> Patches
+> -------
+> 
+>   1-3    the groundwork: the recovery state fields, the open and close
+>          lifecycle so a callback never sees a half built or half torn
+>          down device, and the access guards the rest of the series uses
+>   4-13   close the access paths one at a time: function reset, config
+>          space, ioeventfd, BAR faults, BAR and ROM, interrupts, hot
+>          reset, runtime PM, info queries, DMA-BUF
+>   14-18  the error handler callbacks: slot reset, the INTx helpers and
+>          the quiesce that uses them, then resume and error_detected
+>   19     the uAPI a user opts in through
+> 
+> Locking
+> -------
+> 
+> Blocking access is the hard part of this series, and it comes down to
+> one rule.
+> 
+>   recovery_lock can be held while publishing state, and while draining
+>   operations that are already under way. It cannot be held across a reset,
+>   or across anything else that reaches pci_bus_sem.
+> 
+> The reason is the order AER arrives in. It enters the driver already
+> holding device_lock, and pci_bus_sem too when the device sits under a
+> bridge with a subordinate bus, and only then takes recovery_lock. A
+> secondary bus reset reaches pci_bus_sem. So a vfio path which holds
+> recovery_lock across a reset ends up taking those two the other way
+> round.
+> 
+> Seven places needed reshaping for this rule: device close, slot_reset(),
+> open, VFIO_DEVICE_RESET, the guest triggered config space FLR,
+> VFIO_DEVICE_SET_IRQS, and a guest write putting the device back in D0,
+> which reaches pci_bus_sem through pcie_aspm_pm_state_change().
+> 
+> Most access takes recovery_lock for reading and checks whether a recovery
+> or a reset is blocking the device. A few places cannot take the lock and
+> read that state directly instead. All of them fail safe. A stale read
+> costs an extra refusal or retry, never an unguarded access.
+> 
+> Interrupt teardown is the one deliberate exception. It flushes the global
+> virqfd workqueue with recovery_lock held, which can make the hold last as
+> long as a reset on another vfio device. It costs latency, not
+> correctness.
+> 
+> I am not sure this is the best way to handle it, and would welcome
+> suggestions.
 
-> > >=20
-> > > That sounds like a bad idea as well.
-> > >=20
-> > > Dropping the fence->ops is to detach the fence from the module
-> > > which originally issued it and not solve lifetime problems
-> > > between the scheduler and the driver.
-> >=20
-> > It can be used to solve that problem though, can it not?
->=20
-> Yes, but I think forcing dma_fence implementations to drop their
-> release callback to fix lifetime problems with the driver and
-> timeline name functions is a bad idea.
 
-The issue we're facing is not so much related with life times, is it?
+Thanks for tackling this, Shameer.  The recovery_lock wrapping all
+these accesses does make me nervous, both in lock complexity and
+overhead.  Wouldn't it be a better solution to decouple the user
+interface from the device by replacing the access path via SRCU then
+doing zap/move/interrupt teardown?
 
-Even if the driver correctly tears down the scheduler (i.e., signal all
-hardware fences), this problem still exists.
+Such a solution would have utility beyond the error path.  We could use
+it for surprise removal/DPC, we could allow a policy to remove the
+device from the user on unbind, in place of or in addition to the
+request eventfd we use currently.  In the error case, the intention
+would be to temporarily suspend access to the device, but if it falls
+off the bus after recovery, it may turn into a permanent removal.
 
->=20
-> We should keep this fix simple and focused so that we can easily backport=
- it.
+What do you think?  Thanks,
 
-My hope would be that the dma_fence backend solution can be used that
-*already exists*. That could then both be simple and maintainable.
-
-
-Correct me if I'm wrong, but it seems we have not found an alternative
-solution that can work yet?
-
->=20
-> Fixing all dma_fence implementations to not need the release callback
-> is something I really like to have as well, but not to fix this issue
-> here.=20
->=20
-> >=20
-> > The underlying problem is that the driver has no chance to figure out
-> > when the scheduler is actually done with all the sched_fences.
-> >=20
-> > Remember our lengthy discussions about drm_sched_fini(). Maybe we want
-> > to reconsider providing a function with which the driver can wait until
-> > the scheduler is done with all finished_fences?
->=20
-> The problem is that won't help unless we either add more checks or
-> fix the checks in dma_fence_driver_name()/dma_fence_timeline_name().
->=20
-> The dma_fence object can trivially outlive both the driver and the
-> scheduler instance it originally issued.
-
-Right.
-
->=20
-> > >=20
-> > > I think we should rather re-consider patch
-> > > 035219a760edb35ae9a9e96beba7f122e26a997b ("dma-buf: dma-fence:
-> > > Fix potential NULL pointer dereference"):
-> > >=20
-> > > Here we changed the check in dma_fence_driver_name() and
-> > > dma_fence_timeline_name():
-> > >=20
-> > > @@ -1167,7 +1167,7 @@ const char __rcu *dma_fence_driver_name(struct =
-dma_fence *fence)
-> > > =C2=A0
-> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /* RCU protection is requi=
-red for safe access to returned string */
-> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ops =3D rcu_dereference(fe=
-nce->ops);
-> > > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (!dma_fence_test_signaled_fl=
-ag(fence))
-> > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (ops)
-> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0 return (const char __rcu *)ops->get_driver_name(fence=
-);
-> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 else
-> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0 return (const char __rcu *)"detached-driver";
-> > >=20
-> > > The problem is that we didn't considered that there a fence
-> > > implementations which still have a release or wait callbacks but
-> > > rely on not needing to return a string for a signaled fence.
-> > >=20
-> >=20
-> > Could we move the signaled check to amdgpu and pvr?
->=20
-> Yes we could. I also considered that. But I would rather like to see
-> it handled in the common dma_fence code.
->=20
-> If I remember correctly either Tvrko, you or somebody else was in
-> favor of doing "if (!dma_fence_test_signaled_flag(fence) && ops)"
-> here but I though that this was unnecessary and we would rather
-> remove the release callbacks. Maybe I was wrong with that.
-
-I hope that wasn't me because that again looks very racy.
-
-I think that there is no way around using the spinlock. As I have
-pointed out many times, the fact that the signaled-bit is set with lock
-protection and read without it is fundamentally broken :(
-
-> > IOW, we keep the solution presented here (removing ops->release for
-> > finished-fence) and the few drivers that check whether a fence is
-> > their
-> > own first do a locked dma_fence_is_signaled() check?
->=20
-> Works for me as well, but as I said I would rather like to keep it
-> simple and stupid for backporting.
-
-If you can think of a stupid and simple solution, shoot. The only thing
-I can think of is moving the string into the dma_fence, as a hard copy
-:)
-
-
-In the mean time, my proposal is to keep aiming for removing
-sched_fence->ops->release and fixing pvr and amdgpu.
-
-I think that will have to entail a signaled-check. Question would then
-be whether we place it in the driver or the backend.
-
-
-P.
+Alex
