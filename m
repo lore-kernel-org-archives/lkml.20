@@ -1,108 +1,145 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-2.mta0.migadu.com [91.218.175.2])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1100346AF00;
-	Fri,  4 Sep 2026 10:31:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E6D13EC69D
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 10:31:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.2
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788517862; cv=none; b=oj8Q3Ta9LaAQMib5a5SmMRzv8bcDdCIGTV3amFtG2+cTrd/+G8GNUgiMoQDBl87oeQ6B7fkTX7lEFjVIowCMjwg7u3jv3E7C5EJGztq4i5fRm+tKXTuaAhIHt5eIlBAFZd0Lc5rEHE85UjsL0dGTaVbEfCqE1RDR6jCRO7gx5F0=
+	t=1788517900; cv=none; b=KjcSVwjFibwiZQYQDcHHTFwVzy5M1tREeaMEVe07SxPQpiMb4MQAKvkdSUfzkjxKL5YPczZs4wzLd6F8or9ibcmU/hL6xSwRHlqqPSTj0B4p1UDvIlhhHB/uIvLpjvtEcDEjTcMfrXtPdnuBFppoSxq8JjP5Za4LWvd6ygfC6Rg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788517862; c=relaxed/simple;
-	bh=ERLOHvLBv6usjPgYcxtkyqz5dH2tjXv8iFv/7TN3P0k=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=XWvwK8nMyNpDzaBoH33B6E/z5AN2PMj99t5B25xzxu6FN9VVQIjfB06l9fmjed3WFGSrycKNwetXLfsnlGluwGlHR5J/iqmsGolRS1fgLKzgx8JJMtwBMgDunbpioQKvBQi2Uq67vfJfDCKP+eYCdqllB96ZDzoG+110/UHISjo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=izlRrwoV; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788517900; c=relaxed/simple;
+	bh=OLJizthyKrO2zpeWP4eJulHLA4vB+jyIjME5M7weTWw=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=uj3CZvvPvAiHC4ADRZDP0BrmywxeADSp6X0rsOKZ7zRf8tS0b6BAxrqs9pD37l66NkbG4MR/y2zunUosi+U39H+6vbsjSjqp39iSJxzTe8MyLRx84Q9lZ8zl5P3QsIdpFddwldZhBm5fe7mkuyvErMe1covzAMPMsPUCgzfCq/g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=AAI87MBb; arc=none smtp.client-ip=91.218.175.2
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="izlRrwoV"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D549B1F00A3D;
-	Fri,  4 Sep 2026 10:30:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788517860;
-	bh=SP6ddiw7eBcLy3vVBDzcACmuy68vI4vfWkI0ZNXWS98=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=izlRrwoVT/CR0RStDBkok1Am3vIUBmV6tdQYUNKUjEB2CDE/qaLNEBge3dFgZ36+v
-	 sCpve5rWzUKzUf7Ss1cWup4NoifdEUHe16IG8fIDBqewoyJexDEIhJQo61+0LuAOxS
-	 jRSMUI6vMX8tCSBPfil7cmg9p2WiRI/38cl+Vs22WhyZzzwgrdgIuDtGXcUl4rkAeS
-	 VsZ6Y09tz548+QfdSCJwdbZz5LyPpAZV6eVjXhsI6luli0u16JmcUS+yREWEeaTnn6
-	 clepyXVGqVrO1CTff8cp5l287V2OCAEFoLVigltg6tDJ7nsbF61o+uu/mAkUntaZUr
-	 bgwnkjyBM5+gA==
-Date: Fri, 4 Sep 2026 12:30:55 +0200
-From: Christian Brauner <brauner@kernel.org>
-To: Chuck Lever <cel@kernel.org>
-Cc: Jeff Layton <jlayton@kernel.org>, NeilBrown <neil@brown.name>, 
-	Olga Kornievskaia <okorniev@redhat.com>, Dai Ngo <Dai.Ngo@oracle.com>, Tom Talpey <tom@talpey.com>, 
-	Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>, Thomas Haynes <loghyr@gmail.com>, 
-	linux-nfs@vger.kernel.org, linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org
-Subject: Re: [PATCH v2 0/3] fs/nfsd: accept a backdated timestamp from a
- delegation holder
-Message-ID: <20260904-einhalten-abwurf-geldanlage-80dc11239cac@brauner>
-References: <20260902-delegts-v2-0-383cb289ce88@kernel.org>
- <3caef4ff-9f01-4b09-8e83-12bcb0a1ee17@app.fastmail.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="AAI87MBb"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=OLJizthyKrO2zpeWP4eJulHLA4vB+jyIjME5M7weTWw=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788517896; v=1; x=1789122696;
+ b=AAI87MBb5uqbkHf7mqya7LRTyitjfPgTcL6DSNEwJOkeEAUGdRx0r2SIU647qPHF4/9MSMrj
+ ALW5Mokbv/92OaOjdmkY99eaTZBM5vkzApPPfcFRg7TXg7h5AqoXHFvffUI4CNrsZ7IGcS7JGFr
+ cOwTVEisY+aJ1j2aL82E/wvU=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id ae322256d77e21c4;
+	Fri, 04 Sep 2026 10:31:36 +0000
+X-Mizu-Trace-ID: ae322256d77e21c4
+X-Migadu-Flow: FLOW_OUT
+From: Fuad Tabba <fuad.tabba@linux.dev>
+To: Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>
+Cc: Mark Rutland <mark.rutland@arm.com>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Ben Horgan <ben.horgan@arm.com>,
+	James Morse <james.morse@arm.com>,
+	Xi Ruoyao <xry111@xry111.site>,
+	Marc Zyngier <maz@kernel.org>,
+	Bradley Morgan <brads@mainlining.org>,
+	Fuad Tabba <tabba@google.com>,
+	linux-arm-kernel@lists.infradead.org,
+	linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2] arm64: mpam: Document when to set arm64.nompam
+Date: Fri,  4 Sep 2026 11:31:31 +0100
+Message-Id: <20260904103131.627392-1-fuad.tabba@linux.dev>
+X-Mailer: git-send-email 2.39.5
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <3caef4ff-9f01-4b09-8e83-12bcb0a1ee17@app.fastmail.com>
+Content-Transfer-Encoding: 8bit
 
-On Wed, Sep 02, 2026 at 08:03:53PM -0400, Chuck Lever wrote:
-> 
-> 
-> On Wed, Sep 2, 2026, at 2:54 PM, Jeff Layton wrote:
-> > The main problem is that an attribute delegation has strict rules about
-> > updates can be done, and that prevents applications that backdate
-> > timestamps on files after writing them, (e.g. tar -x, cp -p, etc.) from
-> > setting them properly.
-> >
-> > We could fix this on the client by making it always issue an RPC for the
-> > SETATTR, but that would harm performance in these common use-cases.
-> > This set allows the server to accept some of these backdated mtime
-> > updates, by changing how the ctime is handled.
-> >
-> > It'd be nice to see this in v7.4.
-> >
-> > Signed-off-by: Jeff Layton <jlayton@kernel.org>
-> > ---
-> > Changes in v2:
-> > - Split the change into three patches
-> > - Stamp now in inode_set_ctime_deleg() for a stale update, so nfsd need
-> >   not compare
-> > - Drop a SETATTR report that matches the inode, so an untouched file
-> >   keeps its change attribute
-> > - Set dl_setattr only on the branch that carries a c/mtime update
-> > - Compare against the inode, not the grant-time snapshots (Chuck)
-> > - Set the ctime whenever a CB_GETATTR moves the mtime
-> > - Take i_rwsem before the CB_GETATTR comparison
-> > - Drop the unused dl_atime, dl_mtime and dl_ctime, and make
-> >   nfsd4_vet_deleg_time() static
-> > - Link to v1: 
-> > https://lore.kernel.org/r/20260901-delegts-v1-1-9937f7ee4370@kernel.org
-> >
-> > ---
-> > Jeff Layton (3):
-> >       fs: stamp the current time for a stale delegated ctime update
-> >       nfsd: accept a backdated timestamp from a delegation holder
-> >       nfsd: compare CB_GETATTR times against the inode
-> >
-> >  fs/inode.c          | 17 +++++++++++----
-> >  fs/nfsd/nfs4proc.c  | 63 +++++++++++++++++++++++++++++++++++++++++++----------
-> >  fs/nfsd/nfs4state.c | 49 ++++++++++++++++++++++++++---------------
-> >  fs/nfsd/state.h     |  8 -------
-> >  4 files changed, 95 insertions(+), 42 deletions(-)
-> > ---
-> > base-commit: ac579868af0c900d8fd9c8cfe9e10db46ccc5a75
-> > change-id: 20260901-delegts-e91a648f1427
-> >
-> > Best regards,
-> > -- 
-> > Jeff Layton <jlayton@kernel.org>
-> 
-> Since the series modifies fs/inode.c, Christian will want to take it
-> through the VFS tree.
-> 
-> Acked-by: Chuck Lever <cel@kernel.org>
+arm64.nompam skips the MPAM2_EL2 and MPAMHCR_EL2 writes in
+finalise_el2_state and leaves the ARM64_MPAM cpucap unset. Where EL3
+firmware has cleared MPAM3_EL3.TRAPLOWER, the EL2 trap controls are
+left unwritten, at reset values that are UNKNOWN, and KVM still hides
+MPAM from the guest but no longer enables the traps that stop a guest
+from using it. KVM never saves or restores MPAM0_EL1 and MPAM1_EL1, so
+what one guest writes reaches the next guest and the host. Nor can the
+kernel make the EL2 writes unconditionally: they trap to EL3 on the
+firmware the option exists for, and TRAPLOWER cannot be read below EL3.
 
-Thanks!
+Say so in mpam.rst, and add the rule and a pointer to the
+kernel-parameters entry.
+
+Suggested-by: Ben Horgan <ben.horgan@arm.com>
+Link: https://lore.kernel.org/all/CA+EHjTxeWxZiuSmnKLGLxTBXP4oJT7-LuffbPAyCSZZ5TW=5Ew@mail.gmail.com/
+Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
+---
+
+Notes:
+    Changes since v1, the first three from Ben Horgan's review:
+     - Put arm64.nompam under a new "Command line parameters" section.
+     - Separate MPAM3_EL3.MPAMEN from TRAPLOWER, which v1 conflated.
+     - Add that KVM does not save or restore MPAM0_EL1 and MPAM1_EL1.
+     - Drop "No functional change intended." from the commit message.
+    
+    Bradley Morgan's Reviewed-by on v1 is not carried over: both
+    paragraphs, the section heading and the commit message changed.
+    
+    v1: https://lore.kernel.org/all/20260903084809.2027326-1-fuad.tabba@linux.dev/
+
+ .../admin-guide/kernel-parameters.txt         |  3 ++-
+ Documentation/arch/arm64/mpam.rst             | 25 +++++++++++++++++++
+ 2 files changed, 27 insertions(+), 1 deletion(-)
+
+diff --git a/Documentation/admin-guide/kernel-parameters.txt b/Documentation/admin-guide/kernel-parameters.txt
+index 68647ff4bdd24..e6d543de3cde5 100644
+--- a/Documentation/admin-guide/kernel-parameters.txt
++++ b/Documentation/admin-guide/kernel-parameters.txt
+@@ -575,7 +575,8 @@ Kernel parameters
+ 			Set instructions support
+ 
+ 	arm64.nompam	[ARM64] Unconditionally disable Memory Partitioning And
+-			Monitoring support
++			Monitoring support. Only for a machine that does not
++			boot without it. See Documentation/arch/arm64/mpam.rst
+ 
+ 	arm64.nomte	[ARM64] Unconditionally disable Memory Tagging Extension
+ 			support
+diff --git a/Documentation/arch/arm64/mpam.rst b/Documentation/arch/arm64/mpam.rst
+index 67fe515ed501c..e66b1359d1282 100644
+--- a/Documentation/arch/arm64/mpam.rst
++++ b/Documentation/arch/arm64/mpam.rst
+@@ -87,6 +87,31 @@ The supported features are:
+   MBWU monitors can be exposed to the user after support for more monitoring
+   scopes is added to resctrl.
+ 
++Command line parameters
++=======================
++
++arm64.nompam
++------------
++Firmware controls MPAM through two bits of MPAM3_EL3. MPAMEN enables
++it: while set, the PARTID and PMG in the MPAMn_ELx registers label the
++CPU's memory requests. TRAPLOWER, which resets to 1, traps accesses to
++the MPAM system registers from the lower exception levels to EL3.
++Firmware must clear it, or handle the trap and emulate MPAM as disabled.
++Where it does neither, the CPUs still advertise MPAM in the ID registers,
++the kernel's MPAM register accesses trap to EL3, and the boot fails.
++``arm64.nompam`` exists for that firmware: it makes the kernel treat the
++CPUs as not implementing MPAM, so no MPAM system register is accessed.
++Set it only on a machine that does not boot without it.
++
++It is not a way to turn MPAM off. Where firmware has cleared TRAPLOWER,
++the option leaves the trap controls in MPAM2_EL2 and MPAMHCR_EL2
++unwritten, and their reset values are UNKNOWN. KVM still hides MPAM from
++guests but no longer enables the traps that stop a guest from using it,
++so a guest may be able to read and write MPAM0_EL1 and MPAM1_EL1. KVM
++does not save or restore them, so what one guest writes is still there
++when the next guest runs on that CPU, and when the host does. With MPAMEN
++set, EL0 and EL1 requests then carry that PARTID and PMG.
++
+ Reporting Bugs
+ ==============
+ If you are not seeing the counters or controls you expect please share the
+-- 
+2.39.5
+
