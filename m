@@ -1,89 +1,99 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF86347127F;
-	Fri,  4 Sep 2026 10:54:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB40C481FC9;
+	Fri,  4 Sep 2026 10:54:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788519282; cv=none; b=lW3QvCiLTz3SmycrF4fWPi0yjHuu3gJR7L0rbUC5kndDWvaLtAQuJHivghMzwSpZl1h3h/CozCskBme22h0zz+2jRNR247jzk6HBGYgCycUzRlcd+NATAMisicoJO2c/Pu4FSQExyoN0RB5XYrajhFIkDlVBkgwoRKXLVBc5PMo=
+	t=1788519287; cv=none; b=DRD12cAEuObnM+GQ/HAwrqpemU4/PnREpjH35rZ7pWVchurF0ZD4wDv+R7tV3NxOGG3UzM9EoL8lt8lbD/ZKp/bwtP/Z+RdgcrgELMRR/TYSDnOCGqJ+Ts0uZIs77SsCDLVOHWQSb6aEqYk5bUU0RF+dZ9YKlQctGNTQfRHk0Ig=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788519282; c=relaxed/simple;
-	bh=RWXv6LAGjSKmS1TDSZzLlUJ3NJkoPeyjiPfEru1BXB8=;
+	s=arc-20240116; t=1788519287; c=relaxed/simple;
+	bh=0vXi4sTWwwejFmubENVNFUoP5Fs625tkRrB7WOkTw10=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=BDKYThr27egB1IHpRp80U+8IUc+aRhsnxOHCzmysR3Iiy6qkTGoJoCVS7cVG7cYEoVvzYVSxLQMs78wq0qxSWFsFMUcCs21DO26ToVu8AMlwBZFxZgmY5BUwyZ8PnjZDwLd+N0zBWWwcRsrYuyxw98U0ihGlN/Hsj+4xmQxb3MQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BZWtsFD0; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=tcXh6zSdzYp8/vfrX5tx4xSwNZY6wefPLEAAub99izdwjJ6xN/01+NG2j0tl2QEMeCiGzXD3QtaFKAisVoqiWhj1jSyp0I2GhMtdb+mwpIPBPB26pv5ul7J+7RTUdIsTkyfqQ0du+QI0QiZ63Y1+beC80gR7MLDXZtuo+xHUhKQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=V3+nX3+d; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=q0Qjfy7Z; arc=none smtp.client-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BZWtsFD0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BD4691F00A3D;
-	Fri,  4 Sep 2026 10:54:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788519280;
-	bh=DKGcsNhvQvyX65WRsiWMdw7zbIu6Dm+Ns5yHU/Yl7MQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=BZWtsFD0IFC9WfCLXixG8ZwAduj+OUv14NrmjvbHHnXLd/vlwPgJhqIo0hx5YbqcQ
-	 d6O4zqymS5/JcqhvzwMOvkEFs6JA8iyNBqTCcFkiBsmdB1AzhcKgMK8EHlCW0zia8x
-	 wYYPW137Yg7II5xUM2HeyV4Zwgb6RFfif5WEzhcQjgKAuNNthK5Vtk6MGvdJNvvdeX
-	 s1MbVwtUAsMlBD48Syzww/jsZGFRigCw0bIRY3VF2V7V7z9Xc0XyWF2Of2v7kM9m/s
-	 SL4tV+MUEWwmil52cuC2/qX8a951HyXMHYCyHG2PnfvqzM8svgSADjJX0gr+2gzX4Y
-	 hal71DpIznH8g==
-Date: Fri, 4 Sep 2026 11:54:35 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Yu-Chun Lin <eleanor.lin@realtek.com>
-Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
-	afaerber@suse.com, bartosz.golaszewski@oss.qualcomm.com,
-	james.tai@realtek.com, cy.huang@realtek.com,
-	stanley_chang@realtek.com, jyanchou@realtek.com,
-	linux-spi@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-realtek-soc@lists.infradead.org
-Subject: Re: [PATCH 0/3] spi: realtek: Add support for RTD1625 SPI Flash
- Controller
-Message-ID: <606e580e-b1d6-4dd3-bb3c-e46d20da78eb@sirena.org.uk>
-References: <20260904031252.244280-1-eleanor.lin@realtek.com>
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="V3+nX3+d";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="q0Qjfy7Z"
+Date: Fri, 4 Sep 2026 12:54:39 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1788519282;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=5NZkbZfp4QWxq6NIlGw0GUtfJE7/9+ScOiFCYA8JVFU=;
+	b=V3+nX3+dicgX0EdZFKSsoPUtS1mpf6m3jZmiy99PBeEDoL+7yaIxWWlLzWOsSzF3Dm34sm
+	OBQXEXK55pW33YQgXBliVZLSs1UJ7UDgENPmtM30IaX5oAz9zRlTet17nlV2MIJxsSbXaI
+	YAKv94l2EbIQpZ6ZRNIAHBA618vbVMXWLEhxOMfiq2l2pI2tq32X1hU0kqDkBZgKkf+KO+
+	bseqYFHHWZVjJnDTYSS9nEpN8NFDVnHLh1/z3h2KNu0NZXHWBJxINzMQUiDyFterUNT5wR
+	vZfKHz0YW8i8RNECZMOwCgHB39Kzf+Zhii2QcGxlRiR+vp2cK9a61tScgWKVVg==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1788519282;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=5NZkbZfp4QWxq6NIlGw0GUtfJE7/9+ScOiFCYA8JVFU=;
+	b=q0Qjfy7Z4Y/z6m3z8RSkHYN3a7Y18qDnT/VCW+8eyKAEaQ3eS1i86ezFykReHCm4rfq9O5
+	6rXnMrrJzU5/z7CQ==
+From: Gregor Herburger <gregor.herburger@linutronix.de>
+To: Andrea della Porta <andrea.porta@suse.com>
+Cc: Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Florian Fainelli <florian.fainelli@broadcom.com>, 
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-rpi-kernel@lists.infradead.org, linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH v2] arm64: dts: broadcom: bcm2712-rpi-5-b: add spi0
+ interface
+Message-ID: <i6fbcajsiol77m6x3dbcay6bgpxwhy5axayb2633yklxl6rswl@luknor3eryoo>
+References: <20260904-bcm2712-spi-v2-1-6f8fdfb030bc@linutronix.de>
+ <apqej5QyjOHu702A@apocalypse>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="tfNF2zAxbgSEaXCh"
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
-In-Reply-To: <20260904031252.244280-1-eleanor.lin@realtek.com>
-X-Cookie: A is for Apple.
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <apqej5QyjOHu702A@apocalypse>
 
+Hi Andrea,
 
---tfNF2zAxbgSEaXCh
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+On Fri, Sep 04, 2026 at 12:33:51PM +0200, Andrea della Porta wrote:
+> Hi Gregor,
+> 
+> On 11:24 Fri 04 Sep     , Gregor Herburger wrote:
+> > The Raspberry Pi 5 routes the spi0 of the rp1 chip to the pin header.
+> > Add the rp1_spi0 node and its pinctrl node to the devicetree to enable
+> > the spi interface.
+> 
+> Just a nit-pick: in the comment it's stated that the spi interface is enabled,
+> which is not true since rp1_usb inherit status="disabled" from its node
+> definition. This is fine because the user would probably want to enable the
+> spi interface through some overlay, so no need to resend the patch (at least
+> for me), so:
+Indeed. It could be rephrased to:
 
-On Fri, Sep 04, 2026 at 11:12:49AM +0800, Yu-Chun Lin wrote:
-> Hi all,
->=20
-> This patch series introduces support for the Realtek RTD1625 SPI Flash
-> controller.=20
->=20
-> Please note, this series depends on the RTD1625 clock driver patch series,
-> which is currently under review.
+	Add the rp1_spi0 node and its pinctrl nodes to the devicetree to make
+	the spi interface available.
 
-This doesn't apply against current code, please check and resend.  I
-think it's just the DTS patches - I'd just drop them from the series for
-now, it'll make life easier.
+@Florian: Should I send another version or do you want to change it yourself?
 
---tfNF2zAxbgSEaXCh
-Content-Type: application/pgp-signature; name="signature.asc"
+Best regards,
+-- 
+Gregor Herburger
+Linutronix GmbH | Bahnhofstrasse 3 | D-88690 Uhldingen-Mühlhofen
+Phone: +49 7556 25 999 35; Fax.: +49 7556 25 999 99
 
------BEGIN PGP SIGNATURE-----
+Hinweise zum Datenschutz finden Sie hier (Informations on data privacy 
+can be found here): https://linutronix.de/legal/data-protection.php
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqao2oACgkQJNaLcl1U
-h9AHVQf/ZGL7zGjqObIWwauUZG3bh6i+a5W+RRbI+yZL7Cp6J9gcBdfMJFPDH22/
-zNVUuIVxFYto+MyS0oNEj0/q2QC2fnTxt2IXcYAvKFDswmxKkc77Maoy03sMkRBc
-0V6o0JiNz/0T8r3v52ZWncKO4+c5ZMxOay1rUwg5GZ/pTKkvXjTDEp1vT8DsdlXt
-lWhkWCdqHksaxa4bijRm85IE7iQw2L4ca1VmDArp5aWMFG6GdkVyYUtu/IJGkKlD
-iYXCQG9+wRmvPQXmgYkNpYf4WZQAgPVzaKqN+WzIQPV10whA0jEOvlTGPfjW/0OK
-jBaIl4NxI1HvyNEPvcrl/MT+RAwYAg==
-=8YF8
------END PGP SIGNATURE-----
-
---tfNF2zAxbgSEaXCh--
+Linutronix GmbH | Firmensitz (Registered Office): Uhldingen-Mühlhofen | 
+Registergericht (Registration Court): Amtsgericht Freiburg i.Br., HRB700 
+806 | Geschäftsführer (Managing Directors): Dr. Wilfried Wessner, 
+Katharina Kopp, Alexander Gieringer
