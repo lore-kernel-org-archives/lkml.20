@@ -1,72 +1,73 @@
-Received: from mail-oo1-f52.google.com (mail-oo1-f52.google.com [209.85.161.52])
+Received: from mail-yw1-f181.google.com (mail-yw1-f181.google.com [209.85.128.181])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B97CC49362C
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 11:01:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90856493644
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 11:02:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788519679; cv=none; b=ZMmvFQIIm1u2FVGVctd3Nd2AkC1RdsO4CG+K++0GzLcUYGe54jE47sr8PUN2l3MSwOMfuVFDkCyNgItUnNxMFNFGceHgQLUSmYsHcHFn42TZu2AW2XRk3WpFmf2IIAO7ieBYNG8XaowR+39d48zGpwRMrHBNicGLBYq4BT6fH/o=
+	t=1788519739; cv=none; b=vA168c8r9FduJh81m8MG6B3EfCX3K4bx+229wv/aC3lmOvA0mMpfEzkkXCq8fDcUhsc2pTD8MjKYhNU/z2bEIRvQcgFHrpoN5QnEHjlyxeBG9UXfSK8vUryW3h5Fo++hPcYjyTqpxERnDKlev+GSP5cdJt4F+2BPDacwRgvqKlg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788519679; c=relaxed/simple;
-	bh=Mt2Jj+Hwx7fL6k6jmEeS1jYSGnq4BaMYTqfWVhxOnqk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=BVlGIVFKjr2iLCpDaFWxUbj1+7GMKNXzEym3S33P4bZiP276hj7Hi9iV35YDPBaVji33KmUfoBZnVFpg4tIGPu4UZIcALL5YV8fknvKUb5mJ7nnCTYRS5/2YiCFUKJ5s2giZy7TBsS7WZbXPwjWxnvev/jPFb0x04hblrC3ZALs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VZWh/S+e; arc=none smtp.client-ip=209.85.161.52
+	s=arc-20240116; t=1788519739; c=relaxed/simple;
+	bh=07+rRTXiTjhiXbi72kUeeMfUe9Z/3adRk3fPqN7NDGY=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=tiSgEa8CociP7LVmkkGokXMTSMl5AlecMWUxWt0PMeEWOiI6ZZL5Lrtc3E/HREH5x3EmYjWWfdmtvSQYP9JriwOhiAX6fiPPYtR+BqDzPQbLeJZPe05BfH71a5ZEG2hCBBkfuEip0o2ZhXgNG90D+o+kfvQu6dGoPRmJMjRaTII=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bZ4kOxZ0; arc=none smtp.client-ip=209.85.128.181
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VZWh/S+e"
-Received: by mail-oo1-f52.google.com with SMTP id 006d021491bc7-6b1c75f0049so640115eaf.3
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 04:01:17 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bZ4kOxZ0"
+Received: by mail-yw1-f181.google.com with SMTP id 00721157ae682-855c26cf490so7299087b3.0
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 04:02:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788519677; x=1789124477; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=hJXrdiZUgShSK5yk77/XBzx7jT+n2TJBOdW5oUv8dng=;
-        b=VZWh/S+e+sl7WZthMyCoOll93QG3+4ITon8ROJrDrXrXjGtb3dnrn9IBSc7GXHDbFM
-         ImSeBTDFt7Qr7nLfPaDkB/dMH5RTzDxN8lmXF/n5nB01KvGibbLvX2koqtgtxdnEH6VH
-         O/UeDUFBlW1IuvNk2oZF9FO0gv3L6DWofsYsfFFURVK72MroVX/R5RzH47yxGD4EEK77
-         3vmT8ku3FbnFqgzuFwpu+Pupq0yRdIyWA4XlIvTFOH1h6qXosFpwZ0gAeUk5E/DbyfYl
-         PiWO3CvBc5xPiyqv4YoO0nGPxri7gzoUgv7C0Yi+ssVma3eLLC+lPdkQ6CYJw/5iAbDQ
-         FdQg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788519677; x=1789124477;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1788519736; x=1789124536; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=hJXrdiZUgShSK5yk77/XBzx7jT+n2TJBOdW5oUv8dng=;
-        b=kaIfORK9cqjADkYZPSh5ANT+GCF3L01i34Yapq9u6Y9OWvsgEE9cYYKksQ7MFnhGs8
-         /Q2Jb2NcJRaXld3O9C1TZjWIIvcKtTAMjl9NFdU6CPY20QxpgtTVx6vQWN7RjWAx5XLf
-         e5sF6zLgxOL16ApdbQJ+5EibFtjCB3GTLqa4uVlUqsn14RmyXrNOA//gYQ8lNL80zqJt
-         sXlt4NQxsog5+lOTi46/kkXphDQBL1txJhes86LKNR6N0ArnyTEAF+CeiRlUye944Yo4
-         rU3fyY8UvhZlVFN6BXLmPODncn7+Axi4ScqTa4k3jsYpNj/0WP2r0FzowJP/vx8/m4Iv
-         Rmxg==
-X-Gm-Message-State: AFuF++lFISvBZU+f8cYbtDGIUGsEEJ8Lx6G/3ppsKFpfsly3Y8sZyfNb
-	8SurVYnLwYGwG+f6MdI91qESmwN4pmlnWi41stuxMBor7qO1B3FfkhHu
-X-Gm-Gg: AYBFou1BVezN/wWy0+JkNv/kf07hfZ1aOeDu76uMFv59TMoA4M07kkU0MI5jf1gHawC
-	o6MGcSj/58BRRJ760tUeL3WxuZx+MZlAzMp5yFGHEaIzUgPYttJnTaYcxu2QGHzSMjCBbZTLJ5N
-	93yswLoZ+FpVUPKO4NezAoYVHW0j2EH0vqwU7F3R2uJJ8CuLFQIBBpP2GfcM2tKH3qpmlibYxwy
-	p6u3av/bL/a5pNZ7i5GNBRTm4hZATWStZCtXFff4I2uQlasQ/KF9IcJNJlB6jsXv/07/kxcPfaD
-	XeugK+/lXw134PdMehLCFwChn5+51HKEbo51Q3uH4LKcgb7kp1UwMCKqos4Zym9jEcEcgZidoPo
-	sGLDFOdKLXoXxdgYf1RDjzy+cJ/MDegYksETCXfvEXAnwPHjPEt0wPOeHKj8fZEjMTS+gmsrXkY
-	rT/nE6mFg7lndx7ZtWg89ZQqxOJkWd/g1wJSHJL0HYrcgpGDoYl1/M6C8Wtt4I4A04xsRJhtw1J
-	EQHETflj73yajE=
-X-Received: by 2002:a05:6820:208c:b0:6aa:e573:9ce0 with SMTP id 006d021491bc7-6b6fcbdd780mr3568725eaf.16.1788519675905;
-        Fri, 04 Sep 2026 04:01:15 -0700 (PDT)
+        bh=sQLkEfjESf7gemBMJ4GXvain7prbX4HFssUR+m9rITM=;
+        b=bZ4kOxZ0W2wK0HNNTNS048cffIA41yJX+HPmoHX/s/Swr+vdB2Dmt/+Vw7s2pA438I
+         moS4/k4Kkx4hmzgseQVDTG5xkamwRu+/uu5B1jUZ8DTHuBRoGsuQtTqf3EuEyrD5WW5+
+         GeY0aY7VNH7ry592zcXfunnlzBAVy/Ua9x63JvZS2Xua6/rr/OBYCpb/7BRE7Iu4PamH
+         Mxnl3e8cPbD2aUdscI4b01+KwTcGIRQrdTJq5NcuGPt9pPqfl/UUMveNv63qiCtuiM7o
+         +WNICx31qsfcp2goeG3DzZa+bOyjP2OBR1uOKjgCCdibF57GfBF1MyFadfRFlm586sXr
+         DzmQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788519736; x=1789124536;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=sQLkEfjESf7gemBMJ4GXvain7prbX4HFssUR+m9rITM=;
+        b=FJkvHGLu5SCv3CoCzOjhBjUVt7agOSZxlSdirsA2JUuYdiGcw/0TR3n9FwkgV+Ot1K
+         VuKtWe5F6K1BQtiOvizVx3fx8z7XwS0nIXCqM6BQUruWD0jsNJDiWsGvQW/BXOBdZhAg
+         0ON982HCtgfHh+9Qh63+Fbx+6+9qRdm+pi9HEZudk42ojvcxBtGXyTjaExoR8SWYTguq
+         PWiaRuhg0uQNoydgOu03MWkB+lqQk/O47JPJCfS1Drf59mu+HsHWwAwFy34ks7daau3e
+         x+N4eHSpodwa6mEb1Y015fzcegs1UozEScmG+jkAYVf90PnJpCqo6ikseDMlI9MRoPET
+         JzTQ==
+X-Gm-Message-State: AFuF++mw9qa1p5Ey9zvjsMEJZh4QVMXHLngEwUjdR5lVLMj68CVzNQmx
+	gs3dDLZ06wS8yxA28wEdNIKWiX/uJMsIWDvXsWxRKmv/Ytp5oHWMXsxn
+X-Gm-Gg: AYBFou0bAwE56PUvc2SWrD3f9isnLhy041ejHLJ18T6r1q6V0SdXPR/Le9ZXQSNriZ5
+	ExqdTb5TUtUBg8PsUj9EXI6fFFEOKJchhLEh7mlKqeyuRCktDTbNCfJH9DNg8AqgL19GOA87VBI
+	D+8eLubh0C7RIr9rh1siN9dL0rCGKMTrVh83MfV3PdnTBNO392USiefLRgIwqn+pey0GBSY6hq3
+	JiCxMkdUImfIOQpoQqYJh/Vvm9GnHCJRscm9Aq/7/22nfScoj8VOAKhojzuYfvo9ZMsh9Q1HTmh
+	n9hzs2kJwprl1ColgNeMiv9rW0GlMiYt/tAbGuQtBkL7MfHovSco4II2Yw4HWsBVADUCH8Vgm4k
+	FyWBg0Hc/+eTLAF2f0zh03ZaWiUQk8xdgu+nKq89ZcPNpwWH+X554UfzoWyhb5pYHBLGzuQc5LP
+	IzWM602CJXn9h20HJvB394jfW0YidGFcuCQgEpAurGGfvWk/tNYK1jlPKiluxJEE9wOyq8vGpT3
+	ewjQanezOoR+lyLYY84iYjdgA==
+X-Received: by 2002:a05:690e:128a:b0:66f:b413:8b7c with SMTP id 956f58d0204a3-66fb5ad7109mr1840078d50.43.1788519736455;
+        Fri, 04 Sep 2026 04:02:16 -0700 (PDT)
 Received: from volcano9f6e-hostos.amd.com ([165.204.217.251])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1432441f5f2sm6431329c88.15.2026.09.04.04.01.12
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339bdf44ffsm5454090eec.28.2026.09.04.04.02.13
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 04 Sep 2026 04:01:15 -0700 (PDT)
+        Fri, 04 Sep 2026 04:02:15 -0700 (PDT)
 From: Hemanth Selam <hemanth.selam@gmail.com>
-To: Mark Brown <broonie@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Danilo Krummrich <dakr@kernel.org>
-Cc: linux-kernel@vger.kernel.org,
-	driver-core@lists.linux.dev
-Subject: [PATCH] regmap: fix typo "asynchrnous" in comment
-Date: Fri,  4 Sep 2026 16:31:09 +0530
-Message-ID: <20260904110110.8823-1-hemanth.selam@gmail.com>
+To: Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>
+Cc: linux-kernel@vger.kernel.org
+Subject: [PATCH 2/2] regulator: fix repeated word in log message
+Date: Fri,  4 Sep 2026 16:32:01 +0530
+Message-ID: <20260904110203.10113-3-hemanth.selam@gmail.com>
 X-Mailer: git-send-email 2.48.1
+In-Reply-To: <20260904110203.10113-1-hemanth.selam@gmail.com>
+References: <20260904110203.10113-1-hemanth.selam@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -75,29 +76,30 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Correct "asynchrnous" to "asynchronous", reported by scripts/checkpatch.pl
-using the misspelling list in scripts/spelling.txt.  Only touches comments,
-no code changes.
+Drop the word written twice, reported by checkpatch.pl as a possible
+repeated word.
+
+Only the message text changes, no code changes.
 
 Assisted-by: Cursor:claude-opus-5
 Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
 ---
- drivers/base/regmap/regmap.c | 2 +-
+ drivers/regulator/tps6105x-regulator.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/base/regmap/regmap.c b/drivers/base/regmap/regmap.c
-index e6e022b02637..98184a00097a 100644
---- a/drivers/base/regmap/regmap.c
-+++ b/drivers/base/regmap/regmap.c
-@@ -2722,7 +2722,7 @@ EXPORT_SYMBOL_GPL(regmap_multi_reg_write_bypassed);
-  * If supported by the underlying bus the write will be scheduled
-  * asynchronously, helping maximise I/O speed on higher speed buses
-  * like SPI.  regmap_async_complete() can be called to ensure that all
-- * asynchrnous writes have been completed.
-+ * asynchronous writes have been completed.
-  *
-  * A value of zero will be returned on success, a negative errno will
-  * be returned in error cases.
+diff --git a/drivers/regulator/tps6105x-regulator.c b/drivers/regulator/tps6105x-regulator.c
+index a09c6ae6a0ce..7f99f3e90bec 100644
+--- a/drivers/regulator/tps6105x-regulator.c
++++ b/drivers/regulator/tps6105x-regulator.c
+@@ -65,7 +65,7 @@ static int tps6105x_regulator_probe(struct platform_device *pdev)
+ 	/* This instance is not set for regulator mode so bail out */
+ 	if (pdata->mode != TPS6105X_MODE_VOLTAGE) {
+ 		dev_info(&pdev->dev,
+-			"chip not in voltage mode mode, exit probe\n");
++			"chip not in voltage mode, exit probe\n");
+ 		return 0;
+ 	}
+ 
 -- 
 2.48.1
 
