@@ -1,159 +1,307 @@
-Received: from BL0PR03CU003.outbound.protection.outlook.com (mail-eastusazon11012032.outbound.protection.outlook.com [52.101.53.32])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-223.mta0.migadu.com [91.218.175.223])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69D613B71AC;
-	Fri,  4 Sep 2026 03:29:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.53.32
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788492546; cv=fail; b=ZNc+PPHRnJB5G36nfgOhCY6DxpfiLkP5tRKs8L4rVQF2kyg21Seije7u4tOSNM9tF/kRvXsGVMcItVLfzBnPLZUAef0tb/d91b23xpSU3gIpQxCuYwZ4YZkzuJ8r+vpTliPtqmJs/VrGxV6uhtzN/qzYisRaFLSYuf1kp98uj2Q=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788492546; c=relaxed/simple;
-	bh=Gu4Ljd7QBKrEfMbSD+HOTqj8JDyqkOzlFzzz+Z7H3qo=;
-	h=From:To:Subject:Date:Message-Id:Content-Type:MIME-Version; b=JN2GSoelN+ln1no6x29cyzLaH8HMnMgpVLLqWnWTFptLqSokwM2Izkn768j4ZrgNzzjJBy2+/PiI3z+9dIGAHeP/paSC6spj+HybEVPEDAz+SwH8BeMQm6+UJv/UixYHnfS/w2KOJYD6h8nSd4ztYeKkypdjKFJCJY1/EMlGnOc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=altera.com; spf=pass smtp.mailfrom=altera.com; dkim=pass (2048-bit key) header.d=altera.com header.i=@altera.com header.b=OiECqC91; arc=fail smtp.client-ip=52.101.53.32
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=altera.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=altera.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 070BA3B840F
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 03:29:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.223
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788492587; cv=none; b=hJNcC3lbzWz3yNlJlUXh6ptq9yodoQL3gg9rACAaZtBXq1lzbVzZ1GH5k1KidyI1qHsOAtUGkooxhRTci8a2UdTBjtmiemf9ivoFi9h49UqRkg8yu7CIWy4YIuA8xcU0ck4e+Bq0ZG7DlgxBJ/MTI/1uxh1MwIvXHPZiVIalK8M=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788492587; c=relaxed/simple;
+	bh=OQpB0E9Xye+9Bzc2bw778HFeVMgqZ7Q5znttxHan1uM=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=qZIFwGjXw5NqFXUzg2634zWoteWh3TmewPhUOQHcQ8+gGP69lwjZJkL8MAclfMf2Az9Lr0LAnxx10W1Dv+NjdBlUUEAzYh69DvufZ7uE/xTTTYBY7pxVPyvhue73l7QjO0WMSgl2SlaOxJOZKafkQz3pyUHKr21+7K3f0O7DLAg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=Ah00+lGR; arc=none smtp.client-ip=91.218.175.223
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=altera.com header.i=@altera.com header.b="OiECqC91"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=m7yYU7KdsNwCnQrsu884skPwViblMNGu21OR/VugUv274iI0VywvT3QacMOxBBQwiQo/u33sQNW1Grib8cER40zYzC4nZD6ZBmHDTp8d+vCIUpNZVPQTaCk6oCOSjqlpkBpMolw229+HcbmaHdhw96qrFanXNP1fwrZXN7/oqkfLiaKnuQmNzqo5TEDliDK/HXewpk8cOZjWYa3L3K5COGoQfMOBAiAE9TCFJQj5oEHxnrSq9dKLsP1lcGjyBV32t5e1unNVeqk6q2L6G57Y+3g4iWXvkn3/KXyz+njIbnbGDsT3BeVpESo2ijqDKj5yUKcG1wRdtXOqVngsf8lYQw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=WS1msHvUKJ07kpL+KD/jy84mu21HNZfe26hgOCUSyRU=;
- b=uKT6rcPRQX5RTG9WUISepdN3QVIiiAOEBD23KZMCYiAzXCSkilrRfJoid+NrH06CtJPOQGpGZh9509xda6J1nlX5nwOGlltI3r2O0lxLWtn4WsX8008lzE0r5uu74oLFGklC7ChQmaVRE5R5fyP35EDd1bmpBdu9x58B8GqCXj8Hm+MdK84WjTkHHxxD83EkfEh5SAvAsL34iWoX88gfnwacdvU6OD5vqY0n2+Ji8zdm71wMEP6UgGcyJlwT2rdBM/2KgGC2rBxJWM8CJfpcMrMqUhNRnHMZEmF9lfnEQ32kN2pA6qCn9x7EyqVaL2BMvrITy+rdDA7rKqaigy0njg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=altera.com; dmarc=pass action=none header.from=altera.com;
- dkim=pass header.d=altera.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=altera.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=WS1msHvUKJ07kpL+KD/jy84mu21HNZfe26hgOCUSyRU=;
- b=OiECqC91DPkBQy8DxedMmB/qtvaFt7ECJ++v2KaNR3CnmbcMzeiCFNZmQisIXqFEzHqAY07FpWXJRIEwxTu8jHMJBBtkXmGzpstZT+ozwfNrKsxnP8H4TrD6izSdM05P240MpHKbL8EpPK5YNtaxN/aoeN1wIlnXsfTZK+nLoIJp98HQLJVff3GsDkOrZ3h8M9MGjmMVdfSKfuM1MiBWteBWsqq8Kgl+rAtQ+P4TBbQon5h3OY+KYRXAMm6GiurHt1a5JBUj90hwILwSg6GkAmz7fZcfssxEsuhMeyQz8WkrO1S3vo01MMlZLLzPG9pWtzDhJGra/iNHDFqL1zrR+w==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=altera.com;
-Received: from LV8PR03MB7398.namprd03.prod.outlook.com (2603:10b6:408:18f::13)
- by CH4PR03MB7698.namprd03.prod.outlook.com (2603:10b6:610:244::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.10; Fri, 4 Sep
- 2026 03:28:58 +0000
-Received: from LV8PR03MB7398.namprd03.prod.outlook.com
- ([fe80::9d6:b5c1:7f72:e982]) by LV8PR03MB7398.namprd03.prod.outlook.com
- ([fe80::9d6:b5c1:7f72:e982%4]) with mapi id 15.21.0360.008; Fri, 4 Sep 2026
- 03:28:58 +0000
-From: genevieve.chan@altera.com
-To: Michael Turquette <mturquette@baylibre.com>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Brian Masney <bmasney@redhat.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Dinh Nguyen <dinguyen@kernel.org>,
-	linux-clk@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH RESEND v2] dt-bindings: clock: agilex: mark mpu_l2ram_clk deprecated
-Date: Fri,  4 Sep 2026 11:28:49 +0800
-Message-Id: <20260904032849.10554-1-genevieve.chan@altera.com>
-X-Mailer: git-send-email 2.32.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: SI1PR02CA0039.apcprd02.prod.outlook.com
- (2603:1096:4:1f6::9) To LV8PR03MB7398.namprd03.prod.outlook.com
- (2603:10b6:408:18f::13)
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="Ah00+lGR"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=OQpB0E9Xye+9Bzc2bw778HFeVMgqZ7Q5znttxHan1uM=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788492582; v=1; x=1789097382;
+ b=Ah00+lGRtNXYXOB6gdOTsw7fD9TnkF+sZvlqkiZ4vbmVLN/M50n6ykVznwWPJxnkPxiXW3DT
+ Gic15IxNV5b/3insmA2H1uz+6Ol+Fn3AXNWh2A4Lj9/PAIy6w+JEj9g0oS6nyd1EeWu0Kw2kq0p
+ tijgcOQOg7XuduDVKUlWz+VA=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 4a993d0f922b9332;
+	Fri, 04 Sep 2026 03:29:42 +0000
+X-Mizu-Trace-ID: 4a993d0f922b9332
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <c145728c-80fd-459f-be72-f5e0fcdeaf25@linux.dev>
+Date: Fri, 4 Sep 2026 08:59:32 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LV8PR03MB7398:EE_|CH4PR03MB7698:EE_
-X-MS-Office365-Filtering-Correlation-Id: f1bca1d0-46b9-4abd-fe88-08df0a34a7b9
-X-MS-Exchange-AtpMessageProperties: SA
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|376014|7416014|23010399003|366016|921020|10067099003|56012099006|11063799006|55112099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	VWahQ/bLwPXaZtIXIgveFUA5CwCxKNrxIkGtwCIB3/KXDeX93qdd/mv2QE3k7MrF0teDAAYGmmbt4PhSAMGfZu8jxK3wwswTuGjmpse5W90JRxoSCDI/aQZJQNdGqoGF6Q8ziv6yhgSt4dPID0o3zIlARTdAVtk2zT0HzpGU2u1aZGg3EQsOrO5QtaJ4Q8vl0Biv3G64+/H+NfUkKBQSFs7yp2HX2fJeZESF1NfL5TO/r9S7JjQL0Y73er1rOkd0fCEhdkZZ0oD90r7JgUKJRkzK9d8fP5kL1k1298iR/ChdWSndySBpGPIy2P2Nd7D3PLRS48jDS+1cn5pbmUOvCTmm3pzp4hDuYxuREXgPw9S1AQkHetUw+Dnvow0buL3kY4eEFBVq8VSrm0CEp1TGusS5SBI1Y+gfOK8/XWbLrqxvlx8yZc/7Apqag/l96M3XHUUVDFof9BX/Jccehtvgef1Jjd/VO8Sv5LY8rZr0e7ulhpEsXWJQM0nNJuADrPQPhQ6zxfsQljZHHKJpggnTK/L33OCnj+dcSY3J9pDFnrPUpVWqw+v3hvMxCmP3KdpylxcVlN0VRp6T8TVkUsXjPi2V9R21PAbJri7rhTDZ47eGeS6vML++thHyRRMgNxWvu7TeooYxTgTszfwzX5PBXBuxnp6orfCWO1/r7P7DzUfD9hWG8r33p3ni8eZajJdMH0Yl0onSnlNxwbYIrkyPqw==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LV8PR03MB7398.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(7416014)(23010399003)(366016)(921020)(10067099003)(56012099006)(11063799006)(55112099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?3PvxzVWXi8IUjazPPknawnpZqF/dMz5jOoaFkda84Rtj+sNeYdkuH+8HW2fV?=
- =?us-ascii?Q?Jnwm9vlSwUdxbBfl6SlXg4QEgkB9c+O/MZZGa31j6Fh/A4qhL0XHF8FL5TI0?=
- =?us-ascii?Q?D9999NDZrKwTUWwco7rKsp05nquVMMLbeknwRVJYXKCtEWiMILdqmROSH5wn?=
- =?us-ascii?Q?+QTG0bTFIxMFxr8tGK5hCIGjagAwgupfWdpIXb5+Gj7MSCvMFBajG/CEl2tk?=
- =?us-ascii?Q?TEY1eO7nvifFB3E42jZvwXDDKXjR2+ICSxNRcLggM3jSUPRomhj+tveD1DDW?=
- =?us-ascii?Q?xYrAgxfmJlRO8+azzh/VjVWAQ95/keZNKCgY/OzTidmVFlWShvZG3SIElCZI?=
- =?us-ascii?Q?LAE0DnL7iKG8/ERX8YxhBMav1/6a7eDlyGUYS3YgPKSewCt1xJq9QiAc3HyR?=
- =?us-ascii?Q?1GPA/KzwWovphk7lLN3ttGzaXxuWDHfEYpdqU4oCQdxoDtx6Jy7eEcB6rxOF?=
- =?us-ascii?Q?6/5nuvVSiMuYSxEYJbum/OZSP4QVlSaAySyP7yiU9yL81lQGrr1nb0EUlkcF?=
- =?us-ascii?Q?5wcOtn8SbonxVCjlnuvOZUE3ELKbt4mAxEtN5w+ZRdBCNicNLhyAGe9ca60W?=
- =?us-ascii?Q?1Jc1X4D2ierYg1icg+CsNSr3SAlPdszmhnwfn9y78e51Kx6xgcaPeI44hZFu?=
- =?us-ascii?Q?VxQzP0rpTJ7gdLDU+upi7TvHpdB+4W8TjBMtzscvs75E+xnQ7FqAFZyn9Et9?=
- =?us-ascii?Q?pmXHzJoSXgvIiP4eXzIqFrQtNTtTzs2lpwyNAtONnpH2VE/rgQS1gF98Ebeo?=
- =?us-ascii?Q?n/YAk4sg9uZlBH9Uo+OSRYUntPpfDwZKx8xfhyo+bs2B8jPxVMiq+rA0k8dg?=
- =?us-ascii?Q?yEvZffAHrdv+XPW9Nh6HvjgNAwbCXp40EGy3M7WGCn9RN4KJuT34yOkrcxLf?=
- =?us-ascii?Q?USi9e+FC+Wt2D3wjc3qIxmVZjBKW4NLzDJizIrLqHXZ68O1Wh4KIjGTBlu4l?=
- =?us-ascii?Q?h+rffOvHIQmPbTpd55enEOUC7CbPdY8ShJJc7qp2IPgfDYKztRgwui0PSfOo?=
- =?us-ascii?Q?5HEh7PVYfMngsdLd6WItLoM/ksnwVO8MW5F88Xn4pq9Te7Taix2P6Q6F4e3U?=
- =?us-ascii?Q?wWmXJpgpn5J1Lw5hXV5JSF9HG37SdqamIJOLdPBUtxVaRC43+dZlFqtk30fT?=
- =?us-ascii?Q?/HEZWcDl5w7v/0PdtmwA63lfiaAdq0xvSnMGLxjCD0g7hTGzM+bZ0vLQSE94?=
- =?us-ascii?Q?UB05iX/TCWDt+QSza3fUhab4roKaROMwwGGylsoHl51JfBD2C97sURGCfsCX?=
- =?us-ascii?Q?Bya5Z4Fhn5UrQ54kPjAz6HV0v5gAE2S9w7tY6TpQ6fh3OwcT2v9o0xm4vTfA?=
- =?us-ascii?Q?xVSfFlzAbtj0Gwnegc8YYB6auxqeh58Xkb5+p4AqwN8hEmxaALoAgFC9r4Wl?=
- =?us-ascii?Q?1F7DBxXNmUaZyquIz5iHTd22LewTRGYoi3qDMp0OjXkV7rZE4yZOXhRtIoYb?=
- =?us-ascii?Q?RQNrf+aE8+EOeeYuRXbUC49ASnW+Wa0jgu6HISuglU1UkteXl5tuInpKfCht?=
- =?us-ascii?Q?ET7fWxEXLc1zovN1KHV/Dep8jQZgtvRIQ69DTyUxpcvLBXbDxd72wHCJt+4n?=
- =?us-ascii?Q?Gg/pNJ791dvQPy4kzP+gnsj0e782basOVVzjVyG1TXBAimgWNWe0ufmxfCtq?=
- =?us-ascii?Q?Q7mxHNF2ch2x41annu1NLGVMMWar0OIwE95I6S5vTilBuLNPIMdIXh7PT8Zq?=
- =?us-ascii?Q?MJQcVHmWU4ObmpvLMh1apYEcGPVdeFm8Rzffr99ZjayvWk1U2m7m9c5A2JPf?=
- =?us-ascii?Q?StgxKui+Gn5nQ9V6n5R5M1D4MmTxK6M=3D?=
-X-OriginatorOrg: altera.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f1bca1d0-46b9-4abd-fe88-08df0a34a7b9
-X-MS-Exchange-CrossTenant-AuthSource: LV8PR03MB7398.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Sep 2026 03:28:58.3216
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: fbd72e03-d4a5-4110-adce-614d51f2077a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: UsMdfXiXdRM5AfqVcTYR4/QSDCRD8kSz6G5d+Afc8QwHVk55P0jQ/C9DCzcIUl4xJAEfZGCPWJkR7XzBlKQwy3RnUAzsG23ulspbuqDosV4=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH4PR03MB7698
+User-Agent: Mozilla Thunderbird
+From: Vineet Gupta <vineet.gupta@linux.dev>
+Subject: Re: [RFC bpf-next 2/6] bpf: move the linked-scalar flags into
+ bpf_reg_state->flags [NFC]
+To: Eduard Zingerman <eddyz87@gmail.com>, ast@kernel.org,
+ daniel@iogearbox.net, andrii@kernel.org, memxor@gmail.com
+Cc: martin.lau@linux.dev, song@kernel.org, yonghong.song@linux.dev,
+ jolsa@kernel.org, emil@etsalapatis.com, ihor.solodrai@linux.dev,
+ john.fastabend@gmail.com, shuah@kernel.org, bpf@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org
+References: <20260814231945.3884596-1-vineet.gupta@linux.dev>
+ <20260814231945.3884596-3-vineet.gupta@linux.dev>
+ <82363647cb12b75398e34c7d66a9f0c527940c8d.camel@gmail.com>
+Content-Language: en-US
+In-Reply-To: <82363647cb12b75398e34c7d66a9f0c527940c8d.camel@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-From: Genevieve Chan <genevieve.chan@altera.com>
+On 8/19/26 4:21 AM, Eduard Zingerman wrote:
+> On Fri, 2026-08-14 at 16:19 -0700, Vineet Gupta wrote:
+>
+> +#define BPF_FLAG_ADD_CONST32	(1U << 0)
+> +#define BPF_FLAG_ADD_CONST64	(1U << 1)
+> +#define BPF_FLAG_ADD_CONST	(BPF_FLAG_ADD_CONST32 | BPF_FLAG_ADD_CONST64)
+>   #define BPF_FLAG_PRECISE	(1U << 7)
+> I'd still suggest to use bitfields.
 
-Preliminary documentation referred to mpu_l2ram_clk, but that clock is
-now mpu_ccu_clk and is already represented by AGILEX_MPU_CCU_CLK.
-Keep AGILEX_MPU_L2RAM_CLK as a legacy ABI-preserved ID (do not use in
-new DTs).
+Done.
 
-Fixes: 6b3c59780ed3 ("dt-bindings: documentation: add clock bindings information for Agilex")
-Cc: stable@vger.kernel.org # 5.8+
-Signed-off-by: Genevieve Chan <genevieve.chan@altera.com>
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
----
-Changes in v2:
-- Remove comment on unused clock ID 42
-- Reword commit message
----
- include/dt-bindings/clock/agilex-clock.h | 1 +
- 1 file changed, 1 insertion(+)
+FWIW I've used enum bitfields which guarantees type safety for mutual 
+exclusions of 32 and 64 flags.
 
-diff --git a/include/dt-bindings/clock/agilex-clock.h b/include/dt-bindings/clock/agilex-clock.h
-index 06feca07e08e..6206a45e007c 100644
---- a/include/dt-bindings/clock/agilex-clock.h
-+++ b/include/dt-bindings/clock/agilex-clock.h
-@@ -44,6 +44,7 @@
+>> diff --git a/kernel/bpf/states.c b/kernel/bpf/states.c
+>> index f7a0314fa106..d3105b9a9965 100644
+>> --- a/kernel/bpf/states.c
+>> +++ b/kernel/bpf/states.c
+>> @@ -370,12 +370,12 @@ static bool check_ids(u32 old_id, u32 cur_id, struct bpf_idmap *idmap)
+>>    * to cur_id=0 and pass. With temp IDs: r6 maps X->temp1, r7 tries to map
+>>    * X->temp2, but X is already mapped to temp1, so the check fails correctly.
+>>    *
+>> - * When old_id has BPF_ADD_CONST set, the compound id (base | flag) and the
+>> - * base id (flag stripped) must both map consistently. Example: old has
+>> - * r2.id=A, r3.id=A|flag (r3 = r2 + delta), cur has r2.id=B, r3.id=C|flag
+>> - * (r3 derived from unrelated r4). Without the base check, idmap gets two
+>> - * independent entries A->B and A|flag->C|flag, missing that A->C conflicts
+>> - * with A->B. The base ID cross-check catches this.
+>> + * ->id is a plain identifier -- the ADD_CONST relationship lives in
+>> + * ->flags -- so there is no compound (base | flag) key to unpack here.
+>> + * Registers sharing a base id go through one idmap entry, which is what
+>> + * catches e.g. old r2.id=A, r3.id=A (r3 = r2 + delta) against cur r2.id=B,
+>> + * r3.id=C: A->B and A->C conflict. Matching ->flags and ->delta are checked
+>> + * by the caller in regsafe().
+> Nit: the above paragraph can be dropped altogether now.
 
- /* Gate clocks */
- #define AGILEX_MPU_CLK			30
-+/* Legacy ABI ID; do not use in new DTs, use AGILEX_MPU_CCU_CLK */
- #define AGILEX_MPU_L2RAM_CLK		31
- #define AGILEX_MPU_PERIPH_CLK		32
- #define AGILEX_L4_MAIN_CLK		33
---
-2.32.0
+Done.
 
+>>    */
+>>   static bool check_scalar_ids(u32 old_id, u32 cur_id, struct bpf_idmap *idmap)
+>>   {
+>> @@ -384,15 +384,7 @@ static bool check_scalar_ids(u32 old_id, u32 cur_id, struct bpf_idmap *idmap)
+>>
+>>   	cur_id = cur_id ? cur_id : ++idmap->tmp_id_gen;
+>>
+>> -	if (!check_ids(old_id, cur_id, idmap))
+>> -		return false;
+>> -	if (old_id & BPF_ADD_CONST) {
+>> -		old_id &= ~BPF_ADD_CONST;
+>> -		cur_id &= ~BPF_ADD_CONST;
+>> -		if (!check_ids(old_id, cur_id, idmap))
+>> -			return false;
+>> -	}
+>> -	return true;
+>> +	return check_ids(old_id, cur_id, idmap);
+>>   }
+> I think sashiko is correct when it comments about:
+>
+>> Does the explore_alu_limits verification path also need a similar update?
+> Both check_scalar_ids() call sites need an update.
+> That being said, I'd say that the following case in regsafe()
+>
+> 		if (env->explore_alu_limits) {
+> 			/* explore_alu_limits disables tnum_in() and range_within()
+> 			 * logic and requires everything to be strict
+> 			 */
+> 			return memcmp(rold, rcur, offsetof(struct bpf_reg_state, id)) == 0 &&
+> 			       check_scalar_ids(rold->id, rcur->id, idmap);
+> 		}
+>
+>
+> can be replaced with `if (...) return regs_exact(rold, rcur, idmap)`,
+> parent_id should be zero for SCALAR_VALUE.
+
+And actually this can be moved out to the NFC patch.
+
+Re. the next instance of check_scalar_ids () call - there is no direct 
+change to that effect - the check for flags above it (existing for 
+add_const, new for  sugreg) provide the coverage.
+
+One thing that did came up out of this deliberations and related.
+
+The NFC patch 1 moved the flags out but didn't update regs_exact() for 
+checking the add_const flag explicitly which was happening implicitly 
+before the series. Turns out that causes the NFC to accept the following 
+incorrectly.
+
+        old {r1.id=A, r2.id=A+delta}  vs cur {r1.id=B, r2.id=B}
+
+If regs_exact () is updated in the NFC, it fixes above. But it also 
+starts rejecting (correctly) something that pre-series was not.
+
+        old {r2.id=A+delta32}         vs cur {r2.id=B+delta64}
+
+Which is fine, except it is no longer NFC.
+
+So what would your preference be: NFC + addon patch (with 1 patch 
+regression of a hard to hit test) or fold the fix and remove the NFC label.
+
+>>   static void __clean_func_state(struct bpf_verifier_env *env,
+>> @@ -488,11 +480,32 @@ static int clean_verifier_state(struct bpf_verifier_env *env,
+>>   	return 0;
+>>   }
+>>
+>> +/*
+>> + * Do rold and rcur describe the same relationship to their ->id set?
+>> + *
+>> + * The link flags live in ->flags, which sits past the end of every memcmp()
+>> + * window used for state comparison.
+> --- 8< ----------------------------
+>                                          and check_ids() only ever sees the plain
+>> + * ->id. So unlike when these bits rode along in the top of ->id, they have to
+>> + * be compared explicitly everywhere ->id is.
+> ---------------------------- >8 ---
+>
+> Nit: let's drop this sentence.
+
+The actual helper below is gone in v2 so this is gone too.
+
+>> + *
+>> + * Only meaningful when rold carries an id: the flags are only ever set
+>> + * together with one, so rold->id == 0 implies none of them is set.
+>> + */
+>> +static bool link_flags_match(const struct bpf_reg_state *rold,
+>> +			     const struct bpf_reg_state *rcur)
+>> +{
+>> +	if (!rold->id)
+>> +		return true;
+>> +
+>> +	return (rold->flags & BPF_FLAG_ADD_CONST) == (rcur->flags & BPF_FLAG_ADD_CONST);
+>> +}
+>> +
+> ...
+>
+>> @@ -590,17 +603,24 @@ static bool regsafe(struct bpf_verifier_env *env, struct bpf_reg_state *rold,
+>>   		 */
+>>
+>>   		/*
+>> -		 * ADD_CONST flags must match exactly: BPF_ADD_CONST32 and
+>> -		 * BPF_ADD_CONST64 have different linking semantics in
+>> +		 * ADD_CONST flags must match exactly: BPF_FLAG_ADD_CONST32 and
+>> +		 * BPF_FLAG_ADD_CONST64 have different linking semantics in
+>>   		 * sync_linked_regs() (alu32 zero-extends, alu64 does not),
+>>   		 * so pruning across different flag types is unsafe.
+>>   		 */
+>> -		if (rold->id &&
+>> -		    (rold->id & BPF_ADD_CONST) != (rcur->id & BPF_ADD_CONST))
+>> +		if (!link_flags_match(rold, rcur))
+>>   			return false;
+>>
+>> -		/* Both have offset linkage: offsets must match */
+>> -		if ((rold->id & BPF_ADD_CONST) && rold->delta != rcur->delta)
+>> +		/*
+>> +		 * Both have offset linkage: offsets must match. The rold->id
+>> +		 * test is redundant today -- BPF_FLAG_ADD_CONST is only ever set
+>> +		 * together with an id -- but it used to be structural, because
+>> +		 * the flag lived in the id itself. Keep it explicit so the
+>> +		 * invariant does not rest on every ->id = 0 site remembering to
+>> +		 * clear ->flags too.
+>> +		 */
+> Nit: Let's shorten this comment to it's original form.
+>       A comment on ->flags field saying that "->flags != 0 iff ->id != 0" should suffice.
+>       Let's also drop the 'rold->id && ' part.
+
+Done.
+
+>> diff --git a/kernel/bpf/verifier.c b/kernel/bpf/verifier.c
+>> index 8925749d636e..93e69116ca9e 100644
+>> --- a/kernel/bpf/verifier.c
+>> +++ b/kernel/bpf/verifier.c
+>> @@ -1806,6 +1806,7 @@ static void __mark_reg_known(struct bpf_reg_state *reg, u64 imm)
+>>   	       offsetof(struct bpf_reg_state, var_off) - sizeof(reg->type));
+>>   	reg->id = 0;
+>>   	reg->parent_id = 0;
+>> +	reg->flags &= ~BPF_FLAG_ADD_CONST;
+>>   	___mark_reg_known(reg, imm);
+>>   }
+>>
+>> @@ -3308,6 +3309,7 @@ static void clear_scalar_id(struct bpf_reg_state *reg)
+>>   {
+>>   	reg->id = 0;
+>>   	reg->delta = 0;
+>> +	reg->flags &= ~BPF_FLAG_ADD_CONST;
+>>   }
+> sashiko is correct about the following branch in the
+> check_stack_write_fixed_off():
+>
+> 		if (!reg_value_fits)
+> 			state->stack[spi].spilled_ptr.id = 0;
+>
+> this seem to be the only missing location, the rest deals with
+> pointers, where ->flags should already be zero.
+
+Now clear_scalar_id(&state->stack[spi].spilled_ptr)
+
+>> @@ -15950,18 +15951,19 @@ static void sync_linked_regs(struct bpf_verifier_env *env, struct bpf_verifier_s
+>>   				: &vstate->frame[e->frameno]->stack[e->spi].spilled_ptr;
+>>   		if (reg->type != SCALAR_VALUE || reg == known_reg)
+>>   			continue;
+>> -		if ((reg->id & ~BPF_ADD_CONST) != (known_reg->id & ~BPF_ADD_CONST))
+>> +		if (reg->id != known_reg->id)
+>>   			continue;
+>>   		/*
+>>   		 * Skip mixed 32/64-bit links: the delta relationship doesn't
+>>   		 * hold across different ALU widths.
+>>   		 */
+>> -		if (((reg->id ^ known_reg->id) & BPF_ADD_CONST) == BPF_ADD_CONST)
+>> +		if (((reg->flags ^ known_reg->flags) & BPF_FLAG_ADD_CONST) == BPF_FLAG_ADD_CONST)
+>>   			continue;
+>> -		if ((!(reg->id & BPF_ADD_CONST) && !(known_reg->id & BPF_ADD_CONST)) ||
+>> +		if ((!(reg->flags & BPF_FLAG_ADD_CONST) && !(known_reg->flags & BPF_FLAG_ADD_CONST)) ||
+>>   		    reg->delta == known_reg->delta) {
+>>   			*reg = *known_reg;
+>>   		} else {
+>> +			u8 saved_add_const = reg->flags & BPF_FLAG_ADD_CONST;
+>        ---------------------^
+>>      |         	s32 saved_off = reg->delta;
+>>      | 		u32 saved_id = reg->id;
+>>      |
+>> @@ -|5976,11 +15978,12 @@ static void sync_linked_regs(struct bpf_verifier_env *env, struct bpf_verifier_s
+>>      | 		 */
+>>      | 		reg->delta = saved_off;
+>>      | 	        reg->id = saved_id;
+>> +   | 		reg->flags = (reg->flags & ~BPF_FLAG_ADD_CONST) | saved_add_const;
+>>      -----------------------^
+>        I'm not sure we need to inherit flags from known_reg here.
+>        Let's avoid that and go with just saved_flags.
+
+Done.
+
+>> --- a/tools/testing/selftests/bpf/progs/verifier_linked_scalars.c
+>> +++ b/tools/testing/selftests/bpf/progs/verifier_linked_scalars.c
+>> @@ -349,8 +349,9 @@ l0_%=:							\
+>>   }
+>>
+>>   /*
+>> - * Test that sync_linked_regs() checks reg->id (the linked target register)
+>> - * for BPF_ADD_CONST32 rather than known_reg->id (the branch register).
+>> + * Test that sync_linked_regs() consults reg->flags (the linked target
+>                                     ^^^^^^^^
+>                                 nit: checks
+>> + * register) for BPF_FLAG_ADD_CONST32, not just known_reg->flags (the branch
+>> + * register): the gate is (reg->flags | known_reg->flags).
+>                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+>                 nit: please drop.
+
+Fixed.
+
+Thx,
+-Vineet
