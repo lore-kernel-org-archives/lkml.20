@@ -1,311 +1,215 @@
-Received: from mail-ej1-f54.google.com (mail-ej1-f54.google.com [209.85.218.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE2C84052DF
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 04:55:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.54
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788497710; cv=pass; b=n/6dLz6GMfi54f2F49WqtTlPCqz9EQgRRhgcJogJk5AJcRZWuQ1zUIhTENpvYI/8hQxZ8J6ZvIPuiZT5jdD0UUX+R3RfWVn2+nctDbIbUxefY4nxZyb/CdL00dWR3xKYaX5/AxMJ97hH2N6g3vay3XL3mG//deiKs3PLEm9BQhM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788497710; c=relaxed/simple;
-	bh=50d1uE3e516FcuKcJBARjzR3CF54j+BPldZrMS2BwRw=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=r/V1tw2ujZm+CJyyIcELzPZFjsvkcKTYAvUvMJs38sCtTO9iEkNH58+bYT5tK4RErD4AuVz6DOlZcRgLZY7F/m38/kDfjsbaO3SMXBoWFOMB5zEfSs/Ye7Dbpgop16vafgZ6d30TBqySKt6V/0FY8sIDnccanrh7izHm0If+wSY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=clyso.com; spf=pass smtp.mailfrom=clyso.com; dkim=pass (2048-bit key) header.d=clyso.com header.i=@clyso.com header.b=OMBnzDH4; arc=pass smtp.client-ip=209.85.218.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=clyso.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=clyso.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 100E1412C04;
+	Fri,  4 Sep 2026 05:00:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788498053; cv=none; b=FYz3yXOuj6IBTa2hPdxByG5+qAf4CrIPRFZGM1YoPSyXOP2eDWokYRFkZEvM+db/w6rqkbruv2xaIEgbH35qLJzBqMXVrABziruQbIDmx1gO9Wimbli7X6A01A4g81MLRkHD/Qx2Uoj8AZOl8NJHT+sk4B801MoXMkrHa6xccas=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788498053; c=relaxed/simple;
+	bh=fuf94LVnuIEcErX5CphqLH8QqMz5ieftZj9IAIZNZ+w=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=LVl/RySDUJf2AA01MX6u7+6kDJaqUXuMis3OkbugK94fVn6/2YiLgqBxK9nkq1u7xS7TOcZpvJq/JTD8ft8irK2WGeKinUiLGuZUfSlw6mWRdmVYi/low5CjV4IJcbrjM7Ok/wFRj57bwCI4NZG9pIxQdiLimEPZq8Kq2r/dKZ8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Oo+sjLpL; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=clyso.com header.i=@clyso.com header.b="OMBnzDH4"
-Received: by mail-ej1-f54.google.com with SMTP id a640c23a62f3a-c15e592da74so64117266b.1
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 21:55:06 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788497705; cv=none;
-        d=google.com; s=arc-20260327;
-        b=rOZEPcEGtA3+jUK+q5BJ09vO1qLuvIz5FdylIQf8FZmPyZ8FCwuGuJWX7XnJrUsE9U
-         ZhxhOXcq6UkLhVukrNYhwPhCMiDj+Cl4rxh5+QSaOrEC+urLvA/iQW/5eR8K4YcHI7QC
-         OBY7oO+2h4Lejep5CkVYy3sm7qJ37u0Lgf7kmhKcMWFr2suQ+Tm3e9xf+XM9/ye6i/wk
-         XNTSdhfdR/TtBCVyV4fVx6aT5gaXNZm8gI4BIMF4R1fWvwjEUrwDyDd0EGz35pBQua0z
-         SrA1dglcY3dogKDeEtmfAoMAoGUpBYyjSGl+J95lmyGEmlUdO+sECIBg1GdihaMcu+ts
-         FTlg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=EI7EvFoEjqQRvho+B0qg3qMMOSTmkt21QeZyDxiJh8I=;
-        fh=bq9Vf4oskYFYu7NbSHWcDGXaqK4tHwUgI23/BfvS4gs=;
-        b=gQuGoREvqBanS56kCJ28Bjm3zBoPVxjbpZWqZiXWFXpnIr/j8Tyqe3oXfr2vverjkv
-         USsalJU35BS7XAicyX6LLHnX8F//zDCcwh9+x3Uikx6gPkPV39wgA0bpqkCLOuZ1pVvJ
-         x4X5KJaiARXwV/PMM3ui5esP4lo7KMbz4iRgdloAeAmZul4BNigWmrUgp/VlyciMReWV
-         G7xEdm7DqDt8fn2nLjjTfeIutDy5J5qByHTtpL/eUU1SeKLQ4fU/ARFlxieltSlovphi
-         PRzPR+K2Z/Op+lopQNdX63vPNo/0EeFv+R/E03dVXLAKR8x4+4jr8Z33wdJUuHryAYEB
-         4LiQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=clyso.com; s=google; t=1788497705; x=1789102505; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=EI7EvFoEjqQRvho+B0qg3qMMOSTmkt21QeZyDxiJh8I=;
-        b=OMBnzDH4bKZhVtwZMMMGHjBVLT1/B+clbiMqcZsuI4O5RIkG5a+CJs/XRLh701n/9d
-         kDTmRuprdIV5B4vdq7UfBcNpaYOUZ3o/9HnLGAX5h7CBIWEgQq9mWhj+dycW5LGZ7k4b
-         jppyR9f3A3QPxBOoLjXsaWDC/oxLbvXkZqEr/BkiyiZMiPA17DQwnFbEwmJ/2+5YkzJq
-         EzactsowJqBvkgnquudz3hAYh6L7Yj14R5weAweAaB3Xd+Vl46PMWk/+vGMSwyk9lVpY
-         /VKDEDNGZseXUuEP4+b0Qo+3WcKIFpnEg3pP0i4KWJBgtFkYmqPj4W88o7TBJLYLS2u/
-         gebA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788497705; x=1789102505;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=EI7EvFoEjqQRvho+B0qg3qMMOSTmkt21QeZyDxiJh8I=;
-        b=iARunQ23iEImFXgYemmfYFQOAO4S/zOruL9sjAkLLCxO32dYhAx8qaFf1h1EtkdC9K
-         1+0rjRYuyFKHQdPIt3c5RKTUiuE+uM9wMx/OX7MN+b1p0xBKBIkca/Ax8F8Ns8uooYjd
-         4YUH9l84ZhVhTCTZ6kGwSRbf7LewctFKwVmX4SHwAOJTvvICIkTKK22ZEew4AR9aup8Q
-         QrhO5GixfSEw4x4xRIpyL45rBz+3Y2s4OyPTZkcYnnCTECknWfoJJItMDvAGA3LNOypc
-         58f4iPm0+aNB2qrj6PRWO2MFbpXk0jxpfIYeHomjAK+QvskpIxAGWo5BBoYySgJkK88v
-         CRuA==
-X-Forwarded-Encrypted: i=1; AKwUvBz3hKs8jcD/+KnPi9CuiyiGIVmVMjh/jAntfHkqF8WEiTleOXon9z4Hl9CME23bjYHMnu4a/lrX67RYRi0=@vger.kernel.org
-X-Gm-Message-State: AFuF++nLXhbyJb+5yRD1FGIIMPcCsTqfSluT0x4EW8h4e8wkpKokNhkh
-	kev19wILD6p/cIATMZIov/bd4gOzFZRm7pIpIPL4Lrs+MKDjSiH83LwY8m2Sp4N+7872zJgaOPq
-	gbfSvN+MH3RahCmZ18MTRIpxaxxkusMYwhnmixGyO4Q==
-X-Gm-Gg: AYBFou2GiTePKJuzZCdmAReDXMsqbltS4kgAgqDJ52NUm5mM7Kb8raI9uxnLZ9e5tgD
-	NNUKq0ZtfludnmFiSHVNN0SBwqs0L5W5BNqoANfKjhQMIQmcdaJuk5PC+FpZguVA4/nR2E6fnxe
-	ErI6mcMRoTAqRWAYRIkVFh0MifOuniVsba/9JJwhKewk92r5EX6ZuNdEMc99K4gEfsF35wZPfkW
-	doquVmweb9ol/pANVsbByNYp6xjQhKDmP7FiSlCHyOW6AX3xFlU32LOHo3fKDdh9xd1KY7TybAC
-	6VRYp6oH8wgRiu8bmQLOvaQw6le4G/VAN4BDtgZ75UB3Jw==
-X-Received: by 2002:a17:907:b051:20b0:c26:19de:9ad9 with SMTP id
- a640c23a62f3a-c2619dea784mr11829266b.49.1788497704848; Thu, 03 Sep 2026
- 21:55:04 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Oo+sjLpL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 26DD81F00A3D;
+	Fri,  4 Sep 2026 05:00:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788498051;
+	bh=d1BzP2ibFwO6IwLrhlA20AGZDFwLvNEbw/qhJ+5IjN4=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date;
+	b=Oo+sjLpLTsV8hVOhmWCSnKVuXg9u6cjotWkfRMZ+IXR0ONQC7k+AlBVmF5hurxyfT
+	 Jl9xXbSuykHOyzdMaln0fJyqfyY0UHZtVZwavKQbYPSfSZa4RMs7FlVexvvR1LSnxK
+	 8sPLTbh+K6YDVmqybr9KzYdaUiZFV7z9qTUPneM4L13nuQKUctFqByWr6UBG40vbD9
+	 mHX9ONcRyiQ/hopE7bHydVspgGDJ+8rIjO5Sasb8mJs5StYcOJ6flO8w4Sg5RtIbwt
+	 hNCUkeMYwz0ZOzVClHItCHGKi6A3ANd+uqqg6ag2lf6vklbP87xrbDjcWK/RUjLlyS
+	 c7D8RjSOyRrGA==
+From: Thomas Gleixner <tglx@kernel.org>
+To: syzbot <syzbot+6d991f16f4bcc8eeea24@syzkaller.appspotmail.com>,
+ anna-maria@linutronix.de, frederic@kernel.org,
+ linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
+ syzkaller-bugs@googlegroups.com
+Cc: Catalin Marinas <catalin.marinas@arm.com>, Mark Rutland
+ <mark.rutland@arm.com>, Will Deacon <will@kernel.org>
+Subject: Re: [syzbot] [kernel?] INFO: rcu detected stall in
+ __hrtimer_run_queues (3)
+In-Reply-To: <6a95a3f2.99925153.16bd3d.0004.GAE@google.com>
+References: <6a95a3f2.99925153.16bd3d.0004.GAE@google.com>
+Date: Fri, 04 Sep 2026 07:00:48 +0200
+Message-ID: <87o6eda9vj.ffs@fw13>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260902124026.1774575-1-max.kellermann@ionos.com>
-In-Reply-To: <20260902124026.1774575-1-max.kellermann@ionos.com>
-From: Xiubo Li <xiubo.li@clyso.com>
-Date: Thu, 3 Sep 2026 21:54:52 -0700
-X-Gm-Features: AcwNN1Wcef3TNpkEAvZQAufHH-QxmpZ_DOkYs40Luxtpq4ZLldX8bx-Y7NPejkM
-Message-ID: <CAOJNxRJ9rUZ4JRwcqEtOPu97D3NNsjwV1mniM6LdNytRYiA54w@mail.gmail.com>
-Subject: Re: [PATCH] ceph: acquire caps for read_folio requests without an rw context
-To: Max Kellermann <max.kellermann@ionos.com>
-Cc: idryomov@gmail.com, amarkuze@redhat.com, ceph-devel@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain
 
-Hi Max,
+On Mon, Aug 31 2026 at 08:55, syzbot wrote:
 
-The fix mechanism looks right: a NETFS_READPAGE request issued via
-read_mapping_folio() with no rw context should acquire caps, blocking,
-before hitting the OSD, so it can't race a writer that hasn't flushed
-yet. Two things though:
+CC+: ARM64 folks. It's their magic git tree ....
 
-There is one existing Ceph-internal caller that now lands in the new
-blocking branch: ceph_uninline_data() calls
-read_mapping_folio(inode->i_mapping, 0, file) from ceph_init_file_info()
-(fs/ceph/file.c:262) at open() time, with no rw context. On an
-O_WRONLY open of an inline-data file with no recent readers, RD isn't
-part of the file's wanted caps (__ceph_caps_file_wanted() derives them
-from the used fmode), so __ceph_get_caps(RD) takes the -EUCLEAN path
-into ceph_renew_caps(), which raises the wanted set via
-__ceph_touch_fmode() and issues a synchronous MDS open request. Such an
-open now pays an extra sync MDS round-trip, and open() can newly fail on
-MDS errors. This read also doesn't need caps: the OSD object is not
-created until the uninline CREATE, and this path intentionally relies
-on the -ENOENT -> zero-fill behavior. Could you handle this internal
-caller explicitly (e.g. have ceph_uninline_data()'s read bypass the caps
-check), rather than making every cap-less READPAGE unconditionally
-block?
+Maybe some day syzbot people get their act together and actually figure
+out who should be CC'ed. Hope dies last...
 
-The blocking acquisition now happens with the folio locked
-(read_folio contract), inverting the usual caps-before-folio-lock order
-of ceph_read_iter()/ceph_filemap_fault(). I checked the obvious cycles
-and didn't find one: a folio that reaches read_folio is clean (dirty =>
-uptodate => read_folio is never called, and netfs_read_folio() diverts
-dirty folios to netfs_read_gaps() before the request is allocated), so
-the Fb-revoke flush/writeback never needs to lock it, and the truncate
-path uses folio_trylock. But please document that invariant in a
-comment, since it's what makes waiting for caps under the folio lock
-safe.
-
-Minor: the new branch hardcodes want = CEPH_CAP_FILE_CACHE, while the
-other read paths add CEPH_CAP_FILE_LAZYIO for lazyio files
-(ceph_filemap_fault(), ceph_splice_read()); it may also be worth
-aligning.
-
-It might also help stable reviewers if the commit message notes that
-current mainline erofs fileio reads via vfs_iocb_iter_read() ->
-ceph_read_iter(), so the trigger is gone there and the patch mainly
-matters for stable kernels and future direct read_mapping_folio()
-callers.
-
-Thanks!
-- Xiubo
-
-On Wed, 2 Sept 2026 at 05:40, Max Kellermann <max.kellermann@ionos.com> wrote:
+> syzbot has found a reproducer for the following issue on:
 >
-> This fixes a data corruption problem that leaked permanently into
-> fscache.  File-backed erofs images are read using
-> read_mapping_folio(), and the Ceph implementation of this call forgets
-> to acquire Ceph caps.  Therefore, mounting an erofs image file from a
-> Ceph mount that was just written (but not yet committed to the OSD)
-> would fail because the erofs code saw only zero-filled pages.  These
-> zero-filled backes were then copied to the fscache, making this data
-> corruption permanent (on this host).
+> HEAD commit:    f1b8fa82cab7 Merge branch 'for-next/core' into for-kernelci
+> git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/arm64/linux.git for-kernelci
+> console output: https://syzkaller.appspot.com/x/log.txt?x=15aee379580000
+> kernel config:  https://syzkaller.appspot.com/x/.config?x=d1128bc53f2ef7f3
+> dashboard link: https://syzkaller.appspot.com/bug?extid=6d991f16f4bcc8eeea24
+> compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
+> userspace arch: arm64
+> syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=15632d9e580000
+> C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=15dd1c15580000
 >
-> Usually, Ceph checks/acquires caps at its own entry points and not in
-> the `address_space_operations`: ceph_read_iter() and
-> ceph_filemap_fault() acquire Fr/Fc before calling filemap_read() or
-> filemap_fault(), and ceph_write_iter() holds Fw/Fb around write_begin.
+> Downloadable assets:
+> disk image: https://storage.googleapis.com/syzbot-assets/932d85a2bda2/disk-f1b8fa82.raw.xz
+> vmlinux: https://storage.googleapis.com/syzbot-assets/5b6b8fb76e8d/vmlinux-f1b8fa82.xz
+> kernel image: https://storage.googleapis.com/syzbot-assets/c246b61ee396/Image-f1b8fa82.gz.xz
 >
-> Only readahead, which the VM can invoke without a Ceph entry point
-> above it, checks caps itself.  That check was added by commit
-> 2b1ac852eb67 ("ceph: try getting buffer capability for readahead/fadvise")
-> in 2016 to the readpages path, converted to the rw
-> context list by commit 5d988308283e ("ceph: track read contexts in
-> ceph_file_info"), and moved into ceph_init_request() for
-> `origin==NETFS_READAHEAD` by commit a5c9dc445139 ("ceph: Make
-> ceph_init_request() check caps on readahead").
+> IMPORTANT: if you fix the issue, please add the following tag to the commit:
+> Reported-by: syzbot+6d991f16f4bcc8eeea24@syzkaller.appspotmail.com
 >
-> The single-folio read path never had such a check, neither in the old
-> ceph_readpage() nor in netfs_read_folio() via ceph_init_request().  It
-> assumes that the `read_folio` method is only ever reached from
-> filemap_read() or filemap_fault(), both of which Ceph wraps.
+> watchdog: BUG: soft lockup - CPU#0 stuck for 22s! [syz-executor:4831]
+> Modules linked in:
+> irq event stamp: 38640849
+> hardirqs last  enabled at (38640848): [<ffff800080557cd8>] seqcount_lockdep_reader_access+0x7c/0xf8 include/linux/seqlock.h:75
+> hardirqs last disabled at (38640849): [<ffff80008690cd0c>] __el1_irq arch/arm64/kernel/entry-common.c:527 [inline]
+> hardirqs last disabled at (38640849): [<ffff80008690cd0c>] el1_interrupt+0x28/0x60 arch/arm64/kernel/entry-common.c:543
+> softirqs last  enabled at (147672): [<ffff80008013891c>] local_bh_enable include/linux/bottom_half.h:33 [inline]
+> softirqs last  enabled at (147672): [<ffff80008013891c>] put_cpu_fpsimd_context arch/arm64/kernel/fpsimd.c:251 [inline]
+> softirqs last  enabled at (147672): [<ffff80008013891c>] do_sve_acc+0x32c/0x4b8 arch/arm64/kernel/fpsimd.c:1349
+> softirqs last disabled at (148217): [<ffff8000800204c0>] __do_softirq+0x14/0x20 kernel/softirq.c:656
+> CPU: 0 UID: 0 PID: 4831 Comm: syz-executor Not tainted syzkaller #0 PREEMPT 
+> Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 08/07/2026
+> pstate: 43400005 (nZcv daif +PAN -UAO +TCO +DIT -SSBS BTYPE=--)
+> pc : trace_hrtimer_expire_exit include/trace/events/timer.h:321 [inline]
+> pc : __run_hrtimer kernel/time/hrtimer.c:2035 [inline]
+> pc : __hrtimer_run_queues+0x32c/0xbe0 kernel/time/hrtimer.c:2096
+> lr : arch_static_branch arch/arm64/include/asm/jump_label.h:36 [inline]
+> lr : trace_hrtimer_expire_exit include/trace/events/timer.h:321 [inline]
+> lr : __run_hrtimer kernel/time/hrtimer.c:2035 [inline]
+> lr : __hrtimer_run_queues+0x32c/0xbe0 kernel/time/hrtimer.c:2096
+> sp : ffff80008eb67de0
+> x29: ffff80008eb67e40 x28: 1fffe00034bb7c3a x27: ffff0001a5dbe1c0
+> x26: ffff0000c6453a90 x25: ffff0000d1a50d38 x24: dfff800000000000
+> x23: 0000000000000001 x22: ffff800084ec6bd4 x21: 1fffe00018c8a752
+> x20: ffff0000c64545a8 x19: ffff0000c6453a80 x18: 0000000000000000
+> x17: ffff80011d2d8000 x16: ffff80008eb60000 x15: 0000000000000000
+> x14: 00000000ffff8000 x13: 0000000000000001 x12: 0000000000000000
+> x11: 0000000000000000 x10: 0000000000000102 x9 : 0000000000000101
+> x8 : 0000000000000000 x7 : 0000000000000000 x6 : 0000000000000000
+> x5 : 0000000000000001 x4 : 0000000000000008 x3 : ffff80008046a634
+> x2 : 0000000000000001 x1 : ffff0000c6453a80 x0 : 0000000000000000
+> Call trace:
+>  arch_static_branch arch/arm64/include/asm/jump_label.h:36 [inline] (P)
+>  trace_hrtimer_expire_exit include/trace/events/timer.h:321 [inline] (P)
+>  __run_hrtimer kernel/time/hrtimer.c:2035 [inline] (P)
+>  __hrtimer_run_queues+0x32c/0xbe0 kernel/time/hrtimer.c:2096 (P)
+>  hrtimer_run_softirq+0x15c/0x21c kernel/time/hrtimer.c:2113
+>  handle_softirqs+0x2ec/0xd98 kernel/softirq.c:622
+>  __do_softirq+0x14/0x20 kernel/softirq.c:656
+>  ____do_softirq+0x14/0x20 arch/arm64/kernel/irq.c:78
+>  call_on_irq_stack+0x30/0x48 arch/arm64/kernel/entry.S:885
+>  do_softirq_own_stack+0x20/0x2c arch/arm64/kernel/irq.c:83
+>  invoke_softirq kernel/softirq.c:503 [inline]
+>  __irq_exit_rcu+0x1ac/0x428 kernel/softirq.c:735
+>  irq_exit_rcu+0x14/0x84 kernel/softirq.c:752
+>  __el1_irq arch/arm64/kernel/entry-common.c:531 [inline]
+>  el1_interrupt+0x40/0x60 arch/arm64/kernel/entry-common.c:543
+>  el1h_64_irq_handler+0x18/0x24 arch/arm64/kernel/entry-common.c:548
+>  el1h_64_irq+0x6c/0x70 arch/arm64/kernel/entry.S:586
+>  __daif_local_irq_restore arch/arm64/include/asm/irqflags.h:175 [inline] (P)
+>  arch_local_irq_restore arch/arm64/include/asm/irqflags.h:195 [inline] (P)
+>  __raw_spin_unlock_irqrestore include/linux/spinlock_api_smp.h:178 [inline] (P)
+>  _raw_spin_unlock_irqrestore+0x44/0x98 kernel/locking/spinlock.c:198 (P)
+>  __debug_check_no_obj_freed lib/debugobjects.c:1180 [inline]
+>  debug_check_no_obj_freed+0x2c8/0x3a4 lib/debugobjects.c:1201
+>  slab_free_hook mm/slub.c:2608 [inline]
+>  slab_free mm/slub.c:6377 [inline]
+>  kmem_cache_free+0x120/0x6b8 mm/slub.c:6504
+>  file_free+0x128/0x1dc fs/file_table.c:104
+>  __fput+0x538/0x74c fs/file_table.c:525
+>  fput_close_sync+0x10c/0x278 fs/file_table.c:617
+>  __do_sys_close fs/open.c:1511 [inline]
+>  __se_sys_close fs/open.c:1496 [inline]
+>  __arm64_sys_close+0x80/0x110 fs/open.c:1496
+>  __invoke_syscall arch/arm64/kernel/syscall.c:35 [inline]
+>  invoke_syscall+0x98/0x244 arch/arm64/kernel/syscall.c:49
+>  el0_svc_common+0xec/0x23c arch/arm64/kernel/syscall.c:121
+>  do_el0_svc+0x4c/0x5c arch/arm64/kernel/syscall.c:140
+>  el0_svc+0x64/0x260 arch/arm64/kernel/entry-common.c:758
+>  el0t_64_sync_handler+0x44/0x104 arch/arm64/kernel/entry-common.c:777
+>  el0t_64_sync+0x198/0x19c arch/arm64/kernel/entry.S:590
+> Sending NMI from CPU 0 to CPUs 1:
+> NMI backtrace for cpu 1
+> CPU: 1 UID: 0 PID: 4802 Comm: kworker/1:3 Not tainted syzkaller #0 PREEMPT 
+> Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 08/07/2026
+> Workqueue: rcu_gp process_srcu
+> pstate: 83400005 (Nzcv daif +PAN -UAO +TCO +DIT -SSBS BTYPE=--)
+> pc : __raw_spin_unlock_irqrestore include/linux/spinlock_api_smp.h:179 [inline]
+> pc : _raw_spin_unlock_irqrestore+0x44/0x98 kernel/locking/spinlock.c:198
+> lr : __raw_spin_unlock_irqrestore include/linux/spinlock_api_smp.h:178 [inline]
+> lr : _raw_spin_unlock_irqrestore+0x38/0x98 kernel/locking/spinlock.c:198
+> sp : ffff80008eb77dc0
+> x29: ffff80008eb77dc0 x28: 1fffe00034bbc63a x27: ffff0001a5de31c0
+> x26: ffff0001a5de31d0 x25: ffff0000d2a4a538 x24: dfff800000000000
+> x23: 0000000000000001 x22: ffff800084ec6bd4 x21: ffff0001a5de2d80
+> x20: ffff0001a5de2d80 x19: 0000000000000000 x18: 00000000ffffffff
+> x17: ffff80008a7d6000 x16: 0000000000000002 x15: ffff80008a35fda0
+> x14: ffff80008a5d5e28 x13: 0000000000000001 x12: 0000000000000000
+> x11: ffff80008a5d5e28 x10: 0000000000000003 x9 : 0000000000000000
+> x8 : 00000000000000c0 x7 : 0000000000000000 x6 : 0000000000000000
+> x5 : 0000000000000001 x4 : 0000000000000008 x3 : ffff80008015611c
+> x2 : 0000000000000002 x1 : ffff0000d32c9d40 x0 : ffff80011d2fd000
+> Call trace:
+>  __daif_local_irq_restore arch/arm64/include/asm/irqflags.h:175 [inline] (P)
+>  arch_local_irq_restore arch/arm64/include/asm/irqflags.h:195 [inline] (P)
+>  __raw_spin_unlock_irqrestore include/linux/spinlock_api_smp.h:178 [inline] (P)
+>  _raw_spin_unlock_irqrestore+0x44/0x98 kernel/locking/spinlock.c:198 (P)
+>  __run_hrtimer kernel/time/hrtimer.c:2028 [inline]
+>  __hrtimer_run_queues+0x22c/0xbe0 kernel/time/hrtimer.c:2096
+>  hrtimer_run_softirq+0x15c/0x21c kernel/time/hrtimer.c:2113
+>  handle_softirqs+0x2ec/0xd98 kernel/softirq.c:622
+>  __do_softirq+0x14/0x20 kernel/softirq.c:656
+>  ____do_softirq+0x14/0x20 arch/arm64/kernel/irq.c:78
+>  call_on_irq_stack+0x30/0x48 arch/arm64/kernel/entry.S:885
+>  do_softirq_own_stack+0x20/0x2c arch/arm64/kernel/irq.c:83
+>  invoke_softirq kernel/softirq.c:503 [inline]
+>  __irq_exit_rcu+0x1ac/0x428 kernel/softirq.c:735
+>  irq_exit_rcu+0x14/0x84 kernel/softirq.c:752
+>  __el1_irq arch/arm64/kernel/entry-common.c:531 [inline]
+>  el1_interrupt+0x40/0x60 arch/arm64/kernel/entry-common.c:543
+>  el1h_64_irq_handler+0x18/0x24 arch/arm64/kernel/entry-common.c:548
+>  el1h_64_irq+0x6c/0x70 arch/arm64/kernel/entry.S:586
+>  __daif_local_irq_restore arch/arm64/include/asm/irqflags.h:175 [inline] (P)
+>  arch_local_irq_restore arch/arm64/include/asm/irqflags.h:195 [inline] (P)
+>  queue_delayed_work_on+0xf4/0x140 kernel/workqueue.c:2624 (P)
+>  queue_delayed_work include/linux/workqueue.h:714 [inline]
+>  srcu_reschedule+0x240/0x338 kernel/rcu/srcutree.c:1957
+>  process_srcu+0xd04/0x1eb8 kernel/rcu/srcutree.c:1991
+>  process_one_work kernel/workqueue.c:3322 [inline]
+>  process_scheduled_works+0x788/0x10b8 kernel/workqueue.c:3405
+>  worker_thread+0x798/0xbd0 kernel/workqueue.c:3486
+>  kthread+0x304/0x3d4 kernel/kthread.c:436
+>  ret_from_fork+0x10/0x20 arch/arm64/kernel/entry.S:838
+> watchdog: BUG: soft lockup - CPU#1 stuck for 26s! [kworker/1:3:4802]
+> Modules linked in:
+> irq event stamp: 44430735
+> hardirqs last  enabled at (44430734): [<ffff800086932074>] __raw_spin_unlock_irqrestore include/linux/spinlock_api_smp.h:178 [inline]
+> hardirqs last  enabled at (44430734): [<ffff800086932074>] _raw_spin_unlock_irqrestore+0x38/0x98 kernel/locking/spinlock.c:198
+> hardirqs last disabled at (44430735): [<ffff80008690cd0c>] __el1_irq arch/arm64/kernel/entry-common.c:527 [inline]
+> hardirqs last disabled at (44430735): [<ffff80008690cd0c>] el1_interrupt+0x28/0x60 arch/arm64/kernel/entry-common.c:543
+> softirqs last  enabled at (6136): [<ffff80008030e6e4>] softirq_handle_end kernel/softirq.c:468 [inline]
+> softirqs last  enabled at (6136): [<ffff80008030e6e4>] handle_softirqs+0xc28/0xd98 kernel/softirq.c:650
+> softirqs last disabled at (7461): [<ffff8000800204c0>] __do_softirq+0x14/0x20 kernel/softirq.c:656
 >
-> However, since Linux 6.12, erofs file-backed mounts
-> (commit ce63cb62d794 ("erofs: support unencoded inodes for fileio"))
-> read all metadata (including the superblock) by calling
-> read_mapping_folio() directly on the backing file's mapping.  On Ceph,
-> this issues an OSD read without holding any caps.
 >
-> The result is silent data corruption.  Ceph clients do not write back
-> dirty pages on close(); a writer keeps Fb and its dirty data until the
-> MDS revokes the cap.  When another client opens the file, the MDS
-> initiates that revoke and replies to the open immediately.  A read()
-> would now block in ceph_get_caps() until the writer has flushed and
-> acked the cap-revoke, but the erofs superblock read goes to the OSD
-> without acquiring caps and thus races with the writeback.  If the
-> object does not exist yet, the OSD returns -ENOENT, which
-> finish_netfs_read() treats as "success, no data", and netfs zero-fills
-> the folio.  The folio is marked uptodate and, because it counts as
-> downloaded from the server, is also copied into fscache.  This never
-> recovers because Ceph invalidates the page cache and fscache only when
-> Fc is revoked, but gaining Fc later will not invalidate it.
->
-> My patch fixes this in ceph_init_request() by reusing the existing
-> `NETFS_READAHEAD` code for `NETFS_READPAGE`, but uses
-> __ceph_get_caps() instead of ceph_try_get_caps() to make it blocking
-> (something which would be undesirable for readahead).
->
-> Fixes: ce63cb62d794 ("erofs: support unencoded inodes for fileio")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Max Kellermann <max.kellermann@ionos.com>
 > ---
->  fs/ceph/addr.c | 69 ++++++++++++++++++++++++++++++++------------------
->  1 file changed, 45 insertions(+), 24 deletions(-)
->
-> diff --git a/fs/ceph/addr.c b/fs/ceph/addr.c
-> index 657c2cb0f881..580b45a68a75 100644
-> --- a/fs/ceph/addr.c
-> +++ b/fs/ceph/addr.c
-> @@ -468,6 +468,7 @@ static int ceph_init_request(struct netfs_io_request *rreq, struct file *file)
->         struct inode *inode = rreq->inode;
->         struct ceph_fs_client *fsc = ceph_inode_to_fs_client(inode);
->         struct ceph_client *cl = ceph_inode_to_client(inode);
-> +       struct ceph_file_info *fi = file ? file->private_data : NULL;
->         int got = 0, want = CEPH_CAP_FILE_CACHE;
->         struct ceph_netfs_request_data *priv;
->         int ret = 0;
-> @@ -475,45 +476,65 @@ static int ceph_init_request(struct netfs_io_request *rreq, struct file *file)
->         /* [DEPRECATED] Use PG_private_2 to mark folio being written to the cache. */
->         __set_bit(NETFS_RREQ_USE_PGPRIV2, &rreq->flags);
->
-> -       if (rreq->origin != NETFS_READAHEAD)
-> +       if (rreq->origin != NETFS_READAHEAD && rreq->origin != NETFS_READPAGE)
->                 return 0;
->
->         priv = kzalloc_obj(*priv, GFP_NOFS);
->         if (!priv)
->                 return -ENOMEM;
->
-> -       if (file) {
-> -               struct ceph_rw_context *rw_ctx;
-> -               struct ceph_file_info *fi = file->private_data;
-> -
-> +       if (fi) {
->                 priv->file_ra_pages = file->f_ra.ra_pages;
->                 priv->file_ra_disabled = file->f_mode & FMODE_RANDOM;
->
-> -               rw_ctx = ceph_find_rw_context(fi);
-> -               if (rw_ctx) {
-> +               /*
-> +                * ceph_read_iter() and ceph_filemap_fault() hold caps and
-> +                * register an rw context before entering the page cache.
-> +                */
-> +               if (ceph_find_rw_context(fi)) {
->                         rreq->netfs_priv = priv;
->                         return 0;
->                 }
->         }
->
-> -       /*
-> -        * readahead callers do not necessarily hold Fcb caps
-> -        * (e.g. fadvise, madvise).
-> -        */
-> -       ret = ceph_try_get_caps(inode, CEPH_CAP_FILE_RD, want, true, &got);
-> -       if (ret < 0) {
-> -               doutc(cl, "%llx.%llx, error getting cap\n", ceph_vinop(inode));
-> -               goto out;
-> -       }
-> +       if (rreq->origin == NETFS_READAHEAD) {
-> +               /*
-> +                * readahead callers do not necessarily hold Fcb caps
-> +                * (e.g. fadvise, madvise).  Readahead is optional, so do
-> +                * not block; without caps the VM falls back to read_folio.
-> +                */
-> +               ret = ceph_try_get_caps(inode, CEPH_CAP_FILE_RD, want, true,
-> +                                       &got);
-> +               if (ret < 0) {
-> +                       doutc(cl, "%llx.%llx, error getting cap\n",
-> +                             ceph_vinop(inode));
-> +                       goto out;
-> +               }
->
-> -       if (!(got & want)) {
-> -               doutc(cl, "%llx.%llx, no cache cap\n", ceph_vinop(inode));
-> -               ret = -EACCES;
-> -               goto out;
-> -       }
-> -       if (ret == 0) {
-> -               ret = -EACCES;
-> -               goto out;
-> +               if (!(got & want)) {
-> +                       doutc(cl, "%llx.%llx, no cache cap\n", ceph_vinop(inode));
-> +                       ret = -EACCES;
-> +                       goto out;
-> +               }
-> +               if (ret == 0) {
-> +                       ret = -EACCES;
-> +                       goto out;
-> +               }
-> +       } else {
-> +               /*
-> +                * Make sure we have caps, just in case read_folio was
-> +                * called directly (e.g. by erofs) which may have
-> +                * bypassed the usual Ceph cap checks.  This branch
-> +                * uses __ceph_get_caps() which blocks until the
-> +                * required cap has been granted.
-> +                */
-> +               ret = __ceph_get_caps(inode, fi, CEPH_CAP_FILE_RD, want, -1,
-> +                                     &got);
-> +               if (ret < 0) {
-> +                       doutc(cl, "%llx.%llx, error getting cap\n",
-> +                             ceph_vinop(inode));
-> +                       goto out;
-> +               }
->         }
->
->         priv->caps = got;
-> --
-> 2.47.3
->
+> If you want syzbot to run the reproducer, reply with:
+> #syz test: git://repo/address.git branch-or-commit-hash
+> If you attach or paste a git patch, syzbot will apply it before testing.
