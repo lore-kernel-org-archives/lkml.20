@@ -1,268 +1,285 @@
-Received: from mx0a-00364e01.pphosted.com (mx0a-00364e01.pphosted.com [148.163.135.74])
+Received: from SA9PR02CU001.outbound.protection.outlook.com (mail-southcentralusazon11013005.outbound.protection.outlook.com [40.93.196.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2D353BBFD6
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 21:42:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.135.74
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788558152; cv=none; b=INYaq7YNxpbcgHtts2aTyz1NLDAXprfEF5AuqvZ4gje/LITa8UR7QnzDLr//WHKWl+pyfZOrmk4Nt9185sgJypfWbVQjc8sfDRuPo0Oc230y48ogf7jbdY2IADRx/I92c0A3CTTL2nPzSZjaORsHzNjP3Uo1A5saMdIhGrwgj48=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788558152; c=relaxed/simple;
-	bh=IfTURNHlwjtaRepVD5dByQ+90DxxWiZBB2cnPzFTSSc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ge3Wd7AQd32SGSZMCsU9w9tlVT09ahW+HBPxg8yEOMpZDbt0PhQxAwsCFTGUTZQrzmY6t+8+lTjUaNeKhl2nn5TrnGFBNOXx476NXze5IAOUH5DC0dNvwlt2SYHFFYVCC54G34v+z1PSNwz6b8JrI7AQ28tMynnAINnD9baQvEE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=columbia.edu; spf=pass smtp.mailfrom=columbia.edu; dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b=nvpYHaWp; dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b=Gw54KY/A; arc=none smtp.client-ip=148.163.135.74
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=columbia.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=columbia.edu
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D87E38C438;
+	Fri,  4 Sep 2026 21:43:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.196.5
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788558204; cv=fail; b=ApDdZfTN/oXbituGaxDKXonWxQ+jQapw/lUCsHCGV4h6OklHr6BOKEwkTAFje2dL9X4vQ/WOtBh464k4FnknhUghrefy0MI3hgZfmLUXq7Tm0SsLd3BA9VFwnU3j2bd354Oeco3dpONqCaIqV/wmFcuQlsTmkuD8Vo9xPwHj+T0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788558204; c=relaxed/simple;
+	bh=PV9oieABOLgKLeLfzRf3V1H2KWky/M7fOMAx4fVEq80=;
+	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=q6x/CoqULEbnUPEnCI1QNnrIRPPu6ErLRlTpQ8KYymrJKc5ks7mzhXvTaKhpqtDpgGJYC6/gaN6MYG9QHcWXucD7wGcCcX3ZJbT5p0Qq0hc8kIJ9hWtAMwi+v97JZB294HTo6IJVMRZaskELLjsHpsu45zVVg++Uvnfoi1aRHBk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=glOV3U6S; arc=fail smtp.client-ip=40.93.196.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b="nvpYHaWp";
-	dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b="Gw54KY/A"
-Received: from pps.filterd (m0499199.ppops.net [127.0.0.1])
-	by mx0a-00364e01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 684KZ0XR2829072
-	for <linux-kernel@vger.kernel.org>; Fri, 4 Sep 2026 17:42:30 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=columbia.edu; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pps01; bh=9sBs
-	rXDWsA6mIM6eTb+x+9JskBQgNRQ7PhCpi14v3SQ=; b=nvpYHaWpJagUrv72UkPu
-	pSyLtzsV1MZZi57QENoYRlenxKN2V2EsKHyhZ9o5kJZaa2q3s3LGsw6nDLsiobU5
-	wEQFRPDAoD0D541yZ8U1Y+BjiW9KFG6uT79JPlnRHXhEi5zNEzNRiMP+EuEnqdfs
-	OrHHhY/585JZoZ7zWL8I6RT5o1wOEPg5htyWEDiU4Qd9pEcl0Zp2xARNJ8J5/9WM
-	w7S9cP3TRSGxIJSjWIwNi7TV88gioy34fkCUxBgxdbyML0goMreNY2ygjzWl83AT
-	iXDilJMAvs8KbeChfGBTJaCPT1NK6iCXdUUkQ4xSk8w0kW6pSQl/iCr7gZDkNlkF
-	GA==
-Received: from mail-qv1-f70.google.com (mail-qv1-f70.google.com [209.85.219.70])
-	by mx0a-00364e01.pphosted.com (PPS) with ESMTPS id 4gfyvkudnx-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 17:42:29 -0400 (EDT)
-Received: by mail-qv1-f70.google.com with SMTP id 6a1803df08f44-90c8da50f4fso20154326d6.0
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 14:42:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=columbia.edu; s=lionmail; t=1788558149; x=1789162949; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=9sBsrXDWsA6mIM6eTb+x+9JskBQgNRQ7PhCpi14v3SQ=;
-        b=Gw54KY/AnV2r4llM9V3R3TJU+jE9sXxmxJqiJsavw2NTUXzZNFXod2oQH+ZJhFNIA+
-         SxRgdg0XV2/uLn7pPfF7JcOQhAzMm0ettazA9oPH60uabhpYhg6hhQOCpFDVL2mobI/U
-         MwVe21M/X3WHcGlAxoGQlDX0X+I6GTyCl/3XtfrDxglnNI2LzG/2nB4A+Vd3vaG715R1
-         uVAvoCKGEUTP8DdqEgymKAUHdARAHJmwIeWLZpTRQfwqVPc9pTPS1m2iQFCsR7ddZzzr
-         JXWZ9vjYmmGkIgcx90Y7eZQKqnknk/D/lnDMIOoZ2Ey+3gh9dN4RepujLQCQNLz2cwV2
-         x4zg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788558149; x=1789162949;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=9sBsrXDWsA6mIM6eTb+x+9JskBQgNRQ7PhCpi14v3SQ=;
-        b=TqYdv3DRDGB2HoZlY7IXsOQSJp4IgtO68o4UPfw4FQ+t+7KWSp7vH5F9U7TMb70rkI
-         mfj3l2AOW890y6AQiHf9nWUJoed7XqScRH6dFkU+uAsh3KBX+DCWlS5pTsyC05GMq4W6
-         rB7BKWcz4ZOcBGcWTi5p7e5LOikVJtpuC3YwDNuMzeN5KsYc0HWgErycYlnUaHUXCfra
-         IcThe6QMz8hB0hyL7rP/BziwdXkICtgjQsL7OaHN4ezGom+gFsKjLUWjYRL4iky93LF6
-         4h2I80pDJkrFwEoJ7L1Pin8axr57vQ442PBOJXSx/XfpjQoKlVGHcami8rSxa8ksuelM
-         jN7A==
-X-Forwarded-Encrypted: i=1; AKwUvBxOd46Z49U2V+mAORmaOhed1Ulca/HK36HzoapOJOTfx5oleonZzPbqTi6UVni4WDKzkFWKsjAaDNgFIko=@vger.kernel.org
-X-Gm-Message-State: AFuF++kISQ88JFb4Bdlqy4Af2hUua+7wSMtV/2DVpA2aM9T6v7ny/LAa
-	0jYCa7pVREEEaMMkEZHQ+BGCPVAy/nsCnjZ0sRX3O14cc62yfcBzuaaGjn2YVP9hY2aMFWju1Kl
-	nhF7uKoCAkRFDgHjCJcLJHltm7AcAU0s2xSa0oWomTr4J/y3IHUlWi7bG8Ts/Tg==
-X-Gm-Gg: AYBFou1d2IFXPuYAPmE+5759U12Zs1KM+yZAfJtTrO2u4NknTV/SH0bjuwey85uaY0m
-	iDxZoQjra7860jwIp7yCE5x3lpqQb3NmteMg3dh6F5H7st6O9ncZyoL1DLsBdEtPZnIbX44sWDF
-	Bxq+9hxXyRWRzHlSTiroV91b9iwCsJkHqXxlY2SV6ToosGNT3iQl7Mv3U1p1mpQtVdbihrDk4QJ
-	6c/OhfkViICH3iWVN9E8oIZQ065g2YXKenNUc0imTNU08f/J97JGcJmHz63voHuQks7fhapGUIH
-	sjvBIYmVQoSTFj+VS30ajxsrYghIu5dsIG+OgRWNqFbmaLUpw48x7d08BRv6WQWITFECjI8tb+7
-	P5grfohOXUa2FV6YxPy/t3g+/fiipJc+a2sFOMnQ1XZFVSZKbZAXy
-X-Received: by 2002:a05:6214:f25:b0:910:44f2:5ce3 with SMTP id 6a1803df08f44-91044f25d21mr48209856d6.8.1788558147676;
-        Fri, 04 Sep 2026 14:42:27 -0700 (PDT)
-X-Received: by 2002:a05:6214:f25:b0:910:44f2:5ce3 with SMTP id 6a1803df08f44-91044f25d21mr48209456d6.8.1788558147144;
-        Fri, 04 Sep 2026 14:42:27 -0700 (PDT)
-Received: from [10.207.49.22] (nat-128-59-177-158.net.columbia.edu. [128.59.177.158])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91043b54cd6sm18880636d6.34.2026.09.04.14.42.26
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 04 Sep 2026 14:42:26 -0700 (PDT)
-Message-ID: <7f70b59e-b1b5-452a-8a2b-d51392737a53@columbia.edu>
-Date: Fri, 4 Sep 2026 17:42:25 -0400
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="glOV3U6S"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Q0QOn9skyYaTc5crsdNhltoTZxXVZ6QRw2qWquugP1DwIbaBM8iSXp9xfVEy0Y4GYuJi5lwaYVANKfducb9tRS5aLbHAcwjujGRoyvMHmZt+TqoHL5XPQtFR12U+VXzMG4TK/8NN5qnueL9ZKupH1tavWYQyRVggTuKJGs9Wz3usU7hD0MNclQQqhTu17vuL9L60+M4cGR0t3STvqbSPx6FE9yOs2aWwksSEHIknusrLjHB6iaeWx2C14XALyrpirse63k1cLU9R7OQXoVFLSIoNgvZroz7proLXgj1KjTma5kRId+YcOuUUwc/16A6vJ9EPW9YEYKIi8Npxx6myCg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=DNDtMp8O1f5/RjnvNdJtIo4LKUolLOXAiPzCUJDt5XE=;
+ b=HExWSD9SQsu3E46X8MxqljHz+Quv3OwYX4SfUO1dkZz6UsQ8jyC9fU20UGQEZtnvhiYajbpaVAyRmRnVfOsu+hIeduzjgOyPqtqsGUGD3NPWkjx3+F9J/6j51Wl7j00dBu/j7jGr6ch3imiYQc6npAe0ksCAV9ESnGxKwVQlVD8TiON0tUUM6kZSEIgpTm1ugI8DMIZZz1ZaYHNcvMelynTbd1zjUKXbFegcGf9/1XKOQ+aL999kKTi+42EOc4fnz1zVMZpzp45jRHRAqKJJxQdOuo3DDiPQWwRX0cENigRXGh2NIIxJphx8VHoWTodQV5FYObC/pxC2MHuteXN6IQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 216.228.117.161) smtp.rcpttodomain=oss.qualcomm.com smtp.mailfrom=nvidia.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=DNDtMp8O1f5/RjnvNdJtIo4LKUolLOXAiPzCUJDt5XE=;
+ b=glOV3U6SY8UO7OBbflh5LMRPH3BMOq6u1FXpPemuxAkVkH7oEueGj3kGFheGcLnrTOl/CTBxDO9fcqZzf7Mac6qH2TmNlQjFIgUjE7a7VqkiEKyuqbWiWPo1tvp0KGYwp6Kd8rujAOj5DOB63hKQh23/r11Jm4X2J8LMlMa8V2dSB73JLoNR2H/vsp/cacHGNe5Df1Pq/XZKjSM1nWmjTyLjtP2PWYdQLymamOU9ioAigMS1lkHLjWPESGTL3+0Wccl8hw25Iz9r3uWLB6JEkAlE+jh03QOeF5i7OjEGI2oBtwMT5VdgD7ihh1GBjUbiciYD8fhIMWVfeooR1p1veQ==
+Received: from DM6PR02CA0113.namprd02.prod.outlook.com (2603:10b6:5:1b4::15)
+ by PH7PR12MB5711.namprd12.prod.outlook.com (2603:10b6:510:1e2::6) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Fri, 4 Sep
+ 2026 21:43:07 +0000
+Received: from CY4PEPF0000EE3E.namprd03.prod.outlook.com
+ (2603:10b6:5:1b4:cafe::28) by DM6PR02CA0113.outlook.office365.com
+ (2603:10b6:5:1b4::15) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.12 via Frontend Transport; Fri, 4
+ Sep 2026 21:43:07 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.117.161)
+ smtp.mailfrom=nvidia.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 216.228.117.161 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.117.161; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.117.161) by
+ CY4PEPF0000EE3E.mail.protection.outlook.com (10.167.242.16) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.382.8 via Frontend Transport; Fri, 4 Sep 2026 21:43:06 +0000
+Received: from rnnvmail201.nvidia.com (10.129.68.8) by mail.nvidia.com
+ (10.129.200.67) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Fri, 4 Sep
+ 2026 14:42:46 -0700
+Received: from rnnvmail203.nvidia.com (10.129.68.9) by rnnvmail201.nvidia.com
+ (10.129.68.8) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Fri, 4 Sep
+ 2026 14:42:45 -0700
+Received: from nvidia.com (10.127.8.13) by mail.nvidia.com (10.129.68.9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46 via Frontend
+ Transport; Fri, 4 Sep 2026 14:42:42 -0700
+Date: Fri, 4 Sep 2026 14:42:40 -0700
+From: Nicolin Chen <nicolinc@nvidia.com>
+To: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+CC: <will@kernel.org>, <robin.murphy@arm.com>, <jgg@nvidia.com>,
+	<joro@8bytes.org>, <bhelgaas@google.com>, <praan@google.com>,
+	<kevin.tian@intel.com>, <kees@kernel.org>, <smostafa@google.com>,
+	<baolu.lu@linux.intel.com>, <linux-arm-kernel@lists.infradead.org>,
+	<iommu@lists.linux.dev>, <linux-kernel@vger.kernel.org>,
+	<linux-pci@vger.kernel.org>, <skaestle@nvidia.com>, <mmarrid@nvidia.com>,
+	<skolothumtho@nvidia.com>, <bbiber@nvidia.com>, <harsha.v@oss.qualcomm.com>
+Subject: Re: [PATCH v3 03/13] iommu/arm-smmu-v3: Drain in-flight fault events
+ on domain detach
+Message-ID: <aps7UJktq3IlO5lT@nvidia.com>
+References: <cover.1788222485.git.nicolinc@nvidia.com>
+ <8717f3329313f40308cff20006066283ebbb3a56.1788222485.git.nicolinc@nvidia.com>
+ <178846311316.1308030.6266899352044838554.b4-review@b4>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 08/11] mm: memcontrol: constify the memcg and lruvec stat
- readers
-To: Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>,
-        Roman Gushchin <roman.gushchin@linux.dev>,
-        Shakeel Butt <shakeel.butt@linux.dev>,
-        Muchun Song <muchun.song@linux.dev>,
-        Andrew Morton <akpm@linux-foundation.org>,
-        Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>,
-        Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>,
-        Baoquan He <baoquan.he@linux.dev>, Barry Song <baohua@kernel.org>,
-        Youngjun Park <youngjun.park@lge.com>,
-        David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
-        "Liam R. Howlett" <liam@infradead.org>,
-        Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
-        Suren Baghdasaryan <surenb@google.com>, Qi Zheng <qi.zheng@linux.dev>,
-        Axel Rasmussen <axelrasmussen@google.com>,
-        Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>,
-        "Matthew Wilcox (Oracle)" <willy@infradead.org>
-Cc: cgroups@vger.kernel.org, linux-mm@kvack.org, linux-kernel@vger.kernel.org
-References: <20260902-folio_memcg-const-v1-0-e2c1da22246d@columbia.edu>
- <20260902-folio_memcg-const-v1-8-e2c1da22246d@columbia.edu>
-Content-Language: en-US
-From: Tal Zussman <tz2294@columbia.edu>
-In-Reply-To: <20260902-folio_memcg-const-v1-8-e2c1da22246d@columbia.edu>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA0MDIwMSBTYWx0ZWRfX8pkkpQDnzhHb
- jFz/CLTy3oAbhLzovpjsVZbCyjocFAznAjBfzC02vSHEycCaw4/kSLQYsRZmMN7OvGp3oalorTv
- aTSzBxAaFkyM/XdG0Bq3DdCTHWkEGcX3BWGox8F+d6oBwWwysaDbB9ZnEdhDs2BgcBkvUsu1K4T
- uu/07vWzMoZY5X5Czsg4IAkpeLj4iPvhoH59vOlvi3u83uTVJaf9qs9pLyhz5rGxP4KhGKJ5nE9
- JxHPnhM/bXkDpJokzmccUz16vcsfL/S3mZ9kdG2rrAOS8iMoJyKYQ6LSb+x0uwVaqIRsQmpj3St
- Ej5QYkMAh1DKIw9uHvrKDATEgN0eMgqjwT4JzANg+0IwIUFviByu3kyhJDSD/xmLzds612/5Nha
- /b+AcczbMiwieHv7RorQYCahZ7IBivy7ETrUeI7vJdvAkLNXfmFue9cu0Q3NSbAFBmv10gfTNGz
- Q4Ut2ALHX0JPTQmH0MA==
-X-Proofpoint-GUID: 40eCgbECb3N_imnajeDI2NoBIMTxQee9
-X-Authority-Analysis: v=2.4 cv=T868ifKQ c=1 sm=1 tr=0 ts=6a9b3b46 cx=c_pps
- a=oc9J++0uMp73DTRD5QyR2A==:117 a=tLges04aSNaZGVAfhBIy2A==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=x7bEGLp0ZPQA:10 a=A0y_DWxS2BwA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=Da8U98TiO7q1upZEImrf:22 a=G--0XuH5328wxK7v7Suf:22
- a=H57HtBtNAyM616LuGCcA:9 a=QEXdDO2ut3YA:10 a=iYH6xdkBrDN1Jqds4HTS:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA0MDIwMSBTYWx0ZWRfX6sGFv6jvloGN
- mJJgVcF/Pr2q2HvaDTIyADkp9bEKIQMq1qtOMcR6Y02ieyRP5YishN+tvsEeSB90at4/QVwiRY6
- koV+l9kI44P4CSBuXGr1YMyb0L4nBp4p5E5CWQChpHcbnJfHZ/FH
-X-Proofpoint-ORIG-GUID: 40eCgbECb3N_imnajeDI2NoBIMTxQee9
-X-Proofpoint-Virus-Version: vendor=nai engine=6900 definitions=11896
- signatures=596817
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=10 adultscore=0 lowpriorityscore=10 suspectscore=0 malwarescore=0
- spamscore=0 priorityscore=1501 clxscore=1015 impostorscore=10 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609040201
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <178846311316.1308030.6266899352044838554.b4-review@b4>
+X-NV-OnPremToCloud: ExternallySecured
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000EE3E:EE_|PH7PR12MB5711:EE_
+X-MS-Office365-Filtering-Correlation-Id: 885deb12-6ca6-42bc-04ad-08df0acd81b9
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|1800799024|36860700016|23010399003|7416014|376014|18002099003|22082099003|56012099006|3023799007|10067099003|6133799003|4143699003|11063799006;
+X-Microsoft-Antispam-Message-Info:
+	k4FHx6bzZpZOc4ZETFtH0Ue45ER0rqt8OAu/oyITylyj65qtDzJmDXYb7P5Dr9lSnqcwMPWHqZzy2m+1Z3QHs9YiGF3GIbWc3A/oC4TPRE4SdTozWur6Ylvl8OTPUdInqgUeks7itnapiAINkDfAo7bNKmdL0nd8FwST/ZP1tfDJVNK33vhN2tIQkeZKn5teXNY+BwjxVf3/MdsOg4mo3cZBwo3WJxNip8ElYdMfNk4oJqe91H1BVV4HDtyDvTYYVkm7BGTILcNpGcHoDOkFirTtokhGlWZS+gsmaFPTmcx8e3TuaKOxQ3ge+HwGlrnXk/h8u6I5Y1NWWhhbA0vmbBwGXzaESaUV2AoRA3bYq26+dVrGv/TuUm9WGFgG/ldStBaUtnvyEW5bGiG6+v31pqM6Ko5K5v1p3MiDcNYvOvb6OSWTpysSKvZype20xTQc8PPDGO6TGoarnB59zl+dBLuv//Rkcecr6BvqBwUCXPoPRnggo5ynskhUPheZds/8ZZhNr2aHNo80uP/Jw2igDslRA7PvguoSvJ/OlSioDSbLC0lMtWz9vb1cKwvthJbiucwfTrYJySwyEylxqnxlunRVoU1ULHcXhpsBA+dikpaAyy8rgZ5r5jSNaO6KKANpVdPaS1Q5C1GUJAbVP9apWatbxtS98xZY2o6dQwlAVpdi7ssWTfWztHHauLuRp/vYnx/1BZuhO46Df3wh34OJtA==
+X-Forefront-Antispam-Report:
+	CIP:216.228.117.161;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge2.nvidia.com;CAT:NONE;SFS:(13230040)(82310400026)(1800799024)(36860700016)(23010399003)(7416014)(376014)(18002099003)(22082099003)(56012099006)(3023799007)(10067099003)(6133799003)(4143699003)(11063799006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	4J2PcwpPcUXnbe9kf1YibqE5ofpdnNK000/hwBOxSHgCRI/PIHbyUQR+2PUAlC2IahUSggJyJ+24oMt1Kmi8GRoXCdDjHXrXP23KXGK5W52MO1PTjqPHE0TC4mQu/QpGKvr9NyY6zUC3G6sIFB4POqlj7TlZSEI0e4O9op0zX+EH5VzZJdQ2d0r2Dcfmq4kusd3rnN6MEkscCH7AJNUQdy8x1fmpISdj/k032pecS+J5apZDd+hd7zWmIpA7BmgxNe30YJVN/SeN0NFIInnKKuiyv85UCTjDWkVYjFmO7u/Oewwmk1XXKxSeC1EkfmnZWKK+/g+XwBI3hb0l76QsQq6ICiQKW9It0S7CATe761D0r7d11+Nb+MghIbMNydz2WmOdZkMXVvf5IW6p3R+sl2f1Ox/xGD9kwZUGrR7o0Mq7jIwD8umEgNmNCde5C+P3
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Sep 2026 21:43:06.9468
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 885deb12-6ca6-42bc-04ad-08df0acd81b9
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.161];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CY4PEPF0000EE3E.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB5711
 
-Responses to Sashiko below.
+On Thu, Sep 03, 2026 at 12:18:33PM -0700, Jonathan Cameron wrote:
+> > +/**
+> > + * arm_smmu_drain_queue - Drain an SMMU queue
+> > + * @smmu: the SMMU device
+> > + * @q: the queue to drain
+> > + * @until_empty: target selection
+> > + *
+> > + * With @until_empty == true (for CMDQ), exit once the queue is observed empty:
+> > + *
+> > + *   cons0                cons                                prod
+> > + *     |                   |                                   |
+> > + *  ---+###################+=====================+=============+--->
+> > + *                         |<--------- undrained==0? --------->|
+>                                                     ^
+> What is the + indicating?  Seems where prod0 that isn't relevant here
+> would have been - that is a little confusing so maybe drop?
 
-On 9/2/26 10:27 PM, Tal Zussman wrote:
-> memcg_page_state(), memcg_events(), and the lruvec_page_state() family
-> only read counters. Constify them.
+Yes. I drew the other graph first that has prod0, and forgot to
+drop it here with prod0 after I copied.
+
+> > + *
+> > + * With @until_empty == false (for EVTQ/PRIQ), exit once "drained" reaches its
+> > + * target: "pending" (i.e. prod0 - cons0, frozen at the entry time):
+> > + *
+> > + *   cons0                cons                 prod0         (prod)
+> > + *     |<---- drained ---->|                     |             |
+> > + *  ---+###################+=====================+=============+--->
+> > + *     |<--------------- pending --------------->|
+> > + *
+> > + * Note that a drained entry is dequeued, but not necessarily handled: the
+> > + * EVTQ/PRIQ callers must follow up with a synchronize_irq() to wait for the
+> > + * threaded IRQ handler to finish handling the dequeued entries.
+> > + *
+> > + * Context: Process context; may sleep.
+> > + * Return: 0 on success or a negative errno on timeout.
+> > + */
+> > +static int arm_smmu_drain_queue(struct arm_smmu_device *smmu,
+> > +				struct arm_smmu_queue *q, bool until_empty)
 > 
-> Signed-off-by: Tal Zussman <tz2294@columbia.edu>
-> ---
->  include/linux/memcontrol.h | 23 ++++++++++++-----------
->  mm/memcontrol.c            | 12 ++++++------
->  2 files changed, 18 insertions(+), 17 deletions(-)
+> That name suggests this is doing the draining rather than waiting
+> for it to happen elsewhere.
+
+I changed it to "arm_smmu_wait_for_queue_drained".
+
+> > +{
+> > +	ktime_t timeout = ktime_add_us(ktime_get(), ARM_SMMU_POLL_TIMEOUT_US);
+> > +	u32 cons, prod, prev, undrained;
+> > +	u32 drained = 0, pending;
 > 
-> diff --git a/include/linux/memcontrol.h b/include/linux/memcontrol.h
-> index bd82628d0d72e..10a197886f316 100644
-> --- a/include/linux/memcontrol.h
-> +++ b/include/linux/memcontrol.h
-[ ... ]
-> @@ -1392,19 +1393,19 @@ static inline bool memcg_vm_event_item_valid(enum vm_event_item idx)
->  	return false;
->  }
->  
-> -static inline unsigned long lruvec_page_state(struct lruvec *lruvec,
-> +static inline unsigned long lruvec_page_state(const struct lruvec *lruvec,
->  					      enum node_stat_item idx)
->  {
->  	return node_page_state(lruvec_pgdat(lruvec), idx);
->  }
+> Pet irritation. Prefer splitting the elements that assign and those
+> that don't onto seeprate lines.  Here that just means moving pending
+> up one line.
 
-[Severity: Low]
-Does passing the newly constified lruvec pointer to lruvec_pgdat() discard
-the const qualifier?
+Done.
 
-Looking at lruvec_pgdat() in include/linux/mmzone.h, it does this:
++       u32 cons, prod, pending;
++       u32 drained = 0;
 
-	return container_of(lruvec, struct pglist_data, __lruvec);
+> > +
+> > +	might_sleep();
+> > +
+> > +	cons = readl_relaxed(q->cons_reg);
+> > +	prod = readl_relaxed(q->prod_reg);
+> > +	/* The exit target: the number of entries in the queue at entry */
+> > +	pending = Q_POS(&q->llq, prod - cons);
+> 
+> Applying a macro called Q_POS to a difference is a bit confusing to
+> me given the output isn't a position of anything. Maybe just needs
+> a wrapper Q_DIFF(q->llq, prod, cons)  Can use Q_POS underneath
+> but avoid that naming out here well away from the macro definitions.
 
-This returns a mutable container from a const pointer, circumventing the
-internal const-correctness the patch intends to provide. Should
-container_of_const() be used here instead?
+Sure:
 
-Answer:
++/* Entries between two positions, i.e. how far @b leads @a */
++#define Q_DIFF(llq, a, b)              Q_POS(llq, (b) - (a))
 
-lruvec_pgdat() purposefully returns a non-const pgdat, as some callers
-still need one at the moment (node_page_state()).
+[...]
 
-> diff --git a/mm/memcontrol.c b/mm/memcontrol.c
-> index 35f924c9f2a31..3d3eadddc1307 100644
-> --- a/mm/memcontrol.c
-> +++ b/mm/memcontrol.c
-> @@ -489,7 +489,7 @@ struct lruvec_stats {
->  	long state_pending[NR_MEMCG_NODE_STAT_ITEMS];
->  };
->  
-> -unsigned long lruvec_page_state(struct lruvec *lruvec, enum node_stat_item idx)
-> +unsigned long lruvec_page_state(const struct lruvec *lruvec, enum node_stat_item idx)
->  {
->  	struct mem_cgroup_per_node *pn;
->  	long x;
++       /* The exit target: the number of entries in the queue at entry */
++       pending = Q_DIFF(&q->llq, cons, prod);
 
-[Severity: Low]
-Does the use of container_of() later in this function silently cast away the
-const qualifier added to the lruvec parameter?
+[...]
 
-In lruvec_page_state():
++               cons = readl_relaxed(q->cons_reg);
++               drained += Q_DIFF(&q->llq, prev, cons);
++
++               prod = readl_relaxed(q->prod_reg);
++               undrained = Q_DIFF(&q->llq, cons, prod);
 
-	pn = container_of(lruvec, struct mem_cgroup_per_node, lruvec);
 
-This macro expansion discards the const qualifier, undermining the compiler's
-ability to enforce const-correctness. Could container_of_const() be used here
-instead, with pn declared as a const struct mem_cgroup_per_node *?
+> > +
+> > +	while (true) {
+> 
+> Maybe pull defintion of prev and undrained in here so it is clear
+> they aren't state maintained across iternations.
 
-Answer:
+Done.
 
-Yes, this can use container_of_const(). Will change.
++               u32 prev, undrained;
 
-[ ... ]
-> @@ -530,7 +530,7 @@ unsigned long lruvec_page_state(struct lruvec *lruvec, enum node_stat_item idx)
->   * monotonically-incremented event counters are stored in
->   * enum node_stat_item.
->   */
-> -unsigned long lruvec_page_state_monotonic(struct lruvec *lruvec,
-> +unsigned long lruvec_page_state_monotonic(const struct lruvec *lruvec,
->  					  enum node_stat_item idx)
->  {
->  	struct mem_cgroup_per_node *pn;
+> > +		/* Accumulate the entries consumed since the last poll */
+> > +		prev = cons;
+> > +		cons = readl_relaxed(q->cons_reg);
+> > +		drained += Q_POS(&q->llq, cons - prev);
+> > +
+> > +		prod = readl_relaxed(q->prod_reg);
+> > +		undrained = Q_POS(&q->llq, prod - cons);
+> > +
+> > +		/* Exit on an empty queue, regardless of until_empty */
+> > +		if (!undrained)
+> 
+> Given you don't use undrained again (maybe in later patches, in which
+> case ignore me.)
+> 		if (Q_DIFF(&q->llq, prod, cons) == 0)
+> perhaps.  This one entirely up to you as maybe the named local does
+> help with readability a little.
 
-[Severity: Low]
-Does this function also silently lose the const qualifier through
-container_of(), similar to lruvec_page_state()?
+It's indeed for readability: this matches the graph in the kdocs.
 
-In lruvec_page_state_monotonic():
+> > +			return 0;
+> > +
+> > +		/* Snapshot mode: exit once the pending entries are drained */
+> > +		if (!until_empty && drained >= pending)
+> > +			return 0;
+> > +
+> > +		/*
+> > +		 * A timeout means the consumer might be stuck. In theory, if it
+> > +		 * moves 2 * qsize entries or more within a single poll interval
+> > +		 * Q_POS() would wrap and undercount drained: that could trigger
+> > +		 * a spurious warning too, if the queue was never once observed
+> > +		 * empty. Yet, that much consumption in such a short interval is
+> > +		 * unrealistic. WARN it only, as a stuck consumer is a real bug.
+> 
+> I don't like 'unrealisitic' based defenses (even though I agree it is pretty
+> unlikely).  Is there a way to bound this?  Maybe future systems will
+> be much quicker.
 
-	pn = container_of(lruvec, struct mem_cgroup_per_node, lruvec);
+I can't see one..
 
-Would it be better to use container_of_const() and a const pointer for pn
-to preserve the safety guarantees of this patch?
+I think this is already an extreme corner case. Sashiko found it,
+FWIW.
 
-Answer:
+If you have a better word than "unrealistic", I can change that.
 
-Yes, this can use container_of_const(). Will change.
+> > +		 */
+> > +		if (WARN_ON(ktime_compare(ktime_get(), timeout) > 0))
+> 
+> Why WARN_ON here then a dev_warn_ratelimited() below? 
 
-> @@ -547,7 +547,7 @@ unsigned long lruvec_page_state_monotonic(struct lruvec *lruvec,
->  	return (unsigned long)READ_ONCE(pn->lruvec_stats->state[i]);
->  }
->  
-> -unsigned long lruvec_page_state_local(struct lruvec *lruvec,
-> +unsigned long lruvec_page_state_local(const struct lruvec *lruvec,
->  				      enum node_stat_item idx)
->  {
->  	struct mem_cgroup_per_node *pn;
+I dropped WARN_ON.
 
-[Severity: Low]
-Like the other functions above, does container_of() discard the const
-qualifier here?
++               if (ktime_compare(ktime_get(), timeout) > 0)
++                       break;
 
-In lruvec_page_state_local():
+> > +		/* The consumer might be a threaded IRQ handler. Yield to it */
+> > +		usleep_range(100, 200);
+> 
+> fsleep() perhaps then we don't get to argue why that slack.
 
-	pn = container_of(lruvec, struct mem_cgroup_per_node, lruvec);
+Done.
 
-Could this be updated to use container_of_const() as well to maintain strict
-const-correctness?
++               /* The consumer might be a threaded IRQ handler. Yield to it */
++               fsleep(100);
 
-Answer:
-
-Yes, this can use container_of_const(). Will change.
+Thanks
+Nicolin
