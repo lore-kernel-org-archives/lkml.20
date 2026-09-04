@@ -1,244 +1,239 @@
-Received: from mx0b-0002e601.pphosted.com (mx0b-0002e601.pphosted.com [148.163.154.28])
+Received: from DB3PR0202CU003.outbound.protection.outlook.com (mail-northeuropeazon11010023.outbound.protection.outlook.com [52.101.84.23])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DCE93F86F9;
-	Fri,  4 Sep 2026 04:44:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.154.28
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788497072; cv=fail; b=XcSrD4OWAQ/sbfTw4b6LtAW1OEe0mY+q/U/1i0yT5HKn0V9bZgL1jqURMNSw/fzW13PREsQUdowKs2IknYimwFk0/zXgmeInmVoTgqJMYOQJ9D8yTQoYYaqlFdPQqg/IFsH7cq9W0ROW3/zOEKw1N72nmq1qKbpZpfowU4pwubQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788497072; c=relaxed/simple;
-	bh=DRp+mvdsnTsePrsKqqC7u2+77kcj+yxS/+7NSnodbu4=;
-	h=Message-ID:Date:MIME-Version:CC:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=fOTxXv35gpV+670usXTtG8MQWKaksv8Nyh4ylVCDDKCAB/3R33KCLr0GMlWlFCDyB5fz6TgFe81EehJ96LX3mnj4Xnz4G8OkOcrVuCf33A7ioXfIQEg/lG2jC4ACiX4WHhY++pxkXXB2qhmAKEMu7BFJ8BfU4Flb6d5YqHZ0QWU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b=JAEUyl/b; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=Wocqch5c; arc=fail smtp.client-ip=148.163.154.28
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30D1B346ACE
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 04:46:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.84.23
+ARC-Seal:i=3; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788497168; cv=fail; b=e+E54h51j9ltAYhkDrsav13vlE4P4y0BpZ1vdaiIPQfZf2kvb1qPWuVDbRBJKL9gdTGU8WY0mP6cSgXOuO4kZWB13YeuneBLMRKy8EfKkHE4MR/xfvcPTK1ut83UCVNye7KTx6v5XdalXL81gmnbjcY7RZks2sk3Y4hOa0KK0gU=
+ARC-Message-Signature:i=3; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788497168; c=relaxed/simple;
+	bh=oqZ5x51di8d1YX/05vjW3dP3S00aSzI/+pTL7gaoZmo=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=LRKHpEjFV/OUUg8mAAcr5c6LyO271k3cpsqq+TXfa1IMbfyKYBN+rJ7Xx5uheiIq6zjyYyuY1GxLh1TTahm02AhD5hNurbzcLSH+kTSqt9YNnvxSBSzrLtQOV7ClNCHeBEnpsw4epBTX5xzZNhembV70An3YrhYHXkEOd3+4d3I=
+ARC-Authentication-Results:i=3; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=qJ25rkwk; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=qJ25rkwk; arc=fail smtp.client-ip=52.101.84.23
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b="JAEUyl/b";
-	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="Wocqch5c"
-Received: from pps.filterd (m0374955.ppops.net [127.0.0.1])
-	by mx0b-0002e601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6842sdXV2738015;
-	Thu, 3 Sep 2026 23:44:21 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=
-	proofpoint-05-2026; bh=eSMMZ/IJ9B/grx5l5HQbUhFI33Evqxuag27cxs4p7
-	I4=; b=JAEUyl/bHdVpatv252XNbddEMtMI8kjPmn29VveFYM8FLThiqigh/oOp2
-	q9ZuAZdyP7zK4ZiTvvz2cKbJD/XJu90pvskHM98KpGjlqVctpqNvQpNytiPi+lb9
-	aUSS3uztaXOfS0cwnVkmeB0y9NXCC1r42HYVq/qq9f1hZ0yTsekAJUAbEkWmuzp8
-	ZiYblkelqmB6W8gcXtnQQ/7VyJqDPF8jCSsBIhgjOHU8LViwQm0LkesOehm7kfz/
-	k2jnRfFT/vHW5w8LZS5+1szBBpAY/CFnxLs5yJJro9F5KSLMeyjCuWM9WrpgbQyn
-	0yo6onmNmIp7QRDFYpRtlZHrziekg==
-Received: from dm5pr21cu001.outbound.protection.outlook.com (mail-centralusazon11011060.outbound.protection.outlook.com [52.101.62.60])
-	by mx0b-0002e601.pphosted.com (PPS) with ESMTPS id 4gfdfq3nuw-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Thu, 03 Sep 2026 23:44:20 -0500 (CDT)
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="qJ25rkwk";
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="qJ25rkwk"
+ARC-Seal: i=2; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=pass;
+ b=thSWO+WhAJ1XlugVv+frEEULK6zVbR09OmJu7IkrMeKh9VrKypXbm7mAMBtH/9oh6gJARMLZX3HVik3T/hbbDl3Tyt/nP/wF7F/8Bwm7whleaUoq2cYDXC4WrJTMtmuzXq99ZsRiWyiidi85tAvsrG0Q6xqwfJweMko4iaopj2wog9UhXqRwOrzlHXNLi3LdizkxOptErjOoVxHZIESYo7NJZIsqZSNk32OkGHpOETI/N9nxDp62UyqyXGgf9gBTQ23abu3WRsn6R64C0K4sfk/d720m/AQG/O2kPeNgiiCRk3yeB0SC70Huoh/McGiKV1HQL1r/7z4qzqKxiDVZqg==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=w9szKMuYiuc53/9UXhnmzCnC/rHL9+J+WZpe9w0AaJk=;
+ b=RzBNpqcjxmOnj5P/tXbQDqk9XfYq976mNt6wCw/WqPcwEW9seegXt/Wgv3XOY2ou4GY7dUEC8fLSzbs8wl2bSHefg/Pj7Ro+KaZG3rSG8I0kufWARr2Oyf2iqlotyqrkf6BOkcHpGhBlhbRuXyEvnRcS0Fv/0MEorV5mKKdgVPEwpz9F3R3Gs80LupEd7sVh3xsYcb0sr+l09Ewmxmwv9mvjJZgELcULZtFrPC5Xr0aSUbk6IrYzQZWJApPFzP2JlIVBQh36bYfI+tajmoHcJj/39M504VHCpL+PdoDSuNYzD6RwbHAo70Jnyq1+rsiny4eaF8TrVk0x7OYoESD39A==
+ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=pass (sender ip is
+ 4.158.2.129) smtp.rcpttodomain=kernel.org smtp.mailfrom=arm.com; dmarc=pass
+ (p=none sp=none pct=100) action=none header.from=arm.com; dkim=pass
+ (signature was verified) header.d=arm.com; arc=pass (0 oda=1 ltdi=1
+ spf=[1,1,smtp.mailfrom=arm.com] dkim=[1,1,header.d=arm.com]
+ dmarc=[1,1,header.from=arm.com])
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=w9szKMuYiuc53/9UXhnmzCnC/rHL9+J+WZpe9w0AaJk=;
+ b=qJ25rkwk8ui/JiQXrHF2BBHkN0XGA7xV56rRR1uohR3/G/l81tSFcdGDaSBhpGo4YCsV/wR3Ew5Y75fwU6W9scR6RwdjLXfPcLP746WQxWz9GapE19Jz5CYQZ4n6gI569y8KzxdMRLmQXe6rFC9Ga3jDgxmtC9kjIzsnJuh2X5k=
+Received: from DUZPR01CA0172.eurprd01.prod.exchangelabs.com
+ (2603:10a6:10:4b3::29) by DU5PR08MB10822.eurprd08.prod.outlook.com
+ (2603:10a6:10:529::10) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.10; Fri, 4 Sep
+ 2026 04:46:00 +0000
+Received: from DU2PEPF00028D10.eurprd03.prod.outlook.com
+ (2603:10a6:10:4b3:cafe::d) by DUZPR01CA0172.outlook.office365.com
+ (2603:10a6:10:4b3::29) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.12 via Frontend Transport; Fri, 4
+ Sep 2026 04:46:00 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 4.158.2.129)
+ smtp.mailfrom=arm.com; dkim=pass (signature was verified)
+ header.d=arm.com;dmarc=pass action=none header.from=arm.com;
+Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
+ 4.158.2.129 as permitted sender) receiver=protection.outlook.com;
+ client-ip=4.158.2.129; helo=outbound-uk1.az.dlp.m.darktrace.com; pr=C
+Received: from outbound-uk1.az.dlp.m.darktrace.com (4.158.2.129) by
+ DU2PEPF00028D10.mail.protection.outlook.com (10.167.242.24) with Microsoft
+ SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.8
+ via Frontend Transport; Fri, 4 Sep 2026 04:46:00 +0000
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=GjfUbJuKw+RVPB9XCehJt/GArZ7RLs11pjTDizGhw1kaEI6aMUvZYS88ohuNtMVwLpXD3eFOaCt0d3Qz/7+hRr+uFTsP6gL38KsXf9eqkfSEQGqeCintEULmEqjoe30xAjvB5XeHLpHpcL6vuWk8dDf4R6fgExpJO/FE5NcnORAWeowqnnYpQtasH8Ln8MYXlTpyJHe138axywc+WUtt58DfsPWGzYWwvQwfyR7x03Rsoor7ALdV4MUtyPcb1w69F2hK1O1N8WsjVlNDpfKJs4slBZlmItaQy8iiCrP6Wi0RS9IJ6JE3W8EDaTwRkjiunnALWNX4qqqckL6NNj5DUg==
+ b=CXkpL7De90Mfit1wriStTb7B8sswL7L7ygJDAy3rCu9gCdayHP0mwdo5afb1TDP8fWaYmNuKHmZr186dOpZXjIuNco7Hywf0xjmlfzArQBn9tmTO6hj4RLL+AmmySuPS42uh7dzI8PzcC5yvEWDxJxtha4aLRn+KZEi+qCboASlF58+s4RRx9WCTkIqGmmG2MejLYCK/UBrz63PxszYDXe2LOKSuqb2GeK0AkEczkkQ7VGUVTb+2ctzgWK9jPSn3es6pBDLibjuWZEQl5qaZ0GwF7YCw5kezXedvQdayLf0LjXdytFwr/ijG3Dq8kPtRmPXyRxywEwqFIe/2Qyu7ow==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=eSMMZ/IJ9B/grx5l5HQbUhFI33Evqxuag27cxs4p7I4=;
- b=GzV3O211LF7FfTOglAodFZIcoo4jZbOmaaf2liCMo8Ng4YqBSW9q7anwEyTrf/Ixc4F6ub04Tn0IAJ7/3nynvxjOZSlrxyGFYwEmEeQYbWI0Y5+5/TBOz4O6H2zCDRax2MUI0lpOyO28s12UKBD/gL0b+3p/MUhdvJLV7BZ8x86Olgwk95SlI5VFRr4fX6/pB+TtAkUZAeur5TOfx2TpsulTFiXvcB6Z7VZayU4wxk6eJEU7LR+2Vg3QXO1iT5ySKN1RWJWkXMH/EU1r0HjWkQxFfQ9fWlxcCICnTDHY4+EnK7OnnB+zj1qrYzWKwlne3MNChiIvNIwC8xXCZg1hlw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 198.47.21.194) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=ti.com;
- dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
+ bh=w9szKMuYiuc53/9UXhnmzCnC/rHL9+J+WZpe9w0AaJk=;
+ b=v8a9nivX8d8BDknRzr4ElfwGyCmhXL2g/ExVxKfrzsHPHgSv0sETfJt5SwmhK27dihAezZDqrTIcW8szmC2zkcWBhbs10uyuZqCEjVm0GNOso4jSeMWKGv/L/+kF14Ja0GJRYg0W6vMZdpayQUWz2pbiWiGkNEXkz3JPBzsXDtzJbpDLJfUyLtrmY3FCFMA/oWcSsVqmoVAMD0ycVKHJ5T7V4ijDVz5Ai1i0U50I1muXmdgoJYsfgywICcMtxqwI7ku/pVCa5SseaxbDFl7AMpy6oCkM01JVLIqagPDi8cmDYn4e08Wf7tSgILsOMBJp3KVTqe6mD+O8flOPeQWNNg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
+ header.d=arm.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=eSMMZ/IJ9B/grx5l5HQbUhFI33Evqxuag27cxs4p7I4=;
- b=Wocqch5cu4XmULW59bCyJ7GX3UIAd3tY7cyI82y0lgdWuLOqM5lbpnDee4nAXErFDcXkBJ62iYPyqNFLmFjonLWIXRVuD4vY8+OxJqNmOaw23F8BUHg6pJEoCs0kQwvHQsUedmoiW6l1a4uIgrNdfDPXx5LNJ0XWouhGC7bjj+A=
-Received: from BN0PR04CA0095.namprd04.prod.outlook.com (2603:10b6:408:ec::10)
- by BLAPR10MB4932.namprd10.prod.outlook.com (2603:10b6:208:325::8) with
+ bh=w9szKMuYiuc53/9UXhnmzCnC/rHL9+J+WZpe9w0AaJk=;
+ b=qJ25rkwk8ui/JiQXrHF2BBHkN0XGA7xV56rRR1uohR3/G/l81tSFcdGDaSBhpGo4YCsV/wR3Ew5Y75fwU6W9scR6RwdjLXfPcLP746WQxWz9GapE19Jz5CYQZ4n6gI569y8KzxdMRLmQXe6rFC9Ga3jDgxmtC9kjIzsnJuh2X5k=
+Authentication-Results-Original: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=arm.com;
+Received: from DU0PR08MB9203.eurprd08.prod.outlook.com (2603:10a6:10:417::12)
+ by AS2PR08MB9149.eurprd08.prod.outlook.com (2603:10a6:20b:57b::12) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.10; Fri, 4 Sep
- 2026 04:44:15 +0000
-Received: from BN1PEPF00006003.namprd05.prod.outlook.com
- (2603:10b6:408:ec:cafe::5e) by BN0PR04CA0095.outlook.office365.com
- (2603:10b6:408:ec::10) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.12 via Frontend Transport; Fri, 4
- Sep 2026 04:44:15 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.21.194)
- smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
- action=none header.from=ti.com;
-Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
- 198.47.21.194 as permitted sender) receiver=protection.outlook.com;
- client-ip=198.47.21.194; helo=flwvzet200.ext.ti.com; pr=C
-Received: from flwvzet200.ext.ti.com (198.47.21.194) by
- BN1PEPF00006003.mail.protection.outlook.com (10.167.243.235) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.382.8 via Frontend Transport; Fri, 4 Sep 2026 04:44:14 +0000
-Received: from DFLE202.ent.ti.com (10.64.6.60) by flwvzet200.ext.ti.com
- (10.248.192.31) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Thu, 3 Sep
- 2026 23:43:44 -0500
-Received: from DFLE206.ent.ti.com (10.64.6.64) by DFLE202.ent.ti.com
- (10.64.6.60) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Thu, 3 Sep
- 2026 23:43:44 -0500
-Received: from lelvem-mr05.itg.ti.com (10.180.75.9) by DFLE206.ent.ti.com
- (10.64.6.64) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45 via Frontend
- Transport; Thu, 3 Sep 2026 23:43:43 -0500
-Received: from [10.24.68.110] (uda0492258.dhcp.ti.com [10.24.68.110])
-	by lelvem-mr05.itg.ti.com (8.18.1/8.18.1) with ESMTP id 6844heBw3845735;
-	Thu, 3 Sep 2026 23:43:41 -0500
-Message-ID: <69f7eabf-95cd-4bfd-a1bc-a1227c4b31e8@ti.com>
-Date: Fri, 4 Sep 2026 10:17:21 +0530
+ 2026 04:45:27 +0000
+Received: from DU0PR08MB9203.eurprd08.prod.outlook.com
+ ([fe80::f1e:73f2:57df:4047]) by DU0PR08MB9203.eurprd08.prod.outlook.com
+ ([fe80::f1e:73f2:57df:4047%6]) with mapi id 15.21.0382.007; Fri, 4 Sep 2026
+ 04:45:27 +0000
+Message-ID: <8015b54d-340f-46f6-8b84-f11b5b1bf301@arm.com>
+Date: Fri, 4 Sep 2026 10:15:21 +0530
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4] mm/gup_test: safely calculate GUP batch size
+To: Kiryl Shutsemau <kas@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+ David Hildenbrand <david@kernel.org>, Jason Gunthorpe <jgg@ziepe.ca>,
+ John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>,
+ linux-mm@kvack.org, linux-kernel@vger.kernel.org
+References: <20260903115033.162218-1-sarthak.sharma@arm.com>
+ <aplp-uM2oQtjuWnZ@thinkstation>
+Content-Language: en-US
+From: Sarthak Sharma <sarthak.sharma@arm.com>
+In-Reply-To: <aplp-uM2oQtjuWnZ@thinkstation>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: MA5P287CA0205.INDP287.PROD.OUTLOOK.COM
+ (2603:1096:a01:1ab::14) To DU0PR08MB9203.eurprd08.prod.outlook.com
+ (2603:10a6:10:417::12)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-CC: Roger Quadros <rogerq@kernel.org>, Andrew Lunn <andrew+netdev@lunn.ch>,
-        "David S . Miller" <davem@davemloft.net>,
-        Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
-        Paolo Abeni <pabeni@redhat.com>, <linux-omap@vger.kernel.org>,
-        <netdev@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-        <s-vadapalli@ti.com>
-Subject: Re: [PATCH] net: ethernet: ti: davinci_mdio: Drop commas after match
- table sentinels
-To: Geert Uytterhoeven <geert+renesas@glider.be>
-References: <e481b6de46cecc6ea604ae165272c667274cc621.1788437140.git.geert+renesas@glider.be>
- <b3d19098-eccd-4619-b667-ad3b7e0a4422@ti.com>
-Content-Language: en-US
-From: Siddharth Vadapalli <s-vadapalli@ti.com>
-In-Reply-To: <b3d19098-eccd-4619-b667-ad3b7e0a4422@ti.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN1PEPF00006003:EE_|BLAPR10MB4932:EE_
-X-MS-Office365-Filtering-Correlation-Id: e51b41a1-ca23-4f62-d83f-08df0a3f2bc9
+X-MS-TrafficTypeDiagnostic:
+	DU0PR08MB9203:EE_|AS2PR08MB9149:EE_|DU2PEPF00028D10:EE_|DU5PR08MB10822:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4967477f-6203-4744-d1fa-08df0a3f6b1d
+x-checkrecipientrouted: true
+NoDisclaimer: true
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam-Untrusted:
+ BCL:0;ARA:13230040|1800799024|366016|23010399003|376014|10067099003|56012099006|11063799006|4143699003|6133799003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info-Original:
+ 8I+oQJDzkaYuBB3XLCl+HqVuR+rh6yHY0q2ph40P7UBLvRCHUE9Dg+AipL5MZ+ZpDmnK6pPvopSZGS8iDGuQsRuVWPRt/8pYZqQ+eZEpara/PSMHVccwIJMuHdmwtqXQFO8egumW4iG2oT0aZnjXbjGEDdwhRtw864J4yX0GenIx6ML3782QWCtPEriF9rsZ2Sl8I8mQp0Wh9TzGH498GysYE5YxUszHZBDXfScu5IX82XCgMpvf3PajqHu4hanU14lJSOlqkbiI+myLsZFE3txM1LxCWK+ddoKAkVxOU4UTZjmXBTKzsE1TocPQKqeq2tG6AvCAytJGEJ1Q8hgi+FwLNlqQodG8AUbOSCJcz5RtEom6iJrFDhUe7fo4xWgIEK8UzfuBPPCe1SVkes86wimDEuQ3uozz1cJ7sOFFTRWK8rSwU1Rlj1UQTXmXDgojDHuFpqij1+C5J2eITLDO220f9p0K2cGEJk8IDbuVsGKJgGkhqJvzC+l5cxnoLR9VcGveMvkhzyju8BdDBtnffzG6zgjZv5ivoMjYKnvvviR+Qgi+KfNygPa8Syt8qljlySMyrPY9fjkrh9it77wEyklRGVWyfQ45E3cZAPKxyTEJJu57JIvB7qZMlw2ZsQoT4RqegC4rsIyE1xR9nr2dyiEEsuAY/lmXYzOWf6SQJcY=
+X-Forefront-Antispam-Report-Untrusted:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU0PR08MB9203.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(23010399003)(376014)(10067099003)(56012099006)(11063799006)(4143699003)(6133799003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-Exchange-RoutingPolicyChecked:
+ SwGa7o2cnZtbU6xF3Qgbt5JjQ0wcRLV3tbYIisTd5fDgXhiJINxqp0DAj60wMe+85erSgBXjVkHD6ncnso6OFUwKgy/u1Ncap85RjZDzltKr+M8T0izreD2A/65JHHl6OMi2F9Ain2Ucxoktt4giUZnFM2gN/y0nxoRuWow2U4XSTwzNDGSvwTmTto96D/NljpqUsjfJiIjukjksY6Ap+O5BIE3aGKjwm50/ZcF0Q29erzrIA0J1Ycg43QI9MiqSwR0H2WllYaGXkpgWveuS8njfJzIkb2/WFcV1icVqqg+DLiAnamKS6CMwk3DY1uSRL5M306mbqtLJNDrbt3skeg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS2PR08MB9149
+X-EOPAttributedMessage: 0
+X-MS-Exchange-Transport-CrossTenantHeadersStripped:
+ DU2PEPF00028D10.eurprd03.prod.outlook.com
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id-Prvs:
+	efe139bf-f5c0-4931-5246-08df0a3f56f6
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|376014|7416014|36860700016|1800799024|23010399003|10067099003|4143699003|56012099006|13003099007|18002099003|22082099003;
+	BCL:0;ARA:13230040|35042699022|14060799003|36860700016|376014|23010399003|1800799024|82310400026|4143699003|6133799003|11063799006|10067099003|22082099003|18002099003|56012099006|13003099007;
 X-Microsoft-Antispam-Message-Info:
-	MOKQZI6kX9HUQSzgL11yosMisYlYHlEVTzczz5AIVfxzqiOG0XG4gHQ67WfwI09uYP2YLEbdx1RaVXTi1A0Bj1mrOgea7/E0Bu3cYtPiDlYB1Z/4DUBwu2P7EtFgjHBRECiqr+i5GWPHfSwZ5+y6AR8BPdkAGB+eoWKB5h+wjz4OEPiCIOzjPfTpTA4gSmH57LE8/tUYvVAgDn44fzcC0y1+N1JB6V50h58eZe9BApRqV4lyJEQ4gFfjVD+zlxhlSISIep7V8O/Ky+GvRPEXRlbYiBtBxeOnx8Zl7wpx2ebGfXaImh6Lr2TA/nerPDj2HuOf0cpSFSH131svIwv+Mq/+jrf35KAk/ZmMK7fWUyVQn+uIE2/JvOk7uDBzlD1qgOyjpE/1w0EKDR9IZM6OTQx3MU3lzAULgQ+Rz6Xhl1CoJXPpQev52O3V1cyghDAMvwfJviRYIGTdfKiWvT2dmLX9ZkTlLPINKWkVT+e+6DC+nae4Ob9evvdGACnhUvqy+r7V7wVj5n+MkquIU1+juL+YvTNmkbvk1BWToFp+6XQyVSThRBVuIACy/Suyzs9K9PQs0MzRRwEE51UgsKC5IgxLek6+y5BEqfQO+Cluc0TmepE4lafmORuwtQQVaBvw5qcLUgIBhswp1LAS792Hcg==
+	4/qLH/82Y2vtb5n9vvsjxCcVjfLoAYSRHOPBiUjyB6Ey2s4/CfBvItl6z+Idf0dz70MoJ4/i13gPt4IzULZy9sEvuyq8eE0DeFcFGgEBsO1Ze4PgVetI6hGko4BxJ3sYgHc2jUBeMO1Rj8zwJ07rZAgWs8Nb/j+J0vUGYeecsg4EG4aw8FDZatj1uHskKgurRhnTJ3dC8fWtNVb/3Q1hNVpV8PlDYMjo3pq5rqH5ygfQR33lybpS3Ak/QuHc/sKAOkAvmrexbrbyNg+TjtSCaRPDObUszxSx/IC6AnifFameSvE7LreAQRCCQTMppijemQia7RyraA5iDl5V77hfKgJ2m28roH5KojSxyE487ElvXOmTq6dL/CYnvsotC8Snk47erWB32rzRQPdZqIfgme2oXAqWcO/HEC26KLUPnXH/d7ztRzQjl1er5FOHX5l9oB7dz362egbbEQN49ld47lvKywG+7wJFTtgHNMJMmMJtymrnzfwfO+kcB5J7jsJNxQ+/TvFs4J6xXgulcWhJtNl9sywn+9DzFEpAdCbrvAQ4pkysPszwsNSNjUK/BBeKW6TnEjcLJTA5Qsfg+cu4qRM9CvWj6023i8gIynouHI2nbdOuwlMoA5UIHQ1mOZ2AwSXOiFmCg3RcYFFj81LH/UfLES8F75KxuyRap9PHaws=
 X-Forefront-Antispam-Report:
-	CIP:198.47.21.194;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:flwvzet200.ext.ti.com;PTR:ErrorRetry;CAT:NONE;SFS:(13230040)(82310400026)(376014)(7416014)(36860700016)(1800799024)(23010399003)(10067099003)(4143699003)(56012099006)(13003099007)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+	CIP:4.158.2.129;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:outbound-uk1.az.dlp.m.darktrace.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(35042699022)(14060799003)(36860700016)(376014)(23010399003)(1800799024)(82310400026)(4143699003)(6133799003)(11063799006)(10067099003)(22082099003)(18002099003)(56012099006)(13003099007);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	ir1LKs7yUVhzuN9xfZ2rOrUyTD4B2Goe1j4wFmrPnoeZNXb99g0Hxs0oWCHB+i+IWJV2TtvOrAvwlngiUxf84DfTW8hFrpzK0ZzFDd2uQI3BpeGnpmyeIPtiM1DImc3LdpOFHgYytHbqx3o4l8SUf3AzQ0KiUYDXR+bWCHWV0e71TLbKBxE41anSvL89tOiXiEk9xhs7EAmDtehAvHPk/s/3/4evpwhr7XY6LFYqRNz4dzyxQu8mL+jOqfw8tcbNxuvpeCMgpX8AGQ1UM9vwiU+PmFyEMPzKAtG5nFBnKV4YcIla5aQdRTHsHR8+4h8rKzx9Pzk/gMRleyBu54HcpWPD2Jao3bSpZVHN/Ho+vaS3x6afNnnrARTZp9ESFNWwV22mi5oDWBFrSZufDLfs7pzvaXeM2pIzq8Xmbs5XuRMkdWyBJCMQmfY30yLW2ZQp
-X-Exchange-RoutingPolicyChecked:
-	Pz/rfGO9z4b9TfOD6CvzVwaugqYBzLqTwba/+CdWqHZR2T/PC0GwLSfhiHmQXLaSErvmh0RP44yMVVI3pgbyXqfa+Q/VLWc6wba8OHlAtRPIbg8rGzKbSsBqEnGsh3Tot/aHIAE26SFpztvgph4PvJT8K8rNpcbmSx/xPCNEHPpBplht2vPjf4dYytuj1tP7CFwj3puYDfFyacRMOVtKVAf8DBU6mTaXCga4aWMUv98cCVUEkH99N47LbWJ/2OMnDWr3DxYrjaw/xfcr9zTBOniSMGKC4PUIyuWXBRG4oJAMK4AcDIIgLOfVjGJ9S7Cmu2/9w/bHSd92vgFR1QBB6Q==
-X-OriginatorOrg: ti.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Sep 2026 04:44:14.2672
+	oy56AXDYmv+kKVsF+qEIZmcZuNNTRk/sj6CcTDiRvgav9e8PMa/rn7ItScqL49TG+D3NdVT6GAgBIsQEqXKN765bJYQITJJDJAI78VddIcaMNf2yk/+HJRcZGG6A17e0reZHQQd06etDQzXTNzxagSD+Pa0Lox0aCDfFQrioajxVhFIkU9XknIGhUNEKP8fW3/MIv+qgiSNotw58cCNqKKksEFrU+aiZjAs+JL+4PWZEMUB3GP+BpDGj2bDo43fDyG9mnXTYRSKI73zLX/XlcM6knFOoyq5AiZFJjFlXBWjo6NMHdluI1fv6nuc0qot1LsAw2gfjCvxy/PaBDSn4+Vst6tz6DaXHfHT7p7B16EttamGtLniy9ISSX6YCDLKIItZTiPZy59z8+lOcHSiNDwQTt0DqXP9aJT8Y7wfxqa17Mdnyt4tCMKVYuAN89b+4
+X-OriginatorOrg: arm.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Sep 2026 04:46:00.5202
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: e51b41a1-ca23-4f62-d83f-08df0a3f2bc9
-X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.21.194];Helo=[flwvzet200.ext.ti.com]
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4967477f-6203-4744-d1fa-08df0a3f6b1d
+X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[4.158.2.129];Helo=[outbound-uk1.az.dlp.m.darktrace.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	BN1PEPF00006003.namprd05.prod.outlook.com
+	DU2PEPF00028D10.eurprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BLAPR10MB4932
-X-Proofpoint-GUID: KTiZhLUFM13kdheNW63tRjksxSz5sd4H
-X-Authority-Analysis: v=2.4 cv=K8YS2SWI c=1 sm=1 tr=0 ts=6a9a4ca4 cx=c_pps
- a=VmiGRewH7mEIsprpaxNw0Q==:117 a=iwqwCZQqcuTv3JOpYdM7/Q==:17
- a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
- a=V5UXEbMT0ywA:10 a=VkNPw1HP01LnGYTKEx00:22 a=Z8NIEmU8O1QQgoT56wFK:22
- a=fPAWb5peG099m5CrUpKH:22 a=VwQbUJbxAAAA:8 a=sozttTNsAAAA:8
- a=b8d_EBilQp1tbfDJiLYA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA0MDA0MiBTYWx0ZWRfX7yedZwZQgp1Y
- 3BbjKLwRBMq8vhnzs5c91VRtgN2j0dWdObaNsbgYI3ZJcwKz/ghZHo+rF+hC7C0iyeKQthDJlW4
- Vvh3lCbH+73y0Rjk3jDcUTMnkyO2JmsUB8TrDZLeHrrs3CXEW6LMXxSxWJTnCvADaCPPnf4V5/6
- AP3G3ZUKrAVzk1MJ+U+A0aiGRM1ZHyi/gTzX1Iq3mvHOsDddNTqrHYVlt4kdzHdhuVGfq84zrXb
- 3+doC5S/yNu3vHTozL2X2qZhrtMfNNyqoPRDw/gRnN3Qfnmy2fqQNTP0liskrrIWuGv0HE0Dkz5
- ozxdHGlISeybGvS6j0xBOxyO1GfCv+925eC/y+/YzP0ochAts2yRpKm0S5UncNJh2UO/vzuZeae
- kWU6vWE7NtSsmEXsXzT+r+waxGpb2WSuAFnskVEJkxPrm8Qy2T8AlOznTmVVQw1uaRKKabUDjVY
- /FmkK4cayUK232IYVmQ==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA0MDA0MiBTYWx0ZWRfXxCmzHi1vEIz5
- jQW/0sWTDhH1x4Ws5FwmEFNu7reVHM3UJ8LzMJihyYVY2rVjiaV6dzwFXk6g4Di49LaStMYz5Ov
- 72REkK6oC9TfxzxN6ocBtluN4PEkNSQ=
-X-Proofpoint-ORIG-GUID: KTiZhLUFM13kdheNW63tRjksxSz5sd4H
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-04_01,2026-09-03_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 impostorscore=0 lowpriorityscore=0 suspectscore=0 malwarescore=0
- bulkscore=0 phishscore=0 priorityscore=1501 clxscore=1015 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609040042
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU5PR08MB10822
 
-On 03/09/26 18:00, Siddharth Vadapalli wrote:
-> On 03/09/26 17:36, Geert Uytterhoeven wrote:
->> It does not make sense to have a comma after a sentinel, as any new
->> elements must be added before the sentinel.
-> 
-> While I agree with it, this seems to require a 'cleanup-series' rather than 
-> an individual patch, given the following statistics:
-> 
-> As of [0], running
->      git grep "sentinel.*}" drivers/net/ | wc -l
-> gives
->      84
-> and looking for the ones that terminate in a comma by running
->      git grep "sentinel.*}," drivers/net/ | wc -l
-> gives
->      38
-> 
-> So there are '37' other instances (apart from davinci_mdio.c) in
-> drivers/net alone that require a cleanup.
+Hi Kiryl!
 
-I have posted the following series to cleanup all networking drivers 
-(excluding davinci_mdio.c since that is done by your patch) at:
-https://lore.kernel.org/r/20260904043724.2955444-1-s-vadapalli@ti.com/
-
-Regards,
-Siddharth.
-
-> 
-> Looking at Linux overall by running
->      git grep "sentinel.*}," | wc -l
-> gives
->      396
-> 
-> Since this isn't a functional change, I am not sure why a specific change 
-> is required in davinci_mdio.c, unless you plan to cleanup the remaining 
-> '395' occurrences in the remaining code as well. I am not against the 
-> patch, but the reason for picking just davinci_mdio.c for cleanup isn't 
-> clear to me based on the commit message.
-> 
-> 
-> [0]: commit 940de590b839 Merge tag 'hardening-v7.3-rc2' of git:// 
-> git.kernel.org/pub/scm/linux/kernel/git/kees/linux
-> 
+On 9/3/26 6:09 PM, Kiryl Shutsemau wrote:
+> On Thu, Sep 03, 2026 at 05:20:33PM +0530, Sarthak Sharma wrote:
+>> __gup_test_ioctl() calculates the end of a GUP batch using:
 >>
->> Signed-off-by: Geert Uytterhoeven <geert+renesas@glider.be>
+>> next = addr + nr * PAGE_SIZE;
+>>
+>> If nr is too large, it can cause next to overflow and wrap around.
+>> If it wraps, the next > end check is bypassed and a large value
+>> of nr is passed to the GUP call, even though the pages array was
+>> allocated according to gup->size. This can lead to out of bounds writes.
+>>
+>> Also, when fewer than PAGE_SIZE bytes remain, the calculated batch
+>> contains zero pages. The code still calls GUP functions with pages + i,
+>> which can point past the allocated array.
+>>
+>> Calculate nr by taking the minimum of the number of pages per call and
+>> the pages remaining in the address range. Stop processing when no
+>> pages remain and calculate the end of the batch using this bounded
+>> value of nr.
+>>
+>> Fixes: 64c349f4ae78 ("mm: add infrastructure for get_user_pages_fast() benchmarking")
+>> Signed-off-by: Sarthak Sharma <sarthak.sharma@arm.com>
+> 
+> Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+
+Thank you!
+
+> 
+> On nit below.
+> 
 >> ---
->>   drivers/net/ethernet/ti/davinci_mdio.c | 4 ++--
->>   1 file changed, 2 insertions(+), 2 deletions(-)
+>> Sashiko reported the issue fixed by this patch while reviewing the patch
+>> "mm/gup_test: report actual pinned bytes". That patch has been applied to
+>> mm-new. Since the two fixes are independent, this revision contains
+>> only the GUP batch size fix.
 >>
->> diff --git a/drivers/net/ethernet/ti/davinci_mdio.c b/drivers/net/ 
->> ethernet/ti/davinci_mdio.c
->> index 48f85a3649b26548..5bec72f2f51dc548 100644
->> --- a/drivers/net/ethernet/ti/davinci_mdio.c
->> +++ b/drivers/net/ethernet/ti/davinci_mdio.c
->> @@ -510,7 +510,7 @@ static const struct soc_device_attribute 
->> k3_mdio_socinfo[] = {
->>       { .family = "J7200", .data = &am65_mdio_soc_data },
->>       { .family = "J721E", .data = &am65_mdio_soc_data },
->>       { .family = "J721S2", .data = &am65_mdio_soc_data },
->> -    { /* sentinel */ },
->> +    { /* sentinel */ }
->>   };
->>   #if IS_ENABLED(CONFIG_OF)
->> @@ -521,7 +521,7 @@ static const struct davinci_mdio_of_param 
->> of_cpsw_mdio_data = {
->>   static const struct of_device_id davinci_mdio_of_mtable[] = {
->>       { .compatible = "ti,davinci_mdio", },
->>       { .compatible = "ti,cpsw-mdio", .data = &of_cpsw_mdio_data},
->> -    { /* sentinel */ },
->> +    { /* sentinel */ }
->>   };
->>   MODULE_DEVICE_TABLE(of, davinci_mdio_of_mtable);
->>   #endif
+>> Changes in v4:
+>> - Simplify batch clamping logic as suggested by Kiryl
+>> - Don't call GUP functions for an empty batch
+>> - Drop the pinned byte reporting patch since it has been applied to mm-new
+>>
+>> v3: https://lore.kernel.org/all/20260901083452.115365-1-sarthak.sharma@arm.com/
+>>
+>>  mm/gup_test.c | 9 +++++----
+>>  1 file changed, 5 insertions(+), 4 deletions(-)
+>>
+>> diff --git a/mm/gup_test.c b/mm/gup_test.c
+>> index 185ba3bb8ed1..1b64e932c4c5 100644
+>> --- a/mm/gup_test.c
+>> +++ b/mm/gup_test.c
+>> @@ -139,11 +139,12 @@ static int __gup_test_ioctl(unsigned int cmd,
+>>  		if (nr != gup->nr_pages_per_call)
+>>  			break;
+>>  
+>> +		nr = min_t(unsigned long, gup->nr_pages_per_call,
+>> +			   (end - addr) / PAGE_SIZE);
 > 
-> Regards,
-> Siddharth.
+> I personally would rather have it in two statements, as I suggested
+> initially:
+> 
+> 		nr = gup->nr_pages_per_call;
+> 		nr = min_t(unsigned long, nr, (end - addr) / PAGE_SIZE);
+> 
+> It seems to be more readable to me.
+
+Both forms are equivalent, and I would prefer to keep it in a single
+line instead of having two statements to do the same thing. I don't
+think I need to respin with this change unless you feel strongly about it :)
+> 
+> 
+>> +		if (!nr)
+>> +			break;
+>> +
+>>  		next = addr + nr * PAGE_SIZE;
+>> -		if (next > end) {
+>> -			next = end;
+>> -			nr = (next - addr) / PAGE_SIZE;
+>> -		}
+>>  
+>>  		switch (cmd) {
+>>  		case GUP_FAST_BENCHMARK:
+>>
+>> base-commit: 178b3d97bf1f15f598ea7cc615a40c115e528e1c
+>> -- 
+>> 2.53.0
+>>
+> 
 
