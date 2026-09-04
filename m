@@ -1,173 +1,91 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D861D4746A5;
-	Fri,  4 Sep 2026 14:41:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C31093A380F;
+	Fri,  4 Sep 2026 14:41:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788532878; cv=none; b=u2OSfJAI/skqkmg/DF0SAKsF6XFGDfWuWUTq9IfXMrZPVxaPyz2/qzaIV16oEzDNIPkG3JeN9ErlOzKrtkZR0KE4H+WvAyDqPLecYdbNhD5W6Sipn14+oWk5e3Er/hrwMnnBhnyspiNBKZYP3vr+vvY8IfXkiGJcD0Op7OytmLg=
+	t=1788532882; cv=none; b=u8VfDRb1wDCtFMhz8YtcI/TtJuWSONlk5Dv+QjSlMXyyqvI8gY0wU83o48w2DfNmrBqa4a/478Y0QmddQzNyYHRDgW84/rCimwZPQYW9w/WZ1LxKlWD8e8JZmC/RElnQzbM2Tui40bAgzcGf2nVQia02E92aXWKc2lXQ8SkTJH4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788532878; c=relaxed/simple;
-	bh=KWNQw2IQ/2CL24U6l4KTkjBiISA1RV3mmnp2TkI7qTc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=AC/hMr6hkXLHip7CSnlETHWpcYbvh/fAgoi6ILHMPq0csbnAgXW+8TybmIvRpArO5Z/RU8ztUIPw7opgJI+SCIgdcFNV/bwWX7CEMF6uieqKKdgTQSMl9iiu1tXMYOwweMqlCPESpQ4HR+zlMkblWorZu161k6scdtqUMH/irak=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=X6N0JG4y; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788532882; c=relaxed/simple;
+	bh=PrVgSoQf54ceYqtKdirDNT+8OHG8gzFBR3WMgKGAYm0=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Subject:Cc:From:To:
+	 References:In-Reply-To; b=W4irZcuZE8laPv71aqy6GrYQzJYYK3IVTPiTlS/yQsvL1etnL+8RL1sbC9z7dtPCAkAtj4xxFQvg4RowIeJR3Ue6w4LyigvvsvbaoCart17cKg4Pmx3pgT/zRxTkwFDZivkFyKbmUFVcmTQQJVQCPGTDljY4XriUBRRlXTWECBM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=A1b6FrNC; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="X6N0JG4y"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3690A1F00A3D;
-	Fri,  4 Sep 2026 14:41:13 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="A1b6FrNC"
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 2421C1F00AC4;
+	Fri,  4 Sep 2026 14:41:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788532876;
-	bh=btJOcrj4wsYapHm+mAfsBpBmkL8dxGs1yHtXcd4dJzQ=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=X6N0JG4ymWkL/NEGRmCMUIvOYHK/aNrLD5FsYTOJ1mowgWV9fHUd4t90u/fxsp7/6
-	 zN1BXutXbofNCB0I0IKKfOUTCrv4V9nZZGZKN3ZYe3t4/EQiBL85umOdrP/TMyy3PL
-	 MLCsNoZ8LfbFRnGBSArY7QHwhrzdhduUZUdJXir7mBW0LnX4BvTNNAJcidnVjkxnph
-	 AuZarGts5ZV7q/gkmqyVTYw3+B1ydCdZiTsxoSlRkTMD8ruc5RZXCwHemVRLwIzaiA
-	 A1JRFNysuuoC80CnFN+jyhi6hm6pG6qjIY/hQcaPrKKxnCBn6bQEPjq9qTA8S12jkL
-	 hu0wQDmv6i6Dg==
-From: Arnaldo Carvalho de Melo <acme@kernel.org>
-To: Namhyung Kim <namhyung@kernel.org>
-Cc: Ingo Molnar <mingo@kernel.org>,
-	Thomas Gleixner <tglx@linutronix.de>,
-	James Clark <james.clark@linaro.org>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Ian Rogers <irogers@google.com>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	Clark Williams <williams@redhat.com>,
-	linux-kernel@vger.kernel.org,
-	linux-perf-users@vger.kernel.org,
-	Arnaldo Carvalho de Melo <acme@redhat.com>,
-	sashiko-bot <sashiko-bot@kernel.org>,
-	Stephane Eranian <eranian@google.com>
-Subject: [PATCH 2/5] perf genelf: Use unaligned-safe accessors for debug entries
-Date: Fri,  4 Sep 2026 11:40:54 -0300
-Message-ID: <20260904144058.3341-3-acme@kernel.org>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260904144058.3341-1-acme@kernel.org>
-References: <20260904144058.3341-1-acme@kernel.org>
+	s=k20260515; t=1788532881;
+	bh=zD53N/EHIMHVfbT4JxU4Fm2WFQ5MT2sTqDAA/y2RbGo=;
+	h=Date:Subject:Cc:From:To:References:In-Reply-To;
+	b=A1b6FrNCmOwhDgGHd60VJn3LXE8NDiHJx3sKln5y/Mxa9wzOpGlFbs1EdpqkqnyXr
+	 ohuK/Tr8D/Hb3fu+JYcC8TSvg0ogbKQPm8hGmMKnVN8VAd1dqbY5V8fPDVgUGIJxO6
+	 tgADXu4KDoKW/Z9nZPs2uO0aLtOcKdGdkhos0p0vz4BFagEnFbpmRiJUJX5CMCwBeC
+	 NbaTjhdGKgvq80cOr+DmV87XbhSmodh2V+Pc+5LBXpigECJXqnB08iPCgsSP/Jxnht
+	 VsCUN/p1ZKlTB2JvaYnKoqdHUHhjFtywP7Mz3fZLR4KgYT9YxkLO8fYdUwTl8shVA6
+	 /Khs0R/n7phqg==
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+Content-Type: multipart/signed;
+ boundary=b7a88bf97e556c6cd04c75ab73b7aa697a055d0a877df80f250b141c6f38;
+ micalg=pgp-sha384; protocol="application/pgp-signature"
+Date: Fri, 04 Sep 2026 16:41:17 +0200
+Message-Id: <DL6LZOVDBDTD.DQNNUKIU3P3H@kernel.org>
+Subject: Re: [PATCH v2] arm64: dts: ti: add am62p/j722s GPU node
+Cc: <linux-arm-kernel@lists.infradead.org>, <devicetree@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>
+From: "Michael Walle" <mwalle@kernel.org>
+To: "Kumar, Udit" <u-kumar1@ti.com>, <a-christidis@ti.com>, "Nishanth Menon"
+ <nm@ti.com>, "Vignesh Raghavendra" <vigneshr@ti.com>, "Tero Kristo"
+ <kristo@kernel.org>, "Rob Herring" <robh@kernel.org>, "Krzysztof Kozlowski"
+ <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>
+X-Mailer: aerc 0.20.0
+References: <20260831-am62p-gpu-node-v2-1-69945a2db2af@ti.com>
+ <33c6717c-5c24-488f-bd85-d0cfaacaf13e@ti.com>
+In-Reply-To: <33c6717c-5c24-488f-bd85-d0cfaacaf13e@ti.com>
 
-From: Arnaldo Carvalho de Melo <acme@redhat.com>
+--b7a88bf97e556c6cd04c75ab73b7aa697a055d0a877df80f250b141c6f38
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
 
-debug_entry records are packed with a variable-length name[] field, so
-entries after the first may start at addresses that are not naturally
-aligned.  jit_process_debug_info(), get_special_opcode() and
-emit_lineno_info() read and write the u64 addr and int lineno fields
-through struct member access, which is undefined behavior on
-strict-alignment architectures.
+Hi,
 
-Use get_unaligned()/put_unaligned() to read and update each field,
-matching the layout the jitdump writers (LLVM, JVM agents) emit, which
-packs entries without padding.
+On Fri Sep 4, 2026 at 4:27 PM CEST, Udit Kumar wrote:
+>> +	gpu: gpu@fd80000 {
+>> +		compatible =3D "ti,am62p-gpu", "img,img-bxs-4-64", "img,img-rogue";
+>> +		reg =3D <0x00 0x0fd80000 0x00 0x80000>;
+>> +		clocks =3D <&k3_clks 237 3>;
+>> +		clock-names =3D "core";
+>> +		interrupts =3D <GIC_SPI 241 IRQ_TYPE_LEVEL_HIGH>;
+>> +		power-domains =3D <&k3_pds 237 TI_SCI_PD_EXCLUSIVE>,
+>> +				<&k3_pds 242 TI_SCI_PD_EXCLUSIVE>;
+>> +		power-domain-names =3D "a", "b";
+>> +	};
+>
+> Could you check once, if you don't need some assigned-clock-freq.
+> and good with default freq ?
 
-struct debug_entry.lineno is signed and emit_advance_lineno() takes a
-long line delta that relies on sign extension, so the field is read
-into an int: reading it into an unsigned int would turn a backward
-line jump into a huge forward one and corrupt the line number program.
+See
+https://lore.kernel.org/all/20250915143440.2362812-1-mwalle@kernel.org/
 
-Reported-by: sashiko-bot <sashiko-bot@kernel.org>
-Cc: Stephane Eranian <eranian@google.com>
-Assisted-by: LLM
-Signed-off-by: Arnaldo Carvalho de Melo <acme@redhat.com>
----
- tools/perf/util/genelf_debug.c | 28 +++++++++++++++++-----------
- 1 file changed, 17 insertions(+), 11 deletions(-)
+-michael
 
-diff --git a/tools/perf/util/genelf_debug.c b/tools/perf/util/genelf_debug.c
-index 8588b3e35e008396..7d9ef43aa6ac4ab6 100644
---- a/tools/perf/util/genelf_debug.c
-+++ b/tools/perf/util/genelf_debug.c
-@@ -12,6 +12,8 @@
-  */
- #include <linux/compiler.h>
- #include <linux/zalloc.h>
-+#include <linux/kernel.h>
-+#include <linux/unaligned.h>
- #include <sys/types.h>
- #include <stdio.h>
- #include <getopt.h>
-@@ -303,11 +305,13 @@ static ubyte get_special_opcode(struct debug_entry *ent,
- {
- 	unsigned int temp;
- 	unsigned long delta_addr;
-+	int lineno = get_unaligned(&ent->lineno);
-+	uint64_t addr = get_unaligned(&ent->addr);
- 
- 	/*
- 	 * delta from line_base
- 	 */
--	temp = (ent->lineno - last_line) - default_debug_line_header.line_base;
-+	temp = (lineno - last_line) - default_debug_line_header.line_base;
- 
- 	if (temp >= default_debug_line_header.line_range)
- 		return 0;
-@@ -315,7 +319,7 @@ static ubyte get_special_opcode(struct debug_entry *ent,
- 	/*
- 	 * delta of addresses
- 	 */
--	delta_addr = (ent->addr - last_vma) / default_debug_line_header.minimum_instruction_length;
-+	delta_addr = (addr - last_vma) / default_debug_line_header.minimum_instruction_length;
- 
- 	/* This is not sufficient to ensure opcode will be in [0-256] but
- 	 * sufficient to ensure when summing with the delta lineno we will
-@@ -362,6 +366,8 @@ static void emit_lineno_info(struct buffer_ext *be,
- 	for (i = 0; i < nr_entry; i++, ent = debug_entry_next(ent)) {
- 		int need_copy = 0;
- 		ubyte special_opcode;
-+		int lineno = get_unaligned(&ent->lineno);
-+		uint64_t addr = get_unaligned(&ent->addr);
- 
- 		/*
- 		 * check if filename changed, if so add it
-@@ -376,24 +382,24 @@ static void emit_lineno_info(struct buffer_ext *be,
- 
- 		special_opcode = get_special_opcode(ent, last_line, last_vma);
- 		if (special_opcode != 0) {
--			last_line = ent->lineno;
--			last_vma  = ent->addr;
-+			last_line = lineno;
-+			last_vma  = addr;
- 			emit_opcode(be, special_opcode);
- 		} else {
- 			/*
- 			 * lines differ, emit line delta
- 			 */
--			if (last_line != ent->lineno) {
--				emit_advance_lineno(be, ent->lineno - last_line);
--				last_line = ent->lineno;
-+			if (last_line != lineno) {
-+				emit_advance_lineno(be, lineno - last_line);
-+				last_line = lineno;
- 				need_copy = 1;
- 			}
- 			/*
- 			 * addresses differ, emit address delta
- 			 */
--			if (last_vma != ent->addr) {
--				emit_advance_pc(be, ent->addr - last_vma);
--				last_vma = ent->addr;
-+			if (last_vma != addr) {
-+				emit_advance_pc(be, addr - last_vma);
-+				last_vma = addr;
- 				need_copy = 1;
- 			}
- 			/*
-@@ -480,7 +486,7 @@ jit_process_debug_info(uint64_t code_addr,
- 	int i;
- 
- 	for (i = 0; i < nr_debug_entries; i++) {
--		ent->addr = ent->addr - code_addr;
-+		put_unaligned(get_unaligned(&ent->addr) - code_addr, &ent->addr);
- 		ent = debug_entry_next(ent);
- 	}
- 	add_compilation_unit(di, buffer_ext_size(dl));
--- 
-2.55.0
+--b7a88bf97e556c6cd04c75ab73b7aa697a055d0a877df80f250b141c6f38
+Content-Type: application/pgp-signature; name="signature.asc"
 
+-----BEGIN PGP SIGNATURE-----
+
+iKgEABMJADAWIQTIVZIcOo5wfU/AngkSJzzuPgIf+AUCaprYjRIcbXdhbGxlQGtl
+cm5lbC5vcmcACgkQEic87j4CH/imSQGA+0EFfXnMF0x7rvtUX9YBU/EEhH0bwrMu
+DfS8Rwit1ki0p8KXhKtXF5EegntAkmO+AYD4L6fgH/DnvaFbB/AlzWpSEmkvg8Hn
+S9J6JBHSnk6w0NGja4zHFhSoiYknmfaCixg=
+=5d+V
+-----END PGP SIGNATURE-----
+
+--b7a88bf97e556c6cd04c75ab73b7aa697a055d0a877df80f250b141c6f38--
