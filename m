@@ -1,76 +1,108 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.3])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0E301A6808
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 01:46:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.3
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 824B0311968;
+	Fri,  4 Sep 2026 01:48:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788486422; cv=none; b=GsPOiy0QipuExaPolK3i3r1btPl1pbd4zxoeJSgfD8gySoE53b+ajEdyXbKuRBKHi6ed6FUIVZoGvrDV7DU5CzSQrujgV8oPvpUzltVKU6G7+9GAGC4su2NN8GUgLixry/mhobZ1lOip6deQyI97cO4DO/tSo3ZiipOwlRP1VTw=
+	t=1788486536; cv=none; b=JbRn1b4fdFRKvnq38OdDlANdmrsIyaXbUfGkMpDqrHbEDgi5Kmg4NEwx2+6myDOivJ1Es1K1FI7BaOi742JG1D4S63ftfrpu7NVwIq2072hnSZnvtNHYO1eCM+f14Ze0hFq8iTgIagKRiVdN7D5yuGCdSl3aKVkCU/l4f7Day+Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788486422; c=relaxed/simple;
-	bh=P9jK/W1SXw8+elQE0IMUfuRuqbUBrsprc3OZk9dZdfs=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ekRP6XCQJhY+4veJ1pi42E5xF9LBYTfMqSKHhaMjR+UwbZZcRs0uWn9G4O2QhDA6sq2/+ia7XqG57th++B/behjUtuOnEauLyHoIS9v5ixjh6f3GEdBK9ibOjsKeWRx85H26Vbd+NPTUeQ5RpgFujyXIBODfEwqvJCwlcIDYC+0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=D8JzgV6W; arc=none smtp.client-ip=117.135.210.3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1788486536; c=relaxed/simple;
+	bh=YH1C+COc8qRA1j5l1eSyNnqVxG5y3HDv6cEHry1GiWk=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=cGjKyBwHYXp2sNw8/oO2IrJ6z49JPEeNsajZvnoBf4oEUjiXLfufAgSwK9XF4q2fFBiOU9WZofMEN90GLCdf72mUFxvGeOW/UbazjMvPYD+rooQDmwlYNEUXiEF3ILVGklK5XfSVfhrEWHPx+XGrudqdqfO6CBGUkQc2O5BTw9M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GwHgevU/; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="D8JzgV6W"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=Message-ID:Date:MIME-Version:Subject:To:From:
-	Content-Type; bh=fQt31jEFrQa2alu2KDpObFxfs4FjKipi6DPc9sw38LI=;
-	b=D8JzgV6W1mSCvv06SzhvxasupJIV6BGPUjugAR1COQEuar8Q5M1OMHW0E/0LK0
-	23GQKysyNwBWoMMqK3OdqGBfqT8Bmi72pYUbwQbeSsDvLGhlnY7KQjy6/vk2bPP7
-	/xVeHOicTV8+IaDAYexqJ12g+I4qjtyzO7rMHrcF1E0EA=
-Message-ID: <58bcfcdf-167a-4553-bfcd-cd576e9379b0@163.com>
-Date: Fri, 4 Sep 2026 09:46:33 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GwHgevU/"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 0BEA4C2BCB8;
+	Fri,  4 Sep 2026 01:48:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1788486536;
+	bh=YH1C+COc8qRA1j5l1eSyNnqVxG5y3HDv6cEHry1GiWk=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=GwHgevU/24dyBaM4XEj5w7I85mf/WFm1QTD3YIj8Qooez+/yx7cEtl2F+LSQR2sHX
+	 q+IbCyeOM2Jo37J9gCk4hEM8CTvMM5XbQwNJrlW6Jj0lqAxeUcc7+8V1rWp6dKvr3M
+	 0u+kgXF675lanBnrF3YEkXWdIMJRqWP1NjbNQ9nfJppyKCKR6O6xKCdqJBc2VnOVuc
+	 AU2IoA84Txv24/poBoCc88d+R0PHcQ4TpA6VVfrl52GHH//tzD2d7Bq0irbgeB8eJX
+	 DwDrRFTdu7J3S9ar8iMOJHJrCKfM48ELqQKvcS7tW0CI4LUy1zvaHU5pJXSAuIUlX4
+	 gIS7n7bEEMpsA==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id DBC24C624DB;
+	Fri,  4 Sep 2026 01:48:55 +0000 (UTC)
+From: Xiubo Li via B4 Relay <devnull+xiubo.li.clyso.com@kernel.org>
+Date: Thu, 03 Sep 2026 18:48:36 -0700
+Subject: [PATCH] libceph: only set read_from_replica on read requests
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] exfat: clear the volume dirty flag only when remounting
- read-only
-To: Namjae Jeon <linkinjeon@kernel.org>
-Cc: exfat@lists.linux.dev, linux-kernel@vger.kernel.org,
- Sungjong Seo <sj1557.seo@samsung.com>, Yuezhang Mo <yuezhang.mo@sony.com>,
- Chi Zhiling <chizhiling@kylinos.cn>
-References: <20260903092623.301981-1-chizhiling@163.com>
- <CAKYAXd-YoYZfNGDJs1gjJPHZ4n5oe+r93y32Gyb=p8rUxzDeqg@mail.gmail.com>
-From: Chi Zhiling <chizhiling@163.com>
-In-Reply-To: <CAKYAXd-YoYZfNGDJs1gjJPHZ4n5oe+r93y32Gyb=p8rUxzDeqg@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-CM-TRANSID:_____wAX1ZX5IppqUvEYAg--.24064S2
-X-Coremail-Antispam: 1Uf129KBjvdXoWrKF1fAFyUZr1rXFykJr17trb_yoW3WrbE9w
-	s7uF48Aa4jyr13G3WFkryft39Iqws3uryjgrsrJr15Xa9rAF4fJrWDXFyrCa4fKFZrCFZx
-	Arn8C34xGa10gjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUvcSsGvfC2KfnxnUUI43ZEXa7IUj8sqtUUUUU==
-X-CM-SenderInfo: hfkl6xxlol0wi6rwjhhfrp/xtbC+BsIpWqaIvvCbgAA3L
+Message-Id: <20260903-b4-read-from-replica-v1-1-76d1ad8d7c2e@clyso.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMwQ6CMBCE4Vche3aT2iUEfRXjoS0DrFEgWzUmh
+ Hen6m2+w/wrZZgi07layfDWrPNUcDxUlMYwDWDtisk737iTE441G0LHvc2Pspa7psBeRBBi9Gi
+ FynUx9Pr5ZS/Xv/Mr3pCe3xZt2w4AJj7qeAAAAA==
+X-Change-ID: 20260903-b4-read-from-replica-2333eabb2e83
+To: Ilya Dryomov <idryomov@gmail.com>, Alex Markuze <amarkuze@redhat.com>, 
+ Viacheslav Dubeyko <slava@dubeyko.com>, Jeff Layton <jlayton@kernel.org>
+Cc: ceph-devel@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org, Xiubo Li <xiubo.li@clyso.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788486534; l=1667;
+ i=xiubo.li@clyso.com; s=20260625; h=from:subject:message-id;
+ bh=1pp/hauPyQPUhFkDy5Rb9gGCh+DLMtRFxWdPt0GBjHY=;
+ b=dsJX6n/Fq3mMTVrwc5yJ4ApdkX4MOSvn+uELMQtll59cU0ddJ1liPq502KO3I9qJ4Lf4d4o/n
+ U6kHeQxGItsBPQOhW9Ov8Eh04CDAoqBA0UGqlOyPY8ozSVCx7X4+7x4
+X-Developer-Key: i=xiubo.li@clyso.com; a=ed25519;
+ pk=V3NGr0AgAopiUhaLY51ipBkLN5LlcLhjOEfLEq1RoZ8=
+X-Endpoint-Received: by B4 Relay for xiubo.li@clyso.com/20260625 with
+ auth_id=840
+X-Original-From: Xiubo Li <xiubo.li@clyso.com>
+Reply-To: xiubo.li@clyso.com
 
-On 9/4/26 7:28 AM, Namjae Jeon wrote:
->> diff --git a/fs/exfat/super.c b/fs/exfat/super.c
->> index a9ea36ba2693..268732571837 100644
->> --- a/fs/exfat/super.c
->> +++ b/fs/exfat/super.c
->> @@ -775,9 +775,12 @@ static int exfat_reconfigure(struct fs_context *fc)
->>          fc->sb_flags |= SB_NODIRATIME;
->>
->>          sync_filesystem(sb);
->> -       mutex_lock(&sbi->s_lock);
->> -       exfat_clear_volume_dirty(sb);
->> -       mutex_unlock(&sbi->s_lock);
->> +
->> +       if ((fc->sb_flags & (SB_FORCE | SB_RDONLY)) == SB_RDONLY) {
-> Could we also add !sb_rdonly(sb) here?
->              if ((fc->sb_flags & (SB_FORCE | SB_RDONLY)) == SB_RDONLY &&
->                   !sb_rdonly(sb))
+From: Xiubo Li <xiubo.li@clyso.com>
 
-Yes, this way we do not call exfat_clear_volume_dirty() when remounting 
-from RO to RO. I will update it in v2.
+ceph_osdc_alloc_request() ORs the mount option's read_from_replica
+flag into r_flags for every request, writes included.  The flag is
+meant for reads: calc_target() skips the replica choice for any
+request that has CEPH_OSD_FLAG_WRITE, and the OSDs only know
+BALANCE_READS on read ops.  Sending it on writes is at best ignored;
+with read_from_replica=balance a buffered write that fell back to
+ceph_sync_write() after losing BUFFER to a revoke failed with -EIO,
+while the same run without the option works fine.
 
-Thanks.
+Gate the flag on CEPH_OSD_FLAG_READ.
+
+Fixes: 22d2cfdffa5b ("libceph: move away from global osd_req_flags")
+Cc: stable@vger.kernel.org
+Signed-off-by: Xiubo Li <xiubo.li@clyso.com>
+---
+ net/ceph/osd_client.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/net/ceph/osd_client.c b/net/ceph/osd_client.c
+index f68918fc27f9..a5fc5de2c2b5 100644
+--- a/net/ceph/osd_client.c
++++ b/net/ceph/osd_client.c
+@@ -1109,7 +1109,9 @@ struct ceph_osd_request *ceph_osdc_new_request(struct ceph_osd_client *osdc,
+ 	req->r_base_oloc.pool = layout->pool_id;
+ 	req->r_base_oloc.pool_ns = ceph_try_get_string(layout->pool_ns);
+ 	ceph_oid_printf(&req->r_base_oid, "%llx.%08llx", vino.ino, objnum);
+-	req->r_flags = flags | osdc->client->options->read_from_replica;
++	req->r_flags = flags;
++	if (flags & CEPH_OSD_FLAG_READ)
++		req->r_flags |= osdc->client->options->read_from_replica;
+ 
+ 	req->r_snapid = vino.snap;
+ 	if (flags & CEPH_OSD_FLAG_WRITE)
+
+---
+base-commit: 6b039a71d37a39bb90a64c4e271f90ee0588ac4a
+change-id: 20260903-b4-read-from-replica-2333eabb2e83
+
+Best regards,
+--  
+Xiubo Li <xiubo.li@clyso.com>
 
 
