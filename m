@@ -1,328 +1,279 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lj1-f181.google.com (mail-lj1-f181.google.com [209.85.208.181])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 407CF4C0426
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 16:58:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9747511195
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 16:58:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788541133; cv=none; b=kUaNvRh5QoAbKEDkuFDusru3hHaamA56nmeVfZAovVfzUuTcSqhF35kR4/aKgS1rDdQzkSsxuPZv28IPT7PZj6V3Owv4xjjkZ1ETwV44V8odgCt9iwCmBgkb/Y/Q0xecBhznUzGd0BRekH55/h3LwS3ha7/gRttNsjHg/IoTcD0=
+	t=1788541139; cv=none; b=fXL1g4oXBon7q2Ag7qkhqu8Vk0/IIrbXqaRATlImBH0dg5lfknsLElsF7j43vVISs6SumqOAgd3hPW6dpNIQMxfpNA1KcwTWHu6MmDXtGnIoaZYp3aaLlAvnT2HBLcfvkbbGl4lG8zGRliYnynz58jduHfcjr8wHRKs/84EsewU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788541133; c=relaxed/simple;
-	bh=IIEiENsAolAsbdFN0vGhtPCO7sbVXNCoR9+9X419amU=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=c4J0KHnySknBUJP7n5OzK6h2MuqENaRyCm6svxscRSEemNzbnZ/aTpkFRsIyRIotHXKfR/M7mxDeT3aou1VhNI+NfYOp8/V4/BgYKAIz9BH+M8lVlzce+RV45yCb9/Riep6jORza2aQBxv2dKmfLv1bSBvZL+uVNXfEy0/8pJ98=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nUa3L7x0; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788541139; c=relaxed/simple;
+	bh=Qc5uP05a3zHwbT/ShEWu54dR/A6V8Jxx5M+or8Kw8bo=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=AynD/UYHJ0/p+DPEEamdxuHx/dNV6Bh3wArd3WIqwlmik98nPQs0NNKIDapGft7Mnhogo+pgO41jWRKYm5wXb/r7mCQPQhXKx0KV7lb7hJXeK7/eQWzZSLycXOf5ZDWR/NPJkmbS3d2kEhcvm/Dl6OtwCbP5Vcy17A7mBKltOVI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kVi2sa5X; arc=none smtp.client-ip=209.85.208.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nUa3L7x0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E8D541F01558
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 16:58:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788541130;
-	bh=yjo7Jz7WHkevnQRFVyBEQ9wg2BDkKMWeNpnWNtrgTE8=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=nUa3L7x0n17x51kZdNj1UyhNzHb8OLlczp1S5sMxom6U14ah+i6xzuXwsWUbvjKBZ
-	 M3bhhy7eWhE7Y8ndXEMCRsq2+ac2eF5jWT5j4F4NHS9Kvpyx+Owcgp57svZ2SrEebt
-	 23bKxS4Llduaw8OvQrxpurbKWfuarVWCT5zxBC8GrKxkGWdZOn+d07f4h2NXU4JKvH
-	 4QRM+3EqEvPOWwLcWbiPJhUldrLkqcusrzm/z+w1nV8N0zmj46/FLnydOn6AWhxY/H
-	 xaLEpy6wSISspfmYHXZ/KvVcI4OZAwZkcBQLSiOb8Pxm9TfQQw6go+KtU05Bn3r+fz
-	 aNSOVdqIjuRRw==
-Received: by mail-lj1-f182.google.com with SMTP id 38308e7fff4ca-3a1585728b5so11102981fa.0
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 09:58:50 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBxzjk3Kz0CJUjeVz46o8ZiIi0Jlfv3IbAsm4Q+rVusrT9CFYGCu82kB3gncVWQgGeJGMGMQ8TwKZP96BWo=@vger.kernel.org
-X-Gm-Message-State: AFuF++lbgZiYdBlYEUd5aVQUUO4wHj2WZN3Cyfj4RuETmwXrLSeZEE26
-	EQxb9MlRXXQArbV+MvnogFPoUhWeWEIj7K1fblPeAd3X78chlFQZLagzyqm6oV5EMR2nef2YSB0
-	N+ZK36YAIcRh/pU2StlegILgQ6UfO3FY=
-X-Received: by 2002:a2e:bc1e:0:b0:3a3:2e11:96c0 with SMTP id
- 38308e7fff4ca-3a371a9f831mr16370981fa.3.1788541129101; Fri, 04 Sep 2026
- 09:58:49 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kVi2sa5X"
+Received: by mail-lj1-f181.google.com with SMTP id 38308e7fff4ca-39faa67fab8so11024871fa.2
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 09:58:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788541135; x=1789145935; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=LDQyJlP84A1S6r01SROZEDvSk6bhKHfO/X7lscYcvx4=;
+        b=kVi2sa5XzjO5rfslfEn0AjPnyKmtL1N37j7G236SugVqossnukN+aJtOC2QndHAiRH
+         If2HJp67uHY1gb9lKx/Xdr9o7KaILof2kmrTwntuleQh9VQMAL0fVmRhlCeM3y2UjM6f
+         HmmyggnKY6I4Mk8JEYEDh5gK4OK16aXcCKqR16FsVxB9Z9FmOC1OvOTImoYL8VVa6Z4T
+         Ct5/2GG3ylzttuG5rSgiQeGgrRhzhUPKTKdbQkFd0rrTLnD8GVoOG4fQFZhVMfTAQcBm
+         pHCzLYPaNDFeLd6zS9TUcAzozH3vBRLOBkMnjOdva+F5k6S+SctSPNclhWIOHijmsRYH
+         c0Yw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788541135; x=1789145935;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=LDQyJlP84A1S6r01SROZEDvSk6bhKHfO/X7lscYcvx4=;
+        b=Y/EQjpUL39hlz4vz/3aFUGJ7zRY7BoaEBAc45c4pQSjr4wJfvbOACBtk07OmH/x7Ga
+         jV0STkucBefNB87EQrcwpfdemC6PbQ3LyS+W7P8FkYtyP4rBB3D3VMC4pHEVQYwLSjhO
+         IMPIcaixjNCATiJIw4yYRJhp7gOfFGOKYJtE1moyvyI4ZiCQNfYvXjisfkVyov3HDMYI
+         7EQ7u/QeFmdjHPnhUecAZcECH3ydV1TvAttegjt9Uz7l4UB3CYsbxQCadOp3vhYmmmXg
+         onRKTZtnDeUu9s3TDZlGY2Bnf56/mBZBcX2GYqHaQGwNzbXFcZ1kVKq6fM/fOktmPpU2
+         VB5A==
+X-Forwarded-Encrypted: i=1; AKwUvBxq/32PHdqaw7hPnRGVkg1I2FPrl9CvzV7lxE+Ma+q5QAbq5+TSF15c70HLzytRLhFYNZKrQX2M0SCeg54=@vger.kernel.org
+X-Gm-Message-State: AFuF++nZ6IbB/Iuq8Cr6of5OaU5MjZSBbRPCIq9T1FB0UKH4mF26dmMj
+	+qEhepJRbS65C1AInRP4PEciRmXJrkVLZo/tlLM2k9U8XbF0hta9/Fzg
+X-Gm-Gg: AYBFou055THqN6gfJMzdon0YBQjOsmROZYTBdrorCfMpUF3G+Ayg7u0V0K6o0OrJqmQ
+	E9bFuT3vxyVfghYcMXHt4tbBwO8Yc6v4f/LzFhIBxAIaiFn78SuTl9GKXCb3wmjNWapL+p0KLck
+	sFED2XWCpAOCua4G+PmaB1Q8D12RmSJtUVqy2ZEuB39AjdWgkB3Dt05ULHuaHeN0VWy1KpDW73w
+	6Vlm//DRaXHQngjGh54qjGiPCEZNE6zg6+w//hOfZzpDyOmBn+6XfDGxQlfUuKGTlVwkYAZ1wy5
+	FYSuC7dhJcfQl1rZ2rKvqyQk02aWhHYGwt472vOmE3QfmoFtQ7FBbB4rWJPfnvB6ickRSVqOFQ2
+	G4QkQALoBEWdeMrSmnj7YETi/apWMqrC6lhQUrxKKBwXfvqVHKJp9CklF3Rpv9LHE56hGKvAyUR
+	Q/MscjYjNM8H9dQR139TZGr9esYzY3hYViNpUVCR6pb9/m6zHtfD1KwBYEvIL10RcACgasnXkcZ
+	pFLsfsLK8bCVPeE2egOj7lovA5FjXZiQ/qwmbeBpmYm0N056kGpqa9Fcq2Jv9NjXjLsFheg
+X-Received: by 2002:a05:6512:3d0b:b0:5b1:5ccf:5268 with SMTP id 2adb3069b0e04-5b616ede976mr2234793e87.1.1788541134401;
+        Fri, 04 Sep 2026 09:58:54 -0700 (PDT)
+Received: from localhost ([188.234.148.119])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b6166f694bsm642070e87.31.2026.09.04.09.58.51
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 04 Sep 2026 09:58:52 -0700 (PDT)
+From: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+To: tiwai@suse.de
+Cc: tiwai@suse.com,
+	perex@perex.cz,
+	jikos@kernel.org,
+	bentiss@kernel.org,
+	linux-sound@vger.kernel.org,
+	linux-input@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+Subject: [RFC PATCH v6 0/2] the Topping M62's vendor controls, on the component framework
+Date: Fri,  4 Sep 2026 21:58:46 +0500
+Message-ID: <20260904165848.3940603-1-mikhail.v.gavrilov@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260904162236.3212370-1-mikhail.v.gavrilov@gmail.com>
+References: <20260904162236.3212370-1-mikhail.v.gavrilov@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260830115644.2056983-1-christian.loehle@arm.com>
- <20260830115644.2056983-3-christian.loehle@arm.com> <e363804d-78d7-4f09-8d49-f70a4dfc6f71@arm.com>
- <CAJZ5v0j=n4uf=GFVDumb2v1sqcS_f293BG2iCD-Vmp2vpLC=xg@mail.gmail.com>
- <CAJZ5v0igEL-WvvCSadRkGDdZaXRJM0kPAH8i918T+FaDg9oZ5A@mail.gmail.com> <7985c629-8d36-4562-a789-074d35e9f260@arm.com>
-In-Reply-To: <7985c629-8d36-4562-a789-074d35e9f260@arm.com>
-From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Date: Fri, 4 Sep 2026 18:57:48 +0200
-X-Gmail-Original-Message-ID: <CAJZ5v0jp9q-ZzOKXsOVpvF0ABytHXU9qeSdGyHdhLUL-cLX4sA@mail.gmail.com>
-X-Gm-Features: AcwNN1XpEMZ4AN7L_-NDzCgbDR62URPBeW_PnE05tzKA8N7tW0gyQMxPUdk4OWA
-Message-ID: <CAJZ5v0jp9q-ZzOKXsOVpvF0ABytHXU9qeSdGyHdhLUL-cLX4sA@mail.gmail.com>
-Subject: Re: [PATCH v6 02/15] ACPI: CPPC: Validate _CPC entry and control semantics
-To: Christian Loehle <christian.loehle@arm.com>
-Cc: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>, Viresh Kumar <viresh.kumar@linaro.org>, linux-pm@vger.kernel.org, 
-	linux-acpi@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Len Brown <lenb@kernel.org>, Jie Zhan <zhanjie9@hisilicon.com>, 
-	Lifeng Zheng <zhenglifeng1@huawei.com>, Pierre Gondois <pierre.gondois@arm.com>, 
-	Sumit Gupta <sumitg@nvidia.com>, Sudeep Holla <sudeep.holla@arm.com>, 
-	Ionela Voinescu <ionela.voinescu@arm.com>, zhongqiu.han@oss.qualcomm.com, 
-	Sashiko <sashiko-bot@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Thu, Sep 3, 2026 at 10:02=E2=80=AFPM Christian Loehle
-<christian.loehle@arm.com> wrote:
->
-> On 9/3/26 20:44, Rafael J. Wysocki (Intel) wrote:
-> > On Thu, Sep 3, 2026 at 9:27=E2=80=AFPM Rafael J. Wysocki (Intel)
-> > <rafael@kernel.org> wrote:
-> >>
-> >> On Sun, Aug 30, 2026 at 3:32=E2=80=AFPM Christian Loehle
-> >> <christian.loehle@arm.com> wrote:
-> >>>
-> >>> On 8/30/26 12:56, Christian Loehle wrote:
-> >>>> Writable _CPC controls are Register descriptors encoded as Buffer ob=
-jects.
-> >>>> Integer entries represent fixed values or unsupported optional regis=
-ters;
-> >>>> Autonomous Selection Integer 1 is the special immutable form which e=
-nables
-> >>>> operation without Desired Performance.
-> >>>>
-> >>>> The parser accepts arbitrary object types and cpc_write() assumes th=
-at its
-> >>>> argument contains a GAS. Malformed firmware can therefore make it in=
-terpret
-> >>>> an Integer union member as a register.
-> >>>>
-> >>>> Validate the portion of each encoding consumed by the driver: bound =
-Integer
-> >>>> DWORD forms to 32 bits, and require Buffer entries to start with a c=
-omplete
-> >>>> Generic Register descriptor with the expected header. Continue toler=
-ating
-> >>>> Integer 0 for an absent optional register and retain type checks in
-> >>>> cpc_write() as defense in depth. Reject an attempt to disable immuta=
-ble
-> >>>> Autonomous Selection instead of silently applying only the EPP part =
-of the
-> >>>> request.
-> >>>>
-> >>>> Capability registers are read into u64 temporaries but exposed throu=
-gh u32
-> >>>> fields. Reject values above U32_MAX instead of allowing them to be
-> >>>> truncated. In particular, a truncated Highest Performance value can =
-become
-> >>>> a zero divisor in the performance-to-frequency conversion. Enforce t=
-he
-> >>>> required ordering from Highest through Nominal, Lowest Nonlinear, an=
-d
-> >>>> Lowest Performance, and constrain a present Guaranteed Performance t=
-o the
-> >>>> inclusive Lowest-to-Nominal range. Also reject reversed frequency an=
-chors
-> >>>> and unequal frequency anchors with identical performance anchors. Th=
-ose
-> >>>> invalid tuples otherwise make affine-conversion differences wrap or =
-divide
-> >>>> by zero.
-> >>>>
-> >>>> Check mandatory object presence separately from the Integer-zero con=
-vention
-> >>>> for absent optional fields. ACPI does not reserve zero in the abstra=
-ct
-> >>>> Lowest Performance scale, so accept a present Lowest Performance DWO=
-RD of
-> >>>> zero when distinct frequency anchors provide a usable nonzero physic=
-al
-> >>>> minimum. Retain the old rejection when that mapping is unavailable a=
-nd the
-> >>>> fallback conversion would expose a 0 kHz cpufreq endpoint.
-> >>>>
-> >>>> Minimum Performance also defines zero as a real no-limit value, but =
-the
-> >>>> exported cppc_set_perf() interface historically used zero to omit a =
-bound.
-> >>>> Add explicit validity flags so callers can request zero without chan=
-ging
-> >>>> that legacy convention. Populate the flags when reading the controls=
- and
-> >>>> mark the bounds supplied by amd-pstate explicitly.
-> >>>>
-> >>>> Performance Limited is listed as a required Buffer, but the interfac=
-e does
-> >>>> not depend on it to control performance and the specification permit=
-s a
-> >>>> platform with no limiting indication to always report zero. Preserve
-> >>>> the compatibility with firmware that represents that case using a NU=
-LL
-> >>>> register descriptor instead of disabling CPPC entirely.
-> >>>>
-> >>>> Emit an error when a present _CPC package fails parsing or initializ=
-ation
-> >>>> so such firmware and resource failures no longer silently suppress c=
-pufreq.
-> >>>> Initialize malformed-package failures to -EINVAL and preserve specif=
-ic
-> >>>> allocation, mapping, and unsupported-access errors in that diagnosti=
-c.
-> >>>>
-> >>>> Fixes: 337aadff8e45 ("ACPI: Introduce CPU performance controls using=
- CPPC")
-> >>>> Reported-by: Sashiko <sashiko-bot@kernel.org>
-> >>>> Link: https://sashiko.dev/#/patchset/20260724134251.1632824-1-christ=
-ian.loehle%40arm.com
-> >>>> Signed-off-by: Christian Loehle <christian.loehle@arm.com>
-> >>>> ---
-> >>>>  drivers/acpi/cppc_acpi.c     | 172 ++++++++++++++++++++++++++++++--=
----
-> >>>>  drivers/cpufreq/amd-pstate.c |  12 ++-
-> >>>>  include/acpi/cppc_acpi.h     |   2 +
-> >>>>  3 files changed, 159 insertions(+), 27 deletions(-)
-> >>>>
-> >>>> diff --git a/drivers/acpi/cppc_acpi.c b/drivers/acpi/cppc_acpi.c
-> >>>> index 3b8cdf88e31d..6f3ffa4a1845 100644
-> >>>> --- a/drivers/acpi/cppc_acpi.c
-> >>>> +++ b/drivers/acpi/cppc_acpi.c
-> >>>> @@ -129,6 +129,21 @@ static DEFINE_PER_CPU(struct cpc_desc *, cpc_de=
-sc_ptr);
-> >>>>                               !!(cpc)->cpc_entry.int_value :        =
-  \
-> >>>>                               !IS_NULL_REG(&(cpc)->cpc_entry.reg))
-> >>>>
-> >>>> +static bool cpc_is_writable(const struct cpc_register_resource *cpc=
-)
-> >>>> +{
-> >>>> +     return cpc->type =3D=3D ACPI_TYPE_BUFFER &&
-> >>>> +            !IS_NULL_REG(&cpc->cpc_entry.reg);
-> >>>> +}
-> >>>> +
-> >>>> +static bool cpc_entry_present(const struct cpc_register_resource *c=
-pc)
-> >>>> +{
-> >>>> +     if (cpc->type =3D=3D ACPI_TYPE_INTEGER)
-> >>>> +             return true;
-> >>>> +
-> >>>> +     return cpc->type =3D=3D ACPI_TYPE_BUFFER &&
-> >>>> +            !IS_NULL_REG(&cpc->cpc_entry.reg);
-> >>>> +}
-> >>>> +
-> >>>>  /*
-> >>>>   * Each bit indicates the optionality of the register in per-cpu
-> >>>>   * cpc_regs[] with the corresponding index. 0 means mandatory and 1
-> >>>> @@ -142,6 +157,29 @@ static DEFINE_PER_CPU(struct cpc_desc *, cpc_de=
-sc_ptr);
-> >>>>   */
-> >>>>  #define IS_OPTIONAL_CPC_REG(reg_idx) (REG_OPTIONAL & (1U << (reg_id=
-x)))
-> >>>>
-> >>>> +static bool cpc_integer_entry_valid(unsigned int reg_idx, u64 value=
-)
-> >>>> +{
-> >>>> +     switch (reg_idx) {
-> >>>> +     case HIGHEST_PERF:
-> >>>> +     case NOMINAL_PERF:
-> >>>> +     case LOW_NON_LINEAR_PERF:
-> >>>> +     case LOWEST_PERF:
-> >>>> +     case CTR_WRAP_TIME:
-> >>>> +     case REFERENCE_PERF:
-> >>>> +     case LOWEST_FREQ:
-> >>>> +     case NOMINAL_FREQ:
-> >>>> +             return value <=3D U32_MAX;
-> >>>
-> >>>
-> >>> Sashiko:
-> >>> "Does this incorrectly restrict the counter wraparound time to 32 bit=
-s?
-> >>> The ACPI specification allows firmware to provide a 64-bit QWord inte=
-ger
-> >>> for the Counter Wraparound Time. The cppc_perf_fb_ctrs structure alre=
-ady
-> >>> models this as a 64-bit value internally
-> >>> If firmware provides a valid 64-bit integer exceeding U32_MAX for thi=
-s
-> >>> register, cpc_integer_entry_valid() will return false and completely =
-abort
-> >>> CPPC initialization for the CPU. Can we remove this restriction for
-> >>> CTR_WRAP_TIME?"
-> >>
-> >>> This is true. ACPI spec 6.6 and 6.5 (Table 8.23) describe it as
-> >>> Integer (DWORD) or Buffer
-> >>> The 64-bit internal representation is only for the case of firmware
-> >>> providing it as Buffer.
-> >
-> > Sashiko is right, the table in the spec is wrong.  If it is Integer,
-> > it is 64-bit.
-> >
-> > The size of an Integer in ASL cannot be restricted.
->
-> Duh, thanks!
->
-> >
-> >>>
-> >>>> +     case AUTO_SEL_ENABLE:
-> >>>> +             return value <=3D 1;
-> >>>> +     case DESIRED_PERF:
-> >>>> +             /* Validated against Autonomous Selection after parsin=
-g. */
-> >>>> +             return value =3D=3D 0;
-> >>>> +     default:
-> >>>> +             /* Tolerate the customary Integer 0 for an absent opti=
-on. */
-> >>>> +             return value =3D=3D 0 && IS_OPTIONAL_CPC_REG(reg_idx);
-> >>>> +     }
-> >>>> +}
-> >>>> +
-> >>> Sashiko:
-> >>> "Does this incorrectly restrict the counter wraparound time to 32 bit=
-s?
-> >>> The ACPI specification allows firmware to provide a 64-bit QWord inte=
-ger
-> >>> for the Counter Wraparound Time. The cppc_perf_fb_ctrs structure alre=
-ady
-> >>> models this as a 64-bit value internally.
-> >>> If firmware provides a valid 64-bit integer exceeding U32_MAX for thi=
-s
-> >>> register, cpc_integer_entry_valid() will return false and completely =
-abort
-> >>> CPPC initialization for the CPU. Can we remove this restriction for
-> >>> CTR_WRAP_TIME?"
-> >>
-> >> It looks like you pasted the same comment twice.  Or did Sashiko hallu=
-cinate?
-> >
-> > Well, its other comment is actually different from the first one.  Let
-> > me paste it:
->
-> Apparently I hallucinated :)
->
-> >
-> > Will this strict rejection break CPPC initialization on compliant firmw=
-are
-> > that provides non-zero integers for other optional capabilities?
-> > For capability registers not explicitly listed in the switch statement
-> > above, such as GUARANTEED_PERF or TIME_WINDOW, the ACPI 6.5 specificati=
-on
-> > explicitly allows platforms to provide fixed non-zero values encoded as
-> > Integer objects.
-> >
-> > When firmware provides a valid non-zero integer for these optional
-> > registers, this default case enforces that the value must be zero. Sinc=
-e
-> > acpi_cppc_processor_probe() fails and returns -EINVAL when this returns
-> > false, it will completely disable cpufreq and CPPC support for the CPU.
-> > Should we allow non-zero integer values for these other optional regist=
-ers?
-> >
-> >>> GUARANTEED_PERF and TIME_WINDOW: both are Buffer-only Register descri=
-ptors.
-> >>> Nonzero Integer encodings are invalid and Integer 0 is tolerated beca=
-use
-> >>> the previous parser allowed it too. I don't know of any platform desc=
-ribing
-> >>> this myself.
-> >
-> > Strictly speaking Integer 0 is not allowed, see
-> >
-> > https://uefi.org/specs/ACPI/6.6/08_Processor_Configuration_and_Control.=
-html#cpc-continuous-performance-control
->
-> I'm happy to reject it too, I was just being careful here because I only =
-have
-> a tiny subset of ACPI platforms to test this on with and it's for -fixes
+This is the experiment Takashi suggested in the v8 thread: an
+individual HID driver joined to snd-usb-audio through the component
+framework, instead of a mixer quirk that claims the HID interface for
+itself. It is posted as an RFC rather than as v9 because v8 is not
+withdrawn -- it remains the alternative, and the choice between the two
+is the question this series exists to answer.
 
-Instead of rejecting it entirely, you may log an FW_BUG message when
-it is used, to avoid breaking legacy platforms that possibly used it.
+I said this morning that I would hold this until the questions in that
+thread were answered. I am sending it anyway, because a patch gets a
+better answer than a question does, and because the last of those
+questions answered itself: the correction I sent a few hours ago
+proposed deferring the controls until the card reports, and working out
+how that lands in code showed why it cannot -- which is in the section
+below. The only question still genuinely open is the HID one, and it
+touches one line.
+
+Changes since v5:
+ 
+  - topping_master_bind() warned when it could not find its context,
+    treating that as impossible. It is not. devres_release_all() moves
+    every node off the device before it calls a single release, so
+    between a failed probe starting to unwind and the teardown action
+    running, the context is gone while the aggregate is still
+    registered -- and a HID component arriving in that window takes
+    component_mutex first and reaches the bind. The window is narrow
+    but it is legitimate, and on a kernel with panic_on_warn the WARN
+    would take the machine down for it.
+ 
+    It now returns -EPROBE_DEFER instead, which is what the situation
+    actually is: the master is going away, the component came at the
+    wrong moment, and it should come back. The framework does not log
+    that return, and the HID probe is retried once the audio side is
+    back.
+ 
+    The bot described the window as opening in devm_release_action(),
+    which unlinks only the action's own node and leaves the context in
+    place; the ordinary teardown road is therefore safe. The window is
+    real on the other road, which is what this fixes.
+
+What the shape buys, measured rather than argued:
+
+  - card.c is not touched at all. The v8 series had to add
+    snd_usb_claim_iface() and snd_usb_release_iface() there, and had a
+    defect I reported separately: an interface claimed and marked
+    USB_AUDIO_IFACE_UNUSED never gets told to wind down, because
+    usb_audio_disconnect() returns at its first line. With no claim
+    there is no such interface and the defect has nothing to attach
+    to. Watching the wire with usbmon: unbind the audio interface and
+    the keepalive stops. In v8 it kept going.
+
+  - the hid_ignore_list entry goes away, so hidraw stays available.
+    That matters because five of the card's functions -- the mixer
+    matrix, the mutes, the loopback routing, the input power and the
+    EQ -- are reachable only through the vendor protocol, and v8 made
+    them unreachable from userspace as the price of the quirk.
+
+  - two M62s on one host bind to their own cards. The match is by
+    descent from the shared USB device, and it holds: gains set on one
+    do not appear on the other, and unplugging one leaves the other's
+    controls in place. The quirk road could not be tested for this at
+    all.
+
+On the timing worry from that thread: it does not bite on an ordinary
+plug. The master goes up from snd_topping_init() inside
+snd_usb_create_mixer(), so the bind is synchronous and the controls
+exist before try_to_register_card() -- the same ordering as v8. From
+HID probe to component bind, 54 to 57 ms across five replugs. Only a
+module reload onto a live card adds controls after registration, and
+there a desktop mixer does not follow the renumbered elements until
+wireplumber is restarted. That is a real wart and I have not found a
+way around it that is worth the code.
+
+What the card does and does not report
+
+I got this wrong twice in the v8 thread and would rather state it
+plainly here, since the design follows from it.
+
+After a subscribe the card reports itself in two waves: jacks at about
+0.9 s, then at about 5.2 s the jacks again plus the output mutes plus
+the gain of every input whose jack is present. Every turn of a
+front-panel knob is reported as it happens, gains and output volumes
+alike. What is never reported is a source selector, because the card
+reports events and a selector has no front-panel control, so no event
+can exist; and an output volume before anyone has touched it, because
+it is a setting rather than a physical fact.
+
+So five of the nine controls have a source of truth on the card, two
+have one only after a hand moves them, and two never do.
+
+That looked at first like an argument for deferring the controls until
+the first report lands, so that a value read at connect would be the
+panel's rather than something restored over it. I have not done that,
+and here is why: alsactl restores once, at card add, and does not
+come back for elements that appear later. Deferring would therefore
+trade an accurate value for five controls against no restore at all
+for nine, and would wait forever for an input with nothing plugged
+into it -- which on a five-input card is the normal case.
+The controls are published at bind, as in v8, and the value at
+connect is the restored one.
+
+Open question, not blocking the review
+
+hid_hw_open() sets intf->needs_remote_wakeup, and usbhid offers no way
+to take input reports without it. This card does not advertise remote
+wakeup (bmAttributes 0xc0, no power/wakeup node), so that forbids
+runtime suspend to the whole device -- undoing something an earlier
+revision of the v8 series had to fix. The driver clears the flag after
+opening, with a comment saying so, because it resynchronises on resume
+and has no use for a device-initiated wakeup. Jiri and Benjamin have
+been asked whether that is acceptable or whether usbhid should offer
+something; the question is in the same thread and unanswered. If the
+answer is that the clear must go, HID_CONNECT_DRIVER replaces
+HID_CONNECT_HIDRAW and the hidraw node goes with it.
+
+Tested
+
+Fedora, 7.3.0-rc1-bc35965f6940 plus this series, with KASAN,
+PROVE_LOCKING and UBSAN enabled. One M62, firmware V87.05.45.48.27,
+and a second of the same for the two-card test. Everything below was
+run after the fixes listed above, not before them.
+ 
+All nine controls read and written from amixer and from the front
+panel, values cross-checked against the panel.
+ 
+One hundred cycles of module load and unload against a live card,
+which is the path the fixes touch: the controls come and go while the
+meter stream keeps arriving, so .raw_event() runs against a set of
+controls that is being taken apart. No splat and no lockdep complaint,
+including on the lock order the first fix introduces -- m62->lock is
+now held across snd_ctl_notify(), which takes the card's
+controls_rwlock inside it.
+ 
+An audio-side unbind and rebind, exercising topping_unbind() through
+the master rather than through the HID driver's own remove.
+ 
+The cable pulled out of a card while a control was being written in a
+loop. That produces a run of failed writes and then the disconnect,
+and after the last fix it does so without a line of complaint each.
+ 
+System suspend and resume: the subscription survives it -- turning a
+front-panel knob afterwards still moves the control -- and the
+selectors are written back on the way out, as they must be since the
+card never reports them.
+ 
+Two cards on one host, on different ports of the same hub: the
+component match is by descent from the shared USB device and it holds
+-- dmesg shows snd-usb-audio 3-1.3:1.0 binding one HID device and
+3-1.4.2:1.0 the other, each card carries its own nine controls, gains
+set from one front panel move only that card's controls, and
+unplugging one leaves the other's in place.
+ 
+Not tested:
+ 
+  - hibernation, and with it .reset_resume, which shares
+    topping_resume() with .resume. This machine is not set up for it:
+    there is no resume= on the command line and zram takes swap
+    priority, so the attempt logs "PM: Image not found (code -16)" and
+    powers off instead of saving an image. That is the same on a stock
+    kernel and has nothing to do with this series, but it does mean
+    the path is unexercised;
+  - kmemleak, compiled in on this system but disabled at boot;
+  - a card whose battery has run down;
+  - anything on a big-endian host.
+
+Ordering
+
+The HID driver comes first. Between the two patches it binds, speaks
+to the card and creates no controls, which is harmless; the reverse
+order leaves a master that never matches, which is equally harmless
+but leaves hid-generic making a bogus input device out of the
+descriptor in the meantime.
+
+Mikhail Gavrilov (2):
+  HID: topping-m62: driver for the M62's vendor controls
+  ALSA: usb-audio: bind the Topping M62's vendor controls
+
+ MAINTAINERS                   |   9 +
+ drivers/hid/Kconfig           |  19 +
+ drivers/hid/Makefile          |   1 +
+ drivers/hid/hid-ids.h         |   3 +
+ drivers/hid/hid-quirks.c      |   3 +
+ drivers/hid/hid-topping-m62.c | 925 ++++++++++++++++++++++++++++++++++
+ sound/usb/Makefile            |   1 +
+ sound/usb/mixer_quirks.c      |   5 +
+ sound/usb/mixer_topping.c     | 236 +++++++++
+ sound/usb/mixer_topping.h     |   7 +
+ 10 files changed, 1209 insertions(+)
+ create mode 100644 drivers/hid/hid-topping-m62.c
+ create mode 100644 sound/usb/mixer_topping.c
+ create mode 100644 sound/usb/mixer_topping.h
+
+-- 
+2.55.0
+
