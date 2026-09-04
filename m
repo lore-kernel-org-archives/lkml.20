@@ -1,142 +1,198 @@
-Received: from mail-oo1-f49.google.com (mail-oo1-f49.google.com [209.85.161.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33EF3476071
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 11:40:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C9CC47668A;
+	Fri,  4 Sep 2026 11:40:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788522053; cv=none; b=XUnJTXqKWasPew7mZnl0v/UA2AfvEn2AUCG9orwydbl2CdjfJyduN8D4uaEvZGps7m9blDjWlP/GKCwn2EW/Z2I7f0tausEHvruhIAoAaHbwqluAGrvBSKjsVAhO0wGMvJEMUJ1dfE+ztedSdXgr3DmbBLltKBILIkpzvYKslYc=
+	t=1788522058; cv=none; b=UnDuOAGUpjDfzB6UbZ+d/pg/CW25X21dkMW2hyzsDjrYV9xqAuGfcWp6IOKXeso5G4qnknbvmNvszmqL2Y6gg72pwwR3lKw2Ibi5f1WelBQwcKex9pT33T0QAYcjZOnS89XWopD4bjYY+nzU/b2tCINU4WRLxif33rO99A3qA3w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788522053; c=relaxed/simple;
-	bh=txV8Qg+FxeOB04em+F5om51rUukg6r6IwzmGhc0gksA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=N41m3kwls7PC2ebbWrtKCQ2Nz8Fs1PttGnPzo7OUrhNH07ipNoQSSFDvsxsS9dF2uZMstGFyg6mfVIlVVBXW1a5+RqQaqUiE0jNFA3iO0Yrm87K8QJtdJdhFmn9IcPQJ9g2m4+bM+1yQzrqTg/SGCde+OTcoGVh4etOL55nFzkc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Po6uGkZq; arc=none smtp.client-ip=209.85.161.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788522058; c=relaxed/simple;
+	bh=YuthCpoYgaozUFT0RrDPnJmeZiHeMQLHKD/NWI5I3wM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=nQNiCg/iWG0thgHITYd+YfNqcE6Aycjv2sghYHZJBxux3OJEkKPHy5RVWnlkTdrf7PkLAOAqkxNQuY+JD+1VOCZ9v+Sye7EbyOB66y4Gn3lBfklLJtDL//eroQK5ZoIxoMgfRMrK+YnKiTkvV8MwBixQjEvqyoKddcq68rz8rws=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=GZbQELKW; arc=none smtp.client-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Po6uGkZq"
-Received: by mail-oo1-f49.google.com with SMTP id 006d021491bc7-6b1ab6d7239so727433eaf.1
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 04:40:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788522051; x=1789126851; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=k9wdcnXTHjqRxBwghRsF1aqlf4YH5zUrwdx0LlCpxCg=;
-        b=Po6uGkZqGy61fdG88oEJVv914RiQ/jR1Wk3mHYnPxSW1JfPrtkWonWOAOPqmgZ55oY
-         egS3+rd5udTTecOM/rpxdKkyyGfdnYRX2pqslULsbPJcETgSQVNyurpdW25pTU3RlYkK
-         GS+Elq9FpkmZpY/h82vHNR0MISnVT4V39tRgyBF4bLQfo7ELuAXgCrfWvfmsEkgn9gvo
-         4QypzV56bwX+PKp8Ffht7xuExnvDnW/3zPAL5722zj6Nr7QHAp9Xse6b3NOOH9WiNxob
-         +U6zyUMWIgmP+EWqNZLg6iophJFrHiFdWOEEdIi/bvfxqRvgkEeuQn//ctAuoHVbsHPs
-         6Tlg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788522051; x=1789126851;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=k9wdcnXTHjqRxBwghRsF1aqlf4YH5zUrwdx0LlCpxCg=;
-        b=ObFOrNtM37jehl99lV0e61OHTvv3oDOpRIUW9/BkwNuqd8yAP1McK/qv1L+4uXbVm1
-         srb4WidO/tpocLN5vLgJn6eCsdEoXdIIykf5KwLWytDvwiIUN4LmzFpm3QEzQIf3WVHl
-         3Ijv+bXIHSRT+yntPFCNj9aJ9TJ53MjX5/OPVZ51kaxvkqG17wrGdgGC2lYl1cCieaEb
-         ClvfNldCfiRxqYSsvnraTYtlBgylnlrRVa5XxkV5bKzR36aiktGghEearldzlZjGZeB5
-         UOOFOgQM6sHioTql4o9lhMMcd1MZagJEBwuKM9dIAG8Rmr2MXIQK8PsAjJfk6bY6Iwr3
-         7CNg==
-X-Gm-Message-State: AFuF++mvbSwiB++gXzzZGmRjQC2uM4g4DU/e1o7H8BWIm7XwxYc3/Ydn
-	94IRnXEzF09SapGnt6RzWWF4HStfJYK3G7gLys/ROeJbdIsUoGDyHVZiJAtoZoez1Xw=
-X-Gm-Gg: AYBFou1qq0qb621B9E31CDxyADlYmdkGcspAXgQ2JGu4CLjCarVqqW2j6knOEeCcw+Q
-	ThxhIdx3LafvW+B/+EgqKVWQ3cpWM0O0IlvIUBchHtKRxAf35ICgEh3p22SZekcVamwtY/SiW2j
-	TDqLOdRiFoy9dShcY/ubh42OgcPM9dpmSUTzyytF8Bu3qm+tgxbq3jIxUpGNNVYYQUqDOZZHxnx
-	9cUipuE5HVahejywW12MJX7iSCQSl2KInbhP39owma8s4JBkX9+sAwAzv0/Lvq5w8MSzzwfpW0t
-	oh8gVOPpXJN1K5ow0A6XkTA6I7X7wJDGNIMkE82IdskCNBgvzEj0k81V+W7yzuweN/CGf9kxprL
-	rbsPGe0sfeEkavbLtqs0QSGQIGGf9iqy0HuqZT+QgoE+knUhVrihsOpSK7DPU6a4sKZ4MTltSWo
-	Tbn9QBmFSvrfPq4754h829nbnYPqBeR8Nh6cK1xbyPn51Wg3XyYphxQ783v67m5aXhj8M89sYa0
-	UBZBnTQNNfaPcA=
-X-Received: by 2002:a05:6820:f034:b0:6b7:46fc:1c7 with SMTP id 006d021491bc7-6b746fc024dmr2265093eaf.38.1788522050699;
-        Fri, 04 Sep 2026 04:40:50 -0700 (PDT)
-Received: from volcano9f6e-hostos.amd.com ([165.204.217.251])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33450e140d3sm2695292eec.4.2026.09.04.04.40.49
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 04 Sep 2026 04:40:50 -0700 (PDT)
-From: Hemanth Selam <hemanth.selam@gmail.com>
-To: 
-Cc: linux-kernel@vger.kernel.org
-Subject: [PATCH 0/2] usb: fix typos and repeated words in comments
-Date: Fri,  4 Sep 2026 17:10:36 +0530
-Message-ID: <20260904114046.24048-1-hemanth.selam@gmail.com>
-X-Mailer: git-send-email 2.48.1
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="GZbQELKW"
+Received: from pps.filterd (m0353729.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 684AVe9p3807368;
+	Fri, 4 Sep 2026 11:40:25 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=pp1; bh=/QhYY3cMo6ujVyxyegvMNjhHF60Bsa
+	MDpEUgMPs1h/w=; b=GZbQELKWWF8sx4n3RybtSDqlSIK16+tkdry7lNkR9F5aEv
+	puq05mIghaIOmFtd6OKsxftRG7IzY5Y6RBQfNhGx6iza1l/Cz8htaA1WxAbS8etp
+	NhBjtFNz9zGKkHGVmWsDPlquW+ciwcqZjjlM7H+LdKCIpDq5A1fl6i3+rfjHHHUX
+	5KqWThYT9LtVPdkz+s/ccSKoWBpm8gQDwbeeah5kfKpOQsvpKEYzMwZcs570xOvs
+	C9oEjVaJh9gK/GtFua7nZMnYKi2eROtCMZNMjWNo4CLaCmBPu3o7DSWwkq8EF0CM
+	RiZxGnCHIp1D9tq6Vi10F5YILfKaWakDOHjOlH4g==
+Received: from ppma22.wdc07v.mail.ibm.com (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gbq3rtfd8-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Fri, 04 Sep 2026 11:40:24 +0000 (GMT)
+Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma22.wdc07v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 684BQTwE010821;
+	Fri, 4 Sep 2026 11:40:23 GMT
+Received: from smtprelay07.fra02v.mail.ibm.com ([9.218.2.229])
+	by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4gecjaw6xd-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Fri, 04 Sep 2026 11:40:23 +0000 (GMT)
+Received: from smtpav03.fra02v.mail.ibm.com (smtpav03.fra02v.mail.ibm.com [10.20.54.102])
+	by smtprelay07.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 684BeJ3D49545618
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Fri, 4 Sep 2026 11:40:19 GMT
+Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 4AAF82004B;
+	Fri,  4 Sep 2026 11:40:19 +0000 (GMT)
+Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 0387320040;
+	Fri,  4 Sep 2026 11:40:14 +0000 (GMT)
+Received: from dhcp-9-123-3-18.bl1-in.ibm.com (unknown [9.123.3.18])
+	by smtpav03.fra02v.mail.ibm.com (Postfix) with ESMTPS;
+	Fri,  4 Sep 2026 11:40:13 +0000 (GMT)
+Date: Fri, 4 Sep 2026 17:10:11 +0530
+From: Gautam Menghani <gautam@linux.ibm.com>
+To: Sean Christopherson <seanjc@google.com>
+Cc: Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>,
+        Paolo Bonzini <pbonzini@redhat.com>,
+        Tianrui Zhao <zhaotianrui@loongson.cn>, Bibo Mao <maobibo@loongson.cn>,
+        Huacai Chen <chenhuacai@kernel.org>, Anup Patel <anup@brainfault.org>,
+        Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+        Albert Ou <aou@eecs.berkeley.edu>,
+        Christian Borntraeger <borntraeger@linux.ibm.com>,
+        Janosch Frank <frankja@linux.ibm.com>,
+        Claudio Imbrenda <imbrenda@linux.ibm.com>,
+        Fuad Tabba <fuad.tabba@linux.dev>, Joey Gouly <joey.gouly@arm.com>,
+        Steffen Eiden <seiden@linux.ibm.com>,
+        Suzuki K Poulose <suzuki.poulose@arm.com>,
+        Zenghui Yu <yuzenghui@huawei.com>, Atish Patra <atish.patra@linux.dev>,
+        Alexandre Ghiti <alex@ghiti.fr>, David Hildenbrand <david@kernel.org>,
+        linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev,
+        kvm@vger.kernel.org, loongarch@lists.linux.dev,
+        kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org,
+        linux-kernel@vger.kernel.org,
+        Itaru Kitayama <itaru.kitayama@fujitsu.com>,
+        Nicholas Piggin <npiggin@gmail.com>,
+        Ritesh Harjani <ritesh.list@gmail.com>
+Subject: Re: [PATCH v2 05/20] KVM: selftests: Use goto instead of do-while to
+ retry finding unused physical pages
+Message-ID: <apquG3ZPgTio1ckj@dhcp-9-123-3-18.bl1-in.ibm.com>
+References: <20260902164123.2546762-1-seanjc@google.com>
+ <20260902164123.2546762-6-seanjc@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260902164123.2546762-6-seanjc@google.com>
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Authority-Analysis: v=2.4 cv=EIc2FVZC c=1 sm=1 tr=0 ts=6a9aae29 cx=c_pps
+ a=5BHTudwdYE3Te8bg5FgnPg==:117 a=5BHTudwdYE3Te8bg5FgnPg==:17
+ a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=uAbxVGIbfxUO_5tXvNgY:22 a=pGLkceISAAAA:8
+ a=omOdbC7AAAAA:8 a=1XWaLZrsAAAA:8 a=VnNF1IyMAAAA:8 a=ltp-RmMtnFz0lCvsd_sA:9
+ a=CjuIK1q_8ugA:10
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA0MDEwNCBTYWx0ZWRfX/MfmOk+n849g
+ itvdrttGkm0Wq5bsa2if3gCckUIyBuzuARTO71mudv9BASDtKDIsHtL/woQBUHKi8oDonptgR2Y
+ Y3xtuyV2KY4kJWq+F2zX+yS4lxgeazdGj4Vm2M8aw2H4drLQMJ4Dkx3sXHUbiXfiTM4KCYx6pvG
+ jRkS8K9ANvnQzdldsxZRV6gVWQqd28AeecGwFgWDmwECvirHH/P7ITSc4M+3+jMYvJ1S35n3vyI
+ aAl+MJ+B9OXIJgFAENFnf/++eLNJ1yPxq+OJG5EmwhMRZUivC89f0NlYYwJCoTaF1PuME/oAvza
+ bFO/djsVJQu1cj/ZJxD0F7QMpKZn5DFWONWav6CPhn/+AUtUjNtiy/fqogl55M0dwOv4Hbzy+VP
+ eMp0Y66De0BWooL0dAGNy5Gvyhj76AZMJY4c503JArOtIDTzTIUtBRP2xpnFe/GAocl9rgUq4XL
+ xdEFq0LXUv02wr4vpHg==
+X-Proofpoint-GUID: SOMG99MybV1SAPOTbg_7Iu48ydPZpa9w
+X-Proofpoint-ORIG-GUID: -Y1DSPNiCw8Ie2zXzwOPQQvkszDJwqsH
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA0MDEwNCBTYWx0ZWRfX+oE+5AD7/bGP
+ Gq8dC/XQH9lfiTYA8sDpVENbQyWvOfRnhjTp+Z1I6RAzgIxO9pHJBI/rW6OWRSOmmSerC80cVU7
+ 1mVQoqP8lIuNVY31rMT5VqN9/6vrDRg=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-04_03,2026-09-03_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 impostorscore=0 suspectscore=0 priorityscore=1501 clxscore=1011
+ phishscore=0 spamscore=0 adultscore=0 lowpriorityscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609040104
 
-This corrects 2 misspellings and repeated words in comments.  Each is a
-separate patch so that any one of them can be dropped without touching
-the rest.
+On Wed, Sep 02, 2026 at 09:41:08AM -0700, Sean Christopherson wrote:
+> From: Nicholas Piggin <npiggin@gmail.com>
+> 
+> Rework the core loop of the physical page allocator to use a goto instead
+> of do-while loop when retrying with a new base address.  The do-while loop
+> obviously works, but it obfuscates the success vs. failure paths, and in
+> general is convoluted.
+> 
+> For all intents and purposes, no functional change intended.
+> 
+> Signed-off-by: Nicholas Piggin <npiggin@gmail.com>
+> [Rebased to latest mainline tree]
+> Signed-off-by: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
+> [sean: separate from alignment change, use enomem label, write changelog]
+> Tested-by: Itaru Kitayama <itaru.kitayama@fujitsu.com>
+> Signed-off-by: Sean Christopherson <seanjc@google.com>
+> ---
+>  tools/testing/selftests/kvm/lib/kvm_util.c | 32 +++++++++++-----------
+>  1 file changed, 16 insertions(+), 16 deletions(-)
+> 
+> diff --git a/tools/testing/selftests/kvm/lib/kvm_util.c b/tools/testing/selftests/kvm/lib/kvm_util.c
+> index b071d77dd301..bbf6d7684c0c 100644
+> --- a/tools/testing/selftests/kvm/lib/kvm_util.c
+> +++ b/tools/testing/selftests/kvm/lib/kvm_util.c
+> @@ -2049,23 +2049,15 @@ gpa_t __vm_phy_pages_alloc(struct kvm_vm *vm, size_t nr_pages, gpa_t min_gpa,
+>  	TEST_ASSERT(!protected || region->protected_phy_pages,
+>  		    "Region doesn't support protected memory");
+>  
+> -	base = pg = min_gpa >> vm->page_shift;
+> -	do {
+> -		for (; pg < base + nr_pages; ++pg) {
+> -			if (!sparsebit_is_set(region->unused_phy_pages, pg)) {
+> -				base = pg = sparsebit_next_set(region->unused_phy_pages, pg);
+> -				break;
+> -			}
+> +	base = min_gpa >> vm->page_shift;
+> +again:
+> +	for (pg = base; pg < base + nr_pages; ++pg) {
+> +		if (!sparsebit_is_set(region->unused_phy_pages, pg)) {
+> +			base = sparsebit_next_set(region->unused_phy_pages, pg);
+> +			if (!base)
+> +				goto enomem;
+> +			goto again;
+>  		}
+> -	} while (pg && pg != base + nr_pages);
+> -
+> -	if (pg == 0) {
+> -		fprintf(stderr, "No guest physical page available, "
+> -			"min_gpa: 0x%lx page_size: 0x%x memslot: %u\n",
+> -			min_gpa, vm->page_size, memslot);
+> -		fputs("---- vm dump ----\n", stderr);
+> -		vm_dump(stderr, vm, 2);
+> -		abort();
+>  	}
+>  
+>  	for (pg = base; pg < base + nr_pages; ++pg) {
+> @@ -2075,6 +2067,14 @@ gpa_t __vm_phy_pages_alloc(struct kvm_vm *vm, size_t nr_pages, gpa_t min_gpa,
+>  	}
+>  
+>  	return base * vm->page_size;
+> +
+> +enomem:
+> +	fprintf(stderr, "No guest physical page available, min_gpa: 0x%lx page_size: 0x%x memslot: %u\n",
+> +		min_gpa, vm->page_size, memslot);
+> +	fputs("---- vm dump ----\n", stderr);
+> +	vm_dump(stderr, vm, 2);
+> +	abort();
+> +	__builtin_unreachable();
+>  }
+>  
+>  gpa_t vm_phy_page_alloc(struct kvm_vm *vm, gpa_t min_gpa, u32 memslot)
+> -- 
+> 2.55.0.966.g6673acef38-goog
+> 
 
-Nothing outside comments changes.  Every touched C file was checked by
-dropping its comments, replacing each string literal with a placeholder
-and collapsing whitespace; what remained was identical before and after,
-so the compiled code cannot differ.
-
-The mistakes were found with scripts/checkpatch.pl against the list in
-scripts/spelling.txt.  The scanning, the edits and the changelogs were
-produced with Cursor running the claude-opus-5 model, from a request to
-find and fix spelling mistakes across the tree, and every correction was
-then re-checked by the comparison described above.  Words that name an
-identifier were left alone deliberately, even when they read as typos,
-because correcting the prose would make the comment disagree with the
-code it describes.
-
-Tested by building x86_64 defconfig at v7.3-rc1-269-gbc35965f6940, which
-is clean.  Nothing else was built, so any patch touching code that
-x86_64 defconfig does not compile has been read but not compiled.
-
-Hemanth Selam (2):
-  usb: fix typos in comments
-  usb: fix repeated words in comments
-
- drivers/usb/atm/ueagle-atm.c           | 2 +-
- drivers/usb/c67x00/c67x00-ll-hpi.c     | 8 ++++----
- drivers/usb/c67x00/c67x00-sched.c      | 2 +-
- drivers/usb/class/cdc-wdm.c            | 2 +-
- drivers/usb/core/hub.c                 | 2 +-
- drivers/usb/fotg210/fotg210-hcd.h      | 2 +-
- drivers/usb/gadget/configfs.c          | 2 +-
- drivers/usb/gadget/function/f_hid.c    | 2 +-
- drivers/usb/gadget/function/f_uac2.c   | 4 ++--
- drivers/usb/gadget/legacy/inode.c      | 2 +-
- drivers/usb/gadget/udc/bdc/bdc_core.c  | 2 +-
- drivers/usb/gadget/udc/bdc/bdc_ep.c    | 2 +-
- drivers/usb/gadget/udc/core.c          | 8 ++++----
- drivers/usb/gadget/udc/fsl_qe_udc.h    | 2 +-
- drivers/usb/gadget/udc/fsl_udc_core.c  | 4 ++--
- drivers/usb/gadget/udc/lpc32xx_udc.c   | 2 +-
- drivers/usb/gadget/udc/pch_udc.c       | 4 ++--
- drivers/usb/gadget/udc/r8a66597-udc.c  | 2 +-
- drivers/usb/gadget/udc/snps_udc_plat.c | 2 +-
- drivers/usb/gadget/udc/udc-xilinx.c    | 4 ++--
- drivers/usb/host/fhci-q.c              | 2 +-
- drivers/usb/host/fhci-tds.c            | 2 +-
- drivers/usb/host/oxu210hp-hcd.c        | 2 +-
- drivers/usb/host/uhci-platform.c       | 2 +-
- drivers/usb/host/uhci-q.c              | 2 +-
- drivers/usb/host/xhci.c                | 8 ++++----
- drivers/usb/image/mdc800.c             | 2 +-
- drivers/usb/misc/sisusbvga/sisusbvga.c | 4 ++--
- drivers/usb/musb/tusb6010.c            | 2 +-
- drivers/usb/musb/ux500.c               | 2 +-
- drivers/usb/phy/phy-fsl-usb.c          | 2 +-
- drivers/usb/renesas_usbhs/mod_gadget.c | 2 +-
- drivers/usb/renesas_usbhs/mod_host.c   | 2 +-
- drivers/usb/storage/uas.c              | 2 +-
- drivers/usb/typec/tcpm/fusb302.c       | 2 +-
- drivers/usb/typec/tcpm/tcpm.c          | 2 +-
- include/linux/usb/cdc.h                | 2 +-
- 37 files changed, 51 insertions(+), 51 deletions(-)
-
--- 
-2.48.1
-
+Acked-by: Gautam Menghani <gautam@linux.ibm.com>
