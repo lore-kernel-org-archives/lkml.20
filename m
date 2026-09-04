@@ -1,169 +1,221 @@
-Received: from SJ2PR03CU001.outbound.protection.outlook.com (mail-westusazon11012070.outbound.protection.outlook.com [52.101.43.70])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEF72453A44;
-	Fri,  4 Sep 2026 10:13:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.43.70
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788516794; cv=fail; b=UXVKMDy2EYGeXPBNbu8DUs/CHCnJpuu25/EgfjVUH535uht9nYDtG/bLwwBHUEhNGmYra9YNALRQsRMHSLtiBhS3RdKwiRn5EZFg2dRZlxraahFnYHpGStRLyWQzbrG/FZT08a6VcdY0sV0AsrjQ9yFxrvgLUoMSxT431ZdGFEg=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788516794; c=relaxed/simple;
-	bh=EY+DzYJTeIdF1IE+gPNtaoPAL0t77bOpaDE8cSOLP4g=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=BP4R229wIbKHu/Cc/s0/wZl5cwVCxKDjruYJSC+B8brn8tLcSak7QjRVOQnpfFmlimYUQSP0GcGK8J89kMkzTnlduQquCOrn5v9sgqx9Qc4X0q4PdKXEBzFmIHq5ZXTVUq2gGtBYlRZpiHak4m7VbQAYDkY1+YSw7cqvSWgwTWs=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=py1u5l3k; arc=fail smtp.client-ip=52.101.43.70
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 431F144237A
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 10:13:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.46
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788516817; cv=none; b=NBFQxqGoRaond/sV+RLA3Aux5u4DJ2wlKUXKrZCfzEy2OjxfMlDhzK/aVqUTh6XfwBnz8gl6tQ1tSWTNgIjaCebTc/Kd+cxK7dkusxkRXfXSLB5Wx8Laui0SCb83UnANF+ZkntuXRg9j/N0nrR2P7cx1xF5FnTZLxWA7b0i5NoM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788516817; c=relaxed/simple;
+	bh=xZ2sBnhrYKqxY/S8zO9jUQA4qCcp7CsTSlId62VD62U=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=rn19NuAlgyR29S8RwUQrq11Gp0XCh4TGy5eJGDnUm4nbRqH4P17x8uUhtyQpVxMvrmKBfTBzLCKTgGFS+73GhOqUwmVmodWoMeWm4ZZ/CYH33Sv6NA0VftFUhP/Zwp/ri/xVCvB8f+aatKCqhP/dA9AEm8cRAhsQmT/8PDkGdcc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=amarulasolutions.com; spf=pass smtp.mailfrom=amarulasolutions.com; dkim=pass (1024-bit key) header.d=amarulasolutions.com header.i=@amarulasolutions.com header.b=aA3G6LdS; arc=none smtp.client-ip=209.85.221.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=amarulasolutions.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amarulasolutions.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="py1u5l3k"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=FC43MuQONbYgd5BI86INNNKGcvNkmZqiA7T+6c3MrIBOsb1rb4YdjiZ7fpdx0efDkOottFOPrPAzH159v6qApVnOfjLPDwNrG6QiswpblqJfsR5DZgOoV46BFue6po6AX9NfvKsT7zzbW5WrehweICMFhdvHuYbPHEfliyFoq/jCi85Z9akIH9BoNro6nzyk7fogLOw8TbY6LjcimpYW/ZF/5aR5RMHUpwdDHhbUcc7xXnYYM6FVwB4dO7GYcrBY4Lh8oS4VwKZK9uVlndWzTX56O9MORb15QrAixtC7sA0ewfr6pxmKIIE9LWTivUvu1g4yXW5qrtbYLzR9IZDViQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Bc9udo52fl2HPR56uC2nWQrcdxjU1eGKvulC+ntihQU=;
- b=dBZN9WWGqZksEwyBWl415Hrt0PS8GuFUAlt8yka89laW26LF9B21WG+mA+SHUWKziyotQ0mAVBBnDTpqLqHjriAo9WJeOmwS0bZm9m8zoijBkWduz7C0obL3mIpmZJck42nUBdDYr8rk8WRbzddTBYZ9OgIn0V0U95mcsX6i+DzOO6fcpUQ+P9jOtyarV+4bTB+qRRdt8gOJGlNPIIp3dgczlbKs94JSUTyfMg1teQpW7ngekad6WSaKmqgNAyW8bbv0DM0ud3mk1la7Kl9g6eKJHZCS5fnW9VwKNxMC0uZ+q3dMgW/uF1zLhbrLeIsw3GSMWqaf2u+n6IEzz9qUqw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Bc9udo52fl2HPR56uC2nWQrcdxjU1eGKvulC+ntihQU=;
- b=py1u5l3kwM5Ea1MfP0jsMMW0ZqLWRg0gQ82QeryXMtUoNMCmM8vbQHLckpVfx4OBqfYkk25NDjaI/UcHMVfQqgGwTQmZKlVj2HerBZo0v9fe/9wbqSPl7TIwZRRC7REVeB3FPx23N+5Rj/HyiL7NjHS4hZFWkaDYnJqK/umrMp4=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BL4PR12MB9505.namprd12.prod.outlook.com (2603:10b6:208:591::16)
- by DS7PR12MB6021.namprd12.prod.outlook.com (2603:10b6:8:87::5) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.360.13; Fri, 4 Sep 2026 10:13:09 +0000
-Received: from BL4PR12MB9505.namprd12.prod.outlook.com
- ([fe80::73aa:eb8c:a86b:5a83]) by BL4PR12MB9505.namprd12.prod.outlook.com
- ([fe80::73aa:eb8c:a86b:5a83%5]) with mapi id 15.21.0360.008; Fri, 4 Sep 2026
- 10:13:09 +0000
-Message-ID: <399db967-050d-48dc-afb5-5c77ee9cce65@amd.com>
-Date: Fri, 4 Sep 2026 15:43:01 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/5] iommu/amd: Fix DTE clearing and rename
- iommu_ignore_device()
-To: Jason Gunthorpe <jgg@nvidia.com>
-Cc: Pranjal Shrivastava <praan@google.com>, iommu@lists.linux.dev,
- linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
- Joerg Roedel <joro@8bytes.org>,
- Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>,
- Ankit Soni <ankit.soni@amd.com>, Bjorn Helgaas <bhelgaas@google.com>,
- Samiullah Khawaja <skhawaja@google.com>, sashiko-bot@kernel.org
-References: <20260824122347.1588592-3-praan@google.com>
- <178759520117.3131778.15279605903087565179.b4-review@b4>
- <ao1vJxkZsJpr1qXG@google.com> <20260825114916.GT244917@nvidia.com>
- <ao3RF0w_AXo5EXxv@google.com> <20260825175315.GD3325090@nvidia.com>
- <ao3oHn8HiXIx5Wrl@google.com> <50ffc453-f918-47f8-9556-9813308690a9@amd.com>
- <20260826122147.GA3666382@nvidia.com>
- <bfb7be5b-2da3-4bd3-8146-9bd079011a75@amd.com>
- <20260828115331.GC3922654@nvidia.com>
-Content-Language: en-US
-From: Vasant Hegde <vasant.hegde@amd.com>
-In-Reply-To: <20260828115331.GC3922654@nvidia.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: PN3PR01CA0185.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c01:be::9) To BL4PR12MB9505.namprd12.prod.outlook.com
- (2603:10b6:208:591::16)
+	dkim=pass (1024-bit key) header.d=amarulasolutions.com header.i=@amarulasolutions.com header.b="aA3G6LdS"
+Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-482e067e908so740592f8f.2
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 03:13:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=amarulasolutions.com; s=google; t=1788516814; x=1789121614; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=U/iBVA9/Ii7qFgco17f5RCUwPjhgNhGPbu+zTwjLGmA=;
+        b=aA3G6LdSfBEFdJO5IcUlngaRT9cJtLRlJ2Fy7sBP8eggwremX/vAWSiEsZG5gLXe4F
+         YSdHygtrG63memrbX4o5iYFEPef5abqOBkcUZPt8d2rfZCHFGwowrHzq9Y259JUKO3yT
+         dR1Rs/noSnImP6n6Sfk2N+qcQDZkVuJJs8blA=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788516814; x=1789121614;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=U/iBVA9/Ii7qFgco17f5RCUwPjhgNhGPbu+zTwjLGmA=;
+        b=dLyDTIHTtJsmzB4xJMLIfx9o8KSdLjuxnIlv5GwbM3kn59IuoPz93mHYkLXgS1Hi/W
+         AVUsWXWpQ0KK6MointBSr4mTABngOyxXxCvWemACMABPRl8YUcT7bsltNSdwibD9k1NG
+         dCfSbZdrmLAyJdRxJS7qMmoIwxGrP0biRypmU+uK7oxNTjDvr5rzls6DI+wur9mX8DPi
+         QziCCpR8AQ4t4CSlml9ViFo04I6n0fM9ixz4k339uEjNXCpghFlA5bNSE00UGSx7eh24
+         JdPW4nIL8EctHGKw913Xmmz95qCko1efJ6df2idaqwMmeXyS2aQTIPfbE3WzTtTpHZYx
+         IJQw==
+X-Gm-Message-State: AFuF++kYcZ6AOGDjhoIqDRGxgFjG5sCvGagCEPAX6mBULVfY1BDmQzZ4
+	fA9vD4SNffjHtSWciQWQKyAmJkg1aAu/46QLEeGuwnoVcIcO9lo2Xy28Dc41C/cgIXVd5hwvPAR
+	LnTPV5tU=
+X-Gm-Gg: AYBFou34uF2Y3T3hPfPfkakw0l+bJSjp7SSrQSE2AyCaZncMD21xCoAhLHdKO2ALsF3
+	TxvXRKatP3Ggi5f5OM0aWy6ROBw2dgUt37x14RkAjyiCLlGkOdDKxeMWIHKyGhk6kUINWwT2wpL
+	smzOAoDTVDVUl3wpO1/OvFpMZdLTs8gMWx1eUz2uBevIRc7unZktgC03jF9u7FsYuhwk60sLiq+
+	6z6ZGGqa56xxn3oQHlkJ3hgFYt1Bxd17h8f86ZTTdcqahaAyJyGvg0IwGXj/W7bjgnTfbhcB30/
+	7DxyNL004A+zhYHnsR31R6mMy282A3lMAGWl1wqIzf2LKcnDbLmvJI9s6Nv+XLq/evYHQ4uk0HL
+	AgVW3usAPzqz5o636zGw+l89ZtzyA1LzyxpYZzchvFsldJv5zarY0C3p9TS6+qSzRM9xtSK1ex4
+	cPOPD8ni8Bb/74Pe32iMvtw/ROsKe8b5G+8M+TyD/jCcTzYwqfZt2E7+x85EU8nt3x9xCW1N8Jc
+	VubeHtbM2gSOiBZOYVC7KkVHLuKnr8dGScbUahID/KpXCiXrxtMs3pHbYy0AomgE1mEC6E6I3Nb
+	vLIzFi1/94dwMMaWUvV0qNtLLa8LbM/U7lRGTfFUJpSk4uva4C4Wb84=
+X-Received: by 2002:a05:6000:40c7:b0:484:3310:f394 with SMTP id ffacd0b85a97d-485872d2de3mr5945970f8f.23.1788516773023;
+        Fri, 04 Sep 2026 03:12:53 -0700 (PDT)
+Received: from dario-ThinkPad-P14s-Gen-5.amarulasolutions.com (host-95-245-93-90.retail.telecomitalia.it. [95.245.93.90])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48588390e30sm5317990f8f.7.2026.09.04.03.12.51
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 04 Sep 2026 03:12:52 -0700 (PDT)
+From: Dario Binacchi <dario.binacchi@amarulasolutions.com>
+To: linux-kernel@vger.kernel.org
+Cc: michael@amarulasolutions.com,
+	linux-amarula@amarulasolutions.com,
+	Dario Binacchi <dario.binacchi@amarulasolutions.com>,
+	Sashiko <sashiko-bot@kernel.org>,
+	Peng Fan <peng.fan@nxp.com>,
+	Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	Sebin Francis <sebin.francis@ti.com>,
+	Stephen Boyd <sboyd@kernel.org>,
+	linux-clk@vger.kernel.org
+Subject: [PATCH v14 2/4] clk: validate spread spectrum configuration
+Date: Fri,  4 Sep 2026 12:06:31 +0200
+Message-ID: <20260904101243.412006-3-dario.binacchi@amarulasolutions.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260904101243.412006-1-dario.binacchi@amarulasolutions.com>
+References: <20260904101243.412006-1-dario.binacchi@amarulasolutions.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL4PR12MB9505:EE_|DS7PR12MB6021:EE_
-X-MS-Office365-Filtering-Correlation-Id: b20f2807-30be-4390-d4db-08df0a6d1ef6
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|376014|366016|23010399003|22082099003|56012099006|10067099003|11063799006|4143699003|6133799003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	45eI5d2iwkgG2F8D8kH+1LeWq+bPNvGZ5wD0SO4gp9FGuQpQemYZDXZjdMZSvEYjhi8gT0jPnpBUo8LHr0GcW9xHnJQGmikx+4tzXD+tbZu3iZ9TvJxOCcCChfQnLPDE5/uFeQM9eX6YVuHee5uB8S/wpqmy7Fufe2SpLAM3wR0CXER0HCBLjNTfyrweAmOfWZphx/qFbxE/E8WSE6a8pT5ORM83gTpFy6PqKScjkot+0O3brLcaw5rDLQ7STUeeqM866dIrOoeKbBY8NGrQZ93ZyNgrTiN9J3oadpDUcKqJ2wFnx9UXdeOICtRMoX2jhdTMPP12UBbUaQVFDpJXs22wK8y9Jx/gtBymCsOYd7Z1FoO9KVaAU99joygV5DBspbf+86/rYVFjhisBkJyDcyCAroEkmWQFvxeCq9Ip6zq5AIMTczWz2ld8b+5KBmBE+hdZwctLzSg08DXrX8auiNlkmxN6gYd8fjN4x/LyXu/w8/yBXb5frhLNaHek4r54rCF1s1MTug+bX0SPrWENuDtuOthnTJHp+svDDJbcgedxKZUWDksc6luc5m/UFOFdzphBav9qaBTF4e74KIhHHhadjIiNZeDpOIPUBsqq3xmgOLSH11eGGgqy+JG4axhKteKjMxZVdVRz0bs2/2HxS3ghJi79wRsmUMvHJc+jD7I=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BL4PR12MB9505.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(366016)(23010399003)(22082099003)(56012099006)(10067099003)(11063799006)(4143699003)(6133799003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?dUE5OStVTi9NNysrMGdoQ0RzOVJFV1hYUWZ5NHBaOXh3SDUwdGtsZzdSUmUw?=
- =?utf-8?B?SmxSYzQ1ZFB6SGs4dnNwN1hYdkVyblpaN0FOQU93ZkdkZjY4VUJ0M0VRVlNq?=
- =?utf-8?B?NElyZGNyWHhzbEhoQmZVcXlqUm1BNXQ3Z0Z0T2cwVytWMXpHYW9FZVFMSWNp?=
- =?utf-8?B?WFFrMUUyZ0tNUzg5bjMzczg3Y2JCd0dyOWRicXdpT3hiZCt4THBHUmVyVkty?=
- =?utf-8?B?azJodTB4dUYvdFc1V0gzU2FrM3Z6Z3VjaTE4SXdoQU5rcTdMSE10T3c1eTZh?=
- =?utf-8?B?cFNTbWs3T3lTRDRpbUp2eWdCb2hLUGMzSWpqbHorbFpsa1dIb01UbkYvcm45?=
- =?utf-8?B?MG9KUVN5N0ZzNzJjd3RIT09xU1lFNjV1N1FiaWx2bUVlRStweGFQbk12dnlt?=
- =?utf-8?B?QWNhbEI1ajQ2VjdKYndPMmdRd3FvNWJLdkprcUpMYkxORHVoVHlEY2pYRGgr?=
- =?utf-8?B?VVZoZnFyak05RU9WRzBZbXVKQnB2anhBNzNuZzBKa3ozSHdXQzByVWlEVDRy?=
- =?utf-8?B?a0RsM0dDa1dIa2c4blNFN3dTSUd2azdsUFdhZUlTWjExdEpHN1hxSGFPcUtt?=
- =?utf-8?B?MVBIRG9TRFFRTzROT09RY1VMRzR0cjRjSi9kaXc0cjZiZXpCSHVDK0dobTls?=
- =?utf-8?B?V0NGNlFBSWEweTNwUU5RbWJVTGZhbEVvN1k5YWVuZncrNGhlaUp6YUd4eXVt?=
- =?utf-8?B?cEx2T0l5QWIxMVhMRHRUbnRWN0IvQXZHajFuRzdacE0xTVZSQUZ1N1lYaFd0?=
- =?utf-8?B?eUJGRzBFUE5JdE4xQ2N5Zk5pWUJrSmw2WmZtdVYrSkFGM3puVXBlR2dRTFVs?=
- =?utf-8?B?MnFrc3FMOTR2aXJjME01OUw2NTRSS0xsNTdCTVVpaDlnUE9PL2tZcGozN0k3?=
- =?utf-8?B?V2xzWGtkb2hPa3RKRWg3SDVYY3NwaDVsc2UrY244UGlpMDl3LzR3dHF0bUtN?=
- =?utf-8?B?ZkhhWU43Z3AzbXpmT0NFMzdkVDFENHZaZDNGakkvbTExVGs1MFVHTXNjZUJS?=
- =?utf-8?B?L3pTUzhTRVhPWmdiRyt5VThUMnFiZzVsTWJ0ZVdsVWZrcElEdjZ5MlVmcXY1?=
- =?utf-8?B?WkF6VllLNTF3bTJqK3pOWHFScDhvQ2dtME44cjc3U2FNK0hTUXcvZFp6UGtu?=
- =?utf-8?B?eDhVMjNwTG1LVkxpR3NLSnFXSmJ0WmlOaVJKOTFHV0tNc0pOakp5S0lVTi9x?=
- =?utf-8?B?UzBUbTAvMFpPd3lMbmtUR1c3RXJMb2ZiZzdxaTFPeUk2dGlnVGM1RFoycmNX?=
- =?utf-8?B?UXVHVVQxbGE3ZVQ4TDE2SUkrODNtVWtzQTlCQ3FhS01RZ0ZablhETTFYZi83?=
- =?utf-8?B?eWFFVjEvS1dFSUltSGFXanVOWHVKNitPRXgrbDNuNFloanhRS254WHdjVWZM?=
- =?utf-8?B?QWFZeG4rVDY2R1E2ZzNTYy9lN3hFRmUxM2c5Vmx2NXU4QVdmVVlkTW9qYUMw?=
- =?utf-8?B?SHZ3SnoxV0xEQXoxVkZTS2JmcFhRd2tmZ0o5WEJRVFJtUmFKQU9WL2YzN0Jj?=
- =?utf-8?B?by9qbWc0ZURJNHorM0FjNEdtcVZDdVgyLzFKLzQ1c1oxNzkxdkpDU1JNMGU4?=
- =?utf-8?B?TnNuRURuSVFqSlJiSzkyVUUycWYwQzd2YUI0dDBtQlpZam9WRFB3VGJWb3FU?=
- =?utf-8?B?eUN1VEFZR3U0RVdKWk8xeGpQSEJuYURudzM2a01pY25VTFg5ZS8rbTlSNHV6?=
- =?utf-8?B?bWY2Tlh4L0o5cCtxbmtNdkJPV1ZKK3liOU5qNG9wdS9CQkErd0crUFRodE1F?=
- =?utf-8?B?TXJBejJPQkNaWGljd0RiMFJON1hjcGtjVFhPRlRNVkwxaldIYmh3U1BzYnhh?=
- =?utf-8?B?SzhLcUFUUk9zaG9SeC9yaE1nLzNoL2thdDRlTnNCRXJpSlpUSmg3R1NaK0NU?=
- =?utf-8?B?dEFmUDRxd09JSHBKK3dOL01ySFVWSml5SW5OamowVEU2bVVoQUJES0ZpM211?=
- =?utf-8?B?R1lYK1QrZTl2bEZ2bkI5VzVmc2wwMHlsclhBblhIWXBxMlZlaHhHZmplaFVr?=
- =?utf-8?B?bmRvNEg0dWduU3FBZUZicmVwdGQ0bitKRVFkTHNoUmNxeHpHNTdIaUUzcmda?=
- =?utf-8?B?Z2tJTmsySHVsRHlLV2JMRGVrOWdTcERySlhjLzFZWWZOUXhJNStML3dJeGhq?=
- =?utf-8?B?VzBtbU9FUFNSdjMweFZnb3JVSFhId3VHenc3NHU5bjljRkEzeUN4THk1TnpT?=
- =?utf-8?B?bkJOajV3VlplNHFKclA4azhrR2FWZGhqM0FYSTdGdGZOQWtiTm43TnB0aDMv?=
- =?utf-8?B?KzFVTGNOQ2xXM2xHdWt6NHFndng4N1pyR09WR29Id0wvTit3VEc3Vys5K0VJ?=
- =?utf-8?B?c1NtTnFrRUJsNE5NcVJkZTRTMWdCck43VHFvdkxmY0c1Nm1MdzY1dz09?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b20f2807-30be-4390-d4db-08df0a6d1ef6
-X-MS-Exchange-CrossTenant-AuthSource: BL4PR12MB9505.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Sep 2026 10:13:09.8074
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: f7XLRDHAViRmAXRxtc4JFBfnB8rw7Q4nS7SkGSZDn0jQvSAYeXzNIuLNPTbzB31qFCZzMKMQxU/RYf+aRbMkzw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB6021
+Content-Transfer-Encoding: 8bit
 
-Jason,
+The spread spectrum configuration is passed to the provider's
+set_spread_spectrum() callback without any validation, as clk-conf.c
+only skips all-zero triplets from "assigned-clock-sscs". An invalid
+device tree can hand providers a zero modulation frequency or a spread
+ratio above 100%, and each provider would have to add the same checks
+to protect e.g. divisions in its rate computations.
 
+The KUnit test data for assigned-clock-sscs uses spread values of 30000
+and 40000 permyriad (300% and 400%), which the new check rejects, as
+reported by Sashiko, so fix them to 300 and 400 (3% and 4%). Also use
+a realistic 6% value for the initial settings of the skip tests, for
+consistency.
 
-On 8/28/2026 5:23 PM, Jason Gunthorpe wrote:
-> On Fri, Aug 28, 2026 at 10:46:48AM +0530, Vasant Hegde wrote:
->>> Having the driver boot up with all DTEs programmed to identity (eg
->>> 0'd) and then try to fix them to blocking after the iommu probes
->>> devices is security backwards.
->>
->> During boot, it only sets dte.v bit.
-> 
-> First it clears it to fully 0, what does 0 do in HW?
+Fixes: c86814e70390 ("clk: Introduce clk_hw_set_spread_spectrum")
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Closes: https://lore.kernel.org/r/20260901155657.6A5981F00A3A@smtp.kernel.org
+Reviewed-by: Peng Fan <peng.fan@nxp.com>
+Signed-off-by: Dario Binacchi <dario.binacchi@amarulasolutions.com>
 
-IF DTE is fully zero, then all requests are blocked for that devid.
+---
 
-> 
-> It doesn't make sense that you'd pass over the DTEs after
-> probing if the original 0'd DTE was actually blocking?
+Changes in v14:
+ - Add Reviewed-by of Peng Fan
 
-During boot, it sets certain default values includ dte.v. It doesn't clear
-everything.  In probe path, if probe fails then its clearing it entirely.
+Changes in v13:
+ - Fix the KUnit test data to realistic spread values.
+ - Add the Reported-by/Closes tag for Sashiko.
 
-May be we should just remove ignore_device() completely? as
-  - normal boot, its not yet configured, so no DMA is allowed
-  - kdump boot, old DTE is still valid and let it continue?
+ drivers/clk/clk.c                      | 14 ++++++++++++++
+ drivers/clk/clk_test.c                 | 12 ++++++------
+ drivers/clk/kunit_clk_assigned_rates.h |  4 ++--
+ 3 files changed, 22 insertions(+), 8 deletions(-)
 
-
--Vasant
+diff --git a/drivers/clk/clk.c b/drivers/clk/clk.c
+index fef87167a60b..208caf60eeb5 100644
+--- a/drivers/clk/clk.c
++++ b/drivers/clk/clk.c
+@@ -2851,6 +2851,20 @@ int clk_hw_set_spread_spectrum(struct clk_hw *hw, const struct clk_spread_spectr
+ 	if (!hw)
+ 		return 0;
+ 
++	switch (ss_conf->method) {
++	case CLK_SPREAD_NO:
++		break;
++	case CLK_SPREAD_CENTER:
++	case CLK_SPREAD_UP:
++	case CLK_SPREAD_DOWN:
++		if (!ss_conf->modfreq_hz || !ss_conf->spread_bp ||
++		    ss_conf->spread_bp > 10000)
++			return -EINVAL;
++		break;
++	default:
++		return -EINVAL;
++	}
++
+ 	core = hw->core;
+ 
+ 	clk_prepare_lock();
+diff --git a/drivers/clk/clk_test.c b/drivers/clk/clk_test.c
+index 1c5c8b7c1f3c..21e62d68f87f 100644
+--- a/drivers/clk/clk_test.c
++++ b/drivers/clk/clk_test.c
+@@ -3526,7 +3526,7 @@ static const struct clk_assigned_rates_test_param clk_assigned_sscs_skips_test_p
+ 		 */
+ 		.desc = "provider missing assigned-clocks",
+ 		TEST_PARAM_OVERLAY(kunit_clk_assigned_sscs_without),
+-		.sscs = {50000, 60000, 3},
++		.sscs = {50000, 600, 3},
+ 	},
+ 	{
+ 		/*
+@@ -3535,7 +3535,7 @@ static const struct clk_assigned_rates_test_param clk_assigned_sscs_skips_test_p
+ 		 */
+ 		.desc = "consumer missing assigned-clocks",
+ 		TEST_PARAM_OVERLAY(kunit_clk_assigned_sscs_without_consumer),
+-		.sscs = {50000, 60000, 3},
++		.sscs = {50000, 600, 3},
+ 		.consumer_test = true,
+ 	},
+ 	{
+@@ -3545,7 +3545,7 @@ static const struct clk_assigned_rates_test_param clk_assigned_sscs_skips_test_p
+ 		 */
+ 		.desc = "provider assigned-clock-sscs of zero",
+ 		TEST_PARAM_OVERLAY(kunit_clk_assigned_sscs_zero),
+-		.sscs = {50000, 60000, 3},
++		.sscs = {50000, 600, 3},
+ 	},
+ 	{
+ 		/*
+@@ -3554,7 +3554,7 @@ static const struct clk_assigned_rates_test_param clk_assigned_sscs_skips_test_p
+ 		 */
+ 		.desc = "consumer assigned-clock-sscs of zero",
+ 		TEST_PARAM_OVERLAY(kunit_clk_assigned_sscs_zero_consumer),
+-		.sscs = {50000, 60000, 3},
++		.sscs = {50000, 600, 3},
+ 		.consumer_test = true,
+ 	},
+ 	{
+@@ -3564,7 +3564,7 @@ static const struct clk_assigned_rates_test_param clk_assigned_sscs_skips_test_p
+ 		 */
+ 		.desc = "provider assigned-clocks null phandle",
+ 		TEST_PARAM_OVERLAY(kunit_clk_assigned_sscs_null),
+-		.sscs = {50000, 60000, 3},
++		.sscs = {50000, 600, 3},
+ 	},
+ 	{
+ 		/*
+@@ -3573,7 +3573,7 @@ static const struct clk_assigned_rates_test_param clk_assigned_sscs_skips_test_p
+ 		 */
+ 		.desc = "consumer assigned-clocks null phandle",
+ 		TEST_PARAM_OVERLAY(kunit_clk_assigned_sscs_null_consumer),
+-		.sscs = {50000, 60000, 3},
++		.sscs = {50000, 600, 3},
+ 		.consumer_test = true,
+ 	},
+ };
+diff --git a/drivers/clk/kunit_clk_assigned_rates.h b/drivers/clk/kunit_clk_assigned_rates.h
+index d7ae5ec2d25b..c5d9f004ee81 100644
+--- a/drivers/clk/kunit_clk_assigned_rates.h
++++ b/drivers/clk/kunit_clk_assigned_rates.h
+@@ -9,10 +9,10 @@
+ #define ASSIGNED_RATES_1_RATE		9700000
+ 
+ #define ASSIGNED_SSCS_0_MODFREQ		10000
+-#define ASSIGNED_SSCS_0_SPREAD		30000
++#define ASSIGNED_SSCS_0_SPREAD		300
+ #define ASSIGNED_SSCS_0_METHOD		CLK_SSC_CENTER_SPREAD
+ #define ASSIGNED_SSCS_1_MODFREQ		20000
+-#define ASSIGNED_SSCS_1_SPREAD		40000
++#define ASSIGNED_SSCS_1_SPREAD		400
+ #define ASSIGNED_SSCS_1_METHOD		CLK_SSC_UP_SPREAD
+ 
+ #endif
+-- 
+2.43.0
 
