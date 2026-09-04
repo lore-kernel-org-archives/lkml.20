@@ -1,118 +1,144 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6CE939657A
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 14:38:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F13C139F17F;
+	Fri,  4 Sep 2026 14:41:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788532712; cv=none; b=FQrXWDE4iVSYfcOrBuVY84R40jcByyTcpfaH47x4VwWmL41JOy2XoVi2FXaM/DhTqyFcJjmX2kodARcZ25jZ4T4Ng3OqOGmp+792z5HTh0kZpIbSCoHbcPkuDZ0dCSzRxCVei5b4TxsQw8dH9ir7xW7mq06hsY6ud/dnNnwOPUE=
+	t=1788532870; cv=none; b=XZwxWYdwr1ttUz5/l0r1vvE8XC7uTEZ5SolbSmNkLu2jxQFxThORnsc6uekT6xuLguQnilTKkewRjC3SsH19cUyTUEV0ve+8JA+uibORjYOEzLxXQWwiygdMdlzC+AKUoOzZ2KyrsuUgGqw4VOO2zvljxwBZDQ5Mho9bYbLHknA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788532712; c=relaxed/simple;
-	bh=J1g/3JijUybAzf6Tq3gcEcWM9RbNvSD7R4ifvJjbb0U=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=mWbWFc88KJeXDoA6Sjd99ndfcJSN5kio17AujR8zmE1Wemy4JoULWZ9JL72VMtkx6bTEjcfcLGHkVFZAtOSTs/UAi+uSv27XCb9/9A0kDZuf9pyASz99DMbKPg0Vg6IjeJ2v0we6caGtNLkj/ElRodOMXkQ5TdPC+UG/5W4X++I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SiG00Z5C; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788532870; c=relaxed/simple;
+	bh=IDug8sq5AgYXtkMPYu0ttG9wU4RErryIqhBDWcQ4uo8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=VNy96/mrYWo3+Zg2rhseh5udRAWADO4s/OqoLi0k3+oY0neYEvHG2n+IZKpomCRIw95cf+mkfou2nFTpTA+CWGGzE8m9YgOv75Bhp/RGnRq/XM+jFjxYwhuCGAV0XFGNJZTevt2yGYkSo1+7VlSseT955Cd9akJC+EKbu7Pruw4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WeHWzI4S; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SiG00Z5C"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CEAD41F00ADB
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 14:38:30 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WeHWzI4S"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E8F671F00A3D;
+	Fri,  4 Sep 2026 14:41:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788532710;
-	bh=35hah3ul6tI29YPkX4PeIj+oqlMkJqdL3z01PNAAsrg=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=SiG00Z5CF353Uf2DYrIXUx4/MBmlozwYEdDH7eVn9n9Wv4TcwENDhU1IL2HV3sx0n
-	 nlqqRVfViv2HW3/KM6Uc+jpa4BYuk7oLLai2YSffkRLwYZK6JZZ0rCWvhIm86lNIhn
-	 Vium3ZebWOCTWfPp/sY/R0I9avFQ3kfFK1LlMIf+vpolf+7123/GNu+8D2Hx11tMPH
-	 Xm7XN9WefnHv7H5OzvHUtaXg3NNTBG3O1eg1gjpYMv2VW2jedR3vbNbLXD259VYADo
-	 QkJDm+ADRJkZ9EnL5zovA317pkiTZkWhC1lMK6zQnT8IYe+TKZyVAdsSfxV+VTuIM6
-	 GfubG7/rchZKw==
-Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-48441a2ba14so924641f8f.1
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 07:38:30 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBw8zlSBMYpx0omFuSvTl+poFor4SGnGy24QadMIpb/7Bi2xv1oOswmREUnL6yM4BgH1mHpx8fZwuPv8rjU=@vger.kernel.org
-X-Gm-Message-State: AFuF++kP4hskD48JJltqaovdu3yq1xIWq9ORTbSP3Hl4yUaZN4rkweGu
-	F1+lKvidPT5iQYqSE+WNLzLawdEpdAzatrbM+j5sf456/voC6Sje2XL4rvY0Smgvig6QB0owtL2
-	7rCjtVZU/0B5dV/RHyKQkFv4P8KSQ2JM=
-X-Received: by 2002:a05:6000:4555:b0:482:e1ce:d45c with SMTP id
- ffacd0b85a97d-485872c2589mr5731713f8f.21.1788532709395; Fri, 04 Sep 2026
- 07:38:29 -0700 (PDT)
+	s=k20260515; t=1788532868;
+	bh=Yckpavg65K5uR+Qj7vN9PcWBVj1XJ2qAo/S1hdmVLiU=;
+	h=From:To:Cc:Subject:Date;
+	b=WeHWzI4S0vhp6Dvhk0mFV/5zS5yiBMsCSMiZ3EvAyRH84qvRtLrsQTE+fmBJlHJgh
+	 fN+n12wJvq74jTD2JxGeCgS3PLTi/oEd381eYfp7dn6Z/K+csGMjepFoL5+qAyCQqo
+	 cBfn96Woy+Q//VfE5s2fc0qFEIs7tqU/ZuPDqEaofIpKIjLhLAPSyE7vBBDN+ofQyl
+	 nkh9OLJMe+ht4kwTKGxvOeWVM7SfF2Kp8cC2eo7GvRMSygD05+iemhMrwZ3vDtc44N
+	 d7RR5CdBSsuq38boDQfA6iRpvYUc9MymTlGj8OoVNz1/ISgeRr29yDe594x73gv5s9
+	 BTK7cYlJ+mGFg==
+From: Arnaldo Carvalho de Melo <acme@kernel.org>
+To: Namhyung Kim <namhyung@kernel.org>
+Cc: Ingo Molnar <mingo@kernel.org>,
+	Thomas Gleixner <tglx@linutronix.de>,
+	James Clark <james.clark@linaro.org>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Ian Rogers <irogers@google.com>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	Clark Williams <williams@redhat.com>,
+	linux-kernel@vger.kernel.org,
+	linux-perf-users@vger.kernel.org,
+	Arnaldo Carvalho de Melo <acme@kernel.org>,
+	Stephane Eranian <eranian@google.com>,
+	Stefano Sanfilippo <ssanfilippo@chromium.org>
+Subject: [PATCH v2 0/5] perf jitdump: Fix debug entry access, unwinding state and sample id sizing
+Date: Fri,  4 Sep 2026 11:40:52 -0300
+Message-ID: <20260904144058.3341-1-acme@kernel.org>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260904-nr_mmios-v1-1-3a19dc74fab8@kernel.org>
-In-Reply-To: <20260904-nr_mmios-v1-1-3a19dc74fab8@kernel.org>
-From: Guo Ren <guoren@kernel.org>
-Date: Fri, 4 Sep 2026 22:38:15 +0800
-X-Gmail-Original-Message-ID: <CAJF2gTSbRMUBd0+WXpiq8O61V+kkZ9hkJYVwBOeA4gjo-P4dGw@mail.gmail.com>
-X-Gm-Features: AcwNN1WZc5yAPQLWYeJULNrT1Af-ctH-VxYkMfhSomePh3lXqSn4VGAGpBjdZrI
-Message-ID: <CAJF2gTSbRMUBd0+WXpiq8O61V+kkZ9hkJYVwBOeA4gjo-P4dGw@mail.gmail.com>
-Subject: Re: [PATCH] irqchip/riscv-imsic: Fix MMIO regset lookup loop bound
-To: Anup Patel <anup@brainfault.org>, Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>, 
-	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
-	Alexandre Ghiti <alex@ghiti.fr>, =?UTF-8?B?QmrDtnJuIFTDtnBlbA==?= <bjorn@rivosinc.com>
-Cc: Anup Patel <apatel@ventanamicro.com>, linux-riscv@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Sorry, I didn't notice this:
+Hi,
 
-https://lore.kernel.org/linux-riscv/20260718033646.001.7e022554-caplitmus-r=
-v@iscas.ac.cn/
+Five fixes for the jitdump/genelf code path, all reported by the
+sashiko-bot AI reviewer while reviewing the hardening series that is now
+in perf-tools-next:
 
-Please abandon this patch.
+  - struct debug_entry ends with a variable-length name[], so entries
+    after the first start at addresses that are not naturally aligned.
 
-On Fri, Sep 4, 2026 at 10:32=E2=80=AFPM GUO Ren (XuanTie) <guoren@kernel.or=
-g> wrote:
->
-> The nr_mmios is the number of entries in the MMIO resource array, while
-> j is the index used to iterate over the array. Testing nr_mmios directly
-> makes the loop condition permanently true whenever at least one MMIO
-> region exists.
->
-> So, change
->   for (j =3D 0; nr_mmios; j++) {
-> to
->   for (j =3D 0; j < nr_mmios; j++) {
->
-> Fixes: 21a8f8a0eb35 ("irqchip: Add RISC-V incoming MSI controller early d=
-river")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: GUO Ren (XuanTie) <guoren@kernel.org>
-> ---
-> This patch fixes an out-of-bounds access in the RISC-V IMSIC MMIO
-> resource lookup.
-> ---
->  drivers/irqchip/irq-riscv-imsic-state.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/drivers/irqchip/irq-riscv-imsic-state.c b/drivers/irqchip/ir=
-q-riscv-imsic-state.c
-> index b8d1bbbf42f7..008dfcf343e5 100644
-> --- a/drivers/irqchip/irq-riscv-imsic-state.c
-> +++ b/drivers/irqchip/irq-riscv-imsic-state.c
-> @@ -896,7 +896,7 @@ int __init imsic_setup_state(struct fwnode_handle *fw=
-node, void *opaque)
->                 index =3D nr_mmios;
->                 reloff =3D i * BIT(global->guest_index_bits) *
->                          IMSIC_MMIO_PAGE_SZ;
-> -               for (j =3D 0; nr_mmios; j++) {
-> +               for (j =3D 0; j < nr_mmios; j++) {
->                         if (reloff < resource_size(&mmios[j])) {
->                                 index =3D j;
->                                 break;
->
-> ---
-> base-commit: bc35965f6940a9bf834d54187b6088b8eb09206d
-> change-id: 20260904-nr_mmios-868e369de25b
->
-> Best regards,
-> --
-> GUO Ren (XuanTie) <guoren@kernel.org>
->
+  - jit_repipe_code_load() only released the unwinding state when both
+    unwinding_data and eh_frame_hdr_size were set.
 
---=20
-Best Regards
- Guo Ren
+  - the sample id area appended to the synthesized mmap2 records was
+    cast to a fixed {u32 pid, tid; u64 time;} struct.  That only matches
+    what evsel__id_hdr_size() accounts for when PERF_SAMPLE_TID is set
+    as well, since the fields are appended in a fixed order skipping the
+    ones not requested.  Patch 4 walks the area in that order and patch
+    5 sizes the allocation with idr_size instead of a hardcoded +16, so
+    that what is written and what is allocated agree.
+
+Patches 1 and 5 are unchanged from v1.
+
+Best regards,
+
+- Arnaldo
+
+What changed from v1 (599fad82626e5eba):
+
+  PATCH 2/5:
+  - Kept lineno and last_line signed.  v1 read ent->lineno into an
+    unsigned int, so the "lineno - last_line" delta handed to
+    emit_advance_lineno() wrapped to a large positive value and, being
+    widened to a long, zero-extended instead of sign-extending: a
+    backward line jump became a huge forward one, corrupting the DWARF
+    line number program [sashiko-bot review of PATCH 2/5].
+
+  PATCH 3/5:
+  - Added Reviewed-by: Ian Rogers.
+
+  PATCH 4/5 (new):
+  - Walks the sample id area in the order evsel__id_hdr_size() accounts
+    for (TID, TIME, ID, STREAM_ID, CPU, IDENTIFIER — 8 bytes each)
+    advancing only past the fields whose sample_type bit is set,.
+
+    This is the [Critical] finding from the sashiko-bot review of v1
+    PATCH 4/5: with PERF_SAMPLE_TID unset, PERF_SAMPLE_TIME belongs at
+    offset 0 and idr_size is 8, so the old code stored it at offset 8 —
+    past the end of the allocation, and corrupting what a reader
+    expects to find at offset 0 besides.  It is split out from the
+    sizing change so that 5/5 no longer removes the slack that was
+    masking it, and so that the same latent bug in
+    jit_repipe_code_load() — which already sized with idr_size — is
+    fixed in the same place.
+
+  PATCH 5/5 (was 4/5):
+  - Unchanged, and now safe: 4/5 above keeps the writes inside idr_size.
+
+  DROPPED (was v1 PATCH 5/5):
+  - "perf dso: Defer dropping the open list reference until after the
+    lock".  Ian Rogers is not a fan of the deferral mechanism and
+    suggested instead allocating dso_data separately from the dso, so
+    that the lock can be scoped without it.  Dropped from this series
+    while that is worked out.
+
+  - The pre-existing issues sashiko-bot raised that are outside the
+    scope of this series are recorded in tools/perf/TODO.hardening for
+    follow-up work: item 170 (jit_get_next_entry() lacks per-record
+    size validation), 171 (jit_process_dump()/jit_inject() swallow
+    callback errors), 172 (jit_emit_elf() truncates 64-bit unwinding
+    sizes to u32), 173 (jit_emit_elf() opens a predictable filename
+    without O_EXCL/O_NOFOLLOW) and 176 (buffer_ext_add() realloc
+    failure ignored by all callers).  The two this series does address
+    are items 174 and 153, now marked fixed.
+
+  - Rebased onto the current perf-tools-next head (92d50319b4f0c0bb).
+
+Arnaldo Carvalho de Melo (5):
+  perf jitdump: Byte-swap debug entries via unaligned-safe accessors
+  perf genelf: Use unaligned-safe accessors for debug entries
+  perf jitdump: Free unwinding data even when eh_frame_hdr_size is zero
+  perf jitdump: Write sample id fields in the order used by
+    evsel__id_hdr_size()
+  perf jitdump: Size code_move event allocation with idr_size
+
+ tools/perf/util/genelf_debug.c | 28 +++++++-----
+ tools/perf/util/jitdump.c      | 84 +++++++++++++++++++++++-----------
+ 2 files changed, 75 insertions(+), 37 deletions(-)
+
+base-commit: 92d50319b4f0c0bbee8a236a09063272cd22faab
+v1-head: 599fad82626e5eba485b4d4d188cbd34c0e12cbc
