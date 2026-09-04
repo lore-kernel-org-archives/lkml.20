@@ -1,133 +1,141 @@
-Received: from mail-oo1-f48.google.com (mail-oo1-f48.google.com [209.85.161.48])
+Received: from mail-oo2-f2.google.com (mail-oo2-f2.google.com [74.125.231.130])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A93F63955EC
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 12:03:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F4C240B0FE
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 12:04:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788523416; cv=none; b=WaSG5aVElp3aSsjwF87jcLX16sz7shYnb/8H64dqTvsf9rs9e5e/kDUw6iXjUbv0+qg8Z8FsDBfVtuAx57fNyOs+rYle3e793VD3294BVyqGt5t4WAry02fWaSVxbZ+sQLjUqeyTmdv0AGSBdv+tJAXcuIB+Th1P4oUpVNQNUow=
+	t=1788523469; cv=none; b=cxVKNhvvj0BCrm/MGgGM64Qga03UVghEqhxBISGhF+vlfqvRlOxRtpVVzkrkGK2kj8PQ3b5gXjdFRPat87RqwYMNcVckgPvOkSDSArHfMqhOE7bnraBOUAGYq+m5SzcIE/ckQMHAX3IX3EgggxI+Y3psyCGBsLsm9+jTMtmo6T0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788523416; c=relaxed/simple;
-	bh=IVL7/LGTHQnYy8e5aogCUQIkUCgM3bWG5IC+vAPUbDI=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=rVdvUm8tEMC6RVxUS0BX/+G8/asHd1VTsLjfqAmHu6mw5K4pw0qd5a/mRBXRLK5kzoFN4kFsgWO8QrlngrUxlF7eW38mSvw9FGLQNjuS0lLh9vYgjRuAaBSVKvUGD20ppowG8VB49cjDF2mePuBI1GOG/t7Mj0ltZMiQS2fTx7U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=edT2Kwr2; arc=none smtp.client-ip=209.85.161.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="edT2Kwr2"
-Received: by mail-oo1-f48.google.com with SMTP id 006d021491bc7-6b0496f4bbcso599635eaf.0
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 05:03:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788523413; x=1789128213; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=0mmbVoRzhegDeL5+uzJksOxQmVqqe3qpVwymM+HUwZg=;
-        b=edT2Kwr2mpcgStjykIuj/NOzgSajmF9379CAeSQyX6d2J68KaAzSa703W6cE9hobCy
-         H378iLLMn2shBgBEJMB8/5HAIPdzX17e+N8fmpgnN7my1FbwVZD6zrwFp2OIVZR03x6N
-         M8VwfyyOERQPUK++DqwktVzFYI0dO9UxtnbBzf8mQcOwvPmUfHlL+0xOm+x8UHqgGBQx
-         06P+0u8vaZMqWP8XjpU5efUwzAJKi4FcIb7lVCxE3keGsCVDNX39YwBYDBOSzwRzbsce
-         nUa3AhnLdiAq/Y4D9+lkW6nZS5OrL0PwBY7yV58wzZEVsxq2r1JMwkTXmELdBIn12Sb6
-         hd2Q==
+	s=arc-20240116; t=1788523469; c=relaxed/simple;
+	bh=fPbUSObR6eZ/+Io4h3mYEmMLDZes6MDRBPVGwOK1S/c=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=bvRIwqfBlox0OhC3Wzqm+uFHXt4Ev0wD/SxMq7B822q7SQI3C314XwNMRMdL27to6388vruRDyl49xAVySaIuq35Vkk/NYPsM3tHK0k6yKn9vWRQhx5g8coA9F6zpcVY64EZlrAxA4cvzHPl6P6IE3bdQAy2qBwFWLhru3Ho7L8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=74.125.231.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oo2-f2.google.com with SMTP id 006d021491bc7-6b6c9ce1ad6so270373eaf.1
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 05:04:28 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788523413; x=1789128213;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=0mmbVoRzhegDeL5+uzJksOxQmVqqe3qpVwymM+HUwZg=;
-        b=OEMy2Due647QV2n9qoyR/RwYWybACYR4CKHHsq6gIOzIzf0ZsFbKWBQ4OCS5sdKnXq
-         YaL71WVJFaRYQGEtt+EqK5Ct1F7MVLeBkvb2QlLZso8MK5TkzD4Ay3xnRFBwZFRpSJ+g
-         Iac8+e1OQRmLCrJUS2ZiFks7nIilZvo0ooiNdvPigjXFaGUaOQ+ssYVs4y691PGhkr5J
-         /eTbYd1Iwk2UOABJNVza4FZHwpoF49B3VLuypURZphXF6eV/hhBVd0+2NSxpTCs0H3NX
-         dFhdLxIxJrKusnFufMGaqSVBkGj/XmHAhiQIfjVIVeKyInYjzHjmaScmVY/cQDDpvKp9
-         ZrNA==
-X-Gm-Message-State: AFuF++luptD531G3DhCywFqvv65SNm3GaLeZOd7vs7UzIv1BoUaWtK+k
-	N/7PYenkBn3jfjvm7e0kXNGcbT3hBSs96ZRl3E96If9DB6/RHUldqjL5
-X-Gm-Gg: AYBFou3BHr7kRYdsYNmvHLWXqEKRQKDA/mphghqu7foDRrJT3R6dz91Tt8lBqObrk/d
-	HpLjUqQjkl34HF1VmtmN80on8E2XOWgv+72wMcJ2179KTAPw+I5j/44cmYlmAcG1f4W6+oAUt4P
-	SuzwN4sHmSaaQzqPk+uph1PXULLh4ufTbdBceBYm77B1cdjXeFPgnBo5JkkkDrB/jcy0SFG2AyW
-	TF3CAd7+JA5yUttdKSG0f7Hfp6gYxYQ4VEaHyWUTAeIclwPCNrj6gdqUs9muciMqi4YB2ZnTUX9
-	hUrqUl/Z1ZpAmfvYEXzWdnEmy47eN8cR38kvcGd9EA/YKvR2gsTZ8aHfvM75I0qnjK11HIlwtys
-	mJviOZL0XJQmH2YKcu2HpyqiSURu+JyiHU0L/4NolW5OWn6GWSRFwTVGkHX4h7atlKnVbvxZJ9n
-	5KPj7WbhOFpDzbl4+Eh+NTYWi1Zptzrs/nrv/fqfp4VE6ceT06aEn3j0U70URGKzirANkQ7j5xa
-	p2oe8/SwS1eRHw=
-X-Received: by 2002:a05:6820:211:b0:6b7:83d6:2926 with SMTP id 006d021491bc7-6b783d62ecamr1256097eaf.41.1788523413265;
-        Fri, 04 Sep 2026 05:03:33 -0700 (PDT)
-Received: from volcano9f6e-hostos.amd.com ([165.204.217.251])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339b9f68e4sm6597952eec.24.2026.09.04.05.03.30
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 04 Sep 2026 05:03:32 -0700 (PDT)
-From: Hemanth Selam <hemanth.selam@gmail.com>
-To: Lucas Stach <l.stach@pengutronix.de>,
-	Russell King <linux+etnaviv@armlinux.org.uk>,
-	Christian Gmeiner <christian.gmeiner@gmail.com>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>
-Cc: linux-kernel@vger.kernel.org,
-	etnaviv@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org
-Subject: [PATCH] drm: fix typos in comments
-Date: Fri,  4 Sep 2026 17:33:25 +0530
-Message-ID: <20260904120327.16622-1-hemanth.selam@gmail.com>
-X-Mailer: git-send-email 2.48.1
+        d=1e100.net; s=20251104; t=1788523467; x=1789128267;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=SupJpdwSLj9zgEkdQSeNPXRZOkTr8HuxtyuLc8U7ACc=;
+        b=WynKVMQsEdisJ9pib0+wcAHjh7TaP1r0HOv4L3+rsrG0GLY1RwozhjWZ/F3AkphCxU
+         gf5MvUZoFa4kF2CXEhlay2YlRWS31rbZcddiyfod2CTUPqTaN28C4vgniPd+ZB/UfgSf
+         TqDbLqXPKc+xbVMO4U79DsLXrU3OJFhvDXkHSjrIVcryn2UG84PGWxUwXAls7QICRsWs
+         oUlJqq5NkK401c+KmATdsF6KX9zvb7RI2yRcB7fsUXQQ1a99NuZpZH25gjRio+3l7r4u
+         SMPMySKAKNwmXmaZZos+knj8DGX3hR/QvvSTzuJY2QRZZ95glWLXmiUBj2WffdUJOM0b
+         Y+EA==
+X-Forwarded-Encrypted: i=1; AKwUvBw+78pCSrFP76bu9Pf5gJCuDjZaI4a3PEfRNn+O5C2DYrpJjEiemfzgld6cfsJFCaS2OzJAX9BXGvg0tuE=@vger.kernel.org
+X-Gm-Message-State: AFuF++mAgdzCx2CQwzaxl0CGxQICZXcY6KjEhWFWJU8yhBHmjQDBDkdu
+	c1gI50SJITLgynhzyYD58oZufCyHZBmQh2kAqf+zFUwyatgKgkrfdMs8V9NmS7XN+NnVja0UoX2
+	50nq4lOwPRLKXPafDSrlJ1Fx2I+9i9XaBp8VB3da0GMmDJc3TSfKGVg8WJ74=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-Received: by 2002:a05:6820:c0d4:10b0:6b7:83d6:293f with SMTP id
+ 006d021491bc7-6b783d6301dmr1065951eaf.66.1788523467122; Fri, 04 Sep 2026
+ 05:04:27 -0700 (PDT)
+Date: Fri, 04 Sep 2026 05:04:27 -0700
+In-Reply-To: <6a964b83.99c12218.408a8.0001.GAE@google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6a9ab3cb.9266084e.bf0d7.0668.GAE@google.com>
+Subject: Re: [syzbot] [ext4?] general protection fault in __bh_submit
+From: syzbot <syzbot+41453ea05ab61c075f1f@syzkaller.appspotmail.com>
+To: jack@suse.com, linux-ext4@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	pavankumaryalagada@gmail.com, syzkaller-bugs@googlegroups.com, tytso@mit.edu
+Content-Type: text/plain; charset="UTF-8"
 
-Fix typos in comments, reported by scripts/checkpatch.pl using the
-misspelling list in scripts/spelling.txt.  Only touches comments, no code
-changes.
+syzbot has found a reproducer for the following issue on:
 
-Assisted-by: Cursor:claude-opus-5
-Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
+HEAD commit:    9d80aa4617b3 Add linux-next specific files for 20260903
+git tree:       linux-next
+console output: https://syzkaller.appspot.com/x/log.txt?x=15fa38f9580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=bb4a32c282cc2ec7
+dashboard link: https://syzkaller.appspot.com/bug?extid=41453ea05ab61c075f1f
+compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
+syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=17c228f9580000
+C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=13fa38f9580000
+
+Downloadable assets:
+disk image: https://storage.googleapis.com/syzbot-assets/417a63e8ac61/disk-9d80aa46.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/a1d004c189c1/vmlinux-9d80aa46.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/97413e5bd243/bzImage-9d80aa46.xz
+mounted in repro: https://storage.googleapis.com/syzbot-assets/21b9bcefd2ef/mount_0.gz
+  fsck result: failed (log: https://syzkaller.appspot.com/x/fsck.log?x=100508f9580000)
+
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+41453ea05ab61c075f1f@syzkaller.appspotmail.com
+
+Oops: general protection fault, probably for non-canonical address 0xdffffc0000000001: 0000 [#1] SMP KASAN PTI
+KASAN: null-ptr-deref in range [0x0000000000000008-0x000000000000000f]
+CPU: 0 UID: 0 PID: 4945 Comm: jbd2/sda1-8 Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 07/24/2026
+RIP: 0010:const_folio_flags include/linux/page-flags.h:345 [inline]
+RIP: 0010:folio_test_dropbehind include/linux/page-flags.h:600 [inline]
+RIP: 0010:__bh_submit+0x22d/0x8d0 fs/buffer.c:1109
+Code: c1 e8 03 48 89 44 24 18 42 80 3c 20 00 74 08 48 89 df e8 f6 e7 d7 ff 48 89 5c 24 28 48 8b 1b 4c 8d 7b 08 4c 89 f8 48 c1 e8 03 <42> 80 3c 20 00 74 08 4c 89 ff e8 d4 e7 d7 ff 4d 8b 3f 4c 89 fe 48
+RSP: 0018:ffffc9000753f868 EFLAGS: 00010202
+RAX: 0000000000000001 RBX: 0000000000000000 RCX: ffffffff84b9a9a9
+RDX: 0000000000000001 RSI: 0000000000000004 RDI: ffff8880739467a0
+RBP: 0000000000009801 R08: ffff8880739467ff R09: 1ffff1100e728cff
+R10: dffffc0000000000 R11: ffffed100e728d00 R12: dffffc0000000000
+R13: ffff888073946780 R14: ffff888076b240e0 R15: 0000000000000008
+FS:  0000000000000000(0000) GS:ffff888124cc0000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 00007ffa1d208708 CR3: 000000000eb48000 CR4: 00000000003526f0
+Call Trace:
+ <TASK>
+ jbd2_journal_commit_transaction+0x2285/0x5c80 fs/jbd2/commit.c:751
+ kjournald2+0x3bc/0x740 fs/jbd2/journal.c:200
+ kthread+0x38b/0x480 kernel/kthread.c:436
+ ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
+ ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+ </TASK>
+Modules linked in:
+---[ end trace 0000000000000000 ]---
+RIP: 0010:const_folio_flags include/linux/page-flags.h:345 [inline]
+RIP: 0010:folio_test_dropbehind include/linux/page-flags.h:600 [inline]
+RIP: 0010:__bh_submit+0x22d/0x8d0 fs/buffer.c:1109
+Code: c1 e8 03 48 89 44 24 18 42 80 3c 20 00 74 08 48 89 df e8 f6 e7 d7 ff 48 89 5c 24 28 48 8b 1b 4c 8d 7b 08 4c 89 f8 48 c1 e8 03 <42> 80 3c 20 00 74 08 4c 89 ff e8 d4 e7 d7 ff 4d 8b 3f 4c 89 fe 48
+RSP: 0018:ffffc9000753f868 EFLAGS: 00010202
+RAX: 0000000000000001 RBX: 0000000000000000 RCX: ffffffff84b9a9a9
+RDX: 0000000000000001 RSI: 0000000000000004 RDI: ffff8880739467a0
+RBP: 0000000000009801 R08: ffff8880739467ff R09: 1ffff1100e728cff
+R10: dffffc0000000000 R11: ffffed100e728d00 R12: dffffc0000000000
+R13: ffff888073946780 R14: ffff888076b240e0 R15: 0000000000000008
+FS:  0000000000000000(0000) GS:ffff888124cc0000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 00007ffa1d208708 CR3: 000000007f076000 CR4: 00000000003526f0
+----------------
+Code disassembly (best guess):
+   0:	c1 e8 03             	shr    $0x3,%eax
+   3:	48 89 44 24 18       	mov    %rax,0x18(%rsp)
+   8:	42 80 3c 20 00       	cmpb   $0x0,(%rax,%r12,1)
+   d:	74 08                	je     0x17
+   f:	48 89 df             	mov    %rbx,%rdi
+  12:	e8 f6 e7 d7 ff       	call   0xffd7e80d
+  17:	48 89 5c 24 28       	mov    %rbx,0x28(%rsp)
+  1c:	48 8b 1b             	mov    (%rbx),%rbx
+  1f:	4c 8d 7b 08          	lea    0x8(%rbx),%r15
+  23:	4c 89 f8             	mov    %r15,%rax
+  26:	48 c1 e8 03          	shr    $0x3,%rax
+* 2a:	42 80 3c 20 00       	cmpb   $0x0,(%rax,%r12,1) <-- trapping instruction
+  2f:	74 08                	je     0x39
+  31:	4c 89 ff             	mov    %r15,%rdi
+  34:	e8 d4 e7 d7 ff       	call   0xffd7e80d
+  39:	4d 8b 3f             	mov    (%r15),%r15
+  3c:	4c 89 fe             	mov    %r15,%rsi
+  3f:	48                   	rex.W
+
+
 ---
- drivers/gpu/drm/etnaviv/etnaviv_gpu.c | 2 +-
- include/drm/display/drm_dp_helper.h   | 2 +-
- include/drm/display/drm_dsc.h         | 2 +-
- 3 files changed, 3 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/gpu/drm/etnaviv/etnaviv_gpu.c b/drivers/gpu/drm/etnaviv/etnaviv_gpu.c
-index 5c23182f4d33..2aef96fdbd10 100644
---- a/drivers/gpu/drm/etnaviv/etnaviv_gpu.c
-+++ b/drivers/gpu/drm/etnaviv/etnaviv_gpu.c
-@@ -1971,7 +1971,7 @@ static int etnaviv_gpu_platform_probe(struct platform_device *pdev)
- 
- 	/*
- 	 * We treat the device as initially suspended.  The runtime PM
--	 * autosuspend delay is rather arbitary: no measurements have
-+	 * autosuspend delay is rather arbitrary: no measurements have
- 	 * yet been performed to determine an appropriate value.
- 	 */
- 	pm_runtime_use_autosuspend(dev);
-diff --git a/include/drm/display/drm_dp_helper.h b/include/drm/display/drm_dp_helper.h
-index ab16c1be3900..34bdd599383f 100644
---- a/include/drm/display/drm_dp_helper.h
-+++ b/include/drm/display/drm_dp_helper.h
-@@ -816,7 +816,7 @@ enum drm_dp_quirk {
- 	 * @DP_DPCD_QUIRK_CONSTANT_N:
- 	 *
- 	 * The device requires main link attributes Mvid and Nvid to be limited
--	 * to 16 bits. So will give a constant value (0x8000) for compatability.
-+	 * to 16 bits. So will give a constant value (0x8000) for compatibility.
- 	 */
- 	DP_DPCD_QUIRK_CONSTANT_N,
- 	/**
-diff --git a/include/drm/display/drm_dsc.h b/include/drm/display/drm_dsc.h
-index bbbe7438473d..0682071d881d 100644
---- a/include/drm/display/drm_dsc.h
-+++ b/include/drm/display/drm_dsc.h
-@@ -322,7 +322,7 @@ struct drm_dsc_picture_parameter_set {
- 	 * active.
- 	 * PPS4[5] - blobk_pred_enable: Indicates if BP is used to code any
- 	 * groups in picture
--	 * PPS4[7:6] - Reseved bits
-+	 * PPS4[7:6] - Reserved bits
- 	 */
- 	u8 pps_4;
- 	/**
--- 
-2.48.1
-
+If you want syzbot to run the reproducer, reply with:
+#syz test: git://repo/address.git branch-or-commit-hash
+If you attach or paste a git patch, syzbot will apply it before testing.
