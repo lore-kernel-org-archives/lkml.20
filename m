@@ -1,118 +1,119 @@
-Received: from sienna.cherry.relay.mailchannels.net (sienna.cherry.relay.mailchannels.net [23.83.223.165])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com [209.85.216.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95DF047668A;
-	Fri,  4 Sep 2026 12:25:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=23.83.223.165
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96EED3E49FE
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 12:26:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788524732; cv=none; b=YUs20pXRdYiw9ZE3lIFayjjbYUngiVquS6EE6c8fQjS7X86AH9vMWg8NXGiluZqtHQz6ciXcSShsJCWPzzqdmFPFWgrjP4GcfBwP6BMYuBqluCbGZzJHVD9qGSzH6Mu0LXVgETwLw/UCr4f5S512tSszaDeTT2ckLr2gHlwo6FA=
+	t=1788524813; cv=none; b=oajAwodN2VQBOEkTpwCChlzYlQH5gswKsd7kon/X7a4WWvUCOIK6QPZPLF8y5VorG4mUrPi9ktIyFGNJYG6zdFH6FAVckSLISVFyzurzMGctmHSnzhRDJZR5Kr7lZ16Yww+lri6sy22XMt9MJma9XFV1fTtIYefeGzQiYOQfpmI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788524732; c=relaxed/simple;
-	bh=cKobHHeUrfk49bcDDwik+p7sMONpGa/ObxN1dvXTXrI=;
-	h=From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:Date; b=N6emKv0XEOrJPpH9ae7E2xZ6DA7OCMHgfpuG8XSxBwMkig97OQqNMyxTRezz9m6xva+wCmu0Cg4yFhlDPtWWFCi2y6z3Wgzn5cVCRYYfx7ts1pGjO6UBK2Dxknnm5ypwsn41oVDVZn3ETd9M81GdpU4DY1BGjOuRnqeuCU4RgKY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=tunakilic.com; spf=pass smtp.mailfrom=tunakilic.com; dkim=pass (2048-bit key) header.d=tunakilic.com header.i=@tunakilic.com header.b=ZlKJr4kw; arc=none smtp.client-ip=23.83.223.165
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=tunakilic.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tunakilic.com
+	s=arc-20240116; t=1788524813; c=relaxed/simple;
+	bh=FWy5OE8EuZlV574J7Cfm1CRIWTypooLcjTrc3wz6AD4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Fw30Mbugq1ge2NN0206x8wNq7Q2bp8uzgtes2eyjnu9btbc+imHvmeob4rIo4hNO8AyhSw2vxHXc+HCbFpa3pWiywXGaDJq0m1PPpf5ZD16jqqGgm7OSb/yZp1GmCyNC3C+aHGHASkgfK01jeRu4opsxe1If59/8TkDLFPpLEZI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=L9o2bsUS; arc=none smtp.client-ip=209.85.216.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=tunakilic.com header.i=@tunakilic.com header.b="ZlKJr4kw"
-X-Sender-Id: hostingeremail|x-authuser|tuna@tunakilic.com
-Received: from relay.mailchannels.net (localhost [127.0.0.1])
-	by relay.mailchannels.net (Postfix) with ESMTP id 5050016552D;
-	Fri, 04 Sep 2026 12:25:22 +0000 (UTC)
-Received: from de-fra-smtpout4.hostinger.io (trex-green-8.trex.outbound.svc.cluster.local [100.96.13.185])
-	(Authenticated sender: hostingeremail)
-	by relay.mailchannels.net (Postfix) with ESMTPA id 8022D1658F9;
-	Fri, 04 Sep 2026 12:25:20 +0000 (UTC)
-X-Sender-Id: hostingeremail|x-authuser|tuna@tunakilic.com
-X-MC-Relay: Neutral
-X-MailChannels-SenderId: hostingeremail|x-authuser|tuna@tunakilic.com
-X-MailChannels-Auth-Id: hostingeremail
-X-Quick-Exultant: 2bcd62b31e5d2be5_1788524722101_1386686478
-X-MC-Loop-Signature: 1788524722101:2015702450
-X-MC-Ingress-Time: 1788524722101
-Received: from de-fra-smtpout4.hostinger.io (de-fra-smtpout4.hostinger.io
- [148.222.55.14])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384)
-	by 100.96.13.185 (trex/8.0.2);
-	Fri, 04 Sep 2026 12:25:22 +0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tunakilic.com;
-	s=hostingermail-a; t=1788524718;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=RzjXKx7/dNdw8TIobVRsfZWElVuK+SvfHjx/wVuwM7Q=;
-	b=ZlKJr4kwhLsp+/weS4gg+ebti70htJ3NTrRmuFOO213fsStKW85CS8/fjldwAxEl2lwsKK
-	uCMyJKNrjVwNmh/lZxyZCv8hzPEwKwGpMmnhNbbrIOaAUU8KY8T83H9jBL3wOgSJ24qe7K
-	jgESgDra7+aXTy0q/VzXngUDgnsvkLpKWWVrD/y5gjy9wsj31ZH1C7o/J7V6h6PIjdG82D
-	i9XwJOQJXYCao3sg6dXVvp59YGHZv6JRBCk8N38+8hLR/QXVSMkEjMfcLYDMqlMoqFBHla
-	rgMXc7bty2prSiVofHOiDH6/wHUgrXnFT3oyuFq7wIYiDUe6/CqGbCh7kMz6Ag==
-Received: from tuna (unknown [IPv6:2a02:e0:7474:c000:e0e7:b2f0:b492:96fe])
-	(Authenticated sender: tuna@tunakilic.com)
-	by smtp.hostinger.com (smtp.hostinger.com) with ESMTPSA id 4hbwf56yXxz431h;
-	Fri,  4 Sep 2026 12:25:17 +0000 (UTC)
-From: =?UTF-8?q?Tuna=20K=C4=B1l=C4=B1=C3=A7?= <tuna@tunakilic.com>
-To: Joshua Crofts <joshua.crofts1@gmail.com>,
-	Jonathan Cameron <jic23@kernel.org>
-Cc: David Lechner <dlechner@baylibre.com>,
-	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	linux-iio@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] iio: dac: mcp47a1: Allow full-scale output
-Message-ID: <20260904122513.175298-1-tuna@tunakilic.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="L9o2bsUS"
+Received: by mail-pj1-f46.google.com with SMTP id 98e67ed59e1d1-395cf2535acso1038100a91.1
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 05:26:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788524812; x=1789129612; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=XCWnmnyrXvFMshF1SLGpbxtR/Lc6PeZ58jpBs90dY2o=;
+        b=L9o2bsUSxJaQQ68g3m5Ny58oFN4j+IcONFAOClnELWpWZLqKk0b1+dhn2tkHiw8NoY
+         vFUE+rIBkYytSXESfLrfbV2/TlaoHUWC9hpQvaEAeETOjdiK7pGNENF73kLR7LQjPnkt
+         oJbzrH97OhGnHFmQVuaTC6QlrMUbDr9h96e/Z2wldADgnhOU1sdeC7mM5B3MJaTz6cHe
+         kj0Cn9jrIDAQQWl/JAVfZg00pRF/E87xp6T/8frk0C+x8i44qBvmNRyYk3PCTOmU2Eg2
+         e1q53abbe9F7lW+91L6vnlP8ohfWjCt8XsEgbdmVJWvM4qMJf/JMqLqbf8a+sVhrQ2li
+         NgBg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788524812; x=1789129612;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=XCWnmnyrXvFMshF1SLGpbxtR/Lc6PeZ58jpBs90dY2o=;
+        b=LXYtw8XSEoqZH7UdnSrHT49JlceB7ZDV5kV64dbpDmA72vd14X7qpxo7cJx90dBstR
+         9yXjP0iwacVZIVdu1DgOq4Qxr0qg7NyxC4z6O4tu9KlFTv9oyNYNYYqk2BEAPnf+nZ4Y
+         s3OtGZdtVRQ3/nWnggfXlAC/qkjNAzfTDKM1X1oXcjroIeLvqYKzVtSNYpYqZyKgpjYB
+         CBn/x3tq19op6BtXk4s5DsfFRRO96B2J1ysL5tDq8+9SQy/Bf7Hvn8PzmafSKzGLjLnY
+         fmZwFFoP4J85Xk32+j6jw5yUBlPxzJXyJkVv7cdcBYjLzKA9ByCg09+Pj+p4I8Nohxor
+         bGNA==
+X-Gm-Message-State: AFuF++k4pJLqWQoivWIyA59OfPcB+nlk2w9BPFWs1JbKHWWV4q/NrFyT
+	hprMDVj3E5ZmmkDcFb9bH0ognjmUnn4U+XN1KbA23RW7E6TXV9J8UccM
+X-Gm-Gg: AYBFou0XMbhOLeUKOrvBDca0dW61r3D0UEuv+7GYZfQdwSM+q+Bt+0iPzHnhdllIrhw
+	dS6j+M8PqhUHHWF5IU9XH/XoOALW5OnwoYrNtS77c+xHKgi+RcxIkRBh2cCEhYx3rs3FDWFvCih
+	WLwv2k0n98AFn1wgd2suBV8Crh2Yv8VaNAJjF1X3pLnT41hl/VbCkd9aptgckq9H4SCnfxOXDwS
+	OTrxuppMulTIbVuj4eoOUCwj/W6GFrcmMcbPkzpDIuVbbofP3OUDtRDZQawtHbcw3g8jK0y7dPU
+	U0U54ITEHbWsJiD5hskx6eyzbrCCmufMu3grTaf6nzi6kPwpzojhFq6V42OAQjJlxEMLJP647CS
+	FcKG2Gm+TkwrwNVTF3KGHGJ5zPZuXEmQx7ni3ot1b8Qy7CwwNxeBT5/95x3TriilSaX6bdpl0Ti
+	vUeltOa+mmKQdZHKsV0hB+tDImn40nSoykJ5gOYO7XMP7hHdXPZfogffDgA1d2E0lziVoxrXu9B
+	TxUVSqDK8xi+UKdqnkWcecdtIk=
+X-Received: by 2002:a17:90b:2e46:b0:38f:a81:15b1 with SMTP id 98e67ed59e1d1-39b08653554mr16574087a91.19.1788524811722;
+        Fri, 04 Sep 2026 05:26:51 -0700 (PDT)
+Received: from volcano9f6e-hostos.amd.com ([165.204.217.251])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339bbf1feesm6626601eec.26.2026.09.04.05.26.48
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 04 Sep 2026 05:26:51 -0700 (PDT)
+From: Hemanth Selam <hemanth.selam@gmail.com>
+To: Lee Jones <lee@kernel.org>,
+	Daniel Thompson <danielt@kernel.org>,
+	Jingoo Han <jingoohan1@gmail.com>,
+	Helge Deller <deller@gmx.de>,
+	Linus Walleij <linusw@kernel.org>
+Cc: linux-kernel@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	linux-fbdev@vger.kernel.org
+Subject: [PATCH] backlight: fix typos in comments
+Date: Fri,  4 Sep 2026 17:56:44 +0530
+Message-ID: <20260904122646.32558-1-hemanth.selam@gmail.com>
+X-Mailer: git-send-email 2.48.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Date: Fri,  4 Sep 2026 12:25:17 +0000 (UTC)
-X-CM-Envelope: MS4xfGe9azdtPrTp9u47fiHdHfJ33s/YlpYuR+1DTe0IP2bIvsrXtMsYaLLKgGS14WT9O9yCKI7CVhcdrbMQJcLhW94sN4CKdUzZtawhVmSJSmwVKTci3sW7 3+BT+vHoB6ceKUMHXG3NiWpmnzNFLGknjUOW/spB5Rg5mCt13Tarvc1sNBFLW9BPU6D+sfwNg1kWnKQ+ME8htqRg+cJYZqzL6fcptpVsuzim25n0OFJavClK 0ajBGzlE873EncHtXktrosRliSI7zxznOQoK6CqcsRzLSqaXDpU2is2s04VGnai7l5BWppswSX+9bDzdTWvRxSxPnEfDqBn1xjJyHwxnx3Qqe8QWuJr0BHy6 tXBsPaFY3lwc2cggCOaTnnM3qgRxuEXQTTmCCKazoSjewQQOLUGL+2kRA4Pe843Vg61kE9Uh/BBnKpEBNwMM8n4tHgFfyw==
-X-CM-Analysis: v=2.4 cv=ALriHGRn c=1 sm=1 tr=0 ts=6a9ab8ae a=g35c8EtFT/OoTG0W9QvO+g==:617 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10 a=M51BFTxLslgA:10 a=R-MFOyz7AAAA:8 a=tVWT7hrvFYgB3wJpZm8A:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10 a=9HMMwjH7N0rl5m39aEjw:22
-X-AuthUser: tuna@tunakilic.com
 
-The MCP47A1 has 64 resistors but exposes 65 wiper positions. The valid
-DAC codes are 0 through 64, and code 64 selects VREF.
+Fix typos in comments, reported by scripts/checkpatch.pl using the
+misspelling list in scripts/spelling.txt.  Only touches comments, no code
+changes.
 
-The driver currently advertises 0 through 63 and uses 64 as the length
-argument to in_range(), which also rejects 64. Therefore userspace
-cannot select full-scale output.
-
-Advertise code 64 and make validation cover all 65 codes. Keep 64 as
-the scale denominator because the output voltage is VREF multiplied by
-the code and divided by 64.
-
-Fixes: 350d1fb9204b ("iio: dac: mcp47a1: add support for new device")
-Signed-off-by: Tuna Kılıç <tuna@tunakilic.com>
+Assisted-by: Cursor:claude-opus-5
+Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
 ---
- drivers/iio/dac/mcp47a1.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/video/backlight/ili9320.c          | 2 +-
+ drivers/video/backlight/ktd253-backlight.c | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/iio/dac/mcp47a1.c b/drivers/iio/dac/mcp47a1.c
-index 0bf994aa0e4..3ed306f3060 100644
---- a/drivers/iio/dac/mcp47a1.c
-+++ b/drivers/iio/dac/mcp47a1.c
-@@ -26,7 +26,7 @@ struct mcp47a1_data {
- 	int vref_mV;
- };
+diff --git a/drivers/video/backlight/ili9320.c b/drivers/video/backlight/ili9320.c
+index 2df96a882119..d2f094dd7fc3 100644
+--- a/drivers/video/backlight/ili9320.c
++++ b/drivers/video/backlight/ili9320.c
+@@ -30,7 +30,7 @@ static inline int ili9320_write_spi(struct ili9320 *ili,
+ 	unsigned char *addr = spi->buffer_addr;
+ 	unsigned char *data = spi->buffer_data;
  
--static const int mcp47a1_raw_avail[] = { 0, 1, MCP47A1_MAX_STEPS - 1 };
-+static const int mcp47a1_raw_avail[] = { 0, 1, MCP47A1_MAX_STEPS };
+-	/* spi message consits of:
++	/* spi message consists of:
+ 	 * first byte: ID and operation
+ 	 */
  
- static const struct iio_chan_spec mcp47a1_channel = {
- 	.type = IIO_VOLTAGE,
-@@ -46,7 +46,7 @@ static int mcp47a1_write(struct iio_dev *indio_dev,
- 
- 	switch (mask) {
- 	case IIO_CHAN_INFO_RAW:
--		if (!in_range(val, 0, MCP47A1_MAX_STEPS))
-+		if (!in_range(val, 0, MCP47A1_MAX_STEPS + 1))
- 			return -EINVAL;
- 
- 		return i2c_smbus_write_byte_data(data->client, MCP47A1_CMD_CODE,
+diff --git a/drivers/video/backlight/ktd253-backlight.c b/drivers/video/backlight/ktd253-backlight.c
+index 327b4ee75254..f2c5527d02e0 100644
+--- a/drivers/video/backlight/ktd253-backlight.c
++++ b/drivers/video/backlight/ktd253-backlight.c
+@@ -53,7 +53,7 @@ static int ktd253_backlight_stepdown(struct ktd253_backlight *ktd253)
+ 	 *
+ 	 * Architectures do not always support ndelay() and we will get a few us
+ 	 * instead. If we get to a critical time limit an interrupt has likely
+-	 * occured in the low part of the loop and we need to restart from the
++	 * occurred in the low part of the loop and we need to restart from the
+ 	 * top so we have the backlight in a known state.
+ 	 */
+ 	u64 ns;
 -- 
-2.55.0
+2.48.1
 
