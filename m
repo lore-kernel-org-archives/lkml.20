@@ -1,93 +1,249 @@
-Received: from fuchsia.ash.relay.mailchannels.net (fuchsia.ash.relay.mailchannels.net [23.83.222.64])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ot1-f41.google.com (mail-ot1-f41.google.com [209.85.210.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EE69488237;
-	Fri,  4 Sep 2026 12:51:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=23.83.222.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0EE823F871B
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 12:51:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788526277; cv=none; b=J9iKN7XdQhyNYApW0TYwAiwr38KQ4g3NEU+/CAbBePQxI87dRjUZqYt31dP4UaEn2GvCQ4BY7Q+NuZAlgIWObgKIf5w+5MlKcVqWrwJXpD/PT3qPwg6NCMW+mWec4aH/WEWSH5ymprJU0TQm2h547tK31x8jIIcKvruiBT7JHQY=
+	t=1788526281; cv=none; b=Gg9sECpktAkpkOJ/GOurUNnSp9vhJ2qO157uIKooXSv1RsGUwaEXIcxGGmgcx2jDL/PZSYKg4v3sCQVs40wrFsedykgKC9mVvJzZyO3xuvyklHWLDCOV784wOyojsPsR2khbhpSpy1DsN88TxYwKzXW39ydoKPApMQ1XC66Oxek=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788526277; c=relaxed/simple;
-	bh=9drcvL3fh4EMFv/DH218MKHZCJhadIOxFhozHd73JOw=;
-	h=From:To:Cc:Subject:Message-ID:In-Reply-To:References:MIME-Version:
-	 Content-Type:Date; b=gPGa6R3fNnRTI51aCST/tAm9n8clU1MgTFIy84d4Slxa9DqePl7hH2173m5IZg+IliYhx+lWLESZNBRDF+e+N12/2ZvCUAPVlZ6rpfYzkr6eOjvwzqVZnTUFGP0OFJ06m/+LB4TQnn4s9dXmgu3uOP1YQLMoY90dsDvyXH+El7Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=tunakilic.com; spf=pass smtp.mailfrom=tunakilic.com; dkim=pass (2048-bit key) header.d=tunakilic.com header.i=@tunakilic.com header.b=ZxDm+mlQ; arc=none smtp.client-ip=23.83.222.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=tunakilic.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tunakilic.com
+	s=arc-20240116; t=1788526281; c=relaxed/simple;
+	bh=qrxYd+dt37Pe1GMjqFV/nYaWaKAThqfGvMluiNGMYeg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Xtk72eZWPNRGxjg6vFF5h5FEEPIKD4D32XduB1mZjvBeR1B+W+vqV/PLlz4f9sTz58YgHRn2GK9r4TQ6s3kU7sZ/U6nShPfo+kiatEtKrIg5Y8c69o+OrbDzYHiLV26CSnfNBO0Jh5c91wqfmK+kLYK1ffSFm3AZrQmC//NbnhI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=O8fx5Zle; arc=none smtp.client-ip=209.85.210.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=tunakilic.com header.i=@tunakilic.com header.b="ZxDm+mlQ"
-X-Sender-Id: hostingeremail|x-authuser|tuna@tunakilic.com
-Received: from relay.mailchannels.net (localhost [127.0.0.1])
-	by relay.mailchannels.net (Postfix) with ESMTP id 7F3D4461903;
-	Fri, 04 Sep 2026 12:51:08 +0000 (UTC)
-Received: from de-fra-smtpout4.hostinger.io (100-98-23-243.trex-nlb.outbound.svc.cluster.local [100.98.23.243])
-	(Authenticated sender: hostingeremail)
-	by relay.mailchannels.net (Postfix) with ESMTPA id E6639461AD6;
-	Fri, 04 Sep 2026 12:51:06 +0000 (UTC)
-X-Sender-Id: hostingeremail|x-authuser|tuna@tunakilic.com
-X-MC-Relay: Neutral
-X-MailChannels-SenderId: hostingeremail|x-authuser|tuna@tunakilic.com
-X-MailChannels-Auth-Id: hostingeremail
-X-Snatch-Irritate: 669564620e22f1b2_1788526268322_3904756084
-X-MC-Loop-Signature: 1788526268322:576418007
-X-MC-Ingress-Time: 1788526268322
-Received: from de-fra-smtpout4.hostinger.io (de-fra-smtpout4.hostinger.io
- [148.222.55.14])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384)
-	by 100.98.23.243 (trex/8.0.2);
-	Fri, 04 Sep 2026 12:51:08 +0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tunakilic.com;
-	s=hostingermail-a; t=1788526265;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=9drcvL3fh4EMFv/DH218MKHZCJhadIOxFhozHd73JOw=;
-	b=ZxDm+mlQdKbsxhZgldPzyoifiLXAyXY6YZkhVwQ6fIFHrGm2jRJgFjlYMMWP1QL9NP8JsB
-	k0NOUoGGJmyQNkqePuLSZBLV0D2T0rSkA/fqenXxZqZoDv8cGr9o1VBj+Je0UBbOyjUJuy
-	nbD2e4zG/H9uza34fc4bqdO4Ns7VZBjfIvqPiYGGBPcWXUNmNuff7vAVk5UC2ChQBnNPqp
-	f3rBM10ukRQSJcSAEWGXcRJ36a2nLtZcPRusKVv0/NHEz1oGttiQH6sxuM87RIDlc/kVuH
-	HOkvSRluQFwloIFw92ftDgiQbITOkZuB3CnGAjx+ciiTMwE0ExQP0+XsGgQ/AQ==
-Received: from tuna (unknown [IPv6:2a02:e0:7474:c000:e0e7:b2f0:b492:96fe])
-	(Authenticated sender: tuna@tunakilic.com)
-	by smtp.hostinger.com (smtp.hostinger.com) with ESMTPSA id 4hbxCr3Dt6z3xbW;
-	Fri,  4 Sep 2026 12:51:04 +0000 (UTC)
-From: =?UTF-8?q?Tuna=20K=C4=B1l=C4=B1=C3=A7?= <tuna@tunakilic.com>
-To: Joshua Crofts <joshua.crofts1@gmail.com>
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	linux-iio@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] iio: dac: mcp47a1: Allow full-scale output
-Message-ID: <20260904125100.185128-1-tuna@tunakilic.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260904143848.00000d7d@gmail.com>
-References: <20260904122513.175298-1-tuna@tunakilic.com> <20260904143848.00000d7d@gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="O8fx5Zle"
+Received: by mail-ot1-f41.google.com with SMTP id 46e09a7af769-7f84a55cc06so769241a34.2
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 05:51:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788526278; x=1789131078; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=01VUs/XTkap+IEnmurcqlPrtlSflSCjekh84gJJmzvg=;
+        b=O8fx5ZleThtQvYu2iR09o2z2jAYjWIJZtL0MSQFi56VBCZkv2doiixmOgisWV9MJj6
+         Mjh7xbeJhMg98snmgaNaF1ny+c6LUhQUhUQRp1oX6/0lKcCwaomZBq9oX8tL3cfxLg0s
+         bOCXjXiPMXzL24pFyoh7wTcMzbVdEu22BdoVp9P+QvxQ9s+XwY/fKYxtK2bYd/wnSd/Q
+         rI7vQ/tbgjTXb+//qj4Sga7Rn2Xf7MjfHE1I7DWbSSo+9+aVrwH4qy18Kbsh6UqmEnIU
+         e0U8HKlOFhi8e33qQlvDunNHCB7sZtA3cqnLZiU1eYX4MIzNoNgQpHZMso8ceBb0B86o
+         488A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788526278; x=1789131078;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=01VUs/XTkap+IEnmurcqlPrtlSflSCjekh84gJJmzvg=;
+        b=o+IHbq7ekhkHRrT6oy33rj9WTHnyQVu4HZxxvlEb/BfF8kpJiPHRByrIcOgS8UuTVI
+         UdEa0qT/kOmRCivZmIBG+U5jrQQamRVxnjdG9Ay5G7QtXeYfKgLghzBl39caD/gY0cx/
+         0YgSXwnEmypIkoaA+nZhlVgVoUM0tPcFvJFIj77T4Bo6NLYDqPMcKWLW4sH4AEvitTWH
+         j7Yv9k+BasO9p+wPi2BOIzWjZ4JE7LurVIlgtNF2mq+/46H/pzsgxUR+dDoIFi/Y9LCe
+         Xcmp3odbNXFynBlk0tOe7X2zG5FZa9ABiN/SAgU5kYKHotcu1HiMuw8U1dg5mX29Lh9H
+         I96w==
+X-Gm-Message-State: AFuF++kCRzCQJ/YLo9CFdIjvx/j+G0rPMrLkDkcOlPjR1HeH2iDSD8Yv
+	rM8+2RAdbt5kJwlvdVyeffkm5eiwKeCJn0S2pgYoClP1LcrcSNBYo/tH
+X-Gm-Gg: AYBFou2ntr/ldaaD52QoN8RdRaIQ+s+6/ladI7mFpV2qQ+lzF8trZ8CU52FB0mtnhT/
+	QXtdSCAZ0ipqsZdpRFPr47UwMQrp4CqECZqDFzp4GYjwK0Juc81tMY/fEpaQXpF4h0ecGxas9iu
+	de/PZh9DrefNfuB4eTHmAlJ2Ml9KAD88rfbrQD69rqLTdDfjUT+ZiTwZ++xpSKv2KLHfzXE6Vj1
+	7lCGWWX08VFaVGQjUqdlL/kVU9Doa6+v3of324uIxIJCRlDOoNWTNzB19G45r7Bmpatbzksg0SF
+	z8U5UfZTVd0KIW2eiwwYhQeKPNr9ldzHG76eUsKJ8+Z4qIayS7sQn17rt2p3WXLrvinoHDpNl2l
+	uC3siI9MDihY6v+dkpFSMPq3La5yMbiVs7AeGlKIcN3oB87frAM1UMLXJj0q+bZBcJ3mVjLEMuk
+	n4baAF4TdpCcQ6JAToOmOFcl4drVY/lmJqznwRqaUT/qUb0UdMR3NUZnpqn/bFQj6/TlgOPl5qu
+	NNRQ6lMbwWGZvgHXqMnaklj1g==
+X-Received: by 2002:a4a:e84a:0:b0:6b1:4a71:775a with SMTP id 006d021491bc7-6b6fcbde97emr3668982eaf.19.1788526277676;
+        Fri, 04 Sep 2026 05:51:17 -0700 (PDT)
+Received: from volcano9f6e-hostos.amd.com ([165.204.217.251])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1432424d27asm9649360c88.2.2026.09.04.05.51.15
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 04 Sep 2026 05:51:17 -0700 (PDT)
+From: Hemanth Selam <hemanth.selam@gmail.com>
+To: "Martin K. Petersen" <mkp@kernel.org>
+Cc: linux-kernel@vger.kernel.org,
+	linux-scsi@vger.kernel.org,
+	target-devel@vger.kernel.org
+Subject: [PATCH] target: fix typos in comments
+Date: Fri,  4 Sep 2026 18:21:08 +0530
+Message-ID: <20260904125113.11494-1-hemanth.selam@gmail.com>
+X-Mailer: git-send-email 2.48.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Date: Fri,  4 Sep 2026 12:51:04 +0000 (UTC)
-X-CM-Analysis: v=2.4 cv=ALriHGRn c=1 sm=1 tr=0 ts=6a9abeb9 a=g35c8EtFT/OoTG0W9QvO+g==:617 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10 a=M51BFTxLslgA:10 a=pGLkceISAAAA:8 a=G1-InoR-YX8NLvKGzpIA:9 a=QEXdDO2ut3YA:10
-X-CM-Envelope: MS4xfBZiKsz/ZEozMMYAkeFCdAykZXhOeMNJxxgcE69NVVL94mOtyy93RWX4WdeDAU6OgD5TpIjUv11v0X1pXlHYSRjvXEc1dkXmeLjA6Spi+lBdouelIqIQ 9cKxWpPe82fN0YqZ3dqN6mbISfoC8Yb6BEwd1L5jCkQlt6n7Tyfr954W/TUMtrp4hyclsXUuf4tVEPjNuDiGfssA6MOXatpZKmBPy9kpmg8rUBXISAMk5D2r Q09fMkdm8TH5Dn2dp6ZzQxq7F2KavQoPyxzZVQQN1iiCtIwHVAE/AuRhRp210iDd6hIrjMOvMVktOSPcOtUyCFg76L7rGzoALTPVVx2ge6zLhuODXgcPuGKk c6PjpzhjoqiL4bKHeC5FUPmdOego101v8yjc/9fsKu9W9aiBjQVmtSOZhqpRWT6wcRmwjzKPKss6Zss4e9xuqcdPyb8/Ow==
-X-AuthUser: tuna@tunakilic.com
 
-On Fri, Sep 4, 2026 at 2:38 PM Joshua Crofts <joshua.crofts1@gmail.com> wrote:
-> Can I ask how this was found? Manual code analysis or AI?
+Fix typos in comments, reported by scripts/checkpatch.pl using the
+misspelling list in scripts/spelling.txt.  Only touches comments, no code
+changes.
 
-I noticed it while reviewing the driver's range handling and then
-compared it with the MCP47A1 datasheet. AI was used as an aid during
-the analysis, but I manually verified the datasheet values, in_range()
-semantics, and the final patch before sending it.
+Assisted-by: Cursor:claude-opus-5
+Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
+---
+ drivers/target/iscsi/iscsi_target.c       | 4 ++--
+ drivers/target/iscsi/iscsi_target_erl0.c  | 4 ++--
+ drivers/target/iscsi/iscsi_target_login.c | 4 ++--
+ drivers/target/iscsi/iscsi_target_tmr.c   | 2 +-
+ drivers/target/iscsi/iscsi_target_tpg.c   | 2 +-
+ drivers/target/target_core_pr.c           | 2 +-
+ drivers/target/target_core_transport.c    | 4 ++--
+ drivers/target/tcm_fc/tfc_io.c            | 2 +-
+ include/target/iscsi/iscsi_target_core.h  | 2 +-
+ 9 files changed, 13 insertions(+), 13 deletions(-)
 
-I don't have MCP47A1 hardware available, so the testing was limited to
-build and static checks.
+diff --git a/drivers/target/iscsi/iscsi_target.c b/drivers/target/iscsi/iscsi_target.c
+index 62ada3a52210..7f0f513ca95a 100644
+--- a/drivers/target/iscsi/iscsi_target.c
++++ b/drivers/target/iscsi/iscsi_target.c
+@@ -108,7 +108,7 @@ void iscsit_put_tiqn_for_login(struct iscsi_tiqn *tiqn)
+ 
+ /*
+  * Note that IQN formatting is expected to be done in userspace, and
+- * no explict IQN format checks are done here.
++ * no explicit IQN format checks are done here.
+  */
+ struct iscsi_tiqn *iscsit_add_tiqn(unsigned char *buf)
+ {
+@@ -4545,7 +4545,7 @@ static void iscsit_logout_post_handler_closesession(
+ 	/*
+ 	 * Traditional iscsi/tcp will invoke this logic from TX thread
+ 	 * context during session logout, so clear tx_thread_active and
+-	 * sleep if iscsit_close_connection() has not already occured.
++	 * sleep if iscsit_close_connection() has not already occurred.
+ 	 *
+ 	 * Since iser-target invokes this logic from it's own workqueue,
+ 	 * always sleep waiting for RX/TX thread shutdown to complete
+diff --git a/drivers/target/iscsi/iscsi_target_erl0.c b/drivers/target/iscsi/iscsi_target_erl0.c
+index 24db6b07493e..38c1574a855d 100644
+--- a/drivers/target/iscsi/iscsi_target_erl0.c
++++ b/drivers/target/iscsi/iscsi_target_erl0.c
+@@ -343,7 +343,7 @@ static int iscsit_dataout_check_datasn(
+ 
+ 	/*
+ 	 * Considering the target has no method of re-requesting DataOUT
+-	 * by DataSN, if we receieve a greater DataSN than expected we
++	 * by DataSN, if we receive a greater DataSN than expected we
+ 	 * assume the functions for DataPDUInOrder=[Yes,No] below will
+ 	 * handle it.
+ 	 *
+@@ -394,7 +394,7 @@ static int iscsit_dataout_pre_datapduinorder_yes(
+ 
+ 	/*
+ 	 * For DataSequenceInOrder=Yes: If the offset is greater than the global
+-	 * DataPDUInOrder=Yes offset counter in struct iscsit_cmd a protcol error has
++	 * DataPDUInOrder=Yes offset counter in struct iscsit_cmd a protocol error has
+ 	 * occurred and fail the connection.
+ 	 *
+ 	 * For DataSequenceInOrder=No: If the offset is greater than the per
+diff --git a/drivers/target/iscsi/iscsi_target_login.c b/drivers/target/iscsi/iscsi_target_login.c
+index aafc94bcb635..790928012ce0 100644
+--- a/drivers/target/iscsi/iscsi_target_login.c
++++ b/drivers/target/iscsi/iscsi_target_login.c
+@@ -548,7 +548,7 @@ int iscsi_login_post_auth_non_zero_tsih(
+ 	 * We use the original ExpStatSN sent in the first login request
+ 	 * to acknowledge commands for the failed connection.
+ 	 *
+-	 * Also note that an explict logout may have already been sent,
++	 * Also note that an explicit logout may have already been sent,
+ 	 * but the response may not be sent due to additional connection
+ 	 * loss.
+ 	 */
+@@ -1261,7 +1261,7 @@ static int __iscsi_target_login_thread(struct iscsi_np *np)
+ 	} else {
+ 		/*
+ 		 * Add a new connection to an existing session.
+-		 * We check for a non-existant session in
++		 * We check for a non-existent session in
+ 		 * iscsi_login_non_zero_tsih_s2() below based
+ 		 * on ISID/TSIH, but wait until after authentication
+ 		 * to check for connection reinstatement, etc.
+diff --git a/drivers/target/iscsi/iscsi_target_tmr.c b/drivers/target/iscsi/iscsi_target_tmr.c
+index 620de3910599..aa73cc0f504b 100644
+--- a/drivers/target/iscsi/iscsi_target_tmr.c
++++ b/drivers/target/iscsi/iscsi_target_tmr.c
+@@ -450,7 +450,7 @@ static int iscsit_task_reassign_complete(
+ /*
+  *	Handles special after-the-fact actions related to TMRs.
+  *	Right now the only one that its really needed for is
+- *	connection recovery releated TASK_REASSIGN.
++ *	connection recovery related TASK_REASSIGN.
+  */
+ int iscsit_tmr_post_handler(struct iscsit_cmd *cmd, struct iscsit_conn *conn)
+ {
+diff --git a/drivers/target/iscsi/iscsi_target_tpg.c b/drivers/target/iscsi/iscsi_target_tpg.c
+index 99772364c88e..db140bb48def 100644
+--- a/drivers/target/iscsi/iscsi_target_tpg.c
++++ b/drivers/target/iscsi/iscsi_target_tpg.c
+@@ -308,7 +308,7 @@ int iscsit_tpg_enable_portal_group(struct iscsi_portal_group *tpg)
+ 	}
+ 	/*
+ 	 * Make sure that AuthMethod does not contain None as an option
+-	 * unless explictly disabled.  Set the default to CHAP if authentication
++	 * unless explicitly disabled.  Set the default to CHAP if authentication
+ 	 * is enforced (as per default), and remove the NONE option.
+ 	 */
+ 	param = iscsi_find_param_from_key(AUTHMETHOD, tpg->param_list);
+diff --git a/drivers/target/target_core_pr.c b/drivers/target/target_core_pr.c
+index 25b1bcacc0c8..3cd23ea321ae 100644
+--- a/drivers/target/target_core_pr.c
++++ b/drivers/target/target_core_pr.c
+@@ -3655,7 +3655,7 @@ target_scsi3_emulate_pr_out(struct se_cmd *cmd)
+ 	}
+ 	/*
+ 	 * If the backend device has been configured to force APTPL metadata
+-	 * write-out, go ahead and propigate aptpl=1 down now.
++	 * write-out, go ahead and propagate aptpl=1 down now.
+ 	 */
+ 	if (dev->dev_attrib.force_pr_aptpl)
+ 		aptpl = 1;
+diff --git a/drivers/target/target_core_transport.c b/drivers/target/target_core_transport.c
+index dcfe94594916..14c60afb16f2 100644
+--- a/drivers/target/target_core_transport.c
++++ b/drivers/target/target_core_transport.c
+@@ -1869,7 +1869,7 @@ EXPORT_SYMBOL_GPL(target_submit_prep);
+  * This may only be called from process context, and also currently
+  * assumes internal allocation of fabric payload buffer by target-core.
+  *
+- * It also assumes interal target core SGL memory allocation.
++ * It also assumes internal target core SGL memory allocation.
+  *
+  * This function must only be used by drivers that do their own
+  * sync during shutdown and does not use target_stop_session. If there
+@@ -3505,7 +3505,7 @@ static const struct sense_detail sense_detail_table[] = {
+ 		 * REGISTER AND MOVE service actionis attempted,
+ 		 * but there are insufficient device server resources to complete the
+ 		 * operation, then the command shall be terminated with CHECK CONDITION
+-		 * status, with the sense key set to ILLEGAL REQUEST,and the additonal
++		 * status, with the sense key set to ILLEGAL REQUEST,and the additional
+ 		 * sense code set to INSUFFICIENT REGISTRATION RESOURCES.
+ 		 */
+ 		.key = ILLEGAL_REQUEST,
+diff --git a/drivers/target/tcm_fc/tfc_io.c b/drivers/target/tcm_fc/tfc_io.c
+index 45329284f52f..9568042b200c 100644
+--- a/drivers/target/tcm_fc/tfc_io.c
++++ b/drivers/target/tcm_fc/tfc_io.c
+@@ -248,7 +248,7 @@ void ft_recv_write_data(struct ft_cmd *cmd, struct fc_frame *fp)
+ 		 * header is posted in receive queue.
+ 		 *
+ 		 * If "Sequence Initiative (TSI)" bit is not set, means error
+-		 * condition w.r.t. DDP, hence drop the packet and let explict
++		 * condition w.r.t. DDP, hence drop the packet and let explicit
+ 		 * ABORTS from other end of exchange timer trigger the recovery.
+ 		 */
+ 		if (f_ctl & FC_FC_SEQ_INIT)
+diff --git a/include/target/iscsi/iscsi_target_core.h b/include/target/iscsi/iscsi_target_core.h
+index 51ca80abacf7..ccaa28c3abad 100644
+--- a/include/target/iscsi/iscsi_target_core.h
++++ b/include/target/iscsi/iscsi_target_core.h
+@@ -57,7 +57,7 @@ struct sock;
+ #define TA_CACHE_DYNAMIC_ACLS		0
+ /* Enabled by default in demo mode (generic_node_acls=1) */
+ #define TA_DEMO_MODE_WRITE_PROTECT	1
+-/* Disabled by default in production mode w/ explict ACLs */
++/* Disabled by default in production mode w/ explicit ACLs */
+ #define TA_PROD_MODE_WRITE_PROTECT	0
+ #define TA_DEMO_MODE_DISCOVERY		1
+ #define TA_DEFAULT_ERL			0
+-- 
+2.48.1
 
-Thanks,
-Tuna
