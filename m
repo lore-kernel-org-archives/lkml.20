@@ -1,117 +1,102 @@
-Received: from mail-oa1-f50.google.com (mail-oa1-f50.google.com [209.85.160.50])
+Received: from mta1.migadu.com (out-69.mta1.migadu.com [95.215.58.69])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E340744682E
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 11:19:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC998473C84
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 11:19:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.69
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788520765; cv=none; b=AiEmk4MZCotMk5Fepne/+dUVDIHuJdDu8euSdN55pF2Q128YGgAhEmq7cWXow1WlBR6a3UyAh+3cQUrwSA8BMFbxxng1d3iwN6FBgvxVnVzJroILa0T4TIX/SaGCJ3htL5CbC4uKe8y+VYFSKvN4fotOWrJVsjupDOODqrUEgPA=
+	t=1788520769; cv=none; b=pm7q/ojBrwvOmlwS3k5s8h757EcJ+b6SU1QAp6qefdoM7sYmb+OroDhsYCM52GHX7OFazwZ2xjVroBlIDnkYHSIy9U+Fq1bbROazVbS1xc6Y1gJ+RWrkHtyLRakbzPEdU6+qPfE1DngcIiRJAuVTOQdHImbDGCOFUqAhwnWkqLI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788520765; c=relaxed/simple;
-	bh=B/y2Mw7A6/bFmMUH3pc1OZgqSvoNPfBN5iK3touTpPY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=gmxc2b+uStT0t2D2DIAlbLGe9PGm/dpYsYRc3AfAhk28TZotBLQkESLVUpNiGX7km00qTBrpWqOuahWd57yoeG1D7V6vwFGk+bRxSl/37ED9p2cqd9DC8caY17q19YY7tfk2XcBcqH3UrQ87LGyG6WatjzLnF1GfkF+ZxK6ICtI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=oBmoeYDI; arc=none smtp.client-ip=209.85.160.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788520769; c=relaxed/simple;
+	bh=MsMTmcGG1X4n8TVMSg/WVg2Lsl8nVsUpAt6gmPDP8CQ=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=SgrXg10H5cgCUdot2Q8xLBREQryfBNqXjX/FPy1gZw1YqaL7WkTUFpIMh8S3wQ/p6fOE6KOA96MuqNSoSnBRpli31f6vDSRcMISkmD5AWUM07L03dk0ih6+32LYgj4gQotPoP5wRuoakcuuiWXoEPc3dtWTDQbnXCHva5WhbD0I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=JntTHgRm; arc=none smtp.client-ip=95.215.58.69
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="oBmoeYDI"
-Received: by mail-oa1-f50.google.com with SMTP id 586e51a60fabf-46fdd5884d0so316666fac.0
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 04:19:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788520762; x=1789125562; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=P73s6aLu8k3XruFSDI05GxMhH8qbnt+DqPfiaMUnLfk=;
-        b=oBmoeYDI2DPO/G8Zy/UoiHuDQd9wNhJuYzKWCyXsxvzbNZSIVtkMbFVMVoPElC9tVU
-         zj21vCeF2lvWlQzZzG0p86TOzOiz+AznQ90H06Kmza9Z/twh4eMYCve9xxdXC1w6uH27
-         sIo6eqQvvTFh5H2VU+fF8ImiqOvwWlJ1WOxcMvGoeA/L7acDOFx8uD/c7NGn1DOBvUfV
-         xg2LNQfQ+SYl1jaPYdF/5nPYqPwC9YZ20rBRHA8HDWOdZO3hOvPOChGSripmYdsbeN/u
-         35HxwYxKjYyDfHMuEJXAEoyFdmmVRLTSUV2w8IwKsffT+TY3s2nLVP+8+eU6Xa51JGEW
-         LoYg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788520762; x=1789125562;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=P73s6aLu8k3XruFSDI05GxMhH8qbnt+DqPfiaMUnLfk=;
-        b=FiDkA4Vi/unLcrUGBtpGaYm5HgkP33RpzLROz0HEd3uDL64+iujHNs2Ml2B3y7iHnz
-         Toc6760tHzv16wesqMbo3aYFkFAGXCV5c5tF/fOtDNXS79mrCTOOnhe0BMsZs91AHaWo
-         dC9h65iLChxoKTGTZ9ooE4CzStlOc0140IuaN2DwioL8x04iVqSK9MXlv2UfLiqzZapS
-         NMKIFTNq6QpZW6uKJr0mtIv7Aro7d47jBp6IZ2CTVN80JcDXTD6Wv6cnEc0J/FTvCP59
-         XpTjHmesZps8in56mVRxEQDDTlyF3xLiQMjjZPhIsHwHTN/fv+2NDq1yHpbaubbMfjwG
-         tqcQ==
-X-Gm-Message-State: AFuF++n58jeWfjuAQ3tYbD5kLowgS8vQ6+DJhXBvTeptrZOyL3+an6sR
-	qFb1PPbS4TjgQpnEI7ZetYBWf1aF8HtYsaCLA6YvSeIBcqkP5RAPUh7M
-X-Gm-Gg: AYBFou3zOJ3LDrCkZyvDM1dq6LkVaB0DbFdogbcdxnimJCq11vBThc5JbS4hJn8QQjS
-	4fdUeuu6lP2mbbF+O5CNCCXKU4cgdPTEcKXmob/Bo/l4jDccPInp+VIUeHrijq3pPG5Zva+duXu
-	OxZSKRiAIL4Y9O/S51UaLIIQMlwO2JH4To98BpBi73xe8ayVJ32tGJUCZXr+jq9E7hpcvaTSGTG
-	zohj90YbAPp0tH3pR5ZcUrfMudVJ2PDoPDnj743initq80f3EDv4vbW6Ri8pXagaNiUccRZPbhM
-	nxHqCnTPpRyC+JGI4JCXAS2jzxLU60lccQNHVir/UzXGHeYwt65ILZp69+tK0o/86CtLLOzoptl
-	lhJ4RUXQ6HHAObsSw5cXBW/sSJ0GUCdrHN2G0i4DI57SWDwA2ItUydpOKlrhhIPTZfn8d39CaLE
-	3RfsRyaNnq+eb5/1A8+F268WQpu1vy6padt5mfJp9PB/cwHNLLXdA+cneTLHqiNnEAlaDe8XlJB
-	yT3mWR53vPbRKk=
-X-Received: by 2002:a05:6820:217:b0:6b7:8396:f3d2 with SMTP id 006d021491bc7-6b78396f8a2mr1276910eaf.52.1788520762568;
-        Fri, 04 Sep 2026 04:19:22 -0700 (PDT)
-Received: from volcano9f6e-hostos.amd.com ([165.204.217.251])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339befdefcsm5190103eec.29.2026.09.04.04.19.20
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 04 Sep 2026 04:19:22 -0700 (PDT)
-From: Hemanth Selam <hemanth.selam@gmail.com>
-To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Cc: linux-kernel@vger.kernel.org,
-	linux-input@vger.kernel.org
-Subject: [PATCH 2/2] input: fix repeated words in comments
-Date: Fri,  4 Sep 2026 16:49:08 +0530
-Message-ID: <20260904111911.32224-3-hemanth.selam@gmail.com>
-X-Mailer: git-send-email 2.48.1
-In-Reply-To: <20260904111911.32224-1-hemanth.selam@gmail.com>
-References: <20260904111911.32224-1-hemanth.selam@gmail.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="JntTHgRm"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=MsMTmcGG1X4n8TVMSg/WVg2Lsl8nVsUpAt6gmPDP8CQ=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788520764; v=1; x=1789125564;
+ b=JntTHgRmMwSv5cvrXNjbgWYDmX2zCN+ZlAhmU84b7QgRSk5ldsHEaFfJaaFA4ajZRhNNy3qA
+ mXfDWdDv5pIlKvPrkmCvevbIpFDoMl1ddAA5IrtZZ1CIaXDkjtdTnL33QjsoUyg+2j4WtImG7LZ
+ 3qOalvS61YCTwJiafCTmuyAw=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 42f527b76ff03bac;
+	Fri, 04 Sep 2026 11:19:24 +0000
+X-Mizu-Trace-ID: 42f527b76ff03bac
+X-Migadu-Flow: FLOW_OUT
+Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b4a0b17359so5247e87.0
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 04:19:22 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvByRs8RLnMjrcLun5tyQqCoaP3jrf3J9hxIQ5yvULjQYyc0Dk3l9xnXCwPc9IoePJJX96FP/7drYl3ipplY=@vger.kernel.org
+X-Gm-Message-State: AFuF++kLgg+IAoitV0t1auOr3EU7Iu4NwO+wjSdnM2cD36baryHwDpyI
+	5VxcQteYuCf4DAbUtrehI/qTJbGg5K7cpdix9O1Km0BtY7X6cYlOgEEBkZFkdgAc4qE1UXcXj3x
+	f8vAyNUHcaPb4PNsAhK4czpacG5OgrZrBGp4ETq2k
+X-Received: by 2002:a05:6512:1094:b0:5b1:4fd9:ac with SMTP id
+ 2adb3069b0e04-5b61813ebf2mr96629e87.3.1788520761433; Fri, 04 Sep 2026
+ 04:19:21 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260903160819.831518-1-fuad.tabba@linux.dev> <xmhaptfcp2gyoovgus35yhx2uloe2zt3zniwscd2dwnatf2fii@jqobvjdmkqed>
+In-Reply-To: <xmhaptfcp2gyoovgus35yhx2uloe2zt3zniwscd2dwnatf2fii@jqobvjdmkqed>
+From: Fuad Tabba <fuad.tabba@linux.dev>
+Date: Fri, 4 Sep 2026 12:18:00 +0100
+X-Gmail-Original-Message-ID: <CA+EHjTwNJvqqeGtgxR2q+CRn5DJfigssLRcZxz-zY5XvATwOcQ@mail.gmail.com>
+X-Gm-Features: AcwNN1WJOez3rM2VTfMTldMzLgVHCuTatIMt9J2llOzdukDIMVSoUgeLQv2Bv6Y
+Message-ID: <CA+EHjTwNJvqqeGtgxR2q+CRn5DJfigssLRcZxz-zY5XvATwOcQ@mail.gmail.com>
+Subject: Re: [PATCH] KVM: arm64: Trap guest MPAM accesses whenever MPAM is implemented
+To: Yao Yuan <yaoyuan@linux.alibaba.com>
+Cc: Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, 
+	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
+	James Morse <james.morse@arm.com>, Ben Horgan <ben.horgan@arm.com>, Xi Ruoyao <xry111@xry111.site>, 
+	Mark Rutland <mark.rutland@arm.com>, Joey Gouly <joey.gouly@arm.com>, 
+	Suzuki K Poulose <suzuki.poulose@arm.com>, Zenghui Yu <yuzenghui@huawei.com>, 
+	Steffen Eiden <seiden@linux.ibm.com>, Gavin Shan <gshan@redhat.com>, 
+	linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-Drop words accidentally written twice, reported by checkpatch.pl as a
-possible repeated word.  Only touches comments, no code changes.
+Hi Yuan,
 
-Assisted-by: Cursor:claude-opus-5
-Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
----
- drivers/input/mouse/cyapa.c  | 2 +-
- drivers/input/serio/q40kbd.c | 2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
+> > +static bool
+> > +test_has_mpam_sysregs(const struct arm64_cpu_capabilities *entry, int __unused)
+> > +{
+> > + /* The registers exist whether or not firmware enabled MPAM. */
+> > + return detect_ftr_has_mpam();
+> > +}
+>
+> My understanding: arm64.nompam affects detect_ftr_has_mpam(),
+> thus when arm64.nompam = 1 w/ MPAM is supported in hardware,
+> the KVM's trap setting is skipped yet, and it's possible that
+> SYS_MPAM2_EL2 and SYS_MPAMHCR_EL2 are configured not trap anything
+> by firmware, thus guest can still access MPAM registers.
+>
+> Do we need check the raw id register values for the real support
+> state of MPAM here ?
 
-diff --git a/drivers/input/mouse/cyapa.c b/drivers/input/mouse/cyapa.c
-index 47000c30e4d8..96b79796864a 100644
---- a/drivers/input/mouse/cyapa.c
-+++ b/drivers/input/mouse/cyapa.c
-@@ -1322,7 +1322,7 @@ static int cyapa_probe(struct i2c_client *client)
- 
- 	/*
- 	 * Register the device in the input subsystem when it's operational.
--	 * Otherwise, keep in this driver, so it can be be recovered or updated
-+	 * Otherwise, keep in this driver, so it can be recovered or updated
- 	 * through the sysfs mode and update_fw interfaces by user or apps.
- 	 */
- 	if (cyapa->operational) {
-diff --git a/drivers/input/serio/q40kbd.c b/drivers/input/serio/q40kbd.c
-index 2f553efbe649..7ab4db61e46f 100644
---- a/drivers/input/serio/q40kbd.c
-+++ b/drivers/input/serio/q40kbd.c
-@@ -72,7 +72,7 @@ static void q40kbd_stop(void)
- 
- /*
-  * q40kbd_open() is called when a port is open by the higher layer.
-- * It allocates the interrupt and enables in in the chip.
-+ * It allocates the interrupt and enables in the chip.
-  */
- 
- static int q40kbd_open(struct serio *port)
--- 
-2.48.1
+Under arm64.nompam, finalise_el2_state skips the MPAM2_EL2 and
+MPAMHCR_EL2 writes too, via the same check_override, so the kernel
+does not clear the traps either. What a guest reaches there is
+whatever EL3 left, UNKNOWN when EL3 is implemented. This patch is for
+the case where the kernel cleared the traps itself and never set them
+again.
 
+Gating on the raw ID registers would make __activate_traps_mpam()
+write MPAM2_EL2 on guest entry there. AFAICT that traps to EL3
+wherever MPAM3_EL3.TRAPLOWER is still set, which is the firmware the
+option is for: 10f885d63a0e ("arm64: Add override for MPAM") added it
+for firmware that leaves the trap set and does not emulate it.
+
+The arm64.nompam hazard is documented separately [1].
+
+Cheers,
+/fuad
+
+[1] https://lore.kernel.org/all/20260903084809.2027326-1-fuad.tabba@linux.dev/
