@@ -1,125 +1,73 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oo1-f72.google.com (mail-oo1-f72.google.com [209.85.161.72])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C59D44AA566
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 14:18:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2BFD4A3F04
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 14:20:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788531541; cv=none; b=F7ibICZlNXw2IDQgAqX+iVVTwEmoCV1NAaEObnTv26qyLqI3xeAFOo2apbpxxtmi9HcB0lrSbpATkoaZdwcZ3nmNKxqRizgyyHd8aNdm/jzH5qBq+Q2+06eDJp1bf3AExhjzJ6NOC6ki0BoTRu0W0hxrjBlz++Aoe8XNrIxqJRU=
+	t=1788531607; cv=none; b=LwAT0v+KPARt8JteC8my1LmG3zmzLFcq1hB191TKn85H9rdzvIP7l96ayTKAQF52/bfHolZqwrjzMFencYxhRSaLY09tbIyQRay2Vuw2+AoEJZZ/z3OrT+0k4fmsWgXwKQ2tQYDMouhI2WHP7gCnCc5yVO+6qqNU6HtrtPTrg8A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788531541; c=relaxed/simple;
-	bh=UJBU8k1RMH+XBzRAsgB5KhavFuLFtKYjU4INuhwwG9Q=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=P2lVOus0xMCDyBuCuFns6v+S3AEmk3zN+EfeFniq3UAuBnWNClQygivIYoPiEsM92qI4uc2r3DSdiUK3Xz7/aCPLS3E70tY27Ha1tZQ3FnxDam7Wsne5ndKEQVUIW/QNQCwqe3cMdyOKSDdYRctFs5aZIicO+NZgkSTgXOL8f74=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=O4fa3CeL; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="O4fa3CeL"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3D46E1F00A3F
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 14:18:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788531538;
-	bh=ICLwyXnJhK/KUoVOOKq3/igE2t9mXTmbqKfGWifADp4=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=O4fa3CeLzYpv2jL0RP4fyJOoKerIp+meBe1007BdOWqpziKlIoDnNryJfTFccrhYC
-	 lunl7ap0t9pH56+WHVxLfkemFpeaYRxX8Nz1ZcnmhiRiNt8pIa9o/z8vHzoNRR5NmL
-	 QcqLAG8XKUxg/WQQeZQTQGq4wZ1JBHCqRt8WurxNXdJmczJTKB21rvDpFx7W2es/Ux
-	 qBRFRhW0vHQubJ2NOiiPtPV+fE2ShAffNpYzTq54CPELqgdcKhm1LUPfWxlfb6dC8V
-	 5RKhxM0iUvUFODWTAY/mg1QgeEjeZBymENgCJtuo7jo+Ox+LJs1OgDjEhPojy4By0F
-	 BhBDeOpanX8RA==
-Received: by mail-vk1-f176.google.com with SMTP id 71dfb90a1353d-5c5a818a3d6so883194e0c.1
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 07:18:58 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBx5J4TCgCFYlRQ3G9E9m/fCUqeiZWk6OQF5nwA2PVbLLOyza06Zn/col8w0jnl6Ssa4+EAQGtZZIT6emMU=@vger.kernel.org
-X-Gm-Message-State: AFuF++ngnM+yG8m2ZtnJtaG0Y1LEdt1JLeQojv32mIhdcDoBacFDfSfA
-	buYJgJ/jbOIokOTBbA6gdG8RdTzTQZtrcAhUVCHLhQDnp/RdNOwIEXZChRYXk2BghToSph41zKM
-	UD6lc9PueKmBP5vxYqwxhbd+LvHEw83c=
-X-Received: by 2002:a05:6122:e189:b0:5bb:eebe:7ffd with SMTP id
- 71dfb90a1353d-5c7ed846723mr3238643e0c.8.1788531537439; Fri, 04 Sep 2026
- 07:18:57 -0700 (PDT)
+	s=arc-20240116; t=1788531607; c=relaxed/simple;
+	bh=5QTzQkaquEkuqB2VHwFUo9nweDR6n7uiUf8NNEkaIRg=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=Wg2QyH1cr8r5DqmfwP8hhndm5zrPJAIvAaVgdLo9OAC6b///wBMJ4s4EM0SJfWeGyJcyokrxYkR8xYjd5yR3fBRVf5LP2q4FgdE88yr6IRMIs47D44G4uLbmDg7QsnDoKFK8zNmnBZM3k7VbRl0h3R90+MKeUPrpxeFQQhkLG3c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.161.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oo1-f72.google.com with SMTP id 006d021491bc7-6b1b7932ec2so1015166eaf.3
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 07:20:05 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788531604; x=1789136404;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=5hmrIKQOakYmkCXthZpE69u5jBNtoxxcF5MgpGPDI7M=;
+        b=Fo8UsEj8jrIGNZ+cXBD7EHj1MOAAvkHIP65hSYbxvBfQVTitFWs+uY63MP2NluBShR
+         gnqTW6wAtD5s4sfYFYklrPEqZhmtnFyuVLUovdjERL4piCaPOsXaFhH3w8DxU07UcUCJ
+         6ynZBR+nddF7FEa4J+WcSDNXCyHfJy2YBEA/ZWjIpqciSwfE/Hb9FwqVz0b2NhfCySoQ
+         187Xs3jRqQhBRPOI6fb2hEQ9XZAxYZvpd+/HaUufBCeyDhWbluoOkMeO6x2Y/ncOXjaX
+         ndYpI11R3sXLW24FAECKT2frN9eg5CnE2W6qnznvroA92FKFeZRYzyxRhAOW2j/5ZbOu
+         CpeQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwUOb7+ITDKpHHgUujkT842PEjiSddYiUTyFleEn38Vufy1+0Qd9RwrATOch3RpYw58D59yYJXD0iklKdg=@vger.kernel.org
+X-Gm-Message-State: AFuF++kHD5BvRtVq2dnIn5WkH60es7AyndnaAU2ddKlXhf6ppWRwx4lc
+	aT7DhorqFINaWZbVj9Py7KwKH2uveEjjj4GRS0KvJw93hKlgdL7Atf5a6zebysULFBU1CLoUYlf
+	GpqaCHLRde6Awk4rzfqPMMtWvloU+OL2vQKTY5TCSoZZqpDNEW4kskn2FRzQ=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260813074343.26460-1-include@grrlz.net> <20260813074343.26460-2-include@grrlz.net>
-In-Reply-To: <20260813074343.26460-2-include@grrlz.net>
-From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Date: Fri, 4 Sep 2026 16:17:54 +0200
-X-Gmail-Original-Message-ID: <CAJZ5v0iLnyRzM2g-k5ky0ofgVOttYU5w5Agb0EE21ejS_vWJ0g@mail.gmail.com>
-X-Gm-Features: AcwNN1V5_Z3AzL6KJtrb8pJhA3QM951bpSd51TUMOLpYUc1pwfDpNtYNmV0mmJI
-Message-ID: <CAJZ5v0iLnyRzM2g-k5ky0ofgVOttYU5w5Agb0EE21ejS_vWJ0g@mail.gmail.com>
-Subject: Re: [PATCH 1/2] clocksource/drivers/timer-ti-dm: Unregister CPU PM
- notifier outside of the timer lock
-To: Bradley Morgan <include@grrlz.net>
-Cc: Thierry Reding <treding@nvidia.com>, Daniel Leznan <daniel.lezcano@kernel.org>, 
-	Thomas Gleixner <tglx@kernel.org>, Valentin Schneider <vschneid@redhat.com>, Rosen Penev <rosenp@gmail.com>, 
-	linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org
+X-Received: by 2002:a05:6820:603:b0:6b7:8415:d784 with SMTP id
+ 006d021491bc7-6b78415d7fdmr2019869eaf.47.1788531604438; Fri, 04 Sep 2026
+ 07:20:04 -0700 (PDT)
+Date: Fri, 04 Sep 2026 07:20:04 -0700
+In-Reply-To: <20260904134424.201467-1-adrianox@gmail.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6a9ad394.d07ac993.c20e9.0002.GAE@google.com>
+Subject: Re: [syzbot] [fs?] KASAN: slab-use-after-free Write in do_bad_area
+From: syzbot <syzbot+7bf725ed337e37307001@syzkaller.appspotmail.com>
+To: adrianox@gmail.com, linux-kernel@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Thu, Aug 13, 2026 at 9:43=E2=80=AFAM Bradley Morgan <include@grrlz.net> =
-wrote:
->
-> omap_dm_timer_remove() calls cpu_pm_unregister_notifier() with
-> dm_timer_lock held and interrupts disabled. Nothing sleeps in there
-> today, but it pins the helper into a context where it can never be
-> allowed to sleep, which is in the way of restoring the RCU grace
-> period on the cpu_pm notifier chain.
->
-> Do the list lookup under the lock and move the unregister after the
-> unlock. Nothing can race it at that point: remove() owns the device,
-> and once the timer is off the list nobody can reach it anymore.
->
-> Signed-off-by: Bradley Morgan <include@grrlz.net>
-> ---
->  drivers/clocksource/timer-ti-dm.c | 9 ++++++---
->  1 file changed, 6 insertions(+), 3 deletions(-)
->
-> diff --git a/drivers/clocksource/timer-ti-dm.c b/drivers/clocksource/time=
-r-ti-dm.c
-> index bd06afb7d522..032e102bdd0a 100644
-> --- a/drivers/clocksource/timer-ti-dm.c
-> +++ b/drivers/clocksource/timer-ti-dm.c
-> @@ -1530,7 +1530,7 @@ static int omap_dm_timer_probe(struct platform_devi=
-ce *pdev)
->   */
->  static void omap_dm_timer_remove(struct platform_device *pdev)
->  {
-> -       struct dmtimer *timer;
-> +       struct dmtimer *timer, *found =3D NULL;
->         unsigned long flags;
->         int ret =3D -EINVAL;
->
-> @@ -1538,14 +1538,17 @@ static void omap_dm_timer_remove(struct platform_=
-device *pdev)
->         list_for_each_entry(timer, &omap_timer_list, node)
->                 if (!strcmp(dev_name(&timer->pdev->dev),
->                             dev_name(&pdev->dev))) {
-> -                       if (!(timer->capability & OMAP_TIMER_ALWON))
-> -                               cpu_pm_unregister_notifier(&timer->nb);
->                         list_del(&timer->node);
-> +                       found =3D timer;
->                         ret =3D 0;
->                         break;
->                 }
->         spin_unlock_irqrestore(&dm_timer_lock, flags);
->
-> +       /* Unregister outside the lock: cpu_pm_unregister_notifier() may =
-sleep. */
-> +       if (found && !(found->capability & OMAP_TIMER_ALWON))
-> +               cpu_pm_unregister_notifier(&found->nb);
-> +
->         pm_runtime_disable(&pdev->dev);
->
->         if (ret)
-> --
+Hello,
 
-Nobody seems to be interested in this patch, but Sashiko only sees
-pre-existing issues related to it:
+syzbot has tested the proposed patch and the reproducer did not trigger any issue:
 
-https://sashiko.dev/#/patchset/20260813074343.26460-1-include%40grrlz.net
+Reported-by: syzbot+7bf725ed337e37307001@syzkaller.appspotmail.com
+Tested-by: syzbot+7bf725ed337e37307001@syzkaller.appspotmail.com
 
-and the second patch in the series depends on it, so in the absence of
-any objections or concerns, I'm going to apply them both.
+Tested on:
 
-Thanks!
+commit:         bc35965f Merge tag 'mm-hotfixes-stable-2026-09-03-17-4..
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=156b08f9580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=c74f18ede748dc5f
+dashboard link: https://syzkaller.appspot.com/bug?extid=7bf725ed337e37307001
+compiler:       aarch64-linux-gnu-gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
+userspace arch: arm64
+patch:          https://syzkaller.appspot.com/x/patch.diff?x=11c138f9580000
+
+Note: testing is done by a robot and is best-effort only.
