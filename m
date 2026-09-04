@@ -1,252 +1,105 @@
-Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com [209.85.216.52])
+Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com [209.85.216.54])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEE973C0605
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 23:16:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBD1C38DC6F
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 23:17:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788563819; cv=none; b=PYij1W/wfo/z6ztkAk2c5fqQpqlhFFxyxtQynR42kR7WTn+vUrn3mcwP4oV1OqtRGQZvW0QfzRirGKOcqXCiCg+kBK6tK6/V+yboaPG8hJL1982OEpN7JCyhq0OZa6wnK3vwWkzq7+N5gBAOojbw+93dwIMjiqk1Euyof9+hyYc=
+	t=1788563868; cv=none; b=JB4GYlpZu451j8uO/jYAc48CakZ4hRJybl4u18P7xBdcjpuOtLlKhUjjCgl6FQaHU81Lb1cvR/jSB/ETXfYY1upV7jFBl2lD34J0LTIGZb0Fr5uE2M4iws6ALS7n59p7sEEsYb8qp92YgTiEXDatiW1UnpYNnG8qQWkczrMuCL4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788563819; c=relaxed/simple;
-	bh=dCGK+5CQYCXHSgBKKQcG7YPLkc0E1mAwwMS9f0mQ1qQ=;
-	h=Mime-Version:Content-Type:Date:Message-Id:To:Cc:Subject:From:
-	 References:In-Reply-To; b=Eyiw8BeftTGmgmtlMgXsfoI0qPVcYTYmC4z92pjL0PCTeq9QSPDOdFEjvSW4f29ILfYxk6Ep6yOterPTd5rBXdL06XskqPBQSbNsPcQ9qrWIyY3GfFLkTxynocwfcJr+t0BAMBAAdY3+CjQti3h7Niz1pYB+Kzw3PiSBwB37ToA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=etsalapatis.com; spf=pass smtp.mailfrom=etsalapatis.com; dkim=pass (2048-bit key) header.d=etsalapatis-com.20251104.gappssmtp.com header.i=@etsalapatis-com.20251104.gappssmtp.com header.b=awyihteA; arc=none smtp.client-ip=209.85.216.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=etsalapatis.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=etsalapatis.com
+	s=arc-20240116; t=1788563868; c=relaxed/simple;
+	bh=A/04IOhzca9uffUMpozsBDexgxl0SILtBWiA8ENvges=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=MuUjcdKqRLUHUXpn0ojOzLi6UXcQqw8iOKoQqa1xSW9qoZCq+CDEErBRY76OLI4XYDUuI5NQex9jvzrkUUcyesnT+8h0xOV4jQHejXLazwVa7vLOT5TSMcc36XUa0IdB4fFKUG3XRFMJzs6A/abTp+41VFkrAypw6JXIJ+f1t08=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=purestorage.com; spf=pass smtp.mailfrom=purestorage.com; dkim=pass (2048-bit key) header.d=purestorage.com header.i=@purestorage.com header.b=UCNCjcUy; arc=none smtp.client-ip=209.85.216.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=purestorage.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=purestorage.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=etsalapatis-com.20251104.gappssmtp.com header.i=@etsalapatis-com.20251104.gappssmtp.com header.b="awyihteA"
-Received: by mail-pj1-f52.google.com with SMTP id 98e67ed59e1d1-3856d6fbcb3so1224290a91.2
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 16:16:52 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=purestorage.com header.i=@purestorage.com header.b="UCNCjcUy"
+Received: by mail-pj1-f54.google.com with SMTP id 98e67ed59e1d1-3964dfb5a69so2140034a91.1
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 16:17:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=etsalapatis-com.20251104.gappssmtp.com; s=20251104; t=1788563810; x=1789168610; darn=vger.kernel.org;
-        h=in-reply-to:references:from:subject:cc:to:message-id:date
-         :content-type:content-transfer-encoding:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=fe1GlyuKTc0shGJ4KGsnmbYW1CmUV72M/c0uYbs9G98=;
-        b=awyihteAdZxirxvXxuKW+/Cn94PWBrwqwYAQ3iuOzzN89e9sRq/8kRtVYmjVdv69S9
-         GxADGoPsKBaj+nz93O+a42FYJr7Dbch9G04ku108Lpsli6+qgnyp8mLe39ylMKx3q5T/
-         c7mFbWOMbyiI7iL6WVFDgaWjgrLIqpAkMDyDFFSwuPl0vGVNHuV1mfNbwSt2JQINUTcd
-         yITiSqdsYDLcE5mPDmeIq0+Gm/BcWoQSQ0FzcVBfHS9Ji67Ygx8w8TNdW0YfxzJKviyH
-         6eOuA5l2z7hxOB0WhewJNvnrZ3fOirdhcRXKMm9/ZKIEB/Koujw1NxCJeB6JMajUX5p5
-         hAIg==
+        d=purestorage.com; s=google2022; t=1788563867; x=1789168667; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=VIk52XWO87XyisUAZMMmHhSekpI+pY0wXT0ih9gfa9s=;
+        b=UCNCjcUy6bIUE2CqLl4AP1AdA4Rtp9TutxKIfdcQWoszogzyH8MfHq066IRlD1XBXR
+         0eIhCtOJu0dxkUEi09A9dk+fMJbYawJxw2/6CNJK6flz7UJH2HDrbtJ2y9PI24hkurER
+         YFpM+408mOjhCQZ6XfGGfd2HCjOCIWQOcxzgKvdvc8IAbdPgtsPdzHFXWfWo4fbKB0Oz
+         ute/CmY+OhJR01R+U4aydruwxwrF2R4BuSzv/qAUyAPcgnGn/SEiourp2SkPavw3CkP6
+         3JEhQ39rG0MZHvwoABiTOXSjL76qYuosGSOnIkfY1lDKKdDY+ttdZT2jzjrHPR4Lb7ZW
+         12DQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788563810; x=1789168610;
-        h=in-reply-to:references:from:subject:cc:to:message-id:date
-         :content-type:content-transfer-encoding:mime-version:x-gm-gg
+        d=1e100.net; s=20251104; t=1788563867; x=1789168667;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=fe1GlyuKTc0shGJ4KGsnmbYW1CmUV72M/c0uYbs9G98=;
-        b=mn9xQs3PZPkymGy7697oVVaPMI6depNBxaqG927DBBuuHzmJZZd8VQW37xJJIDXEAe
-         DYdx+GRJuEvWh/ubIbUPVnJXa7fgX7wY6fcEO9EiMQoPZn1vh1DePzn/udNJ18kljL3e
-         ah4gm5QjgBZdYhU5bz88WEc1nA+4R6nIuAPBmJFpoIfxk4Q2+1c9QE//+JcyCq7tJ4co
-         up6GdNDQSfn2rR2XCHCdH+Rzd97d8NGqZXPmSmeUfaVGiIz/k2RiT8lNdMs9uU/kaEHe
-         cU9OPvHpLGLnjRJiLbnsStITl5eBnPJ2LM9LPXkLu9kBflo0OXXlMMTpQq1zRvEbIGpC
-         z5Bw==
-X-Forwarded-Encrypted: i=1; AKwUvBwtXyIA4Ms/gDAQ0zDJw5wroagbr3dn8YYKbQodhmlULswKNBZuQFE2Uqr0WIMyohYR2GOmg0beO9QtBQE=@vger.kernel.org
-X-Gm-Message-State: AFuF++nc+yVq4xRequQMy20QbLO0EREk01aeFTMnVzfWwrMix3BJAbYP
-	/5X1GbBupP9lkW2SFqxN0Qv/nbu4ew1GVfKDe0KHReHord84ZjMEMQI/t7Cq2KSrzM8=
-X-Gm-Gg: AYBFou2yYW81G+ywQ9b9w+Ze4SAwdmnVjmhtuyqE2FruZsFuxA/w82xAKvGcCTxygWz
-	oXwYcFfpgnpCMWpdsfg1PCtiEdmbRCqtr3X1SifqOyRlPEPo35etW/B1jO6xgBKNAZiUun61Sg2
-	sm1QVkzrDZjko36gofT/TBDy9gdFUR18jtVoXd1OZHNcTmyO1IVCeLqW9kEgVzar2QWkWqtH8GN
-	FKqUOB+AF9IFPJRAg+JOpwJrqKB2hoPQO9MszVxENwBQta71K2yp6gZbNMI13z3DVhQr/CDsxry
-	hMW2zLGEPfksZnyvecukWGch1AZrksOBVFQfgkTOsQE7pJcFglv2PxgM5LOzcjgPEOg8rOmGkWQ
-	DdQj9vv411NkoLyZwbaEOiJYYZ05iEt10PaS9yTJDQqt0SJAaxsiq1I9FiHSkVpohjbtwtbR0aa
-	1r2fa/8eEUfMjel7dzMDv67XQ4PxIT2hBnUfQenRj0t7kF
-X-Received: by 2002:a17:90b:4c86:b0:395:5f43:4ec4 with SMTP id 98e67ed59e1d1-39b25f78ab8mr12763621a91.0.1788563809964;
-        Fri, 04 Sep 2026 16:16:49 -0700 (PDT)
-Received: from localhost ([2620:10d:c090:600::1:7c52])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339aa33e96sm9699901eec.12.2026.09.04.16.16.32
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 04 Sep 2026 16:16:49 -0700 (PDT)
+        bh=VIk52XWO87XyisUAZMMmHhSekpI+pY0wXT0ih9gfa9s=;
+        b=ACMqbPAkSwAJ9iOONW01JWZTX47tuIdQyH5IInVtvZgvk7/+JMq4bzKgRSzfdH7Xsm
+         DUoKONNiJDPDyhsAciS8IRBghGlmK4fYXMhgmHiPj62jL/Q+bYc7f2/Et5wFscChySwy
+         xzbgxcoKU9sfk01rFeVoynyFIP4u+0sTNRrUIQmnc6XQlxFWceVriGKp67hQWhLZpcVF
+         oc9s6psQxTFLEPNWZtDwPb4sgFLcQhiRYFSFDl6sbFyI83MitYRSER6YFQqTbBw90kuJ
+         kQhjqZiRdHVhH2E/EKAMOiu2Ul5Lw/hUlh4XaXakltsiQ0jGSYEJH2FChwiiJu9uFifk
+         YEJA==
+X-Forwarded-Encrypted: i=1; AKwUvByNybDs291e0Utv2IJj45M2fTGbnNlykYTMKoE7n/ldB+1JsLmHPmPsAXrye1lgqUVr7sDcui298n1SGcQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++lyhU+TW2hrDShvZ/BIgAG20/YL0KQkPlftVRJdxQVyM5oHauJY
+	TQp+NgY6Lepdcx1A1b2lucdOu5KlqagaLqTcVm7se2Xz0gA9jkIr+OIrOz38s/URSSU=
+X-Gm-Gg: AYBFou2i582cuTJRneGNjWr2I7TQ+ZArj4qxfu1ikSuRKTLyGrMVm1HDVDWiuX0UuzW
+	ldgyg+2FOfqg/8Tqh///hPO+JLmea3m4NJP5bzDOljbSA8AwKX6M3cV4NtAUd14URTmHVPLK8RH
+	q0Tnlz5opEsLZFRHhiV3vklTsL3QgR/yUlWf70BN0GoqB95r+k0JZ3DwL65C/C18L+4T2MLsO/W
+	gYt9uoM2zmcufuEUHyQr23fF1Sl9FyG/fsz9DfW/klj9jR10bRH0u/1K0YwvFonO2CXN4ia2OkH
+	YRIUVyuvacaZJsC9GFNR3HVCX2eSmBe75qD9Yif/+AlfJEEURK6QRed/oPq+huWWFsVizNw+oT1
+	UqKgF+R9672PaIEvtc5Gf7+lb85iL9S4RGv4NPOX5lrfrV+jPzOob3Py8EkXj7AL2gQXlN989EO
+	EtJCYL/7Y1m6y+wLBHz94TgepN06ectoleryO7DsuaksotgQRf1lwhPfy5txuUhSEERvCpbcvpz
+	SkinEg=
+X-Received: by 2002:a17:90b:55cf:b0:396:b918:c2a with SMTP id 98e67ed59e1d1-39b261b1a52mr16044908a91.12.1788563866851;
+        Fri, 04 Sep 2026 16:17:46 -0700 (PDT)
+Received: from medusa.lab.kspace.sh ([2607:fb90:9c20:7a99::791d])
+        by smtp.googlemail.com with ESMTPSA id 5a478bee46e88-3339ac24d7esm14779392eec.15.2026.09.04.16.17.46
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 04 Sep 2026 16:17:46 -0700 (PDT)
+Date: Fri, 4 Sep 2026 16:17:44 -0700
+From: Mohamed Khalfella <mkhalfella@purestorage.com>
+To: Sagi Grimberg <sagi@grimberg.me>
+Cc: Justin Tee <justin.tee@broadcom.com>,
+	Naresh Gottumukkala <nareshgottumukkala83@gmail.com>,
+	Paul Ely <paul.ely@broadcom.com>,
+	Chaitanya Kulkarni <kch@nvidia.com>, Christoph Hellwig <hch@lst.de>,
+	Jens Axboe <axboe@kernel.dk>, Keith Busch <kbusch@kernel.org>,
+	James Smart <jsmart833426@gmail.com>,
+	Hannes Reinecke <hare@suse.de>,
+	Randy Jennings <randyj@purestorage.com>,
+	Dhaval Giani <dgiani@purestorage.com>,
+	Aaron Dailey <adailey@purestorage.com>,
+	linux-nvme@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v5 03/16] nvmet: Implement CCR nvme command
+Message-ID: <20260904231744.GE5552-mkhalfella@purestorage.com>
+References: <20260712022437.3743117-1-mkhalfella@purestorage.com>
+ <20260712022437.3743117-4-mkhalfella@purestorage.com>
+ <6562686c-1a38-45da-9d99-bfa9a9736fc8@grimberg.me>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Fri, 04 Sep 2026 19:16:28 -0400
-Message-Id: <DL6WY5J4EPB0.3KT7XUU9US5CW@etsalapatis.com>
-To: "Jiayuan Chen" <jiayuan.chen@linux.dev>, <bpf@vger.kernel.org>,
- <netdev@vger.kernel.org>
-Cc: <syzbot+237bbeed8dfe0699b7f5@syzkaller.appspotmail.com>, "Andrew Lunn"
- <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, "Eric
- Dumazet" <edumazet@google.com>, "Jakub Kicinski" <kuba@kernel.org>, "Paolo
- Abeni" <pabeni@redhat.com>, "Alexei Starovoitov" <ast@kernel.org>, "Daniel
- Borkmann" <daniel@iogearbox.net>, "Jesper Dangaard Brouer"
- <hawk@kernel.org>, "John Fastabend" <john.fastabend@gmail.com>, "Stanislav
- Fomichev" <sdf@fomichev.me>, "Simon Horman" <horms@kernel.org>, "Martin
- KaFai Lau" <martin.lau@linux.dev>, "Andrii Nakryiko" <andrii@kernel.org>,
- "Eduard Zingerman" <eddyz87@gmail.com>, "Kumar Kartikeya Dwivedi"
- <memxor@gmail.com>, "Song Liu" <song@kernel.org>, "Yonghong Song"
- <yonghong.song@linux.dev>, "Jiri Olsa" <jolsa@kernel.org>, "Emil
- Tsalapatis" <emil@etsalapatis.com>, "Ihor Solodrai"
- <ihor.solodrai@linux.dev>, "Shuah Khan" <shuah@kernel.org>, "Kuniyuki
- Iwashima" <kuniyu@google.com>, "Hangbin Liu" <liuhangbin@gmail.com>,
- "Krishna Kumar" <krikku@gmail.com>, "Martin Karsten"
- <mkarsten@uwaterloo.ca>, =?utf-8?q?Toke_H=C3=B8iland-J=C3=B8rgensen?=
- <toke@redhat.com>, "Lorenzo Bianconi" <lorenzo.bianconi@oss.qualcomm.com>,
- <linux-kernel@vger.kernel.org>, <linux-kselftest@vger.kernel.org>
-Subject: Re: [PATCH bpf v2 1/2] bpf, veth: xdp: fix page_pool page leak on
- skb-backed XDP
-From: "Emil Tsalapatis" <emil@etsalapatis.com>
-X-Mailer: aerc 0.21.0-0-g5549850facc2
-References: <20260824030257.263179-1-jiayuan.chen@linux.dev>
- <20260824030705.266049-1-jiayuan.chen@linux.dev>
-In-Reply-To: <20260824030705.266049-1-jiayuan.chen@linux.dev>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <6562686c-1a38-45da-9d99-bfa9a9736fc8@grimberg.me>
 
-On Sun Aug 23, 2026 at 11:06 PM EDT, Jiayuan Chen wrote:
-> bpf_xdp_shrink_data() frees a released frag via __xdp_return() using
-> xdp->rxq->mem.type, but that type is wrong for skb-backed XDP: the skb is
-> cow'd into page_pool memory while the rxq still says MEM_TYPE_PAGE_SHARED=
-,
-> so the page_pool page is freed with page_frag_free() and we hit
-> "Bad page state ... page_pool leak".
->
-> Both generic XDP and veth are affected. A non-linear skb is cow'd into
-> page_pool memory (skb_cow_data_for_xdp() -> skb_pp_cow_data() for generic
-> XDP, veth_convert_skb_to_xdp_buff() for veth), so its frags become
-> page_pool pages while the rxq keeps MEM_TYPE_PAGE_SHARED.
->
-> We can't just fix rxq->mem.type in place:
-> - generic XDP: xdp->rxq is dev->_rx[queue].xdp_rxq (see
->   bpf_prog_run_generic_xdp()), a shared rxq that other CPUs may access in
->   parallel, so we must not write to it.
-> - veth: rq->xdp_rxq.mem is shared per-queue state that veth resets on XDP
->   teardown, and with GRO that reset runs without stopping in-flight NAPI,
->   so a type stashed there can be clobbered under a packet still in flight=
-.
->
-> Adding a check in __xdp_return() or bpf_xdp_shrink_data() itself is not a=
-n
-> option either: without recording it somewhere, both can only guess the
-> frag's memory type, which quickly gets confusing.
->
-> So record it in the xdp_buff. Add a XDP_FLAGS_FRAGS_PAGE_POOL flag; the t=
-wo
-> skb-cow sites set it, and bpf_xdp_shrink_data() frees the frag to the
-> page_pool when it is set, otherwise it keeps falling back to
-> xdp->rxq->mem.type unchanged. No other path changes behaviour.
->
-> Fixes: e6d5dbdd20aa ("xdp: add multi-buff support for xdp running in gene=
-ric mode")
-> Fixes: 0ebab78cbcbf ("net: veth: add page_pool for page recycling")
-> Reported-by: syzbot+237bbeed8dfe0699b7f5@syzkaller.appspotmail.com
-> Closes: https://syzkaller.appspot.com/bug?extid=3D237bbeed8dfe0699b7f5
-> Signed-off-by: Jiayuan Chen <jiayuan.chen@linux.dev>
+On Sun 2026-08-23 03:53:03 +0300, Sagi Grimberg wrote:
+> Would still like to have it simple where nvmet allows a single ccr command
+> per ctrl such that we don't need to build a list of waiters.
+> 
 
-Hi Jiayuan,
+I think we need to know any point which sctrl is resetting which ictrl.
+Without this information it will be difficult to implement CCR standard.
+We use struct nvmet_ccr for two purposes:
 
-> ---
->  drivers/net/veth.c |  5 +++++
->  include/net/xdp.h  | 14 ++++++++++++++
->  net/core/dev.c     |  5 +++++
->  net/core/filter.c  |  7 +++++++
->  4 files changed, 31 insertions(+)
->
-> diff --git a/drivers/net/veth.c b/drivers/net/veth.c
-> index 6ed3ee81153f..0afa0661ada1 100644
-> --- a/drivers/net/veth.c
-> +++ b/drivers/net/veth.c
-> @@ -775,6 +775,11 @@ static int veth_convert_skb_to_xdp_buff(struct veth_=
-rq *rq,
->  	if (skb_shinfo(skb)->nr_frags) {
->  		skb_shinfo(skb)->xdp_frags_size =3D skb->data_len;
->  		xdp_buff_set_frags_flag(xdp);
-> +		/* A nonlinear skb was cow'd into rq->page_pool above, so the
-> +		 * frags must be freed to that pool, not via the rxq's
-> +		 * MEM_TYPE_PAGE_SHARED.
-> +		 */
-> +		xdp_buff_set_frag_pp(xdp);
->  	} else {
->  		xdp_buff_clear_frags_flag(xdp);
->  	}
-> diff --git a/include/net/xdp.h b/include/net/xdp.h
-> index aa742f413c35..b389dc527adc 100644
-> --- a/include/net/xdp.h
-> +++ b/include/net/xdp.h
-> @@ -81,6 +81,10 @@ enum xdp_buff_flags {
->  	 * XDP program is not attached.
->  	 */
->  	XDP_FLAGS_FRAGS_UNREADABLE	=3D BIT(2),
-> +	/* frags are page_pool memory even though rxq->mem.type is not: a
-> +	 * skb-backed XDP buff (generic XDP, veth) is cow'd into a page_pool.
-> +	 */
-> +	XDP_FLAGS_FRAGS_PAGE_POOL	=3D BIT(3),
->  };
-> =20
->  struct xdp_buff {
-> @@ -131,6 +135,16 @@ static __always_inline void xdp_buff_set_frag_unread=
-able(struct xdp_buff *xdp)
->  	xdp->flags |=3D XDP_FLAGS_FRAGS_UNREADABLE;
->  }
-> =20
-> +static __always_inline void xdp_buff_set_frag_pp(struct xdp_buff *xdp)
-> +{
-> +	xdp->flags |=3D XDP_FLAGS_FRAGS_PAGE_POOL;
-> +}
+- Generate CCR logpage on sctrl.
+- Know which sctrl needs to send AEN when ictrl exits.
 
-For veth_xdp_rcv_skb() we also need to clear the flag in XDP_TX and XDP_RED=
-IRECT.
-The veth_xdp_get() call takes page refs but not page pool refs, while consu=
-me_skb()=20
-drops the page pool reference. We should be clearing the new flag so that _=
-_xdp_return()
-doesn't try to free it back to the page pool, otherwise we get a similar mi=
-smatch-related=20
-splat to the original bug's.
-
-pw-bot: cr
-
-
-
-> +
-> +static __always_inline bool xdp_buff_is_frag_pp(const struct xdp_buff *x=
-dp)
-> +{
-> +	return !!(xdp->flags & XDP_FLAGS_FRAGS_PAGE_POOL);
-> +}
-> +
->  static __always_inline u32 xdp_buff_get_skb_flags(const struct xdp_buff =
-*xdp)
->  {
->  	return xdp->flags;
-> diff --git a/net/core/dev.c b/net/core/dev.c
-> index 38336858c168..be36020484b6 100644
-> --- a/net/core/dev.c
-> +++ b/net/core/dev.c
-> @@ -5532,6 +5532,11 @@ u32 bpf_prog_run_generic_xdp(struct sk_buff *skb, =
-struct xdp_buff *xdp,
->  	if (skb_is_nonlinear(skb)) {
->  		skb_shinfo(skb)->xdp_frags_size =3D skb->data_len;
->  		xdp_buff_set_frags_flag(xdp);
-> +		/* A nonlinear skb was cow'd into page_pool memory by
-> +		 * skb_cow_data_for_xdp() before we got here, so the frags must
-> +		 * be freed to that pool, not via the rxq's MEM_TYPE_PAGE_SHARED.
-> +		 */
-> +		xdp_buff_set_frag_pp(xdp);
->  	} else {
->  		xdp_buff_clear_frags_flag(xdp);
->  	}
-> diff --git a/net/core/filter.c b/net/core/filter.c
-> index 61940e753552..d34ba56d79d8 100644
-> --- a/net/core/filter.c
-> +++ b/net/core/filter.c
-> @@ -4378,6 +4378,13 @@ static bool bpf_xdp_shrink_data(struct xdp_buff *x=
-dp, skb_frag_t *frag,
->  	if (mem_type =3D=3D MEM_TYPE_XSK_BUFF_POOL) {
->  		netmem =3D 0;
->  		zc_frag =3D bpf_xdp_shrink_data_zc(xdp, shrink, tail, release);
-> +	} else if (xdp_buff_is_frag_pp(xdp)) {
-> +		/*
-> +		 * Skb-backed XDP (generic XDP, veth) cow's the frags into a
-> +		 * page_pool while the rxq stays MEM_TYPE_PAGE_SHARED, so free
-> +		 * the frag to the pool, not via page_frag_free().
-> +		 */
-> +		mem_type =3D MEM_TYPE_PAGE_POOL;
->  	}
-> =20
->  	if (release) {
-
+> Otherwise,
+> Reviewed-by: Sagi Grimberg <sagi@grimberg.me>
