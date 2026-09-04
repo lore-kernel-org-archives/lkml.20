@@ -1,142 +1,162 @@
-Received: from mail-qv1-f50.google.com (mail-qv1-f50.google.com [209.85.219.50])
+Received: from mail-wr2-f10.google.com (mail-wr2-f10.google.com [74.125.225.74])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5A6F4EE86B
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 16:40:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82FE3503BE5
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 16:41:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.74
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788540026; cv=none; b=k5/BVf0GnmhTiiaSbHSrprkjvj8y/ZqXHbmPDpHsooBh3oNFKfn73k+7mimpJBQxxHEnK0whSANNETMK5wx1Bdsss7aSM7klzIsO5U0BrP5fSexEyG9A8w0P1q/yOCca5onMQjmef3h3xm7HZEyvDPaRowfq7gMAQlphPhJ2cm8=
+	t=1788540108; cv=none; b=uE2sI/ajlNTcRsIJ1CM7flk5h9I3/wA+yd2LttVxOwPMUKZGFfipzcpAj6HYdznX9O0tsK+i1PUwYEM0Ae7NwoBrGhSAbTiPeB78FaCEASbc+9rczgT1BpnWM3wyFd1kVRkM2mvg3grFD3q4Ir/9V1MA8VN+eC9cFX6uWd4Js+Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788540026; c=relaxed/simple;
-	bh=jqtuzC0nR43l61D6gvcZaII5xgpzEmMh90Esg3ewQrM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Zxm7KQqEXUpHCrY2jz5QUgpEipcsgzHSbbYGM8DBbw+cC/8puzXRyJz8ZxTcwr4LA6qSPfx7w1K21Q4QgXuxvzFFUBJ3/6PX7qpYwjAcTXBcO0EaGnEcQ/pbtLPwlbGeTwqdCbipi0Lf6GfRxd2DiaActC/ZWItOf8P2EZJisP4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu; spf=fail smtp.mailfrom=g.harvard.edu; dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.b=B6Og1LYN; arc=none smtp.client-ip=209.85.219.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=g.harvard.edu
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.b="B6Og1LYN"
-Received: by mail-qv1-f50.google.com with SMTP id 6a1803df08f44-90f9f8553e0so14613146d6.1
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 09:40:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=rowland.harvard.edu; s=google; t=1788540024; x=1789144824; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=1nkJa0DEiZl3J7FyRvj4qHDW8diym9PfM40Ci/vpZoM=;
-        b=B6Og1LYNEV7SN1XqVxnfFoI/W1mYZTFHrmXDgGOgAcR6zdA8m+i9FInIDLATRwtMGT
-         VbE3/C+oI3NVT11Ge9pKk+U0LGi1GJ18jVPAw+vFyYN7aNaqH2TGT0HKAS1ezdQTo8PB
-         HzqPUsHBn1DJNskgwgr1MQQ7iL0fvMVGWj0vhfnU6WKkCPmQc/XYjFBxnlpmly5LnlCq
-         eTU5HQhIhcIs1iq2QH2Wj/Fpv2+5wv4QhCbZsxNTKIY/mZZ6DtNR1H5MdiuIw5asOQii
-         xgdD7M+0fEkQLI9nZQoNC5YuIJZU1QrWsku4KvL4Q7rnRgnbDueEjLXSNzm2cs1RDn28
-         6wIg==
+	s=arc-20240116; t=1788540108; c=relaxed/simple;
+	bh=W+1DwyqZ0vEIC8ZbwjnEAQ/i6kezzc44cJHGVgpIou4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=BR54Nq3wn/froS5jFC9WzwquCpH5pwSZbmgs5jUbhqUVYilBhP74Adj6YlLV0VcDP3XslapxVwKWL2Neka2CSYjoT6sRONkCEJFfBo/vQr3yOAvbQENPxA47NJxq+WIAFDhGrhcZly/FXHVPALNWtNRq1KJCnu2gPnDvzURLDuk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ovn.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=74.125.225.74
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ovn.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-wr2-f10.google.com with SMTP id ffacd0b85a97d-484349b1961so460784f8f.1
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 09:41:46 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788540024; x=1789144824;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=1nkJa0DEiZl3J7FyRvj4qHDW8diym9PfM40Ci/vpZoM=;
-        b=hVtOaStn0JeBK3+dSX169P930SEMYFoKwv/GEMzNcVs+aBXCbbJjpddV4FlhJTINrv
-         AH+oYJxXC7OLk3VlM9Am3JZFVOUUTraX0vNcxXEQ+lQsQgc6c0mmKFjTS2vM+VHVPybt
-         /JXTJuKKWZSJUekcZBZFAlBHsl8wWCFLroS9QD5p8mVBSvQQzVQkiDJprn8mBoHrAc6W
-         8p8tL8LoKXD3WWS8dUMdaW/golK+D3hebbi/MSjMhdZjbaBLsGtQ8RKx0sVQWfwef8+3
-         mwFAJ8hfC0LDmJ31OXoBYqcAhtyQzL/NNojL/wbDDC/0JGG47xJzXzEDJLOqAnhEvCnF
-         WkUg==
-X-Forwarded-Encrypted: i=1; AKwUvBwnRGdPWuhUfXoIb2FLHFmjV8e9B5kymh+eFnx/4Yeho2inbdw1VTKb0O99Z22zsgIPWNfRzzZk3hDMIjk=@vger.kernel.org
-X-Gm-Message-State: AFuF++kOGUQwHmr3XFsFh3s+p2mren/6Ic1q/jxD1YLEv46TNVVBFJew
-	kajhxArGxeCSrZRmljXbf9OKwJiTJtwC3hRjBNLl21Q3lMs5Kq7m99NgskbUUtUBRw==
-X-Gm-Gg: AYBFou1UsmUE1lF0I6YuDcN7Z9URIbKC5tMdIFNssxl2z2vlCYt3Q2yRb1Z+OPn6P0I
-	eJ9uQ+dsjoyYqX/uU7i970XBvHCm618W9PesO3ZKMSs2Gho3LzdmUOqdxXTgQ6nHjkpUu8Ct8yA
-	tDyUeLfZ9neeNwKevwO16Jjo2aFfCYw1PaR32HPOnqg4eU1ENeTW7gu+W0h8pVZWZ7gRhZ+4VIT
-	wK4gxB5i2+YfDGwUiG6rSuXti1S5J1XhSteNGox0W431FlMV2FU1bNMkmqapRrCRlGm+bVLQ272
-	XYPpZVhqmqRzIBSX3y0m+9hEt/1Q8xyG0xF+vm/LwHazE+2/9aZn7U9Jbpr4CuFhNCwdPwdyLBg
-	t7ARJqCM3r+Vu4OMqVPHKh71cGh1oMfFf/4d068CACQe5SbV9h3ZHQKsx8EgsSkD3i/lb0QRF3q
-	SE6EObjN17axKij+Z0Dio71v79j4Gtt1j54fGSEp1iMsFqEuzrfbFm1/9y03wyCA==
-X-Received: by 2002:a05:620a:8017:b0:939:6ec8:6928 with SMTP id af79cd13be357-9398037ac44mr706361285a.16.1788540023360;
-        Fri, 04 Sep 2026 09:40:23 -0700 (PDT)
-Received: from rowland.harvard.edu ([2601:19b:d01:d210::7544])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-9397fafc3a7sm246420885a.14.2026.09.04.09.40.21
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 04 Sep 2026 09:40:22 -0700 (PDT)
-Date: Fri, 4 Sep 2026 12:40:20 -0400
-From: Alan Stern <stern@rowland.harvard.edu>
-To: Chen-Yu Tsai <wenst@chromium.org>
-Cc: Bartosz Golaszewski <brgl@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	Daniel Scally <djrscally@gmail.com>,
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Danilo Krummrich <dakr@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Wei Deng <wei.deng@oss.qualcomm.com>,
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-	linux-acpi@vger.kernel.org, driver-core@lists.linux.dev,
-	linux-pm@vger.kernel.org, linux-usb@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-mediatek@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Subject: Re: [PATCH v8 07/16] usb: core: Move struct usb_port and related
- APIs to port.h
-Message-ID: <6bc3c29d-aa38-4e59-a4f5-2c480ef9c748@rowland.harvard.edu>
-References: <20260904084158.1341550-1-wenst@chromium.org>
- <20260904084158.1341550-8-wenst@chromium.org>
+        d=1e100.net; s=20251104; t=1788540104; x=1789144904;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=irPlhgKRfCP6rMpUfujetCdiJVbOXFe5xjl9vJMRqUQ=;
+        b=daeciqpSc1altGH1PajRitU1c7mLtlTMd02emNymrDhwwBoKe9bn3dxylYtoaagwJ4
+         fEkl7DdKiGqvkyt1UunSon4cxneLx9M7E1u5jfvMCLIxH8zf86B4z5beDrVyVavWauTH
+         JBdb6MR8tGtthnK6lPlxW4ndN1eybcwxzUURCVbRwpDMCmeykHpCE7FZfMbCMXpAA6K1
+         FFW7loqWmrEBwbz7d2HkithKq36wyDY/5wtvARwEGe2VfUR56mHO6dQDkI2SilZFhDW3
+         VHqE/7oXns4k0kYiWl6f6XBTvv9DS8ir+r1xktxC/WDBlWBWJi1tvoJzN/3BQTdto4gF
+         CV6A==
+X-Forwarded-Encrypted: i=1; AKwUvBySSIka7wMQCu6OAw5TVU732CKYt7mU1mhVh44TQEu5NkWjoUSUfsQtE2CI4nyvFJKpqFJ7QM5keSqg+iI=@vger.kernel.org
+X-Gm-Message-State: AFuF++m91N+5SBRAA8VEHnzS+9a8U1xeds46D9g1N2jlYLJJ+LJ6qGM3
+	PR3/AT/KTnxwX9re898mw0U6fvTTlg4GPryPNORTkmKYeEip11fr7fVc
+X-Gm-Gg: AYBFou0HGX8LJsnxy7LwavWSQFoRypOi6DfFyL8+4uK9YZoWbwrTd9zQ4KubRJgpeQX
+	mzb7n/DFz2OzFRrHL2ieuraK4zS90Zyqu0jKnZQZp6f6XEfJk+8PphDQofNTiUrIW0FnrRascU+
+	l4a1xoZyRTHvVKRi1lCmtS5kPjt6fuZvKMw8u7JvVCEXCE2zIm7/l1PIGVruEoQVbv6HNrABK+h
+	jF1RBuiRRe0Rp5JZqQMWsyqVQv9RdRyK1uQxDBgS4WeEvICUx9tqrumaVXGBNmstBAY/H6k5zkM
+	6GDEFwNBRWZXtoixVbZuHGo2KxGInFHKSpfilwXWg/Zwh/SagOX455mnqy5tnRAvd9wZ4J19ooa
+	4qXsaVsRCyonSn0kiiV8m7zZMfmHjd2ct7QYinciS0EyVwEesFJWAPSBTlXpJdNHUbdpllMCcxv
+	Nv9AZyOdSogOih28ul6D+6n4bvcXWaWNTqaiUPA0lhwwCyTPhWVn6d3eM9w3vLL2lAwubbsFzPK
+	OoXSkLt7qofAqqCtawIOrR/
+X-Received: by 2002:a05:6000:605:b0:485:8b66:f5 with SMTP id ffacd0b85a97d-4858b660161mr10077690f8f.18.1788540104208;
+        Fri, 04 Sep 2026 09:41:44 -0700 (PDT)
+Received: from [192.168.88.241] (37-48-53-4.nat.epc.tmcz.cz. [37.48.53.4])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48588394fa1sm7491043f8f.8.2026.09.04.09.41.42
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 04 Sep 2026 09:41:43 -0700 (PDT)
+Message-ID: <5d871ca2-1db4-47b8-bd48-34b3fa42961e@ovn.org>
+Date: Fri, 4 Sep 2026 18:41:42 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260904084158.1341550-8-wenst@chromium.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net 1/2] selftests: netfilter: use KHDR_INCLUDES in CFLAGS
+To: "Matthieu Baerts (NGI0)" <matttbe@kernel.org>,
+ Pablo Neira Ayuso <pablo@netfilter.org>, Florian Westphal <fw@strlen.de>,
+ Phil Sutter <phil@nwl.cc>, "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
+ Shuah Khan <shuah@kernel.org>, David Ahern <dsahern@kernel.org>,
+ Ido Schimmel <idosch@nvidia.com>
+Cc: Ilya Maximets <i.maximets@ovn.org>, netfilter-devel@vger.kernel.org,
+ coreteam@netfilter.org, netdev@vger.kernel.org,
+ linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260904-net-sft-nf-khdr_includes-v1-0-92455af428e9@kernel.org>
+ <20260904-net-sft-nf-khdr_includes-v1-1-92455af428e9@kernel.org>
+Content-Language: en-US
+From: Ilya Maximets <i.maximets@ovn.org>
+Autocrypt: addr=i.maximets@ovn.org; keydata=
+ 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
+In-Reply-To: <20260904-net-sft-nf-khdr_includes-v1-1-92455af428e9@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Fri, Sep 04, 2026 at 04:41:46PM +0800, Chen-Yu Tsai wrote:
-> |struct usb_port| and its matching container_of() macro should live in
-> its own port.h, matching the split we have for .c files.
+On 9/4/26 6:13 PM, Matthieu Baerts (NGI0) wrote:
+> KHDR_INCLUDES is typically used to include headers from the kernel
+> source directory instead of only relying on the ones from the host: they
+> can be missing or outdated.
 > 
-> Move them as described. Also move usb_port_is_power_on(), since in the
-> next change its |struct usb_hub *| parameter will be changed to
-> |struct usb_port *|, and becomes a non-static function that only
-> references |struct usb_port|.
+> The kselftest doc recommends assigning KHDR_INCLUDES to CFLAGS in a
+> target Makefile. lib.mk will set KHDR_INCLUDES to "-isystem
+> $(top_srcdir)/usr/include" if the user didn't set it, e.g. if the kernel
+> was built in a different build directory.
 > 
-> port.h is only included from hub.h, as a subsequent patch will directly
-> use fields from |struct usb_port| in a static inline helper in hub.h.
-> The USB internal headers don't have header guards to help with this.
+> Other net targets have KHDR_INCLUDES added to their CFLAGS.
 > 
-> Also drop 'extern' from the header declaration of usb_port_is_power_on().
-> This is not needed in modern C.
-> 
-> Suggested-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-> Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-> Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-> Signed-off-by: Chen-Yu Tsai <wenst@chromium.org>
+> Fixes: 3f189349e52a ("selftests: netfilter: move to net subdir")
+
+I think, this should point to a commit that added the first C test:
+
+Fixes: a64d558d8cf9 ("selftests: netfilter: add nfqueue test case")
+
+> Link: https://docs.kernel.org/dev-tools/kselftest.html#contributing-new-tests-details
+> Signed-off-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
 > ---
+>  tools/testing/selftests/net/netfilter/Makefile | 2 ++
+>  1 file changed, 2 insertions(+)
+> 
+> diff --git a/tools/testing/selftests/net/netfilter/Makefile b/tools/testing/selftests/net/netfilter/Makefile
+> index f88dd4ef8d26..df3c20c90f5d 100644
+> --- a/tools/testing/selftests/net/netfilter/Makefile
+> +++ b/tools/testing/selftests/net/netfilter/Makefile
+> @@ -2,6 +2,8 @@
+>  
+>  top_srcdir = ../../../../..
+>  
+> +CFLAGS += $(KHDR_INCLUDES)
+> +
+>  HOSTPKG_CONFIG := pkg-config
+>  MNL_CFLAGS := $(shell $(HOSTPKG_CONFIG) --cflags libmnl 2>/dev/null)
+>  MNL_LDLIBS := $(shell $(HOSTPKG_CONFIG) --libs libmnl 2>/dev/null || echo -lmnl)
+> 
 
-> diff --git a/drivers/usb/core/port.h b/drivers/usb/core/port.h
-> new file mode 100644
-> index 000000000000..00f7500af336
-> --- /dev/null
-> +++ b/drivers/usb/core/port.h
-> @@ -0,0 +1,68 @@
-> +/* SPDX-License-Identifier: GPL-2.0 */
-> +/*
-> + * usb hub driver head file
-> + *
-> + * Copyright (C) 1999 Linus Torvalds
-> + * Copyright (C) 1999 Johannes Erdfelt
-> + * Copyright (C) 1999 Gregory P. Smith
-> + * Copyright (C) 2001 Brad Hards (bhards@bigpond.net.au)
-> + * Copyright (C) 2012 Intel Corp (tianyu.lan@intel.com)
+This solves my problem with building netfilter tests locally with uAPI
+modifications.  Beside the Fixes tag, LGTM.
 
-These copyright notices are entirely inappropriate for this file.  As 
-far as I know, none of these people wrote any of the code you moved 
-here.
-
-Alan Stern
+Reviewed-by: Ilya Maximets <i.maximets@ovn.org>
