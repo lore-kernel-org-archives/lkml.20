@@ -1,89 +1,128 @@
-Received: from abb.hmeau.com (abb.hmeau.com [180.181.231.80])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFEC241D11E;
-	Fri,  4 Sep 2026 09:24:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=180.181.231.80
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A432742A7B0;
+	Fri,  4 Sep 2026 09:24:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788513885; cv=none; b=Ia6m15qH67b0IM79Y7AL4+c//iYLg5RzyFEvLSph0nNQ0241KH/cWVFdNPw6TtX0hB94JnqKrc4rv6KviH8/w9NghAJT29BAXHBshcyunne/HVm6oY5ADO+3xLPKRQiv7aSHg4CawymgW61fU94Wqc8HbZ4u9I53WsqsStG4+lc=
+	t=1788513887; cv=none; b=fzYa/DEPB3Nj9wRgs3Tx4V2lLM0Ghne/fTq9cI8ObejvBYTmy/00GIERCXdYFyNxRaRxw23gKZQn0YtbPQhQ6r6P2dffq0bszDqzpI6aAVdfgFRS5yISbp1T5qilji2fovFwfAzQ0oCbyqUBi3Zgf/IYuwakVddU+zHiNvRen1Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788513885; c=relaxed/simple;
-	bh=NqQEDdRHMhg5B+jmdf9cKYHZHrZZj/qtIq/5rdV9ziQ=;
+	s=arc-20240116; t=1788513887; c=relaxed/simple;
+	bh=QyjjX9vepjKY0+1P6pQcURbciyBv+KznBhcCK+iDyNI=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=mn0ijbhYu1a/o60ba8afjBUuF8I1Yemv3cfM4UFmTneDPGjApalcUGj8IZnLHKLwd7qTdVHt/F7wHk7Tacup2JfFJD8aFaGM6sbz/DFmJoCgKyQK+H2bDbQvqoUxbcRQi/DfEytNeVVM+yT76QtSP6UDGkBHac+Q6AAil2RrJoo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au; spf=pass smtp.mailfrom=gondor.apana.org.au; dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b=kGQtRMhO; arc=none smtp.client-ip=180.181.231.80
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gondor.apana.org.au
+	 Content-Type:Content-Disposition:In-Reply-To; b=auJVf0flKKup+qd8V5kBNhil3eMDhHQpbRkGZG71IhOL62N4UgqbxbtBsmXBovfdqlA8JpWHJR2SoiQTc72TFuZGXlgbtB1Ha2W5uTjvnGqE9GFFbq30HlewCQWYxOBG1CKFsBUm673QM4gYNxNsR7mXOAr3F/jgHGJxJOzfTqI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hnLj8z7Q; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b="kGQtRMhO"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=gondor.apana.org.au; s=h01; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:cc:to:subject:message-id:date:
-	from:content-type:reply-to; bh=IY15GYqqYcoIVB7FbFnb+BcNyuhABaf1Q4ILaBqiqxU=; 
-	b=kGQtRMhOegj/isnVZ29E/9XDYoZ8kEeNNS+qsfWVXJcqCVdglshxd1GwohUywZ+uuTLlwLJoT01
-	H5qavf7H8+7b3kFeYScT57AFZbV8kaGr2TSpa6oTkry0zL6FXr3w064wOEiZ4GyLfgCyvsh+V740M
-	i8FY8Qe6960n+0mrSMeqphjnibP22hRKQ5nSjgPzTPbQCS3cPQYt8r0RAgHe8OQ3+hcZmVTvw0u8K
-	+J+VTH//sb7Dc+EkLs2zTFB4j9dAjxQBE2F2NkJXbQEJhC7ox9pyY8+qVwiUOV7tFLl7ooYiQHeRP
-	09IG98GiEmOlja6jRHEuLh5TtHE7+WPxnnxA==;
-Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
-	by formenos.hmeau.com with smtp (Exim 4.98.2 #2 (Debian))
-	id 1x2Q9q-0000000AmYy-2lPb;
-	Fri, 04 Sep 2026 17:24:27 +0800
-Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation); Fri, 04 Sep 2026 19:24:26 +1000
-Date: Fri, 4 Sep 2026 19:24:26 +1000
-From: Herbert Xu <herbert@gondor.apana.org.au>
-To: "lianfeng.ouyang" <lianfeng.ouyang@starfivetech.com>
-Cc: Olivia Mackall <olivia@selenic.com>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	linux-crypto@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v7 2/2] hwrng: starfive: rework clk/reset teardown order
- for JHB100
-Message-ID: <apqOSl1m-5ctry_T@gondor.apana.org.au>
-References: <20260812023401.44149-1-lianfeng.ouyang@starfivetech.com>
- <20260812023401.44149-3-lianfeng.ouyang@starfivetech.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hnLj8z7Q"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5F8A91F00A3E;
+	Fri,  4 Sep 2026 09:24:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788513886;
+	bh=0Q2gQdnMXkmuqEEwuGsBz1mnUTcRs/5sddlALsXUx7o=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=hnLj8z7QBXMz0EneereeNaPUYnOYkZgECZFNwdofMxsmtHPFjpw3czhT5tSuV94ME
+	 jwkcPLsjE8du1CQHXa8o09LipebTxC8M/yGRHoWzpIzHnJcE4aaRrwcFzXS7LYrOn6
+	 PpOrd8YDvQxPitGhPmNmxsqj+hnQUkOhwmjISQhux0zaPiTBEfkEoI5taAxjQfj+HE
+	 34UIKgUemB09CE8nHiMS4TCPM9Eop5AcdpRu8IpP7TAFcxDO3GZBPHZqj1OiUADLhv
+	 5vmLv0AKViWZMXjsCHFWk2SODOipR08rqkauWM6ZZi3CIzbrf2yHdX8ctVzshpY0mk
+	 NRhJtlej7V70w==
+Date: Fri, 4 Sep 2026 11:24:33 +0200
+From: Christian Brauner <brauner@kernel.org>
+To: John Groves <john@groves.net>
+Cc: Miklos Szeredi <miklos@szeredi.hu>, 
+	David Hildenbrand <david@kernel.org>, "Darrick J . Wong" <djwong@kernel.org>, 
+	John Groves <john@jagalactic.com>, Dan Williams <djbw@kernel.org>, 
+	Bernd Schubert <bschubert@ddn.com>, Alison Schofield <alison.schofield@intel.com>, 
+	"John Groves (jgroves)" <jgroves@micron.com>, Jonathan Corbet <corbet@lwn.net>, Jake Edge <jake@lwn.net>, 
+	Shuah Khan <skhan@linuxfoundation.org>, Vishal Verma <vishal.l.verma@intel.com>, 
+	Dave Jiang <dave.jiang@intel.com>, Matthew Wilcox <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
+	Alexander Viro <viro@zeniv.linux.org.uk>, Randy Dunlap <rdunlap@infradead.org>, 
+	Jeff Layton <jlayton@kernel.org>, Amir Goldstein <amir73il@gmail.com>, 
+	Jonathan Cameron <jic23@kernel.org>, Stefan Hajnoczi <shajnocz@redhat.com>, 
+	Joanne Koong <joannelkoong@gmail.com>, Josef Bacik <josef@toxicpanda.com>, 
+	Bagas Sanjaya <bagasdotme@gmail.com>, Chen Linxuan <chenlinxuan@uniontech.com>, 
+	James Morse <james.morse@arm.com>, Fuad Tabba <tabba@google.com>, 
+	Sean Christopherson <seanjc@google.com>, Shivank Garg <shivankg@amd.com>, 
+	Ackerley Tng <ackerleytng@google.com>, Gregory Price <gourry@gourry.net>, 
+	Andrew Morton <akpm@linux-foundation.org>, Namjae Jeon <linkinjeon@kernel.org>, 
+	Lorenzo Stoakes <ljs@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	Ira Weiny <iweiny@kernel.org>, Pasha Tatashin <pasha.tatashin@soleen.com>, 
+	Haren Myneni <haren@linux.ibm.com>, Pratyush Yadav <pratyush@kernel.org>, 
+	Giovanni Cabiddu <giovanni.cabiddu@intel.com>, Jiri Slaby <jirislaby@kernel.org>, 
+	Ethan Nelson-Moore <enelsonmoore@gmail.com>, Gabriel Whigham <gabewhigham@gmail.com>, 
+	Aravind Ramesh <arramesh@micron.com>, Ajay Joshi <ajayjoshi@micron.com>, 
+	"venkataravis@micron.com" <venkataravis@micron.com>, "linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>, 
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "nvdimm@lists.linux.dev" <nvdimm@lists.linux.dev>, 
+	"linux-cxl@vger.kernel.org" <linux-cxl@vger.kernel.org>, "linux-fsdevel@vger.kernel.org" <linux-fsdevel@vger.kernel.org>, 
+	"fuse-devel@lists.linux.dev" <fuse-devel@lists.linux.dev>
+Subject: Re: [PATCH V12 02/12] famfs: Module operations, fs_context, and mount
+Message-ID: <20260904-faken-wogen-hausieren-5dc9b094bd26@brauner>
+References: <20260803022828.75776-1-john@jagalactic.com>
+ <0100019fc5739e5d-bc002300-eede-4c40-9ca8-a277b754496e-000000@email.amazonses.com>
+ <20260806043712.GB3560084@frogsfrogsfrogs>
+ <CAJfpegtW4bFn=oNfTipCxhiExaqSXnhXeBd6Uq15FpepqCJaPQ@mail.gmail.com>
+ <20260811-baugebiet-hofiert-fanden-3354f4a5e820@brauner>
+ <ab642f3a-e377-4292-b2ff-bc970f5384e8@kernel.org>
+ <CAJfpegsC-D0AJij3E=dbKzZCH0nijE7+rpPut-EnRd3r0uCMtg@mail.gmail.com>
+ <ea56c85b-d564-4451-b704-58448a07bfa6@app.fastmail.com>
+ <CAJfpeguuL8He4dKC0+CQU3c=Ss9nDEH=9VckB5mqxOr01X2q4Q@mail.gmail.com>
+ <apHCzGheqgqjgILT@groves.net>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260812023401.44149-3-lianfeng.ouyang@starfivetech.com>
+In-Reply-To: <apHCzGheqgqjgILT@groves.net>
 
-On Wed, Aug 12, 2026 at 10:34:01AM +0800, lianfeng.ouyang wrote:
-> From: Lianfeng Ouyang <lianfeng.ouyang@starfivetech.com>
+On Fri, Aug 28, 2026 at 12:39:56PM -0500, John Groves wrote:
+> On 26/08/24 09:41AM, Miklos Szeredi wrote:
+> > On Sat, 22 Aug 2026 at 23:55, John Groves <john@groves.net> wrote:
+> > 
+> > > Famfs does work in fuse, but some of the asks are things that I don't see
+> > > how I can agree to. I think Miklos and I should discuss those 1:1, to figure
+> > > out if there is a way forward.
+> > >
+> > > I think the virtual backing-dev thing is a non-starter,
+> > 
+> > The virtual backing-dev is an abstraction.
+> > 
+> > Is it sufficient for you if I promise that this is going to do the
+> > same thing as the standalone famfs at the same performance level?
+> > 
+> > >  and I think that the famfs
+> > > portion of the fuse ABI basically can't live without extents that are
+> > > (daxdev, offset, length).
+> > 
+> > Sigh.  My proposal was (backing-id, offset, length).  Again this is an
+> > abstraction.  A backing ID can be a daxdev, a striped logical device
+> > or it can be a block dev or even a plain file.
+> > 
+> > > Also, I'm curious: if you don't know of a use case for the striping code outside
+> > > of famfs, why ask famfs to completely rewrite that?  (and I agree, other
+> > > than the eventual remote possibility of competing 'famfs-ng' fuse servers,
+> > > I don't see much likelihood that this piece will be shared.)
+> > 
+> > Because the striping feature fits much better into a virtual device
+> > API than the extent mapping API.  This is how striping has worked in
+> > linux for the last 30 years.
+> > 
+> > > Miklos, I trust that you are a good faith actor, although you seem to be
+> > > spread pretty thin. Can you commit to a series of 1:1 conversations with
+> > > me to try to work through the disconnects?
+> > 
+> > Fine, let's find a time.
+> > 
+> > Thanks,
+> > Miklos
 > 
-> Rework the StarFive TRNG driver to address hardware-specific requirements
->   for JHB100 SoC. To avoid reset-domain crossing glitches, the driver now
->   ensures clocks are gated before asserting reset during teardown for
->   JHB100, while JH7110 retains the original reset-first sequence.
-> 
-> Add per-compatible match data (struct starfive_trng_data) describing the
->   clock/reset teardown order, a new "starfive,jhb100-trng" compatible, and
->   select the ordering from it.
-> 
-> Fix the runtime-PM get/put balancing across the init/read/reseed/cleanup
->   paths, manage PM and the clk/reset teardown via devm so all error paths
->   unwind correctly, run the SEU-triggered reseed from a workqueue instead
->   of hard IRQ, and serialise the command sequences with a mutex.
-> 
-> Signed-off-by: Lianfeng Ouyang <lianfeng.ouyang@starfivetech.com>
-> ---
->  MAINTAINERS                          |   2 +-
->  drivers/char/hw_random/jh7110-trng.c | 295 +++++++++++++++++++++------
->  2 files changed, 239 insertions(+), 58 deletions(-)
+> Miklos and I met yesterday and I think we found workable path forward.
+> We will be collaborating on some changes to the famfs metadata transport,
+> likely mostly via me trying to make it easy for Miklos to bring up a
+> famfs testbed VM, and Miklos doing some re-work on famfs to make it
+> more consonant with fuse (fuse-onic? ;).
 
-Sashiko wasn't able to apply your patches.  Please try rebasing
-and reposting.
-
-https://sashiko.dev/#/patchset/20260812023401.44149-1-lianfeng.ouyang%40starfivetech.com
-
-Thanks,
--- 
-Email: Herbert Xu <herbert@gondor.apana.org.au>
-Home Page: http://gondor.apana.org.au/~herbert/
-PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
+Excellent news and thanks for your patience and working with Miklos on
+this.
