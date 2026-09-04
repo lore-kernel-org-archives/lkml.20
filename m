@@ -1,39 +1,53 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3986551118D;
-	Fri,  4 Sep 2026 17:10:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 72BBF4CA764;
+	Fri,  4 Sep 2026 17:12:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788541834; cv=none; b=h7xReteO9VQNm/4wxVkyV959V+xRvSToGvufdG7yqFVPgPxd6/SPfIvKcyZRmG2GEi/Mx6EtYSKHPiM7G4U+cgztljvApMf3AWGBoAp44GYPZGs/3NYRFOM4t7CHF//FTYj3wjJ1xpBAxK9P2lKoderSZOAS4ERpeZPUbSA9dCM=
+	t=1788541939; cv=none; b=qSUvKoXFLy7vuKCY5HSeGebrE1Aabyy5NNfRzOqIil06wKQdDylPeUW5TlFMCxVemWq3zLC5MQqqLh7znMu1YGkdK68H2ab0eio84BJ5y0T7Nz9wYc1NtcPKK+509/3vBv69RBtVipvP9ffsVk0fFVWIq7cPKhD55vguWl1MRA4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788541834; c=relaxed/simple;
-	bh=gA6fqD4jeawG/r3uXp7hAR7LuJriNp0pXhV+O2ZhR2E=;
+	s=arc-20240116; t=1788541939; c=relaxed/simple;
+	bh=2GiCH+5kI3vcsZvzncgnRg2QnDpJ16kkZKLnsW7SyNk=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=O8Wk9o6Ec8ptlOs5q9jse3rWJDkNMip+lFQB+scxRrix81uz2v0xwiKBsvWytPmdWGbI8AZN4tOhmcHHEM+gl//d3twLeyzWD4z4saOvxTHH1e5q5wJyat62ChVoxi+UwaBj3J1wnzTY/KoS8KhRnYOUMxu97jnU18p1H20Yd/k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=M7wvoiU2; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=SFpDI2uqBkRlspi1JsX7LYCtzC8BpqUPiQx4EmEOj7D3DreoQW9vGaNvAblhEhUxJy4uYfsMmhNVzSPdpsuwZuAAKtD54mOaYDsGTGN7FlUZHLBbm9aQyqqbH/P5P23ugVD9OiC37bfn2rxk5EO/tpbQ8mH6+vJ37q2foQ1VbRc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=dqi3Qirw; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="M7wvoiU2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0D9C01F00A3D;
-	Fri,  4 Sep 2026 17:10:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788541831;
-	bh=DLyBHdBCiwFaJqCNC3f7TEdHuUZXCH0w7XfvGLQL/Ok=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=M7wvoiU2Ad4m317yVhPA29adVTn/XoSCL5MdaOA1H+DQ2ictbMGs7zoklNWPyPYUf
-	 cdTZZMTtbgcCoJhCFBcoDT7n1TwVO+Wkpom5xyFdEJ613Js4Jf4uF4A+C0kMkgDsKZ
-	 0N2tvqv2E9rjNI0yaBVw7flJVOTplT+qMWmrxe5o=
-Date: Fri, 4 Sep 2026 19:07:50 +0200
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Cole Munz <Munzzyy1@proton.me>
-Cc: Thinh Nguyen <Thinh.Nguyen@synopsys.com>, linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v2] usb: dwc3: gadget: don't error on dequeue of a
- completed request
-Message-ID: <2026090413-hurdle-puzzling-aadd@gregkh>
-References: <20260904161344.2191362-1-Munzzyy1@proton.me>
- <2026090406-unrevised-stays-4832@gregkh>
- <7bef11b63feb88f89b37bbc86323ed3dba794f43.1788541086.git.Munzzyy1@proton.me>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="dqi3Qirw"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id E8D63152B;
+	Fri,  4 Sep 2026 10:12:12 -0700 (PDT)
+Received: from localhost (unknown [10.2.196.114])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 3B6B83F7D8;
+	Fri,  4 Sep 2026 10:12:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1788541936; bh=2GiCH+5kI3vcsZvzncgnRg2QnDpJ16kkZKLnsW7SyNk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=dqi3QirwqIFSzSWM29azV4XpRbautUGyrdE7FafaXx4nRtSo2zpVX9POUvWygQO49
+	 XRPYXrZeDYK30N5N9OcAafaM3yFTiABJ9NMYHBPVa6RpwjLNUp8qFkjFzuevGcYVZn
+	 zshZVX9SK40rnLnbDKDSpS+4+p57MuDohxyhjsU8=
+Date: Fri, 4 Sep 2026 18:12:14 +0100
+From: Leo Yan <leo.yan@arm.com>
+To: James Clark <james.clark@linaro.org>
+Cc: John Garry <john.g.garry@oracle.com>, Will Deacon <will@kernel.org>,
+	Mike Leach <mike.leach@arm.com>, Leo Yan <leo.yan@linux.dev>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Arnaldo Carvalho de Melo <acme@kernel.org>,
+	Namhyung Kim <namhyung@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+	Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	Suyash Mahar <smahar@meta.com>, Amir Ayupov <aaupov@fb.com>,
+	Arnaldo Carvalho de Melo <acme@redhat.com>,
+	linux-arm-kernel@lists.infradead.org, coresight@lists.linaro.org,
+	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/6] perf cs-etm: Free partially created queues
+Message-ID: <20260904171214.GA8904@e132581.arm.com>
+References: <20260821-james-cs-hw_id-output-failure-v1-0-9d532ddabcc3@linaro.org>
+ <20260821-james-cs-hw_id-output-failure-v1-2-9d532ddabcc3@linaro.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -42,89 +56,25 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <7bef11b63feb88f89b37bbc86323ed3dba794f43.1788541086.git.Munzzyy1@proton.me>
+In-Reply-To: <20260821-james-cs-hw_id-output-failure-v1-2-9d532ddabcc3@linaro.org>
 
-On Fri, Sep 04, 2026 at 04:58:57PM +0000, Cole Munz wrote:
-> Dequeuing a request that has already been given back logs an error and
-> returns -EINVAL:
-> 
->   dwc3 23000000.usb: request 00000000ad92f1c4 was not queued to ep0out
-> 
-> f_fs hits this on every teardown. functionfs_unbind() dequeues ep0req
-> unconditionally before freeing it, which
-> commit ce405d561b02 ("usb: gadget: f_fs: Ensure ep0req is dequeued
-> before free_request") made deliberate to close a use-after-free. By then
-> the control transfer has long completed, so dwc3_gadget_ep_dequeue()
-> finds the request on none of cancelled_list, pending_list or
-> started_list and falls through to the error path.
-> 
-> Nothing is actually wrong. The request is not queued, which is what the
-> caller asked for, and both callers ignore the return value and free the
-> request straight after. The only effect is an error line in every gadget
-> teardown, which buries real USB errors.
-> 
-> dwc3 already tracks enough to tell the two cases apart.
-> dwc3_gadget_ep_alloc_request() sets DWC3_REQUEST_STATUS_UNKNOWN, both
-> __dwc3_gadget_ep_queue() and __dwc3_gadget_ep0_queue() set
-> DWC3_REQUEST_STATUS_QUEUED, and dwc3_gadget_giveback() sets
-> DWC3_REQUEST_STATUS_COMPLETED. A request that reaches the end of dequeue
-> with status COMPLETED was queued to this endpoint and has finished.
-> Anything else was never queued here, or the driver lost track of it.
-> Keep the error for those, and return success for a completed request.
-> 
-> A completed request still has to be dequeued on the endpoint it belongs
-> to. req->dep is set once at allocation and never changes, and
-> __dwc3_gadget_ep_queue() rejects the same mismatch with a WARN, so a
-> wrong-endpoint dequeue stays on the error path here as well.
-> 
-> This is narrower than the cdnsp fix for the same caller,
-> commit 34f08eb0ba6e ("usb: cdnsp: Fixes issue with dequeuing not queued
-> requests"), which returns 0 whenever usb_request::status is not
-> -EINPROGRESS. That also swallows a request that was never queued, since
-> status is zero out of allocation. Going by dwc3's own request status
-> keeps that case an error, which is what was asked for when a separate
-> ep0 dequeue was proposed in 2022.
-> 
-> Fixes: 72246da40f37 ("usb: Introduce DesignWare USB3 DRD Driver")
-> Cc: stable@vger.kernel.org
-> Link: https://lore.kernel.org/linux-usb/20221117054917.30104-1-quic_ugoswami@quicinc.com/
-> Assisted-by: LLM sparse
-> Signed-off-by: Cole Munz <Munzzyy1@proton.me>
-> ---
-> All three were missing, sorry about that.
-> 
-> v2: add Fixes:, Cc: stable and Assisted-by tags. No code change.
-> 
->  drivers/usb/dwc3/gadget.c | 19 ++++++++++++++++---
->  1 file changed, 16 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/usb/dwc3/gadget.c b/drivers/usb/dwc3/gadget.c
-> index fa944856f956..f68eb9254afa 100644
-> --- a/drivers/usb/dwc3/gadget.c
-> +++ b/drivers/usb/dwc3/gadget.c
-> @@ -2181,9 +2181,22 @@ static int dwc3_gadget_ep_dequeue(struct usb_ep *ep,
->  		}
->  	}
+On Fri, Aug 21, 2026 at 10:50:30AM +0100, James Clark wrote:
+> cs_etm__create_decoders() can fail half way through and the
+> err_free_queues label won't free them. Call the full queue free function
+> here instead. If no decoders were created it's a nop.
+
+[...]
+
+> @@ -3520,6 +3527,7 @@ static int cs_etm__create_queue_decoders(struct cs_etm_queue *etmq)
 >  
-> -	dev_err(dwc->dev, "request %p was not queued to %s\n",
-> -		request, ep->name);
-> -	ret = -EINVAL;
-> +	/*
-> +	 * The request is on none of this endpoint's lists. That is the
-> +	 * expected state once it has been given back: a function may dequeue
-> +	 * a request before freeing it, and f_fs does so unconditionally for
-> +	 * ep0req in functionfs_unbind(). Nothing is queued, which is what the
-> +	 * caller asked for, so report success. Any other status means the
-> +	 * request was never queued here or the driver lost track of it, and
-> +	 * stays an error. So does a completed request handed to the wrong
-> +	 * endpoint: req->dep is fixed at allocation, and the queue side
-> +	 * rejects the same mismatch.
-> +	 */
+>  out_free_decoder:
+>  	cs_etm_decoder__free(etmq->decoder);
+> +	etmq->decoder = NULL;
 
-LLMs love to add long comments like this that make almost no sense.
-Please rewrite this in a human voice, being very concise, if you still
-feel a comment is needed.
+cs_etm__free_queue() also calls cs_etm_decoder__free() but does not
+clear etmq->decoder. Should we do the same there, or drop this
+unrelated change?
 
-thanks,
+Otherwise, for the queues free fix:
 
-greg k-h
+Reviewed-by: Leo Yan <leo.yan@arm.com>
