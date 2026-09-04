@@ -1,181 +1,348 @@
-Received: from mail-qv1-f49.google.com (mail-qv1-f49.google.com [209.85.219.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from GVXPR05CU001.outbound.protection.outlook.com (mail-swedencentralazon11013016.outbound.protection.outlook.com [52.101.83.16])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF1493859D3
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 15:04:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.49
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788534274; cv=none; b=nzHxIRhWjDyCwcQguZscQwQM7TGmPhHgNQbNFM1uu32UEAMxI34AElYYCEIGsvVMBB4uvIlAX4or1E2qIABjO4R23D1SO9azASHGvqakTW5rf4hlBoGMSQz1SlrmIwEE7hJE0jb4nzQiKdulfSqVtRJAfglHXKpZGyVFcdIi+VY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788534274; c=relaxed/simple;
-	bh=qzUT2R9AR2tZxAh0lRBZU5EpIyHQI3CbvZ3yzn7ATCk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=NQaer6LTNfNYNxaWSHzGWlAW8/71dauZm7UevU8Xes2S7L6RAxQ7YvwEGEBkLagjc3p88EA4KfsqvrXB6jLB0FLEtyzZoOdJlDNMm39NpkbOq6KiiK2FwVBZu9AQA+YkyvmF67LKL3VjJv4wP9STIqKDgybM+b1pBCivtx11AB4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=V2jceAI6; arc=none smtp.client-ip=209.85.219.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 661B5477984;
+	Fri,  4 Sep 2026 15:05:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.83.16
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788534343; cv=fail; b=h7POqvvpSQ4IIt3w2bcuhn2T8nOdIILMFz4FoCrQ8VXw9U0MGCUcBGiVzMYlOsDwwhdaKR0m+WPjYWGvZTTMbLiQdDf3P8Oqjlt5LDhCN7jw1kOQ3SYJtHozOIR/U89Wb4gp7/nXCOll5BKPlbhu4qFkpO2zLxzx509+8goRxAI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788534343; c=relaxed/simple;
+	bh=E3inVttYtk4YYnX6bI5N5J0RbeG3/YrkKSxxrVSYRik=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=bKFiFp0nXRJt5ShzmNBxRiIOyIbvXKT32FoYV5y6mfnZDvkHReEVcCh2bH3TJnWOU0wqCS+D6YmDkH3lj4X3lpqP0LC3/WvJQoYM6BWrrYpRFgdgvRnvgwLea3T+V4+oDinG6xzEjjBJ1z7soe4w+20ntKpZT0GTYjA5cXGjl9s=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=WIONVjUL; arc=fail smtp.client-ip=52.101.83.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="V2jceAI6"
-Received: by mail-qv1-f49.google.com with SMTP id 6a1803df08f44-90e95a18c92so17295446d6.2
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 08:04:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788534271; x=1789139071; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=HrDWIKBLpaWjTwuV31Dpp8twO2GjOUtAodkyjDo6e6A=;
-        b=V2jceAI68OajVWQDBowtyrNoQiEx5GChk/aJxD0+Hx/y4upmxcKzQ3N93oh7yeDI/V
-         UwNoNg7l0QYSuVGLTj3ueDLozD4yIgvvpVElTwKa7UBwh4UN94pniknJxMu5ukow7J9O
-         KjTEKfohylB6ArnxDS9+f6xN15xVICxxSU6/5EoLuWZl1Z/p5DSGsoGZod6CcX4HyDyS
-         n7epSBEKloUMNVsWvasb2K1soCcK3RltJE18qD7RRU1YL1dwOppl5akiy6faVTSEfZNK
-         GhVRldGIxa8uMzNzyNk4iIJ08sI/hvxYJGWqsY3P9MxqoYHHO5vvIKwvAAc8qXQqOOfd
-         Atuw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788534271; x=1789139071;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=HrDWIKBLpaWjTwuV31Dpp8twO2GjOUtAodkyjDo6e6A=;
-        b=sNRLspuX2QU4XHjUT5vv3eeQe5hr+7+o/V1uao09qDw6u1MXdiFaK4XCxQFyugRcC5
-         3YotOiHYdYJX35FKmJ5ZSPYksxqZ3g2KuKtSTEX/pRLWo1FoT8ctu4RFhr3BSQsr9mzi
-         sOQ5JdcMj/avmscmwtxumbFwIaODKss0a39nMX9XVzjRpfbeM9U17ktFiNuf3XkX7N5p
-         ySbTdbuk+hidpFkSnK9/saquWxV0O2L9AP3R8LzXJ8UtRqu6U2gXRNveOdiVUIU5wW55
-         3FgaXJzupuqyZyYCWMJW7Lq5iZ+KVun/B5uyS1seWYAGShWtBuY6k3J/75w325h6yETM
-         R60A==
-X-Forwarded-Encrypted: i=1; AKwUvBxykdADVqjolbh+etikJsU1gRsFdCdYYpk7PGD/o2IlWaYUsYK3QeUjRoQv2K+WzUrTZJFfYfMxMyb3a0E=@vger.kernel.org
-X-Gm-Message-State: AFuF++mOtO6boM80IActPw3icVk2wzx6bKTxm64LQa2y0wjKFvPl8UBh
-	ChmChWhtTJ4ejOWrSJhfVi7d0EGS0Mf9kCIDeuIhcLVw78fcsxI8UfHC
-X-Gm-Gg: AYBFou0XkyoSdzZt9yI/q0qbQHWeviZ4AzZv0M8IDo2/mFcHuZ6rrKmT2MWhKmsJhxm
-	0pdBQ2oDVFlCCvOgDcznc7tZZiKlpnknSdu0HO7nmCS6veMRMDBoGbACheMMZpigG4p7d4pOBwb
-	8sDFtKHyni91v+JeZLb/sRgxuaqgOTlvaD/UfD9HHwFtnacDieJ4SLnhgJzWnBxUZSy+KKPy/AP
-	XBSyVkEolorSnWiy7YOb5+3tlvYpNKi5QeMNb4fXKcIYcoTQOFIXoMS3fbPt5l0TJ2zifTXw+wc
-	0OBQ3I7fv6kP1ZfwL5jIDjlS7psuJcRSqdvCEosybRVRXt2YGa54SitFt0BDTn+I1NVbtStJbS8
-	OphF4Xg+Vv01EzbFzqv0ujIW+qrW/FST6Z10QUpRvE8zmmT0OvXljn/crF2P/gasI5xSyMY01rz
-	eDHfd4d2clWpoUhwkgrzmuz7VsWcweoYv1B4NfSGugGLl7/G60cde4b3u9vb38JOYpYabS6KH2i
-	EqDVKAeNs2adKNmzjux1dlB4pWtvDxner2QhG6voggDTpYs
-X-Received: by 2002:a05:6214:3f92:b0:910:44ec:25f1 with SMTP id 6a1803df08f44-91044ec283dmr29116726d6.24.1788534270086;
-        Fri, 04 Sep 2026 08:04:30 -0700 (PDT)
-Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-9104059598dsm22578316d6.4.2026.09.04.08.04.28
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 04 Sep 2026 08:04:29 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Message-ID: <f52af5ef-2cf3-480e-9e71-735b7514b9c9@roeck-us.net>
-Date: Fri, 4 Sep 2026 08:04:27 -0700
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="WIONVjUL"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=T7nLCotwUlyVNBersrd4pNId0RUrbC/80kvqu3BImH+BnsCXLxcJTaCLrUHDmEYJlX7xUI8/tOrDJzcnzVjM2y4V1otFpMompEp7+BdRPYDaIJkg6j2qjZ2ilcBD5UPOh9wFcSGGgdim33Af21msxNJux048YymskxhmTQSDuD0hqPxNcKIVCn57oFWtmMHhRjp6MdU+Yxf0YuuLP6gaqadajyxIIaXOKy7BRNGEx6Tf+s8UCCvF0t+hIapLVdikqIkzL3BtR21W7Md9HfHzqJAa6sR0L3OWDwqLVV/ZdKi86rIamUhlvrEmJyuLVhG8ykClloT+8p/kiMonFTrDmg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=SBiLDq08VuGVSF3zUOrLBuj7t2NJS9h5rnjjzd7dQ50=;
+ b=XrMTUY0ptgpnZCEms6vMJcd4MfgGQr5p2wlbV1kbzof5D69TSqU6o3BG5/tAmWUp3VeLSymQMlNFLbwugZo6pu/7uDQB25AyJ3OU62aULfumjaZi68EHoaa93vc2wGj75Aw2vDQ6WyEaPqngpJo1K80975p6PkGP9Zv7I2G+I8C1SX5LaxQG501NbM1CYXrwHfcHadNeqi5QyNvJxFpTa4ra9b3RLzOPwtrm3adu12iAj/gZrtJpe+DTQZZR9KpjpZ+cRJ0J/GP+13TaemQJCGscvmegpsnmzZc1OhcqKIwuZoHhIuuaPg6Tj6Dt2NuFz37HT1rsS8lUhxHRO23n0w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=SBiLDq08VuGVSF3zUOrLBuj7t2NJS9h5rnjjzd7dQ50=;
+ b=WIONVjULyeDN49L/kGglYBP4nLpymDoaq6bXH58Y/VLXZ00mYef3r/lf9D6jk+xuIweyG6rnuJSqoaBx/SrrNuvuh8iqxmeO/Zp9CUh8QuCzWIcuzMa2Cu4RGTSyynOivEaKf9QYyhWPysPOuXGywvrZ1dRazh+2rk3zDFzQF9bOaCEEr1iRS7E+VBoP8jqKTzIaFRhRAGFu/uMHWv5v6l5AX8PfVMSXzd9B0jzqDAu4CelyCVKFakUiZgSLJmMzjekPQaSCDWfY/M3lcQfb8INmiy0oPmeU7GtET9zQUgBijYpUWleuAhw4G8QrFVXbAendNocYOrz69QtMpYHTuA==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
+ by ZR6PR04MB566662.eurprd04.prod.outlook.com (2603:10a6:910:db::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Fri, 4 Sep
+ 2026 15:05:29 +0000
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0360.008; Fri, 4 Sep 2026
+ 15:05:29 +0000
+Date: Fri, 4 Sep 2026 10:05:19 -0500
+From: Frank Li <Frank.li@oss.nxp.com>
+To: Koichiro Den <den@valinux.co.jp>
+Cc: Manivannan Sadhasivam <mani@kernel.org>, Frank Li <Frank.Li@kernel.org>,
+	Jon Mason <jdmason@kudzu.us>, Dave Jiang <dave.jiang@intel.com>,
+	Allen Hubbe <allenbh@gmail.com>,
+	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+	Kishon Vijay Abraham I <kishon@kernel.org>,
+	Bjorn Helgaas <bhelgaas@google.com>, ntb@lists.linux.dev,
+	linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] PCI: endpoint: pci-epf-vntb: Track link state from both
+ sides
+Message-ID: <apreL-yPOQlH3Caa@SMW015318>
+References: <20260904065335.3059625-1-den@valinux.co.jp>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260904065335.3059625-1-den@valinux.co.jp>
+X-ClientProxiedBy: CY5PR18CA0044.namprd18.prod.outlook.com
+ (2603:10b6:930:13::13) To GV2PR04MB11799.eurprd04.prod.outlook.com
+ (2603:10a6:150:2cf::9)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v0 1/2] hwmon: pmbus: Fix vout_mode parsing
-To: Aryan Srivastava <aryan.srivastava@alliedtelesis.co.nz>
-Cc: linux-hwmon@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260904005351.2136374-1-aryan.srivastava@alliedtelesis.co.nz>
- <20260904005351.2136374-2-aryan.srivastava@alliedtelesis.co.nz>
-Content-Language: en-US
-From: Guenter Roeck <linux@roeck-us.net>
-Autocrypt: addr=linux@roeck-us.net; keydata=
- xsFNBE6H1WcBEACu6jIcw5kZ5dGeJ7E7B2uweQR/4FGxH10/H1O1+ApmcQ9i87XdZQiB9cpN
- RYHA7RCEK2dh6dDccykQk3bC90xXMPg+O3R+C/SkwcnUak1UZaeK/SwQbq/t0tkMzYDRxfJ7
- nyFiKxUehbNF3r9qlJgPqONwX5vJy4/GvDHdddSCxV41P/ejsZ8PykxyJs98UWhF54tGRWFl
- 7i1xvaDB9lN5WTLRKSO7wICuLiSz5WZHXMkyF4d+/O5ll7yz/o/JxK5vO/sduYDIlFTvBZDh
- gzaEtNf5tQjsjG4io8E0Yq0ViobLkS2RTNZT8ICq/Jmvl0SpbHRvYwa2DhNsK0YjHFQBB0FX
- IdhdUEzNefcNcYvqigJpdICoP2e4yJSyflHFO4dr0OrdnGLe1Zi/8Xo/2+M1dSSEt196rXaC
- kwu2KgIgmkRBb3cp2vIBBIIowU8W3qC1+w+RdMUrZxKGWJ3juwcgveJlzMpMZNyM1jobSXZ0
- VHGMNJ3MwXlrEFPXaYJgibcg6brM6wGfX/LBvc/haWw4yO24lT5eitm4UBdIy9pKkKmHHh7s
- jfZJkB5fWKVdoCv/omy6UyH6ykLOPFugl+hVL2Prf8xrXuZe1CMS7ID9Lc8FaL1ROIN/W8Vk
- BIsJMaWOhks//7d92Uf3EArDlDShwR2+D+AMon8NULuLBHiEUQARAQABzTJHdWVudGVyIFJv
- ZWNrIChMaW51eCBhY2NvdW50KSA8bGludXhAcm9lY2stdXMubmV0PsLBgQQTAQIAKwIbAwYL
- CQgHAwIGFQgCCQoLBBYCAwECHgECF4ACGQEFAmgrMyQFCSbODQkACgkQyx8mb86fmYGcWRAA
- oRwrk7V8fULqnGGpBIjp7pvR187Yzx+lhMGUHuM5H56TFEqeVwCMLWB2x1YRolYbY4MEFlQg
- VUFcfeW0OknSr1s6wtrtQm0gdkolM8OcCL9ptTHOg1mmXa4YpW8QJiL0AVtbpE9BroeWGl9v
- 2TGILPm9mVp+GmMQgkNeCS7Jonq5f5pDUGumAMguWzMFEg+Imt9wr2YA7aGen7KPSqJeQPpj
- onPKhu7O/KJKkuC50ylxizHzmGx+IUSmOZxN950pZUFvVZH9CwhAAl+NYUtcF5ry/uSYG2U7
- DCvpzqOryJRemKN63qt1bjF6cltsXwxjKOw6CvdjJYA3n6xCWLuJ6yk6CAy1Ukh545NhgBAs
- rGGVkl6TUBi0ixL3EF3RWLa9IMDcHN32r7OBhw6vbul8HqyTFZWY2ksTvlTl+qG3zV6AJuzT
- WdXmbcKN+TdhO5XlxVlbZoCm7ViBj1+PvIFQZCnLAhqSd/DJlhaq8fFXx1dCUPgQDcD+wo65
- qulV/NijfU8bzFfEPgYP/3LP+BSAyFs33y/mdP8kbMxSCjnLEhimQMrSSo/To1Gxp5C97fw5
- 3m1CaMILGKCmfI1B8iA8zd8ib7t1Rg0qCwcAnvsM36SkrID32GfFbv873bNskJCHAISK3Xkz
- qo7IYZmjk/IJGbsiGzxUhvicwkgKE9r7a1rOwU0ETofVZwEQALlLbQeBDTDbwQYrj0gbx3bq
- 7kpKABxN2MqeuqGr02DpS9883d/t7ontxasXoEz2GTioevvRmllJlPQERVxM8gQoNg22twF7
- pB/zsrIjxkE9heE4wYfN1AyzT+AxgYN6f8hVQ7Nrc9XgZZe+8IkuW/Nf64KzNJXnSH4u6nJM
- J2+Dt274YoFcXR1nG76Q259mKwzbCukKbd6piL+VsT/qBrLhZe9Ivbjq5WMdkQKnP7gYKCAi
- pNVJC4enWfivZsYupMd9qn7Uv/oCZDYoBTdMSBUblaLMwlcjnPpOYK5rfHvC4opxl+P/Vzyz
- 6WC2TLkPtKvYvXmdsI6rnEI4Uucg0Au/Ulg7aqqKhzGPIbVaL+U0Wk82nz6hz+WP2ggTrY1w
- ZlPlRt8WM9w6WfLf2j+PuGklj37m+KvaOEfLsF1v464dSpy1tQVHhhp8LFTxh/6RWkRIR2uF
- I4v3Xu/k5D0LhaZHpQ4C+xKsQxpTGuYh2tnRaRL14YMW1dlI3HfeB2gj7Yc8XdHh9vkpPyuT
- nY/ZsFbnvBtiw7GchKKri2gDhRb2QNNDyBnQn5mRFw7CyuFclAksOdV/sdpQnYlYcRQWOUGY
- HhQ5eqTRZjm9z+qQe/T0HQpmiPTqQcIaG/edgKVTUjITfA7AJMKLQHgp04Vylb+G6jocnQQX
- JqvvP09whbqrABEBAAHCwWUEGAECAA8CGwwFAmgrMyQFCSbODQkACgkQyx8mb86fmYHlgg/9
- H5JeDmB4jsreE9Bn621wZk7NMzxy9STxiVKSh8Mq4pb+IDu1RU2iLyetCY1TiJlcxnE362kj
- njrfAdqyPteHM+LU59NtEbGwrfcXdQoh4XdMuPA5ADetPLma3YiRa3VsVkLwpnR7ilgwQw6u
- dycEaOxQ7LUXCs0JaGVVP25Z2hMkHBwx6BlW6EZLNgzGI2rswSZ7SKcsBd1IRHVf0miwIFYy
- j/UEfAFNW+tbtKPNn3xZTLs3quQN7GdYLh+J0XxITpBZaFOpwEKV+VS36pSLnNl0T5wm0E/y
- scPJ0OVY7ly5Vm1nnoH4licaU5Y1nSkFR/j2douI5P7Cj687WuNMC6CcFd6j72kRfxklOqXw
- zvy+2NEcXyziiLXp84130yxAKXfluax9sZhhrhKT6VrD45S6N3HxJpXQ/RY/EX35neH2/F7B
- RgSloce2+zWfpELyS1qRkCUTt1tlGV2p+y2BPfXzrHn2vxvbhEn1QpQ6t+85FKN8YEhJEygJ
- F0WaMvQMNrk9UAUziVcUkLU52NS9SXqpVg8vgrO0JKx97IXFPcNh0DWsSj/0Y8HO/RDkGXYn
- FDMj7fZSPKyPQPmEHg+W/KzxSSfdgWIHF2QaQ0b2q1wOSec4Rti52ohmNSY+KNIW/zODhugJ
- np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
-In-Reply-To: <20260904005351.2136374-2-aryan.srivastava@alliedtelesis.co.nz>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|ZR6PR04MB566662:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5ea4aff0-7ece-4857-cbd9-08df0a95f51d
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|19092799006|23010399003|1800799024|376014|7416014|366016|6133799003|22082099003|18002099003|3023799007|5023799004|11063799006|56012099006|10067099003;
+X-Microsoft-Antispam-Message-Info:
+	vyGtQSXsKPXMVJuSEb8EFRE3HfT1TY7idt630uVsyXn+QnnkNaRQVRTiP90PNkBjoco9zn7sH4IkcRx1AZCtS3XhMFukHLzYE9jsx5n0l3A6AOLFkMAwSBNWZ8cPbqo642CbeVPxvygt2N1/FQfsLd6xMCGMvCaXIH/wwXNg6kxJ75lHfWJrKevjgHEiBekfznjUdabtP4W7gH3v5ikWRiqmYxoQ6TOelEkGmZZPUNODtaP+jiq0rQgjlnbYpauFtifCHdkoIJPPC1aEgQi7IU7Ei230ddVrKUiI96Yis47OPEr9JeSXwLeXNI9z1na83/85arES9jZ7EN3PGHRkZ3cVlHWYo+1byzm0hgvFeyEhRXv4lekgv4dI/FI5zK/RPWZTD63VdksripWxjO3wbeWjqEeHp5uZkiy484IIdXmAeU/hMlfVrNOSLR4+wOXYJFFRG/bed9A8548/SFe8FwMK1zOigfgotbaDcaAfHCnq/4V/kN0L5XmK/o4EM9HqMlJHltZrK+S2G45SV/QCibOcjBNN3oePGDO5IpUjX+pJNdMNsHQbzxR98kSLQdzyqxZs1bWWms8RkcJSum7SRg0R7SHIOPDZor3vi/t1VkABr0BNo7GggVkCdI7+lNLw
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(23010399003)(1800799024)(376014)(7416014)(366016)(6133799003)(22082099003)(18002099003)(3023799007)(5023799004)(11063799006)(56012099006)(10067099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?/ml2/2PfyQ0t1k0SiQ+c8fxsYUS0ErwjtgP6pV+XV8cWJz17bOcIbCU1sHvw?=
+ =?us-ascii?Q?cwM8QLcSb5gKpcZ0E9ykl3qj+03zG/5yaF6OoSPLm6BuZsC7fd2+ZcNXcaXk?=
+ =?us-ascii?Q?snSJ2ndj22xjdnyWACKq/sGZ1bZgjH7AIh3n81AbSRi1s0knUtGkIrm8WKxA?=
+ =?us-ascii?Q?sPV6RChqSThDJmdSg54yjdEVr7T/B/ej3ZwDTUTpfdub2Nyl1MktxWxaG8x9?=
+ =?us-ascii?Q?le7sf4J929ykfJiaX/E+AlqUZ4PbkSDmEQ8gsSSoqkc4bLG/CJUJ4fwzqhdq?=
+ =?us-ascii?Q?ngfYdqGsgDqSqlgD1wmE3J2SLawUKLij4Bcu0eW0xr7yB6x4iXwcGiOAzNjn?=
+ =?us-ascii?Q?WfnIO+61qXuyrHXd5XrfVh5fuuNteykRQ1c/ZdC3I4Ys91UsMbSl8L5O7VJT?=
+ =?us-ascii?Q?uBNstLkBj+8/LrErRye7qwZ6jyCTn5hULFH1Q59vLOohAQFbSM9xzQsLfAyd?=
+ =?us-ascii?Q?LKNz1ky4baXWQaCjTTdZ12sM0clW+6YTzWTBrSBDZictsU6s0FFU4E6QS6R9?=
+ =?us-ascii?Q?csWCXrzXAgLI155QUORZmkDdpH4ciRNWaTfu9zRwN3H8x3MQ4cm8ehRl5w6I?=
+ =?us-ascii?Q?38H3C2fe24OiMgH/QM9A6pgxRfJfVJZ7eo/pcrGa+EdmiIJD3hc50uaDddqK?=
+ =?us-ascii?Q?5Ps3A5O2UIof+RP73OSi4Z5vgInJLHzL7AuMZ3fiy3PfCVKu2vdcTRc7521c?=
+ =?us-ascii?Q?D1AgA/y4AVBPrtaxJZMqmY7doWVHXjLRxZHv1wYJVC/kdplGnCA2fUKf/LoE?=
+ =?us-ascii?Q?Zu7IGTENt1qtaCe0dNROR14TV8BBva7qe4tM+uuC461bno+QipHoiLDkAK4s?=
+ =?us-ascii?Q?uMb267f/sAfq38LDQdhfEPUBY3b3xK0n9NDrACqQYgwH3prBCvpSWjyQ1wAp?=
+ =?us-ascii?Q?DZcsbFnq9Sjv14RsaQUSCq4kCNhOJag58AgfWRpqhkNNC8otMH1wx+Cpedbd?=
+ =?us-ascii?Q?Sa0BlSboLLTpi5dDYanWw6Shg99+IrEXoOTCsqH+uzNs+VMowo5kQUcy1yhc?=
+ =?us-ascii?Q?XU3zBn52JNn1ENdc/zyCJkjTyubQ96UxVRwr5IqqBFnjUdFu/8qOWH3jET7Q?=
+ =?us-ascii?Q?QgrC3FC73RmdZlRF0g9kWH578v6Z6CD0LD5dQ8IX2IJ26sdGxBrsaiQ5sa7L?=
+ =?us-ascii?Q?BNDESa3adoeCZ1kork6k1c+ZFUj+XPX/DfTekThyfHiZu+OsgLo42YUiUEsd?=
+ =?us-ascii?Q?JX/HsGHEcL8KsxQSbJaJaUC0Jyh+nL/GI+CC2czWZdJjCPcQKE2dsmdGs3pu?=
+ =?us-ascii?Q?7R1n7pWa47TiTK+FLtiKw7hb7r8YFaJelZhQRQm+JPr57L4MYcedPmj/OTRt?=
+ =?us-ascii?Q?Ce/QX6s2maoNN2mbUuael2KRM9vYY3EtlClBbNCVVBy7WmpzUg+JUNuFosYb?=
+ =?us-ascii?Q?5FFH93rzO0X3JYGTw5aKN2TG1pNSeoil6cdrdthmpwJeNCOTd1RTCFKblkSB?=
+ =?us-ascii?Q?gcr8LP9Yw24DZZGxrCxJtsMR385XEBLcUSeb8h9uApj3ZNhcV665kOWLsX+n?=
+ =?us-ascii?Q?6ZqM9MyrPf+GY+xE4gUO6DRqUkld6Izvecvp7oEzji4uljbTZ8YAuBtUiTBa?=
+ =?us-ascii?Q?Fm+0FtZUp2yAe/QINbBen3BNdPR0vTjeU949gOHs8VEyp+0lvNTVZrxD3jUP?=
+ =?us-ascii?Q?EzHuE0emb8+h+n8BtxjbzuZEezA8I6MJne7fKxSp3UVZJo4dySVnjSNpmEmj?=
+ =?us-ascii?Q?tzOVWauQReI/3zKJXs6JGMk9SKxRWAPdM9gHE22Gwy6graEAKyGoP8+yAW7K?=
+ =?us-ascii?Q?ukKNOkv9ny9gjr9O4VB3MC9sCnRCXu+/GCE+TCbRJhxf78+F3nTB?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5ea4aff0-7ece-4857-cbd9-08df0a95f51d
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Sep 2026 15:05:29.1649
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: yTYIW94O2wIzNA38d3drs0RSnwuB3sB+gUayyPbAQGqcE2zNRMbNgBTHRLh4G8gEfTS8VHkVo7jNbd0zmCJScDlzpdS53oMPNhNddjAquxoO5A0Q3yOu3aHEf/Fff21q
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: ZR6PR04MB566662
 
-On 9/3/26 17:53, Aryan Srivastava wrote:
-> Currently this parsing assumes the top-most bit of the register is
-> unset, allowing it to match against all 2bit numbers. In the case where
-> the top bit is set, the parsing fails as the extracted value is always a
-> 3 bit number.
-> 
-> AND the read value after the bit shift to ensure only 2 bits are being
-> parsed out.
-> 
-
-This isn't that easy. Bit 7 is for "relative mode" starting with
-PMBus v1.3. Relative mode is not currently supported by the driver,
-and ignoring the bit could potentially be fatal.
-
-A patch adding support for it was submitted a while ago.
-https://patchwork.kernel.org/project/linux-hwmon/patch/20240315151855.377627-2-lars.petter.mostad@appear.net/
-Unfortunately I never got to test it. This or something similar will
-be needed. Again, we can not just ignore the "relative mode" bit.
-
-Thanks,
-Guenter
-> Signed-off-by: Aryan Srivastava <aryan.srivastava@alliedtelesis.co.nz>
+On Fri, Sep 04, 2026 at 03:53:35PM +0900, Koichiro Den wrote:
+> The control-region link status is currently updated only by
+> COMMAND_LINK_UP and COMMAND_LINK_DOWN from the HOST. The virtual
+> NTB link callbacks are empty. Consequently, the HOST can see the link as
+> up before the VHOST has enabled it, and ntb_link_disable() on the VHOST
+> leaves LINK_STATUS_UP set without notifying the HOST.
+>
+> ntb_netdev can hide this device-level state bug because ntb_transport uses
+> a separate per-QP LINK_DOWN_FLAG message. Use ntb_tool to observe the
+> device link state directly:
+>
+> After bringing both sides up, start this waiter on the HOST:
+>
+>   echo N > /sys/kernel/debug/ntb_tool/<H-device>/peer0/link_event
+>
+> While it is blocked, disable the link on the VHOST:
+>
+>   echo N > /sys/kernel/debug/ntb_tool/<V-device>/link
+>
+> Without this patch, the second command succeeds, but peer0/link on the
+> HOST remains Y and the waiter does not return.
+>
+> Track HOST and VHOST enablement separately and report the effective link
+> as up only when both sides have enabled it, as pci-epf-ntb does for its
+> two physical hosts. Notify the other side only when this effective state
+> changes. Serialize the two paths because HOST commands run from delayed
+> work while the VHOST callbacks may run concurrently.
+>
+> With this patch, peer0/link on the HOST changes to N and the waiter
+> returns.
+>
+> Fixes: e35f56bb0330 ("PCI: endpoint: Support NTB transfer between RC and EP")
+> Signed-off-by: Koichiro Den <den@valinux.co.jp>
 > ---
->   drivers/hwmon/pmbus/pmbus.c      | 2 +-
->   drivers/hwmon/pmbus/pmbus_core.c | 2 +-
->   2 files changed, 2 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/hwmon/pmbus/pmbus.c b/drivers/hwmon/pmbus/pmbus.c
-> index 7a7eac90d62e..b629acbffbfb 100644
-> --- a/drivers/hwmon/pmbus/pmbus.c
-> +++ b/drivers/hwmon/pmbus/pmbus.c
-> @@ -121,7 +121,7 @@ static int pmbus_identify(struct i2c_client *client,
->   
->   		vout_mode = pmbus_read_byte_data(client, 0, PMBUS_VOUT_MODE);
->   		if (vout_mode >= 0 && vout_mode != 0xff) {
-> -			switch (vout_mode >> 5) {
-> +			switch ((vout_mode >> 5) & 0x3) {
->   			case 0:
->   				break;
->   			case 1:
-> diff --git a/drivers/hwmon/pmbus/pmbus_core.c b/drivers/hwmon/pmbus/pmbus_core.c
-> index 5f69c1420b4e..55391db5b414 100644
-> --- a/drivers/hwmon/pmbus/pmbus_core.c
-> +++ b/drivers/hwmon/pmbus/pmbus_core.c
-> @@ -2753,7 +2753,7 @@ static int pmbus_identify_common(struct i2c_client *client,
->   		 * Not all chips support the VOUT_MODE command,
->   		 * so a failure to read it is not an error.
->   		 */
-> -		switch (vout_mode >> 5) {
-> +		switch ((vout_mode >> 5) & 0x3) {
->   		case 0:	/* linear mode      */
->   			if (data->info->format[PSC_VOLTAGE_OUT] != linear)
->   				return -ENODEV;
+> Note: This is a standalone fix, but it conflicts with the following
+> series:
+>
+>   [PATCH v2 0/3] PCI: endpoint: Support hardware-owned MSI-X table and PBA
+>   https://lore.kernel.org/r/20260830151948.3547577-1-den@valinux.co.jp/
+>
+> That series still has pending issues and will need more work. I will base
+> v3 on this fix and make the new link-event IRQ honor the MSI/MSI-X
+> selection made by the HOST.
+> ---
+>  drivers/pci/endpoint/functions/pci-epf-vntb.c | 82 +++++++++++++++----
+>  1 file changed, 65 insertions(+), 17 deletions(-)
+>
+> diff --git a/drivers/pci/endpoint/functions/pci-epf-vntb.c b/drivers/pci/endpoint/functions/pci-epf-vntb.c
+> index fba65abfb6b2..51200223f53c 100644
+> --- a/drivers/pci/endpoint/functions/pci-epf-vntb.c
+> +++ b/drivers/pci/endpoint/functions/pci-epf-vntb.c
+> @@ -41,6 +41,7 @@
+>  #include <linux/delay.h>
+>  #include <linux/io.h>
+>  #include <linux/module.h>
+> +#include <linux/mutex.h>
+>  #include <linux/slab.h>
+>
+>  #include <linux/pci-ep-msi.h>
+> @@ -147,7 +148,10 @@ struct epf_ntb {
+>  	u16 vntb_pid;
+>  	u16 vntb_vid;
+>
+> -	bool linkup;
+> +	/* Serialize HOST and VHOST link state changes. */
+> +	struct mutex link_lock;
+> +	bool host_linkup;
+> +	bool vhost_linkup;
+>
+>  	/*
+>  	 * True when doorbells are interrupt-driven (MSI or embedded), false
+> @@ -178,24 +182,42 @@ static struct pci_epf_header epf_ntb_header = {
+>  	.interrupt_pin	= PCI_INTERRUPT_INTA,
+>  };
+>
+> +static void epf_ntb_update_link(struct epf_ntb *ntb)
+> +{
+> +	u16 link_status = READ_ONCE(ntb->reg->link_status);
+> +
+> +	/* The link is usable only after both sides have enabled it. */
+> +	if (ntb->host_linkup && ntb->vhost_linkup)
+> +		link_status |= LINK_STATUS_UP;
+> +	else
+> +		link_status &= ~LINK_STATUS_UP;
+> +
+> +	WRITE_ONCE(ntb->reg->link_status, link_status);
+> +}
+> +
+>  /**
+> - * epf_ntb_link_up() - Raise link_up interrupt to Virtual Host (VHOST)
+> + * epf_ntb_link_up() - Update the HOST link state
+>   * @ntb: NTB device that facilitates communication between HOST and VHOST
+> - * @link_up: true or false indicating Link is UP or Down
+> + * @link_up: true when the HOST has enabled the link
+>   *
+> - * Once NTB function in HOST invoke ntb_link_enable(),
+> - * this NTB function driver will trigger a link event to VHOST.
+> - *
+> - * Returns: Zero for success, or an error code in case of failure
+> + * Returns: Zero for success
+>   */
+>  static int epf_ntb_link_up(struct epf_ntb *ntb, bool link_up)
+>  {
+> -	if (link_up)
+> -		ntb->reg->link_status |= LINK_STATUS_UP;
+> -	else
+> -		ntb->reg->link_status &= ~LINK_STATUS_UP;
+> +	bool notify;
+> +
+> +	scoped_guard(mutex, &ntb->link_lock) {
+> +		notify = ntb->host_linkup != link_up && ntb->vhost_linkup;
+> +		ntb->host_linkup = link_up;
+> +		epf_ntb_update_link(ntb);
+> +	}
+> +
+> +	if (notify) {
+> +		/* Publish link status before completing the HOST command. */
+> +		dma_wmb();
+> +		ntb_link_event(&ntb->ntb);
+> +	}
+>
+> -	ntb_link_event(&ntb->ntb);
+>  	return 0;
+>  }
+>
+> @@ -320,7 +342,6 @@ static void epf_ntb_cmd_handler(struct work_struct *work)
+>  		ctrl->command_status = COMMAND_STATUS_OK;
+>  		break;
+>  	case COMMAND_LINK_UP:
+> -		ntb->linkup = true;
+>  		ret = epf_ntb_link_up(ntb, true);
+>  		if (ret < 0)
+>  			ctrl->command_status = COMMAND_STATUS_ERROR;
+> @@ -328,7 +349,6 @@ static void epf_ntb_cmd_handler(struct work_struct *work)
+>  			ctrl->command_status = COMMAND_STATUS_OK;
+>  		goto reset_handler;
+>  	case COMMAND_LINK_DOWN:
+> -		ntb->linkup = false;
+>  		ret = epf_ntb_link_up(ntb, false);
+>  		if (ret < 0)
+>  			ctrl->command_status = COMMAND_STATUS_ERROR;
+> @@ -1456,11 +1476,34 @@ static int vntb_epf_peer_mw_get_addr(struct ntb_dev *ndev, int idx,
+>  	return 0;
+>  }
+>
+> +static int vntb_epf_set_link(struct epf_ntb *ntb, bool link_up)
+> +{
+> +	struct pci_epf *epf = ntb->epf;
+> +	bool notify;
+> +	int ret;
+> +
+> +	scoped_guard(mutex, &ntb->link_lock) {
+> +		notify = ntb->vhost_linkup != link_up && ntb->host_linkup;
+> +		ntb->vhost_linkup = link_up;
+> +		epf_ntb_update_link(ntb);
+> +	}
+> +
+> +	if (!notify)
+> +		return 0;
+> +
+> +	ret = pci_epc_raise_irq(epf->epc, epf->func_no, epf->vfunc_no,
+> +				PCI_IRQ_MSI, EPF_IRQ_LINK + 1);
+> +	if (ret)
+> +		dev_err(&epf->dev, "Failed to raise link event IRQ: %d\n", ret);
+> +
+> +	return ret;
+> +}
+> +
+>  static int vntb_epf_link_enable(struct ntb_dev *ntb,
+>  			enum ntb_speed max_speed,
+>  			enum ntb_width max_width)
+>  {
+> -	return 0;
+> +	return vntb_epf_set_link(ntb_ndev(ntb), true);
+>  }
+>
+>  static u32 vntb_epf_spad_read(struct ntb_dev *ndev, int idx)
+> @@ -1620,7 +1663,7 @@ static u64 vntb_epf_link_is_up(struct ntb_dev *ndev,
+>  {
+>  	struct epf_ntb *ntb = ntb_ndev(ndev);
+>
+> -	return ntb->reg->link_status;
+> +	return READ_ONCE(ntb->reg->link_status);
+>  }
+>
+>  static int vntb_epf_db_clear_mask(struct ntb_dev *ndev, u64 db_bits)
+> @@ -1638,7 +1681,7 @@ static int vntb_epf_db_clear(struct ntb_dev *ndev, u64 db_bits)
+>
+>  static int vntb_epf_link_disable(struct ntb_dev *ntb)
+>  {
+> -	return 0;
+> +	return vntb_epf_set_link(ntb_ndev(ntb), false);
+>  }
+>
+>  static struct device *vntb_epf_get_dma_dev(struct ntb_dev *ndev)
+> @@ -1750,6 +1793,10 @@ static int epf_ntb_bind(struct pci_epf *epf)
+>  		goto err_bar_alloc;
+>  	}
+>
+> +	ntb->host_linkup = false;
+> +	ntb->vhost_linkup = false;
+> +	ntb->reg->link_status = 0;
+> +
+>  	ret = epf_ntb_epc_init(ntb);
+>  	if (ret) {
+>  		dev_err(dev, "Failed to initialize EPC\n");
+> @@ -1833,6 +1880,7 @@ static int epf_ntb_probe(struct pci_epf *epf,
+>  	epf->header = &epf_ntb_header;
+>  	ntb->epf = epf;
+>  	ntb->vbus_number = 0xff;
+> +	mutex_init(&ntb->link_lock);
 
+devm_mutex_init();
+
+others look good.
+
+Frank
+>
+>  	INIT_WORK(&ntb->peer_db_work, vntb_epf_peer_db_work);
+>  	disable_work(&ntb->peer_db_work);
+> --
+> 2.51.0
+>
