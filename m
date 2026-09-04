@@ -1,134 +1,130 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA6814A8438
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 14:13:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 376AE4A9D4B
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 14:14:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788531233; cv=none; b=M3ZX509bbTi+NFlygpJr88T66zzqRvxlki6+lYrdUpdLhAVqMAJulBUR7gjKfeUh+0/8QI4WxdKUPlMZ1EJI9T4h31E55K3BAaApu2QyFf359umrSCxnLBwfFX3iKOT93AkYlS2I+uQRNIyJNXj+OUNhyC4cYyTwcAUlbH8KINc=
+	t=1788531269; cv=none; b=redqUirQ7SL1gICcBPqWy1DcSFyqppGV5PQTRc7KrmOnUs4w8zGbWCImKSXVxbvmtpREMIDc0sxdeZhZb/tbo2aL+ymnrePqsoyYEKOMGqEID6g/6uSUSpzZj5vEBZP9ENiEJMytns6AFGeD8SJCTjjT4ZSACmDjirIDuz2TXbw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788531233; c=relaxed/simple;
-	bh=6exO+MBsAsOuoyElfrPHMdb5rvloABvsC7vvffTUGy4=;
-	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type; b=L3zyuW53iuNWOCaZPm1p3+J/YkBtMFgU/kZqzImWYvhqtgVQt+utyzp9ZQeiIYLLy+Xmbl2/wR+iHY2+cenrTSkBonShL5MSfUD1c/1/fTouvuUYGZxgXIbXC9hM+YCk2arUozaAlwB/hjoDbhUskELUwsNyW93LAxeC8LVc3xs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BfgE3IJM; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788531269; c=relaxed/simple;
+	bh=Nwh6qKR0V+XnjPWwHnDPQggNun+470bR9FEfgGFIKDs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ttFYjjxYIzlBolT1eq2tmb/2uHtEwWVHKLKQlnBCIP3K6p+eYEML6ymvGfHibtQBl0461lNK6SkiqLYoox5Gajoog4Wn19aUVKsg9baj7mGpQh+u8TN5MrwRY+euAeU74mSRZQwYcl4ZWpNdB44L+gnHU/YKfwnScF+EUSTtI1k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ojA3+U2v; arc=none smtp.client-ip=209.85.128.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BfgE3IJM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 370FF1F00A3E;
-	Fri,  4 Sep 2026 14:13:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788531231;
-	bh=ySOtHFi/YBNps+4BpB+816EO/4fG1JPnmOJ76kn+tTo=;
-	h=Date:From:To:Cc:In-Reply-To:References:Subject;
-	b=BfgE3IJMKOOVvAcKLN3u9RKRzjEMrSshuQwMdI3Ulu4SodGSJmNVJCzIRH8qw/BDs
-	 HdKKArISdi8Lv/yZGKWSoKZ2KhWwPzQpKhIw0TFJ0ygGei+z2IyT8H6yh3U98liBt4
-	 vo0J9gRyJGuQTTFPG/F8LjHvCTHi+ISlq90+CNsotOs7blMu4kx84GPvD4tP68IzZO
-	 K+9r7XeW65gfw44RL5DgO8JRUoRlGKjYfZzYNTHIUAAkbayp6H22yd6LRfmBnzHllW
-	 CsnI7/Hm0zbiLr3ZIIN4Net/v0SPAw7wSA2PxypeHvhWWCtqJcI4Qjf+k9AuIWH925
-	 z7JJATnAX8e+Q==
-Received: from phl-compute-10.internal (phl-compute-10.internal [10.202.2.50])
-	by mailfauth.phl.internal (Postfix) with ESMTP id 29AB7F40066;
-	Fri,  4 Sep 2026 10:13:50 -0400 (EDT)
-Received: from phl-imap-15 ([10.202.2.104])
-  by phl-compute-10.internal (MEProxy); Fri, 04 Sep 2026 10:13:50 -0400
-X-ME-Sender: <xms:HtKaasHi0ssJRTpj5v23xkaf8T_vvE_a0XTN3UuH1p9jtE_b0EoPxw>
-    <xme:HtKaagLG_oNWH7az727iZ7XB-R1GX7GxZsVC-R9YX-VtGq6lq41OnenESX5Ty-FsH
-    0YYZV0ZWq1ySr31UdVW4J0D1jQ2nt1Qd-_IZRxYAxECYj_uHT4JvQS6AA>
-X-ME-Proxy-Cause: dmFkZTF1d1qNF1wIFORUJTx3UI7czRiBK5SCUgzWJS3aDj/BZxCrRNt2/Jv7Icgp4gGouO
-    ZXSYbrKU7wWN6Vk/DLjf5c0qv8pBzRTjAD92gcuk85nGhR0OewgTx65L5Ue3KxAstUJmLy
-    tzujhu/FRFKp7fY8bOcYehNowe+fo24ZsdfqEjJYuvueQ7xqxSsyq5emGGNP4gKlbKdPNU
-    YP3HKzfnvQ6ocKUGd1IwsV1zdgrNMhaqQYhmlIrCZ1bwEwauaO3yhAtvtluyRf/9NFbFru
-    IG6a4Sxq336gWx4ZDVs82aQ0IQnaq0sIet89y3yVtIzE7Q3ZmlqnJTdbI5+SWvaEIeVihP
-    2tQswfNf5kBNZTm97ZB9K1kviCja/ozEPoO+y6vmA6DihR/3Of159teLNkxK7L02i7tJYu
-    CjPhXfUO4vekHwqs2RyJ/9xJD7uWoPu6kwXsErnes50qFyvkpLH+vqBzTttFt0E3VpTsHB
-    Sj8EEjPkUhYZjQoGC4HP45YpK9KhtPuSqTKZ6fmnYVo+tMlZ9BMTPA0EpGQNYYLH3196QX
-    IPoFNsZrUu0odILtxjAiTFn8IxRAU2sfi6ulj9SdeQLkNIHoFXT5+5oCKiGuf3ZzrBlbkN
-    gJ5OaIlzA+bvoPi3EnX4XYlNKbGEm6QSIUYL50qS51vQJm8g+W5XIcw1tyCA
-X-ME-Proxy: <xmx:HtKaasWo0A2bdtFXY_sZQieMNt1lsPMjNpoi3ysB2HdknaswKjR_tg>
-    <xmx:HtKaahCQttal8rKh8azuTbifIO908qi-GnzrT-nJRYdpFsSErODBNg>
-    <xmx:HtKaahGz8Og3QVcpi-5MuudxDVZLOE6zbAL3ci0EE2A4MGqO1xLptg>
-    <xmx:HtKaai5r1bhsJZozFMEC8zfJaEXfPRQf99d63bInD-pO3hUXP1VOeQ>
-    <xmx:HtKaankvOJfdbvCuVJ0aIXeToRbfOHOIOU8BThpSfNBdAj2hR-XuJ3d1>
-Feedback-ID: ifa6e4810:Fastmail
-Received: by mailuser.phl.internal (Postfix, from userid 501)
-	id 032F57811F0; Fri,  4 Sep 2026 10:13:50 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ojA3+U2v"
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-49b8eeb3ff2so9753915e9.2
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 07:14:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788531266; x=1789136066; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Ci5sK1VA/AFzZLFsaPwTu74VZ2hcdCO7IieHuFxzFO8=;
+        b=ojA3+U2vtBobsb0saxAsmVJOOvZ0tinQJcBN0YktONA64T/b7CefZwY4MdgDa3kyNp
+         KzMbJ4/+bOvLJEC4Flqfd+1YI4qeKtorHab+rkbQhmODA70xCc/l6t18wBuwQtpblH8X
+         wkS426Jyz17mqX9LXKqWcOcfSLScgA4dm94tRJmHdLZq2lnD0L9wZR5v0M91tqZVPG3w
+         f4F0FcwaRnSsWTHUAJU7cL7l9fRjqH0JovlEL+S+6LPn8dFBG0ozl/jzUg0H7B13huK/
+         8HdhJUNidMa7dSKcyMZqg3OY7b1tUIirVnJn0AmNvP7imn4jz3Z/KBb8u5MY0l+eTSVo
+         gGiA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788531266; x=1789136066;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=Ci5sK1VA/AFzZLFsaPwTu74VZ2hcdCO7IieHuFxzFO8=;
+        b=SW9vDMVd5OL8fM875hHSDuhdpOPASP02a3xMfPgT4tBIHw8WfWnQ+ejqf9aL8xrYdH
+         ajDXasfmRK3Zk5s6Cn7drsWUyGT3SD3Qsh7NahMd6tFQ/cunhtzTefnnH45+dq8kvMfX
+         SQjRfX6KLy/p3XRf3z2IG6uTBL9xQkqyUVbW4Lq+aRxD7Bjv0sZrkftysmIgBs1FUc7D
+         bnO39KyteZhOcUyeGsKhJyHALuwsinMT6bVi9QznKIXlb3T71kQ3mZEjwZ1ioty8vrPo
+         BYRqDjk+YSj8Sd77iIifE1sHD1Dhi/T5lTjKdjjGVcLlm9B1bU0Zwl/pPj/hMZf1Dq/5
+         h12g==
+X-Forwarded-Encrypted: i=1; AKwUvBwn0DIjODzXhbjik8PZISOnpifVX+LWn7Q6vVdmTsPLveVN5dECdLapXMpW5cWi4LaSNZdjxnauuEm6Gok=@vger.kernel.org
+X-Gm-Message-State: AFuF++lvHi7M1X+1EFTkJarPoscYJ8DK9KHwUkLfWFX1Pw04uCnzHHA4
+	nLPwthRhWeCvHkOZt3aPdYfaincQLnQ7pZVztCFnO8Q85GTIK+PSdlUR
+X-Gm-Gg: AYBFou1enjbXGM3nAtH2yP159BbdNtBIeqwOvRzsK+3NsT5nuWHir+esRNJIy0J8tm3
+	VAneVRiQwjDOIPlmsiJwuXdGq+1hXh2RwrJRGYTS+j7LSyRS8XB7pK6SFwh5qpy9dy/PfzjSCcV
+	591WgvnaQ9bHEZtgUlL2a5sC5p+34l4Tc0T98oRzZqdySI3NwozvX/KzINC2YqhEfx0WbSeo+63
+	/HdLtrUA+PadvgFb6yCNcTDwMUV/fbxUX90WiMNix/46oIfpIUHKz/eEW0yFKB+8ooA0pKwidGM
+	XU0E9Zp9UAR8ZcO8LYCSb21jv3Z5MwzDJCxc3gdCI4MbfN09Q/BxSTPc8H3xZQgzYb3W+BwxGqv
+	OcWxa8N8agRTHL7zqUswGiOeGsFJiCtA1biBF5e9JaUtjBp2MHiSIYoe4FidhhbOqJpu42WvEHX
+	iVV4OVhv9/FE2e4dOWPpT13+b1UGMMxcB5lUKfI9/2uGPlboPzAxLf9yxI61YhDoqEpp08eFX/e
+	QAJhBaLGIKLzg==
+X-Received: by 2002:a05:600c:138e:b0:49c:d818:8771 with SMTP id 5b1f17b1804b1-49cf8240ba5mr60011755e9.7.1788531265797;
+        Fri, 04 Sep 2026 07:14:25 -0700 (PDT)
+Received: from localhost (ip87-106-108-193.pbiaas.com. [87.106.108.193])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49d00031c95sm263125e9.11.2026.09.04.07.14.25
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 04 Sep 2026 07:14:25 -0700 (PDT)
+Date: Fri, 4 Sep 2026 16:14:09 +0200
+From: =?iso-8859-1?Q?G=FCnther?= Noack <gnoack3000@gmail.com>
+To: Ye Liu <ye.liu@linux.dev>
+Cc: Thomas Gleixner <tglx@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Ingo Molnar <mingo@redhat.com>, Will Deacon <will@kernel.org>,
+	Boqun Feng <boqun@kernel.org>,
+	"Paul E. McKenney" <paulmck@kernel.org>,
+	Frederic Weisbecker <frederic@kernel.org>,
+	Neeraj Upadhyay <neeraj.upadhyay@kernel.org>,
+	Joel Fernandes <joelagnelf@nvidia.com>,
+	Josh Triplett <josh@joshtriplett.org>,
+	Uladzislau Rezki <urezki@gmail.com>,
+	Juri Lelli <juri.lelli@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Josh Poimboeuf <jpoimboe@kernel.org>, Ye Liu <liuye@kylinos.cn>,
+	Pavel Machek <pavel@kernel.org>, Lance Yang <lance.yang@linux.dev>,
+	Petr Mladek <pmladek@suse.com>, Waiman Long <longman@redhat.com>,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	Lai Jiangshan <jiangshanlai@gmail.com>,
+	Zqiang <qiang.zhang@linux.dev>,
+	Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
+	Valentin Schneider <vschneid@redhat.com>,
+	K Prateek Nayak <kprateek.nayak@amd.com>,
+	Mark Rutland <mark.rutland@arm.com>, linux-kernel@vger.kernel.org,
+	linux-pm@vger.kernel.org, rcu@vger.kernel.org,
+	linux-trace-kernel@vger.kernel.org
+Subject: Re: [PATCH 5/8] kernel: convert process/thread iterators to
+ for_each_*_rcu
+Message-ID: <20260904.84b04948b1fc@gnoack.org>
+References: <20260904083001.553587-1-ye.liu@linux.dev>
+ <20260904083001.553587-6-ye.liu@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-ThreadId: AgpFG2YqzZmg
-Date: Fri, 04 Sep 2026 10:13:28 -0400
-From: "Chuck Lever" <cel@kernel.org>
-To: "Tim Menninger" <tmenninger@everpuredata.com>
-Cc: "Trond Myklebust" <trondmy@kernel.org>,
- "Anna Schumaker" <anna@kernel.org>, "Tejun Heo" <tj@kernel.org>,
- "Lai Jiangshan" <jiangshanlai@gmail.com>, linux-nfs@vger.kernel.org,
- linux-kernel@vger.kernel.org, "Eric Badger" <ebadger@everpuredata.com>,
- "Jon Curley" <jcurley@everpuredata.com>
-Message-Id: <336623df-ead4-4802-91c5-aa3e785f2971@slotpi15m67>
-In-Reply-To: <20260903235032.960219-1-tmenninger@everpuredata.com>
-References: <20260831-performance-v1-6-8d9fd9b67f96@kernel.org>
- <20260902204048.4100864-1-tmenninger@everpuredata.com>
- <dc18f84a-f53f-440f-b0cb-f27b44e090eb@app.fastmail.com>
- <20260903235032.960219-1-tmenninger@everpuredata.com>
-Subject: Re: [PATCH RFC 6/8] SUNRPC: Reduce rpciod workqueue contention
-Content-Type: text/plain
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260904083001.553587-6-ye.liu@linux.dev>
 
-On Thu, 3 Sep 2026, Tim Menninger wrote:
-> The v2 series behaves similarly insofar as some runs see ~15 GB/s and
-> other runs see ~45 GB/s, but the low-throughput state no longer appears
-> to be directly controlled by the rpciod affinity scope.
+On Fri, Sep 04, 2026 at 04:29:57PM +0800, Ye Liu wrote:
+> diff --git a/kernel/hung_task.c b/kernel/hung_task.c
+> index 6fcc94ce4ca9..76871f78497f 100644
+> --- a/kernel/hung_task.c
+> +++ b/kernel/hung_task.c
+> @@ -337,9 +336,7 @@ static void check_hung_uninterruptible_tasks(unsigned long timeout)
+>  			hung_task_info(t, timeout, this_round_count);
+>  		}
+>  	}
+> - unlock:
+> -	rcu_read_unlock();
+> -
+> +unlock:
+>  	if (!this_round_count)
+>  		return;
 
-Based on your follow-up, I have a theory about the bimodal performance
-behavior:
+The label name "unlock" is misleading now.  There is no further unlock
+happening after it any more.
 
-> The substantial completion traffic in these captures is on
-> 0000:2a:00.0. Its mlx5 completion IRQs are individually affinitized to
-> CPUs. For example:
->
->     mlx5_comp0   -> CPU 0
->     mlx5_comp1   -> CPU 1
->     ...
->     mlx5_comp23  -> CPU 23
->     mlx5_comp24  -> CPU 48
->     ...
->     mlx5_comp47  -> CPU 71
->     mlx5_comp48  -> CPU 24
->     ...
->     mlx5_comp62  -> CPU 38
-
-That is the mlx5 default spread. It fills the NIC's local NUMA node
-first, both SMT threads, and overflows the remaining vectors onto the
-other socket. If I read the numbering right, CPUs 0-23 and 48-71 are
-the two threads of the node that 0000:2a:00.0 hangs off, and comp48
-through comp62 land on the remote socket. Please confirm with:
-
-    cat /sys/bus/pci/devices/0000:2a:00.0/numa_node
-    lscpu | grep 'NUMA node'
-
-rpcrdma.ko allocates a send and a receive completion queue for each
-transport, and the RDMA core assigns the completion vector from a
-host-global round-robin counter. The completion vector is selected at
-transport connect time and is fixed for the life of the connection.
-
-Completions on a remote vector run the CQ handler, the RPC reply
-processing, and the rpciod wakeup all on the wrong socket. My
-suggestion is that you should pin the NIC's interrupt vectors to
-CPUs on the NIC's local node so that the round-robin cannot select
-a remote one. Something like the following, adjusted once you have
-confirmed the local CPU list:
-
-    for irq in $(awk '/mlx5_comp(4[89]|5[0-9]|6[0-2])@pci:0000:2a:00.0/ \
-                      { sub(":", "", $1); print $1 }' /proc/interrupts); do
-        echo 0-23,48-71 > /proc/irq/$irq/smp_affinity_list
-    done
-
-Keep irqbalance disabled, since it will undo the interrupt steering.
-
-
--- 
-Chuck Lever
+–Günther
