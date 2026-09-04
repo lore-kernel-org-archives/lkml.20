@@ -1,216 +1,121 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from sipsolutions.net (s3.sipsolutions.net [168.119.38.16])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5E6240D57B;
-	Fri,  4 Sep 2026 10:19:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F9113F074A;
+	Fri,  4 Sep 2026 10:19:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=168.119.38.16
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788517143; cv=none; b=GNBMz+3ZbjNgj3kc5L14ih7BPegT/K9NyFFyFei5ssMqMy+cObborc8c3dT7Pdql4v18UYaB2Qu0OIpwDMsjEII22XdXJyWqwguyG85j/zDwsGcnlou/oCzZF62qD9ekygCqJiO/Ffz9aulIGwzetLElgnEzvJvh8UFFK6JqySU=
+	t=1788517150; cv=none; b=XJVbIUdD1Ywv2eTKGuT2DORb/2qGtvCy1Tj+wrftR0TPI/j2DXahCJE2EVugHkXcG7ZeuEAAJsRZCsJd8biTZ4UOZGoCGNVaZodBwcty1VwII1QJNtnyCG2FP5u/gS+MS1+o/nsJd5Eq23ORDZUgbr15bcI3V9gpWnr4LtxvDHI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788517143; c=relaxed/simple;
-	bh=3yKkRSaVVBl4ZK+//zaXPd6AJLh4CsYenHmkG6VHFfM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=PYtqsHBKMJQIq+9kb21iMLEF3f9rFfBw6ZPnWn3DW1b8OEmNZecBDrmm/u/IRw/RYN4TNW8Csk1Wb+So0d++NxQ5g3zwdJhL4joZTUWd3Cbtdz0HSphyRWqFTwowi7uuQfyMQo1gxxPW+heNl93ooVxTJhFVpZl6wuseVTo7iOw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hgnDgwtm; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788517150; c=relaxed/simple;
+	bh=4wZ/5nCaJz3F5oP0m9Iecc3mS8QoHMXl4WMwrVGsOQI=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=BxwMZqBbU+kwiPdnQTXpmzVJet4D+ao8x0J7Qkgeg7cSKAN3pNzoQtd/T8xqL0RjlYRdRSf6a+Yu9YpO2GXxVZZLSmDrUk57JyIYdBsKbfZig1KOpIoT6sxt6vJA09tkGSCZ5sjU93bnQsO1GP0ADRxPX5w2CnrjM3E1NekS0qc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=permerror header.from=sipsolutions.net; spf=pass smtp.mailfrom=sipsolutions.net; dkim=pass (2048-bit key) header.d=sipsolutions.net header.i=@sipsolutions.net header.b=nPv+tcw+; arc=none smtp.client-ip=168.119.38.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=permerror header.from=sipsolutions.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sipsolutions.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hgnDgwtm"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 924521F00A3D;
-	Fri,  4 Sep 2026 10:18:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788517139;
-	bh=wZzk2gTe4yopE7nwhjxjLHyb9ULGgpT/4fu9Q1AhpHg=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=hgnDgwtmJBR4VQibi8Y3PH+fcWHKA3VdBX/ioaGUIUm2NI4B8jEmsyUh2IMKIxasD
-	 RpuXJlT71VriRm2nQWlR7xcpPrfp95m6N1j5OjeBpiQwNDREq5jsIkpIWqWrBGOoIm
-	 FYWmwH7QvgnVZdUtnv0K3lJAWzhUr0UpYhlzziYrR1AwWNIW2cVthYV8b0IU0uQ1EQ
-	 HI8WPSv1rIhdOn4Qpm/IEeur9GG/fP7ENXGlsI4wyj1YjqS+H33tF5kfPvEXNnv2+h
-	 ambldeLP5ADSEk45lgzDPyr05O3HSPByI5SI8YcDF3KamIzLg4kQhpeDGRSPYaGdtQ
-	 775XovWEAxRVw==
-From: "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>
-To: iommu@lists.linux.dev
-Cc: "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>,
-	Robin Murphy <robin.murphy@arm.com>,
-	Marek Szyprowski <m.szyprowski@samsung.com>,
-	Will Deacon <will@kernel.org>,
-	Marc Zyngier <maz@kernel.org>,
-	Steven Price <steven.price@arm.com>,
-	Suzuki K Poulose <Suzuki.Poulose@arm.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Jiri Pirko <jiri@resnulli.us>,
-	Jason Gunthorpe <jgg@ziepe.ca>,
-	Mostafa Saleh <smostafa@google.com>,
-	Petr Tesarik <ptesarik@suse.com>,
-	Alexey Kardashevskiy <aik@amd.com>,
-	Dan Williams <dan.j.williams@intel.com>,
-	Xu Yilun <yilun.xu@linux.intel.com>,
-	Madhavan Srinivasan <maddy@linux.ibm.com>,
-	Michael Ellerman <mpe@ellerman.id.au>,
-	Nicholas Piggin <npiggin@gmail.com>,
-	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
-	Alexander Gordeev <agordeev@linux.ibm.com>,
-	Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
-	Heiko Carstens <hca@linux.ibm.com>,
-	Vasily Gorbik <gor@linux.ibm.com>,
-	Christian Borntraeger <borntraeger@linux.ibm.com>,
-	Sven Schnelle <svens@linux.ibm.com>,
-	Russell King <linux@armlinux.org.uk>,
-	Huacai Chen <chenhuacai@kernel.org>,
-	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
-	Jiaxun Yang <jiaxun.yang@flygoat.com>,
-	Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	loongarch@lists.linux.dev,
-	linux-mips@vger.kernel.org,
-	linuxppc-dev@lists.ozlabs.org,
-	linux-riscv@lists.infradead.org,
-	linux-s390@vger.kernel.org,
-	x86@kernel.org
-Subject: [PATCH v3 2/4] dma: swiotlb: Centralize minimal pool sizing
-Date: Fri,  4 Sep 2026 15:48:08 +0530
-Message-ID: <20260904101810.1193505-3-aneesh.kumar@kernel.org>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260904101810.1193505-1-aneesh.kumar@kernel.org>
-References: <20260904101810.1193505-1-aneesh.kumar@kernel.org>
+	dkim=pass (2048-bit key) header.d=sipsolutions.net header.i=@sipsolutions.net header.b="nPv+tcw+"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=sipsolutions.net; s=mail; h=MIME-Version:Content-Transfer-Encoding:
+	Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender
+	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-To:
+	Resent-Cc:Resent-Message-ID; bh=68pzRNsYJaP2rQ3iuG1Ri7/9ObcoO7zaiD1kxsjnUpM=;
+	t=1788517146; x=1789726746; b=nPv+tcw+miVge+7agITL+l3mFwiU8MkWaeqvPdkl67W34lu
+	O9BHz/6XRW8HAhkt6r2mQXnQ5vpiFKObN8hFeoC5jXW5iKU9a1aYWq202aNY70LGkffgl0FGACHc6
+	enZjrACh3gJ4SW/4wHDKlPZaoFvBoC+aQJFzvs2GtjEd9rdL1WQ5AW+obMw6EyhVczxzknx5SUwRC
+	XIqJdANcFAeIHV4s9bM6WSGLu8Lo4ONXMfaTpNT/3dERMgV6unSYLgtup0bSRx6PrR+G35Dxf53tz
+	jQfvF9tshftOZPA+n8K2z8L0m6ZpaXb2ADB9LIit+U+73OdJuR/jg/g627ygrXow==;
+Received: by sipsolutions.net with esmtpsa (TLS1.3:ECDHE_X25519__ECDSA_SECP256R1_SHA256__AES_256_GCM:256)
+	(Exim 4.98.2)
+	(envelope-from <johannes@sipsolutions.net>)
+	id 1x2R0e-00000001KPO-24AE;
+	Fri, 04 Sep 2026 12:19:01 +0200
+Message-ID: <efe435ed41cd5943a3fd60901d90f2e2087495a4.camel@sipsolutions.net>
+Subject: Re: [PATCH wireless] wifi: mac80211: refuse to make a monitor
+ active when it has no queue
+From: Johannes Berg <johannes@sipsolutions.net>
+To: Devin Wittmayer <lucid_duck@justthetip.ca>
+Cc: Felix Fietkau <nbd@nbd.name>, linux-wireless@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Date: Fri, 04 Sep 2026 12:18:59 +0200
+In-Reply-To: <20260824003656.27049-1-lucid_duck@justthetip.ca>
+References: <20260824003656.27049-1-lucid_duck@justthetip.ca>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-malware-bazaar: not-scanned
 
-A default SWIOTLB pool used only for unaligned kmalloc bouncing can be
-smaller than one required for limited DMA addressing. Arm64 and RISC-V
-currently implement this sizing independently, using 1 MiB of SWIOTLB
-space per GiB of RAM.
+On Sun, 2026-08-23 at 17:36 -0700, Devin Wittmayer wrote:
+> commit 8105f9b8a887 ("mac80211: allocate TXQs for active monitor
+> interfaces") reserved a TXQ for active monitors, because drivers using TX=
+Q
+> expect every interface handed to them to have one.  It covers only
+> interfaces created active: vif.txq is assigned in ieee80211_txq_init()
+> from ieee80211_if_add(), and cannot be added later.
+>=20
+> MONITOR_FLAG_ACTIVE can still be set afterwards.
+> ieee80211_set_mon_options() refuses that while the interface is up, but
+> while it is down it just stores the flag.  Such an interface then reaches
+> the driver with vif->txq NULL, and ath9k resolves its multicast node's
+> tids through that pointer unchecked:
+>=20
+>   BUG: kernel NULL pointer dereference, address: 0000000000000066
+>   RIP: 0010:ath_tx_node_init+0x49/0x170 [ath9k]
+>    ath9k_add_interface+0x10c/0x140 [ath9k]
+>    drv_add_interface+0x54/0x250 [mac80211]
+>    ieee80211_do_open+0x32f/0x800 [mac80211]
+>=20
+> Two commands from a user with CAP_NET_ADMIN reach it:
+>=20
+>   iw dev <iface> set monitor active
+>   ip link set <iface> up
+>=20
+> The fault happens with RTNL held, so it is never released and all later
+> netlink operations block.
+>=20
+> Refuse the promotion when there is no queue to give.
+>=20
+> Fixes: 79af1f866193 ("mac80211: avoid allocating TXQs that won't be used"=
+)
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Devin Wittmayer <lucid_duck@justthetip.ca>
+> ---
+> Reproduces on mac80211_hwsim, no hardware needed: create a monitor, take =
+it
+> down, make it active and bring it up, and the driver gets a NULL vif->txq=
+.
+> One created with flags active gets a real one.  With the patch the first =
+is
+> refused, the second still works, and an interface created active, set to
+> none and back to active, is still accepted.  Same on an MT7922.
+>=20
+> Only drivers advertising NL80211_FEATURE_ACTIVE_MONITOR reach this, since
+> cfg80211 refuses the flag otherwise.  ath9k, mt7603 and mt76x02 deref
+> vif->txq unchecked.  mt7615, mt7915, mt7921, mt7925 and mt7996 test it
+> first.
+>=20
+> Where it faults today, refusing costs nothing.  On the drivers that check=
+,
+> I could not test whether a promoted interface actually works, so that is
+> where a regression would show.
+>=20
+> Reserving a queue for every monitor instead would make the promotion work
+> rather than refuse it, and would also cover a passive monitor reaching th=
+e
+> driver under NO_VIRTUAL_MONITOR.  That undoes 79af1f866193 deliberately, =
+so
+> I did not assume it.  Happy to write it if you prefer.
 
-The SWIOTLB core now identifies this case with SWIOTLB_POOL_MINIMAL.
-Size that policy in swiotlb_adjust_pool_size() and remove the
-architecture-specific adjustments.
+I really gain nothing from reading LLM output all day long.
 
-Explicit swiotlb= sizing remains unchanged because swiotlb_adjust_size()
-preserves a user-configured size.
+The fix seems legit, but please don't let LLMs write commit messages and
+comments.
 
-NOTE: We lose the RISC-V SWIOTLB_ANY setting in this patch. It will be
-reinstated in a follow-up patch where we make SWIOTLB_ANY redundant.
-
-Signed-off-by: Aneesh Kumar K.V (Arm) <aneesh.kumar@kernel.org>
----
- arch/arm64/mm/init.c | 11 -----------
- arch/riscv/mm/init.c | 20 --------------------
- kernel/dma/swiotlb.c | 18 ++++++++++++++++--
- 3 files changed, 16 insertions(+), 33 deletions(-)
-
-diff --git a/arch/arm64/mm/init.c b/arch/arm64/mm/init.c
-index 7d51fb5f5a71..95075b5c8207 100644
---- a/arch/arm64/mm/init.c
-+++ b/arch/arm64/mm/init.c
-@@ -340,17 +340,6 @@ void __init arch_mm_preinit(void)
- {
- 	unsigned int flags = SWIOTLB_VERBOSE;
- 
--	if (max_pfn <= PFN_DOWN(arm64_dma_phys_limit)) {
--		/*
--		 * If no bouncing needed for ZONE_DMA, reduce the swiotlb
--		 * buffer for kmalloc() bouncing to 1MB per 1GB of RAM.
--		 */
--		unsigned long size =
--			DIV_ROUND_UP(memblock_phys_mem_size(), 1024);
--
--		swiotlb_adjust_size(min(swiotlb_size_or_default(), size));
--	}
--
- 	if (max_pfn > PFN_DOWN(arm64_dma_phys_limit))
- 		flags |= SWIOTLB_INIT_ADDRESSING_LIMIT;
- 
-diff --git a/arch/riscv/mm/init.c b/arch/riscv/mm/init.c
-index fc1bec090db1..7921ca9c58cd 100644
---- a/arch/riscv/mm/init.c
-+++ b/arch/riscv/mm/init.c
-@@ -165,31 +165,11 @@ static void print_vm_layout(void) { }
- 
- void __init arch_mm_preinit(void)
- {
--	bool swiotlb = max_pfn > PFN_DOWN(dma32_phys_limit) &&
--		       memblock_start_of_DRAM() < dma32_phys_limit;
- 	unsigned int swiotlb_flags = SWIOTLB_VERBOSE;
- #ifdef CONFIG_FLATMEM
- 	BUG_ON(!mem_map);
- #endif /* CONFIG_FLATMEM */
- 
--	if (IS_ENABLED(CONFIG_DMA_BOUNCE_UNALIGNED_KMALLOC) && !swiotlb &&
--	    dma_cache_alignment != 1) {
--		/*
--		 * No 32-bit DMA bouncing needed (either all DRAM is within
--		 * the 32-bit limit, or it all starts above it), but
--		 * kmalloc() buffers whose sizes are not cache-line-aligned
--		 * still require bouncing for non-coherent DMA.  Use
--		 * SWIOTLB_ANY so that the buffer can be allocated from high
--		 * memory when DRAM starts above dma32_phys_limit.  Allocate
--		 * ~1 MB per 1 GB of RAM.
--		 */
--		unsigned long size =
--			DIV_ROUND_UP(memblock_phys_mem_size(), 1024);
--		swiotlb_adjust_size(min(swiotlb_size_or_default(), size));
--		swiotlb = true;
--		swiotlb_flags |= SWIOTLB_ANY;
--	}
--
- 	if ((max_pfn > PFN_DOWN(dma32_phys_limit)) &&
- 	     (memblock_start_of_DRAM() < dma32_phys_limit))
- 		swiotlb_flags |= SWIOTLB_INIT_ADDRESSING_LIMIT;
-diff --git a/kernel/dma/swiotlb.c b/kernel/dma/swiotlb.c
-index aa19e81ae544..90e0bfd0715c 100644
---- a/kernel/dma/swiotlb.c
-+++ b/kernel/dma/swiotlb.c
-@@ -304,6 +304,11 @@ unsigned long swiotlb_size_or_default(void)
- 	return default_nslabs << IO_TLB_SHIFT;
- }
- 
-+static bool __init swiotlb_default_size_changed(void)
-+{
-+	return default_nslabs != IO_TLB_DEFAULT_SIZE >> IO_TLB_SHIFT;
-+}
-+
- void __init swiotlb_adjust_size(unsigned long size)
- {
- 	/*
-@@ -311,7 +316,7 @@ void __init swiotlb_adjust_size(unsigned long size)
- 	 * architectures such as those supporting memory encryption to
- 	 * adjust/expand SWIOTLB size for their use.
- 	 */
--	if (default_nslabs != IO_TLB_DEFAULT_SIZE >> IO_TLB_SHIFT)
-+	if (swiotlb_default_size_changed())
- 		return;
- 
- 	default_nslabs = swiotlb_aligned_nslabs(size);
-@@ -476,9 +481,18 @@ static bool __init swiotlb_kmalloc_needs_bounce(void)
- static void __init
- swiotlb_adjust_pool_size(enum swiotlb_pool_policy policy)
- {
-+	if (swiotlb_default_size_changed())
-+		return;
-+
- 	switch (policy) {
--	case SWIOTLB_POOL_MINIMAL:
-+	case SWIOTLB_POOL_MINIMAL: {
-+		unsigned long size;
-+
-+		/* Use 1MB per 1GB of RAM for kmalloc() bouncing. */
-+		size = DIV_ROUND_UP(memblock_phys_mem_size(), 1024);
-+		swiotlb_adjust_size(min(swiotlb_size_or_default(), size));
- 		break;
-+	}
- 	case SWIOTLB_POOL_CC_GUEST:
- 		break;
- 	case SWIOTLB_POOL_NONE:
--- 
-2.43.0
-
+johannes
