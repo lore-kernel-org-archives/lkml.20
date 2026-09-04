@@ -1,93 +1,247 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com [165.173.180.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2D84481257;
-	Fri,  4 Sep 2026 20:34:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788554103; cv=none; b=Bdz0kzQG/xaTgrY8l+bLlqx6vOs3fh5Xii38h6H4l/k0Rr4Hn48cUxOTgDgD1JBrR+eTzUco9jDbd9EpFK5ISMJw9EoLJKuaUCVIbvpMNpWaBELFjELdAXMMudJR8IqfSuVnjeUh2r2TUtsc8weUYhFW8zglLFfLMrxaRyP6FSY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788554103; c=relaxed/simple;
-	bh=XHedAeEXwGd81QJWyB6iT25X0dTE3uL/aSzipJyBSiE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=clMZZd3Ndo6PnkvV09HdZB8RjDX5UA5DHsKTtI5TkmhMbu/buNcOyecRKgd4X6bXR/uWvWQgmy+3neTUq9qOC+Jul33A8o4Wg3dPse3VpFD5SvBUBVBbgrO38WCDOHPfD3YK6gHIZMfU187E5Ff6RYWDWny12PsrtUInkEsUwGY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=qEtAqQDE; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F9A942A175;
+	Fri,  4 Sep 2026 20:36:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.180.11
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788554203; cv=pass; b=Gl42yXEGUw601Yd2oTtWdrR443AnPrji4++ATk5HL2V0bWhN4b6MQyd8YV7SvAgccWLj6a3S/O435KilhQCRwzvD3xqKnCwZcC6Gq9+BX4moocxgfk4Gv1MiSAsT2Zq0eeIYvWPSaIv6b1934OTZ4xpLFy7LL+7G6PSP/D+taY0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788554203; c=relaxed/simple;
+	bh=2hEIM4o9WLwytrwocvPtd+1Mh0/U43reX0EOp8iz2qw=;
+	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
+	 Message-Id:References:To; b=XCH2v62Ov66ovDVdwVmV0GGNfkixeq5t0IPk97XfEZVZLF670f8VlYfBNo+MAzRqPRqqgdcsVAin7X16tb4Akk7pTabo/c0xW+ZUzc1AHIEvZnfsUiE9NmAEAykmQQFZj6b4VtaC7TOhWuDKKBud4IkfRU8gEdMHqSwsbOZaGBU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=daniel.almeida@collabora.com header.b=AH0QIu/1; arc=pass smtp.client-ip=165.173.180.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="qEtAqQDE"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=rqNcMlH8o98wb+BIZdRuGcY3aOxf7W0cZQypsyRwjdU=; b=qEtAqQDE3F0xWrtVdVZTb9sYgM
-	2oZobmJLx6AmyNu4af3S4ZMq+GvzGLqnVRKX8HyozkyUpJHCYzpO7HeBD8h6y3eFH0iBjW7XWXVRF
-	MnzTELHNNGZ5eK+fLEylkTu3QGRK/oou7gOWvTV5yjDcddq+CP9LhPp4WGvrpMDCs0Yg=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1x2ac7-00350F-AW; Fri, 04 Sep 2026 22:34:19 +0200
-Date: Fri, 4 Sep 2026 22:34:19 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Vladislav Karmanov <vladislav.karmanov.dev@gmail.com>
-Cc: netdev@vger.kernel.org, daniel@makrotopia.org, dqfext@gmail.com,
-	SkyLake.Huang@mediatek.com, hkallweit1@gmail.com,
-	linux@armlinux.org.uk, davem@davemloft.net, edumazet@google.com,
-	kuba@kernel.org, pabeni@redhat.com, matthias.bgg@gmail.com,
-	angelogioacchino.delregno@collabora.com, chester.a.unal@arinc9.com,
-	sean.wang@mediatek.com, olteanv@gmail.com, yangshiji66@outlook.com,
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org
-Subject: Re: [PATCH net v3] net: phy: mediatek-ge: disable EEE on the MT7530
- PHY
-Message-ID: <63a43d4c-f09f-4ca2-9003-7010ba045333@lunn.ch>
-References: <20260904202800.3410838-1-vladislav.karmanov.dev@gmail.com>
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=daniel.almeida@collabora.com header.b="AH0QIu/1"
+ARC-Seal: i=1; a=rsa-sha256; t=1788554138; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=Q+Tl8OjiLNj2TOW2Ca6y3oZuXXVaOox6E2aQEMQ1K7y7cw74k8SXkDyq5Pt+sN2spNCvnD0zAgWzSUYkAovbvGfz1+Nxw3/xHt6F8SVn1AtVa4chNQHKHKk6PcX5a5RjDjCXZXTWAneIURl8ix2O8eCUxs1ucTYStEhoUY0dZ68=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1788554138; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=I0k6Kz+SdWEmoW6Od/eEawvKt15zwDmptkDj5bWnB04=; 
+	b=CDWqeX5iKsGcCfsVo7Pf3drLz6TbWQFUtzIRXzLyFBYpMCWnGX2EMbJW0G8C7E2KANShckrKKsxHh0ZmVxlYSpz/ggWGJqpkZiust0xZGTbuabNPNLK0j5mE9d1cFQnPY9gsnS293a+Hz19vI2CVYhy9HsUPSyrqelDlHxs7GL4=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=daniel.almeida@collabora.com;
+	dmarc=pass header.from=<daniel.almeida@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1788554138;
+	s=zohomail; d=collabora.com; i=daniel.almeida@collabora.com;
+	h=Content-Type:Mime-Version:Subject:Subject:From:From:In-Reply-To:Date:Date:Cc:Cc:Content-Transfer-Encoding:Message-Id:Message-Id:To:To:Reply-To;
+	bh=I0k6Kz+SdWEmoW6Od/eEawvKt15zwDmptkDj5bWnB04=;
+	b=AH0QIu/1ROj5KivqKZVlwT/Pt2CtnypTOH5IjKniTcu3h5r8w01eUCoYvhYWBOm+
+	ucs79wglBotCytiwi1iYfe0ipANZ3z0kmh/lJPoSwMlyOKT5PvFftvWVmTm8HkNkUXU
+	XcnLeNrbeCTFDoUyws4j5CiyjQOV+v5DvXHFRLoY=
+Received: by mx.zohomail.com with SMTPS id 1788554135928568.4108043928953;
+	Fri, 4 Sep 2026 13:35:35 -0700 (PDT)
+Content-Type: text/plain;
+	charset=us-ascii
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260904202800.3410838-1-vladislav.karmanov.dev@gmail.com>
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3826.700.81\))
+Subject: Re: [PATCH 9/9] drm/tyr: add BO-related ioctls
+From: Daniel Almeida <daniel.almeida@collabora.com>
+In-Reply-To: <20260902-tyr-ioctls-v1-9-e0fdbf8bd108@kylinos.cn>
+Date: Fri, 4 Sep 2026 17:35:16 -0300
+Cc: rust-for-linux@vger.kernel.org,
+ Miguel Ojeda <ojeda@kernel.org>,
+ Boqun Feng <boqun@kernel.org>,
+ Gary Guo <gary@garyguo.net>,
+ =?utf-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>,
+ Benno Lossin <lossin@kernel.org>,
+ Andreas Hindborg <a.hindborg@kernel.org>,
+ Alice Ryhl <aliceryhl@google.com>,
+ Trevor Gross <tmgross@umich.edu>,
+ Danilo Krummrich <dakr@kernel.org>,
+ Tamir Duberstein <tamird@kernel.org>,
+ Alexandre Courbot <acourbot@nvidia.com>,
+ =?utf-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
+ Lorenzo Stoakes <ljs@kernel.org>,
+ "Liam R. Howlett" <liam@infradead.org>,
+ Lyude Paul <lyude@redhat.com>,
+ David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ linux-kernel@vger.kernel.org,
+ linux-mm@kvack.org,
+ dri-devel@lists.freedesktop.org,
+ Alvin Sun <alvin.sun@linux.dev>
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <FDEDAB25-FBF2-438C-9C1C-F72DC851E88C@collabora.com>
+References: <20260902-tyr-ioctls-v1-0-e0fdbf8bd108@kylinos.cn>
+ <20260902-tyr-ioctls-v1-9-e0fdbf8bd108@kylinos.cn>
+To: sunke@kylinos.cn
+X-Mailer: Apple Mail (2.3826.700.81)
+X-ZohoMailClient: External
 
-On Fri, Sep 04, 2026 at 11:28:00PM +0300, Vladislav Karmanov wrote:
-> The MT7530 internal GE PHY advertises EEE by hardware default, but its
-> EEE support is defective: with EEE advertised, some link partners fail
-> to establish a stable link. On a 2-pair (4-wire) cable where both ends
-> advertise gigabit, 1000BASE-T training cannot succeed, and instead of
-> falling back to 100 Mbps the port loops, so no link or DHCP lease is
-> ever obtained. MediaTek confirms the hardware is the root cause (Landen
-> Chao, 2021): "EEE of the 10-year-old MT7530 internal gephy has many IOT
-> problems, so it is recommended to disable its EEE."
-> 
-> mtk_gephy_config_init() used to clear the EEE advertisement early, but
-> commit af3b4b0e59de ("net: phy: mediatek-ge: do not disable EEE
-> advertisement") removed that on the rationale that the DSA subdriver
-> already performs an early disable. That holds for MT7531, whose
-> mt7531_setup() clears MDIO_AN_EEE_ADV on each switch PHY, but not for
-> the MT7530 PHY: neither the MT7621 integrated switch nor the dedicated
-> MT7530 IC ever had such a loop, so removing it left those boards
-> without any working early EEE disable and the link flapping came back.
-> 
-> Since the broken hardware is the PHY, fix it in the PHY driver so it
-> covers all users of this PHY, integrated in a switch or standalone:
-> 
->   - clear MDIO_AN_EEE_ADV in probe(), before anything can negotiate
->     EEE with the link partner;
->   - call phy_disable_eee() so phylib does not write the advertisement
->     back on later renegotiations and userspace cannot re-enable EEE.
-> 
-> Auto-negotiation then falls back to a stable 100 Mbps link instead of
-> looping at gigabit. Tested on ASUS RT-AX53U (MT7621): with a 2-pair
-> cable on the WAN port, a single clean 100 Mbps link comes up and a
-> DHCP lease is obtained, where the unpatched driver loops.
-> 
-> Fixes: af3b4b0e59de ("net: phy: mediatek-ge: do not disable EEE advertisement")
-> Suggested-by: Andrew Lunn <andrew@lunn.ch>
-> Signed-off-by: Vladislav Karmanov <vladislav.karmanov.dev@gmail.com>
 
-Reviewed-by: Andrew Lunn <andrew@lunn.ch>
 
-    Andrew
+> On 1 Sep 2026, at 13:09, Ke Sun via B4 Relay =
+<devnull+sunke.kylinos.cn@kernel.org> wrote:
+>=20
+> From: Alvin Sun <alvin.sun@linux.dev>
+>=20
+> Expose buffer creation and BO mmap offset retrieval.
+>=20
+> - BO_CREATE page-aligns the size and returns a handle with
+>  write-combined mapping.
+> - BO_MMAP_OFFSET provides the offset for the DRM generic mmap
+>  path, rejecting NO_MMAP objects and non-zero pad.
+>=20
+> Signed-off-by: Alvin Sun <alvin.sun@linux.dev>
+
+Same comment as the previous patches, please write a few
+more things here about why the changes are needed.
+
+With that addressed,=20
+
+Reviewed-by: Daniel Almeida <daniel.almeida@collabora.com>
+
+> ---
+> drivers/gpu/drm/tyr/driver.rs |  2 ++
+> drivers/gpu/drm/tyr/file.rs   | 70 =
++++++++++++++++++++++++++++++++++++++++++++
+> drivers/gpu/drm/tyr/gem.rs    |  7 +++++
+> 3 files changed, 79 insertions(+)
+>=20
+> diff --git a/drivers/gpu/drm/tyr/driver.rs =
+b/drivers/gpu/drm/tyr/driver.rs
+> index b3145526ada06..fc8d11c9ba1ca 100644
+> --- a/drivers/gpu/drm/tyr/driver.rs
+> +++ b/drivers/gpu/drm/tyr/driver.rs
+> @@ -224,6 +224,8 @@ impl drm::Driver for TyrDrmDriver {
+>         (PANTHOR_VM_DESTROY, drm_panthor_vm_destroy, =
+ioctl::RENDER_ALLOW, TyrDrmFileData::vm_destroy),
+>         (PANTHOR_VM_BIND, drm_panthor_vm_bind, ioctl::RENDER_ALLOW, =
+TyrDrmFileData::vm_bind),
+>         (PANTHOR_VM_GET_STATE, drm_panthor_vm_get_state, =
+ioctl::RENDER_ALLOW, TyrDrmFileData::vm_get_state),
+> +        (PANTHOR_BO_CREATE, drm_panthor_bo_create, =
+ioctl::RENDER_ALLOW, TyrDrmFileData::bo_create),
+> +        (PANTHOR_BO_MMAP_OFFSET, drm_panthor_bo_mmap_offset, =
+ioctl::RENDER_ALLOW, TyrDrmFileData::bo_mmap_offset),
+>     }
+> }
+>=20
+> diff --git a/drivers/gpu/drm/tyr/file.rs b/drivers/gpu/drm/tyr/file.rs
+> index 157bc40e1cac4..16abf2968299c 100644
+> --- a/drivers/gpu/drm/tyr/file.rs
+> +++ b/drivers/gpu/drm/tyr/file.rs
+> @@ -252,6 +252,76 @@ pub(crate) fn vm_get_state(
+>             Ok(0)
+>         })
+>     }
+> +
+> +    pub(crate) fn bo_create(
+> +        ddev: &TyrDrmDevice<Registered>,
+> +        _reg_data: &TyrDrmRegistrationData<'_>,
+> +        bocreate: &mut uapi::drm_panthor_bo_create,
+> +        file: &TyrDrmFile,
+> +    ) -> Result<u32> {
+> +        if bocreate.size =3D=3D 0
+> +            || bocreate.pad !=3D 0
+> +            || bocreate.flags & =
+!uapi::drm_panthor_bo_flags_DRM_PANTHOR_BO_NO_MMAP !=3D 0
+> +            || bocreate.exclusive_vm_id !=3D 0
+> +        {
+> +            dev_err!(
+> +                ddev.as_ref(),
+> +                "Invalid BO_CREATE params: size=3D{}, pad=3D{}, =
+flags=3D{:#x}, exclusive_vm_id=3D{}\n",
+> +                bocreate.size,
+> +                bocreate.pad,
+> +                bocreate.flags,
+> +                bocreate.exclusive_vm_id
+> +            );
+> +            return Err(EINVAL);
+> +        }
+> +
+> +        let size =3D usize::try_from(bocreate.size).map_err(|_| {
+> +            dev_err!(
+> +                ddev.as_ref(),
+> +                "BO_CREATE size {:#x} too large\n",
+> +                bocreate.size
+> +            );
+> +            EINVAL
+> +        })?;
+> +        let bo =3D crate::gem::new_object(ddev, size, =
+bocreate.flags)?;
+> +        bocreate.handle =3D bo.create_handle(file)?;
+> +        bocreate.size =3D bo.size() as u64;
+> +
+> +        Ok(0)
+> +    }
+> +
+> +    pub(crate) fn bo_mmap_offset(
+> +        ddev: &TyrDrmDevice<Registered>,
+> +        _reg_data: &TyrDrmRegistrationData<'_>,
+> +        bommap: &mut uapi::drm_panthor_bo_mmap_offset,
+> +        file: &TyrDrmFile,
+> +    ) -> Result<u32> {
+> +        if bommap.pad !=3D 0 {
+> +            dev_err!(
+> +                ddev.as_ref(),
+> +                "BO mmap offset pad not zero: {}\n",
+> +                bommap.pad
+> +            );
+> +            return Err(EINVAL);
+> +        }
+> +
+> +        let bo =3D crate::gem::lookup_handle(file, =
+bommap.handle).inspect_err(|_| {
+> +            dev_err!(ddev.as_ref(), "Invalid BO mmap handle: {}\n", =
+bommap.handle);
+> +        })?;
+> +        if bo.create_flags() & =
+uapi::drm_panthor_bo_flags_DRM_PANTHOR_BO_NO_MMAP !=3D 0 {
+> +            dev_err!(ddev.as_ref(), "BO mmap offset on NO_MMAP =
+object\n");
+> +            return Err(EPERM);
+> +        }
+> +        bommap.offset =3D bo.create_mmap_offset().inspect_err(|_| {
+> +            dev_err!(
+> +                ddev.as_ref(),
+> +                "Failed to create mmap offset for handle {}\n",
+> +                bommap.handle
+> +            );
+> +        })?;
+> +
+> +        Ok(0)
+> +    }
+> }
+>=20
+> fn vm_bind_exec_op(vm: &Vm<'_>, file: &TyrDrmFile, op: &VmBindOp) -> =
+Result {
+> diff --git a/drivers/gpu/drm/tyr/gem.rs b/drivers/gpu/drm/tyr/gem.rs
+> index d9ddcb287f52b..f404139f54f32 100644
+> --- a/drivers/gpu/drm/tyr/gem.rs
+> +++ b/drivers/gpu/drm/tyr/gem.rs
+> @@ -38,6 +38,13 @@ pub(crate) struct BoData {
+>     flags: u32,
+> }
+>=20
+> +impl BoData {
+> +    /// Returns the flags the BO was created with.
+> +    pub(crate) fn create_flags(&self) -> u32 {
+
+I would prefer flags() instead of create_flags(), which reads a bit more =
+like a constructor.
+
+> +        self.flags
+> +    }
+> +}
+> +
+> /// Provides a way to pass arguments when creating BoData
+> /// as required by the gem::DriverObject trait.
+> pub(crate) struct BoCreateArgs {
+>=20
+> --=20
+> 2.43.0
+>=20
+>=20
+>=20
+
