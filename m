@@ -1,173 +1,213 @@
-Received: from AM0PR02CU008.outbound.protection.outlook.com (mail-westeuropeazon11013000.outbound.protection.outlook.com [52.101.72.0])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com [209.85.214.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F1D74CCDE5;
-	Fri,  4 Sep 2026 02:04:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.72.0
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788487463; cv=fail; b=h5TSaO/ayhVcGM8zAzcyttaTyVWk1C7I8NmKk4idas/r0Dq47zSiVH76IDfmN19yrtHZ/JVZnPcqs9CqNaYkqciCUe4XKma3AY57tBeiKtQvWnWcrH9vCH8oJQWeoJZ2I0xD9DkQQlhyqFvxrr82/f2ijHM+tQ3MT81JylNT4s8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788487463; c=relaxed/simple;
-	bh=fO6LJF5MUDespE5U41KtOeG1rk4NtDkLStaClUBvADg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=m28Ss34oENZVoCDNP1QX66QmXvKfYUCN/NKK5nmxgnvASPrOw0XETdLDEFUGRM2r1Ph14ikElfx/qWwB16wBvAWwZnz2NiVsEn5rEPTJMXgTDjq8cz3/BY/bdTofTTIQmPPnEzlrCNYYuPvbJg03oKPwokXXYqLCT495uFHzdUM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=CqPzUiHW; arc=fail smtp.client-ip=52.101.72.0
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1166233949
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 02:08:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.170
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788487702; cv=none; b=VvjeXas+MVcS4wuRS2o+OwE9QEVoNTH88XrpM3DeBlyDCae8ps7UpATjKTJzEaP+K/f1ioB5a2gWrX9Loi2aji8BTydLE/4QOcx3Sp1SU3SZG3h1L9+mPslym8PUy7EJ5grS+pxg6Jgwe5FLYVT3r0m7T6Ha1nxbB3H84efd15c=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788487702; c=relaxed/simple;
+	bh=2NlZnuayVM4v/82tyMrXP5whnRgkRRV5PNyh6IVCqZo=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=m0szt2UmTnMctb3sbSDdRfvv9u7KQf3thfazpAgj73/1bOO1mzO1GAnmPg0RsHdpCFE2lzG9QZ0BkRcFbBqJ12WgnjTf+uAq8TCdPNqmiAlz72S+i3ReuyS4qmW6zWH7sAJZgIZRqV8ACDAlSmmevATSmOqLdOMBpFmR3Sc9ycw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lsk9+1/0; arc=none smtp.client-ip=209.85.214.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="CqPzUiHW"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=FnpqrqZ7Tf1Dkg/rh8yVZM6rSZZG8CC7gQTv9fwXiEF6r3NB2+gZ1OGpa6oZ0x0IpRJ/8sRKoGpZ76A6+GeMEDnz/zOg99z9kdWtlhfRzeyDNKhL6bDsmuWEkuxcYpzaXqez1sIZFfMEiyjykJXUEcFtZUa1wY/3f5WLjmStI4H+IA3ZaIcte/kAGIeY7JrDg8I2cqo9BBHGXXKG1bWDUW1z/sb25JiV2MZB2Qpf7G6KNY/Wp5cHLjcp7fiZqYKaNhsBpi1MpMTWwVvTD8/1Xp7L/KT1f05gMOVPuocJbmxCM26v2Y+LT5pOt1YjT9APqvxJVIyFHNnUkShcnhpS0g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=aajhPoVJL5HLsqnp5i32ArNnwZyUwABX1WXXeggOL+s=;
- b=K3k3UA+riQvyi5fw5YIla1S4FROyAWHDglU9xwvP/Th/INVaXjq4z7IWkp3WgKIWW2aYldMcBiryLPmsE6rurXV+YzyvRshZQuqG7lGvExYaOL3PiAgM6xDHDolkrP48StEGPJ6YjldVXQlWZKwR9tEWqgHKj2wERf+rPZic74yLK0kMeWTPp0Zor9050Xq1x6zwQCkA40WcjbAH4YQ6crTCu02MTysDY9xcaGzrL80hKPfkKilogms7mVGewzTqWvqv6JOJPL44AzGXlYhw9nJdkr/5nuRcNNoVqWh3XqerIpl6xWjf0Yllkac8Qf6ttBKhUa1oK50h2yr2nZcZoA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=aajhPoVJL5HLsqnp5i32ArNnwZyUwABX1WXXeggOL+s=;
- b=CqPzUiHWgyCnmPS+52aBnL3CY6+t0FgtFqK9R/QYNcc39kQSw9VR39i/dDvKMHjQQagFydFJalAmPMvjLJVJ+XXF4dFq5VBvljqBduTEamioWfzjGfW9DLmCTmpWHK5SOPStQVnbwKSiJiDHs4gBcWy4oOrLDd97x8DAZEnmdz1blPLM0LGb4OgmOHjDGtVvhrbfEdLJJCFjb/V+U/rJ2dFYAf+vb2fvGe6paC72QtMbnORNpV7iXAFgrvE45i/zW4Y8Ba43GrXAcgvGMbpIu277ymJyPlxc2AkJJVHZAm8nTkKDwvuQCJo0ar5zKseztYOK2zryyncPBLJlLQsS4A==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from AM8PR04MB7874.eurprd04.prod.outlook.com (2603:10a6:20b:24d::9)
- by VI0PR04MB10808.eurprd04.prod.outlook.com (2603:10a6:800:261::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Fri, 4 Sep
- 2026 02:04:17 +0000
-Received: from AM8PR04MB7874.eurprd04.prod.outlook.com
- ([fe80::ac38:1699:6f18:c5d9]) by AM8PR04MB7874.eurprd04.prod.outlook.com
- ([fe80::ac38:1699:6f18:c5d9%6]) with mapi id 15.21.0382.007; Fri, 4 Sep 2026
- 02:04:17 +0000
-Date: Fri, 4 Sep 2026 10:08:25 +0800
-From: Peng Fan <peng.fan@oss.nxp.com>
-To: Frank Li <Frank.li@oss.nxp.com>
-Cc: Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>, dmaengine@vger.kernel.org,
-	linux-kernel@vger.kernel.org, imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org, Peng Fan <peng.fan@nxp.com>
-Subject: Re: [PATCH 0/3] dmaengine: Use non-atomic bit ops where safe
-Message-ID: <apooGfaHN5aCO/Gn@shlinux89>
-References: <20260903-dma-mask-v1-0-211ffd12c236@nxp.com>
- <apnKqR6ScF2K3GFo@SMW015318>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <apnKqR6ScF2K3GFo@SMW015318>
-X-ClientProxiedBy: SI3PR01CA0007.apcprd01.prod.exchangelabs.com
- (2603:1096:4:296::8) To AM8PR04MB7874.eurprd04.prod.outlook.com
- (2603:10a6:20b:24d::9)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lsk9+1/0"
+Received: by mail-pl1-f170.google.com with SMTP id d9443c01a7336-2caced6038eso5337465ad.0
+        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 19:08:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788487700; x=1789092500; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=D8Sx88G1D3cLQBFH9yUavJPElbl9q9H57N/owGoAbjE=;
+        b=lsk9+1/0EI6RO2AnMgoS6LLPqn6YEVw9WUKfLCb3diSyMLDEWrcFDzEGgj+wgsu18b
+         fBTQUXFnkIZwJ9+4dx+g1w6udjv5hdcZbd70BskrQi4+AsI6U09yf73ufKwNyODhB5wt
+         ZkVcoB0xiU+eMAx4OJVjEC5sJIVYSD40a9BJLXJ0jH5xph4Ip/9lRVhFvMJJdBZ4K19R
+         0CAl5Vl3IuC/yn4ebFEnRE5EToOIu3d7gt22bcMvlH7CydQ2CFXaJH/rzZNrfDgPH+eI
+         2mIgEf/6acA86MJofu1qoswTfZ6JiAXYPSqNvnRUqdbh/V6sFWNJ3evuLoXpJ/QOgVQ0
+         IIng==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788487700; x=1789092500;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=D8Sx88G1D3cLQBFH9yUavJPElbl9q9H57N/owGoAbjE=;
+        b=OfgB/DdFjRA3mFDHTwhhFFMRT2qDUx1OtUacQ9bbRrJk+4VduX82ma6rml/AvZrqPO
+         ifRD7YutILOzsmfjJtCNAKvOfxXQ6QJ4JGzxBuWxps4I7ysffHYpAXrCECu/bNTosza9
+         AIVwCNOm0ym3rkzm+yylJwGAFv/aGTiyWIGxSjj2l7Sr57j7476GzDEl4mXoL6vqG4t6
+         FnlqrBTuYaqHTkPcsnUL+e6O6skGLCXsh0k08TrPP/th5K0eBrpsnK/OS5nc9SpFpo50
+         8WHJT+EQSdnNCZrtAoIQpA8PF02YxUE1JVDutE7/SwaZOu7NMijZv0JBRaqQtS4Umxxr
+         YG9Q==
+X-Forwarded-Encrypted: i=1; AKwUvBzc/28l/7lMbobBf6cymwuHrx12GCgfVTToT6YTPg1gSa9mmGHZgvrXgwrkzIVOD0xyjdFgPl3hkssCFJ8=@vger.kernel.org
+X-Gm-Message-State: AFuF++lcLswAAGLUtkOPCxChTM5AyMhLjVbKLg2zU82xnVzwgZaDNwVN
+	isjCS+c3gDtTHwxcd6v805FHg9MgkMoNLtShAbisnoSgwYx8VQ4OUP2T
+X-Gm-Gg: AYBFou2JGfsUYCNXuQhCs5G2RXrXrxVagfETg+6ghdn3ORn0EU/eF/TvmnCHt+u79GF
+	sdW6CBkyqvrVSdqmVjZ5re1SeuJhNVZ4nm1KVB8pBP38iQGBlYll5HtLTTqD/800tvfHUGODVxr
+	h/dUpmJ8MP/Y8voNtJOvGQHZ45w1CSZjjhTgMs9EakNPtJTXftFnjAJwKzkaLplZ0AXaREThpwN
+	9dGlWSqbn3zm+hRiUQ8kPq0+yIORlJmg1QJnMIWmhhwC7O4YppQOOinT/RbKVn+Prhhnp0OvjJF
+	DXX/Sjpqsp3ahKDWYzgXgnn4Ek4PSIrJjynb5FXE+GF2SknL5gzVkrwe3ovjS7Nu9jyEQENknQQ
+	7l7d7bLLl5/og/Hrkpi7oaQ7aUtDwXVLplmT3uucL9crtT969VoJxz0VA/TUhScgNGLWUSxC7QQ
+	CJcHqgEmz+C3kHeS105ADxFuWc6Dy281YQ5sFmMfllJIIVQxZ9aFdWnDmi7c4EPaH3hyVCSoZXL
+	odWnA==
+X-Received: by 2002:a17:903:faf:b0:2d6:ef11:1773 with SMTP id d9443c01a7336-2db159c66bdmr16943145ad.8.1788487700136;
+        Thu, 03 Sep 2026 19:08:20 -0700 (PDT)
+Received: from zhangbo56-PC.mioffice.cn ([43.224.245.235])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2db1497f3e0sm3022005ad.44.2026.09.03.19.08.16
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 03 Sep 2026 19:08:19 -0700 (PDT)
+From: Bo Zhang <zhangbo0325@gmail.com>
+X-Google-Original-From: Bo Zhang <zhangbo56@xiaomi.com>
+To: hannes@cmpxchg.org
+Cc: akpm@linux-foundation.org,
+	baohua@kernel.org,
+	kasong@tencent.com,
+	qi.zheng@linux.dev,
+	shakeel.butt@linux.dev,
+	david@kernel.org,
+	mhocko@kernel.org,
+	ljs@kernel.org,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	zhangbo56@xiaomi.com
+Subject: Re: [RFC PATCH] mm: vmscan: avoid anon scanning for GFP_NOIO with low swapcache
+Date: Fri,  4 Sep 2026 10:07:56 +0800
+Message-Id: <20260904020756.4163139-1-zhangbo56@xiaomi.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260903130304.GQ3004@cmpxchg.org>
+References: <20260903130304.GQ3004@cmpxchg.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AM8PR04MB7874:EE_|VI0PR04MB10808:EE_
-X-MS-Office365-Filtering-Correlation-Id: 602f5041-ebf0-464e-d567-08df0a28d327
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|366016|19092799006|376014|1800799024|6133799003|56012099006|10067099003|4143699003|11063799006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	CNy+4LNrSF6zg0NnFTPh5rR1yiR89hnjhoerNkMnVfz8tHFShiYKPw4p/mZOd+MGLvJ7WBmxHcglbPqqy/deC6rFx3tTDEP0B698yvv5zJ0B5iIEM14DrRTnbndD19qB2CXrrLUa8Dhr+ZtzdESRILd/9IZNJKzUyXRjzebx6DJGcgKBiGOiqxTN+djGqMCgVn6qormE2zs9HMUAWLlR7rA3d+CQhjsBMcBzI6hygWVRFao8mDjZ/EceeFunr5Bmx0y8tsTiXn+dMH37U8b2iRxvQNZ+CIK9IGaGnnAeYu9pJqCO3NZdN31HgRzoCUyaoIbh4tivAuzXw1s+LuQgAkKwW1L5rYtoI6cam9ZRfo9J5iHxIuibp2yi4eJOKPXx6QwqE+i4+iGxrJ/zaJPppVjtFM/ff1j+4g5iuP92MLP7TmWJq1ID+MJed9JJPkppuHCVJKgWddRFKn4d8HuxYVyIeNSXHtw5okVSA/qHazqpx0Cl/aOJJgxtsU1K2c5CiaDNOoUokClrjXVOudRdvp4QFgurzJr6DrqH5f72uaGfC9r2WSjfo97fzRfU/zuNOQFR6LTr2tKC3uvwJyrSrD9K6/zmOHdZs32NuXJaolIucEMMJPvE5h11g/AqHOk2/IXTWCrPKncgB4b4IXl5PQ3BznJmzz/ozwtj8ToLYAg=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM8PR04MB7874.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(19092799006)(376014)(1800799024)(6133799003)(56012099006)(10067099003)(4143699003)(11063799006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?ilFWU/fGP2Xjzjfxfw1NOHFta/EWjOxcSQFEU4IT8IoNAsVp82EpWcMObYkk?=
- =?us-ascii?Q?XMnw7P/nTxMPJPk7hQU447kdKWanQrqlxOvCtCMSGo9NJiUqJL/6cRqjyaBF?=
- =?us-ascii?Q?FdmyL5P9H/ttxmjPly44y0ZNwR5H6ktpsQXlL5De/z51Z6ea4ToMYUVw22zd?=
- =?us-ascii?Q?McVW4NbfvbKZBEDzidzaHvTiWIY+Q8yQakxmIlgwRU2Q1mRbwfaPNj2c6Enj?=
- =?us-ascii?Q?/yZk+jpPJjsHF4mvM3gdMQdcrxLvH+KNKHAsRM1PSJ+woal1tIvDf0OQB/w2?=
- =?us-ascii?Q?u4MX4g59rtX+Sqq8QPcXxzWICwU+KoR2dLZ0P3tNLKFwPKAfV56rWCBdyA6k?=
- =?us-ascii?Q?kmaorY7heqjiDX5bhX005chb+OAeG7DnXW76YDBXk6pwagyQlGviVGd2CiEF?=
- =?us-ascii?Q?c4NKK5RXq8fNK3AFAaevCDMR3AuaZ2uhhaKbvv3L5NBklHoOnfridGPIXGd4?=
- =?us-ascii?Q?kzUBGyO691GOti+jQ6QyyK7UfbzzZQ0qLxxLsTOh0R2lLM2yw8MWP/XFu0u5?=
- =?us-ascii?Q?CGQkvluycyXMQN1U1WCNm07ii91LGqSIIc6JJhgiHg0nc2tVzdFPktdOQRGY?=
- =?us-ascii?Q?5kXgCn7f7ys9ZUP2Tw23vTK7InMKg0actZYWmYsfWKxtDw5nXCTg5AQFFGNM?=
- =?us-ascii?Q?Q8otZWu4RKKWnpDjkIvbrhcMswd9fS7yDoNfFLEq5yDKzKNq7qVQvNGm4T7u?=
- =?us-ascii?Q?ObjeOI6z3C/N1h3pOip70n7mDP1Qy6phYgrMYDS7YMeSfwlwMl3RKCdAjDf1?=
- =?us-ascii?Q?K8eDOQGf+2heq7XUMFarysvAJYqRuihYZTAT5YRutxvlaRZSjeIDao0WMGgQ?=
- =?us-ascii?Q?NqDo3tyMvJ1uULyDFoa245qgmTQfWPXE2p4WnumT3k9XFgyh/36Xu66h39R+?=
- =?us-ascii?Q?0KsCngCwucQj2A7iCH4asbTGNay7m/4cU/cNrYuQylVmAXdkvm/Iy7l4deaH?=
- =?us-ascii?Q?cjwk9dXWhKYiUAksULzW3hFgtPCiNqaw/4rz1+CFx4uGuS8m6EJJf/vKiB/J?=
- =?us-ascii?Q?xTo17ddlLHtt7lB+MbWed0VParxahket//yreKEapBkr3hZHjeQQJQB4qvTP?=
- =?us-ascii?Q?kPVu7+Spku83ocESbH1TAi8TBKdNfpf6/VfWM0SY5kwNzQ6hngGCgtnYlv5/?=
- =?us-ascii?Q?sMZ8GgPWWJNosOzabUTnCly/YeVdj2aV1C0+ngNW2RPfXjs/rapoGd1Lfjcj?=
- =?us-ascii?Q?3vBR8wrrrv2YHjCmINLAw5FWyHE2X8+zS4yuj4GjCVbjjTfcnTv+pZ1ZxZSc?=
- =?us-ascii?Q?/X1nuLSU4ZYM5NDXFSzhypn6zXzNo65m3TCYYf4tERSglurLLiAbk9g1feNU?=
- =?us-ascii?Q?ItGXq1E+poWPX2Wuw/ycyWn7vPEyBdamMq3wO4izd/ahCmYK3omQOrNYQ+8d?=
- =?us-ascii?Q?b5dZHCAL5AHqBsvPAntyIB226KBiumU2kAEFzocZfZlUbIE9+uqWdQ+K3sR+?=
- =?us-ascii?Q?Di2cWHo5t5/2Yr/t6zPJMXhaCQL8kk+SW2iEtL6Ap/bn+u9I+YCoqA/hRkb8?=
- =?us-ascii?Q?Ox7Vz6R8AzC94Em8j994SfBbJbLGy9plpAd0+sp75Q1LFBfGT1uBqtvaHUdm?=
- =?us-ascii?Q?pWUqbjYi/STvMwzphEElJ2fGoEkvrflVYzsebHaJS2/4+IleBnXugRYJT72Q?=
- =?us-ascii?Q?EHMr2DMlC8ckQ0aPjyfznYowt0j10UKvKp4V0wg84Pbki3Y23QrJcLVk/GzE?=
- =?us-ascii?Q?mMbzcnnXMEPnLxqYhig3uwOkcx0CK7QMlvdpdJ0yYh2lrGW0b77EElnpC/wg?=
- =?us-ascii?Q?6zb428wny3Oh2Zs60ih1cSaeBQWsyJePWA/aTThdHPVUFH7c4+t0?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 602f5041-ebf0-464e-d567-08df0a28d327
-X-MS-Exchange-CrossTenant-AuthSource: AM8PR04MB7874.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Sep 2026 02:04:17.0296
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: jICG9hvm4OufAomonDd3tmkBLesrOTgxHBe4uOTwFjPKpj6eRucsI0B+mx5uEHb+YgFBBHy54OiwUHIdDMyOhlL4RraByrqdu1OrDhE1SqFE5BoWVyjl/kb4UUNKh0tz
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI0PR04MB10808
+Content-Transfer-Encoding: 8bit
 
-On Thu, Sep 03, 2026 at 02:29:45PM -0500, Frank Li wrote:
->On Thu, Sep 03, 2026 at 10:16:11PM +0800, Peng Fan (OSS) wrote:
->> dma_cap_set()/dma_cap_clear() and imx-sdma event_mask setup use atomic
->> set_bit()/clear_bit() in contexts where no concurrent access is
->> possible:
->>
->> - dma_cap_set()/dma_cap_clear() are called exclusively during driver
->>   probe, before dma_async_device_register() makes the device visible.
->> - imx-sdma event_mask[] is zeroed and configured during channel setup
->>   while the channel is disabled.
->>
->> Switch both to non-atomic __set_bit()/__clear_bit() equivalents.
+On Thu, Sep 03, 2026 at 09:03:04AM -0400, Johannes Weiner wrote:
+> On Thu, Sep 03, 2026 at 12:01:31PM +0800, Bo Zhang wrote:
+> > We have observed some cases where memory is allocated with GFP_NOIO, so
+> > we cannot reclaim any anon folios unless they are in swapcache. We can
+> > end up spending more than 150 ms looping in `shrink_folio_list()` scanning
+> > non-swapcache folios without reclaiming a single folio. This is pure
+> > overhead.
 >
->Any benefit to switch?
+> Not entirely. There is some value in aging anon alongside file, so
+> that the next __GFP_IO reclaimer doesn't look at a stale list.
 
-Drop patch 1, I thought there were no cocurrent access.
+You're right, "pure overhead" was too strong - aging anon does have
+value for a later __GFP_IO reclaimer, and I don't intend to skip it in
+general. Let me describe the case in full, because the reclaim cycle
+itself already provides that aging on a later pass, which is what makes
+me think the trade-off here leans the other way.
 
-For patch 2: The driver already uses the non-atomic __set_bit/__clear_bit APIs,
-I think no sense to use atomic APIs in sdma_set_watermarklevel_for_p2p, or
-I may miss something.
+> Can you describe a bit more about what you observed? What workload is
+> running, maybe you have a stack trace of which NOIO requests are
+> routinely getting stuck in reclaim?
 
-For patch 3: Use __assign_bit to save code lines.
+The workload is app launching on Android. The NOIO allocations come from
+dm-verity hash-block reads via dm-bufio, which legitimately use GFP_NOIO
+because they run underneath the IO path:
 
-Thanks
-Peng
->
->Frank
->
->>
->> Signed-off-by: Peng Fan <peng.fan@nxp.com>
->> ---
->> Peng Fan (3):
->>       dmaengine: Use non-atomic bit ops for cap_mask manipulation
->>       dmaengine: imx-sdma: Use non-atomic __set_bit() for event_mask setup
->>       dmaengine: imx-sdma: Use __assign_bit() for ownership configuration
->>
->>  drivers/dma/imx-sdma.c    | 21 +++++----------------
->>  include/linux/dmaengine.h |  4 ++--
->>  2 files changed, 7 insertions(+), 18 deletions(-)
->> ---
->> base-commit: 89c07d98716a13454ec3fd9f97689e812cc71bd4
->> change-id: 20260903-dma-mask-ddf64d770f7d
->>
->> Best regards,
->> --
->> Peng Fan <peng.fan@nxp.com>
->>
->
->
+  worker_thread
+   process_scheduled_works
+    verity_work
+     verity_verify_io
+      verity_hash_for_block
+       verity_verify_level
+        dm_bufio_read_with_ioprio
+         new_read
+          __bufio_new
+           alloc_buffer
+            gfp_mask: GFP_NOIO | __GFP_NORETRY | __GFP_NOMEMALLOC | __GFP_NOWARN
+
+So the NOIO use itself is correct; the problem is on the reclaim side.
+
+Here is the full picture of one such direct reclaim. It runs two rounds
+of do_try_to_free_pages(); the target is 32 folios.
+
+Round 1 - partial (shared) memcg walk, 169.20 ms, 0 folios reclaimed
+--------------------------------------------------------------------
+  prio 12->1 (~1.3 ms):
+    cache_trim_mode is on, so get_scan_count() picks SCAN_FILE. Only the
+    file side is scanned. Because this is a shared/partial walk, each
+    priority only visits a handful of memcgs before the iterator is
+    handed off, so very few memcgs are looked at on the way down:
+    428 file folios scanned, 0 reclaimed.
+
+  prio 0 (~167.9 ms):
+    priority hits 0 without meeting the target, so get_scan_count()
+    forces SCAN_EQUAL. The walk lands on a single memcg with a large,
+    unswapped anon LRU and a tiny file LRU:
+
+      inactive_anon ~335 MB, inactive_file ~4 MB   (~84:1)
+      memcg swap usage ~3.6 MB, so swapcache is negligible
+
+    shrink_lruvec() now keeps feeding that huge anon list into
+    shrink_folio_list() - ~2400 shrink_folio_list() calls, ~93,000 anon
+    folios scanned - and every folio hits the !__GFP_IO keep_locked path
+    (not in swapcache, needs a swap slot). This single shrink_lruvec()
+    pass alone is ~168 ms with 0 folios reclaimed.
+
+  Round 1 ends with nr_reclaimed = 0 < target, so reclaim retries with
+  sc->memcg_full_walk = 1.
+
+Round 2 - full memcg walk, 2.37 ms, 68 folios reclaimed
+-------------------------------------------------------
+  With memcg_full_walk = 1, priority resets to 12 and every priority
+  now visits the complete subtree (~78 memcgs). Progress is made
+  entirely from the file side:
+
+    prio 12: ...  0 reclaimed
+    prio 11: ...  0
+    prio 10: ...  3
+    prio  9: ...  8
+    prio  8: ... 18
+    prio  7: ... 38   -> cumulative 68 >= target 32, done
+
+  All 68 reclaimed folios come from file LRUs; anon contributes 0.
+
+So the whole 168 ms is spent scanning an anon list that cannot yield a
+single folio under GFP_NOIO, and the actual progress comes from file in
+a fast full-walk round that follows.
+
+> 150ms sounds awful indeed. Is this cumulative for a whole reclaim
+> cycle or single shrink_folio_list() runs?
+
+It is a single shrink_lruvec() invocation on that one memcg, as above -
+not accumulated across the cycle. Each shrink_folio_list() only handles
+SWAP_CLUSTER_MAX folios and is fast on its own; it's the prio-0 while
+loop over the huge anon list that adds up to ~168 ms.
+
+On the aging trade-off
+----------------------
+I take your point that this pass would otherwise have aged anon for the
+next __GFP_IO reclaimer. But in this cycle that benefit is small and the
+cost is large:
+
+- The aging is not lost so much as deferred. Round 2 (and any later
+  __GFP_IO reclaimer) still walks the full subtree; anon that genuinely
+  needs IO to be reclaimed gets aged/reclaimed then, once IO is allowed.
+- The 168 ms is spent scanning ~93k anon folios that, by construction of
+  GFP_NOIO + negligible swapcache, cannot be reclaimed on this pass at
+  all - the aging is the only product, and it comes at the price of a
+  ~168 ms stall in a latency-sensitive path.
+
+That's why I'd argue the balance tips towards skipping anon here rather
+than aging it. To keep the change narrow, the check only triggers at
+priority 0 (where SCAN_EQUAL is forced) and only when swapcache is far
+below the anon LRU (below min(anon >> 6, SWAP_CLUSTER_MAX)), i.e. when
+essentially no anon on the list is reclaimable without IO. Outside that
+corner anon is scanned and aged exactly as before.
+
+And skipping anon in this corner doesn't cost us the aging in practice:
+with no reclaimable anon left to scan, Round 1 simply finishes quickly
+and reclaim proceeds to the full-walk retry (Round 2), which resets to
+priority 12 and walks the whole subtree - anon included - so anon still
+gets aged there, just without the ~168 ms detour first.
+
+Thanks,
+Bo
