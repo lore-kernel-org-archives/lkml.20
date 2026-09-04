@@ -1,50 +1,40 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
+Received: from canpmsgout07.his.huawei.com (canpmsgout07.his.huawei.com [113.46.200.222])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81AC4392C29;
-	Fri,  4 Sep 2026 02:42:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 456B63563EB;
+	Fri,  4 Sep 2026 02:45:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.222
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788489775; cv=none; b=kSiDLl751QJ6h1Q1sj8jBHF2TjKOs84HLWUc5UiMlDXBtrO0kla8tKFx6MNgcuLjCZK22OiZAjvaIwiPmI59N8Ey7Wvx5Z3q/9ZIHojmrr5JuztDtQoFrlaOQCDjM5pMhf8Ij1qSwm9sQ4ecIQgH0i86fBL/S3EQmQJqZT14xGc=
+	t=1788489937; cv=none; b=Zx37Y2gv1eEO+OvQNDcSHyPZDssaKfpx05ErLYbEbRA2fEsgzl0B56DrEv6yc7RQaeMJxY8G3T914TjrNlYtsRb6hi0HhQ8W6y1YJdLsMhiCcj8KC4PE00uLBjLHHk1STwUIqTvHtlY2CmxyTdig2RHj3y3e7kNrFiLGLRNUzdc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788489775; c=relaxed/simple;
-	bh=VrQpdIBVssKB0dQ6AzZzdBno6BCOyz1cQUV8K+mD/xY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=omRLEUGPGVFELFw2YfXzSP42rLpNcy+tM+ikQpOiq5B398rZuahKV/2QT9epW3HTQowj2pYCC3WfDDcRtNklsZIZi65tPRBhtlUF5b1q6LFdcY4f2GfuiZ+cziXoTpMivJATZqGHu1dkK3ypmV/LrtwuPqipAkSQeStDQat3Md4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=QaJZjz+f; arc=none smtp.client-ip=192.198.163.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1788489937; c=relaxed/simple;
+	bh=svFL5GVsyMxjyZIfVZFUtOkSOeDAIlVTUrJgAyi3XSk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=Xsxh4Im8jhHFIAISgVGvYH1z3bLElq1tVPBAUTV/VmhyGpvSBCrthmtjCXmh3+t/ljY1jzhSDmz7rIiYPMDdJ9lmspkVM7wa0we0e/9RbD+aKgsABFDvC3Dvoukglx3xe6Tv0VZLEgvolx3aP1TftANMOtLDFKrLPpr108Xi2zA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=cINy1kgF; arc=none smtp.client-ip=113.46.200.222
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="QaJZjz+f"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788489774; x=1820025774;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=VrQpdIBVssKB0dQ6AzZzdBno6BCOyz1cQUV8K+mD/xY=;
-  b=QaJZjz+fyjoIYubfESRsYEFGE8DZz8D4K93vpQ1Uktm8VB9xPAf2OTVu
-   FI4j8ff2ak/WxlFXcl8zwkQA4PU9+fvS0byLGGny7LeqpVJbzDkg5wec5
-   t9xicjCAOVBzblsclML1zEBQNuDUTuS6nDXo8QiFcEEIXSXHLo9jQd2G+
-   NG71t844GOTgKsWM4lAAo43grQf/GDsfg+lkBt/hMdOj1/DX5+7EMI4DZ
-   K35OE93LS2O45GXmCDJzqEpZ1NmBTs8x/tR3R0Klb/T+8xajbi8HIJI94
-   dPdgK8fspo2hpCfVC8GhFn2t05JlF4hwKuLYM3Kdm1QRKjrRiCadrdov2
-   Q==;
-X-CSE-ConnectionGUID: 2q+/4in/SViku9LyQlh7ZA==
-X-CSE-MsgGUID: q2xAe9I2SeGC6HuFEeqd8w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11895"; a="91499412"
-X-IronPort-AV: E=Sophos;i="6.25,260,1779174000"; 
-   d="scan'208";a="91499412"
-Received: from orviesa010.jf.intel.com ([10.64.159.150])
-  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Sep 2026 19:42:54 -0700
-X-CSE-ConnectionGUID: 9JoiDv7cSb+PuJU3L4tPGw==
-X-CSE-MsgGUID: kaPfOZjAT2mS4PkQgigXog==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,260,1779174000"; 
-   d="scan'208";a="268601157"
-Received: from binbinwu-mobl.ccr.corp.intel.com (HELO [10.124.245.162]) ([10.124.245.162])
-  by orviesa010-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Sep 2026 19:42:51 -0700
-Message-ID: <3a94a159-b8e1-4093-91b4-c28ac55c88cf@linux.intel.com>
-Date: Fri, 4 Sep 2026 10:42:50 +0800
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="cINy1kgF"
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=svFL5GVsyMxjyZIfVZFUtOkSOeDAIlVTUrJgAyi3XSk=;
+	b=cINy1kgFclwLdhJA3KbeBlH1oUeCPoLQa8e/26fjaRkyyiDD2TOnlfdkf6We6uYk4b6fV6AC9
+	n6/JPCwwZa0Gxdh72Ayfj8EX49k2wnXcSM4NG5FbTbIh2awM3Rh598vgapeiOnJoEE4Vlr6ImR8
+	ajTzc6Un2pGtwVwidjVZTcQ=
+Received: from mail.maildlp.com (unknown [172.19.163.15])
+	by canpmsgout07.his.huawei.com (SkyGuard) with ESMTPS id 4hbgXS4jZgzLlXF;
+	Fri,  4 Sep 2026 10:34:32 +0800 (CST)
+Received: from kwepemo100012.china.huawei.com (unknown [7.202.195.139])
+	by mail.maildlp.com (Postfix) with ESMTPS id B080840578;
+	Fri,  4 Sep 2026 10:45:23 +0800 (CST)
+Received: from [10.67.120.222] (10.67.120.222) by
+ kwepemo100012.china.huawei.com (7.202.195.139) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1544.36; Fri, 4 Sep 2026 10:45:22 +0800
+Message-ID: <4f755a7f-0a55-4292-892a-28346ed235a4@huawei.com>
+Date: Fri, 4 Sep 2026 10:45:22 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -52,30 +42,53 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 5/8] KVM: VMX: Rename EPT violation handler prefix from
- "vmx" to "vt"
-To: Sean Christopherson <seanjc@google.com>
-Cc: Paolo Bonzini <pbonzini@redhat.com>, kvm@vger.kernel.org,
- linux-kernel@vger.kernel.org, Xiaoyao Li <xiaoyao.li@intel.com>,
- Kai Huang <kai.huang@intel.com>, Rick Edgecombe
- <rick.p.edgecombe@intel.com>, Yan Zhao <yan.y.zhao@intel.com>
-References: <20260904010353.3175819-1-seanjc@google.com>
- <20260904010353.3175819-6-seanjc@google.com>
-Content-Language: en-US
-From: Binbin Wu <binbin.wu@linux.intel.com>
-In-Reply-To: <20260904010353.3175819-6-seanjc@google.com>
-Content-Type: text/plain; charset=UTF-8
+Subject: Re: [PATCH v7 0/3] perf/core: sched_task() dispatch and branch entry
+ fixes
+To: Puranjay Mohan <puranjay@kernel.org>, Peter Zijlstra
+	<peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, Arnaldo Carvalho de
+ Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>
+CC: Mark Rutland <mark.rutland@arm.com>, Alexander Shishkin
+	<alexander.shishkin@linux.intel.com>, Jiri Olsa <jolsa@kernel.org>, Ian
+ Rogers <irogers@google.com>, Adrian Hunter <adrian.hunter@intel.com>, James
+ Clark <james.clark@linaro.org>, Usama Arif <usama.arif@linux.dev>, Will
+ Deacon <will@kernel.org>, Anshuman Khandual <anshuman.khandual@arm.com>, Ravi
+ Bangoria <ravi.bangoria@amd.com>, Thomas Gleixner <tglx@kernel.org>, Borislav
+ Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, "H. Peter
+ Anvin" <hpa@zytor.com>, <x86@kernel.org>, <linux-perf-users@vger.kernel.org>,
+	<linux-arm-kernel@lists.infradead.org>, <bpf@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>
+References: <20260810133540.1947118-1-puranjay@kernel.org>
+From: wuyifan <wuyifan50@huawei.com>
+In-Reply-To: <20260810133540.1947118-1-puranjay@kernel.org>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: kwepems100002.china.huawei.com (7.221.188.206) To
+ kwepemo100012.china.huawei.com (7.202.195.139)
 
-On 9/4/2026 9:03 AM, Sean Christopherson wrote:
-> Rename __vmx_handle_ept_violation() to __vt_handle_ept_violation to capture
-> that it is shared between VMX and TDX.
-> 
-> No functional change intended.
-> 
-> Reviewed-by: Xiaoyao Li <xiaoyao.li@intel.com>
-> Reviewed-by: Kai Huang <kai.huang@intel.com>
-> Tested-by: Kai Huang <kai.huang@intel.com>
-> Signed-off-by: Sean Christopherson <seanjc@google.com>
+Hi Puranjay,
 
-Reviewed-by: Binbin Wu <binbin.wu@linux.intel.com>
+On 8/10/2026 9:35 PM, Puranjay Mohan wrote:
+> These three fixes were found while adding BRBE support for
+> bpf_get_branch_snapshot() on arm64 and were carried in that series until
+> v6 [1]. They do not depend on it, so they go on their own; the version
+> number continues from that series to avoid two numbering schemes for the
+> same patches.
+perf record -C <cpu> -b [<command>] triggers a NULL pointer dereference
+in armv8pmu_sched_task().
+
+Commit fa9d27773873 ("perf: arm_pmu: Kill last use of per-CPU cpu_armpmu
+pointer") changed armv8pmu_sched_task() from reading the per-CPU
+cpu_armpmu variable to dereferencing pmu_ctx->pmu via
+to_arm_pmu(pmu_ctx->pmu). Meanwhile, commit bd2756811766 ("perf:
+Rewrite core context handling") made __perf_pmu_sched_task() pass
+cpc->task_epc to pmu->sched_task(). cpc->task_epc is only non-NULL
+while a task context is scheduled in; CPU-bound events do not schedule a
+task context, so cpc->task_epc stays NULL. The NULL argument is dereferenced
+and crashes.
+
+With the patches applied, perf record -C <cpu> -b no longer crashes,
+and system-wide perf record -b -e <event> -a alongside a task-bound event
+on a different CPU runs without any WARN_ON.
+
+Tested-by: Yifan Wu <wuyifan50@huawei.com>
+
