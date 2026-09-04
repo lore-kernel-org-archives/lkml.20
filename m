@@ -1,127 +1,128 @@
-Received: from mail-ot1-f53.google.com (mail-ot1-f53.google.com [209.85.210.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 428C63F39E4
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 14:59:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECB044D2EDE;
+	Fri,  4 Sep 2026 14:59:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788533972; cv=none; b=TS8k3pfvxg6BZoxyjp55P0kLKR/aa8B58RWOOBziTQ9a+mT9/bGj7Fd6ETTY2n7RachWvB7fF5WRzbgC3mkFjP0OM7VxlC+ASwXrPme7+7XI8Jyri0veJITZl6Qjjy4EBj3rpkf1+fM01s+3y/Vyr5Ylub7hNBcCW6F4Sm3+5Fk=
+	t=1788533976; cv=none; b=VouZ50a+JqgVmTpy5WSluCnWWvMvexJwgjvDaayq6xBcS0+9VABi8sR7FZCnOeTIRg+LdgnNeF5z1Nc9uVwh5oO7ZNlEAxnFU4a+usrj9rnGqKgCAWOO4fto8dnyC2m+Vdgn1KoHJNB9QPmKh68OJgQ7tidi773vInkQoBM68/M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788533972; c=relaxed/simple;
-	bh=5+1ZIpv6L6JHTVkiqfHpSF38h/44flaH63VEroC/WlM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=nwlaV/UH7uDxoq7wuifoPn/jQ2dBio5bfk+qZWlVTpCtWtGXc8x7g9EIV413ICOfULZFRf5jmch6my0bSvZ2cFb9Vky2Epsl97oDZp7waVwPQcO6g8hV7Dvf4FOF58Vm2XSwUS0TyoljJxDHJ8VMp4fwNuu3DhADtLjOF8CsBms=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Dz4fIdGS; arc=none smtp.client-ip=209.85.210.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788533976; c=relaxed/simple;
+	bh=tg+beaFvFWyQqkBNHBB7oc6UW88l9wEu/T1qzRYhjfs=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=A4O7HEbbmupjbAmk0sx8RQipe1nVsteS0EZXWHBRegxLyUpgQNHGWx7qQON/d0gC+//CbPdmox91dxsZwAyBflCrJVLvfJ4QwX8JHWeQzS1dTet5hZcAFgz0bD31UIeEv1eQJHJIITCGjHF9NeNaX6dqelLOvm0AfyZhNBnnxic=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=akKvh57a; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Dz4fIdGS"
-Received: by mail-ot1-f53.google.com with SMTP id 46e09a7af769-7f3ff92cf4aso1267195a34.1
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 07:59:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788533970; x=1789138770; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=uknERYDMxgUO8g616vV1jOSNsSH1WjlXdGQkk1pq6JA=;
-        b=Dz4fIdGSii24EnP6SfLzeAUPLKREPD68fVScA0khz9og9slxaJ83y0y+OB28WerNHr
-         rz9FdZyJIUUaKfNzYuXX3QzrBk4NHntSEPkEVQRMmoT69gho854ElqkAs1EsOZ70Annt
-         lHjLYPWcX2xAUINDMV+NdhjddGq5/XvmjnmzN00ElBjNeDEhxtB4VsZPgLJZUC15cpq9
-         Gfg+jPqlp3+CoJ2svHx+B7iXtPdNWP2JNpMF/X5yHg82CBqGPPgaYcxtIsntwRD5Damv
-         BSqfpgThv7ElvQON1a3fWbKf/9S83ERZK4Dd4YeHvzpzzUXMnRzXHPxmne4pH6o6PPF+
-         Yc4Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788533970; x=1789138770;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=uknERYDMxgUO8g616vV1jOSNsSH1WjlXdGQkk1pq6JA=;
-        b=D7InfnoKJIMEZOHuP247bEvTkcYpuEOwPW0Sfa4RaNjxqg3/pacLC1OLQqLK6Cde0J
-         Ft3AwzdKed5a0shFF1f6t9dP9pNSijfu72mKhujBsgTCFBMLbD4mpVR67EsqMYVKIEqh
-         rdqmodyTsRgzQq+7nQVjlmFimLOriYXc3ciDSyfsx1JDnBYJbPrMbcVy8nq3By9nr1CI
-         EuAvskoQHMKeZSkyHz/fOvfxmj+0oZb1pT9AChTfzugMDQVd0WomXxmHOspk0xCuZ3OO
-         2rabzbjUxDVsdXzfzfo+TjtqO4d8+x9Xn4nmAGhfvepZB/Rhdtk1k28ur5mXUF4A4M+O
-         PcQw==
-X-Gm-Message-State: AFuF++mBkNcnE+gRLnZizSs2NJx6xRYWR53jFmU+tUrpVGA5VLXCN9wn
-	eO8rPdfN7BfZu2KCWQwu+bOlCrHcC+5wrW4enuze5agYOa5j9lELo5yTr6dKsezS
-X-Gm-Gg: AYBFou24qKAwCpa1Nc3Nccp36hPDkS/o5gkdfpgxvlH50V4jS+zCRxgIYjNez5latZx
-	yoOfOSWHj+jkdIGDdsFy1HrTng10NtCtq1ggfZ40dbztilGxNj1FbUSLcspp+s6JBTeeWPZT0vd
-	D8ZjdVc/hnZaQ6Wo12v4wCGbxGlMVnlkYmdKXXRYQDQakJOevFHMvuDipzKc3MSoUkd6Rjkq0iL
-	3XEl9nD09I3qtKUO/ugRfPx/7Nv7aH09Dl7DH1f8r1uWxIIHGXUqGcvyApp+jf7CPp/hngz0w1n
-	r0AmCmpUBHx/m4SJGNKemGzWTx7QjbkbFIH7IRqi4NYekazvv/bzcysaSaLrdAHcp8xg7lVX7bi
-	bkb4PWcU8gw0/53xSHXwG1bcP3BZd13AEoD/oVDnc+LStB9pqsRnWNcfR9nxl3TYidG3QupYktx
-	Tgcy1Sk3QVTRG4vEVM2aA1Jszvvnd6vrTYM6uB6eGj+Hp+4RSFcceLIEX1SvqkBPQwX1g7lP/YD
-	mcbIRsBZYwZbKPA40JV0+q7j3TO5gIHA3mscdSWu8FDwoBk9y8pH3GjhyNV/EBZnjqAPvrZG/2K
-	xw7EpIpckuE=
-X-Received: by 2002:a05:6830:828c:b0:7f4:ea33:8f56 with SMTP id 46e09a7af769-7fa1e8eafb8mr6618239a34.6.1788533969600;
-        Fri, 04 Sep 2026 07:59:29 -0700 (PDT)
-Received: from daehojeong-desktop.mtv.corp.google.com ([2a00:79e0:2e7c:8:3bd3:26b1:e8bb:156])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-7f9f6793f53sm2999625a34.6.2026.09.04.07.59.28
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 04 Sep 2026 07:59:28 -0700 (PDT)
-From: Daeho Jeong <daeho43@gmail.com>
-To: linux-kernel@vger.kernel.org,
-	linux-f2fs-devel@lists.sourceforge.net,
-	kernel-team@android.com
-Cc: Daeho Jeong <daehojeong@google.com>
-Subject: [PATCH] f2fs: fix livelock in f2fs_sync_inode_meta()
-Date: Fri,  4 Sep 2026 07:59:23 -0700
-Message-ID: <20260904145923.1936598-1-daeho43@gmail.com>
-X-Mailer: git-send-email 2.55.0.979.g7e5102b832-goog
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="akKvh57a"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 624A11F00A3D;
+	Fri,  4 Sep 2026 14:59:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788533974;
+	bh=Mtmh+EbQEolZ0B+Cu+N77fkNfs3wVAfEnrHoZtaub+4=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=akKvh57agkJAqnqARbiOesO0F3Co6J3xZW04uqfzOIDRqxFZnS/WAs4jLeWdy18dA
+	 asedTgctivCw0JSn15eNH1acIGeFsC1GbtOnJ5giNQGUfdJubfvG6Izb/8g2D9QNtb
+	 YSNZhSIqlfZEMZH7J9/WWd+Y/cSSrkB3WwUaF6MXteZmF30yKb3uAdxp5uLb0WSQoq
+	 9sBIS3ms5v9BDNzzHpaN1zaf0QEE8+JiSAZz+hCfCKJ5Nch+rgCMqru1j5wZpViyku
+	 rTI2mxXQHcdKUTn0US3bpM6bo6Lxumu1LjP81cTWu1HVfykZM2dzAhwaHchB64rsI/
+	 5zgI12L0kJppQ==
+Message-ID: <64106236-9d0d-4f64-b6dd-b1e609fb8c5a@kernel.org>
+Date: Fri, 4 Sep 2026 16:59:28 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird Beta
+Subject: Re: [PATCH mptcp-next v2 0/2] selftests: mptcp: convert iptables to
+ nftables
+Content-Language: fr
+To: Hangbin Liu <hangbin.liu@linux.dev>, MPTCP Linux <mptcp@lists.linux.dev>,
+ Mat Martineau <martineau@kernel.org>, Geliang Tang <geliang@kernel.org>,
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Simon Horman <horms@kernel.org>, Shuah Khan <shuah@kernel.org>
+Cc: netdev@vger.kernel.org, linux-kselftest@vger.kernel.org,
+ linux-kernel@vger.kernel.org, bpf@vger.kernel.org,
+ Hangbin Liu <liuhangbin@kylinos.cn>
+References: <20260903-mptcp_nft-v2-0-66283e4b9c3b@kylinos.cn>
+From: Matthieu Baerts <matttbe@kernel.org>
+Autocrypt: addr=matttbe@kernel.org; keydata=
+ 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
+ lzVbFe7fduHbABmYz9cefQpO7wDE/Q==
+Organization: NGI0 Core
+In-Reply-To: <20260903-mptcp_nft-v2-0-66283e4b9c3b@kylinos.cn>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Daeho Jeong <daehojeong@google.com>
+Hello,
 
-During checkpoint, f2fs_sync_inode_meta() iterates over dirty inodes in
-the DIRTY_META list. If igrab() fails on an inode (e.g. because it is in
-the freeing state), the loop continues without moving the current inode to
-the tail of the list. As a result, subsequent iterations pick the same
-inode repeatedly, preventing other ready dirty inodes in the list from
-making forward progress and leading to a livelock.
+On 03/09/2026 03:12, Hangbin Liu wrote:
+> iptables has been deprecated for years. The Linux kernel has included
+> nftables as the successor to iptables since 2014, and every major
+> distribution uses nftables as the default packet filtering framework.
+> The iptables command we run on modern systems is actually iptables‑nft,
+> a compatibility layer that translates iptables syntax to nftables rules
+> behind the scenes.
+> 
+> There are also some features that can be set easily with nft, while we need
+> to convert to BPF code under iptables, such as MPTCP add‑addr and
+> remove‑addr suboptions. To make future work easier, convert iptables usage
+> in mptcp to nftables.
+> 
+> Tested with iptables-translate to make sure each nft conversion is the same
+> with previous one. e.g. for mptcp_sockopt.sh, the ip6tables shows
+FYI, Hangbin is working on a new version addressing my comments from v1.
+The new version(s) will be sent to the MPTCP list only, and I will sent
+these patches to Netdev when ready.
 
-Fix this by moving the current inode to the tail of the list
-(list_move_tail(&fi->gdirty_list, head)) before attempting igrab().
+Updating here the PW status:
 
-Additionally, if igrab() fails, the freeing inode may be waiting for its
-pending writeback data pages to complete during eviction.
-Submit any pending merged data writes and yield the
-CPU with cond_resched() to allow the eviction to make progress.
+pw-bot: cr
 
-Signed-off-by: Daeho Jeong <daehojeong@google.com>
----
- fs/f2fs/checkpoint.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
-
-diff --git a/fs/f2fs/checkpoint.c b/fs/f2fs/checkpoint.c
-index ef22692cef0a..5597033533b0 100644
---- a/fs/f2fs/checkpoint.c
-+++ b/fs/f2fs/checkpoint.c
-@@ -1460,6 +1460,7 @@ static int f2fs_sync_inode_meta(struct f2fs_sb_info *sbi)
- 		}
- 		fi = list_first_entry(head, struct f2fs_inode_info,
- 							gdirty_list);
-+		list_move_tail(&fi->gdirty_list, head);
- 		inode = igrab(&fi->vfs_inode);
- 		spin_unlock(&sbi->inode_lock[DIRTY_META]);
- 		if (inode) {
-@@ -1469,6 +1470,13 @@ static int f2fs_sync_inode_meta(struct f2fs_sb_info *sbi)
- 			if (is_inode_flag_set(inode, FI_DIRTY_INODE))
- 				f2fs_update_inode_page(inode);
- 			iput(inode);
-+		} else {
-+			/*
-+			 * We should submit bio, since it exists several
-+			 * writebacking pages in the freeing inode.
-+			 */
-+			f2fs_submit_merged_write(sbi, DATA);
-+			cond_resched();
- 		}
- 	}
- 	return 0;
+Cheers,
+Matt
 -- 
-2.55.0.979.g7e5102b832-goog
+Sponsored by the NGI0 Core fund.
 
