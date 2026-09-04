@@ -1,156 +1,274 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lj1-f172.google.com (mail-lj1-f172.google.com [209.85.208.172])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C249230C160
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 05:40:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788500447; cv=none; b=V5FjaTs931gimcBDX7p3TTboGir9wvkZn3DS+Lj4Nx5gaRr7uz1g4mij9CYoVqouI+WyH0CWsMZRdudPi0UMfuWt3Ugh1Lyjxxec6/fVx7DgxWinEEvmZBp4VrVY73qkZNt5f/x4pz5c4dAxq5MwPzUndo84D1uHOd7uZZUwpUc=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788500447; c=relaxed/simple;
-	bh=oBkZqD8z7VEeSY4eMxro8rmnifQulYHdec6qnb762zw=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=qNa4eNba7s2IY0/9eVsX2Zmbdm/byvoy84nPTwWIs3k5Eg5Yuz1S8Lvar7UXFGH7j8WhGSaAmttt55RYHOy01G3ktZSjnQWAakK2P7C0jtQuyjeL4aCDyF3bDij1jbCtB3Yxahgbhc5MwfiU3NJDrcGFzcs3BJPOgx2H/YfZiN0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Y4Nt/Xbg; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41AD23AFB1C
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 05:42:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.172
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788500544; cv=pass; b=lyeKvKgXJ1n8Fh+mcmibh6XlynhwbU2YX6eA15SGSJpbkxNYCMX+HLh4GFtA4yW0Elqz07ylk5RKxC9yalCHMPk3QWLjJn8QgHrXB+etVMUDxlh+fiB9He7Gd1OJ3j+5LVT2z1zblaTJlmyymsIDhUO0PUXpERuAPdVA7ijhT7g=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788500544; c=relaxed/simple;
+	bh=7a9ytScdRalaQfs49ax3SHBjSOpZN0zrjBNJQ4qqRgw=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=AKo6SAMnxAgMn8bJsE/FuZtJtQKOe/SjzMH0KCxKFaPXiugvyMvPrt8N/vwWij2ks7V0Cac0H7rTk/oHraYCsXvZ/01FwbV28VaQs8joiUPfVpudstiWW6GKZjZjs/ZMt7aE8IjumOQyEHaz/RsPRM5wGj/AYhIW4WhAOeu+frQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai; spf=pass smtp.mailfrom=nebusec.ai; dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b=XR5HqxlY; arc=pass smtp.client-ip=209.85.208.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nebusec.ai
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Y4Nt/Xbg"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EF3201F00A3E;
-	Fri,  4 Sep 2026 05:40:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788500445;
-	bh=BlKzeHDQmdtQhSMD7OZocK5DgYOQx2sPWKFRmowF4ZA=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=Y4Nt/XbgyI8nVqTwDtBy/J2KzyHS2HOTvEw+ONB+x+Qe4BI+8XA29uFRrhjEiXBsS
-	 nVoEeo8qQnWTyzKYycrZ/OChUZQEOWR8CU+P3Gg9CzxqXrOKgPVPKPHgNNNKgb8M+X
-	 rYToNvecMtejJkCQaOZ7vNiJfOQ5oOt1hGG+AifQhnhFKmTD0ZdDpDu92fZ42o/yWh
-	 EVjeWIGWG14do/+Ftly9yAA7Rlcg92BEit6NpzuUjrenoedMdR8/WZVw75toIy8IML
-	 VVyjnWo0Xm3zMAleaV4FwUkxEhss7K/SGb3TFqXST0JQsTsFLtAGEaWQWizR3h9WvV
-	 h9vB5Jffv81fA==
-From: Thomas Gleixner <tglx@kernel.org>
-To: syzbot <syzbot+417a6b7c02d5d03f9aa6@syzkaller.appspotmail.com>,
- andrealmeid@igalia.com, dave@stgolabs.net, dvhart@infradead.org,
- linux-kernel@vger.kernel.org, mingo@redhat.com, peterz@infradead.org,
- syzkaller-bugs@googlegroups.com
-Cc: Catalin Marinas <catalin.marinas@arm.com>, Will Deacon
- <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>
-Subject: Re: [syzbot] [kernel?] Internal error in futex_wake_op
-In-Reply-To: <6a908778.1d9ded08.62e62.00dc.GAE@google.com>
-References: <6a908778.1d9ded08.62e62.00dc.GAE@google.com>
-Date: Fri, 04 Sep 2026 07:40:42 +0200
-Message-ID: <877bl1a811.ffs@fw13>
+	dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b="XR5HqxlY"
+Received: by mail-lj1-f172.google.com with SMTP id 38308e7fff4ca-3a20f06cce6so5585091fa.1
+        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 22:42:22 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788500540; cv=none;
+        d=google.com; s=arc-20260327;
+        b=WAHelfjPDR9LKTB3kGTbhui1F869k0xbd4D18jnQa/HjkkuEVlyDqP89RWVMClLO/9
+         4+w8HiZKy743OnnVyBxByeLQqqKkrKgqmlTtufYbSuh+WFXe5EVBsCMV7g+q799ALWca
+         f+inEJ4H6d7OakiBZtSqHHbYAmW8jPfLDxQlfq+gF88j331HdUgQtAN/Zb9UnR/us0lh
+         oYajFaUnUZjD7FKQQeXqQubAvgLtkJ5uAcB2sgi5b5LznpvucKoKp32f/A8E8eZSAU4m
+         tYJKtC1z0CgiX8OzYu+Wom1Ek9tybOUJmAFa3ZaEVKPlpbrmOK7uia9Ymx/gYdGGo6TZ
+         WGCg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=WP9LYTFZF8MbWwJfhaukl4r1/bwWhLGNTeX8IkDlRSA=;
+        fh=VnL/cSKhCHi0V8v/uPxIq7imNSv0AJqdP5cCSJDUBYY=;
+        b=X2EhdO2JlHBwQjE6yvcg1fRIOqE7DsfP29OZY9Cd59J/GxRlKfe3XAvnqzLQyMoYi9
+         +7I0yvwPjvt8hKBByTeaQSim+w+meWSM3O/hI1eVb9+pTE0+UB3AwdiGtaIklJpiyuwU
+         UQAWnn9cwbwEFr5y4IYxNDOxIE5hBcFrMZz8pHX6lmgSzGTLV17v+ZCF+9Dfxp9KWPeV
+         uKRC2lAX+fhwRHKxsFO4Psaccisr+w1tfRI360f66jUKRCpdgOfsL75I7D9wyozMJqWf
+         oxHJ5Dz3XIZ8JFAqsw/cOKFKgDUyPM2A3lwIrGqdbkkeM2QjrKFrO2ypHA0ZRFVQphgh
+         h7iA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=nebusec.ai; s=google; t=1788500540; x=1789105340; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=WP9LYTFZF8MbWwJfhaukl4r1/bwWhLGNTeX8IkDlRSA=;
+        b=XR5HqxlY+Mahz09OZo80Hn5QddQI+Y1xc3wGYM51C8r9jjtRqYpb4SQQjkDxdVIf8t
+         yg/7H0yiRLPckeljaBeJLoYWMwdba6Qkt1Lx5+hTquI9TKokB9ICbn8+DmzaKCSqlXKf
+         Wo/Jbzjorw2r+LnW5tCHlc/njxQF4RQ0dJrPMbJmhyaFGRUJSJBrq4nx3q9IW7vTNnq/
+         BeuTWl6Q9u38q8wnXz3MlgwGfgz4ZqbxoYkL3p25HWalD0+lSk1mpDi+md8c/6+jJiac
+         nunhIciRrKl/gYvB5spC4JADvuexX2vmokSm6G+ccMuiBwhPyDeD4f20CHrOiPEw5G6r
+         04Xg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788500540; x=1789105340;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=WP9LYTFZF8MbWwJfhaukl4r1/bwWhLGNTeX8IkDlRSA=;
+        b=pZ8BhqPCTUAlyayjE9q3+GqKOwdt6wWoA/6CkSertSiGz/Qk5aSnIJUI3scuZDefb8
+         GgOQkXBWx51OU7GCAMrWW/tycahI+X7E/EqW6Pj6LT0HDuTA/ntZnmimBNZtHHis/N03
+         wb1r2PnbbzBIVfdZ3upMjxX85WQ5BxG8mKMiZC0M7p1M1Lbn+fJxQtR2iP9sqYxGXkH4
+         AilWqQUKG/KMYWgg2jf8id8fCvOFkDvF39uYvVNb03te2GCIDdKfcrFJs/Xjm/K1HviG
+         bAg8CWYf/PN9M/ycfBLGf9SL4y6kWYQVXqEU2C06wH6J1Vn8t2et+iGlMmSo8GU3bvxT
+         HJwQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzbCd7PhUwCE7lxmmAOHxpzos8iqCEzGobRytxcwjwIv5yHW5aDGiY3ZK0U508xvcl1RBCFaUcU5PogSZ4=@vger.kernel.org
+X-Gm-Message-State: AFuF++mGWc8fZQUwi6NdRy2m3MqgUznqYQh8TwM+fFv58LUjKB1nNhAz
+	1CDXrCmbOV0dP1OR3z3vFS3XtJ21ymtPilBnbms/BNl6RgjVvzaYRiWL9iZ3+AHGq6frGHga0rs
+	/ET0FYJqupgq1SXPKXV1Bbg2fX9sfKxXhMn/dRcmzGWI=
+X-Gm-Gg: AYBFou0ETj93VUJaeIc7EPpytwVdMpuT7uznrFfpBBRcvDOsPkIg+GgspNefGm9lbaq
+	CgilQaVH0K0bCYNEekv7/BKOje4YYcjFzqApqj92fLLujuq7diGwDCjfBvCi1swj0LbUn8p5CGP
+	PthS7a3xYr/mgTY6FyUJGRMgS9v/eebk3mOwKvcAttjHQW1wUs9W5YmJPohjdfr+SQVnwb4nSbH
+	F30gnYb35Z2lqxQAQabU7ELixgN9tUgtgd3nf+crwJbEAdtBu/S7TOKBPp3kMEr2mfXbeJaL7kp
+	ABwb4Kyt6wu55lRK8iSQTS0paFfueAyfOByxiw2eAXkrMqAfk4SnujaBwJ/H2MDyE9WKUp0S1lM
+	=
+X-Received: by 2002:a2e:b8c3:0:b0:3a3:61ec:43bd with SMTP id
+ 38308e7fff4ca-3a361ec44d3mr7558051fa.14.1788500539833; Thu, 03 Sep 2026
+ 22:42:19 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+References: <cover.1788259244.git.zihanx@nebusec.ai> <34824eaea68a895a3fe9ed5337248eca1d81f74f.1788259244.git.zihanx@nebusec.ai>
+ <3674f5d34d731403bfa0e680c9e5718237612315.camel@iki.fi>
+In-Reply-To: <3674f5d34d731403bfa0e680c9e5718237612315.camel@iki.fi>
+From: zihan xi <zihanx@nebusec.ai>
+Date: Fri, 4 Sep 2026 13:42:08 +0800
+X-Gm-Features: AcwNN1UfMQ3DTycfG08OX_qcUrL1qPCx5CxEUb6NKsdMUjjJ1Z01C_kABixHz6I
+Message-ID: <CAANe3eTturj=T-H_O+eA=XF1jcJdt0TkRnG_UJEbeGsvgr-Gyw@mail.gmail.com>
+Subject: Re: [PATCH v2 1/1] Bluetooth: Fix parent socket UAF in accept queues
+To: Pauli Virtanen <pav@iki.fi>
+Cc: linux-bluetooth@vger.kernel.org, Marcel Holtmann <marcel@holtmann.org>, 
+	Luiz Augusto von Dentz <luiz.dentz@gmail.com>, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Thu, Aug 27 2026 at 11:52, syzbot wrote:
+Hi Pauli,
 
-CC+: ARM64 people...
+On Thu, Sep 3, 2026 at 11:11=E2=80=AFPM Pauli Virtanen <pav@iki.fi> wrote:
+>
+> Hi,
+>
+> to, 2026-09-03 kello 11:11 +0000, Zihan Xi kirjoitti:
+> > Bluetooth children queued on a listening socket store the listener in
+> > bt_sk(sk)->parent, but the accept queue did not hold a reference on
+> > that parent socket.  The child side can later fetch that pointer and
+> > unlink itself from the accept queue while still needing to notify the
+> > listener, for example from L2CAP, ISO or RFCOMM teardown/state-change
+> > callbacks.
+>
+> Please revalidate the KASAN crash on current bluetooth-next/master,
+> there have been related fixes since v1 of the patch and the v7.2-rc6
+> shown in the KASAN crash in the cover letter.
+>
+> With commit d4bfa78fd679 ("Bluetooth: L2CAP: reject accept queue add
+> unless BT_LISTEN") in v7.3-rc1 cherry-picked on v7.2-rc6 the POC no
+> longer reproduces for me.
+>
 
-> Hello,
+ Thanks for the review.
+
+We revalidated this. On bluetooth-next with 9db7e5fffbae ("Bluetooth:
+L2CAP: reject accept queue add unless BT_LISTEN") =E2=80=94 the same change=
+ as
+d4bfa78fd679 =E2=80=94 our PoC no longer hits the l2cap_sock_ready_cb UAF.
+That matches what you saw after cherry-picking d4bfa78fd679 onto
+v7.2-rc6.
+
+The KASAN report in the cover letter was captured on v7.2-rc6 after
+reverting that commit. I should not have presented it as a crash on
+current bluetooth-next/master.
+
+> ***
 >
-> syzbot found the following issue on:
+> The design intent AFAICS is that the accept queue of the parent socket
+> shall be empty when the parent socket is freed.
 >
-> HEAD commit:    68f892e99df9 Merge branch 'for-next/core' into for-kernelci
-> git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/arm64/linux.git for-kernelci
-> console output: https://syzkaller.appspot.com/x/log.txt?x=13dc7415580000
-> kernel config:  https://syzkaller.appspot.com/x/.config?x=d1128bc53f2ef7f3
-> dashboard link: https://syzkaller.appspot.com/bug?extid=417a6b7c02d5d03f9aa6
-> compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
-> userspace arch: arm64
-> syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=1512d625580000
-> C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=13e2859e580000
+> Otherwise, the child sockets in accept queue would leak.
 >
-> Downloadable assets:
-> disk image: https://storage.googleapis.com/syzbot-assets/f98dd20a7b98/disk-68f892e9.raw.xz
-> vmlinux: https://storage.googleapis.com/syzbot-assets/441f1ad32549/vmlinux-68f892e9.xz
-> kernel image: https://storage.googleapis.com/syzbot-assets/8da5227b7dc8/Image-68f892e9.gz.xz
+> There must then be parent->sk_state =3D=3D BT_LISTEN check before
+> bt_accept_enqueue() and some were missing in v7.2-rc6.
 >
-> IMPORTANT: if you fix the issue, please add the following tag to the commit:
-> Reported-by: syzbot+417a6b7c02d5d03f9aa6@syzkaller.appspotmail.com
+> bt_sk(sk)->parent read/write is guarded by lock_sock(sk), and it is set
+> to NULL when removed from accept queue.
 >
-> futex_wake_op: syz.0.17 tries to shift op by 144; fix this program
-> Internal error: synchronous external abort: 0000000096000010 [#1]  SMP
-> Modules linked in:
-> CPU: 0 UID: 0 PID: 4917 Comm: syz.0.17 Tainted: G   M                syzkaller #0 PREEMPT 
-> Tainted: [M]=MACHINE_CHECK
-> Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 08/07/2026
-> pstate: 83000005 (Nzcv daif -PAN -UAO +TCO +DIT -SSBS BTYPE=--)
-> pc : __llsc_futex_atomic_or arch/arm64/include/asm/futex.h:51 [inline]
-> pc : __futex_atomic_or arch/arm64/include/asm/futex.h:239 [inline]
-> pc : arch_futex_atomic_op_inuser arch/arm64/include/asm/futex.h:269 [inline]
-> pc : futex_atomic_op_inuser kernel/futex/waitwake.c:251 [inline]
-> pc : futex_wake_op+0x450/0xfe8 kernel/futex/waitwake.c:302
-> lr : mte_enable_tco arch/arm64/include/asm/mte-kasan.h:62 [inline]
-> lr : uaccess_enable_privileged arch/arm64/include/asm/uaccess.h:147 [inline]
-> lr : __llsc_futex_atomic_or arch/arm64/include/asm/futex.h:51 [inline]
-> lr : __futex_atomic_or arch/arm64/include/asm/futex.h:239 [inline]
-> lr : arch_futex_atomic_op_inuser arch/arm64/include/asm/futex.h:269 [inline]
-> lr : futex_atomic_op_inuser kernel/futex/waitwake.c:251 [inline]
-> lr : futex_wake_op+0x43c/0xfe8 kernel/futex/waitwake.c:302
-> sp : ffff800093197980
-> x29: ffff800093197b40 x28: 0000000000010000 x27: 0000000000000000
-> x26: 1fffe00018d2a3ad x25: dfff800000000000 x24: ffff0000c6951d40
-> x23: ffff0000c6951d6c x22: 0000000000000002 x21: 1fffe00018d2a685
-> x20: ffff0000c1df3780 x19: ffff0000c695342c x18: 0000000000000000
-> x17: 72676f7270207369 x16: 687420786966203b x15: 3434312079622070
-> x14: 6f20746669687320 x13: 0000000000000001 x12: 0000000000000000
-> x11: 0000000000000000 x10: 00000000fffffff5 x9 : 0000000000000000
-> x8 : 0000000000000080 x7 : ffff80008048c60c x6 : 0000000000000000
-> x5 : 0000000000000000 x4 : 0000000000000000 x3 : ffff8000805b0678
-> x2 : 0000000000000002 x1 : ffff0000c6951d40 x0 : 0000000000000000
-> Call trace:
->  __llsc_futex_atomic_or arch/arm64/include/asm/futex.h:51 [inline] (P)
->  __futex_atomic_or arch/arm64/include/asm/futex.h:239 [inline] (P)
->  arch_futex_atomic_op_inuser arch/arm64/include/asm/futex.h:269 [inline] (P)
->  futex_atomic_op_inuser kernel/futex/waitwake.c:251 [inline] (P)
->  futex_wake_op+0x450/0xfe8 kernel/futex/waitwake.c:302 (P)
->  do_futex+0x200/0x378 kernel/futex/syscalls.c:144
->  __do_sys_futex kernel/futex/syscalls.c:210 [inline]
->  __se_sys_futex kernel/futex/syscalls.c:191 [inline]
->  __arm64_sys_futex+0x2e4/0x418 kernel/futex/syscalls.c:191
->  __invoke_syscall arch/arm64/kernel/syscall.c:35 [inline]
->  invoke_syscall+0x98/0x244 arch/arm64/kernel/syscall.c:49
->  el0_svc_common+0xec/0x23c arch/arm64/kernel/syscall.c:121
->  do_el0_svc+0x4c/0x5c arch/arm64/kernel/syscall.c:140
->  el0_svc+0x64/0x260 arch/arm64/kernel/entry-common.c:758
->  el0t_64_sync_handler+0x44/0x104 arch/arm64/kernel/entry-common.c:777
->  el0t_64_sync+0x198/0x19c arch/arm64/kernel/entry.S:590
-> Code: d500409f 1280014a f94057eb f9800171 (885f7d76) 
-> ---[ end trace 0000000000000000 ]---
-> ----------------
-> Code disassembly (best guess):
->    0:	d500409f 	msr	pan, #0x0
->    4:	1280014a 	mov	w10, #0xfffffff5            	// #-11
->    8:	f94057eb 	ldr	x11, [sp, #168]
->    c:	f9800171 	prfm	pstl1strm, [x11]
-> * 10:	885f7d76 	ldxr	w22, [x11] <-- trapping instruction
+> Dangling bt_sk(sk)->parent should then not occur.
 >
+> If bt_sk(sk)->parent !=3D NULL is observed under lock_sock(sk), the
+> parent socket is valid during that critical section.
 >
-> ---
-> This report is generated by a bot. It may contain errors.
-> See https://goo.gl/tpsmEJ for more information about syzbot.
-> syzbot engineers can be reached at syzkaller@googlegroups.com.
+> The sock_hold/put(parent) in this patch are in lock_sock(sk) critical
+> sections, so should be no-ops.
 >
-> syzbot will keep track of this issue. See:
-> https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+> The accept queue items owning reference to parent also should be no-
+> ops.
+
+Agreed. Once the BT_LISTEN check is in place, close() empties the
+accept queue before the parent is freed, and lock_sock(sk) serializes
+ready/teardown against unlink. The extra parent references do not
+change the lifetime of the listener, so this patch is not needed on
+current bluetooth-next.
+
+I will drop this series.
+
+Thanks,
+Zihan Xi
 >
-> If the report is already addressed, let syzbot know by replying with:
-> #syz fix: exact-commit-title
+> > If the listener is closed concurrently, removing the child from the
+> > accept queue can drop the last listener reference before those
+> > callbacks call parent->sk_data_ready(parent), leaving a stale parent
+> > pointer and a use-after-free.
+> >
+> > Take a reference on the parent when a child is queued and drop it when
+> > the child is unlinked.  Since unlinking now drops the accept-queue
+> > parent reference, take a temporary parent reference in the callbacks
+> > that continue to notify the parent after bt_accept_unlink().
+> >
+> > Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+> > Cc: stable@vger.kernel.org
+> > Reported-by: Vega <vega@nebusec.ai>
+> > Assisted-by: Codex:gpt-5.4
+> > Signed-off-by: Zihan Xi <zihanx@nebusec.ai>
+> > ---
+> > changes in v2:
+> >   - rebase onto current bluetooth-next
+> >   - refresh trailers to the current submission template
+> >   - retarget author identity to Zihan Xi <zihanx@nebusec.ai>
+> >   - v1 Link: https://lore.kernel.org/all/65767989c644f8adf52f35334f4034=
+c66f47881f.1784383243.git.xizh2024@lzu.edu.cn/
+> >
+> >  net/bluetooth/af_bluetooth.c | 2 ++
+> >  net/bluetooth/iso.c          | 2 ++
+> >  net/bluetooth/l2cap_sock.c   | 2 ++
+> >  net/bluetooth/rfcomm/sock.c  | 2 ++
+> >  4 files changed, 8 insertions(+)
+> >
+> > diff --git a/net/bluetooth/af_bluetooth.c b/net/bluetooth/af_bluetooth.=
+c
+> > index 411d66f24393..61a232378e6c 100644
+> > --- a/net/bluetooth/af_bluetooth.c
+> > +++ b/net/bluetooth/af_bluetooth.c
+> > @@ -218,6 +218,7 @@ void bt_accept_enqueue(struct sock *parent, struct =
+sock *sk, bool bh)
+> >       BT_DBG("parent %p, sk %p", parent, sk);
+> >
+> >       sock_hold(sk);
+> > +     sock_hold(parent);
+> >
+> >       if (bh)
+> >               bh_lock_sock_nested(sk);
+> > @@ -266,6 +267,7 @@ void bt_accept_unlink(struct sock *sk)
+> >       spin_unlock_bh(&bt_sk(parent)->accept_q_lock);
+> >       bt_sk(sk)->parent =3D NULL;
+> >       sock_put(sk);
+> > +     sock_put(parent);
+> >  }
+> >  EXPORT_SYMBOL(bt_accept_unlink);
+> >
+> > diff --git a/net/bluetooth/iso.c b/net/bluetooth/iso.c
+> > index 75bfd5938b2e..e709292aa112 100644
+> > --- a/net/bluetooth/iso.c
+> > +++ b/net/bluetooth/iso.c
+> > @@ -286,8 +286,10 @@ static void iso_chan_del(struct sock *sk, int err)
+> >
+> >       parent =3D bt_sk(sk)->parent;
+> >       if (parent) {
+> > +             sock_hold(parent);
+> >               bt_accept_unlink(sk);
+> >               parent->sk_data_ready(parent);
+> > +             sock_put(parent);
+> >       } else {
+> >               sk->sk_state_change(sk);
+> >       }
+> > diff --git a/net/bluetooth/l2cap_sock.c b/net/bluetooth/l2cap_sock.c
+> > index b553b6356af8..3720ab2e39ed 100644
+> > --- a/net/bluetooth/l2cap_sock.c
+> > +++ b/net/bluetooth/l2cap_sock.c
+> > @@ -1748,8 +1748,10 @@ static void l2cap_sock_teardown_cb(struct l2cap_=
+chan *chan, int err)
+> >               sk->sk_err =3D err;
+> >
+> >               if (parent) {
+> > +                     sock_hold(parent);
+> >                       bt_accept_unlink(sk);
+> >                       parent->sk_data_ready(parent);
+> > +                     sock_put(parent);
+> >               } else {
+> >                       sk->sk_state_change(sk);
+> >               }
+> > diff --git a/net/bluetooth/rfcomm/sock.c b/net/bluetooth/rfcomm/sock.c
+> > index 958081adb9b5..a16daa68ecb8 100644
+> > --- a/net/bluetooth/rfcomm/sock.c
+> > +++ b/net/bluetooth/rfcomm/sock.c
+> > @@ -78,11 +78,13 @@ static void rfcomm_sk_state_change(struct rfcomm_dl=
+c *d, int err)
+> >
+> >       parent =3D bt_sk(sk)->parent;
+> >       if (parent) {
+> > +             sock_hold(parent);
+> >               if (d->state =3D=3D BT_CLOSED) {
+> >                       sock_set_flag(sk, SOCK_ZAPPED);
+> >                       bt_accept_unlink(sk);
+> >               }
+> >               parent->sk_data_ready(parent);
+> > +             sock_put(parent);
+> >       } else {
+> >               if (d->state =3D=3D BT_CONNECTED)
+> >                       rfcomm_session_getaddr(d->session,
 >
-> If you want syzbot to run the reproducer, reply with:
-> #syz test: git://repo/address.git branch-or-commit-hash
-> If you attach or paste a git patch, syzbot will apply it before testing.
->
-> If you want to overwrite report's subsystems, reply with:
-> #syz set subsystems: new-subsystem
-> (See the list of subsystem names on the web dashboard)
->
-> If the report is a duplicate of another one, reply with:
-> #syz dup: exact-subject-of-another-report
->
-> If you want to undo deduplication, reply with:
-> #syz undup
+> --
+> Pauli Virtanen
