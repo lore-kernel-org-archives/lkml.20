@@ -1,102 +1,167 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from fout-a4-smtp.messagingengine.com (fout-a4-smtp.messagingengine.com [103.168.172.147])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E96E23CA49D;
-	Fri,  4 Sep 2026 21:52:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A460440E8C1;
+	Fri,  4 Sep 2026 21:53:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.147
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788558766; cv=none; b=MpX5bcKgFKlXLi9/yZEEtX7Y54pAgtuIOa9MYaGFuF7nc6+2RVzmmaIX6F6p20X0Gr0Wxgr8WFikYL1RIsTi486S6frDPpm7eUplJFRbInSGACDldsDccuYP5ofywU6Iw1YmT7NhKu+9UMxogSiLKnW/Pn5EQwFH8ipxmb16QVg=
+	t=1788558802; cv=none; b=nBDpcr4DZhhQidiZgJhnjjimoQytAeu1QEIe2z7pBlhHegB66dXv4wkZJ0V92eAFaoBKmS7PSLdvFgL8u6gMZRKQOucfqfeEn4Gnm5GTprsN0sLoN0NUSDZnsDdys7HzbiVFRf+AJjEfjRCCzZekIrpw98qsDD9g+8A6yloxEoM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788558766; c=relaxed/simple;
-	bh=5zeTOvmIk0EI53GwfSNAdWIbJbhGjhQh5FLDW3pYkrI=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=T4/rtxxbWWaOZwvmS6+uwmOzz79wJcwAjp1+FzqHBBJ7pHpQBGL8oU0c101s+vR4ADYYKQGYpjYvomsXdCUdlRVLCnz5BRY9d62gmPmy/2JYT5tQ4TaIjWwkWx1+S9l2O0JI93Ll69KS49FGgvMU+Y/qwXO5ZyCNyUM6qyAkmgo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YHbbnuMB; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788558802; c=relaxed/simple;
+	bh=7TkQW9u4kiL+eS+poIo/QByRdTwXvkpEsvOrSCHZ0Zk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=kRj2Kd5nuqYVSrxoCCf2UEuT/rH6gRvj3FU8htqsK1JLc/BQlFWvgvxDwYyJ57VHt3nuytK5Hiyb9/3m5GGEPsSU42ob+BwLEEuP11/TQ1i5ePXyFdrDik+gdWJ6AqblAQFsc81JqCp6CPcCJkqGdu2zGDwbnCP0BPSRyGBTTz4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ownmail.net; spf=pass smtp.mailfrom=ownmail.net; dkim=pass (2048-bit key) header.d=ownmail.net header.i=@ownmail.net header.b=HzBQr7v6; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=LvCkIllw; arc=none smtp.client-ip=103.168.172.147
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ownmail.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ownmail.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YHbbnuMB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BAE021F00A3D;
-	Fri,  4 Sep 2026 21:52:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788558764;
-	bh=wPY8AjcwBIxKJxhGlHKtBEs36+4wOdwZd7Oot9fKccs=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=YHbbnuMBbHv6K4zfyuOcbuHYJfsd7sB8aMDaFCUiRdZvx3qirDp/jP5qM7W/ddKsT
-	 9x3h5EKziKbvnXpSqYid8B6WySXb6B+36Uv1QFHWli0a6AmDVQXqTDQAKap79WSdx+
-	 3hblNzkabF4ZM/Xw7UQnowrl6yzYcwnGSgCRq2Nb7/vRZJsQhoJXKUE890F4/Bc/vp
-	 X5Un2D2JMIf3QGUifiTfzoJG1UMpzKQWHpPJNY7Y6O7kxV2lmW9/NepnPU7AydjvUO
-	 MVLss07xdytmZH6jVIDilsTu7TrUM5L2mh5pBlAsIv+OluAAT2zfRtHKU50wBsYlqA
-	 NcijdZPU/4L+w==
-From: Mark Brown <broonie@kernel.org>
-To: Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, 
- Luca Weiss <luca.weiss@fairphone.com>
-Cc: ~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org, 
- Krzysztof Kozlowski <krzk@kernel.org>, linux-arm-msm@vger.kernel.org, 
- linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260901-fp4-regulator-supply-v1-0-68288ab70aee@fairphone.com>
-References: <20260901-fp4-regulator-supply-v1-0-68288ab70aee@fairphone.com>
-Subject: Re: (subset) [PATCH 0/4] Add supply names for PM6350 RPMh
- regulators on Fairphone 4
-Message-Id: <178854754328.632048.5938751539078194557.b4-ty@b4>
-Date: Fri, 04 Sep 2026 19:45:43 +0100
+	dkim=pass (2048-bit key) header.d=ownmail.net header.i=@ownmail.net header.b="HzBQr7v6";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="LvCkIllw"
+Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
+	by mailfout.phl.internal (Postfix) with ESMTP id AF45BEC017A;
+	Fri,  4 Sep 2026 17:53:18 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-03.internal (MEProxy); Fri, 04 Sep 2026 17:53:18 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ownmail.net; h=
+	cc:cc:content-transfer-encoding:content-type:date:date:from:from
+	:in-reply-to:message-id:mime-version:reply-to:reply-to:subject
+	:subject:to:to; s=fm1; t=1788558798; x=1788645198; bh=ZZ+voDUruj
+	MOePoj7srzp30HyTtLVfN2kVCzQKaHP1A=; b=HzBQr7v6QWXuW2h19ogkISZuYW
+	EQE7PTLvgxymXhQf7Usz0U5YVZZOEzdIZxZBOMMI1ttsIae+N2BOdifW3D+fe8Q1
+	VKu06BRUMCdfy3DRM3M8Lv8vWa5yCeq6lcCyLjYJCQ34KD1U1OTgacSyN4goOIwF
+	e4CHEJbIe44EHCnzUBg2G48J9kWdn0doZhTw5IBlByh+6lam4EdYiXQcR0yObk4f
+	mgTmjC1FYFLRJpHObNiyCy+sou7VqAJxzizr5X4QHqXsZ2+6qjW55T76JRmOxFKv
+	bz/VxMMvvL2UqrlhuEFGvKQTrUi8DPFIvoRtsp9ppaW0uqj7eB8QV+WPgnUQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:date:date:feedback-id:feedback-id:from:from
+	:in-reply-to:message-id:mime-version:reply-to:reply-to:subject
+	:subject:to:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
+	fm1; t=1788558798; x=1788645198; bh=ZZ+voDUrujMOePoj7srzp30HyTtL
+	VfN2kVCzQKaHP1A=; b=LvCkIllwd3S8Mqj3u/R19LjXEJOvhPr7lgUVRsNBjQIw
+	r2eaMGxGBuL+3sXIOqgohEQ72wUxGBGDACK/X7uD27ypM1r9s+wHDDanxRUejkU/
+	E/74PBuNFfG3dwHEXrmj/I6PO9OW1ST/ftcsG2FFQFnW7ZR4OrszeM0phlGmEg44
+	Qa6sSvLBltkKby3VSNrTOULkGWHpdPY+Z/rzmcbn057RU0AGHSI4izN+kZbc9Rj/
+	Y78g02DTp+A4IT3ziEcW2CKD0wTIjCv9w6EzDSRSNtdU9W8+puEt31356Yba66IS
+	wr8cHCt8n1qJ4QH3MSu77Beao0MPTdhh7c2wYAjGBg==
+X-ME-Sender: <xms:zT2basKi1Cak4LhWRrS2AzZk8r6SkACTAallHP_9nCXlgshF5g3eOg>
+    <xme:zT2baut4Twz1rQ62VuUjyy6YYtJe6FWSc8Agwuh3lmxKsvNFxXJSfLR5Wg-bKNXiS
+    ERetoOcbe_FemCB4AchXfqWYT13Wk_7ohsnSZvNzbXCacFs2wq6>
+X-ME-Received: <xmr:zT2bagVzO24dzEKSAmkQBz0G9zU1dV2RIhzLguOETXSTOzBP4bA9Ixyshcoj5FSN_n_OYyFFlZhyZamrKb9dSnCRUyHfcdM>
+X-ME-Proxy-Cause: dmFkZTEvbYg38I/Eoo2MytY10OVTq+pkBoAr0oMR4YrqWLXitHJLWxTLohw2MPBlLZNraE
+    V/sbg44k554bhZ40Dwdbi3skwaGYHrJEombZ+Ju9dXHbuA9cJe0y36x5iRsSN5eg4CwqD1
+    wvyAijdRCfozutPpK87gkZTBYY6RwNoBwtevOnONdjRzPfGuiv/qXKIDwTa7SW9fGYcfn6
+    auUkiOaYV1shnUqUfSdDQD6BVG2S+T56cKXa3lHbDcmfplSaF2/EmgN2bTpLhzVuFdMGx8
+    39cT/hQBNLoct/nf/jSZhTtfaEOACmmZxpjJTUb5oV+V4fmKtlSLiaqaY6H0pXfhWj5VHY
+    NCxT87AJAlWGOBn9dnjGGYXAWmMye/QuM+a23k/hu3HlvKP0EBnS2+7yfkxogzfUN798qv
+    Wpd8IiiB0BLZWmc5hGUkj8US+TWnXGWEsmCy3vY1UuiAI3VaJuNkKalehefoLKDDnGh/Sj
+    Z3+UKA7pi4Tc4Kj56t7yKFCLgoJA85tsXtcSdy/czsCrnEWGJBCSI5hlz1KUkbzE7powJ8
+    XRMB5sTXhlRttUml5cu1oeRUFEzOsZY548UN5Ljl8q01NMkfMCCD4H3OsUmckO49gjgnPN
+    /Y5ShS8q+qEuLJtOfwBNbM7UTMrhybTuZJzbBXgyNMnWhDUbINdVhxu+0zRg
+X-ME-Proxy: <xmx:zj2bapgsz8TfsDXrDD3vPMux1xkbnovujZtRVxH3hw7os434ygZO-g>
+    <xmx:zj2baoq85lvuIGVR8ec6bhLg_FQJBXNRuJYHcmfFKcH81CkxYr8BsQ>
+    <xmx:zj2bavH4e_v6Lc9Yir__x26eGMSLGxRTutM5Tjg0owvLKcn6XXS3Ng>
+    <xmx:zj2bat6ApLqYUTSbSTIGQEsGU1QxgeYO-jOB5H0SFItk3mxCPUDr4Q>
+    <xmx:zj2baizIXNJrtsxZnJ2n-E9V1TeKMm2l2SlurrVeato1u_pT_hMFg0Kk>
+Feedback-ID: i9d664b8f:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
+ 4 Sep 2026 17:53:15 -0400 (EDT)
+From: NeilBrown <neilb@ownmail.net>
+To: Alexander Viro <viro@zeniv.linux.org.uk>,
+	Christian Brauner <brauner@kernel.org>
+Cc: Jan Kara <jack@suse.cz>,
+	linux-fsdevel@vger.kernel.org,
+	Jeff Layton <jlayton@kernel.org>,
+	Amir Goldstein <amir73il@gmail.com>,
+	Miklos Szeredi <miklos@szeredi.hu>,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v4 0/7] VFS: prepare for changes to directory locking
+Date: Sat,  5 Sep 2026 07:48:09 +1000
+Message-ID: <20260904215142.1060510-1-neilb@ownmail.net>
+X-Mailer: git-send-email 2.50.0.107.gf914562f5916.dirty
+Reply-To: NeilBrown <neil@brown.name>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1492; i=broonie@kernel.org;
- h=from:subject:message-id; bh=5zeTOvmIk0EI53GwfSNAdWIbJbhGjhQh5FLDW3pYkrI=;
- b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBqmz2nk5ZznzOT0g8qtY6HTE4WGIXfwZY3lC/Hh
- saH91KaDSuJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCaps9pwAKCRAk1otyXVSH
- 0B7kCACBxVzvCOSI1Q1v2dSf0fOL8XeXaEMBHp9EM+0ooF/+DRKgMwnKpNpPWL+bYdxkijPFxy0
- 3B9nZOT4osX2S+BXMbP6TMUfIEVbqfatiWkpfNyvmBjr9PaZvFU+T+fA/ywAXd0mx/hkWXpOWIS
- SE+E5XXgbCAeP8Oqp72Q91fvSddptFdGkB6p3eU6JqFTUR0M9yb5mXKrqiYlQRCB1TqOyvcLp3y
- yGqMwc0PMIKFdnRpEbHxY5BcjGAdv6UY969G+RBrH5Te/MqARQY/GmebrnWSWxvyQ5eWIVEtA6U
- Ou79GFbsT7d+T7xGRf2fcxlYxf5zcD/PC6Hmq4YddgryvsaD
-X-Developer-Key: i=broonie@kernel.org; a=openpgp;
- fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
+Content-Transfer-Encoding: 8bit
 
-On Tue, 01 Sep 2026 10:58:55 +0200, Luca Weiss wrote:
-> Add supply names for PM6350 RPMh regulators on Fairphone 4
-> 
-> During bringup no parent supply names were added to the RPMh regulator
-> driver. Add them now.
+The only change in this v4 over v3 are to replace lock_sync with an
+acquire/release pair which builds correctly when lockdep isn't enabled,
+to add the 7th patch which I previously mentioned, and to include
+linux-kernel so that sashiko gets to see the series.
 
-Applied to
+Previous intro:
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/regulator.git for-7.4
+Hi,
+ As you know I am working on changes to locking for directory operations
+such as lookup/create/remove/rename.  The ultimate goal is for the VFS
+to lock the dentry, not the parent directory, and to push the i_rwsem
+parent locking down into the filesystems where it can be kept, removed,
+or adjusted as best fits each filesystem.
 
-Thanks!
+The next step is to change the order of locking for d_alloc_parallel() -
+which allocates a locked (in-lookup) dentry or waits for an existing
+dentry to be unlocked.  Currently d_alloc_parallel() is ordered below
+i_rwsem on parent, so you cannot wait on i_rwsem while holding a locked
+(in-lookup) dentry.
 
-[1/4] regulator: dt-bindings: qcom,rpmh: Add supply names for PM6350
-      https://git.kernel.org/broonie/regulator/c/f0944054a0e0
-[2/4] regulator: qcom-rpmh: Add supply names for PM6350
-      https://git.kernel.org/broonie/regulator/c/05e0f510e299
-[3/4] regulator: qcom-rpmh: Add missing regulators in PM6350
-      https://git.kernel.org/broonie/regulator/c/fd744eb396a3
+To push i_rwsem into filesystems I need to push i_rwsem below d_alloc_parallel(),
+so code can wait for i_rwsem while holding an in-lookup dentry, but won't be
+able to wait in d_alloc_parallel() while holding i_rwsem.
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+There are two broad changes that are needed before that order can be
+swapped.  This series sets the direction.  Subsequent patches which I
+hope can also land this cycle spread those changes throughout
+filesystems.
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+The two changes are:
+1 - don't call d_alloc_parallel() while holding i_rwsem.
+   This involves introducing d_alloc_trylock() and changing
+   some places to drop i_rwsem before taking d_alloc_parallel()
+   for this to work they will need to know if the lock is shared
+   or exclusive so LOOKUP_SHARED is added.
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
+2 - don't d_drop() a dentry while it being worked on.  This might
+   not be entirely needed yet, but it will be needed soon and doing it
+   now is a convenient time, and it helps make the end result clearer.
+   Calling d_drop() effectively unlocks an in-lookup denty.
+   It is OK for a filesystem to do this *after* an operation has
+   completed, whether in success or failure.  Doing it before completion
+   will allow another dentry to be allocated maybe too early.
 
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
+   Enhancing d_splice_alias() to handle hashed dentries is key to
+   removing the need to d_drop() in filesystems.  Though not strictly
+   necessary, this allows d_add() to be removed as there will be nothing
+   that d_add() does which cannot be done with d_splice_alias()
+
+This set of 6 patches makes core-VFS changes. After this I have
+ - 7 nfs patches
+ - 6 afs patches
+ - 4 smb/client patches
+ - 3 cephfs patches
+ - 2 fuse patches
+ - one each for shmem, code, configfs, hostfs, procfs, ovl
+and a patch to d_add_ci() which affects xfs and ntfs.
+
+Once all of those have landed I have 4 patches to remove deprecated interfaces.
+All of these can be found at
+   https://github.com/neilbrown/linux/commits/pdirops
+
+
+If all goes to plan, then in the next cycle a few patches will invert the
+lock order and remove LOOKUP_SHARED.  Then we can get on to the really
+fun stuff! (branch pdirops-next)
 
 Thanks,
-Mark
+NeilBrown
 
+
+ [PATCH v4 1/7] VFS: fix various typos in documentation for
+ [PATCH v4 2/7] VFS: enhance d_splice_alias() to handle hashed
+ [PATCH v4 3/7] VFS: introduce d_alloc_trylock()
+ [PATCH v4 4/7] VFS: add d_duplicate()
+ [PATCH v4 5/7] VFS: Add LOOKUP_SHARED flag.
+ [PATCH v4 6/7] VFS: add lockdep monitoring of DCACHE_PAR_LOOKUP lock.
+ [PATCH v4 7/7] VFS: reserve a d_flags bit for fs-specific usage
