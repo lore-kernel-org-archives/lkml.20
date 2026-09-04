@@ -1,110 +1,196 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f181.google.com (mail-pg1-f181.google.com [209.85.215.181])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C578E4CA29B;
-	Fri,  4 Sep 2026 14:46:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C9B24A4823
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 14:46:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788533192; cv=none; b=puPG40OO+R58y5TIoxxGDw1YBmPNUt9dOJQxFAA1wLU8jb3Qvf5w6hlzBZALIC2tkYmMl9ueYctvSKnBGapsVOF2rU/nuD7uRl+MKp8E+YUFyNOzWklgDw+fvLcJDonLQ/APLvjyIv6LQvcvQX8fvIOL7RuYyw764w3Nkqv2GsI=
+	t=1788533206; cv=none; b=aQH4V2f7H+ecLLUKct7KgRL7Z52pW60ev2sxzy4fJiQXHzRxNsx/Gh3qMNCMaKbKeInDQwTfei9AyjIyvjxZ6KaJZBzb1XjG+EVU7wIkVCCXzCewu16oIdFDwBzdkBhBQh2psZK/36qwS2mcz90ZNq6hyBu7Rm7X7wCZJXp7HOw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788533192; c=relaxed/simple;
-	bh=6YOKdGHqQZFFBriWHZr2LHxCtznyqa8Dq5ujELK1W64=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=dIDcCop3pwGq7zNHOXWu+nX2n0R5yqcUgw9p0Jd3HVtaSDvOKFczJ1odF9K9dlSaCkLP640wWgy6PvPjjMdNJG9OU1Nb1qUdytSQZwbyiXo7W8lfgWViyR8QdcElou+3zS+8bpdNrAcBvGs4YXROCLgpIKiiffBJaG3uTyCAkfo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=GiHJpti3; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788533206; c=relaxed/simple;
+	bh=BbXfgWlfzRZyr4dPjeqVjwbHbbS/YICn/SR1Wtt7l2U=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=NvCznOuYvajdYO1+dGq5jY436VvZVT9d0/q7NYnRswgY1WILgcMZJ3l0QfAlgv33DmtpbA64di2HKj5/NT5QCIzU2H6RUbNvtVaHSTVaydbcYBlx8XBfqFbmBRFxy2w3exz4LGPrlDVBPn12Z9xWuPkIg7ijhwDvZs0rzIbMtY4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=l+rFf4yH; arc=none smtp.client-ip=209.85.215.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="GiHJpti3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 86A191F00A3D;
-	Fri,  4 Sep 2026 14:46:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788533190;
-	bh=C11iQdT2ycScZMPTToa+e5QQW1criHxxo7fUl5Vxeo0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=GiHJpti3iF2NhaBPSiHn44H8SufrVOgnk1G/klg2vO7ie43Xx+SUT9FVTLsblRkVw
-	 +qdSw1m+0SnAYU4s0TpxrYhp9BbGj9YZHPzA5RCR1zxK5JrZcEytbEqKx2BK6aLn2p
-	 xrdcqV/r6/e00GihtUay8zLXkX615OXiNMQQxnc8=
-Date: Fri, 4 Sep 2026 16:44:18 +0200
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Shakeel Butt <shakeel.butt@linux.dev>
-Cc: Christian Brauner <brauner@kernel.org>, Tejun Heo <tj@kernel.org>,
-	Christian Brauner <christian@brauner.io>,
-	Meta kernel team <kernel-team@meta.com>,
-	linux-kselftest@vger.kernel.org, driver-core@lists.linux.dev,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="l+rFf4yH"
+Received: by mail-pg1-f181.google.com with SMTP id 41be03b00d2f7-cc147d86bebso1127336a12.0
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 07:46:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788533203; x=1789138003; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=+KORA1QOawwybzzFnrAjqMpjLNSbqqT9+9DA9omrxog=;
+        b=l+rFf4yHWql9AX6Qnnc9MbjhT1nNeQxPM89htsqNdtME5wCtUI8a8Urwr8hm2uDQLL
+         nfgUB1j4e41oNxpVk2jwfBqMrHONAYwcILkAdTg1HjC98KVBKr7pZoEXZ1bYGy2YePjv
+         ulP218h+vcSQbzh5k7uia6dk2YJgcHLdljNP1+oLNcrrTmYSld9MJI37Shkj62oAVBvW
+         4f/dN/ceyOt/+q52BwDwGZ1GlQgACyQN6JfleuAp3o5rBI/wTvZqSrlqOvqf90ASXGWf
+         RQz4muEo6C8nvnpVKJRQK618QCfn50LOmiT5zhY51UnC1b9c95btTJwXM6wliJAvKV/r
+         P+ww==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788533203; x=1789138003;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=+KORA1QOawwybzzFnrAjqMpjLNSbqqT9+9DA9omrxog=;
+        b=X/RU60ATYAlMpl655d0407yP71q6i8074DBfsfBadG1n974s36Rq+KvwCyZiqHVGrM
+         eQJm06o2yIbEc+Z+XvSZeQdCm7TSYFyf6wnWiU5c5dt2cJEms6mcVSOI1/S6lXGvmejJ
+         iL6sR6fxg3o+xCARtaNAqU1wZ+6LM3V27aWJzoyc6cCVscQzFS2dn6O6TWGdFNo2rSRn
+         0d77zCQ0Iy/cN+oc/ZVxfC++OPJphP+2Ts6z64z94+dNE8txBKVZOxJ4XzsMMah+zRI3
+         07E9vflXQsOO2hflzFDLh3f8omC8Z9oYXDB+eqqhZ3+pwEYiFH/Hqrf3lxgPUKr4Ik0E
+         6GZg==
+X-Forwarded-Encrypted: i=1; AKwUvBz6dntYRQnPRLUZk3qLSDumQXVvz/kkXAq+9H7h3SUG+fzXfWJMPffNTwcKxxBPiZ/gFADHZfVlcMeL3Io=@vger.kernel.org
+X-Gm-Message-State: AFuF++lbi2hTqvI3Y8VhXXV4ehNDZxIRMQfYCzXron0M0PYWap8UbI85
+	IWn12Mro8fK1Pu3rRm09zJPqPkySwzqfmum1BF3wWsvhlDRUGqcNQXDw
+X-Gm-Gg: AYBFou00x5e336QveEbekfsfuDw2tiJ/0s0rY63uCipFF4+jebzWLx4YlfzOTAg+2i3
+	cEFkXEYpLyt/g/wp2+WT9QNo+HYrHCNexG0wY+GOTPqjqzIqe2pnf6GJH7XALeP+3YUWusi724/
+	K95nGafDDW16zBRSHcf1qm0BmWBmsTuhrjOl5BcbwvnHf6li1HkADgAIlh/ebtea4U9cXRJGGjJ
+	vCRlD5yUdPwpXkET4HRr6NXIRhDIuLeU2jvJI4ZDbSLKY2ifC6Pro4YGgbjHFY79vzW/Qjq10dC
+	K7bfB/N/MWi40uzcnfs5ymK7cYTBsH/U5sOCYXvLBuLZ8hgcBcEv6s8Xz9wFSBq8MCzpqoCO2wc
+	FaGoUL2XnbouAbVmCK/6BveFCYgRhQXZ7WhU2IUielIETpzp6FBnXvK6eheIX+DvBN4h1m5VYLG
+	pDs0oZn2x5v0/gKOEluHCprd7OAGGtoPrffDRcRjRxgXK+O+CfHInKsQVkSfuHwzo4bRE3B8yU1
+	hDs/KFLP3opfg==
+X-Received: by 2002:a17:90b:4490:b0:38e:42f5:d096 with SMTP id 98e67ed59e1d1-39b279ad968mr4255057a91.0.1788533202363;
+        Fri, 04 Sep 2026 07:46:42 -0700 (PDT)
+Received: from csl-conti-dell7858.ntu.edu.sg ([155.69.195.57])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39ae8ccc72fsm5392354a91.2.2026.09.04.07.46.39
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 04 Sep 2026 07:46:41 -0700 (PDT)
+From: Maoyi Xie <maoyixie.tju@gmail.com>
+To: davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	kuniyu@google.com
+Cc: horms@kernel.org,
+	alexander@mihalicyn.com,
+	brauner@kernel.org,
+	adobriyan@openvz.org,
+	akpm@linux-foundation.org,
+	leitao@debian.org,
+	netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] selftests: cover kernfs dentry revalidation
-Message-ID: <2026090456-unblock-elixir-7d4f@gregkh>
-References: <20260902014050.499002-1-shakeel.butt@linux.dev>
- <20260904-kandidat-bergbahn-ersonnen-3a6dd1f1cf0e@brauner>
- <aprVEyqOrdmuD-HN@linux.dev>
+Subject: [PATCH net] netlink: render SCM_CREDENTIALS pid in the receiver's pid namespace
+Date: Fri,  4 Sep 2026 22:46:36 +0800
+Message-Id: <20260904144636.3443342-1-maoyixie.tju@gmail.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <aprVEyqOrdmuD-HN@linux.dev>
+Content-Transfer-Encoding: 8bit
 
-On Fri, Sep 04, 2026 at 07:33:45AM -0700, Shakeel Butt wrote:
-> On Fri, Sep 04, 2026 at 10:13:11AM +0200, Christian Brauner wrote:
-> > On Tue, Sep 01, 2026 at 06:40:50PM -0700, Shakeel Butt wrote:
-> > > kernfs_test only checked two xattr calls. It did not touch the part of
-> > > kernfs that userspace hits most: the dentry cache.
-> > > 
-> > > The kernel adds and removes kernfs nodes on its own, with no VFS call
-> > > behind it, and removal cannot always unhash the dentries that are
-> > > already cached. So ->d_revalidate() is what keeps the cache honest,
-> > > let's add tests for it.
-> > > 
-> > > Add tests that make the kernel change kernfs directly, instead of going
-> > > through create and unlink:
-> > > 
-> > >  - writing cgroup.subtree_control makes the kernel add and remove files
-> > >    in every child cgroup. That checks two things: a cached negative
-> > >    dentry is dropped once the file appears, and a cached positive one
-> > >    is dropped once the file goes away.
-> > >  - renaming a network interface renames the sysfs node under a dentry
-> > >    that is already cached.
-> > >  - sysfs mounted in a new network namespace must list that namespace's
-> > >    interfaces and not the parent's, which covers the KERNFS_NS tagging
-> > >    code.
-> > >  - many lookups running against concurrent mkdir and rmdir. A lookup
-> > >    may only succeed or fail with an errno that means "it is gone".
-> > >  - open across removal, readdir returning each entry once, and a
-> > >    telldir()/seekdir() round trip, which uses the name hash cookie in
-> > >    kernfs_dir_pos().
-> > > 
-> > > Test the other direction too: walking dentries that are already cached
-> > > must not drop them. That is not just a slowdown. d_invalidate() calls
-> > > detach_mounts(), so a dentry dropped by mistake also unmounts whatever
-> > > is mounted under that directory.
-> > > 
-> > > Both filesystems are needed. cgroup2 has no ->rename and is not
-> > > namespace tagged. sysfs cannot be mounted with a set of children we
-> > > control. The config fragment stops a kernel built with kselftest-merge
-> > > from passing while it runs almost nothing.
-> > > 
-> > > To confirm the tests really catch a broken backstop, kernfs_dir_changed()
-> > > was stubbed to return false. 8 of the 11 tests then failed.
-> > > 
-> > > Signed-off-by: Shakeel Butt <shakeel.butt@linux.dev>
-> > > ---
-> > 
-> > I have to say I would appreciate trimmed-down commit messages with less
-> > relative clauses. This reads very LLMy still. Especially for tests my
-> > appetite for wading through multiple paragraphs of info is very low.
-> > Same goes for the very wordy changelog below...
-> 
-> My appologies, I will be more precise and concise in future.
-> 
-> I assume the kernfs bug fixes [1] will also go to your vfs branch. I will send a
-> v2 of that series with appropriate tags and will try to improve the commit
-> messages as well. I have a followup improvements for kernfs_rwsem which I will
-> base on vfs branch. Just wanted to give a headsup.
+__scm_recv_common() translates uid and gid into the reader's user
+namespace but copies the pid as is. AF_UNIX gets away with that because
+unix_skb_to_scm() re-renders the pid with pid_vnr() at recvmsg time.
+netlink_sendmsg() renders it in the sender's namespace and stores a bare
+u32, so a reader in another pid namespace sees a number from a namespace
+it is not in. The sender chooses that number. An unprivileged sender in a
+child namespace made the receiver see pid 300.
 
-kernfs patches go through the driver-core tree normally, not vfs.
+Carry the sender's struct pid in NETLINK_CB and hand it to scm_set_cred()
+in netlink_recvmsg(), the way af_unix does. netlink_skb_set_owner_r()
+takes the reference and netlink_skb_destructor() drops it. A reader in a
+namespace the sender has no pid in now gets 0, like AF_UNIX.
 
-thanks,
+I found this with a CodeQL checker. I used Claude to help write the
+reproducers. The ones that reproduce the bug run unprivileged and need no
+kernel changes. Tested on net with KASAN and lockdep, no reports. The tree
+has no netlink SCM selftest.
 
-greg k-h
+Fixes: b488893a390e ("pid namespaces: changes to show virtual ids to user")
+Cc: stable@vger.kernel.org
+Assisted-by: Claude:claude-opus-5 codeql
+Signed-off-by: Maoyi Xie <maoyixie.tju@gmail.com>
+---
+ include/linux/netlink.h  |  9 +++++++++
+ net/netlink/af_netlink.c | 30 ++++++++++++++++++++++++++++--
+ 2 files changed, 37 insertions(+), 2 deletions(-)
+
+diff --git a/include/linux/netlink.h b/include/linux/netlink.h
+index 882e9c1b6c1dcc..26266754e27c14 100644
+--- a/include/linux/netlink.h
++++ b/include/linux/netlink.h
+@@ -30,6 +30,15 @@ struct netlink_skb_parms {
+ 	struct sock		*sk;
+ 	bool			nsid_is_set;
+ 	int			nsid;
++	/*
++	 * Sender's struct pid.  netlink_sendmsg() stores a borrowed pointer
++	 * taken from its own scm_cookie.  netlink_skb_set_owner_r() takes a
++	 * reference when it takes ownership of the skb for a receiver, and
++	 * netlink_skb_destructor() drops that reference.  A clone starts out
++	 * borrowing again, because __skb_clone() clears both skb->sk and
++	 * skb->destructor.  NULL for a kernel generated skb.
++	 */
++	struct pid		*pid;
+ };
+ 
+ #define NETLINK_CB(skb)		(*(struct netlink_skb_parms*)&((skb)->cb))
+diff --git a/net/netlink/af_netlink.c b/net/netlink/af_netlink.c
+index e6b1d9758c9c92..170d90d472a0db 100644
+--- a/net/netlink/af_netlink.c
++++ b/net/netlink/af_netlink.c
+@@ -379,13 +379,24 @@ static void netlink_skb_destructor(struct sk_buff *skb)
+ 
+ 		skb->head = NULL;
+ 	}
+-	if (skb->sk != NULL)
++	if (skb->sk) {
++		/*
++		 * The reference is held for as long as skb->sk is set, taken
++		 * in netlink_skb_set_owner_r() and dropped here.  The pointer
++		 * is left in place: do_one_broadcast() orphans an skb one
++		 * listener owned and hands it to the next, which takes its
++		 * own reference, and the sender's scm_cookie keeps the pid
++		 * alive across the whole broadcast.
++		 */
++		put_pid(NETLINK_CB(skb).pid);
+ 		sock_rfree(skb);
++	}
+ }
+ 
+ static void netlink_skb_set_owner_r(struct sk_buff *skb, struct sock *sk)
+ {
+ 	WARN_ON(skb->sk != NULL);
++	NETLINK_CB(skb).pid = get_pid(NETLINK_CB(skb).pid);
+ 	skb->sk = sk;
+ 	skb->destructor = netlink_skb_destructor;
+ 	sk_mem_charge(sk, skb->truesize);
+@@ -1880,6 +1891,13 @@ static int netlink_sendmsg(struct socket *sock, struct msghdr *msg, size_t len)
+ 	NETLINK_CB(skb).dst_group = dst_group;
+ 	NETLINK_CB(skb).creds	= scm.creds;
+ 	NETLINK_CB(skb).flags	= netlink_skb_flags;
++	/*
++	 * Borrowed here.  scm_destroy() below drops the scm_cookie's own
++	 * reference, and every delivery in between is synchronous, so the
++	 * pointer stays valid until netlink_skb_set_owner_r() takes a
++	 * reference of its own.
++	 */
++	NETLINK_CB(skb).pid	= scm.pid;
+ 
+ 	err = -EFAULT;
+ 	if (memcpy_from_msg(skb_put(skb, len), msg, len)) {
+@@ -1971,7 +1989,15 @@ static int netlink_recvmsg(struct socket *sock, struct msghdr *msg, size_t len,
+ 		netlink_cmsg_listen_all_nsid(sk, msg, skb);
+ 
+ 	memset(&scm, 0, sizeof(scm));
+-	scm.creds = *NETLINK_CREDS(skb);
++	/*
++	 * Render the sender's pid in the reader's pid namespace, the way
++	 * unix_skb_to_scm() does through scm_set_cred().  A NULL pid gives 0,
++	 * so a control block that lost its reference reports "unknown" rather
++	 * than the sender's own untranslated number.  scm_recv() below drops
++	 * the reference taken here on both of its paths.
++	 */
++	scm_set_cred(&scm, NETLINK_CB(skb).pid, NETLINK_CREDS(skb)->uid,
++		     NETLINK_CREDS(skb)->gid);
+ 	if (flags & MSG_TRUNC)
+ 		copied = data_skb->len;
+ 
+-- 
+2.34.1
+
