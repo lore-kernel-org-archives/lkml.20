@@ -1,131 +1,206 @@
-Received: from mail-qt1-f182.google.com (mail-qt1-f182.google.com [209.85.160.182])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0002e601.pphosted.com (mx0b-0002e601.pphosted.com [148.163.154.28])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79C8737F73A
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 16:05:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.182
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EBB53E008A;
+	Fri,  4 Sep 2026 16:05:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.154.28
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788537910; cv=pass; b=OR5zBx1A9HVy+QI612G+tRbvCER0Iq/+S36k4vTEBLJeOd5O78b/PN/lewoAHw3Lzzuc2zTBDJdaGI60rPa3PZW/ioWx6K+A/cHU6eQQSDL2DSpEwx5zVEStFHe/7Gh5X3NJGVq5TGslK3i4Em7lXjkN5+AJ+g79a4bFZjh+oSE=
+	t=1788537925; cv=fail; b=Gr9TxDmDdIXBTNSchn3w/bIDngWs72pbFFBJd/X4ctvqeY7ISt2KCMD55Ne1+y6pKyZea1sZOqf+Bmm+Pqip5irp+gGpeCqr2LTR/wRpmNeHrTG2f339iG1fGTfDj/qosLiU9uQri55boIPmfpGcKKOT+oS4zRsxepOYSRZ/uX8=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788537910; c=relaxed/simple;
-	bh=3vcqoHjxbkKU29odZ/MlbhZ2L7DAS/GwMPMBrrZSUiY=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=ktHLzVUBhosBscQFLrmSZGYeS7LMHXuJ0dvRaE0hO7B+XVq5jtnjzii1tSoXnedLo5X8q1wyiCYtAC2O/TvW61cQDg0eBzf845Nx43gYXWF11RpwsyJsa9+enJLxZtRkwzgY+IjBidPGYRfAdiRDJx4tcrJBAV9a9FkSjq4h6wo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=purestorage.com; spf=pass smtp.mailfrom=purestorage.com; dkim=pass (2048-bit key) header.d=purestorage.com header.i=@purestorage.com header.b=P29snMCS; arc=pass smtp.client-ip=209.85.160.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=purestorage.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=purestorage.com
+	s=arc-20240116; t=1788537925; c=relaxed/simple;
+	bh=7kQ5uE6FOCD+nQuPmzjXKpF6TP3X5wVDEWM2wxbxQ+k=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=DIPlZZQDCX1zgCTeqOsVcOmMeVCkcqbfyuQ3vmbKiKjJrgI5QRsbqVAu5zqWSMl+iheiiuU+dZxXK3GyFFM2vcjoeC4QGPtusYw7bKPOf+6UjCu9euBg50MHzoe8DSftAvI3Xv9RY67T9HmcVqTYFxIexcoti/CAOwWNPKwXDaA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b=fXmmzabE; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=kwiHEQPP; arc=fail smtp.client-ip=148.163.154.28
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=purestorage.com header.i=@purestorage.com header.b="P29snMCS"
-Received: by mail-qt1-f182.google.com with SMTP id d75a77b69052e-53016020b2fso20294141cf.0
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 09:05:08 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788537907; cv=none;
-        d=google.com; s=arc-20260327;
-        b=rr+BcEPYg0TcuzXaE1mmib/VUGRQC/wA1LRc1IE326nPTref+tN0HAaJzyQxsklNyY
-         1vpx1dd5vb+5wetjmk61GKDe07BXbAsWEVlhHVJdx8ecAFYD+S4OC6nBOapnrHJhvFha
-         MwQLKLO1jxV5SHnmJ4VjkkM12D36lUraGpYvPquB+VrU93P//4nowpfQwURdUJ5lxfMh
-         KR22XWmwtBbn1/vBG66zKyOUYFZLfMyY51lJ26KFtamUFKKQssbGTX26nwTpjsKnBuT1
-         hU6rFSkeVDgUT68oOvL+t2QDpNpV6XwEsPpitfTi4s5tZAS9+sn1wz57841LRZFBCS94
-         PnHg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=3vcqoHjxbkKU29odZ/MlbhZ2L7DAS/GwMPMBrrZSUiY=;
-        fh=8n8WiK0uKTlDVqZ+njHPfn78qPdMhEIjaRdqyC6LBzo=;
-        b=AcHoh1bndDELTTqwV7ELNOqpG1lLbmF+FhAHmao1bDsIA3x7QYpall2EMxQhNdzxp3
-         +RQ8/0eVBRMc2S7+e8kpPrj0srguHpxgJaK5XxCjgUJWrYghxVfHQECmj8FXYK5vathB
-         hqUTt1i9O9scIQGQeeu9OEAKXP3RoOBjmAHkew3ap7Ls4sgKXWe4oFdk0veJfKgXPB7y
-         4L4Gqe07eSbAB4ELRVPHPvJ0HMwQD78vPLMSl00x1xJCE1b9JIoabMPS2Md0F5NWxUu1
-         xuVHntUCji9tJIlGqxGrzkBBgNGxh4c25mImp3AFX2Ng0mJgQ3QuJE6P+TMbk+5hdsNE
-         9VVA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=purestorage.com; s=google2022; t=1788537907; x=1789142707; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=3vcqoHjxbkKU29odZ/MlbhZ2L7DAS/GwMPMBrrZSUiY=;
-        b=P29snMCSrUdr3HJskT2x2XmkZ9HLgqYvGZtKiXOB9rJvg7h75Ruw3qBvUZ5+HK8Rk5
-         mkdDItpms8HIQSyeO6jjjr10V3iLNiWVetjqlGmtmErzGOBNDhZnI9mSvuSYuEQE5C9i
-         vyj59sXjbC7qQ9yrks8S3Tk1cqWIF6sp+Wu/qCfLbPQUhoKWNaTlRV4A5utuW7N4o2du
-         zldIqAPk54BbpkGz0MdNP1CaMpOfJ6p9d46rl6hkSUVndk0J+V778nan67zczeMHOi9X
-         ameQwu8zno35R5Bwbhb3j9/yMMqXCqTrzqHFSpQ6TA48xKvCc4tPejJ6MaBQ0IeuEviy
-         Mn7Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788537907; x=1789142707;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=3vcqoHjxbkKU29odZ/MlbhZ2L7DAS/GwMPMBrrZSUiY=;
-        b=QEQe3c5GfWRz4Shg9qpVgnGKr2p7/fV+X7Mbm/StLVsoveGYSaX/3JmDj0xIAHgo3+
-         Qq1JuDwL1iYX7qhhNfiAuH2eqrn6r5rpiXgBb05oxe/mFFxzFi1AOCc8koEzWLIPDXbb
-         npVoozwHdghP4NlGh8qemwZr5XKdAjh7M/gg4HycHxOA1dpVBM2BjYt19gk757UdxRU9
-         6UHtNXzXAnYMNSysc9qHzquqkqYF8zqOWjAz2zNTirRv1sEGxkwsOpx2Us5utgiyb1LZ
-         vOd3e4eLQyn9VZdJoD59s5m51N3dUCiIzUJlIDOUZjhWhjcOoATEMRh4YuB6IK9UsryC
-         UAJg==
-X-Forwarded-Encrypted: i=1; AKwUvBzJ7BMOfKfCkZYjk+N954iGKS0cXXy0tJu3lKzup7LA9bwhASwFOd8iMo44T5FSkpQE2QNTPSG25/xcgHQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++kvgyAxaj01ejM662LNK8CW/RmpRt/X9IMxxFswtyLwxKJUyRkJ
-	LfiC/1zc9l05kuaxbxE62yTIe3kmBYr4KPYGCHVJ4gPI32rzeuXbv8n8sNpTMjOkkeln5fmH1r2
-	/6HAICHzTeVu+Q/JOcO2fWGrAJt+8oyM5MhQMxtVoEw==
-X-Gm-Gg: AYBFou2vypy3BdaDKjrGa8ysn1tZS1L2JqtxZi2ARaWPfFVFm1RV4kTeQtq5YgCMPVR
-	vYGrEf8dTKY5jk2LBl5N+V+YDezy96sn79SAiuDYSQMJWYBRAKkFBnRinXOyMeOeKhsPCd0+beK
-	40LF48VGIvfR8Ty3RJ94AHwFSk+LmHKwEi3Ok9GeZ6rMo/IznIGF/WvQOZ7X6jrKfgZtKCMTI7T
-	BHfu6s6kTFabx3QvI6FI/BODIKDmVzR2iidFx18qODFnxgezPTVdKw+m3+CFHPN0Q6rygRorlP4
-	hCNiCfBfTW7uBSwXaglx1dyXkMh+eXFTqWo3FlA5ThF3
-X-Received: by 2002:a05:622a:4c14:b0:530:3855:e8cf with SMTP id
- d75a77b69052e-53054674fccmr81819351cf.1.1788537907041; Fri, 04 Sep 2026
- 09:05:07 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b="fXmmzabE";
+	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="kwiHEQPP"
+Received: from pps.filterd (m0374955.ppops.net [127.0.0.1])
+	by mx0b-0002e601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 684Ftngt106064;
+	Fri, 4 Sep 2026 11:05:11 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=
+	proofpoint-05-2026; bh=UbEUoX40saLnMcH5qf3la+zfYMV2YCAXf4lgSgFH6
+	Do=; b=fXmmzabEqA60WwbXo4kBYfwXLy79QhH0XqLuYikIjAO70mevXWdtyQze1
+	aWl4K4w1KJ3FZbKjYj+CaDEi5SQ7mRqbsZoLftQRr4PemFY2+2PqKJlygKcWWUxW
+	qbYcQgqHf1LYCk4LJJIe4M+CtW9L50sFRojXvEPi8gco3oZFfaWfQw08Ct23mViG
+	h/8HcW10IVNJJfU8VmHqXmWTZ06c2Wzjnp2gtnHaO+jrtOizCoqw8l53A2JHaYHB
+	+XoXKmVCmXgzv4VrnsbNP177klpjKmFHMRyVKbCtINeeiXcH5gfW5yS41J5FwbU2
+	dxGSCYFxDBxBdAFc1wCA/Ntn3/+bA==
+Received: from sn4pr0501cu005.outbound.protection.outlook.com (mail-southcentralusazon11011055.outbound.protection.outlook.com [40.93.194.55])
+	by mx0b-0002e601.pphosted.com (PPS) with ESMTPS id 4gfyyq0r4d-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Fri, 04 Sep 2026 11:05:11 -0500 (CDT)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=YQ8lBOKGH15zxtnkQU444+i1rsnuTjwLR1J9delSipPcaG4B3jr2wnhEffKS8D33h4GdbSuAWqGl1s6i5iq8bi+Eo+Cl4OJJf1Zvja1pmRWLQ83NTqFVjhuwRxdj7NAEXgh+AlEBuTr+PtAVVjl14xo1rBO8ifHDZIH2T7ZH1j5NftfeA8vL4Fhwv0Z0StaKXe8I+hGzr47YXWkZmk2pSK9PRYzkezCGf0P9Z1FccwVVIjXuRw9zKM0alce4lM5mI+IxZ6KM/n98Lb5enn3UoxeVQD5r+8TlDZabI+Ntlr3Rnjf00pLX8gTjFUK1JcttnzWBnVnFYoGGK5CIIyzAbw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=UbEUoX40saLnMcH5qf3la+zfYMV2YCAXf4lgSgFH6Do=;
+ b=EIDyG6cYNXacpCZ/7NQ0tWC1sjgKgXuXLkFzTJbexLg1TjWhD+7wKgap1ZczCS4Y6DBdv3vnpRcmOhPsoy5kutznjRFy3xloFlkDl+WFmqoUPmcwR5LVPyVqETJHi7tKOxbQ2Z/ceRIy5s2aXh8lgKwN13BBNOn21aipb2KRM2iVE3ahBtBfBRwL0PrWXE2pT3NYwk57EZUtcgb3f8n/kXPgZPrF9DgfT30w06AZzL56MKbAae6IJt5K3AsO3YOYBFdHsPpEpL2kTTBiPPxRKk/EZteQZ2zGjy6ruv/8f4Nnbo6uRQ0CEv4wDFtK0EPbrhNsP9bB5UzbWj5pD1EhVg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 198.47.21.194) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=ti.com;
+ dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=UbEUoX40saLnMcH5qf3la+zfYMV2YCAXf4lgSgFH6Do=;
+ b=kwiHEQPPLAp4O9IeSHkvgejPce+8XUJPAjim5KcCLYAtry4EZFJ4B43DwiKUVR1qhpiHpVH7geG2kXidtqNeKyCd2XVgjeIIQTrpO4hIzLgBmT1Cnw2i5MkfbjYXYZ5hUCs9PxLF4Qlc9YLt2eHAddesGaSCWUqIO5fxsD7syDY=
+Received: from CH2PR03CA0030.namprd03.prod.outlook.com (2603:10b6:610:59::40)
+ by SJ5PPFA7DBF91DC.namprd10.prod.outlook.com (2603:10b6:a0f:fc02::7c1) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.4; Fri, 4 Sep 2026
+ 16:05:08 +0000
+Received: from BL6PEPF00022573.namprd02.prod.outlook.com
+ (2603:10b6:610:59:cafe::48) by CH2PR03CA0030.outlook.office365.com
+ (2603:10b6:610:59::40) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.12 via Frontend Transport; Fri, 4
+ Sep 2026 16:05:08 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.21.194)
+ smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
+ action=none header.from=ti.com;
+Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
+ 198.47.21.194 as permitted sender) receiver=protection.outlook.com;
+ client-ip=198.47.21.194; helo=flwvzet200.ext.ti.com; pr=C
+Received: from flwvzet200.ext.ti.com (198.47.21.194) by
+ BL6PEPF00022573.mail.protection.outlook.com (10.167.249.41) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.382.8 via Frontend Transport; Fri, 4 Sep 2026 16:05:07 +0000
+Received: from DFLE208.ent.ti.com (10.64.6.66) by flwvzet200.ext.ti.com
+ (10.248.192.31) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Fri, 4 Sep
+ 2026 11:04:20 -0500
+Received: from DFLE204.ent.ti.com (10.64.6.62) by DFLE208.ent.ti.com
+ (10.64.6.66) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Fri, 4 Sep
+ 2026 11:04:20 -0500
+Received: from lelvem-mr06.itg.ti.com (10.180.75.8) by DFLE204.ent.ti.com
+ (10.64.6.62) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45 via Frontend
+ Transport; Fri, 4 Sep 2026 11:04:20 -0500
+Received: from localhost (uda0133052.dhcp.ti.com [128.247.81.232] (may be forged))
+	by lelvem-mr06.itg.ti.com (8.18.1/8.18.1) with ESMTP id 684G4KE83789666;
+	Fri, 4 Sep 2026 11:04:20 -0500
+From: Nishanth Menon <nm@ti.com>
+To: Vignesh Raghavendra <vigneshr@ti.com>, Tero Kristo <kristo@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Francesco Dolcini <francesco@dolcini.it>
+CC: Nishanth Menon <nm@ti.com>,
+        Francesco Dolcini
+	<francesco.dolcini@toradex.com>,
+        <linux-arm-kernel@lists.infradead.org>, <devicetree@vger.kernel.org>,
+        <linux-kernel@vger.kernel.org>, Judith Mendez
+	<jm@ti.com>,
+        Moteen Shah <m-shah@ti.com>, <stable@vger.kernel.org>
+Subject: Re: [PATCH v1] arm64: dts: ti: k3-am62-verdin: Set MMC clock pins as OUTPUT
+Date: Fri, 4 Sep 2026 11:04:19 -0500
+Message-ID: <178853784680.2998213.1218746974953764875.b4-ty@b4>
+X-Mailer: git-send-email 2.47.0
+In-Reply-To: <20260813111238.56892-1-francesco@dolcini.it>
+References: <20260813111238.56892-1-francesco@dolcini.it>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260824225648.316962-1-sgogte@purestorage.com>
- <20260824225648.316962-3-sgogte@purestorage.com> <c98fe50c-172a-4e53-a30c-5416c40cb23f@grimberg.me>
- <20260830222558.GB1842415-mkhalfella@purestorage.com> <4f2d2b60-56f9-4ae3-b38f-bba9754011df@grimberg.me>
- <20260830225939.GC1842415-mkhalfella@purestorage.com>
-In-Reply-To: <20260830225939.GC1842415-mkhalfella@purestorage.com>
-From: "Surabhi Gogte (she/her)" <sgogte@purestorage.com>
-Date: Fri, 4 Sep 2026 09:04:30 -0700
-X-Gm-Features: AcwNN1Ww7ukPMIsSf3t5NTJ9ZuKHOtbeoPChRBk62ipDmvtM36xAVG2ICigmM2A
-Message-ID: <CAMof9cW8JFu3XG+BZc-ejG-fvsodQ9ygYbV_ttgvX=Kc_JjXJA@mail.gmail.com>
-Subject: Re: [PATCH v2 2/2] nvme-tcp: parallelize I/O queue allocation and startup
-To: Mohamed Khalfella <mkhalfella@purestorage.com>
-Cc: Sagi Grimberg <sagi@grimberg.me>, Keith Busch <kbusch@kernel.org>, Jens Axboe <axboe@kernel.dk>, 
-	Christoph Hellwig <hch@lst.de>, linux-nvme@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	randyj@purestorage.com, adailey@purestorage.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL6PEPF00022573:EE_|SJ5PPFA7DBF91DC:EE_
+X-MS-Office365-Filtering-Correlation-Id: 81bd12c9-ecbb-473a-d06c-08df0a9e4a04
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|376014|36860700016|82310400026|1800799024|23010399003|10067099003|3023799007|18002099003|22082099003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	aElekd6s47q2rRE8UwPaUClov6MMCBX+WV4G2b4FWcBd5GYvT7yE3HMFZ2sPFH3aWo2PN1e5ZEciEBJZAqfDJsbZUV69b6UyZmRdB4g3jO8J8bqQOkLFfq2Dkvh4kjkksGaYdBRfEa0WRT8FxOnhB8RCgCtHV435DA2BPPJZXMvs8xRiBxcEvZXMWpFpuJ+2tHeYG+v0KTdmghtHel2JnbY4+fmUP431mi6t+iytTFzEehBAE0GYU1X84YeJxDYfAvYHSO0wLpF68fZqWgoJwmd7YFKYi8bXrn26TBIwfBrqTM1cFFYnf9o548cJi2ciZH359vvjeymyViUvmmt9Q8jdeG0DozG52btrp4eqQWL2itMmhhMd2vemRgwDpHgsgER8+vedPn7TPEAlhW+TFdQK6Twgw4iFYHKDkivMumXZjAR5Z6/6o3wn2k6Nn9LGiVpcD0VUcRSrMQdUPjHZQghHcLNGCWbZegmUiDkU8sCXrHOolWu9F8y5HQHNHhzcXcWLVrUHTLsTzfhMZ/Ne6nvwdC2C0CsAUQ8Cay5/7caK72PTMvRbi9FrEMnccC3CbtMwROeVAGuLeGPgBBIlAZkrFt/J/DMQN/MQuZPd1U9tVbTp6XyCtmhPOchK22lggsNDCbCRkGiLcFyNXm24IZkhLO3LywXYctZnfoBhwPfN7PTTPIdQ9yBHHKNOwxC5NkxDyZovc5x59nLX3d5IFA==
+X-Forefront-Antispam-Report:
+	CIP:198.47.21.194;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:flwvzet200.ext.ti.com;PTR:ErrorRetry;CAT:NONE;SFS:(13230040)(7416014)(376014)(36860700016)(82310400026)(1800799024)(23010399003)(10067099003)(3023799007)(18002099003)(22082099003)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	WLhjOUEuoPPvCOHHC1hSwztGKbAihw8S+1UF2Pz0v5Rb/W3iveqQ7+mDhBNebx6MRqun6ieY5xsNq5vXRqfB0q7KGdPGA8A+LkuvyvMgrmPJ8d61zeqs1R5TfZNkchZrs60W0ovejp9e5C9LpabVoq5y0pSQdlWXGzmnlmf0kDDqQZu4OqpYIZ9jr/QKgbutni5NAgEseezkv/BnUdvv4rtwAaYXS/U/YTYxXQRgPyH8uH9siN8Dubvl+JDO+L6w3y1VLWOJrJHt0xpDrJR6SnRd3ZDOuSzZlS75h0tQr4/P6lOB+Blkm3OpgCCmqCqyznVhoy/1v09nuWWSaxjcPZxpBg57qLldACBljazcCafZt9l08NylngRW6uWV9Zg+0e5vmKo2cVMe4Bsq5kzdy5gfvKBcnlOl7Sv192DjcS0f9JT0n5d9xftd+m4ZuVGY
+X-Exchange-RoutingPolicyChecked:
+	Y+lyn/cfNBlCtvgR91xsjzsK1pvJRkW9Bqe8IN5wWJnqzpN7gMRKE4/6wlsKYIh53AyWI9JlCzgtn+XMcyyFoTBC34o0NrDnRyMrcgw+pe7GQAe5nbQb+l/fwLSqcqJyTLrNP8Z5NUiNKSSL2J25cocHNhhzRYGmpjj4H4OHdaIIUwgfZWQnfjQjE6B5e2xG2uTla/Eu4455wVmSg1y8T9dP1LZR+RDrk4Uw71l6kJngJo/yC7rzPEXh2Y8r9JULJExU/ZkxMU/Rcvt3QyBbrLTxj4aA/oOaT+1KP8PYWRRqMKSxHt+IGwgEIofE1wGyPMG3dkHinyHZbHsXHqcTew==
+X-OriginatorOrg: ti.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Sep 2026 16:05:07.1554
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 81bd12c9-ecbb-473a-d06c-08df0a9e4a04
+X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.21.194];Helo=[flwvzet200.ext.ti.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BL6PEPF00022573.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ5PPFA7DBF91DC
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA0MDE0NiBTYWx0ZWRfX/L8+IF/Ebfyu
+ 0sC+ykAMeo6UaPkLqboCWP/ZXf8xIZB62xfZUdP3lLvCoq9mbz7AcZVfS4/B7NQBpKaOTh87bCk
+ slHQ8HuYxbDQFjsfrTqCRrb1Noh/ukQ=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA0MDE0NiBTYWx0ZWRfX52SrqAwPJNT2
+ zBNliSJSXF2zanVOnQeQHgw0UHNH5Z03Y+nRO3V43WuhJ8cyXkiPJEUcjzxvh7Cavhk5Ax4TkMx
+ zABp0OCOI36fO4kuziTQIZ2lhUTHzEyFeijEpVpA2020cbow48pZTgZBj3Sod0RJt3+xnHwka4o
+ hWv1EVVzSW62MZNIcEkE/aCCVPMZUpU36JssGzjsYAc3/WzUIC9c6ODWacrOjV9Kan51spZHfvR
+ juPGzmGzNpdiOo6pW0mnd9Y9blYm9iCTg3bCE6IlDGIs2efWoz7aG47OvdhrZge0pjnGLaV6chh
+ vAjGc/VIcAzIiyI7qhEtb3ypOLfbNoGBNlToT+xVzseTfsfcoAd1zjGmmHBLy5dnxsyNAeU9eca
+ 7YHaearBuHiR9kGajYOL5oyvrFFOhnZikYIV4pkXqTOlB0dPzfwpi42+Gbm+bsTxM88dVWOXZ8e
+ CiOx8EQWy/JWExX0pfw==
+X-Proofpoint-ORIG-GUID: CjHo1vkmvBRBLXEukOeVB4uXx-6w_ocb
+X-Proofpoint-GUID: CjHo1vkmvBRBLXEukOeVB4uXx-6w_ocb
+X-Authority-Analysis: v=2.4 cv=YqM/gYYX c=1 sm=1 tr=0 ts=6a9aec37 cx=c_pps
+ a=Ba9BPv0Mt2atAB5a3SkMeQ==:117 a=iwqwCZQqcuTv3JOpYdM7/Q==:17
+ a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
+ a=V5UXEbMT0ywA:10 a=VkNPw1HP01LnGYTKEx00:22 a=Z8NIEmU8O1QQgoT56wFK:22
+ a=fPAWb5peG099m5CrUpKH:22 a=VwQbUJbxAAAA:8 a=sozttTNsAAAA:8
+ a=o1kACPpZKAZCWsj7fAYA:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-04_04,2026-09-03_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 priorityscore=1501 lowpriorityscore=0 impostorscore=0
+ malwarescore=0 bulkscore=0 adultscore=0 clxscore=1011 spamscore=0
+ phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2609040146
 
-On Sun, Aug 30, 2026 at 3:59=E2=80=AFPM Mohamed Khalfella
-<mkhalfella@purestorage.com> wrote:
->
-> On Mon 2026-08-31 01:44:32 +0300, Sagi Grimberg wrote:
-> >
-> >
-> > On 31/08/2026 1:25, Mohamed Khalfella wrote:
-> > > On Mon 2026-08-31 01:00:52 +0300, Sagi Grimberg wrote:
-> > >>
-> > >> On 25/08/2026 1:56, Surabhi Gogte wrote:
-> > >>> - ret =3D sock_create_kern(current->nsproxy->net_ns,
-> > >>> + ret =3D sock_create_kern(&init_net,
-> > >> I don't think we can just change this...
-> > > Why we can not change it? Today the error recovery code running in
-> > > worker thread will be using init_net anyway, no?
-> > See commit: 1be52169c3488ef98582ed553ab35cefa3978817
->
-> Thanks for the pointer. I was not aware of that. What about error
-> recovery case? I _think_ it will be using init_net, no?
->
+Hi Francesco Dolcini,
 
-From what I gathered, reconnect and error recovery run on kworkers,
-so those paths were already resolving to init_net even before this change.
-If we pin the caller's netns to the ctrl, we can keep netns consistent
-throughout,
-if that is desired.
+On Thu, 13 Aug 2026 13:12:36 +0200, Francesco Dolcini wrote:
+> MMC clock pins must be configured as OUTPUT-only per TRM [0] with
+> receiver disabled (RXACTIVE bit = 0). Change MMC CLK pins from
+> PIN_INPUT to PIN_OUTPUT to match documentation.
 
-> Also, Will the change to sock_create_kern(&init_net) break the fix in
-> commit 1be52169c348 ("nvme-tcp: fix selinux denied when calling
-> sock_sendmsg")?
+I have applied the following to branch ti-k3-dts-next on [1].
+Thank you!
+
+[1/1] arm64: dts: ti: k3-am62-verdin: Set MMC clock pins as OUTPUT
+      commit: 0ddd661c19ec1465e1f2c204fa9b2488acfabf4b
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent up the chain during
+the next merge window (or sooner if it is a relevant bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+[1] https://git.kernel.org/pub/scm/linux/kernel/git/ti/linux.git
+-- 
+Regards,
+Nishanth Menon
+Key (0xDDB5849D1736249D) / Fingerprint: F8A2 8693 54EB 8232 17A3  1A34 DDB5 849D 1736 249D
+https://ti.com/opensource
+
