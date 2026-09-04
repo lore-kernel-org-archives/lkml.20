@@ -1,70 +1,99 @@
-Received: from TYVP286CU001.outbound.protection.outlook.com (mail-japaneastazon11021079.outbound.protection.outlook.com [52.101.125.79])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D58623DAAC8;
-	Fri,  4 Sep 2026 05:21:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.125.79
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36431415F22;
+	Fri,  4 Sep 2026 05:22:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=192.198.163.12
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788499309; cv=fail; b=oT8MjdX2fMVwZQPfjMBTZN9GmePxuFTeEFNW3M2B0HVtZGRqTVDmryBYSE/eSspCT5tBw2bj6c5TnIthgwBVaGMGDWcnol0yyHJtK+jxqA+dunZ97BRhlUjalXapW3Kv4hYp0P3ck3OpcmGyLojNH/Jklb7L60j42G1bisQOYXw=
+	t=1788499329; cv=fail; b=TrhZnij/Vwfq6P2bCjO2L0J8TC5mRqTy831y2HvpHug2Gnb1iUVyk5Q4GUkuY6ktHclL//0/KOP1k05Bv2r3rPn6KQ0BLemr+ScdG1HVNS3wGWrj30mgKcLXY6p2gqok1gqZ49Z3BLjo7nXl+lSGuM7ULCGMe4YvfCRL5ODEDeo=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788499309; c=relaxed/simple;
-	bh=xv/EQtOAeTGC15KjitTvrdY6ZsKXvNdkMuVxAvDtd8A=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=ntRbZyG9b5r/mrV+bOpRY1s7ne/VTMPh2/REIj9bvJZdZp+APjCzlgRLU34k5Fp9W7VpOeAR53yIHWh+EzTxgUgdcydbclYbtM2jy3k2jmWCr4EWekIk6+6/lz49Xgy2PbgT7lUkCxyRs0ZhUdrnLAW+t91mjBp02ttE8VAdz1s=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=valinux.co.jp; spf=pass smtp.mailfrom=valinux.co.jp; dkim=pass (1024-bit key) header.d=valinux.co.jp header.i=@valinux.co.jp header.b=qI73+Wud; arc=fail smtp.client-ip=52.101.125.79
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=valinux.co.jp
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=valinux.co.jp
+	s=arc-20240116; t=1788499329; c=relaxed/simple;
+	bh=0YBtiYcFrOqFXWIgsDVAcmzrv7I5/skb0axXrbRCPl8=;
+	h=Date:From:To:CC:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=EjqMSrbv61VWGR0jW6wBVWwxH03kG0jUuZ60MMMA5Gd9wpTx17RSdRt6Qo64RerI5ZT29rebXdi0sxnu4vCQ4lB5ZUtnyHC+9GPwkswTwmc+/S2D89hWcTQpMWWshztqkLx1Js3OhfNXqhC7YiuXZjzm9QjAvrxxSPiUx0fRCNM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=BW7Z0Shy; arc=fail smtp.client-ip=192.198.163.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=valinux.co.jp header.i=@valinux.co.jp header.b="qI73+Wud"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="BW7Z0Shy"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788499327; x=1820035327;
+  h=date:from:to:cc:subject:message-id:references:
+   in-reply-to:mime-version;
+  bh=0YBtiYcFrOqFXWIgsDVAcmzrv7I5/skb0axXrbRCPl8=;
+  b=BW7Z0ShyXT8n7XWI4X5cE+CJcor9vZWnUvY79pDbxBBcZpmvpTw3v0LC
+   vKlX7ZQ9QQRgRXoGGGXI3X/NiQZx7/C9IQYCN5xArNIGlY1o/2iFHzF80
+   FEXWYRT5mHrzShLWgWsnIqDcWdCKDeYDs6AiLXCqrJU1s7sXz4UzkRqjx
+   N5muKFUucekqyoXMTsnEp/ynfkBtSqMxZ1ilq1bGAcUEGdxPdp8klYOpd
+   /F5d3UcGcjmx+C1E0SvkGWHwbUDX0FmB2MJYn/uFOzYSff1SRbYNxeqJ1
+   TYo4jlVsf6L8aaZIL9Thzh8C15s0hWl2uyBnMbOuwAzjpZmALx2C3KBjA
+   g==;
+X-CSE-ConnectionGUID: 9UQfe5c2S4GOMz0BHvJ1Jg==
+X-CSE-MsgGUID: RGuEHFn6TACwRILfQNUZeA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11895"; a="92814835"
+X-IronPort-AV: E=Sophos;i="6.25,260,1779174000"; 
+   d="scan'208";a="92814835"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Sep 2026 22:22:06 -0700
+X-CSE-ConnectionGUID: 4JT57pbpRk659rpxq8miQQ==
+X-CSE-MsgGUID: kMiDL0B+QQq7ldc7EFzlSw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,260,1779174000"; 
+   d="scan'208";a="268199507"
+Received: from orsmsx901.amr.corp.intel.com ([10.22.229.23])
+  by orviesa006.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Sep 2026 22:22:06 -0700
+Received: from ORSMSX902.amr.corp.intel.com (10.22.229.24) by
+ ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Thu, 3 Sep 2026 22:22:05 -0700
+Received: from ORSEDG901.ED.cps.intel.com (10.7.248.11) by
+ ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46 via Frontend Transport; Thu, 3 Sep 2026 22:22:05 -0700
+Received: from CH5PR02CU005.outbound.protection.outlook.com (40.107.200.27) by
+ edgegateway.intel.com (134.134.137.111) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Thu, 3 Sep 2026 22:22:05 -0700
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Ivheb0hQ9xWruDKp7To13sKt/QVEWBAZCN6B2hEEdwuNz52gieUel8oolembhPGsfLu4Pk3NIlZIUORd8prRrx3+tWDy5OXKv5/CeJxfesQFGEj1Dj8ccfZpWRsY07gg/f0flLJ4OJs4e6T6b7bXJ6Yo25L7TuEMD+qQ0pbB2tMdUtxIMORtdzZjDN68Obr6Z3illnHQymRm7lDb7WmbDyJqNFYV5Ga9Dq1U+Hn/+dKvwqxcuUey7vn87H6Zp6cxewNfj6pA9ZjbzoRd56F85pWrG5viNj+db3vSxfI9OTu9bMhEmB5i8hFGbaJiM0aHh++oLx5pInrym/e0cIF2Pw==
+ b=Lk0UTHomyw+BQLNijGWVvGFExqRk5wubVPbmCbl2D13HE1/b2jmnfaLShcMLqFRyM6OaHVj553H8zp9yTjU9wKAYu2xdX7lpTivgfTCMsKK1P5l2vZPj7EOrg7oOI4DSIqm/pkJdBPtyMJwc6VoSuU4FjWT+OtqEah18LN+fp30jg9TnyGNFPGbwReQhzFpYAlGflt3FeZJzFqTEfvdtmItJ4IouZ4/ZGBPxrcOp2LMyVFVT05rkl24GGjsVAPxiZRujpFBKXdXYYkEyhGtjvUvz9EpNif8c4lA6GPEgKSlQR49kH03beyL5sw1h9pN6tNGSqkDFi1PxBcoKFqm9ZA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=8F9a6OZYu5Saf2GomBaWcXaI5E1WvAvx79TyNXdpE80=;
- b=tidLsdP4eKGmR+GK4SPj6W/D1MrTMesHZXlrlMnYPOR0vwd/aUmziN4nwVUZg6paQoNpcUrsMEmCMnWXm3FQFCgXulk++ZLLyv7qjj2tIBm35oOahlOfgJVtHidejoLVMWDabWN14Q+Kfqxi75lfyRe1zB7ftbPLU/ZYXBX2x7CLF0w0xvc4Ed7P//W+iqO4MfQQFiMYb7nlwIz1TQpFrUu71ZeAAOo39dH+t4lrBz1+p4d6RD8ypn4O0QhBGa6TkoppeYZk2vP5Z5LxHQVhsbrcbPj1vSHZ6c2H72MVUjJKL7Plx9BHcSwOQ9btxUqx34ZI/n7cMuXgxcKLiXwAyQ==
+ bh=KhdRM3sBEwjimuRIg8/kZqTzPuPQWqnX/FERa6fTxbo=;
+ b=Nr8gz3eeyncpXJVVytFCQFYhHCmIndmn9RyRKzxgZzQ1opUd58WTNc3zShz3MkrfIRXdrUhCsbnp5oki+YrrcIb4Wj22fhGO/LLWm1ZPjQrUY9kgYDmljO4xX8jFJPNrdV111FCzGyFLtKCiB4bvDaMWD+yoLr7ua57dQZQNxhpjvkQ/7NNOT6PbZDgG+asrt6Vt2ZdoYYzfr1xsMa/YEvSfaKgswJKeNKyADzwfojWDhjO3z71fYbNvVi/R5otsxGCL30dpZLvKlljFMd0H16P+tX5rdwmzw32MZ6I6FL+b+PQkJHF/APQarellQEKX+tEGWiUT5n4+1AMerveZUQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=valinux.co.jp; dmarc=pass action=none
- header.from=valinux.co.jp; dkim=pass header.d=valinux.co.jp; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=valinux.co.jp;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=8F9a6OZYu5Saf2GomBaWcXaI5E1WvAvx79TyNXdpE80=;
- b=qI73+WudklRLFOEZituefOJH8z601ro+1HvxG2WAiMePvkZXwubUsZ74qfHjl5a6kVDkKqdj63BCGeXrGj5fbQM2B17rTvqFoL7oMxgr4+A3wEz2qUbYbh3e2NUHbgEL2Tb5pvNxTTmUFFVzDB2o6hmxlwI+dKtrxBgDH0GdA+c=
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
 Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=valinux.co.jp;
-Received: from TY7P286MB7722.JPNP286.PROD.OUTLOOK.COM (2603:1096:405:38f::10)
- by TY4P286MB6378.JPNP286.PROD.OUTLOOK.COM (2603:1096:405:339::8) with
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from DS4PPF0BAC23327.namprd11.prod.outlook.com (2603:10b6:f:fc02::9)
+ by SA1PR11MB529852.namprd11.prod.outlook.com (2603:10b6:806:51a::11) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Fri, 4 Sep
- 2026 05:21:39 +0000
-Received: from TY7P286MB7722.JPNP286.PROD.OUTLOOK.COM
- ([fe80::2305:327c:28ec:9b32]) by TY7P286MB7722.JPNP286.PROD.OUTLOOK.COM
- ([fe80::2305:327c:28ec:9b32%4]) with mapi id 15.21.0360.008; Fri, 4 Sep 2026
- 05:21:39 +0000
-From: Koichiro Den <den@valinux.co.jp>
-To: Jakub Kicinski <kuba@kernel.org>,
-	Jon Mason <jdmason@kudzu.us>,
-	Dave Jiang <dave.jiang@intel.com>,
-	Allen Hubbe <allenbh@gmail.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Paolo Abeni <pabeni@redhat.com>
-Cc: ntb@lists.linux.dev,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH net-next v3 4/4] net: ntb_netdev: Preserve CHECKSUM_PARTIAL across NTB
-Date: Fri,  4 Sep 2026 14:21:34 +0900
-Message-ID: <20260904052134.2970111-5-den@valinux.co.jp>
-X-Mailer: git-send-email 2.51.0
-In-Reply-To: <20260904052134.2970111-1-den@valinux.co.jp>
-References: <20260904052134.2970111-1-den@valinux.co.jp>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: TYCP286CA0125.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:400:2b6::7) To TY7P286MB7722.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:405:38f::10)
+ 2026 05:22:03 +0000
+Received: from DS4PPF0BAC23327.namprd11.prod.outlook.com
+ ([fe80::e721:90d7:9214:2d53]) by DS4PPF0BAC23327.namprd11.prod.outlook.com
+ ([fe80::e721:90d7:9214:2d53%6]) with mapi id 15.21.0360.008; Fri, 4 Sep 2026
+ 05:22:02 +0000
+Date: Thu, 3 Sep 2026 22:21:58 -0700
+From: Alison Schofield <alison.schofield@intel.com>
+To: Richard Cheng <icheng@nvidia.com>
+CC: <dave@stgolabs.net>, <jic23@kernel.org>, <dave.jiang@intel.com>,
+	<vishal.l.verma@intel.com>, <iweiny@kernel.org>, <ming.li@zohomail.com>,
+	<gourry@gourry.net>, <rrichter@amd.com>, <linux-cxl@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, <kees@kernel.org>, <newtonl@nvidia.com>,
+	<kristinc@nvidia.com>, <kaihengf@nvidia.com>, <kobak@nvidia.com>
+Subject: Re: [PATCH v7 7/7] cxl/fwctl: Propagate feature RPC delivery errors
+Message-ID: <appVdg55jb6Y3zcs@aschofie-mobl2.lan>
+References: <20260902053839.25595-1-icheng@nvidia.com>
+ <20260902053839.25595-8-icheng@nvidia.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <20260902053839.25595-8-icheng@nvidia.com>
+X-ClientProxiedBy: SJ0P220CA0018.NAMP220.PROD.OUTLOOK.COM
+ (2603:10b6:a03:41b::28) To DS4PPF0BAC23327.namprd11.prod.outlook.com
+ (2603:10b6:f:fc02::9)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -72,279 +101,219 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: TY7P286MB7722:EE_|TY4P286MB6378:EE_
-X-MS-Office365-Filtering-Correlation-Id: b6ff861d-25ef-46b3-1739-08df0a446608
+X-MS-TrafficTypeDiagnostic: DS4PPF0BAC23327:EE_|SA1PR11MB529852:EE_
+X-MS-Office365-Filtering-Correlation-Id: 527ad367-6439-4d1c-79d6-08df0a44737e
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|1800799024|23010399003|10070799003|7416014|376014|10067099003|3023799007|56012099006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	y3+i/i2H4FJY8L3BWUYjedALJaVLotzs+/FFxuhzIlD8dZXtx2nokd5fOTJAI59T/anNYtctRlJ0spKlzR+WWPc2KlJBAyxYx7XFEa50kdsWhY/tqvzM9Tud+Bbr3voPpVwgmR0Mdyd/73iYA1IDCWS7K8Rvkv2GeROgJXrBpzWqmGh5oPRAwnE5C0qXhRMxNxDiXCtQfxJonvgkobqwjdmzthZw1Fg8l33cdLTuz2jxGpRt8n2bS3zqfTHeSiS5oR389XdJQZRDg5lHrlEKgqirA5fJxbguBoPkbhsG1tgHq/X1iu5VqrvFgcXrvVzX/KRvyujMj41wJHooLbyHAETzMrT40zHyXaqnsVmPg/sY4TfdDYxaJIlHzWyrg0kjQf2UWACy30iZiiUvQITI4S5s4oxt1TOYg42aMCu2Q2rg1m4/3dZQy02MQsaTIA52kod+m5/LfAmG/N+8FnYznD5M9NTJ33gEs69+dXRUf5j/mACPVaHjQ87eXK0uQkVvxfQRzxikXLULaVgkygVRSNRHOslCxuQXEBrk8Bv9hiJw3Po275YK7ocwWi5bb7msfsUVrBwtK89C6x9+kr8PVDgP3HKzi66BjSGdvE9Ahvk1a3f5H7pk7yllT310U0ZB7ibXvp2Dak7gWesqBR4zSox5Rcz5tcj7G6yZLn/P6Fk=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TY7P286MB7722.JPNP286.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(23010399003)(10070799003)(7416014)(376014)(10067099003)(3023799007)(56012099006)(22082099003)(18002099003);DIR:OUT;SFP:1102;
+X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|7416014|376014|23010399003|366016|10067099003|11063799006|4143699003|56012099006|3023799007|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: CLw7Fi7gLVPlzqijlhJ/OOdTMBCHzBKvgENxG4WBMwsWqF8MdsmxffIjWvvCJx5FPg0SIwSsjCI/E7PQLeXaFHBEck2CiK5zUtvf+YwK/zlAf7MOw5G/pFBzGJgj4f17ICefaEPf85VOOlfK07O3Ivj0Ud2Rjb796cacu2N7elZNjDWSbJkUIshthfo46WA+8qkE8jd8RCGP1aGJMnuievA/DSFS81SDyLTILm7Xk/CgmKPP3LS2rtThq7F2ySX+quqGMOCnviadYd0E8S+BuqFvlWfKpLgTL7O5H8idTv0s8K/sv1DaURq3u2YIoKZaCsa1QPRFaFlU9Iy0u9YAZWwJlEpKypQBikZzOD0Z1LyIfyLXHLAFwO9/gAG7wVxxdOj26y4r9ZkgHCTbMu64JrGKzPlIdTYLlphmfvZ1hILZ2MHDHut+gf0/ta67RTJD0pzVkSnyVa0It8x+zvWRAwBSnJfxOdz4eSQfRU/CiUWuNjNry/C+4KTZ60x03j0Gwejayur+tgvBYLeg8Xyt0P6RhnmDtZIM/0Hw3LU7rgewqDMzEr925S2tEz4IslVjchnAdpzCHX+Abpg/aWEQ1pZ3Z8AGW/t9hSNMhGryMz8knpFwHEo6RzyCRS5IW1YzLgRAKsYJrzIqnAUUSUCn1NR7rISSi5m5u/QqAbjMdeQ=
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS4PPF0BAC23327.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(7416014)(376014)(23010399003)(366016)(10067099003)(11063799006)(4143699003)(56012099006)(3023799007)(18002099003)(22082099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?+6Q3kiM+bIhPHBOG5/mNcBei1EbXuZSBXzWKct4pv+VNO4i8UkQywEsTuKdu?=
- =?us-ascii?Q?pjwpdM6T/IkjSyZcXcAeolC161IAwYGtEqPsxqifLNkIx87G2Jybl1i7/vPO?=
- =?us-ascii?Q?ZhM8GhDkOrCbZo2uFQjW7/Qq6Au5beHjLRuIRe4HtuHv073NmI8RWHSG38Mc?=
- =?us-ascii?Q?5SFDI63/QLg+etkWIA02QFxGJHuCVefmtpRy+gGGcT+Oh5updJn+wp9JPcmQ?=
- =?us-ascii?Q?KxbpfyeCyEiipC+j7Nr54Z2Vd610m2dVWu5w5gsthyYJHzlGo9tzSH4cO7Zw?=
- =?us-ascii?Q?++gyuVcYZdZdN/WLMGqbwwMKO2UVp6wV+wC7HQUgUqphXDFDlkxmyTwR6KQg?=
- =?us-ascii?Q?pEB/UvzrtrqvO7r3u0v1E1cEfgZfBwJYc7eDgf5ZwLW+L3F4jCmZNX1cJQWU?=
- =?us-ascii?Q?wcXYlWUctNIyI26ZqxiSCiX8l5nzCp+DgX+ZHSDubLXe4DQGBC6tb9i3tNss?=
- =?us-ascii?Q?sKgnURWhWurcxfRtF694izr9OpBwD25z2XZm8HzYic3K6BLO0UFYloJTz/5Q?=
- =?us-ascii?Q?g4lls8GnmBnaPUmtO/I0WR2MNaJXTMArS+Oe6L6mw77ObGabhhCr14IE6c3w?=
- =?us-ascii?Q?IMR/hIF+UzsmC5GfvU3qpexNUol7a/LVE4Ep9qlo8GVM4LQnowVGUXWig6OO?=
- =?us-ascii?Q?mYR2BNW8G/fLkfsInVTogbhIfM+byn1ctWL4ZhRYSYQS7HR6Gp5/zMXE74sJ?=
- =?us-ascii?Q?dCy82k2lzIg9o0kU9kjrS5PeJbIAwaR+8i3p0qokHRBvWNso39ExMaL4S3Pr?=
- =?us-ascii?Q?xr6o1JdHCRiZF52Q04Lp3iRx6on5pq6W5AWouHdEfBuzLRp0H6NMfDbvP3zA?=
- =?us-ascii?Q?+vknZUhHvJg97Z94rigiOi+OVmMHusH5o9PNycnsYdq4aH45Ni2oV7NUSfqa?=
- =?us-ascii?Q?IA0fHtb8S4zeE7o/5B9fNVoM0DnHbLuV2lxbzhJ7WtiAbPoKbFCtS9ZRD6Bw?=
- =?us-ascii?Q?dHxiQORdkAzMoHBHD9JVD7zc5ZgCikhBBEr1INhpRt4EJr94Fub054hqCO/Y?=
- =?us-ascii?Q?bGj1MjhcqyDgz+neQtKPRDwIyYMjNtiqfpdgN3Qb+NXGVnZkrryvIR+93/m4?=
- =?us-ascii?Q?BavM0iwtqIhFEPC/ANyY3W2ABZtQE677jxNlUhqCKLyQh318g1IC3HR7zO7k?=
- =?us-ascii?Q?56HSX5rloyMdQ+EdZGeFQfX+WiXpMNhinxc5Usp8zg0Bg+HDcSfCRVmGUwRl?=
- =?us-ascii?Q?q+yMYmFrQfk8aAK1sfIRJoFVPn3jk/1iFiOMdzrrExMRdX+bnLHMR97j3VcV?=
- =?us-ascii?Q?Atg0PFZxUXS3JYXR9O196TKlWJI8RQbctWUlj1lXJe62l63+I872XIbap9tJ?=
- =?us-ascii?Q?PPPwhxJfpM+gFZUf+0Gp2Tg0MdI66VbFH7AFNQdE9yDCNeEvepQj7kxNTX2V?=
- =?us-ascii?Q?W3+DnuErnpfulHYInpJK2jH6IySHVLzFKOW+G5SdwyPGoc7mcnnfdGyzbi1U?=
- =?us-ascii?Q?ATIyXBVIv+f9np2Krx8puPmcgXphUIpIyH/0//NX84vat9mtK2gM0Lq9GPN4?=
- =?us-ascii?Q?b2Y60tuQbDQ6vychL6uEAuqxy+CqutIWelmljtK4nZaidHlNOL7e9dM7dwCV?=
- =?us-ascii?Q?zmRnx7ZZtZW73aC0pieB+r80iI+dBq2DzzrVuO9kTbjbZ+6xvUqDMTjPE6DA?=
- =?us-ascii?Q?Qka+41P+uVWsZSnkEkxM1UdjFjmWn9UFNQ1JIQyLngLVPbXsWxQfEWzSI7md?=
- =?us-ascii?Q?0hKQwoN+ZKRC2yoS5z2xbSCCzYHsFNNuQ9qSMantJuVxj9BW2FLbUvqpjhdB?=
- =?us-ascii?Q?PGk7hvE6K9QoOWIDjf6m/9UDyqvw59Y3HusqKyfufjIzarsVrp5a?=
-X-OriginatorOrg: valinux.co.jp
-X-MS-Exchange-CrossTenant-Network-Message-Id: b6ff861d-25ef-46b3-1739-08df0a446608
-X-MS-Exchange-CrossTenant-AuthSource: TY7P286MB7722.JPNP286.PROD.OUTLOOK.COM
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?+7NFhOAfP77US9RquxOpUHpy4DUh7o/bznUybX6VHwShQipSwfaqNUfsdKhe?=
+ =?us-ascii?Q?yF/CzAXv8Wxe64RRfwY6qaThinb/Kkp3Fta4z6hzeDM2ATXaq7QcnJCmBIWM?=
+ =?us-ascii?Q?CQBoCPyh7g+kFlB6lBVTgDAgn+au9e0vZNRTenTbI3zAD1jUKLdNJC6Fw93h?=
+ =?us-ascii?Q?GaXJmjKDVRfKAMixiiyKOqVaQ7dlM3TziHEqmrB/8Md7z6dRPliJaVeYJC9p?=
+ =?us-ascii?Q?/0Eus2YWJzrj+K1NJ4ZAuRcbSR3hoagd3BNfaVWuUndf5+iIduE8ip2XufBz?=
+ =?us-ascii?Q?hDd0r764FyGkOo4pn9O1a4Y6s5WMVgWVmIXNoi552kB4Hvonum2Zv/53dJE1?=
+ =?us-ascii?Q?wLQiTT1ihYrDrDEOsmsjDN3YqoY4F0MgaiiqCVyQ0q6K/S3gfCtchPaj9Gbk?=
+ =?us-ascii?Q?aj7Pws7NIWLIdMrEncswpAepQjRyK+KdJtvGK8w9SbkeKgowTpT4e6hW1hwS?=
+ =?us-ascii?Q?gWwc9MKJgTAlIC2F0MDr0ayl/uU/nwdTrddqPrQtKN+vw1J/Yy07ZWokn1TK?=
+ =?us-ascii?Q?eqsBLKqWtOcnds8Bbvhj/x1uZQ/uDU2j7BaKq7HcSLyO9qhk6GETjjiSyR3o?=
+ =?us-ascii?Q?2DujCkkGZvrdRtFEdElXREyQSPwpTayoQYeS/ceGMveaKQbEfMnDDCnISO3z?=
+ =?us-ascii?Q?L2xWHWlfTxeE59Bw0XLAaVY2fVBtA99sz0PTRow0Pqo2WJBx/n+FwJe/e46f?=
+ =?us-ascii?Q?6MPaKXQkXJ4Ba/qN0GcfNHa9kUQxgak9ffVUNTFo5bcm2FL5NuwvTO14/6R6?=
+ =?us-ascii?Q?BryP4nq4dMQkGYexu5JnRhQHV9P7t9AIeSMAvZfQD2nxidxNdyM1EA9ZDZC2?=
+ =?us-ascii?Q?T0Ydp3fRJ4CfUf1qIaBpO/esSakJTZIzJ0q6SkiU42LkfGsqpA2s2yj6w+xG?=
+ =?us-ascii?Q?xLbprU2G5QY+V0Zb1lDeWcwOcHNjvXbc7e7G/37xfPdxoh0AhrsRnzgk2gJe?=
+ =?us-ascii?Q?9nv+AxCmdwDP9aiIhL+Jw9+GUbi0Tnh2P/sT5BbpvSC/IzSf+yYT5UC/0G6w?=
+ =?us-ascii?Q?xFs15ZSY9Ke6oSVHoSyFtdTzWu5n+Fj3aJWn1FGjnNlm8JHwAg36pfewEKA/?=
+ =?us-ascii?Q?yKxz4lw/osIyIhtZiKq990yWsZC6dpzkGzUO/7OpaRfRAk4Pmt7hCKvwWJE9?=
+ =?us-ascii?Q?p0kmi7QsoV5XxkLml5a3fXdYsoUQx9Cpus4dqNkJbJr892UFI67XVthYYxE3?=
+ =?us-ascii?Q?nc9VI4Mxktmvu+WfUy9g1G8EvlLTHyc9f6lOpD/fDnICHo+tfKCt1EOypZoA?=
+ =?us-ascii?Q?WsdzKOSOoC97HrDs6up7fC91CSCxw8NjviKo6QCb3y0yhBlmGzv4SvVZ7h06?=
+ =?us-ascii?Q?Qer3hrKUYgCTaT8faI4ygceFe7+M/vxZDkUlKr7xU7DDq/PCcBvUHeFl1I55?=
+ =?us-ascii?Q?au0xD9DBQ+edtJEaIiFJnAu6HlMemiadOeod/gViEuzWgA04bQGOWE2zKD47?=
+ =?us-ascii?Q?x1aclR7DNEmn2kTHg32cdKKXQrdifezb8tryEHipn03FnGH/VqnGMa0FCm+C?=
+ =?us-ascii?Q?/QH6lRUh+x04y+vVww83UWdqXP53UXqf533bT/skbFYfTuj82my9HOEHP8za?=
+ =?us-ascii?Q?i2VzEJyqqcTkvhVt7lbxFymc0etasJeWIvd0NVNUFsFPiEsqYtrn/24IdrRC?=
+ =?us-ascii?Q?FI+Gi6hAx5X/1VqyvW+ijVkzVJk3kPVZU4vuf38Y6yodlXFkXUWaAibYcAM1?=
+ =?us-ascii?Q?PO8O/2smgJGSWlbIKhlgyRzEuAjCdjmtCdsrUgC+nFo8ikdcMNbrQxEclBYP?=
+ =?us-ascii?Q?oa5t8RCUdhBuJeIXgPeguELDUzODfmY=3D?=
+X-Exchange-RoutingPolicyChecked: ByHnUCy/Rs5sw1wsCfGS4nnUCllKWbcLNWmbR9vulYNVavjSh7ACxBbsHTZcabjvSVW/nwYz6hFxBku7b57qJGi6xlvI0Jn3dtfgCwiCqSn0OKgnSs2ISCEhtxyrZ5wZMsr9we4OGZntICsEALfD50CxVBm8XS4z/vu+EVgocK4H12ToVJDB9NrZZHD/HMIwP46FZ0+d354y8KBgaTpzXcYJDEOs1jWuBxRMyzhXzhoQES9IeFIQsU8pGMEPdso0E2JF9ciCcp4ZAUaSr/gD66/FrD2lYBJu+9+VD5VXKVJpN1d8kjrkDpwOXQ5O8f/+DZXJSOQhjVZS8M9FHt4BRQ==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 527ad367-6439-4d1c-79d6-08df0a44737e
+X-MS-Exchange-CrossTenant-AuthSource: DS4PPF0BAC23327.namprd11.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Sep 2026 05:21:39.6335
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Sep 2026 05:22:02.3795
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 7a57bee8-f73d-4c5f-a4f7-d72c91c8c111
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: tIEs14e96wrSGahMMLypgu55/jMOwafhVjUv81Be65alke01t5DcL2nN4Q3M89t5pcAngXoITFzwwo8fRbqVYg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TY4P286MB6378
+X-MS-Exchange-CrossTenant-UserPrincipalName: bTKi4HnjRhy6wUhr78Wcpjd6VoFWc3CjFGK5vlJpsIehL9TmXNmc3pIonBwbbHA5MnvinTXG1LQvQmqsEITaV74STRpHJQWjjLd/0cMYDSw=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR11MB529852
+X-OriginatorOrg: intel.com
 
-Calculating L4 checksums can limit ntb_netdev throughput especially on
-embedded systems, where CPU resources are often limited. A trusted PCIe
-fabric can avoid that work.
+On Wed, Sep 02, 2026 at 01:38:39PM +0800, Richard Cheng wrote:
+> FWCTL_RPC requires delivery failures to be returned as ioctl errors,
+> while device errors are reported in the output. Get and Set Feature
+> instead converted all failures into normal responses, sometimes with a
+> SUCCESS device status.
+> 
+> Initialize the return code to SUCCESS. When the helper fails without a
+> device error code, return its errno. Continue reporting actual device
+> errors through rpc_out->retval.
+> 
+> CXL permits Get Feature to return a nonzero short payload when Offset +
+> Count runs past the end of the Feature. cxl_internal_send_cmd() reports
+> that response as -EIO, so preserve the returned bytes as a successful
+> partial transfer. Fixed-format EDAC callers still require complete
+> attribute structures, so reject partial payloads before consuming them.
+> 
+> Map an unexpected zero-length result with a SUCCESS device status to
+> -EIO.
 
-Carry CHECKSUM_PARTIAL with csum_start and csum_offset across the NTB link.
-Advertise support in every frame and fall back to software until the peer
-capability is seen. This preserves netdev checksum semantics and
-interoperability with existing transport version 4 peers.
 
-Leave the TX and RX checksum features disabled by default. Users can
-just enable them explicitly for links they trust for lower CPU usage
-and/or higher throughput.
+Reviewed-by: Alison Schofield <alison.schofield@intel.com>
 
-Signed-off-by: Koichiro Den <den@valinux.co.jp>
----
-Changes in v3:
-  - Count RX checksum failures as errors only (Jakub)
-  - Reject csum_start below ETH_HLEN on RX and fall back to software on
-    TX (Jakub, Sashiko)
-
- drivers/net/ntb_netdev.c | 93 +++++++++++++++++++++++++++++++++++-----
- 1 file changed, 82 insertions(+), 11 deletions(-)
-
-diff --git a/drivers/net/ntb_netdev.c b/drivers/net/ntb_netdev.c
-index d03cbda1637d..de8c4f320614 100644
---- a/drivers/net/ntb_netdev.c
-+++ b/drivers/net/ntb_netdev.c
-@@ -4,6 +4,7 @@
-  */
- #include <linux/etherdevice.h>
- #include <linux/ethtool.h>
-+#include <linux/if_vlan.h>
- #include <linux/module.h>
- #include <linux/pci.h>
- #include <linux/ntb.h>
-@@ -29,6 +30,21 @@ static unsigned int tx_stop = 5;
- #define NTB_NETDEV_MAX_QUEUES		64
- #define NTB_NETDEV_DEFAULT_QUEUES	1
- 
-+/*
-+ * Checksum metadata layout:
-+ *   bit 23     capability, advertised on every packet
-+ *   bit 22     per-packet CHECKSUM_PARTIAL flag
-+ *   bit 21..6  skb_checksum_start_offset() (16 bits)
-+ *   bit 5..0   skb->csum_offset (6 bits)
-+ *
-+ * Until the capability is observed, complete partial checksums in software.
-+ * Six offset bits cover TCP/UDP. Larger offsets use software checksumming.
-+ */
-+#define NTB_NETDEV_META_CAP_CSUM		BIT(23)
-+#define NTB_NETDEV_META_CSUM			BIT(22)
-+#define NTB_NETDEV_META_CSUM_START_SHIFT	6
-+#define NTB_NETDEV_META_CSUM_OFFSET_MASK	GENMASK(5, 0)
-+
- struct ntb_netdev;
- 
- struct ntb_netdev_queue {
-@@ -44,6 +60,7 @@ struct ntb_netdev {
- 	struct net_device *ndev;
- 	unsigned int num_queues;
- 	struct ntb_netdev_queue *queues;
-+	bool peer_csum;
- };
- 
- #define	NTB_TX_TIMEOUT_MS	1000
-@@ -108,6 +125,7 @@ static void ntb_netdev_event_handler(void *data, int link_is_up)
- 	struct net_device *ndev;
- 
- 	ndev = dev->ndev;
-+	WRITE_ONCE(dev->peer_csum, false);
- 
- 	netdev_dbg(ndev, "Event %x, Link %x, qp %u\n", link_is_up,
- 		   ntb_transport_link_query(q->qp), q->qid);
-@@ -122,15 +140,25 @@ static void ntb_netdev_event_handler(void *data, int link_is_up)
- 	ntb_netdev_update_carrier(dev);
- }
- 
-+static void ntb_netdev_rx_stats_add(struct net_device *ndev,
-+				    unsigned int len)
-+{
-+	struct pcpu_sw_netstats *tstats = this_cpu_ptr(ndev->tstats);
-+	unsigned long flags;
-+
-+	flags = u64_stats_update_begin_irqsave(&tstats->syncp);
-+	u64_stats_inc(&tstats->rx_packets);
-+	u64_stats_add(&tstats->rx_bytes, len);
-+	u64_stats_update_end_irqrestore(&tstats->syncp, flags);
-+}
-+
- static void ntb_netdev_rx_handler(struct ntb_transport_qp *qp, void *qp_data,
- 				  void *data, int len, unsigned int meta)
- {
- 	struct ntb_netdev_queue *q = qp_data;
- 	struct ntb_netdev *dev = q->ntdev;
--	struct pcpu_sw_netstats *tstats;
- 	struct sk_buff *skb, *new_skb;
- 	struct net_device *ndev;
--	unsigned long flags;
- 	int rc;
- 
- 	ndev = dev->ndev;
-@@ -146,21 +174,32 @@ static void ntb_netdev_rx_handler(struct ntb_transport_qp *qp, void *qp_data,
- 		goto enqueue_again;
- 	}
- 
--	tstats = this_cpu_ptr(ndev->tstats);
--	flags = u64_stats_update_begin_irqsave(&tstats->syncp);
--	u64_stats_inc(&tstats->rx_packets);
--	u64_stats_add(&tstats->rx_bytes, len);
--	u64_stats_update_end_irqrestore(&tstats->syncp, flags);
--
- 	new_skb = netdev_alloc_skb(ndev, ndev->mtu + ETH_HLEN);
- 	if (!new_skb) {
-+		ntb_netdev_rx_stats_add(ndev, len);
- 		DEV_STATS_INC(ndev, rx_dropped);
- 		goto enqueue_again;
- 	}
- 
- 	skb_put(skb, len);
-+	if (meta & NTB_NETDEV_META_CAP_CSUM)
-+		WRITE_ONCE(dev->peer_csum, true);
-+
-+	if (meta & NTB_NETDEV_META_CSUM) {
-+		u16 csum_start = (meta >> NTB_NETDEV_META_CSUM_START_SHIFT) & U16_MAX;
-+		u16 csum_offset = meta & NTB_NETDEV_META_CSUM_OFFSET_MASK;
-+
-+		if (csum_start < ETH_HLEN ||
-+		    !skb_partial_csum_set(skb, csum_start, csum_offset))
-+			goto rx_drop;
-+
-+		if (!(ndev->features & NETIF_F_RXCSUM) &&
-+		    skb_checksum_help(skb))
-+			goto rx_drop;
-+	}
-+
-+	ntb_netdev_rx_stats_add(ndev, len);
- 	skb->protocol = eth_type_trans(skb, ndev);
--	skb->ip_summed = CHECKSUM_NONE;
- 	skb_record_rx_queue(skb, q->qid);
- 
- 	netif_rx(skb);
-@@ -174,6 +213,13 @@ static void ntb_netdev_rx_handler(struct ntb_transport_qp *qp, void *qp_data,
- 		DEV_STATS_INC(ndev, rx_errors);
- 		DEV_STATS_INC(ndev, rx_fifo_errors);
- 	}
-+	return;
-+
-+rx_drop:
-+	DEV_STATS_INC(ndev, rx_errors);
-+	dev_kfree_skb_any(skb);
-+	skb = new_skb;
-+	goto enqueue_again;
- }
- 
- static int __ntb_netdev_maybe_stop_tx(struct net_device *netdev,
-@@ -268,6 +314,7 @@ static const struct ntb_queue_handlers ntb_netdev_handlers = {
- static netdev_tx_t ntb_netdev_start_xmit(struct sk_buff *skb,
- 					 struct net_device *ndev)
- {
-+	unsigned int meta = NTB_NETDEV_META_CAP_CSUM;
- 	struct ntb_netdev *dev = netdev_priv(ndev);
- 	u16 qid = skb_get_queue_mapping(skb);
- 	struct ntb_netdev_queue *q;
-@@ -278,7 +325,17 @@ static netdev_tx_t ntb_netdev_start_xmit(struct sk_buff *skb,
- 	if (unlikely(ntb_netdev_maybe_stop_tx(ndev, q, tx_stop)))
- 		return NETDEV_TX_BUSY;
- 
--	rc = ntb_transport_tx_enqueue(q->qp, skb, skb->data, skb->len, 0);
-+	if (skb->ip_summed == CHECKSUM_PARTIAL) {
-+		if (READ_ONCE(dev->peer_csum))
-+			meta |= NTB_NETDEV_META_CSUM |
-+				(skb_checksum_start_offset(skb) <<
-+				 NTB_NETDEV_META_CSUM_START_SHIFT) |
-+				skb->csum_offset;
-+		else if (skb_checksum_help(skb))
-+			goto drop;
-+	}
-+
-+	rc = ntb_transport_tx_enqueue(q->qp, skb, skb->data, skb->len, meta);
- 	if (rc) {
- 		if (rc == -EAGAIN || rc == -EBUSY) {
- 			netif_stop_subqueue(ndev, q->qid);
-@@ -301,6 +358,18 @@ static netdev_tx_t ntb_netdev_start_xmit(struct sk_buff *skb,
- 	return NETDEV_TX_OK;
- }
- 
-+static netdev_features_t ntb_netdev_features_check(struct sk_buff *skb,
-+						   struct net_device *ndev,
-+						   netdev_features_t features)
-+{
-+	if (skb->ip_summed == CHECKSUM_PARTIAL &&
-+	    (skb_checksum_start_offset(skb) < ETH_HLEN ||
-+	     skb->csum_offset > NTB_NETDEV_META_CSUM_OFFSET_MASK))
-+		features &= ~NETIF_F_CSUM_MASK;
-+
-+	return vlan_features_check(skb, features);
-+}
-+
- static void ntb_netdev_tx_timer(struct timer_list *t)
- {
- 	struct ntb_netdev_queue *q = timer_container_of(q, t, tx_timer);
-@@ -451,6 +520,7 @@ static const struct net_device_ops ntb_netdev_ops = {
- 	.ndo_open = ntb_netdev_open,
- 	.ndo_stop = ntb_netdev_close,
- 	.ndo_start_xmit = ntb_netdev_start_xmit,
-+	.ndo_features_check = ntb_netdev_features_check,
- 	.ndo_change_mtu = ntb_netdev_change_mtu,
- 	.ndo_set_mac_address = eth_mac_addr,
- };
-@@ -671,7 +741,8 @@ static int ntb_netdev_probe(struct device *client_dev)
- 
- 	ndev->priv_flags |= IFF_LIVE_ADDR_CHANGE;
- 
--	ndev->hw_features = ndev->features;
-+	/* Checksum bypass assumes a trusted NTB link, so keep it opt-in. */
-+	ndev->hw_features = ndev->features | NETIF_F_HW_CSUM | NETIF_F_RXCSUM;
- 	ndev->watchdog_timeo = msecs_to_jiffies(NTB_TX_TIMEOUT_MS);
- 
- 	eth_random_addr(ndev->perm_addr);
--- 
-2.51.0
-
+> 
+> Fixes: 5908f3ed6dc2 ("cxl: Add support to handle user feature commands for get feature")
+> Fixes: eb5dfcb9e36d ("cxl: Add support to handle user feature commands for set feature")
+> Signed-off-by: Richard Cheng <icheng@nvidia.com>
+> ---
+>  drivers/cxl/core/edac.c     | 10 +++++-----
+>  drivers/cxl/core/features.c | 28 +++++++++++++++++++---------
+>  2 files changed, 24 insertions(+), 14 deletions(-)
+> 
+> diff --git a/drivers/cxl/core/edac.c b/drivers/cxl/core/edac.c
+> index f1df4b5cfe5b..34b81e8dfbbb 100644
+> --- a/drivers/cxl/core/edac.c
+> +++ b/drivers/cxl/core/edac.c
+> @@ -89,7 +89,7 @@ static int cxl_mem_scrub_get_attrbs(struct cxl_mailbox *cxl_mbox, u8 *cap,
+>  				    rd_data_size, 0, NULL);
+>  	if (data_size < 0)
+>  		return data_size;
+> -	if (!data_size)
+> +	if ((size_t)data_size != rd_data_size)
+>  		return -EIO;
+>  
+>  	*cap = rd_attrbs->scrub_cycle_cap;
+> @@ -567,7 +567,7 @@ static int cxl_mem_ecs_get_attrbs(struct device *dev,
+>  				    rd_data_size, 0, NULL);
+>  	if (data_size < 0)
+>  		return data_size;
+> -	if (!data_size)
+> +	if ((size_t)data_size != rd_data_size)
+>  		return -EIO;
+>  
+>  	fru_rd_attrbs = rd_attrbs->fru_attrbs;
+> @@ -602,7 +602,7 @@ static int cxl_mem_ecs_set_attrbs(struct device *dev,
+>  				    rd_data_size, 0, NULL);
+>  	if (data_size < 0)
+>  		return data_size;
+> -	if (!data_size)
+> +	if ((size_t)data_size != rd_data_size)
+>  		return -EIO;
+>  
+>  	struct cxl_ecs_wr_attrbs *wr_attrbs __free(kvfree) =
+> @@ -1282,7 +1282,7 @@ cxl_mem_sparing_get_attrbs(struct cxl_mem_sparing_context *cxl_sparing_ctx)
+>  				    rd_data_size, 0, &return_code);
+>  	if (data_size < 0)
+>  		return data_size;
+> -	if (!data_size)
+> +	if ((size_t)data_size != rd_data_size)
+>  		return -EIO;
+>  
+>  	cxl_sparing_ctx->op_class = rd_attrbs->hdr.op_class;
+> @@ -1771,7 +1771,7 @@ static int cxl_mem_ppr_get_attrbs(struct cxl_ppr_context *cxl_ppr_ctx)
+>  				    rd_data_size, 0, &return_code);
+>  	if (data_size < 0)
+>  		return data_size;
+> -	if (!data_size)
+> +	if ((size_t)data_size != rd_data_size)
+>  		return -EIO;
+>  
+>  	cxl_ppr_ctx->op_class = rd_attrbs->hdr.op_class;
+> diff --git a/drivers/cxl/core/features.c b/drivers/cxl/core/features.c
+> index 8d44ce829497..95f47193fb61 100644
+> --- a/drivers/cxl/core/features.c
+> +++ b/drivers/cxl/core/features.c
+> @@ -232,7 +232,7 @@ ssize_t cxl_get_feature(struct cxl_mailbox *cxl_mbox, const uuid_t *feat_uuid,
+>  	int rc;
+>  
+>  	if (return_code)
+> -		*return_code = CXL_MBOX_CMD_RC_INPUT;
+> +		*return_code = CXL_MBOX_CMD_RC_SUCCESS;
+>  
+>  	if (!feat_out || !feat_out_size)
+>  		return -EINVAL;
+> @@ -259,6 +259,17 @@ ssize_t cxl_get_feature(struct cxl_mailbox *cxl_mbox, const uuid_t *feat_uuid,
+>  			.min_out = data_to_rd_size,
+>  		};
+>  		rc = cxl_internal_send_cmd(cxl_mbox, &mbox_cmd);
+> +		/*
+> +		 * Per CXL r4.0 8.2.10.6.2, when Offset + Count runs past the
+> +		 * end of the Feature the device returns only the bytes up to
+> +		 * the Feature size. cxl_internal_send_cmd() reports that as
+> +		 * -EIO with a short payload, so stop and return what arrived.
+> +		 */
+> +		if (rc == -EIO && mbox_cmd.size_out &&
+> +		    mbox_cmd.size_out < data_to_rd_size) {
+> +			data_rcvd_size += mbox_cmd.size_out;
+> +			break;
+> +		}
+>  		if (rc < 0 || !mbox_cmd.size_out) {
+>  			if (return_code)
+>  				*return_code = mbox_cmd.return_code;
+> @@ -267,9 +278,6 @@ ssize_t cxl_get_feature(struct cxl_mailbox *cxl_mbox, const uuid_t *feat_uuid,
+>  		data_rcvd_size += mbox_cmd.size_out;
+>  	} while (data_rcvd_size < feat_out_size);
+>  
+> -	if (return_code)
+> -		*return_code = CXL_MBOX_CMD_RC_SUCCESS;
+> -
+>  	return data_rcvd_size;
+>  }
+>  
+> @@ -289,7 +297,7 @@ int cxl_set_feature(struct cxl_mailbox *cxl_mbox,
+>  	size_t hdr_size;
+>  
+>  	if (return_code)
+> -		*return_code = CXL_MBOX_CMD_RC_INPUT;
+> +		*return_code = CXL_MBOX_CMD_RC_SUCCESS;
+>  
+>  	if (feat_data_size > U16_MAX - offset)
+>  		return -EINVAL;
+> @@ -340,11 +348,8 @@ int cxl_set_feature(struct cxl_mailbox *cxl_mbox,
+>  		}
+>  
+>  		data_sent_size += data_in_size;
+> -		if (data_sent_size >= feat_data_size) {
+> -			if (return_code)
+> -				*return_code = CXL_MBOX_CMD_RC_SUCCESS;
+> +		if (data_sent_size >= feat_data_size)
+>  			return 0;
+> -		}
+>  
+>  		if ((feat_data_size - data_sent_size) <= (cxl_mbox->payload_size - hdr_size)) {
+>  			data_in_size = feat_data_size - data_sent_size;
+> @@ -492,6 +497,9 @@ static void *cxlctl_get_feature(struct cxl_features_state *cxlfs,
+>  	data_size = cxl_get_feature(cxl_mbox, &feat_in->uuid,
+>  				    feat_in->selection, rpc_out->payload,
+>  				    count, offset, &return_code);
+> +	if (data_size <= 0 &&
+> +	    return_code == CXL_MBOX_CMD_RC_SUCCESS)
+> +		return ERR_PTR(data_size ?: -EIO);
+>  	*out_len = sizeof(struct fwctl_rpc_cxl_out);
+>  	if (data_size <= 0) {
+>  		rpc_out->size = 0;
+> @@ -544,6 +552,8 @@ static void *cxlctl_set_feature(struct cxl_features_state *cxlfs,
+>  	rc = cxl_set_feature(cxl_mbox, &feat_in->uuid,
+>  			     feat_in->version, feat_in->feat_data,
+>  			     data_size, flags, offset, &return_code);
+> +	if (rc && return_code == CXL_MBOX_CMD_RC_SUCCESS)
+> +		return ERR_PTR(rc);
+>  	*out_len = sizeof(*rpc_out);
+>  	if (rc) {
+>  		rpc_out->retval = return_code;
+> -- 
+> 2.53.0
+> 
