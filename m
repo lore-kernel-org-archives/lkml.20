@@ -1,145 +1,121 @@
-Received: from mta0.migadu.com (out-2.mta0.migadu.com [91.218.175.2])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from fout-a2-smtp.messagingengine.com (fout-a2-smtp.messagingengine.com [103.168.172.145])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E6D13EC69D
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 10:31:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.2
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92BD146A60B;
+	Fri,  4 Sep 2026 10:31:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.145
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788517900; cv=none; b=KjcSVwjFibwiZQYQDcHHTFwVzy5M1tREeaMEVe07SxPQpiMb4MQAKvkdSUfzkjxKL5YPczZs4wzLd6F8or9ibcmU/hL6xSwRHlqqPSTj0B4p1UDvIlhhHB/uIvLpjvtEcDEjTcMfrXtPdnuBFppoSxq8JjP5Za4LWvd6ygfC6Rg=
+	t=1788517907; cv=none; b=r3bdDKxPTQ1DzDogMq6+pYVxTg2fEWPExqh3iYbvhZjX4KTV8qtMMtXbw5fL9ASKAw+npvj+18JyQTj2bv5yCmpzQATiVuwu9x7JTD3V/79OHyl0JGJgz1CJ/K+vEw33tQU4Vi3jtkk+9vcsPc4fHm3rIaNnU7nrmGmMFqY2L0s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788517900; c=relaxed/simple;
-	bh=OLJizthyKrO2zpeWP4eJulHLA4vB+jyIjME5M7weTWw=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=uj3CZvvPvAiHC4ADRZDP0BrmywxeADSp6X0rsOKZ7zRf8tS0b6BAxrqs9pD37l66NkbG4MR/y2zunUosi+U39H+6vbsjSjqp39iSJxzTe8MyLRx84Q9lZ8zl5P3QsIdpFddwldZhBm5fe7mkuyvErMe1covzAMPMsPUCgzfCq/g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=AAI87MBb; arc=none smtp.client-ip=91.218.175.2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1788517907; c=relaxed/simple;
+	bh=Xjh7tT0uI2pYMf6GjPk2jwUGlvo24xJgQl1WWEOO2VQ=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=P5JoI2b7wYViSlEkRNspGfXru7uTiZs++77H2T/ox76frYqLOGWM0X+Ub8bE9BS5Anck0sdLttCLEAcQVKt6Nx0/ghJ2aAZEPz+2Sc8f1dwdtBVBquwMJbgYOqU5IflmeCoQbaOw6tvxWtcj6AQn8XT1xCu1NGt4TYtpa7ofz6E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=alistair23.me; spf=pass smtp.mailfrom=alistair23.me; dkim=pass (2048-bit key) header.d=alistair23.me header.i=@alistair23.me header.b=nkvTuRkv; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=FYIE3Ajx; arc=none smtp.client-ip=103.168.172.145
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=alistair23.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alistair23.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="AAI87MBb"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=OLJizthyKrO2zpeWP4eJulHLA4vB+jyIjME5M7weTWw=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788517896; v=1; x=1789122696;
- b=AAI87MBb5uqbkHf7mqya7LRTyitjfPgTcL6DSNEwJOkeEAUGdRx0r2SIU647qPHF4/9MSMrj
- ALW5Mokbv/92OaOjdmkY99eaTZBM5vkzApPPfcFRg7TXg7h5AqoXHFvffUI4CNrsZ7IGcS7JGFr
- cOwTVEisY+aJ1j2aL82E/wvU=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id ae322256d77e21c4;
-	Fri, 04 Sep 2026 10:31:36 +0000
-X-Mizu-Trace-ID: ae322256d77e21c4
-X-Migadu-Flow: FLOW_OUT
-From: Fuad Tabba <fuad.tabba@linux.dev>
-To: Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>
-Cc: Mark Rutland <mark.rutland@arm.com>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Ben Horgan <ben.horgan@arm.com>,
-	James Morse <james.morse@arm.com>,
-	Xi Ruoyao <xry111@xry111.site>,
-	Marc Zyngier <maz@kernel.org>,
-	Bradley Morgan <brads@mainlining.org>,
-	Fuad Tabba <tabba@google.com>,
-	linux-arm-kernel@lists.infradead.org,
-	linux-doc@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=alistair23.me header.i=@alistair23.me header.b="nkvTuRkv";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="FYIE3Ajx"
+Received: from phl-compute-09.internal (phl-compute-09.internal [10.202.2.49])
+	by mailfout.phl.internal (Postfix) with ESMTP id ACD06EC00B9;
+	Fri,  4 Sep 2026 06:31:44 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-09.internal (MEProxy); Fri, 04 Sep 2026 06:31:44 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alistair23.me;
+	 h=cc:cc:content-transfer-encoding:content-type:content-type
+	:date:date:from:from:in-reply-to:in-reply-to:message-id
+	:mime-version:references:reply-to:subject:subject:to:to; s=fm1;
+	 t=1788517904; x=1788604304; bh=/nM+7dclz8bTkwQKTyb7BCdsGylCRsWM
+	Xfgqy1Zn6Zs=; b=nkvTuRkvqNX7yBdrRs2vXxHOsY1TlO0+Hm8TZpN19ejbxcpZ
+	peu9qEQikQU0GuatrCKCsi0S/yZjqfmTSePz8Mf17hmxcaul0naVWLEZoAc6peNz
+	X7nRWnaDXrNST42/cqyEgXMsbaauZKraazVbXHpAAgWLRhLsq+zx4k5ncCs1MUH5
+	uHZkpu+B+udU4vuTuYDS7hXLnTSM7TWWz7nEyE745VJ7NUvl61x/n33LVgCmdH9u
+	rAjU/VbAyFUZu8LJkpSAWbrSAGLS2IHbXFuK/m5vEwS4pUBwCS5kGJWYZInAVK+H
+	uMEngiUG7Edgcrv7oBV0sfvxRH2OthZq8xjrhQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1788517904; x=
+	1788604304; bh=/nM+7dclz8bTkwQKTyb7BCdsGylCRsWMXfgqy1Zn6Zs=; b=F
+	YIE3Ajx/zoJu33stgfrRnfJ33VllzIKz9SsZaaiY3uzCN0orN3DJdmSa9wfhdPhO
+	Ed5NPjuhAAic7nvPdGN6PGS/XoPLQsShoBdFKlaB0IlHmMdGbw40Lv/ourlCkt88
+	SDf7FHmQWuPczBMSW0GvFPtl+sJtgdXo6vkCZaKOxqZP3C6MPY6DOTPSHBWLTpm1
+	5i0IWThEe2sJKzhZ27mwzds/J3eP7X3OKZFNXk4lWvDvMq3Nnic19BHR73KCRLWn
+	zdYgXA1aR9UnlExOl3j27ll/S4eWFlWKupPA4fUkGwHV6lwuUPDCjf+lu358UR6V
+	RDntXyu7FftAckrrOrDqQ==
+X-ME-Sender: <xms:EJ6aassRf9xtpRKDHPYUD-kj0mpLWXnL8bk8YAOhL6Aofpn2bwE_KQ>
+    <xme:EJ6aaqJj6gur0cHzd5IeyC6VpYT8NRsTVieeCl9KVjwwZKSuZ8Mvegu_6DlKBrpTh
+    uwbNdLSBvpHAq0nNFUdikN8-_Xk27VTX092QPkG7W6K_FXdHki4ByAX5g>
+X-ME-Received: <xmr:EJ6aal_MXEUq8163pggdqvgcqF9Zd0TxqGshuYEj1JztA-CNozcl-yY_YqxlA93qZQIjf4NiHj28PNC5G1-goBHyAkI>
+X-ME-Proxy-Cause: dmFkZTF2SBZe7YcpwH0fIJro9dg8+LoFHkHL2HT1n8GLVDnfWYPFi510ghZHOd1b0/9wl8
+    Cx1sKXv1pE4ZEiSSHADPuU8u9qd4Gt1SD1gCNdGRZ4+T4l2pyd34pBk4Q540rA4USeXvcs
+    j+7IUqqywkAVYjEJ0fHK0PIPAFvqjrArM+uXPnpVh3jj5SPlbFB/J3GGpIwnHhGFt54m/d
+    HqahjBahNmNkr1vDZvCiLjCrA/+AXwARP175mkGnCHDneQykh6CKj8bMi7ldAUhzFK0Kuq
+    PoCsrSWDN3DidcrdS2x2qU3JvZZUQQ6njqaMLmJebWgESMoucOGi5OiX02uMV9/WfoQ+Kh
+    +cKDBKpWqMpOz3fc/BAc1q2sifeChukwn6twwlMF5gJodXYaick23AKMoQFjMpyjabTgvz
+    uUFRpvSxHH5qUa9BpmOClOQAd1UqdEdoF3ykiRHxHRVkyjU7RWrAl4vcwXR1wO4RipsJ8X
+    NsMHSwA8G+B38bEtsl0WNILmnzfSWYiku0f4aYF8gWQhTHvFFz46bPiCaSOJ3u83x7fztC
+    T/vjidFVHpoDtHHsKfKmGpciTr5zMAOJdS4It4I7Y4mjRJsK1x32BQ0Q1VX7F8s4V404rP
+    +clM3h0MvIie47QVnV9T0N2kbVjCgXN4A+mBJC+sIX54v9PR6J9sY8UqsQJQ
+X-ME-Proxy: <xmx:EJ6aajy-AQQ6oxWP2WCAqfPNrCJjAMAjGFDUKR7EaHmjjdgY3hJW8A>
+    <xmx:EJ6aai5D0iDeTLvi5VGlXRaWbgFROmZxtfFuanvmwGHH5b5fgybnZg>
+    <xmx:EJ6aaq_pskKB_YP1MD_vwa5REzJS5S2loG26ElK2KgCx8RfAekLGSg>
+    <xmx:EJ6aanp3AefMoIEuIYc5V0KJHqqGWJJyJmv7Itv3H7x9cmfN5SjZWQ>
+    <xmx:EJ6aagzv4ml1OtBrWMGEW6Fc0_zoJdhqLOsPPZ7jtVj_witUb3zDRWF9>
+Feedback-ID: ifd214418:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
+ 4 Sep 2026 06:31:41 -0400 (EDT)
+Message-ID: <e4eda66c1a73f4a403ec10c50dad251f4b02af0f.camel@alistair23.me>
+Subject: Re: [PATCH] Input: cyttsp5 - clamp the HID report size before memcpy
+From: Alistair <alistair@alistair23.me>
+To: Linkai Gong <gonglinkai@kylinos.cn>, Linus Walleij <linusw@kernel.org>, 
+ Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Cc: Maxime Ripard <mripard@kernel.org>, =?ISO-8859-1?Q?Myl=E8ne?= Josserand
+	 <mylene.josserand@bootlin.com>, linux-input@vger.kernel.org, 
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v2] arm64: mpam: Document when to set arm64.nompam
-Date: Fri,  4 Sep 2026 11:31:31 +0100
-Message-Id: <20260904103131.627392-1-fuad.tabba@linux.dev>
-X-Mailer: git-send-email 2.39.5
+Date: Fri, 04 Sep 2026 20:31:39 +1000
+In-Reply-To: <20260901122649.1173066-1-gonglinkai@kylinos.cn>
+References: <20260901122649.1173066-1-gonglinkai@kylinos.cn>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (by Flathub.org) 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-arm64.nompam skips the MPAM2_EL2 and MPAMHCR_EL2 writes in
-finalise_el2_state and leaves the ARM64_MPAM cpucap unset. Where EL3
-firmware has cleared MPAM3_EL3.TRAPLOWER, the EL2 trap controls are
-left unwritten, at reset values that are UNKNOWN, and KVM still hides
-MPAM from the guest but no longer enables the traps that stop a guest
-from using it. KVM never saves or restores MPAM0_EL1 and MPAM1_EL1, so
-what one guest writes reaches the next guest and the host. Nor can the
-kernel make the EL2 writes unconditionally: they trap to EL3 on the
-firmware the option exists for, and TRAPLOWER cannot be read below EL3.
+On Tue, 2026-09-01 at 20:26 +0800, Linkai Gong wrote:
+> The size field comes from the device and is used as the memcpy()
+> length into response_buf, which is CY_MAX_INPUT bytes.
+>=20
+> Fixes: 5b0c03e24a06 ("Input: Add driver for Cypress Generation 5
+> touchscreen")
+> Signed-off-by: Linkai Gong <gonglinkai@kylinos.cn>
 
-Say so in mpam.rst, and add the rule and a pointer to the
-kernel-parameters entry.
+Reviewed-by: Alistair Francis <alistair@alistair23.me>
 
-Suggested-by: Ben Horgan <ben.horgan@arm.com>
-Link: https://lore.kernel.org/all/CA+EHjTxeWxZiuSmnKLGLxTBXP4oJT7-LuffbPAyCSZZ5TW=5Ew@mail.gmail.com/
-Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
----
+Alistair
 
-Notes:
-    Changes since v1, the first three from Ben Horgan's review:
-     - Put arm64.nompam under a new "Command line parameters" section.
-     - Separate MPAM3_EL3.MPAMEN from TRAPLOWER, which v1 conflated.
-     - Add that KVM does not save or restore MPAM0_EL1 and MPAM1_EL1.
-     - Drop "No functional change intended." from the commit message.
-    
-    Bradley Morgan's Reviewed-by on v1 is not carried over: both
-    paragraphs, the section heading and the commit message changed.
-    
-    v1: https://lore.kernel.org/all/20260903084809.2027326-1-fuad.tabba@linux.dev/
-
- .../admin-guide/kernel-parameters.txt         |  3 ++-
- Documentation/arch/arm64/mpam.rst             | 25 +++++++++++++++++++
- 2 files changed, 27 insertions(+), 1 deletion(-)
-
-diff --git a/Documentation/admin-guide/kernel-parameters.txt b/Documentation/admin-guide/kernel-parameters.txt
-index 68647ff4bdd24..e6d543de3cde5 100644
---- a/Documentation/admin-guide/kernel-parameters.txt
-+++ b/Documentation/admin-guide/kernel-parameters.txt
-@@ -575,7 +575,8 @@ Kernel parameters
- 			Set instructions support
- 
- 	arm64.nompam	[ARM64] Unconditionally disable Memory Partitioning And
--			Monitoring support
-+			Monitoring support. Only for a machine that does not
-+			boot without it. See Documentation/arch/arm64/mpam.rst
- 
- 	arm64.nomte	[ARM64] Unconditionally disable Memory Tagging Extension
- 			support
-diff --git a/Documentation/arch/arm64/mpam.rst b/Documentation/arch/arm64/mpam.rst
-index 67fe515ed501c..e66b1359d1282 100644
---- a/Documentation/arch/arm64/mpam.rst
-+++ b/Documentation/arch/arm64/mpam.rst
-@@ -87,6 +87,31 @@ The supported features are:
-   MBWU monitors can be exposed to the user after support for more monitoring
-   scopes is added to resctrl.
- 
-+Command line parameters
-+=======================
-+
-+arm64.nompam
-+------------
-+Firmware controls MPAM through two bits of MPAM3_EL3. MPAMEN enables
-+it: while set, the PARTID and PMG in the MPAMn_ELx registers label the
-+CPU's memory requests. TRAPLOWER, which resets to 1, traps accesses to
-+the MPAM system registers from the lower exception levels to EL3.
-+Firmware must clear it, or handle the trap and emulate MPAM as disabled.
-+Where it does neither, the CPUs still advertise MPAM in the ID registers,
-+the kernel's MPAM register accesses trap to EL3, and the boot fails.
-+``arm64.nompam`` exists for that firmware: it makes the kernel treat the
-+CPUs as not implementing MPAM, so no MPAM system register is accessed.
-+Set it only on a machine that does not boot without it.
-+
-+It is not a way to turn MPAM off. Where firmware has cleared TRAPLOWER,
-+the option leaves the trap controls in MPAM2_EL2 and MPAMHCR_EL2
-+unwritten, and their reset values are UNKNOWN. KVM still hides MPAM from
-+guests but no longer enables the traps that stop a guest from using it,
-+so a guest may be able to read and write MPAM0_EL1 and MPAM1_EL1. KVM
-+does not save or restore them, so what one guest writes is still there
-+when the next guest runs on that CPU, and when the host does. With MPAMEN
-+set, EL0 and EL1 requests then carry that PARTID and PMG.
-+
- Reporting Bugs
- ==============
- If you are not seeing the counters or controls you expect please share the
--- 
-2.39.5
-
+> ---
+> =C2=A0drivers/input/touchscreen/cyttsp5.c | 1 +
+> =C2=A01 file changed, 1 insertion(+)
+>=20
+> diff --git a/drivers/input/touchscreen/cyttsp5.c
+> b/drivers/input/touchscreen/cyttsp5.c
+> index 9266c07314be..e878a02dc9b7 100644
+> --- a/drivers/input/touchscreen/cyttsp5.c
+> +++ b/drivers/input/touchscreen/cyttsp5.c
+> @@ -710,6 +710,7 @@ static irqreturn_t cyttsp5_handle_irq(int irq,
+> void *handle)
+> =C2=A0		size =3D 2;
+> =C2=A0	} else {
+> =C2=A0		report_id =3D ts->input_buf[2];
+> +		size =3D min(size, CY_MAX_INPUT);
+> =C2=A0	}
+> =C2=A0
+> =C2=A0	switch (report_id) {
