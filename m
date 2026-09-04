@@ -1,87 +1,60 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D79A3414DF6
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 06:09:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FBBC414A2A;
+	Fri,  4 Sep 2026 06:10:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788502197; cv=none; b=q3/LfK78oFEK6H1bHVL2NeM16CzpiSf1QopmO9ZiIQpC2FYnHrk3Nfa9j54pT9DmfGk6YPVtz7XnrPmjIPZSMxwZs1Qu384W7owi4SuN17AQauNql2UCOD3zzUksRqHhcCeaY2LP5lzrvpjYk1G/axxD/EiFT0ncwlfGtAXeook=
+	t=1788502240; cv=none; b=Gd1YEgNrXMDHNeH3POZ9W53qG0GxmOb2tpZNBNSjy11YsvMXvsoUQx0vzQ+KhoqhPMDAueCUi0UVS+vdrJJkVuqPcGMVmz1hTH+ym+mewYYb0IiH2/NZugtHPQP+q3EruOvhkQ4EY4A9rxUMP+CeHtxV/nuZ1T3/uT2rOzD0A6k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788502197; c=relaxed/simple;
-	bh=6i1H7/7wQUtpbrY5xzX/0W4P8TBzBKtLRiVT/SoT7ls=;
+	s=arc-20240116; t=1788502240; c=relaxed/simple;
+	bh=3l2fgcyVrJxrS90+tLbAHnESPYxrvgoxhahRmryoN/o=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=L6IW8QFveEOwlVDAMg++0iJvLmK2MpeEqdyv+VcNV4Qhx1w6HMFlQZ+AenoZIoYMXFXEAMXGCXHHN0icpvrF0wc5B1OY6qIldR//rZlztu5c10+/qWRdW0EDcZSgPQbR9V1f0yKlmwz8sVzI93B9IDPUD8NQQU57vSTeLkkrDHs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=AJ0VNFv1; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=a09VwbJS; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	 In-Reply-To:Content-Type; b=D1ujes3gZGBLW4ydBmHP3kzXtuHT0Ezxa26csFRsiANyLUsBy2e5m7vjnvgR/e/ltvRjGiB9MJFenPczc/eRkzkBEEQeKdtDvj0niwEdExcMUzcThknxBYq1u5SSVUSngsuTOlG9II+HmrDHY7jqQLIy3ww821+UPWTpjrEOekI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=NkTV4xoJ; arc=none smtp.client-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="AJ0VNFv1";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="a09VwbJS"
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68462k8I2886656
-	for <linux-kernel@vger.kernel.org>; Fri, 4 Sep 2026 06:09:54 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	toQXcTH0dbYcAFdl5EjWItBSNnEY93ZM4mZFCsTYmHY=; b=AJ0VNFv1xDVDBSVz
-	KoJgiGxblWZQ+uOGSLDeYQVFq2t7yCAGXUj+JrgF7dNtbZDzKoae0nCEEahBXe2w
-	500aUGcmg+LO3TM4dk2PXc+4kwAsa7yLQkTIp8o3ezwYQc5/MY6yADr7c0coirIq
-	eb/63gLiiFUK47FHiWw5AbJWsdb7X5O3V2gtyXt6eSJIHutneQ7v0ytvPZYfJh3P
-	/e96YI1wiXkogsbivyr9UUs7T4yv29wZHooCp4irattsRDS9a/DCyq35ZcniqV4q
-	pjeDbA+B5jxlE1R3XeF16anijzr0BYV6aV+APFWInfuJBmNXIQIFU5uj1HKMsgK2
-	IhjPlw==
-Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gfp780eps-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 06:09:54 +0000 (GMT)
-Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-395543dc382so922737a91.0
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 23:09:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1788502194; x=1789106994; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=toQXcTH0dbYcAFdl5EjWItBSNnEY93ZM4mZFCsTYmHY=;
-        b=a09VwbJSpxWqNoGZu/bBtNKK38qIMIMuuQAfofT+fCulQO+EMY1LuUgTrOVn+iw2lX
-         ggD+9VgQRMIinkI+IBM4fTHt52Yx1LpDcrO5K2dpg29WYYfIxGJ6726tNljNK0YHEjfs
-         NYAbouzTuTZDCgq5dme+klnZMcCSroYR3twAQFjPv0xfCpNJH4gfgxCMuG/aW4IpYR/h
-         ib3Ln5LwFSHZsuVAOHzayOUZfkwiW+8AgSiOhAYhlN0gTzF5B+m/kXCmMH+h2YoktjJG
-         xWkaeOKlVtR+Z9mWFPbeN+DLSpbPERu5BynBjgo2/VD2jcYB0Ckd9ISmMTwBiY86RhNQ
-         3nxA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788502194; x=1789106994;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=toQXcTH0dbYcAFdl5EjWItBSNnEY93ZM4mZFCsTYmHY=;
-        b=iD5NFdkWLtDbbdi6wdQmSznVCZmy0mG3qJJ/yOalUXJAluPFxqphqwfemTI1PNfr0p
-         dEypMcJXf2pCoBGJERK8hdQEQWI9p4Sr//rzaK+AS/00Lbc1hu721u6ZP3KxFKqJ1XVX
-         ix38FEHd0BYMzOg7SD4f0YgGLgfXrU/BUDE+oqtWWqTDMjMsLy3zT00by3ssFuXKphA+
-         L+ob+jEasKIhDufjzadxK+c61/NDA/AQe8fwHeKoTO8Frr0gE8pl+IcWXX8gPRFtT+3G
-         0CEh+wQvdUz55cs54ZxDtSLoblXYrAxwZUs92Ok0aWkQauuYYSJI8ttGktpCNr1oBW63
-         kMDg==
-X-Forwarded-Encrypted: i=1; AKwUvBwLQFpYC1huTeE8MVvPskZ5CsnXE1WAzRKIolE2g9W4op5Z/W4c3DYHsw18wNxtvjSYJ7dzmX67kzPwQEY=@vger.kernel.org
-X-Gm-Message-State: AFuF++kNeYIRscNWY4cNcadu2dXSmNUJAJTqHlQWLR1oUdY6/66VeBYt
-	lNdjzqAZJITbZJXsx8eH3MHsqi5q7EZe38a2TrowACWDKGqyxDBC1a2Qvn80lCuZC/W+roJL/h6
-	4vl3s3DZNVwuNfB17M+Y0Ym2fdgwdUTsh8ZLxhL7M7OK0yzi+zmIdQxN86nnItJQpzUc=
-X-Gm-Gg: AYBFou2KwDN29FjfZCddjE5x+BZzpbo56d66rFsnaumHTDBOn8gnLac5DhAInDnYo/k
-	OmEI38FEpONibf08H+4cYkiqP2CxZ17nBnJMwZfYZF6GAc5pqR818RZbhwsSoQkWc8SAw5YBKIf
-	ujOCnXXqmi/hR5cM1jHu6V3kHjYEyZdT8dra+y3PnLA+kHeyPEpxKN+7Qj6RcW+RgCXHS3g/bld
-	djeH+Hh3BVHrtb2gadIna9Xo6x05z9E9IiFXCQ7Oohn7ldKMM8HotAMwhfneff0L0cvvf6AjpDk
-	ejGq5/Fm9kFfBV27gv/NFzQzKbkk32/eL3BDY5z7DdSRQxCmCUQICzaz6Xc8hdNXhLw+0XbS29Q
-	T+fFV8pJ8jw6ZlpX7vFoe/fd62mb94TQUU6PaVqNjA8+HfjHWW/yDXhZaqCtsfNkcIPnY
-X-Received: by 2002:a17:90b:5606:b0:398:9be6:f997 with SMTP id 98e67ed59e1d1-39b262dfaeamr6332349a91.22.1788502193742;
-        Thu, 03 Sep 2026 23:09:53 -0700 (PDT)
-X-Received: by 2002:a17:90b:5606:b0:398:9be6:f997 with SMTP id 98e67ed59e1d1-39b262dfaeamr6332268a91.22.1788502193296;
-        Thu, 03 Sep 2026 23:09:53 -0700 (PDT)
-Received: from [192.168.1.5] ([122.177.244.184])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b08c3a526sm8911619a91.10.2026.09.03.23.09.47
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 03 Sep 2026 23:09:52 -0700 (PDT)
-Message-ID: <fd9f1fac-e4e7-453e-a830-a32e8be2f965@oss.qualcomm.com>
-Date: Fri, 4 Sep 2026 11:39:46 +0530
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="NkTV4xoJ"
+Received: from pps.filterd (m0353725.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68464WhQ3993728;
+	Fri, 4 Sep 2026 06:10:17 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=OQbECm
+	C/onJiPTMMl9RCUTY5J26b9sb7ubS5BtR54vc=; b=NkTV4xoJsPs5PYMTsQ6EEN
+	8cqUG/TWMjQNLRvVbibM9bXppxU34UwNXMXRV7/x8OD6m9MzIvcgq8gBUewgPGMM
+	WwOnvOb9Ii2s4s1OjtcHAWGcqkAjeoRzmq2lV13GaMZCdniazJ99hA1hzWcheyxx
+	pWiTRvciH8OEHiK0msXp9WawYjNQlTJfkiOSsoAbI/Z2eFFshFNQALaVaK7N3HAG
+	jwtL0ZqNangLYMvkhQTYDL0tA+PQbHr+2Ch5g4W7DjetuGAfFLiI5JV/vFXFJVdJ
+	HFF5P3FLGZ4IL62csoPYQRJqEexbWhKsbYhxRgFWLkZpFFIDW3u7E5Q/2huv7ViA
+	==
+Received: from ppma23.wdc07v.mail.ibm.com (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gbnue8jav-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Fri, 04 Sep 2026 06:10:16 +0000 (GMT)
+Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma23.wdc07v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 6845uOAX002158;
+	Fri, 4 Sep 2026 06:10:15 GMT
+Received: from smtprelay03.fra02v.mail.ibm.com ([9.218.2.224])
+	by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4gcb8huebc-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Fri, 04 Sep 2026 06:10:15 +0000 (GMT)
+Received: from smtpav05.fra02v.mail.ibm.com (smtpav05.fra02v.mail.ibm.com [10.20.54.104])
+	by smtprelay03.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6846ABQn42074590
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Fri, 4 Sep 2026 06:10:11 GMT
+Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id C675F20043;
+	Fri,  4 Sep 2026 06:10:11 +0000 (GMT)
+Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 6EF4D20040;
+	Fri,  4 Sep 2026 06:10:05 +0000 (GMT)
+Received: from [9.61.247.46] (unknown [9.61.247.46])
+	by smtpav05.fra02v.mail.ibm.com (Postfix) with ESMTPS;
+	Fri,  4 Sep 2026 06:10:05 +0000 (GMT)
+Message-ID: <6fed0a01-964e-4945-b598-a890cbcb6da5@linux.ibm.com>
+Date: Fri, 4 Sep 2026 11:40:01 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -89,105 +62,133 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 5/7] usb: dwc3: add xhci-reset-on-resume property for
- power-loss resume
-To: Faisal Hassan <faisal.hassan@oss.qualcomm.com>,
-        Thinh Nguyen <Thinh.Nguyen@synopsys.com>
-Cc: Sriram Dash <sriram.dash@oss.qualcomm.com>,
-        Jack Pham <jack.pham@oss.qualcomm.com>,
-        Shazad Hussain <shazad.hussain@oss.qualcomm.com>,
-        linux-arm-msm@vger.kernel.org, linux-usb@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-        Mathias Nyman <mathias.nyman@intel.com>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        Philipp Zabel <p.zabel@pengutronix.de>,
-        Wesley Cheng <wesley.cheng@oss.qualcomm.com>
-References: <20260903153827.3463313-1-faisal.hassan@oss.qualcomm.com>
- <20260903153827.3463313-6-faisal.hassan@oss.qualcomm.com>
+Subject: Re: [PATCH v2 01/10] pseries/plpks: update PKS documentation and
+ maintainer entry
+To: Srish Srinivasan <ssrish@linux.ibm.com>, linux-integrity@vger.kernel.org,
+        keyrings@vger.kernel.org, linuxppc-dev@lists.ozlabs.org
+Cc: maddy@linux.ibm.com, mpe@ellerman.id.au, npiggin@gmail.com,
+        christophe.leroy@csgroup.eu, James.Bottomley@HansenPartnership.com,
+        jarkko@kernel.org, zohar@linux.ibm.com, linux-kernel@vger.kernel.org,
+        linux-security-module@vger.kernel.org, nayna@linux.ibm.com
+References: <20260831111738.334857-1-ssrish@linux.ibm.com>
+ <20260831111738.334857-2-ssrish@linux.ibm.com>
 Content-Language: en-US
-From: Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>
-In-Reply-To: <20260903153827.3463313-6-faisal.hassan@oss.qualcomm.com>
+From: R Nageswara Sastry <rnsastry@linux.ibm.com>
+In-Reply-To: <20260831111738.334857-2-ssrish@linux.ibm.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA0MDA1NSBTYWx0ZWRfX2fc75IuAaBUC
- Pqi/Yvpvn9ksQqIw1P9dsSTJr61n9yMEZRcytHQJuGeTSiHPeHPImuDPBNSa9nR0rVdi29rjXqL
- 0DeGI8D8rue+wfVIIXIvkW1ST37XOYU=
-X-Proofpoint-ORIG-GUID: 490zi00IJjReKRBUvTqFo2QQKeAXfFsX
-X-Authority-Analysis: v=2.4 cv=ab5RWxot c=1 sm=1 tr=0 ts=6a9a60b2 cx=c_pps
- a=0uOsjrqzRL749jD1oC5vDA==:117 a=oP200lxkGh9fc4MeAAR85Q==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
- a=EUspDBNiAAAA:8 a=UW7aF9AyQ5xqPRIsElAA:9 a=QEXdDO2ut3YA:10
- a=mQ_c8vxmzFEMiUWkPHU9:22
-X-Proofpoint-GUID: 490zi00IJjReKRBUvTqFo2QQKeAXfFsX
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA0MDA1NSBTYWx0ZWRfX4BhzMOHinlvl
- DbZxDK045YoE6Syk8jiia+k7P4izV0YtSw3XRnW8HJsS7s3UHhQhIaa8Sht6h9YKvr1P8cYCWDp
- 5SdyFn9fdnawuDEnAEKMY9YzN3VMi5rSBUAJkuaQE5XhTLxfgwv7o5SwzdKVrvLNPLRRy4bUQFh
- 8uC2MIIRuApm1B2APbhJ9bogEaRVFquwQ5krSuwvZJgytYgAmXOpx6sfiFAP7Z3aOkno+AXCVrD
- 2nu3FfhPMAICGUfhh1KuPvBMbn9jvX8Xp3sw7XEhTx/tDFqqLcrM/hKg2ZO8q1rkwBHzeQwgdzP
- VqnI+CtvppAdcA2Nfs8YqDQjNQX+Hgqn/E7fDXFQLoo4Wwq4y/eX+c+diKgdArcoDNTw+2vcTLF
- 3ZwoEeGITlZruewtu0JvMCdQKAMtRZitvYuy9RCNru8rf7xY7GVTcoe0hlDP7NjzpKaNsnhhpWK
- bsqgoIxKF8d75QUp8tg==
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-GUID: SnJZsrsJ53N_81H6YNQvYFe8I2YXR0KK
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA0MDA1NCBTYWx0ZWRfX/Q5NI5kGfru8
+ WGnzI21tKyNN9+YqRdl/SAteiF4ileL3wjedwIm2YQekekdOHxeC8xRkvkjrt4UkT+3r/vEGB5y
+ qX/7DfSYlLeb/f4atnJQ9dHAZ2WSmEvDDQnvyrL6RS5CqeHjdxQBcYrqVTrFuigSRWrNstcDRIy
+ qS4R5PdtYsF404MI6msg9dKOBY1uxvl4mPFWQXO0LqSUOL2BJnjb0ch45ZOwvL71mBZzBEBjJSU
+ YRrDvOHgvVnNou0L4XQxYDTqoBurCK+ulT5CnsNNq0FBdVvSMDcITlJPd9nRhnM3uBoeQnxcMW7
+ h3WtpaTnQLuwLuEMC5IPHTL90DmIcvhFd1DIJaqL2MlCCaWg/Xy2gIjc7LZIueeKL7EVocdZeYq
+ e5pU5fUbHsICioIs4eEHsLudMDDIVbcC11d1SQ1hgwqvoUeorge/qdk3sBgn6AOWHULhTNS1S1M
+ tmJxS2xIzOrNHSGSkOw==
+X-Proofpoint-ORIG-GUID: RCcuBRQqUr2h0Dc9lQNS9_Jgpx1r7q7L
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA0MDA1NCBTYWx0ZWRfXwBOAL4RDPkHc
+ 2Mpxczjv0TQiu6N3ZibewWmIoyMbiCLYY6x6zrEUdHMAI8Lr0qixraDHpuDWJfc4PJMEqjzfNtQ
+ YACuknmXRfMLaPdG4k+94Pgqz2Khvlk=
+X-Authority-Analysis: v=2.4 cv=B92JFutM c=1 sm=1 tr=0 ts=6a9a60c8 cx=c_pps
+ a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=V8glGbnc2Ofi9Qvn3v5h:22 a=VnNF1IyMAAAA:8
+ a=VwQbUJbxAAAA:8 a=ZSwnYTGPAMvaW41niKkA:9 a=QEXdDO2ut3YA:10
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-09-04_02,2026-09-03_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 phishscore=0 clxscore=1015 impostorscore=0 suspectscore=0
- lowpriorityscore=0 adultscore=0 bulkscore=0 priorityscore=1501 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609040055
+ adultscore=0 spamscore=0 clxscore=1015 suspectscore=0 phishscore=0
+ lowpriorityscore=0 bulkscore=0 priorityscore=1501 impostorscore=0
+ malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2609040054
 
 
+On 31.08.2026 4:47 PM, Srish Srinivasan wrote:
+> Wrap long PKS hcall return-value lines consistently and fix a typo in the
+> H_PKS_UNWRAP_OBJECT description.
+>
+> Also update the MAINTAINERS entry from KEYS-TRUSTED-PLPKS to
+> KEYS-TRUSTED-PKWM to reflect the PowerVM Key Wrapping Module naming.
+>
+> Signed-off-by: Srish Srinivasan <ssrish@linux.ibm.com>
 
-On 9/3/2026 9:08 PM, Faisal Hassan wrote:
-> On platforms where the USB controller loses power during system
-> suspend, like SA8255P, resume triggers a Host Controller Error
-> requiring full reinitialization.
-> 
-> The xhci driver supports XHCI_RESET_ON_RESUME to handle this,
-> but dwc3 previously lacked platform-specific quirk configuration.
-> Add a device property "xhci-reset-on-resume" that enables this
-> quirk for controllers needing complete reinitialization after
-> power loss during suspend.
-> 
-> Let dwc3 manage the quirk for the usb controller using
-> software properties.
-> 
-> Co-developed-by: Sriram Dash <sriram.dash@oss.qualcomm.com>
-> Signed-off-by: Sriram Dash <sriram.dash@oss.qualcomm.com>
-> Signed-off-by: Faisal Hassan <faisal.hassan@oss.qualcomm.com>
+Tested-by: R Nageswara Sastry <rnsastry@linux.ibm.com>
+
+Documentation-only change. Gone through documentation.
+Used this data in test cases creation.
+
 > ---
->   drivers/usb/dwc3/core.c | 4 ++++
->   drivers/usb/dwc3/core.h | 5 +++++
->   drivers/usb/dwc3/host.c | 5 ++++-
->   3 files changed, 13 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/usb/dwc3/core.c b/drivers/usb/dwc3/core.c
-> index fd5c2cd36c59..eb6ffd5148a7 100644
-> --- a/drivers/usb/dwc3/core.c
-> +++ b/drivers/usb/dwc3/core.c
-> @@ -1712,6 +1712,10 @@ static void dwc3_get_software_properties(struct dwc3 *dwc,
->   					       &gsbuscfg0_reqinfo);
->   		if (!ret)
->   			dwc->gsbuscfg0_reqinfo = gsbuscfg0_reqinfo;
-> +
-> +		if (!dwc->xhci_reset_on_resume &&
-> +		    device_property_read_bool(tmpdev, "xhci-reset-on-resume"))
-> +			dwc->xhci_reset_on_resume = true;
->   	}
+>   Documentation/arch/powerpc/papr_hcalls.rst | 16 ++++++++--------
+>   MAINTAINERS                                |  2 +-
+>   2 files changed, 9 insertions(+), 9 deletions(-)
+>
+> diff --git a/Documentation/arch/powerpc/papr_hcalls.rst b/Documentation/arch/powerpc/papr_hcalls.rst
+> index 14e39f095a1c..44c9c8b32ae3 100644
+> --- a/Documentation/arch/powerpc/papr_hcalls.rst
+> +++ b/Documentation/arch/powerpc/papr_hcalls.rst
+> @@ -305,8 +305,8 @@ like core instruction, core LLAT and nest.
+>   | Input: authorization, objectlabel, objectlabellen, policy, out, outlen
+>   | Out: *Hypervisor Generated Key, or None when the wrapping key policy is set*
+>   | Return Value: *H_SUCCESS, H_Function, H_State, H_R_State, H_Parameter, H_P2,
+> -                H_P3, H_P4, H_P5, H_P6, H_Authority, H_Nomem, H_Busy, H_Resource,
+> -                H_Aborted*
+> +                H_P3, H_P4, H_P5, H_P6, H_Authority, H_Nomem, H_Busy,
+> +                H_Resource, H_Aborted*
+>   
+>   H_PKS_GEN_KEY is used to have the hypervisor generate a new random key.
+>   This key is stored as an object in the Power LPAR Platform KeyStore with
+> @@ -321,8 +321,8 @@ the user. Generation of wrapping keys is supported only for a key size of
+>   |        inlen, out, outlen, continue-token
+>   | Out: *continue-token, byte size of wrapped object, wrapped object*
+>   | Return Value: *H_SUCCESS, H_Function, H_State, H_R_State, H_Parameter, H_P2,
+> -                H_P3, H_P4, H_P5, H_P6, H_P7, H_P8, H_P9, H_Authority, H_Invalid_Key,
+> -                H_NOT_FOUND, H_Busy, H_LongBusy, H_Aborted*
+> +                H_P3, H_P4, H_P5, H_P6, H_P7, H_P8, H_P9, H_Authority,
+> +                H_Invalid_Key, H_NOT_FOUND, H_Busy, H_LongBusy, H_Aborted*
+>   
+>   H_PKS_WRAP_OBJECT is used to wrap an object using a wrapping key stored in the
+>   Power LPAR Platform KeyStore and return the wrapped object to the caller. The
+> @@ -331,16 +331,16 @@ which must have been previously created with H_PKS_GEN_KEY. The provided object
+>   is then encrypted with the wrapping key and additional metadata and the result
+>   is returned to the caller.
+>   
+> -
+>   **H_PKS_UNWRAP_OBJECT**
+>   
+>   | Input: authorization, objectwrapflags, in, inlen, out, outlen, continue-token
+>   | Out: *continue-token, byte size of unwrapped object, unwrapped object*
+>   | Return Value: *H_SUCCESS, H_Function, H_State, H_R_State, H_Parameter, H_P2,
+> -                H_P3, H_P4, H_P5, H_P6, H_P7, H_Authority, H_Unsupported, H_Bad_Data,
+> -                H_NOT_FOUND, H_Invalid_Key, H_Busy, H_LongBusy, H_Aborted*
+> +                H_P3, H_P4, H_P5, H_P6, H_P7, H_Authority, H_Unsupported,
+> +                H_Bad_Data, H_NOT_FOUND, H_Invalid_Key, H_Busy, H_LongBusy,
+> +                H_Aborted*
+>   
+> -H_PKS_UNWRAP_OBJECT is used to unwrap an object that was previously warapped with
+> +H_PKS_UNWRAP_OBJECT is used to unwrap an object that was previously wrapped with
+>   H_PKS_WRAP_OBJECT.
+>   
+>   References
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 3a19da74d00c..6b91d7f081c4 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -14491,7 +14491,7 @@ S:	Supported
+>   F:	include/keys/trusted_dcp.h
+>   F:	security/keys/trusted-keys/trusted_dcp.c
+>   
+> -KEYS-TRUSTED-PLPKS
+> +KEYS-TRUSTED-PKWM
+>   M:	Srish Srinivasan <ssrish@linux.ibm.com>
+>   M:	Nayna Jain <nayna@linux.ibm.com>
+>   L:	linux-integrity@vger.kernel.org
 
-xHCI plat does look for properties in xhci device node as well as the 
-ones above it in the parent chain:
+-- 
+Thanks and Regards
+R.Nageswara Sastry
 
-"
-	/* Iterate over all parent nodes for finding quirks */
-	for (tmpdev = &pdev->dev; tmpdev; tmpdev = tmpdev->parent) {
-"
-
-So adding device_add_software_node in dwc3_qcom must be sufficient.
-
-Regards,
-Krishna,
