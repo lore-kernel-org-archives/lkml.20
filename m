@@ -1,126 +1,131 @@
-Received: from relay.hostedemail.com (smtprelay0015.hostedemail.com [216.40.44.15])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com [209.85.218.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8285F4EE84D
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 16:24:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=216.40.44.15
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0D6A4F55A7
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 16:24:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788539078; cv=none; b=cJV+vXP6lRq4xoxq62aEDMGtSFhDkr5/1+ke4x5LxvZMyDK/s9SP4RpmKpSWjVjSzqloavFUW8xsBFgk2Eufhs9V8QbEDNovoM8iDWlqkz7lmSEOKeIUOeQy3fxYX4cKVw0s2eA4pIVKqLsSIHUwOcJJxT0RT6CoPNMAVJ7Lqaw=
+	t=1788539084; cv=none; b=O2QZOHLPIqdt6jOST3d7H2knHq8EXytqSEA2I7ul7hrPEeYA6+B2uK9IONAxcxt6GLuZtyCOvk7vkfp6Xqumv2BNyXYMy4vFSRhJZPwq+dSNHqVT5gw+9pVAaFP5epVQt1QeQ1xVlhRxoixuy4NU6kk687pi9M2uimwUqBd0ZkU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788539078; c=relaxed/simple;
-	bh=jzg5fo1gm9O5grgWkNzk82QwUT/s5qXEwN59hnQjBnc=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=gUA7vNSO52Nz/bLSRvyvNnmxnouVuDdte7IKviSyTq16f4dbd0jXFRblZgSIYvh6OUI+SMWXTpH0oaENcgRKvfOLa0e/YrzpoNqLUpv7PksGc4skG9Krla9xKzOjeQJu8NVBNKYcqQOIn2b69QftvOss7FU/0TBqPGWoMGulP3U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org; spf=pass smtp.mailfrom=goodmis.org; dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b=vaZftFJf; arc=none smtp.client-ip=216.40.44.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
+	s=arc-20240116; t=1788539084; c=relaxed/simple;
+	bh=skuvCUahsfytaEHEVgrxvRgfWIwbYI863g1x7rEjkNc=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Vq8OMXYE6nNNMXXtHekpN7Wri2YndZHtYEh0chPvqGDVM98j2s0wVQ0TOFMkwphYx/FBAvoYb47ihdb/cffWWHJ1vBs6k9uoBjBsfMFgJV+COZubZcXVYayoTMnvdm1lCFyi8jSYYrZsjI/HItlh9Rme85GhPEzpycdf+QU/v38=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qoINVqpR; arc=none smtp.client-ip=209.85.218.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b="vaZftFJf"
-Received: from omf18.hostedemail.com (lb01a-stub [10.200.18.249])
-	by unirelay04.hostedemail.com (Postfix) with ESMTP id DA2ED1A013B;
-	Fri,  4 Sep 2026 16:24:32 +0000 (UTC)
-Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf18.hostedemail.com (Postfix) with ESMTPA id D2F4031;
-	Fri,  4 Sep 2026 16:24:30 +0000 (UTC)
-Date: Fri, 4 Sep 2026 12:25:36 -0400
-From: Steven Rostedt <rostedt@goodmis.org>
-To: Ye Liu <ye.liu@linux.dev>
-Cc: "Peter Zijlstra (Intel)" <peterz@infradead.org>, Marco Elver
- <elver@google.com>, Ye Liu <liuye@kylinos.cn>, Yi Tao
- <escape@linux.alibaba.com>, Tejun Heo <tj@kernel.org>, Bart Van Assche
- <bvanassche@acm.org>, Christian Brauner <brauner@kernel.org>,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/8] mm: introduce for_each_process_rcu and
- for_each_thread_rcu
-Message-ID: <20260904122536.1079b279@gandalf.local.home>
-In-Reply-To: <20260904083001.553587-2-ye.liu@linux.dev>
-References: <20260904083001.553587-1-ye.liu@linux.dev>
-	<20260904083001.553587-2-ye.liu@linux.dev>
-X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qoINVqpR"
+Received: by mail-ej1-f41.google.com with SMTP id a640c23a62f3a-c252e703fa3so183989766b.3
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 09:24:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788539080; x=1789143880; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=+5RCSh49eI3RTioTN3tnarfx8+DyOBkMSuq84hnwt3Q=;
+        b=qoINVqpRPd0+Q1KBd9PYC1f3KG2+Y17GXHxZJMBTJIiWIDAENQ3mwUXP2tcO2deY+1
+         Fm7W9BnREQJ1WAhM2vwV/GVeRzkRPfoVWDHVQz3UblVJ+fOANMsFWHyMDzSdRkjLFwaJ
+         2AlqsVpr/fA9u2rySmfusc1nKwGhzjkKmgZsAsHmp17GQtmXygrxoWp2ko1jzFNbbXsr
+         XrtSoknLJ4i1a6eO6H9lQtpNVimnBQc8HSDbxje+PdVUte2SGSzR+4Yq1SZEHkViafdV
+         UARmMbcbfFNZ+CtJUqHyzDyTtOjxL/p/Vwq7pE1zWMQjD+JrUnlxyZXsJEIeD01Ldh5m
+         zl0A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788539080; x=1789143880;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=+5RCSh49eI3RTioTN3tnarfx8+DyOBkMSuq84hnwt3Q=;
+        b=r0odcoV8piZRxRYG1i1Wfl2gigVascpDnCNVBBwIf2zmWpfyVvyZd3JIsfhKF2+z/4
+         e0cibifK3YZ0+RhyWmClnvb79c8zemmAQUs/ElGeE55wetWF/Rj+IwYZVFhCrB5eqjng
+         i0OsyOl319kqqtx+9lYPbGDy9blvtMnk9y3Q4z+bRM/hdZRB66nMTiHcZrNBYs/Ew9jb
+         VCwfb9OQeCsDwZYtKrFGhMgakCjXc/k0hA4ufqyT88Yy3ghnK32uHfr2Fkg17UH9hUsI
+         m3edT8l5GxfVWmITEFRGuauh4D++rjbeJH2ZC84uvsMxdNukoTTTQ+RYEbeqrsmrtr+d
+         lO1w==
+X-Forwarded-Encrypted: i=1; AKwUvBweDLJCpQU+xb+b+ZRbBrwTvpHD7YHl8MUrKev58ZJV2XeQwXIMHmWkMZZxIrAMCjttelvnZlhyLjruEvQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++n+N5hk7owcwkT+EtvDYtVUSTmA5uYMDXxvU2jipJbfWXOsA5oR
+	ff5/284LthHe+Mua1WdS7KCPOQgn4VXyrlpLGAEeGJcpcwzapadTQLJr
+X-Gm-Gg: AYBFou0h/1F4BLFMJ0mWIXOi3zC/gWBl5wvJx6JXvmDn42UsIZx6zJjTnnktzPGUlMf
+	UbZbRiidEDbD6kBH1/islcWcrY+DzRbElCiyMaATfYdZkaWyFxVk9EySGvzhvlCGMoa/JhDBaJD
+	wTqFP3n9Vn0g2iyF02R/m0BUX3Kti/xjQs6KlB+BRjBu7p+IXcnFBIJduHL8MKMrI5PE8XbnDbY
+	i7PTYlGN2wi+C2W8TMe7d5X7kzTeysypcEQSjJVYktXVVPCTRdz6tRmAStOxXGJq8iNjDO3n+Rl
+	8/3B0CHDAOm+Bn2mt16dxw2sa8GAJ5i+B/lYm7cim8XW2EDAkxl2OU/vEjgdqdpbaffXb3gFkYn
+	Of27fE/P0cKp7/59RzZqx3Xk1RMcGr8kufqPLRVp4KgiHqdlXVRMmrlQiHFX/1RfHZJ7Ta2V3wb
+	NtrdcBw85zlQxQMN8wMOx+8QcUIAUvqzGFTcYTlq8tF568HsV+oc1LEDKZgrFJZc9DS2oQi5sdg
+	ELaVUsfkm7Hj8TmySY7BlnxojUyVPyH6iSKv25FIGM=
+X-Received: by 2002:a17:907:9713:b0:c26:1648:a066 with SMTP id a640c23a62f3a-c261648b70bmr184663766b.33.1788539080234;
+        Fri, 04 Sep 2026 09:24:40 -0700 (PDT)
+Received: from buildhost.darklands.se ([2001:9b1:ff:d701:51eb:176f:63d9:53f8])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c260d4a8bacsm132556766b.17.2026.09.04.09.24.38
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 04 Sep 2026 09:24:39 -0700 (PDT)
+From: Magnus Lindholm <linmag7@gmail.com>
+To: richard.henderson@linaro.org,
+	mattst88@gmail.com,
+	linux-kernel@vger.kernel.org,
+	linux-alpha@vger.kernel.org
+Cc: linmag7@gmail.com
+Subject: [PATCH 1/3] alpha: do not clear remote MMU contexts in migrate_flush_tlb_page()
+Date: Fri,  4 Sep 2026 18:23:29 +0200
+Message-ID: <20260904162424.376504-2-linmag7@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260904162424.376504-1-linmag7@gmail.com>
+References: <20260904162424.376504-1-linmag7@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-X-Stat-Signature: phj8gw9y4r7hse95f7zdhq8f8gbhpghr
-X-Rspamd-Server: rspamout02
-X-Rspamd-Queue-Id: D2F4031
-X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
-X-Session-ID: U2FsdGVkX1+DgCb1jW/moBB4arwK5GlRDfn58cXQqc8=
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=+Ex9Rkg/KO6cLgnqSsw+Vjqk0fF9NzG4lVkIirwCvJA=; b=vaZftFJf8DlrJd4qbW6b0AYwvOOAvVfNtv6Ib+Y9UTdNwVNveOyxV+v/E8iHXSAQjwfnferHrJXsUdm9+JjJ+iCWd2XBzfk26hsF3nZedoqx2SaqBLJIqBBZ6waX2sBGNhD8DMnQE1jQ/VBokW3rLNfEZnH5fsOnuJeE2d2L4BQ=
-X-HE-Tag: 1788539070-798385
-X-HE-Meta: U2FsdGVkX1+yzuW6B1LZJmnrshWIJ3/Q+osE++aApAVu0kvBN60tkNOah7OouiyfZaBFuXS2funzoG3kKBYVEy5jS4g3DOIc0D/+AyHCBqYTViDy8fdSp7JKy3b8hySztpmbnd6DaDc78hQyOVkJ2TRBy6wJZILihUJmpOEDHfyhQN2gQqE9xHzj9tgzDDNz6szPsalbtAg/wNdLbCVjE9yAzc/YSOnE1HK8E1ddkhJJzLEnJPiufCs//Y2BMrCcX5inkgANTD80tybwZxBx9Y+rnwV5sp+ECkpFe7OU0oBP0DpCsnGHiGyVgIc27WbX
+Content-Transfer-Encoding: 8bit
 
-On Fri,  4 Sep 2026 16:29:53 +0800
-Ye Liu <ye.liu@linux.dev> wrote:
+After the on_each_cpu() rendezvous, migrate_flush_tlb_page() walks the
+other CPUs and zeroes their mm->context[cpu] when mm_users is at most one,
+described as mimicking flush_tlb_mm()'s mm_users<=1 optimization.
 
-> From: Ye Liu <liuye@kylinos.cn>
-> 
-> Introduce for_each_process_rcu(), for_each_thread_rcu() and
-> for_each_process_thread_rcu() macros that acquire the RCU read lock
-> before the iteration starts and release it when the loop is left, so
-> that the RCU read-side critical section is scoped to the loop body
-> instead of an externally managed rcu_read_lock()/rcu_read_unlock()
-> pair.
-> 
-> Signed-off-by: Ye Liu <liuye@kylinos.cn>
-> ---
->  include/linux/sched/signal.h | 19 +++++++++++++++++++
->  1 file changed, 19 insertions(+)
-> 
-> diff --git a/include/linux/sched/signal.h b/include/linux/sched/signal.h
-> index 584ae88b435e..fe0c41dc99a1 100644
-> --- a/include/linux/sched/signal.h
-> +++ b/include/linux/sched/signal.h
-> @@ -2,6 +2,7 @@
->  #ifndef _LINUX_SCHED_SIGNAL_H
->  #define _LINUX_SCHED_SIGNAL_H
->  
-> +#include <linux/cleanup.h>
->  #include <linux/rculist.h>
->  #include <linux/signal.h>
->  #include <linux/sched.h>
-> @@ -663,6 +664,24 @@ extern bool current_is_single_threaded(void);
->  #define for_each_process_thread(p, t)	\
->  	for_each_process(p) for_each_thread(p, t)
->  
-> +/*
-> + * RCU-internal variants: automatically acquire and release the RCU read
-> + * lock around the iteration.  Equivalent to scoped_guard(rcu) combined
-> + * with the respective non-_rcu variant.
-> + */
-> +#define for_each_process_rcu(p) \
-> +	scoped_guard(rcu) \
-> +	for (p = &init_task ; (p = next_task(p)) != &init_task ; )
-> +
-> +#define for_each_thread_rcu(p, t) \
-> +	scoped_guard(rcu) \
-> +	__for_each_thread((p)->signal, t)
-> +
+It is not one. flush_tlb_mm() tests mm_users before deciding whether to
+send the IPIs; here every CPU has already been visited and waited for, so
+nothing is saved. The callback has also just set each CPU's own slot
+correctly, so the loop only overwrites it and does so while that CPU may
+still be running in the address space.
 
-I would rename it to: *_rculock()
+Remove it. Every runtime write to mm->context[] then targets the writing
+CPU's own slot, which is the invariant the next patch depends on when it
+reads those slots to decide whether a shootdown can be skipped.
 
-as there are already *_rcu() list iterators that are used to be done within
-an rcu locked region. Using just *_rcu() would make it confusing to know if
-the rcu lock was taken or if the loop is expected to be locked within RCU.
+Fixes: dd5712f3379c ("alpha: fix user-space corruption during memory compaction")
+Signed-off-by: Magnus Lindholm <linmag7@gmail.com>
+---
+ arch/alpha/mm/tlbflush.c | 16 ----------------
+ 1 file changed, 16 deletions(-)
 
-
-> +/* Careful: this is a double loop, 'break' won't work as expected. */
-> +#define for_each_process_thread_rcu(p, t) \
-> +	scoped_guard(rcu) \
-> +	for_each_process(p) for_each_thread(p, t)
-
-I would not do this one. It is prone to bugs. As it is a double loop, the
-way to "break" is to do a goto. That will be bug to have a goto jump out of
-a scoped_guard().
-
--- Steve
-
-
-> +
->  typedef int (*proc_visitor)(struct task_struct *p, void *data);
->  void walk_process_tree(struct task_struct *top, proc_visitor, void *);
->  
+diff --git a/arch/alpha/mm/tlbflush.c b/arch/alpha/mm/tlbflush.c
+index ccbc317b9a34..239c72b8a741 100644
+--- a/arch/alpha/mm/tlbflush.c
++++ b/arch/alpha/mm/tlbflush.c
+@@ -90,22 +90,6 @@ void migrate_flush_tlb_page(struct vm_area_struct *vma, unsigned long addr)
+ 	 */
+ 	preempt_disable();
+ 	on_each_cpu(ipi_flush_mm_and_page, &d, 1);
+-
+-	/*
+-	 * mimic flush_tlb_mm()'s mm_users<=1 optimization.
+-	 */
+-	if (atomic_read(&mm->mm_users) <= 1) {
+-
+-		int cpu, this_cpu;
+-		this_cpu = smp_processor_id();
+-
+-		for (cpu = 0; cpu < NR_CPUS; cpu++) {
+-			if (!cpu_online(cpu) || cpu == this_cpu)
+-				continue;
+-			if (READ_ONCE(mm->context[cpu]))
+-				WRITE_ONCE(mm->context[cpu], 0);
+-		}
+-	}
+ 	preempt_enable();
+ }
+ 
+-- 
+2.43.0
 
