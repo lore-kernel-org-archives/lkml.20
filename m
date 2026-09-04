@@ -1,97 +1,90 @@
-Received: from out28-50.mail.aliyun.com (out28-50.mail.aliyun.com [115.124.28.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-167.mta1.migadu.com [95.215.58.167])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E16F3AA51E
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 03:10:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 360923AEB35
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 03:11:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.167
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788491425; cv=none; b=bdxnHBk1u5pwQsn5JjspVB2Xr3RIBGJ3aN6JOWEXoV8yLR0aFZHsbJKVx/NZPtUoM3pQGF5n7iL2jtZMilNGGMBHd7zGOsBUG5zwJbgzGmvX7F6Wu8BGl+WCZYG0BjwuNGOnp9mOOgXiJjJvOF5Op1P21XRHh6Rx6fe/MrXBo8s=
+	t=1788491476; cv=none; b=AWk+WttLyWc+yuEiiunKhAeqxkI+AS32ZHXR+NmazxgQKJkAfRu6Omp4IgIT0pgGpOVfopf2d1uCNWJs6aXF/l6hCOayuVvus9Vpa1kvilBnssGpdLEtKfy8Xsy4CeQu+AKpuS18WS1WWI2KxxbjxoCE5GiLd4VHJ7ho5e/EqHE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788491425; c=relaxed/simple;
-	bh=TR1DU6xKSXoHFIgeof3CUzjvhLtuKnOEJ2ZTvUWg4oU=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=mZHVC71WhurBh+zvcMu4KxxvLmqbyGCRNe/O4UXzkuNCRXpFzRBBsrHxfFCBtXBHSA3TkkjR7iaOdWorAulfWzKxqeBDhQxJY9bnlHT1Dyp/4s6rOOSI/HHAE+T6Hd/rVh8TCMOy6oQ69bOUzQ1jleGi1JrIU2vpDH8PTJF3DDQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=open-hieco.net; spf=pass smtp.mailfrom=open-hieco.net; arc=none smtp.client-ip=115.124.28.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=open-hieco.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=open-hieco.net
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.1738966|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_alarm|0.00528743-8.67872e-05-0.994626;FP=14259654310229575967|1|1|1|0|-1|-1|-1;HT=maildocker-contentspam033023018039;MF=fuhao@open-hieco.net;NM=1;PH=DS;RN=10;RT=10;SR=0;TI=SMTPD_---.j54tlGi_1788491405;
-Received: from higon..(mailfrom:fuhao@open-hieco.net fp:SMTPD_---.j54tlGi_1788491405 cluster:ay29)
-          by smtp.aliyun-inc.com;
-          Fri, 04 Sep 2026 11:10:11 +0800
-From: Fu Hao <fuhao@open-hieco.net>
-To: puwen@hygon.cn,
-	tglx@kernel.org,
-	mingo@redhat.com,
-	bp@alien8.de,
-	dave.hansen@linux.intel.com,
-	x86@kernel.org,
-	hpa@zytor.com
-Cc: linux-kernel@vger.kernel.org,
-	tingyin.duan@gmail.com,
-	Fu Hao <fuhao@open-hieco.net>
-Subject: [PATCH v5 1/5] x86/cpu/hygon: Adjust the die_id and logical_die_id for Hygon models 0x4 through 0x8
-Date: Fri,  4 Sep 2026 11:09:57 +0800
-Message-Id: <1d19f337f055b74d3044ec347e5fa6d728067f7d.1788404433.git.fuhao@open-hieco.net>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <cover.1788404433.git.fuhao@open-hieco.net>
-References: <cover.1788404433.git.fuhao@open-hieco.net>
+	s=arc-20240116; t=1788491476; c=relaxed/simple;
+	bh=nx/eitTR44C33VFjQT5eDwZTcChTpu7T7AIpTkNv5MY=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=QUk1QR6EOgB79kU357VSlBJAOusUdjeWDc3PazrgvxOSQlNIAPn1d6Jd4cpvY8oXgBjQC+3RrkBbrHPKnYxogikcqV0Kfl83MeOXSvMxhZHcZOOaZi+/CotBHZH99ayjU4c0mSB61SGMC6VGDFUtGV4X/fekclkki8k+j7lgOdE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=tIP0PUq1; arc=none smtp.client-ip=95.215.58.167
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="tIP0PUq1"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=nx/eitTR44C33VFjQT5eDwZTcChTpu7T7AIpTkNv5MY=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788491473; v=1; x=1789096273;
+ b=tIP0PUq12dU0AdfeuLhKXHPIC7GZk4dQfvotWfPZjBVhXvOw9s3vCeHO6VIEy/icCoYZfTwR
+ jvKIXO2+z2Bo2WERgsssEfGAAQc630iIfIsRCEpYLH1X02A0mhaRoiDxZS3UmiStPUSL3gy8sPR
+ MphpGHrucCPQMo3EJPke+xHQ=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 946ef5c41bdd8706;
+	Fri, 04 Sep 2026 03:11:12 +0000
+X-Mizu-Trace-ID: 946ef5c41bdd8706
+X-Migadu-Flow: FLOW_OUT
+From: George Guo <dongtai.guo@linux.dev>
+To: chenhuacai@kernel.org,
+	rppt@kernel.org,
+	pasha.tatashin@soleen.com,
+	pratyush@kernel.org,
+	shuah@kernel.org,
+	ardb@kernel.org
+Cc: guodongtai@kylinos.cn,
+	kernel@xen0n.name,
+	graf@amazon.com,
+	liukexin@kylinos.cn,
+	loongarch@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	kexec@lists.infradead.org,
+	linux-mm@kvack.org,
+	linux-kselftest@vger.kernel.org,
+	linux-efi@vger.kernel.org
+Subject: Re: [PATCH v4 4/4] selftests/kho: add LoongArch vmtest support
+Date: Fri,  4 Sep 2026 11:11:08 +0800
+Message-ID: <20260904031108.11986-1-dongtai.guo@linux.dev>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260807103714.33074-5-dongtai.guo@linux.dev>
+References: <20260807103714.33074-5-dongtai.guo@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: 8bit
 
-For Hygon processor models 0x4–0x8, the die ID should be obtained
-from the NodeId field in ECX of CPUID leaf 0x8000001e.
+Hi,
 
-Starting with these models, Hygon CPUs support CPUID leaf 0xb but
-do not support leaf 0x80000026. Consequently, the die ID and
-logical die ID cannot be derived from the APIC ID space.
-CPUID leaf 0xb only supports core and package levels, it cannot
-enumerate die IDs within a socket.
+While preparing v5, I retested the LoongArch vmtest without the explicit
+`kho_scratch=16M,16M,16M` setting. That setting was masking a pre-existing
+bug in the generic percentage-based KHO scratch sizing.
 
-However, we found that CPUID leaf 0x8000001e (ECX) provides the
-necessary information. In Hygon CPU design, the NodeId field [7:0]
-encodes both Socket and Die IDs in the format:
-   Bits [7:4]: Socket ID
-   Bits [3:0]: Die ID
+The percentage heuristic itself is reasonable, but the old implementation
+calculated each per-node baseline after allocating the lowmem and global
+scratch areas. Since memblock allocations are marked MEMBLOCK_RSRV_KERN,
+those scratch areas were counted as new kernel demand and scaled again.
 
-We can calculate the correct IDs(die_id and logical_die_id) by parsing
-this field.
+On the 1 GiB LoongArch guest, the 98.45 MiB reservation baseline and 32 MiB
+alignment made the old ordering request 224 MiB of lowmem scratch followed
+by 672 MiB for node 0. The node allocation failed and disabled KHO. I sent
+a separate generic fix here:
 
-Signed-off-by: Fu Hao <fuhao@open-hieco.net>
----
- arch/x86/kernel/cpu/hygon.c | 14 ++++++++++++++
- 1 file changed, 14 insertions(+)
+  https://lore.kernel.org/loongarch/20260904025101.9959-1-dongtai.guo@linux.dev
 
-diff --git a/arch/x86/kernel/cpu/hygon.c b/arch/x86/kernel/cpu/hygon.c
-index 3e8891a9c..64f9a64c3 100644
---- a/arch/x86/kernel/cpu/hygon.c
-+++ b/arch/x86/kernel/cpu/hygon.c
-@@ -192,6 +192,20 @@ static void init_hygon(struct cpuinfo_x86 *c)
- 
- 	init_hygon_cacheinfo(c);
- 
-+	/*
-+	 * Adjust the die_id and logical_die_id for Hygon models 0x4-0x8.
-+	 * In Hygon CPU design, the NodeId field of CPUID leaf 0x8000001e (ECX)
-+	 * is now fixed to represent the socket ID and die ID, allocated as
-+	 * 4 bits each: socket ID = NodeId[7:4], die ID = NodeId[3:0].
-+	 */
-+	if (!boot_cpu_has(X86_FEATURE_HYPERVISOR) &&
-+	    c->x86_model >= 0x4 && c->x86_model <= 0x8) {
-+		c->topo.die_id = cpuid_ecx(0x8000001e) & 0xff;
-+		c->topo.logical_die_id = (c->topo.die_id >> 4) *
-+					 topology_amd_nodes_per_pkg() +
-+					 (c->topo.die_id & 0xf);
-+	}
-+
- 	if (cpu_has(c, X86_FEATURE_SVM)) {
- 		rdmsrq(MSR_VM_CR, vm_cr);
- 		if (vm_cr & SVM_VM_CR_SVM_DIS_MASK) {
--- 
-2.34.1
+With that fix, the total aligned request is 448 MiB and the LoongArch
+vmtest passes using the default percentage-based sizing. I also ran the x86
+KHO vmtest with the fix; it passes as well.
 
+Therefore, I will remove `kho_scratch=16M,16M,16M` from loongarch.conf in
+v5 so that it tests the default sizing path, matching the existing x86
+selftest behavior.
+
+Thanks,
+George
