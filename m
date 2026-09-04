@@ -1,182 +1,203 @@
-Received: from mail-ej2-f10.google.com (mail-ej2-f10.google.com [74.125.228.138])
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC74B399CFC
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 09:24:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.138
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 402203F23AF
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 09:25:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788513899; cv=none; b=MQZoUgIytnNJQseyKonx6acSupFyLwcCCTzoZYz7ZYTGBfQqCplh0soekYtK65m69EfqMwW3/xL7H9FwRLF8D9MYzXaAEntYIDQtDmabHhHKE749UBYY6EvDGRBDa4z+nz8n86Uf7qhLgexHMAnzzmf2VeSkXw4LGjlmZauK6NM=
+	t=1788513907; cv=none; b=Kv70si/N7AQyobnvxaKQVBHJTltfw3tFBuzsYWXqo0N+5mXso4rw/jCtuBqWMafrXdSkJCqaV9DNZCm9ePGoUmaV1euEOEVbMPnv9H1a5lL6y9ctHTO/sPxO8zqpi2h3sd4xky6x4atgaVFOifPfx6bNrJYnMs+o/yNECnOYFOM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788513899; c=relaxed/simple;
-	bh=fm9T6gXzMUmaBydrBUMtFIpUa6OxX8zUeLR/eA86Rq4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=N44ghPuGfb8vKGE8GBd4j58BUGAQ47lgWZbHE6ZFZP1MqMcdm5DYaCch/AWxbylHttgFD5mOMmFV9qHEXNzoSxX6/I6steyQAHYWNAr5N9daJDmJOWCEvG/Gbcn4jHVy2tnoKlsaMMi7xxprsLp+rvbpb9tMxVGd6LesKeGnoFI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bairaktaris.de; spf=pass smtp.mailfrom=bairaktaris.de; dkim=pass (2048-bit key) header.d=bairaktaris.de header.i=@bairaktaris.de header.b=YLlAJJJt; arc=none smtp.client-ip=74.125.228.138
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bairaktaris.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bairaktaris.de
+	s=arc-20240116; t=1788513907; c=relaxed/simple;
+	bh=2X6NTd5o5cahP7ikmbjYlSQ9HSpozpUrhg4lY0w+n/U=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=cl37FoXhK4UhJA5oqxWJEK2H76PjlFJP5NmIZ6cwg3GnlVed22Muu+o4vy568h6s52xcC/Q7Ly4W4r2eeX5vyO3e8ibJRiOHgC26lDYEGbkS4dxVYf568rJ2R1EUHwBI93zeBB40JakaGs/m21pzLZHq9bdp8RIOS9SrhFYnWoc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=PmqGs3Jf; arc=none smtp.client-ip=209.85.128.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bairaktaris.de header.i=@bairaktaris.de header.b="YLlAJJJt"
-Received: by mail-ej2-f10.google.com with SMTP id a640c23a62f3a-c25b4493edfso31903566b.0
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 02:24:57 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="PmqGs3Jf"
+Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4998b5a63e2so8330615e9.1
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 02:25:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=bairaktaris.de; s=google; t=1788513896; x=1789118696; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=WstpREewxAVHgQRNTBHOeu2o6yyD2SP9BVlTbZRUMhw=;
-        b=YLlAJJJtBaFPyPYssJccRipixGPA3rHUBdg+h+IUsWIZqytXie56Gq94kxhOMuaU/N
-         mMJh9MCFLtoN6OQ3o/dktmp88K9NtqnVCdvNi7reJBBc4szmIIvjNT1veoP38Yc2YTQI
-         lyktMeWMTw8Lqj4C7XGIVxhgEpO8Ezcvs6NK9EKsS+WNKHLZFrUDgHYZ+U91KlUqIjF+
-         v0xWR2ZLXeqI+fks0crB2+uqXk7Y7pXdVn6y7nFzbihjJE6UqPZ39zmMF2rJiixrT2dC
-         EEpT4Ep7LZ5Dhwom8uhmtlNOXKc+Q62vEvRABEyCSh146KbalKePRihq1OK1q81D3DiT
-         7ycQ==
+        d=suse.com; s=google; t=1788513903; x=1789118703; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=juEQFS8o8HO1Is63IJWO2O6D58EgoESYis0VW0w9IIA=;
+        b=PmqGs3Jfjcm9RsIObXqIelgKvAwX3JWpJvG+mRoBbpCUVMAZkBfkukImAGg6duqEXF
+         2/NotoUTM9I9ejF13/4eUmF3m5xFuBTTNIQi6wWO8Ex6PoPY1PbHzGYW13x8Ee5jKIJf
+         5DkcdCWxjvwqaS//asktGFgdKxwZf7T1amMonkktp2BydnZW87DoFc3k9M5a73/vYknx
+         RkV0UK3cJAk0qkF8uOGpFm4bjoWrn0gu/1rVkutXIXFWouC6GlpfoSv+exiWDmCmHzM3
+         p58D6orPCFIJo/yLxXr0vvqLQvARpXLvsbNvlBN+yQ+Xdpu1OWofk+WziZClvMyDfYD2
+         jSxA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788513896; x=1789118696;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20251104; t=1788513903; x=1789118703;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=WstpREewxAVHgQRNTBHOeu2o6yyD2SP9BVlTbZRUMhw=;
-        b=PT2mz74wqNPWTENNv1+71NHM0Sh7YlwB7LJ6J/6qpFD/mWQEzZxrAbr9LYmsZzkYSM
-         QkzyF5CrxyuzI2n6z39UvDAjY24Ca4PXmtfiI/I23jD9LCvniJozoU6Mnc6E87SKJqG+
-         goYkGTwOsiXmU/vCNwjbtCT2Wap82ussZMFJp9fZz2ABQjkVdDEtVrv65o6jFZwh+CE1
-         DhiqXZcPtAwAHBKM36ZKDIqalAHAtJnHA9YOeYIU8L1JpRiIeuXEQ80B7ULJgGrzc8fD
-         e+wsQQnDi4tlAXD6Fyw57iKM+Lst8mEaYy6EMzP/7lLjpcqI5l238XByVdHKOSc5HEhK
-         k4LQ==
-X-Forwarded-Encrypted: i=1; AKwUvBx5G9Kv6H70UQyknqRn3eAVQCu16fyUQX1EmmAd1MAdBFSUnPHL3iwlDumy6hYmAWzbgq5dGGY3OPPn1XQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++lyjZ2zrZlV4aIRnBUc2iBagyz0zwqVpg5ejSzN3jF5o5ySyaVB
-	/pWS/hc4Pg3dWNkhy+oPa9f5BwIa4IQFvhUAMFUewbdgQHZFYZRempBb8bwbAJLrdA==
-X-Gm-Gg: AYBFou30/Lth7yIY9PBmR80xGP2FUuVTd7kLJFl5HYg6T4kQnIbI/1aJNCJwLQRIXkj
-	MSEsk3ZziDiTZCpnKr/wS+jlyfSNc5o14QPOkwdG3wd75xCZveBpOus4wp9D4gkOVoUG0q/0aOM
-	iuNJhbXhlYocIhKFfoJCKjdt333HVIwwo6s5DKwF5R00C6jHCM/jGrqpAwd31cQ229W9y8PvEOS
-	Ei5mDk8zqm8doZ0NOE73rthNMETQ9UpX5keDzXMJbmtJ5KRF/yJi+dErsmhic+mYHY9K2FsKJDl
-	ENSVa2pnKEWdJ3m0CgwwfCJrhcEL7TafY7M2eyJwBskqHvxssDVExqt+8KJsUwHsVutxIqkPJk0
-	zy6ezkJnZMDvJVa/VvrsvkF3U6hoT5xHElmpz7krSW0eRMEV04GLVzI8iOjVhNIKETAjoW56N/w
-	gG/OJw0gNHxMl2TQDQ6uIDdUXDV9853pLLgba+p/YeKe1As8eiU+rovulRmLFhCWVsWvON3Bs9P
-	fRWzLPvrNnvlFpiAry/zWkvruDc+8ETKjYREctJEvXxHoIw0v7Ju0GZFoWtCdOI2vpUzycTvSBG
-	lzrwz+BDMAKHn7ML2RdTHOuRCHCzeppLUZ2z6EIKtnQoMvzyjoJENUl+4a8k1bgGMW15WxMkTx+
-	n9XpREW9wyxu1HccqVwObVdJjPNinfvkilvOo4kjFRQHwT+8+fGDd+5EX8TnzWfAVCVqxoOoQBR
-	3HaM7W49Ph7N+Wwp3ltCT2R5Yo1g==
-X-Received: by 2002:a05:6402:46c3:b0:6a7:ee54:f89e with SMTP id 4fb4d7f45d1cf-6a7ee550089mr595421a12.34.1788513895892;
-        Fri, 04 Sep 2026 02:24:55 -0700 (PDT)
-Received: from Desktop.fritz.box (pd9513ef7.dip0.t-ipconnect.de. [217.81.62.247])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a7e6bf337bsm864418a12.26.2026.09.04.02.24.55
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 04 Sep 2026 02:24:55 -0700 (PDT)
-From: Julius Bairaktaris <julius@bairaktaris.de>
-To: Andrew Lunn <andrew@lunn.ch>,
-	Vladimir Oltean <olteanv@gmail.com>
-Cc: "David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Pablo Neira Ayuso <pablo@netfilter.org>
-Subject: [PATCH net-next v2] net: dsa: offer a flowtable to the switch before the conduit
-Date: Fri,  4 Sep 2026 11:24:50 +0200
-Message-ID: <20260904092451.531652-1-julius@bairaktaris.de>
-X-Mailer: git-send-email 2.53.0
+        bh=juEQFS8o8HO1Is63IJWO2O6D58EgoESYis0VW0w9IIA=;
+        b=n7BMjk1zYUyBUmG50eVCp/+Ys4v1zKcfk+Lde0RxHyW7mr1CPbbuTGJvIDvq83Ea+I
+         EBjnfGFz8b+qUjKzkKsOukokCyEEZepo2j3wXtGmVPPysf56+OBkIW4JEJUbUkEJHw9B
+         lkhCht4qqs0nHVTiOXnYEIxtSSgm+FDWIoPc9AR8jV2NCHkJqqOXqpRYl7Ci8RBiQ8RB
+         CXaVoK/LVT+8INTn/y7VULw0IiWWz1K69Kr4P056VzyRNuxFwXq02Uv4sCQT6wR08xc0
+         O9CpyJh7Uus9VizYTRdXR9Y7WcS4ZYfS8Je1vsr/URXyvdio17nbmbAkLXj0zZFMknHo
+         FKvw==
+X-Forwarded-Encrypted: i=1; AKwUvBwFFaRSgTvLWF9+F5vKGmQp3cWV1qlgKR4ejgSnPIiC91+txgp0nfuWm21oBK8NBKuJ5MBCkrNubTx2WqI=@vger.kernel.org
+X-Gm-Message-State: AFuF++ktiMzTeHlCpkOVJDVpzY1Mnc8G7qCvmqejUkgdzRmXAzGL/srS
+	5ZfUxI9KMsw9pqzCF3CUj/KE7r55H3WAABsAAeNuWPUcp2b73u9F8EvbpuVQCvI1sEI=
+X-Gm-Gg: AYBFou1ye/6fxtT8bIcT2CtkoouDIsDrKgTGThd1R+4d46qaiNTyL2b4SwVrxRpER77
+	Bxaur0cKu+BPDHeC6UFmuPaOO5/ufMnn4WwtzxMkZT9X+5r/mPXOxgLACUoPmfAZqTv5GhRX1+5
+	KvKNOvdFnbtqAXUssXZwWC7QkpgAs9Q1K8XMWgs+RR2Oa12Qq4mDQJXA9+pZG4ZA5e3kefAdiF6
+	laYurQwpO4ERC59jH/RcaUb6hqDcrY9gpY7bIrFDPbQnTWJSKlvU2fiEUkIgdSaZSKlD96mazE4
+	CIiMdYB3GaSGYqzPmmBXh8C95nfo1gLaOOh6Dv6+Pq1M8Hsfw6kYJi708FFziGl+ObjW+th0VEV
+	7elJlSONOGokSa+KnyFsKXjdaUkuKlblnguK9nntNW1o37uVIQB+ZNj8NJD+nU0cUhKG5lOybW1
+	IBL4ymPYgxYbl/AUGeR7d8Dam2cyQkM+5h1pNPvgQ+/K/D1Rxzy5fctLY+kxy4xjkJCacv87n8b
+	Nh80Ak5fu8d3CzkieU8JGIE3l6RTD1IQWI=
+X-Received: by 2002:a05:600c:474a:b0:499:79b9:e220 with SMTP id 5b1f17b1804b1-49cf825d722mr44304815e9.10.1788513903166;
+        Fri, 04 Sep 2026 02:25:03 -0700 (PDT)
+Received: from ?IPV6:2a07:de40:8100:0:fc6c:f9a2:4a0a:6354? ([2001:af0:8000:1409:193:86:92:181])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cf770fcf5sm52989345e9.6.2026.09.04.02.25.01
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 04 Sep 2026 02:25:02 -0700 (PDT)
+Message-ID: <a79a6a06-cc48-4036-882d-95e9b4cc01cf@suse.com>
+Date: Fri, 4 Sep 2026 11:25:01 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 1/2] module: pull out add_taint_module() to be public
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Luis Chamberlain <mcgrof@kernel.org>, Daniel Gomez <da.gomez@kernel.org>,
+ Sami Tolvanen <samitolvanen@google.com>, Aaron Tomlin <atomlin@atomlin.com>,
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
+ Randy Dunlap <rdunlap@infradead.org>, "Rafael J. Wysocki"
+ <rafael@kernel.org>, Danilo Krummrich <dakr@kernel.org>,
+ Steven Rostedt <rostedt@goodmis.org>, Masami Hiramatsu
+ <mhiramat@kernel.org>, Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+ Bradley Morgan <brads@mainlining.org>, Aleksandr Nogikh <nogikh@google.com>,
+ linux-modules@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-doc@vger.kernel.org, linux-usb@vger.kernel.org,
+ driver-core@lists.linux.dev, linux-trace-kernel@vger.kernel.org,
+ Johan Hovold <johan@kernel.org>
+References: <20260904-bind_taint-v3-0-30025465f38a@linuxfoundation.org>
+ <20260904-bind_taint-v3-1-30025465f38a@linuxfoundation.org>
+Content-Language: en-US
+From: Petr Pavlu <petr.pavlu@suse.com>
+In-Reply-To: <20260904-bind_taint-v3-1-30025465f38a@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-A flowtable bound to a DSA user port is forwarded to the conduit netdev
-by dsa_user_setup_ft_block(), for a flow engine that sits on the
-conduit as mtk_eth's does. It does not go through
-ds->ops->port_setup_tc, so a switch that owns its flow engine is never
-offered the flowtable.
+On 9/4/26 7:10 AM, Greg Kroah-Hartman wrote:
+> Other kernel code might want to call add_taint_module() so pull it out
+> and make it global.  If modules are not enabled, this defaults to a call
+> to add_taint(), so all is fine.
+> 
+> Reviewed-by: Johan Hovold <johan@kernel.org>
+> Tested-by: Johan Hovold <johan@kernel.org>
+> Reviewed-by: Bradley Morgan <brads@mainlining.org>
+> Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+> ---
+>  include/linux/module.h | 10 ++++++++++
+>  kernel/module/main.c   | 16 +++++++++++++---
+>  2 files changed, 23 insertions(+), 3 deletions(-)
+> 
+> diff --git a/include/linux/module.h b/include/linux/module.h
+> index 96cc98568eea..f6f90cd88f15 100644
+> --- a/include/linux/module.h
+> +++ b/include/linux/module.h
+> @@ -29,6 +29,7 @@
+>  #include <linux/srcu.h>
+>  #include <linux/static_call_types.h>
+>  #include <linux/dynamic_debug.h>
+> +#include <linux/panic.h>
 
-Offer TC_SETUP_FT to the switch first and forward it to the conduit
-only when the switch answers -EOPNOTSUPP. The side that takes the bind
-is recorded on the port so that the unbind goes to the same side. Every
-in-tree .port_setup_tc returns -EOPNOTSUPP for TC_SETUP_FT, so a
-conduit-side flow engine is reached as before.
+Note that I'm working on cleaning up linux/module.h to reduce its
+preprocessed size. The main motivation is to shorten the compilation
+time of all the small *.mod.c files. Since linux/module.h already
+includes linux/panic.h indirectly, adding this include explicitly seems
+fine to me for now. In the future, I think we should introduce something
+like kernel/module/stubs.c where the CONFIG_MODULES=n variants of
+add_taint_module() and other similar functions can live without bloating
+linux/module.h.
 
-Assisted-by: Claude:claude-fable-5-1
-Signed-off-by: Julius Bairaktaris <julius@bairaktaris.de>
----
-v2:
-- decide the target on FLOW_BLOCK_BIND and record it on the port, so
-  the unbind goes to the side that holds the block callback
-- reword the comment
-v1: https://lore.kernel.org/netdev/20260901092546.369232-1-julius@bairaktaris.de/
+>  
+>  #include <linux/percpu.h>
+>  #include <asm/module.h>
+> @@ -770,6 +771,9 @@ static inline bool is_livepatch_module(struct module *mod)
+>  
+>  void module_for_each_mod(int(*func)(struct module *mod, void *data), void *data);
+>  
+> +void add_taint_module(struct module *mod, unsigned flag,
+> +		      enum lockdep_ok lockdep_ok);
+> +
+>  #else /* !CONFIG_MODULES... */
+>  
+>  static inline struct module *__module_address(unsigned long addr)
+> @@ -877,6 +881,12 @@ static inline bool module_is_coming(struct module *mod)
+>  static inline void module_for_each_mod(int(*func)(struct module *mod, void *data), void *data)
+>  {
+>  }
+> +
+> +static inline void add_taint_module(struct module *mod, unsigned flag,
+> +				    enum lockdep_ok lockdep_ok)
+> +{
+> +	add_taint(flag, lockdep_ok);
+> +}
+>  #endif /* CONFIG_MODULES */
+>  
+>  #ifdef CONFIG_SYSFS
+> diff --git a/kernel/module/main.c b/kernel/module/main.c
+> index d0e1e0bd2ad0..444d990c9983 100644
+> --- a/kernel/module/main.c
+> +++ b/kernel/module/main.c
+> @@ -191,11 +191,21 @@ static inline int strong_try_module_get(struct module *mod)
+>  		return -ENOENT;
+>  }
+>  
+> -static inline void add_taint_module(struct module *mod, unsigned flag,
+> -				    enum lockdep_ok lockdep_ok)
+> +/**
+> + * add_taint_module: add a taint flag if not already set for a specific module
+> + * @mod: pointer to the module that caused the problem
+> + * @flag: one of the TAINT_* constants.
+> + * @lockdep_ok: whether lock debugging is still OK.
+> + *
+> + * If something bad has gone wrong, you'll want @lockdebug_ok = false, but for
+> + * some noteworthy-but-not-corrupting cases, it can be set to true.
 
-Tested on IPQ8074 with an out-of-tree DSA switch driver that handles
-TC_SETUP_FT (openwrt/openwrt#24806): three flowtable unbind/bind cycles,
-hardware offload of routed flows after each.
+Nit: The final paragraph is mostly copied from the description of
+add_taint() but I don't think it is quite right. The parameter name
+should be lockdep_ok, not lockdebug_ok and the values are
+LOCKDEP_STILL_OK / LOCKDEP_NOW_UNRELIABLE, not true / false.
 
- include/net/dsa.h |  6 ++++++
- net/dsa/user.c    | 25 ++++++++++++++++++++-----
- 2 files changed, 26 insertions(+), 5 deletions(-)
+I suggest updating this part for both add_taint() and add_taint_module()
+to something like:
 
-diff --git a/include/net/dsa.h b/include/net/dsa.h
-index 7507d632e7c6..dbcb02de06fc 100644
---- a/include/net/dsa.h
-+++ b/include/net/dsa.h
-@@ -297,6 +297,12 @@ struct dsa_port {
- 
- 	u8			setup:1;
- 
-+	/* Flowtable blocks on this user port go to the switch, not the
-+	 * conduit; decided at bind time. Written without rtnl, so not one of
-+	 * the bit fields above.
-+	 */
-+	bool			ft_on_switch;
-+
- 	struct device_node	*dn;
- 	unsigned int		ageing_time;
- 
-diff --git a/net/dsa/user.c b/net/dsa/user.c
-index 041f9060c8ef..f4cd48df2519 100644
---- a/net/dsa/user.c
-+++ b/net/dsa/user.c
-@@ -1718,15 +1718,30 @@ static int dsa_user_setup_tc_block(struct net_device *dev,
- 	}
- }
- 
--static int dsa_user_setup_ft_block(struct dsa_switch *ds, int port,
--				   void *type_data)
-+static int dsa_user_setup_ft_block(struct dsa_port *dp,
-+				   struct flow_block_offload *bo)
- {
--	struct net_device *conduit = dsa_port_to_conduit(dsa_to_port(ds, port));
-+	struct net_device *conduit = dsa_port_to_conduit(dp);
-+	struct dsa_switch *ds = dp->ds;
-+	int err;
-+
-+	/* The unbind goes to the side that took the bind. */
-+	if (bo->command == FLOW_BLOCK_BIND) {
-+		err = -EOPNOTSUPP;
-+		if (ds->ops->port_setup_tc)
-+			err = ds->ops->port_setup_tc(ds, dp->index, TC_SETUP_FT,
-+						     bo);
-+		dp->ft_on_switch = err != -EOPNOTSUPP;
-+		if (dp->ft_on_switch)
-+			return err;
-+	} else if (dp->ft_on_switch) {
-+		return ds->ops->port_setup_tc(ds, dp->index, TC_SETUP_FT, bo);
-+	}
- 
- 	if (!conduit->netdev_ops->ndo_setup_tc)
- 		return -EOPNOTSUPP;
- 
--	return conduit->netdev_ops->ndo_setup_tc(conduit, TC_SETUP_FT, type_data);
-+	return conduit->netdev_ops->ndo_setup_tc(conduit, TC_SETUP_FT, bo);
- }
- 
- static int dsa_user_setup_tc(struct net_device *dev, enum tc_setup_type type,
-@@ -1739,7 +1754,7 @@ static int dsa_user_setup_tc(struct net_device *dev, enum tc_setup_type type,
- 	case TC_SETUP_BLOCK:
- 		return dsa_user_setup_tc_block(dev, type_data);
- 	case TC_SETUP_FT:
--		return dsa_user_setup_ft_block(ds, dp->index, type_data);
-+		return dsa_user_setup_ft_block(dp, type_data);
- 	default:
- 		break;
- 	}
+ * Use @lockdep_ok = LOCKDEP_NOW_UNRELIABLE if something serious has gone wrong.
+ * For noteworthy but non-corrupting cases, use LOCKDEP_STILL_OK instead.
+
+> + */
+> +void add_taint_module(struct module *mod, unsigned flag,
+> +		      enum lockdep_ok lockdep_ok)
+>  {
+>  	add_taint(flag, lockdep_ok);
+> -	set_bit(flag, &mod->taints);
+> +	if (mod)
+> +		set_bit(flag, &mod->taints);
+>  }
+>  
+>  /*
+> 
+
+Otherwise, this looks ok to me. Feel free to add:
+
+Reviewed-by: Petr Pavlu <petr.pavlu@suse.com>
+
 -- 
-2.53.0
-
+Thanks,
+Petr
