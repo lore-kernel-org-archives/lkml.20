@@ -1,98 +1,154 @@
-Received: from layka.disroot.org (layka.disroot.org [178.21.23.139])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 341D54E80AD;
-	Fri,  4 Sep 2026 16:19:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.21.23.139
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C12894CB8A4;
+	Fri,  4 Sep 2026 16:19:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.9
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788538746; cv=none; b=tE866Iqt7Fz03pL12mErQHxFhEwe9Ms/6OGPehOsHnsGaI+DxUnTrCGhCnp7CZDT8M/y2JmwS9UrbEcWOk8akVm4gy3Idrz6eV3JFAr3O+36nHjk94VPpDmP9NScNux93BlSOOrNV0dUigfR8nkcoQzrYgt1P1lDf3fKFlyrs+g=
+	t=1788538747; cv=none; b=LxFHAgUyjRaXF296nSV8+B04kwRJ5KW9aKeoEkizxVZXswD66ffZBSGe7pG04HkShNBq9Pg8CS3aPblmWrAtGSI/kkaTu5lbW2S0QVhGUdelQaPp1aCclGUz6jAhzKf9xZS/WvSJKZGQvB6NRSDfJ+/Wz4quVOYl6hz38g2rN4Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788538746; c=relaxed/simple;
-	bh=ohmGjWMsL6vjjMGZNVQu0SWcvRVkChE4rzh6U1/QCRY=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=kwT5SqVW4ahtbhMcUpcemlqN46AIg/cczZCXu4+C/3kxDQnMFlaWrBuWSE/WuffxkobkTMTNkuOyApjZimusX0B0epyELbuTvv8zGSFWAbR4kWScV6CpguPSAYX15Iaj42Yl2NAAiKtHaVkqzhJF7PW+etZuRqzRkaF8hTFostc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org; spf=pass smtp.mailfrom=disroot.org; dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b=EQ6zgXuw; arc=none smtp.client-ip=178.21.23.139
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=disroot.org
+	s=arc-20240116; t=1788538747; c=relaxed/simple;
+	bh=qDryCFrF2PK45D12pQeGGM+7Z0Y0OrJ7OARS0bEXlSc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=emdsXizx9ksH6GuLBMpvlRe3fFQUXcziHpkOtWnEBJ1+IISp+kPS8wy61b6nubaDcRYT4bghdPraDL5yqCcidlR1isZZgDJvm/nLhM7GxGXqmXLoCDsZ9XF2ykyLbcb+EnvjVN/qFU0wzYfGQR8Pfy6V4MFtyd+29qCZz0El8MY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=BgVWkPpn; arc=none smtp.client-ip=192.198.163.9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b="EQ6zgXuw"
-Received: from mail01.layka.lan (localhost [127.0.0.1])
-	by disroot.org (Postfix) with ESMTP id 30F9A88311;
-	Fri, 04 Sep 2026 18:18:59 +0200 (CEST)
-X-Virus-Scanned: SPAM Filter at disroot.org
-Received: from layka.disroot.org ([127.0.0.1])
- by localhost (disroot.org [127.0.0.1]) (amavis, port 10024) with ESMTP
- id xyTBsbdPNoGd; Fri,  4 Sep 2026 18:18:58 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=disroot.org; s=mail;
-	t=1788538738; bh=ohmGjWMsL6vjjMGZNVQu0SWcvRVkChE4rzh6U1/QCRY=;
-	h=From:To:Cc:Subject:Date;
-	b=EQ6zgXuwTQ82wOiZyQ6E8i6DqlzRPu//W/nf4fuT4brwPHkAwylddVIMOLB3IKeel
-	 vTHBwNrx1ZTZQ0VgDlVsvivyoi651tUxon2upp04NTfzdUa1/BBeSkhE/QUiCHzolV
-	 Et9Mapzd8nbCEetQ3IO3zoWKvvWATAJaB04Uo0BJ2BYl7S5U8lFMqj4rEvq+gKj5zL
-	 WIC6bF55tcaQ29gdERCoYVhdvUgF/aNAqdUUZUPfnP4BPVhxeLclLvqO3kJ7ocib0v
-	 tC8itd+PuePdghA0DYAKXXGNMkWFrkgdLSYrziPdZkNIAAcnRbIzphRmAdiIUaoREw
-	 x1zIQFkK68pqw==
-From: Marco Scardovi <scardracs@disroot.org>
-To: Felix Fietkau <nbd@nbd.name>,
-	Lorenzo Bianconi <lorenzo@kernel.org>,
-	Ryder Lee <ryder.lee@mediatek.com>,
-	Deren Wu <deren.wu@mediatek.com>,
-	Ming Yen Hsieh <mingyen.hsieh@mediatek.com>
-Cc: linux-wireless@vger.kernel.org,
-	linux-mediatek@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Marco Scardovi <scardracs@disroot.org>
-Subject: [PATCH] wifi: mt76: mt792x: fix NULL pointer dereference in mt792x_init_acpi_sar_power
-Date: Fri,  4 Sep 2026 18:18:26 +0200
-Message-ID: <20260904161826.5638-1-scardracs@disroot.org>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="BgVWkPpn"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788538746; x=1820074746;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=qDryCFrF2PK45D12pQeGGM+7Z0Y0OrJ7OARS0bEXlSc=;
+  b=BgVWkPpn67FTP/bN6LAV73F0cYu4zaPPWr/rBSF8ZI1vCjiFhiNFa90Y
+   j7PINREA5NhvDkX/gMa5g16RUUR1JkT2fN9K+09TMf0LLMSgf/sDt35co
+   yHv6CqWhzvIxeXFo2VD9aglze51wW6FSzwdtOrlGOEqmk2klEaKn8vwlT
+   KvSc2ko7cQxUARGH5Cqb2mSBg2k+034/rU4cLrodvrFSnm5Gm2vn3gCoq
+   jpV0VDMlFix7Awq/h6mq1jwF13fGjnDfGyc0j50H/xFSkdPmrTfukwoqN
+   qdqWigalayjHzyY4j6SPxcLU1PsWxdZCM84BJ1HNAJXYrp6PglFd7sFVl
+   g==;
+X-CSE-ConnectionGUID: b7loGSr+SUmsYClLJIIkmQ==
+X-CSE-MsgGUID: Zje6vJZORs+/CGSdPt8TMQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11895"; a="99702905"
+X-IronPort-AV: E=Sophos;i="6.25,262,1779174000"; 
+   d="scan'208";a="99702905"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Sep 2026 09:19:05 -0700
+X-CSE-ConnectionGUID: PhYNtnMlSwCJfBTD/Pw0Ag==
+X-CSE-MsgGUID: j8EdBELhSf2+8/7ku0ZiVQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,262,1779174000"; 
+   d="scan'208";a="274233529"
+Received: from rchatre-mobl4.amr.corp.intel.com (HELO [10.125.110.248]) ([10.125.110.248])
+  by orviesa005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Sep 2026 09:19:04 -0700
+Message-ID: <6131bafe-3d61-4f90-8370-f15ebf06a86f@intel.com>
+Date: Fri, 4 Sep 2026 09:19:02 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v7 0/7] cxl: Sashiko bug fixes
+To: Richard Cheng <icheng@nvidia.com>, dave@stgolabs.net, jic23@kernel.org,
+ alison.schofield@intel.com, vishal.l.verma@intel.com
+Cc: iweiny@kernel.org, ming.li@zohomail.com, gourry@gourry.net,
+ rrichter@amd.com, linux-cxl@vger.kernel.org, linux-kernel@vger.kernel.org,
+ kees@kernel.org, newtonl@nvidia.com, kristinc@nvidia.com,
+ kaihengf@nvidia.com, kobak@nvidia.com
+References: <20260902053839.25595-1-icheng@nvidia.com>
+From: Dave Jiang <dave.jiang@intel.com>
+Content-Language: en-US
+In-Reply-To: <20260902053839.25595-1-icheng@nvidia.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-In mt792x_init_acpi_sar_power(), capa is obtained from
-phy->mt76->hw->wiphy->sar_capa. On systems where ACPI SAR tables exist
-(such as ASUS ROG laptops) but wiphy->sar_capa has not yet been
-initialized (for instance, when a regulatory notifier triggers
-mt7921_set_tx_sar_pwr() before the asynchronous dev->init_work
-completes mt76_register_device()), capa is NULL.
 
-Attempting to read capa->num_freq_ranges leads to a NULL pointer
-dereference at offset 0x04:
 
-  BUG: kernel NULL pointer dereference, address: 0000000000000004
-  RIP: 0010:mt792x_init_acpi_sar_power+0x40/0x1ef [mt792x_lib]
-  Call Trace:
-   <TASK>
-   mt792x_init_acpi_sar_power+0x40/0x1ef [mt792x_lib]
-   mt7921_set_tx_sar_pwr+0x3b/0x70 [mt7921_common]
-   mt7921_regd_notifier_work+0x1b/0x30 [mt7921_common]
-   ...
+On 9/1/26 10:38 PM, Richard Cheng wrote:
+> Seven independent, pre-existing bugs in the CXL core, reported by
+> sashiko.
+> 
+> Patch 1: Get/Set Feature derive each mailbox command's offset from the
+> starting offset plus the amount of data already transferred, then store
+> it in a 16-bit field. A large offset/count supplied through fwctl can
+> cause a later offset to exceed the representable feature extent and be
+> truncated by cpu_to_le16(), targeting the wrong feature data. Reject
+> invalid ranges up front.
+> 
+> Change cxl_get_feature() to return ssize_t so invalid input and mailbox
+> failures are reported as negative errno instead of being conflated with
+> a zero-byte result. Update all EDAC callers for the signed return
+> contract while preserving the existing fwctl RPC response behavior.
+> 
+> Patch 2: cxl_get_poison_unmapped() aborted its whole partition sweep on
+> the first fully-mapped partition, silently skipping unmapped poison in
+> all later partitions. Skip that partition instead.
+> 
+> Patch 3: the same function tolerated the -EFAULT a RAM partition returns
+> for Get Poison List but left it in rc, so a benign fault on the last
+> scanned partition surfaced as a spurious read failure. Clear rc, as
+> poison_by_decoder() already does.
+> 
+> Patch 4: the same function also ignored the ctx->offset handoff from
+> poison_by_decoder() and derived its scan start from the highest DPA
+> allocation, so the DPA of allocated-but-uncommitted decoders was never
+> scanned by either phase. Resume the sweep at ctx->offset.
+> 
+> Patch 5: cxl_get_poison_by_memdev() overwrote rc on each partition
+> query, so an earlier partition's failure was masked by a later success
+> and unscanned poison was reported as a clean list. Stop on any error
+> not tolerated as a RAM -EFAULT.
+> 
+> Patch 6: poison_by_decoder() assumed every decoder with a DPA reservation
+> was assigned to a partition. Malformed device DPA metadata can leave
+> dpa_res set while part remains -1, causing a poison scan to access
+> before the partition array. Reject such decoders before the lookup.
+> 
+> Patch 7: the Get and Set Feature fwctl handlers converted all helper
+> failures into normal RPC responses, sometimes with a SUCCESS device
+> status. Propagate delivery failures as ioctl errors while continuing to
+> report actual device errors through rpc_out->retval.
+> 
+> A nonzero short Get Feature response is valid when Offset + Count runs
+> past the end of the feature. Preserve the returned bytes as a successful
+> partial transfer, reject unexpected zero-length success responses, and
+> require fixed-format EDAC callers to receive their complete attribute
+> structures before consuming them.
+> 
+> Changes since v6 [1]:
+> - Patch 7: Remove redundant braces. (Dave Jiang)
+> 
+> [1]:
+> https://lore.kernel.org/linux-cxl/20260826014508.9989-1-icheng@nvidia.com/
+> 
+> 
+> Richard Cheng (7):
+>   cxl/features: Reject feature offset that overflows 16-bit field
+>   cxl/region: Scan all partitions for unmapped poison
+>   cxl/region: Don't leak tolerated RAM -EFAULT from unmapped poison scan
+>   cxl/region: Start unmapped poison scan at the committed decoder
+>     boundary
+>   cxl/memdev: Don't overwrite the error from an earlier partition poison
+>     query
+>   cxl/region: Reject poison scan for decoder without a partition
+>   cxl/fwctl: Propagate feature RPC delivery errors
+> 
+>  drivers/cxl/core/core.h     |  8 +++---
+>  drivers/cxl/core/edac.c     | 30 +++++++++++++-------
+>  drivers/cxl/core/features.c | 56 ++++++++++++++++++++++++-------------
+>  drivers/cxl/core/memdev.c   |  2 ++
+>  drivers/cxl/core/region.c   | 15 +++++-----
+>  5 files changed, 71 insertions(+), 40 deletions(-)
+> 
+> 
+> base-commit: 7098e9cd98a05c0c5de2fae0c2465f9d966fdd07
 
-Add a check for !capa and !phy->mt76->frp before dereferencing,
-matching the existing defensive pattern in mt76/mac80211.c.
+Patches 1 and 7 applied to cxl/next
+51493ff66ad6
+3eb3376944ac
 
-Fixes: f965333e491e ("mt76: mt7921: introduce ACPI SAR support")
-Signed-off-by: Marco Scardovi <scardracs@disroot.org>
----
- drivers/net/wireless/mediatek/mt76/mt792x_acpi_sar.c | 3 +++
- 1 file changed, 3 insertions(+)
 
-diff --git a/drivers/net/wireless/mediatek/mt76/mt792x_acpi_sar.c b/drivers/net/wireless/mediatek/mt76/mt792x_acpi_sar.c
-index 946dd7956e4a..fbc2f9706dd4 100644
---- a/drivers/net/wireless/mediatek/mt76/mt792x_acpi_sar.c
-+++ b/drivers/net/wireless/mediatek/mt76/mt792x_acpi_sar.c
-@@ -326,6 +326,9 @@ int mt792x_init_acpi_sar_power(struct mt792x_phy *phy, bool set_default)
- 	if (!phy->acpisar || !((struct mt792x_acpi_sar *)phy->acpisar)->dyn)
- 		return 0;
- 
-+	if (!capa || !phy->mt76->frp)
-+		return 0;
-+
- 	/* When ACPI SAR enabled in HW, we should apply rules for .frp
- 	 * 1. w/o .sar_specs : set ACPI SAR power as the defatul value
- 	 * 2. w/  .sar_specs : set power with min(.sar_specs, ACPI_SAR)
--- 
-2.55.0
