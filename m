@@ -1,42 +1,42 @@
 Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76D56519926
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 17:19:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0053511E7C
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 17:19:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788542383; cv=none; b=UD6vzMNyAqkHa2M9LTpTd7PwTAFl6rw+cg6q3mvLxFlJzBsyujFxLAMzj70Y+NCs7gAp8Euuumwq7wQU14lgN1SOzS0UDuiWkLFDtQjw06SXfqHs3RWdQACm4IiPL4B+/A5rvmVMSuBOh4NnR3mnv5ah3/c0YpwdeA1H/8O7zhc=
+	t=1788542384; cv=none; b=dJ6GPSXa2cCZ9Xo0AOJR7a25/pe7lc1pY8k3Me4ll03+Jjoxk90d0fsWulk7DJKc9WJbha4hd5Ud1fEJhEkCP3eQKxXawiz32uQ7V0qGvGmp5lXNdbrID8y4ZjnoX27C6umxRy5uMyC6UpDC2l2S01s6/i9t8GnqCU96ny5hNT0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788542383; c=relaxed/simple;
-	bh=hgA9R6hYt3S7/3RxfsRp3rE78svHHHSm4kCJHw3MkJo=;
+	s=arc-20240116; t=1788542384; c=relaxed/simple;
+	bh=9mL8f+z68/g0nYO2z/6/E1u1xiWXw3XAYwCp6kIUja0=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=ZbwPpV442c3zljVh4cdAsx97yRBzLKh7No6MYAnldPW+DIEbmR9as2suG4ioXFjhG+xVj6xIWaN6fTPD0TOOygcQMt9qHoZ2txSDhlPFsXU9ZQksc68AeKylCnn2J4rYA9SX8hUfRWMzDCHaf4uMFH1aUpgebZuEBhe0ZTK010Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=cbviZkb2; arc=none smtp.client-ip=185.246.85.4
+	 In-Reply-To:To:Cc; b=LnefTLDu3TkUogyqfcU+rYQLYNXiiUMlmaeESe4GUM5XFjFBYrI3gxeKxOO0SckkeIJBkz9erSta/bPAdrPuz6SvMpz9C0DYFE7OC3gf74puau1WxFfifd5w7nhcLRb6nfIutimkWUtfu6QiWWfrulbjS5J9fy0lVMyMnukYSDg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=dV8nKc9f; arc=none smtp.client-ip=185.246.85.4
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="cbviZkb2"
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="dV8nKc9f"
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id AA0404E41514;
-	Fri,  4 Sep 2026 17:19:39 +0000 (UTC)
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 37CA74E41515;
+	Fri,  4 Sep 2026 17:19:41 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 7E4D46057F;
-	Fri,  4 Sep 2026 17:19:39 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 18C5511C783E9;
-	Fri,  4 Sep 2026 19:19:37 +0200 (CEST)
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 0CF7A6057F;
+	Fri,  4 Sep 2026 17:19:41 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 1345F11C78767;
+	Fri,  4 Sep 2026 19:19:38 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1788542378; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	t=1788542380; h=from:subject:date:message-id:to:cc:mime-version:content-type:
 	 content-transfer-encoding:in-reply-to:references;
-	bh=Z9FuHjntSyDF0YZYmrMxyxPXQaWCtkSNkkDJJomhAg4=;
-	b=cbviZkb2E7gZQCWyWfaAV3zSWiq2yqyMq1SeUQEz0zT6faaYd8nMtxL+NJnh4P5s4cA9F3
-	e2FhVbCa1rh4v0FnXfzuCniUICRzsPcUXW1cbwLROpyfY785SZsZXL3P9f2rtoCyHI6q9o
-	6ibMllCUvdeLe+5tl/7a85z6LBwAe9z5XzpdJE045mryUqsPw7cXxYeR59oDlmxJkH6o/Y
-	MxJhXX5KtI8dKGWYgdTFuUUVX15HwpjcVnJlvuNssCDyxZvDN/x5/Tse07u1yC0svDlFJP
-	6cQQ60lLJu7TknmIOkCayvZvN3eAFDnjAwrqnOa83tyNvZWe9KlLRgx9gYAnng==
+	bh=dnAx1GVtlm+ywwNFuXqn7qK8RVRyShOYsd0v9JdgoAQ=;
+	b=dV8nKc9f788zQCxoZA9sV9gqcY1tnpxxdpkpn9rqugGKfmHfIqvnbyoylAASR4U/VjuEsM
+	qUUYsTrzMwSUdte6J0T/6Q+Arp5FoogQryGfWkqyzsWVpe4nLnQYImKJgdDebOSt4fv9xS
+	H2PFncvWvWIgzcgaIxYWTFA0ExeygrjTZvFFLSzUoJ8QJFWlm1z6irldw48SNIA0xTZwzA
+	akTC3t8hhmBElZHxCHH070lYuGVybiFB7IjtYotq+hJ7OvcTizNXh3ejJq2FwdpDY1L+Xy
+	5U9p0PfNd9LNEisSCLtFmzaZAJ9MF7Yom/yNrKwhLU+3aGXEpfJvu/LsFrxFGw==
 From: Miquel Raynal <miquel.raynal@bootlin.com>
-Date: Fri, 04 Sep 2026 19:19:09 +0200
-Subject: [PATCH v6 16/26] mtd: spi-nor: winbond: W25Q64JV-Q/N: Fill locking
- information
+Date: Fri, 04 Sep 2026 19:19:10 +0200
+Subject: [PATCH v6 17/26] mtd: spi-nor: winbond: W25Q128JV-Q/N: Fill
+ locking information
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -45,7 +45,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260904-winbond-v7-1-spi-nor-jv-cleanup-v6-16-bdb282f42a47@bootlin.com>
+Message-Id: <20260904-winbond-v7-1-spi-nor-jv-cleanup-v6-17-bdb282f42a47@bootlin.com>
 References: <20260904-winbond-v7-1-spi-nor-jv-cleanup-v6-0-bdb282f42a47@bootlin.com>
 In-Reply-To: <20260904-winbond-v7-1-spi-nor-jv-cleanup-v6-0-bdb282f42a47@bootlin.com>
 To: Pratyush Yadav <pratyush@kernel.org>, Michael Walle <mwalle@kernel.org>, 
@@ -57,8 +57,8 @@ Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
 X-Mailer: b4 0.14.3
 X-Last-TLS-Session-Version: TLSv1.3
 
-The SFDP table does not advertize the locking capabilities of the
-device, flag these capabilities.
+The SFDP table does not advertize the CMP locking capabilities of the
+device, flag it.
 
 The CMP capability was historically not supported by non-SFDP chips, so
 a Winbond wide late hook already makes sure the bit remains disabled for
@@ -66,175 +66,54 @@ them, for backward compatibility reasons.
 
 Signed-off-by: Miquel Raynal <miquel.raynal@bootlin.com>
 ---
-+ dd 'if=/dev/urandom' 'of=./spi_test' 'bs=1M' 'count=2'
-2+0 records in
-2+0 records out
-+ alias 'show_sectors=grep -A4 "locked sectors" /sys/kernel/debug/spi-nor/spi0.0/params'
-+ flash_lock -u /dev/mtd0
-+ flash_lock -i /dev/mtd0
-Device: /dev/mtd0
-Start: 0
-Len: 0x800000
-Lock status: unlocked
-Return code: 0
-+ mtd_debug erase /dev/mtd0 0 2097152
-Erased 2097152 bytes from address 0x00000000 in flash
-+ mtd_debug write /dev/mtd0 0 2097152 spi_test
-Copied 2097152 bytes from spi_test to address 0x00000000 in flash
-+ mtd_debug read /dev/mtd0 0 2097152 spi_read
-Copied 2097152 bytes from address 0x00000000 in flash to spi_read
-+ sha256sum spi_read spi_test
-a4ad2c0352f71d61f64ed9cabb705edc84ac1f1be079619550cd18c70db707ce  spi_read
-a4ad2c0352f71d61f64ed9cabb705edc84ac1f1be079619550cd18c70db707ce  spi_test
-+ grep -A4 'locked sectors' /sys/kernel/debug/spi-nor/spi0.0/params
+$ flash_lock -u /dev/mtd0
+$ flash_lock -l /dev/mtd0 $ss $all_but_one # all but the first
+$ show_sectors
 locked sectors
  region (in hex)   | status   | #sectors
  ------------------+----------+---------
- 00000000-007fffff | unlocked | 64
-+ flash_lock -l /dev/mtd0
-+ flash_lock -i /dev/mtd0
-Device: /dev/mtd0
-Start: 0
-Len: 0x800000
-Lock status: locked
-Return code: 1
-+ mtd_debug erase /dev/mtd0 0 2097152
-Erased 2097152 bytes from address 0x00000000 in flash
-+ mtd_debug read /dev/mtd0 0 2097152 spi_read
-Copied 2097152 bytes from address 0x00000000 in flash to spi_read
-+ sha256sum spi_read spi_test
-a4ad2c0352f71d61f64ed9cabb705edc84ac1f1be079619550cd18c70db707ce  spi_read
-a4ad2c0352f71d61f64ed9cabb705edc84ac1f1be079619550cd18c70db707ce  spi_test
-+ dd 'if=/dev/urandom' 'of=./spi_test2' 'bs=1M' 'count=2'
-2+0 records in
-2+0 records out
-+ mtd_debug write /dev/mtd0 0 2097152 spi_test2
-Copied 2097152 bytes from spi_test2 to address 0x00000000 in flash
-+ mtd_debug read /dev/mtd0 0 2097152 spi_read2
-Copied 2097152 bytes from address 0x00000000 in flash to spi_read2
-+ sha256sum spi_read spi_read2 spi_test spi_test2
-a4ad2c0352f71d61f64ed9cabb705edc84ac1f1be079619550cd18c70db707ce  spi_read
-a4ad2c0352f71d61f64ed9cabb705edc84ac1f1be079619550cd18c70db707ce  spi_read2
-a4ad2c0352f71d61f64ed9cabb705edc84ac1f1be079619550cd18c70db707ce  spi_test
-b12f8258bf0374eb5c55e659fc430df7a6016d3c0dca2dc04ef1fe82f61d7f67  spi_test2
-+ grep -A4 'locked sectors' /sys/kernel/debug/spi-nor/spi0.0/params
+ 00000000-0003ffff | unlocked | 1
+ 00040000-00ffffff |   locked | 63
+$ flash_lock -u /dev/mtd0 $ss $(($ss / $bs)) # all but the two first
+$ show_sectors
 locked sectors
  region (in hex)   | status   | #sectors
  ------------------+----------+---------
- 00000000-007fffff |   locked | 64
-+ flash_lock -u /dev/mtd0
-+ cat /sys/class/mtd/mtd0/size
-+ size=8388608
-+ cat /sys/class/mtd/mtd0/erasesize
-+ bs=65536
-+ grep unlocked /sys/kernel/debug/spi-nor/spi0.0/params
-+ sed -e 's/.*unlocked | //'
-+ nsectors=64
-+ ss=131072
-+ bps=2
-+ flash_lock -u /dev/mtd0
-+ flash_lock -l /dev/mtd0 8126464 4
-+ grep -A4 'locked sectors' /sys/kernel/debug/spi-nor/spi0.0/params
+ 00000000-0007ffff | unlocked | 2
+ 00080000-00ffffff |   locked | 62
+$ flash_lock -u /dev/mtd0
+$ flash_lock -l /dev/mtd0 0 $all_but_one # same from the other side
+$ show_sectors
 locked sectors
  region (in hex)   | status   | #sectors
  ------------------+----------+---------
- 00000000-007bffff | unlocked | 62
- 007c0000-007fffff |   locked | 2
-+ flash_lock -u /dev/mtd0 8126464 2
-+ grep -A4 'locked sectors' /sys/kernel/debug/spi-nor/spi0.0/params
+ 00000000-00fbffff |   locked | 63
+ 00fc0000-00ffffff | unlocked | 1
+$ flash_lock -u /dev/mtd0 $(($size - (2 * $ss))) $(($ss / $bs)) # all but two
+$ show_sectors
 locked sectors
  region (in hex)   | status   | #sectors
  ------------------+----------+---------
- 00000000-007dffff | unlocked | 63
- 007e0000-007fffff |   locked | 1
-+ flash_lock -u /dev/mtd0
-+ flash_lock -l /dev/mtd0 -8388608 256
-flash_lock: invalid option -- '8'
-Utility to lock, unlock, or check the lock status of the flash.
-Default action: lock
-
-Usage: flash_lock [options] [--] <mtd device> [offset [block count]]
-
-Options:
- -h         --help              Display this help and exit
- -V         --version           Display version information and exit
- -i         --islocked          Check if flash region is locked
- -l         --lock              Lock a region of flash
- -u         --unlock            Unlock a region of flash
-
- <mtd device>  MTD device node or 'mtd:<name>'
-
-If offset is not specified, it defaults to 0.
-If block count is not specified, it defaults to all blocks.
-A block count of -1 means all blocks.
-+ grep -A4 'locked sectors' /sys/kernel/debug/spi-nor/spi0.0/params
-locked sectors
- region (in hex)   | status   | #sectors
- ------------------+----------+---------
- 00000000-007fffff | unlocked | 64
-+ flash_lock -u /dev/mtd0
-+ flash_lock -l /dev/mtd0 0 4
-+ grep -A4 'locked sectors' /sys/kernel/debug/spi-nor/spi0.0/params
-locked sectors
- region (in hex)   | status   | #sectors
- ------------------+----------+---------
- 00000000-0003ffff |   locked | 2
- 00040000-007fffff | unlocked | 62
-+ flash_lock -u /dev/mtd0 131072 2
-+ grep -A4 'locked sectors' /sys/kernel/debug/spi-nor/spi0.0/params
-locked sectors
- region (in hex)   | status   | #sectors
- ------------------+----------+---------
- 00000000-0001ffff |   locked | 1
- 00020000-007fffff | unlocked | 63
-+ all_but_one=126
-+ flash_lock -u /dev/mtd0
-+ flash_lock -l /dev/mtd0 131072 126
-+ grep -A4 'locked sectors' /sys/kernel/debug/spi-nor/spi0.0/params
-locked sectors
- region (in hex)   | status   | #sectors
- ------------------+----------+---------
- 00000000-0001ffff | unlocked | 1
- 00020000-007fffff |   locked | 63
-+ flash_lock -u /dev/mtd0 131072 2
-+ grep -A4 'locked sectors' /sys/kernel/debug/spi-nor/spi0.0/params
-locked sectors
- region (in hex)   | status   | #sectors
- ------------------+----------+---------
- 00000000-0003ffff | unlocked | 2
- 00040000-007fffff |   locked | 62
-+ flash_lock -u /dev/mtd0
-+ flash_lock -l /dev/mtd0 0 126
-+ grep -A4 'locked sectors' /sys/kernel/debug/spi-nor/spi0.0/params
-locked sectors
- region (in hex)   | status   | #sectors
- ------------------+----------+---------
- 00000000-007dffff |   locked | 63
- 007e0000-007fffff | unlocked | 1
-+ flash_lock -u /dev/mtd0 8126464 2
-+ grep -A4 'locked sectors' /sys/kernel/debug/spi-nor/spi0.0/params
-locked sectors
- region (in hex)   | status   | #sectors
- ------------------+----------+---------
- 00000000-007bffff |   locked | 62
- 007c0000-007fffff | unlocked | 2
+ 00000000-00f7ffff |   locked | 62
+ 00f80000-00ffffff | unlocked | 2
 ---
  drivers/mtd/spi-nor/winbond.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/drivers/mtd/spi-nor/winbond.c b/drivers/mtd/spi-nor/winbond.c
-index 0bec3887b570..d8cc7626b4bd 100644
+index d8cc7626b4bd..a8b1fffe083c 100644
 --- a/drivers/mtd/spi-nor/winbond.c
 +++ b/drivers/mtd/spi-nor/winbond.c
-@@ -210,7 +210,7 @@ static const struct flash_info winbond_nor_parts[] = {
- 		.name = "w25q64",
- 		.size = SZ_8M,
+@@ -217,8 +217,8 @@ static const struct flash_info winbond_nor_parts[] = {
+ 		/* Flavors w/ and w/o SFDP. */
+ 		.name = "w25q128",
+ 		.size = SZ_16M,
+-		.flags = SPI_NOR_QUAD_PP | SPI_NOR_HAS_LOCK | SPI_NOR_HAS_TB,
  		.no_sfdp_flags = SECT_4K | SPI_NOR_DUAL_READ | SPI_NOR_QUAD_READ,
--		.flags = SPI_NOR_QUAD_PP,
 +		.flags = SPI_NOR_QUAD_PP | SPI_NOR_HAS_LOCK | SPI_NOR_HAS_TB | SPI_NOR_HAS_CMP,
+ 		.fixups = &w25q128_fixups,
  	}, {
- 		/* W25Q128JV-Q/N */
- 		.id = SNOR_ID(0xef, 0x40, 0x18),
+ 		/* W25Q256JV-Q/N */
 
 -- 
 2.54.0
