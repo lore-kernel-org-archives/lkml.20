@@ -1,84 +1,45 @@
-Received: from mail-pf1-f172.google.com (mail-pf1-f172.google.com [209.85.210.172])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 890CE4A2A79
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 14:05:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C83E14A99C1;
+	Fri,  4 Sep 2026 14:05:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788530739; cv=none; b=GoJ0Zqt+ToVU7oY9ratftUtbFJam0662+L6lNg+TUOW5tS4zazDaJr9LjwunfonTC/nn4p9ZZThxAFgdcIthTsk1cm9vI5rqp+04a46VSfrEcHEVIh7sujVz6Yy/HV7X7uiq0u77Q8reHHkHuINx7iJXi9nStD8yv9YQ1ZqNCwI=
+	t=1788530744; cv=none; b=qi+H39Bi3pj/Ek9R3LYZby2yXB1NsFGGM9RTi2lBtRSxPqngOX9Uim3VBod5t7AL9Z+55/QsmViEZ70/bsV3PEMhupZ/h2OdsHaMh/7ROVFNn3VcIvuDL95WwwIxU6y/vMtcM/fbDBocFLdiFuYswbBzcSDPczshirdWYj+QD1U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788530739; c=relaxed/simple;
-	bh=74j3fwyacQITliuGsMZlTzpkrfqOUEWVeCXeNha+g+w=;
+	s=arc-20240116; t=1788530744; c=relaxed/simple;
+	bh=q7DN9QB2w5ts2Us/ZbCvRPwh3uL4fSgDguwGeUBwLCU=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=rwVC1Q8FP0li8q7sAETXrRW1gcGqiT4pl39qOuu+qKRakznQmd/1+P93EHBkMirc6j/vWD1TGGbPs7CzA4RmFb+OAMPA/Oit2p0sTpLWQtn7WRFzlKr9LmnJGRaqWFwLbI9w/CPJyHfkjWzYa7SStC7R3uv2O+CVw9klxmfEe5w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai; spf=pass smtp.mailfrom=nebusec.ai; dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b=S/aOp+/K; arc=none smtp.client-ip=209.85.210.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nebusec.ai
+	 MIME-Version; b=TsRr8PpqIDnewrMx5kbiLlxxOmlNfTpFIAQ/eoC6XjaUvpxePenBluBEYBhZEItK9coU6c2PKX5d4ebMeaj3LJrVAe3bx7FHj7VBN46055XZhF9ETNM4JpKqVAMxKrN5y7D+VTmxdGqtXvzAh9OCU8rOe44cMkBjtoOoVCpst8A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OI2bij6/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b="S/aOp+/K"
-Received: by mail-pf1-f172.google.com with SMTP id d2e1a72fcca58-84fa3b14ee1so843730b3a.0
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 07:05:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=nebusec.ai; s=google; t=1788530738; x=1789135538; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Set7xBiEVWYLIBwmw99LbgzIL/a2lqsWrI9NiV/oNhw=;
-        b=S/aOp+/KlipcPJE4avbEo+Qd8kMLK/sKuvTE8ai/yTh1MsPb9KKh9sSRaYkgyV7GKR
-         EAevDulyr7dCvgeNZQWjfSIJUwO7bS4BW9U5Qy1YSq2fS8jf/15ylscPD4CELTldr3k0
-         LUVeqx/lSyjZWxQk2ttPXXOcWa2k4FkefoebKqGbO7AVCFq9eFw4IkvqvFSFjS4LXJYO
-         VRsy8EriuZZxgV8z1PcHMtA8YAKsUENxaFYv3pzy+GOmzgTgC1oFjlufkqeZMSmsm7v4
-         PibPhvj5leqqxK+9wpOPfRFsCseP94Ff0ns54MByfWONlr9mSzOijVvhkyegVp1pNQ39
-         e8BQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788530738; x=1789135538;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Set7xBiEVWYLIBwmw99LbgzIL/a2lqsWrI9NiV/oNhw=;
-        b=LvRmKcHS4fMD33Kjhv+C7T8ONSHHq8EC2ZF/WHoMychCVAiPYiKXXku5s+8shx671T
-         /LvwXJg7SSy2JoVTzv/amXYL9LhgWfHfyHbo7kv/h5hv/b3yFHsJIp8egTW8wG7AZkW4
-         wQAG6tMdif7evnJ023UAjwlUOo/RiE39B/9InM2TWDmrOfPFzpVQe0+82wFunOKTDWfw
-         AQGb1fqvWoij/RTz08GqFqKrR7/0dqEGYa5Z4v38jTmMgIqj5gsMM1BiLQWRz+LgSF8r
-         FCvY9w1v7OauH7Vl2xBdrACnt/3Ikd2UavprwlU6ESl0BbW0HWWF+0mj7Aa1fTjhuPJP
-         mJUg==
-X-Forwarded-Encrypted: i=1; AKwUvBzWjBntwkeGcN56O6sCXKKHEdFmk49ePip7IGr5a1on6T5iYKZA707q3G9aB+9Qqaefnlmi9PYUQgP5Euk=@vger.kernel.org
-X-Gm-Message-State: AFuF++nUVFo8s3L6i6+0gJrluvufufG1oDTojAtRotSzk+2f1A0m7YOB
-	c3Rh4CNS9O9FKHmJ0WpjP8zmrTMMGl25j7x609vZ9qgWEscan681gtmKkIrIEsxWg2wV
-X-Gm-Gg: AYBFou1gXZoDEdiNto8IC+GXK+PJ/wjgkW/KL1+Lz0CswkIVF+OtIs1PHgp774SQeig
-	soLVQ1Vj5ScCjxWHlOm3AouAzSFoytjqV1li5cFprG6OGSt17XikOVyOCmNpfubpnsIgvPoKdzr
-	KR647aCZdkT9M2bOPLl5t2X4PXQ8iL+p0xqF3mCo4MsvTaHx3ftAcV1XFVtCRCuYcvSMll5Omzz
-	Yw3mEca9dResV3ljbYZV/nCAg2VZ1es6kow/pclig3L1vONKiq1RLqOo9H7TWO7qDHE8tVohviC
-	igXIur9H8T02wMUj8C3rX6A1nWoLgwHJTkf5pFCrd+hXXq3GDHofaMaNA58kHmZU0hFuA89CKAw
-	MEseitvXML6NzOzNeVCxdZiLQeYCsRaA+eZP5ycu2taiaFYOeFevAOxNq4Ef7T+eBjJIEVE6grE
-	U2GuUJmJw0wuIUnD8IiwJ2hPT16rEymGpQ31lTeiO/yFK7gL0p98MKXchQnjXmUycIV4W+DnhTt
-	DedZ0e2yi8NQ8himy8=
-X-Received: by 2002:a05:6a00:f04:b0:851:ba04:ca02 with SMTP id d2e1a72fcca58-8616a36cc48mr9997364b3a.16.1788530736532;
-        Fri, 04 Sep 2026 07:05:36 -0700 (PDT)
-Received: from b6ad5085b32f.. ([122.51.212.64])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-86153e3ac30sm1165524b3a.56.2026.09.04.07.05.32
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 04 Sep 2026 07:05:36 -0700 (PDT)
-From: Zihan Xi <zihanx@nebusec.ai>
-To: Steve French <sfrench@samba.org>
-Cc: Zihan Xi <zihanx@nebusec.ai>,
-	Paulo Alcantara <pc@manguebit.org>,
-	Ronnie Sahlberg <ronniesahlberg@gmail.com>,
-	Shyam Prasad N <sprasad@microsoft.com>,
-	Tom Talpey <tom@talpey.com>,
-	Bharath SM <bharathsm@microsoft.com>,
-	Pavel Shilovsky <pshilovsky@samba.org>,
-	Aurelien Aptel <aaptel@suse.com>,
-	linux-cifs@vger.kernel.org,
-	samba-technical@lists.samba.org,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OI2bij6/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 735391F00A3D;
+	Fri,  4 Sep 2026 14:05:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788530742;
+	bh=cH8whGMhdnYHqnIKF2d9DpiGJu7/VAcxPYFKae9Iiys=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=OI2bij6/1gcvJdnYRwg/cyz3uX5kjSP1JBWwvg/oXy/cnjpoFRW38hy/3WXhp3E4o
+	 gkDSe1ikvNbn5Gnnme5jcrXiUrZ3W5DnbItax3PtobpTXHHwQFIdaV/Uuf9JBIe2yR
+	 Iq5xBRFb35PBpoNSsHJP5trJMLfxOxk/oov8YtbdqHIrWBii4jJH5kto7vcXuHNiDL
+	 RD76wAeZ0GvM9OGlbqajgQUIs0QDpbugbIx8jb5TTRGqJkyd50ts9To+DFPI3QMRbE
+	 e7vyzCcJUqcoKSNSsxRrcS2gUdWAN8TTV3omRwhjxdhpjtyUdMGM+oreQRMPQMN0VQ
+	 6pXTR6o4uhmoQ==
+From: SJ Park <sj@kernel.org>
+To: Liew Rui Yan <aethernet65535@gmail.com>
+Cc: SJ Park <sj@kernel.org>,
+	akpm@linux-foundation.org,
+	damon@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org,
 	stable@vger.kernel.org
-Subject: [PATCH v3 2/2] smb: client: validate POSIX create context length
-Date: Fri,  4 Sep 2026 14:05:18 +0000
-Message-ID: <20260904140527.62354-2-zihanx@nebusec.ai>
+Subject: Re: [PATCH v2.1] mm/damon/core: fix false positive in damos_quota_is_full() when esz is zero
+Date: Fri,  4 Sep 2026 07:05:35 -0700
+Message-ID: <20260904140535.64833-1-sj@kernel.org>
 X-Mailer: git-send-email 2.47.3
-In-Reply-To: <cover.1788516372.git.zihanx@nebusec.ai>
-References: <cover.1788516372.git.zihanx@nebusec.ai>
+In-Reply-To: <20260904081324.3972-1-aethernet65535@gmail.com>
+References: 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -87,56 +48,108 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-parse_posix_ctxt() reads the fixed nlink, reparse-tag, and mode fields
-before checking that the POSIX create context contains them.  A short
-context can pass the generic create-context checks and still make these
-fixed-width reads run past the declared data.
+On Fri,  4 Sep 2026 16:07:41 +0800 Liew Rui Yan <aethernet65535@gmail.com> wrote:
 
-The current in-tree smb2_open_file() path passes a NULL posix pointer,
-so this handler is not reached on ordinary open.  Still require the
-POSIX context data to cover the three fixed fields before reading them,
-because the helper itself performs those unguarded reads.  Keep the
-handler's existing soft-failure behavior for malformed metadata so a
-bad optional context does not fail the open.
+> On Thu, 03 Sep 2026 07:05:20 -0700 SJ Park <sj@kernel.org> wrote:
+> 
+> > On Thu,  3 Sep 2026 20:41:48 +0800 Liew Rui Yan <aethernet65535@gmail.com> wrote:
+> > 
+> > > On Wed, 02 Sep 2026 17:33:50 -0700 SJ Park <sj@kernel.org> wrote:
+> > > 
+> > > > On Thu,  3 Sep 2026 06:31:38 +0800 Liew Rui Yan <aethernet65535@gmail.com> wrote:
+> > [...]
+> > > First, I would like to clarify my intention to avoid any
+> > > misunderstanding.  My actual goal is to fix the semantic of the
+> > > qt_exceeds statistic, rather than necessarily changing the underlying
+> > > logic of damos_quota_is_full().
+> > > 
+> > > Currently, there is an issue with how qt_exceeds is incremented.  When
+> > > the quota is set very small, qt_exceeds increases frequently.  This
+> > > produces a statistical trend that looks almost identical to the
+> > > continuous increments caused by the Temporal Goal being achieved.
+> > > 
+> > > The original intent of introducing qt_exceeds is to let users easily
+> > > notice if the quota is too small.
+> > > 
+> > > Commit Messages [1]:
+> > > 
+> > >     mm/damon/schemes: account how many times quota limit has exceeded
+> > > 
+> > >     If the time/space quotas of a given DAMON-based operation scheme is too
+> > >     small, the scheme could show unexpectedly slow progress.  However, there
+> > >     is no good way to notice the case in runtime.  This commit extends the
+> > >     DAMOS stat to provide how many times the quota limits exceeded so that
+> > >     the users can easily notice the case and tune the scheme.
+> > > 
+> > > However, under the current behavior, users are forced to manually ignore
+> > > or filter out the qt_exceeds increments that occur after the Temporal
+> > > Goal is achieved.  This adds an unnecessary burden to the users and
+> > > contradicts the core goal of making it "easy" for them to tune the
+> > > scheme.
+> > 
+> > Still I feel the problem is unclear.  Why the users need to manually ignore or
+> > filter out the increments under what situation?  Knowing specific and detailed
+> > case would be helpful.  Are you or some people you know doing that and feeling
+> > it is too much?  If so, what is the real use case?  For what purpose and how
+> > DAMON is being used?  Why and how the ignorance of qt_exceeds is being done and
+> > how painful it is?
+> 
+> First, I'd like to clarify that this isn't a problem encountered by a
+> real user, it's just a scenario I came up with.
 
-Fixes: 69dda3059e7a ("cifs: add SMB2_open() arg to return POSIX data")
-Cc: stable@vger.kernel.org
-Reported-by: Vega <vega@nebusec.ai>
-Assisted-by: LLM
-Signed-off-by: Zihan Xi <zihanx@nebusec.ai>
----
-changes in v3:
-  - Resend after no response on v2; no functional code changes.
-  - v2 Link: https://lore.kernel.org/all/cover.1787486936.git.zihanx@nebusec.ai/
-changes in v2:
-  - Add a handler-level DataLength check before reading the three fixed POSIX fields.
-  - Attribute the fixed-field read to the POSIX create-context introduction.
-  - Preserve the existing soft-failure behavior for malformed optional metadata.
-  - v1 Link: https://lore.kernel.org/all/eb1bc35611f91bd10a4772400b37fac26f660956.1782579150.git.xizh2024@lzu.edu.cn/
----
- fs/smb/client/smb2pdu.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+Thank you for clarifying this.
 
-diff --git a/fs/smb/client/smb2pdu.c b/fs/smb/client/smb2pdu.c
-index 95d862a1241be..e3973d331633d 100644
---- a/fs/smb/client/smb2pdu.c
-+++ b/fs/smb/client/smb2pdu.c
-@@ -2405,11 +2405,14 @@ parse_posix_ctxt(struct create_context *cc, struct smb2_file_all_info *info,
- 		 struct create_posix_rsp *posix)
- {
- 	int sid_len;
-+	u32 dlen = le32_to_cpu(cc->DataLength);
- 	u8 *beg = (u8 *)cc + le16_to_cpu(cc->DataOffset);
--	u8 *end = beg + le32_to_cpu(cc->DataLength);
-+	u8 *end = beg + dlen;
- 	u8 *sid;
- 
- 	memset(posix, 0, sizeof(*posix));
-+	if (dlen < 3 * sizeof(__le32))
-+		return;
- 
- 	posix->nlink = get_unaligned_le32(beg);
- 	posix->reparse_tag = get_unaligned_le32(beg + 4);
+> 
+> 1. Users sample qt_exceeds periodically (e.g., every 10 minutes).
 
--- 
-2.43.0
+What's the purpose of this sampling?
+
+> 
+> 2. Within this 10 minute sampling interval, the counter aggregates both
+>    the real quota exhaustions and the increments caused by esz==0.
+> 
+> 3. When users notice a high qt_exceeds value, they eventually realize
+>    (perhaps by reading the code or documentation) that it includes the
+>    counts from the esz==0 state.
+> 
+> 4. To get the actual quota exhaustion statistics, the user is now forced
+>    to perform additional testing and implement external filtering to
+>    separate the esz==0 increments from the real exceeds.
+> 
+> Even if we explicitly state in the documentation that qt_exceeds
+> includes the esz==0 counts, it still burdens the user.  The user still
+> has to figure out how to filter out the esz==0 increments externally to
+> get the signal they actually care about.
+
+Users set the temporal goal.  They can know when the goal is achieved since
+most of the goal metrics are already exposed to user space.  Users can also
+show the current effective quotas.  I agree that can be cumbersome, but how
+problematic it is?  Also, as I asked above, why they want to do this after all?
+
+> 
+> Honestly, I struggle to imagine any valid use case where a user would
+> actually rely on the qt_exceeds increments caused by esz==0 to make
+> decisions.
+> 
+> If the only purpose of qt_exceeds is to let users "easily notice" if the
+> quota is too small,
+
+I agree it could be a signal to show if the quota is too small.  But the real
+purpose of qt_exceeds is, in my opinion, letting users understand how DAMOS is
+internally working now.  After all, how much quota means if it is too small or
+not?  That all depends on the real use case and complicated things including
+their SLO etc.
+
+If documentation is saying the purpose of qt_exceeds is to show if the quota is
+too small, that is what need to be updated.
+
+> forcing them to manually filter out the noise
+> defeats that purpose.
+
+So, I don't agree.
+
+
+Thanks,
+SJ
+
+[...]
