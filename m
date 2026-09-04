@@ -1,102 +1,101 @@
-Received: from mta1.migadu.com (out-69.mta1.migadu.com [95.215.58.69])
+Received: from mail-ot1-f48.google.com (mail-ot1-f48.google.com [209.85.210.48])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC998473C84
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 11:19:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.69
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28DED44AB81
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 11:20:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788520769; cv=none; b=pm7q/ojBrwvOmlwS3k5s8h757EcJ+b6SU1QAp6qefdoM7sYmb+OroDhsYCM52GHX7OFazwZ2xjVroBlIDnkYHSIy9U+Fq1bbROazVbS1xc6Y1gJ+RWrkHtyLRakbzPEdU6+qPfE1DngcIiRJAuVTOQdHImbDGCOFUqAhwnWkqLI=
+	t=1788520817; cv=none; b=Zkm6jGvju+lN/QNA6+I3Ry1HaXhZ8nerbCSFUJlKi92Atrvf/We3tmvqt3s5j76O9M9CLYXb/rkeLZXZ5svUecE62pqWhoSSvJaUCQ1ZIEQjEeJ/2BMZlxTpaGU55CAJ8qgZtsRT8FM5SMutDjy46gpL7EIYJamYCrvrHNdNVBk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788520769; c=relaxed/simple;
-	bh=MsMTmcGG1X4n8TVMSg/WVg2Lsl8nVsUpAt6gmPDP8CQ=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=SgrXg10H5cgCUdot2Q8xLBREQryfBNqXjX/FPy1gZw1YqaL7WkTUFpIMh8S3wQ/p6fOE6KOA96MuqNSoSnBRpli31f6vDSRcMISkmD5AWUM07L03dk0ih6+32LYgj4gQotPoP5wRuoakcuuiWXoEPc3dtWTDQbnXCHva5WhbD0I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=JntTHgRm; arc=none smtp.client-ip=95.215.58.69
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1788520817; c=relaxed/simple;
+	bh=CF0YCed2WtdqEGRqOM9y1KcRf8RpN7O6C2r0lIoiiMU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=dD9ZgIRceujwKTzl8W6ZpaT2oFNJzSf9mKbG821IwSVsv4iYnNNuwgKiwRKZ2BCjEqq672AX5gzaSzs6EGZxz9MoAENOujhd+SrTX0fQgQSueV8C/YL29+TnuZcDX0LxdyZo9RRv5PLlxzhBBTtMi14saRIiLwQrXIu/WCpEMAo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QcFWjEWW; arc=none smtp.client-ip=209.85.210.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="JntTHgRm"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=MsMTmcGG1X4n8TVMSg/WVg2Lsl8nVsUpAt6gmPDP8CQ=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788520764; v=1; x=1789125564;
- b=JntTHgRmMwSv5cvrXNjbgWYDmX2zCN+ZlAhmU84b7QgRSk5ldsHEaFfJaaFA4ajZRhNNy3qA
- mXfDWdDv5pIlKvPrkmCvevbIpFDoMl1ddAA5IrtZZ1CIaXDkjtdTnL33QjsoUyg+2j4WtImG7LZ
- 3qOalvS61YCTwJiafCTmuyAw=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 42f527b76ff03bac;
-	Fri, 04 Sep 2026 11:19:24 +0000
-X-Mizu-Trace-ID: 42f527b76ff03bac
-X-Migadu-Flow: FLOW_OUT
-Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b4a0b17359so5247e87.0
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 04:19:22 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvByRs8RLnMjrcLun5tyQqCoaP3jrf3J9hxIQ5yvULjQYyc0Dk3l9xnXCwPc9IoePJJX96FP/7drYl3ipplY=@vger.kernel.org
-X-Gm-Message-State: AFuF++kLgg+IAoitV0t1auOr3EU7Iu4NwO+wjSdnM2cD36baryHwDpyI
-	5VxcQteYuCf4DAbUtrehI/qTJbGg5K7cpdix9O1Km0BtY7X6cYlOgEEBkZFkdgAc4qE1UXcXj3x
-	f8vAyNUHcaPb4PNsAhK4czpacG5OgrZrBGp4ETq2k
-X-Received: by 2002:a05:6512:1094:b0:5b1:4fd9:ac with SMTP id
- 2adb3069b0e04-5b61813ebf2mr96629e87.3.1788520761433; Fri, 04 Sep 2026
- 04:19:21 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QcFWjEWW"
+Received: by mail-ot1-f48.google.com with SMTP id 46e09a7af769-7e6b5737bb2so1084176a34.1
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 04:20:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788520814; x=1789125614; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=JeAXB5jcaMUwlkcazxMxNc2XuQ65/XFpmGAtCnFbJ/Q=;
+        b=QcFWjEWWDMPYbUncK+culUVNnMhrbVb+ENLGAAEcN8+Di9teJZYCJcTXbdkODRqf7G
+         x77sbkrR19vl6szy+g2LaE3OqUR2VOpUcinX9q6WoTfZ6bUsu0RoCwASVLyPmOpSEyuo
+         bnO3nlL7SIRC9/hWfJYpyjW8GTs13PpDloaIrksLRnL2EQ4oWEJN9exu9ircfhC5PFCI
+         PwVCVTZ0O8QV8Qy3Sn8V5iQPUJT+4dIHRyqdLpjz+PnvKAvJorEkg+TelWXRZv21SuyD
+         LTA6C/uGoaAnOZ7DqqISV9pVb5aJ9RfWWIL72EQfGzqyAy/kxkFw0mACa1EB7f3gBDL9
+         qgtg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788520814; x=1789125614;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=JeAXB5jcaMUwlkcazxMxNc2XuQ65/XFpmGAtCnFbJ/Q=;
+        b=PeL3iwcgmBzn7G5ObS36buEsACXjC7nnRqq/R08NqkHZiZL7lB3VQ29Tr5e9s1Vwth
+         XVzn5qcZORj2tvb/MOVN7vavcZgTrrgyRG+fWiBdw8/x/dL5VQF6yf/wt7KQCR2DpLmu
+         fe0osc6KayLH9lYN5uttqjVWdTPFtuy1xx4hCwv0o/AOHcFrlUyOmh1iDQMuKHiBa9ee
+         h6qmLpEbrnafGz37Fc74SCFn44mxkbnr3Hf6qCaDzcTCV75rRLacxY9UNrufHZfsTk3W
+         WquWXYf6/jzSaNi6Wl2t3MUZpBiEUHZMdhpEzCu/yadj7dRrWNIn1Wfq8jI/8eLQ+zZz
+         m7wQ==
+X-Gm-Message-State: AFuF++nmsRkyEoedLjXhojoUeCM/lDxA2f+JST+7Jb9wAgoJTawLJIDF
+	5K/T+9pR8ORc3GBUZOka2ObRIqilrDtsqB8RaPYKdSNFcFc5YIQVHA5pI5BrA5st8SU=
+X-Gm-Gg: AYBFou3zrkCMG1vfxVGe+UJUkBk03PnWo/7lxG668cxbh8y2923MI9ZBGmZntBOU9+/
+	lTO3vHtImX9LrSYPqk15NQfmXfTSd7mfERlMKepb0ADBEBER6iMdRmPMhQnwRF9E1QXEBenuXYl
+	RTTsMKHiCEOkS121FsJoAyuP6NWOx9f/LeilLGMhQs1+RUSvRxVKnMeJgW0KgNG86R7TI6phyBv
+	/oLZCqTy/4hwc2lalStjJsZba6GdEzQPlogGSGobDNz4sC6bF+wJlEIXbUF3fG98kaL/llURv61
+	5bSqmZY9SwWgPVc5WJaU4sxF9ME4VrN2HwbGfycn0n8AvAFBmKOlJ9pB2iBXz/5BkV/pR+kmOd2
+	3WCyQ+IHn7x13olgq7HaHVaOzKdaLh0WkRd7l1wRX5QBkqMqIWrR7XOngLRunW1OjY1budhy+d0
+	M4hcY3c+yMGfP+e1D9z/dwEX6LiOxJAclW/zEZZtMNIUIEGaUSKjtxb81AdbLn93FmJMbBHLkR6
+	8YkcpeCuaDekKA=
+X-Received: by 2002:a05:6820:190f:b0:6b1:8a16:a3f1 with SMTP id 006d021491bc7-6b6fd3d772emr3600103eaf.27.1788520813778;
+        Fri, 04 Sep 2026 04:20:13 -0700 (PDT)
+Received: from volcano9f6e-hostos.amd.com ([165.204.217.251])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339aa36b37sm5900541eec.14.2026.09.04.04.20.11
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 04 Sep 2026 04:20:13 -0700 (PDT)
+From: Hemanth Selam <hemanth.selam@gmail.com>
+To: Ard Biesheuvel <ardb@kernel.org>,
+	Ilias Apalodimas <ilias.apalodimas@linaro.org>
+Cc: linux-kernel@vger.kernel.org,
+	linux-efi@vger.kernel.org
+Subject: [PATCH] firmware: efi: fix typo "existance" in comment
+Date: Fri,  4 Sep 2026 16:50:08 +0530
+Message-ID: <20260904112009.33620-1-hemanth.selam@gmail.com>
+X-Mailer: git-send-email 2.48.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260903160819.831518-1-fuad.tabba@linux.dev> <xmhaptfcp2gyoovgus35yhx2uloe2zt3zniwscd2dwnatf2fii@jqobvjdmkqed>
-In-Reply-To: <xmhaptfcp2gyoovgus35yhx2uloe2zt3zniwscd2dwnatf2fii@jqobvjdmkqed>
-From: Fuad Tabba <fuad.tabba@linux.dev>
-Date: Fri, 4 Sep 2026 12:18:00 +0100
-X-Gmail-Original-Message-ID: <CA+EHjTwNJvqqeGtgxR2q+CRn5DJfigssLRcZxz-zY5XvATwOcQ@mail.gmail.com>
-X-Gm-Features: AcwNN1WJOez3rM2VTfMTldMzLgVHCuTatIMt9J2llOzdukDIMVSoUgeLQv2Bv6Y
-Message-ID: <CA+EHjTwNJvqqeGtgxR2q+CRn5DJfigssLRcZxz-zY5XvATwOcQ@mail.gmail.com>
-Subject: Re: [PATCH] KVM: arm64: Trap guest MPAM accesses whenever MPAM is implemented
-To: Yao Yuan <yaoyuan@linux.alibaba.com>
-Cc: Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, 
-	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
-	James Morse <james.morse@arm.com>, Ben Horgan <ben.horgan@arm.com>, Xi Ruoyao <xry111@xry111.site>, 
-	Mark Rutland <mark.rutland@arm.com>, Joey Gouly <joey.gouly@arm.com>, 
-	Suzuki K Poulose <suzuki.poulose@arm.com>, Zenghui Yu <yuzenghui@huawei.com>, 
-	Steffen Eiden <seiden@linux.ibm.com>, Gavin Shan <gshan@redhat.com>, 
-	linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-Hi Yuan,
+Correct "existance" to "existence", reported by scripts/checkpatch.pl using
+the misspelling list in scripts/spelling.txt.  Only touches comments, no
+code changes.
 
-> > +static bool
-> > +test_has_mpam_sysregs(const struct arm64_cpu_capabilities *entry, int __unused)
-> > +{
-> > + /* The registers exist whether or not firmware enabled MPAM. */
-> > + return detect_ftr_has_mpam();
-> > +}
->
-> My understanding: arm64.nompam affects detect_ftr_has_mpam(),
-> thus when arm64.nompam = 1 w/ MPAM is supported in hardware,
-> the KVM's trap setting is skipped yet, and it's possible that
-> SYS_MPAM2_EL2 and SYS_MPAMHCR_EL2 are configured not trap anything
-> by firmware, thus guest can still access MPAM registers.
->
-> Do we need check the raw id register values for the real support
-> state of MPAM here ?
+Assisted-by: Cursor:claude-opus-5
+Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
+---
+ drivers/firmware/efi/efi.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Under arm64.nompam, finalise_el2_state skips the MPAM2_EL2 and
-MPAMHCR_EL2 writes too, via the same check_override, so the kernel
-does not clear the traps either. What a guest reaches there is
-whatever EL3 left, UNKNOWN when EL3 is implemented. This patch is for
-the case where the kernel cleared the traps itself and never set them
-again.
+diff --git a/drivers/firmware/efi/efi.c b/drivers/firmware/efi/efi.c
+index 0327a39d31fa..846179b23160 100644
+--- a/drivers/firmware/efi/efi.c
++++ b/drivers/firmware/efi/efi.c
+@@ -8,7 +8,7 @@
+  *
+  * This code registers /sys/firmware/efi{,/efivars} when EFI is supported,
+  * allowing the efivarfs to be mounted or the efivars module to be loaded.
+- * The existance of /sys/firmware/efi may also be used by userspace to
++ * The existence of /sys/firmware/efi may also be used by userspace to
+  * determine that the system supports EFI.
+  */
+ 
+-- 
+2.48.1
 
-Gating on the raw ID registers would make __activate_traps_mpam()
-write MPAM2_EL2 on guest entry there. AFAICT that traps to EL3
-wherever MPAM3_EL3.TRAPLOWER is still set, which is the firmware the
-option is for: 10f885d63a0e ("arm64: Add override for MPAM") added it
-for firmware that leaves the trap set and does not emulate it.
-
-The arm64.nompam hazard is documented separately [1].
-
-Cheers,
-/fuad
-
-[1] https://lore.kernel.org/all/20260903084809.2027326-1-fuad.tabba@linux.dev/
