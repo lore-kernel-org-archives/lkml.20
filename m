@@ -1,44 +1,48 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from abb.hmeau.com (abb.hmeau.com [180.181.231.80])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8844E441618;
-	Fri,  4 Sep 2026 09:58:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 668A643C7B1;
+	Fri,  4 Sep 2026 09:58:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=180.181.231.80
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788515883; cv=none; b=i41Dg79Tnj/ijrO+Ew6cX39Jq09LvfbzAt4JQLV3unBJy1dkN1fQCpokriZsJIckv3MdUq+YSSKXd5dcrQVDgjUEnYAwfKxA4nC9rvqjfgsqQ8jneDMp2MKzFipzqboprgMQXaSac/DqQp3iQewYBDbriit4mlhmq31xqn0E26E=
+	t=1788515896; cv=none; b=JSI0YqDNLZNrGAFhXVfJihwjHINkFsHSEE9NL6bQ1RBqS4KWFyM6wbkl+/RTILYyMCvGzvUm3UCdFY41iNN2B4yZr/qsopPY6HWNq0ikyGejTRBnDFMORgtSEgki9WMftKaPofBydjU9FNdzY+qE+EiJSfqxdTAvSD4lw4gJIb0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788515883; c=relaxed/simple;
-	bh=J4Uw3P4IlJYZ6wx9/AajjAoW9Zv4s9xp+fBZy1dlWWs=;
+	s=arc-20240116; t=1788515896; c=relaxed/simple;
+	bh=KH739zV+7VeTKp8yPiqlFDOPYKvVGuzd5F+VdqpGPXU=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Em34yAQx/zYGbEwjiCsD4MudhJx5z66kzfdHiWOcc37wP8004Qyg3M+GU7ddmZFw5o6RIeR7BC61yDlk4KA3bR0iLayrtwf+wxqoe0J2iFnJIoLMlAr6h8LVY5kh5qVvZOgwckRDPYwgi8dFj8h64ItcygobAPLQevco5X3Yu/Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HXl+95NG; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=DB8WOPI7WabL+66Ust+/Ru8ecGpRf+904UbUmEheC87L6vW1Fq+NgFOc+XZyz0T4F0bxOOAc3i5E+N3urKTBRelnk3HMw59uOjd56WtUjRXgRSEagaqGABxw+NzkAmk/J4n9jtR3zFd6ApEClz7/+ab6LOy+60DP6EKymuhy2Tw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au; spf=pass smtp.mailfrom=gondor.apana.org.au; dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b=P/4V0LVu; arc=none smtp.client-ip=180.181.231.80
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gondor.apana.org.au
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HXl+95NG"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7204F1F00A3D;
-	Fri,  4 Sep 2026 09:58:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788515882;
-	bh=84RQjvUIbZegelFgUCwrD+5Gg8PBRCldn9ArQR1bQ0Q=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=HXl+95NGCkRn8wpoJGvYycHo6AFaZsZMhDw8m68jymnrceifFIzGIlqfOs8JNnCNS
-	 ndprzaCRxDNXYtrz2A2B0DjKXBH6/qTAXIJl/SoPyxrZwwkHwXB6h3YjDS0vQmpJbw
-	 FU64XqtGrRI0dTQ3q9MqUVCe8TPxCHSJpBuPjXmESI8ommzpz4g9wPhnMMD2eQW5wi
-	 YP0XLHJug5Crdf2Cd2Ewyc4Mfb4/a5hWceLXfL049a1IlD39ID5VMR9f4n5sg7k9KV
-	 KxpQtTMAYWOFgv0i20IDqwo0HOTgaE20eL3Pp1t+/HSyooz1pVXv/BSvyCbPv/CWYg
-	 blDgD6ygsVJgQ==
-Date: Fri, 4 Sep 2026 10:57:56 +0100
-From: Harry Yoo <harry@kernel.org>
-To: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
-Cc: Sebastian Andrzej Siewior <bigeasy@linutronix.de>, 
-	Clark Williams <clrkwllms@kernel.org>, Steven Rostedt <rostedt@goodmis.org>, 
-	Andrew Morton <akpm@linux-foundation.org>, Peter Zijlstra <peterz@infradead.org>, 
-	Alexei Starovoitov <ast@kernel.org>, Hao Li <hao.li@linux.dev>, Christoph Lameter <cl@gentwo.org>, 
-	David Rientjes <rientjes@google.com>, Roman Gushchin <roman.gushchin@linux.dev>, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, linux-rt-devel@lists.linux.dev, 
-	syzbot+acf142088e0182172e58@syzkaller.appspotmail.com, ThangNN99 <ngocthang2710.1999@gmail.com>
-Subject: Re: [PATCH] mm/slab: disallow kfree_rcu_sheaf() on PREEMPT_RT again
-Message-ID: <apqS7Z3F5Rtq7caz@nixos>
-References: <20260831-b4-kfree_rcu_hotfix-v1-1-4f0fb882638b@kernel.org>
+	dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b="P/4V0LVu"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=gondor.apana.org.au; s=h01; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:cc:to:subject:message-id:date:
+	from:content-type:reply-to; bh=o5KmSjQb01scQ88Q/AFs+h9kuxz0YGOfNf4JSL22LY4=; 
+	b=P/4V0LVu3dJCyIGEweuYkVobYgNcZY+fF3T0uudZT+7AMx9zWoQu5X8HFzj34c13ZLycVPEibBR
+	4jroEfsT6dZBd12WjhJWam7Fk6w5HZc+q7xBxGLvUuJjJ+lHKzomWW5BBxYv8WUsNm3OQcl8rbt9l
+	8d759BdppuiwmcItYaeDU0O9/eG9UbzAaJVF8lJgLgiZOVIu+HNMKZzGm4VkXRpSf60B3OA4Qyx/W
+	TvQFVSNaVEuNBCXkkKYdVhI8Eug4Q0LUHAlJixLcdQQHprx3+3S7BFuH42S7Kerjq4kePPKWnMRqQ
+	mh3gILPb/20CgS0pg0h9gy3Fn6q9rnjTwfNw==;
+Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
+	by formenos.hmeau.com with smtp (Exim 4.98.2 #2 (Debian))
+	id 1x2QgK-0000000AnET-2CCN;
+	Fri, 04 Sep 2026 17:58:01 +0800
+Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation); Fri, 04 Sep 2026 19:58:00 +1000
+Date: Fri, 4 Sep 2026 19:58:00 +1000
+From: Herbert Xu <herbert@gondor.apana.org.au>
+To: Fabrice Derepas <fabrice.derepas@canonical.com>
+Cc: David Howells <dhowells@redhat.com>, Lukas Wunner <lukas@wunner.de>,
+	Ignat Korchagin <ignat@linux.win>,
+	"David S. Miller" <davem@davemloft.net>, keyrings@vger.kernel.org,
+	linux-crypto@vger.kernel.org, kexec@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 1/2] crypto: asymmetric_keys - fix OOB read in
+ pefile_parse_binary
+Message-ID: <apqWKCZduJmXVygI@gondor.apana.org.au>
+References: <CAOs+rJVztmvHSkNxP_voc7E=girsstCKmqxG37pvO2kTaEk1TQ@mail.gmail.com>
+ <fcbc6b4d5855ba42a0fccf335b2604ef0b36f092.1786802052.git.fabrice.derepas@canonical.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -47,34 +51,53 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260831-b4-kfree_rcu_hotfix-v1-1-4f0fb882638b@kernel.org>
+In-Reply-To: <fcbc6b4d5855ba42a0fccf335b2604ef0b36f092.1786802052.git.fabrice.derepas@canonical.com>
 
-On Mon, Aug 31, 2026 at 06:02:38PM +0200, Vlastimil Babka (SUSE) wrote:
-> This partially reverts commit 2a8bb29ec9b2 ("mm/slab: allow
-> kfree_rcu_sheaf() on PREEMPT_RT"). It was based on an assumption that
-> local_trylock() is safe on PREEMPT_RT from any context.
+On Sat, Aug 15, 2026 at 04:00:19PM +0200, Fabrice Derepas wrote:
+> pefile_parse_binary() reads the size field of the certificate table's
+> data-directory entry, which sits at fixed index 4 of the PE optional
+> header's data directory:
 > 
-> However kvfree_rcu() is also called by set_cpus_allowed_force() with
-> task_struct::pi_lock acquired and there it's not safe, as syzbot
-> has reported.
+> 	ctx->certs_size = ddir->certs.size;
 > 
-> For the immediate fix, skip kfree_rcu_sheaf() on PREEMPT_RT again from
-> kvfree_call_rcu(). In theory, kfree_rcu_nolock() would have the same
-> problem when called from under pi_lock on PREEMPT_RT but that can
-> be addressed if such a caller is proposed.
+> but nothing ensures index 4 is present. n_data_dirents (the untrusted
+> NumberOfRvaAndSizes) is only upper-bounded against header_size and may be
+> 0, and header_size need only satisfy cursor < header_size < datalen. A
+> crafted PE with n_data_dirents = 0 and a tiny header_size therefore causes
+> the ddir->certs.size read to land past the end of the image (CWE-125). The
+> chkaddr() that bounds the certificate blob runs only after this read.
 > 
-> Add an explanation comment, courtesy of Sebastian.
+> verify_pefile_signature() is reached from kexec_file_load() (the
+> lockdown/secure-boot enforced PE-image signature path), and the image is
+> parsed before its signature is checked. The trigger needs CAP_SYS_BOOT and
+> the access is out-of-bounds read only (no write).
 > 
-> Reported-by: syzbot+acf142088e0182172e58@syzkaller.appspotmail.com
-> Closes: https://syzkaller.appspot.com/bug?extid=acf142088e0182172e58
-> Reported-by: ThangNN99 <ngocthang2710.1999@gmail.com>
-> Fixes: 2a8bb29ec9b2 ("mm/slab: allow kfree_rcu_sheaf() on PREEMPT_RT")
-> Signed-off-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
+> Require the certificate table's data-directory entry (index 4) to be
+> present; the existing upper-bound check then keeps ddir->certs within
+> [cursor, header_size).
+> 
+> Fixes: 26d1164be37f ("pefile: Parse a PE binary to find a key and a signature contained therein")
+> Assisted-by: copilot-cli:claude-opus-4-6 frama-c
+> Signed-off-by: Fabrice Derepas <fabrice.derepas@canonical.com>
 > ---
+> v2: express the "index 4" bound as
+>     offsetof(struct data_directory, certs) / sizeof(*dde) rather than a
+>     literal 4, per Ignat Korchagin's review [1] -- self-documenting and it
+>     tracks the struct layout. It is the same value (offsetof is 32,
+>     sizeof(*dde) is 8, so the bound is 4). A KUnit test is added as 2/2.
+> 
+> [1] https://lore.kernel.org/all/CAOs+rJVztmvHSkNxP_voc7E=girsstCKmqxG37pvO2kTaEk1TQ@mail.gmail.com/
+> 
+> Reproduced under KASAN (CONFIG_KASAN_GENERIC, x86-64) with the KUnit case in
+> 2/2: a crafted PE with data_dirs = 0 takes a slab-out-of-bounds read in
+> pefile_parse_binary() on an unpatched kernel, and is rejected with -ELIBBAD
+> (no KASAN report) with this patch.
+> 
+>  crypto/asymmetric_keys/verify_pefile.c | 5 +++++
+>  1 file changed, 5 insertions(+)
 
-Looks good to me,
-Reviewed-by: Harry Yoo (Meta) <harry@kernel.org>
-
+All applied.  Thanks.
 -- 
-Cheers,
-Harry / Hyeonggon
+Email: Herbert Xu <herbert@gondor.apana.org.au>
+Home Page: http://gondor.apana.org.au/~herbert/
+PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
