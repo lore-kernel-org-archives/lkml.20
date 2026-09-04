@@ -1,118 +1,149 @@
-Received: from mail-qk1-f174.google.com (mail-qk1-f174.google.com [209.85.222.174])
+Received: from mail-ej1-f51.google.com (mail-ej1-f51.google.com [209.85.218.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EFCC4A1DF9
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 13:55:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.222.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B4E549EC7F
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 13:55:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.51
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788530112; cv=pass; b=s5+AEhNreztd+tv0O6aQUYeptgVKNI8khpQj2lHMVy0cDjAZt5rLLta7jFmSQHDtCjTJ3WN1UXouWllM1dSjIQClTKH/BiNb/7zPZT7bgXi4cCPXsjJLUYzhI1FwhvgD2lhE6ZeSkxe1ISfLOBJ0ip44/YidNmKH0l0NDFAKi48=
+	t=1788530138; cv=pass; b=sBa0FOGSFTOeTTiOJfi/HuHNcAx7dWqgpc9f16WDdIXiUhK0VYLcdBL0wNQ3u/awwdqTJ0ukclwrHJ/O5q7wkZCao/0uYkeeKSuxWbdcyhRfu67B+/cs2g9edvXaJwm7JEzjkw8oYFMKRCtNQomd5mcgo/JmLLHjFWPrmP8O6ak=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788530112; c=relaxed/simple;
-	bh=o6r0SiHg4zF9vX0kWQVpDU3Ak0Ayph/EQ7U9oRk0i1g=;
+	s=arc-20240116; t=1788530138; c=relaxed/simple;
+	bh=aYGTw43PGiruYrbCRK8lrDyOCcUgVMqsAo0cR/fDfeY=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=W7peWCDJJY5U8/pbKrNsPLPERInvfvagVL6Nav8mOZQQ7liTheI/iT22hB/0U3UT13TCmHQjfn9J786I8HVhtKlcPoRRN3ohgq1ux9Qic7Irs+uV0RbP+V/wN5MVYFwof97jEP6E7kdRVLf6ctUaEo6dyzAKwZF0uqGVKgcslDc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gnXkA/qT; arc=pass smtp.client-ip=209.85.222.174
+	 To:Cc:Content-Type; b=Mfw0ljRzhjqfTFEpT+fNIpsqFJb1nAK/+fCXSRYoyUeOGnhJh/ZEOlTUheyzzzaBrrQPAPgRGgk6wdG0HtdAvf3ADnOoyY4rJmWF0saKQ5p06pDqAPWOqzDUI/YVgmo9CCMKpDQo++dYrU+A+G+GOquKw3p3fxRSnN72W6ZMCZg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kCxxW9q4; arc=pass smtp.client-ip=209.85.218.51
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gnXkA/qT"
-Received: by mail-qk1-f174.google.com with SMTP id af79cd13be357-92e50a650a0so99675985a.1
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 06:55:11 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788530110; cv=none;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kCxxW9q4"
+Received: by mail-ej1-f51.google.com with SMTP id a640c23a62f3a-c253425b253so149005766b.1
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 06:55:36 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788530134; cv=none;
         d=google.com; s=arc-20260327;
-        b=qeBct3EtINh0e7l0VD4zrAjR76ha3NjAVNohF9he+dbdPnv5d3G0VM8oak8ptGj9Gh
-         JCbsOWwXtYgpmlV0tQBz4FLHJr2HHqkVKu760jTj31axV/73ERbVpvdaNbWa+uoDmw+a
-         X9xDoaU7MvlGPr3qwlYBVRcJRkJnjcXsdB0UDglAu23ikkJ3zCOYASiDacvZk1o0yEqI
-         eT/ipfEMSF1isg4AoDOhRf7NfHDPJ8qrmWoVCMhcVyU/QZoW0F80OUjsR4YogubDeh5J
-         +Dwspt+Um5mSoNA4yO+VQ9v/KkIZoHsq+lMnIT8EooOwdvJGuZzHqIFLjgfioSza6UKY
-         Pdmg==
+        b=iSVqa04RmeXrl6PyEdtKg43x/iaibyFI2QpxH9xOBQFcR3Id0rAs4lAMykfx8y6+2r
+         cyXS9qHLFVAuL3InN7tEsIjKNXvBkozqArfTCV3rl+CG4GHpXqzqaeZbXETNC59E3LJP
+         m2rpUs2Hkgd5jzlJmmr6Ed6zo1UI76lD6H2HoH7fcnz79y8SPQxyULx5lYDUuLEb3gqW
+         EFU2U3BMhcnQseYehTT0vyG6nLzLbiBRBmJIdD9VyYyrGOLAMUmrJLvw91WFmd7ngvdt
+         XqGd7swEuVUW7LfZUbRyR1GfUQowPy2bqopk02dPM4IMAGx8U8STFZAlA76wZCwJTw5d
+         7KoA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=Ag2kes3X+yx+hXtnnZD26gCaVLqPvhzmqHhNLHDvSXc=;
-        fh=UtcqqqKsZze5B7F7J4i3d/007l5bsp1DQKJYeHN0Gdo=;
-        b=hJrbNADC0pbv1cZs1+jsX3k+H/GPm2yHtumQjjW7p42s/lcSoikdSYJiEi+TT6C//Z
-         E7Kuutreq8N2GBDcB8LqqIcXqrIfvmI4PXEPG7DoEehkfnXePmPM7NSvNMOQuO1tHD99
-         Dwh+tD8sJlJUHCh4o9kKnQeSKya83JmHo5o0QYcfoatP47VI5ieMNTv4koDAFM04uciL
-         Vm5LWbUyH+bAy8vEihz1G05GqdrBho3xD+UL5KtK9tf+gbTHFCu70sbzSnFGv8cEpQqu
-         yRgFLoTdIOy85aTqmwfj98/bg89REC8XxbQLIZG/+HnH3NNCjqwLRooaXSENMK1DcLBE
-         nDsw==;
+        bh=pkjDjgzDaw86AXoG1909ddrRynkL4ufeKlwmjCrQJhQ=;
+        fh=Tc2aU7sn1ACARzCmAwossSklg5yWchdPwKI1scMoEwA=;
+        b=n7YHJcNrY6topi2FZTQBjNzSyU5PfKS4sRdG2S1D0EiFkIGsjWflmab6N2jjMgycvF
+         rlvjZD+Wiw+aFnMAsxVDQVHv9ttmTc7Qe6KIaojAs8XKnqcznnQQBdu8ihD33ih1xt1z
+         51wGNFnKQB0yx7lnpwA6N7HrCJ3b9nqskD7dN4NdovgeIjoGM/EQLW2wDZ0OLhPm2RGV
+         xnYyivFW9RBSj7PABDgbAQeA+lo9g6tj51GI5q/NjBCIW58Nvs9tikujUoBj6AfB/Z9t
+         pJdl8+kVH/bz8G3e9+WF+ji/BdCicnTKRKLEAJ28OfargbE1TB57YNo2e1wNPfmy60+m
+         XyNg==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788530110; x=1789134910; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1788530134; x=1789134934; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=Ag2kes3X+yx+hXtnnZD26gCaVLqPvhzmqHhNLHDvSXc=;
-        b=gnXkA/qTsEMxQp18kcn2+5X5pdz81sJdtcJB9GfVRea+or/rBVutvpem4SuGpMSMww
-         1+eQpkuDI3imzdnWlRUBIk4n/ySn4JFvwEE6YFFCZNvY/kAJ8WE1ymrh83S8bj9GJHPf
-         9A5R9SsCe+TyniMVdXGrhtykxvpsg0l4LwQGbqMJ7nQ5BOTWB2Y7ZjozxeuqpxX7hmGL
-         cRs8KJK+ARcqy99YSBooEMRFp76dOzwSwU/JSEHNoJPEc4AkPS9whxRwyDHgoaLCCYAu
-         mE7AcJAlDnwqhFSsYt05+f0dkZTyEnf8RUsecrAjQehixI3LMbxnEzWjhV39awS1kgB+
-         6Paw==
+        bh=pkjDjgzDaw86AXoG1909ddrRynkL4ufeKlwmjCrQJhQ=;
+        b=kCxxW9q41x6acDRBBZDVjfyTyqKRt/evee3/RMJ64zlf6SHrFgHtykPwYzwvAi3wVJ
+         ZRIv7vOTkQh2Lr2n+smSk6EZDeGERL2XnUVdkdmbijX3sIq8nHQIT4bwdKQG9VlBvxBC
+         8naCTVcUFcfSQHMrBLpJQGzu74JQ2aIQws7AXtvIxc14zHervNOo4KbpAp1FFOqd1BDh
+         8sOIjGi6BVaoHydFmTO+nYefEIeAAEsXLvyc/0L2/jipTutRInYXfOINnr0YZQVJnXHl
+         C2LFuM/tqHwSMwJQDQ8c+FIBz7PMpJ9MUu/9P80i1Y2oORNVkVuubgrLsPndLlRYakJI
+         4DdQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788530110; x=1789134910;
+        d=1e100.net; s=20251104; t=1788530134; x=1789134934;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Ag2kes3X+yx+hXtnnZD26gCaVLqPvhzmqHhNLHDvSXc=;
-        b=ZyZH13Tdq0QswO1Y9lQetdhgIXTvh0Dkzkc5/X8Nm4ebJWbky3Tzw9fCOtNVJJ0Uyz
-         YWIXaUc3ldpOM/LuGrXJX3wrbvvxOBFi0a2njv189Ia1EVOpqKsTME3NzqCCeAc1XslV
-         TO4C/jqJsEbbci1uKewIdo1N867sRRVg+2exHEaZWnLjVBb3OlznAEo7Eia/T4hCsU/T
-         6PkQbLWfjQGGgW3io95xH9mnDNwI2nHDoCRmQM6m9cpwMIQ7FzWJTmCnvb63INEc0Nk5
-         NzWsm2ApXcJGKrlsD2hYjrZ6ihRICR1xJJEn9pgm4rV7jz68YyjeKjOI1YFWC5mK8k07
-         e6xQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzv7UHF8mAbvzNKOxXB3vLppxM4DqIj2k+KvQtoWoOwxVRS0/x1fBjgGofwyzvQTacuOKAncJeirDg/ads=@vger.kernel.org
-X-Gm-Message-State: AFuF++k6IWPZsu2+mHoDIvYw+wpz7zDHmE0Cj+LT1e2JocHLmU7nm9ec
-	Enyc2NE58FGIc2QdqPUsuEWKWs6IVdd4lKfHB6qvre9hjqJK72zALIpmp4ucEs8L6oOiBSex9N6
-	+KWQzdmsBaZV+qWlbbxOmWAs0I++mNTQ=
-X-Gm-Gg: AYBFou3V1qTiAo/O7AaAaw1/AtoRuOrMvVXRbMVSzKIYSEGGIPuZbyjfFRdqP7njlSm
-	YOM+NT8hCfxbG1WsoV4lOR7PofxJqQZPohqIl7Fmr0LB+4AcxjnXzYHul1G4Z+logc1ntLhMeXj
-	5W35LEkNtUOOy/YX8lUkM4Z6gVMiuGBe5tW6wTkcDSLXh9ZxzVCo5bDR8HLrdfuGxgEpKkOLuEk
-	T8SofuO0f9v+0Zt9+CgrqKHJ2hzUNRl61Z7oLLKX0Z3+TxWGeEctCawwVmjVEKc6HFzIfojy3jv
-	Tv6O4sZjPBwOIhSx9O1bM+Cjzs4ps2Kkq9kv1zk1k4H8V1NsmHSxln/eQxYKJaJu2WauwbWUF8C
-	o/76UstKaZD8JiUN4QsMwqdJdBo4+jprbYb8Yx/ryPmOJ9Xfj4k9tn2uLUjaYd5k=
-X-Received: by 2002:a05:620a:13d7:b0:92e:8405:7ad2 with SMTP id
- af79cd13be357-93980462eabmr443214785a.41.1788530110195; Fri, 04 Sep 2026
- 06:55:10 -0700 (PDT)
+        bh=pkjDjgzDaw86AXoG1909ddrRynkL4ufeKlwmjCrQJhQ=;
+        b=b/TynHbLuq4w3Z6SMZlg5wRlM4hBe9aCf+37OR25+HZwZLIYuhE5Np6fg9JbvPLrpe
+         3CKJ592fqDPp7+gkguScJ6CzXwMx6MVyuRY4snB4FmcGhyQTuraVgAd60SPsn4Al/sTH
+         KymMYoWEQVmxUBzWqNsw/Gwom9x7feJFt3whY+J5UgwcP8ltecGHHPSkNiORJ5rpTHHl
+         QoAYnNA/uWFNsn+tU9Q5HAzc9qpuW8uh+Y7c2X/8zd5fSbUZbAmMxLb3hJ/3DXGBOWSG
+         8oXPLgqY5x3Sjz3kUIjFbC9dTsI/MOdpoyhXEv1a74VAXIkt/cVaLPnlVA1u0NYOl9NF
+         iakA==
+X-Forwarded-Encrypted: i=1; AKwUvBynS54ntta2pO+d0av8nKqtZztNCKkXzolFmh+NspeIl4cDsGr4ks02jKQLHJfRHC/bOupIJv9U4c4Zev0=@vger.kernel.org
+X-Gm-Message-State: AFuF++l4IAiphggz8BgVVN4zMooaKtsRNIA2jce3wqY5wTjRal3N2Phm
+	GF64vcHLUv6+xXgll+sZdbDFdD+VcJdsskg4JR3Lwdf7jY82is6MNUnqXu2BSxACFtqOtb1kfLG
+	eMt5ZfK4qO86KRUVGr2fR+n4ATdZbPfg=
+X-Gm-Gg: AYBFou2JjMc01dC3VDunzEolot+tY3rwxtCA98DHL+DHSixVT+z5Pwf9a0ueFLoQrKz
+	M8Hp5v0cqBNzwOkigefdKHq0zUztZwpErbz8/BUgmZJBSfYy5mV7wMZtYyTYWsUfZAITMorXB+a
+	l9RTWs1ZexG8V6HEoNQxN9AGztPGMAg0LbCxSN5qKi2IbySaumQNL1dwpUgXYQBsQ+7zdYJthSw
+	/AZfuXYdhhd9Yoqi32PeIU7rPEEmlTEBsQPzMKklcY6b/QoKi6up6da96RxVuPZTB3kMlT6g7Fa
+	LjZqVr3ZbPMimtxe10a61M2bMhFt7K5DX63FyAvfzL3iBiSMhwchYY6tWzrt
+X-Received: by 2002:a17:907:720f:b0:c25:5d2:acf0 with SMTP id
+ a640c23a62f3a-c260c8c21d3mr311924666b.8.1788530134042; Fri, 04 Sep 2026
+ 06:55:34 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260904115443.10393-1-hemanth.selam@gmail.com>
-In-Reply-To: <20260904115443.10393-1-hemanth.selam@gmail.com>
-From: Max Filippov <jcmvbkbc@gmail.com>
-Date: Fri, 4 Sep 2026 06:54:59 -0700
-X-Gm-Features: AcwNN1VkK3sXdz93xQy-xDnffNJjNtT9iNJiKQsigLZynm8Bzjao-dwL8lzoUKQ
-Message-ID: <CAMo8BfKHG=3BZM9Z_wJgBSZ6hMGRZ9D7KdBofYeGdQ22LELnSw@mail.gmail.com>
-Subject: Re: [PATCH] xtensa: fix typos in comments
-To: Hemanth Selam <hemanth.selam@gmail.com>
-Cc: Chris Zankel <chris@zankel.net>, linux-kernel@vger.kernel.org
+References: <20260904043724.2955444-1-s-vadapalli@ti.com> <20260904043724.2955444-21-s-vadapalli@ti.com>
+In-Reply-To: <20260904043724.2955444-21-s-vadapalli@ti.com>
+From: Luiz Angelo Daros de Luca <luizluca@gmail.com>
+Date: Fri, 4 Sep 2026 10:55:19 -0300
+X-Gm-Features: AcwNN1WkMLBcSKjjx-549nVRZ1ZETkJHm5sDyQYa7o61EdbIDExabOintEMeFfo
+Message-ID: <CAJq09z44PfcEKsoH9eP+c5rxmzQ52hQO33k8sO-e6po1bpE6rQ@mail.gmail.com>
+Subject: Re: [PATCH net-next 20/33] net: dsa: realtek: rtl8365mb: Remove comma
+ after sentinel-entry in match-table
+To: Siddharth Vadapalli <s-vadapalli@ti.com>
+Cc: dario.binacchi@amarulasolutions.com, mkl@pengutronix.de, 
+	mailhol@kernel.org, msp@baylibre.com, florian.fainelli@broadcom.com, 
+	jonas.gorski@gmail.com, andrew@lunn.ch, olteanv@gmail.com, 
+	davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, 
+	kurt@linutronix.de, hauke@hauke-m.de, chester.a.unal@arinc9.com, 
+	daniel@makrotopia.org, matthias.bgg@gmail.com, 
+	angelogioacchino.delregno@collabora.com, ansuelsmth@gmail.com, 
+	linusw@kernel.org, alvin.sipraga@analog.com, clement.leger@bootlin.com, 
+	justin.chen@broadcom.com, dlan@kernel.org, rogerq@kernel.org, 
+	hkallweit1@gmail.com, linux@armlinux.org.uk, rjui@broadcom.com, 
+	sbranden@broadcom.com, bcm-kernel-feedback-list@broadcom.com, 
+	opendmb@gmail.com, andrei.botila@oss.nxp.com, wangruikang@iscas.ac.cn, 
+	amadeus@jmu.edu.cn, kees@kernel.org, tmshlvck@gmail.com, c-vankar@ti.com, 
+	horms@kernel.org, vadim.fedorenko@linux.dev, daniel.zahka@gmail.com, 
+	nora.schiffer@ew.tq-group.com, v-singh1@ti.com, oss@vassilevski.com, 
+	haokexin@gmail.com, alex@sverdlin.org, aleksandr.loktionov@intel.com, 
+	lgs201920130244@gmail.com, linux-can@vger.kernel.org, netdev@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-mediatek@lists.infradead.org, linux-renesas-soc@vger.kernel.org, 
+	linux-riscv@lists.infradead.org, spacemit@lists.linux.dev, 
+	linux-omap@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Fri, Sep 4, 2026 at 4:54=E2=80=AFAM Hemanth Selam <hemanth.selam@gmail.c=
-om> wrote:
+Em sex., 4 de set. de 2026 =C3=A0s 01:39, Siddharth Vadapalli
+<s-vadapalli@ti.com> escreveu:
 >
-> Fix typos in comments, reported by scripts/checkpatch.pl using the
-> misspelling list in scripts/spelling.txt.  Only touches comments, no code
-> changes.
+> Since sentinel is the last entry and we do not expect further entries
+> following it, remove the comma.
 >
-> Assisted-by: Cursor:claude-opus-5
-> Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
+> Signed-off-by: Siddharth Vadapalli <s-vadapalli@ti.com>
 > ---
->  arch/xtensa/include/uapi/asm/mman.h | 2 +-
->  arch/xtensa/kernel/entry.S          | 2 +-
->  arch/xtensa/kernel/vectors.S        | 2 +-
->  arch/xtensa/mm/init.c               | 2 +-
->  4 files changed, 4 insertions(+), 4 deletions(-)
+>  drivers/net/dsa/realtek/rtl8365mb_main.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/drivers/net/dsa/realtek/rtl8365mb_main.c b/drivers/net/dsa/r=
+ealtek/rtl8365mb_main.c
+> index 4c305756116c..f8220d832e46 100644
+> --- a/drivers/net/dsa/realtek/rtl8365mb_main.c
+> +++ b/drivers/net/dsa/realtek/rtl8365mb_main.c
+> @@ -3352,7 +3352,7 @@ const struct realtek_variant rtl8365mb_variant =3D =
+{
+>
+>  static const struct of_device_id rtl8365mb_of_match[] =3D {
+>         { .compatible =3D "realtek,rtl8365mb", .data =3D &rtl8365mb_varia=
+nt, },
+> -       { /* sentinel */ },
+> +       { /* sentinel */ }
+>  };
+>  MODULE_DEVICE_TABLE(of, rtl8365mb_of_match);
+>
+> --
+> 2.51.1
+>
 
-Applied to my xtensa tree.
-
---=20
-Thanks.
--- Max
+Reviewed-by: Luiz Angelo Daros de Luca <luizluca@gmail.com>
