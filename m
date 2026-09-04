@@ -1,74 +1,72 @@
-Received: from mail-ot1-f45.google.com (mail-ot1-f45.google.com [209.85.210.45])
+Received: from mail-pg1-f180.google.com (mail-pg1-f180.google.com [209.85.215.180])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69E12481647
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 11:49:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFA1D48165B
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 11:49:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.180
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788522568; cv=none; b=Csm5BCEts82qyWOIlMPY1wd3F+r7HgxLt+xyLh+B3ryKovLJbo1qk76nUqgoBxPMgxi581d+rr0Qi3HMlm04dNd81jNLOa3d1QpCdz69Wu8MGduPaJXNnRuH+DCdzILxWXZVwltx91q6fSzz4YejIR4cOZ7lMsnRxfpAdXvXCtM=
+	t=1788522571; cv=none; b=gc5gO/9N2CVCu/dLve580BfZ+ujaV2LtkKBW6shgWFcAGmSD0dhZZcvPyJyOyUEw9DLfA+5R0B2NSM4PwovKglCvuaa6C9np/svG0i6fiZCWTDCRvRiGwivICEqkQzc2Iie9eTj2G3XyvuBQshwxMM0k17BkOL3YAITZax1QceA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788522568; c=relaxed/simple;
-	bh=Z+OuMzHypYgVVw55NzH0RaXFLMtX8AM24yOYGXMnZTc=;
+	s=arc-20240116; t=1788522571; c=relaxed/simple;
+	bh=1N6S/0++RuO3ppCjn2I3KMPwSzeZZUApnT+MaalWnhc=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=El/g86rgOvwcpzEa8kc3RsFtUghiN2CFHTufuEYyHDOe9bLFNVJny2FLIRvpZEtG9VpCFgZh2xttaBIgG5Uc4Ee7OGC2FkPvA/iPbSM6y3lXpxCZrXIO+WgfYxZsDSZBPmuSg4Zp9ombFvFfzbJWJ/OYZ2uC5LesaGfB6ox9nRk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=smCvIjfy; arc=none smtp.client-ip=209.85.210.45
+	 MIME-Version; b=C7uHiP2xH5mef/7fmVWNR9gGDb9nwSy2v8QjO5q8qvHCcTwaR6QQSqTRl5g7ga12GnfNe+rFw57Ptg232bDHn/i+Ch8r7lVIDuspLnNh0KxdNRGHZY5FOQE45FOLJesN3nnJmhgEyTl1ikDcmiodzE6n6LSS9SbJSisH7DJ3Jm4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WLy/PKUa; arc=none smtp.client-ip=209.85.215.180
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="smCvIjfy"
-Received: by mail-ot1-f45.google.com with SMTP id 46e09a7af769-7f4e596e393so960888a34.1
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 04:49:27 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WLy/PKUa"
+Received: by mail-pg1-f180.google.com with SMTP id 41be03b00d2f7-cc439bfb2d8so697310a12.2
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 04:49:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788522566; x=1789127366; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1788522569; x=1789127369; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=0EWkSe3xT6wn1/eZYdxgKyM8DvnDFd+lwts1C5rXmNA=;
-        b=smCvIjfyBvE4rk/GhXiWyv1K8Ce4npDIh2wKKpoBP0exJF9kapriCbcgZzCXVVIKYU
-         47Q/fdO8eCubPu0taKKBSAazKGrucSAFY7CI70m9ZCaQlLlUjKpNrbdwEMhsvzaR+Rf0
-         PH57h1QvkkKDmDjxFkMQ4jPUp/aCka4LE22dBSdW7t/HrTTtbgTCfpGvVcGLC95f1VKQ
-         cOt+9Zw/wlQtW1+Hfd1lCvBivE765nrKQ6blqgOuQaWvhJL7Rg5pu80RaR8AqvNMtIFu
-         o9N0mnG0sO0UdYRZlyMr5Y1DfllTvEe2wAItZOP881E0I8Vqf/K2xdXdIWjErDl+qa25
-         TtAA==
+        bh=NENJaIws9zKIIeoeNZgCpTiVTdEc2ZBt9Jz4F+j3AgM=;
+        b=WLy/PKUaqZVbs9cBl9W25dBzcUC/EaiTMpxULe25fw6OkTypYVlJJrzTncE2R0pRbj
+         5+VoiVYtifOYg48tLidsDM/gPZtBFNvVFGscuSirs5KDQX9lXPbKdXt+XqtVpy2S/5Wp
+         MK0wJaFp8oGEN7lAEsjBj75KVJyoD4eMwCpvW/DOkiktQ2fcf4NTD8ui00Gxq/lzOmTh
+         NSYx6txjPNxbTxAiJ56p0JeZnbDtems8qSh6+jeYLXpBGBkfb+SgL5szs/NXT8+VqJHO
+         X1uNq7SLEtfOPWHn3mOI8nk3G21mZkbOO70SYPWjvbpKY92NbcU3ukdBRAgBGpOjo0KR
+         RvJA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788522566; x=1789127366;
+        d=1e100.net; s=20251104; t=1788522569; x=1789127369;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=0EWkSe3xT6wn1/eZYdxgKyM8DvnDFd+lwts1C5rXmNA=;
-        b=FUWUoxj6tmghLZE72LHcImQAbzjZk4bdASI/QUWQoWJWtNGpsEhzwkuX3TOOJrUZ6S
-         ns76W6lIJfAH6rpL/hn9c4MGnGPAEDuEca8QOUlKJtZhAiP74hW5Cz5t6Z4kRLEbwz4I
-         5XT334banzNpufbz0kLTBLVokkgboaJ54JWzqvX+CLw5HS8to9vKFzZ6bQBFTWAO1Upq
-         gMgZ+38h7Ds3CnJe1vIPUfEIfJ3aJB33scxsZxf21yC8lTw0o1DsxXAxRkPiwJXlTTBi
-         i7BYBWENk/Schg1RVgoVRzMBhWRRCRQ0HSFjC9tgoSz2rCSDJYfoAnSZ18pRIIbD5fRm
-         SvHA==
-X-Gm-Message-State: AFuF++mV8fgXctDtnMkL4BxPQ/WYp80569SJFmvtMxnGAQQBM+NO1CkW
-	k7+KNZQg20qilNZIGT7Fn8Gx8mP86zdNsmAEEsdbFqioWr56DixjGpuo
-X-Gm-Gg: AYBFou0XBZq0r41ItEjx5Cwc6e2Ff4wssPyDAA+mKZDzRfJYr70z3vzKsvN9HW+3a1l
-	mUE9VaALClY6p4Uqmo/zslhGKVM8lgYHWUdM5P/HPRk3cVTuSwWkW44IMXEzd1j+zzx95D+J8XV
-	Z4cXVVTFDJEv01odUze+zb8sTR1wHsz/Ete0m5ItMIl36YlHCR9moEGiTBFm0At2WYwH+vLqt3P
-	MFTjjrAjCBZESIA8aD2etjZQdN5Ck0x77h9I1jdx1SGeB1dEGl4n6z3C0SM79bXwF6gC9rwETni
-	ZfjHk+Oh0H9e9CnYWCR6mJufKiNY8jAIsmLOY0myzyg3e7c8J/hIJAonn0+xD7lp/LiOllikQWU
-	xcH+nlzPpQIuS+k3+iwAU7s+j0uqV0qgiCZMgxlXHyFd5+tw+uBcoUiPzKdLtKDnYGQ0eCjXcH3
-	fYuSSo9KFIrEplucTaORI1VZTe2YBqrZE/EsVKonhNyPArJSrRNYf6z1tNineRa5HFQmhf4lAyF
-	Kw31l1efIbB6Ts=
-X-Received: by 2002:a05:6820:4cc8:b0:6aa:de29:651 with SMTP id 006d021491bc7-6b6fbcd091cmr4246771eaf.16.1788522566129;
-        Fri, 04 Sep 2026 04:49:26 -0700 (PDT)
+        bh=NENJaIws9zKIIeoeNZgCpTiVTdEc2ZBt9Jz4F+j3AgM=;
+        b=IRyl5sltvWrNOs+vrfhSRCo9OMaSXF+XkinJqBSM5AfN1OPJ4DkhVDWI+qQlCY35Ep
+         NxVpNzytfs0ZTlIaJupJnY5rgtMSTkJF287+S86C+v5Qhu0nBvMlnlT3RoUoZa6+ZtO3
+         rYWaWpGy9DUoGZBSVMQ0f6xMUBkCVq28hblQIly9JJ2ottNXu86MxB6QkGh4jTIjkkVY
+         6ubD7DTjQA0XHbr7j0IfQ6lVjU4AMgfyGqpZD66ngp1VE1ML702hIbbBI5GIOF0yT1wM
+         2QkAMncmQN58tqxTdsCxfZeKQ9Plou+m1j42xWprTK5elh4etFl0mXu67KKD2+L6DZmA
+         6pKA==
+X-Gm-Message-State: AFuF++ntHQwyAzg0hnp6YTwbpNU7ebvHlWTZ2zf6lsm9fyHyZdxl1JXX
+	4o7Zca0O296XWbPIENevMcCbRvoD2YyoeqiiGyowFJ1wD+23GWJa3RLQYqWBemIiX9A=
+X-Gm-Gg: AYBFou1ne/5SMvYlfrRsULnuZGSdTC8gPXB+7m//6K37HJ+AsAgJFySoCN3sMKE4jvf
+	tCtY/XWgXcdAew9hFYVyUx461j8EfCSqg3yVW0MxzDIS80ZZx+RXGrGIrM/Mw61gcHNg7HK3nxt
+	EBOEHRv5fFT/7pOF7sDhB3gseytTwi0hf0EvYSoNcZ666Oi1wjp8G+1icI0y5I554RqMWqWVqE9
+	GAe92H4pHGWeeuGZ9rQc2RZ5/8DeJezPB9ohlFsabaVGYM3s15Si9NsR+3Vu57r58CaXW9sVHOr
+	M9/Bepua4xbFqBptYy8B4ky0SX47H2lfeLy9SdUpXjAHDTdNS36Mevd1R6VQX2kT41pf3ZmzAZL
+	v3f3JLu5E+DtcA+NIa0O7ZL+2/VkwzUUCYNw/8u0Ta4xYcKKaj1T1BxQTpvEyOcqilFQ6SnTwCa
+	1nGhMDcHgaccPRvEj1xgTWxbuVK+pX9o956cgoww422JeDlUcyADVFsmwXMllNckPpQxY1oLvHf
+	TehDLImV328mjg=
+X-Received: by 2002:a17:90a:d2c7:b0:398:9bd1:3216 with SMTP id 98e67ed59e1d1-39b262e4e02mr8362834a91.23.1788522569111;
+        Fri, 04 Sep 2026 04:49:29 -0700 (PDT)
 Received: from volcano9f6e-hostos.amd.com ([165.204.217.251])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339b6036fcsm6723317eec.20.2026.09.04.04.49.23
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339b6036fcsm6723317eec.20.2026.09.04.04.49.27
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 04 Sep 2026 04:49:25 -0700 (PDT)
+        Fri, 04 Sep 2026 04:49:28 -0700 (PDT)
 From: Hemanth Selam <hemanth.selam@gmail.com>
-To: Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>
+To: Simon Trimmer <simont@opensource.cirrus.com>,
+	Charles Keepax <ckeepax@opensource.cirrus.com>,
+	Richard Fitzgerald <rf@opensource.cirrus.com>
 Cc: linux-kernel@vger.kernel.org,
-	patches@opensource.cirrus.com,
-	linux-sound@vger.kernel.org
-Subject: [PATCH 1/3] ASoC: codecs: fix typos in comments
-Date: Fri,  4 Sep 2026 17:19:12 +0530
-Message-ID: <20260904114917.28603-2-hemanth.selam@gmail.com>
+	patches@opensource.cirrus.com
+Subject: [PATCH 2/3] firmware: cirrus: fix typo "upto" in comment
+Date: Fri,  4 Sep 2026 17:19:13 +0530
+Message-ID: <20260904114917.28603-3-hemanth.selam@gmail.com>
 X-Mailer: git-send-email 2.48.1
 In-Reply-To: <20260904114917.28603-1-hemanth.selam@gmail.com>
 References: <20260904114917.28603-1-hemanth.selam@gmail.com>
@@ -80,66 +78,29 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Fix typos in comments, reported by scripts/checkpatch.pl using the
+Correct "upto" to "up to", reported by scripts/checkpatch.pl using the
 misspelling list in scripts/spelling.txt.  Only touches comments, no code
 changes.
 
 Assisted-by: Cursor:claude-opus-5
 Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
 ---
- sound/soc/codecs/wm8962.c  | 4 ++--
- sound/soc/codecs/wm8996.c  | 2 +-
- sound/soc/codecs/wm_hubs.c | 2 +-
- 3 files changed, 4 insertions(+), 4 deletions(-)
+ drivers/firmware/cirrus/cs_dsp.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/sound/soc/codecs/wm8962.c b/sound/soc/codecs/wm8962.c
-index 8a9598161b35..af4716051220 100644
---- a/sound/soc/codecs/wm8962.c
-+++ b/sound/soc/codecs/wm8962.c
-@@ -3430,7 +3430,7 @@ static int wm8962_gpio_request(struct gpio_chip *chip, unsigned offset)
- 
- 	/* The WM8962 GPIOs aren't linearly numbered.  For simplicity
- 	 * we export linear numbers and error out if the unsupported
--	 * ones are requsted.
-+	 * ones are requested.
- 	 */
- 	switch (offset + 1) {
- 	case 2:
-@@ -3813,7 +3813,7 @@ static int wm8962_i2c_probe(struct i2c_client *i2c)
- 	regmap_update_bits(wm8962->regmap, WM8962_EQ1,
- 			   WM8962_EQ_SHARED_COEFF, 0);
- 
--	/* Don't debouce interrupts so we don't need SYSCLK */
-+	/* Don't debounce interrupts so we don't need SYSCLK */
- 	regmap_update_bits(wm8962->regmap, WM8962_IRQ_DEBOUNCE,
- 			   WM8962_FLL_LOCK_DB | WM8962_PLL3_LOCK_DB |
- 			   WM8962_PLL2_LOCK_DB | WM8962_TEMP_SHUT_DB,
-diff --git a/sound/soc/codecs/wm8996.c b/sound/soc/codecs/wm8996.c
-index dface555f928..e7a20ce39940 100644
---- a/sound/soc/codecs/wm8996.c
-+++ b/sound/soc/codecs/wm8996.c
-@@ -2106,7 +2106,7 @@ static int wm8996_set_fll(struct snd_soc_component *component, int fll_id, int s
- 	if (i2c->irq)
- 		timeout *= 10;
- 	else
--		/* ensure timeout of atleast 1 jiffies */
-+		/* ensure timeout of at least 1 jiffies */
- 		timeout = (timeout/2) ? : 1;
- 
- 	for (retry = 0; retry < 10; retry++) {
-diff --git a/sound/soc/codecs/wm_hubs.c b/sound/soc/codecs/wm_hubs.c
-index f80dfc488e3c..019940589e51 100644
---- a/sound/soc/codecs/wm_hubs.c
-+++ b/sound/soc/codecs/wm_hubs.c
-@@ -338,7 +338,7 @@ static int wm8993_put_dc_servo(struct snd_kcontrol *kcontrol,
- 	ret = snd_soc_put_volsw(kcontrol, ucontrol);
- 
- 	/* If we're applying an offset correction then updating the
--	 * callibration would be likely to introduce further offsets. */
-+	 * calibration would be likely to introduce further offsets. */
- 	if (hubs->dcs_codes_l || hubs->dcs_codes_r || hubs->no_series_update)
- 		return ret;
- 
+diff --git a/drivers/firmware/cirrus/cs_dsp.c b/drivers/firmware/cirrus/cs_dsp.c
+index bb93b24c659d..04015280ac5d 100644
+--- a/drivers/firmware/cirrus/cs_dsp.c
++++ b/drivers/firmware/cirrus/cs_dsp.c
+@@ -3505,7 +3505,7 @@ EXPORT_SYMBOL_NS_GPL(cs_dsp_chunk_write, "FW_CS_DSP");
+  *
+  * As cs_dsp_chunk_write only writes data when a whole DSP word is ready to
+  * be written out it is possible that some data will remain in the cache, this
+- * function will pad that data with zeros upto a whole DSP word and write out.
++ * function will pad that data with zeros up to a whole DSP word and write out.
+  *
+  * Return: Zero for success, a negative number on error.
+  */
 -- 
 2.48.1
 
