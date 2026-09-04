@@ -1,93 +1,106 @@
-Received: from pdx-out-008.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-008.esa.us-west-2.outbound.mail-perimeter.amazon.com [52.42.203.116])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ot1-f45.google.com (mail-ot1-f45.google.com [209.85.210.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E035C3F871B;
-	Fri,  4 Sep 2026 12:08:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.42.203.116
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45C4747426F
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 12:09:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788523729; cv=none; b=g9NtSSXIjW2fA5H+sANeVVqGcKudueAzN43hJoSJqiR+ickDfS4oQQCzQnWnvEWHgqZv1o1kf7u3YvnWFx1oa3e3HLYpn1W9vvrITYRffAQf4KIkaWn0cXj1gZonkmM+fdvc5gXWWS5svmowsoaNE6PLvnc2bqWD8fgvViqox+U=
+	t=1788523743; cv=none; b=YVFJYHCXJCu0nF6SSYb6YHewJb0V+DR50C+BebpPzfPdp/JtkE5lf9HI5r/N5R4eFpW1i5PQA3esU2g/ipXJ9P0dExxOQOiGxL1wjlzCeDAnUq1Y+rMIlNBRfHtnPx4l34BUNSKvJTKDnh9482N4Ne58HRIkmMjyzccLK9qm9fY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788523729; c=relaxed/simple;
-	bh=yeQfZRe37uTQFMCzdgM6w8pnuJQjYBmF7q9HtXaNyyM=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=MrRucp8s5wALC1K6N2ojzLmysggiGXZtU6xziALTNEZM/5JQ+jg10LA5CtfZRjkelpSsJmQ37k4iDPLlFDB6RRigQLva8273zmyffdVjELeB8AGQM+TmZWV2xnJoFyrmNMaiDeM8QLfo/X8WvrkDaRyaLVE8TBFArz22jrJg8e8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.it; spf=pass smtp.mailfrom=amazon.it; dkim=pass (2048-bit key) header.d=amazon.it header.i=@amazon.it header.b=PA++hPy+; arc=none smtp.client-ip=52.42.203.116
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.it
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.it
+	s=arc-20240116; t=1788523743; c=relaxed/simple;
+	bh=2wIHCC6lfaVB9G4CrNQIKsYagU0PTTCyMXq4+hmCpzY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=BB2Um/2cF+/tqdBa6cXVrdZ/tNi6OvFUy3dvFN0Q9XP80MygR0Imrft50JYkL43T6sdAuogdtpRu9dSq7ga3hjIoriIqrNe3/636VzB/QBlyk5+1qT9Fx7qnnEE6glZC5c/AI1DuDXduuuA5Li6AWPwpdcAoXHgvEismJv9nn3Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ieCMPTrv; arc=none smtp.client-ip=209.85.210.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=amazon.it header.i=@amazon.it header.b="PA++hPy+"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ieCMPTrv"
+Received: by mail-ot1-f45.google.com with SMTP id 46e09a7af769-7f5934ba2a5so486275a34.3
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 05:09:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=amazon.it; i=@amazon.it; q=dns/txt; s=amazoncorp2;
-  t=1788523727; x=1820059727;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=yeQfZRe37uTQFMCzdgM6w8pnuJQjYBmF7q9HtXaNyyM=;
-  b=PA++hPy+Uy/nAlaRkw8TmePgapMZWazidL6H3fdyrJ+7mHeFwMvi9tCz
-   yoyBYyp0uZDtv7OcIqUlElOn/0ETcB9Y9/gOP35ImSvt3KeQyik9LVIeX
-   U8ZXlhgpQbyoKbFaAVgzLHFYN22sVZzgYyaWmKopJZXWa3Ar59zKGknnE
-   VY6TmL0yKXez7O5saMdQDvdfzrmwa51VVVpzZvkVDPiXY7DdurNbsckSU
-   dXeK4X2hqAWOTPtmzZKmle8krrCk6tPMTajlR5IHN9Drgxy+V6H9p69LM
-   WUYSwGbcQqEk+8uzC3OXeL7WUEZ3jrPz5CFhf0eYdy6TVWzHiDUULmhiI
-   A==;
-X-CSE-ConnectionGUID: d/CPTFUJSGSK9F4J3yp0GQ==
-X-CSE-MsgGUID: aQlVFFEmSDOk9HvK8nEqgg==
-X-IronPort-AV: E=Sophos;i="6.25,262,1779148800"; 
-   d="scan'208";a="27848437"
-Received: from ip-10-5-12-219.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.12.219])
-  by internal-pdx-out-008.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Sep 2026 12:08:47 +0000
-Received: from EX19MTAUWB002.ant.amazon.com [205.251.233.48:18188]
- by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.14.124:2525] with esmtp (Farcaster)
- id e2747aa3-2a41-48cc-9cc9-c0602878100e; Fri, 4 Sep 2026 12:08:47 +0000 (UTC)
-X-Farcaster-Flow-ID: e2747aa3-2a41-48cc-9cc9-c0602878100e
-Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
- EX19MTAUWB002.ant.amazon.com (10.250.64.231) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.45;
- Fri, 4 Sep 2026 12:08:46 +0000
-Received: from dev-dsk-dipiets-1b-77b833da.eu-west-1.amazon.com
- (10.253.66.177) by EX19D001UWA001.ant.amazon.com (10.13.138.214) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.46; Fri, 4 Sep 2026
- 12:08:42 +0000
-From: Salvatore Dipietro <dipiets@amazon.it>
-To: <hch@infradead.org>
-CC: <abuehaze@amazon.com>, <akpm@linux-foundation.org>, <alisaidi@amazon.com>,
-	<blakgeof@amazon.com>, <brauner@kernel.org>, <dgc@kernel.org>,
-	<dipietro.salvatore@gmail.com>, <dipiets@amazon.it>, <djwong@kernel.org>,
-	<hannes@cmpxchg.org>, <jackmanb@google.com>, <linux-fsdevel@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, <linux-mm@kvack.org>,
-	<linux-xfs@vger.kernel.org>, <mhocko@suse.com>, <ritesh.list@gmail.com>,
-	<rvvandan@amazon.com>, <stable@vger.kernel.org>, <surenb@google.com>,
-	<vbabka@kernel.org>, <willy@infradead.org>, <ziy@nvidia.com>
-Subject: Re: [PATCH v3] mm/page_alloc: avoid direct compaction for costly __GFP_NORETRY allocations
-Date: Fri, 4 Sep 2026 12:08:28 +0000
-Message-ID: <20260904120828.4022204-1-dipiets@amazon.it>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <apf-wsCj_5QvAPcV@infradead.org>
-References: <apf-wsCj_5QvAPcV@infradead.org>
+        d=gmail.com; s=20251104; t=1788523741; x=1789128541; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=kqAMG16H83bb3w/CeilZLNw8QqmD2JhaRj+0C7KQpy4=;
+        b=ieCMPTrv6dMSX0MtWPM33cFySg6KVyuoBHLG32WL0iGQHrq1JZMCWSgH2qSOKcYylb
+         x/abv3iUerklMLBMaeO5lGGl8mMp22cC0fo8kkmcGJ6oGCeYiX7OiE/faV9X5z65mZ/j
+         lXwR9m7fBXYqmohPAb8u4jUG6mp2ZiAZFFNRhBLJQsxNQQy+kpDgEKcqAv4RxbiAGbgt
+         RlWwnma9ApQXRQ/3+ymXSwghQ5G9rNzUTkeJ8s9OI+Wg1MPulYhIdbrlVk1hyq5wH+TR
+         GUdWqEmU43E28y3RDF54jT703I8zjUItbcIeTB1xrHHjz/P1uliOU8sz736KLyYRyO9Y
+         uprw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788523741; x=1789128541;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=kqAMG16H83bb3w/CeilZLNw8QqmD2JhaRj+0C7KQpy4=;
+        b=BXmSvu575gbDBn105GDHb3n7WN2zeP6ooFIh8KSzXn9Z1PQRjdNM1qqRy6uT2gHnWR
+         aSQhFCnAIkGNgrhttB34OJ+fIVctd5gS6cy/u4dMqYXj1epPmDaQiK6HvCLqr776MJWv
+         OYUivtPngN3hR8VmQmPGleDPUtyTrw1LCELyRRxlqntifghP6zZKoFCHhsFZE3OMBfKW
+         5CdsFqD3g9S/r46uk9A53kIrDmSwE154k/aNVdJjaY85mWPOTj2iiR8irozGJfzeWr8f
+         mCKB4GPQjvEOe3zZEHBtlaEj2XfMrJ75cJS5v+XrL7vyYVXPyuBKpGTU7NZJEoBmIVMp
+         R6rw==
+X-Gm-Message-State: AFuF++lyDw9MedTf0KHJ0ljbFN0cSSf7dpcNiBotXOjteUn/KQZawmRe
+	ZNGxID3NlfTmMMWg1xDy5VETBAs1vgUJude1zdUuz0GHi56haHIYbrdI5hJHl7CBrIw=
+X-Gm-Gg: AYBFou1hNePh5gKs3hxvqQN1V9Dj5pHzlFmccqgxl+WJ/MzzBnaG8q3FA/2kcNvcABB
+	mynjepj4K2iKUt16oIBOX9ah+vJzQGIdo+HfnDT3VPj6V3VuoirZeTstlHtFUzkT5BKsZYpAG1l
+	s2LHoB7WAuP0JhCEw18w4L0SJyPwV5bnXNCD1IWORAY8qYjzPFWAYT/Z6bO/byRlc96D1eIAMSw
+	R0ol15Mnw22YROTROSHOKamsbgEVn/5PL8cd0OxCrl6uM7IpVLaRKJ+PEnn93d+4lPolZwnGmGl
+	A2xV06HTeW1HRXLKO8jPQS53zby0RZMFEuPDEGXCD5zW6SRr58R3TsaMWb0MLWli2mBgKcgKwIK
+	+S3B8xS/0E5hFIVUpQ2hVplsCK93C8LMeK8Bkqd4xq/1kygoY4mdAnbCz6I/gZD74lMyZEL6MdB
+	50MSZOKUMaSz0Ta+bdUFVqBZrhr8D5Bl6Hr63QruqE0kW2D9Lp5v2Mmw6bIqdgPu8kDeWeX8hLc
+	rgmhgigulrB1FU/DRdivlb6Pw==
+X-Received: by 2002:a05:6820:1501:b0:6b7:8396:f3d0 with SMTP id 006d021491bc7-6b78396f856mr1510354eaf.50.1788523740954;
+        Fri, 04 Sep 2026 05:09:00 -0700 (PDT)
+Received: from volcano9f6e-hostos.amd.com ([165.204.217.251])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339a62be87sm5730826eec.6.2026.09.04.05.08.59
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 04 Sep 2026 05:09:00 -0700 (PDT)
+From: Hemanth Selam <hemanth.selam@gmail.com>
+To: 
+Cc: linux-kernel@vger.kernel.org
+Subject: [PATCH 0/2] hv: fix typos in comments
+Date: Fri,  4 Sep 2026 17:38:53 +0530
+Message-ID: <20260904120857.20431-1-hemanth.selam@gmail.com>
+X-Mailer: git-send-email 2.48.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-ClientProxiedBy: EX19D032UWA001.ant.amazon.com (10.13.139.62) To
- EX19D001UWA001.ant.amazon.com (10.13.138.214)
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
+This corrects 2 misspellings in comments.  Each is a separate patch so
+that any one of them can be dropped without touching the rest.
 
-Hi Christoph,
+Nothing outside comments changes.  Every touched C file was checked by
+dropping its comments, replacing each string literal with a placeholder
+and collapsing whitespace; what remained was identical before and after,
+so the compiled code cannot differ.
 
-On Tue, Sep 02, 2026 at 10:47:00AM +0000, Christoph Hellwig wrote:
-> This looks really nice. Can you turn this into a formal patch?
+The mistakes were found with scripts/checkpatch.pl against the list in
+scripts/spelling.txt.  The scanning, the edits and the changelogs were
+produced with Cursor running the claude-opus-5 model, from a request to
+find and fix spelling mistakes across the tree, and every correction was
+then re-checked by the comparison described above.  Words that name an
+identifier were left alone deliberately, even when they read as typos,
+because correcting the prose would make the comment disagree with the
+code it describes.
 
-I've submitted it as a formal patch: https://lore.kernel.org/all/20260904115629.3993331-1-dipiets@amazon.it/
+Tested by building x86_64 defconfig at v7.3-rc1-269-gbc35965f6940, which
+is clean.  Nothing else was built, so any patch touching code that
+x86_64 defconfig does not compile has been read but not compiled.
 
-Salvatore
+Hemanth Selam (2):
+  hv: fix typo "substract" in comment
+  tools/hv: fix typo "retrive" in comment
 
+ drivers/hv/channel.c        | 2 +-
+ tools/hv/hv_get_dns_info.sh | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
 
-
-AMAZON DEVELOPMENT CENTER ITALY SRL, viale Monte Grappa 3/5, 20124 Milano, Italia, Registro delle Imprese di Milano Monza Brianza Lodi REA n. 2504859, Capitale Sociale: 10.000 EUR i.v., Cod. Fisc. e P.IVA 10100050961, Societa con Socio Unico
-
-
+-- 
+2.48.1
 
