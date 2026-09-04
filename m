@@ -1,87 +1,81 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C1B14F4740
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 22:36:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0FB4418A23
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 22:39:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788561404; cv=none; b=oaDPVdtg5YCcY6+Q+3zLISxRibXqEoM3fiE01UqN5BAOzI40dZmIWqUpcuHRCAl8wb7QL/RMRhhjOM7R8zX3OBo2YfNHHC5iQsRrHbriLEuDZT49DyDT325li4cR5UKgvnhHKaX/G2dG8VDENIYglXewnp+s3bpSPftORSUNolw=
+	t=1788561570; cv=none; b=Voob6ypE3I0XPjPL9qOAJqLXTOIMTBa3ShNsbgfrxFuW1odF2CViIz9GLBvdO3v1Fg5qdZNeOIIQmtdVW9vMsjXVggWklnfELIUO7G1DSQnD4uJ+QJ0UDEaT1ffQNH4K1s48nyFj7MWAF2iB0qz/02NLow7lYEun6wlNMSYHxEI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788561404; c=relaxed/simple;
-	bh=dft8jIKZLyvDmq/LPRhVyMm6r8WW3Y1LCnA91drhmyY=;
+	s=arc-20240116; t=1788561570; c=relaxed/simple;
+	bh=llV8+t5XVFTw1AVjhesFZp1A/YnFQGo0lCxhv7P61wE=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=qExVOdfUXyPoWYrYILs9GLXzirnGWEMZo4DnGphhqfd1eNp6UhJoOg06Us3NuDG5PAS5hxgCNnFjyvMXghUAN3g+dKZIzwutnxY5jY6J1uZ87v8PqWVTwfChNvEgmX2Pkf1hHN+YdinBGLHZh9k6WNbHNAAmdcHdQ1GIpQBiyb4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Qh0OQ7L0; arc=none smtp.client-ip=100.103.45.18
+	 To:Cc:Content-Type; b=cyvW6RzgblPsn7eofwzPx4U1NV2HQCukoqXtGeH0b/wuBsWuw6+kmih+Qqb+K1iN8W1J43DshL0+hVPsrmkRwoUHSL+dedZiowLcBiuyhJGb5s6fpYvlOKuTJ9sTRfXVKrYDnHVUNljFZWd5qIHfZLniUozAnt7jNVhryHMXMDY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TmQSKZ88; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Qh0OQ7L0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E7EBD1F01572
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 22:36:42 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TmQSKZ88"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4484D1F01560
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 22:39:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788561402;
-	bh=dft8jIKZLyvDmq/LPRhVyMm6r8WW3Y1LCnA91drhmyY=;
+	s=k20260515; t=1788561568;
+	bh=llV8+t5XVFTw1AVjhesFZp1A/YnFQGo0lCxhv7P61wE=;
 	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=Qh0OQ7L0D7X+117p1PpoMp1i31lJRFbYVHzLlgQ4q8VSEX3EzfUTlRAxt+8Y50ypa
-	 smazqPkGF4OAGm6Y/1rlNxf036E8E+iKcc6MHDS+XKUEEpdtK92j4dW5riWf6ddzjH
-	 kRW1+JWQ9oTyKRdu8qKPGNNTnQrIE9gNC4GqpvG6ZE2m2R5+TYYL142JjHLBOrO1tm
-	 M/VrsIzJuP1CRiXquq2Bwkk0mUehJxblPhi5OdXWqMMx9irt6NKca04+5fOEkccVTN
-	 hT5YXTqlleSDkWaQmsScB0gxtEpHBJT+8yLu3jvdO2W74lTMJlNBGCGu6reDQ0KoR9
-	 BWWALoQQKspQw==
-Received: by mail-lj1-f177.google.com with SMTP id 38308e7fff4ca-39c8ee87f7eso13831841fa.3
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 15:36:42 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBxGBpM8saEyRGsYOsClQGRCbY1n4ZrS+XQY4wtxqrM+uPpFTcebSsdCuV5FhB08dMJgr2itCu0Nkus2QfE=@vger.kernel.org
-X-Gm-Message-State: AFuF++kZAmPxaGOq1mQD50AvbIYiyoCd6ClF3uAWzEmkELjKWrgkwSa2
-	nEsURQkOztTyjrKLyCiTQ1hn8dWQud/bq1ekIWd0Ajm/BIm5GaWzzEvOrXi3kfVwKf2wbEjVU4M
-	K75USTBVgA7X4sfWZLjuAL63oVq1tN3c=
-X-Received: by 2002:a05:6512:250e:b0:5b1:5a2d:55f9 with SMTP id
- 2adb3069b0e04-5b616f3215dmr1620442e87.21.1788561401588; Fri, 04 Sep 2026
- 15:36:41 -0700 (PDT)
+	b=TmQSKZ88V4EGqJifsEp+kZ1YixheuM0ONQhC6ST5IL01g+nhibxZhhf862xYvGKiH
+	 zsL6NdJqRE+8cN1+VwhP5RbcocJ2qECR7DnI8Iv+IHuT7vV9bFqiv6IxNyNxc7AnKC
+	 jvnCWfirZFg+sfpoGgMmQfw5FMbvxJKL8jrVzg6wCknRaHWEIQW+26xRLPkPp6IIA0
+	 1Ij41r0fZpIF5xen12KtRMK1loX6JFhp82ACkNDplK8bRD363CGaVx4pITobwiNhEO
+	 UkWhB7Xwkr33bWh7UYYSA9OPrUsRBgpEwUZDefYoz68AWWve8POgu7uDBwiSMOKzcx
+	 qryaovYBoxAsg==
+Received: by mail-lf1-f52.google.com with SMTP id 2adb3069b0e04-5b6036e9c70so1222663e87.1
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 15:39:28 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBxwDy32OSKxqVplwyEp3TZgv4Jf0AFP+P7k4ze8wHSsyibCV3Zfw1JIj+r/9W78LfcEbqCpHRG5R4DNrjA=@vger.kernel.org
+X-Gm-Message-State: AFuF++kcbyqlYHCr0Rc9qwIQWe7tXagY/rewJyHNZse7q2/CCi6A4yBS
+	9+Hb5L3gf58dZvfWU+k15dQOgR7xNsS78AHtn/0NTohHiSjOluN/OLeXQH0CNKJ6EWEiWZYj8MU
+	QuloSJJn9ZFZW5jrPee8N4FXBuzjbz38=
+X-Received: by 2002:a05:6512:6186:b0:5b6:1a7c:3b with SMTP id
+ 2adb3069b0e04-5b61a7c02e6mr1037141e87.62.1788561566902; Fri, 04 Sep 2026
+ 15:39:26 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260904043724.2955444-1-s-vadapalli@ti.com> <20260904043724.2955444-22-s-vadapalli@ti.com>
-In-Reply-To: <20260904043724.2955444-22-s-vadapalli@ti.com>
+References: <20260904-cv75-v5-v6-0-e918514cb3b1@ambarella.com> <20260904-cv75-v5-v6-1-e918514cb3b1@ambarella.com>
+In-Reply-To: <20260904-cv75-v5-v6-1-e918514cb3b1@ambarella.com>
 From: Linus Walleij <linusw@kernel.org>
-Date: Sat, 5 Sep 2026 00:36:29 +0200
-X-Gmail-Original-Message-ID: <CAD++jL=c7Hbfwbngr2HQ_RTUizL=hwQbTa=C-oZNu2BAjLh0yQ@mail.gmail.com>
-X-Gm-Features: AcwNN1U9I_dDB3NJSseFrC3_GFY1Eb30_yQ91aHRnm5hTr_W3IoNAFdaYoLTgAE
-Message-ID: <CAD++jL=c7Hbfwbngr2HQ_RTUizL=hwQbTa=C-oZNu2BAjLh0yQ@mail.gmail.com>
-Subject: Re: [PATCH net-next 21/33] net: dsa: realtek: rtl8366rb: Remove comma
- after sentinel-entry in match-table
-To: Siddharth Vadapalli <s-vadapalli@ti.com>
-Cc: dario.binacchi@amarulasolutions.com, mkl@pengutronix.de, 
-	mailhol@kernel.org, msp@baylibre.com, florian.fainelli@broadcom.com, 
-	jonas.gorski@gmail.com, andrew@lunn.ch, olteanv@gmail.com, 
-	davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, 
-	kurt@linutronix.de, hauke@hauke-m.de, chester.a.unal@arinc9.com, 
-	daniel@makrotopia.org, matthias.bgg@gmail.com, 
-	angelogioacchino.delregno@collabora.com, ansuelsmth@gmail.com, 
-	luizluca@gmail.com, alvin.sipraga@analog.com, clement.leger@bootlin.com, 
-	justin.chen@broadcom.com, dlan@kernel.org, rogerq@kernel.org, 
-	hkallweit1@gmail.com, linux@armlinux.org.uk, rjui@broadcom.com, 
-	sbranden@broadcom.com, bcm-kernel-feedback-list@broadcom.com, 
-	opendmb@gmail.com, andrei.botila@oss.nxp.com, wangruikang@iscas.ac.cn, 
-	amadeus@jmu.edu.cn, kees@kernel.org, tmshlvck@gmail.com, c-vankar@ti.com, 
-	horms@kernel.org, vadim.fedorenko@linux.dev, daniel.zahka@gmail.com, 
-	nora.schiffer@ew.tq-group.com, v-singh1@ti.com, oss@vassilevski.com, 
-	haokexin@gmail.com, alex@sverdlin.org, aleksandr.loktionov@intel.com, 
-	lgs201920130244@gmail.com, linux-can@vger.kernel.org, netdev@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-mediatek@lists.infradead.org, linux-renesas-soc@vger.kernel.org, 
-	linux-riscv@lists.infradead.org, spacemit@lists.linux.dev, 
-	linux-omap@vger.kernel.org
+Date: Sat, 5 Sep 2026 00:39:15 +0200
+X-Gmail-Original-Message-ID: <CAD++jLm3KLqaQZFsb2Yu0pERjCfrskL=x3arMtrY3Gq6X4rgZg@mail.gmail.com>
+X-Gm-Features: AcwNN1WuNL_yJJgNrKZTtl_t_1Ngwep6ljsejiCgS8bZ3EgANbDs_npxnarBzq8
+Message-ID: <CAD++jLm3KLqaQZFsb2Yu0pERjCfrskL=x3arMtrY3Gq6X4rgZg@mail.gmail.com>
+Subject: Re: [PATCH v6 01/13] dt-bindings: arm: add Ambarella CV75 platforms
+To: longzhao@ambarella.com
+Cc: Arnd Bergmann <arnd@arndb.de>, Krzysztof Kozlowski <krzk@kernel.org>, 
+	Alexandre Belloni <alexandre.belloni@bootlin.com>, soc@lists.linux.dev, 
+	linux-arm-kernel@lists.infradead.org, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, 
+	Bartosz Golaszewski <brgl@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	Jiri Slaby <jirislaby@kernel.org>, Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
+	=?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
+	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, Long Zhao <zl020895@163.com>, 
+	Lee Jones <lee@kernel.org>, mfd@lists.linux.dev, devicetree@vger.kernel.org, 
+	linux-clk@vger.kernel.org, linux-gpio@vger.kernel.org, 
+	linux-serial@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Fri, Sep 4, 2026 at 6:39=E2=80=AFAM Siddharth Vadapalli <s-vadapalli@ti.=
-com> wrote:
+On Fri, Sep 4, 2026 at 8:39=E2=80=AFAM Long Zhao via B4 Relay
+<devnull+longzhao.ambarella.com@kernel.org> wrote:
 
-> Since sentinel is the last entry and we do not expect further entries
-> following it, remove the comma.
+> From: Long Zhao <longzhao@ambarella.com>
 >
-> Signed-off-by: Siddharth Vadapalli <s-vadapalli@ti.com>
+> Add the Ambarella vendor prefix and CV75 EVK board compatible for the
+> initial SoC bring-up.
+>
+> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> Signed-off-by: Long Zhao <longzhao@ambarella.com>
 
 Reviewed-by: Linus Walleij <linusw@kernel.org>
 
