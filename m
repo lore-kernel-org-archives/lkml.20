@@ -1,70 +1,68 @@
-Received: from mail-oo1-f51.google.com (mail-oo1-f51.google.com [209.85.161.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECE5448AE39
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 12:37:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.51
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id DB76F483BF6;
+	Fri,  4 Sep 2026 12:37:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788525458; cv=none; b=Xh6XwAY89H5plvIKvQE1qygvPTU39e95pgkYoCjElpsrBlYJLfcByKHOjWcK5wxEh7jxNIBdZAkbs1dXhJjdfYIJ17ZVdhBwF95JhbdlDlIaIegJCgOc85vkKtW+CUNPRVtRnvyx7bcggd60TtpesUPoAWh/v9W1m4jgP/3p+2A=
+	t=1788525457; cv=none; b=uS2eTopQiOxlU24qkWWIyCLWon9IIB8IavU0OkOdaEcTy6NSTFNv1fbqm4XrHBD+za3VtvsBBRD3Gy0iQU6M2Yfa+ijK1uFDq9aeKTvSErPVejwSf0mM0yzNUmUItoTLP15SR+YZU6UX4bufX+/mZXkNwNe0PzfFX+4znYQaYIM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788525458; c=relaxed/simple;
-	bh=x2wbt42LUYfsWIWbxHFEFI9MOJsb09wZigy4zayb5GE=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Yp2MaPJ2Y3cx5PqiPStiNTwO0KovoRnkBdLvCj+v5RLL/FhztBiwV5ifUzXp7brj1UcSc0a/KV+ZY2NefqDXgGDV3yXy3siHSpWpCLn0A9k99H+1jzTt4CtaGkQopcrQC7NwRFuMhvIER4KXj3wLmLsu11WgyNyddqU7KqLF1eQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=adTXw3F4; arc=none smtp.client-ip=209.85.161.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788525457; c=relaxed/simple;
+	bh=r+JWSjJAT1fqdxTkYFXC3Z2CcMa3Z4KrLaVw0tw7b+8=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=HLFUUxgCCWwwCGqLKPp3N3Ih5mM7AsRd8tgu0vuWKoCJtkIHUTkPW1H/UeC0eFFlgJg98yeJ8Usn70yRD8Kmo/U3mIhJhaboD0y5MzSRfi0zUrFyli6qBqY7eJr0UTcx5nUmpOn29+XoqjxpT28DkZ+MV7nBEzcMJfryekh9yuY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=n7JCvEhN; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="adTXw3F4"
-Received: by mail-oo1-f51.google.com with SMTP id 006d021491bc7-6b1b881a8e9so382568eaf.1
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 05:37:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788525455; x=1789130255; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=oAKlKt/QjH4lFsAPxeLcj7oKRn+elbiY1FdXmIqGpZ8=;
-        b=adTXw3F46O9R9U7g4qcDuBvHVO3azj4WJRQ/xGfzJKLkTZDLCFE/MXoWzNYkPdhxyW
-         YNu6VUUgBJEo7d3h7IA1taxjDum4ZnQVVMpZAQOKPgjFzRRGa3mr/gr8JryZDRmFwCXB
-         Apbq8HuMdaHtCkdalG3YfqUSJfBmitbm8B7suosVJWsMQO69FTDwM47TEB5MwftTK0Q8
-         2hM/jLKIW3vzxqZeV9SdmMwLGbQhA75MQLfMIFRuonxKuCc9AkXD84kPUiyKQtwfJ3MA
-         4LoMNzIeBexBnrY0Otq0lGT0lizp+4tWr2eHc4CmbrKuqL+3Y9lalrkyCBQzG5MjK4n0
-         Mktw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788525455; x=1789130255;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=oAKlKt/QjH4lFsAPxeLcj7oKRn+elbiY1FdXmIqGpZ8=;
-        b=L/krNiqlFh8y4nbforcZWrFosL4+Evs3yVIuT+GC0s2ioDdO3DAfyh5yjs1mtMPWpL
-         VhO8Or923ok9M4HLBVdaZS+/f1e8z5VZDdUpFHgdEHiLcs0kv9goGz5WQTEd0sl/K1zk
-         ZUdSfKQcAxNrbhkzYMKiYennAOOq4RiLw3bHj+AipGmw1/MrVzIFc7O9gbqmJsndfv6F
-         vkY0SiD9ibFguXZkzWMnlZtl1sPVNzIGMrU/3fVbnpDTiYdLHGo/YOtYzWl8l7cJ+hFO
-         8U9Lcp7zZiEV5HQWBUeJSrVtGzWaUEk+EfQIOnQmOERyhhVTdfcQjswOg+DAgR5uuqC3
-         XvkA==
-X-Gm-Message-State: AFuF++k+xsuYPkUiK8O0rLt47TEn6/W3WZa+QdTfDrZmqU1srAJQcYem
-	JY9/bP7HRuHyTXJCNtn9uTsi+h8E0a4ZxGsNAKrYc0bQuPVX74Zv/ZEX1FX4zu1qdKQ=
-X-Gm-Gg: AYBFou0/BwGON63aIun+jmioWTxn4tfCSGyGyc70zYHgjLYa5o+TlRRYn0El7tZxviH
-	/3c84jUPbpExoN/hKYO7b0BTZCUBKM+RJOitoPWkAFxUAveMf/DPSAikho6fH2GsOb8u8pdZyuP
-	rKHNnBBCUL7PiV7VwjZM5zOXip+vpS0xHDl5oolx/pd2xKSbQ6RjVsIuHAthL20Jf+OEu76DJ0E
-	+JLiiPyhuuP+Nf9TyTCbnzonZxKf2s0sZWpYZwY9kKL++6c+wYcr/pcQtBnvaqyy/PNdU0lAyUf
-	qi/RBtN4rhoqfxzaTldwHvpe7b7dD57EFzKFqeiO4Ha3QLOzsaAMGzE0S1JpqlWdZMX5XWZSbjH
-	7Z4YKz3KYaPFqrNZtsa/rTI3rdgOWq2VMCXZNHvyNDVDRolMEQ9Ew38UhZ1kzs0l7RFRMYOTL4U
-	br1iMqoq27esBllYU8vSV4ObKdNuQTzkjBB+BiqKS0AUgrObZjNufHzjdONXzKIanOchPXj+jgO
-	9ZYinG9MfbzUmn+18Yb2chbjQ==
-X-Received: by 2002:a05:6820:184a:b0:6b7:8396:f3d7 with SMTP id 006d021491bc7-6b78396f903mr1393858eaf.57.1788525455285;
-        Fri, 04 Sep 2026 05:37:35 -0700 (PDT)
-Received: from volcano9f6e-hostos.amd.com ([165.204.217.251])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339a534d25sm6750111eec.5.2026.09.04.05.37.32
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 04 Sep 2026 05:37:34 -0700 (PDT)
-From: Hemanth Selam <hemanth.selam@gmail.com>
-To: Coly Li <colyli@fygo.io>,
-	Kent Overstreet <kent.overstreet@linux.dev>
-Cc: linux-kernel@vger.kernel.org,
-	linux-bcache@vger.kernel.org
-Subject: [PATCH] md: bcache: fix typo "idel" in comment
-Date: Fri,  4 Sep 2026 18:07:29 +0530
-Message-ID: <20260904123730.39849-1-hemanth.selam@gmail.com>
-X-Mailer: git-send-email 2.48.1
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="n7JCvEhN"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 572CA153B;
+	Fri,  4 Sep 2026 05:37:30 -0700 (PDT)
+Received: from a081061.blr.arm.com (a081061.arm.com [10.164.19.84])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 6D8EF3F673;
+	Fri,  4 Sep 2026 05:37:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1788525454; bh=r+JWSjJAT1fqdxTkYFXC3Z2CcMa3Z4KrLaVw0tw7b+8=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=n7JCvEhNnTytRWE4CVZZjXVHRGzXMrHxayjQQYeqI0qzwVWZFI0pY2ZhyyFCWuIIF
+	 J2rY0yGrp5lFNbzEZKKubKwsFdzN629SDat/52/kp2uQ3AC0NvSMZbVnMkc/kC4AVi
+	 0wZRFcG3ndHd9lOSkUA5zH+6gWLgo4TRg+0qdlPo=
+From: Sarthak Sharma <sarthak.sharma@arm.com>
+To: Andrew Morton <akpm@linux-foundation.org>,
+	David Hildenbrand <david@kernel.org>
+Cc: Lorenzo Stoakes <ljs@kernel.org>,
+	"Liam R . Howlett" <liam@infradead.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>,
+	Shuah Khan <shuah@kernel.org>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Jason Gunthorpe <jgg@ziepe.ca>,
+	John Hubbard <jhubbard@nvidia.com>,
+	Peter Xu <peterx@redhat.com>,
+	Leon Romanovsky <leon@kernel.org>,
+	Zi Yan <ziy@nvidia.com>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	Nico Pache <npache@redhat.com>,
+	Ryan Roberts <ryan.roberts@arm.com>,
+	Dev Jain <dev.jain@arm.com>,
+	Barry Song <baohua@kernel.org>,
+	Lance Yang <lance.yang@linux.dev>,
+	Mark Brown <broonie@kernel.org>,
+	Anshuman Khandual <anshuman.khandual@arm.com>,
+	Muhammad Usama Anjum <usama.anjum@arm.com>,
+	linux-mm@kvack.org,
+	linux-kselftest@vger.kernel.org,
+	linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Sarthak Sharma <sarthak.sharma@arm.com>
+Subject: [PATCH v9 6/6] selftests/mm: add a GUP selftest
+Date: Fri,  4 Sep 2026 18:06:31 +0530
+Message-ID: <20260904123631.198697-7-sarthak.sharma@arm.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260904123631.198697-1-sarthak.sharma@arm.com>
+References: <20260904123631.198697-1-sarthak.sharma@arm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -73,29 +71,414 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Correct "idel" to "idle", reported by scripts/checkpatch.pl using the
-misspelling list in scripts/spelling.txt.  Only touches comments, no code
-changes.
+Add a new GUP selftest which uses kselftest_harness.h. Cover
+12 mapping configurations: THP enabled, THP disabled and
+HugeTLB, each across private/shared mappings and with/without
+FOLL_WRITE. Run 5 test cases for every variant: get_user_pages,
+get_user_pages_fast, pin_user_pages, pin_user_pages_fast and
+pin_user_pages_longterm.
 
-Assisted-by: Cursor:claude-opus-5
-Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
+Choose the number of default hugeTLB pages using a 256 MiB target,
+with a minimum of 1 page and derive the mapping size from that
+number. This avoids reserving excess memory when the hugeTLB page
+size is too large and retains 128 pages for the most common case
+of 2MiB hugeTLB pages.
+
+Sweep four nr_pages_per_call values for each test: 1, 512, 123 and
+all pages. This preserves the coverage previously provided by
+run_gup_matrix(): 12 mapping combinations x 5 GUP/PUP operations x 4
+batch sizes. In total the selftest reports 60 TAP cases and issues
+240 ioctls.
+
+Do not carry DUMP_USER_PAGES_TEST into the new selftest because its
+output is written to the kernel log and the selftest does not verify
+that output.
+
+Add the new gup binary to the selftests/mm build, run_vmtests.sh and
+MAINTAINERS. Update mm/Kconfig to describe the benchmark and
+selftest split.
+
+Suggested-by: David Hildenbrand (Arm) <david@kernel.org>
+Acked-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
+Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
+Signed-off-by: Sarthak Sharma <sarthak.sharma@arm.com>
 ---
- drivers/md/bcache/writeback.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ MAINTAINERS                               |   1 +
+ mm/Kconfig                                |  21 +-
+ tools/testing/selftests/mm/Makefile       |   1 +
+ tools/testing/selftests/mm/gup.c          | 287 ++++++++++++++++++++++
+ tools/testing/selftests/mm/run_vmtests.sh |   1 +
+ 5 files changed, 300 insertions(+), 11 deletions(-)
+ create mode 100644 tools/testing/selftests/mm/gup.c
 
-diff --git a/drivers/md/bcache/writeback.c b/drivers/md/bcache/writeback.c
-index 4b237074f453..7734fe0dd429 100644
---- a/drivers/md/bcache/writeback.c
-+++ b/drivers/md/bcache/writeback.c
-@@ -162,7 +162,7 @@ static bool idle_counter_exceeded(struct cache_set *c)
- 	int counter, dev_nr;
+diff --git a/MAINTAINERS b/MAINTAINERS
+index d7a146b093de..1ca7de3e440e 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -17189,6 +17189,7 @@ F:	mm/gup.c
+ F:	mm/gup_test.c
+ F:	mm/gup_test.h
+ F:	tools/mm/gup_bench.c
++F:	tools/testing/selftests/mm/gup.c
+ F:	tools/testing/selftests/mm/gup_longterm.c
  
- 	/*
--	 * If c->idle_counter is overflow (idel for really long time),
-+	 * If c->idle_counter is overflow (idle for really long time),
- 	 * reset as 0 and not set maximum rate this time for code
- 	 * simplicity.
- 	 */
+ MEMORY MANAGEMENT - KSM (Kernel Samepage Merging)
+diff --git a/mm/Kconfig b/mm/Kconfig
+index c1ddf59c0d71..79163b7d795a 100644
+--- a/mm/Kconfig
++++ b/mm/Kconfig
+@@ -1287,24 +1287,23 @@ config PERCPU_STATS
+ 	  be used to help understand percpu memory usage.
+ 
+ config GUP_TEST
+-	bool "Enable infrastructure for get_user_pages()-related unit tests"
++	bool "Enable infrastructure for get_user_pages()-related unit tests and benchmarks"
+ 	depends on DEBUG_FS
+ 	help
+ 	  Provides /sys/kernel/debug/gup_test, which in turn provides a way
+-	  to make ioctl calls that can launch kernel-based unit tests for
+-	  the get_user_pages*() and pin_user_pages*() family of API calls.
++	  to make ioctl calls that can launch kernel-based unit tests and
++	  benchmarks for the get_user_pages*() and pin_user_pages*() families
++	  of API calls.
+ 
+-	  These tests include benchmark testing of the _fast variants of
+-	  get_user_pages*() and pin_user_pages*(), as well as smoke tests of
++	  These include benchmark testing of the _fast variants of
++	  get_user_pages*() and pin_user_pages*(), as well as tests of
+ 	  the non-_fast variants.
+ 
+-	  There is also a sub-test that allows running dump_page() on any
+-	  of up to eight pages (selected by command line args) within the
+-	  range of user-space addresses. These pages are either pinned via
+-	  pin_user_pages*(), or pinned via get_user_pages*(), as specified
+-	  by other command line arguments.
++	  There is also a test that allows running dump_page() on any of up
++	  to eight pages within the range of user-space addresses. These
++	  pages are either acquired via pin_user_pages*() or get_user_pages*().
+ 
+-	  See tools/testing/selftests/mm/gup_test.c
++	  See tools/testing/selftests/mm/gup.c and tools/mm/gup_bench.c.
+ 
+ comment "GUP_TEST needs to have DEBUG_FS enabled"
+ 	depends on !GUP_TEST && !DEBUG_FS
+diff --git a/tools/testing/selftests/mm/Makefile b/tools/testing/selftests/mm/Makefile
+index 11ca9b11fef1..9c03624fd293 100644
+--- a/tools/testing/selftests/mm/Makefile
++++ b/tools/testing/selftests/mm/Makefile
+@@ -58,6 +58,7 @@ endif
+ 
+ TEST_GEN_FILES = cow
+ TEST_GEN_FILES += compaction_test
++TEST_GEN_FILES += gup
+ TEST_GEN_FILES += gup_longterm
+ TEST_GEN_FILES += hmm-tests
+ TEST_GEN_FILES += hugetlb-madvise
+diff --git a/tools/testing/selftests/mm/gup.c b/tools/testing/selftests/mm/gup.c
+new file mode 100644
+index 000000000000..6a0dd415fb9a
+--- /dev/null
++++ b/tools/testing/selftests/mm/gup.c
+@@ -0,0 +1,287 @@
++// SPDX-License-Identifier: GPL-2.0
++#define __SANE_USERSPACE_TYPES__ // Use ll64
++#include <fcntl.h>
++#include <errno.h>
++#include <stdbool.h>
++#include <string.h>
++#include <unistd.h>
++#include <dirent.h>
++#include <sys/ioctl.h>
++#include <sys/mman.h>
++#include <mm/gup_test.h>
++#include "vm_util.h"
++#include "kselftest_harness.h"
++
++#define MB (1UL << 20)
++
++/* Just the flags we need, copied from the kernel internals. */
++#define FOLL_WRITE	0x01	/* check pte is writable */
++
++/* Page counts exercising single, THP-batch, partial, and full-mapping GUP. */
++static const int nr_pages_list[] = { 1, 512, 123, -1 };
++
++#define GUP_TEST_FILE "/sys/kernel/debug/gup_test"
++#define HUGETLB_TARGET_SIZE (256 * MB)
++
++static unsigned long nr_huge_pages, hp_size;
++static bool hugetlb_setup_succeeded;
++
++FIXTURE(gup_test)
++{
++	int gup_fd;
++	char *addr;
++	unsigned long size;
++};
++
++FIXTURE_VARIANT(gup_test)
++{
++	bool thp;
++	bool hugetlb;
++	bool write;
++	bool shared;
++};
++
++FIXTURE_VARIANT_ADD(gup_test, private_write)
++{
++	.thp = false,
++	.hugetlb = false,
++	.write = true,
++	.shared = false,
++};
++
++FIXTURE_VARIANT_ADD(gup_test, private_read)
++{
++	.thp = false,
++	.hugetlb = false,
++	.write = false,
++	.shared = false,
++};
++
++FIXTURE_VARIANT_ADD(gup_test, private_write_thp)
++{
++	.thp = true,
++	.hugetlb = false,
++	.write = true,
++	.shared = false,
++};
++
++FIXTURE_VARIANT_ADD(gup_test, private_read_thp)
++{
++	.thp = true,
++	.hugetlb = false,
++	.write = false,
++	.shared = false,
++};
++
++FIXTURE_VARIANT_ADD(gup_test, private_write_hugetlb)
++{
++	.thp = false,
++	.hugetlb = true,
++	.write = true,
++	.shared = false,
++};
++
++FIXTURE_VARIANT_ADD(gup_test, private_read_hugetlb)
++{
++	.thp = false,
++	.hugetlb = true,
++	.write = false,
++	.shared = false,
++};
++
++FIXTURE_VARIANT_ADD(gup_test, shared_write)
++{
++	.thp = false,
++	.hugetlb = false,
++	.write = true,
++	.shared = true,
++};
++
++FIXTURE_VARIANT_ADD(gup_test, shared_read)
++{
++	.thp = false,
++	.hugetlb = false,
++	.write = false,
++	.shared = true,
++};
++
++FIXTURE_VARIANT_ADD(gup_test, shared_write_thp)
++{
++	.thp = true,
++	.hugetlb = false,
++	.write = true,
++	.shared = true,
++};
++
++FIXTURE_VARIANT_ADD(gup_test, shared_read_thp)
++{
++	.thp = true,
++	.hugetlb = false,
++	.write = false,
++	.shared = true,
++};
++
++FIXTURE_VARIANT_ADD(gup_test, shared_write_hugetlb)
++{
++	.thp = false,
++	.hugetlb = true,
++	.write = true,
++	.shared = true,
++};
++
++FIXTURE_VARIANT_ADD(gup_test, shared_read_hugetlb)
++{
++	.thp = false,
++	.hugetlb = true,
++	.write = false,
++	.shared = true,
++};
++
++FIXTURE_SETUP(gup_test)
++{
++	int mmap_flags = MAP_PRIVATE;
++	int zero_fd;
++	char *p;
++
++	self->size = 128 * MB;
++
++	if (variant->hugetlb) {
++		if (!hp_size)
++			SKIP(return, "HugeTLB not available\n");
++
++		if (!hugetlb_setup_succeeded ||
++		    hugetlb_free_default_pages() < nr_huge_pages)
++			SKIP(return, "Not enough huge pages\n");
++
++		self->size = nr_huge_pages * hp_size;
++		mmap_flags |= (MAP_HUGETLB | MAP_ANONYMOUS);
++	}
++
++	if (variant->shared)
++		mmap_flags = (mmap_flags & ~MAP_PRIVATE) | MAP_SHARED;
++
++	/* zero_fd has to be >= 0. Already checked in main() */
++	zero_fd = open("/dev/zero", O_RDWR);
++	ASSERT_GE(zero_fd, 0);
++
++	/* gup_fd has to be >= 0. Already checked in main() */
++	self->gup_fd = open(GUP_TEST_FILE, O_RDWR);
++	ASSERT_GE(self->gup_fd, 0);
++
++	self->addr = mmap(NULL, self->size, PROT_READ | PROT_WRITE,
++			  mmap_flags, zero_fd, 0);
++
++	ASSERT_NE(self->addr, MAP_FAILED) {
++		int err = errno;
++
++		close(zero_fd);
++		close(self->gup_fd);
++		TH_LOG("mmap failed: %s", strerror(err));
++	}
++	close(zero_fd);
++
++	if (variant->thp)
++		madvise(self->addr, self->size, MADV_HUGEPAGE);
++	else if (!variant->hugetlb)
++		madvise(self->addr, self->size, MADV_NOHUGEPAGE);
++
++	for (p = self->addr; (unsigned long)p < (unsigned long)self->addr
++			+ self->size; p += psize())
++		p[0] = 0;
++}
++
++FIXTURE_TEARDOWN(gup_test)
++{
++	munmap(self->addr, self->size);
++	close(self->gup_fd);
++}
++
++static void run_gup_cmd(struct __test_metadata *_metadata,
++			 FIXTURE_DATA(gup_test) *self,
++			 const FIXTURE_VARIANT(gup_test) *variant,
++			 unsigned long command)
++{
++	int i;
++
++	for (i = 0; i < (int)ARRAY_SIZE(nr_pages_list); i++) {
++		struct gup_test gup = {
++			.addr = (unsigned long)self->addr,
++			.size = self->size,
++			.nr_pages_per_call = nr_pages_list[i] < 0 ?
++				self->size / psize() : nr_pages_list[i],
++			.gup_flags = variant->write ? FOLL_WRITE : 0,
++		};
++
++		TH_LOG("nr_pages_per_call=%u", gup.nr_pages_per_call);
++		ASSERT_EQ(ioctl(self->gup_fd, command, &gup), 0);
++		ASSERT_EQ(gup.size, self->size);
++	}
++}
++
++TEST_F(gup_test, get_user_pages)
++{
++	run_gup_cmd(_metadata, self, variant, GUP_BASIC_TEST);
++}
++
++TEST_F(gup_test, pin_user_pages)
++{
++	run_gup_cmd(_metadata, self, variant, PIN_BASIC_TEST);
++}
++
++TEST_F(gup_test, get_user_pages_fast)
++{
++	run_gup_cmd(_metadata, self, variant, GUP_FAST_BENCHMARK);
++}
++
++TEST_F(gup_test, pin_user_pages_fast)
++{
++	run_gup_cmd(_metadata, self, variant, PIN_FAST_BENCHMARK);
++}
++
++TEST_F(gup_test, pin_user_pages_longterm)
++{
++	run_gup_cmd(_metadata, self, variant, PIN_LONGTERM_BENCHMARK);
++}
++
++int main(int argc, char **argv)
++{
++	char *file = "/dev/zero";
++	int fd;
++
++	fd = open(file, O_RDWR);
++	if (fd < 0) {
++		ksft_print_header();
++		ksft_exit_fail_msg("Unable to open %s: %s\n", file, strerror(errno));
++	}
++	close(fd);
++
++	fd = open(GUP_TEST_FILE, O_RDWR);
++	if (fd == -1) {
++		ksft_print_header();
++		if (errno == EACCES)
++			ksft_exit_skip("Please run this test as root\n");
++		if (errno == ENOENT) {
++			DIR *debugfs = opendir("/sys/kernel/debug");
++
++			if (!debugfs) {
++				ksft_exit_skip("Mount debugfs at /sys/kernel/debug\n");
++			} else {
++				closedir(debugfs);
++				ksft_exit_skip("Check CONFIG_GUP_TEST in kernel config\n");
++			}
++		}
++		ksft_exit_fail_msg("Failed to open %s: %s\n", GUP_TEST_FILE, strerror(errno));
++	}
++	close(fd);
++
++	hp_size = default_huge_page_size();
++	if (hp_size) {
++		nr_huge_pages = HUGETLB_TARGET_SIZE / hp_size;
++		if (!nr_huge_pages)
++			nr_huge_pages = 1;
++
++		hugetlb_setup_succeeded = hugetlb_setup_default(nr_huge_pages);
++	}
++
++	return test_harness_run(argc, argv);
++}
+diff --git a/tools/testing/selftests/mm/run_vmtests.sh b/tools/testing/selftests/mm/run_vmtests.sh
+index 8f1e828e4f39..ae0ab5efabae 100755
+--- a/tools/testing/selftests/mm/run_vmtests.sh
++++ b/tools/testing/selftests/mm/run_vmtests.sh
+@@ -251,6 +251,7 @@ fi
+ 
+ CATEGORY="mmap" run_test ./map_fixed_noreplace
+ 
++CATEGORY="gup_test" run_test ./gup
+ CATEGORY="gup_test" run_test ./gup_longterm
+ 
+ CATEGORY="userfaultfd" run_test ./uffd-unit-tests
 -- 
-2.48.1
+2.53.0
 
