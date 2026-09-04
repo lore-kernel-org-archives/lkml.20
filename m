@@ -1,36 +1,36 @@
-Received: from mta0.migadu.com (out-159.mta0.migadu.com [91.218.175.159])
+Received: from mta0.migadu.com (out-163.mta0.migadu.com [91.218.175.163])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1B3F3EA973
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 08:36:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.159
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CC4C3EDADC
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 08:36:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.163
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788510976; cv=none; b=EZCP672psfGFH0DTlv8h8fwAZz5PJs/eCLXgx04ie2IeiZuCd+f0VHipSBem+rgv9XpAG8zTiAGUtTeu9Zo0k0yzV3GOu9LaXmDaxsW1kY15lvhvuUN/PRcuBPBWLPYo1fchQjV287oIG92Pbt1Ook54yRLJZI5J+jyM8jN8SCs=
+	t=1788510980; cv=none; b=K5QEsDEP+Py5o7kOejNo7Xdy2Oe/QZnd1uhohr/vgiKx932bxoXmNwLa5TNZ5n7GX1HlitTBMwmQnpGxQehnX6wkCLwJevuoAtXZOIZSDN9+hcmeC7LRFxY2oPwWbdPlp+oMxHyOG7oCJh9k90/5yopTs914CXMqbBAW3EqIkyY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788510976; c=relaxed/simple;
-	bh=U1x/bNRs0Mwb1PxVQ65+8iKdITUD0P0R70d5PxDMTt8=;
+	s=arc-20240116; t=1788510980; c=relaxed/simple;
+	bh=Kg4/aqDRaXMqMIg8PKl30nMewyVqFQhXtA0OxCoMYYg=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=lHSvXtWHpwD0mVdTw02leQuJ63KhV7ji22YOXI6bjfVffj2KRsZszY9zvHiukgmTFvrI+SUmZPo7b08NbPtO6AWdK5EMYcZLpB7n8OrR9RKyBJF3YD/3E6heisoh/9c97cafB6OLss03TTzfXilLIyZcq9tQ2c3wwffRXTYWwTo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=U4sDbw/D; arc=none smtp.client-ip=91.218.175.159
+	 In-Reply-To:Content-Type; b=oluZ2PBjK4W4nMmtqknzH1AxKkUXQv/mFuQ/nhZc0d66j/a2/JCHk/0CCfc3wDYwyI+ywRXZRPT9VjmpoPsrItLYXTDSMMRI6rlBL87eUlKt0KWpeFTfrOW4m4zB4Nn6RvytjGRCPdATffq1xXNPK3J/069SevDbXpco1TYS99Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=cbRvvAP3; arc=none smtp.client-ip=91.218.175.163
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="U4sDbw/D"
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="cbRvvAP3"
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=U1x/bNRs0Mwb1PxVQ65+8iKdITUD0P0R70d5PxDMTt8=;
+DKIM-Signature: a=rsa-sha256; bh=Kg4/aqDRaXMqMIg8PKl30nMewyVqFQhXtA0OxCoMYYg=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788510972; v=1; x=1789115772;
- b=U4sDbw/DZJoZT1fbeYjtNwoqPSv6ZKOxV/9G/B1jNhJr0WJoi1S9I7oUYcvNsmrcvjKAD/V9
- caD+k3wntYsUtCuJYBj8x8m4B9+gvdmokOze1yLuAOSZ6ywyAM88aJN3xqyi8y9RudgQla3gcvs
- zwvTzvTQ9XFqTLrz25yqEWn4=
+ t=1788510977; v=1; x=1789115777;
+ b=cbRvvAP3kMz6m5xPsAjF8QC4waC5MBum+p6eg6dvATxtk3CV2WpQpYjVZ3cSJf+lutx6Iea9
+ 6FrmSpElyD7HiMYDTKbaqip+Q6RGbRex82OF3digFFEDsZ1idkMgrg9tp5cRErtzXUpfBn3Ghx4
+ L/c62QmiUVSEKV4jN57aTrrk=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 502bfefaf8f21b1e;
-	Fri, 04 Sep 2026 08:36:12 +0000
-X-Mizu-Trace-ID: 502bfefaf8f21b1e
+Received: by smtp.migadu.com with ESMTPS id cf0016a16f4f442f;
+	Fri, 04 Sep 2026 08:36:17 +0000
+X-Mizu-Trace-ID: cf0016a16f4f442f
 X-Migadu-Flow: FLOW_OUT
-Message-ID: <b749adb5-b3c5-4e30-89b4-9e6849bfd08c@linux.dev>
-Date: Fri, 4 Sep 2026 09:20:13 +0200
+Message-ID: <60e6f5b1-eaee-4eff-9330-b87eb77abfd7@linux.dev>
+Date: Fri, 4 Sep 2026 09:25:29 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -38,61 +38,45 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 0/2] Add SoundWire detach helper
-To: Charles Keepax <ckeepax@opensource.cirrus.com>, lee@kernel.org,
+Subject: Re: [PATCH v2 0/3] soundwire: bus: re-enable CLOCK_STOP_MODE1 support
+To: Bard Liao <yung-chuan.liao@linux.intel.com>, linux-sound@vger.kernel.org,
  vkoul@kernel.org
-Cc: yung-chuan.liao@linux.intel.com, linux-sound@vger.kernel.org,
- patches@opensource.cirrus.com, mfd@lists.linux.dev,
- linux-kernel@vger.kernel.org
-References: <20260831140157.1736905-1-ckeepax@opensource.cirrus.com>
+Cc: vinod.koul@linaro.org, linux-kernel@vger.kernel.org,
+ peter.ujfalusi@linux.intel.com, bard.liao@intel.com
+References: <20260901030311.232823-1-yung-chuan.liao@linux.intel.com>
 Content-Language: en-US
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>
-In-Reply-To: <20260831140157.1736905-1-ckeepax@opensource.cirrus.com>
+In-Reply-To: <20260901030311.232823-1-yung-chuan.liao@linux.intel.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 8/31/26 16:01, Charles Keepax wrote:
-> Currently, if a SoundWire driver takes an action that causes the device
-> to detach from the bus it needs to be careful. There will be a period of
-> time until the detach is recognised by the core, if the driver
-> immediately
-> calls sdw_slave_wait_for_init() it is possible for that to complete
-> before the detach has been recognised. Leaving the driver with a device
-> that is potentially not ready for what follows.
+On 9/1/26 05:03, Bard Liao wrote:
+> Add CLOCK_STOP_MODE1 back to allow the peripheral to utilize it when
+> the clock is stopped.
+> This mode is designed for power-sensitive devices as it enables a deeper
+> power-saving state, although it does not retain the peripheral's state
+> during the clock stop.
 > 
-> To avoid this race add a new helper that drivers can use to inform the
-> core the device will detach. This clears the enumeration completions
-> ensuring that sdw_slave_wait_for_init() can't complete until the device
-> re-attaches.
+> v2:
+>  - check slave->probed before looking at the driver to avoid NULL pointer
+>    dereference.
+>  - add wake_enable parameter to stop_bus ops to stop the clock but keep the
+>    bus unwakeable during system suspend.
 > 
-> This is the third part of a longer series of moving these slave
-> attach/deatach operations into the core:
+> Bard Liao (3):
+>   soundwire: bus: add CLOCK_STOP_MODE1 support back
+>   soundwire: Intel: add wake_enable parameter to stop_bus ops
+>   soundwire: Intel: stop sdw clock in system suspend
 > 
-> https://lore.kernel.org/linux-sound/20260512103022.1154645-1-ckeepax@opensource.cirrus.com/
-> https://lore.kernel.org/linux-sound/20260608102714.2503120-1-ckeepax@opensource.cirrus.com/
+>  drivers/soundwire/bus.c              | 54 +++++++++++++++++-----------
+>  drivers/soundwire/intel.h            |  6 ++--
+>  drivers/soundwire/intel_auxdevice.c  |  7 ++--
+>  drivers/soundwire/intel_bus_common.c |  8 ++---
+>  include/linux/soundwire/sdw.h        |  4 +++
+>  include/linux/soundwire/sdw_intel.h  |  2 +-
+>  6 files changed, 50 insertions(+), 31 deletions(-)
 > 
-> I have based this series off Vinod's soundwire tree as that probably
-> makes sense for which tree to take it through.
-> 
-> Thanks,
-> Charles
-> 
-> Changes since v1:
->  - Correct kerneldoc
-> 
-> Charles Keepax (2):
->   soundwire: Add a helper function to indicate a device will detach
->   mfd: cs42l43: Move to core detach helper
-> 
->  drivers/mfd/cs42l43-sdw.c     |  2 --
->  drivers/mfd/cs42l43.c         | 15 +--------------
->  drivers/soundwire/bus.h       |  6 ------
->  include/linux/mfd/cs42l43.h   |  1 -
->  include/linux/soundwire/sdw.h | 26 ++++++++++++++++++++++++++
->  5 files changed, 27 insertions(+), 23 deletions(-)
 
-LGTM, for the series
+Thanks Bard, LGTM - this addresses my previous feedback.
 
 Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>
-
-
