@@ -1,122 +1,151 @@
-Received: from mail-pg1-f176.google.com (mail-pg1-f176.google.com [209.85.215.176])
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DAE5488237
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 12:21:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.176
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08D22486628
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 12:21:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788524473; cv=none; b=QDbNX3OsypT7SqAq9GSZOx+squRPXJYPKWBJsh3KtXnJSIdTUpTnfDRoPFvxh2NbXN9329mT1oaZkj+p8yYIJZF5DmXQTEdcdbcloLDyxdjvMLEkdmht/kOCWWLEvzzHBceGP/cNH719xaBTlbURqkO1bmHwLqVaJUsLQFvUfNo=
+	t=1788524473; cv=none; b=el1zfQ4ybGO6X54rIBDEmHLy/QqJ9ZJPAxykjq0gYxkqphqJSJZxYyAvzzDS1x0oM/ZMqCo71yJG/NywYFFcbJvM8jp5ZCA8xqC++faw60hcw2wwgiaBWSJl2599umQWQJRaUknizwV1qbeJ8GR6vTzW3f9zZ+VlTDhSgJ7kJ1A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788524473; c=relaxed/simple;
-	bh=E0rFo7Q5ZDwXJBtKF10AfNsw+8XsTnWPZE1MipbUrw4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=qU3rNZfHmYrZRx13qnusXz4gj4YjnNt925yPfJoXGfDtAq4kyEb+sozLoXUNkrnGbMpBWcm/42tvne9InGG18jtITPbVkmTHPB6+JoeiqnWvCNcG9LBDEb9DeeP40CVg9incz0V+mNI4X0/3xZjHO3YpTxU4M6BvkUMopXbOpCA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qGP52vb0; arc=none smtp.client-ip=209.85.215.176
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	bh=APPkNKtEDmrFso4y3E1cHTFO7HZn9y4fTKl0GLQvGOo=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=E0+QD6srPEYavZu1h6/wLbeGzTCbfxaDng5sH0vfoYYA+0eVdTEgknjhH7Co5QBcgNrQFqtH7eZU+chXKD2TLrMj19IfqwmzHtVMoBceP7f10ARzh358FK2ZEBzf0sTmgBOSasklufmCDEzTTeDtXTWyTnl6X2OtD0dtEOxb9qE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=mucWSogE; arc=none smtp.client-ip=209.85.128.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qGP52vb0"
-Received: by mail-pg1-f176.google.com with SMTP id 41be03b00d2f7-cc147d86bebso967963a12.0
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 05:21:11 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="mucWSogE"
+Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-49b0eab380eso8178505e9.0
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 05:21:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788524470; x=1789129270; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+        d=linaro.org; s=google; t=1788524469; x=1789129269; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:references:cc:to:subject:reply-to:from
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=lkiCyCvi2P+iZbARVukdTb/KqWgHgSHrWQF85+jAN58=;
-        b=qGP52vb03vMInDYZvZs0X5IeiLQLsdLtf/wUCoOmvcVvZNP+Mi7f5ySeIH+Jh1Q/2A
-         IQt5vkGd1Og9YNT5AZyzb4xcdGFM+G+KXjFcEQkN1iE8OPnMaX+C5fuo14b3zZqyCgsi
-         oullEarQny2DRkuaY9rRTUPiejSHR6RzdgJJr5x0NyRcpD3akSQHQniBFsMS5bXNq7Nz
-         a1dYxmPtntJE76liYQunl5LNJMBoqs9DxU6LO4+/5qpbrFS5Mr0XTwvAqQq5oRorVQ0Z
-         Pdb/skH3eCs3+1J+Hz/jnEdpAJo+CD0Dwp7n+FAV9+yVM3T6XNiuBhmZ/hUZhUKtfutf
-         o/ng==
+        bh=pfq2sAT5mAfGVAt5p5kcQFP6u3ifv9uCqnC5mm+uv+Q=;
+        b=mucWSogE5+2knv0fI8LclQ4UpzC7iNFh8m1ka8d8fhmnqPfj4GuYFyOAP+rupXMRCB
+         tXP94LoqcafrZ4rfMhOb+NsPHchtfQtvfLYl+XfLeqdnXMD0cqsHy1ha0Mzx2keSTSRf
+         NU3Kv36cc1lCaQXZ83OWyg9S0AXZkinCuDmL0lvUd30NfBTJLasubqwylSJEEp13geAK
+         sZp+u/gvyebsHc52umGb9ST3VXV7NQ+RLyDa9ipbxJ5wYTBSgJE1yJYI7lVWvAm1j9md
+         3X4y6At8wOnuKUUt0LmREQsL8bpR8YQPpVKFtUIlEqtqbIWK7b5Gw4DXf67/zdPpBI0O
+         1wTA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788524470; x=1789129270;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=lkiCyCvi2P+iZbARVukdTb/KqWgHgSHrWQF85+jAN58=;
-        b=NX7Jo/W4Rk40q9x6ytnCN+sQcVojCfKPlW2jpIQCjHiRZD4axQS2fpNHiKkIxYKIqv
-         CTTAu5Hl6WT3wZtimRwBtkZF+lePiyjAzJbHUX3zMAyzusYg4hEUGY+lbL+RpNCObhov
-         vzq1vAR1WKstVckxpMdkU4Xb/5wv+ge4tzMP7VEW1gnfrEgNEmIZjpt16xWCZRZHCSyA
-         jNboJxocoepVZ9OyvCocbjZnfxC4oYPbmhy5DLHVBObqS4y7k8CMwioH4STQUWqAsIfR
-         7eXRVDDHUoFUErDBVuPhG+g/QbV0FUKTf1LGFhI2w7QR1ZjQ16YD/0Og4TycL5GKkxeV
-         uacA==
-X-Gm-Message-State: AFuF++llusAFTG1CoYfoWKFR3S/PuJAdQK4nTb+f9jO5sEUnhEBrI097
-	7ARrXO2z20DRe1E1BYLeuyX//d4ezZOpXRsKxxbOsED/Drm7H1vjJm4n
-X-Gm-Gg: AYBFou34uOHQ1yq3ZreJHzkgdEQTAku+XYfC0p+5nsH+TJwqOyhlGs+xADWPKdBLAxC
-	ThKW4xQinpXf98M+xwufqHsncgHMrCwQrT8u2vKkmsOiWKQWSOLb2AGtnf0k+2PbO1O5Wwfq5y/
-	l7QOSl5gEzoV+BOVaifBhorns3pYBw+PtUw8VF04acssxmS70/qCBVAzYAAR3PoO3iTm2FcqbwL
-	BybnvLZ4It96OUiatd68bLpjWYQC3UZhBGXkkhl/1IM/mOx7Td3eBmWdozEHxD2fu2G3lcpsJVL
-	kjQA9OjgpiA2QdZWb5Gn5C+GluiMrtsnPtTx2xCi+sJ9rVSyLzTdW0sNqoPNy6gsFlGDuit1sfw
-	t5NOvbYHjGicG3ZKpxSRCJ8c7W/YysV9vRKZiAC+eP3EqilmNBg/XaIZHAGHNohXrB7OwRdo3Tb
-	VLnhGRY1rSf15TpIo23+06RRiRKW+Du9c30ZCbRrxHb6aLNXCxlQ82Rb7I5KQtbhi4lnE1RXqYa
-	4wVx2vuu1S7bFo=
-X-Received: by 2002:a17:90b:2e46:b0:38f:a81:15b1 with SMTP id 98e67ed59e1d1-39b08653554mr16531593a91.19.1788524470541;
-        Fri, 04 Sep 2026 05:21:10 -0700 (PDT)
-Received: from volcano9f6e-hostos.amd.com ([165.204.217.251])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339b608409sm7116019eec.21.2026.09.04.05.21.04
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 04 Sep 2026 05:21:10 -0700 (PDT)
-From: Hemanth Selam <hemanth.selam@gmail.com>
-To: Andrew Morton <akpm@linux-foundation.org>,
-	David Hildenbrand <david@kernel.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>,
-	Ingo Molnar <mingo@redhat.com>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Juri Lelli <juri.lelli@redhat.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Ben Segall <bsegall@google.com>,
-	Mel Gorman <mgorman@suse.de>,
-	Valentin Schneider <vschneid@redhat.com>,
-	K Prateek Nayak <kprateek.nayak@amd.com>,
-	Kees Cook <kees@kernel.org>
-Cc: linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org
-Subject: [PATCH 3/3] kernel: fix typo "overriden" in comment
-Date: Fri,  4 Sep 2026 17:50:52 +0530
-Message-ID: <20260904122054.28531-4-hemanth.selam@gmail.com>
-X-Mailer: git-send-email 2.48.1
-In-Reply-To: <20260904122054.28531-1-hemanth.selam@gmail.com>
-References: <20260904122054.28531-1-hemanth.selam@gmail.com>
+        d=1e100.net; s=20251104; t=1788524469; x=1789129269;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:references:cc:to:subject:reply-to:from
+         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=pfq2sAT5mAfGVAt5p5kcQFP6u3ifv9uCqnC5mm+uv+Q=;
+        b=Nl3sFtTxUk/GpyN9JMh+12Jw08hhrzcE0dR5HXR6MLB9riX8A6KP/AVjSA2MPd4dTq
+         W9yrQE/2ce2H88gEsGfvAHaq+jlHk0MokJwON7QLFV3pF23tC88Stov/g5+taOAt/VLu
+         Dgko5xe5fYptvfMdAJiau1qCblXDDkuliFdRXHA7vWyzOTgOxITWgneo8niq3MWNKsnV
+         +pd+9S+zrGcVt9BTooOM+kensqYvn0O0UsM2ZiSswodVupxYGzXVWQrcssLrRcwJ5LuX
+         Dnf3MS3cP0YO6S+ndh3ABlCZGAmr/QlucRq+KbyS7baQbD0fiOig3Favrgh1Q8TICR6Z
+         uqMw==
+X-Forwarded-Encrypted: i=1; AKwUvBwS26+45ePkJJqi1d5ALP71/vWaXCktITmbF8Tp1wUBdlyOAvgjaAVlnAZG4oYy94VB0650oNyhcNdjcHo=@vger.kernel.org
+X-Gm-Message-State: AFuF++lrlKB/Lb33+79Z5Dqn1SpdbW56Zzv9S+jVKm+vgKn4skq8ehUx
+	U1bm4KugWImxMpJBqYoCWHHf0sbzpIDMr0szi0Y06pQD5dPOUZBMx6191wnCLzC/r+I=
+X-Gm-Gg: AYBFou3JHwvQMGSmrYyuiEkiskRPwnAsVpKs6md+2ueTWbzyOzrmr749YYI6m5ObIMx
+	H8tvkYM4HPyq6IUveYvldBXzK6RjKSdQEpRVg7nfvxc9UR/Py1rtrUb1yaW/ye1y7e1mb7iAuLT
+	AcXGVVDWk8K0lMIeWT0vYBJSgxlreVrIcS9cc9a/YBm6ywEzhx1Zhy+TGHiINPUhUznnwRc/PKZ
+	h8bOyMbHjlSvL4A3Tu3tJuORHj4HPqPiwNMsI2rdJwPuqB93tkaVTYdK0gA/GrMHGZDQtroIUwZ
+	oOxIvNU4Ax8tctZ+OJ/CYbo+rcjhVU6W7RyzRVlGcgrVQSNC9ZMYclSa2m8iooqmF6NdoqMrFjh
+	D+AX+1GGandG8Qezw0YrG0q2KMihuElU4utogfarFeDV6W6qjC/2nXYAtdCAvs04nBX5RJlENL3
+	xm5/tTL4LEq/6Auv4mr+/hA0eAMnt/tqRwotWU9quMI55zdIGSw1clxI+Yzq0z+sjIJl0xdb2i2
+	wyoUefz6J9ZMm9nmF+DmEm4+dWeUdudrlYor4w9Yw1y
+X-Received: by 2002:a05:600c:3105:b0:499:59fd:dbfc with SMTP id 5b1f17b1804b1-49cf82bea15mr43305995e9.1.1788524464146;
+        Fri, 04 Sep 2026 05:21:04 -0700 (PDT)
+Received: from ?IPV6:2a01:e0a:106d:1080:b9c6:f35c:534d:8463? ([2a01:e0a:106d:1080:b9c6:f35c:534d:8463])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cff8195ffsm5120855e9.14.2026.09.04.05.21.02
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 04 Sep 2026 05:21:03 -0700 (PDT)
+Message-ID: <b1c95b66-4ef7-489f-90ab-1f606b7f9761@linaro.org>
+Date: Fri, 4 Sep 2026 14:21:02 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH v2] tty: serial: qcom_geni: don't ida_free() the console
+ port line
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Jiri Slaby <jirislaby@kernel.org>,
+ Viken Dadhaniya <quic_vdadhani@quicinc.com>
+Cc: linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-serial@vger.kernel.org
+References: <20260904-topic-sm8x50-upstream-tty-serial-geni-fix-ida-free-v2-1-0e83d8df410c@linaro.org>
+ <29755612-0ddd-4447-9859-ae781e8b3c5e@oss.qualcomm.com>
+Content-Language: en-US, fr
+Autocrypt: addr=neil.armstrong@linaro.org; keydata=
+ xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
+ GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
+ BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
+ qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
+ 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
+ AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
+ OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
+ Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
+ YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
+ GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
+ UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
+ GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
+ yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
+ QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
+ SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
+ 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
+ Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
+ oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
+ M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
+ 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
+ KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
+ 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
+ QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
+Organization: Linaro
+In-Reply-To: <29755612-0ddd-4447-9859-ae781e8b3c5e@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Correct "overriden" to "overridden", reported by scripts/checkpatch.pl
-using the misspelling list in scripts/spelling.txt.  Only touches comments,
-no code changes.
+On 9/4/26 11:24, Konrad Dybcio wrote:
+> On 9/4/26 10:50 AM, Neil Armstrong wrote:
+>> The console port (qcom_geni_console_port) is a static instance whose
+>> uport.line is hardcoded to 0 and is never allocated from port_ida.
+>> Only the non-console path in get_port_from_line() calls ida_alloc_range().
+>>
+>> Fix the qcom_geni_serial_remove() and the matching probe() error path
+>> so unbinding the console device doesn't hit:
+>>
+>>    WARNING: ida_free called for id=0 which is not allocated
+>>    <snip>
+>>    qcom_geni_serial_remove+0x58/0x80
+>>
+>> Fixes: a53be6945f51 ("serial: qcom-geni: Remove alias dependency from qcom serial driver")
+>> Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
+>> ---
+> 
+> The robot continues not to find all the issues during the first round..
+> 
+> tldr: uart_console() is only a valid check if a port is an ACTIVE
+> console whereas we skip ida_alloc for ANY console ports, so in .remove()
+> the check should also be for device_data->console
 
-Assisted-by: Cursor:claude-opus-5
-Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
----
- kernel/fork.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Right, good catch, would be nice if the robot did find issues directly related to the patch instead of random unrelated issues.
 
-diff --git a/kernel/fork.c b/kernel/fork.c
-index 416758c8a3d4..6d3340d34234 100644
---- a/kernel/fork.c
-+++ b/kernel/fork.c
-@@ -3266,7 +3266,7 @@ int ksys_unshare(unsigned long unshare_flags)
- 	if (unshare_flags & CLONE_NEWNS)
- 		unshare_flags |= CLONE_FS;
- 
--	/* No unsharing with overriden fs state */
-+	/* No unsharing with overridden fs state */
- 	VFS_WARN_ON_ONCE(unshare_flags & (CLONE_NEWNS | CLONE_FS) &&
- 			 current->fs != current->real_fs);
- 
--- 
-2.48.1
+Thanks,
+Neil>
+> 
+>   Medium: The remove-path condition remains incorrect for an inactive GENI console port.
+> Patch line 326 changes the free guard to !uart_console(uport). uart_console() is true only when uport->cons->index == uport->line (include/linux/serial_core.h:24-25), rather than when the port is the statically allocated console device. If qcom,geni-debug-uart probes but is not selected as the active ttyMSM system console, cons_ops.index remains -1 (drivers/tty/serial/qcom_geni_serial.c:1746-1757), so uart_console(uport) is false. Removal then still calls ida_free(&port_ida, 0) even though get_port_from_line(..., true, ...) never allocated an IDA entry (drivers/tty/serial/qcom_geni_serial.c:279-310).
+> Use the same ownership predicate as the probe error path:
+> if (!port->dev_data->console)
+>      ida_free(&port_ida, uport->line);
+> This makes freeing depend on whether the line was allocated, not on current console activation.
+> 
+> Konrad
 
