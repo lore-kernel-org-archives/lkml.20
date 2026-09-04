@@ -1,105 +1,135 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from va-1-112.ptr.blmpb.com (va-1-112.ptr.blmpb.com [209.127.230.112])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84041422E3E
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 06:51:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E153368957
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 06:52:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.230.112
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788504716; cv=none; b=tW0p80kKjKsWDygxlIYd6zg9/12Na3XiyuI/kmQyGRrPS+Kk5uVebyTWd20quxLMcgexYmPWkw0dtwCRTya1rYRw5l2nN67rEamGtdtpb3cORpcYCse6bUxIt6v6o8Rpr2WXpR1HfBgDDidOh7CJCDy1XSzZDYD3gfyN8m3BUAo=
+	t=1788504756; cv=none; b=s6CYu81ezFjRdi4ntpo0b12kQqN+dhr9k2A8YsOp80fXCAKay5EslXwwGJjPuUgWTaF6vcQSGo+5a5O5z2tGhERQIh42XuIS3YhvdOENX7vXpJp0zXIRMqJLDGbaPT/YQ6+61zRQG5luB7kdJP1582r2kaQjaN4xPyTvrLJtqkA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788504716; c=relaxed/simple;
-	bh=nT63MBjGYKXTBb/NSuHd+oJTrFjNQs+xdTT7XV7D6U8=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=GOC9g2YUZcCOEczATYXLLHjULi9tIn8Nqb5gddbXtU6cwmINUDenkGU9HKiEyt+jxPoh/nZyvkXewSXJd+5hkl3IFhAJqc8QO8dacSjC7aNz40+rWtmWGU+N+J64At1571DzUrFe70EDKxAy90eAce2OomyTgiHpjJft95uhP14=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hoixS568; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788504756; c=relaxed/simple;
+	bh=T6Y/sOiGPvMRfPfHNQRfySVWMf63zFzZFk3cNSODLcs=;
+	h=Subject:Date:Content-Type:Mime-Version:Message-Id:To:From:Cc; b=Wt+sxt2gM1okgiRXe7o+RIyrVQ49wI44yoFj7kRNdyDLlqv0/KycwxIQ/rnGFlEF9NaPNNW7sdQVC3A8ZgG2wGwibrSkz6MDHKxfRKd+4/aFhfUcy9aLgxA1xRf0W7huYb5AuHSfNmwj6fEfOWTdJrqzVDPw+LPW2duGTSomsbM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=O6rjfpBa; arc=none smtp.client-ip=209.127.230.112
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hoixS568"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3DC231F00ADE
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 06:51:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788504715;
-	bh=CrsDik+i/dqZ6n3D5e69L4gx5T8tSTpe8l3r/D5fJtk=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=hoixS568WhHyYz0u5xdHJORIzc0XJOSda/Nt4wA1f51JJq2NoZr+T8MQ6cNjBSEq/
-	 a29dssHaIINvDBPXBcBPL1dMwUR/elqI7MGHyJlwML1Lq1d98fJO6MghEPk9WKwvs3
-	 V5rqria8mN8IJjc0xaeuuAzA1L+a+QF4kxa53zalhvoSAHk/uT0fBZf5+zGZuafSCy
-	 7oc2PtkNOvYWlbXX1GEJFcNshj+TUqC1UqKQS0Sr7Lx6itxcLjpEH514ImSYUY2YeU
-	 CL3q9DVw6fNKpRL4/ByelAbqiRguhcGveBu4g4fF5/2Db5zqhPUD6m0HSSDOBQNjnk
-	 JRTbNmEAA+3FQ==
-Received: by mail-ed1-f43.google.com with SMTP id 4fb4d7f45d1cf-6a642495d81so883384a12.2
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 23:51:55 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBwjuR2BPbi8Gupun9BPR2ttVthZo2zIKPU9U4yDcGDL4UqFs7ay3kSDzen8MHIIU9IqPH1ldPhN7mtTaTo=@vger.kernel.org
-X-Gm-Message-State: AFuF++ng96MiQzSa35fSiHzZcNEvPimmIAiRQWA8ijD1JlN3Gzo1CZC9
-	NCK4Ah/G/48nz8U0g9lUMjg59F14JA41IBCuFK12+yWGqPvckph07VZc6UL/6u9fFi/dFskhNNR
-	kJCbZmpxSPF1tMig5PP8msq2Il5yp6ss=
-X-Received: by 2002:a05:6402:3886:b0:6a7:ea53:f621 with SMTP id
- 4fb4d7f45d1cf-6a7ea540b62mr646655a12.32.1788504713638; Thu, 03 Sep 2026
- 23:51:53 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="O6rjfpBa"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=2212171451; d=bytedance.com; t=1788504748; h=from:subject:
+ mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
+ mime-version:in-reply-to:message-id;
+ bh=28SnKEvKoJ3nWwHB2ftkFSyFO3g/G4nEKnDXDivfznM=;
+ b=O6rjfpBak0JRuHQ3Q0TsStrZ5DrTED/F43Kw59lqymysp4p3BN9D37Hock/VNXTr6dzr72
+ QcYCHW5/nKmaZTU2dNkVlYgv4dfDWdCNO1/jJ8N4ZJBn2Zyd1dw+KqNW2Q+LBkZ83nsjvj
+ DgD/Op2O9pQMgQE+8k6BtSCU7qvsS4YtAU12lSzodKvysglQbp1wXvK3odRJI+q3rfHe4T
+ bIFkmjqGZHhinSbbZHDakUuW4mrIyZpYtftbgg1fgIiTAxtFInMcuannl4HyXnsizMPR9C
+ qgStbSE82nrAPeD4yCFjSK4Z0I0wCgIKR5dnI+e4Ri0YWlTqX8Ev+y0uIilkrw==
+Subject: [RFC 0/2] mm: add explicit goals to memcg memory.reclaim
+Date: Fri,  4 Sep 2026 14:51:57 +0800
+Content-Type: text/plain; charset=UTF-8
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260903-loongarch-disable-rust-with-kasan-v1-1-1813d3c4baad@kernel.org>
- <CANiq72=-6CGi5d=sxd82mp347skPGxK_xH+UNt_dUUD_rKdFiw@mail.gmail.com>
-In-Reply-To: <CANiq72=-6CGi5d=sxd82mp347skPGxK_xH+UNt_dUUD_rKdFiw@mail.gmail.com>
-From: Huacai Chen <chenhuacai@kernel.org>
-Date: Fri, 4 Sep 2026 14:51:41 +0800
-X-Gmail-Original-Message-ID: <CAAhV-H6QzYUmoErGUFecF1jptYekkuy-+iZtDXvY82wbr7+V4Q@mail.gmail.com>
-X-Gm-Features: AcwNN1WVbV3UVJPY6vBHMoHJf_6Z9XFAkSpgPnoM44jiVUQuUMOn41ZyOzStCwQ
-Message-ID: <CAAhV-H6QzYUmoErGUFecF1jptYekkuy-+iZtDXvY82wbr7+V4Q@mail.gmail.com>
-Subject: Re: [PATCH] loongarch: Do not select HAVE_RUST when KASAN is enabled
-To: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
-Cc: Nathan Chancellor <nathan@kernel.org>, WANG Xuerui <kernel@xen0n.name>, 
-	Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
-	=?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
-	Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
-	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
-	Danilo Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, 
-	Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, 
-	=?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
-	WANG Rui <wangrui@loongson.cn>, Mark Brown <broonie@kernel.org>, Kees Cook <kees@kernel.org>, 
-	loongarch@lists.linux.dev, linux-kernel@vger.kernel.org, 
-	rust-for-linux@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.45.2
+Message-Id: <20260904065159.34409-1-lizhe.67@bytedance.com>
+X-Lms-Return-Path: <lba+26a9a6aaa+c4c0ab+vger.kernel.org+lizhe.67@bytedance.com>
+Content-Transfer-Encoding: 7bit
+To: <akpm@linux-foundation.org>, <david@kernel.org>, <ljs@kernel.org>, 
+	<liam@infradead.org>, <rppt@kernel.org>, <surenb@google.com>, 
+	<mhocko@suse.com>, <tj@kernel.org>, <hannes@cmpxchg.org>, 
+	<shakeel.butt@linux.dev>, <muchun.song@linux.dev>, <qi.zheng@linux.dev>
+From: "Li Zhe" <lizhe.67@bytedance.com>
+Cc: <cgroups@vger.kernel.org>, <linux-doc@vger.kernel.org>, 
+	<linux-kernel@vger.kernel.org>, <linux-mm@kvack.org>, 
+	<lizhe.67@bytedance.com>
+X-Original-From: Li Zhe <lizhe.67@bytedance.com>
 
-On Fri, Sep 4, 2026 at 7:04=E2=80=AFAM Miguel Ojeda
-<miguel.ojeda.sandonis@gmail.com> wrote:
->
-> On Thu, Sep 3, 2026 at 10:12=E2=80=AFPM Nathan Chancellor <nathan@kernel.=
-org> wrote:
-> >
-> > After commit 2625480a1bf7 ("hardening: Default randstruct off with rust
-> > for better allmodconfig support"), which allows Rust to be enabled for
-> > allmodconfig, ARCH=3Dloongarch allmodconfig starts failing with:
-> >
-> >   error: kernel-address sanitizer is not supported for this target
-> >
-> >   error: aborting due to 1 previous error
-> >
-> >   make[4]: *** [rust/Makefile:741: rust/core.o] Error 1
-> >
-> > For the same reason as commit 84a0f7caafc6 ("ARM: Do not select
-> > HAVE_RUST when KASAN is enabled"), do not select HAVE_RUST when KASAN i=
-s
-> > enabled until the loongarch64-unknown-none-softfloat target in rustc
-> > supports KASAN.
-> >
-> > Fixes: 90868ff9cade ("LoongArch: Enable initial Rust support")
-> > Signed-off-by: Nathan Chancellor <nathan@kernel.org>
->
-> Sounds good to me -- if LoongArch gives their Acked-by, then I can
-> take it in the rust-fixes PR I will send soon; otherwise, this can go
-> through their tree or Kbuild's I guess.
-I queued for loongarch-fixes, thanks.
+memory.reclaim is used by userspace controllers as a proactive memcg
+reclaim interface. On systems without memory tiering, a completed request
+is normally interpreted as eviction-oriented progress: pages were freed
+and the cgroup's charged footprint can drop.
 
-Huacai
+Memory tiering makes that interpretation ambiguous. The reclaim scanner
+may satisfy the requested amount by demoting cold folios from a faster
+tier to a slower tier. That is useful aging behavior, but it means a
+request can complete even though the cgroup's charged footprint is
+unchanged. Userspace controllers that rely on memory.reclaim for actual
+cgroup footprint reduction therefore lose the ability to request the same
+kind of outcome they get on non-tiered systems.
 
->
-> Thanks!
->
-> Cheers,
-> Miguel
->
+At the same time, some controllers want the opposite operation: use the
+reclaim scanner as a best-effort placement mechanism to move cold folios
+from DRAM to CXL or other lower tiers, without evicting them from memory.
+This can be used to maintain top-tier headroom or a desired
+DRAM/CXL occupancy ratio according to workload policy.
+
+This series keeps the existing behavior as the default, and adds explicit
+opt-in goals for userspace controllers that want a more specific outcome
+from memcg memory.reclaim:
+
+  echo "1G goal=evict" > memory.reclaim
+
+    Run the normal reclaim scanner and keep demotion enabled as part of
+    tier aging, but do not count successful demotion toward completing the
+    requested amount. This lets callers ask memory.reclaim to continue
+    until eviction progress, rather than demotion-only progress, satisfies
+    the request. If the cgroup has no usable demotion target, goal=evict
+    falls back to the default goal=progress behavior.
+
+  echo "1G goal=demote" > memory.reclaim
+
+    Use the existing reclaim scanner for best-effort memory tier demotion
+    without LRU folio eviction. This is intended for placement control,
+    such as maintaining top-tier headroom or a desired DRAM/CXL occupancy
+    ratio. Demoted folios remain charged to the cgroup, so this goal does
+    not imply memory.current reduction. If the cgroup has no usable
+    demotion target, the request fails early with -EAGAIN.
+
+The default remains goal=progress, which is the current memory.reclaim
+behavior. In that mode, the kernel's existing reclaim progress accounting
+is unchanged and successful demotion can satisfy the requested amount.
+
+Patch 1 preserves the tiered LRU aging model. It changes the completion
+accounting for an eviction-oriented request, while still allowing demotion
+to happen as an intermediate step. After enough demotion has been done in
+a batch, reclaim avoids repeatedly scanning the top tiers in the cgroup's
+allowed demotion hierarchy just to produce more demotion-only progress,
+while still allowing lower tiers to age or reclaim normally.
+
+Patch 2 constrains a request in the other direction: it allows best-effort
+demotion as the requested action, while keeping folios that are not queued
+for demotion instead of evicting them from the LRU. It also skips slab
+shrinking, because slab reclaim cannot contribute demotion progress and
+would otherwise be retried aggressively for an underfilled demotion
+request.
+
+This also keeps the ABI scoped to the existing memory.reclaim interface
+instead of adding a new cgroup file. The goal key describes what kind of
+progress the caller wants from the request; it does not select a source or
+target tier, does not provide strict placement guarantees, and remains
+subject to cgroup protection, swappiness balancing, reclaim eligibility,
+and demotion target availability.
+
+This series is memcg-only. The per-node reclaim interface shares the
+parser but has different semantics: node reclaim can legitimately treat
+demotion as the desired way to relieve pressure on a node. For that
+reason, the new goals are rejected from the per-node path rather than
+being given a different meaning there.
+
+Li Zhe (2):
+  mm: add goal=evict to memory.reclaim
+  mm: add goal=demote to memory.reclaim
+
+ Documentation/admin-guide/cgroup-v2.rst |  26 ++++
+ include/linux/memory-tiers.h            |  13 ++
+ mm/internal.h                           |   2 +
+ mm/memory-tiers.c                       |  35 +++++-
+ mm/vmscan.c                             | 154 ++++++++++++++++++++++--
+ 5 files changed, 219 insertions(+), 11 deletions(-)
+
+-- 
+2.20.1
