@@ -1,119 +1,62 @@
-Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com [209.85.216.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFB333EDADC
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 09:12:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DDEB4334AD;
+	Fri,  4 Sep 2026 09:13:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788513183; cv=none; b=QVAVmsb1a8KYYAFlUJK8HSRGNzWH2+rQJQ8hVbyI4toW6JDuAUmD+I7be1vSLIae/kssKtp9uwUUko41pLl89d1NLwFjR5dYgY74pJpyTKee90UU6qJrGKjKxXVK80giV7szyXeFbA9zxAczTEsQhrViLoWaZBRjmBPOnIzMl7M=
+	t=1788513200; cv=none; b=N5Kp15fqY+25SspuHOvO25tiEehCQ50867EHbXaCq2xXBGpp2jjDlSmIKQk0/A0vvsArmF1NKmL1F/vRj73aa0PaZ36EAqrM+s2GZB2MR7qEdP7ASpQqvIptWd7E0rsG+ZY5i2FDwVX3Uw05hzwrpM4vijB/Pwc93364VjCwqhI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788513183; c=relaxed/simple;
-	bh=UlKtSFgJbq4itWjVY4UghG+VhKebOP6CuaZQzBNuzME=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=LOolRLqkl/2ufOBCk0DMggFEQ0UjR6yNcnf3tznZDWjRg8B4zboS5/w/H4gGkcHNfSFTXv0Ab722ikFBgqFFw6l1QYdi9c7VEKOZ0cs+jYCRgIpNlWBeYIFzVr3vWCCwyOs7Bdm/XNzR7fvrJprsdr/YpoeDoJjQR0AytpCETKk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GSZtgP70; arc=none smtp.client-ip=209.85.216.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GSZtgP70"
-Received: by mail-pj1-f45.google.com with SMTP id 98e67ed59e1d1-3856d6fbcb3so602367a91.2
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 02:12:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788513175; x=1789117975; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=f2uDduOSprb24UTS5mMjO2bGXJg9YYeJ4jGweCvX+II=;
-        b=GSZtgP70jCU/DHrqqoL+9YJEfIo0QLn+YCts6OD2xMSUQ6ahZUwdMo6lbNun1R84fK
-         1edHF5c2sJV4qG1f2+CLFBeVqj984hIL9x784fN+Wx5Qex4dnyPscoYVCOXnzl4P8vsU
-         UaJBkZon623OKBz8Ch/eETmrICss1SfYq0kZSuIBFcmlwKuKH28UOJ5ptSlb/KloshZq
-         nG9aP0OYB64mHWKeeS9YudgtPdb8s7qKCHWGjEb/WZG+6HayJjWTo6s/q/f0HN7ZsGDD
-         9+R46yJDbVAZ/hBaqj5/akMOq8coJPbxwjUaKaThf6M8SnY3RVUgbl7n705oKrEsas49
-         d5UQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788513175; x=1789117975;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=f2uDduOSprb24UTS5mMjO2bGXJg9YYeJ4jGweCvX+II=;
-        b=YXALoGPAtPEb2gRCt7VtuVdzmXUJR6m8mduoqvyHO42vBIcjdJx+LGgG1mYZplrllM
-         NQfWXmYI11CzQhVJw+UAS2WFOlOySnPVWYWHTIM9Yj8Ed+FI+KAzbiJyPQh85e2yqe8x
-         ugen52IjYpwq8y3oDZthRcvan04WaMCL6v2BYdth3j564iNXWHuSjLvUAq4NyHisYA65
-         vHfge9nhm4Pkm6pXZK2gz3l3BCYimE+ItSW2pgFoRMN1YliRlehvHzOQ8yEFD8n4Y9U0
-         zfqkZOgMTh+BDLezgnB04znCziP9FGsvRFFR2Jon5rXxaCrIPOelkx8XLfJY2WvlSZS3
-         xGVg==
-X-Forwarded-Encrypted: i=1; AKwUvBwXfxaXmhYo9OLcS6rpDX0X0GCavv9/+69CNKPBkEsc1fwYQGUf19MuzhLyDwdvPAZWw7lvp8ztoh4P9g8=@vger.kernel.org
-X-Gm-Message-State: AFuF++kgx/QVZeMJsyaQggHjE5jCEcaXKZmpy7+FghNo6er/GQ7iAanR
-	r+WZLQSR6mkT5JLSGKTn0CNuR2GLlfAQzWM6ZiyPteaCYM2SACj6gsWs
-X-Gm-Gg: AYBFou1yM/kMvmZiyjTmolRJRAGr8Mav9ZPZU9L04WDiLt7D8/KthZ9qvurcbM3N742
-	G03EsuzkIQTYudy73nZ0bB0otpHXKJukdWpEJlcnqqo8C4Yl0SLHSrBKh2ZrbbAKZIAlbrobM/M
-	rFHsRi+UbgGnJuUrogPMIzUmGQhsoo7fkqWoROOJt4Qdr+AxQUVTEqkQXxZ2/aoYepCo2vUECYs
-	vOsGLEDlNDdAt51Ilgh38vXaTXqHA2V0uBWaa3xP2Ehi74xxc9KmjONb83S6kJ6HTIyToxQ+nMW
-	SsfpsXeMV4M6ULjZ3hmyj0JyY/cJEL4HO2yPORx9jrH/86QJcxnuhv5Rl2AhCVIkjZTxOTfHoUL
-	ZGcpLU9go/Yvik0bjcfBLpuNyr3S0SzuwCjSgN2pf4kl/vPzPJ8sh9kR8W2mWRvl9re9NnnFYXD
-	fmpOu9oEOZIMYPDnn7aWwhAtO3HJhlRYs2zGdCORJ41wtqy4G66NCmNSQwLg7EGOM4AKpyqdWNp
-	pv1slP715cmP4H1pyyGMrEWjJ0X/q0AIpIOdkWyMPYCSh+dK+U3TqI0APrMQcVP/gv2rt0uIjHV
-	XRTA
-X-Received: by 2002:a17:90b:394e:b0:37f:fd1f:d30f with SMTP id 98e67ed59e1d1-39b26272d76mr7654274a91.12.1788513175260;
-        Fri, 04 Sep 2026 02:12:55 -0700 (PDT)
-Received: from phuc-desktop.. ([183.91.15.56])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b2612d3f1sm3443708a91.13.2026.09.04.02.12.52
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 04 Sep 2026 02:12:55 -0700 (PDT)
-From: phucduc.bui@gmail.com
-To: Bjorn Andersson <andersson@kernel.org>,
-	Mathieu Poirier <mathieu.poirier@linaro.org>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>
-Cc: Arnaud POULIQUEN <arnaud.pouliquen@foss.st.com>,
-	linux-remoteproc@vger.kernel.org,
-	linux-stm32@st-md-mailman.stormreply.com,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	bui duc phuc <phucduc.bui@gmail.com>
-Subject: [PATCH v2] remoteproc: stm32_rproc: Propagate errors from optional IRQ lookup
-Date: Fri,  4 Sep 2026 16:12:30 +0700
-Message-ID: <20260904091230.58665-1-phucduc.bui@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	s=arc-20240116; t=1788513200; c=relaxed/simple;
+	bh=QucwaclOjyYHopgW8/mLC1xI5HcNHu4T0BXjt5NsW50=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=XrIkKCt3b7GGwbhoYFYMbZrsQMYYOJQ+J93tn+q6gqDGusYZXE25L9OdeX2p7wFkp8sg4s4gReGpVN0J8LGGOuCOP3mKCXdW+WvXFvHF+k5I4lGPROcmhb2otmczhxVkotjnP3j4uL9jBVTvG+g1FyKU/Mvof9bn3MAA3WHePqQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: d88b31dea84011f19a56ed5b684f684d-20260904
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:cfa902b0-1f0a-4bf3-8060-1d9ab420d2fe,IP:0,U
+	RL:0,TC:0,Content:-5,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
+	:release,TS:-5
+X-CID-META: VersionHash:7db8b62,CLOUDID:6472706a6be62be334e54d3a4e77b7ad,BulkI
+	D:nil,BulkQuantity:0,SF:81|82|83|102|865|898,TC:nil,Content:0|15|50|99,EDM
+	:-3,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0
+	,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: d88b31dea84011f19a56ed5b684f684d-20260904
+X-User: liuxixin@kylinos.cn
+Received: from [127.0.1.1] [(10.44.16.150)] by mailgw.kylinos.cn
+	(envelope-from <liuxixin@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+	with ESMTP id 1127481883; Fri, 04 Sep 2026 17:13:08 +0800
+From: Xixin Liu <liuxixin@kylinos.cn>
+To: sudeep.holla@kernel.org
+Cc: arm-scmi@vger.kernel.org, cristian.marussi@arm.com, linux-arm-kernel@lists.infradead.org, linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org, liuxixin@kylinos.cn, mturquette@baylibre.com, sboyd@kernel.org
+Subject: Re: [PATCH v2 5/5] clk: scpi: use PLATFORM_DEVID_NONE for scpi-cpufreq
+Date: Fri, 4 Sep 2026 15:55:00 +0800
+Message-ID: <reply-scpi-hardening-v2-ping.20260904.liuxixin@kylinos.cn>
+In-Reply-To: <20260728-cuddly-alpaca-of-serenity-c0c824@sudeepholla>
+References: <cover.v2.1785200642.git.liuxixin@kylinos.cn> <fb51cfbfbb41.v2.1785200642.git.liuxixin@kylinos.cn> <20260728-cuddly-alpaca-of-serenity-c0c824@sudeepholla>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-Mailer: patches/scripts/send-local.py
 
-From: bui duc phuc <phucduc.bui@gmail.com>
+Hi Sudeep,
 
-platform_get_irq_optional() returns a positive IRQ number on success or
-a negative error code on failure. For an optional IRQ, -ENXIO indicates
-that no IRQ is available, while other errors should be propagated.
+Just a gentle ping on this v2 series from 2026-07-28.
+Dropping the 5/5 cleanup on apply is fine with me.
+Could you please apply the rest when you have a chance?
 
-Instead of only checking for -EPROBE_DEFER, propagate all error codes
-returned by platform_get_irq_optional() other than -ENXIO, so that
-failures are properly reported to the caller.
-
-Acked-by: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
-Signed-off-by: bui duc phuc <phucduc.bui@gmail.com>
----
-
-Changes in v2:
- - Add Arnaud Pouliquen's Acked-by tag.
-
- drivers/remoteproc/stm32_rproc.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/remoteproc/stm32_rproc.c b/drivers/remoteproc/stm32_rproc.c
-index 1fe4cdc0a13a..a47e040c6db8 100644
---- a/drivers/remoteproc/stm32_rproc.c
-+++ b/drivers/remoteproc/stm32_rproc.c
-@@ -675,7 +675,7 @@ static int stm32_rproc_parse_dt(struct platform_device *pdev,
- 	int err, irq;
- 
- 	irq = platform_get_irq_optional(pdev, 0);
--	if (irq == -EPROBE_DEFER)
-+	if (irq < 0 && irq != -ENXIO)
- 		return irq;
- 
- 	if (irq > 0) {
--- 
-2.43.0
+Thanks,
+Xixin Liu
 
