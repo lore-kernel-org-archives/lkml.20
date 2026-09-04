@@ -1,291 +1,282 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lf1-f41.google.com (mail-lf1-f41.google.com [209.85.167.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD0193E008A
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 16:22:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C12C14BB7E3
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 16:22:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788538945; cv=none; b=UzMfBrTwWnv7hcbTOi/AqUuNkXDuiooXLc7rRjDYb2fHO36NkTRSDadtELsc1cPdwqavSbMEY5zHn2SyGg3YOOa2Iud3fjLwPIuBI9RCcHHbWDfwLP04BDBput/njpkBZ8jmFtjs6z+JySC07f1jIvHiOF7SF+asrdip5ENEUGQ=
+	t=1788538966; cv=none; b=px7TeIbfpG8XxGp8hIf7/IDURouRZY3jLI8EemvTotwI8I/DklNe3ik8Mpkgx85Q/XyOFWaNQMTYmd/wQmuOJ00zZetjB1LxknBiBnMhEsXI3FywoZdJ3p3zCF0cKNLIJ3LCx7d/0IJPqlyKRCVAA7lkcnlWB3p7/Z7A3L+FAcs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788538945; c=relaxed/simple;
-	bh=m3aU4japoBQvwMUSzstjyqjTG8MzJ2V64ARib0pcxe4=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=rrcPgYvqxbduUXJAUgoKwjQrQnjXTIQ91e2ylP/mNDcAsiXC76MI2v4YwWscPPFeLb5LoL76ZkB6pa6ldoCMH9arLTQNzZyOCWfmMXyiqfRpHkPCzWOun1kOZIbBtgSCW8VwDiY1hkBEvu7RSjxKd8ZXz64VeXSFvfVChzL70pg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LYEp4MHx; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788538966; c=relaxed/simple;
+	bh=tzK3UKTtS9JIjsbVctIiNEivUU+ANwbZzqbfNXNfpRI=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=JoV3WX7E0w4PcMdBreB7BYwolHBg+BHHdY7BjDu56QXLae8Sl6DbzvzzbQCwimimdqkwg5fGfWaEHh4lz6DCnzVETwS5TruyP8ry7ELLOvF9tw90fPtoKNNOAYRIHbtDFlfp4U2ILdbBCDhJeVftkIR5kG6R39WkL52gS1Bjkh0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sYiZO2fv; arc=none smtp.client-ip=209.85.167.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LYEp4MHx"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 089DC1F00A3E;
-	Fri,  4 Sep 2026 16:22:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788538943;
-	bh=xPOe/7eOih/6tRK4rDomL1afIgbcko+lODATuyUauVo=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=LYEp4MHx8CCVpuzPJhMpRehbafg1thO+a5Qz1toktPjX4lzWjkVLkew6JjFyGc5nU
-	 0ZXzae2eW47rc15K0GTaMsY76WAAdTFIR2vNc8Ud+3o//CzfS/LeLk00LRcVoKf1iH
-	 Z1ED8Sj99Lw1A8HzkxEUBVEeOFlB+b9YuAphcpjJXymMsIeqKkDlZJQTgyqmdmaNuI
-	 aBvoq6LxrFcS+KvmLmFKosMZG6xUQ6MuHoZUTdK5FWkuPPwBeMgFI3EoWWQFh5GIr2
-	 pj5uoyg6w8ekwioiCTTrdrAx0ebI1p2Uz9StOyAT/aR9Oku+c14NjvbqhoeKaUH0Ex
-	 BqSSxXLhmSxpw==
-From: Pratyush Yadav <pratyush@kernel.org>
-To: Sourabh Jain <sourabhjain@linux.ibm.com>
-Cc: Pratyush Yadav <pratyush@kernel.org>,  linuxppc-dev@lists.ozlabs.org,
-  Aditya Gupta <adityag@linux.ibm.com>,  Alexander Graf <graf@amazon.com>,
-  Andrew Morton <akpm@linux-foundation.org>,  Baoquan He
- <baoquan.he@linux.dev>,  "Christophe Leroy (CS GROUP)"
- <chleroy@kernel.org>,  Hari Bathini <hbathini@linux.ibm.com>,  Madhavan
- Srinivasan <maddy@linux.ibm.com>,  Mahesh Salgaonkar
- <mahesh@linux.ibm.com>,  Michael Ellerman <mpe@ellerman.id.au>,  Mike
- Rapoport <rppt@kernel.org>,  Nicholas Piggin <npiggin@gmail.com>,  Pasha
- Tatashin <pasha.tatashin@soleen.com>,  "Ritesh Harjani (IBM)"
- <ritesh.list@gmail.com>,  Shivang Upadhyay <shivangu@linux.ibm.com>,
-  Shrikanth Hegde <sshegde@linux.ibm.com>,  kexec@lists.infradead.org,
-  linux-kernel@vger.kernel.org, Tarun Sahu <tarunsahu@google.com>
-Subject: Re: [RFC PATCH 2/3] powerpc: add support for Kexec HandOver (KHO)
-In-Reply-To: <8fa790a7-f387-48f6-ac76-11cf71ef5589@linux.ibm.com> (Sourabh
-	Jain's message of "Fri, 4 Sep 2026 20:20:38 +0530")
-References: <20260821105609.983622-1-sourabhjain@linux.ibm.com>
-	<20260821105609.983622-3-sourabhjain@linux.ibm.com>
-	<2vxza4qfznyo.fsf@kernel.org>
-	<7bb84b8a-c394-4895-9e22-632dc506cbb6@linux.ibm.com>
-	<2vxz5x0ox7p9.fsf@kernel.org>
-	<8fa790a7-f387-48f6-ac76-11cf71ef5589@linux.ibm.com>
-User-Agent: Gnus/5.13 (Gnus v5.13)
-Date: Fri, 04 Sep 2026 18:22:18 +0200
-Message-ID: <2vxzwlt1vvet.fsf@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sYiZO2fv"
+Received: by mail-lf1-f41.google.com with SMTP id 2adb3069b0e04-5b4ab4b4179so1121266e87.0
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 09:22:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788538960; x=1789143760; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=C/2ZdZdl6qmR51zeaL+nCzu0LwWvHRFYyLrBt4GeQgM=;
+        b=sYiZO2fvaxkC8pDZcQsFIDf+/rO4gZVP42g6LWm4QbWYW+zIbj/47dHqyX0SdNTUbo
+         3fEOFULefgz3lZSh3TbGzorEKJqgzQNIG0aqceweAr1m179FZnkt4gyC7JrwPfEs9tEB
+         9eGg8n5iq6SUPEny5+3mjZ7jGz9ET6YsK9L/64y9LW49nhPkHwwWXNK8y6DcYlxxO7gK
+         /n08VOW9189Ks54zSCnC0PEmWEyGTXCS0kO6diux1MhMl4ft4Ok5uIpNenA0ORFgW4g+
+         ytUQ2kn/61KiXYRMpSH8CqaLGQ152kzSsiWOTgwWyGptuyUuOoloXfG980MMmqYp9NVJ
+         Ea2A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788538960; x=1789143760;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=C/2ZdZdl6qmR51zeaL+nCzu0LwWvHRFYyLrBt4GeQgM=;
+        b=iMXJAS2SCzM1VoI24y2ldyx3WQRMUOkXqhg1uf/V1v2NoL7gDv2bRmWOvotKblAS4g
+         yeHdWKkMaGShMatdOx9h+/+L283066vSAgNpX4rSiktJHcNXfZ++WB1Tlgwi1AK1dvbb
+         r/TJIas68n5wBvqzgPbDPD2AX6sWqEy5HxQ27II2V1uNPK3Ons/7ZsuG4PUSwXUSbh0H
+         0tu2RxE22T4CcVfvxCJLGYO8RspmUYloYwJqbsFXaRo7flPNoNhYsJhZ+PgtJdtAieP9
+         9ktW7CelUML4JTIpVXQqcUtmC6M92KjkJMQljiwdGa8yTFWYktW6kiJtl7W9Gudi2k+l
+         1N2w==
+X-Forwarded-Encrypted: i=1; AKwUvBwKeOQWpP2HLHYRvg5aVERSZmBwkja4Md6+KJTE3L0PUuRtxPRe5vjVngpqfKa4orpy1BgKouVfNnnHAkI=@vger.kernel.org
+X-Gm-Message-State: AFuF++nGgx0UXXbQuG3jEeRdzyxBbKKnHjQqFtcqXPcjF8S7Mg1EeP0a
+	XJtwRVFhWmv+i03JJdeB9UjQwAxox30bsn948TCLCPOzkz7Sm6kNQMtA
+X-Gm-Gg: AYBFou1tyvCpUAG/PmPYF70W5t3kKWa0nNJGJWh5Jy/58tdFHr8aYYr2/lXA6h7yKBB
+	k+Y96t68Fc1gA9DRul/N2Yu54qlJOhIydV3M2HWU85PDP3iax2EFXnKq5TQ3nVjO1ZJWCjMW++L
+	1gn/YIMR8VUD3ADBB9w+GUM83M3l5fkjdLiJj4CadwwvRHBtYF87LUqB/y/w/n8MYY0NJTr1jXh
+	VcL2gjaGvSJLherar982DpiH3M4rlyre7J4L1w5X++HGSdqYI7CgTimxj/ruQrP3+PnWa9HqWGo
+	jI5MdF5BgZXx1x+cgVy4zjCjk13CkCi1D2hRHWQRfcIDRfJr/N4Bvu1MjRlirGdTCMNg9uy+UZX
+	0umEDowI7btoh6ThU20qJswq6HRt2R0yAEfTTM32/LyaSzmlhqCQHsgkaX7a2V319MQc2hxh/us
+	0fUVIMyUqp8k3WNJAXS6+CuI8jy6AE/pXuVIcbf7DsRwwlbMXtJk1rqqXN1yVJd4D3e3ohujgrT
+	xrfE2lbeUgY4y7wfZEXdmLaxss+8mt2pchE04WjIQCWj0FNUKcauNWE2GgV
+X-Received: by 2002:a05:6512:3985:b0:5b4:ac27:6bb0 with SMTP id 2adb3069b0e04-5b616f4ba31mr1908487e87.25.1788538960167;
+        Fri, 04 Sep 2026 09:22:40 -0700 (PDT)
+Received: from localhost ([188.234.148.119])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b667b6c30fsm281370e87.9.2026.09.04.09.22.38
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 04 Sep 2026 09:22:39 -0700 (PDT)
+From: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+To: tiwai@suse.de
+Cc: tiwai@suse.com,
+	perex@perex.cz,
+	jikos@kernel.org,
+	bentiss@kernel.org,
+	linux-sound@vger.kernel.org,
+	linux-input@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+Subject: [RFC PATCH v5 0/2] the Topping M62's vendor controls, on the component framework
+Date: Fri,  4 Sep 2026 21:22:34 +0500
+Message-ID: <20260904162236.3212370-1-mikhail.v.gavrilov@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260904153051.1785280-1-mikhail.v.gavrilov@gmail.com>
+References: <20260904153051.1785280-1-mikhail.v.gavrilov@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Transfer-Encoding: 8bit
 
-On Fri, Sep 04 2026, Sourabh Jain wrote:
+This is the experiment Takashi suggested in the v8 thread: an
+individual HID driver joined to snd-usb-audio through the component
+framework, instead of a mixer quirk that claims the HID interface for
+itself. It is posted as an RFC rather than as v9 because v8 is not
+withdrawn -- it remains the alternative, and the choice between the two
+is the question this series exists to answer.
 
-> On 02/09/26 16:04, Pratyush Yadav wrote:
->> On Sun, Aug 23 2026, Sourabh Jain wrote:
->>
->>> On 21/08/26 17:26, Pratyush Yadav wrote:
->>>> On Fri, Aug 21 2026, Sourabh Jain wrote:
-[...]
->>> I agree that this is one way to work around the low-memory reservation problem.
->>> However, there are a few things that come into play here:
->>>
->>> 1. On powerpc, the crashkernel reservation can go up to 64 GB for kdump. With
->>> the
->>>     current default scratch memory reservation policy, this could result in
->>> reserving
->>>     up to 256 GB of scratch memory: 200% for the high-memory reservation and
->>> another
->>>     200% for per-node memory.
->> That calculation looks off. It _should_ be 200% once not twice. So 128
->> GB total. If the allocation came out via the global area, it should
->> _only_ be accounted to the global scratch size. Similarly, only the
->> allocations made specifically on that node should be counted for the
->> per-node scratch size.
->
-> For example, if a system has only one node and 64 GB is allocated from
-> that node before the kernel starts calculating the per-node and global
-> allocations for scratch memory, wouldn't the per-node allocation also be 64 GB?
->
-> If so, wouldn't that result in 200% of 64 GB being allocated for the global
-> area and another 200% of 64 GB for the per-node area, resulting in 256 GB
-> of total scratch memory allocation? Or am I missing something here?
+I said this morning that I would hold this until the questions in that
+thread were answered. I am sending it anyway, because a patch gets a
+better answer than a question does, and because the last of those
+questions answered itself: the correction I sent a few hours ago
+proposed deferring the controls until the card reports, and working out
+how that lands in code showed why it cannot -- which is in the section
+below. The only question still genuinely open is the HID one, and it
+touches one line.
 
-It shouldn't. If the 64 GB of allocation was done with NUMA_NO_NODE, and
-it _happened_ to land on node X, it should not be counted for per-node
-sizing. It should count towards the global pool. Only allocations that
-were explicitly requested with node X should be count for that node's
-scratch size.
+Changes since v4:
+ 
+  - the master's teardown could not work from the path it was written
+    for. topping_master_release() called component_master_del(), which
+    calls topping_master_unbind(), which looked its own context up with
+    devres_find() -- and devres_release_all() moves every node off the
+    device before it calls a single release, so that lookup always came
+    back empty. The WARN_ON fired and the unbind was skipped, leaving
+    the component bound to a master that no longer existed.
+ 
+    Worse, the skip was load-bearing: component_unbind_all() walks the
+    match array, and component_match_add() had put that array in devres
+    after the context, so devres releases it first. Had the unbind gone
+    ahead it would have walked freed memory.
+ 
+    Two changes. topping_master_unbind() no longer looks anything up:
+    it passes NULL as the component data, and the HID side takes its
+    controls off the card it was handed at bind, which it still has.
+    And the teardown moved out of the release into its own devres
+    action, registered after component_match_add(), so that it unwinds
+    before the match array rather than after it.
+ 
+    topping_master_release() is storage again, and the ordering that
+    v4's release was reaching for is now expressed by where the action
+    is registered rather than by hoping.
 
-So on a one node system where 64G of memory is allocated with
-NUMA_NO_NODE and 8G is allocated with node X, we should get 128G of
-global scratch and 16G of per-node scratch, giving us a total of 144G.
+What the shape buys, measured rather than argued:
 
-I took a quick look and it looks like the problem might be that the
-calculation for global scratch includes _all_ nodes in it. See
-memblock_reserved_kern_size():
+  - card.c is not touched at all. The v8 series had to add
+    snd_usb_claim_iface() and snd_usb_release_iface() there, and had a
+    defect I reported separately: an interface claimed and marked
+    USB_AUDIO_IFACE_UNUSED never gets told to wind down, because
+    usb_audio_disconnect() returns at its first line. With no claim
+    there is no such interface and the defect has nothing to attach
+    to. Watching the wire with usbmon: unbind the audio interface and
+    the keepalive stops. In v8 it kept going.
 
-	for_each_reserved_mem_region(r) {
-		...
-                
-		if (nid == memblock_get_region_node(r) || !numa_valid_node(nid))
-			if (r->flags & MEMBLOCK_RSRV_KERN)
-				total += size;
-	}
+  - the hid_ignore_list entry goes away, so hidraw stays available.
+    That matters because five of the card's functions -- the mixer
+    matrix, the mutes, the loopback routing, the input power and the
+    EQ -- are reachable only through the vendor protocol, and v8 made
+    them unreachable from userspace as the price of the quirk.
 
-And for global scratch we pass nid as NUMA_NO_NODE.
+  - two M62s on one host bind to their own cards. The match is by
+    descent from the shared USB device, and it holds: gains set on one
+    do not appear on the other, and unplugging one leaves the other's
+    controls in place. The quirk road could not be tested for this at
+    all.
 
-For KHO we could just drop the || !numa_valid_node(), but
-memblock_estimated_nr_free_pages() seems to depend on that behaviour. It
-wants to get _all_ allocations across all nodes. KHO only wants
-allocations explicitly made with NUMA_NO_NODE.
+On the timing worry from that thread: it does not bite on an ordinary
+plug. The master goes up from snd_topping_init() inside
+snd_usb_create_mixer(), so the bind is synchronous and the controls
+exist before try_to_register_card() -- the same ordering as v8. From
+HID probe to component bind, 54 to 57 ms across five replugs. Only a
+module reload onto a live card adds controls after registration, and
+there a desktop mixer does not follow the renumbered elements until
+wireplumber is restarted. That is a real wart and I have not found a
+way around it that is worth the code.
 
-But disclaimer: all this is from reading the code for maybe 15 minutes.
-I didn't run anything and might be missing something. So please
-double-check what I am saying.
+What the card does and does not report
 
-Not sure how to fix this. Since memblock_estimated_nr_free_pages() needs
-all the reservations anyway, perhaps open code a simple counting loop
-there? And the drop the || !numa_valid_node() from
-memblock_reserved_kern_size().
+I got this wrong twice in the v8 thread and would rather state it
+plainly here, since the design follows from it.
 
-But yeah, it would be much appreciated if you'd care to fix this.
+After a subscribe the card reports itself in two waves: jacks at about
+0.9 s, then at about 5.2 s the jacks again plus the output mutes plus
+the gain of every input whose jack is present. Every turn of a
+front-panel knob is reported as it happens, gains and output volumes
+alike. What is never reported is a source selector, because the card
+reports events and a selector has no front-panel control, so no event
+can exist; and an output volume before anyone has touched it, because
+it is a setting rather than a physical fact.
 
-The fix should be a separete patch, since it fixes problems on all
-platforms, and not just PowerPC.
+So five of the nine controls have a source of truth on the card, two
+have one only after a hand moves them, and two never do.
 
->> But I have also noticed this problem on some of the systems Google has.
->> Which makes me wonder if scratch_size_update() is broken and
->> over-calculating. I have this on my TODO list and have been meaning to
->> look into it, but other things keep intervening.
->>
->> If you are interested, feel free to take it off my hands.
->
-> Yes, I can take this up and propose patches to make crashkernel and
-> scratch reservations work together.
->
-> Based on my current testing, a Linux partition (powerpc) with 16 CPUs and 30 GB
-> of RAM needs only 16 MB of scratch memory in the low-memory area when
-> crashkernel=xxM is not specified.
->
-> 16 MB is not much. I am also trying to get a larger Linux partition with 1000+
-> CPUs to get a better idea of the limits for low-memory reservations.
->
-> BTW, do you know the rationale behind the 200% value?
->
-> I couldn't find any explanation for it in the commit message of
-> 3dc92c311498c ("kexec: add Kexec HandOver (KHO) generation helpers")
+That looked at first like an argument for deferring the controls until
+the first report lands, so that a value read at connect would be the
+panel's rather than something restored over it. I have not done that,
+and here is why: alsactl restores once, at card add, and does not
+come back for elements that appear later. Deferring would therefore
+trade an accurate value for five controls against no restore at all
+for nine, and would wait forever for an input with nothing plugged
+into it -- which on a five-input card is the normal case.
+The controls are published at bind, as in v8, and the value at
+connect is the restored one.
 
-We need to ask Alex (or maybe Mike?; I forget who added this).
+Open question, not blocking the review
 
-But if I were to guess, I don't think there is much science involved
-behind the number. Since the scratch lives across all kexecs, it needs
-to be large enough in case the next kernel uses more memory. 200% sounds
-"large enough".
+hid_hw_open() sets intf->needs_remote_wakeup, and usbhid offers no way
+to take input reports without it. This card does not advertise remote
+wakeup (bmAttributes 0xc0, no power/wakeup node), so that forbids
+runtime suspend to the whole device -- undoing something an earlier
+revision of the v8 series had to fix. The driver clears the flag after
+opening, with a comment saying so, because it resynchronises on resume
+and has no use for a device-initiated wakeup. Jiri and Benjamin have
+been asked whether that is acceptable or whether usbhid should offer
+something; the question is in the same thread and unanswered. If the
+answer is that the clear must go, HID_CONNECT_DRIVER replaces
+HID_CONNECT_HIDRAW and the hidraw node goes with it.
 
->>>     For fadump, which is the powerpc-specific memory dump capture mechanism, the
->>> crashkernel
->>>     reservation can go up to 180 GB. In this case, we could end up reserving up
->>> to 720 GB of
->>>     scratch memory, which is too much. I agree that users can tune this, but I
->>> think the
->>>     default scale should be more reasonable for powerpc.
->> Once we fix scratch_size_update() to actually use 200% and not 400%,
->> perhaps that alone will be enough? If not, we can discuss reducing the
->> default scratch scale to maybe 150%. But I'd rather do it for all
->> platforms if we do it at all, because this problem doesn't seem specific
->> to PowerPC.
->
-> Yes, it makes sense to have a general fix that works for all architectures.
->
-> BTW, I was able to reproduce this issue on x86 as well. Please have a
-> look at this:
->
-> https://lore.kernel.org/all/008fe00e-fd52-4010-86ca-f0ab80a65a46@linux.ibm.com/
->
-> I have also suggested an approach to handle this issue which is similar how you
-> handle
-> huge pages. Please share your thoughts on it.
+Tested
 
-I missed this.
+Fedora, 7.3.0-rc1-bc35965f6940 plus this series, with KASAN,
+PROVE_LOCKING and UBSAN enabled. One M62, firmware V87.05.45.48.27,
+and a second of the same for the two-card test. Everything below was
+run after the fixes listed above, not before them.
+ 
+All nine controls read and written from amixer and from the front
+panel, values cross-checked against the panel.
+ 
+One hundred cycles of module load and unload against a live card,
+which is the path the fixes touch: the controls come and go while the
+meter stream keeps arriving, so .raw_event() runs against a set of
+controls that is being taken apart. No splat and no lockdep complaint,
+including on the lock order the first fix introduces -- m62->lock is
+now held across snd_ctl_notify(), which takes the card's
+controls_rwlock inside it.
+ 
+An audio-side unbind and rebind, exercising topping_unbind() through
+the master rather than through the HID driver's own remove.
+ 
+The cable pulled out of a card while a control was being written in a
+loop. That produces a run of failed writes and then the disconnect,
+and after the last fix it does so without a line of complaint each.
+ 
+System suspend and resume: the subscription survives it -- turning a
+front-panel knob afterwards still moves the control -- and the
+selectors are written back on the way out, as they must be since the
+card never reports them.
+ 
+Two cards on one host, on different ports of the same hub: the
+component match is by descent from the shared USB device and it holds
+-- dmesg shows snd-usb-audio 3-1.3:1.0 binding one HID device and
+3-1.4.2:1.0 the other, each card carries its own nine controls, gains
+set from one front panel move only that card's controls, and
+unplugging one leaves the other's in place.
+ 
+Not tested:
+ 
+  - hibernation, and with it .reset_resume, which shares
+    topping_resume() with .resume. This machine is not set up for it:
+    there is no resume= on the command line and zram takes swap
+    priority, so the attempt logs "PM: Image not found (code -16)" and
+    powers off instead of saving an image. That is the same on a stock
+    kernel and has nothing to do with this series, but it does mean
+    the path is unexercised;
+  - kmemleak, compiled in on this system but disabled at boot;
+  - a card whose battery has run down;
+  - anything on a big-endian host.
 
-We can exclude HugeTLB pages from scratch accounting because the series
-updates HugeTLB to use a new routine called memblock_alloc_hugetlb() to
-allocate pages. This special allocator makes sure the pages are
-_outside_ of scratch even if scratch-only mode is used. Since HugeTLB
-pages come outside of scratch, they don't get counted in scratch sizing.
+Ordering
 
-We need to do this for HugeTLB mainly because we want to preserve
-HugeTLB pages in the future, and pages from scratch can't be preserved.
+The HID driver comes first. Between the two patches it binds, speaks
+to the card and creates no controls, which is harmless; the reverse
+order leaves a master that never matches, which is equally harmless
+but leaves hid-generic making a bogus input device out of the
+descriptor in the meantime.
 
-We could perhaps do so for crash as well, but I need to think more about
-this.
+Mikhail Gavrilov (2):
+  HID: topping-m62: driver for the M62's vendor controls
+  ALSA: usb-audio: bind the Topping M62's vendor controls
 
-But at first glance, if you need to allocate crash super early, perhaps
-memblock won't be able to cope. Because allocating crash outside of
-scratch would depend on kho_extend_scratch() and that needs
-memblock_allow_resize() to be called to be able to cope with multiple
-memory regions.
-
-[...]
->>> Could you please elaborate a bit on what makes the ordering tricky and what the
->>> main tradeoffs are between crash reservations and KHO? It would help me better
->>> understand the concerns here.
->> The problem today is that kho_preserved_memory_reserve() (called by
->> kho_mem_retrieve()) does a memblock_reserve() for each preserved folio.
->> So if you have a lot of order-0 (or, 4k) folios, you end up with a lot
->> of reservations in memblock. The large number of reservations can slow
->> down later memblock operations like allocations too since memblock might
->> have to walk through a lot of ranges to find free memory.
->>
->> We kind of work around this problem by calling kho_mem_retrieve() as
->> pretty much the last thing in the MM init. So all allocations prior to
->> this have already been fulfilled from scratch without any of the
->> reservations added, so it should be pretty fast. You only take the
->> performance hit at the end, where the only thing left is to release
->> pages to buddy.
->
-> Ah, okay, that makes sense. Thanks for the clarification.
->
->
->> Even then, the memblock reservations can get pretty damn slow. In some
->> of my testing with under-load systems, preserving a 2G memfd with 4k
->> pages can go over **5 minutes** in only kho_mem_retrieve() if the folios
->> of the memfd are fragmented enough. Plus there is the memory overhead of
->> the regions in memblock.reserved.
->
-> 5 minutes in kho_mem_retrieve(), which is primarily marking a bunch
-> of memory as reserved using memblock, seems like quite a lot. If you
-> have the test case handy somewhere, I would be interested in trying it
-> myself, just to get a better feel for the issue.
-
-I do, but unfortunately based on downstream code so it is neither useful
-to you nor something I can share I think.
-
-But your friendly neighbourhood LLM can help here. Ask it to preserve
-you a memfd but fragment/shatter buddy blocks first. That's pretty much
-how I wrote my test.
-
-But also see [0] which fixes the problem. Maybe Tarun (+Cc) has a test
-based on upstream that he can share?
-
-[0] https://lore.kernel.org/kexec/20260903155907.1065681-1-tarunsahu@google.com/
-
->
-> Regardless, I understand the concern now. From my perspective also, the
-> current ordering of crashkernel and scratch memory reservations seems
-> reasonable, because crashkernel is not as flexible as scratch reservation
-> atleast on powerpc.
->
-> On powerpc, the crashkernel offset is determined first, and the
-> corresponding memory region is reserved. To make sure that no
-> other reservation falls within the crashkernel region, the crashkernel
-> reservation is one of the first reservations we make on powerpc.
->
-> If we change this ordering, there is a possibility that a scratch
-> reservation could end up in a region where the crashkernel is supposed
-> to be placed. That would lead to crashkernel reservation failure.
->
-> Also, reserving scratch memory at a location where the crashkernel
-> cannot be placed could be problematic. Each architecture has its own
-> constraints on where the crashkernel can be placed, so the available
-> memory for scratch reservation may need to account for those constraints.
-> Which I think too much to take care off...
-
-That's a real problem. But I am hoping the restrictions are something
-along the lines of "crash kernel must be in lowmem", so the lowmem
-scratch already solves that problem?
-
->
-> And, of course, moving kho_mem_retrieve()earlier during boot would
-> also mean taking the performance hit you mentioned earlier.
->
-> So let's keep the current ordering and find a way to make both
-> reservations work with it: reserve the crashkernel first, and then
-> reserve the scratch memory.
-[...]
+ MAINTAINERS                   |   9 +
+ drivers/hid/Kconfig           |  19 +
+ drivers/hid/Makefile          |   1 +
+ drivers/hid/hid-ids.h         |   3 +
+ drivers/hid/hid-quirks.c      |   3 +
+ drivers/hid/hid-topping-m62.c | 925 ++++++++++++++++++++++++++++++++++
+ sound/usb/Makefile            |   1 +
+ sound/usb/mixer_quirks.c      |   5 +
+ sound/usb/mixer_topping.c     | 227 +++++++++
+ sound/usb/mixer_topping.h     |   7 +
+ 10 files changed, 1200 insertions(+)
+ create mode 100644 drivers/hid/hid-topping-m62.c
+ create mode 100644 sound/usb/mixer_topping.c
+ create mode 100644 sound/usb/mixer_topping.h
 
 -- 
-Regards,
-Pratyush Yadav
+2.55.0
+
