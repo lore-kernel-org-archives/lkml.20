@@ -1,113 +1,198 @@
-Received: from mail-pg1-f174.google.com (mail-pg1-f174.google.com [209.85.215.174])
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BBB2476688
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 11:53:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09ED747A0B7
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 11:53:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788522790; cv=none; b=u1NoIlidIYfSe1Tggc2EGG2NnifJLdyeAHBh/7/KkT63N9J5q/+EtVgolkplgJt5FeKX+07NWwZYpheN+93u5v65wNdsHbPoaW5DG7UEEAOa0wdSdOE42zA9Ksg7N7NQb/0gf0KdAFCZ2h3aqnSYiZ3IhgzgtMwRWx7aF33xKio=
+	t=1788522794; cv=none; b=f5NnyqdFd+gp2WJD90zq6+vXneTJM7tObl4y++YLy/WW4kUT2opt6aaMqToakWUvAxK+GDBU005K+0/GszCDsyv5aMsYZm2ZedqDk8X9Iv2GKwPgScxkz8CUh45SUAhLPRLxn3ijJMOFk3GryhMvDES1nL1n4M/FwsbyJyeaSxo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788522790; c=relaxed/simple;
-	bh=AvA5xutwueEBv7g4m//lMANLh5n6he6fF22r33hj24U=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=sRODtxv859XRwt9GuhClvH2VY/cVKuqqXAlmhTidfZtnhgMmzaGZf49TPlCEmB81GyG2LlXtS9Nj/ivyICGyA/eesMX+TuQ4vQ0zzX9X+GcpMSVhumHXklEWDbsTj/VCqhIswIFiwIuYmvrYe8E328F6FcoWz9aZeity8Rb/aLA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=EwfKl0C2; arc=none smtp.client-ip=209.85.215.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788522794; c=relaxed/simple;
+	bh=ov6l6XYXYWQFGwdR6skU1nY1vxsBWDotX7Kg0ih6rxA=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=N/UFqFgCjrg9e4fmnOAAiPW24oIcV1+CCZi88nouBUvaomoqNyMBbOKRnNTqBvxeKKRj2+AbI5drDCCdXh2Y7rrYvbXhbLhg31cCC2I9Jn3rmTHNdywJJDojbpzTABdjK3hrJ6Lq2qC4vf49NHg6AWnY5S5Rgryo2qhacqPDPC4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=BYVr1ugP; arc=none smtp.client-ip=209.85.128.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EwfKl0C2"
-Received: by mail-pg1-f174.google.com with SMTP id 41be03b00d2f7-cc1cf287ef8so962204a12.3
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 04:53:06 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="BYVr1ugP"
+Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4921eed3fa2so10008695e9.0
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 04:53:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788522785; x=1789127585; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=su/pv3iYAht5ogkGgF2P0degCEAQbGRgDBNWGy4Uw6U=;
-        b=EwfKl0C23Bv9jaD1T1pZQSsEZBmX5iJKyesIlpM87AMwvYrNG3DApe7Vvxt7feShMl
-         22KstIhUgo102sqc1DWWYZsNEFmYAnaoNK1HC7EpYNJoA0llgIOmYCCwSjz/4p1QysK/
-         izK9ypFP4ctySeS/RiK7v1MLmuQ7CaBCKMW+ckcmUnbpdXEVPW2stuJwgDI3i30WEAGm
-         wcGGtOlSxojDDBmOOJGDfe0HFk+3aR4zISY7U0lkaNDfxAN5bbbQfhm/qHjBFGiySmVI
-         kWZFB0mFkYYooAl4+SEoQ5G1BNA3Pz2v9ag7koS+hVZFv/jRlBpC6xhCfay3AExC/T8q
-         E5nQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788522785; x=1789127585;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=linaro.org; s=google; t=1788522788; x=1789127588; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=su/pv3iYAht5ogkGgF2P0degCEAQbGRgDBNWGy4Uw6U=;
-        b=ZPqkOFsG3Gvhl8nMETr3AlUtiQZeky1KnDmc8nugdhGW0+it3xV66FJWJzLEQpDO43
-         t23sSiBy3c65eFrFWvpSb0T481JOofyStn77HYb9MZFNA8iE01J3CaCpIoM2aHuTnjrH
-         gpSZep8vcW+yVoqqGNFUODK+/e4Dx4vARXHhS/oG8xxsEF1SfyTIhhmZl92b/RH3PgWj
-         OULFDmxSqrFd2N0llkFAjJIn9en/15Cx9Jen8KOp1gu//XGibRQocypkBXKlUUSkl3IV
-         lixN8+YtAev1HmsvMWbIrlpM+iFQThYk4KoVrZUfh+DBix/QQuB+8PboXw6HSXZzftFa
-         a74w==
-X-Gm-Message-State: AFuF++mdS1ijzEo90DRMQjBt1CO/XgJIAHgVMDdhIFAzV2zO1EHT31Cd
-	/fDF+47uczaG2axvY9jUY9nebbhNSBmKj5pdIsbA6t2yKWpkW6X4DzVU
-X-Gm-Gg: AYBFou1+s0VMJTvb7gXN6DKd3RXRysrexhvQ+ZA5a0HfQfBeqcdf24SWAwwBugd2HWq
-	DG+CVbL1TRaehiztMSLk+72YxJSFKM11C2LgpjN45njAyr9roIugdBCcw13H2rwpOvLgE+T2DpL
-	gFt77Lc+UuYeWX7EpvrpryAgpjOtCWnQq6x9Vegbo9vjlVt4K0NEJltDBFtWAtoFakgNF/2wH1w
-	+4QZu8PKSq/fR9KD0rEN1ji9ZD5LAxSbyodMhiHrDhhqIkt5xKrCmdgbi3FIw9Mv18GtWaX3rkq
-	7DXXGc3gYcZ5RgDHbmm2efIreC543Ht730pvw9hbBGveniJT8a2w8NPj9cdIObYUi8rCuecKr5P
-	ym5Ywu0nNQHvU1/pYZ3ID/pgZ1mkmeN9R7FJ6msFNp49CE4B7czjEydU+Yj5sAyGrhU/HN453Vn
-	+bSpFzdlWoTIkFGa9O15lO/je5EkN55fghcvoPA3zA5ykMTwrKr1W1/5LPQh1Y5JVi5vQyeyzVg
-	YPHmDnIM3HzWi0=
-X-Received: by 2002:a17:90b:538c:b0:38e:b400:a860 with SMTP id 98e67ed59e1d1-39b26204a3emr9193570a91.13.1788522785070;
-        Fri, 04 Sep 2026 04:53:05 -0700 (PDT)
-Received: from volcano9f6e-hostos.amd.com ([165.204.217.251])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339af25062sm9221726eec.16.2026.09.04.04.53.02
+        bh=+LoCl+EbBl/1yupzEbeoWPgLAsEGydOXRIOMMFAJTXk=;
+        b=BYVr1ugP76EaArfin5AIFoi/luiRR4VfChYm86kx3IPXJAiIaE4jWypYxZT0HaO8s2
+         HCywPntQoktYFkgGyd2tuafSbNn27S0Dl3K+6rzmugy92HTo1uLPHNCaoW3FB062Jj8F
+         eASHsRJ9B79N7YKkCDngm740W27VwsmKepLP4Ek/KxUj3FF2vuqQ/L1isd1nsZoxNBpg
+         ZIrCHpCRkwWwwM5N711B8pmpAOS9V2/yAwGtfoW2E/pBmXPHkGLLXlSyrYGJatf22hxE
+         9wEkaUoCSDiWt1pQfG53V8isEKIYSRjYfnPl8LnLaMGERIE6ZxVUA8KJ8iBAsdTDV9FL
+         GEuw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788522788; x=1789127588;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=+LoCl+EbBl/1yupzEbeoWPgLAsEGydOXRIOMMFAJTXk=;
+        b=RZIdyYEmm0tyEW1EqNngRfjhqzYWDmyY7ZZgR7m22yBUKwT0WDBykatEsmJCIQhWcm
+         vjL9YOqgRZERe981h9LtiUPcKJCq09Zt9QUz+yY1zv0pY8ddYn66yXjbayf38MKiim5D
+         JjB61r1WFXsEpvz1bgcft1hyGNBBeZxusupD+4O62naKPZ3f/IeSChcuEAP6hq4bKmc+
+         3pz5HUfZe9OFE5LdWfFtd5ADuaVJoNLAEs7QDBsTulZo/9ennKyhwia9TgiBu10PY3hv
+         VK8GuOiXKlCGWDZVZMsMz9oH1kdS5T+PAtXAp2CAlbgR9ZN0e1HJIv8gMGphbK7T1YFP
+         zZCw==
+X-Forwarded-Encrypted: i=1; AKwUvBylhIfp/3Sf3yx26i37S2onuvkuglaPt1eZnNN6SgoWp7WJCvUBbcIGdm+qf4FWATWl3m9U5rA558Z1bx8=@vger.kernel.org
+X-Gm-Message-State: AFuF++mRlTqU6RzJ8ThrHl/jnTGwruwUzjotwtf09dkYNsZAwiKb5lQJ
+	43ORFMyDIpGYCXOLhTX+3LQbF7CULF8EF3rKhLX/kZ9TNWIBUB9RKBLfUoIFFDuSJBc=
+X-Gm-Gg: AYBFou3EyuMd6e/Z+zt2mfiQYhjQkIvLidzG3QEjpgxETdi1f8+roVY4MWtjHGgD1kI
+	dlzD2bgpAB4iGUya6VHiLBmJgaAa4zBuZjlVsbju/phDDSPwAbOTxKYr3PG5ij0TToLc4bCxbDg
+	F2rkeeTnD/hzv8wE231mu/8YpoM4/Uhctbo0XaQpv8MrytsHMGi6d84G0AQgXVV1T/Aq5mi/5ed
+	B/opnGaGj9aXamGNMSGp7KwrfJENCqYkI8ZLr58SBoB3WNKQg9sZ47SFmZKTCrdKsH0eIKsfwKr
+	tBMIsqDkYD3iSlnNv6R/2Jae0zbxO420Y82cahf2NmWUDh8VgSchZIra6GCEhq7UTF8C8nN5QhF
+	GhktkBPzqKhKqyZ9/eWYneZ+8qMMSf/U2xfTxdFDdHRwAaCkOM8Yhhbk9sVWIEK25gSblKHLcRb
+	Me65L53o0wIocMzNYpuPmz57pwkwz5D48glXitRG7Ap1fJAJkq+zvviPkZthHsG+mFxl1Zgpo/U
+	8+8ziSHc5FeWiFhtLcqCRA=
+X-Received: by 2002:a05:600c:6819:b0:49c:de80:b833 with SMTP id 5b1f17b1804b1-49cf81fb1acmr54922535e9.2.1788522788268;
+        Fri, 04 Sep 2026 04:53:08 -0700 (PDT)
+Received: from [192.168.0.35] ([109.76.237.179])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-485885c5bbdsm5474207f8f.36.2026.09.04.04.53.06
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 04 Sep 2026 04:53:04 -0700 (PDT)
-From: Hemanth Selam <hemanth.selam@gmail.com>
-To: Daniel Mack <daniel@zonque.org>,
-	Haojian Zhuang <haojian.zhuang@gmail.com>,
-	Robert Jarzmik <robert.jarzmik@free.fr>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-usb@vger.kernel.org
-Subject: [PATCH] usb: gadget: fix typo "harware" in comments
-Date: Fri,  4 Sep 2026 17:22:58 +0530
-Message-ID: <20260904115259.8346-1-hemanth.selam@gmail.com>
-X-Mailer: git-send-email 2.48.1
+        Fri, 04 Sep 2026 04:53:07 -0700 (PDT)
+From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Date: Fri, 04 Sep 2026 12:53:00 +0100
+Subject: [PATCH v15 3/4] phy: core: Add devm_phy_get_by_of_node()
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260904-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v15-3-68b7916e7a3f@linaro.org>
+References: <20260904-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v15-0-68b7916e7a3f@linaro.org>
+In-Reply-To: <20260904-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v15-0-68b7916e7a3f@linaro.org>
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Michael Turquette <mturquette@baylibre.com>, 
+ Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Robert Foss <rfoss@kernel.org>, 
+ Todor Tomov <todor.too@gmail.com>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, 
+ Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, 
+ Bryan O'Donoghue <bod@kernel.org>, 
+ Loic Poulain <loic.poulain@oss.qualcomm.com>, Vinod Koul <vkoul@kernel.org>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Kishon Vijay Abraham I <kishon@kernel.org>, Felipe Balbi <balbi@ti.com>
+Cc: linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-media@vger.kernel.org, linux-phy@lists.infradead.org, 
+ Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
+ Krzysztof Kozlowski <krzk@kernel.org>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2684;
+ i=bryan.odonoghue@linaro.org; h=from:subject:message-id;
+ bh=ov6l6XYXYWQFGwdR6skU1nY1vxsBWDotX7Kg0ih6rxA=;
+ b=owEBbQKS/ZANAwAKASJxO7Ohjcg6AcsmYgBqmrEcsnrGBJeocLVI+O9+brnUFW6FqlooZlsl7
+ ZQrlZxFXwiJAjMEAAEKAB0WIQTmk/sqq6Nt4Rerb7QicTuzoY3IOgUCapqxHAAKCRAicTuzoY3I
+ Oh1cD/4x23nTIQZWK3SoWzTz69RZm5zv2SQvYRXMjI/nTAsWspK6u3DZytcTIZvNrPbSfUX3IOh
+ 03tILSVIul2ljDB/mLHI5ISqXnWDwFSZrw5TPGhQAwuLk3eSb2shn7Rpy6+gyGH2gJJyYAamMrb
+ S9wnHssvLy1A37Adohv7PxZNC0woy6kZrPzZWbsWw+xrc3tLoTAW6Nk7twCcbnYNdNurrBGaY8P
+ EldjRAd+h7toDSC88y8Z/NsbepmHVPJIYt+B4QDcDeVZVzp4IWW98+SlokPKjDwK7aHGUQv55Vo
+ 0SmqSTbXfbej0xA1J3Ey7yJQyj0DyLaz4mEuvalyTzEFC7zrHGRuZLLkGiNOatAr91JRawxt7PE
+ t5WYUNGg47apx/Usr6MBKDiFJcg2vOObOITZSgN3uyEIRlY1plfy1+TrlDchN3dnbLoS/cCxW4R
+ ABtFaPiEfa8GpcUTRIX57wDOZ6ntwgxpWS4JqufJenxB4+08/7oXqv94mfwXT5LroFCQ/7kMVWB
+ /yKwZqPHMA4d19ViDg10ZLSCIPRsx+dp64FfoHJwszTQxrIImNLphq0gKyQKc9rqPWM9468Wlvy
+ 1+Vg4ExvzOos48xua7GCdEegUfYaJag2LOU3kB2fY41GNScmAfODvW8m4HpCF0nFLN36sgLfLqf
+ aF+qLSyR77k9s1A==
+X-Developer-Key: i=bryan.odonoghue@linaro.org; a=openpgp;
+ fpr=E693FB2AABA36DE117AB6FB422713BB3A18DC83A
 
-Correct "harware" to "hardware", reported by scripts/checkpatch.pl using
-the misspelling list in scripts/spelling.txt.  Only touches comments, no
-code changes.
+Add a devm variant of phy_get_by_of_node() to allow for the familiar
+pattern of having devres automatically release resources on the driver's
+exit path.
 
-Assisted-by: Cursor:claude-opus-5
-Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
+Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
 ---
- drivers/usb/gadget/udc/pxa27x_udc.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/phy/phy-core.c  | 34 ++++++++++++++++++++++++++++++++++
+ include/linux/phy/phy.h |  7 +++++++
+ 2 files changed, 41 insertions(+)
 
-diff --git a/drivers/usb/gadget/udc/pxa27x_udc.c b/drivers/usb/gadget/udc/pxa27x_udc.c
-index df5cca43afbe..f6352e814598 100644
---- a/drivers/usb/gadget/udc/pxa27x_udc.c
-+++ b/drivers/usb/gadget/udc/pxa27x_udc.c
-@@ -2091,7 +2091,7 @@ static void handle_ep(struct pxa_ep *ep)
-  * @config: usb configuration
-  *
-  * Post the request to upper level.
-- * Don't use any pxa specific harware configuration capabilities
-+ * Don't use any pxa specific hardware configuration capabilities
-  */
- static void pxa27x_change_configuration(struct pxa_udc *udc, int config)
+diff --git a/drivers/phy/phy-core.c b/drivers/phy/phy-core.c
+index 490a7cde6d40a..2e3581ecb42ee 100644
+--- a/drivers/phy/phy-core.c
++++ b/drivers/phy/phy-core.c
+@@ -1050,6 +1050,40 @@ struct phy *phy_get_by_of_node(struct device_node *np)
+ }
+ EXPORT_SYMBOL_GPL(phy_get_by_of_node);
+ 
++/**
++ * devm_phy_get_by_of_node() - devm managed lookup and obtain phy reference by device node
++ * @dev: device requesting the PHY
++ * @np: device_node of the PHY provider
++ *
++ * Returns phy associated with the device_node or ERR_PTR. devres manages
++ * releasing resources.
++ */
++struct phy *devm_phy_get_by_of_node(struct device *dev, struct device_node *np)
++{
++	struct phy **ptr, *phy;
++	struct device_link *link;
++
++	ptr = devres_alloc(devm_phy_release, sizeof(*ptr), GFP_KERNEL);
++	if (!ptr)
++		return ERR_PTR(-ENOMEM);
++
++	phy = phy_get_by_of_node(np);
++	if (IS_ERR(phy)) {
++		devres_free(ptr);
++		return phy;
++	}
++
++	*ptr = phy;
++	devres_add(dev, ptr);
++	link = device_link_add(dev, &phy->dev, DL_FLAG_STATELESS);
++	if (!link)
++		dev_dbg(dev, "failed to create device link to %s\n",
++			dev_name(phy->dev.parent));
++
++	return phy;
++}
++EXPORT_SYMBOL_GPL(devm_phy_get_by_of_node);
++
+ /**
+  * phy_create() - create a new phy
+  * @dev: device that is creating the new phy
+diff --git a/include/linux/phy/phy.h b/include/linux/phy/phy.h
+index 71c2e16397130..14b924a88411f 100644
+--- a/include/linux/phy/phy.h
++++ b/include/linux/phy/phy.h
+@@ -285,6 +285,7 @@ struct phy *devm_of_phy_optional_get(struct device *dev, struct device_node *np,
+ struct phy *devm_of_phy_get_by_index(struct device *dev, struct device_node *np,
+ 				     int index);
+ struct phy *phy_get_by_of_node(struct device_node *np);
++struct phy *devm_phy_get_by_of_node(struct device *dev, struct device_node *np);
+ void of_phy_put(struct phy *phy);
+ void phy_put(struct device *dev, struct phy *phy);
+ void devm_phy_put(struct device *dev, struct phy *phy);
+@@ -499,6 +500,12 @@ static inline struct phy *phy_get_by_of_node(struct device_node *np)
+ 	return ERR_PTR(-ENOSYS);
+ }
+ 
++static inline struct phy *devm_phy_get_by_of_node(struct device *dev,
++						  struct device_node *np)
++{
++	return ERR_PTR(-ENOSYS);
++}
++
+ static inline void of_phy_put(struct phy *phy)
  {
-@@ -2121,7 +2121,7 @@ static void pxa27x_change_configuration(struct pxa_udc *udc, int config)
-  * @alt: alternate setting number
-  *
-  * Post the request to upper level.
-- * Don't use any pxa specific harware configuration capabilities
-+ * Don't use any pxa specific hardware configuration capabilities
-  */
- static void pxa27x_change_interface(struct pxa_udc *udc, int iface, int alt)
- {
+ }
+
 -- 
-2.48.1
+2.55.0
 
