@@ -1,238 +1,159 @@
-Received: from AM0PR02CU008.outbound.protection.outlook.com (mail-westeuropeazon11013003.outbound.protection.outlook.com [52.101.72.3])
+Received: from fhigh-a3-smtp.messagingengine.com (fhigh-a3-smtp.messagingengine.com [103.168.172.154])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6ECEA442391;
-	Fri,  4 Sep 2026 09:31:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.72.3
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788514282; cv=fail; b=ovwNXBhb0p0ElfGdwhAR0314K/wNiEmGfZl1lhifoBjoCv1G053D0jD5evwdND9IMBEr3+MG5yYjwLfosPewPrkTxHtI4CckSXDgXXjpzOyOVdaZUC2jDqjDeeQ7iDZwm2mRJhOx+S3LbMkR89xu1JvcbXOkkpL0w9GSu0wU3EE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788514282; c=relaxed/simple;
-	bh=C7uEFXBi58JYhwUlhl/ahNu/VZsRJ/OAI6r2AJYyY28=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=C4lDlycCw/2Mi/bF0X7RRREcQXTM9p6RSSom7TlPOsawIirkizhQ1fipR/mvQwCYoI/+tZmh2Dpqod1nd/3FPQR4iy0sQAcfuzv8fWlEajpka5vwnMLli0zcyb814QYKec0/0C6NYAt0r9lPmQVdoeGvaE0tsJy3AjChh5w4BsM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=crwEMF9r; arc=fail smtp.client-ip=52.101.72.3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 053A244065C;
+	Fri,  4 Sep 2026 09:31:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.154
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788514288; cv=none; b=D0CIU7LbZaBlWbRynJaeFNoyn88l9JhkeIOCWDLMLnWLFBBmAGlkyZuE6Hbe7jEo5ZSXkqnc+flgLh/PFD7dvrVvG/cMh4T4Ty7/IatBTMZevKD3h3OS2QODyImty5fz04WOsNGumYF7COe8jGxkE3vkCyrj/wDYBUtmWQLbRSE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788514288; c=relaxed/simple;
+	bh=Bk6agGTkGhO17/ptxZFZm7ZXadBaOCtXHALvbNd4TI4=;
+	h=Message-ID:From:Subject:Date:To:Cc; b=uZdWfjIgU6vJGrXQHG/ZfuWIOpFfSbiouxQXu5vfVCD3avxM36K+lt4PZ1hkJl2I/feiUJww9iEiHFfj0GeN8GzU76H//K08CXNfYoGHKhN9VGXJ8Rr5BMaItlCLn0VTeoibevt211WHnCfYbzqD+BqNZTKGsSnFV/kwJnOMFw4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=none smtp.mailfrom=linux-m68k.org; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=fzgNzAbv; arc=none smtp.client-ip=103.168.172.154
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux-m68k.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="crwEMF9r"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=I863TIiQXdUJRVuMnhwACpWRfbpG4lwfYusHM4TF3J3avNS17aHo3Chra3fS0r3Ohq+Nae/7rEDI5oDXHrHwZXO6D5igRmmWXmq8eAHMEYEowflHlGChkbNSrEByW2MRF2ZM86XagFv6LF5TWp2G5K0wo8X+w9TRy7V4Uk5cyGXzG7x9eQDFD+HwTCWpnh67vUXOj8nVqvTUkVIcBTCp/FwOje4KWZO5mftX1D22hoRau4CHacxkusT58PdwZx8OAsSaUwuUDQHyHgnK9d7v8nDHLU7Fvmp2//9dM16XpaN7IkbHcKufk4vnvFucA7xasvrX0Cjpw28RIJih6Wz7zg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=/KKGK/oFhEquay1VvWOUNQWuavqkzjNDdibbpfGeML0=;
- b=KAFH5g93FkyIrdBhikBMEs/jjUWjZMxCgCWqdGiKB1RjSkHkQ6PZHi9sxqR8FNCjvDf3QPEXlW4feB5qYyRX3HM8QQbPVx0KhEroFaGvIVZU2dMNkAOS8bZ2bcerGjW3z1+neBBkfXiiPr4iKW3yziwi8CSs7UrMri/lu336nhFeBW11DTNwpTbv91CuU3FfcLN34TUsztQyA4uaB8HPR9rLI2a+BTMRbPDy1wPgvQfxL/EtzgRSiDAYn+VyFzBfF2WNl/vaG9C0kiDZhB4Wg/BOi68u1VH6v+ocB2e+3BQ1EvpejzBiOxWl4tKLfFaNSI3J1a/qt8YEMeJJiPJZYg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=/KKGK/oFhEquay1VvWOUNQWuavqkzjNDdibbpfGeML0=;
- b=crwEMF9rWQDXf1oxnQXsCsk3vtjYBxLJ+q65ygVgMd19dpH2DDt51giHaaoR6KXMTJYoW7DgXLuEeQvS+yekZYRKRnSSiv/WDthFsAbWYEr0cjHh4lxalT8AF36LAHCppy0R/wq5NwPuVwhwl5HSMyO4krsiGyaK+h7K9ugyzs76CSD4IqieNz6AuejalT0+LgbQzwTY0gWTrvTeZN4pKWC27qT40EDbzx3cWrms/ao0d4mwUimq+N4jNyXcA5xZRcJF94p0q+1MYpLuiugwrAMRWWfuBLLflH0r9PvR9YCIyj9zctNyOKoDNqlj9RvJiRjY11XMK3pNwtAFeKrvxw==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from AM0PR04MB6802.eurprd04.prod.outlook.com (2603:10a6:208:184::17)
- by DU4PR04MB11900.eurprd04.prod.outlook.com (2603:10a6:10:61a::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Fri, 4 Sep
- 2026 09:31:13 +0000
-Received: from AM0PR04MB6802.eurprd04.prod.outlook.com
- ([fe80::dc36:17b6:e5b1:fa51]) by AM0PR04MB6802.eurprd04.prod.outlook.com
- ([fe80::dc36:17b6:e5b1:fa51%3]) with mapi id 15.21.0382.007; Fri, 4 Sep 2026
- 09:31:13 +0000
-Message-ID: <392c76a6-1ba5-4bc1-bfba-524025359042@oss.nxp.com>
-Date: Fri, 4 Sep 2026 17:31:05 +0800
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] i2c: imx: honour I2C_M_IGNORE_NAK
-To: Haobin Jiang <lemonoutput@foxmail.com>, dillon.minfei@gmail.com
-Cc: Frank.Li@nxp.com, andi.shyti@kernel.org, festevam@gmail.com,
- imx@lists.linux.dev, kernel@pengutronix.de,
- linux-arm-kernel@lists.infradead.org, linux-i2c@vger.kernel.org,
- linux-kernel@vger.kernel.org, o.rempel@pengutronix.de, s.hauer@pengutronix.de
-References: <51425573-3687-486e-876d-f94d57844894@oss.nxp.com>
- <tencent_578ACB00C8862E1EA60EAC378A712B69BE09@qq.com>
-From: Carlos Song <carlos.song@oss.nxp.com>
-In-Reply-To: <tencent_578ACB00C8862E1EA60EAC378A712B69BE09@qq.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: SI2PR01CA0020.apcprd01.prod.exchangelabs.com
- (2603:1096:4:192::6) To AM0PR04MB6802.eurprd04.prod.outlook.com
- (2603:10a6:208:184::17)
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="fzgNzAbv"
+Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
+	by mailfhigh.phl.internal (Postfix) with ESMTP id 079B51400134;
+	Fri,  4 Sep 2026 05:31:25 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-02.internal (MEProxy); Fri, 04 Sep 2026 05:31:25 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:date:date:feedback-id
+	:feedback-id:from:from:in-reply-to:message-id:reply-to:subject
+	:subject:to:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
+	fm1; t=1788514285; x=1788600685; bh=kFam2UdvptTVTLhviPOo5NmOADy3
+	z5NhlFhoDE0Zn1c=; b=fzgNzAbvVfdcX7oMZC77CZ8xQfmMrEUimKRKIx+bjcjV
+	vKAkH6xPjjIl2+BrD8NMrieEKOCbTs9Mhb82vVwvJrBJs4JBjNbenrOYA4uVWPcV
+	KJwL8Uu78tqq+Wb2Wvsll4OxCEv41VDDzOLFikU/hBMMLov/N+Kl6eQqA6B3DLkU
+	OtPPGYH0cHgn8h37PKRjmmDAvvOsXzIAz8qrY6JceEBASuxZTLkgPYE+mU7kPCmM
+	K2F1+llcxNPfjsgIA2FW900YuoUaIo4lcZnOnDnaLICMdkrN3oA3Z/qTAztQMz7T
+	YLu5fM7uLfEbW3mxDes3BIPMvYxj0l+DaiU8nVgYYw==
+X-ME-Sender: <xms:7I-aak2Qn1tHmJnQacF06sW21wJPeYIj0biC7PqhDOHiqPNkPEQlSA>
+    <xme:7I-aarGcSQwwu2YraMv23t0qOMa-s18WZ_QqyxWGJpHhHGhtgB9NX2hBp45nKnCRC
+    GHJwWTQa0JHQuvon4E18rf36BajMYjyMTqGGh7YAMPyqxlGvtGLjuxH>
+X-ME-Received: <xmr:7I-aavENDtKgnkLM6Q3hsR60AhxlWJmjUCWY9t-265g-m0Q3PYlB9W2x1FkrjXOIk_Nb8NGZzVYRZxcIspmznB1b-Nyakz5Qeuk>
+X-ME-Proxy-Cause: dmFkZTFELX6SjhHYpZR1kZnJYO/LgLgTaX5N2tgvw93fcR7gEEcuRWFuJbijwLD005Uq36
+    QJ2P8BL7XCdXKNfltU44bZwXesEhRUEq0gHneJQICZ8m5MxjtYNXhQdbzeBF3+LhsHQqJm
+    rHa5pOra8D+tqJDZcIAVNmLYeII1d7wRaFZAwuDj7Nwtu1W5/i1VAsI0wYou6sIuwKmIW8
+    lb4BDDn+XPkDK/Nec5Os0JTw9PEmhfByU3nsT1uozsn4z7LsmXDPAf5gVIUsjzU0JVnN7S
+    10FulqtdDe/kq4lnOr3H+GpFABIPfomk16p+12VZXaxtfoZQwuseD2vi7KfbjRHog54MZI
+    DgKthaX/se2NTo+HB9XWzYuRtz9Sgeai7i+sFcagmP41Jp3MyNZEgp75U293So71Q5FxK7
+    vxkO6Ij9UJ7pZKPSxIaZTFG9PBi/ZpFxvSZ2qhBSexO5NK8e34ipPXB85y4RgrVSGbQ0aS
+    vRZ8Lb81/2ExwPnokfRg/h9eM4uSjylBuV9I4IscUoPrRGv6wa14PNgbMPG7jV/BbnDaX9
+    oJrA6UZiy4mf7w7/MSCUGZ0eDQpgmzKSYIR6aHVo0jAis9wjAK9Zyd7lMsfL7Ksen1p8mp
+    KrjY0VGVuVrI17c5VI4hf+GB+RkI7QNDiK+HUDSysuctRpnvxwwvc9JxPDRA
+X-ME-Proxy: <xmx:7I-aau5VYhsT6ERp3s4KR-DZ_PYMDEy_DVrrUkH4iXBqlIGAgFL56g>
+    <xmx:7I-aakw_mCQ8JL-I-iuwPu7QupTpW0Qsr-6yUFKfssM3URKsdim47w>
+    <xmx:7I-aatPwTa3r8hFDjNUgFo2zT7-GF8fpV1eJT7CceexThuBFzGCoow>
+    <xmx:7I-aaqlLkU4NqRLzvsphh20RoaqOoWlwW35k0c5eWm6t6mdAReXcpQ>
+    <xmx:7Y-aaupVBt_RGwH23Eb3AIi1PMTedcsXnhcx2GW_-WYSNruNh08B0NXc>
+Feedback-ID: i58a146ae:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
+ 4 Sep 2026 05:31:22 -0400 (EDT)
+Message-ID: <cover.1788513996.git.fthain@linux-m68k.org>
+From: Finn Thain <fthain@linux-m68k.org>
+Subject: [PATCH v3 00/33] block/swim: Fixes and improvements
+Date: Fri, 04 Sep 2026 19:26:36 +1000
+To: Jens Axboe <axboe@kernel.dk>,
+    Laurent Vivier <laurent@vivier.eu>
+Cc: Joshua Thompson <funaho@jurai.org>,
+    Geert Uytterhoeven <geert@linux-m68k.org>,
+    linux-block@vger.kernel.org,
+    linux-kernel@vger.kernel.org,
+    linux-m68k@lists.linux-m68k.org,
+    Omar Sandoval <osandov@fb.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AM0PR04MB6802:EE_|DU4PR04MB11900:EE_
-X-MS-Office365-Filtering-Correlation-Id: f6065bc2-206f-4c03-ca7c-08df0a67431a
-X-MS-Exchange-SharedMailbox-RoutingAgent-Processed: True
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|19092799006|23010399003|1800799024|376014|7416014|366016|22082099003|18002099003|10067099003|5023799004|4143699003|56012099006|11063799006;
-X-Microsoft-Antispam-Message-Info:
-	ZbZgBbVbAveKJJAJQ40dn68M85XrK8X5T0b7L1wENqSSaJK8tGzJkkIEke/FBoNY//9g6LWGjNliyC88EemloLqPSkk6gWwbHI+we2lT2h4DQS8u9IHMd+PZdakoZD/TsPvphpdaxXlb/F+mwWms6hm988JOFpbjrGr0mF3EH26MoMJBNg/hXlmjZTi250/US+5rm5ZugsXCRXRALZptrvGEmFJfA6by/lDobPUquolt76Y3zppL9cO/Tkyypt1zonr28ay3ByvOYGFz11D+0IzbDLDRLfq7k8UzPWzjSYXa/Mb2DL59lhvUkbfbwtJdO5pIVzKuPGp3pqeVJk+eEfh9LhEgXSqyW9nbxpBFuzU/OxI4vga8TAW/BLKRc3hjcT1azzwICQlQUVaw6C5kbVVNQ+axOxxsm6X3O6dY8x5Qphij3Sb15h3OV0Qx78krNQIxNAOTxG6mXIbhYw8zCw2yhK94FtGASHITJYkhvahEv6eYIJsOp+lbzNsnN24uPgP03F/+iD9RdFodltLDhjOZlXqoDxseJ+EhffRllhwgfG7w0i0xGd+xXe3jF8IMBeIzujOTVqMukcQ87PSHuM5CcAfbLtW44HH/Ay60w4gicTNl1TQEACXnsDMJFpNlbk8TEdzDH3a0yIPxSLMtRjBBeSaLrvxOsdV4w6WWx5Y=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM0PR04MB6802.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(23010399003)(1800799024)(376014)(7416014)(366016)(22082099003)(18002099003)(10067099003)(5023799004)(4143699003)(56012099006)(11063799006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?elpXKzhlbUxBdEkzTUpVSXZQV1NOVFZNZSsrMnROczRRa1JzSHcwTEZKUytS?=
- =?utf-8?B?ME5QSFJ6eVcrQTFTc1ltakp2WDgwRy9maUdGSFphalpvbjNXbWlBdjBiczdF?=
- =?utf-8?B?L0Z3UWNMTU4waU9OMHpTTExhcmdGYTN6aTlLd05VbU0vU20zeUZwa2lsTGlQ?=
- =?utf-8?B?WGdzVS83QVpRZ21CeTIraHdPTm16NjF5MFNuWStGTkk0LzJuUVdxQzQwdmNk?=
- =?utf-8?B?bEYwdi9YSG5EQTFaMHE4ZU5LR2QxbE4xc1E4emZ6NXRaZGJqQzZ5YndGZ3ha?=
- =?utf-8?B?OXl5YWd5ck5pVUo2YVFPbmlVbk9Ib2MwblBwM3V6ZnBSYXJFUkY1Zk93UjMy?=
- =?utf-8?B?M3lRemg3YkttQjJnMU0zem41dkFHekk5YXEzVW5UN1R3VExpbFJzMTFpU1Rj?=
- =?utf-8?B?TUNhRGRuTDZ3czlnc2FsUjk2R0hVZzd1WVEzUjNtbmxvSUZnalgrTTI4VWtG?=
- =?utf-8?B?U2h1VUhBa0VLUkZndk84VmtOV1FGb2Q2MmZnSVpGc0owOUd4NC9UQ29rc3kx?=
- =?utf-8?B?c29UK09YOVdSL09lOGV5ZHRpdDdLYmRHaXIyS0FsUUt6L1RvZk1jVy9JWUxK?=
- =?utf-8?B?OGNxUkZpaFhwMllzVHh5S1oxV0hhU3lUcHJndzVKK1VZZERqaHJ5cHJvc3Jl?=
- =?utf-8?B?QWgxQ3d1MnFDbzBpUURkczFuN21KaGtHNXhhOUdVb25hLy9uRi9MU3krSHRY?=
- =?utf-8?B?dUZ3WEJ5Y0hDNVU0SHorMS9iZ3N1eGxrZmRTSWVxbEVLeG5xaGdFd0JiSDND?=
- =?utf-8?B?aTdwYXZOZXB0RmRMUDMyTFNKT0tacExBY3VuWFpnQ05lN0dLTWlVRk5lYXNr?=
- =?utf-8?B?NzNsWkVhNjJOczlGZ09GSUxUODRSNzNBUTAxTUpFOCtmcmxjSTlPcmUvZjl4?=
- =?utf-8?B?ZnJ2V3BQQTZsaGI5UkhxajZKaktrT3ZGbXdPUnpGTGl5RkFMMS9YU2NDeVpa?=
- =?utf-8?B?Wnl4TjZMbGVjQzNqN0cza0RqYVpIdVY2aGpSWVRNY1lYV3VYMDhtYUFTUk8z?=
- =?utf-8?B?dkNhNnZubE9XRDUrZ3loZjJXU0t5dHRka3l3dXo2ZlpKQlVhTURNMUhVdHhR?=
- =?utf-8?B?YStUMkJuYzc2WmM2dENIRzJyTVZ5NU9zRFM4bXpFN2RQaS90eEVTVHpqZ3dM?=
- =?utf-8?B?Um5TeEVCRklOeldESW1yaHhYS2tCcC8vQytGdmVWVldNQnBNZmJ2L3NmT09q?=
- =?utf-8?B?K1BnYzhWcVBnM3JaMXN6N2dBN29RSUQ4a1Q2aTZQT1ZjVFhPTTYzYzl1SzBk?=
- =?utf-8?B?V1ptMlh1NlNZbWJGS2RUWVVDclVyYkRBZTlKaUs3SXRtRTZXZUQyRkVHNnZn?=
- =?utf-8?B?Z00xWHBzakdMY2tJNnZxQjZ1cDNuRzIyVVkwS01JT0ZQVS9iT2RPOVZUSkdN?=
- =?utf-8?B?K2tQMDB5b0ViNXlqVTBtd0h3L1B4aHZsYUl6c2w2K0JtQm90dmk4eEoyVXYy?=
- =?utf-8?B?SkhqMWdqOTZQMnhLQjBaOE5rLzNiQmt3MElOTzAzZDVmUC9SbDRhNUJnZkFT?=
- =?utf-8?B?WEF4eEU3N21icVJpbTYwblQ2QW9CU2FDamM4Mkl0YTc0V2srUnJab28rSjVQ?=
- =?utf-8?B?Y0NkUDdHTitsaHRkOUZ3bmtXaFVtNHA3UmZkWU9MeVVYUkVTelJ2M3ZJMnFr?=
- =?utf-8?B?RXdLY0NPSzUzdUZ0NW8rZlV6eStXNVYxa2RRME8rM2NYRVo5TUdnbkp5VG1s?=
- =?utf-8?B?cVlHNDI4R2JvMUZERStpdFZiNTJRdUF4blZBVGVxdTVvYmlIazExeUJiaDNi?=
- =?utf-8?B?WGttWnh3TVF4enE0d21ZUGhQNng1ZzNnNTBGNVBoZHJKREhTN1k1SU05d1Zr?=
- =?utf-8?B?Qm1sbSsyVytZWm1QUE4rY3FYdXVuOWtJUGhicDNMcW5rcjNxWTZhVUN2Y1Rq?=
- =?utf-8?B?c0pvYktEZHRKbU5JVmJHSm5mUDZlRWZ6QWhzVkt0K21EZm5DeG9rOFlRQ1JK?=
- =?utf-8?B?VjhFemJ4Sjd1VlBQZkNnVnE5SzdabVhqMXZtdGJ5R3VmblZ6bDZMKzYwN0ox?=
- =?utf-8?B?ZlVZVjhwNUZWb3NFUEdGRWFmdlBBbThTMDBQU1lPamhnMXUrTzlWakM3bWdK?=
- =?utf-8?B?RUJ0NnJYZUZrNnk5VHFhZEF2SVBBQXJxMEJ5SnhqWlVVL1h2aEQ4NWRWM1dI?=
- =?utf-8?B?VlR0NUxUeWlJYnhLU2tmcVN6Z1R0RVVZcmFDVEh6MWxWWDVISUFiQnNnU1dW?=
- =?utf-8?B?M1hnTllGZ3RvUzI3WHpDY3VrQWpTSnFvRkluRUJBc3RyVDVmbGQ3V1BOc3Jn?=
- =?utf-8?B?RHE4azAwd1JGazlkUUxUbjJFT2NqeGpaSEFjdUlLSVRSUEFVZTRQZmIzNW1C?=
- =?utf-8?B?SDAzVWtyMXd3TXF1VEZ6UWhIbkE3YW8xLzdScUp5dDNGNmZZQnN4UT09?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f6065bc2-206f-4c03-ca7c-08df0a67431a
-X-MS-Exchange-CrossTenant-AuthSource: AM0PR04MB6802.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Sep 2026 09:31:13.6064
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: ZBfxI9gM3ffXgkeY+sI0LeRupTQcEhvqJh6dG4uTm9qfpDrEbx/yt2Ic6UIYklqZPfU8dlfLnNBC/sYU1zB+mw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU4PR04MB11900
 
+I recently had a need for the 'swim' driver but found that it was too buggy
+to be useful for my purposes. I had two aims in mind--
 
-Just change one new email app. Sorry for wrong format in previous email.
+Firstly, I needed this driver to help me test my new BMoW Floppy Emu for 
+emulation correctness. Being that Linux is open source and MacOS is not,
+this driver should be ideal for that.
 
-Let us continue discussing here!
-> Hi Carlos,
-> 
-> Thanks for the review, and sorry for the confusion my v2 caused on
-> several points. Let me answer your questions.
-> 
->> Are you using AI to make this patch?
-> 
-> Yes, I did use an AI tool while preparing this patch, and I
-> apologise for not stating that upfront. I will describe how it was
-> used in the v3 changelog, as described in
-> Documentation/process/generated-content.rst.
-> 
+Secondly, I needed to realign the heads in some disk drives. The swim driver
+has most of the code needed for a feedback loop for manual re-alignment, so
+I wrote the remaining code and pushed it to a repo here:
+https://github.com/fthain/linux/commits/swim/
 
-Hi, Haobin
+These patches fix all the bugs I found. They improve stability,
+compatibility and performance. Additional patches improve source code
+quality by removing redundant code and cleaning up a bit.
 
-It's okay, don't worry about it.
+This patch series was successfully tested on the following systems.
 
->> Have you meet one issue on one real platform? Can you share the
->> detail about your devices and platform?
-> 
-> Yes, an i.MX6ULL on an ALIENTEK i.MX6ULL mini board, with an
-> ATECC608A at 0x60 on I2C1. I am writing an out-of-tree ECDSA driver
-> for it that reuses the wake pattern of the upstream atmel-i2c
-> helper (drivers/crypto/atmel-i2c.c): a wake token sent with
-> I2C_M_IGNORE_NAK through i2c_transfer_buffer_flags(). On i2c-imx
-> the transfer aborts with -ENXIO at the first, expected NAK because
-> the flag is silently dropped, so my driver had to fall back to
-> bit-banging SDA over GPIO to wake the chip. I will verify the bus
-> behaviour on that board with a logic analyzer and include the
-> results and captures with v3.
-> 
+Mac Quadra 650 - SWIM 2 with Mitsubishi FDD
+Mac LC III     - SWIM 2 with Mitsubishi FDD and Sony FDD
+Mac Quadra 700 - SWIM with Sony FDD
+Mac IIvx       - SWIM with Sony FDD
 
-In fact, you just need to support this I2C_M_IGNORE_NAK single flag.
-Happy to see this. If you can help provide some strong evidence, it will
-help a lot.
+---
 
->> After meet NACK, can i2c-imx controller continue to write or read
->> data from FIFO, after NACK normally stop or repeat start, so I am
->> not sure the i2c-imx controller HW will work normally, do you test
->> this?
-> 
-> I will cover this with the tests attached to v3.
-> 
->> Always goto the PIO path with I2C_M_IGNORE_NAK flag, it is better
->> "return i2c_imx_acked(i2c_imx, false);"?
-> 
-> Agreed, v3 will do that.
-> 
->> You don't really support the I2C_M_STOP in the code and
->> intentionally ignore I2C_M_STOP check to avoid breaking the
->> imx6qdl-ds,right? Do you work on this platform?
-> 
-> No, I don't have an imx6qdl-ds. The ov2659/SCCB reasoning in the v2
-> changelog came from reading the DT and driver code, not from
-> hardware, and it will be removed from v3. I2C_M_STOP will stay
-> rejected, as in patch [4].
-> 
-> While checking the code I found that patch [4] rejects
-> I2C_M_STOP, and in-tree ov2659 on imx6qdl-ds sets I2C_CLIENT_SCCB
-> (I2C_M_IGNORE_NAK | I2C_M_STOP) on every message, including the
-> chip-ID read at probe, so after [4] lands that probe might fail
-> with -EOPNOTSUPP. This is only from reading the code and I might be
-> wrong. Similarly, rejecting I2C_M_IGNORE_NAK might affect the
-> ATECC508A wake token on imx6qdl-gw5904.
-> 
+Changed since v1:
+ - Patches 1/31, 19/31, 23/31 were revised as per Laurent's remarks.
+ - Some minor improvements to patches 9/31, 13/31 and 16/31.
+ - Added patch 24/32 to fix a bug causing silent IO corruption instead
+   of an IO error.
 
-This point actually concerns me as well.
+Changed since v2:
+ - Reviewed-by tags were dropped from patches 1/32, 9/32, 13/32 and 16/32
+   because of unreviewed changes.
+ - Better assembly code in patch 13/32.
+ - Patch 23/32 improved upon to reduce excessive interrupt latency when
+   medium errors are encountered.
+ - Patch 7/32 was split in two, and readability was improved as requested
+   by Geert.
+ - Geert's acked-by tag was added.
 
-From my perspective, I agree with the V2 approach of skipping the
-"I2C_M_STOP" check by default. When adding new features, we should avoid
-breaking existing platforms.
+---
 
-Historically, "i2c-imx.c" did not validate these flags, so ov2659/SCCB
-may have been running in a state that was not fully compliant with the
-intended driver design, but nevertheless worked in practice.
+Finn Thain (33):
+  swim: Assert strobe with stable outputs
+  swim: Select appropriate drive once only
+  swim: Enable the drive when probing
+  swim: Don't disable drive after every sector
+  swim: Perform ISM/IWM mode switching according to specs
+  swim: Configure parameter memory
+  swim: Refactor SWIM setup
+  swim: Enable clock divider only where appropriate
+  swim: Don't start motor until medium is present
+  swim: Recalibrate when drive is probed
+  swim: Add track zero recalibration delay
+  swim: Handle FIFO timeout error
+  swim: Simplify return value initialization
+  swim: Check for CRC errors
+  swim: Check error register during sector read
+  swim: Don't use the mark register to read data
+  swim: Fix buffer overflow
+  swim: Convert to blocking queue
+  swim: Remove redundant RELAX actions
+  swim: Deduplicate polling loops
+  swim: Check drive ready bit
+  swim: Revisit delays
+  swim: Remove pointless mode0 register write
+  swim: Don't needlessly re-read sectors
+  swim: Don't search beyond the first data mark
+  swim: Remove pointless specifiers
+  swim: Move swd initialization
+  swim: Add some helpful references
+  swim: Remove unused macro definitions
+  swim: Clean up whitespace
+  swim: Define macros for constants
+  swim: Define symbols for constants
+  swim: Unexport global symbols
 
-Rejecting transfers with "I2C_M_STOP" could therefore break the existing
-ov2659/SCCB use case on imx6qdl-ds. While the code would continue to
-silently ignore "I2C_M_STOP" during multi-message transfers, this is not
-a new behavior.
-
-In fact, allowing "I2C_M_STOP" to pass through is intended to preserve
-existing behavior and maintain backward compatibility.
-
-What is your view on this?
-
->> So can you please rebase your patch on patch[4]?
-> 
-> Yes, v3 will be rebased on top of [4].
-> 
-> I will also fix the sentence spacing in the changelog and comments
-> as you asked.
-> 
-> Regards,
-> Haobin
+ arch/m68k/mac/config.c   |  31 ++-
+ drivers/block/swim.c     | 451 ++++++++++++++++++++-------------------
+ drivers/block/swim_asm.S | 356 +++++++++++++++---------------
+ 3 files changed, 452 insertions(+), 386 deletions(-)
 
 -- 
-Best Regards,
-Carlos
+2.52.0
 
