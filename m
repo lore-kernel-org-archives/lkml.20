@@ -1,163 +1,141 @@
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
+Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com [209.85.216.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8755748123E
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 12:18:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788524312; cv=none; b=Qcl1AtDFocCC7H0U/6PT89dL+rEArdJX5GLSN9FB4LCcmE+Mf9irDEnA5I15/p6lWn+JDUmomDYEo+XmTVlXm37kCSxjfDgkNSxjoE1izmw+9IISyzvpHPgNmTjQZ2RpoY/+GwIgyZ4sS+2l4Ba4IaQ2jNiGs1JfMMBk9SiklUE=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788524312; c=relaxed/simple;
-	bh=V8XZTle0sIbvGn2TtClR0EKCbfw429H/jwAMPYSfJwE=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=cZ92vux6AT3Z5TvHzGwC4UdulrRaF6J0CNG9opO224ZeGzz5oIDa4RkuRCz+Zeus4SVnQnba0jNQGCmIwlYxReDJxMHcLq+lp11A/p/q1ERdW/zfrqosdeKXm4uxVrcQD+exGoZ7O89UzOKiqIRsexQdIARefLwUEPVW/c472I0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ICPYN804; arc=none smtp.client-ip=209.85.128.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC620483BD4
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 12:18:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.216.52
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788524316; cv=pass; b=trjk6e0klKoz3kEQZ8sLCTGV+pogttNcjNh9yqEFO0qF9tKwU7UPcFcTfyE78Wf8tR4MNVeLF2DwEcl+u78YeviuuVxtXBRqjVYqUf6+gUzYlUMcDSkFjesBrxoNuDd3NatvpnYZmda0U99bHbeBZy9Ej9q6ojMrJnzmC2JwGVo=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788524316; c=relaxed/simple;
+	bh=eO4W0pBpUA1VKwgA7pWUVcs1Sx0AhhcRANb40uA3yFU=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=YwfkOQUR12yvr5tVC2QxmrkXwHbsNsyRi9xSRRq468GND/r9TNNin1nLBx1PYw2iGhUcvfSShEYeFdFNcg8OkYnCjxf/vgiAiN6VJQI2leb1EdxeYg5RS1lnacHhY+eoQeQVxIUA9B0KkTQTOYzhhgECAWwvh61uyztnhIJiHt4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WMNauiri; arc=pass smtp.client-ip=209.85.216.52
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ICPYN804"
-Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4980fe6b3beso14905995e9.0
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 05:18:30 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WMNauiri"
+Received: by mail-pj1-f52.google.com with SMTP id 98e67ed59e1d1-38f0f3c8da5so108948a91.3
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 05:18:33 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788524313; cv=none;
+        d=google.com; s=arc-20260327;
+        b=swngQwdk9DuoRy2DRbKus8OAWwhVjEU61IziKHMchj7q8TK/SfGCUyuge8yCbbyE66
+         jMkzG/Yj6YqnLk5Wuj5j02w3h338NEuuYV/EZ+gqjbZyXELRd/XUjf8gLO6tOXCq+tP5
+         givAma2d10dxaqeGUNWAQz8RSbKTrbjSKOJJ/p2qAeZSuQSNR2L2UQJJF50Qkhqzouxk
+         uANjp2KMKUHehaMHpr4vWYpR75cie37Pr7SAvEdqsh54QQYy/Ve7gHaQI7Qtp1SP6msM
+         5z6cV6RCOhVDiAVdzEqaFxsdP3DWhG88Db/TdC0K0jgJ1K5+Z/O581NGMRFe+vd8LtwE
+         saDA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=eO4W0pBpUA1VKwgA7pWUVcs1Sx0AhhcRANb40uA3yFU=;
+        fh=SQqhs5KObo/Qb6ZghMXAnZqZ6rXYrRFfH82ED5dS7Ms=;
+        b=XLB+pFHWi7cwn1ZmGeMGcy5J2VmHdWHfW1RkrFZYclQa3Bmw/ZWq7HMtyAVFB0zl6C
+         b7ak8MSng0tHFhk/S/AWcLJXndrRfZpk1jawdDqmzFGx9f8/IzXuiVE8sunICKG4alYw
+         S1qzDi/0i5q0gXUARewLPUl8W/Pcvo8vLaT0KDeH9VukBX+ehmMrLX65H7e/3kCNpS35
+         itD+se09q07oVBVMtrHQY5MQtwJ4OAPkataDMTcQtsPf07ZFHDLDaWgyCwoFxMNZ9MTr
+         obIzC7yZwjyBcuDZTPpqC9Om50ZXFj/XIAdDQ6/jZDykniito5RsXZhFl1QpHQsNyOSk
+         yLOA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788524308; x=1789129108; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:sender:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=5ydjw49DZM6ZNER4g2lcExI1LMpGhnZwTfnwbU+34mY=;
-        b=ICPYN804Hdk0I88fKndLH8e+suzOJgIN2wFWBrOkCauSqfzTlfQiYaFBX/d13Fw83w
-         klNcR9mzDWpajKq23y2n/ua6/jpMgnAygqpavNfRGHbKsQqmTmnOaGM39ryQbuW/JtUG
-         X1+A+6nIKAqMcdnlcy6C4OIOk+UfWWcenEy4aZYw1UBp8WIAu2wfmyme3nPbdH/Q26TU
-         clNJ8FYuE/wCywh8+N87EXxxmIYXTFuy6PkBtU1jA93wSk+wXxP9TIomZKE17i/+BRM4
-         3CAyDohiuj7oXGgh9R1SjRDtkbfbDhpCJ1qg5OYaOR0AH9ZsX15hHN+kKtPsQFToHipU
-         0yiQ==
+        d=gmail.com; s=20251104; t=1788524313; x=1789129113; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=eO4W0pBpUA1VKwgA7pWUVcs1Sx0AhhcRANb40uA3yFU=;
+        b=WMNauiripi6Md2Q3C3KkcuWrocOGGRafMxbYDlATW6HV68aOBusr3FL4eXVoF4vhsX
+         DO7Jgfmeno5zhnwRWIgfHvrvUM+3XTG/xFulQb6uxqGbEytQPlf+GGxxMKD983IfwasK
+         JZ8dP4XrZbEY8oiEzvYHXjbMf5wbZHBRAbESh+IxlSqcdT149S3ok0u273lxbuoHsZB5
+         x3PySqQZGNcJbPkCUFb2OKLEFffWYo+K3UUed1DYlevwTlbFIAr1+u029uYrVRygQ4ml
+         OkrtFQlxk0wYKPBPPf39rZeJx4CxE/88YUpd0GyCLyKaJbRs/qop3EUiAQiviishSpQw
+         WkHw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788524308; x=1789129108;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:sender:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=5ydjw49DZM6ZNER4g2lcExI1LMpGhnZwTfnwbU+34mY=;
-        b=WFSm1DE9+syMK87Fro3D1WczJAdHj8kRBDuGzbZZqypepF+ybkuKOgkXHpjqV6fL55
-         3ztcQ7hOfKylJNQMvPYaAGwqtlouN2koBUBzWHnsqBiYVSrnybdxSMFGTEalC9LSKyLP
-         p5it+jYvv+zeQEO4tbxs658U2NEzoOdbB46rdimNA+PJ/dWvY57GX/BWk/TyJxXcp4Yj
-         +WjRa0jX2V/Ef7Ni0Lz3JB0LOuVJAPwX9VOZ+CzecmUcsyJDglpL7WnDx+Uq+p1+dogQ
-         7HklmaGaEXfvuZlMsDHJfCok9XtA65niRZMQyKqNVvKkm3z9K2xMoRireOoAw3kzW7iD
-         ChtQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzoz7TJbaMpo9KnUfoXgoO7NgqWfO7e1eIDcx+sXEbeuBWONPlpLjQdYtqOe1UeUiFfp7R5LC5Q54Z7vYY=@vger.kernel.org
-X-Gm-Message-State: AFuF++n2VST7/9DWLFpK8/jb4St90CAv6Fwt4FJi8TRJuvxujjYnzDUc
-	IogwWr6cDbAstvD28w6muxo/jpqcfDkj+5SqwQaGGYXokEYckcqQ951b
-X-Gm-Gg: AYBFou2nEsVQk7MexNIrX9BmAx2T4pM5dxMoS0R+bDZXgJJZ/17a2x7Ktg4M9B3Phx4
-	JmXPQgmu8YkwlDMxuIldPWSRU0N8ZxlEnqzQOs+T7pF7hZIe15Z9Sp8L9xYJH+xg7BfIz1kMkYA
-	Zpn55uYQK8ptpBQDoxnmoGG6jpCmioDgCuSf8sJDw2f72m8lX/xauGEotSaWY6nMR/dY/Z6ZaHv
-	RWEefx0bvOFEYhShPjjYOSc1MOl+gW2hAzqOjJvjia5mmoYfEOzXu9UWeoWpNI1v+do02cb0OX4
-	qMyvHzbzE8enYgf+/8bQa/s8O80SPZYgV1u5VPwL8od9uY1JhUnZLAbujBKQoS3rFJKol9/+DK9
-	ZzyFd7liZzA9m8HCMvciXH4KaLTprcPSsMsyddmw583sAYh6JQo/XmCeyPSgDdn/Aj4WoqiMofQ
-	W3t4SO2GONMXkyTs+FF2VQ8v+gDN9SFmadI/xVBCUphqv6rAjhpURfsVD5O8VeWJbPM+/ki0oQp
-	ypboXrrT/bSihKrKQENA3hoesoe8pfhibU4AVd4FuOMfRcvV8yyPYQJ4oPTDz0i
-X-Received: by 2002:a05:600c:8b8c:b0:49c:f13e:e52 with SMTP id 5b1f17b1804b1-49cf893b58bmr41215435e9.15.1788524308369;
-        Fri, 04 Sep 2026 05:18:28 -0700 (PDT)
-Received: from nixos-office (195-23-151-163.net.novis.pt. [195.23.151.163])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cfd3f815bsm20697355e9.4.2026.09.04.05.18.27
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 04 Sep 2026 05:18:27 -0700 (PDT)
-Sender: Julian Braha <julian.braha@gmail.com>
-From: Julian Braha <julianbraha@gmail.com>
-To: linux@armlinux.org.uk,
-	dvorkin@tibbo.com,
-	wellslutw@gmail.com,
-	linusw@kernel.org
-Cc: arnd@arndb.de,
-	afd@ti.com,
-	aaro.koskinen@iki.fi,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	linux-gpio@vger.kernel.org,
-	Julian Braha <julianbraha@gmail.com>
-Subject: [PATCH] pinctrl: fix PINCTRL_SPPCTL=m
-Date: Fri,  4 Sep 2026 13:18:25 +0100
-Message-ID: <20260904121825.43320-1-julianbraha@gmail.com>
-X-Mailer: git-send-email 2.55.0
+        d=1e100.net; s=20251104; t=1788524313; x=1789129113;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=eO4W0pBpUA1VKwgA7pWUVcs1Sx0AhhcRANb40uA3yFU=;
+        b=n+spYIwDToj5kaF7dUAxLFlQHdNzSSt/3yfqkq+ONwfhSUGwAOqRh8ZnFrj4eREAki
+         dzUpEItUD+fmkCE6q/6HJ1IX5kZYk0LCHjivYWqLhZ/r9Pwj4dtswC2gLB86pe/97I/b
+         xxZtsXeZpNKHFiTqN1g9Lz1+Ra1yBXhrlE4SCYZH4lb2JA62T6jwbBusrw8KGv1+mlI4
+         QyhcJ+gt6wHgbBdETqlqaN2RKij6xtSDt3Yoa1T20VJPEdUem0cHX+mu4+mibxQhx0H0
+         YZQbqbl1vf1qWxOe9xksB37inHC1XAhmTPdgBIu0w6QJ6qUTqu9LmcjG+4GRaiwmMTc3
+         Umfw==
+X-Forwarded-Encrypted: i=1; AKwUvBw0rc8PjrOrJqyaSv5IZ5gfZOuq/pCjZAfw7Zc1BuxWbS7NdmoZhpdTZNX/P6ZwwgqTmU1MIN5Wyyoeg7g=@vger.kernel.org
+X-Gm-Message-State: AFuF++kjaaZZPkxdUwdNrcGhOLDEJL6hRck0vFAcVsPuOyZdBc2nn2wi
+	AnWxbiWU4EdprDWH/m9v7XRXScKFS+jhhuMj77ZqbUoFyQ/gMShIKmpEvGEGEnZ7kCaI/DTVaB9
+	po3BQL3XJy67pJVDh29P/iPJTKeh0M/o=
+X-Gm-Gg: AYBFou0WZ9YMojhl+9Cz2dWDUHZTzJXD037Irir1eAvCuSdj/ICdcCHC3y8uT4t1SrA
+	kA57l/V58omkrP2Ybix4zmQc6GpYJpmq1z+fC3NJnDHDzsW5Bq+SNKHeXlHzVvr8Xajv7AUdWmN
+	J9F/hbVl0KnuKyjZfDlF5v/wDNI6t+AStUi2TzqNP44HVMPXxjj7LA0aRUkMPOqwfoMJKC6VJwY
+	Z1Tt7Leo6c6HGhm8Guec+MQZZiAQakY8GsQwxzLI1C4D3O68b+Cn+7JVk1lSAdpKhF6HnEg7QLX
+	3U58H5v6Hv1SXel8BsXXiteExGX4C6NDm+tAsrNg4wCnbz+1K/BrlvAZkniJekwWZC+ki+vvAvR
+	Z+VJRQLrMOjK7wS0/Vc4f867009nxACRcd/TwDCmtzSpBvX/+agvF1X+GtpDP
+X-Received: by 2002:a17:90b:5404:b0:396:d28e:b52 with SMTP id
+ 98e67ed59e1d1-39b26229b5dmr5722108a91.3.1788524312944; Fri, 04 Sep 2026
+ 05:18:32 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260904-b4-arm64-callops-kcfi-v1-0-ce6687739b0c@linux.dev> <20260904-b4-arm64-callops-kcfi-v1-6-ce6687739b0c@linux.dev>
+In-Reply-To: <20260904-b4-arm64-callops-kcfi-v1-6-ce6687739b0c@linux.dev>
+From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+Date: Fri, 4 Sep 2026 14:18:19 +0200
+X-Gm-Features: AcwNN1W-BJa7t0_HMwRoOS4jQPgmmEa3lTrRn_StsdokzqumkRB4EleU3vHebmI
+Message-ID: <CANiq72kg3Z5rB28H4Ck+EzqQgiRSSowBMe3YW6p_iNwOG_dzWA@mail.gmail.com>
+Subject: Re: [PATCH RFC 6/8] arm64: ftrace: Support CALL_OPS on kernels built
+ with kCFI
+To: "Jose Fernandez (Anthropic)" <jose.fernandez@linux.dev>
+Cc: Steven Rostedt <rostedt@goodmis.org>, Masami Hiramatsu <mhiramat@kernel.org>, 
+	Mark Rutland <mark.rutland@arm.com>, Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
+	Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>, 
+	Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling <morbo@google.com>, 
+	Justin Stitt <justinstitt@google.com>, Catalin Marinas <catalin.marinas@arm.com>, 
+	Will Deacon <will@kernel.org>, Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
+	Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>, Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>, 
+	Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, 
+	Emil Tsalapatis <emil@etsalapatis.com>, Puranjay Mohan <puranjay@kernel.org>, 
+	Xu Kuohai <xukuohai@huaweicloud.com>, Ard Biesheuvel <ardb@kernel.org>, 
+	Ilias Apalodimas <ilias.apalodimas@linaro.org>, Miguel Ojeda <ojeda@kernel.org>, 
+	Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
+	=?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+	Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
+	Danilo Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, 
+	Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, 
+	=?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
+	Sami Tolvanen <samitolvanen@google.com>, Kees Cook <kees@kernel.org>, 
+	Leon Hwang <leon.hwang@linux.dev>, Ihor Solodrai <ihor.solodrai@linux.dev>, 
+	Josh Poimboeuf <jpoimboe@kernel.org>, live-patching@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org, 
+	linux-kbuild@vger.kernel.org, llvm@lists.linux.dev, 
+	linux-arm-kernel@lists.infradead.org, bpf@vger.kernel.org, 
+	linux-efi@vger.kernel.org, rust-for-linux@vger.kernel.org, 
+	Ben Cressey <ben@cressey.dev>, "Florent Revest (Anthropic)" <florent.revest@linux.dev>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-The PINCTRL_SPPCTL option is defined as a tristate in Kconfig, and the
-help text suggests that the user can build it as a module by setting to
-'m'.
+On Fri, Sep 4, 2026 at 3:20=E2=80=AFAM Jose Fernandez (Anthropic)
+<jose.fernandez@linux.dev> wrote:
+>
+> Gate CALL_OPS under CFI on ARM64_CFI_PERMITS_CALL_OPS, which needs
+> clang 21 or newer and RUST off. rustc has its own flag for the prefix
+> NOPs and this patch does not pass it, so Rust functions would have no
+> prefix and a different hash offset.
 
-However, it cannot currently be set to 'm', because SOC_SP7021, the only
-platform that supports it, is a bool option that uses 'select' on it.
+Why doesn't the patch pass the flag to `rustc`?
 
-To allow users to actually set PINCTRL_SPPCTL=m, let's remove the select
-from the SOC_SP7021 option, and instead have PINCTRL_SPPCTL default to y
-when SOC_SP7021=y, then users can configure PINCTRL_SPPCTL=m in the
-kconfig frontend if desired.
+(Looking at later patches) Ah, is it because you defer it to the last patch=
+?
 
-Note that I have only compile-tested this change, since I do not have the
-hardware to runtime-test it. Please advise if it would be better to change
-PINCTRL_SPPCTL to 'bool' and remove the help text suggesting that it can
-be set to 'm'.
+Thanks!
 
-This impossible tristate was detected by kconfirm, a static analysis tool
-for Kconfig.
-
-Fixes: aa74c44be19c ("pinctrl: Add driver for Sunplus SP7021")
-Signed-off-by: Julian Braha <julianbraha@gmail.com>
----
- arch/arm/Kconfig.platforms       | 1 -
- drivers/pinctrl/sunplus/Kconfig  | 3 ++-
- drivers/pinctrl/sunplus/sppctl.c | 3 ++-
- 3 files changed, 4 insertions(+), 3 deletions(-)
-
-diff --git a/arch/arm/Kconfig.platforms b/arch/arm/Kconfig.platforms
-index 2e118b65f93b..dc880addadc5 100644
---- a/arch/arm/Kconfig.platforms
-+++ b/arch/arm/Kconfig.platforms
-@@ -177,7 +177,6 @@ config SOC_SP7021
- 	select ARM_GIC
- 	select ARM_PSCI
- 	select PINCTRL
--	select PINCTRL_SPPCTL
- 	select SERIAL_SUNPLUS if TTY
- 	select SERIAL_SUNPLUS_CONSOLE if TTY
- 	help
-diff --git a/drivers/pinctrl/sunplus/Kconfig b/drivers/pinctrl/sunplus/Kconfig
-index 69f82590f6d2..7719838b39b6 100644
---- a/drivers/pinctrl/sunplus/Kconfig
-+++ b/drivers/pinctrl/sunplus/Kconfig
-@@ -5,7 +5,8 @@
- 
- config PINCTRL_SPPCTL
- 	tristate "Sunplus SP7021 PinMux and GPIO driver"
--	depends on SOC_SP7021
-+	default SOC_SP7021
-+	depends on SOC_SP7021 || COMPILE_TEST
- 	depends on OF && HAS_IOMEM
- 	select GENERIC_PINCTRL_GROUPS
- 	select GENERIC_PINMUX_FUNCTIONS
-diff --git a/drivers/pinctrl/sunplus/sppctl.c b/drivers/pinctrl/sunplus/sppctl.c
-index 67e036d66245..89c6e2e92f07 100644
---- a/drivers/pinctrl/sunplus/sppctl.c
-+++ b/drivers/pinctrl/sunplus/sppctl.c
-@@ -1113,6 +1113,7 @@ static const struct of_device_id sppctl_match_table[] = {
- 	{ .compatible = "sunplus,sp7021-pctl" },
- 	{ /* sentinel */ }
- };
-+MODULE_DEVICE_TABLE(of, sppctl_match_table);
- 
- static struct platform_driver sppctl_pinctrl_driver = {
- 	.driver = {
-@@ -1121,7 +1122,7 @@ static struct platform_driver sppctl_pinctrl_driver = {
- 	},
- 	.probe  = sppctl_probe,
- };
--builtin_platform_driver(sppctl_pinctrl_driver)
-+module_platform_driver(sppctl_pinctrl_driver);
- 
- MODULE_AUTHOR("Dvorkin Dmitry <dvorkin@tibbo.com>");
- MODULE_AUTHOR("Wells Lu <wellslutw@gmail.com>");
--- 
-2.55.0
-
+Cheers,
+Miguel
