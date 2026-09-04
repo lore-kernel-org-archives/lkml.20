@@ -1,106 +1,104 @@
-Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com [209.85.216.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail-m1973198.qiye.163.com (mail-m1973198.qiye.163.com [220.197.31.98])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 078AB46D2BF
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 10:38:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F021B46C4CD;
+	Fri,  4 Sep 2026 10:38:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.98
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788518315; cv=none; b=rHIFzu9KdJ0qrVpJy7z2tJaZvJNaoPi1CF5xH7QMsiIFNoVreGyTg+H6VsWvMEXdk4WzGXoE+cCCXtKv9oFwqR3hTBVZQknZ4bcz+jx9UrkKSXdYI62hqB4stGcfJfhgOW3sXOWrWzdpPhtLDQMoy+hxjCmZGhSYhuNh8jB5fkk=
+	t=1788518320; cv=none; b=oD6Fq25CmRNkN3/SiJxTD5R9P1PHT563MMPQ3qfN4vxYEmyY279EqtIK+W9UKk7cjXTZDobEFmAeJYZt+6X6h0xs/eeCnkalIqIkkNlfw8xeOpUolKjEjdZ4OMsdNrzhBBa3Z8HAa7AhxcrfOXVeciBdZ1prsoJAEL2Q+Y0NQgI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788518315; c=relaxed/simple;
-	bh=SdRR4fcKxcRTFw9bfWJRp5SlS6dI7EoBJe2ABZ5ulMs=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ASboay7ZZr/zPKWEvKFfLPuswMONRqToTkrMSEyyKDhJTRjJWdfNXKnYvmkuGJF4+IQ9uGgDlSw3HEIl601i4rDBT5GPOhLX0hqoS9IBaHGBquCajLC54n/jBt27lfw4hcCZ9j+H0y95MJvqe0jCrRpinBgvwbhehFGM+TD/H38=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=f0Rj4d9A; arc=none smtp.client-ip=209.85.216.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788518320; c=relaxed/simple;
+	bh=CVUn4oR5TBb1cbVUGQ67fEH7gdrl9s3ZKb0KDuGoxrM=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=ChCc5n0rbzJzsPsjEnH5x0UH+vb+zvbF74bibEvQyjPoEiidPad4fh6SkA2ecytyJ14g0XNHhstRTVyMDSljHxl0MFV1MqUfhoYpwkTmnukGX3S+tx8P1DMelazxnVo0sEGKjPFrw1RlPPCsvuHlhpunGx9l7aLeZqrPCOWOUlA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=thundersoft.com; spf=pass smtp.mailfrom=thundersoft.com; dkim=pass (1024-bit key) header.d=thundersoft.com header.i=@thundersoft.com header.b=ijMHZwCe; arc=none smtp.client-ip=220.197.31.98
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=thundersoft.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=thundersoft.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="f0Rj4d9A"
-Received: by mail-pj1-f49.google.com with SMTP id 98e67ed59e1d1-395cf2535acso937539a91.1
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 03:38:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788518312; x=1789123112; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=1bp/UiAEsf0pmjXU3iYT4sNFD6WOY1SWoYTBFGtvNsk=;
-        b=f0Rj4d9AVG/k3pJfxMZ8A5shyFt0rYzP0fcplpGcxxwFvgU8XWU+FDKvGCR+ZpsvjV
-         GVzZriWdwnXkRr/oRDjXElamex0nPkYhJOy4q7iGtkLgwfhO44I5CM9nLAFpsXRNLWhL
-         UCEWRizgCR18LdV8eArVKmfojPcQO+9IgeUngtBjvouMP3Z+l/7ORy8fU8szWKiWFa5j
-         x9n9xE2si3BHSEnXsZTlVl9QXNnfZM22am/DAPaifsO2bbFAwpVqcT3N8coC+VO/bb2c
-         99yJ4J7mU6ZMqgZWwEhQyQ++7IHZkzL4iGn9p+MIzYjAP/NpWNkpmz1xVH+Zz2T8djkb
-         5Y9g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788518312; x=1789123112;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=1bp/UiAEsf0pmjXU3iYT4sNFD6WOY1SWoYTBFGtvNsk=;
-        b=mEHRSjRUm69WyMdPHjwgLnCzmRqhecUUJh7eM2MjiV3qs7ZmmJ8bmkT+h02+C5Vdpa
-         0fVapjCxh+hY0u1v/aKRH610W0fqEy9WyAo0USNfQjxPleE29Z7a+3SkXfG8eT7oOzXc
-         gys/mdzKtnfCX2SmoFRTD8Lmdp0JTZfKBQfqKvR95pYIX7VaXB37tQ1M+NH8DH1Yo68k
-         2kEjwrXUUStnhNRi8m6nf7zx73rvVklPraWb+2h+AUmeQzrkr+TUIYVpt0mwMtmO5Mw7
-         jAFWEYY7ifkLR5X1TgKeQh9ratrK+t6XNuuP/arvJfaSHnrXObB5YGorC5QLU0cfXPTW
-         tptw==
-X-Gm-Message-State: AFuF++lm68H5GqL+cFqgTwcESHnS1PUNkpRHxGHMo/ezJwMnZWW9jerY
-	GbdMcfSQRlPLYg4k6i2YdTEoVTEkb0Kc3iJRwhkcW8rtWnBrueESGWqp
-X-Gm-Gg: AYBFou1HeUIdyXhgFVO2Q9XmqzSUW5s3DSL7010aJ9P1z09mN6AWQl+RszH/ep1bHQE
-	qr3/RU/miaOrAjbP7jVsp4ui3Dzq2+eLKVljcPmiZKkHFJFYpMTbd/uUYj3Ytmn1EMHBRtvofFZ
-	mZyWsquKxY+hgK1CbJBslt8zhbHfk1uL3eT3oW0TuNwK5ntYkxRkaHR8j9eBCpEURnaB36JYYUe
-	BJN1qgRejBED80olzEFyEKvvHVXqV5CM3TEG8reoRVTGIaYoJNUBpiBvUYSYCcf3FWdoROyuemy
-	z6Ac657AiAE0MJUcWnH0z/wlM54DPMPaeSossmALyYxQTtWfGeBRSMAGOO25skpx25SsrKHjHiD
-	BiXQS8NpHee94PSYiJeN7HY3DdFrNZOvecBoMY6D/NTXOP1IyOF7Jv0qMitxoZsFt2NGchb3PT/
-	7pGALk4t5FdDuYvGTo8R4TzY+G+0CHslWwi5kojtxNDkTlHqnTJ8f3w1yGReHdmy4nQbyAVQ3PZ
-	M1hbuXJR4VGM7uVOuYFndAkxpA=
-X-Received: by 2002:a17:90a:7784:b0:39b:2b1f:4511 with SMTP id 98e67ed59e1d1-39b2b1f52c4mr2665889a91.26.1788518312101;
-        Fri, 04 Sep 2026 03:38:32 -0700 (PDT)
-Received: from volcano9f6e-hostos.amd.com ([165.204.217.251])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339aa33e96sm6021835eec.12.2026.09.04.03.38.29
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 04 Sep 2026 03:38:31 -0700 (PDT)
-From: Hemanth Selam <hemanth.selam@gmail.com>
-To: Christian Brauner <brauner@kernel.org>,
-	"Darrick J. Wong" <djwong@kernel.org>
-Cc: linux-kernel@vger.kernel.org,
-	linux-xfs@vger.kernel.org,
-	linux-fsdevel@vger.kernel.org
-Subject: [PATCH 1/2] iomap: fix typo "metdata" in comment
-Date: Fri,  4 Sep 2026 16:08:22 +0530
-Message-ID: <20260904103825.8752-2-hemanth.selam@gmail.com>
-X-Mailer: git-send-email 2.48.1
-In-Reply-To: <20260904103825.8752-1-hemanth.selam@gmail.com>
-References: <20260904103825.8752-1-hemanth.selam@gmail.com>
+	dkim=pass (1024-bit key) header.d=thundersoft.com header.i=@thundersoft.com header.b="ijMHZwCe"
+Received: from [127.0.1.1] (unknown [36.129.139.90])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 4c8f646c2;
+	Fri, 4 Sep 2026 18:02:52 +0800 (GMT+08:00)
+From: Hongyang Zhao <hongyang.zhao@thundersoft.com>
+Date: Fri, 04 Sep 2026 18:02:25 +0800
+Subject: [PATCH v3 1/6] ASoC: dt-bindings: es8316: Document jack detect
+ inversion
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260904-rubikpi-next-20260605-v3-1-f49146d85af3@thundersoft.com>
+References: <20260904-rubikpi-next-20260605-v3-0-f49146d85af3@thundersoft.com>
+In-Reply-To: <20260904-rubikpi-next-20260605-v3-0-f49146d85af3@thundersoft.com>
+To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Daniel Drake <drake@endlessm.com>, 
+ Katsuhiro Suzuki <katsuhiro@katsuster.net>, 
+ Matteo Martelli <matteomartelli3@gmail.com>, 
+ Binbin Zhou <zhoubinbin@loongson.cn>, 
+ Srinivas Kandagatla <srini@kernel.org>, Jaroslav Kysela <perex@perex.cz>, 
+ Takashi Iwai <tiwai@suse.com>, Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>
+Cc: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>, 
+ Roger Shimizu <rosh@debian.org>, linux-sound@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+ devicetree@vger.kernel.org, Hongyang Zhao <hongyang.zhao@thundersoft.com>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788516170; l=1226;
+ i=hongyang.zhao@thundersoft.com; s=20260127; h=from:subject:message-id;
+ bh=CVUn4oR5TBb1cbVUGQ67fEH7gdrl9s3ZKb0KDuGoxrM=;
+ b=mPWmOcmCD4WN4BrNZyhxRj2od3i2SInbiR169g+czYl7fakkXvq86Zf8wf3xDqeDMpkolmnbY
+ 8gjOv/KdvEiBttgFa5RAcMwECh0C3/xZHB8JfshfHuOgfjZlXTYu+wn
+X-Developer-Key: i=hongyang.zhao@thundersoft.com; a=ed25519;
+ pk=D9yL5W9Zj0lPBDAq9gzY++1849VlXuTWAkROzZ88J/4=
+X-HM-Tid: 0aa06bdf048509d5kunm6f63729aafb4c
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCShhLVh0eSx9IGExNHhgeSVYVFA
+	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlITVVKSUJVSkhCVUJLWVdZFhoPEhUdFFlBWU9LSFVKS0
+	lPT09IVUpLS1VKQktLWQY+
+DKIM-Signature: a=rsa-sha256;
+	b=ijMHZwCe9FOsfo++VSZn3ZRjgCFlgN+/c88OE8X8M7xzJn6RWk4cyBPlnDYDS5Mq34+FzE7zNe+Ha91Pv8Sp2xohkuJuKQDScyHVBKGTO0dSP7TBbEU5O5snq6vqQjA+ThsLrcyU80x7pqEPiZiCB1+MtP1IvVQjO+mdW23dxWs=; s=default; c=relaxed/relaxed; d=thundersoft.com; v=1;
+	bh=597yvAmbtpxqKhHT8WHhejI5xPg6hWppCyeJ96YlFRE=;
+	h=date:mime-version:subject:message-id:from;
 
-Correct "metdata" to "metadata", reported by scripts/checkpatch.pl using
-the misspelling list in scripts/spelling.txt.  Only touches comments, no
-code changes.
+The ES8316 driver supports the everest,jack-detect-inverted property to
+account for boards which invert the codec jack-detect signal. However,
+the property is not described by the binding, so a valid user of the
+driver fails schema validation because the binding rejects unknown
+properties.
 
-Assisted-by: Cursor:claude-opus-5
-Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
+Document the flag so boards can describe the jack-detect polarity used
+by their wiring.
+
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Signed-off-by: Hongyang Zhao <hongyang.zhao@thundersoft.com>
 ---
- fs/iomap/direct-io.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ Documentation/devicetree/bindings/sound/everest,es8316.yaml | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-diff --git a/fs/iomap/direct-io.c b/fs/iomap/direct-io.c
-index 8b4039d16ce8..b70f86292049 100644
---- a/fs/iomap/direct-io.c
-+++ b/fs/iomap/direct-io.c
-@@ -505,7 +505,7 @@ static int iomap_dio_bio_iter(struct iomap_iter *iter, struct iomap_dio *dio)
- 		 * We can only do inline completion for pure overwrites that
- 		 * don't require additional I/O at completion time.
- 		 *
--		 * This rules out writes that need zeroing or metdata updates to
-+		 * This rules out writes that need zeroing or metadata updates to
- 		 * convert unwritten or shared extents.
- 		 *
- 		 * Writes that extend i_size are also not supported, but this is
+diff --git a/Documentation/devicetree/bindings/sound/everest,es8316.yaml b/Documentation/devicetree/bindings/sound/everest,es8316.yaml
+index f4ff23120c5b..9060358a9080 100644
+--- a/Documentation/devicetree/bindings/sound/everest,es8316.yaml
++++ b/Documentation/devicetree/bindings/sound/everest,es8316.yaml
+@@ -84,6 +84,11 @@ properties:
+   "#sound-dai-cells":
+     const: 0
+ 
++  everest,jack-detect-inverted:
++    $ref: /schemas/types.yaml#/definitions/flag
++    description:
++      Defined to invert the jack detection.
++
+ required:
+   - compatible
+   - reg
+
 -- 
-2.48.1
+2.43.0
 
