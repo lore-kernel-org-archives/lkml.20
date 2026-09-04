@@ -1,214 +1,212 @@
-Received: from PH7PR06CU001.outbound.protection.outlook.com (mail-westus3azon11010048.outbound.protection.outlook.com [52.101.201.48])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4F253B2FE9;
-	Fri,  4 Sep 2026 09:50:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.201.48
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788515413; cv=fail; b=h3VkaUPeJXaTVHZq71FCXttOZOYDsEXOkVmFQJeErF9X/3lxxW06Gz/UcB+1Do46p3qinozqvujv0gnvSWwCMGsLhBv50b7jWziWia9DcnhASZKQQjRm0CdRNVrlkeaqmK5FsnQy2OkfZ9qVO/1jykgNofX1LSqBR6nXDtAzhPc=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788515413; c=relaxed/simple;
-	bh=0w041yuh+08AJNPQCs/MXGlaisIKhY91xX0cvwbIH0A=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=u+KMDJZ1qT69QpZxAGzgVq4eMyz6L5RGiNtsEV9I3TQ09Yw3gP7XVHPD4EGIcOtf3la5oI4eLMKWUPKIfGmlKE+Z5W7Cms2OhNaZ7AsoGlrJV2V36UsAiF//Vh95wNYapFWlLnNoxcbk54qec1WFWmRotVN77WLqx8POQ6UQVfk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=altera.com; spf=pass smtp.mailfrom=altera.com; dkim=pass (2048-bit key) header.d=altera.com header.i=@altera.com header.b=N9We7qT9; arc=fail smtp.client-ip=52.101.201.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=altera.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=altera.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F49E43E9E0;
+	Fri,  4 Sep 2026 09:50:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788515418; cv=none; b=CTjuKQugY3FUMv8PJi+xmkTqRE8DXH8885aZpsj/ivhfw7NEzqKm4Aobz/NjvBJBFIErKZQKGYIq6DTZ4KShGlzCIbnCRSKLLTtRPw57E/8shI2nNn4FOa8C4HFMdU8TIcuCjzaCfjMnsEzmxpYeV6PzA5DD25G23rAuYtTjSZU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788515418; c=relaxed/simple;
+	bh=4AWLRwWWDLwU3KrI/9WXiviT9ra+wAs4RsjHG5zi6xM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=JFJyOEb7AERi7o7t0KeroS0Kz9offc119KAL5dwOn7CeFPA8lKrs/g0bNCbA3MNlI8FkDCTjYygvhDaJljqPifQ6l7y0Vt0RTmh/a4QkvSX2PHHHSJXXLpYhyUueeaEsW5jx1NRMGO+DMTAp0LfXT6EAhjAUdTi3btdEy6XleKw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lCmh5U2G; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=altera.com header.i=@altera.com header.b="N9We7qT9"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=iHCA57k7ymy9p76kMeJGZQn3kCKGcXDVWgPcM0Q55WhpnI4gxnRkIjrlWyfcBEoXqeVaiZuSO3+qBX81CLMVqINI7XPIVpJV9E69MoSW0WOfzGtII9QoL/W9winMWQtwgZUE/TvooreiQpJ646kZdRlXLlZMNFcd6Drui7zi6JzO0Eo+27evvrM0IoJ8lCize5YeWdhk0sLg74jrh7U1XcSQ/ZOzvsemX7Pfams8lwvOmQDmRpQyNuGJpPpG+AK4gPTKv1iILin7is1mH8HxzzXRKIqA3RWnXuFEN4BNcMxYNr4cKjm5fspvq+oPQ4nQK2TN/MHHpDmeR4Rn0dp+rg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=/g1IQpDncpByO6xFq5EGyock/kPrjUyGETRUxm4QuuY=;
- b=Xz+vpnqYPNqARzo4ZQKiptHna75NigJaSvtssyDlyrm8uqgx/dHq1u8GeMY03GMamCz6KFyFCFVlB0oZFSz8o/FLg6NxH7ood9oSHS1YbNTuzDZAiJaep6tPYyPv4vW9pb5ShYliwf3P1CylmyUl3KQx2WvBabuoe1SXeyNA5yXUo/1rPBkoADjoOT12+kx5HNLJHVwFQW3uvQUAXBPZu3xM9QVy7haDkHhISrnBsB9l/kpYYv0bFV4+Xu0RZkDtfJdqLRRuumZ40Xnglh9X0z7n0oDH8keTT4I2GhPj9bD2VORc9JhlvY16sZrwsq7JuyXjVh4MPORPDt0l7EwoQg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=altera.com; dmarc=pass action=none header.from=altera.com;
- dkim=pass header.d=altera.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=altera.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=/g1IQpDncpByO6xFq5EGyock/kPrjUyGETRUxm4QuuY=;
- b=N9We7qT9Vap6oH1NoYYG6/CU/m6FNE6bAB84zIlKgg047IvPIIalon0niufp1GtKgjkmM8iSFghvAggw6Eq5KoM4hf+MFd5O4ZdgnOudxJlzDNlN2l0TsEH9V9gK01NLvOwFdm4B3VB1y8zKXuO02KmifS0B0c48u2o7eF8xxnoi6EhlRz5QBct+tpd/p09shtu84qxpmjG6D4ixBAlFkuwdSOxt0O9Llwmdv7+XStISuaeoDxec64+AyorQ6gpfQc/ev/At4+/JWgBlMLSnLTUpFtRpT7U/al2EaGAiAcjpsVcf9JndvVGucNB6wzNiI0wywjd5Kv+AMrnUgH7iYg==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=altera.com;
-Received: from DM4PR03MB6192.namprd03.prod.outlook.com (2603:10b6:5:39c::23)
- by MW4PR03MB6867.namprd03.prod.outlook.com (2603:10b6:303:1b7::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Fri, 4 Sep
- 2026 09:50:06 +0000
-Received: from DM4PR03MB6192.namprd03.prod.outlook.com
- ([fe80::b75b:5c92:1e9d:514b]) by DM4PR03MB6192.namprd03.prod.outlook.com
- ([fe80::b75b:5c92:1e9d:514b%4]) with mapi id 15.21.0360.008; Fri, 4 Sep 2026
- 09:50:05 +0000
-Message-ID: <165fc53f-2218-4582-8b89-43f2ce7500f7@altera.com>
-Date: Fri, 4 Sep 2026 17:49:55 +0800
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 4/5] arm64: dts: altera: move Agilex72 DT and use altr
- prefix
-To: Krzysztof Kozlowski <krzk@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Dinh Nguyen <dinguyen@kernel.org>,
- Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>
-Cc: Lothar Rubusch <l.rubusch@gmail.com>, Ng Tze Yee <tzeyee.ng@altera.com>,
- Nazim Amirul <muhammad.nazim.amirul.nazle.asmade@altera.com>,
- Adrian Ng Ho Yin <adrian.ho.yin.ng@altera.com>,
- Brian Masney <bmasney@redhat.com>, devicetree@vger.kernel.org,
- linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <cover.1786006669.git.evon.chiam@altera.com>
- <a3de82b47b6b7638159d19c87da1e99e93fe2e7e.1786006669.git.evon.chiam@altera.com>
- <cd16fb78-551e-4630-83d6-a44a68e2e411@kernel.org>
-Content-Language: en-US
-From: "Chiam, Evon" <evon.chiam@altera.com>
-In-Reply-To: <cd16fb78-551e-4630-83d6-a44a68e2e411@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: SI1PR02CA0037.apcprd02.prod.outlook.com
- (2603:1096:4:1f6::13) To DM4PR03MB6192.namprd03.prod.outlook.com
- (2603:10b6:5:39c::23)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lCmh5U2G"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0A29F1F00A3D;
+	Fri,  4 Sep 2026 09:50:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788515417;
+	bh=JgdXBDDgWhINzJnCEwyOSF2W+5SgQKNfmGsCa9IDw3U=;
+	h=From:To:Cc:Subject:Date;
+	b=lCmh5U2GNlU+1TWW+D2Dhf3P6Hm7OvYcOwlSqO1Gg8o+a//8+vsSE+0vqH77Bd/N3
+	 0qPr9rURmz98lSin+21Lz9N9t3Z/cy0G8AA/LEtGKBFOnm7OINSwgf/SOVIXhkkzsP
+	 9Le/9+8TB3rtx1iL0OBeorUuvjQUPHTxcPIxIUv68KT++WA/VSCxWX8IKBIs68HtFi
+	 nv0G+xnLDDYA/BcJ1g8aqL2qgS5k6x5x0cVisa2h4UpMvGSTlFKkXnAExIOZ0ufQkH
+	 VeruVVxNdvh09krhwbJw0YMD5Qn9E0NUFsylArzuDkPD69HbuYbC0IfJV8iRln5Pl7
+	 ovtjLaJB4G+qQ==
+From: "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>
+To: linux-coco@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Cc: "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Greg KH <gregkh@linuxfoundation.org>,
+	Jeremy Linton <jeremy.linton@arm.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Sudeep Holla <sudeep.holla@arm.com>,
+	Will Deacon <will@kernel.org>,
+	Steven Price <steven.price@arm.com>,
+	Suzuki K Poulose <Suzuki.Poulose@arm.com>,
+	Andre Przywara <andre.przywara@arm.com>
+Subject: [PATCH v10 0/7] Switch Arm SMCCC firmware services to an SMCCC bus
+Date: Fri,  4 Sep 2026 15:19:53 +0530
+Message-ID: <20260904095000.1184861-1-aneesh.kumar@kernel.org>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR03MB6192:EE_|MW4PR03MB6867:EE_
-X-MS-Office365-Filtering-Correlation-Id: c47a0698-38bc-45a1-8c73-08df0a69e614
-X-MS-Exchange-AtpMessageProperties: SA
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|366016|7416014|376014|1800799024|18002099003|22082099003|55112099003|56012099006|11063799006|4143699003|10067099003;
-X-Microsoft-Antispam-Message-Info:
-	IK8HTVxDyop/sYO3nLt+2I1nrFvG6x6V/3HV4xwozmrWzs09m8S7KVF++1cpVxQSC/ebgtL8VzEogUmGO/3YmW8NtQQrpA7xNWZrREMmH+4U4sFVS2DePBMF1xjMwIIHKmTHAGcjxISjs6QpqDMMQNVmBm+XZIJ4DZKY5O98cf8l/ykrLkMGvmdtemb/7Hxtg5CW1uHGFXyZPtYtDB5x6ocQmj1Qe+BHrdxKQiWazpwlKHUQd4JMsozCb57VRpPcxQS6g0aF4OjqtZ21FXbSZz98/uIOmHUEnwcw6wqKNR+Up7Vcw35CKgFSa09IND5dOuVqxEFflf18hkSBazGRDdxdUWawk9eu4QZr8VgkuIKqYM3RMFefRE+VVDOrvMfBbf2iUFcIGpbtHmCXr5qWPhxoIOZEvhRx/DqIxQW46+/iJgbzOKtyEq+h7m26eFKn1XqZOu6QyZQ1RFeLv3lTNk8OuPEzCHFX8JtFvlEE+DBGS4UtgSMVUotepgcDqvhgR+IxtBQ/z+ysFdx7YvnhWcjVc5F0TJFSekguTZzS7t5RV4o4Bbc9wCtE+n4gJacKW2+XNYKzydw8wEOZps+Y9b0OM2EBAtv/FdTKlDnj/v2BvR4T1Nkxz12bZbOZNuHlt/Ga4KlNG93NKCneA23xc6/P30vb2qQ/g6NzQjEGiro=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM4PR03MB6192.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(7416014)(376014)(1800799024)(18002099003)(22082099003)(55112099003)(56012099006)(11063799006)(4143699003)(10067099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?cEFaTHZTcWQvL1U3U1BqWVFSbzVIcS9IWDdRQkw0UGIwT1lUT0hYcmVUcmgw?=
- =?utf-8?B?Q2pGS05VTzVVTTNFbmFBQ0llb1RKQ3VnR2pZVERWUTF3THorSmR1dHRwRFlp?=
- =?utf-8?B?c1hyMWFTYlQwU0dMUXNQQmFweFR5VURaSytuN2pQWnZ2dGd0K1R2VWhEZ09I?=
- =?utf-8?B?RTFpRllRVWJwOGgzdm1NdGU1RHEzV0dKTmJQclBKYUFLajZZVkxOUDZVcm93?=
- =?utf-8?B?Nk11SWFjWWNEZFMzVjY2NDFUZXc3K21vcEtQdm9Zbk1zbWc4SVdHTGtnNFpo?=
- =?utf-8?B?dFpteTRTU2ZXM1MvTGRoQkl2ZWRLbDhGaUxhZ1h4d2tGWlJFRGpZZndvbnFt?=
- =?utf-8?B?QzBkNFBNN2tOWENSRDYyWWUvL0JENHIyTG02YXE5QU9PL3d1ZU5IbW52V3Zw?=
- =?utf-8?B?NEl5ckNid2tjVlJmTGo2emJXWmZ1TmpIQ2VHL3JXR2IybGUzN2o4WUJtREsv?=
- =?utf-8?B?NjlVVjllclAydWdQQWRGZHhPU1ZDUEFma01CWVVKMVQ4QW0wTVNxTkZiK2Vq?=
- =?utf-8?B?REFEczhwUlUwcSs5ZHlTRVg0WXBTcEdIT1pLVXhIdklUd0dySDRURk5Zb09n?=
- =?utf-8?B?SWlScHAwS2lUY21VWU1BenpOOXpuVFd1dkVyS3BYQVh6Y2VxejZMaHBGazJZ?=
- =?utf-8?B?Z0pXcjgvR3pDcFVMRTRRRm53SjdnNzRBbFl2cXFqU2tsU3ZCVXRVTzBHeUsw?=
- =?utf-8?B?am1LN3FLYXR4M2FkR1dmcGJmWTZHTjhQKys2WVhkZkdudzhFSlJDdEdnSWtR?=
- =?utf-8?B?WTJDdzZXczBTWFNPSzZtekcrSldTOU9DM0lYNVhCazdjd3ZlejZWN0l6OSti?=
- =?utf-8?B?OVMrYmpUckFtMTBsYlBNTlVKM05qbHpPSDUzY2dEaFFKcXdNdXVKU2s4eUd4?=
- =?utf-8?B?RWd0NjdkSkRQYVZoSFdpa2xoZUo2MnhHenA3OW9oNHFtcDdsZ2NPMjQxdE9y?=
- =?utf-8?B?UWhpTnNuYkhLNFVhaVQzclVxdWxwWHlqUi9ybWxkaGcrSDVUb29jbGJ6TUp1?=
- =?utf-8?B?SEJsZ0xBRXl3SktuNEQxdVNvWkpSeU5NbEkvcy9xWGpLcWNtb2ozM3l5SVNR?=
- =?utf-8?B?YTVTRkRDWFNuUWdQRmYwZWxQUVJMWWxpQ29ndVEva2tVVlI4Mi85NjJCUlBh?=
- =?utf-8?B?Y2JJNWJFQkZTRlhyQ0IvR2ZxQU52MTU4SmpQcmllRmRyZ1J4VHlYQU9GWWxQ?=
- =?utf-8?B?YVdPR0poVnZDeUFpbGU5N0lFTjY3RTR5dmh6RkczNEYzSmliSlNoVzFiZmNu?=
- =?utf-8?B?b3hXWnhobDY3czFOdEluNTZoLzMzWEhFMFd2bmZDa0xlUzZVRGxnTlgrdUd2?=
- =?utf-8?B?RjRFQ0dRMXBtNm1FZjAvYmNna1dQK3EyM09BV25SSlY1eUtkR0ZxY1NLdFlC?=
- =?utf-8?B?cldXSjF5R1BDNEZkbmljYlVSd0x6bU1MRjhoc3ZoS3Yvb2JqZVZBeEFBN0lm?=
- =?utf-8?B?TVFCTmFQWmpSM2VJdWFIVHBUMjgrVDhrOW1VUHJjTWE2NG5VUWZZQTk0TXlU?=
- =?utf-8?B?Y0VnOXZWcG5mekhGU0dlUnoxc2dIakUwUTlBUDU5aHE2YnhQSGRhY2VtelZj?=
- =?utf-8?B?WURvMFRwTnpSY3QvNlVYRGgzS3hXNDZ2UGM0Tk9BV2JYdVRlTHJqWTd1WDBo?=
- =?utf-8?B?MlE0RWVRd1d3bkZUTVN2V0ZaWFFWYmtSM3pFVURvVFoydUlTNmhrZWtLRkNu?=
- =?utf-8?B?QVNCU2VRZVcxMFBXSkN5K0FQaXFhYkNxN3VsVnRTQnJRYkRaeVhqd0JOSlVS?=
- =?utf-8?B?bFdhbXhrK1RPV0FCcG1vYkl5SXRSMzMxSjFaSHVsdzBISVhzdXFHR25JK1Qv?=
- =?utf-8?B?TWZTcXZMOFJVUmVPejU5QXYxeHRkTUtSZDR6L3BzTkNxZHp3UU11Q3Vvelpm?=
- =?utf-8?B?K1h1QWVheXRpekQ2L2xKSXRMUjVsZCtXRDRzOExOaFJuQ0E5RmFreUNSUE1r?=
- =?utf-8?B?em8ycTNzYmQ5MjRlR3ZRUkJoNFk5YndHVEU0RWN1RkM1ZGp2c3dPNnVDYWc0?=
- =?utf-8?B?eWlLcUJsTlZ0QXVvelJLR3lLejNLcXBvN0RYNE93RDRhM0o2SmxySFBDRkJH?=
- =?utf-8?B?Y2FYcmRDZXZtVGxqSGZVRlk2WkVmaTc5aExINEFRK1BIekc4ZjVMTlFPWlky?=
- =?utf-8?B?YUNxMHc4VkZFMnJpQjVJWmRKQWR5MVRnYTFZMUUrYWwzYzJucEpJS0tpQ1lk?=
- =?utf-8?B?alRyeGVBNU1IZnRmdWtrTWxMZnpYRmFZV0RwbjkrQlBJWGYxNmdnZVQxMEZ4?=
- =?utf-8?B?L2VCZnpSVDhsdGlVanMzSUJ3aXZWSUJ1Vm1aRUVoVmk0L2REM1E0Vjhqb3dn?=
- =?utf-8?B?SVJ1YWtEY0FXTlpCaGpxRFQxZ1d4ZVZydE1oY0crVitKMmJ1enZZZz09?=
-X-OriginatorOrg: altera.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c47a0698-38bc-45a1-8c73-08df0a69e614
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR03MB6192.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Sep 2026 09:50:05.9122
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: fbd72e03-d4a5-4110-adce-614d51f2077a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: QOT5Ml7BMToFGCcjwUEAYfmgVtyxEQWgQ/zUVl3ogWQZInfrle7LjqJg7x5Rjbg8r7id+55EH3YcuuZcW1ngeg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR03MB6867
+Content-Transfer-Encoding: 8bit
 
-Hi Krzysztof,
+As discussed here:
+https://lore.kernel.org/all/20250728135216.48084-12-aneesh.kumar@kernel.org
 
-Please find my replies inline below.
+The earlier CCA guest support used an arm-cca-dev platform device as a pure
+software anchor for the TSM class device. That platform device did not
+correspond to a DT/ACPI described device, MMIO range, interrupt, or other
+platform resource; it existed only to make the CCA guest driver bind and to
+place the resulting TSM device in the driver model. The same pattern also
+exists for smccc_trng. Creating separate platform devices for such
+SMCCC-discovered features is misleading, because those features are not
+independent platform devices.
 
-On 18/8/2026 4:27 pm, Krzysztof Kozlowski wrote:
-> On 06/08/2026 11:25, evon.chiam@altera.com wrote:
->> From: "Chiam, Evon" <evon.chiam@altera.com>
->>
->> Move the Agilex72 SoC and SoCDK device trees from dts/intel to
->> dts/altera. Update the board and SoC compatible strings to use
->> the "altr" vendor.
->>
->> Signed-off-by: Chiam, Evon <evon.chiam@altera.com>
->> ---
->>   arch/arm64/boot/dts/altera/Makefile                            | 3 ++-
->>   arch/arm64/boot/dts/{intel => altera}/socfpga_agilex72.dtsi    | 2 +-
->>   .../boot/dts/{intel => altera}/socfpga_agilex72_socdk.dts      | 2 +-
->>   arch/arm64/boot/dts/intel/Makefile                             | 1 -
->>   4 files changed, 4 insertions(+), 4 deletions(-)
->>   rename arch/arm64/boot/dts/{intel => altera}/socfpga_agilex72.dtsi (98%)
->>   rename arch/arm64/boot/dts/{intel => altera}/socfpga_agilex72_socdk.dts (84%)
-> 
-> Everything there is altera, except Keembay, so moving only one file is
-> quite a confusion.
-> 
-> Feel free to move ALL altera files (or none as this is just a churn),
-> but you should keep dtbs_install unaffected (as not broken).
-> 
-> 
-Will drop the Agilex72-only DTS move from this series in v2. Moving only 
-one file is confusing, as you noted. I will send a separate series to 
-move all SoCFPGA DTS files from dts/intel to dts/altera, while keeping 
-dtbs_install unaffected.
+This series adds an Arm SMCCC bus for services discovered through the SMCCC
+firmware interface. The bus provides SMCCC device and driver registration
+helpers, SMCCC function id based matching, uevent modalias generation, and
+a sysfs modalias attribute. SMCCC service drivers can use
+MODULE_DEVICE_TABLE(arm_smccc, ...) to emit arm_smccc:f<functionid>
+aliases, allowing userspace to autoload service drivers when the SMCCC core
+registers matching firmware-service devices.
 
->>
->> diff --git a/arch/arm64/boot/dts/altera/Makefile b/arch/arm64/boot/dts/altera/Makefile
->> index 540bb5ae746b..a1a9ccba5334 100644
->> --- a/arch/arm64/boot/dts/altera/Makefile
->> +++ b/arch/arm64/boot/dts/altera/Makefile
->> @@ -1,5 +1,6 @@
->>   # SPDX-License-Identifier: GPL-2.0-only
->> -dtb-$(CONFIG_ARCH_INTEL_SOCFPGA) += socfpga_stratix10_socdk.dtb \
->> +dtb-$(CONFIG_ARCH_INTEL_SOCFPGA) += socfpga_agilex72_socdk.dtb \
->> +				socfpga_stratix10_socdk.dtb \
->>   				socfpga_stratix10_socdk_emmc.dtb \
->>   				socfpga_stratix10_socdk_nand.dtb \
->>   				socfpga_stratix10_swvp.dtb
->> diff --git a/arch/arm64/boot/dts/intel/socfpga_agilex72.dtsi b/arch/arm64/boot/dts/altera/socfpga_agilex72.dtsi
->> similarity index 98%
->> rename from arch/arm64/boot/dts/intel/socfpga_agilex72.dtsi
->> rename to arch/arm64/boot/dts/altera/socfpga_agilex72.dtsi
->> index c29c2afcaab7..354c775f577b 100644
->> --- a/arch/arm64/boot/dts/intel/socfpga_agilex72.dtsi
->> +++ b/arch/arm64/boot/dts/altera/socfpga_agilex72.dtsi
->> @@ -7,7 +7,7 @@
->>   #include <dt-bindings/interrupt-controller/irq.h>
->>   
->>   / {
->> -	compatible = "intel,socfpga-agilex72";
->> +	compatible = "altr,socfpga-agilex72";
-> 
-> And this is not fine. You are stuck with what you added, especially that
-> you added it recently and this was conscious choice of using "intel"
-> instead of "altr".
-> 
-Agreed — I'll keep the existing compatible strings and drop the change 
-in v2.
+The series then moves SMCCC TRNG and the Arm CCA guest RSI service off the
+platform bus. When the SMCCC core discovers the corresponding firmware
+service, it registers an arm-smccc device for that service. The hwrng
+arm_smccc_trng driver and the Arm CCA guest TSM provider are converted to
+SMCCC drivers that bind to those discovered devices.
 
-> Best regards,
-> Krzysztof
+The old arm-cca-dev platform device has also been used by userspace as a Realm
+guest indicator. Removing it without a replacement would leave userspace
+depending on an internal driver-binding device. This series therefore adds
+/sys/firmware/cca/realm_guest as a stable, architecture-provided ABI for
+detecting whether the kernel is running as an Arm CCA Realm guest, and then
+removes the dummy arm-cca-dev platform-device registration.
+
+Changes from v9:
+https://lore.kernel.org/all/20260805063255.1638614-1-aneesh.kumar@kernel.org
+* Rename CONFIG_ARM_RMM to CONFIG_ARM_RMM_RSI to make the Kconfig option RSI-specific.
+* Update the modalias to use the SMCCC function ID.
+* Don't issue SMC64 SMCCC calls on arm32.
+* Drop the IDA usage.
 
 
-Thanks and best regards,
-Evon
+Changes from v8:
+https://lore.kernel.org/all/20260707081351.1680209-1-aneesh.kumar@kernel.org
+* Rebase onto the arm64 for-next/core branch.
+* Move the RSI code from arch/arm64 to drivers/firmware/arm_rmm in patch 3.
+* Add a new patch to move the Realm memory-encryption operations to the RSI code.
+* Drop the Reviewed-by tag from patch 3.
+
+Changes from v7:
+https://lore.kernel.org/all/20260611130429.295516-1-aneesh.kumar@kernel.org
+* Rebase to latest kernel
+* Add id_table check in arm_smccc_driver_register
+* Add smccc device name check in arm_smccc_device_register
+* Drop driver_data from struct arm_smccc_device_id
+
+Changes from v6:
+https://lore.kernel.org/all/20260527100233.428018-1-aneesh.kumar@kernel.org
+* Move SMCCC bus-related code to bus.c.
+* Remove CONFIG_ARM64 #ifdefs and switch device creation to use the generic function-ID support framework.
+* Move version-specific checks and other conditionals to the device driver probe routines.
+* Move RSI definitions to include/linux/arm-smccc-rsi.h.
+* Split the file and variable renames into a separate patch.
+
+Changes from v5:
+https://lore.kernel.org/all/20260514094030.42495-1-aneesh.kumar@kernel.org
+* Replace the arm-smccc platform-device plus auxiliary-child model with a
+  dedicated Arm SMCCC bus.
+* Add SMCCC module alias support so SMCCC service drivers can use
+  MODULE_DEVICE_TABLE(arm_smccc, ...) and autoload through arm_smccc:<name>
+  aliases.
+* Convert smccc_trng from a platform driver to an SMCCC driver.
+* Convert the Arm CCA guest TSM provider from the arm-cca-dev platform device
+  to an SMCCC driver bound to the discovered RSI service.
+* Add /sys/firmware/cca/realm_guest before removing the old arm-cca-dev dummy
+  platform device.
+
+Changes from v4:
+https://lore.kernel.org/all/20260427061615.905018-1-aneesh.kumar@kernel.org
+* Add /sys/firmware/cca/realm_guest for detecting realm guest
+* Convert smccc_trng to auxiliary device from platform device
+
+Changes from v3:
+https://lore.kernel.org/all/20260309100507.2303361-1-aneesh.kumar@kernel.org
+* Rebased onto the latest kernel
+* Drop pr_fmt() from drivers/firmware/smccc/rmm.c
+
+Cc: Catalin Marinas <catalin.marinas@arm.com>
+Cc: Greg KH <gregkh@linuxfoundation.org>
+Cc: Jeremy Linton <jeremy.linton@arm.com>
+Cc: Jonathan Cameron <jic23@kernel.org>
+Cc: Lorenzo Pieralisi <lpieralisi@kernel.org>
+Cc: Mark Rutland <mark.rutland@arm.com>
+Cc: Sudeep Holla <sudeep.holla@arm.com>
+Cc: Will Deacon <will@kernel.org>
+Cc: Steven Price <steven.price@arm.com>
+Cc: Suzuki K Poulose <Suzuki.Poulose@arm.com>
+Cc: Andre Przywara <andre.przywara@arm.com>
+
+Aneesh Kumar K.V (Arm) (7):
+  firmware: smccc: Add an Arm SMCCC bus
+  firmware: hwrng: arm_smccc_trng: Register as an SMCCC device
+  firmware: arm_rmm: Move RSI support out of arch/arm64
+  arm64: realm: Move Realm memory encryption ops to RSI code
+  virt: coco: arm-cca-guest: Rename TSM report source file
+  firmware: smccc: arm-cca-guest: Bind the TSM provider to an SMCCC
+    device
+  coco: guest: arm64: Replace dummy CCA device with sysfs ABI
+
+ Documentation/ABI/testing/sysfs-firmware-cca  |  10 ++
+ arch/arm/include/asm/archrandom.h             |   2 +-
+ arch/arm64/Kconfig                            |   1 +
+ arch/arm64/include/asm/archrandom.h           |   2 +-
+ arch/arm64/include/asm/io.h                   |   2 +-
+ arch/arm64/include/asm/mem_encrypt.h          |   5 +-
+ arch/arm64/include/asm/pgtable-prot.h         |   2 +-
+ arch/arm64/include/asm/rsi.h                  |  70 --------
+ arch/arm64/kernel/Makefile                    |   2 +-
+ arch/arm64/kernel/setup.c                     |   2 +-
+ arch/arm64/mm/init.c                          |   3 +-
+ arch/arm64/mm/pageattr.c                      |  38 +----
+ drivers/char/hw_random/arm_smccc_trng.c       |  32 ++--
+ drivers/firmware/Kconfig                      |   1 +
+ drivers/firmware/Makefile                     |   1 +
+ drivers/firmware/arm_rmm/Kconfig              |  17 ++
+ drivers/firmware/arm_rmm/Makefile             |   2 +
+ .../kernel => drivers/firmware/arm_rmm}/rsi.c |  78 +++++++--
+ drivers/firmware/smccc/Makefile               |   2 +-
+ drivers/firmware/smccc/bus.c                  | 151 ++++++++++++++++++
+ drivers/firmware/smccc/smccc.c                |  67 ++++++--
+ drivers/virt/coco/arm-cca-guest/Kconfig       |   3 +-
+ drivers/virt/coco/arm-cca-guest/Makefile      |   2 +
+ .../arm-cca-guest/{arm-cca-guest.c => main.c} |  55 +++----
+ .../linux/arm-rsi-cmds.h                      |  76 ++++++++-
+ include/linux/arm-smccc-bus.h                 |  48 ++++++
+ .../linux/arm-smccc-rsi.h                     |   6 +-
+ include/linux/device-id/arm_smccc.h           |  15 ++
+ include/linux/mod_devicetable.h               |   1 +
+ scripts/mod/devicetable-offsets.c             |   3 +
+ scripts/mod/file2alias.c                      |   8 +
+ 31 files changed, 518 insertions(+), 189 deletions(-)
+ create mode 100644 Documentation/ABI/testing/sysfs-firmware-cca
+ delete mode 100644 arch/arm64/include/asm/rsi.h
+ create mode 100644 drivers/firmware/arm_rmm/Kconfig
+ create mode 100644 drivers/firmware/arm_rmm/Makefile
+ rename {arch/arm64/kernel => drivers/firmware/arm_rmm}/rsi.c (70%)
+ create mode 100644 drivers/firmware/smccc/bus.c
+ rename drivers/virt/coco/arm-cca-guest/{arm-cca-guest.c => main.c} (82%)
+ rename arch/arm64/include/asm/rsi_cmds.h => include/linux/arm-rsi-cmds.h (69%)
+ create mode 100644 include/linux/arm-smccc-bus.h
+ rename arch/arm64/include/asm/rsi_smc.h => include/linux/arm-smccc-rsi.h (98%)
+ create mode 100644 include/linux/device-id/arm_smccc.h
+
+
+base-commit: 89a312991dc6e638a36adc43ccb91dbc25504c04
+-- 
+2.43.0
+
