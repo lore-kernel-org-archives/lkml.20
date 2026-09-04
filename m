@@ -1,108 +1,97 @@
-Received: from mail-oi1-f172.google.com (mail-oi1-f172.google.com [209.85.167.172])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from relay7-d.mail.gandi.net (relay7-d.mail.gandi.net [217.70.183.200])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAC31483816
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 12:35:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6B401FC0EA;
+	Fri,  4 Sep 2026 12:36:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.70.183.200
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788525354; cv=none; b=D+5HQDbD1vhvIvW08LZ5vysCInwV5fUPKY4d2yiQV1LKLT9UI84Gy/JLfOn5ctwsGqbHz9x2HZ+RG3Rm0UzosKBNlG/Mtx8ZJfKvt5YvAR6SfFkMg1AIN3i39I1QFTutT6zSzVeFxbah7c3uwHgnLnQNPdqhSpmNpSgMdlNhqKo=
+	t=1788525384; cv=none; b=XxZMJ1WVb8Ap5/w9MROQFM9zQb8Zmialo3GVSkKgOEDwW7xz/BaSArNzmMooH/PXbGcYubCXgeQnmoSalqR01K48I9OMwY9CoqaAI1RVQzJzWuWN70PGGtkP8WCGSJb26CiNLR06nCuAHSSQoKSDDbAXX3Nb/tvQFaWAfAz3lBU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788525354; c=relaxed/simple;
-	bh=DeS+VD1yPFqoI6SUo0CVGOrpqwFRMspgLs2melatTvk=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=BCZojtJhlWgDfF64g/2a3IwtZIMdNlQNv7Sq0YBJuKg6l5iXjkzIHdq9p9FL0AA+aZdRbHwKSTZNEh+gsnrzH+DPZKf+txqx5W7jYhoXuibMYAJOFztlTH8hsoDbVsQeNr+MqJb7co2AQ+Pbw8I8VBCC4p+0j/Yn4Hd2tWOdX1Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kHadmkoL; arc=none smtp.client-ip=209.85.167.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788525384; c=relaxed/simple;
+	bh=ou540b36wgxIFFDshUYa45c0uA1r7r5PaqF8iDjBaEQ=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=YBf9b+ubIEqyaFWcvK7yN8CxqF+bZ51sT9BcWOyaufVxp9/WCALoPycJ63yCMWrkhoMQ2nAGNJS/vyDIZEQm9LKadToAyYMAOFqayda/00CRVDF8WJ5WKnW/2tgTg/8KzG2iqQdy2vbjh7+HdPDXr4Oy6UU5Yi0FhojEa9jWAE0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=marmottus.net; spf=pass smtp.mailfrom=marmottus.net; dkim=pass (2048-bit key) header.d=marmottus.net header.i=@marmottus.net header.b=TNLIOOHt; arc=none smtp.client-ip=217.70.183.200
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=marmottus.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=marmottus.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kHadmkoL"
-Received: by mail-oi1-f172.google.com with SMTP id 5614622812f47-4a483a552efso423670b6e.1
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 05:35:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788525352; x=1789130152; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ye8hj6N2qvNGA2gMQYOs4PavKXmbhFPMCLKjkjvEeRo=;
-        b=kHadmkoLcZclDbd0t7+3FYXKNZ1Q1ied4+gnv8JVO6zqaXvv0kwPj9mqWR6wHRmBC/
-         giwO2S0I9PzU2CFz7Jmdf/xJJQeT3PNc5KL8rjIUCpn1dVG9ovmiHe9UiEbu9zJj/IAd
-         TZ55jvbDKoRo+mWofB4omN2ZjtonWfNjpYf2XTTQi5CShlK1yx3LzC1h1C3CGBE9juv5
-         BgyLTQ+bY6rHfEg9Q+4ZxWd6AsER6Fots2ZK0MjHHOYMNzse2HEqk1nR/HbuRTh4LKvk
-         Mu0hheb8F1//nofzcaMgXj0K85Nw+kuS3YB1L+D2uX9UZKYkSha7YgU8TWGsAOmUBOWb
-         UG1A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788525352; x=1789130152;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ye8hj6N2qvNGA2gMQYOs4PavKXmbhFPMCLKjkjvEeRo=;
-        b=YHjp+fimMZ2tomNF7W+Xtyl0eDqV4HP0z4kDK5sEyqgaykQoOWXo9d2oDNOm1ctlvB
-         QwTAP4r01eakrv76sC9foLKaKG4milVJqU4u2bACgHTChpI0ow4nnJrFYUBK4srAh+91
-         TfhnV1YDNK5T/UsIzvwb18ZcfW1sy6pDSWmpPpjWlEIGAiyHTRESItdYUoMmqmEfmKBH
-         iIe7W/nw8fywIu7ym0nLhEKQuR5e2JIsnP4FtLoVt28v3Xn06UhxQohBl33KeQq39J9J
-         d6c+IHAmRuVjLOU0YHleKKoP4RGX0hBdz8Ya8irUKiyWf6ZOfi39PT1+Y8erLdNOlxSM
-         nn0A==
-X-Gm-Message-State: AFuF++mPndOPntU9jOIJVUTto1gTxQBI2Hc1/WWty+96okD+txihhIFw
-	Hr2GPHFDZeFI1caSEJ5IugncrdXkUzgI95yOXvtf7Q8IvGo3WNv1LsR1
-X-Gm-Gg: AYBFou0yf7FLYpmb5bQG0BKO97Ho8BlGColsPzvjA+gyB86csR3wi3KKtTJXdeQuztB
-	3hT6vm4uM1Lqrie79YjHYuMusWtiVe/wN/YzXo/3utUDSEy0oe9fmoGxtujeGWBsaKAzo1MsjLw
-	jPqWrrV2+1Osp8fBAFVQEuxREpDtdifuFZ7np0sMl66wnt83mNTrAJ33qgWLJsX+slz/6mCo2Qv
-	tr+S8M9Mo/AK0PlFxFel0FVh54vtQJoFffhF/YuBsqx15QQbBPlk0gDY8uZJxZVdx6z3aFGEBPl
-	vcFJHw668m9j8f0/Al15m7hSRPXiCJfKgKgwPTxo77VAbeZ/c174tm3vlPU33huKjrLGTr1h+G2
-	aq/Gf65OjbFihdNjo3SrRfq6I6BJLa+ENv8JkwGQsAOeDgzMVm8Fn32oSkhAxpPrI+pYfwfVvnX
-	0pevwgE/cCo1uINCR0mP0qokICCrHfkCpp9s6EMKSb6/DaOgNZ2Bi5V7iGTmqPls+6kvjr9Aigr
-	6jNB1HPNJ7n9oo=
-X-Received: by 2002:a05:6820:f00b:b0:6aa:f585:aabb with SMTP id 006d021491bc7-6b6fa7e38a4mr3826883eaf.1.1788525351811;
-        Fri, 04 Sep 2026 05:35:51 -0700 (PDT)
-Received: from volcano9f6e-hostos.amd.com ([165.204.217.251])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1432423f99fsm6229374c88.1.2026.09.04.05.35.49
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 04 Sep 2026 05:35:51 -0700 (PDT)
-From: Hemanth Selam <hemanth.selam@gmail.com>
-To: Shuai Xue <xueshuai@linux.alibaba.com>,
-	Jing Zhang <renyu.zj@linux.alibaba.com>,
-	Will Deacon <will@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>
-Cc: linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-perf-users@vger.kernel.org
-Subject: [PATCH 2/2] perf: fix typo "binded" in comment
-Date: Fri,  4 Sep 2026 18:05:39 +0530
-Message-ID: <20260904123541.38602-3-hemanth.selam@gmail.com>
-X-Mailer: git-send-email 2.48.1
-In-Reply-To: <20260904123541.38602-1-hemanth.selam@gmail.com>
-References: <20260904123541.38602-1-hemanth.selam@gmail.com>
+	dkim=pass (2048-bit key) header.d=marmottus.net header.i=@marmottus.net header.b="TNLIOOHt"
+Received: by mail.gandi.net (Postfix) with ESMTPSA id 067693E95D;
+	Fri,  4 Sep 2026 12:36:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=marmottus.net;
+	s=gm1; t=1788525374;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=K1EjrFVu4O9teuB6km71Nkaxnc0sngk2FX4oBosuhN4=;
+	b=TNLIOOHt5gM9ZmCwCPS9QoNYo8GMZ+NFQwxa+aMOy+3gCeHb6jy9uAusKONsIg6G1r787Z
+	c4nIg8UdvaemCHYn9d2upda1RAe82m13yKHjE2IwYvXT5ycGYHlN1z67FpChBnhmyvTKrO
+	5VbFfP5XHSwR3ohhmaQsE9zdIyoRzR8cEMfQn4n7l2BPXXuyanU53LhX0uxjv8gRV3ZR7C
+	jag47iWhSQF16hM+EOYleA91V84VepTo5+/rhjooRqJg/kq4ZaIVyXlG5ewU0rdOhAKmBN
+	9jY5DqWSlveABQx/qgzvPDNRXjlOaVyp17TIGjkgE6hnMy5DS7GlV2gGpSwLwQ==
+From: Arthur Crepin Leblond <arthur@marmottus.net>
+Subject: [PATCH net-next v7 0/3] w5100: restore GPIO-based link detection
+Date: Fri, 04 Sep 2026 14:35:57 +0200
+Message-Id: <20260904-wiznet-link-gpio-v7-0-69f01b70c96f@marmottus.net>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAC27mmoC/4XPTW7DIBAF4KtErEvF7xhn1XtUWWAYEtrGjgxx0
+ ka+e7G7sSqqLke8+R7zIAnHiInsdw8y4hRTHPoyNE874k62PyKNvsxEMAHMMEVv8avHTD9i/06
+ PlzjQpoUgwXmuQkvK2mXEEO8r+UqWaI/3TA4/L+navaHLi7hkTzHlYfxc2ye+bvxdNHHKaQcCg
+ lehca57OdvxPOR8Tc8luVZM4j9EUEZlxz1zpmFB6hoitwhUEFkQLYVXlitpWBVRG4TzCqIKorw
+ OjbfGaGtqiN4isoLoglhXToUglOKyhsAGkbWfwIJ0iOC0awHwNzLP8zerI6DRKQIAAA==
+X-Change-ID: 20260804-wiznet-link-gpio-796f36cd14f9
+To: Andrew Lunn <andrew+netdev@lunn.ch>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: Arnd Bergmann <arnd@arndb.de>, netdev@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Arthur Crepin Leblond <arthur@marmottus.net>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: b4 0.15.2
+X-GND-Sasl: arthur@marmottus.net
+X-GND-Score: -100
+X-GND-Cause: dmFkZTE8MBYIzNAxnKVvFgMYG2KBNhoWuvYqKJThqd6hsZY6WnnuLzIjxGcmr5ZvQOh48Nod6E27xEKBpH7J00WVujmZwxs+M444dcG1CDAUvaIfcBitSA/P1aJ/f4kPnoxMH54iektaoErTOyxEAqEquj+IBsjJnbnPZTX1fapSxkPZTVRvflDiZm5gEcWGAuG8ZRHh+JXGrBbojgHAsUC4g10DbjrClqdzarloWIZp6ZXQFpOWxKYbge9MLTiJ3TVUgavAdcUQ0eoHlgVHlhPwVRl7+TXzcomFrC34vo5ELnv7lPZ6qwJg/wdqeWwoeElaLe5RyUZPrLpuAoKUl0UjWDcbtHcHG87YAOuXYFuA86REamu3/qUdRDmN/Row5XvYYJCiG6o0DFA62LZyOwVr0WbXFex0N4B4mCZEeMmu72NPewmQ0EpFq+IXsRaPybsjVJy0DxHYB+n0CLOiFtv1s3yhxtzSZO2mgKAxCcOPPaYSBahwKiDwqGBkqS88F7y4SWJgI3EfXU6r8D7OenewvvocLFN/SsU3SvVPihlmRjTOu9Pj2CrZkvh3j8XNfjbxEYFwex44CuIAR3GsUtPrxQyEtkVBy3mAIPbp9EatvAvoEIYRzQTEATTZwJrP1/IxkzBLYwksmKGN5vygCqTgbIFc7ludrEH3dLpo2+CfjxpA7w
+X-GND-State: clean
 
-Correct "binded" to "bound", reported by scripts/checkpatch.pl using the
-misspelling list in scripts/spelling.txt.  Only touches comments, no code
-changes.
+Hi,
 
-Assisted-by: Cursor:claude-opus-5
-Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
+In the previous version of the w5100 driver, the LINKLED pin could be
+wired to a GPIO to detect the link status changes via an interrupt.
+This only works on w5500 as it is the only one documenting its LINKLED
+pin to hold the link status (on w5100 the LINKLED pin is changing with
+RX/TX activity).
+
+This series of patches is bringing back the link status detection on
+w5500 using the Link Status bit of the PHY Configuration Register.
+Additionally, the LINKLED pin can also be wired to detect link status
+changes and read the register in the interrupt handler.
+
+Arthur Crepin Leblond
+
+Signed-off-by: Arthur Crepin Leblond <arthur@marmottus.net>
 ---
- drivers/perf/dwc_pcie_pmu.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+- Link to v6: https://patch.msgid.link/20260831-wiznet-link-gpio-v6-0-abee6c5c966e@marmottus.net
+- Link to v5: https://patch.msgid.link/20260813-wiznet-link-gpio-v5-0-ac8046f24413@marmottus.net
+- Link to v4: https://patch.msgid.link/20260811-wiznet-link-gpio-v4-0-4d5f7da885a8@marmottus.net
+- Link to v3: https://patch.msgid.link/20260806-wiznet-link-gpio-v3-0-532d4a143805@marmottus.net
+- Link to v2: https://patch.msgid.link/20260804-wiznet-link-gpio-v2-0-3b1d0c870f35@marmottus.net
+- Link to v1: https://patch.msgid.link/20260804-wiznet-link-gpio-v1-1-b626fd4f7ccb@marmottus.net
+---
+Arthur Crepin Leblond (3):
+      dt-bindings: net: wiznet,w5100: convert to DT schema
+      dt-bindings: net: wiznet,w5100: add link status interrupt
+      w5100: detect carrier state using link status bit and optional interrupt
 
-diff --git a/drivers/perf/dwc_pcie_pmu.c b/drivers/perf/dwc_pcie_pmu.c
-index 6b9ed59de26e..e2435ccc04ca 100644
---- a/drivers/perf/dwc_pcie_pmu.c
-+++ b/drivers/perf/dwc_pcie_pmu.c
-@@ -639,7 +639,7 @@ static void dwc_pcie_pmu_remove_cpuhp_instance(void *hotplug_node)
- }
- 
- /*
-- * Find the binded DES capability device info of a PCI device.
-+ * Find the bound DES capability device info of a PCI device.
-  * @pdev: The PCI device.
-  */
- static struct dwc_pcie_dev_info *dwc_pcie_find_dev_info(struct pci_dev *pdev)
--- 
-2.48.1
+ .../devicetree/bindings/net/wiznet,w5100.yaml      |  71 ++++++++++++
+ .../devicetree/bindings/net/wiznet,w5x00.txt       |  50 ---------
+ drivers/net/ethernet/wiznet/w5100.c                | 123 +++++++++++++++++++--
+ 3 files changed, 183 insertions(+), 61 deletions(-)
 
