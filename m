@@ -1,33 +1,50 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2463C322C73
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 02:18:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E84B1DD0EF;
+	Fri,  4 Sep 2026 02:19:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.7
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788488338; cv=none; b=NLhRtPrafF5dq8gEUbkWrP2jERZSixEhWY/bHWvp/jYV9SvzcKw+wDTCYCd39Ei9/spVTbkA7JpK9yCDRn/AEwtL/uPKQyFQVk9kTBH/xOcVgthIwOO9aBjD+gCJT2WagOVdx0QAAAZzd4ZVvS+z4oeNBBqhWaLreTMbTw6VuL8=
+	t=1788488371; cv=none; b=no9WoOyQgbGAa+/2V3sBlCdTT4r88EdxuGriHOyYMxnVA1MgpTyRieyhOodpwTwjcU29brlcT5GpIZCxNDergUnWljOU/onzilLEBa/iTR6vmDivRIOItsUKYsy4VsTlithe2SiUZ9gHaJClXwvpbpH5O71iuFnZyr0V8WymviA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788488338; c=relaxed/simple;
-	bh=Ej3TBWRmTR/2msl8GtzzCQ+OWJYboNiD2IMuxp4Wkss=;
-	h=Message-ID:Date:MIME-Version:Cc:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=uc80sxTmXFYJa5jShoYA1LQxi8OiSIkTvhLb7H9spw8wnj1kmDJ4zjCDDGgZXmKRRBh/vUwaDCD1CEaXxJ8/Wr2alNY2ugNOsC/Mzu4Tzmi73m0MfljDcty4LYAf0eSkrhEhdZ1INGrjXnmbBiTJbiEh4hCyjQNKU3ZJQtoaTek=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=F4ZRnbu7; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788488371; c=relaxed/simple;
+	bh=n9F4+oIz33XOGAxqU12gJL9Chj1DXyGyLxMUbOV2nbc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=dpqQwcLhao1ia09+Qyav53OTdWxuWP6VPAmBIC65h3zHScgyDHSCYfW52qNnL6eKNJyznnZ+QgkZ5I1Dix0heyO5lu80Ku137+w7do+JPrjrQvkWPSwDrz7P8NbgV1xTkpxtDI3cRZCsOFzzKBNPhskQ3EI5oAJ39OgTrSqPpZc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=T4Sx4dhg; arc=none smtp.client-ip=192.198.163.7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="F4ZRnbu7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5782B1F000E9;
-	Fri,  4 Sep 2026 02:18:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788488336;
-	bh=zKKWz3YBAzRZ48fG4niTMaQ+b+q86yK1j5H17drXCQ0=;
-	h=Date:Cc:Subject:To:References:From:In-Reply-To;
-	b=F4ZRnbu7gsjzTFY1903nrBKYxOWm3OaqozwOX8npEqxvtsSH8GZf42YpDe760hGTh
-	 7JIY2pryIjSAaAAlGalY0g3IroJasFNUpDYs8ra/I2oByB89HQC/UdiF+sruCK52rX
-	 X2itS3fSCP/B71m2xIR7XGxmA6Ij4UDuIqPuqkz7+czhleyHsOjzHHl8hFjDU8UtVj
-	 BtExl1rUqkLq3HI7OSvDn8lVNE3JjBDHk7sbM8uO5RMCxWSq80hYymR/vQJkynggeH
-	 nEarE9VhvsiNpKzt5jFe2TQsiO3xdSvA+HNQ5y5YevXv7JtFCkI+UUSHlVm3ZOciJu
-	 g+NYFhPe9QFNw==
-Message-ID: <b9851d18-b0d3-4b47-a889-e345d78a79e4@kernel.org>
-Date: Fri, 4 Sep 2026 10:18:53 +0800
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="T4Sx4dhg"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788488368; x=1820024368;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=n9F4+oIz33XOGAxqU12gJL9Chj1DXyGyLxMUbOV2nbc=;
+  b=T4Sx4dhgdtTq0AfBOxeVKC92gKBAjF6h+meoz1UZRvjDxev9VG6rZ45z
+   4D+czwAjpfK4t7M0pFJm3rmo2mz50TSLuuT882XEk4zpNC8BIQuvV0Zqj
+   8rqcOzAyH3rkFGZFA5tGToQCu8m4F/CFv5ugpzKhfQXuDMMXjMnU66s+j
+   hbL51r+ZuoaGCWKn3an8UCMeMSzkmcTEL3haS/ATjhrx3RuWG7MC9zKe+
+   IxBTxqLMnchZOc+WuOvs+DyNOcy4JtJwGOGFP1XhlQtrI7OiOGVd+800a
+   0u+n9fcsV2tLv7h5pULyV5XdGLFY+AAvXId166JJ0g9sS1OpQDEMNVWDY
+   w==;
+X-CSE-ConnectionGUID: G9DO/BHLSlGCXsmE5T5Lcg==
+X-CSE-MsgGUID: necl5fd/Tr2GrP2yRGzh1g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11895"; a="114530283"
+X-IronPort-AV: E=Sophos;i="6.25,260,1779174000"; 
+   d="scan'208";a="114530283"
+Received: from orviesa010.jf.intel.com ([10.64.159.150])
+  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Sep 2026 19:19:27 -0700
+X-CSE-ConnectionGUID: Gu6nYsrKRA2TQcJZir+zpA==
+X-CSE-MsgGUID: 2RDhmA47S+SJPKEcw5Q67A==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,260,1779174000"; 
+   d="scan'208";a="268597112"
+Received: from binbinwu-mobl.ccr.corp.intel.com (HELO [10.124.245.162]) ([10.124.245.162])
+  by orviesa010-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Sep 2026 19:19:25 -0700
+Message-ID: <02491bea-3d12-464b-a219-c2b8d41d8d5b@linux.intel.com>
+Date: Fri, 4 Sep 2026 10:19:23 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -35,36 +52,32 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Cc: chao@kernel.org, Jaegeuk Kim <jaegeuk@kernel.org>,
- Daeho Jeong <daeho43@gmail.com>, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v9 10/11] f2fs: describe node tree geometry dynamically
-To: Kelvin Zhang <zhangxp1998@gmail.com>,
- linux-f2fs-devel@lists.sourceforge.net
-References: <cover.1788479509.git.zhangxp1998@gmail.com>
- <04bf8eb2c833d8fbb767558c49b53c715f6698b8.1788479509.git.zhangxp1998@gmail.com>
+Subject: Re: [PATCH v3 1/8] KVM: VMX: Disallow using to_vmx() in common VT
+ code
+To: Sean Christopherson <seanjc@google.com>
+Cc: Paolo Bonzini <pbonzini@redhat.com>, kvm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Xiaoyao Li <xiaoyao.li@intel.com>,
+ Kai Huang <kai.huang@intel.com>, Rick Edgecombe
+ <rick.p.edgecombe@intel.com>, Yan Zhao <yan.y.zhao@intel.com>
+References: <20260904010353.3175819-1-seanjc@google.com>
+ <20260904010353.3175819-2-seanjc@google.com>
 Content-Language: en-US
-From: Chao Yu <chao@kernel.org>
-In-Reply-To: <04bf8eb2c833d8fbb767558c49b53c715f6698b8.1788479509.git.zhangxp1998@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+From: Binbin Wu <binbin.wu@linux.intel.com>
+In-Reply-To: <20260904010353.3175819-2-seanjc@google.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 9/4/26 07:56, Kelvin Zhang wrote:
-> The file indexing tree boundaries separating direct, indirect, and
-> double-indirect node blocks depend on the number of data block addresses
-> and node IDs contained in each node block.
+On 9/4/2026 9:03 AM, Sean Christopherson wrote:
+> Poison to_vmx() in main.c and posted_intr.c so that attempting to interpret
+> the vCPU as a VMX vCPU will fail at compile time, as opposed to failing at
+> runtime, or worse corrupting state without outright failing.
 > 
-> Parameterize index boundary macros (NODE_DIR1_BLOCK,
-> NODE_DIR2_BLOCK, NODE_IND1_BLOCK, NODE_IND2_BLOCK, and NODE_DIND_BLOCK) and
-> address capacity helpers (DEF_ADDRS_PER_BLOCK, NIDS_PER_BLOCK,
-> cur_addrs_per_inode, addrs_per_page, and addrs_per_folio) with
-> struct f2fs_sb_info *sbi.
+> Note, to_tdx() is buried in tdx.c, i.e. isn't broadly reachable, and so
+> doesn't need the same treatment as to_vmx().
 > 
-> Update file mapping, block allocation, truncate, garbage collection,
-> and recovery paths to compute indexing tree offsets from the runtime
-> geometry.
-> 
-> Signed-off-by: Kelvin Zhang <zhangxp1998@gmail.com>
+> Reviewed-by: Xiaoyao Li <xiaoyao.li@intel.com>
+> Reviewed-by: Kai Huang <kai.huang@intel.com>
+> Tested-by: Kai Huang <kai.huang@intel.com>
+> Signed-off-by: Sean Christopherson <seanjc@google.com>
 
-Reviewed-by: Chao Yu <chao@kernel.org>
-
-Thanks,
+Reviewed-by: Binbin Wu <binbin.wu@linux.intel.com>
