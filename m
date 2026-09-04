@@ -1,92 +1,125 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail.andi.de1.cc (mail.andi.de1.cc [178.238.236.174])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 376B44A0F18;
-	Fri,  4 Sep 2026 13:41:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AC064AD4AB;
+	Fri,  4 Sep 2026 13:41:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.238.236.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788529295; cv=none; b=dNGPM/HU3Ey2L0apjgp903cv4q93C1ly6aZfEeR2tdvXut1vZvkN/Ub8WCNASY9vhWnnVH+hqTWatH3GD4hBxo+cWVDIv0ag+cg3U0Fc/Fz/pT+50pwOo7gO4czDGeLyKN30PTPo2MtOyDwOmz9v4i0cIrNWfy0+HkGRzSA7fto=
+	t=1788529298; cv=none; b=EyLgwl5GiSvZFo6QkXo3JrnPMRPtildAehiYifafhCaTkL5eB0vYrXKSC1udq2G6aSl4Kj6TFEy5JE9V1TizZimSx6n+CXosB2zEX3dx4knf6W44+X871KFTgjb9cc2XCOx3wDbGwMvM0z1HDi8bGEZwwxCM60Qviu9TeyhQqK0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788529295; c=relaxed/simple;
-	bh=7r32Tg/qIG8pEx8swBsgybRMGFF8HRBL62rfwK0Z7wU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Lvub9GIxnvBLSTLPGEoZpUAaz1ZyBFrdym+rbEZMuzsQnD8lI7Z3DM64H9CFtwgzMbXnL2D+VoG1s+NjgmjNfWwr4dfM6Wl56mK21Vh8NVcjc0b/r5hpommKqHkHKWn5iUZIAssTsmXMmszPKlV5xAs2ISl8Ut1uFg6vpgQYQR8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ko25YKjl; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788529298; c=relaxed/simple;
+	bh=D9iL8gkIMoSahIxAXwEZ4rZ5DC/fLiu/XF4LdcYsNr8=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=OoaPkY+E2PLOI86BFfK2ChmKKr4VOC47jJ5TGqHsv+nHLjTxMUqIkQmpoFJa9IbqmukvBYUcDHbCiQynUx9hAPiN3IO3zcD26WlVXPL8eAZfKylePdy3CvapNJNwVvX5KshmIY4McEolKMNEOIdvqtsap/KWWPQSAgH8ghGkUUY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kemnade.info; spf=pass smtp.mailfrom=kemnade.info; dkim=pass (2048-bit key) header.d=kemnade.info header.i=@kemnade.info header.b=f6ODtQC5; arc=none smtp.client-ip=178.238.236.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kemnade.info
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kemnade.info
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ko25YKjl"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 98CFC1F00AC4;
-	Fri,  4 Sep 2026 13:41:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788529294;
-	bh=C9H82NLQBdMpqPgxDAoF5zCET/a423kRXf21LCJulRs=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ko25YKjlQVWRGSmrZmVyXO3hq/59IgraPpdP2jNoHi5AsmfPHPRExitu14lEH3Chp
-	 2QhblnqmgnKtkIJbK/fUtxLZSvHu2nC9OP4md1em96SHt4bKUIAuaHl8jG1btxJanR
-	 9t6zGWmmnK2YM5+dFziQQ0LK+gCSN3yauhDzGKwYONvMYhtm/YJ+hhlHX9m+dJpxEd
-	 IuYmYJ8TAHi07ipx8abm5f/XPztbpmp9yuTkYla8X4Sdq2yiVuNYxyMDK1PEeMEQPt
-	 rqHdVbDa1Hl1r+x/0mNHtNv4AUhtloOnsU75YFcWNr9fyyrVU/9OigeAWE8nv8aY22
-	 NvLEpiwkGGmGA==
-Date: Fri, 4 Sep 2026 14:41:28 +0100
-From: Will Deacon <will@kernel.org>
-To: Fuad Tabba <fuad.tabba@linux.dev>
-Cc: Mark Brown <broonie@kernel.org>, Marc Zyngier <maz@kernel.org>,
-	Oliver Upton <oupton@kernel.org>, Joey Gouly <joey.gouly@arm.com>,
-	Steffen Eiden <seiden@linux.ibm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Zenghui Yu <yuzenghui@huawei.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Mark Rutland <mark.rutland@arm.com>,
-	linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/2] KVM: arm64: Enable S1PIE for nVHE and hVHE
-Message-ID: <aprKiP2YlBuBwDU8@willie-the-truck>
-References: <20260904-kvm-arm64-nvhe-pie-v1-0-29d59f245e6c@kernel.org>
- <20260904-kvm-arm64-nvhe-pie-v1-2-29d59f245e6c@kernel.org>
- <86pkyt4gvt.wl-maz@kernel.org>
- <eb788ad5-5bb3-4767-87b8-d35d9e3ab220@sirena.org.uk>
- <apqrky27mJmUV9UA@willie-the-truck>
- <05f1e2f4-173a-4226-8c98-1452c20f0a47@sirena.org.uk>
- <CA+EHjTx87SnshzrUF69hGTSA9JmjW9oKbx+GbKjx5W+gnWYRgg@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=kemnade.info header.i=@kemnade.info header.b="f6ODtQC5"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=kemnade.info; s=20220719; h=References:In-Reply-To:Subject:Cc:To:From:
+	Reply-To:Content-ID:Content-Description;
+	bh=bwrYwvf4EE3LnWiuBDhZo+bPLoXTv8Ui/JdisuZmKag=; t=1788529296; x=1789738896; 
+	b=f6ODtQC5aBMfC6veE0amOWpCYLr8dA4J7VlvUPg7Ch2+AgkjxJ6UYIh6PTw+XHrkos2wGa7u9pt
+	E6Py4bLhu2kgCVXaF/hn/qetqkoblpcLWKwW7MhUPxWPs4FPl9Bq9C35A1RKrQpNtuneV6jnKhJah
+	NeGbYldptBL5Fw52iZZgfEQNPmN+lUgJAt5MfD65N50FYPDItkHxa3EE0aWkQQ9lLjnDGvTJn6DNU
+	jhYOdPGaQnA0f/7L3fKEfTDBhA/UUegDNI+yGSqZcf8dpScMUi3X2BjeanAmQSEU0YxQcg8hwLkoz
+	PnqaeEHi4uIfuXTBS6HFs9m5xj9dMIFjmPfA==;
+Date: Fri, 4 Sep 2026 15:41:14 +0200
+From: Andreas Kemnade <andreas@kemnade.info>
+To: "Mathieu Dubois-Briand" <mathieu.dubois-briand@bootlin.com>
+Cc: "Tero Kristo" <kristo@kernel.org>, "Michael Turquette"
+ <mturquette@baylibre.com>, "Stephen Boyd" <sboyd@kernel.org>, "Brian
+ Masney" <bmasney@redhat.com>, "Tony Lindgren" <tony@atomide.com>, "Thomas
+ Petazzoni" <thomas.petazzoni@bootlin.com>, =?UTF-8?B?VGjDqW8=?= Lebrun
+ <theo.lebrun@bootlin.com>, =?UTF-8?B?R3LDqWdvcnk=?= Clement
+ <gregory.clement@bootlin.com>, <linux-omap@vger.kernel.org>,
+ <linux-clk@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+ <hns@goldelico.com>
+Subject: Re: [PATCH v2 0/2] clk: ti: mux: resolve parent clocks by DT index,
+ not by name
+Message-ID: <20260904154114.2d771ee1@kemnade.info>
+In-Reply-To: <DL6D90JSIJCC.FE91IM9ILYSI@bootlin.com>
+References: <20260727-mathieu-wdt-clock-theo-v2-0-c048a6394436@bootlin.com>
+	<20260902082639.69643254@kemnade.info>
+	<DL4OUCXRGBEA.2G2WHI4FH2AY8@bootlin.com>
+	<20260902111556.38645f32@kemnade.info>
+	<20260903115308.2a569a30@kemnade.info>
+	<DL6D90JSIJCC.FE91IM9ILYSI@bootlin.com>
+X-Mailer: Claws Mail 4.3.1 (GTK 3.24.49; aarch64-unknown-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CA+EHjTx87SnshzrUF69hGTSA9JmjW9oKbx+GbKjx5W+gnWYRgg@mail.gmail.com>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Fri, Sep 04, 2026 at 01:20:44PM +0100, Fuad Tabba wrote:
-> On Fri, 4 Sept 2026 at 12:48, Mark Brown <broonie@kernel.org> wrote:
+On Fri, 04 Sep 2026 09:50:17 +0200
+"Mathieu Dubois-Briand" <mathieu.dubois-briand@bootlin.com> wrote:
+
+> On Thu Sep 3, 2026 at 11:53 AM CEST, Andreas Kemnade wrote:
+> > We have:
+> > localhost:/sys/kernel/debug/clk# grep '(' */clk_possible_parents 
+> > clkout2_src_ck/clk_possible_parents:(missing) (missing) (missing) (missing)
+> > gpt10_fck/clk_possible_parents:(missing) (missing)
+> > gpt11_fck/clk_possible_parents:(missing) (missing)
+> > gpt2_fck/clk_possible_parents:(missing) (missing)
+> > gpt3_fck/clk_possible_parents:(missing) (missing)
+> > gpt4_fck/clk_possible_parents:(missing) (missing)
+> > gpt5_fck/clk_possible_parents:(missing) (missing)
+> > gpt6_fck/clk_possible_parents:(missing) (missing)
+> > gpt7_fck/clk_possible_parents:(missing) (missing)
+> > gpt8_fck/clk_possible_parents:(missing) (missing)
+> > gpt9_fck/clk_possible_parents:(missing) (missing)
+> > mcbsp1_fck/clk_possible_parents:(missing) (missing)
+> > mcbsp2_fck/clk_possible_parents:(missing) (missing)
+> > mcbsp3_fck/clk_possible_parents:(missing) (missing)
+> > mcbsp4_fck/clk_possible_parents:(missing) (missing)
+> > mcbsp5_fck/clk_possible_parents:(missing) (missing)
+> > sgx_fck/clk_possible_parents:(missing) (missing) (missing) (missing) (missing) (missing) (missing) (missing)
+> > usim_fck/clk_possible_parents:(missing) (missing) (missing) (missing) (missing) (missing) (missing) (missing) (missing) (missing)
+> > localhost:/sys/kernel/debug/clk# 
 > >
-> > On Fri, Sep 04, 2026 at 12:29:23PM +0100, Will Deacon wrote:
-> > > On Fri, Sep 04, 2026 at 11:33:24AM +0100, Mark Brown wrote:
+> > All these clocks are composite clocks.
 > >
-> > > > What about pKVM, my understanding was that that is very much an ongoing
-> > > > concern and uses the nVHE hypervisor?  My expectation was that this
-> > > > would only ever get used in hVHE configurations when people enable pKVM
-> > > > on modern hardware, actual nVHE mode was mostly just carried along with
-> > > > that.
+> > so the early-registration of timer-ti-dm-systimer seems not to be
+> > the main issue here. Looking around what might be affected,
+> > mux clocks build into composite clocks:
+> > :~/linux/arch/arm/boot/dts/ti/omap$ grep -l ti,composite-mux *.dts*
+> > omap2420-clocks.dtsi
+> > omap2430-clocks.dtsi
+> > omap24xx-clocks.dtsi
+> > omap36xx-am35xx-omap3430es2plus-clocks.dtsi
+> > omap36xx-omap3430es2plus-clocks.dtsi
+> > omap3xxx-clocks.dtsi
+> > omap44xx-clocks.dtsi
+> > omap54xx-clocks.dtsi
 > >
-> > > pKVM uses hVHE wherever it can nowadays, so I'm fine with only supporting
-> > > S1PIE on hVHE and VHE configurations if that's easier to maintain. We
-> > > just need to make sure that the failure mode for nVHE results in the
-> > > feature being gracefully disabled, rather than e.g. crashing or quietly
-> > > doing the wrong thing.
+> > So havoc all over the place, just worst in omap3 because more critical
+> > clocks are affected.
 > >
-> > I figure that if we're supporting hVHE it will end up less complicated
-> > to also enable nVHE, it reduces the potential for having bad or missing
-> > fallback paths for features downstream of S1POE.  It's not like it's a
-> > huge extra bit of code and it seems likely to save hassle down the line.
+> > So I think we need either a revert of these patches or a some
+> > kind of quirk in clk_hw_register_composite_pdata to pass throuch something
+> > between the mux component and the composite.
+> >
+> > Regrads,
+> > Andreas  
 > 
-> For pKVM there's no fallback path to get wrong: any CPU with S1PIE has
-> VHE, so pKVM runs hVHE on it, and a CPU without VHE has no S1PIE to
-> disable. I couldn't construct the protected nVHE plus S1PIE case under
-> QEMU at all.
+> Hi Andreas,
+> 
+> Thanks for taking the time to investigate this issue.
+> 
+> I believe I won't have much time to dive into it in the coming days, so
+> I fear you are right and we will have to revert this patch for now.
+> Except if someone else want to have a look at this.
+> 
+I looked once more: I will try with just the composite patch reverted.
+The composite patch looks more independent than I thought initially.
 
-I can't remember the exact incantation, but there's definitely a way to
-force pKVM + nVHE on VHE-capable hardware on the cmdline. So we should
-just make sure that doesn't go horribly wrong!
+The composite one does not affect anything else than OMAP2/3/4/5, so
+your AM3 problem will still get solved.
 
-Will
+Regards,
+Andreas 
