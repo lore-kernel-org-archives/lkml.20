@@ -1,82 +1,93 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+Received: from fuchsia.ash.relay.mailchannels.net (fuchsia.ash.relay.mailchannels.net [23.83.222.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E82613955EC;
-	Fri,  4 Sep 2026 12:50:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EE69488237;
+	Fri,  4 Sep 2026 12:51:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=23.83.222.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788526226; cv=none; b=hQl2y+9IClxw+a+2ft7lOi9SypPOX1pITACM3ZxZXOQajncjsTsKssR/MXf2RP0TXHvn+tT52AX1nZUxUWIk0Nzf/A0yfRoOr+4E9ICT1T8DNSVA5lj0Vuw9xWocaBVoL5Chd3CuTuRP5Z/QhU5CMjaKxvFS0wDm3nCs559OM+A=
+	t=1788526277; cv=none; b=J9iKN7XdQhyNYApW0TYwAiwr38KQ4g3NEU+/CAbBePQxI87dRjUZqYt31dP4UaEn2GvCQ4BY7Q+NuZAlgIWObgKIf5w+5MlKcVqWrwJXpD/PT3qPwg6NCMW+mWec4aH/WEWSH5ymprJU0TQm2h547tK31x8jIIcKvruiBT7JHQY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788526226; c=relaxed/simple;
-	bh=G81joPHDQa6zazcKVT6iVyrHBcF3QYziAiZ7676HgoM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=NDSVQw4yQHnpQLRYBgqHC1vw+R7NeoXk4IB+LEioYS4MJVzjtdhgj6KiFfiSVMODsUup0dSTilkw36WyS8lOpbc527Cr8jAMIHWLu3PLGoWRAxGH4gtPYjNTff5ch3iW7dL1U9rwOka5r9QBH2SvAHzGKsaKZ/CpSstAvyvjcjw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=MFJ4ZzOh; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	s=arc-20240116; t=1788526277; c=relaxed/simple;
+	bh=9drcvL3fh4EMFv/DH218MKHZCJhadIOxFhozHd73JOw=;
+	h=From:To:Cc:Subject:Message-ID:In-Reply-To:References:MIME-Version:
+	 Content-Type:Date; b=gPGa6R3fNnRTI51aCST/tAm9n8clU1MgTFIy84d4Slxa9DqePl7hH2173m5IZg+IliYhx+lWLESZNBRDF+e+N12/2ZvCUAPVlZ6rpfYzkr6eOjvwzqVZnTUFGP0OFJ06m/+LB4TQnn4s9dXmgu3uOP1YQLMoY90dsDvyXH+El7Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=tunakilic.com; spf=pass smtp.mailfrom=tunakilic.com; dkim=pass (2048-bit key) header.d=tunakilic.com header.i=@tunakilic.com header.b=ZxDm+mlQ; arc=none smtp.client-ip=23.83.222.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=tunakilic.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tunakilic.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="MFJ4ZzOh"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=3yAn3kbsFoIm608A9M/Uf1F3WYIQG3X//USFhPDHvo0=; b=MFJ4ZzOhejmX+088Y3ofbbmioA
-	M0QeyMYnafGPTF0VYKpprxs6LJjFslZu3gZysd/rv9sq0DtjgLNGF7rM9KKyM5agoGD8DEzckcCNE
-	Nxt8/kx1U5eeBpgRdS41WGaHyQzG0Fxz7g4OWWtW0U2/bmxL+ReA4//Z1VzBkT9zzb3Y=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1x2TN7-002yOm-Bw; Fri, 04 Sep 2026 14:50:21 +0200
-Date: Fri, 4 Sep 2026 14:50:21 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Qingfang Deng <qingfang.deng@linux.dev>
-Cc: Jiri Slaby <jirislaby@kernel.org>, linux-ppp@vger.kernel.org,
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Mitchell Blank Jr <mitch@sfgoth.com>,
-	Chas Williams <3chas3@gmail.com>,
-	James Chapman <jchapman@katalix.com>,
-	Simon Horman <horms@kernel.org>, Kees Cook <kees@kernel.org>,
-	Breno Leitao <leitao@debian.org>, Felix Fietkau <nbd@nbd.name>,
-	Asim Viladi Oglu Manizada <manizada@pm.me>,
-	Eric Woudstra <ericwouds@gmail.com>,
-	linux-atm-general@lists.sourceforge.net
-Subject: Re: [PATCH net-next] ppp: pass private data to channel callbacks
-Message-ID: <d051ed66-255a-4d25-961e-6229aa34f791@lunn.ch>
-References: <20260904031153.30304-1-qingfang.deng@linux.dev>
- <927e0f8f-a656-45e4-a937-9de88b783073@kernel.org>
- <a8497c0e-94be-4cf9-ab64-0402c48c3a88@linux.dev>
+	dkim=pass (2048-bit key) header.d=tunakilic.com header.i=@tunakilic.com header.b="ZxDm+mlQ"
+X-Sender-Id: hostingeremail|x-authuser|tuna@tunakilic.com
+Received: from relay.mailchannels.net (localhost [127.0.0.1])
+	by relay.mailchannels.net (Postfix) with ESMTP id 7F3D4461903;
+	Fri, 04 Sep 2026 12:51:08 +0000 (UTC)
+Received: from de-fra-smtpout4.hostinger.io (100-98-23-243.trex-nlb.outbound.svc.cluster.local [100.98.23.243])
+	(Authenticated sender: hostingeremail)
+	by relay.mailchannels.net (Postfix) with ESMTPA id E6639461AD6;
+	Fri, 04 Sep 2026 12:51:06 +0000 (UTC)
+X-Sender-Id: hostingeremail|x-authuser|tuna@tunakilic.com
+X-MC-Relay: Neutral
+X-MailChannels-SenderId: hostingeremail|x-authuser|tuna@tunakilic.com
+X-MailChannels-Auth-Id: hostingeremail
+X-Snatch-Irritate: 669564620e22f1b2_1788526268322_3904756084
+X-MC-Loop-Signature: 1788526268322:576418007
+X-MC-Ingress-Time: 1788526268322
+Received: from de-fra-smtpout4.hostinger.io (de-fra-smtpout4.hostinger.io
+ [148.222.55.14])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384)
+	by 100.98.23.243 (trex/8.0.2);
+	Fri, 04 Sep 2026 12:51:08 +0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tunakilic.com;
+	s=hostingermail-a; t=1788526265;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=9drcvL3fh4EMFv/DH218MKHZCJhadIOxFhozHd73JOw=;
+	b=ZxDm+mlQdKbsxhZgldPzyoifiLXAyXY6YZkhVwQ6fIFHrGm2jRJgFjlYMMWP1QL9NP8JsB
+	k0NOUoGGJmyQNkqePuLSZBLV0D2T0rSkA/fqenXxZqZoDv8cGr9o1VBj+Je0UBbOyjUJuy
+	nbD2e4zG/H9uza34fc4bqdO4Ns7VZBjfIvqPiYGGBPcWXUNmNuff7vAVk5UC2ChQBnNPqp
+	f3rBM10ukRQSJcSAEWGXcRJ36a2nLtZcPRusKVv0/NHEz1oGttiQH6sxuM87RIDlc/kVuH
+	HOkvSRluQFwloIFw92ftDgiQbITOkZuB3CnGAjx+ciiTMwE0ExQP0+XsGgQ/AQ==
+Received: from tuna (unknown [IPv6:2a02:e0:7474:c000:e0e7:b2f0:b492:96fe])
+	(Authenticated sender: tuna@tunakilic.com)
+	by smtp.hostinger.com (smtp.hostinger.com) with ESMTPSA id 4hbxCr3Dt6z3xbW;
+	Fri,  4 Sep 2026 12:51:04 +0000 (UTC)
+From: =?UTF-8?q?Tuna=20K=C4=B1l=C4=B1=C3=A7?= <tuna@tunakilic.com>
+To: Joshua Crofts <joshua.crofts1@gmail.com>
+Cc: Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	linux-iio@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] iio: dac: mcp47a1: Allow full-scale output
+Message-ID: <20260904125100.185128-1-tuna@tunakilic.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260904143848.00000d7d@gmail.com>
+References: <20260904122513.175298-1-tuna@tunakilic.com> <20260904143848.00000d7d@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <a8497c0e-94be-4cf9-ab64-0402c48c3a88@linux.dev>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Date: Fri,  4 Sep 2026 12:51:04 +0000 (UTC)
+X-CM-Analysis: v=2.4 cv=ALriHGRn c=1 sm=1 tr=0 ts=6a9abeb9 a=g35c8EtFT/OoTG0W9QvO+g==:617 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10 a=M51BFTxLslgA:10 a=pGLkceISAAAA:8 a=G1-InoR-YX8NLvKGzpIA:9 a=QEXdDO2ut3YA:10
+X-CM-Envelope: MS4xfBZiKsz/ZEozMMYAkeFCdAykZXhOeMNJxxgcE69NVVL94mOtyy93RWX4WdeDAU6OgD5TpIjUv11v0X1pXlHYSRjvXEc1dkXmeLjA6Spi+lBdouelIqIQ 9cKxWpPe82fN0YqZ3dqN6mbISfoC8Yb6BEwd1L5jCkQlt6n7Tyfr954W/TUMtrp4hyclsXUuf4tVEPjNuDiGfssA6MOXatpZKmBPy9kpmg8rUBXISAMk5D2r Q09fMkdm8TH5Dn2dp6ZzQxq7F2KavQoPyxzZVQQN1iiCtIwHVAE/AuRhRp210iDd6hIrjMOvMVktOSPcOtUyCFg76L7rGzoALTPVVx2ge6zLhuODXgcPuGKk c6PjpzhjoqiL4bKHeC5FUPmdOego101v8yjc/9fsKu9W9aiBjQVmtSOZhqpRWT6wcRmwjzKPKss6Zss4e9xuqcdPyb8/Ow==
+X-AuthUser: tuna@tunakilic.com
 
-On Fri, Sep 04, 2026 at 01:39:49PM +0800, Qingfang Deng wrote:
-> On 2026/9/4 11:57, Jiri Slaby wrote:
-> > Hi,
-> > 
-> > On 04. 09. 26, 5:11, Qingfang Deng wrote:
-> > > PPP channel callbacks receive struct ppp_channel only to retrieve the
-> > > driver's private pointer. Pass that pointer directly instead.
-> > 
-> > We had type checking at least. What's the purpose of this patch, actually?
-> 
-> The goal is to unify the two channel structs and make it owned by the
-> generic PPP layer.
+On Fri, Sep 4, 2026 at 2:38 PM Joshua Crofts <joshua.crofts1@gmail.com> wrote:
+> Can I ask how this was found? Manual code analysis or AI?
 
-The commit message is about "Why?". Please add this to the commit
-message.
+I noticed it while reviewing the driver's range handling and then
+compared it with the MCP47A1 datasheet. AI was used as an aid during
+the analysis, but I manually verified the datasheet values, in_range()
+semantics, and the final patch before sending it.
 
+I don't have MCP47A1 hardware available, so the testing was limited to
+build and static checks.
 
-    Andrew
-
----
-pw-bot: cr
+Thanks,
+Tuna
