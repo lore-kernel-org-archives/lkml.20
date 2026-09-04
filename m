@@ -1,94 +1,180 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66FB53A4F2C;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6708446AF1B;
 	Fri,  4 Sep 2026 10:35:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788518144; cv=none; b=LkKqY8a32I6ihf6eaJeLolK9oMYiA1qU1n57okyXdT1Y3FXQXOxMEIMrJ0kO+A0aNBrgZ3ErYr5i4szqQMzATxrrXcgGSRMvm6GszebqRSbk6CrhSOF9FTPVbR66f/M5hEYvRPj2dBjsmWAwa0Y/9WBDOcYSfu2i/5lIocTZzy4=
+	t=1788518144; cv=none; b=aRT5QukXv2JbG8/3jLr9FKKv/hxB83jBgrW8BJeBWb09G+GQCqB+I3f15lkKJL8sRaMnVQcH+aqp08MnFkRHtzoV5PWyne6Mms4a6AEjh2r2qTrWj3GHjE3VVnh1+AtZNr44HWA0WyuTYW2dlIQoBR2TfbbCWhUcSEWag7tVe4g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788518144; c=relaxed/simple;
-	bh=yZHTDj0uSXPKj3B0POCGsgLLqHCSJ3b0mjrBJlk0Pk4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=la3OoGUZtVEIeJOGgqJ3okKR3f2Bu0fHCLa75J2oivX2XMHAAmfFB4o0/5In3d0pv2bNEy8F2Oz+u0t6ItySizLCVn6kJOIN64Q/3pWsY5s3K+5TLCmDCeTJ3woMIKcY7ZwOyvX1jmzrDhLgPxFUsbNTpdHO5TQR4X2vS8mNafQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=duQPQ4yI; arc=none smtp.client-ip=100.103.45.18
+	bh=6Emig9//T2dSJ2I19kbsWa5yXWNMzvoSSFCcG6vna6o=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=uBUunFeKwQFfWOBZCvadtC7DVJOg7xRSIGQvjnfeHOuw8mRPMc+6Q3ypO3Xt68kAhZAvZ8oeS5x9N5eJuRUrYeyh4He1oJjE0ZsIZ73eENkBc4lLSzwtAImLWcN1rIS0UzBK17ddS8ot7RJOqJODrSqXsCOYQ+Upk4Oo8PfXZSI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HmBc88Sd; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="duQPQ4yI"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5ED0E1F00A3F;
-	Fri,  4 Sep 2026 10:35:39 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HmBc88Sd"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EF3DB1F00A3E;
+	Fri,  4 Sep 2026 10:35:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1788518142;
-	bh=M2MOSiNqGFQGUMjl9nVSkxsKKmbDc4D6RS87KMDFULA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=duQPQ4yI2RMHIebtZRfMkbcoXv01nefB5DSNMeFK/nBqdD6QPQg+8HweNXhcFsPaX
-	 /B2ujnsKV8z1BgYv/SUWogQJl9n56hifPSO7SKDS0sM+AJTkjv1KtyF8oHDDvi6BeO
-	 xFqdyqw4+M9GUKu+0hE7xdObu1icce2oPQgAAsoRqn69peO8tjvyOotnWjshSgCdXv
-	 bHOLzghsWnGEDs6Uq4PHxyyxO84jlckTWCsRtC7kXWnY2LpKAQjIyIR16mNXsZeW75
-	 QmVdSuxh11gii/+Qj5xUs5FQRsxOduE554IpX7gXdiypWFHPiaWKAf9zNxXdSv+H/w
-	 N3oTX5QrYhLgA==
-Date: Fri, 4 Sep 2026 12:35:37 +0200
-From: Christian Brauner <brauner@kernel.org>
-To: Joseph Qi <joseph.qi@linux.alibaba.com>
-Cc: Yalagada Pavan Kumar <pavankumaryalagada@gmail.com>, 
-	linux-fsdevel@vger.kernel.org, linux-ext4@vger.kernel.org, ocfs2-devel@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, Srikanth Aithal <Srikanth.Aithal@amd.com>, 
-	Luca Weiss <luca.weiss@fairphone.com>, Jan Kara <jack@suse.cz>
-Subject: Re: [PATCH] buffer: fix NULL dereference of bh->b_folio in
- __bh_submit()
-Message-ID: <20260904-unkraut-preis-pendel-a57f694a54c5@brauner>
-References: <20260902013357.2815214-1-joseph.qi@linux.alibaba.com>
- <apiMiLlwujmqyYLP@user>
- <c3be2678-72e6-4122-94de-ae95e980578b@linux.alibaba.com>
+	bh=SRAlXDC5oqmsaoNnYadnzJXzxvCqL4owp1KVT95a8j0=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=HmBc88SdcpB3sLSsxItcqYlx2jCkHAbj9Bncs+n91l+n9B+Stp2LJFgicwO3sQY+o
+	 q3ZNLnkrb8TZA/OiFg+s/ASpmDPKvhP1dap1Tw6rHbrSQqu8Mtuq2hadF0l5fNZODj
+	 U9o4opHpdRWCrUjRhPgaJ7km1q+9LW58RP0ftAw1jiFbJ0gY/rCDl3xwFaHd9pnhmY
+	 7vwK5pqh+HiXjnPllikjkUPkZ8acS+SSdD0BidBGJa1hZqGoR3edxRSJ4i7qb1Kh7h
+	 jEMgZJRCqJEXhzlOgXRAJp2gB6mnsYT01Ouwbqpr+J4H5fr1fsnc5MBylkorftR155
+	 159D+KNtdrmYw==
+From: "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>
+To: linux-coco@lists.linux.dev,
+	kvmarm@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	iommu@lists.linux.dev
+Cc: "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Jason Gunthorpe <jgg@ziepe.ca>,
+	Marc Zyngier <maz@kernel.org>,
+	Marek Szyprowski <m.szyprowski@samsung.com>,
+	Robin Murphy <robin.murphy@arm.com>,
+	Steven Price <steven.price@arm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Will Deacon <will@kernel.org>
+Subject: [PATCH v6 7/9] dma-buf: system_heap: Enforce shared-granule alignment for cc-shared buffers
+Date: Fri,  4 Sep 2026 16:04:50 +0530
+Message-ID: <20260904103452.1197239-8-aneesh.kumar@kernel.org>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260904103452.1197239-1-aneesh.kumar@kernel.org>
+References: <20260904103452.1197239-1-aneesh.kumar@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <c3be2678-72e6-4122-94de-ae95e980578b@linux.alibaba.com>
+Content-Transfer-Encoding: 8bit
 
-On Thu, Sep 03, 2026 at 09:42:27AM +0800, Joseph Qi wrote:
-> 
-> 
-> On 9/3/26 4:52 AM, Yalagada Pavan Kumar wrote:
-> > On Wed, Sep 02, 2026 at 09:33:57AM +0800, Joseph Qi wrote:
-> >> Commit a2c924c240e7 ("buffer: set BIO_COMPLETE_IN_TASK for dropbehind
-> >> writeback") added an unconditional folio_test_dropbehind(bh->b_folio) in
-> >> __bh_submit().  But jbd2 shadow buffers have a NULL b_folio since commit
-> >> 5febcba29792 ("jbd2: point the shadow buffer at the frozen data
-> >> directly") made them point b_data at the kmalloced frozen data rather
-> >> than a folio.  Submitting such a buffer during journal commit oopses:
-> >>
-> >>   BUG: kernel NULL pointer dereference, address: 0000000000000000
-> >>   RIP: 0010:__bh_submit.constprop.0+0x87/0x120
-> >>   Call Trace:
-> >>    jbd2_journal_commit_transaction+0x932/0x1b10
-> >>    kjournald2+0xb2/0x250
-> >>
-> >> Hit by the ocfs2-testsuite fill_verify_holes test running with
-> >> data=writeback.
-> >>
-> >> Dropbehind only applies to buffers backed by a folio, so skip the check
-> >> when b_folio is NULL.
-> >>
-> > Hi,
-> > 
-> > I was working on a fix for this syzbot report [1] and didn't realize that you were
-> > already working on it. I noticed your patch on the mailing list, so i won't
-> > send a duplicate patch.
-> >  
-> >> Fixes: 5febcba29792 ("jbd2: point the shadow buffer at the frozen data directly")
-> > 
-> > Could you please add the Reported-by: and Closes: tags from the syzbot report
-> > to your patch? This will help syzbot associate the patch with the reported
-> > issue and track the fix.
-> > 
-> > [1]: https://syzkaller.appspot.com/bug?extid=41453ea05ab61c075f1f
-> > 
-> Hi Christian,
-> Could you please address the above when apply the patch? Or should I
-> resend the patch with them?
+The system heap can allocate buffers that are decrypted and shared with the
+host. For confidential-computing guests, those shared buffers must cover
+whole shared-buffer granule; otherwise a userspace mmap of the dma-buf may
+expose only part of a host-managed granule and allow unintended access to
+adjacent private memory.
 
-I'll do it. Thanks!
+Require cc-shared system-heap allocations to have a size aligned to
+mem_cc_shared_granule_size(), and allocate pages at least as large as the
+required granule. Keep the allocation bounded by the existing heap orders,
+but fall back to an exact minimum-order allocation when the required
+granule is not one of the preferred heap orders.
+
+Signed-off-by: Aneesh Kumar K.V (Arm) <aneesh.kumar@kernel.org>
+---
+ drivers/dma-buf/heaps/system_heap.c | 50 +++++++++++++++++++++++------
+ 1 file changed, 41 insertions(+), 9 deletions(-)
+
+diff --git a/drivers/dma-buf/heaps/system_heap.c b/drivers/dma-buf/heaps/system_heap.c
+index c8959eadc71d..9cbfcebe2088 100644
+--- a/drivers/dma-buf/heaps/system_heap.c
++++ b/drivers/dma-buf/heaps/system_heap.c
+@@ -55,7 +55,6 @@ struct dma_heap_attachment {
+ #define HIGH_ORDER_GFP  (((GFP_HIGHUSER | __GFP_ZERO | __GFP_NOWARN \
+ 				| __GFP_NORETRY) & ~__GFP_RECLAIM) \
+ 				| __GFP_COMP)
+-static gfp_t order_flags[] = {HIGH_ORDER_GFP, HIGH_ORDER_GFP, LOW_ORDER_GFP};
+ /*
+  * The selection of the orders used for allocation (1MB, 64K, 4K) is designed
+  * to match with the sizes often found in IOMMUs. Using order 4 pages instead
+@@ -375,26 +374,44 @@ static const struct dma_buf_ops system_heap_buf_ops = {
+ 	.release = system_heap_dma_buf_release,
+ };
+ 
++static struct page *system_heap_alloc_order(unsigned int order)
++{
++	gfp_t flags = order ? HIGH_ORDER_GFP : LOW_ORDER_GFP;
++
++	if (mem_accounting)
++		flags |= __GFP_ACCOUNT;
++
++	return alloc_pages(flags, order);
++}
++
+ static struct page *alloc_largest_available(unsigned long size,
+-					    unsigned int max_order)
++					    unsigned int max_order,
++					    unsigned int min_order)
+ {
+ 	struct page *page;
+ 	int i;
+-	gfp_t flags;
+ 
+ 	for (i = 0; i < NUM_ORDERS; i++) {
+ 		if (size <  (PAGE_SIZE << orders[i]))
+ 			continue;
+-		if (max_order < orders[i])
++
++		if (max_order < orders[i] || orders[i] < min_order)
+ 			continue;
+-		flags = order_flags[i];
+-		if (mem_accounting)
+-			flags |= __GFP_ACCOUNT;
+-		page = alloc_pages(flags, orders[i]);
++
++		page = system_heap_alloc_order(orders[i]);
+ 		if (!page)
+ 			continue;
+ 		return page;
+ 	}
++	/*
++	 * The required minimum order might not be one of the preferred heap
++	 * orders. Allocate exactly min_order when it does not exceed the
++	 * remaining size.
++	 */
++	if (min_order && min_order <= max_order &&
++	    size >= (PAGE_SIZE << min_order))
++		return system_heap_alloc_order(min_order);
++
+ 	return NULL;
+ }
+ 
+@@ -409,6 +426,8 @@ static struct dma_buf *system_heap_allocate(struct dma_heap *heap,
+ 	unsigned int max_order = orders[0];
+ 	struct system_heap_priv *priv = dma_heap_get_drvdata(heap);
+ 	bool cc_shared = priv->cc_shared;
++	unsigned int min_order = 0;
++	size_t cc_granule_size;
+ 	struct dma_buf *dmabuf;
+ 	struct sg_table *table;
+ 	struct scatterlist *sg;
+@@ -425,6 +444,18 @@ static struct dma_buf *system_heap_allocate(struct dma_heap *heap,
+ 	buffer->heap = heap;
+ 	buffer->len = len;
+ 	buffer->cc_shared = cc_shared;
++	if (cc_shared_buffer(buffer)) {
++		cc_granule_size = mem_cc_shared_granule_size();
++		if (!IS_ALIGNED(len, cc_granule_size)) {
++			ret = -EINVAL;
++			goto free_buffer;
++		}
++		min_order = get_order(cc_granule_size);
++		if (min_order > max_order) {
++			ret = -EINVAL;
++			goto free_buffer;
++		}
++	}
+ 
+ 	INIT_LIST_HEAD(&pages);
+ 	i = 0;
+@@ -438,7 +469,8 @@ static struct dma_buf *system_heap_allocate(struct dma_heap *heap,
+ 			goto free_buffer;
+ 		}
+ 
+-		page = alloc_largest_available(size_remaining, max_order);
++		page = alloc_largest_available(size_remaining, max_order,
++					       min_order);
+ 		if (!page)
+ 			goto free_buffer;
+ 
+-- 
+2.43.0
+
