@@ -1,80 +1,99 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B37C243B4BF;
-	Fri,  4 Sep 2026 14:55:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79065423160
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 14:58:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788533728; cv=none; b=e6t+PqleUtSe227gcgh79Zilv19fFUrQd4vWKctgol4+2//U/0aelV3gY/El9HqcOaXPux/Z34tncVY8sLQmB7z0uWd06+++pfAKF/D5DvxyK3miHG7lWvHab34Q+H4fBjEK2NoGiPwRv/1+hH4IS6vG+xYhIz9ghKElh0cq9sk=
+	t=1788533911; cv=none; b=TK27Dme03CBGc22c7k3lgJov2QyAI7+ZRSGuBCsKkoykYIWkteegn3pzwlJg8tISXd+BYJOG4tM/ZJ839MqRFy9YTqdATojyuOUlNgWddAyNRm+x0Ndu+a4jx8CECMvxpGO6B7zrB6XbWhv3k7dgHEfNKCUJN7qI/Y53tNF6FHY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788533728; c=relaxed/simple;
-	bh=QAOR3cmdS5TgaMxBtaq0OhAbCht5qAjdtGj5H+hJZx0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=c2rqzz7oFmkqWqoBRu1VHD71ZF6CKdsPxMBznAQ3NXx2mEVNdQD2Kvq3jQhXScSlEeX8aKkPsyjoM2WfMGvqI0jEEFEbiJwL5a9oTTsXbRBZcAY0BVmtFILQL/G9a8JyaxeqpS19JtDLCWfp/SBCNmjFERGMS75yvwZSk6nSsr0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CGz8Yq4n; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788533911; c=relaxed/simple;
+	bh=Joy7m/lJ/aaZYaObUwGRo6EVVybjz0wm9+9zminSyzo=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=HTxi0GqgNfpIX6OVQNnQU5Tbr1lstxqAzfTZ2VGAt30QpIsT4fovtrJ/ZoEWvvM+8qBir3YE00nF+N7hXM+rjVm3Y155+GgDKETLLOYSbqxXv5k5lWeqMGEa3Kj28HZ+66ht6AjffpXlgJgP6L6S8aTJk3WSmF8Lxfy+iQSdiaw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=W2N8Zp/o; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CGz8Yq4n"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 210241F00A3D;
-	Fri,  4 Sep 2026 14:55:27 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="W2N8Zp/o"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0390A1F00A3D;
+	Fri,  4 Sep 2026 14:58:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788533727;
-	bh=os7DMeDkaVjoD4Ppcby21F8Z9PnDCVhxVdzh6uFMSPg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=CGz8Yq4nQrS0COL9CRZU3B5sKkRvFwJDTktRS3P+U0XKiJFsTX+UPwUT9fQravI8Q
-	 t7yxKVtwwz8Y5sQ63pZFaUd0+fsEu4JQQ9LWpPFmWDOnhpklck7IvpJdp1oPfNateI
-	 FynIU4Fox4QGOO4EQt9M1Tee3uRdzqOb/gXts7ztl2mC17E7ppYXZNluSVjUJ1AY44
-	 /LhAoaoFgTFAcjIKGDej0EyCwCeCNNe9La2zEbBuoMMmqkXg/Tji9UGUrhTkN8wdUf
-	 WQG3AU/HBlERRqzT1I/VV5zajw23UgGyxQr9Vf8B2iK5XFr5om7DXqbCR4ZeStbHTz
-	 ULqRstRNC1E8w==
-Date: Fri, 4 Sep 2026 09:55:25 -0500
-From: "Rob Herring (Arm)" <robh@kernel.org>
-To: genevieve.chan@altera.com
-Cc: Stephen Boyd <sboyd@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
-	linux-kernel@vger.kernel.org, Brian Masney <bmasney@redhat.com>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Michael Turquette <mturquette@baylibre.com>,
-	Dinh Nguyen <dinguyen@kernel.org>, devicetree@vger.kernel.org,
-	linux-clk@vger.kernel.org
-Subject: Re: [PATCH RESEND v2] dt-bindings: clock: agilex: mark mpu_l2ram_clk
- deprecated
-Message-ID: <178853365461.721871.11051925278426014682.robh@kernel.org>
-References: <20260904032849.10554-1-genevieve.chan@altera.com>
+	s=k20260515; t=1788533910;
+	bh=raL05OcO6NoZ4LQ42XeSiuFqhaiAOq8+yzkxYrgfcOA=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=W2N8Zp/ohA9ZWVhJHBgJG9cUdYgXIMIGDIvkeBJhppqGxU+gM20ijg9pjv/CQ/xFt
+	 jX3CowWthjEkwIweQIbJ2x/DIJdRsW2MgI6swPd/iDQDxWMPO+qnU+I40Rafpjqh7A
+	 D5nEUwitrdEwR1aILqPE656XZhXTjAaIkieHGBH5J2AJcKgqfeAScECZDvHGOZCZsv
+	 xIRWZhMVR6LeTJojfFlu2BvsyXK9U/XHUkviLkgxJzTdMt8Pl8VCXXili99XwzzeAl
+	 ZT4uBe9iGIXuONmVsVZ8/V2LN16PDnYTDH4Jb3jCN6BCH1zbUHLTElzdCjXowrXQDH
+	 688EjY26Vf9WA==
+Received: from sofa.misterjones.org ([185.219.108.64] helo=lobster-girl.misterjones.org)
+	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.98.2)
+	(envelope-from <maz@kernel.org>)
+	id 1x2VN6-00000004uQP-0ZCz;
+	Fri, 04 Sep 2026 14:58:28 +0000
+Date: Fri, 04 Sep 2026 16:01:02 +0100
+Message-ID: <87qzj93vtd.wl-maz@kernel.org>
+From: Marc Zyngier <maz@kernel.org>
+To: Thomas Gleixner <tglx@kernel.org>
+Cc: LKML <linux-kernel@vger.kernel.org>,
+	linux-arm-kernel@lists.infradead.org,
+	linux-riscv@lists.infradead.org,
+	Radu Rendec <radu@rendec.net>,
+	Anup Patel
+ <anup@brainfault.org>,
+	Paul Walmsley <pjw@kernel.org>
+Subject: Re: Interrupt chip driver maintainence
+In-Reply-To: <871pb9841j.ffs@fw13>
+References: <871pb9841j.ffs@fw13>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
+ FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
+ (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260904032849.10554-1-genevieve.chan@altera.com>
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-SA-Exim-Connect-IP: 185.219.108.64
+X-SA-Exim-Rcpt-To: tglx@kernel.org, linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, linux-riscv@lists.infradead.org, radu@rendec.net, anup@brainfault.org, pjw@kernel.org
+X-SA-Exim-Mail-From: maz@kernel.org
+X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
 
-
-On Fri, 04 Sep 2026 11:28:49 +0800, genevieve.chan@altera.com wrote:
-> From: Genevieve Chan <genevieve.chan@altera.com>
+On Fri, 04 Sep 2026 15:49:44 +0100,
+Thomas Gleixner <tglx@kernel.org> wrote:
 > 
-> Preliminary documentation referred to mpu_l2ram_clk, but that clock is
-> now mpu_ccu_clk and is already represented by AGILEX_MPU_CCU_CLK.
-> Keep AGILEX_MPU_L2RAM_CLK as a legacy ABI-preserved ID (do not use in
-> new DTs).
+> Folks!
 > 
-> Fixes: 6b3c59780ed3 ("dt-bindings: documentation: add clock bindings information for Agilex")
-> Cc: stable@vger.kernel.org # 5.8+
-> Signed-off-by: Genevieve Chan <genevieve.chan@altera.com>
-> Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-> ---
-> Changes in v2:
-> - Remove comment on unused clock ID 42
-> - Reword commit message
-> ---
->  include/dt-bindings/clock/agilex-clock.h | 1 +
->  1 file changed, 1 insertion(+)
+> I'm wading through my inbox full of patches for interrupt chip drivers
+> and I'm thoroughly annoyed. The way how this works today is not
+> sustainable.
 > 
+> Patches end up in my and Radu's inbox and all we can do is go through
+> them mostly on a formal basis, but it's out of our scope to look at the
+> correctness vs. a particular hardware. In the past I just picked up
+> patches when I had the gut feeling they are remotely correct, but I'm
+> tired of this.
+> 
+> I've just marked about 20 patches and patch series obsolete due to zero
+> feedback from the relevant architecture/SoC people who were on Cc.
+> 
+> And I'm going to do that from now on very consequently. If the
+> architecture, SoC experts can't be bothered to look after their stuff,
+> then don't expect me to suck all of this crap up and then deal with the
+> complaints when it breaks.
+> 
+> I'm still going to pick up obvious and simple bug fixes, but for
+> anything which requires deep knowledge on the underlying hardware, I'm
+> going to just mark them obsolete when they molded in my inbox unreviewed
+> by the people who understand it for six weeks.
 
-Applied, thanks!
+Works for me. I didn't expect anything else.
 
-I dropped Fixes and stable tag. There's no need for this to go to 
-stable.
+Thanks,
 
-Rob
+	M.
 
+-- 
+Jazz isn't dead. It just smells funny.
