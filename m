@@ -1,111 +1,95 @@
-Received: from abb.hmeau.com (abb.hmeau.com [180.181.231.80])
+Received: from mail.cyberchaos.dev (mail.cyberchaos.dev [195.39.247.168])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49E633F660F;
-	Fri,  4 Sep 2026 09:13:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=180.181.231.80
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 905423D2FE1;
+	Fri,  4 Sep 2026 09:13:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.39.247.168
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788513212; cv=none; b=Nw9a7Y88UiN+y3k5zSx5eWqe9OHrhNGEU6tjJmq2AaYkNzVsTRTuan5YsUVtvsstOoUMgW3iQIvKifFIHUBKud7X2E63lXMeSAQNLI3QqxN4FFLsWwd2UV4L0vMAs0Ev22a5/4wvmTmYY3m7YhvfeIqNO/VyX72Gigp10Z3NaJg=
+	t=1788513228; cv=none; b=hR/3ajPfFwGY9czq8mGtgZmfcgquymF1k5bpg2vvpXgc6lraJ7CxOJ4VGpyR9ZgnCVEtYil/p8RtCkTVS+J7yPC/bwk+SpL/gAB+KE+sTalOmG5gzUHqUZjYxiaXv1l3NQ5AiXd58XqlfJh8GEFVfNWF451/FN6k9hL4OFJMNJM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788513212; c=relaxed/simple;
-	bh=PNgOuWR3hWZ+geE3VJR3KqNxizclly7v01wx9I/J1iI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=VEpKOLyMAWQlcf83WHaNCrA7i4m0lC/3xRcBCsiFmyF98ksai5+hCRqgizQdexpZAa1IAQoZSIEKr6CUiX8E+RrqJ/zbp5zkK4pxuVHP6n87h6KrxGSwtq+TRxeRYxmOkgfTRfDZjEFmG937D7DcbPyF6ACrbonOw+PWWypVglM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au; spf=pass smtp.mailfrom=gondor.apana.org.au; dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b=W6sLDSIt; arc=none smtp.client-ip=180.181.231.80
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gondor.apana.org.au
+	s=arc-20240116; t=1788513228; c=relaxed/simple;
+	bh=0P9F76FVBx2qhXy71sSOIagKjgFRrK/Pomv0R/cAf+o=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=JlsoZ+gJ8zqIMu3Wh518IxGjxckVCl7Eoo8Zm94R8wokxTpDPbn6M64djWVLe+z+IbajDjWkm4BP5jrjrmYuJmNGke8e9oRvbpjWvZiF8kPzG3b4w/XbtepfC88izrQIXyMOzs0ukPVcObcvShe8FwJcdEKAox1++RbiJ/JxmzE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cyberchaos.dev; spf=pass smtp.mailfrom=cyberchaos.dev; dkim=pass (1024-bit key) header.d=cyberchaos.dev header.i=@cyberchaos.dev header.b=WHrPmDgK; arc=none smtp.client-ip=195.39.247.168
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cyberchaos.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cyberchaos.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b="W6sLDSIt"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=gondor.apana.org.au; s=h01; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:cc:to:subject:message-id:date:
-	from:content-type:reply-to; bh=UiVtkh2Fc0czoI1SWhtXl+HBkwpgO0Sq6mnpA6bemS0=; 
-	b=W6sLDSItViY0Y5J7VKqwskPi9RJSPXUlfpIRTvFbdPrHRWvAJkKUUF1eIInXtq+tskjJotvJHVD
-	J6NbZdTFYDF9nM7R3eE0h54xu1J5EuiyWICdIrGeonCx1Kov7ztsYQElurBRCllGLYCC7oTsKaj1p
-	QgqXDzrh6cnK+bj14aGcXkgs9ea3IVUkfZ4LdVNo4ZW0x3wmayq34rLlK7eYmFupgqkrpbRegDw1T
-	gCLx/SJm0YicQGwYq7HemMUElhmIfZkS6rj7eQvswrNfs0W1hQTQOd18v80xz2HxkkcBpBUMge/4a
-	6UBxdgYf7qzAt5K4N2A4RoMgMJEyIlcn2E2A==;
-Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
-	by formenos.hmeau.com with smtp (Exim 4.98.2 #2 (Debian))
-	id 1x2PzB-0000000AmH4-2Mqv;
-	Fri, 04 Sep 2026 17:13:26 +0800
-Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation); Fri, 04 Sep 2026 19:13:25 +1000
-Date: Fri, 4 Sep 2026 19:13:25 +1000
-From: Herbert Xu <herbert@gondor.apana.org.au>
-To: Rosen Penev <rosenp@gmail.com>
-Cc: linux-crypto@vger.kernel.org, "David S. Miller" <davem@davemloft.net>,
-	open list <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCHv2] crypto: amcc - fix missing DMA memory barriers in
- descriptor handling
-Message-ID: <apqLtd_LlMvzb6Mf@gondor.apana.org.au>
-References: <20260811044738.160653-1-rosenp@gmail.com>
+	dkim=pass (1024-bit key) header.d=cyberchaos.dev header.i=@cyberchaos.dev header.b="WHrPmDgK"
+From: Yureka Lilian <yureka@cyberchaos.dev>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cyberchaos.dev;
+	s=mail; t=1788512814;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=xN3oFt0Y2IcujH1DIfbY1diyGBQXYknSa0KCk1kgoTY=;
+	b=WHrPmDgKRLot/ajyWVqGI2TnujNsYmC+yXxif15HSpN61jqKi2Z0yiYpLsvGGwE01Y0jDO
+	Q1XgKDWWv//DucrFXEe4+/a3041XWylvD94ceRA3pD/BTiDzsDqKGziS0Fgh1WFgS+vc3W
+	EdjbjyOqKshI+jjBXlijkA2g+cgLsMI=
+Date: Fri, 04 Sep 2026 11:06:52 +0200
+Subject: [PATCH] tty: serial: samsung: Fix S5L on Apple A18 Pro
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260811044738.160653-1-rosenp@gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260904-apple-s5l-a18-pro-v1-1-4995312062ad@cyberchaos.dev>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQ6CMBBG4auQWTtJWwtBr2JcDPgDYwg0HTUmh
+ Ltbdfkt3tvIkBVG52qjjJearkuBP1TUT7KMYL0VU3ChcScXWVKawVbPLL7llFeuh9Ad4SUiCpU
+ uZQz6/j0v17/t2d3RP74j2vcPuWaEuXUAAAA=
+X-Change-ID: 20260904-apple-s5l-a18-pro-5f2b3e1a4e4a
+To: Krzysztof Kozlowski <krzk@kernel.org>, 
+ Peter Griffin <peter.griffin@linaro.org>, 
+ Alim Akhtar <alim.akhtar@samsung.com>
+Cc: linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, asahi@lists.linux.dev, 
+ Yureka Lilian <yureka@cyberchaos.dev>
 
-On Mon, Aug 10, 2026 at 09:47:38PM -0700, Rosen Penev wrote:
-> Fix two memory ordering bugs in the AMCC crypto driver:
-> 
-> 1. In crypto4xx_bh_tasklet_cb(), add a dma_rmb() between reading the
->    PD_CTL_PE_DONE bit (with READ_ONCE) and reading the descriptor and DMA
->    buffer data in crypto4xx_pd_done().  Without it, the CPU on a
->    weakly-ordered architecture could read stale descriptor data before the
->    hardware's writes are globally visible.
-> 
-> 2. In crypto4xx_build_pd(), add a dma_wmb() before writing
->    PD_CTL_HOST_READY to ensure all descriptor and SA data is visible to
->    the device before the ownership handover bit.  Also fix the descriptor
->    field ordering: pd_ctl_len.w must be written before pd_ctl.w (which
->    contains HOST_READY), not after, to prevent the hardware from fetching
->    uninitialized length data.
-> 
-> Fixes: f6c48b76daa6 (crypto: amcc - Add crypto4xx-aead cryptographic
->   AEAD accelerator driver)
-> Cc: stable@vger.kernel.org
-> Assisted-by: opencode:big-pickle
-> Signed-off-by: Rosen Penev <rosenp@gmail.com>
-> ---
->  v2: add descriptions for write barriers.
->  drivers/crypto/amcc/crypto4xx_core.c | 15 +++++++++++++--
->  1 file changed, 13 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/crypto/amcc/crypto4xx_core.c b/drivers/crypto/amcc/crypto4xx_core.c
-> index fd010bfb7020..4b0ce165c198 100644
-> --- a/drivers/crypto/amcc/crypto4xx_core.c
-> +++ b/drivers/crypto/amcc/crypto4xx_core.c
-> @@ -876,11 +876,17 @@ int crypto4xx_build_pd(struct crypto_async_request *req,
->  		}
->  	}
->  
-> +	pd->pd_ctl_len.w = 0x00400000 | (assoclen + datalen);
-> +	pd_uinfo->state = PD_ENTRY_INUSE | (is_busy ? PD_ENTRY_BUSY : 0);
-> +
-> +	/* make the pd_ctl_len and pd_uinfo->state writes above visible to
-> +	 * the device before the HOST_READY handover write below, so the
-> +	 * device never fetches a descriptor with stale length/state bits
-> +	 */
-> +	dma_wmb();
->  	pd->pd_ctl.w = PD_CTL_HOST_READY |
->  		((crypto_tfm_alg_type(req->tfm) == CRYPTO_ALG_TYPE_AEAD) ?
->  			PD_CTL_HASH_FINAL : 0);
-> -	pd->pd_ctl_len.w = 0x00400000 | (assoclen + datalen);
-> -	pd_uinfo->state = PD_ENTRY_INUSE | (is_busy ? PD_ENTRY_BUSY : 0);
->  
->  	wmb();
->  	/* write any value to push engine to read a pd */
+The UCON BIT(10) is set on boot on the S5L serials on Apple Silicon Macs
+of all generations and old iPhones [1]. It's unknown what it does
+exactly, but on the MacBook Neo (A18 Pro / T8140 SoC) clearing this bit
+breaks the uart and leads to garbled data in both directions.
+Add it to the APPLE_S5L_UCON_MASK to prevent it being cleared.
 
-I would've thought that the hardware is only able to start reading
-after this wmb() and the subsequent writes.  If this isn't the case
-then plesae explain how the whole sequence works.
+Link[1]: https://oftc.catirclogs.org/asahi-dev/2026-07-24#35537011
+Signed-off-by: Yureka Lilian <yureka@cyberchaos.dev>
+---
+ include/linux/serial_s3c.h | 3 +++
+ 1 file changed, 3 insertions(+)
 
-Thanks,
--- 
-Email: Herbert Xu <herbert@gondor.apana.org.au>
-Home Page: http://gondor.apana.org.au/~herbert/
-PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
+diff --git a/include/linux/serial_s3c.h b/include/linux/serial_s3c.h
+index f54cb6e23f85..1732bc9240ff 100644
+--- a/include/linux/serial_s3c.h
++++ b/include/linux/serial_s3c.h
+@@ -247,10 +247,12 @@
+ 				 S5PV210_UFCON_RXTRIG4)
+ 
+ #define APPLE_S5L_UCON_RXTO_ENA			9
++#define APPLE_S5L_UCON_UNK			10
+ #define APPLE_S5L_UCON_RXTO_LEGACY_ENA		11
+ #define APPLE_S5L_UCON_RXTHRESH_ENA		12
+ #define APPLE_S5L_UCON_TXTHRESH_ENA		13
+ #define APPLE_S5L_UCON_RXTO_ENA_MSK		BIT(APPLE_S5L_UCON_RXTO_ENA)
++#define APPLE_S5L_UCON_UNK_MSK			BIT(APPLE_S5L_UCON_UNK)
+ #define APPLE_S5L_UCON_RXTO_LEGACY_ENA_MSK	BIT(APPLE_S5L_UCON_RXTO_LEGACY_ENA)
+ #define APPLE_S5L_UCON_RXTHRESH_ENA_MSK		BIT(APPLE_S5L_UCON_RXTHRESH_ENA)
+ #define APPLE_S5L_UCON_TXTHRESH_ENA_MSK		BIT(APPLE_S5L_UCON_TXTHRESH_ENA)
+@@ -259,6 +261,7 @@
+ 					 S3C2410_UCON_RXIRQMODE | \
+ 					 S3C2410_UCON_RXFIFO_TOI)
+ #define APPLE_S5L_UCON_MASK		(APPLE_S5L_UCON_RXTO_ENA_MSK | \
++					 APPLE_S5L_UCON_UNK_MSK | \
+ 					 APPLE_S5L_UCON_RXTO_LEGACY_ENA_MSK | \
+ 					 APPLE_S5L_UCON_RXTHRESH_ENA_MSK | \
+ 					 APPLE_S5L_UCON_TXTHRESH_ENA_MSK)
+
+---
+base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+change-id: 20260904-apple-s5l-a18-pro-5f2b3e1a4e4a
+
+Best regards,
+--  
+Yureka Lilian <yureka@cyberchaos.dev>
+
