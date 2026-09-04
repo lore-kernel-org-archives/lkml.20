@@ -1,90 +1,160 @@
-Received: from mta1.migadu.com (out-167.mta1.migadu.com [95.215.58.167])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 360923AEB35
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 03:11:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.167
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9AF73AA4F2;
+	Fri,  4 Sep 2026 03:11:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788491476; cv=none; b=AWk+WttLyWc+yuEiiunKhAeqxkI+AS32ZHXR+NmazxgQKJkAfRu6Omp4IgIT0pgGpOVfopf2d1uCNWJs6aXF/l6hCOayuVvus9Vpa1kvilBnssGpdLEtKfy8Xsy4CeQu+AKpuS18WS1WWI2KxxbjxoCE5GiLd4VHJ7ho5e/EqHE=
+	t=1788491504; cv=none; b=Kh6o97GpLPjS6l6PnIIETodL2OZ2zm1bWVrwoNXQSTslrrravqVYxOi18On5KQnb8lR/yk9srVduOHq6wONo/NzjXhX8lliMsqd6LbglKQAFyn70WjvoyRDvjN8l5uJQ1LjOfYme9GTUiQ36b1sebP19flClsleoAv49iDvVXmY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788491476; c=relaxed/simple;
-	bh=nx/eitTR44C33VFjQT5eDwZTcChTpu7T7AIpTkNv5MY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=QUk1QR6EOgB79kU357VSlBJAOusUdjeWDc3PazrgvxOSQlNIAPn1d6Jd4cpvY8oXgBjQC+3RrkBbrHPKnYxogikcqV0Kfl83MeOXSvMxhZHcZOOaZi+/CotBHZH99ayjU4c0mSB61SGMC6VGDFUtGV4X/fekclkki8k+j7lgOdE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=tIP0PUq1; arc=none smtp.client-ip=95.215.58.167
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1788491504; c=relaxed/simple;
+	bh=uI2HN50P2gwLvtst8jnYDBGu7J6atvzxrce3IcsLdGo=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=CSYboWiSgozqligIQbr3SfyjAbiKX2qW6GBtdxbPHxAkpRcNlmbcSXMlauOkFNpGHb4q5A2Pe9QHKW+Wuau0Tm/8wivGcXXPoouFHrnB3rpx9Ba1vLh36HINAEFRzENeXXW+ESVXgug9V1vvZ0VF2mf2nFXUYFHSaGybwVQBUx8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=b2IN/k7s; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="tIP0PUq1"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=nx/eitTR44C33VFjQT5eDwZTcChTpu7T7AIpTkNv5MY=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788491473; v=1; x=1789096273;
- b=tIP0PUq12dU0AdfeuLhKXHPIC7GZk4dQfvotWfPZjBVhXvOw9s3vCeHO6VIEy/icCoYZfTwR
- jvKIXO2+z2Bo2WERgsssEfGAAQc630iIfIsRCEpYLH1X02A0mhaRoiDxZS3UmiStPUSL3gy8sPR
- MphpGHrucCPQMo3EJPke+xHQ=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 946ef5c41bdd8706;
-	Fri, 04 Sep 2026 03:11:12 +0000
-X-Mizu-Trace-ID: 946ef5c41bdd8706
-X-Migadu-Flow: FLOW_OUT
-From: George Guo <dongtai.guo@linux.dev>
-To: chenhuacai@kernel.org,
-	rppt@kernel.org,
-	pasha.tatashin@soleen.com,
-	pratyush@kernel.org,
-	shuah@kernel.org,
-	ardb@kernel.org
-Cc: guodongtai@kylinos.cn,
-	kernel@xen0n.name,
-	graf@amazon.com,
-	liukexin@kylinos.cn,
-	loongarch@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	kexec@lists.infradead.org,
-	linux-mm@kvack.org,
-	linux-kselftest@vger.kernel.org,
-	linux-efi@vger.kernel.org
-Subject: Re: [PATCH v4 4/4] selftests/kho: add LoongArch vmtest support
-Date: Fri,  4 Sep 2026 11:11:08 +0800
-Message-ID: <20260904031108.11986-1-dongtai.guo@linux.dev>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260807103714.33074-5-dongtai.guo@linux.dev>
-References: <20260807103714.33074-5-dongtai.guo@linux.dev>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="b2IN/k7s"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 754B81F00A3D;
+	Fri,  4 Sep 2026 03:11:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788491502;
+	bh=vXiAqzsuOBHpQpc13OvIWy9Ysj65FxIE++L7D7toTGE=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=b2IN/k7sZl6KXEPA8MkUVnfW2ZWo6yZO3SY8GdxXLyz65/OoYPzqFPVffrIqGeev8
+	 2egJNdaBvyqn0JlKG4MQebp7H78Ey7YZlIZOcTuekh3EJIdHOGQpknkIBx4QqikOx0
+	 RBn6QpopZ/oEiN2aBv6vAgVaoEqtk7zF3CINc9wNZ4uPpFCQjR7vJuJmd/fxE/31Gq
+	 yd3HETf4JGt7R6/JIpzwJekfjtHRU5ez+AiaSS3Mk3U0ndkI4Ig6GMtgQzIPWS0z2F
+	 EStBWpvVxlI/CRqSAicd2UOWHhSzvzAS5Bnf1sR92U2Ldr97cKukpoJti5/Vh1ZKo7
+	 ul4wSgmpCCT5A==
+Date: Fri, 4 Sep 2026 04:11:38 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Cosmin-Gabriel Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>
+Cc: David Lechner <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?=
+ <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Geert Uytterhoeven <geert+renesas@glider.be>,
+ "magnus.damm" <magnus.damm@gmail.com>, "linux-iio@vger.kernel.org"
+ <linux-iio@vger.kernel.org>, "linux-renesas-soc@vger.kernel.org"
+ <linux-renesas-soc@vger.kernel.org>, "devicetree@vger.kernel.org"
+ <devicetree@vger.kernel.org>, "linux-kernel@vger.kernel.org"
+ <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH 5/9] iio: adc: rzt2h: implement DMA buffer support
+Message-ID: <20260904041138.77b6f76f@jic23-huawei>
+In-Reply-To: <TYRPR01MB15619584AE0D8737B439D317185B62@TYRPR01MB15619.jpnprd01.prod.outlook.com>
+References: <20260828145943.2077589-1-cosmin-gabriel.tanislav.xa@renesas.com>
+	<20260828145943.2077589-6-cosmin-gabriel.tanislav.xa@renesas.com>
+	<178796644341.2599003.10846523729399514118.b4-review@b4>
+	<TYRPR01MB15619584AE0D8737B439D317185B62@TYRPR01MB15619.jpnprd01.prod.outlook.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Hi,
+On Thu, 3 Sep 2026 07:49:29 +0000
+Cosmin-Gabriel Tanislav <cosmin-gabriel.tanislav.xa@renesas.com> wrote:
 
-While preparing v5, I retested the LoongArch vmtest without the explicit
-`kho_scratch=16M,16M,16M` setting. That setting was masking a pre-existing
-bug in the generic percentage-based KHO scratch sizing.
+> > From: Jonathan Cameron <jic23@kernel.org>
+> > Sent: Saturday, August 29, 2026 4:21 AM
+> >   
+> > > Implement buffered capture using a cyclic DMA transfer into a kfifo
+> > > buffer to support continuous high-rate sampling.
+> > >
+> > > On buffer enable, switch the ADC to continuous conversion mode and start
+> > > a cyclic DMA transfer over the active channels.
+> > >
+> > > Because the DMA controller does not support native scatter-gather, and
+> > > because of the cyclic DMA setup, transfers must be done in widths
+> > > covering all the enabled channels.
+> > >
+> > > Since DMA transfer width must be a power of two and aligned to its size,
+> > > cover the smallest power-of-two-aligned group of channel registers
+> > > spanning the enabled channels.
+> > >
+> > > Split the cyclic buffer into fixed-size periods. On each period
+> > > completion, bump a pending counter and wake a consumer kthread from the
+> > > DMA callback.
+> > >
+> > > For every completed period, gather the enabled channels out of the DMA
+> > > layout into the scan layout the IIO core expects and push each scan
+> > > with iio_push_to_buffers().  
+> > 
+> > Could you instead use the available_scan_masks infrastructure.  bit annoying
+> > to specify the full list but isn't that long I think with 16 channels
+> > 
+> > 16 x single
+> > 8 x double,
+> > 4 x quads
+> > 2 x octect
+> > 1 x all of them.
+> > 
+> > The the IIO demux in (sits behind the push_to_buffers path if
+> > we have available_scan_masks set) will then deal with repacking
+> > the data if necessary.
+> >   
+> 
+> Hi Jonathan.
+> 
+> There are a couple reasons why I haven't used available_scan_masks.
+> 
+> Our limitation is on the DMA side. It cannot do scatter-gather in a
+> single descriptor, and we need to copy all the channels for each
+> completion IRQ. This is why we have to copy all the enabled channels
+> in a single block, and the base address needs to have the same
+> alignment as the block size.
+> 
+> My initial naive implementation copied all 16 channels (32 bytes) all
+> the time, but at that size the DMAC quickly hits a wall where it doesn't
+> service the ADC's completion signals anymore, at ~220k requests per
+> second.
+> 
+> Optimizing the DMA window allows us to avoid losing samples when the
+> enabled channels are densely packed. Enabling only channel 0 and 15
+> still hits the DMAC performance wall though, for example.
+> 
+> If we were to use available_scan_masks, the ADC would have to enable the
+> extra channels too, since it would have no knowledge of whether a
+> channel is enabled legitimately or for alignment purposes. The ADC scans
+> each channel iteratively, not in parallel, so sampling rate would be
+> affected because of the extra enabled channels. Besides that, this would
+> be transparent to the user, but it would reuse the last set sampling
+> frequency values, which affect the sampling rate without the user even
+> knowing.
 
-The percentage heuristic itself is reasonable, but the old implementation
-calculated each per-node baseline after allocating the lowmem and global
-scratch areas. Since memblock allocations are marked MEMBLOCK_RSRV_KERN,
-those scratch areas were counted as new kernel demand and scaled again.
+Ok.  So if this was a common thing I'd suggest we might expose an extra
+mask that presents what the various consumers have requested, but I'd
+not go to that effort for the first driver that could use it.
 
-On the 1 GiB LoongArch guest, the 98.45 MiB reservation baseline and 32 MiB
-alignment made the old ordering request 224 MiB of lowmem scratch followed
-by 672 MiB for node 0. The node allocation failed and disabled KHO. I sent
-a separate generic fix here:
+> 
+> If there are any extra enabled channels, iio_demux() would have to copy
+> all the data again. We need to keep our own copy inside the driver to
+> unswap the ADC's 16-bit data registers out of each 32-bit word.
 
-  https://lore.kernel.org/loongarch/20260904025101.9959-1-dongtai.guo@linux.dev
+Ah. Yes, with a copy already happening might as well make it just one.
 
-With that fix, the total aligned request is 448 MiB and the LoongArch
-vmtest passes using the default percentage-based sizing. I also ran the x86
-KHO vmtest with the fix; it passes as well.
+> 
+> The available_scan_masks table would have to be computed at runtime
+> since not all instances of the ADC have 16 channels.
 
-Therefore, I will remove `kho_scratch=16M,16M,16M` from loongarch.conf in
-v5 so that it tests the default sizing path, matching the existing x86
-selftest behavior.
+Given these are fairly small, that might just be selection from a set
+of options.
 
-Thanks,
-George
+> Also the use of
+> devm_iio_adc_device_alloc_chaninfo_se() means that we allow gaps in the
+> channels themselves. scan_index is set incrementally anyway, so it can
+> get out of sync with the channel index, and that would need extra
+> handling when building the table.
+
+Ah. That would make life trickier.
+
+> 
+> Let me know what you think and what the direction should be.
+
+This info is more than enough to convince me that it isn't worth
+using the core demux stuff. Thanks for all the details!
+
+Jonathan
