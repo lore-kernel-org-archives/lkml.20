@@ -1,130 +1,122 @@
-Received: from mail-yx1-f41.google.com (mail-yx1-f41.google.com [74.125.224.41])
+Received: from mail-pg1-f176.google.com (mail-pg1-f176.google.com [209.85.215.176])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FE7F483BC7
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 12:21:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DAE5488237
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 12:21:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.176
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788524470; cv=none; b=F0QmbTKj5NRBL0LfYA59V1OZlnP+OCrm0phYSl3DyEnzYZ3YF5E3l1ijQyp8aLmo4KAH7TIpfUgfnH9SRJ5cGL7VlSKJ12Vu0nUsQlXLRG3zkWtXgQhKnnft2L/Dvm7ub2k9xtWYtjyT9Dh9jJhDjkjTaSzG8GPor8DulVYnTUQ=
+	t=1788524473; cv=none; b=QDbNX3OsypT7SqAq9GSZOx+squRPXJYPKWBJsh3KtXnJSIdTUpTnfDRoPFvxh2NbXN9329mT1oaZkj+p8yYIJZF5DmXQTEdcdbcloLDyxdjvMLEkdmht/kOCWWLEvzzHBceGP/cNH719xaBTlbURqkO1bmHwLqVaJUsLQFvUfNo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788524470; c=relaxed/simple;
-	bh=lpkge4L78N1WSwNMWGQNqSrIb/12DZQYNSyP4jQOpeg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=hgc5IFSGVqklPKGSzICCYp6Te7Ha7z6+/ZerNj72y26+YPfpmqHaEroZ5y38QXR1+vSuB95B6dFCL4xzbZep8NreBHzfr4lNnWGyn78yFxj/RQ2RlXQR1y/cqyV/JBj08TKGkIrU9+xMGFwMFQPAYqh/Z+8mJm+orXAj6xuHJWQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LaCbRCs+; arc=none smtp.client-ip=74.125.224.41
+	s=arc-20240116; t=1788524473; c=relaxed/simple;
+	bh=E0rFo7Q5ZDwXJBtKF10AfNsw+8XsTnWPZE1MipbUrw4=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=qU3rNZfHmYrZRx13qnusXz4gj4YjnNt925yPfJoXGfDtAq4kyEb+sozLoXUNkrnGbMpBWcm/42tvne9InGG18jtITPbVkmTHPB6+JoeiqnWvCNcG9LBDEb9DeeP40CVg9incz0V+mNI4X0/3xZjHO3YpTxU4M6BvkUMopXbOpCA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qGP52vb0; arc=none smtp.client-ip=209.85.215.176
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LaCbRCs+"
-Received: by mail-yx1-f41.google.com with SMTP id 956f58d0204a3-66825847b2cso1279593d50.3
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 05:21:09 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qGP52vb0"
+Received: by mail-pg1-f176.google.com with SMTP id 41be03b00d2f7-cc147d86bebso967963a12.0
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 05:21:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788524468; x=1789129268; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=jY4vMQa0HE5PeeFsSdbZPWZR4XiOqxY9qhbCbQ0F2+c=;
-        b=LaCbRCs+OX8kudZQBLfIu8P2rFnJPt17pZrL2AEEaL+wivURQkyb78N2j3MhxD/KH4
-         DrV1IpvG74DH26xdFp1/4YwDdvS7+u6qPvEnp6TNw6BzAXsZN71nir5ys4CfGuj5PGss
-         ujnmRvYVOdkxknJdu9m1Eb9TL/yTdeBBcrnwHD3pnK6QNdWjhXsR60KLs9XLfx6UyaJO
-         7961uQr9IIxpJEeglk4VJaoon9ZYiSCu32d3+T8A9M0ZCA4GAWK84HPMAZq7dlF8YnEq
-         vV3iiZlCSG+JG9mFKQWA6vfXj3Ibi1M91PJWt6MOafk+Tr8wkYTkrVLXVFzLAyJ+OF+2
-         Cjwg==
+        d=gmail.com; s=20251104; t=1788524470; x=1789129270; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=lkiCyCvi2P+iZbARVukdTb/KqWgHgSHrWQF85+jAN58=;
+        b=qGP52vb03vMInDYZvZs0X5IeiLQLsdLtf/wUCoOmvcVvZNP+Mi7f5ySeIH+Jh1Q/2A
+         IQt5vkGd1Og9YNT5AZyzb4xcdGFM+G+KXjFcEQkN1iE8OPnMaX+C5fuo14b3zZqyCgsi
+         oullEarQny2DRkuaY9rRTUPiejSHR6RzdgJJr5x0NyRcpD3akSQHQniBFsMS5bXNq7Nz
+         a1dYxmPtntJE76liYQunl5LNJMBoqs9DxU6LO4+/5qpbrFS5Mr0XTwvAqQq5oRorVQ0Z
+         Pdb/skH3eCs3+1J+Hz/jnEdpAJo+CD0Dwp7n+FAV9+yVM3T6XNiuBhmZ/hUZhUKtfutf
+         o/ng==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788524468; x=1789129268;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=jY4vMQa0HE5PeeFsSdbZPWZR4XiOqxY9qhbCbQ0F2+c=;
-        b=C3gAgvAczNqEgYcl/cyQAujnvRHDChz1F1AgNXYueCTQ35ZGPoCGHLuqcBf3f0otTe
-         WrLoBbzapiMJMv1y0frQQ3N9oYlKxZ5snY7olCY7OQ6ew1DHbslbysm51MLNH4jID1eW
-         FtNaxxljV73ikZQyaMXuI1z/M4Pll1KaIva3+CUjpNSEbqreJmdIwdlCiFt4yKw1AC/B
-         ApoOFB6AWn8lJV8d2EgqpxZjgEE1zVn/vuHzJC5dxO7JUMDlIG1M/EYydVDr3zXd7Gb4
-         muFyNGvSuuiXIQeE/uskMpqyx4yotILhMaQhhJjxKz9y8VBmJC8nP+27WTh39YvP/9lw
-         jwMg==
-X-Forwarded-Encrypted: i=1; AKwUvByV+liwFtZZTq9BtdpVlVBstqzu9+WOqg84iqnvyVSWVnoCbab5KvX2zlGqOEM957WeYBEotKR18+4S/NY=@vger.kernel.org
-X-Gm-Message-State: AFuF++mDxnoAuyhZ1HRF/zBTOn1DTAnMW6iNcWryv4le8V1flvllOFQy
-	bEhUC4R6cEIUUcYntsoA7kDZBVHHitdBE6jtrXLfc8p3z7dA73EXZ/JE
-X-Gm-Gg: AYBFou0wQwspZUxPHQ9Bo1V5KEu1Q+2gY+u7AXXqW0jWRGPsAIXjtAOhETtfRN63Bup
-	3tNtAUZwJmxUtIf7NqQUGcQRFELm/VgAnvmyWxSvNqHbJDrXCBafuabnt2/XbzNRb094zCp3gYY
-	fbDDU4+Fjw4YnC28CfE/1TlHUkY594+lZ0J62hVA3rWpm0lKhhVlDEUQyxUAYPujtaBRMK3Fi+/
-	YZJkUIVa2/j5YrTQuwnwHFWUUXS35G52e/a4w/ECN4scoDbizPBHB1H9nVmH461CYsDrCk4c6pc
-	rPuGiK0O5j8yFDjrYXvPqmbhDjfacqQEdjmj0t7qs7/mwuXjCxw91fI8gLjd2ikVuNLAR1+H5fx
-	3xSApOKYAgDHtDJCEufJKAdOdnWLoGrS3YRDC/EMdLALEqCJsP/qcpdncHac6cv5jf4SZF4ttvB
-	ZSCGbe9KL/iTiDbyK7PvS4WDtbXEHCKRLfOfjL7FZeJteZzXkiwycbJ2twtrpyISsXCNUoNm7oz
-	vG95ZWn5ZRxPKTnT90pAj0rhQIZoJtFmA==
-X-Received: by 2002:a05:690e:4419:b0:66f:c1be:84d5 with SMTP id 956f58d0204a3-66fc1bf50cfmr43984d50.67.1788524468156;
-        Fri, 04 Sep 2026 05:21:08 -0700 (PDT)
-Received: from zenbox ([2600:1700:18fb:6011:4695:e8de:7b45:bcfd])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-66fb494b79bsm2039103d50.16.2026.09.04.05.21.07
+        d=1e100.net; s=20251104; t=1788524470; x=1789129270;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=lkiCyCvi2P+iZbARVukdTb/KqWgHgSHrWQF85+jAN58=;
+        b=NX7Jo/W4Rk40q9x6ytnCN+sQcVojCfKPlW2jpIQCjHiRZD4axQS2fpNHiKkIxYKIqv
+         CTTAu5Hl6WT3wZtimRwBtkZF+lePiyjAzJbHUX3zMAyzusYg4hEUGY+lbL+RpNCObhov
+         vzq1vAR1WKstVckxpMdkU4Xb/5wv+ge4tzMP7VEW1gnfrEgNEmIZjpt16xWCZRZHCSyA
+         jNboJxocoepVZ9OyvCocbjZnfxC4oYPbmhy5DLHVBObqS4y7k8CMwioH4STQUWqAsIfR
+         7eXRVDDHUoFUErDBVuPhG+g/QbV0FUKTf1LGFhI2w7QR1ZjQ16YD/0Og4TycL5GKkxeV
+         uacA==
+X-Gm-Message-State: AFuF++llusAFTG1CoYfoWKFR3S/PuJAdQK4nTb+f9jO5sEUnhEBrI097
+	7ARrXO2z20DRe1E1BYLeuyX//d4ezZOpXRsKxxbOsED/Drm7H1vjJm4n
+X-Gm-Gg: AYBFou34uOHQ1yq3ZreJHzkgdEQTAku+XYfC0p+5nsH+TJwqOyhlGs+xADWPKdBLAxC
+	ThKW4xQinpXf98M+xwufqHsncgHMrCwQrT8u2vKkmsOiWKQWSOLb2AGtnf0k+2PbO1O5Wwfq5y/
+	l7QOSl5gEzoV+BOVaifBhorns3pYBw+PtUw8VF04acssxmS70/qCBVAzYAAR3PoO3iTm2FcqbwL
+	BybnvLZ4It96OUiatd68bLpjWYQC3UZhBGXkkhl/1IM/mOx7Td3eBmWdozEHxD2fu2G3lcpsJVL
+	kjQA9OjgpiA2QdZWb5Gn5C+GluiMrtsnPtTx2xCi+sJ9rVSyLzTdW0sNqoPNy6gsFlGDuit1sfw
+	t5NOvbYHjGicG3ZKpxSRCJ8c7W/YysV9vRKZiAC+eP3EqilmNBg/XaIZHAGHNohXrB7OwRdo3Tb
+	VLnhGRY1rSf15TpIo23+06RRiRKW+Du9c30ZCbRrxHb6aLNXCxlQ82Rb7I5KQtbhi4lnE1RXqYa
+	4wVx2vuu1S7bFo=
+X-Received: by 2002:a17:90b:2e46:b0:38f:a81:15b1 with SMTP id 98e67ed59e1d1-39b08653554mr16531593a91.19.1788524470541;
+        Fri, 04 Sep 2026 05:21:10 -0700 (PDT)
+Received: from volcano9f6e-hostos.amd.com ([165.204.217.251])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339b608409sm7116019eec.21.2026.09.04.05.21.04
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 04 Sep 2026 05:21:07 -0700 (PDT)
-Date: Fri, 4 Sep 2026 08:21:02 -0400
-From: Justin Suess <utilityemal77@gmail.com>
-To: Ye Liu <ye.liu@linux.dev>
-Cc: =?utf-8?Q?Micka=C3=ABl_Sala=C3=BCn?= <mic@digikod.net>, 
-	Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>, 
-	"Serge E. Hallyn" <serge@hallyn.com>, Ye Liu <liuye@kylinos.cn>, 
-	=?utf-8?Q?G=C3=BCnther?= Noack <gnoack@google.com>, linux-security-module@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 8/8] security/landlock: convert thread iterator to
- for_each_thread_rcu
-Message-ID: <apq3BabHp9Zvba-G@zenbox>
-References: <20260904083001.553587-1-ye.liu@linux.dev>
- <20260904083001.553587-9-ye.liu@linux.dev>
+        Fri, 04 Sep 2026 05:21:10 -0700 (PDT)
+From: Hemanth Selam <hemanth.selam@gmail.com>
+To: Andrew Morton <akpm@linux-foundation.org>,
+	David Hildenbrand <david@kernel.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>,
+	Ingo Molnar <mingo@redhat.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Juri Lelli <juri.lelli@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Ben Segall <bsegall@google.com>,
+	Mel Gorman <mgorman@suse.de>,
+	Valentin Schneider <vschneid@redhat.com>,
+	K Prateek Nayak <kprateek.nayak@amd.com>,
+	Kees Cook <kees@kernel.org>
+Cc: linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org
+Subject: [PATCH 3/3] kernel: fix typo "overriden" in comment
+Date: Fri,  4 Sep 2026 17:50:52 +0530
+Message-ID: <20260904122054.28531-4-hemanth.selam@gmail.com>
+X-Mailer: git-send-email 2.48.1
+In-Reply-To: <20260904122054.28531-1-hemanth.selam@gmail.com>
+References: <20260904122054.28531-1-hemanth.selam@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260904083001.553587-9-ye.liu@linux.dev>
+Content-Transfer-Encoding: 8bit
 
-On Fri, Sep 04, 2026 at 04:30:00PM +0800, Ye Liu wrote:
-> From: Ye Liu <liuye@kylinos.cn>
-> 
-> Replace guard(rcu)() + for_each_thread() with for_each_thread_rcu(),
-> so that the RCU read-side critical section is scoped to the loop body.
-> 
-> No functional change.
-> 
-> Signed-off-by: Ye Liu <liuye@kylinos.cn>
-> ---
->  security/landlock/tsync.c | 8 ++------
->  1 file changed, 2 insertions(+), 6 deletions(-)
-> 
-> diff --git a/security/landlock/tsync.c b/security/landlock/tsync.c
-> index 0b71e158c3f5..f1c08aae179b 100644
-> --- a/security/landlock/tsync.c
-> +++ b/security/landlock/tsync.c
-> @@ -335,9 +335,7 @@ static size_t count_additional_threads(const struct tsync_works *works)
->  
->  	caller = current;
->  
-> -	guard(rcu)();
-> -
-> -	for_each_thread(caller, thread) {
-> +	for_each_thread_rcu(caller, thread) {
->  		/* Skip current, since it is initiating the sync. */
->  		if (thread == caller)
->  			continue;
-> @@ -376,9 +374,7 @@ static bool schedule_task_work(struct tsync_works *works,
->  
->  	caller = current;
->  
-> -	guard(rcu)();
-> -
-> -	for_each_thread(caller, thread) {
-> +	for_each_thread_rcu(caller, thread) {
->  		/* Skip current, since it is initiating the sync. */
->  		if (thread == caller)
->  			continue;
+Correct "overriden" to "overridden", reported by scripts/checkpatch.pl
+using the misspelling list in scripts/spelling.txt.  Only touches comments,
+no code changes.
 
-Reviewed-by: Justin Suess <utilityemal77@gmail.com>
-> -- 
-> 2.25.1
-> 
-> 
+Assisted-by: Cursor:claude-opus-5
+Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
+---
+ kernel/fork.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/kernel/fork.c b/kernel/fork.c
+index 416758c8a3d4..6d3340d34234 100644
+--- a/kernel/fork.c
++++ b/kernel/fork.c
+@@ -3266,7 +3266,7 @@ int ksys_unshare(unsigned long unshare_flags)
+ 	if (unshare_flags & CLONE_NEWNS)
+ 		unshare_flags |= CLONE_FS;
+ 
+-	/* No unsharing with overriden fs state */
++	/* No unsharing with overridden fs state */
+ 	VFS_WARN_ON_ONCE(unshare_flags & (CLONE_NEWNS | CLONE_FS) &&
+ 			 current->fs != current->real_fs);
+ 
+-- 
+2.48.1
+
