@@ -1,248 +1,363 @@
-Received: from mx0b-00230701.pphosted.com (mx0b-00230701.pphosted.com [148.163.158.9])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com [209.85.214.181])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C28C38E8AB;
-	Fri,  4 Sep 2026 23:02:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.158.9
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788562958; cv=fail; b=iXnMyjWlqM6iRYXMb7iRJ6wPRV9Y4VIGcqMBleoi6cWrIPa/ZLa8kDv3JYYiCZ/xVqkh/8hnh7oGNWaiZ4qrP1emruUGQJMfnCtUUNR/efSb2R3uAFXzkx04Z0eBwKHNwCKK1ObUm+P+fo0d2MYM4EnrnsvO+xNo0RKDwwwazfc=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788562958; c=relaxed/simple;
-	bh=JMVAd8kuYEIUKORq7hY1jTnzz9YB71ZZ5oE62M7t2Gk=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=HlVPibAuKCjJoqHRepbUEpLx51u/sdhUSS1iy/DgzQnhnMEhl1I/ArXJjJ+88emtK7+mf6iBH5mEDNPkgTQrTuoPEA0taQeWS7X4zEKT2FcYJqs4Mrx5Tqp3xjsY6g+I8+mrXzFoVjGntsPTfSnum5e7w27gNPF5Xy1Abb3zZ3w=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=synopsys.com; spf=pass smtp.mailfrom=synopsys.com; dkim=pass (2048-bit key) header.d=synopsys.com header.i=@synopsys.com header.b=S5W6ghgM; dkim=pass (2048-bit key) header.d=synopsys.com header.i=@synopsys.com header.b=gIZrUH7t; dkim=fail (1024-bit key) header.d=synopsys.com header.i=@synopsys.com header.b=A/XUcOfF reason="signature verification failed"; arc=fail smtp.client-ip=148.163.158.9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=synopsys.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=synopsys.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5850D381B16
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 23:04:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.181
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788563094; cv=none; b=urLc2DH7gM14EToA4ePRKtLHJEkHhSJWK6dsxKe6wfEeNWwROAqeT5nY65Y7nDf/A1VBe0nRy0HYRBpRrNNcNYBYyx4umTzhKMAKnvbI+Ei1beFfkAy/Ns/T2PawAKibmt3NDIPJkCGNVdQ64MIetR54xfiNDbhU0p0SSeu5EvU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788563094; c=relaxed/simple;
+	bh=c3WOYvDgdYBUihkX3T3/lFWcGEcLCQGlbxFAK3B6UD4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=R/0s/33R3BeTRg/KLfBmSUVqW5nef3nbTcSdLkhXBCZYLm/ARdI7FWgxvSJbOK9od/HUxyc8dRpsUBv5/3CxjJcHw/P4YPr5zHfJyKJZGnTLnJrPTnERWGaMOwRA8dVxZtg2dV9QuZFiJ0CMiOmRcI+B3mtm5F5LMNG6t/1fVzA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=purestorage.com; spf=pass smtp.mailfrom=purestorage.com; dkim=pass (2048-bit key) header.d=purestorage.com header.i=@purestorage.com header.b=bF+CZyB1; arc=none smtp.client-ip=209.85.214.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=purestorage.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=purestorage.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=synopsys.com header.i=@synopsys.com header.b="S5W6ghgM";
-	dkim=pass (2048-bit key) header.d=synopsys.com header.i=@synopsys.com header.b="gIZrUH7t";
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=synopsys.com header.i=@synopsys.com header.b="A/XUcOfF"
-Received: from pps.filterd (m0098572.ppops.net [127.0.0.1])
-	by mx0b-00230701.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 684Kd1SA3795107;
-	Fri, 4 Sep 2026 16:02:29 -0700
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=synopsys.com; h=
-	cc:content-id:content-transfer-encoding:content-type:date:from
-	:in-reply-to:message-id:mime-version:references:subject:to; s=
-	pfptdkimsnps; bh=JMVAd8kuYEIUKORq7hY1jTnzz9YB71ZZ5oE62M7t2Gk=; b=
-	S5W6ghgMUcyJcEIAQEBIPD2bW9WmBQugrsax9tIgMLf/hnQXBbt25AYzYN/wCetq
-	2Ux9AmImUqJPfomDHtpbgr3ifV0aadR7aTS8RgDUaSsMacbmkXFboLi/LBYfYMWm
-	t7t0aTDqRVoM9AY3198uFWMIX3sHUwDuHNpZcn347UVHmGQ1rYhMxRoZdPk3CMwb
-	+QWiD0e9QOYvWGUUQHelfORR4TkL4+ZQIEIxjkusCfPAtdM1cHAnjnhRI2EkOq7C
-	EaLCoLqTx7Qtwti1OnhC0sRVcqHpf/eWn/Ode3agf62+YnenyobUIm/OtRJYCxkj
-	Mx8JOfKjP6Wc9CbvR/pWgQ==
-Received: from smtprelay-out1.synopsys.com (smtprelay-out1.synopsys.com [149.117.73.133])
-	by mx0b-00230701.pphosted.com (PPS) with ESMTPS id 4gg076btrb-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Fri, 04 Sep 2026 16:02:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=synopsys.com; s=mail;
-	t=1788562948; bh=JMVAd8kuYEIUKORq7hY1jTnzz9YB71ZZ5oE62M7t2Gk=;
-	h=From:To:CC:Subject:Date:References:In-Reply-To:From;
-	b=gIZrUH7tjBjPPdxfhpcTOSJoqdpvFSTB1nKKMkj+47NjPjDruiNDm/hko58fjKnLw
-	 jXXqbroFYolZ78GXKB0mJ8qT47EydTawTsmghXvAXJkbBxeQ/QBSSYpsrznRXh6gIJ
-	 7c0KHl7R+s1K5B4ySgIsx4YGhmnPDir7bXNTzPbdkQ8v7UOuZWooiAUVdD3lTHy0PS
-	 uYOMZug79CdKrzYHqY1NC6uUZUE9avmi3D1lX2qnNCoXLyX/5l5q8PszeHwR+mW4uZ
-	 XIid8TQ6E1xiMFQlJ52rlzdcg3pZdc4Qmj8EQ44sYRq50CHzEleAUp4xB71BiBJwaz
-	 m/t0H2sRZR6tw==
-Received: from mailhost.synopsys.com (sv2-mailhost2.synopsys.com [10.205.2.134])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits)
-	 client-signature RSA-PSS (2048 bits))
-	(Client CN "mailhost.synopsys.com", Issuer "SNPSica2" (verified OK))
-	by smtprelay-out1.synopsys.com (Postfix) with ESMTPS id 74C5340136;
-	Fri,  4 Sep 2026 23:02:28 +0000 (UTC)
-Received: from o365relay-in.synopsys.com (us03-o365relay1.synopsys.com [10.4.161.137])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits)
-	 client-signature RSA-PSS (2048 bits))
-	(Client CN "o365relay-in.synopsys.com", Issuer "Sectigo Public Server Authentication CA OV R36" (not verified))
-	by mailhost.synopsys.com (Postfix) with ESMTPS id D4813A0E1C;
-	Fri,  4 Sep 2026 23:02:27 +0000 (UTC)
-Authentication-Results: o365relay-in.synopsys.com; dmarc=pass (p=reject dis=none) header.from=synopsys.com
-Authentication-Results: o365relay-in.synopsys.com; spf=pass smtp.mailfrom=synopsys.com
-Authentication-Results: o365relay-in.synopsys.com;
-	dkim=pass (1024-bit key; unprotected) header.d=synopsys.com header.i=@synopsys.com header.a=rsa-sha256 header.s=selector1 header.b=A/XUcOfF;
-	dkim-atps=neutral
-Received: from CY3PR08CU001.outbound.protection.outlook.com (mail-cy3pr08cu00101.outbound.protection.outlook.com [40.93.6.105])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-384) server-signature RSA-PSS (2048 bits) server-digest SHA256
-	 client-signature RSA-PSS (2048 bits) client-digest SHA256)
-	(Client CN "mail.protection.outlook.com", Issuer "DigiCert SHA2 Secure Server CA" (not verified))
-	by o365relay-in.synopsys.com (Postfix) with ESMTPS id 9610B40298;
-	Fri,  4 Sep 2026 23:02:27 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=UirdbUU/EOggRIVrWOluxCttj4HyFiIWelUm7UksDQqlHKRSAgtRWA8xSFpHAIsVuQAiA9HegKjgCq9gNqdSCGiCT2ZaKp3NyX3t3UeKomKw17UosuViosQE8OvhExoZvMjMiU0K9h1ZFiLcUQ565u7Qcxq3ga/9HF8HriJh4aWrGKkj85S3Ai+keK3e8v7EdTmpoEb6zZN9kM844ujABklSv0cuEpQESv15IpyO6Yj5+RRmeLXs2iQOOGef5I6dSj6DA4oLHT+Y8ia4wnF09b924AI8jsD6PT1KC/05f1xKMpoD4P+rbPr2zF1LUjjy5eIIFtmgedqTc1hGINicLg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=JMVAd8kuYEIUKORq7hY1jTnzz9YB71ZZ5oE62M7t2Gk=;
- b=kEgdAPcTG6MhjHwOMWINX1i7LzVRY6sNpBOXwjbKIa+24vAeWjy92zlWTxU6TA68ZiB4J4dX9vgQ/s+lvit6QHPXPywIw+ezas9TIpLuXb0AZ5vzQ/6WDga0oVMMD0Nob8Jvj7vaaDfjfki5WFrSPAgNaYJ4gl6on3t2RrcMR93LVbC6qfhR1bNbtw9ldbfPAhJtspN01HOMHJzpOvIT5ice4++NoypqTprbHtVKiUiTHJuy+ECxgKGC6JKIHPb4rdAd8uIZ1hMLPyLPiL1zSc4NAuSpx1JLnolC8JsDfy6Sem9RuXoYHedbZpgDKW48+HTsRHU/p7pdWXSJKbiw2Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=synopsys.com; dmarc=pass action=none header.from=synopsys.com;
- dkim=pass header.d=synopsys.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=synopsys.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=JMVAd8kuYEIUKORq7hY1jTnzz9YB71ZZ5oE62M7t2Gk=;
- b=A/XUcOfFJXEPOHTqYnK8CRF+Lf6ltVZJl7iM15+p3XtZ9bRYD845ZbfsrNV233UGwuxksgd+PbT25iMUuToTJEjQp+KoRTqxxzSzjZlI1yr4etaBb0crMaZYjSPbqAa1/auA6MenmXJn63/H21/9cf4lSocUDvs09denfzy3wUo=
-Received: from PH0PR12MB7486.namprd12.prod.outlook.com (2603:10b6:510:1e9::6)
- by CH1PR12MB9669.namprd12.prod.outlook.com (2603:10b6:610:2af::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Fri, 4 Sep
- 2026 23:02:23 +0000
-Received: from PH0PR12MB7486.namprd12.prod.outlook.com
- ([fe80::7df9:b25e:9216:f109]) by PH0PR12MB7486.namprd12.prod.outlook.com
- ([fe80::7df9:b25e:9216:f109%6]) with mapi id 15.21.0360.008; Fri, 4 Sep 2026
- 23:02:23 +0000
-X-SNPS-Relay: synopsys.com
-From: Thinh Nguyen <Thinh.Nguyen@synopsys.com>
-To: Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>
-CC: Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
-        Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Thinh Nguyen <Thinh.Nguyen@synopsys.com>,
-        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-        "linux-phy@lists.infradead.org" <linux-phy@lists.infradead.org>,
-        "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-        "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-        "linux-arm-msm@vger.kernel.org" <linux-arm-msm@vger.kernel.org>,
-        "linux-usb@vger.kernel.org" <linux-usb@vger.kernel.org>
-Subject: Re: [PATCH v6 4/5] phy: qcom: m31-eusb2: Set phy type to EUSB2
-Thread-Topic: [PATCH v6 4/5] phy: qcom: m31-eusb2: Set phy type to EUSB2
-Thread-Index: AQHdNXzfuTvGoY7dzEa7szPlpt3mRba/F+qA
-Date: Fri, 4 Sep 2026 23:02:23 +0000
-Message-ID: <aptN9W2ktyFcQZe6@vbox>
-References: <20260826-eusb2-interrupt-v6-v6-0-ae2601cfa80c@oss.qualcomm.com>
- <20260826-eusb2-interrupt-v6-v6-4-ae2601cfa80c@oss.qualcomm.com>
-In-Reply-To: <20260826-eusb2-interrupt-v6-v6-4-ae2601cfa80c@oss.qualcomm.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: PH0PR12MB7486:EE_|CH1PR12MB9669:EE_
-x-ms-office365-filtering-correlation-id: 9fd6edbc-9085-4aff-29b3-08df0ad894eb
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|376014|7416014|23010399003|1800799024|366016|38070700021|4143699003|11063799006|10067099003|22082099003|18002099003|56012099006;
-x-microsoft-antispam-message-info:
- 72bNh+n5uFCILesxrLUyIovEXY2htvWOQL9nPGaJBB0GViw4LsY7YwkP2fP7+Jn9opfeArBDF26xej5MQt7PQviXOkXzNpRbnEZ7XgsU539mypoRwJww69/k8XpYvc2+iYlEo9E+oUxFd81llXdZxn8PhYMiIBx4A6O52i2b1r16EE+L6kmhjpnFuk4pRy+tFk/E0xxqOzWn7e6IwzWTeDQQXq8IlAl+WyKNai77aVfO+yakXshJxZjyj5/qUNdXYfWpl3BUj3leiGJgbkGiYJUqX0eCBF0O3oa4ZTrGhbRe17V7BXwy1j524pQb2Wt4tAa4YHHLgGcxpZiF3OY2NLxA2KUkyl0iRf4NWxmXLmm+9D2SGvHmGTeM45qV4nSmHS58GJN8emNVNMQ5RdF+j7xYpZThKDhN6dt1e6hopVNDlaBemCuI/j1CWzc/yQCd45oZ9CKRwxMsi7XUgbV3gYN4ofYORFqBoCjuO9NMK5ieKdGV2Gndjsi9w4QhzZPFq8MAtLGvAXdWKBYPeq9CclDnIkXslrfxr2IArwSuChmFjvu1FtLwtBWoxz90lacQfByrNNfMaQ3vhnDiaHcDYwNzue4D53fvT15gwFyhxWeJp7acGPkOIirZum5YYugzoaZX+eiGUeRUtVjenjC/sZxkn5YSTLRMdlGSFbR/kaRstasM3WcnI743BdUWse/UEIdoWBEdzvvSK9d6Hg8HScvTJSC/YK901U+3aEpa7+k=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH0PR12MB7486.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(23010399003)(1800799024)(366016)(38070700021)(4143699003)(11063799006)(10067099003)(22082099003)(18002099003)(56012099006);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?utf-8?B?cFZjWW1BZS9FSUY1aFU1d05MQWVyODkyYXRxN29uNGk3V0FTeTg5MnhMZEZF?=
- =?utf-8?B?Wk9FaWZmZEpVV0V1STdiTkNad3k5MFlLVjNnc3BlRWRnNmpnRThEK0QwWXUy?=
- =?utf-8?B?aHZ4M2tLazV0bzJJdjVIL01rMTJXOVJUVnJtM0VQMExreWNFM0RSajNjbmVu?=
- =?utf-8?B?QnpXaFlaZzV4aXVDejlDZCt3Y2kzUmFzb20yb0xRc0xQYkljUnB3MGxJYllm?=
- =?utf-8?B?UDBaeEF4aTVpZ2F3VGZOeG8vVjBhZ21xVzdBbE1rTzl6Q0M0ZzM3VEVqSjBO?=
- =?utf-8?B?MWxyNStjZzcrU3pXaVBPdndHbklmWlFXRGsxczBSdVhvU0NZdGl6V1NvbUVV?=
- =?utf-8?B?UldLMzFYeExpd1VPVFdBRC9jblNhVzg5WFF6cUlxZ0RWekJVMHRkSzhpaTVB?=
- =?utf-8?B?aDdnNHY0RGo2emhNNVpaY2RRVm85WGJLeVExYnZNcFZhRnJzcGtJaFNXVGRS?=
- =?utf-8?B?dE5mUEJyOHpKU0JDdkFKb1RYTUdVeUF5QWVRWW9QSEdzS282WE91Nys0RHM2?=
- =?utf-8?B?WE1aSkNYNThXbERUTHdkaHhnV21vUENtcUdvS1RscjRJUm9jQ1ZXbCt4aGQ0?=
- =?utf-8?B?azliSnVTeVhGNnY4QTRBeUZjeGsxWXZOOFA3SW9ueXNzanJtU2NJSmo1R1p0?=
- =?utf-8?B?SUFVR0ZHWlBLbVJoTjVOdFFhYkpLanNZOElsTkZsVGFQZzh0TG5nSk1KRTVD?=
- =?utf-8?B?VkRSQW9zSDlXTUs5dHdLejRMUWcrWkZTYU9kTlQyd0dzNWMzSVNhdFkyeWpE?=
- =?utf-8?B?TGNRb1BDVi9KRU8zaE1VL2lFVFg4cnMzQUk2WGtzK1ZpWWlpWXN3L0RQaFJG?=
- =?utf-8?B?SGdJVTNxVUgwTXRJOWozQ0t5OWdOaWUwWVNnTlFVUXMwZDFkUnhycU9DanpG?=
- =?utf-8?B?b2tMbzFVYUVMMU81WHRrRmlWdHNXMEphazVkejBLbm83bDEzakVUYUVpTFJ0?=
- =?utf-8?B?azRaazg4RDgyK0pPeHNtTjhkOEpzS3pMdTF0ODBjcWVsaXhkZE5zb2I4b3cw?=
- =?utf-8?B?UVVYc3dFTDJTb1lvT01mRjJBTDFta1puajgvL0ZXaTB2M09QY1lQNlZ4TWxq?=
- =?utf-8?B?Q3RmZk1CaXRZUnZqOGJNa3Nvbi9PMXZJNDdKYnc4blV3YmorQmZvbVA4WXUr?=
- =?utf-8?B?K0kwdGd2bEY5dzgzT2x1QW5COUl3bFFSbHQ5eHBvN3MxK1p0QmhCT1RsdnIy?=
- =?utf-8?B?UytrdkZlYXMra21QR2orMmV2ZWNjWHIrSFk1ZHJuaWtodUNYejBJOTFuMnJN?=
- =?utf-8?B?NDA2dU5FS2c0V1dwSE1tQ09DMk9oRmFLVTZPTVNya3ZLck0rQ1VUam94MWxi?=
- =?utf-8?B?YUdUc0J1WHYxQ1pZYm5FVSttVGhreVBTbDhTbFJoR1Z5cXg1RDB6Sk1nMk1G?=
- =?utf-8?B?ZFgxQmo4ZnVoOWVuOUlBWm1URnRXQ3Y5a09IbFpJeWw0NDA4UXB6cE0ya1BN?=
- =?utf-8?B?SG9HY3VoUU83UEZ2L3B6dFJiYndnWlZPWHk1dXZta3Z6R0srWnJmT1c1NFdK?=
- =?utf-8?B?NzJUcW5aMnROUyszbFZtaVlaK3FrTnNwNWx2UVE0NFBuMUYrK3ZRbGdjWlFt?=
- =?utf-8?B?ZWFNMmk3MEZpeWR2YWE0NUxMMkh6UWlFYXlWcEZMT3VkaEE0Q3Vlbk81MDRv?=
- =?utf-8?B?VDJoSzVENUo5S09MR09jblQvbmlPWWhtNloxYnBDM0d3ZzFyZlR5TmRmSTNZ?=
- =?utf-8?B?MExvcEFwRUFKMFlaaUxVeDdZdVJGdUpjYmZWQ2dUQkk1RlRDQTlRN0g2WklO?=
- =?utf-8?B?aEdWY2dYY2k4dzRQQ3F2WjFFejkxMXRLelRNRnZCbDJWbThmSGRJNmR4cGlV?=
- =?utf-8?B?VGpsMXgvY2JpODFVUy96SXcvbkdQb1dQcFFMbktlNVU4dXhqWkk2TG03Wnd0?=
- =?utf-8?B?RVAyY3JUNkpKbTlrdWU1ZDBwZFB5TFVIZWZQaXp6RCtuR2h1UzMrSmorbGxO?=
- =?utf-8?B?TUxlSXduWW9DSWhRNTU0OW5Pcnk2clJQN3ZGRVhFc3IrSi9YWG1BaTd6Y05r?=
- =?utf-8?B?OGRVQ2dMSWwrMGFGTmt2WS9RdnBEa1Y1N29zOU9Fd09MRWwzVVVqTnJqQ0t1?=
- =?utf-8?B?Zy84Q3VOOUxLMjZsYTYzdHdMVGE0YTJITW12UXU5UnB1a2VsbCsrSkl3TjR6?=
- =?utf-8?B?ZUg3c0lac1R5b3pzR1hGK2FNSk5rSm44Zm5oTmtXaFZVUzlyM1d1VnBtaExn?=
- =?utf-8?B?MVJUZHNGY2NZbWJENElhc2NMTGhwUFNlWDJTRHQ1bkNxa2FteFlFSWdwZk1V?=
- =?utf-8?B?Z0V3U3MzbkZBVHZwYXNFK3U1QzlGREdHZUFkekdIKzFLTFc3bE5GUHRNdXov?=
- =?utf-8?B?NVROYjA4cWpKUlFKelY0MTMzbERkYzEydWZ5NkhNb2QyalhSUTlZQT09?=
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <FDA6D33910B930449F479B92BFECD284@namprd12.prod.outlook.com>
-Content-Transfer-Encoding: base64
+	dkim=pass (2048-bit key) header.d=purestorage.com header.i=@purestorage.com header.b="bF+CZyB1"
+Received: by mail-pl1-f181.google.com with SMTP id d9443c01a7336-2d94c868ea5so15747165ad.3
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 16:04:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=purestorage.com; s=google2022; t=1788563091; x=1789167891; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=GqfexXcPB0MjW1WCKBzg0IktuOs6wgXBjjXnxHW8muU=;
+        b=bF+CZyB1Ee6uDdQuKG+sQyKA42RTGf15rggpIno/7MLXmQofi/5mXzNgdff1iUEM3D
+         MLHx30vPZKCqiZDxj2L1vDYJWrljCb8G6pifcbca9D2vnONz1glDOLQexE4NoF+zREOr
+         m4fIrCTVfkOZLQscNp5wB2CFQ9WoN4tTpzd56NVsgAAdpOXxLETbvLUtw+K1XKO1EdMg
+         iwsnsbyYrX4hhptClEnDw3Lds81TseUzqoE1xoAml1sEMsdSNSSU6aVYjKsprTbYRyRU
+         PXeweRZDq4p0wrQJoKrYcm98JbRLd3XijRrOqanv5gYI9BtWanfusyQIFe4OuDN8pJ5z
+         7TjQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788563091; x=1789167891;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=GqfexXcPB0MjW1WCKBzg0IktuOs6wgXBjjXnxHW8muU=;
+        b=S+7AjoCQz1Mq6na5xcQyT/499fk/KnLYQr7xJeeoAvTEPDC/R10lxu1Oz9ABEviXnO
+         yUTbCOMSz4M6PRbVbmI/xdeAzGCK0Xz0nyQRy+ZzMdYMVMZVGLcc3E91niDnaSdnp/jq
+         2rlQ/kOR8bSakOVJRMtyz7VxvaH8IEYTQbvAmR4fHqqh4D//p66RNwrt4MZGuuCAPZdt
+         8McSqgY777xPZYY3RkVueOcZdPzHOZllfoQHuEpwKhPQYUTaOeHOEEs59yffMgpnFal5
+         gcHS0/0WdXFlL029BGift7CdogjTeDLvjLlw8jjSWz9pEf//vdBv0prB+HyiV7Sg/KcS
+         ID0Q==
+X-Forwarded-Encrypted: i=1; AKwUvBw9Dg+0Rea1fEeFcnSVIVBD7+C0ZYSqAgGX+O/8kN84cu+qx0UIeab2q8xZ+l7CnTzVxeYqiG10Eebs6Ts=@vger.kernel.org
+X-Gm-Message-State: AFuF++nsmvIw1HDXvZczeVGXKRreEOqgIoFBRybBJ6PfeN9fnaM7NBzE
+	PUaK+Nt0CPpiDjkqpU6Ty+NaYX3tLJRZWjDcu6gebuWG4N51C/cM/6GMSVQ0bHRR1Ck=
+X-Gm-Gg: AYBFou3cd9+AIXggHTZUSXI4A/qJSNcvPVYXfREUl7+m098NcchmARlav/W9lgDFuXn
+	gP8ScA+ITSXgUn3E/Zil1fbjFIuw3ThxPPeXoRtU8h9ibE0nRMDWtjYkGOcTd9U29In2zDqFBmN
+	bEjvPpep/2Hq7M+2VGfbMpyOGiymTE2TJqrxfiNrU7vD/uExbJllKREEUmPRpVYqmQuNxvelP69
+	Tdy3TRGKPBW4r8atqqELKI+LO/uKO/VSBa9hjOfJN5OhOTLO2ahYOpvY3QFBm7NH3AMuZn782zh
+	D9s2WnOIX60bFmbGO5JPKSNYTf8N77OXWZ8hnmFAQV5ihq17z/aAE0j/p2TnO5bAyQcJHYaNTCl
+	dHlQ5LT9OZ99GwiVg7aZIW+rLm22HCK+8Jtr01LI83CCxyTY7j/fIvzeiXB7R0QJs/cR2dHzz0E
+	0hlGw96RcPjB2jFknrcy37yWIc+oEyWJsJG7e/lKWvSz5RS/2FEW0S50RCHg8wYyE/HWs=
+X-Received: by 2002:a17:90b:3c42:b0:38e:fea2:df53 with SMTP id 98e67ed59e1d1-39b260d2977mr12813287a91.4.1788563091144;
+        Fri, 04 Sep 2026 16:04:51 -0700 (PDT)
+Received: from medusa.lab.kspace.sh ([2607:fb90:9c20:7a99::791d])
+        by smtp.googlemail.com with ESMTPSA id 5a478bee46e88-33450e140d3sm5699767eec.4.2026.09.04.16.04.50
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 04 Sep 2026 16:04:50 -0700 (PDT)
+Date: Fri, 4 Sep 2026 16:04:48 -0700
+From: Mohamed Khalfella <mkhalfella@purestorage.com>
+To: Hannes Reinecke <hare@suse.de>
+Cc: Justin Tee <justin.tee@broadcom.com>,
+	Naresh Gottumukkala <nareshgottumukkala83@gmail.com>,
+	Paul Ely <paul.ely@broadcom.com>,
+	Chaitanya Kulkarni <kch@nvidia.com>, Christoph Hellwig <hch@lst.de>,
+	Jens Axboe <axboe@kernel.dk>, Keith Busch <kbusch@kernel.org>,
+	Sagi Grimberg <sagi@grimberg.me>,
+	James Smart <jsmart833426@gmail.com>,
+	Randy Jennings <randyj@purestorage.com>,
+	Dhaval Giani <dgiani@purestorage.com>,
+	Aaron Dailey <adailey@purestorage.com>,
+	linux-nvme@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v5 08/16] nvme: Implement cross-controller reset recovery
+Message-ID: <20260904230448.GD5552-mkhalfella@purestorage.com>
+References: <20260712022437.3743117-1-mkhalfella@purestorage.com>
+ <20260712022437.3743117-9-mkhalfella@purestorage.com>
+ <30475d09-bba2-460b-bf05-869f355ef106@suse.de>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked:
-	2Zj1Qp9M+UIbQ9KQCmSuYoKxaG5ciVfGElxPzFbf+FrDlnQZ49CM7B/RQazXIUBtzDsnD9s4WQOeal//KtKZApwL+GrgpZxegFLvnmq+cAHxiWjn4u1TnYOhIO8Lii2/Mf7IoPdfwljVMC9vT0YLscBa5+dphyI2lMRgzpt9dmk0jqkOOG2t80/oQBtlFegnP22fznjaHDzXWorLR/9JntFt9eM0GnV8cASnZ+U9yEznlFCeaJhXLLM1nF0TdGWbSuw6B7bAolHZwHhDy9QBI39aXl3eqIGGV6mTgMtPMPjARXyN5S63jW4avRX4/XnCTwk7zA6Q2xKFoEPJTAe99A==
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0:
-	S44++n5r+n6QVq52wZc3+wkQvyU0OB4StmUwqogaN78G+1j6iiYYB/1L/5AhcOY45nDySl5nI6/9f2rBpTkDVJpkzWrhOMGv1mZJPqYbMDKXuc0rcSwaeCi781ZMtchQb7LWBaK1n5BXyj2cbQP6UcbL89sBa4V+SYQDJij7QkoxqZjxLBzHUrBbiWbGLEBKOktel2Urdms7Ve5mPiJ9ynW8kfdurhGymXeSDFuyUQRvCKkehu40txPxzhgwX92aoAMz4ScBGnqk2zeDkX7oXvv3zAcchDmiVLpuifkJpPHWtaXxkdup3WBZDRjrr30S4KrWBOFr1wk1xnaIQx6K4iGordbh7ahlZAGQEG77Ylncgdz/9MPj6ihw2MB1/qKnAEA2jgMCXKKudwE6uUsBYaQMXoHwEf7Anj+G/OGRUxZNRmbkNOQ3LURID9OVX6iB0wLu111/APdsEEzcI0AVjmxYUNhCBBGMDeit5v/Yer90rjXwMH/DODqCCN1ao6nuOtIa5Q2+zKosp87PdHOhzZj2wNwleUKyIP7wuzpc18TnId8shw5EmIho4+qOhBE6itOd5UgZ8ane4Sdqz8GNDZK3UV/xGzwlRDA/CD1dzB88S/BVtKPHx5TgbsusywBxFCWrAoHJBaGG6YC8jPaJ6Q==
-X-OriginatorOrg: synopsys.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: PH0PR12MB7486.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9fd6edbc-9085-4aff-29b3-08df0ad894eb
-X-MS-Exchange-CrossTenant-originalarrivaltime: 04 Sep 2026 23:02:23.7076
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: c33c9f88-1eb7-4099-9700-16013fd9e8aa
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: X5rBE869RWqSKG9DiozEEq7vIXXcgJwm8MiBosGsTBFb5OoomqBxgFZPZrg9X1E9VEBM+xsFjjXUSlR8zuMxHg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH1PR12MB9669
-X-Authority-Analysis: v=2.4 cv=P+cKQCAu c=1 sm=1 tr=0 ts=6a9b4e05 cx=c_pps
- a=8EbXvwLXkpGsT4ql/pYRAw==:117 a=8EbXvwLXkpGsT4ql/pYRAw==:17
- a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19 a=lCpzRmAYbLLaTzLvsPZ7Mbvzbb8=:19
- a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=qPHU084jO2kA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=tU_645BZ7FZt8VqRJtHG:22 a=jSPayVjLy6xbsuKauFBc:22
- a=EUspDBNiAAAA:8 a=jIQo8A4GAAAA:8 a=v-Mogfb3BDEPKJCCZ1IA:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA0MDIxNCBTYWx0ZWRfX1IQ5l3MKx8N3
- Pc114F+reYVCGrBAxaSSbgBejhA5UBYUyvnaSw7GYDox2RZg0WmHSTCYcradhodm4aq8H+mYIiB
- G1U11Wkhz32nqFyLAIncMfmBCPxlsTL6bh81CXp3RNLP29RH8TRGFos0mxqLIwuW59OJPN2RhjH
- TG3UhZRcWYbRqhtRyUjloBcd4j2KXGDNx2RCoCOp+4R2jS7ymc0A5voqYDv6gYRdhKSc2tNu3uY
- LRtP0GMxgDuG/r3IVYR7EaI6LlPpjXeiF8npQixkiyL3e93+Fh3rSZhUBWotCjBqqNQf2apJHzK
- sHZ18M0AjOQcvmiI3AU+hNVHpVn2FYeNu1CE3ccbcgRdetKYi4Q8yNplqQVdIlRvpdD7tNqOflB
- ZPpmVQ4V7+WrFElYP1bubvGIzUVy39FNRhoDCmbdT8YqC+bQtkSbVOF+8ZeYoqGKAg0EzFeu70C
- EwMperPhQ6paxH3wHKQ==
-X-Proofpoint-GUID: E2fzxhD0ulH5Smi8SnAeK7rjSFgzELKb
-X-Proofpoint-ORIG-GUID: E2fzxhD0ulH5Smi8SnAeK7rjSFgzELKb
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA0MDIxNCBTYWx0ZWRfX1ZtE+asKaE/6
- WmR7KhGhJq7H09YVvP2rposNdUzSzPzw+num07SEXJZ5yjZPqtbNGT9zoxYrWmCrxZttQDNBnNh
- x3MhS5iaspjIGO/Bp2OcnBkquvOe/88=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-04_06,2026-09-03_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_active_cloned_notspam
- policy=outbound_active_cloned score=0 clxscore=1015 impostorscore=0
- priorityscore=1501 phishscore=0 suspectscore=0 lowpriorityscore=0
- malwarescore=0 adultscore=0 bulkscore=0 spamscore=0 classifier=typeunknown
- authscore=0 authtc= authcc= route=outbound adjust=0 reason=mlx scancount=1
- engine=8.22.0-2606150000 definitions=main-2609040214
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <30475d09-bba2-460b-bf05-869f355ef106@suse.de>
 
-T24gV2VkLCBBdWcgMjYsIDIwMjYsIEtyaXNobmEgS3VyYXBhdGkgd3JvdGU6DQo+IFVTQiBjb250
-cm9sbGVycyBsaWtlIERXQzMgYXJlIGFnbm9zdGljIG9mIHRoZSBraW5kIG9mIHBoeSAoVVNCMi9l
-VVNCMikNCj4gY29ubmVjdGVkIHRvIGl0LiBTZXQgdGhlIHBoeSB0eXBlIHRvIEVVU0IyIHRvIGxl
-dCB0aGUgY29udHJvbGxlciBrbm93DQo+IHRoZSBwaHkgdHlwZSB3aGVuIHF1ZXJpZWQgZHVyaW5n
-IGl0cyBwcm9iZS4NCj4gDQo+IFNpZ25lZC1vZmYtYnk6IEtyaXNobmEgS3VyYXBhdGkgPGtyaXNo
-bmEua3VyYXBhdGlAb3NzLnF1YWxjb21tLmNvbT4NCj4gLS0tDQo+ICBkcml2ZXJzL3BoeS9xdWFs
-Y29tbS9waHktcWNvbS1tMzEtZXVzYjIuYyB8IDIgKysNCj4gIDEgZmlsZSBjaGFuZ2VkLCAyIGlu
-c2VydGlvbnMoKykNCj4gDQo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL3BoeS9xdWFsY29tbS9waHkt
-cWNvbS1tMzEtZXVzYjIuYyBiL2RyaXZlcnMvcGh5L3F1YWxjb21tL3BoeS1xY29tLW0zMS1ldXNi
-Mi5jDQo+IGluZGV4IDBiZWM4NjU3MTQ5Yy4uN2U2YjE2YjY5NTJiIDEwMDY0NA0KPiAtLS0gYS9k
-cml2ZXJzL3BoeS9xdWFsY29tbS9waHktcWNvbS1tMzEtZXVzYjIuYw0KPiArKysgYi9kcml2ZXJz
-L3BoeS9xdWFsY29tbS9waHktcWNvbS1tMzEtZXVzYjIuYw0KPiBAQCAtMjc3LDYgKzI3Nyw4IEBA
-IHN0YXRpYyBpbnQgbTMxZXVzYjJfcGh5X3Byb2JlKHN0cnVjdCBwbGF0Zm9ybV9kZXZpY2UgKnBk
-ZXYpDQo+ICAJCXJldHVybiBkZXZfZXJyX3Byb2JlKGRldiwgUFRSX0VSUihwaHktPnBoeSksDQo+
-ICAJCQkJICAgICAiZmFpbGVkIHRvIGNyZWF0ZSBwaHlcbiIpOw0KPiAgDQo+ICsJcGh5X3NldF90
-eXBlKHBoeS0+cGh5LCBQSFlfVFlQRV9FVVNCMik7DQo+ICsNCj4gIAlyZXQgPSBkZXZtX3JlZ3Vs
-YXRvcl9idWxrX2dldF9jb25zdChkZXYsIE0zMV9FVVNCX05VTV9WUkVHUywNCj4gIAkJCQkJICAg
-IG0zMV9ldXNiX3BoeV92cmVncywgJnBoeS0+dnJlZ3MpOw0KPiAgCWlmIChyZXQpDQo+IA0KPiAt
-LSANCj4gMi4zNC4xDQo+IA0KDQpSZXZpZXdlZC1ieTogVGhpbmggTmd1eWVuIDxUaGluaC5OZ3V5
-ZW5Ac3lub3BzeXMuY29tPg0KDQpCUiwNClRoaW5o
+On Mon 2026-07-13 09:04:14 +0200, Hannes Reinecke wrote:
+> On 7/12/26 4:23 AM, Mohamed Khalfella wrote:
+> > A host that has more than one path connecting to an nvme subsystem
+> > typically has an nvme controller associated with every path. This is
+> > mostly applicable to nvmeof. If one path goes down, inflight IOs on that
+> > path should not be retried immediately on another path because this
+> > could lead to data corruption as described in TP4129. TP8028 defines
+> > cross-controller reset mechanism that can be used by host to terminate
+> > IOs on the failed path using one of the remaining healthy paths. Only
+> > after IOs are terminated, or long enough time passes as defined by
+> > TP4129, inflight IOs should be retried on another path. Implement core
+> > cross-controller reset shared logic to be used by the transports.
+> > 
+> > Signed-off-by: Mohamed Khalfella <mkhalfella@purestorage.com>
+> > ---
+> >   drivers/nvme/host/constants.c |   1 +
+> >   drivers/nvme/host/core.c      | 152 ++++++++++++++++++++++++++++++++++
+> >   drivers/nvme/host/nvme.h      |  10 +++
+> >   3 files changed, 163 insertions(+)
+> > 
+> > diff --git a/drivers/nvme/host/constants.c b/drivers/nvme/host/constants.c
+> > index dc90df9e13a2..f679efd5110e 100644
+> > --- a/drivers/nvme/host/constants.c
+> > +++ b/drivers/nvme/host/constants.c
+> > @@ -46,6 +46,7 @@ static const char * const nvme_admin_ops[] = {
+> >   	[nvme_admin_virtual_mgmt] = "Virtual Management",
+> >   	[nvme_admin_nvme_mi_send] = "NVMe Send MI",
+> >   	[nvme_admin_nvme_mi_recv] = "NVMe Receive MI",
+> > +	[nvme_admin_cross_ctrl_reset] = "Cross Controller Reset",
+> >   	[nvme_admin_dbbuf] = "Doorbell Buffer Config",
+> >   	[nvme_admin_format_nvm] = "Format NVM",
+> >   	[nvme_admin_security_send] = "Security Send",
+> > diff --git a/drivers/nvme/host/core.c b/drivers/nvme/host/core.c
+> > index 1ef4dc38f755..a1deffc3cc00 100644
+> > --- a/drivers/nvme/host/core.c
+> > +++ b/drivers/nvme/host/core.c
+> > @@ -571,6 +571,157 @@ void nvme_cancel_admin_tagset(struct nvme_ctrl *ctrl)
+> >   }
+> >   EXPORT_SYMBOL_GPL(nvme_cancel_admin_tagset);
+> >   
+> > +static struct nvme_ctrl *nvme_find_ctrl_ccr(struct nvme_ctrl *ictrl,
+> > +					    u32 min_cntlid)
+> > +{
+> > +	struct nvme_subsystem *subsys = ictrl->subsys;
+> > +	struct nvme_ctrl *ctrl, *sctrl = NULL;
+> > +	unsigned long flags;
+> > +	int ccr_used;
+> > +
+> > +	mutex_lock(&nvme_subsystems_lock);
+> > +	list_for_each_entry(ctrl, &subsys->ctrls, subsys_entry) {
+> > +		if (ctrl->cntlid < min_cntlid)
+> > +			continue;
+> > +
+> > +		spin_lock_irqsave(&ctrl->lock, flags);
+> > +		if (nvme_ctrl_state(ctrl) != NVME_CTRL_LIVE) {
+> > +			spin_unlock_irqrestore(&ctrl->lock, flags);
+> > +			continue;
+> > +		}
+> > +
+> > +		ccr_used = atomic_inc_return(&ctrl->ccr_used);
+> > +		if (ccr_used > ctrl->ccrl) {
+> > +			atomic_dec(&ctrl->ccr_used);
+> > +			spin_unlock_irqrestore(&ctrl->lock, flags);
+> > +			continue;
+> > +		}
+> > +
+> > +		/*
+> > +		 * We got a good candidate source controller that is locked and
+> > +		 * LIVE. However, no guarantee ctrl will not be deleted after
+> > +		 * ctrl->lock is released. Get a ref of both ctrl and admin_q
+> > +		 * so they do not disappear until we are done with them.
+> > +		 */
+> > +		WARN_ON_ONCE(!blk_get_queue(ctrl->admin_q));
+> > +		nvme_get_ctrl(ctrl);
+> > +		spin_unlock_irqrestore(&ctrl->lock, flags);
+> > +		sctrl = ctrl;
+> > +		break;
+> > +	}
+> > +	mutex_unlock(&nvme_subsystems_lock);
+> > +	return sctrl;
+> > +}
+> > +
+> > +static void nvme_put_ctrl_ccr(struct nvme_ctrl *sctrl)
+> > +{
+> > +	atomic_dec(&sctrl->ccr_used);
+> > +	blk_put_queue(sctrl->admin_q);
+> > +	nvme_put_ctrl(sctrl);
+> > +}
+> > +
+> > +static int nvme_issue_wait_ccr(struct nvme_ctrl *sctrl, struct nvme_ctrl *ictrl,
+> > +			       unsigned long deadline)
+> > +{
+> > +	struct nvme_ccr_entry ccr = { };
+> > +	union nvme_result res = { 0 };
+> > +	struct nvme_command c = { };
+> > +	unsigned long flags, now, tmo = 0;
+> > +	bool completed = false;
+> > +	int ret = 0;
+> > +	u32 result;
+> > +
+> > +	init_completion(&ccr.complete);
+> > +	ccr.ictrl = ictrl;
+> > +
+> > +	spin_lock_irqsave(&sctrl->lock, flags);
+> > +	list_add_tail(&ccr.list, &sctrl->ccr_list);
+> > +	spin_unlock_irqrestore(&sctrl->lock, flags);
+> > +
+> > +	c.ccr.opcode = nvme_admin_cross_ctrl_reset;
+> > +	c.ccr.ciu = ictrl->ciu;
+> > +	c.ccr.icid = cpu_to_le16(ictrl->cntlid);
+> > +	c.ccr.cirn = cpu_to_le64(ictrl->cirn);
+> > +	ret = __nvme_submit_sync_cmd(sctrl->admin_q, &c, &res,
+> > +				     NULL, 0, NVME_QID_ANY, 0);
+> > +	if (ret) {
+> > +		ret = -EIO;
+> > +		goto out;
+> > +	}
+> > +
+> > +	result = le32_to_cpu(res.u32);
+> > +	if (result & 0x01) /* Immediate Reset Successful */
+> > +		goto out;
+> > +
+> Do we care about any other values of 'result' ?
+
+No we do not. It just makes the code easier to read IMO.
+
+> 
+> > +	now = jiffies;
+> > +	if (time_before(now, deadline))
+> > +		tmo = min_t(unsigned long,
+> > +			    secs_to_jiffies(ictrl->kato), deadline - now);
+> > +
+> 
+> Ideally we would check the request timeout for the CCR to not
+> exceed 'deadline'.
+> But as __nvme_submit_sync_cmd() doesn't allow to specify the timeout
+> I guess it'll be good enough for now.
+> (And if all goes to plan the CCR command should've been aborted in that
+> case anyway).
+
+Right, as a follow up work I would like to extend
+__nvme_submit_sync_cmd() to take timeout, not in this patchset.
+
+> 
+> > +	if (!wait_for_completion_timeout(&ccr.complete, tmo)) {
+> > +		ret = -ETIMEDOUT;
+> > +		goto out;
+> > +	}
+> > +
+> > +	completed = true;
+> > +
+> > +out:
+> > +	spin_lock_irqsave(&sctrl->lock, flags);
+> > +	list_del(&ccr.list);
+> > +	spin_unlock_irqrestore(&sctrl->lock, flags);
+> > +	if (completed) {
+> > +		if (ccr.ccrs == NVME_CCR_STATUS_SUCCESS)
+> > +			return 0;
+> > +		return -EREMOTEIO;
+> > +	}
+> > +	return ret;
+> > +}
+> > +
+> > +unsigned long nvme_fence_ctrl(struct nvme_ctrl *ictrl)
+> > +{
+> > +	unsigned long now, deadline, timeout;
+> > +	struct nvme_ctrl *sctrl;
+> > +	u32 min_cntlid = 0;
+> > +	int ret;
+> > +
+> > +	timeout = nvme_fence_timeout_ms(ictrl);
+> > +	dev_info(ictrl->device, "attempting CCR, timeout %lums\n", timeout);
+> > +
+> > +	now = jiffies;
+> > +	deadline = jiffies + msecs_to_jiffies(timeout);
+> > +	while (time_before(now, deadline)) {
+> > +		sctrl = nvme_find_ctrl_ccr(ictrl, min_cntlid);
+> > +		if (!sctrl) {
+> > +			dev_dbg(ictrl->device,
+> > +				"failed to find source controller\n");
+> > +			return deadline - now;
+> > +		}
+> > +
+> > +		ret = nvme_issue_wait_ccr(sctrl, ictrl, deadline);
+> > +		if (!ret) {
+> > +			dev_info(ictrl->device, "CCR succeeded using %s\n",
+> > +				 dev_name(sctrl->device));
+> > +			nvme_put_ctrl_ccr(sctrl);
+> > +			return 0;
+> > +		}
+> > +
+> > +		/*
+> > +		 * CCR command or CCR operation failed on this path.
+> > +		 * Try another path as long as we have time.
+> > +		 */
+> > +		dev_err(ictrl->device, "CCR failed using %s, ret = %d\n",
+> > +			dev_name(sctrl->device), ret);
+> > +		min_cntlid = sctrl->cntlid + 1;
+> > +		nvme_put_ctrl_ccr(sctrl);
+> > +		now = jiffies;
+> > +	}
+> > +
+> > +	/* Fencing timed out call it done */
+> > +	dev_info(ictrl->device, "fencing timeout\n");
+> > +	return 0;
+> > +}
+> > +EXPORT_SYMBOL_GPL(nvme_fence_ctrl);
+> > +
+> >   bool nvme_change_ctrl_state(struct nvme_ctrl *ctrl,
+> >   		enum nvme_ctrl_state new_state)
+> >   {
+> > @@ -5205,6 +5356,7 @@ int nvme_init_ctrl(struct nvme_ctrl *ctrl, struct device *dev,
+> >   
+> >   	mutex_init(&ctrl->scan_lock);
+> >   	INIT_LIST_HEAD(&ctrl->namespaces);
+> > +	INIT_LIST_HEAD(&ctrl->ccr_list);
+> >   	xa_init(&ctrl->cels);
+> >   	ctrl->dev = dev;
+> >   	ctrl->ops = ops;
+> > diff --git a/drivers/nvme/host/nvme.h b/drivers/nvme/host/nvme.h
+> > index e558a19781bd..90b989302e21 100644
+> > --- a/drivers/nvme/host/nvme.h
+> > +++ b/drivers/nvme/host/nvme.h
+> > @@ -333,6 +333,13 @@ enum nvme_ctrl_flags {
+> >   	NVME_CTRL_FROZEN		= 6,
+> >   };
+> >   
+> > +struct nvme_ccr_entry {
+> > +	struct list_head list;
+> > +	struct completion complete;
+> > +	struct nvme_ctrl *ictrl;
+> > +	u8 ccrs;
+> > +};
+> > +
+> >   struct nvme_ctrl {
+> >   	bool comp_seen;
+> >   	bool identified;
+> > @@ -350,6 +357,7 @@ struct nvme_ctrl {
+> >   	struct blk_mq_tag_set *tagset;
+> >   	struct blk_mq_tag_set *admin_tagset;
+> >   	struct list_head namespaces;
+> > +	struct list_head ccr_list;
+> >   	struct mutex namespaces_lock;
+> >   	struct srcu_struct srcu;
+> >   	struct device ctrl_device;
+> > @@ -393,6 +401,7 @@ struct nvme_ctrl {
+> >   	u16 sqsize;
+> >   	u32 max_namespaces;
+> >   	atomic_t abort_limit;
+> > +	atomic_t ccr_used;
+> >   	u8 ccrl;
+> >   	u8 vwc;
+> >   	u32 vs;
+> > @@ -887,6 +896,7 @@ blk_status_t nvme_host_path_error(struct request *req);
+> >   bool nvme_cancel_request(struct request *req, void *data);
+> >   void nvme_cancel_tagset(struct nvme_ctrl *ctrl);
+> >   void nvme_cancel_admin_tagset(struct nvme_ctrl *ctrl);
+> > +unsigned long nvme_fence_ctrl(struct nvme_ctrl *ctrl);
+> >   bool nvme_change_ctrl_state(struct nvme_ctrl *ctrl,
+> >   		enum nvme_ctrl_state new_state);
+> >   int nvme_disable_ctrl(struct nvme_ctrl *ctrl, bool shutdown);
+> 
+> Otherwise looks good.
+> 
+> Cheers,
+> 
+> Hannes
+> -- 
+> Dr. Hannes Reinecke                  Kernel Storage Architect
+> hare@suse.de                                +49 911 74053 688
+> SUSE Software Solutions GmbH, Frankenstr. 146, 90461 Nürnberg
+> HRB 36809 (AG Nürnberg), GF: I. Totev, A. McDonald, W. Knoblich
