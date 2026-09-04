@@ -1,69 +1,74 @@
-Received: from mail-ot1-f53.google.com (mail-ot1-f53.google.com [209.85.210.53])
+Received: from mail-pg1-f175.google.com (mail-pg1-f175.google.com [209.85.215.175])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A83FF3C65E0
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 12:31:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4A0347668A
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 12:31:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.175
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788525077; cv=none; b=JMsUrUumrZ4CWEaAUlX+oZMQV0Elmdrp5ARz5sG2HA/E59qeAiL4096YrBj0LMXXq1I3KUCdYocWnouOaFCuTH70Jm5DEXF2zdr2TcoIm6klO4kGK0Hm3tip0bfIiTDjxfHN6duwbZ4BHPWq/IEGUm2JMfevuKVHFpZCrdvFAOQ=
+	t=1788525083; cv=none; b=qDx5FcBhK+omvogozevG1W4ZUJp4x7+n8M/xn/Zp/lAjFc78/3XTeliTJPCfGxEnxYPecY1s9cJfthYic7x+qF3kLUmDnPYAcoz17z89DQQPrUEOiU+WfCHZGaMIXtACHzw9i3bxM9Ix9SFq7oY45aWxR15ca8XkECHqZGnbNks=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788525077; c=relaxed/simple;
-	bh=Pz1xqrE8qRihOquEDeZ77FfVya8O7DEjIdRIggKigac=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=gISunfxiSJW1yFDAH/l8PHJG8kPZobHLX2+hENn8Ui7NYtrrLbjQj8wLzk10mf0LNwy+VCPGIeG6Q+ay/lcs8H/oanvslnOuOWXtZ77XNGLgGlbIWFwwn3asqqEwG7TSw8A9z9E4ZqiFtv0GcTHBwmUMlY6whq1TYilctVFba1g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FDLcY0+5; arc=none smtp.client-ip=209.85.210.53
+	s=arc-20240116; t=1788525083; c=relaxed/simple;
+	bh=T5b+d/OS5/eYcnEjmtuH3aLFvdcVAyfOOmY8HX2kPnI=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=dduFluoERUq6lbCTlxGF3542rZ6sBNCFkU6pIbTRLhh66X8nJouynIv/FUkcV9KTIZ9v9+hG9CPVhaqhB15/PHzDgEvg+VnSuaf+bUjMs0iS71YHBi+EPtLMxub04uKW/41Oz3vZZDfiFLYtcBveeHtg8QKAAbGD51hXRe0lpM8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nWP+9G+m; arc=none smtp.client-ip=209.85.215.175
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FDLcY0+5"
-Received: by mail-ot1-f53.google.com with SMTP id 46e09a7af769-7f3ece23165so786347a34.0
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 05:31:15 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nWP+9G+m"
+Received: by mail-pg1-f175.google.com with SMTP id 41be03b00d2f7-cc1cc1b42b5so1064857a12.2
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 05:31:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788525074; x=1789129874; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ebmjSqeqsr/LTgW/jJZdZzp5GuSysUBT+xQw7qBxsWQ=;
-        b=FDLcY0+57JgncFLIutEkRQBok6whzm8ZcGSpeBirAzOTns3xfU/7bOk4OEXwRxTApG
-         LavLBDHvqdgnVLcI1SjoYq7L9SlXk8YhODITQS8v1pNSSyo86lmAwVIgkJ7Vsz7u/Hbo
-         YzBUF4inNUHy8shnhzQPV4IC32AhglB7GE4veQ3y9QAKggIH1zvC+yz5pje15KEid22b
-         ZJeD0YXPwKuz4Dl0FPxgnffstjzOItD7a8VfiVGWqUWMCqrOnxxCVhZmbYw8nEkFg5Y1
-         bL1A+OEiLBQdnxFxXiKTeZtssWsD/3/JKk7PENhbiaHEyjyvfVAcwwE1moWIg4hFEG46
-         g+cA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788525074; x=1789129874;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1788525081; x=1789129881; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=ebmjSqeqsr/LTgW/jJZdZzp5GuSysUBT+xQw7qBxsWQ=;
-        b=JxTzu6W4j3Rk8TsmsqWuU7bFXBdLfq2PrZ+4xqTzgEzGcDdxAMKwJjvfUH37ti34Np
-         6rxvXcmLwCIMsJiWpQ9PVMGHc97lgtyu0/S8trqANGN1Dxk2wdxCW8S7rpXm+Be2rhZ4
-         Lsmkazk1JnQcrEejq/sfQczNOly1NFkmehBG2j0zyQz6xtsVTv0nPaI05u2gxKUQP2cj
-         4HiapdR4amtEMA7t3/cbMnvKTeqPT1VQoDcflMiz9iAFUTfoQq6jex5unSVGNw1f8+lv
-         zn3FAfQqOwtRt/AaPAwi1OL7u5xQHs/KADQ2mrkFUp9YxlV24G7nl7+wITnMVSnxdVI6
-         3xug==
-X-Gm-Message-State: AFuF++kxDHMbwpL5ZP18sO9EIAuCeU1uNYpCHbq38x8qSeCjJ//H/a67
-	RowOMbDi2sKjJaRPcgznYJklCq4uI2EWavYQMzVuwynR93RvRHVtsfO9EeJTtdU0WyA=
-X-Gm-Gg: AYBFou2bQiO8UF552hmofasVWEpd4kVx9C4c5hZohYqLhnTAHjTa/virMzyJy/CRZm1
-	/P8bHs6oHFnI/oJ3JA/HV+ALIuy2+53o2zlix/xLUnCvjdzogixo5hVdkxqhSpLuIgumshPABzE
-	V1Qq75A/XBX1z5GVcBKIFpJNblScJhCPVWTKezO78ptJdbZEZjZ9RCTF89Waigt3Qjg4f86tXpW
-	MsRI42GUKMM9ODxNm2zPgK0bJoALOdYjKSIi0iLDADjRlV/nw7Z3Xnr3mgXg+Jqbt5g14dzb68I
-	JMvEt4AekZ4u+GMNq9T1QxKNClklS4+Se1X7pQ0GWvF/Eopl/qtAjYqVCBaXdnTf3V2mAVufSfe
-	iLdONSrfyg6sgCCked/wojC3kHGhRFMVGKZPwv0O3wx3lDRTvlZaIPf+c89yPIDa/SipsDnIuDx
-	eQxO3FYe3IfAh2GJOfmm+xsd/A1iqG14mJAWc6HaItlxhQd7xdP33N3hGc9HxQZCgnEs3Gxt4eh
-	AMy6HG1ZJnrWMvWP6pxhJZhgQ==
-X-Received: by 2002:a05:6820:60b:b0:6b7:83d6:2928 with SMTP id 006d021491bc7-6b783d62f1dmr1348840eaf.43.1788525074304;
-        Fri, 04 Sep 2026 05:31:14 -0700 (PDT)
+        bh=g0+j20Eu0FfzlcTgOQzGHgkUj59C3DavZTxLbAshT4k=;
+        b=nWP+9G+mKQoMiYe6yYTj7f9ct+eH+Q/02ZR4g5n/r9yhuVQL+ajBeOXmvtiPkVhf42
+         jAqMVRIGFWFOO632zvzdCKA53JbCv15YVtOZIpom2jZlgxoNe3Q3+yjfBoWizOY/nQF4
+         Sl7uIb6G63B+C1e1ngXiaLu3BZruq99j/NcOuv3gWwfkccvZtRlA1fWB18Mm0SWPxCUh
+         nTNczUzHVbNC9jOdEdF0AAGj8J5jzgVbRS6ST/ihS+6+6O+elfgx//gtYygXtR3uo1Dn
+         yWnLrpp3/o53RbeISbabSpWr+LzKCKI2FWh98nWtu5IFPFEAHEJIA17mNZMKPfFadyz1
+         sUtA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788525081; x=1789129881;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=g0+j20Eu0FfzlcTgOQzGHgkUj59C3DavZTxLbAshT4k=;
+        b=od2rqvYFbXlGN8vfuLOX5ZPoXE+FBoikfIhaFK+rTa9wo6zL/LcNYN+x6bzUjEv6+R
+         UHcTbBhoUaOOXS6uwXYwWkdvuRBoGtQzV/8UosWoyXc5z5Sz3zzUqMClwl1Flxk/OQfe
+         SljbuZryR6SeatxZ2fWmIlXgVsakBVd+C/frkVlgqPb2oXCZfH2p/gX2CTkWdW8aTev/
+         BDyws0monO+45OebUy1hg2tACcnwYXnhB+Qn1Dm6p1yoLYewnOre0FgDP65LigoBkn3/
+         Uroh5ET+7wyD+1DOExlLWVG3Rr5atPGFoa4JCnhhx/55vAekNnHotpTxTul1tDIU03KB
+         zOsQ==
+X-Gm-Message-State: AFuF++lv7gi9y9zxtke6TmOVabi6phrNns2YWgc76AOAciHWtCSmtTiG
+	1jm9jz84Qg1js70IRvAIsfAkazWf5C+IGtAgWuXfwU9PLL+nufPb09fM
+X-Gm-Gg: AYBFou2MprZh3L4ldHviJpDAbRs6RbH3YND0WyGc6o/2ugCagO2LGgPvA1CNBPe6PrD
+	ukQNx8bM6tWZQWTx5Po4qpHc7L4J9+8KK6X/eIT2LdL/XPliNZKAXOoTWiObcHylcSuyA3s7YSR
+	l3SfHrGNgvzy06IWh5zuGqs2y6cHRLzP3Fn2OE5m/xmOq62hNfP8I8RUMSqr5n0PU7CZxUka3qT
+	ROGgnudh9DHNHUv/lancmqWvaJYc5t3Mf2kd7Q8/cnI1xbJTQmPaLOFgLsMbk7MaXYJZW7qXbl4
+	zdBhX/I1CLvNS3nxO/pzLo60jvEGVPZ0m51Ki2SdLJPC+ctGzbbF1dgpVk/nVrIzPWmETJ9zy/0
+	kzKd65aQak+SfeJFhPUwBmwLs6Pu8D383z4zpNShAs4nKeIHamAF7VV8dOPdrw6bW0LICVWMo+R
+	lhdCTBGyACf426zRFYBy0uX7drEqNiAtfcvYfAiKIKGrb2KSgYf06fBJGxyJggpC9AqWG0S7cFu
+	+ODIf4dt239xIs=
+X-Received: by 2002:a17:90b:28ce:b0:38d:fda6:4873 with SMTP id 98e67ed59e1d1-39b26100cbfmr9757473a91.10.1788525080469;
+        Fri, 04 Sep 2026 05:31:20 -0700 (PDT)
 Received: from volcano9f6e-hostos.amd.com ([165.204.217.251])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3342af0bc08sm4447030eec.17.2026.09.04.05.31.13
-        for <linux-kernel@vger.kernel.org>
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3342af0bc08sm4447030eec.17.2026.09.04.05.31.18
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 04 Sep 2026 05:31:13 -0700 (PDT)
+        Fri, 04 Sep 2026 05:31:20 -0700 (PDT)
 From: Hemanth Selam <hemanth.selam@gmail.com>
-To: 
-Cc: linux-kernel@vger.kernel.org
-Subject: [PATCH 0/2] ata: fix typos and repeated words in comments
-Date: Fri,  4 Sep 2026 18:01:06 +0530
-Message-ID: <20260904123110.35532-1-hemanth.selam@gmail.com>
+To: Damien Le Moal <dlemoal@kernel.org>,
+	Niklas Cassel <cassel@kernel.org>
+Cc: linux-kernel@vger.kernel.org,
+	linux-ide@vger.kernel.org
+Subject: [PATCH 2/2] ata: fix repeated words in comments
+Date: Fri,  4 Sep 2026 18:01:08 +0530
+Message-ID: <20260904123110.35532-3-hemanth.selam@gmail.com>
 X-Mailer: git-send-email 2.48.1
+In-Reply-To: <20260904123110.35532-1-hemanth.selam@gmail.com>
+References: <20260904123110.35532-1-hemanth.selam@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -72,39 +77,42 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-This corrects 2 misspellings and repeated words in comments.  Each is a
-separate patch so that any one of them can be dropped without touching
-the rest.
+Drop words accidentally written twice, reported by checkpatch.pl as a
+possible repeated word.  Only touches comments, no code changes.
 
-Nothing outside comments changes.  Every touched C file was checked by
-dropping its comments, replacing each string literal with a placeholder
-and collapsing whitespace; what remained was identical before and after,
-so the compiled code cannot differ.
-
-The mistakes were found with scripts/checkpatch.pl against the list in
-scripts/spelling.txt.  The scanning, the edits and the changelogs were
-produced with Cursor running the claude-opus-5 model, from a request to
-find and fix spelling mistakes across the tree, and every correction was
-then re-checked by the comparison described above.  Words that name an
-identifier were left alone deliberately, even when they read as typos,
-because correcting the prose would make the comment disagree with the
-code it describes.
-
-Tested by building x86_64 defconfig at v7.3-rc1-269-gbc35965f6940, which
-is clean.  Nothing else was built, so any patch touching code that
-x86_64 defconfig does not compile has been read but not compiled.
-
-Hemanth Selam (2):
-  ata: fix typos in comments
-  ata: fix repeated words in comments
-
+Assisted-by: Cursor:claude-opus-5
+Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
+---
  drivers/ata/libata-eh.c      | 2 +-
- drivers/ata/pata_amd.c       | 2 +-
  drivers/ata/sata_dwc_460ex.c | 2 +-
- drivers/ata/sata_fsl.c       | 4 ++--
- drivers/ata/sata_sil24.c     | 2 +-
- 5 files changed, 6 insertions(+), 6 deletions(-)
+ 2 files changed, 2 insertions(+), 2 deletions(-)
 
+diff --git a/drivers/ata/libata-eh.c b/drivers/ata/libata-eh.c
+index c93c24b22d9c..630e6d44190b 100644
+--- a/drivers/ata/libata-eh.c
++++ b/drivers/ata/libata-eh.c
+@@ -923,7 +923,7 @@ void ata_eh_fastdrain_timerfn(struct timer_list *t)
+  *
+  *	Set ATA_PFLAG_EH_PENDING and activate fast drain if @fastdrain
+  *	is non-zero and EH wasn't pending before.  Fast drain ensures
+- *	that EH kicks in in timely manner.
++ *	that EH kicks in timely manner.
+  *
+  *	LOCKING:
+  *	spin_lock_irqsave(host lock)
+diff --git a/drivers/ata/sata_dwc_460ex.c b/drivers/ata/sata_dwc_460ex.c
+index 8e3fc713891a..b0c069a02cc2 100644
+--- a/drivers/ata/sata_dwc_460ex.c
++++ b/drivers/ata/sata_dwc_460ex.c
+@@ -1071,7 +1071,7 @@ static const struct scsi_host_template sata_dwc_sht = {
+ 	/*
+ 	 * test-only: Currently this driver doesn't handle NCQ
+ 	 * correctly. We enable NCQ but set the queue depth to a
+-	 * max of 1. This will get fixed in in a future release.
++	 * max of 1. This will get fixed in a future release.
+ 	 */
+ 	.sg_tablesize		= LIBATA_MAX_PRD,
+ 	/* .can_queue		= ATA_MAX_QUEUE, */
 -- 
 2.48.1
 
