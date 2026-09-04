@@ -1,100 +1,82 @@
-Received: from mail-pg1-f173.google.com (mail-pg1-f173.google.com [209.85.215.173])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E69A44D01D
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 12:50:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E82613955EC;
+	Fri,  4 Sep 2026 12:50:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788526225; cv=none; b=GOF7NTWns9rHhZmDWfvZ2ZPwxVkmoj9W7wNph2yC2i60geYEhWbl6SBlHQdxUmXmA7gl3ijbJcKuACfNYCJ2/UULec/OWU06S24qHPfmWWoLD/wIvuiI9tmVPwJL/xt/wfsoDm/LGjUmZaHKQCQhdUHO2iEv/QFgAtHpeU91wNs=
+	t=1788526226; cv=none; b=hQl2y+9IClxw+a+2ft7lOi9SypPOX1pITACM3ZxZXOQajncjsTsKssR/MXf2RP0TXHvn+tT52AX1nZUxUWIk0Nzf/A0yfRoOr+4E9ICT1T8DNSVA5lj0Vuw9xWocaBVoL5Chd3CuTuRP5Z/QhU5CMjaKxvFS0wDm3nCs559OM+A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788526225; c=relaxed/simple;
-	bh=kzV1iXtP7UtDveZ7IyU8zo7xuEhV1c18VrOxUsnFAWE=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ULStNqdPpgWKKtJHI5gD9UtxwRTMdx6xKdVarw8Efy0MBq1RV5oJqpCQRZEQOzSQYCE4DxHBqPhrVSCGmpde1vrqjf5IIBng36FMt4BF18AJSkykuzmjzxOTnVKoN51L2r7AfoEToLzfAHGa4+rhV/fbETq+H7hvYobuLT4l2rs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MKrbULKa; arc=none smtp.client-ip=209.85.215.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788526226; c=relaxed/simple;
+	bh=G81joPHDQa6zazcKVT6iVyrHBcF3QYziAiZ7676HgoM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=NDSVQw4yQHnpQLRYBgqHC1vw+R7NeoXk4IB+LEioYS4MJVzjtdhgj6KiFfiSVMODsUup0dSTilkw36WyS8lOpbc527Cr8jAMIHWLu3PLGoWRAxGH4gtPYjNTff5ch3iW7dL1U9rwOka5r9QBH2SvAHzGKsaKZ/CpSstAvyvjcjw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=MFJ4ZzOh; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MKrbULKa"
-Received: by mail-pg1-f173.google.com with SMTP id 41be03b00d2f7-cc1c73645a1so858680a12.1
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 05:50:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788526223; x=1789131023; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=bcqQGyS46qOTlJfKUrPrj7k8qBeNjnYiNFT7DXi3c0s=;
-        b=MKrbULKamkYC8Z53AcT3WYfld54RcUiGvdrOFMMV/jOXCpEj+V4RK0s6wUlf5+c+7G
-         E2MU0DxfNX63dj0Gw65iPNZ4bg+sjgSCVFvrZ6JZ08Ij6G9M5CRR+kf/8ZtVAryIFtmq
-         fLtyiCaCYA9Dz4pJnz2d8lkiSszjh4jfoaqTEWzOVtC1sPdghD29HUbx2MOEUcRdbLo2
-         jssXi0ANo/jU3berYS/H4E/+8feUCxZE9kOlkvfdZqSbPRWbs/rltJuswL09+pyhRWzK
-         jIC/RLm+fXrTpFgc7dKj82z1Bo64ZP7iROsVMOvZ0rZLkIjW5ZquxWAD02RtpQKTx1ij
-         D93Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788526223; x=1789131023;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=bcqQGyS46qOTlJfKUrPrj7k8qBeNjnYiNFT7DXi3c0s=;
-        b=FrNuoLp8I+62pdLqiws95gv0l9hun5U9Hqw1e3GA+XdGzjisHuwc/9bPdZYf/OxuDC
-         KCR2+c5AGVsiPxagXhSqWzlEH9lGru0BkGq1Mc4261ffXvj+nel9COrNZNHOhlFcSvIG
-         6quzdF9jgU7kNqWA/7cv7lGZGE4uo5iTO5r86qv4chFAKTdZN427f+cIxOjzcFNfAos0
-         jDSbMXCjYnzZ5+s88LbHTTmOIfAjJ4Au7Y+o/UFcnHj0q/Hyh5w4zjqNOLoNyhimyLYw
-         A1l71K6kgtgTDMpCMi5yvMRz0T0RDbuXfj1trmvbLLWhYGr3BFWt0PbBAkPZ8piY1ZvK
-         jAxQ==
-X-Gm-Message-State: AFuF++kNaWOxWNuAYCmn/ILYBc28e1H3KGYgzVxb4TPkJuatNPpnaEyc
-	LX00SDtoJX7jM3flvVO2rsiiIFrkjqxfKzj5pb0c6PKcFiy4MMTQmZOh
-X-Gm-Gg: AYBFou1R2Uu9XMtuxy1R/zcFYTPrLXDcxGjjo9VoypVc9sL16ozq0uVHS75TG6XgSAT
-	CbvUoGX2nFekTUpt7Yo8/YEnmq58dDcBqq7xzdyx2Aqsb77Gf8sfFxsWoxYUdErlmULTmq/i8eo
-	gHC8AEhHnWhA2wu6Ky85ywxFgTaUXhBIFU896MHBVD2n1wy1kGlSgV4lFDGUniHvulYR6/lv4hN
-	8bp+uWmHrs36eGy94mZqR7SlZc+fAtTecYquGqJnP0NZx1BRg6E3j2bvOYBG2KQn76eO1efWsEV
-	hulwMDwjb7URb/FRvrA7EcWZaIqFiDq7fHS3szLZmxQ7PK2T63kIvqF+a8plTwnG7KXaSxPo8+i
-	n7P6xhK/PUWL3mLcf57P1GNAhKQkPA086wa1onDd5D+tsmXhfUcEfolcssmYWsljXJkGRa0Cq8K
-	W6VUD68c5uJm8lXtAvXMHGSYJ7M7/CTYVJ8PyY1hovYRLPetsuI5N7HGq4nTzKB2opALH99uhGa
-	vMpnqywK3YGLaI=
-X-Received: by 2002:a17:90a:d003:b0:398:ba9e:75ff with SMTP id 98e67ed59e1d1-39b26273a40mr9704191a91.21.1788526223268;
-        Fri, 04 Sep 2026 05:50:23 -0700 (PDT)
-Received: from volcano9f6e-hostos.amd.com ([165.204.217.251])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339aa31b24sm6705116eec.13.2026.09.04.05.50.21
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 04 Sep 2026 05:50:22 -0700 (PDT)
-From: Hemanth Selam <hemanth.selam@gmail.com>
-To: Marc Kleine-Budde <mkl@pengutronix.de>,
-	Vincent Mailhol <mailhol@kernel.org>
-Cc: linux-kernel@vger.kernel.org,
-	linux-can@vger.kernel.org
-Subject: [PATCH] net: can: fix repeated word 'is' in comment
-Date: Fri,  4 Sep 2026 18:20:17 +0530
-Message-ID: <20260904125018.10923-1-hemanth.selam@gmail.com>
-X-Mailer: git-send-email 2.48.1
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="MFJ4ZzOh"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=3yAn3kbsFoIm608A9M/Uf1F3WYIQG3X//USFhPDHvo0=; b=MFJ4ZzOhejmX+088Y3ofbbmioA
+	M0QeyMYnafGPTF0VYKpprxs6LJjFslZu3gZysd/rv9sq0DtjgLNGF7rM9KKyM5agoGD8DEzckcCNE
+	Nxt8/kx1U5eeBpgRdS41WGaHyQzG0Fxz7g4OWWtW0U2/bmxL+ReA4//Z1VzBkT9zzb3Y=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1x2TN7-002yOm-Bw; Fri, 04 Sep 2026 14:50:21 +0200
+Date: Fri, 4 Sep 2026 14:50:21 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Qingfang Deng <qingfang.deng@linux.dev>
+Cc: Jiri Slaby <jirislaby@kernel.org>, linux-ppp@vger.kernel.org,
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Mitchell Blank Jr <mitch@sfgoth.com>,
+	Chas Williams <3chas3@gmail.com>,
+	James Chapman <jchapman@katalix.com>,
+	Simon Horman <horms@kernel.org>, Kees Cook <kees@kernel.org>,
+	Breno Leitao <leitao@debian.org>, Felix Fietkau <nbd@nbd.name>,
+	Asim Viladi Oglu Manizada <manizada@pm.me>,
+	Eric Woudstra <ericwouds@gmail.com>,
+	linux-atm-general@lists.sourceforge.net
+Subject: Re: [PATCH net-next] ppp: pass private data to channel callbacks
+Message-ID: <d051ed66-255a-4d25-961e-6229aa34f791@lunn.ch>
+References: <20260904031153.30304-1-qingfang.deng@linux.dev>
+ <927e0f8f-a656-45e4-a937-9de88b783073@kernel.org>
+ <a8497c0e-94be-4cf9-ab64-0402c48c3a88@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <a8497c0e-94be-4cf9-ab64-0402c48c3a88@linux.dev>
 
-Drop the second 'is', reported by checkpatch.pl as a possible repeated
-word.  Only touches a comment, no code changes.
+On Fri, Sep 04, 2026 at 01:39:49PM +0800, Qingfang Deng wrote:
+> On 2026/9/4 11:57, Jiri Slaby wrote:
+> > Hi,
+> > 
+> > On 04. 09. 26, 5:11, Qingfang Deng wrote:
+> > > PPP channel callbacks receive struct ppp_channel only to retrieve the
+> > > driver's private pointer. Pass that pointer directly instead.
+> > 
+> > We had type checking at least. What's the purpose of this patch, actually?
+> 
+> The goal is to unify the two channel structs and make it owned by the
+> generic PPP layer.
 
-Assisted-by: Cursor:claude-opus-5
-Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
+The commit message is about "Why?". Please add this to the commit
+message.
+
+
+    Andrew
+
 ---
- drivers/net/can/usb/ucan.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/net/can/usb/ucan.c b/drivers/net/can/usb/ucan.c
-index f72e0644c5fd..6b088a05a901 100644
---- a/drivers/net/can/usb/ucan.c
-+++ b/drivers/net/can/usb/ucan.c
-@@ -61,7 +61,7 @@
-  *    the following way:
-  *
-  *	m[n].len <=> the length if message n(including the header in bytes)
-- *	m[n] is is aligned to a 4 byte boundary, hence
-+ *	m[n] is aligned to a 4 byte boundary, hence
-  *	  offset(m[0])	 := 0;
-  *	  offset(m[n+1]) := offset(m[n]) + (m[n].len + 3) & 3
-  *
--- 
-2.48.1
-
+pw-bot: cr
