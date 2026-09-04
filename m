@@ -1,79 +1,128 @@
-Received: from relay.hostedemail.com (smtprelay0013.hostedemail.com [216.40.44.13])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yw1-f173.google.com (mail-yw1-f173.google.com [209.85.128.173])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92D1F49362C;
-	Fri,  4 Sep 2026 14:01:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=216.40.44.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDC5D30F547
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 14:03:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788530509; cv=none; b=fIsKUgIOvMHOxXeeucjmpkOb3IyN8b58k5BOdU3ePgVCjIwnVvw9f/dvighPgSLjkI+PK5ehB4fLRNTfU3ufbcDDr7M8sowfePNMAkMfsV5//52feitNHV5az0x4oHM1qjGHBDwTIZyIw2RoqErR8vZebyy7/tVDBK/E824jNzo=
+	t=1788530586; cv=none; b=srfImL5fHLH7b+Rne9RY0A+WlVzXcr8slcJ/MQm0gF+QIZA3LAJkUMGtdmCQbqGtm2veGIsk2RXTymP2idJSA3UsJFyPaxkxA/ICQhZBJV5UsWEa6uyYThW+JTqTrrYvWrIdcrH8wHUogLiMzLOTy/6S0gkeauBECk3Uli/56GM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788530509; c=relaxed/simple;
-	bh=UwRD2WUfuDoxmcivM5qX0VBAz63TN1nNnpQ29bLmIiI=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=PnrzW2FUVrGDP/2o5wARQJGrCLkxPyBYmm8DbRwrg4RQQzvhAE/6tPHzq+0Xqa+UmPHsUlgCeKnANdMv1dQXfxg2ObMk/jp3SNUh0zf7PCcZjhktOEE7Ck1g30LwRH8ESeXUt1mYylmonaa6jt9l6lEe5GyOAI2v1U3ebIDvT4E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org; spf=pass smtp.mailfrom=goodmis.org; dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b=JRFBXRy1; arc=none smtp.client-ip=216.40.44.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
+	s=arc-20240116; t=1788530586; c=relaxed/simple;
+	bh=cvGxjeTlRtS1bdiaFN24FBWy3uwd8OQ0PMG2HoN5DaQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=OWX11f3YWjpXNpkPu3LIonOJ/B9TQIL0ibOU9jtTSqdUvWmpzfV6EfGD+e2Qhi3OLkiGkpFJ2vAYfYLL3Dqjn81RkWX9kiQ3xYECbQY2z2P/WZrfqIZtk/KaW7d9UYcQkTDhdlb5uj5WEDimg5Banu3sKiUcpJ6MPOx20xR0ZoQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bHYmDzQh; arc=none smtp.client-ip=209.85.128.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b="JRFBXRy1"
-Received: from omf08.hostedemail.com (lb01a-stub [10.200.18.249])
-	by unirelay05.hostedemail.com (Postfix) with ESMTP id 2FB3C4142C;
-	Fri,  4 Sep 2026 14:01:42 +0000 (UTC)
-Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf08.hostedemail.com (Postfix) with ESMTPA id 3F58E20028;
-	Fri,  4 Sep 2026 14:01:40 +0000 (UTC)
-Date: Fri, 4 Sep 2026 10:02:45 -0400
-From: Steven Rostedt <rostedt@goodmis.org>
-To: Vincent Donnefort <vdonnefort@google.com>
-Cc: mhiramat@kernel.org, linux-trace-kernel@vger.kernel.org,
- mathieu.desnoyers@efficios.com, kernel-team@android.com,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v9 3/4] ring-buffer: Cap static ring buffer nr_pages
-Message-ID: <20260904100245.245f7bdd@gandalf.local.home>
-In-Reply-To: <aprB6OE1juuopC7q@google.com>
-References: <20260901155445.1475405-1-vdonnefort@google.com>
-	<20260901155445.1475405-4-vdonnefort@google.com>
-	<20260903125621.36cd33b8@gandalf.local.home>
-	<aprB6OE1juuopC7q@google.com>
-X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bHYmDzQh"
+Received: by mail-yw1-f173.google.com with SMTP id 00721157ae682-866e57f63a3so12026957b3.3
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 07:03:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788530584; x=1789135384; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=J1TWz/3wXzPTj1hxKdPuFCpOrgwLZcNeAFcFrJwfmyI=;
+        b=bHYmDzQhxunuq5imLAy97e9u+fl/Y5mM1J6yVz4aJ5X31KHCQBDog6Raah/SK4ceYu
+         tppPtFrXlP57bjPq9kYAZ3IlwKo9iArg6+sSvA2CirbabduH3c/epBGlPWFC07KXl4zL
+         d433QpTdSZNEKhxop5r3KALfBfJ2WAyzta0WSlkQxYStR9Vweg+dv9SykAtxrzfPmL+E
+         kGiatzVAXd151DN+KAs+LWFnJpTJvQhcL8tnLG+RpIi2EMv1i0AxvKu58+FDmIKqtgwz
+         MzfQRcQFvsREwnq8F9xTiHhpfyVpEDdYN3f/aTjrqMVzIR9VrEGN2lWquLxPWMp7gcW2
+         KDHA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788530584; x=1789135384;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=J1TWz/3wXzPTj1hxKdPuFCpOrgwLZcNeAFcFrJwfmyI=;
+        b=nxXms0K8LI4/OrVQ6vvRAxU7dkhj0a7gFc/eHDqYLCVa1YUZ4ZH6056jCoHHtbUP/Z
+         VKlvUJgBNa7JZuXsSa0xoBU+DaJwnzus/DGCYmkjIJ9N6npIHlnLEtqjiUs+kUe8B9GV
+         swOvJF1k+uTK3oGTO252UCDI/nSVgA+cp/TbwhzXzbXIs8XhhFmGkV6Ir0htNcs2exb/
+         cofoDRWglZIoYScXZM+PSh/9sxYCkOVtiLtJgJhf/3J1OJf+bfccPtuuIT5TfuoE1uoB
+         s0Ukmt0FaVm9KH3uLyNyZ93Tx7VkkcIG3x0ufZGuNfyxPlXGCUIirIl9/8QkW2nG3Zxu
+         OvUA==
+X-Forwarded-Encrypted: i=1; AKwUvBwbkD7+mJzUJOCkhHDMm5fhmRGRjy1LF5j2dgDie8e92cAKZwDIwLKIcQg65JUn/WYOxuKTXS7QKbtBxEE=@vger.kernel.org
+X-Gm-Message-State: AFuF++lV+BnHat/Y/wcC7WpOWMPw+adKAb6Sq9UBNgL0unRhto0vZclP
+	eRki7K4GW4I4kD9GS+z4Ehg47IqbI3u2ay7Na1AjfDgVQiJL16JjdE8w
+X-Gm-Gg: AYBFou2XRTxtnaUVjDBEYxC+mSgQvdOhnFgoQFr+SQYfWQBJALbPBNnfIt9RPn3PeTQ
+	866FcB0i/v0RYY26QXxDsBqpU9t2fRiVJP+73szPeT86hEo9eJIBPuf6W7WyqtfZI09MwpEpMVh
+	3CUep/t1U/LIrSdi5RVfKu0aAibDkKh4NkYJzkNL5Az9bGW2Bmq+6mbQo4/UR5vA4a5Ht6vukwT
+	LIdwZXD0MVmUUld8L1hlSFVCFsMzt3DS4Yuk+BX7tPVb3kC5vtVeneZpNqomB214YRQ6h6v7Ulw
+	zsDOKC2erCzSqujkHkLi2SyWUudW3/QQPjXaoPNf6AATmTUr5NRoQOmRXG/Z9O+kIQ2KAqhZJdt
+	OuFxDbOOI9cG/tLD4Q2NK+Dr4XUQz/+ctKSgAgGxuPKNH8plY5mbdOl4aqGK+HdIEz17nHszhiZ
+	6jlMrgCtboo8+q/XUZvjsGMcmvF/Ls31pJCOCE5DVQlJ1qJkowRmmHrv6x2B8i5bK08azF9/akZ
+	NYfZpIOXNLsQwYi/L36TVNfcws=
+X-Received: by 2002:a05:690c:a1ce:b0:873:5ddf:d879 with SMTP id 00721157ae682-8735ddfda51mr3006527b3.68.1788530583624;
+        Fri, 04 Sep 2026 07:03:03 -0700 (PDT)
+Received: from dave-desktop.lan (modemcable053.177-58-74.mc.videotron.ca. [74.58.177.53])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-87149ebe7d6sm18527947b3.19.2026.09.04.07.03.02
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 04 Sep 2026 07:03:03 -0700 (PDT)
+From: David Collin <davidcollin899@gmail.com>
+To: Thinh Nguyen <Thinh.Nguyen@synopsys.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	David Collin <davidcollin899@gmail.com>
+Subject: [PATCH] usb: dwc3: host: fix props[] overflow and dangling xhci pointer on error
+Date: Fri,  4 Sep 2026 10:02:58 -0400
+Message-ID: <20260904140258.154204-1-davidcollin899@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-X-Stat-Signature: 46hbtgd7nu8oh9pu3iuwixgqpzkdefot
-X-Rspamd-Server: rspamout08
-X-Rspamd-Queue-Id: 3F58E20028
-X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
-X-Session-ID: U2FsdGVkX1/1yATNb5ROcziw3rVKwj4vZnD1MYIjET8=
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=/TjXvOb3lkdNV/sBn5FPU3DChTGoZhV4vkAONSsG7WA=; b=JRFBXRy1UmsI4COxTPifQmTzRKFmWgaN1CYS7q8RgSs37R0xK0gqT1WDMZDbLFWSmQeDEGVKx4LYLOOBAuM428CYACOaiIZYaLJMMhAnBwgNmKG0zhzE6dL+W0JPN/0CRLCu/IRfDGrpygDg7dkRrU7p82nr09AeWmAJsX+cwwg=
-X-HE-Tag: 1788530500-960308
-X-HE-Meta: U2FsdGVkX1+QMpBzt2qqbjWM6DFtDwvqWRXwkHgQ4jnA11lna/1LEX+lb/BHUKq9s00+CZpt6YysJIbZqpdXFTIdoDJtyYDoNXFN1E30z01QrFES1QKiMCd8Am6h733IT+Hu8hmqzIbOzOSRn35sz3j7Wki1+p/qTJufVbiwpjez47HrkJC2kli7Hh4/nmJhXQ+Yel7UQAyZPxEpTo78BX3l+7/G/ABQPdas6kLIHNf3LjG3nLWUkncbFdW9nWOUQSWAmHxw9c9RbHaq5LKOrbYhjbAOm8NyhM51XgCqd9nZtFqdLJU7wg5tG4mJ5PvRjAQYbkVvdEtFMnEzMYIWnxnIKkmaoxyB
+Content-Transfer-Encoding: 8bit
 
-On Fri, 4 Sep 2026 14:04:40 +0100
-Vincent Donnefort <vdonnefort@google.com> wrote:
+props[] is sized for exactly the number of properties dwc3_host_init()
+can populate, leaving no slot for the NULL terminator
+property_entries_dup() requires when usb3_lpm_capable,
+usb2_lpm_disable, and the <=3.00a PED quirk are all true. Size props[]
+for one more slot.
 
-> > If you want to add something, we could add to the beginning of this
-> > function:
-> > 
-> > 	/* Prevent ridiculously small sizes */
-> > 	if (size < PAGE_SIZE)
-> > 		return NULL;
-> > 
-> > to shut up Sashiko about overflows :-p
-> > 
-> > -- Steve  
-> 
-> tracer_alloc_buffers() uses size of 1 for non-expanded buffers.
-> 
-> I'll test size just before 
-> 
->   nr_pages = (size - sizeof(struct ring_buffer_cpu_meta)) /
->   	(subbuf_size + sizeof(int));
-> 
+This also clears dwc->xhci on the error path and adds a NULL check in
+dwc3_host_exit(), since a failed dwc3_host_init() otherwise leaves a
+dangling pointer that dwc3_host_exit() dereferences unconditionally on
+removal/shutdown.
 
-Ack.
+Fixes: 8da7644493b4 ("usb: dwc3: Specify maximum number of XHCI interrupters")
 
--- Steve
+Signed-off-by: David Collin <davidcollin899@gmail.com>
+---
+ drivers/usb/dwc3/host.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/usb/dwc3/host.c b/drivers/usb/dwc3/host.c
+index c5674161b..cd1e5204a 100644
+--- a/drivers/usb/dwc3/host.c
++++ b/drivers/usb/dwc3/host.c
+@@ -130,7 +130,7 @@ static int dwc3_host_get_irq(struct dwc3 *dwc)
+ 
+ int dwc3_host_init(struct dwc3 *dwc)
+ {
+-	struct property_entry	props[6];
++	struct property_entry	props[7];
+ 	struct platform_device	*xhci;
+ 	int			ret, irq;
+ 	int			prop_idx = 0;
+@@ -219,12 +219,16 @@ int dwc3_host_init(struct dwc3 *dwc)
+ 	return 0;
+ err:
+ 	platform_device_put(xhci);
++	dwc->xhci = NULL;
+ 	return ret;
+ }
+ EXPORT_SYMBOL_GPL(dwc3_host_init);
+ 
+ void dwc3_host_exit(struct dwc3 *dwc)
+ {
++	if (!dwc->xhci)
++		return;
++
+ 	if (dwc->sys_wakeup)
+ 		device_init_wakeup(&dwc->xhci->dev, false);
+ 
+-- 
+2.55.0
+
