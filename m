@@ -1,96 +1,73 @@
-Received: from mta-65-225.siemens.flowmailer.net (mta-65-225.siemens.flowmailer.net [185.136.65.225])
+Received: from sendmail.purelymail.com (sendmail.purelymail.com [34.202.193.197])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DE253DD537
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 08:52:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.136.65.225
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B7F13EEAC4
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 08:52:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=34.202.193.197
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788511945; cv=none; b=ArnaSUE5J9klkaBS9jZWqytC+/fHJipxe8wQF3cPZDeA1hFS51bHvA5YHsBVfQSMRrZH0PMrhE7USKY3X9z2iT2LiXp+a3YFgoL5JxMn7GJmKP/hR2S5bskJNrZDkKCroAhNRyzAQaboT8NWT2cqagd5x8yYQzg1H+jyO6Njw0g=
+	t=1788511968; cv=none; b=Bs/QhAhLZ470rUU1lMAyfvvkkZgCVE1jn+bVCj7v79VJ0NJafdVJts5JYw01Y6gxyUQpWXMSVjc+W3anAs9XuDMUcb4wUsvfhDj+kRuntMq4IO2UOtRqofZO8FtRsWP+xn3TsS9O6eMUo/URc0QbRVoSELeWl6VhXYndxk9knZw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788511945; c=relaxed/simple;
-	bh=zwOgrFX7s8Bq/2iYUD9jj5MO5VT9r915r6LJ7serWUc=;
+	s=arc-20240116; t=1788511968; c=relaxed/simple;
+	bh=HnB0lAGCE0d3Btp4LE6O95A8lBaMPULi091taEQF07k=;
 	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=PAf1JGWwLfkz8d9RT5a914iA6/iEGN/TWwXeuMPFnyDh0xszFCWbzVBZFw4EqXWb2OaWcLXysxHWyDBbg3sFA4bytd7dkfvU8cZ+QM7Ry2qiAfOukDyZ1D0GtdDdh9B3PWzh5qHIxm/YCjzs3V8JTu/Z9SPUOeZq+N9lrTLafSc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=siemens.com; spf=pass smtp.mailfrom=rts-flowmailer.siemens.com; dkim=pass (2048-bit key) header.d=siemens.com header.i=florian.bezdeka@siemens.com header.b=DqbGfofz; arc=none smtp.client-ip=185.136.65.225
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=siemens.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rts-flowmailer.siemens.com
+	 Content-Type:MIME-Version; b=WCksZiSa5EdUPffO8uyemTq/va+r+9wWLMhzm5HErZ36ua4CSwoZrMbIclJcwA5kBeSDGRZVeAyOFtBhiOk1vIUXAMvnmOwiFGPaoq8wYn5bw77styK4l4xRgb5zL1BibSQniqiSoxBefoLeCAh5liKATrE/RUE5EmFKvoZOM6A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sverdlin.org; spf=pass smtp.mailfrom=sverdlin.org; dkim=pass (2048-bit key) header.d=sverdlin.org header.i=@sverdlin.org header.b=h1nUhaHm; dkim=pass (2048-bit key) header.d=purelymail.com header.i=@purelymail.com header.b=jXEHfK9m; arc=none smtp.client-ip=34.202.193.197
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sverdlin.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sverdlin.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=siemens.com header.i=florian.bezdeka@siemens.com header.b="DqbGfofz"
-Received: by mta-65-225.siemens.flowmailer.net with ESMTPSA id 20260904085212f0835cc9e300020766
-        for <linux-kernel@vger.kernel.org>;
-        Fri, 04 Sep 2026 10:52:12 +0200
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; s=fm2;
- d=siemens.com; i=florian.bezdeka@siemens.com;
- h=Date:From:Subject:To:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:Cc:References:In-Reply-To;
- bh=zwOgrFX7s8Bq/2iYUD9jj5MO5VT9r915r6LJ7serWUc=;
- b=DqbGfofztkaz5loDe1pvYHs+fSnVuiHF577LWy+0S0V/gzc+AFS6eJOU+RRdkG4gaJSFIg
- AwORgqQUBoV15D9z0UIyPQZBsNYXV1RyrBoFmwFwnyrekd4hLvJSSImKO8MANuwMUiYk+Oco
- Re2zvZVIrpfvXEIhXkOnk3DsdHN3LMrU1nHEaJVvlUNgMBVh3xzarVWnDS844/yG1l+Tok/v
- 8+SSzFJlhmnO9YMTkTzHhVSdPeDFf5ATodCNxKFoCd9MpQ6c+OvtlnRzMgcUpEhnFTqBUZsS
- Z5USkNAdM2STGSeyHzcjZ0dErdxGQWBaoOwt9mEUTBgnW+cALk+UB15g==;
-Message-ID: <63d5cd58e9b85acccdaaac9aed4a8c550cc7b868.camel@siemens.com>
-Subject: Re: [QUESTION] Are these issues PREEMPT_RT-specific?
-From: Florian Bezdeka <florian.bezdeka@siemens.com>
-To: Ran Hongyun <ranhongyun1@huawei.com>, namcao@linutronix.de
-Cc: axboe@kernel.dk, bigeasy@linutronix.de, brauner@kernel.org, 
-	clrkwllms@kernel.org, frederic@kernel.org, jack@suse.cz,
- jdamato@fastly.com, 	john.ogness@linutronix.de, kprateek.nayak@amd.com,
- linux-fsdevel@vger.kernel.org, 	linux-kernel@vger.kernel.org,
- linux-rt-devel@lists.linux.dev, 	linux-rt-users@vger.kernel.org,
- mkarsten@uwaterloo.ca, rostedt@goodmis.org, 	stable@vger.kernel.org,
- torvalds@linux-foundation.org, viro@zeniv.linux.org.uk, 
-	vschneid@redhat.com, xry111@xry111.site, chengzhihao1@huawei.com, 
-	yangerkun@huawei.com, yi.zhang@huawei.com, wozizhi@huawei.com
-Date: Fri, 04 Sep 2026 10:52:11 +0200
-In-Reply-To: <20260904081149.3000727-1-ranhongyun1@huawei.com>
-References: 
-	<ec92458ea357ec503c737ead0f10b2c6e4c37d47.1752581388.git.namcao@linutronix.de>
-	 <20260904081149.3000727-1-ranhongyun1@huawei.com>
+	dkim=pass (2048-bit key) header.d=sverdlin.org header.i=@sverdlin.org header.b="h1nUhaHm";
+	dkim=pass (2048-bit key) header.d=purelymail.com header.i=@purelymail.com header.b="jXEHfK9m"
+DKIM-Signature: a=rsa-sha256; b=h1nUhaHmLcUC13QVRatY8aW2KFKsbo4ZAKoP63Aol8lhQ4ni66yCkCVvWZSjMQGOKvKP2ueutvCKvij8TPVtzZkpq6CM7kfWz2QawLnc9ncjFXAZHau2bIU4XlRknxoeWdjhae2UwrZ7ma/8CS2p6v3PN+LyHMI26o3PFyYpTABysj5DcqGKIV8stV/kcM2ixVHdMKT/IP4HS2tCKfw+1eTAsrRJkjsj6/mqIOploiGtzPiYiAckt5GFNkoT8m4IJOYpy94w7wycGgoddffMyOnUXceTLQHSja3Alotzb3bsmzAN6YgEn/3dCQmsWvXobM9fywPkPwO2yYiQ0LSTkA==; s=purelymail3; d=sverdlin.org; v=1; bh=HnB0lAGCE0d3Btp4LE6O95A8lBaMPULi091taEQF07k=; h=Received:Subject:From:To:Date;
+DKIM-Signature: a=rsa-sha256; b=jXEHfK9msW0SOHZ407cTQuPKxyHMYl4OG9f7+unJWGgxxOHjqMkVBkRNO83+/d/LNMBaVRT/pKmHlk+yWLPfzbWC+EZAbrJTwGwu2tTigIkxaoUezBt2bwx9pOhfPzLh3pThRCKXb3kPj/ufGpGrJUPEGV8sIrDUU8FVPgRo4YepKLjHexg/7XaOvNPS/Sj4LqK7pLmNvYgTIwjht9ztT1DvAonajxAoEwxb5Q+j22Fu8UXYkTjaB72+vQ+lsqCOVKvojhNDbqB4wkQmas6Kjhvs8FYLIG2BNXNul2zrumlndnK5I6AgjrCD3D56KolMpZeVZvUuXdG6d9X1a+T9/g==; s=purelymail3; d=purelymail.com; v=1; bh=HnB0lAGCE0d3Btp4LE6O95A8lBaMPULi091taEQF07k=; h=Feedback-ID:Received:Subject:From:To:Date;
+Feedback-ID: 815097:39668:null:purelymail
+X-Pm-Original-To: linux-kernel@vger.kernel.org
+Received: by smtp.purelymail.com (Purelymail SMTP) with ESMTPSA id -1817499062;
+          (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384);
+          Fri, 04 Sep 2026 08:52:42 +0000 (UTC)
+Message-ID: <a940ff02c74b190f566871ea7274aa7520551b59.camel@sverdlin.org>
+Subject: Re: [PATCH net-next 14/33] net: dsa: mxl-gsw1xx: Remove comma after
+ sentinel-entry in match-table
+From: Alexander Sverdlin <alex@sverdlin.org>
+To: Siddharth Vadapalli <s-vadapalli@ti.com>
+Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+Date: Fri, 04 Sep 2026 10:52:43 +0200
+In-Reply-To: <20260904043724.2955444-15-s-vadapalli@ti.com>
+References: <20260904043724.2955444-1-s-vadapalli@ti.com>
+	 <20260904043724.2955444-15-s-vadapalli@ti.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Flowmailer-Platform: Siemens
-Feedback-ID: 519:519-68982:519-21489:flowmailer
 
-On Fri, 2026-09-04 at 16:11 +0800, Ran Hongyun wrote:
-> The commit eb0d280c2751 ("eventpoll: Replace rwlock with spinlock") aims =
-to fix:
+On Fri, 2026-09-04 at 10:06 +0530, Siddharth Vadapalli wrote:
+> Since sentinel is the last entry and we do not expect further entries
+> following it, remove the comma.
 >=20
-> 1.Priority inversion =E2=80=93 On PREEMPT_RT, rwlock_t readers lack prior=
-ity
-> inheritance (PI), so a low-priority reader holding the lock can be
-> preempted by a medium-priority task, blocking a high-priority writer
-> indefinitely.
+> Signed-off-by: Siddharth Vadapalli <s-vadapalli@ti.com>
+
+Reviewed-by: Alexander Sverdlin <alex@sverdlin.org>
+
+> ---
+> =C2=A0drivers/net/dsa/lantiq/mxl-gsw1xx.c | 2 +-
+> =C2=A01 file changed, 1 insertion(+), 1 deletion(-)
 >=20
-> 2.Stall =E2=80=93 A reader (p_read) holding the lock can be throttled by =
-CFS
-> bandwidth control and scheduled out. A writer (p_write) blocks waiting
-> for the lock, and a timer thread (ktimers/n) needed to replenish p_read's
-> runtime is blocked due to writer-fairness (286deb7ec03d). This forms a
-> circular dependency and stalls the system.
->=20
-> Are these issues PREEMPT_RT-specific?=20
-
-No, but it's way more critical on PREEMPT_RT. !RT systems will see a
-"performance" or "throughput" drop but not a critical system stall.
-
->=20
-> Any clarification would be appreciated.
-
-2. was addressed in 6.18 by deferring the throttling to the place where
-a task exits to user mode. See [1] for further reference.
-
-[1] was not backported to older (stable) kernels but the commit you
-referenced at the top was, so the 2. problem is gone there was well.
-
-HTH,
-Florian
-
-
-[1] https://lore.kernel.org/all/20250829081120.806-1-ziqianlu@bytedance.com=
-/
+> diff --git a/drivers/net/dsa/lantiq/mxl-gsw1xx.c b/drivers/net/dsa/lantiq=
+/mxl-gsw1xx.c
+> index a1104b2f92a9..347e16e9fdc1 100644
+> --- a/drivers/net/dsa/lantiq/mxl-gsw1xx.c
+> +++ b/drivers/net/dsa/lantiq/mxl-gsw1xx.c
+> @@ -918,7 +918,7 @@ static const struct of_device_id gsw1xx_of_match[] =
+=3D {
+> =C2=A0	{ .compatible =3D "maxlinear,gsw140", .data =3D &gsw140_data },
+> =C2=A0	{ .compatible =3D "maxlinear,gsw141", .data =3D &gsw141_data },
+> =C2=A0	{ .compatible =3D "maxlinear,gsw145", .data =3D &gsw140_data },
+> -	{ /* sentinel */ },
+> +	{ /* sentinel */ }
+> =C2=A0};
+> =C2=A0
+> =C2=A0MODULE_DEVICE_TABLE(of, gsw1xx_of_match);
