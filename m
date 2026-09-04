@@ -1,100 +1,85 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail.antaris-organics.com (mail.antaris-organics.com [91.227.220.155])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 577263D7D77;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FD9E4A4820;
 	Fri,  4 Sep 2026 16:13:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.227.220.155
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788538398; cv=none; b=JkiA+bBe3xqtMT57wCvVdXFaqnnhXPcZ9aFLWdUipwStXf6AEeM2dbIoufBOo3b9eKaX8j505dTWDll7BLinzqPfJUEaU3QrvcJE89wmJOyLSeJn4yl06VfBnxsHbot4RFjL+u4yIzQLg95L5sRr3iTU5oEJZv6VlXg6oo6bN4o=
+	t=1788538400; cv=none; b=pmj28qksOcU9eY9gD+p7yb3/52ARu4oLO8wwdSvnzG8dpINZda9HVicDv7gBwvfHcVO16XgKRYT71ZKLd6WPEwOPoQQKCZJNZ905NSy0Oybgl3mkcKdfEiasCTULgr+h1gcw7mV1GW6VYqB/oe/i6vw9FHUxBpO7opQesMTbbe8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788538398; c=relaxed/simple;
-	bh=ORW0jeXF7DivaNyp85fhot+P8digT8+Mnkpp7M81Vj4=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=kyzLg9jtLBK4eQslu6ZzX9l5Iv8W8Csl8cf3twANZDRmd8+uzYBQ/PoGcjiVJ5rxoNYRmtgOaAPP2hN3U3XdZdlykiT5gXPkOcOAr515xMPM35QVf2siIH5l11vCPpkiEcysQXeR+I0GI330VCHTbMXbwPZu9dYxxs2Xt3RBnU8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fioImzMR; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788538400; c=relaxed/simple;
+	bh=7wax91PjJACmW28ez9e3dLujnfKSU2M/a1BbqJHTAXw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=CLj6tvwR0wrXS64OnEzoYFr30cEXMZAR8DisKd8sH5FCGv3saMHntbdbZ4Lk+6X4MbKEeHwhdVyphin7ozW3Hak0XB3HrH4Oq9ynaeFNaY2CBu/dczBlMGQVdfcmcKDbZnjBUlnZ7tILO9qPw/fE9g48gZCA6Am3jPIyejeelVM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mareichelt.com; spf=pass smtp.mailfrom=mareichelt.com; dkim=pass (2048-bit key) header.d=mareichelt.com header.i=@mareichelt.com header.b=Y80v6Rfg; arc=none smtp.client-ip=91.227.220.155
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mareichelt.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mareichelt.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fioImzMR"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5BC331F00A3D;
-	Fri,  4 Sep 2026 16:13:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788538397;
-	bh=Saa7M/Fy4UdAFhW71iWxRHBrw+6UzNQHW18GjlQQlsA=;
-	h=From:Subject:Date:To:Cc;
-	b=fioImzMRmgwhrIhomSuvPRx/j3rchsPCR0gxuolX7tZPaVhvR5d5r0TsPhnZ562Lg
-	 90Ot6mIj4u6tWuoxcV0OORBVQQ2Yg46EGDsdg0N+SKFWxfnqm/RC1/HcaTpHEHFeal
-	 3+XQpAvR6sjcC9i6vIHaMG4M9IOj1Bjd48HHj+uknFGeffs/4vfquIIK40PrYcDfUG
-	 iHgl+Ah8X1e+8PSio6TkMNip0f948Bt12XiJzVUF9Ary7ZH0u6+j522G85fTfMY1+H
-	 VVx8UsRofLK5AO16AtWtdu/3nHTKF0kaVU39iNrQPSRcpJ1VNgngmps1evcjk8Wx2H
-	 NM/mrHWxQnQVA==
-From: "Matthieu Baerts (NGI0)" <matttbe@kernel.org>
-Subject: [PATCH net 0/2] selftests: net: use KHDR_INCLUDES in CFLAGS
-Date: Fri, 04 Sep 2026 18:13:01 +0200
-Message-Id: <20260904-net-sft-nf-khdr_includes-v1-0-92455af428e9@kernel.org>
+	dkim=pass (2048-bit key) header.d=mareichelt.com header.i=@mareichelt.com header.b="Y80v6Rfg"
+Date: Fri, 4 Sep 2026 18:08:47 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mareichelt.com;
+	s=202107; t=1788538127;
+	bh=BMEdU4HNPxLCeXdfFWy3Qca+VO28jVmh0hOtRs2kQX0=;
+	h=Date:From:To:Cc:Subject:Message-ID:Mail-Followup-To:References:
+	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To:date:
+	 author:from:to:subject:message-id:in-reply-to:references:
+	 mail-followup-to:openpgp:mime-version:content-type:
+	 content-transfer-encoding:author:from:subject:date:to:cc:
+	 resent-author:resent-date:resent-from:resent-sender:resent-to:
+	 resent-cc:resent-reply-to:resent-message-id:in-reply-to:references:
+	 mime-version:content-type:content-transfer-encoding:
+	 content-disposition:content-id:content-description:message-id:
+	 mail-followup-to:openpgp;
+	b=Y80v6RfgjoZq91x5/8mUxZ7tDsTBtwh/zzroiYXyHUOHxuwtM/7UjDfuTcSZeDpPE
+	 VvCMiRe8zn9+GnhH5XgqwZmCgBjAfVzNF4G96pNxVw4Y0xQCimZaK7VkFn8/ZFUQ5E
+	 yko01MNiDrG7TJ8ac7vlETvgNrUQvmTTf1f5iBGxdgLIzs7mNO1aBDzb5DdDxbMfGe
+	 rjjooQRRInznmtATlB6FRm7yeX4Z2JZvDm45SZgn+J1f8BgwqSD8VGG49we0iOeimU
+	 F/L0kn3G1KKF6N+SzRlVmPLMO7mdKj1lwfmDmjY/2mDERNsyKoHAyjtZSxR30JTdQn
+	 dUGHIqjHhL4SQ==
+From: Markus Reichelt <lkt+2023@mareichelt.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: stable@vger.kernel.org, patches@lists.linux.dev,
+	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org,
+	akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org,
+	patches@kernelci.org, lkft-triage@lists.linaro.org,
+	pavel@nabladev.com, jonathanh@nvidia.com, f.fainelli@gmail.com,
+	sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
+	hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
+	sr@sladewatkins.com
+Subject: Re: [PATCH 7.2 000/713] 7.2.4-rc1 review
+Message-ID: <20260904160847.GA2693@pc21.mareichelt.com>
+Mail-Followup-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	stable@vger.kernel.org, patches@lists.linux.dev,
+	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org,
+	akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org,
+	patches@kernelci.org, lkft-triage@lists.linaro.org,
+	pavel@nabladev.com, jonathanh@nvidia.com, f.fainelli@gmail.com,
+	sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
+	hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
+	sr@sladewatkins.com
+References: <20260904045803.810145556@linuxfoundation.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWM0QrCMAwAf2Xk2UA7R4f+ioh0bbpFJUrTiTD27
- 9bt8Q7uFlDKTArnZoFMH1Z+SQV7aCBMXkZCjpWhNa0zJ9OhUEFNBSXhY4r5xhKecyRF03vvBmd
- td4xQ83emxN9tfYFawXWXOg93CuU/hXX9ASF6y9aBAAAA
-X-Change-ID: 20260904-net-sft-nf-khdr_includes-07aa6b61143d
-To: Pablo Neira Ayuso <pablo@netfilter.org>, 
- Florian Westphal <fw@strlen.de>, Phil Sutter <phil@nwl.cc>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- Simon Horman <horms@kernel.org>, Shuah Khan <shuah@kernel.org>, 
- David Ahern <dsahern@kernel.org>, Ido Schimmel <idosch@nvidia.com>
-Cc: Ilya Maximets <i.maximets@ovn.org>, netfilter-devel@vger.kernel.org, 
- coreteam@netfilter.org, netdev@vger.kernel.org, 
- linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org, 
- "Matthieu Baerts (NGI0)" <matttbe@kernel.org>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1547; i=matttbe@kernel.org;
- h=from:subject:message-id; bh=ORW0jeXF7DivaNyp85fhot+P8digT8+Mnkpp7M81Vj4=;
- b=owGbwMvMwCVWo/Th0Gd3rumMp9WSGLJmvZMQMks8ecXzbnVXaWL75APmLqtfHRPMZVZZI7Glc
- fLj1FeyHaUsDGJcDLJiiizSbZH5M59X8ZZ4+VnAzGFlAhnCwMUpABN5nsjw33fF0ccnt025d+Xx
- 9OI/H3xlH69d43TvdpahkkPNxLdBE24yMrT9d/JrXetjsPQzz5Ubhc+ETeabdxYWHtrnLRjxn33
- OKTYA
-X-Developer-Key: i=matttbe@kernel.org; a=openpgp;
- fpr=E8CB85F76877057A6E27F77AF6B7824F4269A073
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260904045803.810145556@linuxfoundation.org>
 
-KHDR_INCLUDES is typically used to include headers from the kernel
-source directory instead of only relying on the ones from the host: they
-can be missing or outdated. See the issue reported in [1] where users
-have to set USERCFLAGS instead, which shouldn't be needed.
+* Greg Kroah-Hartman <gregkh@linuxfoundation.org> wrote:
 
-The kselftest doc [2] recommends assigning KHDR_INCLUDES to CFLAGS in a
-target Makefile. lib.mk will set KHDR_INCLUDES to "-isystem
-$(top_srcdir)/usr/include" if the user didn't set it, e.g. if the kernel
-was built in a different build directory.
+> This is the start of the stable review cycle for the 7.2.4 release.
+> There are 713 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+> 
+> Responses should be made by Sun, 06 Sep 2026 04:56:59 +0000.
+> Anything received after that time might be too late.
 
-Other net targets have KHDR_INCLUDES added to their CFLAGS.
+7.2.4-rc1 compiles on x86_64 (Xeon E5-1620 v2, Slackware64-15.0),
+and boots & runs on x86_64 (AMD Ryzen 5 7520U, Slackware64-current).
+No regressions observed during boot & my custom tests.
 
-Link: https://lore.kernel.org/275ba183-49fd-45b1-881d-0f362b4c74c0@ovn.org [1]
-Link: https://docs.kernel.org/dev-tools/kselftest.html#contributing-new-tests-details [2]
-Signed-off-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
----
-Note: this series is targeting net to help CI and devs validating Linus
-tree or the stable ones. These are not critical fixes for the kernel,
-but still useful for the tests. If preferred, the series can be applied
-on net-next.
-
----
-Matthieu Baerts (NGI0) (2):
-      selftests: netfilter: use KHDR_INCLUDES in CFLAGS
-      selftests: forwarding: use KHDR_INCLUDES in CFLAGS
-
- tools/testing/selftests/net/forwarding/Makefile | 2 ++
- tools/testing/selftests/net/netfilter/Makefile  | 2 ++
- 2 files changed, 4 insertions(+)
----
-base-commit: 641d03105cc0d2437e32fdeec164f91a4ccef6c4
-change-id: 20260904-net-sft-nf-khdr_includes-07aa6b61143d
-
-Best regards,
---  
-Matthieu Baerts (NGI0) <matttbe@kernel.org>
-
+Tested-by: Markus Reichelt <lkt+2023@mareichelt.com>
