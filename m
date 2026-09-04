@@ -1,87 +1,107 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F107483807;
-	Fri,  4 Sep 2026 13:20:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 850CD42D757;
+	Fri,  4 Sep 2026 13:21:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788528043; cv=none; b=HGxN08Ok3tRJ+haipuVAzYXTh2LtmTcbB0Njr3ZyiyEZxXIlMhnZQSLqWoHO1AdcXfFPvGx3oy6H5eBcMTqHwnvfiiXn0y2H4xmQ5cZatbvjzfmb+fucO3bK5sdDQMKG4d9RZXvaXnb3gHNU+mIOJiaEUxv9y9W0ELaJK/HwjH8=
+	t=1788528065; cv=none; b=Aq7zTDe6o1+zKv7L6lwSQsI0lD4rMmU9wKBDnmTHwM7TI3eEJJ11WPzIEtW8OzOOKBwW5cbm7gHb6Y5CXhnuWK1EMfNiQTqSLBTFhYwUnZ0Z65ULwmATj5yKXOO6Lkw/3j/dxNJUWssSVKa2j2tLfK5iBR27vsCUQvXT0ppmtPU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788528043; c=relaxed/simple;
-	bh=JgsVJkkuUNsIQvTAAtDOAZoHx7waSpZu3hYvA5Sl09s=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=fg0YAqwlR+7fymhhdiXzTKa+dXUamYliqjLIRJUQ7w9DQQb8LCdG4MdNwaQzM2crihvgmFMTKEOlLIM+YoSM4Ww13uPCgJk3mjd7v9bjMc/3a6oa94qv/xOoiJ+EAscc4BsU3CyrnErQIV6SvhpMNfwIM9BkukktRF9tFUIg7cI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=B2PJYSCX; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788528065; c=relaxed/simple;
+	bh=qYlbXxCESLnKTi15PNafXzFG9I32g8umk7IEaNs3F3E=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=czcpRzPc31EXlrQVFIX/iWNA8fdP7xA9Y1EVQnJaIDTKW9day/ouyG9aY76a/09uIyASE1aP1U6RooYlrM/RZRZc2DEfuoBo8A2rjBmG6RfYZHKP4YCneIrhntd0tRWYbJMKgLW2yJLilKL6WIIU910iuUCiiiKs05BXTucQQEw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UxHEGf5/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="B2PJYSCX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5AA3E1F00A3D;
-	Fri,  4 Sep 2026 13:20:36 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UxHEGf5/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ED7AD1F00A3D;
+	Fri,  4 Sep 2026 13:21:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788528037;
-	bh=hgNMv2NMaBRn192MXktM2p886ZVWCVbNLII+lS9uSEI=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=B2PJYSCXyONed+eHGO8p2FM1WjRzlc0A9jf7Sdl+LEfO8nigoleWGXilcLEERRwXW
-	 e1OAmzmGRB4cZ9Jj5Ms6iwBn0o6PgGfJuXZTiWwjRLT7m0tV4w9ucWb9yzsxJvF7rl
-	 NLGOJWAOFJyvS/7ndMbJUosJzmflczp3tx4ilzPhfiKRP+Qolb4HqkAZpCgDZaFety
-	 KMvJtABYHiv8xJRGv2i+nX3uNlLz7Dv5oDniZ2nM+nkISmG3cAhN19qXoFwJ6HjNbD
-	 Mf9h6SXv0CK4alBagmCUg923o1h//pvEWisiD+kE5cMLggBSgPdBshYHbQtEwrJ5v9
-	 d42FWG7Nd2iLA==
-From: Sudeep Holla <sudeep.holla@kernel.org>
-To: arm-scmi@vger.kernel.org,
-	Xixin Liu <liuxixin@kylinos.cn>
-Cc: Sudeep Holla <sudeep.holla@kernel.org>,
-	cristian.marussi@arm.com,
-	mturquette@baylibre.com,
-	sboyd@kernel.org,
+	s=k20260515; t=1788528061;
+	bh=Lv/0JtR0FodYX+QBu/pIWvc7PlCw0OO+KIN2P0yniD8=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=UxHEGf5/vmUuVHamJ+CpV7i097/cbhGNzN8V3KtbBVSxZepixnY3TDFYXTccIFaE5
+	 Aa5GKvNRW+oawEo8iGOtKIDZLUKKjESayIKzn2sCUrbvFsplJyNmCWWB5FpfeeWc3w
+	 QgJSMamU31vlFvqymOkgZlPYHFSdmf2H10S/j/trwRpsVLNW+oC6ZI65+N7npM3WOU
+	 PqsbN5XJyrasw5jjaO9Ig7aoY7BKu2ZTMvrIr6bum5u891PnguYSMkYmjf2lSSrvdg
+	 2qzyk5wAbbv/3joPXvkPsX5MwLUOStlCAUFSDCJFDC5wsAIz56vZQFBrmQsZaUVTQV
+	 lIQ8TUUAtPRHQ==
+Received: from sofa.misterjones.org ([185.219.108.64] helo=lobster-girl.misterjones.org)
+	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.98.2)
+	(envelope-from <maz@kernel.org>)
+	id 1x2Tqk-00000004rhC-1x7s;
+	Fri, 04 Sep 2026 13:20:58 +0000
+Date: Fri, 04 Sep 2026 14:23:32 +0100
+Message-ID: <87y0dh40bv.wl-maz@kernel.org>
+From: Marc Zyngier <maz@kernel.org>
+To: Mark Brown <broonie@kernel.org>
+Cc: Will Deacon <will@kernel.org>,
+	Oliver Upton <oupton@kernel.org>,
+	Fuad Tabba <fuad.tabba@linux.dev>,
+	Joey Gouly <joey.gouly@arm.com>,
+	Steffen Eiden <seiden@linux.ibm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Zenghui Yu <yuzenghui@huawei.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Mark Rutland <mark.rutland@arm.com>,
 	linux-arm-kernel@lists.infradead.org,
-	linux-clk@vger.kernel.org,
+	kvmarm@lists.linux.dev,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 0/5] firmware/clk: arm_scpi hardening (leak, OPP bounds, cpufreq)
-Date: Fri,  4 Sep 2026 14:20:31 +0100
-Message-ID: <178852798387.330796.10489318614485340307.b4-ty@b4>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <cover.v2.1785200642.git.liuxixin@kylinos.cn>
-References: <cover.v2.1785200642.git.liuxixin@kylinos.cn>
+Subject: Re: [PATCH 2/2] KVM: arm64: Enable S1PIE for nVHE and hVHE
+In-Reply-To: <05f1e2f4-173a-4226-8c98-1452c20f0a47@sirena.org.uk>
+References: <20260904-kvm-arm64-nvhe-pie-v1-0-29d59f245e6c@kernel.org>
+	<20260904-kvm-arm64-nvhe-pie-v1-2-29d59f245e6c@kernel.org>
+	<86pkyt4gvt.wl-maz@kernel.org>
+	<eb788ad5-5bb3-4767-87b8-d35d9e3ab220@sirena.org.uk>
+	<apqrky27mJmUV9UA@willie-the-truck>
+	<05f1e2f4-173a-4226-8c98-1452c20f0a47@sirena.org.uk>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
+ FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
+ (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-SA-Exim-Connect-IP: 185.219.108.64
+X-SA-Exim-Rcpt-To: broonie@kernel.org, will@kernel.org, oupton@kernel.org, fuad.tabba@linux.dev, joey.gouly@arm.com, seiden@linux.ibm.com, suzuki.poulose@arm.com, yuzenghui@huawei.com, catalin.marinas@arm.com, mark.rutland@arm.com, linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev, linux-kernel@vger.kernel.org
+X-SA-Exim-Mail-From: maz@kernel.org
+X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
 
-On Tue, 28 Jul 2026 09:04:02 +0800, Xixin Liu wrote:
-> Thanks for reviewing v1.
+On Fri, 04 Sep 2026 12:48:14 +0100,
+Mark Brown <broonie@kernel.org> wrote:
 > 
-> This v2 hardens the OF SCPI firmware and clock paths against a few
-> real defects found while reviewing linux-next:
+> On Fri, Sep 04, 2026 at 12:29:23PM +0100, Will Deacon wrote:
+> > On Fri, Sep 04, 2026 at 11:33:24AM +0100, Mark Brown wrote:
 > 
->   1) device_node leak in scpi_dev_domain_id() after
->      of_parse_phandle_with_args()
->   2) DVFS OPP count from SCP trusted beyond MAX_DVFS_OPPS (OOB read /
->      bad OPP table size)
->   3) DVFS index used as clock rate without an upper bound check
->   4) scpi-cpufreq registered once only, and cleared on register failure
->      so remove() does not unregister an ERR_PTR
->   5) use PLATFORM_DEVID_NONE instead of bare -1 for the scpi-cpufreq
->      platform device id (readability; Fixes the original registration)
+> > > What about pKVM, my understanding was that that is very much an ongoing
+> > > concern and uses the nVHE hypervisor?  My expectation was that this
+> > > would only ever get used in hVHE configurations when people enable pKVM
+> > > on modern hardware, actual nVHE mode was mostly just carried along with
+> > > that.
 > 
-> [...]
+> > pKVM uses hVHE wherever it can nowadays, so I'm fine with only supporting
+> > S1PIE on hVHE and VHE configurations if that's easier to maintain. We
+> > just need to make sure that the failure mode for nVHE results in the
+> > feature being gracefully disabled, rather than e.g. crashing or quietly
+> > doing the wrong thing.
+> 
+> I figure that if we're supporting hVHE it will end up less complicated
+> to also enable nVHE, it reduces the potential for having bad or missing
+> fallback paths for features downstream of S1POE.  It's not like it's a
+> huge extra bit of code and it seems likely to save hassle down the line.
 
-Applied to sudeep.holla/linux (for-next/scmi/fixes), thanks!
+It's not about the code size. it's about the code being *dead*. Nobody
+is going to maintain this configuration, because this is a silly one.
 
-[1/5] firmware: arm_scpi: fix device_node leak in scpi_dev_domain_id
-      https://git.kernel.org/sudeep.holla/c/65320b642025
-[2/5] firmware: arm_scpi: reject DVFS OPP count above MAX_DVFS_OPPS
-      https://git.kernel.org/sudeep.holla/c/32471d84a487
-[3/5] clk: scpi: bound-check DVFS index in scpi_dvfs_recalc_rate
-      https://git.kernel.org/sudeep.holla/c/70f4b78d560e
-[4/5] clk: scpi: register scpi-cpufreq once and clear on failure
-      https://git.kernel.org/sudeep.holla/c/ab06cf8152da
-[5/5] clk: scpi: use PLATFORM_DEVID_NONE for scpi-cpufreq
-      https://git.kernel.org/sudeep.holla/c/86d923a882f4
+KVM with E2H==0 has reached its architectural peak years ago. We're
+not adding anything to it anymore, and all new architectural bits
+require running with E2H==1.
+
+	M.
+
 -- 
-Regards,
-Sudeep
-
+Jazz isn't dead. It just smells funny.
