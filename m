@@ -1,175 +1,149 @@
-Received: from out30-101.freemail.mail.aliyun.com (out30-101.freemail.mail.aliyun.com [115.124.30.101])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1D864457CF
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 09:58:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2ECD93603D7
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 09:58:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788515912; cv=none; b=dT8eokEwpnDi/VbS1psRpS7el9dCMOmoAba4+b7ryNKPt2XQTHSPb9xjAM2xkmA6Q9vNzz/trMu/xeYbcTdVSuJkBTRHKTEtdDyrChHLtEJIkKp2gADAr4fV01wgv70cElmWqHv5JZ9BSQ9NjpPZ+GwkuzLaLTrCkhGD7tVv2+A=
+	t=1788515931; cv=none; b=NDLjwot09mISiRsmftw/Yk137EbM7mdwEiYSfNPkLwbgzvog0+KqzSHmS96a4EIyLKjV5o2y87rD8G5fT9p7p1AA3w+WzfYsn2BZPX7bKDL2INt4f1ZacdJE1nqqkNxeRjGUjqnncrXn5wvYqBS/qAgX4I6fEkybNdyIb+IfR0g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788515912; c=relaxed/simple;
-	bh=b/7ox1qHVpfTiJId5Ik9DmFYK53QC3NjIIZU5pQ4xx4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=N+B0ip0+o1NhcadhMyAqGviG21D5h6k+3Ig4iECCllTV8wD7zrjkJWP5DAVHac8+WbD8T+CqZAO4shDRypHc51xJX9CsXW/3ALbbCpmvLnJ/WIw0w1AmmWpYFd/QkkC9kXWkbrpZPrj/cIInKVmgWH8SaPNRFaI3TGyps+Du2Ws=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=RiJtYGNv; arc=none smtp.client-ip=115.124.30.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	s=arc-20240116; t=1788515931; c=relaxed/simple;
+	bh=RZQOYcB2jiyDS2LXspF4SSZXkopk8ECCnx7tcJS2WBk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=TwZO0RxPxhITR6/8fZ3i4nnCyHvTACIjQesg8vgaC+DpKPm7tm3lQXQWieoLJUbkRujmccEMJAhmwv8IIX5NmcLEJ4G48lOf8wwYFiPv/TNumIgU5Vb6WUFo6RDLxn59dY+MtFi++uEmkHVOPKI99iiFXU5etpjpPlSmlaH2naI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=WP/Rvuk5; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=VU8GmYG2; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="RiJtYGNv"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1788515901; h=Date:From:To:Subject:Message-ID:MIME-Version:Content-Type;
-	bh=YMXNyqxxAHPj5mHagYpPD2DOChjfDsBWFwDX5331fZs=;
-	b=RiJtYGNvG6kUqPUq89SlZbHk7ixYkZP9wKQWPYTL7V514b/8HBKvEp7IoYsYOx5uYOgxjSyeNgNQqgg7X07ShGf7V7hY6GIeeo2hbB+3dHEdXaQrI6slzFAtQexM+8V7MgCQgNgRomTMovgliIspaNU41HIzRl9sMFgFwcbV9gE=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R431e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam011083073210;MF=yaoyuan@linux.alibaba.com;NM=1;PH=DS;RN=18;SR=0;TI=SMTPD_---0XAIV0Lb_1788515898;
-Received: from localhost(mailfrom:yaoyuan@linux.alibaba.com fp:SMTPD_---0XAIV0Lb_1788515898 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Fri, 04 Sep 2026 17:58:19 +0800
-Date: Fri, 4 Sep 2026 17:58:18 +0800
-From: Yao Yuan <yaoyuan@linux.alibaba.com>
-To: Fuad Tabba <fuad.tabba@linux.dev>
-Cc: Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, 
-	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, James Morse <james.morse@arm.com>, 
-	Ben Horgan <ben.horgan@arm.com>, Xi Ruoyao <xry111@xry111.site>, 
-	Mark Rutland <mark.rutland@arm.com>, Joey Gouly <joey.gouly@arm.com>, 
-	Suzuki K Poulose <suzuki.poulose@arm.com>, Zenghui Yu <yuzenghui@huawei.com>, 
-	Steffen Eiden <seiden@linux.ibm.com>, Gavin Shan <gshan@redhat.com>, Fuad Tabba <tabba@google.com>, 
-	linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] KVM: arm64: Trap guest MPAM accesses whenever MPAM is
- implemented
-Message-ID: <xmhaptfcp2gyoovgus35yhx2uloe2zt3zniwscd2dwnatf2fii@jqobvjdmkqed>
-References: <20260903160819.831518-1-fuad.tabba@linux.dev>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="WP/Rvuk5";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="VU8GmYG2"
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6847nE4k2352425
+	for <linux-kernel@vger.kernel.org>; Fri, 4 Sep 2026 09:58:49 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	RqAuchompu3l6D1ZozbSUxqS4M5NQnoxNVQJa4gwHNc=; b=WP/Rvuk5si27fCdX
+	TbcfRpWjVbcDEv9gjtvk/TIZDS15BYTju2ehorhc6zlNx6aPTmFUGCBkyJJH5zgS
+	Sr4nwBY//P6buJ/BlyOzc3xaEjmloKOhHd+sT3hiPyy+AfCL47tcAFKS1qHlOIXi
+	tehsv/3w9b63NCc2qEX7JIAZ1R+ECmTk/NbhyL3FF491HwcXar3AhUSclMOYNCPa
+	NfhkCmiIScgCxUJyUl+NJWTLN58bVbZ+lEkPKUWMhFAI/ulTWQbC4tlOxVKms7kw
+	+uHWpRPKMh1Pijf9yyfma7PLAMTk5PYOfqueCSJZFv27pg23Fd2V9AsthO+swzvm
+	je6Nbg==
+Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com [209.85.160.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gfp1fh6d6-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 09:58:49 +0000 (GMT)
+Received: by mail-qt1-f198.google.com with SMTP id d75a77b69052e-52ea38b1e7eso2100811cf.3
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 02:58:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1788515928; x=1789120728; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=RqAuchompu3l6D1ZozbSUxqS4M5NQnoxNVQJa4gwHNc=;
+        b=VU8GmYG25SOrFa+ObUDtJJsKkelQbfipgzxFEuzfoA5APtSiaNLBfKZIMOhOUitKat
+         RAvjTqsKsj5PywhEho6G4zbZfJaH8tyt+SamfOLeUoABjKXCaJvpX6ZSaiOmdG92xFPj
+         fbHTmVmj8lJa3WphIzdLYPEFmuN1rc10CshiGqIny3jd1yKQebjRiMnwUKJcsmlfbaky
+         OrGYPDrxZCF373C69GSlS7cKyQNMZyn1LytSFvrmzJsKcS8jOtNxhU3vS1sjSF8Llrz4
+         gZmAozGJI2+QSZuzvxMkJHT8ELcqgx+JspiwI0Q/1LhTQq/lP5GWmM12O1fRBMRBhO8r
+         DUzA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788515928; x=1789120728;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=RqAuchompu3l6D1ZozbSUxqS4M5NQnoxNVQJa4gwHNc=;
+        b=A4mxfkFEtAJ19mp7+85DLpzGGGyVawShJbJUBVC8dGNqp0cRBA0AbhW5LduFlGxLTZ
+         +TtIW77YlA/hXJtXZiMP4Mjr1Cw+wT1xxCLUfzHTq+j6pg/L4LBEubQHhLBHn/K/Ubof
+         bmrylRFJurof+XxVed3GrT20f554GFonzEUjn/FxDHfY4tigx5lswxrSMqgf9Tkf03ts
+         FK3gSBLlsuSRPlBuVYYwwcghfea/aO0y49DFkiBcqhj0WyyM+1dALRarRBbqQXxyTHU4
+         D2E4Z9PeRcfBUklfBXXlTYiDD9aWPS8rxuKjjHGu42K4RU4ONqgZYeB10V6hphRvjsSW
+         Wbgw==
+X-Forwarded-Encrypted: i=1; AKwUvBywvM2nXzdSTzdmRkh9dhj3cIDQkx3qDE7ejYtuddaSYoaGpIk2/W83gedhVVC70LG+IrsF+bgiL0mKQOs=@vger.kernel.org
+X-Gm-Message-State: AFuF++l+ysIrHkUQ2fc7Xr6kIVu1PlKWYc2PkMBsuh6FYkPHANftcBRn
+	1tY+wI9JohwrOG3ucaGXqV3820WJUCDiixz81+QpRWyojJhYo5P/5bJTrPPC4lK9++WD1W2uXen
+	yPyy+pDKLqUvMbFCA9NSok31VPT7193njc1xsd2ELK2IZ/eV3gXW5tqKfzGo9EvgKrpQ=
+X-Gm-Gg: AYBFou0f00b0TLjFxnDrokbcq2259sF+bR7vDkMMD+VHp6y+s59IBbySvtA3MW+X8Pn
+	RCrNgN3jBPJnyEDMZD8l9XXxDjFPxLUi6Tdu3y8CKxCb35/l9I+T7tou3vDePMNseS6ggwIRyUF
+	94gIw5Nct0mZjk3Vf4yi+U4ISX+sjX/4AbZOYHwXb9Ln9mo2yTcCmTPNmXY31JUoT8Mk3HfR7kb
+	JUx3fL1M7opqYFyPw+Bt9ZNpU0dXbRoqHU0hbt1a8AhABMX5h+iRyh/QRIYi5Iik5qXm4m5294F
+	fiJ+EW9ugbuJpBoutAjPw7lJdqdYP2XTSpMU5RN5b3qQfCs32YqdYLPPo6M19aWPbBqYSnjsthH
+	dfxFqgGk9WZeAMQ+NwXn3aw==
+X-Received: by 2002:a05:620a:27c4:b0:939:5924:e319 with SMTP id af79cd13be357-939803ac3b9mr301876985a.0.1788515928468;
+        Fri, 04 Sep 2026 02:58:48 -0700 (PDT)
+X-Received: by 2002:a05:620a:27c4:b0:939:5924:e319 with SMTP id af79cd13be357-939803ac3b9mr301874685a.0.1788515928017;
+        Fri, 04 Sep 2026 02:58:48 -0700 (PDT)
+Received: from [192.168.202.12] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c260d4a98efsm84604766b.14.2026.09.04.02.58.45
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 04 Sep 2026 02:58:47 -0700 (PDT)
+Message-ID: <17067330-5c1c-46cb-a0b1-7e328820bce4@oss.qualcomm.com>
+Date: Fri, 4 Sep 2026 11:58:45 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260903160819.831518-1-fuad.tabba@linux.dev>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/6] arm64: dts: qcom: nord-rrd: Enable ADSP and CDSPs
+To: Shawn Guo <shengchao.guo@oss.qualcomm.com>,
+        Bjorn Andersson <andersson@kernel.org>
+Cc: Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        Bartosz Golaszewski <brgl@kernel.org>,
+        Dhruvin Rajpura <dhruvin.rajpura@oss.qualcomm.com>,
+        Anandu Krishnan E <anandu.e@oss.qualcomm.com>,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, Abel Vesa <abel.vesa@oss.qualcomm.com>
+References: <20260904081619.593602-1-shengchao.guo@oss.qualcomm.com>
+ <20260904081619.593602-3-shengchao.guo@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260904081619.593602-3-shengchao.guo@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Authority-Analysis: v=2.4 cv=F+xnsKhN c=1 sm=1 tr=0 ts=6a9a9659 cx=c_pps
+ a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
+ a=EUspDBNiAAAA:8 a=YHrH2t1qFSG2L-rfozMA:9 a=QEXdDO2ut3YA:10
+ a=dawVfQjAaf238kedN5IG:22
+X-Proofpoint-ORIG-GUID: KJiuSm6mqoQHIaw2otXCUfWA-VAnHEgu
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA0MDA4OSBTYWx0ZWRfX7p3ZKEi3QHGM
+ fi5yL8AcsXbrCj9B8p4IKEa3gEd8G1VCdJL+I6lU5AOC8gbkSxNEJmiX1QMLbXlyBC52Von2kjg
+ rWO5DCymvWyn6cdXd99zVmWn7UCb1Ww=
+X-Proofpoint-GUID: KJiuSm6mqoQHIaw2otXCUfWA-VAnHEgu
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA0MDA4OSBTYWx0ZWRfX159cpZLDx6RZ
+ Gw/goUzYPRngsfrTTjIiq3TM2STftiYdbs7qtRMsF0PE1gKDbjunbpvetmYz4KEF+SKMEodluWC
+ bNR65PFRnw70oMpfNcyoBJzoK/XuFNtMVmbJZ1HqTMIx/gz4ajp53Wd5DQsSDwkvdVacdyhWy82
+ vrDVxWCLq7QgJZTktbabIJ01rSwSFcAew6f19RK8gYsfgv26hoc3f7fLsJuf4LS2Kbf/JfgvU5K
+ tegJo47p/XbkVBxGz4ulMjwx9J9lonFUfQQ/UswCS7IXga/DpJZBfigcDp5N83mJi7fjiA0Mtdf
+ r4VxeMdqpL8tpoOcHVC70rwMYqQqm9wEsQMVrJH5UKkjiExgMQEXlNX6SALlGeBxcz+0umPwR4u
+ TxI0z3uDdPYqT86N5WUrpOZRpOQYJDSuxwk5LzyZL7HtAxkuP4bM52BxF2U9RXL9xfz7UMGV+uJ
+ 8JP3htDm28O5d9yySBg==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-04_02,2026-09-03_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 phishscore=0 adultscore=0 spamscore=0 suspectscore=0
+ lowpriorityscore=0 priorityscore=1501 malwarescore=0 impostorscore=0
+ bulkscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2609040089
 
-On Thu, Sep 03, 2026 at 05:08:19PM +0800, Fuad Tabba wrote:
-> finalise_el2_state() clears the EL2 MPAM traps whenever the ID registers
-> advertise MPAM, but KVM sets them only when ARM64_MPAM is set, which
-> also requires MPAMEN. Without EL3 the enable is EL2's own and nothing
-> sets it, so the cap stays off and a guest reaches the MPAM registers
-> while ID_AA64PFR0_EL1.MPAM reads 0 for it.
->
-> Gate the traps on the ID registers alone. MPAMEN is not a term in any
-> MPAM accessor, so they take effect without it. finalise_el2_state
-> already wrote MPAM2_EL2 under the same condition, so MPAM3_EL3.TRAPLOWER
-> is clear wherever the cap is set, and arm64.nompam still clears it.
->
-> Fixes: 31ff96c38ea3 ("KVM: arm64: Fix missing traps of guest accesses to the MPAM registers")
-> Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
+On 9/4/26 10:16 AM, Shawn Guo wrote:
+> Enable ADSP (HPASS DSP) and CDSPs remoteproc on the Nord RRD board.
+> 
+> Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+> Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
 > ---
-> Found this while working on the other MPAM thread [1].
->
-> [1] https://lore.kernel.org/all/CA+EHjTxeWxZiuSmnKLGLxTBXP4oJT7-LuffbPAyCSZZ5TW=5Ew@mail.gmail.com/
->
->  arch/arm64/include/asm/cpufeature.h     |  5 +++++
->  arch/arm64/kernel/cpufeature.c          | 13 +++++++++++++
->  arch/arm64/kvm/hyp/include/hyp/switch.h |  4 ++--
->  arch/arm64/tools/cpucaps                |  1 +
->  4 files changed, 21 insertions(+), 2 deletions(-)
->
-> diff --git a/arch/arm64/include/asm/cpufeature.h b/arch/arm64/include/asm/cpufeature.h
-> index 7404a6e83a930..8863ae99596bc 100644
-> --- a/arch/arm64/include/asm/cpufeature.h
-> +++ b/arch/arm64/include/asm/cpufeature.h
-> @@ -873,6 +873,11 @@ static __always_inline bool system_supports_mpam_hcr(void)
->  	return alternative_has_cap_unlikely(ARM64_MPAM_HCR);
->  }
->
-> +static __always_inline bool system_supports_mpam_sysregs(void)
-> +{
-> +	return alternative_has_cap_unlikely(ARM64_MPAM_SYSREGS);
-> +}
-> +
->  static inline bool system_supports_pmuv3(void)
->  {
->  	return cpus_have_final_cap(ARM64_HAS_PMUV3);
-> diff --git a/arch/arm64/kernel/cpufeature.c b/arch/arm64/kernel/cpufeature.c
-> index 17b83a2518a8f..36a27692e5cf7 100644
-> --- a/arch/arm64/kernel/cpufeature.c
-> +++ b/arch/arm64/kernel/cpufeature.c
-> @@ -2501,6 +2501,13 @@ test_has_mpam(const struct arm64_cpu_capabilities *entry, int scope)
->  	return (read_sysreg_s(SYS_MPAM1_EL1) & MPAM1_EL1_MPAMEN);
->  }
->
 
-Hi Tabba,
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-> +static bool
-> +test_has_mpam_sysregs(const struct arm64_cpu_capabilities *entry, int __unused)
-> +{
-> +	/* The registers exist whether or not firmware enabled MPAM. */
-> +	return detect_ftr_has_mpam();
-> +}
-
-My understanding: arm64.nompam affects detect_ftr_has_mpam(),
-thus when arm64.nompam = 1 w/ MPAM is supported in hardware,
-the KVM's trap setting is skipped yet, and it's possible that
-SYS_MPAM2_EL2 and SYS_MPAMHCR_EL2 are configured not trap anything
-by firmware, thus guest can still access MPAM registers.
-
-Do we need check the raw id register values for the real support
-state of MPAM here ?
-
-> +
->  static void
->  cpu_enable_mpam(const struct arm64_cpu_capabilities *entry)
->  {
-> @@ -3116,6 +3123,12 @@ static const struct arm64_cpu_capabilities arm64_features[] = {
->  		.matches = test_has_mpam,
->  		.cpu_enable = cpu_enable_mpam,
->  	},
-> +	{
-> +		.desc = "Memory Partitioning And Monitoring system registers",
-> +		.type = ARM64_CPUCAP_SYSTEM_FEATURE,
-> +		.capability = ARM64_MPAM_SYSREGS,
-> +		.matches = test_has_mpam_sysregs,
-> +	},
->  	{
->  		.desc = "Memory Partitioning And Monitoring Virtualisation",
->  		.type = ARM64_CPUCAP_SYSTEM_FEATURE,
-> diff --git a/arch/arm64/kvm/hyp/include/hyp/switch.h b/arch/arm64/kvm/hyp/include/hyp/switch.h
-> index 1ce7130e25490..8941335724f6b 100644
-> --- a/arch/arm64/kvm/hyp/include/hyp/switch.h
-> +++ b/arch/arm64/kvm/hyp/include/hyp/switch.h
-> @@ -298,7 +298,7 @@ static inline void  __activate_traps_mpam(struct kvm_vcpu *vcpu)
->  	u64 clr = MPAM2_EL2_EnMPAMSM;
->  	u64 set = MPAM2_EL2_TRAPMPAM0EL1 | MPAM2_EL2_TRAPMPAM1EL1;
->
-> -	if (!system_supports_mpam())
-> +	if (!system_supports_mpam_sysregs())
->  		return;
->
->  	/* trap guest access to MPAMIDR_EL1 */
-> @@ -317,7 +317,7 @@ static inline void __deactivate_traps_mpam(void)
->  	u64 clr = MPAM2_EL2_TRAPMPAM0EL1 | MPAM2_EL2_TRAPMPAM1EL1 | MPAM2_EL2_TIDR;
->  	u64 set = MPAM2_EL2_EnMPAMSM;
->
-> -	if (!system_supports_mpam())
-> +	if (!system_supports_mpam_sysregs())
->  		return;
->
->  	sysreg_clear_set_s(SYS_MPAM2_EL2, clr, set);
-> diff --git a/arch/arm64/tools/cpucaps b/arch/arm64/tools/cpucaps
-> index 2775ba3359cfe..aa5be51385f68 100644
-> --- a/arch/arm64/tools/cpucaps
-> +++ b/arch/arm64/tools/cpucaps
-> @@ -78,6 +78,7 @@ KVM_PROTECTED_MODE
->  MISMATCHED_CACHE_TYPE
->  MPAM
->  MPAM_HCR
-> +MPAM_SYSREGS
->  MTE
->  MTE_ASYMM
->  MTE_FAR
->
-> base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
-> --
-> 2.39.5
->
+Konrad
