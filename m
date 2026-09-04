@@ -1,36 +1,33 @@
-Received: from mta1.migadu.com (out-123.mta1.migadu.com [95.215.58.123])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88D1141CB31
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 06:07:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.123
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B591358378
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 06:09:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788502078; cv=none; b=i3EUv5iX8BlTQy9l5RjD3X5Qi43HD2Mcd0c3xk73LJZlUze8REbeNg1PvB+qqXQrKUoPADwBXvPmuAY3X5G7JU6VpplWwcR/bJ+a+6G8/EM8uPO/CYVgQaHnqTW3aBAj52i1rQJGvrhlLEWPxM/JmpcJqVF7Tx0EzmuJEwJCLNA=
+	t=1788502146; cv=none; b=rvsTL5JcjznP0IMTt4f3WrbZHrb4RZm8cJeZ6+sOQgmyXJ5JIiXtqJ79TzFOCPAtcQv/7SL70UhbVKhkxEniOtG898UWxyVWuVADNqi/n+YtjxrivppQYtqN4j3Ayglyj6aw2CCVj29niJK6cZLFs6KoVVnIOrVGPVu/wPPLglM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788502078; c=relaxed/simple;
-	bh=eS+TwFxyuQDJqXHnp8bn/k1yAKU5y5vbImhUYOe1uDA=;
+	s=arc-20240116; t=1788502146; c=relaxed/simple;
+	bh=LBPbRZp1f+8cw5F5N0PI862DQqPSwANXb7HOqvJ+NLM=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=cHQwO1UOPQaaB+/0gIj6bJtgynSxnAE/MTJzIc7LBoA3j2b5I5lRn0X6/+nTmDlBIFAh6SV65XuNtHMX4BIbaSw9QX4I9LuWkDIAdmiQHqMOv0ajdUVihhJ/LPypNFi60HY/VX7MrHFJNNMEcD66+dPNx+lLgi4GScoIdrTAjv0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=K+XNHRuk; arc=none smtp.client-ip=95.215.58.123
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	 In-Reply-To:Content-Type; b=Umi3NsmpP3Z5Ugwx0GmvCrp5dlCD7G4pdUlZx8NxsHKYjDFRSrIF2Ckaus+7hCZes5hHGI/tWbDaINgItKmBQK0cpXMGgxN3sdEQIGD+2TiOxIW/j3LCTYs39DwusmGKzF12nP7SGL4OyrLwiKN4KnmowhgfSDMESDZuyabhsKY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=P1fXFY/S; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="K+XNHRuk"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=eS+TwFxyuQDJqXHnp8bn/k1yAKU5y5vbImhUYOe1uDA=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788502074; v=1; x=1789106874;
- b=K+XNHRukt4oyprgxrzLvhtKegLaVkDT3mC/HLvwcvUFt5ZVZfXDawh++RXnQTgRHx8RDzQiT
- cX5k7NgKjtkMpRnIlEUSKjac+h00j8vFJ0NJmsV4eQm181BdKhe88bFT+yyAAdc3sY2fK6kdPfz
- HAf0ifXp3MMGqtLnwYXs0YlI=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 67aa2e91fa35fe53;
-	Fri, 04 Sep 2026 06:07:54 +0000
-X-Mizu-Trace-ID: 67aa2e91fa35fe53
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <b965bb62-fcc8-4517-9947-24613650f1f5@linux.dev>
-Date: Fri, 4 Sep 2026 14:07:49 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="P1fXFY/S"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1CF8F1F00A3E;
+	Fri,  4 Sep 2026 06:09:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788502145;
+	bh=ykfieVvZNqtUa+4jWvCQTTFA2b6xsuqBfoeLrAe0uqQ=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=P1fXFY/Say3wJWn/3DLEhCoWyCe4uU/Z6AO/b3p409SgNVUl9xYp6kruuLVDZ3F0K
+	 pN9jh74KW6FRGbnzMu9loZiTKh/oudilsJKCVmVzBB/EkJTWNPaB7HREAc73/0jLNP
+	 qMS/KiggcALQ3y6RKrap4Nt+w791sW748pityCX7BIKok98/HvOzMrSU0APumOMxdW
+	 hTLwYQMyH18P+qFsvS8gwEJyAce8fFmqKwybrqhEOYJ16BrxzYuxRT6oNmuVAanRR3
+	 +7wRHhVUGXmw+woevJ4N6pjl27QYzthF8hMiFqiWP8Aeg2Tj0xcgB0oL4cZW7GKq/I
+	 S4sKdnz/d6gtw==
+Message-ID: <5c42b080-cdcb-43c8-9bf9-15f79339f0da@kernel.org>
+Date: Fri, 4 Sep 2026 08:09:00 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -38,44 +35,117 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH bpf-next 1/2] selftests/bpf: Move verifier failure tests
- out of test_global_percpu_data
-To: =?UTF-8?Q?Thi=C3=A9baud_Weksteen?= <tweek@google.com>,
- Quentin Monnet <qmo@kernel.org>, Alexei Starovoitov <ast@kernel.org>,
- Daniel Borkmann <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>,
- Eduard Zingerman <eddyz87@gmail.com>,
- Kumar Kartikeya Dwivedi <memxor@gmail.com>, Shuah Khan <shuah@kernel.org>,
- Emil Tsalapatis <emil@etsalapatis.com>
-Cc: Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>,
- Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>,
- Ihor Solodrai <ihor.solodrai@linux.dev>, Sid Nayyar <sidnayyar@google.com>,
- linux-kernel@vger.kernel.org, bpf@vger.kernel.org,
- linux-kselftest@vger.kernel.org
-References: <20260904031912.2133476-1-tweek@google.com>
-Content-Language: en-US
-From: Leon Hwang <leon.hwang@linux.dev>
-In-Reply-To: <20260904031912.2133476-1-tweek@google.com>
-Content-Type: text/plain; charset=UTF-8
+Subject: Re: [PATCH v2] powerpc/entry: Fix double accounting of user time on
+ interrupt entry
+To: Aboorva Devarajan <aboorvad@linux.ibm.com>,
+ Madhavan Srinivasan <maddy@linux.ibm.com>, linuxppc-dev@lists.ozlabs.org,
+ Mukesh Kumar Chaurasiya <mchauras@linux.ibm.com>
+Cc: Shrikanth Hegde <sshegde@linux.ibm.com>, linux-kernel@vger.kernel.org,
+ Ritesh Harjani <ritesh.list@gmail.com>,
+ "Nysal Jan K . A ." <nysal@linux.ibm.com>
+References: <20260904025831.3439809-1-aboorvad@linux.ibm.com>
+Content-Language: fr-FR
+From: "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>
+In-Reply-To: <20260904025831.3439809-1-aboorvad@linux.ibm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-On 4/9/26 11:19, Thiébaud Weksteen wrote:
-> Commit 4c9241bd731a ("selftests/bpf: Add tests to verify global percpu
-> data") added test_global_percpu_data.c to LSKELS_EXTRA. Later, in commit
-> 1ed2294b31fc ("selftests/bpf: Test verifier log for global percpu data")
-> two verifier failure tests were added (verifier_strncmp and
-> verifier_snprintf), both marked as non-autoload (SEC("?kprobe")).
+
+
+Le 04/09/2026 à 04:58, Aboorva Devarajan a écrit :
+> Since the switch to generic entry, an interrupt from user mode
+> accounts user time twice: once in arch_interrupt_enter_prepare()
+> and again in arch_enter_from_user_mode(), which irqentry_enter()
+> invokes for the same interrupt:
 > 
-> When bpftool generates light skeletons, non-autoloaded programs are
-> skipped during loading, causing the loader program to store subsequent
-> program FDs into incorrect skeleton struct fields (e.g. dump_percpu_data's
-> FD was stored into verifier_strncmp's descriptor).
+> 	arch_interrupt_enter_prepare()
+> 	  account_cpu_user_entry()		/* first */
+> 	irqentry_enter()
+> 	  arch_enter_from_user_mode()
+> 	    account_cpu_user_entry()		/* second */
+> 
+> The second call charges the same interval again, because
+> account_cpu_user_entry() accumulates the time spent in user mode
+> since the last return to user space.
+> 
+> The two calls come from the GENERIC_ENTRY preparation series,
+> where each step was a no-op on its own. Commit 09a9d3a8499d
+> ("powerpc: introduce arch_enter_from_user_mode") added the hook
+> with the user-time accounting in it, but nothing called it yet.
+> Commit 893082ac769b ("powerpc: Prepare for IRQ entry exit")
+> copied interrupt_enter_prepare() verbatim into entry-common.h as
+> arch_interrupt_enter_prepare(); that copy was equally unused, as
+> handlers still called interrupt_enter_prepare().
+> 
+> Commit bee25f97ad24 ("powerpc: Enable GENERIC_ENTRY feature")
+> made both live. On the syscall side it did the full conversion:
+> system_call_exception() now accounts once through the hook via
+> syscall_enter_from_user_mode(), rather than calling
+> account_cpu_user_entry() directly. On the interrupt side it
+> switched the handler macros to arch_interrupt_enter_prepare()
+> followed by irqentry_enter(), which also runs the hook, but the
+> accounting in arch_interrupt_enter_prepare() was not removed to
+> match. The double accounting starts with that commit.
+> 
+> With CONFIG_VIRT_CPU_ACCOUNTING_NATIVE=y this roughly doubles the
+> reported user time of any workload that takes interrupts. The
+> other accounting modes compile account_cpu_user_entry() to an
+> empty stub, so they are not affected.
+> 
+> Remove the accounting from arch_interrupt_enter_prepare() and rely
+> on arch_enter_from_user_mode(), which already runs for both
+> syscalls and interrupts. The duplicate account_stolen_time() call
+> is removed the same way.
+> 
+> On a pseries LPAR a busy loop reports 6s user time in 3s elapsed
+> (~210% CPU) before the fix, and 3s (~105% CPU) after it:
+> 
+>    $ python3 -c 'while True: pass' &
+>    $ sleep 3; ps -p $! -o etime,time,pcpu
+> 
+>              ELAPSED     TIME  %CPU
+>    Before      00:03 00:00:06   210
+>    After       00:03 00:00:03   105
+> 
+> A 50% load reports ~70% usr / 30% idle before the fix, and
+> ~49% usr / 51% idle after it:
+> 
+>    $ taskset -c 6 stress-ng --cpu 1 --cpu-load 50 &
+>    $ mpstat -P 6 1
+> 
+>              CPU    %usr   %idle
+>    Before      6   69.74   30.26
+>    After       6   48.51   50.50
+> 
+> Fixes: bee25f97ad24 ("powerpc: Enable GENERIC_ENTRY feature")
+> Reviewed-by: Mukesh Kumar Chaurasiya (IBM) <mkchauras@gmail.com>
+> Signed-off-by: Aboorva Devarajan <aboorvad@linux.ibm.com>
 
-IIUC, patch 2 will fix the issue totally.
+Reviewed-by: Christophe Leroy (CS GROUP) <chleroy@kernel.org>
 
-Better to add a subtest to verify both the issue and the fix?
-
-Thanks,
-Leon
-
-> [...]
+ > ---> Changes in v2:
+>   - Explain which commits introduced each accounting call and how
+>     they overlapped in commit message.
+>   - Drop the code comment.
+> 
+> v1: https://lore.kernel.org/linuxppc-dev/20260902050628.2553909-1-aboorvad@linux.ibm.com/
+> 
+>   arch/powerpc/include/asm/entry-common.h | 2 --
+>   1 file changed, 2 deletions(-)
+> 
+> diff --git a/arch/powerpc/include/asm/entry-common.h b/arch/powerpc/include/asm/entry-common.h
+> index c5adb5006361..000fa925e26a 100644
+> --- a/arch/powerpc/include/asm/entry-common.h
+> +++ b/arch/powerpc/include/asm/entry-common.h
+> @@ -222,8 +222,6 @@ static inline void arch_interrupt_enter_prepare(struct pt_regs *regs)
+>   
+>   	if (user_mode(regs)) {
+>   		kuap_lock();
+> -		account_cpu_user_entry();
+> -		account_stolen_time();
+>   	} else {
+>   		kuap_save_and_lock(regs);
+>   		/*
+> 
+> base-commit: fb442a6673ff1046bf67754957d95880fdb394b5
 
