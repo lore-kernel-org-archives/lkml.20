@@ -1,218 +1,130 @@
-Received: from mta0.migadu.com (out-7.mta0.migadu.com [91.218.175.7])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.3])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0297F509EE0
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 16:42:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.7
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 139714E66A3;
+	Fri,  4 Sep 2026 16:42:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.3
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788540129; cv=none; b=fgU9qJ9WqoOUlo/tiYyEdlgB2IWaQr/GNn0IFFfKhhrhuWVrK/9dqkcq5nus07NN2uy23GzGxw7vFZ1hPjHTaPjpYcvbTxZELBVzf5UxQOfS9dQVi0fBJdnsUm9UbtzDydiN+YO69d3b9QGwX7KBZhMGU3iwetprcwOx5VseT8k=
+	t=1788540143; cv=none; b=t9fMYLvWxs482nC0R/6GR6MKDqI6FnD+/pO4iP/meZka4fix7hqtjmJ7sMYXuL78+ab1Ok+UOXrxbgD/bFYdVo0OBYcMinjlZkuZ7YnjnUnuaNN6/knmzIiDwqRQoxswiGoyJpChadED6JCflR/0lKUjylF9oMRX9AhfGWi7Ydc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788540129; c=relaxed/simple;
-	bh=eaSmD6AakrGy8JzPNXWt4MIR9DWEhJZsdWuWmxUbYYI=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=eRsl5CgcuN2gflVsZSSsofMigUd4M4cyIQE7BXmRitbmEaRxLEDiBaSZxMMP3IdbDidFruJU+98dw6e3VqruZyzDJgRSxf1sDcSuv+A6bgkUSqN/yMj0a+AWrgr3wdtTahZQtPCHHqVpCQdnHAxakp/FAH/HfHy8BU9rPCv2Ids=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=gYlhMMTe; arc=none smtp.client-ip=91.218.175.7
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1788540143; c=relaxed/simple;
+	bh=Y3hc/EJGg+jiVVBGRRnBPDNC8fwbBB/4it+Ybe/bNz0=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
+	 In-Reply-To:Content-Type; b=f5x8vb69jAcLKXQd1F/wJLxW+npCuxENVvwEKW1MFVXvb80NG8nVCFKdGTUWVF+oS7ylOCdGSt4TuWN+DYM6p93/Ml2uLihYNI0c+Rdyb88kW2fKBkZGddE3VHQjoeckuDUoz16JPgw8JwVHlDGqACHW7KgTFGihbqnueeoFmbs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=U4uu4KTa; arc=none smtp.client-ip=220.197.31.3
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="gYlhMMTe"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=eaSmD6AakrGy8JzPNXWt4MIR9DWEhJZsdWuWmxUbYYI=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788540123; v=1; x=1789144923;
- b=gYlhMMTeC0u6jBZUT0XosrFnvfdwn6PVW1nPWX+8KKqjY1Bu/bW7gwbzytgSPAiyJd3db7/x
- xjtC3cooshP8GAW1vroA1+30lYNzAZn+Lxiw5PmBJLRpJAFkwHup6f6Ltv5NXLipvSWiKaSrDCh
- J8cGjPzJFzs+2T2MfpCVYkog=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta11.migadu.com with ESMTPS id be01afa9177d88fe;
-	Fri, 04 Sep 2026 16:42:03 +0000
-X-Mizu-Trace-ID: be01afa9177d88fe
-X-Migadu-Flow: FLOW_OUT
-From: Usama Arif <usama.arif@linux.dev>
-To: dsterba@suse.com,
-	linux-btrfs@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	terrelln@fb.com,
-	terrelln@meta.com,
-	mason@kernel.org,
-	clm@fb.com,
-	fdmanana@suse.com,
-	boris@bur.io,
-	wqu@suse.com,
-	loemra.dev@gmail.com
-Cc: Usama Arif <usama.arif@linux.dev>
-Subject: [PATCH] btrfs: zstd: avoid a copy in zstd_decompress_bio()
-Date: Fri,  4 Sep 2026 09:41:48 -0700
-Message-ID: <20260904164148.2664280-1-usama.arif@linux.dev>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="U4uu4KTa"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=Message-ID:Date:MIME-Version:Subject:From:To:
+	Content-Type; bh=NfI3sXa25YFWPfyRn+wgSyK1ek+FDv+B1YGaaHsijuo=;
+	b=U4uu4KTaIEW+h9cMnkm1PY9BQufllSyQ7cQiXgrk2hXim0Drm1nI8I9ZJo9O/c
+	bod4GATPrp8wqC1ARVrUosUrAHvRGVy10KYIg6pki8EOWxIsJ9Xhohw328A/Arnc
+	X7Dt/3kjIErd7eSbl/2s3QwUAqDFy1n4pRmxkv23ZIMVE=
+Received: from [IPV6:240e:b8f:91b3:d000:cb89:e59c:b7d0:5b84] (unknown [])
+	by gzsmtp3 (Coremail) with SMTP id PigvCgAXZJmq9JpqJYjJQw--.64773S2;
+	Sat, 05 Sep 2026 00:41:15 +0800 (CST)
+Message-ID: <1a193cc9-38c8-470c-9041-fdf1dad5b6e3@163.com>
+Date: Sat, 5 Sep 2026 00:41:14 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v7 0/2] PCI: Configure Root Port MPS during host probing
+From: Hans Zhang <18255117159@163.com>
+To: Bjorn Helgaas <helgaas@kernel.org>
+Cc: bhelgaas@google.com, Manivannan Sadhasivam <mani@kernel.org>,
+ lpieralisi@kernel.org, kwilczynski@kernel.org, heiko@sntech.de,
+ yue.wang@amlogic.com, pali@kernel.org, neil.armstrong@linaro.org,
+ robh@kernel.org, jingoohan1@gmail.com, khilman@baylibre.com,
+ jbrunet@baylibre.com, martin.blumenstingl@googlemail.com, cassel@kernel.org,
+ linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org,
+ linux-rockchip@lists.infradead.org
+References: <20260622171448.GA678675@bhelgaas>
+ <72a058fd-5781-43bc-9148-180140929ecd@163.com>
+Content-Language: en-US
+In-Reply-To: <72a058fd-5781-43bc-9148-180140929ecd@163.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:PigvCgAXZJmq9JpqJYjJQw--.64773S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7CFykGr13tF43Jr1rArWDJwb_yoW8uw4kpF
+	W5Xan3ta1xKry3CF1qqw1Fyr1jqa48tFy3XryDtryayFn0vr15XF1I9wsYkrn7Wr1xGr12
+	9r1Uta4xXrn0vaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07Ucdb8UUUUU=
+X-CM-SenderInfo: rpryjkyvrrlimvzbiqqrwthudrp/xtbC7AuoTGqa9KsUEwAA3r
 
-zstd_decompress_bio() gives zstd a sectorsize-sized scratch buffer, and
-btrfs_decompress_buf2page() then copies the part overlapping the read bio
-into the destination folios. Every delivered byte is written twice.
 
-Instead, choose the output buffer per streaming call. zstd_map_dest()
-kmaps the current page-bounded segment of the read bio, so zstd writes
-into the page cache directly. The scratch buffer is kept only for output
-with no destination: the prefix before a read starting inside a
-compressed extent, which zstd cannot skip, and gaps left by folios
-already in the page cache.
 
-Varying the output buffer across calls is safe: btrfs uses the default
-ZSTD_bm_buffered mode, where the sliding window lives in the dstream's
-internal buffer and the caller's dst is a pure sink. The read bio's
-iterator must still advance by exactly the bytes delivered, since
-btrfs_decompress_bio() zero-fills from it; that used to happen inside
-btrfs_decompress_buf2page() and is now an explicit bio_advance(), made
-only for output that reached a folio.
+On 7/14/26 19:06, Hans Zhang wrote:
+> 
+> 
+> On 6/23/26 01:14, Bjorn Helgaas wrote:
+>> On Fri, Jun 19, 2026 at 11:29:39PM +0800, Hans Zhang wrote:
+>>> On 5/6/26 22:00, Manivannan Sadhasivam wrote:
+>>>> On Fri, Nov 28, 2025 at 01:09:06AM +0800, Hans Zhang wrote:
+>>>>> Current PCIe initialization exhibits a key optimization gap: Root 
+>>>>> Ports
+>>>>> may operate with non-optimal Maximum Payload Size (MPS) settings. 
+>>>>> While
+>>>>> downstream device configuration is handled during bus enumeration, 
+>>>>> Root
+>>>>> Port MPS values inherited from firmware or hardware defaults often 
+>>>>> fail
+>>>>> to utilize the full capabilities supported by controller hardware. 
+>>>>> This
+>>>>> results in suboptimal data transfer efficiency throughout the PCIe
+>>>>> hierarchy.
+>>>>>
+>>>>> This patch series addresses this by:
+>>>>>
+>>>>> 1. Core PCI enhancement (Patch 1):
+>>>>> - Proactively configures Root Port MPS during host controller probing
+>>>>> - Sets initial MPS to hardware maximum (128 << dev->pcie_mpss)
+>>>>> - Conditional on PCIe bus tuning being enabled (PCIE_BUS_TUNE_OFF 
+>>>>> unset)
+>>>>>     and not in PCIE_BUS_PEER2PEER mode (which requires default 128 
+>>>>> bytes)
+>>>>> - Maintains backward compatibility via PCIE_BUS_TUNE_OFF check
+>>>>> - Preserves standard MPS negotiation during downstream enumeration
+>>>>>
+>>>>> 2. Driver cleanup (Patch 2):
+>>>>> - Removes redundant MPS configuration from Meson PCIe controller 
+>>>>> driver
+>>>>> - Functionality is now centralized in PCI core
+>>>>> - Simplifies driver maintenance long-term
+>>>>>
+>>>>
+>>>> For the series,
+>>>>
+>>>> Reviewed-by: Manivannan Sadhasivam <mani@kernel.org>
+>>>>
+>>>> Bjorn: Could you please take a look? This series has been floating 
+>>>> for a
+>>>> while...
+>>>
+>>> Hello Bjorn,
+>>>
+>>> Any chance for this series to be applied?
+>>
+>> It's too late for v7.2; we're already more than halfway through the
+>> merge window.  We can look again for v7.3 after v7.2-rc1.
+> 
+> Hello Bjorn,
+> 
+> Gentle ping on this series.
+> 
 
-bio_iter_iovec() exposes at most one base page, so direct output is
-page-bounded. Compared to the old sectorsize-sized chunks, this can
-increase stream calls when sectorsize exceeds PAGE_SIZE, but eliminates
-the extra btrfs copy for output delivered to the read bio; the 64 KiB
-sectorsize row below shows the copy still wins there.
+Hello Bjorn,
 
-Benchmarked the change in 2-vCPU x86-64 KVM guests (4 KiB pages, RAM
-disk) using a 64 MiB zstd-compressed file. Results are medians of seven
-cold-cache reads in each of six interleaved A/B boot pairs; mincore
-confirmed zero resident pages before every run.
+Would you have time to take a look at this series? If there is anything 
+else I can do to improve, I will do it.
 
-Normal sequential reads with readahead produced:
 
-  sectorsize       base       patched    reduction
-  4 KiB          8.678 ms     8.004 ms       7.80%
-  16 KiB         8.216 ms     7.934 ms       3.64%
-  64 KiB         7.875 ms     7.344 ms       6.88%
-
-Random 4 KiB preads at 4 KiB sectorsize, means of six interleaved A/B
-boot pairs, patched better in all six:
-
-  base           patched        gain
-  264.33 MB/s    272.67 MB/s     3.2%
-
-Signed-off-by: Usama Arif <usama.arif@linux.dev>
----
- fs/btrfs/zstd.c | 69 +++++++++++++++++++++++++++++++++++++++----------
- 1 file changed, 56 insertions(+), 13 deletions(-)
-
-diff --git a/fs/btrfs/zstd.c b/fs/btrfs/zstd.c
-index 86919293fd546..c5aece6be6093 100644
---- a/fs/btrfs/zstd.c
-+++ b/fs/btrfs/zstd.c
-@@ -580,10 +580,48 @@ int zstd_compress_bio(struct list_head *ws, struct compressed_bio *cb)
- 	return ret;
- }
- 
-+/*
-+ * Map the destination for the next chunk of output.
-+ *
-+ * @decompressed is the offset of the next output byte inside the fully
-+ * decompressed extent.  If that offset has reached the current destination
-+ * segment, its page-bounded bio_vec is kmapped so that zstd can write into the
-+ * page cache directly, and the number of bytes writable there is returned.
-+ * Otherwise @kaddr_ret is set to NULL and the number of bytes to skip before
-+ * that segment is returned.  This covers both the initial prefix and gaps in
-+ * the destination bio.
-+ */
-+static u32 zstd_map_dest(struct compressed_bio *cb, u32 decompressed,
-+			 void **kaddr_ret)
-+{
-+	struct bio *orig_bio = &cb->orig_bbio->bio;
-+	struct bio_vec bvec;
-+	u32 bvec_offset;
-+	u32 off;
-+
-+	bvec = bio_iter_iovec(orig_bio, orig_bio->bi_iter);
-+	/*
-+	 * cb->start may underflow, but subtracting that value can still give us
-+	 * the correct offset inside the full decompressed extent.
-+	 */
-+	bvec_offset = page_offset(bvec.bv_page) + bvec.bv_offset - cb->start;
-+
-+	if (decompressed < bvec_offset) {
-+		*kaddr_ret = NULL;
-+		return bvec_offset - decompressed;
-+	}
-+
-+	off = decompressed - bvec_offset;
-+	ASSERT(off < bvec.bv_len);
-+	*kaddr_ret = bvec_kmap_local(&bvec) + off;
-+	return bvec.bv_len - off;
-+}
-+
- int zstd_decompress_bio(struct list_head *ws, struct compressed_bio *cb)
- {
- 	struct btrfs_fs_info *fs_info = cb_to_fs_info(cb);
- 	struct workspace *workspace = list_entry(ws, struct workspace, list);
-+	struct bio *orig_bio = &cb->orig_bbio->bio;
- 	struct folio_iter fi;
- 	size_t srclen = bio_get_size(&cb->bbio.bio);
- 	zstd_dstream *stream;
-@@ -591,7 +629,6 @@ int zstd_decompress_bio(struct list_head *ws, struct compressed_bio *cb)
- 	const unsigned int min_folio_size = btrfs_min_folio_size(fs_info);
- 	unsigned long folio_in_index = 0;
- 	unsigned long total_folios_in = DIV_ROUND_UP(srclen, min_folio_size);
--	unsigned long buf_start;
- 	unsigned long total_out = 0;
- 
- 	bio_first_folio(&fi, &cb->bbio.bio, 0);
-@@ -615,15 +652,26 @@ int zstd_decompress_bio(struct list_head *ws, struct compressed_bio *cb)
- 	workspace->in_buf.pos = 0;
- 	workspace->in_buf.size = min_t(size_t, srclen, min_folio_size);
- 
--	workspace->out_buf.dst = workspace->buf;
--	workspace->out_buf.pos = 0;
--	workspace->out_buf.size = fs_info->sectorsize;
--
--	while (1) {
-+	while (orig_bio->bi_iter.bi_size) {
- 		size_t ret2;
-+		void *kaddr;
-+		u32 dstlen;
-+
-+		dstlen = zstd_map_dest(cb, total_out, &kaddr);
-+		if (kaddr) {
-+			workspace->out_buf.dst = kaddr;
-+			workspace->out_buf.size = dstlen;
-+		} else {
-+			workspace->out_buf.dst = workspace->buf;
-+			workspace->out_buf.size = min_t(u32, dstlen,
-+							fs_info->sectorsize);
-+		}
-+		workspace->out_buf.pos = 0;
- 
- 		ret2 = zstd_decompress_stream(stream, &workspace->out_buf,
- 				&workspace->in_buf);
-+		if (kaddr)
-+			kunmap_local(kaddr);
- 		if (unlikely(zstd_is_error(ret2))) {
- 			struct btrfs_inode *inode = cb->bbio.inode;
- 
-@@ -634,14 +682,9 @@ int zstd_decompress_bio(struct list_head *ws, struct compressed_bio *cb)
- 			ret = -EIO;
- 			goto done;
- 		}
--		buf_start = total_out;
- 		total_out += workspace->out_buf.pos;
--		workspace->out_buf.pos = 0;
--
--		ret = btrfs_decompress_buf2page(workspace->out_buf.dst,
--				total_out - buf_start, cb, buf_start);
--		if (ret == 0)
--			break;
-+		if (kaddr)
-+			bio_advance(orig_bio, workspace->out_buf.pos);
- 
- 		if (workspace->in_buf.pos >= srclen)
- 			break;
-
-base-commit: 421066905cbceca1f78cba5f7d92b4980317ab2b
--- 
-2.53.0-Meta
+Best regards,
+Hans
 
