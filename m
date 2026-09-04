@@ -1,257 +1,252 @@
-Received: from mail-pg1-f179.google.com (mail-pg1-f179.google.com [209.85.215.179])
+Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com [209.85.216.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CCAE37C91A
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 23:16:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEE973C0605
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 23:16:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788563795; cv=none; b=iEfD0R6gcd4s451s9vm1Omdn9xeAh5j/qSfTBYj48LZ2SthnS9G1puC1fZw7ITxP7p2uOqWk7mhBpx+zdpRx+8KFMPkjaInnn0hHeAbE097g8LxQyU7yzcY9X3s3ZQLJFmx/2thOXF6sqNCBV+w6bwBK/H1g8xqz1fZMsOYXIqg=
+	t=1788563819; cv=none; b=PYij1W/wfo/z6ztkAk2c5fqQpqlhFFxyxtQynR42kR7WTn+vUrn3mcwP4oV1OqtRGQZvW0QfzRirGKOcqXCiCg+kBK6tK6/V+yboaPG8hJL1982OEpN7JCyhq0OZa6wnK3vwWkzq7+N5gBAOojbw+93dwIMjiqk1Euyof9+hyYc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788563795; c=relaxed/simple;
-	bh=toX5g90APAEIw/JrBp16zerys93inZQ7yKT1M0I3GvE=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Mk2uYyXpWZsZpKU/CirDDq9zJoZBVGBQ9t6tLG3hyJ5YW38arAhM5ka3bwftqhrmBFNgeDj6m4QCHNQKRXlBDdrX6LG5CaUcy72VBcRsgXGoj/W79LJoUS4g1VNyFNUvzGaHMVGi1LInIeM1jw+HTbOMZYdEr6qRj0Riwz9rWd0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OVH3aavB; arc=none smtp.client-ip=209.85.215.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788563819; c=relaxed/simple;
+	bh=dCGK+5CQYCXHSgBKKQcG7YPLkc0E1mAwwMS9f0mQ1qQ=;
+	h=Mime-Version:Content-Type:Date:Message-Id:To:Cc:Subject:From:
+	 References:In-Reply-To; b=Eyiw8BeftTGmgmtlMgXsfoI0qPVcYTYmC4z92pjL0PCTeq9QSPDOdFEjvSW4f29ILfYxk6Ep6yOterPTd5rBXdL06XskqPBQSbNsPcQ9qrWIyY3GfFLkTxynocwfcJr+t0BAMBAAdY3+CjQti3h7Niz1pYB+Kzw3PiSBwB37ToA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=etsalapatis.com; spf=pass smtp.mailfrom=etsalapatis.com; dkim=pass (2048-bit key) header.d=etsalapatis-com.20251104.gappssmtp.com header.i=@etsalapatis-com.20251104.gappssmtp.com header.b=awyihteA; arc=none smtp.client-ip=209.85.216.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=etsalapatis.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=etsalapatis.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OVH3aavB"
-Received: by mail-pg1-f179.google.com with SMTP id 41be03b00d2f7-cc149372c14so865223a12.1
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 16:16:33 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=etsalapatis-com.20251104.gappssmtp.com header.i=@etsalapatis-com.20251104.gappssmtp.com header.b="awyihteA"
+Received: by mail-pj1-f52.google.com with SMTP id 98e67ed59e1d1-3856d6fbcb3so1224290a91.2
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 16:16:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788563793; x=1789168593; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Fkj+tOdPJa9maROU9VRDjz0YPmPUFkrYUP9fpE+J1l4=;
-        b=OVH3aavB5WPEknnETtImhRFxCL3BpbzOYUFY94/2rXlaTkElbj7Pk2/V6kedNoRxwu
-         MCDljp5tbKrVDZZjW6fkwL0+kdAHInl/Z4Ztx2Wgc2rjOAG1qHY0slX1DPu9Chr1KFZc
-         jJzj+BPydGCwpZQp3BlU5NNAKnHZD5KKL6VqVnJOKobjs4n5Ah7z79JVMt4b5ZbrkDel
-         yBRceUQy8LdH1Fe5K2/2ngmD54gYiqct9DupY5OorqEybgRv3ZBu8Up6hVLzd0HMNwJc
-         rNydsWTy51fHJXfvKCY9lRB70w0HS+Z7ErzuOsr3S1gbF4j5VEivkA6beSgW9iPmKEKR
-         T0Dg==
+        d=etsalapatis-com.20251104.gappssmtp.com; s=20251104; t=1788563810; x=1789168610; darn=vger.kernel.org;
+        h=in-reply-to:references:from:subject:cc:to:message-id:date
+         :content-type:content-transfer-encoding:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=fe1GlyuKTc0shGJ4KGsnmbYW1CmUV72M/c0uYbs9G98=;
+        b=awyihteAdZxirxvXxuKW+/Cn94PWBrwqwYAQ3iuOzzN89e9sRq/8kRtVYmjVdv69S9
+         GxADGoPsKBaj+nz93O+a42FYJr7Dbch9G04ku108Lpsli6+qgnyp8mLe39ylMKx3q5T/
+         c7mFbWOMbyiI7iL6WVFDgaWjgrLIqpAkMDyDFFSwuPl0vGVNHuV1mfNbwSt2JQINUTcd
+         yITiSqdsYDLcE5mPDmeIq0+Gm/BcWoQSQ0FzcVBfHS9Ji67Ygx8w8TNdW0YfxzJKviyH
+         6eOuA5l2z7hxOB0WhewJNvnrZ3fOirdhcRXKMm9/ZKIEB/Koujw1NxCJeB6JMajUX5p5
+         hAIg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788563793; x=1789168593;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Fkj+tOdPJa9maROU9VRDjz0YPmPUFkrYUP9fpE+J1l4=;
-        b=KBJrsZkR01AvKAcv3Mih0YAZEd1Ua3QL1vjez8bJiVXGtRx/07lxpPdSXiAkYVZdfv
-         eNOR7TBBfjtWXiV80SpDfzyO2cKnT39s/NlXBQB2eDtyhkr4sPvcTmzGHqlYU3FHRz0M
-         CaEHvphbPA4FKFDs6x042aC2PI+WFVnqruHmAFNCFQJyy+FEQWGjE1f5RChyCxoy568x
-         Krh6Y0d+If00xDRxkQyExrDYVFzwnQBP8I5BU/t+vUletN3rCDTk7Wk2cWhrKoUqxlYe
-         42fsTilB/WjO+6Vm+GviffSBAAevxiOqtxxoeo6Qj81i5I3602QHbiqHZmPySWhPZTRR
-         d1Ow==
-X-Forwarded-Encrypted: i=1; AKwUvBwkhBw5mCUFCMlly6rmFqsK/spkGrj+dsqtisyGsKpwfMg9NgMZiIdFMG7nbZssw9VlmUiDMr20TuSjqa4=@vger.kernel.org
-X-Gm-Message-State: AFuF++lGQyoH/Hlq/XlrfZMAt4j41AI1Ry6VB7KUw2Hrb8I8iyyrmwjo
-	xfmGrpc3TkWyY2XSCcyYuBu7A1aZWbf1PV7O2YPKopM8yJU4nq8WmdEx
-X-Gm-Gg: AYBFou25oAKijNzwwU82cRF6Mni1iMguksxqZ8jMEVXTEoiwRt55lhyhonx9CSMmpZd
-	dBCEjtvT6SpE9S5yy+Eer9lIejGNOT8WO3qsoWJefCATwPWqCbnXQMczl0uAV7Z1OGO8QFnlK05
-	nOOwivvUmnO736IWIYD82W2/Dto/9vg3lt4gC5n9W6f2Nclwd000jgRH8QD+5sOYp5dwpzlzvnv
-	XyLgofqfi8QwDxc/Th7MRDCM1OKNUacXyDIWGipG8kAagARNV0gVlaSdF/ugcAft/wDjDYdWGrl
-	eI2o9fnSbhCvbFDqJPC6+VwLCwXsSbBv78N/GyutyIirEXjAJR/ZTADvyTkFLRCuGWp1wIgn9e5
-	Kvj4gn2n9Q7xWN5YfCSL7+uzC2rRQrzeyzv7TLlZHT7NIaFf94uA/rEpsh5guyR9skdk7gTKnuM
-	5Jzkpiyx04u4nGzGpOmB+6stoUrB2d9h2/vBl8ml1TfhBrULpGFGKqbVjSwFwun0NIUHOVzYuQ2
-	bBar81GY6S1czLGYhRAXLfRiFzYqKjNNooVA0oxT/AA/Bl2/qIQrw5wNvhLaBNYFykT2MWciRNI
-	QQKThehc6XY7kj5sRp2vFKxAnpOH8sWpBXLuaH+KwxY=
-X-Received: by 2002:a17:90b:2b8b:b0:398:c0ad:711c with SMTP id 98e67ed59e1d1-39b26272f0fmr14642210a91.15.1788563793256;
-        Fri, 04 Sep 2026 16:16:33 -0700 (PDT)
-Received: from localhost.localdomain (23-93-86-111.dedicated.static.sonic.net. [23.93.86.111])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339b314cfcsm9579481eec.19.2026.09.04.16.16.32
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 04 Sep 2026 16:16:32 -0700 (PDT)
-From: Rithvik Vibhu <rithvikvibhu@gmail.com>
-To: Takashi Iwai <tiwai@suse.com>,
-	Jaroslav Kysela <perex@perex.cz>
-Cc: linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Rithvik Vibhu <rithvikvibhu@gmail.com>
-Subject: [PATCH] ALSA: hda/realtek: Fix Acer Nitro 5 AN515-57 mic resume
-Date: Fri,  4 Sep 2026 16:15:45 -0700
-Message-ID: <20260904231545.33505-1-rithvikvibhu@gmail.com>
-X-Mailer: git-send-email 2.55.0
+        d=1e100.net; s=20251104; t=1788563810; x=1789168610;
+        h=in-reply-to:references:from:subject:cc:to:message-id:date
+         :content-type:content-transfer-encoding:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=fe1GlyuKTc0shGJ4KGsnmbYW1CmUV72M/c0uYbs9G98=;
+        b=mn9xQs3PZPkymGy7697oVVaPMI6depNBxaqG927DBBuuHzmJZZd8VQW37xJJIDXEAe
+         DYdx+GRJuEvWh/ubIbUPVnJXa7fgX7wY6fcEO9EiMQoPZn1vh1DePzn/udNJ18kljL3e
+         ah4gm5QjgBZdYhU5bz88WEc1nA+4R6nIuAPBmJFpoIfxk4Q2+1c9QE//+JcyCq7tJ4co
+         up6GdNDQSfn2rR2XCHCdH+Rzd97d8NGqZXPmSmeUfaVGiIz/k2RiT8lNdMs9uU/kaEHe
+         cU9OPvHpLGLnjRJiLbnsStITl5eBnPJ2LM9LPXkLu9kBflo0OXXlMMTpQq1zRvEbIGpC
+         z5Bw==
+X-Forwarded-Encrypted: i=1; AKwUvBwtXyIA4Ms/gDAQ0zDJw5wroagbr3dn8YYKbQodhmlULswKNBZuQFE2Uqr0WIMyohYR2GOmg0beO9QtBQE=@vger.kernel.org
+X-Gm-Message-State: AFuF++nc+yVq4xRequQMy20QbLO0EREk01aeFTMnVzfWwrMix3BJAbYP
+	/5X1GbBupP9lkW2SFqxN0Qv/nbu4ew1GVfKDe0KHReHord84ZjMEMQI/t7Cq2KSrzM8=
+X-Gm-Gg: AYBFou2yYW81G+ywQ9b9w+Ze4SAwdmnVjmhtuyqE2FruZsFuxA/w82xAKvGcCTxygWz
+	oXwYcFfpgnpCMWpdsfg1PCtiEdmbRCqtr3X1SifqOyRlPEPo35etW/B1jO6xgBKNAZiUun61Sg2
+	sm1QVkzrDZjko36gofT/TBDy9gdFUR18jtVoXd1OZHNcTmyO1IVCeLqW9kEgVzar2QWkWqtH8GN
+	FKqUOB+AF9IFPJRAg+JOpwJrqKB2hoPQO9MszVxENwBQta71K2yp6gZbNMI13z3DVhQr/CDsxry
+	hMW2zLGEPfksZnyvecukWGch1AZrksOBVFQfgkTOsQE7pJcFglv2PxgM5LOzcjgPEOg8rOmGkWQ
+	DdQj9vv411NkoLyZwbaEOiJYYZ05iEt10PaS9yTJDQqt0SJAaxsiq1I9FiHSkVpohjbtwtbR0aa
+	1r2fa/8eEUfMjel7dzMDv67XQ4PxIT2hBnUfQenRj0t7kF
+X-Received: by 2002:a17:90b:4c86:b0:395:5f43:4ec4 with SMTP id 98e67ed59e1d1-39b25f78ab8mr12763621a91.0.1788563809964;
+        Fri, 04 Sep 2026 16:16:49 -0700 (PDT)
+Received: from localhost ([2620:10d:c090:600::1:7c52])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339aa33e96sm9699901eec.12.2026.09.04.16.16.32
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 04 Sep 2026 16:16:49 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Fri, 04 Sep 2026 19:16:28 -0400
+Message-Id: <DL6WY5J4EPB0.3KT7XUU9US5CW@etsalapatis.com>
+To: "Jiayuan Chen" <jiayuan.chen@linux.dev>, <bpf@vger.kernel.org>,
+ <netdev@vger.kernel.org>
+Cc: <syzbot+237bbeed8dfe0699b7f5@syzkaller.appspotmail.com>, "Andrew Lunn"
+ <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, "Eric
+ Dumazet" <edumazet@google.com>, "Jakub Kicinski" <kuba@kernel.org>, "Paolo
+ Abeni" <pabeni@redhat.com>, "Alexei Starovoitov" <ast@kernel.org>, "Daniel
+ Borkmann" <daniel@iogearbox.net>, "Jesper Dangaard Brouer"
+ <hawk@kernel.org>, "John Fastabend" <john.fastabend@gmail.com>, "Stanislav
+ Fomichev" <sdf@fomichev.me>, "Simon Horman" <horms@kernel.org>, "Martin
+ KaFai Lau" <martin.lau@linux.dev>, "Andrii Nakryiko" <andrii@kernel.org>,
+ "Eduard Zingerman" <eddyz87@gmail.com>, "Kumar Kartikeya Dwivedi"
+ <memxor@gmail.com>, "Song Liu" <song@kernel.org>, "Yonghong Song"
+ <yonghong.song@linux.dev>, "Jiri Olsa" <jolsa@kernel.org>, "Emil
+ Tsalapatis" <emil@etsalapatis.com>, "Ihor Solodrai"
+ <ihor.solodrai@linux.dev>, "Shuah Khan" <shuah@kernel.org>, "Kuniyuki
+ Iwashima" <kuniyu@google.com>, "Hangbin Liu" <liuhangbin@gmail.com>,
+ "Krishna Kumar" <krikku@gmail.com>, "Martin Karsten"
+ <mkarsten@uwaterloo.ca>, =?utf-8?q?Toke_H=C3=B8iland-J=C3=B8rgensen?=
+ <toke@redhat.com>, "Lorenzo Bianconi" <lorenzo.bianconi@oss.qualcomm.com>,
+ <linux-kernel@vger.kernel.org>, <linux-kselftest@vger.kernel.org>
+Subject: Re: [PATCH bpf v2 1/2] bpf, veth: xdp: fix page_pool page leak on
+ skb-backed XDP
+From: "Emil Tsalapatis" <emil@etsalapatis.com>
+X-Mailer: aerc 0.21.0-0-g5549850facc2
+References: <20260824030257.263179-1-jiayuan.chen@linux.dev>
+ <20260824030705.266049-1-jiayuan.chen@linux.dev>
+In-Reply-To: <20260824030705.266049-1-jiayuan.chen@linux.dev>
 
-The existing pin-configuration quirk exposes headset mic pin 0x19, but
-the ALC295 loses the correct combo-jack state across suspend-to-RAM
-(S3). After resume, pin 0x19 can remain falsely present after unplug and
-the capture mixer can remain routed away from the internal mic on pin
-0x12. The failure occurs on both 6.12 and v7.2-rc7.
+On Sun Aug 23, 2026 at 11:06 PM EDT, Jiayuan Chen wrote:
+> bpf_xdp_shrink_data() frees a released frag via __xdp_return() using
+> xdp->rxq->mem.type, but that type is wrong for skb-backed XDP: the skb is
+> cow'd into page_pool memory while the rxq still says MEM_TYPE_PAGE_SHARED=
+,
+> so the page_pool page is freed with page_frag_free() and we hit
+> "Bad page state ... page_pool leak".
+>
+> Both generic XDP and veth are affected. A non-linear skb is cow'd into
+> page_pool memory (skb_cow_data_for_xdp() -> skb_pp_cow_data() for generic
+> XDP, veth_convert_skb_to_xdp_buff() for veth), so its frags become
+> page_pool pages while the rxq keeps MEM_TYPE_PAGE_SHARED.
+>
+> We can't just fix rxq->mem.type in place:
+> - generic XDP: xdp->rxq is dev->_rx[queue].xdp_rxq (see
+>   bpf_prog_run_generic_xdp()), a shared rxq that other CPUs may access in
+>   parallel, so we must not write to it.
+> - veth: rq->xdp_rxq.mem is shared per-queue state that veth resets on XDP
+>   teardown, and with GRO that reset runs without stopping in-flight NAPI,
+>   so a type stashed there can be clobbered under a packet still in flight=
+.
+>
+> Adding a check in __xdp_return() or bpf_xdp_shrink_data() itself is not a=
+n
+> option either: without recording it somewhere, both can only guess the
+> frag's memory type, which quickly gets confusing.
+>
+> So record it in the xdp_buff. Add a XDP_FLAGS_FRAGS_PAGE_POOL flag; the t=
+wo
+> skb-cow sites set it, and bpf_xdp_shrink_data() frees the frag to the
+> page_pool when it is set, otherwise it keeps falling back to
+> xdp->rxq->mem.type unchanged. No other path changes behaviour.
+>
+> Fixes: e6d5dbdd20aa ("xdp: add multi-buff support for xdp running in gene=
+ric mode")
+> Fixes: 0ebab78cbcbf ("net: veth: add page_pool for page recycling")
+> Reported-by: syzbot+237bbeed8dfe0699b7f5@syzkaller.appspotmail.com
+> Closes: https://syzkaller.appspot.com/bug?extid=3D237bbeed8dfe0699b7f5
+> Signed-off-by: Jiayuan Chen <jiayuan.chen@linux.dev>
 
-Give subsystem 1025:1539 a model-specific fixup which initializes the
-Acer combo-jack coefficients, enables the full Realtek CTIA/OMTP
-headset state machine, gates the headset mic with the reliable
-headphone pin 0x21, and feeds the corrected cached jack state through
-generic HDA mic autoswitching. This keeps the actual capture mux
-synchronized across boot, hotplug, unplug and S3 resume.
+Hi Jiayuan,
 
-Apply the correction from both the headphone and microphone callback
-paths. A direct event from mic pin 0x19 otherwise bypasses the headphone
-hook and can restore the unreliable raw pin sense. Invalidate and
-refetch pin 0x21 when handling such an event before deriving the
-corrected microphone state.
+> ---
+>  drivers/net/veth.c |  5 +++++
+>  include/net/xdp.h  | 14 ++++++++++++++
+>  net/core/dev.c     |  5 +++++
+>  net/core/filter.c  |  7 +++++++
+>  4 files changed, 31 insertions(+)
+>
+> diff --git a/drivers/net/veth.c b/drivers/net/veth.c
+> index 6ed3ee81153f..0afa0661ada1 100644
+> --- a/drivers/net/veth.c
+> +++ b/drivers/net/veth.c
+> @@ -775,6 +775,11 @@ static int veth_convert_skb_to_xdp_buff(struct veth_=
+rq *rq,
+>  	if (skb_shinfo(skb)->nr_frags) {
+>  		skb_shinfo(skb)->xdp_frags_size =3D skb->data_len;
+>  		xdp_buff_set_frags_flag(xdp);
+> +		/* A nonlinear skb was cow'd into rq->page_pool above, so the
+> +		 * frags must be freed to that pool, not via the rxq's
+> +		 * MEM_TYPE_PAGE_SHARED.
+> +		 */
+> +		xdp_buff_set_frag_pp(xdp);
+>  	} else {
+>  		xdp_buff_clear_frags_flag(xdp);
+>  	}
+> diff --git a/include/net/xdp.h b/include/net/xdp.h
+> index aa742f413c35..b389dc527adc 100644
+> --- a/include/net/xdp.h
+> +++ b/include/net/xdp.h
+> @@ -81,6 +81,10 @@ enum xdp_buff_flags {
+>  	 * XDP program is not attached.
+>  	 */
+>  	XDP_FLAGS_FRAGS_UNREADABLE	=3D BIT(2),
+> +	/* frags are page_pool memory even though rxq->mem.type is not: a
+> +	 * skb-backed XDP buff (generic XDP, veth) is cow'd into a page_pool.
+> +	 */
+> +	XDP_FLAGS_FRAGS_PAGE_POOL	=3D BIT(3),
+>  };
+> =20
+>  struct xdp_buff {
+> @@ -131,6 +135,16 @@ static __always_inline void xdp_buff_set_frag_unread=
+able(struct xdp_buff *xdp)
+>  	xdp->flags |=3D XDP_FLAGS_FRAGS_UNREADABLE;
+>  }
+> =20
+> +static __always_inline void xdp_buff_set_frag_pp(struct xdp_buff *xdp)
+> +{
+> +	xdp->flags |=3D XDP_FLAGS_FRAGS_PAGE_POOL;
+> +}
 
-Pin 0x21 indicates that a combo-jack plug is present but cannot
-distinguish three-pole headphones from a four-pole headset.
-Consequently, as with other headphone-gated mic configurations, a
-three-pole plug is exposed as a headset mic.
+For veth_xdp_rcv_skb() we also need to clear the flag in XDP_TX and XDP_RED=
+IRECT.
+The veth_xdp_get() call takes page refs but not page pool refs, while consu=
+me_skb()=20
+drops the page pool reference. We should be clearing the new flag so that _=
+_xdp_return()
+doesn't try to free it back to the page pool, otherwise we get a similar mi=
+smatch-related=20
+splat to the original bug's.
 
-Tested with cold boot and repeated S3 cycles in the unplugged and
-four-pole-headset states, including unplug and reinsert after resume.
+pw-bot: cr
 
-Fixes: 51db05283f7c ("ALSA: hda/realtek: Enable headset mic for Acer Nitro 5")
-Cc: stable@vger.kernel.org # 6.12+
-Assisted-by: LLM
-Signed-off-by: Rithvik Vibhu <rithvikvibhu@gmail.com>
----
-The 6.12.y backport requires adaptation because the Realtek codec code
-is located in sound/pci/hda/patch_realtek.c there.
 
-base-commit: 3b26ceef88c110f4d188387cffa0df78657be904
 
- sound/hda/codecs/realtek/alc269.c | 105 +++++++++++++++++++++++++++++-
- 1 file changed, 104 insertions(+), 1 deletion(-)
+> +
+> +static __always_inline bool xdp_buff_is_frag_pp(const struct xdp_buff *x=
+dp)
+> +{
+> +	return !!(xdp->flags & XDP_FLAGS_FRAGS_PAGE_POOL);
+> +}
+> +
+>  static __always_inline u32 xdp_buff_get_skb_flags(const struct xdp_buff =
+*xdp)
+>  {
+>  	return xdp->flags;
+> diff --git a/net/core/dev.c b/net/core/dev.c
+> index 38336858c168..be36020484b6 100644
+> --- a/net/core/dev.c
+> +++ b/net/core/dev.c
+> @@ -5532,6 +5532,11 @@ u32 bpf_prog_run_generic_xdp(struct sk_buff *skb, =
+struct xdp_buff *xdp,
+>  	if (skb_is_nonlinear(skb)) {
+>  		skb_shinfo(skb)->xdp_frags_size =3D skb->data_len;
+>  		xdp_buff_set_frags_flag(xdp);
+> +		/* A nonlinear skb was cow'd into page_pool memory by
+> +		 * skb_cow_data_for_xdp() before we got here, so the frags must
+> +		 * be freed to that pool, not via the rxq's MEM_TYPE_PAGE_SHARED.
+> +		 */
+> +		xdp_buff_set_frag_pp(xdp);
+>  	} else {
+>  		xdp_buff_clear_frags_flag(xdp);
+>  	}
+> diff --git a/net/core/filter.c b/net/core/filter.c
+> index 61940e753552..d34ba56d79d8 100644
+> --- a/net/core/filter.c
+> +++ b/net/core/filter.c
+> @@ -4378,6 +4378,13 @@ static bool bpf_xdp_shrink_data(struct xdp_buff *x=
+dp, skb_frag_t *frag,
+>  	if (mem_type =3D=3D MEM_TYPE_XSK_BUFF_POOL) {
+>  		netmem =3D 0;
+>  		zc_frag =3D bpf_xdp_shrink_data_zc(xdp, shrink, tail, release);
+> +	} else if (xdp_buff_is_frag_pp(xdp)) {
+> +		/*
+> +		 * Skb-backed XDP (generic XDP, veth) cow's the frags into a
+> +		 * page_pool while the rxq stays MEM_TYPE_PAGE_SHARED, so free
+> +		 * the frag to the pool, not via page_frag_free().
+> +		 */
+> +		mem_type =3D MEM_TYPE_PAGE_POOL;
+>  	}
+> =20
+>  	if (release) {
 
-diff --git a/sound/hda/codecs/realtek/alc269.c b/sound/hda/codecs/realtek/alc269.c
-index 95b40a177..f1a83908e 100644
---- a/sound/hda/codecs/realtek/alc269.c
-+++ b/sound/hda/codecs/realtek/alc269.c
-@@ -3740,6 +3740,103 @@ static void alc2xx_fixup_headset_mic(struct hda_codec *codec,
- 	}
- }
- 
-+static void alc295_acer_nitro_mic_autoswitch(struct hda_codec *codec,
-+					     struct hda_jack_callback *jack)
-+{
-+	struct alc_spec *spec = codec->spec;
-+	struct hda_jack_tbl *hp_jack, *mic_jack;
-+	hda_nid_t hp_pin = alc_get_hp_pin(spec);
-+	bool auto_mic = spec->gen.auto_mic;
-+	bool hp_present;
-+
-+	hp_jack = snd_hda_jack_tbl_get(codec, hp_pin);
-+	mic_jack = snd_hda_jack_tbl_get(codec, 0x19);
-+	if (!hp_jack || !mic_jack) {
-+		codec_warn(codec, "failed to find Acer Nitro combo-jack entries\n");
-+		return;
-+	}
-+
-+	/* A mic callback must not reuse a possibly stale cached HP sense. */
-+	if (jack && jack->nid == 0x19)
-+		hp_jack->jack_dirty = 1;
-+	hp_present = snd_hda_jack_detect(codec, hp_pin);
-+
-+	/*
-+	 * The codec reports a stale or inverted presence state for mic pin 0x19
-+	 * after S3.  Pin 0x21 continues to track the shared combo jack reliably,
-+	 * so use it as the presence source for 0x19.  Leave the entry clean so
-+	 * the normal report pass does not immediately replace this value with a
-+	 * broken raw pin-sense read.
-+	 */
-+	mic_jack->pin_sense &= ~AC_PINSENSE_PRESENCE;
-+	if (hp_present)
-+		mic_jack->pin_sense |= AC_PINSENSE_PRESENCE;
-+	mic_jack->jack_dirty = 0;
-+
-+	/* Route the actual capture mux from the corrected jack state. */
-+	spec->gen.auto_mic = 1;
-+	snd_hda_gen_mic_autoswitch(codec, jack);
-+	spec->gen.auto_mic = auto_mic;
-+}
-+
-+static void alc295_acer_nitro_hp_automute(struct hda_codec *codec,
-+					  struct hda_jack_callback *jack)
-+{
-+	/* Refresh the reliable HP jack and the Realtek headset mode first. */
-+	alc_update_headset_jack_cb(codec, jack);
-+	alc295_acer_nitro_mic_autoswitch(codec, jack);
-+}
-+
-+static void alc295_fixup_acer_nitro_headset_mode(struct hda_codec *codec,
-+						 const struct hda_fixup *fix,
-+						 int action)
-+{
-+	struct alc_spec *spec = codec->spec;
-+	static const struct hda_pintbl pincfgs[] = {
-+		{ 0x19, 0x03a1103c },
-+		{ }
-+	};
-+
-+	if (action == HDA_FIXUP_ACT_PRE_PROBE) {
-+		snd_hda_apply_pincfgs(codec, pincfgs);
-+		alc_update_coef_idx(codec, 0x45, 0xf << 12 | 1 << 10, 5 << 12);
-+		spec->parse_flags |= HDA_PINCFG_HEADSET_MIC;
-+	}
-+
-+	alc271_hp_gate_mic_jack(codec, fix, action);
-+	alc_fixup_headset_mode_no_hp_mic(codec, fix, action);
-+
-+	if (action == HDA_FIXUP_ACT_PROBE) {
-+		int int_mic_idx = -1, headset_mic_idx = -1;
-+		int i;
-+
-+		for (i = 0; i < spec->gen.input_mux.num_items; i++) {
-+			if (spec->gen.imux_pins[i] == 0x12)
-+				int_mic_idx = i;
-+			else if (spec->gen.imux_pins[i] == 0x19)
-+				headset_mic_idx = i;
-+		}
-+		if (int_mic_idx < 0 || headset_mic_idx < 0) {
-+			codec_warn(codec,
-+				   "failed to find Acer Nitro mic mux entries\n");
-+			return;
-+		}
-+
-+		spec->gen.am_num_entries = 2;
-+		spec->gen.am_entry[0] = (struct automic_entry) {
-+			.pin = 0x12,
-+			.idx = int_mic_idx,
-+		};
-+		spec->gen.am_entry[1] = (struct automic_entry) {
-+			.pin = 0x19,
-+			.idx = headset_mic_idx,
-+		};
-+		spec->gen.hp_automute_hook = alc295_acer_nitro_hp_automute;
-+		spec->gen.mic_autoswitch_hook =
-+			alc295_acer_nitro_mic_autoswitch;
-+	}
-+}
-+
- static void alc245_fixup_hp_spectre_x360_eu0xxx(struct hda_codec *codec,
- 					  const struct hda_fixup *fix, int action)
- {
-@@ -4335,6 +4432,7 @@ enum {
- 	ALC287_FIXUP_THINKPAD_I2S_SPK,
- 	ALC287_FIXUP_MG_RTKC_CSAMP_CS35L41_I2C_THINKPAD,
- 	ALC2XX_FIXUP_HEADSET_MIC,
-+	ALC295_FIXUP_ACER_NITRO_HEADSET_MODE,
- 	ALC289_FIXUP_DELL_CS35L41_SPI_2,
- 	ALC256_FIXUP_ACER_SFG16_MICMUTE_LED,
- 	ALC256_FIXUP_HEADPHONE_AMP_VOL,
-@@ -6854,6 +6952,10 @@ static const struct hda_fixup alc269_fixups[] = {
- 		.type = HDA_FIXUP_FUNC,
- 		.v.func = alc2xx_fixup_headset_mic,
- 	},
-+	[ALC295_FIXUP_ACER_NITRO_HEADSET_MODE] = {
-+		.type = HDA_FIXUP_FUNC,
-+		.v.func = alc295_fixup_acer_nitro_headset_mode,
-+	},
- 	[ALC289_FIXUP_DELL_CS35L41_SPI_2] = {
- 		.type = HDA_FIXUP_FUNC,
- 		.v.func = cs35l41_fixup_spi_two,
-@@ -7177,7 +7279,8 @@ static const struct hda_quirk alc269_fixup_tbl[] = {
- 	SND_PCI_QUIRK(0x1025, 0x1430, "Acer TravelMate B311R-31", ALC256_FIXUP_ACER_MIC_NO_PRESENCE),
- 	SND_PCI_QUIRK(0x1025, 0x1466, "Acer Aspire A515-56", ALC255_FIXUP_ACER_HEADPHONE_AND_MIC),
- 	SND_PCI_QUIRK(0x1025, 0x1534, "Acer Predator PH315-54", ALC255_FIXUP_ACER_MIC_NO_PRESENCE),
--	SND_PCI_QUIRK(0x1025, 0x1539, "Acer Nitro 5 AN515-57", ALC2XX_FIXUP_HEADSET_MIC),
-+	SND_PCI_QUIRK(0x1025, 0x1539, "Acer Nitro 5 AN515-57",
-+		      ALC295_FIXUP_ACER_NITRO_HEADSET_MODE),
- 	SND_PCI_QUIRK(0x1025, 0x159c, "Acer Nitro 5 AN515-58", ALC287_FIXUP_ACER_MICMUTE_LED),
- 	SND_PCI_QUIRK(0x1025, 0x1597, "Acer Nitro 5 AN517-55", ALC2XX_FIXUP_HEADSET_MIC),
- 	SND_PCI_QUIRK(0x1025, 0x159e, "Acer Nitro 5 AN515-46", ALC2XX_FIXUP_HEADSET_MIC),
--- 
-2.55.0
