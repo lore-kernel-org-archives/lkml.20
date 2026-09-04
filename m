@@ -1,151 +1,125 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from bkemail.birger-koblitz.de (bkemail.birger-koblitz.de [23.88.97.239])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4277B501F5F
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 17:24:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58042511E9C;
+	Fri,  4 Sep 2026 17:28:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=23.88.97.239
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788542681; cv=none; b=eWYCCL129Ggf6BFWMFGe8j9ISUuGlDTdlWfvbSfArIpONN4di1nAy86OBK8ujmxibOTJXjBeJrb8Eqn77vMi+boHssjz5jyXPqoVmNI7lg+xJfca45YLPLMTbW2lTha/568syw+a4Z6t8W/yF2AxJSdb16zvjJT0pXQIpksamUw=
+	t=1788542927; cv=none; b=mbcuUj99mV7j+Ry/ljYcteXqIKQYr4wQpQ+kvXeSKJT+zr3kcvInNY2vG4nRpI8keD7MUHijfwEgUSjXS2cSUIFpHWfw+K3loazU7PvmrsGeuvOaeC/s/8rtrMpuaV8ut4MWgsA1PzGKoLLmN6a7b1TiTDSiya6dzT/fik5Cv3E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788542681; c=relaxed/simple;
-	bh=wzb03DLVgIj3vB7hKR26LkDSnhyToSK5dDUTYTCmeno=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=rQ19t6YcUxa7Lfb9kxBM5HhFGycILcwJWSXqHqcNsXfntt+sRg13/tx8+g/sGaQHPiGq2N62fylvEU/Xf/QZvRc/DpyGcHMFSAkYTJ1WsNKOWTjiypzkt84eMPs7ENtg34hReck+MoAzx9j+WjsVogeyP6FOkHLwG61e8zz01a0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DSbCUAoa; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788542927; c=relaxed/simple;
+	bh=73U+Om09CTj2ym0rVGjPeN4Mm2JBCPoUyOCgnLcEhPQ=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=P9saSDPPLlMPBKnrgG6TgD5ndqm/bRTzrlR9XpPBE2Z7VZAsQbcwq5YK8ojsZ3Q+Aqukx8wOQqN5mXp0NKemH8N9BXqjJVxShC3MVQxpuFsK7HWCV8WsMA6QIq2LboUYZxM7AttxIdm7ePUxU3iRSc+ezKqetonalRcLqfRhtjE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=birger-koblitz.de; spf=pass smtp.mailfrom=birger-koblitz.de; dkim=pass (2048-bit key) header.d=birger-koblitz.de header.i=@birger-koblitz.de header.b=qQEVaG8V; dkim=pass (2048-bit key) header.d=birger-koblitz.de header.i=@birger-koblitz.de header.b=0dmjUI4a; arc=none smtp.client-ip=23.88.97.239
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=birger-koblitz.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=birger-koblitz.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DSbCUAoa"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AC76A1F01565
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 17:24:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788542675;
-	bh=/CDqLznQvkVu7WQ3vZoYAE6ZEb2I+Dl4DDzf448Rh98=;
-	h=References:In-Reply-To:Reply-To:From:Date:Subject:To:Cc;
-	b=DSbCUAoaBf0BDfPe5nbw+AB5KH61cmX95b2H4GrECOmgcWubqAUSF+QTRSuXuKJ7W
-	 So0x0z73IE6ijUa/G9rzZeyi6XXSdOCJpEK1oP0odVfwTNd9h7hU4p7kbn9tbBzUkI
-	 oInQ77/mksSytpVmjMak/Lh1ZpwaM5Z7jIk/Jv59U6t216lhGAQBi4a+g3PJdstRji
-	 qrFVpmYGS3RsbLRcnKlpuulzpxXD2M11HxGYsFBaJtmdQNOmwYOOAU6PeH3T0Tjlz3
-	 dYfLpT7avAUwMSnxOhcRqJ7tStlmGT5PgYp+NABfyd5BpMETqLNwc/PXFTiF24ERqi
-	 9BoXQ1Qr/orZQ==
-Received: by mail-lj1-f169.google.com with SMTP id 38308e7fff4ca-39da69c5ba3so11253291fa.1
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 10:24:35 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBxrJcStLC6rTo9VF+wxhT5qEQExOJwRTL5nTaEAzbgLjiwpZ949/VDw+TXYzavjbSUjacSNZxu3bv3iSUc=@vger.kernel.org
-X-Gm-Message-State: AFuF++lzlpYWDQRF7FhfDMNWJrlvDO3LqVD20fQjyM8wypBtcb1IF+7K
-	ngMv/flkMBbU3pDwDXXzYzxLkN2MCaRqeaDKMmOqtfw7Ns734iTpcrU2aFhQygHgn5gn7RrGRqD
-	xzgk+AioJ3x37VuwpvoXez7h6cyv4BZE=
-X-Received: by 2002:a2e:a54f:0:b0:3a3:314d:115e with SMTP id
- 38308e7fff4ca-3a371bc73e4mr9829551fa.10.1788542673867; Fri, 04 Sep 2026
- 10:24:33 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=birger-koblitz.de header.i=@birger-koblitz.de header.b="qQEVaG8V";
+	dkim=pass (2048-bit key) header.d=birger-koblitz.de header.i=@birger-koblitz.de header.b="0dmjUI4a"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=birger-koblitz.de;
+	s=default; t=1788542915;
+	bh=73U+Om09CTj2ym0rVGjPeN4Mm2JBCPoUyOCgnLcEhPQ=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
+	b=qQEVaG8VqNuDxjyE8J+OBe0jmNx84alKdlg2aOGEDKQ/gg2KthWQA+1xajZQlZ5Oo
+	 xS/DkBLjjT0+/yK3f9hx5fPWXKGtUcVuNE7XC28lpPgA/4ubFnRRpsVggNh9e/CVLT
+	 uLyh4lYSul3STPir5Pid96MHsRxzePWN7HM86bYGW0NHd8E4RXs6EWUpNO4Q4+uLl2
+	 LZhXa49TxBWEdeac6ueSRHSDmKexHaV3GSYMioTmJKoH+MN16HVOQP2fv8lImT3oi0
+	 b9oaQCN31gCfavBSr73QUlIHsVi/J8RnxPpT/whCyl9VDAIyOVcih34B+YZfSrxZ6m
+	 gmNqY3pWqWHhw==
+Received: by bkemail.birger-koblitz.de (Postfix, from userid 109)
+	id 03CE53F0F4; Fri,  4 Sep 2026 17:28:35 +0000 (UTC)
+X-Spam-Level: 
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=birger-koblitz.de;
+	s=default; t=1788542913;
+	bh=73U+Om09CTj2ym0rVGjPeN4Mm2JBCPoUyOCgnLcEhPQ=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
+	b=0dmjUI4aoDtjxDNEhVB+az2Kue5pzmWgNAYlhAP9VHQGin/q7S8PSy/zdl3dTL+Yl
+	 1Io2J/+FwdBwbriaRN2ABuUFF9K+O3p1HsozWeB9vBShs4BQW4Z6BONVIOChQPsBjX
+	 wfxhwi6RiAF14/g208lpo5Tmky2MOH5CosvY41SVFXqxCpPgDrLDqLFy/zSYP6Q7D9
+	 Rv8vzjkeoN+vvwlvgNut6QjssQcv7cD1SGDgnpOptKoOsVyiYxe58Hjdyli1Av70/r
+	 3AOoWNY4ecjG4AIOQ/Vyi6XTjVE1xLiRIP4twXJyDlkt+DC+93+5aQLpRwYxzu2+hj
+	 +/UKw1G49GAPQ==
+Received: from AMDDesktop.lan (unknown [IPv6:2a00:6020:47a3:e800:271c:c6c5:9fde:77cb])
+	by bkemail.birger-koblitz.de (Postfix) with ESMTPSA id 1776A3F0D5;
+	Fri,  4 Sep 2026 17:28:33 +0000 (UTC)
+From: Birger Koblitz <mail@birger-koblitz.de>
+Date: Fri, 04 Sep 2026 19:28:26 +0200
+Subject: [PATCH net-next v10 01/15] phylink: Add phylink_mac_interrupt
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260904084158.1341550-1-wenst@chromium.org> <20260904084158.1341550-8-wenst@chromium.org>
- <2026090430-botanist-ungodly-0299@gregkh>
-In-Reply-To: <2026090430-botanist-ungodly-0299@gregkh>
-Reply-To: wens@kernel.org
-From: Chen-Yu Tsai <wens@kernel.org>
-Date: Sat, 5 Sep 2026 01:24:20 +0800
-X-Gmail-Original-Message-ID: <CAGb2v65MSxL+r+wqMjPKVSh9aS1gkn8og6oBinSXDdipnoOyCQ@mail.gmail.com>
-X-Gm-Features: AcwNN1XsOjcnbmZTa6fnJtFKjvQsiEWmd4_rlrVRXh_dounYDIlqWUAfitdifNU
-Message-ID: <CAGb2v65MSxL+r+wqMjPKVSh9aS1gkn8og6oBinSXDdipnoOyCQ@mail.gmail.com>
-Subject: Re: [PATCH v8 07/16] usb: core: Move struct usb_port and related APIs
- to port.h
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Cc: Chen-Yu Tsai <wenst@chromium.org>, Bartosz Golaszewski <brgl@kernel.org>, 
-	Daniel Scally <djrscally@gmail.com>, Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
-	Sakari Ailus <sakari.ailus@linux.intel.com>, "Rafael J. Wysocki" <rafael@kernel.org>, 
-	Danilo Krummrich <dakr@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Matthias Brugger <matthias.bgg@gmail.com>, 
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
-	Wei Deng <wei.deng@oss.qualcomm.com>, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
-	linux-acpi@vger.kernel.org, driver-core@lists.linux.dev, 
-	linux-pm@vger.kernel.org, linux-usb@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-mediatek@lists.infradead.org, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	Manivannan Sadhasivam <mani@kernel.org>, Alan Stern <stern@rowland.harvard.edu>, 
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260904-ax88179a-v10-1-b5e60eca7690@birger-koblitz.de>
+References: <20260904-ax88179a-v10-0-b5e60eca7690@birger-koblitz.de>
+In-Reply-To: <20260904-ax88179a-v10-0-b5e60eca7690@birger-koblitz.de>
+To: Andrew Lunn <andrew+netdev@lunn.ch>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Russell King <linux@armlinux.org.uk>, Andrew Lunn <andrew@lunn.ch>, 
+ Heiner Kallweit <hkallweit1@gmail.com>
+Cc: linux-usb@vger.kernel.org, netdev@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Birger Koblitz <mail@birger-koblitz.de>, 
+ Jianhui Xu <neuromoments@gmail.com>
+X-Mailer: b4 0.14.2
 
-On Sat, Sep 5, 2026 at 12:47=E2=80=AFAM Greg Kroah-Hartman
-<gregkh@linuxfoundation.org> wrote:
->
-> On Fri, Sep 04, 2026 at 04:41:46PM +0800, Chen-Yu Tsai wrote:
-> > |struct usb_port| and its matching container_of() macro should live in
-> > its own port.h, matching the split we have for .c files.
->
-> Why?
+Add the phylink_mac_interrupt() function to phylink, which
+passes a link-change interrupt received by the MAC to phylib.
+This function can be used by drivers which want to avoid
+polling the PHY and instead rely on an interrupt received by
+the MAC when a link-change happens.
 
-This was requested by Andy. And to me it sort of made sense.
+Signed-off-by: Birger Koblitz <mail@birger-koblitz.de>
+Reviewed-by: Andrew Lunn <andrew@lunn.ch>
+---
+ drivers/net/phy/phylink.c | 16 ++++++++++++++++
+ include/linux/phylink.h   |  1 +
+ 2 files changed, 17 insertions(+)
 
-> > Move them as described. Also move usb_port_is_power_on(), since in the
-> > next change its |struct usb_hub *| parameter will be changed to
-> > |struct usb_port *|, and becomes a non-static function that only
-> > references |struct usb_port|.
->
-> No, please don't do that unless you have a really good reason.
+diff --git a/drivers/net/phy/phylink.c b/drivers/net/phy/phylink.c
+index 3ec3bb43910953f3d57a4601633d0c3be65e959d..96ed13458e9f399fa911a145613d213b1c4433c8 100644
+--- a/drivers/net/phy/phylink.c
++++ b/drivers/net/phy/phylink.c
+@@ -1612,6 +1612,22 @@ static bool phylink_link_is_up(struct phylink *pl)
+ 	return pl->netdev ? netif_carrier_ok(pl->netdev) : pl->old_link_state;
+ }
+ 
++/**
++ * phylink_mac_interrupt() - wrapper for phy_mac_interrupt()
++ * @pl: a pointer to a &struct phylink returned from phylink_create()
++ *
++ * Passes a link-change interrupt received by the MAC to phylib.
++ */
++void phylink_mac_interrupt(struct phylink *pl)
++{
++	struct phy_device *phy;
++
++	phy = pl->phydev;
++	if (phy)
++		phy_mac_interrupt(phy);
++}
++EXPORT_SYMBOL_GPL(phylink_mac_interrupt);
++
+ static void phylink_resolve(struct work_struct *w)
+ {
+ 	struct phylink *pl = container_of(w, struct phylink, resolve);
+diff --git a/include/linux/phylink.h b/include/linux/phylink.h
+index 1dda5c7ed5f146930d1acc6f06072e6755167af6..f6c1db837fb5062c6d42ffc6489ec06ae84e535b 100644
+--- a/include/linux/phylink.h
++++ b/include/linux/phylink.h
+@@ -768,6 +768,7 @@ int phylink_ethtool_set_eee(struct phylink *link, struct ethtool_keee *eee);
+ int phylink_mii_ioctl(struct phylink *, struct ifreq *, int);
+ int phylink_speed_down(struct phylink *pl, bool sync);
+ int phylink_speed_up(struct phylink *pl);
++void phylink_mac_interrupt(struct phylink *pl);
+ 
+ #define phylink_zero(bm) \
+ 	bitmap_zero(bm, __ETHTOOL_LINK_MODE_MASK_NBITS)
 
-Which part? Move the code?
+-- 
+2.47.3
 
-> >
-> > port.h is only included from hub.h, as a subsequent patch will directly
-> > use fields from |struct usb_port| in a static inline helper in hub.h.
-> > The USB internal headers don't have header guards to help with this.
-> >
-> > Also drop 'extern' from the header declaration of usb_port_is_power_on(=
-).
-> > This is not needed in modern C.
-> >
-> > Suggested-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-> > Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-> > Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-> > Signed-off-by: Chen-Yu Tsai <wenst@chromium.org>
-> > ---
-> > Changes since v4:
-> > - Dropped 'extern' (Andy)
-> >
-> > Changes since v3:
-> > - New patch (Andy)
-> > ---
-> >  drivers/usb/core/hub.c  | 16 ----------
-> >  drivers/usb/core/hub.h  | 48 ++---------------------------
-> >  drivers/usb/core/port.c | 16 ++++++++++
-> >  drivers/usb/core/port.h | 68 +++++++++++++++++++++++++++++++++++++++++
-> >  4 files changed, 86 insertions(+), 62 deletions(-)
-> >  create mode 100644 drivers/usb/core/port.h
->
-> hub.h is small enough, making a single .h file that is 68 lines long
-> for no real good reason isn't a good idea.  Odds are this will make the
-> build take longer as you now need to open/read/close another file.
-
-OK. Andy, can you accept not doing the move?
-
-> And if we really want to do this, it shouldn't be burried in the middle
-> of a long "enable this platform" series where people will miss it.
-
-Well the code is also touched in this series, so it is related. Without
-the change, the code movement makes even less sense, as mentioned in the
-commit message.
-
-As for missing the patch, I can change the series name to something
-like "usb: Hook up pwrseq for USB power control on M.2 E-key slots".
-The series spans multiple subsystems and even the driver core, and the
-goal is to enable M.2 E-key slots, so hopefully that ticks all the boxes.
-Except which platform is affected that is.
-
-
-ChenYu
-
-
-
-
-> Thanks to Alan's review for making me notice it.
->
-> thanks,
->
-> greg k-h
->
