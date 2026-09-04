@@ -1,139 +1,77 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57BD94B7162;
-	Sat,  5 Sep 2026 16:10:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D57DF34252B;
+	Sat,  5 Sep 2026 16:10:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788624614; cv=none; b=B0DljkqEdOVsD5BZC5LEnN37Qr61/Ypv9pUUBD9CqIww+N/sr+I48QrAuc2zR7CtxpQ7HlD9tZFSrewSHrpEkBTXO7WkZKWFyFB6tk24VOSQ2ip9hK4fQxf/EsFETGqH05l2o8qA4wkR8MnNljnWlZMnxhhi4dtAcIWzj4AiAPI=
+	t=1788624658; cv=none; b=OJpChYDHaG94uGr190lav2O2vhuIzqWlj3H4yHjHyeFqChfxwy8WBFUfar6rUigctHvBB8b6HhSNC0eooPUdRD8gkzP78oeXXuylDfE2vlPvR0nItZctZcJ/plbYscJkKpPYTNB2QZhedOlFxtAZil/E91ruHinXPepx8YKtdXU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788624614; c=relaxed/simple;
-	bh=GdAmVa7iE3KuZq0pnaElyxTH7QjB87W+q+Kezd277Zk=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=TV6vDWTq8v0xNUw5nIYN/pujjT7rhthNx8ZXqHtIo5kjFKruDoRFcdlwkGblLGCBaPujgIfLgUDR0r1wyqY8Hpg1PeWyyQHwQ05CHDNQ7I3MBICQXjv87pUF/UCHSqiT1p/i6J29qs9TLsYrcQ1ZTptPA/ddnBGkLBERzcmRvq0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QlMMRr9D; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788624658; c=relaxed/simple;
+	bh=NeJm4gBAmuyWOuFdbTcREqjROX/Ie+mGb25ye/f9+Bw=;
+	h=Message-ID:From:To:Cc:Date:Subject:In-Reply-To:References; b=Eaq5g7M3hrod5n1NubZ/3fDwX/PdEUzzcw/H0+VupZlT+xtn4Gd639GtpttO46aHF7JidRANMMfEwGahQK33sty0qtNMeDmLntD41mcwyhSEEnfqlc9CpF7nMcncKkcV4Wpl2wAMe+TmL/bAqXJSz0G62A9J0/BpxVWepK8olX8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VlooSvki; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QlMMRr9D"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B13FA1F00A3F;
-	Sat,  5 Sep 2026 16:10:02 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VlooSvki"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5242D1F00A3A;
+	Sat,  5 Sep 2026 16:10:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788624602;
-	bh=a8kzCCf3LkqxothS93JW9562gM6FSJ7HR30H0CavaFM=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=QlMMRr9DygkCsTl/8C6xL4sfrRWPM2YoG8HMSlAxjvwq6i2wFmVqoRil8nlSmBgnR
-	 4ZLOW5SBXDFXYuM+HjtljchiR6D6ugaxq5LmWyyPjO9UdO1P12WiA/IhRkEzsNMT3O
-	 xWi7G7rbh+G7XkFgqOQnuRtGi0y7GVB18OXW9jVtI1X+4pPlIqojjhpWNHvzcf19EY
-	 Kl5amb98sJmWevy1HN4t+pkpdEvLll4lVJKsc4bXuc52MOO85rW1ieBXuIH2pFsrxK
-	 MW5aZBJXfCIRcSpnITZSYEbw5EywkJekO8cCz85AFSOuJxfHenayYiHWVNjBbvKgyC
-	 Wj3iS9nfCe10Q==
+	s=k20260515; t=1788624657;
+	bh=FVdL+I0TF8qzjtWwKDqf3kQJjvZoMHDpNE1C67iFE2o=;
+	h=From:To:Cc:Date:Subject:In-Reply-To:References;
+	b=VlooSvkiYqXE00unPM8+p+Gk6LR5jyWyyxAUCi80qRTguIcPUcf9TTelQAySySw8k
+	 RBjOC0a/Xp4VMH0d8+ugkg9dBevJpt87Wkc8qVSqysqqtk1If+WaNlVOI8keeuK+vF
+	 GhAolSMiKjYrPX7vezbQi0tF6AHfgtv9+CH8Z72sQfW2o32H6WscKQsH8mE2QNYlOX
+	 O4iD9vuMh/24o7b4oax1Fz8Za4wJYehfe9t/yiyFwOLwr5k3fL0LpshRxmaqh6lwju
+	 D92UKSmw4AmT4i7bVfuMw/8zHOLVrfn/l2bFq53idvW7vjgv+Ga3pL0phdo7CQoHhH
+	 T2j2qCAGkbcgQ==
+Message-ID: <d742c094937b76304fe055d06d7c8cab@kernel.org>
 From: Tejun Heo <tj@kernel.org>
-To: David Vernet <void@manifault.com>,
-	Andrea Righi <arighi@nvidia.com>,
-	Changwoo Min <changwoo@igalia.com>
-Cc: sched-ext@lists.linux.dev,
-	Emil Tsalapatis <emil@etsalapatis.com>,
-	linux-kernel@vger.kernel.org,
-	Tejun Heo <tj@kernel.org>
-Subject: [PATCH sched_ext/for-7.3-fixes 3/4] sched_ext: scx_qmap: Do not add IMMED to rescue inserts
-Date: Sat,  5 Sep 2026 06:09:57 -1000
-Message-ID: <20260905160958.1565156-4-tj@kernel.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260905160958.1565156-1-tj@kernel.org>
-References: <20260905160958.1565156-1-tj@kernel.org>
+To: Aaron Tomlin <atomlin@atomlin.com>
+Cc: tj@kernel.org, jiangshanlai@gmail.com, rostedt@goodmis.org,
+ mhiramat@kernel.org, osandov@osandov.com, neelx@suse.com, sean@ashe.io,
+ marco.crivellari@suse.com, linux-kernel@vger.kernel.org,
+ linux-trace-kernel@vger.kernel.org, leitao@debian.org
+Date: Fri, 04 Sep 2026 10:22:45 -1000
+Subject: Re: [PATCH v2 0/3] Add telemetry tracepoints for CPU hogs,
+ distress, and BH budget yields
+In-Reply-To: <20260904193447.247502-1-atomlin@atomlin.com>
+References: <20260904193447.247502-1-atomlin@atomlin.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-qmap's stranded fallback forces a task that can run on none of its self cids
-onto its first allowed cid with SCX_ENQ_RESCUE, and adds SCX_ENQ_IMMED when
-that cid is a time-share it holds. On such a cid the insert stops being a
-rescue request:
+Hello, Aaron.
 
-1. A task is enqueued while none of its allowed cids is in self_cids. At
-   attach self_cids is still empty.
-2. qmap inserts it into cid 0's local DSQ with SCX_ENQ_RESCUE |
-   SCX_ENQ_IMMED.
-3. The kernel finds ENQ_IMMED held on cid 0, admits the insert and skips the
-   rescue diversion.
-4. cid 0's cpu is busy, so the IMMED task is bounced back to qmap with
-   SCX_ENQ_REENQ.
-5. qmap's enqueue sees the same inputs and repeats step 2. Nothing runs in
-   between.
-6. The reenqueue limit ejects qmap with SCX_EXIT_ERROR_REENQ.
+> Aaron Tomlin (3):
+>   workqueue: Add workqueue_cpu_intensive tracepoint
+>   workqueue: Add workqueue_mayday and workqueue_rescued tracepoints
+>   workqueue: Add workqueue_bh_budget_yield tracepoint
 
-The caps granted during the parent's ops.sub_attach() are delivered after
-the sub already holds its tasks, while the per-cid effective caps that mark
-the time-shares are delivered from the first dispatch after bypass lifts, so
-every attach that receives a time-share on a task's first allowed cid starts
-the loop. Drop IMMED from the rescue inserts so that step 3 diverts to the
-rescue path.
+Applied 1-3 to wq/for-7.4 with the mayday interval references removed and
+"executing CPU" changed to "pool CPU" in the BH tracepoint description.
+The comment adjustment is below.
 
-Signed-off-by: Tejun Heo <tj@kernel.org>
----
- tools/sched_ext/scx_qmap.bpf.c | 18 ++++++++++--------
- 1 file changed, 10 insertions(+), 8 deletions(-)
+Thanks.
 
-diff --git a/tools/sched_ext/scx_qmap.bpf.c b/tools/sched_ext/scx_qmap.bpf.c
-index 9f6e61d7ca07..e4e51303bd29 100644
---- a/tools/sched_ext/scx_qmap.bpf.c
-+++ b/tools/sched_ext/scx_qmap.bpf.c
-@@ -358,8 +358,8 @@ s32 BPF_STRUCT_OPS(qmap_select_cid, struct task_struct *p,
- }
- 
- /*
-- * A received time-shared cid is held ENQ_IMMED-only, so inserts must set
-- * SCX_ENQ_IMMED.
-+ * A received time-shared cid is held ENQ_IMMED-only, so inserts meant to run
-+ * there must set SCX_ENQ_IMMED.
-  */
- static u64 needs_immed(s32 cid)
- {
-@@ -444,9 +444,11 @@ void BPF_STRUCT_OPS(qmap_enqueue, struct task_struct *p, u64 enq_flags)
- 	 * didn't grant them or we delegated them to children - would starve in
- 	 * SHARED/FIFO since we only pull from those on self cids.
- 	 *
--	 * Force it onto its first allowed cid's local DSQ. If we hold that cid
--	 * it runs. Otherwise the insert carries SCX_ENQ_RESCUE and the kernel
--	 * diverts the task to its rescue path.
-+	 * Force it onto its first allowed cid's local DSQ with SCX_ENQ_RESCUE.
-+	 * If we hold ENQ on that cid it runs. Otherwise the kernel diverts the
-+	 * task to its rescue path. IMMED would turn the insert into a legal
-+	 * placement on a time-shared cid and the kernel would bounce it back
-+	 * here instead of rescuing it.
- 	 */
- 	if (!cmask_intersects(&taskc->cpus_allowed, &qa.self_cids.mask)) {
- 		s32 c = cmask_next_set_wrap(&taskc->cpus_allowed, 0);
-@@ -455,7 +457,7 @@ void BPF_STRUCT_OPS(qmap_enqueue, struct task_struct *p, u64 enq_flags)
- 			taskc->force_local = false;
- 			__sync_fetch_and_add(&qa.nr_rescue_dsp, 1);
- 			scx_bpf_dsq_insert(p, SCX_DSQ_LOCAL_ON | c, slice_ns,
--					   enq_flags | needs_immed(c) | SCX_ENQ_RESCUE);
-+					   enq_flags | SCX_ENQ_RESCUE);
- 			return;
- 		}
- 	}
-@@ -618,7 +620,7 @@ static bool scan_shared_dsq(bool from_timer)
- 			if (c >= 0 && c < scx_bpf_nr_cids()) {
- 				__sync_fetch_and_add(&qa.nr_rescue_dsp, 1);
- 				scx_bpf_dsq_move(BPF_FOR_EACH_ITER, p, SCX_DSQ_LOCAL_ON | c,
--						 needs_immed(c) | SCX_ENQ_RESCUE);
-+						 SCX_ENQ_RESCUE);
- 			}
- 			continue;
- 		}
-@@ -659,7 +661,7 @@ static bool scan_shared_dsq(bool from_timer)
- 			if (c >= 0 && c < nr_cids) {
- 				__sync_fetch_and_add(&qa.nr_rescue_dsp, 1);
- 				scx_bpf_dsq_move(BPF_FOR_EACH_ITER, p, SCX_DSQ_LOCAL_ON | c,
--						 needs_immed(c) | SCX_ENQ_RESCUE);
-+						 SCX_ENQ_RESCUE);
- 			}
- 			continue;
- 		}
 -- 
-2.55.0
+tejun
 
+diff --git a/include/trace/events/workqueue.h b/include/trace/events/workqueue.h
+index 12ac24586835..eb97d4dbb5b4 100644
+--- a/include/trace/events/workqueue.h
++++ b/include/trace/events/workqueue.h
+@@ -169,9 +169,8 @@ TRACE_EVENT(workqueue_cpu_intensive,
+  * workqueue_mayday - called when a pool_workqueue sends mayday to rescuer
+  * @pwq:	pointer to struct pool_workqueue
+  *
+- * This event occurs when a worker pool fails to create a new worker
+- * within MAYDAY_INTERVAL and requests the workqueue's rescuer thread to
+- * process pending works.
++ * This event occurs when a worker pool fails to create a new worker and
++ * requests the workqueue's rescuer thread to process pending works.
+  */
+ TRACE_EVENT(workqueue_mayday,
+ 
