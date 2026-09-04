@@ -1,91 +1,93 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C31093A380F;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A73F3EE1EE;
 	Fri,  4 Sep 2026 14:41:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788532882; cv=none; b=u8VfDRb1wDCtFMhz8YtcI/TtJuWSONlk5Dv+QjSlMXyyqvI8gY0wU83o48w2DfNmrBqa4a/478Y0QmddQzNyYHRDgW84/rCimwZPQYW9w/WZ1LxKlWD8e8JZmC/RElnQzbM2Tui40bAgzcGf2nVQia02E92aXWKc2lXQ8SkTJH4=
+	t=1788532882; cv=none; b=qIixS0NP3R1camarJeMaBW18LU+odk/1Gt83nFXErwmLmAchICA4CusLViUw2vcgSVw9ppEbxRVBTdL8zAMqmlTLimA4kPULXvvWArLsDpuvIMbHVwUg6WWDZuj8Y1lXSdKA9GYJ07xyUjQQk9Z9Gkv3N4yq5UPKGo2ZnXM/pB4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788532882; c=relaxed/simple;
-	bh=PrVgSoQf54ceYqtKdirDNT+8OHG8gzFBR3WMgKGAYm0=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Subject:Cc:From:To:
-	 References:In-Reply-To; b=W4irZcuZE8laPv71aqy6GrYQzJYYK3IVTPiTlS/yQsvL1etnL+8RL1sbC9z7dtPCAkAtj4xxFQvg4RowIeJR3Ue6w4LyigvvsvbaoCart17cKg4Pmx3pgT/zRxTkwFDZivkFyKbmUFVcmTQQJVQCPGTDljY4XriUBRRlXTWECBM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=A1b6FrNC; arc=none smtp.client-ip=100.103.45.18
+	bh=e38JMJdiGHRdfA64u0w6Tx1jh3SRtvwMfz7aiaqj09M=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=cQoexpN2auCNUyO3Ywh+hRVcytztG12jZ40tt2XGchSb2Z+7h/Dnjk6n/jCd/Kc6hINt9WeXiwxtWcAv8aDJrBEhTgineJ5f9yAohoxWPxa5MyP/i7x1lx1HP3DLZWZKq2uZf5dr6R1/7LiRw7yPdPpjJbS+OpEvsdK2q+pm5AQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cUvd5eNY; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="A1b6FrNC"
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 2421C1F00AC4;
-	Fri,  4 Sep 2026 14:41:20 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cUvd5eNY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4EF621F00A3E;
+	Fri,  4 Sep 2026 14:41:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788532881;
-	bh=zD53N/EHIMHVfbT4JxU4Fm2WFQ5MT2sTqDAA/y2RbGo=;
-	h=Date:Subject:Cc:From:To:References:In-Reply-To;
-	b=A1b6FrNCmOwhDgGHd60VJn3LXE8NDiHJx3sKln5y/Mxa9wzOpGlFbs1EdpqkqnyXr
-	 ohuK/Tr8D/Hb3fu+JYcC8TSvg0ogbKQPm8hGmMKnVN8VAd1dqbY5V8fPDVgUGIJxO6
-	 tgADXu4KDoKW/Z9nZPs2uO0aLtOcKdGdkhos0p0vz4BFagEnFbpmRiJUJX5CMCwBeC
-	 NbaTjhdGKgvq80cOr+DmV87XbhSmodh2V+Pc+5LBXpigECJXqnB08iPCgsSP/Jxnht
-	 VsCUN/p1ZKlTB2JvaYnKoqdHUHhjFtywP7Mz3fZLR4KgYT9YxkLO8fYdUwTl8shVA6
-	 /Khs0R/n7phqg==
+	s=k20260515; t=1788532880;
+	bh=zynrnR2EAq/cFIWBv+qsDcjBh1/+RXYsldS58qsToHc=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=cUvd5eNYQ54v0QEIlMEw22g8NGNBTCdBjYjqD8ycmaUDP+BY//oWsQgjQmhhZbaIg
+	 cYZ7OHAKqg2bPxrplgxy0ikDg5vjeQeu//OvQW+EVapcwMgI0JYLOjLFGrcTCzm7x0
+	 zTiyGTGxQGg7Yrlmv4QTpZyK7srKwG+9NsSGXfBDkc/XCZhAJsc1qJyxZ+9WN68TR+
+	 qW9pOPL77O602OnSfBSjF94nWk4giyC1qqhtO5vmx5MBMGEvyUBhYPy7AMBTK1Fzpf
+	 F2pOoCC2vgzJYTixxIdo3TvT6+qRl9Jz4EWjpAE/K/neFs/RBh1hDk7r+0WW7Dg88g
+	 4ngMXUtCVxr9Q==
+From: Arnaldo Carvalho de Melo <acme@kernel.org>
+To: Namhyung Kim <namhyung@kernel.org>
+Cc: Ingo Molnar <mingo@kernel.org>,
+	Thomas Gleixner <tglx@linutronix.de>,
+	James Clark <james.clark@linaro.org>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Ian Rogers <irogers@google.com>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	Clark Williams <williams@redhat.com>,
+	linux-kernel@vger.kernel.org,
+	linux-perf-users@vger.kernel.org,
+	Arnaldo Carvalho de Melo <acme@redhat.com>,
+	sashiko-bot <sashiko-bot@kernel.org>,
+	Stephane Eranian <eranian@google.com>
+Subject: [PATCH 3/5] perf jitdump: Free unwinding data even when eh_frame_hdr_size is zero
+Date: Fri,  4 Sep 2026 11:40:55 -0300
+Message-ID: <20260904144058.3341-4-acme@kernel.org>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260904144058.3341-1-acme@kernel.org>
+References: <20260904144058.3341-1-acme@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: multipart/signed;
- boundary=b7a88bf97e556c6cd04c75ab73b7aa697a055d0a877df80f250b141c6f38;
- micalg=pgp-sha384; protocol="application/pgp-signature"
-Date: Fri, 04 Sep 2026 16:41:17 +0200
-Message-Id: <DL6LZOVDBDTD.DQNNUKIU3P3H@kernel.org>
-Subject: Re: [PATCH v2] arm64: dts: ti: add am62p/j722s GPU node
-Cc: <linux-arm-kernel@lists.infradead.org>, <devicetree@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>
-From: "Michael Walle" <mwalle@kernel.org>
-To: "Kumar, Udit" <u-kumar1@ti.com>, <a-christidis@ti.com>, "Nishanth Menon"
- <nm@ti.com>, "Vignesh Raghavendra" <vigneshr@ti.com>, "Tero Kristo"
- <kristo@kernel.org>, "Rob Herring" <robh@kernel.org>, "Krzysztof Kozlowski"
- <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>
-X-Mailer: aerc 0.20.0
-References: <20260831-am62p-gpu-node-v2-1-69945a2db2af@ti.com>
- <33c6717c-5c24-488f-bd85-d0cfaacaf13e@ti.com>
-In-Reply-To: <33c6717c-5c24-488f-bd85-d0cfaacaf13e@ti.com>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
---b7a88bf97e556c6cd04c75ab73b7aa697a055d0a877df80f250b141c6f38
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
+From: Arnaldo Carvalho de Melo <acme@redhat.com>
 
-Hi,
+jit_repipe_code_load() only cleared the unwinding state when both
+unwinding_data and eh_frame_hdr_size were set.  When a record carries
+unwinding data but eh_frame_hdr_size is 0, the cleanup condition fails
+and the unwinding state persists in jd, being applied to all subsequent
+JIT_CODE_LOAD and JIT_CODE_MOVE records, duplicating unwinding sections
+in the generated ELF files and inflating their event->mmap2.len.
 
-On Fri Sep 4, 2026 at 4:27 PM CEST, Udit Kumar wrote:
->> +	gpu: gpu@fd80000 {
->> +		compatible =3D "ti,am62p-gpu", "img,img-bxs-4-64", "img,img-rogue";
->> +		reg =3D <0x00 0x0fd80000 0x00 0x80000>;
->> +		clocks =3D <&k3_clks 237 3>;
->> +		clock-names =3D "core";
->> +		interrupts =3D <GIC_SPI 241 IRQ_TYPE_LEVEL_HIGH>;
->> +		power-domains =3D <&k3_pds 237 TI_SCI_PD_EXCLUSIVE>,
->> +				<&k3_pds 242 TI_SCI_PD_EXCLUSIVE>;
->> +		power-domain-names =3D "a", "b";
->> +	};
->
-> Could you check once, if you don't need some assigned-clock-freq.
-> and good with default freq ?
+The record is validated upstream so eh_frame_hdr_size <= unwinding_size
+always holds.  Free the unwinding data based on the data pointer alone.
 
-See
-https://lore.kernel.org/all/20250915143440.2362812-1-mwalle@kernel.org/
+Reported-by: sashiko-bot <sashiko-bot@kernel.org>
+Reviewed-by: Ian Rogers <irogers@google.com>
+Cc: Stephane Eranian <eranian@google.com>
+Assisted-by: LLM
+Signed-off-by: Arnaldo Carvalho de Melo <acme@redhat.com>
+---
+ tools/perf/util/jitdump.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
--michael
+diff --git a/tools/perf/util/jitdump.c b/tools/perf/util/jitdump.c
+index e0d5cc9a828189a2..efb40d93e33ae664 100644
+--- a/tools/perf/util/jitdump.c
++++ b/tools/perf/util/jitdump.c
+@@ -530,7 +530,7 @@ static int jit_repipe_code_load(struct jit_buf_desc *jd, union jr_entry *jr)
+ 		jd->nr_debug_entries = 0;
+ 	}
+ 
+-	if (jd->unwinding_data && jd->eh_frame_hdr_size) {
++	if (jd->unwinding_data) {
+ 		zfree(&jd->unwinding_data);
+ 		jd->eh_frame_hdr_size = 0;
+ 		jd->unwinding_mapped_size = 0;
+-- 
+2.55.0
 
---b7a88bf97e556c6cd04c75ab73b7aa697a055d0a877df80f250b141c6f38
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iKgEABMJADAWIQTIVZIcOo5wfU/AngkSJzzuPgIf+AUCaprYjRIcbXdhbGxlQGtl
-cm5lbC5vcmcACgkQEic87j4CH/imSQGA+0EFfXnMF0x7rvtUX9YBU/EEhH0bwrMu
-DfS8Rwit1ki0p8KXhKtXF5EegntAkmO+AYD4L6fgH/DnvaFbB/AlzWpSEmkvg8Hn
-S9J6JBHSnk6w0NGja4zHFhSoiYknmfaCixg=
-=5d+V
------END PGP SIGNATURE-----
-
---b7a88bf97e556c6cd04c75ab73b7aa697a055d0a877df80f250b141c6f38--
