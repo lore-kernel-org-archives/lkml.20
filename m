@@ -1,129 +1,161 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-125.mta1.migadu.com [95.215.58.125])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3694F3A6B8F;
-	Fri,  4 Sep 2026 22:44:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7EB442640D
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 22:44:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.125
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788561841; cv=none; b=FzW6fqD+dCsvNolKDNCp8WhEI7KWDw6Lf/vUvPMlMTfDQaU8HWo0GlOfEz7YAwfIDs8RkuqmtIX3EhfTtayMet1qL6h/JfKUuWvELrWD1kylV2Nfeld+nqgE1NBkZZOuixSuDMhP+8LCuI4V+gKK3vi8AnUT+oOSihg5M8dguDc=
+	t=1788561865; cv=none; b=pUAPXSjSO6vMH3IPhW7ZMgAedGe05I06RWLi+a9JADBSC1qOo7D5F4oShuZpVy8RQ9jcaO8XJ0cvBFvrTKoyVNSUjNZsI+oUcHoUMkGvDMNMKJ5M7wvYBb8VlCgNUGdKaWpUkFtARtpc/WV5jaLU43Kq7jnAVs6h22zInufQC7I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788561841; c=relaxed/simple;
-	bh=HfVH5EMzz9zcj2NHRsaCia2CtO9Ns0wpkZxpGiGQyWU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=gN+kXuzbWl0fhasKYRJfHRtQvyW5i1Y7egsP6bB3snUf5uxNQdGNuYCx4ykZ2SIv74oZBr48zTrD21hu5nKncTcdLw8jz8sMx7Eq047haa4n5H9/YQqrrYm7meYOR1YDn1RQRJnAatxXOBO3ifTn3pUsDqb7o3WB/Xag5awhBYE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KH+vGmAy; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788561865; c=relaxed/simple;
+	bh=5JJslb5aQZAIHz9ntL7bFQFlu+8A9jB1du1N6SMHrzU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=I2VAIQId3CNgg+hlU+GjBo0w2UhzizBdbHF64k3rGV2kRIS6fX+R5nc/zvlwGNjfQ7M4ZyZdall5JGbxSd5qaWXtxWr/FAdGf1cE9T/5bk4RcMzz9+xcjJFJ+h0IyEK/7Fbjv4Y7D2ymjMRx6zXO3D+SUUBwzi3Pn8aEBRhOmHw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=ZIA8Ldk9; arc=none smtp.client-ip=95.215.58.125
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KH+vGmAy"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1CED71F00A3D;
-	Fri,  4 Sep 2026 22:43:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788561840;
-	bh=yIBEs8YvYOUCU6TvDhVSB8/Kdd+pjsmMutlDKBRYBV4=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=KH+vGmAy8blbtGE5K+Li+x8WNh6h3UNfJ6M3MRudX8a2ucHrFk0ChPc4O4uhTCsYg
-	 7wp/6ZwddAvuwqKLCcezqxpPNrgmsn5JE4ErSsX9fqskxkclO5jrLDSVtYKqGgXior
-	 KO6NrigTkjkxFU4wQ7/osFXLbuYITgrzTVR8+Y/ocIY828zTYsugCntiA/pHfCL2Il
-	 4szNZsawV/CjkW1Jjkio93x+Fh+Z7NHiNkXoc9cEoVdovurOGIkufMhqYo7j6qEqyP
-	 QcmLhz0ozj+ceQ3xkqF2a5gb4G/02GeY095lpDZVRpYvR5MZYjFVVcQDog7v23kQt4
-	 yijDwdivJT7uw==
-From: Jakub Kicinski <kuba@kernel.org>
-To: raoxu@uniontech.com
-Cc: Jakub Kicinski <kuba@kernel.org>,
-	andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@google.com,
-	pabeni@redhat.com,
-	maciej.fijalkowski@intel.com,
-	kuniyu@google.com,
-	linux-usb@vger.kernel.org,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH net v2] net: usb: ipheth: stop RX URB on ndo_stop
-Date: Fri,  4 Sep 2026 15:43:57 -0700
-Message-ID: <20260904224357.4041665-1-kuba@kernel.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <351B4C70CB12AE0F+20260901050604.2523039-1-raoxu@uniontech.com>
-References: <351B4C70CB12AE0F+20260901050604.2523039-1-raoxu@uniontech.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="ZIA8Ldk9"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=5JJslb5aQZAIHz9ntL7bFQFlu+8A9jB1du1N6SMHrzU=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788561859; v=1; x=1789166659;
+ b=ZIA8Ldk9XPWXPLAo8tDRa5rgZE4OdAOVKrKRmI6UkSsOz3kApmQfiVELn7SzroBR6ADMNMa7
+ 1MUCl9YC6DCVamiDxZ3Ekce4/v0BLLM7dcxcKUAdWbfDSWvKeoUbxkE2qvJeRGQMiHBWwuEhAEq
+ aHTVBYIvPVtHUBrjEqDTMvk0=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 9c0fbca0130c8bd5;
+	Fri, 04 Sep 2026 22:44:09 +0000
+X-Mizu-Trace-ID: 9c0fbca0130c8bd5
+X-Migadu-Flow: FLOW_OUT
+Date: Fri, 4 Sep 2026 15:44:04 -0700
+From: Shakeel Butt <shakeel.butt@linux.dev>
+To: David Stevens <stevensd@google.com>
+Cc: Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, 
+	Roman Gushchin <roman.gushchin@linux.dev>, Muchun Song <muchun.song@linux.dev>, 
+	Andrew Morton <akpm@linux-foundation.org>, Lorenzo Stoakes <ljs@kernel.org>, cgroups@vger.kernel.org, 
+	linux-mm@kvack.org, linux-kernel@vger.kernel.org, Michal Hocko <mhocko@suse.com>
+Subject: Re: [PATCH v2] memcg: Don't call schedule_work when no spinning is
+ allowed
+Message-ID: <aptIy7R37n5C-o6z@linux.dev>
+References: <20260904173145.2028377-1-stevensd@google.com>
+ <apsTohKZNnZuWIxC@linux.dev>
+ <CAOiLmNGdPk+7v6Aqm9ctQV9J3YKti50gVTP00P=-3cZ8-x5cUA@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAOiLmNGdPk+7v6Aqm9ctQV9J3YKti50gVTP00P=-3cZ8-x5cUA@mail.gmail.com>
 
-This is an AI-generated review of your patch. The human sending this
-email has considered the AI review valid, or at least plausible.
----
-net: usb: ipheth: stop RX URB on ndo_stop
+On Fri, Sep 04, 2026 at 03:15:54PM -0700, David Stevens wrote:
+> On Fri, Sep 4, 2026 at 12:03 PM Shakeel Butt <shakeel.butt@linux.dev> wrote:
+> >
+> > On Fri, Sep 04, 2026 at 10:31:45AM -0700, David Stevens wrote:
+> > > Memcg charging can be done from any context, but calling schedule_work()
+> > > isn't safe from an NMI. If memory.high is breached from a context where
+> > > spinning isn't allowed, use irq_work to schedule the reclaim work.
+> > >
+> > > Fixes: 3ac4638a734a ("memcg: make memcg_rstat_updated nmi safe")
+> > > Acked-by: Michal Hocko <mhocko@suse.com>
+> > > Signed-off-by: David Stevens <stevensd@google.com>
+> > > ---
+> > > v2:
+> > >   - Added missing includes reported by Lorenzo and kernel test robot
+> > >   - Added Acked-by
+> > >
+> > >  include/linux/memcontrol.h |  2 ++
+> > >  mm/memcontrol.c            | 13 ++++++++++++-
+> > >  2 files changed, 14 insertions(+), 1 deletion(-)
+> > >
+> > > diff --git a/include/linux/memcontrol.h b/include/linux/memcontrol.h
+> > > index 8170bb8066a2..4a5ef0aba475 100644
+> > > --- a/include/linux/memcontrol.h
+> > > +++ b/include/linux/memcontrol.h
+> > > @@ -23,6 +23,7 @@
+> > >  #include <linux/writeback.h>
+> > >  #include <linux/page-flags.h>
+> > >  #include <linux/shrinker.h>
+> > > +#include <linux/irq_work_types.h>
+> > >
+> > >  struct mem_cgroup;
+> > >  struct obj_cgroup;
+> > > @@ -219,6 +220,7 @@ struct mem_cgroup {
+> > >       spinlock_t       peaks_lock;
+> > >
+> > >       /* Range enforcement for interrupt charges */
+> > > +     struct irq_work high_irq_work;
+> > >       struct work_struct high_work;
+> > >
+> > >  #ifdef CONFIG_ZSWAP
+> > > diff --git a/mm/memcontrol.c b/mm/memcontrol.c
+> > > index 6dc4888a90f3..0e8b302ca9ad 100644
+> > > --- a/mm/memcontrol.c
+> > > +++ b/mm/memcontrol.c
+> > > @@ -62,6 +62,7 @@
+> > >  #include <linux/seq_buf.h>
+> > >  #include <linux/sched/isolation.h>
+> > >  #include <linux/kmemleak.h>
+> > > +#include <linux/irq_work.h>
+> > >  #include "internal.h"
+> > >  #include "swap_table.h"
+> > >  #include <net/sock.h>
+> > > @@ -2360,6 +2361,11 @@ static void high_work_func(struct work_struct *work)
+> > >       reclaim_high(memcg, MEMCG_CHARGE_BATCH, GFP_KERNEL);
+> > >  }
+> > >
+> > > +static void high_irq_work_func(struct irq_work *work)
+> > > +{
+> > > +     schedule_work(&container_of(work, struct mem_cgroup, high_irq_work)->high_work);
+> > > +}
+> > > +
+> > >  /*
+> > >   * Clamp the maximum sleep time per allocation batch to 2 seconds. This is
+> > >   * enough to still cause a significant slowdown in most cases, while still
+> > > @@ -2752,7 +2758,10 @@ static int try_charge_memcg(struct mem_cgroup *memcg, gfp_t gfp_mask,
+> > >               /* Don't bother a random interrupted task */
+> > >               if (!in_task()) {
+> > >                       if (mem_high) {
+> > > -                             schedule_work(&memcg->high_work);
+> > > +                             if (allow_spinning)
+> > > +                                     schedule_work(&memcg->high_work);
+> > > +                             else
+> > > +                                     irq_work_queue(&memcg->high_irq_work);
+> > >                               break;
+> > >                       }
+> > >                       continue;
+> > > @@ -4129,6 +4138,7 @@ static struct mem_cgroup *mem_cgroup_alloc(struct mem_cgroup *parent)
+> > >               goto fail;
+> > >
+> > >       INIT_WORK(&memcg->high_work, high_work_func);
+> > > +     init_irq_work(&memcg->high_irq_work, high_irq_work_func);
+> > >       vmpressure_init(&memcg->vmpressure);
+> > >       INIT_LIST_HEAD(&memcg->memory_peaks);
+> > >       INIT_LIST_HEAD(&memcg->swap_peaks);
+> > > @@ -4337,6 +4347,7 @@ static void mem_cgroup_css_free(struct cgroup_subsys_state *css)
+> > >               static_branch_dec(&memcg_bpf_enabled_key);
+> > >
+> > >       vmpressure_cleanup(&memcg->vmpressure);
+> > > +     irq_work_sync(&memcg->high_irq_work);
+> >
+> > On RT kernels, this will put rcu grace period here while we are holding the
+> > cgroup_mutex. Easy fix would be to use IRQ_WORK_INIT_HARD instead of
+> > init_irq_work() in mem_cgroup_alloc.
+> >
+> > Something like:
+> >         memcg->high_irq_work = IRQ_WORK_INIT_HARD(high_irq_work_func);
+> >
+> 
+> This executes as part of css_free_rwork_fn(), so it isn't under cgroup_mutex.
 
-ipheth_close() previously stopped the netdev queue and disabled the carrier
-work but left the RX URB submitted, so an in-flight RX could still deliver
-packets and re-arm itself after an administrative link down.  This commit
-adds a usb_kill_urb() on the RX URB in ndo_stop, deliberately leaving an
-in-flight TX URB to complete on its own.
+Oh yes, css_free_rwork_fn does not take cgroup_mutex. Though synchronize_rcu()
+is still something to avoid but not a blocker.
 
-> diff --git a/drivers/net/usb/ipheth.c b/drivers/net/usb/ipheth.c
-> index 2b490114d2327..6b90fe1e0e382 100644
-> --- a/drivers/net/usb/ipheth.c
-> +++ b/drivers/net/usb/ipheth.c
-> @@ -505,6 +505,7 @@ static int ipheth_close(struct net_device *net)
->  	 * it, so that such a schedule_delayed_work() is a no-op.
->  	 */
->  	disable_delayed_work_sync(&dev->carrier_work);
-> +	usb_kill_urb(dev->rx_urb);
->  	return 0;
->  }
+You can add:
 
-[Severity: Low]
-Can this make a plain "ip link set ethN down" print a KERN_ERR line while
-RX traffic is flowing?
-
-usb_kill_urb() does atomic_inc(&urb->reject) before it unlinks and waits,
-so a giveback that is already in progress can run ipheth_rcvbulk_callback()
-with status 0 and fall through to the resubmit:
-
-drivers/net/usb/ipheth.c:ipheth_rcvbulk_callback() {
-	...
-rx_submit:
-	dev->confirmed_pairing = true;
-	ipheth_rx_submit(dev, GFP_ATOMIC);
-}
-
-That resubmit then hits the reject check in usb_hcd_submit_urb():
-
-drivers/usb/core/hcd.c:usb_hcd_submit_urb() {
-	...
-	/* Check that the URB isn't being killed */
-	if (unlikely(atomic_read(&urb->reject))) {
-		rc = -EPERM;
-		goto done;
-	}
-
-and ipheth_rx_submit() logs that unconditionally:
-
-drivers/net/usb/ipheth.c:ipheth_rx_submit() {
-	...
-	retval = usb_submit_urb(dev->rx_urb, mem_flags);
-	if (retval)
-		dev_err(&dev->intf->dev, "%s: usb_submit_urb: %d\n",
-			__func__, retval);
-
-Before this change urb->reject was never raised on the close path, so this
--EPERM branch was not reachable from ndo_stop.
-
-The two sites also seem to disagree about what -EPERM means: ipheth_close()
-treats the blocked resubmit as the intended outcome, while
-ipheth_rx_submit() reports it as a device error.  Would it be worth teaching
-ipheth_rx_submit() (or the rx_submit path in ipheth_rcvbulk_callback()) to
-skip the dev_err() for -EPERM?
-
-Related to that, ipheth_rcvbulk_callback() discards the return value of
-ipheth_rx_submit(), so the now-expected -EPERM and a genuine failure such
-as -ENOMEM, which leaves RX dead until the next ipheth_open(), are treated
-identically.  Should the callback distinguish them?
-
-Should the commit message also mention the new log output on the close path?
--- 
-pw-bot: cr
+Acked-by: Shakeel Butt <shakeel.butt@linux.dev>
