@@ -1,761 +1,331 @@
-Received: from mailout2.w1.samsung.com (mailout2.w1.samsung.com [210.118.77.12])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DACDA4A204D;
-	Fri,  4 Sep 2026 13:27:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.118.77.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91164456DE8;
+	Fri,  4 Sep 2026 13:30:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.19
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788528468; cv=none; b=n3TBafZ/lsil8wr16xar6uaxRVLxxa+CLWTabMYPd43sNCcsg6IElUydC4/Ucett7AC2LPbiUAs4pxWlvg/XSQF0zbQj288s13mnjfCF5DdEPpPkGqoZ+WA1/azr+jQanSiJq8si4XjUOnpIcoote6KzP3QsBheFNkGTYBqD0/Q=
+	t=1788528605; cv=none; b=kpiA2ung0RdFuAcrEtlh8wPEb8YUw4p+dVBnkDF2Ck8APSXhvXbzliO6pr6/1T27pwJnOAMfXOq+V/XxEzcXXLH1PO3IM2l4aSNCE3GXPa5YAYcsn3qslSPMuQFnUHJV9DGIDm3EgKOwC9Y1puHC4phfiiwP9qslXNfyppp+EIs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788528468; c=relaxed/simple;
-	bh=XKtJR9DJsDTqPERTLQb1wCVRZxvsxBt35OmMoGlqrhE=;
-	h=From:Date:Subject:MIME-Version:Message-Id:In-Reply-To:To:Cc:
-	 Content-Type:References; b=NRzHKIByx/sMk+W+NKj/Sv5MWG3R7trFzU6u5N/rLA6mwaOAjWoea4DOo6yZakaTGjI1BbTucaUX/GtCHET2eUYTGOeDqW2e8uA76oEBHR+VgJ6jIw2kJnhKCK5hQ3lX3BUeQ+3Wm4bwK34VG4SCH348s5qPh+J9j7ike04PE6Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=ik0xpqZ+; arc=none smtp.client-ip=210.118.77.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+	s=arc-20240116; t=1788528605; c=relaxed/simple;
+	bh=grhnvhyknET3B7IdJvQibXDzsJ5N/WqEsZ9s8sa9fm0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Mkp2/kXPvmfvsWY7Ra/Z25eYxJe5bZYl03Y29GU9zPe7nq/DitcvwhfoM4MJGH5cJ6jZMyAdmyAE378RStx3Z0mUqCFqmJyC91+Uupu6CtN4jee0gNEckxyXX2DMxzHzP32E2E1KzxdcY2e0MW4/ePNdmwAR2Whcary0Qr0ZKaQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=kHWJqZwJ; arc=none smtp.client-ip=192.198.163.19
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="ik0xpqZ+"
-Received: from eucas1p1.samsung.com (unknown [182.198.249.206])
-	by mailout2.w1.samsung.com (KnoxPortal) with ESMTP id 20260904132742euoutp024116ba865531bfc26025a76aba573cc2~SISkIi-aO2507225072euoutp02a;
-	Fri,  4 Sep 2026 13:27:42 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.w1.samsung.com 20260904132742euoutp024116ba865531bfc26025a76aba573cc2~SISkIi-aO2507225072euoutp02a
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1788528462;
-	bh=ExUk9wVOX1Asz+9I+QLsYMtzyrWG3H9ODZzekXGp9UI=;
-	h=From:Date:Subject:In-Reply-To:To:Cc:References:From;
-	b=ik0xpqZ+/bOG+7vVUf0dcfcRhNVJ48Jd2ra+I00drbWSr0jOc+1wc4wVnTbY0Lebl
-	 7SSyVhIFVuSNYXSNACcvBf51Jc79olC8HplaJRj3PRcyYI9NqnFXBpM4XOkU5k5sso
-	 Y1GJ4PD+UwbIy6ArRKZHkP4DZIdgClE9vvOI0t0A=
-Received: from eusmtip1.samsung.com (unknown [203.254.199.221]) by
-	eucas1p1.samsung.com (KnoxPortal) with ESMTPA id
-	20260904132741eucas1p1a60fc27f22cb79ef94aeb637334124f2~SISj2KhG11817718177eucas1p1q;
-	Fri,  4 Sep 2026 13:27:41 +0000 (GMT)
-Received: from AMDC4942.eu.corp.samsungelectronics.net (unknown
-	[106.210.136.40]) by eusmtip1.samsung.com (KnoxPortal) with ESMTPA id
-	20260904132739eusmtip1faed33b30a4b9ed0b1cede73b4dc4dff~SISh7Da6p1303913039eusmtip1Z;
-	Fri,  4 Sep 2026 13:27:39 +0000 (GMT)
-From: Michal Wilczynski <m.wilczynski@samsung.com>
-Date: Fri, 04 Sep 2026 15:27:18 +0200
-Subject: [PATCH v3 17/19] phy: starfive: Add jh7110-inno-hdmi-phy driver
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="kHWJqZwJ"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788528602; x=1820064602;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=grhnvhyknET3B7IdJvQibXDzsJ5N/WqEsZ9s8sa9fm0=;
+  b=kHWJqZwJDXzD61UL2IW6AuJ6+0NFT9q/8rZw8HPhT3shMAjdg88QWsrn
+   eXj4XV+XVSCMq7PUhAlFkGc90+PDntPvFphFdNx5ZRV6QfIW9aqTtnXYg
+   XCY6ayIrV2sgEQGP4sQMyXnczzTUgR8pMCBH1HDDnIMzJCb4kx5bBPJy3
+   UWydirTAKwpwlUfQ5pE3plPdPOUIrC1AWPBS85Sz7eTKXj9en0H5Dx0Ik
+   YLiY1f17VhjB0bOFuTLexCfe8SqY4EZ4xoOQSWhzZYcN7lmX2r6G8+0yn
+   N5Y5YAW5FPBCamZy+dNvzWokBgdos32As5NpVozasntXTaoipOba6giMm
+   w==;
+X-CSE-ConnectionGUID: oAVj1bSTRjWjjAWcmSImHQ==
+X-CSE-MsgGUID: LFhQNmx9TBeMlWNWVTYXlw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11895"; a="87966973"
+X-IronPort-AV: E=Sophos;i="6.25,262,1779174000"; 
+   d="scan'208";a="87966973"
+Received: from fmviesa005.fm.intel.com ([10.60.135.145])
+  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Sep 2026 06:30:00 -0700
+X-CSE-ConnectionGUID: cguac88uTRmVD4kZTqMv8g==
+X-CSE-MsgGUID: 1Xy87WaxQhialAHJ1iJzyQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,262,1779174000"; 
+   d="scan'208";a="275319220"
+Received: from slindbla-desk.ger.corp.intel.com (HELO localhost) ([10.245.244.224])
+  by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Sep 2026 06:29:55 -0700
+Date: Fri, 4 Sep 2026 16:29:52 +0300
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: longzhao@ambarella.com
+Cc: Arnd Bergmann <arnd@arndb.de>, Krzysztof Kozlowski <krzk@kernel.org>,
+	Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	soc@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Michael Turquette <mturquette@baylibre.com>,
+	Stephen Boyd <sboyd@kernel.org>, Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jiri Slaby <jirislaby@kernel.org>,
+	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>, Long Zhao <zl020895@163.com>,
+	Lee Jones <lee@kernel.org>, mfd@lists.linux.dev,
+	devicetree@vger.kernel.org, linux-clk@vger.kernel.org,
+	linux-gpio@vger.kernel.org, linux-serial@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v6 10/13] pinctrl: ambarella: add CV75 pin controller
+Message-ID: <aprH0EAx6PlQuoxq@ashevche-desk.local>
+References: <20260904-cv75-v5-v6-0-e918514cb3b1@ambarella.com>
+ <20260904-cv75-v5-v6-10-e918514cb3b1@ambarella.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260904-jh7110-clean-send-v3-17-484f9ae72715@samsung.com>
-In-Reply-To: <20260904-jh7110-clean-send-v3-0-484f9ae72715@samsung.com>
-To: Vinod Koul <vkoul@kernel.org>,  Neil Armstrong
-	<neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>,  Krzysztof
-	Kozlowski <krzk+dt@kernel.org>,  Conor Dooley <conor+dt@kernel.org>, Andrzej
-	Hajda <andrzej.hajda@intel.com>,  Robert Foss <rfoss@kernel.org>,  Laurent
-	Pinchart <Laurent.pinchart@ideasonboard.com>,  Jonas Karlman
-	<jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,  Luca Ceresoli
-	<luca.ceresoli@bootlin.com>, David Airlie <airlied@gmail.com>,  Simona
-	Vetter <simona@ffwll.ch>,  Maarten Lankhorst
-	<maarten.lankhorst@linux.intel.com>,  Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,  Lee Jones <lee@kernel.org>, Andy
-	Yan <andy.yan@rock-chips.com>,  Philipp Zabel <p.zabel@pengutronix.de>, 
-	Emil Renner Berthing <kernel@esmil.dk>,  Hal Feng
-	<hal.feng@starfivetech.com>,  Michael Turquette <mturquette@baylibre.com>, 
-	Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>,  Heiko
-	Stuebner <heiko@sntech.de>, Conor Dooley <conor@kernel.org>,  Paul Walmsley
-	<pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,  Albert Ou
-	<aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,  Dominique
-	Belhachemi <db@domibel.de>, Brian Masney <bmasney+clk@redhat.com>,  Jerome
-	Brunet <jbrunet+clk@baylibre.com>
-Cc: linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
-	mfd@lists.linux.dev, linux-clk@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
-	linux-riscv@lists.infradead.org, Andy Yan <andyshrk@163.com>,  Marek
-	Szyprowski <m.szyprowski@samsung.com>,  Maud Spierings
-	<maud_spierings@murena.io>,  Graham Markall <hello@big-grey.co.uk>,  Icenowy
-	Zheng <zhengxingda@iscas.ac.cn>,  Michal Wilczynski
-	<m.wilczynski@samsung.com>
-X-Mailer: b4 0.15-dev
-X-CMS-MailID: 20260904132741eucas1p1a60fc27f22cb79ef94aeb637334124f2
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-X-RootMTR: 20260904132741eucas1p1a60fc27f22cb79ef94aeb637334124f2
-X-EPHeader: CA
-X-CMS-RootMailID: 20260904132741eucas1p1a60fc27f22cb79ef94aeb637334124f2
-References: <20260904-jh7110-clean-send-v3-0-484f9ae72715@samsung.com>
-	<CGME20260904132741eucas1p1a60fc27f22cb79ef94aeb637334124f2@eucas1p1.samsung.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260904-cv75-v5-v6-10-e918514cb3b1@ambarella.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Add the HDMI PHY driver for the StarFive JH7110.
+On Fri, Sep 04, 2026 at 02:38:17PM +0800, Long Zhao via B4 Relay wrote:
 
-This driver binds to the starfive,jh7110-inno-hdmi-phy node and
-gets its regmap from the parent. It has no dependencies on voutcrg, only
-on its reference oscillator (xin24m), which breaks the probe-time
-circular dependency.
+> Add an Ambarella pinmux-only pinctrl driver with CV75 function/group
+> tables. GPIO is handled by the PL061 driver.
 
-This driver provides two main functions:
- - Clock Provider: It registers clk_ops to provide the variable pixel
-   clock. The .set_rate operation configures the Pre-PLL registers
-   (0x1a0+) based on the requested rate.
+...
 
- - PHY Provider: It registers phy_ops for the controller. The .power_on
-   op configures and enables the Post-PLL and other analog blocks (BIAS,
-   LDO, Serializer, etc.).
+> +#include <linux/kernel.h>
 
-The clock ops reach registers in the window shared with the HDMI
-controller, and access to that window is gated by the controller's
-system clock, which only the sibling controller driver holds. The clock
-framework walks every registered clock regardless of which drivers have
-bound, so deliberately do not implement .is_prepared, which lets the
-framework fall back to the software prepare count, and return the cached
-rate from .recalc_rate whenever the clock is not prepared. Without this,
-clk_disable_unused() reads a PHY register with that clock gated and the
-resulting stalled bus transaction wedges the CPU hard enough that it
-stops responding to NMIs. It is reproducible by building the bridge
-driver as a module so that the controller has not bound by then.
+Absolutely no. Follow IWYU principle in all your patches.
 
-The JH7110 instantiates the same Innosilicon IP as the Rockchip RK3328,
-with the PHY register block shifted by 0x100 because it sits behind the
-HDMI controller in the shared register space. The pre-PLL programming
-therefore comes from the common Innosilicon helpers; this driver adds
-the JH7110 pixel clock table, the post-PLL and the analog configuration.
+...
 
-Co-developed-by: Dominique Belhachemi <db@domibel.de>
-Signed-off-by: Dominique Belhachemi <db@domibel.de>
-Signed-off-by: Michal Wilczynski <m.wilczynski@samsung.com>
----
- drivers/phy/starfive/Kconfig                |  20 +
- drivers/phy/starfive/Makefile               |   1 +
- drivers/phy/starfive/phy-jh7110-inno-hdmi.c | 579 ++++++++++++++++++++++++++++
- 3 files changed, 600 insertions(+)
+> +#define CV75_GROUP(_name)						\
+> +	{								\
+> +		.name = #_name,						\
+> +		.pinmux = cv75_##_name##_pinmux,				\
+> +		.num_pins = ARRAY_SIZE(cv75_##_name##_pinmux),		\
+> +	}
+> +
+> +#define CV75_FUNCTION(_name)						\
+> +	{								\
+> +		.name = #_name,						\
+> +		.groups = cv75_##_name##_groups,				\
+> +		.num_groups = ARRAY_SIZE(cv75_##_name##_groups),		\
+> +	}
 
-diff --git a/drivers/phy/starfive/Kconfig b/drivers/phy/starfive/Kconfig
-index d0cdd7cb4a13de22ff643c89a79d99cce57284d7..1da417ffbf224c13224e42a3ce322e3d0c272824 100644
---- a/drivers/phy/starfive/Kconfig
-+++ b/drivers/phy/starfive/Kconfig
-@@ -25,6 +25,26 @@ config PHY_STARFIVE_JH7110_DPHY_TX
- 	  system. If M is selected, the module will be called
- 	  phy-jh7110-dphy-tx.ko.
- 
-+config PHY_STARFIVE_JH7110_INNO_HDMI
-+	tristate "Starfive JH7110 INNO HDMI PHY"
-+	select PHY_INNO_HDMI
-+	depends on COMMON_CLK
-+	select GENERIC_PHY
-+	help
-+	  This option enables the driver for the analog HDMI PHY (Physical
-+	  Layer) on the StarFive JH7110 SoC.
-+
-+	  This driver binds to a child node of the 'starfive,jh7110-hdmi-subsystem'
-+	  parent driver and gets its register map from that parent.
-+
-+	  It is responsible for two main functions:
-+	  1. PHY Provider: It provides standard PHY operations (.power_on,
-+	     .power_off) for the HDMI controller (bridge) driver. This
-+	     involves configuring the Post-PLL and analog TMDS blocks.
-+	  2. Clock Provider: It registers as a clock provider to supply the
-+	     variable pixel clock (hdmi_pclk) to the HDMI controller and
-+	     the VOUT subsystem, which it generates using the Pre-PLL.
-+
- config PHY_STARFIVE_JH7110_PCIE
- 	tristate "Starfive JH7110 PCIE 2.0/USB 3.0 PHY support"
- 	depends on HAS_IOMEM
-diff --git a/drivers/phy/starfive/Makefile b/drivers/phy/starfive/Makefile
-index eedc4a6fec156320c99ac0a0da609083b6a6a695..e7b13f00880b500f933f21b6037384d5c6884e3e 100644
---- a/drivers/phy/starfive/Makefile
-+++ b/drivers/phy/starfive/Makefile
-@@ -1,5 +1,6 @@
- # SPDX-License-Identifier: GPL-2.0
- obj-$(CONFIG_PHY_STARFIVE_JH7110_DPHY_RX)	+= phy-jh7110-dphy-rx.o
- obj-$(CONFIG_PHY_STARFIVE_JH7110_DPHY_TX)	+= phy-jh7110-dphy-tx.o
-+obj-$(CONFIG_PHY_STARFIVE_JH7110_INNO_HDMI)	+= phy-jh7110-inno-hdmi.o
- obj-$(CONFIG_PHY_STARFIVE_JH7110_PCIE)		+= phy-jh7110-pcie.o
- obj-$(CONFIG_PHY_STARFIVE_JH7110_USB)		+= phy-jh7110-usb.o
-diff --git a/drivers/phy/starfive/phy-jh7110-inno-hdmi.c b/drivers/phy/starfive/phy-jh7110-inno-hdmi.c
-new file mode 100644
-index 0000000000000000000000000000000000000000..2575cb5ed624a82dddd485d3ebd83c846b6a3602
---- /dev/null
-+++ b/drivers/phy/starfive/phy-jh7110-inno-hdmi.c
-@@ -0,0 +1,579 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Copyright (c) 2017 Rockchip Electronics Co. Ltd.
-+ * Copyright (c) 2025 Samsung Electronics Co., Ltd.
-+ *
-+ * Author: Zheng Yang <zhengyang@rock-chips.com>
-+ * Author: Michal Wilczynski <m.wilczynski@samsung.com>
-+ *
-+ * The register layout and programming sequence derive from
-+ * drivers/phy/rockchip/phy-rockchip-inno-hdmi.c; the JH7110 places the
-+ * same Innosilicon PHY block at a 0x100 register offset.
-+ *
-+ * This driver handles the PHY portion of the StarFive Innosilicon HDMI IP,
-+ * which is part of a monolithic HDMI block. It provides the variable pixel
-+ * clock (from the Pre-PLL) and the PHY operations (for the Post-PLL/analog).
-+ */
-+
-+#include <linux/bitfield.h>
-+#include <linux/bits.h>
-+#include <linux/clk.h>
-+#include <linux/clk-provider.h>
-+#include <linux/delay.h>
-+#include <linux/io.h>
-+#include <linux/iopoll.h>
-+#include <linux/math64.h>
-+#include <linux/module.h>
-+#include <linux/of.h>
-+#include <linux/platform_device.h>
-+#include <linux/regmap.h>
-+#include <linux/phy/inno-hdmi-phy.h>
-+#include <linux/phy/phy.h>
-+#include <linux/slab.h>
-+
-+/*
-+ * StarFive (JH7110) Innosilicon HDMI PHY Register Definitions
-+ */
-+
-+/* REG: 0x1aa */
-+#define STF_INNO_POST_PLL_DIV_1		0x1aa
-+#define STF_INNO_POST_PLL_POST_DIV_ENABLE	GENMASK(3, 2)
-+#define STF_INNO_POST_PLL_REFCLK_SEL_TMDS	BIT(1)
-+#define STF_INNO_POST_PLL_POWER_DOWN		BIT(0)
-+
-+/* REG: 0x1ab */
-+#define STF_INNO_POST_PLL_DIV_2		0x1ab
-+#define STF_INNO_POST_PLL_PRE_DIV(x)		FIELD_PREP(GENMASK(5, 0), x)
-+#define STF_INNO_POST_PLL_FB_DIV_8(x)		FIELD_PREP(BIT(7), (x) >> 8)
-+
-+/* REG: 0x1ac */
-+#define STF_INNO_POST_PLL_DIV_3		0x1ac
-+#define STF_INNO_POST_PLL_FB_DIV_7_0(x)	FIELD_PREP(GENMASK(7, 0), x)
-+
-+/* REG: 0x1ad */
-+#define STF_INNO_POST_PLL_DIV_4		0x1ad
-+#define STF_INNO_POST_PLL_POST_DIV_MASK	GENMASK(1, 0)
-+
-+/* REG: 0x1af */
-+#define STF_INNO_POST_PLL_LOCK_STATUS		0x1af
-+#define STF_INNO_POST_PLL_LOCK		BIT(0)
-+
-+/* REG: 0x1b0 */
-+#define STF_INNO_BIAS_CONTROL			0x1b0
-+#define STF_INNO_BIAS_ENABLE			BIT(2)
-+
-+/* REG: 0x1b2 */
-+#define STF_INNO_TMDS_CONTROL			0x1b2
-+#define STF_INNO_TMDS_CLK_DRIVER_EN		BIT(3)
-+#define STF_INNO_TMDS_D2_DRIVER_EN		BIT(2)
-+#define STF_INNO_TMDS_D1_DRIVER_EN		BIT(1)
-+#define STF_INNO_TMDS_D0_DRIVER_EN		BIT(0)
-+#define STF_INNO_TMDS_DRIVER_ENABLE		(STF_INNO_TMDS_CLK_DRIVER_EN | \
-+						 STF_INNO_TMDS_D2_DRIVER_EN | \
-+						 STF_INNO_TMDS_D1_DRIVER_EN | \
-+						 STF_INNO_TMDS_D0_DRIVER_EN)
-+
-+/* REG: 0x1b4 */
-+#define STF_INNO_LDO_CONTROL			0x1b4
-+#define STF_INNO_LDO_ENABLE			(BIT(2) | BIT(1) | BIT(0))
-+
-+/* REG: 0x1be */
-+#define STF_INNO_SERIALIER_CONTROL		0x1be
-+#define STF_INNO_SERIALIER_ENABLE		(BIT(6) | BIT(5) | BIT(4) | BIT(0))
-+
-+/* REG: 0x1cc */
-+#define STF_INNO_RX_CONTROL			0x1cc
-+#define STF_INNO_RX_ENABLE			(BIT(3) | BIT(2) | BIT(1) | BIT(0))
-+
-+/*
-+ * These tables are copied from the monolithic driver.
-+ * They match the Rockchip PHY driver tables.
-+ */
-+
-+struct post_pll_config {
-+	unsigned long tmdsclock;
-+	u8 prediv;
-+	u16 fbdiv;
-+	u8 postdiv;
-+	u8 post_div_en;
-+};
-+
-+static const struct inno_hdmi_phy_pre_pll_config pre_pll_cfg_table[] = {
-+	{ 25175000, 25175000, 1, 100, 2, 3, 3, 12, 3, 3, 4, 0, 0xF55555 },
-+	{ 25200000, 25200000, 1, 100, 2, 3, 3, 12, 3, 3, 4, 0, 0 },
-+	{ 27000000, 27000000, 1, 90, 3, 2, 2, 10, 3, 3, 4, 0, 0 },
-+	{ 27027000, 27027000, 1, 90, 3, 2, 2, 10, 3, 3, 4, 0, 0x170A3D },
-+	{ 28320000, 28320000, 1, 28, 2, 1, 1, 3, 0, 3, 4, 0, 0x51EB85 },
-+	{ 30240000, 30240000, 1, 30, 2, 1, 1, 3, 0, 3, 4, 0, 0x3D70A3 },
-+	{ 31500000, 31500000, 1, 31, 2, 1, 1, 3, 0, 3, 4, 0, 0x7FFFFF },
-+	{ 33750000, 33750000, 1, 33, 2, 1, 1, 3, 0, 3, 4, 0, 0xCFFFFF },
-+	{ 36000000, 36000000, 1, 36, 2, 1, 1, 3, 0, 3, 4, 0, 0 },
-+	{ 40000000, 40000000, 1, 80, 2, 2, 2, 12, 2, 2, 2, 0, 0 },
-+	{ 46970000, 46970000, 1, 46, 2, 1, 1, 3, 0, 3, 4, 0, 0xF851EB },
-+	{ 49500000, 49500000, 1, 49, 2, 1, 1, 3, 0, 3, 4, 0, 0x7FFFFF },
-+	{ 49000000, 49000000, 1, 49, 2, 1, 1, 3, 0, 3, 4, 0, 0 },
-+	{ 50000000, 50000000, 1, 50, 2, 1, 1, 3, 0, 3, 4, 0, 0 },
-+	{ 54000000, 54000000, 1, 54, 2, 1, 1, 3, 0, 3, 4, 0, 0 },
-+	{ 54054000, 54054000, 1, 54, 2, 1, 1, 3, 0, 3, 4, 0, 0x0DD2F1 },
-+	{ 57284000, 57284000, 1, 57, 2, 1, 1, 3, 0, 3, 4, 0, 0x48B439 },
-+	{ 58230000, 58230000, 1, 58, 2, 1, 1, 3, 0, 3, 4, 0, 0x3AE147 },
-+	{ 59341000, 59341000, 1, 59, 2, 1, 1, 3, 0, 3, 4, 0, 0x574BC6 },
-+	{ 59400000, 59400000, 1, 99, 3, 1, 1, 1, 3, 3, 4, 0, 0 },
-+	{ 65000000, 65000000, 1, 130, 2, 2, 2, 12, 0, 2, 2, 0, 0 },
-+	{ 68250000, 68250000, 1, 68, 2, 1, 1, 3, 0, 3, 4, 0, 0x3FFFFF },
-+	{ 71000000, 71000000, 1, 71, 2, 1, 1, 3, 0, 3, 4, 0, 0 },
-+	{ 74176000, 74176000, 1, 98, 1, 2, 2, 1, 2, 3, 4, 0, 0xE6AE6B },
-+	{ 74250000, 74250000, 1, 99, 1, 2, 2, 1, 2, 3, 4, 0, 0 },
-+	{ 75000000, 75000000, 1, 75, 2, 1, 1, 3, 0, 3, 4, 0, 0 },
-+	{ 78750000, 78750000, 1, 78, 2, 1, 1, 3, 0, 3, 4, 0, 0xCFFFFF },
-+	{ 79500000, 79500000, 1, 79, 2, 1, 1, 3, 0, 3, 4, 0, 0x7FFFFF },
-+	{ 83500000, 83500000, 2, 167, 2, 1, 1, 1, 0, 0, 6, 0, 0 },
-+	{ 83500000, 104375000, 1, 104, 2, 1, 1, 1, 1, 0, 5, 0, 0x600000 },
-+	{ 85500000, 85500000, 1, 85, 2, 1, 1, 3, 0, 3, 4, 0, 0x7FFFFF },
-+	{ 85750000, 85750000, 1, 85, 2, 1, 1, 3, 0, 3, 4, 0, 0xCFFFFF },
-+	{ 85800000, 85800000, 1, 85, 2, 1, 1, 3, 0, 3, 4, 0, 0xCCCCCC },
-+	{ 88750000, 88750000, 1, 88, 2, 1, 1, 3, 0, 3, 4, 0, 0xCFFFFF },
-+	{ 89910000, 89910000, 1, 89, 2, 1, 1, 3, 0, 3, 4, 0, 0xE8F5C1 },
-+	{ 90000000, 90000000, 1, 90, 2, 1, 1, 3, 0, 3, 4, 0, 0 },
-+	{ 101000000, 101000000, 1, 101, 2, 1, 1, 3, 0, 3, 4, 0, 0 },
-+	{ 102250000, 102250000, 1, 102, 2, 1, 1, 3, 0, 3, 4, 0, 0x3FFFFF },
-+	{ 106500000, 106500000, 1, 106, 2, 1, 1, 3, 0, 3, 4, 0, 0x7FFFFF },
-+	{ 108000000, 108000000, 1, 90, 3, 0, 0, 5, 0, 2, 2, 0, 0 },
-+	{ 119000000, 119000000, 1, 119, 2, 1, 1, 3, 0, 3, 4, 0, 0 },
-+	{ 131481000, 131481000, 1, 131, 2, 1, 1, 3, 0, 3, 4, 0, 0x7B22D1 },
-+	{ 135000000, 135000000, 1, 135, 2, 1, 1, 3, 0, 3, 4, 0, 0 },
-+	{ 136750000, 136750000, 1, 136, 2, 1, 1, 3, 0, 3, 4, 0, 0xCFFFFF },
-+	{ 147180000, 147180000, 1, 147, 2, 1, 1, 3, 0, 3, 4, 0, 0x2E147A },
-+	{ 148352000, 148352000, 1, 98, 1, 1, 1, 1, 2, 2, 2, 0, 0xE6AE6B },
-+	{ 148500000, 148500000, 1, 99, 1, 1, 1, 1, 2, 2, 2, 0, 0 },
-+	{ 154000000, 154000000, 1, 154, 2, 1, 1, 3, 0, 3, 4, 0, 0 },
-+	{ 156000000, 156000000, 1, 156, 2, 1, 1, 3, 0, 3, 4, 0, 0 },
-+	{ 157000000, 157000000, 1, 157, 2, 1, 1, 3, 0, 3, 4, 0, 0 },
-+	{ 162000000, 162000000, 1, 162, 2, 1, 1, 3, 0, 3, 4, 0, 0 },
-+	{ 174250000, 174250000, 1, 145, 3, 0, 0, 5, 0, 2, 2, 0, 0x355555 },
-+	{ 174500000, 174500000, 1, 174, 2, 1, 1, 3, 0, 3, 4, 0, 0x7FFFFF },
-+	{ 174570000, 174570000, 1, 174, 2, 1, 1, 3, 0, 3, 4, 0, 0x91EB84 },
-+	{ 175500000, 175500000, 1, 175, 2, 1, 1, 3, 0, 3, 4, 0, 0x7FFFFF },
-+	{ 185590000, 185590000, 1, 185, 2, 1, 1, 3, 0, 3, 4, 0, 0x970A3C },
-+	{ 187000000, 187000000, 1, 187, 2, 1, 1, 3, 0, 3, 4, 0, 0 },
-+	{ 235690000, 235690000, 1, 235, 2, 1, 1, 3, 0, 3, 4, 0, 0xB0A3D6 },
-+	{ 241500000, 241500000, 1, 161, 1, 1, 1, 4, 0, 2, 2, 0, 0 },
-+	{ 241700000, 241700000, 1, 241, 2, 1, 1, 3, 0, 3, 4, 0, 0xB33332 },
-+	{ 262750000, 262750000, 1, 262, 2, 1, 1, 3, 0, 3, 4, 0, 0xCFFFFF },
-+	{ 296500000, 296500000, 1, 296, 2, 1, 1, 3, 0, 3, 4, 0, 0x7FFFFF },
-+	{ 296703000, 296703000, 1, 98, 0, 1, 1, 1, 0, 2, 2, 0, 0xE6AE6B },
-+	{ 297000000, 297000000, 1, 99, 0, 1, 1, 1, 0, 2, 2, 0, 0 },
-+	{ 594000000, 594000000, 1, 99, 0, 2, 0, 1, 0, 1, 1, 0, 0 },
-+	{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-+};
-+
-+static const struct post_pll_config post_pll_cfg_table[] = {
-+	{ 25200000, 1, 80, 13, 3 },
-+	{ 27000000, 1, 40, 11, 3 },
-+	{ 27027000, 1, 40, 11, 3 },
-+	{ 33750000, 1, 40, 11, 3 },
-+	{ 49000000, 1, 20, 1, 3 },
-+	{ 65000000, 1, 20, 1, 3 },
-+	{ 74250000, 1, 20, 1, 3 },
-+	{ 88750000, 1, 20, 1, 3 },
-+	{ 108000000, 1, 20, 1, 3 },
-+	{ 148500000, 1, 20, 1, 3 },
-+	{ 162000000, 1, 20, 1, 3 },
-+	{ 174250000, 1, 20, 1, 3 },
-+	{ 187000000, 1, 20, 1, 3 },
-+	{ 241700000, 1, 20, 1, 3 },
-+	{ 297000000, 4, 20, 0, 0 },
-+	{ 594000000, 4, 20, 0, 0 }, /* postpll_postdiv_en = 0 */
-+	{ /* sentinel */ }
-+};
-+
-+struct starfive_hdmi_phy {
-+	struct device *dev;
-+	struct regmap *regmap;
-+	struct phy *phy;
-+	struct clk *refoclk;
-+
-+	struct inno_hdmi_phy_pre_pll pre_pll;
-+
-+	struct clk_hw hw;
-+	struct clk *phyclk;
-+	unsigned long pixclock;
-+	unsigned long tmdsclock;
-+};
-+
-+static inline void inno_write(struct starfive_hdmi_phy *inno, u32 reg, u8 val)
-+{
-+	regmap_write(inno->regmap, reg * 4, val);
-+}
-+
-+static inline u8 inno_read(struct starfive_hdmi_phy *inno, u32 reg)
-+{
-+	u32 val;
-+
-+	regmap_read(inno->regmap, reg * 4, &val);
-+	return val;
-+}
-+
-+static inline void inno_update_bits(struct starfive_hdmi_phy *inno, u16 reg,
-+				    u8 mask, u8 val)
-+{
-+	regmap_update_bits(inno->regmap, reg * 4, mask, val);
-+}
-+
-+#define inno_poll(inno, reg, val, cond, sleep_us, timeout_us) \
-+	regmap_read_poll_timeout((inno)->regmap, (reg) * 4, val, cond, \
-+				 sleep_us, timeout_us)
-+
-+static inline struct starfive_hdmi_phy *to_starfive_hdmi_phy(struct clk_hw *hw)
-+{
-+	return container_of(hw, struct starfive_hdmi_phy, hw);
-+}
-+
-+static int starfive_hdmi_phy_clk_prepare(struct clk_hw *hw)
-+{
-+	struct starfive_hdmi_phy *inno = to_starfive_hdmi_phy(hw);
-+	int ret;
-+
-+	inno_hdmi_phy_pre_pll_power_down(&inno->pre_pll, false);
-+
-+	if (inno_hdmi_phy_pre_pll_is_locked(&inno->pre_pll))
-+		return 0;
-+
-+	ret = inno_hdmi_phy_pre_pll_wait_locked(&inno->pre_pll, 100000);
-+	if (ret) {
-+		dev_err(inno->dev, "Timeout waiting for pre-PLL lock\n");
-+		inno_hdmi_phy_pre_pll_power_down(&inno->pre_pll, true);
-+		return ret;
-+	}
-+
-+	return 0;
-+}
-+
-+static void starfive_hdmi_phy_clk_unprepare(struct clk_hw *hw)
-+{
-+	struct starfive_hdmi_phy *inno = to_starfive_hdmi_phy(hw);
-+
-+	inno_hdmi_phy_pre_pll_power_down(&inno->pre_pll, true);
-+	inno->pixclock = 0; /* Invalidate cached rate */
-+}
-+
-+static unsigned long starfive_hdmi_phy_clk_recalc_rate(struct clk_hw *hw,
-+						       unsigned long parent_rate)
-+{
-+	struct starfive_hdmi_phy *inno = to_starfive_hdmi_phy(hw);
-+
-+	/*
-+	 * Reading the PLL back requires the HDMI controller's system clock,
-+	 * which the sibling controller driver holds and this driver cannot
-+	 * request without creating a probe cycle with voutcrg. The clock
-+	 * framework walks every registered clock regardless of which drivers
-+	 * have bound, so fall back to the cached rate whenever this clock is
-+	 * not prepared; an unclocked access to the shared register window
-+	 * wedges the bus hard enough that the CPU stops taking NMIs.
-+	 */
-+	if (!clk_hw_is_prepared(hw))
-+		return inno->pixclock;
-+
-+	inno->pixclock = inno_hdmi_phy_pre_pll_recalc_rate(&inno->pre_pll,
-+							   parent_rate);
-+
-+	return inno->pixclock;
-+}
-+
-+static int starfive_hdmi_phy_clk_determine_rate(struct clk_hw *hw,
-+						struct clk_rate_request *req)
-+{
-+	struct starfive_hdmi_phy *inno = to_starfive_hdmi_phy(hw);
-+
-+	return inno_hdmi_phy_pre_pll_determine_rate(&inno->pre_pll, req);
-+}
-+
-+static int starfive_hdmi_phy_clk_set_rate(struct clk_hw *hw, unsigned long rate,
-+					  unsigned long parent_rate)
-+{
-+	struct starfive_hdmi_phy *inno = to_starfive_hdmi_phy(hw);
-+	const struct inno_hdmi_phy_pre_pll_config *cfg;
-+
-+	/*
-+	 * The JH7110 only drives 8bpc, so the TMDS clock always matches the
-+	 * pixel clock.
-+	 */
-+	cfg = inno_hdmi_phy_pre_pll_lookup(&inno->pre_pll, rate, rate);
-+	if (IS_ERR(cfg))
-+		return PTR_ERR(cfg);
-+
-+	dev_dbg(inno->dev, "%s rate %lu tmdsclk %lu\n",
-+		__func__, rate, cfg->tmdsclock);
-+
-+	if (inno->pixclock == rate && inno->tmdsclock == cfg->tmdsclock)
-+		return 0;
-+
-+	inno_update_bits(inno, STF_INNO_BIAS_CONTROL,
-+			 STF_INNO_BIAS_ENABLE, STF_INNO_BIAS_ENABLE);
-+	inno_write(inno, STF_INNO_RX_CONTROL, STF_INNO_RX_ENABLE);
-+
-+	inno_hdmi_phy_pre_pll_power_down(&inno->pre_pll, true);
-+	inno_hdmi_phy_pre_pll_configure(&inno->pre_pll, cfg);
-+	inno_hdmi_phy_pre_pll_power_down(&inno->pre_pll, false);
-+
-+	inno->pixclock = rate;
-+	inno->tmdsclock = cfg->tmdsclock;
-+
-+	return 0;
-+}
-+
-+static const struct clk_ops starfive_hdmi_phy_clk_ops = {
-+	.prepare = starfive_hdmi_phy_clk_prepare,
-+	.unprepare = starfive_hdmi_phy_clk_unprepare,
-+	.recalc_rate = starfive_hdmi_phy_clk_recalc_rate,
-+	.determine_rate = starfive_hdmi_phy_clk_determine_rate,
-+	.set_rate = starfive_hdmi_phy_clk_set_rate,
-+};
-+
-+static void starfive_hdmi_phy_power_down(struct starfive_hdmi_phy *inno)
-+{
-+	inno_write(inno, STF_INNO_TMDS_CONTROL, 0x00);
-+	inno_write(inno, STF_INNO_SERIALIER_CONTROL, 0x00);
-+	inno_write(inno, STF_INNO_LDO_CONTROL, 0x00);
-+	inno_update_bits(inno, STF_INNO_BIAS_CONTROL,
-+			 STF_INNO_BIAS_ENABLE, 0x00);
-+	inno_write(inno, STF_INNO_RX_CONTROL, 0x00);
-+
-+	/* Power down Post-PLL */
-+	inno_update_bits(inno, STF_INNO_POST_PLL_DIV_1,
-+			 STF_INNO_POST_PLL_POWER_DOWN,
-+			 STF_INNO_POST_PLL_POWER_DOWN);
-+
-+	inno->tmdsclock = 0;
-+	inno->pixclock = 0;
-+}
-+
-+static int starfive_hdmi_phy_power_on(struct phy *phy)
-+{
-+	struct starfive_hdmi_phy *inno = phy_get_drvdata(phy);
-+	const struct post_pll_config *cfg = post_pll_cfg_table;
-+	const struct inno_hdmi_phy_pre_pll_config *pre_cfg;
-+	unsigned long tmdsclock;
-+	u8 reg_1ad_value;
-+	u8 reg_1aa_value;
-+
-+	u32 v;
-+	int ret;
-+
-+	tmdsclock = clk_get_rate(inno->phyclk);
-+	pre_cfg = inno_hdmi_phy_pre_pll_lookup(&inno->pre_pll, tmdsclock,
-+					       tmdsclock);
-+	if (IS_ERR(pre_cfg)) {
-+		dev_err(inno->dev, "no pre-PLL config for current pixel clock\n");
-+		return PTR_ERR(pre_cfg);
-+	}
-+	tmdsclock = pre_cfg->tmdsclock;
-+	inno->tmdsclock = tmdsclock;
-+
-+	inno_update_bits(inno, STF_INNO_BIAS_CONTROL,
-+			 STF_INNO_BIAS_ENABLE, STF_INNO_BIAS_ENABLE);
-+	inno_write(inno, STF_INNO_RX_CONTROL, STF_INNO_RX_ENABLE);
-+
-+	/* Find Post-PLL config */
-+	for (; cfg->tmdsclock != 0; cfg++)
-+		if (tmdsclock <= cfg->tmdsclock)
-+			break;
-+
-+	if (cfg->tmdsclock == 0) {
-+		dev_err(inno->dev, "Failed to find Post-PLL config\n");
-+		ret = -EINVAL;
-+		goto err_power_down;
-+	}
-+	dev_dbg(inno->dev, "Inno HDMI PHY Power On: pixclk %lu, tmdsclk %lu\n",
-+		inno->pixclock, tmdsclock);
-+
-+	reg_1ad_value = cfg->post_div_en ? cfg->postdiv : 0x00;
-+	reg_1aa_value = cfg->post_div_en ? 0x0e : 0x02;
-+
-+	/*
-+	 * Pre-PLL is already prepared and running at inno->pixclock
-+	 * via the clk_set_rate and prepare calls from the controller/bridge.
-+	 * Now, configure and enable the Post-PLL and TMDS outputs.
-+	 */
-+
-+	inno_write(inno, STF_INNO_POST_PLL_DIV_2,
-+		   STF_INNO_POST_PLL_PRE_DIV(cfg->prediv));
-+	inno_write(inno, STF_INNO_POST_PLL_DIV_3, cfg->fbdiv & 0xff);
-+	inno_write(inno, STF_INNO_POST_PLL_DIV_4, reg_1ad_value);
-+
-+	/* Power up Post-PLL */
-+	inno_write(inno, STF_INNO_POST_PLL_DIV_1, reg_1aa_value);
-+
-+	/* Wait for post PLL lock */
-+	ret = inno_poll(inno, STF_INNO_POST_PLL_LOCK_STATUS, v,
-+			v & STF_INNO_POST_PLL_LOCK, 1000, 100000);
-+	if (ret) {
-+		dev_err(inno->dev, "Post-PLL locking failed\n");
-+		goto err_power_down;
-+	}
-+
-+	inno_write(inno, STF_INNO_LDO_CONTROL, STF_INNO_LDO_ENABLE);
-+	inno_write(inno, STF_INNO_SERIALIER_CONTROL,
-+		   STF_INNO_SERIALIER_ENABLE);
-+	inno_write(inno, STF_INNO_TMDS_CONTROL, 0x8f);
-+
-+	return 0;
-+
-+	/*
-+	 * The PHY core leaves power_count at zero when .power_on fails and
-+	 * never calls .power_off, so undo the blocks enabled above here.
-+	 */
-+err_power_down:
-+	starfive_hdmi_phy_power_down(inno);
-+	return ret;
-+}
-+
-+static int starfive_hdmi_phy_power_off(struct phy *phy)
-+{
-+	struct starfive_hdmi_phy *inno = phy_get_drvdata(phy);
-+
-+	dev_dbg(inno->dev, "Inno HDMI PHY Power Off\n");
-+
-+	starfive_hdmi_phy_power_down(inno);
-+
-+	return 0;
-+}
-+
-+static const struct phy_ops starfive_hdmi_phy_ops = {
-+	.owner = THIS_MODULE,
-+	.power_on = starfive_hdmi_phy_power_on,
-+	.power_off = starfive_hdmi_phy_power_off,
-+};
-+
-+static int starfive_hdmi_phy_probe(struct platform_device *pdev)
-+{
-+	struct device *dev = &pdev->dev;
-+	struct device *parent = dev->parent;
-+	struct starfive_hdmi_phy *inno;
-+	struct phy_provider *phy_provider;
-+	struct regmap *regmap;
-+	struct clk_init_data init = {};
-+	const char *refoclk_name;
-+	int ret;
-+
-+	inno = devm_kzalloc(dev, sizeof(*inno), GFP_KERNEL);
-+	if (!inno)
-+		return -ENOMEM;
-+
-+	inno->dev = dev;
-+
-+	/* Get the regmap from the parent device */
-+	regmap = dev_get_regmap(parent, NULL);
-+	if (!regmap) {
-+		dev_err(dev, "Failed to get parent regmap\n");
-+		return -ENODEV;
-+	}
-+	inno->regmap = regmap;
-+
-+	/*
-+	 * The PHY block sits behind the HDMI controller in the shared register
-+	 * space, so the common pre-PLL helpers need a 0x100 register offset.
-+	 */
-+	inno->pre_pll.dev = dev;
-+	inno->pre_pll.regmap = regmap;
-+	inno->pre_pll.offset = 0x100;
-+	inno->pre_pll.table = pre_pll_cfg_table;
-+
-+	/* Get the input reference clock */
-+	inno->refoclk = devm_clk_get(inno->dev, NULL);
-+	if (IS_ERR(inno->refoclk)) {
-+		ret = PTR_ERR(inno->refoclk);
-+		dev_err(inno->dev, "failed to get oscillator-ref clock: %d\n",
-+			ret);
-+		return ret;
-+	}
-+
-+	/* We must prepare/enable refoclk here so .set_rate/.recalc_rate work */
-+	ret = clk_prepare_enable(inno->refoclk);
-+	if (ret) {
-+		dev_err(dev, "Failed to enable refoclk: %d\n", ret);
-+		return ret;
-+	}
-+
-+	platform_set_drvdata(pdev, inno);
-+
-+	/* Initialize and register the clock provider */
-+	refoclk_name = __clk_get_name(inno->refoclk);
-+	init.parent_names = &refoclk_name;
-+	init.num_parents = 1;
-+	init.flags = 0;
-+	init.name = "hdmi_pclk";
-+	init.ops = &starfive_hdmi_phy_clk_ops;
-+
-+	inno->hw.init = &init;
-+	inno->phyclk = devm_clk_register(dev, &inno->hw);
-+	if (IS_ERR(inno->phyclk)) {
-+		ret = PTR_ERR(inno->phyclk);
-+		dev_err(dev, "Failed to register clock provider: %d\n", ret);
-+		goto err_disable_refoclk;
-+	}
-+
-+	ret = of_clk_add_provider(dev->of_node, of_clk_src_simple_get, inno->phyclk);
-+	if (ret) {
-+		dev_err(dev, "Failed to add clock provider: %d\n", ret);
-+		goto err_disable_refoclk;
-+	}
-+
-+	ret = clk_set_rate(inno->phyclk, 297000000);
-+	if (ret) {
-+		dev_err(dev, "Failed to set default rate: %d\n", ret);
-+		goto err_del_clk_provider;
-+	}
-+
-+	/* Create and register the PHY provider */
-+	inno->phy = devm_phy_create(inno->dev, NULL, &starfive_hdmi_phy_ops);
-+	if (IS_ERR(inno->phy)) {
-+		ret = PTR_ERR(inno->phy);
-+		dev_err(inno->dev, "failed to create HDMI PHY: %d\n", ret);
-+		goto err_del_clk_provider;
-+	}
-+
-+	phy_set_drvdata(inno->phy, inno);
-+
-+	phy_provider = devm_of_phy_provider_register(inno->dev,
-+						     of_phy_simple_xlate);
-+	ret = PTR_ERR_OR_ZERO(phy_provider);
-+	if (ret)
-+		goto err_del_clk_provider;
-+
-+	return 0;
-+
-+err_del_clk_provider:
-+	of_clk_del_provider(dev->of_node);
-+err_disable_refoclk:
-+	clk_disable_unprepare(inno->refoclk);
-+	return ret;
-+}
-+
-+static void starfive_hdmi_phy_remove(struct platform_device *pdev)
-+{
-+	struct starfive_hdmi_phy *inno = platform_get_drvdata(pdev);
-+
-+	of_clk_del_provider(pdev->dev.of_node);
-+	clk_disable_unprepare(inno->refoclk);
-+}
-+
-+static const struct of_device_id starfive_hdmi_phy_of_match[] = {
-+	{ .compatible = "starfive,jh7110-inno-hdmi-phy", },
-+	{ /* sentinel */ }
-+};
-+MODULE_DEVICE_TABLE(of, starfive_hdmi_phy_of_match);
-+
-+static struct platform_driver starfive_hdmi_phy_driver = {
-+	.probe = starfive_hdmi_phy_probe,
-+	.remove = starfive_hdmi_phy_remove,
-+	.driver = {
-+		.name = "starfive-inno-hdmi-phy",
-+		.of_match_table = starfive_hdmi_phy_of_match,
-+	},
-+};
-+module_platform_driver(starfive_hdmi_phy_driver);
-+
-+MODULE_AUTHOR("Michal Wilczynski <m.wilczynski@samsung.com>");
-+MODULE_DESCRIPTION("StarFive JH7110 Innosilicon HDMI PHY Driver");
-+MODULE_LICENSE("GPL");
+Don't we have respective macros in linux/pinctrl/pinctrl.h
+
+...
+
+> +#include <linux/module.h>
+> +#include <linux/platform_device.h>
+> +#include <linux/bitmap.h>
+> +#include <linux/io.h>
+
+> +#include <linux/of.h>
+> +#include <linux/of_device.h>
+
+
+
+> +#include <linux/slab.h>
+> +#include <linux/regmap.h>
+> +#include <linux/mfd/syscon.h>
+> +#include <linux/pinctrl/pinctrl.h>
+> +#include <linux/pinctrl/pinmux.h>
+> +#include <linux/pinctrl/pinconf.h>
+> +#include <linux/pinctrl/pinconf-generic.h>
+> +#include <linux/seq_file.h>
+
+Make it ordered, group linux/pinctrl/ separately after generic linux/*.h
+
+> +#include "pinconf.h"
+> +#include "pinctrl-ambarella.h"
+
+...
+
+> +struct amb_pinctrl_soc_data {
+> +	struct device			*dev;
+> +	const struct amb_pinctrl_data	*data;
+> +	void __iomem			*iomux_base;
+> +	struct regmap			*ds_regmap;
+> +	struct regmap			*pull_regmap;
+> +	unsigned int			npins;
+> +	unsigned long			used[BITS_TO_LONGS(AMBA_MAX_PINS)];
+> +	raw_spinlock_t lock;
+> +
+> +	struct pinctrl_dev		*pctl;
+
+> +	const struct ambpin_function	*functions;
+> +	unsigned int			nr_functions;
+> +	struct ambpin_group		*groups;
+> +	unsigned int			nr_groups;
+
+Check what linux/pinctrl/pinctrl.h and drivers/pinctrl/core.h provide.
+
+> +};
+
+...
+
+> +#if IS_ENABLED(CONFIG_DEBUG_FS)
+> +static void amb_pin_dbg_show(struct pinctrl_dev *pctldev,
+> +			     struct seq_file *s, unsigned int pin)
+> +{
+> +	seq_printf(s, " %s", pinctrl_dev_get_devname(pctldev));
+> +}
+> +#endif
+
+Does this bring any new information?
+
+...
+
+> +/* check if the selector is a valid pin function selector */
+> +static int amb_pinmux_request(struct pinctrl_dev *pctldev, unsigned int pin)
+> +{
+> +	struct amb_pinctrl_soc_data *soc = pinctrl_dev_get_drvdata(pctldev);
+> +
+> +	if (test_and_set_bit(pin, soc->used))
+> +		return -EBUSY;
+> +
+> +	return 0;
+> +}
+> +
+> +/* check if the selector is a valid pin function selector */
+> +static int amb_pinmux_free(struct pinctrl_dev *pctldev, unsigned int pin)
+> +{
+> +	struct amb_pinctrl_soc_data *soc = pinctrl_dev_get_drvdata(pctldev);
+> +
+> +	clear_bit(pin, soc->used);
+> +
+> +	return 0;
+> +}
+
+Why? Isn't internal pinctrl tracking is not enough?
+
+...
+
+> +static void amb_pinmux_set_altfunc(struct amb_pinctrl_soc_data *soc,
+> +				   u32 bank, u32 offset, u32 altfunc)
+> +{
+> +	u32 i, data;
+> +
+> +	if (!amb_iomux_accessible(soc))
+> +		return;
+> +
+> +	for (i = 0; i < 3; i++) {
+
+	for (unsigned int i...
+
+> +		data = readl_relaxed(soc->iomux_base + IOMUX_OFFSET(bank, i));
+> +		data &= ~BIT(offset);
+> +		data |= ((altfunc >> i) & 1U) << offset;
+> +		writel_relaxed(data, soc->iomux_base + IOMUX_OFFSET(bank, i));
+> +	}
+> +}
+
+...
+
+> +static int amb_drive_strength_to_reg(struct amb_pinctrl_soc_data *soc,
+> +				     u32 strength)
+> +{
+> +	if (soc->data->have_ds2) {
+> +		switch (strength) {
+> +		case 3:
+> +			return 0;
+> +		case 4:
+> +		case 5:
+> +			return 1;
+> +		case 6:
+> +			return 2;
+> +		case 7:
+> +		case 8:
+> +			return 3;
+> +		case 9:
+> +			return 4;
+> +		case 12:
+> +			return 5;
+> +		default:
+> +			return -EINVAL;
+> +		}
+> +	}
+> +
+> +	switch (strength) {
+> +	case 2:
+> +		return 0;
+> +	case 4:
+> +		return 1;
+> +	case 8:
+> +		return 2;
+> +	case 12:
+> +		return 3;
+> +	default:
+> +		return -EINVAL;
+> +	}
+> +}
+
+I would look better in three functions
+
+static int amb_drive_strength_to_reg(struct amb_pinctrl_soc_data *soc,
+				     u32 strength)
+{
+	if (soc->data->have_ds2)
+		return amb_drive_strength_to_reg_ds2(soc, strength);
+
+	return amb_drive_strength_to_reg_ds1(soc, strength);
+
+}
+
+> +static int amb_reg_to_drive_strength(struct amb_pinctrl_soc_data *soc, u32 ds)
+> +{
+> +	static const int ds2_ma[] = { 3, 4, 6, 8, 9, 12 };
+> +	static const int ds_ma[] = { 2, 4, 8, 12 };
+
+You have switch cases that use the same arrays, use them for both.
+
+> +	if (soc->data->have_ds2) {
+> +		if (ds >= ARRAY_SIZE(ds2_ma))
+> +			return -EINVAL;
+> +
+> +		return ds2_ma[ds];
+> +	}
+> +
+> +	if (ds >= ARRAY_SIZE(ds_ma))
+> +		return -EINVAL;
+> +
+> +	return ds_ma[ds];
+> +}
+
+...
+
+I stopped here, this driver is quite far from the modern pin control standards,
+please look around, you find a lot of new drivers there, that are written in
+more-or-less compact ways, using better APIs and approaches.
+
+When creating a driver, use also helper tools, like `pahole`,
+scripts/bloat-o-meter, et cetera. Compile with `make W=1 C=1 ...`
+using both compilers (GCC and clang).
+
+...
+
+> +static const struct of_device_id amb_pinctrl_dt_match[] = {
+> +	{
+> +		.compatible = "ambarella,cv75-pinctrl",
+> +		.data = &ambarella_cv75_pinctrl_data,
+> +	},
+> +	{},
+
+No trailing comma for the terminator entry.
+
+> +};
+
+...
+
+> +static struct platform_driver amb_pinctrl_driver = {
+> +	.probe	= amb_pinctrl_probe,
+> +	.driver	= {
+> +		.name	= "ambarella-pinctrl",
+> +		.of_match_table = of_match_ptr(amb_pinctrl_dt_match),
+
+Why of_match_ptr()?!
+
+> +	},
+> +};
 
 -- 
-2.34.1
+With Best Regards,
+Andy Shevchenko
+
 
