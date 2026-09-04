@@ -1,82 +1,239 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 409474457BF
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 22:41:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9D5C4457BF
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 22:42:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788561685; cv=none; b=O57biRvzmKuP2oEhZ08Vlxf03t/gutqVkdwe2pFcccbw0I9s4pdNDT+rJ+6lDFKiRdxbRNCnbEhBR0qa9atZpWrnnUNGSs+VsZC82QUrDrwzRTeturjLje5w2mA1iUdssjgDJX+jj8a7ivt1sSD74e9MoLW/TvNeZUQ6UaBtVqA=
+	t=1788561729; cv=none; b=cUh42aWw2wuYmMQxP9wkXQw49hpHo9gFqbHozrLgRC1mKzrbSfKRzB2BsMn2oP71NsEEwFftuQfi+1oCWlWk2ArjhxOaDox8L7dyR/QtcTh14i64qErjDc4U5oFSdaneFsTGxvz2OI8MJlsOcvuItbEzvV5sKrfsVjzgDOC1Ujo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788561685; c=relaxed/simple;
-	bh=C0myiUlgWF0TZd8+Ku/LAy7GnzKeiD52gDwego64hj0=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=E+yzcd51BYT3+BCawPXCgtlLw0TZ8sx4z5cC+3esP7/4Edyu9uABInUncPJdALl7I1z3BWsEn8lE8VYmhwii2Ts+j7SYhhMi0QTOBFxtlxx3aT6MGAliAZJLFOLiwL3iV6mjX7FAX/cKu1lMXPnDjEkVCaF+zGD4kjvzFMMS21U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=naSfCtaR; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788561729; c=relaxed/simple;
+	bh=Vr88gQMOgurFACl+y90EeGVYAikEgZq17p2wwBwPjzw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=M3zgTEZGVYRmfr4C40wvx2BqhN2h7RKQFpA+VNre9bwnvwc0skjphVMiwC+qSUjRvt0b1SNmNZHf8lf2eg5xKSqvvN39rqTkCCYmbxtVY0aKEFBQcFYOi6r8NYLMitVZAwad09rGmjhPkfHqh/sXw/zouiz7Iexa/kmJZq+ucxE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=Mwd6685g; arc=none smtp.client-ip=209.85.128.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="naSfCtaR"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 77DE61F01560
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 22:41:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788561682;
-	bh=C0myiUlgWF0TZd8+Ku/LAy7GnzKeiD52gDwego64hj0=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=naSfCtaR2p6Ey3hc9gr+m0RTXINQIfLmrYVBFP7Zn60Gab+HjxyVPF+1umfmk3kS5
-	 Fr7wiAR8LEGRTHb3HOCmnqiyuxt3nQ/6a557N/lDr5ynq2BWNnEO/2J7W+pe7mWFOP
-	 g6TP5F3+pAJfTtukPstuEhnN7TNhHLtSoab2pApfrAkX8ESqyAI/JkMUUS1Ns2iTgP
-	 6mQMC+O/k3Ntc629UnIZFwKzf4rXE3tkCGbqQoaGgjmntpEpWWMXupYIEJapm38jBT
-	 yvghkqGeMeXd4zVrb2u6/MVXLoCOXIPs/BJRcGhZ60zsODhI2HSEA2lrcRjAwOlrAl
-	 piJ9BErTW9euQ==
-Received: by mail-lf1-f50.google.com with SMTP id 2adb3069b0e04-5aeb98460c6so2049719e87.2
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 15:41:22 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBxIG/hiUU7maIeC4MZPOaql33MOP0VKvz/v+fk6z+xHtvsUlnc/m2YI4h0k/UKe/ENU0sgPhXNt+qeUegY=@vger.kernel.org
-X-Gm-Message-State: AFuF++kl7l6b3xeCUNNAd+AUrsTVDHLnkpP9YfPrneImw3NUgUEiHPan
-	mOG0us2BOZ4tK6GhdFRd0VzgY0zTMdl7t030xVZ070s+HyzAEvG1Mm7EotXixEx2cSKByqf+uki
-	0NOq1cHouccBjCB96NxL2rMcZaL/HAFk=
-X-Received: by 2002:a05:6512:61a7:b0:5b6:1a7c:aa19 with SMTP id
- 2adb3069b0e04-5b61a7cad0dmr907279e87.49.1788561681149; Fri, 04 Sep 2026
- 15:41:21 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="Mwd6685g"
+Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-49b8ce9b733so12570515e9.1
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 15:42:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1788561726; x=1789166526; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=gJWs0CeLy96mK9SVwe75AuLKOzAXDtZ+o+6jI+CMOa4=;
+        b=Mwd6685gcU5bvd+basanYpVyXAoJzqY9Mes4onaZ0GmDUzdKEVO4VT8BC95tTBRJZn
+         9kbmZ2LGHEUWICyRxrgarFkSv6QKIswQiWhLAZLUwym+V/SLU052dCOGRUBDAvXJcYzb
+         aNEHDFGxYZDobIralyXhEXasUKn0FBpclaKssJAsddBYbXx0hHoe7yJL3v7HeQzaAxwk
+         R07cK8nc20aPuo77skEtLhykvxmWlE94h1nWlSO9s8RzyIL1mSswNxhc2EJWv6QKLcge
+         CYyUrhaEtCn8LANRPSMlL814l9NiUw3CwkYkSZwErRDDMXHNyI2Pc3jJEU3zophZ9V81
+         99ng==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788561726; x=1789166526;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=gJWs0CeLy96mK9SVwe75AuLKOzAXDtZ+o+6jI+CMOa4=;
+        b=sEeIh9x+lnWTUJZ/a82Bja6Cql9imPlByCNKeIRx9nQ5RvCLFkO5sVVUppJ5iih8XL
+         6hgAnL7oFuFV/CGoCcxVJz1Cqw4N7LkEB3r7n50T3f8NPphoMj2RYFGiipC9OU5ERyFl
+         bvIqgkinB/c7MHLKqAi57XIC/Lp84MwFO90r3t4wIrVS3BWsVFGR6xJKiuks3bswsXfX
+         slfTGzr6IS9+LeYqzKRnaAHt/CPWbFZChxkjZ8fkzQHvj53qKu5Myou8rQzFpqyOu9NB
+         rkyUoKBO684k8ai+tREwplpF0zU+ie9kKJCoA6LwL7GJveKy8fsUDo5G+xpkcMuxqHEk
+         Ga+A==
+X-Forwarded-Encrypted: i=1; AKwUvBxK4+HVWk3o0Fta50B/iUJ2Im0DnQSyjBL1kx7gVryuQltM1hjw/a/m1wxIGlzVPKa9NOjVTnwFYgIrKNw=@vger.kernel.org
+X-Gm-Message-State: AFuF++mdugjSg+x0bZ3pbXo5OC7D6x6tBoJ8iMW0SLT7DDPwbXlRg164
+	TxRlDE6ZVBG5kVMcCh4W78Tf/voAvOW1H6ZyP2I/5Sct2XYJnaQIkw4C8VCw6VJd8+8=
+X-Gm-Gg: AYBFou2zKOZy0M4jWl0crjOGyJPQjG2C4h465pL/6PegD1BkrTsJyRWaLsWrzk0dLiU
+	hkNDvh1aDqVOWNKttZ6os/+ZLjBYTxJXncRxo/2XMxzZ6pXwtdi//tS+VxSxpDbXQOoEy7gl5Oy
+	vf1C/T2g5bvzcdueobHNG6pCd92/Z6jDrOByXDXmFGDRWiiYV7o7kbTtrxO1BBaIo1YzhTX4pOZ
+	Fp5orP6QVSBOUvjXEqHoeXT7LH4k0nVyqvFlbwOLJ7O0zR32T5QtkH5jNlNgZc/Bm9TQDPgCAco
+	rBT8PA0amSU4gRyU+5mlBsEVUnfVswlf22Qmu7G2hjsMl+KQ3DZyLdeJhOLxcruRTDuvbFpuVo2
+	BGXS6OKqvo3/RV5AJYzU6RbvFsqLMpPWTXGT6xWqDlyOJbar2lxUc/LHjWLyGGF7GoMN/wgszbX
+	S0C2vbdnbPK/0+E6hQXCSSoB6S4UanveyV6q3KR8rmZMIJCINbzdZl
+X-Received: by 2002:a05:600c:3115:b0:49c:e1b5:b2bf with SMTP id 5b1f17b1804b1-49cf7f48645mr88711835e9.0.1788561725820;
+        Fri, 04 Sep 2026 15:42:05 -0700 (PDT)
+Received: from [172.16.0.229] ([159.196.52.54])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-86152045f67sm1655523b3a.18.2026.09.04.15.41.57
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 04 Sep 2026 15:42:04 -0700 (PDT)
+Message-ID: <5c08f2f3-cf49-41ef-84b5-dced3ce6da90@suse.com>
+Date: Sat, 5 Sep 2026 08:11:53 +0930
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260904-cv75-v5-v6-0-e918514cb3b1@ambarella.com> <20260904-cv75-v5-v6-6-e918514cb3b1@ambarella.com>
-In-Reply-To: <20260904-cv75-v5-v6-6-e918514cb3b1@ambarella.com>
-From: Linus Walleij <linusw@kernel.org>
-Date: Sat, 5 Sep 2026 00:41:09 +0200
-X-Gmail-Original-Message-ID: <CAD++jLmnkYaXqD7T3ckO7z9g929DvHyuK04j7VKEgVrnF+1C=A@mail.gmail.com>
-X-Gm-Features: AcwNN1VDId_JVjT4HuchtPhHSz9zctXg7JmJYfvX8t2TVwOBsWn_VCTazZMrhFA
-Message-ID: <CAD++jLmnkYaXqD7T3ckO7z9g929DvHyuK04j7VKEgVrnF+1C=A@mail.gmail.com>
-Subject: Re: [PATCH v6 06/13] dt-bindings: serial: snps-dw-apb-uart: add ambarella,cv75-uart
-To: longzhao@ambarella.com
-Cc: Arnd Bergmann <arnd@arndb.de>, Krzysztof Kozlowski <krzk@kernel.org>, 
-	Alexandre Belloni <alexandre.belloni@bootlin.com>, soc@lists.linux.dev, 
-	linux-arm-kernel@lists.infradead.org, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, 
-	Bartosz Golaszewski <brgl@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	Jiri Slaby <jirislaby@kernel.org>, Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
-	=?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
-	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, Long Zhao <zl020895@163.com>, 
-	Lee Jones <lee@kernel.org>, mfd@lists.linux.dev, devicetree@vger.kernel.org, 
-	linux-clk@vger.kernel.org, linux-gpio@vger.kernel.org, 
-	linux-serial@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/3] btrfs: use bio::remaining for async checksumming
+ synchronization
+To: Daniel Vacek <neelx@suse.com>, David Sterba <dsterba@suse.com>,
+ Chris Mason <mason@kernel.org>
+Cc: linux-btrfs@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260903062317.3928665-1-neelx@suse.com>
+ <20260903062317.3928665-3-neelx@suse.com>
+Content-Language: en-US
+From: Qu Wenruo <wqu@suse.com>
+Autocrypt: addr=wqu@suse.com; keydata=
+ xsBNBFnVga8BCACyhFP3ExcTIuB73jDIBA/vSoYcTyysFQzPvez64TUSCv1SgXEByR7fju3o
+ 8RfaWuHCnkkea5luuTZMqfgTXrun2dqNVYDNOV6RIVrc4YuG20yhC1epnV55fJCThqij0MRL
+ 1NxPKXIlEdHvN0Kov3CtWA+R1iNN0RCeVun7rmOrrjBK573aWC5sgP7YsBOLK79H3tmUtz6b
+ 9Imuj0ZyEsa76Xg9PX9Hn2myKj1hfWGS+5og9Va4hrwQC8ipjXik6NKR5GDV+hOZkktU81G5
+ gkQtGB9jOAYRs86QG/b7PtIlbd3+pppT0gaS+wvwMs8cuNG+Pu6KO1oC4jgdseFLu7NpABEB
+ AAHNGFF1IFdlbnJ1byA8d3F1QHN1c2UuY29tPsLAlAQTAQgAPgIbAwULCQgHAgYVCAkKCwIE
+ FgIDAQIeAQIXgBYhBC3fcuWlpVuonapC4cI9kfOhJf6oBQJnEXVgBQkQ/lqxAAoJEMI9kfOh
+ Jf6o+jIH/2KhFmyOw4XWAYbnnijuYqb/obGae8HhcJO2KIGcxbsinK+KQFTSZnkFxnbsQ+VY
+ fvtWBHGt8WfHcNmfjdejmy9si2jyy8smQV2jiB60a8iqQXGmsrkuR+AM2V360oEbMF3gVvim
+ 2VSX2IiW9KERuhifjseNV1HLk0SHw5NnXiWh1THTqtvFFY+CwnLN2GqiMaSLF6gATW05/sEd
+ V17MdI1z4+WSk7D57FlLjp50F3ow2WJtXwG8yG8d6S40dytZpH9iFuk12Sbg7lrtQxPPOIEU
+ rpmZLfCNJJoZj603613w/M8EiZw6MohzikTWcFc55RLYJPBWQ+9puZtx1DopW2jOwE0EWdWB
+ rwEIAKpT62HgSzL9zwGe+WIUCMB+nOEjXAfvoUPUwk+YCEDcOdfkkM5FyBoJs8TCEuPXGXBO
+ Cl5P5B8OYYnkHkGWutAVlUTV8KESOIm/KJIA7jJA+Ss9VhMjtePfgWexw+P8itFRSRrrwyUf
+ E+0WcAevblUi45LjWWZgpg3A80tHP0iToOZ5MbdYk7YFBE29cDSleskfV80ZKxFv6koQocq0
+ vXzTfHvXNDELAuH7Ms/WJcdUzmPyBf3Oq6mKBBH8J6XZc9LjjNZwNbyvsHSrV5bgmu/THX2n
+ g/3be+iqf6OggCiy3I1NSMJ5KtR0q2H2Nx2Vqb1fYPOID8McMV9Ll6rh8S8AEQEAAcLAfAQY
+ AQgAJgIbDBYhBC3fcuWlpVuonapC4cI9kfOhJf6oBQJnEXWBBQkQ/lrSAAoJEMI9kfOhJf6o
+ cakH+QHwDszsoYvmrNq36MFGgvAHRjdlrHRBa4A1V1kzd4kOUokongcrOOgHY9yfglcvZqlJ
+ qfa4l+1oxs1BvCi29psteQTtw+memmcGruKi+YHD7793zNCMtAtYidDmQ2pWaLfqSaryjlzR
+ /3tBWMyvIeWZKURnZbBzWRREB7iWxEbZ014B3gICqZPDRwwitHpH8Om3eZr7ygZck6bBa4MU
+ o1XgbZcspyCGqu1xF/bMAY2iCDcq6ULKQceuKkbeQ8qxvt9hVxJC2W3lHq8dlK1pkHPDg9wO
+ JoAXek8MF37R8gpLoGWl41FIUb3hFiu3zhDDvslYM4BmzI18QgQTQnotJH8=
+In-Reply-To: <20260903062317.3928665-3-neelx@suse.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Fri, Sep 4, 2026 at 8:39=E2=80=AFAM Long Zhao via B4 Relay
-<devnull+longzhao.ambarella.com@kernel.org> wrote:
 
-> From: Long Zhao <longzhao@ambarella.com>
->
-> Add the Ambarella CV75 compatible string to the Synopsys DW APB UART
-> binding. The block is Ambarella IP with a DW-like register map, so it
-> is described as a DW APB UART variant.
->
-> Signed-off-by: Long Zhao <longzhao@ambarella.com>
 
-Reviewed-by: Linus Walleij <linusw@kernel.org>
+在 2026/9/3 15:53, Daniel Vacek 写道:
+> We can use bio::remaining counter to sync the offloaded checksuming.
+> As a result we can slim down the btrfs_bio structure by 24 bytes
+> and simplify the code a bit.
+> 
+> $ pahole | diff
+> -	/* size: 328, cachelines: 6, members: 15 */
+> +	/* size: 304, cachelines: 5, members: 14 */
+> 
+> Moreover this will allow us enabling async checksumming with encryption
+> where we need to checksum the bounce bio instead of our regular one
+> embedded in btrfs_bio. And so we need to extend it's lifetime. This is
+> the preffered way to do so.
+> 
+> Signed-off-by: Daniel Vacek <neelx@suse.com>
+> Reviewed-by: Qu Wenruo <wqu@suse.com>
+> ---
+> 
+> No change since v1
+> ---
+>   fs/btrfs/bio.c       | 4 ----
+>   fs/btrfs/bio.h       | 4 ----
+>   fs/btrfs/file-item.c | 6 ++----
+>   3 files changed, 2 insertions(+), 12 deletions(-)
+> 
+> diff --git a/fs/btrfs/bio.c b/fs/btrfs/bio.c
+> index 19b4855969f5..771b7d598aee 100644
+> --- a/fs/btrfs/bio.c
+> +++ b/fs/btrfs/bio.c
+> @@ -103,7 +103,6 @@ static struct btrfs_bio *btrfs_split_bio(struct btrfs_fs_info *fs_info,
+>   	bbio->can_use_append = orig_bbio->can_use_append;
+>   	bbio->is_scrub = orig_bbio->is_scrub;
+>   	bbio->is_remap = orig_bbio->is_remap;
+> -	bbio->async_csum = orig_bbio->async_csum;
+>   
+>   	atomic_inc(&orig_bbio->pending_ios);
+>   	return bbio;
+> @@ -114,9 +113,6 @@ void btrfs_bio_end_io(struct btrfs_bio *bbio, blk_status_t status)
+>   	/* Make sure we're already in task context. */
+>   	ASSERT(in_task());
+>   
+> -	if (bbio->async_csum)
+> -		wait_for_completion(&bbio->csum_done);
+> -
+>   	bbio->bio.bi_status = status;
+>   	if (bbio->bio.bi_pool == &btrfs_clone_bioset) {
+>   		struct btrfs_bio *orig_bbio = bbio->private;
+> diff --git a/fs/btrfs/bio.h b/fs/btrfs/bio.h
+> index b7bd377a0162..bbf362b8668b 100644
+> --- a/fs/btrfs/bio.h
+> +++ b/fs/btrfs/bio.h
+> @@ -58,7 +58,6 @@ struct btrfs_bio {
+>   			struct btrfs_ordered_extent *ordered;
+>   			struct btrfs_ordered_sum *sums;
+>   			struct work_struct csum_work;
+> -			struct completion csum_done;
+>   			struct bvec_iter csum_saved_iter;
+>   			u64 orig_physical;
+>   			u64 orig_logical;
+> @@ -93,9 +92,6 @@ struct btrfs_bio {
+>   	/* Whether the bio is coming from copy_remapped_data_io(). */
+>   	bool is_remap:1;
+>   
+> -	/* Whether the csum generation for data write is async. */
+> -	bool async_csum:1;
+> -
+>   	/* Whether the bio is written using zone append. */
+>   	bool can_use_append:1;
+>   
+> diff --git a/fs/btrfs/file-item.c b/fs/btrfs/file-item.c
+> index 4a7681557ec1..0fed4e0d32d5 100644
+> --- a/fs/btrfs/file-item.c
+> +++ b/fs/btrfs/file-item.c
+> @@ -818,9 +818,8 @@ static void csum_one_bio_work(struct work_struct *work)
+>   	struct btrfs_bio *bbio = container_of(work, struct btrfs_bio, csum_work);
+>   
+>   	ASSERT(btrfs_op(&bbio->bio) == BTRFS_MAP_WRITE);
+> -	ASSERT(bbio->async_csum == true);
+>   	csum_one_bio(bbio);
+> -	complete(&bbio->csum_done);
+> +	bio_endio(&bbio->bio);
+>   }
+>   
+>   /*
+> @@ -854,8 +853,7 @@ int btrfs_csum_one_bio(struct btrfs_bio *bbio, bool async)
+>   		csum_one_bio(bbio);
+>   		return 0;
+>   	}
+> -	init_completion(&bbio->csum_done);
+> -	bbio->async_csum = true;
+> +	bio_inc_remaining(bio);
 
-Yours,
-Linus Walleij
+There seems to be a window where the bio can be finished before submission.
+
+Firstly at btrfs_csum_one_bio() time, bio->bi_endio is not yet 
+initialized, it's only properly assigned at btrfs_submit_bio().
+
+Then we queue the csum generation work.
+
+But by some bad timing, the bio submission is delayed, we can have the 
+following sequence:
+
+         Submission               |       Csum generation
+---------------------------------+------------------------------------
+btrfs_submit_chunk()             |
+|- btrfs_csum_one_bio()          |
+|  |- bio_inc_remaining()        |
+|  |- schedule_work()            | csum_one_bio_work()
+|                                | |- bio_endio()
+|                                | Now the bio is finished, although
+|                                | bi_end_io is NULL, nothing real
+|                                | happened.
+|- btrfs_submit_bio()
+
+
+This can be even worse, if the bio_endio() is called when 
+btrfs_submit_bio() has only partially setup the bio (e.g. bi_end_io() is 
+set, but bi_bdev is not set)
+
+Not mention now it changed the context where the endio function is called.
+
+Previously csum_one_bio_work() will never call bi_end_io() function, but 
+now it can.
+
+The change has a much larger impact than I initially thought.
+>   	INIT_WORK(&bbio->csum_work, csum_one_bio_work);
+>   	schedule_work(&bbio->csum_work);
+>   	return 0;
+
