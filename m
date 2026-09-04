@@ -1,129 +1,129 @@
-Received: from esa10.hc1455-7.c3s2.iphmx.com (esa10.hc1455-7.c3s2.iphmx.com [139.138.36.225])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DB7232143D;
-	Fri,  4 Sep 2026 02:56:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=139.138.36.225
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21ED73ACF10;
+	Fri,  4 Sep 2026 02:56:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788490587; cv=none; b=NIjaiPa8Bwvy28tz9+AeIn52uVrtRChRUwTbcpL7qzAGC/6G4GmeBQ5jlqwogzDZqVlHB5REpligzuypmOGFVJgTQNfqrBU9PLBfZiWSDBC3a8vq0asrNI3akgerylLJ/5+dQfpQZp4X4atMk47Q2lVokymnI1RKhhsH/24yM38=
+	t=1788490603; cv=none; b=EwO57FmHyR4RXv8koPNuLAZwuz9rF/7QWdI0JwlVPA2HGEP68FEDOGOYY277g7i+5GU33fmkSXmn1IHbvkOyBSRm/xjL5zAgpCI4FEVK1HSIOVgtEVelFyxD8bJ37VMttfdFtF1urpZ4vrG8z4x4duUxnhCPqDEGO2HZ34CVenQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788490587; c=relaxed/simple;
-	bh=M50a07QYaknMt62mPLnYdnzYtmToSOSevFA9tewdmGg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=CW5W63HA8BxpBKyPpLFcGCQM/e/YjEg7BuHmalQv1TsSHVgS6f8DpVlgK8u3l6Ctsm2/QBKgAAhWT4CNWwyHGOFm2zeV1BZ7AP6Vxkle4SiHzE3VyrqmuPxb8wl3FUuGWVabqTtXqfvbhfUdzRrvYeHzwJx9AdaNGL6ADbmQQlw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=fujitsu.com; spf=pass smtp.mailfrom=fujitsu.com; dkim=pass (2048-bit key) header.d=fujitsu.com header.i=@fujitsu.com header.b=l/v2w5cS; arc=none smtp.client-ip=139.138.36.225
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=fujitsu.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fujitsu.com
+	s=arc-20240116; t=1788490603; c=relaxed/simple;
+	bh=3107Y7JX220AjVb1rk1TFIvZqJnS2YlFKglQU81emTg=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=at0ip91yeJW4LE5BHA8m+Oso1zRl/8GxLNqI2/bwH7eMqW7/wM1XekGmMEN+XLWe72Zv0iV1VndtzKtsUgBgNspIXYMxzhuRGXXgP1XXg73Jt4Q8ilZCJQQ0+5gQ3TH309AvzowHEAOtKxcP1MkL2jXxc1WmApXfHJuHa2ScLSA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VHeozWzm; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fujitsu.com header.i=@fujitsu.com header.b="l/v2w5cS"
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=fujitsu.com; i=@fujitsu.com; q=dns/txt; s=fj2;
-  t=1788490589; x=1820026589;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=M50a07QYaknMt62mPLnYdnzYtmToSOSevFA9tewdmGg=;
-  b=l/v2w5cSr+3zdXno188Q4e1NqVhECpLCZ2GbRgoVG/9lQEszmGzIb3zA
-   PI3C4qmyPuIF5Na/wHrr6JwGr3t/vsbufKUsDDMOtNXYS90eVKP5RFlYs
-   mqJ9xoS9ix4sW54CyEX3AhULjBDsZm9cCUr2zuiXNjKzWfP2UjortMxQv
-   4DdsasUxvzpIjRIn7FFUdlwGjdpcVqfkLvSYnRbs3MR6gvquwn1sLz+nk
-   ocMPx21oRoXYhkVPqSvQVhYeWk5+tMjTexcbD9IqhEUa8yvxh6T+fAzGh
-   VrW771B18/AfTWQL80+F6Tykg0xXmSe8XcBbH3dLxICBE7W/pB86XPqw9
-   w==;
-X-CSE-ConnectionGUID: kTNC/za+Tmqz/nUUOYxD2g==
-X-CSE-MsgGUID: XtJQgjmHSaWn5Ef2T8jGzA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11895"; a="240020538"
-X-IronPort-AV: E=Sophos;i="6.25,260,1779116400"; 
-   d="scan'208";a="240020538"
-Received: from gmgwnl01.global.fujitsu.com ([52.143.17.124])
-  by esa10.hc1455-7.c3s2.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Sep 2026 11:55:18 +0900
-Received: from az2nlsmgm3.fujitsu.com (unknown [10.150.26.205])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by gmgwnl01.global.fujitsu.com (Postfix) with ESMTPS id DB1DA10000F3;
-	Fri,  4 Sep 2026 02:55:13 +0000 (UTC)
-Received: from az2uksmom4.o.css.fujitsu.com (unknown [10.151.22.204])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by az2nlsmgm3.fujitsu.com (Postfix) with ESMTPS id 8E0BA1802AC9;
-	Fri,  4 Sep 2026 02:55:13 +0000 (UTC)
-Received: from sm-arm-grace07 (unknown [10.124.178.20])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by az2uksmom4.o.css.fujitsu.com (Postfix) with ESMTPS id 5532740D1B9;
-	Fri,  4 Sep 2026 02:55:08 +0000 (UTC)
-Date: Fri, 4 Sep 2026 11:55:05 +0900
-From: Itaru Kitayama <itaru.kitayama@fujitsu.com>
-To: Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>,
-	Fuad Tabba <fuad.tabba@linux.dev>, Joey Gouly <joey.gouly@arm.com>,
-	Steffen Eiden <seiden@linux.ibm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Zenghui Yu <yuzenghui@huawei.com>,
-	Paolo Bonzini <pbonzini@redhat.com>, Shuah Khan <shuah@kernel.org>
-Cc: linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev,
-	kvm@vger.kernel.org, linux-kselftest@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Takayuki Okamoto <tokamoto@fujitsu.com>
-Subject: Re: [PATCH 0/2] 52-bit VA guest mode ID support
-Message-ID: <apozCZSi00UZhqLJ@sm-arm-grace07>
-References: <20260826-arm64-52bit-va-v1-0-14ec98211363@fujitsu.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VHeozWzm"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A507E1F000E9;
+	Fri,  4 Sep 2026 02:56:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788490601;
+	bh=elq1oOXS9izL1eLEUjPGPGm9Oywm4DVxZpNoEOogJK8=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=VHeozWzmYAkZZvr/Z1IWKOW4YdwtfBCJoGgRQnGnwxA0Uzgm582QN+aoboEJryMxw
+	 AU38nuQCgXvFtP3t7Yv5A+K31aPrEiN3ftc+9ep4iIYtN5/tMdtzdmaOxF1m+BgOE3
+	 bu849CgT4SoYG6dcCcFnKbe+QftS9ojVD0SU/o4ifYRCC+kWRDQK95/F8290Mx6Ga+
+	 TFNdHohZCuHf3XoYc1O4zmPHncAtYQ+UAUioTwE115iOk5nO3mapj4AbHRNeHD45md
+	 nb3fOkwmKrnVYX5Lw/3bdUKm43V9ukO2kAQYhanN0Se5vMxab/345qUtQtsYz/i5Oi
+	 qj7lfOWfXG0Fg==
+Date: Fri, 4 Sep 2026 03:56:32 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Eliav Farber <farbere@amazon.com>
+Cc: <rafael@kernel.org>, <tony.luck@intel.com>, <bp@alien8.de>,
+ <guohanjun@huawei.com>, <mchehab@kernel.org>, <xueshuai@linux.alibaba.com>,
+ <lenb@kernel.org>, <laurent.pinchart@ideasonboard.com>,
+ <linusw@kernel.org>, <brgl@kernel.org>, <orsonzhai@gmail.com>,
+ <baolin.wang@linux.alibaba.com>, <zhang.lyra@gmail.com>,
+ <dlechner@baylibre.com>, <nuno.sa@analog.com>, <andy@kernel.org>,
+ <dmitry.torokhov@gmail.com>, <hansg@kernel.org>,
+ <ilpo.jarvinen@linux.intel.com>, <W_Armin@gmx.de>, <ukleinek@kernel.org>,
+ <fabio.m.de.francesco@linux.intel.com>, <kaihengf@nvidia.com>,
+ <ankita@nvidia.com>, <leitao@debian.org>, <pedro.pbg@usp.br>,
+ <paulmck@kernel.org>, <frederic@kernel.org>, <kees@kernel.org>,
+ <saket.dumbre@intel.com>, <linux-acpi@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <linux-gpio@vger.kernel.org>,
+ <linux-pwm@vger.kernel.org>, <linux-iio@vger.kernel.org>,
+ <linux-input@vger.kernel.org>, <platform-driver-x86@vger.kernel.org>,
+ <acpica-devel@lists.linux.dev>, Jonathan Cameron
+ <jonathan.cameron@oss.qualcomm.com>
+Subject: Re: [PATCH v5 03/13] iio: light: iqs621-als: use
+ devm_blocking_notifier_chain_register()
+Message-ID: <20260904035632.4aaf4eab@jic23-huawei>
+In-Reply-To: <20260816060648.4030-4-farbere@amazon.com>
+References: <20260816060648.4030-1-farbere@amazon.com>
+	<20260816060648.4030-4-farbere@amazon.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260826-arm64-52bit-va-v1-0-14ec98211363@fujitsu.com>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Wed, Aug 26, 2026 at 06:18:33AM +0900, Itaru Kitayama wrote:
-> This patch series extends the arm64 KVM selftest framework
-> to support 52-bit guest virtual address (VA) modes in addition to
-> the existing 52-bit physical address (PA) configurations.
-> The motivation is to enable validation of LPA2 guest memory-management
-> behaviour in configurations that use a 52-bit VA space.
-> While the selftest framework already supports testing 52-bit PA
-> configurations, it lacks the ability to exercise guests running with
-> 52-bit virtual addresses, leaving part of the LPA2 functionality untested.
-> To address this, the series introduces new guest modes for 52-bit VA
-> operation, adds five-level page table support where required, and
-> performs runtime detection of host 52-bit VA capability so that
-> LPA2-enabled guest VA tests are executed only on supported systems.
-> 
-> Testing:
-> 
-> Built and tested on arm64.
-> Verified on QEMU with a V52-capable guest configuration.
-> Confirmed correct operation of high virtual address mappings by
-> exercising guest memory accesses in the 52-bit VA range.
-> 
-> Signed-off-by: Itaru Kitayama <itaru.kitayama@fujitsu.com>
-> Reviewed-by: Takayuki Okamoto <tokamoto@fujitsu.com>
+On Sun, 16 Aug 2026 06:06:02 +0000
+Eliav Farber <farbere@amazon.com> wrote:
 
-I'd appreciate any comments on this series.
-
-Thanks,
-Itaru.
+> Replace the blocking_notifier_chain_register() +
+> devm_add_action_or_reset() pattern with a single call to
+> devm_blocking_notifier_chain_register(), removing the
+> iqs621_als_notifier_unregister() callback.
+> 
+> Signed-off-by: Eliav Farber <farbere@amazon.com>
+> Acked-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+Applied (on top of merging the branch) to the testing branch of iio.git
+Upgraded that ack to an SoB as a result.
 
 > ---
-> Itaru Kitayama (2):
->       KVM: selftest: arm64: Support 5-level paging in stage 1 translation table
->       KVM: selftests: arm64: Add 52-bit VA guest modes
+>  drivers/iio/light/iqs621-als.c | 24 +++---------------------
+>  1 file changed, 3 insertions(+), 21 deletions(-)
 > 
->  .../selftests/kvm/include/arm64/processor.h        |  2 +
->  tools/testing/selftests/kvm/include/kvm_util.h     |  3 +
->  tools/testing/selftests/kvm/lib/arm64/processor.c  | 87 ++++++++++++++++++++--
->  tools/testing/selftests/kvm/lib/guest_modes.c      |  5 ++
->  tools/testing/selftests/kvm/lib/kvm_util.c         | 11 +++
->  5 files changed, 103 insertions(+), 5 deletions(-)
-> ---
-> base-commit: 8d3ae59288f1e7d58d76558a6ee96d533bc5019f
-> change-id: 20260825-arm64-52bit-va-32f1f4cd050d
-> 
-> Best regards,
-> --  
-> Itaru Kitayama <itaru.kitayama@fujitsu.com>
-> 
+> diff --git a/drivers/iio/light/iqs621-als.c b/drivers/iio/light/iqs621-als.c
+> index cd5843e3e2c3..f9d215ef1970 100644
+> --- a/drivers/iio/light/iqs621-als.c
+> +++ b/drivers/iio/light/iqs621-als.c
+> @@ -179,19 +179,6 @@ static int iqs621_als_notifier(struct notifier_block *notifier,
+>  	return NOTIFY_OK;
+>  }
+>  
+> -static void iqs621_als_notifier_unregister(void *context)
+> -{
+> -	struct iqs621_als_private *iqs621_als = context;
+> -	struct iio_dev *indio_dev = iqs621_als->indio_dev;
+> -	int ret;
+> -
+> -	ret = blocking_notifier_chain_unregister(&iqs621_als->iqs62x->nh,
+> -						 &iqs621_als->notifier);
+> -	if (ret)
+> -		dev_err(indio_dev->dev.parent,
+> -			"Failed to unregister notifier: %d\n", ret);
+> -}
+> -
+>  static int iqs621_als_read_raw(struct iio_dev *indio_dev,
+>  			       struct iio_chan_spec const *chan,
+>  			       int *val, int *val2, long mask)
+> @@ -563,19 +550,14 @@ static int iqs621_als_probe(struct platform_device *pdev)
+>  	mutex_init(&iqs621_als->lock);
+>  
+>  	iqs621_als->notifier.notifier_call = iqs621_als_notifier;
+> -	ret = blocking_notifier_chain_register(&iqs621_als->iqs62x->nh,
+> -					       &iqs621_als->notifier);
+> +	ret = devm_blocking_notifier_chain_register(&pdev->dev,
+> +						    &iqs621_als->iqs62x->nh,
+> +						    &iqs621_als->notifier);
+>  	if (ret) {
+>  		dev_err(&pdev->dev, "Failed to register notifier: %d\n", ret);
+>  		return ret;
+>  	}
+>  
+> -	ret = devm_add_action_or_reset(&pdev->dev,
+> -				       iqs621_als_notifier_unregister,
+> -				       iqs621_als);
+> -	if (ret)
+> -		return ret;
+> -
+>  	return devm_iio_device_register(&pdev->dev, indio_dev);
+>  }
+>  
+
