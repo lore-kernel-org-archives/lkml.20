@@ -1,121 +1,155 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oo2-f6.google.com (mail-oo2-f6.google.com [74.125.231.134])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10069468C09;
-	Fri,  4 Sep 2026 22:22:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 921CC476CCC
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 22:23:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.134
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788560530; cv=none; b=Jdp+JGPhaLP3DsnIHmkc36i6exXK83PZ/8Mrp9wpwVyGArZP5OBaOIMhmKqqs7j8pwadNTrVkhDtLgHygs5uTdSjE/qnwPFH93S6rxZQCbKlBh8hvS1OgaQ0sCTOjNwboR5IHR815YMmss+6Kn918IkpnC9KIwkVFYyLNI7sVp0=
+	t=1788560616; cv=none; b=f2BqozVz4uW36VJ6HlhXr+9WTlWpPVfHOa4cdrqlrFt9Jp5UNhqNLwRrFyPHr94mkyTrJL9YcL5g7G6BI4z0tv2c77vdnNKCsNPSyj4aE7hfPE6Z1D4Gb+UF3YBjr+G9esdzCK4WUmpJvQO+Yr+SPKGkvBRsq10TQpvZ5qvMA60=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788560530; c=relaxed/simple;
-	bh=oPVDPR9G8pvW4j/ptfuNum9f+WDa0bplq2EWwiuQ/Gw=;
-	h=Content-Type:MIME-Version:Message-Id:In-Reply-To:References:
-	 Subject:From:To:Cc:Date; b=mnwMh3iJ8JBZ9krTZsjh4wAdBqW6xeNIoL0qLC5/aSpW6KHFKDNsOpy8UiyFOtW/MsP69R14iT5GlCmXObDHIpAWl5smtbfl0gukPApbyeRaDDz6gz9c+anJ6Bi9krHDeF5ifv1W4K3zfCgg6fViAXMBtmRgIcEovgwKOD+3PJs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WeReDTJR; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WeReDTJR"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D754A1F00A3D;
-	Fri,  4 Sep 2026 22:21:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788560515;
-	bh=qpMhiQLjSPn+IixWCKsh67n6JvkjgKbGv6IoFQYXMtY=;
-	h=In-Reply-To:References:Subject:From:To:Cc:Date;
-	b=WeReDTJRV4eHcQJLUv8y1s8QoBUOva0wyvkASASXWjzIg0HngUoaR8PYAsmJkDXsM
-	 ySHFporkqf2DiYlc22O8xguBDjupK0PuSUcmlQQC4N1R/dl6k30h5BMnHvjz/skmmY
-	 vJhw4uq79PuiVjlpzLy6AthE3wqlrpc+l6kRjyDsIA66hxEAcaU7RlDENiaaQEobmZ
-	 M/wRwFGz5ZvawP2fn8wNkRlYXjsRYNFLvMNTWinAg5eS/+5R3UGrk4DlI3KMIhIf+U
-	 vq0gwVdLafuCByunbpEZVT9H+zfGDBQdepHtBMpYbOH6MVcesDWtMheRx+iuGqVqOs
-	 TGv+kNnUq/Gkw==
-Content-Type: multipart/mixed; boundary="===============4410765396966452123=="
+	s=arc-20240116; t=1788560616; c=relaxed/simple;
+	bh=blQx9O2GljPiDvE4oHqZaB4Q9lTVaxFla5bbqWs8PaQ=;
+	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=L5QylANIF/Fmybt/pz9dz6g/gDMGr9LesrzSBUoRqyjlLeRrY3UN91aOrRzSUL0F4xSpbJAahINL2axsqLPEMMdABWqTe2PCcC2Fn2+nrksWUHrfVTmLAFqKjxyDPNCAwi0QPL6Xq6Z5aqfg+A3ls3KgTZiH1MToA3RXAl1ogxw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=74.125.231.134
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oo2-f6.google.com with SMTP id 006d021491bc7-6b1b32cc57bso138363eaf.1
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 15:23:32 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788560608; x=1789165408;
+        h=content-type:to:from:subject:message-id:date:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=sxZDoFRvVAvGWSm+Ntioz7anQi0nXepD82NI5Zzbt8s=;
+        b=MKRlTIJAaVdOQh3785vLmh6FrdPWIjDXrg8DutUkfICHzxbGixatdaU5bssL1mVRUB
+         sUE6R7t5mprDGDuStRA4vdX+WcUrcKS3ogFJfzNlYCURwY4yCpSW4hHfCPIjbPOvpZ65
+         SH/PnRsRkotVyGlz9WME4tzOdAhqRRkjRWTRMq3xxFRb9tCCkzJgassmwdCa4HPAUhVG
+         gK3A4MiM90jbrxGWtI7T6i41PjMbB+N/nj8qg7txV0t+EH0/hfNkqVHpX13F7PjlZ4Ha
+         GG7pg7nVTK2C/JEr3JDyFQH/UeDH975btfuOxmPp6TM6kvBCpjnhxojeLjB4UPh/q+Wv
+         6XKQ==
+X-Forwarded-Encrypted: i=1; AKwUvBx7YGqn4oLbAwfpEkde7bw6OhVTFRJUkH3J8X3VeYXX1zAaeGQBIIJ+3UQOfp7pC3cPuY0gZaY80H2B9g4=@vger.kernel.org
+X-Gm-Message-State: AFuF++ntZcimzHsft5NDKwbqgGqCso6poKyaNoshCW5RMytAmjk34vgC
+	9OxYqOsh/Linz3pL49YuH5E+lrqIIJr4OnniDtMniNa2qEuxiRtbxxiobOvrHxcOcAKN//HPo7J
+	yZ+GMfjsK79368gQKGF2mz0kao3p0u3KJk6b+M3OoQPJj5fB+ilKZwQxG/dQ=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-Id: <d6eed7bdb5d4ba036cfcc7255b9e01fb111cd936be81ee00fff57d3cae7b02ce@mail.kernel.org>
-In-Reply-To: <20260904080524.3872926-1-tristmd@gmail.com>
-References: <20260904080524.3872926-1-tristmd@gmail.com>
-Subject: Re: [PATCH] HID: core: fix device cleanup on allocation failure
-From: bot+bpf-ci@kernel.org
-To: tristmd@gmail.com,jikos@kernel.org,bentiss@kernel.org
-Cc: linux-input@vger.kernel.org,bpf@vger.kernel.org,linux-kernel@vger.kernel.org,tristan@talencesecurity.com,stable@vger.kernel.org,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
-Date: Fri,  4 Sep 2026 22:21:54 +0000 (UTC)
+X-Received: by 2002:a05:6820:820:b0:6b7:8396:f3c1 with SMTP id
+ 006d021491bc7-6b78396f863mr3577644eaf.35.1788560608197; Fri, 04 Sep 2026
+ 15:23:28 -0700 (PDT)
+Date: Fri, 04 Sep 2026 15:23:28 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6a9b44e0.a5e650b3.363816.0002.GAE@google.com>
+Subject: [syzbot] [block?] BUG: sleeping function called from invalid context
+ in null_insert_page
+From: syzbot <syzbot+95fdab36405e5ffdb680@syzkaller.appspotmail.com>
+To: linux-block@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
---===============4410765396966452123==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+Hello,
 
-> hid_allocate_device() calls hid_destroy_device() in its error path when
-> hid_bpf_device_init() fails.  hid_destroy_device() in turn calls
-> hid_bpf_destroy_device() which invokes synchronize_srcu() and
-> cleanup_srcu_struct() on the SRCU structure.  However, at this point
-> init_srcu_struct() has not been called (or has failed), so the SRCU
-> internal pointers are all zeroed from kzalloc.  Dereferencing them
-> causes a general protection fault:
+syzbot found the following issue on:
 
-Is the reasoning here fully accurate?
+HEAD commit:    f1b8fa82cab7 Merge branch 'for-next/core' into for-kernelci
+git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/arm64/linux.git for-kernelci
+console output: https://syzkaller.appspot.com/x/log.txt?x=17b7e779580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=d1128bc53f2ef7f3
+dashboard link: https://syzkaller.appspot.com/bug?extid=95fdab36405e5ffdb680
+compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
+userspace arch: arm64
 
-Looking at hid_bpf_device_init() in drivers/hid/bpf/hid_bpf_dispatch.c,
-it returns the result of init_srcu_struct(&hdev->bpf.srcu), so
-init_srcu_struct() is always called before the error path is taken.
+Unfortunately, I don't have any reproducer for this issue yet.
 
-When init_srcu_struct() fails (specifically init_srcu_struct_fields() in
-kernel/rcu/srcutree.c), the failure paths explicitly free and NULL the
-pointers:
+Downloadable assets:
+disk image: https://storage.googleapis.com/syzbot-assets/932d85a2bda2/disk-f1b8fa82.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/5b6b8fb76e8d/vmlinux-f1b8fa82.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/c246b61ee396/Image-f1b8fa82.gz.xz
 
-kernel/rcu/srcutree.c:init_srcu_struct_fields() {
-    ...
-err_free_sda:
-    free_percpu(ssp->sda);
-    ssp->sda = NULL;
-err_free_sup:
-    kfree(ssp->srcu_sup);
-    ssp->srcu_sup = NULL;
-    ...
-}
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+95fdab36405e5ffdb680@syzkaller.appspotmail.com
 
-So the SRCU internal pointers are NULL due to init_srcu_struct()'s
-rollback on failure, not because init_srcu_struct() was never called or
-because they are still zeroed from kzalloc.
-
-Could the commit message be more precise? Something like:
-"init_srcu_struct() was called but failed, and it rolled the SRCU
-internal pointers back to NULL"
-
-> diff --git a/drivers/hid/hid-core.c b/drivers/hid/hid-core.c
-> index a3ff0514f9cd..d8df23f67f1f 100644
-> --- a/drivers/hid/hid-core.c
-> +++ b/drivers/hid/hid-core.c
-> @@ -3115,7 +3115,12 @@ struct hid_device *hid_allocate_device(void)
->  	return hdev;
->
->  out_err:
-> -	hid_destroy_device(hdev);
-> +	/*
-> +	 * hid_destroy_device() cannot be used here because
-> +	 * hid_bpf_device_init() failed and the SRCU struct was never
-> +	 * initialized.  Release the device directly.
-> +	 */
-> +	put_device(&hdev->dev);
->  	return ERR_PTR(ret);
->  }
-
-Should the comment say "was never successfully initialized" rather than
-"was never initialized"?
-
-As shown above, hid_bpf_device_init() returns init_srcu_struct()'s
-result, so init_srcu_struct() is always called before reaching this
-error path. It failed after partially initializing, then rolled back.
-
-The distinction matters for future readers trying to understand the
-ordering inside hid_bpf_device_init().
+BUG: sleeping function called from invalid context at ./include/linux/sched/mm.h:323
+in_atomic(): 0, irqs_disabled(): 0, non_block: 0, pid: 8414, name: syz.7.670
+preempt_count: 0, expected: 0
+RCU nest depth: 1, expected: 0
+1 lock held by syz.7.670/8414:
+ #0: ffff800088d271a0 (rcu_read_lock){....}-{1:3}, at: rcu_lock_acquire include/linux/rcupdate.h:300 [inline]
+ #0: ffff800088d271a0 (rcu_read_lock){....}-{1:3}, at: rcu_read_lock include/linux/rcupdate.h:840 [inline]
+ #0: ffff800088d271a0 (rcu_read_lock){....}-{1:3}, at: blk_mq_dispatch_queue_requests+0x110/0x6d4 block/blk-mq.c:2872
+CPU: 0 UID: 0 PID: 8414 Comm: syz.7.670 Not tainted syzkaller #0 PREEMPT 
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 08/07/2026
+Call trace:
+ show_stack+0x2c/0x3c arch/arm64/kernel/stacktrace.c:499 (C)
+ __dump_stack+0x30/0x40 lib/dump_stack.c:94
+ dump_stack_lvl+0xd8/0x12c lib/dump_stack.c:120
+ dump_stack+0x1c/0x28 lib/dump_stack.c:129
+ __might_resched+0x354/0x4c0 kernel/sched/core.c:9197
+ __might_sleep+0x84/0xdc kernel/sched/core.c:9126
+ might_alloc include/linux/sched/mm.h:323 [inline]
+ slab_pre_alloc_hook mm/slub.c:4537 [inline]
+ slab_alloc_node mm/slub.c:4897 [inline]
+ __kmalloc_cache_noprof+0x88/0x5ec mm/slub.c:5485
+ _kmalloc_noprof include/linux/slab.h:988 [inline]
+ null_alloc_page drivers/block/null_blk/main.c:870 [inline]
+ null_insert_page+0x94/0x4e8 drivers/block/null_blk/main.c:1019
+ copy_to_nullb drivers/block/null_blk/main.c:1157 [inline]
+ null_transfer drivers/block/null_blk/main.c:1271 [inline]
+ null_handle_data_transfer drivers/block/null_blk/main.c:1300 [inline]
+ null_handle_memory_backed+0x474/0x9d8 drivers/block/null_blk/main.c:1380
+ null_process_cmd+0x118/0x1b0 drivers/block/null_blk/main.c:1434
+ null_handle_cmd drivers/block/null_blk/main.c:1457 [inline]
+ null_queue_rq+0x788/0xa88 drivers/block/null_blk/main.c:1703
+ null_queue_rqs+0x108/0x204 drivers/block/null_blk/main.c:1717
+ __blk_mq_flush_list block/blk-mq.c:2827 [inline]
+ blk_mq_dispatch_queue_requests+0x33c/0x6d4 block/blk-mq.c:2872
+ blk_mq_flush_plug_list+0x37c/0x494 block/blk-mq.c:2960
+ __blk_flush_plug+0x364/0x440 block/blk-core.c:1266
+ blk_finish_plug+0x68/0x90 block/blk-core.c:1293
+ blkdev_writepages+0x128/0x184 block/fops.c:486
+ do_writepages+0x284/0x47c mm/page-writeback.c:2571
+ filemap_writeback+0x230/0x2bc mm/filemap.c:387
+ filemap_fdatawrite_range mm/filemap.c:412 [inline]
+ filemap_write_and_wait_range+0x90/0x114 mm/filemap.c:684
+ filemap_write_and_wait include/linux/pagemap.h:65 [inline]
+ sync_blockdev block/bdev.c:276 [inline]
+ bdev_release+0x114/0x328 block/bdev.c:1129
+ blkdev_release+0x20/0x34 block/fops.c:680
+ __fput+0x338/0x74c fs/file_table.c:512
+ fput_close_sync+0x10c/0x278 fs/file_table.c:617
+ __do_sys_close fs/open.c:1511 [inline]
+ __se_sys_close fs/open.c:1496 [inline]
+ __arm64_sys_close+0x80/0x110 fs/open.c:1496
+ __invoke_syscall arch/arm64/kernel/syscall.c:35 [inline]
+ invoke_syscall+0x98/0x244 arch/arm64/kernel/syscall.c:49
+ el0_svc_common+0xec/0x23c arch/arm64/kernel/syscall.c:121
+ do_el0_svc+0x4c/0x5c arch/arm64/kernel/syscall.c:140
+ el0_svc+0x64/0x260 arch/arm64/kernel/entry-common.c:758
+ el0t_64_sync_handler+0x44/0x104 arch/arm64/kernel/entry-common.c:777
+ el0t_64_sync+0x198/0x19c arch/arm64/kernel/entry.S:590
 
 
 ---
-AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
-See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
 
-CI run summary: https://github.com/kernel-patches/bpf/actions/runs/33923149618
---===============4410765396966452123==--
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+
+If the report is already addressed, let syzbot know by replying with:
+#syz fix: exact-commit-title
+
+If you want to overwrite report's subsystems, reply with:
+#syz set subsystems: new-subsystem
+(See the list of subsystem names on the web dashboard)
+
+If the report is a duplicate of another one, reply with:
+#syz dup: exact-subject-of-another-report
+
+If you want to undo deduplication, reply with:
+#syz undup
