@@ -1,242 +1,212 @@
-Received: from DUZPR83CU001.outbound.protection.outlook.com (mail-northeuropeazon11012015.outbound.protection.outlook.com [52.101.66.15])
+Received: from mx0a-00128a01.pphosted.com (mx0a-00128a01.pphosted.com [148.163.135.77])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C3FD3A7593;
-	Fri,  4 Sep 2026 08:35:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.66.15
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788510961; cv=fail; b=Xa7cO9aVmpKCmogUQykXNDGfhugeM9xKxxfNS1NiVWoBbDerRmABJY/dCiLHsF12h4iCIZUCfPT5Fx6Ne8xZ6NQ0yJUjdbfnlaxNuAQv9iniiFjPzltpoDflFqV20NqdmpRfU5K6U35m9edK9hnUI31+Ry1jgoJGD7IUL1SEtSk=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788510961; c=relaxed/simple;
-	bh=oL6ruZ/1cOimsyCFaz/3CkgoXoGKGeEB2l/1nV8a2PE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=ctM+OvZkPZRvh2ZkFkctwPhlHvfTgqOuNj80oLXMoKYdGWM2iGJVPznZTYHq64Uq+XdxI/fkb8VCdDOKh7rdvbS7td/sdg4USc9hWl2vfLUDuttkFENWc8eaYAPZreUzXpPElViyMNM4TzqGQ+6Hf2eSFsFRRUCxU//CdRqoZUI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com; spf=pass smtp.mailfrom=foss.st.com; dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b=YryKQFes; arc=fail smtp.client-ip=52.101.66.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foss.st.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0ABBC3A7593;
+	Fri,  4 Sep 2026 08:36:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.135.77
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788510969; cv=none; b=ClGBE7otSTJwrv3KxgOguOXuvFAE9FZZ9vM6xMGwHhPs8TfjYPngjcxvHya/oB3m44InCpaYzGOTOIL+C4u8+M0gn5ndm1bgysrT6wSvbx2H7lyc/mMjWWQdnnD9kJvlGZe+sj17S31M65aGFPWNHIgGVX5tQhMR0YJWyizl2hE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788510969; c=relaxed/simple;
+	bh=g6Aw7BqGE55IOBDbcmJqnDzXjIjVBZF0EYfA1wqfdsc=;
+	h=From:Subject:Date:Message-ID:MIME-Version:Content-Type:To:CC; b=OC+X6TcPJlrhmWGt8vJHnj0Ze5iSFm8XOSidqWlTwe6p4a/DW/PdusNZxck1ILt+nHetp+bBGMiRwFBC5OmhLypQZkKTY1j0SZE5ZuUOywPAivmGwPMuLOSnB1c1DOCUNFHArGt8sV2smAh8qGU7LsE+EiYnXGlJgXYtwth1rrA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com; spf=pass smtp.mailfrom=analog.com; dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b=rSBCNVhu; arc=none smtp.client-ip=148.163.135.77
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=analog.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b="YryKQFes"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=uDaPrdLquTJ/BGG/W6YxkcjbRJdGAgm0aeWcaIo/Qg7SfDIkNkt4T5z3tp4VrDkKUPqpcsx1QHcdeXa2wlfZV1YVJx7QrCHs50jJIX8k49uRdMVef4TlwTOqrrCuPyjenrxGKvyA5276vMkeeMqEHB2lhX0DY4n0ib9UsRcocTf7VHjXXgO8fyllNJwjEUnUNWb224O7aOousX666Rg/i+uIpqrpkOXhhJmPwkXNG42QzUwZeRQQhlZ/X5XqJZxfY/M8+IJgRikQnsIXjwXPXv+KxQDJoxeAOjJoFlQwFacmP716+2sMwqBp0iv6bbkfttB9dtpZIU80fS7t941LOg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=qXBaOeGDE9CIr0w1l+6Z/32ykDFbrDHVuTkJtZS1G7s=;
- b=jVyzeL+2xaWiuOGJzbg1h1TcRBK05POH2/1NfY62gOvSug991FkyQCkPXgiD4KbKKr2il+M9iR9BPRDzWpA+1c/qByc3MTbCAToPoJmsaAnQ+uHWFLb92PGMKmvUf0BUnYlUHsOdOmKoTRJFcCTDktzPONciVTsDi6cTGk88a8sgDT8YSvcMNXWyBTeCle+zAvoUyd3BBUwVb6aEsztlJBZR2ZOx14377Ch9lhcjHXQnXnsJZNy8E0m5JoOjKNV0PaKd0KiMVKHwKKO6DmAqE46QdXmQwzRO/WWU1rkcpw/2AkZjThQ8xN6F4IWbvlb5Q10p6PnMsjMdRgqTur3V2A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
- 164.130.1.88) smtp.rcpttodomain=oss.nxp.com smtp.mailfrom=foss.st.com;
- dmarc=fail (p=none sp=none pct=100) action=none header.from=foss.st.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=qXBaOeGDE9CIr0w1l+6Z/32ykDFbrDHVuTkJtZS1G7s=;
- b=YryKQFes0AqftsnRRitantV98OOZks2Lb5z4yiQe+//1q3Vbob6LPbbVDudotRxoreEzX1jg8tbN9u5lRPvxHyOEJg1cTyEXeNNmuuinETN0PbgLQ9yGOw//WblBb0m+Ldt1Af54dti5soTFo18LIM9tW4KVZOBcK0jzo9wIAnZ4m9Sm5uK6mbjiH+D4TnW6ysEv+8b+B2TSro+XqOemcP1eXscW1wZHHdeuuhW8bazOvNKWi+hW1yifDLhmB3sXep3p5OwXaL4xS0DMF6Ea1VdENL/cOvR9B5x1NEQZZQYKqqwxZF2c5YQC51JG3axzzZI4rRySRgyxWoqd8CRewA==
-Received: from AS4PR10CA0013.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:20b:5dc::20)
- by VI1PR10MB3615.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:800:139::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Fri, 4 Sep
- 2026 08:35:49 +0000
-Received: from AMS0EPF00000567.eurprd02.prod.outlook.com
- (2603:10a6:20b:5dc:cafe::90) by AS4PR10CA0013.outlook.office365.com
- (2603:10a6:20b:5dc::20) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.12 via Frontend Transport; Fri, 4
- Sep 2026 08:35:49 +0000
-X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 164.130.1.88)
- smtp.mailfrom=foss.st.com; dkim=none (message not signed)
- header.d=none;dmarc=fail action=none header.from=foss.st.com;
-Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
- designate 164.130.1.88 as permitted sender) receiver=protection.outlook.com;
- client-ip=164.130.1.88; helo=smtpO365.st.com;
-Received: from smtpO365.st.com (164.130.1.88) by
- AMS0EPF00000567.mail.protection.outlook.com (10.167.242.117) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.382.8 via Frontend Transport; Fri, 4 Sep 2026 08:35:49 +0000
-Received: from ENXDAG1NODE4.st.com (10.75.129.197) by smtpo365.st.com
- (10.250.44.75) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Fri, 4 Sep
- 2026 10:33:06 +0200
-Received: from [10.48.87.20] (10.48.87.20) by ENXDAG1NODE4.st.com
- (10.75.129.197) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Fri, 4 Sep
- 2026 10:35:47 +0200
-Message-ID: <4e3a2f00-ec1d-426e-b71b-fcd9fabe6b86@foss.st.com>
-Date: Fri, 4 Sep 2026 10:35:47 +0200
+	dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b="rSBCNVhu"
+Received: from pps.filterd (m0167088.ppops.net [127.0.0.1])
+	by mx0a-00128a01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68463fqk3811489;
+	Fri, 4 Sep 2026 04:36:00 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=analog.com; h=cc
+	:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=DKIM; bh=kcS7JqjQkoH0/eqR1lbQFSiUOyd
+	TZVViYNULAVsaj9g=; b=rSBCNVhuG54oUIMrX47vzvAGs49Y6S8Td6ct5kh0OvD
+	TKY/5PBFAiGeQIdAM34KrLRcspsc3k8DpXI7Huna6DpkO2+GHBuMcvorxYIpfJdD
+	ammjPJWhUe92j73etqsOIC9yZY7RcNa1/WZz1Sr9Jkt0qfHUPn/lif5faiiZ+jej
+	twPTpGriJuANoC227bOVBJpQL9aRi9lfbS4BiEGqUVvYawqIhYz3yhhZuV3OzBEW
+	9D1PyUOpsNv/pvDtOBoSI2vAPkYk5YU6ivgLxbkG1MQxisLPm6QkXzCDNRCst83y
+	3woy047MxZ3dyRVAqaxWxC8tBDZWjK5YiMlKOVHDj9w==
+Received: from nwd2mta4.analog.com ([137.71.173.58])
+	by mx0a-00128a01.pphosted.com (PPS) with ESMTPS id 4gffk4tv8d-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Fri, 04 Sep 2026 04:36:00 -0400 (EDT)
+Received: from ASHBMBX9.ad.analog.com (ASHBMBX9.ad.analog.com [10.64.17.10])
+	by nwd2mta4.analog.com (8.14.7/8.14.7) with ESMTP id 6848ZxSw007166
+	(version=TLSv1/SSLv3 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Fri, 4 Sep 2026 04:35:59 -0400
+Received: from ASHBMBX8.ad.analog.com (10.64.17.5) by ASHBMBX9.ad.analog.com
+ (10.64.17.10) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.37; Fri, 4 Sep
+ 2026 04:35:59 -0400
+Received: from zeus.spd.analog.com (10.66.68.11) by ashbmbx8.ad.analog.com
+ (10.64.17.5) with Microsoft SMTP Server id 15.2.1748.37 via Frontend
+ Transport; Fri, 4 Sep 2026 04:35:59 -0400
+Received: from 10.98.41.145 ([10.66.6.191])
+	by zeus.spd.analog.com (8.15.1/8.15.1) with ESMTP id 6848Zjj2026621;
+	Fri, 4 Sep 2026 04:35:48 -0400
+From: Kim Seer Paller <kimseer.paller@analog.com>
+Subject: [PATCH v5 0/4] Add support for AD5710R/AD5711R DAC
+Date: Fri, 4 Sep 2026 16:35:23 +0800
+Message-ID: <20260904-iio-ad5710r-upstream-v5-0-76f985b7d0ee@analog.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/3] dmaengine: vchan: add vchan_chan_name() to get
- channel device name
-To: <Frank.Li@oss.nxp.com>, Jacky Huang <ychuang3@nuvoton.com>, Shan-Chun Hung
-	<schung@nuvoton.com>, Vinod Koul <vkoul@kernel.org>, Frank Li
-	<Frank.Li@kernel.org>, Paul Cercueil <paul@crapouillou.net>, Eugeniy Paltsev
-	<Eugeniy.Paltsev@synopsys.com>, Andy Shevchenko
-	<andriy.shevchenko@linux.intel.com>, Binbin Zhou <zhoubinbin@loongson.cn>,
-	Patrice Chotard <patrice.chotard@foss.st.com>, Maxime Coquelin
-	<mcoquelin.stm32@gmail.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Steven Rostedt <rostedt@goodmis.org>, Masami Hiramatsu <mhiramat@kernel.org>,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, Thierry Reding
-	<thierry.reding@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>, "Ludovic
- Desroches" <ludovic.desroches@microchip.com>, Viresh Kumar
-	<vireshk@kernel.org>, Keguang Zhang <keguang.zhang@gmail.com>,
-	=?UTF-8?Q?Andreas_F=C3=A4rber?= <afaerber@suse.de>, Manivannan Sadhasivam
-	<mani@kernel.org>, Daniel Mack <daniel@zonque.org>, Haojian Zhuang
-	<haojian.zhuang@gmail.com>, Robert Jarzmik <robert.jarzmik@free.fr>, "Chen-Yu
- Tsai" <wens@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>, "Samuel
- Holland" <samuel@sholland.org>, Kelvin Cao <kelvin.cao@microchip.com>, "Logan
- Gunthorpe" <logang@deltatee.com>, Laxman Dewangan <ldewangan@nvidia.com>,
-	Vignesh Raghavendra <vigneshr@ti.com>
-CC: <linux-arm-kernel@lists.infradead.org>, <dmaengine@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, <linux-mips@vger.kernel.org>,
-	<linux-stm32@st-md-mailman.stormreply.com>,
-	<linux-trace-kernel@vger.kernel.org>, <linux-tegra@vger.kernel.org>,
-	<linux-actions@lists.infradead.org>, <linux-sunxi@lists.linux.dev>,
-	<imx@lists.linux.dev>, Frank Li <Frank.Li@nxp.com>
-References: <20260903-dma-chan_dev-rename-v2-0-0db305b6c716@nxp.com>
- <20260903-dma-chan_dev-rename-v2-1-0db305b6c716@nxp.com>
-Content-Language: en-US
-From: Amelie Delaunay <amelie.delaunay@foss.st.com>
-In-Reply-To: <20260903-dma-chan_dev-rename-v2-1-0db305b6c716@nxp.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: STKCAS1NODE1.st.com (10.75.128.134) To ENXDAG1NODE4.st.com
- (10.75.129.197)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AMS0EPF00000567:EE_|VI1PR10MB3615:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2065755b-6d7b-4a40-5e68-08df0a5f85f5
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|1800799024|7416014|376014|23010399003|36860700016|921020|10067099003|4143699003|56012099006|22082099003|18002099003|11063799006|41080700001;
-X-Microsoft-Antispam-Message-Info:
-	ieZZLa80x4vz4cYuxvA8oTLJIwQNPGSQa2J8I+XvITdrICEOfEbWdpxtA5u7LYRu3qCxXwoZx6ArfVYcjYzSzrpX5nu4JVMsB1dO+tZ8tzx9SopOev/0tBWXrTJb/Z3ZiQDOVQXzO7eXdSZfqBiJBrfrn3+CBV6VATxKx/aS9vi4iXeTA9fYWWIgx8lfuGlhuxISwq0QyS6Num/Cx0CkBiTeg0AFC3VtfSN/2B+yfxuGypF7riWEwz89H7/j35qNa4N53ilEF3ofhfTbEdJT2xKq6SRMrDlD/aqMSkgCkpNDP8gJ8iL6/BRzgdS8WKt4JkhtadEKizt1otphHzrDz9u/BTRz9Zw0Umr+LV3BBcSB+ejpSIp8SzWRmDcqzYEF2QqVEmXdhaSTaYPmsG00xMkEHbltI+jyjgslBfXhKRx75IrI9sfFnSNxH3SpLwVbarb+bYXODhTUtkFZpvpzq2+oZZmvClbGc4Zpg08bKEpfqSy+bU0Tr4bk5kAX7z7FoDjsL/fHwV6ZchFQlJLdbIAEP2VmnZqpb2SZ1xpTj9nBA869w7NoeIUAapzxWt51xAy71F9WUTRsboGk8UAkp6EL8MLymtuuwZ73Xu0dzX7vTE9pz0CSOiAp2KAZKYOWvl4xwsOmi7VoAD3DH7SM0+mREdWmQWDLr/oN2Xjk/U/C7W2rPE27DFFGcnEBAnRtl+aE1SBtRJcAMyOo7nSm+WLlst+deYBUZh5KLa97tpYf7d4qqNvc0w9ABiBn3itS
-X-Forefront-Antispam-Report:
-	CIP:164.130.1.88;CTRY:;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(1800799024)(7416014)(376014)(23010399003)(36860700016)(921020)(10067099003)(4143699003)(56012099006)(22082099003)(18002099003)(11063799006)(41080700001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	7Nu1x+BgUG32rkucRghRc8xYBseh5qbrNgvot1CwJuv2PToQVkBcPNfeoQwaz/GOE2cqdRh3I4XsPW+Mb+IlxAVAU3Pzdcy8S3RtIvjEYr2AgQwfWXf/xQSR0EX7sfe7dda3AgErZNZffWn4MEthtGZu0X5fxXjXxstCKFNgHOH+KPaVyrw3cIOMMn6P/8BGNzvBylRuRBxy7ZZ1rMPouKDOSmNIiR/dfXmJ2toknKgyhh0vKxxyxhgnZLONklwiMDFIfyyYUV8o3sxPuzXPLbEQPQID5VpxCHx4jmhQaBOx9jy1J16asPej6ib2U3tAvZegzO7sxYgROqsEFTkykwYmZgLwF5BTWrsQoEST77zh4SzyTnbf7vDHEHdhxVePWhmeEQw0PVIHjy8Q83rPOji1tP0vrSTQGllXzPe3yUuz3yFPHcRttunYvUZ/nX/M
-X-OriginatorOrg: foss.st.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Sep 2026 08:35:49.4973
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2065755b-6d7b-4a40-5e68-08df0a5f85f5
-X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f;Ip=[164.130.1.88];Helo=[smtpO365.st.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	AMS0EPF00000567.eurprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR10MB3615
+X-B4-Tracking: v=1; b=H4sIAMuCmmoC/4XOTW7CMBAF4Ksgr+vKMzGxzar3qFj4ZwKuSozsE
+ FGh3L02XZQKRV0+6c335sYK5UiF7TY3lmmOJaaxhu3LhvmjHQ/EY6iZocBeKOh5jInbsFUgMr+
+ cy5TJnjhJ8Gh0D9L3rJ6eMw3xemff9z+5XNwH+alZrXGMZUr56747Q+v9MzEDF5y01FY6pwQMb
+ 3a0n+nw6tOJtY0ZHxSEFQWr0qE00gSvMNgnpftVNKgVpWtKfWRQznil3ZMiHxQ0K4qsirZDBwh
+ eBYQ/yrIs38FF69WdAQAA
+X-Change-ID: 20260716-iio-ad5710r-upstream-e41c298614c6
+To: Jonathan Cameron <jic23@kernel.org>,
+        David Lechner
+	<dlechner@baylibre.com>,
+        =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
+        Andy
+ Shevchenko <andy@kernel.org>,
+        Michael Hennerich
+	<Michael.Hennerich@analog.com>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof
+ Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Philipp
+ Zabel <p.zabel@pengutronix.de>
+CC: <linux-iio@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+        <linux@analog.com>, <devicetree@vger.kernel.org>,
+        Kim Seer Paller
+	<kimseer.paller@analog.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788510945; l=4224;
+ i=kimseer.paller@analog.com; s=20250213; h=from:subject:message-id;
+ bh=g6Aw7BqGE55IOBDbcmJqnDzXjIjVBZF0EYfA1wqfdsc=;
+ b=rUstPSCWQy5p0lPqspgA8x5g8TW6q8xJSa8uDWewVuX5dyoW+XwNwapt/b0wqNv0UoyY0XScv
+ DEjq4cLxhJwDOI7gN4fI0TVhke76LjJE8KMGdEVC2rE2FjOuVZSarHk
+X-Developer-Key: i=kimseer.paller@analog.com; a=ed25519;
+ pk=SPXIwGLg4GFKUNfuAavY+YhSDsx+Q+NwGLceiKwm8Ac=
+X-ADIRuleOP-NewSCL: Rule Triggered
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA0MDA3OCBTYWx0ZWRfX1q1t/shVFCCB
+ HeeiRgL6IPiytaVio4bYiZFMMemvwixPeo69NgDjY/FP+NmqP+zf4B+m3rif48tRtJZEPSMao8C
+ ELsjHdSCEt8mVWhkGeoG4q/ddUpIh4pn6kWKE3WGx7zMYpO4q0hQyRim97IFAVFCdxRNlH2kPoZ
+ pNWZ1/iMic6SopUDubbdrjjIIFhCZnC+W236i1TTEZ4uSdqVrIdCzzxp8CExcgzUjimQuqDfAGc
+ auRUAvMVFHvDJ5GtoBvlXnF72R8ZfzR1IA9F7y3VS3kOsN11fFQukCNRk6M8H5qASoolsCiYx50
+ Pzgj6MpkK+na/n67b4o3vT2j4jGeYPtEcgOhgkjaDVyzGP0jab7ZIiPFGIghTECVcMXxYEXC+Ry
+ t6Ldhj5m83ZNK5sBzLpEQyJjPHnlZ53FomcyvwQFGIz3Y8fhPmgoUg6eqiuY0b73caP9G0u074G
+ BshwoAnMQFV1crn2hxg==
+X-Authority-Analysis: v=2.4 cv=QI1YgALL c=1 sm=1 tr=0 ts=6a9a82f0 cx=c_pps
+ a=3WNzaoukacrqR9RwcOSAdA==:117 a=3WNzaoukacrqR9RwcOSAdA==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=0sLvza09kfJOxVLZPwjg:22 a=uXIjobp8t2wMuQ0fPvqm:22 a=gAnH3GRIAAAA:8
+ a=bC-a23v3AAAA:8 a=VwQbUJbxAAAA:8 a=IpJZQVW2AAAA:8 a=IYqt8FPo4sdmH4kH8GUA:9
+ a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10 a=FO4_E8m0qiDe52t0p3_H:22
+ a=IawgGOuG5U0WyFbmm1f5:22
+X-Proofpoint-GUID: EuxUIKUK18fqghXsjBb9QgfMDQ1Tbmpo
+X-Proofpoint-ORIG-GUID: EuxUIKUK18fqghXsjBb9QgfMDQ1Tbmpo
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA0MDA3OCBTYWx0ZWRfXyFDvxcvZCOgi
+ o2EzMqxHvcdt7NFsxr4xBp/paoFHMVVLkjxtetI+M2iYIqkqmRoDgGDAAHt+OBBp2Q7dLGQW2oj
+ jS3It1zoXirSGKqhYtjVbhfYAKKiqVHicnBlz/pZiei+AJuVP9ZB
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-04_02,2026-09-03_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 spamscore=0 lowpriorityscore=0 phishscore=0 malwarescore=0
+ priorityscore=1501 suspectscore=0 impostorscore=0 bulkscore=0 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609040078
 
-Hi Frank,
+The AD5710R (16-bit) and AD5711R (12-bit) are 8-channel, low-power,
+configurable current/voltage output DACs with an on-chip 2.5V reference.
+Each channel can be independently configured as a voltage output
+(0V to VREF or 0V to 2xVREF) or a current output (0mA to 50mA).
 
-On 9/3/26 22:53, Frank.Li@oss.nxp.com wrote:
-> From: Frank Li <Frank.Li@nxp.com>
-> 
-> Introduce vchan_chan_name() to obtain the DMA channel device name.
-> 
-> Use a dedicated helper instead of directly accessing dma_chan::dev
-> so callers remain unaffected by an upcoming rename of the struct member.
-> 
-> Signed-off-by: Frank Li <Frank.Li@nxp.com>
-> ---
->   drivers/dma/arm-dma350.c                     |  2 +-
->   drivers/dma/loongson/loongson2-apb-cmc-dma.c |  2 +-
->   drivers/dma/stm32/stm32-dma.c                |  2 +-
->   drivers/dma/stm32/stm32-dma3.c               |  4 ++--
+This series adds support for these parts:
+ - ABI documentation for the high_z powerdown mode and the current-output
+   powerdown attributes
+ - device tree bindings for the AD5710R/AD5711R
+ - basic IIO DAC driver, supporting per-channel voltage/current output
+   selection, per-channel powerdown, software or hardware (LDAC) DAC
+   updates, optional output range doubling, internal or external
+   reference, and hardware reset (with a software-reset fallback).
 
-Could you move the driver updates from this patch to the next one? I 
-don’t understand why the drivers above are modified here, while others 
-are deferred to "[PATCH v2 2/3] dmaengine: use dma_chan_name() helper to 
-get per-channel device name".
+Datasheet:
+https://www.analog.com/media/en/technical-documentation/data-sheets/ad5711r-ad5710r.pdf
 
-Regards,
-Amelie
+Signed-off-by: Kim Seer Paller <kimseer.paller@analog.com>
+---
+Changes in v5:
+- ad3530r: make powerdown_mode read-only, dropping the _available list.
+- ad3530r: rename the channel flag to configurable_ch_func.
+- ad3530r: move the reg declaration into the child-node loop where it is
+  used
+- ad3530r: return -ECHRNG when the channel reg is out of range.
+- ad3530r: update copyright year to 2025-2026.
+- dt-bindings: spell out the adi,ch-func values and cite ad74413r.h.
+- Link to v4: https://patch.msgid.link/20260829-iio-ad5710r-upstream-v4-0-8af3121c7d21@analog.com
 
->   drivers/dma/virt-dma.h                       | 11 +++++++++++
->   5 files changed, 16 insertions(+), 5 deletions(-)
-> 
-> diff --git a/drivers/dma/arm-dma350.c b/drivers/dma/arm-dma350.c
-> index 09403aca8bb06..52f5242ea3327 100644
-> --- a/drivers/dma/arm-dma350.c
-> +++ b/drivers/dma/arm-dma350.c
-> @@ -512,7 +512,7 @@ static int d350_alloc_chan_resources(struct dma_chan *chan)
->   {
->   	struct d350_chan *dch = to_d350_chan(chan);
->   	int ret = request_irq(dch->irq, d350_irq, IRQF_SHARED,
-> -			      dev_name(&dch->vc.chan.dev->device), dch);
-> +			      vchan_chan_name(&dch->vc), dch);
->   	if (!ret)
->   		writel_relaxed(CH_INTREN_DONE | CH_INTREN_ERR, dch->base + CH_INTREN);
->   
-> diff --git a/drivers/dma/loongson/loongson2-apb-cmc-dma.c b/drivers/dma/loongson/loongson2-apb-cmc-dma.c
-> index 1c9a542edc859..2f1c8c4fd0654 100644
-> --- a/drivers/dma/loongson/loongson2-apb-cmc-dma.c
-> +++ b/drivers/dma/loongson/loongson2-apb-cmc-dma.c
-> @@ -678,7 +678,7 @@ static int loongson2_cmc_dma_probe(struct platform_device *pdev)
->   			return lchan->irq;
->   
->   		ret = devm_request_irq(dev, lchan->irq, loongson2_cmc_dma_chan_irq, IRQF_SHARED,
-> -				       dev_name(chan2dev(lchan)), lchan);
-> +				       vchan_chan_name(&lchan->vchan), lchan);
->   		if (ret)
->   			return ret;
->   	}
-> diff --git a/drivers/dma/stm32/stm32-dma.c b/drivers/dma/stm32/stm32-dma.c
-> index d3ad78562a140..3e8151e2ad75a 100644
-> --- a/drivers/dma/stm32/stm32-dma.c
-> +++ b/drivers/dma/stm32/stm32-dma.c
-> @@ -1668,7 +1668,7 @@ static int stm32_dma_probe(struct platform_device *pdev)
->   
->   		ret = devm_request_irq(&pdev->dev, chan->irq,
->   				       stm32_dma_chan_irq, 0,
-> -				       dev_name(chan2dev(chan)), chan);
-> +				       vchan_chan_name(&chan->vchan), chan);
->   		if (ret) {
->   			dev_err(&pdev->dev,
->   				"request_irq failed with err %d channel %d\n",
-> diff --git a/drivers/dma/stm32/stm32-dma3.c b/drivers/dma/stm32/stm32-dma3.c
-> index 4724e7fa0008e..1ee1bd22703fb 100644
-> --- a/drivers/dma/stm32/stm32-dma3.c
-> +++ b/drivers/dma/stm32/stm32-dma3.c
-> @@ -1892,10 +1892,10 @@ static int stm32_dma3_probe(struct platform_device *pdev)
->   		chan->irq = ret;
->   
->   		ret = devm_request_irq(&pdev->dev, chan->irq, stm32_dma3_chan_irq, 0,
-> -				       dev_name(chan2dev(chan)), chan);
-> +				       vchan_chan_name(&chan->vchan), chan);
->   		if (ret) {
->   			dev_err_probe(&pdev->dev, ret, "Failed to request channel %s IRQ\n",
-> -				      dev_name(chan2dev(chan)));
-> +				      vchan_chan_name(&chan->vchan));
->   			goto err_clk_disable;
->   		}
->   	}
-> diff --git a/drivers/dma/virt-dma.h b/drivers/dma/virt-dma.h
-> index 59d9eabc8b674..dd023a3831209 100644
-> --- a/drivers/dma/virt-dma.h
-> +++ b/drivers/dma/virt-dma.h
-> @@ -209,6 +209,17 @@ static inline void vchan_free_chan_resources(struct virt_dma_chan *vc)
->   	vchan_dma_desc_free_list(vc, &head);
->   }
->   
-> +/**
-> + * vchan_chan_name - Return vchan DMA channel device name
-> + * @vc: virtual channel
-> + *
-> + * Return: The name of the DMA channel device
-> + */
-> +static inline const char *vchan_chan_name(struct virt_dma_chan *vc)
-> +{
-> +	return dma_chan_name(&vc->chan);
-> +}
-> +
->   /**
->    * vchan_synchronize() - synchronize callback execution to the current context
->    * @vc: virtual channel to synchronize
-> 
+Changes in v4:
+- Use GENMASK() for the raw write bounds check.
+- Add a comment explaining the AD5710R powerdown mode negation.
+- Return -ENOENT instead of -ENODEV when no channels are found.
+- Link to v3: https://patch.msgid.link/20260817-iio-ad5710r-upstream-v3-0-3a4bf7b9c78b@analog.com
+
+Changes in v3:
+- ad3530r: factor the op-mode register/mask computation into a helper
+  shared by the powerdown access and channel parsing.
+- ad3530r: pass iio_dev into setup/parse and set channels/num_channels
+  directly, dropping the duplicated pointers in driver state.
+- ad3530r: use regmap_test_bits() for the powerdown reads and drop the
+  unused AD5710R_NUM_CHANNELS macro.
+- ad3530r: split the file header comment into separate AD5710R/AD5711R lines.
+- dt-bindings: drop the redundant items wrapper on channel reg and tidy
+  the 2 x Vref wording.
+- Link to v2: https://patch.msgid.link/20260721-iio-ad5710r-upstream-v2-0-324949dc72da@analog.com
+
+Changes in v2:
+- Drop the standalone ad5710r driver and fold AD5710R/AD5711R support
+  into the existing ad3530r driver.
+- Add a preparatory patch parameterizing the DAC resolution in ad3530r
+  so the 12-/16-bit AD5711R/AD5710R can reuse the raw/scale paths.
+- ABI: drop the "high_z" powerdown mode, which is a synonym of the
+  existing "three_state" and use "three_state" instead.
+- Link to v1: https://patch.msgid.link/20260716-iio-ad5710r-upstream-v1-0-e848a4bb701f@analog.com
+
+To: Jonathan Cameron <jic23@kernel.org>
+To: David Lechner <dlechner@baylibre.com>
+To: Nuno Sá <nuno.sa@analog.com>
+To: Andy Shevchenko <andy@kernel.org>
+To: Michael Hennerich <Michael.Hennerich@analog.com>
+To: Kim Seer Paller <kimseer.paller@analog.com>
+To: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+To: Conor Dooley <conor+dt@kernel.org>
+Cc: linux-iio@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Cc: linux@analog.com
+Cc: devicetree@vger.kernel.org
+
+---
+Kim Seer Paller (4):
+      iio: ABI: Add DAC current powerdown attributes and 15kohm_to_gnd mode
+      dt-bindings: iio: dac: add adi,ad5710r.yaml
+      iio: dac: ad3530r: parameterize DAC resolution
+      iio: dac: ad3530r: add support for AD5710R/AD5711R
+
+ Documentation/ABI/testing/sysfs-bus-iio            |   5 +
+ .../devicetree/bindings/iio/dac/adi,ad5710r.yaml   | 145 ++++++++++
+ MAINTAINERS                                        |   1 +
+ drivers/iio/dac/Kconfig                            |   1 +
+ drivers/iio/dac/ad3530r.c                          | 300 +++++++++++++++++++--
+ 5 files changed, 429 insertions(+), 23 deletions(-)
+---
+base-commit: c9f54ead57939ebe76b9b76a9ef17b4331766b97
+change-id: 20260716-iio-ad5710r-upstream-e41c298614c6
+
+Best regards,
+--  
+Kim Seer Paller <kimseer.paller@analog.com>
 
