@@ -1,361 +1,131 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qt1-f182.google.com (mail-qt1-f182.google.com [209.85.160.182])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E97E3C108E
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 16:04:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788537894; cv=none; b=IwpDOx49v9PQT3HULLWS29BZ5Rj1y49zdkNYW3aTkpIaZsrsVI1FIDp/cf9xYjBmDNjIPgUP3NADN5d0humDLSQzrXkmcjsefZt+xRkeXpqnw55V4m9GeWGjV3BUTseNKavRTircnsUQ59pqx03eo718/JpNAq/RWVh3U1LxSWA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788537894; c=relaxed/simple;
-	bh=wrTBKUoWewTCHEY132UmTBgPXYUkfrLpaRpeYH+KDZA=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79C8737F73A
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 16:05:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.182
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788537910; cv=pass; b=OR5zBx1A9HVy+QI612G+tRbvCER0Iq/+S36k4vTEBLJeOd5O78b/PN/lewoAHw3Lzzuc2zTBDJdaGI60rPa3PZW/ioWx6K+A/cHU6eQQSDL2DSpEwx5zVEStFHe/7Gh5X3NJGVq5TGslK3i4Em7lXjkN5+AJ+g79a4bFZjh+oSE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788537910; c=relaxed/simple;
+	bh=3vcqoHjxbkKU29odZ/MlbhZ2L7DAS/GwMPMBrrZSUiY=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=jWcT7tpdTXAPGSB834CrPPeJalL4Wq9D7NT0DP7NeCBm7zk2N05lLCDodXueBVL5nmPw26ONbUYBIiHbaX7szqACvG/nSpDfZjQ4PVPLhqO0foC4Pn+IuVT4mYHiC4ifbRjMfMZf7hRFmRnw3bxWsIV52+hwrkIlSz0+ZhNPGrs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jQpvkg59; arc=none smtp.client-ip=100.103.45.18
+	 To:Cc:Content-Type; b=ktHLzVUBhosBscQFLrmSZGYeS7LMHXuJ0dvRaE0hO7B+XVq5jtnjzii1tSoXnedLo5X8q1wyiCYtAC2O/TvW61cQDg0eBzf845Nx43gYXWF11RpwsyJsa9+enJLxZtRkwzgY+IjBidPGYRfAdiRDJx4tcrJBAV9a9FkSjq4h6wo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=purestorage.com; spf=pass smtp.mailfrom=purestorage.com; dkim=pass (2048-bit key) header.d=purestorage.com header.i=@purestorage.com header.b=P29snMCS; arc=pass smtp.client-ip=209.85.160.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=purestorage.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=purestorage.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jQpvkg59"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 078E11F00A3D
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 16:04:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788537892;
-	bh=Gmmk1t0C2Y1hPKizPmgrlyI9EGo6c5QQyx4vRZ8NgY4=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=jQpvkg59xrZaJqQj+BYwlw06oZ5X3kZsfc3kDpSgWhZsaJNcUxCx6cX+MkxYh2Dyp
-	 l/JSc8jOWtNEMwlBZ8hjQbZasEFSQP2sqx5B79sPYmew10yzO5Ta+sespMRlQAYf+0
-	 cSCfUL+Z5PlqK+g95rD2QzihJB1EQIVKcYqio6B+j8LFWfseTpgF86OMJ/1X1FzYIj
-	 QqHe1xYF2dMZjefgkMbj1PHtx+GaQ10Tl9eJxSKKFdQRVkEeyI2KjoSWpj/FXS232T
-	 CoR321UJ3UMbQFKbJ44imBL++K4YtuwvIpspN+AHVC5Z6UKIo0sKZ8cPMw8Wnui0Us
-	 e9GyOjoiLJVBQ==
-Received: by mail-ej1-f51.google.com with SMTP id a640c23a62f3a-c25b661d37dso170400466b.0
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 09:04:51 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvByaAzDGlc3n0fO/i+5UIl/W/2/TM8e/dKEFskK5JyE/do5tSjJSg/xoxmNI3i3KiN9EMKQtgtarPAsPdDI=@vger.kernel.org
-X-Gm-Message-State: AFuF++memxIuJ7HeA7aIJDw6FXZt85u1eiVuXvdeo5ltv7WtVqKcF0lL
-	F+bN4juxwm/hifggmWaDID9SvCCf+kTiuCSuRlVBe6zME1P180fniPhR35K076Dq06DuPRPTWNb
-	U9Zt5xH73BUXohw1r7iS+eQ82kvdfuQI=
-X-Received: by 2002:a17:907:94c4:b0:c26:19e3:e984 with SMTP id
- a640c23a62f3a-c2619e3ef27mr162038966b.36.1788537890836; Fri, 04 Sep 2026
- 09:04:50 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=purestorage.com header.i=@purestorage.com header.b="P29snMCS"
+Received: by mail-qt1-f182.google.com with SMTP id d75a77b69052e-53016020b2fso20294141cf.0
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 09:05:08 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788537907; cv=none;
+        d=google.com; s=arc-20260327;
+        b=rr+BcEPYg0TcuzXaE1mmib/VUGRQC/wA1LRc1IE326nPTref+tN0HAaJzyQxsklNyY
+         1vpx1dd5vb+5wetjmk61GKDe07BXbAsWEVlhHVJdx8ecAFYD+S4OC6nBOapnrHJhvFha
+         MwQLKLO1jxV5SHnmJ4VjkkM12D36lUraGpYvPquB+VrU93P//4nowpfQwURdUJ5lxfMh
+         KR22XWmwtBbn1/vBG66zKyOUYFZLfMyY51lJ26KFtamUFKKQssbGTX26nwTpjsKnBuT1
+         hU6rFSkeVDgUT68oOvL+t2QDpNpV6XwEsPpitfTi4s5tZAS9+sn1wz57841LRZFBCS94
+         PnHg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=3vcqoHjxbkKU29odZ/MlbhZ2L7DAS/GwMPMBrrZSUiY=;
+        fh=8n8WiK0uKTlDVqZ+njHPfn78qPdMhEIjaRdqyC6LBzo=;
+        b=AcHoh1bndDELTTqwV7ELNOqpG1lLbmF+FhAHmao1bDsIA3x7QYpall2EMxQhNdzxp3
+         +RQ8/0eVBRMc2S7+e8kpPrj0srguHpxgJaK5XxCjgUJWrYghxVfHQECmj8FXYK5vathB
+         hqUTt1i9O9scIQGQeeu9OEAKXP3RoOBjmAHkew3ap7Ls4sgKXWe4oFdk0veJfKgXPB7y
+         4L4Gqe07eSbAB4ELRVPHPvJ0HMwQD78vPLMSl00x1xJCE1b9JIoabMPS2Md0F5NWxUu1
+         xuVHntUCji9tJIlGqxGrzkBBgNGxh4c25mImp3AFX2Ng0mJgQ3QuJE6P+TMbk+5hdsNE
+         9VVA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=purestorage.com; s=google2022; t=1788537907; x=1789142707; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=3vcqoHjxbkKU29odZ/MlbhZ2L7DAS/GwMPMBrrZSUiY=;
+        b=P29snMCSrUdr3HJskT2x2XmkZ9HLgqYvGZtKiXOB9rJvg7h75Ruw3qBvUZ5+HK8Rk5
+         mkdDItpms8HIQSyeO6jjjr10V3iLNiWVetjqlGmtmErzGOBNDhZnI9mSvuSYuEQE5C9i
+         vyj59sXjbC7qQ9yrks8S3Tk1cqWIF6sp+Wu/qCfLbPQUhoKWNaTlRV4A5utuW7N4o2du
+         zldIqAPk54BbpkGz0MdNP1CaMpOfJ6p9d46rl6hkSUVndk0J+V778nan67zczeMHOi9X
+         ameQwu8zno35R5Bwbhb3j9/yMMqXCqTrzqHFSpQ6TA48xKvCc4tPejJ6MaBQ0IeuEviy
+         Mn7Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788537907; x=1789142707;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=3vcqoHjxbkKU29odZ/MlbhZ2L7DAS/GwMPMBrrZSUiY=;
+        b=QEQe3c5GfWRz4Shg9qpVgnGKr2p7/fV+X7Mbm/StLVsoveGYSaX/3JmDj0xIAHgo3+
+         Qq1JuDwL1iYX7qhhNfiAuH2eqrn6r5rpiXgBb05oxe/mFFxzFi1AOCc8koEzWLIPDXbb
+         npVoozwHdghP4NlGh8qemwZr5XKdAjh7M/gg4HycHxOA1dpVBM2BjYt19gk757UdxRU9
+         6UHtNXzXAnYMNSysc9qHzquqkqYF8zqOWjAz2zNTirRv1sEGxkwsOpx2Us5utgiyb1LZ
+         vOd3e4eLQyn9VZdJoD59s5m51N3dUCiIzUJlIDOUZjhWhjcOoATEMRh4YuB6IK9UsryC
+         UAJg==
+X-Forwarded-Encrypted: i=1; AKwUvBzJ7BMOfKfCkZYjk+N954iGKS0cXXy0tJu3lKzup7LA9bwhASwFOd8iMo44T5FSkpQE2QNTPSG25/xcgHQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++kvgyAxaj01ejM662LNK8CW/RmpRt/X9IMxxFswtyLwxKJUyRkJ
+	LfiC/1zc9l05kuaxbxE62yTIe3kmBYr4KPYGCHVJ4gPI32rzeuXbv8n8sNpTMjOkkeln5fmH1r2
+	/6HAICHzTeVu+Q/JOcO2fWGrAJt+8oyM5MhQMxtVoEw==
+X-Gm-Gg: AYBFou2vypy3BdaDKjrGa8ysn1tZS1L2JqtxZi2ARaWPfFVFm1RV4kTeQtq5YgCMPVR
+	vYGrEf8dTKY5jk2LBl5N+V+YDezy96sn79SAiuDYSQMJWYBRAKkFBnRinXOyMeOeKhsPCd0+beK
+	40LF48VGIvfR8Ty3RJ94AHwFSk+LmHKwEi3Ok9GeZ6rMo/IznIGF/WvQOZ7X6jrKfgZtKCMTI7T
+	BHfu6s6kTFabx3QvI6FI/BODIKDmVzR2iidFx18qODFnxgezPTVdKw+m3+CFHPN0Q6rygRorlP4
+	hCNiCfBfTW7uBSwXaglx1dyXkMh+eXFTqWo3FlA5ThF3
+X-Received: by 2002:a05:622a:4c14:b0:530:3855:e8cf with SMTP id
+ d75a77b69052e-53054674fccmr81819351cf.1.1788537907041; Fri, 04 Sep 2026
+ 09:05:07 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260830114731.8322-1-wujianyue000@gmail.com> <cover.1788528216.git.wujianyue000@gmail.com>
- <22625ed4915936814f766092e9d7ac6637c5b2f4.1788528216.git.wujianyue000@gmail.com>
-In-Reply-To: <22625ed4915936814f766092e9d7ac6637c5b2f4.1788528216.git.wujianyue000@gmail.com>
-From: Yosry Ahmed <yosry@kernel.org>
-Date: Fri, 4 Sep 2026 09:04:39 -0700
-X-Gmail-Original-Message-ID: <CAO9r8zMiOvhy3BZ0NjvL6Wn6e_VpVb-sZzk5bpDFuoXBHbzATA@mail.gmail.com>
-X-Gm-Features: AcwNN1WjlVqWQnVgvcTJ5MoeC1gjlI_29fN_QCooc4LogG5zdxtCzAEpPETlkYQ
-Message-ID: <CAO9r8zMiOvhy3BZ0NjvL6Wn6e_VpVb-sZzk5bpDFuoXBHbzATA@mail.gmail.com>
-Subject: Re: [PATCH v5 2/3] mm/zswap: replace the zswap_pools list with an
- allocating xarray
-To: Jianyue Wu <wujianyue000@gmail.com>
-Cc: Johannes Weiner <hannes@cmpxchg.org>, Nhat Pham <nphamcs@gmail.com>, 
-	Chengming Zhou <chengming.zhou@linux.dev>, Andrew Morton <akpm@linux-foundation.org>, 
-	Chris Li <chrisl@kernel.org>, linux-mm@kvack.org, linux-kernel@vger.kernel.org
+References: <20260824225648.316962-1-sgogte@purestorage.com>
+ <20260824225648.316962-3-sgogte@purestorage.com> <c98fe50c-172a-4e53-a30c-5416c40cb23f@grimberg.me>
+ <20260830222558.GB1842415-mkhalfella@purestorage.com> <4f2d2b60-56f9-4ae3-b38f-bba9754011df@grimberg.me>
+ <20260830225939.GC1842415-mkhalfella@purestorage.com>
+In-Reply-To: <20260830225939.GC1842415-mkhalfella@purestorage.com>
+From: "Surabhi Gogte (she/her)" <sgogte@purestorage.com>
+Date: Fri, 4 Sep 2026 09:04:30 -0700
+X-Gm-Features: AcwNN1Ww7ukPMIsSf3t5NTJ9ZuKHOtbeoPChRBk62ipDmvtM36xAVG2ICigmM2A
+Message-ID: <CAMof9cW8JFu3XG+BZc-ejG-fvsodQ9ygYbV_ttgvX=Kc_JjXJA@mail.gmail.com>
+Subject: Re: [PATCH v2 2/2] nvme-tcp: parallelize I/O queue allocation and startup
+To: Mohamed Khalfella <mkhalfella@purestorage.com>
+Cc: Sagi Grimberg <sagi@grimberg.me>, Keith Busch <kbusch@kernel.org>, Jens Axboe <axboe@kernel.dk>, 
+	Christoph Hellwig <hch@lst.de>, linux-nvme@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	randyj@purestorage.com, adailey@purestorage.com
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Fri, Sep 4, 2026 at 6:25=E2=80=AFAM Jianyue Wu <wujianyue000@gmail.com> =
-wrote:
+On Sun, Aug 30, 2026 at 3:59=E2=80=AFPM Mohamed Khalfella
+<mkhalfella@purestorage.com> wrote:
 >
-> Originally zswap keeps its pools on an RCU list whose head also serves
-> as the current pool. Convert the pool table to an allocating xarray
-> keyed by a small integer id, and track the current pool with a separate
-> RCU-protected pointer.
+> On Mon 2026-08-31 01:44:32 +0300, Sagi Grimberg wrote:
+> >
+> >
+> > On 31/08/2026 1:25, Mohamed Khalfella wrote:
+> > > On Mon 2026-08-31 01:00:52 +0300, Sagi Grimberg wrote:
+> > >>
+> > >> On 25/08/2026 1:56, Surabhi Gogte wrote:
+> > >>> - ret =3D sock_create_kern(current->nsproxy->net_ns,
+> > >>> + ret =3D sock_create_kern(&init_net,
+> > >> I don't think we can just change this...
+> > > Why we can not change it? Today the error recovery code running in
+> > > worker thread will be using init_net anyway, no?
+> > See commit: 1be52169c3488ef98582ed553ab35cefa3978817
 >
-> The xarray gives each pool a stable id for a later zswap_entry shrink.
-> XA_FLAGS_ALLOC1 starts ids at 1, so id 0 remains reserved. The id range
-> is bounded by ZSWAP_MAX_POOL_ID because the later entry field is a u8.
+> Thanks for the pointer. I was not aware of that. What about error
+> recovery case? I _think_ it will be using init_net, no?
 >
-> Keep compressor switching close to the previous flow: look up an
-> existing pool under xa_lock, resurrect it outside the lock if reused, or
-> create a new one. zswap_pool_create() allocates the pool's id and
-> publishes it into the xarray as its final step, so the create call is
-> itself atomic: it either fully builds the pool and publishes it, or
-> unwinds completely on failure. Publishing makes the pool live, so a
-> caller that later fails (e.g. param_set_charp()) must still kill the
-> pool to erase it from the xarray. Runtime compressor parameter updates
-> are serialized by the module parameter lock, so no speculative loser
-> path is needed.
->
-> A retiring pool is erased from the xarray in __zswap_pool_empty() and
-> freed via queue_rcu_work(), preserving the old RCU teardown ordering.
->
-> Suggested-by: Nhat Pham <nphamcs@gmail.com>
-> Suggested-by: Yosry Ahmed <yosry@kernel.org>
-> Suggested-by: Johannes Weiner <hannes@cmpxchg.org>
-> Signed-off-by: Jianyue Wu <wujianyue000@gmail.com>
-> ---
->  mm/zswap.c | 87 +++++++++++++++++++++++++++++++++---------------------
->  1 file changed, 54 insertions(+), 33 deletions(-)
->
-> diff --git a/mm/zswap.c b/mm/zswap.c
-> index e456e5080531..74876acfa9dc 100644
-> --- a/mm/zswap.c
-> +++ b/mm/zswap.c
-> @@ -34,6 +34,7 @@
->  #include <linux/writeback.h>
->  #include <linux/pagemap.h>
->  #include <linux/workqueue.h>
-> +#include <linux/xarray.h>
->  #include <linux/list_lru.h>
->  #include <linux/zsmalloc.h>
->
-> @@ -154,12 +155,24 @@ struct zswap_pool {
->         struct zs_pool *zs_pool;
->         struct crypto_acomp_ctx __percpu *acomp_ctx;
->         struct percpu_ref ref;
-> -       struct list_head list;
->         struct rcu_work release_rwork;
->         struct hlist_node node;
-> +       u8 idx;
->         char tfm_name[CRYPTO_MAX_ALG_NAME];
->  };
->
-> +/*
-> + * Live pools keyed by id (1..ZSWAP_MAX_POOL_ID).  XA_FLAGS_ALLOC1 keeps
-> + * the reserved id 0 unallocated, so looking it up never aliases a live
-> + * pool.  XA_FLAGS_LOCK_BH makes the xa_lock softirq-safe: it is taken
-> + * from __zswap_pool_empty(), which runs from a percpu_ref release
-> + * callback in softirq context.
-> + */
-> +#define ZSWAP_FIRST_POOL_ID 1
-> +#define ZSWAP_MAX_POOL_ID U8_MAX
-> +static DEFINE_XARRAY_FLAGS(zswap_pools, XA_FLAGS_ALLOC1 | XA_FLAGS_LOCK_=
-BH);
-> +static struct zswap_pool __rcu *zswap_current_pool;
-> +
->  /* Global LRU lists shared by all zswap pools. */
->  static struct list_lru zswap_list_lru;
->
-> @@ -200,10 +213,6 @@ struct zswap_entry {
->  static struct xarray *zswap_trees[MAX_SWAPFILES];
->  static unsigned int nr_zswap_trees[MAX_SWAPFILES];
->
-> -/* RCU-protected iteration */
-> -static LIST_HEAD(zswap_pools);
-> -/* protects zswap_pools list modification */
-> -static DEFINE_SPINLOCK(zswap_pools_lock);
->  /* pool counter to provide unique names to zsmalloc */
->  static atomic_t zswap_pools_count =3D ATOMIC_INIT(0);
->
-> @@ -275,6 +284,7 @@ static struct zswap_pool *zswap_pool_create(char *com=
-pressor)
->         struct zswap_pool *pool;
->         char name[38]; /* 'zswap' + 32 char (max) num + \0 */
->         int ret, cpu;
-> +       u32 id;
->
->         if (!zswap_has_pool && !strcmp(compressor, ZSWAP_PARAM_UNSET))
->                 return NULL;
-> @@ -320,12 +330,24 @@ static struct zswap_pool *zswap_pool_create(char *c=
-ompressor)
->                               PERCPU_REF_ALLOW_REINIT, GFP_KERNEL);
->         if (ret)
->                 goto ref_fail;
-> -       INIT_LIST_HEAD(&pool->list);
-> +
-> +       ret =3D xa_alloc_bh(&zswap_pools, &id, pool,
-> +                         XA_LIMIT(ZSWAP_FIRST_POOL_ID, ZSWAP_MAX_POOL_ID=
-),
-> +                         GFP_KERNEL);
-> +       if (ret) {
-> +               if (ret =3D=3D -EBUSY)
-> +                       pr_err("cannot allocate pool id (max %d live pool=
-s)\n",
-> +                              ZSWAP_MAX_POOL_ID - ZSWAP_FIRST_POOL_ID + =
-1);
-> +               goto xa_fail;
-> +       }
-> +       pool->idx =3D id;
->
->         zswap_pool_debug("created", pool);
->
->         return pool;
->
-> +xa_fail:
-> +       percpu_ref_exit(&pool->ref);
->  ref_fail:
->         cpuhp_state_remove_instance(CPUHP_MM_ZSWP_POOL_PREPARE, &pool->no=
-de);
->
-> @@ -386,7 +408,7 @@ static void __zswap_pool_release(struct work_struct *=
-work)
->         WARN_ON(!percpu_ref_is_zero(&pool->ref));
->         percpu_ref_exit(&pool->ref);
->
-> -       /* pool is now off zswap_pools list and has no references. */
-> +       /* The pool is no longer in zswap_pools and has no references. */
->         zswap_pool_destroy(pool);
->  }
->
-> @@ -398,16 +420,16 @@ static void __zswap_pool_empty(struct percpu_ref *r=
-ef)
->
->         pool =3D container_of(ref, typeof(*pool), ref);
->
-> -       spin_lock_bh(&zswap_pools_lock);
-> +       xa_lock_bh(&zswap_pools);
->
->         WARN_ON(pool =3D=3D zswap_pool_current());
->
-> -       list_del_rcu(&pool->list);
-> +       __xa_erase(&zswap_pools, pool->idx);
->
->         INIT_RCU_WORK(&pool->release_rwork, __zswap_pool_release);
->         queue_rcu_work(system_percpu_wq, &pool->release_rwork);
->
-> -       spin_unlock_bh(&zswap_pools_lock);
-> +       xa_unlock_bh(&zswap_pools);
 
-Do we need to call queue_rcu_work() under the lock? I assume not. Can
-we just call xa_erase_bh()?
+From what I gathered, reconnect and error recovery run on kworkers,
+so those paths were already resolving to init_net even before this change.
+If we pin the caller's netns to the ctrl, we can keep netns consistent
+throughout,
+if that is desired.
 
->  }
->
->  static int __must_check zswap_pool_tryget(struct zswap_pool *pool)
-> @@ -433,7 +455,8 @@ static struct zswap_pool *__zswap_pool_current(void)
->  {
->         struct zswap_pool *pool;
->
-> -       pool =3D list_first_or_null_rcu(&zswap_pools, typeof(*pool), list=
-);
-> +       pool =3D rcu_dereference_check(zswap_current_pool,
-> +                                    lockdep_is_held(&zswap_pools.xa_lock=
-));
->         WARN_ONCE(!pool && zswap_has_pool,
->                   "%s: no page storage pool!\n", __func__);
->
-> @@ -442,7 +465,7 @@ static struct zswap_pool *__zswap_pool_current(void)
->
->  static struct zswap_pool *zswap_pool_current(void)
->  {
-> -       assert_spin_locked(&zswap_pools_lock);
-> +       lockdep_assert_held(&zswap_pools.xa_lock);
->
->         return __zswap_pool_current();
->  }
-> @@ -462,14 +485,15 @@ static struct zswap_pool *zswap_pool_current_get(vo=
-id)
->         return pool;
->  }
->
-> -/* type and compressor must be null-terminated */
-> +/* compressor must be null-terminated */
->  static struct zswap_pool *zswap_pool_find_get(char *compressor)
->  {
->         struct zswap_pool *pool;
-> +       unsigned long id;
->
-> -       assert_spin_locked(&zswap_pools_lock);
-> +       lockdep_assert_held(&zswap_pools.xa_lock);
->
-> -       list_for_each_entry_rcu(pool, &zswap_pools, list) {
-> +       xa_for_each(&zswap_pools, id, pool) {
->                 if (strcmp(pool->tfm_name, compressor))
->                         continue;
->                 /* if we can't get it, it's about to be destroyed */
-> @@ -495,9 +519,15 @@ unsigned long zswap_total_pages(void)
->  {
->         struct zswap_pool *pool;
->         unsigned long total =3D 0;
-> +       unsigned long id;
->
-> +       /*
-> +        * rcu_read_lock() is required here, not just for xa_for_each(): =
-it also
-> +        * keeps each pool alive while it is dereferenced, since a concur=
-rently
-> +        * retired pool is freed via queue_rcu_work() after a grace perio=
-d.
-> +        */
-
-Doesn't xa_for_each() already handle RCU locking?
-
->         rcu_read_lock();
-> -       list_for_each_entry_rcu(pool, &zswap_pools, list)
-> +       xa_for_each(&zswap_pools, id, pool)
->                 total +=3D zs_get_total_pages(pool->zs_pool);
->         rcu_read_unlock();
->
-> @@ -554,20 +584,17 @@ static int zswap_compressor_param_set(const char *v=
-al, const struct kernel_param
->                 return -ENOENT;
->         }
->
-> -       spin_lock_bh(&zswap_pools_lock);
-> -
-> +       xa_lock_bh(&zswap_pools);
->         pool =3D zswap_pool_find_get(s);
-
-This is the only caller of zswap_pool_find_get(), and since we remove
-list_del_rcu() below we have no reason for holding the lock here other
-than zswap_pool_find_get(). So let's move the locking inside? I am
-also not really sure if we actually need to hold the lock here anymore
-to begin with.
-
->         if (pool) {
->                 zswap_pool_debug("using existing", pool);
->                 WARN_ON(pool =3D=3D zswap_pool_current());
-> -               list_del_rcu(&pool->list);
->         }
-> +       xa_unlock_bh(&zswap_pools);
->
-> -       spin_unlock_bh(&zswap_pools_lock);
-> -
-> -       if (!pool)
-> +       if (!pool) {
->                 pool =3D zswap_pool_create(s);
-> -       else {
-> +       } else {
->                 /*
->                  * Restore the initial ref dropped by percpu_ref_kill()
->                  * when the pool was decommissioned and switch it again
-> @@ -584,23 +611,17 @@ static int zswap_compressor_param_set(const char *v=
-al, const struct kernel_param
->         else
->                 ret =3D -EINVAL;
->
-> -       spin_lock_bh(&zswap_pools_lock);
-> +       xa_lock_bh(&zswap_pools);
-
-Do we still need to hold the lock here?
-
->
->         if (!ret) {
->                 put_pool =3D zswap_pool_current();
-> -               list_add_rcu(&pool->list, &zswap_pools);
-> +               rcu_assign_pointer(zswap_current_pool, pool);
->                 zswap_has_pool =3D true;
->         } else if (pool) {
-> -               /*
-> -                * Add the possibly pre-existing pool to the end of the p=
-ools
-> -                * list; if it's new (and empty) then it'll be removed an=
-d
-> -                * destroyed by the put after we drop the lock
-> -                */
-> -               list_add_tail_rcu(&pool->list, &zswap_pools);
->                 put_pool =3D pool;
->         }
->
-> -       spin_unlock_bh(&zswap_pools_lock);
-> +       xa_unlock_bh(&zswap_pools);
->
->         /*
->          * Drop the ref from either the old current pool,
-> @@ -1788,7 +1809,7 @@ static int zswap_setup(void)
->         pool =3D __zswap_pool_create_fallback();
->         if (pool) {
->                 pr_info("loaded using pool %s\n", pool->tfm_name);
-> -               list_add(&pool->list, &zswap_pools);
-> +               rcu_assign_pointer(zswap_current_pool, pool);
->                 zswap_has_pool =3D true;
->                 static_branch_enable(&zswap_ever_enabled);
->         } else {
-> --
-> 2.43.0
->
+> Also, Will the change to sock_create_kern(&init_net) break the fix in
+> commit 1be52169c348 ("nvme-tcp: fix selinux denied when calling
+> sock_sendmsg")?
