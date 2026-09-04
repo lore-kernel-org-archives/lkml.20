@@ -1,100 +1,75 @@
-Received: from mta1.migadu.com (out-248.mta1.migadu.com [95.215.58.248])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E47DC525A92
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 20:28:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.248
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B10B39D3D3;
+	Fri,  4 Sep 2026 20:30:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788553745; cv=none; b=MqKikM4ZApqBDIWVT3lYI+17JzhwkzAhkJ3CpSvQ3nJmKL7KSAejwU/mFUJD2sQ/+YB06H9sKhTzX3TagymIKkvEFCC991nEWh5eLgHxHnpH2aDRTNLyJ/hhhaGXT1FpbAsGqAX+YiYZeHnk7DT0bEGNMG1ijVivWW6vcRBx5uU=
+	t=1788553870; cv=none; b=dGoUwmmRYArqNxiRYWIwr8cHK+yEDMgvNIGw+knbYKZF6dq6JlDjw9UHlVsUObyDxprlfK6r++YIdc/hLueJMSxeK+urwhJ9Am+E+68K6+db73j10G+37qFXpG5FmnYdtycGs5HmWqo6mMi1TwPftvgLApkMK10NpEPXWQNZBw8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788553745; c=relaxed/simple;
-	bh=PWJukDUqmQjG6nax1yH5sUt5blvqZCXFje4nnl7OmoM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=OxZgxISAQjslxajBUvfbTdGfGdd5WSpDo4/5eW3vbilpEkgvnDFDHX1LS5Bqu4mEhWxPfcFnj5WgEXKgl6O2gbQmFrSBhA3YPgJBu19MPlcaRZd2xmSuBRv+Gg8JTC6PHuHtx6Jx4P7v8ot+w14S+rawbqeNqTRS3B4qey4Bzn8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=justthetip.ca; spf=pass smtp.mailfrom=justthetip.ca; dkim=pass (2048-bit key) header.d=justthetip.ca header.i=@justthetip.ca header.b=B7HSMM7I; arc=none smtp.client-ip=95.215.58.248
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=justthetip.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=justthetip.ca
+	s=arc-20240116; t=1788553870; c=relaxed/simple;
+	bh=bEto9B9KvsIvu/lbcHiIs33DT3QggixuDiJH/7UnUpc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=chjBkGoUeT1fTPapgKjc3CXFheOQlNTb8DBgbBM49pQVhxTn2U9X05tpCJm+0AzqBLs8IhZZ8CuwCy8P4AQ6qagrOnXufEnq/AELW/IshKLYkPTQVKDJ8YLgQiCpVgEG5IHFVokRl2C72mNBfmdkFu8uXm0bc2KuWOHf/F3zs3w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=D8kFMqmI; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=justthetip.ca header.i=@justthetip.ca header.b="B7HSMM7I"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=PWJukDUqmQjG6nax1yH5sUt5blvqZCXFje4nnl7OmoM=;
- c=simple/simple; d=justthetip.ca;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788553713; v=1; x=1789158513;
- b=B7HSMM7IwSo5NUxLvnaSWoS6kQJFXFUEcW+p9knhulztEaDupnbIBm0FMSwvICj5+7q534aZ
- bdOkr4LwGHK7hkDX7Tgk8oW1Q4s6I2+2vVUasGqYFBrCxLlZTxqEwQ25jqDQj1aCzTffZMSTBhJ
- KVNLdKQIHcLVE5pEDTBaeN4MXhsxwyAN3UO6WWty3xzOcGqBm+fez2kNEaLsTelho1Wp8stsqYK
- K0Ot5tQEbyh+nT+8cz8MMSTB3nWPvzNSR+1eVRcKRjrqlgEY25CnkRyQ2mTsKDHSp5RyP3fsRuO
- JDMEvIs5VaLb8vVh0OG4lz4DJExT1qz7hO1WRU00rUg5Q==
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 32954092dbf4826d;
-	Fri, 04 Sep 2026 20:28:23 +0000
-X-Mizu-Trace-ID: 32954092dbf4826d
-X-Migadu-Flow: FLOW_OUT
-From: Devin Wittmayer <lucid_duck@justthetip.ca>
-To: Johannes Berg <johannes@sipsolutions.net>
-Cc: Alexander Wetzel <Alexander@wetzel-home.de>,
-	Felix Fietkau <nbd@nbd.name>,
-	linux-wireless@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH wireless v2] wifi: mac80211: drop the monitor filter counts on stop, not just sometimes
-Date: Fri,  4 Sep 2026 13:28:17 -0700
-Message-ID: <20260904202817.12564-1-lucid_duck@justthetip.ca>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="D8kFMqmI"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0D12D1F00A3D;
+	Fri,  4 Sep 2026 20:30:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788553856;
+	bh=Q2U2cUyn/uK7/+y8yr8gyghlNU8PH5KerGI7TPqKuu8=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=D8kFMqmIALGzBe/uazGT3txbGKSxweOppc+FozSoqxNx/ZQYfV7SoONCHXt2RvmzA
+	 wnxsIKpzlmX6dD3vnpDK6I5Kz7Rerp7b5v1Se/rjHQX026l3P3Dq+U535JwCFtHofd
+	 VngsQM8KokzswiIDB28U3XMIvju5YygYwlXnb4jHPYlNGXc9NnPvcnGT7eW4jze50F
+	 7q7+r252QdRMoCvkpfTLMS+znCWddQ6DM56JZhWpU8RRK5W77OIoWCHlRWESNWf4ag
+	 6oWOqY72Wgsgpnkde7MC8z7Mi41p7LV0MD1zWYMgIOxdMAoWgcPDrJqPgqgMlVDEUI
+	 h+miLVLYXUPWg==
+Message-ID: <f73a94c4-80a7-41b0-9671-d9b6ea436174@kernel.org>
+Date: Fri, 4 Sep 2026 22:30:51 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/6] dt-bindings: arm: apple: apple,pmgr: Add t8140
+ compatible
+To: Yureka Lilian <yureka@cyberchaos.dev>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Lorenzo Pieralisi <lpieralisi@kernel.org>,
+ Janne Grunau <j@jannau.net>, Neal Gompa <neal@gompa.dev>,
+ Hector Martin <marcan@marcan.st>, Thomas Gleixner <tglx@kernel.org>,
+ Radu Rendec <radu@rendec.net>, Wim Van Sebroeck <wim@linux-watchdog.org>,
+ Guenter Roeck <linux@roeck-us.net>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ asahi@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+ linux-watchdog@vger.kernel.org
+References: <20260904-apple-a18-pro-initial-devicetrees-v1-0-0c25401d165d@cyberchaos.dev>
+ <20260904-apple-a18-pro-initial-devicetrees-v1-2-0c25401d165d@cyberchaos.dev>
+Content-Language: en-US
+From: Sven Peter <sven@kernel.org>
+In-Reply-To: <20260904-apple-a18-pro-initial-devicetrees-v1-2-0c25401d165d@cyberchaos.dev>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Bringing a monitor up raises the receive filter counts for every monitor.
-Taking one down lowers them only inside the branch that retires the
-virtual monitor. So an active monitor leaves an increment behind on every
-cycle, and the hardware keeps delivering frames nobody asked for.
+On 04.09.26 21:49, Yureka Lilian wrote:
+> The PMGR blocks on the Apple silicon A18 Pro SoC (t8140) is compatible
+> with the M1-M4 SoCs. Add "apple,t8140-pmgr" as A18 Pro specific
+> compatible.
+> 
+> Signed-off-by: Yureka Lilian <yureka@cyberchaos.dev>
+> ---
+>   Documentation/devicetree/bindings/arm/apple.yaml            | 11 +++++++++++
+>   Documentation/devicetree/bindings/arm/apple/apple,pmgr.yaml |  1 +
 
-Dropping cooked monitor support indented the decrement into that branch.
-It sat outside before.
+There's something off with this commit, it's doing two things at once 
+and the description only mentions the smaller change.
 
-Counts after each up, down and delete cycle on a 7921 USB part:
+Sven
 
-  without   cycle one ends at 1, cycle two starts at 2
-  with      every cycle starts and ends at 1, in any order
 
-Move the decrement back out so it mirrors the increment.
 
-Fixes: 286e69677065 ("wifi: mac80211: Drop cooked monitor support")
-Cc: stable@vger.kernel.org
-Signed-off-by: Devin Wittmayer <lucid_duck@justthetip.ca>
----
-The counts are fcsfail, plcpfail, control, pspoll, other_bss and the one
-that keeps TX status reporting armed. Changing flags on a running monitor
-still balances, so only the open and stop pair drift.
-
-v2: changelog rewritten by hand, and the counts above are measured on
-    hardware.
-
-v1: https://lore.kernel.org/linux-wireless/20260825043754.66918-1-lucid_duck@justthetip.ca/
-
- net/mac80211/iface.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
-
-diff --git a/net/mac80211/iface.c b/net/mac80211/iface.c
-index 43460a705a6b..9b400caf2765 100644
---- a/net/mac80211/iface.c
-+++ b/net/mac80211/iface.c
-@@ -630,8 +630,9 @@ static void ieee80211_do_stop(struct ieee80211_sub_if_data *sdata, bool going_do
- 				hw_reconf_flags |= IEEE80211_CONF_CHANGE_MONITOR;
- 			}
- 
--			ieee80211_adjust_monitor_flags(sdata, -1);
- 		}
-+
-+		ieee80211_adjust_monitor_flags(sdata, -1);
- 		break;
- 	case NL80211_IFTYPE_NAN:
- 		/* Check if any open NAN_DATA interfaces */
--- 
-2.55.0
 
