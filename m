@@ -1,224 +1,89 @@
-Received: from mail-qk2-f12.google.com (mail-qk2-f12.google.com [74.125.230.204])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D54EB222597
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 17:36:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.204
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788543384; cv=pass; b=UO6Qelwqmp8P3qnSBc5f0wPiJRuuRklrBY8E1Bm2wYG2ED4xphlvnpIPsSArzIvCSpVpFbYjNt29EWVQVpDcsC4irHZpOIQsVALl230ZK21L97PXKEE3XViieZEBO5Foi1NUPHBBEjhgVk81bLPEBcg7O2+kIpNutCsA9nQt3z0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788543384; c=relaxed/simple;
-	bh=kN18nX/SOnR/OYASsq4/LUm0pv6VHY1nlyDuL5HOo2I=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Vl3R75eaavcwbeyXl30dNlQ1TWdPvx34O23sRuuhQ5c7eu9SBYEDfSUoTJ6OClqLj3lrqFcaknhIjiB1+V1ZLRfGSvrmjxgpDRxP1ZDExubCqihU2p3TyoHAS6I3PacEnRli4p0BaV2s+yWCcvAUGTkGUJPxOCaJoXKa1ER7gVA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=ZsmxUVjK; arc=pass smtp.client-ip=74.125.230.204
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C3F04D2EDA;
+	Fri,  4 Sep 2026 17:36:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.109.113.108
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788543407; cv=none; b=bxeu9hp1+018/LuatEWpsqC6jEAf+CnsvQLouFf+k7LXuu2Z3KyOr9N3S9N9J1zNAr4civ8hUwq0+x3TyWLcAbes7C4eO4c51wHhU73FWdEwAB0HJUeFOHOZFzhzNPEI+KjPmYGuinBWioMCgYNXiY3Q7efRLpACkIi5hq0oTU8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788543407; c=relaxed/simple;
+	bh=LtPqv1/yvY6KKIOUaDEWiR5sC9h1b5X+oyNs/rOvIwM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ZPf3krM7X/IyBsql9Hykr1kz7O5kQtqve1qu5FHI8Ocf82Ob/SrruUGOjxOPnwoVW9ktddxZlcd5fgOmXH+SgRbcaR3uHFJHw+5c6IdsUMEAjX4vCzAY/vxY/KMIM8eoBwZTcVaIqJ045whd3JbLnhJIGxDGDSxRVhQBCSYzBz0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de; spf=pass smtp.mailfrom=alien8.de; dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b=SoziP6Hb; arc=none smtp.client-ip=65.109.113.108
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="ZsmxUVjK"
-Received: by mail-qk2-f12.google.com with SMTP id d75a77b69052e-53012819c04so282451cf.0
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 10:36:21 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788543381; cv=none;
-        d=google.com; s=arc-20260327;
-        b=q6yOUhWF3xPiOa0kXMzxkwEn4vAcSGYcy0uIDBs9/YZFG4A+My6DSPcL3lASAcUt2W
-         L//4t1WPpd8E7ioPsYqzbtD/uu3vMx08D8BRiJUdPTpe4lM1do5I6nRewBpGdKN1BfVc
-         mjuPQ4vfPIYfnRhEzUXMzhzryH+yqzVDEznuk6s35TR2su0FhLK0D1ZImBNlc+se8Tyr
-         PWASMvLR291jO57rwUDX6DeUykazi/XGS1QGdb3G9xoB4c0JFaWbHnCC7cbpae9Rd+gV
-         7mpNZ6w0j3/l3//0Bk7H4RcrQm7/tUdKUgSsgK/XNs6D6D0NtCRULY6kGYOqtF9WwlQd
-         8qBg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=vvwnlLSpY2UR7TwM4xfNn+7t55Ks33lFeG6Z0EyOl/M=;
-        fh=4/C86+4ucPatAdA6xlnBlvjG4z0+zb2jqyGJDQ5flH8=;
-        b=JupWvFejfBpObq5bWJb0LHskR+Z0DMs/TYZ030bXManGyCq1Rx4ouekex9xonxqtoA
-         6ziufLsiTL1S4ivBIGEq+BGNEYhNTiwjTGoxy8BqStv6vXltml08++J5r8lSG9GbCt9+
-         hLM5tqJxlmO8fk4WTFvu93o8PedkDLxU1OSN5At58w+5hz8wefRq8c+lcjdMoZRxbijt
-         /gHtcJ9y3eO8C6bP+wfcLlvNPEbCTfctahwnAkbCjMWz+lKZkgxoSJLbAEWHBEhy0GRN
-         lu3OwwmWYkXaGajYv3Op8zXHJvISl+U8/6G6b2TCC0Oqfa5ySd2w6qb9/n1Bntx8rcbr
-         9UxA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1788543381; x=1789148181; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=vvwnlLSpY2UR7TwM4xfNn+7t55Ks33lFeG6Z0EyOl/M=;
-        b=ZsmxUVjKdtI73eSZRJ26U0Se9QoLl98w4wYaYeWggoeUNXlZ6TjwbS15fnw0fcdqcW
-         j7Nurvml0Us7mfw26YWj0B0vpQIocHiKBEHdjX9cnvRqwRx1ecBj65ezUWzsflld3T/X
-         pquEz4Jn6iWwnuIIp7efLQJmQjlQ1lovmiLPHhubduy0FdGwJlCh2c0VO9xmMNXpCx5A
-         oBqOL55HO3yeHql++5mxo9iPxyQ6u2uNm5DYgLycEwXx7SBuZpIxmnJRdx7RWfzX/j8y
-         4O2nlLBwBiiYV9NFgucEggL21ppJaIIctWRh0jaTmWWVyqVEJkq93bmpWdft74DexGKh
-         hwFQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788543381; x=1789148181;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=vvwnlLSpY2UR7TwM4xfNn+7t55Ks33lFeG6Z0EyOl/M=;
-        b=jSe7/TtjY5/okZFHRacZBRdOHYn9/qIC+QgNw34IwmCo5dObgijxgwfIYewJHOhU10
-         iApwXvgqjPg9F1JzyyvOn8BI0xAS+xBJrjj5d7B3B+2WceDmEJ/Vn0b1h2ZSJpDC7cHD
-         z+wLuZ20otGZrsXYV8aA2SgSvyzNU5SkpXHUVeI67dC5ML6CJkEztbIm/nEJGJv0l6VA
-         q5WL2TFCTr1F8Xype0TIQSHI1V6R1HeU6HZIe3jMOTpP0AWfj4o8kOyi95LiMadaOjUi
-         wGyxG3o3ImfvD/Gkg/21zX/9vaTHRgnh4zf2CXqic0Q0QWtCRxRLPzFFG2pdlW3R7Fdw
-         /gaQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxiO7pXMX28NC0oFeIiRCPm8zGJumPw7sNtNOeSZaYvxy3Av84MXlh3Rg4GmTQs3XCl3etRj8Pw4fDYH34=@vger.kernel.org
-X-Gm-Message-State: AFuF++kffzCO2YNL02yP1i2qvbjE8WRAM7tRRIPpkGnSecCnh4G49CS4
-	tPB2Wsl1B4oKl0IgbOGA/p/Sr/jHIufKKkGnGSv2sWPfCdx4PUb4cazgJ8w1eqKbWaVbb/a7mQ5
-	h5oAWH0WWqENdrwUYMZ9jslsQRau4EJrhvv71oB6w
-X-Gm-Gg: AYBFou2nEboO/gpIBgNfXnmNVHJqQ08s8zsJIuFTZ8e8p8WLZKXYfxy7JBPRI0POLra
-	0uGCOqnNUeyZOjzgcLSyGWqO604/oMfEmjbJ7fG7r/dEy0IIPLclhPvIzodvkMYrNJHjgK3yKgc
-	pU1vDTx76agMW506XR8mmfbivtbnFEM+lTGceYUmGK/bDCMiZmtkESil6ztyONOyDBwzm4fSfcn
-	hC1CMyOpOR/lc4eQ7dUq5sBYx6jU2gaXwBSzrcKyDrp+GHTFa97v2H4SlT+LBatgZEaF5mNI0fv
-	d0SEZ//P0qzlhEtx4dzkeuhyYBjPeNW3oe4QFMDxpG0fRoSFqw1o3hqRUDW+nhfkXvt9ONcM2gM
-	=
-X-Received: by 2002:a05:622a:2589:b0:517:64f6:3365 with SMTP id
- d75a77b69052e-53065d7943emr566721cf.4.1788543379667; Fri, 04 Sep 2026
- 10:36:19 -0700 (PDT)
+	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b="SoziP6Hb"
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 819D340E02C2;
+	Fri,  4 Sep 2026 17:36:41 +0000 (UTC)
+X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
+Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
+	header.d=alien8.de
+Received: from mail.alien8.de ([127.0.0.1])
+	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
+	with ESMTP id hQ3Yhrf6A5cH; Fri,  4 Sep 2026 17:36:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
+	t=1788543392; bh=4w+spAm0uWWwcup+mfvYNUXNY0jRbWl51yfDyG8aFs4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=SoziP6HbLj77a89rc3xWyhElxy2OnAwmmK+WrgAWWIowVnwNSlV+oP46ADmBwVsnd
+	 yCEKWpz3K2lWB1VolczTE64gpfHrdUl+el0VDrMnsndNuYGmChPaqu5L7dPxINIzzL
+	 iuZWueIvng7XPakfJPeYd2tpu341BU0eVn5SZ68LFkA77z2dtsGXio5ZYkw2nev0ru
+	 O88KY8ucs9tL1wuesqPVECx/dX6fjGRoToFiD4G2c+KIREQpyGnPLbM45xOSveEiWB
+	 +hqfmycEwh+nAegtmwmlXbH0fl+TGhVOFpCJEBL7Hp97ebjtjWm2jkymey1VarA2ow
+	 i6smdbjmsWdEUQiFTqdG79gR7dIlPU3Mdq7MT+ezbk2uvqIn/sTIEFzXqATPY9DPYa
+	 A8BI9unS0kprXvhhQvDdqQtmNjAVvcJHZu7kysAaHn9voLOft+hpxCZpSa4/xbGHxO
+	 ap7SZ+gPS6kEVc3rHPlDaLlIf0NQMfKT8BJc/gVy7CmNZmIVTuHbGfGvoSYPSaWW6H
+	 8nK5X0IEYhHpMIw7Vy6ac0333i/LIuDFycDtPorkXY+qT9Bp7AWrgT845p8BAwGSEe
+	 MSD4u2dXsebxSD2hcn79dCdxNSKCLKIl7j3asJDV7TP6vbLFgNg34+dhJuHygbiROH
+	 s0rJNoKjpmdhxq2T36DCqYGk=
+Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::2a])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
+	(No client certificate requested)
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 4DD0440E024B;
+	Fri,  4 Sep 2026 17:36:18 +0000 (UTC)
+Date: Fri, 4 Sep 2026 10:36:15 -0700
+From: Borislav Petkov <bp@alien8.de>
+To: Reinette Chatre <reinette.chatre@intel.com>
+Cc: Ben Horgan <ben.horgan@arm.com>, x86@kernel.org, james.morse@arm.com,
+	fenghuay@nvidia.com, linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, tglx@linutronix.de,
+	mingo@redhat.com, dave.hansen@linux.intel.com, hpa@zytor.com,
+	corbet@lwn.net, linux-doc@vger.kernel.org, dave.martin@arm.com
+Subject: Re: [PATCH v5 0/3] x86,fs/resctrl,arm_mpam: Factor MBA parse-time
+ conversion to be per-arch
+Message-ID: <20260904173615.GOapsBjyiT7uXHd-Qc@fat_crate.local>
+References: <20260709093111.367851-1-ben.horgan@arm.com>
+ <165e7636-d7e9-4d16-aad1-657b4a9698d0@intel.com>
+ <b0a7035e-7ffe-4e22-a4ae-a177640234b8@intel.com>
+ <20260904033751.GCapo9D5ZZXWuQkIpc@fat_crate.local>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260831063938.756610-1-namhyung@kernel.org>
-In-Reply-To: <20260831063938.756610-1-namhyung@kernel.org>
-From: Ian Rogers <irogers@google.com>
-Date: Fri, 4 Sep 2026 10:36:08 -0700
-X-Gm-Features: AcwNN1XQImgI7VKpu9wx95am5mDKvgVk0WQfynEdEu2BFXHT6erp-E_6QoKxf1g
-Message-ID: <CAP-5=fWenUPGqNjy6CdzEnti8czpJTg14w=FTbDrTrHb9APRAw@mail.gmail.com>
-Subject: Re: [PATCH v2] perf ftrace latency: Do not read trace files when BPF
- is used
-To: Namhyung Kim <namhyung@kernel.org>
-Cc: Arnaldo Carvalho de Melo <acme@kernel.org>, Jiri Olsa <jolsa@kernel.org>, 
-	Adrian Hunter <adrian.hunter@intel.com>, James Clark <james.clark@linaro.org>, 
-	Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@kernel.org>, 
-	LKML <linux-kernel@vger.kernel.org>, linux-perf-users@vger.kernel.org, 
-	Steven Rostedt <rostedt@goodmis.org>, Masami Hiramatsu <mhiramat@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260904033751.GCapo9D5ZZXWuQkIpc@fat_crate.local>
 
-On Sun, Aug 30, 2026 at 11:39=E2=80=AFPM Namhyung Kim <namhyung@kernel.org>=
- wrote:
->
-> I've realized that it didn't set up the tracing files when BPF is used
-> so poll() just returns immediately.  It ends up with calling poll()
-> unnecessarily in a loop.
->
-> BPF still needs the loop to wait for the target process exiting or a
-> signal from users.  Let's use a semaphore instead.
->
-> Suggested-by: Ian Rogers <irogers@google.com>
-> Cc: Steven Rostedt <rostedt@goodmis.org>
-> Cc: Masami Hiramatsu <mhiramat@kernel.org>
-> Signed-off-by: Namhyung Kim <namhyung@kernel.org>
+On Thu, Sep 03, 2026 at 08:37:51PM -0700, Borislav Petkov wrote:
+> Lemme have a look.
 
-Reviewed-by: Ian Rogers <irogers@google.com>
+Sashiko has comments:
 
-Thanks,
-Ian
+https://sashiko.dev/#/patchset/20260709093111.367851-1-ben.horgan%40arm.com
 
-> ---
->  tools/perf/builtin-ftrace.c | 28 ++++++++++++++++++++++------
->  1 file changed, 22 insertions(+), 6 deletions(-)
->
-> diff --git a/tools/perf/builtin-ftrace.c b/tools/perf/builtin-ftrace.c
-> index 4f881a40c311ae52..6017493ff179758b 100644
-> --- a/tools/perf/builtin-ftrace.c
-> +++ b/tools/perf/builtin-ftrace.c
-> @@ -6,23 +6,23 @@
->   * Copyright (c) 2020  Changbin Du <changbin.du@gmail.com>, significant =
-enhancement.
->   */
->
-> -#include "builtin.h"
-> -
-> +#include <ctype.h>
->  #include <errno.h>
-> -#include <unistd.h>
-> -#include <signal.h>
-> -#include <stdlib.h>
->  #include <fcntl.h>
->  #include <inttypes.h>
->  #include <math.h>
->  #include <poll.h>
-> -#include <ctype.h>
-> +#include <semaphore.h>
-> +#include <signal.h>
-> +#include <stdlib.h>
-> +#include <unistd.h>
->  #include <linux/capability.h>
->  #include <linux/err.h>
->  #include <linux/string.h>
->  #include <linux/zalloc.h>
->  #include <sys/stat.h>
->
-> +#include "builtin.h"
->  #include "debug.h"
->  #include <subcmd/pager.h>
->  #include <subcmd/parse-options.h>
-> @@ -45,6 +45,7 @@
->
->  static volatile sig_atomic_t workload_exec_errno;
->  static volatile sig_atomic_t done;
-> +static sem_t sig_sem;
->
->  static struct stats latency_stats;  /* for tracepoints */
->
-> @@ -53,6 +54,7 @@ static char tracing_instance[PATH_MAX];       /* Trace =
-instance directory */
->  static void sig_handler(int sig __maybe_unused)
->  {
->         done =3D true;
-> +       sem_post(&sig_sem);
->  }
->
->  /*
-> @@ -68,6 +70,7 @@ static void ftrace__workload_exec_failed_signal(int sig=
-no __maybe_unused,
->  {
->         workload_exec_errno =3D info->si_value.sival_int;
->         done =3D true;
-> +       sem_post(&sig_sem);
->  }
->
->  static bool check_ftrace_capable(void)
-> @@ -1146,6 +1149,11 @@ static int __cmd_latency(struct perf_ftrace *ftrac=
-e)
->
->         line[0] =3D '\0';
->         while (!done) {
-> +               if (ftrace->target.use_bpf) {
-> +                       sem_wait(&sig_sem);
-> +                       break;
-> +               }
-> +
->                 if (poll(&pollfd, 1, -1) < 0)
->                         break;
->
-> @@ -1852,6 +1860,8 @@ int cmd_ftrace(int argc, const char **argv)
->         INIT_LIST_HEAD(&ftrace.nograph_funcs);
->         INIT_LIST_HEAD(&ftrace.event_pair);
->
-> +       sem_init(&sig_sem, 0, 0);
-> +
->         signal(SIGINT, sig_handler);
->         signal(SIGUSR1, sig_handler);
->         signal(SIGCHLD, sig_handler);
-> @@ -2015,5 +2025,11 @@ int cmd_ftrace(int argc, const char **argv)
->         delete_filter_func(&ftrace.nograph_funcs);
->         delete_filter_func(&ftrace.event_pair);
->
-> +       signal(SIGINT, SIG_DFL);
-> +       signal(SIGUSR1, SIG_DFL);
-> +       signal(SIGCHLD, SIG_DFL);
-> +       signal(SIGPIPE, SIG_DFL);
-> +
-> +       sem_destroy(&sig_sem);
->         return ret;
->  }
-> --
-> 2.55.0.897.gb25b4bd76c-goog
->
+Please address them: if valid, fix them, if not, explain why they don't need
+to be fixed.
+
+Thx.
+
+-- 
+Regards/Gruss,
+    Boris.
+
+https://people.kernel.org/tglx/notes-about-netiquette
