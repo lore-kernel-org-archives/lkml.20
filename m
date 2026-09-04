@@ -1,202 +1,220 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77B21511E94
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 17:17:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.17
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB4C045DF48
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 17:19:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788542231; cv=none; b=sVU6Vy32DWW8ocRkbP2krK6AAllF38r5N8gQp1yGRxSaDhTWV1Kr/oB1rvH9QzLjbup9gpHrD0CUiMpWCXVWx96C2c52HNQt/kl/iw2lT5dVloyoCMz6Iq2uZoThaMjOHyUH9oSgV0XE6LSV4ygLa9tueBJ1s/URrb9KQZf4A5U=
+	t=1788542350; cv=none; b=s1dpWn8lSkqDJTxfTOveF7ykO5OzF9FVqmI8nlm1fmmMSyB+SKTKSA8OeATFlVRN95lEEH97COHPIkol+md++SGI5sLntQSZaT7TSzbczTzdPHCM5zTbrpi5Idw/QnSqKLVSdQfBSCdZzyEnX9GaQ8HOutejWcZxdV3WWH0msXo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788542231; c=relaxed/simple;
-	bh=Jj4QyleD0ZUKrok69aamvZai5mrmHlNQmRfHuu3fllw=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=Ny0VXjbhSZXJLAfKLAqYWyg8fzbc9P7IEv5onyGKzMKEBIlGIPCHn1rNpzm8vhNY4zWj9PqdAbAsQbNNYzGdqBlLTNvqOYhV1DS10pcsZGUkdhk3fVSBF6rJzTj9/Q1U6f43QVjjsp+NzyT9lj6/QHXfQ+p+Ry0ecHCTZP1EGJI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=lnqtcupL; arc=none smtp.client-ip=198.175.65.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1788542350; c=relaxed/simple;
+	bh=vlFX6lSgEqbom73K+Mi8Yp4RAxx4XrwgIJzE//wNj2s=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=NT1qg2cJwbSjuPOmPCYRe76RpZCVHeAEXBIaXEN8i9t4h0+JWsuqOj/1cxY4yK3Qy5c9fqetyBWU8hi981s+Fh7Q99IXfHPR503wOOV4tejrY31ywz+9gHacMGbQmzLZoZd5Km2CUsrfThfCvufV3lEOiNguDFe8a43/PzRVAAo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=TJo7+ER5; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="lnqtcupL"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788542225; x=1820078225;
-  h=message-id:subject:from:to:cc:date:in-reply-to:
-   references:content-transfer-encoding:mime-version;
-  bh=Jj4QyleD0ZUKrok69aamvZai5mrmHlNQmRfHuu3fllw=;
-  b=lnqtcupLbttmPLoi7t1OqldZ1xPaDcIYoBuy8Gj5pzmvH6b20gPUyDYA
-   AiY3zYqUohZSvH9uqcTSjuSF3HBCgdl0MH9873qzUQug7D9hn/B1HFmln
-   RQVmiJeYOuxOuHJ7MwmxEe9qsDPSvew1guA3qrgwTv+U/FfI9UlFTDncU
-   E2awgWt/YYauVC5BoRSFiA8EMYtdYSTJuiLkK/GBM3dvaDsVDIDnivcv1
-   pdgDCovYMZk34qqjV+xZUv7a8hBDmf0I5xMgrotickZTkMCPxlrUsN/rz
-   krfrpFsAdZe/YX8qZn2gu98xxhFyqWL4ePQ0gB7LT4OahqzKAJRbbkmby
-   Q==;
-X-CSE-ConnectionGUID: J+l0zH2NRw+K+iJcs1oYNQ==
-X-CSE-MsgGUID: sZZJmYOFRq+7+dKBkht68A==
-X-IronPort-AV: E=McAfee;i="6800,10657,11896"; a="89083374"
-X-IronPort-AV: E=Sophos;i="6.25,262,1779174000"; 
-   d="scan'208";a="89083374"
-Received: from orviesa009.jf.intel.com ([10.64.159.149])
-  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Sep 2026 10:17:04 -0700
-X-CSE-ConnectionGUID: jsXcnIOqQWWJ9U2h4ExrnA==
-X-CSE-MsgGUID: ObxladWfRg2ERlmgCjHv4g==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,262,1779174000"; 
-   d="scan'208";a="270617094"
-Received: from sghuge-mobl2.amr.corp.intel.com (HELO [10.125.111.11]) ([10.125.111.11])
-  by orviesa009-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Sep 2026 10:17:05 -0700
-Message-ID: <84f83c4dab930ff41cafbe614bbfa866003caa21.camel@linux.intel.com>
-Subject: Re: [PATCH v3 1/2] sched/numa: Drive NUMA task tick from execution
- context
-From: Tim Chen <tim.c.chen@linux.intel.com>
-To: Hui Su <sh_def@163.com>, peterz@infradead.org, mingo@redhat.com, 
-	yu.c.chen@intel.com, kprateek.nayak@amd.com
-Cc: juri.lelli@redhat.com, vincent.guittot@linaro.org,
- dietmar.eggemann@arm.com, 	rostedt@goodmis.org, bsegall@google.com,
- mgorman@suse.de, vschneid@redhat.com, 	connoro@google.com,
- jstultz@google.com, linux-kernel@vger.kernel.org
-Date: Fri, 04 Sep 2026 10:17:04 -0700
-In-Reply-To: <20260904085244.799276-2-sh_def@163.com>
-References: <20260904085244.799276-1-sh_def@163.com>
-	 <20260904085244.799276-2-sh_def@163.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.1 (3.58.1-1.fc43) 
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="TJo7+ER5"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 25BA01A186E;
+	Fri,  4 Sep 2026 17:19:06 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id E70846057F;
+	Fri,  4 Sep 2026 17:19:05 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id D28DB11C783E9;
+	Fri,  4 Sep 2026 19:18:56 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1788542340; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding; bh=h2U3RyZAx6hs6YleYrOxURcBvWsXYUaQGg/3ZSMErVE=;
+	b=TJo7+ER5AGDY1PtOwSHzXGc2oucYBZI29+iI4ArG35tJIpMt55qMdJa0I7DTWlGTtqfL1w
+	pxOGBJS6hFXJi1gs6PI3NNTNpRyDPFwzPBd6d/FxD87BW8BDwlerMJCaR05LvFciYWMHV9
+	RQW/+uYJE9/krahkpiitqa12x/WDMiE67taYMLSEoFKXGZU/5KkJ4Sjnpp8gok8h5kwoOM
+	Z0mT1p8Un5FoKFoXkfZEPiuGY0dNicSsFF/pK2WkRK9jUxQGNOESCr6qPoUVgI895wwNrI
+	HjEryq1Kc7dB5fm5RUUhB5tUBYBscz+0g/IiIxpYwmHKQlhRdXvbP7pc+i+1WA==
+From: Miquel Raynal <miquel.raynal@bootlin.com>
+Subject: [PATCH v6 00/26] mtd: spi-nor: Clean Winbond W25QxxJV family
+Date: Fri, 04 Sep 2026 19:18:53 +0200
+Message-Id: <20260904-winbond-v7-1-spi-nor-jv-cleanup-v6-0-bdb282f42a47@bootlin.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/5XQwU7EIBQF0F+ZsPYZeEChrvwP46KFVwczQgMja
+ ib9d5luxthFdXnv4tzkXlihHKiwh8OFZaqhhBRb6O4OzB2H+EIQfMsMOXZcYw8fIY4peqgGBJQ
+ 5QEwZXiu4Ew3xfQYrjLU9eS8mw5oyZ5rC57rw9NzyMZRzyl/rYBXX9u92FcDBGtJeCkRU6nFM6
+ XwK8d6lN3bVK95EI8W+iE1ErXqaxCiGyW5FeRMtV/uibKJW6EhwM7oet6L6p6iaSCSV0rzrSNF
+ W1D9FvS/q9UeUlrQxpv/147Is3+ibQnAYAgAA
+X-Change-ID: 20260529-winbond-v7-1-spi-nor-jv-cleanup-817889edd1f7
+To: Pratyush Yadav <pratyush@kernel.org>, Michael Walle <mwalle@kernel.org>, 
+ Takahiro Kuwano <takahiro.kuwano@infineon.com>, 
+ Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>
+Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
+ Steam Lin <STLin2@winbond.com>, linux-mtd@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, Miquel Raynal <miquel.raynal@bootlin.com>
+X-Mailer: b4 0.14.3
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Fri, 2026-09-04 at 16:52 +0800, Hui Su wrote:
-> Proxy execution separates the scheduling context in rq->donor from the
-> execution context in rq->curr. sched_tick() invokes task_tick() for the
-> donor's scheduling class.
->=20
-> task_tick_numa() operates on state associated with the task actually
-> executing, including its mm and NUMA work state. With proxy execution,
-> rq->donor provides the scheduling context while rq->curr identifies the
-> execution context.
->=20
-> Task-level execution runtime is likewise accounted to rq->curr, and
-> task_tick_numa() uses that runtime to drive periodic NUMA scanning.
-> Keeping task_tick_numa() under task_tick_fair() also means that it is not
-> invoked when a fair task executes on behalf of an RT or deadline donor.
->=20
-> Move NUMA tick handling into a scheduler helper for the execution
-> context, and invoke it from both sched_tick() and sched_tick_remote().
->=20
-> Fixes: 7de9d4f94638 ("sched: Start blocked_on chain processing in find_pr=
-oxy_task()")
-> Suggested-by: K Prateek Nayak <kprateek.nayak@amd.com>
-> Suggested-by: Tim Chen <tim.c.chen@linux.intel.com>
-> Signed-off-by: Hui Su <sh_def@163.com>
-> ---
->  kernel/sched/core.c  | 14 ++++++++++++++
->  kernel/sched/fair.c  |  7 ++-----
->  kernel/sched/sched.h |  1 +
->  3 files changed, 17 insertions(+), 5 deletions(-)
->=20
-> diff --git a/kernel/sched/core.c b/kernel/sched/core.c
-> index f78275192036..4db55e4ace9e 100644
-> --- a/kernel/sched/core.c
-> +++ b/kernel/sched/core.c
-> @@ -5762,6 +5762,17 @@ static int __init setup_resched_latency_warn_ms(ch=
-ar *str)
->  }
->  __setup("resched_latency_warn_ms=3D", setup_resched_latency_warn_ms);
-> =20
-> +static void sched_tick_exec_ctx(struct rq *rq)
+Thanks to Winbond collaboration, I was able to test almost the entire JV
+SPI NOR family. A few chips could not be sourced, I decided to apply the
+very same logic than the other chips, all of them behave identically as
+shown in all the logs that I am sharing in each and every commit.
 
-Just a minor nit.  We could consider putting sched_tick_exec_ctx()
-in fair.c and export it instead.
-That allows task_tick_numa() and task_tick_cache() declaration to
-remain static.
+This series is pretty straightforward, it is here to cleanup the JV
+entries by:
+- Aligning the comments and "fixing" the chip names in them
+- Reordering the chips by density and family
+- Testing and showing all the SFDP content and passing all the SPI NOR
+  tests to ensure a good level of support.
+- Adding all the locking information when it is missing.
 
-No big deal either way.
+Since v3, these Winbond changes are prefixed with core changes, to make
+the whole support work with legacy chips and SFDP compliant chips at the
+same time.
 
-Otherwise the two patches in the series look good to me.
+This work is necessary because I am about to propose the addition of the
+W25QxxRV family, whose IDs actually collide with the JV chips. The chips
+are similar, they have been "improved" (especially the silicon/engraving
+smoothness) and we have a way to differentiate them based on their SFDP
+content, but that will be for a following series.
 
-Reviewed-by: Tim Chen <tim.c.chen@linux.intel.com>
+Two Winbond-wide fixups are applied, non SFDP compatible chips do not
+have CMP nor QUAD_PP support, so let's make sure the additions we do in
+the table do not affect the old flags. Keeping the legacy flash handling
+in a separate function means that it will be easier to handle the day we
+want to drop support for them. So I picked that solution instead of
+enabling conditionally the fields at runtime (which makes the ID table
+real content harder to consolidate).
 
-Tim
+NB: There is one collision with a Spansion chip as well (S25FL064K). On
+my side I commented out the Spansion entry to make sure the core was
+taking the Winbond entry (by alphabetical order) but it is due to an old
+joint agreement and is a legitimate ID duplication. We haven't found a
+good way to differentiate them so far, so I am keeping this aside for
+the moment and just assume we will have a solution later. In all cases,
+the colliding Winbond ID exist and is already fulfilled, so let's make
+sure the definition is accurate.
 
-> +{
-> +	struct task_struct *curr =3D rq->curr;
-> +
-> +	if (curr->sched_class !=3D &fair_sched_class)
-> +		return;
-> +
-> +	if (static_branch_unlikely(&sched_numa_balancing))
-> +		task_tick_numa(rq, curr);
-> +}
-> +
->  /*
->   * This function gets called by the timer code, with HZ frequency.
->   * We call it with interrupts disabled.
-> @@ -5794,6 +5805,8 @@ void sched_tick(void)
->  		resched_curr(rq);
-> =20
->  	donor->sched_class->task_tick(rq, donor, 0);
-> +	sched_tick_exec_ctx(rq);
-> +
->  	if (sched_feat(LATENCY_WARN))
->  		resched_latency =3D cpu_resched_latency(rq);
->  	calc_global_load_tick(rq);
-> @@ -5890,6 +5903,7 @@ static void sched_tick_remote(struct work_struct *w=
-ork)
->  				WARN_ON_ONCE(delta > (u64)NSEC_PER_SEC * 30);
->  			}
->  			curr->sched_class->task_tick(rq, curr, 0);
-> +			sched_tick_exec_ctx(rq);
-> =20
->  			calc_load_nohz_remote(rq);
->  		}
-> diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
-> index 8dff37059faf..55f0460e4ae3 100644
-> --- a/kernel/sched/fair.c
-> +++ b/kernel/sched/fair.c
-> @@ -4425,7 +4425,7 @@ void init_numa_balancing(u64 clone_flags, struct ta=
-sk_struct *p)
->  /*
->   * Drive the periodic memory faults..
->   */
-> -static void task_tick_numa(struct rq *rq, struct task_struct *curr)
-> +void task_tick_numa(struct rq *rq, struct task_struct *curr)
->  {
->  	struct callback_head *work =3D &curr->numa_work;
->  	u64 period, now;
-> @@ -4491,7 +4491,7 @@ static void update_scan_period(struct task_struct *=
-p, int new_cpu)
-> =20
->  #else /* !CONFIG_NUMA_BALANCING: */
-> =20
-> -static void task_tick_numa(struct rq *rq, struct task_struct *curr)
-> +void task_tick_numa(struct rq *rq, struct task_struct *curr)
->  {
->  }
-> =20
-> @@ -15042,9 +15042,6 @@ static void task_tick_fair(struct rq *rq, struct =
-task_struct *curr, int queued)
->  	if (queued)
->  		return;
-> =20
-> -	if (static_branch_unlikely(&sched_numa_balancing))
-> -		task_tick_numa(rq, curr);
-> -
->  	task_tick_cache(rq, curr);
-> =20
->  	update_misfit_status(curr, rq);
-> diff --git a/kernel/sched/sched.h b/kernel/sched/sched.h
-> index e656c7059bf8..4d619f272b15 100644
-> --- a/kernel/sched/sched.h
-> +++ b/kernel/sched/sched.h
-> @@ -4152,6 +4152,7 @@ extern void sched_cache_active_set(void);
->  void sched_domains_free_llc_id(int cpu);
-> =20
->  extern void init_sched_mm(struct task_struct *p);
-> +void task_tick_numa(struct rq *rq, struct task_struct *p);
-> =20
->  extern u64 avg_vruntime(struct cfs_rq *cfs_rq);
->  extern int entity_eligible(struct cfs_rq *cfs_rq, struct sched_entity *s=
-e);
->=20
+Signed-off-by: Miquel Raynal <miquel.raynal@bootlin.com>
+---
+Changes in v6:
+- Rebased on top of spi-nor/next, fixed the conflicts. In particular, I
+  had to drop two patches which were Sashiko findings that were already
+  fixed.
+- Link to v5: https://lore.kernel.org/r/20260805-winbond-v7-1-spi-nor-jv-cleanup-v5-0-87238e577794@bootlin.com
+
+New Sahiko hallucinations:
+- Sashiko complains about breaking legacy chips, its description of the
+  problem is incomplete and already very well documented in the commit
+  log, so a bit annoying to get that same answer repeated over and over
+  again.
+- I don't know why it continuously complains about swp.c being
+  *fundamentally broken* all the time. Winbond datasheets clearly state
+  "The write to registers (without input address) instructions will write
+  simultaneously to all the die registers as long as the die are not
+  busy". Now please shut up about that, Sashiko.
+
+Changes in v5:
+- Fixed a wrong clearing operation: s/sfdp = NULL/nor->sfdp = NULL/,
+  repeated ad nauseam in the review.
+- Link to v4: https://lore.kernel.org/r/20260804-winbond-v7-1-spi-nor-jv-cleanup-v4-0-ee3445066e4e@bootlin.com
+
+Sahiko hallucinations:
+- Unconditional SFDP probing is intentional, it is explained, but it
+  will very likely not break backward compatibility for legacy non-SFDP
+  chips. First, there is a flag to skip SFDP parsing if it exist and is
+  wrong. If the SFDP command does not exist, this is handled early and I
+  believe it is fine paying the cost of this extra check on legacy
+  chips. Finally the deprecated path already parses SFDP, and actually
+  claims it does. The only change here is the fact that it is now done
+  even on chips not advertizing dual/quad/octal support, which is an
+  justified condition. It would be much more dangerous to flag the
+  dual/quad capabilities of these chips (which could have been done
+  otherwise) given that we cannot test it.
+- I disagree with Sashiko's feedback about the multi-die SWP issue: it
+  is not fundamentally broken since there is only one set of Status
+  Registers for the whole chip and all the bytes are addressed with
+  those 4 bits. This is a false positive. So no, SR-based locking on the
+  multi-die flash does not break partial locking nor incorrectly reports
+  hardware lock state.
+- SPI_NOR_BP3_SR_BIT6 is not used in Winbond driver: slop (it is
+  probably a vendor mixup since Micron does use it, whereas Winbond uses
+  SPI_NOR_TB_SR_BIT6).
+- 254Mb devices do have 4 BP bits, I don't know why Sashiko compains
+  about this. It is clearly stated in their datasheets.
+
+Changes in v4:
+- Fixed the handling of one error in the garbage collection patch (at
+  the end of SFDP parsing).
+- Fixed an issue in the commit log (s/CMP/QUAD_PP).
+- Improved the SFDP parsing failure rollback mechanism.
+- Link to v3: https://lore.kernel.org/r/20260804-winbond-v7-1-spi-nor-jv-cleanup-v3-0-542ce107bc92@bootlin.com
+
+Changes in v3:
+- Added several core patches to change the deprecated SFDP parsing step
+  a bit: do not limit SFDP parsing only to chips advertizing
+  dual/quad/octal capabiltities.
+- Make sure the nor->sfdp pointer is not left dangling.
+- Ensure proper garbage collection in the SFDP parsing logic to avoid
+  cluttering RAM with useless allocations.
+- Fixed typos in commit logs.
+- Fixed one (unrelated) extra typo in the sfdp.c file.
+- Fixed an out-of-band access on the ID buffer raised by Sashiko.
+- Link to v2: https://lore.kernel.org/r/20260731-winbond-v7-1-spi-nor-jv-cleanup-v2-0-2549ef1b1af8@bootlin.com
+
+Changes in v2:
+- Dropped the patches removing the no_sfdp_flags (they do not hurt)
+  since this would drop support for !SFDP chips (~until 2016).
+- Stopped removing the .names. They are part of the ABI. I will
+  try to drop them at runtime when adding the RV chips. At this stage,
+  all the existing entries remain.
+- Reordered the patches a bit.
+- Added a catch all entry in the ID table as advised.
+- Added two fixups for non SFDP chips, one removing the CMP bit and the
+  other removing the QUAD_PP flag.
+- Link to v1: https://lore.kernel.org/r/20260529-winbond-v7-1-spi-nor-jv-cleanup-v1-0-87e5d3122244@bootlin.com
+
+---
+Miquel Raynal (26):
+      mtd: spi-nor: Fix spacing in function call
+      mtd: spi-nor: Garbage collection during sfdp parsing
+      mtd: spi-nor: Init flags before manufacturer late_init() hooks
+      mtd: spi-nor: winbond: Move W25Q01NW to its right place
+      mtd: spi-nor: winbond: Normalize names
+      mtd: spi-nor: winbond: Properly document the chip names
+      mtd: spi-nor: winbond: Make the RDCR fixup Winbond wide
+      mtd: spi-nor: winbond: W25Q32JV-Q/N: Add quad page program capability
+      mtd: spi-nor: winbond: W25Q64JV-Q/N: Add quad page program capability
+      mtd: spi-nor: winbond: W25Q128JV-Q/N: Add quad page program capability
+      mtd: spi-nor: winbond: W25Q32JV-M: Add quad page program capability
+      mtd: spi-nor: winbond: W25Q64JV-M: Add quad page program capability
+      mtd: spi-nor: winbond: W25Q128JV-M: Add quad page program capability
+      mtd: spi-nor: winbond: W25QxxJV-Q/N/M: Add quad page program capability
+      mtd: spi-nor: winbond: W25Q32JV-Q/N: Fill locking information
+      mtd: spi-nor: winbond: W25Q64JV-Q/N: Fill locking information
+      mtd: spi-nor: winbond: W25Q128JV-Q/N: Fill locking information
+      mtd: spi-nor: winbond: W25Q512JV-Q/N: Fill locking information
+      mtd: spi-nor: winbond: W25Q01JV-Q/N: Fill locking information
+      mtd: spi-nor: winbond: W25Q32JV-M: Fill locking information
+      mtd: spi-nor: winbond: W25Q64JV-M: Fill locking information
+      mtd: spi-nor: winbond: W25Q128JV-M: Fill locking information
+      mtd: spi-nor: winbond: W25Q02JV-M: Fill locking information
+      mtd: spi-nor: winbond: W25QxxJV-Q/N/M: Fill locking information
+      mtd: spi-nor: winbond: W25Q512JV-M: New chip
+      mtd: spi-nor: winbond: W25Q01JV-M: New chip
+
+ drivers/mtd/spi-nor/core.c    |   6 +-
+ drivers/mtd/spi-nor/sfdp.c    |  30 ++++++---
+ drivers/mtd/spi-nor/winbond.c | 138 +++++++++++++++++++++++++++++-------------
+ 3 files changed, 120 insertions(+), 54 deletions(-)
+---
+base-commit: 8fc3a53b905e7cda98aa80e0d13c3ea79543babf
+change-id: 20260529-winbond-v7-1-spi-nor-jv-cleanup-817889edd1f7
+
+Best regards,
+-- 
+Miquel Raynal <miquel.raynal@bootlin.com>
+
