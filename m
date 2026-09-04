@@ -1,186 +1,221 @@
-Received: from mout-p-201.mailbox.org (mout-p-201.mailbox.org [80.241.56.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oa1-f50.google.com (mail-oa1-f50.google.com [209.85.160.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 499793F1ADB;
-	Fri,  4 Sep 2026 12:14:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CE94476072
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 12:14:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788524059; cv=none; b=EvKEc6hQRDqgvJiUfjV0aGNRKEkq6bhP0llk/RwVHUeViwRLLjh/YjdVgZ8Sb66U6KKuGpEkdKFG10n74+w38ai00NM/lFZY5z/BbEoLA3bjL10qz8BQx86zhlBM3ZlMapGSXi6loVoB+K/3+7svT0lE2JrJsgiDyfbQuPunknk=
+	t=1788524096; cv=none; b=BmM5lswReQTa+94N29vt87WsKLxMrMD39dWM3o/jMVPf7kD9pN6Jp2vALyvN/FpYczff8Hq3PMR4r6nBAn56btJRlnK/DLOJeYUCfADaAWgC4pLZ8NC5vbmrXRdc/9SGP1mLrpdPHgNj/lZsEg4G8a0F45r2+Zmr+9fqWow+L7A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788524059; c=relaxed/simple;
-	bh=3laS6ZZpfGUwO/BUm72vPoPlNir78tFJtVUp7tBN7C0=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=ChF2P9syruGI9zaig3qVulKx49Lf5NJJrQAfNylrYemhtHCCt3ggbI4mxU8wVFCHpp56WNYjuBz+/OB2uXq68nfs588KLmVVOwSw2ev2DxVpr61/IfloE3gVLb4AEDfQQGLBBRDWY1J7OoK4gdTZEmUEZrLAF7jUxQFiEgpPId4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=mYCKBGT/; arc=none smtp.client-ip=80.241.56.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	s=arc-20240116; t=1788524096; c=relaxed/simple;
+	bh=dd1lCGy0Kh3z0zS/NqxWoc16amM2UKMB9VnBcyxbIFQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=E3oYwfOEl91xTX3UgDC+pK1eqOqSiHg8Nysig4V90Pzdn1vQSZzIZmYiXmigZnhqqvqV2+UmXWc7pRHnjDL2e41QWWnV6WzZcIwLLtL9ARqQob0W07j7h62HJJ0Aac3gkStoZU8ocHUVuSQJ5rdnVeEnrWvjWMLxMGQeE1izsFQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=c+lL6tTY; arc=none smtp.client-ip=209.85.160.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="mYCKBGT/"
-Received: from smtp1.mailbox.org (smtp1.mailbox.org [10.196.197.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-201.mailbox.org (Postfix) with ESMTPS id 4hbwPK2fwYzMlCf;
-	Fri, 04 Sep 2026 14:14:13 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1788524053; h=from:from:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=3laS6ZZpfGUwO/BUm72vPoPlNir78tFJtVUp7tBN7C0=;
-	b=mYCKBGT/QJrD1QRugY/cx3YrM1jmw1juS2VQ9EkmTnyfZzii9ry8JjyUxyKzRHhoge8UPe
-	dYjnkCB4MFcGtjQzmvsJ7ZYXwivYv6S6mh4gHaUgQX+tD0nbmp+6myGnIQPCA/3QhG/KFS
-	zISsvDu3T6zI2V7SsmIjMHRW0Jmi15h2cEKGQ6DZhAQimR3sdzVp+rQ3XMNSantQTBmxtg
-	OCbCzp58lZRIVG94nLM6j4sCbbRyX6kR3bxFPdAeFrI7XSAKV1fYy2GRT473rWifAXZnba
-	AD2ILjMwwOSWqKZAntnKsGOv/joz7zcuVc6mKOlPv/IKK+qbGpmIAQoSDXpqkQ==
-Message-ID: <8b4194fcb6fdb11af10fc81a1a7c915ad71003a0.camel@mailbox.org>
-Subject: Re: [PATCH 1/3] drm: fix typos in comments
-From: Philipp Stanner <phasta@mailbox.org>
-Reply-To: phasta@kernel.org
-To: Hemanth Selam <hemanth.selam@gmail.com>, Sumit Semwal	
- <sumit.semwal@linaro.org>, Christian =?ISO-8859-1?Q?K=F6nig?=	
- <christian.koenig@amd.com>, Andrzej Hajda <andrzej.hajda@intel.com>, Neil
- Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart	 <Laurent.pinchart@ideasonboard.com>, Jonas Karlman
- <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, Luca Ceresoli
- <luca.ceresoli@bootlin.com>, Maarten Lankhorst	
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Inki Dae	 <inki.dae@samsung.com>, Jagan
- Teki <jagan@amarulasolutions.com>, Marek Szyprowski
- <m.szyprowski@samsung.com>, Patrik Jakobsson
- <patrik.r.jakobsson@gmail.com>, Laurentiu Palcu	
- <laurentiu.palcu@oss.nxp.com>, Lucas Stach <l.stach@pengutronix.de>, Frank
- Li	 <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix
- Kernel Team <kernel@pengutronix.de>, Fabio Estevam <festevam@gmail.com>,
- Jianmin Lv <lvjianmin@loongson.cn>,  Qianhai Wu <wuqianhai@loongson.cn>,
- Huacai Chen <chenhuacai@kernel.org>, Mingcong Bai <jeffbai@aosc.io>,  Xi
- Ruoyao <xry111@xry111.site>, Icenowy Zheng <zhengxingda@iscas.ac.cn>, Dave
- Airlie	 <airlied@redhat.com>, Jocelyn Falempe <jfalempe@redhat.com>, Lyude
- Paul	 <lyude@redhat.com>, Danilo Krummrich <dakr@kernel.org>, Tomi
- Valkeinen	 <tomi.valkeinen@ideasonboard.com>, Jessica Zhang
- <jesszhan0024@gmail.com>,  Gerd Hoffmann <kraxel@redhat.com>, Kieran
- Bingham <kieran.bingham+renesas@ideasonboard.com>, Geert Uytterhoeven
- <geert+renesas@glider.be>, Magnus Damm <magnus.damm@gmail.com>, Matthew
- Brost	 <matthew.brost@intel.com>, Philipp Stanner <phasta@kernel.org>,
- Chen-Yu Tsai	 <wens@kernel.org>, Samuel Holland <samuel@sholland.org>,
- Huang Rui	 <ray.huang@amd.com>, Matthew Auld <matthew.auld@intel.com>, Dave
- Stevenson	 <dave.stevenson@raspberrypi.com>, =?ISO-8859-1?Q?Ma=EDra?= Canal
-	 <mcanal@igalia.com>, Raspberry Pi Kernel Maintenance	
- <kernel-list@raspberrypi.com>, Dmitry Osipenko
- <dmitry.osipenko@collabora.com>,  Gurchetan Singh
- <gurchetansingh@chromium.org>, Chia-I Wu <olvaffe@gmail.com>, Zack Rusin
- <zack.rusin@broadcom.com>,  Broadcom internal kernel review list	
- <bcm-kernel-feedback-list@broadcom.com>, Michal Simek
- <michal.simek@amd.com>,  Philipp Zabel <p.zabel@pengutronix.de>, Natalie
- Vock <nat@pixelcluster.dev>, Tejun Heo <tj@kernel.org>,  Johannes Weiner
- <hannes@cmpxchg.org>, Michal =?ISO-8859-1?Q?Koutn=FD?= <mkoutny@suse.com>
-Cc: linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, 
-	dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org, 
-	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
-	nouveau@lists.freedesktop.org, virtualization@lists.linux.dev, 
-	spice-devel@lists.freedesktop.org, linux-renesas-soc@vger.kernel.org, 
-	linux-sunxi@lists.linux.dev, cgroups@vger.kernel.org
-Date: Fri, 04 Sep 2026 14:13:48 +0200
-In-Reply-To: <20260904120430.17224-2-hemanth.selam@gmail.com>
-References: <20260904120430.17224-1-hemanth.selam@gmail.com>
-	 <20260904120430.17224-2-hemanth.selam@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: base64
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="c+lL6tTY"
+Received: by mail-oa1-f50.google.com with SMTP id 586e51a60fabf-469d76ce704so805931fac.2
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 05:14:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788524093; x=1789128893; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=wTh4q0fVS/vkJBpUmk5P6WbrM8N8JqcQKf6Z2q56q3g=;
+        b=c+lL6tTYmmsVSf++ktmoHE6AOgDet2C7okYRW5FMabVbx/ZCC3Ri+QAX7tgqwIHeh0
+         dbyUwcGk/x94mX+1l3/4nc8JH9s+YA9H6+RSza/R6wp/LvwjRqM6PrMcWE5aLr10bHLc
+         5cuLG4gmqrzCdYB4QNifqtoIKJcodmXDqmQv7/SyI4R14iRWlsQ7Tdo76i6qexgqAKq2
+         MQJbKdwOqBb2fkfPFErxtA9AUwfymSQ1w5Mu90BhXlg0sGfdzmzW2UpPFe900ppHWXWP
+         eXtUoIzrDeClgp2kdhAok2A68xlOWGduEnupRgPX2uoWZ8vZYJCUSkvd8PBlc/ypArJI
+         8N4g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788524093; x=1789128893;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=wTh4q0fVS/vkJBpUmk5P6WbrM8N8JqcQKf6Z2q56q3g=;
+        b=bDE6y4DpssjAep/E7kfn1OUSTCBAaPaHIHOC3d/phPgN/3f2r7M3qlsN5kfLOdDa5w
+         ZldrCJrf2sA+Pp3epGzTmqLvcsGjrxxbyyqYIQI5aPjsHaFr5GiYRtHrsZeMGcATu39u
+         34++ruY8AkV32dyl9yNpfk1PPXAwGDewvinR80Xp/kSOf16iZhYJjzI7qjV9zLi4mRBg
+         2MOoekKjWmkt5gHIjpA9UFVN4F3x5bxSTY9qDz9snwUkd3XwxNGDsjMJ7SBiNTkY5vQ1
+         LPE7Jwrr06TzgLiU2NLUBEJ/swC1IiGImh/XVi47w1eLLczRYAWso6Pko3lKetcAE80K
+         t6aw==
+X-Gm-Message-State: AFuF++mqv51wwMyzr7NLh0b+F0N0ap4GqpL/I0xGZUj7txe5lsiAVcCC
+	UntQOF8XLhbq8pLHm5fU5tXxQYWfuYVDotdg9pcLaQTVa84GyQMID+R+8EPvhMWRDKQ=
+X-Gm-Gg: AYBFou0fbVVmm9xywjSroqDtz0a2S2kfphfY6crfdPp1KCYGCPODUjrjSNA2YlGoaFx
+	z0c+xqFFfiG0JS5hFztbySAkTsdMIJRoGL/ZvmFYBWyFC18W4ZzoPM+HuaXhrTWBxvZiMPVmRga
+	tkCWL5PbsfPvOoQveBzfLJ72hUZyADaIkMxOMRAQ3OrnAg4hDqHen+s68vc27XnBsuPdx4X7bMJ
+	2yEvjeC0SXxYr2gF/RQn2SrZW1rkTbwvzsq8p86VuruZvSA0GypuFOjTWvKTuLSMMGQvps+vRea
+	XvrwvE2VvtF4JAu0OhTNPRlfQ3QtXP4KdAu105ts3Bg7IK0xejcRiRn71W4bZ4Xb+cN6arpBYHX
+	1atq/Qn9HzLE4vEkEmDG+69EuMkfgGPxgMbi7WgzR9Qe38IBTyZk2+nXYXx4I2+3ZSssE96q/Gt
+	GGWXjfhZZPD2tTgYprLx44cmQqwNiC5SYbsuajcI120g6o3ACYZKr8CVYptlGvcpQf6uhGhpnhL
+	4ZFHbqwkduuwtA=
+X-Received: by 2002:a05:6820:3102:b0:6b2:f445:af17 with SMTP id 006d021491bc7-6b6fc7d2b9cmr4190592eaf.26.1788524093027;
+        Fri, 04 Sep 2026 05:14:53 -0700 (PDT)
+Received: from volcano9f6e-hostos.amd.com ([165.204.217.251])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1432424d27asm9311666c88.2.2026.09.04.05.14.51
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 04 Sep 2026 05:14:52 -0700 (PDT)
+From: Hemanth Selam <hemanth.selam@gmail.com>
+To: 
+Cc: linux-kernel@vger.kernel.org
+Subject: [PATCH 0/2] scsi: fix typos and repeated words in comments
+Date: Fri,  4 Sep 2026 17:44:21 +0530
+Message-ID: <20260904121449.24178-1-hemanth.selam@gmail.com>
+X-Mailer: git-send-email 2.48.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MBO-RS-META: zf7yfabkcpirabg1gmuxkipyi6aabu79
-X-MBO-RS-ID: 16637102b3b78a827a3
+Content-Transfer-Encoding: 8bit
 
-T24gRnJpLCAyMDI2LTA5LTA0IGF0IDE3OjM0ICswNTMwLCBIZW1hbnRoIFNlbGFtIHdyb3RlOgo+
-IEZpeCB0eXBvcyBpbiBjb21tZW50cywgcmVwb3J0ZWQgYnkgc2NyaXB0cy9jaGVja3BhdGNoLnBs
-IHVzaW5nIHRoZQo+IG1pc3NwZWxsaW5nIGxpc3QgaW4gc2NyaXB0cy9zcGVsbGluZy50eHQuwqAg
-T25seSB0b3VjaGVzIGNvbW1lbnRzLCBubyBjb2RlCj4gY2hhbmdlcy4KPiAKPiBBc3Npc3RlZC1i
-eTogQ3Vyc29yOmNsYXVkZS1vcHVzLTUKPiBTaWduZWQtb2ZmLWJ5OiBIZW1hbnRoIFNlbGFtIDxo
-ZW1hbnRoLnNlbGFtQGdtYWlsLmNvbT4KPiAtLS0KPiDCoGRyaXZlcnMvZG1hLWJ1Zi9zeW5jX2Rl
-YnVnLmjCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-IHwgMiArLQo+IMKgZHJpdmVycy9ncHUvZHJtL2JyaWRnZS9wYXJhZGUtcHM4NjIyLmPCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB8IDIgKy0KPiDCoGRyaXZlcnMvZ3B1L2RybS9icmlk
-Z2Uvc2Ftc3VuZy1kc2ltLmPCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHwgMiAr
-LQo+IMKgZHJpdmVycy9ncHUvZHJtL2JyaWRnZS90YzM1ODc2Ny5jwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHwgNiArKystLS0KPiDCoGRyaXZlcnMvZ3B1L2RybS9k
-aXNwbGF5L2RybV9kcF9tc3RfdG9wb2xvZ3kuY8KgwqDCoMKgwqDCoMKgwqDCoCB8IDIgKy0KPiDC
-oGRyaXZlcnMvZ3B1L2RybS9kcm1fZHJ2LmPCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHwgMiArLQo+IMKgZHJpdmVycy9ncHUvZHJtL2dt
-YTUwMC9vYWt0cmFpbF9sdmRzLmPCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB8IDIg
-Ky0KPiDCoGRyaXZlcnMvZ3B1L2RybS9nbWE1MDAvcG93ZXIuY8KgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB8IDIgKy0KPiDCoGRyaXZlcnMvZ3B1L2RybS9n
-bWE1MDAvcHNiX2Rydi5owqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqAgfCA0ICsrLS0KPiDCoGRyaXZlcnMvZ3B1L2RybS9pbXgvZGNzcy9kY3NzLWN0eGxkLmPCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHwgMiArLQo+IMKgZHJpdmVycy9ncHUvZHJt
-L2xvb25nc29uL2xzZGNfZHJ2LmPCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oCB8IDIgKy0KPiDCoGRyaXZlcnMvZ3B1L2RybS9tZ2FnMjAwL21nYWcyMDBfZzIwMHNlLmPCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHwgMiArLQo+IMKgZHJpdmVycy9ncHUvZHJtL25vdXZl
-YXUvZGlzcG52NTAvdGlsZS5owqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHwgMiArLQo+
-IMKgZHJpdmVycy9ncHUvZHJtL25vdXZlYXUvbm91dmVhdV9iaW9zLmPCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoCB8IDIgKy0KPiDCoGRyaXZlcnMvZ3B1L2RybS9ub3V2ZWF1L25vdXZl
-YXVfZXhlYy5jwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgfCAyICstCj4gwqBkcml2
-ZXJzL2dwdS9kcm0vbm91dmVhdS9ub3V2ZWF1X2xlZC5jwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoCB8IDIgKy0KPiDCoGRyaXZlcnMvZ3B1L2RybS9ub3V2ZWF1L252a20vZW5naW5l
-L2dyL2N0eG52NTAuY8KgwqDCoMKgwqDCoCB8IDIgKy0KPiDCoGRyaXZlcnMvZ3B1L2RybS9ub3V2
-ZWF1L252a20vZW5naW5lL2dyL2dmMTAwLmPCoMKgwqDCoMKgwqDCoMKgIHwgMiArLQo+IMKgZHJp
-dmVycy9ncHUvZHJtL29tYXBkcm0vZHNzL2Rpc3BjLmPCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoCB8IDQgKystLQo+IMKgZHJpdmVycy9ncHUvZHJtL29tYXBkcm0vb21hcF9n
-ZW0uY8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgfCAyICstCj4gwqBk
-cml2ZXJzL2dwdS9kcm0vcGFuZWwvcGFuZWwtbm92YXRlay1udDM2NjcyYS5jwqDCoMKgwqDCoMKg
-wqDCoCB8IDIgKy0KPiDCoGRyaXZlcnMvZ3B1L2RybS9wYW5lbC9wYW5lbC1zYW1zdW5nLXM2ZTYz
-ajB4MDMuY8KgwqDCoMKgwqDCoCB8IDIgKy0KPiDCoGRyaXZlcnMvZ3B1L2RybS9xeGwvcXhsX2dl
-bS5jwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgfCAy
-ICstCj4gwqBkcml2ZXJzL2dwdS9kcm0vcmVuZXNhcy9yY2FyLWR1L3JjYXJfbHZkcy5jwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoCB8IDIgKy0KPiDCoGRyaXZlcnMvZ3B1L2RybS9zY2hlZHVsZXIvc2No
-ZWRfbWFpbi5jwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgfCA0ICsrLS0KPiDCoGRy
-aXZlcnMvZ3B1L2RybS9zdW40aS9zdW40aV90Y29uLmPCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgIHwgMiArLQo+IMKgZHJpdmVycy9ncHUvZHJtL3RpbnkvcGFuZWwtbWlw
-aS1kYmkuY8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgfCAyICstCj4gwqBkcml2
-ZXJzL2dwdS9kcm0vdHRtL3R0bV9wb29sLmPCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqAgfCAyICstCj4gwqBkcml2ZXJzL2dwdS9kcm0vdmM0L3ZjNF9oZG1p
-LmPCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgfCAyICst
-Cj4gwqBkcml2ZXJzL2dwdS9kcm0vdmM0L3ZjNF9yZWdzLmjCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgfCAyICstCj4gwqBkcml2ZXJzL2dwdS9kcm0vdmly
-dGlvL3ZpcnRncHVfaW9jdGwuY8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHwgMiAr
-LQo+IMKgZHJpdmVycy9ncHUvZHJtL3Ztd2dmeC9kZXZpY2VfaW5jbHVkZS92bV9iYXNpY190eXBl
-cy5oIHwgMiArLQo+IMKgZHJpdmVycy9ncHUvZHJtL3Ztd2dmeC90dG1fb2JqZWN0LmPCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB8IDIgKy0KPiDCoGRyaXZlcnMvZ3B1L2Ry
-bS92bXdnZngvdm13Z2Z4X2Rydi5owqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqAgfCA2ICsrKy0tLQo+IMKgZHJpdmVycy9ncHUvZHJtL3Ztd2dmeC92bXdnZnhfZXhlY2J1Zi5j
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHwgMiArLQo+IMKgZHJpdmVycy9ncHUvZHJt
-L3Ztd2dmeC92bXdnZnhfa21zLmjCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oCB8IDIgKy0KPiDCoGRyaXZlcnMvZ3B1L2RybS92bXdnZngvdm13Z2Z4X3NvLmjCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHwgMiArLQo+IMKgZHJpdmVycy9ncHUvZHJt
-L3Ztd2dmeC92bXdnZnhfc3VyZmFjZS5jwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHwg
-MiArLQo+IMKgZHJpdmVycy9ncHUvZHJtL3hsbngvenlucW1wX2RwLmPCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB8IDIgKy0KPiDCoGRyaXZlcnMvZ3B1L2lwdS12
-My9pcHUtcHJnLmPCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgIHwgMiArLQo+IMKgaW5jbHVkZS9kcm0vZHJtX2ZyYW1lYnVmZmVyLmjCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB8IDQgKystLQo+IMKgaW5j
-bHVkZS9kcm0vZHJtX3BsYW5lLmjCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB8IDIgKy0KPiDCoGluY2x1ZGUvdWFwaS9kcm0vbm91
-dmVhdV9kcm0uaMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oCB8IDIgKy0KPiDCoGluY2x1ZGUvdWFwaS9kcm0vdm13Z2Z4X2RybS5owqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgfCAyICstCj4gwqBrZXJuZWwvY2dy
-b3VwL2RtZW0uY8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgIHwgMiArLQo+IMKgNDUgZmlsZXMgY2hhbmdlZCwgNTMgaW5z
-ZXJ0aW9ucygrKSwgNTMgZGVsZXRpb25zKC0pCgpUaGF0J3MgYSBsb3Qgb2YgY2h1cm4KCj4gCj4g
-ZGlmZiAtLWdpdCBhL2RyaXZlcnMvZG1hLWJ1Zi9zeW5jX2RlYnVnLmggYi9kcml2ZXJzL2RtYS1i
-dWYvc3luY19kZWJ1Zy5oCj4gCgpb4oCmXQoKCj4gLQkvKiBEUEkgaW50ZXJmYWNlIGNsb2NrIGxp
-bWl0YXRpb246IHVwdG8gMTAwIE1IeiAqLwo+ICsJLyogRFBJIGludGVyZmFjZSBjbG9jayBsaW1p
-dGF0aW9uOiB1cCB0byAxMDAgTUh6ICovCj4gwqAJaWYgKG1vZGUtPmNsb2NrID4gMTAwMDAwKQo+
-IMKgCQlyZXR1cm4gTU9ERV9DTE9DS19ISUdIOwo+IAoKW+KApl0KCj4gwqAKPiAtLyogRm9yIG11
-bHRpcGxlIEdQVSBkcml2ZXIgaW5zdGFuY2UgY28tZXhpeHQgaW4gdGhlIHN5c3RlbSAqLwo+ICsv
-KiBGb3IgbXVsdGlwbGUgR1BVIGRyaXZlciBpbnN0YW5jZSBjby1leGlzdCBpbiB0aGUgc3lzdGVt
-ICovCj4gwqAKPiAKClvigKZdCgo+IMKgCj4gLQkvKiBzZXQgbHRwcyB0aW1taW5nIDAsIDEgKi8K
-PiArCS8qIHNldCBsdHBzIHRpbWluZyAwLCAxICovCgoKUGxhY2VzIGxpa2UgdGhlc2UgYXJlIGNl
-cnRhaW5seSBjYW5kaWRhdGVzIHRoYXQgb25lIG1pZ2h0IHdhbnQgdG8gZ2l0LQpibGFtZSB0byBm
-aWd1cmUgb3V0IG1vcmUgYWJvdXQgdGhlIGJhY2tncm91bmQuCgpOb3Qgc3VyZSBpZiB0aGUgY29z
-dC1iZW5lZml0LXJhdGlvIHdvdWxkIHRoZW4gcGF5IG9mZj8KCgpQLgo=
+This corrects 2 misspellings and repeated words in comments.  Each is a
+separate patch so that any one of them can be dropped without touching
+the rest.
+
+Nothing outside comments changes.  Every touched C file was checked by
+dropping its comments, replacing each string literal with a placeholder
+and collapsing whitespace; what remained was identical before and after,
+so the compiled code cannot differ.
+
+The mistakes were found with scripts/checkpatch.pl against the list in
+scripts/spelling.txt.  The scanning, the edits and the changelogs were
+produced with Cursor running the claude-opus-5 model, from a request to
+find and fix spelling mistakes across the tree, and every correction was
+then re-checked by the comparison described above.  Words that name an
+identifier were left alone deliberately, even when they read as typos,
+because correcting the prose would make the comment disagree with the
+code it describes.
+
+Tested by building x86_64 defconfig at v7.3-rc1-269-gbc35965f6940, which
+is clean.  Nothing else was built, so any patch touching code that
+x86_64 defconfig does not compile has been read but not compiled.
+
+Hemanth Selam (2):
+  scsi: fix typos in comments
+  scsi: fix repeated words in comments
+
+ drivers/scsi/aacraid/aachba.c                   |  2 +-
+ drivers/scsi/aacraid/aacraid.h                  |  2 +-
+ drivers/scsi/aacraid/commsup.c                  |  2 +-
+ drivers/scsi/aha152x.c                          |  6 +++---
+ drivers/scsi/aic7xxx/aic79xx.h                  |  8 ++++----
+ drivers/scsi/aic7xxx/aic79xx_core.c             |  4 ++--
+ drivers/scsi/aic7xxx/aic79xx_osm.c              |  2 +-
+ drivers/scsi/aic7xxx/aic7xxx.h                  |  6 +++---
+ drivers/scsi/aic7xxx/aic7xxx_core.c             |  2 +-
+ drivers/scsi/aic7xxx/aicasm/aicasm_macro_scan.l |  2 +-
+ drivers/scsi/aic7xxx/aiclib.h                   |  2 +-
+ drivers/scsi/aic94xx/aic94xx_scb.c              |  2 +-
+ drivers/scsi/arm/fas216.c                       |  8 ++++----
+ drivers/scsi/arm/fas216.h                       |  6 +++---
+ drivers/scsi/atp870u.c                          |  2 +-
+ drivers/scsi/be2iscsi/be_cmds.c                 |  2 +-
+ drivers/scsi/be2iscsi/be_iscsi.c                |  2 +-
+ drivers/scsi/be2iscsi/be_main.c                 |  4 ++--
+ drivers/scsi/be2iscsi/be_main.h                 |  6 +++---
+ drivers/scsi/bfa/bfa_core.c                     |  2 +-
+ drivers/scsi/bfa/bfa_defs.h                     |  2 +-
+ drivers/scsi/bfa/bfa_defs_fcs.h                 |  2 +-
+ drivers/scsi/bfa/bfa_defs_svc.h                 |  2 +-
+ drivers/scsi/bfa/bfa_fc.h                       |  6 +++---
+ drivers/scsi/bfa/bfa_fcpim.c                    |  6 +++---
+ drivers/scsi/bfa/bfa_fcpim.h                    |  4 ++--
+ drivers/scsi/bfa/bfa_fcs_fcpim.c                |  2 +-
+ drivers/scsi/bfa/bfa_fcs_lport.c                |  4 ++--
+ drivers/scsi/bfa/bfa_fcs_rport.c                |  6 +++---
+ drivers/scsi/bfa/bfa_ioc.c                      |  6 +++---
+ drivers/scsi/bfa/bfa_ioc.h                      |  2 +-
+ drivers/scsi/bfa/bfa_svc.c                      |  2 +-
+ drivers/scsi/bfa/bfa_svc.h                      |  2 +-
+ drivers/scsi/bfa/bfad.c                         |  4 ++--
+ drivers/scsi/bfa/bfad_bsg.c                     |  2 +-
+ drivers/scsi/bfa/bfi.h                          |  4 ++--
+ drivers/scsi/bfa/bfi_ms.h                       |  4 ++--
+ drivers/scsi/bnx2fc/bnx2fc_fcoe.c               |  2 +-
+ drivers/scsi/bnx2fc/bnx2fc_io.c                 |  2 +-
+ drivers/scsi/bnx2fc/bnx2fc_tgt.c                |  2 +-
+ drivers/scsi/bnx2i/bnx2i.h                      |  2 +-
+ drivers/scsi/bnx2i/bnx2i_sysfs.c                |  2 +-
+ drivers/scsi/csiostor/csio_hw.c                 |  2 +-
+ drivers/scsi/csiostor/csio_hw.h                 |  2 +-
+ drivers/scsi/csiostor/csio_isr.c                |  2 +-
+ drivers/scsi/csiostor/csio_lnode.c              |  4 ++--
+ drivers/scsi/csiostor/csio_mb.c                 |  2 +-
+ drivers/scsi/csiostor/csio_scsi.c               | 14 +++++++-------
+ drivers/scsi/csiostor/csio_wr.c                 |  8 ++++----
+ drivers/scsi/dc395x.c                           |  2 +-
+ drivers/scsi/esas2r/esas2r.h                    |  2 +-
+ drivers/scsi/esas2r/esas2r_init.c               |  2 +-
+ drivers/scsi/fcoe/fcoe_ctlr.c                   |  4 ++--
+ drivers/scsi/fcoe/fcoe_transport.c              |  2 +-
+ drivers/scsi/fnic/fnic_main.c                   |  2 +-
+ drivers/scsi/fnic/fnic_trace.h                  |  2 +-
+ drivers/scsi/fnic/vnic_devcmd.h                 |  2 +-
+ drivers/scsi/hpsa.c                             |  2 +-
+ drivers/scsi/hpsa_cmd.h                         |  2 +-
+ drivers/scsi/ibmvscsi_tgt/ibmvscsi_tgt.c        |  2 +-
+ drivers/scsi/ibmvscsi_tgt/ibmvscsi_tgt.h        |  2 +-
+ drivers/scsi/imm.c                              |  4 ++--
+ drivers/scsi/ipr.c                              |  2 +-
+ drivers/scsi/libfc/fc_exch.c                    |  2 +-
+ drivers/scsi/lpfc/lpfc_debugfs.c                |  6 +++---
+ drivers/scsi/lpfc/lpfc_init.c                   |  2 +-
+ drivers/scsi/lpfc/lpfc_sli.c                    |  2 +-
+ drivers/scsi/megaraid.c                         |  4 ++--
+ drivers/scsi/megaraid/megaraid_mbox.c           |  8 ++++----
+ drivers/scsi/megaraid/megaraid_sas_fusion.c     |  4 ++--
+ drivers/scsi/mpt3sas/mpi/mpi2_init.h            |  2 +-
+ drivers/scsi/mpt3sas/mpt3sas_base.c             |  2 +-
+ drivers/scsi/mpt3sas/mpt3sas_base.h             |  6 +++---
+ drivers/scsi/mpt3sas/mpt3sas_ctl.c              |  8 ++++----
+ drivers/scsi/mpt3sas/mpt3sas_scsih.c            | 12 ++++++------
+ drivers/scsi/mpt3sas/mpt3sas_transport.c        |  2 +-
+ drivers/scsi/mvsas/mv_sas.h                     |  2 +-
+ drivers/scsi/ncr53c8xx.c                        |  4 ++--
+ drivers/scsi/pcmcia/nsp_cs.c                    |  2 +-
+ drivers/scsi/pcmcia/nsp_io.h                    |  2 +-
+ drivers/scsi/pm8001/pm8001_sas.h                |  2 +-
+ drivers/scsi/pm8001/pm80xx_hwi.h                |  4 ++--
+ drivers/scsi/pmcraid.c                          |  4 ++--
+ drivers/scsi/pmcraid.h                          |  2 +-
+ drivers/scsi/ppa.c                              |  4 ++--
+ drivers/scsi/qedf/qedf_main.c                   |  4 ++--
+ drivers/scsi/qla1280.c                          |  2 +-
+ drivers/scsi/qla2xxx/qla_fw.h                   |  2 +-
+ drivers/scsi/qla2xxx/qla_iocb.c                 |  4 ++--
+ drivers/scsi/qla2xxx/qla_nx.c                   |  2 +-
+ drivers/scsi/qla2xxx/qla_os.c                   |  6 +++---
+ drivers/scsi/qla2xxx/qla_target.c               |  4 ++--
+ drivers/scsi/qla2xxx/qla_target.h               |  4 ++--
+ drivers/scsi/qla2xxx/tcm_qla2xxx.c              |  2 +-
+ drivers/scsi/qla4xxx/ql4_fw.h                   |  2 +-
+ drivers/scsi/qla4xxx/ql4_nx.c                   |  2 +-
+ drivers/scsi/qla4xxx/ql4_os.c                   |  2 +-
+ drivers/scsi/qlogicfas408.c                     |  2 +-
+ drivers/scsi/scsi_error.c                       |  2 +-
+ drivers/scsi/scsi_transport_iscsi.c             |  2 +-
+ drivers/scsi/sd.c                               |  2 +-
+ drivers/scsi/sd_zbc.c                           |  2 +-
+ drivers/scsi/sg.c                               |  4 ++--
+ drivers/scsi/snic/snic_debugfs.c                |  2 +-
+ drivers/scsi/snic/snic_fwint.h                  |  6 +++---
+ drivers/scsi/snic/snic_scsi.c                   |  4 ++--
+ drivers/scsi/snic/snic_stats.h                  |  4 ++--
+ drivers/scsi/st.c                               |  2 +-
+ drivers/scsi/sym53c8xx_2/sym53c8xx.h            |  2 +-
+ drivers/scsi/sym53c8xx_2/sym_hipd.c             | 10 +++++-----
+ drivers/scsi/sym53c8xx_2/sym_hipd.h             |  2 +-
+ drivers/scsi/wd719x.c                           |  2 +-
+ drivers/scsi/wd719x.h                           |  2 +-
+ drivers/ufs/core/ufshcd.c                       |  4 ++--
+ include/uapi/scsi/scsi_bsg_fc.h                 |  2 +-
+ include/ufs/ufs_quirks.h                        |  2 +-
+ 116 files changed, 194 insertions(+), 194 deletions(-)
+
+-- 
+2.48.1
 
