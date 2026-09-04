@@ -1,70 +1,70 @@
-Received: from mail-pf1-f177.google.com (mail-pf1-f177.google.com [209.85.210.177])
+Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com [209.85.216.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EADD33C109F
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 21:24:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.177
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46B86343D8A
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 21:25:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788557042; cv=none; b=vA01ZHONYTblz8A3oUt6JPuygtSjIQh3djeX0I3cTr0bU41xGhC5vAXm7Gt8NVSRzsarUe0cZX3DmEuMcudKIovB/Io5eY4XMhkKbAkcVCKhgYoJPalBvxGMkBAhYnoPm8i5kOrpEQuSkdptqHDG8Rxt5OtZzpRjgZqQS1Kq36I=
+	t=1788557142; cv=none; b=s8+fc0GePFj3fM4oR1gMZAzSzywzdQLw+mMuvqOdALHJrjjICU0Hezaj8LNdhfxrqXAkMU9Ys14PVkFbLzMj9DKwZZPZ5TCzcRCJe2PC0OzWgmmdxs16UNrqQGsecF1TJ39wJ1BiDqsuMVrO2F62axTSyVzpQTfJA9Uv5QMfSsI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788557042; c=relaxed/simple;
-	bh=3e74kbxsHUlzHuDQNs2xZxFXfPJyrE7viXZKobuCuW4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=TTiiKHSSnwyLM6rLskgRKHR5XI5g7CLTRi7/5VkLl48fOKdpvM8JDjkhXduwqtT0HF1nv5pxH08dcSTwhb0Hxq+N7G6WsgR7Qy1aq65MJh1hZChvURf3mRHd78+HdmQSyuvUPxxRpjFfdQpQ8pz+ySqU0AdIpbgRQq7w3SwBjGQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NUhLSYYs; arc=none smtp.client-ip=209.85.210.177
+	s=arc-20240116; t=1788557142; c=relaxed/simple;
+	bh=Wslx/l7V3evJ7hILTLC32m3ayC5+HML9tyYibTpzgtk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=E6JE1SHVSuxLPOcn8mDfMhgiYe14UAT6CZBL0yWZqoIstuLR8OPI5QKCRQQZIELpLt66HJzxgHogxdOIUedaEfOSBt61/7GE1BewGYiUpRDm1vZBXHIfJYyMJIiO/kv2qAokns7zGBSqobjGerKfmr1rDAvMtpCBVxFyhpNS5oQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qKQKaSKn; arc=none smtp.client-ip=209.85.216.42
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NUhLSYYs"
-Received: by mail-pf1-f177.google.com with SMTP id d2e1a72fcca58-84f3ab8750cso1258060b3a.0
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 14:24:00 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qKQKaSKn"
+Received: by mail-pj1-f42.google.com with SMTP id 98e67ed59e1d1-398a4dcf289so1855273a91.2
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 14:25:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788557040; x=1789161840; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1788557140; x=1789161940; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Y8w5On1qTNLM11WhcuegpCfcpBER+s9xNoM1vyHsy4c=;
-        b=NUhLSYYsydimH9ceNJlM/66kmNa7CwwBgEpKjLgyMAr15UNCtE+6zrf7Do34hiKZZl
-         12iInjxsQE/q6VyzfRVnzXkzNyK72ekmIobHA0wtBOiyOsJo1EweW+d3lL5AO6Fh1WR/
-         yEp7KXeuRTlL6BZ84dUbqooptQuqZwNP0KD2s5YyJ6fzin8AXJwjSI6aLrViUb9xbtaQ
-         Bg6jVYMRHN3dDwx/2BbUFfq0E08B0dkLfVBzKsDPaxEHj9fLPUp5Vn31EBq+ZJABHOMJ
-         F0coKY5S/0BtA8TpUdgY7aSI4hitUlOzqAAr1ofVKZiqx2S5ZXelH4f9mMQ8rdxlIBKY
-         j7+g==
+        bh=fVOfg9PgU/mfeubCPPMqd+U1k0Vvj2HlWQCTwM0265E=;
+        b=qKQKaSKn4XGI5OQx33eUY30mJQ4A+lAlrrhFebhO6FNdiITQvfnhqmeBy0WRZRIDbe
+         dNv/7CwmsPWCMBvHFekmGR1HDyuPkpKumNoAukqxriibzOf3eCKIoBCHASHkBIdaCqIj
+         CDopNSqgHruQ7Bs57AsUE6EVpczdvuNPf/iP32iiYE/Bh/Q56gQm4zUaYWBsDs/JeTH9
+         pSk/iGGSGNZ1teQN0w5rIJAAW4INH/iioY2XXYxvy86hpV0q8IEA1nSWdkzjMinsSDX9
+         k/fLUn3iCDZGP3gkDSPXuHKuAuBRtP65BtR0iUp/50BiGx0pEmJsPMDm3hIzlwj4jkl9
+         48uQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788557040; x=1789161840;
+        d=1e100.net; s=20251104; t=1788557140; x=1789161940;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Y8w5On1qTNLM11WhcuegpCfcpBER+s9xNoM1vyHsy4c=;
-        b=MO4No2pqZM+Y0JWuuXQVQ5kM6Esz8AGLQ8zWXE3l3K1lC8dMOmWLIT8M0ifpk5qh07
-         UAmE/8mihzLx3DmK5Rnakvy5iINLMxkjeMznRpfI9QRnKPV2WbsrUbPpnu0NzhYcEo05
-         anBfFml1OjNenhyJx/voXijn2nyyhbzb1IvUxD6ADBEFonCZVJkdMX7HsqAjN2121+6v
-         Z52ff/a+kgxuOOrRqfw0b6UdKLVt+sA6t7TWU+rf5lKdk/f0SDr0y2FbDzLObYjmoa/0
-         EE0pFdjyiX5KRXK0mCclIF1dkLui+JJkSR/YgS/Fe7Vx/tpAxnyWDl4apvW4Q6zZoLzd
-         We8g==
-X-Forwarded-Encrypted: i=1; AKwUvBzHHwrNE5Z0eZFkreR4loEv4Awx7JjyV2yt4DXZAFDeHopRYCIIYmKMi4SYGrNSJtKkU1ZBrIhccvu8a+k=@vger.kernel.org
-X-Gm-Message-State: AFuF++ndVcY8k81N7DP/c+B+JlmTIAS/3TeIRSHVG/F8VCFO2KEb9BIQ
-	r/xvKWFkxXDysIhtojN0OzrUuuHKAqB/+OxzwIzTl12EJ3OpCcedD4f+
-X-Gm-Gg: AYBFou36Kpt15KJ5h9+F4tM2RKsFOXL1+2K7y36m8yz+bZtM9FA4IMnuc+kYkp/f/EN
-	QcFpsF40vK+1w9FtDYlqHDoIlx2L0QPMHWospTDJLOMv+JjdxrVbnr2ZeHI4ezg+PzMI6yDITqB
-	zY6jEi4J9i+QmW19Y3Ii9QnubnFfCIbx0yHENB24conjJ91c1xDrv/oLHHDlcYp5L+RhVQ0bYxH
-	uSQy9EHgM3R4qH45rcRPySAfKxU8kXcAUmKa9BHDEm4y55pUXpwloc7+3t2e8URB5pw6Nf+a/xX
-	x32W5ktO7e00zIL81XHGFYcTEQJvyCKKBbLNhcZsaQ06Vkp9ZBtQbmsBljQYto9JmzO1QGPaNVc
-	5hVcTOKKhCrotOrYMKKXRcwGeQw5J68Tq9yGQFQ5URXuy1Di2aWzSujhCluHS9H8mQE9h7roppx
-	SBJRfZHMtaPiPpV4dwyx6EIRNfzHZL00C7Ya1sruZef3U1fsdX1rxMWcE76q7nB+oXaVblOIEQh
-	mn1ZxxSYHV5Lh7p9+Sl37OkpsvUrf2ws0lavQOsoc86qBcttz+23xYB3TqZXVLfW5ovIWCTMrej
-	XkuOo+PzR9Yl9xE/fY7aRaXmkQALV62ByhqHHA==
-X-Received: by 2002:a05:6a00:b94:b0:84e:2382:f4f0 with SMTP id d2e1a72fcca58-861660e2f8amr11904703b3a.4.1788557039953;
-        Fri, 04 Sep 2026 14:23:59 -0700 (PDT)
+        bh=fVOfg9PgU/mfeubCPPMqd+U1k0Vvj2HlWQCTwM0265E=;
+        b=bKu3n7awmn3hewb4AGPAuv5K3HM9GxJsIK49e5fSR/2gTWfPkmwNiXVfqbYw7x7hnj
+         xnG2/+/MgXGp55eFykUodyljTTzeP0xOxV4Ac3JY3zWvOJ5CfQKIDeWcc5e7UjRDOrnE
+         6sdopHZo5Hmks7jN7Aah8Ok6LvY2XvpwO7dOoAGoumzwu7V7r+TVMuPMJ7P7n5FPRGXZ
+         xPZnM/XkAiolsCvyK6+52qeJDdM9RnmZKYE2TSkBcNvv8hFZ9WSuzKwfJYPVZbsCAh1Z
+         sJZ/n1XCSTTVWguEbvK/fAEdJwidQojzYC7ygv43gGYEWJNfwZdKTf4BalfKLxcVpnnf
+         dzow==
+X-Forwarded-Encrypted: i=1; AKwUvByJkgWBWFjMjPlb587csL4sxKmcmdRbxvS41lOzn/dljsQwSd0G3w6JizGFolYDKNvFYaozlVP6gDIr3oY=@vger.kernel.org
+X-Gm-Message-State: AFuF++k6oBksa+2bpcaNDaT9oCAvOWFZ3BETkdwnixPdFVnBfLGdsRTn
+	P5MZrBEFwCdfX2YGhhH2l4RE53lDT2rOb438op3hNHcZ3ZEYGlKYgYGe
+X-Gm-Gg: AYBFou2iP3xQ7ytGj8DCRr5nhzQijJEOFKs7N+hZfhtqRJBmJM2hY4mICXqdOaxdc1h
+	o4KUhUNIYQBwnfwOmpq9ydmhRfLaDmq/7oxP1SHwaltyY7XTiIbnibqMx11rWsbbK02K9uyXFrp
+	BbjZhvElkqAowmwOaXZQqSM/1pxsk6Pj25tZQADlz2pZcJXBsa11crdSEuXTqN38zBmi0XPjAtC
+	+vdGE2yuabEQvAOQ1tBVE6BMsTjYgt2e567X9BL4ZbWaPSN1lM0rnU1VH9+bDJqpxA5mBY0dKRP
+	8IabjlLQLSV5hUSg3Qkx0Dfs5mwEJ9dSDBlCXwLi9+TaPyxJswskUlQKQCiO2f3ZDOlr7YNCBAv
+	3JKW+pdbWuzPZIEwckaA35/AFBV9MYGxFRKG8G7kxUber4tp5vu+bxEQZ15HazMuJnzlYtyjIaj
+	39YRp2T2sqNd1B9CfFeET1BsNzRYJ8YpCE5iUEtgljnCX9pt8BvdBYrhLbF9bdS2r2RfGjApM51
+	QkV9uKAFl9XKG8VluFHdnZtIcXmfWUqpcrQusvzl3iUyCG3RPRZ7CTZ5JSaEwF/MS9HZeQb43t/
+	w4N419reILRoz/zvoi5CHTgQJeMLItdluhnLmA==
+X-Received: by 2002:a17:90b:4a48:b0:381:6c5:3f63 with SMTP id 98e67ed59e1d1-39b260d2d58mr13373795a91.6.1788557139119;
+        Fri, 04 Sep 2026 14:25:39 -0700 (PDT)
 Received: from ryzen.lan ([2601:644:8000:7a86::e34])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-86207a4d602sm989020b3a.22.2026.09.04.14.23.58
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b08c3a526sm12261984a91.10.2026.09.04.14.25.35
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 04 Sep 2026 14:23:59 -0700 (PDT)
+        Fri, 04 Sep 2026 14:25:36 -0700 (PDT)
 From: Rosen Penev <rosenp@gmail.com>
 To: linux-wireless@vger.kernel.org
 Cc: =?UTF-8?q?Toke=20H=C3=B8iland-J=C3=B8rgensen?= <toke@toke.dk>,
 	linux-kernel@vger.kernel.org (open list)
-Subject: [PATCH ath-next] wifi: ath9k: free clone buffer on fi->bf overwrite in ath_tx_setup_buffer
-Date: Fri,  4 Sep 2026 14:23:57 -0700
-Message-ID: <20260904212357.85611-1-rosenp@gmail.com>
+Subject: [PATCH ath-next] wifi: ath9k: unmap DMA and free skb for stale TX buffers on queue drain
+Date: Fri,  4 Sep 2026 14:25:34 -0700
+Message-ID: <20260904212534.86403-1-rosenp@gmail.com>
 X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -74,37 +74,44 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-ath_clone_txbuf allocates an ath_buf for the last stale subframe of an
-A-MPDU and stores it in fi->bf. On retransmission, ath_tx_setup_buffer
-overwrites fi->bf with the newly allocated buffer without freeing the
-clone, leaking one ath_buf per aggregate retry that enters the clone
-path.
+When draining a TX queue (e.g. on device removal or reset), stale
+ath_buf descriptors were returned directly to the free pool via
+ath_tx_return_buffer without unmapping their DMA buffers or freeing
+their associated skbs. This leaks both DMA API resources and socket
+buffer memory.
 
-Clear the clone's references and return it to the free pool before
-overwriting fi->bf.
+Unmap the DMA buffer and free the skb before returning the buffer
+to the pool.
 
 Assisted-by: opencode:big-pickle
 Signed-off-by: Rosen Penev <rosenp@gmail.com>
 ---
- drivers/net/wireless/ath/ath9k/xmit.c | 5 +++++
- 1 file changed, 5 insertions(+)
+ drivers/net/wireless/ath/ath9k/xmit.c | 11 ++++++++++-
+ 1 file changed, 10 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/net/wireless/ath/ath9k/xmit.c b/drivers/net/wireless/ath/ath9k/xmit.c
-index 89930eaf1fd3..b12eb878d5e7 100644
+index 89d8b3178784..89930eaf1fd3 100644
 --- a/drivers/net/wireless/ath/ath9k/xmit.c
 +++ b/drivers/net/wireless/ath/ath9k/xmit.c
-@@ -2264,6 +2264,11 @@ static struct ath_buf *ath_tx_setup_buffer(struct ath_softc *sc,
- 		return NULL;
- 	}
+@@ -1884,8 +1884,17 @@ static void ath_drain_txq_list(struct ath_softc *sc, struct ath_txq *txq,
+ 		bf = list_first_entry(list, struct ath_buf, list);
  
-+	if (fi->bf) {
-+		fi->bf->bf_mpdu = NULL;
-+		fi->bf->bf_buf_addr = 0;
-+		ath_tx_return_buffer(sc, fi->bf);
-+	}
- 	fi->bf = bf;
+ 		if (bf->bf_state.stale) {
+-			list_del(&bf->list);
++			struct sk_buff *skb = bf->bf_mpdu;
  
- 	return bf;
++			list_del(&bf->list);
++			if (bf->bf_buf_addr) {
++				dma_unmap_single(sc->dev, bf->bf_buf_addr,
++						 skb ? skb->len : 0,
++						 DMA_TO_DEVICE);
++				bf->bf_buf_addr = 0;
++			}
++			bf->bf_mpdu = NULL;
++			dev_kfree_skb_any(skb);
+ 			ath_tx_return_buffer(sc, bf);
+ 			continue;
+ 		}
 -- 
 2.55.0
 
