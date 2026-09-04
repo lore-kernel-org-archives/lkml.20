@@ -1,160 +1,93 @@
-Received: from mail-ej2-f10.google.com (mail-ej2-f10.google.com [74.125.228.138])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 247B442AFAA
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 09:02:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.138
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A4681FCF41;
+	Fri,  4 Sep 2026 09:03:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788512559; cv=none; b=FcMtv3ArhOvlmfa4d05gVh7TpmyFHv3XYzR5uxmrtQSiMjNhuem0J6JMRYQY72mIIf/jXn23OU0iOIjzkL+9nPOthKF3PsfPPsFEa+/Qe65YgO3ZQ3ooFNTW5XEHHpjE6BETDBfsegJ4FKhnS86JCIPeq4Egj9nkPFY8xAM3bxc=
+	t=1788512611; cv=none; b=VSWfuQENuTwbLCxf+H/q7GwOoihbOli/k9f0qoOge2+L4nkn2NzUO9dypDu9ppEuWeylTJlKmQY2Faxh9MTNFDujtgDdzJb+QowwBvX8fIXYQwAnVlaN9XH2pfWEbV2UFa5/8+LJIPBn4Th9vHElTAZprJIPqdkWVYH/4KnmbSU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788512559; c=relaxed/simple;
-	bh=FocYj1Tg6JeoZyTDyfHblEWp+ZMU7BmLVvhrp05G4mE=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
-	 References:In-Reply-To; b=gZrdpLXX/5vJ/vNmuk8ken2DdJQLDhEiyCoU+cq2oYx9mcQ7qclvV+V01vY0Qk/QgQrndtRMyYFmfqMb6PJblvGfWfHmQZ8AqPStysUSB+gD4Mv1dPPAVXRUQQfiWL0kez0stvNOvZ0ZXuNjPmq/2UR3EGQ8bafAqJ1wWtC1qsE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ahLmHHkU; arc=none smtp.client-ip=74.125.228.138
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788512611; c=relaxed/simple;
+	bh=IiKKmhBsmyzDAEa6K3e0++w83wlpdn2A3PruIjmWfE8=;
+	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
+	 References:Date:Message-Id; b=njgQHUCPul3qXilm2lcLn8Cf1ZSPBMG0Juj3QfbAW3zY4mztTtQxe5mq/LxD6UnCf99VPcMWmxXqPISSqYO6I0oaDuMOGY4RNW10wcpcpwsfIYMtHUIg/TUsEsmGmjXv6JTeSuodfKvcflDBUHXuxtYhtSS80Yq7gaD+Znrz19Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=X+VmLj8C; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ahLmHHkU"
-Received: by mail-ej2-f10.google.com with SMTP id a640c23a62f3a-c2551bfabefso44612666b.1
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 02:02:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788512556; x=1789117356; darn=vger.kernel.org;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-type:content-transfer-encoding:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=VSBcA76yWuklBIVlW8nFJkprKtYg80K7J6L7TsEg75w=;
-        b=ahLmHHkUUY5GyLFEnMgSOAo6lncxD0syIQsq9xaGV+PMU31VF/R0AWp1T1/XGVjJ7m
-         HyWJ6ezyl+fjWFsxwts/r4gMnEFYYrohLFL5iEBQs0Ti1XSxFN+F8sASHgWbPzuuUwBw
-         liwG7psGLFP2IfFG7ov6CWJztbtotCJ7nUQDDS7u54xWuXRJjljy+C3dSPaOZDET/eyh
-         HxP26qOtsXoJVsZ3a7Q6u2BZqigbdT7cq82dDmGsB2NfrnjNUpYaKE1jtCldZD4m9KSc
-         y6PHgMqjCn5Qi0tG5orQ4q1fLkSmUKySZBUVCNIz1CfwAeb5G+VvDVjMSghbqXxAgCVZ
-         a8mg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788512556; x=1789117356;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-type:content-transfer-encoding:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=VSBcA76yWuklBIVlW8nFJkprKtYg80K7J6L7TsEg75w=;
-        b=cko8LJoMJrIuSctuND0b9TxF8c4WI+offgKEr4SEZAjaoYnQi08g+pXjJsWTleKrHH
-         lJQhfbdezy7CowIojSM4ybHAqSUWkb1RWsAL/OpwtNikJoaFxWNLF+4dmAZFLpvfXYXF
-         ORdQrt3EPd0Hi0n4VwON8c5HszTznw8SHScvrcKOAn9z9Tjk3ROQ3WkWq/9fvU8mX4Ep
-         fLaDvoLCYZCLldfhp4LoPgfIGHihgAG7NTC8gnrG3VASCke3kgen88pXzysiGD/HyHqW
-         +rjwASzUU60VCfYVkSL8dK0m57d9dgHwzTQ2wLNHXmVqdmwVXmqSUsCirXAM282NHXJ/
-         C4mQ==
-X-Forwarded-Encrypted: i=1; AKwUvBw3zcbYAf4FcoK8zOX+A4nJ1twR85gigM2bbYNSVz3UGfrag0/FQfmUfhlKdBuy4Y/1prGjQG72RVFe36Q=@vger.kernel.org
-X-Gm-Message-State: AFuF++kxt8zaI/oXTO4tQSjyzkrQIdKKGvJ3DRsR0y5lRcGKCYkja1Li
-	jcA4ogqve7hONU/DipyBo0qaLHhCcEsiSN+7lRx6Li/8nZKJA49duvEc
-X-Gm-Gg: AYBFou3W/5NmL1plhvOxMnu7jWjIXLJ9JsIU3HelAowjOLhfT7LhF5oeD1u67bOMA/t
-	wBzxQq2HbVHFLVGJFv5Aw8AgKaY2K172M5gCGMFcBK1iPoheUdqs+y5WU1XbWSWbkkqyxDbdYy6
-	6sSdckUB1bCptLoKwQcd47ZXQhghazJUA71/48r8XbbYxIYbU09+aGXbKwoqtrO0QHq5lOgp02r
-	hgmux5PyyH+OTIPJCRhRBBw4nHEL4ylFqOAIsTKzKL4PA2c/8NVM0S402NhFVM0bJ4Xy5e6m2M9
-	h8wz96MSJujDnl6vn5ujCSJ7sYsuYE2kwmtr3Adu6wx65gbHLlFIE/qBD2yFW6fJYQC26Y9Aiw5
-	dTzU4urRCNhzn1RL/Ujxg4kSbTfyeQESovdnS1R5OgrvYf/hbIgEQeKqqf0O1JfMzSrSFpt7ghx
-	vYh84z4v8SH6s0L23NbYRDdSOjrPPEPRKsycvsrB5tK+RwlH2Z31QIxvod1HHHMDgRK3xcADH4M
-	vX586HizAl+buIzXJvsv2Ylg77Cl849J4O7mOpGMsh/tIeq4HbaOxT+RrL2kvxQIXuNOK47tFIO
-	n8U64LuP6p883fX628RVCH9X8Sc=
-X-Received: by 2002:a17:907:c81a:b0:c25:659:89ba with SMTP id a640c23a62f3a-c260c8d4e21mr198032866b.9.1788512555920;
-        Fri, 04 Sep 2026 02:02:35 -0700 (PDT)
-Received: from localhost (nat-icclus-192-26-29-3.epfl.ch. [192.26.29.3])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c260d503f96sm77028066b.26.2026.09.04.02.02.34
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 04 Sep 2026 02:02:35 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="X+VmLj8C"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D32761F00A3D;
+	Fri,  4 Sep 2026 09:03:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788512609;
+	bh=YL1+dW9aDIt8bKfDzMgM2VdtSQVd4CAMkl5Iku7TWaA=;
+	h=Subject:From:To:Cc:In-Reply-To:References:Date;
+	b=X+VmLj8CNyOam4GBHAFWeaHQlqKDiFX3uECYRlWmbGMPZn8m/kMU99CpLTvheBDb9
+	 DmThyBaS14uog7TXfgB58YYa/TO3GUQM+QGpkiaXSRppFyQKAQmqR/kCKoEJMknPWh
+	 QFXIC3Jn5ucGyYKapJwzaGAE3OcpzY3Vw3aU6fcPtAtKqMvqtvIQMUafiXfkWpaSbt
+	 mzmai+cUws7+x2qdOwd9hNMObtpsc3tU+SK65SVxT1U9UklOoiEeQxKdoQ3smparqU
+	 liSfCi/FXT5geovf6t+UcfoxQhpFzvbdP47x/ZeP/k1W2425AdOkUGxfEW0q0mhZdp
+	 7yaWB6ySwhrWA==
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Fri, 04 Sep 2026 11:02:34 +0200
-Message-Id: <DL6ESCNVJ52D.3NSNU8FZDQTU@gmail.com>
-Cc: <ebpf@linuxfoundation.org>, "Bastien Curutchet"
- <bastien.curutchet@bootlin.com>, "Thomas Petazzoni"
- <thomas.petazzoni@bootlin.com>, <bpf@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <linux-kselftest@vger.kernel.org>
-Subject: Re: [PATCH bpf-next v9 0/8] bpf: add support for KASAN checks in
- JITed programs
-From: "Kumar Kartikeya Dwivedi" <memxor@gmail.com>
-To: =?utf-8?b?QWxleGlzIExvdGhvcsOpIChlQlBGIEZvdW5kYXRpb24p?=
- <alexis.lothore@bootlin.com>, "Alexei Starovoitov" <ast@kernel.org>,
- "Daniel Borkmann" <daniel@iogearbox.net>, "John Fastabend"
- <john.fastabend@gmail.com>, "Andrii Nakryiko" <andrii@kernel.org>, "Martin
- KaFai Lau" <martin.lau@linux.dev>, "Eduard Zingerman" <eddyz87@gmail.com>,
- "Song Liu" <song@kernel.org>, "Yonghong Song" <yonghong.song@linux.dev>,
- "Jiri Olsa" <jolsa@kernel.org>, "Thomas Gleixner" <tglx@kernel.org>,
- "Borislav Petkov" <bp@alien8.de>, "Dave Hansen"
- <dave.hansen@linux.intel.com>, <x86@kernel.org>, "H. Peter Anvin"
- <hpa@zytor.com>, "Shuah Khan" <shuah@kernel.org>, "Ingo Molnar"
- <mingo@redhat.com>, "Andrey Konovalov" <andreyknvl@gmail.com>, "Emil
- Tsalapatis" <emil@etsalapatis.com>, "Ihor Solodrai"
- <ihor.solodrai@linux.dev>, "Yafang Shao" <laoar.shao@gmail.com>
-X-Mailer: aerc 0.21.0
-References: <20260903-kasan-v9-0-2407fe99255a@bootlin.com>
-In-Reply-To: <20260903-kasan-v9-0-2407fe99255a@bootlin.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH 05/10] net: turn sk_peer_pid into an array indexed by
+ pid type
+From: Christian Brauner <brauner@kernel.org>
+To: Jakub Kicinski <kuba@kernel.org>
+Cc: Christian Brauner <brauner@kernel.org>, 
+ Kuniyuki Iwashima <kuniyu@google.com>, Oleg Nesterov <oleg@redhat.com>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+ Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
+ Willem de Bruijn <willemb@google.com>, netdev@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Alexander Viro <viro@zeniv.linux.org.uk>, 
+ Jan Kara <jack@suse.cz>, linux-fsdevel@vger.kernel.org, 
+ Alexander Mikhalitsyn <alexander@mihalicyn.com>
+In-Reply-To: <20260901172014.71a2863c@kernel.org>
+References: <20260831-work-unix-passpidfd-v1-0-70cbfda0c7ba@kernel.org>
+ <20260831-work-unix-passpidfd-v1-5-70cbfda0c7ba@kernel.org>
+ <20260901172014.71a2863c@kernel.org>
+Date: Fri, 04 Sep 2026 11:03:24 +0200
+Message-Id: <20260904-eintagsfliege-goldpreis-gebinde-8e5b7c9fa9b7@brauner>
+X-Mailer: b4 0.17-dev-db0b7
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1470; i=brauner@kernel.org;
+ h=from:subject:message-id; bh=IiKKmhBsmyzDAEa6K3e0++w83wlpdn2A3PruIjmWfE8=;
+ b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWTN6oxpPslY6n733Lo52z8WmTja3j7wfkPI9U+PNb3O7
+ fvCnsaY1lHKwiDGxSArpsji0G4SLrecp2KzUaYGzBxWJpAhDFycAjCRslhGhr1vMnx7Ze1sb+RV
+ 8mmwdIhM3B958CuDx57cI6zOK64dFGRkWLby+dZE3wVpLqsSIjWsF06SNk68HNBs73akw2hl1F4
+ ldgA=
+X-Developer-Key: i=brauner@kernel.org; a=openpgp;
+ fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
 
-On Thu Sep 3, 2026 at 3:51 PM CEST, Alexis Lothor=C3=A9 (eBPF Foundation) w=
-rote:
-> Hello,
-> this is v9 of the series aiming to bring basic support for KASAN checks
-> to BPF JITed programs. Among a few minor optimizations, this revision
-> fixes some wrong kasan instrumentation on some unwanted stack access
-> (stack access ending up being instrumented AND targeting the wrong stack
-> offset). To mitigate this risk further, this revision introduces a
-> systematic KASAN check skip when (addr_reg =3D=3D BPF_REG_FP || addr_reg =
-=3D=3D
-> BPF_REG_PARAMS) in emit_kasan_check. This secondary check (on top of the
-> non_stack_access flag), should hopefully prevent the issues raised in
-> v8. I've also reworked the emit_st refactoring to realign it with
-> BPF_STX management in the x86 JIT compiler, as the "arguments on stack"
-> feature made me realize that it could be kept more symmetric with
-> BPF_STX; so I've dropped Ihor's Acked-by on this.
->
-> Original cover letter:
->
-> "Traditional" KASAN allows to spot memory management mistakes by
-> reserving a fraction of memory as "shadow memory" that will map to the
-> rest of the memory and allow its monitoring. Each memory-accessing
-> instruction is then instrumented at build time to call some ASAN check
-> function, that will analyze the corresponding bits in shadow memory, and
-> if it detects the access as invalid, trigger a detailed report. The goal
-> of this series is to replicate this mechanism for BPF programs when they
-> are being JITed into native instructions: that's then the JIT compiler
-> that is in charge of inserting calls to the corresponding kasan checks,
-> when a program is being loaded into the kernel. This task involves:
-> - identifying at program load time the instructions performing memory
->   accesses
-> - identifying those accesses properties (size ? read or write ?) to
->   define the relevant kasan check function to call
-> - just before the identified instructions:
->   - perform the basic context saving (ie: saving registers)
->   - inserting a call to the relevant kasan check function
->   - restore context
-> - whenever the instrumented program executes, if it performs an invalid
->   access, it triggers a kasan report identical to those instrumented on
->   kernel side at build time.
->
-> The series comes with new selftests programs that generate a wide
-> variety of kasan reports: those need the kernel to be running with
-> kasan_multi_shot enabled.
->
-> As discussed in [1], this series is based on some choices and
-> assumptions:
-> - it focuses on x86_64 for now, and so only on KASAN_GENERIC
-> - not all memory accessing BPF instructions are being instrumented:
->   - it discards instructions accessing BPF program stack (already
->     monitored by page guards)
->   - it discards possibly faulting instructions, like BPF_PROBE_MEM or
->     BPF_PROBE_ATOMIC insns
->
+On 2026-09-01 17:20 -0700, Jakub Kicinski wrote:
+> On Mon, 31 Aug 2026 13:21:17 +0200 Christian Brauner wrote:
+> > Currently only the struct pid of the thread-group leader is recorded
+> > for a socket's peer. To make room for the struct pid of the thread that
+> > called connect(), listen() or socketpair() turn sk_peer_pid into an
+> > array indexed by pid type. All users, including bluetooth and the
+> > coredump socket, keep using the PIDTYPE_TGID slot.
+> > 
+> > Nothing fills the PIDTYPE_PID slot yet. No functional changes.
+> 
+> This patch suffers from missing kdoc and general inability to build:
 
-For the series:
-Acked-by: Kumar Kartikeya Dwivedi <memxor@gmail.com>
+Oh, damn, the automated pipeline should have done a per-patch build.
+Fixing, thanks!
 
-If there are remaining issues, we can fix forward, but I think we should tr=
-y and
-land this for now.
+> Warning: include/net/sock.h:606 struct member 'PIDTYPE_TGID' not described in 'sock'
+> Warning: include/net/sock.h:606 Excess struct member 'sk_peer_pid' description in 'sock' (did you mean one of: '#define sk_portpair             __sk_common.skc_portpair', 'sk_peer_cred', 'sk_peer_lock', 'sk_peek_off')
+> 
+> 
+> include/trace/events/landlock.h:946:13: error: incompatible pointer types assigning to 'struct pid *' from 'struct pid *const volatile *' [-Wincompatible-pointer-types]
+> 
+> 
+> What's the merging path for these? Judging by the To: perhaps you
+> expect us to take these directly?
 
-> [...]
+If you have no quarrels with me taking it through the vfs tree it would
+help because I have other work on top of this. Otherwise a shared branch
+also works.
+
