@@ -1,64 +1,64 @@
-Received: from mail-lf1-f49.google.com (mail-lf1-f49.google.com [209.85.167.49])
+Received: from mail-lf1-f47.google.com (mail-lf1-f47.google.com [209.85.167.47])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E9054AE8B7
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 14:12:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C0414AEBF9
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 14:12:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788531129; cv=none; b=VkIIPVsJ1+zMcRl4Pm9EcLvrXtvZ4nk8pVlRQL/eKTm4/Rh8CXcbYKPsGVGAbW+5d7Ow/fhfrbJaMkUMI45PwgxigJusCqYxd+F03lz/OlDhH8S9yW8ztwpbyVASyVpuS7UawUkZDEwwPBjVYbGs6KNJKdZ92uKg+QVG8qeQ/hk=
+	t=1788531132; cv=none; b=oHw7A58sk/6xBybSKoksejL3QE07Y5tP/3cmzuIb4GRYk+2+96vT8snEVUsvE4iUjzqiz4M8umtLgJJif8W5q0Ri2b0ATwpDDDJsrkSJkgY7q2DoT2L2eAkY6CW+DWhzlB6p1ac5YEaZt93a/EgD6AzJq9Xqbv9fOcnS+jeUkZw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788531129; c=relaxed/simple;
-	bh=o7qwfV22RsRaxa5PF4Zkk+tx4olXOcpRrxhfqiDgQBY=;
+	s=arc-20240116; t=1788531132; c=relaxed/simple;
+	bh=f70AjhUTQ4PQI0dc5uRX87Q5V2W0KBh4z9npPpJrLj0=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Al/B0yiKAIILzcUMSQLo2j54pB4Vw7zeqQu50WJCDaJ2PrLhHHou32PygFw1eD5eeQbxZaZsvXob5qp4VBx5Bwk7S24OPs/y0Q+AgbONjkJtY03Ju3Xl6hIFnKXMBynAq15gPZVPdtwoi+dt2eD9hgVKQ8mC1/RAvJ/YWoJpeHs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fr/wKaHS; arc=none smtp.client-ip=209.85.167.49
+	 MIME-Version; b=FAPi05owKVSWxvag1ubPLPZLdKOBQJa0ns7d/7dGQC9l+B2UOwjGYJAdgq+TLHMtsxROch0qcxi3tJo6hadUxzuFSVpXdUVTQQoc3ebAxLyzbs4n9VrLsz/SwK6eIWOsvyX1FSi9d6T+iiQrT2CKE2SMJBzX57rXsWeBYxpVvhQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LI144TVz; arc=none smtp.client-ip=209.85.167.47
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fr/wKaHS"
-Received: by mail-lf1-f49.google.com with SMTP id 2adb3069b0e04-5b45f2e5f58so931977e87.0
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 07:12:06 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LI144TVz"
+Received: by mail-lf1-f47.google.com with SMTP id 2adb3069b0e04-5b5f21afe8cso2924557e87.1
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 07:12:09 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788531125; x=1789135925; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1788531127; x=1789135927; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=giefFbYJnxXweExm99mm3enYQv1jOphCqfhZ+67U7jE=;
-        b=fr/wKaHSLE4qJD+Jbq6AQ+tuF71BMBX82KVkvPQFHqw1B4QSZIXiXNb0xUnokLOEM0
-         wmH+fe0wGrmnyRXNQVy9nGWHTsqB4g7QSdEZ40L1qoouyXoYjMXdA7E5Yxl+focIft9K
-         BugkR6rTURQyg45bTZ1cKypBKrXMY13A4KpWpBwZsd10T4VMBzD5+LQo9NrWCHR0VOKP
-         8A5hw4bmw2ZiAqBSeOB/O2hs2PI7Qme7dBBgVfaIiV988gFxsPuwaj1S5tpi0AQ8nKew
-         nVZFbMupNL3y0QeVQtGHcHf1EnSOO3F3i1Ym/wAxxkvcRHz7VcL7L8lUAN4VBdAA4VPH
-         hHaA==
+        bh=gTHoaQMj/bgnWxEPgz6Tpqf4oErcicd99jI9ceF7rws=;
+        b=LI144TVz7pytNam6jV0aj94zEnBDr2vxKR63OidmJnjZAqH/5srZt9CHcsTmsVQR1W
+         RU5Sbdhcq29Q1rgRSoOQhXnUFPmXCtCo5NkMph/LpH710ecu0H4pClxlY9n4bTrfwERt
+         dOZTq1GVRKadW2cBfjYyaPKIv0NmC2XgcacSGOHdRfST9zOXMLqbV5qFYlkc1rqEyRtC
+         NKX8wafqhKhaZ18ulp+x8IiPD28Eh8bAikTy+5lksIFxzVdHgl5y01yneTIKDPZJpK5n
+         cO65eNksBr3RFLlV05T4KY1efvYaZqV3mjfEEPEg7Jiz8TG9Fce7KmTPED/RP78NoD3g
+         qYOg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788531125; x=1789135925;
+        d=1e100.net; s=20251104; t=1788531127; x=1789135927;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=giefFbYJnxXweExm99mm3enYQv1jOphCqfhZ+67U7jE=;
-        b=BuopF2Zq9XGVl2wrN2iO7qp3cRpb1PWb4tSSKqwJl9hOJ107fxEXB+ooEN5FmCXZtJ
-         Nct0QxJecD1Fxb8NS4KXHJFy+5juc9OKI4kbR7yqboeaU28mWDZ1Wl2qLUsqKUEbA5pA
-         6oZ8NfKFJs7G8WyAu1E9FwmCedBivDt+uSW3l9fOd/ZCZyz6LwQ1+b1ioWBqeJ3h16YU
-         SOVh0dwF/K0RFRB36jv4Xefec0T4avUKj6obAD31xxAX8YA9p8y4+HnaLJQ+PZuBv/Ch
-         hHzGsWE4AqsBlwNUCogx/qTcZNDZr4H5430UBWDLouY3OgvGVdA9xox7E4skOtiQhwN6
-         RUnA==
-X-Forwarded-Encrypted: i=1; AKwUvBwH6pUH8J2MwDM7y24RPbzfzzzHRC480BPdDqYIBW4SmiSh7eCRySdKfvilgmJkqL17F8GCzu0xpPlgyNM=@vger.kernel.org
-X-Gm-Message-State: AFuF++n1hNQn9bF8asqn1Mo/hoxJNdOiOTcqP0q5A49LfIJ347In0+dC
-	6vmawEDx0Y4wLSS79Lf5rxVyTd0h/cwS0LopcXylLY+O7yo2pgnST/KI
-X-Gm-Gg: AYBFou1In54LE3+RvMOO7RCVNQPL6TtuY+KwA7/8tF0Zau5OUNoVgTTyVsytdjXoUwb
-	Tu1uTM6ZeyAZEaQhC3XW+rmMKCtVa4s5XrMZsvRAlv9KlZMIyuMW7dLRnjUCoMZ0NnKc/CFeX/q
-	vwA52DhEhhcZI7LQ4O/9Cd9UINRADkOyvy+51rcxmEw6pU4912SImze/EMHZDJTuEMMB3NH+0yk
-	dY1nyzR/7B+NLfLCRaL5PGkbJnELQ7bhIs2j8ag7iNwF4y8DclOvCr+OmckhHNEreM5GWowUBkc
-	acQcZPdSEB8OidHpNp16WR8r7nBAvmcKycjOn3GXhjeRwGHUuQxyNr9O31zlLEyatDmsJf3AVgJ
-	F7hYrGvK7B0pzMrhJRmcBYPuwU3/Ei59TAjVDm90msycVIAap/CQcp7Mf9Knj06agYgvXp9wllx
-	Hydz4UHhheP+OS4JI+nBMmX26tUiH+KTApI//NrCXYbpzlgK01DtzrHZuy8vavzg+9KkTbP57FV
-	thd6huiUqCKhHk4kwLJWmzKhIdSzCHDy6p+kXLGeBS07QZ0I9778GstSfXn
-X-Received: by 2002:a05:6512:3b2a:b0:5b6:1870:2689 with SMTP id 2adb3069b0e04-5b6187043c0mr865547e87.58.1788531124648;
-        Fri, 04 Sep 2026 07:12:04 -0700 (PDT)
+        bh=gTHoaQMj/bgnWxEPgz6Tpqf4oErcicd99jI9ceF7rws=;
+        b=VziHih/hKJ3WUsq5AF70/7zjLSZ6ELMhco9Tf8tWItBTVD/91AXsJc/8ZQVyY9B5Nk
+         aWDRUkHtkk+i+Pib3+SM/KCkSDif2jXr6JIuDm2NhOSFrXzkUjgsE818g/ainA+ZauW4
+         hXb6gJETIcqpGQe7hnErFVLdU7j3ke6NUd7vbJxUWZlIE539NYz2WPZnnsuDcT6rScUH
+         gJrlPoCKtGoYsnIZDqvHr2FKhzUKgR32+mlC4NsjQPfJglTc/SRT4Cck7OV4b4TbTCof
+         0BcDlNTfmiL9fylSj9rmLr9+kMKZHjIr/xdXhTvcC1Mu98vWJeYvGaqa6lNAHzbmv9Ol
+         Z53Q==
+X-Forwarded-Encrypted: i=1; AKwUvBy5brW9m06b7l6do4DL2nUYdcIaayEPFVVXvjKHxGFVOG/s+EeaeN7WFC8pgG4hHQBP0hvW32DXuPAAQvk=@vger.kernel.org
+X-Gm-Message-State: AFuF++llpY6GNI60OJoTRD77JMpVMjvCYDPGtglmUitgvGl8/Ju0KYqK
+	/fGrAHtpuvtthikrsWNdZgF9s3m+RkUiiMPVw4Ne0iZ8cVpvDkCNFA7V
+X-Gm-Gg: AYBFou10qEfeY/ZlEl6iolHsSgfb3tgz8cxOfWT/HUZ/7oiImYa5X87neCiYAvLZCNA
+	SwG3Bamz/8dXkzrgBdlsv+bWkBEydvqjCLg1SnU71xYoNrhZGBMcsUULlq/nmWO1jV75cUrgdrD
+	MFK1LazQBmhaPIrbstOlk9x2BOr5CfWZK63SP18tvHQvg70fvmIdyYiPH7q05qJRhCup8sZ5lhM
+	1AmvzMpOmIbwf+NN8/ZyHC/U6ayg6de43p+y+JoF1oRipg8r0W/ox3DYeME9kTmrvrpVUUmHCvI
+	jh/nV5brbD39MgUqBC/apPspQavgS2p5MD8TVMNT3mmRJAmQpdLfGvLdVXz/GLo6hqUY+Ec+Oyz
+	6miMxYFLxNsMpotQxDjFh/1BGMol+QAtXR4pgHE88tVmwzjRRF1d8TjuWuko4faGmHrIJKlOSyX
+	+Yd9uxKpolNCnhHZjw01taIj5bV2TwJXZ2r2Q/xVYB3L2vPeLV0rn47j7SrrOc0D20XWwTzK3MC
+	GJ2E5BEuOollrITnz1OrbVIhd5AzOm70xVAEJSJX/J0Bx5jXGoKvSvkN53h
+X-Received: by 2002:a05:6512:31d4:b0:5b6:1aee:95f7 with SMTP id 2adb3069b0e04-5b61aee9721mr485915e87.43.1788531127080;
+        Fri, 04 Sep 2026 07:12:07 -0700 (PDT)
 Received: from localhost ([188.234.148.119])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b6166fe10asm530844e87.47.2026.09.04.07.12.02
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b6166fe10asm530844e87.47.2026.09.04.07.12.06
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 04 Sep 2026 07:12:03 -0700 (PDT)
+        Fri, 04 Sep 2026 07:12:06 -0700 (PDT)
 From: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
 To: tiwai@suse.de
 Cc: tiwai@suse.com,
@@ -69,12 +69,13 @@ Cc: tiwai@suse.com,
 	linux-input@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
-Subject: [RFC PATCH v2 0/2] the Topping M62's vendor controls, on the component framework
-Date: Fri,  4 Sep 2026 19:11:56 +0500
-Message-ID: <20260904141158.33398-1-mikhail.v.gavrilov@gmail.com>
+Subject: [RFC PATCH v2 2/2] ALSA: usb-audio: bind the Topping M62's vendor controls
+Date: Fri,  4 Sep 2026 19:11:58 +0500
+Message-ID: <20260904141158.33398-3-mikhail.v.gavrilov@gmail.com>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260904112610.3286659-1-mikhail.v.gavrilov@gmail.com>
+In-Reply-To: <20260904141158.33398-1-mikhail.v.gavrilov@gmail.com>
 References: <20260904112610.3286659-1-mikhail.v.gavrilov@gmail.com>
+ <20260904141158.33398-1-mikhail.v.gavrilov@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -83,209 +84,301 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-This is the experiment Takashi suggested in the v8 thread: an
-individual HID driver joined to snd-usb-audio through the component
-framework, instead of a mixer quirk that claims the HID interface for
-itself. It is posted as an RFC rather than as v9 because v8 is not
-withdrawn -- it remains the alternative, and the choice between the two
-is the question this series exists to answer.
+The M62's vendor controls are driven by hid-topping-m62, added in the
+previous patch, which speaks a vendor protocol on the card's HID
+interface. Those controls belong on the sound card that plays the
+audio, not on a card of the HID driver's own.
 
-I said this morning that I would hold this until the questions in that
-thread were answered. I am sending it anyway, because a patch gets a
-better answer than a question does, and because the last of those
-questions answered itself: the correction I sent a few hours ago
-proposed deferring the controls until the card reports, and working out
-how that lands in code showed why it cannot -- which is in the section
-below. The only question still genuinely open is the HID one, and it
-touches one line.
+This adds the other half of that: a component master, registered from
+the M62's mixer quirk, which hands its struct snd_card to the HID
+driver at bind time and takes the controls away again at unbind. The
+lifetime rules are the component framework's, which is the point --
+neither driver has to be told about the other's disconnect, and neither
+has to guess at the other's state. The same shape binds HD-audio to the
+graphics drivers in sound/hda/core/component.c, with sound as the
+master there too.
 
-Changes since the RFC, all three from the Sashiko bot's review of it:
- 
-  - .raw_event() read the control pointer under the lock and used it
-    after releasing it. snd_ctl_notify() dereferences the id it is
-    given -- it compares id->numid and copies the structure into the
-    event -- so an unbind racing between the two could free the
-    control first, and the card pointer was stale by then as well.
-    The notify now happens under the same lock; it is safe there,
-    taking read_lock_irqsave and allocating with GFP_ATOMIC, and
-    usb-audio's own mixer already notifies from a URB completion.
- 
-  - the keepalive could outlive the driver. topping_unbind() cancelled
-    the work before clearing m62->card, so a resume in that window
-    could see a live card and schedule it again, and topping_remove()
-    never cancelled at all -- devm would free the driver data with the
-    timer still armed. The clear now comes first, resume tests and
-    schedules under the same lock, and remove() cancels
-    unconditionally.
- 
-  - the third finding, that topping_drop_kctls() passes NULL to
-    snd_ctl_remove(), is not a defect. That function returns 0 on a
-    NULL control as its first statement and its kerneldoc says so;
-    the loop is deliberately unconditional so that a partly built set
-    unwinds through one path.
- 
-No other changes: the sound side is untouched.
- 
-  - topping_send() logged at err level for -EPROTO, so pulling the
-    cable out of a card that was being written to produced eight
-    complaints about a device that was already leaving. EPROTO and
-    EILSEQ join ENODEV and ESHUTDOWN in the quiet list. The keepalive
-    still gives up only on the latter two: EPROTO can be a transient
-    bus error, and stopping on it would leave the subscription dead
-    until the next replug.
+The master's context lives in devres on the audio control interface
+rather than in drvdata, which on a usb_interface belongs to
+snd-usb-audio itself; devres_find(), keyed on the release function,
+gives it back inside the callbacks, which are handed nothing but a
+struct device *. It hangs off the control interface rather than off the
+USB device because component_match_add() allocates the match list with
+devm: on the interface that is released at unbind, while on the
+usb_device it would live until the device itself was released and a
+rebind would stack a second list on top.
 
-What the shape buys, measured rather than argued:
+Neither component_compare_dev() nor component_compare_dev_name() fits:
+the audio side has no pointer to the HID device, and the HID device's
+name carries an instance counter that is not predictable. The match is
+therefore one of descent -- the HID device sits two levels below the
+USB device -- and which interface it is stays the HID driver's
+business, since it registers a component for the vendor interface and
+for no other. That keeps sound/usb free of HID symbols and of any
+opinion about this card's interface numbering.
 
-  - card.c is not touched at all. The v8 series had to add
-    snd_usb_claim_iface() and snd_usb_release_iface() there, and had a
-    defect I reported separately: an interface claimed and marked
-    USB_AUDIO_IFACE_UNUSED never gets told to wind down, because
-    usb_audio_disconnect() returns at its first line. With no claim
-    there is no such interface and the defect has nothing to attach
-    to. Watching the wire with usbmon: unbind the audio interface and
-    the keepalive stops. In v8 it kept going.
+component_master_add_with_match() returns 0 with the aggregate merely
+pending when the HID driver is absent, so the card comes up either way
+and grows the vendor controls if and when the other half appears.
 
-  - the hid_ignore_list entry goes away, so hidraw stays available.
-    That matters because five of the card's functions -- the mixer
-    matrix, the mutes, the loopback routing, the input power and the
-    EQ -- are reachable only through the vendor protocol, and v8 made
-    them unreachable from userspace as the price of the quirk.
-
-  - two M62s on one host bind to their own cards. The match is by
-    descent from the shared USB device, and it holds: gains set on one
-    do not appear on the other, and unplugging one leaves the other's
-    controls in place. The quirk road could not be tested for this at
-    all.
-
-On the timing worry from that thread: it does not bite on an ordinary
-plug. The master goes up from snd_topping_init() inside
-snd_usb_create_mixer(), so the bind is synchronous and the controls
-exist before try_to_register_card() -- the same ordering as v8. From
-HID probe to component bind, 54 to 57 ms across five replugs. Only a
-module reload onto a live card adds controls after registration, and
-there a desktop mixer does not follow the renumbered elements until
-wireplumber is restarted. That is a real wart and I have not found a
-way around it that is worth the code.
-
-What the card does and does not report
-
-I got this wrong twice in the v8 thread and would rather state it
-plainly here, since the design follows from it.
-
-After a subscribe the card reports itself in two waves: jacks at about
-0.9 s, then at about 5.2 s the jacks again plus the output mutes plus
-the gain of every input whose jack is present. Every turn of a
-front-panel knob is reported as it happens, gains and output volumes
-alike. What is never reported is a source selector, because the card
-reports events and a selector has no front-panel control, so no event
-can exist; and an output volume before anyone has touched it, because
-it is a setting rather than a physical fact.
-
-So five of the nine controls have a source of truth on the card, two
-have one only after a hand moves them, and two never do.
-
-That looked at first like an argument for deferring the controls until
-the first report lands, so that a value read at connect would be the
-panel's rather than something restored over it. I have not done that,
-and here is why: alsactl restores once, at card add, and does not
-come back for elements that appear later. Deferring would therefore
-trade an accurate value for five controls against no restore at all
-for nine, and would wait forever for an input with nothing plugged
-into it -- which on a five-input card is the normal case.
-The controls are published at bind, as in v8, and the value at
-connect is the restored one.
-
-Open question, not blocking the review
-
-hid_hw_open() sets intf->needs_remote_wakeup, and usbhid offers no way
-to take input reports without it. This card does not advertise remote
-wakeup (bmAttributes 0xc0, no power/wakeup node), so that forbids
-runtime suspend to the whole device -- undoing something an earlier
-revision of the v8 series had to fix. The driver clears the flag after
-opening, with a comment saying so, because it resynchronises on resume
-and has no use for a device-initiated wakeup. Jiri and Benjamin have
-been asked whether that is acceptable or whether usbhid should offer
-something; the question is in the same thread and unanswered. If the
-answer is that the clear must go, HID_CONNECT_DRIVER replaces
-HID_CONNECT_HIDRAW and the hidraw node goes with it.
-
-Tested
-
-Fedora, 7.3.0-rc1-bc35965f6940 plus this series, with KASAN,
-PROVE_LOCKING and UBSAN enabled. One M62, firmware V87.05.45.48.27,
-and a second of the same for the two-card test. Everything below was
-run after the fixes listed above, not before them.
- 
-All nine controls read and written from amixer and from the front
-panel, values cross-checked against the panel.
- 
-One hundred cycles of module load and unload against a live card,
-which is the path the fixes touch: the controls come and go while the
-meter stream keeps arriving, so .raw_event() runs against a set of
-controls that is being taken apart. No splat and no lockdep complaint,
-including on the lock order the first fix introduces -- m62->lock is
-now held across snd_ctl_notify(), which takes the card's
-controls_rwlock inside it.
- 
-An audio-side unbind and rebind, exercising topping_unbind() through
-the master rather than through the HID driver's own remove.
- 
-The cable pulled out of a card while a control was being written in a
-loop. That produces a run of failed writes and then the disconnect,
-and after the last fix it does so without a line of complaint each.
- 
-System suspend and resume: the subscription survives it -- turning a
-front-panel knob afterwards still moves the control -- and the
-selectors are written back on the way out, as they must be since the
-card never reports them.
- 
-Two cards on one host, on different ports of the same hub: the
-component match is by descent from the shared USB device and it holds
--- dmesg shows snd-usb-audio 3-1.3:1.0 binding one HID device and
-3-1.4.2:1.0 the other, each card carries its own nine controls, gains
-set from one front panel move only that card's controls, and
-unplugging one leaves the other's in place.
- 
-Not tested:
- 
-  - hibernation, and with it .reset_resume, which shares
-    topping_resume() with .resume. This machine is not set up for it:
-    there is no resume= on the command line and zram takes swap
-    priority, so the attempt logs "PM: Image not found (code -16)" and
-    powers off instead of saving an image. That is the same on a stock
-    kernel and has nothing to do with this series, but it does mean
-    the path is unexercised;
-  - kmemleak, compiled in on this system but disabled at boot;
-  - a card whose battery has run down;
-  - anything on a big-endian host.
-
-Ordering
-
-The HID driver comes first. Between the two patches it binds, speaks
-to the card and creates no controls, which is harmless; the reverse
-order leaves a master that never matches, which is equally harmless
-but leaves hid-generic making a bogus input device out of the
-descriptor in the meantime.
-
-Mikhail Gavrilov (2):
-  HID: topping-m62: driver for the M62's vendor controls
-  ALSA: usb-audio: bind the Topping M62's vendor controls
-
- MAINTAINERS                   |   9 +
- drivers/hid/Kconfig           |  19 +
- drivers/hid/Makefile          |   1 +
- drivers/hid/hid-ids.h         |   3 +
- drivers/hid/hid-quirks.c      |   3 +
- drivers/hid/hid-topping-m62.c | 889 ++++++++++++++++++++++++++++++++++
- sound/usb/Makefile            |   1 +
- sound/usb/mixer_quirks.c      |   5 +
- sound/usb/mixer_topping.c     | 173 +++++++
- sound/usb/mixer_topping.h     |   7 +
- 10 files changed, 1110 insertions(+)
- create mode 100644 drivers/hid/hid-topping-m62.c
+Signed-off-by: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+---
+ MAINTAINERS               |   9 ++
+ sound/usb/Makefile        |   1 +
+ sound/usb/mixer_quirks.c  |   5 ++
+ sound/usb/mixer_topping.c | 173 ++++++++++++++++++++++++++++++++++++++
+ sound/usb/mixer_topping.h |   7 ++
+ 5 files changed, 195 insertions(+)
  create mode 100644 sound/usb/mixer_topping.c
  create mode 100644 sound/usb/mixer_topping.h
 
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 627595e245f3..b49560efa1c6 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -27593,6 +27593,15 @@ S:	Maintained
+ W:	https://tomoyo.sourceforge.net/
+ F:	security/tomoyo/
+ 
++TOPPING M62 VENDOR CONTROLS
++M:	Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
++L:	linux-sound@vger.kernel.org
++L:	linux-input@vger.kernel.org
++S:	Maintained
++F:	drivers/hid/hid-topping-m62.c
++F:	sound/usb/mixer_topping.c
++F:	sound/usb/mixer_topping.h
++
+ TOPSTAR LAPTOP EXTRAS DRIVER
+ M:	Herton Ronaldo Krzesinski <herton@canonical.com>
+ L:	platform-driver-x86@vger.kernel.org
+diff --git a/sound/usb/Makefile b/sound/usb/Makefile
+index e62794a87e73..151b481df795 100644
+--- a/sound/usb/Makefile
++++ b/sound/usb/Makefile
+@@ -14,6 +14,7 @@ snd-usb-audio-y := 	card.o \
+ 			mixer_quirks.o \
+ 			mixer_scarlett.o \
+ 			mixer_scarlett2.o \
++			mixer_topping.o \
+ 			mixer_us16x08.o \
+ 			mixer_s1810c.o \
+ 			pcm.o \
+diff --git a/sound/usb/mixer_quirks.c b/sound/usb/mixer_quirks.c
+index a1f5592cc5d5..10f33026cdff 100644
+--- a/sound/usb/mixer_quirks.c
++++ b/sound/usb/mixer_quirks.c
+@@ -36,6 +36,7 @@
+ #include "mixer_quirks.h"
+ #include "mixer_scarlett.h"
+ #include "mixer_scarlett2.h"
++#include "mixer_topping.h"
+ #include "mixer_us16x08.h"
+ #include "mixer_s1810c.h"
+ #include "helper.h"
+@@ -4531,6 +4532,10 @@ int snd_usb_mixer_apply_create_quirk(struct usb_mixer_interface *mixer)
+ 		err = snd_fcp_init(mixer);
+ 		break;
+ 
++	case USB_ID(0x152a, 0x875c): /* Topping M62 */
++		err = snd_topping_init(mixer);
++		break;
++
+ 	case USB_ID(0x041e, 0x323b): /* Creative Sound Blaster E1 */
+ 		err = snd_soundblaster_e1_switch_create(mixer);
+ 		break;
+diff --git a/sound/usb/mixer_topping.c b/sound/usb/mixer_topping.c
+new file mode 100644
+index 000000000000..922b0f61cbd4
+--- /dev/null
++++ b/sound/usb/mixer_topping.c
+@@ -0,0 +1,173 @@
++// SPDX-License-Identifier: GPL-2.0-or-later
++/*
++ * Topping M62 -- component master for the card's vendor controls.
++ *
++ * The M62's analogue gains, output volumes and source selectors are not
++ * described by the USB Audio Class.  They are reached over a vendor
++ * protocol on the card's HID interface, which hid-topping-m62 speaks.
++ *
++ * This file speaks none of that protocol.  It publishes the sound card to
++ * whoever drives the vendor interface, so that the controls are created on
++ * the card that plays the audio rather than on a card of their own, and are
++ * torn down when either side goes away.  The lifetime rules are the
++ * component framework's, which is the point: neither driver has to guess at
++ * the other's state, and neither has to be told about the other's
++ * disconnect.
++ *
++ * The same shape binds HD-audio to the graphics drivers in
++ * sound/hda/core/component.c, with sound as the master there too.
++ */
++
++#include <linux/component.h>
++#include <linux/device.h>
++#include <linux/usb.h>
++
++#include <sound/core.h>
++
++#include "usbaudio.h"
++#include "mixer.h"
++#include "helper.h"
++#include "mixer_topping.h"
++
++/*
++ * What the master hands the component at bind time.  It lives in devres on
++ * the audio control interface rather than in drvdata, because drvdata on a
++ * usb_interface belongs to snd-usb-audio itself.  devres_find(), keyed on
++ * the release function, gives it back inside the callbacks, which are
++ * handed nothing but a struct device *.
++ */
++struct topping_master {
++	struct device *dev;		/* the audio control interface */
++	struct snd_card *card;
++};
++
++static void topping_master_release(struct device *dev, void *res)
++{
++	/* The devres allocation is the storage; nothing else to drop. */
++}
++
++static struct topping_master *topping_get_master(struct device *dev)
++{
++	return devres_find(dev, topping_master_release, NULL, NULL);
++}
++
++/*
++ * Which of the registered components is ours.
++ *
++ * This is only ever called against devices that have registered with
++ * component_add(), so it does not have to defend itself against the whole
++ * device tree.  What it does have to do is tell this card's vendor
++ * function apart from a second M62 on another port.
++ *
++ * The HID device sits two levels below the USB device:
++ *
++ *	hid_device  ->  usb_interface  ->  usb_device
++ *
++ * WHICH interface it is, is the HID driver's business: it registers a
++ * component for the vendor interface and for nothing else.  So the test
++ * here is one of descent alone and needs no HID symbols in sound/usb --
++ * which also keeps this file free of any opinion about the M62's
++ * interface numbering.
++ */
++static int topping_match_component(struct device *dev, void *data)
++{
++	return dev->parent && dev->parent->parent == data;
++}
++
++static int topping_master_bind(struct device *dev)
++{
++	struct topping_master *tm = topping_get_master(dev);
++
++	if (WARN_ON(!tm))
++		return -EINVAL;
++
++	return component_bind_all(dev, tm->card);
++}
++
++static void topping_master_unbind(struct device *dev)
++{
++	struct topping_master *tm = topping_get_master(dev);
++
++	if (WARN_ON(!tm))
++		return;
++
++	component_unbind_all(dev, tm->card);
++}
++
++static const struct component_master_ops topping_master_ops = {
++	.bind	= topping_master_bind,
++	.unbind	= topping_master_unbind,
++};
++
++static void topping_private_free(struct usb_mixer_interface *mixer)
++{
++	struct topping_master *tm = mixer->private_data;
++
++	if (!tm)
++		return;
++
++	/*
++	 * Reached from snd_usb_mixer_disconnect(), on an unplug and on an
++	 * unbind of the audio interface alike.  component_master_del() runs
++	 * topping_master_unbind() on the way, so the HID side has taken its
++	 * kcontrols off this card before the card is taken apart.
++	 */
++	component_master_del(tm->dev, &topping_master_ops);
++	devres_destroy(tm->dev, topping_master_release, NULL, NULL);
++	mixer->private_data = NULL;
++}
++
++int snd_topping_init(struct usb_mixer_interface *mixer)
++{
++	struct snd_usb_audio *chip = mixer->chip;
++	struct component_match *match = NULL;
++	struct usb_interface *intf;
++	struct topping_master *tm;
++	struct device *dev;
++	int err;
++
++	/*
++	 * The master hangs off the audio control interface rather than off
++	 * the USB device: component_match_add() allocates the match list
++	 * with devm, and on an interface that is released when the interface
++	 * is unbound.  On the usb_device it would live until the device
++	 * itself was released, and a rebind would stack a second list on top
++	 * of the first.
++	 */
++	intf = usb_ifnum_to_if(chip->dev,
++			       get_iface_desc(mixer->hostif)->bInterfaceNumber);
++	if (!intf)
++		return -ENODEV;
++	dev = &intf->dev;
++
++	tm = devres_alloc(topping_master_release, sizeof(*tm), GFP_KERNEL);
++	if (!tm)
++		return -ENOMEM;
++	tm->dev = dev;
++	tm->card = chip->card;
++	devres_add(dev, tm);
++
++	mixer->private_data = tm;
++	mixer->private_free = topping_private_free;
++
++	component_match_add(dev, &match, topping_match_component,
++			    &chip->dev->dev);
++
++	/*
++	 * This returns 0 with the aggregate merely pending when
++	 * hid-topping-m62 has not registered its component yet:
++	 * try_to_bring_up_aggregate_device() reports an incomplete set as
++	 * "not ready", not as an error.  So the card comes up either way and
++	 * grows the vendor controls if and when the other half appears.
++	 */
++	err = component_master_add_with_match(dev, &topping_master_ops, match);
++	if (err < 0) {
++		mixer->private_data = NULL;
++		mixer->private_free = NULL;
++		devres_destroy(dev, topping_master_release, NULL, NULL);
++		usb_audio_err(chip, "Topping: no component master: %d\n", err);
++		return err;
++	}
++
++	return 0;
++}
+diff --git a/sound/usb/mixer_topping.h b/sound/usb/mixer_topping.h
+new file mode 100644
+index 000000000000..15e16b509eb9
+--- /dev/null
++++ b/sound/usb/mixer_topping.h
+@@ -0,0 +1,7 @@
++/* SPDX-License-Identifier: GPL-2.0-or-later */
++#ifndef __USB_MIXER_TOPPING_H
++#define __USB_MIXER_TOPPING_H
++
++int snd_topping_init(struct usb_mixer_interface *mixer);
++
++#endif /* __USB_MIXER_TOPPING_H */
 -- 
 2.55.0
 
