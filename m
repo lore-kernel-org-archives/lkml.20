@@ -1,155 +1,138 @@
-Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7212C3DA5D6
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 08:28:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AC11346FB3
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 08:28:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788510483; cv=none; b=bMnkwkWyQuVhPeqWvAuXqxfunTKTxxDy/+iXO9KhEDC4s/TueYcQQUBQhXe0mU94vuo8JQAatXWe5wWG5rM2tfteyrFuL57HyTkHuA0dwh3+HOFW2K72xWEnFF5VrRKhLU6GFUqOO6mEDc/pXOJGQrq6IAqJabIuaGA5sqGqwBc=
+	t=1788510493; cv=none; b=UCNjnGIAJD2vBLgva+rrG92LqBJY2opSbQBUDV9P/wsIjbzkSEsyQoP/tY52X1ZosEMtKN30JSjLoFKokCYWHl7INwtY9s8Ii5m+vRjgVdlF1vf5mFH0tfJpcjrmPPDvVxhs0emlf0OrXePXKb5dxHLKFYJJSLPloYVaDcKzG6w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788510483; c=relaxed/simple;
-	bh=TcsW9KgQTWxSQCbb1DnQ1KMc0ofcpqn2+UfH8Sd1f2A=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=IRmSEmOsHJpBAyP4Rq2h3hh14PnK/QDdGEQD/XFTrUNdmtpnfpJS1RoTNtRfZXWAi2RFJLX3DTh04u2d8ZgN4USqJAl6lB7eVuQnlh7BE145E6tKJ90oJdw49aVZvSvHDm4THiGMx+ikbPLLD1VSBlmxPIABShpk9uS/a0yJX8s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IhPDpJBJ; arc=none smtp.client-ip=209.85.221.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788510493; c=relaxed/simple;
+	bh=vAduMceZ5WykF9AxLntA2mjBC+eC1Z+b3m9MMdygFJA=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
+	 References:In-Reply-To; b=EXzEPtb6jFSwQXQ7Y7S98jvW5iGsVJXfI/DXVXMj6ayvcW4EpPgOizom1B25jZfdU1pgDYGfm6yLKKaxok8GpGQdKKKh2sg7WbCMsfBPNBsj12JjCKtlz1bj11nFOCPhqYpCkMyfegzXItLOzKXh0dSmQxjU21ExA5rOIqR6txs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=RiaQwOXB; arc=none smtp.client-ip=209.85.128.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IhPDpJBJ"
-Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-484374f54d0so422428f8f.3
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 01:28:00 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="RiaQwOXB"
+Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-49a97714f5dso6052855e9.0
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 01:28:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788510477; x=1789115277; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=BCJR2EnTICH3Aw5ZX+ld9cYG3kFkjVvxy3RdtPuJeNI=;
-        b=IhPDpJBJALstlp4R1P9aLdDu85z9sYOxn4yX8fMOplPCGxhQbk6qpoYYLzg1+OEIYr
-         GQkuHOTTB5/JIhQCTIJGOK4/yphYDQ9KEp1wYmyDo//5NKaSl4jzdGJQtLbeI6TqsNMF
-         qDLq2cenW7dLBIqohHQXlfDMN5mUL3IJxe2p4sns3eXCzDmGfddmWpFrOk1DpRl7/oQ6
-         bYQ6eQAw1ImdfhxY/6FeUW6BfoI4ZQSr7fGMxqUjEkWP9lNwxQf4M5reCTdPWgMMtz87
-         o5rodYgVl+I7AfZu7Cf5x4OxZQEfo+lx/ghNdv/dvOhAXiNYTFzQyQc8daMFfJGA0Jw/
-         wePg==
+        d=baylibre.com; s=google; t=1788510486; x=1789115286; darn=vger.kernel.org;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-type:mime-version:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=vAduMceZ5WykF9AxLntA2mjBC+eC1Z+b3m9MMdygFJA=;
+        b=RiaQwOXBOn0YzZFijm1RpCHRJ6mSahw/bPpElMP5GJkOHm8JqWCflj9TE/WMO28aZi
+         eIlnm2nMZ7As9Wb0rrvdYwAGVWKQuBq2K5u89uD0JAuqEFQJJUHFofCeKLkYUiRIeKcI
+         05vwddqEQUKkS8KNpu8ZrtLK4fSvbO51CBuMSRnrdWPaCrDq6LD+UHpi6Z8UAQ8YwK8H
+         Z62V1ZojujRMo1Zg8V9NCVmjRMIk3jOW9HM9uDauoxXTBeIlbYsww4z2q15ahlxqt9oi
+         tUBvWRQu9kOhGLecsOqFRlDq5kn4tWxpJmCYTUtITkz1aIRyf/B9o/9qJl9W8lC+bgfT
+         7cCQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788510477; x=1789115277;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=BCJR2EnTICH3Aw5ZX+ld9cYG3kFkjVvxy3RdtPuJeNI=;
-        b=JFPMmgEIeQQkpLs5J+IZvP5RXrXr+MwAtiPo5MhTlcblk02kzIbkq+QUCsaNH3/6tQ
-         UEL3vFtioDisj8SXmft6WjwulGk0D/meXR7y98hf+dq1TZ9y9lEy39WSRx8BokE5DBLJ
-         HNzbygwCl29+LBAFXoZXqeHrfDlFMzSAJdRMSHzSvI1R+vPeVnX3eqURKDdJ4y6V9zWi
-         8+o8oLj9+F+vTpzsDSKHeg+rUBjgm7Vbif9sjMuI30ro7v6TKmfMlntAqAN+YDl33bzr
-         m65lp95D6MaCkDgvwK23lTX9JcBl1i9mfOwn6uY/wcJqBACSW3LilQgQUgnkEpgZEXpp
-         XScg==
-X-Forwarded-Encrypted: i=1; AKwUvByO/CUyvPouKnLyXrOBy+MbWkLYylW5bJ0lX7JZZ9PqEYKkPTjDwM+7lqWhWIhATFVKcnwuDoCFz9CzXaY=@vger.kernel.org
-X-Gm-Message-State: AFuF++nfZEcFKGFb/BMPSOOECy3yzzONlzshue4l+Bbapc2DU0zdhnQA
-	rv9Lt2JMKFu4PIIOb3ehd0MiedBGfTpvlTEZwFOw4dtgfnP6v5kVfj4a
-X-Gm-Gg: AYBFou0R5MjGoz/lNdJ+0Y+rged3qf6q1Z8S4ztbS6WKSwACILMlxtAXuY/kUKpSOka
-	gXSmEvot6k8jPcYAhZYfU/2f1WrhBbfa6b++uCFfk+a8kP6aBe3oPQC0njXhevlrRMAblwE4gP3
-	st4a4IuevoUztrBVsvktk5sUlbCA3NwiRUMThAcR4ayVogK8PfgqpdLabG9PLAQf8QYuT/eWA5b
-	S1z8voBh8UuPM4bRPngI7l+AqVFyJzReZAgUZK5GQGIt+/QarrgcnH3gbtZVr/eRC3iIuRpy+g0
-	Crv2j3dHF2MBA3i8NeCbUVGThjWYQZkjRZXO3jBGwOeDqdKz8N6AVK2/Tlp1MuEZxr871peDqKG
-	qrYvjC9Wo6qrtgao2ZSdoz1fT/0Yn0j5APLyFuIIWrbpP9T78+QywavQ8iNFCNNE3A37pkdU3lh
-	6Y9tbWb1GCvdKBB+0q0i8Mt/aNQ1rRANqvuqX6sRG2nVhPnisYc+M/E1i6WDNoiaoTZRLoxkjz6
-	3s8gfOTEvV5Z8zEzx4Att7aYEQhpXb3CkUoR2ZgAZ3viuO2NK9GFsostAxdfsQ1UDnBoA==
-X-Received: by 2002:a05:6000:25f8:b0:485:78f9:63de with SMTP id ffacd0b85a97d-48586bf7456mr10056913f8f.0.1788510477244;
-        Fri, 04 Sep 2026 01:27:57 -0700 (PDT)
-Received: from fedora ([193.77.86.199])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-485885cb03asm4556228f8f.37.2026.09.04.01.27.56
+        d=1e100.net; s=20251104; t=1788510486; x=1789115286;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-type:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=vAduMceZ5WykF9AxLntA2mjBC+eC1Z+b3m9MMdygFJA=;
+        b=RxQv6ulRYJdTIUkN/FALX8Yjvps9H75vVHbizBVVI4ErGXVzBcjxSAgJGO259q120l
+         5wWVaxxFmWn6qGKerl4e+QW40L5fIE0QuCMoKQCTLM6DiEz2US9BoPfAdVXdu7gjDT3z
+         3DDj1+iOsGyGdNJrR2d7VHxtO7QLVyqQMO1j5X5ii0MIvOGcPeTqdXl11iDpKUF8ziNb
+         XUk/wW0sJlB6nOl/KTg9vlcPExCjlp4M1nqWxy25lEKqxm0ZAemCFCfs9pPePrLrpQ3r
+         Z5xUkJC0ijm4JLYNC+mEJoDgFJAtgHyRp3tfdJ3BgwKRI+MADnRxnEmwW7UmWS7WDlUG
+         zKAg==
+X-Forwarded-Encrypted: i=1; AKwUvBxsyphLSvHCNmQ9nj7afSt6hcArKTtjwLirJYvVYTZY4dM++q9xvfjGJKJc7hHTVN0ehf6ADW8+/m5Nvl8=@vger.kernel.org
+X-Gm-Message-State: AFuF++m3D7mqVkHPaNZa+qXKuYVG7lmz8O57RJPpfMej3O2jhBEx35jF
+	6AA/YOEQxFOjjT57qtyM43CuGXSvvx4pePYTPI2iK6t7DbxxdRc4+Nvn9yCzNzhUhtA=
+X-Gm-Gg: AYBFou12g0u/a0wWvXmG1K11KG2TPz+b3nYbmtirAWXhLWPK3/8F/cF8VQKDr0wL1x8
+	MM7qXBRZ7i61udZi3rwdmM7cciha4jjvtxoMwTfCDZls/LwXTDPrUNuHiDE0xnILYO5RiWwmFH5
+	VWaBQjlI7UN2c896HoFq0f0cYr1VSl4gTSTExP/GfeEeWbs2sgpwXH6UkLg4J9h6z3XMGWsui6u
+	tvQUUfcv9lBslAiAv2PT4ePrmbKJXQEJO1HqyGiKs0CQXwkuS3Ofr2B/FR1+X6EfjYZwh4VmK7t
+	pxV7ahMrS7EGiKxpiQw0yFQt6HdhRyK0b2L1iguZM7AcVomD9Wu4/JtSe82VkIbSxamutmBut1O
+	aLVRI4w1eBWR9gQtkySpme56u/nDVGWdvJYwTyoZkz/qLN0jHG9hTgE4Vft0q7vqLjiubT7Gw9z
+	8SA0PSLQEtNhViMqO7MgG9iH8+gPQMdpoG+/6iogtpIQz8VzpI9cozyWVH
+X-Received: by 2002:a05:600c:3511:b0:49c:fa20:cc01 with SMTP id 5b1f17b1804b1-49cfa20ccddmr25588125e9.24.1788510485753;
+        Fri, 04 Sep 2026 01:28:05 -0700 (PDT)
+Received: from localhost ([2001:4090:a244:80d4:489b:7642:1b32:84d6])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cf5135353sm68845625e9.2.2026.09.04.01.28.04
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 04 Sep 2026 01:27:56 -0700 (PDT)
-From: Uros Bizjak <ubizjak@gmail.com>
-To: x86@kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: Uros Bizjak <ubizjak@gmail.com>,
-	Thomas Gleixner <tglx@linutronix.de>,
-	Ingo Molnar <mingo@kernel.org>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	"H. Peter Anvin" <hpa@zytor.com>
-Subject: [PATCH v2 1/2] x86/boot: Disable GCC min-pagesize assumption in boot code
-Date: Fri,  4 Sep 2026 10:25:22 +0200
-Message-ID: <20260904082741.578048-2-ubizjak@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260904082741.578048-1-ubizjak@gmail.com>
-References: <20260904082741.578048-1-ubizjak@gmail.com>
+        Fri, 04 Sep 2026 01:28:04 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
+Mime-Version: 1.0
+Content-Type: multipart/signed;
+ boundary=aceffad199f989fc0e7a2bade7854fe91c95aab0591a0938aa91a92fdd3c;
+ micalg=pgp-sha512; protocol="application/pgp-signature"
+Date: Fri, 04 Sep 2026 10:27:58 +0200
+Message-Id: <DL6E1V8AMI2X.EQQ009BX5AZ6@baylibre.com>
+Cc: <linux-can@vger.kernel.org>, <netdev@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
+ <linux-mediatek@lists.infradead.org>, <linux-renesas-soc@vger.kernel.org>,
+ <linux-riscv@lists.infradead.org>, <spacemit@lists.linux.dev>,
+ <linux-omap@vger.kernel.org>
+Subject: Re: [PATCH net-next 05/33] can: m_can: Remove comma after
+ sentinel-entry in match-table
+From: "Markus Schneider-Pargmann" <msp@baylibre.com>
+To: "Siddharth Vadapalli" <s-vadapalli@ti.com>,
+ <dario.binacchi@amarulasolutions.com>, <mkl@pengutronix.de>,
+ <mailhol@kernel.org>, <msp@baylibre.com>, <florian.fainelli@broadcom.com>,
+ <jonas.gorski@gmail.com>, <andrew@lunn.ch>, <olteanv@gmail.com>,
+ <davem@davemloft.net>, <edumazet@google.com>, <kuba@kernel.org>,
+ <pabeni@redhat.com>, <kurt@linutronix.de>, <hauke@hauke-m.de>,
+ <chester.a.unal@arinc9.com>, <daniel@makrotopia.org>,
+ <matthias.bgg@gmail.com>, <angelogioacchino.delregno@collabora.com>,
+ <ansuelsmth@gmail.com>, <linusw@kernel.org>, <luizluca@gmail.com>,
+ <alvin.sipraga@analog.com>, <clement.leger@bootlin.com>,
+ <justin.chen@broadcom.com>, <dlan@kernel.org>, <rogerq@kernel.org>,
+ <hkallweit1@gmail.com>, <linux@armlinux.org.uk>, <rjui@broadcom.com>,
+ <sbranden@broadcom.com>, <bcm-kernel-feedback-list@broadcom.com>,
+ <opendmb@gmail.com>, <andrei.botila@oss.nxp.com>,
+ <wangruikang@iscas.ac.cn>, <amadeus@jmu.edu.cn>, <kees@kernel.org>,
+ <tmshlvck@gmail.com>, <c-vankar@ti.com>, <horms@kernel.org>,
+ <vadim.fedorenko@linux.dev>, <daniel.zahka@gmail.com>,
+ <nora.schiffer@ew.tq-group.com>, <v-singh1@ti.com>, <oss@vassilevski.com>,
+ <haokexin@gmail.com>, <alex@sverdlin.org>, <aleksandr.loktionov@intel.com>,
+ <lgs201920130244@gmail.com>, "Kendall Willis" <k-willis@ti.com>
+X-Mailer: aerc 0.21.0-146-gb5c16ebe1835
+References: <20260904043724.2955444-1-s-vadapalli@ti.com>
+ <20260904043724.2955444-6-s-vadapalli@ti.com>
+In-Reply-To: <20260904043724.2955444-6-s-vadapalli@ti.com>
+
+--aceffad199f989fc0e7a2bade7854fe91c95aab0591a0938aa91a92fdd3c
+Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
 
-GCC treats absolute addresses smaller than the min-pagesize param
-(which defaults to 4kB) in the generic address space as presumed
-results of pointer arithmetics from NULL. For example, the following
-code, when compiled with -O2 -Warray-bounds (included in -Wall):
+On Fri Sep 4, 2026 at 6:36 AM CEST, Siddharth Vadapalli wrote:
+> Since sentinel is the last entry and we do not expect further entries
+> following it, remove the comma.
+>
+> Signed-off-by: Siddharth Vadapalli <s-vadapalli@ti.com>
 
-  int foo (void) { return *(int *)0x123; }
+Acked-by: Markus Schneider-Pargmann <msp@baylibre.com>
 
-will emit a rather cryptic warning:
++Kendall
 
-warning: array subscript 0 is outside array bounds of ‘int[0]’ [-Warray-bounds=]
-    1 | int foo (void) { return *(int *)0x123; }
-      |                         ^~~~~~~~~~~~~
-cc1: note: source object is likely at address zero
+Note that this and another series by Kendall will probably have a
+conflict as both change the compatibles:
+https://lore.kernel.org/all/20260902-temp-v4-0-3896f7d16ce8@ti.com/
 
-Currently, the warning is supressed by the GCC specific RELOC_HIDE()
-macro that obfuscates arithmetic on a variable address so that GCC
-doesn't recognize the original var, and make assumptions about it.
+Best
+Markus
 
-The GCC specific RELOC_HIDE() macro was introduced to work around
-certain ppc64 specific compiler bug in pre-4.1 GCC. This bug was
-fixed long ago, and replacing GCC specific macro with a generic one
-triggers the above warning in boot and realmode source code.
+--aceffad199f989fc0e7a2bade7854fe91c95aab0591a0938aa91a92fdd3c
+Content-Type: application/pgp-signature; name="signature.asc"
 
-The early boot environment does not guarantee any minimum page size,
-so explicitly setting the minimum page size to zero by adding
---param=min-pagesize=0 to the compiler flags when building x86 boot
-and realmode code with GCC inhibits warnings for addresses below 4kB.
+-----BEGIN PGP SIGNATURE-----
 
-The option is guarded by CONFIG_CC_IS_GCC since it is GCC-specific.
+iKMEABYKAEsWIQSJYVVm/x+5xmOiprOFwVZpkBVKUwUCapqBDhsUgAAAAAAEAA5t
+YW51MiwyLjUrMS4xMiwyLDIRHG1zcEBiYXlsaWJyZS5jb20ACgkQhcFWaZAVSlNU
+DgD+NDmEsw57cLpzBEOHVv/Nk1EkJHkfkEl6somoL6FeZhQA/igsPy7rmcarz6Ym
+lEV7ixhaA3JU6LQo0KOc3yMdNwIE
+=DaCZ
+-----END PGP SIGNATURE-----
 
-Signed-off-by: Uros Bizjak <ubizjak@gmail.com>
-Cc: Thomas Gleixner <tglx@linutronix.de>
-Cc: Ingo Molnar <mingo@kernel.org>
-Cc: Borislav Petkov <bp@alien8.de>
-Cc: Dave Hansen <dave.hansen@linux.intel.com>
-Cc: "H. Peter Anvin" <hpa@zytor.com>
----
- arch/x86/boot/Makefile        | 3 +++
- arch/x86/realmode/rm/Makefile | 3 +++
- 2 files changed, 6 insertions(+)
-
-diff --git a/arch/x86/boot/Makefile b/arch/x86/boot/Makefile
-index 3f9fb3698d66..372e67d2a855 100644
---- a/arch/x86/boot/Makefile
-+++ b/arch/x86/boot/Makefile
-@@ -55,6 +55,9 @@ KBUILD_CFLAGS	:= $(REALMODE_CFLAGS) -D_SETUP
- KBUILD_AFLAGS	:= $(KBUILD_CFLAGS) -D__ASSEMBLY__
- KBUILD_CFLAGS	+= -fno-asynchronous-unwind-tables
- KBUILD_CFLAGS	+= $(CONFIG_CC_IMPLICIT_FALLTHROUGH)
-+ifdef CONFIG_CC_IS_GCC
-+KBUILD_CFLAGS	+= $(call cc-option,--param=min-pagesize=0)
-+endif
- 
- $(obj)/bzImage: asflags-y  := $(SVGA_MODE)
- 
-diff --git a/arch/x86/realmode/rm/Makefile b/arch/x86/realmode/rm/Makefile
-index a0fb39abc5c8..75058f4dd7c1 100644
---- a/arch/x86/realmode/rm/Makefile
-+++ b/arch/x86/realmode/rm/Makefile
-@@ -67,3 +67,6 @@ KBUILD_CFLAGS	:= $(REALMODE_CFLAGS) -D_SETUP -D_WAKEUP \
- 		   -I$(srctree)/arch/x86/boot
- KBUILD_AFLAGS	:= $(KBUILD_CFLAGS) -D__ASSEMBLY__
- KBUILD_CFLAGS	+= -fno-asynchronous-unwind-tables
-+ifdef CONFIG_CC_IS_GCC
-+KBUILD_CFLAGS	+= $(call cc-option,--param=min-pagesize=0)
-+endif
--- 
-2.55.0
-
+--aceffad199f989fc0e7a2bade7854fe91c95aab0591a0938aa91a92fdd3c--
