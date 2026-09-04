@@ -1,74 +1,80 @@
-Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com [209.85.216.51])
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 156C9483BCD
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 12:18:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8755748123E
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 12:18:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788524305; cv=none; b=SCyiJjU/OqwO7tdWcCH5Cm21jLc3v0hhStqFUSZv5+Wd6iC2t0vGL1ow3g3wBpLgZDEEnPHs0FGei/NCvSVug5dKBgdu4D4LzjwuMqQ+ZC5UK5/ph7jAwVeB80kSUFrVk8mzXCaKHQ5YHLdgdbhGcEYGXpkodgjgriO75FvTtGo=
+	t=1788524312; cv=none; b=Qcl1AtDFocCC7H0U/6PT89dL+rEArdJX5GLSN9FB4LCcmE+Mf9irDEnA5I15/p6lWn+JDUmomDYEo+XmTVlXm37kCSxjfDgkNSxjoE1izmw+9IISyzvpHPgNmTjQZ2RpoY/+GwIgyZ4sS+2l4Ba4IaQ2jNiGs1JfMMBk9SiklUE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788524305; c=relaxed/simple;
-	bh=fhFe03uXtuJjHdWNnkNZhWHk5eyor9PjO6gBO+wSF70=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=nn01tirh1e2JJhq88YCzOlLTE+JOgQSPNxyOLLbXV1eAXPmdALDL5+jA5SanlsQ/gX6ISiRdiQYQAX3xYid7+cGHlxtXR87Rjx/QFZ+mmk2PqQV1e7USANdL9tzSr3kevLbJ86DU7s0aE15EXx2NSnoBDVJ5b7oXkvjlWEmfeCs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=tHjXLWw8; arc=none smtp.client-ip=209.85.216.51
+	s=arc-20240116; t=1788524312; c=relaxed/simple;
+	bh=V8XZTle0sIbvGn2TtClR0EKCbfw429H/jwAMPYSfJwE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=cZ92vux6AT3Z5TvHzGwC4UdulrRaF6J0CNG9opO224ZeGzz5oIDa4RkuRCz+Zeus4SVnQnba0jNQGCmIwlYxReDJxMHcLq+lp11A/p/q1ERdW/zfrqosdeKXm4uxVrcQD+exGoZ7O89UzOKiqIRsexQdIARefLwUEPVW/c472I0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ICPYN804; arc=none smtp.client-ip=209.85.128.53
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="tHjXLWw8"
-Received: by mail-pj1-f51.google.com with SMTP id 98e67ed59e1d1-398a4dcf289so1086330a91.2
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 05:18:23 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ICPYN804"
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4980fe6b3beso14905995e9.0
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 05:18:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788524303; x=1789129103; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=f+iaj7uAIqLQ0zXKTnQ5GgaFQgbx+QY7l0WvzVqhy34=;
-        b=tHjXLWw8+QmSUJ5SOsGQq/Tz4WM2HKFnIMOq9rWgTwOWruBu3IxQOmPv69go0v3JlC
-         vDwDpjOsmL7gaKUx+uihiKAn+/vcbf6J0j+D2DnpkBQF4qA0pnrxDevHfaOOpXzRHBnp
-         VmU17RTFuCM29IFlhgyptEol6MT3nZJCGTKnqrMIjLaznidfTB62EtCpgZlMJf38N3rD
-         xTwnaQZwNioHsHet2u5kZPrAd4toG7Wa68CKBnYYqgS97GsSXtq4PMALvc8UMNyXUxLR
-         /b1ky5/ubAUZs8ZiVNXzIVlJ/Rwe9apyw2cMfGbjlSwcxkGtcHR3iHvvthr/0tShrRMr
-         eDRA==
+        d=gmail.com; s=20251104; t=1788524308; x=1789129108; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:sender:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=5ydjw49DZM6ZNER4g2lcExI1LMpGhnZwTfnwbU+34mY=;
+        b=ICPYN804Hdk0I88fKndLH8e+suzOJgIN2wFWBrOkCauSqfzTlfQiYaFBX/d13Fw83w
+         klNcR9mzDWpajKq23y2n/ua6/jpMgnAygqpavNfRGHbKsQqmTmnOaGM39ryQbuW/JtUG
+         X1+A+6nIKAqMcdnlcy6C4OIOk+UfWWcenEy4aZYw1UBp8WIAu2wfmyme3nPbdH/Q26TU
+         clNJ8FYuE/wCywh8+N87EXxxmIYXTFuy6PkBtU1jA93wSk+wXxP9TIomZKE17i/+BRM4
+         3CAyDohiuj7oXGgh9R1SjRDtkbfbDhpCJ1qg5OYaOR0AH9ZsX15hHN+kKtPsQFToHipU
+         0yiQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788524303; x=1789129103;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=f+iaj7uAIqLQ0zXKTnQ5GgaFQgbx+QY7l0WvzVqhy34=;
-        b=c7LDcaD8vg14C3/RPIZuJXiTJ3A6x4a9CXSJuUWhbxxyKDrUOXqqXvoSC355yKLmZc
-         kQiI2ZvM0HSH8WJGkrGnQ4DU6xXaisiEAerhx+FGd30cVHq/2Bf+X0/BKQ4qnj3Fya2z
-         40GDu19GMQhRQdnIkqSiYAn0oZM+qB83iP3HNK9PU1vjylpRCU4UNlB6dpKg7kFKlQrf
-         ms4TBz2ZOMyBR0jskFT4BV+N4OsJG+vfncw2byyRHIOk1M389a4OHzaa2wmKp6IX6Joz
-         loaw+rjkCNWzORMWn0qeN84/VwBkBjD+liuwib4h/3IP5Hpr06pd94IxXJs7akMSV4XC
-         hxww==
-X-Gm-Message-State: AFuF++kjU/d1m0gAI9HuwMRHoQRJF+uJsnrmTc1pNzdhH1b7CxKAcNKG
-	jBTYB7N2mmBv+wUhtfqMNilunW0hV/jpZc4xZk6lF2hB4CpnodOB/UpP6nf3k1R7WYo=
-X-Gm-Gg: AYBFou019v4X46UJh8Wa0CSW4QgufCDtnTULWS5RQDLNCQRts21XMRjLmUOs/hjFgSw
-	kLKkd/xBi2CSedxhnGY+6hsIxiF7yJQLpzjFqdM3vYJ/f3u/tlncNSh/IxziDvblW+JSXZrnl7h
-	4QZg/ohtuoSAJ56JS9gvSmaU9QHGRNYGszWoWAv9M6Vb9KyEZ1BSW9LKMBSHBAALiYe9z/e2Xhl
-	niYGlZaaX3Ee9Mc56EnXIyvRvcnlJMKmEbifvlRY4tuHJQdrLHXO9cwRXdAZKWytvT3b6gDRa4x
-	bqQekWxJEkB4huqUFcuDIikFxJfdnVghnqTsm8yjYTENlZAfv6qb4OeidYiKQJ8HHMnivmgpSa5
-	ziWml2s/AIGiPK/lDR0wk9LEmKmx0DQ4nwl5jH3wItzr4MtoUf8rYcRCYu/mX4vNhNx7l5eA5QU
-	YuZMntiT8XhPCvT94PvGBjM8BtP03wykFfhjQKDQluv/tnijBaRlLskMyfOUfJ51OctOV+aREdz
-	HYqipr3VweKnvw=
-X-Received: by 2002:a17:90b:5344:b0:395:4de4:92be with SMTP id 98e67ed59e1d1-39b261b1a47mr9830027a91.13.1788524303344;
-        Fri, 04 Sep 2026 05:18:23 -0700 (PDT)
-Received: from volcano9f6e-hostos.amd.com ([165.204.217.251])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339885d29esm7181575eec.2.2026.09.04.05.18.21
+        d=1e100.net; s=20251104; t=1788524308; x=1789129108;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:sender:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=5ydjw49DZM6ZNER4g2lcExI1LMpGhnZwTfnwbU+34mY=;
+        b=WFSm1DE9+syMK87Fro3D1WczJAdHj8kRBDuGzbZZqypepF+ybkuKOgkXHpjqV6fL55
+         3ztcQ7hOfKylJNQMvPYaAGwqtlouN2koBUBzWHnsqBiYVSrnybdxSMFGTEalC9LSKyLP
+         p5it+jYvv+zeQEO4tbxs658U2NEzoOdbB46rdimNA+PJ/dWvY57GX/BWk/TyJxXcp4Yj
+         +WjRa0jX2V/Ef7Ni0Lz3JB0LOuVJAPwX9VOZ+CzecmUcsyJDglpL7WnDx+Uq+p1+dogQ
+         7HklmaGaEXfvuZlMsDHJfCok9XtA65niRZMQyKqNVvKkm3z9K2xMoRireOoAw3kzW7iD
+         ChtQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzoz7TJbaMpo9KnUfoXgoO7NgqWfO7e1eIDcx+sXEbeuBWONPlpLjQdYtqOe1UeUiFfp7R5LC5Q54Z7vYY=@vger.kernel.org
+X-Gm-Message-State: AFuF++n2VST7/9DWLFpK8/jb4St90CAv6Fwt4FJi8TRJuvxujjYnzDUc
+	IogwWr6cDbAstvD28w6muxo/jpqcfDkj+5SqwQaGGYXokEYckcqQ951b
+X-Gm-Gg: AYBFou2nEsVQk7MexNIrX9BmAx2T4pM5dxMoS0R+bDZXgJJZ/17a2x7Ktg4M9B3Phx4
+	JmXPQgmu8YkwlDMxuIldPWSRU0N8ZxlEnqzQOs+T7pF7hZIe15Z9Sp8L9xYJH+xg7BfIz1kMkYA
+	Zpn55uYQK8ptpBQDoxnmoGG6jpCmioDgCuSf8sJDw2f72m8lX/xauGEotSaWY6nMR/dY/Z6ZaHv
+	RWEefx0bvOFEYhShPjjYOSc1MOl+gW2hAzqOjJvjia5mmoYfEOzXu9UWeoWpNI1v+do02cb0OX4
+	qMyvHzbzE8enYgf+/8bQa/s8O80SPZYgV1u5VPwL8od9uY1JhUnZLAbujBKQoS3rFJKol9/+DK9
+	ZzyFd7liZzA9m8HCMvciXH4KaLTprcPSsMsyddmw583sAYh6JQo/XmCeyPSgDdn/Aj4WoqiMofQ
+	W3t4SO2GONMXkyTs+FF2VQ8v+gDN9SFmadI/xVBCUphqv6rAjhpURfsVD5O8VeWJbPM+/ki0oQp
+	ypboXrrT/bSihKrKQENA3hoesoe8pfhibU4AVd4FuOMfRcvV8yyPYQJ4oPTDz0i
+X-Received: by 2002:a05:600c:8b8c:b0:49c:f13e:e52 with SMTP id 5b1f17b1804b1-49cf893b58bmr41215435e9.15.1788524308369;
+        Fri, 04 Sep 2026 05:18:28 -0700 (PDT)
+Received: from nixos-office (195-23-151-163.net.novis.pt. [195.23.151.163])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cfd3f815bsm20697355e9.4.2026.09.04.05.18.27
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 04 Sep 2026 05:18:22 -0700 (PDT)
-From: Hemanth Selam <hemanth.selam@gmail.com>
-To: Johan Hovold <johan@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: linux-kernel@vger.kernel.org,
-	linux-usb@vger.kernel.org
-Subject: [PATCH 2/2] usb: serial: fix repeated words in comments
-Date: Fri,  4 Sep 2026 17:48:11 +0530
-Message-ID: <20260904121813.26714-3-hemanth.selam@gmail.com>
-X-Mailer: git-send-email 2.48.1
-In-Reply-To: <20260904121813.26714-1-hemanth.selam@gmail.com>
-References: <20260904121813.26714-1-hemanth.selam@gmail.com>
+        Fri, 04 Sep 2026 05:18:27 -0700 (PDT)
+Sender: Julian Braha <julian.braha@gmail.com>
+From: Julian Braha <julianbraha@gmail.com>
+To: linux@armlinux.org.uk,
+	dvorkin@tibbo.com,
+	wellslutw@gmail.com,
+	linusw@kernel.org
+Cc: arnd@arndb.de,
+	afd@ti.com,
+	aaro.koskinen@iki.fi,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	linux-gpio@vger.kernel.org,
+	Julian Braha <julianbraha@gmail.com>
+Subject: [PATCH] pinctrl: fix PINCTRL_SPPCTL=m
+Date: Fri,  4 Sep 2026 13:18:25 +0100
+Message-ID: <20260904121825.43320-1-julianbraha@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -77,35 +83,81 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Drop words accidentally written twice, reported by checkpatch.pl as a
-possible repeated word.  Only touches comments, no code changes.
+The PINCTRL_SPPCTL option is defined as a tristate in Kconfig, and the
+help text suggests that the user can build it as a module by setting to
+'m'.
 
-Assisted-by: Cursor:claude-opus-5
-Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
+However, it cannot currently be set to 'm', because SOC_SP7021, the only
+platform that supports it, is a bool option that uses 'select' on it.
+
+To allow users to actually set PINCTRL_SPPCTL=m, let's remove the select
+from the SOC_SP7021 option, and instead have PINCTRL_SPPCTL default to y
+when SOC_SP7021=y, then users can configure PINCTRL_SPPCTL=m in the
+kconfig frontend if desired.
+
+Note that I have only compile-tested this change, since I do not have the
+hardware to runtime-test it. Please advise if it would be better to change
+PINCTRL_SPPCTL to 'bool' and remove the help text suggesting that it can
+be set to 'm'.
+
+This impossible tristate was detected by kconfirm, a static analysis tool
+for Kconfig.
+
+Fixes: aa74c44be19c ("pinctrl: Add driver for Sunplus SP7021")
+Signed-off-by: Julian Braha <julianbraha@gmail.com>
 ---
- drivers/usb/serial/mct_u232.h | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ arch/arm/Kconfig.platforms       | 1 -
+ drivers/pinctrl/sunplus/Kconfig  | 3 ++-
+ drivers/pinctrl/sunplus/sppctl.c | 3 ++-
+ 3 files changed, 4 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/usb/serial/mct_u232.h b/drivers/usb/serial/mct_u232.h
-index e3d09a83cab1..f79a1f1b6a98 100644
---- a/drivers/usb/serial/mct_u232.h
-+++ b/drivers/usb/serial/mct_u232.h
-@@ -273,13 +273,13 @@ static int mct_u232_calculate_baud_rate(struct usb_serial *serial,
-  *  Bit 5: Data Set Ready (DSR). Reflects the state of the DSR line on the UART.
-  *  Bit 4: Clear To Send (CTS). Reflects the state of the CTS line on the UART.
-  *  Bit 3: Delta Data Carrier Detect (DDCD). Set to "1" if the -DCD line has
-- *	   changed state one more more times since the last time the MSR was
-+ *	   changed state one more times since the last time the MSR was
-  *	   read by the host.
-  *  Bit 2: Trailing Edge Ring Indicator (TERI). Set to "1" if the -RI line has
-  *	   had a low to high transition since the last time the MSR was read by
-  *	   the host.
-  *  Bit 1: Delta Data Set Ready (DDSR). Set to "1" if the -DSR line has changed
-- *	   state one more more times since the last time the MSR was read by the
-+ *	   state one more times since the last time the MSR was read by the
-  *	   host.
-  *  Bit 0: Delta Clear To Send (DCTS). Set to "1" if the -CTS line has changed
-  *	   state one more times since the last time the MSR was read by the
+diff --git a/arch/arm/Kconfig.platforms b/arch/arm/Kconfig.platforms
+index 2e118b65f93b..dc880addadc5 100644
+--- a/arch/arm/Kconfig.platforms
++++ b/arch/arm/Kconfig.platforms
+@@ -177,7 +177,6 @@ config SOC_SP7021
+ 	select ARM_GIC
+ 	select ARM_PSCI
+ 	select PINCTRL
+-	select PINCTRL_SPPCTL
+ 	select SERIAL_SUNPLUS if TTY
+ 	select SERIAL_SUNPLUS_CONSOLE if TTY
+ 	help
+diff --git a/drivers/pinctrl/sunplus/Kconfig b/drivers/pinctrl/sunplus/Kconfig
+index 69f82590f6d2..7719838b39b6 100644
+--- a/drivers/pinctrl/sunplus/Kconfig
++++ b/drivers/pinctrl/sunplus/Kconfig
+@@ -5,7 +5,8 @@
+ 
+ config PINCTRL_SPPCTL
+ 	tristate "Sunplus SP7021 PinMux and GPIO driver"
+-	depends on SOC_SP7021
++	default SOC_SP7021
++	depends on SOC_SP7021 || COMPILE_TEST
+ 	depends on OF && HAS_IOMEM
+ 	select GENERIC_PINCTRL_GROUPS
+ 	select GENERIC_PINMUX_FUNCTIONS
+diff --git a/drivers/pinctrl/sunplus/sppctl.c b/drivers/pinctrl/sunplus/sppctl.c
+index 67e036d66245..89c6e2e92f07 100644
+--- a/drivers/pinctrl/sunplus/sppctl.c
++++ b/drivers/pinctrl/sunplus/sppctl.c
+@@ -1113,6 +1113,7 @@ static const struct of_device_id sppctl_match_table[] = {
+ 	{ .compatible = "sunplus,sp7021-pctl" },
+ 	{ /* sentinel */ }
+ };
++MODULE_DEVICE_TABLE(of, sppctl_match_table);
+ 
+ static struct platform_driver sppctl_pinctrl_driver = {
+ 	.driver = {
+@@ -1121,7 +1122,7 @@ static struct platform_driver sppctl_pinctrl_driver = {
+ 	},
+ 	.probe  = sppctl_probe,
+ };
+-builtin_platform_driver(sppctl_pinctrl_driver)
++module_platform_driver(sppctl_pinctrl_driver);
+ 
+ MODULE_AUTHOR("Dvorkin Dmitry <dvorkin@tibbo.com>");
+ MODULE_AUTHOR("Wells Lu <wellslutw@gmail.com>");
 -- 
-2.48.1
+2.55.0
 
