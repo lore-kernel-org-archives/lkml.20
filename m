@@ -1,112 +1,152 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qt1-f169.google.com (mail-qt1-f169.google.com [209.85.160.169])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A3BF3B19BC;
-	Fri,  4 Sep 2026 03:17:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.2
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FCCD3B2D0B
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 03:18:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788491854; cv=none; b=VbOmNmD4aRwKm3C+ty9HI54/KcmH5eAIhbvc6UWzpxUUBBZzPK558ttJ0BpsIiuitlh56Gfo1W61gQOFdW4joHwzGIrkWnBcChDDkKzVi/AdNV9VadactO9k3QooSZFFf5g8JHNSv0fO9WzihvihwoE2wKDEuZFCZphhEpEODxU=
+	t=1788491890; cv=none; b=ULi9ky/KTwIHJ7qIf/gS81yAi5XuM1sab4YF8fJtcDu+uRwXzNo71HbosRr/LdHM7P4m1PXXIdMspNUnb0qzVOc+SwT54HM58nLVaUyak/8dxrgh9xhvx3Lkhc6OK2TuSuAGY31CD/jbTFWmrgNBwyU8x1GPoGaqsPbkzMM+a54=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788491854; c=relaxed/simple;
-	bh=UuVs6G544DUiPcB+LIxKErGL1C6sWz5vsMOXhTDol8g=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=u3KmRew/RbMriKOdYz04eE6Kb8TZRwiKPBV9aS8QF/WXij2Lqti5zgnO5Xex8GUk97LnYXxofrxgulj9p2mmpJLQCFU+JG/ohPXnG8IxJqwMwiaB0FqoCgRrHcei8fadJhfk9/PjQFgrreuaoN3GFSKzkY77DUoOACyc/MYxWOA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=oz53q1Nm; arc=none smtp.client-ip=220.197.31.2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1788491890; c=relaxed/simple;
+	bh=AIU6NGTW/RpZfTt6y2cuypcAmkoFDaCDqNNZTCJi0Bc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=X1DZyW5+23YOCpZK7wIOsbkQVig62cuDLqmtGTrTQcGcs0uY5cSLcaVK43f+5AT9j62S+XLjkFkfS8cOtb/3xy4bOE08vzQ9wkttGevXMGxAZNYDuXRZ0fv0ResEETyy7CCqIpf2qIrEwb//CFDAviU0gqDx+k9JlzFm1gddmiU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net; spf=pass smtp.mailfrom=gourry.net; dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b=XXnf1qrk; arc=none smtp.client-ip=209.85.160.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="oz53q1Nm"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=Uu
-	Vs6G544DUiPcB+LIxKErGL1C6sWz5vsMOXhTDol8g=; b=oz53q1NmF/PUWgQynL
-	id8zjm20GI46Y6hDp/emBeqjcuHeAVlnJfVmmvH9BLdopE/+alAqv5Z1ih4b5Mme
-	yEoVPr+e6mMI9ZTuA9WyXdUmQQrCbHPFgTQ3dBgzDS2oK/SwmFAEPkMW8KH+xdKP
-	91xx+byVCn5Adtwj4nxPz6Vgs=
-Received: from localhost (unknown [])
-	by gzsmtp2 (Coremail) with SMTP id PSgvCgCnyPcVOJpqO20qOg--.45819S2;
-	Fri, 04 Sep 2026 11:16:37 +0800 (CST)
-From: Hui Su <sh_def@163.com>
-To: Mykyta Yatsenko <mykyta.yatsenko5@gmail.com>,
-	bpf@vger.kernel.org
-Cc: Hui Su <sh_def@163.com>,
-	ast@kernel.org,
-	daniel@iogearbox.net,
-	andrii@kernel.org,
-	eddyz87@gmail.com,
-	memxor@gmail.com,
-	martin.lau@linux.dev,
-	song@kernel.org,
-	yonghong.song@linux.dev,
-	jolsa@kernel.org,
-	emil@etsalapatis.com,
-	ihor.solodrai@linux.dev,
-	shuah@kernel.org,
-	yatsenko@meta.com,
-	linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org
-Subject: Re: [PATCH bpf v2 1/2] bpf: bound resizable hash map iteration
-Date: Fri,  4 Sep 2026 11:16:37 +0800
-Message-ID: <20260904031637.230595-1-sh_def@163.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <7c741628-c259-4ae6-8d67-d92910183526@gmail.com>
-References: <20260831140132.117755-1-sh_def@163.com> <7c741628-c259-4ae6-8d67-d92910183526@gmail.com>
+	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b="XXnf1qrk"
+Received: by mail-qt1-f169.google.com with SMTP id d75a77b69052e-52e2d1bdbc0so4672101cf.0
+        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 20:18:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gourry.net; s=google; t=1788491887; x=1789096687; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=I82bST350eZ9tF0sXAbqbqSO4hf+URoRFBA/uGedV7I=;
+        b=XXnf1qrkElo3aCzA7QExaOWSdNxP/unmoxpQ7Nl14LSqP+OXLeyp+7TwEx+/0vPFXS
+         mbXWBII3WXz82rpc/mRXs5oQAafMXv/lR9i6NSNTO7vI6fbUQ9Lm/H+/70dUKyPYID/D
+         rINud0bXIB6JWQRfob5+wo6/7GzlrBSpoLZZyO4V6Mq1y4oT1jQb28+99bKN5jmlVfq7
+         XLGDbXv6L3DciY+gWrXNu3RIZDTtpgb+GehzhnXRXGRkpYwMGg9GSc7zeFG53wLU+gCx
+         flGxyi214iKlFdnetOf0+RVR7gjNDakGPu1348MlAGrbuEUQ+hjaFC/oLLirlUZ3Lv2L
+         lQ3A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788491887; x=1789096687;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=I82bST350eZ9tF0sXAbqbqSO4hf+URoRFBA/uGedV7I=;
+        b=jLxqgUUjGMlPxwwSIMlgIG4TBPSqLI+8MuchX3LUsjL3QY0udhVt6aqjJBne3x2QTE
+         F6QS6j2bwRPQMM4WYsy0NG9I3EkH65IB/5JdpbYnQRBUCBDC3ERnk51xptQ6REC35PpJ
+         8r7J7MdyWDHBGTlEm1y0TBavL3zmTn9t5mcfw6jwcBjH9U8LglqkuEspKQOTGwAyjwzw
+         GI/phiO2uyG9Qdrmzuy+t/WiyTJYHfZbDIIH8C7U6vGcX8pf4pSSfQGcPJ3L41SGdNv4
+         esVmjg/1wlbksO6sTR+Fl9K0ATEAGxubC2jCaf3xinRYC5jYXT1p8n9qER5RymDTt8GU
+         sG1g==
+X-Forwarded-Encrypted: i=1; AKwUvBxt2FCpa8uCqMv4p2kia6J0VFPeVV623ffKBW/qTrYSH0rcfQNrL+S8HyYca2kLeD2ERY53srHASLHi9Vs=@vger.kernel.org
+X-Gm-Message-State: AFuF++nZj9vXGG/34knhCEGf8KbBLw6MKyi03fbsBoErvOghzw47D7wg
+	qLCYT9+OhiwKnX+A/uLp8gBw71Mglb4hbOSyYd2pyW8+nafD6fMZSt/eO3DgPpSp1eM=
+X-Gm-Gg: AYBFou1f74uC6uCxCBc3fy1YjMJTi9U0NfZGjHpMUZnoNt/MpTJwMCOZFQvIE5RXYBH
+	M/yKAk3SSVkfdmSwayi+xUNwrtwtonfwCsbFifc6yZo4bUj0fEJToJ9mgEZwvGKVzdzMovHig/+
+	U5BufRKqsh98e/CJayP4PDFpY2v7Sw1oxfLff07raqcP1AjyC5VnjtSCeVk6lq2SKwAdpxUkyV3
+	iZcho4qiUeBrr+7GHqMPZIpCPXT5gPScjUG8Grw9js3WtMfAZBmdI68mzrlThvcNNyGc76/Qey/
+	FGXh1rgWM+Oldi/ZVjx9SsxZlBdHm/b51t8cJ/z1Y+aM6Gr3VhMP1TnzE9/Fiw2ZW+e0hDAHDy/
+	L8XIDterZwTLGDEBOeQC0jBhJLIusNVXUhIx+wd6dM/JkMtcQYCMkxUHBsR9rlPsgQ9dGS6Ejcq
+	nY9CIraLXbNaAtL3VA4rZy0GJ6U9Y/19gbvzELHtCTFOHUiTOoM1MeGtMhi4YAJiyXctBn1hGJh
+	GDG80UvFtSSfMgUZcQr2i1+4YQh54oUyG4P/y5yFl1AgqjkADIYfhw=
+X-Received: by 2002:a05:622a:1c18:b0:52d:4f43:d5b0 with SMTP id d75a77b69052e-530548bc5e0mr43078621cf.22.1788491887027;
+        Thu, 03 Sep 2026 20:18:07 -0700 (PDT)
+Received: from gourry-fedora-PF4VCD3F (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-5305402a7b7sm11260161cf.3.2026.09.03.20.18.05
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 03 Sep 2026 20:18:06 -0700 (PDT)
+Date: Thu, 3 Sep 2026 23:18:03 -0400
+From: Gregory Price <gourry@gourry.net>
+To: Qiqi Li <liqiqi23@huawei.com>
+Cc: linux-mm@kvack.org, Zhigang.Luo@amd.com, arun.george@samsung.com, 
+	balbirs@nvidia.com, brendan.jackman@linux.dev, yuzenghui@huawei.com, 
+	apopple@nvidia.com, alucerop@amd.com, matthew.brost@intel.com, 
+	akpm@linux-foundation.org, david@kernel.org, ljs@kernel.org, liam@infradead.org, 
+	vbabka@kernel.org, rppt@kernel.org, surenb@google.com, mhocko@suse.com, 
+	corbet@lwn.net, skhan@linuxfoundation.org, gregkh@linuxfoundation.org, 
+	rafael@kernel.org, dakr@kernel.org, djbw@kernel.org, vishal.l.verma@intel.com, 
+	dave.jiang@intel.com, alison.schofield@intel.com, osandov@osandov.com, 
+	jannh@google.com, pfalcato@suse.de, jackmanb@google.com, hannes@cmpxchg.org, 
+	ziy@nvidia.com, pbonzini@redhat.com, osalvador@suse.de, joshua.hahnjy@gmail.com, 
+	rakie.kim@sk.com, byungchul@sk.com, ying.huang@linux.alibaba.com, 
+	kasong@tencent.com, qi.zheng@linux.dev, shakeel.butt@linux.dev, baohua@kernel.org, 
+	axelrasmussen@google.com, yuanchu@google.com, weixugc@google.com, yury.norov@gmail.com, 
+	linux@rasmusvillemoes.dk, longman@redhat.com, ridong.chen@linux.dev, tj@kernel.org, 
+	mkoutny@suse.com, sj@kernel.org, jgg@ziepe.ca, jhubbard@nvidia.com, 
+	peterx@redhat.com, baolin.wang@linux.alibaba.com, npache@redhat.com, 
+	ryan.roberts@arm.com, dev.jain@arm.com, lance.yang@linux.dev, usama.arif@linux.dev, 
+	xu.xin16@zte.com.cn, chengming.zhou@linux.dev, roman.gushchin@linux.dev, 
+	muchun.song@linux.dev, linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, 
+	driver-core@lists.linux.dev, nvdimm@lists.linux.dev, linux-cxl@vger.kernel.org, 
+	linux-debuggers@vger.kernel.org, linux-fsdevel@vger.kernel.org, kvm@vger.kernel.org, 
+	cgroups@vger.kernel.org, damon@lists.linux.dev, linux-kselftest@vger.kernel.org, 
+	kernel-team@meta.com
+Subject: Re: [PATCH v5 25/36] mm/memory_hotplug: support N_MEMORY_PRIVATE
+ node hotplug
+Message-ID: <apo3bZab6qtCosQM@gourry-fedora-PF4VCD3F>
+References: <20260720193431.3841992-1-gourry@gourry.net>
+ <20260720193431.3841992-26-gourry@gourry.net>
+ <6840c720-8cb7-46bb-a652-040c130a4427@huawei.com>
+ <aoJaaYp30LnKLj1w@gourry-fedora-PF4VCD3F>
+ <0334fe7d-d949-45f7-8914-3012cb11b740@huawei.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:PSgvCgCnyPcVOJpqO20qOg--.45819S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7WFW5tr4UZFy7Cr1xCFy3urg_yoW8Cw1kpa
-	9agryktw1SyFZ7WrykuF4xW34UKFZ3Ca4UtrWUG3sYywn5GFnFqrsrK3y29FyUur4xZrn0
-	qFWxKwn8Zw4rAaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pRo89ZUUUUU=
-X-CM-SenderInfo: xvkbvvri6rljoofrz/xtbCwRZUs2qaOBZLmQAA38
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <0334fe7d-d949-45f7-8914-3012cb11b740@huawei.com>
 
-On Thu, Sep 3, 2026 at 5:43 PM, Mykyta Yatsenko wrote:
-> I'm not sure if this change fixes anything, the main issue of walking
-> concurrently modified rhashtable is not changed: you still may miss
-> elements or visit same elements multiple times.
+On Fri, Sep 04, 2026 at 09:05:39AM +0800, Qiqi Li wrote:
+> On 8/17/2026 8:49 AM, Gregory Price wrote:
+> > It would need to be reserved, and you could use numa emulation but
+> > that's clunky.  I have an RFC for exactly this issue - though i haven't
+> > pushed it further yet.
+> > 
+> > https://lore.kernel.org/all/20260610014517.253609-1-gourry@gourry.net/
+> 
+> Hi Gregory,
+> 
+> Sorry for the late reply.
+> 
+> I took a look at the exclusive-node RFC. The approach looks useful for
+> device-backed private memory without a firmware-described NUMA node.
+> Thanks for the pointer.
+> 
+> We are currently looking into the private-node and CRAM design as a
+> whole. I noticed that CRAM was not included with the v5 series, and saw
+> that others were also interested in a v5 version.
+> 
+> If you already have a CRAM branch or patches based on v5, even if they
+> are still work in progress, would you mind sharing them? It would be
+> very helpful for us to continue testing the overall design.
 >
-> In some scenarios this can make things worse: imagine you start
-> iterating with small map (visit_budget = 10), then 1000000 elements
-> are inserted concurrently with walk, so you'll miss at least
-> 1000000 - 10.
->
-> To me this is a trade off/taste thing, rather than bug fix. The
-> change is compact, though, I'm not against it.
 
-Thanks for the review.
+I dropped it off because it was starting to become unwieldly, but i am
+continuing to maintain a branch on my github:
 
-I agree that this change does not, and is not intended to, make
-concurrent rhashtable iteration complete or duplicate-free. Missed and
-duplicate elements remain part of the existing best-effort semantics.
+https://github.com/gourryinverse/linux/commits/scratch/gourry/cramtest/cram_72/
 
-The narrower issue I am trying to address is that bpf_each_rhash_elem()
-currently keeps calling rhashtable_next_key() until it returns NULL.
-The rhashtable_next_key() documentation states that a full iteration
-may not terminate under adversarial or sustained rehashing, and
-recommends that callers bound such walks externally.
+I have not posted a new version in some time and it has been reworked
+significantly in the past few months - but I plan to talk about this
+particular branch and the tests I've run with it at the device memory
+LPC micro-conference.
 
-The purpose of this change is therefore not to make the iteration
-complete, but to provide a finite upper bound on callback invocations
-under sustained rehashing.
+I validated this branch against most in-tree (relevant) filesystems for
+the page-cache extension, but I imagine the anon-only version subset is
+the more immediately interesting for upstream development.
 
-I agree that taking a snapshot of ht.nelems makes the bound insensitive
-to elements inserted after the walk starts. In the example you gave, the
-walk could stop after the initial occupancy and miss most newly inserted
-elements.
+I may include the anon-only version in v6, but I've been a bit busy
+shoring up the base private memory node core and implementing kernel
+selftests and LTP tests to ensure there's no userland api regressions.
 
-Using map->max_entries would preserve more of the existing behavior
-under concurrent growth, at the cost of allowing a much longer walk for
-a sparsely populated map.
+I hope to get something out later this month.
 
-Would map->max_entries be a more appropriate bound in your view?
-
-Also, if you consider adding such a bound useful but not a bug fix,
-would bpf-next be a more appropriate target for this change?
-
-Thanks,
-Hui
-
+~Gregory
