@@ -1,123 +1,96 @@
-Received: from mail-ed1-f53.google.com (mail-ed1-f53.google.com [209.85.208.53])
+Received: from mail-yx1-f44.google.com (mail-yx1-f44.google.com [74.125.224.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7E1151FCA0
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 18:36:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.53
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788546979; cv=pass; b=mSwGXq7IQImhm4ow9R/F1x5AVnudeJbRTt/AatIDbSSnO62wA3z4AFnn5O7cEqObY5h9/j/pZk3e9L+F0pIMesiM6iEU+ugNEOu24FPNifEl+WvoMbaQCMR1PaGATcNQ1NofwyLYq/TEi0rCf8O+n3nP3iJBqHd2aQJTBQTJWSs=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788546979; c=relaxed/simple;
-	bh=L+kEvddOAYt+2p4d1QGytEK36KNFtDsH3dz0SJzHKNg=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=D9vlFusZUPsjqxcYWvUfKt5fQsCTMI8VV9H/+GWoAn8M8KngXISN5ooQb9zFVL5up6hKUOTBoRh5zVYLEQQKvGNAu3Gp7IE47k4I1eoJqaX/VBFQJzTeg37XYgCSq6GDBjcXKbpvVCL6TzE7WHB4Qv8ix7ikPhsitd5LIiSVVSQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ButpDVyu; arc=pass smtp.client-ip=209.85.208.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF22E37A829
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 18:37:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.44
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788547037; cv=none; b=Rs/PwnG8C3BiQMGlKsbT50f1zhvECgpPI7QXPx5TfVAVxapIn0y8ZOAThXFazt5Lj5RwXE29AMpCyGiQcO3EL40RrJrDbYX9Rk5tclmvEJVndexQgbWrffFI18C63hooW2LiKJVF+NKC0OG3vO7tXWB4aJ/clMlp49qGDwNbVDE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788547037; c=relaxed/simple;
+	bh=9OizNw+hgrpcrtMrjmo/Q42tnd6hiO2d6YxBTG31b2k=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=IjoiH7HU6g17Lki/Fr6trWLVGxLDVorJgzornj1yAy8wPTcliGVNA7GeaR+WAkpWK8Wx7sLcG/Qzl0HjZNM9SxGF+hU8uZ0Bmw5gQvzpQdMrxJfLilSu3eRHvpDdy4VMvKY+upE94WDinM75V97hkEUY3+Pt8esJ5ug0df3gmxI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmpxchg.org; spf=pass smtp.mailfrom=cmpxchg.org; dkim=pass (2048-bit key) header.d=cmpxchg.org header.i=@cmpxchg.org header.b=CJdaVFIh; arc=none smtp.client-ip=74.125.224.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmpxchg.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmpxchg.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ButpDVyu"
-Received: by mail-ed1-f53.google.com with SMTP id 4fb4d7f45d1cf-6a5ebf75d62so2017941a12.1
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 11:36:17 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788546975; cv=none;
-        d=google.com; s=arc-20260327;
-        b=f/ho+jkaFM23tSniJx7QhhyBsIJ250g7wuyMtKXZP4wdxNpbcydYx6RBoySWRs6/Qq
-         1gQ7IcERn/TTG9iGTZs7AEPIl3q9zBOHKVK64T4trjYmgimftF8cJ/hYhZvORrWFhz47
-         rDG+GvveCJvLeS1PlelCDG+/8F3s405640SJmIbxTIyT0iSabnq6qJ2JbphURJrYwfAz
-         eyRqTwHw3ve9tCgrTV+RQWtdLSGLMbMgP5323Wje3L/x1IVCQ2Jd3zpSCsNNAIJxYfvq
-         DMj5ncUD9C3iNFnTiy59G5b+Q3/QSI7iXV7nzoGkMQFRciOF5fG7sgeYJoJGfcGJl18b
-         Q9zw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=gOkqG6TuNgAD5h74emORdEhCfU9eyK97BAx9wxJ6SUQ=;
-        fh=TZ6H5eGgFKiY5iX8nAYgJGSa/2S6SyCMAUfAISAUW+w=;
-        b=f65B+3U/dvebAjclhRYw9J7dZASq16f6Wofx3wIxfTgnFd1o4NAKehA1uUEnf8ve4N
-         Mmut0rHn53AJPM3zNAmhKPqP9hG+fuCpyvJd+YL9iFVlvPqvhhCNEapR+ebsMOK21vdN
-         JcJzWoCC7rT4srh/H8bx5QTTEaCcE2RLInqjWPFmj3T5mUuJQNlUoldW3wM1NWf4sBa6
-         KBFe34BYMvWRYAFsaOHYi78xwdw+ATMiwVbVSvbKmJ5zHzXeaHVPMeBZ7WRIi/Y/1yna
-         0iU0q/A1WfTnpLdlW8+ijUnP4mC0UgHv1gD5BaSVwusiWhc3MN1qPHJfnSzj9rd4oTas
-         8bbw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=cmpxchg.org header.i=@cmpxchg.org header.b="CJdaVFIh"
+Received: by mail-yx1-f44.google.com with SMTP id 956f58d0204a3-66fa996e65bso2598995d50.0
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 11:37:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788546975; x=1789151775; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+        d=cmpxchg.org; s=google; t=1788547034; x=1789151834; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=gOkqG6TuNgAD5h74emORdEhCfU9eyK97BAx9wxJ6SUQ=;
-        b=ButpDVyu1dZw7dqnMkU/XikTgVfwgYOEVGG801mbk2jZ4AJqnaKFrARMqqLFu3QK2H
-         q3reNMrkCH2AXolkBZ5XvcIyCpj4sOsPVwf5b3mYI234dgdA9TNeVZb3JfW/rOYjAwD4
-         mpQVnw8EN0rOH4t1ZxzbTUIWA2RE5aiFXImtPd6KhjlyJDpJ/Sg2N+i6rTsAN9Neszpv
-         knt/6OoBufFU1c5ZZqziC5Uzph9q0ezeRbnHJGUwEKagcFCqSFwCyE1UEuzDc+2Rlgbf
-         Aze8gxVye/i/9Of8R6meKFPEhvXpvBaSvwVQoeEIaJf6WAd/ZXz3HSZY9QFhpjdOul1N
-         NZzQ==
+        bh=EYrVETvRvxY5BVpkhPjtzdiUc0wbZQ7Wsx0WTj7855w=;
+        b=CJdaVFIhuntKxgWQYRjP8p9Uep5QjCzbT9IDqTq2W66nm3pY8nV1tf/TfASse3DUR0
+         GZMIO6YCn5v6yHLl/OaFUZrhDJNzmLc4M6RjiadiKecQh5RbfMuITqFgkZLMHp/RjVaG
+         hmHU8bk9HeaSS20wp768XosUD8UNgB0nb+tRIfxUf7ZBYHaA52bt/Kzwa7gWOKzJF3WZ
+         gSZINxyx1bOYfUneAcZV8qO8AZnSPe/9jO6YAASaq2ERShBWZVYNAm2wZmK3J3a69rma
+         MFP5kjsySDq8WWS/Xmc5Kbiu5GUsxZEJ0FJ0+6qr9nolb6JrxrfMdortIWNk/bwIOXjE
+         gUqw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788546975; x=1789151775;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20251104; t=1788547034; x=1789151834;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=gOkqG6TuNgAD5h74emORdEhCfU9eyK97BAx9wxJ6SUQ=;
-        b=qTUvq7/EdhjMw9ERvV892vAkyEHolyqPj39eFgzDfnje1VZrYJbDgR23fyKEDtqVuo
-         nActsGoI56la0pecs3rIxoHsSXa5ugUi++X83Yllh+bpTGTw8H6zm7xyXuf7sG7Y5JLX
-         K7Ba5hDuwjjRI6Q0RWYkCIVyS1ilmAqMQPx0ZMQ3DcvnwzqN8FJenCc4D/eLWD1zTv6B
-         SrCuS37jIj2NZJ9nynN8+Zp9eGvslGA2uhbR9ZsuNgDSWtjRbko6TQb56olSGoxTHcr1
-         z9dk9oZE+dvU2VXtAsYhzNVhb1Tuv+3iC0OAqVtY5lUit13SBSVTN5W2WNo4IZn+oCwd
-         073Q==
-X-Forwarded-Encrypted: i=1; AKwUvBxMG3wYCDNfpndBXK4B7jsibr473R6rt1X5gjRDXuUIyQTy6nhpn2BVHZWLjzetV7Y4+yoGWU2pcMOjROc=@vger.kernel.org
-X-Gm-Message-State: AFuF++nc90nVTZPYhQBvBE2ju4WeOItPeBD1yBunGYeDhwLhhcrTZKpN
-	B8LXlQHCH4VEAN4JjD18kKDp2RBmCX8jCOO3pxXATWumXFGT+Jy/StkevJhvRNEYPlIkUqOSKcx
-	oo7Myd6izj2ZFahdh4qiy4SZjFw6f31k=
-X-Gm-Gg: AYBFou0PcRP2UaOshkdUAzvRFv5yhd0Cq3WoJkTLKEjl4iDKmbwOuNnDt/xV2wFKh6e
-	BeS0v8wkP3qAtrxa3xKw7axn6M6QZ5/ptYaR+ApQqdikFnhvgqh53h2t+3XJsGEi8TEAtR/M4eY
-	AxpA8wlriI5GfwzKFWWUkRRXH16vCgctvwl3qh8X5j2D6gFWR5QXRz19Cf1FXh585VZ3xkdMj9g
-	wMSO06/mXu2lNE7l5VXEhQjt44FcumRHMS/+BK9hDd1NdOzW3ts9u+BkPUuJIamggCJomVnXU9x
-	b8sJzhLjhgvK94I9JyDmt6bJgI4HSWU16cY8H2YA0kBn3EBtN3lvwh9ozqKJ01QFcmqGZnEL+D+
-	UCLv9leoR794og98IPbxCMwhi9of9c3uMA/XVqk+GrCFANGX3JTxZbhtW0fi/iw8NV+yHSJhqLS
-	haAcNa5jWynkzYq7DW98foRVUeKRwhBKKxKBrYylFCDl3wNFlRzuO/2W+MMm3xo6rrFw==
-X-Received: by 2002:a05:6402:270c:b0:6a6:b2b9:61f9 with SMTP id
- 4fb4d7f45d1cf-6a7e9520211mr2501315a12.13.1788546975225; Fri, 04 Sep 2026
- 11:36:15 -0700 (PDT)
+        bh=EYrVETvRvxY5BVpkhPjtzdiUc0wbZQ7Wsx0WTj7855w=;
+        b=TziQ81NYPFZntBcMDcK7ERgTG08b637io2HQ2gd3jRAHLFNHu4GO2kNbPkP2usm7rw
+         Aw6yI+xN+IvsUiN584OFKH2hH6Cg2lOnoKGE+JM+AknStiHCC9M4pmrlx5ZDatsukaSX
+         SEU2OdicQaaOLmpoQp9nYGSjNAJHJmJNb3ZBBAA5KHU4daT9Q9Xb/V0Q1lp7Nzf8Psqy
+         WD4Tzfs6Jk4zKd8oUNgoqLlPi8qOXen6jtem/y2Vvuro1vd50effTPs5Vb30iYrWk3um
+         YCWmHMhFisW4++4tzx+WGmnLKxu6EBssvUrR1Wsh7hiwD1nJhsYNKzu9gev4leNJ00h8
+         ITTg==
+X-Forwarded-Encrypted: i=1; AKwUvBxLvxTMihcgdvrsMBjOB9ttFHsiGsbu09uUUZkpP6ZIOl27C1vGXohNSzVdlP/xpmXktvphdH5dW0lW+i0=@vger.kernel.org
+X-Gm-Message-State: AFuF++mRdQlQzE5jSI10AapvArN8HNIdXv0LMpNot08os1+Wf72l+z+X
+	gabPBCC9Vif9uiASTba4D1BjOpSZnbjKYWkCckCzxPJIqOn+WvYti10V2EEVkE8zbvY=
+X-Gm-Gg: AYBFou3k9+vNhLYaaYMRzS0/ikUBBML43MnVxvUpLboe+rq0ALdtHXc7eJjUJLjpRLZ
+	0Zj9PBeaze4jdYYiHAdxWpt7WnbpPEbLtOFVA/2GQVyAneSC4B3jLTzLTYerwXCTB4CwATpb6s2
+	+ZSJsevoi5y9wzLiguDPnoCcqWH/QzPctXqcY4x8ziuH1A6hwzs9/WEjPjua+AB87S9Hwg+rlzg
+	ruHC5sTNGc21npktW81g+dj2ej6Xp8M4+Gho+Nnk0J1++apqv+wlrHjj0zWWBwkjT7B3ml9QBC4
+	wafHdo8x1PFc3DoRNnNjOwXIyzWC/9jh4RGMXBFNwbgqnXtICuhmOE6CWT3BvAngu9nUMnyYxbJ
+	3JLX+KpIyvMrt/lD7xqegV8iOcFSqT57YyZfMDf+uBjpz0x3G/Z2h19jrNwQ68xfx5xwOK/nmHd
+	qXy8ykVRK+B7E9SLdKizUHF+QYzWqBmQpD14FRwwVuVvD/jQSZwjR/qfz7dcX4
+X-Received: by 2002:a05:690e:250d:10b0:66f:8d5a:e091 with SMTP id 956f58d0204a3-66fb59585bdmr525152d50.13.1788547029035;
+        Fri, 04 Sep 2026 11:37:09 -0700 (PDT)
+Received: from localhost ([2605:8600:200:1a83:fe59:7385:2855:8588])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8714a979199sm24242077b3.29.2026.09.04.11.37.08
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 04 Sep 2026 11:37:08 -0700 (PDT)
+Date: Fri, 4 Sep 2026 14:37:07 -0400
+From: Johannes Weiner <hannes@cmpxchg.org>
+To: David Stevens <stevensd@google.com>
+Cc: Michal Hocko <mhocko@kernel.org>,
+	Roman Gushchin <roman.gushchin@linux.dev>,
+	Shakeel Butt <shakeel.butt@linux.dev>,
+	Muchun Song <muchun.song@linux.dev>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Lorenzo Stoakes <ljs@kernel.org>, cgroups@vger.kernel.org,
+	linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+	Michal Hocko <mhocko@suse.com>
+Subject: Re: [PATCH v2] memcg: Don't call schedule_work when no spinning is
+ allowed
+Message-ID: <20260904183707.GF6641@cmpxchg.org>
+References: <20260904173145.2028377-1-stevensd@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260812185747.79173-1-rosenp@gmail.com> <apqPiw_Oar-BaAtv@gondor.apana.org.au>
-In-Reply-To: <apqPiw_Oar-BaAtv@gondor.apana.org.au>
-From: Rosen Penev <rosenp@gmail.com>
-Date: Fri, 4 Sep 2026 11:36:03 -0700
-X-Gm-Features: AcwNN1VP2B8NfhJAXVOMzia2qg2zEOCOf_CklIrufd2iLP7DY1YOBJrTMm_wENQ
-Message-ID: <CAKxU2N8ytLFpf_dCR_ymi6MmOqNDj+4XdxyPttYnr_pgrmyuVg@mail.gmail.com>
-Subject: Re: [PATCH] crypto: amcc: trng: use devm_of_iomap()
-To: Herbert Xu <herbert@gondor.apana.org.au>
-Cc: linux-crypto@vger.kernel.org, "David S. Miller" <davem@davemloft.net>, 
-	open list <linux-kernel@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260904173145.2028377-1-stevensd@google.com>
 
-On Fri, Sep 4, 2026 at 2:29=E2=80=AFAM Herbert Xu <herbert@gondor.apana.org=
-.au> wrote:
->
-> On Wed, Aug 12, 2026 at 11:57:47AM -0700, Rosen Penev wrote:
-> > Convert of_iomap() to devm_of_iomap() so that the TRNG register
-> > mapping is automatically unmapped on driver detach, eliminating
-> > the need for manual iounmap() calls in the error and remove paths.
-> >
-> > Assisted-by: opencode:big-pickle
-> > Signed-off-by: Rosen Penev <rosenp@gmail.com>
-> > ---
-> >  drivers/crypto/amcc/crypto4xx_trng.c | 7 ++-----
-> >  1 file changed, 2 insertions(+), 5 deletions(-)
->
-> Please check Sashiko:
->
-> https://sashiko.dev/#/patchset/20260812185747.79173-1-rosenp%40gmail.com
->
-> Thanks,
-So I guess conversion from void to int is needed beforehand.
-> --
-> Email: Herbert Xu <herbert@gondor.apana.org.au>
-> Home Page: http://gondor.apana.org.au/~herbert/
-> PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
+On Fri, Sep 04, 2026 at 10:31:45AM -0700, David Stevens wrote:
+> Memcg charging can be done from any context, but calling schedule_work()
+> isn't safe from an NMI. If memory.high is breached from a context where
+> spinning isn't allowed, use irq_work to schedule the reclaim work.
+> 
+> Fixes: 3ac4638a734a ("memcg: make memcg_rstat_updated nmi safe")
+> Acked-by: Michal Hocko <mhocko@suse.com>
+> Signed-off-by: David Stevens <stevensd@google.com>
+
+Reviewed-by: Johannes Weiner <hannes@cmpxchg.org>
