@@ -1,547 +1,90 @@
-Received: from mail-ed1-f51.google.com (mail-ed1-f51.google.com [209.85.208.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0A1A3B2FF9
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 07:38:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB7133A6F00
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 07:39:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788507542; cv=none; b=QHKSmDNw/NHnuAWicxdPWfvtphJazvWtOKrXMmBe1WNrd6C3Sb8eFABKj/u4rMPMIwyBnFJgfajyqGpbXxhwKN7FjlIzn+iD5hZGzIPbVrB12BJBrva6frVd3grPrpmRV31aw+cctt8MDokd0JUukgUK6cp6CIEKi4rcOKul+o4=
+	t=1788507590; cv=none; b=EaX2J9ctwkGByUO+AS+r66q4qD7p+Mp5PhytQGcme0X2lqhsqUDyKZPT+Thq9wsGI+FEKkCsdVoPdM+F4vorkvxtxRI0/JZFDBRm0ngtAhmb4rI9NE5w1v6MR0hxKJzCzNxkxZq3FezB8TbA5jgj9APzeJsb5zbKo5Vll1t7CTU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788507542; c=relaxed/simple;
-	bh=v6LbxJkqnaAGIEixhtO9DHub8yi++yxGhEsotGZUh20=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=P44+z6UxeaQnlUgy/8aUm+tC4VXh4N0qBYZ461VoEp7QSWrg/sKXWXk1g88t8Hh3nd4fXuMLx8PDdTXmjX5jjpfFvsFQ9PyHAK5SrIpUMtLwmtQhS95uDFMjADCcQuW3BvSvhMX+4eWLlwz5+vlMR9yMoxrrsvdfFWWHXdR0plw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lD5w+c1b; arc=none smtp.client-ip=209.85.208.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788507590; c=relaxed/simple;
+	bh=wtp34HzZ/w6MtCO4bvEUV/26F5ywKPfcm7mmSmEMwlE=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=ih7OhfvaIhE/8tV4l73IFN3iHXQvcbbCiK0aYqW5hyEyCa/LpPBVUsdv4sLwdUYAbc4ScyUbNacEPgfpDUx5oFYDP7aKWSKShtLKWelqIekossF0dUsrUBFEesOX/7DFLBpS08AKDN15lXLxUNLhUj246YWjLit6OllLcPtC0rw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TZ0Bj+HJ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lD5w+c1b"
-Received: by mail-ed1-f51.google.com with SMTP id 4fb4d7f45d1cf-6a63667b78aso1006839a12.3
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 00:38:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788507538; x=1789112338; darn=vger.kernel.org;
-        h=user-agent:in-reply-to:content-disposition:content-type
-         :mime-version:references:reply-to:message-id:subject:cc:to:from:date
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=fwQ4btCeRfLmSBWD36qpa3SzF+nr0ezs/B8+Yu7nv2A=;
-        b=lD5w+c1b5+O/KIp24R1Qgo6ADuyJsX/VCBG8YUm6VHsAM1HE234NpbHL5Fk2cw3cy6
-         NoFkyq4ggja3aVUS39oHko9LU5HBqRHDIbFVlYe2gbZeIJT5G8r8FPtnL5Vx/0HE4ia4
-         q5Fp5/1ZyDZbiYEXxrJrRGcsNZx/5of9TZt7P0X8AiJFjk25CKUIfOubIvFXzVs9rZPn
-         ocY4SmIHzljEbD5HHcTTyyd6OScNWmkNPmFFNavEtV99KG4mAj4oryPDVfwI/2EwW37u
-         sK+KnsEenCIlwS5YAv6hV3Ua7Ki05qGP4tHTHB2csI3u1PyDr8hV98fuxmNCdBMA3VVI
-         Jy/A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788507538; x=1789112338;
-        h=user-agent:in-reply-to:content-disposition:content-type
-         :mime-version:references:reply-to:message-id:subject:cc:to:from:date
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=fwQ4btCeRfLmSBWD36qpa3SzF+nr0ezs/B8+Yu7nv2A=;
-        b=j1mRiL3JuEQV88pw2iFF82s311glX4tE19GHS1wPjSm+rO9PgcviGXPtxbV1aWmWaR
-         psgoUFNDakBzJdkjOeACr6z6p9PNt6hnRf/deqwIy5vqkRigOPZRHth2eur+1JUjmcIV
-         9yDQwnps1SSrZeMgk2QY6iD8XS4XAxnKH1ZV4G4HZyMgB/53NgfaBqgSrMvt8zTSK2tx
-         Zw/hqQA0eh0LShAgc1yF9MvSpLFWhF5UGufwU0RYM0nIxzeFrjGyN+IdRN5udbN+aIhL
-         ZtjmdfUJpkGZCkHH99svFZKtsC8tU7EuixmhPSzK8nqe8NpkxLvrejCruDtLbo5BRkQ7
-         REGw==
-X-Forwarded-Encrypted: i=1; AKwUvBxoyU3rfDF3iIkPrNUBMrZ5FCrUa+g+PXey2eR3mSDUdhRwPIIwSd2vnSGBCFUTMm5BfCj9xSOcGzS8gU4=@vger.kernel.org
-X-Gm-Message-State: AFuF++k3Qdcxev/Uv/fAzpHDvelMcpv88GjnvSlggI/qIXiaM1929ySz
-	D/1hK+M7LxpZxqNx7+t7IZXOa6Qqyte186PrEsTosuvQAQ4DJgNTTWjz
-X-Gm-Gg: AYBFou2RsEDAcYxOFHix6gdADNraZktoMk52wEXRh7EHfN6oFB9Ns1g2RwxRS7nQS5M
-	D1RsttdZj8e5r/e4abMkWu1WKFBNUJ9Sqr11ieXzNGlGUb0cR2zjS8cNxknszl9CLo77AuvweQZ
-	B4MuvHuC2pWzv0SWLVqUUYk8NSye6j2gOLp1mb8CJysZ6RmHL3mKIAnMezDVHF7oLptTGOq7tQ8
-	QSWl8SfriDleTHeeun52cSF0b77HaGhgV46RQzyAMbDY+UQYu6HJFeoKlyncjVTpEkFdynd/iJa
-	JbYCGE5VJ0XcPLXI+tNQcPiMOcSQwI08Di0lgXmcI3dL7oT6uN91t3vZ3rx23yQB+qqPWNWqQ7Y
-	rXMTvV2WPBGkBy3lb/dOXLxs971mrAJ/zJKwXZ/jKDQauk+LvM4jSQQ4/RtAAh+FluXzvmmg8PA
-	n+h5mqTfIkl6P8wrsPzkRiGdY/saicT4HC3HwhUTdcI6PaxZ7GpOxlzmah3Xg=
-X-Received: by 2002:a05:6402:28c5:b0:6a5:f4cd:ae39 with SMTP id 4fb4d7f45d1cf-6a7e8d648a5mr1599048a12.9.1788507537725;
-        Fri, 04 Sep 2026 00:38:57 -0700 (PDT)
-Received: from localhost ([185.92.221.13])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a7e6c20a41sm748804a12.31.2026.09.04.00.38.57
-        (version=TLS1_2 cipher=ECDHE-ECDSA-CHACHA20-POLY1305 bits=256/256);
-        Fri, 04 Sep 2026 00:38:57 -0700 (PDT)
-Date: Fri, 4 Sep 2026 07:38:56 +0000
-From: Wei Yang <richard.weiyang@gmail.com>
-To: Yuan Liu <yuan1.liu@intel.com>
-Cc: David Hildenbrand <david@kernel.org>,
-	Oscar Salvador <osalvador@suse.de>, Mike Rapoport <rppt@kernel.org>,
-	Wei Yang <richard.weiyang@gmail.com>, linux-mm@kvack.org,
-	Nanhai Zou <nanhai.zou@intel.com>,
-	Chen Zhang <zhangchen.kidd@jd.com>,
-	Jason Zeng <jason.zeng@intel.com>, Chen Yu <yu.c.chen@intel.com>,
-	Pan Deng <pan.deng@intel.com>, Tianyou Li <tianyou.li@intel.com>,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v8 2/2] mm/memory_hotplug: optimize zone contiguous check
- when changing pfn range
-Message-ID: <20260904073856.5r56imgrwtpe56wl@master>
-Reply-To: Wei Yang <richard.weiyang@gmail.com>
-References: <20260901052950.3284540-1-yuan1.liu@intel.com>
- <20260901052950.3284540-3-yuan1.liu@intel.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TZ0Bj+HJ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B021B1F00A3D;
+	Fri,  4 Sep 2026 07:39:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788507589;
+	bh=yLqpYDkV7tEDFi1t5AdTF7wzKnvFLphitDHQQVK47uM=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=TZ0Bj+HJQULHZWAGNu23D46FAX/zQkJrKj/98YwyCCpKhkDYmmyHpePGN9s/3Nu+q
+	 21N3Oftz9rSmrp1eq/G1R/yX30BDhOj0ClfI50XhbxFejDWXxue4NKXbIVW/XgCPvO
+	 0YsNToy6lKfsOWZrF1654/buRtk0fWq3JYps7oWf+Jkmnc64WJ90H4OB77gRbr46Gx
+	 jL4bPTxaxkgJjrusk6EWnLMEMh0yRaQZ0Z0SzbAOV3xAD8w3qyw3phsxOzLgIPVWcX
+	 rT2J7HnsCA8q7zV0HbIWawOVThhV7L9mE5lJH9hOaFUzg7gm634QzmE1k4Cd9rVQO9
+	 0pRD8x+54iLxA==
+Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
+	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.98.2)
+	(envelope-from <maz@kernel.org>)
+	id 1x2OWZ-00000004hLu-20xL;
+	Fri, 04 Sep 2026 07:39:47 +0000
+Date: Fri, 04 Sep 2026 08:39:47 +0100
+Message-ID: <86mrtx4g8s.wl-maz@kernel.org>
+From: Marc Zyngier <maz@kernel.org>
+To: Jiangshan Yi <yijiangshan@kylinos.cn>
+Cc: lpieralisi@kernel.org,
+	tglx@kernel.org,
+	radu@rendec.net,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	13667453960@163.com
+Subject: Re: [PATCH v2] irqchip/gic-v5: Install root IRQ handler last in gicv5_init_common()
+In-Reply-To: <20260903104014.587068-1-yijiangshan@kylinos.cn>
+References: <20260903104014.587068-1-yijiangshan@kylinos.cn>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
+ FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
+ (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260901052950.3284540-3-yuan1.liu@intel.com>
-User-Agent: NeoMutt/20170113 (1.7.2)
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-SA-Exim-Connect-IP: 185.219.108.64
+X-SA-Exim-Rcpt-To: yijiangshan@kylinos.cn, lpieralisi@kernel.org, tglx@kernel.org, radu@rendec.net, linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 13667453960@163.com
+X-SA-Exim-Mail-From: maz@kernel.org
+X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
 
-On Tue, Sep 01, 2026 at 01:29:50AM -0400, Yuan Liu wrote:
->When move_pfn_range_to_zone() or remove_pfn_range_from_zone() updates a
->zone, set_zone_contiguous() rescans the entire zone pageblock-by-pageblock
->to rebuild zone->contiguous. For large zones this is a significant cost
->during memory hotplug and hot-unplug.
->
->Add a new zone member, pages_with_online_memmap, that tracks the
->number of pages within the zone span that have an online memory map,
->including present pages and memory holes whose memory map has been
->initialized and for which pfn_to_online_page() succeeds.
->
->For early boot memory, pages_with_online_memmap is calculated in
->memmap_init_zone_range(). PFNs initialized by memmap_init_range() are
->included in pages_with_online_memmap, and hole PFNs for which
->pfn_to_online_page() succeeds are also counted in
->init_unavailable_range(). For hotplugged memory,
->pages_with_online_memmap is updated through adjust_present_page_count(),
->which is called during memory online and offline operations. When
->spanned_pages == pages_with_online_memmap, every PFN in the zone span
->has a valid memmap entry, so pfn_to_page() can be called for any PFN
->within the zone span without an additional pfn_valid() check.
->
->The counter may temporarily undercount when pages with an online
->memory map exist outside the current zone span. This can only happen
->during boot, when initializing the memory map of pages that do not
->fall into any zone span. Growing the zone to cover such pages and
->later shrinking it back may result in a value that is too small.
->This is safe, as it merely prevents detecting a contiguous zone.
->
->The contiguity check using pages_with_online_memmap is stricter than
->the old pageblock-by-pageblock scan. The old set_zone_contiguous()
->iterated at pageblock granularity via pageblock_pfn_to_page(), so a
->zone could be marked contiguous even if a subsection-sized hole
->existed within a pageblock. The new check requires
->spanned_pages == pages_with_online_memmap, meaning every PFN in the
->zone span must satisfy pfn_to_online_page().
->
->The following test cases of memory hotplug for a VM [1], tested in the
->environment [2], show that this optimization can significantly reduce the
->memory hotplug time [3].
->
->+----------------+------+---------------+--------------+----------------+
->|                | Size | Time (before) | Time (after) | Time Reduction |
->|                +------+---------------+--------------+----------------+
->| Plug Memory    | 256G |      10s      |      3s      |       70%      |
->|                +------+---------------+--------------+----------------+
->|                | 512G |      36s      |      7s      |       81%      |
->+----------------+------+---------------+--------------+----------------+
->
->+----------------+------+---------------+--------------+----------------+
->|                | Size | Time (before) | Time (after) | Time Reduction |
->|                +------+---------------+--------------+----------------+
->| Unplug Memory  | 256G |      11s      |      4s      |       64%      |
->|                +------+---------------+--------------+----------------+
->|                | 512G |      36s      |      9s      |       75%      |
->+----------------+------+---------------+--------------+----------------+
->
->[1] Qemu commands to hotplug 256G/512G memory for a VM:
->    object_add memory-backend-ram,id=hotmem0,size=256G/512G,share=on
->    device_add virtio-mem-pci,id=vmem1,memdev=hotmem0,bus=port1
->    qom-set vmem1 requested-size 256G/512G (Plug Memory)
->    qom-set vmem1 requested-size 0G (Unplug Memory)
->
->[2] Hardware     : Intel Icelake server
->    Guest Kernel : v7.3-rc1
->    Qemu         : v9.0.0
->
->    Launch VM    :
->    qemu-system-x86_64 -accel kvm -cpu host \
->    -drive file=./Centos10_cloud.qcow2,format=qcow2,if=virtio \
->    -drive file=./seed.img,format=raw,if=virtio \
->    -smp 3,cores=3,threads=1,sockets=1,maxcpus=3 \
->    -m 2G,slots=10,maxmem=2052472M \
->    -device pcie-root-port,id=port1,bus=pcie.0,slot=1,multifunction=on \
->    -device pcie-root-port,id=port2,bus=pcie.0,slot=2 \
->    -nographic -machine q35 \
->    -nic user,hostfwd=tcp::3000-:22
->
->    Guest kernel auto-onlines newly added memory blocks:
->    echo online > /sys/devices/system/memory/auto_online_blocks
->
->[3] The time from typing the QEMU commands in [1] to when the output of
->    'grep MemTotal /proc/meminfo' on Guest reflects that all hotplugged
->    memory is recognized.
->
->Reported-by: Nanhai Zou <nanhai.zou@intel.com>
->Reported-by: Chen Zhang <zhangchen.kidd@jd.com>
->Tested-by: Yuan Liu <yuan1.liu@intel.com>
->Reviewed-by: Jason Zeng <jason.zeng@intel.com>
->Reviewed-by: Chen Yu <yu.c.chen@intel.com>
->Reviewed-by: Pan Deng <pan.deng@intel.com>
->Co-developed-by: Tianyou Li <tianyou.li@intel.com>
->Signed-off-by: Tianyou Li <tianyou.li@intel.com>
->Signed-off-by: Yuan Liu <yuan1.liu@intel.com>
->---
-> Documentation/mm/physical_memory.rst |  6 +++
-> drivers/base/memory.c                |  7 +++-
-> include/linux/mmzone.h               | 48 +++++++++++++++++++++
-> mm/memory_hotplug.c                  | 12 +-----
-> mm/mm_init.c                         | 63 +++++++++++++++-------------
-> mm/mm_init.h                         |  6 ---
-> mm/page_alloc.h                      |  2 +-
-> 7 files changed, 98 insertions(+), 46 deletions(-)
->
->diff --git a/Documentation/mm/physical_memory.rst b/Documentation/mm/physical_memory.rst
->index a09407d72973..2e67e8b23a99 100644
->--- a/Documentation/mm/physical_memory.rst
->+++ b/Documentation/mm/physical_memory.rst
->@@ -480,6 +480,12 @@ General
->   ``present_pages`` should use ``get_online_mems()`` to get a stable value. It
->   is initialized by ``calculate_node_totalpages()``.
+On Thu, 03 Sep 2026 11:40:14 +0100,
+Jiangshan Yi <yijiangshan@kylinos.cn> wrote:
 > 
->+``pages_with_online_memmap``
->+  Pages within the zone that have an online memory map: present pages and
->+  memory holes whose memory map has been initialized and
->+  ``pfn_to_online_page()`` succeeds. See the comment for
->+  ``pages_with_online_memmap`` in ``include/linux/mmzone.h`` for more details.
->+
-> ``present_early_pages``
->   The present pages existing within the zone located on memory available since
->   early boot, excluding hotplugged memory. Defined only when
->diff --git a/drivers/base/memory.c b/drivers/base/memory.c
->index 5eead3346f1e..28f9503f6a71 100644
->--- a/drivers/base/memory.c
->+++ b/drivers/base/memory.c
->@@ -255,6 +255,7 @@ static int memory_block_online(struct memory_block *mem)
-> 		nr_vmemmap_pages = mem->altmap->free;
+> set_handle_irq() cannot be undone: once a handler is installed, any
+> further call returns -EBUSY, so the set_handle_irq(NULL) in the error
+> path has never worked.  Drop it, and install the root handler only
+> after gicv5_irs_enable() has succeeded.
 > 
-> 	mem_hotplug_begin();
->+	clear_zone_contiguous(zone);
-> 	if (nr_vmemmap_pages) {
-> 		ret = mhp_init_memmap_on_memory(start_pfn, nr_vmemmap_pages, zone);
-> 		if (ret)
->@@ -279,6 +280,7 @@ static int memory_block_online(struct memory_block *mem)
-> 
-> 	mem->zone = zone;
-> out:
->+	set_zone_contiguous(zone);
-> 	mem_hotplug_done();
-> 	return ret;
-> }
->@@ -304,6 +306,7 @@ static int memory_block_offline(struct memory_block *mem)
-> 		nr_vmemmap_pages = mem->altmap->free;
-> 
-> 	mem_hotplug_begin();
->+	clear_zone_contiguous(mem->zone);
-> 	if (nr_vmemmap_pages)
-> 		adjust_present_page_count(pfn_to_page(start_pfn), mem->group,
-> 					  -nr_vmemmap_pages);
->@@ -321,8 +324,10 @@ static int memory_block_offline(struct memory_block *mem)
-> 	if (nr_vmemmap_pages)
-> 		mhp_deinit_memmap_on_memory(start_pfn, nr_vmemmap_pages);
-> 
->-	mem->zone = NULL;
-> out:
->+	set_zone_contiguous(mem->zone);
->+	if (!ret)
->+		mem->zone = NULL;
-> 	mem_hotplug_done();
-> 	return ret;
-> }
->diff --git a/include/linux/mmzone.h b/include/linux/mmzone.h
->index 94f9c3ff5416..7bfb871d6344 100644
->--- a/include/linux/mmzone.h
->+++ b/include/linux/mmzone.h
->@@ -1043,6 +1043,21 @@ struct zone {
-> 	 * cma pages is present pages that are assigned for CMA use
-> 	 * (MIGRATE_CMA).
-> 	 *
->+	 * pages_with_online_memmap tracks pages within the zone that have
->+	 * an online memory map: present pages and memory holes whose
->+	 * memory map has been initialized and pfn_to_online_page()
->+	 * succeeds. When spanned_pages == pages_with_online_memmap,
->+	 * pfn_to_page() can be performed without further checks on any
->+	 * PFN within the zone span.
->+	 *
->+	 * Note: this counter may temporarily undercount when pages with an
->+	 * online memory map exist outside the current zone span. This can
->+	 * only happen during boot, when initializing the memory map of
->+	 * pages that do not fall into any zone span. Growing the zone to
->+	 * cover such pages and later shrinking it back may result in a
->+	 * "too small" value. This is safe: it merely prevents detecting a
->+	 * contiguous zone.
->+	 *
-> 	 * So present_pages may be used by memory hotplug or memory power
-> 	 * management logic to figure out unmanaged pages by checking
-> 	 * (present_pages - managed_pages). And managed_pages should be used
->@@ -1067,6 +1082,7 @@ struct zone {
-> 	atomic_long_t		managed_pages;
-> 	unsigned long		spanned_pages;
-> 	unsigned long		present_pages;
->+	unsigned long		pages_with_online_memmap;
-> #if defined(CONFIG_MEMORY_HOTPLUG)
-> 	unsigned long		present_early_pages;
-> #endif
->@@ -1694,6 +1710,38 @@ static inline bool zone_is_zone_device(const struct zone *zone)
-> }
-> #endif
-> 
->+/**
->+ * zone_is_contiguous - test whether a zone is contiguous
->+ * @zone: the zone to test.
->+ *
->+ * In a contiguous zone, it is valid to call pfn_to_page() on any PFN in the
->+ * spanned zone without requiring pfn_valid() or pfn_to_online_page() checks.
->+ *
->+ * Note that missing synchronization with memory offlining makes any PFN
->+ * traversal prone to races.
->+ *
->+ * ZONE_DEVICE zones are always marked non-contiguous.
->+ *
->+ * Return: true if contiguous, otherwise false.
->+ */
->+static inline bool zone_is_contiguous(const struct zone *zone)
->+{
->+	return READ_ONCE(zone->contiguous);
->+}
->+
->+static inline void set_zone_contiguous(struct zone *zone)
->+{
->+	if (zone_is_zone_device(zone))
->+		return;
+> set_handle_irq() only fails if another root handler is already
+> installed, which cannot happen on a GICv5 system.  Should it ever
+> fail, the system is unusable: panic instead of unwinding.
 
-After this patch, set_zone_contiguous() is only used in two cases:
+Note that the system is dead either way, as it isn't like someone is
+going to provide a replacement interrupt controller when GICv5 fails.
+So any error in this function is pretty fatal for the whole system.
 
-  * memory_block_online()
-  * page_alloc_init_late()
-
-If I understand correctly:
-
-  * zone_for_pfn_range() won't return ZONE_DEVICE
-  * there is no ZONE_DEVICE memory populated at this point, device memory is
-    populated during do_initcalls()
-
-So we don't expect ZONE_DEVICE here?
-
->+	if (zone->spanned_pages == zone->pages_with_online_memmap)
->+		WRITE_ONCE(zone->contiguous, true);
->+}
->+
->+static inline void clear_zone_contiguous(struct zone *zone)
->+{
->+	WRITE_ONCE(zone->contiguous, false);
->+}
->+
-> /*
->  * Returns true if a zone has pages managed by the buddy allocator.
->  * All the reclaim decisions have to use this function rather than
->diff --git a/mm/memory_hotplug.c b/mm/memory_hotplug.c
->index 9f19876ec3ec..100941d1b828 100644
->--- a/mm/memory_hotplug.c
->+++ b/mm/memory_hotplug.c
->@@ -549,18 +549,13 @@ void remove_pfn_range_from_zone(struct zone *zone,
-> 
-> 	/*
-> 	 * Zone shrinking code cannot properly deal with ZONE_DEVICE. So
->-	 * we will not try to shrink the zones - which is okay as
->-	 * set_zone_contiguous() cannot deal with ZONE_DEVICE either way.
->+	 * we will not try to shrink it.
-> 	 */
-> 	if (zone_is_zone_device(zone))
-> 		return;
-
-One question not closely related to this patch.
-
-This check is introduced in commit 7ce700bf11b5 ("mm/memory_hotplug: don't
-access uninitialized memmaps in shrink_zone_span()"), at that time
-pfn_to_online_page() couldn't handle ZONE_DEVICE pfn correctly.
-
-Then commit 1f90a3477df3 ("mm: teach pfn_to_online_page() about ZONE_DEVICE
-section collisions") enables it.
-
-So could we remove the restriction now?
+That said, this is still a reasonable cleanup.
 
 > 
->-	clear_zone_contiguous(zone);
->-
-> 	shrink_zone_span(zone, start_pfn, start_pfn + nr_pages);
-> 	update_pgdat_span(pgdat);
->-
->-	set_zone_contiguous(zone);
-> }
-> 
-> /**
->@@ -738,8 +733,6 @@ void move_pfn_range_to_zone(struct zone *zone, unsigned long start_pfn,
-> 	struct pglist_data *pgdat = zone->zone_pgdat;
-> 	int nid = pgdat->node_id;
-> 
->-	clear_zone_contiguous(zone);
->-
-> 	if (zone_is_empty(zone))
-> 		init_currently_empty_zone(zone, start_pfn, nr_pages);
-> 	resize_zone_range(zone, start_pfn, nr_pages);
->@@ -767,8 +760,6 @@ void move_pfn_range_to_zone(struct zone *zone, unsigned long start_pfn,
-> 	memmap_init_range(nr_pages, nid, zone_idx(zone), start_pfn, 0,
-> 			 MEMINIT_HOTPLUG, altmap, migratetype,
-> 			 isolate_pageblock);
->-
->-	set_zone_contiguous(zone);
-> }
-> 
-> struct auto_movable_stats {
->@@ -1064,6 +1055,7 @@ void adjust_present_page_count(struct page *page, struct memory_group *group,
-> 	if (early_section(__pfn_to_section(page_to_pfn(page))))
-> 		zone->present_early_pages += nr_pages;
-> 	zone->present_pages += nr_pages;
->+	zone->pages_with_online_memmap += nr_pages;
-> 	zone->zone_pgdat->node_present_pages += nr_pages;
-> 
-> 	if (group && movable)
->diff --git a/mm/mm_init.c b/mm/mm_init.c
->index 1533aebafb68..d40a8ff23370 100644
->--- a/mm/mm_init.c
->+++ b/mm/mm_init.c
->@@ -817,22 +817,39 @@ void __meminit init_deferred_page(unsigned long pfn, int nid)
->  *   zone/node above the hole except for the trailing pages in the last
->  *   section that will be appended to the zone/node below.
->  */
->-static void __init init_unavailable_range(unsigned long spfn,
->-					  unsigned long epfn,
->-					  int zone, int node)
->+static unsigned long __init init_unavailable_range(unsigned long spfn,
->+						   unsigned long epfn,
->+						   int zone, int node)
-> {
->+	unsigned long next_chunk_pfn __maybe_unused = spfn;
-> 	unsigned long pfn;
->-	u64 pgcnt = 0;
->+	u64 online_pgcnt = 0, pgcnt = 0;
->+	bool is_online = true;
-> 
-> 	for_each_valid_pfn(pfn, spfn, epfn) {
-> 		__init_single_page(pfn_to_page(pfn), pfn, zone, node);
-> 		__SetPageReserved(pfn_to_page(pfn));
-> 		pgcnt++;
->+
->+		/*
->+		 * With vmemmap, at this stage all pages in an early section
->+		 * have a valid memmap and are marked as online. However, only
->+		 * subsections in the subsection map are actually online.
->+		 */
->+#ifdef CONFIG_SPARSEMEM_VMEMMAP
->+		if (pfn >= next_chunk_pfn) {
->+			is_online = pfn_section_valid(__pfn_to_section(pfn), pfn);
->+			next_chunk_pfn = min(SUBSECTION_ALIGN_UP(pfn + 1), epfn);
+> Link: https://lore.kernel.org/r/87fqzrmywu.wl-maz@kernel.org
+> Signed-off-by: Jiangshan Yi <yijiangshan@kylinos.cn>
 
-The range iterates by for_each_valid_pfn() is [spfn, epfn - 1], so we don't
-expect pfn exceed epfn?
+Reviewed-by: Marc Zyngier <maz@kernel.org>
 
-			next_chunk_pfn = SUBSECTION_ALIGN_UP(pfn + 1);
-
-Could be enough?
-
->+		}
->+#endif
->+		if (is_online)
->+			online_pgcnt++;
-> 	}
-> 
-> 	if (pgcnt)
-> 		pr_info("On node %d, zone %s: %lld pages in unavailable ranges\n",
-> 			node, zone_names[zone], pgcnt);
->+	return online_pgcnt;
-> }
-> 
-> /*
->@@ -930,9 +947,21 @@ static void __init memmap_init_zone_range(struct zone *zone,
-> 	memmap_init_range(end_pfn - start_pfn, nid, zone_id, start_pfn,
-> 			  zone_end_pfn, MEMINIT_EARLY, NULL, MIGRATE_MOVABLE,
-> 			  false);
->+	zone->pages_with_online_memmap += end_pfn - start_pfn;
-> 
->-	if (*hole_pfn < start_pfn)
->-		init_unavailable_range(*hole_pfn, start_pfn, zone_id, nid);
->+	if (*hole_pfn < start_pfn) {
->+		unsigned long hole_start_pfn = *hole_pfn;
->+		unsigned long pgcnt;
->+
->+		if (hole_start_pfn < zone_start_pfn) {
->+			init_unavailable_range(hole_start_pfn, zone_start_pfn,
->+					       zone_id, nid);
->+			hole_start_pfn = zone_start_pfn;
->+		}
->+		pgcnt = init_unavailable_range(hole_start_pfn, start_pfn,
->+					       zone_id, nid);
->+		zone->pages_with_online_memmap += pgcnt;
->+	}
-> 
-> 	*hole_pfn = end_pfn;
-> }
->@@ -2188,28 +2217,6 @@ void __init init_cma_pageblock(struct page *page)
-> }
-> #endif
-> 
->-void set_zone_contiguous(struct zone *zone)
->-{
->-	unsigned long block_start_pfn = zone->zone_start_pfn;
->-	unsigned long block_end_pfn;
->-
->-	block_end_pfn = pageblock_end_pfn(block_start_pfn);
->-	for (; block_start_pfn < zone_end_pfn(zone);
->-			block_start_pfn = block_end_pfn,
->-			 block_end_pfn += pageblock_nr_pages) {
->-
->-		block_end_pfn = min(block_end_pfn, zone_end_pfn(zone));
->-
->-		if (!__pageblock_pfn_to_page(block_start_pfn,
->-					     block_end_pfn, zone))
->-			return;
->-		cond_resched();
->-	}
->-
->-	/* We confirm that there is no hole */
->-	zone->contiguous = true;
->-}
->-
-> /*
->  * Check if a PFN range intersects multiple zones on one or more
->  * NUMA nodes. Specify the @nid argument if it is known that this
->diff --git a/mm/mm_init.h b/mm/mm_init.h
->index 39f75df9be1c..520d53ecc68d 100644
->--- a/mm/mm_init.h
->+++ b/mm/mm_init.h
->@@ -20,15 +20,9 @@ struct vmem_altmap;
-> /* perform sanity checks on struct pages being allocated or freed */
-> DECLARE_STATIC_KEY_MAYBE(CONFIG_DEBUG_VM, check_pages_enabled);
-> 
->-void set_zone_contiguous(struct zone *zone);
-> bool pfn_range_intersects_zones(int nid, unsigned long start_pfn,
-> 			   unsigned long nr_pages);
-> 
->-static inline void clear_zone_contiguous(struct zone *zone)
->-{
->-	zone->contiguous = false;
->-}
->-
-> void memblock_free_pages(unsigned long pfn, unsigned int order);
-> 
-> void *memmap_alloc(phys_addr_t size, phys_addr_t align, phys_addr_t min_addr,
->diff --git a/mm/page_alloc.h b/mm/page_alloc.h
->index b9259deddb59..d4182f7cb7dd 100644
->--- a/mm/page_alloc.h
->+++ b/mm/page_alloc.h
->@@ -214,7 +214,7 @@ extern struct page *__pageblock_pfn_to_page(unsigned long start_pfn,
-> static inline struct page *pageblock_pfn_to_page(unsigned long start_pfn,
-> 				unsigned long end_pfn, struct zone *zone)
-> {
->-	if (zone->contiguous)
->+	if (zone_is_contiguous(zone))
-> 		return pfn_to_page(start_pfn);
-> 
-> 	return __pageblock_pfn_to_page(start_pfn, end_pfn, zone);
->-- 
->2.47.3
+	M.
 
 -- 
-Wei Yang
-Help you, Help me
+Without deviation from the norm, progress is not possible.
