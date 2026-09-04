@@ -1,108 +1,117 @@
-Received: from mail-106119.protonmail.ch (mail-106119.protonmail.ch [79.135.106.119])
+Received: from mail.ilvokhin.com (mail.ilvokhin.com [178.62.254.231])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E34334A3F15
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 13:54:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.119
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B27B84A43ED;
+	Fri,  4 Sep 2026 13:54:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.62.254.231
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788530047; cv=none; b=rzXumpbMUNeN3/tY0KAWEaEnuZlxI3gig14FX96EgFURAGj6aNzPagRsHhfSmBNJ6RxzzeLnPu1rEMJhy5sE0jZxtkCT9ypNpxsMU70/IioszuA8AOAgulXW+OBDORTnIkrYA7MxyjyCrlS2OGz7BG2X/xDUJiJD2p5ten3tnY0=
+	t=1788530047; cv=none; b=ZW35IfshG1byJqjCEZ13GhSJN/y2qYweEHrYEeIvNYc5dtk1x9kVzs6Zk+8q/oxRdYdux2wmjWG09XEIB7dThpyJdcG252yQtBhiumi2etTjiyQDDrXmocngo8mrFhztzuGBN/dE7Z9bHWC5AzlD4c0HOV5vmCa8u80xZDVmwbE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788530047; c=relaxed/simple;
-	bh=s17lTiy+D6tADAFYc9Xowx8cyyRfUwA/rqR3C3PbYTc=;
-	h=Date:To:From:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=O79ZRA2tZlKRDlpIdYldyLbfjyf5QJkb/cwTf9afuRk3qgdIJRLwqMoqCa7so7EReYLkbscliw+nvCX0ULr7xJODcEHHDYrrUuQH1BWd51UCQVdZRrH+4VLfzwW29jk/AvYxG7058Nlv+unJwuDFbCpktlJlNwRJVnMFKQsmFyQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=exwU6QmR; arc=none smtp.client-ip=79.135.106.119
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
+	bh=pb+OXN3sLCJZKmTGzbOzb2452rtXMBox4AVSFnjxnow=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=TKNdOncIdo7veXXeVYe5fVcvVBmEabEPSFSgUL4LRF272TEpxmwKDtfeNb4IjaDfnt6o2MYEqjJIytgoGjqhAbXnfrVHp/J31se6MYbVR+XpC6DDZQJvRWqcCxAD7eTSoTbNbyL+4EroAMLueKg5rWRmr04+aogM/HjkMVpd1NA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ilvokhin.com; spf=pass smtp.mailfrom=ilvokhin.com; dkim=pass (1024-bit key) header.d=ilvokhin.com header.i=@ilvokhin.com header.b=c/oKJkj+; arc=none smtp.client-ip=178.62.254.231
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ilvokhin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ilvokhin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="exwU6QmR"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1788530036; x=1788789236;
-	bh=jn9QoafObVGn9ANtJC6LKK9l5ZfioNjymM1zIlYTw74=;
-	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
-	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=exwU6QmR/P6C+JvZuhwAlQ5oluMjNuAVoy2hr23VKDJybDfjLfm3imAHAE5Dr1Gtd
-	 P/K+Q+45wkIQLGu3nzjckwrX/oWCsquSAkRX/2lh7C6TzJfk8E1n/OqcpPiNWsiNKD
-	 zMBkN5zH5PZPdwAhv0+kENOGFa7wEA3Du4ca6hliaBKpkmL572+UU/t/GH4zB7M/5S
-	 1wlJUlf9eqOW574f3g0qRhzGdwRuumc4LpK57mVG4XAGRyZ8Yo3INZ5leyADMrBSu8
-	 w+QyV0G2GqVTbN4I+8oqQv0DA9XyhJr7kybjcdh9ESkiuyNGtaNLRgHERqvHxSp3Dg
-	 GPbYQkpML+PrQ==
-Date: Fri, 04 Sep 2026 13:53:54 +0000
-To: "linux-input@vger.kernel.org" <linux-input@vger.kernel.org>
-From: budcomfort <budcomfort@pm.me>
-Cc: "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "jikos@kernel.org" <jikos@kernel.org>, "bentiss@kernel.org" <bentiss@kernel.org>, "ian.ray@gehealthcare.com" <ian.ray@gehealthcare.com>, "buingoc67@gmail.com" <buingoc67@gmail.com>
-Subject: Dell Latitude 7220: eGalax P80H84 0eef:c003 factory passive stylus not detected
-Message-ID: <62t8PiydnEWbOsSM0byy1IRKtFwxg7nfDZUtsgbE_1liuwRpKtyKZYsYwOe52IZ--zdy1QJg11p8u13QajhgH25DexN-Fx71z5TSlcLE6Mw=@pm.me>
-Feedback-ID: 145930226:user:proton
-X-Pm-Message-ID: 3bf12295e8c47eb4dde3039cffc74a2ab3e57298
+	dkim=pass (1024-bit key) header.d=ilvokhin.com header.i=@ilvokhin.com header.b="c/oKJkj+"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ilvokhin.com;
+	s=mail; t=1788530038;
+	bh=ixQsouVZrNZkrSZGHCDIEy+wyYGPNQccFvbLtCeQ0DA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=c/oKJkj+NzCvOGY/cQFhM+Bh7TTwoaha6T+E7A7Ap1vQo86BA9at+O/+LK7MbcQaS
+	 Cfw+zOD5AwXaqrKdwei0SLWfbJtqNQrkYJ+W3/yxE+ZiVukl+tzpnPRGSktruZCVG3
+	 8xHJTRlFjmDOgTpmO9Ehuf7ikI8rwlOS6A7pSbC0=
+Received: from shell.ilvokhin.com (shell.ilvokhin.com [138.68.190.75])
+	(Authenticated sender: d@ilvokhin.com)
+	by mail.ilvokhin.com (Postfix) with ESMTPSA id 372FBEBB6B;
+	Fri, 04 Sep 2026 13:53:58 +0000 (UTC)
+Date: Fri, 4 Sep 2026 13:53:54 +0000
+From: Dmitry Ilvokhin <d@ilvokhin.com>
+To: Thomas Gleixner <tglx@kernel.org>
+Cc: Alice Ryhl <aliceryhl@google.com>,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	"Paul E. McKenney" <paulmck@kernel.org>,
+	Boqun Feng <boqun@kernel.org>, Dmitry Vyukov <dvyukov@google.com>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>, linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] rseq: defer time slice extension yield for
+ sys_futex_wakey
+Message-ID: <aprNcgTON1V7Tr1W@shell.ilvokhin.com>
+References: <20260831-sys-futex-wake-time-slice-v1-1-814bb95cc339@google.com>
+ <87ld9ha8wu.ffs@fw13>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <87ld9ha8wu.ffs@fw13>
 
-Hello,
+On Fri, Sep 04, 2026 at 07:21:37AM +0200, Thomas Gleixner wrote:
+> On Mon, Aug 31 2026 at 12:57, Alice Ryhl wrote:
+> > When a task is granted an rseq scheduler time slice extension, it is
+> > expected to finish its critical section and relinquish the CPU via
+> > rseq_slice_yield(2). If the task issues any other system call while a
+> > grant is active, rseq_syscall_enter_work() forces an immediate
+> > reschedule on syscall entry via cond_resched(). This may cause
+> > significant latency penalty for userspace lock implementations that use
+> > rseq time slice extensions when unlocking the futex.
+> >
+> > In a userspace mutex unlock sequence:
+> > 1. The lock is released in userspace.
+> > 2. If there are waiters, the unlocking thread calls sys_futex_wake()
+> >    to wake a sleeping waiter.
+> >
+> > Because sys_futex_wake() is currently treated as an arbitrary syscall,
+> > rseq_syscall_enter_work() schedules out the unlocking thread upon
+> > syscall entry, which is before it has executed the wakeup. Consequently,
+> > the lock is free in userspace, but the waiter remains blocked in the
+> > kernel while the CPU switches to an unrelated task. The waiter is only
+> > woken when the unlocking thread is eventually scheduled back in to
+> > finish the syscall, causing lock handoff delays.
+> >
+> > Thus, update rseq_syscall_enter_work() for sys_futex_wake() so that it
+> > does not reschedule during syscall entry. The thread will yield the CPU
+> > on the syscall exit path instead.
+> 
+> That's undermining the design and takes control away from the scheduler.
+> 
+> It granted a short extension with well defined semantics and then you
+> special case futex_wake() which can take arbitrary time to complete.
 
-I'm trying to determine whether support for the eGalax P80H84 0eef:c003 use=
-d in the Dell Latitude 7220 Rugged Extreme is a known issue or is currently=
- being worked on.
+Thomas, do you think the problem is worth solving, though?
 
-The tablet is running Linux Mint with kernel 7.0.0-31-generic. The touchscr=
-een is:
+Currently, it seems like the rseq time slice extension is a good fit for
+userspace spinlocks implementation, but userspace adaptive mutexes don't
+fit quite as well.
 
-0eef:c003 D-WAV Scientific Co., Ltd eGalaxTouch P80H84 0710 vA1_N k47_45
+One can argue that adopting the rseq time slice extension for adaptive
+mutexes can never make things worse. The extension allows the lock to be
+released, so other threads are free to grab it. The only problem is a
+potentially delayed waiter, but this can happen now anyway, even without
+the time slice extension applied. That said, it doesn't mean we can't do
+better here.
 
-It binds to hid-multitouch, and normal finger touch works correctly.
+One option that I can think of is a best-effort
+rseq_slice_yield_wake(uaddr) that is allowed to fail with a userspace
+falling back to futex_wake() in case of a failure.
 
-The problem concerns the small factory Dell tethered, buttonless, batteryle=
-ss hard-tip stylus that stores in the tablet chassis. This is not the optio=
-nal Dell PN720R active pen.
+rseq_slice_yield_wake(uaddr) could look like this:
 
-The factory stylus works with this hardware under Windows, but under Linux =
-it produces no input.
+- Works only for private futexes with nr=1.
 
-The tablet originally ran Windows, where the factory stylus worked correctl=
-y. Windows has since been removed and replaced with Linux Mint, so I no lon=
-ger have the Windows installation available for comparison testing. I would=
- prefer not to reinstall Windows, although I can perform additional Linux-s=
-ide diagnostics and test patches or configuration changes on the actual har=
-dware.
+- Bails out early on a contended hb->lock.
 
-So far I have tested:
+- Limits the hb->chain walk time by the same time slice extension, that
+  is already set.
 
--   Finger input produces events on /dev/input/event5.
--   The factory passive stylus produces no events on event5.
--   /dev/input/event6 is exposed as a tablet/stylus device with pressure, t=
-ilt, in-range, etc., apparently for an active pen. The factory passive styl=
-us produces no events there either.
--   Most importantly, I tested the eGalax device directly through /dev/hidr=
-aw4. Finger contact produces raw HID traffic. The factory passive stylus pr=
-oduces no raw HID traffic at all.
--   The device's HID descriptor exposes Report 24 for multitouch and Report=
- 26 for the Pen collection.
--   It also exposes Digitizers.DeviceConfiguration, Feature Report 5, conta=
-ining Digitizers.DeviceMode and Digitizers.DeviceIdentifier.
--   Reading Feature Report 5 with HIDIOCGFEATURE currently returns: 05 00 0=
-0
-
-I noticed the recent MT_CLS_EGALAX_P80H84 work for 0eef:c002, as well as th=
-e more recent eGalax/Dell Rugged HID work.
-
-Since the passive stylus produces no report at the hidraw level, I suspect =
-this may involve controller initialization/sensitivity/device mode rather t=
-han merely parsing an incoming HID report.
-
-Before experimenting with eGalax vendor feature reports or controller modes=
-, I wanted to ask:
-
-Is 0eef:c003 already a known variant/problem, and is anyone currently worki=
-ng on support for it?
-
-I have the Dell Latitude 7220 hardware available and would be happy to run =
-additional diagnostics or test patches. I can also provide the complete HID=
- report descriptor, dmesg, evtest, libinput, and raw HID results.
-
-Thank you,
-Orley E Mosher III, TSgt, USAF, Retired
+This way the scheduler is still very much in control and in case of the
+success, scheduler might pick a better task, since the waiter is now
+available to run.
