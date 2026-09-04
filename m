@@ -1,137 +1,140 @@
-Received: from mail-vk1-f174.google.com (mail-vk1-f174.google.com [209.85.221.174])
+Received: from mail-lj1-f176.google.com (mail-lj1-f176.google.com [209.85.208.176])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14239233947
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 15:29:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.174
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788535779; cv=none; b=NYYwMOyLZqgZfK6+dwKyie0seZ2nr45asMkyz+3uUc3Jy+dUZhrAvlRK2/Ip5PRgKipdGmoDWBJDYHWy55XqewmasulWnHKV8n7uz5h8wqf5Ib3IRy/cTb5ubSyAdxUp0G9S1yAVjBfBSg2+NP0vgGmPZL5Hnm1KwDuEvCPWPqM=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788535779; c=relaxed/simple;
-	bh=xuRqAUdvHsG4BxcDdfuXSf+SI6WrEN2MF8ZgZw7jyWk=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F5534EBAD9
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 15:30:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.176
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788535809; cv=pass; b=ncvLAblRWAqAk5yF3icg4OGcAcC+KE7zke3y8Ounao93ryOLTMgdK/hhcleZmBufOyZgIeSxLe1wfU2fTk5/gqcVIzrRjGnqSG7OC89YpPNaE5PZXpsrEiAa1MngIZjwjKT2wSyLhHV99+cUS0MQymuRtU8o5Hv+PA8+Wij2uy0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788535809; c=relaxed/simple;
+	bh=3Wg1EYP2B6OR4Q8rmxA0jv6rQKmK/4iCDjiGcU/Welk=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=rarb2qjJO7JUdrQumzB7/7eZ3KMtNjkldptzbnaOOsyqm2iJ99UssOvI7rlPZLT7e+I+LTZCwwr+C2zQ2XqwObd6X/CRGxzmQLMeFGTRhs0nLFEZDncLI7ayWbmRRWQ2vPEla07p8FGClH6p18ixahnGDO6719uIUqMX6bp8NVU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.221.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+	 To:Cc:Content-Type; b=fDtPXDXlw3c+d0RaLAkEfNAUthgPltwPEI5AvNRvKVcgmgo1F7PVBZS/OwIo6MQk+Jcc3xb+izMiIJUcmiKqI7tCmvCCI6ZlHis2Bz7VxRnRhIyfNqBeCFYCP5/imhefL4hoZxUIXloS4sb19LPtRFyfakPQbOB3ks+2Bhp8/IM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Kw5eWXyX; arc=pass smtp.client-ip=209.85.208.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-vk1-f174.google.com with SMTP id 71dfb90a1353d-5c675e64ffcso2193411e0c.0
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 08:29:37 -0700 (PDT)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Kw5eWXyX"
+Received: by mail-lj1-f176.google.com with SMTP id 38308e7fff4ca-3a1a3bb6c5dso10388091fa.2
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 08:30:07 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788535805; cv=none;
+        d=google.com; s=arc-20260327;
+        b=bPDaqcQW54BrnqJpN50fRfkl7pyflr66C8fw/8LQKD+T9dh04qhmWmi3W1GiRQghg1
+         Cj/+eo1VkJJsIWvZaz+vaaubBjRQbCJYcXRNudpPtfQk1LTwq8WXr4SnvVyyt274+qKd
+         atQvbNcu2tgRjhTaMVNE5kPOZF8zzDagcu6ZO2jcb01eNS3VDbm9nAYc875SjidJg5tT
+         YgqkrNarXJi70bRtkx6BLmZ8hBJO3IOXGVsspWd3zhh8dBLyy+pxjI4QwBOZLJKfwErQ
+         fIp2INvqrCw/1ujNwnLwkj8x4h3MI06YCUIuhPEXOVWkh+f32hVl/yHRNPuFteZK0aNp
+         +MMA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=sKA7G9k/SJrfVHqgC7G2BjjCfagiZOUSUNeg8K5wWvs=;
+        fh=JuZnyPcDKTaSTWKnsj/DFMJtB7tDzRne4tJixO5zQms=;
+        b=SApR+T4Ow+Wt0wt1J4UFOsken4G75f7yExRkItAMGM2z/R8GHS81PgWOyP3xa70DB3
+         50AFO1xHhGM+0Ky72aMV/2JASLyV8gmoLeunyin6cwcuJhgUDozHJg6kvfsbryP/7x8v
+         LEia3OjER/0R7i9eyxt1FUDPFJQTJ6IGWlHM5OnzA0MewNWU9lhSjUglV9bkcIJd3wZB
+         dZdd+luX6xb8F8IiLXVYn8/pyMfGR4nOU4abLOvFeE+QYxbWmLo9EJBxuKpMU7pI6zJd
+         D7woB1lrrpyofzCzJZx1TXZ9zTqXE4TXq9GF+GFAg1/0eWOGwvp6qQSdA/IwGdjoQRYf
+         OjCQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788535805; x=1789140605; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=sKA7G9k/SJrfVHqgC7G2BjjCfagiZOUSUNeg8K5wWvs=;
+        b=Kw5eWXyXkx6TYtm+s2zYoAwHCf8gE/rk+H+81xakptMMK59wFVY9uLE9OsqHbvhrYm
+         b8b6D3Fmp0WPfaUUdPEULMmkpGHdO8TE2ij4/I+PHQ+BlRRcsNdpiBrsB1sSnd/3FZsV
+         GI6gnII9aPFYAyxF5bmpYZp/L8WDBdaPK9A8E10aE4V1y7eMy/6SjoulZb3Oop888sIP
+         UUf5skg5JJHfV6zgYMwHu9z2dCpzpvWigc9UB3bInNGDzGrqkDSiXC1/6DFXZ81+xxDM
+         cJEYYL3zPSICo0i2C7fxiOz7TPWJG7jDBavuziNTt/Rm6WtXHZfxrM4T89rCQOlAs848
+         KlCQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788535777; x=1789140577;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=qKx60bz5SuKi9YOnfZ7Xh4JH5NN7Tn78TsaIHZikv3k=;
-        b=aEd0hqwgXsRHpT647YMcz0rS+vXI6vQ2MRLfR90E2Ee4ZGKcpSCP2sjMKKoHFWyWdr
-         a5XC0bkaFzQaB19ktN3ZtPoFUXSjGPgbB+oCQLuPiREI6fQ3Zo2v5Ocnr6tqhUkBH7xC
-         AmdCO3iLPwGdPoLrvdRDXILkoJZ8eMQ6gs3mcP9xxcIrXBeGuFRwhvZZUfd+uv2zBTry
-         IhgQiAKarlQP0IYvZCXoneY+eu6poDubg4v6WxRUuEMqOlVJGc0b1etVPQqkJPhT1L7C
-         hoZoAooLrUl7h+lzB4gKXz1s/QVI6CKZCE+KOVAA0eGlTu3M2lcAUPfRQR1UD8yWMnBv
-         wtoA==
-X-Forwarded-Encrypted: i=1; AKwUvBxI1Mjt2ppKOEsMketbzTsOYmF54INAkxYLdPRNCPf2b8A37r/seD6nt/z246zCf8IBdhIDF7KcNsCSHzI=@vger.kernel.org
-X-Gm-Message-State: AFuF++k142RxLCFA7HoVpzAT9HkrFxjEx76PdQH8vvx8qS+CupMcEcNL
-	Ifhgt62GVRoTXTPPpvqTZqHezSUb/9MUPmV9YogrOxsXgjqPeANIeFM8HiASlMMh
-X-Gm-Gg: AYBFou2FFSLXcbo/cUkVlbzGYQdszGhQqPkSqSOC7hCb2t9f5uwONZjjyN0ZemBJIml
-	pN3EyyzBGEbBvWsCHog9ShxyE9tr2CaBrfaKEDcFe1jSMc5i1ap97/NBlSodbwLqhbbF2VJQoYx
-	+DnM+PXq5LbfyP2i6iKUUNUMpf9zsu+OojzEqBzGQt4ICic0Q3Kr6WAc+X6TEtRbCESv5qYmnLh
-	PqQFOypZ01VuRxKNu1EKFQTWulz0hjgkGGsdX6MM8kM2dmayoJPfRpMpbqo/WENKekk/RrLMPHR
-	0TawppvTXuwsMZ6yy34UwGXrX3FukKBO422gPVv252D7dh0/+iWLZfUwGdDD9qwAcIGuEozEDgS
-	4kOVuZHXRDGojJRZkvuu0F54+PSsv6yUBYBtj3Eo5Nr8RmaK2FTlu/f8mE+nHXYT7katrCH7mvq
-	V2Aj1+GTD/O5VEqG/7UL7vpEi05ZN1L0dNO5p031b9+RvYt4XdTp5TJ+EjCSUh1vlf2NboK+wJz
-	DNAt/ezsyzTYtun1tRvBwDDMw==
-X-Received: by 2002:a05:6123:59c:10b0:5c4:4ec2:971c with SMTP id 71dfb90a1353d-5c7dcfc6d14mr2785270e0c.10.1788535776861;
-        Fri, 04 Sep 2026 08:29:36 -0700 (PDT)
-Received: from mail-ua1-f52.google.com (mail-ua1-f52.google.com. [209.85.222.52])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5c7ec23d459sm2317716e0c.9.2026.09.04.08.29.35
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 04 Sep 2026 08:29:35 -0700 (PDT)
-Received: by mail-ua1-f52.google.com with SMTP id a1e0cc1a2514c-97cc72fe0f3so1485619241.1
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 08:29:35 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvByzzBM+cVV/6Yu7huq0d/UWh1R671x6Ep9pDmcPzTu8X5ttBDaacu5paR2Em7tqfLWxz4V9oXZK+1REWqw=@vger.kernel.org
-X-Received: by 2002:a67:f906:0:b0:744:d517:b0b0 with SMTP id
- ada2fe7eead31-78a2ef8049fmr2629622137.10.1788535775319; Fri, 04 Sep 2026
- 08:29:35 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1788535805; x=1789140605;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=sKA7G9k/SJrfVHqgC7G2BjjCfagiZOUSUNeg8K5wWvs=;
+        b=ApXeoZsSMTfJQ3YhlPTkOxUU58qQxJ4oP63Hv4lnIATxP3Om6cD6sfGnQCE5JNcs94
+         xWnmBcR0Ra8H4xwIguFEII3YlywZn4hGxUXwgYufRPKlbezAHnCtdzG6Czdfth7VlFQu
+         MIJXg7He6EC2GGAV+un3R1V0LplJq+wLkRwI0KFZfbYi+l7lUPTpOpiXtqsfkyQSl9Ba
+         6xSzvjzlkNelqPKMq6/LU5LuRVnoISR4zif72aFdhu/s6uJpsEiZ7oz25jfByLdHwuIF
+         ytl+YT+MUoReqoYQIhRNTvMk8KxoATHY2TPr8ciPT3Sg/u6Km63+ImacXu2CtfG+J6Ci
+         +R5w==
+X-Forwarded-Encrypted: i=1; AKwUvBwhtv+q2m1g+x2Sq5iMMe4fkHZrqRMO1FaVBiL6Wou59AsOJBkw5xTWgRH2Hhach/wy7CNzn5E+ecQf0g4=@vger.kernel.org
+X-Gm-Message-State: AFuF++lyL+7/9K15IgaTpkytKzortT5IoKeD8QkxExCThLMDDJOQEn0Q
+	RtGdySkyE7ueESNA6t2rHvdE8m5CfjaP4wP1IxO2wKOxNEKn0xq6mj6aJipuL2dR+HqIYthhnf6
+	d3a2zwGf3PShTiMHQZD5QxbIYms4d5Hekoqqe
+X-Gm-Gg: AYBFou1z12NchNlaTDdui0k/NMfTSYAznd4N6pV+tF18q6PJtgQ2xfHIg/ztWVwRBT6
+	zCVEY/706IJHmORPsJ9BC6rStvZRwHFy7x23DGQ2qjh146fkRmhAJ9e5GFISW0AmdYbv3R52ZRn
+	JZlA7uahlQ66AeCAzyONdbfU8sXtEcUK3Hf8cBrBkYpJF0UNqGcK74ciWvLNXCeL8dRILGHBAEj
+	zpVmIwqJfGAHhvn5JlFopIsP9zoJ++i17GyI7DU2VW+WfvIWyPEeujvf8JuKe9XGIKeUO/8uHlE
+	NYHaZeSRqIfMynfHItkme1aMS3rauptXp7lrIRgpM5gqURp1CAiRZ9TK6jIqM5zeo+uLOizoTWS
+	4og6PU6L8wWo6pDA2526kSnpL8tmsPVBBiAcsq3N/0j5JewXlIPpLmXWn0H8m7Hgq8xis6OTdO6
+	JnraPLXOKNbxIaHn9e9w==
+X-Received: by 2002:a2e:be29:0:b0:3a3:7680:67f7 with SMTP id
+ 38308e7fff4ca-3a3768069ddmr4258741fa.22.1788535804804; Fri, 04 Sep 2026
+ 08:30:04 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260821150408.73829-1-ayman.chaudhry.kc@renesas.com> <20260821150408.73829-9-ayman.chaudhry.kc@renesas.com>
-In-Reply-To: <20260821150408.73829-9-ayman.chaudhry.kc@renesas.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Fri, 4 Sep 2026 17:29:24 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdWn3BaY3EHeThFo34Z=69OaZb0FQ7Z7Ui9MczDGS4nBGg@mail.gmail.com>
-X-Gm-Features: AcwNN1ViLT-nOz1SKiDYeBMSJtbLrC_K6YnJyCHi1MudTORPs1tGe-hfANcJPSI
-Message-ID: <CAMuHMdWn3BaY3EHeThFo34Z=69OaZb0FQ7Z7Ui9MczDGS4nBGg@mail.gmail.com>
-Subject: Re: [PATCH 08/10] arm64: dts: renesas: Add initial SoC DTSI for
- RZ/G2M v3.0
-To: Ayman Chaudhry <ayman.chaudhry.kc@renesas.com>
-Cc: Magnus Damm <magnus.damm@gmail.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
-	Jerome Brunet <jbrunet+clk@baylibre.com>, Ulf Hansson <ulfh@kernel.org>, 
-	linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org, 
-	linux-pm@vger.kernel.org, Chris Paterson <Chris.Paterson2@renesas.com>, 
-	Biju Das <biju.das.jz@bp.renesas.com>, 
-	Fabrizio Castro <fabrizio.castro.jz@renesas.com>, 
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+References: <20260904082741.578048-1-ubizjak@gmail.com> <20260904082741.578048-3-ubizjak@gmail.com>
+ <CAHk-=wiKvgXTJAXveUoWq0+Wn=E5255-Uc5ZzhXDgk31iXEZgw@mail.gmail.com>
+In-Reply-To: <CAHk-=wiKvgXTJAXveUoWq0+Wn=E5255-Uc5ZzhXDgk31iXEZgw@mail.gmail.com>
+From: Uros Bizjak <ubizjak@gmail.com>
+Date: Fri, 4 Sep 2026 17:29:53 +0200
+X-Gm-Features: AcwNN1VLHH6KFUKFuBcpdyOhmOftv_vvBlph_AR-wCslZDNf0nC6MtwkAMT2vkI
+Message-ID: <CAFULd4aynHJZ3hUbXk5WuyreNDE5D0RppiZFsGrYmQgiaqvVAw@mail.gmail.com>
+Subject: Re: [PATCH v2 2/2] compiler-gcc: Remove obsolete RELOC_HIDE() macro
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: x86@kernel.org, linux-kernel@vger.kernel.org, 
+	Andrew Morton <akpm@linux-foundation.org>
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Fri, 21 Aug 2026 at 17:06, Ayman Chaudhry
-<ayman.chaudhry.kc@renesas.com> wrote:
-> Add initial Device Tree Source Include (DTSI) file for the Renesas
-> RZ/G2M v3.0 (a.k.a. R8A774A3) SoC with basic support.
+On Fri, Sep 4, 2026 at 5:16=E2=80=AFPM Linus Torvalds
+<torvalds@linux-foundation.org> wrote:
 >
-> Signed-off-by: Ayman Chaudhry <ayman.chaudhry.kc@renesas.com>
+> On Fri, 4 Sept 2026 at 01:28, Uros Bizjak <ubizjak@gmail.com> wrote:
+> >
+> > The GCC specific macro was historically used to workaround very
+> > old compiler bugs (including pre-4.1 ppc64 GCC). These compilers
+> > are now long obsolete.
+>
+> The gcc-4.1 bug in that comment was about how the use of "=3Dg" caused
+> ppc code generation issues.
+>
+> It's not entirely clear to me that the original reason for this macro
+> is actually gone. The cast to 'long' has not always hidden the
+> provenance of the address.
+>
+> The use of inline asm in RELOC_HIDE() actually goes back much much furthe=
+r.
+>
+> I do agree that it probably is no longer relevant, but that commit
+> message is actively misleading. RELOC_HIDE() itself has nothing to do
+> with the ppc64-specific gcc bug, that was literally just a small
+> indepdendent change to the implementation.
 
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/renesas/r8a774a3.dtsi
-> @@ -0,0 +1,302 @@
-> +// SPDX-License-Identifier: GPL-2.0
+Oh, now that you point out, I was looking at inline asm, but since the
+patch removes GCC specific macro, the commit message reads like the
+*macro* is there to workaround very old compiler bugs. It is
+effectively inline asm that the patch removes, and as you point out,
+this inline asm caused ppc code gen issues. Let me rephrase the commit
+message to fix the confusion.
 
-Any change we can get "GPL-2.0-only OR BSD-2-Clause"?
+The cast to (unsigned long) should remove all compiler's knowledge
+about the pointer and force the compiler to use integer arithmetic
+instead of pointer arithmetic. This is what the generic version does
+without inline asm.
 
-> +       soc {
-> +               compatible = "simple-bus";
-> +               bootph-all;
-> +
-> +               #address-cells = <2>;
-> +               #size-cells = <2>;
-> +               ranges;
-> +
-> +               cpg: clock-controller@e6150000 {
-> +                       compatible = "renesas,r8a774a3-cpg-mssr";
-> +                       reg = <0 0xe6150000 0 0x0bb0>;
+Uros.
 
-No need for odd sizes: 0x1000.
 
-> +                       clocks = <&extal_clk>, <&extalr_clk>;
-> +                       clock-names = "extal", "extalr";
-> +                       #clock-cells = <2>;
-> +                       #power-domain-cells = <0>;
-> +                       #reset-cells = <1>;
-> +                       bootph-all;
-> +               };
-> +
-> +               rst: reset-controller@e6160000 {
-> +                       compatible = "renesas,r8a774a3-rst";
-> +                       reg = <0 0xe6160000 0 0x018c>;
-
-0x200
-
-> +                       bootph-all;
-> +               };
-
-Gr{oetje,eeting}s,
-
-                        Geert
-
--- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
-
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+>               Linus
