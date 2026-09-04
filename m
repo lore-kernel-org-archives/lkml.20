@@ -1,114 +1,129 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1071C447811;
-	Fri,  4 Sep 2026 13:38:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 325B731AABF;
+	Fri,  4 Sep 2026 13:40:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788529102; cv=none; b=JouNgySwh2oStMViSDcoQvDQ29W5coCDxtDBENGHldaYW4ypVtBbIXJ+yzXiMtI1aKKHAplFpRrvw46y1IPw9L7nlv9BLz5dz7eEQZSbaUjVR56qIPVuYt03u7vCYXHqiQy5zq0A/OrYTiPZMWUXtMVPVj3L/bPtU+gjlMqXkJo=
+	t=1788529215; cv=none; b=RIno8eQq172G9ngAC3JtCrTTBTSbGsHl+TLeeK7qrtPYkpmHObtRKsFBSN0j7GNfiek6e3r7I4h/a7a7qPBtODE2fR0D674dyF8w0TgvupRuWfi/A/oJBX58OxM61v0ehuZf117y1kRBEEngoeTubxuqcgtYFZpawk4feuyEo1o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788529102; c=relaxed/simple;
-	bh=8Qhzsqo8mZKi+p534gFaAvP++PQLr1O56E0YQdeS668=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Zd/zc5Z5T55LayXb1wqJQn9Y/M4aH1CgrLzDMsXbXJiDp8CSMFnKj991K0upxqqCL2MiOcNNBninXYoKQ8GFHvXc82KITLTwl+Ljgvtwz7Gm3vmjiB+DVqS9UQZnFIWegBbdZ9dFg2hKR3xHsX4+llu/6aGcR3+qTxQ+8g641Ak=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aPBLWKDI; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788529215; c=relaxed/simple;
+	bh=FTPKXSUOM2zOi2aT86wRCgLjWwm7B4XWHPeTLiXfeFs=;
+	h=Date:From:To:Subject:Cc:In-Reply-To:References:MIME-Version:
+	 Message-ID:Content-Type; b=JkiPS1WwgmnloXdygojsAE2joeRkEMwbxLiy2cfoJsnCaomzz+nsa5SgnF8urwVQ9xQdrXlTm2dJ5oKLl1F2QZCrtVqPX93taEqQiV5k1OKeFH4sf6J8wf/fIABhKYO2NhY3b3K5mdZvl2+7WD0GOnxOHtBWfPHWfrJZXLs6cec=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=ruNX14L8; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=vJ3xDjuK; arc=none smtp.client-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aPBLWKDI"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 946031F00A3D;
-	Fri,  4 Sep 2026 13:38:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788529100;
-	bh=ImHZfxtU81KZMYiwHk+GpoqZqQbLfpX8wQ5dvb5NL2s=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=aPBLWKDIH1u2uh9qt1fr5Txmnsj/o7b49sGvzCeJAansVIpptOaBJPmtwJH3TUk4M
-	 T6B2nSrzUwRl5DpUCWqr+HAsHRm00UZexQtxt1aGJSJaRRQFht4hK3YrK01trv7cq6
-	 kZqHmBt0DQuxC3F8LvKawzTu2dOLigtpt3kgAW4aAUr2d+dZ8UX6cjuSWdsP0lIFXX
-	 dAk5/JOzFhjYFHPyhxp/K/NtVHcpDDjitUAUyoqRoass3NbkmeGj/9jBRd594G5kOZ
-	 t1bEZbQT2vInEyleenT5lwprDiFsOnGmNoDRwQjZi/VfxNoiXdU9EegkwRUFwUr5lO
-	 JUnUro9UdV4hg==
-Received: by traversing.sirena.org.uk (Postfix, from userid 1000)
-	id 30892D8BEB2; Fri, 04 Sep 2026 14:38:07 +0100 (BST)
-Date: Fri, 4 Sep 2026 14:38:07 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Fuad Tabba <fuad.tabba@linux.dev>
-Cc: Will Deacon <will@kernel.org>, Marc Zyngier <maz@kernel.org>,
-	Oliver Upton <oupton@kernel.org>, Joey Gouly <joey.gouly@arm.com>,
-	Steffen Eiden <seiden@linux.ibm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Zenghui Yu <yuzenghui@huawei.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Mark Rutland <mark.rutland@arm.com>,
-	linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/2] KVM: arm64: Enable S1PIE for nVHE and hVHE
-Message-ID: <aprJv4vkguNJb5vG@sirena.org.uk>
-References: <20260904-kvm-arm64-nvhe-pie-v1-0-29d59f245e6c@kernel.org>
- <20260904-kvm-arm64-nvhe-pie-v1-2-29d59f245e6c@kernel.org>
- <86pkyt4gvt.wl-maz@kernel.org>
- <eb788ad5-5bb3-4767-87b8-d35d9e3ab220@sirena.org.uk>
- <apqrky27mJmUV9UA@willie-the-truck>
- <05f1e2f4-173a-4226-8c98-1452c20f0a47@sirena.org.uk>
- <CA+EHjTx87SnshzrUF69hGTSA9JmjW9oKbx+GbKjx5W+gnWYRgg@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="ruNX14L8";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="vJ3xDjuK"
+Date: Fri, 04 Sep 2026 13:40:09 -0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1788529211;
+	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=IDTAmwV65ZBOXuRE+ui+lLPYqg+p1ChG4P/9MCXP7GI=;
+	b=ruNX14L8U9oFXrNtwHDb/9bEro8xmXeR9rxbka2BGxYrUd1M9Kxf3+1K5zkcOE28x9MUwH
+	WtoMJF0A3hU1XMR8oXgb0Wknk/R8iEM05vD5qV7u89lY+TRXniOj4NXeV7/v+474OEaicE
+	z3gH5KCxKTipocq4VXSD/3hBKgDs+4N1k1VESXjy7mj4MRWUujyj7vFosR0zGtumCvi3jh
+	XKIxqls9hi/tYC4FN+mkxk4wZqgbjqc/Cqpg4+Yoyy+d0SsP3+mpfu6qylDtv6B1cwPgp6
+	7YfPhjK1a8+39ca3u6/VVY/k3AQyUTyyVj00vgSQ6Kt69jH5c/nwQdu80WIstA==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1788529211;
+	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=IDTAmwV65ZBOXuRE+ui+lLPYqg+p1ChG4P/9MCXP7GI=;
+	b=vJ3xDjuKKFECPh4zBBUjf1KYO1sO/NU2g89Mf4OHTXKEDmE8nFAgg4U1VJl8SVWx2lXioK
+	Ow7fmsfLXYp6wHCA==
+From: "tip-bot2 for Jiangshan Yi" <tip-bot2@linutronix.de>
+Sender: tip-bot2@linutronix.de
+Reply-to: linux-kernel@vger.kernel.org
+To: linux-tip-commits@vger.kernel.org
+Subject: [tip: irq/drivers] irqchip/gic-v5: Install root IRQ handler last in
+ gicv5_init_common()
+Cc: Jiangshan Yi <yijiangshan@kylinos.cn>, Thomas Gleixner <tglx@kernel.org>,
+ Lorenzo Pieralisi <lpieralisi@kernel.org>, Marc Zyngier <maz@kernel.org>,
+ x86@kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20260903104014.587068-1-yijiangshan@kylinos.cn>
+References: <20260903104014.587068-1-yijiangshan@kylinos.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="UmjJAuB3W22tES9f"
-Content-Disposition: inline
-In-Reply-To: <CA+EHjTx87SnshzrUF69hGTSA9JmjW9oKbx+GbKjx5W+gnWYRgg@mail.gmail.com>
-X-Cookie: Orders subject to approval.
+Message-ID: <178852920978.3717435.10105353589398176880.tip-bot2@tip-bot2>
+Robot-ID: <tip-bot2@linutronix.de>
+Robot-Unsubscribe:
+ Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
+Precedence: bulk
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 
+The following commit has been merged into the irq/drivers branch of tip:
 
---UmjJAuB3W22tES9f
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Commit-ID:     94713d60707bfe26c7cbc941abe26d1855448435
+Gitweb:        https://git.kernel.org/tip/94713d60707bfe26c7cbc941abe26d18554=
+48435
+Author:        Jiangshan Yi <yijiangshan@kylinos.cn>
+AuthorDate:    Thu, 03 Sep 2026 18:40:14 +08:00
+Committer:     Thomas Gleixner <tglx@kernel.org>
+CommitterDate: Fri, 04 Sep 2026 15:35:57 +02:00
 
-On Fri, Sep 04, 2026 at 01:20:44PM +0100, Fuad Tabba wrote:
-> On Fri, 4 Sept 2026 at 12:48, Mark Brown <broonie@kernel.org> wrote:
+irqchip/gic-v5: Install root IRQ handler last in gicv5_init_common()
 
-> > I figure that if we're supporting hVHE it will end up less complicated
-> > to also enable nVHE, it reduces the potential for having bad or missing
-> > fallback paths for features downstream of S1POE.  It's not like it's a
-> > huge extra bit of code and it seems likely to save hassle down the line.
+set_handle_irq() cannot be undone: once a handler is installed, any
+further call returns -EBUSY, so the set_handle_irq(NULL) in the error
+path has never worked.  Drop it, and install the root handler only
+after gicv5_irs_enable() has succeeded.
 
-> For pKVM there's no fallback path to get wrong: any CPU with S1PIE has
-> VHE, so pKVM runs hVHE on it, and a CPU without VHE has no S1PIE to
-> disable. I couldn't construct the protected nVHE plus S1PIE case under
-> QEMU at all.
+set_handle_irq() only fails if another root handler is already
+installed, which cannot happen on a GICv5 system.  Should it ever
+fail, the system is unusable: panic instead of unwinding.
 
-> Where I think it applies is kvm-arm.mode=nvhe on S1PIE hardware. That
-> boots, and it's the one configuration where the nVHE side of the patch
-> would run.
+Signed-off-by: Jiangshan Yi <yijiangshan@kylinos.cn>
+Signed-off-by: Thomas Gleixner <tglx@kernel.org>
+Reviewed-by: Lorenzo Pieralisi <lpieralisi@kernel.org>
+Reviewed-by: Marc Zyngier <maz@kernel.org>
+Link: https://lore.kernel.org/r/87fqzrmywu.wl-maz@kernel.org
+Link: https://patch.msgid.link/20260903104014.587068-1-yijiangshan@kylinos.cn
+---
+ drivers/irqchip/irq-gic-v5.c |  9 +++------
+ 1 file changed, 3 insertions(+), 6 deletions(-)
 
-Yes, exactly.  As you say any system with S1PIE would only run actual
-nNVHE mode if it was requested on the command line.  Realistically this
-is something that people end up doing relatively often in development
-even though it is not useful for production, so as Will said it should
-run.  It seemed explicitly excluding supporting the nVHE case was more
-likely to trip people up one way or another.
-
-Marc also started out with a flat no and didn't mention anything
-positive about the hVHE part so it appeared that he was objecting to the
-whole concept of the patch, including the hVHE aspect.  It seems you and
-Will are both OK with the hVHE bit and indifferent to the nVHE case, and
-I can certainly rework to unsupport nVHE mode.
-
---UmjJAuB3W22tES9f
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqayb4ACgkQJNaLcl1U
-h9CFewf+Pe/GdgGreSGkHQC1BpvuxnEK1XKsZA/fuA6yTcpTySfrwg/DYRMk3uVZ
-qnqCmZyh0gVz+wvtAIGdEUm4FyzQCKtIFCXlYRiQyQeErja7FhYQx8hHJae3E1Ow
-Km5lZiibgiRy9noLNRRtXPJPDYcnG10C637ZtRYu13Eor1qXLFY4DgrjthVUHX+p
-S6oHXyi7Br15EhhnlxoTw4UZO5CFa3HT3R9OJeta0F6YMRPwmfsscNnNSAqkVodr
-kS4tVuUCOIGLeMUGZjebaXL9TuCADQW7Y6RYLTvoBKJ3vWILYC93OwxMwU2M0sXE
-PxsugHPRtBkiKW8qog+YpaXXek8PTg==
-=UFWG
------END PGP SIGNATURE-----
-
---UmjJAuB3W22tES9f--
+diff --git a/drivers/irqchip/irq-gic-v5.c b/drivers/irqchip/irq-gic-v5.c
+index ac2d423..c365f81 100644
+--- a/drivers/irqchip/irq-gic-v5.c
++++ b/drivers/irqchip/irq-gic-v5.c
+@@ -1166,21 +1166,18 @@ static int __init gicv5_init_common(struct fwnode_han=
+dle *parent_domain)
+ 	if (ret)
+ 		goto out_int;
+=20
+-	ret =3D set_handle_irq(gicv5_handle_irq);
++	ret =3D gicv5_irs_enable();
+ 	if (ret)
+ 		goto out_int;
+=20
+-	ret =3D gicv5_irs_enable();
+-	if (ret)
+-		goto out_handle;
++	if (set_handle_irq(gicv5_handle_irq))
++		panic("GICv5: unable to install root IRQ handler\n");
+=20
+ 	gicv5_smp_init();
+=20
+ 	gicv5_irs_its_probe();
+ 	return 0;
+=20
+-out_handle:
+-	set_handle_irq(NULL);
+ out_int:
+ 	gicv5_cpu_disable_interrupts();
+ 	gicv5_free_domains();
