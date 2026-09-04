@@ -1,202 +1,213 @@
-Received: from CWXP265CU010.outbound.protection.outlook.com (mail-ukwestazon11022136.outbound.protection.outlook.com [52.101.101.136])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 941AB3E8328;
-	Fri,  4 Sep 2026 22:14:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.101.136
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F793446066
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 22:16:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.225.140
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788560097; cv=fail; b=pxUL8fkCazsFRpx2UJeSbhIkA/tv20Il+1a88BDRVT9dlYzvKrdLNtpxL2e25dB4qjgSqxxt5G1i6PMeY1e7USVoITCHqF4uqYNLy+vW44c1yEr1rMlJPGUdaFbkkzU5y3Rfje6hc/d2RjEo95lU5PkfnsnGAAKoVoNtb60ODP4=
+	t=1788560170; cv=pass; b=qAGOQQL1DdtQyZ1BaCgo9fNVulsAcQ59wCReP0iXya5PBF2+LJRZVDwqM9HjoftCvRxSogPKTNXMnkAhAjcUVxd/qJYaCXu9QR6/mC752+b7pNI90S7ljgQUg/mUu1/C78YOzieKv4xe4Kn+EsQbI9W/1Fd9wX5vzi59KSxwu7s=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788560097; c=relaxed/simple;
-	bh=ZRV+wScB1FdhH95ReVlNHM+rAC4QQ2WBEXNOGHRNUAI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=VD1JFhr5uGP8G9hMaEDvzU9GN4FCdWK4e/wle8kQbneM7MnPGokTGtJLR9dP/cPm158dUqb49ZEM0lQEO4vCBrANZsngEmqyDQyQ29wJP2hN8V9JUscdoPw7hPfd8yU8rPmzXTXUVKclJi7FLcLv9cW77/bdpIuBYvQHqFrNgIE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=atomlin.com; spf=pass smtp.mailfrom=atomlin.com; arc=fail smtp.client-ip=52.101.101.136
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=atomlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=atomlin.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=po+Ri2LTCG8WVA/r615JU1DVIxAEzsxFFoGp22+ZNzNwM19s5OPF6HMsb6xTm95AoMiEfslUOtlX2M75XWcyoyZWwcxxSKA6OoN0V3s4ivXd63YO1vjKzEzbRnSqdWJ3TByOLOBSp0SJKj0TnYYCVowA1Rq6WOY5gVi+Grrkbbccjzs0vNWkx3lZBUQjj3Uk7lsi6bGX3DshheBNASwUNMeFZR8mi2Lj7qqPocNQNlZKvIJ4s6ZpLHPaskOTwynhk9Ns7GWMbBsydmIVHDHVWWcjRMDhKWoWlQVAnwW+61CpX3LISXaeHyyeqMtGNk0oCKL8M2vWxBGihDO2ttgpGg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001; h=From:Date:Subject:Message-ID:MIME-Version;
- bh=c3fj/mWpr+GPNXRfbzIZ6nsQ4WJqa2L6kKSvr96MaLU=;
- b=NvOJA0AWEjnuoaWwPDBxfpaNUvgI85blMUg4YiOUb5xwTD+VxE/21Ph0UtROuFvjDcnyHWp0USGHRpT74yVZgX2h3CBCwYABKGvmG3HjR+F+MTsreCNS8nSXewqy3fL+z69HV/du62WGkY+BWmvOnZi4RHC3GVWRbRZFJPT58+OecevWIfL61q59owoJGcRd4tnqi1SNRsuVWwAWD0QCGYwr+lEfUZdSJVuuAlsZU5kIsOPX9NnhYh5etyFps+YlduTm30aiqNNWPuGmikAqymSQDr8S/3G+D55g3uSd1u6H858uFZ9S0D8fP93A70BwX5iHobHO3dCjv2GAg3Z6Kw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=atomlin.com; dmarc=pass action=none header.from=atomlin.com;
- dkim=pass header.d=atomlin.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=atomlin.com;
-Received: from CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM (2603:10a6:400:183::5)
- by LO8P123MB7757.GBRP123.PROD.OUTLOOK.COM (2603:10a6:600:3d8::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Fri, 4 Sep
- 2026 22:14:51 +0000
-Received: from CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
- ([fe80::cec4:77ab:262e:d230]) by CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
- ([fe80::cec4:77ab:262e:d230%4]) with mapi id 15.21.0360.008; Fri, 4 Sep 2026
- 22:14:51 +0000
-Date: Fri, 4 Sep 2026 18:14:46 -0400
-From: Aaron Tomlin <atomlin@atomlin.com>
-To: Arnaldo Carvalho de Melo <acme@kernel.org>
-Cc: peterz@infradead.org, mingo@redhat.com, namhyung@kernel.org, 
-	mark.rutland@arm.com, alexander.shishkin@linux.intel.com, jolsa@kernel.org, 
-	irogers@google.com, adrian.hunter@intel.com, james.clark@linaro.org, 
-	howardchu95@gmail.com, neelx@suse.com, chjohnst@mail.com, sean@ashe.io, steve@abita.co, 
-	rishil1999@outlook.com, linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH perf-tools-next v6 1/5] perf trace: Fix error checking in
- btf_struct_scnprintf()
-Message-ID: <lcxkwl3r7udjsnotta37ccy2ywxrsapchyfelp6ne3nqhwdjxb@azgez4whasoz>
-References: <20260824133122.751733-1-atomlin@atomlin.com>
- <20260824133122.751733-2-atomlin@atomlin.com>
- <aps1gjTwaMbDNQWa@x2>
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <aps1gjTwaMbDNQWa@x2>
-X-ClientProxiedBy: BN0PR10CA0023.namprd10.prod.outlook.com
- (2603:10b6:408:143::20) To CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:400:183::5)
+	s=arc-20240116; t=1788560170; c=relaxed/simple;
+	bh=dz2fj88YTNw0Ti+IhRHiMFJ+cu0G95tHI9e8c83/Hzo=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=W6OrhBodn8dx+CCs7Mfw7SB6+0bt9fKBmEQZhwcxUj6N9IQZ0Dh0SDidsGqBzi4s9PVkyFvKuuh+K6OcdCoDpF/BXFUvXTa37POGFYWPRzeaBYZbgFRMbiOKekg7v9UVV8LxZxX1qaPmFTdBdaL1rE2E1wb4unMbqs6qKPjvd5c=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=NKwV3ncZ; arc=pass smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="NKwV3ncZ"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49ccf3bc34cso5125e9.0
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 15:16:08 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788560166; cv=none;
+        d=google.com; s=arc-20260327;
+        b=SVuqqFE5hJxd9dljEMM8Cau6GvA6yojC/Q4ddsij5S05adgZzjqlCjJtt+EXAOOXCv
+         CznNFf8kDfIQBTjNDQou/uDRmUYNxK+sA5bi1wFTyh+YJJQYh2VG1Kr/6Qr07f8IO/o0
+         8p+9TFuhiEYqA+Vjo3j5OX8OhcrFXpDDgexfNOCXUBbiGUvvlAa98HV5Ne+0C4HLnqOJ
+         oLsPFweW+gXoRJiWtfAgjPTYI2wZTSo8JXNujJCwlqUponx3J/PyxCD3/8FQDxH+IHFX
+         syn5w0/6D/skecKjGL4cB99I28mH69Pwt3pT06kO6g4MsBlVAaryX06eH7Cx03B5oIuO
+         iQIg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=0l8VM1lkkUjt52ORVhFYEbx3JRFVUpwcUSSFpCihGCk=;
+        fh=e282yoOffn+n7df4ZUCQzk3si+w7JGSaKNO2IXLaG00=;
+        b=fFReSdXo+QNg6ro/3ysVpopdLWPh1lZ6XPh2MbdUSCyc3SCAq5I2O50dOEbggK+sxd
+         MvDhk8J6tlY5ZFvTV7FoMvCuF27ZCuQgMuOhV8kGjJC7L5cQJK/ytA+VL5xkqIrRwE76
+         KyRjZMSfKYkm33B4K9FLIosIT+mHqKBLEKbXOo9uHsp5JDsggURIZJwVJUw3faBt6yfO
+         L14C9cuAsvqyDzBIv3RXWAEvNiNfXIzKhWAm0sno7+Bd+nkMgMNpV550GgW7xsHnXbM6
+         mdOtTNxzBZFT1iCiuakI+rI53/JAK4rtPW9b7MsFj56gsv37ZaMwnsQrN5jn6HrTYQkY
+         ZNRw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1788560166; x=1789164966; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=0l8VM1lkkUjt52ORVhFYEbx3JRFVUpwcUSSFpCihGCk=;
+        b=NKwV3ncZA2lylVdyey7jD7wRUGkdvzs7/XYI2XZD0HgmOwZtp5fcsqw4e5ovBEOGAz
+         bm7Ui01c/Yxj8yQhaf5KH5yD/uoaLUljRUuZcGmZJL9KXMUNmJT4x4SUXJ3zNXflXqoh
+         i88/QuZJAJz8uGKWXc+PtWZt5egoLWDdrU+vqSM9Sb3coQmjOTVvikd7qslAVYnwBtFW
+         U3WrypdHxswdeum18xARveXZQLSi4CvhgBw7RY2P7uH3k7W5I7I6cNeWItj62zEh+Ny/
+         uf3KFfnzY3A1TzY3vikPi41R+HGXuJaB+SDrToOro1jeQcLvMB0RXwxvX5xPxDP/qLs0
+         GQlQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788560166; x=1789164966;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=0l8VM1lkkUjt52ORVhFYEbx3JRFVUpwcUSSFpCihGCk=;
+        b=ZlsbnehSEVvDfL5Ig5vkqoXXt2TGGxmYJwo91g4udZy7qPkNfpMaUlwbWe8pR6P4a6
+         zj76LJxjv0tKtMBUOAkD/ljI3qihYUJPGN/0ek3eFcLDAeoO99/1pRkt/HVw3ueMN1oJ
+         dZUpOqQnLJZ4V1hdLJnQCkw2Pw4jElNYdQry8p+F0AtEov7PgKskexsMjVFgXmd1eG6s
+         yRyik/+e0kjZQzdM24tkzEUjVsKWIp3g314we/b7NXOn7cTY3I/doe3ULK9n5fZulnyh
+         ZGJRADf9eu8TI+gg1REEpl62PfoPvLIvsuE0MjsueXtjOI26oGH2jt3f8TK6eSrpW8Fk
+         zAww==
+X-Forwarded-Encrypted: i=1; AKwUvBx76GQYREbxrwPxP9fLSKyRdIA52iBXmZs/ukihvtY1y8W4N72itnz0JEReh7REsFeWSS6bQtabEfgmTDQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++lyp+kpazBUmtcg4yB9i4YZXO83NFXQDxN/KLiexzXKuoRrbCl5
+	SEGmWMeQv3qwvpumfC17Ysh+Mt2AxfQLGNuOpk2L5lSz3HKRgng7Kl1Ev5aUleQTJ0EcyGu+Lnd
+	Cp6EPRCHCg36GdTIcf2UCtMdaktXxEoTj835k5bbY
+X-Gm-Gg: AYBFou0GStGneUj0p1QbdAOW7fjyX/En9APvHb08eaZLQdgnFWeYYXMMsLikTL641sj
+	1+4TpF+EY2x4QXFG11F6DILG0KJi6egJ/rsARwyBMCzPMPJXfOi3KSilpmEOFcLxLYpM9YiGGoG
+	BbGG699CLFMaLOCmPQRB99aFaB6XuKHByhHkaAGg0e17gC/OVBt+CnZWWE7KPZJa1/PYk7m5pY7
+	Yfun51n0LJ1rV5AhlxCmb9rmaht/uvUrTY7Vtt315AUbfWTEbBlqp4nrUmpg9APg7Z/vlphLx8t
+	FOwig3t3cm63PllGCkW/DmgsrBFwjBcSnvfN6QVS51NzDeXW8ASmPwdL9f9Et4P1yBvXkBBB6vA
+	=
+X-Received: by 2002:a05:600c:470a:b0:499:c4db:2ea9 with SMTP id
+ 5b1f17b1804b1-49d01dd5312mr209675e9.9.1788560165981; Fri, 04 Sep 2026
+ 15:16:05 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CWLP123MB6607:EE_|LO8P123MB7757:EE_
-X-MS-Office365-Filtering-Correlation-Id: c769d859-d5db-42ee-d26a-08df0ad1f059
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|376014|1800799024|23010399003|366016|56012099006|4143699003|6133799003|10067099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	b9p1NkP2Ox40D4VqCM+712UUHTkVXMmf0dl3ZQE7xBnaloBe6KfngI0EGD7qJvJG5pLOU5ltip822LCH/l+EEp2etc4wPlm4Sr7uEv49316c6QBaxOo9IlGjAOdgeI+NfTs/F4LwQyCnRMs9mjmjJnlFc8Ntb0jFgNOmWCwKYLcRMc0kThw7YRjX/bCm+gIxhO5pLfFZ2aXuPgZ+4VbB6x5v+dQoHv6xP48inUX8KCmoTVwokiHYh+bRCYSeiXOGaXZoR3gLa0flZgJGCJ64dnms4T+iAbWM3M5WkhpEZ1ymjr+8oNX4NhqRQe7MPlwvifl6Bg5WWG0Z+ZjVQ0zVF02pNxAxkANCqnS+qYcnSZQhjnftXcth38kWpnB+6PenDCqWEbf/tKlHX7S2DaoJSscF2c7U7zg97XlahKVuTuAWAaartLtM7MWEwMQ3b/2OsfXFDtH+lUmni05U73t+nh8N553iY3ycVXFfTeiWT/d+/TKaFjFkr8iJkcFV7YU7HHsFSGhiy58rD+u7yTS6KtyIl5EK86qJo1y1sKEjDLXplM8/rXRNu60Q2frazB1dfuM17wuPymcYqs0KH9Yj1490uy/LZpao/HceGUsK4gQMNnO7MLZFF18VtT7na6pSW+3+Ya3fkVL1HFCNJ7FErKvsmYOzEe5Xz6/l6fr1k2A=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(1800799024)(23010399003)(366016)(56012099006)(4143699003)(6133799003)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?NVJOLzdlUjdNdnc1S0Y3a0ZFUHlxUEJHZnVOaFZUeTFjVXphZHNkNUFwZ3V4?=
- =?utf-8?B?MEFlY1hDUTFPSGZiV1FRaTFhS21SM1o1aXBnaHJ4aVZGeGNxNGQ2QzhwT0tS?=
- =?utf-8?B?RGoxaVFTQmFCTmpOaW5GVUoyZVNzSmY5K045TDZzNWdCbXFUU1IrNi9YWWxM?=
- =?utf-8?B?WlBYVVBMWTFsb0I2U1pnRFdPSFg3ZFBRNTFScUg4anVFN1lTeEVFR055Vk81?=
- =?utf-8?B?MTFmbkhwam5yMzlORzVmL1RaUFo5VXVtak1ZT0tCNWxnS0NzeFVXS3lWZUF1?=
- =?utf-8?B?VjVBL2Z0Z3pHUmtaUUFsSFdjQ0E5STZzV1Vkc0NlNFZmQVFIZ1F3K2RmWXU1?=
- =?utf-8?B?aUVrYWM3b1NZSnlJTzJyNHBCYStKMFdVNE9neW1VVmdMbFV3Mi9tY2NOak1r?=
- =?utf-8?B?UTF2TTlDZVNPeHJEYmlmWnZiYjBuaHVHRk1lY2R4YnY0UjRYbTRUZlM0Mnkx?=
- =?utf-8?B?dGZvUlhkTVZEc3VCZ095L3Z6SExrRDNtU0hkcXVzOTc3TmthNTk2RVFMS3Nx?=
- =?utf-8?B?UXRtRWJPS3V6WjVzUk45N2x6RXVZWjBEMmRvRFR6SU04eXVyMGovNjd3bWhH?=
- =?utf-8?B?TC9BWDZxLzBLYm5qTXhYTFhBN1pNSHEzb0U3RTJ3QW5PQnlCemZqM2VXaXBL?=
- =?utf-8?B?UXl3RGVlcHF6SFgyMzRjQUtqWmIvNEsvNTk2clo3NFp3eDNZV0IvSStWUWxx?=
- =?utf-8?B?WDdKQlFnc2ZpVlI1QXBiN29JVE8xOTlGVHVnTnN1cUFwRzVoMzVOdHUvZzV0?=
- =?utf-8?B?bmZaaHZSaDVLdWNOa3QvY3d3Z3hVb2FtWjdINjdKOEVsUEJSQ2FTcWlaazdv?=
- =?utf-8?B?dXFWQUE0bDd3ek5mRGVBM2JUMi9hUS9Jb3hEN3pPWWQ4RmVjRGhDcG9MRnNh?=
- =?utf-8?B?U1ZvdWIxdnNDd0tlQWxVQW92UDQyeFRzanp3QitGTWhMaSs0MWlmZWN1cXUv?=
- =?utf-8?B?Tll3Sm9OaFQySG5BZldGZTdGeElDYVV4d1pqQTE4TmFlc0V1c2tUL0NEQTNo?=
- =?utf-8?B?TFA5dkdlUW1taVhDY0piZHhRSmRnczI1dnJwTE82ZjdrTE9iaU1pUG5FTzRG?=
- =?utf-8?B?cVhGZnV0T1JsT09SQW0rdndoRFpRTmhGeUEvV0ZJOFR6cE8zQktoQkRvWmJ3?=
- =?utf-8?B?WHBFQXZ5bXFXMEZCRUN6YzhwV04vcE5acmFWcFdmekg2bkR4aU9qK05LWVg4?=
- =?utf-8?B?UEdZMkU2WVlQQzBMdXBXUmdrVXYwZ2E4K2dpQzlyOW1CK243TFZDT05OYklv?=
- =?utf-8?B?Wjc4T09xdGR4VHBzVmI1WVNBWkRjTFhVczdHbG5NYmYyZmppMFJoNmZqUzMz?=
- =?utf-8?B?RDJwYUJQM3FuQjN6UWJVZk9GUVhOeDBZSHk1aWJiaGM1RWJKWkEvZGRGYldy?=
- =?utf-8?B?T2NKKytNT0hJamZZcXFhc3cydnNmbUl5Wno1NXB0WlNYZzJoRWM0OW9aWG9R?=
- =?utf-8?B?QlFnM3FDU1RPRVhQSGxDeTVCT3RoU3E5Rm1MSUp5eGoralF4cmJmeWJ0cGY2?=
- =?utf-8?B?bXluS0tjWTNYLzBtOHN3Vmt4N3dNbUMrbnhZU1JyUnArWXhnRUQ0SFROTk1Z?=
- =?utf-8?B?cGRqZXBJTXMvMHM1cWJ2STEzcTVCb3NoZzZvcUZZMy9mbjgvY2drTXRvUU9V?=
- =?utf-8?B?QU1IVkNVT3ArNG9uSmg3VVB2aUJ1eWM0R0lzWXE0SWNNMC95bUhtOGl6NjRk?=
- =?utf-8?B?RWtJenNacmpMQjlLejRobWQ4ZVNubTRuWWR1RFpTcVJCQ0RPOSs5S3NKWHgz?=
- =?utf-8?B?ell3UDVzVmpLcWZ2cTJxUnF3VHdtVXFzd0pkeTQzLzJ4ZUFCcUtvOWxpNE1o?=
- =?utf-8?B?OGN5c2JOaWRmaUVkZ3dBdFhMVVNpNk04TTFFRy9vRVR3dFRkS3JtbG5HUHBu?=
- =?utf-8?B?RGtKMUFMekxQMlFjdGxpTkorTnYra25NdUh1OTlxRVJRSi9TenFwNkpxcDdW?=
- =?utf-8?B?M2ZjbzIrYXdiMjhYTStIY1VCMTFBb1JIR2Y3UXpvSWJBQUdtdUYzUUd0b3la?=
- =?utf-8?B?amQ0MUdzdDA5ZEF0dXZMelg3cEdxT2FJRnloWFJSKzYySVZrTndCTkVCQUtO?=
- =?utf-8?B?KzZFamkyNlIzVU13WlBZNllSeWpnc2dZeXN0RG5WRFBlVzBKenZwZ2ZYbmNK?=
- =?utf-8?B?MUo2STBHRWZ4NGQ5VFN5bWFqWk5sMVRoZ3RjV0NYOEFKWmp4ekovWWxSai9u?=
- =?utf-8?B?aEpsbTVVRVdWL1VVc0FtbDdyaDB1U3pNNXRwY09ZeE9jSEZCTGhOSGtXY1lv?=
- =?utf-8?B?Z0MxdzhIYXBmZVdrT2htZHdmWG1BTlo0RDdpbjBuNDZWSDdqNW9kQk56UmNS?=
- =?utf-8?B?MFI5ZVFHUi9YUzl5Y1lZMmNINklnbkZKeTl1V2R4QmdGVFREQS83UT09?=
-X-OriginatorOrg: atomlin.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c769d859-d5db-42ee-d26a-08df0ad1f059
-X-MS-Exchange-CrossTenant-AuthSource: CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Sep 2026 22:14:50.9341
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: e6a32402-7d7b-4830-9a2b-76945bbbcb57
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: yeY5qOkn1JqVdqtPAouL78EVjhWR/r6I3ni7uW/fZpvEkQwHcp9T40FsKwUnzijPXlqKc1mGo6uMTMOExs2XNQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO8P123MB7757
+References: <20260904173145.2028377-1-stevensd@google.com> <apsTohKZNnZuWIxC@linux.dev>
+In-Reply-To: <apsTohKZNnZuWIxC@linux.dev>
+From: David Stevens <stevensd@google.com>
+Date: Fri, 4 Sep 2026 15:15:54 -0700
+X-Gm-Features: AcwNN1VpnwWrsGTRyjmKHtNydJf_FSs12X_Euci9xsJuEck82AevDlkEA_BZZfE
+Message-ID: <CAOiLmNGdPk+7v6Aqm9ctQV9J3YKti50gVTP00P=-3cZ8-x5cUA@mail.gmail.com>
+Subject: Re: [PATCH v2] memcg: Don't call schedule_work when no spinning is allowed
+To: Shakeel Butt <shakeel.butt@linux.dev>
+Cc: Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, 
+	Roman Gushchin <roman.gushchin@linux.dev>, Muchun Song <muchun.song@linux.dev>, 
+	Andrew Morton <akpm@linux-foundation.org>, Lorenzo Stoakes <ljs@kernel.org>, cgroups@vger.kernel.org, 
+	linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+	Michal Hocko <mhocko@suse.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Fri, Sep 04, 2026 at 06:17:54PM -0300, Arnaldo Carvalho de Melo wrote:
-> On Mon, Aug 24, 2026 at 09:31:18AM -0400, Aaron Tomlin wrote:
-> > btf_dump__dump_type_data() returns the positive number of bytes dumped on
-> > success, or a negative error code (e.g., -EINVAL) on failure.
-> > 
-> > Currently, btf_struct_scnprintf() checks if btf_dump__dump_type_data()
-> > returns 0. When a negative error code is returned on failure, this check
-> > evaluates to false, causing the function to proceed down the success path
-> > and advance arg->augmented.args past the unprinted struct data before
-> > returning 0.
-> > 
-> > Consequently, when syscall__scnprintf_args() falls back to the default
-> > argument beautifier upon receiving 0 from trace__btf_scnprintf(), the
-> > fallback beautifier or subsequent arguments read from an erroneously
-> > advanced augmented arguments buffer.
-> > 
-> > Fix this by checking for '<= 0' ensuring that on any failure or 0-byte
-> > dump, 0 is returned without modifying the augmented arguments pointer.
-> > 
-> > Fixes: cb32035214b9 ("perf trace: Pretty print augmented struct args using BTF")
-> > Reported-by: sashiko-bot <sashiko-bot@kernel.org>
-> > Signed-off-by: Aaron Tomlin <atomlin@atomlin.com>
+On Fri, Sep 4, 2026 at 12:03=E2=80=AFPM Shakeel Butt <shakeel.butt@linux.de=
+v> wrote:
+>
+> On Fri, Sep 04, 2026 at 10:31:45AM -0700, David Stevens wrote:
+> > Memcg charging can be done from any context, but calling schedule_work(=
+)
+> > isn't safe from an NMI. If memory.high is breached from a context where
+> > spinning isn't allowed, use irq_work to schedule the reclaim work.
+> >
+> > Fixes: 3ac4638a734a ("memcg: make memcg_rstat_updated nmi safe")
+> > Acked-by: Michal Hocko <mhocko@suse.com>
+> > Signed-off-by: David Stevens <stevensd@google.com>
 > > ---
-> >  tools/perf/builtin-trace.c | 4 +++-
-> >  1 file changed, 3 insertions(+), 1 deletion(-)
-> > 
-> > diff --git a/tools/perf/builtin-trace.c b/tools/perf/builtin-trace.c
-> > index c3c7f1f85c53..1bc39f674f11 100644
-> > --- a/tools/perf/builtin-trace.c
-> > +++ b/tools/perf/builtin-trace.c
-> > @@ -1066,7 +1066,9 @@ static size_t btf_struct_scnprintf(const struct btf_type *type, struct btf *btf,
-> >  		return 0;
-> >  
-> >  	/* pretty print the struct data here */
-> > -	if (btf_dump__dump_type_data(btf_dump, type_id, arg->augmented.args->value, type->size, &dump_data_opts) == 0)
-> > +	if (btf_dump__dump_type_data(btf_dump, type_id,
-> > +				     arg->augmented.args->value,
-> > +				     type->size, &dump_data_opts) <= 0)
-> >  		return 0;
-> 
-> Applied the series, only change I made was:
-> 
-> diff --git a/tools/perf/builtin-trace.c b/tools/perf/builtin-trace.c
-> index c3c7f1f85c530196..4c8f91f0f854b382 100644
-> --- a/tools/perf/builtin-trace.c
-> +++ b/tools/perf/builtin-trace.c
-> @@ -1066,7 +1066,7 @@ static size_t btf_struct_scnprintf(const struct btf_type *type, struct btf *btf,
->                 return 0;
-> 
->         /* pretty print the struct data here */
-> -       if (btf_dump__dump_type_data(btf_dump, type_id, arg->augmented.args->value, type->size, &dump_data_opts) == 0)
-> +       if (btf_dump__dump_type_data(btf_dump, type_id, arg->augmented.args->value, type->size, &dump_data_opts) <= 0)
->                 return 0;
-> 
->         consumed = sizeof(*augmented_arg) + augmented_arg->size;
-> (END)
-> acme@number:~/git/pahole$
-> 
-> As this source code allows for longer lines, having it like above helps
-> in reviewing, we can see straight away what the change was. There was a
-> clash a few patches later that expected that reflow to be in place, I
-> adjusted that as well, no code changes in both cases.
-> 
-> Please avoid reflowing things.
-> 
-> Thanks for your work, appreciated!
-> 
-> - Arnaldo
+> > v2:
+> >   - Added missing includes reported by Lorenzo and kernel test robot
+> >   - Added Acked-by
+> >
+> >  include/linux/memcontrol.h |  2 ++
+> >  mm/memcontrol.c            | 13 ++++++++++++-
+> >  2 files changed, 14 insertions(+), 1 deletion(-)
+> >
+> > diff --git a/include/linux/memcontrol.h b/include/linux/memcontrol.h
+> > index 8170bb8066a2..4a5ef0aba475 100644
+> > --- a/include/linux/memcontrol.h
+> > +++ b/include/linux/memcontrol.h
+> > @@ -23,6 +23,7 @@
+> >  #include <linux/writeback.h>
+> >  #include <linux/page-flags.h>
+> >  #include <linux/shrinker.h>
+> > +#include <linux/irq_work_types.h>
+> >
+> >  struct mem_cgroup;
+> >  struct obj_cgroup;
+> > @@ -219,6 +220,7 @@ struct mem_cgroup {
+> >       spinlock_t       peaks_lock;
+> >
+> >       /* Range enforcement for interrupt charges */
+> > +     struct irq_work high_irq_work;
+> >       struct work_struct high_work;
+> >
+> >  #ifdef CONFIG_ZSWAP
+> > diff --git a/mm/memcontrol.c b/mm/memcontrol.c
+> > index 6dc4888a90f3..0e8b302ca9ad 100644
+> > --- a/mm/memcontrol.c
+> > +++ b/mm/memcontrol.c
+> > @@ -62,6 +62,7 @@
+> >  #include <linux/seq_buf.h>
+> >  #include <linux/sched/isolation.h>
+> >  #include <linux/kmemleak.h>
+> > +#include <linux/irq_work.h>
+> >  #include "internal.h"
+> >  #include "swap_table.h"
+> >  #include <net/sock.h>
+> > @@ -2360,6 +2361,11 @@ static void high_work_func(struct work_struct *w=
+ork)
+> >       reclaim_high(memcg, MEMCG_CHARGE_BATCH, GFP_KERNEL);
+> >  }
+> >
+> > +static void high_irq_work_func(struct irq_work *work)
+> > +{
+> > +     schedule_work(&container_of(work, struct mem_cgroup, high_irq_wor=
+k)->high_work);
+> > +}
+> > +
+> >  /*
+> >   * Clamp the maximum sleep time per allocation batch to 2 seconds. Thi=
+s is
+> >   * enough to still cause a significant slowdown in most cases, while s=
+till
+> > @@ -2752,7 +2758,10 @@ static int try_charge_memcg(struct mem_cgroup *m=
+emcg, gfp_t gfp_mask,
+> >               /* Don't bother a random interrupted task */
+> >               if (!in_task()) {
+> >                       if (mem_high) {
+> > -                             schedule_work(&memcg->high_work);
+> > +                             if (allow_spinning)
+> > +                                     schedule_work(&memcg->high_work);
+> > +                             else
+> > +                                     irq_work_queue(&memcg->high_irq_w=
+ork);
+> >                               break;
+> >                       }
+> >                       continue;
+> > @@ -4129,6 +4138,7 @@ static struct mem_cgroup *mem_cgroup_alloc(struct=
+ mem_cgroup *parent)
+> >               goto fail;
+> >
+> >       INIT_WORK(&memcg->high_work, high_work_func);
+> > +     init_irq_work(&memcg->high_irq_work, high_irq_work_func);
+> >       vmpressure_init(&memcg->vmpressure);
+> >       INIT_LIST_HEAD(&memcg->memory_peaks);
+> >       INIT_LIST_HEAD(&memcg->swap_peaks);
+> > @@ -4337,6 +4347,7 @@ static void mem_cgroup_css_free(struct cgroup_sub=
+sys_state *css)
+> >               static_branch_dec(&memcg_bpf_enabled_key);
+> >
+> >       vmpressure_cleanup(&memcg->vmpressure);
+> > +     irq_work_sync(&memcg->high_irq_work);
+>
+> On RT kernels, this will put rcu grace period here while we are holding t=
+he
+> cgroup_mutex. Easy fix would be to use IRQ_WORK_INIT_HARD instead of
+> init_irq_work() in mem_cgroup_alloc.
+>
+> Something like:
+>         memcg->high_irq_work =3D IRQ_WORK_INIT_HARD(high_irq_work_func);
+>
 
-Hi Arnaldo,
+This executes as part of css_free_rwork_fn(), so it isn't under cgroup_mute=
+x.
 
-Noted and thank you.
-
-Kind regards,
--- 
-Aaron Tomlin
+-David
