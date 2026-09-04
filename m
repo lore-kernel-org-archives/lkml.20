@@ -1,27 +1,27 @@
 Received: from dggsgout11.his.huawei.com (dggsgout11.his.huawei.com [45.249.212.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 071CC41D120;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0702D415F29;
 	Fri,  4 Sep 2026 06:13:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.249.212.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788502438; cv=none; b=L+67lefN4HmWg9KSuVYjSXGYSgbuWgP3jugQnWvteF3oQDxfg84W5YX1/d0PLeXXaFTfXrW7g3+xSejscnWOmnyiWqCs92Vc0B0If46l+cEg9CTgX1eGX7unbbRaecYJ2RT+Ox1KzZVFl7/R5K3kcnY5cCzBm4JnSahX0f9y294=
+	t=1788502439; cv=none; b=B/uosdicEb8QJsSrqtjjBFLbb4nx220mLDH4hmRRjQydihHn6iKh35rTo5AP7lZpQVco+5kmxiIx7QgBaM3+h6WwhCnDaTkMzoLgwwV93446Bah1AmEsNE1EQNnFnpYQ5NpfuzzpsBO/5q3u2mK8WxQw4FHhZhFAAisFX5t+H7c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788502438; c=relaxed/simple;
-	bh=4j+r7iVIMwOFPVSW3tSm0fvj2lIxxC2PzFeRYTjxwrc=;
+	s=arc-20240116; t=1788502439; c=relaxed/simple;
+	bh=pUoh/92+pS2sxovDzdzoh4Ltpb6Q6JWLld4HMmwYZGI=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=sFHjigSKMgC9wK5Vrv3W6Qg4t+60NfLTPof3gazQIDxrByfvhmbiLIiG4hoprcvy0BUobpZvVmbm9aKRUqvwwmvOrp637+phJJ/Ifvtis68YPm3ESuVEP6gPxPyOksWVuF+m+H3YKpeV3kehSeoijXOqllUC3VyG+K//xAqh5KY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com; spf=pass smtp.mailfrom=huaweicloud.com; arc=none smtp.client-ip=45.249.212.51
+	 MIME-Version; b=d6Natyu8UC0Rs7MBX6EC9erQ8ZRLQbYZDMMbhgOcElP2Dwhor0vDk3u6rPRLR0zMsRVCJfmiuOrGw2vftNSCSKoMLBMdEsHEFtxumuMu6J+pIjGQlqM5Boov/MVKXwMwe93HvhYR5HG1S6A8LBNfNwjBfQjiS6yO4C4mo18Xwqo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com; spf=none smtp.mailfrom=huaweicloud.com; arc=none smtp.client-ip=45.249.212.51
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huaweicloud.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=huaweicloud.com
 Received: from mail.maildlp.com (unknown [172.19.163.198])
-	by dggsgout11.his.huawei.com (SkyGuard) with ESMTPS id 4hbmNh2RjVzYQtxx;
+	by dggsgout11.his.huawei.com (SkyGuard) with ESMTPS id 4hbmNh4L73zYQttq;
 	Fri,  4 Sep 2026 14:13:08 +0800 (CST)
 Received: from mail02.huawei.com (unknown [10.116.40.112])
-	by mail.maildlp.com (Postfix) with ESMTP id 745D240DBE;
+	by mail.maildlp.com (Postfix) with ESMTP id 8520940DCE;
 	Fri,  4 Sep 2026 14:13:52 +0800 (CST)
 Received: from huaweicloud.com (unknown [10.50.85.155])
-	by APP1 (Coremail) with UTF8SMTPSA id cCh0CgCHbwqeYZpqTb3FAg--.50434S6;
+	by APP1 (Coremail) with UTF8SMTPSA id cCh0CgCHbwqeYZpqTb3FAg--.50434S8;
 	Fri, 04 Sep 2026 14:13:52 +0800 (CST)
 From: Zizhi Wo <wozizhi@huaweicloud.com>
 To: cem@kernel.org,
@@ -33,9 +33,9 @@ Cc: linux-kernel@vger.kernel.org,
 	yangerkun@huawei.com,
 	chengzhihao1@huawei.com,
 	wozizhi@huawei.com
-Subject: [PATCH 2/5] xfs: remove unused xfs_iext_realloc declaration
-Date: Fri,  4 Sep 2026 14:06:45 +0800
-Message-ID: <20260904060648.1966130-3-wozizhi@huaweicloud.com>
+Subject: [PATCH 4/5] xfs: remove unused kmem_to_page helper
+Date: Fri,  4 Sep 2026 14:06:47 +0800
+Message-ID: <20260904060648.1966130-5-wozizhi@huaweicloud.com>
 X-Mailer: git-send-email 2.52.0
 In-Reply-To: <20260904060648.1966130-1-wozizhi@huaweicloud.com>
 References: <20260904060648.1966130-1-wozizhi@huaweicloud.com>
@@ -46,52 +46,64 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:cCh0CgCHbwqeYZpqTb3FAg--.50434S6
-X-Coremail-Antispam: 1UD129KBjvdXoWrZrW3WFW5Zw17AFykGw43trb_yoWDCFX_Aa
-	1xtr48Kw4UXr93Cr4DGFn0qF1vkF4xGrs7ArWUtan0qw15Ja4DJw4DJr4xtr9xKrs8Xwnx
-	AFn7trZIy340yjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUIcSsGvfJTRUUUbTAYFVCjjxCrM7AC8VAFwI0_Wr0E3s1l1xkIjI8I6I8E6xAIw20E
-	Y4v20xvaj40_Wr0E3s1l1IIY67AEw4v_Jr0_Jr4l82xGYIkIc2x26280x7IE14v26r15M2
-	8IrcIa0xkI8VCY1x0267AKxVW8JVW5JwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK
-	021l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F
-	4j6r4UJwA2z4x0Y4vEx4A2jsIE14v26F4UJVW0owA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_
-	GcCE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx
-	0E2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWU
-	JVW8JwACjcxG0xvY0x0EwIxGrwCY1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrw
-	CFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE
-	14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2
-	IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxK
-	x2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI
-	0_Gr1j6F4UJbIYCTnIWIevJa73UjIFyTuYvjxU2WrWUUUUU
+X-CM-TRANSID:cCh0CgCHbwqeYZpqTb3FAg--.50434S8
+X-Coremail-Antispam: 1UD129KBjvJXoW7ur4DurykJF45Zw1fKw15Jwb_yoW8JFy7pF
+	n3Ww1Ikr98Wr1jkw1DJw40v3yYkws2kr4rAws3Gw1Iva45Zr1a9ry0qFyrWryjqrZ293yU
+	ZF43tryUZw4Yv3JanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUBYb4IE77IF4wAFF20E14v26rWj6s0DM7CY07I20VC2zVCF04k2
+	6cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28IrcIa0xkI8VA2jI8067AKxVWUAV
+	Cq3wA2048vs2IY020Ec7CjxVAFwI0_Xr0E3s1l8cAvFVAK0II2c7xJM28CjxkF64kEwVA0
+	rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVW8JVW5JwA2z4x0Y4vE2Ix0cI8IcVCY1x0267
+	AKxVWxJVW8Jr1l84ACjcxK6I8E87Iv67AKxVWxJr0_GcWl84ACjcxK6I8E87Iv6xkF7I0E
+	14v26rxl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7
+	xfMcIj6xIIjxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Y
+	z7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lc7CjxVAaw2AFwI0_Jw0_GFyl42xK82IYc2Ij64
+	vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8G
+	jcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2I
+	x0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK
+	8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVW8JVWxJwCI42IY6I8E87Iv6xkF7I
+	0E14v26r4UJVWxJrUvcSsGvfC2KfnxnUUI43ZEXa7IU1aLvJUUUUU==
 X-CM-SenderInfo: pzr2x6tkl6x35dzhxuhorxvhhfrp/
 
 From: Zizhi Wo <wozizhi@huawei.com>
 
-Commit 4eea22f01bb4 ("[XFS] 929045 567344 ...") removed the
-xfs_iext_realloc() implementation, replacing it with xfs_iext_add() and
-xfs_iext_remove(), but the declaration in xfs_inode.h was left behind.
-It has been a dead prototype ever since (2006).
+Commit 5ced480d4886 ("xfs: simplify building the bio in xlog_write_iclog")
+switched the log I/O path to the bio_add_virt_nofail and bio_add_vmalloc
+helpers, removing the last caller of kmem_to_page(). The helper itself was
+left behind in xfs_platform.h and nothing has referenced it.
 
-Remove the stale declaration.
+Remove the stale helper.
 
 Assisted-by: Claude-Code:GLM-5.2
 Signed-off-by: Zizhi Wo <wozizhi@huawei.com>
 ---
- fs/xfs/xfs_inode.h | 1 -
- 1 file changed, 1 deletion(-)
+Note: this helper was only recently orphaned by 5ced480d4886 since 2025. If
+it's intended to be kept for upcoming bio/vmalloc work, please just drop
+this patch.
 
-diff --git a/fs/xfs/xfs_inode.h b/fs/xfs/xfs_inode.h
-index 34c1038ebfcd..1602027cd0aa 100644
---- a/fs/xfs/xfs_inode.h
-+++ b/fs/xfs/xfs_inode.h
-@@ -585,7 +585,6 @@ uint		xfs_ilock_attr_map_shared(struct xfs_inode *);
- int		xfs_ifree(struct xfs_trans *, struct xfs_inode *);
- int		xfs_itruncate_extents_flags(struct xfs_trans **,
- 				struct xfs_inode *, int, xfs_fsize_t, int);
--void		xfs_iext_realloc(xfs_inode_t *, int, int);
+ fs/xfs/xfs_platform.h | 11 -----------
+ 1 file changed, 11 deletions(-)
+
+diff --git a/fs/xfs/xfs_platform.h b/fs/xfs/xfs_platform.h
+index 59a33c60e0ca..5d542e95fe44 100644
+--- a/fs/xfs/xfs_platform.h
++++ b/fs/xfs/xfs_platform.h
+@@ -289,15 +289,4 @@ int xfs_rw_bdev(struct block_device *bdev, sector_t sector, unsigned int count,
+ # define PTR_FMT "%p"
+ #endif
  
- int		xfs_log_force_inode(struct xfs_inode *ip);
- void		xfs_iunpin_wait(xfs_inode_t *);
+-/*
+- * Helper for IO routines to grab backing pages from allocated kernel memory.
+- */
+-static inline struct page *
+-kmem_to_page(void *addr)
+-{
+-	if (is_vmalloc_addr(addr))
+-		return vmalloc_to_page(addr);
+-	return virt_to_page(addr);
+-}
+-
+ #endif /* _XFS_PLATFORM_H */
 -- 
 2.52.0
 
