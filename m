@@ -1,73 +1,69 @@
-Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com [209.85.216.46])
+Received: from mail-oa1-f50.google.com (mail-oa1-f50.google.com [209.85.160.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96EED3E49FE
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 12:26:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D7B74483A5
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 12:27:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788524813; cv=none; b=oajAwodN2VQBOEkTpwCChlzYlQH5gswKsd7kon/X7a4WWvUCOIK6QPZPLF8y5VorG4mUrPi9ktIyFGNJYG6zdFH6FAVckSLISVFyzurzMGctmHSnzhRDJZR5Kr7lZ16Yww+lri6sy22XMt9MJma9XFV1fTtIYefeGzQiYOQfpmI=
+	t=1788524865; cv=none; b=eTivh2xtuHNs1/qsmcM3WVcU6u/gFjdNiwyrsym587RnvCoz45A0DH8lN2r4TN/WjJoAvvmfed0u38kmKhWsz0XHUDKxTOUvha475oG+Zosq4yroiAnCvwdxFePsbNyP+RK0HtxwpQbO83VmBkoFNMtgBSAQiwHcWZkpm44ra+U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788524813; c=relaxed/simple;
-	bh=FWy5OE8EuZlV574J7Cfm1CRIWTypooLcjTrc3wz6AD4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Fw30Mbugq1ge2NN0206x8wNq7Q2bp8uzgtes2eyjnu9btbc+imHvmeob4rIo4hNO8AyhSw2vxHXc+HCbFpa3pWiywXGaDJq0m1PPpf5ZD16jqqGgm7OSb/yZp1GmCyNC3C+aHGHASkgfK01jeRu4opsxe1If59/8TkDLFPpLEZI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=L9o2bsUS; arc=none smtp.client-ip=209.85.216.46
+	s=arc-20240116; t=1788524865; c=relaxed/simple;
+	bh=MdMkvdVRw0ZgGHAVv7qX/N2NDQEYvDYBnx81INEUBWE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=I1yU3lE2QlHNVYHFkIOA9tQtBjQYXAlmAJGpw4HgLhe0XgyW98JMtsH4h/wzm5JoeISfxAS6bm/JTT/vXnYuuBAmQQUfisv8sSHf408dxER3UacGg8kmC9+BDfnHbjaq7+8UtmUbYjiwAK20EeAwFeveQsD2+MQn/Bj2SGjch44=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dOKdpSYS; arc=none smtp.client-ip=209.85.160.50
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="L9o2bsUS"
-Received: by mail-pj1-f46.google.com with SMTP id 98e67ed59e1d1-395cf2535acso1038100a91.1
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 05:26:52 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dOKdpSYS"
+Received: by mail-oa1-f50.google.com with SMTP id 586e51a60fabf-465cfc7e33dso519794fac.1
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 05:27:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788524812; x=1789129612; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1788524863; x=1789129663; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=XCWnmnyrXvFMshF1SLGpbxtR/Lc6PeZ58jpBs90dY2o=;
-        b=L9o2bsUSxJaQQ68g3m5Ny58oFN4j+IcONFAOClnELWpWZLqKk0b1+dhn2tkHiw8NoY
-         vFUE+rIBkYytSXESfLrfbV2/TlaoHUWC9hpQvaEAeETOjdiK7pGNENF73kLR7LQjPnkt
-         oJbzrH97OhGnHFmQVuaTC6QlrMUbDr9h96e/Z2wldADgnhOU1sdeC7mM5B3MJaTz6cHe
-         kj0Cn9jrIDAQQWl/JAVfZg00pRF/E87xp6T/8frk0C+x8i44qBvmNRyYk3PCTOmU2Eg2
-         e1q53abbe9F7lW+91L6vnlP8ohfWjCt8XsEgbdmVJWvM4qMJf/JMqLqbf8a+sVhrQ2li
-         NgBg==
+        bh=yGLh7xQtAAd514FqEegVwMoJiuYXFm4/mjW3gIL28o4=;
+        b=dOKdpSYS3gFeMwOr110VZLMbLV6xIXbeIdFgjN9Kt7XbaVY4HjkdlfdGJNDYmdveQi
+         wLdRw9ETxiGfCfnT3jgltIgOZuhEmFphVxN+qDFurZkj54L/DaM0tSHRzNuKrVsZtHK1
+         omH1o13ijo4WN9wWXqdiJgmj/EZS5NFUI3ddG67VyWST5L2jF88eDqDSunjewgdoAAFY
+         h6LulSOLUH+PTeP4w632IWzftBnQeFuNOd0DzRGL10zt9Z+/lIyXmYOMXbjy61jI70qc
+         9bTKpC3kuzRslK3tSXvI9hSxcIJeB2sDqacMnOcXc0kwvr5iAioYsZCZaEJZlvuhluMA
+         sUeQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788524812; x=1789129612;
+        d=1e100.net; s=20251104; t=1788524863; x=1789129663;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=XCWnmnyrXvFMshF1SLGpbxtR/Lc6PeZ58jpBs90dY2o=;
-        b=LXYtw8XSEoqZH7UdnSrHT49JlceB7ZDV5kV64dbpDmA72vd14X7qpxo7cJx90dBstR
-         9yXjP0iwacVZIVdu1DgOq4Qxr0qg7NyxC4z6O4tu9KlFTv9oyNYNYYqk2BEAPnf+nZ4Y
-         s3OtGZdtVRQ3/nWnggfXlAC/qkjNAzfTDKM1X1oXcjroIeLvqYKzVtSNYpYqZyKgpjYB
-         CBn/x3tq19op6BtXk4s5DsfFRRO96B2J1ysL5tDq8+9SQy/Bf7Hvn8PzmafSKzGLjLnY
-         fmZwFFoP4J85Xk32+j6jw5yUBlPxzJXyJkVv7cdcBYjLzKA9ByCg09+Pj+p4I8Nohxor
-         bGNA==
-X-Gm-Message-State: AFuF++k4pJLqWQoivWIyA59OfPcB+nlk2w9BPFWs1JbKHWWV4q/NrFyT
-	hprMDVj3E5ZmmkDcFb9bH0ognjmUnn4U+XN1KbA23RW7E6TXV9J8UccM
-X-Gm-Gg: AYBFou0XMbhOLeUKOrvBDca0dW61r3D0UEuv+7GYZfQdwSM+q+Bt+0iPzHnhdllIrhw
-	dS6j+M8PqhUHHWF5IU9XH/XoOALW5OnwoYrNtS77c+xHKgi+RcxIkRBh2cCEhYx3rs3FDWFvCih
-	WLwv2k0n98AFn1wgd2suBV8Crh2Yv8VaNAJjF1X3pLnT41hl/VbCkd9aptgckq9H4SCnfxOXDwS
-	OTrxuppMulTIbVuj4eoOUCwj/W6GFrcmMcbPkzpDIuVbbofP3OUDtRDZQawtHbcw3g8jK0y7dPU
-	U0U54ITEHbWsJiD5hskx6eyzbrCCmufMu3grTaf6nzi6kPwpzojhFq6V42OAQjJlxEMLJP647CS
-	FcKG2Gm+TkwrwNVTF3KGHGJ5zPZuXEmQx7ni3ot1b8Qy7CwwNxeBT5/95x3TriilSaX6bdpl0Ti
-	vUeltOa+mmKQdZHKsV0hB+tDImn40nSoykJ5gOYO7XMP7hHdXPZfogffDgA1d2E0lziVoxrXu9B
-	TxUVSqDK8xi+UKdqnkWcecdtIk=
-X-Received: by 2002:a17:90b:2e46:b0:38f:a81:15b1 with SMTP id 98e67ed59e1d1-39b08653554mr16574087a91.19.1788524811722;
-        Fri, 04 Sep 2026 05:26:51 -0700 (PDT)
+        bh=yGLh7xQtAAd514FqEegVwMoJiuYXFm4/mjW3gIL28o4=;
+        b=cIgewS4xVkst6gUo5c0O89/t0oq8+C8VCCVBwiEDtz4lDoQLTj9r4UDiUn4wEXFhS7
+         QyfKOKO4hsd/KCstU72+jKF3qoO33KcURjWFz0N6zj8cNniE7femhi7EYoYtv/j2UqII
+         rOapj8urbmJw3F+7KvvAJDXCwr1Mf/GwphLx7AUuGQZtTDXIPIGLrXRmHnS1oZf16u0J
+         uVVqAbsiZR4eWRJmKpQE4zUfLEnmzoe9j9b6ioA/SXGuvKUmO62WfeA5cNX0vMJgGDCK
+         WELqpf9817knmeaejMh0sbliYlKjSFL0grSaIkRWKGwcDSO29ODS7cqIV5mBcSoJXX5R
+         lDYw==
+X-Gm-Message-State: AFuF++lC2LWWtDfVLRlQ/LHd9f1s/YZBh6g9fiBOlK7lEfCmWGZ84kX7
+	zzVYyXMhL6NpazJsC1JlFF8qBNocTU/P3stm/A4ihI6CjPiQ+G8KfSNlDWlMSgAJIhw=
+X-Gm-Gg: AYBFou1KuiMn+EHCcDKJHV6NdNfvvtOx8E8jxEcP93+94AbulnL/KVKZfLXFCLYBZfJ
+	pAU/NJig4+GECXJkysu9FBXU0fIpK/SL9VV0TuN6eaYxVZgD9CtcLb5AFVIF+p5kKqgVAYXiuld
+	tPWgT0GZleSXip7ebS29TLmfepNqjDK3NzniBN1WTlLcnbZ0rkdYjdW5nKqA3FgNx4zsLGv/z+s
+	4ZHaN3qkS3ebX8DLbA/bjtM3DAeSmsDexpWovbFf+lEr75zx+PcfXzaRrICenhplvNV/gys4cZX
+	Ab6X0PlhvvbaDej/bIRBWq5RN8pgkWw2FECuwokJhto4hiMt6gxYDlFH80HxTDjltYqUJPqK9Qn
+	TSAe1aKTXOfOSPKzWksq8LRNrptKwo2qdK2wTzjGLk5LXq7h9j4QnpU+TZbNUmUySd3POgF5AJh
+	gPjJrLskwwipBN8LMjTUl82BidtovMQGM/hw9sQ9DMcBKxkRP02F1/x7+tUKR/BPhf9+TKxwV8E
+	4CW8Wb2PBwPKLs=
+X-Received: by 2002:a05:6820:198c:b0:6b4:117e:543 with SMTP id 006d021491bc7-6b6fc5dc03amr4605135eaf.21.1788524863132;
+        Fri, 04 Sep 2026 05:27:43 -0700 (PDT)
 Received: from volcano9f6e-hostos.amd.com ([165.204.217.251])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339bbf1feesm6626601eec.26.2026.09.04.05.26.48
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339aa36b37sm6347207eec.14.2026.09.04.05.27.41
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 04 Sep 2026 05:26:51 -0700 (PDT)
+        Fri, 04 Sep 2026 05:27:42 -0700 (PDT)
 From: Hemanth Selam <hemanth.selam@gmail.com>
 To: Lee Jones <lee@kernel.org>,
-	Daniel Thompson <danielt@kernel.org>,
-	Jingoo Han <jingoohan1@gmail.com>,
-	Helge Deller <deller@gmx.de>,
-	Linus Walleij <linusw@kernel.org>
+	Pavel Machek <pavel@kernel.org>
 Cc: linux-kernel@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	linux-fbdev@vger.kernel.org
-Subject: [PATCH] backlight: fix typos in comments
-Date: Fri,  4 Sep 2026 17:56:44 +0530
-Message-ID: <20260904122646.32558-1-hemanth.selam@gmail.com>
+	linux-leds@vger.kernel.org
+Subject: [PATCH] leds: fix typo "retrive" in comment
+Date: Fri,  4 Sep 2026 17:57:37 +0530
+Message-ID: <20260904122738.33145-1-hemanth.selam@gmail.com>
 X-Mailer: git-send-email 2.48.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -77,43 +73,29 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Fix typos in comments, reported by scripts/checkpatch.pl using the
-misspelling list in scripts/spelling.txt.  Only touches comments, no code
-changes.
+Correct "retrive" to "retrieve", reported by scripts/checkpatch.pl using
+the misspelling list in scripts/spelling.txt.  Only touches comments, no
+code changes.
 
 Assisted-by: Cursor:claude-opus-5
 Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
 ---
- drivers/video/backlight/ili9320.c          | 2 +-
- drivers/video/backlight/ktd253-backlight.c | 2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
+ drivers/leds/leds-ss4200.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/video/backlight/ili9320.c b/drivers/video/backlight/ili9320.c
-index 2df96a882119..d2f094dd7fc3 100644
---- a/drivers/video/backlight/ili9320.c
-+++ b/drivers/video/backlight/ili9320.c
-@@ -30,7 +30,7 @@ static inline int ili9320_write_spi(struct ili9320 *ili,
- 	unsigned char *addr = spi->buffer_addr;
- 	unsigned char *data = spi->buffer_data;
+diff --git a/drivers/leds/leds-ss4200.c b/drivers/leds/leds-ss4200.c
+index f24ca75c7cb1..c782339b1330 100644
+--- a/drivers/leds/leds-ss4200.c
++++ b/drivers/leds/leds-ss4200.c
+@@ -339,7 +339,7 @@ static void ich7_lpc_cleanup(struct device *dev)
  
--	/* spi message consits of:
-+	/* spi message consists of:
- 	 * first byte: ID and operation
- 	 */
- 
-diff --git a/drivers/video/backlight/ktd253-backlight.c b/drivers/video/backlight/ktd253-backlight.c
-index 327b4ee75254..f2c5527d02e0 100644
---- a/drivers/video/backlight/ktd253-backlight.c
-+++ b/drivers/video/backlight/ktd253-backlight.c
-@@ -53,7 +53,7 @@ static int ktd253_backlight_stepdown(struct ktd253_backlight *ktd253)
- 	 *
- 	 * Architectures do not always support ndelay() and we will get a few us
- 	 * instead. If we get to a critical time limit an interrupt has likely
--	 * occured in the low part of the loop and we need to restart from the
-+	 * occurred in the low part of the loop and we need to restart from the
- 	 * top so we have the backlight in a known state.
- 	 */
- 	u64 ns;
+ /*
+  * The OS has determined that the LPC of the Intel ICH7 Southbridge is present
+- * so we can retrive the required operational information and prepare the GPIO.
++ * so we can retrieve the required operational information and prepare the GPIO.
+  */
+ static struct pci_dev *nas_gpio_pci_dev;
+ static int ich7_lpc_probe(struct pci_dev *dev,
 -- 
 2.48.1
 
