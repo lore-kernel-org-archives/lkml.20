@@ -1,228 +1,86 @@
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+Received: from pidgin.makrotopia.org (pidgin.makrotopia.org [185.142.180.65])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFAF5446BE8
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 09:59:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 443C5446857;
+	Fri,  4 Sep 2026 10:00:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.142.180.65
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788515975; cv=none; b=ajCILq4VrXD19pjoxyo1tonrBChP7oPdgwJK8ysQSYG3EdxmsNjDTXiDij8xAyjR45Tolrs2esEV/VobRJ9Fsms1iLrbB1iyAq53CbY6G9VQXrG7+3zeTxVyOjHM/M6mn8etjrT9LDFwxp1BWwb6bG8mn6PEPHyhEtkf6Xh8p5w=
+	t=1788516008; cv=none; b=SsKx7fL4Hu+On8ws+t5kAMAVtC6wN6UM3vFVp8IVZPNe62DGMEKYB23QrCM0i/DbMUM5EqAkto7WqV6NfyHF3mPR1+0SSmL8pnPXO4cpw0Zobpba0HqeBDE4LaVMLMupf0xAOVslHCd1RBlN8rTJNb8dL/nNybRgGVSxJ/AE6L4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788515975; c=relaxed/simple;
-	bh=fh/jNALAMNdLZctDygzxgYPeUpYdE2rdThecz1gK9S0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=kp0HgbgosT4obYP9T/p2nwPptx8jUIhks4FynYQuTrPmjJI4Sjyy/gQweqtyI2rqcpl6ZsZ+T8JklvDpXjIzresMlE4jMWXaVxtyPV7Jzrum0eF50pPrZFq10yAwTywvQbR4Clcl3RaTcPPO7dFzqYlIXip4AL5qdsJV1KXzsfk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=srE2W8XY; arc=none smtp.client-ip=148.163.156.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="srE2W8XY"
-Received: from pps.filterd (m0353729.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68464MxE3254190;
-	Fri, 4 Sep 2026 09:59:14 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=8nqIR/
-	QD/inWJg6L+3YpBkQLzaaJAlX3TaSuCtey8kc=; b=srE2W8XYJEher29Xt3be2E
-	H+yjPl7iuUOzWnt1W5fThz3gmbyIHMrEHgqJopGlsMRjU536qIBlPrRgrwkMrm74
-	dcvNL0gNOPvMwQzOrYVlYnso/xbxwOifWpjKqilNCrEy59yofzYOyntSgQzig3l4
-	lWSGU0PH3+ECq4mcadztPSehy48aFot2r7SWFhs+10QAM3UtrsyCSR0xePA+ftD8
-	ijqPW/zPJnoiGw/aTmLad3O/Wr9408DJAEkKBggb1qMyp5ebQEFvkAabMQCnVIgh
-	0LYDzSghjGTPvFV95Qsp+iVOr8UhZqpkDRzmVJP+RuJ5HH81k7ttFIfm7Z9zs8WQ
-	==
-Received: from ppma22.wdc07v.mail.ibm.com (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gbq3rt0p4-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 04 Sep 2026 09:59:14 +0000 (GMT)
-Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma22.wdc07v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 6849uGVN025012;
-	Fri, 4 Sep 2026 09:59:12 GMT
-Received: from smtprelay06.fra02v.mail.ibm.com ([9.218.2.230])
-	by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4gecjavrve-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 04 Sep 2026 09:59:12 +0000 (GMT)
-Received: from smtpav02.fra02v.mail.ibm.com (smtpav02.fra02v.mail.ibm.com [10.20.54.101])
-	by smtprelay06.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6849x83C46203384
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Fri, 4 Sep 2026 09:59:08 GMT
-Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 9B35420043;
-	Fri,  4 Sep 2026 09:59:08 +0000 (GMT)
-Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 5166620040;
-	Fri,  4 Sep 2026 09:59:04 +0000 (GMT)
-Received: from [9.124.221.192] (unknown [9.124.221.192])
-	by smtpav02.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Fri,  4 Sep 2026 09:59:04 +0000 (GMT)
-Message-ID: <f5011bc9-a25d-4f17-92ad-874f9c580dd2@linux.ibm.com>
-Date: Fri, 4 Sep 2026 15:29:03 +0530
+	s=arc-20240116; t=1788516008; c=relaxed/simple;
+	bh=w09DMddOuGH16pShKIio3HoUGAGCtGbJiCYSRyp434c=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=HhZ3nbpgs0QStH8VxSUkPPKExr4/XLfyXEtF24Bu5QvFtLSlBVhGqoG6OU9IKcYbeQUTW01rCAE24n5TolA2Kx3s5VXg8bTdV4AkcSixf8gZeAP+cqa5QGY8vXUY4FaPn820vGEMJvvjKKbEEzQHrRQYq69YntVFK1CD6J9vhc4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=makrotopia.org; spf=pass smtp.mailfrom=makrotopia.org; arc=none smtp.client-ip=185.142.180.65
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=makrotopia.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=makrotopia.org
+Received: from local
+	by pidgin.makrotopia.org with esmtpsa (TLS1.3:TLS_AES_256_GCM_SHA384:256:X25519MLKEM768)
+	 (Exim 4.100)
+	(envelope-from <daniel@makrotopia.org>)
+	id 1x2Qhj-000000001se-1EmA;
+	Fri, 04 Sep 2026 09:59:27 +0000
+Date: Fri, 4 Sep 2026 10:59:21 +0100
+From: Daniel Golle <daniel@makrotopia.org>
+To: Siddharth Vadapalli <s-vadapalli@ti.com>
+Cc: dario.binacchi@amarulasolutions.com, mkl@pengutronix.de,
+	mailhol@kernel.org, msp@baylibre.com, florian.fainelli@broadcom.com,
+	jonas.gorski@gmail.com, andrew@lunn.ch, olteanv@gmail.com,
+	davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
+	pabeni@redhat.com, kurt@linutronix.de, hauke@hauke-m.de,
+	chester.a.unal@arinc9.com, matthias.bgg@gmail.com,
+	angelogioacchino.delregno@collabora.com, ansuelsmth@gmail.com,
+	linusw@kernel.org, luizluca@gmail.com, alvin.sipraga@analog.com,
+	clement.leger@bootlin.com, justin.chen@broadcom.com,
+	dlan@kernel.org, rogerq@kernel.org, hkallweit1@gmail.com,
+	linux@armlinux.org.uk, rjui@broadcom.com, sbranden@broadcom.com,
+	bcm-kernel-feedback-list@broadcom.com, opendmb@gmail.com,
+	andrei.botila@oss.nxp.com, wangruikang@iscas.ac.cn,
+	amadeus@jmu.edu.cn, kees@kernel.org, tmshlvck@gmail.com,
+	c-vankar@ti.com, horms@kernel.org, vadim.fedorenko@linux.dev,
+	daniel.zahka@gmail.com, nora.schiffer@ew.tq-group.com,
+	v-singh1@ti.com, oss@vassilevski.com, haokexin@gmail.com,
+	alex@sverdlin.org, aleksandr.loktionov@intel.com,
+	lgs201920130244@gmail.com, linux-can@vger.kernel.org,
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org,
+	linux-renesas-soc@vger.kernel.org, linux-riscv@lists.infradead.org,
+	spacemit@lists.linux.dev, linux-omap@vger.kernel.org
+Subject: Re: [PATCH net-next 14/33] net: dsa: mxl-gsw1xx: Remove comma after
+ sentinel-entry in match-table
+Message-ID: <apqWeTNBFzOJptkf@makrotopia.org>
+References: <20260904043724.2955444-1-s-vadapalli@ti.com>
+ <20260904043724.2955444-15-s-vadapalli@ti.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/3] powerpc/numa: Allow cpu_to_coregroup_id without
- PPC_SPLPAR
-To: Srikar Dronamraju <srikar@linux.ibm.com>,
-        linuxppc-dev <linuxppc-dev@lists.ozlabs.org>,
-        Madhavan Srinivasan <maddy@linux.ibm.com>,
-        Michael Ellerman <mpe@ellerman.id.au>,
-        Nicholas Piggin <npiggin@gmail.com>,
-        "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>
-Cc: skiboot@lists.ozlabs.org, arbab@linux.ibm.com, mahesh@linux.ibm.com,
-        Ritesh Harjani <ritesh.list@gmail.com>,
-        Peter Zijlstra
- <peterz@infradead.org>,
-        Valentin Schneider <vschneid@redhat.com>,
-        K Prateek Nayak <kprateek.nayak@amd.com>,
-        Andrew Morton <akpm@linux-foundation.org>,
-        "Mike Rapoport (Microsoft)" <rppt@kernel.org>,
-        linux-kernel@vger.kernel.org
-References: <20260902123458.340456-5-srikar@linux.ibm.com>
- <20260902123458.340456-7-srikar@linux.ibm.com>
-Content-Language: en-US
-From: Shrikanth Hegde <sshegde@linux.ibm.com>
-In-Reply-To: <20260902123458.340456-7-srikar@linux.ibm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Authority-Analysis: v=2.4 cv=EIc2FVZC c=1 sm=1 tr=0 ts=6a9a9672 cx=c_pps
- a=5BHTudwdYE3Te8bg5FgnPg==:117 a=5BHTudwdYE3Te8bg5FgnPg==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=uAbxVGIbfxUO_5tXvNgY:22 a=VnNF1IyMAAAA:8
- a=PsCXb9kZ0i-3r-FgQ_EA:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA0MDA4NiBTYWx0ZWRfX+Q8QlbRHqaXD
- coBEywXvopz126Nsxz2xAMkDLI2vz81xKhL/bsb9s36IkKzBHlHscsX4qtp1uffJvfpQxxRkXjC
- T2pKjNIzNcj/WfWFw0MOaQ4ZFTSE6vFWpftZSQ4RbgAqRgfkvqcvg/ryPnn8Let8rZ7nSAtrLcb
- wXELFg0D8naSbBkqIh7Wy5VJmZ8NTyhL5V/zv/0DGldhfMOgf5qvCDOU4qW8oqLkYyKYE+OVNyU
- s0UUoyCHpUN7f5uO4bd8OUZD50/uVZjMrBHjC5T04EEmJs6ihP+ZiLth4P8bGYo2TZya7NW9sI1
- R8QGkCPNTwVBbJYO9IKwrc7TE6pjGj+i2/IdjGF+zGvM341d9n/Tn/rsX/3gthM8uA2Hvex6wmW
- RB4vRz1bq0nYvvmKHcnHPrBUbhcA3gHQcerCowmXgNKm5DDgu69e5TTbaJThQxe4dFqnTPW+Zoi
- 7+jpcvi6Ec2+1Sp37BA==
-X-Proofpoint-GUID: N46DlNS8i6lfs8EzbTz_4cu05-O-cc97
-X-Proofpoint-ORIG-GUID: _qozUJlXsfigLmvO3GcBhHYHT-7fOchL
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA0MDA4NiBTYWx0ZWRfX5eV5h2vZf5MM
- OpJbEnToQb8Hx6ZA8wbDh0A8tD3AmaerG++vjmRDsY4l9+5h74oxK4ovRYYL7xKQZlr/JZx/Zr0
- 5TGDnSx5hQIQ48WdeeA4OuxebjkZL64=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-04_02,2026-09-03_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 impostorscore=0 suspectscore=0 priorityscore=1501 clxscore=1011
- phishscore=0 spamscore=0 adultscore=0 lowpriorityscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609040086
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260904043724.2955444-15-s-vadapalli@ti.com>
 
-
-
-On 9/2/26 6:05 PM, Srikar Dronamraju wrote:
-> Make cpu_to_coregroup_id() available outside PPC_SPLPAR so it can be
-> used by platforms that do not rely on the SPLPAR-specific VPHN path.
+On Fri, Sep 04, 2026 at 10:06:20AM +0530, Siddharth Vadapalli wrote:
+> Since sentinel is the last entry and we do not expect further entries
+> following it, remove the comma.
 > 
-> Keep the existing fallback behavior by returning the core ID when
-> coregroup information is unavailable.
-> 
-> Signed-off-by: Srikar Dronamraju <srikar@linux.ibm.com>
+> Signed-off-by: Siddharth Vadapalli <s-vadapalli@ti.com>
 > ---
-> Changelog from v2:
-> - Handle comments from Ritesh (one hunk needed to be moved from patch 2 to
->    patch 3 to build correctly)
+>  drivers/net/dsa/lantiq/mxl-gsw1xx.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 > 
-> Changelog from v1:
-> - Handle comments from Christophe Leroy; Remove extern key word in
->    declaration
-> 
->   arch/powerpc/include/asm/topology.h | 15 +++++++--------
->   arch/powerpc/mm/numa.c              | 22 +++++++++++++++-------
->   2 files changed, 22 insertions(+), 15 deletions(-)
-> 
-> diff --git a/arch/powerpc/include/asm/topology.h b/arch/powerpc/include/asm/topology.h
-> index 44ec416fa489..02c3c9ab3ea9 100644
-> --- a/arch/powerpc/include/asm/topology.h
-> +++ b/arch/powerpc/include/asm/topology.h
-> @@ -71,6 +71,7 @@ extern void map_cpu_to_node(int cpu, int node);
->   extern void unmap_cpu_from_node(unsigned long cpu);
->   #endif /* CONFIG_HOTPLUG_CPU */
->   
-> +int cpu_to_coregroup_id(int cpu);
+> diff --git a/drivers/net/dsa/lantiq/mxl-gsw1xx.c b/drivers/net/dsa/lantiq/mxl-gsw1xx.c
+> index a1104b2f92a9..347e16e9fdc1 100644
+> --- a/drivers/net/dsa/lantiq/mxl-gsw1xx.c
+> +++ b/drivers/net/dsa/lantiq/mxl-gsw1xx.c
+> @@ -918,7 +918,7 @@ static const struct of_device_id gsw1xx_of_match[] = {
+>  	{ .compatible = "maxlinear,gsw140", .data = &gsw140_data },
+>  	{ .compatible = "maxlinear,gsw141", .data = &gsw141_data },
+>  	{ .compatible = "maxlinear,gsw145", .data = &gsw140_data },
+> -	{ /* sentinel */ },
+> +	{ /* sentinel */ }
+>  };
 
-nit:
-
-I prefer extern before declaration so that i can see it is defined
-elsewhere.
-
-Other than that, rest looks good to me.
-
-Reviewed-by: Shrikanth Hegde <sshegde@linux.ibm.com>
-
->   #else
->   
->   static inline int early_cpu_to_node(int cpu) { return 0; }
-> @@ -107,14 +108,6 @@ static inline void map_cpu_to_node(int cpu, int node) {}
->   static inline void unmap_cpu_from_node(unsigned long cpu) {}
->   #endif /* CONFIG_HOTPLUG_CPU */
->   #endif /* CONFIG_SMP */
-> -
-> -#endif /* CONFIG_NUMA */
-> -
-> -#if defined(CONFIG_NUMA) && defined(CONFIG_PPC_SPLPAR)
-> -void find_and_update_cpu_nid(int cpu);
-> -extern int cpu_to_coregroup_id(int cpu);
-> -#else
-> -static inline void find_and_update_cpu_nid(int cpu) {}
->   static inline int cpu_to_coregroup_id(int cpu)
->   {
->   #ifdef CONFIG_SMP
-> @@ -124,6 +117,12 @@ static inline int cpu_to_coregroup_id(int cpu)
->   #endif
->   }
->   
-> +#endif /* CONFIG_NUMA */
-> +
-> +#if defined(CONFIG_NUMA) && defined(CONFIG_PPC_SPLPAR)
-> +void find_and_update_cpu_nid(int cpu);
-> +#else
-> +static inline void find_and_update_cpu_nid(int cpu) {}
->   #endif /* CONFIG_NUMA && CONFIG_PPC_SPLPAR */
->   
->   #include <asm-generic/topology.h>
-> diff --git a/arch/powerpc/mm/numa.c b/arch/powerpc/mm/numa.c
-> index c44a80d8fc11..5f326b005a2a 100644
-> --- a/arch/powerpc/mm/numa.c
-> +++ b/arch/powerpc/mm/numa.c
-> @@ -1428,6 +1428,21 @@ void find_and_update_cpu_nid(int cpu)
->   	pr_debug("%s:%d cpu %d nid %d\n", __func__, __LINE__, cpu, new_nid);
->   }
->   
-> +static int topology_update_init(void)
-> +{
-> +	topology_inited = 1;
-> +	return 0;
-> +}
-> +device_initcall(topology_update_init);
-> +
-> +#else
-> +static long vphn_get_associativity(unsigned long cpu,
-> +					__be32 *associativity)
-> +{
-> +	return -1;
-> +}
-> +#endif /* CONFIG_PPC_SPLPAR */
-> +
->   int cpu_to_coregroup_id(int cpu)
->   {
->   	__be32 associativity[VPHN_ASSOC_BUFSIZE] = {0};
-> @@ -1453,10 +1468,3 @@ int cpu_to_coregroup_id(int cpu)
->   	return cpu_to_core_id(cpu);
->   }
->   
-> -static int topology_update_init(void)
-> -{
-> -	topology_inited = 1;
-> -	return 0;
-> -}
-> -device_initcall(topology_update_init);
-> -#endif /* CONFIG_PPC_SPLPAR */
-
+Reviewed-by: Daniel Golle <daniel@makrotopia.org>
