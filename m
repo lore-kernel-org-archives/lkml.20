@@ -1,96 +1,80 @@
-Received: from mail-pg1-f170.google.com (mail-pg1-f170.google.com [209.85.215.170])
+Received: from mail-ej2-f8.google.com (mail-ej2-f8.google.com [74.125.228.136])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD51D43A80B
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 09:27:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E211843C7B9
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 09:27:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.136
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788514044; cv=none; b=j/+EH+m7mfNpI4UVv3ybvyx+jgN2LoUZP39SkJ45eV2OC8PtRRkCcvqzlYltqagiiZF0xlHWAwVfZClS4v6Zg26LVZ+f+3oRtpgWUXGwZI1nRzCMLQEHdTt9khw6XZ4wutrHSF+H6Tzr71KfC+cW809vaJCXHY0SGb3j3bTxuGY=
+	t=1788514045; cv=none; b=FZmGzpDfmqrpFtNVkSWT/zJDaAN9ImhyxY07areaDhQqaa/Qntso5erVs6Hwqu73n8etbSJNzLWhSRdQx6/fBFYI1RAlZFBB1ChBh1cxKk4l5tKoS6JOkkJ+HlstAYgmpftlHdkeQNxe47Pq5N2/krXpasFpj2+ocvSbmmm1tA0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788514044; c=relaxed/simple;
-	bh=6Jh9YwKMSnQM3tAKjwVqWhn34D0cgvjhP0P8CvPoS7E=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=hkENgEHSlrJyq+q4DQbmJlVnnsQAOxlv12nkjSYMewbxXOLgPHLavGvqBJjRj03Lr+Omq5nM0u3r/BlYIeLyA4KOhIEckXRTmocsWFIuXrk0JV7qYctSEWIH1OXjHMlAQ/3C6pgUFp/XIwLi2EKqmvVrYECfF34AYs1if5h9X4c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fKdey59Q; arc=none smtp.client-ip=209.85.215.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788514045; c=relaxed/simple;
+	bh=fm9T6gXzMUmaBydrBUMtFIpUa6OxX8zUeLR/eA86Rq4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=o4Ueb3zr9euJIrHaKPXbzKd1H9B5h7djJSOonIxnMEZNJWjCrzkih3I/2sLX+PBDdvFABxjcaOWtX9TXWj/uxtfuwEfkoiCHWGdySJJDuWUGSTz0fLyzxbK04cj+8+xtbPzyf6zjR39koxibXYaZ8sQbjFtYiGgq3hviQJp7OC0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bairaktaris.de; spf=pass smtp.mailfrom=bairaktaris.de; dkim=pass (2048-bit key) header.d=bairaktaris.de header.i=@bairaktaris.de header.b=UdaafsHC; arc=none smtp.client-ip=74.125.228.136
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bairaktaris.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bairaktaris.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fKdey59Q"
-Received: by mail-pg1-f170.google.com with SMTP id 41be03b00d2f7-cc1bcdb3c4cso646168a12.2
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 02:27:22 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=bairaktaris.de header.i=@bairaktaris.de header.b="UdaafsHC"
+Received: by mail-ej2-f8.google.com with SMTP id a640c23a62f3a-c254403ada6so25757666b.0
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 02:27:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788514042; x=1789118842; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=6Jh9YwKMSnQM3tAKjwVqWhn34D0cgvjhP0P8CvPoS7E=;
-        b=fKdey59Qh4FEpmUGSdu5C+eaI1AzPYtvxFxEWVl1Rvc/CB57UD08YGoFmIatSdZWMG
-         AB0dStvltuIs9DDHQnjZLPG+/SwhQgHaL82tZFrulKIudL+bxWGCLDlmH2c+kysy9wXm
-         4QzbDnQCSUPnbCAtZfg1Eesp5mK6JDljwebqbe9a1ZiXje3tUP1EXAlNZu0EYi51C+59
-         mRNUFmuTLXG/rxNcQK9OXD42Z0EOzJ84hzN1FDTezLF7IrM7e8MwKN5ahcBCn4b1rLmp
-         Ez1ApjObu34rw2u8cplIpcggSjlcRuwi5sT1YPJp3kYucYwKUp/GPuqFnb6vqVQdGtcO
-         1xow==
+        d=bairaktaris.de; s=google; t=1788514042; x=1789118842; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=WstpREewxAVHgQRNTBHOeu2o6yyD2SP9BVlTbZRUMhw=;
+        b=UdaafsHC6De5jMcdRIjAEcr+YzzAJoC9AAVtB/fL2uWY4b+ktiqOVDntC7ry1VayXq
+         C03V+YGBd45TMqHCKJ31HUmfxk26W17s8CWZPnFW/nuLcnV3uIreWYvfcSNy9cPkI0z/
+         0T+JNOhJBArHow6Nrot124LiKshHnx3p9mRuI02zFMtU+TlbAEHUCsEI6Z9qaUH7WA87
+         gWlY43IUBtqDYXuBSToj/4ubqoZfgelVCcxa9tMlRS2cuqzS5y+fOyk7b2RoB+lCdv9K
+         4yr2+4PWQzlmsuaighepB0ARN5NSs+ZCiU3wgF8b/GCPurdEIku0AvT4Y6KU0hKLtZL4
+         2pOQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20251104; t=1788514042; x=1789118842;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=6Jh9YwKMSnQM3tAKjwVqWhn34D0cgvjhP0P8CvPoS7E=;
-        b=qRxc3f86JcN1QtPLQmyz5vps6HAuYR0KwPOf+kr6wU3qB/32KgtlxsRR8bR9NiwMBP
-         pSZ4bzrjBuE4xwvTG8TUt0qzO60JFr3g19feqTGrIOlIZIlWPodxDcUIaaw5DPeyDep7
-         GHBwCWD5xJSkkWR99mheHb3tJPAN36Svq2Uflh5hTNZPN4Ans1ikvm8pJyAeRJxJdloh
-         0xNnpHwQrDaK3vNPEeL6Sk98tyj3ieg4kdjKk+QsRkLdlJvsmvYzalrKxlN6Bblm6uL+
-         u21mFwkpXLP3MAFkiM/bJXcxEaYnuZ3XUjnxgVFqWFTnrwQZb+8Jo5aEHJh3tQoiYn5G
-         7DGA==
-X-Forwarded-Encrypted: i=1; AKwUvBya4AdO+JXB5P68J93vLdxC0OreHXh/T0/in9OIK/hbU7obuUqdnimJLfgBbIyyOxqhWMsrj+PStQ7bvBY=@vger.kernel.org
-X-Gm-Message-State: AFuF++lsstujirYgxJxI7llzmku4R56rfzRmepF9UQuDBFFI356ey2tA
-	9mgBYDR6Yg9xEP1lA4jEzlAgfi0jyKK7g8HjiJ/7/sK1USDq9psF3qJSqunwvv1sJg==
-X-Gm-Gg: AYBFou19O8swXsamgjh41xBa1gWuJfJtZdpJ+FdwSCu7Nmsvcd1j2Dwta4sbQxcudGD
-	1PhyqN/MYp6Vk3kp+KZTddDZiKpETAiUJY5aMD2ksGfmsRpSDPRGY9qb7n/qzpoOyUvBMsB6QuG
-	wyYAe/RdSPTBka2JH3OjnkM7l4MpnJ+G6m1noa1RSUP3bYkL4m8uaN6QFXN1QqxrR0WKXYkCYJY
-	sMhcIVOwEgyJCcV7cR7lYODybTkhQZ95tg/RNT4eWoh6kFNJd/jkYqtQn/0IWQHVjtShZXwh3Bw
-	pz8daMRZKd9U4S0lwLzxb8Lrxj/u6ZJi1vG34s7Zu0r9VY1En4eV6kiRIWxbDL6cd49tjcg7bOE
-	ChNf9lPFrnyZ3keftRGBXGwa5mKOUDhvyXjfCARVay1RLD4blhiEvB6d9+Gy3uQH43tkLMWFLdt
-	OGO1qFXLdRAiIszRlU7g5BHUAksP+pe5aWIIp88F3IeZSSWyqNYnYPuXj8VzoQAyow6dohKwRBU
-	crB2zIkkAbbRa4=
-X-Received: by 2002:a17:90a:10c9:b0:39b:34ef:3b2b with SMTP id 98e67ed59e1d1-39b34ef401dmr941098a91.14.1788514041803;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=WstpREewxAVHgQRNTBHOeu2o6yyD2SP9BVlTbZRUMhw=;
+        b=n8ltqd5Do5V9qZa+dWjAjaLkGqiJV+o8EB87GIPTSw4IALbzivKQvfkF/lHo9BZTOE
+         QRS4g73fmBL3S07wD0D2SKxmOlIhdTbi7q0x59VHR1rwhiL2IJf8RX3g+3JmXizvBCBN
+         ylJUO94LsR/m+PdvTIdxBsQICiV3AB4yuvd0iWCmo0roPhZ4/7bzTZGgLTQPkPtF9T0N
+         4LOnvmZf9wvQjWMQGMxW/P69JxpOlgbVUNU/7p/3MQM6TfzLChcmPmwcwBL+FATw8/dX
+         6xSPS27pI7enVYdVTowgnFmI4rxMMbVjoao7yZeuVV5j+8ynzjk6mP9lIsI9sOKUIQS9
+         Vf7g==
+X-Forwarded-Encrypted: i=1; AKwUvBzV/Hu8R6c5FgzybMS9OAZKqdm2wFRsGfQntb6KM+5jNklMUZBWNKbzpodsgNKzz5vH4Wqw8xfnleho+Rs=@vger.kernel.org
+X-Gm-Message-State: AFuF++l/IVFEO+RvqxOpsb17tZjdnIAxRtrNY0lnEFz+nhPdkMNvOMkq
+	duyNCAiqlkNXwY5WBh6MgwZwpsyMCgVD8XMLylEHqQGiOPXXJCJIyMLi+ObvvT6gQw==
+X-Gm-Gg: AYBFou0SibgKFwvGOGwIBdp/tnsYmb19SIkQMRSur6dj9Wo4Wb5W3OoWe7OYK82JMNl
+	XrwvxfAyew4Ys6rAiW6YOXEFJfvtp300zNV9TgkO5TUMIL6KIP1A/YKFRd+pQDsIFLCNtTs1ElQ
+	3s1jIQ3JHj8pxc5G2xvP9vLBxjOBm4sd10B5vOvwhRBXoY4SETc+OmjZxm30lDAw88liwIXsYoQ
+	G2c3psDeD5F4OlzWEG6lbjgktYtjXTpT8ZtVNZ8UYRpWhVsxo1vAeqJWvOoXhJz2Eq+FJ9Mb6ru
+	SgYXl6W6E/WCp0+CvUoRHNeDg0q2Vg9lDr/zEKZ7sYKSXeN7G2jZrljVayZdJlxj4Qx14dLBul5
+	+RAK6aQfMgdRVIJOAaNA+83AGCrsOxJEqbnHnkNNnXdAYlHKEKv+NKxKQISJoYiiB736HQ26ssi
+	+BJjcV//e6TLvPITKljBJ5pwOtTambaRqWGJEwDMRzzz+n7Lu5UMTd2PJUtZFGawmyUOS1Tk8nZ
+	PLUCqCEXfMFBea2iXYNL9qOVSDdmbCbZFn7XQim+MWaSBIf3WJsPuQ5JjeIOGDR0Eobp7hFbGER
+	KTddQ8kb9R0/sFNHL2XTInexm0Npc8YXM0PDPttD0kXcVaTiFY1XBMgp87a/H9YRj8L2amqUXR1
+	PHgZgOnsHZFKC7++6oynCAQft620zwEEVXpYhpwwby23OPE1KhwgAGVI9ATy5BWKrIM15ZcYXSy
+	Mwk06UYrykq9xdGv/vCqRwGpljLw==
+X-Received: by 2002:a17:907:7a89:b0:c24:6445:d19 with SMTP id a640c23a62f3a-c260c9f314emr207802766b.17.1788514041386;
         Fri, 04 Sep 2026 02:27:21 -0700 (PDT)
-Received: from ydg-Zenbook-14-UM3406GA ([2001:2d8:646c:494:158f:c4ff:121b:b906])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b260fe843sm3518116a91.10.2026.09.04.02.27.15
+Received: from Desktop.fritz.box (pd9513ef7.dip0.t-ipconnect.de. [217.81.62.247])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c260d5773c5sm80462966b.40.2026.09.04.02.27.20
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 04 Sep 2026 02:27:21 -0700 (PDT)
-From: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
-To: bot+bpf-ci@kernel.org,
-	ast@kernel.org,
-	andrii@kernel.org,
-	daniel@iogearbox.net,
-	martin.lau@linux.dev,
-	eddyz87@gmail.com,
-	song@kernel.org,
-	yonghong.song@linux.dev,
-	jolsa@kernel.org,
-	memxor@gmail.com,
-	puranjay@kernel.org,
-	xukuohai@huaweicloud.com,
-	catalin.marinas@arm.com,
-	will@kernel.org,
-	mark.rutland@arm.com,
-	shuah@kernel.org,
-	emil@etsalapatis.com,
-	ihor.solodrai@linux.dev
-Cc: bpf@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
+        Fri, 04 Sep 2026 02:27:20 -0700 (PDT)
+From: Julius Bairaktaris <julius@bairaktaris.de>
+To: Andrew Lunn <andrew@lunn.ch>,
+	Vladimir Oltean <olteanv@gmail.com>
+Cc: "David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	xukuohai@huawei.com,
-	martin.lau@kernel.org,
-	mason@kernel.org
-Subject: Re: [PATCH bpf 2/2] selftests/bpf: cover the exception callback using its own BPF stack
-Date: Fri,  4 Sep 2026 18:27:12 +0900
-Message-ID: <20260904092712.10691-1-donggeunyoo.kernel@gmail.com>
+	Pablo Neira Ayuso <pablo@netfilter.org>
+Subject: [PATCH net-next v2] net: dsa: offer a flowtable to the switch before the conduit
+Date: Fri,  4 Sep 2026 11:27:18 +0200
+Message-ID: <20260904092719.534318-1-julius@bairaktaris.de>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <6aec8f5c91db3edfd8becf6f41bcb33fda2cbea1bb894888cbcdab4579b0f086@mail.kernel.org>
-References: <20260904070210.4163193-3-donggeunyoo.kernel@gmail.com> <6aec8f5c91db3edfd8becf6f41bcb33fda2cbea1bb894888cbcdab4579b0f086@mail.kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -99,9 +83,100 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On Fri, Sep 04, 2026 at 08:09:36AM +0000, bot+bpf-ci@kernel.org wrote:
-> This isn't a bug, but would 'u64' fit the surrounding declarations in this
-> file a little better than '__u64' for the three new locals/globals?
+A flowtable bound to a DSA user port is forwarded to the conduit netdev
+by dsa_user_setup_ft_block(), for a flow engine that sits on the
+conduit as mtk_eth's does. It does not go through
+ds->ops->port_setup_tc, so a switch that owns its flow engine is never
+offered the flowtable.
 
-Right, the rest of exceptions.c uses u64. I'll switch the three new
-declarations. Holding the respin for now in case more feedback comes in.
+Offer TC_SETUP_FT to the switch first and forward it to the conduit
+only when the switch answers -EOPNOTSUPP. The side that takes the bind
+is recorded on the port so that the unbind goes to the same side. Every
+in-tree .port_setup_tc returns -EOPNOTSUPP for TC_SETUP_FT, so a
+conduit-side flow engine is reached as before.
+
+Assisted-by: Claude:claude-fable-5-1
+Signed-off-by: Julius Bairaktaris <julius@bairaktaris.de>
+---
+v2:
+- decide the target on FLOW_BLOCK_BIND and record it on the port, so
+  the unbind goes to the side that holds the block callback
+- reword the comment
+v1: https://lore.kernel.org/netdev/20260901092546.369232-1-julius@bairaktaris.de/
+
+Tested on IPQ8074 with an out-of-tree DSA switch driver that handles
+TC_SETUP_FT (openwrt/openwrt#24806): three flowtable unbind/bind cycles,
+hardware offload of routed flows after each.
+
+ include/net/dsa.h |  6 ++++++
+ net/dsa/user.c    | 25 ++++++++++++++++++++-----
+ 2 files changed, 26 insertions(+), 5 deletions(-)
+
+diff --git a/include/net/dsa.h b/include/net/dsa.h
+index 7507d632e7c6..dbcb02de06fc 100644
+--- a/include/net/dsa.h
++++ b/include/net/dsa.h
+@@ -297,6 +297,12 @@ struct dsa_port {
+ 
+ 	u8			setup:1;
+ 
++	/* Flowtable blocks on this user port go to the switch, not the
++	 * conduit; decided at bind time. Written without rtnl, so not one of
++	 * the bit fields above.
++	 */
++	bool			ft_on_switch;
++
+ 	struct device_node	*dn;
+ 	unsigned int		ageing_time;
+ 
+diff --git a/net/dsa/user.c b/net/dsa/user.c
+index 041f9060c8ef..f4cd48df2519 100644
+--- a/net/dsa/user.c
++++ b/net/dsa/user.c
+@@ -1718,15 +1718,30 @@ static int dsa_user_setup_tc_block(struct net_device *dev,
+ 	}
+ }
+ 
+-static int dsa_user_setup_ft_block(struct dsa_switch *ds, int port,
+-				   void *type_data)
++static int dsa_user_setup_ft_block(struct dsa_port *dp,
++				   struct flow_block_offload *bo)
+ {
+-	struct net_device *conduit = dsa_port_to_conduit(dsa_to_port(ds, port));
++	struct net_device *conduit = dsa_port_to_conduit(dp);
++	struct dsa_switch *ds = dp->ds;
++	int err;
++
++	/* The unbind goes to the side that took the bind. */
++	if (bo->command == FLOW_BLOCK_BIND) {
++		err = -EOPNOTSUPP;
++		if (ds->ops->port_setup_tc)
++			err = ds->ops->port_setup_tc(ds, dp->index, TC_SETUP_FT,
++						     bo);
++		dp->ft_on_switch = err != -EOPNOTSUPP;
++		if (dp->ft_on_switch)
++			return err;
++	} else if (dp->ft_on_switch) {
++		return ds->ops->port_setup_tc(ds, dp->index, TC_SETUP_FT, bo);
++	}
+ 
+ 	if (!conduit->netdev_ops->ndo_setup_tc)
+ 		return -EOPNOTSUPP;
+ 
+-	return conduit->netdev_ops->ndo_setup_tc(conduit, TC_SETUP_FT, type_data);
++	return conduit->netdev_ops->ndo_setup_tc(conduit, TC_SETUP_FT, bo);
+ }
+ 
+ static int dsa_user_setup_tc(struct net_device *dev, enum tc_setup_type type,
+@@ -1739,7 +1754,7 @@ static int dsa_user_setup_tc(struct net_device *dev, enum tc_setup_type type,
+ 	case TC_SETUP_BLOCK:
+ 		return dsa_user_setup_tc_block(dev, type_data);
+ 	case TC_SETUP_FT:
+-		return dsa_user_setup_ft_block(ds, dp->index, type_data);
++		return dsa_user_setup_ft_block(dp, type_data);
+ 	default:
+ 		break;
+ 	}
+-- 
+2.53.0
+
