@@ -1,103 +1,351 @@
-Received: from mail-oo1-f47.google.com (mail-oo1-f47.google.com [209.85.161.47])
+Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FAEE48F82C
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 11:00:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2542348C8D7
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 11:00:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788519626; cv=none; b=ltLUYhMRRpFv9M8hEV/2WXr1j0oJcyTdS9YkdQ8zXQtEqVMn2ep72NDTRyRJkgRSmGZVDO4qijKAImTcxOIPtdPH9dDQ8htfwU7KhNLSNn3s07zYdQdZQc5a+nhnj6mWjN5hQq6qD+eus6sL6tIdn/l0Oyq28JqToyngk3YcZqk=
+	t=1788519624; cv=none; b=CZ9GUD+fhb7+8yBuijzpQnlrvqB3K0MmuSuqjou3oaGMnfNJZumJ6Kkxd+iCVFlhMYoGyBrmF5HgRpRBhgxcWb5PSWf6GNoDVmqRxhm9ukNPPHudiu03WdGFjHdQT7PwEEyK3gFUa/I5ulOL2CnRIp/okRDrmgzV5WgfDwM3Org=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788519626; c=relaxed/simple;
-	bh=D1HsYJiq3/IJrL0A68+TQVDnYCASkWEpASFPQ54JDWA=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=if3q1N7R15JLYPhHS5F4GLWofE42rzu/VnPmPCk+lRhXCN0JYMSWsf8/JZ8Z+DF7BOc9eIjdzkRYZ3Oqe28kix2id5mIqJOJJnINIMe7zbiy7T/S5lBqsZ2y/cfsO4FYSm9ufRFVDFHG8zFRok7L3qU3RXhDFn+dqKVweQzjAng=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=iY0Zp2Ek; arc=none smtp.client-ip=209.85.161.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788519624; c=relaxed/simple;
+	bh=zV+id8hgrmOYZ2zkH5wVp805A1ipbO2BAvtEYS6rNqM=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=ZIMMYggAgPpYZNUjb75QIo0JqHe/I8zQQXqWBrgj88rZ4vDnWeilS+USZbqWyH8a2kN/6Xa2cXSZ5c5dmniY12sv/ss9WgD/IoVC8XXAsQInQdwfzSpNscaTuQ8NwmrPGxZlyKLWL3Ys1UmCS5WzYqeAu+1KipzJ8xDzOHXcSyU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--stanleyjhu.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=PtALMpdO; arc=none smtp.client-ip=209.85.216.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--stanleyjhu.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="iY0Zp2Ek"
-Received: by mail-oo1-f47.google.com with SMTP id 006d021491bc7-6b35cc0a8c3so717492eaf.0
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 04:00:24 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="PtALMpdO"
+Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-3968bb86fb7so1227180a91.2
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 04:00:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788519623; x=1789124423; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Hf87qzQdWU7nDso7lEJgNwStgrU6ezKmTVcIUejIfiI=;
-        b=iY0Zp2EkcmucBI2MPxVz5/HklWaj9EKZeTbgwiZ3prCZaEY0kas/MLDHYD9ZuaI3Kp
-         P+i1yDyihXJS4sPhAEIq0/0LAJ1vmLU5h8SCJp5FEIWslb50sytb2moBlhCHNHKZ/V7/
-         KRdMSUblMFEyQugF5T2ZtxcRmJmiIMd/nt/DYsK2jTV3gKKar9cPm/qdVGRCCNt9FaTx
-         l9ZowuLjbdRV4gTuevM3wWJJjt/KQ3tcJi6oH6FZDIiFR3iOGWIwNE5pVLySjyaONK8W
-         mE8u3bLNLls17XWR2AgpYYau43CYB4+FCA6kNaRPOeI5i9gLRNjXkBpOtySwKGPqV5B9
-         LKbA==
+        d=google.com; s=20251104; t=1788519621; x=1789124421; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=u84Mc5AIsSgNc1vzS18uPhdCuLSJJI70tZiWSF1FywQ=;
+        b=PtALMpdOrBUcZkbWuQoAlZxwXACb00sfkDVO2LRqht2VnDzK+LwEMpRls0xzylDt/i
+         dhufOY9+M8iZXakodqdtL2KtCKYlWVuCRF1mClwY7sW8eN0sf9vbJlcsoVr9eB5Of8J3
+         bv0Mro6oX+1DwhGz8V7Lc0BKaoqnDEY5ubOkJun+A2D2KFxEIizb6zmU1kD4KhZ8omay
+         oKsL4KgRz7gTxgF5+PggaUBwnyiJxeD8UQgbAarlYs0cJVYqfqE3jH0KzwJ39O7yW9VO
+         D3YRZ5dQ6n8M3NfMV3myAM2tMBD1plw2WL1yPQMjHIKr7V0KaNIDLmSyg40IHXrPqQXT
+         dJrw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788519623; x=1789124423;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Hf87qzQdWU7nDso7lEJgNwStgrU6ezKmTVcIUejIfiI=;
-        b=pAAgCZhj1KVkoMRbjhPE4jbKQ9ws8JTt4hPxRnx7fiChlbqTwCDVp9C0d5ZdFQN8qd
-         unlBy0APDOzC+w/30CWYXlVvzyjRrdsNjRzRc0L3pKT9L3g8nE4lWjFi4Xkby8Uw/gQe
-         IWq8PgsDWWQ82h8F1rJAkjy5tIw3JS7+mSf0FHie6N6uzJKzoD73elEZhDj8djMqIBE5
-         7w0CzKOyvNVuH92qhTMcYqjxYbLGr3TTCoBR5voFF9LDfmCh/53rTnK6ElHlvIrVYTkc
-         h7c/5HzZFYTVkeZb7V78xAhXVI7lULNOFcktNPVvu9bbSqLJ9KgQW2N5baFeOM5cofKz
-         n+7A==
-X-Gm-Message-State: AFuF++nDUK4uGb+1qwcXU23PVBBc29EPjKUp33cMduXtoc4qpzgGD0Vu
-	S0si18ClYVFhmaUVXuIae3XMoBWUPNLtcOsFJbm2PvIPAuW+IQ8O6Bl7
-X-Gm-Gg: AYBFou0+A0xcWtVbNShgW/f2kZCbZ1Z4BU+9u+ewOmXps4e87xDjs7807q/YVCAJLsS
-	+SwdW0vVRY6myP9lcPPdV1D4umecDolh5+ePuWp9v6ZMfcmYKddlg6MCPPP8buqZ1dtYfpN11/i
-	W7bIsPV9/JZ79vKGpk6IlX8NQQ4+76JgAyTNaSwwTc+4EhQZv0MT6qeRmQxPUAFbO7LZIB5h0hu
-	ovzQ8jG+0VELGVsnbX82ofgmgVICo5g1r50x/JbOjx1+dfzaW3zU4wCuyRUbFWOqT1wh38RAWi2
-	1SAj/1BT5DuijSbIXKe3Dycv5AdKohsMMBc6HoE7IId4EzVNsY4Ys3IwC3p8Hn+CE8MSzf/9tYw
-	ITocldF2LjxvwYzWnIq4Jqh2bkL2vOZ4jpJ5OdqcSnd1Zbl56HXNe9abT20/7doWi6ksuUWuQvr
-	sYIiBSMn4utCPFjc/R6XGCYiffvQkDnLOV966LB/MCtMfH
-X-Received: by 2002:a05:6820:81d8:b0:6b1:3db9:b758 with SMTP id 006d021491bc7-6b6fb3d2f3emr3486950eaf.9.1788519623477;
-        Fri, 04 Sep 2026 04:00:23 -0700 (PDT)
-Received: from volcano9f6e-hostos.amd.com ([165.204.217.251])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339a534df1sm6813221eec.7.2026.09.04.04.00.21
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 04 Sep 2026 04:00:22 -0700 (PDT)
-From: Hemanth Selam <hemanth.selam@gmail.com>
-To: Dominik Brodowski <linux@dominikbrodowski.net>
-Cc: linux-kernel@vger.kernel.org
-Subject: [PATCH 3/3] pcmcia: fix repeated word in log message
-Date: Fri,  4 Sep 2026 16:29:58 +0530
-Message-ID: <20260904110000.6304-4-hemanth.selam@gmail.com>
-X-Mailer: git-send-email 2.48.1
-In-Reply-To: <20260904110000.6304-1-hemanth.selam@gmail.com>
-References: <20260904110000.6304-1-hemanth.selam@gmail.com>
+        d=1e100.net; s=20251104; t=1788519621; x=1789124421;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=u84Mc5AIsSgNc1vzS18uPhdCuLSJJI70tZiWSF1FywQ=;
+        b=arPD5Rylm6I8Bx1O4rt2ozteyuejpOkYCuHGhbEujB5b2StpUgTBvf6P0r29mtmey/
+         eQgMEK3xLqK01/MoM5OQWoiwFyu80/5xTg5x6cPbW7+xGlNr3GqAgBDj2WknaP78ErzP
+         fScvyhw8mpf/FsHnTYAPXFB4UCIQ1/iaF23p79g+y2FOtA9dygDC2AWhwAoE5EuB4WPI
+         ODBorF9ROnh9iVjTEbUAOusngFlRhga6X8yJymoMQXq3CMxfYDwtL/2LbWSevlFr20b4
+         dwnIj72x1avoMkv3UrlP9GabFuOVEXXBFnRpUgE1AMLdiGDEFaQLV8PpvbRWZgge1nb3
+         p2Bg==
+X-Forwarded-Encrypted: i=1; AKwUvBzMPshv+SkIpfnQN9GEYaUHGu8GRdpqAgLx6WbKC/udKRY3gqqunSTSI1uTccZb9yWi7h0F7gBEb5DG7Wg=@vger.kernel.org
+X-Gm-Message-State: AFuF++lONrRtjZfemkX1ghdRf9AakF8d1/On5Eb9tsTIJDTyl5RLobqj
+	YdiC1oqDZb2tceKI2YW6hE1xPsomHZcMtc+ymZYX4j9DmkxluquONq72L+nkiDTUqf5ytXRa6mY
+	G451W9E0HDeHbgS/9nKRTQA==
+X-Received: from pjye12.prod.google.com ([2002:a17:90a:ee0c:b0:39b:1aab:f8c3])
+ (user=stanleyjhu job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a17:90b:2ccf:b0:398:a2a3:b631 with SMTP id 98e67ed59e1d1-39b262aaf3dmr8893505a91.19.1788519621001;
+ Fri, 04 Sep 2026 04:00:21 -0700 (PDT)
+Date: Fri,  4 Sep 2026 19:00:16 +0800
+In-Reply-To: <20260904110017.3444852-1-stanleyjhu@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+References: <20260904110017.3444852-1-stanleyjhu@google.com>
+X-Mailer: git-send-email 2.55.0.979.g7e5102b832-goog
+Message-ID: <20260904110017.3444852-2-stanleyjhu@google.com>
+Subject: [PATCH 1/2] scsi: ufs: rpmb: Decouple device lifecycle from devres to
+ avoid UAF
+From: Stanley Jhu <stanleyjhu@google.com>
+To: "Martin K . Petersen" <mkp@kernel.org>, 
+	"James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>, linux-scsi@vger.kernel.org
+Cc: Brian Kao <powenkao@google.com>, Bean Huo <beanhuo@micron.com>, 
+	Bart Van Assche <bvanassche@acm.org>, Alim Akhtar <alim.akhtar@samsung.com>, 
+	Avri Altman <avri.altman@sandisk.com>, Can Guo <can.guo@oss.qualcomm.com>, 
+	Peter Wang <peter.wang@mediatek.com>, linux-kernel@vger.kernel.org, 
+	Stanley Jhu <stanleyjhu@google.com>
+Content-Type: text/plain; charset="UTF-8"
 
-Drop the word written twice, reported by checkpatch.pl as a possible
-repeated word.
+The UFS RPMB driver suffers from three architectural lifetime flaws:
 
-Only the message text changes, no code changes.
+1. Lifecycle mismatch:
+   The driver allocates struct ufs_rpmb_dev via devres tied to the
+   parent controller, even though it embeds a struct device. A struct
+   device's lifetime must be governed by its own reference count.
+   When the controller unbinds, devres prematurely frees the memory
+   while references (such as sysfs nodes or userspace file descriptors)
+   remain active, triggering a use-after-free (UAF) Oops:
+     "Unable to handle kernel paging request at virtual address
+      0x006b6b6b6b6b6b9c"
 
-Assisted-by: Cursor:claude-opus-5
-Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
+2. Unpinned transport hierarchy:
+   The RPMB device relies on the underlying SCSI WLUN and host
+   controller for command submission, but does not acquire a reference
+   to the SCSI device. Unbinding the controller during in-flight I/O
+   dereferences destroyed SCSI structures.
+
+3. Inverted teardown and error handling:
+   Subsystem registration is conflated with device memory lifecycle.
+   The device release callback improperly attempts subsystem teardown,
+   while driver removal and probe error paths unregister the driver
+   core device without first unregistering from the RPMB subsystem.
+
+To resolve these issues, align the driver with standard kernel device
+model principles:
+
+1. Reference-counted lifecycle:
+   Decouple ufs_rpmb from devres. Manage its memory strictly through the
+   embedded struct device's reference count, freeing it only in the
+   device release callback.
+
+2. Topological pinning:
+   Pin the underlying SCSI device for the duration of the RPMB device's
+   existence, ensuring the SCSI host hierarchy remains valid until all
+   references to the RPMB device are dropped.
+
+3. Symmetrical teardown and state validation:
+   Unregister subsystem interfaces before driver core devices, correct
+   error rollback paths, initialize fields before exposing the device
+   to userspace, and reject requests if the underlying device goes
+   offline.
+
+Fixes: b06b8c421485 ("scsi: ufs: core: Add OP-TEE based RPMB driver for UFS devices")
+Signed-off-by: Stanley Jhu <stanleyjhu@google.com>
 ---
- drivers/pcmcia/pd6729.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/ufs/core/ufs-rpmb.c | 86 +++++++++++++++++++++----------------
+ 1 file changed, 50 insertions(+), 36 deletions(-)
 
-diff --git a/drivers/pcmcia/pd6729.c b/drivers/pcmcia/pd6729.c
-index 1b62ca30d08a..c8c4127c95b0 100644
---- a/drivers/pcmcia/pd6729.c
-+++ b/drivers/pcmcia/pd6729.c
-@@ -479,7 +479,7 @@ static int pd6729_set_mem_map(struct pcmcia_socket *sock,
+diff --git a/drivers/ufs/core/ufs-rpmb.c b/drivers/ufs/core/ufs-rpmb.c
+index aa925cbb07e8..4f41d0b64d20 100644
+--- a/drivers/ufs/core/ufs-rpmb.c
++++ b/drivers/ufs/core/ufs-rpmb.c
+@@ -13,6 +13,7 @@
+ #include <linux/module.h>
+ #include <linux/device.h>
+ #include <linux/kernel.h>
++#include <linux/slab.h>
+ #include <linux/types.h>
+ #include <linux/rpmb.h>
+ #include <linux/string.h>
+@@ -33,15 +34,19 @@ struct ufs_rpmb_dev {
+ 	u8 region_id;
+ 	struct device dev;
+ 	struct rpmb_dev *rdev;
+-	struct ufs_hba *hba;
++	struct scsi_device *sdev;
+ 	struct list_head node;
+ };
+ 
+-static int ufs_sec_submit(struct ufs_hba *hba, u16 spsp, void *buffer, size_t len, bool send)
++static int ufs_sec_submit(struct ufs_rpmb_dev *ufs_rpmb, u16 spsp,
++			  void *buffer, size_t len, bool send)
+ {
+-	struct scsi_device *sdev = hba->ufs_rpmb_wlun;
++	struct scsi_device *sdev = ufs_rpmb->sdev;
+ 	u8 cdb[12] = { };
+ 
++	if (!sdev || !scsi_device_online(sdev))
++		return -ENODEV;
++
+ 	cdb[0] = send ? SECURITY_PROTOCOL_OUT : SECURITY_PROTOCOL_IN;
+ 	cdb[1] = UFS_RPMB_SEC_PROTOCOL;
+ 	put_unaligned_be16(spsp, &cdb[2]);
+@@ -53,13 +58,12 @@ static int ufs_sec_submit(struct ufs_hba *hba, u16 spsp, void *buffer, size_t le
+ 
+ /* UFS RPMB route frames implementation */
+ static int ufs_rpmb_route_frames(struct device *dev, u8 *req, unsigned int req_len, u8 *resp,
+-					unsigned int resp_len)
++				 unsigned int resp_len)
+ {
+ 	struct ufs_rpmb_dev *ufs_rpmb = dev_get_drvdata(dev);
+ 	struct rpmb_frame *frm_out = (struct rpmb_frame *)req;
+ 	bool need_result_read = true;
+ 	u16 req_type, protocol_id;
+-	struct ufs_hba *hba;
+ 	int ret;
+ 
+ 	if (!ufs_rpmb) {
+@@ -67,8 +71,6 @@ static int ufs_rpmb_route_frames(struct device *dev, u8 *req, unsigned int req_l
+ 		return -ENODEV;
  	}
  
- 	if ((mem->res->start > mem->res->end) || (mem->speed > 1000)) {
--		dev_warn(&sock->dev, "invalid invalid address / speed\n");
-+		dev_warn(&sock->dev, "invalid address / speed\n");
+-	hba = ufs_rpmb->hba;
+-
+ 	/* req_resp is at the end of an RPMB frame. */
+ 	if (req_len < sizeof(*frm_out))
  		return -EINVAL;
+@@ -101,7 +103,7 @@ static int ufs_rpmb_route_frames(struct device *dev, u8 *req, unsigned int req_l
+ 
+ 	protocol_id = ufs_rpmb->region_id << 8 | UFS_RPMB_SEC_PROTOCOL_ID;
+ 
+-	ret = ufs_sec_submit(hba, protocol_id, req, req_len, true);
++	ret = ufs_sec_submit(ufs_rpmb, protocol_id, req, req_len, true);
+ 	if (ret) {
+ 		dev_err(dev, "Command failed with ret=%d\n", ret);
+ 		return ret;
+@@ -112,7 +114,7 @@ static int ufs_rpmb_route_frames(struct device *dev, u8 *req, unsigned int req_l
+ 
+ 		memset(frm_resp, 0, sizeof(*frm_resp));
+ 		put_unaligned_be16(RPMB_RESULT_READ, &frm_resp->req_resp);
+-		ret = ufs_sec_submit(hba, protocol_id, resp, resp_len, true);
++		ret = ufs_sec_submit(ufs_rpmb, protocol_id, resp, resp_len, true);
+ 		if (ret) {
+ 			dev_err(dev, "Result read request failed with ret=%d\n", ret);
+ 			return ret;
+@@ -120,7 +122,7 @@ static int ufs_rpmb_route_frames(struct device *dev, u8 *req, unsigned int req_l
  	}
  
+ 	if (!ret) {
+-		ret = ufs_sec_submit(hba, protocol_id, resp, resp_len, false);
++		ret = ufs_sec_submit(ufs_rpmb, protocol_id, resp, resp_len, false);
+ 		if (ret)
+ 			dev_err(dev, "Response read failed with ret=%d\n", ret);
+ 	}
+@@ -130,22 +132,24 @@ static int ufs_rpmb_route_frames(struct device *dev, u8 *req, unsigned int req_l
+ 
+ static void ufs_rpmb_device_release(struct device *dev)
+ {
+-	struct ufs_rpmb_dev *ufs_rpmb = dev_get_drvdata(dev);
++	struct ufs_rpmb_dev *ufs_rpmb = container_of(dev, struct ufs_rpmb_dev, dev);
+ 
+-	rpmb_dev_unregister(ufs_rpmb->rdev);
++	scsi_device_put(ufs_rpmb->sdev);
++	kfree(ufs_rpmb);
+ }
+ 
+ /* UFS RPMB device registration */
+ int ufs_rpmb_probe(struct ufs_hba *hba)
+ {
++	struct scsi_device *sdev = hba->ufs_rpmb_wlun;
+ 	struct ufs_rpmb_dev *ufs_rpmb, *it, *tmp;
+ 	struct rpmb_dev *rdev;
+-	char *cid = NULL;
++	char *cid;
+ 	int region;
+ 	u32 cap;
+ 	int ret;
+ 
+-	if (!hba->ufs_rpmb_wlun || hba->dev_info.b_advanced_rpmb_en) {
++	if (!sdev || hba->dev_info.b_advanced_rpmb_en) {
+ 		dev_info(hba->dev, "Skip OP-TEE RPMB registration\n");
+ 		return -ENODEV;
+ 	}
+@@ -167,14 +171,23 @@ int ufs_rpmb_probe(struct ufs_hba *hba)
+ 		if (!cap)
+ 			continue;
+ 
+-		ufs_rpmb = devm_kzalloc(hba->dev, sizeof(*ufs_rpmb), GFP_KERNEL);
++		ufs_rpmb = kzalloc(sizeof(*ufs_rpmb), GFP_KERNEL);
+ 		if (!ufs_rpmb) {
+ 			ret = -ENOMEM;
+ 			goto err_out;
+ 		}
+ 
+-		ufs_rpmb->hba = hba;
+-		ufs_rpmb->dev.parent = &hba->ufs_rpmb_wlun->sdev_gendev;
++		INIT_LIST_HEAD(&ufs_rpmb->node);
++
++		ret = scsi_device_get(sdev);
++		if (ret) {
++			kfree(ufs_rpmb);
++			goto err_out;
++		}
++
++		ufs_rpmb->sdev = sdev;
++		ufs_rpmb->region_id = region;
++		ufs_rpmb->dev.parent = &sdev->sdev_gendev;
+ 		ufs_rpmb->dev.bus = &ufs_rpmb_bus_type;
+ 		ufs_rpmb->dev.release = ufs_rpmb_device_release;
+ 		dev_set_name(&ufs_rpmb->dev, "ufs_rpmb%d", region);
+@@ -185,16 +198,14 @@ int ufs_rpmb_probe(struct ufs_hba *hba)
+ 		ret = device_register(&ufs_rpmb->dev);
+ 		if (ret) {
+ 			dev_err(hba->dev, "Failed to register UFS RPMB device %d\n", region);
+-			put_device(&ufs_rpmb->dev);
+-			goto err_out;
++			goto err_put;
+ 		}
+ 
+ 		/* Create unique ID by appending region number to device_id */
+ 		cid = kasprintf(GFP_KERNEL, "%s-R%d", hba->dev_info.device_id, region);
+ 		if (!cid) {
+-			device_unregister(&ufs_rpmb->dev);
+ 			ret = -ENOMEM;
+-			goto err_out;
++			goto err_unreg;
+ 		}
+ 
+ 		descr.dev_id = cid;
+@@ -203,29 +214,33 @@ int ufs_rpmb_probe(struct ufs_hba *hba)
+ 
+ 		/* Register RPMB device */
+ 		rdev = rpmb_dev_register(&ufs_rpmb->dev, &descr);
++		kfree(cid);
+ 		if (IS_ERR(rdev)) {
+ 			dev_err(hba->dev, "Failed to register UFS RPMB device.\n");
+-			device_unregister(&ufs_rpmb->dev);
+ 			ret = PTR_ERR(rdev);
+-			goto err_out;
++			goto err_unreg;
+ 		}
+ 
+-		kfree(cid);
+-		cid = NULL;
+-
+ 		ufs_rpmb->rdev = rdev;
+-		ufs_rpmb->region_id = region;
+-
+ 		list_add_tail(&ufs_rpmb->node, &hba->rpmbs);
+ 
+ 		dev_info(hba->dev, "UFS RPMB region %d registered (capacity=%u)\n", region, cap);
+ 	}
+ 
+ 	return 0;
++
++err_unreg:
++	device_unregister(&ufs_rpmb->dev);
++	goto err_out;
++err_put:
++	put_device(&ufs_rpmb->dev);
+ err_out:
+-	kfree(cid);
+ 	list_for_each_entry_safe(it, tmp, &hba->rpmbs, node) {
+-		list_del(&it->node);
++		list_del_init(&it->node);
++		if (it->rdev) {
++			rpmb_dev_unregister(it->rdev);
++			it->rdev = NULL;
++		}
+ 		device_unregister(&it->dev);
+ 	}
+ 
+@@ -242,14 +257,13 @@ void ufs_rpmb_remove(struct ufs_hba *hba)
+ 
+ 	/* Remove all registered RPMB devices */
+ 	list_for_each_entry_safe(ufs_rpmb, tmp, &hba->rpmbs, node) {
+-		dev_info(hba->dev, "Removing UFS RPMB region %d\n", ufs_rpmb->region_id);
+-		/* Remove from list first */
+-		list_del(&ufs_rpmb->node);
+-		/* Unregister device */
++		list_del_init(&ufs_rpmb->node);
++		if (ufs_rpmb->rdev) {
++			rpmb_dev_unregister(ufs_rpmb->rdev);
++			ufs_rpmb->rdev = NULL;
++		}
+ 		device_unregister(&ufs_rpmb->dev);
+ 	}
+-
+-	dev_info(hba->dev, "All UFS RPMB devices unregistered\n");
+ }
+ 
+ MODULE_LICENSE("GPL v2");
 -- 
-2.48.1
+2.55.0.979.g7e5102b832-goog
 
