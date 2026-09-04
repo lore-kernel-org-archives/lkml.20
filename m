@@ -1,81 +1,162 @@
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f0.google.com (mail-wm2-f0.google.com [74.125.225.128])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A5AC3783AF
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 18:05:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3958D51A745
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 18:06:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.128
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788545136; cv=none; b=DSvvKpliv1KDybmKko0fpVET/OjnirieL656J2S/aSl/4mkpZ+cRdn2q2ikHO8p/Gdw/jKv5b6IrfBzDnHm6WmPsjaL4fTbAnEH1KM2ZOE/CEUFsb/o6n8djTk28A5nFD6FDNoWQwySIScGUb9CGBDFH01ytRJoOcEMV3Co5LjE=
+	t=1788545170; cv=none; b=ie5O+BcsO9hD8tMApf5LXQ9AQHZ4tNBX831ghNUexE0Mts32YApVjcV3BohU/Lnm1M6lLpzzzjdiIFKi+GIG4EdRAs01YGzdiMuJ6cwaAJCcBTxnffYn1odtwMEjBKMvvWpSDsl4u+7KPWIpnPDJjAELzu6qF8xRCZzBFDZ5fv4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788545136; c=relaxed/simple;
-	bh=qn3IUA2tYQ8cH+xFwFmjhGWnQn/JaQ+t+4FeB50TxxY=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=erEib1W5qYfSYi6J4W7DGtG3zEyIBx3KMGefDYDsfYVWBN/qbJ70RuEIxQJkrRi1EiwG3jb6VBRhnZ/IfxQidzECUJubVRP2U9N+OqhDmKoZkhh2IvfR5o4US/MomFqUCB0HjPza5RnamScgZa6CHA/tjM7sOFOOVRyzIWIwbW4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=tH+vmgtv; arc=none smtp.client-ip=185.246.85.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="tH+vmgtv"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id DD56C4E41521;
-	Fri,  4 Sep 2026 18:05:32 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 9B7A26057F;
-	Fri,  4 Sep 2026 18:05:32 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 9CFCC11C79351;
-	Fri,  4 Sep 2026 20:05:14 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1788545127; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=zmnzVywuJ36UYza4cGKzEYOf2ze4aJrDgWLkLYA0zhw=;
-	b=tH+vmgtvwgcX7d6mOJyu5ufzIcqG+iDtAXzIxhAzsodtwjNDtQOC4vXx6+f/o0epJN9ynN
-	GNiw/GAZ5H9nbki+HkwrYR95hmCHbDDnIo+z+i8ia7j2JNYJcVavyAbecFSUuv1+UPGjHk
-	zpQJyzXBuWpT1IkJ3mAG6w+B3jryoT/hDCarrjGJeXTyOccbsHSVclLgWD0lXcFtAvvxff
-	6fIf1QQoFfoc+5fV0IULTLCZjJnuRTYn4isOk75D46Qe9XxHgqOtba49hn+2YddZGAhv5b
-	ZeB0DclH1pUwgRmetb0jLmzqjQqTgm/8uvyosw9X52Ig2+LLragbdiZ5CRrsvA==
-From: Miquel Raynal <miquel.raynal@bootlin.com>
-To: Robert Jarzmik <robert.jarzmik@free.fr>, 
- Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>, 
- Kyungmin Park <kyungmin.park@samsung.com>, Han Xu <han.xu@nxp.com>, 
- Matthias Brugger <matthias.bgg@gmail.com>, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
- Pratyush Yadav <pratyush@kernel.org>, Michael Walle <mwalle@kernel.org>, 
- Takahiro Kuwano <takahiro.kuwano@infineon.com>, 
- Hemanth Selam <hemanth.selam@gmail.com>
-Cc: linux-kernel@vger.kernel.org, linux-mtd@lists.infradead.org, 
- imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
- linux-mediatek@lists.infradead.org
-In-Reply-To: <20260904125208.12099-1-hemanth.selam@gmail.com>
-References: <20260904125208.12099-1-hemanth.selam@gmail.com>
-Subject: Re: [PATCH] mtd: fix typos in comments
-Message-Id: <178854511430.1515959.5653817613132272975.b4-ty@bootlin.com>
-Date: Fri, 04 Sep 2026 20:05:14 +0200
+	s=arc-20240116; t=1788545170; c=relaxed/simple;
+	bh=nvD192iZe8GfQ/+1qju1QKsfcMLglWwZM/JeLmYUs7M=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=FzPBdTQDOiUWJXUqqnS7Kve8tSUCFyoi890MeMevH1xoKOESuC4Lkb/QSP6GSPRvdNh3n5n3rhWkucuMpyyO1cnXaMnc7dTJJhFq4AsBh+Dz4TFOqJ9yARGT3psovqtiEGo8tKcTx0wQpm5pGzbbFKwUCKcBF8QmjVPPDUsfvq8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ovn.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=74.125.225.128
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ovn.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-wm2-f0.google.com with SMTP id 5b1f17b1804b1-49ced856e8dso5834485e9.0
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 11:06:07 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788545166; x=1789149966;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=cVV3G2WGefOofImhtecQzvUhLxVMoksQrLF0cjvq644=;
+        b=ifpsKqYeGWcMFxhxhX3GyOhlBC9sXF1wghaDBLSKRko30NKUnwj2YlLrz6H4jxgfWT
+         bHO2/ajLRvb+msHUPrxyj4D7IZNrzw8D7ikdSiHeo0mjUkCI4njSq4JgSDwdaXM4i1Fs
+         QSlJcdIdDLlcX3R6P9IQj89Mhm4UiKkegmv8jI0zHgoigZqqwDXVunFee22JXcUjuOdD
+         AFWigVsjgrXqn3kj5moeUsZrcPXosrzbKk9zau7/WvFjTem7j66tpC3UMtAqRr0/3jDG
+         442bj+cbpIRCLpsTEKGSdciN0Yo/DdSw+lK0iy22f2EM2LNgFkUej39GWepItwqszO12
+         kZyA==
+X-Forwarded-Encrypted: i=1; AKwUvBxfdkIC9sdKg7INTfU6qu9I/db8dsLJlpS2WalAAwpO66MonnIj6UvtNrch3uNpvkpDegJopgR/0Ak0OG8=@vger.kernel.org
+X-Gm-Message-State: AFuF++k5a5V9VVwVf/6pNc9Ea26zbCaGGJOJbEKDOZ/NAsi8IgbIBgP9
+	efxF85s77sb4tADodHHt79zrFv3cKr9maVjbmsEGQo9o3qljIqJWANoP
+X-Gm-Gg: AYBFou0ZJp0ebc0t+t5l9Ppg4tYuEJTcSgvn8ajpy3OpUJAPqEB9YO112cXR7hLTG2N
+	twiiWY4bty1S+HW/XKpwNO8Kqpsdp90mhRtBUpZgrCEwJZo+ptUppcA1wBcAqCfqdhdaNjV56kX
+	9V3lnczj8DcZfw+dpsKy8N+6hIPg39EM1ngB0iVxwXXhVpOwdsW10H04KaDoJx2G9rCKnbBqT7a
+	XEq8lE5YA7SlDGt5gxyDVcXSqDZBg1Flsm1NhWLuAuCETw4FDuoMf435CXyMCUCPO6Jq87hydhz
+	++POt+Gl81OPmAZhXJWSCRB90U63+Rv6DB+leJtYxZ2QkhrsON9BivOJRT3j3GbEKhq7vI7ym25
+	mUGR+sLbfsPENvjpf9WHMHmevsDt5e/BkhK4FioOM90/kUuTK0u/ZequiNMxfaLsDMiewzGwmCN
+	yix9bsBUcWVxeUJPmg67Q1JjVwWtMenKmSH0kIkSidyghmG6/cgqv4m5V0x4tcWR4UCTYbAH23I
+	iQZVTkNumxRgTjByCQgt+3a
+X-Received: by 2002:a05:600c:1990:b0:49c:f512:2361 with SMTP id 5b1f17b1804b1-49cf82524a2mr103087225e9.14.1788545166064;
+        Fri, 04 Sep 2026 11:06:06 -0700 (PDT)
+Received: from [192.168.88.241] (37-48-53-4.nat.epc.tmcz.cz. [37.48.53.4])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cf770fcf5sm84756205e9.6.2026.09.04.11.06.03
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 04 Sep 2026 11:06:04 -0700 (PDT)
+Message-ID: <35704da5-5a12-4b23-b684-dcadc432a380@ovn.org>
+Date: Fri, 4 Sep 2026 20:06:03 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-Mailer: b4 0.14.3
-X-Last-TLS-Session-Version: TLSv1.3
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH nf-next] netfilter: conntrack: make filtering by zone
+ discoverable
+To: Ilya Maximets <i.maximets@ovn.org>, netfilter-devel@vger.kernel.org
+Cc: netdev@vger.kernel.org, Donald Hunter <donald.hunter@gmail.com>,
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Simon Horman <horms@kernel.org>, Pablo Neira Ayuso <pablo@netfilter.org>,
+ Florian Westphal <fw@strlen.de>, Phil Sutter <phil@nwl.cc>,
+ Shuah Khan <shuah@kernel.org>, =?UTF-8?Q?Asbj=C3=B8rn_Sloth_T=C3=B8nnesen?=
+ <ast@fiberby.net>, "Matthieu Baerts (NGI0)" <matttbe@kernel.org>,
+ "Remy D. Farley" <one-d-wide@protonmail.com>, linux-kernel@vger.kernel.org,
+ coreteam@netfilter.org, linux-kselftest@vger.kernel.org
+References: <20260904174452.1913072-1-i.maximets@ovn.org>
+Content-Language: en-US
+From: Ilya Maximets <i.maximets@ovn.org>
+Autocrypt: addr=i.maximets@ovn.org; keydata=
+ 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
+In-Reply-To: <20260904174452.1913072-1-i.maximets@ovn.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Fri, 04 Sep 2026 18:22:03 +0530, Hemanth Selam wrote:
-> Fix typos in comments, reported by scripts/checkpatch.pl using the
-> misspelling list in scripts/spelling.txt.  Only touches comments, no code
-> changes.
+On 9/4/26 7:44 PM, Ilya Maximets wrote:
+> Conntrack flush supports filtering by zone using CTA_ZONE, but this
+> attribute is really hard to use from user space applications.  The
+> reason is that it is not possible to tell if it's supported or not.
 > 
+> Older kernels silently ignore CTA_ZONE.  And in that case they just
+> happily flush all the entries from all zones breaking all the existing
+> connections.  So, applications have to infer support from the kernel
+> version.  While it works in most cases, it's not a particularly
+> reliable or desired way to check kernel capabilities from applications
+> that aim to be portable.  There should be a better way to probe or
+> discover features in the kernel.
 > 
+> The CTA_FILTER interface on the other hand is simple enough to probe.
+> We can check for NLM_F_DUMP_FILTERED in the dump to see if filtering
+> is supported.  And unknown sub-attributes in CTA_FILTER are rejected
+> explicitly since strict validation is in use there.
+> 
+> Let's add new CTA_FILTER_ZONE that signals that CTA_ZONE should be
+> filtered on.  It is a flag, since everything in the CTA_FILTER is a
+> bit mask, i.e., a form of a flag.  If set, it means that CTA_ZONE must
+> be present and be used for filtering.  If the flag is not set however,
+> the filtering on CTA_ZONE will still take place to ensure backwards
+> compatibility.  So, the flag doesn't really change the filtering
+> behavior, but it allows user space applications to properly discover
+> support for CTA_ZONE filtering without need to rely on kernel version
+> parsing or risk accidental flushes of the entire conntrack table,
+> and also without modifying the kernel state.
+> 
+> A new test variant is added to test with and without the new flag.
+> Since the setup code is moved into a shared function, expectations
+> replaced with assertions to bail early if the base setup fails to
+> avoid the cascade of secondary failures that can be misleading.
+> Error return is only for the SKIP cases.
+> 
+> Signed-off-by: Ilya Maximets <i.maximets@ovn.org>
+> ---
+CI reported a build failure for the selftest.  It is caused by this issue:
+  https://lore.kernel.org/r/20260904-net-sft-nf-khdr_includes-v1-1-92455af428e9@kernel.org
 
-Applied to mtd/next, thanks!
+Not related to the patch itself.
 
-[1/1] mtd: fix typos in comments
-      commit: 90936c3c790ec22b02c6d8611a9df0aecb8139bb
-
-Patche(s) should be available on mtd/linux.git and will be
-part of the next PR (provided that no robot complains by then).
-
-Kind regards,
-Miquèl
-
+Best regards, Ilya Maximets.
