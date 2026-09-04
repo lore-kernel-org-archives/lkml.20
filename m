@@ -1,159 +1,153 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oo1-f70.google.com (mail-oo1-f70.google.com [209.85.161.70])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E230139185E;
-	Fri,  4 Sep 2026 23:34:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF6D43B14B1
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 23:35:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.70
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788564875; cv=none; b=TDNaVbTBhKr5RKJNzIiYyWEO2XGEkrpJSiZ+PoxyM4Zk2l1D1LsiGuXxE7EH25eF2lqsD+Y1g23fT9D9kPsWLhWLiOxooRy7Mh3Iqcg9t53tEpe1gnK7Gri1aBp74WwILByh7HsrHFqL1ZIWydLeU+ljJ21TIiCfiGODXOhIEYM=
+	t=1788564953; cv=none; b=BopISZJuSQK/9hwa6BhwKtCWK4gt0PngVugj2y7uyJqBz1L8Jb1tTbFFsaxCs0SVttZ5tnoSrLH/tEkPIfkG5HsSCseLBfAzxUjSBLtj2y1cNAiG9moHWGankVqVTLxYJFB/fOKzIrhDTHeCGHDI/dSnY8Qf6/dh7iq/0PLeaJc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788564875; c=relaxed/simple;
-	bh=vLKLtc6DsKV4Uo/b6kp9DxmZQan2o1S1atw2yN2MGlQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=H9v521apBjBpgoU4Y8znL90buNbYy4XdoxXvwHB4bWiVU3uxVt4/jN+oLSoTuBYCe7MWusqZKnlbNjGSbpouOWcbN+FRZZXyz+Ej4k8v1+NVPq0m3l4GIQKipNCPlS4DCjGoGlNEvFlHWR6A/kin95je0fZEx8uvvxiudx5ikxU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Jt4p7vy4; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Jt4p7vy4"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 514051F00A3D;
-	Fri,  4 Sep 2026 23:34:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788564873;
-	bh=Z1h6AbZU7N8JIvRkcwd6on/Y+M5Pw4rMc16HoaDvh0E=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Jt4p7vy44okBO1duOsblAXefxOpHrj65FhTrzLDBr5fkYyXi967S1XOmcvvRFx1PE
-	 5rk338U3Drs4aciMjVJkzg7VgQmr0Op9Ujng53lVbSJpdDyzRK0j9GCwpC6CwNorSQ
-	 yLJDyjf5TIrlOxxfYwZz481tLlhEyaK0AmOw/GNQvD+cHbleP9nq7KVs7lXYbS3nCg
-	 9gMGc6M227OF+cKaEZBuQI65po1BoejItDD4jpml0fOVCaHIBXzDuxnhu7uE6OaQeN
-	 3i+PEnlUgeTu31oPDxnMmefiPLQb8vpU241yU21GEZVwoi+o9zQU1lTOYQUwYLiutc
-	 MMr7NYJF+PFEw==
-Date: Fri, 4 Sep 2026 16:34:33 -0700
-From: Kees Cook <kees@kernel.org>
-To: Bill Wendling <morbo@google.com>,
-	Christian Brauner <brauner@kernel.org>
-Cc: Thomas =?iso-8859-1?Q?Wei=DFschuh?= <thomas.weissschuh@linutronix.de>,
-	Bradley Morgan <brads@mainlining.org>,
-	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
-	Aleksa Sarai <cyphar@cyphar.com>, Jan Kara <jack@suse.cz>,
-	Nathan Chancellor <nathan@kernel.org>,
-	Miguel Ojeda <ojeda@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
-	Nicolas Schier <nsc@kernel.org>, Gary Guo <gary@garyguo.net>,
-	Alice Ryhl <aliceryhl@google.com>,
-	Douglas Anderson <dianders@chromium.org>,
-	Anand Moon <linux.amoon@gmail.com>, Oleg Nesterov <oleg@redhat.com>,
-	codemender-patching+linux@google.com, linux-kernel@vger.kernel.org,
-	linux-hardening@vger.kernel.org
-Subject: Re: [PATCH v4 2/2] userns: Add KUnit test suite for uid_gid_map
-Message-ID: <202609041620.81446C2A@keescook>
-References: <20260823125155.1136740-1-morbo@google.com>
- <20260826220041.4075333-1-morbo@google.com>
- <20260826220041.4075333-2-morbo@google.com>
- <20260827152612-d0c71c10-cbe5-49f3-9be0-47eb76cd9b48@linutronix.de>
- <CAGG=3QWPTL5z8MfAxJLpHb0P-3Ah6K+FzgrVHyRRcvRK7-6dSA@mail.gmail.com>
- <20260831111423-400ed79e-6e52-438c-aa9f-f289e6dbdee5@linutronix.de>
- <CAGG=3QUAY4BDiJM64uTX8C1A2WPg6dPRexbgUQZoi4QKkkpP9Q@mail.gmail.com>
- <20260904091410-3a87d211-edf8-4ead-8b91-004a4a96a161@linutronix.de>
- <CAGG=3QV1G0=19riYPPWhTXrW2X0YvyESdY=GesWm2F_8FEZwMg@mail.gmail.com>
+	s=arc-20240116; t=1788564953; c=relaxed/simple;
+	bh=9oFdzcNSXwfO30LxDKvwHi69W5gBCNxc+H63pnaXZgM=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=s77gJ7vfmztxTB8ogk3kLTzAdG5Un1MZxCM8yaRpsfmIJKPMEN+mnksu2PDmelN+QxiHG3xciRynKXQF4Q9NTP5grPovuziCmiM5woI7zJeg8RpctIUGGLelCGiXxCXzjHqK2j4YDx98l8fBjAebP9VGlpq4Zf+ciDgLXRgwyE0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.161.70
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oo1-f70.google.com with SMTP id 006d021491bc7-6b1a3f01d2aso2404061eaf.1
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 16:35:51 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788564950; x=1789169750;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=/e6/5ePIMIpOYEhFajWQ9cvMB/27MDTyrWMi45Ge3YM=;
+        b=mSyoGNq/VDui02R77bR6DMIauo8wUgeQL1FnFu3dJSCl2hSoKbQ1kBafxRqiC/X2R6
+         XXtofXZL1bn8HtPOLKrTimtnNV7zx2ZcjiSvULZV7b7189BdlFb8mc2TDW8oLibprmNA
+         BToEZyDMgOfmzd1CyqrRDait6XuMK4sHhXl5TL8IwOQl0dxyIWdHFb+e4RIEtce5CYmk
+         1ZnNp3tzUEAQiC0AjIwhXsWzMTthmFq5GXYb+SextETa8tSvABHCLV3jJlA6II4K7srP
+         g10EvRQHM4z3ROhLb/5jYGGl8YSrqKlo0WJ2+PRm3fFUVIzUR5LsZe/iBJ3oFvT3OQjb
+         x56A==
+X-Gm-Message-State: AFuF++nIQIlPhA0aTZdgILFlWJ1QjnjJSDXRioJVDP+8+3wAM2ZYn3Df
+	/TIjbi1qiMUmIoTvpfwrcIm+7oL2+ovF8Rycmsvs1fV6T1z7DrIPmtfM4hvvhlD+xN+PZTmFhuG
+	BLP1SkF5vXGLGakgX3ZSflmi6zxtL7i/50F/71XKOGnT7Y1UNirsXISK/KGk=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAGG=3QV1G0=19riYPPWhTXrW2X0YvyESdY=GesWm2F_8FEZwMg@mail.gmail.com>
+X-Received: by 2002:a05:6820:1997:b0:6ae:4d93:cdc2 with SMTP id
+ 006d021491bc7-6b6fa8dd522mr7326295eaf.5.1788564950524; Fri, 04 Sep 2026
+ 16:35:50 -0700 (PDT)
+Date: Fri, 04 Sep 2026 16:35:50 -0700
+In-Reply-To: <6a9b3f7a.2e649fcc.1e1977.0001.GAE@google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6a9b55d6.a5e650b3.363816.0003.GAE@google.com>
+Subject: Forwarded: [PATCH] ocfs2: fix use-after-free in o2hb_region_dev_store
+From: syzbot <syzbot+3025e3e8fc0b928af8f5@syzkaller.appspotmail.com>
+To: linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-On Fri, Sep 04, 2026 at 01:37:00PM -0700, Bill Wendling wrote:
-> On Fri, Sep 4, 2026 at 1:02 AM Thomas Weißschuh
-> <thomas.weissschuh@linutronix.de> wrote:
-> >
-> > On Thu, Sep 03, 2026 at 01:21:27PM -0700, Bill Wendling wrote:
-> > > On Mon, Aug 31, 2026 at 2:22 AM Thomas Weißschuh
-> > > <thomas.weissschuh@linutronix.de> wrote:
-> > > > On Thu, Aug 27, 2026 at 12:27:30PM -0700, Bill Wendling wrote:
-> > > > > On Thu, Aug 27, 2026 at 6:37 AM Thomas Weißschuh
-> > > > > <thomas.weissschuh@linutronix.de> wrote:
-> > > >
-> > > > (...)
-> > > >
-> > > > > > > +config USER_NAMESPACE_KUNIT_TEST
-> > > > > > > +     bool "Test user namespace map insertion" if !KUNIT_ALL_TESTS
-> > > > > > > +     depends on KUNIT=y
-> > > > > >
-> > > > > > Urgh.
-> > > > > >
-> > > > > ?? What's wrong? It's identical to the conditional for EXEC_KUNIT_TEST:
-> > > >
-> > > > Sorry for this non-descript review comment.
-> > > >
-> > > > > config EXEC_KUNIT_TEST
-> > > > >      bool "Build execve tests" if !KUNIT_ALL_TESTS
-> > > > >      depends on KUNIT=y
-> > > > >      default KUNIT_ALL_TESTS
-> > > > >      help
-> > > > >           This builds the exec KUnit tests, which tests boundary conditions
-> > > > >           of various aspects of the exec internals.
-> > > >
-> > > > The problem is that KUNIT can be built as module, which would prevent this
-> > > > test from being built. We have include/kunit/visibility.h to export certain
-> > > > symbols only to tests and avoid this issue.
-> > > > But I can see that some maintaines don't like this pattern, so maybe they can
-> > > > chime in at some point.
-> > >
-> > > Bradley commented on this earlier (which is why I mentioned EXEC_KUNIT_TEST):
-> > >
-> > > <comment>
-> > > The test is #include'd into user_namespace.c, which is builtin (USER_NS
-> > > is a bool), so =m here still compiles the suite into vmlinux. With
-> > > KUNIT=m that calls kunit symbols that live in a module, and the link
-> > > fails. Make it bool and depend on KUNIT=y, like EXEC_KUNIT_TEST:
-> > >
-> > >  bool "KUnit test for user namespace map insertion" if !KUNIT_ALL_TESTS
-> > >  depends on USER_NS && KUNIT=y
-> > > </comment>
-> > >
-> > > So there's a conflict and, because I'm not a KUnit guru, I'm not sure
-> > > which way is "best".
-> >
-> > It's subjective. So as mentioned before, the preference of the maintainers
-> > should go into it. The aproach I prefer requires a bit more setup boilerplate
-> > but make the tests usable in more circumstances.
-> >
-> Because user_namespace.c is always built-in (USER_NS is a bool),
-> compiling the test into vmlinux causes linker failures if
-> CONFIG_KUNIT=m. Using the "visibility.h" version also strips static
-> from insert_extent() and sort_idmaps() or exporting internal user
-> namespace functions into the kernel symbol table, which isn't ideal.
+For archival purposes, forwarding an incoming command email to
+linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com.
 
-The export namespacing should limit it to just KUnit, so that should be
-okay, I would think? My guide for this in the past has been "did the
-kernel get less fast/safe because of Kunit exports, etc?" I don't
-_think_ that's the case here.
+***
 
-So, I guess it's down to a matter of taste by USER_NS maintainers? I've
-move Christian to "To:" from "Cc:", as I think he is the defacto USER_NS
-maintainer? I don't know, though, there is no MAINTAINERS entry for it. 
+Subject: [PATCH] ocfs2: fix use-after-free in o2hb_region_dev_store
+Author: kartikey406@gmail.com
 
-> > > Test (3) (which I'll add in my next upload) throws a sanitizer exception.
-> >
-> > What is the point of testing this specifically for user namespaces?
-> > Normally we expect a used subsystem to work as advertised.
-> > It is that used subsystem's responsibility to test that it does so.
-> > If there is currently no test that validates __counted_by then it surely
-> > should be created. But not here.
-> >
-> This would directly test that the attribute on the struct field is
-> caught by UBSAN. I'm not sure how we could more directly test it
-> otherwise...
+#syz test: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
 
-It is tricky to catch the traps sanely with KUnit. All the Oops tests
-I've written for it are in LKDTM, and only __bdos is tested in
-lib/tests/overflow_kunit.c. I was playing with catching Oops in KUnit
-for testing KCFI recently, but haven't come back to finishing it safely:
-https://lore.kernel.org/lkml/20260618210946.it.538-kees@kernel.org/
+Concurrent writes to a region's "dev" attribute can race, letting two
+tasks both allocate/free reg->hr_slot_data for the same region and
+causing a use-after-free. Add a per-region mutex to serialize
+o2hb_region_dev_store() against itself and against
+o2hb_region_release().
 
--Kees
+Reported-by: syzbot+3025e3e8fc0b928af8f5@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=3025e3e8fc0b928af8f5
+Signed-off-by: Deepanshu Kartikey <kartikey406@gmail.com>
+---
+ fs/ocfs2/cluster/heartbeat.c | 23 +++++++++++++++++++----
+ 1 file changed, 19 insertions(+), 4 deletions(-)
 
+diff --git a/fs/ocfs2/cluster/heartbeat.c b/fs/ocfs2/cluster/heartbeat.c
+index 1c3def99bb07..6f03de1b6d4a 100644
+--- a/fs/ocfs2/cluster/heartbeat.c
++++ b/fs/ocfs2/cluster/heartbeat.c
+@@ -273,6 +273,9 @@ struct o2hb_region {
+ 
+ 	/* last hb status, 0 for success, other value for error. */
+ 	int			hr_last_hb_status;
++	/* Serializes dev_store() against itself and region_release() */
++	struct mutex            hr_dev_write_mutex;
++
+ };
+ 
+ static inline struct block_device *reg_bdev(struct o2hb_region *reg)
+@@ -1616,7 +1619,10 @@ static void o2hb_region_release(struct config_item *item)
+ 
+ 	o2hb_quiesce_timeout(reg);
+ 	o2net_unregister_and_flush_handler_list(&reg->hr_handler_list);
++
++	mutex_lock(&reg->hr_dev_write_mutex);
+ 	o2hb_unmap_slot_data(reg);
++	mutex_unlock(&reg->hr_dev_write_mutex);
+ 
+ 	if (reg->hr_bdev_file)
+ 		fput(reg->hr_bdev_file);
+@@ -1879,9 +1885,6 @@ static ssize_t o2hb_region_dev_store(struct config_item *item,
+ 	ssize_t ret = -EINVAL;
+ 	int live_threshold;
+ 
+-	if (reg->hr_bdev_file)
+-		return -EINVAL;
+-
+ 	/* We can't heartbeat without having had our node number
+ 	 * configured yet. */
+ 	reg->hr_node_num = o2nm_this_node();
+@@ -1906,12 +1909,20 @@ static ssize_t o2hb_region_dev_store(struct config_item *item,
+ 	if (!S_ISBLK(fd_file(f)->f_mapping->host->i_mode))
+ 		return -EINVAL;
+ 
++	if (mutex_lock_interruptible(&reg->hr_dev_write_mutex))
++		return -ERESTARTSYS;
++
++	if (reg->hr_bdev_file) {
++		ret = -EINVAL;
++		goto out_unlock;
++	}
++
+ 	reg->hr_bdev_file = bdev_file_open_by_dev(fd_file(f)->f_mapping->host->i_rdev,
+ 			BLK_OPEN_WRITE | BLK_OPEN_READ, NULL, NULL);
+ 	if (IS_ERR(reg->hr_bdev_file)) {
+ 		ret = PTR_ERR(reg->hr_bdev_file);
+ 		reg->hr_bdev_file = NULL;
+-		return ret;
++		goto out_unlock;
+ 	}
+ 
+ 	sectsize = bdev_logical_block_size(reg_bdev(reg));
+@@ -2029,6 +2040,8 @@ static ssize_t o2hb_region_dev_store(struct config_item *item,
+ 		fput(reg->hr_bdev_file);
+ 		reg->hr_bdev_file = NULL;
+ 	}
++out_unlock:
++	mutex_unlock(&reg->hr_dev_write_mutex);
+ 	return ret;
+ }
+ 
+@@ -2149,6 +2162,8 @@ static struct config_item *o2hb_heartbeat_group_make_item(struct config_group *g
+ 
+ 	config_item_init_type_name(&reg->hr_item, name, &o2hb_region_type);
+ 
++	mutex_init(&reg->hr_dev_write_mutex);
++
+ 	/* this is the same way to generate msg key as dlm, for local heartbeat,
+ 	 * name is also the same, so make initial crc value different to avoid
+ 	 * message key conflict.
 -- 
-Kees Cook
+2.34.1
+
