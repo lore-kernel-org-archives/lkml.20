@@ -1,77 +1,154 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7EE41E8826;
-	Fri,  4 Sep 2026 10:56:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 2C91C4756CA
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 10:56:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788519374; cv=none; b=Vr2VxqN14KZliGHgKyC2qDGbr/61U1GOXWK+oqhNofXKwdiGXzvnvLTMq/Qd6hY8WVePxiYQBDoLkTMfD2Lhr5GOfM7FrYIArBS/+SYrkcXmXKhvY05rlcxxhkCmWV+I1kfP5cPAzlAb9eAMM0isf9n4BKf6iGKCFxLAmLW8mU4=
+	t=1788519392; cv=none; b=u+iiz5M4yEtt+kEceYYZ3U0U161PwHGq7XfsGs+c9gsK3z0cbuqongl5JdwBYOuZp/7H70UJW0f16opM+yYtVSIdNLy8IIOQCclbdbRsuPOQu3suCXSC1aN7g3QcUuCKdNw8XqpHBjo26QykplISBNBMT8+pfxBmYn18K52Fr8c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788519374; c=relaxed/simple;
-	bh=X8IStrcrbOsDOQVw1398eZtTDU0M7L2uOYS8xBgjrlM=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=DNGOcg3FFdZGWJ38EPM3jkn7Qeq7b00WDBfh1Hvmt8tStJBoIHRxDBbWNkgkGpMxSAx7CMI3cIzG4lS55nCOT+TuZ5uCtCqUjuXhgqG6r/ZQy5E4AFn80+/kyJteredYBH1TgJi05Y+BG/EDFhKpu36VG5PeOeRMX3RmRtaO1c8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=L9l28uca; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788519392; c=relaxed/simple;
+	bh=Jo0Cg8nB4834KwQthZNdLPhYT1OJ9nMS3OZvbrsYpgI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=HGOXjadYmfd+moHimiyF6W/WnA2a3qdXvDsdM9ma/eTgurjEJPsS8XDpBpidsLiXsW4h/ZaLV1cvttXbnRCIATV1rkUTKAn3PWFUoeJX1PmOgM8/1xtN5TnegXmU74wd/Bz/G6LT3zUlPaq3IqD0ltaNl3nn4sBJ8h1YgNIz82E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=S2rNmhuT; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="L9l28uca"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 027051F00A3D;
-	Fri,  4 Sep 2026 10:56:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788519373;
-	bh=KHk55JxnZIaPiswtVevvFyT4Q+4/zllWsPfgyt53b4E=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=L9l28ucaw5Or3Tp0q0qTbDXMc8x59HbCxZw3SLV0SYioAbQL7r6g7yS9lFzVF20K7
-	 UqqRJDXw91Ix4OccrEI1UOJt+pqxjxuYTmuTNUyMYeovg5ZsqBZxKt7oEBy/nRi1PU
-	 FpBtBW3Sa0EB2s1lqfcqg8aO7nuYha3al//BEF0pFuhsfdjLG/g4X3EYX/gjq4jNsq
-	 2DUNbFM7GNg1rH11hsMMfPxuDa9yn+o9kBGfdNOCWsLVbIm9gBMhCga/xloZe30Wss
-	 DWr8WsVtWghsWmfGbApFz32Q/0cIebpaKNmrH5D2amhxVmgfgRo1e6tWscGaPuqrEC
-	 9uwADYSlXnQFA==
-From: Christian Brauner <brauner@kernel.org>
-To: Alexander Viro <viro@zeniv.linux.org.uk>, 
- Karl Mehltretter <kmehltretter@gmail.com>
-Cc: Jan Kara <jack@suse.cz>, linux-fsdevel@vger.kernel.org, 
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-In-Reply-To: <20260903002100.34822-1-kmehltretter@gmail.com>
-References: <20260903002100.34822-1-kmehltretter@gmail.com>
-Subject: Re: [PATCH] fs_pin: publish pins with RCU list helpers
-Message-Id: <20260904-gebilde-subkultur-befugnis-3f28d5b5e127@brauner>
-Date: Fri, 04 Sep 2026 12:56:06 +0200
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="S2rNmhuT"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 87EB5153B;
+	Fri,  4 Sep 2026 03:56:25 -0700 (PDT)
+Received: from [10.57.81.239] (unknown [10.57.81.239])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 2F2533F673;
+	Fri,  4 Sep 2026 03:56:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1788519389; bh=Jo0Cg8nB4834KwQthZNdLPhYT1OJ9nMS3OZvbrsYpgI=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=S2rNmhuTTmENs918kTR+Q1XiOPxk9ktuHnukft7JoZ92m+dYWAtk5PqOQ/TfRAMp8
+	 bDALhVnplbiEnx2XLIpzsuIvyHVlcN/TSD7l+dGLfUtdERLg8jTfAMUglWLLiKleJo
+	 7qGXyqfOJ0GL33LVnVUxEzrw4r7KufRGNKImHiTg=
+Message-ID: <78638e8a-4919-4c2b-b6d8-dadc7a981709@arm.com>
+Date: Fri, 4 Sep 2026 11:56:25 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] arm64: hugetlb: fix BBM for mprotect() on contiguous PTEs
+To: Will Deacon <will@kernel.org>, Dev Jain <dev.jain@arm.com>
+Cc: Karl Mehltretter <kmehltretter@gmail.com>,
+ Catalin Marinas <catalin.marinas@arm.com>,
+ linux-arm-kernel@lists.infradead.org,
+ Anshuman Khandual <anshuman.khandual@arm.com>,
+ Mark Rutland <mark.rutland@arm.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>,
+ David Hildenbrand <david@kernel.org>, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org
+References: <20260901131823.15799-1-kmehltretter@gmail.com>
+ <551663b9-d031-4755-af7f-dc6c22524b35@arm.com>
+ <aplP1oUjx96O_I69@willie-the-truck>
+From: Ryan Roberts <ryan.roberts@arm.com>
+Content-Language: en-GB
+In-Reply-To: <aplP1oUjx96O_I69@willie-the-truck>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.17-dev-db0b7
-X-Developer-Signature: v=1; a=openpgp-sha256; l=873; i=brauner@kernel.org;
- h=from:subject:message-id; bh=X8IStrcrbOsDOQVw1398eZtTDU0M7L2uOYS8xBgjrlM=;
- b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWTNWnzy8HPFmrKaAzUGHjtYKryOV8t/erT076Nb9WlbZ
- 2yeIXmCp6OUhUGMi0FWTJHFod0kXG45T8Vmo0wNmDmsTCBDGLg4BWAinH2MDPdq8qILPE/djHQ5
- wRC54/4O/q32UcnHlkx/f+JkVPG+g8cY/tmUL9A8/+XBofqNXs7XLJasZptjKJAcc/BtoVr375t
- i/qwA
-X-Developer-Key: i=brauner@kernel.org; a=openpgp;
- fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
 
-On Thu, 03 Sep 2026 02:21:00 +0200, Karl Mehltretter wrote:
-> fs_pin: publish pins with RCU list helpers
+On 03/09/2026 11:45, Will Deacon wrote:
+> On Wed, Sep 02, 2026 at 08:16:36PM +0530, Dev Jain wrote:
+>>
+>>
+>> On 01/09/26 6:48 pm, Karl Mehltretter wrote:
+>>> huge_ptep_modify_prot_start() clears a hugetlb entry before changing its
+>>> permissions. For contiguous PTE mappings, break-before-make (BBM)
+>>> requires a TLB invalidation after clearing the set and before making any
+>>> entry valid again.
+>>>
+>>> Commit fb396bb459c1 ("arm64/hugetlb: Drop TLB flush from
+>>> get_clear_flush()") removed this invalidation, relying on the deferred
+>>> flush from the core code. Commit 410982303772 ("arm64: hugetlb: Restore
+>>> TLB invalidation for BBM on contiguous ptes") restored it for
+>>> huge_ptep_set_{access_flags,wrprotect}(), since a deferred flush is too
+>>> late for the break step. The modify-prot path has the same problem.
+>>>
+>>> Use huge_ptep_clear_flush() for contiguous entries so that the TLB is
+>>> invalidated during the break step. Leave huge_ptep_get_and_clear()
+>>> unchanged because it is also used by teardown paths, where the deferred
+>>> flush is sufficient.
+>>>
+>>> Fixes: fb396bb459c1 ("arm64/hugetlb: Drop TLB flush from get_clear_flush()")
+>>> Assisted-by: LLM
+>>> Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+>>> ---
+>>
+>> The transition happening here is:
+>>
+>> old_prot+cont -> zero -> new_prot+cont ... (i)
+>> and then TLB flush.
+>>
+>> Arm Arm rule R_JQQTC says:
+>> "For a TLB lookup in a contiguous region mapped by translation table entries
+>> that have consistent values for the Contiguous bit, but have the OA, attributes,
+>> or permissions misprogrammed, that TLB lookup is permitted to produce an OA,
+>> access permissions, and memory attributes that are consistent with any one
+>> of the programmed translation table values."
+>>
+>> This implies that a live update like
+>> old_prot+cont -> new_prot+cont then TLB flush ... (ii)
+>>
+>> is safe. Which should also imply that the transition (i) is safe,
+>> since the configurations the PE can observe for (ii) is the same
+>> for (i), except that in (ii) the PE can fault too, which is fine.
+> 
+> I'm not sure I agree. As written, the text above says that if the
+> permissions are misprogrammed (which they are in this case) then the TLB
+> can produce an OA consistent with any of the entries. Hopefully it just
+> needs some further clarification.
 
-Applied to the vfs-7.4.misc branch of the vfs/vfs.git tree.
-Patches in the vfs-7.4.misc branch should appear in linux-next soon.
+I'm not sure I understand your concern here. Is your concern that the OA could
+be pulled from one of the invalid entries? The intent is that any entry that
+does not have the VALID bit set is not considered an "entry" within the
+"contiguous range" for the purposes of this. (because it is invalid).
 
-Please report any outstanding bugs that were missed during review in a
-new review to the original patch series allowing us to drop it.
+That's implied (if you squint) from:
 
-It's encouraged to provide Acked-bys and Reviewed-bys even though the
-patch has now been applied. If possible patch trailers will be updated.
+IPGVGZ: The Contiguous bit is present only in valid Block and Page translation
+table descriptors, and therefore neither of the following configurations are
+considered as misprogramming of the Contiguous bit:
+  - A contiguous range of descriptors that are each either invalid, or valid
+    with Contiguous set to 1.
+  - A contiguous range of descriptors that are each either invalid, or valid
+    with Contiguous set to 0.
 
-Note that commit hashes shown below are subject to change due to rebase,
-trailer updates or similar. If in doubt, please check the listed branch.
+In general I am of the opinion that the rules around contiguous mappings are not
+as clear as they could be and the VMSA architect has indicated that he hopes to
+clean them up over time. Bit I don't quite see your concern in this case.
 
-tree:   https://git.kernel.org/pub/scm/linux/kernel/git/vfs/vfs.git
-branch: vfs-7.4.misc
 
-[1/1] fs_pin: publish pins with RCU list helpers
-      https://git.kernel.org/vfs/vfs/c/8d01d6b4c17c
+> 
+> There are probably also cases where we're changing the attributes and the
+> permissions at the same time, so it's not clear to me that it's safe to
+> allow those to be inconsistent (e.g. tagged/guarded vs read/write). If
+> I was going from untagged read/write -> tagged read-only then I presumably
+> wouldn't expect to see a tag check fault on a write?
+
+Again, I'm not sure I follow, but I'll take a stab. I think you're implying that
+a write permission fault should take precedence over a tag check fault? (I have
+no idea off the top of my head). And you're further implying that with this
+transition the HW might see an intermediate "tagged read/write" entry, and if it
+does then it will raise a tag check fault, not a write fault for an attempted
+write. But I don't see how R_JQQTC permits that because it says "consistent with
+any one of the programmed translation table values" so the HW can't pick
+attributes from one entry and permissions from another. It will either see the
+old "untagged read/write" or the new "tagged read-only".
+
+Sorry if I've missed the point!!
+
+Thanks,
+Ryan
+
+
+> 
+> Will
 
