@@ -1,141 +1,94 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B9D44E8E05
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 17:07:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F11143FBB72;
+	Fri,  4 Sep 2026 17:09:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788541667; cv=none; b=At+hlCo/gL6bLW4hiJvknCTwiSinTKmuGXUjjgpx3Qe9mA4mPAHQj9y9MvapsayjRlIC4and87aPCHQ9hPXJjQIbVLn5I59t8ZFYZ7tW0qj8lDTIdzPNjlmEaIlIYNwcfoKvhAipSQBn7xz8EBgmnytOZnHLvKS7y+4Qc8lZNS4=
+	t=1788541746; cv=none; b=CIoRYhZYojwUqIP316seS0x5GSivPhdBtLAbh4kwtzP47ThKwh1RV6KONOY8m50hn2/vFqf0za76WdooqWp1P9SR9Rgwv2mf9GNokGxNVnU/iFeyPmYylrMPUCc3Cc6oTtlPxGq67iIy7ZapllNIz7VOOSl5+4JV3Qz51E6QTy8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788541667; c=relaxed/simple;
-	bh=R2iMVpGxciRBsYsoGuCGIL3TC/C/mpSckDkgVumUDjw=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=IW8OAGds6bTtKSi4wgjKkTXQPOplUCLICQAKBu5DJxYhDAOEUUQalEdeeZjCYreDz7zxUHOjBxWZ4OjUH9a86ZvTieyY+neBkZGBygnTCsZDKsex0soJQqCCNBjY3voSfEbV25ag8UBLfQA7hto8ifmgIPJ1/vl3bmqfB6crXEo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=OTrauTvi; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=oITMvOYS; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1788541746; c=relaxed/simple;
+	bh=lw4DXJTdVx4Gw7xWT95Xd6jIdq8p5U3vIlWYtOL68C8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=J8zWHEDJZYF0LY7tKqSuG8YDTy76NccJdDtDqzJlVFEtG99MXIvZitv9SUqdp273bHTIIks/119NWVPeiE8+bssqkSVGPZ7pIT9Ind5s58VtEEaq6V3FaU8BtzwDROe7cNZxXASB5wyaAF6KyvX63/3xN/uFVBwkg1E7j0j+c1I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XsskS7Tj; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="OTrauTvi";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="oITMvOYS"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1788541664;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=4p/TXWN5TTjU8Fhqa3oiMoIW3DoEVRHu2RLVaJn1QpY=;
-	b=OTrauTvi/CtZgCzEEJNHxwYe0Zrn7tWhIk2L2eKZOvaHf/k6GlMqA0megAkPSMZ/cbk+I/
-	rQPvMQHymAue66sS9SOBB8JVFje2AtLwd6Bg5qdAFhU/dDK4xrpuyoj7oK3HPY6mJ8NL7k
-	eiEgFXmpEGsK/UZYEFZ8zu1gn4FuTYg=
-Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com
- [209.85.222.199]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-687-DTM3OpnRNc-rh_mMvn9uQw-1; Fri, 04 Sep 2026 13:07:42 -0400
-X-MC-Unique: DTM3OpnRNc-rh_mMvn9uQw-1
-X-Mimecast-MFC-AGG-ID: DTM3OpnRNc-rh_mMvn9uQw_1788541662
-Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-939694871aaso204136985a.2
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 10:07:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1788541662; x=1789146462; darn=vger.kernel.org;
-        h=content-type:mime-version:user-agent:message-id:date:references
-         :in-reply-to:subject:cc:to:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=4p/TXWN5TTjU8Fhqa3oiMoIW3DoEVRHu2RLVaJn1QpY=;
-        b=oITMvOYSXUzMkCruOCrcI4LM+IlcZZp3wTgOtG3d7nKx0DJ+TS7tMerrgSrL+VQlnS
-         CD6mXzrOxPZbH9BFD6pwChf01vWvzYJtS0IbU8aG17bYV/66jVkwWC61gJAMNuzFQ6Ho
-         ixjN8u0A/IIhZ422d2RwoL819Tow/TAQ0FuvTM9cijxZ2wFECyU799Jdn6Exct4wpQ8M
-         RVH5/sT+WAuN1KGmmQ2oL1swJotj+DydWrh1oQ4fC96GOSxRAWRkl/hN/tQK8STV9n96
-         FNL7WsDK7Fn6gxO3QgMO9kwt0NGRcVTP4B294cfpiUxntD16W2/fjur2tTrFtm+co7A6
-         KRIg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788541662; x=1789146462;
-        h=content-type:mime-version:user-agent:message-id:date:references
-         :in-reply-to:subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=4p/TXWN5TTjU8Fhqa3oiMoIW3DoEVRHu2RLVaJn1QpY=;
-        b=ebaSn6FimR3DAroQCbLrLXZdfKMiMEROYMr21lyoDgW0TSyxLZUq/K8kFn8yhInaxS
-         0NmABWYFoy/c2OCrtjmgdwBSNdhpRsOe2OiCnduYFk1bFao47ofeIPK4eKrlWZiRdxTM
-         9CQ8EvV4dYaHdYIWy5hP5ecWZBFhUUKJgiSVNRf4CpIhA4XJ2ZL1lpLbwstEGhJCQAG4
-         mwRxr4Lrr/bSMm2zF5F8oiZFKX/mPyUgmy8+CwsQJCjigLuuCYGgfEyrtH1td1qr2ZEl
-         gws9mL29K0AON2hYpdBSwiqOBv8BIwLcNxE1oHpNp1QNhKyO2gd9LcP+mTkf6BdpVY5C
-         B5zQ==
-X-Forwarded-Encrypted: i=1; AKwUvBx8KVLvFDBPBCCwr8AWe0E7xSA5MWA9MzB6y40StF3BbMSewvVQgzJXpua+4dEoUjcrtpB0MZUDNMM5RlE=@vger.kernel.org
-X-Gm-Message-State: AFuF++l7W45YjEvFIHfSHYWqbYbLTPLHQNFpdCItpmo9TvnWcDnZrumQ
-	nPzA3rDZ34Go8sRndQ0u5cJd4YEhpMMb+9vOesuk57zCldnBWEIQhc4wW7DTMnKDJAmf9ulIlGQ
-	9HxdM2B8y31t8TjBpc/zWWdlqyj4XV5P+Z3Vtm8sh2RxRDK1iBVYn7/lQvtUA0vwzfgicmRp0He
-	HIifszIyNgdsUxZAwh4LGIa/PRjh4IHHBupiSfWqHqhZyX7s2YUDE=
-X-Gm-Gg: AYBFou32kurT89yE6acg0Y6wEMdNg4d2Sr5ShExAHZdGOdXCniEtBSvYDfANhvc99Kq
-	eYfaho1aKUN/FCtHWY2sP2BbxcwL+Qzm6detMQjL0nZO3vwWdAMLRSpPjfKZO1S6D5DOuqygaLO
-	R16DzGTMa4bdR8jBnkljH6NNr2I+2liYJwWXRNe5R93TUseiWxVuukWOVftYSWeFpYYvbAfSUY3
-	MK/x63XPDOV6z1Zg9TSsOfyCyMHgHp8UIBOTGD5nzS1OEgfwCwgdTrVpyjDk//dZcH3PZqMxuWv
-	/CkfnP3T8RsaJoI3kYmwuQNI6+9WcLP8Lyam2djeb+3mxI/B9+lPngThaZBa5yed6EQhTqdyJJO
-	iGb+ijCy4P6kEEA4PHRJJ09rPoiTC
-X-Received: by 2002:a05:620a:38ca:b0:939:72ae:e536 with SMTP id af79cd13be357-9398033d47fmr456395285a.13.1788541662103;
-        Fri, 04 Sep 2026 10:07:42 -0700 (PDT)
-X-Received: by 2002:a05:620a:38ca:b0:939:72ae:e536 with SMTP id af79cd13be357-9398033d47fmr456390385a.13.1788541661512;
-        Fri, 04 Sep 2026 10:07:41 -0700 (PDT)
-Received: from aconole-thinkpadt14gen4.rmtusnh.csb ([216.212.25.12])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-9397fbb70f1sm260910885a.40.2026.09.04.10.07.40
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 04 Sep 2026 10:07:40 -0700 (PDT)
-From: Aaron Conole <aconole@redhat.com>
-To: Ilya Maximets <i.maximets@ovn.org>
-Cc: netdev@vger.kernel.org,  Eelco Chaudron <echaudro@redhat.com>,  "David
- S. Miller" <davem@davemloft.net>,  Eric Dumazet <edumazet@google.com>,
-  Jakub Kicinski <kuba@kernel.org>,  Paolo Abeni <pabeni@redhat.com>,
-  Simon Horman <horms@kernel.org>,  dev@openvswitch.org,
-  linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net-next] net: openvswitch: don't schedule rebalancing
- if there are no datapaths
-In-Reply-To: <20260902203200.1416026-1-i.maximets@ovn.org> (Ilya Maximets's
-	message of "Wed, 2 Sep 2026 22:30:41 +0200")
-References: <20260902203200.1416026-1-i.maximets@ovn.org>
-Date: Fri, 04 Sep 2026 13:07:39 -0400
-Message-ID: <f7ta4pxj678.fsf@aconole-thinkpadt14gen4.rmtusnh.csb>
-User-Agent: Gnus/5.13 (Gnus v5.13)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XsskS7Tj"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 167AB1F00A3D;
+	Fri,  4 Sep 2026 17:08:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788541744;
+	bh=lw4DXJTdVx4Gw7xWT95Xd6jIdq8p5U3vIlWYtOL68C8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=XsskS7TjzEjfQ8V3UyMObmX+B8AsWFxFvKpg0pwsEJYOvXQlgkXxUnIYcJxKKKEbI
+	 zmbfjSr6vud0Ss5CpXECCmyFiI/XxOaRzBNYyvQiL3ySvvZ2NFpQH/2DTs0y+qnAoW
+	 YAbZsVsxVSB/omLVQiVPfGAC1LysLgb91jFLYwnjt3owxNZLNQCcL3T8QD9q7Oap4c
+	 p93/EEjUG2Vvmnn1iVdJ5E+gRtUU9yW68UgeYcVqqqfjMYu0NbfN5R/CoyN1etNsvP
+	 7bIH++6cZAvsDo6LuIHkAnaXcvSYzG+l0Qv6LVkjhoBhVDCdSas7p5rcXEitfA443s
+	 87kfktHQpLIgw==
+Date: Fri, 4 Sep 2026 18:08:58 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Janani Sunil <janani.sunil@analog.com>
+Cc: Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Michael Hennerich <Michael.Hennerich@analog.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Olivier Moysan <olivier.moysan@foss.st.com>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Michael Walle <mwalle@kernel.org>,
+	Randy Dunlap <rdunlap@infradead.org>, linux@analog.com,
+	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org,
+	linux-doc@vger.kernel.org, jananisunil.dev@gmail.com,
+	Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@baylibre.com>
+Subject: Re: [PATCH v6 02/17] dt-bindings: iio: adc: Add AD7768
+Message-ID: <20260904-unified-tyke-bc1b8f9d4d3a@spud>
+References: <20260904-ad7768-driver-v6-0-e4378f946bfb@analog.com>
+ <20260904-ad7768-driver-v6-2-e4378f946bfb@analog.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="BVdepgrbK4Hrr/oe"
+Content-Disposition: inline
+In-Reply-To: <20260904-ad7768-driver-v6-2-e4378f946bfb@analog.com>
 
-Ilya Maximets <i.maximets@ovn.org> writes:
+--BVdepgrbK4Hrr/oe
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-> During namespace initialization the masks rebalancing work is
-> scheduled and automatically re-scheduled every 4 seconds afterwards.
-> This is happening in every namespace.  On a large kubernetes node with
-> 500 pods, i.e., 500+ namespaces, this creates a decent amount of
-> unnecessary churn scheduling 500 jobs every 4 seconds that take the
-> mutex, check that there are no datapaths in their namespace, release
-> the mutex, re-schedule themselves and exit.  These 500 unnecessary
-> mutex locks may hold off operations in a single namespace that
-> actually has a datapath configured and has real user requests to
-> handle under this lock.  They can also add delay to removal of other
-> namespaces as ovs_exit_net() needs to take that lock as well and
-> synchronously waits for the work to be cancelled.
->
-> Let's only fire the job when the first datapath is actually created
-> and not re-arm it if there are no more datapaths configured in the
-> namespace.
->
-> Another approach would be to make ovs_mutex per-namespace, but it's
-> a much larger change that should be handled separately, and the
-> unnecessary work scheduling feels like a waste regardless.
->
-> It's safe to check and re-arm outside of the mutex as DP_CMD_NEW
-> handler will re-arm if the new datapath appears.  The scheduling
-> attempt also doesn't change the work or delay if it is already queued,
-> so it's also safe to call multiple times.
->
-> Skipping the re-arming is more elegant than canceling on removal of
-> the last datapath as it allows us to not think about potential race
-> conditions at a negligible cost of potentially one extra re-scheduling.
->
-> msecs_to_jiffies() moved to the macro to save on line length.
->
-> Signed-off-by: Ilya Maximets <i.maximets@ovn.org>
-> ---
+On Fri, Sep 04, 2026 at 04:14:54PM +0200, Janani Sunil wrote:
+> Devicetree Bindings for AD7768-4 (4 channel) and AD7768 (8 channel)
+> simultaneous sampling ADCs.
+>=20
+> Signed-off-by: Janani Sunil <janani.sunil@analog.com>
 
-Reviewed-by: Aaron Conole <aconole@redhat.com>
+One more binding that the nuances of are probably beyond me, but David
+and Jonathan appear okay with judging from previous iterations.
 
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+pw-bot: not-applicable
+
+--BVdepgrbK4Hrr/oe
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iHQEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCapr7KQAKCRB4tDGHoIJi
+0jYPAPiwchvAdt4TRq/YwxhKFvfwb60afzexZoOFqptcIXeiAQDxZvo1BVSfwJuq
+6E37fGonWHIoluMbkgDar6ifwoKhAA==
+=4wNq
+-----END PGP SIGNATURE-----
+
+--BVdepgrbK4Hrr/oe--
