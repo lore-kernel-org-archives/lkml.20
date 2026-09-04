@@ -1,157 +1,83 @@
-Received: from out30-101.freemail.mail.aliyun.com (out30-101.freemail.mail.aliyun.com [115.124.30.101])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E39E31CD2C
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 02:10:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6485C29B781;
+	Fri,  4 Sep 2026 02:11:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788487830; cv=none; b=nqpPznDUliLpIhZRDEit99cRXzu1xBpfc8ryo1whEyaFUrlOCynrdtR7/kmfOxVfVgibH4txczv54Zalm85OaK4gMk2vJ404oh4qoC2PfAXh5oZ9a1wh4lF0tWIYbh0fHe5nKlbTvXf17WIj/tz7NFgG928gPCE4/Ghw3rOzxNk=
+	t=1788487866; cv=none; b=NC3xdhK2unHh1fA4YmIADL8dYcWHgp5hCYZYCR/V9ylMduGUSAYAyiJLBwP08Y7B4YE3mnqRCOL6m9Vf9iX1txLYXt4yLp4sPp+GeS44ofGv2UBXiM3kZSFeSykNUqXjDWsEbKON1xy2tNLT5zoZzmYJumTWg/KvRjinCleSrTc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788487830; c=relaxed/simple;
-	bh=TvrAl2cYMtM+/ORC2WefEChu8OnPh6WDj583uPi1jAQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ZdTGjc9lv0Ru2WebDLVr8ixfbbeCd30KICfV1pc4SV12XED5jECU4ZpCcJagoZT9UnK3/AxK0KgjzkCMobD2Fm/jhc3AFmxzZeYKl5bJKdYmQv7oX8Muake85PdCumL6gogzAiI8HR4T+3QknqyPzN/ENpu4gcI+wMjGecjS47A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=w/8PNvjb; arc=none smtp.client-ip=115.124.30.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	s=arc-20240116; t=1788487866; c=relaxed/simple;
+	bh=13nwkhzY4r3dJ/lRkbg30aQXZ3uF7CNeiVPPC8ox1iE=;
+	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc; b=P695hk8RJTtN/M+NkkcCMh6CKZijGygw8HPWNpKqcLsG45zlO70hzO/1f2TX5DuGFEqJ02DiDVLRYlPEEyUb5v1F/kdsM0EL4y0xxDBLCVRi/nWPUuC5AI2FP/WenbIrBBFeOZ4yID9+/vCF4IDXSxoei5xRtXD2jmDvK0qMFRU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=X9woHwBC; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="w/8PNvjb"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1788487824; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
-	bh=J+SHGWUY7CbETPDlAl8WdiZ5m/7wagn5ECpymwWOZn0=;
-	b=w/8PNvjblp7RmBFdKubmxBQBCYmaCVsTgeD3sgfxrlLpAzMSUBXdOwHrwFriourbvjt7HRvdbIqJAJVdz0ondCmGuxzWUYCxAoxA5YSz9e3FLUwEkN5+ORKv9Dgbx0aeV//IHVJ7B9kO9QWlZPIgk8c7za0xpQCvbp7rDqYoagA=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R111e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037026112;MF=qinyuntan@linux.alibaba.com;NM=1;PH=DS;RN=13;SR=0;TI=SMTPD_---0XAHIyJ-_1788487822;
-Received: from 30.178.82.219(mailfrom:qinyuntan@linux.alibaba.com fp:SMTPD_---0XAHIyJ-_1788487822 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Fri, 04 Sep 2026 10:10:23 +0800
-Message-ID: <697713c4-0857-485b-aba7-c74f37a3c8b4@linux.alibaba.com>
-Date: Fri, 4 Sep 2026 10:10:20 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="X9woHwBC"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0B09B1F000E9;
+	Fri,  4 Sep 2026 02:11:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788487865;
+	bh=aXIO6ML1i9Mc6rb/GCEq2U1R+PmturfzNZiFQ2D/pDM=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=X9woHwBCNWq7pSPUZ6zuMkLGSW4DUU4h4IYPJCoXXKhqKX0O2F2qBIGbCOGq2DZ5s
+	 GKQ90Opg35CWWc9o3pDffQ/f6ZQzQMArsq5IR1Y4n6WyHI7MaktQKKC/+2D346pF3b
+	 44KxQmJr5K4GlDRQjdIrPqPAfclUrpKUlNJ6LyWxUSh5mTaxZLPpr2DXHJDYnCtHzK
+	 oC5gyv8+GRI2ACiw6dgT0AHA6geUj9SaTAmx/IZt9lUBcgC8ud0WV8sDOKMBslLhYv
+	 FK+Fzff/Cx99JtSUBh2o8kkppJdAgvO3JIlyx/z5fiMf6PXWUDMhlnxa3+3IMsFZ7x
+	 SGps91CE6n3SA==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 5692138119E3;
+	Fri,  4 Sep 2026 02:10:07 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] mm/list_lru: don't copy stale shrinker id from
- non-memcg-aware shrinkers
-To: =?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>
-Cc: Johannes Weiner <hannes@cmpxchg.org>,
- Andrew Morton <akpm@linux-foundation.org>, Lance Yang
- <lance.yang@linux.dev>, Qi Zheng <qi.zheng@linux.dev>,
- Roman Gushchin <roman.gushchin@linux.dev>,
- Muchun Song <muchun.song@linux.dev>, Dave Chinner <david@fromorbit.com>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- David Hildenbrand <david@kernel.org>, Xunlei Pang
- <xlpang@linux.alibaba.com>, linux-mm@kvack.org, linux-kernel@vger.kernel.org
-References: <20260901115104.2944996-1-qinyuntan@linux.alibaba.com>
- <aphXPCn8isUVV87k@localhost.localdomain>
- <0c5aba0f-137a-4aaf-bddc-060118322602@linux.alibaba.com>
- <apktMn_hwvZwsRUG@localhost.localdomain>
-From: Qinyun Tan <qinyuntan@linux.alibaba.com>
-In-Reply-To: <apktMn_hwvZwsRUG@localhost.localdomain>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH net v2] bnxt_en: Prevent queue stop with deferred
+ completions
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <178848780589.4119222.12687170569675818749.git-patchwork-notify@kernel.org>
+Date: Fri, 04 Sep 2026 02:10:05 +0000
+References: <20260902213956.4160615-1-joe@dama.to>
+In-Reply-To: <20260902213956.4160615-1-joe@dama.to>
+To: Joe Damato <joe@dama.to>
+Cc: netdev@vger.kernel.org, michael.chan@broadcom.com,
+ pavan.chebbi@broadcom.com, andrew+netdev@lunn.ch, davem@davemloft.net,
+ edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
 
-Hi, Michal
+Hello:
 
-On 9/3/26 5:20 PM, Michal Koutný wrote:
-> On Thu, Sep 03, 2026 at 12:06:53PM +0800, Qinyun Tan <qinyuntan@linux.alibaba.com> wrote:
->> You're right, that sentence is imprecise - SHRINKER_NONSLAB shrinkers
->> do register per-memcg under nokmem.  What I meant is that on a system
->> where no NONSLAB shrinker happens to register, shrinker_nr_max stays 0.
+This patch was applied to netdev/net.git (main)
+by Jakub Kicinski <kuba@kernel.org>:
+
+On Wed,  2 Sep 2026 14:39:54 -0700 you wrote:
+> When the driver receives a burst of packets, it can mark a BD with the
+> NO_CMPL bit to defer completions. The expectation is that the last
+> packet in the ring will have this bit unset and the completion generated
+> by that packet will cleanup that packet and the ones preceding it. This
+> helps to reduce the number of completions fired.
 > 
-> And ideally, with cgroup.memory=nokmem no slab-based code should call
-> set_shrinker_bit() with whatever shrinker_id.
+> The suppressed completions are controlled by the driver and the number
+> of packets with suppressed completions scales with the size of the ring.
+> SW USO packets, on the other hand, have an upper bound on the maximum
+> number of BDs which can be consumed which does not scale with the ring
+> size.
 > 
+> [...]
 
-Agreed, and with this patch that holds: slab-based lrus fall back to
-shrinker_id == -1 and set_shrinker_bit() is never reached.
+Here is the summary with links:
+  - [net,v2] bnxt_en: Prevent queue stop with deferred completions
+    https://git.kernel.org/netdev/net/c/39b23c1c40e1
 
->> That said, I see the flag restoration and this patch as complementary
->> rather than either-or: 
-> 
-> Yes, it fixes your immediate issue and it is a prudent approach in
-> list_lru_init(). OTOH, with this fixup, we won't be able to learn about
-> shrinkers that are missing SHRINKER_NONSLAB.
->
-
-True. Though the old behavior wasn't a reliable canary either: the
-warning only fired while shrinker_nr_max was still 0. Once any
-SHRINKER_NONSLAB shrinker had expanded the maps, a missing flag showed
-up as a silently mis-set bit 0 rather than a warning. With your audit
-below covering the current tree, I think losing that accidental signal
-is an acceptable trade-off.
- 
-> 
->> other MEMCG_AWARE-but-not-NONSLAB shrinkers
->> (superblock, workingset shadow nodes) still take the fallback path
->> under nokmem by design, and __list_lru_init() copying an unassigned
->> id there is a landmine independent of the deferred split case.  So I
->> think this patch is still wanted as the generic fix, with the flag
->> restoration on top for THP.
->>
->> (zswap might deserve the same NONSLAB treatment as THP, btw - its
->> entries resolve the memcg from the folio's objcg, which is available
->> regardless of nokmem.)
-> 
-> _That_ is an important point.
-> So that would need a fix too, and likely Fixes: b5ba474f3f518 ("zswap:
-> shrink zswap pool based on memory pressure").
-> 
-
-Will do.
-
-> (I'd have preferred if there weren't Fixes: 03375203e1da8 which honors
-> the SHRINKER_NONSLAB semantics and it only uncovered pre-existing
-> missing flags. Or keep that Fixes: but explain the relation to the other
-> commits. (To make it clear to backporters.))
-> 
-
-Fair point.  I'd propose retargeting the tag to
-
-  Fixes: fafaeceb89a5e ("mm: switch deferred split shrinker to list_lru")
-
-as that is the commit that made the problem user-visible: it put a
-list_lru holding charged user folios behind a fallback shrinker, and
-the boot-time warning is reproducible from v7.2 on.  Does that work
-for you?
-
-Andrew, thanks for the sentence fixup yesterday.  If Michal agrees,
-could you please also retarget the Fixes: tag:
-
-  -Fixes: 03375203e1da8 ("mm: do not allocate shrinker info with cgroup.memory=nokmem")
-  +Fixes: fafaeceb89a5e ("mm: switch deferred split shrinker to list_lru")
-
->> Would you like me to send a separate patch restoring SHRINKER_NONSLAB
->> in thp_shrinker_init() (Fixes: fafaeceb89a5e)?  Happy to do so if
->> that works for you.
-> 
-> SHRINKER_MEMCG_AWARE are due to be checked for correct marking with
-> SHRINKER_NONSLAB. I can see that it is missing in: thp-deferred_split,
-> zswap-shrinker in the v7.3-rc1. (The shrinkers in nfs42xattr.c seem to
-> be slab-based so they're correct.)
-> 
-
-Thanks for auditing the whole tree.  I'll send a two-patch series
-restoring/adding SHRINKER_NONSLAB for thp-deferred_split
-(Fixes: fafaeceb89a5e) and zswap-shrinker (Fixes: b5ba474f3f518).
-
-> The shrinkers mentioned in your original commit message:  workingset
-> shadow nodes, superblock lrus are both slab-based, so systemd with only
-> those shouldn't be affected by this bug.
-> 
-
-Right - they were listed only as lrus that end up carrying the bogus
-id 0, not as triggers; as the changelog notes, their objects resolve
-to a NULL memcg under nokmem so set_shrinker_bit() is never called for
-them.  The only actual trigger is thp-deferred_split.
-
-> Thanks,
-> Michal
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
 
 
-Thanks,
-
-Qinyun Tan
