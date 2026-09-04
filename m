@@ -1,111 +1,78 @@
-Received: from mail-oi1-f179.google.com (mail-oi1-f179.google.com [209.85.167.179])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDC745221F6
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 21:08:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7DD82FFFA4;
+	Fri,  4 Sep 2026 21:10:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788556104; cv=none; b=IwqSjsF36LmG/sWQXFA4R1vrUYCrcSrqYfCPOrwX4NeaX874TQwCehGWxwwhnD9Shjudg3kyzTqEL23Hekqof9d+FD89fO+AVd4w4P0EnRIJgtj/+EgyPWmJQxkj8dcA0RsI/gG4wNPsFklIt8tqYBSNl96Amidbsxu9NwLu6qo=
+	t=1788556237; cv=none; b=jFOMkhBpU7p4qI9lcjdfjkaOzOoqa7q3vFvSVQjQ8qJ80Fge1gBuMUz3FPsPgWM/2j508MBGq1hSbeWTlicz0FbKf7YGEVmveHmdAJrqSvx3XDJxUjQOm42z39rOsx5jy82WFYCTe84bdB+Q54I7W0KtK/401hKXHWGiCQYf5l8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788556104; c=relaxed/simple;
-	bh=TLbkhy7UhS98+n2pJ1BtGLZtz1S+VYaSrwgfIluJQvk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Dwtz6pLkT36MfkTzP2RIearqEyPOlrlUy/N7ctU18S/MZoYDah5ybiaTBL5lM//NbTF4sTPTPiaLC4H7iiYuccMpberCxdDBLqwDPTVthz+HZFDBDKE0TxOctpRENykswtElDBK/YdhZgP8O0eSDPcobOxxKpGWGPeued358oQI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxfoundation.org; spf=pass smtp.mailfrom=linuxfoundation.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=hKQB6+Ae; arc=none smtp.client-ip=209.85.167.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxfoundation.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
+	s=arc-20240116; t=1788556237; c=relaxed/simple;
+	bh=YaCXYoUUaTLUhORks4A1xiY+YQU65F5kG6iXf4O7ATw=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=FxopxPPXJTV2zQyISP+FnQnb5bGwZvEQA0AYfHeEEGKak3Kth2bl2zQj2jf9JE7VJBf5E0JCvydKNurWSY/i+b8gSqusFgnwSGSCNVscdHanYurDQO0CztWMWp6Ppr4WlL/gc82JVS+dKeDBFEbxWzPcwFrxCXMf4tAKt8Q3HpQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DbTOO8g2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="hKQB6+Ae"
-Received: by mail-oi1-f179.google.com with SMTP id 5614622812f47-4b28db31b89so984467b6e.1
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 14:08:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linuxfoundation.org; s=google; t=1788556100; x=1789160900; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=WBcQO8IW5vaft9DEnj/gUzJmSXgNK0HzXFdKXlnG8Tw=;
-        b=hKQB6+AeHcrv91DJJrKy/lpU0rfxaaj5ynT2KAELjDocSimnwmV2ArKafAUO93CCoq
-         JCgGGfKSynjZ41PKBkOCzdDtoJbB9qkIh+dKj+N6RjEl+0x16RR5UIHgX2NzsyogZqYR
-         HfUhmcFubkDuYcBSHz0yoDsT7CzhGqh4aevEk=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788556100; x=1789160900;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=WBcQO8IW5vaft9DEnj/gUzJmSXgNK0HzXFdKXlnG8Tw=;
-        b=YWGzTPzxdDVNwzKHwOqNsH66LYV4vr1O7ynUMtOrKIxS+AJzvrcVvStQQsdYg2iqku
-         soCA7QHdXwKnmrSNBK7Gs1Q/NuexuCIqskTODBfDidd6i2JNrLYL98H23uviBeAuIoHP
-         3E1fesPYsvZt1SiwXZ02viJaKw5Y+0AumgIKNLfZD/3dwrVrTw2002AaGIam28wxj3cG
-         I7vsiMVhU/4vbc8HWqukDuAxR7mrYgM1ZgFzvOC2jHSyIaojkzz1nkAGuBrjYxqbMZV4
-         zIVClN0tLsxhYvxDY+xQX2Ai/8lgezhO9hh2RcwyzNO03ULmi5c1Mx0YB8XwDpV7Xwtf
-         b8gg==
-X-Forwarded-Encrypted: i=1; AKwUvBzRM4eMFef22MEoB3ewnboM6Ec7hwF3DD+OmHwGRKZ0I5F+GUon502O+CFLefSdYz6c8BANmNXZ+kp+O/Y=@vger.kernel.org
-X-Gm-Message-State: AFuF++mP/vCgJyXqPpExiDET8lijaKPzcOtgYK/XIBtzNkshDu+9UTFl
-	ReFYJNTPQyrzqVN7pMuQJtiy+kEo8/VwkozL9ydWh9a8aoczpq2KCSLhL/8SxpGwNlE=
-X-Gm-Gg: AYBFou3HwQuKtDyXMr+f1XvZV6aAWxzCl0AemXSOw/lxsOisGq7+l9wrWRmOQ825g0/
-	zPSUhJ8r1tMQZHDZ1h75aRCu91GrPsmgx9Ix1kkc7wbgRA2WadLjqQfhSktMSD/QUKfobMS3KOG
-	HtXgeFS/W9YM0h1P9aKc0i4alo/TbA1/HxMHcYIr6Co9JhWktJAKcUMkjggncnAXmBInb1UMWs1
-	KDJGJ2uZyrgG7u6mSmsuqn5pcnP+BmbiBpDrHBy7Q9hpcGMqMz56MxthcQtcY2wr1mDO1r7/qdD
-	y0UyMzL5OLDfC+5He8pAc7FIjiGim15Zd4rmcqdrFjMwPSI2Jd+nCIhugFuuKClqzCez/0gVBxF
-	lFoN2IRJVH4giwTDkiqxPNviE96THjxEbP+uueD+4x1oJlnxXv0jbyxy3Lh0dQYyMVUJgCXspyJ
-	S3oYOxk3jh/OcXnL2V3Ba14tFc7pmtCntzAHZAO4W7xog3wcYYq4SVUGvu7ZoRbV6FREOd
-X-Received: by 2002:a05:6808:23c3:b0:4b3:7efc:e970 with SMTP id 5614622812f47-4b96026e6ecmr6951990b6e.5.1788556099903;
-        Fri, 04 Sep 2026 14:08:19 -0700 (PDT)
-Received: from [192.168.1.128] ([38.15.57.99])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-4b971b97c72sm3487810b6e.15.2026.09.04.14.08.18
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 04 Sep 2026 14:08:19 -0700 (PDT)
-Message-ID: <fe373fd0-6577-4f5c-8285-d8398d867797@linuxfoundation.org>
-Date: Fri, 4 Sep 2026 15:08:16 -0600
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DbTOO8g2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8ED681F00A3D;
+	Fri,  4 Sep 2026 21:10:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788556234;
+	bh=WyBWSLKIM1UOA8SLLHDv9QxxorSYv6s6LZzcrhmVid8=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=DbTOO8g2umtsXv8AzOlXYkgUH40JRcYEP9cxg04pwLBx/ujdUnOLLMmaB6MAch/Fr
+	 DByeg4UHuSFroIblj8JhC3TM4ULBaphvpmp4A1mOXJJS63ODV+n9PHQO187GsZZ5JY
+	 2f+QW43SRdUeTlCQ6VxrHznqh0BKy6JsZknYSzUh4ZoZ4iJO6qTI+yMVYWbjSkMnPd
+	 g2x4ieBOKNvsOTqpahOF61zgC5dErIkTTmWTw3r1aaIeSRoZUI5fMgM+MuDg/xmivd
+	 5Q/uSQF8yYOBBPjje9L8BmzcQoeLaquy7BuWv7veo560l+9G0VnJgVB0PJqrxfFoiW
+	 c2Fs7xrQGUkaA==
+Date: Fri, 4 Sep 2026 14:10:32 -0700
+From: Jakub Kicinski <kuba@kernel.org>
+To: Bradley Morgan <brads@mainlining.org>
+Cc: linux-kernel@vger.kernel.org, Tejun Heo <tj@kernel.org>, Frederic
+ Weisbecker <frederic@kernel.org>, Peter Zijlstra <peterz@infradead.org>,
+ Waiman Long <longman@redhat.com>, Christian Brauner <brauner@kernel.org>,
+ Kees Cook <kees@kernel.org>, Andy Walls <awalls@md.metrocast.net>, Mauro
+ Carvalho Chehab <mchehab@kernel.org>, Andrew Lunn <andrew+netdev@lunn.ch>,
+ "David S . Miller" <davem@davemloft.net>, Eric Dumazet
+ <edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>, Greg Kroah-Hartman
+ <gregkh@linuxfoundation.org>, Jiri Slaby <jirislaby@kernel.org>, "Rafael J
+ . Wysocki" <rafael@kernel.org>, Viresh Kumar <viresh.kumar@linaro.org>,
+ Ingo Molnar <mingo@redhat.com>, Vincent Guittot
+ <vincent.guittot@linaro.org>, Dietmar Eggemann <dietmar.eggemann@arm.com>,
+ Steven Rostedt <rostedt@goodmis.org>, linux-media@vger.kernel.org,
+ netdev@vger.kernel.org, linux-serial@vger.kernel.org,
+ linux-pm@vger.kernel.org
+Subject: Re: [PATCH v2 0/5] kthread: convert remaining users to
+ kthread_create_worker
+Message-ID: <20260904141032.34f7ed1b@kernel.org>
+In-Reply-To: <84548BCE-377E-4900-A2EF-177B0CC1B0D0@mainlining.org>
+References: <cover.1788513591.git.brads@mainlining.org>
+	<20260904085418.50d66b34@kernel.org>
+	<84548BCE-377E-4900-A2EF-177B0CC1B0D0@mainlining.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 7.2 000/713] 7.2.4-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
- conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
- achill@achill.org, sr@sladewatkins.com,
- Shuah Khan <skhan@linuxfoundation.org>
-References: <20260904045803.810145556@linuxfoundation.org>
-Content-Language: en-US
-From: Shuah Khan <skhan@linuxfoundation.org>
-In-Reply-To: <20260904045803.810145556@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
 
-On 9/3/26 22:49, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 7.2.4 release.
-> There are 713 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
+On Fri, 04 Sep 2026 16:56:30 +0100 Bradley Morgan wrote:
+> On 4 September 2026 16:54:18 BST, Jakub Kicinski <kuba@kernel.org> wrote:
+> >On Fri,  4 Sep 2026 09:37:21 +0000 Bradley Morgan wrote:  
+> >>   media: ivtv: convert to kthread_run_worker
+> >>   net: encx24j600: convert to kthread_run_worker
+> >>   tty: sc16is7xx: convert to kthread_run_worker
+> >>   cpufreq: schedutil: convert to kthread_create_worker  
+> >
+> >Please send these 4 to appropriate subsystems
+> >  
+> >>   kthread: remove worker->task self assignment  
+> >
+> >Then after the next merge window when trees converge send this one out  
 > 
-> Responses should be made by Sun, 06 Sep 2026 04:56:59 +0000.
-> Anything received after that time might be too late.
-> 
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v7.x/stable-review/patch-7.2.4-rc1.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-7.2.y
-> and the diffstat can be found below.
-> 
-> thanks,
-> 
-> greg k-h
-> 
+> hi, I was hoping one person could merge it with acks from all subsystems
 
-Compiled and booted on my test system. No dmesg regressions.
-
-Tested-by: Shuah Khan <skhan@linuxfoundation.org>
-
-thanks,
--- Shuah
+Not how this works.
