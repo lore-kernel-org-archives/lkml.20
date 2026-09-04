@@ -1,36 +1,50 @@
-Received: from mta1.migadu.com (out-217.mta1.migadu.com [95.215.58.217])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 184642192F9
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 02:27:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.217
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4958213AF2;
+	Fri,  4 Sep 2026 02:28:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.7
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788488838; cv=none; b=u6+xvXIWE91nZqZ0956cbsFwFpPrVL7wUIr5Hug1YbdM17eaoJJ17aPt0Xlh8XCaeN54SijgynWMxh3LAE/wBFDvwIczCq0usWi2nbgEI2LDHCn4PNmLh0bVIuS+s8MHWYppXthHz1sRrHd2CEomc3OGgfFUqWGOkkKt+HhTvhk=
+	t=1788488916; cv=none; b=jolFrP6DFCzFVwSWa7AW9yyeBZJ3ha8cl53FdEbaxnzdEMhPMfajBAc6H1WPzT1R4zf4K6bQtoTh7s/qPupL93i0YGxsZphyd053KhPdH7xWTJTpeZ8glRCItRstYZtNVT8xYxqAI3tKn6xdjIc4gkicBtyhFLtlJDefGqrUpuc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788488838; c=relaxed/simple;
-	bh=ReFqBqr6par/UGlKlh7klHni6a0vGR+ynsPeX9dR/mo=;
+	s=arc-20240116; t=1788488916; c=relaxed/simple;
+	bh=8ba6wolkvmeQ3axq+ltVJTJe0uSWyR9WMTW0iuQCMVo=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ZniIukjnWmGF5QLII+Kvsd3iC5IDNVtLqb6VyPoCbsra9t5snRmB91Ga+GfBi6rUDD4KF8mersR1QHvcBjTlwq8XjOq8ZbdO8vpR/uEiHOiNE7dGkNu7G6Tjb4eZJmAzw4m+bjYISmEzvhhXX1eFV7E37Uz1NpWi86B6XUCbOYo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=jU3zEbOz; arc=none smtp.client-ip=95.215.58.217
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	 In-Reply-To:Content-Type; b=oq0gkfdLrNBHz0vC7qyY9R7BKuSG/A79RkkD9fp0MC87ecMHfxcLl9oDPRdBkTJKXhuMA9P+07gEvP4tjaSHixhY9oXObce6jWFqsL1/HjBcxQoVOr5NO6fnhNg8MdeN0mEMzZtWKwn4n2mycRz4JlHH+9+igxCE1+3ydA9PDg0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=G6+TlaCl; arc=none smtp.client-ip=192.198.163.7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="jU3zEbOz"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=ReFqBqr6par/UGlKlh7klHni6a0vGR+ynsPeX9dR/mo=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788488834; v=1; x=1789093634;
- b=jU3zEbOzpsmCx6wQz6XLHMz86d8KSN9yymBct+A4V8QQuSpsbLjQEjcGoFo5rkoVQbQOXr7M
- 0Brj48HDbfH8Tdfx6G+kJhBrBDpQbFnQ0lUmRnEWsmDfCoRh5DOlMUO3dxuvZnh9LvxG8NPOd6O
- 5R/8yTJx7gDkkGhZg9m+unSE=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id b3ab1c27f19562f0;
-	Fri, 04 Sep 2026 02:27:13 +0000
-X-Mizu-Trace-ID: b3ab1c27f19562f0
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <bf3f945f-207f-4416-b8c2-8d23ffcb8e62@linux.dev>
-Date: Fri, 4 Sep 2026 10:27:04 +0800
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="G6+TlaCl"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788488915; x=1820024915;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=8ba6wolkvmeQ3axq+ltVJTJe0uSWyR9WMTW0iuQCMVo=;
+  b=G6+TlaClBlDflbf7/aPkCYPHriBMhuTQ4aI5FogWP3kT3hMNJVpfR708
+   EfvcO3bpwOV9amXpti/Hw8nqsDrFsxYxsEkhch2BAmBFyEhqXlEIsUAuf
+   3YvkF+9gkZIUFyE8u36diVW2RdMFT5POhZBQmk+RbjoA11+RIieXTh0gR
+   Pp47hEHE+UXhL819IRSeAnxS16wuGTlkQZDmPITlLieyeT9VytESs147z
+   9/k4FkkC37QnlzPb1sHxJUUiggWu/oQ0uwcCV9ZQRdNmr/RSta/gOcKkb
+   mz6FbJbjnKZWm0OXHtqVAPZY2KUNtB959mdPlq5sr7EkNxH+YGSXMqh2U
+   Q==;
+X-CSE-ConnectionGUID: s4/27MZJRA+tGjekc9EtSA==
+X-CSE-MsgGUID: KUsgGElwQyyaunRBn98MLw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11895"; a="114530754"
+X-IronPort-AV: E=Sophos;i="6.25,260,1779174000"; 
+   d="scan'208";a="114530754"
+Received: from orviesa010.jf.intel.com ([10.64.159.150])
+  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Sep 2026 19:28:34 -0700
+X-CSE-ConnectionGUID: OT45+yh4SUiihUlZ2MIVqg==
+X-CSE-MsgGUID: ujKiwGojTsyp8eAiNZE6Cw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,260,1779174000"; 
+   d="scan'208";a="268598642"
+Received: from binbinwu-mobl.ccr.corp.intel.com (HELO [10.124.245.162]) ([10.124.245.162])
+  by orviesa010-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Sep 2026 19:28:33 -0700
+Message-ID: <fa1a3a0e-e33b-4976-a0c4-f4055df403ae@linux.intel.com>
+Date: Fri, 4 Sep 2026 10:28:30 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -38,51 +52,39 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] mm/hugetlb: charge folios to the target mm's memcg
-To: Jinmeng Zhou <jinmengzhou22@gmail.com>,
- Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>,
- David Hildenbrand <david@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>,
- Michal Hocko <mhocko@kernel.org>, Roman Gushchin <roman.gushchin@linux.dev>,
- Shakeel Butt <shakeel.butt@linux.dev>,
- Andrew Morton <akpm@linux-foundation.org>, Nhat Pham <nphamcs@gmail.com>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- cgroups@vger.kernel.org, Jinmeng Zhou <zhoujinmeng@bytedance.com>,
- stable@vger.kernel.org, hongfu.li@linux.dev
-References: <20260903075048.3316-1-zhoujinmeng@bytedance.com>
-From: Hongfu Li <hongfu.li@linux.dev>
-In-Reply-To: <20260903075048.3316-1-zhoujinmeng@bytedance.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Subject: Re: [PATCH v3 2/8] KVM: VMX: Move the shared "IRQs off" exit
+ handler(s) to common code
+To: Sean Christopherson <seanjc@google.com>
+Cc: Paolo Bonzini <pbonzini@redhat.com>, kvm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Xiaoyao Li <xiaoyao.li@intel.com>,
+ Kai Huang <kai.huang@intel.com>, Rick Edgecombe
+ <rick.p.edgecombe@intel.com>, Yan Zhao <yan.y.zhao@intel.com>
+References: <20260904010353.3175819-1-seanjc@google.com>
+ <20260904010353.3175819-3-seanjc@google.com>
+Content-Language: en-US
+From: Binbin Wu <binbin.wu@linux.intel.com>
+In-Reply-To: <20260904010353.3175819-3-seanjc@google.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
+On 9/4/2026 9:03 AM, Sean Christopherson wrote:
+> Move vmx_handle_exit_irqoff() and its helpers to common.h / main.c to
+> capture that it's a common handler and to allow guarding against incorrectly
+> using to_vmx().
+> 
+> Opportunistically use a "vt" prefix instead of "vmx" to communicate that
+> it's a shared handler.
+> 
+> No functional change intended.
+> 
+> Cc: Rick Edgecombe <rick.p.edgecombe@intel.com>
+> Cc: Xiaoyao Li <xiaoyao.li@intel.com>
+> Cc: Binbin Wu <binbin.wu@linux.intel.com>
+> Cc: Kai Huang <kai.huang@intel.com>
+> Cc: Yan Zhao <yan.y.zhao@intel.com>
+> Reviewed-by: Xiaoyao Li <xiaoyao.li@intel.com>
+> Reviewed-by: Kai Huang <kai.huang@intel.com>
+> Tested-by: Kai Huang <kai.huang@intel.com>
+> Signed-off-by: Sean Christopherson <seanjc@google.com>
 
-On 9/3/26 3:50 PM, Jinmeng Zhou wrote:
-> HugeTLB folios are currently charged to the memcg of the allocating
-> task.  This gives the wrong result when a userfaultfd handler populates a
-> HugeTLB VMA that belongs to another process.  The UFFDIO_COPY ioctl
-> operates on the userfaultfd context's mm, but get_mem_cgroup_from_current()
-> charges the folio to the handler's memcg instead.
->
-> This can be reproduced by placing the faulting process and its userfaultfd
-> handler in different memory cgroups.  Have the target process register a
-> HugeTLB mapping with userfaultfd, trigger a missing fault, and let the
-> handler resolve it with UFFDIO_COPY.  The hugepage usage is then reported
-> in the handler's memory.current instead of the target's.
->
-> The generic userfaultfd population path avoids this problem by charging
-> folios to dst_vma->vm_mm.
->
-> Pass the target mm through hugetlb_alloc_folio() and charge the folio by
-> using get_mem_cgroup_from_mm().  This preserves the existing charge timing
-> and error handling while making HugeTLB userfaultfd population consistent
-> with the generic path.
->
-> Fixes: 8cba9576df60 ("hugetlb: memcg: account hugetlb-backed memory in memory controller")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Jinmeng Zhou <zhoujinmeng@bytedance.com>
-
-Reviewed-by: Hongfu Li <lihongfu@kylinos.cn>
-
--- 
-Best regards,
-Hongfu
-
+Reviewed-by: Binbin Wu <binbin.wu@linux.intel.com>
