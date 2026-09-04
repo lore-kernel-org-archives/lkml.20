@@ -1,95 +1,160 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej2-f10.google.com (mail-ej2-f10.google.com [74.125.228.138])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8A95175A9D;
-	Fri,  4 Sep 2026 09:02:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.17
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 247B442AFAA
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 09:02:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.138
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788512542; cv=none; b=pji3vjobyrw5H6q4HLH0q7L42pSsVyXWG6SoIGNF3sycDvJt20gMd7pfHzkFZ2nuX2iRCeJWg0PT0cTNxGUgcILZvIqrjkaEJFVf9W+vDfimaBJY/ZQSsDmRdboNi890wodz22EG4ZE92ebEjuUlymHL1dRzsaM3HpciqIo4Mco=
+	t=1788512559; cv=none; b=FcMtv3ArhOvlmfa4d05gVh7TpmyFHv3XYzR5uxmrtQSiMjNhuem0J6JMRYQY72mIIf/jXn23OU0iOIjzkL+9nPOthKF3PsfPPsFEa+/Qe65YgO3ZQ3ooFNTW5XEHHpjE6BETDBfsegJ4FKhnS86JCIPeq4Egj9nkPFY8xAM3bxc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788512542; c=relaxed/simple;
-	bh=IV++6afvEO2LNcg8BLPPVEuNg2hZ7h7kcE9Cy1YGeLM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=uJwMdUB/s3NhgHDnNCHrRJMwyLEofvaoNo9jXGSwpgLsfg2T3nNpDJcrQZSDqum9OJVOmKnCyxA6gdW95jG3koc3TLXhqGegY0+0lsR6OhODr/KF+8sAa0c0p5D5col2Tj3z8SE6ZRmKBLFFU47rsTKUlMQdBpNb8cKmB0MsqNI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=ZWoekHaa; arc=none smtp.client-ip=198.175.65.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1788512559; c=relaxed/simple;
+	bh=FocYj1Tg6JeoZyTDyfHblEWp+ZMU7BmLVvhrp05G4mE=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
+	 References:In-Reply-To; b=gZrdpLXX/5vJ/vNmuk8ken2DdJQLDhEiyCoU+cq2oYx9mcQ7qclvV+V01vY0Qk/QgQrndtRMyYFmfqMb6PJblvGfWfHmQZ8AqPStysUSB+gD4Mv1dPPAVXRUQQfiWL0kez0stvNOvZ0ZXuNjPmq/2UR3EGQ8bafAqJ1wWtC1qsE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ahLmHHkU; arc=none smtp.client-ip=74.125.228.138
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="ZWoekHaa"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788512541; x=1820048541;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=IV++6afvEO2LNcg8BLPPVEuNg2hZ7h7kcE9Cy1YGeLM=;
-  b=ZWoekHaaVfJFVFsoZbzkXDicH4qDArORhNKWwzEQDLRgxq47U5tH46jR
-   pyw35BMq7OpvOAmbWXtpJFGaGqFTLyEzEuBY9A5pQ0M0aH5a4K76qz9uU
-   6J+/ngFWMiCnSE1nL+69HJdGBMMfzZEm1NQAjkjsv8p5jcqernTG+1NvQ
-   2o2P2YxvQoVU1qBP/9PtGkVb203KJZIUIcGr3veslFI1fi7AEqhVEhxye
-   Q6N5cqscvXDP85EgOAaFFQDPgsrXO83UPFVzr5R2gXYqoRx+PWycsKWLM
-   iRxCB8JjkNi77wZ0sIoqa53YJI1pmnfkuOJwya7MDIxnhdKqRJRePU53m
-   Q==;
-X-CSE-ConnectionGUID: Ccui8Sh9T3CvZK4Iysbosw==
-X-CSE-MsgGUID: /5to5oLFSLSZPXpJiOU9ig==
-X-IronPort-AV: E=McAfee;i="6800,10657,11895"; a="89044046"
-X-IronPort-AV: E=Sophos;i="6.25,260,1779174000"; 
-   d="scan'208";a="89044046"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
-  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Sep 2026 02:02:20 -0700
-X-CSE-ConnectionGUID: bZ6lxZw/QlOCwZno2oBQJg==
-X-CSE-MsgGUID: 0f3e+A5CR9iRUtzKeS8oYQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,260,1779174000"; 
-   d="scan'208";a="265646307"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.250])
-  by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Sep 2026 02:02:18 -0700
-Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with SMTP id 8D49511F894;
-	Fri, 04 Sep 2026 12:02:14 +0300 (EEST)
-Date: Fri, 4 Sep 2026 12:02:14 +0300
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: Yemike Abhilash Chandra <y-abhilashchandra@ti.com>
-Cc: mchehab@kernel.org, mripard@kernel.org, jai.luthra@linux.dev,
-	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
-	r-donadkar@ti.com, devarsht@ti.com, u-kumar1@ti.com
-Subject: Re: [PATCH 0/2] Support RAW12 bayer formats
-Message-ID: <apqJFrQuFToH9B1k@kekkonen.localdomain>
-References: <20260625151756.221096-1-y-abhilashchandra@ti.com>
- <b8ec52eb-2bbd-4e8f-92c3-39625b6f4ee9@ti.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ahLmHHkU"
+Received: by mail-ej2-f10.google.com with SMTP id a640c23a62f3a-c2551bfabefso44612666b.1
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 02:02:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788512556; x=1789117356; darn=vger.kernel.org;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-type:content-transfer-encoding:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=VSBcA76yWuklBIVlW8nFJkprKtYg80K7J6L7TsEg75w=;
+        b=ahLmHHkUUY5GyLFEnMgSOAo6lncxD0syIQsq9xaGV+PMU31VF/R0AWp1T1/XGVjJ7m
+         HyWJ6ezyl+fjWFsxwts/r4gMnEFYYrohLFL5iEBQs0Ti1XSxFN+F8sASHgWbPzuuUwBw
+         liwG7psGLFP2IfFG7ov6CWJztbtotCJ7nUQDDS7u54xWuXRJjljy+C3dSPaOZDET/eyh
+         HxP26qOtsXoJVsZ3a7Q6u2BZqigbdT7cq82dDmGsB2NfrnjNUpYaKE1jtCldZD4m9KSc
+         y6PHgMqjCn5Qi0tG5orQ4q1fLkSmUKySZBUVCNIz1CfwAeb5G+VvDVjMSghbqXxAgCVZ
+         a8mg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788512556; x=1789117356;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-type:content-transfer-encoding:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=VSBcA76yWuklBIVlW8nFJkprKtYg80K7J6L7TsEg75w=;
+        b=cko8LJoMJrIuSctuND0b9TxF8c4WI+offgKEr4SEZAjaoYnQi08g+pXjJsWTleKrHH
+         lJQhfbdezy7CowIojSM4ybHAqSUWkb1RWsAL/OpwtNikJoaFxWNLF+4dmAZFLpvfXYXF
+         ORdQrt3EPd0Hi0n4VwON8c5HszTznw8SHScvrcKOAn9z9Tjk3ROQ3WkWq/9fvU8mX4Ep
+         fLaDvoLCYZCLldfhp4LoPgfIGHihgAG7NTC8gnrG3VASCke3kgen88pXzysiGD/HyHqW
+         +rjwASzUU60VCfYVkSL8dK0m57d9dgHwzTQ2wLNHXmVqdmwVXmqSUsCirXAM282NHXJ/
+         C4mQ==
+X-Forwarded-Encrypted: i=1; AKwUvBw3zcbYAf4FcoK8zOX+A4nJ1twR85gigM2bbYNSVz3UGfrag0/FQfmUfhlKdBuy4Y/1prGjQG72RVFe36Q=@vger.kernel.org
+X-Gm-Message-State: AFuF++kxt8zaI/oXTO4tQSjyzkrQIdKKGvJ3DRsR0y5lRcGKCYkja1Li
+	jcA4ogqve7hONU/DipyBo0qaLHhCcEsiSN+7lRx6Li/8nZKJA49duvEc
+X-Gm-Gg: AYBFou3W/5NmL1plhvOxMnu7jWjIXLJ9JsIU3HelAowjOLhfT7LhF5oeD1u67bOMA/t
+	wBzxQq2HbVHFLVGJFv5Aw8AgKaY2K172M5gCGMFcBK1iPoheUdqs+y5WU1XbWSWbkkqyxDbdYy6
+	6sSdckUB1bCptLoKwQcd47ZXQhghazJUA71/48r8XbbYxIYbU09+aGXbKwoqtrO0QHq5lOgp02r
+	hgmux5PyyH+OTIPJCRhRBBw4nHEL4ylFqOAIsTKzKL4PA2c/8NVM0S402NhFVM0bJ4Xy5e6m2M9
+	h8wz96MSJujDnl6vn5ujCSJ7sYsuYE2kwmtr3Adu6wx65gbHLlFIE/qBD2yFW6fJYQC26Y9Aiw5
+	dTzU4urRCNhzn1RL/Ujxg4kSbTfyeQESovdnS1R5OgrvYf/hbIgEQeKqqf0O1JfMzSrSFpt7ghx
+	vYh84z4v8SH6s0L23NbYRDdSOjrPPEPRKsycvsrB5tK+RwlH2Z31QIxvod1HHHMDgRK3xcADH4M
+	vX586HizAl+buIzXJvsv2Ylg77Cl849J4O7mOpGMsh/tIeq4HbaOxT+RrL2kvxQIXuNOK47tFIO
+	n8U64LuP6p883fX628RVCH9X8Sc=
+X-Received: by 2002:a17:907:c81a:b0:c25:659:89ba with SMTP id a640c23a62f3a-c260c8d4e21mr198032866b.9.1788512555920;
+        Fri, 04 Sep 2026 02:02:35 -0700 (PDT)
+Received: from localhost (nat-icclus-192-26-29-3.epfl.ch. [192.26.29.3])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c260d503f96sm77028066b.26.2026.09.04.02.02.34
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 04 Sep 2026 02:02:35 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <b8ec52eb-2bbd-4e8f-92c3-39625b6f4ee9@ti.com>
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Fri, 04 Sep 2026 11:02:34 +0200
+Message-Id: <DL6ESCNVJ52D.3NSNU8FZDQTU@gmail.com>
+Cc: <ebpf@linuxfoundation.org>, "Bastien Curutchet"
+ <bastien.curutchet@bootlin.com>, "Thomas Petazzoni"
+ <thomas.petazzoni@bootlin.com>, <bpf@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <linux-kselftest@vger.kernel.org>
+Subject: Re: [PATCH bpf-next v9 0/8] bpf: add support for KASAN checks in
+ JITed programs
+From: "Kumar Kartikeya Dwivedi" <memxor@gmail.com>
+To: =?utf-8?b?QWxleGlzIExvdGhvcsOpIChlQlBGIEZvdW5kYXRpb24p?=
+ <alexis.lothore@bootlin.com>, "Alexei Starovoitov" <ast@kernel.org>,
+ "Daniel Borkmann" <daniel@iogearbox.net>, "John Fastabend"
+ <john.fastabend@gmail.com>, "Andrii Nakryiko" <andrii@kernel.org>, "Martin
+ KaFai Lau" <martin.lau@linux.dev>, "Eduard Zingerman" <eddyz87@gmail.com>,
+ "Song Liu" <song@kernel.org>, "Yonghong Song" <yonghong.song@linux.dev>,
+ "Jiri Olsa" <jolsa@kernel.org>, "Thomas Gleixner" <tglx@kernel.org>,
+ "Borislav Petkov" <bp@alien8.de>, "Dave Hansen"
+ <dave.hansen@linux.intel.com>, <x86@kernel.org>, "H. Peter Anvin"
+ <hpa@zytor.com>, "Shuah Khan" <shuah@kernel.org>, "Ingo Molnar"
+ <mingo@redhat.com>, "Andrey Konovalov" <andreyknvl@gmail.com>, "Emil
+ Tsalapatis" <emil@etsalapatis.com>, "Ihor Solodrai"
+ <ihor.solodrai@linux.dev>, "Yafang Shao" <laoar.shao@gmail.com>
+X-Mailer: aerc 0.21.0
+References: <20260903-kasan-v9-0-2407fe99255a@bootlin.com>
+In-Reply-To: <20260903-kasan-v9-0-2407fe99255a@bootlin.com>
 
-Hi Yemike,
+On Thu Sep 3, 2026 at 3:51 PM CEST, Alexis Lothor=C3=A9 (eBPF Foundation) w=
+rote:
+> Hello,
+> this is v9 of the series aiming to bring basic support for KASAN checks
+> to BPF JITed programs. Among a few minor optimizations, this revision
+> fixes some wrong kasan instrumentation on some unwanted stack access
+> (stack access ending up being instrumented AND targeting the wrong stack
+> offset). To mitigate this risk further, this revision introduces a
+> systematic KASAN check skip when (addr_reg =3D=3D BPF_REG_FP || addr_reg =
+=3D=3D
+> BPF_REG_PARAMS) in emit_kasan_check. This secondary check (on top of the
+> non_stack_access flag), should hopefully prevent the issues raised in
+> v8. I've also reworked the emit_st refactoring to realign it with
+> BPF_STX management in the x86 JIT compiler, as the "arguments on stack"
+> feature made me realize that it could be kept more symmetric with
+> BPF_STX; so I've dropped Ihor's Acked-by on this.
+>
+> Original cover letter:
+>
+> "Traditional" KASAN allows to spot memory management mistakes by
+> reserving a fraction of memory as "shadow memory" that will map to the
+> rest of the memory and allow its monitoring. Each memory-accessing
+> instruction is then instrumented at build time to call some ASAN check
+> function, that will analyze the corresponding bits in shadow memory, and
+> if it detects the access as invalid, trigger a detailed report. The goal
+> of this series is to replicate this mechanism for BPF programs when they
+> are being JITed into native instructions: that's then the JIT compiler
+> that is in charge of inserting calls to the corresponding kasan checks,
+> when a program is being loaded into the kernel. This task involves:
+> - identifying at program load time the instructions performing memory
+>   accesses
+> - identifying those accesses properties (size ? read or write ?) to
+>   define the relevant kasan check function to call
+> - just before the identified instructions:
+>   - perform the basic context saving (ie: saving registers)
+>   - inserting a call to the relevant kasan check function
+>   - restore context
+> - whenever the instrumented program executes, if it performs an invalid
+>   access, it triggers a kasan report identical to those instrumented on
+>   kernel side at build time.
+>
+> The series comes with new selftests programs that generate a wide
+> variety of kasan reports: those need the kernel to be running with
+> kasan_multi_shot enabled.
+>
+> As discussed in [1], this series is based on some choices and
+> assumptions:
+> - it focuses on x86_64 for now, and so only on KASAN_GENERIC
+> - not all memory accessing BPF instructions are being instrumented:
+>   - it discards instructions accessing BPF program stack (already
+>     monitored by page guards)
+>   - it discards possibly faulting instructions, like BPF_PROBE_MEM or
+>     BPF_PROBE_ATOMIC insns
+>
 
-On Thu, Sep 03, 2026 at 04:53:52PM +0530, Yemike Abhilash Chandra wrote:
-> Hi Sakari,
-> 
-> On 25/06/26 20:47, Yemike Abhilash Chandra wrote:
-> > Hi,
-> > 
-> > This small series adds support for RAW12 bayer formats in the j721e-csi2rx
-> > and cdns-csi2rx.
-> > 
-> > Testing details: Tested on j722s-evm with v3link + IMX390 downstream driver
-> > Test logs: https://gist.github.com/Yemike-Abhilash-Chandra/805ec4662b60ad925e979d55a9515f89
-> > Testing Branch: https://github.com/Yemike-Abhilash-Chandra/linux/tree/RAW12
-> > 
-> > Jai Luthra (2):
-> >    media: ti: j721e-csi2rx: Support RAW12 bayer formats
-> >    media: cadence: csi2rx: Support RAW12 bayer formats
-> > 
-> 
-> May I know if this series is in line to be picked up in this cycle?
+For the series:
+Acked-by: Kumar Kartikeya Dwivedi <memxor@gmail.com>
 
-Thanks for the ping. It's in my tree now and I'll merge it shortly.
+If there are remaining issues, we can fix forward, but I think we should tr=
+y and
+land this for now.
 
--- 
-Sakari Ailus
+> [...]
