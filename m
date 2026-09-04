@@ -1,200 +1,217 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lf1-f48.google.com (mail-lf1-f48.google.com [209.85.167.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A463524B1A;
-	Fri,  4 Sep 2026 20:59:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=192.198.163.17
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788555587; cv=fail; b=r6bJk2a5VOEcYSmLgz4qEhSUIxtQaC/dXA4PRairq/HkFOw/51Bg4SDfEQ2/svA8bwU+meOG0YvBjDxBp2FvOJb38WvAskNYYuy8hZmAmbegEggXF1bBFha0Dy4XrOvuD8umb0gJfQd4hvH6MxdpbmUPq7i0AA3jruJU3HLw1aE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788555587; c=relaxed/simple;
-	bh=vj8cGj36+G9LOLgug70pCYnFvW/PlIxWzZ1S5FEBoO4=;
-	h=Date:From:To:CC:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=Pt0h+vvU5vY/Zo6250Zr0aKI5I9tXxcSxKwWwSo7zzPVMn4TsxIBf5xcY9cg8ZAGxvc/c4FrcKqzWZzDG++YzA7dfbWUUDPC0HDwBeuIUd8yzc0F/SlnxAUkmuCGqj/KO7b/5h0P0Q3in7uSVtGsazZmo2GGvqpv9DeXzpX+5dI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=K0WD5XDo; arc=fail smtp.client-ip=192.198.163.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53497408035
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 21:00:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.48
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788555636; cv=none; b=E7QDWNY//dgCz2NWIug4yYPEUbZfzDWqFKSa68lcX0HdtiDd3DyUUnyfrO/XH8jOO7Ugijhw4vkeoWmKCWZczEy/ShUNQsGf8Op4VKMuDgnCjVT0loNKxcYMDF4jH43klQQAo3gtkv60rSqvp1xmNSmE1TooxCKB2B2De7cRaF8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788555636; c=relaxed/simple;
+	bh=KApseFCDITS/MZv5w62LRujxvx1bGveQCKL4YTEC3BA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=D3htPdWnSd0ig5+VQL9yfJVX/50t4wn3dQMqdIQraQUvaenplTDGRqgWFikL77c1o0ekkARcMyrN1/IwIjiSmTvfzLyUbuTmO44BSUJI/FevWbSGGQkOQV5sAHsYtRn5P6SRlKDaI1TdadqJw+mrgfU6OYeumpHQ6cGLyYvl4Nc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fpNny2Pi; arc=none smtp.client-ip=209.85.167.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="K0WD5XDo"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788555584; x=1820091584;
-  h=date:from:to:cc:subject:message-id:references:
-   in-reply-to:mime-version;
-  bh=vj8cGj36+G9LOLgug70pCYnFvW/PlIxWzZ1S5FEBoO4=;
-  b=K0WD5XDoybWihzJfR8ETF6JzQE34jDNDnGJPdNorwEcbFh2S9HgirfxX
-   uadr+ABbVj6h3SQoL5URJu/sVaA6HXyoSWrfSXSiGfdW6zk+/DsxrXZTG
-   an5/TzhJZrP0QKS1f2yu7TdR/8gKuPUNNU+EFVr6NglHZ7vENQky1G8ll
-   KhMu7fpff761yXoXEckzaUILYoEYuvusqPDfJfDLwltkNAA63pnHIP8D5
-   JD4VFhP0iGu+r/mcNL9f3RhSdJFnbkez1xw+Y27vqFAmMC8uxqB43ZCPC
-   v8R+4B+C2OxA6C3NSS7PaywyG28/pMYaHx/1RDoBbJEJKZMSnsSVjYy5A
-   g==;
-X-CSE-ConnectionGUID: P1NAk347RL2pWt4uoLKAhg==
-X-CSE-MsgGUID: dUcl0dO1QKKr5tTkJdiBWw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11896"; a="88940883"
-X-IronPort-AV: E=Sophos;i="6.25,262,1779174000"; 
-   d="scan'208";a="88940883"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
-  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Sep 2026 13:59:41 -0700
-X-CSE-ConnectionGUID: aArl6nXLSpWLyVgz0AclKg==
-X-CSE-MsgGUID: 2hEGRdq7QUiNV3/w/mtURQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,262,1779174000"; 
-   d="scan'208";a="300012202"
-Received: from fmsmsx903.amr.corp.intel.com ([10.18.126.92])
-  by orviesa002.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Sep 2026 13:59:41 -0700
-Received: from FMSMSX903.amr.corp.intel.com (10.18.126.92) by
- fmsmsx903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Fri, 4 Sep 2026 13:59:40 -0700
-Received: from fmsedg903.ED.cps.intel.com (10.1.192.145) by
- FMSMSX903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46 via Frontend Transport; Fri, 4 Sep 2026 13:59:40 -0700
-Received: from BN1PR04CU002.outbound.protection.outlook.com (52.101.56.28) by
- edgegateway.intel.com (192.55.55.83) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Fri, 4 Sep 2026 13:59:40 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Hw/94N0buyxQv8FQR4oTBs3rCAx2p84LgEOA6xd7OV4698oTvfjOua0eXDMi6YygxxnLlQx3sehWpe9KVbjAOcmXs5htzAik243W0LDuYVNTwS+0BNLFysjLn4o0Bn7HWsPdfhAhm73sfXYayJU+PJBECf82PAs+IF+U70iPNKAXPjYDukpHPaILQ+adGghOy3HcXfwYJhbvism5XQZaIDlB2nRem8J3GrkI6hBDuj3m/9lfMUYOwhRsbAHSQ/tnFrH2l5xto60yqXYzzjXKc5jV605M/UuYl/suzUmnkHKOG0a2WaTPfII2pacWW/ctrgTystHunRpNCJtuc2YxLw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=IIyt/mJ9Tv1VVKSGXIKRM/12BbjEoc0nrpkefPrmg7I=;
- b=jITlpdnMGHFQlXaxB6qV1V0KgcjBLW2Rnpqbrt0D/MlhboRfJxD/dknbrHMGfrJRWwdOI9Ia0e/ctF5emQNh9IxzWdCTAy4cX9z7NO48cZSKzf7t3fb7U9IeQ0D2XsapipdjVVVQw0tYYhtubIEm9IJ+tw8pWuSqPXSdq7LhF2URkFsdBqIVav/+LZPvMpfo7jxM2d/IcbNw8u9AP2HFxaxOCdx0gI3cJ2ujJqy7xHZQ/pWMkPjDxO4JGMwHBydUuKeBaMbI3C6KaeJcMS6UBfJmMyUf8wwibWiAcMKyH5qJsn0npGPOQIr3v5q4K8E4HpjUyd3/4nzepvjJUksPgQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from CH3PR11MB435924.namprd11.prod.outlook.com
- (2603:10b6:610:34a::8) by MN2PR11MB4694.namprd11.prod.outlook.com
- (2603:10b6:208:266::8) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Fri, 4 Sep
- 2026 20:59:37 +0000
-Received: from CH3PR11MB435924.namprd11.prod.outlook.com
- ([fe80::1696:c90e:60af:a0cd]) by CH3PR11MB435924.namprd11.prod.outlook.com
- ([fe80::1696:c90e:60af:a0cd%6]) with mapi id 15.21.0360.008; Fri, 4 Sep 2026
- 20:59:37 +0000
-Date: Fri, 4 Sep 2026 13:59:35 -0700
-From: Peter Fang <peter.fang@intel.com>
-To: Tony Lindgren <tony.lindgren@linux.intel.com>
-CC: Xiaoyao Li <xiaoyao.li@intel.com>, Dave Hansen
-	<dave.hansen@linux.intel.com>, Kiryl Shutsemau <kas@kernel.org>, "Rick
- Edgecombe" <rick.p.edgecombe@intel.com>, Kuppuswamy Sathyanarayanan
-	<sathyanarayanan.kuppuswamy@linux.intel.com>, Thomas Gleixner
-	<tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov
-	<bp@alien8.de>, <x86@kernel.org>, "H. Peter Anvin" <hpa@zytor.com>,
-	<linux-kernel@vger.kernel.org>, <linux-coco@lists.linux.dev>,
-	<kvm@vger.kernel.org>, Binbin Wu <binbin.wu@linux.intel.com>
-Subject: Re: [PATCH v3 4/4] virt: tdx-guest: Allocate Quote buffer dynamically
-Message-ID: <apsxN4jYe3G3meNz@intel.com>
-References: <20260729122939.1340412-1-peter.fang@intel.com>
- <20260729122939.1340412-5-peter.fang@intel.com>
- <bf51e3d3-cf28-4155-9915-683bf6c848a4@intel.com>
- <apkUrXh4FJJua4mN@tlindgre-MOBL1>
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <apkUrXh4FJJua4mN@tlindgre-MOBL1>
-X-ClientProxiedBy: BY5PR04CA0020.namprd04.prod.outlook.com
- (2603:10b6:a03:1d0::30) To CH3PR11MB435924.namprd11.prod.outlook.com
- (2603:10b6:610:34a::8)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fpNny2Pi"
+Received: by mail-lf1-f48.google.com with SMTP id 2adb3069b0e04-5b4ae0b3308so1039764e87.3
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 14:00:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788555631; x=1789160431; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=DvctqTRoXQqAbiTpeaIWvSug195ZBpWLximGjD0D8bc=;
+        b=fpNny2PixshqOhmQnUmEpzo18nr471JI7Jy2QnSq8soXIzzRv2t9xsQOQsP0JSg+8h
+         OyvKRjhoVim9/1kNenOndlb19UN+veB0bUrcVFXzRvZJRYLogaUE+3kpoktq2xlO1/bh
+         eKIZQYLBF1A+FB+gX0hIx4SeZFmg+oyMHe/piXW0alv240avXKiVzXl9uLFdpgusM5AL
+         5YnPLmM7f6UpWjsnLWQ68FnOUx1eViHqJTkF9/CMgjNmOvqlw00U4x5MeJC9/ISlwt5Y
+         84Cf80K+IgX/qRvV/RrGpV636VroCwLAguFwTYUzTt7RCx99NFPno359a3Z3B31teDsY
+         eJlw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788555631; x=1789160431;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=DvctqTRoXQqAbiTpeaIWvSug195ZBpWLximGjD0D8bc=;
+        b=PbEIb/yOGygKkA35HLD2TY8rWawlN/uYcDWPckwM3dI9DvDMtzRFrCv3y1BosHATqt
+         8UUa66uxFxW3jP/BGYMx/Jofu+ZvPFANim3OlFFPp+m9qlru/i1Sp+iZtVbdqmiLFYD+
+         vuD83HN3JidrAgwYTsIFr0Li9ntQ0muEUaE0NI08KrY53mHUKWKklOcPPvfGiYDsb8f6
+         JHSo3sHGFYAUCxYlvSCj+9kyStKPVYhuCPV1vGL3M3xgfVJJgfuX+2QZhjbc18aJ7WJH
+         SvZRVvYmg9zC1PmMbywLlH0vqR1Fv8+GMfOtZEsB6WEXH2ZOxzrijJWOgQilYw/7jMB9
+         5xxQ==
+X-Forwarded-Encrypted: i=1; AKwUvBw341voEvxGClNccx6zSS6bd5UTZXqqmsiEH7keueAkMOLqPBIalkiTaSTNap1fTF7zBjkQREkOhjsNLrY=@vger.kernel.org
+X-Gm-Message-State: AFuF++mmixaCQ8OlBgQ4NJTK0XZzKYXym6ejJtokU7KoFbFW1qcvIbYu
+	/5e7/N/pE5yochEROxOiVigqMaUFzw7FdRbG/2L51OU6F2H1b5fJmNyc
+X-Gm-Gg: AYBFou2qeZZpz2TuiIN1ZKOSwZ4DrynpIsmwmj/oYIgtiMHfXr4pLCXXiznchyNVPBb
+	L08O6JGjtW+oN5uJRSADD74twK2ZCCBQAQzanPpIKiMqqYxLM6lu9NgkNu1xdLLmyWJZv1WlmK2
+	n6eTNO/jVjvMf/p6TJi/4CNfM+l3mG2TJoAleXZ8pHA89pJ+Ni8cBX+pA/UiSgTqumyeLH6JUCq
+	0UJwH47VmLLG4PV7wTaBmk1alU9CuQqk+LSVdjV05oTsZqjM0MqLoXT+05FFzKGNwyLP0NZWY9s
+	kI1VAOsY0B0JqIFzxe9odv8OuDMnKuPbnIqlMnzTa3M5NULsCioRe8FyDdDuvEDFjOA2sHUOYwo
+	f9nfEJoPkthPxvHvminyXCRawHOO4wEbikV6NKma1pxygLhsPokd5XWeTq9v739ctwR8fKhOWom
+	0A7E0yagV6GmLXaJIaERNrxXlPfVefXnURAGNUqdK7utuCFyezUmwwfyJRPNogBlKxbaxFISyQt
+	0im/HlhGvGZcqvW1e+dOPUcMK9uHQFF4A==
+X-Received: by 2002:a05:6512:1285:b0:5b6:4b1:f8bd with SMTP id 2adb3069b0e04-5b616f5b5cbmr1514857e87.30.1788555631023;
+        Fri, 04 Sep 2026 14:00:31 -0700 (PDT)
+Received: from pc.tail250202.ts.net ([87.110.86.243])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b6166f6db8sm735384e87.34.2026.09.04.14.00.27
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 04 Sep 2026 14:00:28 -0700 (PDT)
+From: Janis Edvarts Lacis <janislacis06@gmail.com>
+To: netdev@vger.kernel.org
+Cc: davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	horms@kernel.org,
+	linux-kernel@vger.kernel.org,
+	Janis Edvarts Lacis <janislacis06@gmail.com>
+Subject: [PATCH net] net: vlan: fix vlan name truncation
+Date: Sat,  5 Sep 2026 00:00:24 +0300
+Message-ID: <20260904210024.263220-1-janislacis06@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH3PR11MB435924:EE_|MN2PR11MB4694:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1bbf3e59-0876-4d95-fe34-08df0ac76e36
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|23010399003|376014|7416014|1800799024|4143699003|56012099006|10067099003|11063799006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: AVXWIKxfmw47IrN63n6KkWEbyedIOjHiqh1EdvKku5qd+VzDxH5UAOk6hRou1qBNPDjecHLLyeicO1G7A3QIeJHz7sCLpkz2WRFi9GVeC54z0SBbHalxfQixaC3fw4w2qNND04BBp+ZHMK4ey1ljj74LHYVe4FNmxtKDG45KbgsbX61XwwgMSALm8+8DJvEvrpRtVpMVch6GXntxTBPP2zsuckdCqpmSVbdDQ3i/BrOXV+H/PCbsz548KfOapt/nyWEYU+PGRHWnVT7Gh1DEwzf0cngbpTtSVCEndZfnLHXT2WphMmd919pFOwwHQeSAcru6K/yOJRAAu5ukDylkVG3R9yzdij97/A3n+eyIei75WfMr1lFKc5bXoEZLf/6WV1OA/54SvHkK5dP6nB0v8faSQsad4wbjVGpIf7w1iXuHnOw1yADYF1DIjsQYR9bwl4cQl2S4tUJQpIoJ4Nme7Yd9jlEsItIqWPDOYcAAmkBY2vSSEeZgRACHdUs43Va5MITHAxzQewkErEHATgeCyTBylcvUzKSS3HmWxJpJYm9Q/cvBE/EdCbJCgfg/fD3C5EkXv4dblQT1k4rHqz+yQ30+HKQKUT085px2e+ap8jPHUqnlLvq2GaYCW6+L3oqK7Lr7dqBF6tKBPTVGP+jKidJOBV9WZmNET6Dyl8VSn3g=
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH3PR11MB435924.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(376014)(7416014)(1800799024)(4143699003)(56012099006)(10067099003)(11063799006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?SK4mV/iqRgQYK7UAGzwR6khhLO/I0xzY6d4FtfJTlW+mk1Eh4FIx7tuMPN1Q?=
- =?us-ascii?Q?GTApXOs9coVEqzZjTTUD6PBRvT+i5h7KesrUAWHMaQ3XaExHxAHfU8sXePYE?=
- =?us-ascii?Q?0CbIqu7fAhjnbS1HGp/iNdj0OSVDNhH4a6HWag2EAzaRk7nLWAxPTjsZ/N5u?=
- =?us-ascii?Q?E0wycmO58LnNWvQUwHuENYX68b85w05Zc7cI6Fy5t3mWxC5fKiQIDrbT0Iki?=
- =?us-ascii?Q?EyNQswtBtBtsEP5JDTfrE5sgdkQcLjEO69buZdcaowebrA+TcKbpzrbwzj28?=
- =?us-ascii?Q?m3sRLzsB2GRde1HxfzyfhUnjHwsJXUsww62rTJxp4CSMpC8Vc68EOj1uxdIJ?=
- =?us-ascii?Q?IysJnopNv/0Y7dENspe44/EjU3alYXOUtTMLJcEXOlSd3u4XrxJlDZa33D+d?=
- =?us-ascii?Q?YEtKmMOoEGqBSgkZQJd+HZiHs9DR/r4Fzfn+gv/ysQiiA0fTa9zu637EyTdo?=
- =?us-ascii?Q?9HNmrwz1sWsaY9GQDYQ5x7EjD5+BYPXYK+Ua6I1LpHIdiWWshHt05kRZeh4o?=
- =?us-ascii?Q?LTn2QGCVghQ43L1NvyMwbxaOardt0cSroN2AMpQ0NX8havk6gMm/giS7ZfXc?=
- =?us-ascii?Q?ttIyoK8IfIaximZz72ijEBjHfeiZ4HyjGE+O8A58VbDsjRNwWKnEjI6eUoB+?=
- =?us-ascii?Q?FQOGUG/IFdqz3u2rEzstn+WQnDCKYW+iZCodItnXimuQlSz9Q1Ie42raHoWL?=
- =?us-ascii?Q?HNphbzC2uO5en1G9zC8tf5VUYf69ICmJzDyLoEzYPbHrWt/CpFkA70XGN+Tq?=
- =?us-ascii?Q?9sGRfZD41X4OfGnIrAfnyJf+KBRxq//CR3AJqhGijYezxsO/EpIf5yECMzYf?=
- =?us-ascii?Q?JtoV+emXSROQ06MrRRjqNuOpTPMABad/MvrVM7Tr20XPuoXR9u8v+epprt0V?=
- =?us-ascii?Q?gRj1NdyR6bPrv/YsIM+ZSBTcNbKQ0WSyYLlrfFXiNo3rVAOrs5MHTlU5W1Vo?=
- =?us-ascii?Q?qvEk/wia2yNEFomed2VjqpIAfs+FypEYZ1mzANY0HCsgLH4NNzxZpAs/5m5L?=
- =?us-ascii?Q?s4sjzs5/UMgED7/ICjhB8IOY1paObRnsfxifMmEL++Xg2XNiqtdK+aIev9YR?=
- =?us-ascii?Q?RRBZ829Iq/wHbNc39EXS1gj7UEp17vStyAFor4af7XQhGzGEWO5HvgjXUWDl?=
- =?us-ascii?Q?XLhjaj7Dvu09Ye/hhpcYHOSwhQIXvgEnbtxNKia3CIoLLOq4hBTIN6F41Ztl?=
- =?us-ascii?Q?SjOsKmoKmGHC6TlJzWNzL2UTVYHN3r7QSWgHN7xGN9OAc/XYL0Jt6VCDdfmD?=
- =?us-ascii?Q?ALDiRDkoWp4/KuYfYTdy6jUxk4eV1QgwUyIzNvV/vrtCx1tYS4ISYOPaRgQQ?=
- =?us-ascii?Q?dhB5xt9qlGpdKV8+/2/lvksPhBDAy/38V9Vr/iYNbQqbHuj9G2Pn5vvgYqr9?=
- =?us-ascii?Q?eCD2pBoRmuMRTZY+B4aEpdjoyl6afneNz+mjMQvOZsSth2eZmaf68Eg02svk?=
- =?us-ascii?Q?XiZq4LumR+Nx0tyRt65lTeRW/ps0v+z7Gy+Tq0PCDa4WhNiB0TJQoUgP4TAj?=
- =?us-ascii?Q?strhmLDr6YapSf5lkadbSdT6eLjjMcNfiHoGT0uR05L3BntNIIRB5kfT4YSI?=
- =?us-ascii?Q?M8sU6ge5mzVdHrSAlugWksLnKwhiv7cGYKym4lbHY1H4Lx/pXFvs3W0KWcGt?=
- =?us-ascii?Q?Cv7e/LM3DfrdcFwSHy+cVvrbdlJEQyXmaoNWiQdsCv+IR5lgybfkNRW/Mptw?=
- =?us-ascii?Q?4dpFrGZJQ3p1vLnZUo0kCNBugpmKreNC8MZofHavPmN0NCQ+AEKKVO9re/Mj?=
- =?us-ascii?Q?ljuCNB82/w=3D=3D?=
-X-Exchange-RoutingPolicyChecked: cxMDTR6IlozPpk7DQ+WTUyWH9aXD68r/9anwvG4R1RrwHdNyP4O3osd9YUkPmcyOGbuaozoiHbyi0ZgVaxV3o5Fk6VWzuV4TOVkArpkxy79jbC9CgOSlyk0CBUh4g206wkET6uwmJQj2++r2L2bPCF7Rz/ZJH+DFQC26r0e3sPODI1ZZAx7EEKIW+ZDLROSx2nxMr/ET8AIUK7tVMe1ZSGGpx5TD8OYxYqqfCmacYcekSrUDeGRB96CaEr8PXcl1vAZ+6g2aSxTRAl11dWlXzv+M+GPVwPCU7ZEhxgBKZ2Sz0YobPFPXcfbWnsbNN7hlCkgyOCoo4XAzdmmvh6Ba3Q==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1bbf3e59-0876-4d95-fe34-08df0ac76e36
-X-MS-Exchange-CrossTenant-AuthSource: CH3PR11MB435924.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Sep 2026 20:59:37.4657
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: V4R11Ne6QnBow8vHT8k+kESAV+JME8/oydcMva1BKf6vEKwEnNpuMtUvdYJkeJMhdbCiliv1UzGJ36JXooJXmQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR11MB4694
-X-OriginatorOrg: intel.com
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Thu, Sep 03, 2026 at 09:33:17AM +0300, Tony Lindgren wrote:
-> On Thu, Sep 03, 2026 at 02:21:35PM +0800, Xiaoyao Li wrote:
-> > On 7/29/2026 8:29 PM, Peter Fang wrote:
-> > > A new TDX module ABI reports the TD Quote size limit in a metadata
-> > > field. This size used to be fixed at 128 KB.
-> > > 
-> > > The guest driver's Quote buffer is shared with the host VMM. The current
-> > > fixed size may be too small for Quotes using schemes such as
-> > > post-quantum cryptography (PQC), where larger certificate chains can
-> > > increase the Quote size significantly.
-> > > 
-> > > Allocate the Quote buffer based on the reported limit. This avoids
-> > > wasting memory on platforms that do not require larger Quotes. Older
-> > > platforms fall back to the default 128 KB buffer.
-> > 
-> > I think we need to justify why using the value reported by TDX module
-> > (i.e., QUOTE_MAX_SIZE) is safe.
-> > 
-> > From "Intel TDX Module Extension for Quoting" spec,
-> > 
-> >   QUOTE_MAX_SIZE that specifies the maximum size of the buffer that must be
-> >   allocated to contain the Intel TDX Quote received from Intel TDX Module.
-> > 
-> > So, TDX module only guarantees that QUOTE_MAX_SIZE is big enough to hold
-> > the quote that is generated by the TDX module. But for the current tdx
-> > guest driver, it doesn't know how host will generate the quote. Host can
-> > generate the SGX-based quote and we need to justify the QUOTE_MAX_SIZE will
-> > be enough for such case.
+register_vlan_device() from net/8021q/vlan.c sets name based on a field
+name_type from struct vlan_net. If name_type is VLAN_NAME_TYPE_RAW_PLUS_VID
+or VLAN_NAME_TYPE_RAW_PLUS_VID_NO_PAD, register_vlan_device() sets vlan
+device's name to the actual net_device's name and adds vid at the end of
+this name separated by a dot.
 
-Thanks for pointing this out. I confirmed with the TDX security folks.
-The reported QUOTE_MAX_SIZE covers all possible quote types on the
-platform. If GetQuote gets routed to SGX and QUOTE_MAX_SIZE is too small
-for that, it's a TDX module bug.
+Network interface's name is limited to at most 16 characters, including NUL.
+Therefore, if the real_dev->name is long enough, then adding the vid
+at the end of this name can lead to the result exceeding 16 bytes which
+leads to a truncated name for the vlan device created in register_vlan_device().
 
-I'll add a comment and update the changelog.
+This patch fixes the issue by returning -ENAMETOOLONG from
+register_vlan_device() if the newly created name does not fit in 16
+bytes.
 
-> 
-> And can we assume the TDX module provided size does not change after init
-> with a TDX module update?
+The bug was discovered when compiling with flag W=1, the following warning comes up:
+linux/net/8021q/vlan.c: In function ‘vlan_ioctl_handler’:
+linux/net/8021q/vlan.c:250:46: error: ‘%i’ directive output may be truncated writing between 1 and 5 bytes into a region of size between 0 and 15 [-Werror=format-truncation=]
+  250 |                 snprintf(name, IFNAMSIZ, "%s.%i", real_dev->name, vlan_id);
+      |                                              ^~
+In function ‘register_vlan_device’,
+    inlined from ‘vlan_ioctl_handler’ at linux/net/8021q/vlan.c:588:9:
+linux/net/8021q/vlan.c:250:42: note: directive argument in the range [0, 65535]
+  250 |                 snprintf(name, IFNAMSIZ, "%s.%i", real_dev->name, vlan_id);
+      |                                          ^~~~~~~
 
-Yep, it's safe to assume that.
+Build & run the reproducer:
+    gcc poc.c -o poc
+    chmod +x poc.sh
+    ./poc.sh
+
+======BEGIN poc.sh======
+#!/usr/bin/env bash
+
+sudo ip link add vlan1234567890 type dummy
+sudo ./poc
+
+# name will not match the expected printed from poc.c on the unpatched
+# kernel, there will be no vlan interface at all on the patched one
+ip a
+======END poc.sh========
+
+======BEGIN poc.c======
+#include <stdio.h>
+#include <string.h>
+#include <unistd.h>
+#include <sys/ioctl.h>
+#include <linux/if.h>
+#include <linux/if_vlan.h>
+#include <linux/sockios.h>
+
+#define IF_NAME "vlan1234567890"
+
+int main()
+{
+    struct vlan_ioctl_args args = {
+	.cmd = ADD_VLAN_CMD,
+	.u.VID = 1234,
+    };
+
+    strcpy(args.device1, IF_NAME);
+
+    int fd = socket(AF_INET, SOCK_STREAM, 0);
+    if (fd < 0) {
+	perror("socket");
+	return 1;
+    }
+
+    /* fails with -ENAMETOOLONG */
+    if (ioctl(fd, SIOCSIFVLAN, &args) < 0) {
+	perror("SIOCSIFVLAN");
+	close(fd);
+	return 1;
+    }
+
+    printf("Expected name: %s.%i\n", IF_NAME, args.u.VID);
+    close(fd);
+    return 0;
+}
+======END poc.c========
+
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Signed-off-by: Janis Edvarts Lacis <janislacis06@gmail.com>
+---
+ net/8021q/vlan.c | 13 ++++++++++---
+ 1 file changed, 10 insertions(+), 3 deletions(-)
+
+diff --git a/net/8021q/vlan.c b/net/8021q/vlan.c
+index 2d2efb877975..b51092d217de 100644
+--- a/net/8021q/vlan.c
++++ b/net/8021q/vlan.c
+@@ -220,7 +220,7 @@ static int register_vlan_device(struct net_device *real_dev, u16 vlan_id)
+ 	struct net *net = dev_net(real_dev);
+ 	struct vlan_net *vn = net_generic(net, vlan_net_id);
+ 	char name[IFNAMSIZ];
+-	int err;
++	int err, len;
+ 
+ 	if (vlan_id >= VLAN_VID_MASK)
+ 		return -ERANGE;
+@@ -234,7 +234,9 @@ static int register_vlan_device(struct net_device *real_dev, u16 vlan_id)
+ 	switch (vn->name_type) {
+ 	case VLAN_NAME_TYPE_RAW_PLUS_VID:
+ 		/* name will look like:	 eth1.0005 */
+-		snprintf(name, IFNAMSIZ, "%s.%.4i", real_dev->name, vlan_id);
++		len = snprintf(name, IFNAMSIZ, "%s.%.4i", real_dev->name, vlan_id);
++		if (len >= sizeof(name))
++			err = -ENAMETOOLONG;
+ 		break;
+ 	case VLAN_NAME_TYPE_PLUS_VID_NO_PAD:
+ 		/* Put our vlan.VID in the name.
+@@ -246,7 +248,9 @@ static int register_vlan_device(struct net_device *real_dev, u16 vlan_id)
+ 		/* Put our vlan.VID in the name.
+ 		 * Name will look like:	 eth0.5
+ 		 */
+-		snprintf(name, IFNAMSIZ, "%s.%i", real_dev->name, vlan_id);
++		len = snprintf(name, IFNAMSIZ, "%s.%i", real_dev->name, vlan_id);
++		if (len >= sizeof(name))
++			err = -ENAMETOOLONG;
+ 		break;
+ 	case VLAN_NAME_TYPE_PLUS_VID:
+ 		/* Put our vlan.VID in the name.
+@@ -256,6 +260,9 @@ static int register_vlan_device(struct net_device *real_dev, u16 vlan_id)
+ 		snprintf(name, IFNAMSIZ, "vlan%.4i", vlan_id);
+ 	}
+ 
++	if (err)
++		return err;
++
+ 	new_dev = alloc_netdev(sizeof(struct vlan_dev_priv), name,
+ 			       NET_NAME_UNKNOWN, vlan_setup);
+ 
+-- 
+2.43.0
+
