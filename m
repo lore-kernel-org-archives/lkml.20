@@ -1,190 +1,202 @@
-Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com [209.85.214.174])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5196647127F
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 11:42:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0806746D57E;
+	Fri,  4 Sep 2026 11:42:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788522176; cv=none; b=gNkUmWEzntdo7ikxcYr+0DtfaJkGO9pk5QYZXbROcUxzi/Nku87RG7iNKlMH8sETZPnwBSeVKmdTZj9iGwTFFzIRmR3CuQ5OngQ9KA/kC5RGK7xGkNlENEFGAGZgVbPFoS0OldcC5wbVHRm24BWrodfEjWMR1BZv+whSZBfklmc=
+	t=1788522178; cv=none; b=t4zEW9bMqqYmTAVhYsz4JxR19yiXLjQ87hwkEfKNk9BNu5MKIclJ2AgsoIfTnWWN8WyTeQ+aLmnMryx6oRG4IlskOwVGFtt9fRynY/Nl0umXRWCxIIHowxD7DzI9EEHBxNgZOKmFzrrS3gsV0FHq92AKqw6UiRQQQhX39wajN8k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788522176; c=relaxed/simple;
-	bh=ZIzz9Yg6OeeDagql+eEt4AWve39emjDHft6ydX4u1P0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=D7eNu/WmYXcuBTPqF87anlOM6yp6UWdFXn89D1hiDYrXx++1ILSqLMjeeUqB6rJOqfxwQCbdgxVKZkYT8p9j5wBN7qZ3P7kpDuzXTgo7/QVRFLDmjdc6TNR06xN3MS1DZ9H5e7Go4ar+nSRBA4terd0lYl0X3NIzyJ9G8nSRT8I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Y+CyPTRg; arc=none smtp.client-ip=209.85.214.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788522178; c=relaxed/simple;
+	bh=RqBV+FCCJMPhhS4Hj+fmI/FrEC3rPKwpyIsRAiEgqTg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=FNVGo5n3rbMwOqF7dqHxCmhi6bjl+D087HOJy0w7rIlLC9HWwhzuTWpdvO6qLhxiLVt8Zm/4CEzjbvaD2fsKIYfbgzhhEKQil0UOaZZj1kJnOI5qbyr47YatOEPpAyoulGGgkSpI/GRNl8yXKMuoQUJQEC7iGihWF82wK/VgKLs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=nTnws8er; arc=none smtp.client-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Y+CyPTRg"
-Received: by mail-pl1-f174.google.com with SMTP id d9443c01a7336-2d9db539a54so7924215ad.0
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 04:42:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788522175; x=1789126975; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=JC4Q1hK93kxfywtj6+9kQnM/OHSHBcI12EVtsgx6Pog=;
-        b=Y+CyPTRg3SZ3IfVEzx4fd3odTdFfdXBrmdPMPE94+9Cgsj9icmioi5jOtf5ji6n2ZC
-         g0rEkDtYLlFow92uIfehiRgP8a6mh46syqfsxqlPEWenIDk0//Lgs5YZzBwsjwuDLoTU
-         xv+lSHpzHDuGXTMPOjguplp8b5dnk+Z7YjR5jDyv3ONYamG/J41erSbYXv0XKRjgw0Ow
-         sbC6yDx/YIVpTt6EbPYrPFKvJLBufnmjZN+wyMVAfcXlgU8z33vwilz/OrUgdAjXruqo
-         gHdcpdpJwxIqQaYnhi9eEt2/tMWGpTuvCsnWZD+jtEXWoWghbMCt4y7ePZE2h9UrS8Oa
-         CWwQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788522175; x=1789126975;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=JC4Q1hK93kxfywtj6+9kQnM/OHSHBcI12EVtsgx6Pog=;
-        b=cUlrmJvyuBxbEguUzjxFOBBLJ3gzmRz5X0DtGQAPS/oTwhsh+JTbeF/2QL0nAJrxPH
-         XEmgw5BBUpLcV/LetZLTaL8carTyrq5VisigUDv/ma2ka6EQCjSsFF99iADF2rFcFLVA
-         BhL2IrI465LW8bywqz7ar6bwv+icMVnXW3SJ/Iuyexmx1FeuqcGq+9mS0zbMkShK3F3t
-         hpmpG7RoAnmg+3TZfgUOfipbbD1uazo6Lk5L6oEs8jOdUn6+T4D7u8JcASu65CgezxQ8
-         6qJVZY9VQfTWUZ67Wifi6rB2CK+kU+0FTYz37EckqUgwvpPOLVgP9Bd0b/ppe1JN87iI
-         c8lQ==
-X-Gm-Message-State: AFuF++kKVLU3pKrtmCg5uPWAp69aRg39TeaSlvvQFgT2BjUFPEwgpx9l
-	nWnsRPgFVhuLF0iJdJ0moD/9i3WT1+lIBO6zh9f9hoY5wXisaY2CeMKf
-X-Gm-Gg: AYBFou11T1WNr971uVGcBnv3PPnNeHexVvornRR6es3hCc7iACN/f9nulh38FHSE7Jt
-	N+VGZ938vXrFUjAE5JpDnm6gnhCtNI8kWQWuCzoeIcCaxW6HoY9tSOge+rf75N5Dz5Kq/Oj36+A
-	gBxQfMHrNPxk63CiWoUlwbk1VoaTZtmXkoXdVmKWQoCz2DpEpUF2RP9Y/TMIWAhHgJhWLeID1s1
-	fCCmgEeMmQVOFEEOZ1xzfRROel6DlmZqoRhnXJC5RAamQrS81MhBGpkyETeNSi0dUuMDEpuee7Z
-	rdYtXozzJjpergq8dQyQQrQJbleJuOJuhv+1gFgufXAe4ghyKWpi8kkCY0wXzlsKlPq27l811yp
-	FUY0BZYzOV+31Gq2ctMv2mpbPY4FNqngRozAEds5FxVa4a7tTA1gLkMZyGLOToXtEgy89q4AB3Q
-	9H/7Eq5GQ2IfUcQMuphggcf8OBVz/sW7VLHR7H5vODkR0SU/pD63XyZKJHlR2v8x8vuexEKZ1HF
-	9F9UmlHzXgXItY=
-X-Received: by 2002:a17:903:2ec5:b0:2cf:8131:75e8 with SMTP id d9443c01a7336-2db125c412dmr92594765ad.13.1788522174392;
-        Fri, 04 Sep 2026 04:42:54 -0700 (PDT)
-Received: from volcano9f6e-hostos.amd.com ([165.204.217.251])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339b314cfcsm6406640eec.19.2026.09.04.04.42.51
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 04 Sep 2026 04:42:54 -0700 (PDT)
-From: Hemanth Selam <hemanth.selam@gmail.com>
-To: Hans de Goede <hansg@kernel.org>,
-	Guenter Roeck <linux@roeck-us.net>,
-	Michael Hennerich <Michael.Hennerich@analog.com>,
-	Steve Glendinning <steve.glendinning@shawell.net>
-Cc: linux-kernel@vger.kernel.org,
-	linux-hwmon@vger.kernel.org
-Subject: [PATCH] hwmon: fix typos in comments
-Date: Fri,  4 Sep 2026 17:12:46 +0530
-Message-ID: <20260904114249.26515-1-hemanth.selam@gmail.com>
-X-Mailer: git-send-email 2.48.1
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="nTnws8er"
+Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 684AVjYt1490808;
+	Fri, 4 Sep 2026 11:42:31 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=pp1; bh=4WuBTyk+7ZTl6/gJBor58BJdLTP04b
+	Wzoe7W6rw9K+4=; b=nTnws8erhXkreeNw0t3p2smI/8V6K5SqBAIhw/3l0xHAcv
+	Erm6mQlRqxvWIJWa/75sWhhYQQGO7OG3KROguMrNg96E/UcRUtRAuGT7vlZfVEXa
+	+LB2L+vN11Ir2RcBtltMXPIgNs72wMpUT5MvFd1QuXm0p5mEOMRSBbZ2YChBp+Nn
+	wQrqfAj2n8lfJ+dDiyMIOjQApePFDdC+TSl9b9i/lsPUgpc1IDxNNjhH/DkR9pyy
+	S4kYXim9axqPSxn8ouoZdOdNIJQRNCK5pYYtkuAPKO2jij4MHvu09pnh9MU7EhwS
+	DdhQR/JnhRATbV548EfbGygGySlWx7IO8rv8gltw==
+Received: from ppma21.wdc07v.mail.ibm.com (5b.69.3da9.ip4.static.sl-reverse.com [169.61.105.91])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gbpx62fwc-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Fri, 04 Sep 2026 11:42:30 +0000 (GMT)
+Received: from pps.filterd (ppma21.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma21.wdc07v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 684BfJ35010880;
+	Fri, 4 Sep 2026 11:42:29 GMT
+Received: from smtprelay06.fra02v.mail.ibm.com ([9.218.2.230])
+	by ppma21.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4gcarkmthc-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Fri, 04 Sep 2026 11:42:29 +0000 (GMT)
+Received: from smtpav03.fra02v.mail.ibm.com (smtpav03.fra02v.mail.ibm.com [10.20.54.102])
+	by smtprelay06.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 684BgOtV45875696
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Fri, 4 Sep 2026 11:42:24 GMT
+Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 7A4B52004E;
+	Fri,  4 Sep 2026 11:42:24 +0000 (GMT)
+Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id C56DE20040;
+	Fri,  4 Sep 2026 11:42:18 +0000 (GMT)
+Received: from dhcp-9-123-3-18.bl1-in.ibm.com (unknown [9.123.3.18])
+	by smtpav03.fra02v.mail.ibm.com (Postfix) with ESMTPS;
+	Fri,  4 Sep 2026 11:42:18 +0000 (GMT)
+Date: Fri, 4 Sep 2026 17:12:16 +0530
+From: Gautam Menghani <gautam@linux.ibm.com>
+To: Sean Christopherson <seanjc@google.com>
+Cc: Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>,
+        Paolo Bonzini <pbonzini@redhat.com>,
+        Tianrui Zhao <zhaotianrui@loongson.cn>, Bibo Mao <maobibo@loongson.cn>,
+        Huacai Chen <chenhuacai@kernel.org>, Anup Patel <anup@brainfault.org>,
+        Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+        Albert Ou <aou@eecs.berkeley.edu>,
+        Christian Borntraeger <borntraeger@linux.ibm.com>,
+        Janosch Frank <frankja@linux.ibm.com>,
+        Claudio Imbrenda <imbrenda@linux.ibm.com>,
+        Fuad Tabba <fuad.tabba@linux.dev>, Joey Gouly <joey.gouly@arm.com>,
+        Steffen Eiden <seiden@linux.ibm.com>,
+        Suzuki K Poulose <suzuki.poulose@arm.com>,
+        Zenghui Yu <yuzenghui@huawei.com>, Atish Patra <atish.patra@linux.dev>,
+        Alexandre Ghiti <alex@ghiti.fr>, David Hildenbrand <david@kernel.org>,
+        linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev,
+        kvm@vger.kernel.org, loongarch@lists.linux.dev,
+        kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org,
+        linux-kernel@vger.kernel.org,
+        Itaru Kitayama <itaru.kitayama@fujitsu.com>,
+        Nicholas Piggin <npiggin@gmail.com>,
+        Ritesh Harjani <ritesh.list@gmail.com>
+Subject: Re: [PATCH v2 11/20] KVM: selftests: Initialize vm->memslots[] with
+ invalid memslots during creation
+Message-ID: <apqumGjtfOspqygY@dhcp-9-123-3-18.bl1-in.ibm.com>
+References: <20260902164123.2546762-1-seanjc@google.com>
+ <20260902164123.2546762-12-seanjc@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260902164123.2546762-12-seanjc@google.com>
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Authority-Analysis: v=2.4 cv=PPc/P/qC c=1 sm=1 tr=0 ts=6a9aaea7 cx=c_pps
+ a=GFwsV6G8L6GxiO2Y/PsHdQ==:117 a=GFwsV6G8L6GxiO2Y/PsHdQ==:17
+ a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=iQ6ETzBq9ecOQQE5vZCe:22 a=omOdbC7AAAAA:8
+ a=1XWaLZrsAAAA:8 a=VnNF1IyMAAAA:8 a=j0vlev5UKZ0XSpOR6SEA:9 a=CjuIK1q_8ugA:10
+X-Proofpoint-GUID: K127SOBQgi0IcTlk75m4H1_Q2ziHQ3DQ
+X-Proofpoint-ORIG-GUID: 95cSaeGsDM3YPyi_8Bstk2nmoY8f_6SX
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA0MDEwNCBTYWx0ZWRfX+sgzR96uIskc
+ L1xC/tLwzlhM8mk95oqvrIZaclLg66tCMY22rFeIBPrTvv5ihmMWj6eNhMSs1srj+rCxliAdcON
+ MB1TT718cfBrt3yTqsdZISpFSiS2+DM=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA0MDEwNCBTYWx0ZWRfX+Ixd/av42HBX
+ ozSfb9Bg9GTIg9InKsUPb+Q1ECRhKMO6cfjbAyHxXXuyaO05TIoiGrLl5DZTkYqrgQTv3EF9zJi
+ bAx4/ZXSBoOszmum71DGEDteU6eN1I/I88w2wX++X2arV+IBlNmTQc68Ea5hlBXI7r5ufl8CTGK
+ rWVD+fZEWvX61zZ9uGC6KqLxsBuQnTzSLV80Uo/SeerZTFh5kAeYBuXvh1tzu0k/XMjR0NxJLbX
+ yccoMxaKlczM4Vnsq9AnuLszNasGW4x+lM8ZPWDBaImP3Hm6ct8vqXzQl00tcXBRIUIJHaVssZk
+ cukJoCzk5UbokxVLYh785GdUKARY87LKbBCocVhCQ2UFGYcjnt8JIIa5biitmwGT7opLjW6SPKk
+ ppoSCGPvqIU0ODB99ArygJ+62g+HIbiPijs30FoEN3zlFgj9U8NkvOkL4RUlZPzW8CjyiX/fPpo
+ WdXIQg2mS1vo/oJwbEQ==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-04_03,2026-09-03_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1011 phishscore=0 adultscore=0 suspectscore=0 bulkscore=0
+ spamscore=0 priorityscore=1501 impostorscore=0 malwarescore=0
+ lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2609040104
 
-Fix typos in comments, reported by scripts/checkpatch.pl using the
-misspelling list in scripts/spelling.txt.  Only touches comments, no code
-changes.
+On Wed, Sep 02, 2026 at 09:41:14AM -0700, Sean Christopherson wrote:
+> Initialize vm->memslots[] with an invalid memslots value during very
+> initial VM creation so that failure to configure the core memory regions
+> generates an immediate assert instead of potential weirdness, e.g. if slot0
+> is coincidentally valid.  This will also allow hardening the region APIs to
+> guard overriding a region's memslot multiple times.
+> 
+> Tested-by: Itaru Kitayama <itaru.kitayama@fujitsu.com>
+> Signed-off-by: Sean Christopherson <seanjc@google.com>
+> ---
+>  tools/testing/selftests/kvm/include/kvm_util.h  | 2 ++
+>  tools/testing/selftests/kvm/lib/kvm_util.c      | 5 +++++
+>  tools/testing/selftests/kvm/lib/x86/processor.c | 5 ++++-
+>  3 files changed, 11 insertions(+), 1 deletion(-)
+> 
+> diff --git a/tools/testing/selftests/kvm/include/kvm_util.h b/tools/testing/selftests/kvm/include/kvm_util.h
+> index c56f342b16fd..304ef6af3268 100644
+> --- a/tools/testing/selftests/kvm/include/kvm_util.h
+> +++ b/tools/testing/selftests/kvm/include/kvm_util.h
+> @@ -33,6 +33,8 @@
+>  
+>  #define NSEC_PER_SEC 1000000000L
+>  
+> +#define KVM_INVALID_MEMSLOT UINT_MAX
+> +
+>  struct userspace_mem_region {
+>  	struct kvm_userspace_memory_region2 region;
+>  	struct sparsebit *unused_phy_pages;
+> diff --git a/tools/testing/selftests/kvm/lib/kvm_util.c b/tools/testing/selftests/kvm/lib/kvm_util.c
+> index ce0d8fba4624..56df5b1d9c79 100644
+> --- a/tools/testing/selftests/kvm/lib/kvm_util.c
+> +++ b/tools/testing/selftests/kvm/lib/kvm_util.c
+> @@ -288,6 +288,7 @@ __weak void vm_populate_gva_bitmap(struct kvm_vm *vm)
+>  struct kvm_vm *____vm_create(struct vm_shape shape)
+>  {
+>  	struct kvm_vm *vm;
+> +	int i;
+>  
+>  	vm = calloc(1, sizeof(*vm));
+>  	TEST_ASSERT(vm != NULL, "Insufficient Memory");
+> @@ -296,6 +297,8 @@ struct kvm_vm *____vm_create(struct vm_shape shape)
+>  	vm->regions.gpa_tree = RB_ROOT;
+>  	vm->regions.hva_tree = RB_ROOT;
+>  	hash_init(vm->regions.slot_hash);
+> +	for (i = 0; i < NR_MEM_REGIONS; i++)
+> +		vm->memslots[i] = KVM_INVALID_MEMSLOT;
+>  
+>  	vm->mode = shape.mode;
+>  	vm->type = shape.type;
+> @@ -1190,6 +1193,8 @@ memslot2region(struct kvm_vm *vm, u32 memslot)
+>  {
+>  	struct userspace_mem_region *region;
+>  
+> +	TEST_ASSERT(memslot != KVM_INVALID_MEMSLOT, "vm->memslots[] unpopulated?");
+> +
+>  	hash_for_each_possible(vm->regions.slot_hash, region, slot_node,
+>  			       memslot)
+>  		if (region->region.slot == memslot)
+> diff --git a/tools/testing/selftests/kvm/lib/x86/processor.c b/tools/testing/selftests/kvm/lib/x86/processor.c
+> index d31fa81ea075..ea5fa59888af 100644
+> --- a/tools/testing/selftests/kvm/lib/x86/processor.c
+> +++ b/tools/testing/selftests/kvm/lib/x86/processor.c
+> @@ -529,7 +529,10 @@ void tdp_identity_map_default_memslots(struct kvm_vm *vm)
+>  
+>  	/* Only memslot 0 is mapped here, ensure it's the only one being used */
+>  	for (s = 0; s < NR_MEM_REGIONS; s++)
+> -		TEST_ASSERT_EQ(vm->memslots[s], 0);
+> +		TEST_ASSERT(!vm->memslots[s] ||
+> +			    vm->memslots[s] == KVM_INVALID_MEMSLOT,
+> +			    "Unhandled memslot '%u' for type '%u'",
+> +			    vm->memslots[s], s);
+>  
+>  	i = (region->region.guest_phys_addr >> vm->page_shift) - 1;
+>  	last = i + (region->region.memory_size >> vm->page_shift);
+> -- 
+> 2.55.0.966.g6673acef38-goog
+> 
 
-Assisted-by: Cursor:claude-opus-5
-Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
----
- drivers/hwmon/abituguru.c    | 4 ++--
- drivers/hwmon/adm1177.c      | 2 +-
- drivers/hwmon/adt7x10.c      | 2 +-
- drivers/hwmon/emc2103.c      | 2 +-
- drivers/hwmon/lm85.c         | 2 +-
- drivers/hwmon/pmbus/mp2888.c | 4 ++--
- 6 files changed, 8 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/hwmon/abituguru.c b/drivers/hwmon/abituguru.c
-index ba8c68ae4595..3bb959d16dbf 100644
---- a/drivers/hwmon/abituguru.c
-+++ b/drivers/hwmon/abituguru.c
-@@ -475,7 +475,7 @@ abituguru_detect_bank1_sensor_type(struct abituguru_data *data,
- 	u8 val, test_flag, buf[3];
- 	int i, ret = -ENODEV; /* error is the most common used retval :| */
- 
--	/* If overriden by the user return the user selected type */
-+	/* If overridden by the user return the user selected type */
- 	if (bank1_types[sensor_addr] >= ABIT_UGURU_IN_SENSOR &&
- 			bank1_types[sensor_addr] <= ABIT_UGURU_NC) {
- 		ABIT_UGURU_DEBUG(2, "assuming sensor type %d for bank1 sensor "
-@@ -1262,7 +1262,7 @@ static int abituguru_probe(struct platform_device *pdev)
- 
- 	/*
- 	 * El weirdo probe order, to keep the sysfs order identical to the
--	 * BIOS and window-appliction listing order.
-+	 * BIOS and window-application listing order.
- 	 */
- 	static const u8 probe_order[ABIT_UGURU_MAX_BANK1_SENSORS] = {
- 		0x00, 0x01, 0x03, 0x04, 0x0A, 0x08, 0x0E, 0x02,
-diff --git a/drivers/hwmon/adm1177.c b/drivers/hwmon/adm1177.c
-index dc4d8a214d1b..85ad4a3009bd 100644
---- a/drivers/hwmon/adm1177.c
-+++ b/drivers/hwmon/adm1177.c
-@@ -105,7 +105,7 @@ static int adm1177_read(struct device *dev, enum hwmon_sensor_types type,
- 			return ret;
- 		dummy = (data[0] << 4) | (data[2] >> 4);
- 		/*
--		 * convert to millivolts based on resistor devision
-+		 * convert to millivolts based on resistor division
- 		 * (V_fullscale / 4096) * raw
- 		 */
- 		if (st->vrange_high)
-diff --git a/drivers/hwmon/adt7x10.c b/drivers/hwmon/adt7x10.c
-index d003ee3ebf06..f99d38e82d0b 100644
---- a/drivers/hwmon/adt7x10.c
-+++ b/drivers/hwmon/adt7x10.c
-@@ -338,7 +338,7 @@ int adt7x10_probe(struct device *dev, const char *name, int irq,
- 	data->oldconfig = config;
- 
- 	/*
--	 * Set to 16 bit resolution, continous conversion and comparator mode.
-+	 * Set to 16 bit resolution, continuous conversion and comparator mode.
- 	 */
- 	data->config = data->oldconfig;
- 	data->config &= ~(ADT7X10_MODE_MASK | ADT7X10_CT_POLARITY |
-diff --git a/drivers/hwmon/emc2103.c b/drivers/hwmon/emc2103.c
-index 27dc149a3ed9..4adc23ffaf72 100644
---- a/drivers/hwmon/emc2103.c
-+++ b/drivers/hwmon/emc2103.c
-@@ -32,7 +32,7 @@ static const u8 REG_TEMP_MAX[4] = { 0x34, 0x30, 0x31, 0x32 };
- #define REG_PRODUCT_ID		0xfd
- #define REG_MFG_ID		0xfe
- 
--/* equation 4 from datasheet: rpm = (3932160 * multipler) / count */
-+/* equation 4 from datasheet: rpm = (3932160 * multiplier) / count */
- #define FAN_RPM_FACTOR		3932160
- 
- /*
-diff --git a/drivers/hwmon/lm85.c b/drivers/hwmon/lm85.c
-index c56e164d61c1..27ef127ccc2c 100644
---- a/drivers/hwmon/lm85.c
-+++ b/drivers/hwmon/lm85.c
-@@ -1445,7 +1445,7 @@ static void lm85_init_client(struct i2c_client *client)
- static int lm85_is_fake(struct i2c_client *client)
- {
- 	/*
--	 * Differenciate between real LM96000 and Winbond WPCD377I. The latter
-+	 * Differentiate between real LM96000 and Winbond WPCD377I. The latter
- 	 * emulate the former except that it has no hardware monitoring function
- 	 * so the readings are always 0.
- 	 */
-diff --git a/drivers/hwmon/pmbus/mp2888.c b/drivers/hwmon/pmbus/mp2888.c
-index c5f35daa3fe1..7a2ecffba960 100644
---- a/drivers/hwmon/pmbus/mp2888.c
-+++ b/drivers/hwmon/pmbus/mp2888.c
-@@ -272,14 +272,14 @@ static int mp2888_write_word_data(struct i2c_client *client, int page, int reg,
- 		word = clamp_val(word, 0, GENMASK(7, 0));
- 		break;
- 	case PMBUS_IOUT_OC_WARN_LIMIT:
--		/* Fix limit according to total curent resolution. */
-+		/* Fix limit according to total current resolution. */
- 		word = data->total_curr_resolution ? DIV_ROUND_CLOSEST(word, 8) :
- 		       DIV_ROUND_CLOSEST(word, 4);
- 		/* Drop unused bits 15:10. */
- 		word = clamp_val(word, 0, GENMASK(9, 0));
- 		break;
- 	case PMBUS_POUT_OP_WARN_LIMIT:
--		/* Fix limit according to total curent resolution. */
-+		/* Fix limit according to total current resolution. */
- 		word = data->total_curr_resolution ? DIV_ROUND_CLOSEST(word, 4) :
- 		       DIV_ROUND_CLOSEST(word, 2);
- 		/* Drop unused bits 15:10. */
--- 
-2.48.1
-
+Acked-by: Gautam Menghani <gautam@linux.ibm.com>
