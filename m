@@ -1,83 +1,79 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3661637F75D;
-	Fri,  4 Sep 2026 02:57:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.19
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E861A3AB28E;
+	Fri,  4 Sep 2026 02:57:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788490650; cv=none; b=G4bRkypmNMrI4BTtvUwuQ8brXIUDCahmVop6qI8Zdr5XgXu0po+7r0Cq64bY4HILTG4dqCftPxJU4M7hHq2F5G/TvsAhNuIaMmHgDH2iamxlfHHPurjJxouUuqNAcde1CdjOJGlgaArO/QtRobUIzgVSeKW2H7R1wjAY1tBag7k=
+	t=1788490652; cv=none; b=ONkIOmLnqtN5MIXHpNJKCwB2MAgZuNSXgnwOEdi6pjIKmgJeg85iUmIMe6ojmrJgCD/w4CCXWOKfOpnvRIW+mOdJ50LwUcckAdEUtjF0As1kL+o/Qh5JQ8WsNfm6jVD2ViypU/FbalA1kBIPwdnwY1lLlZLv7eaxaBkzlke0pLY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788490650; c=relaxed/simple;
-	bh=iYR0oXIVSet/9AajHwy4Lq+E+b35Sv5mxgNq+z07olo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=aBs1PnNunXUzGmlkRp8UE1HVo4kKbLtVSLvrfAvWEZw6WaJpABhTsweOmRBhAjhUceMGZiyc5jV9zVJJWcKeMgvGFARfPEy+JW+sPZcGwTVYbiuKRT51Zg7qKI/QN1yeQHUUD/iBm8/qV3CqD2TAFQTs1qrFrZXcVS+ee2cCDrk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=eNkLDfEo; arc=none smtp.client-ip=198.175.65.19
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1788490652; c=relaxed/simple;
+	bh=GemFk7qd7jKf36VUjTw88H+RTl2AUJYtDiHlNxzn8vE=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=tn3a7Y/raG3jI3Ojr2axPC+d6AMefM4wcvwF/2nMVsT6tUwtgLsQWfOCZu1n26S5M4DLRxb/oM1VJlHFf0ezmL6Ee0dJpGX8qrTXylR/roC7DamAqzZ6yxViOmpPJhohEZlf9nEb9Z+I6ESGpu7n5oOwKPC/wywvnEBWx1PkdRo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jBek6etm; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="eNkLDfEo"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788490649; x=1820026649;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=iYR0oXIVSet/9AajHwy4Lq+E+b35Sv5mxgNq+z07olo=;
-  b=eNkLDfEoSsleJ+RAw8W8VVeX4y2/B5DWTWTx/kusCh5jIquaRhW1utnd
-   bad+wT8WIoQdWzKrJMwBSS0o9kBasUr7/6yoahJ3RLSqHUXxJoZsn/T3k
-   zhsAHQ4uyI23tPORAzhg8bmn3kplD/+Amgm+WTOTZsJyI6jKCRKoaAzAI
-   du795forMYeDlXTghKEpe6ozs38HkC4w3aJkQA3fhI68ZCZghh+v2rELh
-   EEArPHoaJTUg5E8l1wHntlUfM46f5bUNrK74zBCyr15HUN0l+N4+Em6vH
-   wzkBvprTfybTL0ubxrBiWlse3OTQX0ugTMzI6qBGcwl7fSNfPMYOu+eQd
-   Q==;
-X-CSE-ConnectionGUID: T0H07J30RgyMSvM8M5CCHA==
-X-CSE-MsgGUID: dYz6cGAVRdGxtNfU4IVlKw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11895"; a="88915231"
-X-IronPort-AV: E=Sophos;i="6.25,260,1779174000"; 
-   d="scan'208";a="88915231"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
-  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Sep 2026 19:57:28 -0700
-X-CSE-ConnectionGUID: G7VWnjz4RHCa39LLyAPYcQ==
-X-CSE-MsgGUID: 0tp4LJ00QECHbx4nGvqFkg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,260,1779174000"; 
-   d="scan'208";a="271866133"
-Received: from binbinwu-mobl.ccr.corp.intel.com (HELO [10.124.245.162]) ([10.124.245.162])
-  by fmviesa004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Sep 2026 19:57:26 -0700
-Message-ID: <4e14c6dd-e350-45af-afa5-b3680a32d854@linux.intel.com>
-Date: Fri, 4 Sep 2026 10:57:24 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jBek6etm"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A8FBB1F000E9;
+	Fri,  4 Sep 2026 02:57:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788490650;
+	bh=/OON/wKQui0ZRYf4x/MB2IOYmtvsSN6+9H+z12uAFCg=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=jBek6etmBZvZVphHhuWa3J8bvivsrOYR3ZDEardAzJ9jYrLn1qmh+ONIZyBedHVaA
+	 KIn4q3frC+35IVmE2iVj7pWDTQEfECa4VGHSelO7WH9nh7r3Nu5YWUrWcvR5S7Bx3X
+	 M0jN2o8wsnkkc6/XLoakySaqEfHGJMZQafUUgCCIK8biakYsQAtF0f+Ympb/qyvnq7
+	 ZtsdQbm331gL5AS1a3BES4rDBydqqXlSW57XE25fBKR1d7qxCfJo59zwbhrC+030KL
+	 13PZuVOJJWGcL2CC4WgOAVmeFYV37/gPrkfD1C2lSaA3gESKqFYRkCIysjQW0rWy6z
+	 tuPdxWUQ5ycmQ==
+Date: Fri, 4 Sep 2026 03:57:20 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Eliav Farber <farbere@amazon.com>
+Cc: <rafael@kernel.org>, <tony.luck@intel.com>, <bp@alien8.de>,
+ <guohanjun@huawei.com>, <mchehab@kernel.org>, <xueshuai@linux.alibaba.com>,
+ <lenb@kernel.org>, <laurent.pinchart@ideasonboard.com>,
+ <linusw@kernel.org>, <brgl@kernel.org>, <orsonzhai@gmail.com>,
+ <baolin.wang@linux.alibaba.com>, <zhang.lyra@gmail.com>,
+ <dlechner@baylibre.com>, <nuno.sa@analog.com>, <andy@kernel.org>,
+ <dmitry.torokhov@gmail.com>, <hansg@kernel.org>,
+ <ilpo.jarvinen@linux.intel.com>, <W_Armin@gmx.de>, <ukleinek@kernel.org>,
+ <fabio.m.de.francesco@linux.intel.com>, <kaihengf@nvidia.com>,
+ <ankita@nvidia.com>, <leitao@debian.org>, <pedro.pbg@usp.br>,
+ <paulmck@kernel.org>, <frederic@kernel.org>, <kees@kernel.org>,
+ <saket.dumbre@intel.com>, <linux-acpi@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <linux-gpio@vger.kernel.org>,
+ <linux-pwm@vger.kernel.org>, <linux-iio@vger.kernel.org>,
+ <linux-input@vger.kernel.org>, <platform-driver-x86@vger.kernel.org>,
+ <acpica-devel@lists.linux.dev>, Jonathan Cameron
+ <jonathan.cameron@oss.qualcomm.com>
+Subject: Re: [PATCH v5 04/13] iio: position: iqs624: use
+ devm_blocking_notifier_chain_register()
+Message-ID: <20260904035720.6046b03c@jic23-huawei>
+In-Reply-To: <20260816060648.4030-5-farbere@amazon.com>
+References: <20260816060648.4030-1-farbere@amazon.com>
+	<20260816060648.4030-5-farbere@amazon.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 7/8] KVM: VMX: Move common VT getters/converters to
- common.h
-To: Sean Christopherson <seanjc@google.com>
-Cc: Paolo Bonzini <pbonzini@redhat.com>, kvm@vger.kernel.org,
- linux-kernel@vger.kernel.org, Xiaoyao Li <xiaoyao.li@intel.com>,
- Kai Huang <kai.huang@intel.com>, Rick Edgecombe
- <rick.p.edgecombe@intel.com>, Yan Zhao <yan.y.zhao@intel.com>
-References: <20260904010353.3175819-1-seanjc@google.com>
- <20260904010353.3175819-8-seanjc@google.com>
-Content-Language: en-US
-From: Binbin Wu <binbin.wu@linux.intel.com>
-In-Reply-To: <20260904010353.3175819-8-seanjc@google.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
 
-On 9/4/2026 9:03 AM, Sean Christopherson wrote:
-> Move the "to" vCPU converters and common exit information getters from
-> vmx.h to common.h to capture that they are indeed common VT code.  Defer
-> renaming their prefixes to isolate the code movement from the massive
-> churn that will result from said renaming.
-> 
-> No functional change intended.
-> 
-> Reviewed-by: Xiaoyao Li <xiaoyao.li@intel.com>
-> Reviewed-by: Kai Huang <kai.huang@intel.com>
-> Tested-by: Kai Huang <kai.huang@intel.com>
-> Signed-off-by: Sean Christopherson <seanjc@google.com>
+On Sun, 16 Aug 2026 06:06:03 +0000
+Eliav Farber <farbere@amazon.com> wrote:
 
-Reviewed-by: Binbin Wu <binbin.wu@linux.intel.com>
+> Replace the blocking_notifier_chain_register() +
+> devm_add_action_or_reset() pattern with a single call to
+> devm_blocking_notifier_chain_register(), removing the
+> iqs624_pos_notifier_unregister() callback.
+> 
+> Signed-off-by: Eliav Farber <farbere@amazon.com>
+> Acked-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+Applied to the testing branch of iio.git
+
+Thanks,
+
+Jonathan
