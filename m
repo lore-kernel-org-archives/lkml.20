@@ -1,107 +1,134 @@
-Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com [209.85.128.71])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C46703BB672
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 16:46:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.71
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79A2747798F;
+	Fri,  4 Sep 2026 16:46:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788540367; cv=none; b=DP5LN/GgtlV/6kx1zD+fyUUG377/upd6KX5S1DPonEfrfk8ePG3MzowhFSXbjF28G607RHAPTmxraYKm1vBzwBzBRSgkTdi/5eIY6l+Fya8pMlGVx+xP7oVkccLnaMibN2aMfWOZKdYZDvmzRYN/erwawonXVsU32BUpSgCj56s=
+	t=1788540369; cv=none; b=q7CC7wDIg0p9pHXfGq2wUorltAADDbRG22TVO5Qai12syVc6jMuct7669Sn0ycFoFJ9HO8QHJx+wbAeNY0Rb8bcAbsQPdoO00rQvgN2KUT905/aJ0af8xdAQ1ZWROPRmVTg5UhddikceilUKsNm2SY9n1EOOV43xTjNVWPgD9UY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788540367; c=relaxed/simple;
-	bh=hxQZMLwG6yecstcTEMEbqIUKya/zeWZiCbghCJI8fVQ=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=hzaNNZ4Y5c/PNz66QT6gXNbARi1GdMoU7Tw8MiD9bSDl+GSWvFkeDq8vfth30uCnZa1n7+mXmVXY6f5xi5r9NDNTzrJfNFhAF1kwUh2a0vpy9DfXSBP2NEwI38QYe1qSFwrJrqVwuGYQyMV1Gz2MOHX4Lg4Q0vo4ByNzK8GE/0M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--vdonnefort.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=vpkXyu6U; arc=none smtp.client-ip=209.85.128.71
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--vdonnefort.bounces.google.com
+	s=arc-20240116; t=1788540369; c=relaxed/simple;
+	bh=p/QDGi7MJCxA8soqcqABl6a7rhLa88UYgRiKEbdriGs=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=F7+TX+e/OWOROtMF2HE/9BKCppnE8vfGhlVimovf9fqpft1mC+pT4E+rzdODeOB2zjweVf5sJsZGb//VKu09r6mq0hAWobqR7T43K9sa1F7BwPTDWDxpAfVEhLkDVbDhTwMzpK/HssruyWS30fSd3cerEhYHUOtXx+8r4Xw1M3A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=UShlwPcl; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=KaGGf68u; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=ODVwy5Jr; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=Ohap4DB+; arc=none smtp.client-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="vpkXyu6U"
-Received: by mail-wm1-f71.google.com with SMTP id 5b1f17b1804b1-49b7c1dc61eso11047585e9.3
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 09:46:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1788540360; x=1789145160; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=vWNAdrwGmNJRf6eRTL3iblh5LCxPTOBo/qfLWNuuaXo=;
-        b=vpkXyu6UIvcaSzsDleZpo1eGIF5yY+lTSnOrIhzO5QZNnnGlE05girF4gH4JixmfzK
-         50xri6fSK8PczTnr6MUN2GNZ8+fGTML/jfDv+s5+kKvZ++wKj7VArYmCwBJVzY6ok6dI
-         16uDI+uTmP0Yg6KEbmZgB6sHCemsYvLIbjQB4shpHvkoH7kgDoS2nOWxQZEH2nenm7E+
-         3BiM+0fozaacAidqi66ze+841KgVSvmBfvFH4/XaAMuhhVkqchiR0xAUWAbIZzMWhtfe
-         uABTOB/sIUCEkBAEiLLLocP8WBfBR0Pg6ItcfjHhreQXKjyE8b5B+xLeqVYHbYrjOjgY
-         io0g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788540360; x=1789145160;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=vWNAdrwGmNJRf6eRTL3iblh5LCxPTOBo/qfLWNuuaXo=;
-        b=ioJ9kJ+Pz1OcB4uap2Rn3Mck8JY5PErfHbQN6NMLz9qij/6DsqKga5dRgGQ3NESpeG
-         EYL1B3NZnYO5NA0IasUyqS0eb0ogBClwZanZQmv4YtMsfUux4aoKyZiL/ypBuM7wEWuM
-         ffAUL/kjyE6nA7KmEws8tebSo4Soe0dvIUO5ETCLiq0tv0K8rUoJjejwHMmnD6ju2H0p
-         V2WmUonL9dFRKTDbgXJ6j1hEAmalh0nwoRcXVPyIER818cPKdXyjY1EJrZfvnPkkh9jE
-         xkvhOVUVdF3F9xWOzKsbdOdkeIBnAH63Q9C9uHTLbbt6VlRBHy8OLnxoyKCCpeh23GLi
-         4z0A==
-X-Forwarded-Encrypted: i=1; AKwUvByb4pDppUGaZNngdxZfIJepfbEjuBGlDTH3q9Iyyy/oPKD9+v9Q5zbdTLc94E5t5MkMqdaZQ0p7GfvvbzA=@vger.kernel.org
-X-Gm-Message-State: AFuF++kI0oHZ0miN5lbVKrxovwBRHLvLCzRLIK6CWUoN2eifqIcennt1
-	GkaaXOv/NAfC8vIbZW6nUg3l3ltIPvhGxZ7dh0fIlAtn6mnpQ72qUC/hvwYENZS5SjM2pS44wUc
-	Xx/H08buvn+Q7FsL6RV+ReA==
-X-Received: from wmwb5-n2.prod.google.com ([2002:a05:600d:4445:20b0:49a:1b4c:be])
- (user=vdonnefort job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:600c:a40f:b0:49c:fa21:e74b with SMTP id 5b1f17b1804b1-49cfa21e9a7mr42587355e9.33.1788540360049;
- Fri, 04 Sep 2026 09:46:00 -0700 (PDT)
-Date: Fri,  4 Sep 2026 17:44:47 +0100
-In-Reply-To: <20260904164450.1345852-1-vdonnefort@google.com>
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="UShlwPcl";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="KaGGf68u";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="ODVwy5Jr";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="Ohap4DB+"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 9E269203A4;
+	Fri,  4 Sep 2026 16:45:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1788540355; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=o5Vk7nOeZkCcjmUccwIC3knrNfALT30x9jDi0kHot6E=;
+	b=UShlwPclrh7FHtEs+KEKlAFVg2g5YyEERhzJVOvxdpksayYj3j9QOExmOPBR/RVp8nX1II
+	5REFTcu4DV/JjcqF/hIZun0FpSuEjyMwC3Z5cv0mSgJZJs+LDXGXc3C+TLBh1vxm9aZ01/
+	+XsCYSgt5LbZj1tJ4pu1qayNSEzxxhY=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1788540355;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=o5Vk7nOeZkCcjmUccwIC3knrNfALT30x9jDi0kHot6E=;
+	b=KaGGf68uJ6a+1KdU27+C8iBosfL7j6epyxQTTqhSKnFt3rs6VwHKg+bXqK+kxToyrKDOmi
+	ZNzIpzufJ6Rwh6BA==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1788540351; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=o5Vk7nOeZkCcjmUccwIC3knrNfALT30x9jDi0kHot6E=;
+	b=ODVwy5JrvyC4hqCTZYTI3CEF7K0qTPmWs0xwM+lP5hqUxMEEUDUoj1yIyoVZKdNXsNMY1n
+	i8TvwJBrkuyExXgpc6UMdon9dhod334YNJB4RlmXEW8HI5qPN6ijwCtAjFmqPRPT6jOZko
+	rA/RdqGgnnYe17355nCJyPIDR25vrqU=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1788540351;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=o5Vk7nOeZkCcjmUccwIC3knrNfALT30x9jDi0kHot6E=;
+	b=Ohap4DB+z72s/6eNe0A15gIl1D8NrM/Kz/pB13pmVDYPTcIlQY/3wsn/dMD6T2TVnByG5I
+	Mzg6+8sLIoIWf6Aw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 0A53713726;
+	Fri,  4 Sep 2026 16:45:49 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id DXrCK731mmoXVAAAD6G6ig
+	(envelope-from <krisman@suse.de>); Fri, 04 Sep 2026 16:45:49 +0000
+From: Gabriel Krisman Bertazi <krisman@suse.de>
+To: Christian Loehle <christian.loehle@arm.com>, Shuah Khan
+ <shuah@kernel.org>, linux-kselftest@vger.kernel.org
+Cc: Rama Krishna Katta <ramakrishna.katta@arm.com>, Thomas Gleixner
+ <tglx@kernel.org>, Gregory Price <gourry.memverge@gmail.com>, Kees Cook
+ <kees@kernel.org>, Peter Zijlstra <peterz@infradead.org>, Andy Lutomirski
+ <luto@kernel.org>, Gabriel Krisman Bertazi <krisman@collabora.com>,
+ linux-kernel@vger.kernel.org, Christian Loehle <christian.loehle@arm.com>
+Subject: Re: [PATCH 0/3] selftests: Skip SUD tests when unsupported
+In-Reply-To: <cover.1786965107.git.christian.loehle@arm.com>
+Organization: SUSE
+References: <cover.1786965107.git.christian.loehle@arm.com>
+Date: Fri, 04 Sep 2026 13:45:44 -0300
+Message-ID: <87jyp12cef.fsf@mailhost.krisman.be>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260904164450.1345852-1-vdonnefort@google.com>
-X-Mailer: git-send-email 2.55.0.979.g7e5102b832-goog
-Message-ID: <20260904164450.1345852-2-vdonnefort@google.com>
-Subject: [PATCH v10 1/4] ring-buffer: Allow splice reads on static buffers
-From: Vincent Donnefort <vdonnefort@google.com>
-To: rostedt@goodmis.org, mhiramat@kernel.org, 
-	linux-trace-kernel@vger.kernel.org
-Cc: mathieu.desnoyers@efficios.com, kernel-team@android.com, 
-	linux-kernel@vger.kernel.org, Vincent Donnefort <vdonnefort@google.com>
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Type: text/plain
+X-Spam-Level: 
+X-Spam-Score: -2.80
+X-Spam-Flag: NO
+X-Spamd-Result: default: False [-2.80 / 50.00];
+	BAYES_HAM(-3.00)[99.99%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	ARC_NA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	RCPT_COUNT_TWELVE(0.00)[12];
+	MISSING_XM_UA(0.00)[];
+	HAS_ORG_HEADER(0.00)[];
+	TAGGED_RCPT(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	TO_DN_SOME(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[arm.com,kernel.org,gmail.com,infradead.org,collabora.com,vger.kernel.org];
+	RCVD_TLS_ALL(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email,imap1.dmz-prg2.suse.org:helo,arm.com:email]
 
-ring_buffer_read_page() rejects splice (full=1) reads on static buffers
-(that is user-mapped, persistent or remote) because !read check assumes
-unread pages must be swapped. However for those buffers we have no other
-choice than memcpy the data.
+Christian Loehle <christian.loehle@arm.com> writes:
 
-For the memcpy case, only return an error when the writer is still on
-the reader page for the splice interface to wait.
+> Syscall User Dispatch (SUD) is unavailable on architectures without
+> generic syscall entry. Such architectures return -EINVAL for otherwise
+> valid SUD prctl and ptrace requests, which the SUD selftests currently
+> report as failures.
+>
+> Probe SUD with a valid disabled configuration and skip the affected tests
+> when that probe returns EINVAL. Unexpected errors remain failures, and the
+> existing coverage is unchanged on kernels that support SUD.
 
-Fixes: 117c39200d9d ("ring-buffer: Introducing ring-buffer mapping functions")
-Signed-off-by: Vincent Donnefort <vdonnefort@google.com>
+Reviewed-by: Gabriel Krisman Bertazi <krisman@suse.de>
 
-diff --git a/kernel/trace/ring_buffer.c b/kernel/trace/ring_buffer.c
-index b0963ac6fd16..84fd4cdd486f 100644
---- a/kernel/trace/ring_buffer.c
-+++ b/kernel/trace/ring_buffer.c
-@@ -7193,15 +7193,8 @@ int ring_buffer_read_page(struct trace_buffer *buffer,
- 		unsigned int event_size;
- 		unsigned int flags = 0;
- 
--		/*
--		 * If a full page is expected, this can still be returned
--		 * if there's been a previous partial read and the
--		 * rest of the page can be read and the commit page is off
--		 * the reader page.
--		 */
--		if (full &&
--		    (!read || (len < (size - read)) ||
--		     cpu_buffer->reader_page == cpu_buffer->commit_page))
-+		/* If a full page is requested, it cannot be the commit page */
-+		if (full && cpu_buffer->reader_page == cpu_buffer->commit_page)
- 			return -1;
- 
- 		if (len > (size - read))
 -- 
-2.55.0.979.g7e5102b832-goog
-
+Gabriel Krisman Bertazi
