@@ -1,69 +1,82 @@
-Received: from mail-oo1-f44.google.com (mail-oo1-f44.google.com [209.85.161.44])
+Received: from mail-ot1-f43.google.com (mail-ot1-f43.google.com [209.85.210.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 897DC477984
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 12:04:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FFCB40B0FE
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 12:05:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788523477; cv=none; b=d2YAmL03K6DcF/GxRTpIdtxtI1/iRUgg/I2SL7zIG+z84BeEt2UGNazltUodJhF/+2TBG0Vv5paWUgP7p74vt9bmknzGISxkWXjVVpGEznLe2Td7bQAN5EKZ/SbG/R4JsqWNQLX6SLyxKbd9QPcs0xlGf1dwWZr2ZdGTNRUZq+U=
+	t=1788523510; cv=none; b=jbwNYwvaQQaYTGRd5C6GOHNeM9vRuilYzFcf/ljuERIoHxy4tOBmjyAmBtD9OwC5kpgINh+IN9N8lGEzPxEOI9+usw4mTJx/WNT9NRESgVfb9FbKByhOQ3ZyqHydQiG62XGkx0YPK0QPJfFd/DusPVEK0hyyoTlCHlVieE/xxyM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788523477; c=relaxed/simple;
-	bh=sT39qbeBdcKVZPKp8dHBTJYvcY8iTBXm47Uar5LqFdI=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=X2QamjVhKnkwJ4qGtTetUtY6Ics97bpqZGmyAn3ORhaUS5IRQE+Ju1bAr9BuozhmV+U9H02QJjEGt3UJF1HCelujl9vlAF9FViHyWhJWkeVIjIqfT3nNDBfMftzAu/EecGumXyMRkFEWjbiNX1f32aIMllytpjGB5KL0pxbcI7M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bEjYriLG; arc=none smtp.client-ip=209.85.161.44
+	s=arc-20240116; t=1788523510; c=relaxed/simple;
+	bh=q4xMfRCG+omyHAtGpbU2YLMGDI8MHnLga5PPMo9CBoo=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Ss7yKatb4SL+MS000FCAx2ez4mHqRDHnhMxi9CNvLLLA0nW/+/8M5tPv4iE8xQmzjlytiPNCQ6yE9saa+jEnFkA+EKHdE+oCecdstmOC2wYeofa+THeuEn7tTRA+Iu7vHxStcb6iYSLQdYJBAvLqSRpoEMEg8u7dcWnmERIvEGI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ovCqymJs; arc=none smtp.client-ip=209.85.210.43
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bEjYriLG"
-Received: by mail-oo1-f44.google.com with SMTP id 006d021491bc7-6b1afdf5196so371779eaf.2
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 05:04:35 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ovCqymJs"
+Received: by mail-ot1-f43.google.com with SMTP id 46e09a7af769-7e9ef94c0e2so584192a34.3
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 05:05:09 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788523474; x=1789128274; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=45a89UjRbWNWb7/GnsM0msepV7nJy8o7xzN6rsFFgTI=;
-        b=bEjYriLGG+Od733d+V26W0wGlUkxVLC+05UU77y5p9gbMDSeR5WIrumOjBqa5JeK+9
-         SKyig2gnA+h5kxpuJbkBuAqgkZ3dhJOVaKW3CCLsmtXbW7y9TMCPcrEr12R+58/FkCdi
-         Nu51uWgTfwtJls9ViA8cJDNhBmaQ6LtCbhV83U8xEeaK/dZ2FTsXMQOe0GcPuSI9xnml
-         Q5llIeYnkiaa7IsZnEKsvXm3a0hH30ufBI59174BgKVPzsLn+RfNZAwo9J3mzNoWM0AU
-         cHzOIs4STqxfWZL1S/eYi4GXHwqP0xURW4kebNeBDoWJyiM4hGdUffft9t4wGRZb2muf
-         OlfA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788523474; x=1789128274;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1788523508; x=1789128308; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=45a89UjRbWNWb7/GnsM0msepV7nJy8o7xzN6rsFFgTI=;
-        b=TeTGOGh1AUlLjCckWCB80gotpi0ei5eMB89vaGXZRQNsRtVKWAPQ/lvD66O4pzSO3I
-         j6xUOEd/KCGJf0qwGxVG3jsJ0fU5ikBepnojRo/XUI24DwxM5E6q07uyB65sskFwox6p
-         Cmbg+Zumdill97nC46VGR1Tad1GJ9PYsgD3+uPbm0lNnCiKByj3dCVV1mMLK4zkMd24C
-         mEO5ffnMWhGPEzadPgiHGLtNhzffE02liog6icT63Jg0n8RbEKQK1AWO5HaSNFEd/Fch
-         uFDufgz5L0QtFXdPbcmU1t7xsizkhdTS7xqjnd3vFleNN9wWzf8Kmhl5ir2/AV0stsqV
-         32eg==
-X-Gm-Message-State: AFuF++k8zbgEgZewdz1zkJXIfYGzWmil7JkpQxo1c03+ERBZewBDd43o
-	Fh219hpOaJIUmCihQYKy1ZbIYwcRtfbdBmbAkjHA2FbU3dYijXTIWJvLiTg7kGZwSFk=
-X-Gm-Gg: AYBFou0Rc0j2yI06VV6p6ctizYssrZ7JHWkiOTZBcGakxlqUWVGSsaRQ+WY2nLwWUfW
-	AgQIo55U1yiA+dCbbd9W2Bw9CrHEFPWcarkrPUSQMyDqTmz0UT1IMqJB3pMYvFN+a6s5rtvoH0g
-	9XGabHYn3YM+D0UU3JRJvJUsPgX7SlM+FspbsFEvSOH3GQa/9yKkhHqP7V8UUSyMpVOqKLKMrpS
-	EO1P9Co1tyepgkKed49QZgsrcA7/s0cgj1pT0bnwUfOWdieB9Kjaunq6TVHdfx44DWYlFWP2WkZ
-	t6NmvlcWUS2mlFjOpahXALG79E/G/Unu6m5L0HjYo0yFg38S9vjnf5WOhwqpd9uAvQNbnvY5TlC
-	0DZoJQDzgfdhVW9aycU0D61boZXJu9qops1/Whc+Udn2AIPjqA7LzPyHBIyU4dRJVoAztx2mXIq
-	frjkZrhF2vj5yVn9Eyfi1vQeXwYziNfTMpJRVsFPmkiuFTnLWSAlYZB7aw8064qVC8DfnX2NXkm
-	hQ400n0Uk4QjoY=
-X-Received: by 2002:a05:6820:a06:b0:6b7:46e9:9708 with SMTP id 006d021491bc7-6b746e9a219mr2090272eaf.56.1788523474232;
-        Fri, 04 Sep 2026 05:04:34 -0700 (PDT)
+        bh=sYrDdFiVD38RqgIzTk5IkPI7oe3vWfrIZd42ghxcZC4=;
+        b=ovCqymJs7sApxUELmbtoYIVSrB49Jrv5deCOd95Awizg6dyTHI9NJGTitxuKUflIdR
+         osG4r0TQIrwvhK1dO4+tYN7BdpFE6Qf5pVuMS2w4KuxkMO3WgjbUxDjHnbBhoydh2CSF
+         DqbuZc+KDxNlblYJFlXrE056Xg6anG/spOS+Jx8F+RCYItNJND/q4kpdM4VP2oH2sW2I
+         DaHQgi5RH8LlXLusUjzAuAjZxXGAFzgUgYa7BQDaMxhrnd0OGtjzm0RURHaDc61jVA43
+         LGndBK97WUVv2d9X3WMIyegPWKk6nLDfaY1iZzXPnoeQ18rla8MN8rVEmbHEd+C5jloE
+         oDSw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788523508; x=1789128308;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=sYrDdFiVD38RqgIzTk5IkPI7oe3vWfrIZd42ghxcZC4=;
+        b=aeIlZDuXanyBNCvoWPKhdnYEhwuxYt/3PPw3GkK2zJkaEVuk2xoboYerTQwUhVpViD
+         LG74GADfBq8B1Rkd3teSM7/mbZyYbAfZkBO9q4Hbpe8bsu5sXFEL8X8jb+RYN/7rMTUV
+         lC2YmCW6N56eF5As9oX9u9rx1sfDAoFpYjt3mmCHaeI3gHSjo3Ttjsb4zxB3s7L579pn
+         D5zfdMMXK6qnBF0m80VjhNpE/FrjDllyvq7hyuXs4CPVLJQ/bRafTA9Gvp0hdVgq0XBq
+         oCk8D14/9XsZh9HVpTWGsWbK7fK27FLbta8HZwPd62k2h2/3rBbB5GU15ya1ududURXT
+         ZxUw==
+X-Gm-Message-State: AFuF++k+28lQxiGyraeC7hTrry2Y1D+zhrMpuQDvzqkkAaJSdpNU0way
+	8IiOPuTxaDwFVt4ehkIpIp9TkxH+JW5NbABOOCdElTtSA1tPv19JZedt
+X-Gm-Gg: AYBFou0V8mFQiT82trpE7ymwGxPHdpwl4+pKsh49zacebu9snffiE6E6IYVVkfqa4/Z
+	ldwnDaY1rHcaC0jHCjxEwqAYorTBSbzMz7xc5wJe27vLDs6KcQFpeXOuTxFS5069LsUA1s+FbWj
+	DPNg+FpnhqtpxTYUOd9SWcKTEAPDOVLcHEvN8mLO3B3fT/ZGdoU2jm5nEb2Rvv6ZBojaVKGatbW
+	oIk6htnDYwivYn7joHZWGKMeXb0NRRcXKssdSZWYOivwPNx9FKcWDef91o2j9F0zIvmlSXNz+kV
+	NjLTXfraB/nh07QYsOTdiqUi+csoK/sBsCXXeOPB0eBmNZatTMJEzeLOgWNtD/zk8C1qdvTWu3O
+	LsGHjUgDXaJ3tMd3TGKws5VLC0oAYCf8porAldq1Wwjw2GUl5TW2AGDRjUkyLXPQoFCBAqGe/f0
+	xLQojUksoMyuTd4e99k91jt4rgTOBzjhk51/OkHo7iqc1MLq2yldrDCz876j2lIJEU2ex4r2roC
+	VUXsGtE38ETMPU=
+X-Received: by 2002:a05:6820:818e:b0:6b7:8415:d78e with SMTP id 006d021491bc7-6b78415d959mr1361190eaf.57.1788523508058;
+        Fri, 04 Sep 2026 05:05:08 -0700 (PDT)
 Received: from volcano9f6e-hostos.amd.com ([165.204.217.251])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339b8f787esm5770422eec.23.2026.09.04.05.04.33
-        for <linux-kernel@vger.kernel.org>
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339b8f787esm5770422eec.23.2026.09.04.05.05.04
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 04 Sep 2026 05:04:33 -0700 (PDT)
+        Fri, 04 Sep 2026 05:05:07 -0700 (PDT)
 From: Hemanth Selam <hemanth.selam@gmail.com>
-To: 
-Cc: linux-kernel@vger.kernel.org
-Subject: [PATCH 0/3] drm: fix typos and repeated words in comments
-Date: Fri,  4 Sep 2026 17:34:15 +0530
-Message-ID: <20260904120430.17224-1-hemanth.selam@gmail.com>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Lyude Paul <lyude@redhat.com>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Zack Rusin <zack.rusin@broadcom.com>,
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>
+Cc: linux-kernel@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	nouveau@lists.freedesktop.org
+Subject: [PATCH 2/3] drm: fix repeated words in comments
+Date: Fri,  4 Sep 2026 17:34:17 +0530
+Message-ID: <20260904120430.17224-3-hemanth.selam@gmail.com>
 X-Mailer: git-send-email 2.48.1
+In-Reply-To: <20260904120430.17224-1-hemanth.selam@gmail.com>
+References: <20260904120430.17224-1-hemanth.selam@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -72,82 +85,65 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-This corrects 3 misspellings and repeated words in comments.  Each is a
-separate patch so that any one of them can be dropped without touching
-the rest.
+Drop words accidentally written twice, reported by checkpatch.pl as a
+possible repeated word.  Only touches comments, no code changes.
 
-Nothing outside comments changes.  Every touched C file was checked by
-dropping its comments, replacing each string literal with a placeholder
-and collapsing whitespace; what remained was identical before and after,
-so the compiled code cannot differ.
+Assisted-by: Cursor:claude-opus-5
+Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
+---
+ drivers/gpu/drm/drm_syncobj.c                  | 2 +-
+ drivers/gpu/drm/nouveau/nvkm/engine/gr/gf100.c | 2 +-
+ drivers/gpu/drm/vmwgfx/vmwgfx_execbuf.c        | 4 ++--
+ 3 files changed, 4 insertions(+), 4 deletions(-)
 
-The mistakes were found with scripts/checkpatch.pl against the list in
-scripts/spelling.txt.  The scanning, the edits and the changelogs were
-produced with Cursor running the claude-opus-5 model, from a request to
-find and fix spelling mistakes across the tree, and every correction was
-then re-checked by the comparison described above.  Words that name an
-identifier were left alone deliberately, even when they read as typos,
-because correcting the prose would make the comment disagree with the
-code it describes.
-
-Tested by building x86_64 defconfig at v7.3-rc1-269-gbc35965f6940, which
-is clean.  Nothing else was built, so any patch touching code that
-x86_64 defconfig does not compile has been read but not compiled.
-
-Hemanth Selam (3):
-  drm: fix typos in comments
-  drm: fix repeated words in comments
-  drm/vmwgfx: fix repeated word in log message
-
- drivers/dma-buf/sync_debug.h                           | 2 +-
- drivers/gpu/drm/bridge/parade-ps8622.c                 | 2 +-
- drivers/gpu/drm/bridge/samsung-dsim.c                  | 2 +-
- drivers/gpu/drm/bridge/tc358767.c                      | 6 +++---
- drivers/gpu/drm/display/drm_dp_mst_topology.c          | 2 +-
- drivers/gpu/drm/drm_drv.c                              | 2 +-
- drivers/gpu/drm/drm_syncobj.c                          | 2 +-
- drivers/gpu/drm/gma500/oaktrail_lvds.c                 | 2 +-
- drivers/gpu/drm/gma500/power.c                         | 2 +-
- drivers/gpu/drm/gma500/psb_drv.h                       | 4 ++--
- drivers/gpu/drm/imx/dcss/dcss-ctxld.c                  | 2 +-
- drivers/gpu/drm/loongson/lsdc_drv.c                    | 2 +-
- drivers/gpu/drm/mgag200/mgag200_g200se.c               | 2 +-
- drivers/gpu/drm/nouveau/dispnv50/tile.h                | 2 +-
- drivers/gpu/drm/nouveau/nouveau_bios.c                 | 2 +-
- drivers/gpu/drm/nouveau/nouveau_exec.c                 | 2 +-
- drivers/gpu/drm/nouveau/nouveau_led.c                  | 2 +-
- drivers/gpu/drm/nouveau/nvkm/engine/gr/ctxnv50.c       | 2 +-
- drivers/gpu/drm/nouveau/nvkm/engine/gr/gf100.c         | 4 ++--
- drivers/gpu/drm/omapdrm/dss/dispc.c                    | 4 ++--
- drivers/gpu/drm/omapdrm/omap_gem.c                     | 2 +-
- drivers/gpu/drm/panel/panel-novatek-nt36672a.c         | 2 +-
- drivers/gpu/drm/panel/panel-samsung-s6e63j0x03.c       | 2 +-
- drivers/gpu/drm/qxl/qxl_gem.c                          | 2 +-
- drivers/gpu/drm/renesas/rcar-du/rcar_lvds.c            | 2 +-
- drivers/gpu/drm/scheduler/sched_main.c                 | 4 ++--
- drivers/gpu/drm/sun4i/sun4i_tcon.c                     | 2 +-
- drivers/gpu/drm/tiny/panel-mipi-dbi.c                  | 2 +-
- drivers/gpu/drm/ttm/ttm_pool.c                         | 2 +-
- drivers/gpu/drm/vc4/vc4_hdmi.c                         | 2 +-
- drivers/gpu/drm/vc4/vc4_regs.h                         | 2 +-
- drivers/gpu/drm/virtio/virtgpu_ioctl.c                 | 2 +-
- drivers/gpu/drm/vmwgfx/device_include/vm_basic_types.h | 2 +-
- drivers/gpu/drm/vmwgfx/ttm_object.c                    | 2 +-
- drivers/gpu/drm/vmwgfx/vmwgfx_drv.h                    | 6 +++---
- drivers/gpu/drm/vmwgfx/vmwgfx_execbuf.c                | 6 +++---
- drivers/gpu/drm/vmwgfx/vmwgfx_kms.h                    | 2 +-
- drivers/gpu/drm/vmwgfx/vmwgfx_resource.c               | 2 +-
- drivers/gpu/drm/vmwgfx/vmwgfx_so.h                     | 2 +-
- drivers/gpu/drm/vmwgfx/vmwgfx_surface.c                | 2 +-
- drivers/gpu/drm/xlnx/zynqmp_dp.c                       | 2 +-
- drivers/gpu/ipu-v3/ipu-prg.c                           | 2 +-
- include/drm/drm_framebuffer.h                          | 4 ++--
- include/drm/drm_plane.h                                | 2 +-
- include/uapi/drm/nouveau_drm.h                         | 2 +-
- include/uapi/drm/vmwgfx_drm.h                          | 2 +-
- kernel/cgroup/dmem.c                                   | 2 +-
- 47 files changed, 58 insertions(+), 58 deletions(-)
-
+diff --git a/drivers/gpu/drm/drm_syncobj.c b/drivers/gpu/drm/drm_syncobj.c
+index 2fa170a29a62..fda036175a3a 100644
+--- a/drivers/gpu/drm/drm_syncobj.c
++++ b/drivers/gpu/drm/drm_syncobj.c
+@@ -85,7 +85,7 @@
+  * With binary syncobj, all manipulation of the syncobjs's fence happens in
+  * terms of the current fence at the time the ioctl is called by userspace
+  * regardless of whether that operation is an immediate host-side operation
+- * (signal or reset) or or an operation which is enqueued in some driver
++ * (signal or reset) or an operation which is enqueued in some driver
+  * queue. &DRM_IOCTL_SYNCOBJ_RESET and &DRM_IOCTL_SYNCOBJ_SIGNAL can be used
+  * to manipulate a syncobj from the host by resetting its pointer to NULL or
+  * setting its pointer to a fence which is already signaled.
+diff --git a/drivers/gpu/drm/nouveau/nvkm/engine/gr/gf100.c b/drivers/gpu/drm/nouveau/nvkm/engine/gr/gf100.c
+index b8d847101b13..dab340ffef3f 100644
+--- a/drivers/gpu/drm/nouveau/nvkm/engine/gr/gf100.c
++++ b/drivers/gpu/drm/nouveau/nvkm/engine/gr/gf100.c
+@@ -910,7 +910,7 @@ gf100_gr_fecs_elpg_bind(struct gf100_gr *gr)
+ 		return ret;
+ 
+ 	/*XXX: We need to allocate + map the above into PMU's inst block,
+-	 *     which which means we probably need a proper PMU before we
++	 *     which means we probably need a proper PMU before we
+ 	 *     even bother.
+ 	 */
+ 
+diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_execbuf.c b/drivers/gpu/drm/vmwgfx/vmwgfx_execbuf.c
+index 6dfb45592d74..be3c3c074e75 100644
+--- a/drivers/gpu/drm/vmwgfx/vmwgfx_execbuf.c
++++ b/drivers/gpu/drm/vmwgfx/vmwgfx_execbuf.c
+@@ -339,7 +339,7 @@ static int vmw_execbuf_res_val_add(struct vmw_sw_context *sw_context,
+ }
+ 
+ /**
+- * vmw_view_res_val_add - Add a view and the surface it's pointing to to the
++ * vmw_view_res_val_add - Add a view and the surface it's pointing to the
+  * validation list
+  *
+  * @sw_context: The software context holding the validation list.
+@@ -367,7 +367,7 @@ static int vmw_view_res_val_add(struct vmw_sw_context *sw_context,
+ 
+ /**
+  * vmw_view_id_val_add - Look up a view and add it and the surface it's pointing
+- * to to the validation list.
++ * to the validation list.
+  *
+  * @sw_context: The software context holding the validation list.
+  * @view_type: The view type to look up.
 -- 
 2.48.1
 
