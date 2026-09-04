@@ -1,151 +1,99 @@
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
+Received: from mta1.migadu.com (out-179.mta1.migadu.com [95.215.58.179])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08D22486628
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 12:21:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A2E0485CF2
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 12:21:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.179
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788524473; cv=none; b=el1zfQ4ybGO6X54rIBDEmHLy/QqJ9ZJPAxykjq0gYxkqphqJSJZxYyAvzzDS1x0oM/ZMqCo71yJG/NywYFFcbJvM8jp5ZCA8xqC++faw60hcw2wwgiaBWSJl2599umQWQJRaUknizwV1qbeJ8GR6vTzW3f9zZ+VlTDhSgJ7kJ1A=
+	t=1788524487; cv=none; b=nOr9rBOf7gMopODgwxRgxFWkdcZ5vOzGXJFROopEymEufrz18EEA/LZoDcc/1D6Ia0fE61aJnKLqgH8K73LAQ1ik/xxXnEcA+4QiOSlzpumVyg3m3Yve2aBaM44rUs5ZBxLLbhpMu0gJn12JHxBP47fE9fORsGKE2MkTDHWLzwM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788524473; c=relaxed/simple;
-	bh=APPkNKtEDmrFso4y3E1cHTFO7HZn9y4fTKl0GLQvGOo=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=E0+QD6srPEYavZu1h6/wLbeGzTCbfxaDng5sH0vfoYYA+0eVdTEgknjhH7Co5QBcgNrQFqtH7eZU+chXKD2TLrMj19IfqwmzHtVMoBceP7f10ARzh358FK2ZEBzf0sTmgBOSasklufmCDEzTTeDtXTWyTnl6X2OtD0dtEOxb9qE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=mucWSogE; arc=none smtp.client-ip=209.85.128.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1788524487; c=relaxed/simple;
+	bh=MWnONv/mcSy1ZzvbBOJBF9sO7kdoah8czNuibP8g/Js=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=uhn+Oc7BJY5orJ/u66o2wbrwbL2vTJkL0Cgb697hgB9icaSTucMFmGwBuEUeCt+RvgaWWvjjibDCKpt2nSb0HIkIdF2VjtA7fBvsDWi04MitOGYzuz2jf+iTRYIyl4uq84yKsZLAr0TKfmPgP4E0dnwz80Pf2z4VrPHbmumKaS0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=KbP4l1J9; arc=none smtp.client-ip=95.215.58.179
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="mucWSogE"
-Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-49b0eab380eso8178505e9.0
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 05:21:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1788524469; x=1789129269; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :autocrypt:content-language:references:cc:to:subject:reply-to:from
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=pfq2sAT5mAfGVAt5p5kcQFP6u3ifv9uCqnC5mm+uv+Q=;
-        b=mucWSogE5+2knv0fI8LclQ4UpzC7iNFh8m1ka8d8fhmnqPfj4GuYFyOAP+rupXMRCB
-         tXP94LoqcafrZ4rfMhOb+NsPHchtfQtvfLYl+XfLeqdnXMD0cqsHy1ha0Mzx2keSTSRf
-         NU3Kv36cc1lCaQXZ83OWyg9S0AXZkinCuDmL0lvUd30NfBTJLasubqwylSJEEp13geAK
-         sZp+u/gvyebsHc52umGb9ST3VXV7NQ+RLyDa9ipbxJ5wYTBSgJE1yJYI7lVWvAm1j9md
-         3X4y6At8wOnuKUUt0LmREQsL8bpR8YQPpVKFtUIlEqtqbIWK7b5Gw4DXf67/zdPpBI0O
-         1wTA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788524469; x=1789129269;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :autocrypt:content-language:references:cc:to:subject:reply-to:from
-         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=pfq2sAT5mAfGVAt5p5kcQFP6u3ifv9uCqnC5mm+uv+Q=;
-        b=Nl3sFtTxUk/GpyN9JMh+12Jw08hhrzcE0dR5HXR6MLB9riX8A6KP/AVjSA2MPd4dTq
-         W9yrQE/2ce2H88gEsGfvAHaq+jlHk0MokJwON7QLFV3pF23tC88Stov/g5+taOAt/VLu
-         Dgko5xe5fYptvfMdAJiau1qCblXDDkuliFdRXHA7vWyzOTgOxITWgneo8niq3MWNKsnV
-         +pd+9S+zrGcVt9BTooOM+kensqYvn0O0UsM2ZiSswodVupxYGzXVWQrcssLrRcwJ5LuX
-         Dnf3MS3cP0YO6S+ndh3ABlCZGAmr/QlucRq+KbyS7baQbD0fiOig3Favrgh1Q8TICR6Z
-         uqMw==
-X-Forwarded-Encrypted: i=1; AKwUvBwS26+45ePkJJqi1d5ALP71/vWaXCktITmbF8Tp1wUBdlyOAvgjaAVlnAZG4oYy94VB0650oNyhcNdjcHo=@vger.kernel.org
-X-Gm-Message-State: AFuF++lrlKB/Lb33+79Z5Dqn1SpdbW56Zzv9S+jVKm+vgKn4skq8ehUx
-	U1bm4KugWImxMpJBqYoCWHHf0sbzpIDMr0szi0Y06pQD5dPOUZBMx6191wnCLzC/r+I=
-X-Gm-Gg: AYBFou3JHwvQMGSmrYyuiEkiskRPwnAsVpKs6md+2ueTWbzyOzrmr749YYI6m5ObIMx
-	H8tvkYM4HPyq6IUveYvldBXzK6RjKSdQEpRVg7nfvxc9UR/Py1rtrUb1yaW/ye1y7e1mb7iAuLT
-	AcXGVVDWk8K0lMIeWT0vYBJSgxlreVrIcS9cc9a/YBm6ywEzhx1Zhy+TGHiINPUhUznnwRc/PKZ
-	h8bOyMbHjlSvL4A3Tu3tJuORHj4HPqPiwNMsI2rdJwPuqB93tkaVTYdK0gA/GrMHGZDQtroIUwZ
-	oOxIvNU4Ax8tctZ+OJ/CYbo+rcjhVU6W7RyzRVlGcgrVQSNC9ZMYclSa2m8iooqmF6NdoqMrFjh
-	D+AX+1GGandG8Qezw0YrG0q2KMihuElU4utogfarFeDV6W6qjC/2nXYAtdCAvs04nBX5RJlENL3
-	xm5/tTL4LEq/6Auv4mr+/hA0eAMnt/tqRwotWU9quMI55zdIGSw1clxI+Yzq0z+sjIJl0xdb2i2
-	wyoUefz6J9ZMm9nmF+DmEm4+dWeUdudrlYor4w9Yw1y
-X-Received: by 2002:a05:600c:3105:b0:499:59fd:dbfc with SMTP id 5b1f17b1804b1-49cf82bea15mr43305995e9.1.1788524464146;
-        Fri, 04 Sep 2026 05:21:04 -0700 (PDT)
-Received: from ?IPV6:2a01:e0a:106d:1080:b9c6:f35c:534d:8463? ([2a01:e0a:106d:1080:b9c6:f35c:534d:8463])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cff8195ffsm5120855e9.14.2026.09.04.05.21.02
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 04 Sep 2026 05:21:03 -0700 (PDT)
-Message-ID: <b1c95b66-4ef7-489f-90ab-1f606b7f9761@linaro.org>
-Date: Fri, 4 Sep 2026 14:21:02 +0200
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="KbP4l1J9"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=MWnONv/mcSy1ZzvbBOJBF9sO7kdoah8czNuibP8g/Js=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788524482; v=1; x=1789129282;
+ b=KbP4l1J9k+ZgJ1GVOEbzWQitMdbk0qmyLmyhsmrFKX/WP+L+yqYjRjUGj4ZmuUJu8fpX2iZr
+ ww9XZaFpmGRMpo/miQTzrlgabqU2LCuK47YgRkRMF6h1loMMAxFQSlXxYFrWwj5yL884wFAtH4M
+ I4ewp1uiKQggxfsCIfUF32D4=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 73cc01226bc9b45c;
+	Fri, 04 Sep 2026 12:21:22 +0000
+X-Mizu-Trace-ID: 73cc01226bc9b45c
+X-Migadu-Flow: FLOW_OUT
+Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b4a0b17359so5635e87.0
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 05:21:21 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvByF9iJwCyPhsbztcXuwuEnTHoIIYQN/Zo3KJgPShdFlozA8yTYZdrezSEpJ0yZyKAIkH+ItzeJ7DFr67no=@vger.kernel.org
+X-Gm-Message-State: AFuF++laDyx/rNEDGW0A1zldf0YEczl2QWZKq1B7s6TzERMp/QVr2MEZ
+	KjpY/SzjjyLajhy20g23m3D9iK2gv5FTNyfEQnZ8e1mOI75rLY/VjddUoXr50J6Pivon1w9OB5w
+	05DzQJPZN74PWWpK6aMHoLtMa0PaxkmFq1HBhfKNG
+X-Received: by 2002:a05:6512:a348:b0:5b6:186e:682f with SMTP id
+ 2adb3069b0e04-5b6186e6924mr49450e87.0.1788524480459; Fri, 04 Sep 2026
+ 05:21:20 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH v2] tty: serial: qcom_geni: don't ida_free() the console
- port line
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Jiri Slaby <jirislaby@kernel.org>,
- Viken Dadhaniya <quic_vdadhani@quicinc.com>
-Cc: linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-serial@vger.kernel.org
-References: <20260904-topic-sm8x50-upstream-tty-serial-geni-fix-ida-free-v2-1-0e83d8df410c@linaro.org>
- <29755612-0ddd-4447-9859-ae781e8b3c5e@oss.qualcomm.com>
-Content-Language: en-US, fr
-Autocrypt: addr=neil.armstrong@linaro.org; keydata=
- xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
- GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
- BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
- qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
- 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
- AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
- OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
- Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
- YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
- GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
- UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
- GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
- yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
- QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
- SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
- 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
- Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
- oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
- M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
- 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
- KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
- 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
- QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
-Organization: Linaro
-In-Reply-To: <29755612-0ddd-4447-9859-ae781e8b3c5e@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <20260904-kvm-arm64-nvhe-pie-v1-0-29d59f245e6c@kernel.org>
+ <20260904-kvm-arm64-nvhe-pie-v1-2-29d59f245e6c@kernel.org>
+ <86pkyt4gvt.wl-maz@kernel.org> <eb788ad5-5bb3-4767-87b8-d35d9e3ab220@sirena.org.uk>
+ <apqrky27mJmUV9UA@willie-the-truck> <05f1e2f4-173a-4226-8c98-1452c20f0a47@sirena.org.uk>
+In-Reply-To: <05f1e2f4-173a-4226-8c98-1452c20f0a47@sirena.org.uk>
+From: Fuad Tabba <fuad.tabba@linux.dev>
+Date: Fri, 4 Sep 2026 13:20:44 +0100
+X-Gmail-Original-Message-ID: <CA+EHjTx87SnshzrUF69hGTSA9JmjW9oKbx+GbKjx5W+gnWYRgg@mail.gmail.com>
+X-Gm-Features: AcwNN1XeCRX4giVtMT6c-n59qRC6UqdpZVxqwiiImVnvjhpDgql12CaOGJS8YCo
+Message-ID: <CA+EHjTx87SnshzrUF69hGTSA9JmjW9oKbx+GbKjx5W+gnWYRgg@mail.gmail.com>
+Subject: Re: [PATCH 2/2] KVM: arm64: Enable S1PIE for nVHE and hVHE
+To: Mark Brown <broonie@kernel.org>
+Cc: Will Deacon <will@kernel.org>, Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, 
+	Joey Gouly <joey.gouly@arm.com>, Steffen Eiden <seiden@linux.ibm.com>, 
+	Suzuki K Poulose <suzuki.poulose@arm.com>, Zenghui Yu <yuzenghui@huawei.com>, 
+	Catalin Marinas <catalin.marinas@arm.com>, Mark Rutland <mark.rutland@arm.com>, 
+	linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On 9/4/26 11:24, Konrad Dybcio wrote:
-> On 9/4/26 10:50 AM, Neil Armstrong wrote:
->> The console port (qcom_geni_console_port) is a static instance whose
->> uport.line is hardcoded to 0 and is never allocated from port_ida.
->> Only the non-console path in get_port_from_line() calls ida_alloc_range().
->>
->> Fix the qcom_geni_serial_remove() and the matching probe() error path
->> so unbinding the console device doesn't hit:
->>
->>    WARNING: ida_free called for id=0 which is not allocated
->>    <snip>
->>    qcom_geni_serial_remove+0x58/0x80
->>
->> Fixes: a53be6945f51 ("serial: qcom-geni: Remove alias dependency from qcom serial driver")
->> Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
->> ---
-> 
-> The robot continues not to find all the issues during the first round..
-> 
-> tldr: uart_console() is only a valid check if a port is an ACTIVE
-> console whereas we skip ida_alloc for ANY console ports, so in .remove()
-> the check should also be for device_data->console
+On Fri, 4 Sept 2026 at 12:48, Mark Brown <broonie@kernel.org> wrote:
+>
+> On Fri, Sep 04, 2026 at 12:29:23PM +0100, Will Deacon wrote:
+> > On Fri, Sep 04, 2026 at 11:33:24AM +0100, Mark Brown wrote:
+>
+> > > What about pKVM, my understanding was that that is very much an ongoing
+> > > concern and uses the nVHE hypervisor?  My expectation was that this
+> > > would only ever get used in hVHE configurations when people enable pKVM
+> > > on modern hardware, actual nVHE mode was mostly just carried along with
+> > > that.
+>
+> > pKVM uses hVHE wherever it can nowadays, so I'm fine with only supporting
+> > S1PIE on hVHE and VHE configurations if that's easier to maintain. We
+> > just need to make sure that the failure mode for nVHE results in the
+> > feature being gracefully disabled, rather than e.g. crashing or quietly
+> > doing the wrong thing.
+>
+> I figure that if we're supporting hVHE it will end up less complicated
+> to also enable nVHE, it reduces the potential for having bad or missing
+> fallback paths for features downstream of S1POE.  It's not like it's a
+> huge extra bit of code and it seems likely to save hassle down the line.
 
-Right, good catch, would be nice if the robot did find issues directly related to the patch instead of random unrelated issues.
+For pKVM there's no fallback path to get wrong: any CPU with S1PIE has
+VHE, so pKVM runs hVHE on it, and a CPU without VHE has no S1PIE to
+disable. I couldn't construct the protected nVHE plus S1PIE case under
+QEMU at all.
 
-Thanks,
-Neil>
-> 
->   Medium: The remove-path condition remains incorrect for an inactive GENI console port.
-> Patch line 326 changes the free guard to !uart_console(uport). uart_console() is true only when uport->cons->index == uport->line (include/linux/serial_core.h:24-25), rather than when the port is the statically allocated console device. If qcom,geni-debug-uart probes but is not selected as the active ttyMSM system console, cons_ops.index remains -1 (drivers/tty/serial/qcom_geni_serial.c:1746-1757), so uart_console(uport) is false. Removal then still calls ida_free(&port_ida, 0) even though get_port_from_line(..., true, ...) never allocated an IDA entry (drivers/tty/serial/qcom_geni_serial.c:279-310).
-> Use the same ownership predicate as the probe error path:
-> if (!port->dev_data->console)
->      ida_free(&port_ida, uport->line);
-> This makes freeing depend on whether the line was allocated, not on current console activation.
-> 
-> Konrad
+Where I think it applies is kvm-arm.mode=nvhe on S1PIE hardware. That
+boots, and it's the one configuration where the nVHE side of the patch
+would run.
 
+Cheers,
+/fuad
