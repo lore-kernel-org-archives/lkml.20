@@ -1,156 +1,130 @@
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68587499F1E;
-	Fri,  4 Sep 2026 20:47:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B8053101A7
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 20:49:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788554878; cv=none; b=gZVdgLNvfxbEpwj+59jP7BZ+44T2luNcFmahb604wykJAzI3EMGRlUai2CpdbY637Xd3VD1byjMQWSeGqkhIHewBhMLM3kLQBkLF/QqKqZxEbHbnkWOYmsbPrSkhp8p5iYy9uz8a/0c24YCTQjjkQwWQDi0DTKgGhIMSu4EpT0k=
+	t=1788554985; cv=none; b=TrftHDUD40w6SuMWBgE7eEQ9AooBVOTfu4goIvA4Tzq9cvMIVQNi4hCzA2QJN+n1rSYMUuc8Pyc8Au33tSPKjOdBBNZg6tLg6P4oNUtkpXAQxkM+pgiKhHHEe00uyk2FFu/dlJsH1XxIdM49tc0UeLM8agsv6Oier+zliCf5wxY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788554878; c=relaxed/simple;
-	bh=njinWSXiz/zqfi4X9wy+FqKfdlus891NdF8nLMmad/U=;
-	h=Message-ID:Subject:From:To:Cc:Content-Type:Date:MIME-Version; b=e7NNcnpYof5r86n7E5YoYVvupDDkxkX7yri3Yc6Ecf4iasQk8BCw8CeuSRiEV55hd5YECIghEyXE8/MKKmGIw6Ebmgj9G0jGRwtgUYgJjjAw/6DoYKge5LFP4zQPLtRFopU22/F33QWJwigV3ekeot80658wMXk1fkojyKOXxyI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=oX2vjdLX; arc=none smtp.client-ip=148.163.156.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1788554985; c=relaxed/simple;
+	bh=eRn2tf4siQ0cQ92/gm34hZkbR9haHPJudm+Qww/BBnE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=nv5moNzrhhNfuxeQfnhCYtNnCiQ2KoY9ERE/xG8czBDe2Co1bo3LgS9ufMeOK7/2t9ZayOFrgC/ulC+4D2x3uwriYQJEguC3Z4WPukVtBZVjzDV8FaqfGAl9GQouYu2xRYlhuu/E3IksvuCZtftksM9pIQ996zbQwKsbARABW0A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Oftt+C17; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="oX2vjdLX"
-Received: from pps.filterd (m0353729.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 684HW3F9501955;
-	Fri, 4 Sep 2026 20:47:50 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=pp1; bh=y1/65ohXpEJP6iQhC/OqMrbBR3SQ
-	LZMUb7y17iw8rw4=; b=oX2vjdLXHP43WN1mzYsnXOPT1qWzX6W7M+vv1nL0sDl1
-	p7p4LoJeuIIdMgXLv7apnxshIBLyqY6g4m1KeMrDocD6R1/TlPw6v0CICGQzt1e2
-	Fg6yj1uhsRGPhd90NRFTHGPUxGL/jPNs0AeptdUXA6JBYTHWX0ptTy0z0Pz9IHDh
-	RZiNLerUxmWjo8aBhfWYQ45Qw1J+IkhZZGM4P8jvY3P1GSAPTxa3edqwmwogfuRw
-	tSMplhSBKjogjMR7S9yuzDcECZqT5rDcIlaNDeQKMmEUANsHnYzqFqfKFVg5qjzq
-	ibfV3Upwh4yH1i4jUvH6hPK4PZ0Oyev5gJL7jRLfZw==
-Received: from ppma12.dal12v.mail.ibm.com (dc.9e.1632.ip4.static.sl-reverse.com [50.22.158.220])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gbq3rw6w7-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 04 Sep 2026 20:47:50 +0000 (GMT)
-Received: from pps.filterd (ppma12.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma12.dal12v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 684KfgLT030692;
-	Fri, 4 Sep 2026 20:47:49 GMT
-Received: from smtprelay04.wdc07v.mail.ibm.com ([172.16.1.71])
-	by ppma12.dal12v.mail.ibm.com (PPS) with ESMTPS id 4gc9rqycvf-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 04 Sep 2026 20:47:49 +0000 (GMT)
-Received: from smtpav02.wdc07v.mail.ibm.com (smtpav02.wdc07v.mail.ibm.com [10.39.53.229])
-	by smtprelay04.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 684KlmfT64094556
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Fri, 4 Sep 2026 20:47:49 GMT
-Received: from smtpav02.wdc07v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id E235958058;
-	Fri,  4 Sep 2026 20:47:48 +0000 (GMT)
-Received: from smtpav02.wdc07v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 542885805C;
-	Fri,  4 Sep 2026 20:47:48 +0000 (GMT)
-Received: from li-43857255-d5e6-4659-90f1-fc5cee4750ad.ibm.com (unknown [9.61.85.196])
-	by smtpav02.wdc07v.mail.ibm.com (Postfix) with ESMTP;
-	Fri,  4 Sep 2026 20:47:48 +0000 (GMT)
-Message-ID: <0e98c262ca18fb67d9a9a4556010378b332882e7.camel@linux.ibm.com>
-Subject: [GIT PULL] integrity: subsystem fixes for v7.3-rc2
-From: Mimi Zohar <zohar@linux.ibm.com>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Cc: linux-integrity <linux-integrity@vger.kernel.org>,
-        linux-kernel	
- <linux-kernel@vger.kernel.org>,
-        Roberto Sassu
- <roberto.sassu@huaweicloud.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 04 Sep 2026 16:47:47 -0400
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Oftt+C17"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BE4F41F00A3D;
+	Fri,  4 Sep 2026 20:49:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788554982;
+	bh=yv0otkI4R3GXS81uLq6Au1MGNUzomyZRVJ0cIST0K2Y=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Oftt+C177df3SD8JCk4/ygJrGu/v6qf0D/JTfSn3l/7d23chMcQP3Y1rc6iwqVCyI
+	 gw9/d/GkFudw5128IJ++gyEmJNBmVxrSWKFAmCAktxBPWOzR7qSrjrS+hHhP7x0VHa
+	 xIgObrqftMKlh4vA8WX/7G4AHbsC2KyvgsQ2XyNKhJDVsmUYQog+pS+bWlMvm+c58F
+	 n2XNLBaHgVIlTkKC5opSqy6lxwUiqCC7nvRBeL44C+y/iAodR7g4e2Dv98x5oR2+8U
+	 WYjtWB/8GrtfphOrqhvzyq4/RA8pUd1uXR9PsKyg7hDIygsxKPx1/k+bVBnRTHxGJK
+	 jKhMW3cIwOMYw==
+Date: Fri, 4 Sep 2026 21:49:38 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Jisheng Zhang <jszhang@kernel.org>
+Cc: Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 3/3] riscv: introduce cap framework and use it to
+ optimize pgtable_l4|l5_enabled
+Message-ID: <20260904-semantic-quiet-24fff0973cc2@spud>
+References: <20260830170414.4505-1-jszhang@kernel.org>
+ <20260830170414.4505-4-jszhang@kernel.org>
+ <20260831-falsify-arrogance-6917870b8596@spud>
+ <apYafAJvKqz_hRzR@xhacker>
+ <apZa3EnjGjpaydGm@xhacker>
+ <20260901-mountable-engraved-f47c899ed194@spud>
+ <apdeoLGpeBW0Hq4y@xhacker>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
-X-TM-AS-GCONF: 00
-X-Authority-Analysis: v=2.4 cv=EIc2FVZC c=1 sm=1 tr=0 ts=6a9b2e76 cx=c_pps
- a=bLidbwmWQ0KltjZqbj+ezA==:117 a=bLidbwmWQ0KltjZqbj+ezA==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=uAbxVGIbfxUO_5tXvNgY:22 a=VwQbUJbxAAAA:8
- a=40eiCIM62yLBkaOSkhwA:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA0MDE4OSBTYWx0ZWRfX1GmVmSMF2KK3
- JtRJBdcSMFiG4jKQ6HZp92aahnweeabNXKcK6WjMmoUBc4QWe3dF5A3pXU78bKBJIoT+yow1Veq
- b2Vwlv315wOjVpJ3fsDqUZiNbZhAW6LNertTbW7xv36I+BPR7Fa2SxpjpBsUYMkxxMOrMStUXEy
- Hx9wlPgP7UV3RIhnDEnkDYnkZ7xxw1izLmN+wuNXt1oZ9v9zsb7GmghvjgykgXo4U6D50UcyMH+
- L3iXz+NdlXtn5131olLWIECSIbyChR09n24Yo5gvqs0DDY3OqN5FqcAK3o32N0Dyc915A4Uy3ET
- eTnIN6Gye7yvPyhF+3w3pRgrFrIcUKS9VMHUOn8XL4Z4dDaA5mJ9GhYwNEyLK+nqK3h8BBtWu+D
- UF0wlODf37oDTG09zAzfCLRmolvnMIw/WKYW5AHW9IPZ1xuQHvW0nxWwqarZXFohEFgVDr30qlO
- 9GytFAEeKWmmwnkXnMg==
-X-Proofpoint-GUID: uF0FM-6ZjujJ8QBcrchbbuOdlEoD5hLY
-X-Proofpoint-ORIG-GUID: uF0FM-6ZjujJ8QBcrchbbuOdlEoD5hLY
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA0MDE4OSBTYWx0ZWRfX+kPeCRgKPGKE
- bV7J1IVJLH1CPnesnEDCdJRE8KNqjvhm2lrQ2UbNdNIj/LmVLJ/auAcT4v+i4AxUSoMHY0jvtNK
- Uny46JDaOAnnSrwCCwJ4PygfwFcXnU4=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-04_05,2026-09-03_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 impostorscore=0 suspectscore=0 priorityscore=1501 clxscore=1015
- phishscore=0 spamscore=0 adultscore=0 lowpriorityscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609040189
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="GG0dE94JHQf052MT"
+Content-Disposition: inline
+In-Reply-To: <apdeoLGpeBW0Hq4y@xhacker>
 
-Hi Linus,
+--GG0dE94JHQf052MT
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-This contains three small IMA bug fixes:
+On Wed, Sep 02, 2026 at 07:24:16AM +0800, Jisheng Zhang wrote:
+> > > other cap usage PoV: the cap can be used to replace various static
+> > > branch usage in arch/riscv, for example the fast_unaligned_access_spe=
+ed_key
+> > > As is known, the static branch has some drawbacks.
+> > >=20
+> > > So no matter which direction this series goes to, we need similar cap
+> > > framework. The key question is whether we can extend the
+> > > riscv_has_extension_*() to cover cpu/HW cap,
+> >=20
+> > It'd be nice to see if we could reuse the functions, if we don't
+> > want to invent a bunch of XLINUXFOO for them. The vendor extension stuff
+> > that Charlie added reuses it, but since there's no Linux Foundation
+> > JEDEC ID (AFAIK anyway) perhaps there's just no easy way to do it and
+> > duplicating the functions with a different name is required.
+>=20
+> what about if convert fast_unaligned_access_speed_key from static branch
+> to alternative? It's a cpu HW capbility not extension. rename the
+> riscv_has_extension_*() to riscv_has_cap_*()?
 
-- Instantiating the ima_file_truncate and ima_path_truncate LSM
-hooks resulted in configfs locking issues. configfs files should
-not be measured, appraised, or audited in the first place, so the
-builtin policies are updated to exclude them.
 
-- IMA audit messages include the filename, which could result in a
-page fault when the filename doesn't exist.
+Is there any value in actually moving that one to an alternative? I
+think it currently only has one user?
 
-- Un-hide the IMA_MEASURE_PCR_IDX Kconfig prompt.
+If there is value, I'd rather see __riscv_has_extension_*() get renamed
+to __riscv_has_cap*(), so that things like unaligned access speed get a
+different namespace to standard and vendor extensions. IOW you'd end up
+with
 
-thanks,
+static __always_inline bool riscv_has_extension_unlikely(const unsigned lon=
+g ext)
+{
+	compiletime_assert(ext < RISCV_ISA_EXT_MAX, "ext must be < RISCV_ISA_EXT_M=
+AX");
 
-Mimi
+	return __riscv_has_cap_unlikely(STANDARD_EXT, ext);
+}
 
-The following changes since commit cee9395acd8043be0644b25c34bfa86623f2b935=
-:
+static __always_inline bool riscv_has_vendor_extension_unlikely(const unsig=
+ned long vendor,
+								const unsigned long ext)
+{
+	if (!IS_ENABLED(CONFIG_RISCV_ISA_VENDOR_EXT))
+		return false;
 
-  Linux 7.3-rc1 (2026-08-30 13:34:40 -0700)
+	return __riscv_has_cap_unlikely(vendor, ext + RISCV_VENDOR_EXT_ALTERNATIVE=
+S_BASE);
+}
 
-are available in the Git repository at:
+static __always_inline bool riscv_has_cap_unlikely(const unsigned long cap)
+{
+	return __riscv_has_cap_unlikely(LINUX_CAP, cap);
+}
 
-  https://git.kernel.org/pub/scm/linux/kernel/git/zohar/linux-integrity.git=
-/
-tags/integrity-v7.3-rc2
+Currently standard extensions use 0 as the vendor, perhaps we could then
+use -1 (the value is an unsigned long) for non extension related caps?
 
-for you to fetch changes up to 6903878d4654bdef4e08e38cdf1ae306ce7de5f9:
 
-  ima: allow users to specify the pcr index with IMA_MEASURE_PCR_IDX (2026-=
-09-04
-14:01:00 -0400)
+--GG0dE94JHQf052MT
+Content-Type: application/pgp-signature; name=signature.asc
 
-----------------------------------------------------------------
-integrity-v7.3-rc2
+-----BEGIN PGP SIGNATURE-----
 
-----------------------------------------------------------------
-Bradley Morgan (1):
-      ima: Check for ERR_PTR from dentry_path() in validate_hash_algo()
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCapsu4gAKCRB4tDGHoIJi
+0sbxAQDD0972SFMaZj7AaksRhMd64kn+GSb6fXOk3mnVmeDRLQEAsGi9D+KNoVsv
+z+fOmb4fa34uegQWg4zaQQs+Iv220A0=
+=BIVN
+-----END PGP SIGNATURE-----
 
-Frederick Lawler (2):
-      configfs: move CONFIGFS_MAGIC definition to magic.h
-      ima: don't measure/appraise files on configfs
-
-Julian Braha (1):
-      ima: allow users to specify the pcr index with IMA_MEASURE_PCR_IDX
-
- Documentation/ABI/testing/ima_policy  | 3 +++
- fs/configfs/mount.c                   | 4 +---
- include/uapi/linux/magic.h            | 1 +
- security/integrity/ima/Kconfig        | 6 +++++-
- security/integrity/ima/ima_appraise.c | 2 ++
- security/integrity/ima/ima_policy.c   | 7 ++++++-
- 6 files changed, 18 insertions(+), 5 deletions(-)
+--GG0dE94JHQf052MT--
