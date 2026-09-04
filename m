@@ -1,87 +1,107 @@
-Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com [67.231.152.168])
+Received: from mx0a-0002e601.pphosted.com (mx0a-0002e601.pphosted.com [148.163.150.75])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED94D30E821;
-	Fri,  4 Sep 2026 13:13:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=67.231.152.168
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1655C33F5B3;
+	Fri,  4 Sep 2026 13:13:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.150.75
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788527585; cv=fail; b=QvbrkExNDskSKhu7UeIvA/1XaL3gSN1UNTVLlVOJ/1IRBko8NhyxxUy314VZBsaKB2q954q1zyibOPt1nmwKbcsdti/bKBvkdZFL+Foe/h83IvXeRzIwdEwNzByH7V6XTxWdYhEishVnflu5Nqi+bha2eqJ7ZEy7CynHo6jeQm4=
+	t=1788527599; cv=fail; b=RGbB3LhcvcZXnO2+9TPLEjZi03K3vZju4HrLKxffetzkCHBqB+zFB9vu9r4lCgTx5Ls5VARIoh0ovNsV8gu2ig2ZIiYSD5n9gjle6xM0iHTylPbyRtk8cyMESbXgXpPNY8f6GniXYoPctLwmEDlgvOLwZjesQ1aSxLlCpx+z278=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788527585; c=relaxed/simple;
-	bh=Zblx86E60oM/SUAHfxvZesyARpJJhMMM+YpO0+5UsAA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=P8Ntdo6I3dxu9Tln5a1dl0pFICSIpq74J5ojw0uaUrvkUXZuCNGkA92szddfe5xF047tSI+ev4+1E3aPDCVgbI+2xnHvAuxwv+Sio8AduVmngMHTqnqCpTvXX8YN9e6l+I0nsxrcAubtbhMNYffg678NOEQOzzjeAHo5KmRVoTQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=opensource.cirrus.com; spf=pass smtp.mailfrom=opensource.cirrus.com; dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com header.b=oeklMF8Y; dkim=pass (1024-bit key) header.d=cirrus4.onmicrosoft.com header.i=@cirrus4.onmicrosoft.com header.b=eTpS+S0x; arc=fail smtp.client-ip=67.231.152.168
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=opensource.cirrus.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=opensource.cirrus.com
+	s=arc-20240116; t=1788527599; c=relaxed/simple;
+	bh=GDn6C24jQP/nYwTqVRg5BwRDzzRAK7MhPAq6yGPJ2yo=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=o3OQfii5UshM3XzS8BLK/L8VfInEiwGhsm5cqvfyX/YlqBZpUDq9WDSnlkD7PQ8uUs48GKuyRO6O2gHkFSxtXg2W777271C/F5heVgEyzvtMqd2oQWGqvVypzDSlTjl9mHltgtrCIoirfVf8vfSK++Jz7z1oXJ1F2zsLIg9ooDo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b=SLw6rmHJ; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=A8S2ZOa6; arc=fail smtp.client-ip=148.163.150.75
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com header.b="oeklMF8Y";
-	dkim=pass (1024-bit key) header.d=cirrus4.onmicrosoft.com header.i=@cirrus4.onmicrosoft.com header.b="eTpS+S0x"
-Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
-	by mx0b-001ae601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6843rsWe1033727;
-	Fri, 4 Sep 2026 08:13:01 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=cc
-	:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=PODMain02222019; bh=h4gRr4ZQ5uvhKq3n
-	Fl0l7Swu/+BIuJK6Fkv6zV/ctpU=; b=oeklMF8YoVmXMziNnLmGEfB9DlbUEP52
-	BV1mhJnD6xALmMsMqaUC/UHS5o1rztBhov/MOh4olX8HyzPNKFwv0T8Kbq0xG06k
-	fx/2EOxqOtXvs7sCPR66koH8vjpOc41Yz9QT6Ll6eboTEqNCUvVXh+Y8opax3yJu
-	wtjy64p/b3oHATqJTTXCl0TDJ41crPBy27QwS1/Zmcr8Wp9cSYIUIxMKgiMWgrqu
-	wW1JITYfek2T0wA+egMZj6uorS8aMtd8q7Q2zV+hNPbBXR8bzdFbP6o5LUOH2sSj
-	zOEFkLvJxMxZ7ulpjQCjGGtyRdRKkrbwsj0yWlgWpU5MBI3E69tLaA==
-Received: from sa9pr02cu001.outbound.protection.outlook.com (mail-southcentralusazon11023140.outbound.protection.outlook.com [40.93.196.140])
-	by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 4gduntnhsx-1
+	dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b="SLw6rmHJ";
+	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="A8S2ZOa6"
+Received: from pps.filterd (m0380145.ppops.net [127.0.0.1])
+	by m0380145.ppops.net (8.18.1.11/8.18.1.11) with ESMTP id 684AHELu3456761;
+	Fri, 4 Sep 2026 08:13:06 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=
+	proofpoint-05-2026; bh=sbXxU+1wdiI2yQMPe0FuJNV+bhlJlCPVgH3GrkZHY
+	84=; b=SLw6rmHJy7p4BNNewwyDNhzfizeHJ6thRjGiz6CoQbxYv/f0lT9XCy8pY
+	eUYsYz/WhdfQom5atSkso8Z5GMdjMXvgl/p4MMNUXcC9peLAVIxkGOOkSALQl4P7
+	14EvxcygDoCAVEOxv8sxi2xThI3Ps39q3a+1hBaAAVLtjDAGVvJ/9C09eLnw5qEm
+	jVJ74eHiMAcsyZs6bNq3OSozIcTrUUilRzJMvde8w+jnzquDFgXnnajbXMWTQ86+
+	piFSruH0qRI1Y5ny7DryMoebCUd7Gu0k4FLDQJlZS/L5+BhoG6LB8OKK9Ux5dMvJ
+	K0nnNcq1L1PwcGJCXr/uPr+sovfxA==
+Received: from ch4pr04cu002.outbound.protection.outlook.com (mail-northcentralusazon11013071.outbound.protection.outlook.com [40.107.201.71])
+	by m0380145.ppops.net (PPS) with ESMTPS id 4gfk4xv399-1
 	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Fri, 04 Sep 2026 08:13:00 -0500 (CDT)
+	Fri, 04 Sep 2026 08:13:05 -0500 (CDT)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=P8X9h9f2yxUPhF42OH+JSgOcCVp4UtaGx49zX31DS4ka/Bdi+UlNye4Gqc1nlz6vnxaiuo7Mcs/BTmcLLTRKcdC/L+J/WhTQpO34xsi7K3yFI9Asz8grozCBm16z3JbOTVcUEsaU3rqGbXPorZnX1Yo3kl2pVjXRI0ucJS8WMkU6LfM43oE6tlCDh9MQMC+sx1fISt2f85pR+i2g9afR5htvyq5Ze9GV/PeycQPf+BaPVlb6Xf+POYPmhiRRbT4sFUxmK//O1/DVF7IXwKly4jJCkAzRfqIsmFpYuCOnp6ZO0IRHteVC/hU7SgzRcEId1AIKY49qPQ2H51vHN+ngQw==
+ b=POkG3DTNS7urWZnCK/U4Jg9bJp4jFNAfohbuk2RvIbnnt5W/fNmkY4tRZ6Mgnc7pLCC4et3S6ygmx/nStxqQ7LIL3HP2myIZeJFwZ5SzA1LUC/T3Ykx+PUOK8jpL7Blw262E4n4Ui2vTz4/XmVUp4IYbHLSp1N9MVdAf0z7irLEOQn9SrmSSH+6z39ReeGRp4F+KO3Vt5BLwDgWJSFoMCi1S+uum76Vc1C+f8bZjXMo39K+OZm7YntSoLZ1n+l46eAV0z3YaQP1+pEBYzxMFe1L7HPPLGixcky1nQ34I53FWvn6NSHqAXN261Mj2X0chDZFpcBvYKeSjzGuHRZEsTA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=h4gRr4ZQ5uvhKq3nFl0l7Swu/+BIuJK6Fkv6zV/ctpU=;
- b=x6NYe6hP9RX/kY0ja507GqaXr1xbH0DveQZGwgQhqVanV3i6alxB3LgD6XelqUvA7dshE68LZC/xg4NnKLffmSQBxCkR0TSGorymj0n2DftTK/Cd091wC3Jb2Uux9XN3q9OOsjIEuhL+HlJ1MjEGoIW2zh05JhLiDJ7KMpYwBUdlzHKPwoirBx4FmhxRlePFsvgnGBkUzrldS2GxrY4+3kjJnCvrhVb9YW7tID5z0Zgegr/mEsIsfv1pkBteSON+Y6pZcLE3mEbMWB8aS3TkkInelshxLv6fTduy/KWoOlzhUqrXdc+l+8awEwxRNA8uUEiA6kyyc8rH3Cz7Zn93FA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=softfail (sender ip
- is 84.19.233.75) smtp.rcpttodomain=cirrus.com
- smtp.mailfrom=opensource.cirrus.com; dmarc=fail (p=reject sp=reject pct=100)
- action=oreject header.from=opensource.cirrus.com; dkim=none (message not
- signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=cirrus4.onmicrosoft.com; s=selector2-cirrus4-onmicrosoft-com;
+ bh=sbXxU+1wdiI2yQMPe0FuJNV+bhlJlCPVgH3GrkZHY84=;
+ b=fK/37kHR47TdqeVNKD00h1cAC43Kb1euNLZS3R0i4dJ8vSYTm+gN0AywJ6B1cSL7hTo+BwJatXLyxvH4wbPljdJrxg3O9dcLFjRwqUtwUGjbawGsoN8eG2qNFLLBaOQNpR950YmHNZQqQN+NRtKwstYgSOXRb39AFEVb/NqcJ+T/YHLuHnFs+0v9zofbGrv5bF4mOq6Zvrvpt/CjH730r0iAlpuFkSkeMgtMtRC3BAo+dH5bT2uOHDcIskywRh215mgsTSWN6tlJzEZK9C+81lCjhVmk3TcY05U3INuUPrZPNXEgEnAJ9XZz+LBrwlpo5tH1URCHjeRbw/wTby8V9w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 198.47.23.195) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=ti.com;
+ dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=h4gRr4ZQ5uvhKq3nFl0l7Swu/+BIuJK6Fkv6zV/ctpU=;
- b=eTpS+S0xg2mBhnv9IbkezJRPyTvlR5sS5QeQldUFSAgBwfK3zTjALKT3NjOm0bb5XJywAAbao4UktZyb2wXs7rGCG7vDH2JJI2zZqGr0ENbvX15UKN4RCkSXFq+9CDQ7byo+yuf95T77lQDw1TdJHXHz0O3dW7lxKXR4LxEqYlw=
-Received: from SJ0PR03CA0140.namprd03.prod.outlook.com (2603:10b6:a03:33c::25)
- by LV3PR19MB8441.namprd19.prod.outlook.com (2603:10b6:408:21b::9) with
+ bh=sbXxU+1wdiI2yQMPe0FuJNV+bhlJlCPVgH3GrkZHY84=;
+ b=A8S2ZOa654MStDItZikVczcj14Lb5xpiqmSIhFeZFzi3IVJYgfCX1ASbSMqXV2LnW9SqVcsDAqvRLGck/gKwWWmeX3XOJHo1331Pp2WYq/JJl1xdAQhBoZ0rGq1BrqsVJF3+fZ3nprN4bcYJF+PoTEGuZ/KeurA0iofQITu90Xk=
+Received: from DM6PR02CA0155.namprd02.prod.outlook.com (2603:10b6:5:332::22)
+ by IA1PR10MB6268.namprd10.prod.outlook.com (2603:10b6:208:3a0::19) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Fri, 4 Sep
- 2026 13:12:50 +0000
-Received: from MWH0EPF000C6190.namprd02.prod.outlook.com
- (2603:10b6:a03:33c:cafe::59) by SJ0PR03CA0140.outlook.office365.com
- (2603:10b6:a03:33c::25) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.360.13 via Frontend Transport; Fri, 4
- Sep 2026 13:12:50 +0000
-X-MS-Exchange-Authentication-Results: spf=softfail (sender IP is 84.19.233.75)
- smtp.mailfrom=opensource.cirrus.com; dkim=none (message not signed)
- header.d=none;dmarc=fail action=oreject header.from=opensource.cirrus.com;
-Received-SPF: SoftFail (protection.outlook.com: domain of transitioning
- opensource.cirrus.com discourages use of 84.19.233.75 as permitted sender)
-Received: from edirelay1.ad.cirrus.com (84.19.233.75) by
- MWH0EPF000C6190.mail.protection.outlook.com (10.167.249.101) with Microsoft
- SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.8
- via Frontend Transport; Fri, 4 Sep 2026 13:12:48 +0000
-Received: from ediswmail9.ad.cirrus.com (ediswmail9.ad.cirrus.com [198.61.86.93])
-	by edirelay1.ad.cirrus.com (Postfix) with ESMTPS id 1AB58406543;
-	Fri,  4 Sep 2026 13:12:47 +0000 (UTC)
-Received: from ediswws07.ad.cirrus.com (ediswws07.ad.cirrus.com [198.90.208.12])
-	by ediswmail9.ad.cirrus.com (Postfix) with ESMTPSA id 0C2BD820247;
-	Fri,  4 Sep 2026 13:12:47 +0000 (UTC)
-From: Charles Keepax <ckeepax@opensource.cirrus.com>
-To: lee@kernel.org
-Cc: linux-sound@vger.kernel.org, patches@opensource.cirrus.com,
-        mfd@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: [PATCH v2] mfd: cs42l43: Move cancel_work_sync() into remove
-Date: Fri,  4 Sep 2026 14:12:43 +0100
-Message-ID: <20260904131243.755201-1-ckeepax@opensource.cirrus.com>
-X-Mailer: git-send-email 2.47.3
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.4; Fri, 4 Sep 2026
+ 13:12:59 +0000
+Received: from DS2PEPF00003446.namprd04.prod.outlook.com
+ (2603:10b6:5:332:cafe::41) by DM6PR02CA0155.outlook.office365.com
+ (2603:10b6:5:332::22) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.13 via Frontend Transport; Fri, 4
+ Sep 2026 13:12:59 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.23.195)
+ smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
+ action=none header.from=ti.com;
+Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
+ 198.47.23.195 as permitted sender) receiver=protection.outlook.com;
+ client-ip=198.47.23.195; helo=lewvzet201.ext.ti.com; pr=C
+Received: from lewvzet201.ext.ti.com (198.47.23.195) by
+ DS2PEPF00003446.mail.protection.outlook.com (10.167.17.73) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.382.8 via Frontend Transport; Fri, 4 Sep 2026 13:12:59 +0000
+Received: from DLEE211.ent.ti.com (157.170.170.113) by lewvzet201.ext.ti.com
+ (10.4.14.104) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Fri, 4 Sep
+ 2026 08:12:53 -0500
+Received: from DLEE210.ent.ti.com (157.170.170.112) by DLEE211.ent.ti.com
+ (157.170.170.113) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Fri, 4 Sep
+ 2026 08:12:53 -0500
+Received: from lelvem-mr05.itg.ti.com (10.180.75.9) by DLEE210.ent.ti.com
+ (157.170.170.112) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45 via Frontend
+ Transport; Fri, 4 Sep 2026 08:12:53 -0500
+Received: from ula0226330.dhcp.ti.com ([10.249.36.126])
+	by lelvem-mr05.itg.ti.com (8.18.1/8.18.1) with ESMTP id 684DCq52371029;
+	Fri, 4 Sep 2026 08:12:53 -0500
+From: Andrew Davis <afd@ti.com>
+To: Tony Lindgren <tony@atomide.com>, Vignesh R <vigneshr@ti.com>,
+        "Andreas
+ Kemnade" <andreas@kemnade.info>,
+        Kevin Hilman <khilman@baylibre.com>,
+        "Roger
+ Quadros" <rogerq@kernel.org>,
+        Andi Shyti <andi.shyti@kernel.org>
+CC: <linux-omap@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
+        <linux-i2c@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+        Andrew Davis
+	<afd@ti.com>
+Subject: [PATCH 1/8] i2c: omap: Drop bit shift for I2C register addresses
+Date: Fri, 4 Sep 2026 08:12:45 -0500
+Message-ID: <20260904131252.2126353-2-afd@ti.com>
+X-Mailer: git-send-email 2.39.2
+In-Reply-To: <20260904131252.2126353-1-afd@ti.com>
+References: <20260904131252.2126353-1-afd@ti.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -89,177 +109,207 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MWH0EPF000C6190:EE_|LV3PR19MB8441:EE_
-Content-Type: text/plain
-X-MS-Office365-Filtering-Correlation-Id: 2afc4019-4347-4066-50e1-08df0a8637d1
+X-MS-TrafficTypeDiagnostic: DS2PEPF00003446:EE_|IA1PR10MB6268:EE_
+X-MS-Office365-Filtering-Correlation-Id: 19f350b7-e63a-414e-3d4d-08df0a863e44
+X-LD-Processed: e5b49634-450b-4709-8abb-1e2b19b982b7,ExtAddr
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|61400799027|82310400026|376014|36860700016|34020700016|23010399003|10067099003|56012099006|11063799006|18002099003|16102099003;
+	BCL:0;ARA:13230040|36860700016|376014|23010399003|1800799024|82310400026|10067099003|56012099006|18002099003|22082099003;
 X-Microsoft-Antispam-Message-Info:
-	kfpJSMlVhMHcJPSNDHiEsuxdrcEf7PBzfuVrrno/Cnri5yg0cbyjPXgmnTcjcmSBBoZTT9cbIdionzpOR49ZVis2+NzIhuG/GjtemecMBXgREh1LY9JMXs3R8iRLNwbqpj8lmJIFxvLsYbjIKNm+X5ozJyDpriJ4W8OCgYs2dSvLc27vsWmQ5FwqMucb2YVVrgwcfjZbyt5lNiLfT2p0l2JXcp6lBWu1WnZIKTb8PiXjpUilda7BwN0CKH94BJ+6nQNjagr2Z1bAcw9ML85nvpy8rm8cMjhHX7pErvqG3LStAzXvL3g3i2wsA5yE5xmkOOJZRzKvSZIQcO0xQvyBn0lZWiXK4nDwxszHRQbRvLSF0mNZBIUoIgaWEmeUrOHjJemK7/xwMyTi62mCzLXC7+ozZoS80w65Act9y/Nytn91rgRUuIQUKAO8RbHRlKW+ayTR3ZVhW9uqCHn6mANAbvvv4inN0asDWLYY+sv0onckEYuRajSf4pTVW+JSi+jbL76T/DPP3dktiShAHZBQvrNXpqHXjA9r+KpqPQkfk8iNNhQUDVbkZrsZO46q2Z4AQA4rH/ndNHVy3a5JglvRSDyTpTPPJNixZ/wU3qeyCan04IvlpGdlHPbZc3XooljihOp9WrqdH6Z/7pyvn4OIBj5Tjgglyw+K3mVqw1GvZNB7Mx66r6ZPO6JmRhL6xoV0M9fa3fI1WBD/6pIX3BSz0A==
+	i4xZgCkD2gVK8jzwTR1DKDACEj6uG8uyXRllzk0Ue8I2V/ckOyDvurTjJw/74R6cmWvQzS10V67NOkDC+kMcS0rdZY/Ygn6+2dCNgaFLC76vyKEJqhCFSzNRLWi94Jg2iby1onUKKGXPeASL1FE09oCl70ZiQ3aCVePeS2FttZj0bYf8if+l1cv2Jiq07Ow4pAI1CoZ02Z4Xm9UaPNq55SpiOdJcAW+FaiiGOVPv+G0OE5CAv885s4+DaZ63hIs6bMAofP3qzzbu38gd8uXzjbNlX66dfmlpsy9OmPckrodUGL1NW383uESrbTPC41EcN/XXQpqocxCUojCQpf1D45zTee/Mhby9uSn81ZOD64nrdgG4P+NXA9sZ+SLLxUp78tBaUUah7XW5apsGtytl1cubSUKp167euaeSRNWlfDuNZA8KrkrlUoY/oRwuQg5Xhn27Y/n1ZVcJ3DlrvTu/L54DdxbZ1+rmtT2n0oO9MWXcjUZzh9tZf+2BP4AsfRijkbZhliDb8KM3FUWG3/g6EG/+YWkVGESRAXaXMEj/oxpu9NTapbCrQe5pgEANvsA4TIAu+qi5E0JU4xCYJVAu4saTvQeSUkA7pZYYQ+PO2GVcbieVoY3Jav4dQtv9kxuSJfvonwRrlhkU42SjpABuy9gScZ86SNmrwdGy7AICO4+hvYU45B8YEH1rhj3Jpqk45ucbyJPq14+p3FEy8/7ecQ==
 X-Forefront-Antispam-Report:
-	CIP:84.19.233.75;CTRY:GB;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:edirelay1.ad.cirrus.com;PTR:ErrorRetry;CAT:NONE;SFS:(13230040)(61400799027)(82310400026)(376014)(36860700016)(34020700016)(23010399003)(10067099003)(56012099006)(11063799006)(18002099003)(16102099003);DIR:OUT;SFP:1102;
+	CIP:198.47.23.195;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:lewvzet201.ext.ti.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(376014)(23010399003)(1800799024)(82310400026)(10067099003)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	n/5UAPRTYsQBJ46aiDCAam4DP5chXIjwleAWcO719L+U8LQJHonVr8Te+6YciCYgWul8RQfNRzNqsj5EV0xqoNQ/T2Hbyn6rIEJdNRmv7zDg2jsAuoFmi2P7brbfGzkeq5unfWKhonpgEqDJ3+tbSVmsgCxZlPBbV9ItOX1n6iva1LZdvxcnq5QUG2h2ojXsHGVnGAaDX8JbtSRADSelom1XuDh05Q3noyx6rnZh+35KxCQnDGz+vjWYXlhvkxccbqEBN7KazNfMefFtxEKgzRt4pwIYZRiCTIMnJ122QP6bCDUT43+XQXHpL+K3w3J9Xya6I//8C1gU8De0VNBYgJjDdtDXYy640V4hd+KMp0UwwXKG4JlvkjcbHQkcy5abC6ooaLAbOVxyXPGSMTikPbcyhpErUuBLjEtOjGr/oIh5f4BkJIA9bAaBEloFLlHI
+	14xC5m3p8L7L88yvxJSZwKm6BaBxE5K1zw9tU88KYsyTUg2Wa9CnbuUqenF9lowi6Cs7lCVkJZDerhU4/vpXrbBus/4rrHrO+K7fviQs/v8s1l1KIGexO3Qnq46LFznjOaw2NKtiSggKbeEaPjbQfS3aCPr3yGmX6q/1KeWpBJ9nPOMeQKmogXfH0GWYar5Ez/9Bvw2k1g3GoJCy2lwxyoxcDkYBhldasIA07/EQK5GljGvH8N99Mhn7NH/JRNtMJlsPqHnlFKImidowWE+5Jw0ZXsJJSHIg4Q0kz5NWLtB6BpZ14mcFHQ+ytupawavQS81L2QV9faPjbgdwijnQ1W/RrY9A+BlAObDEIdhw7YEFf8NfbYMlPEZ3QNTgjhPsQftafHP5n9l7BZS9u8xWXlpQYZK6pdAspcup1gyxiFw1DqH8XMQPNE4fCEvnYP/0
 X-Exchange-RoutingPolicyChecked:
-	iE3Vvosoioxcmpu0Ft9dGJRoFWEwiNN+7uM4YPmVt0r0JXHMrGomwcVph9DJy1cy/ITo2u7KzgZ4Cs5mbkKo7ZeecbxPEOxxZoAYvMriWPabiD71lANPBPEP4+ZONySqthgnbXJ4sznjOQlv3rLZKm4xW6PTBIwNOqxSxFEbEBKah4UBddjm1jxMi84nnzQoYk2yX6b7DAiwPnq63mWTafiBT931O4qgzi/2xHh1uPQA30PEAhBmr2kORG/KZdpfExj9GW+o5YfRujoAsnR/eGvO/iUmIicjqn6OpRAStwOsvj/cvys4oms4gYnJ7oPDeQkMEmAbMz0qlIPUX5leXg==
-X-OriginatorOrg: opensource.cirrus.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Sep 2026 13:12:48.5060
+	Ui3p6IprTgM+R5InbsFZhzPQpej4Hcxg05Bgr+RYcG327ias4Q95RD4uGbzXnKLjg0rNF3pGd4hrL0ngTBeAZmTh6gIzpz6LV1oe/5lPq5q3CiKUpJUlikx1Jinri/i3bY9KQN0HuabqZ0D8HwYhsudUaggONJXRvCC++MQ5M0Cg0M21oKcPNHrf0HuIBkoX9+kNOCM7gx+zefZRveE15WVeW5I4JCgKyUutz50dnhJK4WUBqb5w4zVwcZOHTRKnxYD/KMa3qq6zx6/hlN1BZCTbpf4ADK4RGFUYiG3XgcQ4Difb9d4MANCKK1Z0nVizqyHlSMndgZ2S+/Ti+aq0CQ==
+X-OriginatorOrg: ti.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Sep 2026 13:12:59.5582
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2afc4019-4347-4066-50e1-08df0a8637d1
-X-MS-Exchange-CrossTenant-Id: bec09025-e5bc-40d1-a355-8e955c307de8
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=bec09025-e5bc-40d1-a355-8e955c307de8;Ip=[84.19.233.75];Helo=[edirelay1.ad.cirrus.com]
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: TreatMessagesAsInternal-MWH0EPF000C6190.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 19f350b7-e63a-414e-3d4d-08df0a863e44
+X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.23.195];Helo=[lewvzet201.ext.ti.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	DS2PEPF00003446.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV3PR19MB8441
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA0MDExOSBTYWx0ZWRfXx0ZQpO9+pQvg
- nH/5sOTpLWfyBicPhmHHfMVQbJ+0Uc78hELizSdLYHhHhHtsSAsJ2c0rnuYX/EsOjms5Q/J7uVO
- PyO+7/9VWNvkWQLNIhkJscni+KZeUVXrcNylgfR2KvZN7nJ2ZnfZTBXbKAhiVBxC2W2fvrnZAnV
- BODFj3Y1t6RdS9d5yDoW8S5xIaiUB0oifW2eQcusMUAS8PAamEa1YOlMIHvejGstoRPCG+R6CEn
- ZOzIkMY9dUUHmG0OlGK3R4NmGLH/nnDkk4zGLEWGfEPGwyvF7QpVSNGeNvY3dQf1mzcjqLgV6f+
- DHz7N+PY2qgeZG2vXzyf/To/5OJif6+iDs/FM4h3uXNqGm3ULF8P1I1tXWc4HCt1H5+jXt3jCfV
- MyQjUKrQuUJgcHT1EmHKdJ7LEs+fBeHdQ7R+IRj52G9X/zKc0kI93GiQz/L+xU+C5OG8Nx3N5pK
- uASZJNjOcdNvGk3Z/tQ==
-X-Authority-Analysis: v=2.4 cv=X4Zi7mTe c=1 sm=1 tr=0 ts=6a9ac3dc cx=c_pps
- a=qcfn1AlnsIIAWGxC+ugzFg==:117 a=h1hSm8JtM9GN1ddwPAif2w==:17
- a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19
- a=VdqzKS8jKosA:10 a=RWc_ulEos4gA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=iX4cTi3TZMoOKdANLEfx:22 a=KfkQE9S9VqCBgivYGm0O:22 a=w1d2syhTAAAA:8
- a=tiCUvsGRcFwTDC06RLQA:9
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA0MDExOSBTYWx0ZWRfX/XpEGYHxj+dT
- yo04Xngs9R+4kegqLPYs0qaQFzHC7b4OSvtNnn4HrnrotrUVX6+IrtIYV9eaahEGNWiIg20Jgym
- 1sxpvucRQtrogpkNw2+CWT4kfXejA8E=
-X-Proofpoint-ORIG-GUID: YnuFFOr12-2on_J1mJH6ZEZSKOBsoSx3
-X-Proofpoint-GUID: YnuFFOr12-2on_J1mJH6ZEZSKOBsoSx3
-X-Proofpoint-Spam-Reason: safe
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR10MB6268
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA0MDExOSBTYWx0ZWRfXz3ME5cwcY3dL
+ ekvoUXvOYCxiO4oDWWj+KzNbaC6eDtDFeC5Sg8V/NCn1n2AGivkEh/GBvKeYiIRtk2mFSCYSEZl
+ DRLF04s+4HQpfABrcTSSb/nDgVCdP+Y=
+X-Authority-Analysis: v=2.4 cv=TKd1jVla c=1 sm=1 tr=0 ts=6a9ac3e2 cx=c_pps
+ a=eHfeAi0ej4loD7KcX6Y+qw==:117 a=f+v6EHfkeJbVwR46tk4DMg==:17
+ a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=VdqzKS8jKosA:10 a=s63m1ICgrNkA:10
+ a=V5UXEbMT0ywA:10 a=VkNPw1HP01LnGYTKEx00:22 a=Z8NIEmU8O1QQgoT56wFK:22
+ a=gO1vWkAQAl3rybz1DQOp:22 a=sozttTNsAAAA:8 a=0HO5tbt_YLp_22CWDAYA:9
+X-Proofpoint-GUID: 13HWF4Nh1eHQJcSsA92wnnoIr2BE53zv
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA0MDExOSBTYWx0ZWRfX+RzQUO+Qus3v
+ W8yy3oWqCcHyxYORwZpM2xSC4ATYW25xdGX30iK55LVe2Mn24I3CmaS2Ta12uYiRSZpD2glT6HD
+ x/F/dS4p2oEExjkptAytxNiaZ1FthVpHD0eaVGq0xK7rnhFQ0aGrajYbcmpxySL7mQP7f+bg75M
+ 7gzQ1x7+Z3BHimR3y6aIiJoB1O/jFPF77EgjbwGKATP7+J8mXGudeC38p88xqh2xDy+OM1ouj4N
+ C2ownnA+t67u4jzBCk1bCOl5XUsRVxdUKKSkcUDWgpyhet38o1nTr/uIq/W4rAsW0K3knvAt0Bu
+ U2/uGICm6gwvNh7/lmy2V7AOqO8lEXvc0r2oNLmxDbF+Tw4qoJgjAdrZqaj27xJLOW1mhUXcHAn
+ ZfZcUw8VrUMbqqV/a1lt6QRGT9lhdYF4RpSjIOVImqtToUCkJnL/5NmTJofmxheyvsUpHEMfkr1
+ pEaQVMTob+c8sfd/0ZA==
+X-Proofpoint-ORIG-GUID: 13HWF4Nh1eHQJcSsA92wnnoIr2BE53zv
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-04_03,2026-09-03_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 adultscore=0 impostorscore=0 spamscore=0 bulkscore=0
+ suspectscore=0 clxscore=1011 phishscore=0 lowpriorityscore=0
+ priorityscore=1501 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2609040119
 
-The cs42l43 driver kicks off a work item waiting for the device
-to appear on the SoundWire bus, once the device appears the
-MFD children are added and the clean up is then done through
-devres. As the work is synchronised in from the devres clean
-up this could lead to new devres items being added after the
-clean up has started, if the driver is removed before the work
-has fully completed. The work should be synchronised before any
-devres clean up is started.
+No remaining board device uses a shift other than 2, and no DT supported
+platform ever did. We can drop this flag and use the pre-shifted register
+addresses. This simplifies the register access.
 
-Fixes: 0f35dc4bd50d ("mfd: cs42l43: Use devres for remove as well")
-Signed-off-by: Charles Keepax <ckeepax@opensource.cirrus.com>
+Signed-off-by: Andrew Davis <afd@ti.com>
 ---
+ arch/arm/mach-omap1/i2c.c              |  4 ---
+ drivers/i2c/busses/i2c-omap.c          | 50 +++++++++++---------------
+ include/linux/platform_data/i2c-omap.h |  5 ---
+ 3 files changed, 21 insertions(+), 38 deletions(-)
 
-Changes since v1:
- - Drop extra pm_runtime put for the case the boot work doesn't run and
-   switch to flush_work such that we always know the boot work has run.
-
- drivers/mfd/cs42l43-i2c.c |  8 ++++++++
- drivers/mfd/cs42l43-sdw.c |  8 ++++++++
- drivers/mfd/cs42l43.c     | 12 ++++++++----
- drivers/mfd/cs42l43.h     |  1 +
- 4 files changed, 25 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/mfd/cs42l43-i2c.c b/drivers/mfd/cs42l43-i2c.c
-index cbe05c3ea9100..36c5b03bae693 100644
---- a/drivers/mfd/cs42l43-i2c.c
-+++ b/drivers/mfd/cs42l43-i2c.c
-@@ -54,6 +54,13 @@ static int cs42l43_i2c_probe(struct i2c_client *i2c)
- 	return cs42l43_dev_probe(cs42l43);
- }
+diff --git a/arch/arm/mach-omap1/i2c.c b/arch/arm/mach-omap1/i2c.c
+index 94d3e7883e027..bc7828a858941 100644
+--- a/arch/arm/mach-omap1/i2c.c
++++ b/arch/arm/mach-omap1/i2c.c
+@@ -61,10 +61,6 @@ int __init omap_i2c_add_bus(struct omap_i2c_bus_platform_data *pdata,
+ 		       OMAP_I2C_FLAG_16BIT_DATA_REG |
+ 		       OMAP_I2C_FLAG_ALWAYS_ARMXOR_CLK;
  
-+static void cs42l43_i2c_remove(struct i2c_client *i2c)
-+{
-+	struct cs42l43 *cs42l43 = dev_get_drvdata(&i2c->dev);
-+
-+	cs42l43_dev_remove(cs42l43);
-+}
-+
- #if IS_ENABLED(CONFIG_OF)
- static const struct of_device_id cs42l43_of_match[] = {
- 	{ .compatible = "cirrus,cs42l43", .data = (void *)CS42L43_DEVID_VAL },
-@@ -81,6 +88,7 @@ static struct i2c_driver cs42l43_i2c_driver = {
- 	},
- 
- 	.probe		= cs42l43_i2c_probe,
-+	.remove		= cs42l43_i2c_remove,
- };
- module_i2c_driver(cs42l43_i2c_driver);
- 
-diff --git a/drivers/mfd/cs42l43-sdw.c b/drivers/mfd/cs42l43-sdw.c
-index 0a6999453f325..afed34d23af80 100644
---- a/drivers/mfd/cs42l43-sdw.c
-+++ b/drivers/mfd/cs42l43-sdw.c
-@@ -180,6 +180,13 @@ static int cs42l43_sdw_probe(struct sdw_slave *sdw, const struct sdw_device_id *
- 	return cs42l43_dev_probe(cs42l43);
- }
- 
-+static void cs42l43_sdw_remove(struct sdw_slave *sdw)
-+{
-+	struct cs42l43 *cs42l43 = dev_get_drvdata(&sdw->dev);
-+
-+	cs42l43_dev_remove(cs42l43);
-+}
-+
- static const struct sdw_device_id cs42l43_sdw_id[] = {
- 	SDW_SLAVE_ENTRY(0x01FA, 0x4243, (void *)CS42L43_DEVID_VAL),
- 	SDW_SLAVE_ENTRY(0x01FA, 0x2A3B, (void *)CS42L43B_DEVID_VAL),
-@@ -194,6 +201,7 @@ static struct sdw_driver cs42l43_sdw_driver = {
- 	},
- 
- 	.probe		= cs42l43_sdw_probe,
-+	.remove		= cs42l43_sdw_remove,
- 	.id_table	= cs42l43_sdw_id,
- 	.ops		= &cs42l43_sdw_ops,
- };
-diff --git a/drivers/mfd/cs42l43.c b/drivers/mfd/cs42l43.c
-index 4212ebcca60b5..3d26c33fee1d3 100644
---- a/drivers/mfd/cs42l43.c
-+++ b/drivers/mfd/cs42l43.c
-@@ -1099,15 +1099,19 @@ static int cs42l43_power_down(struct cs42l43 *cs42l43)
- 	return 0;
- }
- 
--static void cs42l43_dev_remove(void *data)
-+static void cs42l43_dev_power_down(void *data)
- {
- 	struct cs42l43 *cs42l43 = data;
- 
--	cancel_work_sync(&cs42l43->boot_work);
+-	/* how the cpu bus is wired up differs for 7xx only */
 -
- 	cs42l43_power_down(cs42l43);
+-	pdata->flags |= OMAP_I2C_FLAG_BUS_SHIFT_2;
+-
+ 	pdev->dev.platform_data = pdata;
+ 
+ 	return platform_device_register(pdev);
+diff --git a/drivers/i2c/busses/i2c-omap.c b/drivers/i2c/busses/i2c-omap.c
+index f02d294db42a6..72f979eec7311 100644
+--- a/drivers/i2c/busses/i2c-omap.c
++++ b/drivers/i2c/busses/i2c-omap.c
+@@ -180,7 +180,6 @@ struct omap_i2c_dev {
+ 	struct device		*dev;
+ 	void __iomem		*base;		/* virtual */
+ 	int			irq;
+-	int			reg_shift;      /* bit shift for I2C register addresses */
+ 	struct completion	cmd_complete;
+ 	struct resource		*ioarea;
+ 	u32			latency;	/* maximum mpu wkup latency */
+@@ -217,23 +216,23 @@ struct omap_i2c_dev {
+ 
+ static const u8 reg_map_ip_v1[] = {
+ 	[OMAP_I2C_REV_REG] = 0x00,
+-	[OMAP_I2C_IE_REG] = 0x01,
+-	[OMAP_I2C_STAT_REG] = 0x02,
+-	[OMAP_I2C_IV_REG] = 0x03,
+-	[OMAP_I2C_WE_REG] = 0x03,
+-	[OMAP_I2C_SYSS_REG] = 0x04,
+-	[OMAP_I2C_BUF_REG] = 0x05,
+-	[OMAP_I2C_CNT_REG] = 0x06,
+-	[OMAP_I2C_DATA_REG] = 0x07,
+-	[OMAP_I2C_SYSC_REG] = 0x08,
+-	[OMAP_I2C_CON_REG] = 0x09,
+-	[OMAP_I2C_OA_REG] = 0x0a,
+-	[OMAP_I2C_SA_REG] = 0x0b,
+-	[OMAP_I2C_PSC_REG] = 0x0c,
+-	[OMAP_I2C_SCLL_REG] = 0x0d,
+-	[OMAP_I2C_SCLH_REG] = 0x0e,
+-	[OMAP_I2C_SYSTEST_REG] = 0x0f,
+-	[OMAP_I2C_BUFSTAT_REG] = 0x10,
++	[OMAP_I2C_IE_REG] = 0x04,
++	[OMAP_I2C_STAT_REG] = 0x0c,
++	[OMAP_I2C_IV_REG] = 0x0c,
++	[OMAP_I2C_WE_REG] = 0x0c,
++	[OMAP_I2C_SYSS_REG] = 0x10,
++	[OMAP_I2C_BUF_REG] = 0x14,
++	[OMAP_I2C_CNT_REG] = 0x18,
++	[OMAP_I2C_DATA_REG] = 0x1c,
++	[OMAP_I2C_SYSC_REG] = 0x20,
++	[OMAP_I2C_CON_REG] = 0x24,
++	[OMAP_I2C_OA_REG] = 0x28,
++	[OMAP_I2C_SA_REG] = 0x2c,
++	[OMAP_I2C_PSC_REG] = 0x30,
++	[OMAP_I2C_SCLL_REG] = 0x34,
++	[OMAP_I2C_SCLH_REG] = 0x38,
++	[OMAP_I2C_SYSTEST_REG] = 0x3c,
++	[OMAP_I2C_BUFSTAT_REG] = 0x40,
+ };
+ 
+ static const u8 reg_map_ip_v2[] = {
+@@ -267,14 +266,12 @@ static int omap_i2c_xfer_data(struct omap_i2c_dev *omap);
+ static inline void omap_i2c_write_reg(struct omap_i2c_dev *omap,
+ 				      int reg, u16 val)
+ {
+-	writew_relaxed(val, omap->base +
+-			(omap->regs[reg] << omap->reg_shift));
++	writew_relaxed(val, omap->base + omap->regs[reg]);
  }
  
-+void cs42l43_dev_remove(struct cs42l43 *cs42l43)
-+{
-+	flush_work(&cs42l43->boot_work);
-+}
-+EXPORT_SYMBOL_NS_GPL(cs42l43_dev_remove, "MFD_CS42L43");
-+
- int cs42l43_dev_probe(struct cs42l43 *cs42l43)
+ static inline u16 omap_i2c_read_reg(struct omap_i2c_dev *omap, int reg)
  {
- 	int i, ret;
-@@ -1153,7 +1157,7 @@ int cs42l43_dev_probe(struct cs42l43 *cs42l43)
- 	if (ret)
- 		return ret;
+-	return readw_relaxed(omap->base +
+-				(omap->regs[reg] << omap->reg_shift));
++	return readw_relaxed(omap->base + omap->regs[reg]);
+ }
  
--	ret = devm_add_action_or_reset(cs42l43->dev, cs42l43_dev_remove, cs42l43);
-+	ret = devm_add_action_or_reset(cs42l43->dev, cs42l43_dev_power_down, cs42l43);
- 	if (ret)
- 		return ret;
+ static void __omap_i2c_init(struct omap_i2c_dev *omap)
+@@ -1214,19 +1211,16 @@ static struct omap_i2c_bus_platform_data omap2420_pdata = {
+ 	.rev = OMAP_I2C_IP_VERSION_1,
+ 	.flags = OMAP_I2C_FLAG_NO_FIFO |
+ 			OMAP_I2C_FLAG_SIMPLE_CLOCK |
+-			OMAP_I2C_FLAG_16BIT_DATA_REG |
+-			OMAP_I2C_FLAG_BUS_SHIFT_2,
++			OMAP_I2C_FLAG_16BIT_DATA_REG,
+ };
  
-diff --git a/drivers/mfd/cs42l43.h b/drivers/mfd/cs42l43.h
-index a0068f6572e2c..862bc6fb68cb7 100644
---- a/drivers/mfd/cs42l43.h
-+++ b/drivers/mfd/cs42l43.h
-@@ -25,5 +25,6 @@ bool cs42l43_precious_register(struct device *dev, unsigned int reg);
- bool cs42l43_volatile_register(struct device *dev, unsigned int reg);
+ static struct omap_i2c_bus_platform_data omap2430_pdata = {
+ 	.rev = OMAP_I2C_IP_VERSION_1,
+-	.flags = OMAP_I2C_FLAG_BUS_SHIFT_2 |
+-			OMAP_I2C_FLAG_FORCE_19200_INT_CLK,
++	.flags = OMAP_I2C_FLAG_FORCE_19200_INT_CLK,
+ };
  
- int cs42l43_dev_probe(struct cs42l43 *cs42l43);
-+void cs42l43_dev_remove(struct cs42l43 *cs42l43);
+ static struct omap_i2c_bus_platform_data omap3_pdata = {
+ 	.rev = OMAP_I2C_IP_VERSION_1,
+-	.flags = OMAP_I2C_FLAG_BUS_SHIFT_2,
+ };
  
- #endif /* CS42L43_CORE_INT_H */
+ static struct omap_i2c_bus_platform_data omap4_pdata = {
+@@ -1384,8 +1378,6 @@ omap_i2c_probe(struct platform_device *pdev)
+ 	platform_set_drvdata(pdev, omap);
+ 	init_completion(&omap->cmd_complete);
+ 
+-	omap->reg_shift = (omap->flags >> OMAP_I2C_FLAG_BUS_SHIFT__SHIFT) & 3;
+-
+ 	pm_runtime_enable(omap->dev);
+ 	pm_runtime_set_autosuspend_delay(omap->dev, OMAP_I2C_PM_TIMEOUT);
+ 	pm_runtime_use_autosuspend(omap->dev);
+diff --git a/include/linux/platform_data/i2c-omap.h b/include/linux/platform_data/i2c-omap.h
+index 3444265ee8ee7..fe6753cd17bf5 100644
+--- a/include/linux/platform_data/i2c-omap.h
++++ b/include/linux/platform_data/i2c-omap.h
+@@ -23,11 +23,6 @@
+ #define OMAP_I2C_FLAG_16BIT_DATA_REG		BIT(2)
+ #define OMAP_I2C_FLAG_ALWAYS_ARMXOR_CLK	BIT(5)
+ #define OMAP_I2C_FLAG_FORCE_19200_INT_CLK	BIT(6)
+-/* how the CPU address bus must be translated for I2C unit access */
+-#define OMAP_I2C_FLAG_BUS_SHIFT_NONE 0
+-#define OMAP_I2C_FLAG_BUS_SHIFT_1		BIT(7)
+-#define OMAP_I2C_FLAG_BUS_SHIFT_2		BIT(8)
+-#define OMAP_I2C_FLAG_BUS_SHIFT__SHIFT 7
+ 
+ struct omap_i2c_bus_platform_data {
+ 	u32		clkrate;
 -- 
-2.47.3
+2.39.2
 
