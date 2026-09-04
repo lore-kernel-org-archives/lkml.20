@@ -1,94 +1,103 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1435147728A
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 11:35:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20F15413789;
+	Fri,  4 Sep 2026 11:35:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788521720; cv=none; b=mMcir/6vmeN7I4ZFWDb0WQAvp55Rxq5c+0tcdRzH/mL+LoxUx4d5gsodvO7Sy0va1eKglFiVBOxClAdhHmSpUH5pKo5cyVaXISet2JGfouw9HrhyfhUNS4Bq1wwzQ5l/qLkDHRo4RtoxSJlQ3k4I0dpjOs4AEIIU7QGAzzlsEqk=
+	t=1788521729; cv=none; b=aZ/vxdTqFPe3nQTnaU4Z5z90+0tXZ4oAiCDWRdqX8I/V2moqT/0LCSWnuXKEu4xT/02qUiG7ZPVQqTboIuYNm6vkD2RJfdCUTPgIcdGQyIqTdRq9slWD5GaoVlCM6oLTKqd0s9DFWZOZDc5VASLFVISFzuXBo/ALEe7O04K0zZA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788521720; c=relaxed/simple;
-	bh=JglLg/LgJp0dywx6AE5xoqogojkQHfa2ZApqxJ+SFZA=;
+	s=arc-20240116; t=1788521729; c=relaxed/simple;
+	bh=bFon2cbyijn7duqmOdSI5yvUMxQWCfWBLNww7mbY1xw=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=keo/eySLJoBGAwaqqtnMTIyhDJz8MZ6Zmrskt5sr4eDVS4B9XP+BETrCDpMEF7BSnvYcHqEl/pA35f7UEobDtuj28PFbI1oHSKfHpxbSU4yy33j2hCNqiH95JQ8aHIAo9GhBK3m0ze+xT1iUfmFZz+HUZnYOdlp1iIF8C4aCQ3c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=RSVN6i6p; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=ZrQQkjNz6ieuk1NPUVQAL1jFKPMUTQM9b/wpYWooSJp4xZZt+ABmZbtu0lDRNd1EzvJqIS1vbxChsq+5VOGOnM+jC6zLrZmOjsaXtGhtzYhygiuzLUuHbZiVjqFp0OrZrNzaRCZZxIhzyL1ENpRWLHPd5T1nglg7Tw7S5t9AJ2o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=f1wNJMQZ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="RSVN6i6p"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1788521717;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=p0MLdv5y2UxO/lkU2upp311RNrEDjChpWavqlsKcB0A=;
-	b=RSVN6i6pPAmyzSuUq2uaf/n8zOrRLdBEJF9sh6eU4MUT3XV3MJKHVwdlSiahcxalqjDJ7P
-	sGEQjAoMjzTFFq3IIVMAtm0QSsi9VAiWDOnyUIDPrzSf0CHL7RQC/L/OiIOn0gskdUkRD7
-	+PWpbh9ew8PJnSMlIucFDKnF9W7n2bQ=
-Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-482-bVnjE0JoP2u-GsRzfT9ZsQ-1; Fri,
- 04 Sep 2026 07:35:14 -0400
-X-MC-Unique: bVnjE0JoP2u-GsRzfT9ZsQ-1
-X-Mimecast-MFC-AGG-ID: bVnjE0JoP2u-GsRzfT9ZsQ_1788521712
-Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id C55991893EFD;
-	Fri,  4 Sep 2026 11:35:11 +0000 (UTC)
-Received: from fedora (headnet03.pony-001.prod.iad2.dc.redhat.com [10.2.32.114])
-	by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with SMTP id 508A218005BD;
-	Fri,  4 Sep 2026 11:35:08 +0000 (UTC)
-Received: by fedora (nbSMTP-1.00) for uid 1000
-	oleg@redhat.com; Fri,  4 Sep 2026 13:35:11 +0200 (CEST)
-Date: Fri, 4 Sep 2026 13:35:07 +0200
-From: Oleg Nesterov <oleg@redhat.com>
-To: Thomas Gleixner <tglx@kernel.org>
-Cc: LKML <linux-kernel@vger.kernel.org>, Hyunwoo Kim <imv4bel@gmail.com>,
-	Frederic Weisbecker <frederic@kernel.org>,
-	Christian Brauner <brauner@kernel.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	John Stultz <jstultz@google.com>, Ingo Molnar <mingo@kernel.org>,
-	Alexander Viro <viro@zeniv.linux.org.uk>,
-	"Eric W. Biederman" <ebiederm@xmission.com>, stable@vger.kernel.org
-Subject: Re: [patch 1/8] signal: Prevent exec() race
-Message-ID: <apqs6wgDtpdLI-k8@redhat.com>
-References: <20260904112100.683893401@kernel.org>
- <20260904112202.074391651@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="f1wNJMQZ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 07FE01F00A3D;
+	Fri,  4 Sep 2026 11:35:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788521727;
+	bh=ZUcbjHtpqvnR19LCMXErt3m2uz8G1CLJI7LE3hWN5XU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=f1wNJMQZQpaMfwMSt//b2NK3WwCIF4TZMpjRTGg86K+QO2giKzdQqV8WoJsL94oJu
+	 rpuG+kw/6Ra5KaTiQQiQkfHya4RIKSKzat0qJbtukFyqBHyj4FQ983QB8FiamymC2E
+	 9li4sTEkbPocDa9gS/GvOYjAoAnhcscFzlTtHJ0JPvVAgKSLtYlB8o/nzJGgP5aHvk
+	 Ulrb+7S8n2DX5AobdL6y2EqRclbRRPtovnbEF8xaOAH0fbb0+1YDl5QnqIuTQc+5ET
+	 nY70DULvOseupl/HUMwQLQygVP9SN1XZlOjdp0iPrxIi3h0uZ8sJOTEOIUggDaZITL
+	 89dSivkNIC3PA==
+Date: Fri, 4 Sep 2026 12:35:22 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Marc Zyngier <maz@kernel.org>
+Cc: Oliver Upton <oupton@kernel.org>, Fuad Tabba <fuad.tabba@linux.dev>,
+	Joey Gouly <joey.gouly@arm.com>,
+	Steffen Eiden <seiden@linux.ibm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Zenghui Yu <yuzenghui@huawei.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+	linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/2] KVM: arm64: Initialise TCR2_EL2 for nVHE mode
+Message-ID: <d9c3a882-fcf7-4cd3-93df-b0218961e145@sirena.org.uk>
+References: <20260904-kvm-arm64-nvhe-pie-v1-0-29d59f245e6c@kernel.org>
+ <20260904-kvm-arm64-nvhe-pie-v1-1-29d59f245e6c@kernel.org>
+ <86o6ed4gln.wl-maz@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="4uSnjEPzp0Lu0fcB"
+Content-Disposition: inline
+In-Reply-To: <86o6ed4gln.wl-maz@kernel.org>
+X-Cookie: A is for Apple.
+
+
+--4uSnjEPzp0Lu0fcB
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260904112202.074391651@kernel.org>
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
 
-Thomas, I can't read this series today, will try on Weekend.
+On Fri, Sep 04, 2026 at 08:32:04AM +0100, Marc Zyngier wrote:
+> Mark Brown <broonie@kernel.org> wrote:
 
-But you didn't reply to
-https://lore.kernel.org/all/apgHJj0qH7HlAXKO@redhat.com/
-Let me quote that email here:
+> > +alternative_if ARM64_HAS_TCR2
+> > +	/*
+> > +	 * Disable any features we enabled in case the next user doesn't
+> > +	 * have TCR2_EL2 support.
+> > +	 */
+> > +	msr	REG_TCR2_EL2, xzr
+> > +alternative_else_nop_endif
 
-	OK... lets suppose the exiting task T passes exit_signals().
+> I don't see the point of this. The MMU is off, and if the next piece
+> of SW can't correctly initialise the HW, that's its problem.
 
-	Suppose we have an "ignored" timer tmr. Another sub-thread calls
-	do_sigaction() -> posixtimer_sig_unignore() and finds that tmr
-	in ->ignored_posix_timers list.
+So we don't care about reverting back to users who are just plain
+unaware of the register?  In practice for Linux that's fairly old
+kernels, but people might feel adverturous and try or try some non-Linux
+thing.  This stuff is all a bit edge casey with what we support.
 
-	But posixtimer_queue_sigqueue() doesn't check PF_EXITING, I guess
-	it should check it too?
+> And with this hunk gone, the rest should be moved to the following
+> patch.
 
-	Or perhaps it makes more sense to check PF_EXITING in
-	posixtimer_get_target() ?
+I can do that, I kept it separate since TCR2_EL2 has some other controls
+in it and people might want this independently.
 
-and at first glance it seems that this version doesn't differ in this respect?
+--4uSnjEPzp0Lu0fcB
+Content-Type: application/pgp-signature; name="signature.asc"
 
-Sorry if I missed something (again ;) but I'd better ask just in case.
+-----BEGIN PGP SIGNATURE-----
 
-Oleg.
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqarPkACgkQJNaLcl1U
+h9AePgf/auU0op5L5XAarh4ZglS+Q/pFf3liO41gDHvtvMd6TU7icHKGsNte0eXg
+z/lPZIM3VvPMiYuwv54MQ41GMD4gltvAGRFd06CvOgSp/4nK7DbFLSh7sANjO9yq
+bP9rYA8oD8ZG30rtyDL7cyxSzoYwju1IV+A2OQk/rcgKzY6a+ccKAO9qtJgVo6+H
+uWUVEBIchyKHOsCprtnksi6ux/rrcsXTXW54m9EWN05U69za6QB0HtVUeqbyoPJm
+y4PLK6MpJ6Dtb5uSpuz522EXJ7OCdm+ykfZturrHz9VjgsLeUH2Gm4tSlud0uGca
+ciQnyl3g6k8lftMcfutdVHbVJ85Uzw==
+=lvvy
+-----END PGP SIGNATURE-----
 
+--4uSnjEPzp0Lu0fcB--
