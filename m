@@ -1,308 +1,193 @@
-Received: from mta0.migadu.com (out-187.mta0.migadu.com [91.218.175.187])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpbgsg1.qq.com (smtpbgsg1.qq.com [54.254.200.92])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 377B6379EEF
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 02:56:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.187
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F75535F5ED
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 02:57:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.254.200.92
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788490603; cv=none; b=aRtJgU9Y76CMlWZLG7blJvlW6HQudVPx+8CENVewe2b0Y+DY2oc+QuughlB5dxv3XM8eG1RGb4mdAchVXhJ9fML7/h3kQwdyqUmVzjUoXizzgs3LZOv1QZiyJ3yAwWA7KUkoMAlgohBo7qY6NkTnoc8rQskQqxwDwjDkUGRM7Sc=
+	t=1788490636; cv=none; b=X2BTWd+ea4Ys4ZTkK6KI4TP3/A8OiV23z6FPPOHl0XUsvR0Et3QKM/ySeqyJk5qcLGGvebcn1CrAnXvp2yuqxL0kpLgq7d8oZtAuJxboj8VsSU6XwE5Iqw10wPSbQMZ0rR4xoegXWhrq4qTg+7/O5glU8p6s+MGlK+a/rk0SfSY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788490603; c=relaxed/simple;
-	bh=nSzqfJSBCSwrKQ/jS51poE/QdTOWtDV+k/vaE+ph314=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=iv1MUCp6WFtgfSxckaC1y/eV4iek+/4qdj29oNk0Yewt9ewHN7UIdQGzsKDFHaK/5XBKOKYA2n5l8bq7FM/Quz63hmimSU4k3RXeqL4WlXRvGTVD7SI4IbznRIBrIU4FrH5G2Jpjqf4K3fzDA6BRlcOouR56fPZCms7bj9Bs0Do=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=nUgcWUHN; arc=none smtp.client-ip=91.218.175.187
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1788490636; c=relaxed/simple;
+	bh=/vNfZEtzd7rZhII/yDUoAMszVv5dW4tl38T/aaQMUE4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=UgpKXC1YmJQE8w1sElXvBedUrIUZOO1gWlxE51oIa84qgCSNzecgMrVh0Z0eHl8xevDu3dQ2tFTcs9lEtMICwPoUC5fLbtEm7gWK8UNWUZGDd7lNk/EAYGSw8fkIk9xgAB1n2H9ti8CciLUMAiIlqZHTWpGLWZGqB2/GFvE7SwA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=jvRwcx05; arc=none smtp.client-ip=54.254.200.92
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="nUgcWUHN"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=nSzqfJSBCSwrKQ/jS51poE/QdTOWtDV+k/vaE+ph314=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788490598; v=1; x=1789095398;
- b=nUgcWUHNvmxW/IzC8SpIh+Kbd/Orfg6ebbhHFa5jZijvvnnj5pKZoql9e7PyjBmhfy3r+PFI
- HNwUpWdiLVLUqIJvd6QG8lG2XKRF95nhm/3+bKWl3GcdOo9p2yYv7V8JJu/MZoY19fQsU9Vdgdm
- scjGf+f0cLbp56j77/wwxTKQ=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 7befaa3222e40484;
-	Fri, 04 Sep 2026 02:56:37 +0000
-X-Mizu-Trace-ID: 7befaa3222e40484
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <df9fedbd-51ae-47ad-9b09-fcd7d31d0640@linux.dev>
-Date: Fri, 4 Sep 2026 08:26:33 +0530
+	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="jvRwcx05"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
+	s=onoh2408; t=1788490466;
+	bh=ROVnHA5BEqq/WcSBihPHGC+KA275aTS7xUiFqduIN8Y=;
+	h=From:To:Subject:Date:Message-ID:MIME-Version;
+	b=jvRwcx05URvNlDoDNFp8rXF7wq0yX1RA/eTHwSb+nrM+Dp6lRxkr/w1fXupzdwa22
+	 f0v1p1UoJsSFVgz7NTpTrN4WQy8eFZ/W0ZYo9fJHsGw9g/6izokBu5WI1h+8PoNwl0
+	 w6d8I54mFSZ17SUWUU/JF8sm8c5rHdInM5mepqDM=
+X-QQ-mid: zesmtpsz8t1788490458t1b47548a
+X-QQ-Originating-IP: yZtkANSwL7POW9k1ioY0Pdnq5BieGZbOrXtY3tlvt7s=
+Received: from ggx-PC ( [113.57.152.160])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Fri, 04 Sep 2026 10:54:16 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 1
+X-BIZMAIL-ID: 1351358170329713200
+From: gaoguixing <gaoguixing@uniontech.com>
+To: kasong@tencent.com
+Cc: linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	akpm@linux-foundation.org,
+	chrisl@kernel.org,
+	shikemeng@huaweicloud.com,
+	nphamcs@gmail.com,
+	bhe@redhat.com,
+	baohua@kernel.org
+Subject: [RFC PATCH] mm/swap: fix swap table count encoding for empty slots
+Date: Fri,  4 Sep 2026 10:54:11 +0800
+Message-ID: <2FDEE109C6578F17+20260904025411.106943-1-gaoguixing@uniontech.com>
+X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Vineet Gupta <vineet.gupta@linux.dev>
-Subject: Re: [RFC bpf-next 2/6] bpf: move the linked-scalar flags into
- bpf_reg_state->flags [NFC]
-To: Eduard Zingerman <eddyz87@gmail.com>, ast@kernel.org,
- daniel@iogearbox.net, andrii@kernel.org, memxor@gmail.com
-Cc: martin.lau@linux.dev, song@kernel.org, yonghong.song@linux.dev,
- jolsa@kernel.org, emil@etsalapatis.com, ihor.solodrai@linux.dev,
- john.fastabend@gmail.com, shuah@kernel.org, bpf@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org
-References: <20260814231945.3884596-1-vineet.gupta@linux.dev>
- <20260814231945.3884596-3-vineet.gupta@linux.dev>
- <82363647cb12b75398e34c7d66a9f0c527940c8d.camel@gmail.com>
-Content-Language: en-US
-In-Reply-To: <82363647cb12b75398e34c7d66a9f0c527940c8d.camel@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: zesmtpsz:uniontech.com:qybglogicsvrsz:qybglogicsvrsz3b-0
+X-QQ-XMAILINFO: N1L+gx0qj2+lci1Dgy5gFHQcGX/ba52aBObZtvA/5AeN+T/8Cs81XGqP
+	LUkTOkonlxSSGMPKxfbEn1B+h07ZbQgb7O++M3ROufhlf/EjGp5QV9lItlMCh5ddeilflPM
+	UxZrmXtViQMW+Elb4f3de50wvTzbi5Zu+/jnJ5jcE6AuEe3iPZnEhZ9n61gFnUxA5uitLKH
+	E8qE51/W1WwZXih3P1AJ3kf4L+WjUm9wbHqZTvn6B3mSaGkOXrxx9MLxlNHSm1nAjrrF7uy
+	ChYTUEZgey/hAWpA1u+J4CBAduQu9u12pF0I05TjEy6zTfsxTSL+0LOyoWypscNmO6w2fPz
+	zpjFisZ9wV/zW7wkdTa8o4v2tNGrF1e7oRRltCT5o0DdIcgD/xkHB7jcdqh8E1oeETVodLT
+	QczIT+0yQJSQW8MbayrxzhsCASUg1Ag2qsH3xW5zmuT296AReIMK4YFF1ddbL9tB9SgDgVH
+	ZvFN32QJ5UuJ1bkY1nxrD8yKlLXBtjrnaUXEC+oKfr+3elaxNnbRF4AijeEw623O2RbgJTW
+	9KP1cc5giSgr48AIZrXt7WwKG4goPAZs37gZlB0MIWI0/mK7PjEU+MgSh+r91uwxLfqe6aS
+	sM+rlN5uTe+kfTvzVCsXDskPGuxdXA3tfJALwTtLTpei2sN4qZLOR6b5N0AmRWVoHLRgbmu
+	0Siz2hgyb8286q/unQ8xXZtuAl5UA1rh9pHfppsQQ5cMvcgGEPMGP4b8vu71IA4Y4kiMyBw
+	fnkdgh1hixDubZvxBr7mrMlPI5B7GtQE9kHYMCBOnFCDoobm/5b9UOcDj4XsSWBp8W4btIG
+	3PABfMnXONsunQsW0VjAkKdg4yuPSz4zvIEdE1dyC9rT6iE2owNzHJ+/eO92fh1tPT8hIRo
+	3UCUjCPcScmy7ZReHv/mhrwIFaBuH2FFvYi6CEB8hPEHU25EK7BToUXQ5ajT7aQnlNEp8fo
+	JplSbDlLgaxJpc7HsT892s3wM32rP01c6raJX8Z7tkwGtzj2RWRDVZ6aRTTF3fGWMZU8yD7
+	+RsoFyIRO2WRaqM3ugQT8mGlFOIFuGDHuys3TvVdyLrxgjRLPS
+X-QQ-XMRINFO: MPJ6Tf5t3I/ylTmHUqvI8+Wpn+Gzalws3A==
+X-QQ-RECHKSPAM: 0
 
-On 8/19/26 4:21 AM, Eduard Zingerman wrote:
-> On Fri, 2026-08-14 at 16:19 -0700, Vineet Gupta wrote:
->
-> +#define BPF_FLAG_ADD_CONST32	(1U << 0)
-> +#define BPF_FLAG_ADD_CONST64	(1U << 1)
-> +#define BPF_FLAG_ADD_CONST	(BPF_FLAG_ADD_CONST32 | BPF_FLAG_ADD_CONST64)
->   #define BPF_FLAG_PRECISE	(1U << 7)
-> I'd still suggest to use bitfields.
+While stress-testing a local adaptation of the swap table series, the
+kernel reported unused swap offsets followed by a NULL pointer dereference
+in __swap_cache_do_del_folio().
 
-Done.
+swap_table_count() returns a pure count.  However, when initializing a NULL
+table entry, __swap_table_update_count() passes that count to
+shadow_to_swp_tb(), whose second argument is the complete swap table flags
+value and is encoded using SWP_TB_FLAGS_SHIFT.
 
-FWIW I've used enum bitfields which guarantees type safety for mutual 
-exclusions of 32 and 64 flags.
+The flags field includes SWP_TB_ZERO_FLAG below the count bits.  As a
+result, passing a count of one sets the zero flag while leaving the decoded
+count at zero.  A live swap slot can then appear unused to
+__swap_cache_add_check().
 
->> diff --git a/kernel/bpf/states.c b/kernel/bpf/states.c
->> index f7a0314fa106..d3105b9a9965 100644
->> --- a/kernel/bpf/states.c
->> +++ b/kernel/bpf/states.c
->> @@ -370,12 +370,12 @@ static bool check_ids(u32 old_id, u32 cur_id, struct bpf_idmap *idmap)
->>    * to cur_id=0 and pass. With temp IDs: r6 maps X->temp1, r7 tries to map
->>    * X->temp2, but X is already mapped to temp1, so the check fails correctly.
->>    *
->> - * When old_id has BPF_ADD_CONST set, the compound id (base | flag) and the
->> - * base id (flag stripped) must both map consistently. Example: old has
->> - * r2.id=A, r3.id=A|flag (r3 = r2 + delta), cur has r2.id=B, r3.id=C|flag
->> - * (r3 derived from unrelated r4). Without the base check, idmap gets two
->> - * independent entries A->B and A|flag->C|flag, missing that A->C conflicts
->> - * with A->B. The base ID cross-check catches this.
->> + * ->id is a plain identifier -- the ADD_CONST relationship lives in
->> + * ->flags -- so there is no compound (base | flag) key to unpack here.
->> + * Registers sharing a base id go through one idmap entry, which is what
->> + * catches e.g. old r2.id=A, r3.id=A (r3 = r2 + delta) against cur r2.id=B,
->> + * r3.id=C: A->B and A->C conflict. Matching ->flags and ->delta are checked
->> + * by the caller in regsafe().
-> Nit: the above paragraph can be dropped altogether now.
+Initialize the entry as an empty shadow without flags, then set the count
+using __swp_tb_mk_count(), which encodes it with SWP_TB_COUNT_SHIFT while
+preserving the entry type and zero flag.
 
-Done.
+The failure was observed in a QEMU x86_64 guest with about 8 GiB of RAM,
+Linux 6.18.44 #7 and MGLRU enabled with 0x0007.  The workload used a 2 GiB
+memory cgroup, wrote 2600 MiB of anonymous memory, read a 512 MiB hot file,
+scanned a 4096 MiB cold file and then read the hot file again.  The kernel
+reported:
 
->>    */
->>   static bool check_scalar_ids(u32 old_id, u32 cur_id, struct bpf_idmap *idmap)
->>   {
->> @@ -384,15 +384,7 @@ static bool check_scalar_ids(u32 old_id, u32 cur_id, struct bpf_idmap *idmap)
->>
->>   	cur_id = cur_id ? cur_id : ++idmap->tmp_id_gen;
->>
->> -	if (!check_ids(old_id, cur_id, idmap))
->> -		return false;
->> -	if (old_id & BPF_ADD_CONST) {
->> -		old_id &= ~BPF_ADD_CONST;
->> -		cur_id &= ~BPF_ADD_CONST;
->> -		if (!check_ids(old_id, cur_id, idmap))
->> -			return false;
->> -	}
->> -	return true;
->> +	return check_ids(old_id, cur_id, idmap);
->>   }
-> I think sashiko is correct when it comments about:
->
->> Does the explore_alu_limits verification path also need a similar update?
-> Both check_scalar_ids() call sites need an update.
-> That being said, I'd say that the following case in regsafe()
->
-> 		if (env->explore_alu_limits) {
-> 			/* explore_alu_limits disables tnum_in() and range_within()
-> 			 * logic and requires everything to be strict
-> 			 */
-> 			return memcmp(rold, rcur, offsetof(struct bpf_reg_state, id)) == 0 &&
-> 			       check_scalar_ids(rold->id, rcur->id, idmap);
-> 		}
->
->
-> can be replaced with `if (...) return regs_exact(rold, rcur, idmap)`,
-> parent_id should be zero for SCALAR_VALUE.
+  _swap_info_get: Unused swap offset entry 0005f948
+  _swap_info_get: Unused swap offset entry 0005f94a
+  BUG: kernel NULL pointer dereference, address: 0000000000000a50
+  #PF: supervisor read access in kernel mode
+  #PF: error_code(0x0000) - not-present page
+  Oops: Oops: 0000 [#2] SMP NOPTI
+  CPU: 1 UID: 0 PID: 4077 Comm: python3
+  RIP: 0010:__swap_cache_do_del_folio+0xbb/0x1f0
+  RAX: 0000000000000a50 RBX: ffff8eddd6308f40
+  RCX: 0000000000000a50 RDX: 0000000000000001
+  RSI: 000000000000014a RDI: 0000000000000000
+  R12: 000000000000014a R13: 000000000000014b
+  R14: 0000000000000a50 R15: fffffa8747b25580
+  CR2: 0000000000000a50
+  Relevant backtrace:
+    __swap_cache_del_folio
+    swap_cache_del_folio
+    folio_free_swap
+    free_swap_cache
+    free_pages_and_swap_cache
+    tlb_flush_mmu
+    zap_pte_range
+    zap_pmd_range.isra.0
+    unmap_page_range
+    unmap_single_vma.constprop.0
+    unmap_vmas
+    exit_mmap
+    __mmput
+    mmput
+    exit_mm
+    do_exit
+    make_task_dead
+    rewind_stack_and_make_dead
+  note: python3[4077] exited with irqs disabled
+  note: python3[4077] exited with preempt_count 1
+  Fixing recursive fault but reboot is needed!
 
-And actually this can be moved out to the NFC patch (fwiw i dropped the 
-helper link_flags_check).
+CR2 was 0xa50 and the swap table offset was 0x14a; 0x14a * 8 is 0xa50.
+This is consistent with __swap_table_get() dereferencing table[ci_off]
+while ci->table was NULL.  The unused-offset warnings show that swap slot
+state was already inconsistent before the NULL dereference.
 
-Re. the next instance of check_scalar_ids () call - there is no direct 
-change - the check for flags above it (existing for add_const, new for  
-sugreg) provide the coverage.
+This patch is an RFC fixup for a pre-squash local adaptation.
+__swap_table_update_count() is not present in the original v5 series, so
+this diff is intended for review and fold-in rather than direct
+application.
 
-One thing that did came up out of this deliberations and closely related 
-albeit not to directly here.
+The squashed local commit 99b07072a9ca ("mm/mglru: introduce frequency
+guided promotion (MGLRU-FG)") already contains this correction.
 
-The NFC patch 1 moved the flags out but didn't update regs_exact() for 
-checking the add_const flag explicitly which was happening implicitly 
-before the series. That causes the NFC to accept the following incorrectly.
-       old {r1.id=A, r2.id=A+delta}  vs cur {r1.id=B, r2.id=B}
+The broken intermediate commit was not published, while the public squashed
+commit already contains the correction.  Therefore, no Fixes tag is
+provided for this RFC.
 
-If regs_exact () is updated in the NFC, it fixes above but it also 
-starts rejecting (correctly) something that pre-series was not.
-       old {r2.id=A+delta32}         vs cur {r2.id=B+delta64}
+The corrected local tree, which also contains a separate cache-pin rollback
+fix, completed 15 out of 15 runs of the same pressure test without a BUG,
+WARN, Oops or NULL-pointer signature.  Therefore this result validates the
+combined corrected tree, not this patch in isolation.
 
-That's fine except it is no longer NFC.
+Link: https://lore.kernel.org/20260517-swap-table-p4-v5-0-88ae43e064c7@tencent.com/
+Link: https://gitea.cicd.getdeepin.org/ggx/kernel-rolling/commit/99b07072a9ca56420773bbdd052e894601c2b861
+Signed-off-by: gaoguixing <gaoguixing@uniontech.com>
+---
+ mm/swapfile.c | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
 
-So what would your preference be: NFC + addon patch to introduce or 
-remove the NFC label.
-The scenario is apparently hard to hit in real life but possible 
-theoritically.
-
->>   static void __clean_func_state(struct bpf_verifier_env *env,
->> @@ -488,11 +480,32 @@ static int clean_verifier_state(struct bpf_verifier_env *env,
->>   	return 0;
->>   }
->>
->> +/*
->> + * Do rold and rcur describe the same relationship to their ->id set?
->> + *
->> + * The link flags live in ->flags, which sits past the end of every memcmp()
->> + * window used for state comparison.
-> --- 8< ----------------------------
->                                          and check_ids() only ever sees the plain
->> + * ->id. So unlike when these bits rode along in the top of ->id, they have to
->> + * be compared explicitly everywhere ->id is.
-> ---------------------------- >8 ---
->
-> Nit: let's drop this sentence.
-
-The actual helper below is gone in v2 so this is gone too.
-
->> + *
->> + * Only meaningful when rold carries an id: the flags are only ever set
->> + * together with one, so rold->id == 0 implies none of them is set.
->> + */
->> +static bool link_flags_match(const struct bpf_reg_state *rold,
->> +			     const struct bpf_reg_state *rcur)
->> +{
->> +	if (!rold->id)
->> +		return true;
->> +
->> +	return (rold->flags & BPF_FLAG_ADD_CONST) == (rcur->flags & BPF_FLAG_ADD_CONST);
->> +}
->> +
-> ...
->
->> @@ -590,17 +603,24 @@ static bool regsafe(struct bpf_verifier_env *env, struct bpf_reg_state *rold,
->>   		 */
->>
->>   		/*
->> -		 * ADD_CONST flags must match exactly: BPF_ADD_CONST32 and
->> -		 * BPF_ADD_CONST64 have different linking semantics in
->> +		 * ADD_CONST flags must match exactly: BPF_FLAG_ADD_CONST32 and
->> +		 * BPF_FLAG_ADD_CONST64 have different linking semantics in
->>   		 * sync_linked_regs() (alu32 zero-extends, alu64 does not),
->>   		 * so pruning across different flag types is unsafe.
->>   		 */
->> -		if (rold->id &&
->> -		    (rold->id & BPF_ADD_CONST) != (rcur->id & BPF_ADD_CONST))
->> +		if (!link_flags_match(rold, rcur))
->>   			return false;
->>
->> -		/* Both have offset linkage: offsets must match */
->> -		if ((rold->id & BPF_ADD_CONST) && rold->delta != rcur->delta)
->> +		/*
->> +		 * Both have offset linkage: offsets must match. The rold->id
->> +		 * test is redundant today -- BPF_FLAG_ADD_CONST is only ever set
->> +		 * together with an id -- but it used to be structural, because
->> +		 * the flag lived in the id itself. Keep it explicit so the
->> +		 * invariant does not rest on every ->id = 0 site remembering to
->> +		 * clear ->flags too.
->> +		 */
-> Nit: Let's shorten this comment to it's original form.
->       A comment on ->flags field saying that "->flags != 0 iff ->id != 0" should suffice.
->       Let's also drop the 'rold->id && ' part.
-
-Done.
-
->> diff --git a/kernel/bpf/verifier.c b/kernel/bpf/verifier.c
->> index 8925749d636e..93e69116ca9e 100644
->> --- a/kernel/bpf/verifier.c
->> +++ b/kernel/bpf/verifier.c
->> @@ -1806,6 +1806,7 @@ static void __mark_reg_known(struct bpf_reg_state *reg, u64 imm)
->>   	       offsetof(struct bpf_reg_state, var_off) - sizeof(reg->type));
->>   	reg->id = 0;
->>   	reg->parent_id = 0;
->> +	reg->flags &= ~BPF_FLAG_ADD_CONST;
->>   	___mark_reg_known(reg, imm);
->>   }
->>
->> @@ -3308,6 +3309,7 @@ static void clear_scalar_id(struct bpf_reg_state *reg)
->>   {
->>   	reg->id = 0;
->>   	reg->delta = 0;
->> +	reg->flags &= ~BPF_FLAG_ADD_CONST;
->>   }
-> sashiko is correct about the following branch in the
-> check_stack_write_fixed_off():
->
-> 		if (!reg_value_fits)
-> 			state->stack[spi].spilled_ptr.id = 0;
->
-> this seem to be the only missing location, the rest deals with
-> pointers, where ->flags should already be zero.
-
-Now clear_scalar_id(&state->stack[spi].spilled_ptr)
-
->> @@ -15950,18 +15951,19 @@ static void sync_linked_regs(struct bpf_verifier_env *env, struct bpf_verifier_s
->>   				: &vstate->frame[e->frameno]->stack[e->spi].spilled_ptr;
->>   		if (reg->type != SCALAR_VALUE || reg == known_reg)
->>   			continue;
->> -		if ((reg->id & ~BPF_ADD_CONST) != (known_reg->id & ~BPF_ADD_CONST))
->> +		if (reg->id != known_reg->id)
->>   			continue;
->>   		/*
->>   		 * Skip mixed 32/64-bit links: the delta relationship doesn't
->>   		 * hold across different ALU widths.
->>   		 */
->> -		if (((reg->id ^ known_reg->id) & BPF_ADD_CONST) == BPF_ADD_CONST)
->> +		if (((reg->flags ^ known_reg->flags) & BPF_FLAG_ADD_CONST) == BPF_FLAG_ADD_CONST)
->>   			continue;
->> -		if ((!(reg->id & BPF_ADD_CONST) && !(known_reg->id & BPF_ADD_CONST)) ||
->> +		if ((!(reg->flags & BPF_FLAG_ADD_CONST) && !(known_reg->flags & BPF_FLAG_ADD_CONST)) ||
->>   		    reg->delta == known_reg->delta) {
->>   			*reg = *known_reg;
->>   		} else {
->> +			u8 saved_add_const = reg->flags & BPF_FLAG_ADD_CONST;
->        ---------------------^
->>      |         	s32 saved_off = reg->delta;
->>      | 		u32 saved_id = reg->id;
->>      |
->> @@ -|5976,11 +15978,12 @@ static void sync_linked_regs(struct bpf_verifier_env *env, struct bpf_verifier_s
->>      | 		 */
->>      | 		reg->delta = saved_off;
->>      | 	        reg->id = saved_id;
->> +   | 		reg->flags = (reg->flags & ~BPF_FLAG_ADD_CONST) | saved_add_const;
->>      -----------------------^
->        I'm not sure we need to inherit flags from known_reg here.
->        Let's avoid that and go with just saved_flags.
-
-Done.
-
->> --- a/tools/testing/selftests/bpf/progs/verifier_linked_scalars.c
->> +++ b/tools/testing/selftests/bpf/progs/verifier_linked_scalars.c
->> @@ -349,8 +349,9 @@ l0_%=:							\
->>   }
->>
->>   /*
->> - * Test that sync_linked_regs() checks reg->id (the linked target register)
->> - * for BPF_ADD_CONST32 rather than known_reg->id (the branch register).
->> + * Test that sync_linked_regs() consults reg->flags (the linked target
->                                     ^^^^^^^^
->                                 nit: checks
->> + * register) for BPF_FLAG_ADD_CONST32, not just known_reg->flags (the branch
->> + * register): the gate is (reg->flags | known_reg->flags).
->                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
->                 nit: please drop.
-
-Fixed.
-
-Thx,
--Vineet
+diff --git a/mm/swapfile.c b/mm/swapfile.c
+index d6c5c25755be..02fd5ad94185 100644
+--- a/mm/swapfile.c
++++ b/mm/swapfile.c
+@@ -163,16 +163,16 @@ static void __swap_table_update_count(struct swap_cluster_info *ci,
+ 				      unsigned char count)
+ {
+ 	unsigned long swp_tb = __swap_table_get(ci, ci_off);
+-	unsigned char flags = swap_table_count(count);
++	unsigned char tb_count = swap_table_count(count);
+ 
+ 	if (WARN_ON_ONCE(swp_tb_is_bad(swp_tb)))
+ 		return;
+-	if (!flags && swp_tb_is_null(swp_tb))
++	if (!tb_count && swp_tb_is_null(swp_tb))
+ 		return;
+-	if (flags && swp_tb_is_null(swp_tb))
+-		swp_tb = shadow_to_swp_tb(NULL, flags);
+-	else
+-		swp_tb = __swp_tb_mk_count(swp_tb, flags);
++	if (tb_count && swp_tb_is_null(swp_tb))
++		swp_tb = shadow_to_swp_tb(NULL, 0);
++
++	swp_tb = __swp_tb_mk_count(swp_tb, tb_count);
+ 	__swap_table_set(ci, ci_off, swp_tb);
+ }
+ 
+-- 
+2.50.1
