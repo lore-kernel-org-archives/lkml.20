@@ -1,246 +1,251 @@
-Received: from mail-qt1-f177.google.com (mail-qt1-f177.google.com [209.85.160.177])
+Received: from sg-3-43.ptr.tlmpb.com (sg-3-43.ptr.tlmpb.com [101.45.255.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F59B3B7B6E
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 15:48:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.177
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788536897; cv=pass; b=HUOEB9Kkk4TUxLPRtX/3eA+pYeekdDS+xR/4w3+dHH4o7j1c2h0R307EBpGUMImEL0Z5lc2j2aS8PM99aucRjjIhu13SLiHI3fzRgmuTOx04PAul8Uulxb50SJA7hoiTMS7se1XAF9SFSFYD+y7kDxBO+EW3pPrNpPnN+kK8h0M=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788536897; c=relaxed/simple;
-	bh=fkgmLk7TSusFljKb5mNVGBWmuOfZ68VmTXa0yt0WmTY=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=ZTGH38P+KPRpKOUTKBi8COKz7gYLk08vcNd6Fdw5m0Y4bBg4mCezhLi4Y5UMA2x2oH+1Z67/AQbYXV9dE3NH2bCk5tg2cYMBYKMHuhjedYbNLBKyvh7u9PeQ40VB6U3XG82RdAS8u2EPjc5dyMy9TZtw0aTy2tDJwMj0CgnS+SA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=idw3hsyo; arc=pass smtp.client-ip=209.85.160.177
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7AFF13B9D9F
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 15:49:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.45.255.43
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788536947; cv=none; b=LYvtDWsSI41v8lP/dcoCRQrbBttxlVeOU9t6fuTEmZkb2+5/q9UTRL+tlcXSAu9hu3+ANNL3Brg5Bs33jmKSrIaLCtXbUZvGFbO4zixcPi7MBBmcYYP/3GFUhXyFkMyxr0uxcTDrHBpmpY1w1b5XpGXRK3EKK2b0ZgMqSDY9+fk=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788536947; c=relaxed/simple;
+	bh=sYlptdn28B8vikbZVIYEdGWgAaPQhB/vChPJohyZycM=;
+	h=Subject:Date:References:Content-Type:In-Reply-To:Cc:Mime-Version:
+	 From:To:Message-Id; b=exagQAMsbISHFhJqxFVs+ScaxY8XWWPzpYMUFAZMyepygqkcsGmSOhQu7EKcxoC59pa+Ga/FgpFYvE71nh5MTtQr9VmO/Q1AOc3S1HQ9bu7JS8Zah3eH64U3KNkphpoNnte/BXOy3S9/eSJ6+2JXBm/+Vx0V3SM8qRQPB4w1WHc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fygo.io; spf=pass smtp.mailfrom=fygo.io; dkim=pass (2048-bit key) header.d=fygo-io.20200929.dkim.larksuite.com header.i=@fygo-io.20200929.dkim.larksuite.com header.b=hoDFv4lX; arc=none smtp.client-ip=101.45.255.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fygo.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fygo.io
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="idw3hsyo"
-Received: by mail-qt1-f177.google.com with SMTP id d75a77b69052e-5300bdf61d9so13997431cf.3
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 08:48:16 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788536895; cv=none;
-        d=google.com; s=arc-20260327;
-        b=scAMqV/Ujlbo6777ZUZ8oxdYG3ZJO66e5g1WnyRnaQKDR5WvYixsBa06D5BA5v5ldG
-         XL/stK19DDd1L3DiNj0r/ebWLyXgUWjRTIcOZ9ls+Vei3YhvknEcbTnQGYd+qi1c/9Wv
-         uS+LLbwnGgXi3sz/rhherLv+rzH62hblpjy2pWxcXnUlcCaNh2CgYfWegl/IQXriVStO
-         WamBhkIGAvYt7AxrU5xjM8SHr309HdD6IVp6mCYb6hIu4TZ7PjT2RLBeEdw93SxpoNeP
-         mFasIMDWaYBDOw64MpDdh1Lifhh8TVNZvYNPQy0nWRUYkRBd08BoZpfRxm+utXGYDbfn
-         jpZA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=bfiN6yz4NWjPVAo55cK10Jczdybpen++qz7Sb8+85g0=;
-        fh=CJUCEg1LmgGSLoHYBoGcno9d8cpWhzgajKa/o/Ik4eE=;
-        b=DpopdhLDtdk3maMIk9ocPoaDq2m9UubD/QTWWphSbtvKMpJAkKQ3GpqijYKnu2WkAe
-         2zRTROBXwPK70fWZaJ3l8eB1ZQ6eRLArB1fEQN2cb81OC4UuyHGoEglyHfZ/aERWZfJW
-         hAmXomwH5AgJvpgT/wUnxgEKjogrylYtV43L5Z4J8EAK3wcy9h7WZ2lR7JS7l/7hiyQa
-         W5MzZLAFa1+uqM744haYjUjjmIQ9XWKG/GobbxSBSBeXUlKWfq4P+i06dprCM1KQ7M0N
-         +Gal3PAFMr92rxCMoTem444z0Q9ITffyd+fps6cuB/P6nyQAi91A+7tJioeMu1g1nx5K
-         rXTQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1788536895; x=1789141695; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=bfiN6yz4NWjPVAo55cK10Jczdybpen++qz7Sb8+85g0=;
-        b=idw3hsyomxGUPti09uaufr0mZpCXiGXkeT6FDlyX6tS28IgRgScs5qjiKI44LD7ByN
-         mh7cFpy49kWeMuqtP8yBEOvvL531eNeAUWwDEad3X5LIfGk+TNeOzT8MbPqQgGU9RCyx
-         w6YOZ8di4+c9V9Y8zTjodX3heR+YkJ6tMl/5Fx0cyHeBrVTkKbJNxDvIPvp2wd2UVdlE
-         hX618tUqTbtLRoCZVwAPzbpJ5qBxBJPKe8zRdf0ui/dJigTf2dYWv5+sRSxE/4eywe7Z
-         L8TIiD3jvFv0J1pNBk6/iG1Y5Cd1CUozSvKk8qGdC0mesWoRM1K2fPO1jzixkbQ+24xW
-         DJ2A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788536895; x=1789141695;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=bfiN6yz4NWjPVAo55cK10Jczdybpen++qz7Sb8+85g0=;
-        b=IEO6qndVnC++2XmTosqWj/CLSPC4BEaiw7fFvl38p9B+adUymeKemM3QBcV5thMKwj
-         wjOKVo/uFuZJg1Cqy/BjLdr0qnEidZq5LzBNP+6H06o7tjgRdLtV4f6xQC2ew3sb+KYH
-         mTh2TIF9zM2t9xttAdDYMgo9EwnSOFkBtqlpugmpyJhHrSie2PRyMmEwZL0qwWOlbfeN
-         KdCLsDMDUeLt2TZxImWKUu1iZT+PxArSMAw9UjB3uR0dkfGApYN0DYqLRdhIN7hqxDxt
-         JetymKkA3c+yD8M0ZXUWa3hEXn+QZkA5ZBtvcN5SVfOdVYAM4nBleZFrhbU9rB3eqNT0
-         fNyA==
-X-Forwarded-Encrypted: i=1; AKwUvBybqmhLea+JclD3JO7GdUZtlHZvZoj/IuT3HdZcJ8g2lOJdQvcZxQGo/Tl4UjAypItdUzEIjy/vymFLlI4=@vger.kernel.org
-X-Gm-Message-State: AFuF++myilvU7jCiPnjP0L7NjaLotK3B57fi/wPnakv2WLJeYgpzOFsl
-	SPgPUBTvGZlbmvc5ouKVQRn+srgPbr6kqaXIFqQ08FlVDESJeJkY6N2Bz0TJ020yuKKC73uX9TB
-	PuNcEMqjjsv983pzDtEL69gjeBov1Ofs2e87RGU90
-X-Gm-Gg: AYBFou09Q87BTw0F1qWIqwBNN0d50pZu1ytMz8iuO7varVRh4nxkkl5WcHYxL8aAmPT
-	wxQHjiPeQODsiLPgCDhospGXovdGr5jG8fhpS0vVfTm45R0oAUIY92Xt9Nq/daBJDdIzkA1AVQz
-	6qDc4NaBKOBfCsqMc9xkC/Ml+zq8FyP1SXHrTlBpfLzJ0guigsEw4dvvLGlpjMNsBz7nYXCgtYt
-	2l3uyjPZ2d6RKBbFJcppf9coMiu7mxoHgBbOtCX2bIMAekea4C/C4T866eYZ+n+k/3AYAKuAkp8
-	PkJf3QeFQfdgKSoxsqfJZdwrcWey33X94t72jVqNOyRmqOIN+r5vtja5EnzBLPisgFBraJA5fdd
-	76nXeHPoP+9ERqnHYziEaOgIbIM+xVQvh65Weyf0mfQH5z8sphB7QjDDNpQ==
-X-Received: by 2002:ac8:5945:0:b0:530:42d4:4c9a with SMTP id
- d75a77b69052e-53054a34924mr69388931cf.44.1788536889636; Fri, 04 Sep 2026
- 08:48:09 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=fygo-io.20200929.dkim.larksuite.com header.i=@fygo-io.20200929.dkim.larksuite.com header.b="hoDFv4lX"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=s1; d=fygo-io.20200929.dkim.larksuite.com; t=1788536213;
+  h=from:subject:mime-version:from:date:message-id:subject:to:cc:
+ reply-to:content-type:mime-version:in-reply-to:message-id;
+ bh=u+uT2szPCR5zFKobro3MB2pr7EcmWK4K3xsMMji49yQ=;
+ b=hoDFv4lX2PMC50Ct0n9Wa2qjNI+9MyxNK2HoeCqLNayef+jXl87glL3STBY0OedvBzfpgs
+ ue/9IYbNzwM5LT4ywy2DtoEoEE9DmFmZJWpWkvB872lXqDfVuJqUUjlzE8775gaDDzLpIq
+ 4Q1vyxRQ0Sx2EYAt9d4ArotfhvRaJHGtIoYxrda+0UQApwYfamwVuC7Rtxv3+9HLjQv1v4
+ gWB7VS2zStNKPt1Ic8nfjIRsS1nBuZOBZwMwMValO0Ik84q8fAgGumIpKNe2dx9McnE/F0
+ 9f7UdHvObNHfqru93ztkmVp5sOcKpqQ4bBmaKc00dvJeipEQkKNWpOhNa/RXbQ==
+Subject: Re: [PATCH] bcache: reserve a bucket generation for btree node freeing
+Date: Fri, 4 Sep 2026 23:36:39 +0800
+Received: from smtpclient.apple ([120.245.64.136]) by smtp.larksuite.com with ESMTPS; Fri, 04 Sep 2026 15:36:51 +0000
+References: <20260811123541.624750-1-wale.zhang.ftd@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+In-Reply-To: <20260811123541.624750-1-wale.zhang.ftd@gmail.com>
+Cc: <kent.overstreet@linux.dev>, <linux-bcache@vger.kernel.org>, 
+	<linux-kernel@vger.kernel.org>
+X-Original-From: Coly Li <colyli@fygo.io>
+Content-Transfer-Encoding: quoted-printable
+X-Lms-Return-Path: <lba+26a9ae594+7ee168+vger.kernel.org+colyli@fygo.io>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260904144636.3443342-1-maoyixie.tju@gmail.com>
-In-Reply-To: <20260904144636.3443342-1-maoyixie.tju@gmail.com>
-From: Eric Dumazet <edumazet@google.com>
-Date: Fri, 4 Sep 2026 17:47:57 +0200
-X-Gm-Features: AcwNN1UCRx-BhO87n2SxGRB6ALivWRgeLz2pUjsHm8KdlVoypTzmG8EH1Vlq018
-Message-ID: <CANn89iJRG6UbnYX2xo1ZJR4k=Jr+PQEb48qELK9gpKp2QATKyg@mail.gmail.com>
-Subject: Re: [PATCH net] netlink: render SCM_CREDENTIALS pid in the receiver's
- pid namespace
-To: Maoyi Xie <maoyixie.tju@gmail.com>
-Cc: davem@davemloft.net, kuba@kernel.org, pabeni@redhat.com, kuniyu@google.com, 
-	horms@kernel.org, alexander@mihalicyn.com, brauner@kernel.org, 
-	adobriyan@openvz.org, akpm@linux-foundation.org, leitao@debian.org, 
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Mime-Version: 1.0
+From: "Coly Li" <colyli@fygo.io>
+X-Mailer: Apple Mail (2.3864.700.51.1.1)
+To: "Wale Zhang" <wale.zhang.ftd@gmail.com>
+Message-Id: <DEA8D41E-DA59-49B2-8E12-FC16DAB1EA5A@fygo.io>
 
-On Fri, Sep 4, 2026 at 4:46=E2=80=AFPM Maoyi Xie <maoyixie.tju@gmail.com> w=
-rote:
->
-> __scm_recv_common() translates uid and gid into the reader's user
-> namespace but copies the pid as is. AF_UNIX gets away with that because
-> unix_skb_to_scm() re-renders the pid with pid_vnr() at recvmsg time.
-> netlink_sendmsg() renders it in the sender's namespace and stores a bare
-> u32, so a reader in another pid namespace sees a number from a namespace
-> it is not in. The sender chooses that number. An unprivileged sender in a
-> child namespace made the receiver see pid 300.
->
-> Carry the sender's struct pid in NETLINK_CB and hand it to scm_set_cred()
-> in netlink_recvmsg(), the way af_unix does. netlink_skb_set_owner_r()
-> takes the reference and netlink_skb_destructor() drops it. A reader in a
-> namespace the sender has no pid in now gets 0, like AF_UNIX.
->
-> I found this with a CodeQL checker. I used Claude to help write the
-> reproducers. The ones that reproduce the bug run unprivileged and need no
-> kernel changes. Tested on net with KASAN and lockdep, no reports. The tre=
-e
-> has no netlink SCM selftest.
->
-> Fixes: b488893a390e ("pid namespaces: changes to show virtual ids to user=
-")
-> Cc: stable@vger.kernel.org
-> Assisted-by: Claude:claude-opus-5 codeql
-> Signed-off-by: Maoyi Xie <maoyixie.tju@gmail.com>
+> 2026=E5=B9=B48=E6=9C=8811=E6=97=A5 20:35=EF=BC=8CWale Zhang <wale.zhang.f=
+td@gmail.com> =E5=86=99=E9=81=93=EF=BC=9A
+>=20
+> The allocator allows a bucket generation to advance until its distance
+> from last_gc reaches BUCKET_GC_GEN_MAX.  A bucket allocated for a btree
+> node can then be advanced once more by make_btree_freeing_key() when that
+> node is replaced.  That path does not go through can_inc_bucket_gen().
+>=20
+> This can make the generation distance exceed BUCKET_GC_GEN_MAX.  It was
+> observed during journal replay when a btree split advanced the distance
+> from 96 to 97.  bch_inc_gen() warned and the subsequent btree scan
+> reported:
+>=20
+>  key too stale: 97, need_gc 97
+>=20
+> The cache set was then disabled.
+>=20
+> Stop normal bucket invalidation one generation earlier.  The reserved
+> generation allows make_btree_freeing_key() to invalidate a btree node
+> without exceeding BUCKET_GC_GEN_MAX.  A bucket cannot need another such
+> increment before being reused, and reuse has to pass this check again.
+>=20
+> The kernel log is as follow:
+> [   46.769015] ------------[ cut here ]------------
+> [   46.769023] WARNING: CPU: 14 PID: 3891 at drivers/md/bcache/alloc.c:81=
+ bch_inc_gen+0x3f/0x50 [bcache]
+> [   46.769145] Modules linked in: bcache(E) dm_mod(E) ext4(E) crc16(E) jb=
+d2(E) crc32c_cryptoapi(E) watchdog(E) squashfs(E) vfat(E) fat(E) overlay(E)=
+ raid10(E) raid456(E) async_raid6_recov(E) async_memcpy(E) async_pq(E) asyn=
+c_xor(E) xor(E) async_tx(E) raid6_pq(E) raid1(E) raid0(E) md_mod(E) quota_v=
+2(E) quota_v1(E) quota_tree(E) loop(E) sd_mod(E) xhci_pci(E) nvme(E) ahci(E=
+) xhci_hcd(E) nvme_core(E) libahci(E) libata(E) atlantic(E) nvme_keyring(E)=
+ nvme_auth(E) usbcore(E) scsi_mod(E)
+> [   46.769216] CPU: 14 UID: 0 PID: 3891 Comm: bcache Tainted: G S   U    =
+  E       6.18.15 #1 PREEMPT(lazy)
+> [   46.769222] Tainted: [S]=3DCPU_OUT_OF_SPEC, [U]=3DUSER, [E]=3DUNSIGNED=
+_MODULE
+> [   46.769223] Hardware name: MINI Pro/Default string, BIOS MINI Pro V1.1=
+ 20250806 08/06/2025
+> [   46.769225] RIP: 0010:bch_inc_gen+0x3f/0x50 [bcache]
+> [   46.769240] Code: 0f 89 c2 2a 56 07 0f b6 b1 22 06 00 00 40 38 f2 0f 4=
+2 d6 88 91 22 06 00 00 48 8b 17 80 ba 22 06 00 00 60 77 05 c3 cc cc cc cc <=
+0f> 0b c3 cc cc cc cc 66 2e 0f 1f 84 00 00 00 00 00 90 90 90 90 90
+> [   46.769243] RSP: 0018:ffffcadc8ffdf590 EFLAGS: 00010202
+> [   46.769245] RAX: 0000000000000063 RBX: 000007ffffffffff RCX: ffff89da5=
+8600000
+> [   46.769247] RDX: ffff89da58600000 RSI: 0000000000000060 RDI: ffff89d8c=
+14c8000
+> [   46.769249] RBP: 0000000000000002 R08: 0000000ae3a62aea R09: 000000000=
+0000000
+> [   46.769250] R10: 0000000000000001 R11: 0000000000000000 R12: 000000000=
+0000001
+> [   46.769252] R13: ffffcadc8ffdf658 R14: ffff89da820bb800 R15: ffffcadc8=
+ffdf600
+> [   46.769254] FS:  00007f7222e26bc0(0000) GS:ffff89e854219000(0000) knlG=
+S:0000000000000000
+> [   46.769256] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+> [   46.769258] CR2: 00007f37b77fcde8 CR3: 0000000305c51006 CR4: 000000000=
+0f72ef0
+> [   46.769260] PKRU: 55555554
+> [   46.769261] Call Trace:
+> [   46.769265]  <TASK>
+> [   46.769267]  make_btree_freeing_key+0xe3/0x120 [bcache]
+> [   46.769287]  btree_split+0x4b3/0x6c0 [bcache]
+> [   46.769304]  ? __pfx_closure_sync_fn+0x10/0x10
+> [   46.769312]  ? update_load_avg+0x7f/0x790
+> [   46.769319]  bch_btree_insert_node+0x2f6/0x3d0 [bcache]
+> [   46.769335]  ? __pfx_btree_insert_fn+0x10/0x10 [bcache]
+> [   46.769349]  btree_insert_fn+0x24/0x50 [bcache]
+> [   46.769364]  bch_btree_map_nodes_recurse+0x103/0x190 [bcache]
+> [   46.769379]  __bch_btree_map_nodes+0x1b7/0x1f0 [bcache]
+> [   46.769393]  ? __pfx_btree_insert_fn+0x10/0x10 [bcache]
+> [   46.769407]  bch_btree_insert+0xe3/0x160 [bcache]
+> [   46.769420]  ? __pfx_autoremove_wake_function+0x10/0x10
+> [   46.769425]  bch_journal_replay+0x131/0x290 [bcache]
+> [   46.769442]  ? ttwu_queue_wakelist+0xe0/0x100
+> [   46.769447]  ? try_to_wake_up+0x309/0x6e0
+> [   46.769451]  register_bcache+0x18b2/0x2000 [bcache]
+> [   46.769473]  kernfs_fop_write_iter+0x130/0x210
+> [   46.769480]  vfs_write+0x258/0x420
+> [   46.769486]  ksys_write+0x65/0xe0
+> [   46.769490]  do_syscall_64+0x84/0x810
+> [   46.769495]  ? next_uptodate_folio+0x85/0x2a0
+> [   46.769501]  ? percpu_counter_add_batch+0x4c/0x90
+> [   46.769504]  ? filemap_map_pages+0x64f/0x760
+> [   46.769509]  ? do_fault+0x2a2/0x5a0
+> [   46.769513]  ? __handle_mm_fault+0x943/0xfb0
+> [   46.769518]  ? count_memcg_events+0xb6/0x170
+> [   46.769523]  ? handle_mm_fault+0xb2/0x2b0
+> [   46.769526]  ? do_user_addr_fault+0x212/0x6a0
+> [   46.769531]  entry_SYSCALL_64_after_hwframe+0x76/0x7e
+> [   46.769535] RIP: 0033:0x7f7222f20350
+> [   46.769538] Code: 40 00 48 8b 15 b1 aa 0d 00 f7 d8 64 89 02 48 c7 c0 f=
+f ff ff ff eb b7 0f 1f 00 80 3d 91 32 0e 00 00 74 17 b8 01 00 00 00 0f 05 <=
+48> 3d 00 f0 ff ff 77 58 c3 0f 1f 80 00 00 00 00 48 83 ec 28 48 89
+> [   46.769540] RSP: 002b:00007ffec1502588 EFLAGS: 00000202 ORIG_RAX: 0000=
+000000000001
+> [   46.769542] RAX: ffffffffffffffda RBX: 000000000000000a RCX: 00007f722=
+2f20350
+> [   46.769543] RDX: 000000000000000a RSI: 000055b8694a3c00 RDI: 000000000=
+0000003
+> [   46.769544] RBP: 000055b8694a3c00 R08: 00007f7222ffc2e0 R09: 000000000=
+0000073
+> [   46.769546] R10: 0000000000000000 R11: 0000000000000202 R12: 000000000=
+000000a
+> [   46.769547] R13: 00007ffec1502610 R14: 000000000000000a R15: 00007f722=
+2ff79e0
+> [   46.769549]  </TASK>
+> [   46.769550] ---[ end trace 0000000000000000 ]---
+> [   46.777982] bcache: bch_journal_replay() journal replay done, 4 keys i=
+n 3 entries, seq 75283
+> [   46.809306] bcache: register_cache() registered cache device dm-1
+> [   46.820987] bcache: register_bdev() registered backing device dm-3
+> [   46.850260] bcache: bch_cache_set_error() error on b2f0a7d0-0c65-44e6-=
+8ea7-c2b2d66324ad: key too stale: 97, need_gc 97, disabling caching
+> [   46.850268] CPU: 4 UID: 0 PID: 4171 Comm: bch_dirtcnt[3] Tainted: G S =
+  U  W   E       6.18.15 #1 PREEMPT(lazy)
+> [   46.850270] Tainted: [S]=3DCPU_OUT_OF_SPEC, [U]=3DUSER, [W]=3DWARN, [E=
+]=3DUNSIGNED_MODULE
+> [   46.850271] Hardware name: MINI Pro/Default string, BIOS MINI Pro V1.1=
+ 20250806 08/06/2025
+> [   46.850272] Call Trace:
+> [   46.850274]  <TASK>
+> [   46.850277]  dump_stack_lvl+0x64/0x80
+> [   46.850286]  bch_extent_bad+0x11e/0x170 [bcache]
+> [   46.850299]  ? __pfx_bch_ptr_bad+0x10/0x10 [bcache]
+> [   46.850305]  bch_btree_iter_next_filter+0x1b0/0x2e0 [bcache]
+> [   46.850311]  bch_btree_map_keys_recurse+0x7d/0x190 [bcache]
+> [   46.850317]  ? __pfx_sectors_dirty_init_fn+0x10/0x10 [bcache]
+> [   46.850324]  ? sched_balance_update_blocked_averages+0x5f8/0x710
+> [   46.850328]  ? bch_btree_node_get.part.0+0x1f6/0x2e0 [bcache]
+> [   46.850333]  ? __pfx_up_read+0x10/0x10
+> [   46.850335]  bch_root_node_dirty_init+0xdc/0x170 [bcache]
+> [   46.850342]  ? __pfx_autoremove_wake_function+0x10/0x10
+> [   46.850343]  bch_dirty_init_thread+0x11a/0x150 [bcache]
+> [   46.850349]  ? __pfx_bch_dirty_init_thread+0x10/0x10 [bcache]
+> [   46.850354]  kthread+0xfe/0x240
+> [   46.850356]  ? __pfx_kthread+0x10/0x10
+> [   46.850357]  ? __pfx_kthread+0x10/0x10
+> [   46.850357]  ret_from_fork+0x1cc/0x200
+> [   46.850360]  ? __pfx_kthread+0x10/0x10
+> [   46.850360]  ret_from_fork_asm+0x1a/0x30
+> [   46.850363]  </TASK>
+> [   46.851013] Buffer I/O error on dev bcache0, logical block 0, async pa=
+ge read
+> [   46.851027] ldm_validate_partition_table(): Disk read failed.
+> [   46.851032] Buffer I/O error on dev bcache0, logical block 0, async pa=
+ge read
+> [   46.851033] Dev bcache0: unable to read RDB block 0
+> [   46.851037] Buffer I/O error on dev bcache0, logical block 3, async pa=
+ge read
+> [   46.851039]  bcache0: unable to read partition table
+> [   46.851155] bcache: bch_cached_dev_attach() Caching dm-3 as bcache0 on=
+ set b2f0a7d0-0c65-44e6-8ea7-c2b2d66324ad
+> [   46.851296] bcache: conditional_stop_bcache_device() stop_when_cache_s=
+et_failed of bcache0 is "auto" and cache is dirty, stop it to avoid potenti=
+al data corruption.
+> [   46.856117] bcache: cached_dev_detach_finish() Caching disabled for dm=
+-3
+> [   46.881268] bcache: bcache_device_free() bcache0 stopped
+> [   47.089287] bcache: cache_set_free() Cache set b2f0a7d0-0c65-44e6-8ea7=
+-c2b2d66324ad unregistered
+>=20
+> Signed-off-by: Wale Zhang <wale.zhang.ftd@gmail.com>
+
+Hi Wale,
+
+Yes, this is a valid problem and efficient fix. Thanks.
+
+I  take it for my for-next.
+
+Coly Li
+
+
 > ---
->  include/linux/netlink.h  |  9 +++++++++
->  net/netlink/af_netlink.c | 30 ++++++++++++++++++++++++++++--
->  2 files changed, 37 insertions(+), 2 deletions(-)
->
-> diff --git a/include/linux/netlink.h b/include/linux/netlink.h
-> index 882e9c1b6c1dcc..26266754e27c14 100644
-> --- a/include/linux/netlink.h
-> +++ b/include/linux/netlink.h
-> @@ -30,6 +30,15 @@ struct netlink_skb_parms {
->         struct sock             *sk;
->         bool                    nsid_is_set;
->         int                     nsid;
-> +       /*
-> +        * Sender's struct pid.  netlink_sendmsg() stores a borrowed poin=
-ter
-> +        * taken from its own scm_cookie.  netlink_skb_set_owner_r() take=
-s a
-> +        * reference when it takes ownership of the skb for a receiver, a=
-nd
-> +        * netlink_skb_destructor() drops that reference.  A clone starts=
- out
-> +        * borrowing again, because __skb_clone() clears both skb->sk and
-> +        * skb->destructor.  NULL for a kernel generated skb.
-> +        */
-> +       struct pid              *pid;
->  };
->
->  #define NETLINK_CB(skb)                (*(struct netlink_skb_parms*)&((s=
-kb)->cb))
-> diff --git a/net/netlink/af_netlink.c b/net/netlink/af_netlink.c
-> index e6b1d9758c9c92..170d90d472a0db 100644
-> --- a/net/netlink/af_netlink.c
-> +++ b/net/netlink/af_netlink.c
-> @@ -379,13 +379,24 @@ static void netlink_skb_destructor(struct sk_buff *=
-skb)
->
->                 skb->head =3D NULL;
->         }
-> -       if (skb->sk !=3D NULL)
-> +       if (skb->sk) {
-> +               /*
-> +                * The reference is held for as long as skb->sk is set, t=
-aken
-> +                * in netlink_skb_set_owner_r() and dropped here.  The po=
-inter
-> +                * is left in place: do_one_broadcast() orphans an skb on=
-e
-> +                * listener owned and hands it to the next, which takes i=
-ts
-> +                * own reference, and the sender's scm_cookie keeps the p=
-id
-> +                * alive across the whole broadcast.
-> +                */
-> +               put_pid(NETLINK_CB(skb).pid);
-
-I really have a bad feeling about this dance and these assumptions,
-maybe this is just me.
-
-Please include a dedicated selftest in tools/testing/selftests/net/
-exercising SO_PASSCRED / SCM_CREDENTIALS
-over netlink across PID namespaces to demonstrate the issue and
-validate the proposed changes.
-
-Thanks.
-
->                 sock_rfree(skb);
-> +       }
->  }
->
->  static void netlink_skb_set_owner_r(struct sk_buff *skb, struct sock *sk=
-)
->  {
->         WARN_ON(skb->sk !=3D NULL);
-> +       NETLINK_CB(skb).pid =3D get_pid(NETLINK_CB(skb).pid);
->         skb->sk =3D sk;
->         skb->destructor =3D netlink_skb_destructor;
->         sk_mem_charge(sk, skb->truesize);
-> @@ -1880,6 +1891,13 @@ static int netlink_sendmsg(struct socket *sock, st=
-ruct msghdr *msg, size_t len)
->         NETLINK_CB(skb).dst_group =3D dst_group;
->         NETLINK_CB(skb).creds   =3D scm.creds;
->         NETLINK_CB(skb).flags   =3D netlink_skb_flags;
-> +       /*
-> +        * Borrowed here.  scm_destroy() below drops the scm_cookie's own
-> +        * reference, and every delivery in between is synchronous, so th=
-e
-> +        * pointer stays valid until netlink_skb_set_owner_r() takes a
-> +        * reference of its own.
-> +        */
-> +       NETLINK_CB(skb).pid     =3D scm.pid;
->
->         err =3D -EFAULT;
->         if (memcpy_from_msg(skb_put(skb, len), msg, len)) {
-> @@ -1971,7 +1989,15 @@ static int netlink_recvmsg(struct socket *sock, st=
-ruct msghdr *msg, size_t len,
->                 netlink_cmsg_listen_all_nsid(sk, msg, skb);
->
->         memset(&scm, 0, sizeof(scm));
-> -       scm.creds =3D *NETLINK_CREDS(skb);
-> +       /*
-> +        * Render the sender's pid in the reader's pid namespace, the way
-> +        * unix_skb_to_scm() does through scm_set_cred().  A NULL pid giv=
-es 0,
-> +        * so a control block that lost its reference reports "unknown" r=
-ather
-> +        * than the sender's own untranslated number.  scm_recv() below d=
-rops
-> +        * the reference taken here on both of its paths.
-> +        */
-> +       scm_set_cred(&scm, NETLINK_CB(skb).pid, NETLINK_CREDS(skb)->uid,
-> +                    NETLINK_CREDS(skb)->gid);
->         if (flags & MSG_TRUNC)
->                 copied =3D data_skb->len;
->
-> --
-> 2.34.1
+> drivers/md/bcache/alloc.c | 7 ++++++-
+> 1 file changed, 6 insertions(+), 1 deletion(-)
+>=20
+> diff --git a/drivers/md/bcache/alloc.c b/drivers/md/bcache/alloc.c
+> index 3ec240ec685d..460a6eed59ff 100644
+> --- a/drivers/md/bcache/alloc.c
+> +++ b/drivers/md/bcache/alloc.c
+> @@ -120,7 +120,12 @@ void bch_rescale_priorities(struct cache_set *c, int=
+ sectors)
+>=20
+> static inline bool can_inc_bucket_gen(struct bucket *b)
+> {
+> - return bucket_gc_gen(b) < BUCKET_GC_GEN_MAX;
+> + /*
+> + * A bucket may be allocated for a btree node. When the node is freed,
+> + * make_btree_freeing_key() increments the bucket generation once more
+> + * without going through this check. Leave room for that increment.
+> + */
+> + return bucket_gc_gen(b) < BUCKET_GC_GEN_MAX - 1;
+> }
+>=20
+> bool bch_can_invalidate_bucket(struct cache *ca, struct bucket *b)
+> --=20
+> 2.47.3
+>=20
 >
