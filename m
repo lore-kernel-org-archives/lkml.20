@@ -1,326 +1,134 @@
-Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
+Received: from mail-vk1-f182.google.com (mail-vk1-f182.google.com [209.85.221.182])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B683E4D2EC4
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 14:54:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53E704A0EEE
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 14:54:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788533684; cv=none; b=BbzQHpo2KRmEX+b78Yr6+2paFCNyFgsbdw+70o1MBXcFQPi4LZXk5Qf3QuYhGeraZRk6ytq2YmfNkVLdvL6HoFS2GAifjxMktft0lJquPu722rX9xwNtxQ7F5qnsfQL3XvB/IshBFyTMhJ6i5AbJCWiH752uohsjq+vj7GfgWh8=
+	t=1788533698; cv=none; b=mOJ1Ccwl9hheW5BuZgMZu+niaVATf0zV0dlRzxlBfU5iqibW3MErGsk2Lw2PRS+UGEIdr/6ajVCsvZjIlI6eAWds6FedV0Ghe9D3b4YhkcRRfxAq752V99xL4spPWDwi1rINr/kK05COpVJWEiN5gmt5uR2z+G8SlkRXJzx1fo8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788533684; c=relaxed/simple;
-	bh=nSBS+rlhEpu4GtYBRlDxNT0IMhKXrWZBlDW7Ai/0My4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=bl/jvQYmqmN/9xalSpnGTuWpCTlWrOAxgH9DTWQ2wi3laVX4ySM0OloQEGe3vUxP4gOJgTvtx5nwWC1mjRJEZ6Y+prcBe4YyTnjzlW9b6Kvn5yHz6Jm4HEidMkJmqpgcRtWowE5HTjJQi2Az0bP71oR+gzvaXGqmHn1mmJa77G8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NeUnNc6q; arc=none smtp.client-ip=209.85.221.49
+	s=arc-20240116; t=1788533698; c=relaxed/simple;
+	bh=tw3o8L/Ww5WvITfoCOwxS7zP9rGFEqpVzq93fHL+pzU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=V6XKvy3/meoiqm1u/s6+6io/Xzdsgq5roG4pi7uExKqlmzzdjQuLu6LAhmNhYNxfzDjpjiVnAvmtaZNjRX3E05qZQulyb3x11BcNSi7DTBvttncKY5upQyik87UDhN6m8FNNrA0h8xim5GKWvJUURh1dUh8H8YLcmC/OPJcknUo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=D078rgMG; arc=none smtp.client-ip=209.85.221.182
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NeUnNc6q"
-Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-48441a2ba1bso710483f8f.1
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 07:54:41 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="D078rgMG"
+Received: by mail-vk1-f182.google.com with SMTP id 71dfb90a1353d-5c7c656b000so15404e0c.3
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 07:54:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788533679; x=1789138479; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=6KgsraBrUcToWRNGkqj8MPFUdOM/wW4nUtZo/xB90w4=;
-        b=NeUnNc6qKrmQtnlaVQHHlJsXdpNoutZofZO7ymoqynJjVxw9q0EUOs1dMt7OA9KY9W
-         HZBkxQZENISCsfReNDrbTTlYgvWBcGN9kCl/Skxf8R3GTiw9oHr8mG8d2gk+nOmBvKRn
-         p1nunW9JTFscHG0uCf+3fZoke/JZZOKWJQaDYSQ0OIiTgi5Qq+cidP6Z/i2R/SYUtva2
-         V8lQKe0XQwOUIVAibI8KOj5cdzp9z6zXaFSzUhbk7zJRKtsFdWyj99xsNSuzoh4cU5Yn
-         1s4cgL+EBmY2IkBl8JmfVI0F4oAtAZNOo7TB4EZM1mMUPxjbLQYoAW+sPyeVrxQmT/dP
-         njfw==
+        d=gmail.com; s=20251104; t=1788533696; x=1789138496; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=B46jY7pDsSOgAsSWPgzfJoCgRMQsU/kFbgxSGzI4vaY=;
+        b=D078rgMGWa0t8wxmPdIzxiblXUSqTA4NC0gRZ/6WgPd/FSQQtzaxZPCYmxROXJg+A/
+         +A4/eTggm6mpWOsdmUnFAZ7LEguk6quO6y9jXpzIaRPHsi2fTtnDZ1ZBxn3/g5kc5ugQ
+         rTGgQxapIYf021/UGIEsN6anFgs7ak9Q0p/49KcunFPSLLnCGqdjw+LXfKE7toG6PE8z
+         oAXxDPeDE7leNcD2RfM5E65WDrDQCHbmD/ZE5Qje7w2VTd5LmgVhZKP4ENI/bpw4luVx
+         5YFyD3j9Ka5zRi3iTCVkSeX6Wqxqy8NUypyKdVNcaV4v2vn9APB430SzOn/osnoli1Fn
+         O8+A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788533679; x=1789138479;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=6KgsraBrUcToWRNGkqj8MPFUdOM/wW4nUtZo/xB90w4=;
-        b=Er60hqfm1QtlnqjfH/N2JAhIkfEc8SHPK8+JrWfG8OFLNS6oB8XNofOL5/GELU2xws
-         kdf+mGFaWh6eXcu5eBHSzzJWtJ1Z2zs/fjW+wdAkVYoMgDfnaVzct5TofZNJkT60nGiB
-         +B4ffy4RSq2EEqu4gBX1nUE2q7+yiFYqJAhtXhUqKapsnbFX0LUJNTpTsRyT/4IATcRf
-         4jljZdXZ3KaDACJoG7a/zywI/h45q2xgCUZul6L62Z5WIvt1B85fiSTz5wZMq0iugtTe
-         NNG9uCtc+4yG1uTCT/3UuFo4146y2Ys4HI+1C8EZK+smVzj/zehHoM1u13ZnKtiTcbeS
-         lK3w==
-X-Gm-Message-State: AFuF++k8cdZtn/7fi/tnkj60ihWxDANkDvwC9xE/nbQNvyPmcfsruhFs
-	eyRxjuuOK4M/KzegFNwcGJoqytX1QcTCpTGysFKJ0xWempWjVsAHjPUz
-X-Gm-Gg: AYBFou0HdmfGkMpA2qfJ1uzJsfSb4xu642EI+0R3KFUxM0nsOEhGlYQ3Nr37xvnm9BY
-	758N+0kAjqVZ2EDHyuOnzNXxYs0lK+wBSaRo4u3sqbvP862vt5I3dZXtW9UbCh9aIoDfDcFe7vp
-	4Qdpeyj364Sa/r9jpyH2ROpYdNH1Sz2CAEa1pSi9Uo6Pxj9QkM5JscxmfdjvzdxxZCIvI1G6XR+
-	TUl7q447zNB79Ak/7FifrkOKXjX7PNYFnvWlHSfJrPHLZnZZRaPD2IglWEwUAYL6iULYBP2o6uL
-	DxBzwmzdi4zNUYpqf7pcp/3nQ39IMPnYuNo3fe4jWEf9wJGpT16ukGKn2D2L3dIP29oqiZG2UZ2
-	Hdc5YbZOAYNQELtDC0fhw1OYe2aoKh2cwy8NjRjOsm437xrVhVfybXkONDmFw0F1CQKCDuNuN1z
-	eETMS2NUs83OHYIaYd9w2pmZni/4TyDj8xHEL71S9+dHrigvXqEY64SrlbRXrIlYftqmyTMjRmG
-	g==
-X-Received: by 2002:a05:6000:25fe:b0:485:8cb8:b838 with SMTP id ffacd0b85a97d-4858cb8b900mr3127211f8f.7.1788533679283;
-        Fri, 04 Sep 2026 07:54:39 -0700 (PDT)
-Received: from dell-desktop ([2a02:587:4b5f:900:ef25:2f4:1792:4e6f])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-485885cb03asm6802799f8f.37.2026.09.04.07.54.37
+        d=1e100.net; s=20251104; t=1788533696; x=1789138496;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=B46jY7pDsSOgAsSWPgzfJoCgRMQsU/kFbgxSGzI4vaY=;
+        b=anAwoRpo/zmY9pMx5iEgGjRU8cOG74r+deHThHNM8/pHYrtjOhCNkW48JwFp+/KNX0
+         7MUhv1kibde2oyrs45HNL0z52ay+MXIbAUB+23MxiAa44I6vmTuar2UStxymVh9XHXYg
+         cIhI0cjkYn0N6M9ndmhkM7jH1+lstBgQZDx6UOYNMCwJ6ld8DTeuytqcSI83oKbPCUIq
+         HEuq9pUz40+Nf429IGR/om2Iom9muwiaiVisXAPR6LRUoz3cPnyAQAx6pf4uQIvDVOu0
+         5WXL6dWu2J7XYi/5xg6FmwRRY/eCsjSQIEl2NavdP2nsj4FBcIunHpAx9kW+dOVKITQH
+         BN6g==
+X-Forwarded-Encrypted: i=1; AKwUvBzLzhPbWA8GHDa6ebzjLoEPwFpDWk/hgACgG59dVGGz3x6rCpreTzmT0Cd0GZNSsNeryp96qN/x5b+PUDM=@vger.kernel.org
+X-Gm-Message-State: AFuF++nl/In92yhmBznToBz3IoeJJ3G1ZruVtCf9vle31aiJDKrxphNH
+	JUa4yxldx4DYrAciMezoSqJiIoJHHDx3JR14OgTGmZ8X1kLcHb89Sakf
+X-Gm-Gg: AYBFou0vDo16uvENcuQipQLsh/jhBMwmu5UTxqrX4HA/VXA4HQBvAssYBTRrTg454hM
+	snmEU9IporKXEKqk8pLWYEKzdVHc67F/Ee2SErc/kahIalUKBlBPalPjFcoO/A3Mr36ZyIHyE6+
+	dUf8ZMyerKN3w8gkB1htVAShHI6CUiSVpUMEZqtMmRUN+YDwZ9YYz3ayxdIy12HBju9C6CEIn6Y
+	8zVgjY43sXt5lSm4Wx9zTkNb1XsMq2Pd7ys0NA110T2N3gbtmrAE0oYgxSp4Z9lGcbABQpw+NQ0
+	Cg3LQ/Srn12QaTS8YpOeoD+JMhBOVP1jk6sXFRLEGW6EhDlgXZosVGaRy6a9RJxQMUJBa2FMiqX
+	nblIR2x5uZUghWLyw3oQLjTv6Y6sdl/TQSG+bvqSEO9O8D+Ri9C6qlP1Gqm1RlDc9gqEAGSjDa9
+	lJ12bjk579VZzcIjnFof0rLNBlxS5E+iZgWVZdMOl+cfuDf3kUkR1nCXEvrERj9PPOTcEI27DDg
+	s0d
+X-Received: by 2002:a05:6122:6844:10b0:5bd:9cbc:93c6 with SMTP id 71dfb90a1353d-5c7ed1037fdmr799052e0c.0.1788533695976;
+        Fri, 04 Sep 2026 07:54:55 -0700 (PDT)
+Received: from JSANTO12-L01.ad.analog.com ([191.23.4.35])
+        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-9808ee1c0cdsm1742230241.8.2026.09.04.07.54.52
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 04 Sep 2026 07:54:38 -0700 (PDT)
-From: Anastasios Papagiannis <tasos.papagiannnis@gmail.com>
-To: bpf@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org,
-	linux-fsdevel@vger.kernel.org,
-	viro@zeniv.linux.org.uk,
-	brauner@kernel.org,
-	akpm@linux-foundation.org,
-	david@kernel.org,
-	ast@kernel.org,
-	daniel@iogearbox.net,
-	andrii@kernel.org,
-	eddyz87@gmail.com,
-	memxor@gmail.com,
-	kpsingh@kernel.org,
-	matt@bobrowski.net,
-	song@kernel.org,
-	utilityemal77@gmail.com,
-	sun.jian.kdev@gmail.com,
-	tasos.papagiannnis@gmail.com
-Subject: [PATCH bpf-next v4 7/7] selftests/bpf: Test mm_struct user memory kfuncs with linux_binprm
-Date: Fri,  4 Sep 2026 17:53:40 +0300
-Message-ID: <20260904145340.40212-8-tasos.papagiannnis@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260904145340.40212-1-tasos.papagiannnis@gmail.com>
-References: <20260904145340.40212-1-tasos.papagiannnis@gmail.com>
+        Fri, 04 Sep 2026 07:54:55 -0700 (PDT)
+Date: Fri, 4 Sep 2026 11:54:49 -0300
+From: Jonathan Santos <jonath4nns@gmail.com>
+To: Andy Shevchenko <andriy.shevchenko@intel.com>
+Cc: Jonathan Santos <Jonathan.Santos@analog.com>,
+	linux-kernel@vger.kernel.org, linux-spi@vger.kernel.org,
+	dlechner@baylibre.com, broonie@kernel.org, nuno.sa@analog.com,
+	michael.hennerich@analog.com,
+	Dennis Heinzel <dennis.heinzel@irs.systems>
+Subject: Re: [PATCH] spi: axi-spi-engine: fix stale SYNC IRQ pending
+Message-ID: <aprbuZJfgKkSVakJ@JSANTO12-L01.ad.analog.com>
+References: <04d51e99b8cddce51113db933d806e83848f04f5.1788313558.git.Jonathan.Santos@analog.com>
+ <apmFOKpncNJtrTF4@ashevche-desk.local>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <apmFOKpncNJtrTF4@ashevche-desk.local>
 
-Add a sleepable BPF LSM program attached to bprm_check_security to test
-bpf_copy_from_user_mm() and bpf_copy_from_user_mm_str() on CONFIG_MMU
-kernels.
+On 09/03, Andy Shevchenko wrote:
+> On Thu, Sep 03, 2026 at 10:49:22AM -0300, Jonathan Santos wrote:
+> > spi_engine_setup() sends a SYNC(1) command and polls SYNC_ID to confirm
+> > it was parsed by the FPGA, but never clears the corresponding interrupt
+> > pending bit (INT_PENDING[SYNC]). When the first real SPI transfer starts
+> > and INT_SYNC is enabled, that stale pending bit fires immediately, causing
+> > the IRQ handler to see the leftover SYNC_ID from setup, match it against
+> > the current transfer's ID, and prematurely signal completion before the
+> > hardware finishes.
+> > 
+> > This race manifests at low SPI clock frequencies (~2-3 MHz), where the
+> > FPGA takes long enough to execute the transfer that handler is parsed
+> > before it finishes. At higher SCLK rates the transfer completes fast
+> > enough that the issue is masked.
+> > 
+> > Fix this by clearing INT_PENDING[SYNC] after the polled SYNC, ensuring no
+> > stale interrupt is left pending.
+> > 
+> > Reported-by: Dennis Heinzel <dennis.heinzel@irs.systems>
+> > Link: https://ez.analog.com/linux-software-drivers/f/q-a/604145/axi-spi-engine-stale-sync-pending-can-complete-first-transfer-early-at-low-spi-clock-2-3-mhz
+> 
+> We have a Closes tag.
+> 
+> > Signed-off-by: Jonathan Santos <Jonathan.Santos@analog.com>
+> 
+> ...
+> 
+> > +	ret = readl_relaxed_poll_timeout(spi_engine->base + SPI_ENGINE_REG_SYNC_ID,
+> > +					 reg, reg == 1, 1, 1000);
+> 
+> While at it I would replace 1000 with 1 * USEC_PER_MSEC
+> 
+> > +	/* Clear the stale SYNC pending bit so it doesn't fire when the IRQ is later enabled */
+> > +	writel_relaxed(SPI_ENGINE_INT_SYNC, spi_engine->base + SPI_ENGINE_REG_INT_PENDING);
+> 
+> In both cases? Error (timeout) and not?
+> 
 
-Starting at bprm->p, verify that bpf_copy_from_user_mm() can copy the
-contiguous NUL-separated argument and environment data. Then use
-bpf_copy_from_user_mm_str() to read each argument and environment string
-separately, advancing the offset by the length returned from each call.
+The error (timeout) indicates the SYNC command was not parsed within the
+deadline, but it can be executed at any time. We consider the timeout big
+enough, so this is unlikely to happen. But in any case, the cpu command to
+clear INT_PENDING is harmeless and can still clear the interrupt if the 
+SYNC is done parsing until right before this command is executed.
 
-Skip the test on !CONFIG_MMU. In that configuration, exec argument and
-environment strings remain in bprm->page[] until the binary loader
-transfers them to the new process stack, so they are not accessible
-through bprm->mm at the bprm_check_security hook.
-
-Signed-off-by: Anastasios Papagiannis <tasos.papagiannnis@gmail.com>
----
- .../bpf/prog_tests/copy_from_user_bprm.c      |  72 ++++++++++
- .../selftests/bpf/progs/copy_from_user_bprm.c | 123 ++++++++++++++++++
- 2 files changed, 195 insertions(+)
- create mode 100644 tools/testing/selftests/bpf/prog_tests/copy_from_user_bprm.c
- create mode 100644 tools/testing/selftests/bpf/progs/copy_from_user_bprm.c
-
-diff --git a/tools/testing/selftests/bpf/prog_tests/copy_from_user_bprm.c b/tools/testing/selftests/bpf/prog_tests/copy_from_user_bprm.c
-new file mode 100644
-index 000000000000..b2325b193576
---- /dev/null
-+++ b/tools/testing/selftests/bpf/prog_tests/copy_from_user_bprm.c
-@@ -0,0 +1,72 @@
-+// SPDX-License-Identifier: GPL-2.0
-+
-+#include <errno.h>
-+#include <sys/wait.h>
-+#include <unistd.h>
-+
-+#include <test_progs.h>
-+
-+#include "copy_from_user_bprm.skel.h"
-+
-+void test_copy_from_user_bprm(void)
-+{
-+	char arg0[] = "first";
-+	char arg1[] = "second-argument";
-+	char env0[] = "SOME_ENV=a";
-+	char env1[] = "OTHER_ENV=something";
-+	struct copy_from_user_bprm *skel;
-+	pid_t child;
-+	int status;
-+
-+	skel = copy_from_user_bprm__open_and_load();
-+	if (!ASSERT_OK_PTR(skel, "open_and_load"))
-+		return;
-+
-+	/*
-+	 * On !CONFIG_MMU, exec strings are held in bprm->page[] rather than
-+	 * being mapped in bprm->mm.
-+	 */
-+	if (!skel->kconfig->CONFIG_MMU) {
-+		printf("%s:SKIP: test requires CONFIG_MMU\n", __func__);
-+		test__skip();
-+		goto out;
-+	}
-+
-+	if (!ASSERT_OK(copy_from_user_bprm__attach(skel), "attach"))
-+		goto out;
-+
-+	child = fork();
-+	if (!ASSERT_GE(child, 0, "fork"))
-+		goto out;
-+
-+	if (!child) {
-+		char *const argv[] = { arg0, arg1, NULL };
-+		char *const envp[] = { env0, env1, NULL };
-+
-+		skel->bss->monitored_pid = getpid();
-+		execve("/bin/true", argv, envp);
-+		_exit(errno);
-+	}
-+
-+	if (!ASSERT_EQ(waitpid(child, &status, 0), child, "waitpid"))
-+		goto out;
-+
-+	if (ASSERT_TRUE(WIFEXITED(status), "child_exited"))
-+		ASSERT_EQ(WEXITSTATUS(status), EPERM, "exec_errno");
-+
-+	ASSERT_EQ(skel->bss->bprm_argc, 2, "bprm_argc");
-+	ASSERT_EQ(skel->bss->bprm_envc, 2, "bprm_envc");
-+	ASSERT_EQ(skel->bss->data_len_match, 1, "data_len_match");
-+	ASSERT_EQ(skel->bss->invalid_flags_ret, -EINVAL, "invalid_flags_ret");
-+	ASSERT_EQ(skel->bss->copy_ret, 0, "copy_ret");
-+	ASSERT_EQ(skel->bss->str_arg0_ret, sizeof(arg0), "str_arg0_ret");
-+	ASSERT_EQ(skel->bss->str_arg1_ret, sizeof(arg1), "str_arg1_ret");
-+	ASSERT_EQ(skel->bss->str_env0_ret, sizeof(env0), "str_env0_ret");
-+	ASSERT_EQ(skel->bss->str_env1_ret, sizeof(env1), "str_env1_ret");
-+	ASSERT_EQ(skel->bss->data_match, 1, "data_match");
-+	ASSERT_EQ(skel->bss->str_args_match, 1, "str_args_match");
-+	ASSERT_EQ(skel->bss->str_envs_match, 1, "str_envs_match");
-+
-+out:
-+	copy_from_user_bprm__destroy(skel);
-+}
-diff --git a/tools/testing/selftests/bpf/progs/copy_from_user_bprm.c b/tools/testing/selftests/bpf/progs/copy_from_user_bprm.c
-new file mode 100644
-index 000000000000..b334a157419e
---- /dev/null
-+++ b/tools/testing/selftests/bpf/progs/copy_from_user_bprm.c
-@@ -0,0 +1,123 @@
-+// SPDX-License-Identifier: GPL-2.0
-+
-+#include "vmlinux.h"
-+
-+#include <bpf/bpf_helpers.h>
-+#include <bpf/bpf_tracing.h>
-+#include <errno.h>
-+#include "bpf_misc.h"
-+
-+char _license[] SEC("license") = "GPL";
-+
-+static const char expected_data[] = "first\0second-argument\0"
-+				    "SOME_ENV=a\0OTHER_ENV=something";
-+static const char expected_arg0[] = "first";
-+static const char expected_arg1[] = "second-argument";
-+static const char expected_env0[] = "SOME_ENV=a";
-+static const char expected_env1[] = "OTHER_ENV=something";
-+
-+int monitored_pid;
-+int bprm_argc;
-+int bprm_envc;
-+int data_len_match;
-+int invalid_flags_ret;
-+int copy_ret;
-+int str_arg0_ret;
-+int str_arg1_ret;
-+int str_env0_ret;
-+int str_env1_ret;
-+int data_match;
-+int str_args_match;
-+int str_envs_match;
-+
-+extern bool CONFIG_MMU __kconfig __weak;
-+
-+extern int bpf_copy_from_user_mm(void *dst, u32 dst__sz,
-+				 const void *unsafe_ptr__ign,
-+				 struct mm_struct *mm, u64 flags) __ksym;
-+
-+extern int bpf_copy_from_user_mm_str(void *dst, u32 dst__sz,
-+				     const void *unsafe_ptr__ign,
-+				     struct mm_struct *mm, u64 flags) __ksym;
-+
-+SEC("lsm.s/bprm_check_security")
-+int BPF_PROG(check_exec_args, struct linux_binprm *bprm)
-+{
-+	u32 pid = bpf_get_current_pid_tgid() >> 32;
-+	char data[sizeof(expected_data)] = {};
-+	struct mm_struct *mm;
-+	char arg0[32] = {};
-+	char arg1[32] = {};
-+	char env0[32] = {};
-+	char env1[32] = {};
-+	u64 offset = 0;
-+	u64 data_len;
-+
-+	if (!CONFIG_MMU)
-+		return 0;
-+
-+	if (pid != monitored_pid)
-+		return 0;
-+
-+	mm = bprm->mm;
-+	if (!mm)
-+		return 0;
-+
-+	bprm_argc = bprm->argc;
-+	bprm_envc = bprm->envc;
-+
-+	/* this is the total size of args and envs starting from bprm->p */
-+	data_len = bprm->exec - bprm->p;
-+	data_len_match = data_len == sizeof(expected_data);
-+
-+	invalid_flags_ret = bpf_copy_from_user_mm(data,
-+						  sizeof(data), (void *)bprm->p, mm, ~0ULL);
-+
-+	copy_ret = bpf_copy_from_user_mm(data, sizeof(data), (void *)bprm->p,
-+					 mm, 0);
-+	if (copy_ret)
-+		return 0;
-+
-+	data_match =
-+		!__builtin_memcmp(data, expected_data, sizeof(expected_data));
-+
-+	/* arg0 is at bprm->p */
-+	str_arg0_ret = bpf_copy_from_user_mm_str(arg0, sizeof(arg0),
-+						 (void *)(bprm->p + offset),
-+						 mm, BPF_F_PAD_ZEROS);
-+	if (str_arg0_ret != sizeof(expected_arg0))
-+		return 0;
-+	offset += str_arg0_ret;
-+
-+	/* arg1 is at bprm->p + sizeof(arg0) */
-+	str_arg1_ret = bpf_copy_from_user_mm_str(arg1, sizeof(arg1),
-+						 (void *)(bprm->p + offset),
-+						 mm, BPF_F_PAD_ZEROS);
-+	if (str_arg1_ret != sizeof(expected_arg1))
-+		return 0;
-+	offset += str_arg1_ret;
-+
-+	/* env0 is at bprm->p + sizeof(arg0) + sizeof(arg1) */
-+	str_env0_ret = bpf_copy_from_user_mm_str(env0, sizeof(env0),
-+						 (void *)(bprm->p + offset),
-+						 mm, BPF_F_PAD_ZEROS);
-+	if (str_env0_ret != sizeof(expected_env0))
-+		return 0;
-+	offset += str_env0_ret;
-+
-+	/* env1 is at bprm->p + sizeof(arg0) + sizeof(arg1) + sizeof(env0) */
-+	str_env1_ret = bpf_copy_from_user_mm_str(env1, sizeof(env1),
-+						 (void *)(bprm->p + offset),
-+						 mm, BPF_F_PAD_ZEROS);
-+	if (str_env1_ret != sizeof(expected_env1))
-+		return 0;
-+
-+	str_args_match =
-+		!__builtin_memcmp(arg0, expected_arg0, sizeof(expected_arg0)) &&
-+		!__builtin_memcmp(arg1, expected_arg1, sizeof(expected_arg1));
-+	str_envs_match =
-+		!__builtin_memcmp(env0, expected_env0, sizeof(expected_env0)) &&
-+		!__builtin_memcmp(env1, expected_env1, sizeof(expected_env1));
-+
-+	return data_match && str_args_match && str_envs_match ? -EPERM : 0;
-+}
--- 
-2.55.0
-
+> > +	return ret;
+> 
+> -- 
+> With Best Regards,
+> Andy Shevchenko
+> 
