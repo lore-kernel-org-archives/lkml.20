@@ -1,102 +1,127 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 15698396565;
-	Fri,  4 Sep 2026 17:45:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mail-lf1-f46.google.com (mail-lf1-f46.google.com [209.85.167.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 168B65111A8
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 17:45:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788543909; cv=none; b=G9HBiQ2P3IYTO015cu1valwTjssdgv2jvtYcfE8DzjzAwVsUSVFcCXO9pSKIb2FYPRWSkPWpKh5alrimT6CZDSk1JL+7wjzSJM+i4QzCHsBIVpi3B+R0RWO3Kb0zqfrx11pTbxTiYN4rhVKcGMypuL/sDO59+wU+RGI9Gygp4ss=
+	t=1788543916; cv=none; b=Moj1tSiD+ZLred13p9KSSC7i3lF832DHD1WPwp0qS3lfeXjd20wABdei6h7sCAckfqv/TgQ0S6EoXFsecXVGAyivkF2dS/owmArYfyQUwejh4CipGqp8y4lw9On7DK9IYWo0qgF/4P8rLvVWCi3iQNggEPHKJhAMvyKBlgxAEMY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788543909; c=relaxed/simple;
-	bh=ZHXUHTgBsZEh26fOHvyKJbcpT9hW8hW0zSA/LhXujMg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=oTdqoREvCtb6Bz6rkrzOTgSoR/YdqOzMxiB/qUL6I+UZdW8vcCmCW9ErZCsAmvo04DvIKpyVOHzhHefIs2rTVozi5IxGSl1awuWoYlJGVFMkoYij2LsgmIANFXCUhqG2xKmHebQnBG7+w99C/Nw7yemTZIceogN01GduVHmlzVQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=ant9XImY; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1788543916; c=relaxed/simple;
+	bh=5xeMxtX1fCh8OGl3ui+hhjKrfVCy12n88MgVgMcIa2M=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=KZGfPhCENrW4BwsrdZxxiT3uyDWrqU39cM1GMnwn5RfXdaHZr7Blh9OhVAC7Fw2CNPPMEMZpn5knOQW7qwdy887IiB7+A0ynZHS72yl9N7ixOrPos7sKHr0zPPzWMD6t+k6RvAkAhMpsrEM8uHHkEvixgyJsIQqXcVMHPfyPXiU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PmE0vyVY; arc=none smtp.client-ip=209.85.167.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="ant9XImY"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 756BD152B;
-	Fri,  4 Sep 2026 10:45:02 -0700 (PDT)
-Received: from localhost (unknown [10.2.196.114])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id D10EE3F7D8;
-	Fri,  4 Sep 2026 10:45:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1788543906; bh=ZHXUHTgBsZEh26fOHvyKJbcpT9hW8hW0zSA/LhXujMg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=ant9XImYbJ1oD8BB/rZzmbivZPPVSpgcETqcOYR77mr9o02NdUMD5vBbh/6N7Rbhq
-	 KHanHAa47oO5iVgVq/N0Jhp5HMw14aZ4BSfjHBTfyqq/Ry2bGemuxyl5VXLtTNwvAj
-	 7FiFx6kWYhydHlfvYMrKHMPeX4kZHEs/Mxoid3iM=
-Date: Fri, 4 Sep 2026 18:45:03 +0100
-From: Leo Yan <leo.yan@arm.com>
-To: James Clark <james.clark@linaro.org>
-Cc: John Garry <john.g.garry@oracle.com>, Will Deacon <will@kernel.org>,
-	Mike Leach <mike.leach@arm.com>, Leo Yan <leo.yan@linux.dev>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Arnaldo Carvalho de Melo <acme@kernel.org>,
-	Namhyung Kim <namhyung@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-	Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	Suyash Mahar <smahar@meta.com>, Amir Ayupov <aaupov@fb.com>,
-	Arnaldo Carvalho de Melo <acme@redhat.com>,
-	linux-arm-kernel@lists.infradead.org, coresight@lists.linaro.org,
-	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 4/6] perf: cs-etm: Respect --no-itrace option
-Message-ID: <20260904174503.GC8904@e132581.arm.com>
-References: <20260821-james-cs-hw_id-output-failure-v1-0-9d532ddabcc3@linaro.org>
- <20260821-james-cs-hw_id-output-failure-v1-4-9d532ddabcc3@linaro.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PmE0vyVY"
+Received: by mail-lf1-f46.google.com with SMTP id 2adb3069b0e04-5b0231a3e86so1167979e87.0
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 10:45:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788543913; x=1789148713; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=QUYDwrBykVcOFXxIJuB5joV8Yatru/7oqjgD9YEMvFo=;
+        b=PmE0vyVYyDsjh535BUj5s+uxbhla4+kQkFzqB0ORSzwk+GEVMGmGlDCC/8gW2NcIDN
+         jE2pwhQtAKLIt2F9e5+rNaIvjtAO0XYaGKRrhGYpsSpVxqpCMWvQ8Iny4iNg5gttuMGc
+         4FzrcF3ssQ4ooJxEml5SmvrtfVC3ZfHHYXABTHtjGqPYpeR5qOVkDl/oaOY9W+KE8x8H
+         elxs5MLq2j+vA0nU/8tCCTaCuTih6mUVokK+H/ZMUf26Q5l8vohKh4fg3bBdiv6BMF8u
+         VWkVNKOqT3UnViRsQ+DS1fRzO4z2qRLTj9AmeQdD/Tbsv/KyKu7Nq/SKJrOKbM4qhBb6
+         fdJg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788543913; x=1789148713;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=QUYDwrBykVcOFXxIJuB5joV8Yatru/7oqjgD9YEMvFo=;
+        b=GZnYZjct/3URfAe/VzGn6tVUUwPW7ZacYF4LoqVBe/4hO4sxmviHvC7SLgC7x6XEcO
+         5ziOOrsjfjKasUD7/QFg65x04MbhkJtSc1L6a9PYs+8T2HGxrAG5lXdHJP0ibDiZKd/J
+         PsIDJQBk0jMnWIfnEsxyd94cyy7Z6W3w+il+zddbbTpwNoY4FutJK5qXRw3hR25HEImO
+         7tjsI/7ESwDPZW2V0mwhdZUW8v+47OkeNIOwgLYK9Nm60thQM0AvoQIaEJJ0ju2/HFZn
+         junx+vp+8wmMjfc0VRYKu2C3sAewWemsz7wxOLAmA/vcI9R4uXBYNzMQSDkbHH4DTeex
+         DmCw==
+X-Forwarded-Encrypted: i=1; AKwUvBxltPsBBoF4rqE/YZ4pCl3yYS/C+tW04gS76iQsgovOmsJO/pEcoK2RbOr3XWMNqNLspuOKTIAdlK1Fepc=@vger.kernel.org
+X-Gm-Message-State: AFuF++mJEhXOdZSuzjqlsuQxqloPT5uVMmeimoSdy1unvkbHgFUzJqGg
+	XsJS29UpqwsGzZY01GiL8et1h8hsDXNeQ1+NN2RF8gwmM3mgzVoOREMo
+X-Gm-Gg: AYBFou0fZ/PF2IwKXjQ24PsHh7UmrDtIESmyOqsAYTrkrJDbTbaLAEAyMoQTrUwEsiQ
+	R/sEvkYzuHs8gdkYibZxPC8/uCZxA7fmDEqkNhwprSKDqDsF20dz+DvaTohSTsonLFDgdVpEYa4
+	uO8jq62RGfJ9wNlxVqMvJDvJ96Blcn4lbYh15z8uWq6xUUQy2evqgZg4JNp763LKeCg0bHGVyfk
+	6PKjseXfOrQ5J5BJJXfICarSD71yUihryQXpuS7nQaeh5rZ6VsmxWLx40BbJNTfjgEr9ZnJXPTs
+	PBgT9pbmo7ywW6aWoBR4dyhnWhm0SfC17eoIMj5fkELJ+VMVbJ69t74wfdCSqM5bfXEXvucClDr
+	yk/kDgikwSKPdnZ+v51oOCtU6BJb5hiMoA7NOa5f1sRUrS0JPZDpxgvupmoN8vDc/KICSTGnsTu
+	JVcHh9CLWFzAqeFyKJ9J5JKk+6pFWVzKWlD5GvNiRiJuUY90P0z+/+zD582U9ck9AJraUvkOZN8
+	UPK8eiL8xlAB4AJgzBvHqSokgMau+4G6eHXuCUpwPXq+brvqQfAhzZlBkNtMAAu7aaK4Z+faPRn
+	fnsNkRQ=
+X-Received: by 2002:a05:6512:3ca7:b0:5b6:1a7c:37 with SMTP id 2adb3069b0e04-5b61a7c0261mr894499e87.58.1788543912418;
+        Fri, 04 Sep 2026 10:45:12 -0700 (PDT)
+Received: from localhost ([188.234.148.119])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b616700006sm644118e87.57.2026.09.04.10.45.08
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 04 Sep 2026 10:45:10 -0700 (PDT)
+From: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+To: tiwai@suse.de
+Cc: tiwai@suse.com,
+	perex@perex.cz,
+	jikos@kernel.org,
+	bentiss@kernel.org,
+	linux-sound@vger.kernel.org,
+	linux-input@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [RFC PATCH v6 2/2] ALSA: usb-audio: bind the Topping M62's vendor controls
+Date: Fri,  4 Sep 2026 22:45:07 +0500
+Message-ID: <20260904174507.3952588-1-mikhail.v.gavrilov@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260904171646.5301B1F00A3D@smtp.kernel.org>
+References: <20260904171646.5301B1F00A3D@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260821-james-cs-hw_id-output-failure-v1-4-9d532ddabcc3@linaro.org>
+Content-Transfer-Encoding: 8bit
 
-On Fri, Aug 21, 2026 at 10:50:32AM +0100, James Clark wrote:
+> If usb_audio_probe() fails on a secondary interface, devres is
+> synchronously unwound and topping_master_teardown() runs while the
+> orphaned mixer is still in chip->mixer_list.
 
-[...]
+That mixer does not exist, because this device has no secondary
+probes. snd_usb_create_streams() claims the streaming interfaces with
+usb_driver_claim_interface(), which binds them without calling probe,
+so usb_audio_probe() runs exactly once, on interface 0. The hardware
+agrees: /sys/kernel/debug/device_component lists one aggregate per
+card, both on :1.0, with :1.1 and :1.2 absent.
 
-> @@ -3603,27 +3603,49 @@ int cs_etm__process_auxtrace_info_full(union perf_event *event,
->  	int err = 0;
->  	int aux_hw_id_found;
->  	int i;
-> -	u64 *ptr = NULL;
-> +	u64 *ptr = (u64 *) auxtrace_info->priv;
->  	u64 **metadata = NULL;
->  
-> -	/* First the global part */
-> -	ptr = (u64 *) auxtrace_info->priv;
-> -	num_cpu = ptr[CS_PMU_TYPE_CPUS] & 0xffffffff;
-> +	etm = zalloc(sizeof(*etm));
-> +	if (!etm)
-> +		return -ENOMEM;
-> +
-> +	session->auxtrace = &etm->auxtrace;
-> +	etm->auxtrace.free = cs_etm__free;
-> +	etm->auxtrace.evsel_is_auxtrace = cs_etm__evsel_is_auxtrace;
-> +	etm->auxtrace.process_event = cs_etm__process_event;
-> +	etm->auxtrace.process_auxtrace_event = cs_etm__process_auxtrace_event;
-> +	etm->auxtrace.flush_events = cs_etm__flush_events;
-> +	etm->auxtrace.free_events = cs_etm__free_events;
-> +	etm->pmu_type = (unsigned int) ((ptr[CS_PMU_TYPE_CPUS] >> 32) & 0xffffffff);
-> +
-> +	/*
-> +	 * Don't go further than the minimum required to identify this event as
-> +	 * auxtrace with cs_etm__evsel_is_auxtrace() so unleader_auxtrace()
-> +	 * works.
-> +	 */
-> +	if (auxtrace__dont_decode(session))
-> +		return 0;
+The other half is not there either. If that one probe fails,
+chip->num_interfaces is zero, so usb_audio_probe() calls
+snd_card_free(), which takes the mixer down through private_free() --
+and that removes the devres action and destroys the context before the
+driver core unwinds anything. There is nothing for the teardown to
+race.
 
-TBH, I don't look in details, currently auxtrace__dont_decode() only
-exits in the common util/auxtrace.c, why other AUX trace can work well
-the option but cs-etm.c needs particular initialization?
+The same premise sits under the findings I acted on in v4, v5 and v6,
+and I took it on trust instead of checking it. Those changes stay,
+because each is right on its own terms:
 
-Seems to me, we even don't need to do any initialization in cs-etm.c
-if the no-itrace flag is set.
+  - topping_master_unbind() no longer looks its context up, which is
+    correct regardless: devres_release_all() moves every node off the
+    device before it calls a single release, so the lookup could never
+    have worked from an unwind, and the component does not need the
+    card from us anyway;
+
+  - the teardown is a devres action registered after
+    component_match_add(), so it unwinds before the match array that
+    component_unbind_all() walks -- the ordering is now expressed
+    rather than assumed;
+
+  - topping_master_bind() returns -EPROBE_DEFER rather than warning
+    when the context is missing, which a WARN had no business doing
+    for a state the framework can reach.
+
+But none of them fixes a defect this device can reach, and I would
+rather say so here than leave the impression that the driver was
+crashing. A v7 cover letter will say the same.
+
+Mikhail
