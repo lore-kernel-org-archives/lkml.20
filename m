@@ -1,43 +1,46 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD56D490C0B;
-	Sat,  5 Sep 2026 11:59:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A35C648F837;
+	Sat,  5 Sep 2026 11:59:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788609568; cv=none; b=UNb9JIDY9DuzfrSSgBRI8g7R29GThw6q8Hz1Tj9NZLc/c04zMALTAMZI1LoxMS+Mz0EanDeHUtNUkJVrvthBgqcPMgFXCR46gzt5SDIXDlN7ioMik7/oeQ4GRUfL+27nqt0H7T4sELLfmaVWgtxhw2nRzIVL9KUvtwr9jdE0OXE=
+	t=1788609583; cv=none; b=iftbmIZtaeorhGI2TUPjQQj8dL0rxybvxqw3oQQ4yD3Ovcjf2ZQwyLtkDAVSTlZlMpE+IIsUA9M0eP+boF1SkcPnLL1mPpy9WKOrnLxpSkxTTmmK+Z+lnUxXl6v3IRN86JhBfU+lcfDkXEab9XuC69+M14/FMUZ/9rxQiAUXmXU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788609568; c=relaxed/simple;
-	bh=uCd0Y2s1ntfPkF8I49DOtN1YzSDetCsyUch43wSRXSg=;
+	s=arc-20240116; t=1788609583; c=relaxed/simple;
+	bh=5FPFKypYJycFQ/ivuMen8M4ZOukO8rl/mxTx9SWUhLw=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=sMUTLtAYq46fRGGBcJfpUNbWuc5n/EswR8Pgr7ljKfPgzlXbwxk3yfmK9DCXEyz7IZ2xbe99f8UDNNIDRIVuqnf5oSYiELdaOW0Bky5b8PxPZf/Kl+rWVDer1tyih27wou9mZtY0YVsyUkqwNlOOEoipJ/XZmCDGXYNaqUSg6AM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BsbMrz/H; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=hxUVMp5L273MUIJO1a21cJPdvbRp7Uwdxyd1K1EJOO3H3+eVk9crUrnFj+4+7zf/Nq4+h7tmfr5QRM6ENffGKYLFMXt58vO7M6JpeBcsmuqLcEIWoarCgMsC/8Dk3w0PMI6wfcKVuPdnpz6Ky32AjXXG3AoYfMbdM0iFPIfsoRI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WrpQuiV8; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BsbMrz/H"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7910C1F00A3D;
-	Sat,  5 Sep 2026 11:59:25 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WrpQuiV8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 69A951F00A3D;
+	Sat,  5 Sep 2026 11:59:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788609567;
-	bh=D51OQaPymGUeRCghX48Gk3kPeHwg7sCjWLRZ+NnuoY0=;
+	s=k20260515; t=1788609582;
+	bh=KkZ39QsW/0EzCqj9yO6HnwxedHQb5Ao6cxewVUgXA7E=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=BsbMrz/HgGZhfDPss1emYfP++PCe60dt5hFwzIZGnYzBdISCTYxXvigK5/dFt5wh+
-	 l67nD02jT/yrrKg7OmM0qPQiJQUHB+JWvh0H7QU0YKgkQNtPWlkwIiKeHP1KpyeTc9
-	 Kfzpu5F6fHK6bguTBiY0osvvf5sgWROCEyiIG2ndCOXCPKURjPwIYWPwKF27HfRhCC
-	 wC0CTy4bgRkF+pyY9gWlNV4wE3al50N4LPd08F00Wjc6gs/oWH0kBKlokNpg/OFjoF
-	 GR6etXhfzaiyjDgP7UmegQ5DlVe3JHBzzPATPXRvPtCB7uwlu2TJ1QMToBlJQT+bnm
-	 NiX4Yu+y3lqKA==
+	b=WrpQuiV8xBZajSr1bgSCQvB9gcxpfi3Nb1tKF7zJHUbsN1kV391i+T34SV7tWKRED
+	 mOOWLw2ZvLUOFrcn2xAEren/1DAvIJcS7VHSqVLFLkoS5xbKbAQ5aQhENjKo16Tyj4
+	 5eVoclRoUDpgsJjIyiIiIPEX2ivKKgwjSyRxQZGGkkffXCVEHlrICwERoxOjMDWLk+
+	 1ZDaowq2oP2NCBLbu3YN5abYobutKy5UcAWbraSxZ6ukq8ShzTQYdVSE2HV9MxNTyp
+	 qMwAHo2VNUynzFyYNT+3Tqbfy6JoE8x29rl+Rtffi+bWYn6HmMRmk/NIetTZe5OjwR
+	 8wtENKcKLKI+w==
 From: Mark Brown <broonie@kernel.org>
-To: Matthias Brugger <matthias.bgg@gmail.com>, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
- Ikjoon Jang <ikjn@chromium.org>, Felix Gu <ustc.gu@gmail.com>
-Cc: linux-spi@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org
-In-Reply-To: <20260904-mtk-nor-v1-1-cefdca098f83@gmail.com>
-References: <20260904-mtk-nor-v1-1-cefdca098f83@gmail.com>
-Subject: Re: [PATCH] spi: mtk-nor: fix runtime PM usage count leak in probe
- error path
-Message-Id: <178854774645.632048.7126140576103303391.b4-ty@b4>
-Date: Fri, 04 Sep 2026 19:49:06 +0100
+To: David Rhodes <david.rhodes@cirrus.com>, 
+ Richard Fitzgerald <rf@opensource.cirrus.com>, 
+ Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>, 
+ Takashi Iwai <tiwai@suse.com>, 
+ Ricardo Rivera-Matos <rriveram@opensource.cirrus.com>
+Cc: linux-sound@vger.kernel.org, patches@opensource.cirrus.com, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20260828-sound-for-next-cs35l45-sync-v4-v5-0-fe3feba709ff@opensource.cirrus.com>
+References: <20260828-sound-for-next-cs35l45-sync-v4-v5-0-fe3feba709ff@opensource.cirrus.com>
+Subject: Re: [PATCH v5 0/2] Introduces MDSYNC support for CS35L45
+Message-Id: <178855981196.692981.7813898466866850313.b4-ty@b4>
+Date: Fri, 04 Sep 2026 23:10:11 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -47,29 +50,40 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1140; i=broonie@kernel.org;
- h=from:subject:message-id; bh=uCd0Y2s1ntfPkF8I49DOtN1YzSDetCsyUch43wSRXSg=;
- b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBqnAQaaY4GiSLKP34zq6mShUvL4Ags9zm8EIUcd
- TVQl30UFWOJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCapwEGgAKCRAk1otyXVSH
- 0Ct1B/9PW0ZumOIjwq2XTY3SF8GLJ8lUSYSFQ5+tCw8dj+FJ4IOHjqpq1TTz4TxBhd4LPCDLbtg
- S1bJyRlP2KYMeBPyi5B2E89PVzLhQs47iDldDu1DuCw6QBQRIH93IcMcFDrv8HADXYjhkMubgDK
- ZZe5Umaf88kWFs2Wn4d/ITXp3w7/yXcyo6FrjnricbLEAHUMdnw5unjGj0AOD7g+cnTIRRF2bQL
- DSCzUzfRa1INdV4IkcP9ANHn6Ld4i0D52y+fm2S56vmNjxQWdCwPxxI+rLHYyJUgfLr1cxS6Xtx
- krWthXEojov5bt8UsQBnTJoIW2fnoy7J2eyQSENdFWhIzxjU
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1496; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=5FPFKypYJycFQ/ivuMen8M4ZOukO8rl/mxTx9SWUhLw=;
+ b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBqnAQoVEYqoussgggg71EZhUeeq5boxBcvsXuPE
+ sgmVsqVowuJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCapwEKAAKCRAk1otyXVSH
+ 0JaqB/wLGesPwg1VdpcreTqRMCOF5Q1agcfSsrgKaD3gjwbLnBQy5zlx0v1dcDL9i2WOdB19zxf
+ iCYB7WTbXx+zl0k6bmbdQVXVXycBfADCe+eUJcWlmn+KN+fBR0Fnm1kAz3wOm4fdJaAleL1RrdS
+ ucl0ndhKjqYl+TNUDT8T/xBGZ89pDEU3x9hhsSIRj46DGbneM+Z/VUmEmgkXNqjcqw8Q+Cqdxey
+ 0yrPKt47YwA/JDj/YEb8q7eA8WhGMr98pNepEsn4jXMSG0AK3rl+IGJpdHdyNfSvtS6QbZRZgzP
+ EpyLi8H/Hltysdo8FKb4yKLuh+a0TSJJwCLCBK9ESdf6tvAa
 X-Developer-Key: i=broonie@kernel.org; a=openpgp;
  fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-On Fri, 04 Sep 2026 23:51:29 +0800, Felix Gu wrote:
-> spi: mtk-nor: fix runtime PM usage count leak in probe error path
+On Fri, 28 Aug 2026 10:46:25 -0500, Ricardo Rivera-Matos wrote:
+> Introduces MDSYNC support for CS35L45
+> 
+> The CS35L45 has SYNC pin that can be used as a multi
+> device synchronization (MDSYNC) bus. This pin can send
+> various message types between Cirrus devices.
+> 
+> This patch series adds support for long and short DSP
+> messages between CS35L45 devices.
+> 
+> [...]
 
 Applied to
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/spi.git for-7.4
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-7.4
 
 Thanks!
 
-[1/1] spi: mtk-nor: fix runtime PM usage count leak in probe error path
-      https://git.kernel.org/broonie/spi/c/4cee1ed13e26
+[1/2] ASoC: dt-bindings: cs35l45: Adds SYNC properties
+      https://git.kernel.org/broonie/sound/c/8351ccada421
+[2/2] ASoC: cs35l45: Adds support for SYNC bus
+      https://git.kernel.org/broonie/sound/c/f3c8f89a1502
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during
