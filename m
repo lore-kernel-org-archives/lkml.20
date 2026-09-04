@@ -1,80 +1,107 @@
-Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com [209.85.216.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C45B1A6808;
-	Fri,  4 Sep 2026 21:21:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.133
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C509F371876
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 21:22:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788556915; cv=none; b=SNMGen1ukDRi2XkU1Es4VYNIiPAax4nEwOEl3hepJiGuHT67930vTMeBjbgl6GkE7AGDyu2WH+ipBf9w6eJNGv4aTx9COxL8GLHx5XJCq5T9ubj/n3Bk6K4n2SZtoBUYS0PezoQuE96YLUVoemhbvIItQskRJSSRZGTulLQXFzU=
+	t=1788556952; cv=none; b=WNmQAM920w0npBE5dLV95mQPygUlIxPNVboyGEZQz4muYU+v6dBq8DPGAl2g+f8jBWYhV1u6flnHyxNu3U5VAWUs6WYqrJhZ5dIKdQ5L49VoBFYqpMCPOHfqwSpsIAWL0EEAtcbdmdfU1J+Jg84vn3iiiCEwui189v6ZDeMZOEY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788556915; c=relaxed/simple;
-	bh=us4qeYtal2fhw+IJJx6NqEovqZ1XB9f9MSCX4yN1upk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=XqX2Fxk9l56LvlXmNPo8PljWwJKjDj+d0MXTWE9we2jfmIE+bligVubfjwhF/Ot4GFsPxs2jgPUBpr/7JXKrfr5KSco9676RtMM46p1yKIjxlAvm8VSUTm95xbODULT6eWWGumGyi4PQz5UZRy4MUeh01vChW9riwgymyqi7rMA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=k0NLGu/0; arc=none smtp.client-ip=198.137.202.133
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	s=arc-20240116; t=1788556952; c=relaxed/simple;
+	bh=sAxci377fn8+FnyuNLAMrG/6nTy5cwTzjBUe0YrHgbw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=k1cq0C8TkLB5yT4CCC8KZXRg8z/BtV/oKO9iThU2rdtCzTh113LXKeePbZWPggSxbEOEEZ09k8VFUkR/3EeqVp/zqCIX46Yg7RbW5U5pk6hB0kCDv+qc8K4/3gqCgXfAZ/9R5XNJ3atETtShpnA/x2zLwITZJuyIDsOZqXrwdKw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UA3ujme3; arc=none smtp.client-ip=209.85.216.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="k0NLGu/0"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
-	Content-Type:In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
-	Message-ID:Sender:Reply-To:Content-ID:Content-Description;
-	bh=kKoOHaINlhwVoLTv92gGkMR8r2LaL+e1jAe/DtwX8bg=; b=k0NLGu/0Pra0KXsaH5coPmZPyA
-	+GJpSL8Nz2t5wAtoUjvuCM/Ode/ItcYTsBMSxus3bAu7cfJJKE3JpVgALzFz4nupnHzo9XK4QaCWJ
-	drOcu8MJlfnsD+iLX6ogrMdWAFUAAp1sePz43VWbt0D+6eRLl7xi6frFA5n8x4IJU40eiFgxEbRyW
-	LMLVzlUkcLlD+QnnyExqdKDQIqAPxHNIIpK15SvedvjHC4aJPjePfzN53vcrLSQFAmhZ5PzHKyMbd
-	8CDQUS3flrXOafk1omqgruhU4uSK+YESYABTRlzdrQFS3xn+SspsN1mGy+F6xlNPKQKO23XkQPm2J
-	yYkVG1BA==;
-Received: from [50.53.43.113] (helo=[192.168.254.34])
-	by bombadil.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
-	id 1x2bM8-00000003JSF-4AOy;
-	Fri, 04 Sep 2026 21:21:53 +0000
-Message-ID: <84686c67-51ed-40d0-bd59-97bf3bc8afe3@infradead.org>
-Date: Fri, 4 Sep 2026 14:21:52 -0700
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UA3ujme3"
+Received: by mail-pj1-f48.google.com with SMTP id 98e67ed59e1d1-382ef647e20so1466569a91.1
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 14:22:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788556950; x=1789161750; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=zDZS/yUUq6qUoww9Sgh++cO+lJPE83G9J2KfDK5Wa1w=;
+        b=UA3ujme3JkDKYZCyllqcSLDJIV8YV8hes/pRUDbBGHf3PkfFZE2ezXXpzOp4E+ERw8
+         6H6aRJBBeprBil7/pgqZ1+w1B+GCLOxDzJqp0gbEel27HXUQOvyAkm0PctWVsjQK7ZzU
+         Hw3E462g9tSWoQ61SZ0/28ohkEshTzsqLxHCgqnp3Oh86+HVeeaR7Choad1g02TaBVps
+         1AO7J4KuYUpchZ3S7V8iCtnREym3ytqqeUK80FZFyTFDF4nmSIJnm0ubWsBMc4uSjqos
+         PXVixrbJP9HUeS9okVUjycGPSQlon7LrBt9o5aXYGDpUElF2LILVZPbpeVrghdVsbvPS
+         h1aA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788556950; x=1789161750;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=zDZS/yUUq6qUoww9Sgh++cO+lJPE83G9J2KfDK5Wa1w=;
+        b=LpSM9M6oO16bNLAIe/ehlT1sSfH9Y4vyXQXSjfEFyDFU19in36IzYk2QolU9pS7Li7
+         BFPQeXlyZCMogPwyUUROGOeoeIZod4kC0NK8A8Wcoxw3ti9ISuz/TlajPkyqZsQhVzg+
+         2v38qsuwdls+bf1TY1ImEOOrxueKKzATBjkjiVLoOD3K8b0DuB/U/mLkVygD8sZxfyIQ
+         I65twkTj9ccP5qvCqLkNUXpMYQXdd+UfodX/nNT1A34OKonk4BPiRzMey1gS4Mm8R47n
+         Mhm9sU+0TudTDtk8ELvUffdAAe99OU42MZCDBmAYRVHkOQbKjcosjp1WPhn78CwmBxLc
+         cZyA==
+X-Forwarded-Encrypted: i=1; AKwUvBwuLxFJps0F5vfu6j2hst7rbzb8E4uah0KOdaPUWO1VVq6dC1DObPVx7d6K9GHSreM8B/hoQT2THhlRBpw=@vger.kernel.org
+X-Gm-Message-State: AFuF++k22nOv+KzcK7grtlNzhkrr3e4hnLVwFfW2Rvddi5lKYpErMa3K
+	wCTHdCdOVdiB52u3PRTdk2dKLNs4CyTRB2E040svLSzzfOhAEH/24esh1c38yw==
+X-Gm-Gg: AYBFou2/QReJDv22UkEtcPxsrrHoYVYz/n2famz1BL3CYJb9WoVJ7ItNs9IJ4dOXOKE
+	zAEsWuwqL21MgESdF4YIV8HkVYe1DBvXtCIcoAvxB7FSmxNuejt4tkq0vEc7aIRwJ0NtQFvQ4MB
+	DWnOpZfOyLcpcN4fDa81XARYeAPS0jn9sXOYq3V6pTV0RpxX2mk0bRr8a0Opt/4/9LSMZ/AhdSh
+	kYbuAtSBQK7rtTyYsEKTECO4yFd+rBWa/nWjIIgy+snLC/Hnq5tv7iQo8unaTCXdNsrPHM6c1cL
+	TER4w5bwGwcGwDhdKr5ytCpWxm1FVJLccpI8nropfVhbXVhssuJwqMjiRhqbqhNAV0ezFXcSlEG
+	wTeqCUCJnPSu8IyyXEWkTfb3TjOxMJ3K1tfFYqYt9tY5PlytkHfyQMEHoISJTr7l2Vj0ilWvmaY
+	w2Umgt+WVxiH96cFZIK8tU6pZmeLCHaX0WISUy+IlZMHtcbdmW3qA8DXzh4lN1b2ijminv3wGsq
+	RIrW8MIRqx5HY8MmLm6dW2sr7ANzXckx0IfEzPeeJsBN1vF0p1SwoRvr1eFg8JEBKQ15HiiE8k2
+	OFlQZ2peoENcaCLg7aEtUaAdgzXryf3JbakuyW7+/rOwiP/kbg==
+X-Received: by 2002:a17:90b:224c:b0:398:9bd5:490f with SMTP id 98e67ed59e1d1-39b2624cf31mr11476690a91.22.1788556949925;
+        Fri, 04 Sep 2026 14:22:29 -0700 (PDT)
+Received: from ryzen.lan ([2601:644:8000:7a86::e34])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc45542dbbesm1315056a12.13.2026.09.04.14.22.26
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 04 Sep 2026 14:22:29 -0700 (PDT)
+From: Rosen Penev <rosenp@gmail.com>
+To: linux-wireless@vger.kernel.org
+Cc: =?UTF-8?q?Toke=20H=C3=B8iland-J=C3=B8rgensen?= <toke@toke.dk>,
+	linux-kernel@vger.kernel.org (open list)
+Subject: [PATCH ath-next] ath9k: delete channel-context timers on deinit
+Date: Fri,  4 Sep 2026 14:22:25 -0700
+Message-ID: <20260904212225.84813-1-rosenp@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] driver core: fix typos in comments
-To: Hemanth Selam <hemanth.selam@gmail.com>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- Daniel Scally <djrscally@gmail.com>,
- Heikki Krogerus <heikki.krogerus@linux.intel.com>,
- Sakari Ailus <sakari.ailus@linux.intel.com>,
- Bartosz Golaszewski <brgl@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- "Rafael J. Wysocki" <rafael@kernel.org>, Danilo Krummrich <dakr@kernel.org>,
- Tejun Heo <tj@kernel.org>
-Cc: linux-kernel@vger.kernel.org, linux-acpi@vger.kernel.org,
- driver-core@lists.linux.dev
-References: <20260904111816.31254-1-hemanth.selam@gmail.com>
-Content-Language: en-US
-From: Randy Dunlap <rdunlap@infradead.org>
-In-Reply-To: <20260904111816.31254-1-hemanth.selam@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
+ath9k_deinit_channel_context() cancels chanctx_work but does not delete
+the offchannel and sched timers set up by ath9k_init_channel_context().
+If either timer fires after deinit (e.g. during driver unload or
+suspend), it accesses sc->sc_ah which may already be freed by
+ath9k_hw_deinit(), causing a use-after-free.
 
+Delete both timers with timer_delete_sync() before cancelling the work
+item.
 
-On 9/4/26 4:18 AM, Hemanth Selam wrote:
-> Fix typos in comments, reported by scripts/checkpatch.pl using the
-> misspelling list in scripts/spelling.txt.  Only touches comments, no code
-> changes.
-> 
-> Assisted-by: Cursor:claude-opus-5
-> Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
-> ---
->  drivers/base/property.c        | 2 +-
->  drivers/base/transport_class.c | 2 +-
->  include/linux/kernfs.h         | 2 +-
->  3 files changed, 3 insertions(+), 3 deletions(-)
+Assisted-by: opencode:big-pickle
+Signed-off-by: Rosen Penev <rosenp@gmail.com>
+---
+ drivers/net/wireless/ath/ath9k/channel.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-Acked-by: Randy Dunlap <rdunlap@infradead.org>
-Thanks.
-
+diff --git a/drivers/net/wireless/ath/ath9k/channel.c b/drivers/net/wireless/ath/ath9k/channel.c
+index 8b27d8cc086a..92241c24a0a4 100644
+--- a/drivers/net/wireless/ath/ath9k/channel.c
++++ b/drivers/net/wireless/ath/ath9k/channel.c
+@@ -1363,6 +1363,8 @@ void ath9k_init_channel_context(struct ath_softc *sc)
+ 
+ void ath9k_deinit_channel_context(struct ath_softc *sc)
+ {
++	timer_delete_sync(&sc->sched.timer);
++	timer_delete_sync(&sc->offchannel.timer);
+ 	cancel_work_sync(&sc->chanctx_work);
+ }
+ 
 -- 
-~Randy
+2.55.0
+
