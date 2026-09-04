@@ -1,87 +1,78 @@
-Received: from mail-qt1-f178.google.com (mail-qt1-f178.google.com [209.85.160.178])
+Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com [209.85.216.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A37F46AEF4
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 11:17:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39EBE4052A5
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 11:18:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788520674; cv=none; b=dz+k4J82YKZpOZAZ7Vmriy/ChXU9J4m+mlXxakmbCcDdQa0JoD3MVnEMkBW2o5FUj96PgTRAnaBeFOacu2MF/XGIeocQjxm2L8dReD0/qcws/tFDl9dYMIxBdUV9RgvbyZZG0hK/hXGcSYo2tupzzTZVsGQ/Zb44kdvlS6RHN/c=
+	t=1788520704; cv=none; b=iKS+J8kcrgcz4bZgbDOen6yTgXg84ugEa+C3bKdKxlxM85LyvvGHXm380Aq82HDeWnUz3EAfV2PVM4dTi6bMG/ZLQWQlwoo4nq2w5PkrQRYdDoiYIa+VDhlRfuJFm6opIjfEaSHVXQxS0GhzQeM+eFy+L5PZrNSCKtAkG9qfSis=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788520674; c=relaxed/simple;
-	bh=4DIUolQj5K7s0LXB5mQXEoJFCJfRS2EJ6t4V8xTTHv0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=G9ErQHJNU14Lx7maykjXvhW6wM2lZqX9B4YME2Z0hKXO5jU6yb1WcCu/wE+FBkuGqffqTZpb1xelGyc4wMT5yjsUsV9WwGTjIbNGgLFsuy9cEXm1pbJzWp1mVxyGSNlT/PX9ia54yy1RnwhqKfFOBBXmlcPPimYhBwlVBeL4Tjc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MTXY7njk; arc=none smtp.client-ip=209.85.160.178
+	s=arc-20240116; t=1788520704; c=relaxed/simple;
+	bh=GzGdhUqHabJdT56/0Vx+2i4I/VGZGqigv9kQT5jq97k=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=RewheWpZtY35KhgLANvPHsAi9iKKYG5FGIt+2Sx3WxoePVNdZ3hFGUrbErb0lEvsS8kO/S2GedISrn+6uD9hdQa+i4RKgJ4RfAAV9j7o3udrZ8aeGyhPnj6OpLiUE6ep/GogIwlwwLH+YysCXOIGZvY9bjRMpT6auuCne50oI84=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=B4QnXMhN; arc=none smtp.client-ip=209.85.216.50
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MTXY7njk"
-Received: by mail-qt1-f178.google.com with SMTP id d75a77b69052e-530420edf1bso15737841cf.1
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 04:17:52 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="B4QnXMhN"
+Received: by mail-pj1-f50.google.com with SMTP id 98e67ed59e1d1-38759bcd877so846922a91.2
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 04:18:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788520671; x=1789125471; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=a8aI67v2qHq2F9XuFlZJpkBUyR2T964WRJn0GOGoYgs=;
-        b=MTXY7njk0OvkwDvPY2MVXvq/rHzM5p9XFSgqGtmkie0CGgIwXYzH1LgBEHoe1qXniS
-         n8THd91ssV5KYCiDlSdMVLaXFcnzhFyu5zU61JL82uB+Lyv3lkEancp2/Nq1xWYcE5q+
-         HQG8P2NC5a7FhbFluIVDhLh3oSsK4B+oZwdV2fJHp/8rXZNG9fQj025ypYPATZryiMnP
-         iVHf9al8Fptpkp2rGvDNMGA4D5cq8E9yiDGu9XbbffxNXFUHo30KVQwAO4b9EW4oFpzx
-         srcB9GXYy2vjgFnGsoIebL7T9UH0MwYClOR478zY/bqft2UJypiNZPFWT94PnxkJhtbh
-         WIXg==
+        d=gmail.com; s=20251104; t=1788520702; x=1789125502; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Ru9Oqw83JdPP5GZWzgBwRJbCsmncN29/3DvUioCkWHY=;
+        b=B4QnXMhNOJdbfpoyYZXJ3WPqmQLENJM4somszgPZPwlSY47MegATXmqFAOkdfitNWb
+         gWKf0twnMDQQExwLBrNfofjivNvM6KHtBKZqbNnd1nzP1V73YdfzWjTL4ae/fbSvb+ms
+         Ch10BJnYFgkh1R0ktvKhaG05MuBgIutXbSs7MDWT60B+XFZPddNg4O82lrxJa+PeMTx4
+         ajmGSqZ8iFS7s3xRxcOQ8bGwNova7RDVBnEyanwJ0aBa5CBUjlkGsuTDGqdm2YRZ5U0w
+         IRBHXrdvUjKxN5x7ybio1nsTfD6yFJMY4DIX4cEufRxgTH7sGdWyOsqz1pJvEDbvyE/M
+         XFlQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788520671; x=1789125471;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=a8aI67v2qHq2F9XuFlZJpkBUyR2T964WRJn0GOGoYgs=;
-        b=lb2nAQvw0wZGMMZf00jgsmj5JIHtpAnbMZxwfIy9Emso58++buH5TVoyNR46zWY3ut
-         WTEo9xVe9vwd3I4kqYkTKo7B8htZP3VG524R82Ly5rtMXzd+LtVdFngkBcKIf+5K8e2F
-         yPUjt/coGfYYQ/HjotMEO0DGpsi4n8Blqop4/ITsRa8PF45pc4vJrS7E+4lY2xjLC5HK
-         LhQt30hi61Pmo9VcJoEVgSmlMGpPt+3tpgBms8bBdo+/HRREziIUtYNh7qrg1zZO90fw
-         FTJ7XKIf//S0WgBAvNa9NBOT5mQqBin7vAQafv0kZR6rn6VQlCH/Y2PyqzjsViIrRwv1
-         hZRg==
-X-Forwarded-Encrypted: i=1; AKwUvBwWglVtvEBl1t7y/FwUo29XNbSvC/zOmDuDCc/DZcs/bIPqYZu76wYgKdxVOWVjexb1nGpfHrwL7GopNkc=@vger.kernel.org
-X-Gm-Message-State: AFuF++nyQ5OAmYM1v2w30zRCRCTe1GE68JjJ7yjb4BveGjiTNI0ZYVkn
-	5VEiRw09LVHbTROjtJjbHKIBhX83zbDzncuBhMgddKUvXk+3Lhkbx+1j
-X-Gm-Gg: AYBFou17pN/r4TgaMlqUUgBz6MfP4ieIkaYQ5vZ+VIWLovU71UEGmDmCATQ5/5rLYeM
-	/U0zf0egno5cHPOiiM8HgfvWKCvV8pFLuN0Ag27quo7m97w/DZiPXZsh4oFeXfFCluF6Yv9O+KD
-	FRYszOST0bUyW5NrRTZmGOYzxLbef9RMP/ojH8g/FjPNrHIE+/tJmS8EKh8xsiKyt70yRG0+cTl
-	vr3F+beBtWeym0wuuV37TO8YdKPyDXAfbYb3yqi+jtd6A1XCVCWC+UjyGuWUQQVFOGPbn3votCt
-	fB3QJ1PrkmgGMiWvoGK28gFJXk932mnSkBj1eOAAVunKHrX6ARGUWlFwBsQYwjhhfTwvDxcLoLD
-	6JX8OzcUkaeqKWf2EH7OFep65I5DlI6Kr3uL5VXbHKWNnir3x45JPAKDVfcaX2gZHUJa27nP8Ki
-	/Rkp8UOPIH4v2nYybTejDlnuh7yNTGbh+33h+ifoRRh7skyx6nljwB6DfpWG65aYlhfEA=
-X-Received: by 2002:ac8:6108:0:b0:530:42e4:f003 with SMTP id d75a77b69052e-530549bb544mr68480221cf.48.1788520671204;
-        Fri, 04 Sep 2026 04:17:51 -0700 (PDT)
-Received: from Turin ([187.15.144.163])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-5305402a8fcsm18350171cf.1.2026.09.04.04.17.48
+        d=1e100.net; s=20251104; t=1788520702; x=1789125502;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Ru9Oqw83JdPP5GZWzgBwRJbCsmncN29/3DvUioCkWHY=;
+        b=eEnVCCXeojg72vhJ7C9PrXhIV3DM6/869lgZV12Te9/oCkUROhixaFcjGuJGKUCJPv
+         +hfS9i74Z/ODfPM+dCxEF8Jpif0B+A3TbCxPSVztvtxYKNMiy5OPBXkZKio8+0hKBlPV
+         miEk7gUxCSjrEjkwI7zJsgRjzu7nYnfG96I0E5h1OEtjKTwK/pVTifIVsYw62Fo33wUE
+         R8adsRhjiaRNzIhZRgBbuDCJxv0hDh1vqWv6hgNzCBU5RVH0+c0F1vwOluH5+eZriWvL
+         wlgsEECJjxlN3UgSu9/JAL8jzabBOVUWGtPgtnP24GcjLRiROq/wBora86PqPlgEkHQW
+         HLsQ==
+X-Gm-Message-State: AFuF++nyLTHy0k8scty2DSYF3vZtMMd4oI+TP9FWfj5wWfa5qhyZ3Dqv
+	hrRrmnxKkQIMkYdzVQzuWy7weNzKeT6qmzHYt/zvHb5LBGrh99a7Giba
+X-Gm-Gg: AYBFou2VpsCSf4by4YXfMQ5ShSq5LT/lz5idezy3tI2emJvd7caiBiCkqjPoJ23HnMx
+	XxPzcn4CutPjNx8aZD6Tskbq3QSv3ByRyplMOycoxEPaS0JGTPxhlY13kJLXKcUdO3vQE+C997o
+	O/uKWMTI7Ee3VSIQ9JZfo1Yi7261E0vPjOrRmHGPaZUYrO/vXLWnSD/B698uNQ9GvrzYtbjzMjf
+	u2ztrBxamUM7Nf5JV6oR3YE8xUIHlAGJLITrPHbhdezZ5cea7huuXiMee7txKQaj1dXqBJYBORC
+	28wxzNQ8sp7ca76yts5Cckutc8pynt75Qiv0484BMy2ISxnDUBZaiqfNFoT3uShF9lrndFpqFKV
+	06ehuvyRhwFp2a8RoZ9HkPqmT0mfZwioWalpcnfdQyPv2/U6pE9oAscsHklXZiynn0Y+Rcub5hh
+	k587qa/UEeEqOopMQEhaTi9c/QpXs+9L5mDzESscD85nX43UV4ekl+fZF8BinEjZlQDJzeGqvTb
+	n4p/mPSY/7EfJA=
+X-Received: by 2002:a17:90b:2b4e:b0:38c:a59b:5189 with SMTP id 98e67ed59e1d1-39b261d0d8emr8546870a91.15.1788520702508;
+        Fri, 04 Sep 2026 04:18:22 -0700 (PDT)
+Received: from volcano9f6e-hostos.amd.com ([165.204.217.251])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339aa33e96sm6304088eec.12.2026.09.04.04.18.18
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 04 Sep 2026 04:17:49 -0700 (PDT)
-From: Nicholas Dudar <main.kalliope@gmail.com>
-To: ast@kernel.org,
-	daniel@iogearbox.net,
-	andrii@kernel.org,
-	eddyz87@gmail.com,
-	memxor@gmail.com,
-	johan.almbladh@anyfinetworks.com,
-	paulburton@kernel.org,
-	tsbogend@alpha.franken.de
-Cc: martin.lau@linux.dev,
-	song@kernel.org,
-	yonghong.song@linux.dev,
-	jolsa@kernel.org,
-	emil@etsalapatis.com,
-	ihor.solodrai@linux.dev,
-	bpf@vger.kernel.org,
-	linux-mips@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH bpf-next v2 2/2] bpf, mips: Add support for BPF_MOVSX in the JITs
-Date: Fri,  4 Sep 2026 07:17:31 -0400
-Message-ID: <20260904111731.673341-3-main.kalliope@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260904111731.673341-1-main.kalliope@gmail.com>
-References: <20260904111731.673341-1-main.kalliope@gmail.com>
+        Fri, 04 Sep 2026 04:18:22 -0700 (PDT)
+From: Hemanth Selam <hemanth.selam@gmail.com>
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	Daniel Scally <djrscally@gmail.com>,
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Tejun Heo <tj@kernel.org>
+Cc: linux-kernel@vger.kernel.org,
+	linux-acpi@vger.kernel.org,
+	driver-core@lists.linux.dev
+Subject: [PATCH] driver core: fix typos in comments
+Date: Fri,  4 Sep 2026 16:48:14 +0530
+Message-ID: <20260904111816.31254-1-hemanth.selam@gmail.com>
+X-Mailer: git-send-email 2.48.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -90,196 +81,57 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Both MIPS JITs ignore insn->off when lowering register MOV
-instructions, so BPF_MOVSX is emitted as an ordinary move. Since
-build_insn() accepts it, affected programs are silently miscompiled
-instead of falling back to the interpreter.
+Fix typos in comments, reported by scripts/checkpatch.pl using the
+misspelling list in scripts/spelling.txt.  Only touches comments, no code
+changes.
 
-Decode insn->off in the register-move helpers and sign-extend 8- and
-16-bit ALU32 operands and 8-, 16-, and 32-bit ALU64 operands. On
-MIPS32, propagate the sign into the high word for ALU64 while
-preserving the existing ALU32 zero-extension handling.
-
-Use shift pairs rather than seb/seh so the lowering works on every CPU
-supported by these JITs. seb/seh would save one instruction on
-R2-or-newer CPUs but would require adding those opcodes to uasm.
-
-Assisted-by: Codex:gpt-5.6-sol
-Signed-off-by: Nicholas Dudar <main.kalliope@gmail.com>
+Assisted-by: Cursor:claude-opus-5
+Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
 ---
- arch/mips/net/bpf_jit_comp32.c | 56 ++++++++++++++++++++++++++++------
- arch/mips/net/bpf_jit_comp64.c | 54 +++++++++++++++++++++++++++-----
- 2 files changed, 93 insertions(+), 17 deletions(-)
+ drivers/base/property.c        | 2 +-
+ drivers/base/transport_class.c | 2 +-
+ include/linux/kernfs.h         | 2 +-
+ 3 files changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/arch/mips/net/bpf_jit_comp32.c b/arch/mips/net/bpf_jit_comp32.c
-index bfe73b023983..885da0d0d74b 100644
---- a/arch/mips/net/bpf_jit_comp32.c
-+++ b/arch/mips/net/bpf_jit_comp32.c
-@@ -190,20 +190,58 @@ static void emit_zext_ver(struct jit_context *ctx, const u8 dst[])
- 	}
- }
+diff --git a/drivers/base/property.c b/drivers/base/property.c
+index b136c339ddae..d8152fee72c3 100644
+--- a/drivers/base/property.c
++++ b/drivers/base/property.c
+@@ -705,7 +705,7 @@ bool fwnode_name_eq(const struct fwnode_handle *fwnode, const char *name)
+ EXPORT_SYMBOL_GPL(fwnode_name_eq);
  
--/* Register move operation (32-bit) */
-+/* Register move operation (32-bit), optionally with sign extension */
- static void emit_mov_r32(struct jit_context *ctx, const u8 dst[],
--			 const u8 src[])
-+			 const u8 src[], s16 off)
- {
--	emit_mov_r(ctx, lo(dst), lo(src));
-+	int shift;
-+
-+	switch (off) {
-+	case 8:
-+	case 16:
-+		shift = 32 - off;
-+		emit(ctx, sll, lo(dst), lo(src), shift);
-+		emit(ctx, sra, lo(dst), lo(dst), shift);
-+		break;
-+	default:
-+		/* off == 0 is MOV; the verifier rejects other offsets. */
-+		emit_mov_r(ctx, lo(dst), lo(src));
-+		break;
-+	}
-+	clobber_reg(ctx, lo(dst));
- 	emit_zext_ver(ctx, dst);
- }
- 
--/* Register move operation (64-bit) */
-+/* Register move operation (64-bit), optionally with sign extension */
- static void emit_mov_r64(struct jit_context *ctx, const u8 dst[],
--			 const u8 src[])
-+			 const u8 src[], s16 off)
- {
--	emit_mov_r(ctx, lo(dst), lo(src));
--	emit_mov_r(ctx, hi(dst), hi(src));
-+	int shift;
-+
-+	switch (off) {
-+	case 8:
-+	case 16:
-+		shift = 32 - off;
-+		emit(ctx, sll, lo(dst), lo(src), shift);
-+		emit(ctx, sra, lo(dst), lo(dst), shift);
-+		emit(ctx, sra, hi(dst), lo(dst), 31);
-+		break;
-+	case 32:
-+		emit(ctx, move, lo(dst), lo(src));
-+		emit(ctx, sra, hi(dst), lo(dst), 31);
-+		break;
-+	default:
-+		/*
-+		 * off == 0 is ordinary MOV. The verifier rejects other
-+		 * offsets; defined exceptions require
-+		 * bpf_jit_supports_percpu_insn() or bpf_jit_supports_arena(),
-+		 * neither implemented by MIPS.
-+		 */
-+		emit_mov_r(ctx, lo(dst), lo(src));
-+		emit_mov_r(ctx, hi(dst), hi(src));
-+		break;
-+	}
-+	clobber_reg64(ctx, dst);
- }
- 
- /* Load delay slot, if ISA mandates it */
-@@ -1501,7 +1539,7 @@ int build_insn(const struct bpf_insn *insn, struct jit_context *ctx)
- 			/* Special mov32 for zext */
- 			emit_mov_i(ctx, hi(dst), 0);
- 		} else {
--			emit_mov_r32(ctx, dst, src);
-+			emit_mov_r32(ctx, dst, src, off);
- 		}
- 		break;
- 	/* dst = -dst */
-@@ -1570,7 +1608,7 @@ int build_insn(const struct bpf_insn *insn, struct jit_context *ctx)
- 		break;
- 	/* dst = src (64-bit) */
- 	case BPF_ALU64 | BPF_MOV | BPF_X:
--		emit_mov_r64(ctx, dst, src);
-+		emit_mov_r64(ctx, dst, src, off);
- 		break;
- 	/* dst = -dst (64-bit) */
- 	case BPF_ALU64 | BPF_NEG:
-diff --git a/arch/mips/net/bpf_jit_comp64.c b/arch/mips/net/bpf_jit_comp64.c
-index 45fee6f6b87e..a1dfb7492a9c 100644
---- a/arch/mips/net/bpf_jit_comp64.c
-+++ b/arch/mips/net/bpf_jit_comp64.c
-@@ -120,17 +120,55 @@ static void emit_zext_ver(struct jit_context *ctx, u8 dst)
- 		emit_zext(ctx, dst);
- }
- 
--/* Register move operation (32-bit) */
--static void emit_mov_r32(struct jit_context *ctx, u8 dst, u8 src)
-+/* Register move operation (32-bit), optionally with sign extension */
-+static void emit_mov_r32(struct jit_context *ctx, u8 dst, u8 src, s16 off)
- {
--	emit_mov_r(ctx, dst, src);
-+	int shift;
-+
-+	switch (off) {
-+	case 8:
-+	case 16:
-+		shift = 32 - off;
-+		/* dsll32 and dsra32 add 32 to the shift argument. */
-+		emit(ctx, dsll32, dst, src, shift);
-+		emit(ctx, dsra32, dst, dst, shift);
-+		break;
-+	default:
-+		/* off == 0 is MOV; the verifier rejects other offsets. */
-+		emit_mov_r(ctx, dst, src);
-+		break;
-+	}
-+	clobber_reg(ctx, dst);
- 	emit_zext_ver(ctx, dst);
- }
- 
--/* Register move operation (64-bit) */
--static void emit_mov_r64(struct jit_context *ctx, u8 dst, u8 src)
-+/* Register move operation (64-bit), optionally with sign extension */
-+static void emit_mov_r64(struct jit_context *ctx, u8 dst, u8 src, s16 off)
- {
--	emit_mov_r(ctx, dst, src);
-+	int shift;
-+
-+	switch (off) {
-+	case 8:
-+	case 16:
-+		shift = 32 - off;
-+		/* dsll32 and dsra32 add 32 to the shift argument. */
-+		emit(ctx, dsll32, dst, src, shift);
-+		emit(ctx, dsra32, dst, dst, shift);
-+		break;
-+	case 32:
-+		emit_sext(ctx, dst, src);
-+		break;
-+	default:
-+		/*
-+		 * off == 0 is ordinary MOV. The verifier rejects other
-+		 * offsets; defined exceptions require
-+		 * bpf_jit_supports_percpu_insn() or bpf_jit_supports_arena(),
-+		 * neither implemented by MIPS.
-+		 */
-+		emit_mov_r(ctx, dst, src);
-+		break;
-+	}
-+	clobber_reg(ctx, dst);
- }
- 
- /* dst = imm (64-bit) */
-@@ -669,7 +707,7 @@ int build_insn(const struct bpf_insn *insn, struct jit_context *ctx)
- 			/* Special mov32 for zext */
- 			emit_zext(ctx, dst);
- 		} else {
--			emit_mov_r32(ctx, dst, src);
-+			emit_mov_r32(ctx, dst, src, off);
- 		}
- 		break;
- 	/* dst = -dst */
-@@ -754,7 +792,7 @@ int build_insn(const struct bpf_insn *insn, struct jit_context *ctx)
- 		break;
- 	/* dst = src (64-bit) */
- 	case BPF_ALU64 | BPF_MOV | BPF_X:
--		emit_mov_r64(ctx, dst, src);
-+		emit_mov_r64(ctx, dst, src, off);
- 		break;
- 	/* dst = -dst (64-bit) */
- 	case BPF_ALU64 | BPF_NEG:
+ /**
+- * fwnode_get_parent - Return parent firwmare node
++ * fwnode_get_parent - Return parent firmware node
+  * @fwnode: Firmware whose parent is retrieved
+  *
+  * The caller is responsible for calling fwnode_handle_put() on the returned
+diff --git a/drivers/base/transport_class.c b/drivers/base/transport_class.c
+index 351c3d3ce6a0..2bee796601ed 100644
+--- a/drivers/base/transport_class.c
++++ b/drivers/base/transport_class.c
+@@ -7,7 +7,7 @@
+  *
+  * The basic idea here is to allow any "device controller" (which
+  * would most often be a Host Bus Adapter to use the services of one
+- * or more tranport classes for performing transport specific
++ * or more transport classes for performing transport specific
+  * services.  Transport specific services are things that the generic
+  * command layer doesn't want to know about (speed settings, line
+  * condidtioning, etc), but which the user might be interested in.
+diff --git a/include/linux/kernfs.h b/include/linux/kernfs.h
+index 351a5101c862..73786b567ccd 100644
+--- a/include/linux/kernfs.h
++++ b/include/linux/kernfs.h
+@@ -309,7 +309,7 @@ struct kernfs_ops {
+ 	 * write() is bounced through kernel buffer.  If atomic_write_len
+ 	 * is not set, a write larger than PAGE_SIZE results in partial
+ 	 * operations of PAGE_SIZE chunks.  If atomic_write_len is set,
+-	 * writes upto the specified size are executed atomically but
++	 * writes up to the specified size are executed atomically but
+ 	 * larger ones are rejected with -E2BIG.
+ 	 */
+ 	size_t atomic_write_len;
+-- 
+2.48.1
+
