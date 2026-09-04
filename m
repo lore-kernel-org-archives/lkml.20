@@ -1,32 +1,67 @@
-Received: from out30-110.freemail.mail.aliyun.com (out30-110.freemail.mail.aliyun.com [115.124.30.110])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f181.google.com (mail-pg1-f181.google.com [209.85.215.181])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D8AB347532;
-	Fri,  4 Sep 2026 06:50:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.110
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C82A3F4101
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 06:51:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788504640; cv=none; b=SVOlXvxA6CnfvAL6J7fOxOC/XFxfhGMnadZv36USjuAvmMxWfOS8zQomBbxF3lXiVa/wRlpSABQWbNHPHd8xJPxJik77OuQiB91FO8j1Nk4rocI6zLTi8La1pIvcnvPHZBnQUVQXIHW2xg/o7imea5S3YMI3YKFcVVbftih6RaU=
+	t=1788504708; cv=none; b=PHtAjZqubQSnaFAVns0JnnKZAwoXbyj2+cbBqmHDOo5JPlWuCFS0reHXCPVzsijZYckmUPnp65YWNquM92+V5MfKjtCdasj7nf7xpnvzZcfi73otWo4PTuZRP9okIJCHWw8nztP+U8Y+bGJP9hMZ9sXYFcVHrCZYTHTTU36tBro=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788504640; c=relaxed/simple;
-	bh=rpSq558nN3YpcilriIjg2YtG0E96Qh3YMGKHIhdduFc=;
+	s=arc-20240116; t=1788504708; c=relaxed/simple;
+	bh=oyqJZbXNlDevLR8Z5mJBsgSPmH6VQ+/8O5cMCu096tM=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=TkhPcI5eA8HdbTZStMxnXG6rIvCwHbIyb2NCP7LUHIGN5IPiw6k6oox3xS5OJ9TQLFi86H0jh62fomFk61GxPSdfcxLAlN6R17MSXe2GaoMUAKhpIk1Ac1kRF1jryZMYWD74yfgBQtLZrAC0l3e3kJYlVCCIFHnxfM27tQVHltE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=uI/PZWGt; arc=none smtp.client-ip=115.124.30.110
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	 In-Reply-To:Content-Type; b=E9SiCkQ1sBJxDISMRBeCp0uxuQNqvIThvzj5FnxJWlbeVap5tzXIDWlA00kTivotcOLBko6EVgkwrQOWxkuvG1ewsWvedbn3lP+hCR5wIfJ6efuXgHZn3tzsA8n/kkEsoQ+LHp2RQckXnpyXnuDoUyh577kSSoFMsfG5ZLT4brE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai; spf=pass smtp.mailfrom=nebusec.ai; dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b=qFoDmZpV; arc=none smtp.client-ip=209.85.215.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nebusec.ai
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="uI/PZWGt"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1788504634; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
-	bh=dUwnrTnO9K1+Dq0dCp0gfyukZzjfQW8mCiD3/Ac3fAA=;
-	b=uI/PZWGtcrQZpe7a7DKpHtDDDiwIT4J0f2Vd84UDnvJjncPbC9Dfuik2aIZ6Pk5Ij+Seg4qvpdnjrwPEo/bG+bO/o+3XMFFl7FBo0LygZQZgyfka4U6zyjF/vM6L9YDDjCH0WS4waDPoI92OSiT1Xx9WkEwcoxYBJre98GwQiDM=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R181e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037009110;MF=baolin.wang@linux.alibaba.com;NM=1;PH=DS;RN=28;SR=0;TI=SMTPD_---0XAHuDz3_1788504630;
-Received: from 30.74.144.116(mailfrom:baolin.wang@linux.alibaba.com fp:SMTPD_---0XAHuDz3_1788504630 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Fri, 04 Sep 2026 14:50:32 +0800
-Message-ID: <de28b6a7-7f51-4344-8139-1ec412604062@linux.alibaba.com>
-Date: Fri, 4 Sep 2026 14:50:30 +0800
+	dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b="qFoDmZpV"
+Received: by mail-pg1-f181.google.com with SMTP id 41be03b00d2f7-cc1cc1b42b5so786791a12.2
+        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 23:51:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=nebusec.ai; s=google; t=1788504705; x=1789109505; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=b6hpLljP9SdtNHrhq7gNNxoYeFIHd2MdFkQZBmDruA8=;
+        b=qFoDmZpVRIazDnJ+s+E0E40r8w0wLYbMO6UR0K+4Gq/DdIRyDIzqFl6gtSTWJF/Jzr
+         ijSTyIU9G5qwfxZjvU0PlTm++Rl006wOoTpG6bHZ0zwlNVqoso3I4W5vVS4T5OFcC0nW
+         C64U+hjqjoYSFtRWJZr3Cp3zNBNW6dttCWsmr7hdLOp6iJfoPZLlPA9Q55j1Kcvkxm4g
+         MamO4VVkdSsIvafS5d8nU1wc5ZN4gviYrrAdhsRey3h/YjiGdcjXREAl3ag6x+TyJ7FT
+         IhmQdBHOONFqtuNTA+B4wllcITyInUt5ImoNiuOC7IXQt9n0kzB20AVCwQAjaIl4/bWQ
+         BMdw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788504705; x=1789109505;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=b6hpLljP9SdtNHrhq7gNNxoYeFIHd2MdFkQZBmDruA8=;
+        b=F6TjUGM/n5vB9ynCis8h3hYoXdxf1CS0QDjmyUUF13/p8uZGi59ze2WdzsXM+xFfNM
+         aLktbm3+2W5gw+u4xgamwkuW39aLCQ3/JHkVYtg/SklYdj8LgfFudaDanblEiHY5dASB
+         yziV39ox39wDXXyQ0ETMqa+eHxylCMVJ10C9Iex7BbKgCmv73iswCS9i4+1rid4qvcx1
+         ySFBFXG+fEZ3gE7Q/dBLz2igMpcvlJYe6UybgHR4iyzGfpaoMRswAVIj/dWpRCd3CyKP
+         KOAvZljyK4CYgbzEe217ar3YFX8fD/LN53f6wvl9t5hk+1a2PjMRQa+w6LhoT4+HpsbF
+         Npyw==
+X-Gm-Message-State: AFuF++l3V8oIisuEVbwNoR2yWMy2+02gxlD4/BH5C2pmFK/5zWMqbTfj
+	qZ9UiMF6AC53urqOGlpXbKPl9RCUm64ITdfMZFxWnI9FMaOIOH2nMHig6ekXVyx2VdzS
+X-Gm-Gg: AYBFou2qhi6fNU8EigPb7O+aRjrMPUYabyUT0PXXgzLlVGn7Et5R6/DTmAOQ8iSPeB3
+	eDvrMKIWBpvmQj/Mk5P6X3hiK9EHey0Saa+8yKhyYfBq6b9KXg62QgiAV5E4vR+Fskz9xmGbUr+
+	eFbQYuTzShbqmta0yYXdfBotbJIkLkPEANPia0LZ3DMhznk0NMuOK+W+okF9kGvl7WZGDQd2lHZ
+	ZPcRfByXFq/TJSbbc2sjhjEMCKo4WEPPB0UPinYGmHfmfRiikm8L8hT/42zDitzmsHd+UTWQr93
+	imdJVw8iuo8iuouf2OhqkLnrfRcd37bZc7V4M3PmSVMn4yRlUmDa+UMVfZT7IPPxZs3eMH4WcY4
+	n4himsD8lzdvIowuSZDHp+WWMa3CxKy6Xpm0WcfVMUyul/YSd6PYiUPhT0H+GHdPwS88hBb9KCp
+	Aa8hZD4H+fAV43oFHHQcJmcDMcGT2ZfGVT11bnWsLq6V4WeRCfyv9wTRjbPB4quKUwniVx6xUqy
+	pVN4fcZ8RkB5Nw64KGku3jB+bLRdxsVOpl93c8ySQ==
+X-Received: by 2002:a05:6a20:158d:b0:3da:34a7:6444 with SMTP id adf61e73a8af0-3da3a15ac1cmr5550804637.26.1788504705322;
+        Thu, 03 Sep 2026 23:51:45 -0700 (PDT)
+Received: from [192.168.4.59] (c-73-93-246-205.hsd1.ca.comcast.net. [73.93.246.205])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339aa37dbdsm3862921eec.11.2026.09.03.23.51.43
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 03 Sep 2026 23:51:44 -0700 (PDT)
+Message-ID: <2a994f26-1eb8-40c4-84ca-c48a52c065d5@nebusec.ai>
+Date: Thu, 3 Sep 2026 23:51:42 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -34,155 +69,232 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] mm: memcg: settle memory.high debt after THP faults
- with non-blocking gfp
-To: Qinyun Tan <qinyuntan@linux.alibaba.com>,
- Andrew Morton <akpm@linux-foundation.org>
-Cc: Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@suse.com>,
- Roman Gushchin <roman.gushchin@linux.dev>,
- Shakeel Butt <shakeel.butt@linux.dev>, Muchun Song <muchun.song@linux.dev>,
- David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
- Zi Yan <ziy@nvidia.com>, Xunlei Pang <xlpang@linux.alibaba.com>,
- "Liam R . Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>,
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
- Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
- Usama Arif <usama.arif@linux.dev>, Vlastimil Babka <vbabka@kernel.org>,
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
- Chris Down <chris@chrisdown.name>, Chuanhua Han <hanchuanhua@oppo.com>,
- Kairui Song <kasong@tencent.com>, linux-mm@kvack.org,
- cgroups@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20260904035407.4098627-1-qinyuntan@linux.alibaba.com>
- <20260904035407.4098627-2-qinyuntan@linux.alibaba.com>
-From: Baolin Wang <baolin.wang@linux.alibaba.com>
-In-Reply-To: <20260904035407.4098627-2-qinyuntan@linux.alibaba.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Subject: Re: [ANNOUNCE] A Syzbot-style Platform for Verifying and Fixing
+ LLM-reported Bugs
+To: netdev@vger.kernel.org, netfilter-devel@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org, workflows@vger.kernel.org,
+ frankw@nebusec.ai, jhs@mojatatu.com, ksummit@lists.linux.dev,
+ kuba@kernel.org, pabeni@redhat.com, kerneljasonxing@gmail.com,
+ roman.gushchin@linux.dev, jgg@nvidia.com, mchehab+huawei@kernel.org,
+ torvalds@linux-foundation.org, ben.copeland@linaro.org,
+ gregkh@linuxfoundation.org, yuantan098@gmail.com
+References: <20260830115546.3942129-1-yuantan098@gmail.com>
+Content-Language: en-US
+From: Yuan Tan <yuant@nebusec.ai>
+In-Reply-To: <20260830115546.3942129-1-yuantan098@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
 
+On 8/30/26 04:55, Yuan Tan wrote:
+> Hi all,
+>
+> A month ago, I posted an RFC[1] to the mailing list proposing an automated
+> platform that validates AI-reported bugs and prepares draft fixes, and
+> later discussed the idea at the Netdev conference. After further
+> development, it is finally ready.
+>
+> While preparing to send this email, I noticed that Roman has since started
+> a related discussion:
+> [MAINTAINERS SUMMIT] The place of AI code review in the Linux Kernel process
+>
+> It turns out this platform already addresses several of the needs raised
+> there.
+>
+> The platform is available at:
+> https://bugtracker.nebusec.ai
+>
+> It is currently hosted under my company's domain for convenience. I would
+> prefer to move it to a neutral, community-oriented domain once the project
+> name is settled.
+> Access is currently restricted to maintainers whose email addresses are
+> listed in the Linux kernel MAINTAINERS file.
+> For now, only bug reports from the net subsystem have been fully imported
+> and processed.
+>
+> -------------------------------------------------------------------------
+>
+> LLM-powered tools such as Sashiko and Claskiko produce a significant number
+> of false positives. Pre-existing bugs uncovered by these tools are also not
+> collected in one place and they remain scattered across individual review
+> reports.
+>
+> To address this, like syzbot for fuzzer-found bugs, this platform provides
+> an **automated** tracking layer for AI-reported bugs, but goes further by
+> generating PoCs, running them in QEMU to produce crash logs, triaging
+> severity, and drafting patches. This requires no extra effort from
+> maintainers; instead, it may helps them understand and fix these bugs more
+> efficiently.
+>
+>
+> The platform offers the following capabilities:
+>
+> 1. Collect and Deduplicate
+>
+> The platform ingests bug reports from multiple sources, including Sashiko,
+> Claskiko, and others. It deduplicates them and monitors mailing lists and
+> git history to track whether they have been fixed.
+>
+> It also provides visibility into the Sashiko/Claskiko ingestion queue, so
+> users can see which reports are waiting to be collected and processed.
+>
+>
+> 2. Verify by generating PoC and running it in QEMU
+>
+> An agent attempts to generate a proof-of-concept for each bug to determine
+> whether it is a false positive. According to paper Patch-to-PoC[2] and
+> follow-up research, GPT-5.4 achieves up to a 95% success rate in generating
+> PoCs for genuinely exploitable bugs.
+>
+> This makes PoC generation a strong signal: if a bug has no PoC, it is very
+> likely a false positive. And even in cases where a real bug is missed, the
+> difficulty of generating a PoC suggests it is unlikely to be practically
+> exploitable.
+>
+>
+> 3. Draft Patch
+>
+> The platform produces a draft patch to give maintainers a starting point
+> and suggested fix direction. These still require human review. Patches can
+> be downloaded via b4 am.
+>
+> These patches are not sent to mailing lists to avoid adding AI-generated
+> noise.
+>
+>
+> 4. Triage
+>
+> Based on the PoC, the agent evaluates the conditions required to trigger
+> the bug, for example, whether it requires a namespace, root privileges, or
+> can be triggered by an unprivileged user.
+>
+> Bugs that require root are generally less important, while those reachable
+> by unprivileged users are more likely to have real security impact.
+>
+> If a bug can be triggered from namespace, it is still worth
+> paying attention to.
+> In particular, a bug should not be considered root-only merely because
+> triggering it requires CAP_NET_ADMIN in a network namespace. On systems
+> that allow unprivileged user namespaces, an ordinary user may be able to
+> create a user namespace, create a network namespace owned by it, and obtain
+> capabilities such as CAP_NET_ADMIN with respect to that namespace. Such
+> bugs may therefore still be reachable by an otherwise unprivileged local
+> user.
+>
+> For example, this configuration has historically been available by default
+> on distributions such as Ubuntu 22.04 LTS and earlier.
+>
+> Jamal previously offered some suggestions on this severity classification
+> scheme which I have not yet had time to implement; that will come in a
+> future update.
+>
+>
+> 5. Chat with agent
+>
+> Each bug page includes a chat interface for discussing the bug and its fix
+> with the agent.
+>
+>
+>
+> Based on earlier feedback, the system is not fully public. Only email
+> addresses listed in the MAINTAINERS file are eligible to register, to
+> prevent bugs with potential security impact from being exposed publicly.
+>
+> Jason’s idea of delegating fixes could also be implemented on this
+> platform. This is essentially what my volunteer bug-fixing team and I have
+> been doing over the past six months: anyone interested can pick up an issue
+> and try to fix it. 
+> Each subsystem’s maintainers could choose whether to make its issues
+> public. Making them public would also let potential reporters check whether
+> an issue is already known before submitting a new report.
+>
+> Bugs are also categorized by subsystem, so after logging in, maintainers
+> see only the bugs relevant to the modules they maintain.
+>
+>
+> Welcome any suggestions:)  I will continue maintaining this system and
+> adding more features, not only out of personal interest, but also our
+> bug-fixing volunteer team is using it too.
+>
+> We periodically burn tokens and run state-of-the-art models against the
+> full kernel source code, with the goal of finding security vulnerabilities
+> before attackers do. While I am not an expert in the net subsystem and
+> cannot review patches myself at this time, I still hope this platform can
+> be of help to the community.
+>
+> If this system proves genuinely useful, I am happy to transfer project
+> ownership to the Linux Foundation or another neutral host.
+>
+> Going forward, the platform will expose a public API so that other bug
+> finding research teams can submit their findings here for centralized
+> processing. We also plan to ingest syzbot-found bugs to provide them with
+> the same triage workflow.
+>
+> P.S. I have been struggling to come up with a good name for this platform. A
+> few candidates I am considering are Palomar, Tengu, FixArc, and Ephemeris.
+> If anyone has a preference or a better suggestion, I would love to hear it.
+>
+>
+> Current Limitations
+>
+> - For a tracked bug, the system currently only knows that a fix exists; it
+> does not yet distinguish between a patch that has been posted to the
+> mailing list and one that has already been merged.
+>
+> - PoC generation and false-positive verification are not yet supported for
+> driver-related bugs.
+>
+> - Unable to scrape Sashiko/Clashiko review reports that are still under embargo.
+>
+> - Only net subsystem bugs from Sashiko and Claskiko have been imported with
+> a fully automated fix-detection pipeline so far. Bugs from other subsystems
+> are shown but may already be fixed. If other subsystem maintainers are
+> interested, I will prioritize adding support.
+>
+>
+> [1] https://lore.kernel.org/all/20260708092247.4188498-1-yuantan098@gmail.com/
+> [2] Juefei Pu, Xingyu Li, Zhengchuan Liang, et al. "Patch-to-PoC: A
+> Systematic Study of Agentic LLM Systems for Linux Kernel N-Day
+> Reproduction." arXiv:2602.07287, 2026. https://arxiv.org/abs/2602.07287
+>
+>
+> Thanks,
+> Yuan
+>
 
-On 9/4/26 11:54 AM, Qinyun Tan wrote:
-> Anonymous THP faults happening in a kernel loop that does not return
-> to userspace -- the populate loop of a single mlock() call, or any
-> GUP-driven population -- can drive a memcg's usage from memory.high
-> all the way up to memory.max with zero reclaim and zero penalty
-> sleep.
-> 
-> This defeats the containment memory.high is supposed to provide:
-> above high, the documented promise is that "the processes of the
-> cgroup are throttled and put under heavy reclaim pressure", and
-> userspace OOM handlers (oomd, Kubernetes) rely on the high..max
-> buffer as their reaction window.  Only after hitting memory.max does
-> the non-blocking charge fail, THP fall back to 4K, and
-> folio_prealloc()'s GFP_KERNEL charge finally restore throttling --
-> by which point the entire buffer has been consumed.
-> 
-> memory.high is enforced at two points after a charge succeeds:
-> 
->    1. from resume_user_mode_work() on return to userspace, requested
->       via set_notify_resume();
->    2. synchronously in try_charge_memcg() for large overcharges, added
->       by commit c9afe31ec443 ("memcg: synchronously enforce memory.high
->       for large overcharges"), gated on gfpflags_allow_blocking().
-> 
-> A populate loop does not return to userspace between faults, so gate
-> 1 never runs.  Gate 2 is defeated by the charge gfp: since
-> commit 3b3636924dfe ("mm, memcg: sync allocation and memcg charge
-> gfp flags for THP"), the THP fault path passes the allocation gfp
-> from vma_thp_gfp_mask() to mem_cgroup_charge().  With defrag=defer
-> that gfp is GFP_TRANSHUGE_LIGHT | __GFP_KSWAPD_RECLAIM; with the
-> default defrag=madvise and no MADV_HUGEPAGE it is plain
-> GFP_TRANSHUGE_LIGHT.  Neither allows blocking.  This is the right
-> policy for the physical allocation -- a THP is not worth direct
-> compaction, fall back to 4K instead -- but try_charge_memcg() also
-> interprets it as "this context cannot sleep" and skips the
-> synchronous enforcement, even
-> though fault context sleeps just fine (it holds the mmap or per-VMA
-> read lock).
-> 
-> Fix this in the fault paths, which know their context can sleep:
-> after a successful THP/mTHP charge, settle any accrued over-high
-> debt via mem_cgroup_handle_over_high(GFP_KERNEL).  This reuses the
-> existing throttling machinery (reclaim + calculate_high_delay()
-> penalty sleep) and is a no-op read of
-> current->memcg_nr_pages_over_high when there is no debt.
+A couple of updates since my last email:
 
-This doesn't convince me. If the user sets defrag=defer, it means large 
-folio allocations should not block, so using gfpflags_allow_blocking() 
-to decide whether to call mem_cgroup_handle_over_high() is reasonable.
+Previously, the bug list was not automatically filtered based on the
+maintainer’s subsystems in the MAINTAINERS file after login. This has
+now been fixed.
 
-If you call mem_cgroup_handle_over_high() directly in the allocation 
-functions, it would definitely increase allocation latency. This is not 
-what we expect when setting defrag=defer.
+Also, a quick update for netdev:
 
-On the other hand, I wonder if briefly exceeding memory.high is really a 
-problem in the real products. If this is only to fix the 
-test_memcg_high_sync selftest below, which is full of magic numbers, I 
-don't think it makes much sense.
+We recently ran exploitability analysis on several hundred bugs and
+imported the results into the tracker, so you can now directly see which
+bugs appear to have higher security impact.
 
-> Deliberately not changed:
-> 
->   - The charge gfp itself is kept coupled to the allocation gfp, so the
->     fail-fast behaviour at memory.max (charge fails -> fall back to 4K
->     instead of reclaiming or OOMing for a THP) that the coupling was
->     introduced for is fully preserved.
-> 
->   - try_charge_memcg() is not touched: gfpflags_allow_blocking() is the
->     only signal it has, and it must stay conservative for callers that
->     genuinely cannot sleep.
-> 
-> The pre-existing selftest test_memcg_high_sync, added alongside the
-> synchronous enforcement by commit 6323ec54b450 ("selftests: memcg:
-> test high limit for single entry allocation"), readily reproduces
-> this: it mlocks 200M against memory.high=30M and memory.max=140M
-> with swap disabled, and expects high events with no max events.  On
-> systems with transparent_hugepage/enabled=always it fails without
-> this patch -- the population bursts through to memory.max -- and
-> passes with it.
-> 
-> Fixes: c9afe31ec443 ("memcg: synchronously enforce memory.high for large overcharges")
-> Cc: <stable@vger.kernel.org>
-> Signed-off-by: Qinyun Tan <qinyuntan@linux.alibaba.com>
-> ---
-> 
-> Note for stable backports: mem_cgroup_handle_over_high() only gained
-> its gfp_mask argument in v6.6, from commit 9ea9cb00a82b ("mm:
-> memcontrol: fix GFP_NOFS recursion in memory.high enforcement"); on
-> older kernels the call sites take no argument.
-> 
->   mm/huge_memory.c | 8 ++++++++
->   mm/memory.c      | 2 ++
->   2 files changed, 10 insertions(+)
-> 
-> diff --git a/mm/huge_memory.c b/mm/huge_memory.c
-> index ced400f72d43..543ba4a74dc3 100644
-> --- a/mm/huge_memory.c
-> +++ b/mm/huge_memory.c
-> @@ -1329,6 +1329,14 @@ static struct folio *vma_alloc_anon_folio_pmd(struct vm_area_struct *vma,
->   		return NULL;
->   	}
->   
-> +	/*
-> +	 * The charge gfp encodes THP allocation policy and may not allow
-> +	 * blocking, which makes try_charge skip its synchronous memory.high
-> +	 * throttling. Fault context can sleep, so settle any over-high debt
-> +	 * here instead of letting usage grow unthrottled up to memory.max.
-> +	 */
-> +	mem_cgroup_handle_over_high(GFP_KERNEL);
-> +
->   	if (folio_memcg_alloc_deferred(folio)) {
->   		folio_put(folio);
->   		count_vm_event(THP_FAULT_FALLBACK);
-> diff --git a/mm/memory.c b/mm/memory.c
-> index 8b0c2c735d3d..24cbf2a26905 100644
-> --- a/mm/memory.c
-> +++ b/mm/memory.c
-> @@ -5362,6 +5362,8 @@ static struct folio *alloc_anon_folio(struct vm_fault *vmf)
->   			folio_put(folio);
->   			goto next;
->   		}
-> +		/* Same reasoning as in vma_alloc_anon_folio_pmd(). */
-> +		mem_cgroup_handle_over_high(GFP_KERNEL);
->   		if (order > 1 && folio_memcg_alloc_deferred(folio)) {
->   			folio_put(folio);
->   			goto fallback;
+We identified 55 bugs that can be used for local privilege escalation.
+The good news is that 46 of them have already been fixed, while 9 are
+still unfixed. Fortunately, 8 of those 9 require |CONFIG_USER_NS=y| to
+be exploitable.
+
+I’m especially proud that students on my team contributed 34 of the
+patches for those fixes, and I’m very grateful to the maintainers for
+all the reviews and guidance. Once we finish the patches we’re currently
+looking at, we’ll start working on these newly identified
+privilege-escalation bugs.
+
+The exploitability analysis still has to be run manually and is not yet
+integrated into the system. Once the full pipeline is integrated, it
+should make it much easier to see which bugs pose a greater security risk.
+
+So although the LLM has found a large number of bugs, only a very small
+fraction of them appear to be usable for local privilege escalation.
+
+If any maintainers outside netdev are interested in using the tracker,
+just let me know. I can prioritize importing the fixed bugs and Sashiko
+findings for those subsystems first. Cleaning and importing the data
+takes some time.
+
 
