@@ -1,95 +1,146 @@
-Received: from mail-vk1-f179.google.com (mail-vk1-f179.google.com [209.85.221.179])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AD8847CC96
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 11:11:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EAE1382F0F;
+	Fri,  4 Sep 2026 11:11:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788520296; cv=none; b=ZZgWPm397sCaZHXPAcZvrXHkvPeqims3Mz8oorS5K69KefKjCU3kjwK6lY9sKsxG22/irgtxDhvGsgT3mubdEjTHY40h96ruBIwiA8hmAKZrpNVyH0FJs+JNOCwEyhCCaBGQvocDv+52Ddp78r0jB2FBQ/wgkLyOcy3CYkt28c0=
+	t=1788520313; cv=none; b=iRgzXVGDW04UHqcVm9b2k8YS1tjTvg8dTjnSzvMxCExh6jnHWvkS5rv+kze8dU9H7sUnjX1Bu0Qtk2qN4ikAGhUVbTL6UQL3BxggqOX2B86peyYuqmEPTD+/6wnDvt4/LvEKagUOPQAwU4UKyVTT5c9cSd2TaiA7nUrpv7euMy4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788520296; c=relaxed/simple;
-	bh=kogY6TLSuVIt/3sC1dBhtpJjb2uFidHomRE45bNUWKg=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Tq/GcEHkCmTvkViv3FEmGRypPNyfA4vxQN37+5msFzLAFbgz+OTeEspbPOl1ogtprU5jLRGsuu6BnRZftZIBlPhwqxrRQwYrACV+0pDd9bzxAa9eLw8+ikxlS5sX+Zo1vMMtWWRipNXg7pArfMMJweuHOjK7/AJ9w1UNXciZlE4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.221.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-vk1-f179.google.com with SMTP id 71dfb90a1353d-5c664b8c3f3so817853e0c.0
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 04:11:33 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788520293; x=1789125093;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=DEMMEYg5UPRjTvJH6bpCIIVqiRbyQhNHEX2ipUmBsbM=;
-        b=a4aVO3emj01guLKShxrPIIt/KUGNiTb2GbvfLsdwynW3agFW46IytDRZO4KXS/vwAt
-         5zPOJ6laWQQ+GNaiUQOQYEfff/D7wOEVzfh6eD/0r2VNvsNrAGV7hVOTtBzd2+Aj+Dep
-         SqibvM65wmWPWqAyXNEL0iSW1I1wiGOcmAmfMP6f+mrW/w49f6Ddoc0trWtAcRtuRU0p
-         KXcul8mOhzoE/jKd9f476FXlVWWnS7mNqv2gzWBzeAJ0M+0t9o+T8bFUlvDxZTdqKhz+
-         EB/2hMN+G1hnIm7sfJJN/ozI3P1YTP8mguq2p543pgVbIlkQwxZixyml/0vqVz1AVyWY
-         TuhQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzATizg7OK9QSSGZTxL2NF87kofLG600l/vYZLnyTHM08GlFn6o+KRajaQUYm/2wpjZwr1qpZbK0shMAvM=@vger.kernel.org
-X-Gm-Message-State: AFuF++m7WsHJikSgNEb1ftKS/DPfYxPa1l9JAcxkpUKbPCEr7Pir0sDv
-	3NMJbvLOPxjSxRcoFZOy/iIuysHjNcPwpyqhNGM/QuqcfLyFsjA74Grj5f6GuHPM8AM=
-X-Gm-Gg: AYBFou1H13SVR7fNjnm4YMg3EWfi7t8xxMMaIIw/EXOn2WTiOyWDcgagMWsAJIQdK5y
-	VMujlYLSwyAgLVUmMiV2v5m/xCJI6mjXByOGrAaejE6qGQn7YxaK+OoL38pA2Zl6OLgESNWuvNA
-	Ml1LlGfKEPZyfi5d/NZXJ3f8kcA58598PCGPgZ58Nh0JKJpwKQ9vSuJe6bruZfxMrDwS/u34GTH
-	snDYVEM1d33hINmdv/Ox2ei+H42oYqtrzBEuFOPons1ZdjVeB+aVAbhWGvHv7kilysVais0ZYTY
-	/PB5p7ZqtLy11bUm9rHyHv1xzZNse/f3oyuSd6OpmCmzEPzrbfgHgJK8aDJgQvRuaAJnKubkOHP
-	TybXbNwApUUvo8tjRAQVxwuGA/yIf+W6uEtBfGCk8ByLV/L9HwpL5pbxkMSwMaRNcvCyVohNhE9
-	ex+Erv0WCXTG0QWU/ul0E/Z87/otg9e9dWprR2pC9k95j9d28T2vy6CrXMVaweZTXtBdbmL3ck3
-	Q7Cb6hXKbrQfv3btyrHEjydsw==
-X-Received: by 2002:a05:6122:c9d:b0:5c7:9445:f468 with SMTP id 71dfb90a1353d-5c7ed7eb340mr2388203e0c.6.1788520292813;
-        Fri, 04 Sep 2026 04:11:32 -0700 (PDT)
-Received: from mail-vs1-f47.google.com (mail-vs1-f47.google.com. [209.85.217.47])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5c7ec366bb5sm1780910e0c.13.2026.09.04.04.11.32
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 04 Sep 2026 04:11:32 -0700 (PDT)
-Received: by mail-vs1-f47.google.com with SMTP id ada2fe7eead31-73720e58dafso577437137.1
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 04:11:32 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBzmch4eBuwOxDk0AU0johTLCxfzUlD0dTP+HnRJLLVuJ4RdegprWE0tTtVjmDFnXhwP3DofkDJ7fvPkXXc=@vger.kernel.org
-X-Received: by 2002:a05:6102:80a3:b0:77d:9fe9:1716 with SMTP id
- ada2fe7eead31-78a4a6e83e9mr2237001137.2.1788520291864; Fri, 04 Sep 2026
- 04:11:31 -0700 (PDT)
+	s=arc-20240116; t=1788520313; c=relaxed/simple;
+	bh=d0cVoilWRCngfR4Nuy1LBj53yM5i2PbNVP+KTFrQ4vA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=d1m7Uxzzqu/FMDKP/7eKETfG3mZNIVI9V39jZwVwBXCUdIBr9TR/gvJ+R2DfvdnBH3HwtQDTUmzY2oQwsUsfKCx33hZ4Hv/cKnWi9u3yxNpQWmhaijWDwLZMZ1PwHhcYtLX/Ky1VViVIP8HRDtHzG2XBVWWBQfttqb2TM5irlqY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oPXtzvET; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oPXtzvET"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 001881F00A3F;
+	Fri,  4 Sep 2026 11:11:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788520312;
+	bh=AZqiGs6USnmgkejTOdoFRDR8+zIbzcWv7bEqGrJVhUo=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=oPXtzvETPj01cO6iMs8bbrsd+736Zi0Whx6gKupYUtqqNGq3IDazqxVLQs1aLl9PU
+	 ZKHna5/M55a7AvkncQXkDbPOes95FiHGgDhyAj4vdSyFZmErWVk8YlPjwS98wE3Ujj
+	 LuIlyj3jzrXzt1AJd7cgWulbitV1lupvl3/Ih8SAOmA4br55qmTEw+i+bqatnkQv9k
+	 SZohAluqDMq4KoqfYZcRQEfuzFtWxfgvK3eXJCSFrEhnD2zXNJBEMZavrearjtSiRs
+	 vCcD0dWOvcWvm1QYfE5f6iaFlqSBkCN59bDzeSBt0eGJ3QLI22sL2Gv2Z6B10brgam
+	 xyIK1mNz1QJeg==
+Message-ID: <59481565-89c4-45af-9121-e514304876bf@kernel.org>
+Date: Fri, 4 Sep 2026 06:11:49 -0500
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260704151521.211335-1-marek.vasut+renesas@mailbox.org>
-In-Reply-To: <20260704151521.211335-1-marek.vasut+renesas@mailbox.org>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Fri, 4 Sep 2026 13:11:20 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdVaKuYeEv23AH6MkCU-+Zb22Vo5YYRY=+v56jqf2oN5Dg@mail.gmail.com>
-X-Gm-Features: AcwNN1VWCzUARGrrpc_Qo6UxK-PAKa2dMGWtQC_aDHn_mP1ls1EOnA4D533OdMw
-Message-ID: <CAMuHMdVaKuYeEv23AH6MkCU-+Zb22Vo5YYRY=+v56jqf2oN5Dg@mail.gmail.com>
-Subject: Re: [PATCH 1/2] dt-bindings: gpio: renesas,rcar-gpio: Document R-Car
- X5H (R8A78000) support
-To: Marek Vasut <marek.vasut+renesas@mailbox.org>
-Cc: linux-gpio@vger.kernel.org, Bartosz Golaszewski <brgl@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/2] PCI: altera: Fix resource leaks on probe failure
+Content-Language: en-US
+To: Bjorn Helgaas <helgaas@kernel.org>,
+ Mahesh Vaidya <mahesh.vaidya@altera.com>
+Cc: joyce.ooi@intel.com, lpieralisi@kernel.org, kwilczynski@kernel.org,
+ mani@kernel.org, robh@kernel.org, bhelgaas@google.com,
+ ley.foon.tan@intel.com, linux-pci@vger.kernel.org,
+ linux-kernel@vger.kernel.org, subhransu.sekhar.prusty@altera.com,
+ preetam.narayan@altera.com, cheryl.bansal@altera.com, stable@vger.kernel.org
+References: <20260902175637.GA1993694@bhelgaas>
+From: Dinh Nguyen <dinguyen@kernel.org>
+In-Reply-To: <20260902175637.GA1993694@bhelgaas>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Sat, 4 Jul 2026 at 17:15, Marek Vasut
-<marek.vasut+renesas@mailbox.org> wrote:
-> Document support for the GPIO controller blocks in the
-> Renesas R-Car X5H (R8A78000) SoC.
->
-> Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
 
-Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
 
-Gr{oetje,eeting}s,
+On 9/3/26 01:56, Bjorn Helgaas wrote:
+> On Thu, Apr 30, 2026 at 01:43:30PM -0700, Mahesh Vaidya wrote:
+>> The chained IRQ handler is installed during probe but is only removed
+>> from the remove path. If pci_host_probe() fails, the handler and INTx IRQ
+>> domain remain installed even though the devm-managed host bridge storage
+>> containing struct altera_pcie will be released, leaving the handler with
+>> a stale data pointer.
+>>
+>> Interrupts are also enabled before pci_host_probe() is called. If probe
+>> fails after that point, the controller interrupt source should be disabled
+>> before the chained handler and INTx domain are removed.
+>>
+>> Install the chained handler only after the INTx domain has been created.
+>> Disable controller interrupts during IRQ teardown, and tear the IRQ setup
+>> down if pci_host_probe() fails.
+>>
+>> Fixes: c63aed7334c2 ("PCI: altera: Use pci_host_probe() to register host")
+>> Cc: stable@vger.kernel.org
+>> Reviewed-by: Subhransu S. Prusty <subhransu.sekhar.prusty@altera.com>
+>> Signed-off-by: Mahesh Vaidya <mahesh.vaidya@altera.com>
+>> ---
+>>   drivers/pci/controller/pcie-altera.c | 35 ++++++++++++++++++++++++++--
+>>   1 file changed, 33 insertions(+), 2 deletions(-)
+>>
+>> diff --git a/drivers/pci/controller/pcie-altera.c b/drivers/pci/controller/pcie-altera.c
+>> index 3d3519b8d88f..902ae2d81763 100644
+>> --- a/drivers/pci/controller/pcie-altera.c
+>> +++ b/drivers/pci/controller/pcie-altera.c
+>> @@ -864,8 +864,23 @@ static int altera_pcie_init_irq_domain(struct altera_pcie *pcie)
+>>   	return 0;
+>>   }
+>>   
+>> +static void altera_pcie_disable_irq(struct altera_pcie *pcie)
+>> +{
+>> +	if (pcie->pcie_data->version == ALTERA_PCIE_V1 ||
+>> +	    pcie->pcie_data->version == ALTERA_PCIE_V2) {
+>> +		/* Disable all P2A interrupts */
+>> +		cra_writel(pcie, 0, P2A_INT_ENABLE);
+>> +	} else if (pcie->pcie_data->version == ALTERA_PCIE_V3) {
+>> +		/* Disable port-level interrupts (CFG_AER, etc.) */
+>> +		writel(0, pcie->hip_base +
+>> +			  pcie->pcie_data->port_conf_offset +
+>> +			  pcie->pcie_data->port_irq_enable_offset);
+>> +	}
+>> +}
+>> +
+>>   static void altera_pcie_irq_teardown(struct altera_pcie *pcie)
+>>   {
+>> +	altera_pcie_disable_irq(pcie);
+>>   	irq_set_chained_handler_and_data(pcie->irq, NULL, NULL);
+>>   	irq_domain_remove(pcie->irq_domain);
+>>   }
+> 
+> This patch appeared in v7.2 as 7a94138caeb2 ("PCI: altera: Fix
+> resource leaks on probe failure").
+> 
+> While considering this for backporting, sashiko came up with the
+> questions below.  Can you take a look and see if they make sense?
+> 
+>    This is a pre-existing issue, but does altera_pcie_irq_teardown()
+>    lack synchronization with in-flight interrupts?
+> 
+>    If a device interrupt fires just before altera_pcie_disable_irq()
+>    masks it, could the chained ISR (altera_pcie_isr) execute
+>    concurrently with altera_pcie_irq_teardown() on another CPU?
+> 
+>    Because irq_set_chained_handler_and_data() unregisters the handler
+>    but does not wait for currently executing ISRs on other CPUs, could
+>    irq_domain_remove() free the domain while the ISR is still using it
+>    to call generic_handle_domain_irq(), leading to a use-after-free and
+>    a kernel panic?
+> 
+>    Would adding a call to synchronize_irq() before removing the IRQ
+>    domain prevent this race during driver removal or when
+>    pci_host_probe() fails?
 
-                        Geert
+In this case, because the driver uses chained interrupts, 
+synchronize_irq() is not effective.
 
--- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+Chained handlers execute directly via desc->handle_irq() and bypass the
+generic handle_irq_event() function, which means the IRQD_IRQ_INPROGRESS
+flag is never set for them. synchronize_irq() relies on this flag, so it 
+will return immediately, effectively being a no-op.
 
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+A correct fix for this potential use-after-free would be to convert the 
+driver to use a normal requested IRQ instead of the chained handler. 
+I'll work on a patch for that.
+
+
+Thanks,
+Dinh
+
