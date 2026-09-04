@@ -1,169 +1,154 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.3])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk1-f179.google.com (mail-qk1-f179.google.com [209.85.222.179])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78B37503BD5;
-	Fri,  4 Sep 2026 16:32:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.3
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 943194F30FD
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 16:33:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.179
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788539583; cv=none; b=Uv8DdMGOZzaNPiCaREFiaU+J5aGnw/dX5QtipYxOYwCkWZk6+YTAvSRoZNQ+aDg8OmRP8wJhWqJXpSQ1moBfwlczkGVrv8fMtBmZh05X83WJ/EYmSCe98tUU1XOPHxh/+DxJqLMqgM6VVDbVDaEKxPuGI+ArKlazr4gZ/obTcE8=
+	t=1788539612; cv=none; b=qcv6tnZMWh84rb43eqNk6FhQkjZwneYX4/C2kJfhHt4Cj1Fc93Pqwod/wHdyeK7LxqhQ62O9xuVrol0PfTYsGV6PEQM2eaS9GdorHRCQHQRlw30MdmBOA0S2zmSNwj+EcevL4gdIu/paKOVQyNuXpuopnhNsCIl+6hVpcHpxtxM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788539583; c=relaxed/simple;
-	bh=PsJg1897VlUxWP6HRMzBvbZknxzRbYho/mJd1blxZUs=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=MCnmCcMTObTmRpKtTkMk25sdal8bhcynwvp4YWozXKxD+cwjsr/2tkjFBywRjxpqHcKv7zgFXaJBSaeVaD+Q1jlrcAszoVMslkD1g8UdIfDsEoEwRWi1DRArNMnH3Ygl54b9ZMOjqXYmawk5bWUQbRGh5QLDCg03+q0PzKpmclM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=HncCxS6Q; arc=none smtp.client-ip=117.135.210.3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1788539612; c=relaxed/simple;
+	bh=VrT2XykO7ti3SCZ+T2YEPnhpT2N/rItTjH+ZUEbRVyk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=R+qvnvI3nfJDbW0Q1zd70QZfViEJtGuKhG1fvf7K36PwFvNZ/jd8A/FD2XnMdfRdlUZ1XRLkIA9w8yy5fatQgxFgAZ9NjN0evxVS306qkEVnmXPua/c10l2uzwlqkYnNsgEIQlLHTG3dWlc7BypPZ3ZpNHKBMm/oVaccVDuSagc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu; spf=fail smtp.mailfrom=g.harvard.edu; dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.b=M45UfK4n; arc=none smtp.client-ip=209.85.222.179
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=g.harvard.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="HncCxS6Q"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=Message-ID:Date:MIME-Version:Subject:To:From:
-	Content-Type; bh=D73+Lw6lDTZZGE8DKePAMYQBhMEcGIxUQ+Nz85ARoAs=;
-	b=HncCxS6QUOMQ/pccClxhmpAt/wDqcaIIBbJblUJY3M9uiOgvTQlhn/1xpPdK8I
-	JWiP8OFny7FhV29PJwZ3dCZQM92bWjx9lm9IenSiDNaRjNecx8CsQF9rOIEp+9ty
-	8XLHOF8ZauEhr/Z4STbfLTDfJr5megQNnFfeOP8GiN9/o=
-Received: from [IPV6:240e:b8f:91b3:d000:cb89:e59c:b7d0:5b84] (unknown [])
-	by gzsmtp4 (Coremail) with SMTP id PygvCgBnFyue8ppq3aEFQA--.23653S2;
-	Sat, 05 Sep 2026 00:32:31 +0800 (CST)
-Message-ID: <7eb29846-7561-4ead-9a05-0c5966de5fd6@163.com>
-Date: Sat, 5 Sep 2026 00:32:30 +0800
+	dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.b="M45UfK4n"
+Received: by mail-qk1-f179.google.com with SMTP id af79cd13be357-930f618435cso132310785a.3
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 09:33:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=rowland.harvard.edu; s=google; t=1788539609; x=1789144409; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=k0RAZ+DHfHhnurcfDsBD5DXgNqK8QxFkv89PsAFPaag=;
+        b=M45UfK4nAdqYxB3ZXMgc/mUBNv7sHHR18dBM+v2k+aWWD1RGL1r2iAFXOcSVYNFoqW
+         XEfQpao3y7rdE9R9+yjQvCPeCNBKRRcPjUAbVls/ycvXe53EijrEDD1OVxeDOn+8w+uy
+         NJiSElO7s+4zVW9atcbjYDWJ/Cnrn6xm1HIpWPqN2cOjgA+qHXqRi4q3YWY3Nfa0W41T
+         9D38Vl1U/3NlUOpPRVRhTYb2p0meUbxTnnLiYUxdEdE3AEpT3sGFRB57GA3GM0CLaenf
+         tt3urhd4H2rYX9TqzVmSNDgI/MWd+UVEkUQQvZ0nTyIKRw7iArEiqNlRPwxdfIX3oT1z
+         /FpA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788539609; x=1789144409;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=k0RAZ+DHfHhnurcfDsBD5DXgNqK8QxFkv89PsAFPaag=;
+        b=IT2PX01UtNv/m060iw1Ate3U5RDyy9rWG3IH0W7ygqjk1GWeGOxJUDCR4fr1BoiJQm
+         XO99GFAFuAreXt6cLb3WiB22y3fPrNL8MzyUqWoy6QJ8cbA9XMbEHTmA4nEAII74PrTM
+         qemj1SxWqvJqlXqTllcdkCzIFueqEF0SFqKDSed1VsOWgK659RHV3zyDEXLpekljIcM/
+         b/CEtQobi2rtSG7hIXFjmytSHvT2dq83b+erwuiaoJgTBoSbpU7qIuOHDE+F4jS6tZNG
+         LkDdtzQj3IpkEIAgUyqkmeyXl3oXvjK4WJ68YEv8M90JSw7K6oUKZxntjldNBKRD+c6m
+         XK4A==
+X-Forwarded-Encrypted: i=1; AKwUvBzisfun2ucbuJpAXTap+mThBaVLkF575AXAd5f6O7FVWONXGY0WQE/O5+JkAwPESNuux49pOYX4C+wU1/s=@vger.kernel.org
+X-Gm-Message-State: AFuF++mDaM+SkRO3sSCX3MIQS7KqIm7ZxAfzpYYubzSGyRlXPYycu8GP
+	uVI9LERgHmC23hfY/eQQZ4R2CCXsckG8Wx6xFShjhX2TbsGNa3FFitmLd8Z4w54BQWJiO0hIsqI
+	vLhEdzg==
+X-Gm-Gg: AYBFou1GRmpdnCK7bGReBm8+LP/tVOwmD9+Ll/obEHk8C2xkZKEbY9zCEqeID2H/A+v
+	GOgoiCBGHWHbI5AQm+blxw/QhNqX17Pj+mi6nc7jYRJz+rJ3Pp/IelOLk/3y7Ggv6dP1PFdcQ9f
+	/6KumAP+MlZ9VjiGXAragEbtiwoO2MQl5qdA6HSDerjaZoa+Kkm7pi3/f/obosEobHlckS7x/GJ
+	fc5qTq8XbF8yCNQLSbQqspyu0NAtNnehXlzVVayAy0XHecw8WGu2zJvTML1/kKcAMCFpzCjJ9N0
+	NwAbOTyMBCeryG8GmaHSJ71ZpjJ0EER3R0raEcYzsr6kEpzzeIcW4cRkrSPLUdb87XOw4vHPxvM
+	Ay9W3kegn1gDy59440JeuptKZn9Vb82GQHsi0t5pDPpYDUoQV4vNIijIvYNyDXTTSwgnDdrvEIW
+	5XCkZfg/cbsAVwXKlgfLMxvetVLoMHPr/ZvncrzV2QWBU7ZohEmhtvDIpKUPidmTuMZbHZoo8X
+X-Received: by 2002:a05:620a:690a:b0:936:dc16:206b with SMTP id af79cd13be357-9398043f64fmr710261985a.26.1788539609125;
+        Fri, 04 Sep 2026 09:33:29 -0700 (PDT)
+Received: from rowland.harvard.edu ([2601:19b:d01:d210::7544])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-9397fbe00f9sm250252985a.45.2026.09.04.09.33.28
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 04 Sep 2026 09:33:28 -0700 (PDT)
+Date: Fri, 4 Sep 2026 12:33:25 -0400
+From: Alan Stern <stern@rowland.harvard.edu>
+To: Rafael Alejandro =?iso-8859-1?Q?D=EDaz?= Cruz <rafad900@gmail.com>
+Cc: gregkh@linuxfoundation.org, linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	syzbot+4a5c87a01894ca37f25c@syzkaller.appspotmail.com
+Subject: Re: [PATCH usb-next v1] USB: gadget: Fix UAF in gadgetfs_fill_super()
+Message-ID: <c1af4757-14de-472b-8d71-cf4172afafaf@rowland.harvard.edu>
+References: <20260902050127.3767049-1-rafad900@gmail.com>
+ <b99e8d15-9031-4d77-b1c1-2bd8cce6013e@rowland.harvard.edu>
+ <CALp66yF0MZy9UKo_qGGeekxV0RNMNKZ_foqADVnqg+_YgEYqEA@mail.gmail.com>
+ <de10753c-7504-4b55-b08b-cc8b91cd6711@rowland.harvard.edu>
+ <CALp66yHc7e7QYxNhKy_zMHe7gV=KrCexu0vB+AuStCWOM3D8hg@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] pci: dwc: Rename PCIE_PORT_LINK_CONTROL to
- PORT_LINK_CTRL_OFF
-To: Bjorn Helgaas <helgaas@kernel.org>
-Cc: jingoohan1@gmail.com, bhelgaas@google.com, lpieralisi@kernel.org,
- kwilczynski@kernel.org, mani@kernel.org, robh@kernel.org, a-garg7@ti.com,
- linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
- Feizhou Yu <yufeizhou201@163.com>
-References: <20260904161250.GA2318713@bhelgaas>
-Content-Language: en-US
-From: Hans Zhang <18255117159@163.com>
-In-Reply-To: <20260904161250.GA2318713@bhelgaas>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-CM-TRANSID:PygvCgBnFyue8ppq3aEFQA--.23653S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxuFy7JFyUJrW5Wr4xZF4UCFg_yoWrKFW7pa
-	y5tF1FkF1DAa13Z3Wjkas7ZF4aq3ZxtFWUCrs7K3Zru3Z3Ary8KF18tF1aqrn7XF4Iqr4Y
-	yr42qFZxuFy3A3JanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0zRoqcUUUUUU=
-X-CM-SenderInfo: rpryjkyvrrlimvzbiqqrwthudrp/xtbC6x8lyGqa8p-mBgAA3k
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CALp66yHc7e7QYxNhKy_zMHe7gV=KrCexu0vB+AuStCWOM3D8hg@mail.gmail.com>
 
+On Thu, Sep 03, 2026 at 10:12:27PM -0700, Rafael Alejandro Díaz Cruz wrote:
+> Which changes?
 
+I had to go back and look at the old email messages to figure out what 
+you are talking about here.  Don't reply to emails without including 
+enough context to let your reader (who may have to deal with hundreds of 
+emails every day) know what's going on.
 
-On 9/5/26 00:12, Bjorn Helgaas wrote:
-> On Fri, Sep 04, 2026 at 02:18:23PM +0800, Hans Zhang wrote:
->> The register at offset 0x710 is documented in the Synopsys DesignWare
->> PCIe Controller Reference Manual as "PORT_LINK_CTRL_OFF" (Port Link
->> Control Register). The current macro name PCIE_PORT_LINK_CONTROL does
->> not match the documentation, making it difficult to cross-reference
->> with the spec when debugging or maintaining the code.
+In this case, I was referring to the changes between your most recent 
+patch submission (v1) and the submission you're planning to make (which 
+will presumably be v2).
+
+>  Currently I'm on the new v1 and all I would do
+> is remove the top paragraph you said was unnecessary. Or do
+> you mean add the "Reviewed-by" tag that you added? (Thanks btw!)
+
+I meant everything that will change between v1 and v2.  Tags and all.
+
+> I'm not sure either about adding it below the "---" line.
+> I haven't done that before....
+
+Now's your chance.  :-)
+
+> I saw an example from some other patches and I guess I would
+> do the following:
 > 
-> I'm a little skeptical about this change.  I agree it's good to match
-> the spec, and the leading "PCIE_" seems superfluous.  But I think it's
-> pointless to add "_OFF" to every register offset.  "PORT_LINK_CTRL"
-> seems like enough, and it's pretty close to the spec's name.
+>  20 Reported-by: syzbot+4a5c87a01894ca37f25c@syzkaller.appspotmail.com
+>  21 Link: https://syzkaller.appspot.com/bug?extid=4a5c87a01894ca37f25c
+>  22 Signed-off-by: Rafael Alejandro Diaz Cruz <rafad900@gmail.com>
+>  23 ---                                                      // ADD
+> THE PART BETWEEN THE "---" ?
+>  24 v2
+>  25 - Reviewed-by: Alan Stern <stern@rowland.harvard.edu>
+>  26 ---
+>  27  drivers/usb/gadget/legacy/inode.c | 1 +
+>  28  1 file changed, 1 insertion(+)
+>  29
+>  30 diff --git a/drivers/usb
 > 
-> Adding "_OFF" also invites confusion: does it mean "offset" or "off"
-> (the opposite of "on")?
+> Is this correct?
 
-Hi Bjorn,
+No.
 
-I checked the official documentation of Synopsys. It seems that the 
-suffix "_OFF" is added to each register, and it appears to mean "offset".
+All you have to do is copy the format of the other patch submissions in 
+the email archives.  It should look something like this (note that 
+there is only one "---" line!):
 
-> 
-> It's also nice if names of fields within a register include the
-> register name, e.g., PCI_EXP_LNKCTL, PCI_EXP_LNKCTL_ASPMC, etc.
-> For long register names like PCIE_PORT_MULTI_LANE_CTRL, with a
-> PORT_MLTI_UPCFG_SUPPORT field, you have squint pretty hard to see the
-> connection between the register and the field, but a name like
-> "PCIE_PORT_MULTI_LANE_CTRL_UPCFG_SUPPORT" would be just ridiculous.
+----------------------------------------------------------------
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Reported-by: syzbot+4a5c87a01894ca37f25c@syzkaller.appspotmail.com
+Link: https://syzkaller.appspot.com/bug?extid=4a5c87a01894ca37f25c
+Signed-off-by: Rafael Alejandro Diaz Cruz <rafad900@gmail.com>
+Reviewed-by: Alan Stern <stern@rowland.harvard.edu>
+---
 
-I agree with what you said. The official documentation of Synopsys 
-currently defines it this way. If the naming is simplified, it would 
-make it harder to search for where the registers are located. This is 
-one of the purposes of this modification.
+Changes from v1:
 
+	Removed unnecessary reference to syzkaller in the description.
 
+	Added Reviewed-by: tag.
 
-I will send a document to you and Mani. Or there might be a better way 
-that I would be very happy to accept. I will also make the necessary 
-modifications according to your preferences.
+ drivers/usb/gadget/legacy/inode.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Best regards,
-Hans
+diff --git a/drivers/usb/gadget/legacy/inode.c b/drivers/usb/gadget/legacy/inode.c
+----------------------------------------------------------------
 
-> 
->> Rename the macro to PORT_LINK_CTRL_OFF to align with the Synopsys
->> documentation, and update all usage sites accordingly. No functional
->> change is intended.
->>
->> This improves code maintainability and eases future reference to the
->> controller manual.
->>
->> Co-developed-by: Feizhou Yu <yufeizhou201@163.com>
->> Signed-off-by: Feizhou Yu <yufeizhou201@163.com>
->> Signed-off-by: Hans Zhang <18255117159@163.com>
->> ---
->>   drivers/pci/controller/dwc/pcie-designware.c | 8 ++++----
->>   drivers/pci/controller/dwc/pcie-designware.h | 2 +-
->>   2 files changed, 5 insertions(+), 5 deletions(-)
->>
->> diff --git a/drivers/pci/controller/dwc/pcie-designware.c b/drivers/pci/controller/dwc/pcie-designware.c
->> index 593388f29bdd..9a0d8f0be792 100644
->> --- a/drivers/pci/controller/dwc/pcie-designware.c
->> +++ b/drivers/pci/controller/dwc/pcie-designware.c
->> @@ -894,7 +894,7 @@ static void dw_pcie_link_set_max_link_width(struct dw_pcie *pci, u32 num_lanes)
->>   		return;
->>   
->>   	/* Set the number of lanes */
->> -	plc = dw_pcie_readl_dbi(pci, PCIE_PORT_LINK_CONTROL);
->> +	plc = dw_pcie_readl_dbi(pci, PORT_LINK_CTRL_OFF);
->>   	plc &= ~PORT_LINK_FAST_LINK_MODE;
->>   	plc &= ~PORT_LINK_MODE_MASK;
->>   
->> @@ -922,7 +922,7 @@ static void dw_pcie_link_set_max_link_width(struct dw_pcie *pci, u32 num_lanes)
->>   		dev_err(pci->dev, "num-lanes %u: invalid value\n", num_lanes);
->>   		return;
->>   	}
->> -	dw_pcie_writel_dbi(pci, PCIE_PORT_LINK_CONTROL, plc);
->> +	dw_pcie_writel_dbi(pci, PORT_LINK_CTRL_OFF, plc);
->>   	dw_pcie_writel_dbi(pci, PCIE_LINK_WIDTH_SPEED_CONTROL, lwsc);
->>   
->>   	cap = dw_pcie_find_capability(pci, PCI_CAP_ID_EXP);
->> @@ -1295,10 +1295,10 @@ void dw_pcie_setup(struct dw_pcie *pci)
->>   		dw_pcie_writel_dbi(pci, PCIE_PL_CHK_REG_CONTROL_STATUS, val);
->>   	}
->>   
->> -	val = dw_pcie_readl_dbi(pci, PCIE_PORT_LINK_CONTROL);
->> +	val = dw_pcie_readl_dbi(pci, PORT_LINK_CTRL_OFF);
->>   	val &= ~PORT_LINK_FAST_LINK_MODE;
->>   	val |= PORT_LINK_DLL_LINK_EN;
->> -	dw_pcie_writel_dbi(pci, PCIE_PORT_LINK_CONTROL, val);
->> +	dw_pcie_writel_dbi(pci, PORT_LINK_CTRL_OFF, val);
->>   
->>   	dw_pcie_link_set_max_link_width(pci, pci->num_lanes);
->>   }
->> diff --git a/drivers/pci/controller/dwc/pcie-designware.h b/drivers/pci/controller/dwc/pcie-designware.h
->> index 0735ae940924..77420230433b 100644
->> --- a/drivers/pci/controller/dwc/pcie-designware.h
->> +++ b/drivers/pci/controller/dwc/pcie-designware.h
->> @@ -87,7 +87,7 @@
->>   #define PORT_AFR_L1_ENTRANCE_LAT_SHIFT	27
->>   #define PORT_AFR_L1_ENTRANCE_LAT_MASK	GENMASK(29, 27)
->>   
->> -#define PCIE_PORT_LINK_CONTROL		0x710
->> +#define PORT_LINK_CTRL_OFF		0x710
->>   #define PORT_LINK_DLL_LINK_EN		BIT(5)
->>   #define PORT_LINK_FAST_LINK_MODE	BIT(7)
->>   #define PORT_LINK_MODE_MASK		GENMASK(21, 16)
->> -- 
->> 2.43.0
->>
-
+Alan Stern
