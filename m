@@ -1,162 +1,108 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ot1-f48.google.com (mail-ot1-f48.google.com [209.85.210.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E0C43F12CB;
-	Fri,  4 Sep 2026 12:41:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87320485CE2
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 12:41:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788525689; cv=none; b=rd9HVDXz39n5KLw8Oxkpd4CiGcNaWGPSpwq1oy8BWXHzJHnft/P+BQfZgn1RBM4Bz0tbVQrVguL/NoXNUtsZHALE73/1hEjTKfeabV6Kn9fUV9rp1bp8EcnVfQ1dAUDA3vnIh/Js4IDrriVDso26nkSu+8OS9U/xjrXOTNDyiB0=
+	t=1788525715; cv=none; b=ea3SX0WcXwAiRrFXXRh8FCsPvwX3DC1jXCASfpEAxA9Eztc+oJxPqXXfELuEdTsYM/SGelqVzJBeuFcLsOJC3o51MBiBRQwuGQBTvVd5XXbzrazNVpx8T5mQ77jAo49l52536hlvXH3N3uBW65Q3Hf6SgkUGjb/nJGgYl5t0Q1E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788525689; c=relaxed/simple;
-	bh=W6JKX7ahqnb99xfBn6RyrSANuKyNMCi0bJovw3pOCDg=;
-	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
-	 Mime-Version:Content-Type; b=IzWxbUUHbyFCK9qMDRsxDfL9QAadqahSs+XAvAGoL1w1QPZjBs1fFZ0tM6sf2rl3TumQMuAVlcYxaEvaU7v9+IIbbBWKdTtuXN9OIQkXx2sjDddEdO7jCKVhozzKzOKlw5UUojZTnt9/VFbFTLIPNi4QUv+8KGHWycjQFYWptFg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oGf1RJU5; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788525715; c=relaxed/simple;
+	bh=rddM3BYVppA9dV/fS1MsXsWj3UaN9BPbMbHWqoojDN0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=E1dAHpM3tyf/Nb9K03PUgYF6r7rmY8isIcrccwf3Gy66gcrclIoFCRuo5wzQmtGCUYgYhTF/I6Kpd/r7Ds015gPsrXmBgp6aj0QBZRA771UYWN2Bqve7Ralxc8cJL5poVM5xqB78sqbO5LWc2iT7eRCkmapEnwiKaOn181rVD28=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bsfVxHw0; arc=none smtp.client-ip=209.85.210.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oGf1RJU5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0BDC71F00A3D;
-	Fri,  4 Sep 2026 12:41:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788525688;
-	bh=UMlLb9vJyOjadzPTuVKcm4BXcQdkedIOo1s9dZIX00Q=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=oGf1RJU5E2E1hc5yPFBLMbMic0oPzVmytHmCYp83Bb8EV3snKTx2aN+oMdoFFx41W
-	 oKPm6dxUIdKBNX6pT0C/ErlctSxqAtaSEHoTuQ94v2UZr0c1wqPLIjoy94H/styoVo
-	 spI7SYRif4VdHtKYf1RJSFXUS3KD2xr1sXFB83AtUbj9CaKF+bLDSPFQerLyOd1DkB
-	 kYcVMFBbi7D8YRAW3HRpsxtFJQkdPkyXpb3xsuHjXTc56iUBCV44aWVw3X1ALiVbI4
-	 lD7LgdbE1kJ2QWoTsU661654/ppx4Itw9vxDUdFqE5DUT38FNEnDcuCrpTVvJZgGqb
-	 8un7//vGps9Jg==
-Date: Fri, 4 Sep 2026 21:41:22 +0900
-From: Masami Hiramatsu (Google) <mhiramat@kernel.org>
-To: Jinke Han <jinkehan@didiglobal.com>
-Cc: <tglx@kernel.org>, <mingo@redhat.com>, <bp@alien8.de>,
- <dave.hansen@linux.intel.com>, <x86@kernel.org>, <hpa@zytor.com>,
- <peterz@infradead.org>, <rppt@kernel.org>, <kees@kernel.org>,
- <mhiramat@kernel.org>, <linux-kernel@vger.kernel.org>, Linux Trace Kernel
- <linux-trace-kernel@vger.kernel.org>
-Subject: Re: [PATCH] x86/kprobe: Fix crash when probe cs call
-Message-Id: <20260904214122.15b0924c7ee32dbf0998d876@kernel.org>
-In-Reply-To: <20260827025756.GA26653@didi-ThinkCentre-M920t-N000>
-References: <20260827025756.GA26653@didi-ThinkCentre-M920t-N000>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bsfVxHw0"
+Received: by mail-ot1-f48.google.com with SMTP id 46e09a7af769-7e9fc3de7ceso561575a34.1
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 05:41:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788525712; x=1789130512; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=5RSCWnK2VOIPdpSR6iUDccwW6azRfDoOl2NA9SQbWeI=;
+        b=bsfVxHw0sJSOMFx2WnF+fkP6vTCmJIRjqzDeGjMEqpezWvXLc3/w3betFrWAXSHaBj
+         TDMFLG3KR69fou05I5audVuAeSAQrcW3V673ZxgwTxYFOpgRlq+PmI+S+zYALBcuNMvR
+         2h+UaQwbD8B7Zp/OdJm7Vo8d2UJdnqGnDfK1e3A8FAYYAafmufMhdjQ6YktkGMwOVh3p
+         ktA2YAjtyZkXvw8iijqIx8okLamE5I9TmFqZ2ndOtga4/WF0CqqcQzf+hOc7UciRaDx1
+         OyenMW6OaqOqhveMB4jwSpUHhelWuJ8nDVPBvIau/FF6lQNaeNzUIV4LCx/AurcGWDGD
+         0/WQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788525712; x=1789130512;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=5RSCWnK2VOIPdpSR6iUDccwW6azRfDoOl2NA9SQbWeI=;
+        b=Hkl9jrG5ZwYWrfFeRDd+ICA1YSkf1rU+D/nFt6u1K6z5LTJet6zgiku3Yi+AXluSBd
+         OpJmzSi69QWMQUwlmRbPSenQbKiQ0DcoIHqb+nAQT3R52oP+dd0kEH/O8JE3O89i9Ap0
+         HdfC83DILsStkJXttr71duJE7dD4btZN49ca8aY3M8CAuqD3g8ly1SN3cd9zArOn5BJp
+         +0IYVgsO8kLB/nqiVqxH+zlQkD5BuxTEQotzIA3Dy8lFT7JCitziLdBJ3BPmlDY8fg1n
+         VAksBuOsw06to89SSND3xptJSuwDFcluOAbo/bBShWG743PlROWi/TAwZIN/MZJBgh25
+         Jzeg==
+X-Gm-Message-State: AFuF++keGxFxUkArApca9wHdikN7UxHkHM0sT+hr75AX4QeuoRAHsf3p
+	uKSmVHA3BARYCuTvzEZY/VAGLhHoUkIRb4x3/34O/KVc/+PRg3oYwGC/PfHEBBXgtLI=
+X-Gm-Gg: AYBFou31VNRKDme/Ke3yNgRIsDhWjp0OH9REdcr6Bbw1AErwVagebDe92dpu/uLexpB
+	EBhUv6YhvhvWWSA5qeNtfmCmAi+r/uaX0JlPsbmzABoUWvK1HJpIBFoF8+suIbgVdByLcyxZAa/
+	YAqH3VYlvbtEJDLirQa+8zIocJp91fezq6tsEJEYZpmS8wGaPKnC9xmlEIFyGFzUoel4kDVI0vA
+	9wKbTNENv5xlr0yST4Oic56+VNCWvPdW/Iftln1QU9B9p4ByWON/YRGWdmYsy/7yChwfQ2pFo/w
+	edHTa5UtNIj/OlvxdZcI/Gfi3fWEuwspIA2F9oURfY97jalWfF94UsIRCChFC6Ly8OERgLzNzwe
+	wCBImlWxntg0Tgq41S/YmeWi5xGgzRoOdvynFyk6uPf/k4ByOeXjsm9D/2d+/cAH5ds8o1vmHsN
+	Dw7/NUgxhM4hAaah8N1u3k3ksHaBa2jbEbwGF4aq3Vq0uKN/rCUklTJYRxdcT1TQpi1eztY+7cI
+	MNw0Z5j9v0JHDdjQVVqt32h6g==
+X-Received: by 2002:a05:6820:4dc7:b0:6b7:8396:f3d4 with SMTP id 006d021491bc7-6b78396f84amr1505439eaf.54.1788525712342;
+        Fri, 04 Sep 2026 05:41:52 -0700 (PDT)
+Received: from volcano9f6e-hostos.amd.com ([165.204.217.251])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339bdf26c5sm6389550eec.27.2026.09.04.05.41.51
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 04 Sep 2026 05:41:51 -0700 (PDT)
+From: Hemanth Selam <hemanth.selam@gmail.com>
+To: 
+Cc: linux-kernel@vger.kernel.org
+Subject: [PATCH 0/2] sh: fix typos and repeated words in comments
+Date: Fri,  4 Sep 2026 18:11:44 +0530
+Message-ID: <20260904124148.4575-1-hemanth.selam@gmail.com>
+X-Mailer: git-send-email 2.48.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Thu, 27 Aug 2026 10:57:56 +0800
-Jinke Han <jinkehan@didiglobal.com> wrote:
+This corrects 2 misspellings and repeated words in comments.  Each is a
+separate patch so that any one of them can be dropped without touching
+the rest.
 
-> When I used eBPF to probe the call instructions within a function,
-> we encountered a kernel crash.
-> 
-> The ebpf tool probes the 257 offset of the __hrtimer_run_queues
-> function.
-> 
-> <__hrtimer_run_queues+249>:  nopl   0x0(%rax,%rax,1)
-> <__hrtimer_run_queues+254>:  mov    %r14,%rdi
-> <__hrtimer_run_queues+257>:  cs call <__x86_indirect_thunk_r12>
-> <__hrtimer_run_queues+263>:  mov    %eax,%r12d
-> <__hrtimer_run_queues+266>:  xchg   %ax,%ax
-> <__hrtimer_run_queues+268>:  mov    %r13,%rdi
-> 
-> The scene of kernel crash is as follows:
-> 
-> [73665.737181] BUG: unable to handle page fault for address: 00000000000f41c9
-> [73665.744253] #PF: supervisor write access in kernel mode
-> [73665.749643] #PF: error_code(0x0002) - not-present page
-> [73665.754843] PGD 0 P4D 0
-> [73665.757390] Oops: 0002 [#1] SMP NOPTI
-> [73665.761073] CPU: 1 PID: 0 Comm: swapper/1 Kdump: loaded Tainted: P
-> [73665.782671] RIP: 0010:__hrtimer_run_queues+0x106/0x230
-> 
-> Note that __hrtimer_run_queues+0x106 is __hrtimer_run_queues+262, which is
-> at the 6th byte of the above cs call instruction. Since the cs call
-> instruction occupies 6 bytes, the exception occurred in the middle of that
-> call instruction.
+Nothing outside comments changes.  Every touched C file was checked by
+dropping its comments, replacing each string literal with a placeholder
+and collapsing whitespace; what remained was identical before and after,
+so the compiled code cannot differ.
 
-Ah, OK. So it adds a dummy CS prefix for padding the instruction.
-Also, please Cc probe patch to linux-trace-kernel@vger.kernel.org too.
+The mistakes were found with scripts/checkpatch.pl against the list in
+scripts/spelling.txt.  The scanning, the edits and the changelogs were
+produced with Cursor running the claude-opus-5 model, from a request to
+find and fix spelling mistakes across the tree, and every correction was
+then re-checked by the comparison described above.  Words that name an
+identifier were left alone deliberately, even when they read as typos,
+because correcting the prose would make the comment disagree with the
+code it describes.
 
-> 
-> The root cause is that when using eBPF tools to probe in the middle of a
-> function, kprobe with int3 is used as the underlying implementation.
-> During single-step emulation of the original call instruction,
-> int3_emulate_call assumes that the probed call instruction is 5 bytes
-> long. However, the actual CS-prefixed call instruction occupies 6 bytes,
-> so it constructs an incorrect exception return address. When the CPU
-> returns from the kprobe handler, the next instruction to be executed is at
-> the address of the last byte of that CS call instruction. Coincidentally,
-> starting from that address, the CPU fetches and decodes a completely
-> different instruction, which ultimately triggers a kernel crash.
-> 
-> Fix the issue by using the actual instruction length obtained from
-> the instruction decoder when constructing the exception return
-> address, rather than relying on the hardcoded CALL_INSN_SIZE macro.
-> 
+Tested by building x86_64 defconfig at v7.3-rc1-269-gbc35965f6940, which
+is clean.  Nothing else was built, so any patch touching code that
+x86_64 defconfig does not compile has been read but not compiled.
 
-OK, this fixes kprobe local, but for cleanliness, I have a comment.
+Hemanth Selam (2):
+  sh: fix typos in comments
+  sh: fix repeated word 'with' in comment
 
-> Cc: stable@kernel.org
-> Fixes: 6256e668b7af ("x86/kprobes: Use int3 instead of debug trap for single-step")
-> Signed-off-by: Jinke Han <jinkehan@didiglobal.com>
-> ---
->  arch/x86/kernel/kprobes/core.c | 4 +++-
->  1 file changed, 3 insertions(+), 1 deletion(-)
-> 
-> diff --git a/arch/x86/kernel/kprobes/core.c b/arch/x86/kernel/kprobes/core.c
-> index 4e5f8c1736ec..b50e4a60bdfe 100644
-> --- a/arch/x86/kernel/kprobes/core.c
-> +++ b/arch/x86/kernel/kprobes/core.c
-> @@ -511,9 +511,11 @@ NOKPROBE_SYMBOL(kprobe_emulate_ret);
->  static void kprobe_emulate_call(struct kprobe *p, struct pt_regs *regs)
->  {
->  	unsigned long func = regs->ip - INT3_INSN_SIZE + p->ainsn.size;
-> +	unsigned long ip = func;
->  
->  	func += p->ainsn.rel32;
-
-This looks a bit less readability because func is once have a return address
-and later it becomes call address. Moreover int3_emulate_call() is kept broken :(.
-
-> -	int3_emulate_call(regs, func);
-> +	int3_emulate_push(regs, ip);
-> +	int3_emulate_jmp(regs, func);
-
-What about updating int3_emulate_call() to get ip (=return address) and func?
-
-void int3_emulate_call(struct pt_regs *regs, unsigned long ip, unsigned long func)
-{
-	int3_emulate_push(regs, ip);
-	int3_emulate_jmp(regs, func);
-}
-
-Then in  smp_text_poke_int3_handler(struct pt_regs *regs),  we will call:
-
-	int3_emulate_call(regs, (long)ip, (long)ip + tpl->disp);
-
-And in this, we simply call;
-
-	unsigned long ip = regs->ip - INT3_INSN_SIZE + p->ainsn.size;
-
-	int3_emulate_call(regs, ip, ip + p->ainsn.rel32);
-
-(Note: currently smp_text_poke_batch() does not handle non-5 byte nop.
-it checks the size.)
-
-Thanks,
-
->  }
->  NOKPROBE_SYMBOL(kprobe_emulate_call);
->  
-> -- 
-> 2.34.1
-> 
-
+ arch/sh/kernel/head_32.S         | 2 +-
+ arch/sh/kernel/relocate_kernel.S | 2 +-
+ arch/sh/mm/cache-sh4.c           | 2 +-
+ 3 files changed, 3 insertions(+), 3 deletions(-)
 
 -- 
-Masami Hiramatsu (Google) <mhiramat@kernel.org>
+2.48.1
+
