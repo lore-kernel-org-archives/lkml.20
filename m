@@ -1,153 +1,379 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com [209.85.216.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5BC73B42C9;
-	Fri,  4 Sep 2026 08:42:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E72263F44CE
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 08:42:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788511329; cv=none; b=T/7h/uqYqILJCRkveNMmYt7H4I4AmR1knl0Nao4k9Y/ro8wuLQc1I+Grh9lXZEZcby1ApaE7LdvSEVT7PvdeHJWhwiX5wJ5LBc/LTkvgyFtD9p2sD28qw3RDoU4n7YI4BRu1XQ4oiIbqVBhIvdNCrAi2wKa8Y8Qim54JUMfxg2Y=
+	t=1788511335; cv=none; b=C5dI7ez7jgP620QRNRz4ptUieBAEBq42PhuwrPWP6gJWhYKZz2GDT4SLYLxrnqzFrOWWL819UtDIzuPyA4P2Tc+1BCBUlRJlsrFh8Ltc1TSkNgWPyhT/W2WSAaKrl/rGKRKkXBaZ1HweLs4xDLtHLHJFquMtVus6T+Qgus6FkYY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788511329; c=relaxed/simple;
-	bh=FKNu7a4uf2Rz1WrdpMmKzwxQ+L8qiFRHWOp8QSr23+g=;
-	h=Date:From:To:Subject:Cc:In-Reply-To:References:MIME-Version:
-	 Message-ID:Content-Type; b=iOUhNgK3Nqllp2M5tHps8T+aMAr0xdaVTyLlG9TkMltVa8i9PzaYrqGFTFGN0etuNNUyXHSTxmCV5BT6BaOklzu0l4iWTDmJisMQQsWfE/rmxuyjOPUsN18pJZEFgAiIr/XZymnG/KjIY0t4tU3TkMSG/w1HeBSvgRorZ/Jd0yY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=I5DaU36/; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=melSIv+b; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	s=arc-20240116; t=1788511335; c=relaxed/simple;
+	bh=g4xmnLSHh073Plg+hze15SlgOcRK/r//g8ChdV6m8Y0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=PmF0eelNtsBywr4C4pB9vi7jaizZZ+4DbPAWG67A7jnitg1UC1n7mFEw0e9NewiZDIe5/j4Gjh5ebYUTMe37fnfspHymRPl3s40UlvTOR56lKsa5KDsLIdU7umqUyaQDHbwJ9hRwXnwsW/EhgBh1Ir18aXq1nEp9lvEm7HaCTWg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=nGnqIZ/x; arc=none smtp.client-ip=209.85.216.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="I5DaU36/";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="melSIv+b"
-Date: Fri, 04 Sep 2026 08:42:02 -0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1788511324;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=tSxDjwkt3SPBlUUsiUNEbmZA+kDgNAyQl0KuJQ6BUoU=;
-	b=I5DaU36/XALBSdfuB8kX2uyCZu6v0nmRZjD8QlwhX/AcLVur3ZHi2NWT3SVGfCU22FffHJ
-	z0zzRw6bPDpKU2ZjQZjPCgbZ6VDwFWcw0g2caU2G0h7NEUZJ5FPCmu5WjdEwxzO3UOS8Qd
-	59tirmBseglK7T0ThT5kL5pJGM+OnvBontByCYzV2QJfHRMw6g1wwkYHKZOl2uRcwqs2r6
-	IaKxKEqY/oTP0bMYL+AtOl8NZfkKnJNCcZSaP+d3HnenLYJZhxaGHPosyuW0EciNXw7Scs
-	bMixSFbQXriI+MU12HQ8Sgns3EzCGSDqokDF1zYtz+NhcOt5KU5DRxhHke1tGQ==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1788511324;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=tSxDjwkt3SPBlUUsiUNEbmZA+kDgNAyQl0KuJQ6BUoU=;
-	b=melSIv+by+Ivt15SUPhdcDdbF8d7tmf3SKRYEH1o4Rsad4jNnusHGWR1chw7oKVjzkfYeU
-	JOwMoINQMoVXAUBA==
-From: "tip-bot2 for Jiri Slaby (SUSE)" <tip-bot2@linutronix.de>
-Sender: tip-bot2@linutronix.de
-Reply-to: linux-kernel@vger.kernel.org
-To: linux-tip-commits@vger.kernel.org
-Subject: [tip: irq/urgent] irqdomain: Delete irq_domain_add_linear()
-Cc: "Jiri Slaby (SUSE)" <jirislaby@kernel.org>,
- Thomas Gleixner <tglx@kernel.org>, Dongliang Mu <dzm91@hust.edu.cn>,
- Yanteng Si <si.yanteng@linux.dev>, x86@kernel.org,
- linux-kernel@vger.kernel.org, maz@kernel.org
-In-Reply-To: <20260901070450.255507-1-jirislaby@kernel.org>
-References: <20260901070450.255507-1-jirislaby@kernel.org>
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="nGnqIZ/x"
+Received: by mail-pj1-f49.google.com with SMTP id 98e67ed59e1d1-381b831d535so1190487a91.0
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 01:42:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1788511331; x=1789116131; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=NOL5R0SJrxWsGHji42XgvQwAqz+BPG+L9IvuYCKkAns=;
+        b=nGnqIZ/xua2JoISuADjNLEE5oo9ncYX4pl3LvHVhyi1FeZjEqqUH0rY4pzlCmupnyP
+         5C+v/b+5oaJUsLeOZ1LHnUe5QkbxSo7/zuchEqXEncFq+ZuD9+mRUDsjPlMYrF42Zjsk
+         tWCXn3hJtr1uoZi3NdztG/Zpn3VNvanRIjtbg=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788511331; x=1789116131;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=NOL5R0SJrxWsGHji42XgvQwAqz+BPG+L9IvuYCKkAns=;
+        b=NOs8rWI4JnytKdaCys8enD6rEW3gwKBToMKXoG4UtD5zxONe84p5/R3zqHTt/FegGq
+         pG3r7E1i1H4R1XC8yrV+XmAqhe/csBdsmbaP+mpUhZBjR7zlpJYf1Ab9unzTmG7LsEKq
+         gdBjWO3a1C2XCM0JIjQKe+9RBN5k7UZhmhp5eMKT9YicoN2qpx38RtL+3jaauswOmu+R
+         AQ1s58vRTkaMqc2SbK4TF3BldxWyhnQvb+bNf5tP5dM41PBsN6rM5UsHJM97MQV9rawi
+         u3u+XqkBQqQmoyYH0LTxQJSQ8aQ8NE7AueEMRZ5VpZxDOZ8ugeU9T/+3FtyCjKw1KCNP
+         jPHA==
+X-Forwarded-Encrypted: i=1; AKwUvBwwdbE7LeLyhLv1W7+XOOnpTvGMnGwJx781k68NE37gXYB5e3QJ9Wn2+wyXDJHKUuPYXcGUHTc2ZjdUwl0=@vger.kernel.org
+X-Gm-Message-State: AFuF++nhI/yya66qeKBS9wsCejrKAHMEYo7N3PYchwZuhN5TAvmdCb6U
+	ig4zK2rqiHt/YB3QCMq6dURlSvnEkj/B83DF7JWrK+NwzaRVRDmrWUeORTY6l25AKA==
+X-Gm-Gg: AYBFou2TzU2Z+76hmniqaxlbUUgEsvwA76nQRYELZaJ65eUg+2UCH+0nYyMiojfxGGJ
+	5QwfGqTDU8CqLb5nFrdWOrvU3cKq0P8Z0XzTmx5SLV5slPlflYGpT52uJl9dlY34m9Mjw1WvqiS
+	aVCQOWoIFiRHOvWSm3+U14ub5KDtwgW6GGRuNxVj9ETBBUYQGfa3+aHYXrsbxz8W2YmV4dV/GE4
+	orCFMhgakXjAcFftBUyddRvXgRAQbHyGK5GfqjJQaPEze6YVFy6xQH43xDn84JiWRD5y1/nlP3B
+	uplsbfrFUxY9mIs5OS28wW8nyiaiBmTk5BG/z906IpK8wsVQRNlaEkp9PiNh5o9A/f7AjPukscn
+	o7WoIDp6QZgNbhx7b4gMB4rFvZ4ajtwogJGRIn6mNKO/F+6ydOYlABi+a+HmakxpffpL/Q5GDs3
+	WmIH5QPT8dOA+qX9cQOjHuzppjiLC0JKQf5YUYfUrmtdsCBE6e3BgYzT+FOr76RPybFVOV4QfZb
+	HEkmU+Uo9HDxI4ta1pI/JLuGVaVe5uLf/Y6gg1zl1qg
+X-Received: by 2002:a17:90b:1d84:b0:396:4cbf:45a2 with SMTP id 98e67ed59e1d1-39b261e3b7fmr6052421a91.14.1788511330394;
+        Fri, 04 Sep 2026 01:42:10 -0700 (PDT)
+Received: from wenst-7875.tpe.corp.google.com ([2a00:79e0:201d:8:343:bf21:3095:9c5])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b260fdf9asm3343538a91.9.2026.09.04.01.42.05
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 04 Sep 2026 01:42:09 -0700 (PDT)
+From: Chen-Yu Tsai <wenst@chromium.org>
+To: Bartosz Golaszewski <brgl@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	Daniel Scally <djrscally@gmail.com>,
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Cc: Wei Deng <wei.deng@oss.qualcomm.com>,
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+	Chen-Yu Tsai <wenst@chromium.org>,
+	linux-acpi@vger.kernel.org,
+	driver-core@lists.linux.dev,
+	linux-pm@vger.kernel.org,
+	linux-usb@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-mediatek@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Alan Stern <stern@rowland.harvard.edu>
+Subject: [PATCH v8 00/16] arm64: mediatek: Add M.2 E-key slot on Chromebooks
+Date: Fri,  4 Sep 2026 16:41:39 +0800
+Message-ID: <20260904084158.1341550-1-wenst@chromium.org>
+X-Mailer: git-send-email 2.55.0.979.g7e5102b832-goog
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <178851132292.3717435.3188183058570404204.tip-bot2@tip-bot2>
-Robot-ID: <tip-bot2@linutronix.de>
-Robot-Unsubscribe:
- Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
-Precedence: bulk
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-The following commit has been merged into the irq/urgent branch of tip:
+Hi everyone,
 
-Commit-ID:     797b13a7de957792c1b4773aa2cc3dab4621fd9c
-Gitweb:        https://git.kernel.org/tip/797b13a7de957792c1b4773aa2cc3dab462=
-1fd9c
-Author:        Jiri Slaby (SUSE) <jirislaby@kernel.org>
-AuthorDate:    Tue, 01 Sep 2026 09:04:48 +02:00
-Committer:     Thomas Gleixner <tglx@kernel.org>
-CommitterDate: Fri, 04 Sep 2026 08:40:07 +02:00
+This is v8 of my attempt at integrating the power sequencing API into
+the USB core to support the USB connection on M.2 E-key slots. M.2
+E-key was enabled in v7.1-rc1 with just PCIe and UART supported [1].
+Hopefully this is the last revision. The fwnode patches need a reviewed-by
+from the fwnode owners.
 
-irqdomain: Delete irq_domain_add_linear()
+As for Sashiko's comment about fwnode_get_next_*() not putting the
+reference to @prev when @node is NULL, I plan to update the kernel-doc
+for all the functions in a separate patch later.
 
-7.3-rc1 is free of calls to irq_domain_add_linear(), so it can be finally
-deleted.
+Another one of Sashiko's comments is related to dropping the wakeup-source
+property from the PCIe node. AFAIK there is no alternative as there is
+no longer a node to put it in.
 
-According to Dongliang Mu, the related paragraph in the Chinese docs is now
-obsolete. So drop it completely.
+Last, one comment from Qualcomm folks is that the port numbering
+conflicts with what the dwc3 bindings specify. IMHO the dwc3 bindings
+should be fixed, as the dwc3 controller embeds a XHCI for host mode,
+and XHCI port numbering should follow standard USB host hardware port
+numbering. I will send separate RFC patches for this.
 
-Signed-off-by: Jiri Slaby (SUSE) <jirislaby@kernel.org>
-Signed-off-by: Thomas Gleixner <tglx@kernel.org>
-Reviewed-by: Dongliang Mu <dzm91@hust.edu.cn>
-Reviewed-by: Yanteng Si <si.yanteng@linux.dev>
-Link: https://patch.msgid.link/20260901070450.255507-1-jirislaby@kernel.org
----
- Documentation/translations/zh_CN/core-api/irq/irq-domain.rst |  4 +--
- include/linux/irqdomain.h                                    | 18 +-------
- 2 files changed, 22 deletions(-)
 
-diff --git a/Documentation/translations/zh_CN/core-api/irq/irq-domain.rst b/D=
-ocumentation/translations/zh_CN/core-api/irq/irq-domain.rst
-index aaefeda..7317cf5 100644
---- a/Documentation/translations/zh_CN/core-api/irq/irq-domain.rst
-+++ b/Documentation/translations/zh_CN/core-api/irq/irq-domain.rst
-@@ -90,10 +90,6 @@ irq_domain=E6=98=A0=E5=B0=84=E7=9A=84=E7=B1=BB=E5=9E=8B
- =E6=98=A0=E5=B0=84=E7=9A=84=E4=BC=98=E7=82=B9=E6=98=AF=E5=9B=BA=E5=AE=9A=E6=
-=97=B6=E9=97=B4=E6=9F=A5=E6=89=BEIRQ=E5=8F=B7=EF=BC=8C=E8=80=8C=E4=B8=94irq_d=
-escs=E5=8F=AA=E5=88=86=E9=85=8D=E7=BB=99=E5=9C=A8=E7=94=A8=E7=9A=84IRQ=E3=80=
-=82 =E7=BC=BA=E7=82=B9=E6=98=AF=E8=AF=A5=E8=A1=A8
- =E5=BF=85=E9=A1=BB=E5=B0=BD=E5=8F=AF=E8=83=BD=E5=A4=A7=E7=9A=84hwirq=E5=8F=
-=B7=E3=80=82
-=20
--irq_domain_add_linear()=E5=92=8Cirq_domain_create_linear()=E5=9C=A8=E5=8A=9F=
-=E8=83=BD=E4=B8=8A=E6=98=AF=E7=AD=89=E4=BB=B7=E7=9A=84=EF=BC=8C
--=E9=99=A4=E4=BA=86=E7=AC=AC=E4=B8=80=E4=B8=AA=E5=8F=82=E6=95=B0=E4=B8=8D=E5=
-=90=8C--=E5=89=8D=E8=80=85=E6=8E=A5=E5=8F=97=E4=B8=80=E4=B8=AAOpen Firmware=
-=E7=89=B9=E5=AE=9A=E7=9A=84 'struct device_node' =E8=80=8C
--=E5=90=8E=E8=80=85=E6=8E=A5=E5=8F=97=E4=B8=80=E4=B8=AA=E6=9B=B4=E9=80=9A=E7=
-=94=A8=E7=9A=84=E6=8A=BD=E8=B1=A1 'struct fwnode_handle' =E3=80=82
--
- =E5=A4=A7=E5=A4=9A=E6=95=B0=E9=A9=B1=E5=8A=A8=E5=BA=94=E8=AF=A5=E4=BD=BF=E7=
-=94=A8=E7=BA=BF=E6=80=A7=E6=98=A0=E5=B0=84
-=20
- =E6=A0=91=E7=8A=B6=E6=98=A0=E5=B0=84
-diff --git a/include/linux/irqdomain.h b/include/linux/irqdomain.h
-index 73c25d4..3ba75a4 100644
---- a/include/linux/irqdomain.h
-+++ b/include/linux/irqdomain.h
-@@ -752,24 +752,6 @@ static inline void msi_device_domain_free_wired(struct i=
-rq_domain *domain, unsig
- }
- #endif
-=20
--static inline struct irq_domain *irq_domain_add_linear(struct device_node *o=
-f_node,
--						       unsigned int size,
--						       const struct irq_domain_ops *ops,
--						       void *host_data)
--{
--	struct irq_domain_info info =3D {
--		.fwnode		=3D of_fwnode_handle(of_node),
--		.size		=3D size,
--		.hwirq_max	=3D size,
--		.ops		=3D ops,
--		.host_data	=3D host_data,
--	};
--	struct irq_domain *d;
--
--	d =3D irq_domain_instantiate(&info);
--	return IS_ERR(d) ? NULL : d;
--}
--
- #else /* CONFIG_IRQ_DOMAIN */
- static inline void irq_dispose_mapping(unsigned int virq) { }
- static inline struct irq_domain *irq_find_matching_fwnode(struct fwnode_hand=
-le *fwnode,
+Changes since v7:
+- Mention in kernel-doc that the function does not return ports that
+  have no endpoints (Sakari) (patch 1)
+- Adapted to pwrseq_enable/disable() rename
+- Link to v7:
+  https://lore.kernel.org/all/20260724084328.3943997-1-wenst@chromium.org/
+
+Changes since v6:
+- Patch 3 (power: sequencing: Add pwrseq_get_state())
+  - Adopted enum for valid return codes (Bartosz)
+- Patch 10 (usb hub pwrseq integration)
+  - Added braces ("{}") to for loop in hub_is_port_power_switchable() (Andy)
+  - Adapted usb_port_is_power_on() to new pwrseq_get_state() function
+    return values (Bartosz)
+- Link to v6:
+  https://lore.kernel.org/all/20260721065413.2306137-1-wenst@chromium.org/
+
+Changes since v5:
+- Patch 1 (device property: Add fwnode_graph_get_port_by_id())
+  - Dropped left-over declaration in header (Sashiko)
+- Patch 3 (power: sequencing: Add pwrseq_power_is_on())
+  - Reverted back to returning -EINVAL if descriptor is NULL (Andy /
+    Bartosz)
+- Patch 6 (usb: hub: Associate port@ fwnode with USB port device)
+  - Added extra |struct fwnode_handle *| local variables to shorten lines (Andy)
+  - Added comment about passing fwnode_graph_get_port_by_id() return value 
+    directly to device_set_node() (Andy)
+- Patch 10 (usb hub pwrseq integration)
+  - Only assign port_dev->pwrseq if successfully retrieved pwrseq
+    descriptor (Andy)
+  - Dropped the pwrseq error pointer check in the release function
+    (Andy)
+  - Added check for port->pwrseq != NULL before calling
+    pwrseq_is_power_on() (API change from patch 3)
+- Link to v5:
+  https://lore.kernel.org/all/20260715085348.3457359-1-wenst@chromium.org/
+
+Changes since v4:
+- Added flags parameter to fwnode_graph_get_port_by_id() so users can
+  specify whether incomplete ports are returned or not (Sashiko)
+- Made pwrseq_power_is_on() return 1 if descriptor is NULL, i.e. if
+  the descriptor is optional, matching the other pwrseq consumer APIs
+- Added patch to swap out conditional set_bit()/clear_bit() with
+  assign_bit() (split out from "usb: hub: Power on connected M.2 E-key
+  connectors with power sequencing API") (Andy)
+- Call fwnode_graph_get_port_by_id() with FWNODE_GRAPH_DEVICE_DISABLED
+  so that even incomplete ports can be connected (Sashiko)
+- Dropped unused |hdev| variable from usb_hub_remove_port_device()
+  (Greg / Sashiko)
+- Dropped 'extern' from usb_port_is_power_on() header declaration (Andy)
+
+- Patch 10 (usb hub pwrseq integration)
+  - Rewrote usb_port_is_power_on() to better express intent and
+    restrictions of pwrseq API (Andy)
+  - Switched to dev_fwnode() in port_pwrseq_is_supported() (Andy)
+  - Added blank line separating normal variable declarations and __free()
+    type declarations (Andy)
+  - Split out assign_bit() rewrite (Andy)
+  - Moved pwrseq_put() to release function to avoid UAF (Sashiko)
+  - Added back pwrseq_power_off() call in usb_hub_remove_port_device();
+    otherwise power off could be delayed to object release
+  - Don't clear hub->ports[port1 - 1] in main error path;
+    by that time the port device is registered and sysfs attributes are
+    available to userspace (Sashiko)
+
+- Dropped blank line between __free() variable declaration and
+  subsequent use of the variable in conditional (Andy)
+- Added patch to split Bluetooth pwrseq units (Wei)
+- Link to v4:
+  https://lore.kernel.org/all/20260709095726.704448-1-wenst@chromium.org/
+
+Changes since v3:
+- Added missing stub function for !POWER_SEQUENCING (patch 3) (Sashiko)
+- Added missing fwnode_handle_put() (patch 5) (Sashiko)
+- Added new patch to move |struct usb_port| related declarations to
+  separate header (patch 6) (Andy)
+- Patch 9 (usb hub pwrseq integration)
+  - Adapted to move of usb_port_is_power_on() to port.c and port.h
+  - Simplified usb_hub_set_port_pwrseq() (Andy)
+  - Renamed usb_hub_set_port_pwrseq()'s "set" parameter to "on"
+  - Dropped usb_hub_restore_port_pwrseq() (use usb_hub_set_port_pwrseq()
+    with inverted argument)
+  - Fixed off-by-one access in hub_is_port_power_switchable() (Sashiko)
+  - Assign retval from dev_err_probe() instead of the other way around (Andy)
+  - Clear hub->ports[port1 - 1] in USB port error and remove paths to
+    avoid other threads from accidental UAF while the USB hub device is
+    being unwound (Sashiko)
+  - Short-circuit out of helpers if !IS_ENABLED(CONFIG_POWER_SEQUENCING)
+    to avoid errors from stub functions (Sashiko)
+- Drop redundant device node validity check; device_match_of_node()
+  does it internally (patch 11) (Andy)
+- Link to v3:
+  https://lore.kernel.org/all/20260703110317.1283411-1-wenst@chromium.org/
+
+Major changes since v2:
+- Removed changes for MT8192 Asurada family: one of the device is
+  shipped with RTL8822CE-VR, which is PCIe + UART and needs more work.
+- Removed changes for USB A ports: VBUS one the type A ports on
+  Chromebooks are not directly controllable from the OS and VBUS is
+  modeled as always on. As such the changes I made don't actually
+  change how the system works.
+- Added new pwrseq_power_is_on() function
+- Make new pwrseq integration effectively OF only by not assigning the
+  port fwnode if the hub's fwnode is an ACPI node
+- Added patch to convert remaining instances of directly setting/clearing
+  USB_PORT_FEAT_POWER to usb_hub_set_port_power()
+- Power sequencing state removed again in favor of state tracking by
+  pwrseq subsystem
+- Power sequencing descriptor again separately requested for HS and SS
+  ports
+- Dropped pwrseq_power_off() call before pwrseq_put(); the latter calls
+  the former implicitly if the power state was left on
+- Squashed DT binding revert and addition into one patch
+- Link to v2:
+  https://lore.kernel.org/all/20260610084053.2059858-1-wenst@chromium.org/
+
+
+Major changes since v1:
+- No longer adding the "index" parameter the power sequencing API
+- Switched from OF graph to fwnode graph APIs
+- Tie "port@" node to usb_port device, and use this device as consumer
+  to acquire power sequencing descriptor
+- Power sequencing descriptor now only tied to USB 2.0 port to avoid
+  double reference
+- Power sequencing state tracking added
+- Link to v1
+  https://lore.kernel.org/all/20260515090149.3169406-1-wenst@chromium.org/
+
+The series is based on next-20260901.
+
+
+Patch 1 and 2 add new fwnode graph helpers. These are used by the patch
+5 and 8, respectively.
+
+Patch 3 adds a new pwrseq_get_state() for power sequencer consumers
+to query the current request state. Note that this is not the _actual_
+state.
+
+Patch 4 swaps out the existing conditional set_bit()/clear_bit() with
+assign_bit(), which does the same thing.
+
+Patch 5 reworks the USB hub driver to return the actual error code from
+hub_configure() in hub_probe(). This is needed in the next patch to
+correctly return -EPROBE_DEFER returned by pwrseq_get() in patch 9.
+
+Patch 6 makes the USB port device associated with a "port@" fwnode if
+available. This depends on patch 1.
+
+Patch 7 moves some |struct usb_port| related stuff from hub.c and hub.h
+to port.c and port.h. No actual code or functionality is changed.
+
+Patch 8 changes usb_port_is_power_on() so that |struct usb_port*| is
+passed in instead of |struct usb_hub*|. This patch does not change any
+functionality.
+
+Patch 9 changes some USB hub port power control code that directly
+toggles USB_PORT_FEAT_POWER to use usb_hub_set_port_power().
+
+Patch 10 lets the USB hub driver look for power sequencers for each port.
+Currently this only works for M.2 E-key connections, but it could be
+extended to cover other cases. It should also make port reset via turning
+off the port VBUS work, even when VBUS is not directly controlled by the
+hub. This depends on patch 2 and 3 for the new helpers.
+
+Patch 11 reverts an incorrectly modeled OF graph connection for the
+MediaTek XHCI controller and adds a proper representation.
+
+Patch 12 adds matching pwrseq consumer by "port@" node to the M.2 slot
+driver. This is only used for the USB target, but there is no attempt
+to differentiate the connection type. The driver simply tries matching
+the "port@" node first, then falling back to the port parent or device's
+node.
+
+Patch 13 reworks the power sequencing targets for the E-key connector in
+the pcie-m2 driver to add targets for USB and SDIO. The former is used
+later on in this series.
+
+Patch 14 splits the Bluetooth power sequencing unit so that the USB and
+serdev consumers can separately toggle the actual state of W_DISABLE#2.
+This patch is purposefully not squashed into the previous one to provide
+a clear target for discussions.
+
+Patches 15 and 16 enable the M.2 E-key slots (or slot-like integration)
+found on MT8195 and MT8188 MediaTek-based Chromebooks. 
+
+
+This series unfortunately spans multiple trees. The way I see it:
+
+  - Patches 1 and 2 go through the driver core, and an immutable tag is
+    provided to be merged together with the USB patches.
+
+  - Patch 3 has an ack from Bartosz, and goes through the USB tree. But
+    Bartosz also wants an immutable branch/tag to have a copy in the
+    pwrseq tree.
+
+  - Patches 4 through 11 (all the USB related ones) go through the USB
+    tree, along with the dependencies above.
+
+  - Patches 12 through 14 go through the power sequencing tree.
+
+  - Patches 15 and 16 (device tree only) go through the soc tree via the
+    mediatek tree.
+
+Some of us discussed v1 at Embedded Recipes, and I believe Bartosz, Mani
+and I agree on this approach. The debate is likely going to be on
+whether this should be integrated into the USB core or not. I believe it
+should, so that the power sequencing timing is tied to the USB port
+being brought up. I do have a fallback option of just enabling the USB
+power sequencing target inside the M.2 slot driver if a valid OF graph
+connection is seen. But this is less desired for the reason given above.
+
+I hope we can get this merged in this cycle for v7.4.
+
+
+Thanks
+ChenYu
+
+
+[1] https://lore.kernel.org/all/20260326-pci-m2-e-v7-0-43324a7866e6@oss.qualcomm.com/
+
+Chen-Yu Tsai (16):
+  device property: Add fwnode_graph_get_port_by_id()
+  device property: Add fwnode_graph_get_next_port_endpoint()
+  power: sequencing: Add pwrseq_get_state()
+  usb: hub: Use assign_bit() in usb_hub_set_port_power()
+  usb: hub: Return actual error from hub_configure() in hub_probe()
+  usb: hub: Associate port@ fwnode with USB port device
+  usb: core: Move struct usb_port and related APIs to port.h
+  usb: hub: Pass |struct usb_port*| to usb_port_is_power_on()
+  usb: hub: Use usb_hub_set_port_power() to control port power
+    everywhere
+  usb: hub: Power on connected M.2 E-key connectors with power
+    sequencing API
+  dt-bindings: usb: mediatek,mtk-xhci: Switch to ports for USB
+    connections
+  power: sequencing: pcie-m2: support matching on remote "port" node
+  power: sequencing: pcie-m2: Add usb and sdio targets for E-key
+    connector
+  power: sequencing: pcie-m2: Split Bluetooth unit based on interface
+  arm64: dts: mediatek: mt8195-cherry: Add M.2 E-key slot
+  arm64: dts: mediatek: mt8188-geralt: Add WiFi/BT as M.2 E-key slot
+
+ .../bindings/usb/mediatek,mtk-xhci.yaml       |  17 ++-
+ .../boot/dts/mediatek/mt8188-geralt.dtsi      |  92 +++++++++++++++-
+ .../boot/dts/mediatek/mt8195-cherry.dtsi      |  73 ++++++++++++-
+ drivers/base/property.c                       |  56 ++++++++++
+ drivers/power/sequencing/core.c               |  19 ++++
+ drivers/power/sequencing/pwrseq-pcie-m2.c     |  64 ++++++++---
+ drivers/usb/Kconfig                           |   1 +
+ drivers/usb/core/hub.c                        |  72 ++++++------
+ drivers/usb/core/hub.h                        |  58 ++--------
+ drivers/usb/core/port.c                       | 103 +++++++++++++++++-
+ drivers/usb/core/port.h                       |  68 ++++++++++++
+ include/linux/property.h                      |   4 +
+ include/linux/pwrseq/consumer.h               |  12 ++
+ 13 files changed, 527 insertions(+), 112 deletions(-)
+ create mode 100644 drivers/usb/core/port.h
+
+-- 
+2.55.0.979.g7e5102b832-goog
+
