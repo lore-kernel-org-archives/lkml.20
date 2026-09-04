@@ -1,182 +1,145 @@
-Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [80.241.56.152])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oa1-f45.google.com (mail-oa1-f45.google.com [209.85.160.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3169472F72;
-	Fri,  4 Sep 2026 17:03:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.152
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788541394; cv=none; b=JImVG6lcKbfbzW4I/+j2+tBKZo6ot5p+H1IOGinl721M15YGTWFCgAzIz6MP0+0I+FMeKMYuYWEC5t+apgdoI4AyTotkUSu4YGCl7credUkU8Rtx3CjPYRlorAech0G/uMCBr94vU75y3DmLk71iQPOtZoOdcNFDU+mwEzPxoYM=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788541394; c=relaxed/simple;
-	bh=ecK2wmAuZck7TyMU7udH9uLRTjXBYq7BHeTCuCIQLpU=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=RvFcEkNDOTrpHnYjFVuXqmbkZryrg9MvdcCl4rR2qnpRM9dSAaC4Zrv7ljuStvGvonEEfVUeVnLQjoX3/aRaG4r1c3KMh7ePrBjqox0kY///o71E+IJ8Br01T94oWNmvDUaSp3Jq/WDhdjdjMo2dStYbyCBSgKHQB9Kpbgqh6EA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=bhotPMVd; arc=none smtp.client-ip=80.241.56.152
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 144D750EBF4
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 17:04:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.45
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788541450; cv=pass; b=Pb+LPA+B3s70n42vNROQAtaaO0RBZPzgF6Zt3kl0AQkf/QTzWCvgOWIKhzPt343ENfukT3Mwcsk2bpPhAdtY9iux7cKzYIc4fRu4o2747Uy1FoxGo+Gns1ta/vEFJKJQJDIHxok6tD2MIPJfqQmJTJaocZ+/88on0ulPchscYjE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788541450; c=relaxed/simple;
+	bh=1Zani8KVUN1LcbKX3On5KmxvOITUPxxLp5xuxtknAFE=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=DWRTmAAwmlc+pLoYE+N/f1dr7H1sTkvCgePktwxff3ffs09sXbG+R2UunuEYt8MsdT212IQBFapyrnNEVIqInpt0q1CWlKOvhNRqnEnUhvDzlLIgzIt3ir04Kooc+GUiC++0xs+pshPDwe+COJgs9V7/4mAPM8ox/v89kVJnHG0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=p68DyCcJ; arc=pass smtp.client-ip=209.85.160.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="bhotPMVd"
-Received: from smtp1.mailbox.org (smtp1.mailbox.org [10.196.197.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4hc2pZ3Y6qzKvyN;
-	Fri, 04 Sep 2026 19:03:02 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1788541382;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=2bdiMxP0fkSWQuv353d3PCw4VyXVaYVxJwgR/0Ra358=;
-	b=bhotPMVdCjL8jTLdwYiuKc1uhLsDGe9Hhly+guT2Wxb7v2RWN6pEl8uv51R5QmR6Yknpei
-	xTU4Gf0omSEe5W4CjMbcbKby93Ci32d1/ZU/QOxdkwSPjfWPnW4CxKvbc8roxRe3BikdCt
-	AEYCA8OMQQfIosr9jL/Cy9H5t8IzMoakiBTJ2/Uu1JbI48lFXS9TOCyNf+kVb7rDFGcgcj
-	3zvQBcJlmIFUsD3E+mgqqH01QnFTHWFpAAT5l2nb18cYn6SXNRz8XAKZyHimtJVfJQNixH
-	l2E4q0+i0gH50jWdsofRy+7KBt4/dkAA0HzMWqsTe2t3dlVHTy9uslVKX/vo+A==
-Message-ID: <a2066238d2be3cfd36cd6ea3a7bf11206cb0a02a.camel@mailbox.org>
-Subject: Re: [PATCH] v2 Docs: changes.rst: introduce optional column
-From: Manuel Ebner <manuelebnerli@mailbox.org>
-To: Nicolas Schier <n.schier@fritz.com>
-Cc: Jonathan Corbet <corbet@lwn.net>, Shuah Khan
- <skhan@linuxfoundation.org>,  Miguel Ojeda <ojeda@kernel.org>, Boqun Feng
- <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,  =?ISO-8859-1?Q?Bj=F6rn?=
- Roy Baron	 <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>,
- Andreas Hindborg	 <a.hindborg@kernel.org>, Alice Ryhl
- <aliceryhl@google.com>, Trevor Gross	 <tmgross@umich.edu>, Danilo Krummrich
- <dakr@kernel.org>, Daniel Almeida	 <daniel.almeida@collabora.com>, Tamir
- Duberstein <tamird@kernel.org>,  Alexandre Courbot <acourbot@nvidia.com>,
- Onur =?ISO-8859-1?Q?=D6zkan?= <work@onurozkan.dev>, Nathan Chancellor	
- <nathan@kernel.org>, Nick Desaulniers <nick.desaulniers+lkml@gmail.com>, 
- Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>,
- workflows@vger.kernel.org, 	linux-doc@vger.kernel.org,
- linux-kernel@vger.kernel.org, 	rust-for-linux@vger.kernel.org,
- llvm@lists.linux.dev
-Date: Fri, 04 Sep 2026 19:02:52 +0200
-In-Reply-To: <20260904-stirring-zircon-frog-ea6949@l-nschier-aarch64>
-References: <20260831151605.638172-2-manuelebnerli@mailbox.org>
-	 <20260831152523.638881-1-manuelebnerli@mailbox.org>
-	 <20260904-stirring-zircon-frog-ea6949@l-nschier-aarch64>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="p68DyCcJ"
+Received: by mail-oa1-f45.google.com with SMTP id 586e51a60fabf-46ad7304688so2215518fac.0
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 10:04:08 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788541448; cv=none;
+        d=google.com; s=arc-20260327;
+        b=puFbbpGZQesCCm/D5eSBE4qAdhNdHH+p0YDsxXedtIATXylCtKQr5Euw0sTzmCGE03
+         ENoKDv63hk5/cGgxby2t/yxfqhokKLFTMw7V/QQmOMuCGBc3bYE2QZLEViOFraJP37RO
+         7z+vob1rCQbCfw7tvC+mDV3RUZVYNMgddDp1bOpxenHNbw3VHwsRC52J+uSvCkDyWR1v
+         NElloTdrzh9JxPrkeY6oxvHFNdzxUMpwkv4LX5o4MuNAxrXw1b4sPPRHpEqs3sWjPBR8
+         KPXtHhK4XVIqhzEvYhpg3fPBUoENVru6nQ67ArkSWzMxjYrMh+Ybe1/kOLd8wrrGwpiD
+         V3Jw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=Z+rZ3J/l5NmsTe1xvBjQosJrBLYmVyGgJsZt6vb+Ldc=;
+        fh=IDeKJHFE8qX3jWw1wsFUZOjqd0rPJTQkBfYNpumht5I=;
+        b=Y/y6qT8t7+IDwyeTTMZGcDkxqrtwcToFY18I49943fsdmXP0vgxBeqc7I4Xf6MFGZZ
+         JlhuP6OsdM/IiZsB+iMmu21b4xW+KVDpjI+SZmqzr9JJ/K4AD9LbrmGb7nFWk61JmeHX
+         XrjwDIzqc8nzydipcPJK0DOGq6/H977KSlpsypgA0LKIxomFAZs6B4lXrx8BnAAI8NAK
+         r8b4KMQq6QYjeL2e6RpxaJRvMd78J9DUhMee8F8E0Kibq4OwBx5Mc7q0gPgF6He1EIMM
+         2tQnCF4eNbkaB6nBfiJjxip5nGTqtBrLa+QmhBYt+ANwsoPFxpNqgGvuNEliYxbU5GJm
+         uEnA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788541448; x=1789146248; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Z+rZ3J/l5NmsTe1xvBjQosJrBLYmVyGgJsZt6vb+Ldc=;
+        b=p68DyCcJv9LknoRy7M2Hnz9V+i/TJgWi3e8F+tSgxKU5kInH88mHrOetnCtQIx7zQb
+         9i2LZn3B5ia18JP/NNcO5Vq7xT4UR4R23u2MuTze+O9kO2RoqUaUpTvgUQ8Cu13GXBQA
+         yNFWTEl58VyqZvkrDnGUIA4OonlJBMNra063njK7yYsBdA/M2R8We7MYYPyua5RPS4yf
+         5tGBxxPqin5svAu8uO8G2IaH82hfX+n8Etllhl3e5QOtZScqyQhjE/dnC3Qd6WzXsUmy
+         3uEI6STgcwbZ11j38RIsgZhtQ/D0vxFn/B2YsYU8aBzLps1IkDoTID3gtL0OIK8U8nRM
+         b94g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788541448; x=1789146248;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Z+rZ3J/l5NmsTe1xvBjQosJrBLYmVyGgJsZt6vb+Ldc=;
+        b=RGrFw47bzH72rbpxISEzaRZ3s+wWQ/yCA2reO2uK0pOXOX6WYdCFvasPT3UdvJuRvi
+         JKaowgodAEn8DRpFgwl0gPMfB265VNhDE8upQgB59MMmaSFzpk/bHrae1AfgU+OhyGIC
+         jk7AHgORyytg41NKTiZ2RohCpoiiud5qWH9vit9sjrIkJgGFa0hpRmhyTSngJ6UkGBTk
+         lNebV1PSp61eh9DDugUjNw9NnYvZIJbOQv/qbVEzt8nqK5yLkMbkdoJD8CscQovyAxVb
+         7rqFX++J4Bktl3znAnz8oVsA73KIRBqPopn3WgFg5octqFdleKwz66ucWCkEh2rqTqtx
+         y7iA==
+X-Forwarded-Encrypted: i=1; AKwUvBzYILFBEOy0xh1iixs3ldZ0h4iGU4/IJibMLXpAFHfkJydDYBWD78rlHBqixzU7IDLKQuMiOqy9JzoMo3s=@vger.kernel.org
+X-Gm-Message-State: AFuF++mokjAMJNNGiW7Y0aCYeuv1aw2A3Hz2NjKh4wgcQXkoAUEXUNvX
+	c5Wp2brlFk6a+MTlo/U1N6X5u0pCXkNBEvLkS4/vr7t9BC6DlkCfI0aIP9/Z4OuMeeAI2Mvh+eg
+	oZbTBDKi8CecDcW33JJ/rPRI0d5qSyio=
+X-Gm-Gg: AYBFou046o3IK0SR+NN24bOCHy7YA3dUY2keRwXmbNWE7h9s1V45meW1UXinVrlX1ek
+	XGDbGSwv0PqcGx57mDvK9g6Hs7WdSlTd0XdLweDIsJYoJ1N/UhHm34GphVjCin36ZtYt719Opbn
+	siUKHMyXhb5bnD6UxfPOpO22uta424/RMjLvJMDe86hUOyvga+ngIprpB+t2yuZCNBifqkq6LYz
+	n6uReRsrwvEj7j+HefCFKCljNkNej6eiaSsZOjehlIYMSdyVTcDkVkkR7ST30lOeWo0VrzmD6OY
+	Xt50aT/OhkpddHl10Fz0TdS4rrziVtP3UqB1mrYY53os/+yPbtDBuSTa8XNSQgrr3LRvmc0QiMz
+	90g==
+X-Received: by 2002:a05:6820:5602:b0:6b6:5bf3:e226 with SMTP id
+ 006d021491bc7-6b65bf3eb3bmr2532642eaf.26.1788541447608; Fri, 04 Sep 2026
+ 10:04:07 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MBO-RS-META: 37xjqxrzxx17uwir6atstjf7jz7irh98
-X-MBO-RS-ID: 59b361a7e629ce93864
+References: <20260904095416.1692962-1-kyle.switch@motor-comm.com>
+In-Reply-To: <20260904095416.1692962-1-kyle.switch@motor-comm.com>
+From: David Yang <mmyangfl@gmail.com>
+Date: Sat, 5 Sep 2026 01:03:29 +0800
+X-Gm-Features: AcwNN1XYLN1qFGsXZ4jRJsNWSBsrhdl5lpMgs3AOgGB-bLEI4bhHOu3Xla1pthg
+Message-ID: <CAAXyoMN-RX1aY_isyajES5LgiDMp7_YTbM=jiS6d-8o2kKQXqg@mail.gmail.com>
+Subject: Re: [PATCH net-next v5 1/6] net: dsa: motorcomm: refactor
+ registration path for upcoming switch families
+To: Kyle Switch <kyle.switch@motor-comm.com>
+Cc: andrew@lunn.ch, olteanv@gmail.com, davem@davemloft.net, 
+	edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, 
+	linux@armlinux.org.uk, netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	ming.xu@motor-comm.com, xiaolin.xu@motor-comm.com, 
+	jianmin.wang@motor-comm.com, wei.zhang@gl-inet.com, sijia.huang@gl-inet.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Fri, 2026-09-04 at 18:11 +0200, Nicolas Schier wrote:
-> On Mon, Aug 31, 2026 at 05:25:22PM +0200, Manuel Ebner wrote:
-> > The optional tag isn't obvious nor defined. Therefore replace with colu=
-mn.
->=20
-> Why do you throw away the 'Command to check the version' column?=C2=A0=C2=
-=A0
+On Fri, Sep 4, 2026 at 5:54=E2=80=AFPM Kyle Switch <kyle.switch@motor-comm.=
+com> wrote:
+> +               .name =3D "YT921X",
 
-I would do this to get some space for the optional column and have
-the version commands in ./scrips/ver_linux . See below.
+nit: We usually stylize it with "YT921x".
 
-> At=20
-> work, we have a script that uses these commands to check the actual=20
-> tooling versions.
+> +       if (major =3D=3D YT9215_MAJOR || major =3D=3D YT9218_MAJOR)
+> +               mode =3D YT921X;
+> +
+> +       for (i =3D 0; i < ARRAY_SIZE(yt92xx_series_info_table); ++i)
+> +               if (yt92xx_series_info_table[i].mode =3D=3D mode)
+> +                       return &yt92xx_series_info_table[i];
 
-Well, I don't want to break that.
+Redundant if you use both indexed assignment and lookup routine, since
+you know the index already.
 
-> If there is a reason for change, please document it in the commit=20
-> message.
+>  static const struct of_device_id yt921x_of_match[] =3D {
+> -       { .compatible =3D "motorcomm,yt9215" },
+> -       {}
+> +       {
+> +               .compatible =3D "motorcomm,yt9215",
+> +               .data =3D &yt92xx_series_info_table[YT921X],
 
-Will do.
+Redundant if you use both runtime identification and the match data.
+Also I'm concerned with early IO operations, although I didn't see any
+incorrectness here.
 
-> > Signed-off-by: Manuel Ebner <manuelebnerli@mailbox.org>
-> > ---
-> > =C2=A0Documentation/process/changes.rst | 84 +++++++++++++++-----------=
------
-> > =C2=A01 file changed, 42 insertions(+), 42 deletions(-)
-> >=20
-> > diff --git a/Documentation/process/changes.rst b/Documentation/process/=
-changes.rst
-> > index b3fa980b63e3..905ac0f6cdc5 100644
-> > --- a/Documentation/process/changes.rst
-> > +++ b/Documentation/process/changes.rst
-> > @@ -29,49 +29,49 @@ systems; obviously, if you don't have any PC Card h=
-ardware, for example,
-> > =C2=A0you probably do not need to concern yourself with pcmciautils.
-> > =C2=A0
-> > =C2=A0=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=C2=A0 =3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D
-> > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 Program=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0 Minimal version=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0 Command to check the version
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 Program=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0 Minimal version=C2=A0 Required for=20
->=20
-> Do you want to align the column headers to the left or center them?
+> +enum yt92xx_mode {
+> +       YT921X,
+> +       YT922X,
+> +       YT_MAX,
+> +};
 
-I should have done this the proper way but i didn't.
+nit: Use prefix/suffix like YT92XX_MODE_YT921X or YT921X_SERIES to
+avoid too broad names and future name collision.
 
-> > =C2=A0=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=C2=A0 =3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D
-> > -bash=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 4.2=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 bash --version
-> > ...
-> > +bash=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 4.2=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=20
-> > ...
-> > =C2=A0=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=C2=A0 =3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D
-> > =C2=A0
-> > =C2=A0.. [#f1] Sphinx is needed only to build the Kernel documentation
->=20
-> I kind of like the "Required for" column w/ naming=20
-> concrete Kconfig symbols or envs like ARCH.=C2=A0=C2=A0
+>  struct yt921x_priv {
+>         struct dsa_switch ds;
+>
+> +       const struct yt92xx_series_info *series_info;
+>         const struct yt921x_info *info;
 
-Thanks, do you prefer your scripts working or the required for column? Mayb=
-e there
-is space for both, when 'program' and 'Minimal version' get squished.
-Would one of those arrangements not break your scripts?
-
->  =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D =3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D  =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D  =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D
->          Program        Minimal version    Required for        Version Co=
-mmand
->  =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D =3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D  =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D  =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D
-
-OR
->  =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D =3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D  =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D  =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D
->          Program        Minimal version      Version Command        Requi=
-red for
->  =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D =3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D  =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D  =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D
-
-> I think it would be good to=20
-> get this a bit more complete, where possible.
-
-I have only little clue about tooling, versions or Kconfig so I'll need som=
-e help with that.
-
-Thanks
- Manuel=20
-
-> Kind regards,
-> Nicolas
+nit: Better to use const struct yt92xx_series *series for simplicity.
