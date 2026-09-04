@@ -1,456 +1,182 @@
-Received: from PH8PR06CU001.outbound.protection.outlook.com (mail-westus3azon11012029.outbound.protection.outlook.com [40.107.209.29])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com [209.85.216.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC20033ADAF;
-	Fri,  4 Sep 2026 09:19:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.209.29
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788513589; cv=fail; b=u1vLLaLGPSrr4fFPKjtl22JH8yDHelpRzJB25ueV4M3VVWKdvdfd2ZQf4xrLIbvrh2TPw0de/SXeLtxlFwkEqTCDme90AiHRPPMdUDv5poFUfO8eMOqdnnrEqAXQRE6GSclPx7WAexd4kF11Ld6OXmuhFc3Q/3UdRWT+og/HNKo=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788513589; c=relaxed/simple;
-	bh=xomUBTncTAzdq2KBbK8pXM9ybNPz6bWVfD9YEwmgU8w=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=TiMo3xDbbGbKQrUsBcrhtMpSa71vLHptYCEr3MZNWopyE7G5CyEUE9Wh1g42CTKUx7oeVwh0JT58Q/5Ul5ts4j1dl1pkP07g3g+l0NPWMliAJldgAJhsMlmMHKhSTakOQHAb0U9GBpLdlavILG9rkOlw0ynbP+i87cro5OFlCes=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=P7o2gAeh; arc=fail smtp.client-ip=40.107.209.29
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 758CE43553A
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 09:21:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.51
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788513706; cv=none; b=YrUm2SUc+74H1DdSWXaC6uexbeopDRRBqKBJt5IkYtvna7I0t7vz4mXRx6TXwKlwyXxQa3HXyrNMdu0W9up2HiCvo1NcOZCRpYnNsUEIav2fnGZYfBosZ4X8naXsXealw1Ucr0y8Awdpq0UqhdzEmwAH/v01MzHyblJSZl28Z2s=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788513706; c=relaxed/simple;
+	bh=66UZqVClFVVA1O7tD4q6NQPzk7bNbkSIzh/ikTXNEQQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=YY0O9gnUGd0s6mIXc/A8wbzEdpfGf/3kgTngANrzpb202pH8ct9E0gLfBF419yujRpRMUdYZ/rmRwGwN3j4XyVEAdazwKbZY1UIaV9gSp1d5m0dOrz20cflsNAb0wHgTnHoTyOeH2uCppiMsJg5nU5/Qa0JtZA6+vGAPkfi/GJU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sifive.com; spf=pass smtp.mailfrom=sifive.com; dkim=pass (2048-bit key) header.d=sifive.com header.i=@sifive.com header.b=QZYrtULI; arc=none smtp.client-ip=209.85.216.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sifive.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sifive.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="P7o2gAeh"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=pEirjOg5US8V2d+pjSHN/mx3YfA2m0GNfl/ItzjWYdictMHeuRJQWOuCkZkiD9IQ4r7WrAlSmC4zr6yKh32J2Shscsfs2c8aNOLWLf+XH67zdo3cAv0BJn3KJyIXRkCvJA6PUkVq/4+lqPrLdovuOECp4vxnvqEsj02vIkWQGogRNH6TffS3m5yfbezeix337TJCId1mz2KAEJJ9oNRgL5FE8YJaY9jMimIEcG2pUqFZ066gjtDknRv5T/EBD3aQPChxPk1aEznD2XpWHM5GB4wg4FVjx2xjni43QwqZbWYZbOkycH8aBS41Huz/XFAcvMmlBR3RDdA5mqXCCFrxPQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=sI/zWbCD4QGW/W6vn7FVIfMbaocdFWH0efqAQ/vsgwE=;
- b=WOHShaqHfGn2Ph3IPRZrt26hQJCAvKnwJ6Z+tGB5HaYpbMDdoRqy9zcbsqAxdLsDfQbe/BWDLm8ILPDrHYEVXTO8CWTnz5Vbals/x1rhGuFzakA+yth6kZJ9RDhr9aFRJeZ7f5tsOVVLK3dVABN9wHlPYslcWXYxGcaEVhcOgiK752z0Q+5K1Q5KMFKcv1eLU15psCOw59R0VaWIvaXpLUU0JuPZPak4ItfL54NL/GHrnPGRkCkQLEAbyCd/CMSJghPt8tI9sG4QlsyFMVzBB3vTgjD8qCDjfRK6Y5ub9iWRzMj57HUdNzSbaF6iGlEKvK/OmuQxozzsW0vHVrKRoA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=sI/zWbCD4QGW/W6vn7FVIfMbaocdFWH0efqAQ/vsgwE=;
- b=P7o2gAehERyR3nAFMWyv3TVn77XttR93l+4FOwti4TPfWqht7IiahrqqyakFup1xjgmaXH68BKNTIxP+gncZYvrYDOrkijrTleAFLfvWuqPXB4tzGPxh6lhgyGYV6HnlyXlu4HR2E3ss5xjMWwvpujIKBkU9+s92z0G/vEF4CI5KoWosGyN3n+qB08Y5qeMeGX5OvMmNKqJvOrudvAugl9lDV3D6l4KmiaNf2muL2QTMJwkKefIflLPVHiW6fr+/nwo0xX5+ljH7WKilJeDVoMh1j9HqPUZX7U/WWyzGSe+qb0k7ZTDax30z2igPfUWYUUTV1DM9ookNgPj384y1Hw==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from BL0PR12MB2370.namprd12.prod.outlook.com (2603:10b6:207:47::27)
- by IA0PR12MB8863.namprd12.prod.outlook.com (2603:10b6:208:488::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Fri, 4 Sep
- 2026 09:19:44 +0000
-Received: from BL0PR12MB2370.namprd12.prod.outlook.com
- ([fe80::86cf:c3ec:2cf5:74c8]) by BL0PR12MB2370.namprd12.prod.outlook.com
- ([fe80::86cf:c3ec:2cf5:74c8%7]) with mapi id 15.21.0360.008; Fri, 4 Sep 2026
- 09:19:44 +0000
-Date: Fri, 4 Sep 2026 17:19:38 +0800
-From: Richard Cheng <icheng@nvidia.com>
-To: Srirangan Madhavan <smadhavan@nvidia.com>
-Cc: Alison Schofield <alison.schofield@intel.com>, 
-	Bjorn Helgaas <bhelgaas@google.com>, Dan Williams <djbw@kernel.org>, 
-	Dave Jiang <dave.jiang@intel.com>, Davidlohr Bueso <dave@stgolabs.net>, 
-	Ira Weiny <ira.weiny@intel.com>, Jonathan Cameron <jic23@kernel.org>, 
-	Vishal Verma <vishal.l.verma@intel.com>, linux-cxl@vger.kernel.org, linux-pci@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Alex Williamson <alex.williamson@redhat.com>, vsethi@nvidia.com, 
-	alwilliamson@nvidia.com, Sai Yashwanth Reddy Kancherla <skancherla@nvidia.com>, 
-	Vishal Aslot <vaslot@nvidia.com>, Manish Honap <mhonap@nvidia.com>, Jiandi An <jan@nvidia.com>, 
-	linux-tegra@vger.kernel.org
-Subject: Re: [PATCH v11 07/12] cxl: Validate HDM ranges before CXL reset
-Message-ID: <apqMXYyHnu_jD4EK@MWDK4CY14F>
-References: <20260902072804.665639-1-smadhavan@nvidia.com>
- <20260902072804.665639-8-smadhavan@nvidia.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260902072804.665639-8-smadhavan@nvidia.com>
-X-ClientProxiedBy: SI1PR02CA0028.apcprd02.prod.outlook.com
- (2603:1096:4:1f4::6) To BL0PR12MB2370.namprd12.prod.outlook.com
- (2603:10b6:207:47::27)
+	dkim=pass (2048-bit key) header.d=sifive.com header.i=@sifive.com header.b="QZYrtULI"
+Received: by mail-pj1-f51.google.com with SMTP id 98e67ed59e1d1-3965d3d9ab8so556168a91.3
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 02:21:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=sifive.com; s=google; t=1788513701; x=1789118501; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Q9+T08Ol1yj/MMF/M6cDqb87S/P26Yho6EBQQNhwINA=;
+        b=QZYrtULIwiGJ7Sn75GzcBZJr6Bcfn510HmNHWUDxf7q79Jym6PccIMWUsio9IwzzGy
+         VlJB3bmK2vaniGieLpBoq/Jbb+hlspnaf7gjxjdbuBANbLtxv6xA/GMF08/VZ2KOSc8m
+         edErPP4tSnHEr+pcF9i627KUduiHdDNbCabm22adsOd0usCR8LL1ptOmgNBckBGn2Ehq
+         RDDC0Rz8fPfbgVyq7G9ykzamK07idr57zlakM96MCS2DQ2RmoQ3SxVHAi7kzczp4f+ev
+         C4laosqXiaBKtELL79x0gZ4RDsk3y8jPghEzwIKfw8r5cJLeU1CY/6f6mkXVBT9usH5F
+         WvdA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788513701; x=1789118501;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Q9+T08Ol1yj/MMF/M6cDqb87S/P26Yho6EBQQNhwINA=;
+        b=fzhNqHWGksXe1yk8uQa9/Z6Ufp1mw72tvTG911hOPYi1RuiWJ4jKoIhmtpMQ+DO9Y5
+         NXjajh4riHJav2lVXAtcQiWtFWeC9tNP/JGXd3zn5g10JrfXF2KUPvw9XsU9yoW8J7UH
+         YIEWIhvl4l7Prp/ZqndqLxkiu+HGqFo3JReTYCBP0MdzNe9hxbhW84rSh/Y+kSbTb2Yz
+         b7JipmwgW31DuCB0kCNrV23vOBG0/yAR74Im2jbfKyrzLQXvaYmKOMwkjMrtDmD9ERQB
+         HQl/aDo8Alpk53dgFiKLHbHB3DwRdXRs19LeVE7lkVLlbukPOVbXPAYBCDRPD0pdGe7m
+         tIeA==
+X-Forwarded-Encrypted: i=1; AKwUvBzaDtAkJ0QteAt9mCYVdBcKsnlTc+K83o4mW407bNSuFzCR+pqvpUsaJW9ZhjdrxgTbWEApMtDr299TuRU=@vger.kernel.org
+X-Gm-Message-State: AFuF++nvYqKkygD8Ffekc7TUMvaFbUHylSuJroWrPUs6RtTSWx9veHds
+	0RnyVsKAQDRZTDZkUOI6wMowDaHiYdjfrdvDl625fqeLeSHMaEgNcEQXr6Mb3QLBJ9o=
+X-Gm-Gg: AYBFou1QpMnrKSFmZDVtV07f50nohpN0TmR5MFnIYFgV2xFtsGSGcLv+BT2yTs2HbnG
+	rGxcWonykVs1GShNRV/+ml1RQ+CKYIvKIxCb6l9JwlwEpWvjswL+/Ax3dg+h+Nq7rZqzXZSTF5E
+	2wfL2K3jTgaGCZpd54nhsGwfmkN5Xsy4RggIi58K14iXIEduKyPSD+Y1ycIoXnb1kZyv7ammmYR
+	cwUNEjcHJkSfiIrKWAfK+bWtkvUdbpbMt9UQNCAdBm8DFM95rxfmN8RW2Qazt8kb53Qaw6hlEku
+	D4awozykKoij5huWCX5g29ZM43OTGVYZrYGBfRRN7k/gAhPJBycXLMVyYhCqxAu5sGkg6GKz2h9
+	CYk9dasfnA+CzoLep+bfNyWDcRuEttlP0qDv3GV78pWoK1RulfaN5Fzy4d5cMJN6pciX0pMIc9/
+	p4lAIu1mmrBj3OLptmjTGrRQDPFcTS+EBygLor92Lfccuvhf7NTJh8M9gr3F740/EtT8oFzVQ/m
+	XbZpasV96o=
+X-Received: by 2002:a17:90b:1dc3:b0:398:d6f4:c61a with SMTP id 98e67ed59e1d1-39b26207ee4mr7536728a91.17.1788513700711;
+        Fri, 04 Sep 2026 02:21:40 -0700 (PDT)
+Received: from sw04.internal.sifive.com ([4.53.31.132])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1432438497csm5275575c88.8.2026.09.04.02.21.38
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 04 Sep 2026 02:21:39 -0700 (PDT)
+From: Zong Li <zong.li@sifive.com>
+To: tomasz.jeznach@linux.dev,
+	joro@8bytes.org,
+	will@kernel.org,
+	robin.murphy@arm.com,
+	pjw@kernel.org,
+	palmer@dabbelt.com,
+	aou@eecs.berkeley.edu,
+	alex@ghiti.fr,
+	mark.rutland@arm.com,
+	andrew.jones@oss.qualcomm.com,
+	guoren@kernel.org,
+	david.laight.linux@gmail.com,
+	zhangzhanpeng.jasper@bytedance.com,
+	yang.yicong@picoheart.com,
+	iommu@lists.linux.dev,
+	linux-riscv@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	linux-perf-users@vger.kernel.org
+Cc: Zong Li <zong.li@sifive.com>
+Subject: [PATCH v8 0/2] RISC-V IOMMU HPM support
+Date: Fri,  4 Sep 2026 02:21:31 -0700
+Message-ID: <20260904092136.113321-1-zong.li@sifive.com>
+X-Mailer: git-send-email @GIT_VERSION@
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL0PR12MB2370:EE_|IA0PR12MB8863:EE_
-X-MS-Office365-Filtering-Correlation-Id: d81ecade-ac3b-4ef9-2d04-08df0a65a805
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|376014|7416014|366016|23010399003|56012099006|10067099003|4143699003|11063799006|6133799003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	wqBWOUe108/Ab1YCzVrVYluMeZ0xMaGfbj69QBTY4CXlHy2hSBcXmFNNgmvscHhuQV7r1JKeoKE8dK57DmtWO5yXrnH7Z+F4Zb2tjK9ruXOakMwrWj6oRe9jDAt4NCO1355Rw+PyY8U1TJOHo1NzkBV3Dp7EO2VprwfiRyqvvSCnnw9hgEFWlcY9u5NKgCIe4LM/Q683kJTlaBjmXYNMXBPuXvXPO2PN/uk8dZpG0/IFY5xunL0ytQxjNKHc/RQ2u9TViWqZi1REb9bsFo/yP2hIE2ldxsOtbqj8uCpcPnS9gApGtmnX/ioCfuZjPJeNnNeeILl5zd7dc3HOoq9AcQuCIckscw+Sh1cyoRmEoHQqJ8Ne5SpYNlTgTkSWWi0fZoY0QV4W8Hg1NvxzXkjH5g1T7lS+qQm+5Sv/oxxtR6JSvlqYCI7AkQbU5QVbyPpegi/eKWAEQe+mIuTstgOc9lbkqSb3mQQZAOXgCS441p700GHNcY95s6/vTjbHah1fqT8KbPUspUMC6jDmTgzunaCQ1Jkg2CQoxLoxQvAUp09CR/7kLb2boe2V23cYfyVeKKZzakglMCfKO8XXh3IgQ2aHn6RI+Cz/w2Zw+kadsahDPxxy7/RAq28NgROXNTcUXlbmqA61JwsLPefexKhzyFMZeGlFWR9DfzmbAVB6Otg=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BL0PR12MB2370.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(7416014)(366016)(23010399003)(56012099006)(10067099003)(4143699003)(11063799006)(6133799003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?phohKuV4ntQT3ftZJT9x/zwopejQmY4PThMyGjXJg/bBXJuTnRTbZK2AA8NW?=
- =?us-ascii?Q?0doTAryEespG652STHunZ6hwMJ4srCp6c4cSHXovpyD4Tcb74Tod4ensU1ob?=
- =?us-ascii?Q?jcUCLrfEe26BWdGy03OFJ+8qsvY7bGzE1OmwM34wj2R1TR8CCli39J7frZ+d?=
- =?us-ascii?Q?1CYu3MiQ/jdsHnCaMKDwlfUMVsRlImcKRL6yYf2nAMyoHUMACalVB7GRiHo/?=
- =?us-ascii?Q?76qY6pOIrI+H7YRSuwOrGWIkg17pPuxdLVxyCKBXEStBnliSV3URVANZx1oW?=
- =?us-ascii?Q?lTOVdvJ/7BMwXraRwskltMRvoNli7RaSpsIYZayd3soSzfwrhx0psNgFxuuQ?=
- =?us-ascii?Q?c/63eRCoBHlnBEncqOce0SACVu0nq6wEeQKjSMSn2Wv7g6YQzWX3JH1ss8VC?=
- =?us-ascii?Q?nW6UwC7NNXEgpCBOBf8xa+ssB2n0+cGSoXhw7/3/2SNKOlE5IMZvrbTHrQgP?=
- =?us-ascii?Q?IfAE2QvyR1+SS6pDFrgUz1tddm6YnAafVd4PfEnY5u46pGJqzYc3N7me21vd?=
- =?us-ascii?Q?5uIfjfAjeiiuJdOZacj8FCjeNfoq3+kKd8jmcRLuSbNd24PW71oHxSrHKPG2?=
- =?us-ascii?Q?EunN/mPRib/+w53J7GX0AmHSamoleJEvmPnumgsaG4bNMYBthLOxmK2p/A56?=
- =?us-ascii?Q?VpFNsBMJBEm/nAWX5Anhbn3oSVL4bWbWZyXrD/KTK8nkMthAWZ8zS97jobWH?=
- =?us-ascii?Q?RzUdzV5yAmYtPZlstvZH1Fwo7LRrBlE8l9maEnbLC3T58jtceHSksU6hhYsX?=
- =?us-ascii?Q?z7IEJyC7lZFqjMGAmImXxksfGLusQ7ztx4TZBYdt7mHNcLDnPDRfDGln5srg?=
- =?us-ascii?Q?nrZ0+0YBv0bf4ETBFsGb9g0rJ9PEMmPckve5W5oLZ+IJJYbRiSSljBlTQhfL?=
- =?us-ascii?Q?vEC8NjIGjlTUoaqJn9MxjuuFg1lbN7AboJ8FJsCRaY2nWgYhQbO8S2DcBLsC?=
- =?us-ascii?Q?Z9wicK+Sq150X7AT0Ct81oNPFcX9TU+bnL1HykhZIcqG+yoVIb9V0HmM91gL?=
- =?us-ascii?Q?C1Rs67CHeiubVIwJAxfqHEEH3THwGDiqvmSesGSXi15lN/r4PE2ahDtZjPxP?=
- =?us-ascii?Q?WgwKXgYB0tsiQInO5w4n2fZuARAJShskDCIKRtoseBe+lcr+erMkMMet8zdo?=
- =?us-ascii?Q?3fzvbu3r/Eob+VoeMMsXTz7qzN1pkqZBtd/EaB5k1JjfM3wR0py8WhOiCkZB?=
- =?us-ascii?Q?VdSELLywNgUQT6on85g541nA3c/XS+UQwmjfrn8cKHunMquEkY0fW7H+gMNa?=
- =?us-ascii?Q?3xRmOv+dTa/xdyix60InDPZDwkkbjQU/s1SC/wmVqXKSMaSa5lJwdEHHr4Gx?=
- =?us-ascii?Q?8s9EjcN/FYRpo+3NBgJNugFOmWQOohREk81C9puPQlB3wfWJWi4Og2R1gK/k?=
- =?us-ascii?Q?fBUCzJGoe3l9fsLViRAwXFBg5Pi2ZvEz+3NaRJSQuzEVBLuUeArUxvV4kPVZ?=
- =?us-ascii?Q?mBAtFZIQKviWjs3LH/io5hcc60J/pFkqg4679NDptg01knsT19vk/ndL3JR3?=
- =?us-ascii?Q?YGMh/wTJSqJRwjgWpS85GexRjzP4Hwf1jinrSURtY5hjGDhnA4x/yU/eqn7Y?=
- =?us-ascii?Q?aLmJhVjn1UnMs4AGQR/x1kn8QKOvA4njJCGNjbJS/ynfVfCsNduUjpgqCHK+?=
- =?us-ascii?Q?W/tz6UrSWel4I03d8eAPiZdKAiJLrlawg2ja+cHiVbbKMehzE6QrYRrjDmP6?=
- =?us-ascii?Q?dOt450SNauswBPBKLLNFHnZqXMyCztB8bOJbIcROWD/G+Xa69K/mpHDxoFds?=
- =?us-ascii?Q?S1fX0h+n0Q=3D=3D?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d81ecade-ac3b-4ef9-2d04-08df0a65a805
-X-MS-Exchange-CrossTenant-AuthSource: BL0PR12MB2370.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Sep 2026 09:19:44.3489
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: trNUR2Q7yryfCtrrPcQAIf0cbIlzAiYNSiCis4LqMAr2aRJjH2gplp5RQY1tWHaruKKnWU06PYcPQsnnIoZRxw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8863
+Content-Transfer-Encoding: 8bit
 
-On Wed, Sep 02, 2026 at 07:27:59AM +0800, Srirangan Madhavan wrote:
-> Before reset, require cached HDM decoder state, collect enabled decoder
-> ranges, and reserve them with request_mem_region(). This rejects reset
-> while affected CXL memory is busy and keeps the validation stable
-> through reset.
-> 
-> If CPU cache invalidation support is available, invalidate the affected
-> ranges before reset. If the runtime backend is unavailable, continue
-> after the range reservation succeeds.
-> 
-> Reject CXL Reset when no cached HDM decoder state is available. The reset
-> path needs the cached address map to validate affected ranges and perform
-> CPU cache invalidation. Also reject normalized-addressing decoders for
-> now because the cached decoder range is not a system physical address.
-> 
-> Signed-off-by: Srirangan Madhavan <smadhavan@nvidia.com>
-> ---
->  drivers/cxl/core/resource.c | 255 +++++++++++++++++++++++++++++++++++-
->  1 file changed, 254 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/cxl/core/resource.c b/drivers/cxl/core/resource.c
-> index 439071a5c34d..13bd0c3faf7e 100644
-> --- a/drivers/cxl/core/resource.c
-> +++ b/drivers/cxl/core/resource.c
-> @@ -11,6 +11,8 @@
->  #include <linux/iommu.h>
->  #include <linux/jiffies.h>
->  #include <linux/kernel.h>
-> +#include <linux/list.h>
-> +#include <linux/memregion.h>
->  #include <linux/pci.h>
->  #include <linux/slab.h>
->  
-> @@ -514,6 +516,229 @@ static const u32 cxl_reset_timeout_ms[] = {
->  #define CXL_CACHE_WBI_TIMEOUT_US 100000
->  #define CXL_CACHE_WBI_POLL_US 100
->  
-> +struct cxl_hdm_range {
-> +	struct list_head list;
-> +	struct pci_dev *pdev;
-> +	struct range hpa_range;
-> +	u64 len;
-> +	struct resource *res;
-> +};
-> +
-> +struct cxl_hdm_range_context {
-> +	struct list_head ranges;
-> +};
-> +
-> +static void cxl_hdm_range_context_init(struct cxl_hdm_range_context *ctx)
-> +{
-> +	INIT_LIST_HEAD(&ctx->ranges);
-> +}
-> +
-> +static void cxl_hdm_range_context_destroy(struct cxl_hdm_range_context *ctx)
-> +{
-> +	struct cxl_hdm_range *range, *next;
-> +
-> +	list_for_each_entry_safe(range, next, &ctx->ranges, list) {
-> +		list_del(&range->list);
-> +		if (range->res)
-> +			release_mem_region(range->hpa_range.start,
-> +					   resource_size(range->res));
-> +		kfree(range);
-> +	}
-> +}
-> +
-> +/*
-> + * Bound the range twice: request_mem_region() takes resource_size_t while
-> + * cpu_cache_invalidate_memregion() takes size_t, and the two differ on
-> + * 32-bit builds with CONFIG_PHYS_ADDR_T_64BIT. range_len() can also reach
-> + * RESOURCE_SIZE_MAX + 1 for a full-width range, and wraps to zero when
-> + * resource_size_t is 64-bit, which the !len test catches.
-> + */
-> +static int cxl_hdm_range_validate(struct pci_dev *pdev,
-> +				  const struct range *hpa_range)
-> +{
-> +	u64 len = range_len(hpa_range);
-> +
-> +	if (!len)
-> +		return -EINVAL;
-> +
-> +	if (hpa_range->end > RESOURCE_SIZE_MAX) {
-> +		pci_err(pdev,
-> +			"CXL reset range [%#llx-%#llx] exceeds resource address size\n",
-> +			hpa_range->start, hpa_range->end);
-> +		return -EOVERFLOW;
-> +	}
-> +
-> +	if (len > RESOURCE_SIZE_MAX) {
-> +		pci_err(pdev,
-> +			"CXL reset range [%#llx-%#llx] exceeds resource size\n",
-> +			hpa_range->start, hpa_range->end);
-> +		return -EOVERFLOW;
-> +	}
-> +
-> +	if (len > SIZE_MAX) {
-> +		pci_err(pdev,
-> +			"CXL reset range [%#llx-%#llx] exceeds cache flush size\n",
-> +			hpa_range->start, hpa_range->end);
-> +		return -EOVERFLOW;
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +static int cxl_hdm_range_add(struct cxl_hdm_range_context *ctx,
-> +			     struct pci_dev *pdev, const struct range *hpa_range)
-> +{
-> +	struct cxl_hdm_range *range;
-> +	int rc;
-> +
-> +	rc = cxl_hdm_range_validate(pdev, hpa_range);
-> +	if (rc)
-> +		return rc;
-> +
-> +	list_for_each_entry(range, &ctx->ranges, list)
-> +		if (range->hpa_range.start == hpa_range->start &&
-> +		    range->hpa_range.end == hpa_range->end)
-> +			return 0;
-> +
-> +	range = kzalloc_obj(*range);
-> +	if (!range)
-> +		return -ENOMEM;
-> +
-> +	range->pdev = pdev;
-> +	range->hpa_range = *hpa_range;
-> +	range->len = range_len(hpa_range);
-> +	list_add_tail(&range->list, &ctx->ranges);
-> +
-> +	return 0;
-> +}
-> +
-> +static int cxl_hdm_ranges_collect(struct cxl_hdm_range_context *ctx,
-> +				  struct pci_dev *pdev)
-> +{
-> +	struct cxl_hdm_info *info;
-> +	int rc;
-> +
-> +	guard(rwsem_read)(&cxl_rwsem.dpa);
-> +	info = pdev->hdm;
-> +	if (!info) {
-> +		pci_err(pdev, "CXL HDM decoder state unavailable\n");
-> +		return -ENXIO;
-> +	}
-> +
-> +	for (int i = 0; i < info->decoder_count; i++) {
-> +		struct cxl_decoder_settings *settings = &info->settings[i];
-> +
-> +		if (!(settings->flags & CXL_DECODER_F_ENABLE))
-> +			continue;
-> +
-> +		/* A committed zero-size decoder maps no HPA. */
-> +		if (!range_len(&settings->hpa_range))
-> +			continue;
-> +
-> +		if (settings->flags & CXL_DECODER_F_NORMALIZED_ADDRESSING) {
-> +			pci_err(pdev,
-> +				"CXL reset does not support normalized address decoders\n");
-> +			return -EOPNOTSUPP;
-> +		}
-> +
-> +		rc = cxl_hdm_range_add(ctx, pdev, &settings->hpa_range);
-> +		if (rc)
-> +			return rc;
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +static int cxl_hdm_range_request(struct cxl_hdm_range *range)
-> +{
-> +	struct pci_dev *pdev = range->pdev;
-> +	const struct range *hpa_range = &range->hpa_range;
-> +
-> +	range->res = request_mem_region(hpa_range->start, range->len,
-> +					"cxl_reset");
+This series implements support for the RISC-V IOMMU hardware performance
+monitor.
 
+The RISC-V IOMMU PMU driver is implemented as an auxiliary device driver
+created by the parent RISC-V IOMMU driver. Therefore, the child driver
+can obtain resources and information from the parent device, such as
+the MMIO base address and IRQ number.
 
-How does this function provide us the required quiescing ?
-I do not see it revoking existing PFN/VFIO mapping or preventing a driver
-from issueing a new access after cpu_cache_invalidate_memregion()
+Changed in v7:
+- Rebased onto the v7.3-rc1
+- Remove raw spinlock
+- Check CPU matching at the beginning of irq handler
+- Add PERF_HES_STOPPED check before overflow handling
 
-Want to know what prevents new CXL.mem requests between cache invalidation
-and reset completion ?
-It does not require the range to be offline or unmapped first ?
+Changed in v6:
+- Rebased onto the latest v7.3-rc
+- Use sysfs_emit instead of cpumap_print_to_pagebuf
+- Set up on_cpu and irq affinity by cpuhp callbacks
+- Change type of on_cpu from unsigned int to int
+- Reject filter operands of cycle event in event_init
+- Check return value of counter number and  masks in probe
+- Add raw spinlock for race condition (third commit)
 
-Best regards,
-Richard Cheng.
+Changed in v5:
+- Pick up suggestions from sashiko-bot as follows
+- Fix event group validation for sw event
+- Bind IRQ to aux PMU dev instead of parent IOMMU dev
+- Clear OF bit when event is NULL
+- Improve hi-lo-hi patten
+- Add back IRQF_SHARED flag due to mismatch
+- Manage cpuhp and pmu register by devre
 
-> +	if (!range->res) {
-> +		pci_err(pdev,
-> +			"cannot reset while CXL memory range is busy [%#llx-%#llx]\n",
-> +			hpa_range->start, hpa_range->end);
-> +		return -EBUSY;
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +static int cxl_hdm_ranges_request(struct cxl_hdm_range_context *ctx)
-> +{
-> +	struct cxl_hdm_range *range;
-> +	int rc;
-> +
-> +	lockdep_assert_held_write(&cxl_rwsem.region);
-> +
-> +	list_for_each_entry(range, &ctx->ranges, list) {
-> +		rc = cxl_hdm_range_request(range);
-> +		if (rc)
-> +			return rc;
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +static int cxl_hdm_range_flush_cache(struct cxl_hdm_range *range)
-> +{
-> +	struct pci_dev *pdev = range->pdev;
-> +	const struct range *hpa_range = &range->hpa_range;
-> +	int rc;
-> +
-> +	rc = cpu_cache_invalidate_memregion(hpa_range->start, range->len);
-> +	if (rc)
-> +		pci_err(pdev,
-> +			"failed to invalidate CPU cache [%#llx-%#llx]: %d\n",
-> +			hpa_range->start, hpa_range->end, rc);
-> +
-> +	return rc;
-> +}
-> +
-> +static int cxl_hdm_ranges_flush_cpu_caches(struct cxl_hdm_range_context *ctx,
-> +					   struct pci_dev *pdev)
-> +{
-> +	struct cxl_hdm_range *range;
-> +	int rc;
-> +
-> +	if (list_empty(&ctx->ranges))
-> +		return 0;
-> +
-> +	if (!cpu_cache_has_invalidate_memregion()) {
-> +		pci_warn(pdev,
-> +			 "CPU cache synchronization unavailable; continuing without cache invalidation\n");
-> +		return 0;
-> +	}
-> +
-> +	list_for_each_entry(range, &ctx->ranges, list) {
-> +		rc = cxl_hdm_range_flush_cache(range);
-> +		if (rc)
-> +			return rc;
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +static int cxl_hdm_ranges_prepare(struct cxl_hdm_range_context *ctx,
-> +				  struct pci_dev *pdev)
-> +{
-> +	int rc;
-> +
-> +	lockdep_assert_held_write(&cxl_rwsem.region);
-> +
-> +	rc = cxl_hdm_ranges_collect(ctx, pdev);
-> +	if (rc)
-> +		return rc;
-> +
-> +	rc = cxl_hdm_ranges_request(ctx);
-> +	if (rc)
-> +		return rc;
-> +
-> +	return cxl_hdm_ranges_flush_cpu_caches(ctx, pdev);
-> +}
-> +
->  static int cxl_reset_get_dvsec(struct pci_dev *pdev, u16 *cap_out)
->  {
->  	int dvsec, rc;
-> @@ -542,6 +767,20 @@ static int cxl_reset_get_dvsec(struct pci_dev *pdev, u16 *cap_out)
->  	return dvsec;
->  }
->  
-> +static bool cxl_reset_hdm_available(struct pci_dev *pdev)
-> +{
-> +	struct cxl_hdm_info *info;
-> +
-> +	/*
-> +	 * pdev->hdm is owned by the PCI device and released with pci_dev, so
-> +	 * reset-method probes and reset requests can test availability without
-> +	 * a CXL driver bound to the device.
-> +	 */
-> +	guard(rwsem_read)(&cxl_rwsem.dpa);
-> +	info = pdev->hdm;
-> +	return info && info->hdm_size;
-> +}
-> +
->  #define CXL_RESET_CTRL2_CMD_MASK \
->  	(PCI_DVSEC_CXL_INIT_CACHE_WBI | PCI_DVSEC_CXL_INIT_CXL_RST)
->  
-> @@ -731,7 +970,9 @@ static int cxl_reset_execute(struct pci_dev *pdev, int dvsec, u16 cap)
->  
->  int cxl_reset_function(struct pci_dev *pdev, bool probe)
->  {
-> +	struct cxl_hdm_range_context range_ctx;
->  	int dvsec;
-> +	int rc;
->  	u16 cap;
->  
->  	dvsec = cxl_reset_get_dvsec(pdev, &cap);
-> @@ -741,5 +982,17 @@ int cxl_reset_function(struct pci_dev *pdev, bool probe)
->  	if (probe)
->  		return 0;
->  
-> -	return cxl_reset_execute(pdev, dvsec, cap);
-> +	if (!cxl_reset_hdm_available(pdev))
-> +		return -ENOTTY;
-> +
-> +	cxl_hdm_range_context_init(&range_ctx);
-> +
-> +	scoped_guard(rwsem_write, &cxl_rwsem.region) {
-> +		rc = cxl_hdm_ranges_prepare(&range_ctx, pdev);
-> +		if (!rc)
-> +			rc = cxl_reset_execute(pdev, dvsec, cap);
-> +		cxl_hdm_range_context_destroy(&range_ctx);
-> +	}
-> +
-> +	return rc;
->  }
-> -- 
-> 2.43.0
-> 
+Changed in v4:
+- Rebased onto v7.3-rc
+- Use is_sampling_event() instead of accessing vairable directly
+- Rename the matching name from "iommu.pmu" to "riscv-iommu.pmu"
+- Change the naming of PMU device for avoid ":" in PCIe case
+- Add suppress_bind_attrs attribute
+- Remove IRQF_SHARED flag
+- Set irq affinity to local CPU of IOMMU
+- Allocate ID by IDA for auxiliary device
+- Pick up suggestions from sashiko-bot
+
+Changed in v3:
+- Rebased onto v7.2-rc3
+- Use hi_lo_writeq/readq to access register
+- Pick comments from sashiko-bot as follows
+- Set IRQ CPU affinity
+- Remove IRQF_ONESHOT flag when request irq
+- Adjust cycle event check by checking event_id field only
+- Fix bug for group events verificaiton
+- Fix KASAN issue about casting 32-bit variable to unsigned long pointer
+- Clear IPSR pending bit before starting counter
+- Clear OF bit in event selector register in irq handler
+- Release irq by devm instead of explicit free_irq
+
+Changed in v2:
+- Rebased onto v7.2-rc1
+- Use hi-lo-hi mechanism to read counter.
+  Suggested by Guo Ren and David Laight
+
+Changed in v1:
+- Rebased onto v6.19-rc8
+- Pick all suggestions and feedbacks from v1 series
+- Add cpu hotplug implementation to avoid race enablement
+- Move PMU-related definition from header to c file
+- Change PMU driver to auxiliary device driver
+
+Changed in RFC:
+- Rebase onto v6.13-rc7
+- Clear interrupt pending before handling interrupt
+- Fix the counter value issue caused by OF bit in the cycle counter.
+- Invoke riscv_iommu_hpm_disable() instead of riscv_iommu_pmu_uninit()
+  in riscv_iommu_remove()
+
+Zong Li (2):
+  drivers/perf: riscv-iommu: add risc-v iommu pmu driver
+  iommu/riscv: create a auxiliary device for HPM
+
+ drivers/iommu/riscv/Kconfig      |   1 +
+ drivers/iommu/riscv/iommu-bits.h |  61 --
+ drivers/iommu/riscv/iommu.c      |  37 ++
+ drivers/perf/Kconfig             |  12 +
+ drivers/perf/Makefile            |   1 +
+ drivers/perf/riscv_iommu_pmu.c   | 941 +++++++++++++++++++++++++++++++
+ 6 files changed, 992 insertions(+), 61 deletions(-)
+ create mode 100644 drivers/perf/riscv_iommu_pmu.c
+
+-- 
+2.43.7
+
