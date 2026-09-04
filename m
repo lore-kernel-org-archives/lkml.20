@@ -1,376 +1,202 @@
-Received: from AM0PR83CU005.outbound.protection.outlook.com (mail-westeuropeazon11010037.outbound.protection.outlook.com [52.101.69.37])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BBBC3A0E99;
-	Fri,  4 Sep 2026 07:16:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.69.37
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2B8B3C4575
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 07:17:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=205.220.180.131
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788506213; cv=fail; b=ItnbWXkzw7sswctU01lPQCsbjU96SK5X6YfVw4DkKNro+EnBuP+tOiN2nJvgBRlVfnKRwJ/nQsIjVll/gA+LgeHk6ZF/m1eSDLGh7WyvQIgmUGcKgIfRdNvbH2C/n2Fpz3CIw97s/4Epfl8L3hGxULsuNDSNGqSx3SJKEppQrsk=
+	t=1788506262; cv=pass; b=ObHquSVIGO/hjopIQc0oOJvbpVwCOUFoWWykih7R8rIt7s0OXcb9VCdrYN4PDjpkcazndSuGZOAPh9Hx7hsACWXcrKrA1xLZq/9PWmY5n1WKzi/0XAT/jHMBsf3wmd5TciNTDE8GkbblR3xu0Od3PLg2U65eUOpaoupjOkh+6sM=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788506213; c=relaxed/simple;
-	bh=EFq6rHmmU1laUXj/K+reJuGSIk/FIyiL6kfmct8jCc4=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=KhVKe3ZDHrmumBeB7YrGgYbnhHrv/VfRqQoKgYvr+d+3xU8kwf8GwgImaY4bn2c8GdBCxszhr2l1ktzZ+uIPvJjgcPMp0x3ECiYZRJFjFuvHlGqa4vaPRam2fZxN28sF8cE67wV6unLo9B0lpnYG1yvH5wYy6v+CZmUYb6sIfa4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=Th79dsAZ; arc=fail smtp.client-ip=52.101.69.37
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
+	s=arc-20240116; t=1788506262; c=relaxed/simple;
+	bh=J8dsPnAWdboF1yFvJDLhBeE5gRfGXjP3682VM1Iqx2M=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=YoMTY1dWYVH+2gWRmfkPljKw0PmtekNcXn6Jh1JkeLknk5WS1cdWRsbgWtdvk5BGfR8i1fSjKCko9C0ITCcbUKx7Zy/cb4ijtohLY5U8E9eNyMMuvmxl3iVErbUohRmhbGnMMa3oPIcyk6jJXdln2aREd0z+1s4JwfiU0smLNDU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=OI8FT8Wh; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=RBU6TwfX; arc=pass smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="Th79dsAZ"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=OUxYPI0v2Lt+2WwtYx2siyZM+JR4wukaP2FJO/5pLkgySSJiC+qlrhlnwb59Z4d0zm+4dHcnaknAfYpnY6L1UrXhADgoq+sPKcjLPkmKFeVaENyHPcY6uuC11gj0/ZkD/+JgL5Fx6ttxliilmDukrZCfLC62WrGI+f1wvJx9yd94A3Xw19/LDjLizguAbB3XQyzGbwhPlgNtzp5/9vSdlP3Hy/PMQxbtnr1ba7UgEdSGIzcrJzmrUcFqy+WcNgRYChNV+GwVIatPT4HiUfMo4avmjPiFXBUEgo53xGbLZGC3LuM2W0wKJ/ELEAXxlExGwLLjggIVNXLNM/J8qo9Nuw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=j/OD+BxQEB2Zb1EH+d/xLWVmnCVRJtfZViHWNJiaq8E=;
- b=Kd9EDqDyEotdJZjMpVtGvbWpAhxGnaLwYY/2LJpZ2SOTmucU+C4sGJ8yizTqYPQPcmvlqDQL9pAlFZkyIa9IRYCFPiK+5E3Kl1RiPbXo4w5jeTTRHr1R3d3pJuYil0trNbXAcIDpRRwgOWy1uLUjavojkT1koRR3Kv5HtWY8ylxYOGLIsYRlcMHdN4F6VVZS0M3nK48vZaYRYDZQ6u3Tq7A+/7/JZrBSO/BKWNehyO6fMuUBmI4+q2L6haRezwTz5915qMiXt6LlZHStHNaoakbMDUYlC4P0zOkcjMt+gT+64j0lB5mCvbE9o0CI+UFLaQgJTQeBWvQUNpjeMqFB/A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=j/OD+BxQEB2Zb1EH+d/xLWVmnCVRJtfZViHWNJiaq8E=;
- b=Th79dsAZhHqI1KgCYw/fMZFmGYk3LxB4zXNHruAvF87vdef7UHwll+IOWsHGiBm/tPU//4kEWRtFpKcAg1TTuhej2HU2fJrPjmBxOfvRUsFEQpGl6gQIomV8oW8CAl8W50JStKobmWYFqbnC1QOPO+KdOA0a/lpuak4770+tyzQqdmnjsF+85q53pQwq94e/QgEaWM2jQf5kkbVW/PKrJCym1BWyJMGEYmKi573E7r3WGCeC87oQ58TkLARRa/PS9ZxPK/GsQUz0Wk0sVhtqHZ/HRZewRxGEqnBprZIShfqdleBndOjYpn9i4jUtujN5Z3Gzqx6fPbxR/L0oQPKL5g==
-Received: from GV2PR04MB11739.eurprd04.prod.outlook.com
- (2603:10a6:150:2fc::18) by PAXPR04MB8512.eurprd04.prod.outlook.com
- (2603:10a6:102:213::13) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Fri, 4 Sep
- 2026 07:16:46 +0000
-Received: from GV2PR04MB11739.eurprd04.prod.outlook.com
- ([fe80::71c2:937b:d466:174a]) by GV2PR04MB11739.eurprd04.prod.outlook.com
- ([fe80::71c2:937b:d466:174a%6]) with mapi id 15.21.0360.008; Fri, 4 Sep 2026
- 07:16:46 +0000
-From: Wei Fang <wei.fang@nxp.com>
-To: "netdev-bot+sashiko@kernel.org" <netdev-bot+sashiko@kernel.org>, "Wei Fang
- (OSS)" <wei.fang@oss.nxp.com>
-CC: Claudiu Manoil <claudiu.manoil@nxp.com>, Vladimir Oltean
-	<vladimir.oltean@nxp.com>, Clark Wang <xiaoning.wang@nxp.com>,
-	"andrew@lunn.ch" <andrew@lunn.ch>, "olteanv@gmail.com" <olteanv@gmail.com>,
-	"andrew+netdev@lunn.ch" <andrew+netdev@lunn.ch>, "davem@davemloft.net"
-	<davem@davemloft.net>, "edumazet@google.com" <edumazet@google.com>,
-	"kuba@kernel.org" <kuba@kernel.org>, "pabeni@redhat.com" <pabeni@redhat.com>,
-	"linux@armlinux.org.uk" <linux@armlinux.org.uk>, "imx@lists.linux.dev"
-	<imx@lists.linux.dev>, "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: RE: [PATCH v3 net-next 03/15] net: enetc: add link status message
- support to PF driver
-Thread-Topic: [PATCH v3 net-next 03/15] net: enetc: add link status message
- support to PF driver
-Thread-Index: AQHdOPf5rPAr6++Cq0ud6wQBTmAapLa9iluAgAB1YfA=
-Date: Fri, 4 Sep 2026 07:16:46 +0000
-Message-ID:
- <GV2PR04MB117391CC7574CC43FD4744D3088B52@GV2PR04MB11739.eurprd04.prod.outlook.com>
-References: <20260831025441.635045-4-wei.fang@oss.nxp.com>
- <178847906345.4131868.5011473704889309213@kernel.org>
-In-Reply-To: <178847906345.4131868.5011473704889309213@kernel.org>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-msip_labels:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: GV2PR04MB11739:EE_|PAXPR04MB8512:EE_
-x-ms-office365-filtering-correlation-id: cd744382-88e4-4ac5-6307-08df0a547af0
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|7416014|23010399003|1800799024|366016|19092799006|376014|18002099003|22082099003|11063799006|5023799004|38070700021|10067099003|56012099006|4143699003;
-x-microsoft-antispam-message-info:
- PwO/wLg/vR7090rt9IADtAOin+cGU/85AL6D5TeQoW+bMSh3x3Vs7cITF6oZG5CdhE4MP061GAYYggosyRW1a6sFqDgvrtE4GfHCuD06MnLIKH2qBU4/yyzIhVdWZbp5K/up/Z/epIrBekjC7ppl/Ud5UTaHLLfflyUobz/h5b3rDDEoCiOjK4JDyRvnQjvsZMitnAJ8hxuC5BLDPSIdmuMYXxV1aRmKb/jHN/E7PXFaI1YV+Iiie76zdg7lz2xfsJ3EFbjF6xoGPTqnHyN0UaQSwzzIASOXCeE8KxE8MgE5j8NkXjN5QTDQSUELJnaXjA3BMR/wtHV6G+N5UbUSM0U0YxgbB5VIYwzoTivDWDQWGJzPOeFUY1px1Jz3+2uYhw7xYKx+zaNHYeR5oOhAy9nSxpXvxIhbn4U0zgKxdyXoZjdJv6Ip78Uf7LIxq/iFiCsquo/NHpSSDDB+f6DxxNDWbCv01Mk4LJwNmtYKT+mMIivw5w5g+94OElLg8p60wwnG+Or0wk6GpQsZRWDxdXk+oVTJ3/zOnP3OUI5s+DRG0Qbkj5My1VicAt+B6SeSHC3tOFsHtKAPQVyti+ey8DpXmYtDT5FhMa93RdzlY/4jt54iWpyhKWZbXvH4uU60ZWoTyMOB5JPcES+cmL8vnKqhYCOu02EsteCtlCY79VAhujAI9hKycghSXi9fDQPG6q8QreOFtSNFrbDwB/jGMmtAfB1kJMglbeopF2gg/UI=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11739.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(23010399003)(1800799024)(366016)(19092799006)(376014)(18002099003)(22082099003)(11063799006)(5023799004)(38070700021)(10067099003)(56012099006)(4143699003);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?042XkHn4pZb6WVQzf5PKHBXO61/SRY1lnfppSEUT4pIcUvQZuRCrfIrwKQRe?=
- =?us-ascii?Q?CmY7KpjmDYrzGm32E7e8eYSggHioHpRZZU5hY8bWtlYI7PUssRgNGDtUqOHG?=
- =?us-ascii?Q?yqrV5mTZEcXzB0xAD6e0P123d9JGXs7tE4QNyTyFTKWGhhh6WAu0BBKXeDte?=
- =?us-ascii?Q?VE+RMOO18U+c32TEUOud0f5mtVLfHGKB5nkrAo5VN88R5OK440UFWlpaSDPx?=
- =?us-ascii?Q?e8/aCV6iTGJC0Bdw0LDYWtlMDGcu9j5hdupFmydvmVFi4A2fufBTKjptCmWL?=
- =?us-ascii?Q?d8gMnrDQCB4DrCSi1HDIJKN/bWQ/xFqqiB41cgGkry4L4VEYhz3E2ANewv+H?=
- =?us-ascii?Q?3j/QGDSXn4USddeEdtDDK+bUEwjDA5cW1csdOPkBtIbd0j38kX1mlQNKx4KD?=
- =?us-ascii?Q?fypNfKMtuGXgHRglucTLmljOX6sw3JUVGyy5WHGepeo8+2bf4VqDypMTFd5L?=
- =?us-ascii?Q?LCY7gXEZO3EsfproJAX6ejzqqukBi3vjKXiFHfrRZkAJ5xD9wLuYeCC0QkVD?=
- =?us-ascii?Q?dcK9eNw0U7B3aJOK4E88M7TMhp4ko2UdgKNsqxO6VESex2JKpHeLg+2oD2DK?=
- =?us-ascii?Q?xqGCbZtwyc9jUo8DO4pPY+yP4w7UDBMB20ppMCEypkMik4Qb0oK4CQPLqmZX?=
- =?us-ascii?Q?YJtR5MnmF1KJAxNRXtsJKn0NYaE6pU0P9lVwSL6Xd0kH6XoepObIBt/gmxZ7?=
- =?us-ascii?Q?a2WIJHUmn2N2NA+MZ1h/F9HxMgUT/8v82+mPz5baIfvQQyv8mnXyKY6w1m7q?=
- =?us-ascii?Q?L5c06Vqw45IK0J5IQXpLgR78VZWTNPriA7FsDHOHWLdU63ZpTPrZMeUVtPOU?=
- =?us-ascii?Q?EfQCjSj/XEta9HDaU6JMoFAB7ICg5oOF+cP9flaXahqi60VenhzyBnGbc3Kf?=
- =?us-ascii?Q?a4TPjau90kSE+Z7Qm2zaF88qjvgJLVO55Co9QCBhId9+CoXVRSwhcCwo+cwN?=
- =?us-ascii?Q?M7bCzyEC56QSh/7UiTKW+7u21BbMmKPzxFax+CSCe9soGIXKYZsryOcduF9w?=
- =?us-ascii?Q?2/nuZj0bevGzkbuY3TSUPr3EnBSwJgKl76D+ixYMK58/vrsFZS1FXsidQ4nH?=
- =?us-ascii?Q?k2sShrYp/Os08R8oJq/VRhCDYEvPnapEhYxRVGJn4jfmXrlPq44av1OOE+Vw?=
- =?us-ascii?Q?+k2phc1rJvbHJEmX7X9ZWRA/t+OTMSMWSaRZZ6BAk4Akx9ZdcL4quZ9vGWdi?=
- =?us-ascii?Q?jh1EaMcMLU2cuqw+mzoKDodSMwRGGGOQi7Qkvj5ueZGcznyodV26DqOud1br?=
- =?us-ascii?Q?WCj28ge+1SV0VCs5N26g+4PcF4Gb/rDp26LSEuxjUGRY7F/WN4POqYcU918p?=
- =?us-ascii?Q?t7Y4qnSICXTj3uNX1aR8yF2GxAus1KWzlhwnliDHlF5inhIrzxr7lEKBzhmT?=
- =?us-ascii?Q?yl6PI49fo1AnzDxrTlf2sCb70sQv7XkgPziX51gLDV18BtrvmI8a6Up2DUiJ?=
- =?us-ascii?Q?iMK4fpDIxpeZCf+Go8gO5+f22MaMhCjPv0fSeh+3JPqqxuK0LSQ9YhLokQv6?=
- =?us-ascii?Q?p2ltm1GhX2pwn6XnkLlgCtG7+jjrl//NZPR14dMU7yF9DClROV0qHJ85XBen?=
- =?us-ascii?Q?NZcYtmvgvaTPyGynwJ6kYzah5nBuXG5XXeTR1qubRXmvvzw3JQPKWrno7pfF?=
- =?us-ascii?Q?18hW/2OPS6pldA2JIqLdZ+GbMHAQSgsWMdVsGHE+5UgKc890IMa2rA8dUBm9?=
- =?us-ascii?Q?OzdiluaOXN/y2w2hlqFryjQOH9mEBi41rXFMBXHZ8h1p4HhR?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="OI8FT8Wh";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="RBU6TwfX"
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 684638lL2125698
+	for <linux-kernel@vger.kernel.org>; Fri, 4 Sep 2026 07:17:39 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	LB6s0B651lSSZ12Sdfk1hENNUEaAaUZ9od/XOsIo4uY=; b=OI8FT8WhAfwVk+ZZ
+	8T5wxyqpe708tolnXc/VTkesfR67qqX1vGQ9RxJyEyTCl2T5XFfW8RIeogaCL5Zt
+	4E/omkikXWrxxm+RLQRXjGY0OlJQ2lKWJX0g7LtAZgVjohNaB92hYZsfdUHcte/P
+	SBndiqT6076Ry6JMFdRQyA+2Yf7A2Xx9N0ugFAnnXxcUTJ91+wZlVx8as/ZggFZl
+	TmagoMORfsZZj+pAc6bU0p25PSM7HrrM0tq/Hyx/iBXiNcsc5oY0K9+La/nYnu39
+	XHaTGr8kOkiuMF9F3RftxWTB2ENwvtQAqCyEA0/kgNGd5Ouwb+M10AzzU4CyC56j
+	k3HbZQ==
+Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com [209.85.215.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gfp1fgp3u-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 07:17:39 +0000 (GMT)
+Received: by mail-pg1-f200.google.com with SMTP id 41be03b00d2f7-cc1b6f65dacso973495a12.1
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 00:17:39 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788506259; cv=none;
+        d=google.com; s=arc-20260327;
+        b=S+X13UwfU9DiHUJ+EvpVgu6bbqeVMeJ6IyOw8bHYbKldluJ91oWSFAVivFuzCKM5kx
+         VHTmayMqKxWSs2wV0Hzah40c+F9+MyYhW9SGeS7v6OkHC2txuI+x9NL+KHMcyzLF6IKj
+         TLlb95dVyYck0KA+BGMUUajI5a9Xw8S0RAmYqKpABP+KBjjNrZTX6AmTIrW7l58BSd6I
+         KLzbjQKiP9argfneLaCAulV9OAW5jKi7fdgDKIKi7JB/GN/dE+ywekWzvDwsgmk0jH1+
+         N81KwCXWWDpn4bfZHhInGOKGNS4s6TqrF4El6CS68PTPYqvbD3Q1ZhW7ZRgK0OjsKkwz
+         An5A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=LB6s0B651lSSZ12Sdfk1hENNUEaAaUZ9od/XOsIo4uY=;
+        fh=8dU2rCNDCmDxN3xvrypnd+MgQxW8MPNhYohxW09O1y4=;
+        b=FKa1uGIQRVr6m3QIMdWFGT56V3Pz3WRjgoLfg6+MhPpLxmh6mWyFf4fS+W7w4soxc4
+         ynkS8bBP0q4AEdID3LZFw6GZDjKcs/y9X++oek5WeucjjHq2z4gclouSsHGMX/SfGEwt
+         rVTe4WUKTu4gVQdBLsvs1AL1RkwA/EqYYlCyahCWHLodu6G1oGKR+NbPFLyepyxmmPJC
+         bn7Ek7+aW3y6aHV2teqpoxv3jJso+Db4KisDypqb7G1Ye0Kz2hP30ZQzr9YmHzkZqcAs
+         IiE5dJZO4FputBy/JJOdmgMZxg7aDGMNxPDwrGrT1BPkDblhORcNcQNVbB9IdDUtsuZE
+         9CZQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1788506259; x=1789111059; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=LB6s0B651lSSZ12Sdfk1hENNUEaAaUZ9od/XOsIo4uY=;
+        b=RBU6TwfXHXEf0ViP1/vW8nLVlhvd5ncNWxGvYvaloSHaaUQ86p7AbM/HkFV/cIe/Zp
+         5CdCAc3IfDHvXFvj/T21hFdpkDDCjUIdL7nQXguS19kokTgxZuSdKKvHZTb4fAMPGRab
+         4fRF9COHX8Q0l2UY2N52d4YJGPbJ42csIOFT0mKCFDMGD4pfX6m+3vuQJT2tzZCZiv4j
+         /Av5uJgUmvJ5fppY4W12hTJYkYovF5tmOY6MmG+LWDO320zwJqOOP3vtZVNZ40Eu5S0b
+         NYCiibzxZGT/2l7QxyTus6R//8GqL7/8K/NAEcp9vcNi8bMbdo4gcAs/1XXpdHkKUDEb
+         GcmA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788506259; x=1789111059;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=LB6s0B651lSSZ12Sdfk1hENNUEaAaUZ9od/XOsIo4uY=;
+        b=sqZjfS6yvQowuYwLju3wcWK7PeYPZ9121zvhq7nIeoSbe5ZxQvnGNG8IBTd8oXYwmV
+         ZmoOx5Rr2LYRfq4H+PafMTLknMObwCNPXv2Q/w1FlvnGrnTGq20uAyy7SoxA/Yp/7Tai
+         zEc8U2Mahg5M2BPr99gqRd7sAXQDJpT3jplO0L34BU3jRT14w4vZsvU0aExMxCznGXpX
+         pOaeG1YSequ0sixyKdlrhnjuL6WtOQrGhP10O3USK0RTtyibnrp8JijCXdpeNgCPfrbc
+         o8HnhFXyuEbNMmUkEoFCEC03PQ+LN9IK+itxS1O+X/IkVaFEq1lWb0Fp1D3mbg1ZRLo3
+         444g==
+X-Forwarded-Encrypted: i=1; AKwUvBxOCVx2c25bZbdK7xATsg7qUxLGXJLp9fpqLfAPHUm6VzionU6jVPZFmWKj/pIrh/+R6rP20ueEdGzHmkw=@vger.kernel.org
+X-Gm-Message-State: AFuF++mQayN6jMd5brIprI0BhkTCa8YvRg+PiuEQZAnbYhmDWYoIMGIi
+	RLGpA1g9mtUPaWnG3CGXq2TFKyoK3p96vmI248l4poew37rPOTC0cmpm1zATX3vonAADzTNF/9A
+	UOmh3bPUO8qj44x21Y5MDtP5AOBsG9H4MhWnMuHbEJRvFjxCE6eW101ughr2n9EQWwmG36Q6u0S
+	g+PI/YZPsohaNoBngiPnY0RzwK3cgU5HFV3FPxSTGlVQ==
+X-Gm-Gg: AYBFou2Lfqno5wnEyRKAMdtyoRPThhVlvw8VcWb6rGTz6zInb4I1Z0KugJ53V1/xssf
+	TBx/PBOqsxpXe6K5tf/r7QhmZzLa+YPteDUKisUWHNIatkvXJGlhg77Gr5nA2tq1DFbgSUaPYmS
+	R7Ti9zuqrqyhYl1nZ3zFEseB2S18AET8hUgXt/Qn0GklpARGYh5g0y5LPMMQ==
+X-Received: by 2002:a05:6a20:7290:b0:3cd:9f99:3381 with SMTP id adf61e73a8af0-3da39878551mr5927942637.0.1788506258741;
+        Fri, 04 Sep 2026 00:17:38 -0700 (PDT)
+X-Received: by 2002:a05:6a20:7290:b0:3cd:9f99:3381 with SMTP id
+ adf61e73a8af0-3da39878551mr5927876637.0.1788506258295; Fri, 04 Sep 2026
+ 00:17:38 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11739.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: cd744382-88e4-4ac5-6307-08df0a547af0
-X-MS-Exchange-CrossTenant-originalarrivaltime: 04 Sep 2026 07:16:46.5625
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: SdZOznaaYpesUG/HVmQwhYNyeyX0DuBQexdeiOryjaTe5CRz7bmoq0kMkIre1piFweHkagsM5nVNxmSqQwuH+A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR04MB8512
+References: <20260803-arm-psci-system_reset2-vendor-reboots-v24-0-889281373870@oss.qualcomm.com>
+ <20260903160401.GV2133376@google.com>
+In-Reply-To: <20260903160401.GV2133376@google.com>
+From: Ulf Hansson <ulf.hansson@oss.qualcomm.com>
+Date: Fri, 4 Sep 2026 09:17:25 +0200
+X-Gm-Features: AcwNN1XLgC_UnHcC1VgAAx4Zjez2ZZ2qUdiBHVeX_BYEXGU9Ghy4hb4yt4Luazs
+Message-ID: <CAPx+jO9Hi2R_UnCEhsXLwf74c3RTb+RodaJ6SOVXbQX_eHt++A@mail.gmail.com>
+Subject: Re: [PATCH v24 00/12] Implement PSCI reboot mode driver for PSCI resets
+To: Lee Jones <lee@kernel.org>
+Cc: Shivendra Pratap <shivendra.pratap@oss.qualcomm.com>,
+        Lorenzo Pieralisi <lpieralisi@kernel.org>,
+        Arnd Bergmann <arnd@arndb.de>, Bjorn Andersson <andersson@kernel.org>,
+        Sebastian Reichel <sre@kernel.org>, Rob Herring <robh@kernel.org>,
+        Souvik Chakravarty <Souvik.Chakravarty@arm.com>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Andy Yan <andy.yan@rock-chips.com>,
+        Matthias Brugger <matthias.bgg@gmail.com>,
+        Mark Rutland <mark.rutland@arm.com>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        John Stultz <john.stultz@linaro.org>,
+        Moritz Fischer <moritz.fischer@ettus.com>,
+        "Rafael J. Wysocki" <rafael@kernel.org>,
+        Daniel Lezcano <daniel.lezcano@kernel.org>,
+        Christian Loehle <christian.loehle@arm.com>,
+        Ulf Hansson <ulfh@kernel.org>,
+        Pavan Kondeti <pavan.kondeti@oss.qualcomm.com>,
+        Bartosz Golaszewski <brgl@kernel.org>,
+        Sudeep Holla <sudeep.holla@kernel.org>,
+        Florian Fainelli <florian.fainelli@broadcom.com>,
+        Krzysztof Kozlowski <krzk@kernel.org>,
+        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+        Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>,
+        Andre Draszik <andre.draszik@linaro.org>,
+        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+        Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>,
+        linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, mfd@lists.linux.dev,
+        Srinivas Kandagatla <srini@kernel.org>,
+        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+        Song Xue <quic_songxue@quicinc.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Authority-Analysis: v=2.4 cv=F+xnsKhN c=1 sm=1 tr=0 ts=6a9a7093 cx=c_pps
+ a=oF/VQ+ItUULfLr/lQ2/icg==:117 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
+ a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=yx91gb_oNiZeI1HMLzn7:22 a=VwQbUJbxAAAA:8 a=RfyTg-q-OfOJAL476ygA:9
+ a=QEXdDO2ut3YA:10 a=3WC7DwWrALyhR5TkjVHa:22
+X-Proofpoint-ORIG-GUID: F8oBKfYnN-omyp3NVUspg_KT6qLXzUT2
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA0MDA2NiBTYWx0ZWRfX0LLK+7hq9dag
+ Yn5dPqnAgOYvtDOCjci3os4pbxCbXVNYYKVhdFT9oB4ESmxYgBX8rWYGKuRww7ofFhB/Fo4dsnH
+ laLNkQejvLZFn6+38RjttRMOt1k15GE=
+X-Proofpoint-GUID: F8oBKfYnN-omyp3NVUspg_KT6qLXzUT2
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA0MDA2NiBTYWx0ZWRfXwrTKkyYmEbYA
+ 5hCwqHaiEFVCPyoVAG9xXNb/uc1OodVi1jNJFSDvr5MxulGfiJSNkBY8OEGeSlPdJyQSgYTAh86
+ WMoUiKmGghyulivRYgfdWzAH6off6ILegUfBUraSJ0IHsfZjlnCaWZ+rQawMsS423KnjM6xhRPp
+ w10TBlkqfbfClA/HS5En7CGv2ZRq6VRDLpkUMro5IINOcAylY6vDbdDY5y32rx3vEx2H7sp+rja
+ TSuQEUuFOs1aUutNhctHpwbBo4mP/6ZqL1eqLcOHUwSJ0cpq5MaYKnr/HIzknSKyjnWbxHl8C+M
+ 06sINay0+ehJwBHJPU+nW/uau6/At1BmPRNY3thJuBh2x0V7AKfVxfaeoYND8jSTamwGmQn17un
+ 2eITUcgay+fl2oSmeINbQIUIunREeBn6VO70wlBVwXEWM0PjwUTqPOCkOrJaj8BxfcgZUmZjTN6
+ 2vUwZiC/LlV2201yJ/g==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-04_02,2026-09-03_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 phishscore=0 adultscore=0 spamscore=0 suspectscore=0
+ lowpriorityscore=0 priorityscore=1501 malwarescore=0 impostorscore=0
+ bulkscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2609040066
 
-> > +static int enetc_pf_send_msg(struct enetc_pf *pf, u32 msg_code, u16
-> ms_mask)
-> > +{
-> > +	struct enetc_hw *hw =3D &pf->si->hw;
-> > +	u16 old_ms_mask =3D ms_mask;
-> > +	u16 ms_status;
-> > +	u32 val;
-> > +
-> > +	/* The MS bit is set, indicating that the corresponding VF has not
-> > +	 * read the last message, PF cannot send new message to the VF. To
-> > +	 * avoid sending messages to such a VF, the bit corresponding to VF
-> > +	 * is cleared from ms_mask. Because the MS bit can only be written
-> > +	 * as 1, writing a 0 has no effect. Writing a 1 when the bit is
-> > +	 * already set is undefined.
-> > +	 */
-> > +	ms_status =3D enetc_rd(hw, ENETC_PSIMSGSR) & 0xffff;
-> > +	ms_mask &=3D ~ms_status;
-> > +	if (!ms_mask)
-> > +		return -EIO;
->=20
-> [Severity: High]
-> Can a link state change be lost permanently here?
->=20
-> The return happens before the enetc_wr(hw, ENETC_PSIMSGSR, ...) below, so
-> when the target VF still has an unread message the new link state is neve=
-r
-> published, and enetc_msg_notify_vf_link_status() only prints
-> "PF notifies link status failed". Nothing records that the VF is out of
-> date, and notifications are generated only on the phylink transitions in
-> enetc4_pl_mac_link_up()/enetc4_pl_mac_link_down().
->=20
-> Single-VF sequence:
->=20
->   link up   -> PSIMSGSR written with "link up", the poll below times out
->                after 200 ms because the VF has not read VSIMSGRR yet
->   link down -> ms_status still has MS(0) set, ms_mask becomes 0,
->                -EIO is returned and "link down" is never written
->=20
-> The VF then consumes the stale "link up" message and keeps carrier on plu=
-s
-> a stale TX PAUSE derived congestion-mode setting until the next PF link
-> transition. The same drop can hit the initial notification issued from
-> enetc_msg_register_link_status_notifier(), which has already replied
-> ENETC_MSG_CLASS_ID_CMD_SUCCESS to the VF.
->=20
-> Would it make sense to record a pending state and re-send it once the MS
-> bit is observed clear, rather than dropping the transition?
+On Thu, Sep 3, 2026 at 6:04=E2=80=AFPM Lee Jones <lee@kernel.org> wrote:
+>
+> On Mon, 03 Aug 2026, Shivendra Pratap wrote:
+>
+> > Userspace should be able to initiate device reboots using the various
+> > PSCI SYSTEM_RESET and SYSTEM_RESET2 types defined by PSCI spec. This
+> > patch series introduces psci-reboot-mode driver that will induce
+> > command-based resets to psci driver for executing the device reset.
+>
+> The more I read through this submission, the more convinced I get that
+> it does not belong in MFD.  This is a potentially nice "architectural
+> workaround" if it a) didn't break some of MFD's fundamental "real
+> devices only" rules, of which cpuidle and reboot-mode certainly are not
+> and b) didn't require a massive expansion of what the MFD core is
+> designed to do.  I am more that a little uncomfortable with the 150
+> lines being added to MFD core support this workaround.
+>
+> My best suggestion so far would be to base these changes inside
+> drivers/firmware/psci and use the aux bus to communicate with the
+> various components.
 
-The scenario is theoretically possible, but it does not require a fix.
+We had some off list discussions about this as well and it seems like
+we are in agreement. What you are suggesting makes perfect sense to
+me.
 
-To lose a transition, a VF would have to leave its previous PF message unre=
-ad
-for longer than the 200 ms send window, and a reverse link change would hav=
-e
-to occur within that same window. That does not happen in practice:
-
-The PHY state machine polls link status once per second, so consecutive lin=
-k
-changes are at least ~1 s apart - more than enough time for the VF to consu=
-me
-the message and clear its MS bit. In real usage, link transitions are infre=
-quent
-to begin with.
-
-The PF also waits up to 200 ms for the VF to read the message. A VF that fa=
-ils
-to read a single message within that window is already malfunctioning (e.g.=
- a
-stalled), and I don't think the PF should compensate for a broken VF.
-
-So no fix is needed. Recording a pending state to re-send later is possible=
-, but
-since every notification already carries the current state and the next tra=
-nsition
-corrects any stale value, the extra complexity is not justified.
-
->=20
-> > +
-> > +	if (ms_mask !=3D old_ms_mask)
-> > +		dev_warn_ratelimited(&pf->si->pdev->dev,
-> > +				     "PF cannot send message to VF(s) 0x%x\n",
-> > +				     ms_mask ^ old_ms_mask);
->=20
-> [Severity: Low]
-> The printed value is a PSIMSGSR MS-bit mask, not a VF index mask, since
->=20
->   #define  PSIMSGSR_MS(n)		BIT((n) + 1)
->=20
-> so a stuck VF0 is reported as 0x2 and VF1 as 0x4. Should the value be
-> shifted back to VF numbering before printing, or should the message say
-> that it is an MS mask?
-
-No fix is needed; it stays consistent with the registers, making debugging
-easier.
-
->=20
-> > +
-> > +	enetc_wr(hw, ENETC_PSIMSGSR,
-> > +		 FIELD_PREP(PSIMSGSR_MC, msg_code) | ms_mask);
-> > +
-> > +	return read_poll_timeout(enetc_rd, val, !(val & ms_mask), 1000,
-> > +				 200000, false, hw, ENETC_PSIMSGSR);
-> > +}
->=20
-> [Severity: High]
-> This waits up to 200 ms for a bit that only the VF can clear, and every
-> caller holds pf->msg_lock across it. Can an untrusted guest use that to
-> stall the host?
->=20
-> The VF-initiated path has no ENETC_VF_FLAG_TRUSTED check (unlike the MAC
-> filter handlers) and no rate limiting:
->=20
->   enetc_msg_task()
->     enetc_msg_handle_rxmsg()
->       enetc_msg_handle_link_status()   /* cmd_id from the VF */
->         enetc_msg_register_link_status_notifier()
->           mutex_lock(&pf->msg_lock);
->           enetc_msg_notify_vf_link_status()
->             enetc_pf_send_msg()        /* sleeps up to 200 ms */
->=20
-> enetc_msg_task() handles all VFs sequentially in one work item with the M=
-R
-> interrupts disabled, so a VF that registers, drains its mailbox and
-> re-registers in a loop keeps pf->msg_lock and the mailbox work item busy
-> and denies mailbox service to the sibling VFs.
->=20
-> The same pf->msg_lock is taken by enetc_pf_notify_vf_link_status() from
-> enetc4_pl_mac_link_up()/enetc4_pl_mac_link_down(), and phylink runs those
-> from its resolve work, which is flushed synchronously from ndo_open/
-> ndo_stop with rtnl_lock held:
->=20
-> drivers/net/phy/phylink.c:phylink_run_resolve_and_disable() {
-> 	...
-> 	flush_work(&pl->resolve);
-> 	...
-> }
->=20
-> so the guest-induced stall propagates into the host PF link handling and
-> rtnl-held paths. In the other direction, one unresponsive registered VF
-> adds up to 200 ms to every PF link transition, because the poll condition
-> !(val & ms_mask) waits for all bits of the aggregate mask.
->=20
-> Is the synchronous acknowledgement wait needed at all here? Link state is
-> idempotent, so a fire-and-forget write with a deferred retry, or at least
-> dropping pf->msg_lock before waiting, would keep the PF link state machin=
-e
-> independent of VF behaviour. The commit message does not mention that a P=
-F
-> link transition can now block on VF acknowledgement.
-
-This is a potential issue, I will improve this.
-
->=20
-> > +
-> > +static void enetc_msg_notify_vf_link_status(struct enetc_pf *pf, u16
-> ms_mask)
-> > +{
-> > +	struct enetc_ndev_priv *priv =3D netdev_priv(pf->si->ndev);
-> > +	u16 pf_msg;
-> > +
-> > +	pf_msg =3D enetc_build_link_status_msg(priv, pf->link_up);
-> > +	if (enetc_pf_send_msg(pf, pf_msg, ms_mask))
-> > +		dev_err_ratelimited(&pf->si->pdev->dev,
-> > +				    "PF notifies link status failed\n");
-> > +}
-> > +
-> > +static void enetc_msg_register_link_status_notifier(struct enetc_pf *p=
-f,
-> > +						    int vf_id)
-> > +{
-> > +	u16 pf_msg =3D FIELD_PREP(ENETC_PF_MSG_CLASS_ID,
-> > +				ENETC_MSG_CLASS_ID_CMD_SUCCESS);
-> > +
-> > +	mutex_lock(&pf->msg_lock);
-> > +
-> > +	enetc_pf_reply_msg(&pf->si->hw, vf_id, pf_msg);
-> > +
-> > +	/* SR-IOV is being disabled if pf->sriov_enabled is false, so no
-> > +	 * need to set link_status_ms_mask and notify the link status.
-> > +	 */
-> > +	if (!pf->sriov_enabled)
-> > +		goto msg_unlock;
-> > +
-> > +	pf->link_status_ms_mask |=3D PSIMSGSR_MS(vf_id);
->=20
-> [Severity: Medium]
-> What clears this bit if the VF goes away without unregistering?
->=20
-> The bit is set here and cleared only by a cooperative
-> ENETC_MSG_UNREGISTER_LINK_CHANGE_NOTIFIER in
-> enetc_msg_unregister_link_status_notifier(), or globally in
-> enetc_sriov_configure() when SR-IOV is disabled. A VM destroy, a guest
-> crash/reboot, or a killed DPDK application leaves the bit set.
->=20
-> After that, every PF link transition reaches enetc_pf_send_msg() with the
-> stale mask and either writes the MS bit for a VF that will never read it
-> and then blocks the full 200 ms with pf->msg_lock held from the phylink
-> callbacks, or, once the MS bit is stuck set, filters that VF out and (whe=
-n
-> it is the only registered VF) returns -EIO, logging "PF notifies link
-> status failed" indefinitely. Since the poll waits for all bits of the mas=
-k,
-> one dead VF also delays notifications to the live ones.
->=20
-> The FLR handler added later in the series, enetc4_pf_vf_flr_handler(),
-> only restores the promiscuous mode bits and does not touch
-> link_status_ms_mask, and enetc_sriov_configure() resets only the software
-> mask without bringing PSIMSGSR back to a known state. Should the per-VF
-> bit be cleared on FLR / VF teardown as well?
-
-link_status_ms_mask is PF-side software state that records which VFs
-have subscribed to link-status notifications. Its lifetime is tied to the V=
-F
-driver's register/unregister requests, not to the VF hardware.
-
-FLR resets the VF hardware; it does not mean the VF has stopped wanting
-link notifications. A VF can go through an FLR while still being a valid,
-registered subscriber, without re-registering. Clearing its bit in the FLR
-handler would silently stop delivering link updates to a VF that is still
-alive and still subscribed - that would introduce a bug, not fix one.
-
-So the FLR handler should only restore hardware-related state (e.g.
-promiscuous filters), and must not touch link_status_ms_mask. Genuine
-teardown (VM destroy / VF unbind / SR-IOV disable) already clears the
-whole mask in enetc_sriov_configure(), and a graceful VF close sends
-an explicit unregister. Clearing the bit on FLR is therefore neither correc=
-t
-nor necessary.
-
-As for the "VF goes away without unregistering" case, a follow-up
-improvement will remove the 200 ms synchronous wait in
-enetc_pf_send_msg() (moving to a fire-and-forget notification). Once that
-is in place, a dead VF that never reads its message can no longer block the
-PF link state machine: the pre-send MS check simply skips that VF, and
-notifications to the live VFs are unaffected. So this concern will be mitig=
-ated
-by that change.
-
->=20
-
---
-pw-bot: cr
-
+Kind regards
+Uffe
