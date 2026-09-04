@@ -1,606 +1,280 @@
-Received: from smtpout.efficios.com (smtpout.efficios.com [158.69.130.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f50.google.com (mail-ed1-f50.google.com [209.85.208.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C67243E44ED
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 16:07:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=158.69.130.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788538075; cv=none; b=nf54o0AIdqU2bHNkL/SaYUYuVyyK/NC7au+7mlNFeihTDqsB5ZRjya/RmexZxtzAuNn6P3nGtlp4af/ymZhh4sWeRKdNHxpDsj5bDweu8arYBUiQUMKHUulylKryBnHNCt5d/W9fXPKrYzAF1NVFnDybD16e3HDig7NQE9cqLDw=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788538075; c=relaxed/simple;
-	bh=NnjPSnVYedhRhWI76knfpDgI5uJSnTKtJUZv2sO1wRo=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=RceMUz48FJ2SNjKrMtXJ99+qgVrulcRT17IJz6M3Ztq8QSXznuBP+13dm4fZnXaRpdJF3KWqgxK60sEsCyKqnjtO7BpF0gmdURqjWs/a1pRnlqihh4CuZEmcByCFkhHzF49VBUXy4ToDvzqrcH7GtVNyM5lYQ33CvzISnn4rimQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=efficios.com; spf=pass smtp.mailfrom=efficios.com; dkim=pass (2048-bit key) header.d=efficios.com header.i=@efficios.com header.b=TVMRNpdR; arc=none smtp.client-ip=158.69.130.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=efficios.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=efficios.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA9CF30146C
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 16:09:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.50
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788538186; cv=pass; b=NimuKX7XSdNWuzPz5DFz0EX0fMsKoKJJiTuzTlJ1c2LS6I+amI3m0Q8o8z5Sc2EA8JbzYM0a4aM5Ea5YFsk8Pk1PR8YXutOtUdKkNdVvyHVXFAuMXfnodomBFkVrO8hTLOmUC6Xx3YlFDNPD6ns5P0/L2yRsXjGrt/O6Np1284g=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788538186; c=relaxed/simple;
+	bh=I7FTVNlZ0dogb6C0eOyzR1YPRcNP3XiCf/wTZ1Mslsg=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=oHwroKVLM7FWW3wW4Ed3ZdDc5bFsnoZ9AejJuTB/OlX6pn7byYYHA4E5KJst1xPf11ZjQcsfKNElTrr+gOqAyRy3qnSRuC4SFyVkq886MUkUx/j0F0JujNy7MYHq89mLoIG+ECDmzklzbnT0irRzwERSq11mKwMge2kprCfxcr0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mihalicyn.com; spf=pass smtp.mailfrom=mihalicyn.com; dkim=pass (1024-bit key) header.d=mihalicyn.com header.i=@mihalicyn.com header.b=LYJ24fIU; arc=pass smtp.client-ip=209.85.208.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mihalicyn.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mihalicyn.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=efficios.com header.i=@efficios.com header.b="TVMRNpdR"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=efficios.com;
-	s=smtpout1; t=1788538057;
-	bh=tL1cmKSs0ZNOuF7NNYcj/4wBqlHVdgHSzS/qIxPqsfg=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=TVMRNpdR4irqd+KXoAZHu4cVDh/3JMWFTxlrYkqbrzDz1OmLPAw7B7KDGa07j+vot
-	 KVDPelqDC2CkIs2JEXoSkfmkihhzIznBz5FHYSq7WkgpeHY4EQdkOuvHilgdYkPzru
-	 mm3s3qdLG0NaJ5pRY5dGXDbdVKmYfoyXOZeRLcXTf8Djai4RvAa+y874/LzzW6O0H8
-	 qGeDvF9xKVTpjtsrIN0z83xTI4pQH1+GJ0vXoK76HqAMTqN4yYD5dNtphlRoAwnFnb
-	 tXrFQLvXUdGLNZsS5t9KyD9MLk6SjYur3+yM6WWDbOTsr7KFGzcB5hm9pDweYE+zwN
-	 kXc76ZhrKesjQ==
-Received: from compudjdev.. (mtl.efficios.com [216.120.195.104])
-	by smtpout.efficios.com (Postfix) with ESMTPSA id 4hc1Zd3YwYzVqf;
-	Fri, 04 Sep 2026 12:07:37 -0400 (EDT)
-From: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: linux-kernel@vger.kernel.org,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	"Paul E. McKenney" <paulmck@kernel.org>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Masami Hiramatsu <mhiramat@kernel.org>,
-	Dennis Zhou <dennis@kernel.org>,
-	Tejun Heo <tj@kernel.org>,
-	Christoph Lameter <cl@linux.com>,
-	Martin Liu <liumartin@google.com>,
-	David Rientjes <rientjes@google.com>,
-	christian.koenig@amd.com,
-	Shakeel Butt <shakeel.butt@linux.dev>,
-	SeongJae Park <sj@kernel.org>,
-	Michal Hocko <mhocko@suse.com>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	Sweet Tea Dorminy <sweettea-kernel@dorminy.me>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	"Liam R . Howlett" <liam@infradead.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Christian Brauner <brauner@kernel.org>,
-	Wei Yang <richard.weiyang@gmail.com>,
-	David Hildenbrand <david@kernel.org>,
-	Miaohe Lin <linmiaohe@huawei.com>,
-	Al Viro <viro@zeniv.linux.org.uk>,
-	Yu Zhao <yuzhao@google.com>,
-	Roman Gushchin <roman.gushchin@linux.dev>,
-	Mateusz Guzik <mjguzik@gmail.com>,
-	Matthew Wilcox <willy@infradead.org>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	Aboorva Devarajan <aboorvad@linux.ibm.com>,
-	David Carlier <devnexen@gmail.com>,
-	Josh Law <objecting@objecting.org>,
-	linux-mm@kvack.org
-Subject: [PATCH v22 02/10] lib: test hierarchical per-cpu counters
-Date: Fri,  4 Sep 2026 12:07:14 -0400
-Message-ID: <20260904160734.23445-3-mathieu.desnoyers@efficios.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260904160734.23445-1-mathieu.desnoyers@efficios.com>
-References: <20260904160734.23445-1-mathieu.desnoyers@efficios.com>
+	dkim=pass (1024-bit key) header.d=mihalicyn.com header.i=@mihalicyn.com header.b="LYJ24fIU"
+Received: by mail-ed1-f50.google.com with SMTP id 4fb4d7f45d1cf-6a051b737d8so1108049a12.1
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 09:09:42 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788538181; cv=none;
+        d=google.com; s=arc-20260327;
+        b=RSljEDByW8/j2+fwB40x+FSOo2HlZV3lalrg5+NZDQjl5AgCsr9Lo+UVlcqJPab4Ma
+         IJnqKCugchD1jO2EhifPxFRqKNS48vejkYa5wuTDAz9lTOhgV3eUs6Kf78EysVhbR26l
+         9I7X0+YMoSa7eEUNBC5tI4wlc78duF+7lKMH8W1GQK4TKiVcrHUG10qVYm4yKvNRawlF
+         H/ShTWS8/2KBnedz5pRxV7Y84qZZYoNSQ9kjT69dvuF28OAIuZxwrtmdeVgEh5YHvexR
+         HJjJYRmi6KeqOzAmHYwOgh4uWaTUAUNZaiTOh5JvKLJT3zyjsqtoLWLI1jB/Cwt4ORIT
+         dt8Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=FdR7pQWFNAy0Ig0AuVAHw6qnwdiJsW6s+mbBPNX+ky4=;
+        fh=TZAPo4yzRlML+8MMWjfv79HJ/e1Y9geyGh52al/vTn0=;
+        b=LAsZEks164JFozYzxNW/8LBLaJ8irnjgsRYuG+jmAiUoLG+m+dHZe9Y57Fbdbi4g6C
+         AenVMyAIbSHj5BsXiHflvv8T+KZkw+QUde9Z6/tcoMGXd2FzYd/uCJMgope5OBKjdolu
+         xAzDg7eSpGvEiJNjuFXVZD1ZiGuB3hlA1pWlQ6x6JcxS+hEzNrwJM4o05Q+83NXWnEAz
+         LrV66uG289GWlR2qGciK46AlX7/HNO+dw1ut3hanl/5F2SxTUtnE2+rJ4RD/Md0x7cRH
+         wlqWfXWS4zmQX77VTQqm2gqR2vnGJZsbNKLauxW1nZVY16n+Se7mxWtMrZvSNSx6g9PY
+         QAUA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=mihalicyn.com; s=mihalicyn; t=1788538181; x=1789142981; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=FdR7pQWFNAy0Ig0AuVAHw6qnwdiJsW6s+mbBPNX+ky4=;
+        b=LYJ24fIUloVu66b4e55n54uMqyxyA2RjXm5FqIxFGM9Cubpp/LXHdFIqU5drYl5M9W
+         RIQgYqmO+v2fUkKSbJwCngOh599KmOsNxRziD2G9pYDSrAjHq7jv3TURKSxKhvMNYdDT
+         ZeNjbTgzYZTRtNbY1TAykIPkUFUsV7HHw7ofw=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788538181; x=1789142981;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=FdR7pQWFNAy0Ig0AuVAHw6qnwdiJsW6s+mbBPNX+ky4=;
+        b=KOt0h1ChHJ7LHLpKMs5uQ0qMnmYONDRQZdOpW+CxFmxp9LgKDvdM9UR+ESyctfGPc9
+         bnRl43bAkVJBIkzoWQSRbfMaxnQtW++kanlpet/pAw9d7wA5BC0d8+Nv67Q0S1GY0D17
+         1hiY/RU+KHixCBvPfA9U6FBa7zGiZHLacSQOoDP//4XKQDLTnCRRsIjFBpobMjx56Mmx
+         OWHW1iGK9XbszGRFb4woRrTrSj8p6q/68QRnNLSY4cfLrP85H6bnzO/pfUAhOB69r2sW
+         Cuk2ybwASa3J4KhSo76ALlzIv074JbPhJ3qsDVh58ZXlwqN3s2PGH/bYjNmkGOyDl9ve
+         mAQw==
+X-Forwarded-Encrypted: i=1; AKwUvBwJcZ07lP+dTJSzT1eDMkY/RGbBG0H5Ip1DD9z1feYUJXgMHUNKGdrFg4+LxHpPUorRjwNBnGk/khQu6t0=@vger.kernel.org
+X-Gm-Message-State: AFuF++lYgpIvCz7rD71kL15Y+n96qWGgwZhForcxaPuEl/ahflAVSSn0
+	Ontn2UPUIM39G1GjW61D3K9UD+L6iy6v0+boMmWU1lpXB2BJs4e2+rBjZWzLqLam8Bt2EhjmR7h
+	KRnd86+7h1FRaDNceMySOCrK3bw3tLkmguZvI0eE7Zg==
+X-Gm-Gg: AYBFou3v4sh7Og2oNgOy402fQMtDTrn3zBMWEYqf7aY4r82fqtjcfcLucwnEd1Nn/y7
+	TuenU8pPpIE4MrAa7MQBO3ny6bPvtw8iXZ85G9nzvaoRwg5IJerFYJa5agt1+Qb14l++nzVfo5O
+	0jo75wjiMIHVXZAKceR8nrxlr0t4Et+le/+bPTAoZmg4EQTH7x7gK1kkTYmSVMde7QA7E4/ze7U
+	OW35ivM+pBxbXOr0AGh0zN4ccKvXbkuDgE1pJmJu70+Fc1xHY1zutI/mz3GYQ1wSOPEyX8IxaMC
+	6hwHdYMkOWfTHlHBgMzZxp6/8HbZ0N4/3sHVt6hlxDk4Eu+GCl0RvCc/hijDcU2aKdh9gOcGOxH
+	Y
+X-Received: by 2002:a05:6402:c2d1:b0:6a7:ee54:f8a7 with SMTP id
+ 4fb4d7f45d1cf-6a7ee550028mr1195731a12.43.1788538180182; Fri, 04 Sep 2026
+ 09:09:40 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260904144636.3443342-1-maoyixie.tju@gmail.com> <CANn89iJRG6UbnYX2xo1ZJR4k=Jr+PQEb48qELK9gpKp2QATKyg@mail.gmail.com>
+In-Reply-To: <CANn89iJRG6UbnYX2xo1ZJR4k=Jr+PQEb48qELK9gpKp2QATKyg@mail.gmail.com>
+From: Alexander Mikhalitsyn <alexander@mihalicyn.com>
+Date: Fri, 4 Sep 2026 18:09:28 +0200
+X-Gm-Features: AcwNN1Xq4Tt7rQDO1svcngvMnokM2FJKtX_ipen5pOVe3abVfNjqkDXYytdImE0
+Message-ID: <CAJqdLrqGUQ2YFMAg197OrZaHrYg+-ZDkcA3c+wmZs39uxRz78A@mail.gmail.com>
+Subject: Re: [PATCH net] netlink: render SCM_CREDENTIALS pid in the receiver's
+ pid namespace
+To: Eric Dumazet <edumazet@google.com>
+Cc: Maoyi Xie <maoyixie.tju@gmail.com>, davem@davemloft.net, kuba@kernel.org, 
+	pabeni@redhat.com, kuniyu@google.com, horms@kernel.org, brauner@kernel.org, 
+	adobriyan@openvz.org, akpm@linux-foundation.org, leitao@debian.org, 
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Introduce Kunit tests for hierarchical per-cpu counters.
+Am Fr., 4. Sept. 2026 um 17:48 Uhr schrieb Eric Dumazet <edumazet@google.co=
+m>:
+>
+> On Fri, Sep 4, 2026 at 4:46=E2=80=AFPM Maoyi Xie <maoyixie.tju@gmail.com>=
+ wrote:
+> >
+> > __scm_recv_common() translates uid and gid into the reader's user
+> > namespace but copies the pid as is. AF_UNIX gets away with that because
+> > unix_skb_to_scm() re-renders the pid with pid_vnr() at recvmsg time.
+> > netlink_sendmsg() renders it in the sender's namespace and stores a bar=
+e
+> > u32, so a reader in another pid namespace sees a number from a namespac=
+e
+> > it is not in. The sender chooses that number. An unprivileged sender in=
+ a
+> > child namespace made the receiver see pid 300.
+> >
+> > Carry the sender's struct pid in NETLINK_CB and hand it to scm_set_cred=
+()
+> > in netlink_recvmsg(), the way af_unix does. netlink_skb_set_owner_r()
+> > takes the reference and netlink_skb_destructor() drops it. A reader in =
+a
+> > namespace the sender has no pid in now gets 0, like AF_UNIX.
+> >
+> > I found this with a CodeQL checker. I used Claude to help write the
+> > reproducers. The ones that reproduce the bug run unprivileged and need =
+no
+> > kernel changes. Tested on net with KASAN and lockdep, no reports. The t=
+ree
+> > has no netlink SCM selftest.
+> >
+> > Fixes: b488893a390e ("pid namespaces: changes to show virtual ids to us=
+er")
+> > Cc: stable@vger.kernel.org
+> > Assisted-by: Claude:claude-opus-5 codeql
+> > Signed-off-by: Maoyi Xie <maoyixie.tju@gmail.com>
+> > ---
+> >  include/linux/netlink.h  |  9 +++++++++
+> >  net/netlink/af_netlink.c | 30 ++++++++++++++++++++++++++++--
+> >  2 files changed, 37 insertions(+), 2 deletions(-)
+> >
+> > diff --git a/include/linux/netlink.h b/include/linux/netlink.h
+> > index 882e9c1b6c1dcc..26266754e27c14 100644
+> > --- a/include/linux/netlink.h
+> > +++ b/include/linux/netlink.h
+> > @@ -30,6 +30,15 @@ struct netlink_skb_parms {
+> >         struct sock             *sk;
+> >         bool                    nsid_is_set;
+> >         int                     nsid;
+> > +       /*
+> > +        * Sender's struct pid.  netlink_sendmsg() stores a borrowed po=
+inter
+> > +        * taken from its own scm_cookie.  netlink_skb_set_owner_r() ta=
+kes a
+> > +        * reference when it takes ownership of the skb for a receiver,=
+ and
+> > +        * netlink_skb_destructor() drops that reference.  A clone star=
+ts out
+> > +        * borrowing again, because __skb_clone() clears both skb->sk a=
+nd
+> > +        * skb->destructor.  NULL for a kernel generated skb.
+> > +        */
+> > +       struct pid              *pid;
+> >  };
+> >
+> >  #define NETLINK_CB(skb)                (*(struct netlink_skb_parms*)&(=
+(skb)->cb))
+> > diff --git a/net/netlink/af_netlink.c b/net/netlink/af_netlink.c
+> > index e6b1d9758c9c92..170d90d472a0db 100644
+> > --- a/net/netlink/af_netlink.c
+> > +++ b/net/netlink/af_netlink.c
+> > @@ -379,13 +379,24 @@ static void netlink_skb_destructor(struct sk_buff=
+ *skb)
+> >
+> >                 skb->head =3D NULL;
+> >         }
+> > -       if (skb->sk !=3D NULL)
+> > +       if (skb->sk) {
+> > +               /*
+> > +                * The reference is held for as long as skb->sk is set,=
+ taken
+> > +                * in netlink_skb_set_owner_r() and dropped here.  The =
+pointer
+> > +                * is left in place: do_one_broadcast() orphans an skb =
+one
+> > +                * listener owned and hands it to the next, which takes=
+ its
+> > +                * own reference, and the sender's scm_cookie keeps the=
+ pid
+> > +                * alive across the whole broadcast.
+> > +                */
+> > +               put_pid(NETLINK_CB(skb).pid);
+>
 
-Keep track of two sets of hierarchical counters, each meant to have the
-same precise sum at any time, but distributed differently across the
-topology.
+Dear friends,
 
-Keep track of an atomic counter along with each hierarchical counter, for
-sum validation.
+> I really have a bad feeling about this dance and these assumptions,
+> maybe this is just me.
 
-Those tests cover:
+completely agree with Eric.
 
-- Single-threaded (no concurrency) updates.
-- Concurrent updates of counters from various CPUs.
+1. We need to start from use-case here, because netlink sockets are
+quite special in many ways.
+     If you just found this using LLM and now we are going to change a
+behavior that was there for more than 22 years
+     ( just look
+https://github.com/torvalds/linux/blame/d679c5324d9a87c6295f56c2dea52d5f688=
+34f41/include/linux/netlink.h#L165
+)
+2. If you start tracking struct pid (which is a good idea
+theoretically, if we ignore 1.), then we should do it a bit smarter
+and
+    make use pidfs API [pidfs_register_pid() function] like we do it
+in unix_maybe_add_creds() to make sure that we properly support
+    dead pidfds too.
 
-Perform the following validations:
+Kind regards,
+Alex
 
-- Compare the precise sum of counters with the sum tracked by
-  an atomic counter.
-- Compare the precise sum of two sets of hierarchical counters.
-- Approximated comparison of hierarchical counter with atomic counter.
-- Approximated comparison of two sets of hierarchical counters.
-- Validate the bounds of approximation ranges.
-
-Run with the following .kunit/.kunitconfig:
-
-CONFIG_KUNIT=y
-CONFIG_SMP=y
-CONFIG_PREEMPT=y
-CONFIG_NR_CPUS=32
-CONFIG_HOTPLUG_CPU=y
-CONFIG_PERCPU_COUNTER_TREE_KUNIT_TEST=y
-
-With the following execution (to use SMP):
-
-./tools/testing/kunit/kunit.py run --arch=x86_64 --qemu_args="-smp 12"
-
-Link: https://lkml.kernel.org/r/20260227153730.1556542-3-mathieu.desnoyers@efficios.com
-Signed-off-by: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-Cc: "Paul E. McKenney" <paulmck@kernel.org>
-Cc: Steven Rostedt <rostedt@goodmis.org>
-Cc: Masami Hiramatsu <mhiramat@kernel.org>
-Cc: Dennis Zhou <dennis@kernel.org>
-Cc: Tejun Heo <tj@kernel.org>
-Cc: Christoph Lameter <cl@linux.com>
-Cc: Martin Liu <liumartin@google.com>
-Cc: David Rientjes <rientjes@google.com>
-Cc: christian.koenig@amd.com
-Cc: Shakeel Butt <shakeel.butt@linux.dev>
-Cc: SeongJae Park <sj@kernel.org>
-Cc: Michal Hocko <mhocko@suse.com>
-Cc: Johannes Weiner <hannes@cmpxchg.org>
-Cc: Sweet Tea Dorminy <sweettea-kernel@dorminy.me>
-Cc: Lorenzo Stoakes <ljs@kernel.org>
-Cc: Liam R. Howlett <liam@infradead.org>
-Cc: Mike Rapoport <rppt@kernel.org>
-Cc: Suren Baghdasaryan <surenb@google.com>
-Cc: Vlastimil Babka <vbabka@kernel.org>
-Cc: Christian Brauner <brauner@kernel.org>
-Cc: Wei Yang <richard.weiyang@gmail.com>
-Cc: David Hildenbrand <david@kernel.org>
-Cc: Miaohe Lin <linmiaohe@huawei.com>
-Cc: Al Viro <viro@zeniv.linux.org.uk>
-Cc: Yu Zhao <yuzhao@google.com>
-Cc: Roman Gushchin <roman.gushchin@linux.dev>
-Cc: Mateusz Guzik <mjguzik@gmail.com>
-Cc: Matthew Wilcox <willy@infradead.org>
-Cc: Baolin Wang <baolin.wang@linux.alibaba.com>
-Cc: Aboorva Devarajan <aboorvad@linux.ibm.com>
-Cc: David Carlier <devnexen@gmail.com>
-Cc: Josh Law <objecting@objecting.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>
-Cc: linux-mm@kvack.org
----
-Changes since v19:
-- Rename config option to PERCPU_COUNTER_TREE_KUNIT_TEST.
----
- lib/Kconfig                           |  12 +
- lib/tests/Makefile                    |   2 +
- lib/tests/percpu_counter_tree_kunit.c | 399 ++++++++++++++++++++++++++
- 3 files changed, 413 insertions(+)
- create mode 100644 lib/tests/percpu_counter_tree_kunit.c
-
-diff --git a/lib/Kconfig b/lib/Kconfig
-index 4e6b34c3346d..c0524258b205 100644
---- a/lib/Kconfig
-+++ b/lib/Kconfig
-@@ -41,6 +41,18 @@ config PACKING_KUNIT_TEST
- 
- 	  When in doubt, say N.
- 
-+config PERCPU_COUNTER_TREE_KUNIT_TEST
-+	tristate "KUnit tests for hierarchical per-cpu counters" if !KUNIT_ALL_TESTS
-+	depends on KUNIT
-+	default KUNIT_ALL_TESTS
-+	help
-+	  This builds Kunit tests for the hierarchical per-cpu counters.
-+
-+	  For more information on KUnit and unit tests in general,
-+	  please refer to the KUnit documentation in Documentation/dev-tools/kunit/.
-+
-+	  When in doubt, say N.
-+
- config BITREVERSE
- 	tristate
- 	select GENERIC_BITREVERSE if !HAVE_ARCH_BITREVERSE
-diff --git a/lib/tests/Makefile b/lib/tests/Makefile
-index 3cac3b63a752..051e73705977 100644
---- a/lib/tests/Makefile
-+++ b/lib/tests/Makefile
-@@ -58,4 +58,6 @@ obj-$(CONFIG_UTIL_MACROS_KUNIT) += util_macros_kunit.o
- obj-$(CONFIG_RATELIMIT_KUNIT_TEST) += test_ratelimit.o
- obj-$(CONFIG_UUID_KUNIT_TEST) += uuid_kunit.o
- 
-+obj-$(CONFIG_PERCPU_COUNTER_TREE_KUNIT_TEST) += percpu_counter_tree_kunit.o
-+
- obj-$(CONFIG_TEST_RUNTIME_MODULE)		+= module/
-diff --git a/lib/tests/percpu_counter_tree_kunit.c b/lib/tests/percpu_counter_tree_kunit.c
-new file mode 100644
-index 000000000000..a79176655c4b
---- /dev/null
-+++ b/lib/tests/percpu_counter_tree_kunit.c
-@@ -0,0 +1,399 @@
-+// SPDX-License-Identifier: GPL-2.0+ OR MIT
-+// SPDX-FileCopyrightText: 2026 Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-+
-+#include <kunit/test.h>
-+#include <linux/percpu_counter_tree.h>
-+#include <linux/kthread.h>
-+#include <linux/wait.h>
-+#include <linux/random.h>
-+
-+struct multi_thread_test_data {
-+	long increment;
-+	int nr_inc;
-+	int counter_index;
-+};
-+
-+#define NR_COUNTERS	2
-+
-+/* Hierarchical per-CPU counter instances. */
-+static struct percpu_counter_tree counter[NR_COUNTERS];
-+static struct percpu_counter_tree_level_item *items;
-+
-+/* Global atomic counters for validation. */
-+static atomic_long_t global_counter[NR_COUNTERS];
-+
-+static DECLARE_WAIT_QUEUE_HEAD(kernel_threads_wq);
-+static atomic_t kernel_threads_to_run;
-+
-+static void complete_work(void)
-+{
-+	if (atomic_dec_and_test(&kernel_threads_to_run))
-+		wake_up(&kernel_threads_wq);
-+}
-+
-+static void hpcc_print_info(struct kunit *test)
-+{
-+	kunit_info(test, "Running test with %d CPUs\n", num_online_cpus());
-+}
-+
-+static void add_to_counter(int counter_index, unsigned int nr_inc, long increment)
-+{
-+	unsigned int i;
-+
-+	for (i = 0; i < nr_inc; i++) {
-+		percpu_counter_tree_add(&counter[counter_index], increment);
-+		atomic_long_add(increment, &global_counter[counter_index]);
-+	}
-+}
-+
-+static void check_counters(struct kunit *test)
-+{
-+	int counter_index;
-+
-+	/* Compare each counter with its global counter. */
-+	for (counter_index = 0; counter_index < NR_COUNTERS; counter_index++) {
-+		long v = atomic_long_read(&global_counter[counter_index]);
-+		long approx_sum = percpu_counter_tree_approximate_sum(&counter[counter_index]);
-+		unsigned long under_accuracy = 0, over_accuracy = 0;
-+		long precise_min, precise_max;
-+
-+		/* Precise comparison. */
-+		KUNIT_EXPECT_EQ(test, percpu_counter_tree_precise_sum(&counter[counter_index]), v);
-+		KUNIT_EXPECT_EQ(test, 0, percpu_counter_tree_precise_compare_value(&counter[counter_index], v));
-+
-+		/* Approximate comparison. */
-+		KUNIT_EXPECT_EQ(test, 0, percpu_counter_tree_approximate_compare_value(&counter[counter_index], v));
-+
-+		/* Accuracy limits checks. */
-+		percpu_counter_tree_approximate_accuracy_range(&counter[counter_index], &under_accuracy, &over_accuracy);
-+
-+		KUNIT_EXPECT_GE(test, (long)(approx_sum - (v - under_accuracy)), 0);
-+		KUNIT_EXPECT_LE(test, (long)(approx_sum - (v + over_accuracy)), 0);
-+		KUNIT_EXPECT_GT(test, (long)(approx_sum - (v - under_accuracy - 1)), 0);
-+		KUNIT_EXPECT_LT(test, (long)(approx_sum - (v + over_accuracy + 1)), 0);
-+
-+		/* Precise min/max range check. */
-+		percpu_counter_tree_approximate_min_max_range(approx_sum, under_accuracy, over_accuracy, &precise_min, &precise_max);
-+
-+		KUNIT_EXPECT_GE(test, v - precise_min, 0);
-+		KUNIT_EXPECT_LE(test, v - precise_max, 0);
-+		KUNIT_EXPECT_GT(test, v - (precise_min - 1), 0);
-+		KUNIT_EXPECT_LT(test, v - (precise_max + 1), 0);
-+	}
-+	/* Compare each counter with the second counter. */
-+	KUNIT_EXPECT_EQ(test, percpu_counter_tree_precise_sum(&counter[0]), percpu_counter_tree_precise_sum(&counter[1]));
-+	KUNIT_EXPECT_EQ(test, 0, percpu_counter_tree_precise_compare(&counter[0], &counter[1]));
-+	KUNIT_EXPECT_EQ(test, 0, percpu_counter_tree_approximate_compare(&counter[0], &counter[1]));
-+}
-+
-+static int multi_thread_worker_fn(void *data)
-+{
-+	struct multi_thread_test_data *td = data;
-+
-+	add_to_counter(td->counter_index, td->nr_inc, td->increment);
-+	complete_work();
-+	kfree(td);
-+	return 0;
-+}
-+
-+static void test_run_on_specific_cpu(struct kunit *test, int target_cpu, int counter_index, unsigned int nr_inc, long increment)
-+{
-+	struct task_struct *task;
-+	struct multi_thread_test_data *td = kzalloc(sizeof(struct multi_thread_test_data), GFP_KERNEL);
-+
-+	KUNIT_EXPECT_PTR_NE(test, td, NULL);
-+	td->increment = increment;
-+	td->nr_inc = nr_inc;
-+	td->counter_index = counter_index;
-+	atomic_inc(&kernel_threads_to_run);
-+	task = kthread_run_on_cpu(multi_thread_worker_fn, td, target_cpu, "kunit_multi_thread_worker");
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, task);
-+}
-+
-+static void init_kthreads(void)
-+{
-+	atomic_set(&kernel_threads_to_run, 1);
-+}
-+
-+static void fini_kthreads(void)
-+{
-+	/* Release our own reference. */
-+	complete_work();
-+	/* Wait for all others threads to run. */
-+	wait_event(kernel_threads_wq, (atomic_read(&kernel_threads_to_run) == 0));
-+}
-+
-+static void test_sync_kthreads(void)
-+{
-+	fini_kthreads();
-+	init_kthreads();
-+}
-+
-+static void init_counters(struct kunit *test, unsigned long batch_size)
-+{
-+	int i, ret;
-+
-+	items = kzalloc(percpu_counter_tree_items_size() * NR_COUNTERS, GFP_KERNEL);
-+	KUNIT_EXPECT_PTR_NE(test, items, NULL);
-+	ret = percpu_counter_tree_init_many(counter, items, NR_COUNTERS, batch_size, GFP_KERNEL);
-+	KUNIT_EXPECT_EQ(test, ret, 0);
-+
-+	for (i = 0; i < NR_COUNTERS; i++)
-+		atomic_long_set(&global_counter[i], 0);
-+}
-+
-+static void fini_counters(void)
-+{
-+	percpu_counter_tree_destroy_many(counter, NR_COUNTERS);
-+	kfree(items);
-+}
-+
-+enum up_test_inc_type {
-+	INC_ONE,
-+	INC_MINUS_ONE,
-+	INC_RANDOM,
-+};
-+
-+/*
-+ * Single-threaded tests. Those use many threads to run on various CPUs,
-+ * but synchronize for completion of each thread before running the
-+ * next, effectively making sure there are no concurrent updates.
-+ */
-+static void do_hpcc_test_single_thread(struct kunit *test, int _cpu0, int _cpu1, enum up_test_inc_type type)
-+{
-+	unsigned long batch_size_order = 5;
-+	int cpu0 = _cpu0;
-+	int cpu1 = _cpu1;
-+	int i;
-+
-+	init_counters(test, 1UL << batch_size_order);
-+	init_kthreads();
-+	for (i = 0; i < 10000; i++) {
-+		long increment;
-+
-+		switch (type) {
-+		case INC_ONE:
-+			increment = 1;
-+			break;
-+		case INC_MINUS_ONE:
-+			increment = -1;
-+			break;
-+		case INC_RANDOM:
-+			increment = (long) get_random_long() % 50000;
-+			break;
-+		}
-+		if (_cpu0 < 0)
-+			cpu0 = cpumask_any_distribute(cpu_online_mask);
-+		if (_cpu1 < 0)
-+			cpu1 = cpumask_any_distribute(cpu_online_mask);
-+		test_run_on_specific_cpu(test, cpu0, 0, 1, increment);
-+		test_sync_kthreads();
-+		test_run_on_specific_cpu(test, cpu1, 1, 1, increment);
-+		test_sync_kthreads();
-+		check_counters(test);
-+	}
-+	fini_kthreads();
-+	fini_counters();
-+}
-+
-+static void hpcc_test_single_thread_first(struct kunit *test)
-+{
-+	int cpu = cpumask_first(cpu_online_mask);
-+
-+	do_hpcc_test_single_thread(test, cpu, cpu, INC_ONE);
-+	do_hpcc_test_single_thread(test, cpu, cpu, INC_MINUS_ONE);
-+	do_hpcc_test_single_thread(test, cpu, cpu, INC_RANDOM);
-+}
-+
-+static void hpcc_test_single_thread_first_random(struct kunit *test)
-+{
-+	int cpu = cpumask_first(cpu_online_mask);
-+
-+	do_hpcc_test_single_thread(test, cpu, -1, INC_ONE);
-+	do_hpcc_test_single_thread(test, cpu, -1, INC_MINUS_ONE);
-+	do_hpcc_test_single_thread(test, cpu, -1, INC_RANDOM);
-+}
-+
-+static void hpcc_test_single_thread_random(struct kunit *test)
-+{
-+	do_hpcc_test_single_thread(test, -1, -1, INC_ONE);
-+	do_hpcc_test_single_thread(test, -1, -1, INC_MINUS_ONE);
-+	do_hpcc_test_single_thread(test, -1, -1, INC_RANDOM);
-+}
-+
-+/* Multi-threaded SMP tests. */
-+
-+static void do_hpcc_multi_thread_increment_each_cpu(struct kunit *test, unsigned long batch_size, unsigned int nr_inc, long increment)
-+{
-+	int cpu;
-+
-+	init_counters(test, batch_size);
-+	init_kthreads();
-+	for_each_online_cpu(cpu) {
-+		test_run_on_specific_cpu(test, cpu, 0, nr_inc, increment);
-+		test_run_on_specific_cpu(test, cpu, 1, nr_inc, increment);
-+	}
-+	fini_kthreads();
-+	check_counters(test);
-+	fini_counters();
-+}
-+
-+static void do_hpcc_multi_thread_increment_even_cpus(struct kunit *test, unsigned long batch_size, unsigned int nr_inc, long increment)
-+{
-+	int cpu;
-+
-+	init_counters(test, batch_size);
-+	init_kthreads();
-+	for_each_online_cpu(cpu) {
-+		test_run_on_specific_cpu(test, cpu, 0, nr_inc, increment);
-+		test_run_on_specific_cpu(test, cpu & ~1, 1, nr_inc, increment); /* even cpus. */
-+	}
-+	fini_kthreads();
-+	check_counters(test);
-+	fini_counters();
-+}
-+
-+static void do_hpcc_multi_thread_increment_single_cpu(struct kunit *test, unsigned long batch_size, unsigned int nr_inc, long increment)
-+{
-+	int cpu;
-+
-+	init_counters(test, batch_size);
-+	init_kthreads();
-+	for_each_online_cpu(cpu) {
-+		test_run_on_specific_cpu(test, cpu, 0, nr_inc, increment);
-+		test_run_on_specific_cpu(test, cpumask_first(cpu_online_mask), 1, nr_inc, increment);
-+	}
-+	fini_kthreads();
-+	check_counters(test);
-+	fini_counters();
-+}
-+
-+static void do_hpcc_multi_thread_increment_random_cpu(struct kunit *test, unsigned long batch_size, unsigned int nr_inc, long increment)
-+{
-+	int cpu;
-+
-+	init_counters(test, batch_size);
-+	init_kthreads();
-+	for_each_online_cpu(cpu) {
-+		test_run_on_specific_cpu(test, cpu, 0, nr_inc, increment);
-+		test_run_on_specific_cpu(test, cpumask_any_distribute(cpu_online_mask), 1, nr_inc, increment);
-+	}
-+	fini_kthreads();
-+	check_counters(test);
-+	fini_counters();
-+}
-+
-+static void hpcc_test_multi_thread_batch_increment(struct kunit *test)
-+{
-+	unsigned long batch_size_order;
-+
-+	for (batch_size_order = 2; batch_size_order < 10; batch_size_order++) {
-+		unsigned int nr_inc;
-+
-+		for (nr_inc = 1; nr_inc < 1024; nr_inc *= 2) {
-+			long increment;
-+
-+			for (increment = 1; increment < 100000; increment *= 10) {
-+				do_hpcc_multi_thread_increment_each_cpu(test, 1UL << batch_size_order, nr_inc, increment);
-+				do_hpcc_multi_thread_increment_even_cpus(test, 1UL << batch_size_order, nr_inc, increment);
-+				do_hpcc_multi_thread_increment_single_cpu(test, 1UL << batch_size_order, nr_inc, increment);
-+				do_hpcc_multi_thread_increment_random_cpu(test, 1UL << batch_size_order, nr_inc, increment);
-+			}
-+		}
-+	}
-+}
-+
-+static void hpcc_test_multi_thread_random_walk(struct kunit *test)
-+{
-+	unsigned long batch_size_order = 5;
-+	int loop;
-+
-+	for (loop = 0; loop < 100; loop++) {
-+		int i;
-+
-+		init_counters(test, 1UL << batch_size_order);
-+		init_kthreads();
-+		for (i = 0; i < 1000; i++) {
-+			long increment = (long) get_random_long() % 512;
-+			unsigned int nr_inc = ((unsigned long) get_random_long()) % 1024;
-+
-+			test_run_on_specific_cpu(test, cpumask_any_distribute(cpu_online_mask), 0, nr_inc, increment);
-+			test_run_on_specific_cpu(test, cpumask_any_distribute(cpu_online_mask), 1, nr_inc, increment);
-+		}
-+		fini_kthreads();
-+		check_counters(test);
-+		fini_counters();
-+	}
-+}
-+
-+static void hpcc_test_init_one(struct kunit *test)
-+{
-+	struct percpu_counter_tree pct;
-+	struct percpu_counter_tree_level_item *counter_items;
-+	int ret;
-+
-+	counter_items = kzalloc(percpu_counter_tree_items_size(), GFP_KERNEL);
-+	KUNIT_EXPECT_PTR_NE(test, counter_items, NULL);
-+	ret = percpu_counter_tree_init(&pct, counter_items, 32, GFP_KERNEL);
-+	KUNIT_EXPECT_EQ(test, ret, 0);
-+
-+	percpu_counter_tree_destroy(&pct);
-+	kfree(counter_items);
-+}
-+
-+static void hpcc_test_set(struct kunit *test)
-+{
-+	static long values[] = {
-+		5, 100, 127, 128, 255, 256, 4095, 4096, 500000, 0,
-+		-5, -100, -127, -128, -255, -256, -4095, -4096, -500000,
-+	};
-+	struct percpu_counter_tree pct;
-+	struct percpu_counter_tree_level_item *counter_items;
-+	int i, ret;
-+
-+	counter_items = kzalloc(percpu_counter_tree_items_size(), GFP_KERNEL);
-+	KUNIT_EXPECT_PTR_NE(test, counter_items, NULL);
-+	ret = percpu_counter_tree_init(&pct, counter_items, 32, GFP_KERNEL);
-+	KUNIT_EXPECT_EQ(test, ret, 0);
-+
-+	for (i = 0; i < ARRAY_SIZE(values); i++) {
-+		long v = values[i];
-+
-+		percpu_counter_tree_set(&pct, v);
-+		KUNIT_EXPECT_EQ(test, percpu_counter_tree_precise_sum(&pct), v);
-+		KUNIT_EXPECT_EQ(test, 0, percpu_counter_tree_approximate_compare_value(&pct, v));
-+
-+		percpu_counter_tree_add(&pct, v);
-+		KUNIT_EXPECT_EQ(test, percpu_counter_tree_precise_sum(&pct), 2 * v);
-+		KUNIT_EXPECT_EQ(test, 0, percpu_counter_tree_approximate_compare_value(&pct, 2 * v));
-+
-+		percpu_counter_tree_add(&pct, -2 * v);
-+		KUNIT_EXPECT_EQ(test, percpu_counter_tree_precise_sum(&pct), 0);
-+		KUNIT_EXPECT_EQ(test, 0, percpu_counter_tree_approximate_compare_value(&pct, 0));
-+	}
-+
-+	percpu_counter_tree_destroy(&pct);
-+	kfree(counter_items);
-+}
-+
-+static struct kunit_case hpcc_test_cases[] = {
-+	KUNIT_CASE(hpcc_print_info),
-+	KUNIT_CASE(hpcc_test_single_thread_first),
-+	KUNIT_CASE(hpcc_test_single_thread_first_random),
-+	KUNIT_CASE(hpcc_test_single_thread_random),
-+	KUNIT_CASE(hpcc_test_multi_thread_batch_increment),
-+	KUNIT_CASE(hpcc_test_multi_thread_random_walk),
-+	KUNIT_CASE(hpcc_test_init_one),
-+	KUNIT_CASE(hpcc_test_set),
-+	{}
-+};
-+
-+static struct kunit_suite hpcc_test_suite = {
-+	.name = "percpu_counter_tree",
-+	.test_cases = hpcc_test_cases,
-+};
-+
-+kunit_test_suite(hpcc_test_suite);
-+
-+MODULE_DESCRIPTION("Test cases for hierarchical per-CPU counters");
-+MODULE_LICENSE("Dual MIT/GPL");
--- 
-2.43.0
-
+>
+> Please include a dedicated selftest in tools/testing/selftests/net/
+> exercising SO_PASSCRED / SCM_CREDENTIALS
+> over netlink across PID namespaces to demonstrate the issue and
+> validate the proposed changes.
+>
+> Thanks.
+>
+> >                 sock_rfree(skb);
+> > +       }
+> >  }
+> >
+> >  static void netlink_skb_set_owner_r(struct sk_buff *skb, struct sock *=
+sk)
+> >  {
+> >         WARN_ON(skb->sk !=3D NULL);
+> > +       NETLINK_CB(skb).pid =3D get_pid(NETLINK_CB(skb).pid);
+> >         skb->sk =3D sk;
+> >         skb->destructor =3D netlink_skb_destructor;
+> >         sk_mem_charge(sk, skb->truesize);
+> > @@ -1880,6 +1891,13 @@ static int netlink_sendmsg(struct socket *sock, =
+struct msghdr *msg, size_t len)
+> >         NETLINK_CB(skb).dst_group =3D dst_group;
+> >         NETLINK_CB(skb).creds   =3D scm.creds;
+> >         NETLINK_CB(skb).flags   =3D netlink_skb_flags;
+> > +       /*
+> > +        * Borrowed here.  scm_destroy() below drops the scm_cookie's o=
+wn
+> > +        * reference, and every delivery in between is synchronous, so =
+the
+> > +        * pointer stays valid until netlink_skb_set_owner_r() takes a
+> > +        * reference of its own.
+> > +        */
+> > +       NETLINK_CB(skb).pid     =3D scm.pid;
+> >
+> >         err =3D -EFAULT;
+> >         if (memcpy_from_msg(skb_put(skb, len), msg, len)) {
+> > @@ -1971,7 +1989,15 @@ static int netlink_recvmsg(struct socket *sock, =
+struct msghdr *msg, size_t len,
+> >                 netlink_cmsg_listen_all_nsid(sk, msg, skb);
+> >
+> >         memset(&scm, 0, sizeof(scm));
+> > -       scm.creds =3D *NETLINK_CREDS(skb);
+> > +       /*
+> > +        * Render the sender's pid in the reader's pid namespace, the w=
+ay
+> > +        * unix_skb_to_scm() does through scm_set_cred().  A NULL pid g=
+ives 0,
+> > +        * so a control block that lost its reference reports "unknown"=
+ rather
+> > +        * than the sender's own untranslated number.  scm_recv() below=
+ drops
+> > +        * the reference taken here on both of its paths.
+> > +        */
+> > +       scm_set_cred(&scm, NETLINK_CB(skb).pid, NETLINK_CREDS(skb)->uid=
+,
+> > +                    NETLINK_CREDS(skb)->gid);
+> >         if (flags & MSG_TRUNC)
+> >                 copied =3D data_skb->len;
+> >
+> > --
+> > 2.34.1
+> >
