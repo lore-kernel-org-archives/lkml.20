@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB36152FE29;
-	Fri,  4 Sep 2026 22:25:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A17C530DE1;
+	Fri,  4 Sep 2026 22:25:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788560733; cv=none; b=sVjbX2YMt803UZfzKj6FBx+0rEXpruJnyYD5ZPyDq6fbrOK35+BOSmsLWlYo99UxaGmnD0+SbRmhwC9Dl+R2NQjoBFjz/+9+n0eatz0qZPjyfXvRjm4mv34VglXgHUAWzJlbzdWSvO20K9NGN+jHvgfRD5dusFV8V6zQ/uclNMA=
+	t=1788560737; cv=none; b=hh16Lv4FKcNEh9s5lGjbH3s5krbtVqY2lcxSten9Gc4xyGaq0x6ftt0Lnnf9XRe5E5p4yX0NLxKAn4gdoEZa5OLcOpxcvUPRbYPyG74DPalKSEHscgk77UIaz/Zg4h2IDqEpTf29NrcPEN6HPnQ66PzKl/foLKUZS+c5b9k/1YQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788560733; c=relaxed/simple;
-	bh=E6tpbOLfuZv9zN/8W+Fb5FZ5X3sKgA75A+7rv+CovUc=;
+	s=arc-20240116; t=1788560737; c=relaxed/simple;
+	bh=SxB9VeKcoxw7Lm/hGnN//urV/kwRb8d+pXZE9f7KCcw=;
 	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=qcjguxea1UiFX8A8JIdtHim5Dhw263LtY40f5eI3IHt/rrIsJakbFrypLHmzrY2yKPklDnQGj4qD2Rt4XcjMHThOjK7r/j+K1bmMqQuJNJ+5/YfTiBOSbwWyaySHcZzFSeDUDaWaRIhwMllG8C9elFNIu9LLszxvmSQUUex5wNo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=X7uq9pUX; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:MIME-Version; b=JJoV12tzPZhuYhGfnsbebPDtNodNiwnSYbicHTnfJI0TU5Mb1cPaC7BpV7haigH4IFr/MOTWplPyiW2mEMXzPXNsJRCmxDQ71HUmw25HUrvlWf1bEvQ1kzoHMMwBhD+tHczTk2ODnDWIVFulgI8iG+brnsbPhhBNg1I6Vpi7gt0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iswR2FC0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="X7uq9pUX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 53DF91F00A3D;
-	Fri,  4 Sep 2026 22:25:28 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iswR2FC0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3B8441F00A3F;
+	Fri,  4 Sep 2026 22:25:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788560729;
-	bh=nNOtf2TzRxsLyFHPcWQa1TjnFgr337may2J1744aXQs=;
+	s=k20260515; t=1788560732;
+	bh=sc+8JIF2uQ0t3P9vvf91E4KG3CzwGXIrY4q/cBCcwIw=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=X7uq9pUX0v5IDlI+2oVNdVSZ5YmNUUqzE6Hp9xgYoZZ3WXF0DmymGxhv5d2VS+Trv
-	 sdN3Q5RcSE80qNAVxD5bPUvX8vvxjMVrySggfBAciRnlMMdlBs9xrH3DvlkhnhEPtx
-	 Sl2XPn70QVsE0UnHhxJfDx7tafDN883vIQ45BwPtJgvPsUUY/u4PeVGHQjbalebRWn
-	 rbT0qj1/2UToSVnCf0q/P+3JO1rhI4NCWaJUF9sA3bfOqSsGc1dl/2oE/HYTDySoPY
-	 9nS5ysZllX0M/VnI4pUHMES2p2QiAPfAii8QK07b/3fEVkO/KDrdOvHe0+u9CChgRt
-	 11DvYkhjmcVgA==
-Subject: Re: [PATCH v3 net-next 3/8] ptp: netc: export
- netc_timer_get_current_time() for cross-driver use
+	b=iswR2FC0hCUpIYWWwDwcYOfpyi032xIYfkYX+ULX9/tvMv+pJ3yjz08v3PSruSavH
+	 kACFsWbdYX6qJ+lvZDvqNbTvNwyOnqMTOxq3b07xdJ2Vqu/9uqhCjxF4KuOmV5qeqv
+	 4ZnIk8hE5Lno+ZcH0iNSz1UhVlKk9EUDVNPXGSCupLjT+5ZfZya3trfZ9SegPziEs3
+	 9rPRkpgu/dV5j2cMsAOgsCY46JMSH6h6dOWiiJ1zYKSOJlp5zhBSDqOHd1y1VPG16m
+	 XaQW61WK9V5BkBc+XcYSV6eu3NjiE9nhPwWRePyzAup6lGgpJ+sWIIZ3eVjtKGmIsD
+	 59m8znRbxEadg==
+Subject: Re: [PATCH v3 net-next 5/8] net: dsa: netc: check return value of
+ ntmp_ipft_delete_entry()
 From: netdev-bot+sashiko@kernel.org
 To: wei.fang@oss.nxp.com
 Cc: xiaoning.wang@nxp.com, andrew@lunn.ch, olteanv@gmail.com,
@@ -36,11 +36,11 @@ Cc: xiaoning.wang@nxp.com, andrew@lunn.ch, olteanv@gmail.com,
  richardcochran@gmail.com, wei.fang@nxp.com, imx@lists.linux.dev,
  netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
  linuxppc-dev@lists.ozlabs.org, linux-arm-kernel@lists.infradead.org
-Date: Fri, 04 Sep 2026 22:25:27 +0000
-Message-ID: <178856072792.219967.11680386922247714173@kernel.org>
-In-Reply-To: <20260831082335.1184605-4-wei.fang@oss.nxp.com>
-References: <20260831082335.1184605-4-wei.fang@oss.nxp.com>
-X-sashiko-severity: High
+Date: Fri, 04 Sep 2026 22:25:30 +0000
+Message-ID: <178856073082.219967.16628382371770285710@kernel.org>
+In-Reply-To: <20260831082335.1184605-6-wei.fang@oss.nxp.com>
+References: <20260831082335.1184605-6-wei.fang@oss.nxp.com>
+X-sashiko-severity: Medium
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 Precedence: bulk
@@ -50,241 +50,339 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 3 potential
+Thank you for your contribution! Sashiko AI review found 5 potential
 issue(s) to consider:
 
-Critical: 0 · High: 1 · Medium: 1 · Low: 1
+Critical: 0 · High: 0 · Medium: 2 · Low: 3
 
-- [High] Using device_lock() in an exported API to protect against driver
-  unbind is an architectural anti-pattern that creates a circular lock…
-- [Medium] The newly exported netc_timer_get_current_time() gates the
-  TMR_CUR_TIME MMIO read only on 'a netc_timer driver is bound' and…
-- [Low] Inconsistent / semantically wrong errno contract for the new
-  exported API netc_timer_get_current_time().
+- [Medium] Commit message does not match the code in three ways.
+- [Medium] netc_port_remove_host_flood()
+  (drivers/net/dsa/netc/netc_main.c:1773-1792) now treats every error…
+- [Low] This user-visible bug fix carries no `Fixes:` tag (and no stable
+  Cc).
+- [Low] Format-specifier/argument signedness mismatch in the three newly
+  added dev_err() calls: they print the DSA port index with `%u` while…
+- [Low] netc_port_set_host_flood() is changed from make-before-break (add
+  new entry, then delete old) to break-before-make…
 
 --
 
-ptp: netc: export netc_timer_get_current_time() for cross-driver use
+net: dsa: netc: check return value of ntmp_ipft_delete_entry()
 
-This adds netc_timer_get_current_time() to the NETC Timer driver and
-exports it so the NETC Switch driver, which is a separate PCIe function
-with its own driver, can read TMR_CUR_TIME. The helper takes the device
-lock to serialize against unbind and the per-device spinlock around the
-register read, and spin_lock_init() moves earlier so the lock is
-initialized before pci_set_drvdata().
+This converts netc_port_remove_host_flood() to return int, propagates the
+error from ntmp_ipft_delete_entry() to its callers, and reorders
+netc_port_set_host_flood() to delete the old IPFT host flood entry before
+adding the new one, with rollback paths in netc_port_set_host_flood() and
+netc_port_bridge_join().
 
-> diff --git a/drivers/ptp/ptp_netc.c b/drivers/ptp/ptp_netc.c
-> index aa9be8e2a6304..854a206b6c5bc 100644
-> --- a/drivers/ptp/ptp_netc.c
-> +++ b/drivers/ptp/ptp_netc.c
-
-[ ... ]
-
-> @@ -1021,5 +1021,55 @@ static struct pci_driver netc_timer_driver = {
->  };
->  module_pci_driver(netc_timer_driver);
->  
-> +/**
-> + * netc_timer_get_current_time - read the current PTP time from the NETC Timer
-> + * @pdev: PCI device of the NETC Timer
-> + * @ns: The current PTP clock time in nanoseconds, returned to the caller
-> + *
-> + * Reads the 64-bit current time register (TMR_CUR_TIME) from the NETC Timer
-> + * device associated with @pdev. Returns an error if the Timer driver has not
-> + * yet probed or has already been removed.
-> + *
-> + * Context: Process context only. Acquires the device mutex via device_lock(),
-> + *          which may sleep. Must not be called from atomic context, softirq,
-> + *          BH, or while holding a spinlock.
-> + *
-> + * Return: 0 on success, otherwise a negative error code.
-> + */
-> +int netc_timer_get_current_time(struct pci_dev *pdev, u64 *ns)
-> +{
-> +	struct device *dev = &pdev->dev;
-> +	struct netc_timer *priv;
-> +	unsigned long flags;
-> +	int err = 0;
-> +
-> +	/* Serialize against driver unbind: the remove() callback runs under
-> +	 * the device lock, so holding it here ensures that priv remains valid
-> +	 * for the entire duration of the register read.
-> +	 */
-> +	device_lock(dev);
-> +
-> +	if (pci_dev_driver(pdev) != &netc_timer_driver) {
-> +		err = -EINVAL;
-> +		goto unlock_device;
-> +	}
-> +
-> +	priv = pci_get_drvdata(pdev);
-> +	if (!priv) {
-> +		err = -ENOMEM;
-> +		goto unlock_device;
-> +	}
-
-[Severity: High]
-Taking the supplier's device lock from an exported cross-driver
-helper worries me, both for the lock ordering it creates and for the
-contexts it rules out.
-
-On the ordering side, consider the consumer added later in this
-series. netc_switch_remove() runs with the switch device's dev->mutex
-held by the driver core; it calls dsa_unregister_switch(), which takes
-rtnl_lock(), and netc_port_disable(), which takes
-&onestep->work_lock. That gives dev->mutex -> rtnl_lock ->
-work_lock. In the datapath, netc_onestep_work() holds
-&onestep->work_lock and then calls netc_timer_get_current_time(),
-which takes the timer's dev->mutex here. Since lockdep tracks the
-dev->mutex of devices initialized through device_initialize() as one
-lock class, that second chain is work_lock -> dev->mutex and closes
-the cycle. A splat there disables lock debugging for the rest of the
-boot, so it is not something we can leave to be discovered by
-whoever unbinds the switch while Sync frames are in flight.
-
-On the context side, the kernel-doc you added already spells out the
-consequence: process context only, may sleep, no softirq, no BH, no
-spinlock held. That is a fairly severe restriction for what is
-fundamentally a single 64-bit register read on a timestamping path,
-and it is imposed purely by the unbind protection rather than by the
-hardware access itself.
-
-The usual way to express "this consumer needs that supplier to stay
-bound" is a device link. If the switch driver called
-device_link_add() against the Timer's pci_dev at probe time, the
-Timer could not be unbound underneath a live consumer, and
-netc_timer_get_current_time() could drop device_lock() entirely and
-keep only the spin_lock_irqsave(&priv->lock) around
-netc_timer_cur_time_read(), making it callable from atomic context
-too.
-
-Is there a reason a device link would not work for the
-Timer/Switch pair here (for example probe ordering between the two
-PCIe functions)? If so, could you describe what else guarantees the
-lock ordering above is safe?
-
-[Severity: Low]
-This isn't a bug, but the errno contract of the new exported interface
-looks inconsistent.
-
-The same logical state, "the NETC Timer is not available", is reported
-three different ways:
-
-  - netc_timer_get_current_time() returns -EINVAL when no netc_timer
-    driver is bound
-  - netc_timer_get_current_time() returns -ENOMEM when
-    pci_get_drvdata() is NULL
-  - the !IS_REACHABLE(CONFIG_PTP_NETC_V4_TIMER) stub in
-    include/linux/fsl/netc_global.h returns -ENODEV
-
-The -ENOMEM in particular does not match what happened, since this
-function performs no allocation at all, and the kernel-doc above
-describes the only failure condition as "the Timer driver has not yet
-probed or has already been removed".
-
-Would -ENODEV for both in-function checks, matching the header stub,
-make the interface easier for callers to test?
-
-> +
-> +	spin_lock_irqsave(&priv->lock, flags);
-> +	*ns = netc_timer_cur_time_read(priv);
-> +	spin_unlock_irqrestore(&priv->lock, flags);
+A few questions below, both about the changelog and the new error paths.
 
 [Severity: Medium]
-Can this read return a fabricated time and still report success while
-the Timer function is suspended?
+The changelog says:
 
-The two checks above only establish that a netc_timer driver is bound
-and that drvdata is non-NULL. Neither implies that the Timer PCI
-function still decodes memory, that it is in D0, or that TMR_CTRL[TE]
-is still set.
+  "In netc_port_add_host_flood_rule(), delete the old
+   entry before adding the new one, and guard against adding a new entry
+   when the old one still exists."
 
-netc_timer_driver registers no PM callbacks:
+Is the first half of that sentence accurate?  The post-patch
+netc_port_add_host_flood_rule() has no call to ntmp_ipft_delete_entry() at
+all; the only delete call site in the driver is
+netc_port_remove_host_flood().  The helper only gains the early bail-out
+that returns 0 when an entry already exists with the same uc/mc and -EINVAL
+otherwise.  The delete-before-add reordering actually lives in
+netc_port_set_host_flood() and netc_port_bridge_join().
 
-drivers/ptp/ptp_netc.c:
-    static struct pci_driver netc_timer_driver = {
-        .name = KBUILD_MODNAME,
-        .id_table = netc_timer_id_table,
-        .probe = netc_timer_probe,
-        .remove = netc_timer_remove,
-    };
+Could the changelog also mention that the helper loses its "disable" side
+effect?  Before the patch, netc_port_add_host_flood_rule(np, false, false)
+wrote NETC_PIPFCR = 0 and cleared np->uc/np->mc; now it just returns 0
+without touching hardware.  netc_port_bridge_leave() still calls
+netc_port_add_host_flood_rule(np, uc, mc) with a possible (false, false) and
+now relies on PIPFCR already being 0.
 
-so during system suspend the PCI core takes the no-dev_pm_ops path:
+Lastly:
 
-pci_pm_suspend()
-  pci_pm_default_suspend()
-    pci_disable_enabled_device()   /* clears PCI_COMMAND_MEMORY */
-  -> D3hot
+  "such failures only occur under resource exhaustion conditions that are
+   already abnormal"
 
-The driver is not unbound in that window, so pci_dev_driver(pdev) ==
-&netc_timer_driver and pci_get_drvdata(pdev) != NULL both still pass,
-ioread64_lo_hi() reads all-ones, and the function returns 0. The
-cross-driver consumer added later in this series treats a 0 return as a
-valid time:
+Does that hold?  netc_xmit_ntmp_cmd() in
+drivers/net/ethernet/freescale/enetc/ntmp.c also returns -EBUSY when no
+control ring BD is free, -ETIMEDOUT from read_poll_timeout() (NETC_CBDR_TIMEOUT
+is 1000 us), and -EIO on a command BD system bus error or a non-zero writeback
+error status.  A failed rollback can therefore reflect a persistent device or
+control ring problem rather than transient memory pressure.
 
-drivers/net/dsa/netc/netc_ptp.c:netc_onestep_work() {
-    ...
-    if (unlikely(netc_get_phc_time(priv, &tstamp))) {
-    ...
+[Severity: Low]
+Should this carry a Fixes: tag (and possibly a stable Cc)?  The bug being
+fixed, netc_port_remove_host_flood() ignoring the return value of
+ntmp_ipft_delete_entry() and then dropping np->ipft_hf_eid so a live
+hardware IPFT entry becomes untracked, was added by commit 46d6407692c8
+("net: dsa: netc: add FDB, STP, MTU, port setup and host flooding
+support"), which is already upstream, so released kernels are affected.
+
+> diff --git a/drivers/net/dsa/netc/netc_main.c b/drivers/net/dsa/netc/netc_main.c
+> index d326a00104e1d..2171c83f36407 100644
+> --- a/drivers/net/dsa/netc/netc_main.c
+> +++ b/drivers/net/dsa/netc/netc_main.c
+> @@ -1707,15 +1707,23 @@ static int netc_port_add_host_flood_rule(struct netc_port *np,
+>  	u32 cfg;
+>  	int err;
+>  
+> -	if (!uc && !mc) {
+> -		/* Disable ingress port filter table lookup */
+> -		netc_port_wr(np, NETC_PIPFCR, 0);
+> -		np->uc = false;
+> -		np->mc = false;
+> +	if (np->ipft_hf_eid != NTMP_NULL_ENTRY_ID) {
+> +		/* The old rule is the same as the new rule, return directly.
+> +		 * But if the existing rule differs from the requested one,
+> +		 * return an error.
+> +		 */
+> +		if (np->uc == uc && np->mc == mc)
+> +			return 0;
+>  
+> -		return 0;
+> +		dev_err(priv->dev,
+> +			"The old host flood rule has not been removed from port %u\n",
+> +			np->dp->index);
+> +		return -EINVAL;
+>  	}
+>  
+> +	if (!uc && !mc)
+> +		return 0;
+> +
+>  	host_flood = kzalloc_obj(*host_flood);
+>  	if (!host_flood)
+>  		return -ENOMEM;
+
+[Severity: Medium]
+Can this new -EINVAL guard make a divergent np->ipft_hf_eid permanently
+sticky?  See the question on netc_port_remove_host_flood() below: once
+np->ipft_hf_eid is left set after a delete that the hardware may in fact
+have executed, every later netc_port_add_host_flood_rule() with different
+uc/mc returns -EINVAL, including the restore done by
+netc_port_bridge_leave().
+
+> @@ -1762,32 +1770,33 @@ static int netc_port_add_host_flood_rule(struct netc_port *np,
+>  	return err;
+>  }
+>  
+> -static void netc_port_remove_host_flood(struct netc_port *np, u32 entry_id)
+> +static int netc_port_remove_host_flood(struct netc_port *np)
+>  {
+>  	struct netc_switch *priv = np->switch_priv;
+> -	bool disable_host_flood = false;
+> +	u32 entry_id = np->ipft_hf_eid;
+> +	int err;
+>  
+>  	if (entry_id == NTMP_NULL_ENTRY_ID)
+> -		return;
+> +		return 0;
+>  
+> -	if (np->ipft_hf_eid == entry_id)
+> -		disable_host_flood = true;
+> +	err = ntmp_ipft_delete_entry(&priv->ntmp, entry_id);
+> +	if (err)
+> +		return err;
+>  
+> -	ntmp_ipft_delete_entry(&priv->ntmp, entry_id);
+> +	np->ipft_hf_eid = NTMP_NULL_ENTRY_ID;
+> +	np->uc = false;
+> +	np->mc = false;
+> +	netc_port_wr(np, NETC_PIPFCR, 0);
+
+[Severity: Medium]
+Is every error from ntmp_ipft_delete_entry() safe to interpret as "the
+entry is still programmed in hardware"?  The NTMP command path does not
+look transactional:
+
+drivers/net/ethernet/freescale/enetc/ntmp.c:netc_xmit_ntmp_cmd() {
+	...
+	cbdr->next_to_use = i;
+	netc_write(cbdr->regs.pir, i);
+
+	err = read_poll_timeout(netc_read, val, (val & NETC_CBDRCIR_INDEX) == i,
+				NETC_CBDR_DELAY_US, NETC_CBDR_TIMEOUT, true,
+				cbdr->regs.cir);
+	if (unlikely(err))
+		return err;
+	...
 }
 
-and programs the value into a transmitted one-step Sync frame and into
-PM_SINGLE_STEP.
+The DELETE BD and the producer index are published to hardware before the
+1 ms completion poll, so -ETIMEDOUT means "completion not observed", not
+"command not executed"; -EIO from the writeback error status is similarly
+indeterminate.  In those cases np->ipft_hf_eid keeps an entry ID the
+hardware may no longer own, and there is no other release path:
+ntmp_ipft_delete_entry() has this single caller and nothing else clears
+np->ipft_hf_eid (this is still the case at the end of the series).
 
-Does the same apply after resume? Nothing re-runs netc_timer_init(), so
-TMR_CTRL (CK_SEL/TE/TCLK_PERIOD/COMP_MODE), TMR_PRSC, TMR_ADD and
-TMR_CNT are never reprogrammed after the D3hot->D0 transition, while
-the exported reader keeps reporting success. The driver's own comment
-documents these as preconditions:
+Two follow-on effects:
 
-drivers/ptp/ptp_netc.c:netc_timer_init() {
-	/* Software must enable timer first and the clock selected must be
-	 * active, otherwise, the registers which are in the timer clock
-	 * domain are not accessible.
-	 */
-	tmr_ctrl = FIELD_PREP(TMR_CTRL_CK_SEL, priv->clk_select) |
-		   TMR_CTRL_TE | TMR_CTRL_FS;
-    ...
-}
+netc_port_bridge_join() now returns the delete error, so if the retry keeps
+failing (for example the hardware reports an error status for a DELETE of a
+non-existent entry ID) the port can never be enslaved again from an ordinary
+sequence such as "ip link set swpX promisc on" followed by "ip link set swpX
+master br0".  Before this patch the error was ignored and the software state
+was resynchronised, so the port stayed usable.
 
-The lack of suspend/resume support in ptp_netc predates this patch, but
-this patch turns that unchecked power and enable state into a
-cross-driver contract. Would it make sense for the exported helper to
-also check pci_dev->current_state == PCI_D0 (or TMR_CTRL[TE], or take a
-PM reference), or for the driver to gain suspend/resume handlers that
-re-run netc_timer_init()?
+IPFT entry IDs are hardware assigned from a table shared by all ports (later
+patches in this series add per-port PTP entries in np->ptp_ipft_eid[]), so a
+retry on a stale ID could delete an unrelated rule.
+
+Whether the retry ends up as a permanent dead end or a wrong-entry deletion
+depends on how the hardware answers a DELETE for a freed or reallocated
+entry ID, which can't be determined from the tree, so this part is a
+question rather than a claim.
+
+>  
+> -	if (disable_host_flood) {
+> -		np->ipft_hf_eid = NTMP_NULL_ENTRY_ID;
+> -		np->uc = false;
+> -		np->mc = false;
+> -		netc_port_wr(np, NETC_PIPFCR, 0);
+> -	}
+> +	return 0;
+>  }
+>  
+>  static void netc_port_set_host_flood(struct dsa_switch *ds, int port,
+>  				     bool uc, bool mc)
+>  {
+>  	struct netc_port *np = NETC_PORT(ds, port);
+> -	u32 old_entry_id;
+> +	bool old_uc = np->uc;
+> +	bool old_mc = np->mc;
+>  
+>  	/* Do not add host flood rule to ingress port filter table when
+>  	 * the port has joined a bridge. Otherwise, the ingress frames
+> @@ -1795,7 +1804,12 @@ static void netc_port_set_host_flood(struct dsa_switch *ds, int port,
+>  	 * will be redirected directly to the CPU port.
+>  	 */
+>  	if (dsa_port_bridge_dev_get(np->dp)) {
+> -		netc_port_remove_host_flood(np, np->ipft_hf_eid);
+> +		if (!netc_port_remove_host_flood(np))
+> +			return;
+> +
+> +		dev_err(ds->dev,
+> +			"Failed to delete host flood rule on bridge port %u\n",
+> +			port);
+
+[Severity: Low]
+Should this be %d?  port is declared int in netc_port_set_host_flood(struct
+dsa_switch *ds, int port, ...), matching the .port_set_host_flood prototype
+in include/net/dsa.h.  The pre-existing messages in the same function print
+the same variable with %d, so the file now uses both conventions for the
+same value.  The new dev_err() in netc_port_add_host_flood_rule() correctly
+uses %u because it prints np->dp->index, which is unsigned.  The mismatch
+is only diagnosed with -Wformat-signedness.
+
+>  
+>  		return;
+>  	}
+> @@ -1804,19 +1818,29 @@ static void netc_port_set_host_flood(struct dsa_switch *ds, int port,
+>  		return;
+>  
+>  	/* IPFT does not support in-place updates to the KEYE element,
+> -	 * we need to add a new entry and then delete the old one. So
+> -	 * save the old entry ID first.
+> +	 * we need to delete the old one and then add the new rule. If
+> +	 * the deletion fails, return immediately.
+>  	 */
+> -	old_entry_id = np->ipft_hf_eid;
+> +	if (netc_port_remove_host_flood(np)) {
+> +		dev_err(ds->dev,
+> +			"Failed to delete old host flood rule on port %u\n",
+> +			port);
+
+[Severity: Low]
+Same %u versus int port question here.
+
+[Severity: Low]
+This turns the update from make-before-break into break-before-make.  At
+this commit netc_port_remove_host_flood() also writes NETC_PIPFCR = 0, so
+between the delete and the following add the port's ingress filter lookup
+is disarmed and the host flood redirect to the CPU port is inactive.
+
+If the following add fails (kzalloc_obj() returning -ENOMEM,
+dma_alloc_coherent() inside ntmp_ipft_add_entry(), -EBUSY on the control
+ring, IPFT full), the function returns before np->ipft_hf_eid is set and
+before netc_port_wr(np, NETC_PIPFCR, PIPFCR_EN), and the rollback add
+re-enters the identical allocation path, so it is likely to fail for the
+same reason.  Since .port_set_host_flood returns void, the netdev/bridge
+layer still believes promisc/allmulti host flooding is in effect.
+
+The PIPFCR half of this is removed later in the same series by "net: dsa:
+netc: enable ingress port filtering lookup by default", which drops both
+PIPFCR writes from these helpers and enables PIPFCR_EN in
+netc_port_fixed_config(), so at the end of the series only the narrower
+window on the IPFT entry itself remains, which is the limitation documented
+in the comment below.
 
 > +
-> +unlock_device:
-> +	device_unlock(dev);
-> +
-> +	return err;
+> +		return;
+> +	}
+>  
+>  	if (netc_port_add_host_flood_rule(np, uc, mc)) {
+>  		dev_err(ds->dev, "Failed to add host flood rule on port %d\n",
+>  			port);
+> -		return;
+> -	}
+>  
+> -	/* Remove the old host flood entry */
+> -	netc_port_remove_host_flood(np, old_entry_id);
+> +		/* Try to restore the old flood rule, if the recovery fails,
+> +		 * there is nothing else we can do; this is a limitation.
+> +		 */
+> +		if (netc_port_add_host_flood_rule(np, old_uc, old_mc))
+> +			dev_err(ds->dev,
+> +				"Failed to restore host flood rule on port %d\n",
+> +				port);
 > +}
-> +EXPORT_SYMBOL_GPL(netc_timer_get_current_time);
-> +
->  MODULE_DESCRIPTION("NXP NETC Timer PTP Driver");
->  MODULE_LICENSE("Dual BSD/GPL");
-> diff --git a/include/linux/fsl/netc_global.h b/include/linux/fsl/netc_global.h
-> index 5b8ff528d3699..d4a26c17f99a4 100644
-> --- a/include/linux/fsl/netc_global.h
-> +++ b/include/linux/fsl/netc_global.h
+>  
+>  static int netc_single_vlan_aware_bridge(struct dsa_switch *ds,
 
 [ ... ]
 
-> @@ -22,4 +23,13 @@ static inline u64 netc_read64(void __iomem *reg)
->  	return ioread64(reg);
->  }
+> @@ -1992,6 +2018,12 @@ static int netc_port_bridge_join(struct dsa_switch *ds, int port,
+>  	if (err)
+>  		return err;
 >  
-> +#if IS_REACHABLE(CONFIG_PTP_NETC_V4_TIMER)
-> +int netc_timer_get_current_time(struct pci_dev *pdev, u64 *ns);
-> +#else
-> +static inline int netc_timer_get_current_time(struct pci_dev *pdev, u64 *ns)
-> +{
-> +	return -ENODEV;
-> +}
-> +#endif
+> +	err = netc_port_remove_host_flood(np);
+> +	if (err) {
+> +		NL_SET_ERR_MSG_MOD(extack, "Failed to delete host flood rule");
+> +		return err;
+> +	}
 > +
->  #endif
+
+[Severity: Medium]
+This is the path that makes the stale np->ipft_hf_eid question above
+user visible: if the deletion keeps failing, bridge enslavement of that
+port fails every time, and nothing in the driver resets np->ipft_hf_eid.
+Would it be reasonable to distinguish "hardware confirmed the entry is
+still there" from "completion unknown" before deciding to keep the entry
+ID?
+
+>  	netc_port_set_mlo(np, MLO_NOT_OVERRIDE);
+>  
+>  	if (br_vlan_enabled(bridge.dev))
+
+[ ... ]
+
+> @@ -2016,6 +2046,11 @@ static int netc_port_bridge_join(struct dsa_switch *ds, int port,
+>  disable_mlo:
+>  	netc_port_set_mlo(np, MLO_DISABLE);
+>  
+> +	if (netc_port_add_host_flood_rule(np, uc, mc))
+> +		dev_err(ds->dev,
+> +			"Failed to restore host flood rule on port %u\n",
+> +			port);
+> +
+
+[Severity: Low]
+%u again for the int port argument of netc_port_bridge_join();
+netc_port_bridge_leave() prints the same value with %d.
+
+>  	return err;
+>  }
 
 -- 
 Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260831082335.1184605-1-wei.fang%40oss.nxp.com
