@@ -1,136 +1,184 @@
-Received: from sphereful.davidgow.net (sphereful.davidgow.net [203.29.242.92])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3D4A2749C1;
-	Fri,  4 Sep 2026 07:30:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.29.242.92
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D80937EFE4;
+	Fri,  4 Sep 2026 07:32:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788507057; cv=none; b=R8qfMPvtqw1qeFcSThOEQzB+D5kR6kADqOoCYyDLW2yhKG+kPhhehHhNdDPoaYMQ8v+Ua18+rV/MjbqY2h5wLo2PR7gTj7EqR4b/jPahWB3IvGvBW1szBXndOEYf+LWVC5C3vVBa5tXTo3ujT09rPXxLM0TU8c++7+4lkYdgBy4=
+	t=1788507128; cv=none; b=LoP9O0N01jzAiRgkXEaGetNr+Dc7n9h2tKyy0cJ36xV24nhofEmVfxSaB4oLgvlTBTbfxIW4R3p8+TJjwmxZQwa14o6ZaErhyCDBx8bmich71gvXt58g9CYZk2oePoGkm2iMArNQEhxCkGsMlDcM8ISP9DAh7l+GAsM3bt7q4+s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788507057; c=relaxed/simple;
-	bh=63RTdAchA4e5/HG54Wog5dnkc1w5rE+eIUmtjEyIBvI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=U/1nie/7T/8hIIkIz10OEBCLmkbLq0zv0M6boCsI9x63sOdH0rWT3hY+lkKVxF/T1ibXU5qZ4pOZRcR+Q5/s+r9j9dh5LAgYk8THO2xjxhq9BT6F8e2K1wcm6tybc+Tct9UW7RU/50MkhEsTi+AWpnaD7MMlraMQAFMyi8m1JrU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=davidgow.net; spf=pass smtp.mailfrom=davidgow.net; arc=none smtp.client-ip=203.29.242.92
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=davidgow.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=davidgow.net
-Received: by sphereful.davidgow.net (Postfix, from userid 119)
-	id 844CF20013A; Fri,  4 Sep 2026 15:30:43 +0800 (AWST)
-X-Spam-Level: 
-Received: from [IPV6:2001:8003:8802:7000::41b] (unknown [IPv6:2001:8003:8802:7000::41b])
-	by sphereful.davidgow.net (Postfix) with ESMTPSA id 6205E2000F9;
-	Fri,  4 Sep 2026 15:30:40 +0800 (AWST)
-Message-ID: <bcf1ee9b-97e5-43f9-81eb-67ac6a0a98dc@davidgow.net>
-Date: Fri, 4 Sep 2026 15:30:37 +0800
+	s=arc-20240116; t=1788507128; c=relaxed/simple;
+	bh=bVkBo0Z05i+SGG/dIbbpJdV3Jj/WQNtvdQDjSfIFbBk=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=egs097BFH0x9r4gyxbYRJrM5PtMR+/y2jb2qYA1kSjp9wOPMrkR3ONhRWVH+mpnPQV8aarJ0kvBpd0oOANHBn1A7/kau6GH2lsvuTmpYeywLcYtHCnciwCfV180JwF0z6Srf4KAXUfrTy5glGe9ibdy7ht03t6MtdNXNMWs1Luo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kOeJfiUW; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kOeJfiUW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0DE2E1F00A3E;
+	Fri,  4 Sep 2026 07:32:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788507127;
+	bh=m3ysWNSFI4l+W86GmHiSPzBC8AxmIxoztdkJrzt+nPA=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=kOeJfiUWHYKZgY3TIrbthcGawTpvHDlWNQPl+NX0AANUYFL0GYcbHQMTTDTzFDCFU
+	 dWwx773ns04RWBvF52jFEvfW5q5c0L/c0UuUlnhj2VZVY4nSo9bPmJQea93gwcTHsh
+	 /7MCUQsd3zeSWNZEODXdviRTAhzjj0G8n6q7FFyJ1Pax/XwuPn2zwfhiFJ0QRXJDn1
+	 zfHNsKILlLH5VVmuF/COVzBKo9x5Pkbk/GIYRgUfpDs0z718UlGQSpHCQRxutnRUQw
+	 yQYdiUOSoEKF5rlAQDuCMtqQupagnVg0/B0+UF61F5debnMXFRaNUOKAO3S8eMHc5j
+	 o+uA4q8Ug78qw==
+Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
+	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.98.2)
+	(envelope-from <maz@kernel.org>)
+	id 1x2OP6-00000004hDW-3dbh;
+	Fri, 04 Sep 2026 07:32:04 +0000
+Date: Fri, 04 Sep 2026 08:32:04 +0100
+Message-ID: <86o6ed4gln.wl-maz@kernel.org>
+From: Marc Zyngier <maz@kernel.org>
+To: Mark Brown <broonie@kernel.org>
+Cc: Oliver Upton <oupton@kernel.org>,
+	Fuad Tabba <fuad.tabba@linux.dev>,
+	Joey Gouly <joey.gouly@arm.com>,
+	Steffen Eiden <seiden@linux.ibm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Zenghui Yu <yuzenghui@huawei.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	linux-arm-kernel@lists.infradead.org,
+	kvmarm@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/2] KVM: arm64: Initialise TCR2_EL2 for nVHE mode
+In-Reply-To: <20260904-kvm-arm64-nvhe-pie-v1-1-29d59f245e6c@kernel.org>
+References: <20260904-kvm-arm64-nvhe-pie-v1-0-29d59f245e6c@kernel.org>
+	<20260904-kvm-arm64-nvhe-pie-v1-1-29d59f245e6c@kernel.org>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
+ FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
+ (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH wireless] wifi: mt76: mt792x: fix NULL dereference in ACPI
- SAR init during probe
-To: Devin Wittmayer <lucid_duck@justthetip.ca>, Felix Fietkau <nbd@nbd.name>,
- Lorenzo Bianconi <lorenzo@kernel.org>
-Cc: Klara Modin <klarasmodin@gmail.com>,
- Charlie-cy Wu <Charlie-cy.Wu@mediatek.com>, JB Tsai <jb.tsai@mediatek.com>,
- Sean Wang <sean.wang@mediatek.com>, Ryder Lee <ryder.lee@mediatek.com>,
- Shayne Chen <shayne.chen@mediatek.com>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- linux-wireless@vger.kernel.org, linux-mediatek@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- regressions@lists.linux.dev
-References: <20260825181712.28548-1-lucid_duck@justthetip.ca>
-Content-Language: en-US
-From: David Gow <david@davidgow.net>
-In-Reply-To: <20260825181712.28548-1-lucid_duck@justthetip.ca>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-SA-Exim-Connect-IP: 185.219.108.64
+X-SA-Exim-Rcpt-To: broonie@kernel.org, oupton@kernel.org, fuad.tabba@linux.dev, joey.gouly@arm.com, seiden@linux.ibm.com, suzuki.poulose@arm.com, yuzenghui@huawei.com, catalin.marinas@arm.com, will@kernel.org, mark.rutland@arm.com, linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev, linux-kernel@vger.kernel.org
+X-SA-Exim-Mail-From: maz@kernel.org
+X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
 
-Le 26/08/2026 à 02:17, Devin Wittmayer a écrit :
-> Some laptops carry a MediaTek power table in their firmware, and the
-> driver reads it to set a transmit limit for each frequency range. It
-> only fills in the ranges themselves when it registers the device.
+On Fri, 04 Sep 2026 00:14:41 +0100,
+Mark Brown <broonie@kernel.org> wrote:
 > 
-> The startup step that does this existed already, but it never programmed
-> anything. These two commits made it run a regulatory update instead,
-> which sets the limits on the way through, long before registration. So on
-> a machine that has the table the driver reads through an empty pointer
-> and the interface never appears:
+> We currently only configure TCR2_EL2 in VHE mode, this is done in
+> __finalise_el2 which only runs for VHE. While all systems with TCR2_EL2
+> should have VHE support users may wish to run them in nVHE mode, for
+> example in order to use protected VMs.
 > 
->    BUG: kernel NULL pointer dereference, address: 0000000000000004
->    RIP: 0010:mt792x_init_acpi_sar_power
->    Call Trace:
->     mt7921_set_tx_sar_pwr
->     mt7921_mcu_regd_update
->     mt7921_regd_update
->     mt7921_run_firmware
->     mt7921e_mcu_init
->     mt7921_init_work
+> Determine the value to load for TCR2_EL2 in C code in a similar manner to
+> TCR_EL2, further patches will configure some bits in the register. When
+> resetting back to the hypervisor stub clear all bits in the register in
+> case something without support for TCR2_EL2 runs later.
 > 
-> Skip it when the ranges are missing. They are applied again once the
-> device is up, which is where they came from before.
+> The only practical impact should be if we are started with a misconfigured
+> TCR2_EL2.
 > 
-> Reported-by: Klara Modin <klarasmodin@gmail.com>
-> Closes: https://lore.kernel.org/linux-wireless/aoyxqHYvSuaBeubf@soda.int.kasm.eu/
-> Fixes: 9b80bd9cab40 ("wifi: mt76: mt7921: add regulatory wiphy self manager support")
-> Fixes: e9f3f1cc133f ("wifi: mt76: mt7925: add regulatory wiphy self manager support")
-> Signed-off-by: Devin Wittmayer <lucid_duck@justthetip.ca>
+> Signed-off-by: Mark Brown <broonie@kernel.org>
 > ---
-
-I can also confirm that this fixes the same NULL pointer dereference in 
-7.3-rc1 here, also on a Framework 13 (Ryzen 7040):
-
-BUG: kernel NULL pointer dereference, address: 0000000000000004
-#PF: supervisor read access in kernel mode
-#PF: error_code(0x0000) - not-present page
-PGD 0 P4D 0
-Oops: Oops: 0000 [#1] SMP NOPTI
-CPU: 10 UID: 0 PID: 149 Comm: kworker/10:1 Tainted: G            E 
-7.3.0-rc1-sulix+ #15 PREEMPT(full)  b7f05cce278af6607ac2dcae2fd785935bbe0dc6
-Hardware name: Framework Laptop 13 (AMD Ryzen 7040Series)/FRANMDCP07, 
-BIOS 03.05 03/29/2024
-Workqueue: events mt7921_init_work [mt7921_common]
-RIP: 0010:mt792x_init_acpi_sar_power+0x40/0x1ed [mt792x_lib]
-(...)
-
-
-Tested-by: David Gow <david@davidgow.net>
-
-Thanks,
--- David
-
-
+>  arch/arm64/include/asm/kvm_asm.h   |  1 +
+>  arch/arm64/kernel/asm-offsets.c    |  1 +
+>  arch/arm64/kvm/arm.c               |  5 ++++-
+>  arch/arm64/kvm/hyp/nvhe/hyp-init.S | 18 ++++++++++++++++--
+>  4 files changed, 22 insertions(+), 3 deletions(-)
 > 
-> Reproduced on both chips before sending, an MT7922 and an MT7925, and the
-> fix clears both. Neither machine here ships a vendor power table, so I
-> supplied one through an ACPI override in the initrd. It also wants recent
-> firmware. The June builds do not turn on self-managed regulatory and
-> nothing happens; the builds now in linux-firmware do, and then it dies
-> exactly as reported with no interface at all. Patched, both come up and
-> scan normally, and the injected limits still show through in the power
-> table afterwards, so the skip does not lose them.
-> 
-> With that table still in place and the fix absent, backing out the mt7921
-> commit on its own also boots clean, so the table is not what causes this.
-> 
->   drivers/net/wireless/mediatek/mt76/mt792x_acpi_sar.c | 3 ++-
->   1 file changed, 2 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/net/wireless/mediatek/mt76/mt792x_acpi_sar.c b/drivers/net/wireless/mediatek/mt76/mt792x_acpi_sar.c
-> index 946dd7956e4a..b468051fbe68 100644
-> --- a/drivers/net/wireless/mediatek/mt76/mt792x_acpi_sar.c
-> +++ b/drivers/net/wireless/mediatek/mt76/mt792x_acpi_sar.c
-> @@ -323,7 +323,8 @@ int mt792x_init_acpi_sar_power(struct mt792x_phy *phy, bool set_default)
->   	const struct cfg80211_sar_capa *capa = phy->mt76->hw->wiphy->sar_capa;
->   	int i;
->   
-> -	if (!phy->acpisar || !((struct mt792x_acpi_sar *)phy->acpisar)->dyn)
-> +	if (!capa || !phy->acpisar ||
-> +	    !((struct mt792x_acpi_sar *)phy->acpisar)->dyn)
->   		return 0;
->   
->   	/* When ACPI SAR enabled in HW, we should apply rules for .frp
+> diff --git a/arch/arm64/include/asm/kvm_asm.h b/arch/arm64/include/asm/kvm_asm.h
+> index e5b92ac09e69..eb796436d6eb 100644
+> --- a/arch/arm64/include/asm/kvm_asm.h
+> +++ b/arch/arm64/include/asm/kvm_asm.h
+> @@ -208,6 +208,7 @@ extern void *__vhe_undefined_symbol;
+>  struct kvm_nvhe_init_params {
+>  	unsigned long mair_el2;
+>  	unsigned long tcr_el2;
+> +	unsigned long tcr2_el2;
+>  	unsigned long tpidr_el2;
+>  	unsigned long stack_hyp_va;
+>  	unsigned long stack_pa;
+> diff --git a/arch/arm64/kernel/asm-offsets.c b/arch/arm64/kernel/asm-offsets.c
+> index 9c853ed3ceab..baffe58015d6 100644
+> --- a/arch/arm64/kernel/asm-offsets.c
+> +++ b/arch/arm64/kernel/asm-offsets.c
+> @@ -118,6 +118,7 @@ int main(void)
+>    DEFINE(HOST_DATA_CONTEXT,	offsetof(struct kvm_host_data, host_ctxt));
+>    DEFINE(NVHE_INIT_MAIR_EL2,	offsetof(struct kvm_nvhe_init_params, mair_el2));
+>    DEFINE(NVHE_INIT_TCR_EL2,	offsetof(struct kvm_nvhe_init_params, tcr_el2));
+> +  DEFINE(NVHE_INIT_TCR2_EL2,	offsetof(struct kvm_nvhe_init_params, tcr2_el2));
+>    DEFINE(NVHE_INIT_TPIDR_EL2,	offsetof(struct kvm_nvhe_init_params, tpidr_el2));
+>    DEFINE(NVHE_INIT_STACK_HYP_VA,	offsetof(struct kvm_nvhe_init_params, stack_hyp_va));
+>    DEFINE(NVHE_INIT_PGD_PA,	offsetof(struct kvm_nvhe_init_params, pgd_pa));
+> diff --git a/arch/arm64/kvm/arm.c b/arch/arm64/kvm/arm.c
+> index 8b080804bc90..88eb0459ad4b 100644
+> --- a/arch/arm64/kvm/arm.c
+> +++ b/arch/arm64/kvm/arm.c
+> @@ -2158,7 +2158,7 @@ static int kvm_init_vector_slots(void)
+>  static void __init cpu_prepare_hyp_mode(int cpu, u32 hyp_va_bits)
+>  {
+>  	struct kvm_nvhe_init_params *params = per_cpu_ptr_nvhe_sym(kvm_init_params, cpu);
+> -	unsigned long tcr;
+> +	unsigned long tcr, tcr2;
+>  
+>  	/*
+>  	 * Calculate the raw per-cpu offset without a translation from the
+> @@ -2186,6 +2186,9 @@ static void __init cpu_prepare_hyp_mode(int cpu, u32 hyp_va_bits)
+>  	tcr |= TCR_T0SZ(hyp_va_bits);
+>  	params->tcr_el2 = tcr;
+>  
+> +	tcr2 = 0;
+> +	params->tcr2_el2 = tcr2;
+> +
+>  	params->pgd_pa = kvm_mmu_get_httbr();
+>  	if (is_protected_kvm_enabled())
+>  		params->hcr_el2 = HCR_HOST_NVHE_PROTECTED_FLAGS;
+> diff --git a/arch/arm64/kvm/hyp/nvhe/hyp-init.S b/arch/arm64/kvm/hyp/nvhe/hyp-init.S
+> index 0b3e0b28dfc7..a39de9c20d27 100644
+> --- a/arch/arm64/kvm/hyp/nvhe/hyp-init.S
+> +++ b/arch/arm64/kvm/hyp/nvhe/hyp-init.S
+> @@ -137,8 +137,13 @@ alternative_if ARM64_HAS_CNP
+>  alternative_else_nop_endif
+>  	msr	ttbr0_el2, x2
+>  
+> -	ldr	x0, [x0, #NVHE_INIT_TCR_EL2]
+> -	msr	tcr_el2, x0
+> +	ldr	x1, [x0, #NVHE_INIT_TCR_EL2]
+> +	msr	tcr_el2, x1
+> +
+> +alternative_if ARM64_HAS_TCR2
+> +	ldr	x1, [x0, #NVHE_INIT_TCR2_EL2]
+> +	msr	REG_TCR2_EL2, x1
+> +alternative_else_nop_endif
+>  
+>  	isb
+>  
+> @@ -250,6 +255,15 @@ reset:
+>  	mov_q	x5, INIT_SCTLR_EL2_MMU_OFF
+>  	pre_disable_mmu_workaround
+>  	msr	sctlr_el2, x5
+> +
+> +alternative_if ARM64_HAS_TCR2
+> +	/*
+> +	 * Disable any features we enabled in case the next user doesn't
+> +	 * have TCR2_EL2 support.
+> +	 */
+> +	msr	REG_TCR2_EL2, xzr
+> +alternative_else_nop_endif
+> +
 
+I don't see the point of this. The MMU is off, and if the next piece
+of SW can't correctly initialise the HW, that's its problem.
+
+And with this hunk gone, the rest should be moved to the following
+patch.
+
+	M.
+
+-- 
+Without deviation from the norm, progress is not possible.
