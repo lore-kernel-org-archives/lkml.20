@@ -1,118 +1,82 @@
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AFC2479877
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 10:58:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FCB74A441C;
+	Fri,  4 Sep 2026 10:58:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788519486; cv=none; b=uplTpNCE5iSSndaoWNPlzuGHiTGJ8W+zZkwiHQO41I7tUoNyoy2g7UvmDq6EXEHrOMrX5oxdDdlpn8dEcKc5TGui8PSzRhgfI2LVDVH3qBYYxY3QI+eB4ZdZO5LiVFbqwLQTZnpmkHHzt11vtW86jaVmvqJuVlnyB8kP8KBwtjs=
+	t=1788519488; cv=none; b=kDJoIu9D6TIhiV2v9+Z/eK80kl/gW5TfuFcVy6W25riYW6WTFE+06Oyj+2jscRA54QSL/nPTVi505UEklCS6vWV/CdUvoyHkuq3rCudd770YiR/aTpTsZbQVJqrT9pIl8rr837scmDZ1NNYJX8Bf1Ry3xFWnP8MiPiBCin7kMF8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788519486; c=relaxed/simple;
-	bh=VyW2ykj9ZSbRZsQBva5UnSiRQDPGAYdsViwT7RG+g7Q=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ecE53KtR+k8jHTPLF3odyhNdzu8kp+CPz+4tuBs7b32eglmgQ3T2Cx+NxZN6//7NgFvSSCb7NAN+4vK/nJQwH/JMxDBZpGWpkB1in6XbV+4XnMRBpNvS9mTgg3uVI77ptht5aH0qdXNC1zWMyeW0Pk35m0GTJa0ePpV+Q7+3hl8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=W9nDS3yF; arc=none smtp.client-ip=209.85.128.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788519488; c=relaxed/simple;
+	bh=WAu37Wf9tMkWpoYzMfRhp+AkaKn9p9AEbTWk1OVWxNI=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=D+aES2U8g06p+T6LgpiEClya1Dn286P7fduRKSIHHzvy4F/+5f5Wuxxot9LVRVcF2zjZ7H8/THzL7mccBrPRpP/qVelttyjRYkoFbWkYseM/rYamgD6kD2JCVx9GaY/7gEwGe5NHyaGwgDQ9HX3yQU8G62bT2cAC5iv1MKZlvGk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ym5Jg6zg; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="W9nDS3yF"
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-49b0d8bc2aaso10039765e9.0
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 03:58:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788519483; x=1789124283; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=CUmW5DxVfT5IVMC+lGWdgosH/c2kEie81AvMEOjhwIM=;
-        b=W9nDS3yFuA54xrk14jzLPrCGsJad+5K9rtiOilvvWV4hFJU4Wd04y5nNZHVPdM6rcW
-         LYgAiStgWQ4vWdSoTXiMlXRZfpBKaWYy/iGegCCxEdJfOJ6lqn/kDHg+ikzl8hKFQ/LX
-         5IbSQziN76ogl7Z5i9ASzO39tKua5sAmTCKdrVaX39qSRIxw80pGMQXee9jzZxTDjvII
-         akS+9CMAz5N+kvx36g65wdq+g8mGsks/F70gytrZx5n1LhK1BpdVZl6MG8wusHZaqZjr
-         yu6ySe5tV5LQXa1OiVzJ3fVPdgPedhXYRLoPMS+KRxWEUMNksZ10TRV8N9o48gC9pngF
-         K3vw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788519483; x=1789124283;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=CUmW5DxVfT5IVMC+lGWdgosH/c2kEie81AvMEOjhwIM=;
-        b=U7ssk1J9yL8kRf3KdLTjOlnAQvJmCOnzk2Ftm17ifPmfm20KMBIzeYQOlpyQtdZgyV
-         ecTrrpaum/ncaegMRoAYgj/l11Nx6zsz7aDgcnyYszerJtsVqUFRXCO6g/6/OirHjT48
-         hdeUMz8t3JrWUD80nTHPbPYAWHq2PQF67n6tdpUjijjABaURLS252N/1kCWkrZkegBLu
-         auDzYeGfICBGfiu+bSrsToZlA+2mpo7hjJwaVSZL7JY+TVL+zTvhLa3p9R9aCGI5x/1q
-         w41nkyYXhESnx8cbGFwURSSyUnGktv9/xwvWsI+fu3Vjsn9dbCnC1oxH4p/UdHXb0huR
-         8ugQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzLrN2sGziRoImRl4Et5aEWNqxD0BYSTabrFICam6U23uFRO/LKQ+4iyXKl0FcK7O06q/bbBqZ4u1GForI=@vger.kernel.org
-X-Gm-Message-State: AFuF++m2nb3TZtAN0VzceL/t6LV4YP0no+awrm8E44csp0e/F4zHEP8o
-	U0u09Ygqr89wosu89Afqb8qhW4CuJf4XFPiYtwE1RqTlP452I2/Z2hE=
-X-Gm-Gg: AYBFou1T02DSgHEmRy5XZrd6ThFsewF/CR6ZTgvsmKDC/lFiknbyo/ionmZAgcOhJxV
-	R3rUW+NW+y8wGxM3wTJyKvWIBJc6w0CV5VPW7FUP57VuGoA1IiOsWfZ6khTgw7EmnASeuqkEyvP
-	C8h32mUJ/5cSOA98ymTB1RNEWQ6LPmKBN0LCy5kLBjflnYA0nCGGIOzoi78bZgThPg6eDw7oLoA
-	ZDRor2MyD3vBxwPAdKmPgfOG9ob7zRDC5KE1VvcbzvjR9fkQp3xLPg/yvWwp7t2eVoE2l9YJdHB
-	ecmWSm7AGbfmxX7LKK1KIHI9bz7I0z/PVh/fjgA4dU8dwNaUoBaV7BMlYhz3tlnr+4u5Sp3BsL/
-	mynM5Rm3Cf/ETI+WsqwJ7TcdBFMvuBqrvhVNSygikZSDPltg5i0l+vFjCTeyq15ohM2draONXyJ
-	8IV8GILz8tguI6Nv/iJyUTlIyu5yyT1Q==
-X-Received: by 2002:a05:600c:c173:b0:49c:fc6c:be18 with SMTP id 5b1f17b1804b1-49cfc6cc0b8mr24611455e9.30.1788519483362;
-        Fri, 04 Sep 2026 03:58:03 -0700 (PDT)
-Received: from debian.. ([2001:41d0:303:db6b::])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ce4761dd1sm134023135e9.0.2026.09.04.03.58.01
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 04 Sep 2026 03:58:02 -0700 (PDT)
-From: Tristan Madani <tristmd@gmail.com>
-To: "Derek J . Clark" <derekjohn.clark@gmail.com>,
-	Jiri Kosina <jikos@kernel.org>,
-	Benjamin Tissoires <bentiss@kernel.org>
-Cc: linux-input@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Tristan Madani <tristan@talencesecurity.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] HID: hid-oxp: use cancel_delayed_work_sync() in remove
-Date: Fri,  4 Sep 2026 10:58:00 +0000
-Message-ID: <20260904105800.3923987-1-tristmd@gmail.com>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ym5Jg6zg"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 06D251F00A3F;
+	Fri,  4 Sep 2026 10:58:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788519486;
+	bh=Bp0VHA1PwQw/uqdYstlZ0IWSYQFCuHVceyAYmCy4GKg=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=Ym5Jg6zgWavoQEPClP1C+O17d6qWP5qW6Nr0PodZGUnBoVGoqZd4pcFMOH+2hxrkh
+	 XkpmGoyf9jMKNpbOAEDzhopPZFTi9XmJHAtnrbnSgaM5pNLr90DvPns3KD1aBvD7+G
+	 rsXZR0xdZeVbUA84vx2ETzSX8ZcxV8lACHjirPOXyaQp8AlhmDTxr2v4LwqtMUHchS
+	 0mS+JpSSOhdeIX8zlJSXo16go/4jPqmRKvapXecFhcOkZL46ohHimhM5odiFjfw8a6
+	 kQSkS0gXxQmKjIw7S5M16AmNeBkU98BxsP6+vpy/AomQE9XyDkC1gJmEK5ZH5OvO/U
+	 mle2oekg4jVUA==
+From: Christian Brauner <brauner@kernel.org>
+To: linux-fsdevel@vger.kernel.org, viro@zeniv.linux.org.uk, 
+ Tao Cui <cui.tao@linux.dev>
+Cc: jack@suse.cz, gregkh@linuxfoundation.org, linux-kernel@vger.kernel.org, 
+ lxc-devel@lists.linuxcontainers.org, Tao Cui <cuitao@kylinos.cn>
+In-Reply-To: <20260903033625.1042796-1-cui.tao@linux.dev>
+References: <20260903033625.1042796-1-cui.tao@linux.dev>
+Subject: Re: [PATCH] devpts: reject max=0 instead of silently lifting the
+ limit
+Message-Id: <20260904-umgedeutet-gegossen-narzissen-bbf3fc243694@brauner>
+Date: Fri, 04 Sep 2026 12:57:50 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.17-dev-db0b7
+X-Developer-Signature: v=1; a=openpgp-sha256; l=937; i=brauner@kernel.org;
+ h=from:subject:message-id; bh=WAu37Wf9tMkWpoYzMfRhp+AkaKn9p9AEbTWk1OVWxNI=;
+ b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWTNWmJ99dpah7B33Ul3/jDmLNldwed0QJrp5s5a40+PD
+ r+0VFa52lHKwiDGxSArpsji0G4SLrecp2KzUaYGzBxWJpAhDFycAjCRnGcM/93fvBdh/72CJf6g
+ ysfZp+4sF9ERfXHVnueCuPb1wGn7az0Y/kr1S1TvvP1961/TjrzDKqGl/gtLVPZyMNewbgtd2r3
+ SngsA
+X-Developer-Key: i=brauner@kernel.org; a=openpgp;
+ fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
 
-From: Tristan Madani <tristan@talencesecurity.com>
+On Thu, 03 Sep 2026 11:36:25 +0800, Tao Cui wrote:
+> devpts: reject max=0 instead of silently lifting the limit
 
-oxp_hid_remove() uses cancel_delayed_work() for all three delayed work
-items.  cancel_delayed_work() only dequeues a pending work item without
-waiting for a currently executing callback to finish.  If any of the
-work callbacks (oxp_rgb_queue_fn, oxp_btn_queue_fn, oxp_mcu_init_fn) is
-running at the time of removal, the callback continues executing
-concurrently with hid_hw_close() and hid_hw_stop(), accessing the HID
-device after it has been closed and stopped.
+I'll figure out the Fixes tag.
 
-Use cancel_delayed_work_sync() instead to ensure that any in-progress
-work callback completes before device teardown proceeds.
-
-Fixes: 84910c459d65 ("HID: hid-oxp: Add OneXPlayer configuration driver")
-Cc: stable@vger.kernel.org
-Signed-off-by: Tristan Madani <tristan@talencesecurity.com>
 ---
- drivers/hid/hid-oxp.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/hid/hid-oxp.c b/drivers/hid/hid-oxp.c
-index d2ded6b08ce9e..1e691ebc1199e 100644
---- a/drivers/hid/hid-oxp.c
-+++ b/drivers/hid/hid-oxp.c
-@@ -1552,9 +1552,9 @@ static int oxp_hid_probe(struct hid_device *hdev,
- 
- static void oxp_hid_remove(struct hid_device *hdev)
- {
--	cancel_delayed_work(&drvdata.oxp_rgb_queue);
--	cancel_delayed_work(&drvdata.oxp_btn_queue);
--	cancel_delayed_work(&drvdata.oxp_mcu_init);
-+	cancel_delayed_work_sync(&drvdata.oxp_rgb_queue);
-+	cancel_delayed_work_sync(&drvdata.oxp_btn_queue);
-+	cancel_delayed_work_sync(&drvdata.oxp_mcu_init);
- 	hid_hw_close(hdev);
- 	hid_hw_stop(hdev);
- }
--- 
-2.47.3
+Applied to the vfs-7.4.misc branch of the vfs/vfs.git tree.
+Patches in the vfs-7.4.misc branch should appear in linux-next soon.
+
+Please report any outstanding bugs that were missed during review in a
+new review to the original patch series allowing us to drop it.
+
+It's encouraged to provide Acked-bys and Reviewed-bys even though the
+patch has now been applied. If possible patch trailers will be updated.
+
+Note that commit hashes shown below are subject to change due to rebase,
+trailer updates or similar. If in doubt, please check the listed branch.
+
+tree:   https://git.kernel.org/pub/scm/linux/kernel/git/vfs/vfs.git
+branch: vfs-7.4.misc
+
+[1/1] devpts: reject max=0 instead of silently lifting the limit
+      https://git.kernel.org/vfs/vfs/c/7d1d1a34d29c
 
