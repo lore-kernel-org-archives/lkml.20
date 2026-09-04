@@ -1,75 +1,80 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail-244106.protonmail.ch (mail-244106.protonmail.ch [109.224.244.106])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D5B51B652E;
-	Fri,  4 Sep 2026 07:50:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB3582F5324;
+	Fri,  4 Sep 2026 07:50:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.106
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788508237; cv=none; b=XYVc3tcRuMw4is0LkvRwYEtQwcsHMqexP+PT+gr+O3DhUc8Wh9j0M4lMa++1BJQ9XSSY0cN0/fM/VmT4ONRkASC+HPCXGyvcuxy+u2MVHEv5C+3U6+M6Ds/5U+0ulVEdZbCWj0Y8m5ez5Gye+gF25h4Ui3Hu8evmsqFOUiOTYOk=
+	t=1788508246; cv=none; b=rDz083OBsyQONXUzV8wKwxqZWhDEZRfd8uyU+Iwv5hu0D1v4mt+tMJBI9CBzSms7FzO5lz0IdifaLaA8u7KRyYhwiYUkDp4XJItuWjp5AF8+ZibNhComrzzVZAN6HqQkFRIpYRyLvk6LV+knCfTMMg1XPKmK1b70ib9rlNYFzyw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788508237; c=relaxed/simple;
-	bh=maFN79B4UiNTNUcUR3QWi+OBdUrAcheaYp42ki0ovmM=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=gmVSvR7oIncB3G8eeXnaSOYFdU7Qk+YbA9qa3dyDXeMmo8DBNZsvSDwJKLl/h1XOx8PMiKF0gSm+22GWKyVQFv54mTzCT74JDWNjWIOKDN0m2/5HGPDGKXzagZLvCyUiiPiDbknhtsEmstwTPjzHQgHgp/U4V5Plsr9Blc0x+Fw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fd4MZmqE; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788508246; c=relaxed/simple;
+	bh=AuFq6vj0HWfBeQdPH6e56xHar3EgB7CDEn3y8Z7NVAA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=rTPhaWvO/kWLULHY4RH837CsIq9g7pxQJzrl4VLLhsN7BtYzeqvxr84tQM+bdP2A0T0lS6d45AcJQtNh8GRDlM9mo4TcbjYgrkoGC4AYkMomHPWCUK3Ih+wiheSzrrbqNIV6i9m1drvlLAtZKVsZ7HaPvz2i/Ye6dgmgz1KCc0o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=onurozkan.dev; spf=pass smtp.mailfrom=onurozkan.dev; dkim=pass (2048-bit key) header.d=onurozkan.dev header.i=@onurozkan.dev header.b=UKz29b/k; arc=none smtp.client-ip=109.224.244.106
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=onurozkan.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=onurozkan.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fd4MZmqE"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0A8CE1F00A3D;
-	Fri,  4 Sep 2026 07:50:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788508236;
-	bh=y9QnPABxRulC3VVKPDMatVPFU5510laiI9b7bfUp2OU=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=fd4MZmqED+wqifzc8YGn3rfQmFbWJJsNcl9i7XwZ+dimxFlhrRfRQVLZJkmRFByJH
-	 EIzVt9AW4fK8W52eLlYrWQGebC7Jo8V43MW+Msz9M1+3QMbQyuyk0MRzjBd855fhlT
-	 7ljcViG+8bFAf2ueUQ/s+xMTwfAnYdrTPigrO6Nz6G4SjdmSg/NYNEHyfBdDb3OL7t
-	 7mU8V4Xxq4s86bZomxpOSrSTXVTER8mGGpVK3aTAUnZKAtQbU/VdE9vkleIhC0/jMx
-	 UUDZ0HKLjoBEPw0q/5Ejj0I8MYNLwjY9IAXgQnSY1L2Lzng2WS19cBmNLvcsKrmsCH
-	 v4rJxW21J9lZw==
-From: Christian Brauner <brauner@kernel.org>
-To: Shuah Khan <shuah@kernel.org>, Paul Dolan <paul.dolan.dev@gmail.com>
-Cc: Luca Boccassi <luca.boccassi@gmail.com>, linux-kernel@vger.kernel.org, 
- linux-kselftest@vger.kernel.org
-In-Reply-To: <20260902162615.11531-1-paul.dolan.dev@gmail.com>
-References: <20260902162615.11531-1-paul.dolan.dev@gmail.com>
-Subject: Re: [PATCH] selftests/pidfd: fix PPID values in error message
-Message-Id: <20260904-freuen-verrohen-zeigen-5af4629d9beb@brauner>
-Date: Fri, 04 Sep 2026 09:50:33 +0200
+	dkim=pass (2048-bit key) header.d=onurozkan.dev header.i=@onurozkan.dev header.b="UKz29b/k"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=onurozkan.dev;
+	s=protonmail; t=1788508231; x=1788767431;
+	bh=DP+KKxO1Vk/CrsOb5gTvjJM/pwYjU0AI9zSslb0hys0=;
+	h=From:To:Cc:Subject:Date:Message-ID:From:To:Cc:Date:Subject:
+	 Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=UKz29b/kGuBfJTYVOvLdhIStW6l+ePOcfwc3J4WcZ4TdG4t7KMdKLy9/BYLs+HTei
+	 NxdNiZtqgkjAp79AgsDhrIuKI0v4wi6N62WdVvGnGC3mHJWChYV/cETv5cVzCoG2A6
+	 7ok8hBpzaALlIBdo9zGudBAn0INP+4PbaGjGtQFt6h9PMkDCfnz/ESVw21pkP5wDkx
+	 eoPNCDxM8B71XiC6xZUM0KLbQMZm9SHrvD7rJDOscEaHNSIijc5TXoB3tNAvEbDFyN
+	 Ykklxr/JPJ8aphY+jaWwt6olDq4jSIdwrahlT8yC6Ev0RWLvHZ7M961t7ThNgVy2wM
+	 kYSpNdI1b3eGQ==
+X-Pm-Submission-Id: 4hbpY21JXNz2ScNZ
+From: =?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>
+To: linux-clk@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: mturquette@baylibre.com,
+	sboyd@kernel.org,
+	bmasney@redhat.com,
+	=?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>
+Subject: [PATCH] clk: devres: make clock cleanup explicit on failure
+Date: Fri,  4 Sep 2026 10:50:16 +0300
+Message-ID: <20260904075026.60793-1-work@onurozkan.dev>
+X-Mailer: git-send-email 2.51.2
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.17-dev-db0b7
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Wed, 02 Sep 2026 17:26:15 +0100, Paul Dolan wrote:
-> The PIDFD_GET_INFO PPID check compares info.ppid against getppid(), but
-> its failure message prints pid and info.pid from the preceding PID
-> check.
-> 
-> Print the PPID values being compared so that a failure reports the
-> correct information.
-> 
-> [...]
+Use devm_add_action() and explicitly disable and unprepare the clock if
+registering the action fails to avoid smatch warning.
 
-Applied to the vfs-7.4.misc branch of the vfs/vfs.git tree.
-Patches in the vfs-7.4.misc branch should appear in linux-next soon.
+Link: https://lore.kernel.org/all/apmUPdYtdIM0dQbF@redhat.com
+Closes: https://lore.kernel.org/r/202608090025.dwxdfqFr-lkp@intel.com
+Signed-off-by: Onur Özkan <work@onurozkan.dev>
+---
+ drivers/clk/clk-devres.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-Please report any outstanding bugs that were missed during review in a
-new review to the original patch series allowing us to drop it.
-
-It's encouraged to provide Acked-bys and Reviewed-bys even though the
-patch has now been applied. If possible patch trailers will be updated.
-
-Note that commit hashes shown below are subject to change due to rebase,
-trailer updates or similar. If in doubt, please check the listed branch.
-
-tree:   https://git.kernel.org/pub/scm/linux/kernel/git/vfs/vfs.git
-branch: vfs-7.4.misc
-
-[1/1] selftests/pidfd: fix PPID values in error message
-      https://git.kernel.org/vfs/vfs/c/b4ad6eb49532
+diff --git a/drivers/clk/clk-devres.c b/drivers/clk/clk-devres.c
+index 4cc3863bd7da..9ed9a7b7b23f 100644
+--- a/drivers/clk/clk-devres.c
++++ b/drivers/clk/clk-devres.c
+@@ -123,9 +123,11 @@ struct clk *devm_clk_get_optional_enabled_with_rate(struct device *dev,
+ 	if (ret)
+ 		goto out_put_clk;
+ 
+-	ret = devm_add_action_or_reset(dev, devm_clk_disable_unprepare, clk);
+-	if (ret)
++	ret = devm_add_action(dev, devm_clk_disable_unprepare, clk);
++	if (ret) {
++		clk_disable_unprepare(clk);
+ 		goto out_put_clk;
++	}
+ 
+ 	return clk;
+ 
+-- 
+2.51.2
 
