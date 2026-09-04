@@ -1,162 +1,72 @@
-Received: from mail-oi1-f176.google.com (mail-oi1-f176.google.com [209.85.167.176])
+Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35B9150EC1E
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 16:53:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.176
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5948C4F4750
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 16:54:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.71
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788540834; cv=none; b=K6JgvGTow51Gf9e0MwvT3OvKjN740TLHH2CdxFnSjOwssuouzAVXAMDGk0alJRVMO+8xGiwPV6tMXoUd1tfI74cAQiVoPc28BsrBytdN6c8+7pnjLUwoo89aY/dzykn7Mn7y1AluJP+ZKLorLZvXd8L08+GB4sSQnEPkiYdWXKk=
+	t=1788540878; cv=none; b=MHWJ/9xecSCpzZc6D6+RXJp4tUtmN9Sevn0R0QoE3laffCmCa0GPyFWkzxksMMgaex3XJBiQr69Oflat0aWbtBwl6bkPiDpaq7CYMJY5lpf8ScV4jh8raUUaliC0nczxpECR0c3+pHiZkQT1GG+76ANZ2MxfWF0EYV8CacMUSe0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788540834; c=relaxed/simple;
-	bh=jrLA1hMmJiDiFTE6kwXFV+kgvwulbwMr/rieU6zsl18=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Qylau7mQ78uA/GWoqfHSiP7fD+JcI8/DzAv8tjssTaYE+4JGo18VtVi146upxKBHyXcx46ZfRL3j0P8g4wMiBjTe0haDD2u7xagrVNFSV4KQ/DiB7Wmesai7SO1L1Go7NJi7QKPCK3lkaGSaPS0KTIygyNDfisU5IUxSlRWb4eI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mjcil/4j; arc=none smtp.client-ip=209.85.167.176
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788540878; c=relaxed/simple;
+	bh=PCsXRN8ULrTJKxNH5lxZIzZybr6uVzEfHw0QUb7L+Q0=;
+	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=CFtUB6LA/hNiqo2xqODL0ioNMUR7+CqssW8OGxwak+eLe+rguxz2Ts5sCRscx0vhbX1tNCfBsoD3da9wsDgDzQ6uczreY5T6uO6TMlA0Gxxd0M3vbXX9O6+Fd+bYRRMXZz7Y5SU2vAHye0zQ7qXG4FQ5ht2znPL44R4r3aeEBC0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=L76MPVMS; arc=none smtp.client-ip=209.85.216.71
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mjcil/4j"
-Received: by mail-oi1-f176.google.com with SMTP id 5614622812f47-4b3b1b3b992so802839b6e.1
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 09:53:53 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="L76MPVMS"
+Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-38ecc48b3c2so1888844a91.1
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 09:54:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788540832; x=1789145632; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=0Daql0pFyC4jJPjBVxDEnT2CRdATPbJ2eNQ+01EFAvg=;
-        b=mjcil/4jAQVJNDg7eP6DpYj/ttGRFS6H1tXDTxOdE13Hf2mdMF1c0xtRIun+vwM+Jv
-         1n18Yy6m4hVDLsucFdIfhEOEdAtFd2/9qZ3ow2w1fisjOhbze3HYeC8tZ+yNwjItFeNN
-         qzKoqoAlYX724+/TcOCyObebbLt0/RpaUImsOmMBfyUJTNvbaJYE8mRws1V4klid6wYp
-         w8mTRXTLkGS4AJI1in1PJqaHQgzmF8bGbCFcpjweompJjg4NnpwpML6u834CSPBMuQDq
-         96qiECQrNkzsoNb0bsnLNyLg3P54yAuvFxX6HLLSI4WX3rgVn66EDSXsl1eRmfkDxRNa
-         3xqQ==
+        d=google.com; s=20251104; t=1788540877; x=1789145677; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :reply-to:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=PCsXRN8ULrTJKxNH5lxZIzZybr6uVzEfHw0QUb7L+Q0=;
+        b=L76MPVMSaWd7vx9BCwVbzprxdx3i8FSOYsCYMActeOGJ7N2LP3P6S23jBNU5OSxf1L
+         LLcJygjObrydXrSlVrHewbB0br56CQOQPUkNSnjykZ62knK+q0x50CTzXDPIoJBqlE+j
+         qW1JmTwzEgq8hTqeDBqlDe9G7VInGnHgh9N5gaa4mNJW5vSWNF4rpPEqGZxI2PM3RyL0
+         PfLHb1ZdcExSAiWDeaEvqXH3jH4hsXTFAOu4tneWHxrcW8/X93MQlxINUspAE3mEBFcQ
+         7VL0EyLDCNLOYBHnDi8OScB1AKsJOYQRsq9RICCq9HYqWuC19jGZO099+PXyvzXAEISX
+         iY7g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788540832; x=1789145632;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=0Daql0pFyC4jJPjBVxDEnT2CRdATPbJ2eNQ+01EFAvg=;
-        b=j+X4IeJ+vRs6+zJLv5NnOjcILtKsgHG/NJ7KUCsi+cp4oYwR9whwCJpvqzw9+8TeAC
-         aFtjBUnHahAAKMgxExyM28mjS8fr8YiY2D7fPwUa3wwuKSowMuU54Vd+GAZgKI9yf1uW
-         ZvTqhxFFDri3UqGzdlTBY3GDPCfQgs9ftlwQVI9Uz0tRxxl9tmAtJo1arWGSc95lJxQg
-         /KzHUcVdl2xPHiM7h/2ekvU4JzNUjlbfNm45KAoMuXZgtpH3aCWjUnxaFjYb9XVyrXpT
-         ytExAhoEdZVdJlDsDTIDDqob7B57Fc7BYTTp2866jrZ0kXfON72S/uGZPhd4T+SFRnNO
-         xUFA==
-X-Forwarded-Encrypted: i=1; AKwUvBxwgPI0dFVAjeOml5O3aHhRgSTPSYEU8y5Exs+H2zE/gRhYvpsX2T0H6hB7oiMsik69nPAauL+uNHcngXA=@vger.kernel.org
-X-Gm-Message-State: AFuF++mFxVSWaRY2i6KuYbeIXdiPV4bv0dyUvf9KaNcc5yW4jw63+i9f
-	GCrb41TJIRKSt+pSxtFfTcgfqCC3IV6IKHejq2hqPW+bRlXWWpeXSB+N
-X-Gm-Gg: AYBFou1lzxfN8hbmUh0+Zp14xav6EF8HRx5RjPD8Xew4wncyQ6nJk/u7n0zXxKVg+Mv
-	+AJMJ2k1mIQaqc625xBg8xrspG5cwZ8j8s23Dk+jtkhDfHXshZ5gnTJsPbYVaP26Ocwb+AzHJU+
-	W1rS92hY69y4c0ZrLseuJf1hGHkoBIfYjjstL82J18wJEn3GUr+yWBvVbl4K1X/FkGFfLlPH1Fi
-	+Y2rlslSXrmaXLAPccldIpRKUd0xjxcbe9+Cqcih1whoQ3NzxO1T1clCJghyQxs/FlK8u7RYb33
-	3elSwjyqClbJ6wWRaxIb3xJS09cIrTkvyGgT5At4HZeLEeuz6w9971Uxqb1KNBeJmT2lT18fpoK
-	FNQZtc5ym0TiPfiZ+FpndpCNSVIQGAkfGuw69+sZ7j/i1JkCgz7oFnh7UxcXX0OyiSnaGwNu+Z+
-	rSYIGVIZkXXEXjRe1IHodnnsqZyveto+i9YQbfSgviAFmyrKPSodxikFHu1KyW+8y6bkXZRZSVr
-	jTuXFXLoel7KUU/vJ0=
-X-Received: by 2002:a05:6808:2222:b0:4b9:e5fa:8a1b with SMTP id 5614622812f47-4b9e5fa8e8cmr3156448b6e.32.1788540831911;
-        Fri, 04 Sep 2026 09:53:51 -0700 (PDT)
-Received: from localhost ([2a03:2880:10ff:5a::])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-4b97167bd69sm2864168b6e.13.2026.09.04.09.53.51
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 04 Sep 2026 09:53:51 -0700 (PDT)
-From: Joshua Hahn <joshua.hahnjy@gmail.com>
-To: Joshua Hahn <joshua.hahnjy@gmail.com>
-Cc: hannes@cmpxchg.org,
-	shakeel.butt@linux.dev,
-	mhocko@kernel.org,
-	roman.gushchin@linux.dev,
-	muchun.song@linux.dev,
-	akpm@linux-foundation.org,
-	david@kernel.org,
-	ljs@kernel.org,
-	liam@infradead.org,
-	vbabka@kernel.org,
-	rppt@kernel.org,
-	surenb@google.com,
-	dev@lankhorst.se,
-	mripard@kernel.org,
-	nat@pixelcluster.dev,
-	tj@kernel.org,
-	mkoutny@suse.com,
-	osalvador@suse.de,
-	cgroups@vger.kernel.org,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	kernel-team@meta.com
-Subject: Re: [PATCH v5 0/7] move stock from mem_cgroup to page_counter
-Date: Fri,  4 Sep 2026 09:53:49 -0700
-Message-ID: <20260904165349.4100321-1-joshua.hahnjy@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260831163752.2193337-1-joshua.hahnjy@gmail.com>
-References: 
+        d=1e100.net; s=20251104; t=1788540877; x=1789145677;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :reply-to:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=PCsXRN8ULrTJKxNH5lxZIzZybr6uVzEfHw0QUb7L+Q0=;
+        b=b51avXWv2XSrQ0sMFA0Mn872Qvk84MHjn64iPSY5BWhDl1Ynyk1m/K7t7nhsRHhxjD
+         pGDpYD/jiNjhXPfjv3msFNpOSH2nVpw5mvIU6K0Ar35GJ87uwypKXBtcLPbnf66XHeuH
+         5d+7PTUl6A1qDlsMCMLAmq20imgLrr/1dXO7eKlkFGBqbwq0vYIEkyPCkUmX7hR3rr6S
+         17Ynh7kO9n4rKtV/tQepHpIUZDxb4NZeAmU3w6EtNCuahMfOw+qyF3dcBH3DPN/EirSZ
+         HyCg/k15Er7jjLfRRsQdJlYBfy+p9RMyNf3pWz//E02OtlpYEvROfSPTfJUfyNIYjOQS
+         MzSw==
+X-Forwarded-Encrypted: i=1; AKwUvBybQktFjRoxbtdF2dcHJTIEfH7kPaUzMliz3Z/hJtvYeLozhS43dUpQ7ztgzx0j4tTRAIQ0dLhpA94dv4s=@vger.kernel.org
+X-Gm-Message-State: AFuF++k6LYK9P7UXu1s+s2wskwDB19+fGDkGYxmq1UmF/5mR+ohgnvn3
+	ZIVn/JtRDdlwVJX/3GlRE3r8f1VQIJHtJVocqUvgyJQOqX5mYVm3Mev7z0qyynoy8EX69xVv0iQ
+	qbBvZzQ==
+X-Received: from pjbsv16.prod.google.com ([2002:a17:90b:5390:b0:398:bdb4:e8bd])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90a:d44b:b0:396:4cbf:45bc
+ with SMTP id 98e67ed59e1d1-39b26203f11mr11310116a91.16.1788540876431; Fri, 04
+ Sep 2026 09:54:36 -0700 (PDT)
+Reply-To: Sean Christopherson <seanjc@google.com>
+Date: Fri,  4 Sep 2026 09:54:33 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.55.0.979.g7e5102b832-goog
+Message-ID: <20260904165433.3281036-1-seanjc@google.com>
+Subject: [ANNOUNCE] PUCK Agenda - 2026.09.09 and 2026.09.16 - CANCELED
+From: Sean Christopherson <seanjc@google.com>
+To: Sean Christopherson <seanjc@google.com>
+Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-> v4 --> v5
-> =========
-> - The stock is now a raw_spinlock_t and an unsigned long to more closely
->   match the original semantics of the stock code.
-> - Draining is asynchronous again, we add a work_struct per-page_counter
->   (not percpu) that walks every cpu. This eliminates the concerns
->   of doing a synchronous drain.
-> - page_counter_try_charge transparently handles stock.
-> - Addressed the netperf regression by reworking the refill path to match
->   the vanilla uncharge path more closely.
-> - Correctness fixes for the percpu pointer access usage
-> - More testing to demonstrate that this series achieves its goal.
-> - Included Shakeel's stock watermarks from [1].
-> - Wordsmithing
-> 
-> INTRO
-> =====
-> Memcg currently keeps a "stock" of 64 pages per-cpu to cache pre-charged
-> allocations, allowing small and frequent allocations to avoid walking
-> the expensive mem_cgroup hierarchy traversal each time. This fastpath
-> offers real improvements, but there is room for improvement:
-> 1. Currently, each CPU tracks up to 7 (NR_MEMCG_STOCK) mem_cgroups. When
->    more than 7 mem_cgroups have stock present on a single CPU, a random
->    victim is evicted and its associated stock is drained.
-> 2. When one cgroup runs out of memory and needs to drain stock across
->    all CPUs it has stock cached in, those CPUs will drain all other
->    memcgs' stock present in that CPU. This leads to inefficient stock
->    caching and cross-memcg interference under memory pressure.
-> 3. Stock management is tightly coupled to struct mem_cgroup, which makes
->    it difficult to add a new page_counter to mem_cgroup and have
->    multiple sources of stock management.
-> 
-> This series moves the per-cpu stock down into page_counter, so that
-> page_counter_try_charge() transparently serves a charge from the stock
-> and refills it, and each counter owns and drains its own cache. This
-> eliminates the 7 memcg-per-cpu slot limit, the random cross-memcg stock
-> drains, and the slot traversal.
-> 
-> In turn, we can add independent stock management for additional
-> page_counters in each memcg, which is used in my tiered memory limits
-> series to add a new page_counter to track toptier usage [2]. Patch 7
-> uses it to give memsw its own stock.
-> 
-> Because the stock is now a property of the counter rather than of the
-> cpu, it is also reachable remotely, so draining no longer has to run on
-> the cpu that owns the cache.
-> 
-> This series preserves as much of the old semantics as possible,
-> including non-spinning safety by using trylocks for stock access.
-> The old !allow_spinning semantics in try_charge_memcg are slightly
-> different now though; outside NMI, page_counter_try_charge may perform
-> a speculative batch charge and a refill.
+PUCK is canceled for the next two weeks as I'll be offline/traveling.
 
-Hello reviewers,
-
-I just wanted to note that Sashiko seems to have raised no concerns [1]
-with this series : -)
-
-Thank you for your feedback and input!!
-Joshua
-
-[1] https://sashiko.dev/#/patchset/20260831163752.2193337-1-joshua.hahnjy%40gmail.com
+I will also be offline from ~now until sometime on the 9th, so don't expect
+anything for 7.4 to show up in kvm-x86/next until mid/late next week (I have
+a massive pile of stuff tagged for 7.4, I'm just waiting for 7.3-rc2 so that
+I have a relatively stable based to build on).
