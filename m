@@ -1,239 +1,468 @@
-Received: from DB3PR0202CU003.outbound.protection.outlook.com (mail-northeuropeazon11010023.outbound.protection.outlook.com [52.101.84.23])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30D1B346ACE
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 04:46:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.84.23
-ARC-Seal:i=3; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788497168; cv=fail; b=e+E54h51j9ltAYhkDrsav13vlE4P4y0BpZ1vdaiIPQfZf2kvb1qPWuVDbRBJKL9gdTGU8WY0mP6cSgXOuO4kZWB13YeuneBLMRKy8EfKkHE4MR/xfvcPTK1ut83UCVNye7KTx6v5XdalXL81gmnbjcY7RZks2sk3Y4hOa0KK0gU=
-ARC-Message-Signature:i=3; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788497168; c=relaxed/simple;
-	bh=oqZ5x51di8d1YX/05vjW3dP3S00aSzI/+pTL7gaoZmo=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=LRKHpEjFV/OUUg8mAAcr5c6LyO271k3cpsqq+TXfa1IMbfyKYBN+rJ7Xx5uheiIq6zjyYyuY1GxLh1TTahm02AhD5hNurbzcLSH+kTSqt9YNnvxSBSzrLtQOV7ClNCHeBEnpsw4epBTX5xzZNhembV70An3YrhYHXkEOd3+4d3I=
-ARC-Authentication-Results:i=3; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=qJ25rkwk; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=qJ25rkwk; arc=fail smtp.client-ip=52.101.84.23
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77A0E3B9920;
+	Fri,  4 Sep 2026 04:46:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788497201; cv=none; b=u/gtWXPtJBAKhyRK9/R81DqR+ybcTfLtfMWTBHB+od/Mt0N5GlZdcm4ul8fenBdP1EPUh2KMd2rUczcsZG1GzsPHrs4jrmBFeiMP0YW7in+Yg+LcpfKE2Ja6JvXAJXJe/NZ/lEKB99mdH+5rTU7i5RfNexu4zFxBhVltuQU1fj0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788497201; c=relaxed/simple;
+	bh=7IUjLSHcxt0fmJCy/QKtVOfaJPL3D9mI05ICbADcxM8=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=Hr7+3KlXhij5ryccSFApw1vtLUhTW0RCa15vFi/dENeUNl2wxo2O+lzzwRfPEheuuqvMcfuyl6TZuFp+tAwWVXLgaNNwXagy1znrZvqPYC9aiTtejbXSzvdPYt2N5PIuR4wa2FZkTwBm7sPHo1pWrNtdlgTDzunuvkXCb87rWhs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=J8ZfPPPE; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="qJ25rkwk";
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="qJ25rkwk"
-ARC-Seal: i=2; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=pass;
- b=thSWO+WhAJ1XlugVv+frEEULK6zVbR09OmJu7IkrMeKh9VrKypXbm7mAMBtH/9oh6gJARMLZX3HVik3T/hbbDl3Tyt/nP/wF7F/8Bwm7whleaUoq2cYDXC4WrJTMtmuzXq99ZsRiWyiidi85tAvsrG0Q6xqwfJweMko4iaopj2wog9UhXqRwOrzlHXNLi3LdizkxOptErjOoVxHZIESYo7NJZIsqZSNk32OkGHpOETI/N9nxDp62UyqyXGgf9gBTQ23abu3WRsn6R64C0K4sfk/d720m/AQG/O2kPeNgiiCRk3yeB0SC70Huoh/McGiKV1HQL1r/7z4qzqKxiDVZqg==
-ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=w9szKMuYiuc53/9UXhnmzCnC/rHL9+J+WZpe9w0AaJk=;
- b=RzBNpqcjxmOnj5P/tXbQDqk9XfYq976mNt6wCw/WqPcwEW9seegXt/Wgv3XOY2ou4GY7dUEC8fLSzbs8wl2bSHefg/Pj7Ro+KaZG3rSG8I0kufWARr2Oyf2iqlotyqrkf6BOkcHpGhBlhbRuXyEvnRcS0Fv/0MEorV5mKKdgVPEwpz9F3R3Gs80LupEd7sVh3xsYcb0sr+l09Ewmxmwv9mvjJZgELcULZtFrPC5Xr0aSUbk6IrYzQZWJApPFzP2JlIVBQh36bYfI+tajmoHcJj/39M504VHCpL+PdoDSuNYzD6RwbHAo70Jnyq1+rsiny4eaF8TrVk0x7OYoESD39A==
-ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=pass (sender ip is
- 4.158.2.129) smtp.rcpttodomain=kernel.org smtp.mailfrom=arm.com; dmarc=pass
- (p=none sp=none pct=100) action=none header.from=arm.com; dkim=pass
- (signature was verified) header.d=arm.com; arc=pass (0 oda=1 ltdi=1
- spf=[1,1,smtp.mailfrom=arm.com] dkim=[1,1,header.d=arm.com]
- dmarc=[1,1,header.from=arm.com])
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=w9szKMuYiuc53/9UXhnmzCnC/rHL9+J+WZpe9w0AaJk=;
- b=qJ25rkwk8ui/JiQXrHF2BBHkN0XGA7xV56rRR1uohR3/G/l81tSFcdGDaSBhpGo4YCsV/wR3Ew5Y75fwU6W9scR6RwdjLXfPcLP746WQxWz9GapE19Jz5CYQZ4n6gI569y8KzxdMRLmQXe6rFC9Ga3jDgxmtC9kjIzsnJuh2X5k=
-Received: from DUZPR01CA0172.eurprd01.prod.exchangelabs.com
- (2603:10a6:10:4b3::29) by DU5PR08MB10822.eurprd08.prod.outlook.com
- (2603:10a6:10:529::10) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.10; Fri, 4 Sep
- 2026 04:46:00 +0000
-Received: from DU2PEPF00028D10.eurprd03.prod.outlook.com
- (2603:10a6:10:4b3:cafe::d) by DUZPR01CA0172.outlook.office365.com
- (2603:10a6:10:4b3::29) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.12 via Frontend Transport; Fri, 4
- Sep 2026 04:46:00 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 4.158.2.129)
- smtp.mailfrom=arm.com; dkim=pass (signature was verified)
- header.d=arm.com;dmarc=pass action=none header.from=arm.com;
-Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
- 4.158.2.129 as permitted sender) receiver=protection.outlook.com;
- client-ip=4.158.2.129; helo=outbound-uk1.az.dlp.m.darktrace.com; pr=C
-Received: from outbound-uk1.az.dlp.m.darktrace.com (4.158.2.129) by
- DU2PEPF00028D10.mail.protection.outlook.com (10.167.242.24) with Microsoft
- SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.8
- via Frontend Transport; Fri, 4 Sep 2026 04:46:00 +0000
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=CXkpL7De90Mfit1wriStTb7B8sswL7L7ygJDAy3rCu9gCdayHP0mwdo5afb1TDP8fWaYmNuKHmZr186dOpZXjIuNco7Hywf0xjmlfzArQBn9tmTO6hj4RLL+AmmySuPS42uh7dzI8PzcC5yvEWDxJxtha4aLRn+KZEi+qCboASlF58+s4RRx9WCTkIqGmmG2MejLYCK/UBrz63PxszYDXe2LOKSuqb2GeK0AkEczkkQ7VGUVTb+2ctzgWK9jPSn3es6pBDLibjuWZEQl5qaZ0GwF7YCw5kezXedvQdayLf0LjXdytFwr/ijG3Dq8kPtRmPXyRxywEwqFIe/2Qyu7ow==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=w9szKMuYiuc53/9UXhnmzCnC/rHL9+J+WZpe9w0AaJk=;
- b=v8a9nivX8d8BDknRzr4ElfwGyCmhXL2g/ExVxKfrzsHPHgSv0sETfJt5SwmhK27dihAezZDqrTIcW8szmC2zkcWBhbs10uyuZqCEjVm0GNOso4jSeMWKGv/L/+kF14Ja0GJRYg0W6vMZdpayQUWz2pbiWiGkNEXkz3JPBzsXDtzJbpDLJfUyLtrmY3FCFMA/oWcSsVqmoVAMD0ycVKHJ5T7V4ijDVz5Ai1i0U50I1muXmdgoJYsfgywICcMtxqwI7ku/pVCa5SseaxbDFl7AMpy6oCkM01JVLIqagPDi8cmDYn4e08Wf7tSgILsOMBJp3KVTqe6mD+O8flOPeQWNNg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
- header.d=arm.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=w9szKMuYiuc53/9UXhnmzCnC/rHL9+J+WZpe9w0AaJk=;
- b=qJ25rkwk8ui/JiQXrHF2BBHkN0XGA7xV56rRR1uohR3/G/l81tSFcdGDaSBhpGo4YCsV/wR3Ew5Y75fwU6W9scR6RwdjLXfPcLP746WQxWz9GapE19Jz5CYQZ4n6gI569y8KzxdMRLmQXe6rFC9Ga3jDgxmtC9kjIzsnJuh2X5k=
-Authentication-Results-Original: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=arm.com;
-Received: from DU0PR08MB9203.eurprd08.prod.outlook.com (2603:10a6:10:417::12)
- by AS2PR08MB9149.eurprd08.prod.outlook.com (2603:10a6:20b:57b::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.10; Fri, 4 Sep
- 2026 04:45:27 +0000
-Received: from DU0PR08MB9203.eurprd08.prod.outlook.com
- ([fe80::f1e:73f2:57df:4047]) by DU0PR08MB9203.eurprd08.prod.outlook.com
- ([fe80::f1e:73f2:57df:4047%6]) with mapi id 15.21.0382.007; Fri, 4 Sep 2026
- 04:45:27 +0000
-Message-ID: <8015b54d-340f-46f6-8b84-f11b5b1bf301@arm.com>
-Date: Fri, 4 Sep 2026 10:15:21 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4] mm/gup_test: safely calculate GUP batch size
-To: Kiryl Shutsemau <kas@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
- David Hildenbrand <david@kernel.org>, Jason Gunthorpe <jgg@ziepe.ca>,
- John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>,
- linux-mm@kvack.org, linux-kernel@vger.kernel.org
-References: <20260903115033.162218-1-sarthak.sharma@arm.com>
- <aplp-uM2oQtjuWnZ@thinkstation>
-Content-Language: en-US
-From: Sarthak Sharma <sarthak.sharma@arm.com>
-In-Reply-To: <aplp-uM2oQtjuWnZ@thinkstation>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MA5P287CA0205.INDP287.PROD.OUTLOOK.COM
- (2603:1096:a01:1ab::14) To DU0PR08MB9203.eurprd08.prod.outlook.com
- (2603:10a6:10:417::12)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="J8ZfPPPE"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1893F1F00A3D;
+	Fri,  4 Sep 2026 04:46:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788497199;
+	bh=yhjIwVxa73fhe2bU0+aTkBlXH1qWUvZgQ7zbihERAwY=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=J8ZfPPPEncg6DpmiKcmHoqzlhOgwqZcdQANnHga8XhwOjvMb6r7jMH/AUYGtopzw3
+	 ANOlWBshn+Wq7gWZIdgpo6Rq8Crfes3liehCc3wqVtymc4tFB32NgSM1IL1OuJ2Dhg
+	 cMhO6G81sOI1bC5UpMusNUeI91YmirkXIrueQtByCfRwz/Dx7bLyaaP6bM7abrDrR7
+	 +LcUI//Ue8jMBmOVBQPluL6GDKJG96rbIB1aE9ylwZ4/mnjGPpv/Xn+HrpnV3Yzwir
+	 g5/gfFw/O5tpenUX7KsfBwkpPHwy3+E4lsMvi1xXgsmDKOcJtmouhxcSimnD4vay7Y
+	 msQu/aqkJpN9w==
+Subject: Re: [PATCH net-next v3 01/13] net: mana: add queue-set allocation and
+ teardown helpers
+From: netdev-bot+sashiko@kernel.org
+To: longli@microsoft.com
+Cc: kotaranov@microsoft.com, kuba@kernel.org, davem@davemloft.net,
+ pabeni@redhat.com, edumazet@google.com, andrew+netdev@lunn.ch, jgg@ziepe.ca,
+ leon@kernel.org, haiyangz@microsoft.com, kys@microsoft.com,
+ wei.liu@kernel.org, decui@microsoft.com, shradhagupta@linux.microsoft.com,
+ horms@kernel.org, ernis@linux.microsoft.com, stephen@networkplumber.org,
+ shirazsaleem@microsoft.com, netdev@vger.kernel.org,
+ linux-rdma@vger.kernel.org, linux-hyperv@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Date: Fri, 04 Sep 2026 04:46:37 +0000
+Message-ID: <178849719763.4131868.4917085699227078071@kernel.org>
+In-Reply-To: <20260901014442.2945689-2-longli@microsoft.com>
+References: <20260901014442.2945689-2-longli@microsoft.com>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-TrafficTypeDiagnostic:
-	DU0PR08MB9203:EE_|AS2PR08MB9149:EE_|DU2PEPF00028D10:EE_|DU5PR08MB10822:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4967477f-6203-4744-d1fa-08df0a3f6b1d
-x-checkrecipientrouted: true
-NoDisclaimer: true
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam-Untrusted:
- BCL:0;ARA:13230040|1800799024|366016|23010399003|376014|10067099003|56012099006|11063799006|4143699003|6133799003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info-Original:
- 8I+oQJDzkaYuBB3XLCl+HqVuR+rh6yHY0q2ph40P7UBLvRCHUE9Dg+AipL5MZ+ZpDmnK6pPvopSZGS8iDGuQsRuVWPRt/8pYZqQ+eZEpara/PSMHVccwIJMuHdmwtqXQFO8egumW4iG2oT0aZnjXbjGEDdwhRtw864J4yX0GenIx6ML3782QWCtPEriF9rsZ2Sl8I8mQp0Wh9TzGH498GysYE5YxUszHZBDXfScu5IX82XCgMpvf3PajqHu4hanU14lJSOlqkbiI+myLsZFE3txM1LxCWK+ddoKAkVxOU4UTZjmXBTKzsE1TocPQKqeq2tG6AvCAytJGEJ1Q8hgi+FwLNlqQodG8AUbOSCJcz5RtEom6iJrFDhUe7fo4xWgIEK8UzfuBPPCe1SVkes86wimDEuQ3uozz1cJ7sOFFTRWK8rSwU1Rlj1UQTXmXDgojDHuFpqij1+C5J2eITLDO220f9p0K2cGEJk8IDbuVsGKJgGkhqJvzC+l5cxnoLR9VcGveMvkhzyju8BdDBtnffzG6zgjZv5ivoMjYKnvvviR+Qgi+KfNygPa8Syt8qljlySMyrPY9fjkrh9it77wEyklRGVWyfQ45E3cZAPKxyTEJJu57JIvB7qZMlw2ZsQoT4RqegC4rsIyE1xR9nr2dyiEEsuAY/lmXYzOWf6SQJcY=
-X-Forefront-Antispam-Report-Untrusted:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU0PR08MB9203.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(23010399003)(376014)(10067099003)(56012099006)(11063799006)(4143699003)(6133799003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-Exchange-RoutingPolicyChecked:
- SwGa7o2cnZtbU6xF3Qgbt5JjQ0wcRLV3tbYIisTd5fDgXhiJINxqp0DAj60wMe+85erSgBXjVkHD6ncnso6OFUwKgy/u1Ncap85RjZDzltKr+M8T0izreD2A/65JHHl6OMi2F9Ain2Ucxoktt4giUZnFM2gN/y0nxoRuWow2U4XSTwzNDGSvwTmTto96D/NljpqUsjfJiIjukjksY6Ap+O5BIE3aGKjwm50/ZcF0Q29erzrIA0J1Ycg43QI9MiqSwR0H2WllYaGXkpgWveuS8njfJzIkb2/WFcV1icVqqg+DLiAnamKS6CMwk3DY1uSRL5M306mbqtLJNDrbt3skeg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS2PR08MB9149
-X-EOPAttributedMessage: 0
-X-MS-Exchange-Transport-CrossTenantHeadersStripped:
- DU2PEPF00028D10.eurprd03.prod.outlook.com
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id-Prvs:
-	efe139bf-f5c0-4931-5246-08df0a3f56f6
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|35042699022|14060799003|36860700016|376014|23010399003|1800799024|82310400026|4143699003|6133799003|11063799006|10067099003|22082099003|18002099003|56012099006|13003099007;
-X-Microsoft-Antispam-Message-Info:
-	4/qLH/82Y2vtb5n9vvsjxCcVjfLoAYSRHOPBiUjyB6Ey2s4/CfBvItl6z+Idf0dz70MoJ4/i13gPt4IzULZy9sEvuyq8eE0DeFcFGgEBsO1Ze4PgVetI6hGko4BxJ3sYgHc2jUBeMO1Rj8zwJ07rZAgWs8Nb/j+J0vUGYeecsg4EG4aw8FDZatj1uHskKgurRhnTJ3dC8fWtNVb/3Q1hNVpV8PlDYMjo3pq5rqH5ygfQR33lybpS3Ak/QuHc/sKAOkAvmrexbrbyNg+TjtSCaRPDObUszxSx/IC6AnifFameSvE7LreAQRCCQTMppijemQia7RyraA5iDl5V77hfKgJ2m28roH5KojSxyE487ElvXOmTq6dL/CYnvsotC8Snk47erWB32rzRQPdZqIfgme2oXAqWcO/HEC26KLUPnXH/d7ztRzQjl1er5FOHX5l9oB7dz362egbbEQN49ld47lvKywG+7wJFTtgHNMJMmMJtymrnzfwfO+kcB5J7jsJNxQ+/TvFs4J6xXgulcWhJtNl9sywn+9DzFEpAdCbrvAQ4pkysPszwsNSNjUK/BBeKW6TnEjcLJTA5Qsfg+cu4qRM9CvWj6023i8gIynouHI2nbdOuwlMoA5UIHQ1mOZ2AwSXOiFmCg3RcYFFj81LH/UfLES8F75KxuyRap9PHaws=
-X-Forefront-Antispam-Report:
-	CIP:4.158.2.129;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:outbound-uk1.az.dlp.m.darktrace.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(35042699022)(14060799003)(36860700016)(376014)(23010399003)(1800799024)(82310400026)(4143699003)(6133799003)(11063799006)(10067099003)(22082099003)(18002099003)(56012099006)(13003099007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	oy56AXDYmv+kKVsF+qEIZmcZuNNTRk/sj6CcTDiRvgav9e8PMa/rn7ItScqL49TG+D3NdVT6GAgBIsQEqXKN765bJYQITJJDJAI78VddIcaMNf2yk/+HJRcZGG6A17e0reZHQQd06etDQzXTNzxagSD+Pa0Lox0aCDfFQrioajxVhFIkU9XknIGhUNEKP8fW3/MIv+qgiSNotw58cCNqKKksEFrU+aiZjAs+JL+4PWZEMUB3GP+BpDGj2bDo43fDyG9mnXTYRSKI73zLX/XlcM6knFOoyq5AiZFJjFlXBWjo6NMHdluI1fv6nuc0qot1LsAw2gfjCvxy/PaBDSn4+Vst6tz6DaXHfHT7p7B16EttamGtLniy9ISSX6YCDLKIItZTiPZy59z8+lOcHSiNDwQTt0DqXP9aJT8Y7wfxqa17Mdnyt4tCMKVYuAN89b+4
-X-OriginatorOrg: arm.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Sep 2026 04:46:00.5202
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4967477f-6203-4744-d1fa-08df0a3f6b1d
-X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[4.158.2.129];Helo=[outbound-uk1.az.dlp.m.darktrace.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	DU2PEPF00028D10.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU5PR08MB10822
 
-Hi Kiryl!
+Thank you for your contribution! Sashiko AI review found 8 potential
+issue(s) to consider:
 
-On 9/3/26 6:09 PM, Kiryl Shutsemau wrote:
-> On Thu, Sep 03, 2026 at 05:20:33PM +0530, Sarthak Sharma wrote:
->> __gup_test_ioctl() calculates the end of a GUP batch using:
->>
->> next = addr + nr * PAGE_SIZE;
->>
->> If nr is too large, it can cause next to overflow and wrap around.
->> If it wraps, the next > end check is bypassed and a large value
->> of nr is passed to the GUP call, even though the pages array was
->> allocated according to gup->size. This can lead to out of bounds writes.
->>
->> Also, when fewer than PAGE_SIZE bytes remain, the calculated batch
->> contains zero pages. The code still calls GUP functions with pages + i,
->> which can point past the allocated array.
->>
->> Calculate nr by taking the minimum of the number of pages per call and
->> the pages remaining in the address range. Stop processing when no
->> pages remain and calculate the end of the batch using this bounded
->> value of nr.
->>
->> Fixes: 64c349f4ae78 ("mm: add infrastructure for get_user_pages_fast() benchmarking")
->> Signed-off-by: Sarthak Sharma <sarthak.sharma@arm.com>
-> 
-> Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+Critical: 0 · High: 2 · Medium: 3 · Low: 3
 
-Thank you!
+- [High] mana_drain_txqs() refuses to unmap/free pending TX SKBs when the
+  fallback pci_try_reset_function() fails ("leaking pending TX buffers…
+- [High] The drain's fallback reset was changed from an unconditional
+  pcie_flr() to pci_try_reset_function(), which starts with…
+- [Medium] The commit message claims "No functional change otherwise:
+  nothing calls the new helpers yet", but the TX-drain rewrite changes…
+- [Medium] After a successful function reset invalidates every port's
+  queues, the sibling recovery this patch newly relies on can exit…
+- [Medium] The drain fallback issues a PCI function-level reset and, on
+  success, treats the function as usable: it bumps reset_gen, continues…
+- [Low] include/net/mana/mana.h documents mana_context.reset_gen as
+  "Bumped on every PCI function reset", and mana_drain_txqs() uses a…
+- [Low] The commit message presents "That tears the vport down, so RDMA
+  can claim it while released" as applying to all of the named…
+- [Low] The live-path change from a bare pcie_flr() to a PCI-core-managed
+  function reset is a user-visible correctness fix (the bare FLR wipes…
 
-> 
-> On nit below.
-> 
->> ---
->> Sashiko reported the issue fixed by this patch while reviewing the patch
->> "mm/gup_test: report actual pinned bytes". That patch has been applied to
->> mm-new. Since the two fixes are independent, this revision contains
->> only the GUP batch size fix.
->>
->> Changes in v4:
->> - Simplify batch clamping logic as suggested by Kiryl
->> - Don't call GUP functions for an empty batch
->> - Drop the pinned byte reporting patch since it has been applied to mm-new
->>
->> v3: https://lore.kernel.org/all/20260901083452.115365-1-sarthak.sharma@arm.com/
->>
->>  mm/gup_test.c | 9 +++++----
->>  1 file changed, 5 insertions(+), 4 deletions(-)
->>
->> diff --git a/mm/gup_test.c b/mm/gup_test.c
->> index 185ba3bb8ed1..1b64e932c4c5 100644
->> --- a/mm/gup_test.c
->> +++ b/mm/gup_test.c
->> @@ -139,11 +139,12 @@ static int __gup_test_ioctl(unsigned int cmd,
->>  		if (nr != gup->nr_pages_per_call)
->>  			break;
->>  
->> +		nr = min_t(unsigned long, gup->nr_pages_per_call,
->> +			   (end - addr) / PAGE_SIZE);
-> 
-> I personally would rather have it in two statements, as I suggested
-> initially:
-> 
-> 		nr = gup->nr_pages_per_call;
-> 		nr = min_t(unsigned long, nr, (end - addr) / PAGE_SIZE);
-> 
-> It seems to be more readable to me.
+--
 
-Both forms are equivalent, and I would prefer to keep it in a single
-line instead of having two statements to do the same thing. I don't
-think I need to respin with this change unless you feel strongly about it :)
-> 
-> 
->> +		if (!nr)
->> +			break;
->> +
->>  		next = addr + nr * PAGE_SIZE;
->> -		if (next > end) {
->> -			next = end;
->> -			nr = (next - addr) / PAGE_SIZE;
->> -		}
->>  
->>  		switch (cmd) {
->>  		case GUP_FAST_BENCHMARK:
->>
->> base-commit: 178b3d97bf1f15f598ea7cc615a40c115e528e1c
->> -- 
->> 2.53.0
->>
-> 
+net: mana: add queue-set allocation and teardown helpers
 
+This adds a mana_qset data model plus mana_qset_scratch_alloc(),
+mana_alloc_qset() and mana_free_qset() so a queue set can be built and
+retired against a scratch port context rather than by tearing the vport
+down. It also moves the TX drain out of mana_dealloc_queues() into a new
+mana_drain_txqs() and replaces the fallback pcie_flr() with
+pci_try_reset_function().
+
+No Link: tags are present in the commit message.
+
+A few questions on the commit message first, then some on the diff.
+
+> The ethtool reconfiguration paths (channel count, ring size, private
+> flags), mana_change_mtu() and mana_xdp_set() rebuild the queues with
+> mana_detach() then mana_attach(). That tears the vport down, so RDMA can
+> claim it while released, and a failed mana_attach() leaves the port down
+> with no way back but manual intervention.
+
+[Severity: Low]
+This isn't a bug, but does the RDMA part of that sentence hold for all of
+the listed paths?
+
+mana_set_channels() and mana_set_priv_flags() in mana_ethtool.c already
+set apc->channel_changing = true across their detach/attach window:
+
+	/* Block RDMA from grabbing the vport during detach/attach */
+	apc->channel_changing = true;
+
+and mana_cfg_vport() returns -EBUSY while that flag is set. The RDMA
+exposure argument seems to apply to mana_set_ringparam(),
+mana_change_mtu() and mana_xdp_set() only, while the failed-attach
+argument applies to all of them. Could the wording be narrowed?
+
+> The TX drain moves out of mana_dealloc_queues() so the new teardown path
+> gets it too, and its fallback reset becomes pci_try_reset_function()
+> rather than an open-coded pcie_flr(), which does not save and restore
+> config space. Trylock because this runs under RTNL while removal takes
+> the device lock first.
+
+[Severity: Low]
+This part reads as a correctness fix to the pre-existing fallback reset in
+mana_dealloc_queues(), but the patch carries no Fixes: tag and declares no
+functional change. Would it be better as a separate commit so it can be
+considered for stable on its own?
+
+> No functional change otherwise: nothing calls the new helpers yet.
+
+[Severity: Medium]
+Is the "no functional change otherwise" claim accurate for the live
+teardown path (mana_close()/mana_detach()/mana_remove())? Three behaviour
+changes seem to ride along:
+
+- On a failed fallback reset, mana_drain_txqs() returns before the
+  skb_dequeue() loop, so pending TX SKBs and their DMA mappings are now
+  deliberately leaked. The baseline code ran that loop unconditionally
+  after the pcie_flr() attempt.
+
+- On a successful reset, mana_dealloc_queues() now walks ac->ports[] and
+  queues sib->queue_reset_work for every other port, so unrelated netdevs
+  get their queues torn down and rebuilt.
+
+- mana_remove() now clears ac->ports[i], which is only justified by a code
+  comment.
+
+Could these be called out in the changelog?
+
+> diff --git a/drivers/net/ethernet/microsoft/mana/mana_en.c b/drivers/net/ethernet/microsoft/mana/mana_en.c
+> index 7a1ac853e3abc..b9d9543d1a6dc 100644
+> --- a/drivers/net/ethernet/microsoft/mana/mana_en.c
+> +++ b/drivers/net/ethernet/microsoft/mana/mana_en.c
+
+[ ... ]
+
+> @@ -3679,15 +3684,115 @@ int mana_attach(struct net_device *ndev)
+>  	return 0;
+>  }
+>  
+> -static int mana_dealloc_queues(struct net_device *ndev)
+> +/* Drain a set about to be destroyed: nothing new can reach it, so wait for the
+> + * hardware to finish what it owns, then release every mapped SKB.
+> + *
+> + * The 120s budget is shared across all queues. On timeout the device is reset,
+> + * since its buffers are about to be freed while it may still DMA into them; if
+> + * that fails too they are leaked.
+> + *
+> + * Returns true only if a reset happened, taking every queue on the function
+> + * down with it.
+> + */
+> +static bool mana_drain_txqs(struct mana_port_context *apc)
+>  {
+> -	struct mana_port_context *apc = netdev_priv(ndev);
+>  	unsigned long timeout = jiffies + 120 * HZ;
+> -	struct gdma_dev *gd = apc->ac->gdma_dev;
+> +	struct gdma_context *gc = apc->ac->gdma_dev->gdma_context;
+> +	bool quiesced = true;
+> +	bool reset = false;
+>  	struct mana_txq *txq;
+>  	struct sk_buff *skb;
+> -	int i, err;
+>  	u32 tsleep;
+> +	int i, err;
+> +
+> +	if (!apc->tx_qp)
+> +		return false;
+> +
+> +	for (i = 0; i < apc->num_queues; i++) {
+> +		if (!apc->tx_qp[i])
+> +			continue;
+> +
+> +		txq = &apc->tx_qp[i]->txq;
+> +
+> +		/* The function was reset after this queue was created, so the
+> +		 * device has stopped touching its buffers and the completions
+> +		 * waited for below can never arrive. Without this the port
+> +		 * would burn the full timeout under RTNL, then reset the
+> +		 * function again on the way out.
+> +		 */
+> +		if (READ_ONCE(apc->ac->reset_gen) != txq->reset_gen)
+> +			continue;
+> +
+> +		tsleep = 1000;
+> +		while (atomic_read(&txq->pending_sends) > 0 &&
+> +		       time_before(jiffies, timeout)) {
+> +			usleep_range(tsleep, tsleep + 1000);
+> +			tsleep <<= 1;
+> +		}
+> +		if (atomic_read(&txq->pending_sends)) {
+> +			/* The device still owns these buffers, so reset it
+> +			 * before they are freed. pci_try_reset_function()
+> +			 * rather than pcie_flr(): it saves and restores config
+> +			 * space, which a bare FLR wipes behind the PCI core's
+> +			 * back. Trylock because RTNL is held here while the
+> +			 * remove path takes the device lock first.
+> +			 */
+> +			err = pci_try_reset_function(to_pci_dev(gc->dev));
+
+[Severity: High]
+Can this reset ever happen on the remove path? mana_gd_remove() is the PCI
+.remove callback, and the driver core invokes it with device_lock held:
+
+mana_gd_remove() -> mana_remove() -> mana_detach() -> mana_dealloc_queues()
+  -> mana_drain_txqs()
+
+and pci_try_reset_function() begins with:
+
+	if (!pci_dev_trylock(dev))
+		return -EAGAIN;
+
+on a mutex the calling thread already owns, so it looks like it can only
+return -EAGAIN there. The old pcie_flr() had no lock dependency and did
+stop the device, so on unbind with un-drained TX the device now appears to
+never be reset while its queues are still destroyed below. Would
+pci_reset_function_locked() (or __pci_reset_function_locked()) be the right
+call for a caller that is already under device_lock?
+
+> +			if (err) {
+> +				netdev_err(apc->ndev,
+> +					   "function reset failed: %d, %d pkts pending in txq %u\n",
+> +					   err,
+> +					   atomic_read(&txq->pending_sends),
+> +					   txq->gdma_txq_id);
+> +				quiesced = false;
+> +			} else {
+> +				/* Every queue on the function is dead now,
+> +				 * including the ones this loop has not reached
+> +				 * and those of the other ports.
+> +				 */
+> +				WRITE_ONCE(apc->ac->reset_gen,
+> +					   apc->ac->reset_gen + 1);
+> +
+> +				/* Only a reset that actually happened takes the
+> +				 * other ports down with it; reporting a failed
+> +				 * one would rebuild them for nothing.
+> +				 */
+> +				reset = true;
+> +			}
+> +			break;
+> +		}
+> +	}
+> +
+> +	/* Only a reset that actually happened makes freeing these safe; without
+> +	 * one the device still owns them. Leak instead, bounded at one SQ ring
+> +	 * of skbs per queue.
+> +	 */
+> +	if (!quiesced) {
+> +		netdev_err(apc->ndev,
+> +			   "device not quiesced, leaking pending TX buffers instead of unmapping memory it can still DMA from\n");
+> +		return reset;
+> +	}
+
+[Severity: High]
+Does this leak-instead-of-unmap decision reach the callers?
+
+The return value is reset, which is false both for a healthy drain and for
+a failed reset, so neither mana_dealloc_queues() nor mana_free_qset() can
+tell the two apart. Both then run unconditionally:
+
+	mana_fence_rqs(apc);
+	mana_destroy_rxqs(apc);
+	mana_destroy_txq(apc);
+	mana_destroy_eq(apc);
+
+and mana_gd_destroy_queue() in gdma_main.c releases the SQ/CQ/EQ ring
+memory regardless of whether the firmware-side destroy succeeded:
+
+	mana_gd_destroy_dma_region(gc, gmi->dma_region_handle);
+	mana_gd_free_memory(gmi);
+	kfree(queue);
+
+while mana_destroy_rxq() unmaps and frees the RX pages. So the pending SKB
+mappings are kept, but the descriptor rings and RX buffers of the same
+un-quiesced device go back to the page allocator. Can the device DMA into
+that memory after it is reused?
+
+> +
+> +	for (i = 0; i < apc->num_queues; i++) {
+> +		if (!apc->tx_qp[i])
+> +			continue;
+> +
+> +		txq = &apc->tx_qp[i]->txq;
+> +		while ((skb = skb_dequeue(&txq->pending_skbs))) {
+> +			mana_unmap_skb(skb, apc);
+> +			dev_kfree_skb_any(skb);
+> +		}
+> +		atomic_set(&txq->pending_sends, 0);
+> +	}
+> +
+> +	return reset;
+> +}
+
+[ ... ]
+
+> @@ -3705,41 +3810,27 @@ static int mana_dealloc_queues(struct net_device *ndev)
+>  	 * new packets due to apc->port_is_up being false.
+>  	 *
+>  	 * Drain all the in-flight TX packets.
+> -	 * A timeout of 120 seconds for all the queues is used.
+> -	 * This will break the while loop when h/w is not responding.
+> -	 * This value of 120 has been decided here considering max
+> -	 * number of queues.
+> +	 *
+> +	 * If the drain had to reset the function to get there, every other
+> +	 * port on the adapter lost its queues too, so schedule them for a
+> +	 * rebuild. This port is being torn down here and needs no such
+> +	 * treatment, and a down port stays down: with port_st_save false,
+> +	 * detach and attach both skip the queue work.
+>  	 */
+> +	if (mana_drain_txqs(apc)) {
+> +		struct mana_context *ac = apc->ac;
+> +		unsigned int i;
+
+[ ... ]
+
+> +		for (i = 0; i < ac->num_ports; i++) {
+> +			struct mana_port_context *sib;
+>  
+> -		for (i = 0; i < apc->num_queues; i++) {
+> -			txq = &apc->tx_qp[i]->txq;
+> -			while ((skb = skb_dequeue(&txq->pending_skbs))) {
+> -				mana_unmap_skb(skb, apc);
+> -				dev_kfree_skb_any(skb);
+> -			}
+> -			atomic_set(&txq->pending_sends, 0);
+> +			if (!ac->ports[i] || ac->ports[i] == ndev)
+> +				continue;
+> +			sib = netdev_priv(ac->ports[i]);
+> +			netdev_err(ac->ports[i],
+> +				   "queues reset by a sibling port, scheduling rebuild\n");
+> +			queue_work(ac->per_port_queue_reset_wq,
+> +				   &sib->queue_reset_work);
+>  		}
+>  	}
+
+[Severity: Medium]
+Can this rebuild silently not happen? mana_per_port_queue_reset_work_handler()
+gives up before detach/attach when the RX pre-allocation fails:
+
+	err = mana_pre_alloc_rxbufs(apc, ndev->mtu, apc->num_queues);
+	if (err) {
+		netdev_err(ndev, "Insufficient memory for reset post tx stall detection\n");
+		goto clear_flag;
+	}
+
+There is no retry and no state change on that branch, so under memory
+pressure the sibling netdev stays with port_is_up true and
+apc->tx_qp[]/apc->rxqs[] pointing at queues the function reset destroyed,
+until someone does a manual ifdown/ifup. Should this branch requeue the
+work or mark the port down?
+
+> @@ -3763,6 +3854,278 @@ static int mana_dealloc_queues(struct net_device *ndev)
+>  	return 0;
+>  }
+>  
+
+[ ... ]
+
+> +void mana_free_qset(struct mana_port_context *scratch, struct mana_qset *qset)
+> +{
+
+[ ... ]
+
+> +	if (mana_drain_txqs(scratch)) {
+> +		/* The drain had to reset the function to stop the device
+> +		 * touching those buffers. A function reset takes down every
+> +		 * port on the adapter, not just this one, so rebuild them all
+> +		 * - the same recovery mana_tx_timeout() relies on. A port that
+> +		 * is already down has nothing to rebuild and its handler
+> +		 * leaves it down.
+> +		 */
+
+[Severity: Medium]
+After the function reset, what re-establishes the GDMA/HWC state that the
+scheduled rebuilds need?
+
+The driver registers no pci_error_handlers, so there is no reset_prepare or
+reset_done callback, and pci_try_reset_function() only saves and restores
+config space. The only path that re-bootstraps the device is:
+
+mana_serv_reset() -> mana_gd_suspend()/mana_gd_resume()
+  -> mana_gd_cleanup_device()/mana_gd_setup()
+
+and that is not invoked here. Each queued queue_reset_work then re-enters
+mana_attach() and issues HWC requests over a channel the reset destroyed,
+while gc->cq_table[], the EQ/MSI-X bookkeeping and the cached vport and
+queue handles still describe objects that no longer exist. The mana_ib
+auxiliary device on the same function is also not told.
+
+Is the comment's "the same recovery mana_tx_timeout() relies on" accurate?
+That path never resets the function, so its HWC is still alive when the
+rebuild runs.
+
+> +		struct mana_port_context *apc = netdev_priv(scratch->ndev);
+> +		struct mana_context *ac = apc->ac;
+> +		struct mana_port_context *sib;
+> +		unsigned int i;
+> +
+> +		netdev_err(scratch->ndev,
+> +			   "device reset while retiring a queue set, scheduling port reset\n");
+> +
+> +		for (i = 0; i < ac->num_ports; i++) {
+> +			if (!ac->ports[i])
+> +				continue;
+> +			sib = netdev_priv(ac->ports[i]);
+> +			queue_work(ac->per_port_queue_reset_wq,
+> +				   &sib->queue_reset_work);
+> +		}
+> +	}
+
+[ ... ]
+
+> diff --git a/include/net/mana/mana.h b/include/net/mana/mana.h
+> index 83b7eff4646ea..356aaa652fa6f 100644
+> --- a/include/net/mana/mana.h
+> +++ b/include/net/mana/mana.h
+
+[ ... ]
+
+> @@ -537,6 +547,14 @@ struct mana_context {
+>  	u8 bm_hostmode;
+>  
+>  	struct mana_ethtool_hc_stats hc_stats;
+> +
+> +	/* Bumped on every PCI function reset. A queue created before the
+> +	 * current value can no longer be reached by the device, so its buffers
+> +	 * need no drain. All access is under RTNL: the bump is a non-atomic
+> +	 * read-modify-write, so a second writer would lose an increment.
+> +	 */
+> +	u32 reset_gen;
+
+[Severity: Low]
+Is "bumped on every PCI function reset" true? The only writer is
+mana_drain_txqs(), right after its own successful pci_try_reset_function().
+
+Resets initiated elsewhere leave it unchanged, for example:
+
+  echo 1 > /sys/bus/pci/devices/<bdf>/reset
+
+as well as secondary-bus/slot resets, EEH/AER recovery, and the driver's
+own mana_serv_reset() -> mana_gd_suspend()/mana_gd_resume() cycle. There
+is no reset_done callback anywhere under drivers/net/ethernet/microsoft/mana/
+that would observe them, so mana_drain_txqs() still burns the full 120s
+under RTNL and then resets the function again.
+
+The effect is conservative rather than unsafe, so would either adding a
+reset_done handler or narrowing the comment to resets issued by
+mana_drain_txqs() be preferable?
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260901014442.2945689-1-longli%40microsoft.com
