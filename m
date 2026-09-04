@@ -1,87 +1,88 @@
-Received: from mail-oo1-f71.google.com (mail-oo1-f71.google.com [209.85.161.71])
+Received: from mail-oo1-f69.google.com (mail-oo1-f69.google.com [209.85.161.69])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3D3B52D2B9
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 20:33:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.71
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B30393A0EB8
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 20:33:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.69
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788554028; cv=none; b=p2nhtSiqGmzHx0yti/C8K+Vw6lLnJqgPMNNHvMHltHNw47/6OXM/yvkFeyVulHQzyR5TcZN7BPRHJj5i7NTKikcSX/oaCcVfFeKt4qmPxH61DwYEO+Fx/d7Q/m5lZB8UTYq03j26gRp9wDBbTCXkdz0Hyfx3nZ/vwn4IHtK4dp0=
+	t=1788554030; cv=none; b=fgx2BNEjocCuy1pHHk+RnIJP7czp6y05EnXJ5oS2i0CcLmpzX6q+z2bigh6kZreXv3DDJYq/bI9cHVjP3OxkLx5Po0hy01ehiDEf+opffeRNJ/7PohfJbeZVGFPtbzgNb4NIbUmzLrwFZyF+bUGQ8kECoW5qZeJaP7NAPu6eXY4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788554028; c=relaxed/simple;
-	bh=VpZoh0tveXOA7ivjswx7WHCccFQnm7X5Yux71yekqNU=;
-	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=YG80v8cQBE7w4eCW0MSzNpF7zCEbMv1pnvkdFSn5uwy+SVBP7T93FzYKilpEtQGlMuL/AaQvdca0MPiahraaDez/vHG0Ei7alLWIcEzUhHaWoMhjb2RMPZ9O65bpnZh2WJ26eNIe9QmnRPdgvnwl3z4S6wf8kNqUSh9NklQO/Nw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.161.71
+	s=arc-20240116; t=1788554030; c=relaxed/simple;
+	bh=WWpnEqPnpbR/yuawFiBdEyhlCxR0V0JrLt7mt62L9fk=;
+	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=Y79+px5qNWXw/6nEzT0HIp2Gj3jEnd6PtRadGL3PsW+pXgQBOseRztiwm7aWS7n5IfqdrPsAhePSvIyxry15RLGvRv5gXLf4jOb964vyhZpK0Qx0zuij90eDjumBtMO58ORHA7o/8mz+uMse2VO001E7gxKTqXnDZg96/pDa9FI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.161.69
 Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oo1-f71.google.com with SMTP id 006d021491bc7-6b1a3f01d2aso2208906eaf.1
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 13:33:41 -0700 (PDT)
+Received: by mail-oo1-f69.google.com with SMTP id 006d021491bc7-6b352d9062fso1921539eaf.3
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 13:33:43 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20251104; t=1788554019; x=1789158819;
         h=content-type:to:from:subject:message-id:date:mime-version
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=4JAXrDAp9YbJF1jM4BqtTbRQ3IKDzyU1LF5OsuCVK0g=;
-        b=MuGmABWlaW3lokfYDOm3B/48+U+GMp51kBr+YcCFTChag3FnrzK7yTTWVg9Q3lPzlM
-         3XOMaMgsPIDM3VRO7rYkReOgzyQgPP390ql6d9WvsPQu1vL7vHH+fXaoVB4pqbH4iqYE
-         IV87EN4aKyF7LN0Y94szaow8xKNAUAQv601ljbHMOmFA7kstr6i8V90LR0LCCIxt1lNc
-         qI+loe4phBVg+5Fy7ZTjmZrR3uqPnYLw9XK4Yx6L1qQt7uxP4Sfxo5pls7RfbTHpm66m
-         0bn+s30PPx+QRVpQUlAvYnaBqiw1oLWvK7mMDwoch+g0ZRAV+ou9I3JYsYEF8v/M2/Ut
-         haJg==
-X-Gm-Message-State: AFuF++lBbAAgGzJSXS3+UlB6ecRM/yJoe7t5pmaHlR8UVxS/mtmjIbsP
-	qdvkTl/4fusQgepjs1Ts8mrXO8vGQ2M2d3kXz+T2EYm/7f+U6mwrlZiGy0BbkQ8+TG/pGs4XJ6l
-	jR3wpxaPVGob4I8rt/6ddnlX35LaqsE3eD9NQcPgapUTRhHs1O5IiZc0hpzU=
+        bh=WCIRxMwU7FkF5NClnWliGt7Fjn0PVFIZ1AwuQ3Y3wP4=;
+        b=gYY810wsZEms8NYqDxmt/jQjMfGtA2lJ2nMLQnydP/oGuo/69Dx+cuKzQupGG3B92T
+         gwp6+rHWjLYwSZd+WZasvUzUf9G/bxYwSpoZzEVdNlVu/sQnBNyRqtPZAzlfXBjXBhXS
+         5nFRApXNe4gh1t0IaAQDk0Mo7v43S0czMDU9jXFpebSJf6yXIppngbk/PiT0c1UHmd5z
+         9CDF7xNh2+pRHhUOby6it2bJQ3sllDzeqyVimdj5sYWcg08m3yeOvTGcrEZR9V4nBeK6
+         t2O/h4uIHgdNsRYNBef1HP6TgWmb2+IXPn9DttLJwgZ1A/eGbATwewbqISA7PSpOW/V7
+         tPMg==
+X-Forwarded-Encrypted: i=1; AKwUvBwCiMIJUjf53oZUtRp4X21rDWHHW19lniycn2Epdvab4Yk4+Ytwm5lJSQuhPeBb9le+6xfhg7IzTHxAjKY=@vger.kernel.org
+X-Gm-Message-State: AFuF++l8LdQZjlBKYYtsWKB+ONc6Xp/rpXre44wcq8/FWuayX3gEc2El
+	pD6Jf5LL+o3/r2ANgG9HuXrEPZkr9Auc0UiaD3eggF7VAzXMLDdsJ/XTAj5I8yshHAJbo833uiX
+	TvK3bofWYSuVqtUUBoPUq6drUuC9xtbsdcRIRTjyWvASpH/1jQd3W9qORQBA=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:f034:b0:6b7:46fc:1ce with SMTP id
- 006d021491bc7-6b746fc039amr4410045eaf.45.1788554019750; Fri, 04 Sep 2026
+X-Received: by 2002:a05:6820:4cc8:b0:6aa:de29:651 with SMTP id
+ 006d021491bc7-6b6fbcd091cmr6577744eaf.16.1788554019269; Fri, 04 Sep 2026
  13:33:39 -0700 (PDT)
 Date: Fri, 04 Sep 2026 13:33:39 -0700
 X-Google-Appengine-App-Id: s~syzkaller
 X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6a9b2b23.b5d4176b.238c3e.0007.GAE@google.com>
-Subject: [syzbot] Monthly media report (Sep 2026)
-From: syzbot <syzbot+list6bbccb1b8e29471d8c2f@syzkaller.appspotmail.com>
-To: linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, 
-	syzkaller-bugs@googlegroups.com
+Message-ID: <6a9b2b23.b5d4176b.238c3e.0005.GAE@google.com>
+Subject: [syzbot] Monthly btrfs report (Sep 2026)
+From: syzbot <syzbot+list28cec74617be14fd94e2@syzkaller.appspotmail.com>
+To: clm@fb.com, dsterba@suse.com, linux-btrfs@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com
 Content-Type: text/plain; charset="UTF-8"
 
-Hello media maintainers/developers,
+Hello btrfs maintainers/developers,
 
-This is a 31-day syzbot report for the media subsystem.
+This is a 31-day syzbot report for the btrfs subsystem.
 All related reports/information can be found at:
-https://syzkaller.appspot.com/upstream/s/media
+https://syzkaller.appspot.com/upstream/s/btrfs
 
-During the period, 13 new issues were detected and 0 were fixed.
-In total, 47 issues are still open and 119 have already been fixed.
-There are also 14 low-priority issues.
+During the period, 8 new issues were detected and 0 were fixed.
+In total, 30 issues are still open and 121 have already been fixed.
+There are also 12 low-priority issues.
 
 Some of the still happening issues:
 
 Ref  Crashes Repro Title
-<1>  295     Yes   KASAN: slab-use-after-free Read in dvb_frontend_release (3)
-                   https://syzkaller.appspot.com/bug?extid=ae466a728017ec940b41
-<2>  165     Yes   WARNING in ttusb_dec_send_command
-                   https://syzkaller.appspot.com/bug?extid=ac9880be0b0b1a5f54d6
-<3>  79      Yes   KASAN: slab-use-after-free Read in rc_dev_uevent
-                   https://syzkaller.appspot.com/bug?extid=237c754233330b2bf565
-<4>  21      Yes   memory leak in v4l2_ctrl_handler_init_class (3)
-                   https://syzkaller.appspot.com/bug?extid=b1de0d5fd8a15fac11aa
-<5>  14      Yes   KASAN: slab-use-after-free Write in dvb_device_put
-                   https://syzkaller.appspot.com/bug?extid=d445a71e1c011b592c16
-<6>  13      No    general protection fault in subdev_open
-                   https://syzkaller.appspot.com/bug?extid=74de6401dbdd377b5746
-<7>  12      Yes   BUG: corrupted list in az6007_i2c_xfer
-                   https://syzkaller.appspot.com/bug?extid=0192952caa411a3be209
-<8>  3       No    WARNING in vidtv_start_feed
-                   https://syzkaller.appspot.com/bug?extid=525fda837bd5fc2be560
-<9>  2       Yes   WARNING in ttusb_dec_start_feed
-                   https://syzkaller.appspot.com/bug?extid=e1dbaae5eefaa2dfbc35
-<10> 2       Yes   WARNING in v4l2_ctrl_cluster
-                   https://syzkaller.appspot.com/bug?extid=2d417475ba9d6d02cfc9
+<1>  198     Yes   WARNING in btrfs_run_delayed_refs (2)
+                   https://syzkaller.appspot.com/bug?extid=810ea5febd3b79bdd384
+<2>  78      Yes   WARNING in btrfs_destroy_inode (3)
+                   https://syzkaller.appspot.com/bug?extid=25df068cd8509f8c0fe1
+<3>  71      No    possible deadlock in btrfs_dirty_inode (2)
+                   https://syzkaller.appspot.com/bug?extid=415a049af48761105c01
+<4>  15      No    WARNING in __add_block_group_free_space
+                   https://syzkaller.appspot.com/bug?extid=6931616d57696102d8aa
+<5>  15      No    WARNING in __btrfs_update_delayed_inode (4)
+                   https://syzkaller.appspot.com/bug?extid=768687d6d7c96a124e24
+<6>  13      No    WARNING in btrfs_create_new_inode (3)
+                   https://syzkaller.appspot.com/bug?extid=c1b8c52e6c0142c5e448
+<7>  1105    Yes   WARNING in btrfs_chunk_alloc
+                   https://syzkaller.appspot.com/bug?extid=e8e56d5d31d38b5b47e7
+<8>  511     Yes   WARNING in btrfs_remove_chunk
+                   https://syzkaller.appspot.com/bug?extid=e8582cc16881ec70a430
+<9>  52      Yes   WARNING in btrfs_finish_one_ordered
+                   https://syzkaller.appspot.com/bug?extid=6e54e639e7b934d64304
+<10> 47      Yes   WARNING in btrfs_init_new_device
+                   https://syzkaller.appspot.com/bug?extid=3bf3e110b2d406b8166c
 
 ---
 This report is generated by a bot. It may contain errors.
