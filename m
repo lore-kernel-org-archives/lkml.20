@@ -1,71 +1,83 @@
-Received: from mail-oo1-f53.google.com (mail-oo1-f53.google.com [209.85.161.53])
+Received: from mail-qt1-f182.google.com (mail-qt1-f182.google.com [209.85.160.182])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E18342E43B
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 11:17:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4E4640A92B
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 11:17:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788520651; cv=none; b=K1lIDEY60dnX332NbeAmNetHvYIWOo2uaZlHUfRJ5IPaBfvVLw3YHzGUP429Cnbu/2VoLU2NPvQLYNH/1nmsPOMMryveBLZgz/wKolhVX5QfqMT+zRCatwFBSMvWHXdK+jP2PHqVzg+IPfm9Fo//XQ81u7pxRkB8nibDshpRwpY=
+	t=1788520666; cv=none; b=Olp0l6KJ6Rq/4V2BkWf80IEdW8HXpm2DjXx+YJM28XtYEnIra/Lh1l1YAlTTbezkNZOuUGj7nbRz/SXbK8vASyi3VwvRUirK8HhdR3MK/vuw6Emoaf0Y2qo8c4wjxA4xM0iREcsAHpRgIdDaA9Wpzkg5Q1yMzsEF+iIgIATbTZQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788520651; c=relaxed/simple;
-	bh=wJcQXhX2p7ArrlqvtSK6wNpa5H9F05dc8xrHIKvtv2U=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ST2cQfTQYyLHuKFhB/zuKtZHDrjAXDhDAcokzB71x/Buq5GylCwHZjkIp6DYqH/p7FvM27iOzqZgHxV05MzDuScFXPu2yoUyXdMap7Wv/O3adNa7NPrKdXV4xtabnpbZAW9cylrj0Yw5dOyxH7Fpu/68b7TIJlN1sPbQs2mo9K4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PJ/K5sFM; arc=none smtp.client-ip=209.85.161.53
+	s=arc-20240116; t=1788520666; c=relaxed/simple;
+	bh=E9dAA287EAa796HT4oYolBExrYvudPnFnaT/QfU9o4c=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=KJg91mYTY3RBdXehQVowI16CrFwyzefty/MLxMDFLJsIV378XrIhCYHwPcCYA69rqsiXMdCMd97X8cxeBLHtoy+ZI8MZANiwjqgycNeDFKzHaoTMVahlGUQJfkpMCdTSMsy2MNz4Q++nCI238BA99HH9lP8X/d21ZdxzZ9czK/s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=c/utvK+h; arc=none smtp.client-ip=209.85.160.182
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PJ/K5sFM"
-Received: by mail-oo1-f53.google.com with SMTP id 006d021491bc7-6b1bcd9e00bso653653eaf.2
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 04:17:29 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="c/utvK+h"
+Received: by mail-qt1-f182.google.com with SMTP id d75a77b69052e-51c0006ea8eso13421981cf.1
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 04:17:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788520649; x=1789125449; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1788520663; x=1789125463; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=t/aNANTfjkHFW3Qz0CZuwn+uWl1/BO2PZTx/B0W7ELs=;
-        b=PJ/K5sFMQ1RBLJT1aLBe33Lmb50L6VZtxoSN6aDTtMvXJxJG0XwvaUQJsxzf4cAXGk
-         DaCzWNZr8i7hY8f3tqVW7h6eQtqUgfx9Gy/onoAfDMM8ccdBNPvk3DhUkGTzcQCLF+oG
-         G9PreEShQ0CWLGso5jw/cDEkIPBI6ZLHvYBbHjuNH9aCj8y5YW0lE8JT17DFT8dckGtX
-         kk3zaa4PVu2qd0PYp4IbvFBRfmd2R9DF9/xoneQPPmcjjLKGMBuRRvZfh1AMsdtzkwny
-         G0n/8V0kpD3Zk8TaT5DgvajJzcXWmMAVwQONW9cdS3hvG/SEaFYxLrhC2InaPdIFJT3s
-         i2gA==
+        bh=vafBG36yRum0S5znHILZDEuOCiOJO9YS/m791zdYti8=;
+        b=c/utvK+hg5+xJriXr2VDSUAk4ud+Awsz6Xqs/9RzRkFMm5Fbbj4a6voiPTcAfZMc8S
+         TPTr6m9n+olQSmWvKHMoTwd/S6dVj5AhzdyKR2iq8pmtg3sVFrf0JbXo6a4SQT3REXdO
+         LC7vhPZg2XZczUehwOKbwS9oW/u68zvWKvHmVf/l8FSRNbaGUjRS1bo4wIEXtKl8kkbe
+         rzOk0uCgSSXrfe9GCcOrKQi1RyXCV5DIyVdz0/wlzlRk1tZecBKlgurZgkxMgLy8VJAp
+         CJsii1xlJvbOJYpvO2Uyc/4ogOyD/1dBBBh0Zu/ZWEcMoS7/aPNn+TORoOBVeZVzYH0X
+         031A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788520649; x=1789125449;
+        d=1e100.net; s=20251104; t=1788520663; x=1789125463;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=t/aNANTfjkHFW3Qz0CZuwn+uWl1/BO2PZTx/B0W7ELs=;
-        b=NrSByXJXb7IWhYEcvtXyIJjPQ+ycmCrLTW1z6IV1ZeX0i6WlWQGUJvmtdX37aE5LSe
-         v3oFa0U7R56qLlmtu1qZqtRTD8T/dg6BmFm2M6oeDzsfUNcgjAVypLS9l+Ow+LChf5KD
-         PLthR0x0RpcJsA0NLGNdXC1FYONvehoEIqIUHFgzmeQS43KejUun+c+yuz5+OrWfip60
-         Fe+qQ7b2Z/IR3dhyrJbLG4XR/raI15AJfYmY3dU321MDQ9zcdq1QYYwhbmrMP7LWwWGy
-         osf7dFykkzvmcYgF8smeIJ4pTFF/6K54uaWDYVtHcfu/6WNig7PA6slS9DzuHZwy2ON+
-         uC9w==
-X-Gm-Message-State: AFuF++mvBzDWjayvuPUES65FMUDXpDnzzgZKa5eH23AhhFnyJtoHJOZx
-	mm4LQC758SQGcbpNqZP2+m6uI/QDiGijXMr9WG5hwnKUwAAeNIoYdghz
-X-Gm-Gg: AYBFou138yN8e99ivLZlOVgHwDZcrRBWnSQnXFZUhTscvOR2zY2tP50ixL2rJ/RlMfu
-	wvhV6W53DLqeIFf/ZycUnLmqbl8d7IH173j2LxKwfrNN0OAh0W2TsmMB9yUOi6yJE+D12TC6+U+
-	D2ChiXnk5lRD39+VO4pfECjphvV05+e5VVWxNEAVN3mPab6p871VjLBm3Rl89ZYOKpi+tA8IRMw
-	KSuK1KMXvUgJZiQXLmgUFAA7p7Pp5j/f8EaMmZ3F5EqPW4FglBiaNsq7F5eFOXrgkg7cnMcYRIw
-	DQqOKpeuunpEm50GyE7LgbxGfzQ+57VCtFVbgqS5YDmXnQKveqpU0y+B5PXjf27QtXKGHEtRDXu
-	Uxtg9O5WM4mhx9LUKHkBLR199ZKmALNsdEsYBQRSIDKOqzUG9dYi1BaPHNmxjLi6Ev8L7g3cmZc
-	5hEVsYbtf7c9G1wdSpvq7VG+l7ztm2SkQiVsTteBv1j89h1+YNZtq1c4y0/7BKQqB5rZCi381cb
-	tsrJY/4rUCKcvE=
-X-Received: by 2002:a4a:e84a:0:b0:6b7:83c5:fdf7 with SMTP id 006d021491bc7-6b783c60350mr1319391eaf.56.1788520648768;
-        Fri, 04 Sep 2026 04:17:28 -0700 (PDT)
-Received: from volcano9f6e-hostos.amd.com ([165.204.217.251])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339aa33e96sm6297642eec.12.2026.09.04.04.17.26
+        bh=vafBG36yRum0S5znHILZDEuOCiOJO9YS/m791zdYti8=;
+        b=AtaSytnSvTiQ7+FRAyEQ1ca6yvzej2axD7S281lgsfa2JZQ++BmR0afeW/N0OcR3Ih
+         Rq+idCD2OsGNJwJgI8TIb3eq5HvgPcM+uzNdgYL97V3k/QlQzCTV1J3CmYglCDPCL2km
+         21ScyV1kGYXdHzrehVigxciX+h/Gek3xqlLx2Ix0vdkmXWLbkQFJpGj9fHdWybJ/+7lC
+         zcx5nKDnPg8+LDFQfvUfExcm8EG2LleD65h6tybA69NE1CkltdydtmcraufLNd1dcNr9
+         XU28pueP4YFYhpGwTVR57I7dvuHsJX81q37e0OGuBaip2oVW6k22pDghYrEBzSDT4cI5
+         1Y1w==
+X-Forwarded-Encrypted: i=1; AKwUvBwlS5cOHHzueGdC57aEI9h2vPwsq4EtODyAqaWuzhuknQu0Uewg3GnSIGbD40MmTNvt2KV9JFpDZl5U0AQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++miOSniFbGp84PDXu0VRbDZy+FkL3CyG9nJ1uZ4W1mAk3rhxpWL
+	SZNIMdP+PHc3YMck4kEQ2EWea1I+gUYIZ1drZsAC1MMawZkbvD8lUzvV
+X-Gm-Gg: AYBFou15vHC80ljj1KrlTT7AOad6MLSW3QQCOWohjIr+xMFVCzS1VA0EyA/fSK/FDgm
+	LeU3F17t06hGM/2LcC1TVyENjX388xRZTl1n2ovCZKjaWJjvJEQdLiFWtmFVF211z+Bl3uSFTp4
+	bxJFR6O+BwytZ0y72Hp67YardxD7nPvhVMPxhm+QxmpxkCMltxjln7VCKK5nwDsTKjJ+tsri/IM
+	j9ECO4OxWGyUaf+377Rdr+BdzOoeSLU2PTJJaJC7wOfVj1ugPWNhREFd/+lKK687HTtlg/88uqJ
+	3fePVqrdIrmFZLDPT/GVqIg9DHJsXA2FZopBM1TDd/jW1XYCJoOsnFZbx9FKrCu+33D2OJ8o7Vu
+	SLvyHpKF/wyMhNrx7N5D9WZkkMsSU2kaicluRpdP0pvXS4CF5cvVkxEXcfB+WpMqW8V+znhV59S
+	D+Vitc4KePdPaSOvpsXyGXJeK4bPVaQf97/Fp8GRNFeOtVNGh7ZHkClFC5
+X-Received: by 2002:a05:622a:144b:b0:530:430e:8f10 with SMTP id d75a77b69052e-53054a34eb9mr50348541cf.47.1788520663162;
+        Fri, 04 Sep 2026 04:17:43 -0700 (PDT)
+Received: from Turin ([187.15.144.163])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-5305402a8fcsm18350171cf.1.2026.09.04.04.17.40
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 04 Sep 2026 04:17:28 -0700 (PDT)
-From: Hemanth Selam <hemanth.selam@gmail.com>
-To: Dongsheng Yang <dongsheng.yang@linux.dev>,
-	Zheng Gu <cengku@gmail.com>,
-	Matthew Sakai <msakai@redhat.com>
-Cc: linux-kernel@vger.kernel.org,
-	dm-devel@lists.linux.dev
-Subject: [PATCH] md: fix typos in comments
-Date: Fri,  4 Sep 2026 16:47:22 +0530
-Message-ID: <20260904111723.30326-1-hemanth.selam@gmail.com>
-X-Mailer: git-send-email 2.48.1
+        Fri, 04 Sep 2026 04:17:42 -0700 (PDT)
+From: Nicholas Dudar <main.kalliope@gmail.com>
+To: ast@kernel.org,
+	daniel@iogearbox.net,
+	andrii@kernel.org,
+	eddyz87@gmail.com,
+	memxor@gmail.com,
+	johan.almbladh@anyfinetworks.com,
+	paulburton@kernel.org,
+	tsbogend@alpha.franken.de
+Cc: martin.lau@linux.dev,
+	song@kernel.org,
+	yonghong.song@linux.dev,
+	jolsa@kernel.org,
+	emil@etsalapatis.com,
+	ihor.solodrai@linux.dev,
+	bpf@vger.kernel.org,
+	linux-mips@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH bpf-next v2 0/2] bpf, mips: Add BPF_MOVSX support to the JITs
+Date: Fri,  4 Sep 2026 07:17:29 -0400
+Message-ID: <20260904111731.673341-1-main.kalliope@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -74,43 +86,66 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Fix typos in comments, reported by scripts/checkpatch.pl using the
-misspelling list in scripts/spelling.txt.  Only touches comments, no code
-changes.
+The MIPS32 and MIPS64 JITs lower register BPF_MOVSX as an ordinary
+MOV because their move paths ignore insn->off. The instruction is
+therefore silently miscompiled instead of falling back to the
+interpreter.
 
-Assisted-by: Cursor:claude-opus-5
-Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
----
- drivers/md/dm-pcache/backing_dev.c | 2 +-
- drivers/md/dm-vdo/block-map.c      | 2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
+Patch 1 factors ALU32 and ALU64 register moves into backend-local
+helpers. Patch 2 decodes the MOVSX width from insn->off in those
+helpers, keeping MIPS32 register-pair handling and the existing ALU32
+upper-half paths inside the move operation.
 
-diff --git a/drivers/md/dm-pcache/backing_dev.c b/drivers/md/dm-pcache/backing_dev.c
-index 7165fc0364bb..23002beb192a 100644
---- a/drivers/md/dm-pcache/backing_dev.c
-+++ b/drivers/md/dm-pcache/backing_dev.c
-@@ -68,7 +68,7 @@ void backing_dev_stop(struct dm_pcache *pcache)
- 	struct pcache_backing_dev *backing_dev = &pcache->backing_dev;
- 
- 	/*
--	 * There should not be any new request comming, just wait
-+	 * There should not be any new request coming, just wait
- 	 * inflight requests done.
- 	 */
- 	wait_event(backing_dev->inflight_wq,
-diff --git a/drivers/md/dm-vdo/block-map.c b/drivers/md/dm-vdo/block-map.c
-index 5ffc360540ed..258ad5521f51 100644
---- a/drivers/md/dm-vdo/block-map.c
-+++ b/drivers/md/dm-vdo/block-map.c
-@@ -240,7 +240,7 @@ static int __must_check allocate_cache_components(struct vdo_page_cache *cache)
-  * assert_on_cache_thread() - Assert that a function has been called on the VDO page cache's
-  *                            thread.
-  * @cache: The page cache.
-- * @function_name: The funtion name to report if the assertion fails.
-+ * @function_name: The function name to report if the assertion fails.
-  */
- static inline void assert_on_cache_thread(struct vdo_page_cache *cache,
- 					  const char *function_name)
--- 
-2.48.1
+This is missing architecture support rather than a regression. Core
+MOVSX support arrived after both backends, and the analogous RV32 change
+(c6a08afdfe3a, "riscv, bpf: Add support for BPF_MOVSX in RV32 JIT")
+went through bpf-next without a Fixes tag.
 
+This series can be applied before or after the in-flight SDIV/SMOD
+series. Both are semantic prerequisites for MEMSX. The ordering
+discussion is here:
+
+Link: https://lore.kernel.org/bpf/CAJZwKkis=3NGw9At0WfiZaRYEoMPbQfqJKN0e+vtRDvp4VY5Ng@mail.gmail.com/
+
+Targeted MOVSX and MOV control testing under QEMU Malta covered MIPS32
+R1, R2, and R6 and MIPS64 R2 in both endian configurations, plus MIPS64
+R6 little endian. All 180 runs required the JIT and covered the baseline,
+helper-only, and final series boundaries.
+
+I also ran the complete unfiltered lib/test_bpf.c suite directly on the
+final v2 candidate with CONFIG_BPF_JIT_ALWAYS_ON=y on little-endian
+MIPS32 R2 and R6 and MIPS64 R2 and R6. The MIPS32 profiles returned
+1036 passes and 26 failures; the MIPS64 profiles returned 1035 passes
+and 26 failures. All five MOVSX cases passed on every profile. The 26
+remaining failures were 14 SDIV/SMOD, 8 BSWAP, 3 MEMSX, and 1
+JMP32_JA case.
+
+Existing lib/test_bpf.c cases exercise all five valid MOVSX forms on
+MIPS, while verifier_movsx.c covers the generic verifier contract.
+No physical MIPS hardware was tested.
+
+Changes requested by Johan Almbladh in review of RFC v1:
+
+- Group the 8- and 16-bit cases and compute the shift from insn->off.
+- Move clobber bookkeeping to common emitter tails.
+- Avoid early returns and use emit_sext() for MIPS64 MOVSX32.
+
+Other changes in v2:
+
+- Document why width decoding belongs in the move helpers, the supported
+  ISA floor, and why other MOV offsets cannot reach these paths.
+- Run the complete test_bpf suite directly on v2 on four little-endian
+  ISA profiles.
+
+v1: https://lore.kernel.org/bpf/20260819010523.1057789-1-main.kalliope@gmail.com/
+
+Nicholas Dudar (2):
+  bpf, mips: Factor register moves into helpers
+  bpf, mips: Add support for BPF_MOVSX in the JITs
+
+ arch/mips/net/bpf_jit_comp32.c | 60 +++++++++++++++++++++++++++++++---
+ arch/mips/net/bpf_jit_comp64.c | 56 +++++++++++++++++++++++++++++--
+ 2 files changed, 109 insertions(+), 7 deletions(-)
+
+
+base-commit: 6655c409707ec8ce9ce0850ffe4fe02331fd4d9c
