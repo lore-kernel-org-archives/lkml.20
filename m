@@ -1,56 +1,50 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+Received: from relay03.th.seeweb.it (relay03.th.seeweb.it [5.144.164.164])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 768FD41D120
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 14:42:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72CFA3FF1AC
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 14:42:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.144.164.164
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788532939; cv=none; b=FsjGh8tXoZCyZk8+lNBIEX1zGLnNlzncR9NsRNjA+Lcju73z+RS7IYODtQnUA5YPYB4I58mOLtsBcoTRRY8O0fjpLt2Y+1xTaJEV+OSU1S4E2pF9TtBGEnlGg7pIhSkptac5ySg25W/25cgbTiEwkGMyHWxCzYQc73uB9aEDy0w=
+	t=1788532946; cv=none; b=I/UEx7oN7xUPo8oIa93S/4v6zkOI5yQQkmwGhIlHBi9LA0Aju2YI2G3w/N4gstSpuAn2b3Ho0SC1n+CDiCfMNyDGBLF++TwddJBjbRI2Pt8W8NZJ691d0Up4pPYqBbWqphfiHs8cZmuoeHkePkQ0J4Yr2lsOx7f1iLfTNzTp6JA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788532939; c=relaxed/simple;
-	bh=Q4Kqmm3PYSPz3CtKuYBs2ctj9qsb5M0Rg3AohwR0sUo=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=gTXytsq4x1KOLSK/B6yNryZTTTlnu/7y5+kh6+FpbCathKzGTbRnQjZ6odHBBejwzsqDxwx41/XZqvd38sT52+7nRjKZjDtZlSbl/hAhMzkM6/XtwXvn/EAnMfDD+HA3qWe21wZXvXpUQtZP1vNHjP62awoMUnsA8pmVWRRs+2c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=TU6DGzit; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="TU6DGzit"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 3B5801A19AB;
-	Fri,  4 Sep 2026 14:42:15 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 0D39F6057F;
-	Fri,  4 Sep 2026 14:42:15 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 0B48F11C7ADF4;
-	Fri,  4 Sep 2026 16:42:09 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1788532934; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=Q4Kqmm3PYSPz3CtKuYBs2ctj9qsb5M0Rg3AohwR0sUo=;
-	b=TU6DGzitYMj6dcYt7KxlJB+5/13t4QDtzUUyJZzTZrVda7JiTrx+TThy+oCxzh1l8k4ube
-	qRcAS2JMtG4Ct9CvEGiGjXFl7mBP26Pyble1JOHgSvT1sWBUOIHwwcbmgDxUxDFnIRSEQM
-	9QkWUN9JWtWVXisBvpRZVu5QpOBOPW2wb6L6hclQik+A+lst2csMJMH4OLR+wLTSHxc3ot
-	khfqe4ftDs9mMqzn1QDfAyOBWObzWVoCCwrh59/HAOafZE8vqN+xOuUngJGJi8lf2yNFo4
-	wNZ4V5voeVB2ZMN0ikD8FDDDwthMwNophBDst+deZu268hiVdqxkOvgYPcyBAg==
-From: Miquel Raynal <miquel.raynal@bootlin.com>
-To: James Hilliard <james.hilliard1@gmail.com>
-Cc: Richard Weinberger <richard@nod.at>,  Vignesh Raghavendra
- <vigneshr@ti.com>,  Rob Herring <robh@kernel.org>,  Krzysztof Kozlowski
- <krzk+dt@kernel.org>,  Conor Dooley <conor+dt@kernel.org>,  Chen-Yu Tsai
- <wens@kernel.org>,  Jernej Skrabec <jernej.skrabec@gmail.com>,  Samuel
- Holland <samuel@sholland.org>,  Maxime Ripard <mripard@kernel.org>,
-  linux-mtd@lists.infradead.org,  devicetree@vger.kernel.org,
-  linux-arm-kernel@lists.infradead.org,  linux-sunxi@lists.linux.dev,
-  linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/3] mtd: rawnand: sunxi: support randomized OOB formats
-In-Reply-To: <20260810-submit-sunxi-nand-vendor-oob-layout-v1-v1-2-463853a14ad9@gmail.com>
-	(James Hilliard's message of "Mon, 10 Aug 2026 17:04:50 -0600")
-References: <20260810-submit-sunxi-nand-vendor-oob-layout-v1-v1-0-463853a14ad9@gmail.com>
-	<20260810-submit-sunxi-nand-vendor-oob-layout-v1-v1-2-463853a14ad9@gmail.com>
-User-Agent: mu4e 1.12.12; emacs 30.2
-Date: Fri, 04 Sep 2026 16:42:09 +0200
-Message-ID: <87se3p13jy.fsf@bootlin.com>
+	s=arc-20240116; t=1788532946; c=relaxed/simple;
+	bh=sJ0E2Ers6nk/UT6ZPempThR91Gkq2iNGULZdT4GDs/A=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=eupIxyjrWjKlEGYGWeFQvlQDy6rPMex/uAd/giEKTtoIzkgRerZyaSOxDwGJb3nIPK4nXZZN5qE2/+wwJUR3ehcV53dtvE1ngcmSqksfSTr5IZM4mRmT3OOP5v1S95W+SBo+aYACR0LnEVRTm3UU9TYeFtlm2wLtiq/CeKqiEoU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=somainline.org; spf=pass smtp.mailfrom=somainline.org; arc=none smtp.client-ip=5.144.164.164
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=somainline.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=somainline.org
+Received: from SoMainline.org (94-211-6-86.cable.dynamic.v4.ziggo.nl [94.211.6.86])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by m-r1.th.seeweb.it (Postfix) with ESMTPSA id 24E12201F5;
+	Fri,  4 Sep 2026 16:33:56 +0200 (CEST)
+Date: Fri, 4 Sep 2026 16:33:54 +0200
+From: Marijn Suijten <marijn.suijten@somainline.org>
+To: Linus Walleij <linusw@kernel.org>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>, 
+	Sam Ravnborg <sam@ravnborg.org>, David Airlie <airlied@gmail.com>, 
+	Rob Herring <robh+dt@kernel.org>, Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Andy Gross <agross@kernel.org>, 
+	Bjorn Andersson <andersson@kernel.org>, Jessica Zhang <jesszhan0024@gmail.com>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, Simona Vetter <simona@ffwll.ch>, 
+	Casey Connolly <casey.connolly@linaro.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Simona Vetter <simona.vetter@ffwll.ch>, 
+	~postmarketos/upstreaming@lists.sr.ht, 
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>, Martin Botka <martin.botka@somainline.org>, 
+	Jami Kettunen <jami.kettunen@somainline.org>, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+	Abhinav Kumar <quic_abhinavk@quicinc.com>, Kuogee Hsieh <quic_khsieh@quicinc.com>, 
+	Jessica Zhang <quic_jesszhan@quicinc.com>, 
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
+	Konrad Dybcio <konradybcio@kernel.org>, Dmitry Baryshkov <lumag@kernel.org>
+Subject: Re: [PATCH v2 00/11] drm/panel: Add 5 DDIC panel drivers for 14 Sony
+ phones
+Message-ID: <aprT7A2w0TWrfcdn@SoMainline.org>
+References: <20251222-drm-panels-sony-v2-0-82a87465d163@somainline.org>
+ <CAD++jL=A5QWEfNXnmpKFMju8X1BQ8CsxMuqhia7mfMFbUaFfHg@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -58,29 +52,51 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAD++jL=A5QWEfNXnmpKFMju8X1BQ8CsxMuqhia7mfMFbUaFfHg@mail.gmail.com>
 
-On 10/08/2026 at 17:04:50 -06, James Hilliard <james.hilliard1@gmail.com> w=
-rote:
+Hi Linus,
 
-> The controller randomizer covers the bad block marker along with the
-> rest of the OOB data. The driver currently compensates the marker bytes
-> before writes and after reads so that they remain plain on flash.
->
-> Allwinner NAND firmware instead stores the marker through the
-> randomizer. Media using that format appears to contain bad blocks unless
-> the randomizer is enabled while reading the marker.
->
-> Honor the allwinner,randomized-oob property by unconditionally enabling
-> page scrambling and leaving the marker in the randomizer data stream.
-> Keep the existing plain marker behavior when the property is absent.
-> This changes marker handling on all supported controllers; the H6/H616
-> protected user-data placement is handled separately.
+On 2026-09-03 00:22:41, Linus Walleij wrote:
+> Hi Marijn,
+> 
+> On Mon, Dec 22, 2025 at 12:32 AM Marijn Suijten
+> <marijn.suijten@somainline.org> wrote:
+> 
+> > This is the second version of a largely reshaped series that brings 5
+> > new DDIC panel drivers (4 Samsung, 1 LGD) that are compatible with 14
+> > Sony phones:
+> 
+> What's up with this series?
 
-But I think the reason why this has never been done is because it just
-breaks raw accesses, including the BBT reads. I don't think this is
-handled, is it?
+This is repeatedly blocked on the request to factor out a generic Samsung panel
+library.  While commands look very similar across drivers, the same commands
+are given (sometimes) different names [1] and without spec I simply don't feel
+comfortable writing such a library as that'd sound like claiming I definitively
+know exactly what each of those commands mean / are named.  I don't.
 
-Thanks,
-Miqu=C3=A8l
+[1]: https://lore.kernel.org/linux-arm-msm/aU6XXi2HmgjZY8CY@SoMainline.org/
+
+And I'd argue that DRM/MSM has seen a lot of breakage especially around the
+DSC and dual-DSI paths that my panels/devices rely on [2], turning a simple
+rebase-and-test in a multi-evening debug session.
+
+[2]: https://lore.kernel.org/linux-arm-msm/?q=f%3Amarijn+fixes+dsc
+
+> I am officially a fan of these drivers and I liked the work done so far
+> a lot, is there something in particular stalling these from rebasing
+> and merging?
+
+And there have been many small comments left and right - including my own
+observations and self-review - that all need to get addressed.  Not a lot of
+work, but they add up and it's easy enough to miss something which will make a
+reviewer "unhappy" ;)
+
+Coincidentally I submitted 10 of the 14 Sony devices to postmarketOS just last
+week, specifically as an extra motivator to show the world that we can truly
+run all these devices with completely functional panels straight from mainline.
+I'll definitely be submitting a (rebased) v3 to drive that, but it might take a
+little more time.
+
+- Marijn
