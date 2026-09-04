@@ -1,107 +1,63 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 850CD42D757;
-	Fri,  4 Sep 2026 13:21:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 760F3314B66;
+	Fri,  4 Sep 2026 13:22:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788528065; cv=none; b=Aq7zTDe6o1+zKv7L6lwSQsI0lD4rMmU9wKBDnmTHwM7TI3eEJJ11WPzIEtW8OzOOKBwW5cbm7gHb6Y5CXhnuWK1EMfNiQTqSLBTFhYwUnZ0Z65ULwmATj5yKXOO6Lkw/3j/dxNJUWssSVKa2j2tLfK5iBR27vsCUQvXT0ppmtPU=
+	t=1788528123; cv=none; b=BBJp8B/M4fj/h1U6VVTt4CnHdZDxa9Or5oJWFKnKwUn3+qKXbHhN9UsfXy0rF+1ZWD9btdxIRc0KSYJUN6MnQyaYAt08oRerERlV6/APj1lDDmRVPEU9iRdsdBsUebqQWF99nN1ovrA6JHJmybxqgl73Q4Wx+N22RDi3IeTB5gM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788528065; c=relaxed/simple;
-	bh=qYlbXxCESLnKTi15PNafXzFG9I32g8umk7IEaNs3F3E=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=czcpRzPc31EXlrQVFIX/iWNA8fdP7xA9Y1EVQnJaIDTKW9day/ouyG9aY76a/09uIyASE1aP1U6RooYlrM/RZRZc2DEfuoBo8A2rjBmG6RfYZHKP4YCneIrhntd0tRWYbJMKgLW2yJLilKL6WIIU910iuUCiiiKs05BXTucQQEw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UxHEGf5/; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788528123; c=relaxed/simple;
+	bh=3IgsMSMJtkfbSZ6jI7v3Pt6+i682HZ6OkwWxO9ZGfI4=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=rTi2jfQxOBEyExY3xQltDvkEXoYr0Q2WbA8KCpgMbwqrHn1zlSuYFywwSVsrl13kUpAicwnJRvCpH5bjXERB1K+3FEC1JClDToxIhB+UB+2FrUdNQPjdJ1VZnB/lEBp5Pc37wMG/ne+7rVUslGSe7UgCWTNDATel6MAE0C3ux2k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=B6PmqizP; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UxHEGf5/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ED7AD1F00A3D;
-	Fri,  4 Sep 2026 13:21:00 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="B6PmqizP"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 991851F00A3D;
+	Fri,  4 Sep 2026 13:22:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788528061;
-	bh=Lv/0JtR0FodYX+QBu/pIWvc7PlCw0OO+KIN2P0yniD8=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=UxHEGf5/vmUuVHamJ+CpV7i097/cbhGNzN8V3KtbBVSxZepixnY3TDFYXTccIFaE5
-	 Aa5GKvNRW+oawEo8iGOtKIDZLUKKjESayIKzn2sCUrbvFsplJyNmCWWB5FpfeeWc3w
-	 QgJSMamU31vlFvqymOkgZlPYHFSdmf2H10S/j/trwRpsVLNW+oC6ZI65+N7npM3WOU
-	 PqsbN5XJyrasw5jjaO9Ig7aoY7BKu2ZTMvrIr6bum5u891PnguYSMkYmjf2lSSrvdg
-	 2qzyk5wAbbv/3joPXvkPsX5MwLUOStlCAUFSDCJFDC5wsAIz56vZQFBrmQsZaUVTQV
-	 lIQ8TUUAtPRHQ==
-Received: from sofa.misterjones.org ([185.219.108.64] helo=lobster-girl.misterjones.org)
-	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.98.2)
-	(envelope-from <maz@kernel.org>)
-	id 1x2Tqk-00000004rhC-1x7s;
-	Fri, 04 Sep 2026 13:20:58 +0000
-Date: Fri, 04 Sep 2026 14:23:32 +0100
-Message-ID: <87y0dh40bv.wl-maz@kernel.org>
-From: Marc Zyngier <maz@kernel.org>
-To: Mark Brown <broonie@kernel.org>
-Cc: Will Deacon <will@kernel.org>,
-	Oliver Upton <oupton@kernel.org>,
-	Fuad Tabba <fuad.tabba@linux.dev>,
-	Joey Gouly <joey.gouly@arm.com>,
-	Steffen Eiden <seiden@linux.ibm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Zenghui Yu <yuzenghui@huawei.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Mark Rutland <mark.rutland@arm.com>,
-	linux-arm-kernel@lists.infradead.org,
-	kvmarm@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/2] KVM: arm64: Enable S1PIE for nVHE and hVHE
-In-Reply-To: <05f1e2f4-173a-4226-8c98-1452c20f0a47@sirena.org.uk>
-References: <20260904-kvm-arm64-nvhe-pie-v1-0-29d59f245e6c@kernel.org>
-	<20260904-kvm-arm64-nvhe-pie-v1-2-29d59f245e6c@kernel.org>
-	<86pkyt4gvt.wl-maz@kernel.org>
-	<eb788ad5-5bb3-4767-87b8-d35d9e3ab220@sirena.org.uk>
-	<apqrky27mJmUV9UA@willie-the-truck>
-	<05f1e2f4-173a-4226-8c98-1452c20f0a47@sirena.org.uk>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
- FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
- (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+	s=k20260515; t=1788528121;
+	bh=v7pDuV/Jf/i3qKGKWxIBonJVYIXnOz5csNFqkw/ubSY=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=B6PmqizP828Mtb3D+WRROf1OoLbIhnqUF7IfT4QVq+fsaKr76SlAW0gD1lyLn/T+D
+	 hkYjVHoyfGGocaIkvodwQ7F6OTFbNwWqk7ppOqPd6Z9ywbA3pbMbODWj5w5hkanzgL
+	 hjRHc3mdn0oziY1EVmzm0G5/W7ztOKIvxSb+XhDishw+gMV6IvkY+tt6zgps7z7yTg
+	 d4LNBT/5h4XHM4rL0imbIh0GPkqTuSl/ewJCl2M3qdJjn7WEKEwek9UT8tlwDg6jS8
+	 uOvG7l5DNqyJGdomZ/f5rsMz/i2B1GjM4+gC6ir2jpp3gShYHaBKZdUr1ewl4OMH1T
+	 nZLrTrIwJIh1A==
+From: Sudeep Holla <sudeep.holla@kernel.org>
+To: Cristian Marussi <cristian.marussi@arm.com>,
+	Hemanth Selam <hemanth.selam@gmail.com>
+Cc: Sudeep Holla <sudeep.holla@kernel.org>,
+	linux-kernel@vger.kernel.org,
+	arm-scmi@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH] firmware: arm_scmi: fix typo "upto" in comment
+Date: Fri,  4 Sep 2026 14:21:55 +0100
+Message-ID: <178852808698.331840.17304144326321992215.b4-ty@b4>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260904103732.7320-1-hemanth.selam@gmail.com>
+References: <20260904103732.7320-1-hemanth.selam@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-SA-Exim-Connect-IP: 185.219.108.64
-X-SA-Exim-Rcpt-To: broonie@kernel.org, will@kernel.org, oupton@kernel.org, fuad.tabba@linux.dev, joey.gouly@arm.com, seiden@linux.ibm.com, suzuki.poulose@arm.com, yuzenghui@huawei.com, catalin.marinas@arm.com, mark.rutland@arm.com, linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev, linux-kernel@vger.kernel.org
-X-SA-Exim-Mail-From: maz@kernel.org
-X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 
-On Fri, 04 Sep 2026 12:48:14 +0100,
-Mark Brown <broonie@kernel.org> wrote:
-> 
-> On Fri, Sep 04, 2026 at 12:29:23PM +0100, Will Deacon wrote:
-> > On Fri, Sep 04, 2026 at 11:33:24AM +0100, Mark Brown wrote:
-> 
-> > > What about pKVM, my understanding was that that is very much an ongoing
-> > > concern and uses the nVHE hypervisor?  My expectation was that this
-> > > would only ever get used in hVHE configurations when people enable pKVM
-> > > on modern hardware, actual nVHE mode was mostly just carried along with
-> > > that.
-> 
-> > pKVM uses hVHE wherever it can nowadays, so I'm fine with only supporting
-> > S1PIE on hVHE and VHE configurations if that's easier to maintain. We
-> > just need to make sure that the failure mode for nVHE results in the
-> > feature being gracefully disabled, rather than e.g. crashing or quietly
-> > doing the wrong thing.
-> 
-> I figure that if we're supporting hVHE it will end up less complicated
-> to also enable nVHE, it reduces the potential for having bad or missing
-> fallback paths for features downstream of S1POE.  It's not like it's a
-> huge extra bit of code and it seems likely to save hassle down the line.
+On Fri, 04 Sep 2026 16:07:31 +0530, Hemanth Selam wrote:
+> Correct "upto" to "up to", reported by scripts/checkpatch.pl using the
+> misspelling list in scripts/spelling.txt.  Only touches comments, no code
+> changes.
 
-It's not about the code size. it's about the code being *dead*. Nobody
-is going to maintain this configuration, because this is a silly one.
+Applied to sudeep.holla/linux (for-next/scmi/fixes), thanks!
 
-KVM with E2H==0 has reached its architectural peak years ago. We're
-not adding anything to it anymore, and all new architectural bits
-require running with E2H==1.
-
-	M.
-
+[1/1] firmware: arm_scmi: fix typo "upto" in comment
+      https://git.kernel.org/sudeep.holla/c/44caf1844a25
 -- 
-Jazz isn't dead. It just smells funny.
+Regards,
+Sudeep
+
