@@ -1,386 +1,256 @@
-Received: from DU2PR03CU002.outbound.protection.outlook.com (mail-northeuropeazon11011070.outbound.protection.outlook.com [52.101.65.70])
+Received: from DB3PR0202CU003.outbound.protection.outlook.com (mail-northeuropeazon11010010.outbound.protection.outlook.com [52.101.84.10])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA4903DA5C5;
-	Fri,  4 Sep 2026 07:52:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.65.70
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00A1B3CF1F9;
+	Fri,  4 Sep 2026 07:53:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.84.10
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788508375; cv=fail; b=EfEEaaZUkBcnCEo7K7KPHCE8HDhxoh725LwbBoT6XbeIvrWMKSYQJCSL7XL9AunsQoEr6xwA4nNw4wLRjYjLWzlkH6/YUCLTFO4BHYmMe/Pwq0AdNTUU+VE7iHeU+sFPmb3vdXJGRL1egBlHTkhg6SALEjXoA+ArhB7ZJ+oqYdM=
+	t=1788508415; cv=fail; b=GOPRmb7O8pskimkwLjyN0prYYmdfwJ1gUOFY6RkwNdO2zVwJdAkNBbfpfDFc89WeRdUL07cOB7dX1MANygIfyomT7iOX2sgblGUAbj6KVo1p00mbi2MMMLws/VLLVRgTP3nYWJsUYHs6C15IcYPhfd9bBetYElWfpgzXWxWhLUY=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788508375; c=relaxed/simple;
-	bh=owuFfi6C8xcvXOhNNmeOGKTOVYLuKaxYvOykfMvAGgM=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=axSfNEkW6WKnkD1N9XviZn4rDxivnfJX1aAnHWFTnCurlt/YtOZpOxqIBNahPBf1iP3tOItB/fta0etAvKjpnUutFn6xsw6cbS5gVJuWAX60p5yFxYt7WEwr3c8K9tf5k6gRICiogBPhCPiBw5U95nRiCqHnHDUyMvS/jO5+uRs=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=KOLGQ1tQ; arc=fail smtp.client-ip=52.101.65.70
+	s=arc-20240116; t=1788508415; c=relaxed/simple;
+	bh=XJ8TcmupTBi4shQds9vGvx5ep2yZWccqtJAqwyKfnmE=;
+	h=From:Subject:Date:Message-Id:Content-Type:To:Cc:MIME-Version; b=rVUVcxrUy0LCKJT3ck/rbAbbObPNCtIsdk3pKlfGqKNL+Z76vJ8hiRr3SCChkyVwzIgMyqN+1L9tNOwccI0vk1M2k3w97dBlzwinqRFELM+70Xu/KK7t4KKj4IB0aznzGtwgrKIK9H0sNCxhcm5tUUNY+iuEGkPqDGDgjmRf5U0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=Cx77mw3r; arc=fail smtp.client-ip=52.101.84.10
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="KOLGQ1tQ"
+	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="Cx77mw3r"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Wah344f5PItfQPY+upxhDZBdCnNJjHzAvtaXjV3sl3CWR3Or68AdCFYoSQmCQrwfuxGUlvybS/9+KqEBEAtF/0XAQbbeI8aW3o31LgCcPKVmcEi/SWrBIuCx57lweckQ9o6s4sXDP9Fo0Nd1vLjY5f/7FvqoK92Z842P4nBxwqZMrTJBJ0ixPqz11H7QqjNIdgQ5C0S4t29axAZ/7TJ0vsH0ZAxCjM/ytqXDPX9lAY4h91dvyJjsMzFOOzBlgr3UiyH150FG82eSFiBXE73bKu7LQYo2XAYPLSLc2OL5p3MB2TnSJiMyWoecQBUyVN2EtF27TUfrVzkIO6Puh4y6mA==
+ b=CkfQi4nSvNoTzLFibIc43HxizHC4SEt8II/34khLFYiZeAOtecLbzLLEBHpybpyGr018ovOXcCRaCIe3xcnCR2B5T6IMBegC80lOjtrQB9/AllQo5/B79oxlFEcamqVtZv1MyL801rVmi/0QoakuZYB8c3L8sdv9vO7b0AjIH6qXzob7Ana8vmzRQtak3Y+PhTovgt1TZKkeB1fzUjgZtWpUocz6LADG5Gvjr3dWd99DFOO0YyCgHTf/YQz4hAEE+qsMSzJN2WMmEoabiv85nZz5gguuPfXPds34xbCHaXfNNo8AhTUDZNp8FAiUBxwQt0iuu2DW3OwmjvUM65X3Mg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Qp4NL4aWJADVd8FxHqUZhUjzPLecTE9Td/j1Jgjr93c=;
- b=PjLiDv/VYdOLrXTD4PByR0pks6MW/UrV9wRnlSFCPCWXHnvNWBhigCtm9A0YZZLOIVe2HdnxTjNidkdV8xmAb2/GEoSNzmtj72tD3c4EXP0xaxSrg7dwetzOg9Z2PiXdwXx6rtB1TW4bPlgaqVcWGd0G8/MJzilyfPTmNjmTrrl2C1W2X4eUplCCjzAFp9ewiCKhTMXrm7+Mhmv8auNaT51GASbvEjA5bcWZg74ce/KDWyu20zKI6CI7BvOdtoCcX44qWZ1zFWvGPJFUmSupfPBOdM7sswM8SUMOgWVL1Tu4WSI4EFJVALIZghTt69j5m8P6RN+y0OczSeuDrfYwiQ==
+ bh=jQBhXLJf/mtSdCnXS619NgQtvKBCBFo8xA4px58AiJ4=;
+ b=ACxSrRNctMfuvmnnmN/Jx+KznrtHbdFEJE0lf46GWnhsrsfLp3e1EZa0MTgtI7r7UR21Z2wBEHX+lxwpGC+HydTE4aoWEFtmdNJ2iCs9fVI6JilqBxl3+JiAnFhebGIiQLZXADksdMhw4tCccd7Thm4ldpj8cmuDtA/K8DzoSXFyZ81+HtXm01rmNLhkV7k3qWWoZtugZ6XBPkGtZjZQBe0GJN1fVzGxRhLEm3mciqgXO0Uivn7zqeshvHc7ELwVFKHKhUtzVW5WSj48IxBwXNDg3JHcpMU2K/+CMHPkLmFpujN60xgxRTqmiYxDP/OjqbLmemx8TQ3LPBLZKiNemQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
  header.d=nxp.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Qp4NL4aWJADVd8FxHqUZhUjzPLecTE9Td/j1Jgjr93c=;
- b=KOLGQ1tQbuf/xUm17fkxcXdWK1+Yj64fpQdNLxaCwbUkSKjtfZ06P6sEBdcJcDDOzCF+w+arvU8Nc3ZndO2IanOPn1bLnrtkgPTnFkl1IDfDKKI10rMlFRIKqE9M2kr5ghVlDpwcxX6Axw3Q083NtZHs8PFJ5QXONNswREeEcGFWmFGk7MqVxkHTk8c0wZrOBEf38udmcLDqvJmUUcefrFBO1a+/xvkqVpezeQu2v9JcNh2Ks2/ldJ4I8D2yiWzXyhUR/JEPz1ZxP+6rSUxUTIGRjdtNRmEbEmy+axbRGDwhDJLcQL31FBD9sAUW2Op3Qf184vMmh058U9sMOWLOWA==
-Received: from GV2PR04MB11739.eurprd04.prod.outlook.com
- (2603:10a6:150:2fc::18) by VI1PR04MB6973.eurprd04.prod.outlook.com
- (2603:10a6:803:13d::9) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Fri, 4 Sep
- 2026 07:52:47 +0000
-Received: from GV2PR04MB11739.eurprd04.prod.outlook.com
- ([fe80::71c2:937b:d466:174a]) by GV2PR04MB11739.eurprd04.prod.outlook.com
- ([fe80::71c2:937b:d466:174a%6]) with mapi id 15.21.0360.008; Fri, 4 Sep 2026
- 07:52:47 +0000
-From: Wei Fang <wei.fang@nxp.com>
-To: "netdev-bot+sashiko@kernel.org" <netdev-bot+sashiko@kernel.org>, "Wei Fang
- (OSS)" <wei.fang@oss.nxp.com>
-CC: Claudiu Manoil <claudiu.manoil@nxp.com>, Vladimir Oltean
-	<vladimir.oltean@nxp.com>, Clark Wang <xiaoning.wang@nxp.com>,
-	"andrew@lunn.ch" <andrew@lunn.ch>, "olteanv@gmail.com" <olteanv@gmail.com>,
-	"andrew+netdev@lunn.ch" <andrew+netdev@lunn.ch>, "davem@davemloft.net"
-	<davem@davemloft.net>, "edumazet@google.com" <edumazet@google.com>,
-	"kuba@kernel.org" <kuba@kernel.org>, "pabeni@redhat.com" <pabeni@redhat.com>,
-	"linux@armlinux.org.uk" <linux@armlinux.org.uk>, "imx@lists.linux.dev"
-	<imx@lists.linux.dev>, "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: RE: [PATCH v3 net-next 04/15] net: enetc: add link speed message
- support to PF driver
-Thread-Topic: [PATCH v3 net-next 04/15] net: enetc: add link speed message
- support to PF driver
-Thread-Index: AQHdOPf8zvCP2zR37UmwwM82nYY157a9ilwAgACBLWA=
-Date: Fri, 4 Sep 2026 07:52:47 +0000
-Message-ID:
- <GV2PR04MB117399C0557AA16C12279AB0588B52@GV2PR04MB11739.eurprd04.prod.outlook.com>
-References: <20260831025441.635045-5-wei.fang@oss.nxp.com>
- <178847906490.4131868.13521334026222207494@kernel.org>
-In-Reply-To: <178847906490.4131868.13521334026222207494@kernel.org>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-msip_labels:
-authentication-results: dkim=none (message not signed)
+ bh=jQBhXLJf/mtSdCnXS619NgQtvKBCBFo8xA4px58AiJ4=;
+ b=Cx77mw3rdFgvHIoOyxDwb6lXO3AQiB7UUabWRUXabYYxkWtWiosJVEihBA1eqSgpdKXkBJ7u1sFIeCFHiCzOkWdomyO1IZwnCQGwPXF4z0TkO+8w9LQduju4MSh9SuBgw4S47/beogL1h7mSM6xsZJ9H2CoAxVvk7d1KBMFgP2sOY5h5JFFYLzYzNfOSeuM6hxlooMH/3dm0omHK/1hUp6jkdb3HmyPCxahucQLNQsLxNQrGedyvZf473NOyAlY4ZI7Cu+2KWSZjQUyPd4qqPMih3uFnohql77HAzbkT/TmMdFnBy2okyOOcZqSKJrSqhdNiqK4oTj0ySOULFc6/ow==
+Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=nxp.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: GV2PR04MB11739:EE_|VI1PR04MB6973:EE_
-x-ms-office365-filtering-correlation-id: c7970a74-4fb8-4d29-71cb-08df0a5982b7
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|19092799006|376014|7416014|23010399003|1800799024|366016|38070700021|11063799006|6133799003|10067099003|5023799004|4143699003|22082099003|18002099003|56012099006;
-x-microsoft-antispam-message-info:
- 2LV1vUCOS3MJXJc3SsuNqapmKz/0KuGwvMq41QjztnEAwN9kW65/UiKqFYVoRIdKdiB4FTXmGvdECGDiaXgHgybD2ftmt66YLFkFmNNu7j8crwVckNg6G2UtJqa1tRMDAXk/Wb80KfAWGN4QfsobWdnoo+va8oZXr+qhM/qtCIi8/usH9whY0q55rCcw+ZSUxC5j2Q35T0BdO4qv1naH+eq+aVqR7nEnlKXfJIyuUKTB6ljci7HXMCWzW05zhBu4qjTHjgDkEds3q1oG/xpxyZa7FFSo180MYN5ggJ77yy/8vNEdzVJI33xlB3EfqOveQONFn/7NuzpO18nGrr+EnieLaGmO8aUO46xxl9bB67kmgH1HTy5ddC9KbeuJqLDrloiOHAGKcXLdzDay/5h0yKe2N4RQg+YlkcJLn2L3imzaNf+yHsQrx+jhKpPVYo8BRuLmhrg4Hv/AMZ6dvqzNuAtQqO/0UyTAYzuRmiSTm+WG1Ri+P3oMI/M8YUpBFGhGPW2IyULzkmTc6FQnlvmmrJTkBCq+/UH1P2v+2qSF9Fktj/d82FzS+hez1rQBqWuN1PgRN0qf1BAJJxte0+TrsAiCuT655eRtV3skXaGIoLGk9/TaV9MYn/PBDZ39eEW9RFgi3OlVe9x1EmZ4iQWlBct2NREvKnDdvRcNAy/w/ABG0DTVoLtK7mDGsv4WlnnnlvvoSmlf/qiJkKejnV0GzKK7+r9B2YWg9IUx+6izzp4=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11739.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(376014)(7416014)(23010399003)(1800799024)(366016)(38070700021)(11063799006)(6133799003)(10067099003)(5023799004)(4143699003)(22082099003)(18002099003)(56012099006);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?MfnKJ1kocFM6bCCbp2tSw1iPkiVUhIKv8itsZ5hC65ocqxXoeWbqemsVRCWQ?=
- =?us-ascii?Q?4d0e6OeKS+hp+xvFvPNUNjnflDmvzpPHlu3Iq5q4BkMt42XVQuWf1CD1qRf1?=
- =?us-ascii?Q?P0ryFGBiQ6pG0H6qA4NK287NCCXwQ+Tzrhh6Rq3vj7PfvBq9W5v5jYuF/Wnt?=
- =?us-ascii?Q?/AAOB3y37oUYcXIxByfEfqtT54XI/T1TlooLfWrW1vpz+kvacGgUpOidvFhW?=
- =?us-ascii?Q?MWN6+XJuzamWM0AnVR64zIHEYOtl38GK429ta5Bl6HoT8Uun+ojOcqR2gDf7?=
- =?us-ascii?Q?r/FVtBi1uL5pGOaucnQ+8/IAgkI8kkz4wkWbS9qYPw2CWusMmpFFrcBdDhZd?=
- =?us-ascii?Q?X12RdrFG7oov9JU5YUDqz8i0FdAAuOte7zVXklOKyC9wc1HIzUjqSGe+i/eP?=
- =?us-ascii?Q?oDUUxKeJBCspklMm+NIDGUDYAh8wDOpW9pP4CYnrebI1TstXQXP0RChBfZlO?=
- =?us-ascii?Q?OtDNWLOenU4th90resIHbFfrosAJEbLpYqadNuEnQZTJJe7Mk95ZF3Ht/zw8?=
- =?us-ascii?Q?SAA9Qzvyz33cqo+VH922cV2IhzjkIHRvZU3fBrq43pyCxTVQwqqPaYNdgToU?=
- =?us-ascii?Q?2p9m87pTV8ZFENTv81heQbdgxjHZbPjohfJDXltjl7+7dLQdybRrgvTxI6v+?=
- =?us-ascii?Q?3dA+JOu7xE0jdjfcBDJEYk4pw3+3frp/7V5SeFgX9EoSy4VsCi3FLigfVKtE?=
- =?us-ascii?Q?JwD3aHxrQm/9ETXmlVOQzLJ44bzfRxZQeCWUCSApflmh3BNEZmeVW4v1Fj9t?=
- =?us-ascii?Q?mBL6/PQ9OKArJvfD5R7Al1K50mnSyJIuPok11xfmJxVpcZaSsUWwKpkX3u4Q?=
- =?us-ascii?Q?LcoCp5tsjcN4WnyKXod4yyIHJijunO1M/i2S7rW+PilwSy1hWFnX1kPG9+5Z?=
- =?us-ascii?Q?AoSs6CFbBoNsRouPoLJ+WtMN9CB70MI68VpS9IbxVvodfsTKR28yuay2R4KX?=
- =?us-ascii?Q?I32bhS7D2qcM+8tE+1NKVTfcq5vgOaGx5n3b6R7pfEKBX+Qk2yeHZQeIcneO?=
- =?us-ascii?Q?5dC1a48gmfMyFEG+wccLSqCil623XT2GMDQ8AOAk2qUNdB78pFIvoTM8yAct?=
- =?us-ascii?Q?3S0IEW3x0P3TjykThtC9wNG+Wdcu6NMAbukJKxsshtCvMjEwm1Rco2XLgwOF?=
- =?us-ascii?Q?IgRSSKShl4hvga6dPkhQrqHJVWjQbSS7j7LjoJy/8LtePxpYeisicnBJgT9M?=
- =?us-ascii?Q?3SfoMsZ8lNdlvVUPlKPgaPOsOJYzX03CcCcHW9GP77w0CjG0ObqmTb8ZYQPP?=
- =?us-ascii?Q?Lrw8z1zsgg5L+3pNuGgIJNUBvnwbqaMsK7ZLYMdTUIHXmqNOKLgZZ22DOgNq?=
- =?us-ascii?Q?72aWdOHLQkjjgEArwP4Ckc5bbP+BVjBvj3MgzHeMmFC25Pgr1aRz6WbRW31v?=
- =?us-ascii?Q?qZQdctd0SYaAwoFVgs1Xc8CKPIttwXJIVunmDa8Y0XOaiGMKvqwKgc3nKOk/?=
- =?us-ascii?Q?uJjCu88w5HDeQdScLWaAaZZsuQJ++sSLtwK+PJd7XPNswPUY2P8GbwIGzIcZ?=
- =?us-ascii?Q?gg6YWSQfhqsAjnETgYQuD3JXx6z6IcNGoEtLheHSIrKHIxh1E6AEhnoEYGXg?=
- =?us-ascii?Q?08X86IuNqJOi1F+4a3zX9iXJJBBNRfyG9dsdpODR9ccXVI0+q9hrIHCuV86f?=
- =?us-ascii?Q?fadlR7AFGpcppHPycBEmniV6GCFLzmbvIWbBtTiK61tL0IajeOL8apqVx3AA?=
- =?us-ascii?Q?sOlkuQUl1fozRA8OAXXXKn9XirYO+Hc0L+NU1MvqiHXdQ6Po?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Received: from MI9PR04MB350878.eurprd04.prod.outlook.com (2603:10a6:290:c0::7)
+ by AMDPR04MB11702.eurprd04.prod.outlook.com (2603:10a6:20b:719::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Fri, 4 Sep
+ 2026 07:53:30 +0000
+Received: from MI9PR04MB350878.eurprd04.prod.outlook.com
+ ([fe80::8537:1cdd:6c49:6151]) by MI9PR04MB350878.eurprd04.prod.outlook.com
+ ([fe80::8537:1cdd:6c49:6151%6]) with mapi id 15.21.0360.008; Fri, 4 Sep 2026
+ 07:53:30 +0000
+From: Liu Ying <victor.liu@nxp.com>
+Subject: [PATCH v6 00/13] drm/imx: dc: Use prefetch engine
+Date: Fri, 04 Sep 2026 15:54:50 +0800
+Message-Id: <20260904-imx8-dc-prefetch-v6-0-26643e3f6cb7@nxp.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAEp5mmoC/23Oz27DIAwG8FepOI/JgCHQU9+j2iGxycKhSZVUK
+ FOVdx+ptPVfjp+t32dfxRTHFCex313FGHOa0tCX4D52grq6/44ycclCg7ZQgZHpNHvJJM9jbOO
+ FOgnaRwPOBkVOFLYu0nyrPH6V3KXpMow/twtZrdO/Mnwvy0qCrDwSmJYd2vbQz+dPGk5ircr6z
+ oPe+CXrwi27wBRq8o195uaRhw1uCidQDA58zayfOf5zBcptcCycW64NVtQYerluH7iuNrgtHCM
+ 1jhxjQHXny7L8AuGOSjmqAQAA
+X-Change-ID: 20250703-imx8-dc-prefetch-028e306591c6
+To: Philipp Zabel <p.zabel@pengutronix.de>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Shawn Guo <shawnguo@kernel.org>, 
+ Sascha Hauer <s.hauer@pengutronix.de>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Fabio Estevam <festevam@gmail.com>, Dmitry Baryshkov <lumag@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+ imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, Marek Vasut <marek.vasut@mailbox.org>, 
+ Liu Ying <victor.liu@nxp.com>, 
+ Alexander Stein <alexander.stein@ew.tq-group.com>, 
+ Frank Li <Frank.Li@nxp.com>
+X-Mailer: b4 0.15.2
+X-ClientProxiedBy: SI2PR06CA0001.apcprd06.prod.outlook.com
+ (2603:1096:4:186::21) To MI9PR04MB350878.eurprd04.prod.outlook.com
+ (2603:10a6:290:c0::7)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MI9PR04MB350878:EE_|AMDPR04MB11702:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2124e034-9584-4c74-212c-08df0a599c94
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|7416014|19092799006|366016|1800799024|23010399003|10067099003|3023799007|18002099003|56012099006|11063799006|5023799004|921020;
+X-Microsoft-Antispam-Message-Info:
+	7vLlzdEdJzHDOgaLRu7z/lxfIS328YnYe7lGv4c2cnsUNrrH9tZKjA81ZbirZHZFM9dMAhqkEP2Fm4iAHvQJZQ8NsteN2DmEsUJjB1xESkJarCuuYmAQQ8dibcO+aX40k0e//FB107Jj2cyXylvk7OFlyHzcBXiHhM/T/ffZHKZdyx1jhqjoS/88hm+XeO/SIlFeE08FDaNN/kpSYuKmT4VcPZXyleEsEaN//hfkbfDp8DxRosbNM7IVZAfySuxofejoajWkygkwWO5XIn/i5kTMF55hTFU1Fzaq7Qzpvv0LqBlMltb2zhPkDb7A/P2MQxJY3BjQv9LBT2S9gZcJVVx3UUWn5KwmJcwUZpoN+wM3VSbH9s+HBgsShSD7nTzAtVG1ZEKR/b02PTEiupEBcxHwEqoZ7uyiOzXNGQcoqKxaZ+dgh/8NanDKR1A8vp7Dv4eoSI+SmFrdlYj7/f2kTGigaoAh7VyvSEHfpnmGCATjNjhkX3yG0GpCllf3Nv/QnSpxh1hZkMD+Cndn3mgN1dj1GxFJqWXSrU8TStsX/8k2/HVOCondAlN3Oj7XemO2N+XFwH/doVmSl6KmLj4tnX6QwO/P1qmP7p9sYJzuEuAI2tOrKtHns6X/D7y2kO3MR6iMDGZOPTQUdPzPz304QQ+T0WfTFLtdba03LEU+3Xa130yPxgR2aCvgmMFEQ5Sj3aNSMArwZsPK0Fy6+7lscQ==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI9PR04MB350878.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(19092799006)(366016)(1800799024)(23010399003)(10067099003)(3023799007)(18002099003)(56012099006)(11063799006)(5023799004)(921020);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?SXFPNG96RVpPRkhGNS9HVUlxQWFtaVh4SUIyS0pCYVFxWFNPT2lycnYzVTZU?=
+ =?utf-8?B?Ty9wV0JvS0JLTmRyU2d6SXB4eFNlYm9NemFCVDJBb1gxd3U1QlUwMnNxMkJT?=
+ =?utf-8?B?YUVaZUErRnd1RHBsRktGRVU0dThGUS9pMWpYaTJxTnY4RjJLa0kvNTkwN1ln?=
+ =?utf-8?B?S0lDZFZZZldtTmhudzBoYzhkZjFONml4ZmoxUjl4NEozcFJJRzlHa2xCcGVO?=
+ =?utf-8?B?Z1MrQnlOMm9oeEp2WGZvR1dWVzZOUGxaMWFXVGNHNlAvRDNTM210Ly84ejEr?=
+ =?utf-8?B?TndNb0g4MGtzWXpyb3lWS1AzTHMzdnZPbHNqbis2cTFJNEY3TVowU0QvTVhz?=
+ =?utf-8?B?bGpxTURPblRiMUxZNCtPKzg3cG9PaGJNYzQyY3AwaUVGSmxjM3h5dEZNVE9j?=
+ =?utf-8?B?Ynpva0Mra05BVUJ0RUxPeXUxdm5QWmEwL0x1b2E2VFpQQzUwT2hJQjZLanNP?=
+ =?utf-8?B?VEJzejUwQ08xWnZueHdvZ01qUEt2UnVpQ0JHZmhHMC9MZEo0UW9ZblRlR05O?=
+ =?utf-8?B?NW1NTktzR3dKMHJubU9yOG4rVm5NVHNLL0gyOW1LcGVrRHBBSkpQZ20vd0lH?=
+ =?utf-8?B?cTI4LzZnVjE2YkFDUzNGTzBvY2wyTUp5d1hjQUUyWjliNDJJaUsxeGlCRDhl?=
+ =?utf-8?B?Y2g1ZGRvcng1d3NxQ3c3eERURVh0UXkvNExLbXg0b0YyTzl4K293Tkp0aGRt?=
+ =?utf-8?B?UHhLQmxpNWpleDkvWFN2c2NUaGFNYkVYMG5yVjhUUVh5aVVTVlRwQjQwbmZ0?=
+ =?utf-8?B?YzhoaWttc28vU3FTc3lkV1BGV2VyZGtGYVBCUHNsTkJwMUVhZjZVTVJWcFRV?=
+ =?utf-8?B?OTlCSU80azlqUkJDb0c2VS9IcW1DcUxEcVByb0ZZTDZjMlo1OG9nWHg2Nm92?=
+ =?utf-8?B?ZGg2VDVaMUhOVTRlRENxaDhKOHkrNHZmY2Q1ditTcHR3bnFTNE9rZjI5YjFC?=
+ =?utf-8?B?cDdUMjNKZzlBdEM5SVdvNXlMQ3EyQWVQeityR3lqdWNxUW5KZU01MzFIQmtw?=
+ =?utf-8?B?eHd3K1VLbTBrZldVRXcrczVyVnA4d2pFZnBCQkZSd3QzNDc0MkROaVBtK0dK?=
+ =?utf-8?B?TEdmUXN6aTVyTnFsdFNBaXpqcVJHTWN3bXZMdGk4clhlc2RzM01jSUtqRWNC?=
+ =?utf-8?B?eTZ6VUk2TlE0Ny9WeTl2QXpmcytmVEpoaVdTdXM0eGlqRk8wbWVsVzU1Q0Jj?=
+ =?utf-8?B?NTRYOGt6cy9xalAvMlVHSmowWGVFUE5WeCs5VmlOejFqVllsdnJrenFLaC9D?=
+ =?utf-8?B?eE40K2UxcG03ZThRNkxnT3JaMWttWW40cytoaklEYUNpV0NtNDByOXAwY280?=
+ =?utf-8?B?akl1TFAzbmdOaVNnVm1lU013UzhSMnRyZEl6TkdSYlNmY1Q1WUEyeW1Fdndk?=
+ =?utf-8?B?bzhOWUtmenFaajBXNmp0RllLQXVWRXhvak9MNWVSanRpSWRYRi8vMm8zdVlt?=
+ =?utf-8?B?WjF2WjRoNnZzM2dpYXRrZS9OcjUxQUFUSUx5MHNPcnFvOHNFNCtibnA3U1NB?=
+ =?utf-8?B?WFVzcTN3MlJiaTMvbExyQ2V5SnhaU0FQMFVnT1o1ZzZ2RTBlazBiK1pPM2JF?=
+ =?utf-8?B?eHVBMXdpSkdyaUdnbms0NlZwRkY0TjJ4c0Z0UE5VcVVYVmFRTVBPUjJ4ZUxU?=
+ =?utf-8?B?eDRHS1JTbTRwenNtY24wZUlSdTliN3IvMTIwNmNrMnNIcU5OTU14S1R3MllY?=
+ =?utf-8?B?YVBtUTVqU0szQ0tiU3o0RlMxMmdCMFcyZ0lpdk1Zc1V5S0FvQ1BKRURRcmRp?=
+ =?utf-8?B?Ly93MmRqaDJIMFI0MzJZdWxYclhGVHErTTFqeDhIWVNEbUZOOWFpU1RjRHcx?=
+ =?utf-8?B?OWpKTkxUUFV6YTVhb3lWZmEyZW1oTjZRbk1qQnp3WmZLSnlZTGhYT0ZiUHYw?=
+ =?utf-8?B?dUtBbXZYbzM1cFh3Vk5XZDlLY0pkQzJGRmk3U3dMRVo0T0hMM09CdVI3TzhS?=
+ =?utf-8?B?SHErSnVhT2M3Mis0UEcxb1hKcEpqN05Wbmt0K2NmcVVBMDkvQ2Z2cFNPc0lj?=
+ =?utf-8?B?anNqcnhzNDlFQSsrajM5aDBPOVhXVVZHaXloU01wNU5ZVlBVWVNxWjhqZHVF?=
+ =?utf-8?B?OUJ4dEEwTjRjTDN5V3NSMTVCdWJ0akR3NmxNQnVlS0IwM0ZkSllYRlJoYTVq?=
+ =?utf-8?B?ME85cHFya0ZYbFZOc3U4TDhSMlNOTSs0Q2dQTERaZGZwU1owZHJqN21EanhQ?=
+ =?utf-8?B?QjcydCtkMGl2VjhTeGZyYUNyYnZhWkRkdStnYnp3cEgveitZQmNkZGw3UjZ5?=
+ =?utf-8?B?a0Y3WmxGUXptVXJOOHR3QlVnMVFNclpFaWRjZWljNENiTG1Yc01VK1BPTmt2?=
+ =?utf-8?B?MmQrMks1czZUSW4yV1BpdWxjRXZBRjRhMnNZc21JS3puQmNPMWV0UT09?=
 X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2124e034-9584-4c74-212c-08df0a599c94
+X-MS-Exchange-CrossTenant-AuthSource: MI9PR04MB350878.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11739.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c7970a74-4fb8-4d29-71cb-08df0a5982b7
-X-MS-Exchange-CrossTenant-originalarrivaltime: 04 Sep 2026 07:52:47.0894
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Sep 2026 07:53:30.5833
  (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: eQFOtLJcm8Wh3Jo71NK+zb8mjygp8ptQmeKkDvKQm0LvfWMX/4jrHFkqk/K1PmyqKgEPjvCSyp/QC8ZF/MQhgw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB6973
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: SvvSjeUNd0YLcETI2vMGg13oUuGd4jq6otOqpP8YxxIRt61MrBdPIrB6WIZ1aFEBEmbFaC9BEsi2B9eFA70Stg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AMDPR04MB11702
 
-> > @@ -181,6 +212,11 @@ struct enetc_msg_mac_exact_filter {
-> >   * cmd_id 0x0: get the current link status
-> >   * cmd_id 0x1: register link status change notification
-> >   * cmd_id 0x2: unregister link status change notification
-> > + *
-> > + * Link speed message, class_id 0x81.
-> > + * cmd_id 0x0: get the current link speed.
-> > + * cmd_id 0x1: register link speed change notification, not supported =
-yet
-> > + * cmd_id 0x2: unregister link speed change notification, not supporte=
-d yet
-> >   */
->=20
-> [Severity: Medium]
->=20
-> This documents cmd_id 0x0 as returning the current link speed, but can th=
-e
-> reply describe a speed the port is not running at?
->=20
-> enetc_msg_get_link_speed() takes the value straight from
-> phylink_ethtool_ksettings_get() with no link-state gating.  For a fixed
-> link, phylink copies the configured speed/duplex unconditionally:
->=20
-> drivers/net/phy/phylink.c:phylink_ethtool_ksettings_get() {
-> 	...
-> 	case MLO_AN_FIXED:
-> 		phylink_get_fixed_state(pl, &link_state);
-> 		phylink_get_ksettings(&link_state, kset);
-> 		break;
-> 	...
-> }
->=20
-> So with the carrier down, or before the PF netdev has ever been opened,
-> enetc_build_link_speed_msg() still encodes a valid speed class code rathe=
-r
-> than ENETC_MSG_SPEED_UNKNOWN.  The MLO_AN_INBAND case reads the
-> PCS live,
-> which also need not match what the MAC was last programmed with.
->=20
-> Would it be more consistent to derive the answer from the state the PF
-> already tracks, the way the sibling link-status message does?
+Hi,
 
-No fix is needed here. Message class 0x81 (link speed) and class 0x80 (link
-status) are intentionally separate, and each returns the correct thing.
->=20
-> drivers/net/ethernet/freescale/enetc/enetc_msg.c:enetc_msg_get_link_statu=
-s()
-> {
-> 	...
-> 	pf_msg =3D enetc_build_link_status_msg(priv, pf->link_up);
-> 	...
-> }
->=20
-> priv->speed is written next to PCR_PSPEED in enetc4_set_port_speed()
-> (including the 10Mbps fallback on SPEED_UNKNOWN), so the programmed rate
-> is
-> already recorded.  As written, a VF can be told 1G/2.5G while the same PF
-> reports the link as down over class 0x80.
+This patch series aims to use prefetch engine in imx8-dc KMS driver.
 
-GET_CURRENT_LINK_SPEED is meant to expose the same value userspace
-would see via ethtool - the port's configured/negotiated speed/duplex. That
-is a property that remains meaningful even when the carrier is down (for a
-fixed link, ethtool likewise reports the configured speed regardless of lin=
-k state).
-This message never claims the link is currently up; whether the link is up =
-is
-answered by class 0x80, which the DPDK VF is expected to query separately
+One prefetch engine consists of one DPR Channel(DPRC) and one or two
+Display Prefetch Resolve Gaskets(PRGs).  It prefetches data from
+DDR, resolves data in tile formats if needed and outputs the result
+data to FetchUnit(s).  When one PRG is used, a prefetch engine supports
+processing pixel formats with one planar, e.g., RGB formats.  When two
+are used, pixel formats with two planars are supported, e.g., NV12.
 
->=20
-> > diff --git a/drivers/net/ethernet/freescale/enetc/enetc_msg.c
-> b/drivers/net/ethernet/freescale/enetc/enetc_msg.c
-> > index e21414acdc0d..c3ae4c024f34 100644
-> > --- a/drivers/net/ethernet/freescale/enetc/enetc_msg.c
-> > +++ b/drivers/net/ethernet/freescale/enetc/enetc_msg.c
-> > @@ -280,6 +280,93 @@ static u16 enetc_msg_handle_link_status(struct
-> enetc_pf *pf, int vf_id,
-> >  	return 0;
-> >  }
-> >
-> > +static u16 enetc_build_link_speed_msg(int speed, int duplex)
-> > +{
-> > +	u32 speed_code =3D ENETC_MSG_SPEED_UNKNOWN;
-> > +
-> > +	switch (speed) {
->=20
-> [ ... ]
->=20
-> > +	return FIELD_PREP(ENETC_PF_MSG_CLASS_ID,
-> > +			  ENETC_MSG_CLASS_ID_LINK_SPEED) |
-> > +	       FIELD_PREP(ENETC_PF_MSG_CLASS_CODE_U8, speed_code);
-> > +}
-> > +
-> > +static u16 enetc_msg_get_link_speed(struct enetc_pf *pf, int vf_id)
-> > +{
-> > +	struct enetc_ndev_priv *priv =3D netdev_priv(pf->si->ndev);
-> > +	struct enetc_vf_state *vf_state =3D &pf->vf_state[vf_id];
-> > +	struct ethtool_link_ksettings link_info =3D {};
-> > +
-> > +	/* A malicious or malfunctioning VM could potentially spam these
-> > +	 * messages in a tight loop causing global rtnl_lock contention,
-> > +	 * which may severely starve other processes on the host that
-> > +	 * require rtnl_lock for routine network configuration, resulting
-> > +	 * in a system-wide control-plane denial of service. Therefore,
-> > +	 * we expect the VF query for link speed to be trusted. There's no
-> > +	 * need to consider the transition from trusted to untrusted here,
-> > +	 * as this won't cause rtnl_lock() to be called frequently.
-> > +	 */
-> > +	mutex_lock(&vf_state->lock);
-> > +	if (!(vf_state->flags & ENETC_VF_FLAG_TRUSTED)) {
-> > +		mutex_unlock(&vf_state->lock);
-> > +
-> > +		return ENETC_PF_MSG_PERM_DENY;
-> > +	}
-> > +	mutex_unlock(&vf_state->lock);
->=20
-> [Severity: Medium]
->=20
-> Should the trusted-VF requirement be described in the changelog and in th=
-e
-> mailbox ABI comment in enetc_mailbox.h?
->=20
-> ENETC_VF_FLAG_TRUSTED is only ever set from enetc_pf_set_vf_trust()
-> (ndo_set_vf_trust, i.e. "ip link set <pf> vf N trust on"), and pf->vf_sta=
-te
-> is allocated with devm_kcalloc() in enetc_init_sriov_resources(), so flag=
-s
-> is zero by default.  A default setup therefore gets
-> ENETC_PF_MSG_PERM_DENY / -EACCES back from enetc_msg_vsi_send().
->=20
-> The commit message says without qualification:
->=20
->   "The PF will reply the current link speed when it receives the get link
->    speed message from VF."
->=20
->   "VFs controlled by DPDK can obtain real-time link speed information fro=
-m
->    the PF"
->=20
-> The ABI comment added to struct enetc_msg_generic also describes class 0x=
-81
-> cmd 0x0 with the same wording as the 0x80 status query, and
-> enetc_msg_get_link_status() answers any VF with no trust check.  Two pair=
-ed
-> link-info queries with different permission models is surprising for a
-> DPDK VF implementer reading only the header.
+For now, this patch series only supports prefetch engines with one PRG
+because it is enough for XRGB8888 which is the only pixel format
+supported by imx8-dc plane driver.  Two PRGs would be supported by
+future patches.
 
-The asymmetry is intentional and technically justified, but you're right th=
-at it
-should be documented. I'll update the changelog to state that the get-link-=
-speed
-query requires the VF to be trusted, and annotate the class 0x81 cmd 0x0 en=
-try
-in enetc_mailbox.h to note the trusted-VF requirement, distinguishing it fr=
-om the
-ungated 0x80 status query.
+Patch 1 and 2 add dt-bindings for DPRC and PRG.  They were reviewed
+by Rob[1][2].  I slightly modified the patches' commit message to use
+imperative mood.
 
->=20
-> > +
-> > +	rtnl_lock();
-> > +	phylink_ethtool_ksettings_get(priv->phylink, &link_info);
-> > +	rtnl_unlock();
->=20
-> [Severity: High]
->=20
-> Can blocking on rtnl here stall mailbox service for the other VFs?
->=20
-> This runs from the single work item that services every VF with the PSIIE=
-R
-> MR interrupts masked:
->=20
-> drivers/net/ethernet/freescale/enetc/enetc_msg.c:enetc_msg_task() {
-> 	...
-> 	for (i =3D 0; i < pf->num_vfs; i++) {
-> 		...
-> 		enetc_msg_handle_rxmsg(pf, i, &msg_code);
-> 		...
-> 	}
-> out:
-> 	enetc_enable_psiier_interrupts(pf);
-> }
->=20
-> rtnl hold times elsewhere (ndo_open with PCS/PHY negotiation, netdev
-> unregistration, another driver probing, netlink dumps) are unbounded, whi=
-le
-> the VF side has a hard 200ms budget:
->=20
-> drivers/net/ethernet/freescale/enetc/enetc_vf.c:enetc_msg_vsi_send() {
-> 	...
-> 	err =3D read_poll_timeout(enetc_rd, vsimsgsr,
-> 				!(vsimsgsr & ENETC_VSIMSGSR_MB),
-> 				1000, 200000, false, &si->hw, ENETC_VSIMSGSR);
-> 	if (err) {
-> 		dev_err(dev, "VSI mailbox timeout\n");
-> 	...
-> }
->=20
-> So one iteration waiting on rtnl can push unrelated requests from other V=
-Fs
-> past that timeout, with a hardware mailbox transaction left outstanding.
-> For a host-assigned VF, enetc_msg_vsi_set_primary_mac_addr() is issued fr=
-om
-> ndo_set_mac_address with rtnl already held, i.e. the VF waits for a PF re=
-ply
-> that needs the very lock the VF holds.
->=20
-> There is a second effect on teardown: enetc_msg_psi_free() does
-> cancel_work_sync(&si->msg_task), and it is called from
-> enetc_sriov_configure() (pci_driver::sriov_configure, invoked from
-> sriov_numvfs_store() under the PCI device_lock) and from
-> enetc_pf_remove()/enetc4_pf_remove().  Does SR-IOV disable/removal now
-> wait
-> for rtnl while holding device_lock, for a time a busy VF can extend?
->=20
-> Every other handler in this file avoids rtnl.  enetc_msg_get_link_status(=
-)
-> answers from the cached pf->link_up under pf->msg_lock, and speed/duplex =
-are
-> already handed to enetc4_pl_mac_link_up() where they could be cached the
-> same way.  Would caching the speed there and replying from the cache work
-> instead?
+Patch 3 fixes FetchUnit dimensions as related to prefetch engine function.
 
-this does not need a fix. Using phylink_ethtool_ksettings_get() here is del=
-iberate
-rather than an oversight, and the practical impact is negligible.
+Patch 4 disables CRTC at boot if needed to support prefetch engine better.
 
-The speed passed into enetc4_pl_mac_link_up() is not always the actual link=
- speed.
-When there is a PCS after the MAC and rate matching is in effect, the speed=
- given
-to the callback is the PCS/interface rate, not the external PHY link speed.=
- Only
-phylink_ethtool_ksettings_get() reflects the real media/PHY link speed. So =
-caching
-the callback speed and replying from it could hand the VF the PCS rate inst=
-ead of
-the actual PHY link speed - exactly what DPDK needs to get right. Querying =
-phylink
-guarantees the VF sees the same link speed that ethtool reports on the PF.
+Patch 5 and 6 add PRG and DPRC drivers.
 
-In real usage a DPDK VF does not poll link speed in a tight loop - it queri=
-es it
-occasionally (typically around link-change events), not on a hot path. Comb=
-ined
-with the existing trusted-VF gate, the chance of this rtnl_lock() acquisiti=
-on
-meaningfully contending with host control-plane operations is negligible.
-There is no measurable stall in practice.
+Patch 7 to 12 do preparations before using prefetch engine in imx8-dc KMS
+driver.
 
-Given that the cached value can be semantically wrong for PCS/rate-matching
-setups, and the rtnl acquisition is rare and already restricted to trusted =
-VFs,
-keeping the phylink query is the correct trade-off. No change is needed.
+Patch 13 uses prefetch engine in imx8-dc KMS driver.
+
+[1] https://lore.kernel.org/lkml/20201207165945.GA430214@robh.at.kernel.org/
+[2] https://lore.kernel.org/lkml/20201207170206.GA434964@robh.at.kernel.org/
+
+Signed-off-by: Liu Ying <victor.liu@nxp.com>
+---
+Changes in v6:
+- Rebase onto the latest drm-misc-next and resolve conflicts in patch 4&7&13.
+- Include "dc-drv.h" in patch 5&6 to avoid build warnings with C=1.
+- Fix PRG BYPASS programming in patch 5.
+- Link to v5: https://lore.kernel.org/r/20251027-imx8-dc-prefetch-v5-0-4ecb6c6d4941@nxp.com
+
+Changes in v5:
+- Squash MAINTAINERS file update into patch 1&2.  (Krzysztof)
+- Link to v4: https://lore.kernel.org/r/20251016-imx8-dc-prefetch-v4-0-dfda347cb3c5@nxp.com
+
+Changes in v4:
+- Rebase onto the latest drm-misc-next and resolve conflicts in patch 4&10.
+- Sort bits and bitfields in descending order for register PRG_CTRL in patch 6.
+- Cc Marek as stakeholder of the driver due to recent i.MX95 DC patches posted.
+- Link to v3: https://lore.kernel.org/r/20250929-imx8-dc-prefetch-v3-0-c01d0608add2@nxp.com
+
+Changes in v3:
+- Call dc_dprc_enable() only when start == true in patch 7.  (Frank)
+- Collect Frank's R-b tags.
+- Link to v2: https://lore.kernel.org/r/20250923-imx8-dc-prefetch-v2-0-5d69dc9ac8b5@nxp.com
+
+Changes in v2:
+- Rebase the patch series onto next-20250922.
+- Collect Alexander's and Frank's R-b tags.
+- Manage PRG's and DPRC's clocks with bulk interfaces in patch 6&7.  (Frank)
+- Sort variables in probe function in reverse Christmas tree fashion in patch 7.  (Frank)
+- Link to v1: https://lore.kernel.org/r/20250704-imx8-dc-prefetch-v1-0-784c03fd645f@nxp.com
+
+---
+Liu Ying (13):
+      dt-bindings: display: imx: Add i.MX8qxp/qm PRG binding
+      dt-bindings: display: imx: Add i.MX8qxp/qm DPR channel binding
+      drm/imx: dc-fu: Fix dimensions
+      drm/imx: dc-crtc: Disable at boot
+      drm/imx: dc: Add PRG support
+      drm/imx: dc: Add DPR channel support
+      drm/imx: dc: Use TCON operation mode
+      drm/imx: dc-ed: Support getting source selection
+      drm/imx: dc-lb: Support getting secondary input selection
+      drm/imx: dc-ed: Drop initial source selection
+      drm/imx: dc-lb: Drop initial primary and secondary input selections
+      drm/imx: dc-fu: Get DPR channel
+      drm/imx: dc: Use prefetch engine
+
+ .../bindings/display/imx/fsl,imx8qxp-dprc.yaml     | 100 +++++
+ .../bindings/display/imx/fsl,imx8qxp-prg.yaml      |  60 +++
+ MAINTAINERS                                        |   2 +
+ drivers/gpu/drm/imx/dc/Kconfig                     |   1 +
+ drivers/gpu/drm/imx/dc/Makefile                    |   6 +-
+ drivers/gpu/drm/imx/dc/dc-crtc.c                   | 200 ++++++++-
+ drivers/gpu/drm/imx/dc/dc-de.h                     |   2 +
+ drivers/gpu/drm/imx/dc/dc-dprc.c                   | 467 +++++++++++++++++++++
+ drivers/gpu/drm/imx/dc/dc-dprc.h                   |  35 ++
+ drivers/gpu/drm/imx/dc/dc-drv.c                    |   7 +
+ drivers/gpu/drm/imx/dc/dc-drv.h                    |   5 +
+ drivers/gpu/drm/imx/dc/dc-ed.c                     |  27 +-
+ drivers/gpu/drm/imx/dc/dc-fl.c                     |   7 +-
+ drivers/gpu/drm/imx/dc/dc-fu.c                     |  49 ++-
+ drivers/gpu/drm/imx/dc/dc-fu.h                     |  11 +-
+ drivers/gpu/drm/imx/dc/dc-fw.c                     |   7 +-
+ drivers/gpu/drm/imx/dc/dc-kms.h                    |   7 +
+ drivers/gpu/drm/imx/dc/dc-lb.c                     |  23 +-
+ drivers/gpu/drm/imx/dc/dc-pe.h                     |   2 +
+ drivers/gpu/drm/imx/dc/dc-plane.c                  |  46 +-
+ drivers/gpu/drm/imx/dc/dc-prg.c                    | 320 ++++++++++++++
+ drivers/gpu/drm/imx/dc/dc-prg.h                    |  39 ++
+ drivers/gpu/drm/imx/dc/dc-tc.c                     | 114 ++++-
+ 23 files changed, 1499 insertions(+), 38 deletions(-)
+---
+base-commit: a9f09b5ea0c3db1e2d4c0f8d3ebdd612d8aa0366
+change-id: 20250703-imx8-dc-prefetch-028e306591c6
+
+Best regards,
+--  
+Regards,
+Liu Ying
 
