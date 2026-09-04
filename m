@@ -1,105 +1,92 @@
-Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com [209.85.216.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85F124756D3
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 10:51:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 542DA36606B;
+	Fri,  4 Sep 2026 10:51:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.151
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788519096; cv=none; b=Mb27HQxaHF+CD3ORbHlNxcn8CztZzCdiPWxm+Xf6oyt1iHvLoD8m8vTLrSDVv1+JWAsn0flvPe14ebnVjzcezUUUc7UzTgwMC2o7QEtkci7zHFiqyAfdLQp29vSzwgtf0coD6ELk8IaOSWCe30tTYzhKSbNO1BI2AEITkaPmGYw=
+	t=1788519117; cv=none; b=olJAZihA22RT9fN4ae90RYBHzjslLG65i7lzC/68/OEnSUN/xx6+1/2vD3rYCEQFRIDD/1UXsSbeoMc+vJ0OwbhPQldBHrDV9jDIcaNzB/tvhpF49HNkmkAcxwY5EUBfSysv0MAaC8/fLLxw/fRQEzfsgjM233woO7YoDlxcgds=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788519096; c=relaxed/simple;
-	bh=xMt9gTMb7RE42HPBBjGzAkc7GVu4UuFIy6tJSPyr2ek=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=pLJgRKkXmgjyKsSHqKly65MPJgjGBO9ycrkzmeTeTRHKwvbBoOD5LE34EBqUejMfxPxRns1NzOaiL3mb5j9Cl0NKXP8p0r8QZqTM6WDlHI0m0m4n/VBLy01FExjk3DWbtIxmQH0FfttF+PexRCmfH6D1wEQM1spO38F68F67MSw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=aEY82bd+; arc=none smtp.client-ip=209.85.216.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788519117; c=relaxed/simple;
+	bh=rF1iIKdnD1arpqoiak4GAiMJte83ZTCC7sRmA66w/tY=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=sLoeSnwSBcIS3njTlyC/zReblMDEG9N66FIz6hh527CCUAk4YGd/Caqe8ug+Ax0Vf4Erno8/1wVnTVsJpFsI9GMnR63tP7+AGyJLrMesOdylaNNnzszSuHiCJ3KEp9j6aKWAGZK7RE6elyu/hIZ4CmeY6v9M+rYgiK3XxhezpKY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=Y/LpR9Cr; arc=none smtp.client-ip=80.241.56.151
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="aEY82bd+"
-Received: by mail-pj1-f49.google.com with SMTP id 98e67ed59e1d1-38e42560ebcso712689a91.1
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 03:51:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788519095; x=1789123895; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=NZ0+R6z1eGmwIz9sAFaUEUApTH+cEU6FvzDuPLwSm70=;
-        b=aEY82bd+5UiqReXjPJrOtuRg6Yb0KgpFV8L4hHJFzRBYgc23WUUhCp+HSxYjj68b13
-         2qqVY8K0QjF1luBrhHzK/ZGODsGJy0lg2qqN/2In+8p1YugRS+k51awf4eu7kGDS5ZQN
-         Hw14m7ZsPybYhTxx8339Ph0jvo/9hIs9mp193OAviCsv2B3Qi6NrCi15RdkU/oczblMC
-         WS2dtxaKsK3aKJ33WcMdny5TEX5p3fy0vK0MagkaccCigL437jgkyHV89mWorfezisq9
-         jTwV1RLHn9vSh8xw3I9W/gbaVJ4cBVBB4vfUdenm64MIps0EnTc9oBLRTF6tBLPo14QL
-         Glhw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788519095; x=1789123895;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=NZ0+R6z1eGmwIz9sAFaUEUApTH+cEU6FvzDuPLwSm70=;
-        b=Ohm9W3g8T4PBrm1YcDIzQKqVytWyVdOktupKwj3+58Bh+WWf56YPBGEloJZHJYmvOx
-         CoSYH/JKuMhcHUc85SUICAEJ0ZU75x1OFhw4Qjr/2NjbXcfnpRBb610pAMJTHGTiqUX8
-         O3+sa5OYhKgu8WEnbDKKClOlFUeec3/2DYwUESVmBiQT20F4CQYBO+GWXIhdDKTohcv6
-         G6xrm+n2chWPlTcWkUNk78v5G3+V0Rt0vBxME+qEmm62MYACoMq6UqImo4cmJ2ritJly
-         jHO4UGdUpb3yNg7MuRd/4mqyh0a5wP2+DqVd8FCzgkLrFucPWA1f6O8dvR1BmNMwMJk9
-         QJtQ==
-X-Gm-Message-State: AFuF++nI/FwZN6e3++h/YGK4HPST+tVT5e8lrJXC+ZTZlJs7wQ8HiuYu
-	LF84jE0KPKOIUjDbcy1JtAtorBVfoO91HD43sMj+gm+pABBSVyqlJjZK
-X-Gm-Gg: AYBFou2kdgp6QkFdN4cbmUWiqZeQEOKn2/RYvUhal80BWjJGzAenluoFtRGnfYq9VOi
-	N6U3dbd4oRKE5tEewho+CPOaBUnHHklaj4FD1LZxIHmkcdyZEU/EGfloCYRlgeR5wmQz4nKbs0t
-	pRXCwh/ETdyig7j5xBkJEuRiNufnxvWSNcxnoWDBE0BSGWl4pTYzBnYqcdYH5agRh71DkCXkg6z
-	S0mfTm7Q4Vm3eitDcpH6a5MeckXuvy7cqxyPRYJeb3eSdyhbTkspw++XFaWUzwam0z8tVMKXkcl
-	pDmeAHy4gkaByaWoIM2oUZFu0s/j9FmLudDxkVg2ml93HOH5ZmPTNZ//oVlkOHP7tUNBOnIePCB
-	LV18rMIna6xsTiPlCW53wxxd7C2+w5eO0/tq5Sd8FPTkvPTmVBOnN2MAzsXKWbjlT6Ntn2QPi8b
-	CwTaUuLEsA7pmFVDcBl+qkke40UXKRdWR9dtoC3LDd24UjJEdkRM6DV8+MF370VhZgvrzwzUEuz
-	H4j6Egpr7Nenrw=
-X-Received: by 2002:a17:90b:5826:b0:38e:7168:281 with SMTP id 98e67ed59e1d1-39b261b07b6mr8253370a91.10.1788519094870;
-        Fri, 04 Sep 2026 03:51:34 -0700 (PDT)
-Received: from volcano9f6e-hostos.amd.com ([165.204.217.251])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339befdefcsm5031484eec.29.2026.09.04.03.51.32
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 04 Sep 2026 03:51:34 -0700 (PDT)
-From: Hemanth Selam <hemanth.selam@gmail.com>
-To: Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>
-Cc: linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org
-Subject: [PATCH 4/4] arm64: include: fix repeated word 'to' in comment
-Date: Fri,  4 Sep 2026 16:21:10 +0530
-Message-ID: <20260904105114.29474-5-hemanth.selam@gmail.com>
-X-Mailer: git-send-email 2.48.1
-In-Reply-To: <20260904105114.29474-1-hemanth.selam@gmail.com>
-References: <20260904105114.29474-1-hemanth.selam@gmail.com>
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="Y/LpR9Cr"
+Received: from smtp202.mailbox.org (smtp202.mailbox.org [IPv6:2001:67c:2050:b231:465::202])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4hbtZH59vkz8tyG;
+	Fri, 04 Sep 2026 12:51:51 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1788519111; h=from:from:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=rF1iIKdnD1arpqoiak4GAiMJte83ZTCC7sRmA66w/tY=;
+	b=Y/LpR9CrtAx7PqoKF75627q5BCiO97S/1Sh06ZLgNceEPJPM6KSvbffv9rKSbExDDP118D
+	YttwY9FqCjI1jPJZbiBsOyA1vrcyc9BCEZ1oVPG3Q4V3QJvMhTgokFnzphbWNp+eS8nnqM
+	oRXVVAJv0h60cwDz6C7OyOM1sHR6ru5wJJJxst7WeU7OTQADxNpEQjGG7UD5kwdJeegW50
+	otGZvwTODFuT52Kq/SHYm4N+fZI5CqA9kZgZrb//wpaXy444i2P5fx/nuHtjEl9qTgszIG
+	muMwtBuk1LK1wS1u7GsOfmt9BNa/rgvKE0vraEvXCYWnUQHOJS0jKymL4qAa1w==
+Message-ID: <3958ef460d25cd7bc2a72729c8bfd8ade4dc0b79.camel@mailbox.org>
+Subject: Re: [PATCH v4 1/3] drm/sched: cache the timeline name to fix a
+ use-after-free
+From: Philipp Stanner <phasta@mailbox.org>
+Reply-To: phasta@kernel.org
+To: Danilo Krummrich <dakr@kernel.org>, "Jonghyuk Kim(MalHyuk)"
+	 <malhyuk97@gmail.com>
+Cc: phasta@kernel.org, christian.koenig@amd.com, tursulin@ursulin.net, 
+	matthew.brost@intel.com, dri-devel@lists.freedesktop.org, 
+	linux-kernel@vger.kernel.org, mdaenzer@redhat.com,
+ alessio.belle@imgtec.com, 	luigi.santivetti@imgtec.com,
+ stable@vger.kernel.org
+Date: Fri, 04 Sep 2026 12:51:47 +0200
+In-Reply-To: <DL6FYL70FVCX.10MCZIPFSVJ5G@kernel.org>
+References: <20260904080618.2098450-1-malhyuk97@gmail.com>
+	 <20260904080618.2098450-2-malhyuk97@gmail.com>
+	 <DL6FYL70FVCX.10MCZIPFSVJ5G@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MBO-RS-META: i5bernthh4t84ra48qtbsp7gwf9h4u8t
+X-MBO-RS-ID: 60fe534f6ce160e7ad4
 
-Drop the second 'to', reported by checkpatch.pl as a possible repeated
-word.  Only touches a comment, no code changes.
+On Fri, 2026-09-04 at 11:57 +0200, Danilo Krummrich wrote:
+> On Fri Sep 4, 2026 at 10:06 AM CEST, Jonghyuk Kim(MalHyuk) wrote:
+> > Fixes: 506aa8b02a8d ("dma-fence: Add safe access helpers and document t=
+he rules")
+> > Cc: stable@vger.kernel.org=C2=A0# we don't know since when
+>=20
+> How is that?
 
-Assisted-by: Cursor:claude-opus-5
-Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
----
- arch/arm64/include/asm/pgtable-prot.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+That is referring to the fact that it only is a reachable bug if the
+respective driver exposes a mechanism that runs into
+get_timeline_name().
 
-diff --git a/arch/arm64/include/asm/pgtable-prot.h b/arch/arm64/include/asm/pgtable-prot.h
-index 09d7c00cf405..526ee54c0d33 100644
---- a/arch/arm64/include/asm/pgtable-prot.h
-+++ b/arch/arm64/include/asm/pgtable-prot.h
-@@ -139,7 +139,7 @@ static inline bool __pure lpa2_is_enabled(void)
- 
- /*
-  * Page types used via Permission Indirection Extension (PIE). PIE uses
-- * the USER, DBM, PXN and UXN bits to to generate an index which is used
-+ * the USER, DBM, PXN and UXN bits to generate an index which is used
-  * to look up the actual permission in PIR_ELx and PIRE0_EL1. We define
-  * combinations we use on non-PIE systems with the same encoding, for
-  * convenience these are listed here as comments as are the unallocated
--- 
-2.48.1
+>=20
+> More in general, putting "we don't know since when" for the stable folks =
+is
+> rough. If neither the author of the patch nor the maintainers of the subs=
+ystem
+> can figure it out, how are the stable folks supposed to?
 
+That's on me, it was a joking phrase by me that Jonghyuk or his LLM
+picked up 1:1.
+
+Anyways. So would you suggest backporting a fix as far as possible to
+the amd origin commit? That might not be backportable that far, so
+stable would still have to figure it out.
+
+
+P.
