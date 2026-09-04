@@ -1,528 +1,449 @@
-Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com [209.85.216.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.3])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AF3A483BC2
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 12:58:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1EC7439F75;
+	Fri,  4 Sep 2026 12:59:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.3
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788526711; cv=none; b=omWOtto6pcIkjD/QzlikFKHOyL8KM8Y1E7WblbyDqMOrDKfNvi1Fxr1/IZlqAF2PHIyQUdr7mGxRfjhnpoW14X9kczCZKnlWhEQXsttGNZ3CFOHlrDiLZKb/qSrU3j/6Ka6KgKeMNzW6BnjVYa7c/HmPgb4bIGJnsCIwDYqT4ro=
+	t=1788526786; cv=none; b=Ci+IuPDaXaqOfws0a7FHQy/FTRpoeeIB6t8zHsb0fVr6HG3UTKZB+Xv75lANlWtmnI2yH0kUesZFiAwhWz6iXJzttteBg9BFMp3EBoy015o3sE9aEOfY+yWArp5DKnb3I8bai/touwA4pM7a4Bm2OCSQXRRtam0ElRsrK1Wbka4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788526711; c=relaxed/simple;
-	bh=Is8tfHroxKAskKJLsYwL1b9heFxU3KpHUQJuUgWlqG0=;
-	h=Subject:Date:Message-ID:In-Reply-To:References:From:To:Cc:
-	 Content-Type:MIME-Version; b=DaN1XdLjNLIBbSDQYvBM8bfGA6zMHz6HY0X4Pu7GQXt8yT/pYUAq6an4mBJbBTLOo4yTHpGPq/A5bcYm+htFKnHmQsmFqsYo5e2s9tY7lF6t+/P3yuZS26DTIohV4jbAZUMdPeBS2ViWlSpQSRrauwHoREhduy+PRGPFVPdYzoM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=P69HqyJk; arc=none smtp.client-ip=209.85.216.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788526786; c=relaxed/simple;
+	bh=nlMVCE1t2bkEV15cI8L1VA/eNndTTswCQwpa05OO4sQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=lx7tuC6KI+lrvbPhyRH7NnMasfMSZEGQGdKytwhbRMkF9GWwsDUmfUHjie1Zgc5taBPe/AbVeM2QH0/CGmBiu1ap71mYzM9rmh6o4dUmfKsOG/Lvm49aTZkcC5MUYT8n58x3dGfAumxTRvtg6jH8gKzTb2Kdep8PJBBML+2oIMQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=c0e2uK/H; arc=none smtp.client-ip=117.135.210.3
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="P69HqyJk"
-Received: by mail-pj1-f49.google.com with SMTP id 98e67ed59e1d1-398b1e63c49so1944922a91.0
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 05:58:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788526709; x=1789131509; darn=vger.kernel.org;
-        h=mime-version:content-transfer-encoding:content-type:cc:to:from
-         :references:in-reply-to:message-id:date:subject:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=+MG5ygb7cPqaycySngDMN+n/nAhBI6ReSE0L0NYO0KI=;
-        b=P69HqyJk2d9M7a5eV58e5al7yvn2VJmVSk1QgbYL54NtvroQa18fhl5wRCIUUIHTg1
-         /kbNNTdny4U4iXZwrwXLkgQ5GnhPRMTfm3lCdA4Y9tGRjwqylF5gdXwkxuBO4ibMXHUx
-         PN06ZmJmNxyOAXmIxCGtUlccdDO9i0Y1Up8GFEE8NIkgQIEI19ktTsbSbKq4vgeVeCGm
-         rs4PHCZer1fvxokOrQL3NGwPdNpRi0fp/LTjJ/4MX6zi0H79iqMBX8rZ+jR7ehkfz6Ev
-         DcDrZR6uEdnzuv4POkhECLEjXJ2uS7xwChb6VH1B8AkEBBdt2G2iSNMRAy905Xcfjq41
-         yz4g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788526709; x=1789131509;
-        h=mime-version:content-transfer-encoding:content-type:cc:to:from
-         :references:in-reply-to:message-id:date:subject:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=+MG5ygb7cPqaycySngDMN+n/nAhBI6ReSE0L0NYO0KI=;
-        b=DMMIF/JAPFFaZ+LsxCO5VFBXUN8jAaYw4E/oVJ5wXl/ANmpyUv8fEXeGv2ui1OzUV2
-         Kyhxqq8nYgdWU/pTSW5LF3EtJr0cIPFj3Zay5NrflJOGdbCfaAFIfoz6b6APFEyoirnA
-         RO5WmzS2/JHQ2eWVNezKurRtzSRiASJUMEASRyDzDJHstA4zJ+Y/YxB9Bf97U0lVw0l3
-         Y8+FMGBIQ+OMWCKAL2WOrm1ga+w4nSPvAE//c2XpnTlkhnjXXxj4NFEMxHPsjcISJlrD
-         0+k9fN6T0mekhfd+0juw7p9pbNbmSSLxOhqhKG6FtB3h9+pbW8VkB6OmucjuKsMJlJ6w
-         ZVWw==
-X-Forwarded-Encrypted: i=1; AKwUvBzRIgXf8aewp1Or3gUEApjNcpVOooO8TTB251giUfsY9m9Wu5OckWWiVF5oraDKVff2FbQ52tHeHua0fu4=@vger.kernel.org
-X-Gm-Message-State: AFuF++m2I7Aux4HQuVglHrwSuA5IoIdLVKYeFjU7R9+hzVpdxVrvkl9y
-	DXhVbOuioR6LtMgzTP//Muy5n7KkoLTy2JCJNLz8vST/vjinu/rpKeAr
-X-Gm-Gg: AYBFou2k+OjLG8DAVqCgtrWMlSmFhDNYYvfLVv4i1gqH/SFosQTBTaXvGasddVQU3/d
-	QxyjZo1MaX3gfMB/jT6kJ8kO+RWmRyCUba3LlDyW7AwEFgrVhhG75OyAb4yO2wzRZy8RzJ3zisy
-	w23S7Z06rOig/F1eSQOU8rrgeWmMv6L3k0XGvafw2viXLwbxn8TIV9sbxOk5aHUVht8RFxolIMW
-	G8RxRAHFMrhWCKIAJQFYJkjDm2MmeB9ELA0gsyL/NcqnIrs8NumodUCORSKnCo8BnRrpfBVSmzQ
-	vDoGbPJ1gpFQbULRpsqI4G6AQpu1YItgKXiTTJfrNqaie2min1cL8U+4uSgodPjEIMlM0ceQZpw
-	bwIpCDW0vBw/oKXqCL7//jgRm/vKgYjzS9YPChcJzgigDqal1DbCHzOyYp3zzKI3K/q46dwVpr+
-	XgDndOKRmJKBTmC6Gu/2VReU8RP4F3/NR2zQEayTqDt01t6aixNB74rPD9bR/32T5qUA==
-X-Received: by 2002:a17:90b:2751:b0:398:9bd3:d6d4 with SMTP id 98e67ed59e1d1-39b27ec580fmr4161805a91.14.1788526708279;
-        Fri, 04 Sep 2026 05:58:28 -0700 (PDT)
-Received: from [192.168.71.146] ([240e:b8f:91e2:d400:ec2a:b15e:fef8:70a])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b260cd2aasm4492886a91.3.2026.09.04.05.58.24
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 04 Sep 2026 05:58:27 -0700 (PDT)
-Subject: [PATCH RFC v3 1/1] leds: asus-aura-scsi: Add ASUS Aura RGB LED driver
- for ROG NVMe enclosures
-Date: Fri, 04 Sep 2026 20:30:00 +0800
-Message-ID: <202609042030.RFCv3-1.lhw@gmail.com>
-In-Reply-To: <202609042000.RFCv3-0.lhw@gmail.com>
-References: <202609012200.RFC0.lhw@gmail.com>
- <202609012200.RFC1.lhw@gmail.com> <202609032000.RFCv2-0.lhw@gmail.com>
- <202609032000.RFCv2-1.lhw@gmail.com> <20260903161357.GX2133376@google.com>
- <202609042000.RFCv3-0.lhw@gmail.com>
-From: Liang Haowen <nbg2974@gmail.com>
-To: linux-leds@vger.kernel.org
-Cc: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>,
- Martin K. Petersen <mkp@kernel.org>, linux-scsi@vger.kernel.org,
- platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org,
- Denis Benato <denis.benato@linux.dev>, Armin Wolf <W_Armin@gmx.de>,
- Hans de Goede <hansg@kernel.org>,
- Ilpo Jarvinen <ilpo.jarvinen@linux.intel.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="c0e2uK/H"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=Message-ID:Date:MIME-Version:Subject:To:From:
+	Content-Type; bh=zQ0o6HRrCnbcFEH6btw7jK4O9z4+p5Q2liG2jydd9w8=;
+	b=c0e2uK/HOEqvD+uvcDTovL+MCcNx6b1HJKNWbkN+wYAnsFbFeFYWyfnpOXpKGF
+	qsM/YlVlvy1Dvl78P9Ia7Ku72XLSfV+2dXY4nxW6ya+FGiinmY6LKFbVHmko49Tx
+	mV958m3sVcKLfzGQ72J391jdmuEJqY+ANnieM65U5GIt8=
+Message-ID: <2d528913-a787-47ce-aa57-661fddaab4bc@163.com>
+Date: Fri, 4 Sep 2026 20:59:06 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 3/3] ntfs: convert runtime error paths to mark volume
+ dirty after recording errors
+To: Hongling Zeng <zenghongling@kylinos.cn>, linkinjeon@kernel.org,
+ hyc.lee@gmail.com
+Cc: ntfs@lists.linux.dev, linux-kernel@vger.kernel.org,
+ zhongling0719@126.com, stable@vger.kernel.org
+References: <20260903075438.306793-1-zenghongling@kylinos.cn>
+ <20260903075438.306793-3-zenghongling@kylinos.cn>
+Content-Language: en-US
+From: liubaolin <liubaolin12138@163.com>
+In-Reply-To: <20260903075438.306793-3-zenghongling@kylinos.cn>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:PSgvCgBnkPeawJpqhyd0Og--.59176S2
+X-Coremail-Antispam: 1Uf129KBjvAXoW3KFWkZw47CF4kZr47Kr4fGrg_yoW8Xr4Dto
+	WSkr1qyw48W3W5Aayqv3Z3Aasxua98Cw48Jr4rCr4DZ3ZFqryqg3y3Ga13uay2ga15Krs2
+	9r1kJw4rZFWfJFy5n29KB7ZKAUJUUUU8529EdanIXcx71UUUUU7v73VFW2AGmfu7bjvjm3
+	AaLaJ3UbIYCTnIWIevJa73UjIFyTuYvjxUeYFCUUUUU
+X-CM-SenderInfo: xolxutxrol0iasrtmqqrwthudrp/xtbC6huXYmqawJvYJAAA3T
 
-ASUS ROG external NVMe enclosures (ROG STRIX Arion, USB 0b05:1932) are
-plain USB mass-storage devices with no HID interface: the Aura LEDs
-hang off an ENE controller driven by vendor SCSI commands on the same
-LUN as the disk. The enclosure has 4 independently addressable LEDs,
-verified on hardware.
 
-Register a scsi_device_handler matched by INQUIRY (vendor "ROG",
-model "ESD-S1C"); it does not claim the sdev (sd keeps owning the
-disk) and exposes each LED as a multicolor LED class device,
-/sys/class/leds/asus-arion-<H:C:T:L>:led0 through led3. The
-H:C:T:L part keeps the names unique when more than one enclosure
-is connected.
 
-Protocol: a 16-byte vendor CDB (opcode 0xec, 'A' 'S' signature,
-register index, argument count in cdb[13]). MODE 0x8021 (Static) must
-be written first in every sequence or the device ignores it; colours
-go to 0x8160 + 3 * led and 0x8100 + 3 * led (3 bytes, order R, B, G;
-both tables are written because firmware revisions pull from one or
-the other); APPLY 0x80a0 takes 0x01 to apply and 0xaa to save.
+在 2026/9/3 15:54, Hongling Zeng 写道:
+> Follow-up to the helper introduction: the runtime metadata-corruption
+> paths in mft.c, lcnalloc.c, bitmap.c and inode.c still record the error
+> flag with a bare NVolSetErrors(), leaving the same window in which
+> ntfs_sync_fs() can acquire ni->mrec_lock, find NVolErrors() unset, and
+> persist the volume as clean before the erroring thread records its
+> error.
+> 
+> Convert the call sites that can run concurrently with sync and hold no
+> mrec_lock:
+> 
+>   - the mft record allocation and $MFT data/$BITMAP extend rollback
+>     paths (mft.c), which hold the runlist, mftbmp and lcnbmp locks;
+> 
+>   - the cluster allocation/free rollback paths (lcnalloc.c), which
+>     hold vol->lcnbmp_lock;
+> 
+>   - the bitmap rollback failure path (bitmap.c), which holds no
+>     relevant lock;
+> 
+>   - the inode read and writeback failure paths (inode.c), which run
+>     under I_NEW or with the mrec_lock already released at err_out.
+> 
+> Blocking on the $Volume mrec_lock from those paths is safe: it is a
+> leaf lock, its critical sections never acquire the locks the callers
+> hold, and it carries its own lockdep class so the validator does not
+> report an inversion against the shared mrec_lock class.
+> 
+> The remaining call sites keep calling NVolSetErrors() directly, now
+> with comments explaining why:
+> 
+>   - the mft record writeback paths (write_mft_record_nolock() and
+>     ntfs_write_mft_block()) can run with a caller's mrec_lock held,
+>     which for the $Volume inode itself would self-deadlock the helper;
+> 
+>   - the ntfs_attr_lookup() failure paths (ntfs_attr_find(),
+>     ntfs_external_attr_find() and the ntfs_attr_make_non_resident()
+>     rollback) run with the caller's mrec_lock held for the same
+>     reason.
+> 
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Hongling Zeng <zenghongling@kylinos.cn>
+> ---
+>   fs/ntfs/attrib.c   | 18 ++++++++++++++-
+>   fs/ntfs/bitmap.c   |  2 +-
+>   fs/ntfs/inode.c    |  8 +++----
+>   fs/ntfs/lcnalloc.c |  4 ++--
+>   fs/ntfs/mft.c      | 55 ++++++++++++++++++++++++++++------------------
+>   5 files changed, 58 insertions(+), 29 deletions(-)
+> 
+> diff --git a/fs/ntfs/attrib.c b/fs/ntfs/attrib.c
+> index 60264833bb63..5965a67b5971 100644
+> --- a/fs/ntfs/attrib.c
+> +++ b/fs/ntfs/attrib.c
+> @@ -964,6 +964,11 @@ static int ntfs_attr_find(const __le32 type, const __le16 *name,
+>   	}
+>   	ntfs_error(vol->sb, "mft %#llx, type %#x is corrupt. Run chkdsk.",
+>   		   (long long)ctx->ntfs_ino->mft_no, le32_to_cpu(type));
+> +	/*
+> +	 * ntfs_attr_lookup() runs with the caller's mrec_lock held, so the
+> +	 * dirty bit cannot be written here (it would self-deadlock for the
+> +	 * $Volume inode); record the error flag only.
+> +	 */
+>   	NVolSetErrors(vol);
+>   	return -EIO;
+>   }
+> @@ -1501,8 +1506,14 @@ static int ntfs_external_attr_find(const __le32 type,
+>   		err = -EIO;
+>   	}
+>   
+> -	if (err != -ENOMEM)
+> +	if (err != -ENOMEM) {
+> +		/*
+> +		 * ntfs_attr_lookup() runs with the caller's mrec_lock
+> +		 * held, so the dirty bit cannot be written here; record
+> +		 * the error flag only.
+> +		 */
+>   		NVolSetErrors(vol);
+> +	}
+>   	return err;
+>   not_found:
+>   	/*
+> @@ -2236,6 +2247,11 @@ int ntfs_attr_make_non_resident(struct ntfs_inode *ni, const u32 data_size)
+>   		if (ntfs_cluster_free_from_rl(vol, rl) < 0) {
+>   			ntfs_error(vol->sb,
+>   				"Failed to release allocated cluster(s) in error code path.  Run chkdsk to recover the lost cluster(s).");
+> +			/*
+> +			 * The caller may hold the mrec_lock of the inode
+> +			 * being modified, so the dirty bit cannot be
+> +			 * written here; record the error flag only.
+> +			 */
+>   			NVolSetErrors(vol);
+>   		}
+>   		kvfree(rl);
+> diff --git a/fs/ntfs/bitmap.c b/fs/ntfs/bitmap.c
+> index b1436b3151b9..6120cb301665 100644
+> --- a/fs/ntfs/bitmap.c
+> +++ b/fs/ntfs/bitmap.c
+> @@ -284,7 +284,7 @@ int __ntfs_bitmap_set_bits_in_run(struct inode *vi, const s64 start_bit,
+>   		ntfs_error(vi->i_sb,
+>   			"Failed to map subsequent page (error %i) and rollback failed (error %i). Aborting and leaving inconsistent metadata. Unmount and run chkdsk.",
+>   			err, pos);
+> -		NVolSetErrors(NTFS_SB(vi->i_sb));
+> +		ntfs_mark_volume_dirty_with_error(NTFS_SB(vi->i_sb));
 
-The CDB cannot go through scsi_execute_cmd(): it sizes the command
-via scsi_command_size(opcode), which maps vendor opcode 0xec to
-10 bytes, so cdb[13] is dropped and the device silently ignores the
-write (GOOD status, no error). The request is built with
-scsi_alloc_request() instead, which initializes the scsi_cmnd parts a
-passthrough needs (command buffer, lengths, rcu head), with cmd_len
-forced to 16, mirroring what SG_IO does from userspace.
+Hi Hongling,
+   There may still be a case where the dirty bit is not persisted.  This 
+call site invokes ntfs_error() before 
+ntfs_mark_volume_dirty_with_error().  When errors=remount-ro is in
+   use, ntfs_error() sets SB_RDONLY through the following path:
 
-brightness_set only caches the colour and marks the LED in a per-zone
-dirty mask under a spinlock; a single work item per zone then
-snapshots the mask and colours and runs one ENE sequence for all
-pending LEDs (MODE, colour slots, APPLY, SAVE). Funneling every
-update through one work item keeps the sequences from interleaving
-between concurrent LED updates and batches multi-LED updates into a
-single APPLY/SAVE. A re-queued run with nothing pending returns
-before touching the device, so it cannot wear the flash with a
-pointless SAVE, and the lock keeps a colour write from being
-reordered after its dirty bit on weakly ordered architectures.
+   ntfs_error()
+     -> ntfs_handle_error()
+       -> sb->s_flags |= SB_RDONLY
 
-This is the monolithic out-of-tree version as verified on hardware;
-the Kconfig/Makefile/MAINTAINERS wiring lands with the agreed split
-into a SCSI transport helper and a shared ASUS Aura LED interface.
+   Therefore, when ntfs_mark_volume_dirty_with_error() is called,
+NVolErrors() is set first, but sb_rdonly() is already true.  The helper 
+returns without writing VOLUME_IS_DIRTY to disk.
 
-Signed-off-by: Liang Haowen <nbg2974@gmail.com>
----
- drivers/leds/leds-asus-aura-scsi.c | 375 +++++++++++++++++++++++++++++
- 1 file changed, 375 insertions(+)
- create mode 100644 drivers/leds/leds-asus-aura-scsi.c
+   For example, the following sequence still appears possible:
 
-diff --git a/drivers/leds/leds-asus-aura-scsi.c b/drivers/leds/leds-asus-aura=
--scsi.c
-new file mode 100644
-index 0000000..3ff3361
---- /dev/null
-+++ b/drivers/leds/leds-asus-aura-scsi.c
-@@ -0,0 +1,375 @@
-+// SPDX-License-Identifier: GPL-2.0+
-+/*
-+ * ASUS Aura RGB over SCSI for ROG external NVMe enclosures
-+ * (e.g. ROG STRIX Arion, USB 0b05:1932).
-+ *
-+ * USB mass-storage device, no HID; the ENE LED controller is driven via
-+ * vendor SCSI commands. Matched by INQUIRY (vendor "ROG", model "ESD-S1C"),
-+ * does NOT claim the sdev (sd keeps owning the disk).
-+ *
-+ * The Arion exposes 4 independently addressable LEDs (verified on hardware):
-+ * each is a multicolor LED class device (asus-arion-<H:C:T:L>:led0..led3,
-+ * unique per enclosure). A colour change writes that LED's slot only:
-+ * EFFECT 0x8160 + 3*led, DIRECT 0x8100 + 3*led (3 bytes, byte order R, B, G=
-),
-+ * then APPLY (0x01) and SAVE (0xaa). MODE (0x8021 =3D Static) is written fi=
-rst
-+ * in every sequence; skipping it makes the device ignore the whole sequence.
-+ *
-+ * Scheduling: brightness_set (LED core fast path) caches the colour and
-+ * marks the LED in a per-zone dirty mask under a spinlock; a single work
-+ * item per zone snapshots the mask and colours, then runs one ENE
-+ * sequence for all pending LEDs (MODE once, colour slots, APPLY, SAVE).
-+ * Funneling every update through that one work item also serializes the
-+ * sequences: the MODE/colour/APPLY/SAVE chain must never interleave
-+ * between concurrent LED updates. The snapshot makes re-queued runs with
-+ * nothing left to do return before touching the device, so a re-queue
-+ * cannot wear the flash with a pointless SAVE, and the lock keeps a
-+ * colour write from being reordered after its dirty bit on weakly
-+ * ordered architectures.
-+ *
-+ * CDB length: scsi_execute_cmd() sizes the CDB via COMMAND_SIZE(opcode),
-+ * which maps vendor opcode 0xec to 10 bytes. The ENE protocol uses a 16-byte
-+ * CDB with the data length in cdb[13], so scsi_execute_cmd() drops cdb[13]
-+ * and the device silently ignores the write. ene_write() therefore mirrors
-+ * scsi_execute_cmd() on top of scsi_alloc_request() and forces cmd_len =3D =
-16
-+ * (what SG_IO does from userspace).
-+ *
-+ * Attach manually until a notifier lands:
-+ * echo asus_aura > /sys/block/sdX/device/dh_state
-+ */
-+
-+#include <linux/module.h>
-+#include <linux/bits.h>
-+#include <linux/slab.h>
-+#include <linux/spinlock.h>
-+#include <linux/string.h>
-+#include <linux/leds.h>
-+#include <linux/led-class-multicolor.h>
-+#include <linux/blk_types.h>
-+#include <linux/blkdev.h>
-+#include <linux/blk-mq.h>
-+#include <linux/workqueue.h>
-+#include <scsi/scsi.h>
-+#include <scsi/scsi_cmnd.h>
-+#include <scsi/scsi_device.h>
-+#include <scsi/scsi_dh.h>
-+
-+#define ARION_INQ_VENDOR	"ROG"
-+#define ARION_INQ_MODEL		"ESD-S1C"
-+
-+#define ENE_OPCODE		0xec
-+#define ENE_REG_MODE		0x8021	/* AuraMode value: Static=3D1, Breathe=3D2, ...=
- */
-+#define ENE_REG_APPLY		0x80a0
-+#define ENE_REG_COLORS		0x8160	/* + 3*led, 3 bytes per LED, order R,B,G */
-+#define ENE_REG_COLORS_DIRECT	0x8100	/* + 3*led, same layout */
-+#define ENE_APPLY		0x01
-+#define ENE_SAVE		0xaa
-+#define ENE_MODE_STATIC		1
-+#define ENE_CDB_LEN		16
-+#define ENE_RGB_LEN		3
-+#define ENE_TIMEOUT		(10 * HZ)
-+
-+/*
-+ * Verified on hardware: the enclosure has 4 independently settable LEDs.
-+ * (The colour table reserves 16 slots; only the first 4 drive anything.)
-+ */
-+#define ARION_NUM_LEDS		4
-+
-+struct asus_aura_led {
-+	struct asus_aura_zone	*zone;
-+	int			index;
-+	struct led_classdev_mc	mc_cdev;
-+	struct mc_subled	subled[3];
-+	u8			rgb[ENE_RGB_LEN];
-+};
-+
-+struct asus_aura_zone {
-+	struct scsi_device	*sdev;
-+	struct asus_aura_led	leds[ARION_NUM_LEDS];
-+	spinlock_t		lock;	/* protects dirty and cached colours */
-+	u8			dirty;	/* bit i: led i needs a colour write */
-+	struct work_struct	work;
-+};
-+
-+static void ene_build_cdb(u8 *cdb, u16 reg, u8 arg_count)
-+{
-+	memset(cdb, 0, ENE_CDB_LEN);
-+	cdb[0] =3D ENE_OPCODE;
-+	cdb[1] =3D 'A';
-+	cdb[2] =3D 'S';
-+	cdb[3] =3D (reg >> 8) & 0xff;
-+	cdb[4] =3D reg & 0xff;
-+	cdb[13] =3D arg_count;
-+}
-+
-+/*
-+ * scsi_execute_cmd() with cmd_len forced to 16. scsi_alloc_request()
-+ * initializes the parts of the scsi_cmnd a passthrough needs (zeroed
-+ * cmnd, cmd_len =3D MAX_COMMAND_SIZE, sense_len, rcu head, retries);
-+ * a raw blk_mq_alloc_request() does none of that.
-+ */
-+static int ene_write(struct scsi_device *sdev, u16 reg,
-+		     const void *data, u8 arg_count)
-+{
-+	struct request *rq;
-+	struct scsi_cmnd *scmd;
-+	u8 cdb[ENE_CDB_LEN];
-+	int ret;
-+
-+	ene_build_cdb(cdb, reg, arg_count);
-+
-+	rq =3D scsi_alloc_request(sdev->request_queue, REQ_OP_DRV_OUT, 0);
-+	if (IS_ERR(rq))
-+		return PTR_ERR(rq);
-+
-+	if (arg_count) {
-+		ret =3D blk_rq_map_kern(rq, (void *)data, arg_count, GFP_NOIO);
-+		if (ret)
-+			goto out;
-+	}
-+
-+	scmd =3D blk_mq_rq_to_pdu(rq);
-+	scmd->cmd_len =3D ENE_CDB_LEN;
-+	memcpy(scmd->cmnd, cdb, ENE_CDB_LEN);
-+	scmd->allowed =3D 1;
-+	rq->timeout =3D ENE_TIMEOUT;
-+	rq->rq_flags |=3D RQF_QUIET;
-+
-+	blk_execute_rq(rq, true);
-+	ret =3D scmd->result;
-+out:
-+	blk_mq_free_request(rq);
-+	return ret;
-+}
-+
-+/*
-+ * Sleepable: runs on the system workqueue. One ENE sequence for every LED
-+ * marked in the dirty mask. The mask and colours are snapshotted under the
-+ * zone lock: asus_aura_set() may run concurrently on another CPU, and the
-+ * lock keeps a colour write from being reordered after its dirty bit on
-+ * weakly ordered architectures. A colour cached while this runs requeues
-+ * the work and is picked up by the next sequence.
-+ */
-+static void asus_aura_zone_work(struct work_struct *work)
-+{
-+	struct asus_aura_zone *zone =3D
-+		container_of(work, struct asus_aura_zone, work);
-+	struct scsi_device *sdev =3D zone->sdev;
-+	u8 rgb[ARION_NUM_LEDS][ENE_RGB_LEN];
-+	u8 apply =3D ENE_APPLY;
-+	u8 save =3D ENE_SAVE;
-+	u8 mode =3D ENE_MODE_STATIC;
-+	unsigned long flags;
-+	u8 pending;
-+	int i, ret;
-+
-+	spin_lock_irqsave(&zone->lock, flags);
-+	pending =3D zone->dirty;
-+	zone->dirty =3D 0;
-+	for (i =3D 0; i < ARION_NUM_LEDS; i++)
-+		memcpy(rgb[i], zone->leds[i].rgb, ENE_RGB_LEN);
-+	spin_unlock_irqrestore(&zone->lock, flags);
-+
-+	/*
-+	 * schedule_work() while this function runs requeues it, and the
-+	 * pending colour may already have been consumed above; the requeued
-+	 * run then has nothing to do. Return before touching the device:
-+	 * SAVE writes its flash.
-+	 */
-+	if (!pending)
-+		return;
-+
-+	if (!scsi_device_online(sdev))
-+		return;
-+
-+	/* Mode first: without it the device ignores the whole sequence. */
-+	ret =3D ene_write(sdev, ENE_REG_MODE, &mode, 1);
-+	if (ret)
-+		goto err;
-+
-+	for (i =3D 0; i < ARION_NUM_LEDS; i++) {
-+		if (!(pending & BIT(i)))
-+			continue;
-+
-+		ret =3D ene_write(sdev, ENE_REG_COLORS + i * ENE_RGB_LEN,
-+				rgb[i], ENE_RGB_LEN);
-+		if (ret)
-+			goto err;
-+
-+		/*
-+		 * Cover the DIRECT colour set too; some firmware revisions
-+		 * pull from 0x8100 instead of 0x8160.
-+		 */
-+		ret =3D ene_write(sdev, ENE_REG_COLORS_DIRECT + i * ENE_RGB_LEN,
-+				rgb[i], ENE_RGB_LEN);
-+		if (ret)
-+			goto err;
-+	}
-+
-+	ret =3D ene_write(sdev, ENE_REG_APPLY, &apply, 1);
-+	if (ret)
-+		goto err;
-+
-+	/*
-+	 * The change only takes effect after SAVE (0xaa). NOTE: saving on
-+	 * every brightness change writes flash each time; revisit for wear
-+	 * once confirmed.
-+	 */
-+	ret =3D ene_write(sdev, ENE_REG_APPLY, &save, 1);
-+	if (ret)
-+		goto err;
-+
-+	return;
-+err:
-+	dev_err(&sdev->sdev_gendev,
-+		"asus_aura: colour update failed: %d\n", ret);
-+}
-+
-+/* Non-blocking LED callback (LED core fast path). Cache colour, defer SCSI.=
- */
-+static void asus_aura_set(struct led_classdev *cdev,
-+			  enum led_brightness brightness)
-+{
-+	struct led_classdev_mc *mc =3D lcdev_to_mccdev(cdev);
-+	struct asus_aura_led *led =3D
-+		container_of(mc, struct asus_aura_led, mc_cdev);
-+	struct asus_aura_zone *zone =3D led->zone;
-+	unsigned long flags;
-+
-+	led_mc_calc_color_components(mc, brightness);
-+
-+	spin_lock_irqsave(&zone->lock, flags);
-+	/* ENE colour register byte order is R, B, G. */
-+	led->rgb[0] =3D led->subled[0].brightness;
-+	led->rgb[1] =3D led->subled[2].brightness;
-+	led->rgb[2] =3D led->subled[1].brightness;
-+	zone->dirty |=3D BIT(led->index);
-+	spin_unlock_irqrestore(&zone->lock, flags);
-+
-+	schedule_work(&zone->work);
-+}
-+
-+static int asus_aura_register_led(struct asus_aura_zone *zone, int index)
-+{
-+	struct asus_aura_led *led =3D &zone->leds[index];
-+	struct led_classdev *cdev =3D &led->mc_cdev.led_cdev;
-+	int ret;
-+
-+	led->zone =3D zone;
-+	led->index =3D index;
-+
-+	led->subled[0].color_index =3D LED_COLOR_ID_RED;
-+	led->subled[1].color_index =3D LED_COLOR_ID_GREEN;
-+	led->subled[2].color_index =3D LED_COLOR_ID_BLUE;
-+	led->mc_cdev.num_colors =3D 3;
-+	led->mc_cdev.subled_info =3D led->subled;
-+
-+	/*
-+	 * Include the sdev's H:C:T:L: every enclosure gets its own SCSI
-+	 * host, so the names stay unique when more than one is connected.
-+	 * With a static name the LED core would register the second
-+	 * enclosure's LEDs under renamed nodes (asus-arion:led0_1), which
-+	 * is the wrong device identity. The names are per-attachment, like
-+	 * sd X letters, and userspace is expected to enumerate.
-+	 */
-+	cdev->name =3D kasprintf(GFP_KERNEL, "asus-arion-%s:led%d",
-+			       dev_name(&zone->sdev->sdev_gendev), index);
-+	if (!cdev->name)
-+		return -ENOMEM;
-+	cdev->max_brightness =3D 255;
-+	cdev->brightness_set =3D asus_aura_set;
-+
-+	led_mc_calc_color_components(&led->mc_cdev, cdev->brightness);
-+
-+	/*
-+	 * Register with NULL parent: parenting the LED to the sdev takes a
-+	 * device reference, which blocks the sdev's final release on unplug,
-+	 * which is what calls scsi_dh_release_device() -> our .detach() that
-+	 * unregisters the LEDs. That reference cycle leaked the LED nodes and
-+	 * the module refcount on every hot-unplug.
-+	 */
-+	ret =3D led_classdev_multicolor_register(NULL, &led->mc_cdev);
-+	if (ret)
-+		kfree(cdev->name);
-+	return ret;
-+}
-+
-+/*
-+ * Unregister the LED devices before cancelling the work: unregistering
-+ * removes the sysfs attributes, so no new brightness_set can schedule the
-+ * zone work afterwards, and it waits for in-flight sysfs callbacks.
-+ * Cancelling first would leave a window where a brightness write requeues
-+ * the work after cancel_work_sync() returned, and the work would then run
-+ * on freed memory.
-+ */
-+static void asus_aura_release(struct asus_aura_zone *zone, int num_leds)
-+{
-+	int i;
-+
-+	for (i =3D 0; i < num_leds; i++)
-+		led_classdev_multicolor_unregister(&zone->leds[i].mc_cdev);
-+	cancel_work_sync(&zone->work);
-+	for (i =3D 0; i < num_leds; i++)
-+		kfree(zone->leds[i].mc_cdev.led_cdev.name);
-+	kfree(zone);
-+}
-+
-+static int asus_aura_attach(struct scsi_device *sdev)
-+{
-+	struct asus_aura_zone *zone;
-+	int i, ret;
-+
-+	if (strncmp(sdev->vendor, ARION_INQ_VENDOR, strlen(ARION_INQ_VENDOR)) ||
-+	    strncmp(sdev->model, ARION_INQ_MODEL, strlen(ARION_INQ_MODEL)))
-+		return SCSI_DH_DEV_UNSUPP;
-+
-+	zone =3D kzalloc_obj(*zone, GFP_KERNEL);
-+	if (!zone)
-+		return SCSI_DH_NOMEM;
-+	zone->sdev =3D sdev;
-+	spin_lock_init(&zone->lock);
-+	INIT_WORK(&zone->work, asus_aura_zone_work);
-+
-+	for (i =3D 0; i < ARION_NUM_LEDS; i++) {
-+		ret =3D asus_aura_register_led(zone, i);
-+		if (ret) {
-+			asus_aura_release(zone, i);
-+			return SCSI_DH_NOMEM;
-+		}
-+	}
-+
-+	sdev->handler_data =3D zone;
-+	return SCSI_DH_OK;
-+}
-+
-+static void asus_aura_detach(struct scsi_device *sdev)
-+{
-+	struct asus_aura_zone *zone =3D sdev->handler_data;
-+
-+	if (!zone)
-+		return;
-+	asus_aura_release(zone, ARION_NUM_LEDS);
-+	sdev->handler_data =3D NULL;
-+}
-+
-+static struct scsi_device_handler asus_aura_dh =3D {
-+	.name	=3D "asus_aura",
-+	.module	=3D THIS_MODULE,
-+	.attach	=3D asus_aura_attach,
-+	.detach	=3D asus_aura_detach,
-+};
-+
-+static int __init asus_aura_init(void)
-+{
-+	return scsi_register_device_handler(&asus_aura_dh);
-+}
-+
-+static void __exit asus_aura_exit(void)
-+{
-+	scsi_unregister_device_handler(&asus_aura_dh);
-+}
-+
-+module_init(asus_aura_init);
-+module_exit(asus_aura_exit);
-+
-+MODULE_DESCRIPTION("ASUS Aura RGB over SCSI for ROG NVMe enclosures (per-LED=
-)");
-+MODULE_AUTHOR("Liang Haowen");
-+MODULE_LICENSE("GPL");
---=20
-2.55.0
+   ntfs_sync_fs()                    error path
+   --------------                    ----------
+   acquire $Volume mrec_lock
+   observe NVolErrors() == false
+                                     ntfs_error()
+                                       -> set SB_RDONLY
+                                     set NVolErrors()
+                                     sb_rdonly() == true
+                                     skip the dirty-bit update
+   clear VOLUME_IS_DIRTY
+   release $Volume mrec_lock
 
+   This leaves NVolErrors() set while the on-disk VOLUME_IS_DIRTY bit 
+has been cleared.
+
+   The same issue should apply to the other call sites in this patch 
+that invoke ntfs_error() before ntfs_mark_volume_dirty_with_error().
+   Should the dirty bit be persisted before setting SB_RDONLY?
+
+Thanks,
+Baolin.
+
+>   	}
+>   	return err;
+>   }
+> diff --git a/fs/ntfs/inode.c b/fs/ntfs/inode.c
+> index 32edb4045178..0288f6a101dc 100644
+> --- a/fs/ntfs/inode.c
+> +++ b/fs/ntfs/inode.c
+> @@ -1245,7 +1245,7 @@ static int ntfs_read_locked_inode(struct inode *vi)
+>   		ntfs_error(vol->sb,
+>   			"Failed with error code %i.  Marking corrupt inode 0x%llx as bad.  Run chkdsk.",
+>   			err, ni->mft_no);
+> -		NVolSetErrors(vol);
+> +		ntfs_mark_volume_dirty_with_error(vol);
+>   	}
+>   	return err;
+>   }
+> @@ -1473,7 +1473,7 @@ static int ntfs_read_locked_attr_inode(struct inode *base_vi, struct inode *vi)
+>   			err, ni->mft_no, ni->type, ni->name_len,
+>   			base_ni->mft_no);
+>   	if (err != -ENOENT && err != -ENOMEM)
+> -		NVolSetErrors(vol);
+> +		ntfs_mark_volume_dirty_with_error(vol);
+>   	return err;
+>   }
+>   
+> @@ -1725,7 +1725,7 @@ static int ntfs_read_locked_index_inode(struct inode *base_vi, struct inode *vi)
+>   		"Failed with error code %i while reading index inode (mft_no 0x%llx, name_len %i.",
+>   		err, ni->mft_no, ni->name_len);
+>   	if (err != -EOPNOTSUPP && err != -ENOMEM)
+> -		NVolSetErrors(vol);
+> +		ntfs_mark_volume_dirty_with_error(vol);
+>   	return err;
+>   }
+>   
+> @@ -2883,7 +2883,7 @@ int __ntfs_write_inode(struct inode *vi, int sync)
+>   		mark_inode_dirty(vi);
+>   	else {
+>   		ntfs_error(vi->i_sb, "Failed (error %i):  Run chkdsk.", -err);
+> -		NVolSetErrors(ni->vol);
+> +		ntfs_mark_volume_dirty_with_error(ni->vol);
+>   	}
+>   	if (need_iput)
+>   		iput(vi);
+> diff --git a/fs/ntfs/lcnalloc.c b/fs/ntfs/lcnalloc.c
+> index aa2e017a4384..dd6854f16136 100644
+> --- a/fs/ntfs/lcnalloc.c
+> +++ b/fs/ntfs/lcnalloc.c
+> @@ -763,7 +763,7 @@ switch_to_data1_zone:		search_zone = 2;
+>   			ntfs_error(vol->sb,
+>   				"Failed to rollback (error %i). Leaving inconsistent metadata! Unmount and run chkdsk.",
+>   				err2);
+> -			NVolSetErrors(vol);
+> +			ntfs_mark_volume_dirty_with_error(vol);
+>   		}
+>   		/* Free the runlist. */
+>   		kvfree(rl);
+> @@ -1044,7 +1044,7 @@ s64 __ntfs_cluster_free(struct ntfs_inode *ni, const s64 start_vcn, s64 count,
+>   		ntfs_error(vol->sb,
+>   			"Failed to rollback (error %i).  Leaving inconsistent metadata!  Unmount and run chkdsk.",
+>   			(int)delta);
+> -		NVolSetErrors(vol);
+> +		ntfs_mark_volume_dirty_with_error(vol);
+>   	}
+>   	ntfs_dec_free_clusters(vol, delta);
+>   	up_write(&vol->lcnbmp_lock);
+> diff --git a/fs/ntfs/mft.c b/fs/ntfs/mft.c
+> index 984a0827f9ac..d8791d7b9678 100644
+> --- a/fs/ntfs/mft.c
+> +++ b/fs/ntfs/mft.c
+> @@ -657,8 +657,15 @@ int write_mft_record_nolock(struct ntfs_inode *ni, struct mft_record *m, int syn
+>   			"Not enough memory to write mft record. Redirtying so the write is retried later.");
+>   		mark_mft_record_dirty(ni);
+>   		err = 0;
+> -	} else
+> +	} else {
+> +		/*
+> +		 * The writeback path can run with the caller's mrec_lock
+> +		 * held, so the dirty bit cannot be written here (it would
+> +		 * self-deadlock for the $Volume inode); record the error
+> +		 * flag only.
+> +		 */
+>   		NVolSetErrors(vol);
+> +	}
+>   	return err;
+>   }
+>   
+> @@ -1150,7 +1157,7 @@ static int ntfs_mft_bitmap_extend_allocation_nolock(struct ntfs_volume *vol)
+>   			if (ntfs_cluster_free_from_rl(vol, rl2)) {
+>   				ntfs_error(vol->sb, "Failed to deallocate allocated cluster.%s",
+>   						es);
+> -				NVolSetErrors(vol);
+> +				ntfs_mark_volume_dirty_with_error(vol);
+>   			}
+>   			kvfree(rl2);
+>   			return PTR_ERR(rl);
+> @@ -1285,7 +1292,7 @@ static int ntfs_mft_bitmap_extend_allocation_nolock(struct ntfs_volume *vol)
+>   		 * The only thing that is now wrong is ->allocated_size of the
+>   		 * base attribute extent which chkdsk should be able to fix.
+>   		 */
+> -		NVolSetErrors(vol);
+> +		ntfs_mark_volume_dirty_with_error(vol);
+>   		return ret;
+>   	}
+>   	a = ctx->attr;
+> @@ -1306,7 +1313,7 @@ static int ntfs_mft_bitmap_extend_allocation_nolock(struct ntfs_volume *vol)
+>   	down_write(&vol->lcnbmp_lock);
+>   	if (ntfs_bitmap_clear_bit(vol->lcnbmp_ino, lcn)) {
+>   		ntfs_error(vol->sb, "Failed to free allocated cluster.%s", es);
+> -		NVolSetErrors(vol);
+> +		ntfs_mark_volume_dirty_with_error(vol);
+>   	} else
+>   		ntfs_inc_free_clusters(vol, 1);
+>   	up_write(&vol->lcnbmp_lock);
+> @@ -1317,16 +1324,16 @@ static int ntfs_mft_bitmap_extend_allocation_nolock(struct ntfs_volume *vol)
+>   				a->data.non_resident.mapping_pairs_offset),
+>   				rl2, ll, -1, NULL, NULL, NULL)) {
+>   			ntfs_error(vol->sb, "Failed to restore mapping pairs array.%s", es);
+> -			NVolSetErrors(vol);
+> +			ntfs_mark_volume_dirty_with_error(vol);
+>   		}
+>   		if (ntfs_attr_record_resize(ctx->mrec, a, old_alen)) {
+>   			ntfs_error(vol->sb, "Failed to restore attribute record.%s", es);
+> -			NVolSetErrors(vol);
+> +			ntfs_mark_volume_dirty_with_error(vol);
+>   		}
+>   		mark_mft_record_dirty(ctx->ntfs_ino);
+>   	} else if (status.mp_extended && ntfs_attr_update_mapping_pairs(mftbmp_ni, 0)) {
+>   		ntfs_error(vol->sb, "Failed to restore mapping pairs.%s", es);
+> -		NVolSetErrors(vol);
+> +		ntfs_mark_volume_dirty_with_error(vol);
+>   	}
+>   	if (ctx)
+>   		ntfs_attr_put_search_ctx(ctx);
+> @@ -1420,20 +1427,20 @@ static int ntfs_mft_bitmap_extend_initialized_nolock(struct ntfs_volume *vol)
+>   	mrec = map_mft_record(mft_ni);
+>   	if (IS_ERR(mrec)) {
+>   		ntfs_error(vol->sb, "Failed to map mft record.%s", es);
+> -		NVolSetErrors(vol);
+> +		ntfs_mark_volume_dirty_with_error(vol);
+>   		return ret;
+>   	}
+>   	ctx = ntfs_attr_get_search_ctx(mft_ni, mrec);
+>   	if (unlikely(!ctx)) {
+>   		ntfs_error(vol->sb, "Failed to get search context.%s", es);
+> -		NVolSetErrors(vol);
+> +		ntfs_mark_volume_dirty_with_error(vol);
+>   		goto unm_err_out;
+>   	}
+>   	if (ntfs_attr_lookup(mftbmp_ni->type, mftbmp_ni->name,
+>   			mftbmp_ni->name_len, CASE_SENSITIVE, 0, NULL, 0, ctx)) {
+>   		ntfs_error(vol->sb,
+>   			"Failed to find first attribute extent of mft bitmap attribute.%s", es);
+> -		NVolSetErrors(vol);
+> +		ntfs_mark_volume_dirty_with_error(vol);
+>   put_err_out:
+>   		ntfs_attr_put_search_ctx(ctx);
+>   unm_err_out:
+> @@ -1587,7 +1594,7 @@ static int ntfs_mft_data_extend_allocation_nolock(struct ntfs_volume *vol)
+>   		if (ntfs_cluster_free_from_rl(vol, rl2)) {
+>   			ntfs_error(vol->sb,
+>   				"Failed to deallocate clusters from the mft data attribute.%s", es);
+> -			NVolSetErrors(vol);
+> +			ntfs_mark_volume_dirty_with_error(vol);
+>   		}
+>   		kvfree(rl2);
+>   		return PTR_ERR(rl);
+> @@ -1721,7 +1728,7 @@ static int ntfs_mft_data_extend_allocation_nolock(struct ntfs_volume *vol)
+>   		 * The only thing that is now wrong is ->allocated_size of the
+>   		 * base attribute extent which chkdsk should be able to fix.
+>   		 */
+> -		NVolSetErrors(vol);
+> +		ntfs_mark_volume_dirty_with_error(vol);
+>   		return ret;
+>   	}
+>   	ctx->attr->data.non_resident.highest_vcn =
+> @@ -1729,17 +1736,17 @@ static int ntfs_mft_data_extend_allocation_nolock(struct ntfs_volume *vol)
+>   undo_alloc:
+>   	if (ntfs_cluster_free(mft_ni, old_last_vcn, -1, ctx) < 0) {
+>   		ntfs_error(vol->sb, "Failed to free clusters from mft data attribute.%s", es);
+> -		NVolSetErrors(vol);
+> +		ntfs_mark_volume_dirty_with_error(vol);
+>   	}
+>   
+>   	if (ntfs_rl_truncate_nolock(vol, &mft_ni->runlist, old_last_vcn)) {
+>   		ntfs_error(vol->sb, "Failed to truncate mft data attribute runlist.%s", es);
+> -		NVolSetErrors(vol);
+> +		ntfs_mark_volume_dirty_with_error(vol);
+>   	}
+>   	if (mp_extended && ntfs_attr_update_mapping_pairs(mft_ni, 0)) {
+>   		ntfs_error(vol->sb, "Failed to restore mapping pairs.%s",
+>   			   es);
+> -		NVolSetErrors(vol);
+> +		ntfs_mark_volume_dirty_with_error(vol);
+>   	}
+>   	if (ctx) {
+>   		a = ctx->attr;
+> @@ -1750,16 +1757,16 @@ static int ntfs_mft_data_extend_allocation_nolock(struct ntfs_volume *vol)
+>   					a->data.non_resident.mapping_pairs_offset),
+>   				rl2, ll, -1, NULL, NULL, NULL)) {
+>   				ntfs_error(vol->sb, "Failed to restore mapping pairs array.%s", es);
+> -				NVolSetErrors(vol);
+> +				ntfs_mark_volume_dirty_with_error(vol);
+>   			}
+>   			if (ntfs_attr_record_resize(ctx->mrec, a, old_alen)) {
+>   				ntfs_error(vol->sb, "Failed to restore attribute record.%s", es);
+> -				NVolSetErrors(vol);
+> +				ntfs_mark_volume_dirty_with_error(vol);
+>   			}
+>   			mark_mft_record_dirty(ctx->ntfs_ino);
+>   		} else if (IS_ERR(ctx->mrec)) {
+>   			ntfs_error(vol->sb, "Failed to restore attribute search context.%s", es);
+> -			NVolSetErrors(vol);
+> +			ntfs_mark_volume_dirty_with_error(vol);
+>   		}
+>   		ntfs_attr_put_search_ctx(ctx);
+>   	}
+> @@ -2322,7 +2329,7 @@ int ntfs_mft_record_alloc(struct ntfs_volume *vol, const int mode,
+>   			folio_unlock(folio);
+>   			kunmap_local(m);
+>   			folio_put(folio);
+> -			NVolSetErrors(vol);
+> +			ntfs_mark_volume_dirty_with_error(vol);
+>   			goto search_free_rec;
+>   		}
+>   		/*
+> @@ -2475,7 +2482,7 @@ int ntfs_mft_record_alloc(struct ntfs_volume *vol, const int mode,
+>   undo_mftbmp_alloc_nolock:
+>   	if (ntfs_bitmap_clear_bit(vol->mftbmp_ino, bit)) {
+>   		ntfs_error(vol->sb, "Failed to clear bit in mft bitmap.%s", es);
+> -		NVolSetErrors(vol);
+> +		ntfs_mark_volume_dirty_with_error(vol);
+>   	}
+>   	if (!base_ni || base_ni->mft_no != FILE_MFT)
+>   		up_write(&vol->mftbmp_lock);
+> @@ -2815,8 +2822,14 @@ static int ntfs_write_mft_block(struct folio *folio, struct writeback_control *w
+>   			iput(ref_inos[nr_ref_inos]);
+>   	}
+>   
+> -	if (unlikely(err && err != -ENOMEM))
+> +	if (unlikely(err && err != -ENOMEM)) {
+> +		/*
+> +		 * The writeback path can run with a caller's mrec_lock
+> +		 * held, so the dirty bit cannot be written here; record
+> +		 * the error flag only.
+> +		 */
+>   		NVolSetErrors(vol);
+> +	}
+>   	if (likely(!err))
+>   		ntfs_debug("Done.");
+>   	return err;
 
