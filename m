@@ -1,79 +1,78 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6B9D49EC45
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 11:02:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FCB649EC7B
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 11:02:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788519776; cv=none; b=OUG6hVxccLKMVP94+JBYQhfhHYT2GHEzmcV5boOHDxK/POPaX5L1c319UusJgDqkqZecj6gpT6J8Z8fNCbHfBjmfgGmOJQpUPAwG6AGGawBhcyaSzBLzrTKfqUd0MxrT+l681+WmInG32B/d/rzIc9IwKrRGj/Mw9y8Ubvkbv4I=
+	t=1788519778; cv=none; b=ZB0DtLrECvMBvRRbkxmbTxZXWhldtBn0YvYp7G8o8mTGfWNLcypPUr4kRKfOLp2PpF/BDcnaAtnF46PdT34+1PDo5/rwy28wlBgJasLcrJ6HVOLjw9CHniE4MdyHeL7SMEMW+36CO3T1Ogl4YWnCHhsFxUAQfh4sJlvfJ1DlFYs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788519776; c=relaxed/simple;
-	bh=mWR0ogYHoYgNzNsHrQraWSldwjIEjwzM4qVXyndL4hw=;
+	s=arc-20240116; t=1788519778; c=relaxed/simple;
+	bh=xU1pSgrjel3bGhONlCCeuY4BLkIfiUuCWQjehP6sIV0=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=dri92UOeHHVc930xFPqaGHN2rC9w/m8ThodDE3WJHtboiF+w7ZRaWqLEoomiPLJ3021+ypQ5DqbYXxJZsFWOpoGqV624BkScVWiai2aQOdKt1INXAD0/3xLujh6YzD0c4zXIriciu1evpxZFaQIwp4VzXTJ8aEyAEYR0lCY+n3M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=kcQDFoLZ; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=yd7s08wg; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=2SU8eNQq; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=U/8u8GEd; arc=none smtp.client-ip=195.135.223.131
+	 MIME-Version; b=Je/lCJLDt8fhoPVy7+6WlsSR3Nip8g1FPUjXFr2pNVx9NGmChKvHyISn490i2THGQDiAt77E/Iml9vFYTrWNoxSnKV0y6rLm92diC36/1JPKyaGQMv4ioXco5QsvzFNvg8B4yE2Eoi5+D1OUJozMgp1ocwpVvA4UtAJJv/9IgMs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=JCq5afP7; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=rM0grxwE; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=ucebswp7; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=2asPTxv0; arc=none smtp.client-ip=195.135.223.130
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="kcQDFoLZ";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="yd7s08wg";
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="2SU8eNQq";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="U/8u8GEd"
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="JCq5afP7";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="rM0grxwE";
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="ucebswp7";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="2asPTxv0"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 7D7F21FB82;
-	Fri,  4 Sep 2026 11:02:44 +0000 (UTC)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 95D8C2214C;
+	Fri,  4 Sep 2026 11:02:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1788519768; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1788519769; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=mpMMhjGQLnDRBA6BUJnmYcR7rjeVlUkr1bUxCdVaQeM=;
-	b=kcQDFoLZrwG7CVaXT0zIm2B55vEaqJZt1ZUQ1VjysBfoxj9jDdf0JbVah6VfhsdeK2VYsT
-	+HMF1sj8VXt03swmQmKqnTMmPCfMpoi63hGsh6LYwEOB9i5rZFDY58Tp8/j/xzMg9X1ReE
-	4giK46SswvrGPl6g5qrFs/0cUmjI6lg=
+	bh=CYOahwcb//d0ZbnVcG0GJjgQgxlby4OiB6Q1mmFW0ok=;
+	b=JCq5afP74v+gBdm9YVVK9N3A5G1ADvaydw6ivA/GGhJeWFt/6uLuls3Eozarv1tCUyx5bd
+	pCdhxBGKz8M/znGLZaxlPXhLAkfkvbjlp/8KrI+LPc7QmGaQK/KM787ovqoX3rpVsqRy2e
+	8uNdQxXmZ8rsqCA7jU2JQBgX0RKJMko=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1788519768;
+	s=susede2_ed25519; t=1788519769;
 	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=mpMMhjGQLnDRBA6BUJnmYcR7rjeVlUkr1bUxCdVaQeM=;
-	b=yd7s08wg93npoYdysrvsyAEnldWwwYw0s8bf9HDXUPr/A7t9kYTTWDRWjtlrBnWnBa0TBw
-	hq207TyE/iSFeBCQ==
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=2SU8eNQq;
-	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b="U/8u8GEd"
+	bh=CYOahwcb//d0ZbnVcG0GJjgQgxlby4OiB6Q1mmFW0ok=;
+	b=rM0grxwE18sKZ5yK5dUbvuDoTQFQ29bedWUx+2Tt+i3EeZ/eXkyaJKiUA/1N7pFx//K/6E
+	pLUp/rXbe33TUeBA==
+Authentication-Results: smtp-out1.suse.de;
+	none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1788519764; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1788519765; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=mpMMhjGQLnDRBA6BUJnmYcR7rjeVlUkr1bUxCdVaQeM=;
-	b=2SU8eNQq/HLjlFferz1fjcUx3+XX/Qmt7oBOaDEiZQeZKCZ/b05Tv1h6Hw5kLnAjrNOb9j
-	fRe1DzKxEmH7dtUWVJsS3jTsMXtsGJt/FcKYlUE/ueDnAWpIqNVaXAx8HYKijAo1yLzov/
-	3blh8LROXLuPRsbbPH/DvDr8zhFp5kg=
+	bh=CYOahwcb//d0ZbnVcG0GJjgQgxlby4OiB6Q1mmFW0ok=;
+	b=ucebswp7jJ9fo+PqAk/+VZ6AMmFQhb9TOdwHG1iQc89lT9dgJZAqGXHoE5DwX4zK61FmHh
+	qGbneeVcpnRr2nQgzJEZUsKpZ+XLa9qa3fF+QfBDB6LGz73jGeV74+gaziqCyybONOtqku
+	ahDtIaJlpG71G/VN0PtOJtLOBgEeB+8=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1788519764;
+	s=susede2_ed25519; t=1788519765;
 	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=mpMMhjGQLnDRBA6BUJnmYcR7rjeVlUkr1bUxCdVaQeM=;
-	b=U/8u8GEdw94RtD3eimv8ql269nNJnFzkooORrCc8x1iC7+jIWv2VLyr4bVpmmYkiFE1eU1
-	koIfguJtOY6Tf+Aw==
+	bh=CYOahwcb//d0ZbnVcG0GJjgQgxlby4OiB6Q1mmFW0ok=;
+	b=2asPTxv0icHXBVlfRKzsMfkg13+guxYad8dKY6rui0h9aTfj/3299uH2FRLWeqyUEiHbX2
+	G24HvMOqGQZf4OBg==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id E5C7C13887;
-	Fri,  4 Sep 2026 11:02:42 +0000 (UTC)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 7874613889;
+	Fri,  4 Sep 2026 11:02:44 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
 	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id 0LynL1KlmmpScAAAD6G6ig
-	(envelope-from <pvorel@suse.cz>); Fri, 04 Sep 2026 11:02:42 +0000
+	id 8LckGlSlmmpScAAAD6G6ig
+	(envelope-from <pvorel@suse.cz>); Fri, 04 Sep 2026 11:02:44 +0000
 From: Petr Vorel <pvorel@suse.cz>
 To: linux-kernel@vger.kernel.org
 Cc: Petr Vorel <pvorel@suse.cz>,
@@ -83,9 +82,9 @@ Cc: Petr Vorel <pvorel@suse.cz>,
 	Dwaipayan Ray <dwaipayanray1@gmail.com>,
 	Lukas Bulwahn <lukas.bulwahn@gmail.com>,
 	Cryolitia PukNgae <cryolitia@uniontech.com>
-Subject: [PATCH v6 3/4] checkpatch: Add --userspace to force userspace rules
-Date: Fri,  4 Sep 2026 13:02:29 +0200
-Message-ID: <20260904110230.1219037-4-pvorel@suse.cz>
+Subject: [PATCH v6 4/4] checkpatch: Skip kernel specific checks for userspace
+Date: Fri,  4 Sep 2026 13:02:30 +0200
+Message-ID: <20260904110230.1219037-5-pvorel@suse.cz>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260904110230.1219037-1-pvorel@suse.cz>
 References: <20260904110230.1219037-1-pvorel@suse.cz>
@@ -96,90 +95,99 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Spam-Score: -1.51
-X-Rspamd-Queue-Id: 7D7F21FB82
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
 X-Spam-Level: 
-X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-1.51 / 50.00];
+X-Spam-Score: -1.30
+X-Spam-Flag: NO
+X-Spamd-Result: default: False [-1.30 / 50.00];
 	BAYES_HAM(-3.00)[100.00%];
 	SUSPICIOUS_RECIPS(1.50)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
 	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
 	R_MISSING_CHARSET(0.50)[];
-	R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
 	NEURAL_HAM_SHORT(-0.20)[-1.000];
 	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	TO_DN_SOME(0.00)[];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	FREEMAIL_CC(0.00)[suse.cz,linux-foundation.org,canonical.com,perches.com,gmail.com,uniontech.com];
-	RCVD_TLS_ALL(0.00)[];
-	DKIM_TRACE(0.00)[suse.cz:+];
 	RCVD_COUNT_TWO(0.00)[2];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:dkim,suse.cz:email,suse.cz:mid,checkpatch.pl:url,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns];
-	RCPT_COUNT_SEVEN(0.00)[8];
-	DWL_DNSWL_BLOCKED(0.00)[suse.cz:dkim];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	ARC_NA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	FREEMAIL_CC(0.00)[suse.cz,linux-foundation.org,canonical.com,perches.com,gmail.com,uniontech.com];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
 	TAGGED_RCPT(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:email,suse.cz:mid,imap1.dmz-prg2.suse.org:helo];
+	FROM_EQ_ENVFROM(0.00)[];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	RCPT_COUNT_SEVEN(0.00)[8];
+	TO_DN_SOME(0.00)[];
 	FREEMAIL_ENVRCPT(0.00)[gmail.com]
-X-Spam-Flag: NO
 
-Also allow to use --no-userspace for userspace projects which vendored
-checkpatch.pl and use --userspace globally to be able switch it off for
-files with kernel code.
+These check are kernel specific, do not warn about it when testing
+userspace code:
 
+* BIT_MACRO
+* LONG_UDELAY
+* MSLEEP
+* PREFER_KERNEL_TYPES
+* USLEEP_RANGE
+
+Follow-up: 99b70ece33d8 ("checkpatch: suppress strscpy warnings for userspace tools")
 Signed-off-by: Petr Vorel <pvorel@suse.cz>
 ---
-The same as in v5.
+v6: Fix: use is_userspace instead of is_uapi().
 
- scripts/checkpatch.pl | 6 ++++++
- 1 file changed, 6 insertions(+)
+ scripts/checkpatch.pl | 10 +++++++---
+ 1 file changed, 7 insertions(+), 3 deletions(-)
 
 diff --git a/scripts/checkpatch.pl b/scripts/checkpatch.pl
-index b458c7f22684..ead35e6abba7 100755
+index ead35e6abba7..3614cfe4dcbb 100755
 --- a/scripts/checkpatch.pl
 +++ b/scripts/checkpatch.pl
-@@ -63,6 +63,7 @@ my $env_config_dir = 'CHECKPATCH_CONFIG_DIR';
- my $max_line_length = 100;
- my $ignore_perl_version = 0;
- my $spdx_cxx_comments = 0;
-+my $userspace;
- my $minimum_perl_version = 5.10.0;
- my $min_conf_desc_length = 4;
- my $spelling_file = "$D/spelling.txt";
-@@ -143,6 +144,7 @@ Options:
-                              (required by old toolchains), allow also C++
-                              comments (//).
-                              NOTE: it should *not* be used for Linux mainline.
-+  --userspace                Force rules specific for userspace.
-   --codespell                Use the codespell dictionary for spelling/typos
-                              (default:$codespellfile)
-   --codespellfile            Use this codespell dictionary
-@@ -358,6 +360,7 @@ GetOptions(
- 	'codespell!'	=> \$codespell,
- 	'codespellfile=s'	=> \$user_codespellfile,
- 	'typedefsfile=s'	=> \$typedefsfile,
-+	'userspace!'	=> \$userspace,
- 	'color=s'	=> \$color,
- 	'no-color'	=> \$color,	#keep old behaviors of -nocolor
- 	'nocolor'	=> \$color,	#keep old behaviors of -nocolor
-@@ -2667,6 +2670,9 @@ sub exclude_global_initialisers {
+@@ -6696,7 +6696,8 @@ sub process {
+ 		}
  
- sub is_userspace {
-     my ($realfile) = @_;
-+
-+    return $userspace if (defined $userspace);
-+
-     return ($realfile =~ m@^tools/@ ||
- 		$realfile =~ m@^scripts/@ ||
- 		$realfile =~ m@^arch/.*/tools/@);
+ # prefer usleep_range over udelay
+-		if ($line =~ /\budelay\s*\(\s*(\d+)\s*\)/) {
++		if (!is_userspace($realfile) &&
++			$line =~ /\budelay\s*\(\s*(\d+)\s*\)/) {
+ 			my $delay = $1;
+ 			# ignore udelay's < 10, however
+ 			if (! ($delay < 10) ) {
+@@ -6710,7 +6711,8 @@ sub process {
+ 		}
+ 
+ # warn about unexpectedly long msleep's
+-		if ($line =~ /\bmsleep\s*\((\d+)\);/) {
++		if (!is_userspace($realfile) &&
++			$line =~ /\bmsleep\s*\((\d+)\);/) {
+ 			if ($1 < 20) {
+ 				WARN("MSLEEP",
+ 				     "msleep < 20ms can sleep for up to 20ms; see function description of msleep().\n" . $herecurr);
+@@ -6932,7 +6934,7 @@ sub process {
+ 
+ # check for c99 types like uint8_t used outside of uapi/ and tools/
+ 		if ($realfile !~ m@\binclude/uapi/@ &&
+-		    $realfile !~ m@\btools/@ &&
++		    !is_userspace($realfile) &&
+ 		    $line =~ /\b($Declare)\s*$Ident\s*[=;,\[]/) {
+ 			my $type = $1;
+ 			if ($type =~ /\b($typeC99Typedefs)\b/) {
+@@ -7182,6 +7184,7 @@ sub process {
+ # check usleep_range arguments
+ 		if ($perl_version_ok &&
+ 		    defined $stat &&
++		    !is_userspace($realfile) &&
+ 		    $stat =~ /^\+(?:.*?)\busleep_range\s*\(\s*($FuncArg)\s*,\s*($FuncArg)\s*\)/) {
+ 			my $min = $1;
+ 			my $max = $7;
+@@ -7425,6 +7428,7 @@ sub process {
+ 
+ # check for #defines like: 1 << <digit> that could be BIT(digit), it is not exported to uapi
+ 		if ($realfile !~ m@^include/uapi/@ &&
++		    !is_userspace($realfile) &&
+ 		    $line =~ /#\s*define\s+\w+\s+\(?\s*1\s*([ulUL]*)\s*\<\<\s*(?:\d+|$Ident)\s*\)?/) {
+ 			my $ull = "";
+ 			$ull = "_ULL" if (defined($1) && $1 =~ /ll/i);
 -- 
 2.55.0
 
