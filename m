@@ -1,145 +1,105 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BC1178F2F;
-	Fri,  4 Sep 2026 00:12:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788480737; cv=none; b=dUynHvc1wK0GRPFuMe4B2JuSYLMsUnWe2BQ+ZmaWVffNBppFfGxLn5omDXPuBqicu9ugq7xoTj78UKiongKGBM5XnMHEBwULtilDOAOfB3fZiBK6bviJjOjiqbMNBADoN5iZFgGidNwYkQ2IQQp6rjlhkB1amCyj3IVRiALn41w=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788480737; c=relaxed/simple;
-	bh=1oje6I6cprMjdcZ3w+KgH6EanbVWQeayLSc3PmDGyL4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=tOd39DrQuyQl91FsTprbMOGzFSNl6nT8Zbh8CfsfbuAIjrWJJnqcpp2V2XMS9ulm2vXpObb4o/7eoIA7iV6S/P/lrbxQJnCq6rno4iouKbLnuvQnBLu/nhfmHnMJbXKBmW2baMDlDHKDqC0cMfW/dm3iSeXQX5Oczt+XgALldgg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XW9ZtjJd; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC4AF16A395
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 00:13:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.221.44
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788480837; cv=pass; b=B5M8lzLvcfMtB5kRTn3q6FIJ93WMR0HjpME+8gi8OqGV94n1qGEB8YLUP6xBEUjrf8AlLYTm2V+ppuJsPWtWfabJlsowd3na/6F3sKA3cwbkbCJm1/wMvJopW2vri1Q6aG+CV7gPoPtxwRsDjte1lr1mWDUwUO53q5DWAOk8LOI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788480837; c=relaxed/simple;
+	bh=k1vm0wD+WAoF/PPCZ9HxXPrHQPCyct41OUeaTmCwYts=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=QLLepiZAEsMoJbh/dCMUU8s4hCTdazPq6sIGZtP9yW9W7bPBSmxGSuuypqsTvbw71RWd834qo9i3kiodRGzyXP1FQUTAuw3LV2EbhNHKfXRqQg2Z0F9u/uFReBcS4cLa28NodYIISn4KK+cfeaaB4zDEBcES9B7/nhMoQdcdO50=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=DC1UkgLr; arc=pass smtp.client-ip=209.85.221.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XW9ZtjJd"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4D0081F000E9;
-	Fri,  4 Sep 2026 00:12:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788480736;
-	bh=uwU9myAIHfxtIC/MA9ZCvJe1sgh7d4K5eTnJj1GTYxg=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=XW9ZtjJdCEfhzI3DxWMXkt9DtZEB/PYWe755TnnZH/tac17RQJCHcrDOy1PTtv0Wo
-	 BbVOQriqqG6KoM1atfZmXUpQV9Oh9vyOoi8QisKTUV2eCe+A+qDkQcB3nYS6J+c5kj
-	 GygJk2zJqUKYukpQqfDZqWvtEYGznn53rUeWTfkNNFy14OnDZC6FUMTKufgeP8W+Nn
-	 ahCExJ+/ST1mem1vNNM+HLCEQ5wLZzHSdwmT2+D0vkEqu8UWhzpSu7hnbEHwXW24JY
-	 6ujse3Q2i8z3fZ3GfubUaORUT1JqibaBOq8g/8xfYlirIP6vkWt2LwfgdqhKABykOs
-	 BS3hYKU5XOFhg==
-Message-ID: <795ac93a-9377-4503-9dc4-58f21c815f71@kernel.org>
-Date: Fri, 4 Sep 2026 09:12:11 +0900
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="DC1UkgLr"
+Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-485852d03a4so489679f8f.0
+        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 17:13:55 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788480834; cv=none;
+        d=google.com; s=arc-20260327;
+        b=lKwqhID7uKxmsJy67Bm56RwMcU0kRxl/SjnIQV66Xalc7VbmF7nu19ctHbOdnhVpdT
+         kTOIf3ris1B0y5+xT+DFgxn44MH6qRwQ+cDrE9KSkLKW+Ab82aNNA9LQtTq52ap9UUX3
+         GTKZkWZKcy+/bNtY2JuqZme9AWX07d489tB2L8hkW3ZGxh76MNGOIxDrkS1eLCbXo3gc
+         A9fDzKKMjZKU9IC95+abgYzi/VQlZiJkceKl2m2S13qQh5xA2w1sqmTK88F7PihYdo+L
+         Q2y1RS3AsD9LW8O9UccTSOrorfGjH/UQDVQO/fVKSCb/GTtwb7Kfcq/ge2aKccnQ02ZJ
+         k1fg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=k1vm0wD+WAoF/PPCZ9HxXPrHQPCyct41OUeaTmCwYts=;
+        fh=+oycWo1vkWYoe31a87hzYE26Q/CZ6L9dVEtGEgNQSXQ=;
+        b=pO2f6uc0K10zxsHFHgfopXxlF+P9eyFwuXdPEVYqsRbir5oL3avDWC1n2ldlpuOqFf
+         p2M5C60s960z9v2pnYur/SXPZ0thZmVAD4fO65VcEXu3eNhEBYo3Yj/vF/YAwWluLqgJ
+         rCQV8dkjeWINGCayXZMroSbw5r3Ct7SiZanB6KWtwn9JA8CVbNUXKoeWSPGKwVgGJ5nw
+         c/qpC1j8GwZFpu8jdJY0HufOdWGGMIUPREdiZnD7fFbXJbX4psMXxHpxKPU3mWyWKUZp
+         C6rrbHnzaTfFT67Hc9GlySodpSLzZ8qeXjPA3K7H+RpOCe2OsNX8QIL/gCjKANFTV/Uj
+         UMhQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1788480834; x=1789085634; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=k1vm0wD+WAoF/PPCZ9HxXPrHQPCyct41OUeaTmCwYts=;
+        b=DC1UkgLr+71+wuXvfiosJgSfoGNIQ0EzEugTdQ1R8C4F3bQPQtrx5+RPz/bzMNMF36
+         B6gQtLw8V+CRvLt1uCKCeIfqSSEveUAtM4xsUZALGbHA+TK2ihImq0Yqny0Wt4esS0f1
+         0voi574SiUC3t+bQofIMzapspOTUTUjYBMXE79kTGLjozkjYMvigLGdCca6uw7UVHHV+
+         CuE5BkLg1UMEu/8LIuREWl9ht+hXV3bCjg3+r6+rGXl+lfjJPxgXqOdaPKelzpvnd7rc
+         IJ6I2ei+cszch6QTgAeA+RavUr5ip4YbanQcxm3z14X74TcZdCkfcQOIePj18ynu8vtw
+         JBfQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788480834; x=1789085634;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=k1vm0wD+WAoF/PPCZ9HxXPrHQPCyct41OUeaTmCwYts=;
+        b=HY3AkuWoL/5iCXQUH3cAV52E5NVrvc7Go2ZIFd6Ul3juRp/myQAENy3YGo60K617Xd
+         eoagXohpa9CjNinRS7igYPByDEg9PczWpKXZx3sLey5j/80nn2p1RrkZAFMIam+lbL95
+         9S+w54TcFoQbl8FSW/AKezDAIMo9BNzDyqudnvoCiudyGioSfKbEcaQgKISgeuulAglJ
+         zsKNOlLSR7oag2XIDmF7xm6qJZuFbJgLXSwChAn5hBIbvB6SSt9IjK6rHLkEZRDRP7nC
+         FkI7lzA+1RaYjRIcphOi1QVPKjiJ7wFw9GGMYTza4lgNDkaiP9mqHdq/zvm+7SOy8QIl
+         6NEg==
+X-Forwarded-Encrypted: i=1; AKwUvByCC1dsB5zw1PkrsAyDCky6kuLD/F4CddfwR8M0PL3fF6xn4rS+9XeuMnCsg4zA8vfUtPSLTjdF2geejO4=@vger.kernel.org
+X-Gm-Message-State: AFuF++m+U8sdQXW0hzABRdMUrSvyxtETfqEXzaKFam9Ucj+FHiBgvtnA
+	5S0CrsYaqROZrdpqc6YlR4seMxZhr9CEOptLBimA+dPVTc1NqRNQB3nIt1Jl2QvjWC1P570nWHc
+	OHMZ/6v+bj32jz1yUJJXAkQTSHbsMaV4KdPaam5pP
+X-Gm-Gg: AYBFou2cl+Ce5jFrCYZnv8fzF5PkhlsVP6uGBg3KbCFWRxOwLaKnFvDIdqVeb72Ybx+
+	2BLXmfPBLZMw6ONbHHMtCNiFBFe8d2Akb9rpJBdltV38xbLyZvZaXcA+vSvXFNM42dOQi+sr4G3
+	jxmdiCq9CzbOn+gOqdxsGAsiZKuw4ezkW2YX4BR1Xe/1zv5VPDCXaIJZI1S1tNeWMML5VB2krSX
+	aR3y4jE18PqwEGEGRtjokwGXbNakQP3BbFicUDw+AoMjZywAWBR64nNH9i6QD5Vz6lpntgDXqBm
+	VRly14yGeRXO9IjDWZR/t4xKjl6BqwQe+Yvep52gWuZOfpfhLTIGnkoT05INrn3yDMXoDWCAL/s
+	=
+X-Received: by 2002:a05:6000:4694:b0:47f:9266:9bde with SMTP id
+ ffacd0b85a97d-4858703f92dmr4163408f8f.4.1788480833517; Thu, 03 Sep 2026
+ 17:13:53 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/2] scsi: Initial commit of VirtIO PCIe Endpoint Driver
-To: Manivannan Sadhasivam <mani@kernel.org>, Niklas Cassel <cassel@kernel.org>
-Cc: alistair23@gmail.com, mst@redhat.com, eperezma@redhat.com,
- linux-kernel@vger.kernel.org, xuanzhuo@linux.alibaba.com,
- jasowangio@gmail.com, linux-scsi@vger.kernel.org, mkp@kernel.org,
- virtualization@lists.linux.dev, James.Bottomley@hansenpartnership.com,
- alistair@alistair23.me, Alistair Francis <alistair.francis@wdc.com>,
- linux-pci@vger.kernel.org, Shunsuke Mie <mie@igel.co.jp>,
- Frank Li <Frank.Li@kernel.org>, Koichiro Den <den@valinux.co.jp>,
- Kishon Vijay Abraham I <kishon@kernel.org>
-References: <20260901014650.2728658-1-alistair.francis@wdc.com>
- <apaOZeeDBIRlpB7b@ryzen>
- <akvzpivrbg3b3jra6ibga6j637pwqkwnnzs6q2ymcn5ixrdym6@wniqpspkcknt>
-Content-Language: en-US
-From: Damien Le Moal <dlemoal@kernel.org>
-Organization: Western Digital Research
-In-Reply-To: <akvzpivrbg3b3jra6ibga6j637pwqkwnnzs6q2ymcn5ixrdym6@wniqpspkcknt>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20260818205717.1492247-1-jthies@google.com> <20260828100120.139648-1-marco.crivellari@suse.com>
+In-Reply-To: <20260828100120.139648-1-marco.crivellari@suse.com>
+From: Jameson Thies <jthies@google.com>
+Date: Thu, 3 Sep 2026 17:13:41 -0700
+X-Gm-Features: AcwNN1Wk6O2yEsLoan2NVGDK0Tv_I8WyUzGKtzunFIJmpV5caiOTAh0Fu5dyStQ
+Message-ID: <CAMFSARdUrE1dE=OkQbU9++qfYTUoC4QUSxdqKWFOPj_fqDKoHg@mail.gmail.com>
+Subject: Re: [PATCH v1] usb: typec: ucsi: allow retries of ucsi_resume_work
+To: Marco Crivellari <marco.crivellari@suse.com>
+Cc: abhishekpandit@chromium.org, akuchynski@chromium.org, bleung@chromium.org, 
+	dmitry.baryshkov@oss.qualcomm.com, gregkh@linuxfoundation.org, 
+	heikki.krogerus@linux.intel.com, linux-kernel@vger.kernel.org, 
+	linux-usb@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On 9/3/26 20:51, Manivannan Sadhasivam wrote:
-> On Tue, Sep 01, 2026 at 10:35:49AM +0200, Niklas Cassel wrote:
->> On Tue, Sep 01, 2026 at 11:46:48AM +1000, alistair23@gmail.com wrote:
->>> From: Alistair Francis <alistair.francis@wdc.com>
->>>
->>> This series adds a VirtIO SCSI endpoint built on top of the VirtIO PCIe
->>> endpoint. This is a similar approach to the NVMe PCIe Endpoint
->>> (drivers/nvme/target/pci-epf.c) but for SCSI.
->>>
->>> This does end up being somewhat similar to the pci-epf.c code, but
->>> re-written for SCSI.
->>>
->>> This approach allows a PCIe Endpoint device (tested on a
->>> radxa-rock5b) to setup what appears to be a SCSI device, using an
->>> existing SCSI backend (tested using scsi_debug).
->>>
->>> At this point a host can connect over PCIe, ensure virtio_pci and
->>> virtio_scsi is loaded and on PCIe rescan will see a scsi device.
->>>
->>> There are a few pain points with this approach though:
->>>  1. We have to use the Legacy SCSI VirtIO driver. This is because the
->>>     Raxda Rock5b (and AFAIK all PCIe Endpoint hardware) can't add
->>>     capabilities. So we can't advertise the VirtIO Common configuration
->>>     capability, which means we can't be a modern VirtIO SCSI device.
->>>
->>>     This is unfortunate, but there doesn't seem to be any way around
->>>     this, at least with the current hardware.
->>>
->>>  1.2. Legacy virtio devices only have 32 feature bits and therefore can't
->>>     set the VIRTIO_F_ACCESS_PLATFORM (bit 33) feature. This means the
->>>     vring_use_map_api() function will return false.
->>>
->>>     Currently Linux endpoint devices use the legacy virtio interface as
->>>     they aren't able to advertise the Common configuration capability.
->>>     As most PCI endpoint capable PCIe controllers do not allow modifying the
->>>     capability list, and thus are unable to advertise the Common configuration
->>>     capability. This means the device's inbound TLPs fault on the host
->>>     SMMU because the vring descriptors carry raw physical addresses.
->>>
->>>     This series adds a quirk that forces a subset of legacy virtio devices
->>>     to use the DMA Map API (vring_use_map_api() will return true),
->>>     which fixes this issue.
->>>
->>>     It's unideal that we have to hard code a quirk to basically just
->>>     advertise the VIRTIO_F_ACCESS_PLATFORM feature, but (see 1) as we
->>>     are stuck with legacy virtio devices there isn't much else we can do.
->>>
->>>  2. We have to pin scsit_pci_epf_poll_cfg_thread() on a CPU in order to
->>>     respond fast enough to the host. This means we effectivly burn a CPU
->>>     to read and write some values. But as there are no intterupts
->>>     generated on these events and we need to be very quick there isn't
->>>     another option.
->>>
-> 
-> Most of these pain points will go away if you use virtio-msg [1] transport
-> instead of the virtio-pci transport. Using the virtio-pci transport on a real
-> PCIe device without a way to trap and emulate the config space requests will
-> always be racy.
+Hi Marco, thank you for taking a look at this patch.
 
-There is nothing inherently racy about the config space. It is about the fact
-that most PCI endpoint controllers:
-1) Do not raise an interrupt when PCI BARs or config space is written by the
-host RC, and
-2) All PCI endpoint controllers that Linux supports do not allow drivers to
-create extended capabilities in the config space that can then be emulated in
-the endpoint driver (enabling that would require 1 to be supported, obviously).
+> system_long_wq is scheduled for removal.
 
-(2) can be delt with quirks. Not great, but simple enough. And in this case, we
-need it more because of the virtio-pci specs, which are not great to start with.
+I'll post a v2 switching to system_dfl_long_wq.
 
-And for (1), the only real problem that causes is that an endpoint driver needs
-to poll PCI BARs/submission queues to see if the host issued commands. Again not
-great, but that works just fine. Alistair's point about burning a CPU doing that
-is simply so that we can reduce command latency and get good enough performance.
-
-We went through all of that already with the NVMe PCI endpoint. Works well
-enough and does what is intended, which is the same here for the virtio-scsi
-endpoint driver: create a platform where one can emulate a SCSI device to
-experiment with new features etc. This is all intended as a development/test
-tool, not for production use.
-
-I do not know virtio-msg. First time I hear about it. And I am not sure if there
-is a standard way of exposing a SCSI host through that.
-
-
--- 
-Damien Le Moal
-Western Digital Research
+- Jameson
