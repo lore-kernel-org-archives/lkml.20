@@ -1,117 +1,180 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+Received: from mail-ed1-f44.google.com (mail-ed1-f44.google.com [209.85.208.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BD94332629
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 21:41:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788558085; cv=none; b=adPLmIssDq+4orh78lePzCqYn4lq6pPrRMC8bmi4hg/8NAKfB5zsGHLXghYqBQpyTEinpivNrFVpv3rH8tbFtD6y7myAAvwm+j0ZWrBx+92+YJQ0HMmJThLLx/EYaoX56LJyjerCw4ChV3fv/4bX7JbFvxy/c5ruyq2/XF51fq0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788558085; c=relaxed/simple;
-	bh=MMW5Zhv//CViWj0fAEp8P1ImU1S2jCTSQzMvwFrDS88=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=qE/SamCLFESRsytQfA0iHEZgLczgxid+zRWGYpSc3aVNLnEw4pt23WZhL1cVLsKp/2kZUYl1bS/Sx2AWlz/EWATmS8f55cj065wy94bGqjHyOX/wtdkwHVCpV3bGiopEOmt7WSuk0Mie3k9MPhOFjimJMTSo80EcXNTFSaovUXE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=cc964Yuf; arc=none smtp.client-ip=74.125.227.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B4E4332629
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 21:41:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.44
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788558102; cv=pass; b=t/3e9KKU0nS+MEaCK4r7mnAKUmNlKFyK85QlAeHsIaCHH0pVRMKyz3VwBzEqX+ELqUSxDNtUI+8VMkBCWQoPRvNTEh0hzBmhUwvnKx3Wl8tn7PQkFVRL4J+KtBolCkvGn7I29H8J7eYSpISa/Yys/VT4qqq992VwRZCKEVNo8cI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788558102; c=relaxed/simple;
+	bh=6qBbNjXDHOLmiw/AhEzWP+67PIsC4qlOfgllIR4mAT8=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=mhIi/AHGEYbq96xQYdyBQsyF5caXKzX1HdjyR9XdqVkLddRg6MnIc3yaric1toLGrRt3XE8eY1hBZpjNyM31JA/d2hRH4kkBeWfty00eMsP9huvn1vJgsvGEcgpFV/7/ceaAHnUSlNTcFda+ULtesCaYidHRvYx95sn/B6IPZuk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jEUQTAer; arc=pass smtp.client-ip=209.85.208.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="cc964Yuf"
-Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2d6ff390a6aso13595ad.0
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 14:41:24 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jEUQTAer"
+Received: by mail-ed1-f44.google.com with SMTP id 4fb4d7f45d1cf-6a18840e2abso2271803a12.0
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 14:41:41 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788558099; cv=none;
+        d=google.com; s=arc-20260327;
+        b=oQVPWt32DwrRMdvx9SDpIk6a25jbZmzRVqPszEU5BcE7TzeRlKrrHCTZMCXPkkMO0L
+         UVmMm5UI5ynyRc7FXUfmkZsCJVCP5NlRrK/Cb41868LF90UO/hxvDDZXuf7J5yMPttvV
+         CfPFpO4IHRp0fCetZR/EuSjIotP+9ATHW1AnI6M9IogUsghO9QPZURsUDWC0R12Mw5Db
+         om48Uu6S/4EEPAiWTFSR3/mEaVOS1EOWgDTbLvFMrdCHx3jTeDh3cAE1gjVOWXa52QkT
+         KLStCJthjmAsH40/HXpLy0fhnU8CZ39lb82vLvcWaJ4ldR5SrEFSkaGfCegp4Z1BhtuX
+         GTEw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=kue2/Pm3HbmZQzjeKahvdcnYX4KwQ6G8saPWSb5Rn6g=;
+        fh=QmLBFX80aomtSUct8E1KEJq/B56HA2+lqjchEQr81Qo=;
+        b=m7Q28apXHOIjol6D+akSQvFfb9TfLcj6S+VkydNYZ/mJK4wTkLJ1BK92mnNYa0AO7b
+         Wbsxq1mcyWWQYz+QCEsPCR0xnrVeErF3P2f6UFyLCnuREFd2Q7lSfUsr7cQp2o3GCyTk
+         BdSE6GY87r5iy74JZorqLJt2R1878XNN4e4jvyOhyY08LYaKXztwhRj462vLwnbOk2eL
+         khbZ/7Yy92byqT0NMOfNpAhHh053Z3iOfIBnpUWHDDPTu3VsHI6ncJaMa7pmAlBGg69F
+         qY/utd048g0mJ1VTyMhQpVn8QwIDYTmmb2PR2rprjSI9s6kwL3bhfdB8QRJznAPrfqf3
+         e+zg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1788558084; x=1789162884; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+        d=gmail.com; s=20251104; t=1788558099; x=1789162899; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=MMW5Zhv//CViWj0fAEp8P1ImU1S2jCTSQzMvwFrDS88=;
-        b=cc964YufM4lLPKVpsE/RffHIdAAQQflzd1CIb8hGgFcxC3UerbUnN8CpQtTeZ5kK6M
-         LP+OpIwM+/N7Rv2gyTY3Sh2zB8RFISwCQUbN09k/mB/yndPZDOkal2ekJ6+TAOJVz/9i
-         DgHVxdFpAaZ4iBgpmsU9v7MRXRYY31t4yZBJZvWbOPQnowB/SkXu8bH/0KrFLCklrgLL
-         RPT3lBctkvvAv35UzpCvUNnrH4wWDRddAc0h9QjnTfyxA0mZOqXdZ5eZj+iZTEwroZJD
-         AYdZrg90CjczhUw8wWuFBxA26x/5MI4sJLAeFLKrGGUvASPAIxHfoX+pzuAHAlvr1mvr
-         QRKg==
+        bh=kue2/Pm3HbmZQzjeKahvdcnYX4KwQ6G8saPWSb5Rn6g=;
+        b=jEUQTAersCPK6se9AdsihXqp38CevC0tw31LUoS5h7ljgcTGouHg8mZWtDDeMa82me
+         saxUL3/87S2T/l8x+ZrbCXL0rXs0CexLZzflinvpQFktgg35ajetV4cA+TpUguUUmPjc
+         llXLpXQ/PKu/cyRGCkyegUa/Pw8tHTj88aSHiyO42WOPL3NMx923hfIHrf9b5RiJPX6h
+         2RMJZQNgjUR0qDkvmFTU95E3zKmn8qgZAjq2RuLYXYbLqTT2WSD+rsb2vAxqzuc1+Jh2
+         JiqQwFujtPpNOsktWMMKdkK/aXw2UU5Xxw5uaQG6F+pQaHXxeJ5xrR6ePLIFjw9HCP7k
+         bXqA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788558084; x=1789162884;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20251104; t=1788558099; x=1789162899;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=MMW5Zhv//CViWj0fAEp8P1ImU1S2jCTSQzMvwFrDS88=;
-        b=UpHoYYlewuZsaeF/ZnEycD6v9ZkqWVzM2aHu9eXE2VYlsGsH/Kr18PQmLNrjrBRGY6
-         YHIrilFLicdflL8CpmqmxdrY2dHl54qRbnWqt+y5WJSxdGR1Ln9JqPJJzp3QTfPn7lmB
-         AvWxk1TzMxw4Tiqg0xCiNImwbDIwFCTUl86ROU+W8rnM1Y9azsJmq23WDFGnfBj1PzUP
-         oJr5v54XEFiK4kfuIcjmYvNgE2TDh2jmqpwshVjALtOufKZEUjaxegIvgBUmDUJC1Qfj
-         CGZluyNCSjdtctF04leb3dmram99nhLVXkfhznQHan4IKnYjZrzH1S8o1xXOT6j70XcP
-         07wQ==
-X-Forwarded-Encrypted: i=1; AKwUvByNupJIcwg7InhYloZ7QY9NYctWislr5uYrnNslC6jX4Voiee4+VLKaGQoZoJPf+vHzkpwMHCYzY2seZIA=@vger.kernel.org
-X-Gm-Message-State: AFuF++nDy9pAVVYxC78jlksEsz5DNUe8V29bIiIw0LCGGnnGIW1Hxhlg
-	yIuv4GgOl69Kuyiq0LLub3Lk7UMmemhXuqS0+niHNhPW9gp5apLFo34a2Xnm5LHfIA==
-X-Gm-Gg: AYBFou2iaGkJN3oRnegymWdK2qP+X57CBWc7F5GnvdZeGJdDv2+4vUzYX2es1Xs7CoF
-	5VjPDBdWupLVG+fQyY8G8odOsUOi9TLEgdZO9RdDDWTviu1BlvSD+jiC3a5gNUGrwZuJi1xIg5J
-	x9k5mpqmTXH5WDy81v6p1btkzvvI0eK4Aqp74iWyf6efh7ejJ0CsytI95fZwnsudsKQ+0wlIwdS
-	7y9cS7DlLDJ+wRhPWFlJsAjAJJnokKJNZ8wR2D18BWsx+A/bZRUiY0pwJbBuqQjn8wwuxVP+p+D
-	QxT6V4j/tEjqV/iQi+0eckOXEdjXU/r/dS1NtWcKTNQyA5A30hNP9VdflD3msGz9DlfQWQY3s3h
-	vrbLp69JSvuUoZFSzUAVgYoLsQEggCbZCnrol3Q06Rlq4WyFZFC+TM55nOtnAadg/kWjuSE6Mpz
-	kvX4jvcUCvaHVjdPJgfE7otcHSTrNYIuFsfnfVTC4GThtMUdJQI1BbuDElZqMZSIgJwdk203KhI
-	1bxUsJl3e5mF6UhDD1Hm39M2C8ksT88POiiYLFLZtqURY1vOfoB4zTrWNc=
-X-Received: by 2002:a17:902:f681:b0:2d5:cad1:a2e8 with SMTP id d9443c01a7336-2db28365563mr1928785ad.6.1788558023178;
-        Fri, 04 Sep 2026 14:40:23 -0700 (PDT)
-Received: from google.com (210.87.127.34.bc.googleusercontent.com. [34.127.87.210])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b08ca63b3sm12393723a91.11.2026.09.04.14.40.21
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 04 Sep 2026 14:40:21 -0700 (PDT)
-Date: Fri, 4 Sep 2026 21:40:18 +0000
-From: Samiullah Khawaja <skhawaja@google.com>
-To: David Woodhouse <dwmw2@infradead.org>
-Cc: Lu Baolu <baolu.lu@linux.intel.com>, Joerg Roedel <joro@8bytes.org>, 
-	Will Deacon <will@kernel.org>, Jason Gunthorpe <jgg@ziepe.ca>, 
-	Robin Murphy <robin.murphy@arm.com>, Kevin Tian <kevin.tian@intel.com>, 
-	Alex Williamson <alex@shazbot.org>, Shuah Khan <shuah@kernel.org>, iommu@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, kvm@vger.kernel.org, Pratyush Yadav <pratyush@kernel.org>, 
-	Pasha Tatashin <pasha.tatashin@soleen.com>, David Matlack <dmatlack@google.com>, 
-	Andrew Morton <akpm@linux-foundation.org>, Pranjal Shrivastava <praan@google.com>, 
-	Vipin Sharma <vipinsh@google.com>
-Subject: Re: [PATCH v4 00/18] iommu: Add live update state preservation
-Message-ID: <apCIr3Ops8MxdY2y@google.com>
-References: <20260808022723.3893618-1-skhawaja@google.com>
- <67a636351d656e032bbe64b1ae113821ea4694b7.camel@infradead.org>
+        bh=kue2/Pm3HbmZQzjeKahvdcnYX4KwQ6G8saPWSb5Rn6g=;
+        b=aSgT5eNMb+d/5xnbIGa+Gbr0ZRySt1SRLg6lUvOgJMDt3ogJRo3RxRT84r9kMyTJzS
+         ppMCjZlPowVdVYuXYtng7P3lgEYC/1ERp/otVArfz1fef/7sssOOypk8xq5hymhZbI9i
+         uIwCRungRBPmxnvKZpUQHubuH5d0x9zdXyyDtVuctU1dZBVRW4k2G5tU5zLiuHOuxI18
+         1jcchntQdr5HU9u5kTIcRhnxtma1Is5MM3wJ0GCNIdvF/OJfVxTjh7jTNxXRMd++lcHY
+         OHgrUi7wfPvMHQWFmWbsGGrOFgiDsFlFhub1GDscWTTov3UF3DrwdcBKbkdeshfN77uI
+         JGnw==
+X-Forwarded-Encrypted: i=1; AKwUvBySVDiqv38wpHKqO36A+gx75dunCpOie23J0C6yRWahTPe5j/KhIZnMR3pK+khCaiLh4YNauHloymnxS2U=@vger.kernel.org
+X-Gm-Message-State: AFuF++lLwcuOXXNfwgroZniHjDXuHVcjrLvy+hijTEF7QSYJxLmFF9f2
+	luG/Ph2aPWwGPq+olnCpYkUB3tXZtSB25k2EyLaYEJYaALRIKmlD68+KiyIar6lTqRLpUN8MLUQ
+	xyHDtxigvPuXALOkKjNPGMmMrDu9LW68=
+X-Gm-Gg: AYBFou0gKuQ1RPgE0FRUhewy4VErH6xLjvpCzQP1tQKEbpetK4hZ1m+4GqjxiWS/sNj
+	t3/C971VPNErYOqLeY6qFiAnRJBORXOj5Tzmi2iLRr1jrmL5q2/XF0muPZcdqqwqfNqmiQetqMU
+	zCgX8ApWnxZhZIGtPMoGrK/MTdnpBV81HKVp61XCF490htskIwx0NpnC5F8vbcWOYSAvQxTHOS+
+	oJfPbR2WaDWr/1n3HtxkqnGINS6WzO8rejxA95YQHjNEDK9yjdylB94ib07JhndEC697bVF7ShE
+	MnAPXW/nn7PQjYMSlY0oEd3aKCB4r4vMBdTXlJfb1X2SLOscE0gk5Zv5/d+QsFKd/UpCihUtBQp
+	HCNBihPtLlcPqHefA2WEAsv7golYR8BJkWP5akIjv9xdj0kDwgZnjPIYvDB0RBE6DXwpzBvvJfP
+	DoWkKqCKh/Jbkv+NlBjgshPwwUD4M73FMD5CvVliZqiZ3KWVq8hRUjd9pZA0Ab/u9cQg==
+X-Received: by 2002:a05:6402:2752:b0:6a7:ea54:376 with SMTP id
+ 4fb4d7f45d1cf-6a7ea541ef3mr2147241a12.30.1788558099252; Fri, 04 Sep 2026
+ 14:41:39 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii; format=flowed
-Content-Disposition: inline
-In-Reply-To: <67a636351d656e032bbe64b1ae113821ea4694b7.camel@infradead.org>
+References: <20260511032252.361906-1-rosenp@gmail.com> <agH-ivEdw12_3OJz@redhat.com>
+ <CAKxU2N-nEx-=KFh9djQRGZVTR_HJTSrJYzAa8NR+4QcNvbkxqw@mail.gmail.com> <agI_ANymmPyyWxuE@redhat.com>
+In-Reply-To: <agI_ANymmPyyWxuE@redhat.com>
+From: Rosen Penev <rosenp@gmail.com>
+Date: Fri, 4 Sep 2026 14:41:27 -0700
+X-Gm-Features: AcwNN1VOkSQ_1hll8MMht--OgvQL0IoR_OsYRYOz3Zmp855n0-aj2ZBGahPJ2b8
+Message-ID: <CAKxU2N8YimZyKFoWtHT+FZwzD1R+MzvaXoCu0MhVEzvGHd9VhA@mail.gmail.com>
+Subject: Re: [PATCH] clk: rockchip: Use flexible array for clock table
+To: Brian Masney <bmasney@redhat.com>
+Cc: linux-clk@vger.kernel.org, Michael Turquette <mturquette@baylibre.com>, 
+	Stephen Boyd <sboyd@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
+	"moderated list:ARM/Rockchip SoC support" <linux-arm-kernel@lists.infradead.org>, 
+	"open list:ARM/Rockchip SoC support" <linux-rockchip@lists.infradead.org>, 
+	open list <linux-kernel@vger.kernel.org>, 
+	"Gustavo A. R. Silva" <gustavoars@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, Aug 26, 2026 at 09:12:53AM +0100, David Woodhouse wrote:
->On Sat, 2026-08-08 at 02:27 +0000, Samiullah Khawaja wrote:
->> This patch series introduces a mechanism for IOMMU state preservation
->> across live update, including the Intel VT-d driver support
->> implementation.
+On Mon, May 11, 2026 at 1:41=E2=80=AFPM Brian Masney <bmasney@redhat.com> w=
+rote:
 >
->Nice work; thanks. Do you have any timing information? Every
->millisecond spent on work here is perceived as steal time by the guests
->which are paused while it happens.
+> + Gustavo
 >
->So very quickly after the "yay! it works!" stage, we get to the "how do
->we do it in <100ms overall steal time" stage...
-
-I don't have timing information for this series yet, but I completely
-agree that every millisecond spent here is perceived as steal time by
-the guests which are paused while it happens. And this is why we do
-preservation of the IOMMU state early during LUO preserve() when the
-guest is not paused. And later LUO freeze(), during shutdown, does the
-minimum.
-
-But we (Google) did some analysis internally on the time for which the
-guest is paused, and the major time spent in such a kexec liveupdate is
-in bringing back the rest of the system including important unpreserved
-devices, other kernel drivers, userspace (VMM) and other major
-components. Note the Orphaned VMs to reduce the VM pause time:
-
-https://lore.kernel.org/all/afEwWZksU0Fw61oT@plex/
-
-Thanks,
-Sami
+> On Mon, May 11, 2026 at 12:08:56PM -0700, Rosen Penev wrote:
+> > On Mon, May 11, 2026 at 9:06=E2=80=AFAM Brian Masney <bmasney@redhat.co=
+m> wrote:
+> > >
+> > > Hi Rosen,
+> > >
+> > > On Sun, May 10, 2026 at 08:22:52PM -0700, Rosen Penev wrote:
+> > > > Store the clock lookup table in the Rockchip clock provider
+> > > > allocation instead of allocating it separately.
+> > > >
+> > > > This ties the table lifetime directly to the provider and removes a
+> > > > separate allocation failure path while preserving the clk_onecell_d=
+ata
+> > > > lookup interface.
+> > > >
+> > > > Assisted-by: Codex:GPT-5.5
+> > > > Signed-off-by: Rosen Penev <rosenp@gmail.com>
+> > > > ---
+> > > >  drivers/clk/rockchip/clk.c | 17 ++++-------------
+> > > >  drivers/clk/rockchip/clk.h |  2 ++
+> > > >  2 files changed, 6 insertions(+), 13 deletions(-)
+> > > >
+> > > > diff --git a/drivers/clk/rockchip/clk.c b/drivers/clk/rockchip/clk.=
+c
+> > > > index ee8c79b938d3..dbb4b6f33abb 100644
+> > > > --- a/drivers/clk/rockchip/clk.c
+> > > > +++ b/drivers/clk/rockchip/clk.c
+> > > > @@ -359,26 +359,21 @@ static struct rockchip_clk_provider *rockchip=
+_clk_init_base(
+> > > >               unsigned long nr_clks, bool has_late_clocks)
+> > > >  {
+> > > >       struct rockchip_clk_provider *ctx;
+> > > > -     struct clk **clk_table;
+> > > >       struct clk *default_clk_val;
+> > > >       int i;
+> > > >
+> > > >       default_clk_val =3D ERR_PTR(has_late_clocks ? -EPROBE_DEFER :=
+ -ENOENT);
+> > > >
+> > > > -     ctx =3D kzalloc_obj(struct rockchip_clk_provider);
+> > > > +     ctx =3D kzalloc_flex(*ctx, clk_table, nr_clks);
+> > > >       if (!ctx)
+> > > >               return ERR_PTR(-ENOMEM);
+> > > >
+> > > > -     clk_table =3D kzalloc_objs(struct clk *, nr_clks);
+> > > > -     if (!clk_table)
+> > > > -             goto err_free;
+> > > > -
+> > > >       for (i =3D 0; i < nr_clks; ++i)
+> > > > -             clk_table[i] =3D default_clk_val;
+> > > > +             ctx->clk_table[i] =3D default_clk_val;
+> > > >
+> > > > -     ctx->reg_base =3D base;
+> > > > -     ctx->clk_data.clks =3D clk_table;
+> > > >       ctx->clk_data.clk_num =3D nr_clks;
+> > > > +     ctx->clk_data.clks =3D ctx->clk_table;
+> > >
+> > > Where's the __counted_by? Also struct clk_onecell_data is embedded
+> > > inside struct rockchip_clk_provider, and I'm not sure offhand how
+> > > that'll work.
+> > Not present. __counted_by does not work with embedded struct members.
+> > No need to add one IMO.
+>
+> I'll be honest that I'm not sure what's correct here. I added Gustavo
+> since I saw comments from him before about these types of changes.
+Anything else? The comments AFAIK were about descriptions of why the
+counting variable assignment was moved. There's no counting variable
+here.
+>
+> Brian
+>
