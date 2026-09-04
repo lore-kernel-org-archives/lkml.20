@@ -1,189 +1,124 @@
-Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com [209.85.216.48])
+Received: from mail-ua1-f44.google.com (mail-ua1-f44.google.com [209.85.222.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6BD2423160
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 15:00:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA44C33BBB9
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 15:01:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788534047; cv=none; b=D6JL4WRKun3U69a0nIyAmSgcYJdBTXrWWbbuDcjkys0VWClYfY4cNs155Iak3zq7ctW1+BG3OLVa4B1/O+N1o9D6j2vFAf0QM8RCTQWRYNstclk/wz/UsEeGS0K9OpLTFFP1BC/JapOHSIB0PB3MfRQ/6NrJ9QFbbCBsZ4GgVEE=
+	t=1788534066; cv=none; b=tmNu7R+TsUYbDNKKSi9fFic9mLxQr7jvQDLEnht3pLxlilaicN2D0a/44qNAtxbuObJHi/sITyr5B/AHEQgAAmj+qgzQajbAplEye3wA/mPnA3IR5y8bZPp6/wQy/J6Wp3E9vQq1d0drIsxEHs2N/B/GqjReSTa0JVTQ+OHCpok=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788534047; c=relaxed/simple;
-	bh=xenbfa5yCH/JR4BPwaxvamXk4SoB151dSO6VnoNzG8o=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=QZTKrLnLafQMdhH2cVDMTSPZ6gYR5DAQeTY/++TIKxqy5cPRB1bP9LVypkpodf/TraI797aLtxu/9cMdPBjN38oy52P1mLWWwfi3/hhzcyaG3ctFyhyIlQAtGrOSEp6kPquM6g2FKCbwUUi0DW0adUWfhD44CtuDtxezSo0AAiA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=furiosa.ai; spf=none smtp.mailfrom=furiosa.ai; dkim=pass (1024-bit key) header.d=furiosa.ai header.i=@furiosa.ai header.b=md4dWQHn; arc=none smtp.client-ip=209.85.216.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=furiosa.ai
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=furiosa.ai
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=furiosa.ai header.i=@furiosa.ai header.b="md4dWQHn"
-Received: by mail-pj1-f48.google.com with SMTP id 98e67ed59e1d1-39b2ad862bdso843670a91.2
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 08:00:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=furiosa.ai; s=google; t=1788534045; x=1789138845; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=BC8xeNc2okLWoyrNypTJfEB3etD6w4HkNrLeoChjYjY=;
-        b=md4dWQHnFPazdhCR3saT4L7FZzy0q2h7pCepTqHtJPnl/MdPYbSfI8j0/MyWTxSSlC
-         si+WioGK2QP/5AMQ3GvfA+5FQdpS70fYLiYS3awXrTgIM8Pe+nhxkWrz4BrR/VgTj265
-         IChehlicDExyyN7tGOsI1RX5gFHkOQqPW+8qo=
+	s=arc-20240116; t=1788534066; c=relaxed/simple;
+	bh=dxuiJN3F+W/TTKG8/DBhxTqg4U9X29/XkWqF1QF1YkI=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=r32heZnBd3MNcCKXNtBOUnwAClcnKSaQWSgT+gQi4EhRC3v+idxCvfI51lWv1CiwBwfBGsBFJ/5yxwSpVN0zeAFJHYGeMJa1DB88E5xuMoK84P3o5CewRFviqcmO7HR64omFBnjwkvL2+2zaUnQHQ42mDR1cBvq9yFEO0JXYJWY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.222.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-ua1-f44.google.com with SMTP id a1e0cc1a2514c-9773c6ea885so398640241.3
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 08:01:04 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788534045; x=1789138845;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=BC8xeNc2okLWoyrNypTJfEB3etD6w4HkNrLeoChjYjY=;
-        b=SvIuUkMj+COOv1kVtFx2hGwYmn3LrGmVfJZB1av38Xcw6zDZk5Y57F8vdVCXJBsI5m
-         9B/R5uIl8ORLGBUPWcrayDC09zqpDI2nyQIJ7YsMEZdNQm/DUjY96/zIDXHtTreSNZMa
-         +8CmTTyvIE09FiujmisMUonQ0f6HEAN1ixZkzyXqdUj65RpWs9UhWMCd2He6W/dLTQt7
-         SxJehpw+WqC5ZQEQXax3Z2jXvsF3vVr3oEfz4yrs1dQJEkHIhBxYqPSvQYBC89c6OWV8
-         bfykAzzzj6PSwRuC2OU5kc0igwIoHQ0LyNtxMrJEMBt73CrduG8ltrmih6rnPar0RFr0
-         ttkQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxSOAd5vsx1EFvYt4JRG1htYA6vHwMe6b6OZ5CXg2Yf9a2ETjqOfj6JSUuuQbo55laRERuMjs00BpkVd5E=@vger.kernel.org
-X-Gm-Message-State: AFuF++npu1UdWZHCvVG64C3lFD751H3JdMhom4e9zJySDNccKR5vegRX
-	Lben+dxAUjpAZEhgR+nnBX1yzL85ar1YycLjsyyoZXWLdnD38W+778l+6clk2+5OP5A=
-X-Gm-Gg: AYBFou1km302xLXPZ1xDfU89FlKwe3GRyxDvh7UT6tKcp8zmNMSJwSI439LsA7mI1X3
-	h7Q2+WqbM4QtjTQlnevW8K4ZPr6pJw0f5RE7njEcdiRDDZzrISI4S6TBKdFUea3LGq71EIULkl6
-	pah/qeR8Q8YxNJdn8wBKCU3XbaDSivmD+Ik59m7+c4VI8+C5VRXF3vE3fmP9oqsEQHXqMit3ur7
-	CbLMDEPgL2LCN9YL5PfOLD73s+lE3kFej+puaJ5berl982CEAjQZl8zL2isPKlsTScfxxn2PdxO
-	71WfdeGbYsYeG7poNjYuzWkLQSFISZ0mHOmonN3FGLiwI/GahlSaxkRkAPQJU3sQeWtQf/bpmaK
-	VSyIpu8KD1BKhex1i2FIjjgv0KyNetkzT8sc25qsE5sEOOeIVVSezKc4zfFMlwgjN2Cay4jkWe6
-	YD+0Mrw58upKDXheaXHeSjuh5QQkZbp3aMslsSGWBlXtX5OQ+fNVcUMwlb8DGOfQ==
-X-Received: by 2002:a17:90b:582d:b0:399:e97:8d5a with SMTP id 98e67ed59e1d1-39b2627fe18mr9810550a91.25.1788534044869;
-        Fri, 04 Sep 2026 08:00:44 -0700 (PDT)
-Received: from rock-5b-plus ([61.83.209.48])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2db1497d4dbsm10522755ad.33.2026.09.04.08.00.42
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 04 Sep 2026 08:00:44 -0700 (PDT)
-Date: Sat, 5 Sep 2026 00:00:16 +0900
-From: Sidong Yang <sidong.yang@furiosa.ai>
-To: Ross Cawston <ross@r-sc.ca>
-Cc: Tomeu Vizoso <tomeu@tomeuvizoso.net>, Oded Gabbay <ogabbay@kernel.org>, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
-	Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 3/5] accel/rocket: Add per-task flags and interrupt mask
- to UAPI and kernel
-Message-ID: <aprXAS8mkycmfM2n@rock-5b-plus>
-References: <20260217-accel-rocket-clean-base-v1-0-d72354325a25@r-sc.ca>
- <20260217-accel-rocket-clean-base-v1-3-d72354325a25@r-sc.ca>
+        d=1e100.net; s=20251104; t=1788534063; x=1789138863;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=bIoiHSllQkJNgmmben61gMxsX8BWtDH0S9evEzpoUUA=;
+        b=aYgIdWvGuTcrrBECFqYmNqgeJRL6uTBYeIjvvYWIqI3SKRQxdwZnJ85cURePFAECyU
+         VUdMyhivKCsQCoFn6Rnh7v7/52JWTzRYgtsxZPttuGzgKg1uNfLgVpeaC+1IbmaOZRhp
+         v8oIhXpv/WbnsunfgqP7Z2fQ2y8FC5J4msLQUt+VRNgzk062Uw1hHrOag8DPApe59ZA1
+         dp9ZnAD56EDcVfOrC7HAaGaMJTqdcxbCwDnbERvs2g7RMkxd1LD0MZZqdkq9S498DxPH
+         jPeabRMaS6zCsseQVv/nz098EZLeSAZaOuDqJ8IRK/DFjSQpyw4ZL6mONpIOhuYxayvc
+         wLEQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwFY5LFHUkX3dW0pE5owc693C5BUNeFdh9QU9n4Z0+FI64EB7cwezHIK6XG3tIAdX3cUejXx+PLJG0KGbw=@vger.kernel.org
+X-Gm-Message-State: AFuF++mW+mkVzy0VG547qmRpYqys3bNh7rLCsm0mvyw+OWr0QNG3tEjP
+	3gkwrlNsFc5VWymZJFnTeejVot5YllgjgKr+TSPfENd5cY6jBkqmufY7o/eZjghM
+X-Gm-Gg: AYBFou2g86eVrRox1hIBqqwdNZzeISRkLMBiMFI23QNxv0N8XvLlNfq7ckvRqkVfrog
+	2RujM4QN3dhyOgYijDLD31kOKeEEqB+h5GOxhHGzVSi0IGeNOuJ6XI4Mk9Ijb3RSDgwkyPo+VGL
+	fgjwPeQgKnntEUM6K9tQoYpy0ZbuCAVdhpVc7nQlhZPZW5ffMeGXYe9qkv6g18JKpRJGdJxFyTh
+	rw4MHAYl5+88TjBiTkt935H9ksKHEhl+/efs/FOg9BLRvhl1eVmmHd5HSVG4RueWGu3IuvrmUBp
+	kuk3pXiIrQxmwGwgnaHa+ApAJ6h1TDYb0IqTHRTNu6edzbU9+bv4LYUTMWxlKXbjuuguxlpM5A7
+	kGam7p0JRgP3G5esheE6dYZqZiLaQtrxNFRZQ9iQ6NNYN1/SOHn6iTCPZfF18+4kd0dgHu242oJ
+	mbyh6gp1kKZdtdB+SfiSIMxc/Hty9MSlsrhbHNgmuZ1tkqG0zxajiFIg98yFb209qmEb0ftZGQ5
+	mORvx25U2zswCbtuakmdWOzvoh0MuJTCMX71Ubz
+X-Received: by 2002:a05:6102:4409:b0:789:56eb:39a5 with SMTP id ada2fe7eead31-78a4a836e1amr1672044137.5.1788534057933;
+        Fri, 04 Sep 2026 08:00:57 -0700 (PDT)
+Received: from mail-vk1-f179.google.com (mail-vk1-f179.google.com. [209.85.221.179])
+        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-9808ebb37fdsm1793350241.1.2026.09.04.08.00.55
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 04 Sep 2026 08:00:56 -0700 (PDT)
+Received: by mail-vk1-f179.google.com with SMTP id 71dfb90a1353d-5bfa4c51c2aso506782e0c.0
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 08:00:55 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBzHJu0iRHuwvG1kONsSS4cssnlkO1F+ZfD5jA+xnkGF+AcXub18ZvJFSooyQ+sWvTVVd6v/MMRgI+SfuEU=@vger.kernel.org
+X-Received: by 2002:a05:6122:8f8d:b0:5c3:61c2:9ec6 with SMTP id
+ 71dfb90a1353d-5c7ed456d8bmr2814332e0c.7.1788534054755; Fri, 04 Sep 2026
+ 08:00:54 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260217-accel-rocket-clean-base-v1-3-d72354325a25@r-sc.ca>
+References: <20260821150408.73829-1-ayman.chaudhry.kc@renesas.com> <20260821150408.73829-3-ayman.chaudhry.kc@renesas.com>
+In-Reply-To: <20260821150408.73829-3-ayman.chaudhry.kc@renesas.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Fri, 4 Sep 2026 17:00:43 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdWkkKnEsCKTcNMyr-WMvp7o5++Yg3rPR2f4wao=-weRoQ@mail.gmail.com>
+X-Gm-Features: AcwNN1XGMcfTKgzVCocL_OQ77Hbdu56w54bgvUPYdeBOHMixmFG2F9qVHqoWoGg
+Message-ID: <CAMuHMdWkkKnEsCKTcNMyr-WMvp7o5++Yg3rPR2f4wao=-weRoQ@mail.gmail.com>
+Subject: Re: [PATCH 02/10] dt-bindings: power: Add r8a774a3 SYSC power domain definitions
+To: Ayman Chaudhry <ayman.chaudhry.kc@renesas.com>
+Cc: Magnus Damm <magnus.damm@gmail.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
+	Jerome Brunet <jbrunet+clk@baylibre.com>, Ulf Hansson <ulfh@kernel.org>, 
+	linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org, 
+	linux-pm@vger.kernel.org, Chris Paterson <Chris.Paterson2@renesas.com>, 
+	Biju Das <biju.das.jz@bp.renesas.com>, 
+	Fabrizio Castro <fabrizio.castro.jz@renesas.com>, 
+	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Content-Type: text/plain; charset="UTF-8"
 
-On Tue, Feb 17, 2026 at 01:39:51PM -0800, Ross Cawston wrote:
-> Add two new fields to struct drm_rocket_task (UAPI) and struct rocket_task
-> (kernel):
-> 
-> - u32 int_mask: which block completion interrupt(s) should signal task done
-> - u32 flags: currently only ROCKET_TASK_SKIP_CNA_CORE
-> 
-> In rocket_copy_tasks():
-> - copy the new fields
-> - default int_mask to DPU_0 | DPU_1 when userspace passes zero (backward compatible)
-> 
-> No functional change yet - old userspace continues to work unchanged.
-> 
-> Signed-off-by: Ross Cawston <ross@r-sc.ca>
-> ---
->  drivers/accel/rocket/rocket_job.c |  8 ++++++++
->  drivers/accel/rocket/rocket_job.h |  2 ++
->  include/uapi/drm/rocket_accel.h   | 25 +++++++++++++++++++++++++
->  3 files changed, 35 insertions(+)
-> 
-> diff --git a/drivers/accel/rocket/rocket_job.c b/drivers/accel/rocket/rocket_job.c
-> index 369b60805d5f..34898084cc56 100644
-> --- a/drivers/accel/rocket/rocket_job.c
-> +++ b/drivers/accel/rocket/rocket_job.c
-> @@ -96,6 +96,14 @@ rocket_copy_tasks(struct drm_device *dev,
->  
->  		rjob->tasks[i].regcmd = task.regcmd;
->  		rjob->tasks[i].regcmd_count = task.regcmd_count;
-> +		rjob->tasks[i].int_mask = task.int_mask;
-> +		rjob->tasks[i].flags = task.flags;
-> +
-> +		/* Default to DPU completion if no mask specified */
-> +		if (!rjob->tasks[i].int_mask) {
-> +			rjob->tasks[i].int_mask = PC_INTERRUPT_MASK_DPU_0 |
-> +									PC_INTERRUPT_MASK_DPU_1;
-> +		}
->  	}
->  
->  	return 0;
-> diff --git a/drivers/accel/rocket/rocket_job.h b/drivers/accel/rocket/rocket_job.h
-> index 4ae00feec3b9..6931dfed8615 100644
-> --- a/drivers/accel/rocket/rocket_job.h
-> +++ b/drivers/accel/rocket/rocket_job.h
-> @@ -13,6 +13,8 @@
->  struct rocket_task {
->  	u64 regcmd;
->  	u32 regcmd_count;
-> +	u32 int_mask;
-> +	u32 flags;
+Hi Ayman,
 
-Hi Ross,
+On Fri, 21 Aug 2026 at 17:05, Ayman Chaudhry
+<ayman.chaudhry.kc@renesas.com> wrote:
+> This patch adds power domain indices for the Renesas RZ/G2M v3.0
+> (a.k.a. R8A774A3) SoC.
+>
+> Signed-off-by: Ayman Chaudhry <ayman.chaudhry.kc@renesas.com>
 
-This patch grows sizeof struct drm_rocket_task, and it would make error in
-checking if it is bigger than job->task_struct_size in rocket_copy_tasks().
-So, Old userspace application would get error.
+Thanks for your patch!
 
-Thanks,
-Sidong
+> --- /dev/null
+> +++ b/include/dt-bindings/power/r8a774a3-sysc.h
 
->  };
->  
->  struct rocket_job {
-> diff --git a/include/uapi/drm/rocket_accel.h b/include/uapi/drm/rocket_accel.h
-> index d0685e372b79..ae0d8e48afcd 100644
-> --- a/include/uapi/drm/rocket_accel.h
-> +++ b/include/uapi/drm/rocket_accel.h
-> @@ -90,6 +90,11 @@ struct drm_rocket_fini_bo {
->  	__u32 reserved;
->  };
->  
-> +/**
-> + * Flags for drm_rocket_task.flags
+renesas,r8a774a3-sysc.h
+
+> @@ -0,0 +1,30 @@
+> +/* SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause) */
+> +/*
+> + * Copyright (C) 2026 Renesas Electronics Corp.
 > + */
-> +#define ROCKET_TASK_SKIP_CNA_CORE		0x1
-> +
->  /**
->   * struct drm_rocket_task - A task to be run on the NPU
->   *
-> @@ -106,6 +111,26 @@ struct drm_rocket_task {
->  	 * buffer
->  	 */
->  	__u32 regcmd_count;
-> +
-> +	/**
-> +	 * Input: Interrupt mask specifying which block completion signals
-> +	 * that this task is done. Uses PC_INTERRUPT_MASK_* bits.
-> +	 *
-> +	 * For conv/DPU tasks: DPU_0 | DPU_1 (0x0300)
-> +	 * For PPU tasks:      PPU_0 | PPU_1 (0x0C00)
-> +	 *
-> +	 * If zero, defaults to DPU_0 | DPU_1 for backwards compatibility.
-> +	 */
-> +	__u32 int_mask;
-> +
-> +	/**
-> +	 * Input: Task flags.
-> +	 *
-> +	 * ROCKET_TASK_SKIP_CNA_CORE: Skip CNA and Core S_POINTER MMIO
-> +	 * writes for this task. Used for standalone DPU element-wise
-> +	 * and PPU pooling tasks that don't use CNA/Core.
-> +	 */
-> +	__u32 flags;
->  };
->  
->  /**
-> 
-> -- 
-> 2.52.0
-> 
+> +#ifndef __DT_BINDINGS_POWER_R8A774A3_SYSC_H__
+> +#define __DT_BINDINGS_POWER_R8A774A3_SYSC_H__
+
+[...]
+
+> +#endif /* __DT_BINDINGS_POWER_R8A774A3_SYSC_H__ */
+
+__DT_BINDINGS_POWER_RENESAS_R8A774A3_SYSC_H__
+
+With the vendor prefixes added:
+Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+
+Gr{oetje,eeting}s,
+
+                        Geert
+
+-- 
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
