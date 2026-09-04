@@ -1,67 +1,68 @@
-Received: from mail-oi1-f171.google.com (mail-oi1-f171.google.com [209.85.167.171])
+Received: from mail-oi1-f173.google.com (mail-oi1-f173.google.com [209.85.167.173])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02D7F450413
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 22:11:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E93054457BF
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 22:11:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788559888; cv=none; b=dOau+uDqkXG0QxymB4fqceOrlVpU72pPAeaLXSnWrr45l0kPNC54TdySlc3sQaiAHAS6vwo1nvvVSE9fpxF4NfewBlbonmSQpl4VofJbsWAIrXebb1bFFTo4XveF1DrPkBtja8L3SBd9Y1v3aSeoEdk9nDewIha96o6MiNbQfI4=
+	t=1788559887; cv=none; b=SBqajQfTu3qHNAGeEXra9P4mW5/Gf7EOQ94xixod/qSXVfBMTk8wSBglgybmK4yzh4Y476iZLcJ0lIXhl9e1STK7TVJgr5sJyieVbfcYlwN07m0MixBPyq7Atpvrm7N63SgEL+U289pKr2yMvgmuKsj1J4L6VWyLqp7pcEl/wXk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788559888; c=relaxed/simple;
-	bh=4mIrQseGaDrWXOkGj+VmtS3xT3kzP+fkmkBCoKYUU7I=;
+	s=arc-20240116; t=1788559887; c=relaxed/simple;
+	bh=tuKhK0Enx5k//K8I0pTMmNB+pTPJg1C2xYOO+ZfG/4E=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=lH55lYgZH87xE46fywNuM9R7tF879v3Mexkxyar91/ghzVtiGwcYVuBcmD51EDkOugAkcj9YedwFnx0yOvvVPQXubEbzF0CyPGcY0kCb6jQ0xPwX8PnZ3fch8kbOkEeWMsSd6TxbevsJINkHKH0kL/FQ0tr6QhevrcLjSlnmF+E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=kEXUa+jN; arc=none smtp.client-ip=209.85.167.171
+	 In-Reply-To:To:Cc; b=AM5VmWm2H1XmzYZLhMhnRmjvU7Vt8Q9PtbgDDXgEyJYTQTGI2yP3k2r/9epvxduuSc7A9kSmEowA2pTnqSuaaA2fjZNNU2VanC8N3UvZFx3Z+lGh+sZMZ2q1xJ6m9Ot8FKHEVem6pXivRrrOR2akLu/TpeKQ+Aia4XC58kE72GE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=CTcYZdky; arc=none smtp.client-ip=209.85.167.173
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="kEXUa+jN"
-Received: by mail-oi1-f171.google.com with SMTP id 5614622812f47-4a45b3f0becso1274195b6e.1
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 15:11:25 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="CTcYZdky"
+Received: by mail-oi1-f173.google.com with SMTP id 5614622812f47-4b5b727be96so1216978b6e.3
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 15:11:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1788559884; x=1789164684; darn=vger.kernel.org;
+        d=baylibre.com; s=google; t=1788559881; x=1789164681; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=oxj4NP1Iiq6S7QGXGCteoLSsgcXgpsaLfh9MJtp5gfo=;
-        b=kEXUa+jNsszt+1RTNnDYmbNl+SPwL4HoN7QcMbA5GMpIOzgdwvBlEfx48dTSAan0Oj
-         xdplGynd4TuoD8huD/vtMH/lxokEX3bnlKJ6AmCZZxCE5cEZa0bQzRTbyqtR0GpssX5q
-         hlnr1EX1hEKg21juGenQ+0SwbWn5+4lnem4L7aN8slhMC8QKuHcAo6rGBeGqABJ0KYxM
-         Pql7stQG93t8WWseg1otADND+E19hCapBCa81WcwbtW156AR8+oLyM9xza1nGANtXrMj
-         yLsmhluTNWCzi1yxomzSpAGKVDo6sy1gDwd1ktO0KqFajRY3BhPksBD17gKIk3nj8Vsa
-         EnYw==
+        bh=FUIxvk5kQkVheOAAkQoSx1rVGdCSgrXOvmXyBL2x3MA=;
+        b=CTcYZdkyX55xobtONwJru6rF9xc+jULpK7k/o8JtxRivDynnlmnNSEW1dBltzXcSha
+         QFX86wNkHGUHELQNiW1+t6iHexsIVUdXY554WxFJccyYcrCFSI7tgYgnHCJcW3FoeISb
+         BX5EKGgC2bW0BsUETUm3Y8h+/1c7IJTrgyon9YFOLspwIUdfFlc2imIBGiwAhMMVZ05V
+         XsUpa6Rl3eQ/2sbdAnL/GEL4sWC3vFYozDeebmOfSHOLIKw4HJG+zbpQthIJZ6i0etND
+         FoyxmLv/XtdaOL+O4drFXdvkVhNYcaBnAiRWqJYr4Iofa2Dls29ESpt0/4iTWmAaN+YR
+         cPMQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788559884; x=1789164684;
+        d=1e100.net; s=20251104; t=1788559881; x=1789164681;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=oxj4NP1Iiq6S7QGXGCteoLSsgcXgpsaLfh9MJtp5gfo=;
-        b=J1mYjU2l4K4sry2ETkx1V1Fl3TU5UGY9u6JL6uLWp7P5xCLn8YFeLIPEZ/LQqt27kz
-         IcobbUSvJn5jUIJs4ofzdHEgLeRzbdQTXPHGPsldXUQBZr1i6VYNYKYVuEOEGWC2Ph4t
-         b1t31Wy6M19ANLUqB4GbXgklAq/Xyf2AC4ZhMSXJYljH/sx4N5D/N5VTHSS1epjXmel7
-         v1jH6NQ8KK14Bc2OuoQzYbMGkIwLcCpWup0bYiCy8SUTNvoCQlai22iRJhWxFPPEcNbm
-         c7m0jM3mQu1vX8HH5d8dapCDRHc4NmqHJ85YvLAx12yR3egxiRLImsB6F2kdt9YuLAjI
-         m7uQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxEBNohMTav9OTg61o26sxaOXPl/VBaxRH+TeXlSshZVKaIoYm26YYFZyoIiaKuHge7gBI5QnY/MpMTB1E=@vger.kernel.org
-X-Gm-Message-State: AFuF++nOTNL+M7P3eS7r4pkpQ008CrfkE/1FMrK00r21lj7N6Mycl1X+
-	S3sOPPQxtOpAx6JSKGGM/8Vbb4EdpMGeRgaQl4ooOUdi1pMTO+DwgvLJ1hrU3pYKNxQ=
-X-Gm-Gg: AYBFou0xLoGVXHNMfHs6jTmBTOtorfNCFzGfJBVfEq1vIX5Gm34FqO1GjdSBlDx5Gpx
-	PjhThDUX+FhbIcCx4qxRYI3bLZXwFBrOXQNl3ixTE80j8maNSUST3mLHrDm8uepmNi8HX2jQniu
-	Fi3HeOxvr9gqlN1CrrAkU2KX5f1uRhhx1wxYS+Ls0OMaG33T/jClodX0pAfN1a0Rzb18VmpngVD
-	trr79viAv1FkeXW7fMOnN7hbj8dTrsDz+2HrvUPLNCdzEjy2rlBmS1sJlUN4Q3ROWNFmvhZ15iN
-	CRwPtuStVb2XTwyV4PiO7kq0ja8f17A7ZgWkuxIr68mrx4FIvijYIZyJ4tmlm1EcEQGFxMLUuUw
-	lOVc7mmizcwlMwRBG+g6N0Kyq8s0xkPiIK2yBS79owu3INJFVjWT1vm4d4geaaa2Zx1zuSU4TgO
-	Aws39VVgHX7xBzX148OFenVxkeQpOQsl+da4UI0reoyvd22RoG1O6PmIy4SzwSNW4uMg==
-X-Received: by 2002:a05:6808:1406:b0:4b5:a7a3:25ee with SMTP id 5614622812f47-4b96252944fmr6559379b6e.20.1788559884399;
-        Fri, 04 Sep 2026 15:11:24 -0700 (PDT)
+        bh=FUIxvk5kQkVheOAAkQoSx1rVGdCSgrXOvmXyBL2x3MA=;
+        b=dwE/48yE3+Sr1WB2PCAFcj6TsfmwDYOszxCEMde2E3XHO1K1ekkCXYLc49+8b7q+2U
+         t8/i/fwpFGQrZZrFz6qxgxBVR03xb7PAA03w2z17Ngo86WYGEiQ3PGeHqZ4u7DY7o6s/
+         cIGFoNOm6ubZDk4o8LoGQRq6bSYhSLLmweP+W13bOkbjhNBbmPm27eswPG0Eu7C5ZmHT
+         kXOXtTY/kQABNTV8BZuDYuwSSebYte2QKOTrUbCqF/jvPcSMnbBBGfm4K+8nTzvJFVSb
+         +v43mVqijnpXg/XbUTdUBXg5UDrObj0SwsvT473zUBp/UrV00rH7dYWRr7bWyjaB1y8E
+         S4aw==
+X-Forwarded-Encrypted: i=1; AKwUvBwAOAaFGV6tP1JBEoq0iLk+KqRNFyIi8KCrgP38OIKA8064L6S4o/jgStBoO/Fry4yF7xvwK25x5X2hJyY=@vger.kernel.org
+X-Gm-Message-State: AFuF++mLZnhQwF1Ys57rt5c8pWmG8/u+GZs5poo5yWQqUgHkIbCOZw/S
+	4rwsl27TMGcgjIgpKA2ZaJDxNG3YyMncDNJZknEATgPI/i5kpToOxM92ykQP5TAYJbDoQSu0wHP
+	H/8FG
+X-Gm-Gg: AYBFou2IPZHR6+FjhTUza3+8nyWsiTKb6uXSSoZvPJQnUUu/igY0e2wuZ42NT3VMuxM
+	cxY7VFPGEfyZcji4rfTOVNaYb+cXZ0C28JWCh3b0llcvP/Dmw41WPinid1uAw/qTd4GYf6Jk/d8
+	j+F1zl0RFyDIhGp0fjoYXcWLl5Vn9k4ZA38UfL/TnXVWKXjBSdk5fBHShKKHdYoof9UpLKnLPVV
+	2PCp8RFdPbgmIHOFTJjxGmYlxy8uXGn10WUKz6wSVlT4/G51C11bRW2eLaWdOo71DAJiMHikeh1
+	YKYVXJItH7IrdRAThxh+nmUnhKI0QpqnwmHPYQvlRePWpyE3XpW9w42KBjtLpJRKPrhMbjHz3bT
+	gu4wVzQYaMS19gVzJfGqZ6g3iNn0X2fa2ZVmc2enire1bLKidwMOD0EkL916adbFqEgz6znbBEP
+	1JkEPM0djhC1n2bRazsGFV6R/ltUup6xC2ewys7QpB/AaJhEMVnRM+zMf3LOsItQRgjg==
+X-Received: by 2002:a05:6808:1808:b0:4b9:a8ac:489 with SMTP id 5614622812f47-4b9a8bb6cb5mr4583694b6e.39.1788559881056;
+        Fri, 04 Sep 2026 15:11:21 -0700 (PDT)
 Received: from [127.0.1.1] ([2600:8803:e7e4:500:4324:3ccf:e2bf:d545])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-4b970d1ff95sm3187113b6e.6.2026.09.04.15.11.23
+        by smtp.gmail.com with ESMTPSA id 5614622812f47-4b970d1ff95sm3187113b6e.6.2026.09.04.15.11.20
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 04 Sep 2026 15:11:23 -0700 (PDT)
+        Fri, 04 Sep 2026 15:11:20 -0700 (PDT)
 From: "David Lechner (TI)" <dlechner@baylibre.com>
-Date: Fri, 04 Sep 2026 17:09:53 -0500
-Subject: [PATCH v2 08/10] iio: ABI: add sinc4+sinc1+pf1 filter_type
+Date: Fri, 04 Sep 2026 17:09:51 -0500
+Subject: [PATCH v2 06/10] iio: adc: ti-ads112c14: support external clock
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -70,7 +71,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260904-iio-adc-ti-ads112c14-filter-support-v2-8-f86592360658@baylibre.com>
+Message-Id: <20260904-iio-adc-ti-ads112c14-filter-support-v2-6-f86592360658@baylibre.com>
 References: <20260904-iio-adc-ti-ads112c14-filter-support-v2-0-f86592360658@baylibre.com>
 In-Reply-To: <20260904-iio-adc-ti-ads112c14-filter-support-v2-0-f86592360658@baylibre.com>
 To: Jonathan Cameron <jic23@kernel.org>, 
@@ -80,38 +81,108 @@ Cc: Chris Hall <c-hall@ti.com>, Patrick Edwards <pedwards@ti.com>,
  Kurt Borja <kuurtb@gmail.com>, linux-iio@vger.kernel.org, 
  linux-kernel@vger.kernel.org, "David Lechner (TI)" <dlechner@baylibre.com>
 X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=859; i=dlechner@baylibre.com;
- h=from:subject:message-id; bh=4mIrQseGaDrWXOkGj+VmtS3xT3kzP+fkmkBCoKYUU7I=;
- b=owEBbQGS/pANAwAKAcLMIAH/AY/AAcsmYgBqm0HlQXdNNIv6P1pCGYX3k0ytCkSsrBvRFD/gx
- 8Xp0vh7buCJATMEAAEKAB0WIQTsGNmeYg6D1pzYaJjCzCAB/wGPwAUCaptB5QAKCRDCzCAB/wGP
- wOjrB/wP+pIBS0ZXanR7Fag75lIXHQ8UPkpwn3bDpjabLNeuTguY43lX/pl3e5xPSXNgq2n8JmD
- 7IM5RXzKz/vQupNeKlsz+iAbseCmomlK4hVfkMzus/pUb+wpWpOTAlTQN5v0z//RJmG8ocka2bZ
- kQjgPg4pKRmrQzpyFYyD1ss42q7k+JKcJTY9bukatphXZKGU7g/pIpPpBkIjPllx9ZZN8MHAP6I
- H2YevGAlw6t4zFIyP/MOZ6kr5Vy0xtsQJnEoVYbxlyLUYh54wrfCcVf6V7ZFVBws0edtP3zTrcm
- trxOOshaBjbYzagMhFWzAn8/db8LvuCDK+SGkiVeS1SXnq+b
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3103; i=dlechner@baylibre.com;
+ h=from:subject:message-id; bh=tuKhK0Enx5k//K8I0pTMmNB+pTPJg1C2xYOO+ZfG/4E=;
+ b=owEBbQGS/pANAwAKAcLMIAH/AY/AAcsmYgBqm0HYU1VGAhx6DJvsdJa8HFsdTJCF/HJi3+GJM
+ IrNV7NFj8aJATMEAAEKAB0WIQTsGNmeYg6D1pzYaJjCzCAB/wGPwAUCaptB2AAKCRDCzCAB/wGP
+ wMrgCACBtFq3ykEwE7rzzjexkhflcZ9jY3gPOb0hs28Afbej5b23jJ2+akNWv99LLVYBlGKNy2O
+ RZgLoM4++INRz/b+cJRGgtYp9fSeX2L1y3PW3urCYtRrQbsItL+B/dKw4X+5Ovfgi5QZFhT0pU/
+ lrB5HX9uNW7Fub2jZ/DLdnbmh+dgAjaMHN3eA4i2el8qGONZb4kEwdG7eJRpMh1SS7R3KtnXyWf
+ SmhfAHgxCCExTvuTvEeq0bi9Dir26au7acmLjPKaaaDRd9URRCLAy6roU8Hbd9DxsTeRjm2ZQ7S
+ xuOKlJ+ao2GVDX+uR/+pVV9zWpmGjs0+X/NpXndnEE6lAUIw
 X-Developer-Key: i=dlechner@baylibre.com; a=openpgp;
  fpr=8A73D82A6A1F509907F373881F8AF88C82F77C03
 
-Document "sinc4+sinc1+pf1" as a valid value for the filter_type
-attributes (used by the ti-ads112c14 driver).
+Add support for an external clock source to the TI ADS112C14 ADC driver.
+The unused fclk_Hz field is added in preparation for filter support.
 
 Signed-off-by: David Lechner (TI) <dlechner@baylibre.com>
 ---
- Documentation/ABI/testing/sysfs-bus-iio | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/iio/adc/ti-ads112c14.c | 29 +++++++++++++++++++++++++++++
+ 1 file changed, 29 insertions(+)
 
-diff --git a/Documentation/ABI/testing/sysfs-bus-iio b/Documentation/ABI/testing/sysfs-bus-iio
-index a4f5595722ad..a8e1cb8e7490 100644
---- a/Documentation/ABI/testing/sysfs-bus-iio
-+++ b/Documentation/ABI/testing/sysfs-bus-iio
-@@ -2380,6 +2380,7 @@ Description:
- 		* "sinc4+lp" - Sinc4 + Low Pass Filter.
- 		* "sinc4+sinc1" - Sinc4 + averaging by 8. Low 1st conversion
- 		  time.
-+		* "sinc4+sinc1+pf1" - Sinc4 + Sinc1 + device specific Post Filter 1.
- 		* "sinc4+rej60" - Sinc4 + 60Hz rejection.
- 		* "sinc5" - The digital sinc5 filter. Excellent noise
- 		  performance
+diff --git a/drivers/iio/adc/ti-ads112c14.c b/drivers/iio/adc/ti-ads112c14.c
+index c03789c3d95e..55462fc57752 100644
+--- a/drivers/iio/adc/ti-ads112c14.c
++++ b/drivers/iio/adc/ti-ads112c14.c
+@@ -11,6 +11,7 @@
+ #include <linux/bitfield.h>
+ #include <linux/bitmap.h>
+ #include <linux/cleanup.h>
++#include <linux/clk.h>
+ #include <linux/completion.h>
+ #include <linux/crc8.h>
+ #include <linux/delay.h>
+@@ -178,6 +179,8 @@ static const u32 ads112c14_pga_gains_x10[] = {
+ 	200, 320, 500, 640, 1000, 1280, 2000, 2560,	/* 8 - 15 */
+ };
+ 
++#define ADS112C14_INTERNAL_CLK_Hz 4096000
++
+ #define ADS112C14_I2C_CRC8_POLYNOMIAL 0x07
+ DECLARE_CRC8_TABLE(ads112c14_crc8_table);
+ 
+@@ -268,6 +271,7 @@ struct ads112c14_data {
+ 	struct iio_trigger *drdy_trig;
+ 	/* Synchronizes access to register value fields. */
+ 	struct mutex lock;
++	long fclk_Hz;
+ 	int drdy_irq;
+ 	struct completion drdy_completion;
+ 	bool continuous_mode;
+@@ -1536,6 +1540,7 @@ static int ads112c14_probe(struct i2c_client *client)
+ 	const struct ads112c14_chip_info *info;
+ 	struct iio_dev *indio_dev;
+ 	struct ads112c14_data *data;
++	struct clk *clk;
+ 	bool need_avdd_ref, need_ext_ref;
+ 	u32 refp_uV = 0;
+ 	u32 refn_uV = 0;
+@@ -1628,6 +1633,12 @@ static int ads112c14_probe(struct i2c_client *client)
+ 		return dev_err_probe(dev, -EINVAL,
+ 				     "external reference measurements require either refp-supply or ti,refp-refn-resistor-ohms property\n");
+ 
++	clk = devm_clk_get_optional_enabled(dev, NULL);
++	if (IS_ERR(clk))
++		return dev_err_probe(dev, PTR_ERR(clk), "failed to get clk\n");
++
++	data->fclk_Hz = clk ? clk_get_rate(clk) : ADS112C14_INTERNAL_CLK_Hz;
++
+ 	/* It takes some time for the internal reference to stabilize. */
+ 	fsleep(10 * USEC_PER_MSEC);
+ 
+@@ -1698,6 +1709,10 @@ static int ads112c14_probe(struct i2c_client *client)
+ 			return dev_err_probe(dev, data->drdy_irq,
+ 					     "failed to get drdy interrupt\n");
+ 
++		if (clk)
++			return dev_err_probe(dev, -EINVAL,
++					     "cannot use both DRDY and CLK - they share the same pin\n");
++
+ 		/*
+ 		 * REVISIT: would probably need to implement a pin controller in
+ 		 * order to support open drain option here.
+@@ -1737,6 +1752,20 @@ static int ads112c14_probe(struct i2c_client *client)
+ 			return ret;
+ 	}
+ 
++	if (clk) {
++		ret = regmap_update_bits(data->regmap, ADS112C14_REG_GPIO_CFG,
++					 ADS112C14_GPIO_CFG_GPIO3_CFG,
++					 FIELD_PREP(ADS112C14_GPIO_CFG_GPIO3_CFG,
++						    ADS112C14_GPIO_CFG_GPIO_CFG_INPUT));
++		if (ret)
++			return ret;
++
++		ret = regmap_set_bits(data->regmap, ADS112C14_REG_DEVICE_CFG,
++				      ADS112C14_DEVICE_CFG_CLK_SEL);
++		if (ret)
++			return ret;
++	}
++
+ 	ads112c14_populate_tables(data);
+ 
+ 	indio_dev->name = info->name;
 
 -- 
 2.43.0
