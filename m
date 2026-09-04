@@ -1,137 +1,109 @@
-Received: from smtp-relay-internal-1.canonical.com (smtp-relay-internal-1.canonical.com [185.125.188.123])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f51.google.com (mail-ed1-f51.google.com [209.85.208.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A50E417BF8
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 05:30:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.125.188.123
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C4D0416878
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 05:30:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788499817; cv=none; b=CtMzBrU74baFLeZ7GEt2pfXf0mUP/s9RYYkEoqGQjCiVnJafQtLLDNVI39PIeFyxZ/Alp1EXQ2IMUNz7rO2e8mAIIVmW0GUlON3AS7eM5XSdrwiDdAQNCzZpJaNY53EFVH6kJ5NHzReRDQddmGg3CNXEcsndYN/OUtkFBZbC0to=
+	t=1788499824; cv=none; b=sFs+hjKoGy+QxpSFPas1pPHEqCD0SXpu+v0BYo8o+HVzNPIc+4ps5dqvuRHdAFfK3SZ0j5hBZBbhthtJGn1G2/O9OT230UCJ6N5Y5/5ccV0JOjyfi2tH/ZWiVxwUCLODIdloR8yLR3iNf8kcs2GlnJNdVngaWPZ1DOuw0vXumns=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788499817; c=relaxed/simple;
-	bh=ImOh168kxeA1zuaF/xS9s+Ai/+OKoAZCi8OLGG3Sztw=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=BBUBViyHKuuPo/lz2ZNd4UhjXr0hqIPaxPs2vRrurVhXPxAGZPm0yjGRYi1ONk3O3wvyrpoLOEdo+UmBuANOHjiWosj/VGG3ctQK1L5dSNhC8lnLSjdQQUL1UjzWqZywNinfE/v/wuDmGyqWK7dS4bMq3sybABIQW7BoSMTOdmg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=canonical.com; spf=pass smtp.mailfrom=canonical.com; dkim=pass (4096-bit key) header.d=canonical.com header.i=@canonical.com header.b=kPoyCHgr; arc=none smtp.client-ip=185.125.188.123
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=canonical.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=canonical.com
+	s=arc-20240116; t=1788499824; c=relaxed/simple;
+	bh=DDsae5PYRHBzB8MMbUqjMxYCjTAfs5Wrghb8LnCGy4c=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References; b=WQfCn7jNRS4gy/D+ieLJngWP8fdViKqFWWoMg92OCDy0jnvt9T30T+QXNz9rTAL8vmK+8H/GGGBZDBAiom+0tHWp9KD0NJgeBXVAXbEAB9eItfU/vm6Jys6h1HxI7eIOKMIfK13FrDzI4qjTwJr+Ophk98CjypXgzgl4QjZwCU8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ferrisoft.com; spf=pass smtp.mailfrom=ferrisoft.com; dkim=pass (2048-bit key) header.d=ferrisoft-com.20251104.gappssmtp.com header.i=@ferrisoft-com.20251104.gappssmtp.com header.b=KfRyhIyo; arc=none smtp.client-ip=209.85.208.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ferrisoft.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ferrisoft.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key) header.d=canonical.com header.i=@canonical.com header.b="kPoyCHgr"
-Received: from mail-pf1-f197.google.com (mail-pf1-f197.google.com [209.85.210.197])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-relay-internal-1.canonical.com (Postfix) with ESMTPS id 8940B42942
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 05:30:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
-	s=20251003; t=1788499812;
-	bh=s9VeM2Hj9d1CYutblv9K9gniHtTbYGqC7kevoULcpcA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version;
-	b=kPoyCHgruozjzrQzIrWZpv6LdfuNlNZSU0XUzk4pBYZgBcPqw8UC+CBAe4PLY9qMD
-	 EkTMyLWpXDsYCZhTzISiV6e8GzXoows5Zm87tKGAAxAH1WaYPmTRjr/KMe7aU6XRmj
-	 6qhdj1lB2CQ8yTy26DoAL7i+M0o2Y8r3Tt5qJLZ/qsWW88MGs6UwznWNkZqHGUP5ma
-	 Asezl2BmluU2GoOIP4EDliBZfB0b3Gn/hz2ulqHEB5+YQJr73u4HTHUIwQrEJBxuFm
-	 ONF58gjhY+mX8TSjDZDOkcf2CZCYdB0w6x3dSe765AarVG3WcD9TZKu2/QLO34r/ZK
-	 bJBDUKxxKxm8hFq8JErjemUKSFj6bV9T9+BaFKwvgLQ+K91agXVAnSsIE2xC7e6jHJ
-	 FEIHT1AwaP9CyO8j0psaaUeSrgkshdzBx2Dh+FEejpB+jHrjL025/0ukVFujva9H2b
-	 ByH76eXIVZNJovbt3HXTKEdwrDCyfGelItY9MQELhu84N2MpvEa4ZhOeZk6QZyWa2C
-	 b6FV+oB2LRMI+/2gI2dJ5GAhBk126zOErPy/xBR5faSGJIVFoF6MffUubsMtP8yMJ0
-	 Clovb7GzJPdurot6TYn4ap60DprVjFKeGXytNmNuMm6HoVHKy/JWpMA4P5TSkWYzGW
-	 a9J6jo+sYSlcSfNQwNz2so+g=
-Received: by mail-pf1-f197.google.com with SMTP id d2e1a72fcca58-84e1da97175so732336b3a.0
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 22:30:12 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=ferrisoft-com.20251104.gappssmtp.com header.i=@ferrisoft-com.20251104.gappssmtp.com header.b="KfRyhIyo"
+Received: by mail-ed1-f51.google.com with SMTP id 4fb4d7f45d1cf-6a0c8283146so819566a12.0
+        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 22:30:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=ferrisoft-com.20251104.gappssmtp.com; s=20251104; t=1788499819; x=1789104619; darn=vger.kernel.org;
+        h=references:in-reply-to:subject:cc:to:from:message-id:date:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=g4XHZarYyGiNGF21Yvcw0I+AYGTcuONz0i7wXp0V4/g=;
+        b=KfRyhIyoYKgUVLg3FinxS6CDKv9PnKJXWAG/DKURb5chJ45YRhNnYQG2ahGMZw1gM8
+         mg/o/Eey8a0NNqX33DT0cfgqNJVbZtEagxlYu8yvn4E4inaDGHPD0Cd35eBNuAQ/sGjA
+         6p/tk+qbhAwABL5ebhMynMjeGw7RWHWn24ixPJ7ujIl/SuhINgD2+OkbdmxQF4c/xcBd
+         B/+BhzhdkNiWaErQNZ7aoKgIq0hcIDDF0/mg/TjEyemLsaf2qRo72WO43mHP1odDas/E
+         lOLrK94h9sxg2hNTxacWzgX69vUoDe/lcB2noG89Z7ZaYHaLUviZIsiWzNV/w5p+xaDC
+         xwIQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788499811; x=1789104611;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=s9VeM2Hj9d1CYutblv9K9gniHtTbYGqC7kevoULcpcA=;
-        b=KMO9NPJ0IUTfMOvp519dcpL11ALa1SBYqTwgTcz9XmxFvGgOW1lBT9Xy0G6lLEVRC5
-         OebOtBOqm9h4pORKlRX8aYJfy+UWpmrjmRaxdJkojI+UYxgDavyITReYYD9z+g5vOGnm
-         Q3JZzNRiualCl9FmiTR3n19g13N8IKdH6U7tJEVtm3p1VAF+RoeMCrCXYTPBI1G21Jxw
-         ZBPaykXegT0YnjbVERcg9S3CKkHuL3xcCFU2lGMS8ebFqfXnjuYy//nJZJ6uzh1+ST1x
-         Wre8NDJTf35XCsw+dOvJ8iKzvB5rP8ov3ACWdPnGtqX94y+Ov9leE4Qi//7Gbj1VPW2d
-         j/ng==
-X-Forwarded-Encrypted: i=1; AKwUvBzaDfNhJRo/k1rRXd0AkWoQnyNT8Vxr3qHn6SsJxIXUuTPVUYo/wcA0L1ABKiCM8x1JCa5PLYDB7tQ6ots=@vger.kernel.org
-X-Gm-Message-State: AFuF++lLMDzJQaTzeU0Zz4MJ0NdlCD3cHeuamsqvIrg917iglJ+Pu/Am
-	woEU7b8f6ZIlEPiM1GMnsC+CvCu9XRdL3DIHdxCkG4UiqIjBkEXiVk4yuCOApAvJDYGr5aLMqM5
-	RMUQoL3EpQoMpiXmqk7zNho9JyTHiEMWjhQPowhPIxU0mUi+S2wvb+6Daq8gcdWrxl9qt/+aiIb
-	7aNVCkEg==
-X-Gm-Gg: AYBFou2yGlVFsUcmLprmdWa5/7NVGFRiXVPpY+ci9NFLrTDUZc5iR7r9V1YCAVFY0Bc
-	zUY8SqH/GPe38XgWgW/CF3z/ITXQMOhXpHJ/r474om8m/urTJ0LfvkN47iqePDu5/GN7xr0bmH2
-	rNeqfmr01GjIUQh11aVqef3AhbxHcFH1hdVXFgU/9qSGGgjNtqHSwgDyhoLRsVrLPakQgS1d0WW
-	k6kC2RUdYumwN747fKvp2PHCe/VK1zDEC04ZGAF8cwyluq743vghp/wYxk9L/5LKebE7G4AISdc
-	XjWPXRBAcirW9UB3jUIIfWfOUwws2EzlYbx6d8+lwd+p1u8vsltrBcnXTTY3qCb3RiGup3Qk2y/
-	x3smBnORgNnsxdZ4cNDah1Wdz802aOLc1jDRdk1aP
-X-Received: by 2002:a05:6a00:8d8d:b0:855:eb7b:5804 with SMTP id d2e1a72fcca58-861662d4c0fmr5800143b3a.4.1788499811002;
-        Thu, 03 Sep 2026 22:30:11 -0700 (PDT)
-X-Received: by 2002:a05:6a00:8d8d:b0:855:eb7b:5804 with SMTP id d2e1a72fcca58-861662d4c0fmr5800075b3a.4.1788499810579;
-        Thu, 03 Sep 2026 22:30:10 -0700 (PDT)
-Received: from canonical.com (118-163-61-247.hinet-ip.hinet.net. [118.163.61.247])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-86152d29654sm711385b3a.33.2026.09.03.22.30.09
+        d=1e100.net; s=20251104; t=1788499819; x=1789104619;
+        h=references:in-reply-to:subject:cc:to:from:message-id:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=g4XHZarYyGiNGF21Yvcw0I+AYGTcuONz0i7wXp0V4/g=;
+        b=GrA1+wxcXxAQmA3BNgIDt0VNpdid2XooOQ7Lru2xFm8qDXgK0o4o1V/lxTWXcNG9f5
+         +3cjRXn3t30DlyJhIXimdmhctdJcCuBuNwXU5ap6LUhBJ1yd9nJOEJTVCFxK5s7cwsfg
+         5k3CM5p6S3kcn8yAvswqijfWboofVNSEvK9Xw8B8MNqLJ+r2bMB+HsLnuhVdgGXwSnkG
+         M/RFGggXZNTFQpIeli7qnW8bkw8GBq6Z66VsnUvP7ZswNU3H1acfsx+3P3lTgRUNFkAO
+         6RQAsZsz+7KWqftWxGOuOn5e29BwuqgH2NA42AiWOhFp9QTyp1b74RZ5XVBnfn9x5rfW
+         j3XQ==
+X-Forwarded-Encrypted: i=1; AKwUvByqWx1FLreLZPzkCd4lLc+zRnwJTcmDx+j0g1GIpYcKOJVHqu7uKbsau1XiW6A1Q5ivum9Hg0kZQBOhSBk=@vger.kernel.org
+X-Gm-Message-State: AFuF++mOwc7dGgfJ3k/RsIwOmhU7bvGANIiIWiIqeZJ2QxsnTONLWbFz
+	n1JXzKq/QNmtWMcrQ48hIlhW4fBrUNNnUyFZZ02Wf5a5k/9sKraZvbJamLu3wo9by4Ug
+X-Gm-Gg: AYBFou1ys8UXbrpa5BeWyrQh1NDXQ1IMCevf+tRBPID2mXLYG3ThQnSoJDGWtN1c/7x
+	dzm6EaKDCcCtcxhIvwiWnuOcyzTLJXiySO6z1dAWx3Xcf0PmzNxDaYOzKMMplbD9vfJA/o1cd3G
+	GUvrlvBXBC/F7ARhl25ysYR7rtbpu6LY26xToeH/dayn+/4+dmFtQ2BLl4WeivMoyYBNrcnK7gy
+	ClBUmyF4ljWjT2CIrpzNM6xkimqzzxmT8+FhBRhwXCgL0YMYnYaBWNP4RAq452FKupzSylMMftp
+	2eWbJ6kPG9HsgRIgZWs9pMtMgfs2spAgB/Weu/ucaHIljC9Dj6U3iqwG5XQ0se/UBnxVoqLjg+K
+	iJ1bkdobgYGwQXhaHfWfk1ZKVFfKUJ+H3B4XZnCI4S5uCH9u/mHwebAR6RppQLMW/X6myy9TCS2
+	GZBhHTZ/WemHFziGEwXngj6r58qgYmEYn4YX7eks+33czMPPixwsAXFjA4n+GIzqcD7rXvUj8Yj
+	moFbAC3SevsGNjQUUZ4JJupP+7W3xv5e9Dp
+X-Received: by 2002:a05:6402:3215:b0:6a7:ea53:f618 with SMTP id 4fb4d7f45d1cf-6a7ea541009mr554153a12.23.1788499819053;
+        Thu, 03 Sep 2026 22:30:19 -0700 (PDT)
+Received: from outbox-0007-reply-tested-by.eml (45-11-61-69.ip4.greenlan.pl. [45.11.61.69])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a7e68e8f2fsm714179a12.19.2026.09.03.22.30.15
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 03 Sep 2026 22:30:10 -0700 (PDT)
-From: Ivan Hu <ivan.hu@canonical.com>
-To: marcel@holtmann.org,
-	luiz.dentz@gmail.com,
-	peter.tsao@mediatek.com
-Cc: matthias.bgg@gmail.com,
-	angelogioacchino.delregno@collabora.com,
-	linux-bluetooth@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org
-Subject: [PATCH] Bluetooth: btmtk: Declare MT7920 (MT7961 1a) Bluetooth firmware
-Date: Fri,  4 Sep 2026 13:30:07 +0800
-Message-ID: <20260904053007.667472-1-ivan.hu@canonical.com>
-X-Mailer: git-send-email 2.53.0
+        Thu, 03 Sep 2026 22:30:17 -0700 (PDT)
+Date: Fri, 04 Sep 2026 07:28:43 +0200
+Message-ID: <20260904072843.tested-by-bh-submit@ferrisoft.com>
+From: Greg Ociepka <greg@ferrisoft.com>
+To: Joseph Qi <joseph.qi@linux.alibaba.com>
+Cc: Christian Brauner <brauner@kernel.org>,
+    Yalagada Pavan Kumar <pavankumaryalagada@gmail.com>,
+    Matthew Wilcox <willy@infradead.org>,
+    linux-fsdevel@vger.kernel.org,
+    linux-ext4@vger.kernel.org,
+    linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] buffer: fix NULL dereference of bh->b_folio in __bh_submit()
+In-Reply-To: <20260902013357.2815214-1-joseph.qi@linux.alibaba.com>
+References: <20260902013357.2815214-1-joseph.qi@linux.alibaba.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-btmtk_fw_get_filename() constructs the firmware name at runtime, so for
-the MT7920 variant (dev_id 0x7961 with fw_flavor set) it requests
-"mediatek/BT_RAM_CODE_MT7961_1a_2_hdr.bin" without ever declaring it via
-MODULE_FIRMWARE(). Tools that select firmware from module metadata (e.g.
-"modinfo -F firmware") therefore omit this blob, so request_firmware()
-fails and Bluetooth does not initialise on MT7920, even though the file
-is present in linux-firmware.
+On Wed, 2 Sep 2026 09:33:57 +0800, Joseph Qi wrote:
+> Since commit 8deae2284976 ("buffer: allow a buffer_head to point at
+> memory outside the page cache"), bh->b_folio may be NULL.
 
-Declare it with MODULE_FIRMWARE(), as the mt76 driver already does for
-the corresponding MT7920 wifi firmware.
+We hit the same NULL dereference independently on real hardware, and
+it is nastier than a fuzzer-only finding: on an ext4 root filesystem
+every boot of next-20260831 (and every later tag up to next-20260903)
+dies about two minutes in. jbd2's shadow buffers have no b_folio by
+design, so the first journal commit after mount oopses in
+__bh_submit(), kjournald2 is killed by make_task_dead() and every
+subsequent metadata write blocks forever - journald, the flush workers
+and eventually all of userspace wedge in uninterruptible sleep with no
+block-layer errors reported. After an unclean shutdown the crash moves
+into early boot (journal recovery commits immediately), which makes
+the machine effectively unbootable until a different kernel is chosen.
 
-Fixes: 1cb63d80fff6 ("Bluetooth: btusb: Add support Mediatek MT7920")
-Signed-off-by: Ivan Hu <ivan.hu@canonical.com>
----
- drivers/bluetooth/btmtk.c | 1 +
- drivers/bluetooth/btmtk.h | 1 +
- 2 files changed, 2 insertions(+)
+  Unable to handle kernel NULL pointer dereference at virtual address 0000000000000000
+  CPU: 0 UID: 0 PID: 357 Comm: jbd2/nvme0n1p18 Tainted: G        W  7.3.0-rc1-next-20260831
+  pc : __bh_submit+0xa8/0x210
+  Call trace:
+   __bh_submit+0xa8/0x210 (P)
+   bh_submit+0x24/0x38
+   jbd2_journal_commit_transaction+0xb80/0x1ce8
+   kjournald2+0xb8/0x238
 
-diff --git a/drivers/bluetooth/btmtk.c b/drivers/bluetooth/btmtk.c
-index ea0c320f9827..911aba5c134e 100644
---- a/drivers/bluetooth/btmtk.c
-+++ b/drivers/bluetooth/btmtk.c
-@@ -1581,5 +1581,6 @@ MODULE_FIRMWARE(FIRMWARE_MT7663);
- MODULE_FIRMWARE(FIRMWARE_MT7668);
- MODULE_FIRMWARE(FIRMWARE_MT7922);
- MODULE_FIRMWARE(FIRMWARE_MT7961);
-+MODULE_FIRMWARE(FIRMWARE_MT7920);
- MODULE_FIRMWARE(FIRMWARE_MT7925);
- MODULE_FIRMWARE(FIRMWARE_MT7927);
-diff --git a/drivers/bluetooth/btmtk.h b/drivers/bluetooth/btmtk.h
-index c83c24897c95..bc26148ec544 100644
---- a/drivers/bluetooth/btmtk.h
-+++ b/drivers/bluetooth/btmtk.h
-@@ -7,6 +7,7 @@
- #define FIRMWARE_MT7922		"mediatek/BT_RAM_CODE_MT7922_1_1_hdr.bin"
- #define FIRMWARE_MT7902		"mediatek/BT_RAM_CODE_MT7902_1_1_hdr.bin"
- #define FIRMWARE_MT7961		"mediatek/BT_RAM_CODE_MT7961_1_2_hdr.bin"
-+#define FIRMWARE_MT7920		"mediatek/BT_RAM_CODE_MT7961_1a_2_hdr.bin"
- #define FIRMWARE_MT7925		"mediatek/mt7925/BT_RAM_CODE_MT7925_1_1_hdr.bin"
- #define FIRMWARE_MT7927		"mediatek/mt7927/BT_RAM_CODE_MT6639_2_1_hdr.bin"
- 
--- 
-2.53.0
+With this exact change applied on top of next-20260831 the same
+machine (ASUS Zenbook A16 UX3607OA, Snapdragon X2 Elite, arm64) boots
+reliably and has been running normally for 11+ hours.
+
+Tested-by: Greg Ociepka <greg@ferrisoft.com>
 
