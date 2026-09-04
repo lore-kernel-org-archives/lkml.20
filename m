@@ -1,58 +1,58 @@
 Received: from extorris.mess.org (extorris.mess.org [92.243.27.206])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDDA534751B;
-	Fri,  4 Sep 2026 13:08:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA9C33537D0;
+	Fri,  4 Sep 2026 13:08:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=92.243.27.206
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788527297; cv=none; b=YMVIBDoqSPUCjnWuwmlogYPV0F9Nn7CYWmb95Bk65Klbo/THTpSbd4msbyQG4PoaRUpZppNihBWc6KHoCyUxEqKiHb37KzIj0kY9ogP8IOKPR10ZMvYOLVqkcg8KSW6ZEAFH2hRAJV3EtF/Xxr4hHz2kB1ZC/hJWZCFzsKuQ8uA=
+	t=1788527297; cv=none; b=g/I5vINAhUqyulmAwGiTn5B+ncvLecRxGdTp7P7lZWIaDVGyNn4LjMreUHceViqVmLGvVHP6W++8uyiscRSSS4yfos5FPBeMl09Vb2cux9XUs4HPzhQI5tdZtLGgyuVLn/S0fcRIac4PhbdKD9dpRlT2pujlmAtZqEUnovdfXbA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788527297; c=relaxed/simple;
-	bh=cNSLxQpumDpMN+2t5KQ0IZFyQ4Xu8kpWd341l0+fKzw=;
+	bh=PKcu7TVKY5CsKFdYN4BMMgIvv5Whp9L1pKzeC+DbeMw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=J2S52vJJFG8cz8rAM4b7uYRUvjIy8IzAgEEYo9/EHwPoY9ez7G1qxI94EUHQIjAwp59Fy8e0Cb5yiVgPP37oODzIIV40y6h2LDfxPVCAmB9r9XzxbaqC7f/QL9Rb/UVHx5oAwDt0JOipdzCWVfEvv7+JSjDBWci3t0zXEIw1n5k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mess.org; spf=pass smtp.mailfrom=mess.org; dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b=hZVG1bDb; dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b=VT/wrtv0; arc=none smtp.client-ip=92.243.27.206
+	 MIME-Version; b=tvC/VG7rkuyuOXljfu7lIS8RJUtS+vz9Bib9DvWsBlfFdMlmRGeAPzmwvz7ati5Ap6xKXbNxr8D4yLLd3D4uwC2ni0WpRAineUfhPRlEE4sAeGwX5SCRPdJCkr1B74HjkCimpmJXu9g2U09PEzQTiN6kcTdfgohlUmACKp9VZQc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mess.org; spf=pass smtp.mailfrom=mess.org; dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b=npN9VLt2; dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b=IayqgNLK; arc=none smtp.client-ip=92.243.27.206
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mess.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mess.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b="hZVG1bDb";
-	dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b="VT/wrtv0"
+	dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b="npN9VLt2";
+	dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b="IayqgNLK"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mess.org; s=2020;
-	t=1788527286; bh=cNSLxQpumDpMN+2t5KQ0IZFyQ4Xu8kpWd341l0+fKzw=;
+	t=1788527285; bh=PKcu7TVKY5CsKFdYN4BMMgIvv5Whp9L1pKzeC+DbeMw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=hZVG1bDbc+0sWsWG6sacD2q0Cl5sQwgrjB9zS5R+AxlDIx7FHFfm+yc8CoRt8bDQn
-	 En5kvOtTgwCI7MPQ4HnkWufJS+MSwBIqQ1GJn4a5Zp2Rv742HOE4/t/p6fCZMUiqOS
-	 9u4U51rDIZQrCSlyKoJOFr8U7D6YQ+Vgzyo+rMcDPFILy+WqnC09ljoyZ+z7me5Gpy
-	 kUd103OYA3OBqGBipiW19TytfVwb/2K8ImVWafS6ZoCuh8cm8JWTLdAXlk3gGA7kZD
-	 ra87wVdTmMxsmkJb2Kit484CCrd3vJOdb7paYUh6T+p6AY0LN/6E9UGYCEsLzZTUom
-	 gvElJZOE9m1uQ==
+	b=npN9VLt2dzEV6RYQ32n1VH87GUU4kTlUpqlTIhXGGKJFBTvKglkITjikT+/1dIx4n
+	 lH75dCmpeZCz4O8IyHsJkRG+mJ3yUOypK54Mhcm0KxshIMYyRX5RbxsXo7+o5T8zzy
+	 Qg28appe5JUd/65bmunrBVwRq8lbkS5PiQdNuO4VfmZKWranbkRj0kAss2xs39K3m5
+	 AqSkPJBRGnfRXnCHwqomVwDm+ygVebPQmWY+PXz3Dz/Wo7md2eeFuFk6xN+tETZ2/j
+	 AVKdByUv9NtbDAJooAonLfNF355fD5NGZffKly7vQcYP/aJCkVHj/WSoXe9bg18brm
+	 agj6MjTr0g42g==
 Received: by extorris.mess.org (Postfix, from userid 1004)
-	id AD7F441478; Fri, 04 Sep 2026 14:08:06 +0100 (BST)
+	id 6C2E341472; Fri, 04 Sep 2026 14:08:05 +0100 (BST)
 X-Spam-Level: 
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mess.org; s=2020;
-	t=1788527284; bh=cNSLxQpumDpMN+2t5KQ0IZFyQ4Xu8kpWd341l0+fKzw=;
+	t=1788527282; bh=PKcu7TVKY5CsKFdYN4BMMgIvv5Whp9L1pKzeC+DbeMw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=VT/wrtv0uHcVAEaGUwrODXnuD76cfYzIQxwLL5GNf+FSe9JdQ1LDTj7uxBDjL0Rhr
-	 Dg0zc83A4z/9F5Qc+wUIwmoiwPeKurGiiXIg3VpIYbyPrc6KYA3CFg5Akp2zLxYtZx
-	 JUke3gFGMVCTVmEEsfUhZeYSiGvg5mnmID/C6Luj5+XAN1ah99zcjUNLmuBQsHxSEP
-	 0pvfHK6SL5TjMP4Ly8Ra4hA6D3aLTh+zvuAzgiEBsPcHAQLaOU/cGgsBux+Kk3QgV8
-	 RNxgFYtTapj0ZvT7VvVtirWL+Acq4Sp7LPmOI1OWWsa9/BoLiP73WTKRmQu0VYEO2n
-	 V9p3zSldenaHw==
+	b=IayqgNLKuaPFsamxkQvYqM3KueeL9459hSAZfaKMVwF0LfqGF+IUZz8Lx0H8TGS7/
+	 tGzb0RpITecT43En0cIQhIbfiZSgQnwQYdqirqx4P1e5VCWjYxKyuTb0awhl6ZYXbR
+	 dHbG3+ujFQd73pBxZVKTAnjw1F0GfU7v4aWwxt2WgoocGtpm1jM/EF9KHSnrsYtU0N
+	 rUwbPVf1/fTzU7LC3bnmx83qYIill4oVfBox7+cntVDvBCKFo75mMOsS/VVtWebH27
+	 3FW/dvzmvOiRsTKilih18GnCl7k/gSndzubXa6LYzuvBaW593SzMHkNdpyrxXBcID2
+	 qDscPxlv/G6UA==
 Received: from maru.mess.org (hephaestus.mess.org [82.68.61.198])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by extorris.mess.org (Postfix) with ESMTPSA id 483A241456;
-	Fri, 04 Sep 2026 14:08:04 +0100 (BST)
+	by extorris.mess.org (Postfix) with ESMTPSA id 9F40941463;
+	Fri, 04 Sep 2026 14:08:02 +0100 (BST)
 From: Sean Young <sean@mess.org>
 To: linux-media@vger.kernel.org,
 	Sean Young <sean@mess.org>,
 	Mauro Carvalho Chehab <mchehab@kernel.org>
 Cc: Rik van Riel <riel@surriel.com>,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v3 14/17] media: mceusb: Remove unused field
-Date: Fri,  4 Sep 2026 14:07:42 +0100
-Message-ID: <579114bbd1fd1a107802579d1edc6cf6b51131d9.1788526920.git.sean@mess.org>
+Subject: [PATCH v3 11/17] media: nuvoton-cir: Remove unused struct field
+Date: Fri,  4 Sep 2026 14:07:39 +0100
+Message-ID: <a3c0622168cafa9d2457f16709fc7e1f7e847c69.1788526920.git.sean@mess.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <cover.1788526920.git.sean@mess.org>
 References: <cover.1788526920.git.sean@mess.org>
@@ -68,21 +68,23 @@ Never assigned or read.
 
 Signed-off-by: Sean Young <sean@mess.org>
 ---
- drivers/media/rc/mceusb.c | 1 -
- 1 file changed, 1 deletion(-)
+ drivers/media/rc/nuvoton-cir.h | 3 ---
+ 1 file changed, 3 deletions(-)
 
-diff --git a/drivers/media/rc/mceusb.c b/drivers/media/rc/mceusb.c
-index 39ba7f6a2549..356a54f91d05 100644
---- a/drivers/media/rc/mceusb.c
-+++ b/drivers/media/rc/mceusb.c
-@@ -484,7 +484,6 @@ struct mceusb_dev {
- 	u8 cmd, rem;		/* Remaining IR data bytes in packet */
+diff --git a/drivers/media/rc/nuvoton-cir.h b/drivers/media/rc/nuvoton-cir.h
+index ed7d93beaa28..e66e3cfedeec 100644
+--- a/drivers/media/rc/nuvoton-cir.h
++++ b/drivers/media/rc/nuvoton-cir.h
+@@ -77,9 +77,6 @@ struct nvt_dev {
+ 	/* hardware id */
+ 	u8 chip_major;
+ 	u8 chip_minor;
+-
+-	/* carrier period = 1 / frequency */
+-	u32 carrier;
+ };
  
- 	struct {
--		u32 connected:1;
- 		u32 tx_mask_normal:1;
- 		u32 microsoft_gen1:1;
- 		u32 no_tx:1;
+ /* buffer packet constants */
 -- 
 2.55.0
 
