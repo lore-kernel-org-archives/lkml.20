@@ -1,151 +1,133 @@
-Received: from mail-yx1-f45.google.com (mail-yx1-f45.google.com [74.125.224.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E32F64F7989
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 15:43:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BEE84CA788;
+	Fri,  4 Sep 2026 15:44:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788536635; cv=none; b=gteNe8gXxxerNsjG17pMAcpsWlT+13KWN/N67etF9pz2XdMN9RxAPs0r2jHlWAARipeg8/3h3hy8wcGXweav4dhCRIdNZ0in4yl2ASzTipGSUvMq9qbilxwbPmSKSBC+ZB26qODNXzX+n+H1ZtBkMLkATol6rWjVZOcWki9aHBg=
+	t=1788536700; cv=none; b=gFWnwHaAodIJT4VndtXsnPO3R4kb9T0MVGrmbt80DFLkWl4/3yrcxJp6WhJRYcrhGyfYonbgBDxnuP65MNAqzaXg22zSU+ftRf6PggYRYMDYVfAGlHXVG8f4g5zBHCYirz4UcULCFcLIOTatXlKw/4muzT5L2c9paFbcakkKYb0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788536635; c=relaxed/simple;
-	bh=fbxH+HTx+b11PIUzLEkH01IS7+xPasPzFPPwJXVzkb0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=h2uG8lhJFKP4aV94yFRFnNQGIkZrD2H2gVnJkKP5zl/reQL7YYJoN2jo7Nxmgyn+ELZ2GtOyvjKe6XWQgni5t47iSOOd5chks+/l2s6/T35MsmNd7Yv0pObdfbrIRu7QtDcKo+FpU0z0gYya8ZYHvyu2Nzj5bo36lALQMyPPdeM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmpxchg.org; spf=pass smtp.mailfrom=cmpxchg.org; dkim=pass (2048-bit key) header.d=cmpxchg.org header.i=@cmpxchg.org header.b=uvXgKw5A; arc=none smtp.client-ip=74.125.224.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmpxchg.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmpxchg.org
+	s=arc-20240116; t=1788536700; c=relaxed/simple;
+	bh=nD+MBnsNWQMTnEdYY6pJAJGFC9Thf3mwQsiiKI19l5M=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=JKgt0f56qNv4yywXErlo3zeWYAe6apFeLAj2A5RdJ9gdjclLYszVAwiIQAPpDF8oePtFQpHjnSjhI0wc57o9pAzvjyx4mFqWf5J7XId2fUez/Q8OLAtDjjARQOm9bZX3y17CBBcoISKFOJCs1O9h6jiN0TLv9c8cOlGZlL2vrpU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FHNeSWA8; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cmpxchg.org header.i=@cmpxchg.org header.b="uvXgKw5A"
-Received: by mail-yx1-f45.google.com with SMTP id 956f58d0204a3-66fc2844f0eso383544d50.1
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 08:43:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cmpxchg.org; s=google; t=1788536632; x=1789141432; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=xKmfbONiKhT7CrkzRLhdhFZmjYER1RIKBnciL0qdhTk=;
-        b=uvXgKw5AlYJeiGyNUtAV7O9v+XWKTxR94EVSvvO+rWVpzgm0LZYyfIem1hSmUgjw2P
-         vwdMdCQSkjFsCURQ+WGdkJgP+rU0uVH/0rR1CH2Oo5W71Wb3ENQYWhctJ5aialq5b5A9
-         j72AI9kjYZEZPiY+++7USsnHSRshT2DkyW5+H4E2X+kpwY4pzJVCqEXhWxP9qbQCBzU2
-         GU9fMFb3/0AhDHZyc5htnQs6K67Gr43tb3ftR7pGg/A6FPXDgkWU5xTMM8ps0ueOszz6
-         t+ZBQJXbA6Q/AAgR6jj2Aj+hPaBMvl3Nzvwl96OBZ3P992RGB3obySehq0mg9luKOiZk
-         iDDg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788536632; x=1789141432;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=xKmfbONiKhT7CrkzRLhdhFZmjYER1RIKBnciL0qdhTk=;
-        b=PlaQP+wggYbKNqfDn0+9sr+y3UPNPF0SATNXnjH5eOIHjDOAW/ECa+1QOx8RiQiGuk
-         +9wW58xLJczmgR81Qzk2cbM7dqMkZdtQ1zG/uC2wTd/FGbiAToWOtqJ5WTHA3CHwyxYM
-         NB9vsSs8BEw++KqOml3Fu/Yt4/++LVJ1VEEVHVxnR2B5iSrxBa/ci/EK9So6RZ3HLIUA
-         nhHW85aM+P5fdHbfu1S8/q9XZFtz78H0uzAQfibEScNf7xB3yOy0obEOKhelt+Bcc/z6
-         EBS1RaI9yR774q0UlKMbJJZE3N/X30whMZZqJpkRL3OzzmWhoEId7AcEOx5lCpKI1CpZ
-         Kz1Q==
-X-Forwarded-Encrypted: i=1; AKwUvBxwrAQ3lcOCFWgysLNslFy8ZGU2n6G445EUPJ1w9nDEOxx/ybDTtwC2adlSDCmQlZL/ZBQFVgflTLrgsMo=@vger.kernel.org
-X-Gm-Message-State: AFuF++nH6QqL/+mH3Uc5OoC/PjJiQ08SBTJnohTud3eVC23Sa3vX15XD
-	7+LDcg6pDphv+R5AUng9jT34yfTeH3G7srywmNuGZxn73D0YozmKKQXyIBJnqiF7NTKsX8gfa+N
-	/qociG/Y=
-X-Gm-Gg: AYBFou0dGrc9ofAoHVsid1ptjDTgidQ1wXR9PaSBatfiuCAzD2Te8N4QDPGUeAnK2ol
-	sekbcB5R3K0II5DP4AkUwZPkdvgtqSafCzBZE4v3reefFzoDe+OT5XfM8anNOZVz0GyM/jnkqbk
-	yk44bstgCyKfydQdinEWejsKMWGTY0GPx3H4K75/j4sJ0eqTRta0CQxFNMLK3DxeOM1i5alPLGJ
-	DS9YGMetdjuEBDkSqYyDQ6WleeVZOMuqKHGh/mP1anqbxtgp9rEtbwMolZ6s11U6SQYMOgfIrJI
-	f+OmfxpdZ1ISRuGf25v5qsmgq+8hJtnye8Zp/AuZBL+JPfOaiL8qwcegIPSShKbwD9ltwakgCrL
-	donUwUVC7WCdHSd7O6KjGy487tBncZS8ncqQgUWPa07PqLBHPQ9NeJAF9LGu8QqjkqBAkHXxl1g
-	r12NAc18AccjnkIO+XLBboSZMRGI/iZFO7TubT
-X-Received: by 2002:a05:690e:4419:b0:66f:c1be:84d6 with SMTP id 956f58d0204a3-66fc1bf5087mr550972d50.68.1788536631738;
-        Fri, 04 Sep 2026 08:43:51 -0700 (PDT)
-Received: from localhost ([2603:7001:f100:501::2])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91040664741sm23243936d6.22.2026.09.04.08.43.50
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 04 Sep 2026 08:43:51 -0700 (PDT)
-Date: Fri, 4 Sep 2026 11:43:46 -0400
-From: Johannes Weiner <hannes@cmpxchg.org>
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: Nimrod Oren <noren@nvidia.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	David Hildenbrand <david@kernel.org>, Zi Yan <ziy@nvidia.com>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Nico Pache <nico.pache@linux.dev>,
-	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
-	Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
-	Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>,
-	Brendan Jackman <brendan.jackman@linux.dev>,
-	Hugh Dickins <hughd@google.com>, Nirmoy Das <nirmoyd@nvidia.com>,
-	Dragos Tatulea <dtatulea@nvidia.com>, linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3] mm: remove min_free_kbytes adjustment for THP
-Message-ID: <20260904154346.GB6641@cmpxchg.org>
-References: <20260901190123.3511535-1-noren@nvidia.com>
- <20260902162323.GO3004@cmpxchg.org>
- <aphS2TancJAZLND7@gremlin>
- <20260902183752.GP3004@cmpxchg.org>
- <aplzo5Jsb6f1MdaM@gremlin>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FHNeSWA8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1F3621F00A3D;
+	Fri,  4 Sep 2026 15:44:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788536698;
+	bh=gVrFRUwdXOyKStFcN4EZ/7BKFWSDHX6pMewFaI2mh1E=;
+	h=From:To:Cc:Subject:Date;
+	b=FHNeSWA8SrTBDoWKwXv1nzQjoWRDfAWXb+dlZB6Ti6e9QYU7CcpgDdgKlou4jCuJt
+	 448wYK6NWfE750syYqXTm1G/Tu3njn2+EesiSGic7b78PF0U2iRfk9gXtcbvjC2H2l
+	 7BMoFnIB7nRIIfNFxrDAfpA8qRB03whY38o3JIqWmrinlzBpVZYcUJwUnMt70SjqPN
+	 CE40uqfgnzsRMx6ZenaFyGZfX9IllBhc/UnOpLkY7PxlNb5QX3QeNemH5b1PqKSYZV
+	 hneaNuzqHPcWiCj/9Ead5EWOQKSLmrOifS9cv/INaQ32BCFLV8CWErRfavr5UZ9hRk
+	 mYkFFPBzozQGg==
+From: "Rafael J. Wysocki" <rafael@kernel.org>
+To: Linux ACPI <linux-acpi@vger.kernel.org>
+Cc: LKML <linux-kernel@vger.kernel.org>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Subject: [PATCH v2] ACPI: glue: Reduce debug noise from acpi_device_notify()
+Date: Fri, 04 Sep 2026 17:44:55 +0200
+Message-ID: <2869083.mvXUDI8C0e@rafael.j.wysocki>
+Organization: Linux Kernel Development - Intel
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <aplzo5Jsb6f1MdaM@gremlin>
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="UTF-8"
 
-On Thu, Sep 03, 2026 at 04:46:18PM +0100, Lorenzo Stoakes (ARM) wrote:
-> Looking over the sub-thread (correct me if I'm wrong) the issues seem to be:
-> 
-> - 512 MB pageblocks become unmoveable quicker than expected
-> 
-> - When trying to convert a pageblock in try_to_claim_block() 256 MiB is required
->   to be of the desired migratetype, and this is difficult to achieve vs. 1 MiB
->   (yes clearly :)
-> 
-> - AI training checkpointing was a problematic workload - big latency spikes and
->   timeouts. Tonnes of unmoveable memory, order-0 allocations falling back to
->   MIGRATE_MOVABLE (ugh), exhibiting try_to_claim_block() symptoms above.
-> 
-> I hear all of this, and to be clear - this kind of real-world data, at scale, is
-> the kind of thing we should base decisions on more than anything else.
-> 
-> Reality > theory every time (and the more you look into the kernel you more you
-> realise it's a tower of heuristics anyway, especially in classical reclaim :)
-> 
-> I guess what you're trying to say here is the only way in these circumstances to
-> make headway would be to have more memory reserved.
-> 
-> But is that the right conclusion? Aren't you still screwed once those reserves
-> are chomped up?
-> 
-> Or are you saying the increased watermark levels gets you effective
-> kcompactd/kswapd sooner?
+From: "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>
 
-+1 Exactly! The watermarks sit on top of that reserve. Both background
-reclaim and direct reclaim are thresholded such that there are always
-a few pageblocks worth of free space for the allocator to choose from,
-thus reducing the risk of fallbacks and block poisoning.
+When debug is enabled in the ACPI glue code that handles binding
+devices to ACPI companions, acpi_device_notify() produces a lot of
+message noise related to devices that have no ACPI companions.
 
-> The TL;DR for me is - you have a workload that's broken already with larger
-> pageblock size - maybe you could test that with/without this patch and see if it
-> really does help?
-> 
-> Anyway it seems to me all of this is essentially a (valid!) critique of
-> assumptions backed into the page allocator code.
+Reduce that noise by checking the most obvious case, ACPI device
+objects, directly and returning from acpi_device_notify() in that
+case without printing any debug messages.  Also avoid printing a
+debug message when there is no matching ACPI bus type definition for
+the given device, which is the case for the vast majority of devices.
 
-This part I don't quite follow. Why is the page allocator doing
-anything wrong here?
+Additionally, make the debug messages that get printed more informative
+and change the format prefix to "ACPI/glue", so it is easier to filter
+these messages.
 
-You tell it your largest routine allocation size. It groups smaller
-allocations by their ability to move into buckets of this size,
-coordinates a headroom of buckets for non-violating placements, and
-ensures reclaim kicks in when that headroom depletes.
+Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
+---
 
-You're giving it a very large bucket size and are not happy with the
-headroom that commands.
+v1 -> v2:
+   * Do not return early from acpi_device_notify() for devices
+     without a bus type (Sashiko)
+   * Do not print messages for devices without matching ACPI bus
+     type definition (the vast majority)
+   * Update changelog
 
-[ I'll reply to the other points in your email later. ]
+---
+ drivers/acpi/glue.c |   22 +++++++++++-----------
+ 1 file changed, 11 insertions(+), 11 deletions(-)
+
+--- a/drivers/acpi/glue.c
++++ b/drivers/acpi/glue.c
+@@ -6,7 +6,7 @@
+  * Copyright (c) 2005 Intel Corp.
+  */
+ 
+-#define pr_fmt(fmt) "ACPI: " fmt
++#define pr_fmt(fmt) "ACPI/glue: " fmt
+ 
+ #include <linux/acpi_iort.h>
+ #include <linux/export.h>
+@@ -354,22 +354,27 @@ void acpi_device_notify(struct device *d
+ 	struct acpi_device *adev;
+ 	int ret;
+ 
++	/* ACPI devices have no ACPI companions. */
++	if (dev->bus == &acpi_bus_type)
++		return;
++
+ 	ret = acpi_bind_one(dev, NULL);
+ 	if (ret) {
+ 		struct acpi_bus_type *type = acpi_get_bus_type(dev);
+ 
+ 		if (!type)
+-			goto err;
++			return;
+ 
+ 		adev = type->find_companion(dev);
+ 		if (!adev) {
+ 			dev_dbg(dev, "ACPI companion not found\n");
+-			goto err;
++			return;
+ 		}
+ 		ret = acpi_bind_one(dev, adev);
+-		if (ret)
+-			goto err;
+-
++		if (ret) {
++			dev_dbg(dev, "Binding to ACPI companion failed\n");
++			return;
++		}
+ 		if (type->setup) {
+ 			type->setup(dev);
+ 			goto done;
+@@ -391,11 +396,6 @@ void acpi_device_notify(struct device *d
+ done:
+ 	acpi_handle_debug(ACPI_HANDLE(dev), "Bound to device %s\n",
+ 			  dev_name(dev));
+-
+-	return;
+-
+-err:
+-	dev_dbg(dev, "No ACPI support\n");
+ }
+ 
+ void acpi_device_notify_remove(struct device *dev)
+
+
+
