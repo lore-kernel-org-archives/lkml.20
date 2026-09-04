@@ -1,184 +1,77 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from canpmsgout02.his.huawei.com (canpmsgout02.his.huawei.com [113.46.200.217])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D80937EFE4;
-	Fri,  4 Sep 2026 07:32:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F17B03A783F;
+	Fri,  4 Sep 2026 07:32:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.217
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788507128; cv=none; b=LoP9O0N01jzAiRgkXEaGetNr+Dc7n9h2tKyy0cJ36xV24nhofEmVfxSaB4oLgvlTBTbfxIW4R3p8+TJjwmxZQwa14o6ZaErhyCDBx8bmich71gvXt58g9CYZk2oePoGkm2iMArNQEhxCkGsMlDcM8ISP9DAh7l+GAsM3bt7q4+s=
+	t=1788507139; cv=none; b=EBXlI9M6TfxVn8BcvGj98LXUY4rlzpPog8WkDPMdlur6t+30MbDDZZJOWeLapRXjeqOyGXGRetdZ7bLi/WJAAJhezAp/iSBtJ9KNrsfW1G9z8AooopWRhon2WfkZMHqe/R6GEQOJZcQTYvh4vKG5tVb2wJARoc1utwxt7rPQNJ0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788507128; c=relaxed/simple;
-	bh=bVkBo0Z05i+SGG/dIbbpJdV3Jj/WQNtvdQDjSfIFbBk=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=egs097BFH0x9r4gyxbYRJrM5PtMR+/y2jb2qYA1kSjp9wOPMrkR3ONhRWVH+mpnPQV8aarJ0kvBpd0oOANHBn1A7/kau6GH2lsvuTmpYeywLcYtHCnciwCfV180JwF0z6Srf4KAXUfrTy5glGe9ibdy7ht03t6MtdNXNMWs1Luo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kOeJfiUW; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788507139; c=relaxed/simple;
+	bh=96iE3pexa8+cVUmhYJ8vR50DHeJyU5qK1fBDRSbj9nI=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=sOko8Aw9SOEniKhtb0AztkUkNzlNVXuzss1yShuSoVNY7kvdWhATpwuI5N85E0y8jlk7GvPPmq4KTzwWGRz4VAzQnmem8XjbRdiRGhFwsdiqVDLbBe36Fl2xvSVWIzAeppQBKmh8yN4wAqLYiemRP1ppez92oXA84svQvTz0Voo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=l7mzQPYV; arc=none smtp.client-ip=113.46.200.217
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kOeJfiUW"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0DE2E1F00A3E;
-	Fri,  4 Sep 2026 07:32:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788507127;
-	bh=m3ysWNSFI4l+W86GmHiSPzBC8AxmIxoztdkJrzt+nPA=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=kOeJfiUWHYKZgY3TIrbthcGawTpvHDlWNQPl+NX0AANUYFL0GYcbHQMTTDTzFDCFU
-	 dWwx773ns04RWBvF52jFEvfW5q5c0L/c0UuUlnhj2VZVY4nSo9bPmJQea93gwcTHsh
-	 /7MCUQsd3zeSWNZEODXdviRTAhzjj0G8n6q7FFyJ1Pax/XwuPn2zwfhiFJ0QRXJDn1
-	 zfHNsKILlLH5VVmuF/COVzBKo9x5Pkbk/GIYRgUfpDs0z718UlGQSpHCQRxutnRUQw
-	 yQYdiUOSoEKF5rlAQDuCMtqQupagnVg0/B0+UF61F5debnMXFRaNUOKAO3S8eMHc5j
-	 o+uA4q8Ug78qw==
-Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
-	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.98.2)
-	(envelope-from <maz@kernel.org>)
-	id 1x2OP6-00000004hDW-3dbh;
-	Fri, 04 Sep 2026 07:32:04 +0000
-Date: Fri, 04 Sep 2026 08:32:04 +0100
-Message-ID: <86o6ed4gln.wl-maz@kernel.org>
-From: Marc Zyngier <maz@kernel.org>
-To: Mark Brown <broonie@kernel.org>
-Cc: Oliver Upton <oupton@kernel.org>,
-	Fuad Tabba <fuad.tabba@linux.dev>,
-	Joey Gouly <joey.gouly@arm.com>,
-	Steffen Eiden <seiden@linux.ibm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Zenghui Yu <yuzenghui@huawei.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	linux-arm-kernel@lists.infradead.org,
-	kvmarm@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/2] KVM: arm64: Initialise TCR2_EL2 for nVHE mode
-In-Reply-To: <20260904-kvm-arm64-nvhe-pie-v1-1-29d59f245e6c@kernel.org>
-References: <20260904-kvm-arm64-nvhe-pie-v1-0-29d59f245e6c@kernel.org>
-	<20260904-kvm-arm64-nvhe-pie-v1-1-29d59f245e6c@kernel.org>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
- FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
- (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="l7mzQPYV"
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=XjfCMP4NwSOTn0SHs1G8Px3vzp4+ZrUltUoVuQRiktk=;
+	b=l7mzQPYVLFubr+qV+PJlfvHfo01pGz9d472FXqRddmhTuNiSUjLCRsH4+KhJOAJ1coVxroDux
+	pJMePa7/E5DKRHDNhsD5yUGB+5ff7Lv6NfLadu+xzMbkHW6L5T8EGrOEgnDsS0Zq3LWD6nvMY2U
+	1qCMqD/UVJhBJ2gxdxp0Mjg=
+Received: from mail.maildlp.com (unknown [172.19.162.144])
+	by canpmsgout02.his.huawei.com (SkyGuard) with ESMTPS id 4hbnvL2rt7zcbP5;
+	Fri,  4 Sep 2026 15:21:18 +0800 (CST)
+Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
+	by mail.maildlp.com (Postfix) with ESMTPS id 956EE4056D;
+	Fri,  4 Sep 2026 15:32:07 +0800 (CST)
+Received: from huawei.com (10.90.53.73) by kwepemk200008.china.huawei.com
+ (7.202.194.74) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Fri, 4 Sep
+ 2026 15:32:06 +0800
+From: Jinjie Ruan <ruanjinjie@huawei.com>
+To: <tytso@mit.edu>, <adilger.kernel@dilger.ca>, <libaokun@linux.alibaba.com>,
+	<jack@suse.cz>, <ojaswin@linux.ibm.com>, <ritesh.list@gmail.com>,
+	<yi.zhang@huawei.com>, <linux-ext4@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>
+CC: <ruanjinjie@huawei.com>
+Subject: [PATCH v4 0/2] ext4: Convert group-count barrier protocol to acquire/release
+Date: Fri, 4 Sep 2026 15:32:51 +0800
+Message-ID: <20260904073253.663243-1-ruanjinjie@huawei.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-SA-Exim-Connect-IP: 185.219.108.64
-X-SA-Exim-Rcpt-To: broonie@kernel.org, oupton@kernel.org, fuad.tabba@linux.dev, joey.gouly@arm.com, seiden@linux.ibm.com, suzuki.poulose@arm.com, yuzenghui@huawei.com, catalin.marinas@arm.com, will@kernel.org, mark.rutland@arm.com, linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev, linux-kernel@vger.kernel.org
-X-SA-Exim-Mail-From: maz@kernel.org
-X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: kwepems200001.china.huawei.com (7.221.188.67) To
+ kwepemk200008.china.huawei.com (7.202.194.74)
 
-On Fri, 04 Sep 2026 00:14:41 +0100,
-Mark Brown <broonie@kernel.org> wrote:
-> 
-> We currently only configure TCR2_EL2 in VHE mode, this is done in
-> __finalise_el2 which only runs for VHE. While all systems with TCR2_EL2
-> should have VHE support users may wish to run them in nVHE mode, for
-> example in order to use protected VMs.
-> 
-> Determine the value to load for TCR2_EL2 in C code in a similar manner to
-> TCR_EL2, further patches will configure some bits in the register. When
-> resetting back to the hypervisor stub clear all bits in the register in
-> case something without support for TCR2_EL2 runs later.
-> 
-> The only practical impact should be if we are started with a misconfigured
-> TCR2_EL2.
-> 
-> Signed-off-by: Mark Brown <broonie@kernel.org>
-> ---
->  arch/arm64/include/asm/kvm_asm.h   |  1 +
->  arch/arm64/kernel/asm-offsets.c    |  1 +
->  arch/arm64/kvm/arm.c               |  5 ++++-
->  arch/arm64/kvm/hyp/nvhe/hyp-init.S | 18 ++++++++++++++++--
->  4 files changed, 22 insertions(+), 3 deletions(-)
-> 
-> diff --git a/arch/arm64/include/asm/kvm_asm.h b/arch/arm64/include/asm/kvm_asm.h
-> index e5b92ac09e69..eb796436d6eb 100644
-> --- a/arch/arm64/include/asm/kvm_asm.h
-> +++ b/arch/arm64/include/asm/kvm_asm.h
-> @@ -208,6 +208,7 @@ extern void *__vhe_undefined_symbol;
->  struct kvm_nvhe_init_params {
->  	unsigned long mair_el2;
->  	unsigned long tcr_el2;
-> +	unsigned long tcr2_el2;
->  	unsigned long tpidr_el2;
->  	unsigned long stack_hyp_va;
->  	unsigned long stack_pa;
-> diff --git a/arch/arm64/kernel/asm-offsets.c b/arch/arm64/kernel/asm-offsets.c
-> index 9c853ed3ceab..baffe58015d6 100644
-> --- a/arch/arm64/kernel/asm-offsets.c
-> +++ b/arch/arm64/kernel/asm-offsets.c
-> @@ -118,6 +118,7 @@ int main(void)
->    DEFINE(HOST_DATA_CONTEXT,	offsetof(struct kvm_host_data, host_ctxt));
->    DEFINE(NVHE_INIT_MAIR_EL2,	offsetof(struct kvm_nvhe_init_params, mair_el2));
->    DEFINE(NVHE_INIT_TCR_EL2,	offsetof(struct kvm_nvhe_init_params, tcr_el2));
-> +  DEFINE(NVHE_INIT_TCR2_EL2,	offsetof(struct kvm_nvhe_init_params, tcr2_el2));
->    DEFINE(NVHE_INIT_TPIDR_EL2,	offsetof(struct kvm_nvhe_init_params, tpidr_el2));
->    DEFINE(NVHE_INIT_STACK_HYP_VA,	offsetof(struct kvm_nvhe_init_params, stack_hyp_va));
->    DEFINE(NVHE_INIT_PGD_PA,	offsetof(struct kvm_nvhe_init_params, pgd_pa));
-> diff --git a/arch/arm64/kvm/arm.c b/arch/arm64/kvm/arm.c
-> index 8b080804bc90..88eb0459ad4b 100644
-> --- a/arch/arm64/kvm/arm.c
-> +++ b/arch/arm64/kvm/arm.c
-> @@ -2158,7 +2158,7 @@ static int kvm_init_vector_slots(void)
->  static void __init cpu_prepare_hyp_mode(int cpu, u32 hyp_va_bits)
->  {
->  	struct kvm_nvhe_init_params *params = per_cpu_ptr_nvhe_sym(kvm_init_params, cpu);
-> -	unsigned long tcr;
-> +	unsigned long tcr, tcr2;
->  
->  	/*
->  	 * Calculate the raw per-cpu offset without a translation from the
-> @@ -2186,6 +2186,9 @@ static void __init cpu_prepare_hyp_mode(int cpu, u32 hyp_va_bits)
->  	tcr |= TCR_T0SZ(hyp_va_bits);
->  	params->tcr_el2 = tcr;
->  
-> +	tcr2 = 0;
-> +	params->tcr2_el2 = tcr2;
-> +
->  	params->pgd_pa = kvm_mmu_get_httbr();
->  	if (is_protected_kvm_enabled())
->  		params->hcr_el2 = HCR_HOST_NVHE_PROTECTED_FLAGS;
-> diff --git a/arch/arm64/kvm/hyp/nvhe/hyp-init.S b/arch/arm64/kvm/hyp/nvhe/hyp-init.S
-> index 0b3e0b28dfc7..a39de9c20d27 100644
-> --- a/arch/arm64/kvm/hyp/nvhe/hyp-init.S
-> +++ b/arch/arm64/kvm/hyp/nvhe/hyp-init.S
-> @@ -137,8 +137,13 @@ alternative_if ARM64_HAS_CNP
->  alternative_else_nop_endif
->  	msr	ttbr0_el2, x2
->  
-> -	ldr	x0, [x0, #NVHE_INIT_TCR_EL2]
-> -	msr	tcr_el2, x0
-> +	ldr	x1, [x0, #NVHE_INIT_TCR_EL2]
-> +	msr	tcr_el2, x1
-> +
-> +alternative_if ARM64_HAS_TCR2
-> +	ldr	x1, [x0, #NVHE_INIT_TCR2_EL2]
-> +	msr	REG_TCR2_EL2, x1
-> +alternative_else_nop_endif
->  
->  	isb
->  
-> @@ -250,6 +255,15 @@ reset:
->  	mov_q	x5, INIT_SCTLR_EL2_MMU_OFF
->  	pre_disable_mmu_workaround
->  	msr	sctlr_el2, x5
-> +
-> +alternative_if ARM64_HAS_TCR2
-> +	/*
-> +	 * Disable any features we enabled in case the next user doesn't
-> +	 * have TCR2_EL2 support.
-> +	 */
-> +	msr	REG_TCR2_EL2, xzr
-> +alternative_else_nop_endif
-> +
+Hi all,
 
-I don't see the point of this. The MMU is off, and if the next piece
-of SW can't correctly initialise the HW, that's its problem.
+This series fix out-of-bounds read in ext4_get_group_info() and
+convert the ext4 group-count barrier protocol to acquire/release.
 
-And with this hunk gone, the rest should be moved to the following
-patch.
+Changes in v4:
+- Split ext4 patches out as Theodore suggested.
+- Link to v3: https://lore.kernel.org/all/20260902074805.398540-1-ruanjinjie@huawei.com/
 
-	M.
+Jinjie Ruan (2):
+  ext4: Fix out-of-bounds read in ext4_get_group_info()
+  ext4: Convert group-count barrier protocol to acquire/release
+
+ fs/ext4/balloc.c  |  2 +-
+ fs/ext4/ext4.h    | 10 +++-------
+ fs/ext4/mballoc.c |  6 ++----
+ fs/ext4/resize.c  | 19 +++++++++++--------
+ 4 files changed, 17 insertions(+), 20 deletions(-)
 
 -- 
-Without deviation from the norm, progress is not possible.
+2.34.1
+
