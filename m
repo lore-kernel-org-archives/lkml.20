@@ -1,63 +1,63 @@
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24A09374730
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 19:03:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C38A51E420
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 19:03:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788548607; cv=none; b=T0bgTLyUogW5j7NZD4tKYZXDYsGczdTto5Q1kokl1BMM2gkFVk0kPJqPn6ouNFVRrX8IYG+lHCRou45MU5fXL92VUyAEb2rNpzyDMNznVOM5241yqZP4EKDLKlydkHrCejyvagrCEHXysZxsF4QhIDoUwt1Szq8yiKv5KvRKLVQ=
+	t=1788548605; cv=none; b=ldq9qcS6xFo80j7eYawtWtwuBb3x9JTwyEWgJOLH2v45SGkjQxYLyOK9VCucnHsoOE1CsbKplt03aMr5Nmt5aP7ld586fsouJDPiO+1i2Hmb6yEXALNMfVUkyfAqjkQUrbC6FQT7jnVHGq2SbnwtQL66jnZQ0GAjIdT1hP/ng3E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788548607; c=relaxed/simple;
-	bh=tvwBi/oKJVRvzD1Ea9uSmVR/d+BAWrIijfyOV4a7Zv0=;
+	s=arc-20240116; t=1788548605; c=relaxed/simple;
+	bh=TvmNZ9HIJUKKHCevEGQssxkyOTUK9Y/loRcLTRaueq4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=c1AK2Ay826goj1sJPdmmI/t2R1Id9EtLFSaVmnhU/imABJwFKbfwPTPwfFfXlG3fkMOEBnr/rIUPGrgupOO+jefwyVqXp4btvgfWlA+yQyipVGFCorA49ylHp1zc0BXc1w+D3B9ogTmngOqTrwKUNID8AQiuIpeS3GbUmaA7Nbk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=lex.la; spf=pass smtp.mailfrom=lex.la; dkim=pass (2048-bit key) header.d=lex.la header.i=@lex.la header.b=IwvbzE9r; arc=none smtp.client-ip=209.85.128.42
+	 MIME-Version; b=LSc5pYuUKOcRuCrh4ObR+YgKY13gPr6l3DaEKfgJwQc5T8e6WFgv4W+OMy4bZYXE536/n8XSy6IjntaRXczBsbWs0US8O3+awKz4fLPp+kBrir9ciosWuXkx3so4Vm42mLEN9tjajqVG7stvRVa9MHjWsQ6IvBxHKNZsfAXvU4c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=lex.la; spf=pass smtp.mailfrom=lex.la; dkim=pass (2048-bit key) header.d=lex.la header.i=@lex.la header.b=SB21ioUz; arc=none smtp.client-ip=209.85.128.50
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=lex.la
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lex.la
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=lex.la header.i=@lex.la header.b="IwvbzE9r"
-Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-49ccfae359fso11358705e9.3
+	dkim=pass (2048-bit key) header.d=lex.la header.i=@lex.la header.b="SB21ioUz"
+Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-49b965570d7so15620235e9.0
         for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 12:03:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=lex.la; s=google; t=1788548595; x=1789153395; darn=vger.kernel.org;
+        d=lex.la; s=google; t=1788548596; x=1789153396; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=spwFfBNp0tsbFO0MbVx5HsS6oEJ6iTQA15tu/YnOvzo=;
-        b=IwvbzE9rh4h+G5V7of0i08GFEZX9/r3kyfdE0hnv8/Ren4+JE0V9ThGqh8mUTMEvxH
-         75FDQOWkY2n9jz1RPk56SHbWiE9xNy4wLfbwO9GhOoTuAiTWSpwJigb0gn1GlWUHuhH2
-         YB2CQXxyQPaoDCfkR5EbPD/ZSQsg7mG6BGMsxd/HvmCf6HudZudAidtL4gATW7E/Y5Yg
-         P5RYd83dmqs6HIzRgRGja3mIXO2tl5xqTFUJGfN5yFH+SndgvgQoELYg7nup4Sd4jThC
-         Z9iYepDQzTso+ltf+FRn1sgnT0fbWHkiczi4c64So+Tsfpzbg/V6YjQD8Z1C24DRcRn1
-         oQqg==
+        bh=RNxSPYrqovDI7t4DpXzHkhI1wWnUmO156W7Ben/xlVc=;
+        b=SB21ioUzboW+Kdj9yoks0tS3FgXgnTig2SurLTXAvJh4G9tXQ+24+GscT32zeNwu3J
+         n9Pzu/munStI6d5Yo+q67Mb7l5iwDk9gxE7yH8orGnrUH5re24mfWT0PAIGKxX3gHL69
+         LfatcvBLRTWGkao/8sPOP+v4dBtAsTA14cqxCtI6lBmM9IKX9nrRGaOgUPv8ZLLxoxgZ
+         DfDVe/SRNKRDl8HlobBxOypQoP6PcJNC7b5J08XgWxEcsi3e/yvJ0H5AqHzUZnolFcPB
+         MLbEZWyTJIyfm6TMWjLgPKCeR4TGI12SKxYKx42DGi2oRmYvSyRLG1+qly7Upl5gPlJF
+         0pwA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788548595; x=1789153395;
+        d=1e100.net; s=20251104; t=1788548596; x=1789153396;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=spwFfBNp0tsbFO0MbVx5HsS6oEJ6iTQA15tu/YnOvzo=;
-        b=GOweQsct3nJzUM+qNDj64G86qap1vrx/C2Nxkv/FtNV6Oy/0zy+sv8SqqrowGGIwWi
-         uh5FT3edQnrtxdWjE8GYban657J9Gli4CbQgGbPeTNx28NFpMPktVua//awak3u24vEx
-         r6XCNyipVD3UYIhpOscuhP/o0I+Ocy7Dk0wc1GfBMwLZFZ4elQxFRozfeuIFv7Nns+Z7
-         frVZ2cTiDqE8nWIrZPdKzHNbA3+F5qbDG87dXCQ5oweqOkZP3mzgRL9IlYH7mntroJeT
-         22thbhlVDgFa/i9ecBA2yFeJKxMP1tyGDcJkg5UdG/iqxXRgf0qf0ScFZKepmgl55sHO
-         5Uvw==
-X-Forwarded-Encrypted: i=1; AKwUvByUGzZAKk/i7HeCvPLPRNifgGD41F+Upga2MFz26gpl42bV9nGjeeI/j3IQ6QhSEbGXKxnqkYlkcUWALzQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++nDbE+4YQdf9q1S7v5LjeWnykrC1WNeISskunYg7N1qMC8JxsrI
-	Yg25tAWQohXod6QSvPhhS6i4va1dBBIQ6Jcpceo/DvwPG2p54oxWzfOe+NHJ2bjkpKI=
-X-Gm-Gg: AYBFou2jdN8hQqCF1DVYigiJhxVPHJD5OIrOAWoXcbn9bxic3ILFFqoLw6dBYscA3dC
-	gndjoKaHhZXoi9/8ghr7Sp2u/ra6x6uXJud+vO4j65EmT5CT8xCRj2622/a9X+04mYtXJqwjm37
-	T3et1b6ZbnAm0iWw69lf/3kNzdsM0MmdEIWCnpf8IIXOoX0tNITUASOMV/wgG50oAjI9M054fZw
-	KPELA3bzV90U2I+7Y+JL3VWxrDiET6sljIbg3V7HmJ6aNOx6swbRfdKDOWnJsb1SbMn2wgRmwCb
-	PIF98kQrlbdbRvTcx5fIr6qy5OSgHbYtXpSltv8wz7b4LJVd3WYA7TOYDlAFBhafkM+JC6d/bRj
-	Wa4KX5ySgqDlCGsUTQ2vi4U434R4HskL/RWvM/3Kb2lcBVmy4VF6gbqnb7egjmjMI9uBsEJ0WBP
-	w9Zz5xRISCpf5uP9vGau4vQUOtvMG85t2+OOjora0VkmIC/RK3XOY=
-X-Received: by 2002:a05:600c:35c3:b0:49c:fc6c:be10 with SMTP id 5b1f17b1804b1-49cfc6cc055mr52700515e9.22.1788548594795;
-        Fri, 04 Sep 2026 12:03:14 -0700 (PDT)
+        bh=RNxSPYrqovDI7t4DpXzHkhI1wWnUmO156W7Ben/xlVc=;
+        b=Iws4YBSWedxGyqWNqtN7dggHyRtYf+BEo21F1PdqeMPR5lbZ3j2RdXb5SUVZ+NX7SD
+         jc8QsyWdmadVFkvkkMYgp+f5hL0Nk9dhpxGbUS/MMO4/0GtdSKM80S9Xzby/T8Qj9KJF
+         DAk1LpHr94gJRabqkONGAi+OYY9sa7Gg8Pxq6sKE8tE6ioognL43cQ8E6Ls1TAz6+eip
+         BTg+pdVs1ro2HgkAyEzvQpHquUpORZF0gIX5lRGXA1W0xXYIGV+4oSwvTVxOQom4o12i
+         8fgxQSYMCthu5iXY1PMG/BwK4SlrdN7b5flEwnmjpzpctf/Gq2E9U2RFjWIHFrzzEqZT
+         UNkA==
+X-Forwarded-Encrypted: i=1; AKwUvBysjpY0OFBaDKg4nNjx2LESCO1a/eUgh89uiW7oumW5PffwBhsNrtbViKcYH/7/ljsCaTMjwc5fNo0gCnI=@vger.kernel.org
+X-Gm-Message-State: AFuF++l0/+S9DFYQyLwGQ75wgk7cDIKZvwphbNUKyeYAQF25EdunXtuO
+	Libpe9RBDjmRcI4OlXMzXdFzsLfFg1aBfRUP0lizw3DuygNXtdb0yFjpB0dPJMZReaM=
+X-Gm-Gg: AYBFou17xajQmm5vJZlkM07I8ETGoorGqJ2gkh9E4Li8kKgLPkbj5IALkU9kqdRydrE
+	9T7qQfjqwEqqMT9bLVLuHvF6aY0r5xhF6PnZkSseY8FUJAZDMDj4FiEfer5qCDogkfUP1cAwK4H
+	VQX3BR2wPVM3wrkbLj2MAfNWlx5npzjKZdq14BoAmhnaGWQrAd7voJHnO8XjMqjKBAqY47Ie8yl
+	eVNqtMqNVut0vuvNeJFmgGtZVcwMmpS+lOkqwTFLKRl/ASfk0wJOQ0VQ9JrurQrvayfVerJtbHx
+	sELWknNIahpqR8y8KpaZ9mdUeYB0EGX9bgD2uzbWG3Z0UMZj0n4GS8SLsZ000y3h6vO+VHyA55a
+	CpVGa2BmDqNCkCULkef/FvdwjaBQtXXNKv20LHXZ7JYJRzuzYmu/c8mpLSJBGSeVPBDBoYJAl60
+	dpdCY09LH7JxcNtVCCAKr4seM95FVSjdrSKU/1Ef0=
+X-Received: by 2002:a05:600c:34c9:b0:49c:f729:d757 with SMTP id 5b1f17b1804b1-49cf824f757mr87221345e9.11.1788548596255;
+        Fri, 04 Sep 2026 12:03:16 -0700 (PDT)
 Received: from remote-01 ([84.17.55.227])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cee60d8a6sm172195485e9.10.2026.09.04.12.03.13
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cee60d8a6sm172195485e9.10.2026.09.04.12.03.14
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 04 Sep 2026 12:03:14 -0700 (PDT)
+        Fri, 04 Sep 2026 12:03:15 -0700 (PDT)
 From: Aleksei Sviridkin <f@lex.la>
 To: Andrew Lunn <andrew@lunn.ch>,
 	Andrew Lunn <andrew+netdev@lunn.ch>,
@@ -75,9 +75,9 @@ Cc: Eric Woudstra <ericwouds@gmail.com>,
 	netdev@vger.kernel.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [RFC PATCH net-next v2 06/10] net: phy: air: skip the download when the MD32 is already running
-Date: Fri,  4 Sep 2026 19:03:00 +0000
-Message-ID: <0eb669e919da337cbc456b7aecd06e6d9509ad17.1788548229.git.f@lex.la>
+Subject: [RFC PATCH net-next v2 07/10] net: mdio: add Airoha EN8811H MDIO device driver
+Date: Fri,  4 Sep 2026 19:03:01 +0000
+Message-ID: <886ca87eb45b4dc94c6542dd80ce23dc76cfbf1c.1788548229.git.f@lex.la>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <cover.1788548229.git.f@lex.la>
 References: <cover.1788548229.git.f@lex.la>
@@ -89,95 +89,328 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The download is unconditional, so a chip whose firmware was loaded by
-something else - a bootloader, an earlier bind of the PHY driver, or
-an MDIO device serving the chip - is reprogrammed at 144KB per probe.
+Until its firmware has been downloaded the EN8811H is not an Ethernet
+PHY, it is an MD32 microcontroller waiting in its bootloader. On
+systems that keep the firmware files in a filesystem, the files become
+readable long after the MDIO bus was scanned, and the PHY driver's
+probe-time download then cannot work at boot.
 
-Read the status register the loader already polls for readiness and
-skip the download when it reports ready, only picking up the running
-firmware's version. Adopting is reported back distinctly from loading,
-because nothing on that path touches FW_CTRL_1: the PHY driver must
-leave the MCU restart to .config_init() rather than assume probe
-already did it.
+Describe the chip as an MDIO device that polls for the files and
+downloads through the shared library helper once they can be read; a
+chip left running by the bootloader is adopted as-is. Polling rather
+than deferred probing because request_firmware_direct() has no
+usermode-helper fallback: an unmounted rootfs fails at once and would
+keep the deferred-probe list spinning for the whole mount window.
+There is no give-up path, since installing the firmware package on a
+running system is a normal thing to do. The stall warning is gated on
+a per-device flag rather than dev_warn_once(), which is per call site:
+a board can carry two of these chips.
 
-The image in RAM now wins over the files on disk. Where the PHY node
-carries no reset-gpios nothing clears that RAM on unbind, so writing
-new firmware files and rebinding keeps the old image running and
-reports its version as the current one. A power cycle, or a reset line
-on the PHY node for phy_detach() to assert, brings the reload back.
+The reset line is claimed here rather than on the PHY node, and it is
+cycled only while the MD32 does not report a running firmware: that
+firmware lives in volatile RAM, so an assert on a running chip - such
+as the one phy_detach() performs on a PHY-node reset - would wipe it.
+
+The chip's MDIO slave implements the Clause 22 MMD indirection and the
+firmware data path is pure Clause 22 by design, so the library reaches
+the status register the same way. That poll is one register read
+behind three address writes, where the indirection costs nothing
+measurable, and whether the chip decodes Clause 45 frames before its
+firmware runs is unverified on any board.
 
 Assisted-by: LLM
 Signed-off-by: Aleksei Sviridkin <f@lex.la>
 ---
- drivers/net/phy/air_en8811h.c |  4 ++--
- drivers/net/phy/air_phy_lib.c | 17 +++++++++++++++++
- drivers/net/phy/air_phy_lib.h |  2 ++
- 3 files changed, 21 insertions(+), 2 deletions(-)
+ MAINTAINERS                            |   7 ++
+ drivers/net/mdio/Kconfig               |  11 ++
+ drivers/net/mdio/Makefile              |   1 +
+ drivers/net/mdio/mdio-airoha-en8811h.c | 160 +++++++++++++++++++++++++
+ drivers/net/phy/air_phy_lib.h          |   8 +-
+ include/net/phy/air_phy.h              |  23 ++++
+ 6 files changed, 204 insertions(+), 6 deletions(-)
+ create mode 100644 drivers/net/mdio/mdio-airoha-en8811h.c
+ create mode 100644 include/net/phy/air_phy.h
 
-diff --git a/drivers/net/phy/air_en8811h.c b/drivers/net/phy/air_en8811h.c
-index 2f6ed30ba24d..51ff90e60c25 100644
---- a/drivers/net/phy/air_en8811h.c
-+++ b/drivers/net/phy/air_en8811h.c
-@@ -1019,8 +1019,8 @@ static int en8811h_probe(struct phy_device *phydev)
- 	if (ret < 0)
- 		return ret;
+diff --git a/MAINTAINERS b/MAINTAINERS
+index b23fb6f2f4ef..2d2748c44c77 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -750,6 +750,13 @@ S:	Supported
+ F:	fs/aio.c
+ F:	include/linux/*aio*.h
  
--	/* mcu has just restarted after firmware load */
--	priv->mcu_needs_restart = false;
-+	/* Adopted firmware was never restarted here. */
-+	priv->mcu_needs_restart = (ret == 1);
++AIROHA EN8811H MCU MDIO DRIVER
++M:	Aleksei Sviridkin <f@lex.la>
++L:	netdev@vger.kernel.org
++S:	Maintained
++F:	Documentation/devicetree/bindings/net/airoha,en8811h-mcu.yaml
++F:	drivers/net/mdio/mdio-airoha-en8811h.c
++
+ AIROHA ETHERNET DRIVER
+ M:	Lorenzo Bianconi <lorenzo@kernel.org>
+ L:	linux-arm-kernel@lists.infradead.org (moderated for non-subscribers)
+diff --git a/drivers/net/mdio/Kconfig b/drivers/net/mdio/Kconfig
+index d44278f26fab..10cea4235b42 100644
+--- a/drivers/net/mdio/Kconfig
++++ b/drivers/net/mdio/Kconfig
+@@ -29,6 +29,17 @@ config MDIO_AIROHA
+ 	  This module provides a driver for the MDIO busses found in the
+ 	  Airoha AN7583 SoC's.
  
- 	/* MDIO_DEVS1/2 empty, so set mmds_present bits here */
- 	phydev->c45_ids.mmds_present |= MDIO_DEVS_PMAPMD | MDIO_DEVS_AN;
-diff --git a/drivers/net/phy/air_phy_lib.c b/drivers/net/phy/air_phy_lib.c
-index 2f3e5b71abac..fc596942eb65 100644
---- a/drivers/net/phy/air_phy_lib.c
-+++ b/drivers/net/phy/air_phy_lib.c
-@@ -368,6 +368,12 @@ static int air_mmd_status_read(struct mdio_device *mdiodev)
- 	return ret;
- }
++config MDIO_AIROHA_EN8811H
++	tristate "Airoha EN8811H MDIO device support"
++	depends on OF_MDIO
++	select AIR_NET_PHYLIB
++	help
++	  This module provides a driver for the Airoha EN8811H, which is an
++	  MD32 microcontroller until firmware is downloaded into it and only
++	  becomes an Ethernet PHY afterwards. The driver downloads that
++	  firmware once it becomes readable, or adopts firmware a bootloader
++	  left running, before letting the PHY be probed.
++
+ config MDIO_SUN4I
+ 	tristate "Allwinner sun4i MDIO interface support"
+ 	depends on ARCH_SUNXI || COMPILE_TEST
+diff --git a/drivers/net/mdio/Makefile b/drivers/net/mdio/Makefile
+index 048586746026..06d096675dac 100644
+--- a/drivers/net/mdio/Makefile
++++ b/drivers/net/mdio/Makefile
+@@ -6,6 +6,7 @@ obj-$(CONFIG_FWNODE_MDIO)	+= fwnode_mdio.o
+ obj-$(CONFIG_OF_MDIO)		+= of_mdio.o
  
-+bool air_en8811h_mcu_running(struct mdio_device *mdiodev)
+ obj-$(CONFIG_MDIO_AIROHA)		+= mdio-airoha.o
++obj-$(CONFIG_MDIO_AIROHA_EN8811H)	+= mdio-airoha-en8811h.o
+ obj-$(CONFIG_MDIO_ASPEED)		+= mdio-aspeed.o
+ obj-$(CONFIG_MDIO_BCM_IPROC)		+= mdio-bcm-iproc.o
+ obj-$(CONFIG_MDIO_BCM_UNIMAC)		+= mdio-bcm-unimac.o
+diff --git a/drivers/net/mdio/mdio-airoha-en8811h.c b/drivers/net/mdio/mdio-airoha-en8811h.c
+new file mode 100644
+index 000000000000..595b1b72bc01
+--- /dev/null
++++ b/drivers/net/mdio/mdio-airoha-en8811h.c
+@@ -0,0 +1,160 @@
++// SPDX-License-Identifier: GPL-2.0+
++/*
++ * Airoha EN8811H MDIO device driver
++ *
++ * The EN8811H is an MD32 microcontroller until firmware is downloaded into
++ * it, and only then an Ethernet PHY.
++ *
++ * Copyright (C) 2026 Aleksei Sviridkin <f@lex.la>
++ */
++
++#include <linux/delay.h>
++#include <linux/gpio/consumer.h>
++#include <linux/mdio.h>
++#include <linux/module.h>
++#include <linux/of.h>
++#include <linux/property.h>
++#include <linux/workqueue.h>
++
++#include <net/phy/air_phy.h>
++
++#define EN8811H_FW_POLL_MIN_MS	1000
++#define EN8811H_FW_POLL_MAX_MS	30000
++#define EN8811H_FW_WARN_MS	60000
++
++struct en8811h_mcu {
++	struct mdio_device *mdiodev;
++	struct gpio_desc *reset_gpio;
++	struct delayed_work fw_poll;
++	unsigned int poll_ms;
++	unsigned int waited_ms;
++	u32 fw_version;
++	bool warned;
++};
++
++static void en8811h_mcu_fw_poll(struct work_struct *work)
 +{
-+	return air_mmd_status_read(mdiodev) == EN8811H_PHY_READY;
-+}
-+EXPORT_SYMBOL_GPL(air_en8811h_mcu_running);
++	struct en8811h_mcu *mcu = container_of(to_delayed_work(work),
++					       struct en8811h_mcu, fw_poll);
++	struct device *dev = &mcu->mdiodev->dev;
++	int ret;
 +
- int air_en8811h_wait_mcu_ready(struct mdio_device *mdiodev)
- {
- 	int ret, reg_value;
-@@ -402,6 +408,17 @@ int air_en8811h_fw_download(struct mdio_device *mdiodev, u32 *fw_version)
- 	struct device *dev = &mdiodev->dev;
- 	int ret;
- 
-+	if (air_en8811h_mcu_running(mdiodev)) {
-+		ret = air_mdio_buckpbus_reg_read(mdiodev, EN8811H_FW_VERSION,
-+						 fw_version);
-+		if (ret < 0)
-+			return ret;
-+
-+		dev_info(dev, "MD32 already running, firmware %08x\n",
-+			 *fw_version);
-+		return 1;
++	ret = air_en8811h_fw_download(mcu->mdiodev, &mcu->fw_version);
++	if (ret >= 0) {
++		dev_dbg(dev, "firmware %08x running after %ums\n",
++			mcu->fw_version, mcu->waited_ms);
++		return;
 +	}
 +
- 	ret = request_firmware_direct(&fw1, EN8811H_MD32_DM, dev);
- 	if (ret < 0)
- 		return ret;
++	mcu->waited_ms += mcu->poll_ms;
++	if (!mcu->warned && mcu->waited_ms >= EN8811H_FW_WARN_MS) {
++		if (ret == -ENOENT)
++			dev_warn(dev, "still waiting for %s and %s\n",
++				 EN8811H_MD32_DM, EN8811H_MD32_DSP);
++		else
++			dev_warn(dev, "firmware download keeps failing: %pe\n",
++				 ERR_PTR(ret));
++		mcu->warned = true;
++	}
++
++	mcu->poll_ms = min(mcu->poll_ms * 2, EN8811H_FW_POLL_MAX_MS);
++	queue_delayed_work(system_freezable_wq, &mcu->fw_poll,
++			   msecs_to_jiffies(mcu->poll_ms));
++}
++
++/* The firmware lives in volatile RAM: no reset while the MD32 reports ready. */
++static void en8811h_mcu_reset_if_dormant(struct en8811h_mcu *mcu)
++{
++	struct mdio_device *mdiodev = mcu->mdiodev;
++	struct device *dev = &mdiodev->dev;
++	u32 assert_us = 0, deassert_us = 0;
++	int ret;
++
++	if (air_en8811h_mcu_running(mdiodev)) {
++		dev_dbg(dev, "MD32 already running, adopting it\n");
++		return;
++	}
++
++	if (!mcu->reset_gpio)
++		return;
++
++	device_property_read_u32(dev, "reset-assert-us", &assert_us);
++	device_property_read_u32(dev, "reset-deassert-us", &deassert_us);
++
++	ret = gpiod_direction_output(mcu->reset_gpio, 1);
++	if (ret) {
++		dev_warn(dev, "reset not asserted: %pe\n", ERR_PTR(ret));
++		return;
++	}
++
++	if (assert_us)
++		fsleep(assert_us);
++
++	gpiod_set_value_cansleep(mcu->reset_gpio, 0);
++	if (deassert_us)
++		fsleep(deassert_us);
++}
++
++static int en8811h_mcu_probe(struct mdio_device *mdiodev)
++{
++	struct device *dev = &mdiodev->dev;
++	struct en8811h_mcu *mcu;
++
++	mcu = devm_kzalloc(dev, sizeof(*mcu), GFP_KERNEL);
++	if (!mcu)
++		return -ENOMEM;
++
++	mcu->mdiodev = mdiodev;
++	mdiodev_set_drvdata(mdiodev, mcu);
++
++	/* The core claims reset-gpios only for devices flagged as PHYs. */
++	mcu->reset_gpio = devm_gpiod_get_optional(dev, "reset", GPIOD_ASIS);
++	if (IS_ERR(mcu->reset_gpio))
++		return dev_err_probe(dev, PTR_ERR(mcu->reset_gpio),
++				     "failed to get reset GPIO\n");
++
++	if (mcu->reset_gpio)
++		gpiod_set_consumer_name(mcu->reset_gpio, "EN8811H reset");
++
++	en8811h_mcu_reset_if_dormant(mcu);
++
++	mcu->poll_ms = EN8811H_FW_POLL_MIN_MS;
++	INIT_DELAYED_WORK(&mcu->fw_poll, en8811h_mcu_fw_poll);
++	/* Freezable: neither the file lookup nor the download may land on
++	 * a suspending bus.
++	 */
++	queue_delayed_work(system_freezable_wq, &mcu->fw_poll, 0);
++
++	return 0;
++}
++
++static void en8811h_mcu_remove(struct mdio_device *mdiodev)
++{
++	struct en8811h_mcu *mcu = mdiodev_get_drvdata(mdiodev);
++
++	cancel_delayed_work_sync(&mcu->fw_poll);
++}
++
++static const struct of_device_id en8811h_mcu_of_match[] = {
++	{ .compatible = "airoha,en8811h-mcu" },
++	{ }
++};
++MODULE_DEVICE_TABLE(of, en8811h_mcu_of_match);
++
++static struct mdio_driver en8811h_mcu_driver = {
++	.probe = en8811h_mcu_probe,
++	.remove = en8811h_mcu_remove,
++	.mdiodrv.driver = {
++		.name = "airoha-en8811h-mcu",
++		.of_match_table = en8811h_mcu_of_match,
++	},
++};
++
++mdio_module_driver(en8811h_mcu_driver);
++
++MODULE_FIRMWARE(EN8811H_MD32_DM);
++MODULE_FIRMWARE(EN8811H_MD32_DSP);
++
++MODULE_DESCRIPTION("Airoha EN8811H MDIO device driver");
++MODULE_AUTHOR("Aleksei Sviridkin <f@lex.la>");
++MODULE_LICENSE("GPL");
 diff --git a/drivers/net/phy/air_phy_lib.h b/drivers/net/phy/air_phy_lib.h
-index 2a4c156d6396..6823812c8fd5 100644
+index 6823812c8fd5..a8329223dd4f 100644
 --- a/drivers/net/phy/air_phy_lib.h
 +++ b/drivers/net/phy/air_phy_lib.h
-@@ -59,7 +59,9 @@ struct firmware;
+@@ -10,6 +10,8 @@
+ 
+ #include <linux/phy.h>
+ 
++#include <net/phy/air_phy.h>
++
+ #define AIR_EXT_PAGE_ACCESS		0x1f
+ 
+ #define AIR_PHY_PAGE_STANDARD		0x0000
+@@ -29,9 +31,6 @@
+ #define AIR_BPBUS_RD_DATA_HIGH		0x17
+ #define AIR_BPBUS_RD_DATA_LOW		0x18
+ 
+-#define EN8811H_MD32_DM			"airoha/EthMD32.dm.bin"
+-#define EN8811H_MD32_DSP		"airoha/EthMD32.DSP.bin"
+-
+ #define AIR_FW_ADDR_DM			0x00000000
+ #define AIR_FW_ADDR_DSP			0x00100000
+ 
+@@ -59,9 +58,6 @@ struct firmware;
  
  int air_fw_write_buf(struct mdio_device *mdiodev, u32 address,
  		     const struct firmware *fw);
-+bool air_en8811h_mcu_running(struct mdio_device *mdiodev);
+-bool air_en8811h_mcu_running(struct mdio_device *mdiodev);
  int air_en8811h_wait_mcu_ready(struct mdio_device *mdiodev);
-+/* Returns 1 when it adopted firmware that was already running. */
- int air_en8811h_fw_download(struct mdio_device *mdiodev, u32 *fw_version);
+-/* Returns 1 when it adopted firmware that was already running. */
+-int air_en8811h_fw_download(struct mdio_device *mdiodev, u32 *fw_version);
  
  #endif /* __AIR_PHY_LIB_H */
+diff --git a/include/net/phy/air_phy.h b/include/net/phy/air_phy.h
+new file mode 100644
+index 000000000000..03cb3465ef8d
+--- /dev/null
++++ b/include/net/phy/air_phy.h
+@@ -0,0 +1,23 @@
++/* SPDX-License-Identifier: GPL-2.0+ */
++/*
++ * Copyright (C) 2026 Airoha Technology Corp.
++ * Copyright (C) 2026 Collabora Ltd.
++ *                    Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
++ * Copyright (C) 2026 Aleksei Sviridkin <f@lex.la>
++ */
++
++#ifndef __NET_PHY_AIR_PHY_H
++#define __NET_PHY_AIR_PHY_H
++
++#include <linux/types.h>
++
++struct mdio_device;
++
++#define EN8811H_MD32_DM			"airoha/EthMD32.dm.bin"
++#define EN8811H_MD32_DSP		"airoha/EthMD32.DSP.bin"
++
++bool air_en8811h_mcu_running(struct mdio_device *mdiodev);
++/* Returns 1 when it adopted firmware that was already running. */
++int air_en8811h_fw_download(struct mdio_device *mdiodev, u32 *fw_version);
++
++#endif /* __NET_PHY_AIR_PHY_H */
 -- 
 2.53.0
 
