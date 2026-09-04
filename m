@@ -1,250 +1,134 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEE464A8FEA
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 14:11:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73B3E284B4F;
+	Fri,  4 Sep 2026 14:11:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788531102; cv=none; b=SN9D5z9O86pyNfGSdXAbwSxVgQbZtkPRkNgJjEfTamNmJfYRWcv6hA0JBh6U9qDVC4bEyNxC7D5RZZY06pEBb2yNuvxl4CAEMalU3ROrr5dNazXtIbr5eTsWOeOq37tYeBRO/SbgJaAh0cPvvqYq5lHvZuULuZJ65A5CMcO1K9s=
+	t=1788531109; cv=none; b=F6wnCkSxApJu4LleIa6bDye5JPkJL/u0eAexplbBlj0cEYEbG+hGbtu9blSmMDijt1a8NF/0CWhQ2gZZt4ovF9NswvzfykDgVp/RetG7YwaZuNzmwzKUhzmf6qtZX56+oBylsUW1/SdXADXK8IdHYWyUMThpjpAmen1lLL1jXO8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788531102; c=relaxed/simple;
-	bh=9Nm2pq+DuNB3kYHi1tRHDZH5RmtGnjGgbmVJxTMZxX4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=MgN87tCR5hand2m7KprNUPPAWREB7PZLtroQ6+v0f7ePgPnhHxisHio0ANTpW8pxyIZ7cs0f9s+0W4rbIbfWDbnInQ+Nz+Jg+iM54+wxy2tgOrVFUuD2lOHdpnndA/NrZUKzBjnDSJ2hBz2cqOreN2+No4buZBQ4enYFwMd7Ro4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=cz12ZThf; arc=none smtp.client-ip=117.135.210.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1788531109; c=relaxed/simple;
+	bh=6DkFsycShLR1u2Zwsaq9Qz26riEMfjv9aH4D9RuY/eo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=UWNqzToeYkwJ0FpHk3ct07nZwco4pi+2Xt6gsTJSbYWMJDIWQRuAFs/77kUsn2fnbx7ilE/tHzVQ3ApVJbezYEsvZOBT5aCtUbtokw6R+chxASm6D1qhOzZ20Bcv2IkdBNTipYZonoJ/hTHwb6h4LJGoDovHwfkExzYbQYZToYg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AztKYxVc; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="cz12ZThf"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version:
-	Content-Type; bh=paOcrSfwidWruSN9p++6/CYQwJGAumq3f9YCIvoMbww=;
-	b=cz12ZThfVj6qXYZQ//zrWp0svv7WGYUsg86qosFDnGn2HMyQsFRNTwx496BAmS
-	Dbq3ZIJvpc5P9+9OxxDwaHsiGiFcvM88ftg/XPZ1hrtV2HzQKY+DGZnrTbbi0iak
-	0CtPoiTLrDayw2H676fpV6Lay6Mh6pfc/BYRpdux3Tky4=
-Received: from localhost (unknown [])
-	by gzga-smtp-mtada-g0-2 (Coremail) with SMTP id _____wDnL8pJ0ZpqrT2lAg--.46599S2;
-	Fri, 04 Sep 2026 22:10:18 +0800 (CST)
-From: Hui Su <sh_def@163.com>
-To: Tim Chen <tim.c.chen@linux.intel.com>,
-	"Chen, Yu C" <yu.c.chen@intel.com>
-Cc: Hui Su <sh_def@163.com>,
-	K Prateek Nayak <kprateek.nayak@amd.com>,
-	Juri Lelli <juri.lelli@redhat.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Valentin Schneider <vschneid@redhat.com>,
-	John Stultz <jstultz@google.com>,
-	Ingo Molnar <mingo@redhat.com>,
-	Peter Zijlstra <peterz@infradead.org>,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 1/2] sched/numa: Drive NUMA task tick from execution context
-Date: Fri,  4 Sep 2026 22:10:17 +0800
-Message-ID: <20260904141017.1512404-1-sh_def@163.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <08f682ba75a4700694d6f94719b367b4d26c032f.camel@linux.intel.com>
-References: <20260903041154.2479761-1-sh_def@163.com> <20260903041154.2479761-2-sh_def@163.com> <4593a7a4-cde1-499c-bba8-2fbe24f35422@intel.com> <08f682ba75a4700694d6f94719b367b4d26c032f.camel@linux.intel.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AztKYxVc"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9DCB61F00A3D;
+	Fri,  4 Sep 2026 14:11:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788531108;
+	bh=p0TIVjxGW79UaSz0A6FR6XVFc32IWgbgWnSVNO92cjg=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=AztKYxVcBjGISkSZ5O4+2xKFQjXGeoLBu6aeCP2DYZ2si3oSyXM/DvVg08IY7kOoL
+	 HPFnNr5yBBg3O/DTdfxOh/paGigizVsIxiaMojTHKK2UrXhF/R601rv0ouQT1cgn25
+	 zQNV1ke9SQmjMQCWiaMDham1/j6L5wERm6uG5bqR5+3F2vM2BGJ/XNb0OsNeLfqswe
+	 h9NAfMpbeXtPaoVuBzglMzgznQdvFik4Gz/tlctCFe6gbHa+L4k4xK8My1kX/fBCj0
+	 1EJJgw6g1T7X38Ozk1AJyJ7unkoEFZq0YSloOBloIjp5peq2kI9eLg/YYOzSy5q8+m
+	 7w5O5UCBCHP5w==
+Message-ID: <dcc33c42-c897-4fcb-ac25-6d7c63402d35@kernel.org>
+Date: Fri, 4 Sep 2026 16:11:39 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 00/10] Remove support for platform data from samsung
+ keypad
+To: Dmitry Torokhov <dmitry.torokhov@gmail.com>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Peter Griffin
+ <peter.griffin@linaro.org>, Alim Akhtar <alim.akhtar@samsung.com>,
+ Russell King <linux@armlinux.org.uk>, Mark Brown <broonie@kernel.org>,
+ Linus Walleij <linusw@kernel.org>,
+ Charles Keepax <ckeepax@opensource.cirrus.com>,
+ Sam Protsenko <semen.protsenko@linaro.org>, Arnd Bergmann <arnd@arndb.de>,
+ Bartosz Golaszewski <brgl@bgdev.pl>
+Cc: linux-input@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-samsung-soc@vger.kernel.org, patches@opensource.cirrus.com,
+ Conor Dooley <conor.dooley@microchip.com>,
+ Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+References: <20260711-samsung-kp-v3-0-b2fcaba77aff@gmail.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20260711-samsung-kp-v3-0-b2fcaba77aff@gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wDnL8pJ0ZpqrT2lAg--.46599S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW3WF48CFWrZr4fKw17Jr1UJrb_yoW3ur1xpF
-	Z09F12qrs7Ja45tr4DZwsxXa4S9393Aw1UWr4DK34kCr15Jw18tFWFqr4YvFWYvr1vkF1j
-	vr40v3s7Gw4qy3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0JUVT5dUUUUU=
-X-CM-SenderInfo: xvkbvvri6rljoofrz/xtbCwQrHJ2qa0Urc4AAA38
+Content-Transfer-Encoding: 7bit
 
-On Thu, 2026-09-03 at 14:30 -0700, Tim Chen wrote:
-> On Thu, 2026-09-03 at 20:41 +0800, Chen, Yu C wrote:
-> > Hi Su,
-> >
-> > On 9/3/2026 12:11 PM, Hui Su wrote:
-> > > Proxy execution separates the scheduling context in rq->donor from the
-> > > execution context in rq->curr. sched_tick() invokes task_tick() for the
-> > > donor's scheduling class.
-> > >
-> > > task_tick_numa() is currently called from task_tick_fair(). This works
-> > > when the donor is a fair task, but not when a fair task executes on
-> > > behalf of an RT or deadline donor. In that case the donor's task_tick()
-> > > still updates the execution task's sum_exec_runtime through
-> > > update_curr_common(), but task_tick_fair() is not invoked and NUMA scan
-> > > work for the execution task is not driven.
-> >
-> > Thanks for bringing this up. Previously Prateek has suggested to fix the
-> > rq->donor issue [1] and unfortunately I missed the task_tick_cache() part.
-> >
-> > Regarding above line in the commit log, although I agree that
-> > task_tick_numa() should be moved one level up, I did not quite get the
-> > reason why sum_exec_runtime is mentioned here, could you please elaborate
-> > a little more?
-> > I guess what you mean is that, in task_tick_numa(), the
-> > curr->se.sum_exec_runtime is used to check if there is a timeout to launch
-> > the task_numa_work(), so curr->se.sum_exec_runtime has to be up-to-date.
-> > With proxy execution, the se.sum_exec_runtime is only accumulated in
-> > rq->curr rather than rq->donor, so passing a "paused" rq->donor.sum_exec_runtime
-> > to task_tick_numa() is inaccurate?
-> >
-> > But I also see that in task_tick_core(), the sum_exec_runtime is also
-> > leveraged to calculate the delta "wall time" via __entity_slice_used():
-> > se->sum_exec_runtime - se->prev_sum_exec_runtime
-> > does it mean task_tick_core() also needs to be bring one level up to
-> > sched_tick() and passed with rq->curr?
->
-> I think task_tick_core() needs to stay with the donor's context
-> as it is the scheduling context.
->
-> task_tick_core() is not about the execution context --
-> it decides whether the current scheduling context has used
-> up enough of its slice to let a force-idled SMT sibling run. That
-> slice belongs to the donor, so the donor is the right task to pass.
->
-> There is a separate issue lurking here, task_tick_core() measures consumed slice as
-> se->sum_exec_runtime - se->prev_sum_exec_runtime. Under proxy the
-> donor's sum_exec_runtime does not advance (update_se() charges the
-> runtime to rq->curr instead), so that delta stays near zero and the
-> force-idle resched may never trigger.
->
-> Passing rq->curr does not fix it either. __entity_slice_used() takes
-> the runtime and the slice from the same entity, so passing rq->curr
-> just compares the running task against its own slice. But this check
-> is about the donor: it asks whether the scheduling context that owns
-> the CPU has used up its slice. The running task is only borrowing the
-> CPU through proxy, so its slice is not the one we care about here.
->
-> Maybe something like below (only compile tested) to fix the issue.
-> That said, this is somewhat orthogonal to the issue that the execution
-> context series is trying to solve. It should be fixed separately.
->
-> diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
-> index 8dff37059faf..cd240bf52d03 100644
-> --- a/kernel/sched/fair.c
-> +++ b/kernel/sched/fair.c
-> @@ -14748,10 +14748,29 @@ static void rq_offline_fair(struct rq *rq)
->  static inline bool
->  __entity_slice_used(struct sched_entity *se, int min_nr_tasks)
->  {
-> -	u64 rtime = se->sum_exec_runtime - se->prev_sum_exec_runtime;
-> -	u64 slice = se->slice;
-> +	u64 vslice, vused;
+On 12/07/2026 04:12, Dmitry Torokhov wrote:
+> Hi,
 > 
-> -	return (rtime * min_nr_tasks > slice);
-> +	/*
-> +	 * @se is the scheduling context (rq->donor). Under proxy execution
-> +	 * it need not be the task executing on the CPU, so its
-> +	 * sum_exec_runtime is not advanced and cannot be used to tell how
-> +	 * much of its slice it has consumed. Its vruntime, however, is
-> +	 * advanced by update_curr() with the proxy runtime, and its EEVDF
-> +	 * deadline reflects the granted slice, so measure the consumed
-> +	 * fraction in virtual time instead.
-> +	 *
-> +	 * This is equivalent to the previous real-time comparison in the
-> +	 * non-proxy case: both @vused and @vslice are scaled by the same
-> +	 * weight factor, so the ratio (and thus the min_nr_tasks test) is
-> +	 * unchanged.
-> +	 */
-> +	if (vruntime_cmp(se->vruntime, ">=", se->deadline))
-> +		return true;
-> +
-> +	vslice = calc_delta_fair(se->slice, se);
-> +	vused = vslice - (se->deadline - se->vruntime);
-> +
-> +	return (vused * min_nr_tasks > vslice);
->  }
->
-> Thanks.
-> Tim
+> This series converts the Samsung keypad driver and the Cragganmore 6410
+> board to generic device properties, allowing the removal of legacy platform
+> data and GPIO lookup tables.
+> 
+> We rework the Samsung keypad driver to stop using platform data, utilizing
+> a new compact matrix keypad binding. To support this on the Cragganmore
+> board, we add infrastructure to associate software nodes with Samsung
+> gpio_chips, and add software node propagation support to the wm831x MFD
+> core to route DVS GPIO to the PMIC regulator.
+> 
+> Finally, we convert all peripherals on the Cragganmore board (including
+> keypad, GPIO keys, PMIC, WM1250, SPI0, basic-mmio-gpio, and LEDs) to
+> software properties. This allows us to eliminate all legacy GPIO lookup
+> tables and fixes incorrect GPIO chip names from previous conversions.
+> 
+> Mark, it would be great if you could give this a spin on Cragganmore.
+> 
+> The majority of changes are in arch/board code, with a couple of input
+> matches and one for MFD. If everyone agrees maybe we can merge it all
+> through the soc tree?
+> 
+> Thanks!
 
-Hi Tim, Chen Yu,
+Appplied 1-6 with conflicts needing manual resolution around
+linux/gpio/legacy.h (commit 8c44b5f068a36d168687d64f3801c11d3252c1d2).
 
-Thanks for pointing out this separate issue and for the prototype.
-
-I tested the deadline-based calculation from the prototype with the
-same proxy-execution and core-scheduling reproducer. The reproducer has
-a FAIR donor proxy-executing a task on an SMT CPU while the sibling is
-force-idled.
-
-The relevant ordering in the current code is:
-
-        update_curr()
-                -> vruntime += delta
-                -> update_deadline()
-        ...
-        task_tick_core()
-
-When update_deadline() advances the deadline before
-__entity_slice_used() is called, the prototype observes the newly
-advanced deadline. Since the new deadline is based on the current
-vruntime plus a new virtual slice, deadline - vruntime is reset to
-approximately vslice. Consequently, the reconstructed vused becomes
-small even though the donor has consumed scheduling service since it was
-selected.
-
-In the CONFIG_HZ=1000, nice-0 run, instrumentation showed:
-
-        existing runtime delta == 0
-        vslice                 == 2100000
-        reconstructed vused in the tens or hundreds of thousands
-        used                   == 0
-
-For comparison, I tested a selection-time vruntime snapshot:
-
-        set_next_entity():
-                core_prev_vruntime = se->vruntime;
-
-        __entity_slice_used():
-                vused = se->vruntime - se->core_prev_vruntime;
-
-I then repeated the test with CONFIG_HZ=1000, 250 and 100, and also
-with a nice -10 FAIR donor at HZ=250 and HZ=100.
-
-For the counts below I only included ticks where rq->donor != rq->curr,
-core force-idle was active, rq->cfs.h_nr_queued == 1, and the donor's
-existing runtime delta == 0.
-
-The observed behavior was consistent across these runs:
-
-        configuration           deadline prototype   vruntime snapshot
-        HZ=1000, nice 0            10/10 used=0       8/8 used=1
-        HZ=250,  nice 0            10/10 used=0       6/6 used=1
-        HZ=100,  nice 0            14/14 used=0      16/16 used=1
-        HZ=250,  nice -10          30/30 used=0       6/6 used=1
-        HZ=100,  nice -10          15/15 used=0      17/17 used=1
-
-The number of ticks in each window is timing-dependent and can change
-when a successful slice check triggers rescheduling. The comparison
-above is based on the per-tick result, rather than on equal window
-lengths.
-
-I also compared the existing runtime-based predicate with the snapshot
-predicate on the non-proxy path. In a CONFIG_HZ=1000 run, the decisions
-matched for all 83 observed force-idle ticks with rq->donor == rq->curr.
-For all 177 matching proxy ticks in the same run, the existing predicate
-was false while the snapshot predicate was true.
-
-In these runs, the snapshot version tracked the donor's vruntime
-progress across deadline rollovers and triggered the force-idle
-reschedule. It returned used == 1 for every matching tick observed in
-the proxy windows listed above. This also matches the previous
-sum_exec_runtime - prev_sum_exec_runtime semantics more closely: the
-measurement starts when the scheduling context is selected and is not
-tied to the current EEVDF request after a deadline rollover.
-
-These tests suggest that reconstructing the consumed service from the
-current deadline may lose the original selection-time semantics across
-a deadline rollover. The virtual-time direction still looks
-appropriate, while the consumed service appears to need a
-selection-time baseline rather than being reconstructed from a
-deadline that update_deadline() may already have advanced.
-
-I am keeping this as a separate patch from the execution-context tick
-series. I will continue validating the snapshot approach with
-fair-group scheduling before posting it.
-
-Thanks,
-Hui
-
+Best regards,
+Krzysztof
