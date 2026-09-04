@@ -1,60 +1,87 @@
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1D663955F0
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 14:51:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26B784CB8CF
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 14:51:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788533484; cv=none; b=jpkMuKktByZ6AWyYAHo1dplflIBQFVIpuEnd7Fnn4psHsIQB1Y6Lx18lsxQv5cxW5b5dGsmReEwpSYsi5DWgweQir7lIokYozqmB/leZ7+5nA9eoi54XE4HuDDGoU0gRxYrJD6JcjAiPLMeD9OXQN9P18XunOrIrdmx59VAeN3I=
+	t=1788533491; cv=none; b=grVRyWAyhocxXc84VTqAXbs7nXjTC2jsqiKpnuycr0lOobnGHeIbJDW62Ar7ewFSXFLIRZ8KF5LGyEu7oQCUPKiWLKvlB6A9/6rzz/UgxuihcpSLbQUHOw7Qi7RQ/qym5HhB6S4xDALcZpha/GhzOBXP/53oa1qsQY3+EnbHx9k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788533484; c=relaxed/simple;
-	bh=VxUygARHLskypxJmC16zl1x/YMEPfHhDEDLqYLna0oU=;
+	s=arc-20240116; t=1788533491; c=relaxed/simple;
+	bh=4qlq+WoWDdP3LO/Tt+I6wW3GULvBfoVrK77wA/CFzNk=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=R9hVGutCP+qup6EWFFrGlyHd0gUTwQXK6bkvQFm8CoTqB1gSd0EakYZH0CW7ufp2FQ+JbbkKr4bCU3ikZPEa7GzWDJ7ncVKYi+2AVhE+RCbi1Vkt4E7CZbPLjcLox54nb/RMZGk7R+uDddChfiYN7pNL7b+AITaot7ecPUfA/O0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=VlUnJy5L; arc=none smtp.client-ip=148.163.158.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	 In-Reply-To:Content-Type; b=XzLZnF2PliCkJGK9cglvCitOSOV1vC3I9BAj0rQzOxFNjy3TphYTTHCUSrtM7STBxzUfAcnjSEdIO3vE8MO2euq+GQ5Lnmg0/nI1COOsgo622ynMcv74qYBzbEuLUWGC3gP3khFcneiefTO2+ImJCCCqe6nrKuxQA0NbeadEawY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=PaoyEm9E; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=h5rhSWxS; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="VlUnJy5L"
-Received: from pps.filterd (m0356516.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 684E1nul1809083;
-	Fri, 4 Sep 2026 14:50:51 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=z84wpO
-	j7CNOGSg65mDGIrYSnrJrlGh4ehhkoEAM8pT0=; b=VlUnJy5LSg7sY30IsA5Bl3
-	wDXrdDbOjtTj42TngRcuf260Mlbbvqo5y8A6n5pFx0HeqFY1bz5rqelkYFaz56oz
-	iF9MqCfKrjc2e9PFwExohrJkvYSbdvWAzZv/tYUOh2Cu0Z1AuCZNbAljinYIuTvi
-	m6LC8oDEPbFFaeEnrCN0q+lpie58c6edzC/V0bsPDshJDHN0Nyj4sp6bobZGK6HW
-	NtySuTJF8c1V1DZL2YGTI1UE/IlRL0UMOZfvKQZUP9E4TZdYcbcWyqdxHhLhi6hi
-	5tLxlgMVwFzC0JvlGUNqN9sIwfmPCCvUBxq8PSYVQBPo2HHnV62Rz/UyTxCIeJjA
-	==
-Received: from ppma13.dal12v.mail.ibm.com (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gbmujb2re-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 04 Sep 2026 14:50:49 +0000 (GMT)
-Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma13.dal12v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 684EfGJY005113;
-	Fri, 4 Sep 2026 14:50:48 GMT
-Received: from smtprelay03.fra02v.mail.ibm.com ([9.218.2.224])
-	by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 4gcbygwf73-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 04 Sep 2026 14:50:48 +0000 (GMT)
-Received: from smtpav03.fra02v.mail.ibm.com (smtpav03.fra02v.mail.ibm.com [10.20.54.102])
-	by smtprelay03.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 684Eoj0m42467610
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Fri, 4 Sep 2026 14:50:45 GMT
-Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 070A120040;
-	Fri,  4 Sep 2026 14:50:45 +0000 (GMT)
-Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 496CD20043;
-	Fri,  4 Sep 2026 14:50:40 +0000 (GMT)
-Received: from [9.43.71.40] (unknown [9.43.71.40])
-	by smtpav03.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Fri,  4 Sep 2026 14:50:40 +0000 (GMT)
-Message-ID: <8fa790a7-f387-48f6-ac76-11cf71ef5589@linux.ibm.com>
-Date: Fri, 4 Sep 2026 20:20:38 +0530
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="PaoyEm9E";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="h5rhSWxS"
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 684DgiYL3719471
+	for <linux-kernel@vger.kernel.org>; Fri, 4 Sep 2026 14:51:27 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	nmvA54j4qxn+u/O1Um3rgkVyl+esfP5kGwEsz0xU2hI=; b=PaoyEm9E0uHB+pR7
+	Cd0yJGOfA0J1lRUzL5Z0dEkcw7nQV5H/K2jR9GiEUeEjLcka76RUaBN5ohYK/Slj
+	iM28SLrsfld8lOecTTGHVa8Q2E7bFJMbcdkmq8ssUfOQRPEs38T6WfY9ABe53HF6
+	dD7KuHbJO4SWVOdHEOV9KT6L6StrvXkxjA928tI+IHck0fUlpLw0bna/yiPwjoaV
+	y+iEiPdyYum/YnSu0CDyqSKsGJQtXfn7byqIvCGymCLq0cOSN6g9W4/VO2WPJCP2
+	qWBcQfZMGz4vaPZ8wKViH2Wytnecy7Kh5weCjJtMVMSw+268dObYcMGVLqO30y2Z
+	X/TZzA==
+Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com [209.85.167.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gfqqd2btb-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 14:51:26 +0000 (GMT)
+Received: by mail-oi1-f198.google.com with SMTP id 5614622812f47-4b3962f71e7so1458797b6e.3
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 07:51:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1788533486; x=1789138286; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=nmvA54j4qxn+u/O1Um3rgkVyl+esfP5kGwEsz0xU2hI=;
+        b=h5rhSWxShTcYs43+shUwkFJAhmmHgCuaWiCqcqx/MAIsMqeR8k3TZhB/02Cx+K/R+b
+         JNVBrClRBm67v0UuzPEdVyMCibAoyUDqrxAUhMYdie8fAD+4WDK8ogcGOOQxlUE+1Pok
+         KW1J0DMkkU5Wk1siH629MVr9pB3LpFo3MUXNF79LpsDhn8Q1JynG5rgmxI89D/0cutL1
+         bQcIAS+G3h+g4wMSN/0FPO+n1jln4KXk1QcsSgrr2oCGIdfzX2XU6EwGkfSfd/BqvHN/
+         agE7aLK6MMBPATepaVS8ktFhCGocrzvyi+MffnSgHioTDLb4N/HE/8WG6ZEHn9lOjapq
+         2Gig==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788533486; x=1789138286;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=nmvA54j4qxn+u/O1Um3rgkVyl+esfP5kGwEsz0xU2hI=;
+        b=awsNIrwNy+vTa89JGR+LHeom9Y4gbXT+nxZa/4HTndDS+dEbgL7YgjpBu5jRLQ2Gim
+         kLVVY2+B3iZKR9SlaL6KKLyco3b/jyRZoTOC8N/L+6cyjNucDEO80UxwqpDXJ9IAD/G1
+         1dHXgq5lMiK7tODFQbNqMWUEaSWhMRQF6XkZMwPG46yqNOYHe5Eae0enG7PsnSs+SrkB
+         j1k98Qdwsu7UkkkTkHBXUI/+o9HcBDHFBxLOMYSFZuF6UIw9fQ+ayrvVUnXa8GP/SdCG
+         nOkC+jF+8pDYbT3hhg+il7wEBkqhOycCoqkeE+ukK1QBNAqLovEMTD8vgBQDHa0TR/Bc
+         Wdtg==
+X-Forwarded-Encrypted: i=1; AKwUvBzxXMD7MHNi1YzKjVSFOfsi7SYGZZfHWfP4GzGYD3uGnDN6wzf0JR/hUF+N3Xbtbz5+GNZkFev+Y63o8JM=@vger.kernel.org
+X-Gm-Message-State: AFuF++m4CU8kbJUqPtvwfO/FF49IhJ3ZHQMUyMlPy7aSRzTXZgEuaM7Y
+	+xofIENSCanwePOt3d+vVdyctYuQpxeqaSnuWaxpJSTgfMrONDz/KW1CX0GHGYMh47ZxKanhuZu
+	dlW/uStjNpzojVoBh21Vw3hjVWF4ntj4c41tFF/QJDkZu72b3cc49KSbkmbA1iqnaH/k=
+X-Gm-Gg: AYBFou3lJKWOahdf7WjbxAZvd2GsfIyuzp9Mt1I+xxV+K2IUbrG+HtLHG5t3w/DNzKd
+	U3XPXU33YFJ9FdwLk1L43AI/7KUbWGkk7PeVAh38XKncRrpKXnkDI5TJJw3WLYHn3qVLZiz7xy4
+	/CykCv3B0wfKF3cC8WGCYWxVU1qL1yHgME0qvo5RtiY7BdPN1sh9xc5eq0iDjtF9YGg0dLLvLBW
+	GoHwOUkqKBniVWg0Ls19dFZxT6Ka/QS+ne8sUdwWXpTWBV+YogLAjOQjIMqvD7ZXJYLI48zaruS
+	j3esGiFc6IM4wSU34TGJo72anpwMYSfU5VJeEX8XhcsDOtnDMYoQJyoLUyldGNIuECzOAT79K2w
+	hRvOvyldWmJ1dgwv6ot5ZZ7hEYomYrJj0
+X-Received: by 2002:a05:6808:199c:b0:4b3:1e40:640b with SMTP id 5614622812f47-4b95fc5bbe0mr5026802b6e.6.1788533486060;
+        Fri, 04 Sep 2026 07:51:26 -0700 (PDT)
+X-Received: by 2002:a05:6808:199c:b0:4b3:1e40:640b with SMTP id 5614622812f47-4b95fc5bbe0mr5026747b6e.6.1788533485428;
+        Fri, 04 Sep 2026 07:51:25 -0700 (PDT)
+Received: from [192.168.1.6] ([122.171.23.238])
+        by smtp.gmail.com with ESMTPSA id 5614622812f47-4b971c98e07sm2181070b6e.18.2026.09.04.07.51.15
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 04 Sep 2026 07:51:24 -0700 (PDT)
+Message-ID: <8b2eda64-3556-4cc6-9e46-f3e0eb0efc88@oss.qualcomm.com>
+Date: Fri, 4 Sep 2026 20:21:13 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -62,332 +89,232 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH 2/3] powerpc: add support for Kexec HandOver (KHO)
-To: Pratyush Yadav <pratyush@kernel.org>
-Cc: linuxppc-dev@lists.ozlabs.org, Aditya Gupta <adityag@linux.ibm.com>,
-        Alexander Graf <graf@amazon.com>,
-        Andrew Morton <akpm@linux-foundation.org>,
-        Baoquan He <baoquan.he@linux.dev>,
-        "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
-        Hari Bathini <hbathini@linux.ibm.com>,
-        Madhavan Srinivasan <maddy@linux.ibm.com>,
-        Mahesh Salgaonkar <mahesh@linux.ibm.com>,
-        Michael Ellerman <mpe@ellerman.id.au>, Mike Rapoport <rppt@kernel.org>,
-        Nicholas Piggin <npiggin@gmail.com>,
-        Pasha Tatashin <pasha.tatashin@soleen.com>,
-        "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
-        Shivang Upadhyay <shivangu@linux.ibm.com>,
-        Shrikanth Hegde <sshegde@linux.ibm.com>, kexec@lists.infradead.org,
-        linux-kernel@vger.kernel.org
-References: <20260821105609.983622-1-sourabhjain@linux.ibm.com>
- <20260821105609.983622-3-sourabhjain@linux.ibm.com>
- <2vxza4qfznyo.fsf@kernel.org>
- <7bb84b8a-c394-4895-9e22-632dc506cbb6@linux.ibm.com>
- <2vxz5x0ox7p9.fsf@kernel.org>
+Subject: Re: [PATCH v5 00/15] Add initial support for Qualcomm Kuno SoC
+To: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, Ulf Hansson <ulfh@kernel.org>,
+        Michael Turquette <mturquette@baylibre.com>,
+        Stephen Boyd
+ <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>,
+        Georgi Djakov <djakov@kernel.org>,
+        Bartosz Golaszewski <brgl@kernel.org>,
+        Linus Walleij <linusw@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
+        Radu Rendec <radu@rendec.net>, Robert Marko <robimarko@gmail.com>,
+        Guru Das Srinagesh <linux@gurudas.dev>,
+        Taniya Das <taniya.das@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+        linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-pm@vger.kernel.org, linux-clk@vger.kernel.org,
+        linux-gpio@vger.kernel.org,
+        Mukesh Savaliya <mukesh.savaliya@oss.qualcomm.com>,
+        Abel Vesa <abel.vesa@oss.qualcomm.com>,
+        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+References: <20260827-kuno-soc-support-v5-0-6d47636a8f09@oss.qualcomm.com>
 Content-Language: en-US
-From: Sourabh Jain <sourabhjain@linux.ibm.com>
-In-Reply-To: <2vxz5x0ox7p9.fsf@kernel.org>
+From: Hardeep Sharma <hardeep.sharma@oss.qualcomm.com>
+In-Reply-To: <20260827-kuno-soc-support-v5-0-6d47636a8f09@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-GUID: ZuVGYkq6M7Ac90dVE0d7ogJJ4Uw4f_V4
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA0MDEzMiBTYWx0ZWRfX6HJ8GB5LIm1I
- 9yyQiaZCLp78oRy6HCn4nEMsi2sB+ws+Gaf9FPNv8AERig+Byvw9SOuYa8DJS3uEtjHkFBqkvfQ
- b8eNm5a1hp9Z8Bt8hsYNjjDyntf2fkwe4WirN60gpMQeGBy1XYz5RAEYN+Tdcwpln+1A9iWPtz8
- RBmOdmj23sII7TpxLxvzHgaYPYc2TU8ET5D9aRStiL7K28xbWIz/LVLhSwuYe1LZCwREjaYwS49
- YKNVHNDcmWBnyRVf9NGh6vLnAELnaOy2jep1nAaPsvJRN1MBDHTQH7HnTxmTcWsextWoMRmjZFg
- bvYT8DnLfZFVwFkw0q+nwg7tA/YKhKYDch1Du3ItdiSxPrlG3rFqwGU9FnkMLtup9L+xpH0hMTj
- a1GrZvLYeLhVPaqmzPDEnef8e4c6GP2N0ExCdXbvLVHHay83sdkiS1oj9mLksGxOudJYSuXpo1L
- ARZwAm6xfM2maxxcUlQ==
-X-Authority-Analysis: v=2.4 cv=Osl/DS/t c=1 sm=1 tr=0 ts=6a9adaca cx=c_pps
- a=AfN7/Ok6k8XGzOShvHwTGQ==:117 a=AfN7/Ok6k8XGzOShvHwTGQ==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=Y2IxJ9c9Rs8Kov3niI8_:22 a=VwQbUJbxAAAA:8
- a=VnNF1IyMAAAA:8 a=sUgROpt_8gkIZWawIRsA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA0MDEzMiBTYWx0ZWRfX8pPn+rD+4iEK
- QBTaJF7ilWe0zR0ir5GN0ZjiCfAQhxq/OGnQmI4KeOwkpxxEPP4U7MQyrcuQP1tb3mUW6bYWaTL
- JwHy9Y5f2UH6+XCBTHqvOYr86ofcLGc=
-X-Proofpoint-ORIG-GUID: 55JCyPY_GdeWZ6Pfh6526yIwK2uy6q3s
+X-Proofpoint-GUID: b_X4ZDnjfKxaXZ5kTZIqLXw0lR3pXYW9
+X-Proofpoint-ORIG-GUID: b_X4ZDnjfKxaXZ5kTZIqLXw0lR3pXYW9
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA0MDEzNCBTYWx0ZWRfX5vQ7COVwq2M+
+ 2wmwy4FT9baiVx4YwooOQOn31hKZ7BCQwgLoG5dbBB27VisjsrVlS/7JINiZH3cdzzzqtSErPQ+
+ qmCWxiEysM6p7KEZ6JsGTW37m/nYMGo=
+X-Authority-Analysis: v=2.4 cv=XtnK/1F9 c=1 sm=1 tr=0 ts=6a9adaee cx=c_pps
+ a=4ztaESFFfuz8Af0l9swBwA==:117 a=yuUgUKvUcBqN/nS51auinw==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=Sism7-CWozsur6xqZRkA:9 a=3ZKOabzyN94A:10
+ a=QEXdDO2ut3YA:10 a=O8hF6Hzn-FEA:10 a=TPnrazJqx2CeVZ-ItzZ-:22
+ a=zY0JdQc1-4EAyPf5TuXT:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA0MDEzNCBTYWx0ZWRfX2KFgdN5+mFTY
+ UTHQElEvnH5Y55SihdqNMZ9HNUUu8zr0Ojw8P4t0eRwuXAck+jRwniFlYykVEwMy1k6vHttRzGu
+ bcy26aAhIeu9AfrZNG7ZvFknK+ypmRkUTbQxo4EiuvdHZEglVcQZDYVuka8gg3gHLXv//5nFAFA
+ d7z+sxo1bxEsbNdeEQ6AiyOvQhZ+yRLXpawARcbl7NGMCSkduOudtQ57f0UY+IV7bqVRaLTbG96
+ AdacpYK8SzGYtVPoQR34pJyr3eOU5Nm9ZjkplMc8+7nzOGorDvFn4ceOaUMKOA0Mh7a2aTSI3Cf
+ 53mkfpfGZocYPZUJu7TJvwBoqCQmCzqG0UJbjYLF5FI1kv9pBokI7iq29NSy09PoNfqJdi/FHCg
+ fOuxAj9kxau30kfWS6dhRZ8UP1s2SmzOeYkYJjwlh58jGE68qIOFJ8ybEhWXHgD2jMA/Xe3r+5C
+ 5LBUDvr1ncOwSbbZ4KQ==
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-09-04_04,2026-09-03_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 malwarescore=0 suspectscore=0 bulkscore=0 lowpriorityscore=0
- adultscore=0 impostorscore=0 phishscore=0 clxscore=1015 priorityscore=1501
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609040132
+ suspectscore=0 phishscore=0 malwarescore=0 spamscore=0 clxscore=1015
+ impostorscore=0 bulkscore=0 adultscore=0 lowpriorityscore=0
+ priorityscore=1501 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2609040134
 
 
-
-On 02/09/26 16:04, Pratyush Yadav wrote:
-> On Sun, Aug 23 2026, Sourabh Jain wrote:
+On 8/27/2026 11:21 PM, Hardeep Sharma wrote:
+> This series adds initial support for the Qualcomm Kuno SoC and the Kuno
+> IDP reference board.
 >
->> On 21/08/26 17:26, Pratyush Yadav wrote:
->>> On Fri, Aug 21 2026, Sourabh Jain wrote:
->>>
->>>> Add the architecture bits needed to enable CONFIG_KEXEC_HANDOVER on
->>>> powerpc.
->>>>
->>>> Set ARCH_SUPPORTS_KEXEC_HANDOVER for PPC64, following the existing
->>>> pattern used by ARCH_SUPPORTS_KEXEC and ARCH_SUPPORTS_KEXEC_FILE.
->>>>
->>>> On the boot path, parse the "linux,kho-fdt" and "linux,kho-scratch"
->>>> properties from /chosen and pass them to kho_populate(). This lets a
->>>> kernel booted via KHO kexec recover the FDT and scratch region left
->>>> behind by the previous kernel. The call is placed early in
->>>> setup_arch(), before unflatten_device_tree().
->>>>
->>>> Open issues:
->>>> ============
->>>>
->>>> This patch also adds "depends on !CRASH_DUMP" to
->>>> ARCH_SUPPORTS_KEXEC_HANDOVER. This is needed because of an ordering
->>>> conflict between crashkernel reservation and KHO scratch reservation
->>>> on powerpc.
->>>>
->>>> Crashkernel memory is reserved very early in boot, from arch-specific
->>>> code: head.S -> early_setup() -> early_init_devtree() ->
->>>> arch_reserve_crashkernel() / fadump_reserve_mem(). KHO's scratch
->>>> region is reserved later, from generic code: start_kernel() ->
->>>> mm_core_init() -> kho_memory_init(). So on powerpc, crashkernel
->>>> memory is always reserved first.
->>>>
->>>> This ordering causes a real failure. In the common case, crashkernel
->>>> reservation on powerpc starts at a 512M offset (the exact offset can
->>>> vary, but 512M is typical). So with crashkernel=3G, the reservation
->>>> occupies memory from 512M up to 3.5G -- roughly 75% of the entire low
->>>> 4G area.
->>>>
->>>> Since crashkernel reservation always happens first, that 3G is
->>>> already committed by the time kho_memory_init() runs. It then tries
->>>> to reserve a low scratch region sized at 200% of whatever is already
->>>> reserved below 4G. With ~75% of that 4G area already taken by
->>>> crashkernel memory, 200% of that easily exceeds the remaining space
->>>> -- and since the low scratch region is itself capped at 4G, there's
->>>> no room left to fit it. The reservation fails.
->>> crashkernel has the variant "crashkernel=size[KMG],high", which ensures
->>> memory is allocated above 4G. Unless powerpc has some requirement for
->>> strictly having the crashkernel below 4G, I think it will make a lot of
->>> sense to enable support for this feature. So KHO users can specify this
->>> to get crashkernel working with KHO.
->> I agree that this is one way to work around the low-memory reservation problem.
->> However, there are a few things that come into play here:
->>
->> 1. On powerpc, the crashkernel reservation can go up to 64 GB for kdump. With
->> the
->>     current default scratch memory reservation policy, this could result in
->> reserving
->>     up to 256 GB of scratch memory: 200% for the high-memory reservation and
->> another
->>     200% for per-node memory.
-> That calculation looks off. It _should_ be 200% once not twice. So 128
-> GB total. If the allocation came out via the global area, it should
-> _only_ be accounted to the global scratch size. Similarly, only the
-> allocations made specifically on that node should be counted for the
-> per-node scratch size.
-
-For example, if a system has only one node and 64 GB is allocated from
-that node before the kernel starts calculating the per-node and global
-allocations for scratch memory, wouldn't the per-node allocation also be 
-64 GB?
-
-If so, wouldn't that result in 200% of 64 GB being allocated for the global
-area and another 200% of 64 GB for the per-node area, resulting in 256 GB
-of total scratch memory allocation? Or am I missing something here?
-
-
+> Kuno is a 32-bit ARM (Cortex-A7) Qualcomm platform. This series brings up
+> the essential SoC infrastructure required to boot to a serial console:
 >
-> But I have also noticed this problem on some of the systems Google has.
-> Which makes me wonder if scratch_size_update() is broken and
-> over-calculating. I have this on my TODO list and have been meaning to
-> look into it, but other things keep intervening.
+>    - Global Clock Controller (GCC) and RPMh clock controller
+>    - RPMh power domains
+>    - Interconnect (NoC) provider
+>    - TLMM pin controller
+>    - PDC interrupt controller and SCM firmware interface
+>    - Devicetree for the SoC and the Kuno IDP board
 >
-> If you are interested, feel free to take it off my hands.
-
-Yes, I can take this up and propose patches to make crashkernel and
-scratch reservations work together.
-
-Based on my current testing, a Linux partition (powerpc) with 16 CPUs 
-and 30 GB
-of RAM needs only 16 MB of scratch memory in the low-memory area when
-crashkernel=xxM is not specified.
-
-16 MB is not much. I am also trying to get a larger Linux partition with 
-1000+
-CPUs to get a better idea of the limits for low-memory reservations.
-
-BTW, do you know the rationale behind the 200% value?
-
-I couldn't find any explanation for it in the commit message of
-3dc92c311498c ("kexec: add Kexec HandOver (KHO) generation helpers")
-
-
+> The soc: qcom: geni-se patch allows the GENI serial engine driver to be
+> selected on 32-bit ARM Qualcomm SoCs, which the debug UART console
+> depends on.
 >
->>     For fadump, which is the powerpc-specific memory dump capture mechanism, the
->> crashkernel
->>     reservation can go up to 180 GB. In this case, we could end up reserving up
->> to 720 GB of
->>     scratch memory, which is too much. I agree that users can tune this, but I
->> think the
->>     default scale should be more reasonable for powerpc.
-> Once we fix scratch_size_update() to actually use 200% and not 400%,
-> perhaps that alone will be enough? If not, we can discuss reducing the
-> default scratch scale to maybe 150%. But I'd rather do it for all
-> platforms if we do it at all, because this problem doesn't seem specific
-> to PowerPC.
-
-Yes, it makes sense to have a general fix that works for all architectures.
-
-BTW, I was able to reproduce this issue on x86 as well. Please have a
-look at this:
-
-https://lore.kernel.org/all/008fe00e-fd52-4010-86ca-f0ab80a65a46@linux.ibm.com/ 
-<https://lore.kernel.org/all/008fe00e-fd52-4010-86ca-f0ab80a65a46@linux.ibm.com/>
-
-I have also suggested an approach to handle this issue which is similar 
-how you handle
-huge pages. Please share your thoughts on it.
-
-
+> Signed-off-by: Hardeep Sharma <hardeep.sharma@oss.qualcomm.com>
+> ---
+> Changes in v5:
+> - Selected QCOM_GDSC from the Kuno GCC config. The driver registers GDSCs
+>    (added in v4), so like the other Qualcomm GCC drivers it must select
+>    QCOM_GDSC; otherwise, in a configuration where nothing else enables it
+>    (e.g. COMPILE_TEST or a minimal Kuno-only build), gdsc_register() returns
+>    -ENOSYS and the clock controller fails to probe.
+> - Link to v4: https://lore.kernel.org/all/20260827-kuno-soc-support-v4-0-dd34f235fc1a@oss.qualcomm.com/
 >
->>
->> 2. Fadump also uses the crashkernel kernel command-line argument, but its
->> reservation policy
->>     is different from kdump. The crashkernel base address starts after the memory
->> needed for
->>     fadump. For example, with crashkernel=3G, the base address would be 3 GB, and
->> the crashkernel
->>     reservation would be from 3 GB to 6 GB. So, depending on the crashkernel
->> size, the reservation
->>     may or may not fall within low memory. Also, fadump does not support
->> crashkernel=xxM,high.
->>
->> 3. I do have a patch [1] to support high crashkernel reservations with kdump,
->> but this would not
->>     work with Hash MMU. With Hash MMU, the kernel image is constrained to low
->> memory, whereas with
->>     crashkernel=,high, all segments would be loaded into high memory.
-> Oh, nice!
+> Changes in v4:
+> - Addressed v3 review feedback:
+>    - Registered the interconnect NoC provider from an explicit
+>      core_initcall() instead of module_platform_driver(), matching the
+>      established qcom interconnect driver convention.
+>    - Replaced the NA mux-slot placeholder with _ across the pinctrl
+>      PINGROUP table, matching the upstream qcom pinctrl convention.
+>    - Added minItems: 1 to the interconnect binding clocks property so a
+>      single clock is valid (system-noc), and aligned the binding
+>      examples with the sdx75 labelled-node style.
+>    - Added GDSC power-domain support to the Kuno GCC: the binding now
+>      defines GDSC macros and the driver registers the EMAC0, PCIe and
+>      USB20 GDSCs, so #power-domain-cells has real backing providers.
+>    - Split the cpu-idle-states phandle list so each phandle is on its
+>      own line.
+>    - Collected Acked-by / Reviewed-by tags from v3.
+> - Link to v3: https://lore.kernel.org/all/20260821-kuno-soc-support-v3-0-196e2b306368@oss.qualcomm.com/
 >
->> So, while supporting crashkernel=,high can help address the low-memory
->> reservation issue for kdump,
->> I think there are still some powerpc-specific constraints to consider. I would
->> like to explore
->> whether we can fix the ordering between crashkernel and scratch memory
->> reservations, so that we can
->> avoid unnecessarily large scratch memory reservations and address some of the
->> other constraints mentioned
->> above. Please share your thoughts.
->>
->>> Powerpc doesn't support this right now, but from a quick skim of the
->>> code, I think it should be simple enough.
->> I have patch series under review for the same:
->> [1]
->> https://lore.kernel.org/all/20260708143357.673251-1-sourabhjain@linux.ibm.com/
->>
->>> From
->>> arch_reserve_crashkernel() you just need to pass a bool * to
->>> parse_crashkernel(), and then pass the result to
->>> reserve_crashkernel_generic().
->> Due to some architecture-specific dependencies (such as RTAS), booting the
->> kernel from above 4G with
->> support for high crashkernel is not as straightforward as on other
->> architectures. Patch 2/4 in [1] has the
->> details.
->>
->>> Solving the ordering of crash reservations and KHO is tricky and comes
->>> with some difficult tradeoffs. Allocating crash from highmem should be a
->>> lot simpler.
->>
->> Could you please elaborate a bit on what makes the ordering tricky and what the
->> main tradeoffs are between crash reservations and KHO? It would help me better
->> understand the concerns here.
-> The problem today is that kho_preserved_memory_reserve() (called by
-> kho_mem_retrieve()) does a memblock_reserve() for each preserved folio.
-> So if you have a lot of order-0 (or, 4k) folios, you end up with a lot
-> of reservations in memblock. The large number of reservations can slow
-> down later memblock operations like allocations too since memblock might
-> have to walk through a lot of ranges to find free memory.
+> Changes in v3:
+> - Addressed v2 review feedback:
+>    - Reworked the interconnect binding clocks: dropped clock-names and
+>      replaced the flexible min/maxItems list with fixed per-compatible
+>      clocks (aggre-noc: 2, system-noc: 1), required where present and
+>      disallowed otherwise, matching the sdx75/glymur shape.
+>    - Made #power-domain-cells required on the Kuno GCC binding and
+>      declared it on the SoC gcc node, since the Kuno GCC hosts GDSCs and
+>      is a power-domain provider (following qcom,sdx75-gcc); the driver's
+>      GDSC support will follow separately.
+>    - Made the GPIO65/66 QDSS CTI trig1 funcsel-3 route selectable: added
+>      a distinct qdss_cti_trig1_mire pin function (and allowed it in the
+>      TLMM binding enum), as the duplicate funcsel-2/3 entry left
+>      funcsel-3 unreachable.
+>    - Collected Acked-by / Reviewed-by tags from v2.
+> - Link to v2: https://lore.kernel.org/all/20260814-kuno-soc-support-v2-0-3079794f0f73@oss.qualcomm.com/
 >
-> We kind of work around this problem by calling kho_mem_retrieve() as
-> pretty much the last thing in the MM init. So all allocations prior to
-> this have already been fulfilled from scratch without any of the
-> reservations added, so it should be pretty fast. You only take the
-> performance hit at the end, where the only thing left is to release
-> pages to buddy.
-
-Ah, okay, that makes sense. Thanks for the clarification.
-
-
-> Even then, the memblock reservations can get pretty damn slow. In some
-> of my testing with under-load systems, preserving a 2G memfd with 4k
-> pages can go over **5 minutes** in only kho_mem_retrieve() if the folios
-> of the memfd are fragmented enough. Plus there is the memory overhead of
-> the regions in memblock.reserved.
-
-5 minutes in kho_mem_retrieve(), which is primarily marking a bunch
-of memory as reserved using memblock, seems like quite a lot. If you
-have the test case handy somewhere, I would be interested in trying it
-myself, just to get a better feel for the issue.
-
-Regardless, I understand the concern now. From my perspective also, the
-current ordering of crashkernel and scratch memory reservations seems
-reasonable, because crashkernel is not as flexible as scratch reservation
-atleast on powerpc.
-
-On powerpc, the crashkernel offset is determined first, and the
-corresponding memory region is reserved. To make sure that no
-other reservation falls within the crashkernel region, the crashkernel
-reservation is one of the first reservations we make on powerpc.
-
-If we change this ordering, there is a possibility that a scratch
-reservation could end up in a region where the crashkernel is supposed
-to be placed. That would lead to crashkernel reservation failure.
-
-Also, reserving scratch memory at a location where the crashkernel
-cannot be placed could be problematic. Each architecture has its own
-constraints on where the crashkernel can be placed, so the available
-memory for scratch reservation may need to account for those constraints.
-Which I think too much to take care off...
-
-And, of course, moving kho_mem_retrieve()earlier during boot would
-also mean taking the performance hit you mentioned earlier.
-
-So let's keep the current ordering and find a way to make both
-reservations work with it: reserve the crashkernel first, and then
-reserve the scratch memory.
-
-
-> So long-term, I would like to get rid of the memblock reservations
-> entirely and use scratch-only mode all the way until buddy comes up. And
-> I would like to modify buddy init (free_low_memory_core_early() and
-> deferred_init_memmap_chunk()) to be KHO-aware and directly skip the KHO
-> pages.
+> Changes in v2:
+> - Addressed v1 review feedback:
+>    - Reworked soc: qcom: geni-se commit message; dropped the Fixes: tag.
+>    - Reworded dt-bindings commit messages to the "Document X for the
+>      Qualcomm Kuno SoC" one-liner form.
+>    - Canonicalized copyright headers on interconnect binding / driver /
+>      NoC ID header to the single-line Qualcomm Technologies form.
+>    - Dropped unused <linux/mod_devicetable.h> from the interconnect
+>      driver.
+>    - Fixed MODULE_DESCRIPTION casing "KUNO" -> "Kuno" in the interconnect
+>      driver.
+>    - Extended interconnect binding to optionally allow up to four QoS AHB
+>      clocks (matches sdx75/glymur shape).
+>    - Cleaned up brace/space style in gcc-kuno.c to match peer clock
+>      drivers.
+>    - Reworked initial DTS: moved idle-states / domain-idle-states inside
+>      cpus{}, wrapped fixed clocks in a clocks{} container with peer node
+>      names (xo-board, sleep-clk), dropped the pcie_pipe_clk fixed-clock
+>      stub (the GCC 4th clock now uses <0> in DTS to match the sdx75
+>      idiom; the YAML example uses a named placeholder), dropped the
+>      RPMHPD_CX power-domain reference on GCC (Kuno GCC has no GDSCs /
+>      no corner votes / no pm_runtime, so the reference was inert), and
+>      added a bootloader hand-off comment on the memory node.
+>    - Collected Acked-by / Reviewed-by tags from v1.
+> - Link to v1: https://lore.kernel.org/all/20260809-kuno-soc-support-v1-0-5e0ede4a0c72@oss.qualcomm.com/
 >
-> This vision goes in the opposite direction of turning scratch-only mode
-> off _earlier_. And turning off scratch-only mode earlier is necessary
-> for doing crash reservations outside of scratch.
+> ---
+> Hardeep Sharma (15):
+>        soc: qcom: geni-se: allow selection on 32-bit ARM Qualcomm SoCs
+>        dt-bindings: power: rpmpd: Document Kuno RPMh power domains
+>        pmdomain: qcom: rpmhpd: Add power domains for Kuno
+>        dt-bindings: clock: qcom,rpmhcc: Add Kuno RPMh clock controller
+>        clk: qcom: clk-rpmh: Add support for Kuno RPMh clocks
+>        dt-bindings: interconnect: Add Qualcomm Kuno NoC
+>        interconnect: qcom: Add Kuno interconnect provider driver
+>        dt-bindings: pinctrl: qcom: Add Kuno TLMM
+>        pinctrl: qcom: Add Kuno pinctrl driver
+>        dt-bindings: clock: qcom: Add Kuno Global Clock Controller
+>        clk: qcom: Add Global Clock Controller driver for Kuno
+>        dt-bindings: interrupt-controller: qcom,pdc: Add Kuno compatible string
+>        dt-bindings: firmware: qcom,scm: Document SCM on Kuno SoC
+>        dt-bindings: arm: qcom: Document Kuno IDP board
+>        ARM: dts: qcom: Add initial device tree for Kuno SoC
 >
-> That is the tradeoff I mentioned. Hope I was clear enough.
-
-Yes, that makes sense. I understand the tradeoff you're pointing out
-now.
-
+>   .../devicetree/bindings/arm/qcom-soc.yaml          |    4 +-
+>   Documentation/devicetree/bindings/arm/qcom.yaml    |    5 +
+>   .../devicetree/bindings/clock/qcom,kuno-gcc.yaml   |   52 +
+>   .../devicetree/bindings/clock/qcom,rpmhcc.yaml     |    1 +
+>   .../devicetree/bindings/firmware/qcom,scm.yaml     |    1 +
+>   .../bindings/interconnect/qcom,kuno-rpmh.yaml      |  118 ++
+>   .../bindings/interrupt-controller/qcom,pdc.yaml    |    1 +
+>   .../bindings/pinctrl/qcom,kuno-tlmm.yaml           |  110 ++
+>   .../devicetree/bindings/power/qcom,rpmpd.yaml      |    1 +
+>   arch/arm/boot/dts/qcom/Makefile                    |    1 +
+>   arch/arm/boot/dts/qcom/qcom-kuno-idp.dts           |   25 +
+>   arch/arm/boot/dts/qcom/qcom-kuno.dtsi              |  423 ++++++
+>   drivers/clk/qcom/Kconfig                           |   11 +
+>   drivers/clk/qcom/Makefile                          |    1 +
+>   drivers/clk/qcom/clk-rpmh.c                        |   15 +
+>   drivers/clk/qcom/gcc-kuno.c                        | 1483 ++++++++++++++++++++
+>   drivers/interconnect/qcom/Kconfig                  |   13 +
+>   drivers/interconnect/qcom/Makefile                 |    2 +
+>   drivers/interconnect/qcom/kuno.c                   |  988 +++++++++++++
+>   drivers/pinctrl/qcom/Kconfig.msm                   |   11 +
+>   drivers/pinctrl/qcom/Makefile                      |    1 +
+>   drivers/pinctrl/qcom/pinctrl-kuno.c                |  801 +++++++++++
+>   drivers/pmdomain/qcom/rpmhpd.c                     |   16 +
+>   drivers/soc/qcom/Kconfig                           |    1 -
+>   include/dt-bindings/clock/qcom,kuno-gcc.h          |  100 ++
+>   include/dt-bindings/interconnect/qcom,kuno.h       |   89 ++
+>   26 files changed, 4271 insertions(+), 3 deletions(-)
+> ---
+> base-commit: f82a5da2f04960df9fb57489992d03dd5e64ec6f
+> change-id: 20260809-kuno-soc-support-1dab826de0bf
 >
->>> And on that note, I don't think you should do a depends on !CRASH_DUMP.
->>> Even when CONFIG_KEXEC_HANDOVER is enabled, KHO isn't on by default
->>> (well, unless KEXEC_HANDOVER_ENABLE_DEFAULT is set). You need to enable
->>> it via cmdline. So it is entirely possible for people using KHO on PPC
->>> to not use crash and vice versa. This decision can be made at deployment
->>> time, not at compile time.
->> Agree. depends on !CRASH_DUMP is temporary and will be removed once
->> we settle the crashkernel reservation and scratch region handling.
-> My point is that !CRASH_DUMP can be removed _even if_ we don't settle
-> the reservation thing, because it is perfectly valid for the same kernel
-> to use either KHO or crash but not at the same time. These both can be
-> enabled/disabled at runtime.
+> Best regards,
+> --
+> Hardeep Sharma <hardeep.sharma@oss.qualcomm.com>
 
-Agree I will drop the !CRASH_DUMP dependency...
+Hello All,
 
-- Sourabh Jain
+Several patches from the series have already been picked up and applied 
+through their respective subsystem trees.
+
+The remaining patches listed below are ready to be picked up as well:
+
+     [PATCH v5 06/15] dt-bindings: interconnect: Add Qualcomm Kuno NoC
+     [PATCH v5 07/15] interconnect: qcom: Add Kuno interconnect provider 
+driver
+     [PATCH v5 12/15] dt-bindings: interrupt-controller: qcom,pdc: Add 
+Kuno compatible string
+     [PATCH v5 14/15] dt-bindings: arm: qcom: Document Kuno IDP board
+
+Since the majority of the series has already been merged, I would 
+appreciate it if the remaining patches could also be considered for 
+inclusion.
+
+Please let me know if there are any outstanding concerns or additional 
+changes required from my side.
+
+Thank you for your time and review.
+
+Best Wishes,
+Hardeep Sharma
