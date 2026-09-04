@@ -1,255 +1,216 @@
-Received: from CWXP265CU009.outbound.protection.outlook.com (mail-ukwestazon11021084.outbound.protection.outlook.com [52.101.100.84])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB38C51FCBA;
-	Fri,  4 Sep 2026 19:35:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.100.84
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788550510; cv=fail; b=uUyg0dmmjJ7kMOGjYY52CusJ9WywxBIaodn25G6ALilgOKhhtB+9kXesZ2sg5Om8Hu7SqXicUoq2Qm4Njpw853RW66Y0qsdpzp/ImEWOcnrHH3wz4s1dDEDoLGN+XmT315zqdOkrmnCnL5adnNFU+AaFcvK/FDeOZBXfH6hHsvI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788550510; c=relaxed/simple;
-	bh=NZDHVeBSPRybjgQmtY5tIpgdLRzp+gdGI/6g9SyNHf4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=L4pFIcLGahkVb1I0JWiqC79wvx0uqblXa/NMJeHPoL9iV/d22OwDp47A65Ih3ZtSmdCVS82zA18/i9ThQJw0XHNJuGVSCQZptp0vQ/X9Trhbmct53L999Hnfsn8HhIsJQepNLfT/TobnUeWZHxtn8BgQZrlp8FjSbFFe7odHBsQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=atomlin.com; spf=pass smtp.mailfrom=atomlin.com; arc=fail smtp.client-ip=52.101.100.84
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=atomlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=atomlin.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=s2h7ZMS8OEC3ZGIee9hduLTHlgOAkU6AcphrmACaPzcU4a6i79CcWR1tLp49wZJKERPnFnltuw6GHgbwnaCVF4AETG5fbgdQEQhOwPJxcYUxuOQyrRLKDfLJjaMuu7OLqVaU5f27+OxlHxPQjm6B1MwpA+QhoPszoCq2qZJutMSZ+XD0PmQ2OCa30ddlhi/jZkYy7H47WhHn8NexCwsNIlc//+LvUNXnpvG560wpHSu0r81REFIIdG1A4aRB3HAyBCDHGTiALOA2q7z9LDs802xYok9tejb5CkuXkwCcYWMA9luFiBj9n4SXPKkEHzkz9fkK+zNqfAxjN4i+5CECxg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001; h=From:Date:Subject:Message-ID:MIME-Version;
- bh=3o9PM5krr9MAsC88OgEw5jx6eebyOcujwR5q54QHquE=;
- b=dpXKoWqXXVOrwgvEMw4RqbZl5ni91QiWnQteO0Zm1dVo6wk+3Blx0v0A5qt13zZ3eiyggoSAKGwd9UxXT2eBeEinnNzYCj8lTaxvmg8kTvEnQBzh9QrvwAZjU9Pq5O95Che9ONV1DJg3XcZpVjxqoQ28vUqhvnKbWruQhjHnSVdAqMDOcw2oxO8vfpGvsMhgpW3UYJFGlerQjiW8/jG6lgSDkNvDSe7QDPH9LHvEgiMizKVLssz76i7Eh26QQkyDWsg0VGhH8dAkmou3sV9sB4sWxfZo6auV0gNFy0B/xryVyak3MIg6RBxgyqiSu9gBHm6JJMIX3zbx7D2zHtXmoQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=atomlin.com; dmarc=pass action=none header.from=atomlin.com;
- dkim=pass header.d=atomlin.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=atomlin.com;
-Received: from CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM (2603:10a6:400:183::5)
- by LO4P123MB6609.GBRP123.PROD.OUTLOOK.COM (2603:10a6:600:27e::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Fri, 4 Sep
- 2026 19:35:03 +0000
-Received: from CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
- ([fe80::cec4:77ab:262e:d230]) by CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
- ([fe80::cec4:77ab:262e:d230%4]) with mapi id 15.21.0360.008; Fri, 4 Sep 2026
- 19:35:01 +0000
-From: Aaron Tomlin <atomlin@atomlin.com>
-To: tj@kernel.org
-Cc: jiangshanlai@gmail.com,
-	rostedt@goodmis.org,
-	mhiramat@kernel.org,
-	osandov@osandov.com,
-	atomlin@atomlin.com,
-	neelx@suse.com,
-	sean@ashe.io,
-	marco.crivellari@suse.com,
-	linux-kernel@vger.kernel.org,
-	linux-trace-kernel@vger.kernel.org
-Subject: [PATCH v2 3/3] workqueue: Add workqueue_bh_budget_yield tracepoint
-Date: Fri,  4 Sep 2026 15:34:47 -0400
-Message-ID: <20260904193447.247502-4-atomlin@atomlin.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260904193447.247502-1-atomlin@atomlin.com>
-References: <20260904193447.247502-1-atomlin@atomlin.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: MN2PR20CA0048.namprd20.prod.outlook.com
- (2603:10b6:208:235::17) To CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:400:183::5)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3545737C926
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 19:37:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788550636; cv=none; b=IF7s69mb1I1OMunftT/M+CduV3lujEb8giuIv8mipw20HJvdzW442pu5jqkC7EiX6buUIS4CcWgNyXgr4K43WuEX6TLDUW5yFdPFDzFCnt9inunuZldc1FV0ASvPDuRv/NNhEyrfK2oHzMjkaHZEwB20akwg2c66qCWD0dP5tYg=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788550636; c=relaxed/simple;
+	bh=H4VfZ1oIflEf+NCaohJHEm9e23+ujGN59jKDZ1Kccrg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Dns2el3opKH0AWXeNo1HV1GHu/n0IQgW7GSpfkNQuoUKFAP6eWYrD2JTpm+pyHMPeFOLO4VTewIzD2co/mT31T/u9ah8FNAG0DBU/6RYgiovAXT+Jjs59Q0B9rWR42PE3/K01VUj8WOcKwyiUPhNlb/URBTS7cJb4vzSx3oxKzs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Vxf8LshN; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=cT/zPVrR; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Vxf8LshN";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="cT/zPVrR"
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 684HHpp53001106
+	for <linux-kernel@vger.kernel.org>; Fri, 4 Sep 2026 19:37:12 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=QI+uREPlD4rmiPWi7TZUnSdk
+	1H6A3jyNKvxXKDFQ2+Y=; b=Vxf8LshNSH/7v6mkRNFdVN6MGE4b2fkBgEV7gz/t
+	GRP1TSPrzMfOgL4soSgLEMMwpTMhYVorrbpD3J3LmDRaNBjtMKILdINzz0lz1JFb
+	Vam2Aqa3vbX24/5SNKPJsVN1o2BD3KKF/B4J7ujbM323gTe1SR2QkVuWcWfWKPxs
+	hroNdgumU3UUiSy99hD9/gozJDTC3qksmHQnN2A4c5zIbqHzEar+jAx+bqzi8UxS
+	XUaC/ZGUBs3Dm5nxBQooAFt1SPykFZPK3IJbuo3uRecIdFaNGriLkzmy1+DxnVVG
+	/16VZ+/4jymJxP4R51kk5iHO8sj33OmAeqLU81l7QjJRZA==
+Received: from mail-pg1-f199.google.com (mail-pg1-f199.google.com [209.85.215.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gg00yscfj-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 19:37:12 +0000 (GMT)
+Received: by mail-pg1-f199.google.com with SMTP id 41be03b00d2f7-cc1cb9b67bcso119514a12.3
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 12:37:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1788550631; x=1789155431; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=QI+uREPlD4rmiPWi7TZUnSdk1H6A3jyNKvxXKDFQ2+Y=;
+        b=cT/zPVrR4+xkZnBAkPeHNrFwnhbcAJMZKtw4WWFM2VOFo1FD1I9sXmcmDBIidAND6h
+         MsdxSQSx8XDhfss45YaHT1mZ7gVPtyCLLGXVHQCATsm5uuXf9G09Ab7JYTSGAIfLY/kM
+         kb8WYyJNhhJK+l0jEPMsGgNgcM5pSWi6UHJ++wtXMM9xdV19L8f6lmCsgLtOq+2/sk64
+         UwXoPy4xDiLtf+rtj4ozF301TLoimPAI24QXeGVdFDL6lhYEt6BWXm49OsCGv33XyBGW
+         yl39VyGFmu+SKjrsj83MmGkrQtW8Bq0qldoKckZhJXO/dtp7lZmDODqN0EoLYc1pNoeA
+         E1QQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788550631; x=1789155431;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=QI+uREPlD4rmiPWi7TZUnSdk1H6A3jyNKvxXKDFQ2+Y=;
+        b=PB7MNHRlI9oFowdHsWaxVq5DI2GbNBAFRYDeEapg6lF6jQGHcOV5VEOsT5oPZZr8aC
+         STwYdxDXV9MjSnbxWXt2InzpV5qOie8sOD0oh9EAYTy2FWbaGukSVzwhSk6/04AYXW8L
+         5n/VkaIZ0pXqyH3GpGq2SjKdx4M8HRRWDvWBggh7DHrSl1KiUfk9IbwwCrrLQh1/fdwX
+         A+QsgDgnJaTI52UajQHk/ismDreWq54lkfLWNFroiYKFygzyL+8ujDUEdYy6rE8Ud+tb
+         ak4e13HvpIqjDnqtteYixBHdo4tpfUic7xdSftsN73KtmdpeEuYfBHi/gtLzUnz8qU2U
+         x09A==
+X-Forwarded-Encrypted: i=1; AKwUvBxTAOJMesTr3vrGuS0tgkMdl6EBhyYlmnzmN9DVKfBIqTW9FAoyWETdB4USLKcrKLwu+gKEZXjgXUY0E7s=@vger.kernel.org
+X-Gm-Message-State: AFuF++nkPIiFsIfnCsu5DPvIQtHyFCMENNOk50z6JOrh0ZmTs31SXs8Y
+	aZgedXId58F/iAbpvvHkvzdosWs7WmvfJSlDBu+kxWq73hDnNx4kg8kIzhsxSFCRQNGPskcxi9I
+	KjpBlHcRbhM1a7iErH+/S+3VKdKA6UPjhVf+VT0tZ/G0w2Cpeu27qclR7gTqQG89jFNA=
+X-Gm-Gg: AYBFou0YwvCCQFlhXAgyaw2wsEJQ2ArRrCJNlKsbnWArnSIAZN+RwWHgyojnjRUbZkb
+	mfsO3XaPZCbCd9e/fVWBt2aCTvSQlluADtl0CK9PLS7ZBRjXTUuzl0DTT8M6m7aeQb9bxJw3U2z
+	XXafXd/N2ubmKpmv6mAL4JPgDWoCwwKCmp9TGPIMGEYJhMFo9fcV3U8Smq4tmceG1ZY2RNZg4A5
+	f61iZNJibIAD1U+qu30DRMvwuN5cbDa4wb3VBjGuAkvuRJy2gpt+uiqlZP2oT3no9BMm+suWwaK
+	y6cAA3mT4K9wGOmb3FasvdqRmPjOy4vKcxvi6j9pTH8ILN73NLaJLD2RWCjfQiKfNFLTGoCDc61
+	bfLXErZUG24aKRnwDfljG7JrgJI2tk1zzDPYMgUdN1nimIyPxKXnPIl/0QsGeeeLuvBE25FmQQ/
+	0kYVEFn3X/qICbE/GDf0x3
+X-Received: by 2002:a17:90b:1e04:b0:396:463e:2eeb with SMTP id 98e67ed59e1d1-39b264b24e2mr7732986a91.0.1788550631421;
+        Fri, 04 Sep 2026 12:37:11 -0700 (PDT)
+X-Received: by 2002:a17:90b:1e04:b0:396:463e:2eeb with SMTP id 98e67ed59e1d1-39b264b24e2mr7732946a91.0.1788550630938;
+        Fri, 04 Sep 2026 12:37:10 -0700 (PDT)
+Received: from hu-vishsain-blr.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3351c2bd2b0sm359941eec.8.2026.09.04.12.37.07
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 04 Sep 2026 12:37:10 -0700 (PDT)
+Date: Sat, 5 Sep 2026 01:07:04 +0530
+From: Vishnu Saini <vishnu.saini@oss.qualcomm.com>
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        venkata.valluru@oss.qualcomm.com,
+        Jessica Zhang <jesszhan0024@gmail.com>
+Subject: Re: [PATCH v2 1/3] arm64: dts: qcom: lemans-evk: Add LVDS display
+ overlay
+Message-ID: <apsd4L0MNzgAhSHS@hu-vishsain-blr.qualcomm.com>
+References: <20260813-lvds-support-v2-0-6b11035e8ab0@oss.qualcomm.com>
+ <20260813-lvds-support-v2-1-6b11035e8ab0@oss.qualcomm.com>
+ <049af81c-d05d-4ce4-9627-8b2212979f4c@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CWLP123MB6607:EE_|LO4P123MB6609:EE_
-X-MS-Office365-Filtering-Correlation-Id: 48306d6c-3182-44af-dfe9-08df0abb9cba
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|376014|7416014|366016|1800799024|10067099003|6133799003|18002099003|22082099003|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	fGgQPuQRuDMdm3np+L3ZWZ0VeAEl6/U7hHTm/L+NtxpfVo/H7txOcTaTUXVb4Ijxqk3jHBvIQVYePfLL2QUOsE37JwYD+M99RDQUC6qEo0oUnrHCIg8z2Y5UTzogrK+2JB4rttKDa/vOsb3PhbSGmuPGpDRPbyAgssyQjZa+HFSCQSzBvxX8FSBzcaFfJ/BX5Dsryu+306S6mdH2WmWvW+qL6R3HNRSqakXBvS/HE5lm4kn0vda9VDL8tyXeYyVKKjyulqilMAP3IAXMHaGudDJMssko4fawiGkhsftIxIZAZQk426dFTqpKhn8gO2ywB+k+RGPagi40t2FObb/jYOwqCun6s4agP5mAek2a2WxWP1cQMVcryFyXFtbVzOE/EO9bRn34qWh+CTY5xxpT+oBsAC7nKZgRXR6t4ZwFGAnaHsR/SS+sIOEp0bXbFi6Q6+Dl7AfsZLTJB5UAjiJJ6533fxievdlR2pu91qQQrIdsqkXqoXoFuHllbvPFjz21xAQ29FUag/8Z5AfBxNKhD83B0jhtjeWE5uHqJWKAwSgKsb6QUx7Uz96fc1zMhJ1xCjILFAlAoUuBPBvHBIMOhaWg9c15xLpkZ4VCikySFjZ16LuwE2zGqCK505AX0nK+1YZlN+ZFdHyiCoh3BK68sN4WiVsAxSCF7cZXgBS27VU=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(7416014)(366016)(1800799024)(10067099003)(6133799003)(18002099003)(22082099003)(56012099006);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?BaCQCwnIQhhZQwkkIEGK3PPjkf+0glz/PyeCq9OrFnGrsA87Yp/UzhqQDLHz?=
- =?us-ascii?Q?+3oetHL99+cDedHobnsfzFs7ZH4+cpmPRlACF8GYrFN7j1FN0xyO0IyEIxbf?=
- =?us-ascii?Q?mRFWfgwsY0SbkXvZbTjYYZoSA1n16QebWsFH2RVgyYlgZNa0cBLOuunusKWq?=
- =?us-ascii?Q?zaSBHkvIBpIy+SfZFgIxlRHAxoZseTHVYuR+fIUoSkZXm4F8wfVICK7gY4MH?=
- =?us-ascii?Q?4wYcS9MSne3zk+irLXzhjnsVHTck48h0yGIcJwocZkLIlgMP0VU450hRHxfO?=
- =?us-ascii?Q?lvdZiqdCGaMl/Eekj1fXMIYB6br/VuNRce7PDWbHqy1V6pfXPXbGSIdfdFgj?=
- =?us-ascii?Q?BnCGEcJ/WeC6V4m+0SxBhff4Bg5cKw9n0SSFGfp3IE1efu4+O0LwtPSqlS+D?=
- =?us-ascii?Q?gZM43asw5CPM/eIFqjt9nP7rWvWAvYr2gQgS/yvXijavHaiuVoBiqOv4fx9X?=
- =?us-ascii?Q?gu+RcBTtbXcqQParD888RzgT2QyUhNvdIvlb2HRdtn6zdhQv3m/aXHQsw4Qs?=
- =?us-ascii?Q?r3JLXzwEtl0RR42ckr+UcC0++WFq+CMACsfcN5WcbdSQXIqlIwvmVGaiJVXM?=
- =?us-ascii?Q?g8MHWX1isKtR3LLRLBNFojoGg1rl/M/tpB6hxyZDlHs2GI/6PiqZBPHBiMWy?=
- =?us-ascii?Q?r1Kj6CnReO47lLoaq8MYQmj4JmDjhV12CqIvpOYijG38a0fFmr3UqZ8au7F7?=
- =?us-ascii?Q?5O20EK6PylJl6yZisdKQmJCURPMuKX7cw6eFzPOnNcqKIbgus4d5rNMd9HJX?=
- =?us-ascii?Q?bnF/V3sRNkgLWc70d+xSfWaYeQXVwv5KHrPqi6MhF+xh43MFL4W90c9GazS0?=
- =?us-ascii?Q?WE1hASEqY42u8oZIfyWCGi2Uman3awcMCovT4aIYbPf7V22gQHdbzkjG6uAo?=
- =?us-ascii?Q?H30OIvrdwHBMK4/9qx74aruCGpJje32UP13vkU/fqeKhTp8n3Pv4q4q2gADa?=
- =?us-ascii?Q?oxlTt7QOkQrf67lcNq0NEx+0NIM+nY9CqCinoxSRTqe0qCgLFupWSxx199Z3?=
- =?us-ascii?Q?ILjeweosVzCZurDF49aL/uo63LyDVd2mtWzGfN69oNmN+LgM6md2ZPWJo2AE?=
- =?us-ascii?Q?Bm2TXCxEMgo96E75h+hhm7gP4cZnTTiwgH1O40lZXuaqZxaFOm+zo4M0lJ4c?=
- =?us-ascii?Q?PJzdmDupvFb3/64q8VZGTJhtzwoEuMgS4hbwwhRqB7OB4uAyyEuVjN3ugKjt?=
- =?us-ascii?Q?syRz0Hxs/q0KzWzxK4DH1TiSVAmSJWbZC0FsOAHr9mLYEacNqLITbuWw06Kn?=
- =?us-ascii?Q?rGMTHbNOqSjj1zz+TwEWmBIPfWV++ptuTIsjCl0GY4Cku6d8r3YKfaD2nsCR?=
- =?us-ascii?Q?k7N0cOmzMQWe1OzkpmM+UcGSgFXAJujQbNEfZqnUqTJ0UcPVYgFozbOs1yo/?=
- =?us-ascii?Q?KksYla8CWD7fbVL3A/CimphNXVsGo9RQxNZ3MGMwoamtGgiBre5HxEiqIQ6U?=
- =?us-ascii?Q?ZR1b61q17v81jSExpSSrsdUJ90H1F39hDAdQwhPKNiVVPrjjtDSghzopdWng?=
- =?us-ascii?Q?jjbf7oi83GDXcWtxFyH8/mmlK2P53pR/oqOwdxhGhxvCEkBpLRKt7RVVKm5Z?=
- =?us-ascii?Q?wSHSMLkwfIWHNc7XyoT/r6Hqxb9/yKn3rvVbG98Y44eUQmRgqWIqL9zTgohs?=
- =?us-ascii?Q?BikugUBtZxLHjNH5VWCyPAissuYKvEGXdvEK4DH2FlfUOJr9VpmlxmHKTU5U?=
- =?us-ascii?Q?/tcDQuWO3f4nFy/B+4FXu1nzlnDNh6j9huwBwoq86x5H3WBDOdmZOlk9jxmI?=
- =?us-ascii?Q?wp05XZtqMw=3D=3D?=
-X-OriginatorOrg: atomlin.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 48306d6c-3182-44af-dfe9-08df0abb9cba
-X-MS-Exchange-CrossTenant-AuthSource: CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Sep 2026 19:35:01.6654
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: e6a32402-7d7b-4830-9a2b-76945bbbcb57
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 3++nms1h8QHIDnUjVEA2rcSztP7zKKryf85p1aXz8A6kNfMQA97kctN2J719kDoYQvEB7l45rtKSuDwLnx2LjA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO4P123MB6609
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <049af81c-d05d-4ce4-9627-8b2212979f4c@oss.qualcomm.com>
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA0MDE4MCBTYWx0ZWRfXxUkmCmZJKV2f
+ 9dLe7BRcYWDs0PC47cIT+k6RsBuQOGqmk23Oycrl8u7YB/QlJPSJzYBWYlYeFcvJhvc61kQnBZO
+ QyFbGrE1qN/3z1bcenxqeYFSi7aE988=
+X-Authority-Analysis: v=2.4 cv=TP11jVla c=1 sm=1 tr=0 ts=6a9b1de8 cx=c_pps
+ a=Oh5Dbbf/trHjhBongsHeRQ==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
+ a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
+ a=EUspDBNiAAAA:8 a=XpLG6VMlNpcyACpXrrQA:9 a=CjuIK1q_8ugA:10
+ a=_Vgx9l1VpLgwpw_dHYaR:22
+X-Proofpoint-ORIG-GUID: wvwAnGmzvak9I-njxHR3-R1x_uUMydfs
+X-Proofpoint-GUID: wvwAnGmzvak9I-njxHR3-R1x_uUMydfs
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA0MDE4MCBTYWx0ZWRfXzyBAlXLk7TLg
+ 5TcEGrqg4OxGhREgbBAdnoGcW+alVZfjG6hIy0zX8cG1ErhBVwhZXOZunytqu1N7Lrrwtdgvyzw
+ 9LEta57HRuT58eWyFgdA1qRUYBehzfQiJy9o8TIlVueKQd1yBnqizbnMQXr1tjKG4FeBIPAizI0
+ gEb4l40nw8pe6hBS+TOn3Itoe3o6xVMhHTQKnM812pFMkDIFgi3WNVXe8c9n198CrjyXNT20kH3
+ hE6n6o/Ne+wwF7yAFybSQhw+xaaxeDe9W1cxwM/I77DqH8GyLD/sWtikeb065mHeGWWUH45i6GQ
+ wERn508+fLaM9q/qIjoGYRN80T0dDVku9tEH2xcSP+k6fXAOKsRQAcTR05j3i5tM2qW3NuUhaha
+ X/lvjAmkfJFrOHSZXVb/9+8OimjbTqwZa71Psvqmgrqtk/+UCguS62JjjQLYakLybKVwzzPc4TO
+ zVhAUC1V+HZfjnTDFNQ==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-04_05,2026-09-03_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 bulkscore=0 spamscore=0 phishscore=0 lowpriorityscore=0
+ impostorscore=0 clxscore=1015 suspectscore=0 malwarescore=0 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609040180
 
-Bottom-Half (BH) workqueues execute work items in softirq context.
-To prevent softirqs from starving user and kernel threads, bh_worker()
-enforces execution limits (i.e., BH_WORKER_JIFFIES and BH_WORKER_RESTARTS).
-
-When keep_working() is still true but either the time slice or restart
-count is exhausted, bh_worker() yields execution and re-raises the
-softirq via kick_bh_pool().
-
-Currently, there is no observability into when a BH worker hits these
-limits and is forced to yield.
-
-Add the workqueue_bh_budget_yield tracepoint, emitted when bh_worker()
-exits the processing loop with pending work items remaining. It records,
-the worker pool ID, executing CPU, number of loop restarts consumed, a
-boolean flag indicating whether the yield was due to a time slice
-timeout, and a boolean flag indicating whether this is a high-priority
-BH pool.
-
-Signed-off-by: Aaron Tomlin <atomlin@atomlin.com>
----
- include/trace/events/workqueue.h | 39 ++++++++++++++++++++++++++++++++
- kernel/workqueue.c               | 26 +++++++++++++++++++--
- 2 files changed, 63 insertions(+), 2 deletions(-)
-
-diff --git a/include/trace/events/workqueue.h b/include/trace/events/workqueue.h
-index 12ac24586835..bbba34e40470 100644
---- a/include/trace/events/workqueue.h
-+++ b/include/trace/events/workqueue.h
-@@ -9,6 +9,7 @@
- #include <linux/workqueue.h>
- 
- struct pool_workqueue;
-+struct worker_pool;
- 
- /**
-  * workqueue_queue_work - called when a work gets queued
-@@ -233,6 +234,44 @@ TRACE_EVENT(workqueue_rescued,
- 		  __entry->cpu)
- );
- 
-+/**
-+ * workqueue_bh_budget_yield - called when a BH worker yields due to budget exhaustion
-+ * @pool:	pointer to struct worker_pool
-+ * @restarts:	number of restarts executed
-+ * @timeout:	whether execution hit the time limit (BH_WORKER_JIFFIES)
-+ * @highpri:	whether this is a high-priority BH pool
-+ *
-+ * This event occurs when a bottom-half (BH) worker pool running in softirq
-+ * context exhausts its execution time slice or restart limit and must yield
-+ * execution.
-+ */
-+TRACE_EVENT(workqueue_bh_budget_yield,
-+
-+	TP_PROTO(struct worker_pool *pool, int restarts, bool timeout, bool highpri),
-+
-+	TP_ARGS(pool, restarts, timeout, highpri),
-+
-+	TP_STRUCT__entry(
-+		__field( int,	pool_id		)
-+		__field( int,	cpu		)
-+		__field( int,	restarts	)
-+		__field( bool,	timeout		)
-+		__field( bool,	highpri		)
-+	),
-+
-+	TP_fast_assign(
-+		__entry->pool_id	= pool->id;
-+		__entry->cpu		= pool->cpu;
-+		__entry->restarts	= restarts;
-+		__entry->timeout	= timeout;
-+		__entry->highpri	= highpri;
-+	),
-+
-+	TP_printk("pool_id=%d cpu=%d restarts=%d timeout=%d highpri=%d",
-+		  __entry->pool_id, __entry->cpu, __entry->restarts,
-+		  __entry->timeout, __entry->highpri)
-+);
-+
- #endif /*  _TRACE_WORKQUEUE_H */
- 
- /* This part must be outside protection */
-diff --git a/kernel/workqueue.c b/kernel/workqueue.c
-index ab1371ed890a..74f595396227 100644
---- a/kernel/workqueue.c
-+++ b/kernel/workqueue.c
-@@ -3758,6 +3758,9 @@ static void bh_worker(struct worker *worker)
- 	struct worker_pool *pool = worker->pool;
- 	int nr_restarts = BH_WORKER_RESTARTS;
- 	unsigned long end = jiffies + BH_WORKER_JIFFIES;
-+	bool budget_exhausted = false;
-+	bool timeout = false;
-+	int restarts = 0;
- 
- 	worker_lock_callback(pool);
- 	raw_spin_lock_irq(&pool->lock);
-@@ -3780,8 +3783,23 @@ static void bh_worker(struct worker *worker)
- 
- 		if (assign_work(work, worker, NULL))
- 			process_scheduled_works(worker);
--	} while (keep_working(pool) &&
--		 --nr_restarts && time_before(jiffies, end));
-+
-+		if (!keep_working(pool))
-+			break;
-+
-+		if (!--nr_restarts) {
-+			budget_exhausted = true;
-+			break;
-+		}
-+
-+		if (!time_before(jiffies, end)) {
-+			budget_exhausted = true;
-+			timeout = true;
-+			break;
-+		}
-+
-+		restarts++;
-+	} while (1);
- 
- 	worker_set_flags(worker, WORKER_PREP);
- done:
-@@ -3789,6 +3807,10 @@ static void bh_worker(struct worker *worker)
- 	kick_pool(pool);
- 	raw_spin_unlock_irq(&pool->lock);
- 	worker_unlock_callback(pool);
-+
-+	if (budget_exhausted)
-+		trace_workqueue_bh_budget_yield(pool, restarts, timeout,
-+						pool->attrs->nice == HIGHPRI_NICE_LEVEL);
- }
- 
- /*
--- 
-2.55.0
-
+On Thu, Sep 03, 2026 at 03:06:10PM +0200, Konrad Dybcio wrote:
+> On 8/13/26 7:33 PM, Vishnu Saini wrote:
+> > The Lemans EVK IFP mezzanine supports LVDS display output using the
+> > Lontium LT9211C DSI-to-LVDS bridge. The bridge is connected to the
+> > DSI0 output and drives a dual-channel 1920x1080 LVDS panel in
+> > VESA-24 mapping.
+> > 
+> > Add a DTBO overlay, lemans-evk-lvds-boe,dv215fhm-r01.dtso, that wires
+> > up the LT9211C bridge on I2C1 (address 0x2d) with reset on GPIO37,
+> > a panel-lvds node for the boe,dv215fhm-r01 panel (matched against the
+> > panel-simple-lvds-dual-ports binding, which supplies the panel's size
+> > and timing internally), and an LCD display bias regulator supplied
+> > through the GPIO expander. DSI power is provided by vreg_s4a.
+> > 
+> > The overlay is built as a composite DTB combining the base
+> > lemans-evk.dtb, the IFP mezzanine overlay, and this LVDS overlay.
+> > 
+> > Signed-off-by: Vishnu Saini <vishnu.saini@oss.qualcomm.com>
+> > ---
+> 
+> [...]
+> 
+> > +	panel_lvds: panel-lvds {
+> > +		compatible = "boe,dv215fhm-r01";
+> > +		power-supply = <&lcd_disp_bias>;
+> > +
+> > +		status = "okay";
+> 
+> Nodes are enabled by default unless explicitly disabled
+Yes, status = "okay"; will be removed in next revision from all such instances.
+> > +
+> > +		ports {
+> > +			#address-cells = <1>;
+> > +			#size-cells = <0>;
+> > +
+> > +			port@0 {
+> > +				reg = <0>;
+> > +				dual-lvds-odd-pixels;
+> > +				panel_in_lvds_odd: endpoint {
+> 
+> Please keep a \n between the last property and the following subnodes
+Yes, This will be fixed at all the places in next revision.
+> [...]
+> 
+> > +	lt9211c_codec: lvds-bridge@2d {
+> > +		compatible = "lontium,lt9211c";
+> > +		reg = <0x2d>;
+> > +		reset-gpios = <&tlmm 37 GPIO_ACTIVE_HIGH>;
+> > +		vccio-supply = <&vreg_s4a>;
+> > +
+> > +		status = "okay";
+> 
+> ditto
+> 
+> [...]
+> 
+> > +&mdss0 {
+> > +	status = "okay";
+> > +};
+> 
+> The DT which you overlay this atop already enables it
+Yes, will remove this from overlay.
+> Konrad
+> 
+> > +
+> > +&mdss0_dsi0 {
+> > +	vdda-supply = <&vreg_l1c>;
+> > +
+> > +	status = "okay";
+> > +};
+> > +
+> > +&mdss0_dsi0_out {
+> > +	data-lanes = <0 1 2 3>;
+> > +	remote-endpoint = <&lt9211c_in>;
+> > +};
+> > +
+> > +&mdss0_dsi0_phy {
+> > +	vdds-supply = <&vreg_l4a>;
+> > +
+> > +	status = "okay";
+> > +};
+> > 
