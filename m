@@ -1,77 +1,136 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4FC63612E2;
-	Fri,  4 Sep 2026 07:50:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5422E3BB11A
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 07:50:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788508205; cv=none; b=MpvkptopuKhylELXXZTDGYSwqtvaw1wvEMo+8ohTrDqByIa8eBpaUDgkaYIUqG1ClSGReuww/H+kjgI05uncmXWTbJ6D1g4y0IS//x1eo17jq5wJK4EBM+vTP7aGgR5FJPUbuv9S+LOASHS9OTDEI0JQ2uqzorwSwLCNBIthVP8=
+	t=1788508230; cv=none; b=YrcILk955oKo4/ot/r3dIeKBct0yubZWwO2r7ASFPBrj7MbSvBcD47mZ8YDC8So399ViF0wZpnzGTpOuU42MuBz46O8fetHNcXfVjkv5Oww+/tneVL4x4RE/GBesDYsvlzn+qeVLFQjYkyG3Gaijuig3i+y+ZFwXcd4RT47JOzo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788508205; c=relaxed/simple;
-	bh=tqbrAg4zqpX48Q5gno0yaHbZ+w6oCsX4KLmBKDPb7uE=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=APOBAFaJKa5AssZImVVEyHn6IPU4KReGhLf0ixC8fAtA8ZcJS+UYJ0oQO9uvSGpVyhUIMuaJp15xD8Kqx3/jkNKqZUyEUkQVQzv/ExGEpBlqmn4JrXgUfRJe7IZdRp2EhKhOq55ThZ8GUECQz87Qve0JhJwlmKvUuOBeEyFzQr8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PSJ5rnsS; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788508230; c=relaxed/simple;
+	bh=DFJqynbfJcyY/fT0IlcnvoTXr3kzJwBLLpR+NqyctEM=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Subject:Cc:From:To:
+	 References:In-Reply-To; b=TotgMKlGMkLYm+lQmvk1k5SrD88+kWGeDGIehOSbDGHKya3AxqR/cbO9xjY7wdrX0yxzMEwhq/yPxxn4lLPq89FvsWS4tpVeQ/qoMlzsQq8cG5DxtlPMGPQx+XELcLFeF0CRWu32bHiExnelhDLy5+X8pfy52WNANPJRkL3P5vo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=e/U9fjWE; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PSJ5rnsS"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6FC051F00A3D;
-	Fri,  4 Sep 2026 07:50:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788508204;
-	bh=mPL6YvgHR1/+2ZXwCt3JuYunyi1EKpt0iSdtdQW+WeU=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=PSJ5rnsS3k3E6efimeM95BzHzIoYJcaEpnYkx/Zw8HQF9yQ7AuaHzwspSoTDDHf0x
-	 7ezAbTFHRoz2fO+rYRT9qDlhRqGpxr2AgtSZcxCbH3g+V+mCYi/k8ul8HsW+58+Q8s
-	 E3gnZOxSFNH4b2tgrGm+l/dO9N/2T/ZDtISD0dVAAXDqei8znNAdar3vCxe+nl2ly8
-	 nWcTGqD1uVh9wNz/d/HVGhbqosIpNzKnbAdmEONizLdEVjLnNfIDz8jiBS/XE1UN3E
-	 w8sZlx6h1hpOHXygPxiWVKlXpQ9pWqzZQOEJC1RQd8NNASwJWlayCU770O+BuRD2fJ
-	 lIge3zJ3Nbkiw==
-From: Christian Brauner <brauner@kernel.org>
-To: Shuah Khan <shuah@kernel.org>, Paul Dolan <paul.dolan.dev@gmail.com>
-Cc: linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org
-In-Reply-To: <20260902174939.15135-1-paul.dolan.dev@gmail.com>
-References: <20260902174939.15135-1-paul.dolan.dev@gmail.com>
-Subject: Re: [PATCH] selftests/clone3: tighten CLONE_CLEAR_SIGHAND conflict
- test
-Message-Id: <20260904-zinssatz-auftrag-kastanie-5a7b91104538@brauner>
-Date: Fri, 04 Sep 2026 09:50:01 +0200
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="e/U9fjWE"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 8C6A74E41501;
+	Fri,  4 Sep 2026 07:50:26 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 579196057F;
+	Fri,  4 Sep 2026 07:50:26 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 64C7811C7A30E;
+	Fri,  4 Sep 2026 09:50:18 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1788508221; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=DFJqynbfJcyY/fT0IlcnvoTXr3kzJwBLLpR+NqyctEM=;
+	b=e/U9fjWEXF+m6hVFLQ53wEQs6l+kDrU+3Z9815kN2RMOJtWME0bjtdKiMvnlMqjPUMWa5/
+	IeuU0eKb/zWFgbqU4Xr/HkhHI2AKUhTBy1Mx2fu7K+/0XxnbhuQHnOMssBUUvjzlbJo9Ib
+	MJxzJSYjK+OEzLYNEQ8EkRziUKMuGJFF6DUBSAfrbNDFsyQ+XwKZiUA7URE8H5b7/q1vDm
+	sYJARvCyPNNqfLiqoCms87ZCF0Jd9+7WAae5Eqobgyym8aSon6IGBcLaU8OBCE8VYzwkOP
+	/7Walyrll6l+NM8ogte5ZS+pG9VYiW0OlwAxp5I2YTKUoi3xQAcXOMmHkawmzg==
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.17-dev-db0b7
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Fri, 04 Sep 2026 09:50:17 +0200
+Message-Id: <DL6D90JSIJCC.FE91IM9ILYSI@bootlin.com>
+Subject: Re: [PATCH v2 0/2] clk: ti: mux: resolve parent clocks by DT index,
+ not by name
+Cc: "Tero Kristo" <kristo@kernel.org>, "Michael Turquette"
+ <mturquette@baylibre.com>, "Stephen Boyd" <sboyd@kernel.org>, "Brian
+ Masney" <bmasney@redhat.com>, "Tony Lindgren" <tony@atomide.com>, "Thomas
+ Petazzoni" <thomas.petazzoni@bootlin.com>, =?utf-8?q?Th=C3=A9o_Lebrun?=
+ <theo.lebrun@bootlin.com>, =?utf-8?q?Gr=C3=A9gory_Clement?=
+ <gregory.clement@bootlin.com>, <linux-omap@vger.kernel.org>,
+ <linux-clk@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+ <hns@goldelico.com>
+From: "Mathieu Dubois-Briand" <mathieu.dubois-briand@bootlin.com>
+To: "Andreas Kemnade" <andreas@kemnade.info>
+X-Mailer: aerc 0.21.0-0-g5549850facc2
+References: <20260727-mathieu-wdt-clock-theo-v2-0-c048a6394436@bootlin.com>
+ <20260902082639.69643254@kemnade.info>
+ <DL4OUCXRGBEA.2G2WHI4FH2AY8@bootlin.com>
+ <20260902111556.38645f32@kemnade.info>
+ <20260903115308.2a569a30@kemnade.info>
+In-Reply-To: <20260903115308.2a569a30@kemnade.info>
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Wed, 02 Sep 2026 18:49:39 +0100, Paul Dolan wrote:
-> The CLONE_CLEAR_SIGHAND test intends to verify that
-> CLONE_CLEAR_SIGHAND and CLONE_SIGHAND are mutually exclusive. However,
-> CLONE_SIGHAND without CLONE_VM is independently invalid, so the test
-> input has another reason to fail with EINVAL.
-> 
-> Add CLONE_VM so that CLONE_SIGHAND is otherwise valid, and require
-> clone3() to fail with EINVAL. This ensures the test exercises the
-> intended flag conflict and does not accept an unrelated failure.
-> 
-> [...]
+On Thu Sep 3, 2026 at 11:53 AM CEST, Andreas Kemnade wrote:
+> We have:
+> localhost:/sys/kernel/debug/clk# grep '(' */clk_possible_parents=20
+> clkout2_src_ck/clk_possible_parents:(missing) (missing) (missing) (missin=
+g)
+> gpt10_fck/clk_possible_parents:(missing) (missing)
+> gpt11_fck/clk_possible_parents:(missing) (missing)
+> gpt2_fck/clk_possible_parents:(missing) (missing)
+> gpt3_fck/clk_possible_parents:(missing) (missing)
+> gpt4_fck/clk_possible_parents:(missing) (missing)
+> gpt5_fck/clk_possible_parents:(missing) (missing)
+> gpt6_fck/clk_possible_parents:(missing) (missing)
+> gpt7_fck/clk_possible_parents:(missing) (missing)
+> gpt8_fck/clk_possible_parents:(missing) (missing)
+> gpt9_fck/clk_possible_parents:(missing) (missing)
+> mcbsp1_fck/clk_possible_parents:(missing) (missing)
+> mcbsp2_fck/clk_possible_parents:(missing) (missing)
+> mcbsp3_fck/clk_possible_parents:(missing) (missing)
+> mcbsp4_fck/clk_possible_parents:(missing) (missing)
+> mcbsp5_fck/clk_possible_parents:(missing) (missing)
+> sgx_fck/clk_possible_parents:(missing) (missing) (missing) (missing) (mis=
+sing) (missing) (missing) (missing)
+> usim_fck/clk_possible_parents:(missing) (missing) (missing) (missing) (mi=
+ssing) (missing) (missing) (missing) (missing) (missing)
+> localhost:/sys/kernel/debug/clk#=20
+>
+> All these clocks are composite clocks.
+>
+> so the early-registration of timer-ti-dm-systimer seems not to be
+> the main issue here. Looking around what might be affected,
+> mux clocks build into composite clocks:
+> :~/linux/arch/arm/boot/dts/ti/omap$ grep -l ti,composite-mux *.dts*
+> omap2420-clocks.dtsi
+> omap2430-clocks.dtsi
+> omap24xx-clocks.dtsi
+> omap36xx-am35xx-omap3430es2plus-clocks.dtsi
+> omap36xx-omap3430es2plus-clocks.dtsi
+> omap3xxx-clocks.dtsi
+> omap44xx-clocks.dtsi
+> omap54xx-clocks.dtsi
+>
+> So havoc all over the place, just worst in omap3 because more critical
+> clocks are affected.
+>
+> So I think we need either a revert of these patches or a some
+> kind of quirk in clk_hw_register_composite_pdata to pass throuch somethin=
+g
+> between the mux component and the composite.
+>
+> Regrads,
+> Andreas
 
-Applied to the vfs-7.4.misc branch of the vfs/vfs.git tree.
-Patches in the vfs-7.4.misc branch should appear in linux-next soon.
+Hi Andreas,
 
-Please report any outstanding bugs that were missed during review in a
-new review to the original patch series allowing us to drop it.
+Thanks for taking the time to investigate this issue.
 
-It's encouraged to provide Acked-bys and Reviewed-bys even though the
-patch has now been applied. If possible patch trailers will be updated.
+I believe I won't have much time to dive into it in the coming days, so
+I fear you are right and we will have to revert this patch for now.
+Except if someone else want to have a look at this.
 
-Note that commit hashes shown below are subject to change due to rebase,
-trailer updates or similar. If in doubt, please check the listed branch.
+I will try to get some OMAP3 board and come back to it a bit later.
 
-tree:   https://git.kernel.org/pub/scm/linux/kernel/git/vfs/vfs.git
-branch: vfs-7.4.misc
+Thanks,
+Mathieu
 
-[1/1] selftests/clone3: tighten CLONE_CLEAR_SIGHAND conflict test
-      https://git.kernel.org/vfs/vfs/c/aeebb4884f0e
+--=20
+Mathieu Dubois-Briand, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
 
