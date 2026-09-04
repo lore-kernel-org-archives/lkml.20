@@ -1,102 +1,107 @@
-Received: from relayaws-01.paragon-software.com (relayaws-01.paragon-software.com [35.157.23.187])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3E33486B8F;
-	Fri,  4 Sep 2026 10:59:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=35.157.23.187
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0386644D01D
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 11:00:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788519583; cv=none; b=GK3nnXVjEIzk4aLi2WeT0VlWvq6Hx75Mh66WcK0gdaQIRr/V16lQ1BXRYdKd0e0O3CdN4p9uBqWUr5XnE5ibbi/1UczkpMnWm3WGE3R1TDqDZKojWTaCmC9/Ko1CsJj8SnqF2Q1XnuTth/ctsgJLHU9T+JLlFGqTufCbUTJyZac=
+	t=1788519608; cv=none; b=DqpGxWAx7ISNenTRCGVaSzAKdkQhDTdLYoHp566LgJxcgcNwY3nQV1cWqBR2G179D6MW8q+GnJr0nkOaWfdHrfgl0NBs4tIyA2cSRrSDwUFMYEgQO9O5ySPbOpTBaUSQuaBNTWnRVKeA7uLhfrqqtsbgyHd9mqxAvZ5HmpcdI48=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788519583; c=relaxed/simple;
-	bh=vV1T58b8s1+tve3cVZAubxq64Ua4qR2tbUc3dMYC5Z4=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=Xvd9RI10cFbgp2xhhFb77vCB6i73xImbHd7Nu3hzHOJAe5BLoDz4o/PmL9qeU4zhli3tjaykqhvzRL0WKL1qY43pdCeMatFXvPO0AzRCkseO5JVi5t4VnOthxfYKCcAFmCH1HWL7i2x9yV+mqfJpCpD2S9TfsK3S3HDGKBcvgRc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=paragon-software.com; spf=pass smtp.mailfrom=paragon-software.com; dkim=pass (1024-bit key) header.d=paragon-software.com header.i=@paragon-software.com header.b=rS+1pSfo; arc=none smtp.client-ip=35.157.23.187
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=paragon-software.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=paragon-software.com
+	s=arc-20240116; t=1788519608; c=relaxed/simple;
+	bh=4fpMTlsJcIMA+pYDHyLdPFhUPXeqpGjTUePD7YBUK0A=;
+	h=MIME-Version:From:Date:Message-ID:Subject:To:Cc:Content-Type; b=YXs5OnabhA/hfTe8O231v7k85/8RpZDsqnOo/o2YkJHDWJq9ZcySWrotYsIZg0h2CrNE9hd9arbmZpu0c/k1guLgXYnw7L5j19eD2YfBFcpQ+frf8cqwsn6P12te0USRk7Rb1yYKwH88cKmborZjRS2O3HYFdXW/Tyru1qr0v0E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=A7Ag0EmG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=paragon-software.com header.i=@paragon-software.com header.b="rS+1pSfo"
-Received: from relayfre-01.paragon-software.com (relayfre-01.paragon-software.com [176.12.100.13])
-	by relayaws-01.paragon-software.com (Postfix) with ESMTPS id 9B0511B5;
-	Fri,  4 Sep 2026 11:00:36 +0000 (UTC)
-Authentication-Results: relayaws-01.paragon-software.com;
-	dkim=pass (1024-bit key; unprotected) header.d=paragon-software.com header.i=@paragon-software.com header.b=rS+1pSfo;
-	dkim-atps=neutral
-Received: from dlg2.mail.paragon-software.com (vdlg-exch-02.paragon-software.com [172.30.1.105])
-	by relayfre-01.paragon-software.com (Postfix) with ESMTPS id 58D9D2205;
-	Fri,  4 Sep 2026 10:59:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=paragon-software.com; s=mail; t=1788519576;
-	bh=5otnK8lKNv0CFrblr8NbQa/JL5FxxysDmPvRmnxoP4c=;
-	h=From:To:CC:Subject:Date;
-	b=rS+1pSfoHbgsl4i7OYPA49Ow6606g9dyOnT/2pHbrE4V7Cbt+wJ7iUFlsdIAskd46
-	 Oir+0XY2PXfXPtSthtOHPJLxOzGT/Rejil6QS4btMDjfUAqIkhYhkq7fJGQp3Ab57f
-	 pr48qgySY4IOnE+WiPBx6o6hq5h+lw/763E0N2cc=
-Received: from localhost.localdomain (172.30.20.203) by
- vdlg-exch-02.paragon-software.com (172.30.1.105) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.7; Fri, 4 Sep 2026 13:59:35 +0300
-From: Konstantin Komarov <almaz.alexandrovich@paragon-software.com>
-To: <ntfs3@lists.linux.dev>
-CC: <linux-kernel@vger.kernel.org>, <linux-fsdevel@vger.kernel.org>,
-	Konstantin Komarov <almaz.alexandrovich@paragon-software.com>
-Subject: [PATCH] fs/ntfs3: document ads, nocase, and delalloc
-Date: Fri, 4 Sep 2026 12:59:25 +0200
-Message-ID: <20260904105925.11058-1-almaz.alexandrovich@paragon-software.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="A7Ag0EmG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 932241F00A3E
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 11:00:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788519606;
+	bh=VECVCytsxpeL/9yxomyfc2Zi8sqN4pbjyGMyvBmuLZE=;
+	h=From:Date:Subject:To:Cc;
+	b=A7Ag0EmGdFDAIiyBt25gnhEfIk7Qp/theIS9tg49Z1dhp+FcMndI52dQG+NxXZRpe
+	 dbng/61Ks0hGsU/1ib3Di/L3KjFH23rd85pGOdUC9ZoWpiSv0PivMvEe8VUBz8b3X4
+	 JUNbUu2xB8Y7WMgu6Tz1/uDo7imoWELyu2BzWT+lk1p4v5TJLhaJKBKdlzOTjNs4Qz
+	 DPE3cmaa43vjrKtY77+BSCK9neLHEmdqwjOzRlChnrvfD1yaKM5O5W2lp7VW103xa9
+	 3TSASpR+YFB9EwzDrV2xX7Ae/kB2rI9oOPYc8SeL+zEZa9fuN+TeSaw8+s1b/+/5r4
+	 S5F/El+y1ri7g==
+Received: by mail-ej1-f45.google.com with SMTP id a640c23a62f3a-c1677c91969so79733566b.1
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 04:00:06 -0700 (PDT)
+X-Gm-Message-State: AFuF++luAPCgVsrRWceRLiXvV5ZkP28DCIltWi+nKG6k5ZBdIx29jhQ7
+	LPhdp8dibkkFHQdptCYPAn8LFp3rLBPnlULzAnL6yvLZnwlXpq2+8rnh+S/WpEdxGAyWj9lSH2q
+	yAKKHRxHpaNTE/KCIrbHbVMv2qZGjmuk=
+X-Received: by 2002:a17:906:794d:b0:c21:450d:cd7e with SMTP id
+ a640c23a62f3a-c260c7b7306mr213800466b.9.1788519605046; Fri, 04 Sep 2026
+ 04:00:05 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: vdlg-exch-02.paragon-software.com (172.30.1.105) To
- vdlg-exch-02.paragon-software.com (172.30.1.105)
+From: Namjae Jeon <linkinjeon@kernel.org>
+Date: Fri, 4 Sep 2026 19:59:52 +0900
+X-Gmail-Original-Message-ID: <CAKYAXd9=UQWCu+7da3w+pGa_v0kaYvDCYmvSgxb0d8r0hJ3e+w@mail.gmail.com>
+X-Gm-Features: AcwNN1XarZkpGMv79LBbgYuw1H4h_HJ2LKTIggma1pUHIj_SiSX-EkZ-PWbAk7g
+Message-ID: <CAKYAXd9=UQWCu+7da3w+pGa_v0kaYvDCYmvSgxb0d8r0hJ3e+w@mail.gmail.com>
+Subject: [GIT PULL] ksmbd server fixes for 7.3-rc2 part2
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 
-The 'ads', 'nocase', and 'delalloc' mount options are accepted by the
-parser and reported by ntfs_show_options(), but were never added to the
-mount option table in the documentation. Document them.
+Hi Linus,
 
-Signed-off-by: Konstantin Komarov <almaz.alexandrovich@paragon-software.com>
----
- Documentation/filesystems/ntfs3.rst | 23 +++++++++++++++++++++++
- 1 file changed, 23 insertions(+)
+This is ksmbd server fixes pull request for v7.3-rc2. I add a description of
+this pull request below. Please pull ksmbd with following ones.
 
-diff --git a/Documentation/filesystems/ntfs3.rst b/Documentation/filesystems/ntfs3.rst
-index 2b86a9b3a6de..e1d86dcc3316 100644
---- a/Documentation/filesystems/ntfs3.rst
-+++ b/Documentation/filesystems/ntfs3.rst
-@@ -109,6 +109,29 @@ this table marked with no it means default is without **no**.
-        Kernel. Not to be confused with NTFS ACLs. The option specified as acl
-        enables support for POSIX ACLs.
- 
-+   * - ads
-+     - Enable access to alternate data streams, i.e. named $DATA
-+       attributes. A stream is addressed by appending a colon and the
-+       stream name to the file name. Reading the pseudo-stream
-+       ``query_streams`` returns the names of the streams attached to a
-+       file, one per line::
-+
-+         cat file:query_streams   # list stream names
-+         cat file:ads1            # read a stream
-+         touch file:ads2          # create a stream on an existing file
-+         rm file:ads1             # remove a stream
-+
-+       Creating a file together with a stream in a single call, and
-+       renaming a stream, are not supported. Enabled by default.
-+
-+   * - nocase
-+     - Perform file name lookups case-insensitively.
-+
-+   * - delalloc
-+     - Delay block allocation for buffered writes until writeback,
-+       rather than allocating as each write is issued. This lets the
-+       driver allocate larger contiguous runs and reduces fragmentation.
-+
- Todo list
- =========
- - Full journaling support over JBD. Currently journal replaying is supported
--- 
-2.43.0
+Thanks!
 
+The following changes since commit 89a312991dc6e638a36adc43ccb91dbc25504c04:
+
+  Merge tag 'cifs-fixes-7.3-rc2' of https://git.manguebit.org/linux
+(2026-09-01 13:37:14 -0700)
+
+are available in the Git repository at:
+
+  git://git.kernel.org/pub/scm/linux/kernel/git/linkinjeon/smb.git
+tags/ksmbd-for-7.3-rc2-part2
+
+for you to fetch changes up to b5ec6c462aab1062cf5d1e667ba7c6442f737055:
+
+  ksmbd: fix tree connection use-after-free in smb2_tree_connect()
+(2026-09-02 17:58:35 +0900)
+
+----------------------------------------------------------------
+ - Fix a tree connection use-after-free in smb2_tree_connect() by
+   balancing references across concurrent connect, disconnect, and
+   session logoff paths.
+
+ - Validate source and target ranges in COPYCHUNK requests before range
+   locking and copy operations.
+
+ - Fix an oplock break notification UAF by acquiring a connection
+   reference under ksmbd_inode lock and releasing it after the
+   notification work completes.
+
+ - Fix the sparc build by using an unsigned int for the atomic work
+   state, ensuring xchg() uses a supported four-byte operation.
+
+----------------------------------------------------------------
+Abdifatah Suruur (1):
+      ksmbd: fix use-after-free in oplock break notification
+
+Alon Shakevsky (1):
+      ksmbd: validate COPYCHUNK source and target ranges
+
+Cen Zhang (Microsoft Security FORGE Labs) (1):
+      ksmbd: fix tree connection use-after-free in smb2_tree_connect()
+
+Namjae Jeon (1):
+      ksmbd: fix sparc build with atomic work state
+
+ fs/smb/server/ksmbd_work.h        |  2 +-
+ fs/smb/server/mgmt/tree_connect.c |  8 +++++
+ fs/smb/server/oplock.c            | 73 ++++++++++++++++++++++++++++++---------
+ fs/smb/server/smb2pdu.c           | 28 +++++++--------
+ fs/smb/server/vfs.c               | 12 ++++++-
+ 5 files changed, 90 insertions(+), 33 deletions(-)
