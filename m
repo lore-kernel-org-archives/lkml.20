@@ -1,70 +1,65 @@
-Received: from mail-vk1-f181.google.com (mail-vk1-f181.google.com [209.85.221.181])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34AB148C3E8
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 12:36:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.181
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 46735489866;
+	Fri,  4 Sep 2026 12:36:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788525408; cv=none; b=l9D4OYMUnee6nIQkGSbRI2uOD81i+RWPYpz1twLoybV6rM21B2jkN3qODSTQktEn8ywnl/uEIwI2PqZccwJ2N1muAlqapnak9ZS5DfLh8kfdO4RjxVRTocw3o2d2FTGb/g3FgO8Aelb2r2NMQeO2H924P1wTyGU2OIFL16g1cl8=
+	t=1788525408; cv=none; b=Xt/lamnTIsF3sM/pbgSCy4kx6ZcMs0A/anJTobRu7VccItc+I+25brEpeAlJ92NX/h21G5UeJrp54vnmW3owrEEsrY6IGjLsmXQ1/T8CM6eixKoIXfdypVmw1UHSHfTo+C8Umm4LeoPxZ3KZSrzZCfykv5wjgfXbynb2jcEoxUk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788525408; c=relaxed/simple;
-	bh=QNNRVumQq4JEXJvTCZbkFGKfH9cZY/K5oi5R01sEvPY=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=KYFQJ1QG82hYQxVTZan851Y8VkGzgRN4UY3uL9koNUlQmPF1DuXD7F9nNStu87TeveLgNSNqfvZDZ05Ilr3v/2YX8jzjEMX1L4cOeFZYJFKkiRqkL9TfWwfaTzAGGAUneBtmjICNPBrINO6s8br54G7raRG88q7I0aUq5cl4t18=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lai3/zqP; arc=none smtp.client-ip=209.85.221.181
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	bh=wqMiefQ813XjBpOY/Bqzi8iJ8yepxecd9s2Uzbyx0Fw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=uwp1v4JPlq2Pb/ChQK0okgHQHGuojniPTJFnxHhdUR4rXXrKL1mrUwGMBAhAPrvcIinYTdl7/1aS1dYgP8fdwDSeKEy+YiY9ZGHJmo3MUfqrQz9tk7CBJ+Bt80CzOdr8Ia0HCpjBtaMA3lm9VjfUQI4sIyrq6AOzlwYRY/DetUk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=ZBqisjXc; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lai3/zqP"
-Received: by mail-vk1-f181.google.com with SMTP id 71dfb90a1353d-5bf5370d38fso391318e0c.2
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 05:36:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788525406; x=1789130206; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=NqgbPxH8oR+AVK0pC69qx0+ihlzFG8XVWwWZQ32tFQk=;
-        b=lai3/zqPZ4aBp2rkslo/VuShWPnKh2QTQBAan8C5WA0EUifZgwCXGO6ua20jFZ5hPd
-         kE+dN72uW+8RS4SZVzeHTLmKdjh4c1SClmxWGszCKpm5RkQYp/Q7hOnhiYpNlLRiRnJn
-         nQU5P/c5rT1y8uxUsr2DfywLGNcu+EjYMT880a0brgCeNAKdZ3DcLnypYeXB5rW/qfRU
-         aG5VZhDSpIDaXDHFRhCV/PnudCaDTK0t6VLk45cHf/29y/6+sjkWCdJxu7Hx0UP3I+NP
-         OCb0opfIT+fHUzzwzflUoLbmL30nKP1QikiGZDd4Bc4CxplS7e6AcwGJL9uFDCekOnge
-         OoVA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788525406; x=1789130206;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=NqgbPxH8oR+AVK0pC69qx0+ihlzFG8XVWwWZQ32tFQk=;
-        b=aMXGHD43hm75d+BhaMjCUgP1p1G6KFc1BOq0qXCvlWyL1ZEFBDQ/e5h+hJNx9PbXy7
-         Fyt2BLHQGKjalvBWsgU4EX5LhaaBSVYUAvsj9TYgVs4EnbuoGKa0gcTrDAMgJ1iO4UIY
-         s80uDpVV50VqfsGJ8B8uEwokC3xH2O/rxdJk50Yb8tDniuZGlTP+hndoxZSaflxTimuN
-         OBDLLKGEUF9csWRxeqkVHXjsEyx8g777OE1rjxf1z5C6ffmqiiAgbUG9Qfi/E9iq0EbB
-         EVq3s7T0RABeg2CJkEovLuIDOJJiuMp2GDg3ZAepr0GzErDY21Ho6eUoKJ8mey8I8vTH
-         IzrA==
-X-Forwarded-Encrypted: i=1; AKwUvBw+ObULOdnjQUiGl/HzFPXNcsGOAVC6u0i/ajrX1pGuMGko3Ky5/pUL2c0/EnYF6cxCs9gcCDYkknROZ6A=@vger.kernel.org
-X-Gm-Message-State: AFuF++kqfUS9aeRkosrvnfsZcEf99baE1EfgUiN7Sw9WvSvtZpnJ6K+0
-	a2pnqkxGjhfJHYdzqOMY3B3OVF81RtxH5XFIniiBXMKJXGtBBbSSOi9n
-X-Gm-Gg: AYBFou0EO84IaRIg4sNoMIcV1+PYr6vbqe5X0Xw+JtR5EFqfUpslswzMEZMX3z16V0/
-	Fd8uOsHH30GKR5LSdR8P5J0iPf0ci7L4j3lX4n41ptXADt1pKRnxv0Bb8Mt5Keuf2vRBgDhA1hl
-	iVYqeCBsPkSbpq6BVU6RiLh8O6xt72Bte/SMQUsTbTKX1fgM/xWFeery3Hd9pb4lTIrAug+f7eT
-	tyhaaHg9U7Esw5xCGLUet28DwwslW9jUAv+O1ZoyqW/P8vJyhvq2F2HC6SLr53ZTUdKkDkc2SS+
-	8qRbIPW2E3+veaC1z6Edgt/sTfOD0vq27blt1Tiu3nmk3J4fJ2CfnwQCc+mxnaHD0iXX3QLyBQD
-	OoanHLG3ITwMoJQQodZvLtIy3Rcru/3uHuHUI77E50ZKDC5/TWWaiM02VeqkEataQRsN1Ki7/pR
-	QX6NQ/02BnXRU8vlBv9FG+BB7k/4BX+SGm3ttTStYtrcsRRAmV3tCt
-X-Received: by 2002:a05:6122:3128:b0:5bd:71b1:d5c6 with SMTP id 71dfb90a1353d-5c7ed3c7515mr2219527e0c.4.1788525405797;
-        Fri, 04 Sep 2026 05:36:45 -0700 (PDT)
-Received: from adriano ([190.215.95.120])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5c7ec3b36cbsm1924498e0c.17.2026.09.04.05.36.43
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 04 Sep 2026 05:36:45 -0700 (PDT)
-From: Adriano Cordova <adrianox@gmail.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: linux-staging@lists.linux.dev,
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="ZBqisjXc"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 401E3153B;
+	Fri,  4 Sep 2026 05:36:41 -0700 (PDT)
+Received: from a081061.blr.arm.com (a081061.arm.com [10.164.19.84])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 5A9E63F673;
+	Fri,  4 Sep 2026 05:36:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1788525404; bh=wqMiefQ813XjBpOY/Bqzi8iJ8yepxecd9s2Uzbyx0Fw=;
+	h=From:To:Cc:Subject:Date:From;
+	b=ZBqisjXcjxPy/bkSfkzByDqNCHHBVYrb9/SV5j+900Mt4hMJfVeUmAA3e2YPFZArZ
+	 1parRFfNjspTkqiOOTeWdAluNjwgoqmTsIKIp9D9jCJ9QWch1wndmHiPp2TwK4dGUB
+	 Mkmk+0PqhpjkvW3f5Yd67NZPkwMgWhvj0rejXZ7U=
+From: Sarthak Sharma <sarthak.sharma@arm.com>
+To: Andrew Morton <akpm@linux-foundation.org>,
+	David Hildenbrand <david@kernel.org>
+Cc: Lorenzo Stoakes <ljs@kernel.org>,
+	"Liam R . Howlett" <liam@infradead.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>,
+	Shuah Khan <shuah@kernel.org>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Jason Gunthorpe <jgg@ziepe.ca>,
+	John Hubbard <jhubbard@nvidia.com>,
+	Peter Xu <peterx@redhat.com>,
+	Leon Romanovsky <leon@kernel.org>,
+	Zi Yan <ziy@nvidia.com>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	Nico Pache <npache@redhat.com>,
+	Ryan Roberts <ryan.roberts@arm.com>,
+	Dev Jain <dev.jain@arm.com>,
+	Barry Song <baohua@kernel.org>,
+	Lance Yang <lance.yang@linux.dev>,
+	Mark Brown <broonie@kernel.org>,
+	Anshuman Khandual <anshuman.khandual@arm.com>,
+	Muhammad Usama Anjum <usama.anjum@arm.com>,
+	linux-mm@kvack.org,
+	linux-kselftest@vger.kernel.org,
+	linux-doc@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Adriano Cordova <adrianox@gmail.com>
-Subject: [PATCH 1/2] staging: rtl8723bs: remove unused AMPDU burst mode
-Date: Fri,  4 Sep 2026 08:36:22 -0400
-Message-ID: <20260904123623.175042-1-adrianox@gmail.com>
-X-Mailer: git-send-email 2.51.0
+	Sarthak Sharma <sarthak.sharma@arm.com>
+Subject: [PATCH v9 0/6] selftests/mm: separate GUP microbenchmarking from functional testing
+Date: Fri,  4 Sep 2026 18:06:25 +0530
+Message-ID: <20260904123631.198697-1-sarthak.sharma@arm.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -73,63 +68,185 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-AMPDUBurstMode is never written anywhere in the driver. HalData is
-vzalloc'd, so the field is always 0, and the sole read in
-_InitBurstPktLen_8723BS() is therefore always false. The only use of
-REG_AMPDU_BURST_MODE_8723B is the guarded rtw_write8() that this
-branch protects, so that register write never executes. Remove the
-field, its enum and the dead branch.
+gup_test.c currently serves two separate purposes: benchmarking
+(GUP_FAST_BENCHMARK, PIN_FAST_BENCHMARK and PIN_LONGTERM_BENCHMARK) and
+functional testing (GUP_BASIC_TEST, PIN_BASIC_TEST and
+DUMP_USER_PAGES_TEST). Keeping both in one program makes the functional
+tests harder to run and report individually, while run_vmtests.sh has to
+invoke the program repeatedly with different options.
 
-Signed-off-by: Adriano Cordova <adrianox@gmail.com>
+Separate these roles into tools/mm/gup_bench for benchmarking and
+tools/testing/selftests/mm/gup for functional testing. Move the shared
+file and hugepage helpers to tools/lib/mm/ so both programs can use them
+without duplicating the implementation.
+
+Patch 1 makes read_file(), write_file(), read_num(), write_num() and
+write_num_ignore_einval() return errors to their callers instead of
+exiting. It also makes read_num() reject negative and malformed values
+and updates the existing callers to handle failures.
+
+Patch 2 moves these file helpers from vm_util.c to tools/lib/mm/. It keeps
+them available to the mm selftests through vm_util.h and adjusts the
+selftests build accordingly.
+
+Patch 3 moves hugepage_settings.[ch] from selftests/mm to tools/lib/mm/.
+It also removes its kselftest dependency while preserving TAP-compatible
+diagnostics for selftest users.
+
+Patch 4 moves the existing gup_test implementation from selftests/mm to
+tools/mm as gup_bench. This keeps the code movement separate from the
+subsequent changes and makes it easier to review.
+
+Patch 5 removes the functional test modes and kselftest dependency from
+gup_bench. When run without arguments, it performs one GUP_FAST benchmark
+using the existing defaults instead of running the whole matrix. Other
+benchmark configurations can be selected through command-line options.
+
+Patch 6 adds a new harness-based GUP selftest. It covers THP, non-THP and
+HugeTLB mappings across private/shared and read/write variants. For each
+variant, it tests get_user_pages(), get_user_pages_fast(),
+pin_user_pages(), pin_user_pages_fast() and long-term pinning modes
+using four batch sizes. The HugeTLB variants share a one-time setup,
+with the page count chosen using a 256 MiB target and a minimum of one
+page.
+
+Changes in v9:
+- Handle read_num() and write_num() calls in hugetlb-soft-offline.c
+- Require GUP tests to pin all requested pages
+- Setup HugeTLB pages after prerequisite checks, choose the count
+  using a 256 MiB target and skip variants when setup fails
+
+Changes in v8:
+- Add a comment to clarify read_num() input validation
+- Remove duplicate exit code in gup_bench
+- Drop DUMP_USER_PAGES_TEST coverage from gup
+- Update Documentation and Kconfig
+
+Changes in v7:
+- Rebase onto mm-unstable
+- Address feedback from Mike and Sashiko
+- Make read_file() return 0 on success and tighten read_num() parsing
+- Move write_num_ignore_einval() with the shared file helpers
+- Keep the existing gup_bench argument parsing and avoid unrelated checks
+- Set up 128 HugeTLB pages once for all HugeTLB selftest variants
+
+Changes in v6:
+- Rebase onto v7.2-rc5
+- Address feedback from David, Mark, John, Dev and Sashiko
+- Keep the shared file helpers silent and let callers report errors
+- Move the existing gup_test into tools/mm before changing its behaviour
+- Report ioctl failures from gup_bench worker threads
+- Remove the default benchmark matrix and run one default benchmark instead
+- Add the new harness-based functional selftest in a separate final patch
+- Drop the unrelated thp_swap_allocator_test .gitignore change
+
+Changes in v5:
+- Rebase onto v7.2-rc3
+- Address feedback from Mike, John, Dev and Sashiko
+- Make file helper diagnostics TAP-compatible
+- Validate read_num() input and propagate errors while restoring shared
+  memory limits
+- Preserve build bisectability for the x86 protection_keys test
+- Preserve HugeTLB diagnostics using TAP-compatible printf() output
+- Validate the remaining numeric arguments accepted by gup_bench
+
+Changes in v4:
+- Address review feedback from Mike and Sashiko
+- Add a preparatory patch so shared file helpers return errors instead of exiting
+- Reduce include churn by keeping shared helpers exposed through vm_util.h
+- Preserve HugeTLB diagnostics and restore HugeTLB state more carefully
+- Fix selftests/mm build details after moving helpers to tools/lib/mm
+- Tighten gup_bench argument handling and gup_test setup/sparse-dump coverage
+
+Changes in v3:
+- Address v2 feedback from Sashiko
+- Add shared file_utils helpers under tools/lib/mm
+- Move hugepage_settings out of selftests and into tools/lib/mm
+- Convert gup_bench to use the shared tools/lib/mm helpers
+- Guard against invalid thread counts in gup_bench
+- Handle thread-array allocation failure cleanly in gup_bench
+- Restore HugeTLB settings on setup failure in gup_test
+- Add sparse DUMP_USER_PAGES_TEST coverage for pages 0, 19 and 0x1000
+
+Changes in v2:
+- Address v1 feedback from Sashiko
+- Add fast and long-term GUP/PUP coverage
+- Sweep nr_pages_per_call over 1, 512, 123 and all pages
+- Call madvise(MADV_NOHUGEPAGE) in non-THP variants
+- Use 256 MB for HugeTLB fixtures
+- Restore HugeTLB settings from fixture teardown
+- Report nr_pages_per_call for each iteration
+- Update the pin_user_pages unit-testing documentation
+
+Previous versions:
+v8: lore.kernel.org/all/20260831042101.18085-1-sarthak.sharma@arm.com/
+v7: lore.kernel.org/all/20260813181230.483746-1-sarthak.sharma@arm.com/
+v6: lore.kernel.org/all/20260730140825.238130-1-sarthak.sharma@arm.com/
+v5: lore.kernel.org/all/20260716123226.197736-1-sarthak.sharma@arm.com/
+v4: lore.kernel.org/all/20260527142432.230127-1-sarthak.sharma@arm.com/
+v3: lore.kernel.org/all/20260521111801.173019-1-sarthak.sharma@arm.com/
+v2: lore.kernel.org/all/20260519120506.184512-1-sarthak.sharma@arm.com/
+v1: lore.kernel.org/all/20260515084840.174652-1-sarthak.sharma@arm.com/
+
 ---
- drivers/staging/rtl8723bs/hal/rtl8723b_hal_init.c |  2 --
- drivers/staging/rtl8723bs/include/hal_data.h      | 13 -------------
- 2 files changed, 15 deletions(-)
+Sarthak Sharma (6):
+  selftests/mm: make file helpers return errors
+  tools/lib/mm: add shared file helpers
+  tools/lib/mm: move hugepage_settings out of selftests
+  tools/mm: move gup_test from selftests/mm to tools/mm
+  tools/mm: make gup_bench a benchmark only tool
+  selftests/mm: add a GUP selftest
 
-diff --git a/drivers/staging/rtl8723bs/hal/rtl8723b_hal_init.c b/drivers/staging/rtl8723bs/hal/rtl8723b_hal_init.c
-index 6a4a13544c..1389e5598d 100644
---- a/drivers/staging/rtl8723bs/hal/rtl8723b_hal_init.c
-+++ b/drivers/staging/rtl8723bs/hal/rtl8723b_hal_init.c
-@@ -868,8 +868,6 @@ void _InitBurstPktLen_8723BS(struct adapter *Adapter)
- 	rtw_write8(Adapter, REG_MAX_AGGR_NUM_8723B, 0x1F);
- 	rtw_write8(Adapter, REG_PIFS_8723B, 0x00);
- 	rtw_write8(Adapter, REG_FWHW_TXQ_CTRL_8723B, rtw_read8(Adapter, REG_FWHW_TXQ_CTRL)&(~BIT(7)));
--	if (pHalData->AMPDUBurstMode)
--		rtw_write8(Adapter, REG_AMPDU_BURST_MODE_8723B,  0x5F);
- 	rtw_write8(Adapter, REG_AMPDU_MAX_TIME_8723B, 0x70);
- 
- 	/*  ARFB table 9 for 11ac 5G 2SS */
-diff --git a/drivers/staging/rtl8723bs/include/hal_data.h b/drivers/staging/rtl8723bs/include/hal_data.h
-index 57a18da67f..614fd88545 100644
---- a/drivers/staging/rtl8723bs/include/hal_data.h
-+++ b/drivers/staging/rtl8723bs/include/hal_data.h
-@@ -12,17 +12,6 @@
- 
- #include <hal_sdio.h>
- 
--enum rt_ampdu_burst {
--	RT_AMPDU_BURST_NONE	= 0,
--	RT_AMPDU_BURST_92D	= 1,
--	RT_AMPDU_BURST_88E	= 2,
--	RT_AMPDU_BURST_8812_4	= 3,
--	RT_AMPDU_BURST_8812_8	= 4,
--	RT_AMPDU_BURST_8812_12	= 5,
--	RT_AMPDU_BURST_8812_15	= 6,
--	RT_AMPDU_BURST_8723B	= 7,
--};
--
- #define CHANNEL_MAX_NUMBER		(14)	/*  14 is the max channel number */
- #define CHANNEL_MAX_NUMBER_2G		14
- #define MAX_PG_GROUP			13
-@@ -240,8 +229,6 @@ struct hal_com_data {
- 	/*  Auto FSM to Turn On, include clock, isolation, power control for MAC only */
- 	u8 bMacPwrCtrlOn;
- 
--	enum rt_ampdu_burst	AMPDUBurstMode; /* 92C maybe not use, but for compile successfully */
--
- 	u32 		sdio_himr;
- 	u32 		sdio_hisr;
- 
+ Documentation/core-api/pin_user_pages.rst     |   9 -
+ MAINTAINERS                                   |   4 +-
+ mm/Kconfig                                    |  21 +-
+ tools/lib/mm/file_utils.c                     | 106 +++++++
+ tools/lib/mm/file_utils.h                     |  13 +
+ .../selftests => lib}/mm/hugepage_settings.c  | 109 +++++--
+ .../selftests => lib}/mm/hugepage_settings.h  |   0
+ tools/mm/.gitignore                           |   1 +
+ tools/mm/Makefile                             |  11 +-
+ .../mm/gup_test.c => mm/gup_bench.c}          | 191 +++++-------
+ tools/testing/selftests/mm/Makefile           |  15 +-
+ tools/testing/selftests/mm/compaction_test.c  |   2 +-
+ tools/testing/selftests/mm/cow.c              |   1 -
+ .../selftests/mm/folio_split_race_test.c      |   1 -
+ tools/testing/selftests/mm/guard-regions.c    |   1 -
+ tools/testing/selftests/mm/gup.c              | 287 ++++++++++++++++++
+ tools/testing/selftests/mm/gup_longterm.c     |   1 -
+ tools/testing/selftests/mm/hmm-tests.c        |   6 +-
+ tools/testing/selftests/mm/hugetlb-madvise.c  |   1 -
+ tools/testing/selftests/mm/hugetlb-mmap.c     |   1 -
+ tools/testing/selftests/mm/hugetlb-mremap.c   |   1 -
+ tools/testing/selftests/mm/hugetlb-shm.c      |   1 -
+ .../selftests/mm/hugetlb-soft-offline.c       |  18 +-
+ tools/testing/selftests/mm/hugetlb_dio.c      |   1 -
+ .../selftests/mm/hugetlb_fault_after_madv.c   |   1 -
+ .../selftests/mm/hugetlb_madv_vs_map.c        |   1 -
+ tools/testing/selftests/mm/khugepaged.c       |  15 +-
+ tools/testing/selftests/mm/ksm_tests.c        |   1 -
+ tools/testing/selftests/mm/migration.c        |   2 +-
+ tools/testing/selftests/mm/pagemap_ioctl.c    |   1 -
+ .../testing/selftests/mm/prctl_thp_disable.c  |   1 -
+ tools/testing/selftests/mm/protection_keys.c  |   2 +-
+ tools/testing/selftests/mm/run_vmtests.sh     |  37 +--
+ tools/testing/selftests/mm/soft-dirty.c       |   1 -
+ .../selftests/mm/split_huge_page_test.c       |   6 +-
+ tools/testing/selftests/mm/thuge-gen.c        |   1 -
+ tools/testing/selftests/mm/transhuge-stress.c |   1 -
+ tools/testing/selftests/mm/uffd-common.h      |   1 -
+ tools/testing/selftests/mm/uffd-wp-mremap.c   |   2 +-
+ .../selftests/mm/va_high_addr_switch.c        |   1 -
+ tools/testing/selftests/mm/vm_util.c          | 121 ++------
+ tools/testing/selftests/mm/vm_util.h          |   8 +-
+ 42 files changed, 678 insertions(+), 327 deletions(-)
+ create mode 100644 tools/lib/mm/file_utils.c
+ create mode 100644 tools/lib/mm/file_utils.h
+ rename tools/{testing/selftests => lib}/mm/hugepage_settings.c (87%)
+ rename tools/{testing/selftests => lib}/mm/hugepage_settings.h (100%)
+ rename tools/{testing/selftests/mm/gup_test.c => mm/gup_bench.c} (50%)
+ create mode 100644 tools/testing/selftests/mm/gup.c
+
 -- 
-2.51.0
+2.53.0
 
