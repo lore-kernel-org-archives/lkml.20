@@ -1,341 +1,164 @@
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f42.google.com (mail-ed1-f42.google.com [209.85.208.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17809513558
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 17:19:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788542402; cv=none; b=WTUrL6GBLqifmojpzt72GUxQQ4QQWH3Gf2fbOAitea5/YBFivHbSQA9W73b/vhVAaxhOha9qZmw2I5Stcupj4ast54X80MecDf3Vf8Fui0mD24kWpIcT3WPnrkQjtWooPiahoNfn7Irxr2qxHUbGJy9hUxGKWuUH57WEyi/BXBY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788542402; c=relaxed/simple;
-	bh=eDoOxks2nXiav5rv4dcNnlcb/U7q9jmL7vqjWfXBg8s=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=djiBrUYaz8qMSoFiWbfVARAM79yoVvUmDgFiUVvp7kj949ZVzRYC34rWXG5OtdVdRfAtT3he1rgRMqvEYPi/dWphFR4NKp0EVMlYdQmMdDswyD4aAOkzz4YWdS7SHlWRflan76Ca2iORgOnq54hRh44BhfHMgt5LPTEcEV0Z524=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=qEhnXKb7; arc=none smtp.client-ip=185.246.85.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78D68513542
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 17:21:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.42
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788542484; cv=pass; b=H4Cwa7JPBLCd5Af8+FpCVURIZGlzqa6DwWkB0U6/g2rbU0elLEL/BB1dFs/XtOCnoZW/1MFhnC2ugnaB9p5Kj8k/yCgZaVHAoKwBJAleq5niV2lv9fXfWP74HMgIarbA0LvQcj2IKOaK3U2P6lqUS9YwXSu210JRch9fZQXA/jo=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788542484; c=relaxed/simple;
+	bh=AFNBiWCRpUcEoXNChHss1VconiHm4hB8qaeZxdrK+Dg=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=GBnlLlVq5UIWW3TjjKYHW9Qv46moBCMxk+tsm5LpbI5Wl8pETh+BxMyBOdUJl+jR6jutsQ8p50Z4UAukXHyS9cy9A5V2zo46V1JtgFeXIiHAiBezVPvVVpg5t2jjRDARxiQzMhCQmDecBXh9oohg+13nJ0pjUeaz2FghHOwTB/g=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=S+5ZMHHh; arc=pass smtp.client-ip=209.85.208.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="qEhnXKb7"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id 60AC74E41516;
-	Fri,  4 Sep 2026 17:19:57 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 350636057F;
-	Fri,  4 Sep 2026 17:19:57 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 7C87411C7A23F;
-	Fri,  4 Sep 2026 19:19:55 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1788542396; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=dlFs3JVdQVqqocs3afH4B4Nw9dJwIeY+oVRg6RLRDRs=;
-	b=qEhnXKb7rdYl3d//3L2szbuBw2mLQZknzz6b3NIbocJCsTxSWGerriErZDTxjyABhIELay
-	ozk6XCMCo+nyhqu2ov6wDX6uG7jNMBqRv0QdJAZqMMDaowEZHjuVMi0/GDG3SOuJuusJ4n
-	QAnnJuchSqs1KVMjN4pixKrLV3wlxGGV2Ayx8azz1tZK1XAQ0WfCUCZ8HuX45fGCEv7UeV
-	4XZ2mtCd46sLNOCxSJxKgWyvPjL3oT+eJr9y/EVbw9b3CWXI///cmEBupo47Osbiu/R+QE
-	BmiTHNfshvzIT8UAxgKgY2w4kKnqAZHi5uOcsK+2VhsmZ2uAyQzfBBUXU9HUAg==
-From: Miquel Raynal <miquel.raynal@bootlin.com>
-Date: Fri, 04 Sep 2026 19:19:19 +0200
-Subject: [PATCH v6 26/26] mtd: spi-nor: winbond: W25Q01JV-M: New chip
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="S+5ZMHHh"
+Received: by mail-ed1-f42.google.com with SMTP id 4fb4d7f45d1cf-6a5ebf75d62so1912103a12.1
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 10:21:21 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788542480; cv=none;
+        d=google.com; s=arc-20260327;
+        b=RvreIP9aFQZGQp4+fZ/zGeW8NLsUvp7mG8f7KCjPEkI536DaC7vdjkHYsFxj74JimK
+         EWKGOFUI8hXZPQ2THuqP/4CfIzOiJdhA4H6AtmkU4E74fT62fwKrBnii8mCWcn7JWpCZ
+         7iMbkyV4IF/SkBzVXqtnIQAA42kUkTrjUG8Gaq3L1eHqUxHYck7GTU6ovreTS5zuney8
+         efW8wrCAsTX/vsUcTaNEWCbI9DE2jbl9bpGN3qHnuB1CtNHgX1QAhQVF2nMLfjGaEMtX
+         0bxcb638O1eAY/gXJYXaEvGX7ApvAyXMmpMZk564FDDYV+rooNWazt/iFO4Noab8Be7v
+         WMMg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=xbP84TB5YSyUcPTlSRXVzwOJ5KiLCluO2L3qZFE4rqU=;
+        fh=cPlvXn1Qbaul3rCVRiYJt75LcsnVUT6t/Ph6ALhbdrU=;
+        b=VAFxPJI7QDNLTpePAmONYNMg8fqzn0ZcV5Zon7vrkRulneg6wv8LlYk/Wp3y3WlI/X
+         pdkhn5Zw6lHazTrTcuNfDBFfqUAojYJlsVJbk7UHEYTy8i01VbvisGwhmY37pkMpm4et
+         RRQAoswQN2VtLFpo749WLAY5v+gECVY97Dpq3wUeimYYSa7yjXo+7iCaAIafRGCIc9Pe
+         4yVl0WyG75XuSnv20aYtqsBatLV+eSOhDrjuIXzCTjqz92q9syetXFp1iGO9s1Esbtan
+         Tzl9pAP7/raSRmSvLwFL1ESjxKgCpsp7VZBY86EQ6kVPNGgUBxJ/HE6NIkDBwL9FXeoV
+         6iGw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788542480; x=1789147280; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=xbP84TB5YSyUcPTlSRXVzwOJ5KiLCluO2L3qZFE4rqU=;
+        b=S+5ZMHHhfGjA+IdWmeugDDHgBwHG5bBYSPYfCEow+5chkn8MQle82UmWyVbxLiEN7d
+         ijcv6053WNTu2RqyJ6VR+Q1MSk4Vxz4n7ZKFRrjYrPqEbaWeUeae4OgCiLykWRLNUDRA
+         ZH/X93kZSKA1/wbKpcmxavHteq0Ow+JKUXYEkMsejbWI7AKmmLzp7rDEpD05dDMzdu05
+         qx2RS3AgstzLvoN8v5AUqAPOvMKc+nz/J8n2Lte3Wf5wq5bPQVeGs2cRbGv15hnp0TgY
+         EW5NlkkUE9iLPQcY1GiopKTuEm/IxQzvNCCThYHaycwvH5N4Y2kyLdCZ7Tyzs3tF5f6h
+         EH1w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788542480; x=1789147280;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=xbP84TB5YSyUcPTlSRXVzwOJ5KiLCluO2L3qZFE4rqU=;
+        b=EZ7wxP3AphmKvXgszFoPBRTji/Ee35XxbmtletkpWVVJxs1wVrNXBOTyTqMSThSBG2
+         kgwXeU4FmdQ7I9kDCrP0J+esURgKH/f4y84JBCU9AK+fhC9VZJnKk64qw7rUz/gfbQox
+         5WDokx7vAkZbABbTDuhenMC4u8aP2Rf+zBnqSiN2in/QtqtBkfCZJXqHsfn05AUZYuuO
+         aq7pKCVZ0r7T0Xz4Ou7kVeyAyJYbMHuxs2WmU5ni6teEaaCQUAejdDXZz6ZvCWMdEzYS
+         vtcA89saMGk4N1TS0347yB4EIKCii70lo66IAHP8xxZ4n2oPilgj/x1tJUm8d7o/dQej
+         62WQ==
+X-Forwarded-Encrypted: i=1; AKwUvByE13itpcSeLrYLrJ8R5V1gh9dGVagi3G4yaeQN/9zjzmIyMW/mkuswb/BUpod8NG+cVYaW1ycgClvU8iI=@vger.kernel.org
+X-Gm-Message-State: AFuF++lPSdY5oisJzKhxqSd6lTMtRqRFO5zfGjKVUtgzoLVMitB/9jx1
+	fXrFs8/teFTeb5tsLG43C5mX0iRJkz0clkHUwMl4VBvAqfH/Xp7Noe0qTwezFPryyLCthvYTPnP
+	3vpvqqG1A9pDAI8d1LQL1g/qly5XNqcA=
+X-Gm-Gg: AYBFou0hU9eIr7L6W65qJHNnZJPhndz11qw9pHvQah2SG6Ku5axp6FR0CsItjp4KVcM
+	osMoOAKgkGcBWRboB08Y/lo7FUn1tpX7YQfdzk3Tby1DTHoPffGyWubRLW4+dijp6u/JzXB9kQY
+	Vi7JfeE/zG33XdjWCR3LKagGeYebhSJI/7dOg6RCcy45GW28N5H+s4OxKRreHzraL843k+oQnww
+	I5tWcXUTno41y9Q9FjfEOlnv4KHiRW+7wshFyTc4igODTfbpKcggHQi1bd8U2z1lNN7gmwapr61
+	5RE3Z/o154VSRFP0TmFKTVuW9PmUTkQbxRDccCL0qzJAp8Mnta/S59mZLmkoqQxpnWwNLkKxxim
+	21eviXqutfujDxiWPAYiiLI8Ap0uwSrE=
+X-Received: by 2002:a05:6402:a252:20b0:6a6:9368:73a0 with SMTP id
+ 4fb4d7f45d1cf-6a696a73aa1mr4363499a12.6.1788542479338; Fri, 04 Sep 2026
+ 10:21:19 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260904-winbond-v7-1-spi-nor-jv-cleanup-v6-26-bdb282f42a47@bootlin.com>
-References: <20260904-winbond-v7-1-spi-nor-jv-cleanup-v6-0-bdb282f42a47@bootlin.com>
-In-Reply-To: <20260904-winbond-v7-1-spi-nor-jv-cleanup-v6-0-bdb282f42a47@bootlin.com>
-To: Pratyush Yadav <pratyush@kernel.org>, Michael Walle <mwalle@kernel.org>, 
- Takahiro Kuwano <takahiro.kuwano@infineon.com>, 
- Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>
-Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
- Steam Lin <STLin2@winbond.com>, linux-mtd@lists.infradead.org, 
- linux-kernel@vger.kernel.org, Miquel Raynal <miquel.raynal@bootlin.com>
-X-Mailer: b4 0.14.3
-X-Last-TLS-Session-Version: TLSv1.3
+References: <cover.1788351089.git.rrobaina@redhat.com> <4ada9fcbb93af8d5c1c9bfe2c83d94fc10bfe327.1788351089.git.rrobaina@redhat.com>
+In-Reply-To: <4ada9fcbb93af8d5c1c9bfe2c83d94fc10bfe327.1788351089.git.rrobaina@redhat.com>
+From: Magnus Lindholm <linmag7@gmail.com>
+Date: Fri, 4 Sep 2026 19:21:07 +0200
+X-Gm-Features: AcwNN1WpEQ0Y6eKbtA6wNzDHeYOBs1Tconhq7C15XjRhFKDXvjk4jMYrR9OFExk
+Message-ID: <CA+=Fv5T4826T2sd0Gbh-nfZsqcWK_phdBKy4BLWOvDTt92t5Eg@mail.gmail.com>
+Subject: Re: [PATCH v2 02/13] alpha: pass pt_regs to audit_syscall_entry()
+To: Ricardo Robaina <rrobaina@redhat.com>
+Cc: audit@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-alpha@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-csky@vger.kernel.org, linux-mips@vger.kernel.org, 
+	linux-openrisc@vger.kernel.org, linux-parisc@vger.kernel.org, 
+	linux-sh@vger.kernel.org, sparclinux@vger.kernel.org, 
+	linux-um@lists.infradead.org, bpf@vger.kernel.org, paul@paul-moore.com, 
+	eparis@redhat.com, sgrubb@redhat.com, oleg@redhat.com, 
+	richard.henderson@linaro.org, mattst88@gmail.com, linux@armlinux.org.uk, 
+	catalin.marinas@arm.com, will@kernel.org, guoren@kernel.org, monstr@monstr.eu, 
+	tsbogend@alpha.franken.de, jonas@southpole.se, 
+	stefan.kristiansson@saunalahti.fi, shorne@gmail.com, 
+	James.Bottomley@hansenpartnership.com, deller@gmx.de, 
+	ysato@users.sourceforge.jp, dalias@libc.org, glaubitz@physik.fu-berlin.de, 
+	davem@davemloft.net, andreas@gaisler.com, richard@nod.at, 
+	anton.ivanov@cambridgegreys.com, johannes@sipsolutions.net, chris@zankel.net, 
+	jcmvbkbc@gmail.com, tglx@kernel.org, peterz@infradead.org, luto@kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Add support for W25Q01JV-M. It is a 3.3V chip with usual dual/quad
-capabilities.
+Hi Ricardo,
 
-The SFDP table is pretty complete except for the locking capabilities
-which must be filled manually.
+On Wed, Sep 2, 2026 at 4:44=E2=80=AFPM Ricardo Robaina <rrobaina@redhat.com=
+> wrote:
+>
+> audit_syscall_entry() now takes a pointer to pt_regs and extracts
+> the syscall arguments itself via syscall_get_arguments(). Drop the
+> individual argument registers from the call and pass regs instead.
+>
+> Signed-off-by: Ricardo Robaina <rrobaina@redhat.com>
+> ---
+>  arch/alpha/kernel/ptrace.c | 3 +--
+>  1 file changed, 1 insertion(+), 2 deletions(-)
+>
+> diff --git a/arch/alpha/kernel/ptrace.c b/arch/alpha/kernel/ptrace.c
+> index fc8f6cedbb28..8a39c0473297 100644
+> --- a/arch/alpha/kernel/ptrace.c
+> +++ b/arch/alpha/kernel/ptrace.c
+> @@ -496,8 +496,7 @@ asmlinkage unsigned long syscall_trace_enter(void)
+>         }
+>
+>  #ifdef CONFIG_AUDITSYSCALL
+> -       audit_syscall_entry(syscall_get_nr(current, regs),
+> -               regs->r16, regs->r17, regs->r18, regs->r19);
+> +       audit_syscall_entry(syscall_get_nr(current, regs), regs);
+>  #endif
+>         return syscall_get_nr(current, regs);
+>  }
+> --
+> 2.55.0
+>
+This doesn't apply on top of my "alpha: enable GENERIC_ENTRY" series
 
-Signed-off-by: Miquel Raynal <miquel.raynal@bootlin.com>
----
-+ cat /sys/bus/spi/devices/spi0.0/spi-nor/jedec_id
-ef7021
-+ cat /sys/bus/spi/devices/spi0.0/spi-nor/manufacturer
-winbond
-+ xxd -p /sys/bus/spi/devices/spi0.0/spi-nor/sfdp
-53464450060101ff00060110800000ff84000102d00000ff03000102f000
-00ffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-ffffffffffffffffe520fbffffffff3f44eb086b083b42bbfeffffffffff
-0000ffff40eb0c200f5210d800003602a60082ea14e2e96376337a757a75
-f7a2d55c19f74dffe970f9a5ffffffffffffffffffffffffffffffffff0a
-f0ff21ffdcff
-+ sha256sum /sys/bus/spi/devices/spi0.0/spi-nor/sfdp
-c733cf105c5f05ed23ad3a32c2a72c1a09d4b895c628db52e645a8a457dfc7d6  /sys/bus/spi/devices/spi0.0/spi-nor/sfdp
-+ cat /sys/kernel/debug/spi-nor/spi0.0/capabilities
-Supported read modes by the flash
- 1S-1S-1S
-  opcode	0x13
-  mode cycles	0
-  dummy cycles	0
- 1S-1S-2S
-  opcode	0x3c
-  mode cycles	0
-  dummy cycles	8
- 1S-2S-2S
-  opcode	0xbc
-  mode cycles	2
-  dummy cycles	2
- 1S-1S-4S
-  opcode	0x6c
-  mode cycles	0
-  dummy cycles	8
- 1S-4S-4S
-  opcode	0xec
-  mode cycles	2
-  dummy cycles	4
- 4S-4S-4S
-  opcode	0xec
-  mode cycles	2
-  dummy cycles	0
+https://lore.kernel.org/linux-alpha/20260902184058.198679-1-linmag7@gmail.c=
+om/T/#t
 
-Supported page program modes by the flash
- 1S-1S-1S
-  opcode	0x12
- 1S-1S-4S
-  opcode	0x34
-+ cat /sys/kernel/debug/spi-nor/spi0.0/params
-name		(null)
-id		ef 70 21 00 00 00
-size		128 MiB
-write size	1
-page size	256
-address nbytes	4
-flags		HAS_SR_TB | 4B_OPCODES | HAS_4BAIT | HAS_LOCK | HAS_16BIT_SR | HAS_SR_TB_BIT6 | HAS_4BIT_BP | SOFT_RESET | NO_WP | HAS_SR2_CMP_BIT6
+That series moves alpha's syscall entry onto the generic entry
+framework and removes syscall_trace_enter() and its direct
+audit_syscall_entry() call entirely - verified with git am against
+GENERIC_ENTRY applied, it fails at exactly this hunk.
+You don't need a replacement alpha patch, though. Once GENERIC_ENTRY
+lands, alpha's syscall entry goes through
+syscall_enter_from_user_mode_randomize_stack(), which already calls
+syscall_enter_audit() as part of the shared entry helpers
+(include/linux/entry-common.h). I applied patch 1/13 alone on top of
+GENERIC_ENTRY and confirmed alpha's entry path already routes through
+the updated __audit_syscall_entry() - no alpha-specific code needed.
+So for alpha, you can drop this patch in the next revision rather
+than rebase it.
 
-opcodes
- read		0xec
-  dummy cycles	6
- erase		0xdc
- program	0x34
- 8D extension	none
-
-protocols
- read		1S-4S-4S
- write		1S-1S-4S
- register	1S-1S-1S
-
-erase commands
- 21 (4.00 KiB) [1]
- dc (64.0 KiB) [3]
- c7 (128 MiB)
-
-sector map
- region (in hex)   | erase mask | overlaid
- ------------------+------------+---------
- 00000000-07ffffff |     [   3] | no
-
-locked sectors
- region (in hex)   | status   | #sectors
- ------------------+----------+---------
- 00000000-07ffffff | unlocked | 2048
-+ dd 'if=/dev/urandom' 'of=./spi_test' 'bs=1M' 'count=2'
-2+0 records in
-2+0 records out
-+ mtd_debug erase /dev/mtd0 0 2097152
-Erased 2097152 bytes from address 0x00000000 in flash
-+ mtd_debug read /dev/mtd0 0 2097152 spi_read
-Copied 2097152 bytes from address 0x00000000 in flash to spi_read
-+ hexdump spi_read
-0000000 ffff ffff ffff ffff ffff ffff ffff ffff
-*
-0200000
-+ sha256sum spi_read
-4bda3a28f4ffe603c0ec1258c0034d65a1a0d35ab7bd523a834608adabf03cc5  spi_read
-+ mtd_debug write /dev/mtd0 0 2097152 spi_test
-Copied 2097152 bytes from spi_test to address 0x00000000 in flash
-+ mtd_debug read /dev/mtd0 0 2097152 spi_read
-Copied 2097152 bytes from address 0x00000000 in flash to spi_read
-+ sha256sum spi_read spi_test
-7ccac32f903edeaed4e7c6355a91c2e6dfc95dd007069c9f22ea2b9d45f5ce35  spi_read
-7ccac32f903edeaed4e7c6355a91c2e6dfc95dd007069c9f22ea2b9d45f5ce35  spi_test
-+ mtd_debug erase /dev/mtd0 0 2097152
-Erased 2097152 bytes from address 0x00000000 in flash
-+ mtd_debug read /dev/mtd0 0 2097152 spi_read
-Copied 2097152 bytes from address 0x00000000 in flash to spi_read
-+ sha256sum spi_read spi_test
-4bda3a28f4ffe603c0ec1258c0034d65a1a0d35ab7bd523a834608adabf03cc5  spi_read
-7ccac32f903edeaed4e7c6355a91c2e6dfc95dd007069c9f22ea2b9d45f5ce35  spi_test
-+ mtd_debug info /dev/mtd0
-mtd.type = MTD_NORFLASH
-mtd.flags = MTD_CAP_NORFLASH
-mtd.size = 134217728 (128M)
-mtd.erasesize = 65536 (64K)
-mtd.writesize = 1
-mtd.oobsize = 0
-regions = 0
-
-+ alias 'show_sectors=grep -A4 "locked sectors" /sys/kernel/debug/spi-nor/spi0.0/params'
-+ flash_lock -u /dev/mtd0
-+ flash_lock -i /dev/mtd0
-Device: /dev/mtd0
-Start: 0
-Len: 0x8000000
-Lock status: unlocked
-Return code: 0
-+ mtd_debug erase /dev/mtd0 0 2097152
-Erased 2097152 bytes from address 0x00000000 in flash
-+ mtd_debug write /dev/mtd0 0 2097152 spi_test
-Copied 2097152 bytes from spi_test to address 0x00000000 in flash
-+ mtd_debug read /dev/mtd0 0 2097152 spi_read
-Copied 2097152 bytes from address 0x00000000 in flash to spi_read
-+ sha256sum spi_read spi_test
-7ccac32f903edeaed4e7c6355a91c2e6dfc95dd007069c9f22ea2b9d45f5ce35  spi_read
-7ccac32f903edeaed4e7c6355a91c2e6dfc95dd007069c9f22ea2b9d45f5ce35  spi_test
-+ grep -A4 'locked sectors' /sys/kernel/debug/spi-nor/spi0.0/params
-locked sectors
- region (in hex)   | status   | #sectors
- ------------------+----------+---------
- 00000000-07ffffff | unlocked | 2048
-+ flash_lock -l /dev/mtd0
-+ flash_lock -i /dev/mtd0
-Device: /dev/mtd0
-Start: 0
-Len: 0x8000000
-Lock status: locked
-Return code: 1
-+ mtd_debug erase /dev/mtd0 0 2097152
-Erased 2097152 bytes from address 0x00000000 in flash
-+ mtd_debug read /dev/mtd0 0 2097152 spi_read
-Copied 2097152 bytes from address 0x00000000 in flash to spi_read
-+ sha256sum spi_read spi_test
-7ccac32f903edeaed4e7c6355a91c2e6dfc95dd007069c9f22ea2b9d45f5ce35  spi_read
-7ccac32f903edeaed4e7c6355a91c2e6dfc95dd007069c9f22ea2b9d45f5ce35  spi_test
-+ dd 'if=/dev/urandom' 'of=./spi_test2' 'bs=1M' 'count=2'
-2+0 records in
-2+0 records out
-+ mtd_debug write /dev/mtd0 0 2097152 spi_test2
-Copied 2097152 bytes from spi_test2 to address 0x00000000 in flash
-+ mtd_debug read /dev/mtd0 0 2097152 spi_read2
-Copied 2097152 bytes from address 0x00000000 in flash to spi_read2
-+ sha256sum spi_read spi_read2 spi_test spi_test2
-7ccac32f903edeaed4e7c6355a91c2e6dfc95dd007069c9f22ea2b9d45f5ce35  spi_read
-7ccac32f903edeaed4e7c6355a91c2e6dfc95dd007069c9f22ea2b9d45f5ce35  spi_read2
-7ccac32f903edeaed4e7c6355a91c2e6dfc95dd007069c9f22ea2b9d45f5ce35  spi_test
-43870da5d2b9fcb8fe0a6a96350b87da1e9423fe9f9e2f039bf363e68916ae0d  spi_test2
-+ grep -A4 'locked sectors' /sys/kernel/debug/spi-nor/spi0.0/params
-locked sectors
- region (in hex)   | status   | #sectors
- ------------------+----------+---------
- 00000000-07ffffff |   locked | 2048
-+ flash_lock -u /dev/mtd0
-+ cat /sys/class/mtd/mtd0/size
-+ size=134217728
-+ cat /sys/class/mtd/mtd0/erasesize
-+ bs=65536
-+ grep unlocked /sys/kernel/debug/spi-nor/spi0.0/params
-+ sed -e 's/.*unlocked | //'
-+ nsectors=2048
-+ ss=65536
-+ bps=1
-+ flash_lock -u /dev/mtd0
-+ flash_lock -l /dev/mtd0 134086656 2
-+ grep -A4 'locked sectors' /sys/kernel/debug/spi-nor/spi0.0/params
-locked sectors
- region (in hex)   | status   | #sectors
- ------------------+----------+---------
- 00000000-07fdffff | unlocked | 2046
- 07fe0000-07ffffff |   locked | 2
-+ flash_lock -u /dev/mtd0 134086656 1
-+ grep -A4 'locked sectors' /sys/kernel/debug/spi-nor/spi0.0/params
-locked sectors
- region (in hex)   | status   | #sectors
- ------------------+----------+---------
- 00000000-07feffff | unlocked | 2047
- 07ff0000-07ffffff |   locked | 1
-+ flash_lock -u /dev/mtd0
-+ flash_lock -l /dev/mtd0 125829120 128
-+ grep -A4 'locked sectors' /sys/kernel/debug/spi-nor/spi0.0/params
-locked sectors
- region (in hex)   | status   | #sectors
- ------------------+----------+---------
- 00000000-077fffff | unlocked | 1920
- 07800000-07ffffff |   locked | 128
-+ flash_lock -u /dev/mtd0
-+ flash_lock -l /dev/mtd0 0 2
-+ grep -A4 'locked sectors' /sys/kernel/debug/spi-nor/spi0.0/params
-locked sectors
- region (in hex)   | status   | #sectors
- ------------------+----------+---------
- 00000000-0001ffff |   locked | 2
- 00020000-07ffffff | unlocked | 2046
-+ flash_lock -u /dev/mtd0 65536 1
-+ grep -A4 'locked sectors' /sys/kernel/debug/spi-nor/spi0.0/params
-locked sectors
- region (in hex)   | status   | #sectors
- ------------------+----------+---------
- 00000000-0000ffff |   locked | 1
- 00010000-07ffffff | unlocked | 2047
-+ all_but_one=2047
-+ flash_lock -u /dev/mtd0
-+ flash_lock -l /dev/mtd0 65536 2047
-+ grep -A4 'locked sectors' /sys/kernel/debug/spi-nor/spi0.0/params
-locked sectors
- region (in hex)   | status   | #sectors
- ------------------+----------+---------
- 00000000-0000ffff | unlocked | 1
- 00010000-07ffffff |   locked | 2047
-+ flash_lock -u /dev/mtd0 65536 1
-+ grep -A4 'locked sectors' /sys/kernel/debug/spi-nor/spi0.0/params
-locked sectors
- region (in hex)   | status   | #sectors
- ------------------+----------+---------
- 00000000-0001ffff | unlocked | 2
- 00020000-07ffffff |   locked | 2046
-+ flash_lock -u /dev/mtd0
-+ flash_lock -l /dev/mtd0 0 2047
-+ grep -A4 'locked sectors' /sys/kernel/debug/spi-nor/spi0.0/params
-locked sectors
- region (in hex)   | status   | #sectors
- ------------------+----------+---------
- 00000000-07feffff |   locked | 2047
- 07ff0000-07ffffff | unlocked | 1
-+ flash_lock -u /dev/mtd0 134086656 1
-+ grep -A4 'locked sectors' /sys/kernel/debug/spi-nor/spi0.0/params
-locked sectors
- region (in hex)   | status   | #sectors
- ------------------+----------+---------
- 00000000-07fdffff |   locked | 2046
- 07fe0000-07ffffff | unlocked | 2
----
- drivers/mtd/spi-nor/winbond.c | 6 ++++++
- 1 file changed, 6 insertions(+)
-
-diff --git a/drivers/mtd/spi-nor/winbond.c b/drivers/mtd/spi-nor/winbond.c
-index 5b81de305d8e..f59587b859a9 100644
---- a/drivers/mtd/spi-nor/winbond.c
-+++ b/drivers/mtd/spi-nor/winbond.c
-@@ -340,6 +340,12 @@ static const struct flash_info winbond_nor_parts[] = {
- 		.id = SNOR_ID(0xef, 0x70, 0x20),
- 		.flags = SPI_NOR_HAS_LOCK | SPI_NOR_HAS_TB | SPI_NOR_TB_SR_BIT6 |
- 			 SPI_NOR_4BIT_BP | SPI_NOR_HAS_CMP,
-+	}, {
-+		/* W25Q01JV-M */
-+		.id = SNOR_ID(0xef, 0x70, 0x21),
-+		.flags = SPI_NOR_HAS_LOCK | SPI_NOR_HAS_TB | SPI_NOR_TB_SR_BIT6 |
-+			 SPI_NOR_4BIT_BP | SPI_NOR_HAS_CMP,
-+		.fixups = &winbond_nor_multi_die_fixups,
- 	}, {
- 		/* W25Q02JV-M */
- 		.id = SNOR_ID(0xef, 0x70, 0x22),
-
--- 
-2.54.0
-
+Regards
+Magnus
