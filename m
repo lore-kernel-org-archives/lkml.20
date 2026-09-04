@@ -1,159 +1,84 @@
-Received: from mail-ed1-f51.google.com (mail-ed1-f51.google.com [209.85.208.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2D905221E8
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 19:04:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.51
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788548679; cv=pass; b=scKJeB6RVUj8mtYmI8AShBMVGxzhqKcytlry46XOhiTYKSwu+Z4NUvjifIoCHCaxcK5/nVCYB9veMxy0aI74IkEVmNoqGmLZDNvQRN1aCnfdGY8OSbWiSfRqsYU1JhS3262G/rB8YIQ5b7KDLcUFUordSW3300WOZNjUBJV8JBY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788548679; c=relaxed/simple;
-	bh=fY51Nm7//N8CrgPPDWq6X/4KvqN+2A5oq4YO4LZ3kWk=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=LRNyQgGh0K6fE0nn7AH21krybQfZm+SyyA6BzNhiP2QUStV0NuVNOxT3yksLtTeapf5p0F3viu8XlaeAhspSxq32JmLkmskEdYWb4PAVQkL3+5H3N5a+omFSJz64czpaZQ2nYPB6ugTaOUM9SbExsRieyxkwsbbGQVYne3PfhF4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=W6PKVYQ3; arc=pass smtp.client-ip=209.85.208.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45BED45041C
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 19:05:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788548734; cv=none; b=eDIQeh7S0xKzyC9JyZ46k0ey2FZKFWub8dV02b/rQogcxfrUm4FnlFxpYFm/Z4aWB9adW4W5+ewnx5Pl8xe+4zKDZ5ATFQN3l1ehPUe0aNC2F9/XMiBMuQV+peTBsqkNlqJsnIw71otV5zUT2O4WsocVpULJDkXjt2vMevzG8dU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788548734; c=relaxed/simple;
+	bh=kH7UMUtXXI7733fIMTtbX+a83BGaTXlmYpNtWD6roKA=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=nYIiDvkBZT8GOYbKHyC+PDKsJ1YXNHVqq2mwwgwDPxnzokUZpPMxMcuaCCJiSpJqCJypG78qEzP8PsWMCkA1lkxhggdHxW4DlobS2Fr/VzVoCege7xXFiljEl3MLEmX7U8mMIdMtJJOI/gmXLk3THGtmXzTPph6ZTXOXxpUs9Fw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ycd5IXNK; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="W6PKVYQ3"
-Received: by mail-ed1-f51.google.com with SMTP id 4fb4d7f45d1cf-6a0a4aa99bdso1819919a12.1
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 12:04:36 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788548672; cv=none;
-        d=google.com; s=arc-20260327;
-        b=qaPwxpryTNk63Q13yDMrjqFUtk/6ohk3K7NG+5ExYlO9T56/0nWkYWIMJhZV+gmdm/
-         yLWIuGkhcebrv6AWDTJ1hPX3bC48E+AI4603UqKY/2vB4SVfqH6KID8Mb6vFK9mLWtGm
-         OY2OxwIdyJNkhsVJh6M1zj3reJqqxnDbZfBazGHqfJ9uGA+DKg2GDrFHTU3tHguOgqud
-         kEJuBhjFhG91tffdOrQta8aHF5i2S81nPv/DHhcXYfYDIp47qZ3N7XPlbe2svqloJLzQ
-         LDTslDT7VLaCBCBtu+HuumOTMLqmGDugafi+b9DPVm2DG74Rh+m+qH2UOgSCwUFZZbHX
-         bZuQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=8WIXDXXIb5GWVAPPT449/WXotAVKzuJdLxiT/W06EUM=;
-        fh=QObH+LWOfBnvQFvj1mwACe803VBMzWUGYDadW9JU7V4=;
-        b=JbQwrSULwmT84lVW9U4KkHzJ8CY9Glb3PICRU3NRtX3sp3pXuXgWiOcVtVsfK3G6hr
-         dAfQwfGpzzQYmWUt5IIzvmvF7AaVXMOaIXuhQ4FF3Mr0ubvry//Xf08yb+eNDW/ElYll
-         OMKBrcx3s6n+zJhA3XcGQV9KAf3rwzb9uucBTS67OqaX2ku8YUxa8vkP+wKxJe3jpiOi
-         2j1+RNVXVcQB7wm202NPbLBcSktI1qKLyDHYSisNHja9j4ryKVOpFBNUkpYvhmnUMK8O
-         U9gls+jIrggQ5tfvt0TlGWbdN5E87DbkFtHgbT5OiLdIDBxcRcVqT0DXSRsbZcwKf+G2
-         tKHw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788548672; x=1789153472; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=8WIXDXXIb5GWVAPPT449/WXotAVKzuJdLxiT/W06EUM=;
-        b=W6PKVYQ36W3D9fJi0d/XNUwh6wf14R6gXncMEa3rfNZ2uq7aWmKrlOojqg8EBXgPNX
-         OkWioHRkOrsYKGAEDKYC0ugYfE+gz/wxWzSbellZBZk4nFIRZMLjQdazN5xVxUh35OeP
-         Ysu4A6SAjXSey0BkQS6GlLRYmBUjvU+iWrzwZXIX4ES4IaJhFrqrYWGE1uegM+ig14fB
-         k5jDRMqh7olDBO04tAhR9XtCvX93dUZqDds3yLuj74P3GZbZUy3W9S/9S3NbWLZOEcCj
-         4BM8egQEtQiRScJqVG3q3dbH3PqhD2buW+dnLhGF3zaQOlt81ZtbXgNFhQoIkQZBAt1r
-         qyWA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788548672; x=1789153472;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=8WIXDXXIb5GWVAPPT449/WXotAVKzuJdLxiT/W06EUM=;
-        b=r9/18jmY4uP+sh0ZJ2T66hNW9RSLb4LdC0LSKg+P3WklavJJFFsDNPdXzNmPs5IB5R
-         UKDbYEPvSfpZ+V4JAtD5x/gfG9oCwCfonEv7/4v98Ltpnx93mGyC8kwFSkEEYcs6iKhr
-         S+fiVz/rmV/sovOtTXoQ6/Owaaadq3xi+IVIHDfA/Yn+M97q1cY5hNV+S6YIXoNu4mzc
-         OVdLy5yqELiSRgRClbi1BAwTRfwozGn1pvlu/Jq7WJ8xn3gSG7qxyfFgHdTnqOSlfNFc
-         EjE+YOfG6oCn48jy380J1JQioQtq0ROwFkGGiZzqtLzDGXEzewmRMaJjbM0g9qNdvwNp
-         L/iw==
-X-Forwarded-Encrypted: i=1; AKwUvBz1AgHRDkNF+gIDyJvjlLajui07ssjMPDmeiZs1Z/F9lblQvWx3Tt9L59kk6+GyhagyI1QUEPz3T7gG6xY=@vger.kernel.org
-X-Gm-Message-State: AFuF++mZMsZRtrchRD9Vu+Ryp5mNdXpS/tKtTyEFWXgEX58SnBdBFTK8
-	bkDDAjzktDd4yjmAZIrF92SThJphh9JeVa0WL/OWMJzCyqTwBGJ3FSWf7U7JPOgggAgG6TdT4Hc
-	rw8SIpPtfS9L9aIr3iJeHYJPyPhDp2w==
-X-Gm-Gg: AYBFou1TzepqABhv+7DeE+5TmolPCxifZgN4Bi6nJLzSi5mEcFSTbTMfzLX4Fegzaw8
-	B9YmKMcgeMql18ghi6WFTzhJm0FpNtwbdQKR0TlKeoarQf+HM+PQneF4kq6vjEkgswrsmhK66iS
-	CyF8y5Fhfs2rhJP6qKUM89iQ5WLu3WSIoOOC8WT9yjB80GIodVzu03Alhl0oBXrO++PsdA0il3k
-	s337MPFKUIVJDPPGUCQL2A+QfiRNQIy4QwCfv+hKSVhAOYLO88xg7iYgcpa8jhEC8tz6MUamJ5y
-	Qo0pT2FjAsPL8Cup5/0RcEQaDt9LhUEHi/Qfo2joYaRV+rue7VIdOqmbVEI0wB9L7KxKb7U91P+
-	yJ25H2sGQm44=
-X-Received: by 2002:a05:6402:4607:b0:6a7:f6ea:2858 with SMTP id
- 4fb4d7f45d1cf-6a7f6ea38fdmr111175a12.9.1788548672271; Fri, 04 Sep 2026
- 12:04:32 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ycd5IXNK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5DF8A1F00A3D;
+	Fri,  4 Sep 2026 19:05:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788548729;
+	bh=l4oluV9/G9PLmnGfv2la1MKCSB8J0OiGBXxd3j3VdUE=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date;
+	b=Ycd5IXNK4bHPuKh+gT5Ap46UMg8aEB90bdfVskz8YERf6xl7OKbSEEwljwMmAlAos
+	 J3Wfg608W3ojSTjndEC/duZnYDGFM9EtVzlvkycgIUsrIXMIjt3XTnLIPNPo5zm5JM
+	 0rxjDfW/Yc8hvT5qfny9tMX0nk21v5z3ruIkB4N83olig/w3Pq2SHKoWOtIc17HrSo
+	 ig6R/54RNpF0K37rzxzTw17le7laDHaD3xlVRoBCWJAu9LAqIoJ5m8xJK/xJqMiD0K
+	 U2NEjOxbR1fvpB3cYbiyt1au2HLZ1uCdycQi1j73yloDJXVZRZvP6sgIKE7cwv4qyE
+	 JR7SdPn5GGs6A==
+From: Thomas Gleixner <tglx@kernel.org>
+To: Mark Brown <broonie@kernel.org>, linux-kernel@vger.kernel.org
+Cc: Farhad Alemi <farhad.alemi@berkeley.edu>, Mark Brown <broonie@kernel.org>
+Subject: Re: [PATCH] regmap: irq: Free the irqdomain we create
+In-Reply-To: <87mrtw7sf3.ffs@fw13>
+References: <20260901-regmap-irq-deallocate-domain-v1-1-4bfed4aff559@kernel.org>
+ <87mrtw7sf3.ffs@fw13>
+Date: Fri, 04 Sep 2026 21:05:26 +0200
+Message-ID: <87jyp07s7d.ffs@fw13>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260904-pnfs-ff-v1-1-5f502cf25401@kernel.org>
-In-Reply-To: <20260904-pnfs-ff-v1-1-5f502cf25401@kernel.org>
-From: Rick Macklem <rick.macklem@gmail.com>
-Date: Fri, 4 Sep 2026 12:04:18 -0700
-X-Gm-Features: AcwNN1V2wDjSC17yCpg7eSOGKcXz3tfvatnp3nZxtq7bt_YHqBfzxNWlSSrFAsw
-Message-ID: <CAM5tNy7Yjk=mm9rq9YUuYF6LEd2v2tp3p3unDxgEv8xU4oXO0Q@mail.gmail.com>
-Subject: Re: [PATCH] nfsd: don't offer flexfiles layouts when NFSv3 isn't
- being served
-To: Jeff Layton <jlayton@kernel.org>
-Cc: Chuck Lever <cel@kernel.org>, NeilBrown <neil@brown.name>, 
-	Olga Kornievskaia <okorniev@redhat.com>, Dai Ngo <Dai.Ngo@oracle.com>, Tom Talpey <tom@talpey.com>, 
-	Tom Haynes <thomas.haynes@hammerspace.com>, linux-nfs@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Benji Wiebe <itsme@benjiwiebe.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain
 
-On Fri, Sep 4, 2026 at 9:50=E2=80=AFAM Jeff Layton <jlayton@kernel.org> wro=
-te:
+On Fri, Sep 04 2026 at 21:00, Thomas Gleixner wrote:
+> On Tue, Sep 01 2026 at 22:55, Mark Brown wrote:
+>>  err_domain:
+>> -	/* Should really dispose of the domain but... */
+>> +	irq_domain_remove(d->domain);
 >
-> The flexfiles layout driver hands out a deviceinfo that names this server
-> as an NFSv3 DS (flexfilelayout.c hardcodes da->version =3D 3). With v3
-> disabled, the client can't talk to the DS: it loops on v3 NULL calls that
-> the server answers with PROG_MISMATCH, and I/O hangs in D state.
+> That won't work.
 >
-> Skip LAYOUT_FLEX_FILES in nfsd4_setup_layout_type() unless v3 is enabled.
+> The case which is affected is the one which allocates interrupts
+> upfront via alloc_irq_descs().
 >
-> Reported-by: Benji Wiebe <itsme@benjiwiebe.com>
-> Closes: https://lore.kernel.org/linux-nfs/c734eeb8-8486-4491-bb4d-b9656cb=
-affbe@app.fastmail.com/
-> Fixes: 9b9960a0ca47 ("nfsd: Add a super simple flex file server")
-> Assisted-by: LLM
-> Signed-off-by: Jeff Layton <jlayton@kernel.org>
-> ---
->  fs/nfsd/nfs4layouts.c | 4 +++-
->  1 file changed, 3 insertions(+), 1 deletion(-)
+> In that case the domain creation will associate allocated interrupts
+> because info.virq_base is > 0.
 >
-> diff --git a/fs/nfsd/nfs4layouts.c b/fs/nfsd/nfs4layouts.c
-> index 22bcb6d09f70..cef4d40c89a2 100644
-> --- a/fs/nfsd/nfs4layouts.c
-> +++ b/fs/nfsd/nfs4layouts.c
-> @@ -127,10 +127,12 @@ nfsd4_set_deviceid(struct nfsd4_deviceid *id, const=
- struct svc_fh *fhp,
+> This wont trigger the WARN_ON() in irq_domain_remove() because it's a
+> fixed sized linear domain, but irq_domain_remove() will leak the
+> interrupt descriptors which still have a reference (pointer) to the irq
+> chip and the domain. So the same UAF is still there :)
 >
->  void nfsd4_setup_layout_type(struct svc_export *exp)
->  {
-> +       struct nfsd_net *nn =3D net_generic(exp->cd->net, nfsd_net_id);
->         struct super_block *sb =3D exp->ex_path.mnt->mnt_sb;
->         expfs_block_layouts_t block_supported =3D exportfs_layouts_suppor=
-ted(sb);
+> What you need to do before removing the domain is
 >
-> -       if (IS_ENABLED(CONFIG_NFSD_FLEXFILELAYOUT))
-> +       if (IS_ENABLED(CONFIG_NFSD_FLEXFILELAYOUT) &&
-> +           nfsd_vers(nn, 3, NFSD_TEST))
->                 exp->ex_layout_types |=3D 1 << LAYOUT_FLEX_FILES;
->         if (IS_ENABLED(CONFIG_NFSD_BLOCKLAYOUT) &&
->             (block_supported & EXPFS_BLOCK_IN_BAND_ID))
-Although most ffv1 servers use NFSv3 DSs, it is possible for an ffv1
-layout to specify NFSv4.
+>      if (irq_base > 0)
+>      	irq_domain_free_irqs(irq_base, chip->num_irqs);
 
-rick
-ps: I don't know how you'd check to see if the layout will be an
-      NFSv3 one. (If the server only does NFSv3 layouts, then I'd
-      guess this patch is ok?)
+Hit send too fast. That stupidly works only when hierarchical domains
+are enabled.
 
->
-> ---
-> base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
-> change-id: 20260904-pnfs-ff-485ac21042a6
->
-> Best regards,
-> --
-> Jeff Layton <jlayton@kernel.org>
->
->
+So you need:
+
+      if (irq_base > 0) {
+      	  for (unsigned int i = 0; i < chip->num_irqs; i++)
+          	irq_dispose_mapping(irq_base + i);
+      }
+      irqdomain_remove_domain();
+
+Thanks,
+
+        tglx
+
