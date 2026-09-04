@@ -1,61 +1,70 @@
-Received: from mout-p-201.mailbox.org (mout-p-201.mailbox.org [80.241.56.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f181.google.com (mail-pg1-f181.google.com [209.85.215.181])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 756403BF679;
-	Fri,  4 Sep 2026 12:11:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68ED945199D
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 12:11:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788523877; cv=none; b=LeWUtverjJqgSCh1ZUbukmnZWzKWwAz2f8KwMeZKER9CC4BNh3HUnnYZlI6svR5f+/kThMoZKpipJ1SZz/QE8O5S/m45YN2Nfw16JeI9LeQEjnuwBewtjcRIOoJEOtqa7o5Degmz94yHxWw1f2x56EGgdB7rq3NFWtUpO5yIUcM=
+	t=1788523913; cv=none; b=pwwIuaIbWJOKr3G7OanCEMGDyQ98gqwCeQS4fgCT0//YrHQM3eBXJRoHOh/C6/rF7Exf4M0osCmVnFtPK7bOqpNUT90lILfxydhStBV6z9vLruX0h4zlhw8qYjBhweyZxOeVgRr74/orF2+tk7OUIqorNMTQaqvv4+UL7G89HbI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788523877; c=relaxed/simple;
-	bh=eUjTHN9dyMl0vVDBg6k8jcBVvowq9uxqibLPGWC4dgg=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=N/rrkjKD9hfad+mb1RR9zr7ru1jQ4jBp2LZFJIpHdxUx7yzLEZjEG+XGuk1IYbOEYOsD1G0RRIWJBT3A75zSlCTAwrhUVO1BxAgXfU/2QH08L1gnQcmE7e41gmVDP+dOyR2wkrEDa8zhffWSBvUDb2vD5vj/mzRCeX4QoLk79tQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=ZEZM99Tq; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=sRfwW/MS; arc=none smtp.client-ip=80.241.56.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	s=arc-20240116; t=1788523913; c=relaxed/simple;
+	bh=Grw9uqZlXGgzby8RCh8JScm64L8gk59CwDh+Ww28rQM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=DoIfLT3QYNO1jcMaj1kdp49crX446APf3YyXreavu91HOgO9s/f49KitHMvvUPM+FhmpWuVay+7kKo7fVAlvGx9XFFMu4cj+iASZRclLKavN1FOxn5QJ4ITMFi2zapJ9q9h4RnrvX3Ky2tW9Op9ezUzpslxDl6Z5uSDjRIipdz4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=p1lEvEZe; arc=none smtp.client-ip=209.85.215.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="ZEZM99Tq";
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="sRfwW/MS"
-Received: from smtp2.mailbox.org (smtp2.mailbox.org [10.196.197.2])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-201.mailbox.org (Postfix) with ESMTPS id 4hbwKk68lmzMlFf;
-	Fri, 04 Sep 2026 14:11:06 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1788523866;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=SNjGGfYKOiqw6qQ1250aXHKA8K2I0V6WNge1XrEBt2c=;
-	b=ZEZM99TqHkRo37T3FU6nZwUyEyF25bJxFcpsJ119IZ80Gf7SHyXPUeXRWwSjhmeNRV4aUu
-	LVm9qHauxWYXU6Ru96uIRDItdDVSm9nv8BTnEctcADGLGT0H21XxTVJX9XxRnfXLQsBEgF
-	Yuac2icKluBrNdLSoy3SyIWJpsnEqTWdxedtRxILJ3hYewyWare9kkxwVx2qFu4/sNL5mN
-	k0Btp+o92ets+aCBInE1fXemk5cNWTplXRAxFnV1V65GXHccqEEr1jsW2ppGEo377OPs8s
-	KhYHrYwfBFTbMQGnIw2JfSdnQDNv3OgVn/NRgB2js34850Y40ovCiRj/qUtL5g==
-From: Manuel Ebner <manuelebnerli@mailbox.org>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1788523865;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=SNjGGfYKOiqw6qQ1250aXHKA8K2I0V6WNge1XrEBt2c=;
-	b=sRfwW/MS74yC0M5SseDFgxyG/M4QiiYgIErm6f6JLHJwGhyrIoAqI1oIowOiGlkNCJeMnt
-	yNreAp1H4U8QLYX/2md3BU6Dh6QSRc8YZDv+91saEKYX/EnuyqOIc0HEYYGYvoFy9s2GPE
-	0f7+bAf+4E92PlF34DQ9KGOBLTYmPj2ZtU571UO0zAQA0SVuySBbbleLEunqy4i+bCkLNF
-	knj+VCEnU5ysDC2qLbKlk31f/0+Q0bLiIzWjtjN/MeY7KJIwbT8rT1rStLU7Mvm12/YZ5m
-	WEB5FspQOy05kxMQIqNJCxE7lSH8Y/GwdoYA7m0fiJQ5Xi9MFHZWBQu1b8wJzw==
-To: Henk Vergonet <Henk.Vergonet@gmail.com>,
-	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>
-Cc: Manuel Ebner <manuelebnerli@mailbox.org>,
-	linux-input@vger.kernel.org,
-	linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 20/32] Input: yealink.rst: Fix bracket
-Date: Fri,  4 Sep 2026 14:10:26 +0200
-Message-ID: <20260904121026.759218-3-manuelebnerli@mailbox.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="p1lEvEZe"
+Received: by mail-pg1-f181.google.com with SMTP id 41be03b00d2f7-c9d1fff21edso806370a12.1
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 05:11:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788523911; x=1789128711; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=BlOje1kzCqhXo3NcDvPWOXV90zYWAyengT9V/NQtF+k=;
+        b=p1lEvEZesuTFCA8PzeUScPFP2F1gU6n4kGDXK3h0xy/tZULuxXghvc/FPh+XEx6smN
+         r5dDWSk9iP6AhqybRKv8x6PobpM8QmCoeBxiL0MyAua2GMQT9x3XB8shgZaljyNNUAxb
+         jsloDN302qBq6SLAUBm4h9kF3JLsOvQ6nDScDYTXJ2gkIQBMtfu60xMU17HAHoTpEBU+
+         yZC6HIM5WzfFG+wRVw9kYNbmdIWlFjhOg7jNCKDmjRVxVQq4lyrrou5ICAqOU0SF7kli
+         EJwTyOqmUBLq63AKg4vo+/2AZxG6kO5QICEN6/aNedVs9VahfWuDaSNkHKDWNSHmKtcL
+         zBYQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788523911; x=1789128711;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=BlOje1kzCqhXo3NcDvPWOXV90zYWAyengT9V/NQtF+k=;
+        b=rdegjg8b+5xDBjuz/tlYDGUmTs+Klu6TEzwPUG4jmH35Gk2xspQ8y6xqxhhha0iCLe
+         57PqyUqQMEkC0ilxNXqct/X+Lq7wDJ2m+gvcxsEaZv6skE9MxRfBjwLiO6uIZ3R2jQ8Z
+         V2qlfH02ATwYzBIh4PEg66tzSEiF8MwrRQX2EuvAUIrsLlGrXuI0ZIB71AHzAG23Q8D3
+         KTYB1Y4WhEqpPPX6J6lW3JcInftDqBuhlhgviyLYfEFnzCaZ/mrBRjBw4iM2cMuAy24Z
+         Ubp8fIJQSrZUxOclTrpEh34xzbYHwLZncQO7u2Mqmz+RavkwZrIsY0WYhZOYvnOvs5ED
+         nGGg==
+X-Gm-Message-State: AFuF++nHXfVpPGVdKX7rGKYAjKm7pWxcd0udSRCezcm/w98+K01ukjwY
+	elgD4MLSNLkN1QEHCdq78jaOYGo++C3z+aXv8tLBC5DVS1rRfyu655x/Kpm4pk5c
+X-Gm-Gg: AYBFou2IX7144lXZ9fj4MpHPPsZcmEQbWg6KeIasG6zO8o/nZNuiW9QnbQtsEKyviCM
+	MbzZA8m7snDuVEadnKRDChVf3tBb5z3m9f+/0vlbWdtOnoDVo9tDfl0PlY4nJRnvV0i5wOE5X2Q
+	+9mpxW768qu9f6fbbf24Lx2ONqbKFkcSu4vgMMV91GwOUWPPO7hFmvko7NXR+3vTV3tAYf1PL9p
+	GiWIohe7QR65/9k02ad6pG4zR75wAPGqvUi7Ejh8jZOAsZUyO2hAflc7FPw+FyMKaypMPSg630s
+	OgLUy9HkklwiLueCi0rEyk/UhUFx5VI8unYYmLaiVobd62fR0Y19gsKuWhpCJMuyS/7RxMbPN7z
+	lvuf9ihrtav7Wv9ysroenUSbIn1O7V9Dike1LQstoI58mBs9HwCo+Ff/TKRqkYBRPqNkOdwME1G
+	l1pGX7Jk6nsxIWT+PWtgbKcgDj8aIowraUP+ALcZqcxYDi74MqAWNqHlMBx1NGmOeuw4El7CIxf
+	QHA9QeDLPzcQkY=
+X-Received: by 2002:a17:90b:3a50:b0:38e:4cb:51f with SMTP id 98e67ed59e1d1-39b26101576mr9886088a91.11.1788523911388;
+        Fri, 04 Sep 2026 05:11:51 -0700 (PDT)
+Received: from volcano9f6e-hostos.amd.com ([165.204.217.251])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33450e140d3sm2885111eec.4.2026.09.04.05.11.49
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 04 Sep 2026 05:11:50 -0700 (PDT)
+From: Hemanth Selam <hemanth.selam@gmail.com>
+To: Jan Kara <jack@suse.cz>,
+	Amir Goldstein <amir73il@gmail.com>
+Cc: linux-kernel@vger.kernel.org,
+	linux-fsdevel@vger.kernel.org
+Subject: [PATCH] fsnotify: fix typo "anonynous" in comment
+Date: Fri,  4 Sep 2026 17:41:45 +0530
+Message-ID: <20260904121146.22419-1-hemanth.selam@gmail.com>
+X-Mailer: git-send-email 2.48.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -63,29 +72,30 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-MBO-RS-META: o6bb1kuonptaokoy5ajjctjpd8pfjtma
-X-MBO-RS-ID: acc02d7438f2c191d66
 
-Remove needless '['.
+Correct "anonynous" to "anonymous", reported by scripts/checkpatch.pl using
+the misspelling list in scripts/spelling.txt.  Only touches comments, no
+code changes.
 
-Signed-off-by: Manuel Ebner <manuelebnerli@mailbox.org>
+Assisted-by: Cursor:claude-opus-5
+Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
 ---
- Documentation/input/devices/yealink.rst | 2 +-
+ fs/notify/fanotify/fanotify_user.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/Documentation/input/devices/yealink.rst b/Documentation/input/devices/yealink.rst
-index bb5a1aafe..de86cf7f5 100644
---- a/Documentation/input/devices/yealink.rst
-+++ b/Documentation/input/devices/yealink.rst
-@@ -205,7 +205,7 @@ Troubleshooting
- :Q: Module yealink compiled and installed without any problem but phone
-     is not initialized and does not react to any actions.
- :A: If you see something like:
--    hiddev0: USB HID v1.00 Device [Yealink Network Technology Ltd. VOIP USB Phone
-+    hiddev0: USB HID v1.00 Device Yealink Network Technology Ltd. VOIP USB Phone
-     in dmesg, it means that the hid driver has grabbed the device first. Try to
-     load module yealink before any other usb hid driver. Please see the
-     instructions provided by your distribution on module configuration.
+diff --git a/fs/notify/fanotify/fanotify_user.c b/fs/notify/fanotify/fanotify_user.c
+index a32c6634d592..63c9759fc3b0 100644
+--- a/fs/notify/fanotify/fanotify_user.c
++++ b/fs/notify/fanotify/fanotify_user.c
+@@ -1837,7 +1837,7 @@ static int fanotify_events_supported(struct fsnotify_group *group,
+ 	/*
+ 	 * mount and sb marks are not allowed on kernel internal pseudo fs,
+ 	 * like pipe_mnt, because that would subscribe to events on all the
+-	 * anonynous pipes in the system.
++	 * anonymous pipes in the system.
+ 	 *
+ 	 * SB_NOUSER covers all of the internal pseudo fs whose objects are not
+ 	 * exposed to user's mount namespace, but there are other SB_KERNMOUNT
 -- 
-2.54.0
+2.48.1
 
