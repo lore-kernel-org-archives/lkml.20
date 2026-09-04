@@ -1,96 +1,97 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com [209.85.216.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 057843D9023;
-	Fri,  4 Sep 2026 07:57:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C00D3DB63D
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 07:57:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788508624; cv=none; b=blbNYRjObJx00B1Jhp1cPncPCy1kRiBmx4u4dojfPvcrcVKxVs+609XHIZEVFoJA6G9PtUUc7JyRQ47LvTsuNg8t2I7mwyagCgSIub8j7cZcw2KtDx5YjwySlxNtHYPcA/8HzD2BvUwkEj9VaLFXEmH8Ge6in81ztSQSfl5pYek=
+	t=1788508627; cv=none; b=PUMYNW1eouXlEfI6N4hYrF1H5BJ6K2flZpWHQzYK0GMIELOary8vSvZc2YHQbxmOM35QyNboyUoUAt4BYAvEfnmv+0tIquEWcFkHu+IixZMjrU+SosIkaeLv3JlB+gEnwl/7O4TXj2CDY0P0PdSL8Hp5ZS6Dp3WYir/eR1GJk3U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788508624; c=relaxed/simple;
-	bh=oWVklq9ai4S/bCG05vOuUEy9uf8pMgH9ircR33tv2xI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Ypb4J4KnLMYIkzN/r3o/RlgciuoKR2deFITfl/LC8kZwVB9EuuHRpRJFtnsE7vzncPfZ/h2ph22Rvz+QnOeRU1lvqh3qxv4U3UPJCyaKc2LuLhkE9TzXfbZs8Xt6PJxHkcL+0srBIX6XoBgloxsSb/2w03TwbLAKfekYlboc2Bg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nA41xhIp; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788508627; c=relaxed/simple;
+	bh=aVDnSf0y+hMXWr8hLybg6AD3WaQCpewMz60QImDAXo4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=jS2Do0YvfBe9FwPp6BZFmn9jx+u/qAiQGSwZeJYvegET5FrvUVRZFoVeiySycCgiTJxhX/42RpojY32pNLKlRdFVBWTxShT5P3TpdWaFX1OKVV0arZ1Q+G/TX/OT03JyJAaNzadRkbtSrAv+gKWdSXph7yxQQeJgpBdTLg/hxEo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=amfyVfZy; arc=none smtp.client-ip=209.85.216.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nA41xhIp"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0105D1F00A3D;
-	Fri,  4 Sep 2026 07:57:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788508622;
-	bh=OSLjWQWyCpfRxWfLXacqeixxCMB4Dp559C2UBIbZd48=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=nA41xhIpK0e/3gdQ0bY/jVg8MrVq9RIkszH7MZhP08IakBQWe5dEfRZaigI2CSomY
-	 sGn1JJm2qAFW8VJ3s0MBoGuNDgBdrhfslEvjQPg9Y5VSanJSiitnlZR52bSqLwNQLO
-	 ugotR4KZN4URDBGrbMFpyeOxlCqYdqihpNq4nYv/rv+Hex5zuCm+qIgLmkHLmjjKZR
-	 4S5QUgsaFn8U1GhSGS/j2B0XXbN3RFVhdSdMZ7cQQLK5NFV5DfcQ4MeF1UCObwD19Z
-	 yTUJd1aBRhO5jlLtoFmbwCiRVakONj3rkxgLE2PdLFW5/YYNJdCsbpKu8nF+UiDm5a
-	 3FRertvrzeqZw==
-Message-ID: <0587c422-8279-491e-b377-af623e13366c@kernel.org>
-Date: Fri, 4 Sep 2026 09:56:58 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="amfyVfZy"
+Received: by mail-pj1-f51.google.com with SMTP id 98e67ed59e1d1-38f0f3c8da5so86084a91.3
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 00:57:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788508626; x=1789113426; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=jWQHmm7FHocENum1rYYpf4ViVc4iq1jYrch0jAvV5fM=;
+        b=amfyVfZy/wGOpn8p40yB65QgXV0kAEAn1iPbjWRERHkGEpYVPRxeCzWM4ceL2UbDvN
+         K6Y8zgW5xLn1sDMI/GtAgKFT18bTmtutXjL5B48CagAeGpc7qpcUgCgjiPduFAeFTPeU
+         hP8cg0kxrDVAOri6YXGGl+aYJoAVRC0OJHlKY+x1i9+wlSM52tORn56n0Ojl7olu135f
+         jtzzRN/3HrVfPR99HbfbGl0+l4EVDLvwEvt0YgNovz+pXufqqyxxH6Tubt8EmRD+X1MY
+         IvJA7pyFkVJFMkN4di5aPOR7s7yHxMkIOV6nzuU8WFu9z8/8HIZQJTdPHQbB4vYzhZIC
+         6tLg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788508626; x=1789113426;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=jWQHmm7FHocENum1rYYpf4ViVc4iq1jYrch0jAvV5fM=;
+        b=LqQ3wys9BjBQM19XitDOiBpWGex4V9kJtNq1jGu9v9vM2bo2NkuxVaJ1maQTbQBDdg
+         o0qdKW5iPYq8zUi9kHOoLKWaHTJZnBKo2yzwLPP1cqB3Gab8pizwTUYads0/fb7/KoMi
+         epv7RKYnqN0iZOn/3D4ZZ7j2mYj8P6Q/MwtzaoaM+Y7+5kbiWgQi158wZoJCxAnTBAE6
+         KVPcpsK80U6JL595PfPsBKiToQ5SIUY9xRP6CXXGWsCNYRgUUmC6KyPr3nO3RPJQSUxf
+         NXWiddJSTYnvOO9sI6oZtaVqo0Ija5edLuMTphKan9NQWEJe2a38YDOwi6Ht6/3CUAUx
+         dWbA==
+X-Forwarded-Encrypted: i=1; AKwUvBxSePe7a7cYH1FngKYIri2F55BdrmNcQ3hPn2g8IcJ9yoSUeWL8y9tXGYwId9nHy9u2RxuLvdffPu0acKc=@vger.kernel.org
+X-Gm-Message-State: AFuF++lclb0PKE/QIw01tkYgDWWywo/Q2EVhr+GWvaJpfBLLx4n/9F39
+	xNsCbd+LnHLMJ6qQ0XdRY3YH/YyPSDr8RJcDn67dD3PnEi7GLoE1oiAaZdhvUA==
+X-Gm-Gg: AYBFou1bjfABgRfCjRIoIKIzpf9ObhMqUFJONs6prrXqelthJiam7+8pvxWUn+drnWp
+	af/Ypm1r3qTPjJiW9ZDE7dPvheIWu0gkJ/SjZSYag/EbCW2dwF9B8JOnIL1drGjVuw/jNkQQrE9
+	qyZmFtZkMmggol2OYrODXQZ43NKPv3kJqZdwDgAqE2ybMoDUIqAxUs3bEtED88+fKvgIeERUTOk
+	J8YgQ5HLyTNLZDC+3/+9cj2MUXjXzFmHDAccaq63ac0gIrtbXE1VCKtS0B/IQORiLABSocZ5V1K
+	G0fXQDHtvrlZkc4y25G0HHHp8A8EjNbRT6vQVrhBKM5MVokpxTKcyBLW27XfEUISWrfHMt9QLR6
+	ft4OpSQg9ZTo2n3mHjf0qfadUeXVdjPXbj+hdIKGwmylls4Mdktyp6yKfDmt1eakbm4EtcR5aPm
+	otqQzfj4tsM69ywUTbcy+ykcekitPMnIz/WbmbubTt+pKDfbpSWmVW/YY7wOMAIKmdj+1Asr06B
+	fPwkHMHh3Z4Wg==
+X-Received: by 2002:a17:90a:ec85:b0:398:bad2:c10 with SMTP id 98e67ed59e1d1-39b26301360mr4300158a91.6.1788508625750;
+        Fri, 04 Sep 2026 00:57:05 -0700 (PDT)
+Received: from fedora (45.62.127.193.16clouds.com. [45.62.127.193])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b261549f3sm3139517a91.16.2026.09.04.00.57.02
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 04 Sep 2026 00:57:05 -0700 (PDT)
+From: Frank Zhang <rmxpzlb@gmail.com>
+To: "Rafael J . Wysocki" <rafael@kernel.org>,
+	Viresh Kumar <viresh.kumar@linaro.org>
+Cc: linux-pm@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH] rust: rcpufreq_dt: add module alias
+Date: Fri,  4 Sep 2026 15:56:35 +0800
+Message-ID: <20260904075635.14840-1-rmxpzlb@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] gpiolib: acpi: Add ignore_wake quirk for ASUS ZenBook
- UX425UA_UM425UA
-To: Bartosz Golaszewski <brgl@kernel.org>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Cc: Mika Westerberg <westeri@kernel.org>, Kivan <vaknins33@gmail.com>,
- Linus Walleij <linusw@kernel.org>,
- Mario Limonciello <mario.limonciello@amd.com>, linux-gpio@vger.kernel.org,
- linux-acpi@vger.kernel.org, linux-kernel@vger.kernel.org,
- Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-References: <20260821070651.39763-1-vaknins33@gmail.com>
- <178827844334.39529.382963115769227795.b4-ty@oss.qualcomm.com>
- <aplfrNXzNvgbMJf1@ashevche-desk.local>
- <CAMRc=Mck+ft9wmWQLcq4uFTvH9u_rB_bFQ6tGtG7YkYdbowJaw@mail.gmail.com>
-From: Hans de Goede <hansg@kernel.org>
-Content-Language: en-US, nl
-In-Reply-To: <CAMRc=Mck+ft9wmWQLcq4uFTvH9u_rB_bFQ6tGtG7YkYdbowJaw@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-Hi,
+Add the missing `platform:cpufreq-dt` module alias so that the driver
+can be automatically loaded when the platform device is registered.
 
-On 3-Sep-26 14:42, Bartosz Golaszewski wrote:
-> On Thu, 3 Sep 2026 13:53:16 +0200, Andy Shevchenko
-> <andriy.shevchenko@linux.intel.com> said:
->> On Tue, Sep 01, 2026 at 06:00:46PM +0200, Bartosz Golaszewski wrote:
->>>
->>> On Fri, 21 Aug 2026 10:06:50 +0300, Kivan wrote:
->>>> The ASUS ZenBook UX425UA_UM425UA (with AMD Ryzen 7 5700U SoC) fails
->>>> to stay suspended in s2idle (Modern Standby), prematurely waking
->>>> after 1-3 seconds with 0% hardware sleep achieved.
->>>>
->>>> In the laptop's ACPI SSDT tables (SSDT15), GPIO Pin 24 (hex 0x18) is
->>>> defined in _AEI as ExclusiveAndWake targeting the PCIe bridge device
->>>> \_SB.PCI0.GPP3:
->>
->> [...]
->>
->>> Applied, thanks!
->>>
->>> [1/1] gpiolib: acpi: Add ignore_wake quirk for ASUS ZenBook UX425UA_UM425UA
->>>       https://git.kernel.org/brgl/c/1900b5a41493e7050c68c1e62780d6fb9a209457
->>
->> I thought I am going to pick this up via my tree...
->> But okay, not a big deal, I don't expect any conflict in that area.
->>
-> 
-> Oops, sorry. If any conflict does occur let me know, I can revert it or we can
-> fix it in tree.
+Fixes: 06149d8f2216 ("cpufreq: Add Rust-based cpufreq-dt driver")
+Cc: stable@vger.kernel.org
+Signed-off-by: Frank Zhang <rmxpzlb@gmail.com>
 
-Regardless of who's tree this goes through I would like to point out
-that a quirk like this really should go through a fixes branch
-for the current cycle (no idea if it already is on a fixes branch,
-the "applied" message does not make that clear).
-
-Regards,
-
-Hans
-
+diff --git a/drivers/cpufreq/rcpufreq_dt.rs b/drivers/cpufreq/rcpufreq_dt.rs
+index 10106fa13095..32a508d82f68 100644
+--- a/drivers/cpufreq/rcpufreq_dt.rs
++++ b/drivers/cpufreq/rcpufreq_dt.rs
+@@ -219,4 +219,5 @@ fn probe<'bound>(
+     authors: ["Viresh Kumar <viresh.kumar@linaro.org>"],
+     description: "Generic CPUFreq DT driver",
+     license: "GPL v2",
++    alias: ["platform:cpufreq-dt"],
+ }
+-- 
+2.55.0
 
