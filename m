@@ -1,224 +1,116 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ot1-f71.google.com (mail-ot1-f71.google.com [209.85.210.71])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0F4C3E2754
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 13:43:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABD393D3D19
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 13:44:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.71
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788529408; cv=none; b=PCRaROiSkFGIIKls0NdNnFjoa1dXHmH8w3SF4dg+6MZSJ2LwfblToDQ7sLn9YYn8oOcXzDv8kPS6CpqIuQYl2PRHE5snF51czGTAKP5StbIAo2O07ZYdc/YD+Hww/MjlJ2aYiz3/Xc99MG2r5vFU6sFSkoEflELwoHLmM6S0tFY=
+	t=1788529482; cv=none; b=mArp2CbW+C+AsQOksPnaV3nHQ4QS/FxbQaJfiDlBd/uHkOXdo5tMQuC1aVr9m6alRiCkwgBUFTFRomOe2M4vqI3rQxnxsFTz8mF3pvYnmylWc9hAARVTyla0SaiNDS1MaT4DC2xBtRAzZxRpp34NdvOH6TC0P3bdV7/t9zBXCis=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788529408; c=relaxed/simple;
-	bh=W4Ndzilstd5/JnbceWDOOcQC3jDZWB6r3+ivWid2mSY=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=USbMPy1yWW3VYafUScHQr/uCYcmQkKGYcLgZAjtHuy68bL0CY5wTjH4ggnuI8UWggpfmHwFwnpGkQ66vONuN9vuj6N29pC2f77Xfly0PaXfW+fTpR0oQD59Oet4vugNQVsvtdg48zrpysKNaKDlxelat9A/mGabD0I9HyXAgYM8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BT5SIBY9; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BT5SIBY9"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B2CEE1F00A3D
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 13:43:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788529405;
-	bh=GHhD0o6c57P19uLDETL/4WoApO08CmyDzLq8rF2xBIw=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=BT5SIBY9m3pTFcStDXHpLvEc2Jwn5mO+yp0+x+Go0aaL1D2MOcqcsmbpi+jZ1M6iU
-	 BNXLFnsYkiG1zhGFm36n2Xlt5/IWJZxKzYjxd+5Q7+XaglC7R8XXvtQ3ctYIn4KQK0
-	 7bGhUK60az7/5jk67Jg0zX7MO0TAgQ0G1ke579g1jyLBXatjVa7lvtOFivHqblfnE0
-	 rXfOqOzSA8mqcrLT66eDUDFjcc8XzylvXOTSeynvUOHbrHzg6SBa605S7HCsDciBKP
-	 YdcGTT2f62yb/1Yd0kjh1HmbTfPGdCTEc7y6LolsamCo0wggSuC4vFeer1t40iHSJ5
-	 uuQ1zSv6YSO1w==
-Received: by mail-lj1-f182.google.com with SMTP id 38308e7fff4ca-3a2e985245eso9445131fa.0
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 06:43:25 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBxGgtCc4OgeSG4tIB6LV75yfTYd1FL/CdmLg6GERYsTU51wNdIxq5aDYHchZK5ml/X2L0OkfBJP0n9tRtM=@vger.kernel.org
-X-Gm-Message-State: AFuF++n9E/CA0aYrey/WJ0TzlBqjn+Dn/3X1S0vyM9ESXu3MOZadLMJO
-	zJi9U55OleADQ8P3MeAE7Tyuae1hiwX7EX8cAY/GbZtNAnnNYZWIAQxIvTE5ko5wgmt0r8fUxra
-	0HNYoesohdu1yzyqaLWlZxEMnEhWoOeA=
-X-Received: by 2002:a05:651c:1986:b0:3a1:f4e7:a813 with SMTP id
- 38308e7fff4ca-3a37194ab55mr7963991fa.0.1788529404056; Fri, 04 Sep 2026
- 06:43:24 -0700 (PDT)
+	s=arc-20240116; t=1788529482; c=relaxed/simple;
+	bh=z8yqyyZgY8fkyRX65S/LpaI2d9p7yRmeupNb4mFISNM=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=k6xDEB80dilt/9rpLGfshP6eV4mSlXTvl1Ak8LEa9MX0pq+4E+pYfQKPvCRd6GgSEuIFThCrgt8lPGMwBef52AtDRLQbuzMuNXkokvRm81Ijvg1dxoDwmxtKqLCPfuJbeyi/HqEQTugKqLh9xGZhlIacmJvga/dk7fR/t9dhZfo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.210.71
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-ot1-f71.google.com with SMTP id 46e09a7af769-7e9e2db9914so2423431a34.1
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 06:44:40 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788529479; x=1789134279;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=NOFwNnSpLt9n1vhB2CCVqsZ1zfEjeSdXRDAyEzBZtpo=;
+        b=aWGygJO5aTRZir7cVCBVfuZyath2atdO/bIw62E2RcOt9q/lB4UYQTnOE8mfnflz+T
+         AyoFAkFV0T15mH8q5YpW9+Ad8O4P2Mp8j5GmLQhzL4OjI9xFogxS0q48f8JXR5SJSaqF
+         dh1SgkyxyknJfkZARBQIFT7L+H2CPm1ZDICGFQBmWZcEc8KRVN0sv8qnL34Vzcj+2ahN
+         8cRsWW5SGGpMUfePSTYw1G7hLFxwo4lI2EN2XSqVV3ob1wp0FBo7KT83VPNEsqTUdCg3
+         t4qsMioUwnWn56aVCtUMEAqdEPtPyXX+aUyQpQ3qIgPdjqcq5wcoW99c8jeIeAn1hRuA
+         HKKg==
+X-Gm-Message-State: AFuF++llfIwrcLRmR+rYoo92+9U2y+SlM6uH6ZLQRz9jyJAVochmr6uW
+	OiguIz7yvdy7TsvS2KIOL4K9mYWsb60xEcTm2BV2xpaUnqlxsgSXVu4SVo9pG2CkTEx7h7uiUUO
+	6GDxXjYBwSlex0M7yNbJQoDBASGtU48pVtD1y/t87bzG1P4bbhUcJj5ewDn0=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260829164313.20905-1-sumeet4linux@gmail.com>
-In-Reply-To: <20260829164313.20905-1-sumeet4linux@gmail.com>
-From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Date: Fri, 4 Sep 2026 15:42:23 +0200
-X-Gmail-Original-Message-ID: <CAJZ5v0iG_uL=QB2UC74KMwp4T4L8qLfp50JWQKO5B6Fpqy93yw@mail.gmail.com>
-X-Gm-Features: AcwNN1XV9s7Rd3JIzHFLdAkEkYW2fcWV8nVNLs9Hmn8ueL86f8op-i7yeAdgByc
-Message-ID: <CAJZ5v0iG_uL=QB2UC74KMwp4T4L8qLfp50JWQKO5B6Fpqy93yw@mail.gmail.com>
-Subject: Re: [PATCH] powercap: intel_rapl: Fix rapl_packages list corruption
-To: Sumeet Pawnikar <sumeet4linux@gmail.com>, 
-	Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>
-Cc: linux-acpi@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Linux PM <linux-pm@vger.kernel.org>
+X-Received: by 2002:a05:6820:61d:b0:6b1:9b72:213c with SMTP id
+ 006d021491bc7-6b582a61f27mr5600340eaf.3.1788529479727; Fri, 04 Sep 2026
+ 06:44:39 -0700 (PDT)
+Date: Fri, 04 Sep 2026 06:44:39 -0700
+In-Reply-To: <6a8ce445.dbb3a75c.7844.0016.GAE@google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6a9acb47.c31bd8f4.21fd18.0002.GAE@google.com>
+Subject: Forwarded: [PATCH] usb: gadget: inode: keep ep_data alive via the ep
+ inode reference
+From: syzbot <syzbot+7bf725ed337e37307001@syzkaller.appspotmail.com>
+To: linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-Hi Srinivas,
+For archival purposes, forwarding an incoming command email to
+linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com.
 
-Can you please have a look at the patch below and let me know what you thin=
-k?
+***
 
-On Sat, Aug 29, 2026 at 6:43=E2=80=AFPM Sumeet Pawnikar <sumeet4linux@gmail=
-.com> wrote:
->
-> The rapl_packages list was previously documented as being guarded by the
-> CPU hotplug lock (cpus_read_lock()). However, cpus_read_lock() is a
-> reader-writer semaphore taken for shared read access. This provides zero
-> mutual exclusion between multiple concurrent callers.
->
-> Because auxiliary device probes (such as intel_rapl_tpmi_probe) can
-> execute concurrently on different CPUs, multiple packages can race on
-> list operations (list_add and list_del) inside
-> rapl_add_package_cpuslocked() and rapl_remove_package_cpuslocked(),
-> leading to list corruption.
->
-> Introduce a dedicated rapl_packages_lock mutex to protect all additions,
-> removals and iterations of the rapl_packages list.
->
-> Signed-off-by: Sumeet Pawnikar <sumeet4linux@gmail.com>
-> ---
->  drivers/powercap/intel_rapl_common.c | 29 ++++++++++++++++++++++++----
->  1 file changed, 25 insertions(+), 4 deletions(-)
->
-> diff --git a/drivers/powercap/intel_rapl_common.c b/drivers/powercap/inte=
-l_rapl_common.c
-> index 70cab5f08bc6..e544629dbe30 100644
-> --- a/drivers/powercap/intel_rapl_common.c
-> +++ b/drivers/powercap/intel_rapl_common.c
-> @@ -175,7 +175,8 @@ static u64 rapl_unit_xlate(struct rapl_domain *rd,
->                            enum unit_type type, u64 value, int to_raw);
->  static void package_power_limit_irq_save(struct rapl_package *rp);
->
-> -static LIST_HEAD(rapl_packages);       /* guarded by CPU hotplug lock */
-> +static DEFINE_MUTEX(rapl_packages_lock);
-> +static LIST_HEAD(rapl_packages);       /* guarded by rapl_packages_lock =
-*/
->
->  static const char *const rapl_domain_names[] =3D {
->         "package",
-> @@ -1360,12 +1361,14 @@ static int rapl_pmu_event_init(struct perf_event =
-*event)
->                 return -EINVAL;
->
->         /* Find out which Package the event belongs to */
-> +       mutex_lock(&rapl_packages_lock);
->         list_for_each_entry(pos, &rapl_packages, plist) {
->                 if (is_rp_pmu_cpu(pos, event->cpu)) {
->                         rp =3D pos;
->                         break;
->                 }
->         }
-> +       mutex_unlock(&rapl_packages_lock);
->         if (!rp)
->                 return -ENODEV;
->
-> @@ -1445,9 +1448,11 @@ static ssize_t cpumask_show(struct device *dev,
->         cpumask_clear(cpu_mask);
->
->         /* Choose a cpu for each RAPL Package */
-> +       mutex_lock(&rapl_packages_lock);
->         list_for_each_entry(rp, &rapl_packages, plist) {
->                 set_pmu_cpumask(rp, cpu_mask);
->         }
-> +       mutex_unlock(&rapl_packages_lock);
->         cpus_read_unlock();
->
->         ret =3D sysfs_emit(buf, "%*pbl\n", cpumask_pr_args(cpu_mask));
-> @@ -1655,11 +1660,15 @@ void rapl_package_remove_pmu_locked(struct rapl_p=
-ackage *rp)
->         if (!rp->has_pmu)
->                 return;
->
-> +       mutex_lock(&rapl_packages_lock);
->         list_for_each_entry(pos, &rapl_packages, plist) {
->                 /* PMU is still needed */
-> -               if (pos->has_pmu && pos !=3D rp)
-> +               if (pos->has_pmu && pos !=3D rp) {
-> +                       mutex_unlock(&rapl_packages_lock);
->                         return;
-> +               }
->         }
-> +       mutex_unlock(&rapl_packages_lock);
->
->         if (rapl_pmu.registered)
->                 perf_pmu_unregister(&rapl_pmu.pmu);
-> @@ -1704,7 +1713,9 @@ void rapl_remove_package_cpuslocked(struct rapl_pac=
-kage *rp)
->         /* do parent zone last */
->         powercap_unregister_zone(rp->priv->control_type,
->                                  &rd_package->power_zone);
-> +       mutex_lock(&rapl_packages_lock);
->         list_del(&rp->plist);
-> +       mutex_unlock(&rapl_packages_lock);
->         kfree(rp);
->  }
->  EXPORT_SYMBOL_NS_GPL(rapl_remove_package_cpuslocked, "INTEL_RAPL");
-> @@ -1749,11 +1760,15 @@ struct rapl_package *rapl_find_package_domain_cpu=
-slocked(int id, struct rapl_if_
->         else
->                 uid =3D id;
->
-> +       mutex_lock(&rapl_packages_lock);
->         list_for_each_entry(rp, &rapl_packages, plist) {
-> -               if (rp->id =3D=3D uid
-> -                   && rp->priv->control_type =3D=3D priv->control_type)
-> +               if (rp->id =3D=3D uid &&
-> +                   rp->priv->control_type =3D=3D priv->control_type) {
-> +                       mutex_unlock(&rapl_packages_lock);
->                         return rp;
-> +               }
->         }
-> +       mutex_unlock(&rapl_packages_lock);
->
->         return NULL;
->  }
-> @@ -1810,7 +1825,9 @@ struct rapl_package *rapl_add_package_cpuslocked(in=
-t id, struct rapl_if_priv *pr
->         ret =3D rapl_package_register_powercap(rp);
->         if (!ret) {
->                 INIT_LIST_HEAD(&rp->plist);
-> +               mutex_lock(&rapl_packages_lock);
->                 list_add(&rp->plist, &rapl_packages);
-> +               mutex_unlock(&rapl_packages_lock);
->                 return rp;
->         }
->
-> @@ -1835,6 +1852,7 @@ static void power_limit_state_save(void)
->         int ret, i;
->
->         cpus_read_lock();
-> +       mutex_lock(&rapl_packages_lock);
->         list_for_each_entry(rp, &rapl_packages, plist) {
->                 if (!rp->power_zone)
->                         continue;
-> @@ -1846,6 +1864,7 @@ static void power_limit_state_save(void)
->                                 rd->rpl[i].last_power_limit =3D 0;
->                 }
->         }
-> +       mutex_unlock(&rapl_packages_lock);
->         cpus_read_unlock();
->  }
->
-> @@ -1856,6 +1875,7 @@ static void power_limit_state_restore(void)
->         int i;
->
->         cpus_read_lock();
-> +       mutex_lock(&rapl_packages_lock);
->         list_for_each_entry(rp, &rapl_packages, plist) {
->                 if (!rp->power_zone)
->                         continue;
-> @@ -1865,6 +1885,7 @@ static void power_limit_state_restore(void)
->                                 rapl_write_pl_data(rd, i, PL_LIMIT,
->                                                rd->rpl[i].last_power_limi=
-t);
->         }
-> +       mutex_unlock(&rapl_packages_lock);
->         cpus_read_unlock();
->  }
->
-> --
-> 2.43.0
->
+Subject: [PATCH] usb: gadget: inode: keep ep_data alive via the ep inode reference
+Author: adrianox@gmail.com
+
+#syz test: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
+---
+ drivers/usb/gadget/legacy/inode.c | 26 ++++++++++++++++++++++++++
+ 1 file changed, 26 insertions(+)
+
+diff --git a/drivers/usb/gadget/legacy/inode.c b/drivers/usb/gadget/legacy/inode.c
+index db961aaa3740..dc0cba86cf30 100644
+--- a/drivers/usb/gadget/legacy/inode.c
++++ b/drivers/usb/gadget/legacy/inode.c
+@@ -1626,6 +1626,16 @@ static int activate_ep_files (struct dev_data *dev)
+ 		if (!data->req)
+ 			goto enomem1;
+ 
++		/*
++		 * The inode created below references this ep_data through
++		 * ->i_private and gadgetfs_evict_inode() releases it again.
++		 * Without this the inode could outlive the ep_data and a
++		 * concurrent openat() -> ep_open() would dereference freed
++		 * memory (reported as a slab-use-after-free in the mutex fast
++		 * path).  Keep the object alive for as long as any inode points
++		 * to it.
++		 */
++		get_ep(data);
+ 		err = gadgetfs_create_file (dev->sb, data->name,
+ 				data, &ep_io_operations);
+ 		if (err)
+@@ -2015,9 +2025,25 @@ static int gadgetfs_create_file (struct super_block *sb, char const *name,
+ 	return 0;
+ }
+ 
++static void gadgetfs_evict_inode(struct inode *inode)
++{
++	/*
++	 * EP file inodes keep their struct ep_data alive through ->i_private;
++	 * drop that reference when the inode finally goes away.  This closes
++	 * the ep_open() vs. gadgetfs_unbind()/destroy_ep_files() race where
++	 * the ep_data was freed while an inode still pointed to it.
++	 */
++	if (inode->i_fop == &ep_io_operations)
++		put_ep(inode->i_private);
++
++	truncate_inode_pages_final(&inode->i_data);
++	clear_inode(inode);
++}
++
+ static const struct super_operations gadget_fs_operations = {
+ 	.statfs =	simple_statfs,
+ 	.drop_inode =	inode_just_drop,
++	.evict_inode =	gadgetfs_evict_inode,
+ };
+ 
+ static int
+-- 
+2.51.0
+
