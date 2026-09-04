@@ -1,74 +1,162 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 4006733ADB1;
-	Fri,  4 Sep 2026 08:01:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from invmail4.hynix.com (exvmail4.skhynix.com [166.125.252.92])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id D01453D1AA6
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 08:01:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=166.125.252.92
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788508891; cv=none; b=Iy3fm7tnqo9htMSWiY1S9e7ykcEw1fnyLFN4XrORnxVt8pLpzGafquu+i9z+DDIyi7d77/588GZ55y9ef/hbxjQN0SJjnFAWNYNwXv+lHFKoU1lTeEn2KUIENqQqqk/ZKVSSj9t41l0b/K1ugPVOSMqiddRm0MQmayEtvP+qiUc=
+	t=1788508919; cv=none; b=JRZ91TuHCdjWFe9xKq1FPFAW1eOZ+ze9suUBjIsXfGQCAaKfhjAPNwuqbx+Qj4OKWeJocz36HyVyc2XV4Wj2RJRCOesKc8Tfh0ohM+oqFCUc8MAyXTQLRn7yjmH/fJDgroTQsxJbb/I8ZNwe63MpKtscTh/pmZwLdoSEvKHoAXs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788508891; c=relaxed/simple;
-	bh=b9Mw3aFGpBMrQOIkrZcenLoyU6lVn1++jOl+6R0djPE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=dQPtSU0jgIr4Yr/sScRQWPaxyZRrbYNqDKDeB2vgr0wIClb9EuQ3w8hpOstGldfZVhcOqZD8YFQK0wWzlKnqokUMaA3XZ7K+SdZzeGtawA0bp3cZx1h5TZ1BU2/fV4dSlzjKmWjAwpGoxf/z8yLXe/KoQDtPAETe4DeMHPODd/Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=t3y5OxEg; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="t3y5OxEg"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 29CA7153B;
-	Fri,  4 Sep 2026 01:01:23 -0700 (PDT)
-Received: from [10.57.5.232] (unknown [10.57.5.232])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 741953F7D8;
-	Fri,  4 Sep 2026 01:01:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1788508886; bh=b9Mw3aFGpBMrQOIkrZcenLoyU6lVn1++jOl+6R0djPE=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=t3y5OxEgZLeP8TAormzrNnWsmfPr2of6O8saz7pejGRA7VadiAtCJuF+HXM0MKqUm
-	 eFhbITrPmNuF2kFYwsiqQMqxHgNo3jXlUp1jS1VQQ/xpTrokSBLgRFf0U36LI3SqcR
-	 UG50iQTFOCuaJ+DsYD5P8wwp/56gD6wLlP0TbLis=
-Message-ID: <03b270ab-4a39-4a82-b970-c0c10f400549@arm.com>
-Date: Fri, 4 Sep 2026 09:01:35 +0100
+	s=arc-20240116; t=1788508919; c=relaxed/simple;
+	bh=LTiDfbkFvFm8pZmMJyGoWsRMFcanmZVVdZA7EMQpAKQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=k/kRMhPmB/uN5Na5sefVId5OpOGy7T4BFgxE0POLOMEenPWGBTjtYsUqdQj/rBZcts2nkvUeiIaOLMp39w//+2MUVI0ebFu/tVhjXaoMJfUYIYuUWS09wbxwq2NpWnNpzAczXe2yVTg7GtekNPFNi910eTq7NR9Fke1cPo8IscY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sk.com; spf=pass smtp.mailfrom=sk.com; arc=none smtp.client-ip=166.125.252.92
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sk.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sk.com
+X-AuditID: a67dfc5b-c2dff70000001609-5a-6a9a7ae7aa81
+From: Rakie Kim <rakie.kim@sk.com>
+To: Gregory Price <gourry@gourry.net>
+Cc: linux-kernel@vger.kernel.org,
+	kernel-team@meta.com,
+	akpm@linux-foundation.org,
+	david@kernel.org,
+	ziy@nvidia.com,
+	matthew.brost@intel.com,
+	joshua.hahnjy@gmail.com,
+	byungchul@sk.com,
+	ying.huang@linux.alibaba.com,
+	apopple@nvidia.com,
+	urezki@gmail.com,
+	chenwandun@huawei.com,
+	linux-mm@kvack.org,
+	kernel_team@skhynix.com,
+	Rakie Kim <rakie.kim@sk.com>
+Subject: Re: [PATCH 2/2] mm/mempolicy: stop copying the nodemask in the interleave paths
+Date: Fri,  4 Sep 2026 17:01:37 +0900
+Message-ID: <20260904080140.1992-1-rakie.kim@sk.com>
+X-Mailer: git-send-email 2.52.0.windows.1
+In-Reply-To: <apgzMZQPTxS9QtDy@gourry-fedora-PF4VCD3F>
+References: 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 1/1] thermal: sysfs: switch to use scnprintf() to
- suppress truncation warning
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org
-Cc: "Rafael J. Wysocki" <rafael@kernel.org>,
- Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>
-References: <20260817103324.1020212-1-andriy.shevchenko@linux.intel.com>
-Content-Language: en-US
-From: Lukasz Luba <lukasz.luba@arm.com>
-In-Reply-To: <20260817103324.1020212-1-andriy.shevchenko@linux.intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFvrMLMWRmVeSWpSXmKPExsXC9ZZnke6LqllZBjOLLeasX8NmsetGiMWX
+	d6uYLJ5v/cVo8fPucXaL41vnsVvsuwiUvLxrDpvFvTX/WS2+9UlbrL7IYrF6TYbF7KP32B14
+	PXbOusvu0d12md2j5chbVo/Fe14yeWxa1cnmsenTJHaPEzN+s3jsfGjpce5ihUdv8zs2j8+b
+	5AK4o7hsUlJzMstSi/TtErgyJkzcy1jQI1Gx/Ox2xgbGdUJdjJwcEgImEgv/PWOBsWeufcXU
+	xcjBwSagJHFsbwyIKSKgKtF2xR2kglngJ5PEqhl6ILawQITEr+19YJ0sQCUvPrUygti8QFPe
+	PpjPBDFRU2LdxltgNZwCZhIfny9jB7GFBHgkXm3YD1UvKHFy5hMWiPnyEs1bZzN3MXIB9X5n
+	k/h98hvUIEmJgytusExg5J+FpGcWkp4FjEyrGIUy88pyEzNzTPQyKvMyK/SS83M3MQKjYlnt
+	n+gdjJ8uBB9iFOBgVOLhvSA7I0uINbGsuDL3EKMEB7OSCK/1wulZQrwpiZVVqUX58UWlOanF
+	hxilOViUxHmNvpWnCAmkJ5akZqemFqQWwWSZODilGhiTlRM77kb97aifw53+z+B51ZTXOwO0
+	zR37ppbOmfL7ltHTjRHrhH70ROzO3VLZN7vTPOLWBLPWsDTxK3c3WMVM8Vk1o3PzZ7W/Ev0f
+	uFmMQ3KVVOvPVzc3Bom0FUZ6ulgylMTOEdmxYK3ztz8fdHa5cu6f5yx3X2H7bIm4p407ZhTy
+	qdmbvFZiKc5INNRiLipOBAD97pcYhgIAAA==
+X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFnrJLMWRmVeSWpSXmKPExsXCNUM9Rvd51awsg9U/9C3mrF/DZrHrRojF
+	uSmz2Sy+vFvFZPF86y9Gi593j7NbHN86j91i30WgisNzT7JaXN41h83i3pr/rBbf+qQtDl17
+	zmqx+iKLxeo1GRazj95jdxDw2DnrLrtHd9tldo+WI29ZPRbvecnksWlVJ5vHpk+T2D1OzPjN
+	4rHzoaXHuYsVHr3N79g8vt328Fj84gOTx+dNcgG8UVw2Kak5mWWpRfp2CVwZEybuZSzokahY
+	fnY7YwPjOqEuRk4OCQETiZlrXzF1MXJwsAkoSRzbGwNiigioSrRdcQepYBb4ySSxaoYeiC0s
+	ECHxa3sfC4jNAlTy4lMrI4jNCzTl7YP5TBATNSXWbbwFVsMpYCbx8fkydhBbSIBH4tWG/VD1
+	ghInZz5hgZgvL9G8dTbzBEaeWUhSs5CkFjAyrWIUycwry03MzDHVK87OqMzLrNBLzs/dxAiM
+	gGW1fybuYPxy2f0QowAHoxIP7wXZGVlCrIllxZW5hxglOJiVRHitF07PEuJNSaysSi3Kjy8q
+	zUktPsQozcGiJM7rFZ6aICSQnliSmp2aWpBaBJNl4uCUamCcdP57uuqcIDNOU7Ubd7++2fMk
+	+fyCuY9Wtt2+v9ixN3iju/aTkxw3dR9c/bp3mv8ilpaI0KblMocWbWQT8dWe6RO4+FCxSvXG
+	UIZU3oAT/0UL/L6ejujveeg917dfZm7Mz2beSz/PrfUV+p/XvVD6q7HEVq+TYtd/7Hq9ykVt
+	UrUJU1nvtWc6SizFGYmGWsxFxYkAWumk2XwCAAA=
+X-CFilter-Loop: Reflected
 
+On Wed, 2 Sep 2026 10:52:45 -0400 Gregory Price <gourry@gourry.net> wrote:
 
+> I don't think this actually fixes anything?
+>
+> But basically the proposal is to widen the SRCU() window further to
+> include the cpuset cookie entirely.
+>
+> e.g.
+>
+> SRCU() {
+> 	cpuset_cookie() {
+> 		for_each_node_mask(node, pol->nodes)
+> 			weight_total += ...
+> 			nnodes++;
+> 	}
+>
+> 	/* ... snip - single node quick-exit ... */
+>
+>         /* ... actual multi-node bulk allocation ... */
+> 	for_each_node_mask(node, pol->nodes) {
+> 		nr_allocated = __alloc_pages_bulk(gfp, node, ...);
+>
+> 		/*
+>                  * At this point, due to a torn read from pol->nodes
+> 		 * we can visit a node that wasn't present previously
+> 		 * or we can skip a node that was present previously.
+> 		 *
+> 		 * In either case, weight_total is the wrong value for
+> 		 * the set of nodes being walked anyway - we are going
+> 		 * to skew in the distribution no matter what.
+> 		 */
+> 	}
+> }
+>
+> I'm not sure widening the SRCU window is worth it here, it doesn't
+> actually buy us anything.
+>
+> Also we'd be calculating the weight total every time even when there's a
+> scenario where we quick-exit because the entire allocation fits in the
+> first node in the mask.
 
-On 8/17/26 11:33, Andy Shevchenko wrote:
-> Switch the sysfs code to use scnprintf() to avoid warnings about potential
-> truncation of the names of the sysfs attributes. We can't increase the buffer
-> size because the size is the part of an ABI for some reason. Note, with
-> the current size of buffer the affected attributes have a room for up to
-> 1000 names, which ought to be enough for all cases. There is no functional
-> change, as the same limitation was implied before.
+Sorry, I did not explain that well. I was not suggesting moving the
+sum into the cookie loop or widening the SRCU section - only adding
+the counter to the sum loop where it already is:
 
-Right, it doesn't touch the real truncation check problem only avoids
-the complain from the tool. We can think about this later in some
-redesign.
+	/* calculate total, detect system default usage */
+	nnodes = 0;
+	for_each_node_mask(node, pol->nodes) {
+		weight_total += table ? table[node] : 1;
+		nnodes++;
+	}
 
-> 
-> Fixes: c56f5c0342df ("Thermal: Make Thermal trip points writeable")
-> Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-> ---
->   drivers/thermal/thermal_sysfs.c | 12 ++++++------
->   1 file changed, 6 insertions(+), 6 deletions(-)
+The order of the function does not change, so the quick-exit path
+still returns before this loop runs - the sum is not computed in
+that case either way.
 
+What I had in mind is the gap between the two reads. Say the policy
+starts with two nodes, every weight is 10, and 100 pages are
+requested:
 
-Reviewed-by: Lukasz Luba <lukasz.luba@arm.com>
+	/* the mask is {0,1} here */
+	do {
+		cpuset_mems_cookie = read_mems_allowed_begin();
+		nnodes = nodes_weight(pol->nodes);	/* nnodes = 2 */
+	} while (read_mems_allowed_retry(cpuset_mems_cookie));
 
+	/* a rebind grows the mask to {0,1,2,3} at this point */
+
+	/* calculate total, detect system default usage */
+	for_each_node_mask(node, pol->nodes)
+		weight_total += ...;			/* 10 * 4 = 40 */
+
+	rounds = rem_pages / weight_total;		/* 100 / 40 = 2 */
+
+	for (i = 0; i < nnodes; i++)			/* bounded by 2 */
+		...
+
+The distribution is planned from a total of 40, which spreads the
+100 pages over four nodes, but the walk is still bounded by the two
+nodes counted earlier. It places 60 pages and returns, and the
+caller allocates the remaining 40 one page at a time. The mask does
+not have to change again during the walk for this to happen.
+
+You are right that a torn read during the walk still skews the
+distribution, and this does not change that. It only removes the
+case where the bound and the total start out inconsistent. If that
+is not worth the extra line, I am fine either way.
+
+Thanks for looking at it.
+
+Rakie Kim
