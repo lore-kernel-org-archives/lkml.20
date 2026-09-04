@@ -1,135 +1,162 @@
-Received: from mail-oi1-f182.google.com (mail-oi1-f182.google.com [209.85.167.182])
+Received: from mail-oi1-f197.google.com (mail-oi1-f197.google.com [209.85.167.197])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B5064E3EE8
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 17:31:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.182
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CD3848BD56
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 17:31:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.197
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788543081; cv=none; b=SKa5JUgOfDwmWrleOT7vuIBJKti/HAKSoPtKmdFzpBPTf3ZT7GNhU6Nm8yXBMwYcppUC1mNgl5XUfvBu6YHm8tl8H4KhZNka232hzojbMJF84q4oqc61Pql7YtITQVOwNkwlRyjw0XqEXzlRS5jStxywDHNMC0dHTIIccUUZFi4=
+	t=1788543117; cv=none; b=UtiWw4rmyyx3HL06FR3ibKw2MG4q13xobwBUGBFCZ55w8/4XhgXwbtJ29jFOKXyPRIZOm7IphrzZdOAnEooa/njZ/cIMMTphPw0VkAIwDzoKkHvQrMvvYofKhHl8cvQYIA9zkGiIuhsUNxgbnskCvoVveGZ33wspPFViEUVUy64=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788543081; c=relaxed/simple;
-	bh=1o6KRoN44DSCBsEysacGHYHuD0OPx3QcKtHFyX8sd4w=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=eMnZaJQ08RUQ94xyx6u1PqlHyzBqGERzAjs5Jfwe+iuyLsVbVesqdhyQtqCNuwRDPUa/OrUnmRsprtO2/Wy9+tssUaedaM4PIPfTyrISIZEZQcE4TmuF8psWKIU3l0yPTUSPTRn4/GsYVRo7bz76SMsxzvDHug+Z0pgwG2GjGLQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxfoundation.org; spf=pass smtp.mailfrom=linuxfoundation.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=DxxcnajC; arc=none smtp.client-ip=209.85.167.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxfoundation.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
+	s=arc-20240116; t=1788543117; c=relaxed/simple;
+	bh=CwxNiV+6cxQL0zBKZQS8TnMWY5wyqs+1hcKMKWmAWPM=;
+	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=CXe3GWYLHIQzwfV+ys/595fWvwOBskperYkrecB7m1GffqVuNxzwcgRtE/f5rM722aSBneqW/RzOumuNBaEgJlokQ0cZKYBHwqpLd5WhW5yz41QS5IcgEaYWthk0YMqM2SV6/wjORBThY/CMy2w6qKr7bhsfS1NENMrr08hd/Bk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--stevensd.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=ARNGHKPx; arc=none smtp.client-ip=209.85.167.197
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--stevensd.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="DxxcnajC"
-Received: by mail-oi1-f182.google.com with SMTP id 5614622812f47-4af173320f9so1001185b6e.2
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 10:31:18 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="ARNGHKPx"
+Received: by mail-oi1-f197.google.com with SMTP id 5614622812f47-4ab8b4887d4so1012420b6e.1
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 10:31:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linuxfoundation.org; s=google; t=1788543077; x=1789147877; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=6ZOIo2HEBu3h7pqrMStXOScgEdgGJQw6u08wXyRcXzU=;
-        b=DxxcnajC0he1SOcAFrrSuAfXyZv4oOA8yvbURCKp8Vvku4CTKqu3dG+FomGWlcBBYN
-         vle9M6Vy+Dr8D7iE4yic42ZcoRy61lbZJFVlpKvSxrX7/xAg/S827ZfADe3G0okllIOx
-         fNY+OYkw17dUULwPOW7GZY84Idw3NTdY73Iqk=
+        d=google.com; s=20251104; t=1788543115; x=1789147915; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=6tqulB8FDTNVxXNeXDPTSBTeFrFMPJvixAJvKQn0AlQ=;
+        b=ARNGHKPxNENuTFhziYMvSucNOztmhDbkGo1SC9zAAoxP56hlUe+tP7xZqWnJeCLW05
+         k9srbsIJYSImX1uzzB5bI4nZicRbrVQP4M0oBxVmoAk+MLWnCfQzTc9JUKdMyH8teN+c
+         IhzDxplnz3+8F31OpVI5RhnzLAcqLGHVPGWC1vZ2E/x8bC70pKnwHvg44ttAs3zTjTFW
+         +/5ukKwvT6Mo7huGkMNR058RPCW4J/zuGrS+G/iL1Oh5/rVc+wrcT7H6Ebk19TH0ToZo
+         dp0ZthIgbdgSJlBAy2n4w+CH6Y/2F64lL1kepNho0PMejJ/47FIo+NZGTgbgZ3FDf+hZ
+         SuPw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788543077; x=1789147877;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=6ZOIo2HEBu3h7pqrMStXOScgEdgGJQw6u08wXyRcXzU=;
-        b=sFscEQX07IIlLddl+rj04AfTFQSKeoY5VBUjw76LmO5I8co7bcTc4e8cl5A686TiRp
-         45cscjZEUyIuIPUQ9aYARh9MoTslcdXFgb1d5ObuaIapnCwY9Gpwu5DsgFzjhILP+1c9
-         HtB8f48vcRaVpr5uiI79sO89+taESUVMJwGio3+7WAFwrFJ1WrrKpCc4FrQmFSCdrvP6
-         ZRQAxM98/stKoQMjvXJrXjY7vcRPNT7GD2QHrxlxZYhXlGtzGo3wG/QdlNipDgsItPf+
-         tatRs6HrdjDZFGCDUOYE8rDlpM0WKbtCn+xUblwO03JB1u6IOWuc2Qh331YYmh3LpmsA
-         uDsA==
-X-Gm-Message-State: AFuF++kYJHagVvKG+DqxQj5ERFvbmpJun04i2/yK1+lAZ9ab1xNYVoer
-	cnBFIPVpZ3ge6pKes1v5mXfLz/VLNOiXubSMKNgqIZ58qdmOA1buPCdqZ3IvaEJlkdQ=
-X-Gm-Gg: AYBFou1ObGO+3nF6kbVLz4c+iSZbfEZC4C/hkwyCxqE3IIaVtgtd70C+se14uz8/DCw
-	rmnKJUjtWWrAK3h6U9f4MX62F9pY2Y9K5EhPOH0ChfatF6xMbqES71N10AhQHJF283XOVnDu8bI
-	7QtXX2F9nfP6pJtj2ONkYGYwj5ZhPwCz2JlLoPKEPMiyuJtPKnxoMwDrcosHGYKxZgrlH88UX96
-	rZSG+XhpPLKpqY6f/K+sYRzYcah9udAo4tB6Mmvd7kjOeHy3K3c6yY1ui93MGJZufwZfUW59Pje
-	7Xg+VxpQrxlmFhwMxOXM98rj+HXrWQo/qiRPi18PvV0vqZ7DWJ40Q5WZHo3E1kWBWsdpy7X4NAr
-	idSNXqXaiFitYOwY7nfzbluiEhSzsPvo3unm8GlSXds/whNjlUHK9bjrSHB0tpqBls2XSA4jhGr
-	X3siBeogcOyqc4LQ7oXKfjY2G6NA68+mKithBzFZAQNQgOR7kn7i+XSaiA8oSMLXkIVN04
-X-Received: by 2002:a05:6808:67c6:b0:4b3:880a:f08d with SMTP id 5614622812f47-4b9622c002amr5220754b6e.11.1788543077130;
-        Fri, 04 Sep 2026 10:31:17 -0700 (PDT)
-Received: from [192.168.1.128] ([38.15.57.99])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-4b970d23c8dsm2733250b6e.5.2026.09.04.10.31.14
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 04 Sep 2026 10:31:15 -0700 (PDT)
-Message-ID: <f1b5ae1c-f6cd-4f9f-9143-4bdd3b8c2b46@linuxfoundation.org>
-Date: Fri, 4 Sep 2026 11:31:13 -0600
+        d=1e100.net; s=20251104; t=1788543115; x=1789147915;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=6tqulB8FDTNVxXNeXDPTSBTeFrFMPJvixAJvKQn0AlQ=;
+        b=a1mlrdolZaMMmqkFUp5yTdrIfh4bqw8DLTMvu9lLfsXBi6vj/Sx9U3sXGjw41qr4WE
+         cEfVKuUsowgmM5lNaDkmSuldPqN56WeZGhTh0Jyw6kECFxGDzwvsgUfSAiwDS3yO/Om3
+         4utVSHgyUmR9SmGbIZo9/wzrBHlT4Cv85LGiUQVlQpf4jb1/PPf1PmBk406QNyeVn36D
+         BATaJ4f0iu1ZBSEX+KN0awU3EOCzaaI8zLCgTB1DiCwAt3KouoyERRSu/wo8pvrKJk0D
+         bz0BSyMhp9oBBD4GzFMgQFEZGfW4uvXciqF9cHqGcWUJ5GO1+jcBjBcTG2gRbrYmAYfX
+         2neQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxmzyfU2fnWLVDSj+At0t82xYtp/cbXPO2y7pYy2grek9rfdAgD7+M34zhZR9k6k9L+qpDCXqyxIFUGEkU=@vger.kernel.org
+X-Gm-Message-State: AFuF++m7Xv0NFO/Y5p3bWsjQadaSyilcXkGwW79MdXnMWslNorOry3i6
+	C4XspGRoJNOPZ+26jfrpVube5Qv/6Ah2GUVcxZid6QPcg4xcBLMk3atLQ+8TQBrqz9XogKz8pGk
+	D9Q5QvKKxRt9WkA==
+X-Received: from dyjh19.prod.google.com ([2002:a05:7300:5613:b0:315:877c:f169])
+ (user=stevensd job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:6820:60b:b0:6b7:8396:f3c2 with SMTP id 006d021491bc7-6b78396f7ecmr3028618eaf.36.1788543114426;
+ Fri, 04 Sep 2026 10:31:54 -0700 (PDT)
+Date: Fri,  4 Sep 2026 10:31:45 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] cpupower: fix typos in comments
-To: Hemanth Selam <hemanth.selam@gmail.com>, Thomas Renninger
- <trenn@suse.com>, Shuah Khan <shuah@kernel.org>,
- "John B. Wyatt IV" <jwyatt@redhat.com>, John Kacur <jkacur@redhat.com>
-Cc: linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org,
- Shuah Khan <skhan@linuxfoundation.org>
-References: <20260904124005.3270-1-hemanth.selam@gmail.com>
-Content-Language: en-US
-From: Shuah Khan <skhan@linuxfoundation.org>
-In-Reply-To: <20260904124005.3270-1-hemanth.selam@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.55.0.979.g7e5102b832-goog
+Message-ID: <20260904173145.2028377-1-stevensd@google.com>
+Subject: [PATCH v2] memcg: Don't call schedule_work when no spinning is allowed
+From: David Stevens <stevensd@google.com>
+To: Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, 
+	Roman Gushchin <roman.gushchin@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
+	Muchun Song <muchun.song@linux.dev>, Andrew Morton <akpm@linux-foundation.org>
+Cc: Lorenzo Stoakes <ljs@kernel.org>, cgroups@vger.kernel.org, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, David Stevens <stevensd@google.com>, 
+	Michal Hocko <mhocko@suse.com>
+Content-Type: text/plain; charset="UTF-8"
 
-On 9/4/26 06:40, Hemanth Selam wrote:
-> Fix typos in comments, reported by scripts/checkpatch.pl using the
-> misspelling list in scripts/spelling.txt.  Only touches comments, no code
-> changes.
+Memcg charging can be done from any context, but calling schedule_work()
+isn't safe from an NMI. If memory.high is breached from a context where
+spinning isn't allowed, use irq_work to schedule the reclaim work.
 
-> 
-> Assisted-by: Cursor:claude-opus-5
+Fixes: 3ac4638a734a ("memcg: make memcg_rstat_updated nmi safe")
+Acked-by: Michal Hocko <mhocko@suse.com>
+Signed-off-by: David Stevens <stevensd@google.com>
+---
+v2:
+  - Added missing includes reported by Lorenzo and kernel test robot
+  - Added Acked-by
 
-Why do you need AI assistance to fix typos found by checkpatch.pl?
-How did Cursor:claude-opus-5 assist you?
+ include/linux/memcontrol.h |  2 ++
+ mm/memcontrol.c            | 13 ++++++++++++-
+ 2 files changed, 14 insertions(+), 1 deletion(-)
 
-> Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
-> ---
->   tools/power/cpupower/utils/idle_monitor/cpupower-monitor.c | 4 ++--
->   tools/power/cpupower/utils/idle_monitor/mperf_monitor.c    | 2 +-
->   2 files changed, 3 insertions(+), 3 deletions(-)
-> 
-> diff --git a/tools/power/cpupower/utils/idle_monitor/cpupower-monitor.c b/tools/power/cpupower/utils/idle_monitor/cpupower-monitor.c
-> index e8b3841d5c0f..b15371e3e6bd 100644
-> --- a/tools/power/cpupower/utils/idle_monitor/cpupower-monitor.c
-> +++ b/tools/power/cpupower/utils/idle_monitor/cpupower-monitor.c
-> @@ -72,7 +72,7 @@ void print_n_spaces(int n)
->   }
->   
->   /*s is filled with left and right spaces
-> - *to make its length atleast n+1
-> + *to make its length at least n+1
->    */
->   int fill_string_with_spaces(char *s, int n)
->   {
-> @@ -263,7 +263,7 @@ static void parse_monitor_param(char *param)
->   			 "try -l option\n"), param);
->   		exit(EXIT_FAILURE);
->   	}
-> -	/* Override detected/registerd monitors array with requested one */
-> +	/* Override detected/registered monitors array with requested one */
->   	memcpy(monitors, tmp_mons,
->   		sizeof(struct cpuidle_monitor *) * MONITORS_MAX);
->   	avail_monitors = hits;
-> diff --git a/tools/power/cpupower/utils/idle_monitor/mperf_monitor.c b/tools/power/cpupower/utils/idle_monitor/mperf_monitor.c
-> index 5ae02c3d5b64..62b8cfb02040 100644
-> --- a/tools/power/cpupower/utils/idle_monitor/mperf_monitor.c
-> +++ b/tools/power/cpupower/utils/idle_monitor/mperf_monitor.c
-> @@ -276,7 +276,7 @@ static int init_maxfreq_mode(void)
->   	    cpupower_cpu_info.vendor == X86_VENDOR_HYGON) {
->   		/* MSR_AMD_HWCR tells us whether TSC runs at P0/mperf
->   		 * freq.
-> -		 * A test whether hwcr is accessable/available would be:
-> +		 * A test whether hwcr is accessible/available would be:
->   		 * (cpupower_cpu_info.family > 0x10 ||
->   		 *   cpupower_cpu_info.family == 0x10 &&
->   		 *   cpupower_cpu_info.model >= 0x2))
+diff --git a/include/linux/memcontrol.h b/include/linux/memcontrol.h
+index 8170bb8066a2..4a5ef0aba475 100644
+--- a/include/linux/memcontrol.h
++++ b/include/linux/memcontrol.h
+@@ -23,6 +23,7 @@
+ #include <linux/writeback.h>
+ #include <linux/page-flags.h>
+ #include <linux/shrinker.h>
++#include <linux/irq_work_types.h>
+ 
+ struct mem_cgroup;
+ struct obj_cgroup;
+@@ -219,6 +220,7 @@ struct mem_cgroup {
+ 	spinlock_t	 peaks_lock;
+ 
+ 	/* Range enforcement for interrupt charges */
++	struct irq_work high_irq_work;
+ 	struct work_struct high_work;
+ 
+ #ifdef CONFIG_ZSWAP
+diff --git a/mm/memcontrol.c b/mm/memcontrol.c
+index 6dc4888a90f3..0e8b302ca9ad 100644
+--- a/mm/memcontrol.c
++++ b/mm/memcontrol.c
+@@ -62,6 +62,7 @@
+ #include <linux/seq_buf.h>
+ #include <linux/sched/isolation.h>
+ #include <linux/kmemleak.h>
++#include <linux/irq_work.h>
+ #include "internal.h"
+ #include "swap_table.h"
+ #include <net/sock.h>
+@@ -2360,6 +2361,11 @@ static void high_work_func(struct work_struct *work)
+ 	reclaim_high(memcg, MEMCG_CHARGE_BATCH, GFP_KERNEL);
+ }
+ 
++static void high_irq_work_func(struct irq_work *work)
++{
++	schedule_work(&container_of(work, struct mem_cgroup, high_irq_work)->high_work);
++}
++
+ /*
+  * Clamp the maximum sleep time per allocation batch to 2 seconds. This is
+  * enough to still cause a significant slowdown in most cases, while still
+@@ -2752,7 +2758,10 @@ static int try_charge_memcg(struct mem_cgroup *memcg, gfp_t gfp_mask,
+ 		/* Don't bother a random interrupted task */
+ 		if (!in_task()) {
+ 			if (mem_high) {
+-				schedule_work(&memcg->high_work);
++				if (allow_spinning)
++					schedule_work(&memcg->high_work);
++				else
++					irq_work_queue(&memcg->high_irq_work);
+ 				break;
+ 			}
+ 			continue;
+@@ -4129,6 +4138,7 @@ static struct mem_cgroup *mem_cgroup_alloc(struct mem_cgroup *parent)
+ 		goto fail;
+ 
+ 	INIT_WORK(&memcg->high_work, high_work_func);
++	init_irq_work(&memcg->high_irq_work, high_irq_work_func);
+ 	vmpressure_init(&memcg->vmpressure);
+ 	INIT_LIST_HEAD(&memcg->memory_peaks);
+ 	INIT_LIST_HEAD(&memcg->swap_peaks);
+@@ -4337,6 +4347,7 @@ static void mem_cgroup_css_free(struct cgroup_subsys_state *css)
+ 		static_branch_dec(&memcg_bpf_enabled_key);
+ 
+ 	vmpressure_cleanup(&memcg->vmpressure);
++	irq_work_sync(&memcg->high_irq_work);
+ 	cancel_work_sync(&memcg->high_work);
+ 	memcg1_remove_from_trees(memcg);
+ 	free_shrinker_info(memcg);
 
-thanks,
--- Shuah
+base-commit: 8d3ae59288f1e7d58d76558a6ee96d533bc5019f
+-- 
+2.55.0.979.g7e5102b832-goog
+
