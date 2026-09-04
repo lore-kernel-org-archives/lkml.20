@@ -1,81 +1,50 @@
-Received: from mail-pf1-f170.google.com (mail-pf1-f170.google.com [209.85.210.170])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24C25372B2F
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 05:13:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C07A63A961E
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 05:18:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.2
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788498820; cv=none; b=Li//vDRx1wQnTgOz8uH/R9L12RV4wwAQAPoR1tDwEBrctL9+IOkBntd8uviznKqCVsk8LmAUaUYzAY+8XRhQPLck7NzX6MyVQ4YxLSbi3+uSiqDx4IdvXM9SwM8YLs3dfjumOmIbMvJtUyE4mr24YYX221uLX0YoGupZc18HhAQ=
+	t=1788499100; cv=none; b=VwPIAWeAkKYEAYW2uqnI+9LCfTF7E5lKx7+8QrkSwympyDv6KP08cRDXPd8+NBl0l0iOnHw+OSK3/4oGjdJN36QZSy3i+jgCY0O/UNCEyEAcYkmN5Bg2vcHoNt6Rr71cpUrFcNT14+AmEfjllaT5xmnupypEoKTrpEcOYyPa7l0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788498820; c=relaxed/simple;
-	bh=bd1tWYCe/xw7dqGl1zLqdcu74EzhsWFOTCGYYlkv/3M=;
+	s=arc-20240116; t=1788499100; c=relaxed/simple;
+	bh=AK3OZxEFAjWqTQBP+sQIdEQjUkfLjJ/1F6XppVmDLqk=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=MYBkKAA9y9/EAFvAMRvDeDgNTbTqyF+7HH/JfIMj3A72hQJU+dOD5Xp5znNA3RGto+sleLGs47/dpHUVUu0DeQ2auQoTqNK6axLJeo4MJ11SMgASQ3vR7lUGBWHod30qhp3MU0jHm6lfVZroWwQZFnR4eo4eMi3sAsbuXUXSdik=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KdqLAM+H; arc=none smtp.client-ip=209.85.210.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 MIME-Version; b=djvdYwQlqlRtwsUhpA5Wgk57Lmw62pcsaPmoNFolvSw3FXgcNbSH1PrtNkqkd1i/LVOxfSQJ77+qnV2t5yk/lV3kf90fzwd2bZDT1pEtY/It0tAI1jJPOeY2AzgIXJyAVs8okk6WiS/UNezRd/xsTY4YwH5TJ+nO73EXG2eQn+c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=cdY8MhMh; arc=none smtp.client-ip=117.135.210.2
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KdqLAM+H"
-Received: by mail-pf1-f170.google.com with SMTP id d2e1a72fcca58-8556ec44e9aso549520b3a.3
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 22:13:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788498817; x=1789103617; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=bd1tWYCe/xw7dqGl1zLqdcu74EzhsWFOTCGYYlkv/3M=;
-        b=KdqLAM+Hjaffr8B0QumzmsydH8yhEGdjqOM6GK2yjgy0J+gbaKX8kG1D0jUUr+cRYO
-         Ca6yzksLaCretBbSImL+hgRS0mjDUpA+LgjaKelRKodsI1sfmuhucFewG7v0jdJrf/l7
-         zMzAejNmHuI1QEtx6gFmowdz0HuX969lQHPv/ynYAJiRnVTcRsCZ1pGI7gG3ExxDVaYN
-         H3QfWpUQYPmgkUVES3wi1R5Y2iIJPnKAvoU3xUMVZLJ39vBS7o9vsqFJo3Bx8HWeIPfK
-         np+4G94sVxl5df25zXb8FKMSV51GCyKNeJkXTfGDBUfJYFhfStdi8EmIAVt0oA2g2W9U
-         K0kw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788498817; x=1789103617;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=bd1tWYCe/xw7dqGl1zLqdcu74EzhsWFOTCGYYlkv/3M=;
-        b=FJGHafIMdutfJVJ1CX7mJabufR+TMDGcZCGhYK0SHcq5Zn097s+EnNP5hutyuHwLo2
-         ebxm71/OHACfiHP89vSKZ3q61p0p7S1io6HeNgwYvvNwxcShuYNUOUL8IkeSbf7qUDqb
-         DK/FuG497UosJDwRtl1VfQ3WUvLxR/Fuc8P6Ldn+g/dnQpU9GOX3ZbGp7xgG0ypW6vn0
-         c3M5eee3zvQ2REdph53nJqkRainsa+oWuRoRWIa6Lzuc5m4IUO+maPjaRTSg0M7z2yqV
-         3MAk76mO3kLTRa/j67Vv2K28kb/ZwfIYw/Mjwz9MfVhL4cfp/HWSMVkAQzuVthIb4c96
-         b2+A==
-X-Forwarded-Encrypted: i=1; AKwUvByvs5fAviTrRXegktbEp/ubWFfBDggOwDOKgtUQOy6Rs41rxd3T5jiwCLimSpUoUL0M19I/1Kp4jCDGxhc=@vger.kernel.org
-X-Gm-Message-State: AFuF++nqMZ3E+D5eeSjY7bCmwdfEWvehx92O/uq/8k5i8JRI8jeiWh4u
-	S49ufl044692ciHz6zBqDv5nOcWdaZbXCD8UOFZ2iSUBamp9TDNstTlL
-X-Gm-Gg: AYBFou0iHxiRMfIA7TdiL4VUJCoj6PYFC5I2zYN2570MFomBPBXoq4HRUUGxxbIIzeU
-	RzYSD0q4qDBmEzkoR0zz6kyfrx57BuV85juoUa7Js2IL/xLKri4NMZOOYNuTy8Be2p8NGBUYwr/
-	S6E8zg1ifbYI6kuXtQM7pg2myjK/h/M1di9UNiqLVG0TMrVqm781q85Vy1kbN5rshJznIyzCArH
-	JmSntchaP1cpgvaxggVQl13PpNMpaaJ88Dfmusf+e7/JrrCtC5X/Sfrolx6LmxhABh/fi7l2AME
-	hCK3Q4u89U+P/TXGpPcXqwQs0bK9hzj8Z/g2OjELlYsLmWCfd35SDtwDQNV+cvQxC6IBSS2hL50
-	9vsJZdsPcx9LrIpyG6MlDdQ0h62k/AjzPtMdGYMKqhjb9sEIwuJeozV5e8OPRHzdauoC9j16ygq
-	VjAqop3BoMbjDaUjyvBtbiuzhqMA2w5M3Npna+vmI9gJzu2+bq8fDLaK0Xk1/yEfezPB7P+XZxD
-	uSSoL5Trjkdo4NYYHLj2vMp
-X-Received: by 2002:a05:6a00:4f8e:b0:84f:dd30:1890 with SMTP id d2e1a72fcca58-8616a4650cbmr4591857b3a.15.1788498817310;
-        Thu, 03 Sep 2026 22:13:37 -0700 (PDT)
-Received: from qiwenjie-ThinkCentre-M760t.mioffice.cn ([43.224.245.241])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8614c699735sm747518b3a.0.2026.09.03.22.13.34
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 03 Sep 2026 22:13:36 -0700 (PDT)
-From: Wenjie Qi <qwjhust@gmail.com>
-X-Google-Original-From: Wenjie Qi <qiwenjie@xiaomi.com>
-To: daeho43@gmail.com
-Cc: daehojeong@google.com,
-	jaegeuk@kernel.org,
-	chao@kernel.org,
-	linux-f2fs-devel@lists.sourceforge.net,
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="cdY8MhMh"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=AK
+	3OZxEFAjWqTQBP+sQIdEQjUkfLjJ/1F6XppVmDLqk=; b=cdY8MhMhCB8xh8gpAZ
+	JhQIfi1XH/dqKgma9EUW82vrpPQITXREo0WHoMFjJsYdTD8SGRY6q5eodsfKaTvd
+	f+OYvP+2qSVBytba3w/82PPeJC3WxQlbgPXXQHEeMzjdUatXdXPwu6pZpxavfhDc
+	1MxZ/ySc16NsB7wY2lJebuwYI=
+Received: from localhost (unknown [])
+	by gzga-smtp-mtada-g0-3 (Coremail) with SMTP id _____wAH9olJVJpqU2A8Ag--.8446S2;
+	Fri, 04 Sep 2026 13:16:58 +0800 (CST)
+From: Hui Su <sh_def@163.com>
+To: Tim Chen <tim.c.chen@linux.intel.com>,
+	Chen Yu <yu.c.chen@intel.com>
+Cc: Hui Su <sh_def@163.com>,
+	K Prateek Nayak <kprateek.nayak@amd.com>,
+	Juri Lelli <juri.lelli@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Valentin Schneider <vschneid@redhat.com>,
+	John Stultz <jstultz@google.com>,
+	Ingo Molnar <mingo@redhat.com>,
+	Peter Zijlstra <peterz@infradead.org>,
 	linux-kernel@vger.kernel.org,
-	kernel-team@android.com,
-	qiwenjie@xiaomi.com,
-	qwjhust@gmail.com
-Subject: Re: [f2fs-dev] [PATCH v4] f2fs: drop pending discard commands before reserving device alias
-Date: Fri,  4 Sep 2026 13:13:30 +0800
-Message-ID: <20260904051330.3804748-1-qiwenjie@xiaomi.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260903161031.1280195-1-daeho43@gmail.com>
-References: <20260903161031.1280195-1-daeho43@gmail.com>
+	chen.yu@linux.dev
+Subject: Re: [PATCH v2 1/2] sched/numa: Drive NUMA task tick from execution context
+Date: Fri,  4 Sep 2026 13:16:57 +0800
+Message-ID: <20260904051658.348156-1-sh_def@163.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <08f682ba75a4700694d6f94719b367b4d26c032f.camel@linux.intel.com>
+References: <20260903041154.2479761-1-sh_def@163.com> <20260903041154.2479761-2-sh_def@163.com> <4593a7a4-cde1-499c-bba8-2fbe24f35422@intel.com> <08f682ba75a4700694d6f94719b367b4d26c032f.camel@linux.intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -83,8 +52,66 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wAH9olJVJpqU2A8Ag--.8446S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxXF1DAF4rKF13tFyrZFW5Wrg_yoW5Gr1Dpa
+	y5KF12yrs7ta4SkrnrZFsFqw1fAayrtFy5Wrs8Gry8Cr98J3W0gr4xtF4YyFW5Crs2yF1I
+	vr40yrn7G3WF93DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0JUx-BtUUUUU=
+X-CM-SenderInfo: xvkbvvri6rljoofrz/xtbCwQtox2qaVEvmQQAA3t
 
-Reviewed-by: Wenjie Qi <qiwenjie@xiaomi.com>
+On Thu, Sep 3, 2026 at 2:30 PM, Tim Chen wrote:
+> On Thu, 2026-09-03 at 20:41 +0800, Chen, Yu C wrote:
+> > Thanks for bringing this up. Previously Prateek has suggested to fix the
+> > rq->donor issue [1] and unfortunately I missed the task_tick_cache() part.
+> >
+> > Regarding above line in the commit log, although I agree that
+> > task_tick_numa() should be moved one level up, I did not quite get the
+> > reason why sum_exec_runtime is mentioned here?
+> > I guess what you mean is that, in task_tick_numa(), the
+> > curr->se.sum_exec_runtime is used to check if there is a timeout to launch
+> > the task_numa_work(), so curr->se.sum_exec_runtime has to be up-to-date.
+> > With proxy execution, the se.sum_exec_runtime is only accumulated in
+> > rq->curr rather than rq->donor, so passing a "paused"
+> > rq->donor.sum_exec_runtime to task_tick_numa() is inaccurate?
+>
+> I think task_tick_core() needs to stay with the donor's context
+> as it is the scheduling context.
+>
+> task_tick_core() is not about the execution context -- it decides
+> whether the current scheduling context has used up enough of its slice
+> to let a force-idled SMT sibling run. That slice belongs to the donor,
+> so the donor is the right task to pass.
+>
+> There is a separate issue lurking here, task_tick_core() measures
+> consumed slice as se->sum_exec_runtime - se->prev_sum_exec_runtime.
+> Under proxy the donor's sum_exec_runtime does not advance, so that
+> delta stays near zero and the force-idle resched may never trigger.
+> Passing rq->curr does not fix it either. This is somewhat orthogonal
+> to the issue that the execution context series is trying to solve.
+> It should be fixed separately.
+>
+> I agree with you on this.
+
+Hi Tim, Chenyu,
+
+Thanks for the clarification.
+
+The sum_exec_runtime paragraph was intended to point out that
+task_tick_numa() uses execution runtime to drive NUMA scanning, but I
+agree that this is too narrow. The more general reason is that
+task_tick_numa() operates on execution-context state, including the task
+and mm associated with the execution context. I'll reword the changelog
+accordingly in v3.
+
+For task_tick_core(), I agree that it should remain associated with the
+donor, since the slice being evaluated belongs to the scheduling
+context. The fact that the donor's sum_exec_runtime does not advance
+under proxy execution is a separate issue, so I won't fold that into
+this series.
+
+I'll test the virtual-time prototype separately and follow up on that
+issue independently if the approach holds up.
 
 Thanks,
-Wenjie
+Hui
+
