@@ -1,84 +1,176 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from TYVP286CU001.outbound.protection.outlook.com (mail-japaneastazon11021079.outbound.protection.outlook.com [52.101.125.79])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61F97414A29;
-	Fri,  4 Sep 2026 05:21:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788499302; cv=none; b=saoDkFCKAehyQ/GDcYdsErygFNPA+kKMyArbd/fPq64Ly/WVXQCbYQ1fhJzCbJ8IcwI3Egj3qDSR6NtSAcAA2aAIjFPQEHxVJEVwaJd/RWH2GdMGngZcBUd2hr9hx1QeRTRcNzgjXjQI8kyF815otaWf/rZ4ULVnoZvdI/QbwwM=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71A4F416878;
+	Fri,  4 Sep 2026 05:21:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.125.79
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788499302; cv=fail; b=XydnJ9l9rdlHG1ZyunebJBR+6SPc4t3daAPKCHCt5Zx5OactplAtjiL1xdkke9dTtHV8NoBJFLIhLX32Ep5ylPbWLCJff47QuL0KXvNHb26iORmRITOqbTKJWStkePWia+vzu2aOVsdphgJA+d1k4BMUD6NMLbRhaloaVgHeQyI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788499302; c=relaxed/simple;
-	bh=ZFV6biptTu9I2FSFcZJhWxwCkhTh5GSnz2gwaVroPKg=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=bRKlUw7uHOXf/EJojdbd/NIxUnaHOkZt4Fs4KLFHkNFxzJlQ20CcAvS7dL8RaHzicuAZmJCqkceQT5X/+4CrN4lVUVZWo5MyVKe8OEWg4Zd2r/GwQxgbJ5Fc/efR1mTAqLidIlb2GZ5ZmD4w/pGQqOmEds8H4EJo9AIgubEKkcU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WwIUCswD; arc=none smtp.client-ip=100.103.45.18
+	bh=CAnnx0gQ8p1CCBqYR2VvnMJa1Qn4qOYRL6mvuiEbTX0=;
+	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=mbIqO8OtmWRYkSVCcrzXe95H5UzoldSD/gtrYYgVLsmjYtatH76Qei+nv+jObjxRYaPfTvTT67bALFL+/tTCeeyFLADeu0ha9iaazFg/0HQPFCvpjROsa1tu/pLd9fMaiogDUv76gGCxrploR/CE8hZij+/M7q3CKPIH/BIX8ZU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=valinux.co.jp; spf=pass smtp.mailfrom=valinux.co.jp; dkim=pass (1024-bit key) header.d=valinux.co.jp header.i=@valinux.co.jp header.b=NbmYvYau; arc=fail smtp.client-ip=52.101.125.79
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=valinux.co.jp
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=valinux.co.jp
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WwIUCswD"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 701711F00A3E;
-	Fri,  4 Sep 2026 05:21:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788499301;
-	bh=mo4U1DEUliDCIZKEMteRu8zD3B4RsgeP/pNJQSoESjg=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=WwIUCswD+v0fmLtjTVCCQ9sgjkNGjj+ydrTQjd4rs/2Aa+U6fR3+8uCDQpaaIpnKG
-	 CYIzARjt7jJDdh+YH4DiTBf8cPyO0g/iBwgN/GCpepDtuWr0BR503zk+w9zQ9VUHFz
-	 5g5Vv5DyZfbYcGHFyUUgYFryyCOk3KLvrZbVG4WqzXl5jrdxxuAm1Z7GTrDdbiK+73
-	 KqnDF+jSwEQgYHFFIassP7OuvGPpBwb2G8lhg9J6nEGfbQyOi3wTLAFOLbdiSwlT+U
-	 Ai2J4vxVIAGm11ta/t8gdyNOdV7JnFDNelzcMUwCy1CRf0irOL1By2W8l8pY3qTNXj
-	 ZjxFSWjYvBOZA==
-From: Thomas Gleixner <tglx@kernel.org>
-To: Alice Ryhl <aliceryhl@google.com>, Mathieu Desnoyers
- <mathieu.desnoyers@efficios.com>, Peter Zijlstra <peterz@infradead.org>,
- "Paul E. McKenney" <paulmck@kernel.org>, Boqun Feng <boqun@kernel.org>,
- Dmitry Vyukov <dvyukov@google.com>
-Cc: Jonathan Corbet <corbet@lwn.net>, Shuah Khan
- <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>,
- linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, Alice Ryhl
- <aliceryhl@google.com>
-Subject: Re: [PATCH] rseq: defer time slice extension yield for sys_futex_wake
-In-Reply-To: <20260831-sys-futex-wake-time-slice-v1-1-814bb95cc339@google.com>
-References: <20260831-sys-futex-wake-time-slice-v1-1-814bb95cc339@google.com>
-Date: Fri, 04 Sep 2026 07:21:37 +0200
-Message-ID: <87ld9ha8wu.ffs@fw13>
+	dkim=pass (1024-bit key) header.d=valinux.co.jp header.i=@valinux.co.jp header.b="NbmYvYau"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=NlQMGODTjtDTvtu7MzYtf0jWWBOD5Gi4ngwtTGq2dXxEiDU6pmBGw8ieNhFzaYszewoYroVhRNlXqRorA/sT6DUR9UHdRyLMeLMtXwramJEsbOi5jQPpOoJhYZ7G4Qgb+s2dghlMBsJUhPa/XOCwM0gMSCCauEBhrH8tRMChaOVy1mtQCYGjD7FKfG1UekRkhmUiPx/o78t0kw3taQCwpDzN9QWIippAJxSAKZgXupYzc+u4wiMR0m3BN5PAyrR6UtbjalJ3dmDpudFm1eKW1vYvyl91NH1eINa7quEtEOoGqVfbleYUh6P6Z82ucs7MownDouF00EFtjdwZ9P4KpA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=DEOHyM7cwyH5okfUE8Ymyiwe1chmMDYnSNWil/EBg3A=;
+ b=HOiwXDvAmyJsu/CLkG3qYlbI0JROKuHnJVJJuDHvoQykjezleYIILsQfSx5kvsNRJOkpBviNVSR/1Rm5ypUG0JI3cNz5UimTVbqIXHPK+2g7uxEb3EAzhQh3XfBk25nLnRpeYjsgXQxEczwd0z7cPNbF/9vullGn5N0OOe7oHXyIT+AX79tPU6J1umnGFOilJfLI87g9mqlICOp9JDlj6v5g85GJvzsuhnu8oE4dxEWfJC0AfpSqNpzOIk7ERvjkyjZwu+/zhHSYofN061Gf/vKdqCnDvgS79Yw4d+luAbQCamaRgn3Ph5s6XWwxEBAoyb7lklGew96n9LXPAgycOA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=valinux.co.jp; dmarc=pass action=none
+ header.from=valinux.co.jp; dkim=pass header.d=valinux.co.jp; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=valinux.co.jp;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=DEOHyM7cwyH5okfUE8Ymyiwe1chmMDYnSNWil/EBg3A=;
+ b=NbmYvYauywe0Lrk09/wwM4eAGIe3+jIqsFqcdYUSeZLasls/xUd40XJXuU9b7pyF1YgyIiRSLnstilMqaYhTRLyJV9O46nFMNRKWnMROAToDS/iKjW/WKhgVOeArteNoe7JxEhwYaVQru+G3iUepwUMJdutQFOl5XbqjNSyeus0=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=valinux.co.jp;
+Received: from TY7P286MB7722.JPNP286.PROD.OUTLOOK.COM (2603:1096:405:38f::10)
+ by TY4P286MB6378.JPNP286.PROD.OUTLOOK.COM (2603:1096:405:339::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Fri, 4 Sep
+ 2026 05:21:36 +0000
+Received: from TY7P286MB7722.JPNP286.PROD.OUTLOOK.COM
+ ([fe80::2305:327c:28ec:9b32]) by TY7P286MB7722.JPNP286.PROD.OUTLOOK.COM
+ ([fe80::2305:327c:28ec:9b32%4]) with mapi id 15.21.0360.008; Fri, 4 Sep 2026
+ 05:21:36 +0000
+From: Koichiro Den <den@valinux.co.jp>
+To: Jakub Kicinski <kuba@kernel.org>,
+	Jon Mason <jdmason@kudzu.us>,
+	Dave Jiang <dave.jiang@intel.com>,
+	Allen Hubbe <allenbh@gmail.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Paolo Abeni <pabeni@redhat.com>
+Cc: ntb@lists.linux.dev,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH net-next v3 0/4] net: ntb_netdev: Preserve checksum offload across NTB
+Date: Fri,  4 Sep 2026 14:21:30 +0900
+Message-ID: <20260904052134.2970111-1-den@valinux.co.jp>
+X-Mailer: git-send-email 2.51.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: TYCP286CA0110.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:400:29c::17) To TY7P286MB7722.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:405:38f::10)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: TY7P286MB7722:EE_|TY4P286MB6378:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3be03561-0668-4779-1ba4-08df0a4463e7
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|1800799024|23010399003|10070799003|7416014|376014|10067099003|56012099006|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	y/Y1KubKH1xEbE62/H+SHYoR9sHhtAqtOuG+D21rXwpTEH0nDTySzaXn5I4RaYcgjJMDI1BjwY6xH85tsN/6yD7b6JRv9jYuVwvlefRpwnc8x9WlESGtqjlLOZMQBcMmbeA2zqJIhsvuQmnVUgvJ6WweOZM3iIZInACR7zuFaVV139HKOT84ZapvoyFEkGe95xZkaha3XQdlnRvTBxqK2byKRGRz36+Rh0R6mtjyDAemJ/EHowtKRT3wQ5tXwu8gzbe1u/jRFxlikpinv1nawPAucNTXWd3X67UAGpnaT/TBNbdcmDM9jMskca6Qdhnsglo0YK227TY6bi+e0e6+vZmboUWEoC2v4P2XDxBEd4mODqtBUVspge0q0tFa1T88hC1lMMUls6NNzxy1YadtG+OSa733uKshgzMiEFHiakvHOgUEnz4H22p7PuPmqw7jWX/F3Rol8hvcNBJXlg8WuYmPNF8gR0PuoNrDqJq96Jit27UxCsOVjd56OHebjNI2Fbdn2NlBBrmEgBWxF2vMRy6YdKwzMxK5KHqzT01uJhGnnNzvutVAfVKG+rPhs2olP7vMd10wUAxpFiEgGgHm7uZQGnnSrJP83B1gX1+2AkC3IeD3ztUJNVvDgZNJtDcx
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TY7P286MB7722.JPNP286.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(23010399003)(10070799003)(7416014)(376014)(10067099003)(56012099006)(18002099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?rq/4iM/xcSyrKfSaYPfELwI6dNM85bg3w7tLJHYUL6Og2UoYaLfecWerHKpM?=
+ =?us-ascii?Q?Sg/HewK2ho/0/C6Crv+mBKY0Yy6XyOvosdm90tJ8BYaM+rPsA352ajVtBFjZ?=
+ =?us-ascii?Q?RdKt/xNAbpwFeSXg6xJV565Qp4NyBaKn2v/uV5mke44HhSDkmFsjM21uyR00?=
+ =?us-ascii?Q?NDuAYGFFc1LwZTP/XOhO2lmQ4EJS1au+R3V4B7VGaVbJpUv6WqH9PlyNN9fX?=
+ =?us-ascii?Q?mBaB5yg00nBKAbB/PjqeqELQHMJdugcm0ELZRnH2dIsyD2DXPpdN8lDNvpUz?=
+ =?us-ascii?Q?unzBo6hRt5mhGDNrqgFyOFdSBA+jCIhiTUupCrf3NPbF+ihnOvrpbNGb2Ao7?=
+ =?us-ascii?Q?7eRkzkqBDWojU3r4pf42m6++cLWJD4hc87+KF6bGQkJ+abBWnQzrrydqVxv1?=
+ =?us-ascii?Q?EwodA1XRstKc3XhoZcPGI264aGjEWKkWdXTuDlZxxC5Aolg2c/zYAnYO/a0P?=
+ =?us-ascii?Q?4fN7AX9BFFrlMZ81VW412E6SmxY/XzPqsicyWh9TnfUnKSMB2RW7+Tp0DZ72?=
+ =?us-ascii?Q?YH1kRET8qmmyv4h08zUFiUf/sem8yzFVHiSARpKLg/G7/uZhce8sSagI9YVo?=
+ =?us-ascii?Q?t5dHo6WHn/h9xvo0ELl53bf/DQi+3tiLRYpJGM71xR536hkxietcA8bGZqqs?=
+ =?us-ascii?Q?bJt4xkpJgKaP62lzHIrW0Vrug0/tU4AKxhl/AAb/yIpALxSsH6MVvo3ttnI7?=
+ =?us-ascii?Q?4zVTKBA/6yBurTrKCWuexTZZVPZGdZV81geLgRgTWxQRWb4fwNpxQGhIEGBM?=
+ =?us-ascii?Q?64+5C4wEgV/e9k75qPagM6lszrIS7jhQn/rJtXVenFlHVqSQAC5Of/AkhIdZ?=
+ =?us-ascii?Q?xRNgalf3xvYKbSSdR/JcuzD9oc7Lapg/KuBCv5zyoRfDIN8c/1SZacz8qHcM?=
+ =?us-ascii?Q?nPTdhbhhwj0eeVPJXLxvfmCb91SL9t69JdFYSonG6KTMZ0iw9mXe8HJQsnf8?=
+ =?us-ascii?Q?ibfFTsrMFDOHEdDjuXRch8r1Yl9e9n0JW+KiYtHnpZdO2qSrhNk7wWJWGulq?=
+ =?us-ascii?Q?1o7i0TBXXjMQ0chjeuCEOu1FWyDUfxKtoTiYpsS04rWh/LaGVjd5Dv5QAPso?=
+ =?us-ascii?Q?tYKZPvKwiuWAw2UD1sigJR3Jrk/Y0/uI/k1GLIqjT4ZNzLSXDPps1+Ulm1PX?=
+ =?us-ascii?Q?SkBlQqrcp9sDVeWeWG3EF9SDNtjDJAOJy+eTYl2RgUaHQ03PukVSTZASGP+D?=
+ =?us-ascii?Q?r9Wfufvw06gIuUiIgUORURhTX7IP+3F5ksb8Ql+sQZYLfaUMpvgPUOr30p5E?=
+ =?us-ascii?Q?nSpsykt/zHGW7tpko/+BawQUydBZDL7wIrfAIouY3e3PEH/dyWOlhdExDVIN?=
+ =?us-ascii?Q?8yEnC5FF5qMNiN6s9gkSwBJLEe+Tdt5AyuLsGfaNcfLMNm6/izXmdILL0az1?=
+ =?us-ascii?Q?k5IlyhTeDgzL2xsCU+Y1tC6CR6lnu1G2/kCr8za1MnBlrPyndK3gmxMKbOPZ?=
+ =?us-ascii?Q?H71BDRyOyTGVN/+ZM0uHCQ+DF0/gaHZRS7SdYjS/9qoELIH/qJv3HVaou95A?=
+ =?us-ascii?Q?D4U4A+AuEpCq14T/IAQPCqMatmFD+tezVb+oIGlsDbbA0NShMvID+KQLV9xl?=
+ =?us-ascii?Q?Sf5xuswqE5WztbWXgsAkpu7hr2uFootnQF8DJeSzPvFsp35lo9s52S883Pgg?=
+ =?us-ascii?Q?/t6B4RzpEvD3J3KNd4YPkHNa+vFf+KNXRCh0YFtk871SDqRBDmD5Jfm6A8nE?=
+ =?us-ascii?Q?gHdOv0poIr0j5K2Pp7go5HWgfisYBDhYpnaoTE+EwhzHH7WJrMem0qFpApPK?=
+ =?us-ascii?Q?WW83mIFRm8KGd/eLvkAfdJ22m03X23B1cumuvhcFsSha1UIw/YqL?=
+X-OriginatorOrg: valinux.co.jp
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3be03561-0668-4779-1ba4-08df0a4463e7
+X-MS-Exchange-CrossTenant-AuthSource: TY7P286MB7722.JPNP286.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Sep 2026 05:21:36.1075
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 7a57bee8-f73d-4c5f-a4f7-d72c91c8c111
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: K3FSoEFh66lRx4XSpd7mWlRV4CNMyFKIU8wlFQR3jqaPDqpUPUseIoNj6g8UTJvjznUyCqQMxeg/XEvjSZLfTg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TY4P286MB6378
 
-On Mon, Aug 31 2026 at 12:57, Alice Ryhl wrote:
-> When a task is granted an rseq scheduler time slice extension, it is
-> expected to finish its critical section and relinquish the CPU via
-> rseq_slice_yield(2). If the task issues any other system call while a
-> grant is active, rseq_syscall_enter_work() forces an immediate
-> reschedule on syscall entry via cond_resched(). This may cause
-> significant latency penalty for userspace lock implementations that use
-> rseq time slice extensions when unlocking the futex.
->
-> In a userspace mutex unlock sequence:
-> 1. The lock is released in userspace.
-> 2. If there are waiters, the unlocking thread calls sys_futex_wake()
->    to wake a sleeping waiter.
->
-> Because sys_futex_wake() is currently treated as an arbitrary syscall,
-> rseq_syscall_enter_work() schedules out the unlocking thread upon
-> syscall entry, which is before it has executed the wakeup. Consequently,
-> the lock is free in userspace, but the waiter remains blocked in the
-> kernel while the CPU switches to an unrelated task. The waiter is only
-> woken when the unlocking thread is eventually scheduled back in to
-> finish the syscall, causing lock handoff delays.
->
-> Thus, update rseq_syscall_enter_work() for sys_futex_wake() so that it
-> does not reschedule during syscall entry. The thread will yield the CPU
-> on the syscall exit path instead.
+Hi,
 
-That's undermining the design and takes control away from the scheduler.
+ntb_netdev may be used on embedded systems, where CPU resources are
+often limited. L4 checksum calculation can therefore become a bottleneck
+even when traffic stays within a trusted PCIe fabric.
 
-It granted a short extension with well defined semantics and then you
-special case futex_wake() which can take arbitrary time to complete.
+This series carries CHECKSUM_PARTIAL across the NTB link using opaque
+per-payload metadata in ntb_transport. Peers without metadata support
+continue to use software checksumming. The feature remains disabled by
+default and must be enabled explicitly on trusted links.
 
-Thanks,
+Note: the first two fixes came from Sashiko's review of v1. They touch
+the same ntb_transport path as the metadata patch, so keeping them here
+avoids a cross-tree dependency. With review from the NTB side, I hope
+the whole series can go through net-next.
 
-        tglx
+Best regards,
+Koichiro
+---
+Changes in v3:
+  - Rebase after the related ntb_netdev/ntb_transport fixes landed in
+    net-next
+  - Avoid counting RX checksum failures as both errors and drops (Jakub)
+  - Reject csum_start below ETH_HLEN on RX and fall back to software on
+    TX (Jakub)
+  - Use READ_ONCE() for hdr->ver and hdr->len (Sashiko)
+
+Changes in v2:
+  - Reset peer checksum capability on every link event (Sashiko)
+  - Add prerequisite fixes for RX ordering and shared field endianness
+    (Sashiko)
+
+v2: https://lore.kernel.org/r/20260817064916.13278-1-den@valinux.co.jp/
+v1: https://lore.kernel.org/r/20260814032913.3558500-1-den@valinux.co.jp/
+
+
+Koichiro Den (4):
+  NTB: ntb_transport: Order RX descriptor reads after completion
+  NTB: ntb_transport: Use little-endian shared fields
+  NTB: ntb_transport: Add per-payload client metadata
+  net: ntb_netdev: Preserve CHECKSUM_PARTIAL across NTB
+
+ drivers/net/ntb_netdev.c      | 95 ++++++++++++++++++++++++++++++-----
+ drivers/ntb/ntb_transport.c   | 73 +++++++++++++++++----------
+ include/linux/ntb_transport.h |  6 ++-
+ 3 files changed, 133 insertions(+), 41 deletions(-)
+
+base-commit: 6ebcf5074cff0402730c6981d2397139fee6322d
+-- 
+2.51.0
+
