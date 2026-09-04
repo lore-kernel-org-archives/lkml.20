@@ -1,84 +1,80 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C21FC4195D2;
-	Fri,  4 Sep 2026 06:44:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from outboundhk.mxmail.xiaomi.com (outboundhk.mxmail.xiaomi.com [118.143.206.90])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 1CB37233949;
+	Fri,  4 Sep 2026 06:45:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=118.143.206.90
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788504261; cv=none; b=eYrvWxirKWMvcgKv0muM2pLQ3/ooYULdO0S7++Cc6/C1opJsemRfLOp7MzYUSZ7K1kN2C1jju8dYaVINHZXFGG+hFeGBzPC3WBZzw701ljmrfjlIXKvTi5ysK+zDnWS01VEqbedAt2ty/AJXfJKJchZcQY2d5Kc/ZpMlvHanIGc=
+	t=1788504320; cv=none; b=q239Hsxdd2VrBbixo3t9wbihORQD4Ox0eWQp5l1Y24ywYKHO4O0ppwNUfQgZpRsG55Pup60ANtsYaWwNpdyJKWscJ4TzkAac+Q96RRJmTjlF/MVtxZ9Sn28K2MwNkP9pCl/tLqpEy6fbB4In0Iom+3mKmudCcoy03kOBuIU/oSc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788504261; c=relaxed/simple;
-	bh=FjvaKYb1QnuY7ihNibdHpcnPHO/khxaMekqPzpu/5Z4=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Subject:Cc:From:To:
-	 References:In-Reply-To; b=M9dMnWO+k2hA+J3Qk0RCnw3F9SRnrc+hcctHI0NGOPVftf1mtH1GI+4PIZHeJGDaQvpJB+2bD5etUIHCfePQ8DO6G8Sb2djBw/TbjKVnw5bFbKkjeXR9ToiNGESxLloaiYjX7hLRfUoJitzjKB96eQM3MbXylJILe+fg+o/SjdE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=D1q3PoEP; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="D1q3PoEP"
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id D92561F00A3E;
-	Fri,  4 Sep 2026 06:44:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788504260;
-	bh=FjvaKYb1QnuY7ihNibdHpcnPHO/khxaMekqPzpu/5Z4=;
-	h=Date:Subject:Cc:From:To:References:In-Reply-To;
-	b=D1q3PoEPnIlkqHO5GOgkrLNPagJtL0j+Ttea4S6ev9fyLY9u5lcSa3EzgLncx4QUV
-	 czRUoHDzdD1lmkm3/J9ccpytAIl3cgnEBPaMv5poahYAQ1mQnEqzDVrBgaPaZRVyiE
-	 7G9t17QpZDBmH7Wkcbi8WbrBItESrJNGEJMkX4/PrUXmsXshOjuMRMYTbqkfMYDnZ7
-	 TcXrHrCU9cueCN38EKdDEThKSQJ7dFGOYrKt3nHHxSoFLi6ZrLwDg6Xta0Zgoo5Z6n
-	 WVItvywoVBE4NuaTLaAifq9vGzi8v1xxlmYc0EKOffL2jKJakwCMFhDsveB9UlM9mn
-	 q94NRu39QfbvQ==
+	s=arc-20240116; t=1788504320; c=relaxed/simple;
+	bh=Be3NKpeYyku2QkrBjKFmErRhp0bgBDENK4U0S0pHM6k=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=b8WmPKQAsgatuUUtN7/SnJ52iCoqETilRq1fqxDK8MVZwq8X1kKbmcogIkxeiNnXPQKgkwOViW/NdFOC/O6NpaWoqL/f8sCkz7gygREBxRMtmC2AAK9N5iRHmLx2kwJ7JUmCcXoIYuJjL4qODC0roJ41kiKxYRLqicmoNW2vmjM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=xiaomi.com; spf=pass smtp.mailfrom=xiaomi.com; arc=none smtp.client-ip=118.143.206.90
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=xiaomi.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaomi.com
+X-CSE-ConnectionGUID: 7Z/tdsLnSyGvG78wVVpMhw==
+X-CSE-MsgGUID: Ff33qnlCQ/SkQYzfNFynVA==
+X-IronPort-AV: E=Sophos;i="6.25,260,1779120000"; 
+   d="scan'208";a="161531732"
+From: Wang Shuaiwei <wangshuaiwei1@xiaomi.com>
+To: Frederic Weisbecker <frederic@kernel.org>, Thomas Gleixner
+	<tglx@kernel.org>, Jens Axboe <axboe@kernel.dk>
+CC: Sebastian Andrzej Siewior <bigeasy@linutronix.de>, <wanghui33@xiaomi.com>,
+	Wang Shuaiwei <wangshuaiwei1@xiaomi.com>, <linux-kernel@vger.kernel.org>,
+	<linux-block@vger.kernel.org>
+Subject: [PATCH] tick/block: Add BLOCK_SOFTIRQ to the hotplug safe mask
+Date: Fri, 4 Sep 2026 14:45:06 +0800
+Message-ID: <20260904064506.671203-1-wangshuaiwei1@xiaomi.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: multipart/signed;
- boundary=c5f9d989349b39aa9155d6611598ddcf6959118f1716d6b107a91e88843e;
- micalg=pgp-sha384; protocol="application/pgp-signature"
-Date: Fri, 04 Sep 2026 08:44:15 +0200
-Message-Id: <DL6BUGHEIP3C.1FBQYVS83GQ4W@kernel.org>
-Subject: Re: [PATCH v6 2/3] gpio: regmap: Add optional runtime PM support
-Cc: <linux-gpio@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, "Jonathan Cameron"
- <jic23@kernel.org>, "Andy Shevchenko" <andriy.shevchenko@intel.com>,
- "Janani Sunil" <jananisunil.dev@gmail.com>
-From: "Michael Walle" <mwalle@kernel.org>
-To: "Janani Sunil" <janani.sunil@analog.com>, "Linus Walleij"
- <linusw@kernel.org>, "Bartosz Golaszewski" <brgl@kernel.org>
-X-Mailer: aerc 0.20.0
-References: <20260903-ad7768-gpio-v6-0-4254ef6c9b38@analog.com>
- <20260903-ad7768-gpio-v6-2-4254ef6c9b38@analog.com>
-In-Reply-To: <20260903-ad7768-gpio-v6-2-4254ef6c9b38@analog.com>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: BJ-MBX03.mioffice.cn (10.237.8.123) To bj-mbx11.mioffice.cn
+ (10.237.8.131)
 
---c5f9d989349b39aa9155d6611598ddcf6959118f1716d6b107a91e88843e
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
+During CPU-hotplug stress testing combined with an I/O
+workload, the following message is observed:
 
-On Thu Sep 3, 2026 at 2:01 PM CEST, Janani Sunil wrote:
-> Some gpio-regmap consumers share their regmap with a parent device that
-> may be runtime suspended. GPIO register accesses must resume that device
-> first.
->
-> Add an optional pm_dev field and acquire it before register translation
-> or access. Release it using runtime autosuspend after each operation.
-> Keep the device active across the complete direction-output sequence and
-> propagate failure when setting the initial output value.
->
-> Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
-> Signed-off-by: Janani Sunil <janani.sunil@analog.com>
+  "NOHZ tick-stop error: local softirq work is pending, handler #10!!!"
 
-Reviewed-by: Michael Walle <mwalle@kernel.org>
+On CPU offline, ksoftirqd is parked at CPUHP_AP_SMPBOOT_THREADS while
+the CPU still takes interrupts. A block completion raised after that
+point stays pending, and if the dying CPU goes idle before teardown,
+report_idle_softirq() sees it, keeps the tick alive and prints the
+error above.
 
---c5f9d989349b39aa9155d6611598ddcf6959118f1716d6b107a91e88843e
-Content-Type: application/pgp-signature; name="signature.asc"
+Such pending block completions on the outgoing CPU are drained later by
+blk_softirq_cpu_dead() (CPUHP_BLOCK_SOFTIRQ_DEAD), so a pending
+BLOCK_SOFTIRQ is harmless here. Add it to SOFTIRQ_HOTPLUG_SAFE_MASK
+like the other teardown-covered vectors.
 
------BEGIN PGP SIGNATURE-----
+Signed-off-by: Wang Shuaiwei <wangshuaiwei1@xiaomi.com>
+---
+ include/linux/interrupt.h | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-iKgEABMJADAWIQTIVZIcOo5wfU/AngkSJzzuPgIf+AUCappowBIcbXdhbGxlQGtl
-cm5lbC5vcmcACgkQEic87j4CH/j6QgGA8HQsKUjdvFVgWd2Da9IvkenWjkIam4Bc
-HvHBCnZ/3I1YiExKxOxja2voN6hZREdDAX94mqyXwKQV/STC4E6T5miN9sx/YGC7
-/+GcrS+oPu2N2429WQNlxiwKcCK4tFVH5X0=
-=WGzB
------END PGP SIGNATURE-----
+diff --git a/include/linux/interrupt.h b/include/linux/interrupt.h
+index 3bf969ad8fe0..52bb684090c0 100644
+--- a/include/linux/interrupt.h
++++ b/include/linux/interrupt.h
+@@ -573,9 +573,11 @@ enum
+  * _ IRQ_POLL: irq_poll_cpu_dead() migrates the queue
+  *
+  * _ (HR)TIMER_SOFTIRQ: (hr)timers_dead_cpu() migrates the queue
++ *
++ * _ BLOCK_SOFTIRQ: blk_softirq_cpu_dead() completes the remaining requests
+  */
+-#define SOFTIRQ_HOTPLUG_SAFE_MASK (BIT(TIMER_SOFTIRQ) | BIT(IRQ_POLL_SOFTIRQ) |\
+-				   BIT(HRTIMER_SOFTIRQ) | BIT(RCU_SOFTIRQ))
++#define SOFTIRQ_HOTPLUG_SAFE_MASK (BIT(TIMER_SOFTIRQ) | BIT(BLOCK_SOFTIRQ) |\
++				   BIT(IRQ_POLL_SOFTIRQ) | BIT(HRTIMER_SOFTIRQ) | BIT(RCU_SOFTIRQ))
+ 
+ 
+ /* map softirq index to softirq name. update 'softirq_to_name' in
+-- 
+2.43.0
 
---c5f9d989349b39aa9155d6611598ddcf6959118f1716d6b107a91e88843e--
