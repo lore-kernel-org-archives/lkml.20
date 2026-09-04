@@ -1,137 +1,126 @@
-Received: from mail-ua1-f53.google.com (mail-ua1-f53.google.com [209.85.222.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26B6544C678
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 15:17:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.222.53
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788535080; cv=pass; b=e5MI13s7/Tg9YUicyzQ62Wt+ULQ11JJRsX+NT/9A5c4zxamOWJRf91LyuidMKfjWRs7Pbx9soWlM3IKsf62x0io5cz5I6lD0K77coPZZiRfnIWKbdK29SKCl83Bb63MISrnHXYNqBn+kqIsMdwP6wDd98eka02hW3Cf2Z7XzVG0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788535080; c=relaxed/simple;
-	bh=a8IcWix8i7C0DIMMGLJFWrwznvm95cLdWDVTqjuXB24=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Gyfc4TQvSBoXUXvUQ/6KjMgn6t1OeatJDZVByVmHSW6cDtxro8Y3HJozHa/pNbOdTweas+eW/Aww2Jl/2jA7kMCjrrHmyT9qXIqpIYk2viqXQb5GfmHLEjJPHPqdYOkgfTpgow0Vdyv1973Wq6Kll7DJJQpVezUyg8+HDuxdHp0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lqGs1q9a; arc=pass smtp.client-ip=209.85.222.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 110A44CA773
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 15:19:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788535144; cv=none; b=bPyZV2RLRdXqOF8U73T1N+gtUbIWMqQiiH3miPd4QyVl92VNaCebMwfaWpOfgdaaw4Epxr1bt055MG6dAMexrPNUMS8QVsCDpo8lpK9OzSRd8QSc0dgHwP7YU7daUnfKjL4GMryaO2DQwLsv2XVaHZtgn/f8juNyj72hWB++twM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788535144; c=relaxed/simple;
+	bh=M56rSLJGvaOXD4jhTd2P8Kl7lC/ZDGHt0GhIAa+6uNE=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=APwiq1Z9ByxUKymNzPVrilVqr7YOY4ElS0qL4US5IELVlUl5B21s+s8afggmA6wYf6rSMC7tVJ+I41XtuxI0m8rgK3sEP1CMHIxQ+SWJZMNKWAXJRxMeRlgHvVqXej0655wZabNBTP2o3ymrDfbWYGvSmtIS9bodtkjN9IU7DtE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=Badj+oSy; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lqGs1q9a"
-Received: by mail-ua1-f53.google.com with SMTP id a1e0cc1a2514c-97ca72f2cd9so643177241.2
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 08:17:58 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788535078; cv=none;
-        d=google.com; s=arc-20260327;
-        b=qUG/Kbmzjp8GMdWKE4hOW+rbIibItyKRQwxMNqYoWTcVOsFOKGvXgOdzHaEmXQ+Nus
-         FZtXm3u+oynD50OvIuJQ5btmjM7XabVRVAnTG2TwdF0HYLkCI4fXIcnQWkwBA1YeOhdk
-         r9ONqJSLVtbxpu39t/2Sp36gfSM6Up6vVi1k00AK3J/EIDsESvoCy+Fw6TS17sInp0xp
-         TNfSlnBLTgIOnTJwzSMLXptkneMgkdK7ct7IJnNPsF2CEwh69+pYfDMU/o3c94YBgy/0
-         dQj2VoO8MeGcmuvubagOSqEO+3GxfCcitprVBSF4i6PTYWzGIB8TRmH4OuRB7+jnuHmx
-         Wd7A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=a8IcWix8i7C0DIMMGLJFWrwznvm95cLdWDVTqjuXB24=;
-        fh=2c7Vk1ywRbIxXad22vnNKlM+ht6BFXAJpRJleA9F3cc=;
-        b=fHAf2uP1hwY9tTfmgT6Pn2UgkNN171nso+oPI712IdgSlE8Tf+VDGo8CiY5GHvKLtu
-         Xp5vg2GXixtuHs2u7UWQWEJwY0xpFcTBXudklucO+QdX5YFcvmYOrX+HU8DtLR+cC8XI
-         oGiMBGLXeyPlgfOtPmU/FgtUhj15VtlBRYjbqqNwisuJvsmn9FmTWtiDTXgAA21rnK5h
-         NAuDEVnyfQSNYRQRWhG75GY7HHL9cbze0KizAORRCQxLhcjqem+2VVa6YY2Mxufwyhz4
-         yUcfL3Wcyj0UTjvWlhGI8YMBzfQHwc7YD074d8p2uyt4j4jD1BjDDSHLiOPlACe1tW0i
-         iQ5g==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788535078; x=1789139878; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=a8IcWix8i7C0DIMMGLJFWrwznvm95cLdWDVTqjuXB24=;
-        b=lqGs1q9aVRXf4uDOu0LQyLGbVTM7mQl7nE76OuI3UO9NFmclw0HLAUCKmUfOkqNrsL
-         5h6ypm3rQFdUqPV4ZOKzujh/IyF9VhRS0ZPKr1anvU+C1etKGmD5aa0iXX2qqvsZX9Ie
-         O0srS2JBQrUz3qwDWdiRfLSkfaq30YYT4xKUFx6Z/m/Usfdc9VYXYLj6c8TR7niehiZD
-         lxFOiSCwCuu4xMDyc9ix1xTTUEEQQf3aTMPWHhkHov7tCBKDTofZWfT6rB1OyGXz8Lum
-         5q49Q0Gi9noLq987/An23D3PQLXR6T57MCQh4ZCj3QLBZol2fqc8JnMk5R+aMAUptBYA
-         TO5A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788535078; x=1789139878;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=a8IcWix8i7C0DIMMGLJFWrwznvm95cLdWDVTqjuXB24=;
-        b=evABCF0MAeEqbFlGt8ocDzLuHMw46rM5s5juDPiVUaoRbv3VII1et3Xpl7qTR5lfuH
-         OkaOpf46oKqjmP7W1sLoxEk+i400/+AU0SVlftES7VaI2nB1kQgRh/y9GmWgvOt3dTit
-         LXa2L+Ov9c44l61KwKaAvxYzfLXoFBXLPMfdWuKWWgRZfvU2cNWlb3UdpX2tQ9jHUJOR
-         oCSiXekzTrOFpcyfB4VKHzCKtgp67RjU/k47Ee3q5RECCAJfxNf98hbHzkBIdM9LBnqI
-         5qh9LC9QILHS3fsazuiuOVADRVwvqm05usLlfSRy60wvRee0IlkafDoAh9+I7HXc4O42
-         vLsA==
-X-Forwarded-Encrypted: i=1; AKwUvBwg1AzRvLUvtR0UBi9Er0LDbZuQ16i8iW5UzAH1XQwDqm5vfBFQAJtM/lJxd6akWLbQQ3f0c1M56+XLHAo=@vger.kernel.org
-X-Gm-Message-State: AFuF++kXiDUyKJMnPO7tDI9Tx4ccXVSXH7Mjc+4gCz9Ku6RWjn4GhCrw
-	inwdyClLbi/cfP8KBpTlp7QzB019khjCrEaqLyde0JEIR8aEyP1VPI27pcIaYpZOK3cdlDWl/hR
-	P0b+WaUUlwAraHuplS0QfkBkyQn8i4YU=
-X-Gm-Gg: AYBFou2UvZW0GwBW6QTLIZqT9tqU9vbpvaxdZjCHcrozLNReENaVwLck94aQnnJtKRb
-	Bhf4VmU5HXMjWLCP8OVwxCbST3MoUnbZyJIlSex22swt1ecbvvqmyAPi4SuRH/Q7X60haplsdbW
-	eUkS6ZodDP9xL8TybsdHvVPWPmq3YPO30DuwIVRGDDW4CR8yjzuso2gEqDxApLlUb0vmDqYXHkm
-	7KWdAzANuziPZYjz/FHtxw9/SjzaGg8CXP9xhSQm/CFJ59x0SS4H2KVQek1fjS7bxGtgzCvYRh/
-	8aWe0Ae8FiqDqEuXmg9oo9iZQaZ/DNkckbeuXgcrxeaP3ibjaUObwc7Er3n+JAv4QAk1vax+jVx
-	Ya3ye7D+DxS/5q4A3cwUCXMseWOw+y5mZ2Vv+nh/vO2AJVs459jOaXilDkU0GSioXq1noTYR4OJ
-	KUfH+K2hNmgLxLMt9x5QjBYLtiywuWQdPZ5PWEmqOZ+Pw8j9IMxA==
-X-Received: by 2002:a05:6102:80a9:b0:786:4822:308f with SMTP id
- ada2fe7eead31-78a4a9aea5fmr2343885137.13.1788535077663; Fri, 04 Sep 2026
- 08:17:57 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="Badj+oSy"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1788535142;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=wimpPQPc2l+rFv+WyXy4r7ufkipxJCeYkKOmyYXKdOc=;
+	b=Badj+oSybVEa0uGuzcAHcz6l8tyNHBKYmMYhkcxqTJBj681CPVJTAYPpAtbCmRh23nlMHr
+	kiHjcXV00Qrd9E9sPnRqoT8QVDNWIN0Ky86aafkeGDVixbHv13sS5RN4Pg0TZNFV/bXMQM
+	5SnRtYnd9bEfQt9VjCbqoRYUHwUsgcs=
+Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-643-SIAK51tANpyujlKRgMVKaA-1; Fri,
+ 04 Sep 2026 11:18:57 -0400
+X-MC-Unique: SIAK51tANpyujlKRgMVKaA-1
+X-Mimecast-MFC-AGG-ID: SIAK51tANpyujlKRgMVKaA_1788535135
+Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 8EC3C1855175;
+	Fri,  4 Sep 2026 15:18:55 +0000 (UTC)
+Received: from aesteve-thinkpadp1gen8.rmtes.csb (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
+	by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 747BD18005AD;
+	Fri,  4 Sep 2026 15:18:53 +0000 (UTC)
+From: Albert Esteve <aesteve@redhat.com>
+Subject: [PATCH v2 0/2] Add automotive SMEM hardening for Qualcomm
+ platforms
+Date: Fri, 04 Sep 2026 17:18:46 +0200
+Message-Id: <20260904-port-smem-v2-0-bb497dd3c48b@redhat.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260810-submit-sunxi-nand-vendor-oob-layout-v1-v1-0-463853a14ad9@gmail.com>
- <20260810-submit-sunxi-nand-vendor-oob-layout-v1-v1-2-463853a14ad9@gmail.com> <87se3p13jy.fsf@bootlin.com>
-In-Reply-To: <87se3p13jy.fsf@bootlin.com>
-From: James Hilliard <james.hilliard1@gmail.com>
-Date: Fri, 4 Sep 2026 11:17:46 -0400
-X-Gm-Features: AcwNN1UP0lhDRhRnmSbud-UU5EERiros9_WN1FPXC7f3fDYdM3_vq5pk0G9NwE0
-Message-ID: <CADvTj4oW8Hxv_b5vWM5pbeB3wEO-WoqhLwyinCTFPNR6wTHYmQ@mail.gmail.com>
-Subject: Re: [PATCH 2/3] mtd: rawnand: sunxi: support randomized OOB formats
-To: Miquel Raynal <miquel.raynal@bootlin.com>
-Cc: Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>, 
-	Jernej Skrabec <jernej.skrabec@gmail.com>, Samuel Holland <samuel@sholland.org>, 
-	Maxime Ripard <mripard@kernel.org>, linux-mtd@lists.infradead.org, 
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/03MQQ6CMBCF4auQWVvTqVQKK+9hWGAZZBalZEqIh
+ nB3K3Hh8n95+TZIJEwJmmIDoZUTxymHORXgx256kuI+NxhtrtphreYoi0qBgqosOl9Vvi7RQv7
+ PQgO/Duve5h45LVHeB73id/0pRv8pKyqteqy70g7WXR7DTagfu+XsY4B23/cPOVe7BaMAAAA=
+X-Change-ID: 20260819-port-smem-7518c77c9415
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Albert Esteve <aesteve@redhat.com>, 
+ Sarannya S <quic_sarannya@oss.qualcomm.com>, 
+ Pranav Mahesh Phansalkar <quic_pphansal@oss.qualcomm.com>, 
+ Sudeepgoud Patil <quic_sudeepgo@oss.qualcomm.com>, 
+ Tony Truong <quic_truong@oss.qualcomm.com>
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788535133; l=1957;
+ i=aesteve@redhat.com; s=20260827; h=from:subject:message-id;
+ bh=M56rSLJGvaOXD4jhTd2P8Kl7lC/ZDGHt0GhIAa+6uNE=;
+ b=AjZiqyFLQ+U2qnbLm1yfowflVoIYJIiDL2YtMJlLcRtfyOd5dkm7YvypVzMVmMisY18//lvlJ
+ RVfeZaQb1FuAERXm6C8HmrnuFOJPI32k38yScSbsgb8lT8OmlMY4tyt
+X-Developer-Key: i=aesteve@redhat.com; a=ed25519;
+ pk=zI2RBeZgocwYm3AkJW4CtjoJnKoDZrfBl1xe5Ed6h+U=
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
 
-On Fri, Sep 4, 2026 at 8:42=E2=80=AFAM Miquel Raynal <miquel.raynal@bootlin=
-.com> wrote:
->
-> On 10/08/2026 at 17:04:50 -06, James Hilliard <james.hilliard1@gmail.com>=
- wrote:
->
-> > The controller randomizer covers the bad block marker along with the
-> > rest of the OOB data. The driver currently compensates the marker bytes
-> > before writes and after reads so that they remain plain on flash.
-> >
-> > Allwinner NAND firmware instead stores the marker through the
-> > randomizer. Media using that format appears to contain bad blocks unles=
-s
-> > the randomizer is enabled while reading the marker.
-> >
-> > Honor the allwinner,randomized-oob property by unconditionally enabling
-> > page scrambling and leaving the marker in the randomizer data stream.
-> > Keep the existing plain marker behavior when the property is absent.
-> > This changes marker handling on all supported controllers; the H6/H616
-> > protected user-data placement is handled separately.
->
-> But I think the reason why this has never been done is because it just
-> breaks raw accesses, including the BBT reads. I don't think this is
-> handled, is it?
+The Qualcomm SMEM driver manages shared memory partitions used for
+inter-processor communication on Qualcomm SoCs, including the
+automotive SA8775P platform. Vendor trees carry additional validation
+and partition-enumeration logic that is not yet present in master.
 
-From my understanding raw access bypasses randomization entirely.
+Patch 1 adds boundary checks when walking private SMEM partition
+entries, ensuring traversal does not read past the end of a partition.
 
-When writing the SPL(which does not use the same layout) we use a
-pre-randomized image.
+Patch 2 skips multi-remote-host partitions during enumeration. SMEM
+now supports partitions involving more than one remote host, but the
+driver does not implement that case yet.
 
->
-> Thanks,
-> Miqu=C3=A8l
+Both patches are based on public vendor patches from Qualcomm [1][2].
+Adapted for master. In particular:
+
+ - Dropped the xarray partition rework, which is already present in
+   master (79602b750b96c, "soc: qcom: smem: Switch partitions to
+   xarray")
+
+Built on master (Linux 7.2.0-rc6+), and tested on Qualcomm SA8775P
+Ride V3 board. SMEM platform device binds and initializes successfully.
+
+[1] https://git.codelinaro.org/clo/la/kernel/qcom/-/commit/3e521f2641c8f01f00fd74a088206942ce23d6d4
+[2] https://git.codelinaro.org/clo/la/kernel/qcom/-/commit/842dd28b0276b3824a607e067b3c20e266bcf230
+
+Signed-off-by: Albert Esteve <aesteve@redhat.com>
+---
+Changes in v2:
+- Update patch 1 authorship to Sarannya
+- Update all emails from @quicinc.com to @oss.qualcomm.com
+- Make smem.c copyright yearless
+- Link to v1: https://lore.kernel.org/r/20260820-port-smem-v1-0-d19a45f583bf@redhat.com
+
+---
+Sarannya S (1):
+      soc: qcom: smem: add boundary checks for partitions
+
+Tony Truong (1):
+      soc: qcom: smem: ignore multi remote host partitions
+
+ drivers/soc/qcom/smem.c | 111 ++++++++++++++++++++++++++++++++++--------------
+ 1 file changed, 78 insertions(+), 33 deletions(-)
+---
+base-commit: bc35965f6940a9bf834d54187b6088b8eb09206d
+change-id: 20260819-port-smem-7518c77c9415
+
+Best regards,
+-- 
+Albert Esteve <aesteve@redhat.com>
+
