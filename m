@@ -1,66 +1,106 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f170.google.com (mail-pg1-f170.google.com [209.85.215.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66FF033D6F0;
-	Fri,  4 Sep 2026 13:48:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCA8D476078
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 13:49:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788529705; cv=none; b=W6/OPMRtCtRnX3wfZhcQc/uA+ekk8Mxf17SZcQJd/P1jzcqUPQoMHYrfHZcTMC3ig/IjKYaS8CYsQYvMHLazXGPtbUCln3ZteDB7gxZhffUYUvacS6DqC7gf6alMXUnAdUK/5J4cHsujl7Ax29dcHRyI1g+hGO3THfZZaHAfUkY=
+	t=1788529751; cv=none; b=CBIrPhizMEP2PfhkXpnwu6R50WHnzxAb93/NU4wDiOUTt4+voa+qAyrxOzIW4/VxsOBzAWbkDmOUxHnJCV00LCFUY/gx8nHYACmPMAE/50YBTxXyOwmgtJESZRK3z/NYuF7bDHgeB9aAuBzdw3jXaKXbUEvJNxzZqt/0gKliuZc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788529705; c=relaxed/simple;
-	bh=osKVx/6dMiMJ6D3FU7IMm+eCkcghzvJVsxDtVc9UTDI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=F20VCE6oUymrNmTkgwVRqdPvM8amqCRAQoNuliyKYvffSuF5U/2BhIb49Gans+IkebFD06+ApEDYpk+NG0AeM0DoleFagkTvJwdbBtKeCFfbCJbpca3Z0ryfpPccpZeXWLMy7h8ersCZlnV8lvKig7itz4PUwQ/C7xgLw/EJrtM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=Z4Un9PMk; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	s=arc-20240116; t=1788529751; c=relaxed/simple;
+	bh=9Ns4ghOs8PLCySKAYGuPPTtS6qsiHfgzhNih4mkhjLA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=NtPaN6ZErSXAajYo+vLYEOiKmfKZqv9OiOyPOiZxBws5ECC8mesaebEeLqOq+iyq89kxoFW6ilBAsOCo9ruxCnZ0iTDl2Ih7T5JaM/TgGCSpmPDnyCPt7eJJx8AKkzUZEnQg0yA3lodppq1A4qCBTh181zVeNLUViwXoGcYsc3c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZYOI4PTa; arc=none smtp.client-ip=209.85.215.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="Z4Un9PMk"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=HvNENXl0HfEc1Tm9aQ75WJHBU0Bow+jKalwkB1XfcKA=; b=Z4Un9PMkA9HuRsHAQGu5QfFQn+
-	iZRQhFhsJ8wyZfvN+Lgzxu3/lfdwhyH6jB5Foui5OtdUd/KookPfYWqsFi6LVVKTfRKevVpcLP7qe
-	3EIj4ViXLMQeUWNbjFq52fVnVv85z84TesFQ4oGcimR3+Xd/H9SLs3IjVU9CutimdimU=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1x2UH9-002zhZ-Bd; Fri, 04 Sep 2026 15:48:15 +0200
-Date: Fri, 4 Sep 2026 15:48:15 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Kyle Switch <kyle.switch@motor-comm.com>
-Cc: olteanv@gmail.com, davem@davemloft.net, edumazet@google.com,
-	kuba@kernel.org, pabeni@redhat.com, mmyangfl@gmail.com,
-	horms@kernel.org, linux@armlinux.org.uk, netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org, ming.xu@motor-comm.com,
-	xiaolin.xu@motor-comm.com, jianmin.wang@motor-comm.com,
-	wei.zhang@gl-inet.com, sijia.huang@gl-inet.com
-Subject: Re: [PATCH net-next v5 3/6] net: dsa: motorcomm: relocate MIB
- polling initialization to dsa_setup()
-Message-ID: <69b0cc5b-0b67-4eec-89e3-b4c788febdbb@lunn.ch>
-References: <20260904095416.1692962-1-kyle.switch@motor-comm.com>
- <20260904095416.1692962-3-kyle.switch@motor-comm.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZYOI4PTa"
+Received: by mail-pg1-f170.google.com with SMTP id 41be03b00d2f7-cc1cf287ef8so1036201a12.3
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 06:49:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788529749; x=1789134549; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=DIW572LpZg88/9zoCd0pfmQgexIR84aCpztA1cYPl3M=;
+        b=ZYOI4PTa11mmNYFoVudoEk5ccAMAKEG3tr5ZIVt3UD2YrxdxUrmwDGQfkQBh7WlMcO
+         /R1A0cwdr3d1v3gVzlaA01K7PTyUJxz+6fa9kpbc06YHn5eIlUq9w7931abteLm3e1P7
+         +WeQINSvyQ0GnOkfSQJhKioehrGm8oQ/GXsJLCE8a4S1j86H1CienfCo1pL0r+b6rKyi
+         AThF2x/lln/HB4kcvGME7vr9fE5NA2XNiPTZm85cf4H2amkHp0b+KADvi5p8pxMfvF68
+         tc4PxMdRs551yzrD4aM9/7HDy63JXaH77DBe320+gOzwQCo/QA8qEpuzwGFJIW2g2C9A
+         7row==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788529749; x=1789134549;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=DIW572LpZg88/9zoCd0pfmQgexIR84aCpztA1cYPl3M=;
+        b=mQjbkio76++RN01xxfRNUuy1QdAjjQ0of0WTDWwx8kEX9c26NzWwvrPtvHhmd1vy8T
+         SnftpD/OsjUvEhcmWELECC9N6dcyApD34DwJTL0F3FDyv5qyo6d+1O93urWHjSNNjhoA
+         GFNspdDPrm9DongudPqYOCgYCd45L2BU5r/xEsRGO9EjcNd8dZGT+JF1DBK33Oxt0tCe
+         YzGckGBSC2Yv8ObVKPNoOfG0O5w8ky1ngzDsjcT5sTCJLOuU2ugcSW29TRPJHj1Ri3WD
+         PpvyPPT2LFTTFQyY0UZYU3hh/tv7A8MLtA+DFbSLhCyLnUkghPdHt7v82KxyMl6o9rE8
+         yILg==
+X-Forwarded-Encrypted: i=1; AKwUvByDJ2hX3xM+iVbJIhB7UPJpVo8ZMn4pru45wth1HKgWsDFUybD7knK2g+TGKwngJ3ro+pn0LWLUoeqQQ3Q=@vger.kernel.org
+X-Gm-Message-State: AFuF++lfGB/2ChFhgVlECvUzSXRsBXg8wYjuHZyPUPk+7+xf7yDipOdc
+	a30hZUepokclQLLmFPcU1zQ9ik+FWf8E2Ttesex4ocA5G5GJbFe8g/xS
+X-Gm-Gg: AYBFou3TyrDyJYn9zPTMuOeIienzduCve0s7fhZ6biwPgxQqufna6Td3kliqM6pPvRC
+	2JN97LiLzYjdgG+B0yIuCdSMPin2DXOkoaj0N1DZ2sYYWRhtQPTMjP53EFBGq+N1h+nuiYtawiv
+	+pYRlXqU5j7JxmZueCi5UU+GqeFlkp3wnX/pLskrjWspRdBAbkexq2r7gYQ5O1cNaE37Awe4BL/
+	+C3B+wuQzoZueon3BQwN5ruoC82/fIosuEFc2wvmTJPF7/INF7k6pky7Bfr+q2iszw8czqni4wm
+	zkw3X/PLBeG8f3R1odHRzcy0pnnrcALG8H0JlYvCRIJFlN8tdVIusF2JTAx/5+mY6t01AdlkrJK
+	L7iP2ln58bSwq1FRZocayaRVk8CfaC/2M3GjMNcAVX0k9mSudGcSXtSYXvoyUlDarur5U/lnh8s
+	/n5rqV4X50sJMsiWPZJvU8yz5O0aWltGF9c5DCb3vI9Ou2qdWBr2Pwf4CYbspIFfzfZlu06erPU
+	vkOQ03u8mPUaTw=
+X-Received: by 2002:a17:90b:5287:b0:38f:dec8:f7e9 with SMTP id 98e67ed59e1d1-39b26202ea4mr9184929a91.12.1788529749056;
+        Fri, 04 Sep 2026 06:49:09 -0700 (PDT)
+Received: from d.home.yangfl.dn42 ([2a09:bac5:661b:3050::4d0:46])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b08bcc060sm12561892a91.3.2026.09.04.06.49.05
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 04 Sep 2026 06:49:08 -0700 (PDT)
+From: David Yang <mmyangfl@gmail.com>
+To: netdev@vger.kernel.org
+Cc: David Yang <mmyangfl@gmail.com>,
+	Andrew Lunn <andrew@lunn.ch>,
+	Vladimir Oltean <olteanv@gmail.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH net-next] net: dsa: motorcomm: Handle degenerated blink delays
+Date: Fri,  4 Sep 2026 21:47:46 +0800
+Message-ID: <20260904134752.635133-1-mmyangfl@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260904095416.1692962-3-kyle.switch@motor-comm.com>
+Content-Transfer-Encoding: 8bit
 
-On Fri, Sep 04, 2026 at 05:54:13PM +0800, Kyle Switch wrote:
-> Move MIB polling start from probe() to dsa_setup()
+The LED core defines delay_on == 0 as steady off and delay_off == 0 as
+steady on, which was treated as a blink in our LED driver. Fix it.
 
-Actually, having thread the following patches...
+Fixes: 9af9a8168213 ("net: dsa: motorcomm: Add LED support")
+Signed-off-by: David Yang <mmyangfl@gmail.com>
+---
+ drivers/net/dsa/motorcomm/leds.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-For every start, there is generally a stop.
+diff --git a/drivers/net/dsa/motorcomm/leds.c b/drivers/net/dsa/motorcomm/leds.c
+index 7d3c0f68d8ff..87a6b9cf6068 100644
+--- a/drivers/net/dsa/motorcomm/leds.c
++++ b/drivers/net/dsa/motorcomm/leds.c
+@@ -107,6 +107,8 @@ yt921x_led_blink_set(struct yt921x_priv *priv, int port, int group,
+ 		       YT921X_LED_DUTY(1, 2);
+ 
+ 		use_cycle = false;
++	} else if (!*onp || !*offp) {
++		return yt921x_led_force_set(priv, port, group, *onp);
+ 	} else {
+ 		res = yt921x_led_blink_select(priv, *onp, *offp, &cycle, &duty);
+ 		if (res)
+-- 
+2.53.0
 
-You move start from probe() to dsa_setup().
-
-Should you not move stop from remove() to dsa_teardown()?
-You want to keep the driver symmetrical.
-
-	Andrew
