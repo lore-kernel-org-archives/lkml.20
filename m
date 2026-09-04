@@ -1,85 +1,84 @@
-Received: from mail-m49197.qiye.163.com (mail-m49197.qiye.163.com [45.254.49.197])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E88B40F754;
-	Fri,  4 Sep 2026 06:43:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.197
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C21FC4195D2;
+	Fri,  4 Sep 2026 06:44:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788504204; cv=none; b=hq/hFSXEPfBsZDogsJP7ju2+x8uE1+EMWDRn/gtV1yn/Lb3QIE0MfA+S0bOpXTDEXTrdy+8GEW91aVO7Yn4fJAJEqnUv4v8Ldx56idyC0vV9VesZjhyiYsykEQsCQXPRFXHI/VWZuVzijMdNJ7ZALRwIWojjh9p3rIp8DUPw8EY=
+	t=1788504261; cv=none; b=eYrvWxirKWMvcgKv0muM2pLQ3/ooYULdO0S7++Cc6/C1opJsemRfLOp7MzYUSZ7K1kN2C1jju8dYaVINHZXFGG+hFeGBzPC3WBZzw701ljmrfjlIXKvTi5ysK+zDnWS01VEqbedAt2ty/AJXfJKJchZcQY2d5Kc/ZpMlvHanIGc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788504204; c=relaxed/simple;
-	bh=Ej4PrRv4m3fJhq58933LdeFykDviYi6a3bbgKXPYXgY=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=q61FnVFNOQCnB2MCMfY5N+KlTkMxYldSEyaOfEKxNDKTQSAUBqeucgJiTM3TzbdRd29bp22QdYIa7qzei9CNNm5tF0yP4xCibRi0pcLLnFZf6VY4fgDiQ/+RyLGUptB2+XsxUxVM136KEWj0bk9AD9ofoKuFpd9WEfVMkCLKKrc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=NbM6IGqn; arc=none smtp.client-ip=45.254.49.197
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
+	s=arc-20240116; t=1788504261; c=relaxed/simple;
+	bh=FjvaKYb1QnuY7ihNibdHpcnPHO/khxaMekqPzpu/5Z4=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Subject:Cc:From:To:
+	 References:In-Reply-To; b=M9dMnWO+k2hA+J3Qk0RCnw3F9SRnrc+hcctHI0NGOPVftf1mtH1GI+4PIZHeJGDaQvpJB+2bD5etUIHCfePQ8DO6G8Sb2djBw/TbjKVnw5bFbKkjeXR9ToiNGESxLloaiYjX7hLRfUoJitzjKB96eQM3MbXylJILe+fg+o/SjdE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=D1q3PoEP; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="NbM6IGqn"
-Received: from PC-202605011814.localdomain (unknown [222.191.246.242])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 4c8676ac5;
-	Fri, 4 Sep 2026 14:43:15 +0800 (GMT+08:00)
-From: Runyu Xiao <runyu.xiao@seu.edu.cn>
-To: Richard Cochran <richardcochran@gmail.com>,
-	Jonathan Lemon <jonathan.lemon@gmail.com>,
-	Vadim Fedorenko <vadim.fedorenko@linux.dev>,
-	Andrew Lunn <andrew+netdev@lunn.ch>
-Cc: netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Runyu Xiao <runyu.xiao@seu.edu.cn>,
-	Jianhao Xu <jianhao.xu@seu.edu.cn>
-Subject: [PATCH net] ptp: ocp: prevent watchdog rearming during detach
-Date: Fri,  4 Sep 2026 14:43:08 +0800
-Message-Id: <20260904064308.4044677-1-runyu.xiao@seu.edu.cn>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="D1q3PoEP"
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id D92561F00A3E;
+	Fri,  4 Sep 2026 06:44:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788504260;
+	bh=FjvaKYb1QnuY7ihNibdHpcnPHO/khxaMekqPzpu/5Z4=;
+	h=Date:Subject:Cc:From:To:References:In-Reply-To;
+	b=D1q3PoEPnIlkqHO5GOgkrLNPagJtL0j+Ttea4S6ev9fyLY9u5lcSa3EzgLncx4QUV
+	 czRUoHDzdD1lmkm3/J9ccpytAIl3cgnEBPaMv5poahYAQ1mQnEqzDVrBgaPaZRVyiE
+	 7G9t17QpZDBmH7Wkcbi8WbrBItESrJNGEJMkX4/PrUXmsXshOjuMRMYTbqkfMYDnZ7
+	 TcXrHrCU9cueCN38EKdDEThKSQJ7dFGOYrKt3nHHxSoFLi6ZrLwDg6Xta0Zgoo5Z6n
+	 WVItvywoVBE4NuaTLaAifq9vGzi8v1xxlmYc0EKOffL2jKJakwCMFhDsveB9UlM9mn
+	 q94NRu39QfbvQ==
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa06b28413f03a1kunmfe0cb8a92c667
-X-HM-MType: 10
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZT0hDVk5LTR8dH0tPQk8YGlYeHw
-	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJSUlVSkJKVUlPTVVJT0lZV1kWGg8SFR0UWUFZT0tIVUpLSE
-	pPSExVSktLVUpCS0tZBg++
-DKIM-Signature: a=rsa-sha256;
-	b=NbM6IGqnQpueNGD4I6wRhPjEY7bdtv8VQ/9IJmgI9oFQST1pRnTEFaPmLfDmM9sQTRubWxU4kE3gC47hgRUrB93b7iFDADIYzZx7YBM62l3BSzLpJw0uKdnfxofEGx54c0JNdvCeyz+syIZXOxbU4i1m4clSAkVIJEomXdonwEQ=; c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1;
-	bh=IbolcQ+9WPWcHbbzU0LNSe4aUlO5vhq0Fg8ZrZC7I0c=;
-	h=date:mime-version:subject:message-id:from;
+Mime-Version: 1.0
+Content-Type: multipart/signed;
+ boundary=c5f9d989349b39aa9155d6611598ddcf6959118f1716d6b107a91e88843e;
+ micalg=pgp-sha384; protocol="application/pgp-signature"
+Date: Fri, 04 Sep 2026 08:44:15 +0200
+Message-Id: <DL6BUGHEIP3C.1FBQYVS83GQ4W@kernel.org>
+Subject: Re: [PATCH v6 2/3] gpio: regmap: Add optional runtime PM support
+Cc: <linux-gpio@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+ =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, "Jonathan Cameron"
+ <jic23@kernel.org>, "Andy Shevchenko" <andriy.shevchenko@intel.com>,
+ "Janani Sunil" <jananisunil.dev@gmail.com>
+From: "Michael Walle" <mwalle@kernel.org>
+To: "Janani Sunil" <janani.sunil@analog.com>, "Linus Walleij"
+ <linusw@kernel.org>, "Bartosz Golaszewski" <brgl@kernel.org>
+X-Mailer: aerc 0.20.0
+References: <20260903-ad7768-gpio-v6-0-4254ef6c9b38@analog.com>
+ <20260903-ad7768-gpio-v6-2-4254ef6c9b38@analog.com>
+In-Reply-To: <20260903-ad7768-gpio-v6-2-4254ef6c9b38@analog.com>
 
-ptp_ocp_detach() uses timer_delete_sync() to stop the watchdog before
-freeing the ptp_ocp state. timer_delete_sync() waits for a callback that is
-already running but does not prevent the callback from rearming the timer.
+--c5f9d989349b39aa9155d6611598ddcf6959118f1716d6b107a91e88843e
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
 
-Since ptp_ocp_watchdog() unconditionally calls mod_timer(), detach can
-return with the watchdog pending. A later callback can access freed state.
+On Thu Sep 3, 2026 at 2:01 PM CEST, Janani Sunil wrote:
+> Some gpio-regmap consumers share their regmap with a parent device that
+> may be runtime suspended. GPIO register accesses must resume that device
+> first.
+>
+> Add an optional pm_dev field and acquire it before register translation
+> or access. Release it using runtime autosuspend after each operation.
+> Keep the device active across the complete direction-output sequence and
+> propagate failure when setting the initial output value.
+>
+> Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
+> Signed-off-by: Janani Sunil <janani.sunil@analog.com>
 
-Use timer_shutdown_sync() for the final watchdog teardown. This ensures the
-callback is complete and cannot rearm the timer before the state is freed.
+Reviewed-by: Michael Walle <mwalle@kernel.org>
 
-Fixes: 773bda964921 ("ptp: ocp: Expose various resources on the timecard.")
-Cc: stable@vger.kernel.org
-Assisted-by: Codex:GPT-5
-Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
----
- drivers/ptp/ptp_ocp.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+--c5f9d989349b39aa9155d6611598ddcf6959118f1716d6b107a91e88843e
+Content-Type: application/pgp-signature; name="signature.asc"
 
-diff --git a/drivers/ptp/ptp_ocp.c b/drivers/ptp/ptp_ocp.c
-index 3d26ec1f7..6b5f615a2 100644
---- a/drivers/ptp/ptp_ocp.c
-+++ b/drivers/ptp/ptp_ocp.c
-@@ -4870,7 +4870,7 @@ ptp_ocp_detach(struct ptp_ocp *bp)
- 	ptp_ocp_debugfs_remove_device(bp);
- 	ptp_ocp_detach_sysfs(bp);
- 	ptp_ocp_attr_group_del(bp);
--	timer_delete_sync(&bp->watchdog);
-+	timer_shutdown_sync(&bp->watchdog);
- 	/* Disable interrupts on all timestampers */
- 	if (bp->ts0)
- 		ptp_ocp_ts_enable(bp->ts0, 0, false);
--- 
-2.34.1
+-----BEGIN PGP SIGNATURE-----
+
+iKgEABMJADAWIQTIVZIcOo5wfU/AngkSJzzuPgIf+AUCappowBIcbXdhbGxlQGtl
+cm5lbC5vcmcACgkQEic87j4CH/j6QgGA8HQsKUjdvFVgWd2Da9IvkenWjkIam4Bc
+HvHBCnZ/3I1YiExKxOxja2voN6hZREdDAX94mqyXwKQV/STC4E6T5miN9sx/YGC7
+/+GcrS+oPu2N2429WQNlxiwKcCK4tFVH5X0=
+=WGzB
+-----END PGP SIGNATURE-----
+
+--c5f9d989349b39aa9155d6611598ddcf6959118f1716d6b107a91e88843e--
