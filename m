@@ -1,256 +1,121 @@
-Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com [209.85.214.173])
+Received: from mail-ot1-f51.google.com (mail-ot1-f51.google.com [209.85.210.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7495A371876
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 23:32:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4481E2D5925
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 23:34:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788564759; cv=none; b=MBt3Am1LAEYoEWLuapo4TQoQgipYfftAkv1In0TgHs/LvecD1crfplUH0MJoCelEshBuJopOX69JxRtoauRyh9AZDlcrV4MMLaBrC/tetI8RbK0iOEEVZtjHFW7sH1nagLVwCK6cd0tInzIrG0N51J32hh7z3v79mXSk9UPvBXQ=
+	t=1788564844; cv=none; b=foa8HiM6zVoYNR5YMbuupyA/jlPJociwNF/oYq5mWR79SzxrfnxxFBCrNAH4gLWfuQeGy2minnTjms1P+Oy6dbVwNdyCvkSIcned94WBUAU4Uhvg5RURWpnT6EUvrIi8OleJ/LAFbf5S9ZlmRj/zk/Er3Q2f9/KZVAaYq1hpPPs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788564759; c=relaxed/simple;
-	bh=G3MAAk8sod8BrxQc97KrEZ+LUNKv4mzbOKTwBfsxoug=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=V7NlH3/GPzE2B4BSFQfhufwQdtyttVuoF6mnkTiQX3132SfVW4sSUm50qTQYwEnwAVMEKYJR63tgVIYc0OqrDgfl787mybLwUitAa5PxvpPv8nP3rzEV52lS1/QPGDrqm3Jma8oqAdV1bsBzRTSLdKzE8lKCJVZaTBpFwz/mU4s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=iSHA1xOp; arc=none smtp.client-ip=209.85.214.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	s=arc-20240116; t=1788564844; c=relaxed/simple;
+	bh=Ez7++x6Bs0exrn0n9e59sy5TlkUL9gaUMT4RkGtCat8=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
+	 References:In-Reply-To; b=Kyz4z+XM2Z9pIrJjPYun33EvSe1I4JEST4AA9P18c06dJdpAV5X4YyvGWEx1MBL4C2YhelNZWIM+lwUMJnWiSo/soGQLxLbZkNBkA7kOA4rzKOGKYcKDWo/9sgUCKVv17ZsqPpX8Qoplriu6gBRXqSfi0tNE77i7E7ijAtdHcC0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FMzrs0Fs; arc=none smtp.client-ip=209.85.210.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="iSHA1xOp"
-Received: by mail-pl1-f173.google.com with SMTP id d9443c01a7336-2cc891373e0so16919545ad.2
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 16:32:36 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FMzrs0Fs"
+Received: by mail-ot1-f51.google.com with SMTP id 46e09a7af769-7ee37dc91f5so1094167a34.3
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 16:34:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1788564756; x=1789169556; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=CoP3yRaiFCSXh1sZA3gfI7CK30OHycO7b/XTPFpuSM4=;
-        b=iSHA1xOpOAkpmDfgicKHbUY6RSrEaY3VM4qq3KODTYY6ZrcacKuw3eJy4xBVFI1wjH
-         vAfUDQeKHNiyHrIwH5LYGT4i2OsfQNKqD2hu2RG1D2tR8czodOSaH5gInb8F9naJ/0t9
-         y49nMAdu2+DDDCdD+257QxtcWDhM+8FIjHLWw=
+        d=gmail.com; s=20251104; t=1788564842; x=1789169642; darn=vger.kernel.org;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-type:content-transfer-encoding:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=Ez7++x6Bs0exrn0n9e59sy5TlkUL9gaUMT4RkGtCat8=;
+        b=FMzrs0FsukxowoPhFJ1vs8tO3LtgDq6p84oHyZFLufj7c/je5fIlfzEAEiVtySTpm2
+         JHiJiCvoXJsIPwSfhSaw+VG7HVRe7i12LUD8FK2uWtmeoP99poGBqg91iYWyTQGsuTvl
+         XAkwC36y2s/HmiBAcLkbkF8/PdfWVd2uexpUO3j/RYYMaDxfAY5O6iSkccUv0cJdSa1l
+         qTJbubHFvVWOL6CJUQfY8Q5lSPui8wjqffUCg+/xvXZ/UxME9mOwPOY+jAAgmYtPUI4L
+         FNCGogNyYad8v28VSHrkJS3Us9g22XXhMcZ6vD7GTZgyHYvnDvJ0phgolYDK12J+2Db0
+         Yoag==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788564756; x=1789169556;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=CoP3yRaiFCSXh1sZA3gfI7CK30OHycO7b/XTPFpuSM4=;
-        b=HDA8eAQ53XmjRx+uRLfUzj5w5rneC/LuE7kDDEopVA4Xvutykmq/bb/MriMj2+IUyD
-         KzgyQ7gc8J1J+yAIbGNtTY6PC2rve1STjcri+fNcs+zS5FjqM3nEd45iyNUlzdfQbZBY
-         VggMA5GqBFw347/QphB42/z+wRYo91Mxj0nvfWYqx+6FSKzzPTHOxgUK6FK9Z1uPWo5l
-         k+Xds0VxSVWMDOTuKqrRmgq/FHO0f05yd9Vm7z3wQ5ahwpMqyJnpQ7AnMYx9PLk2gUkL
-         NH7owcuCIqecQtz/PyQfDDCOTj0rKe6e/lqDGFTj/zGdwIx61xaT9Pd29hoEsarKxaX+
-         MNbw==
-X-Forwarded-Encrypted: i=1; AKwUvBzMssKLKYvtajHEWHoD1kp6z6xo9kBQ5S/zY3t9GFSsitOvQtvOkKPuwYsq86PglG/U6Qn7q8iYlKIQKKo=@vger.kernel.org
-X-Gm-Message-State: AFuF++kKWfOBmVwJtQOqxNiovRMufxtjCVK1p5Y8qRU84F1NNIpD5Scx
-	Y1KkI8sluReYkIDSf/m0aJer8m2E0TYUlV+YliRTBOVkm2NgkFSz1Jfqpr3K5vjx7g==
-X-Gm-Gg: AYBFou0DUAW3tQ8n9eyyzyZdfOes7AplOD9uDFQBR+ivEm4+tWdlVnrmsTeWuiDDWs3
-	TrMskXQphR19X/66pOdKHwg4M0NEABjN6K1uHHhlFM8AeTHWvVoIbpqZBZZ1vQxCNSZHxcb7D3v
-	kkh9nFrjsi0KpJ4wv57UFEaKAz3HovGmmt5hpgsNTTFMABA0M0TBD5fXKUUY92N5yRNXujkO6Ts
-	BITLKvR9gXjr1O2+YLiFbXDcDzUXSFn0ck3X01O6RVdrCmmp5QMeasPYz0FBfWgu5D2bY4bUtJq
-	sBlaocZgwj8cs31h9Pn/20jPys4lZLxTXkRZhK1LVcGKkm8Gw/DC4MHEzg7hErGQW0DZAOwrVHl
-	MxcJLrqFg1wmMZZPXClQGpgquqvtC4QnJy/852vY9HXvFijysJWyzzVkvH6G/9fZ3KHB4xG5IC7
-	eKYKVeMA+kkrbwcQWZ9KFwj/5uyjrl9KYTyfzii1rSlb+6Pt0SfHxfyF9hgKT/g/7oi7Q5gYpDY
-	1jITLNhO8tzTpAZ6g0ebD0ejWQBR5vAlHB0
-X-Received: by 2002:a17:90b:3c48:b0:398:e436:384 with SMTP id 98e67ed59e1d1-39b260d335dmr14333919a91.1.1788564755684;
-        Fri, 04 Sep 2026 16:32:35 -0700 (PDT)
-Received: from localhost ([2a00:79e0:2e7c:8:1121:7bb4:46a7:263])
-        by smtp.gmail.com with UTF8SMTPSA id 5a478bee46e88-3339885ca07sm10975102eec.1.2026.09.04.16.32.33
+        d=1e100.net; s=20251104; t=1788564842; x=1789169642;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-type:content-transfer-encoding:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Ez7++x6Bs0exrn0n9e59sy5TlkUL9gaUMT4RkGtCat8=;
+        b=C6CO1OuZfyV6Htbu3EkVfwVbhLw2X4YpxKLny64OYFYr4ZrwCmqxQV310j6ZVXbidB
+         O0nALMuzG+touihjhCFeEGtgY0RNukcWzwXm1BmCDbBkl6Rgfl7JpeWw4vtVt4VzQgj2
+         fz2yn8DIonBLPcy4Sg7UGI/NPpsuqbyP/LuBMzFkdSYIPsn13GKB6iLEPN/FOTeTIXwK
+         IOZrohCr/u/jQH5jaByuYVNGzaJSbQaglgsXGiIrzcDJ+zCFdGPSBD384Sq5qKdtRAUa
+         NSbbvX+zsUlcNJVrZfHJcXdVCVdC5gx8OkyiD86ejRkdCKH7rCJs6RCkTR6M2Gha98Nq
+         2mlw==
+X-Forwarded-Encrypted: i=1; AKwUvBzt/WlGxi4L4GJUdIswn1I/Y3MGRj3rx2SqJ/XeApxzi+I70k9q1kn2oH6FaNKijpdVEdOZcyMa6O/EhWU=@vger.kernel.org
+X-Gm-Message-State: AFuF++kvKMjIrXAZMUG6AKdstfgxZA40GBMsJ2aqazVIkNXDpuQntfCX
+	CvqO+VifvCif9c2+tTvT/V0d3+qbIa7L/PrbS9qDzEr8U88JwVxxPcZYSbR5rw==
+X-Gm-Gg: AYBFou0rs75nzZlz9mhb44ToRTov2XUPP4CZ148NkHi1wzHr/kjj1ESGKvMwiCgUL2A
+	1mQrwv8hG9cRvTiCOT8KCpzkca6qz9YFRilSzCQv2j4b6qg0sTHUThq5P5bPFYygC1VJw99mO5i
+	Ck6oysLCvEqq31ba96fewNhwBZJDaMKM8eL27G6Y/08d+EE7Qhw0mgph10X62djnleldbnt2mnn
+	G+r4MPdvIJoQVgCiQOLVYbX0xbiq8r3nyDXgrZNUzUwEnnnzYWQKm+41CXrbcZvYcBwfo21nSGG
+	3CCL74GqV8be/DsIz2xF7ylWTQtd4BKSYRPcQKXyclkesFIUPOkN2IvELlIRfuXyna9Tdz9mqPO
+	x5xkKtKt6NYRMULfMbadmue28jK8FbdxcTzO8eCaPYHa9rBsmYRwX4/Bc9VOwSxaYIOqa57Q5uL
+	OmXifIxiIA9HBXEP6Uu0WQWl3bHfyAWMkqQHdS9IYURX352TpChSK1JK6bfzonJGZlcBGYKqsZK
+	xQnKDEcnlYDXx/Y0EYY0vsbsdQRaTWlh8+dg0vwCOlmP9BGAq0COw==
+X-Received: by 2002:a9d:7654:0:b0:7fa:5c68:d053 with SMTP id 46e09a7af769-7fa5c68d6f8mr3561333a34.29.1788564842051;
+        Fri, 04 Sep 2026 16:34:02 -0700 (PDT)
+Received: from localhost ([2a03:2880:10ff:f::])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-7f9f7adfce8sm4355756a34.24.2026.09.04.16.34.00
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 04 Sep 2026 16:32:34 -0700 (PDT)
-From: Brian Norris <briannorris@chromium.org>
-To: Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Cc: Doug Anderson <dianders@chromium.org>,
-	Brian Norris <briannorris@chromium.org>,
-	linux-mediatek@lists.infradead.org,
-	Rob Herring <robh@kernel.org>,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Julius Werner <jwerner@chromium.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	devicetree@vger.kernel.org,
-	Chen-Yu Tsai <wenst@chromium.org>,
-	chrome-platform@lists.linux.dev,
-	Tzung-Bi Shih <tzungbi@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>
-Subject: [PATCH v3] arm64: dts: mediatek: Add #{address,size}-cells to Chromium-based /firmware
-Date: Fri,  4 Sep 2026 16:31:44 -0700
-Message-ID: <20260904163143.v3.1.I33d1d66d4724587a981f706243cdc2f264670a40@changeid>
-X-Mailer: git-send-email 2.55.0.979.g7e5102b832-goog
+        Fri, 04 Sep 2026 16:34:01 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Fri, 04 Sep 2026 16:34:00 -0700
+Message-Id: <DL6XBKITK7ZT.3RXK9YGGUYZZE@gmail.com>
+Cc: "Gabriele Monaco" <gmonaco@redhat.com>, "Nam Cao"
+ <namcao@linutronix.de>, "LKML" <linux-kernel@vger.kernel.org>,
+ "linux-trace-kernel" <linux-trace-kernel@vger.kernel.org>, "bpf"
+ <bpf@vger.kernel.org>, "Wen Yang" <wen.yang@linux.dev>, "Tobias Schaffner"
+ <tobias.schaffner@siemens.com>, "Viktor Malik" <vmalik@redhat.com>, "Linus
+ Torvalds" <torvalds@linux-foundation.org>
+Subject: Re: [RFC PATCH 00/20] rv: Add support for BPF monitors
+From: "Alexei Starovoitov" <alexei.starovoitov@gmail.com>
+To: "Steven Rostedt" <rostedt@goodmis.org>
+X-Mailer: aerc
+References: <20260831090524.106845-1-gmonaco@redhat.com>
+ <87se3sakgi.fsf@yellow.woof>
+ <df6e9168cb06c35e21db7f9d17cfbca6bd87005b.camel@redhat.com>
+ <DL5B40CU17WD.3KD75URQZ6RRR@gmail.com>
+ <eb3dd8158942d663ec8ad4c529eacd666c5f96d9.camel@redhat.com>
+ <20260903090211.50d15220@gandalf.local.home>
+ <CAADnVQK8e1Qp9rf1zThZxb3vr4Gc_bpo0nqpEO2LdnEwHdKokA@mail.gmail.com>
+ <20260904074317.01b2c0e1@robin> <DL6O0KLPXLTA.2HJJUXQUVCP5@gmail.com>
+ <20260904123108.1fa1d815@gandalf.local.home>
+ <20260904132421.111c0279@gandalf.local.home>
+In-Reply-To: <20260904132421.111c0279@gandalf.local.home>
 
-Chromium/Depthcharge bootloaders may dynamically add a few device nodes
-to a system's DTB under a /firmware node. A typical DT looks something
-like the following:
+On Fri Sep 4, 2026 at 10:24 AM PDT, Steven Rostedt wrote:
+> On Fri, 4 Sep 2026 12:31:08 -0400
+> Steven Rostedt <rostedt@goodmis.org> wrote:
+>
+>> In the beginning, Daniel Bristot looked into doing this with BPF and fou=
+nd
+>> issues with it. I do not recall what they were and unfortunately Daniel =
+is
+>> no longer around to explain it. Maybe Gabriele knows what they were.
+>
+> IIRC, Daniel even told me there was a competing effort within Red Hat to
+> implement the same functionality using only BPF. That effort never
+> materialized and everything went toward the RV code Daniel was working on=
+.
 
-/ {
-        firmware {
-                ranges;
-
-                coreboot {
-                        compatible = "coreboot";
-                        reg = <...>;
-                        ...;
-                };
-        };
-};
-
-Notably, the /firmware node has an empty 'ranges', but does not have
-address/size-cells.
-
-Commit 6e5773d52f4a ("of/address: Fix WARN when attempting translating
-non-translatable addresses") started requiring #address-cells for a
-device's parent if we want to use the reg resource in a device node.
-This leads to errors like the following:
-
-[    7.763870] coreboot_table firmware:coreboot: probe with driver coreboot_table failed with error -22
-
-Add appropriate #{address,size}-cells to work around the problem.
-
-Note that Google has also patched the Depthcharge bootloader source to
-add {address,size}-cells [1], but bootloader updates are typically
-delivered only via Google OS updates. Not all users install Google
-software updates, and even if they do, Google may not produce updated
-binaries for all/older devices.
-
-[1] https://lore.kernel.org/all/20241209092809.GA3246424@google.com/
-    https://crrev.com/c/6051580 ("coreboot: Insert #address-cells and
-    #size-cells for firmware node")
-
-Closes: https://lore.kernel.org/all/aeKlYzTiL0OB1y3g@google.com/
-Fixes: 6e5773d52f4a ("of/address: Fix WARN when attempting translating non-translatable addresses")
-Signed-off-by: Brian Norris <briannorris@chromium.org>
-Reviewed-by: Chen-Yu Tsai <wenst@chromium.org>
-Reviewed-by: Douglas Anderson <dianders@chromium.org>
----
-v1 series:
-https://lore.kernel.org/all/20260428200712.2660635-1-briannorris@chromium.org/
-
-There is a little more background in the v1 cover letter. I didn't feel
-like a new cover letter was needed for a single patch-resend.
-
-Changes in v3:
- * fix the syntax (build error) in mt8183-kukui.dtsi. Oops. (Sorry, I
-   was testing other platforms for v1, and not ARCH_MEDIATEK.)
-
-Changes in v2:
- * resent separately from the series, since the rest were applied by
-   their maintainers
- * trim other-arch maintainers from CC list
- * Add Reviewed-by
- * Add missing linux-mediatek@lists.infradead.org Cc. It claims to be
-   moderated, and its "join" seems broken, so I'll probably get bounced.
-   (https://lists.openwrt.org/mailman/subscribe/linux-mediatek is
-   disabled, and linux-mediatek-join@lists.openwrt.org gives me error 550)
- * otherwise, no change from v1
-
- arch/arm64/boot/dts/mediatek/mt8173-elm.dtsi     | 5 +++++
- arch/arm64/boot/dts/mediatek/mt8183-kukui.dtsi   | 5 +++++
- arch/arm64/boot/dts/mediatek/mt8186-corsola.dtsi | 5 +++++
- arch/arm64/boot/dts/mediatek/mt8188-geralt.dtsi  | 5 +++++
- arch/arm64/boot/dts/mediatek/mt8192-asurada.dtsi | 5 +++++
- arch/arm64/boot/dts/mediatek/mt8195-cherry.dtsi  | 5 +++++
- 6 files changed, 30 insertions(+)
-
-diff --git a/arch/arm64/boot/dts/mediatek/mt8173-elm.dtsi b/arch/arm64/boot/dts/mediatek/mt8173-elm.dtsi
-index a0573bc359fb..777da2129e77 100644
---- a/arch/arm64/boot/dts/mediatek/mt8173-elm.dtsi
-+++ b/arch/arm64/boot/dts/mediatek/mt8173-elm.dtsi
-@@ -16,6 +16,11 @@ aliases {
- 		mmc2 = &mmc3;
- 	};
- 
-+	firmware {
-+		#address-cells = <2>;
-+		#size-cells = <2>;
-+	};
-+
- 	memory@40000000 {
- 		device_type = "memory";
- 		reg = <0 0x40000000 0 0x80000000>;
-diff --git a/arch/arm64/boot/dts/mediatek/mt8183-kukui.dtsi b/arch/arm64/boot/dts/mediatek/mt8183-kukui.dtsi
-index 69cab9f9c530..acd5f59b0d4c 100644
---- a/arch/arm64/boot/dts/mediatek/mt8183-kukui.dtsi
-+++ b/arch/arm64/boot/dts/mediatek/mt8183-kukui.dtsi
-@@ -22,6 +22,11 @@ chosen {
- 		stdout-path = "serial0:115200n8";
- 	};
- 
-+	firmware {
-+		#address-cells = <2>;
-+		#size-cells = <2>;
-+	};
-+
- 	backlight_lcd0: backlight_lcd0 {
- 		compatible = "pwm-backlight";
- 		pwms = <&pwm0 0 500000>;
-diff --git a/arch/arm64/boot/dts/mediatek/mt8186-corsola.dtsi b/arch/arm64/boot/dts/mediatek/mt8186-corsola.dtsi
-index ff20376a44d7..2b327d9ef65e 100644
---- a/arch/arm64/boot/dts/mediatek/mt8186-corsola.dtsi
-+++ b/arch/arm64/boot/dts/mediatek/mt8186-corsola.dtsi
-@@ -26,6 +26,11 @@ chosen {
- 		stdout-path = "serial0:115200n8";
- 	};
- 
-+	firmware {
-+		#address-cells = <2>;
-+		#size-cells = <2>;
-+	};
-+
- 	memory@40000000 {
- 		device_type = "memory";
- 		/* The size should be filled in by the bootloader. */
-diff --git a/arch/arm64/boot/dts/mediatek/mt8188-geralt.dtsi b/arch/arm64/boot/dts/mediatek/mt8188-geralt.dtsi
-index f382f90c48f5..c65805f2a7e0 100644
---- a/arch/arm64/boot/dts/mediatek/mt8188-geralt.dtsi
-+++ b/arch/arm64/boot/dts/mediatek/mt8188-geralt.dtsi
-@@ -41,6 +41,11 @@ dmic-codec {
- 		wakeup-delay-ms = <100>;
- 	};
- 
-+	firmware {
-+		#address-cells = <2>;
-+		#size-cells = <2>;
-+	};
-+
- 	memory@40000000 {
- 		device_type = "memory";
- 		/* The size will be filled in by the bootloader */
-diff --git a/arch/arm64/boot/dts/mediatek/mt8192-asurada.dtsi b/arch/arm64/boot/dts/mediatek/mt8192-asurada.dtsi
-index 40d34b16dc80..e8ebbb74987f 100644
---- a/arch/arm64/boot/dts/mediatek/mt8192-asurada.dtsi
-+++ b/arch/arm64/boot/dts/mediatek/mt8192-asurada.dtsi
-@@ -25,6 +25,11 @@ chosen {
- 		stdout-path = "serial0:115200n8";
- 	};
- 
-+	firmware {
-+		#address-cells = <2>;
-+		#size-cells = <2>;
-+	};
-+
- 	memory@40000000 {
- 		device_type = "memory";
- 		reg = <0 0x40000000 0 0x80000000>;
-diff --git a/arch/arm64/boot/dts/mediatek/mt8195-cherry.dtsi b/arch/arm64/boot/dts/mediatek/mt8195-cherry.dtsi
-index ef7afc436aef..f06ca2bc165d 100644
---- a/arch/arm64/boot/dts/mediatek/mt8195-cherry.dtsi
-+++ b/arch/arm64/boot/dts/mediatek/mt8195-cherry.dtsi
-@@ -42,6 +42,11 @@ dmic-codec {
- 		wakeup-delay-ms = <50>;
- 	};
- 
-+	firmware {
-+		#address-cells = <2>;
-+		#size-cells = <2>;
-+	};
-+
- 	memory@40000000 {
- 		device_type = "memory";
- 		reg = <0 0x40000000 0 0x80000000>;
--- 
-2.55.0.979.g7e5102b832-goog
-
+bpf in 2022 was surely less capable then it is today.
+It took us 2 years of bpf core development to statisfy sched-ext demands
+and we're still adding new features for sched-ext needs.
+If you're trully willing to remove 90% of kernel/trace/rv/ and refactor
+it into tiny shim where all of the core pieces are bpf driven we can
+certainly work together (like we did with sched-ext) and add whatever
+is missing on bpf side. Then all existing monitors will become bpf programs=
+.
+But adding bpf as another 'monitor', sorry but hard NO.
+If hardcoded monitors was a mistake then admit it and fix it by deleting it=
+,
+if it's not a mistake then keep adding hardcoded monitors.
