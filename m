@@ -1,388 +1,218 @@
-Received: from mail-pf1-f199.google.com (mail-pf1-f199.google.com [209.85.210.199])
+Received: from mta0.migadu.com (out-7.mta0.migadu.com [91.218.175.7])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74B124F799D
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 16:42:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.199
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0297F509EE0
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 16:42:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.7
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788540127; cv=none; b=tPppMRh4CGzUGMmPL/lIXvdDLwNawVi8XJBaD9PLSzciUP6HuxfMecKGQLpcG8r+rxLvasGI2AM0BfPhpwRpRVN+RoyCE/ZdPw5rk2Gu+cq5s0KjMVkHvjHQA9Zep0VjILYT7tH1ZH7D1xpRNKV2MR2ITlvQ9oolUc9lv0iQkwM=
+	t=1788540129; cv=none; b=fgU9qJ9WqoOUlo/tiYyEdlgB2IWaQr/GNn0IFFfKhhrhuWVrK/9dqkcq5nus07NN2uy23GzGxw7vFZ1hPjHTaPjpYcvbTxZELBVzf5UxQOfS9dQVi0fBJdnsUm9UbtzDydiN+YO69d3b9QGwX7KBZhMGU3iwetprcwOx5VseT8k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788540127; c=relaxed/simple;
-	bh=FtwZPiNUsMP/xfUK71nHkR8f6eGWTrDNA2Um1G91eBE=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=ogeamoIfXH/rqlvBRVd0tMJyMEWUnNKMFAaYoW3jbMJ7Pbru10D2eG6E0A3yC4JjG1OwSYg/Ybp4jAXi0i2gvCidKukXEDu5YGidvzqlRp6j/RDJ1b0brOC4/fybiOQVO1WKRnLTLQDdC+qJmyP2Q6ikkNnFxaVITobkWEpbFN4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=C+ZlQae/; arc=none smtp.client-ip=209.85.210.199
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
+	s=arc-20240116; t=1788540129; c=relaxed/simple;
+	bh=eaSmD6AakrGy8JzPNXWt4MIR9DWEhJZsdWuWmxUbYYI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=eRsl5CgcuN2gflVsZSSsofMigUd4M4cyIQE7BXmRitbmEaRxLEDiBaSZxMMP3IdbDidFruJU+98dw6e3VqruZyzDJgRSxf1sDcSuv+A6bgkUSqN/yMj0a+AWrgr3wdtTahZQtPCHHqVpCQdnHAxakp/FAH/HfHy8BU9rPCv2Ids=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=gYlhMMTe; arc=none smtp.client-ip=91.218.175.7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="C+ZlQae/"
-Received: by mail-pf1-f199.google.com with SMTP id d2e1a72fcca58-8485d853b08so1513954b3a.1
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 09:42:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1788540124; x=1789144924; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=rAmEFChS+Mw8ORUnC6NaPfXbsqCC3aTDWqLaVLXDsik=;
-        b=C+ZlQae/k5CDQiopwNRnqmqIUF9ozMtO3CSvZNyseTv7vJS+Ff4Ygq0Sc30h7j3IA+
-         zw7UzM1gRhkV6i2i+f83kreNpPi2Ko/fD8xu9GFvk7kpkHqtI2FNDwIqJ/4iCQLKtOf0
-         Phm9hjLlRmqoNOTJ9cLfZIkLWnJQ9iqOPx9BHhQK7YYqFKrheCKLdGQF7/khkxkzeS9v
-         jM3SL7qWWATKwPu3AadJw15OlDZ8wqU2gb3iclgw63RhsaSB4xvTgS8D7HEwDruAtTrc
-         fEbm+2Ep6BLtul/9cBrEbjFmhPGCqpIdOmJY8p8XZTBa6DmM0R3+NvXcvOEwtYavC0eB
-         hlaQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788540124; x=1789144924;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=rAmEFChS+Mw8ORUnC6NaPfXbsqCC3aTDWqLaVLXDsik=;
-        b=Fc4kE/xm1zgo2NjvahqdRbPuI7kNwtzOzRHBmyq/yUVX38Yf3vz/cWTGgUXrhHwj21
-         4YyG/H4G3xmepkG9+yGNbxzX6JzVsTwvzvcDTNaIqGvy5BpPNyc1izo60yjPYIWbUsEX
-         1uN+MMFKrt9SK1I+yO9CJumJuiRA5uMyas/hHhGd+uNrDCW6FZ66KKiy3e7Pj0EcMoUo
-         VuBDAGBh5nmXq3t0/mflmxQ8wqoCR2Gt6Jgy8pZXxOpeh2jLvfxTyF4Wk5DmpxwQKwKa
-         ifCkFAV26MKe02zxEqbyM59hLfquMUSdrD00H4hut5FP+Dgw5ia0HeCYNd1wGruZj9Y+
-         zuXA==
-X-Forwarded-Encrypted: i=1; AKwUvByO5+V9qLan8ZxyOvcgwCBnv6DK2rWCV/Uu0a7utrLbBidTEBjOP905evl4s+8fMIz/nzVpo5Vg4L0aVEE=@vger.kernel.org
-X-Gm-Message-State: AFuF++knlUcYXbxsLQjRa/PrDUf3sohvyNjuvJuPix2we/viex8PIXGP
-	EvRewD7KOKoIJlYBq7SeAOJlXbscq3mh70Ze7RRS2o8ruIzFsddqj2j6+sXXDngRt3ACeWW3W1s
-	xH9JBYw==
-X-Received: from pfbgv7.prod.google.com ([2002:a05:6a00:4e87:b0:848:81e8:f2d9])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a00:8c02:b0:85b:635e:7814
- with SMTP id d2e1a72fcca58-86169e6ed2bmr10426398b3a.12.1788540123262; Fri, 04
- Sep 2026 09:42:03 -0700 (PDT)
-Date: Fri, 4 Sep 2026 09:42:02 -0700
-In-Reply-To: <20260904023105.1167376-2-zhao1.liu@intel.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="gYlhMMTe"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=eaSmD6AakrGy8JzPNXWt4MIR9DWEhJZsdWuWmxUbYYI=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788540123; v=1; x=1789144923;
+ b=gYlhMMTeC0u6jBZUT0XosrFnvfdwn6PVW1nPWX+8KKqjY1Bu/bW7gwbzytgSPAiyJd3db7/x
+ xjtC3cooshP8GAW1vroA1+30lYNzAZn+Lxiw5PmBJLRpJAFkwHup6f6Ltv5NXLipvSWiKaSrDCh
+ J8cGjPzJFzs+2T2MfpCVYkog=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta11.migadu.com with ESMTPS id be01afa9177d88fe;
+	Fri, 04 Sep 2026 16:42:03 +0000
+X-Mizu-Trace-ID: be01afa9177d88fe
+X-Migadu-Flow: FLOW_OUT
+From: Usama Arif <usama.arif@linux.dev>
+To: dsterba@suse.com,
+	linux-btrfs@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	terrelln@fb.com,
+	terrelln@meta.com,
+	mason@kernel.org,
+	clm@fb.com,
+	fdmanana@suse.com,
+	boris@bur.io,
+	wqu@suse.com,
+	loemra.dev@gmail.com
+Cc: Usama Arif <usama.arif@linux.dev>
+Subject: [PATCH] btrfs: zstd: avoid a copy in zstd_decompress_bio()
+Date: Fri,  4 Sep 2026 09:41:48 -0700
+Message-ID: <20260904164148.2664280-1-usama.arif@linux.dev>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260904023105.1167376-1-zhao1.liu@intel.com> <20260904023105.1167376-2-zhao1.liu@intel.com>
-Message-ID: <apr02qOMhsZnXIlV@google.com>
-Subject: Re: [RFC 1/4] KVM: nVMX: Don't copy L2's CET state to L1 if VM-entry
- didn't load it
-From: Sean Christopherson <seanjc@google.com>
-To: Zhao Liu <zhao1.liu@intel.com>
-Cc: Paolo Bonzini <pbonzini@redhat.com>, Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
-	Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
-	"H . Peter Anvin" <hpa@zytor.com>, Shuah Khan <shuah@kernel.org>, Chao Gao <chao.gao@intel.com>, 
-	Xin Li <xin@zytor.com>, Sohil Mehta <sohil.mehta@intel.com>, kvm@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org
-Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Fri, Sep 04, 2026, Zhao Liu wrote:
-> On a nested VM-exit that disables VM_EXIT_LOAD_CET_STATE, only copy L2's
-> CET state from vmcs12 to vmcs01 if VM-entry really loaded that state,
-> i.e. don't copy when VM-entry fails before loading guest state.
->
-> The state, that L1 should see after a L2 VM-exit, depends on three
-> things: the VM-exit load (host state) control, whether VM-entry loaded
-> L2's state, and whether L2 ran.
+zstd_decompress_bio() gives zstd a sectorsize-sized scratch buffer, and
+btrfs_decompress_buf2page() then copies the part overlapping the read bio
+into the destination folios. Every delivered byte is written twice.
 
-No, it depends on four things.  The three things you listed, plus uarch-specific
-ordering of checks and loads of guest state.  The SDM says:
+Instead, choose the output buffer per streaming call. zstd_map_dest()
+kmaps the current page-bounded segment of the read bio, so zstd writes
+into the page cache directly. The scratch buffer is kept only for output
+with no destination: the prefix before a read starting inside a
+compressed extent, which zstd cannot skip, and gaps left by folios
+already in the page cache.
 
-  the following operations take place concurrently:
-  
-    (1) the guest-state area of the VMCS is checked to ensure that, after the
-        VM entry completes, the state of the logical processor is consistent
-	with IA-32 and Intel 64 architectures;
-    (2) processor state is loaded from the guest-state area or as specified by
-        the VM-entry control fields; and (3) address-range monitoring is cleared.
+Varying the output buffer across calls is safe: btrfs uses the default
+ZSTD_bm_buffered mode, where the sliding window lives in the dstream's
+internal buffer and the caller's dst is a pure sink. The read bio's
+iterator must still advance by exactly the bytes delivered, since
+btrfs_decompress_bio() zero-fills from it; that used to happen inside
+btrfs_decompress_buf2page() and is now an explicit bio_advance(), made
+only for output that reached a folio.
 
-  Because the checking and the loading occur concurrently, a failure may be
-  discovered only after some state has been loaded. For this reason, the logical
-  processor responds to such failures by loading state from the host-state area,
-  as it would for a VM exit.
+bio_iter_iovec() exposes at most one base page, so direct output is
+page-bounded. Compared to the old sectorsize-sized chunks, this can
+increase stream calls when sectorsize exceeds PAGE_SIZE, but eliminates
+the extra btrfs copy for output delivered to the read bio; the 64 KiB
+sectorsize row below shows the copy still wins there.
 
-So KVM is well within its rights to load vmcs01 state from vmcs12 even on VM-Exit
-due to a failed VM-Entry.  More at the very bottom (below the first diff).
- 
-> For CET, there are 4 cases:
-> 
->  1) VM_EXIT_LOAD_CET_STATE is set. Load L1's CET state from vmcs12's
->     host fields, no matter what happened before. KVM already does this.
-> 
->  2) VM_EXIT_LOAD_CET_STATE is clear, and VM-entry loaded L2's CET
->     state. Whether it's the normal VM-exit or VM-entry failure exit,
->     the guest's (L2's) state should be retained, so copy vmcs12's guest
->     fields into vmcs01 to give L1 the same result.
-> 
->  3) VM_EXIT_LOAD_CET_STATE is clear, VM-entry didn't load L2's CET
->     state, and L2 never ran. This is the typical case that VM-entry
->     fails before loading guest state, the CPU keeps L1's own state, so
->     do nothing.
-> 
->  4) VM_EXIT_LOAD_CET_STATE is clear, VM-entry didn't load L2's CET
->     state, but L2 ran and exited normally. The CPU keeps L1's state
->     again, but L2 could have changed it while running, so still copy
->     vmcs12's guest fields into vmcs01, because they hold what L2 left
->     behind.
+Benchmarked the change in 2-vCPU x86-64 KVM guests (4 KiB pages, RAM
+disk) using a 64 MiB zstd-compressed file. Results are medians of seven
+cold-cache reads in each of six interleaved A/B boot pairs; mincore
+confirmed zero resident pages before every run.
 
-...
+Normal sequential reads with readahead produced:
 
-> @@ -3700,6 +3738,13 @@ enum nvmx_vmentry_status nested_vmx_enter_non_root_mode(struct kvm_vcpu *vcpu,
->  		goto vmentry_fail_vmexit_guest_mode;
->  	}
->  
-> +	/*
-> +	 * VM-entry has completed the architectural guest-state loading phase;
-> +	 * MSRs are loaded after guest state, so failures below should retain
-> +	 * L2's state (see nested_l2_state_is_live()).
-> +	 */
-> +	l2_state = L2_STATE_LOADED_FROM_VMCS12;
+  sectorsize       base       patched    reduction
+  4 KiB          8.678 ms     8.004 ms       7.80%
+  16 KiB         8.216 ms     7.934 ms       3.64%
+  64 KiB         7.875 ms     7.344 ms       6.88%
 
-This works, but IMO is unnecessarily convoluted.  KVM doesn't need to manually
-query vmcs12 entry controls, we can and should instead call sync_vmcs02_to_vmcs12()
-in the failed VM-Entry path if vmcs02 has been prepared with vmcs12 state.  Then
-the only thing that needs to be communicated to load_vmcs12_host_state() is
-whether or not vmcs02 was prepared.  This would make KVM consistent with how it
-handles guest state on failed VM-Entry VM-Exits that occur because of hardware's
-consistency checks (KVM only validates a subset of guest state).
+Random 4 KiB preads at 4 KiB sectorsize, means of six interleaved A/B
+boot pairs, patched better in all six:
 
-So I'm fairly certain it's just the below change (I also tweaked the comment about
-CET state because it's not at all obvious why vmcs12 would hold the correct state).
+  base           patched        gain
+  264.33 MB/s    272.67 MB/s     3.2%
 
-diff --git a/arch/x86/kvm/vmx/nested.c b/arch/x86/kvm/vmx/nested.c
-index 47599e7312cf..cb6a910eed2e 100644
---- a/arch/x86/kvm/vmx/nested.c
-+++ b/arch/x86/kvm/vmx/nested.c
-@@ -3613,8 +3613,9 @@ static int nested_vmx_check_permission(struct kvm_vcpu *vcpu)
- 	return 1;
+Signed-off-by: Usama Arif <usama.arif@linux.dev>
+---
+ fs/btrfs/zstd.c | 69 +++++++++++++++++++++++++++++++++++++++----------
+ 1 file changed, 56 insertions(+), 13 deletions(-)
+
+diff --git a/fs/btrfs/zstd.c b/fs/btrfs/zstd.c
+index 86919293fd546..c5aece6be6093 100644
+--- a/fs/btrfs/zstd.c
++++ b/fs/btrfs/zstd.c
+@@ -580,10 +580,48 @@ int zstd_compress_bio(struct list_head *ws, struct compressed_bio *cb)
+ 	return ret;
  }
  
--static void load_vmcs12_host_state(struct kvm_vcpu *vcpu,
--				   struct vmcs12 *vmcs12);
-+static void load_vmcs12_host_state(struct kvm_vcpu *vcpu, struct vmcs12 *vmcs12,
-+				   bool prepared_vmcs02);
-+static void sync_vmcs02_to_vmcs12(struct kvm_vcpu *vcpu, struct vmcs12 *vmcs12);
- 
- /*
-  * If from_vmentry is false, this is being called from state restore (either RSM
-@@ -3636,6 +3637,7 @@ enum nvmx_vmentry_status nested_vmx_enter_non_root_mode(struct kvm_vcpu *vcpu,
- 		.basic = EXIT_REASON_INVALID_STATE,
- 		.failed_vmentry = 1,
- 	};
-+	bool prepared_vmcs02 = false;
- 	u32 failed_index;
- 
- 	trace_kvm_nested_vmenter(kvm_rip_read(vcpu),
-@@ -3700,6 +3702,8 @@ enum nvmx_vmentry_status nested_vmx_enter_non_root_mode(struct kvm_vcpu *vcpu,
- 		goto vmentry_fail_vmexit_guest_mode;
- 	}
- 
-+	prepared_vmcs02 = true;
++/*
++ * Map the destination for the next chunk of output.
++ *
++ * @decompressed is the offset of the next output byte inside the fully
++ * decompressed extent.  If that offset has reached the current destination
++ * segment, its page-bounded bio_vec is kmapped so that zstd can write into the
++ * page cache directly, and the number of bytes writable there is returned.
++ * Otherwise @kaddr_ret is set to NULL and the number of bytes to skip before
++ * that segment is returned.  This covers both the initial prefix and gaps in
++ * the destination bio.
++ */
++static u32 zstd_map_dest(struct compressed_bio *cb, u32 decompressed,
++			 void **kaddr_ret)
++{
++	struct bio *orig_bio = &cb->orig_bbio->bio;
++	struct bio_vec bvec;
++	u32 bvec_offset;
++	u32 off;
 +
- 	if (from_vmentry) {
- 		failed_index = nested_vmx_load_msr(vcpu,
- 						   vmcs12->vm_entry_msr_load_addr,
-@@ -3758,6 +3762,9 @@ enum nvmx_vmentry_status nested_vmx_enter_non_root_mode(struct kvm_vcpu *vcpu,
- 	 * 26.7 "VM-entry failures during or after loading guest state".
- 	 */
- vmentry_fail_vmexit_guest_mode:
-+	if (prepared_vmcs02)
-+		sync_vmcs02_to_vmcs12(vcpu, vmcs12);
-+
- 	if (vmcs12->cpu_based_vm_exec_control & CPU_BASED_USE_TSC_OFFSETTING)
- 		vcpu->arch.tsc_offset -= vmcs12->tsc_offset;
- 
-@@ -3778,7 +3785,7 @@ enum nvmx_vmentry_status nested_vmx_enter_non_root_mode(struct kvm_vcpu *vcpu,
- 
- 	nested_put_vmcs12_pages(vcpu);
- 
--	load_vmcs12_host_state(vcpu, vmcs12);
-+	load_vmcs12_host_state(vcpu, vmcs12, prepared_vmcs02);
- 	vmcs12->vm_exit_reason = exit_reason.full;
- 	if (enable_shadow_vmcs || nested_vmx_is_evmptr12_valid(vmx))
- 		vmx->nested.need_vmcs12_to_shadow_sync = true;
-@@ -4797,8 +4804,8 @@ static void prepare_vmcs12(struct kvm_vcpu *vcpu, struct vmcs12 *vmcs12,
-  * Failures During or After Loading Guest State").
-  * This function should be called when the active VMCS is L1's (vmcs01).
-  */
--static void load_vmcs12_host_state(struct kvm_vcpu *vcpu,
--				   struct vmcs12 *vmcs12)
-+static void load_vmcs12_host_state(struct kvm_vcpu *vcpu, struct vmcs12 *vmcs12,
-+				   bool prepared_vmcs02)
- {
- 	enum vm_entry_failure_code ignored;
- 	struct kvm_segment seg;
-@@ -4854,14 +4861,15 @@ static void load_vmcs12_host_state(struct kvm_vcpu *vcpu,
- 		vmcs_write64(GUEST_BNDCFGS, 0);
- 
- 	/*
--	 * Load CET state from host state if VM_EXIT_LOAD_CET_STATE is set.
--	 * otherwise CET state should be retained across VM-exit, i.e.,
--	 * guest values should be propagated from vmcs12 to vmcs01.
-+	 * If CET state should be retained across VM-exit, i.e. isn't loaded
-+	 * from host state fields, and vmcs02 was prepared with guest state and
-+	 * thus synchronized back to vmcs12 (CET state is unconditionally saved
-+	 * on VM-Exit), then propagate the guest's values from vmcs12 to vmcs01.
- 	 */
- 	if (vmcs12->vm_exit_controls & VM_EXIT_LOAD_CET_STATE)
- 		vmcs_write_cet_state(vcpu, vmcs12->host_s_cet, vmcs12->host_ssp,
- 				     vmcs12->host_ssp_tbl);
--	else
-+	else if (prepared_vmcs02)
- 		vmcs_write_cet_state(vcpu, vmcs12->guest_s_cet, vmcs12->guest_ssp,
- 				     vmcs12->guest_ssp_tbl);
- 
-@@ -5193,7 +5201,7 @@ void __nested_vmx_vmexit(struct kvm_vcpu *vcpu, u32 vm_exit_reason,
- 						       vmcs12->vm_exit_intr_error_code,
- 						       KVM_ISA_VMX);
- 
--		load_vmcs12_host_state(vcpu, vmcs12);
-+		load_vmcs12_host_state(vcpu, vmcs12, true);
- 
- 		/*
- 		 * Process events if an injectable IRQ or NMI is pending, even
-
-As for nitpicking the SDM, KVM doesn't *need* to wait until prepare_vmcs02()
-completes cleanly, KVM just needs to guarantee that vmcs12 holds the correct state
-if L2 state is loaded from vmcs12 on VM-Exit.  Because even on failure,
-prepare_vmcs02() has already loaded (most) guest state into vmcs02.  So we could
-sync vmcs02=>vmcs12 on any failure after switching to vmcs02, if we adjusted
-prepare_vmcs02() to fully prepare vmcs02 before do its final consistency checks.
-I.e. we could do the below on top.
-
-However, as much as I want to be pedantic on this point, I don't think we should
-actually do the below.  I combed through the flows and can't find anything that
-would result in loading the wrong L1 state if KVM mostly prepares vmcs02 but
-doesn't do sync_vmcs02_to_vmcs12().  And marking vmcs02 as prepared if and only
-if it's fully prepared is much more obviously correct.
-
-diff --git a/arch/x86/kvm/vmx/nested.c b/arch/x86/kvm/vmx/nested.c
-index cb6a910eed2e..68f3b09a1531 100644
---- a/arch/x86/kvm/vmx/nested.c
-+++ b/arch/x86/kvm/vmx/nested.c
-@@ -2843,25 +2843,8 @@ static int prepare_vmcs02(struct kvm_vcpu *vcpu, struct vmcs12 *vmcs12,
- 	/* Note: may modify VM_ENTRY/EXIT_CONTROLS and GUEST/HOST_IA32_EFER */
- 	vmx_set_efer(vcpu, vcpu->arch.efer);
- 
--	/*
--	 * Guest state is invalid and unrestricted guest is disabled,
--	 * which means L1 attempted VMEntry to L2 with invalid state.
--	 * Fail the VMEntry.
--	 *
--	 * However when force loading the guest state (SMM exit or
--	 * loading nested state after migration, it is possible to
--	 * have invalid guest state now, which will be later fixed by
--	 * restoring L2 register state
--	 */
--	if (CC(from_vmentry && !vmx_guest_state_valid(vcpu))) {
--		*entry_failure_code = ENTRY_FAIL_DEFAULT;
--		return -EINVAL;
--	}
--
--	/* Shadow page tables on either EPT or shadow page tables. */
--	if (nested_vmx_load_cr3(vcpu, vmcs12->guest_cr3, nested_cpu_has_ept(vmcs12),
--				from_vmentry, entry_failure_code))
--		return -EINVAL;
-+	kvm_rsp_write(vcpu, vmcs12->guest_rsp);
-+	kvm_rip_write(vcpu, vmcs12->guest_rip);
- 
- 	/*
- 	 * Immediately write vmcs02.GUEST_CR3.  It will be propagated to vmcs12
-@@ -2882,6 +2865,50 @@ static int prepare_vmcs02(struct kvm_vcpu *vcpu, struct vmcs12 *vmcs12,
- 		vmcs_write64(GUEST_PDPTR3, vmcs12->guest_pdptr3);
- 	}
- 
++	bvec = bio_iter_iovec(orig_bio, orig_bio->bi_iter);
 +	/*
-+	 * DO NOT write vmcs02 after this point!  I.e. load all L2 guest state
-+	 * into vmcs02 before performining *any* consistency checks on vmcs12
-+	 * guest state.  KVM loads vmcs12 guest from vmcs02 on *all* VM-Exits,
-+	 * including VM-Exits due to failed VM-Entry.  Doing so avoids having
-+	 * to track which fields are live in vmcs12, and when.  While counter-
-+	 * intuitive, loading guest state before it is checked is explicitly
-+	 * allowed by the SDM, which says:
-+	 *
-+	 * the following operations take place concurrently:
-+	 *
-+	 *  (1) the guest-state area of the VMCS is checked to ensure that,
-+	 *      after the VM entry completes, the state of the logical processor
-+	 *      is consistent with IA-32 and Intel 64 architectures;
-+	 *  (2) processor state is loaded from the guest-state area or as
-+	 *      specified by the VM-entry control fields;
-+	 *  (3) and address-range monitoring is cleared.
-+	 *
-+	 * Because the checking and the loading occur concurrently, a failure
-+	 * may be discovered only after some state has been loaded. For this
-+	 * reason, the logical processor responds to such failures by loading
-+	 * state from the host-state area, as it would for a VM exit.
++	 * cb->start may underflow, but subtracting that value can still give us
++	 * the correct offset inside the full decompressed extent.
 +	 */
++	bvec_offset = page_offset(bvec.bv_page) + bvec.bv_offset - cb->start;
 +
-+	/*
-+	 * Guest state is invalid and unrestricted guest is disabled,
-+	 * which means L1 attempted VMEntry to L2 with invalid state.
-+	 * Fail the VMEntry.
-+	 *
-+	 * However when force loading the guest state (SMM exit or
-+	 * loading nested state after migration, it is possible to
-+	 * have invalid guest state now, which will be later fixed by
-+	 * restoring L2 register state
-+	 */
-+	if (CC(from_vmentry && !vmx_guest_state_valid(vcpu))) {
-+		*entry_failure_code = ENTRY_FAIL_DEFAULT;
-+		return -EINVAL;
++	if (decompressed < bvec_offset) {
++		*kaddr_ret = NULL;
++		return bvec_offset - decompressed;
 +	}
 +
-+	/* Shadow page tables on either EPT or shadow page tables. */
-+	if (nested_vmx_load_cr3(vcpu, vmcs12->guest_cr3, nested_cpu_has_ept(vmcs12),
-+				from_vmentry, entry_failure_code))
-+		return -EINVAL;
++	off = decompressed - bvec_offset;
++	ASSERT(off < bvec.bv_len);
++	*kaddr_ret = bvec_kmap_local(&bvec) + off;
++	return bvec.bv_len - off;
++}
 +
- 	if ((vmcs12->vm_entry_controls & VM_ENTRY_LOAD_IA32_PERF_GLOBAL_CTRL) &&
- 	    kvm_pmu_has_perf_global_ctrl(vcpu_to_pmu(vcpu)) &&
- 	    WARN_ON_ONCE(__kvm_emulate_msr_write(vcpu, MSR_CORE_PERF_GLOBAL_CTRL,
-@@ -2890,9 +2917,6 @@ static int prepare_vmcs02(struct kvm_vcpu *vcpu, struct vmcs12 *vmcs12,
- 		return -EINVAL;
- 	}
+ int zstd_decompress_bio(struct list_head *ws, struct compressed_bio *cb)
+ {
+ 	struct btrfs_fs_info *fs_info = cb_to_fs_info(cb);
+ 	struct workspace *workspace = list_entry(ws, struct workspace, list);
++	struct bio *orig_bio = &cb->orig_bbio->bio;
+ 	struct folio_iter fi;
+ 	size_t srclen = bio_get_size(&cb->bbio.bio);
+ 	zstd_dstream *stream;
+@@ -591,7 +629,6 @@ int zstd_decompress_bio(struct list_head *ws, struct compressed_bio *cb)
+ 	const unsigned int min_folio_size = btrfs_min_folio_size(fs_info);
+ 	unsigned long folio_in_index = 0;
+ 	unsigned long total_folios_in = DIV_ROUND_UP(srclen, min_folio_size);
+-	unsigned long buf_start;
+ 	unsigned long total_out = 0;
  
--	kvm_rsp_write(vcpu, vmcs12->guest_rsp);
--	kvm_rip_write(vcpu, vmcs12->guest_rip);
+ 	bio_first_folio(&fi, &cb->bbio.bio, 0);
+@@ -615,15 +652,26 @@ int zstd_decompress_bio(struct list_head *ws, struct compressed_bio *cb)
+ 	workspace->in_buf.pos = 0;
+ 	workspace->in_buf.size = min_t(size_t, srclen, min_folio_size);
+ 
+-	workspace->out_buf.dst = workspace->buf;
+-	workspace->out_buf.pos = 0;
+-	workspace->out_buf.size = fs_info->sectorsize;
 -
- 	/*
- 	 * It was observed that genuine Hyper-V running in L1 doesn't reset
- 	 * 'hv_clean_fields' by itself, it only sets the corresponding dirty
-@@ -3696,14 +3720,19 @@ enum nvmx_vmentry_status nested_vmx_enter_non_root_mode(struct kvm_vcpu *vcpu,
- 
- 	enter_guest_mode(vcpu);
- 
-+	/*
-+	 * Mark vmcs02 as having been prepared, even if preparation ultimately
-+	 * fails, as the final consistency checks performed by prepare_vmcs02()
-+	 * are done only after vmcs02 has been loaded with guest state.
-+	 */
-+	prepared_vmcs02 = true;
+-	while (1) {
++	while (orig_bio->bi_iter.bi_size) {
+ 		size_t ret2;
++		void *kaddr;
++		u32 dstlen;
 +
- 	if (prepare_vmcs02(vcpu, vmcs12, from_vmentry, &entry_failure_code)) {
- 		exit_reason.basic = EXIT_REASON_INVALID_STATE;
- 		vmcs12->exit_qualification = entry_failure_code;
- 		goto vmentry_fail_vmexit_guest_mode;
- 	}
++		dstlen = zstd_map_dest(cb, total_out, &kaddr);
++		if (kaddr) {
++			workspace->out_buf.dst = kaddr;
++			workspace->out_buf.size = dstlen;
++		} else {
++			workspace->out_buf.dst = workspace->buf;
++			workspace->out_buf.size = min_t(u32, dstlen,
++							fs_info->sectorsize);
++		}
++		workspace->out_buf.pos = 0;
  
--	prepared_vmcs02 = true;
+ 		ret2 = zstd_decompress_stream(stream, &workspace->out_buf,
+ 				&workspace->in_buf);
++		if (kaddr)
++			kunmap_local(kaddr);
+ 		if (unlikely(zstd_is_error(ret2))) {
+ 			struct btrfs_inode *inode = cb->bbio.inode;
+ 
+@@ -634,14 +682,9 @@ int zstd_decompress_bio(struct list_head *ws, struct compressed_bio *cb)
+ 			ret = -EIO;
+ 			goto done;
+ 		}
+-		buf_start = total_out;
+ 		total_out += workspace->out_buf.pos;
+-		workspace->out_buf.pos = 0;
 -
- 	if (from_vmentry) {
- 		failed_index = nested_vmx_load_msr(vcpu,
- 						   vmcs12->vm_entry_msr_load_addr,
-@@ -3762,8 +3791,7 @@ enum nvmx_vmentry_status nested_vmx_enter_non_root_mode(struct kvm_vcpu *vcpu,
- 	 * 26.7 "VM-entry failures during or after loading guest state".
- 	 */
- vmentry_fail_vmexit_guest_mode:
--	if (prepared_vmcs02)
--		sync_vmcs02_to_vmcs12(vcpu, vmcs12);
-+	sync_vmcs02_to_vmcs12(vcpu, vmcs12);
+-		ret = btrfs_decompress_buf2page(workspace->out_buf.dst,
+-				total_out - buf_start, cb, buf_start);
+-		if (ret == 0)
+-			break;
++		if (kaddr)
++			bio_advance(orig_bio, workspace->out_buf.pos);
  
- 	if (vmcs12->cpu_based_vm_exec_control & CPU_BASED_USE_TSC_OFFSETTING)
- 		vcpu->arch.tsc_offset -= vmcs12->tsc_offset;
-@@ -3775,6 +3803,8 @@ enum nvmx_vmentry_status nested_vmx_enter_non_root_mode(struct kvm_vcpu *vcpu,
- 	 */
- 	kvm_service_local_tlb_flush_requests(vcpu);
- 
-+	sync_vmcs02_to_vmcs12(vcpu, vmcs12);
-+
- 	leave_guest_mode(vcpu);
- 
- vmentry_fail_vmexit:
+ 		if (workspace->in_buf.pos >= srclen)
+ 			break;
+
+base-commit: 421066905cbceca1f78cba5f7d92b4980317ab2b
+-- 
+2.53.0-Meta
 
