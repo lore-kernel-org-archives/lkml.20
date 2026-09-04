@@ -1,138 +1,102 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA3F8513573;
-	Fri,  4 Sep 2026 20:12:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E56E451477A;
+	Fri,  4 Sep 2026 20:12:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788552731; cv=none; b=gWjjpW26QC7J/rI5zxm7eJRBYwnM+9yBXHWBku8pkLrewa4gXJf3fQC3Dwezozhu0U4UhXl9D8jbL7R6yMlPvMzLc+bMZNxbvxJN5Hd6oQ814RouvVHShkZkpGkQmxGiBn9YbKWdqh4+Nb6/MQlzhbTLBxFT/ufM8C82P3kq4zY=
+	t=1788552761; cv=none; b=AlQSI1Kx6ohcqsnra6jhI0qDns+qFn8BwBDEqne9vu/QkeqUG7bH1/MC7Ldxx7U+1MpJAiFicjYr4d5bV/YWErRfdLp1w2RB8sShpAK79QbGm1g9bn/0RlsL16gDwlqVKwFMY36GkBltKkwk6gsdiHXd810Z86pHe8DQ9JRn1jc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788552731; c=relaxed/simple;
-	bh=0YYXmV5N0W2pxZNdVpXYKT1de8LKSGeTOZvC9bxhiL8=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=PCttHGeT1iZk3A14EgCNIqJLWMgbnFd6eaYvrLTtOhvptOAZeo56nBIbwyxjOWeIB+3IFzb50EzhVi5FzD0iXxE/EXdcSnCCXxYTgc6n0eataOFUg0YecttnGAPCj8YS1E5rYzq8K7r3olOsVHuPoyHwNo97P5R/ZnGy+hg1FBw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FiPDdWdy; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788552761; c=relaxed/simple;
+	bh=E5w9UEW57C8hYqBnm6XIji7VhzFePyEk6NsxbMUc8CM=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=cUjVCzoWeQt90/t1LDqArUKxcu8TGctx3FPv4yKs8QtQJmZ0q+vWx485WwxxLFX8pH8RpMKsuAC/qVOhsWbGZ8eca8o42PymHLEiSIjdQxkkbio37Wt61/GgTCSH7FPQohfk6uUD/aoHHB+DwYKfMt3+ZkIEGUgNai1ZhnQ6YSo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lvZQwrY2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FiPDdWdy"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 478841F00A3D;
-	Fri,  4 Sep 2026 20:12:01 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lvZQwrY2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 891171F00A3D;
+	Fri,  4 Sep 2026 20:12:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788552722;
-	bh=tiI2plDWeBhwWgqgp0Lt6N026JHuLCwaqyR957rXbKc=;
-	h=From:To:Cc:Subject:Date;
-	b=FiPDdWdy+ul3c1SV5X5HD2KgZFtJzY6VOU8zzE0x1MLxejiF/uT3NJ2VljrET5DLu
-	 mg1GbWnoOMtBbxn/9X3i3FKo+EapLXyBpesC+72RAiNAaWad8a6iTOWBTyql9iSWbr
-	 OWeFapliiwBpV5ADMdwBRw02BhgGRjwf3p/5Z5x+FRtZq6RhpLmyzCm4wcmCbbdTsG
-	 8/6L9m/g3bOg7EyXG3k1HXGD5m383fzSU+rdFSrVkotp2hyQdGUzFqQAZRzXrrZy7W
-	 jPxp/C+ONxrPTbPUXXm6cU+RJLDuKJH2tZvrW3+QXLXqIbXWN2zX3yTwAd4+KVjDh3
-	 OgDIoA1NdniRw==
-From: "Rafael J. Wysocki" <rafael@kernel.org>
-To: Linux ACPI <linux-acpi@vger.kernel.org>
-Cc: LKML <linux-kernel@vger.kernel.org>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Subject: [PATCH v3] ACPI: glue: Reduce debug noise from acpi_device_notify()
-Date: Fri, 04 Sep 2026 22:11:58 +0200
-Message-ID: <6048536.DvuYhMxLoT@rafael.j.wysocki>
-Organization: Linux Kernel Development - Intel
+	s=k20260515; t=1788552749;
+	bh=VPFVtsS9bhAV0NjDdWE1nJzo3uo/rZGTewpqJkAlxUU=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=lvZQwrY2OY1Go/nymVI0zDApCxW0fKqCUb0ngThhM71OvPzqFm2WdybOMvCXd1Vl5
+	 lRBHtDVDoIsCOu24CQDHGtW+BN8IV9OdKFqwsdsShg+jOsBMdqBlHb2EtlcL4umnuR
+	 6CWuq/9R6UVTHgF8LoNRL7rs7vqrmA0W/kBedCDYAe1TsHCSiVe+w75jMp6KZezzUO
+	 Ty4FCcrFEPVIRtWGFdaMTUOpAc2iz6JyFpc/6J/+NfQENz1h1jYkdFKnnHSEcl8XqP
+	 NNQ8mHg2dI+8qMxm0EbE0GVHWmJPfjq+q3S5/ENbbSri547FeeL1B3XXPIbMHSzvBa
+	 7zxsR4vkNFXPg==
+From: Mark Brown <broonie@kernel.org>
+To: Saravanan Sekar <sravanhome@gmail.com>, 
+ Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Jisheng Zhang <jszhang@kernel.org>
+Cc: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260901043123.5401-1-jszhang@kernel.org>
+References: <20260901043123.5401-1-jszhang@kernel.org>
+Subject: Re: [PATCH 0/3] regulator: mp886x: add MP8864 support
+Message-Id: <178854560202.632048.8823255088829631603.b4-ty@b4>
+Date: Fri, 04 Sep 2026 19:13:22 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1578; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=E5w9UEW57C8hYqBnm6XIji7VhzFePyEk6NsxbMUc8CM=;
+ b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBqmyYo7xRQoZ88UTQwGGDmcP0cTUbYX3FkvuRc6
+ 0MSqPsLKISJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCapsmKAAKCRAk1otyXVSH
+ 0DzIB/4pV0PTnMIA7Zq8454He1Sp5VOvcI5E6BVhvWRkyT6GSMb6TLv0bad7kVTPwAliiHuxnS9
+ US7d6RkuSJWpv0nbRNWUPn1q0CkzHL/Nte17gFYz/AuwBqaXX9iNsr1MijT+LfsXrmNV7SLE3br
+ UEe+7Rc7bUUQhwDd/Us4FJP8oMQs0/eOskcdrUaDTJVRBYgADng+/9YbW/GmAPC+cpHJ3v+4AlA
+ zmRTI+/jGLvtwy1zeUOCAlBYFg1xQTJwtn1e3zvZAFtf4sCC0/eU81QBeD9HPp2OgG9yxTgscPa
+ OL7k+kk0tzmfKEMMF+UVPYdOVB8zn1kmnmbABZT+AxeonprJ
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-From: "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>
+On Tue, 01 Sep 2026 12:31:20 +0800, Jisheng Zhang wrote:
+> regulator: mp886x: add MP8864 support
+> 
+> The MP8864 is a 4 A, 21 V synchronous step-down converter.  Its
+> register layout and voltage transition handling are compatible with the
+> MP8867, but its selectable switching frequencies are 600 kHz, 850 kHz,
+> 1.1 MHz and 1.6 MHz.
+> 
+> [...]
 
-When debug is enabled in the ACPI glue code that handles binding
-devices to ACPI companions, acpi_device_notify() produces a lot of
-message noise related to devices that have no ACPI companions.
+Applied to
 
-Reduce that noise by checking the most obvious case, ACPI device
-objects, directly and returning from acpi_device_notify() in that
-case without printing any debug messages.  Also avoid printing a
-debug message when there is no matching ACPI companion lookup
-method for the given device, which is the case for the vast
-majority of devices.
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/regulator.git for-7.4
 
-Additionally, make the debug messages that get printed more informative
-and adjust the "success" debug message for devices whose ACPI companions
-have no ACPI handles (for example, they are fixed event buttons).
+Thanks!
 
-Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
----
+[1/3] regulator: mp886x: fix vsel_mask
+      https://git.kernel.org/broonie/regulator/c/24fa0eadc2e3
+[2/3] regulator: dt-bindings: mp886x: support mp8864
+      https://git.kernel.org/broonie/regulator/c/c75d4f104f81
+[3/3] regulator: mp886x: add MP8864 support
+      https://git.kernel.org/broonie/regulator/c/6c45fd3e1854
 
-v2 -> v3:
-   * Do not change pr_fmt() definition (Sashiko)
-   * adjust the "success" debug message for devices whose ACPI companions
-     have no ACPI handles
-   * Update changelog
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
 
-v1 -> v2:
-   * Do not return early from acpi_device_notify() for devices
-     without a bus type (Sashiko)
-   * Do not print messages for devices without matching ACPI bus
-     type definition (the vast majority)
-   * Update changelog
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
 
----
- drivers/acpi/glue.c |   27 +++++++++++++++------------
- 1 file changed, 15 insertions(+), 12 deletions(-)
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
 
---- a/drivers/acpi/glue.c
-+++ b/drivers/acpi/glue.c
-@@ -354,22 +354,27 @@ void acpi_device_notify(struct device *d
- 	struct acpi_device *adev;
- 	int ret;
- 
-+	/* ACPI devices have no ACPI companions. */
-+	if (dev->bus == &acpi_bus_type)
-+		return;
-+
- 	ret = acpi_bind_one(dev, NULL);
- 	if (ret) {
- 		struct acpi_bus_type *type = acpi_get_bus_type(dev);
- 
- 		if (!type)
--			goto err;
-+			return;
- 
- 		adev = type->find_companion(dev);
- 		if (!adev) {
- 			dev_dbg(dev, "ACPI companion not found\n");
--			goto err;
-+			return;
- 		}
- 		ret = acpi_bind_one(dev, adev);
--		if (ret)
--			goto err;
--
-+		if (ret) {
-+			dev_dbg(dev, "Binding to ACPI companion failed\n");
-+			return;
-+		}
- 		if (type->setup) {
- 			type->setup(dev);
- 			goto done;
-@@ -389,13 +394,11 @@ void acpi_device_notify(struct device *d
- 		adev->handler->bind(dev);
- 
- done:
--	acpi_handle_debug(ACPI_HANDLE(dev), "Bound to device %s\n",
--			  dev_name(dev));
--
--	return;
--
--err:
--	dev_dbg(dev, "No ACPI support\n");
-+	if (adev->handle)
-+		acpi_handle_debug(adev->handle, "Bound to device %s\n",
-+				  dev_name(dev));
-+	else
-+		dev_dbg(dev, "Bound to ACPI device %s\n", dev_name(&adev->dev));
- }
- 
- void acpi_device_notify_remove(struct device *dev)
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
 
-
+Thanks,
+Mark
 
