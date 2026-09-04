@@ -1,90 +1,68 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from sipsolutions.net (s3.sipsolutions.net [168.119.38.16])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB7133A6F00
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 07:39:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D92BD18DB2A;
+	Fri,  4 Sep 2026 07:42:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=168.119.38.16
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788507590; cv=none; b=EaX2J9ctwkGByUO+AS+r66q4qD7p+Mp5PhytQGcme0X2lqhsqUDyKZPT+Thq9wsGI+FEKkCsdVoPdM+F4vorkvxtxRI0/JZFDBRm0ngtAhmb4rI9NE5w1v6MR0hxKJzCzNxkxZq3FezB8TbA5jgj9APzeJsb5zbKo5Vll1t7CTU=
+	t=1788507722; cv=none; b=jDDUDLk/7HIirq/6njKKJETPwYwDrYxjy0hX4W8/7ELgyaFQeoQrgANkJp3+IzaD/OuBRuk+1CjTOE6pnspWzrRJjiC7PyRDcEqCpS0ngw6U61goGeag4umWZqykva6GrEgLSfys7g7xJUEOuocrT6OokmoClbKAzoW4C1rdsGw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788507590; c=relaxed/simple;
-	bh=wtp34HzZ/w6MtCO4bvEUV/26F5ywKPfcm7mmSmEMwlE=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=ih7OhfvaIhE/8tV4l73IFN3iHXQvcbbCiK0aYqW5hyEyCa/LpPBVUsdv4sLwdUYAbc4ScyUbNacEPgfpDUx5oFYDP7aKWSKShtLKWelqIekossF0dUsrUBFEesOX/7DFLBpS08AKDN15lXLxUNLhUj246YWjLit6OllLcPtC0rw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TZ0Bj+HJ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788507722; c=relaxed/simple;
+	bh=yFURoIvUehAIIMb4Yg50lERt4SU4xnCGpFV6ko4GSWw=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=NG3jr5NxZaXzOWgBzgr9DxITxqkLP+77YELKZIC98CaZsls89UfzjcGGG4ymm7bAKR2BdXPvsseBelGtJJs/LYwj+EPbGRgbS/NuPJfCNhpApOXMLSnuk3KWxxFJdHFjFVaWB4R4toiZlsIlkcLM/uUiugyBq7MR3684kQRwGaw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=permerror header.from=sipsolutions.net; spf=pass smtp.mailfrom=sipsolutions.net; dkim=pass (2048-bit key) header.d=sipsolutions.net header.i=@sipsolutions.net header.b=Gd0M++KF; arc=none smtp.client-ip=168.119.38.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=permerror header.from=sipsolutions.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sipsolutions.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TZ0Bj+HJ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B021B1F00A3D;
-	Fri,  4 Sep 2026 07:39:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788507589;
-	bh=yLqpYDkV7tEDFi1t5AdTF7wzKnvFLphitDHQQVK47uM=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=TZ0Bj+HJQULHZWAGNu23D46FAX/zQkJrKj/98YwyCCpKhkDYmmyHpePGN9s/3Nu+q
-	 21N3Oftz9rSmrp1eq/G1R/yX30BDhOj0ClfI50XhbxFejDWXxue4NKXbIVW/XgCPvO
-	 0YsNToy6lKfsOWZrF1654/buRtk0fWq3JYps7oWf+Jkmnc64WJ90H4OB77gRbr46Gx
-	 jL4bPTxaxkgJjrusk6EWnLMEMh0yRaQZ0Z0SzbAOV3xAD8w3qyw3phsxOzLgIPVWcX
-	 rT2J7HnsCA8q7zV0HbIWawOVThhV7L9mE5lJH9hOaFUzg7gm634QzmE1k4Cd9rVQO9
-	 0pRD8x+54iLxA==
-Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
-	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	dkim=pass (2048-bit key) header.d=sipsolutions.net header.i=@sipsolutions.net header.b="Gd0M++KF"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=sipsolutions.net; s=mail; h=MIME-Version:Content-Transfer-Encoding:
+	Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender
+	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-To:
+	Resent-Cc:Resent-Message-ID; bh=yFURoIvUehAIIMb4Yg50lERt4SU4xnCGpFV6ko4GSWw=;
+	t=1788507720; x=1789717320; b=Gd0M++KFwhOng80dnuKmnbo7cbgrbvHUTgDDcGf3ADgLOii
+	IVhrBWmD6kDQ9AoaSw+9ZBLKztOH6KVif89ZPTlp6FpTb2w1dJ54uYYCljoEsSprwW1u0DX6V2vB5
+	Vq+ENvWQQHC+pvC2UuH/Log0Oz6TErpR2HisASDIqwTaKgL28XoT4IzZQI6Qp6qG8x/yB+JPYtrRS
+	N/hXR1HZgxASZggXjw8jdkIOS6odH0VkgS03ccKwEWND0NlEBf3RcFFIBkp5Y3NVG5HKfXzryaqfo
+	LO+rGT41QBEYrBxCjlEe8T9/sm73w7Br3B4Oo5p7fv09cWm/jnEP27ryVbwsn6qA==;
+Received: by sipsolutions.net with esmtpsa (TLS1.3:ECDHE_X25519__ECDSA_SECP256R1_SHA256__AES_256_GCM:256)
 	(Exim 4.98.2)
-	(envelope-from <maz@kernel.org>)
-	id 1x2OWZ-00000004hLu-20xL;
-	Fri, 04 Sep 2026 07:39:47 +0000
-Date: Fri, 04 Sep 2026 08:39:47 +0100
-Message-ID: <86mrtx4g8s.wl-maz@kernel.org>
-From: Marc Zyngier <maz@kernel.org>
-To: Jiangshan Yi <yijiangshan@kylinos.cn>
-Cc: lpieralisi@kernel.org,
-	tglx@kernel.org,
-	radu@rendec.net,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	13667453960@163.com
-Subject: Re: [PATCH v2] irqchip/gic-v5: Install root IRQ handler last in gicv5_init_common()
-In-Reply-To: <20260903104014.587068-1-yijiangshan@kylinos.cn>
-References: <20260903104014.587068-1-yijiangshan@kylinos.cn>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
- FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
- (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+	(envelope-from <johannes@sipsolutions.net>)
+	id 1x2OYg-00000001F7R-0IPU;
+	Fri, 04 Sep 2026 09:41:58 +0200
+Message-ID: <12f4b21bb334a49c88bf28428b92589adecfa53a.camel@sipsolutions.net>
+Subject: Re: [PATCHv2 wireless] mac80211: stop tpt LED trigger timer before
+ freeing trigger
+From: Johannes Berg <johannes@sipsolutions.net>
+To: Rosen Penev <rosenp@gmail.com>, linux-wireless@vger.kernel.org
+Cc: "John W. Linville" <linville@tuxdriver.com>, open list
+	 <linux-kernel@vger.kernel.org>
+Date: Fri, 04 Sep 2026 09:41:57 +0200
+In-Reply-To: <20260815190724.16943-1-rosenp@gmail.com> (sfid-20260815_210730_234011_D868352F)
+References: <20260815190724.16943-1-rosenp@gmail.com>
+	 (sfid-20260815_210730_234011_D868352F)
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-SA-Exim-Connect-IP: 185.219.108.64
-X-SA-Exim-Rcpt-To: yijiangshan@kylinos.cn, lpieralisi@kernel.org, tglx@kernel.org, radu@rendec.net, linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 13667453960@163.com
-X-SA-Exim-Mail-From: maz@kernel.org
-X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
+MIME-Version: 1.0
+X-malware-bazaar: not-scanned
 
-On Thu, 03 Sep 2026 11:40:14 +0100,
-Jiangshan Yi <yijiangshan@kylinos.cn> wrote:
-> 
-> set_handle_irq() cannot be undone: once a handler is installed, any
-> further call returns -EBUSY, so the set_handle_irq(NULL) in the error
-> path has never worked.  Drop it, and install the root handler only
-> after gicv5_irs_enable() has succeeded.
-> 
-> set_handle_irq() only fails if another root handler is already
-> installed, which cannot happen on a GICv5 system.  Should it ever
-> fail, the system is unusable: panic instead of unwinding.
+On Sat, 2026-08-15 at 12:07 -0700, Rosen Penev wrote:
+> On a hot unplug, the device is torn down
+> through ieee80211_unregister_hw() without ever going through
+> ieee80211_do_stop(), so the timer is never stopped.
 
-Note that the system is dead either way, as it isn't like someone is
-going to provide a replacement interrupt controller when GICv5 fails.
-So any error in this function is pretty fatal for the whole system.
+I don't buy this.
 
-That said, this is still a reasonable cleanup.
+Also, missed wifi: prefix.
 
-> 
-> Link: https://lore.kernel.org/r/87fqzrmywu.wl-maz@kernel.org
-> Signed-off-by: Jiangshan Yi <yijiangshan@kylinos.cn>
+Please don't just feed me LLM garbage. Do you have a crash reported on
+this?
 
-Reviewed-by: Marc Zyngier <maz@kernel.org>
-
-	M.
-
--- 
-Without deviation from the norm, progress is not possible.
+johannes
