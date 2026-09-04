@@ -1,89 +1,108 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC8374F0544
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 15:21:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D742218ADD
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 15:22:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788535310; cv=none; b=aHidsq+PvkCUXBTE2l7ONkOTZ2AhK8Ahz20QAuAwdrVdjHR0h2EKANp7FauALfKyEGaDGzN0aEJhjmCY/ax/nam41BO87zgTruYfXBrlArAjqPon4dqWI3dLeWbuf6W0/q3GX6z/4A9+Wgx7DraNC+OzZ/4AUbjI1h/vjQSl8E4=
+	t=1788535356; cv=none; b=tYTlDYKoKrabMOBN2oN//AHeAN0RNuBGrhZHBMD2NDvky1CtxrXcbzAFZcYMCsbDgi46Tk5aU8cETjVWxfqbTy6ROl90sc5fLemH6qKlSkc4tY3cqBz/RxZ2DhLw+MhkNKugIhZf5WVRsnUBR1D57vUzz/lvS3AQSuA8c/+Rp3A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788535310; c=relaxed/simple;
-	bh=ZPjOre1AVHe4tzIsVMCyiaCK8qcg5TyI3ieM/HdkmcY=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=j/uIKkfOD8MulTrx0rg1Q111VrD3AirHP40HMBOvV8J7+uf8Sqog0nGFIyPDRzP44bfIJni2v1LqUm2z8yOYTrWH2rewdnYiOJS/UWnsG8/CGkfX5tfmiQfKqfSsvNrm54Pb1UIwl961l7/ctR/FLsjM2RVOPuKvDWFF2pfX3g4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=A5BGn5CV; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788535356; c=relaxed/simple;
+	bh=M4+ki+Py0psA74hqxlO+alXPMyKGmPPSW1IzTNtzjz8=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=FF1Yyqaf20T3bmbin9jO69y+QCpYpRp77CN28BU6k8mnelKXb3A+cETZ4UsWUUKvGrbAFVnYDHE/2DAuXEATR3N2FDD8dSN9eaG11uyvrdPBDRvljh/KfvTdi8bIRf3soWBpKJd07PDM05Tl6P4K46HAKPK5foXQ9ts7W1JLR0I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Tm057xqo; arc=none smtp.client-ip=209.85.128.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="A5BGn5CV"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A697B1F00A3D
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 15:21:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788535308;
-	bh=noNcnaSgYcuGDqPOvPD3MKIn/qvvsMZ0yW0lmGCp6TI=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=A5BGn5CVLu9p35XLDHOw1Tsfj2whNrCgaqq2C15v3essEfIRXGrNArHrXZs1eztLv
-	 yuMxlcAImOh6NDxq1zimspPKC2xJUzTngtjr87SbJb1bebFohyEVhqcNSVFsoh8kYK
-	 p/60mNpL1FsSjaSppg0+IWxaLXNEFN73h9esaiOxZpkVhGgsgA5GRX45e5zBrHqPjV
-	 JGPCZt/DQvaTgR6shjOoFZNIZoTOMvCDKpweqG3WpLQa/0O3KFocYv0DSFZY4Oft8t
-	 bHY/kgVnEy5JZjYSZeVQuau9NS1uSkbGN+SJyitljN9SZwbya6XwuIwbOpPbb8BFjK
-	 OK0a1FzgxJOpg==
-Received: by mail-ej1-f46.google.com with SMTP id a640c23a62f3a-c2569aa5116so359649566b.0
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 08:21:48 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBzPv52b49ckvMOLOnsNR8ujtu0fdbOaUAcqA7b+gwtxX0NQECMtXMzCpTngp48Z/zXcaClpj2yoHuhCL9g=@vger.kernel.org
-X-Gm-Message-State: AFuF++nxYKNR/O+VmltZQFfi+cc1tEvGX39RrJw7FjlXHJIGvcnEnYSx
-	R1HUGKjJC8Kq8odk2KdRlfJN4Qyx5WSfOkcXm5uuopjKIxb6DOicg3XGN0KjExiu7QaA1LmkDGa
-	syb3CuNag+wSSnSOLOWSuK4mEcUiF5KI=
-X-Received: by 2002:a17:907:3f9a:b0:c25:f7db:4bef with SMTP id
- a640c23a62f3a-c261052e046mr211362366b.21.1788535307125; Fri, 04 Sep 2026
- 08:21:47 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Tm057xqo"
+Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-495437bb891so8438835e9.1
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 08:22:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788535354; x=1789140154; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Vs3gmdekTNn5iwIXejCrVVf7IaQmTpkBLLWvv7YBNgA=;
+        b=Tm057xqowst/FOp+M6pHPuoCOsg6pACoXsuk3E0X4A3bgKnOEJFnva3s9XNMXZ21OB
+         HLtbqVYEgIu5kcqVstEqO5r0FzO/3/V8GK4usvIAu0J8zx4E57pBUaiV6ZoqsxkWKknB
+         pnT1jrlUINt4m/2R6CxyIW5iIyRCJbxvb3rw9sgRrZJmnVnDTiBSRT9XZSHvI1zXUqsR
+         0GXazLlcuoqNcHRr7riB49FdUK60lmJnEqWq1SQgtNZlprc0mOKd4g6+Qmm8CwIPij9a
+         JUyJU13fjyQl2GZ8FDLIj0iBleyZzwZCzTAyO1N2C82bhWx/6KZLwYxK5eXNC3hAVpvR
+         KkXg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788535354; x=1789140154;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Vs3gmdekTNn5iwIXejCrVVf7IaQmTpkBLLWvv7YBNgA=;
+        b=U4a3gR0/OLMMK29e9CF2dUpmuVhvG+vcziaUYrQTvviQNkf/LPHVqC2UodWV3l/tl0
+         KUrrG+uVQVmo4NtUoWh65HLOtZkrMCcuCrBvdhrQnnIDrcSyNcaGwe4YBC/siCcfYqjX
+         njnfLUv7ENMCE2mNhQFUTR+kHrUpCR1ai/FU4eJ9tInsnnkNkbHnsfljcXtH6Iep7WS6
+         G/5SRHsC9U/Z033A04jqD2SlNeuBapD0WU5/7RW43+m8BTko2HmdHxRr8aYxbeLu39Nh
+         8oGImKGlntMoUFbQ8+WQhJ0eIQOhaM9UDvkQEUAAQysyA0g+06TxIifas7wEIMDBD3v7
+         ljBg==
+X-Forwarded-Encrypted: i=1; AKwUvByZ5lSKQds43DRFDFlGjgBC9JYZ2mClaF6CTZBFEa7pEvHgkuXw66NJhlZ23F+zn2iX2dkiFgSSUAGQI74=@vger.kernel.org
+X-Gm-Message-State: AFuF++nMjB31AJMoSBp8MvdumeQv78nhgS2oD4vZ0N1vZhGQjcPJmn4r
+	QUjds7VxqZia1hiX4smlNFzkTQG9UPkjKHW7zhhAXOKQqAi+WE/cB4N2
+X-Gm-Gg: AYBFou2PeWiA1ODNyQFKISMZJukw0iTpU6R3ST23swcF3h0s8sG/+wldBgqjmD1geEc
+	7/ak02FSrR9D7GmNG2upVok7yYTJvvzLbK00+KZarwZoLRX/KVTm0PQzmFQuM4+FOXDS6Z0INuM
+	b+25P4Mq7ff5mbvcUREFANpQQkphplhvx33ri6b0n1fakjFwXSsVZzv3bAuqY+G7m7zShwJ53QR
+	wup4UOrkSlJLrj97bDRajuOOyJbro6FDNhb1KvUZosvmeM/eNvK+jGt9SZ+M0kixy9wuyulAjyX
+	JBooaa1tiY8aAw4IYdqFe16oJ6GgvDVegcXpaAMwLMSWASmLL6oZqwZmKt5TBdFK6Jt5nhxa0xJ
+	4j2IW9T2Ck9rHHYHdsrP7iM11y4+JNkcaB8DqwreRuuuDTG9070kTOMLSxxIWZ51hl4spGFISdf
+	nrmOEE55YEuUSABLp0p9ayV6KTD5Kf74rtFuMKbGvKZteTvxyrqvfvnrmlmdwv3gnRRW6PR7+Gx
+	R8+mpBTti9iTaJTg38Mbsj+ri9fCpuB+YljLeIUnV6+o8j6HOJIoOsQlWWS8C4q26DGOyOqjGJX
+	vjCjJKwvZyk7q2XeWp+ULCbqN1VFEZOUWodhrKqv56WEWig/bE0zMIDZ44cvVtiiKRD5pf8wLRU
+	YUPKQKdt0FsLtiff2eaBHYDAV06anYpIoUoqZz4kqejaSmMjZt+FvDQh6P+rr/eOGyx8ycazJCk
+	R52FcHZckSAi+GFGe+
+X-Received: by 2002:a05:600c:871b:b0:49b:4eb6:6ffd with SMTP id 5b1f17b1804b1-49cf82cbac2mr58224775e9.5.1788535353501;
+        Fri, 04 Sep 2026 08:22:33 -0700 (PDT)
+Received: from localhost (90-182-112-124.rcp.o2.cz. [90.182.112.124])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cf7740d44sm160442515e9.15.2026.09.04.08.22.32
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 04 Sep 2026 08:22:33 -0700 (PDT)
+Date: Fri, 4 Sep 2026 17:22:31 +0200
+From: Joshua Crofts <joshua.crofts1@gmail.com>
+To: Hemanth Selam <hemanth.selam@gmail.com>
+Cc: Nuno =?ISO-8859-1?Q?S=E1?= <nuno.sa@analog.com>, Michael Hennerich
+ <Michael.Hennerich@analog.com>, Mariel Tinaco <Mariel.Tinaco@analog.com>,
+ Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>,
+ Andy Shevchenko <andy@kernel.org>, Matti Vaittinen
+ <mazziesaccount@gmail.com>, linux-kernel@vger.kernel.org, linux@analog.com,
+ linux-iio@vger.kernel.org
+Subject: Re: [PATCH] iio: fix typos in comments
+Message-ID: <20260904172231.00004b28@gmail.com>
+In-Reply-To: <20260904121628.25537-1-hemanth.selam@gmail.com>
+References: <20260904121628.25537-1-hemanth.selam@gmail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-w64-mingw32)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260904104236.1603533-1-doebel@amazon.de>
-In-Reply-To: <20260904104236.1603533-1-doebel@amazon.de>
-From: Namjae Jeon <linkinjeon@kernel.org>
-Date: Sat, 5 Sep 2026 00:21:34 +0900
-X-Gmail-Original-Message-ID: <CAKYAXd-jDPZh_x5JaOpMzHupWi97GTR_MJYhDyph4T6DJLRaFg@mail.gmail.com>
-X-Gm-Features: AcwNN1W4mCJiMWNg-5I52x7pm-vYbz_0PGXse1bEu7rBrSariaLbj7x-e9tHB_A
-Message-ID: <CAKYAXd-jDPZh_x5JaOpMzHupWi97GTR_MJYhDyph4T6DJLRaFg@mail.gmail.com>
-Subject: Re: [PATCH] smb: client: avoid leaking refcount when cifs_sb_tlink() fails
-To: Bjoern Doebel <doebel@amazon.de>
-Cc: Paulo Alcantara <pc@manguebit.org>, stable@vger.kernel.org, 
-	Ronnie Sahlberg <ronniesahlberg@gmail.com>, Shyam Prasad N <sprasad@microsoft.com>, 
-	Tom Talpey <tom@talpey.com>, Bharath SM <bharathsm@microsoft.com>, linux-cifs@vger.kernel.org, 
-	samba-technical@lists.samba.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Fri, Sep 4, 2026 at 7:42=E2=80=AFPM Bjoern Doebel <doebel@amazon.de> wro=
-te:
->
-> cifs_oplock_break() takes over the reference that
-> cifs_queue_oplock_break() acquired when it queued the work, and drops it
-> with _cifsFileInfo_put() once the break has been processed.
->
-> Only in setups with "-o multiuser", cifs_sb_tlink() may fail, at which
-> point cifs_oplock_break() returns without putting the file reference,
-> mirroring the reference leak we already fixed in the companion patch to
-> cifs_queue_oplock_break().
->
-> This would trigger a crash due to busy inodes on the next unmount:
->
->   BUG: Dentry ... still in use (1) [unmount of cifs cifs]
->   VFS: Busy inodes after unmount of cifs (cifs)
->
-> Drop the reference on that path as well. Doing so before the out label
-> mirrors the normal path, which also puts the reference before
-> cifs_done_oplock_break().
->
-> Found by Sashiko code review. The failure path was not exercised at
-> runtime.
->
-> Fixes: e8f5f849ffce2 ("cifs: fix potential oops in cifs_oplock_break")
-> Cc: stable@vger.kernel.org
-> Assisted-by: Kiro:claude-opus-5
-> Signed-off-by: Bjoern Doebel <doebel@amazon.de>
-Reviewed-by: Namjae Jeon <linkinjeon@kernel.org>
-Thanks!
+On Fri,  4 Sep 2026 17:46:25 +0530
+Hemanth Selam <hemanth.selam@gmail.com> wrote:
+
+> Fix typos in comments, reported by scripts/checkpatch.pl using the
+> misspelling list in scripts/spelling.txt.  Only touches comments, no code
+> changes.
+> 
+> Assisted-by: Cursor:claude-opus-5
+
+FYI, the process now is to just add 'Assisted-by: LLM' as to prevent
+free advertising in commit messages.
+
+> Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
+> ---
+
+Reviewed-by: Joshua Crofts <joshua.crofts1@gmail.com>
+
+-- 
+Kind regards,
+Joshua Crofts
