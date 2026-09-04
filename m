@@ -1,69 +1,78 @@
-Received: from mail-oi1-f173.google.com (mail-oi1-f173.google.com [209.85.167.173])
+Received: from mail-ot1-f49.google.com (mail-ot1-f49.google.com [209.85.210.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9D7124886E
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 11:09:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB6C24746BE
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 11:09:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788520147; cv=none; b=Jqh+lLEQxrNMHlY9LMB8cMk3zFZGvci9/VmRCowWwoCCodRivI0gzHXdIrdAAihsdV8MOqiIe6wf4RsOTFKr/0zKO43hdIlTV2Vy1O1l2ALbeU+2cVg/RZixFHaMEQAXKqImCocX2I4+ClBrLb2mvMO/beuMIVaH70iFKIJd5HQ=
+	t=1788520151; cv=none; b=EmO2rr6ixCf+99yBpOAnTqHPnDo33toY+tBj8eT6abT6JoqE/q3FDVFb++4zaSxgkcNaxllPmhoQR4mc7O7bGUBFrpFWfgP88Ga375bDPhPt25Xqqg4+AGvluXJTE1sphoJAAQyUH2BpMm8KCw9AoE0BoCj3QHU1XziKV3Ix1N0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788520147; c=relaxed/simple;
-	bh=rZrotHt0sx9k0ec/ikIVhF8nwi0LNApnMrjVcbP77oU=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=fwIn1oqPcgoKahKC6k7R2J0Mvv6c1BHwFkeE0g7unXB2YkeFj37hjNmWREqERZ/23xXlFQC21q04y2kc8ZBq7u6OBNgzbE2o33Qk4JfpKLJMHWZJxQCfU/Q76TvcaTlIGVzoWgCtmVmfLlgOgBFtADeJDI5WXumVEmYEZ7qA+Go=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GvntMis7; arc=none smtp.client-ip=209.85.167.173
+	s=arc-20240116; t=1788520151; c=relaxed/simple;
+	bh=NqgGWJeZVR7RxI+s0Oxqgtd29vzuC+T0iE7FmCCyjQI=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=qGm3Q3ptYxWivtaBNO5667eZT1MoStGy8XCu+DA0o6M2I8pjGC3Ut6HE/TJA8VI7erF6122SOF8kvJ9sar6ciRvjslIjy7R2YMlZm+AeXa5ZtfMVwd35Rzd5AAFrATH7PW1sQo8sqwKzAyY6I4O35g24NuOrTMdHanKC5EJRSyI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MT3Pt8h6; arc=none smtp.client-ip=209.85.210.49
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GvntMis7"
-Received: by mail-oi1-f173.google.com with SMTP id 5614622812f47-4ab70b882c5so650865b6e.2
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 04:09:05 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MT3Pt8h6"
+Received: by mail-ot1-f49.google.com with SMTP id 46e09a7af769-7f3f52143cdso732170a34.2
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 04:09:09 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788520144; x=1789124944; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=zMR9rnHZ2iUfu2YJJ4shXI2egMoKeOyT5OF8fZ1XcbQ=;
-        b=GvntMis7CPfBEN23HwuFSWGYLPZAT7baO95DY70L3BfJwXCgMeZdcNHZYPaYtceuSG
-         RrUZA6BHIAsjLcR2xKfa87iNc/jz0j1x400h+aXMusRX04aJ/iiBaah2N/eUISmPtUia
-         pfB2qG9hOXGoISL3+U9Exc5kGfr/7aICp2icSgCyBbacWCl1g6tBomMkvrTpPia/Ahrc
-         +5Sjn6WQbMBHB2DhDpthoi/MH35JJ/2GB2U5RJZV3l4P5cFwk7FMncxq/ifyC4kJO/nB
-         y1kfdVFq3tLjW6ODEB+ScDl8Eq+v/l4LOaOMKNCOGL/RKNQA0gAzC5grLShJSTkADcjz
-         tbuA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788520144; x=1789124944;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1788520149; x=1789124949; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=zMR9rnHZ2iUfu2YJJ4shXI2egMoKeOyT5OF8fZ1XcbQ=;
-        b=Llzs6CVORXKfZT1P5/gyahT+xUTr9LkHctEoQ4g2oYasIABCMKuzqZEM2fa4Am2Y8f
-         CtSWS2RCoHPBF+ZG1TfawqpZuReQ/8Ev9BS5dHgPG0BuWmaSw7b7D8MRbLLMxyxSa9OD
-         VkGxAPMnltrxsGYW3dw9zCaYDSSW5bKJXZxa4quWDBQeF3j9rh8yPjjhQPzvFolxIYfK
-         VBj5plBbP+z5zrzUY4c6FTBkvoe/dFUkAoc7dM4K3O9/NTfM/CEtVKcuqq/3qL3gPhBL
-         UqnWwULCR/O04oz8nM4C0tmWR2E8nM89QRY8k7M3MIh/OvwVBs0ICeFTrHT7wPmDS45c
-         kRHQ==
-X-Gm-Message-State: AFuF++kc0ZmVBulgB3/eyyLB/GZOE39T7fgOHpx6G2pUQ3OiA3S5UGau
-	GutQ2RTl/yC2SQdAQtUD26ixPX+J3WHJVnv6Mmsz3KGOhfHGPMfhyyQ/e9/BMMuYs/o=
-X-Gm-Gg: AYBFou2I2WLKM6VpkUQnPGobsXbVEvybX2dTrpkbPK4+4Us9cAJGSV1M9m+lXqxnKfi
-	IP6TJ6G+nJsadbpDBK0uu0JJJkCM7dpRv7LfBO6emG724JnXxt0JWIl+jzHH9y64h4s4rzKCqY8
-	xasp58tDQhCIJgiFdMGje44ga2pC4YC03+GmubE+fLqOyoThWczShXlaZN/K+eo5WMWEkGxnimA
-	WJhVM5hqZRdmIeg90BELQlSf4V/P/5XB5WsZieFgId+HVGQFS+QUrmZEMjwP/kX/PBceNt8hX5D
-	8zFNRZy15mppPstyKgan4D9X9pdU9KSZ7KMG9Gm4n2F6r2D4s1bSiXmQLMjqWGi9z2TxBDj9srE
-	VmCKIaV8y1q5mDYB2VkFMt3pDIaKLsROIxC2MhTMM4+9U16Y9aEUXMXUZcXyuclSXCgBNB0Ic77
-	rPKpG62tZOgdhZCjVx9kniFfCiHNegWWA97UO+z+86KSiocTaqILRrZr3yDJy8j7qhi/MSPPbIb
-	Yet44wY8Jerd9+Eq/QPmxQM5w==
-X-Received: by 2002:a05:6820:813:b0:6b7:46fa:1693 with SMTP id 006d021491bc7-6b746fa1a49mr1999768eaf.40.1788520144500;
-        Fri, 04 Sep 2026 04:09:04 -0700 (PDT)
+        bh=EBPQhnDSu07cLC3ptpbpaZlMTGWNfmchne8qnaFZmRI=;
+        b=MT3Pt8h6AvBKQFJIqYN35poA0ms1ZyfM86Rni55Tys6Vs1JV3Qu1caVQJ1zcjTeg3s
+         R409NaCxiq/o6aI8AoTAuXhukkJn59yxqBL09L6P6o2V3zGCnSTEB+GKKVCHBiadisbo
+         8nbfGdkkNaRXmKjBJICl78Bvmk42th851tv0jD8pIce7Q9Ws7s3zI0zPxs29a5Hg0s3F
+         xAXLlV2EQ1aeAeJxGb42SodgyrldN2LFoSOAt7btz0JTLFzCfE4ZjskLqoBIrVSKc97T
+         Z0w2W3uzkp++9mlI3uSAKuJJAjhREFMGA+FqTW+vcBQzdiquW5D6XuEWqU2idBkWjgZU
+         AkEQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788520149; x=1789124949;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=EBPQhnDSu07cLC3ptpbpaZlMTGWNfmchne8qnaFZmRI=;
+        b=RaN963V71mT8ozZH00xePYO0Jhe+Y7N1fF1SzvFkRCvAQfe/1aHZAowq0w9n71ejvV
+         fO3fgzxm/Pdj/eNJstP8dDchv8bIJI77t0zugiSm2LSoVkCap4ODNT0l4P8cSl99soTY
+         HAabWLKH5h0zVZadELZJkLwXVvseP1kiyDh8xg7Yccg1GkXaQVMKhufDtDwa9vZrAJPf
+         kdBsHZS9wX84bFjl2ndZBbNnmB1bZm08fyiCT3+Q5iaXYc5nxnoyjAPb1cQcB9A2aUXV
+         5lffn8zCuxpppBfTJHoD06HoEG56lZd9Fcgq13xzcLTygad927wzOgcOv4nVhkZ2No6g
+         1YbQ==
+X-Gm-Message-State: AFuF++novLTIx6b0O9LYSc5Yv29NH3twAkUcvNwZWKyZAon2pbCCOUJq
+	AzI2hTYtOF3c9/KMzd3riCvgSMhkeq8Nycy5nzCiRAdsIrWuKvvHRow4
+X-Gm-Gg: AYBFou2MlAj+ZagfMsZYSakLdf/vevKRsDAzWiXKXcwRl4JrKZNWJtpR1OG4NoTY01R
+	6klw5kCOMI0JkcBhc1iiIwzJZKZVZuO/RDd0NDV2SETPV51EGCC/DNaLT0LyT+VvTFtGajj3wK1
+	G6xfer8kfckeM8DjKbQAdBDTsAtXMI1jUH9OgSEJbyGBnwJe+e5VuYSG6+91k9X9MyJRQtD/BIt
+	XFS9GZ+0HPRcyOcPPa1D2oBZohGzHg+GoW/zEeA0yM6C0j971y/q58HOT7kTggw9N0RW37WAeEw
+	KTNjezrem0sKvNLygf84Fm9HEBlMM2ZNjbwyuDKajiUT07Dj7gYHHi6MIAlNPeAD1zGbhXvixEc
+	Ev3FaCTgK0hlrXBTkqYu/G1/241HbCP8SO+HaSiQS/biH5Ouhm2yiRX8sIJ4nvmBfM8DOfoDcCJ
+	tf+n21tmWxmeXX1uBkEj+uxPz8AjOk89G1qSVC2/tbBemXt8Lop+cP0AKfdjswXRhSY5z1cOUzq
+	FPXsMlrfNC0Y98=
+X-Received: by 2002:a4a:edc4:0:b0:6b7:8415:d793 with SMTP id 006d021491bc7-6b78415d8efmr1183603eaf.62.1788520148792;
+        Fri, 04 Sep 2026 04:09:08 -0700 (PDT)
 Received: from volcano9f6e-hostos.amd.com ([165.204.217.251])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339b123731sm5599656eec.18.2026.09.04.04.09.02
-        for <linux-kernel@vger.kernel.org>
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339b123731sm5599656eec.18.2026.09.04.04.09.05
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 04 Sep 2026 04:09:03 -0700 (PDT)
+        Fri, 04 Sep 2026 04:09:08 -0700 (PDT)
 From: Hemanth Selam <hemanth.selam@gmail.com>
-To: 
-Cc: linux-kernel@vger.kernel.org
-Subject: [PATCH 0/2] platform/chrome: fix typos and repeated words in comments
-Date: Fri,  4 Sep 2026 16:38:56 +0530
-Message-ID: <20260904110900.20435-1-hemanth.selam@gmail.com>
+To: Benson Leung <bleung@chromium.org>,
+	Tzung-Bi Shih <tzungbi@kernel.org>,
+	Guenter Roeck <groeck@chromium.org>,
+	=?UTF-8?q?=C5=81ukasz=20Bartosik?= <ukaszb@chromium.org>,
+	Andrei Kuchynski <akuchynski@chromium.org>,
+	Jameson Thies <jthies@google.com>
+Cc: linux-kernel@vger.kernel.org,
+	chrome-platform@lists.linux.dev
+Subject: [PATCH 1/2] platform/chrome: fix typos in comments
+Date: Fri,  4 Sep 2026 16:38:57 +0530
+Message-ID: <20260904110900.20435-2-hemanth.selam@gmail.com>
 X-Mailer: git-send-email 2.48.1
+In-Reply-To: <20260904110900.20435-1-hemanth.selam@gmail.com>
+References: <20260904110900.20435-1-hemanth.selam@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -72,37 +81,52 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-This corrects 2 misspellings and repeated words in comments.  Each is a
-separate patch so that any one of them can be dropped without touching
-the rest.
+Fix typos in comments, reported by scripts/checkpatch.pl using the
+misspelling list in scripts/spelling.txt.  Only touches comments, no code
+changes.
 
-Nothing outside comments changes.  Every touched C file was checked by
-dropping its comments, replacing each string literal with a placeholder
-and collapsing whitespace; what remained was identical before and after,
-so the compiled code cannot differ.
-
-The mistakes were found with scripts/checkpatch.pl against the list in
-scripts/spelling.txt.  The scanning, the edits and the changelogs were
-produced with Cursor running the claude-opus-5 model, from a request to
-find and fix spelling mistakes across the tree, and every correction was
-then re-checked by the comparison described above.  Words that name an
-identifier were left alone deliberately, even when they read as typos,
-because correcting the prose would make the comment disagree with the
-code it describes.
-
-Tested by building x86_64 defconfig at v7.3-rc1-269-gbc35965f6940, which
-is clean.  Nothing else was built, so any patch touching code that
-x86_64 defconfig does not compile has been read but not compiled.
-
-Hemanth Selam (2):
-  platform/chrome: fix typos in comments
-  platform/chrome: fix repeated word 'from' in comment
-
+Assisted-by: Cursor:claude-opus-5
+Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
+---
  drivers/platform/chrome/cros_ec_ishtp.c     | 2 +-
- drivers/platform/chrome/cros_ec_rpmsg.c     | 2 +-
  drivers/platform/chrome/cros_usbpd_notify.c | 4 ++--
- 3 files changed, 4 insertions(+), 4 deletions(-)
+ 2 files changed, 3 insertions(+), 3 deletions(-)
 
+diff --git a/drivers/platform/chrome/cros_ec_ishtp.c b/drivers/platform/chrome/cros_ec_ishtp.c
+index 3766cef81fe8..b21a27ad3762 100644
+--- a/drivers/platform/chrome/cros_ec_ishtp.c
++++ b/drivers/platform/chrome/cros_ec_ishtp.c
+@@ -369,7 +369,7 @@ static void ish_event_cb(struct ishtp_cl_device *cl_device)
+  * @cros_ish_cl: ISHTP client instance
+  * @reset: true if called from reset handler
+  *
+- * This function complete the initializtion of the client.
++ * This function complete the initialization of the client.
+  *
+  * Return: 0 for success, negative error code for failure.
+  */
+diff --git a/drivers/platform/chrome/cros_usbpd_notify.c b/drivers/platform/chrome/cros_usbpd_notify.c
+index d842c05f4db0..6f5eea4938cb 100644
+--- a/drivers/platform/chrome/cros_usbpd_notify.c
++++ b/drivers/platform/chrome/cros_usbpd_notify.c
+@@ -64,7 +64,7 @@ static void cros_usbpd_get_event_and_notify(struct device  *dev,
+ 
+ 	/*
+ 	 * We still send a 0 event out to older devices which don't
+-	 * have the updated device heirarchy.
++	 * have the updated device hierarchy.
+ 	 */
+ 	if (!ec_dev) {
+ 		dev_dbg(dev,
+@@ -115,7 +115,7 @@ static int cros_usbpd_notify_probe_acpi(struct platform_device *pdev)
+ 	if (!ec_dev) {
+ 		/*
+ 		 * We continue even for older devices which don't have the
+-		 * correct device heirarchy, namely, GOOG0003 is a child
++		 * correct device hierarchy, namely, GOOG0003 is a child
+ 		 * of GOOG0004. If GOOG0003 is a child of GOOG0004 and we
+ 		 * can't get a pointer to the Chrome EC device, defer the
+ 		 * probe function.
 -- 
 2.48.1
 
