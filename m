@@ -1,139 +1,138 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D87934BA9E5
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 14:17:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CAE624B3365
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 14:17:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788531445; cv=none; b=VDMD52xBCxI5XUX4CImjtnUQ4XKGg9UlrgrQehbqis6mSAZuNyUnuVazE2xHt3eoB5Y94yiM+X6tk+7o9kT5q6So4nhbbzZxiN7tt0Czv+4/c/OXqVrM/QRDd6EtE6y0/MSxmYvwVeiPoFlH4u0mYVsnV80ZdpLpivYU9LZksGQ=
+	t=1788531457; cv=none; b=ky0Ea03HBntxw+kU80XtTW/BjVoxVGHpyUIWYEXozEIUC1j2phQpR/nN3uviyBJ14ebtOem8DjWsJjMzIJyM0aEgL3hN6JTGQWQGB0T+zr3x5f76d9lBB+CmOWeq7MIOBSDmO/AX0FIY/yp9L5X0Ls4rgvwfr+7ONAsCKmcwYC0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788531445; c=relaxed/simple;
-	bh=D2t6B1YS33bYDK84WqJqNPxeuOe8w02R1XfEYryLAhc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=MEiJKHlXHxEqofDsKoGuCYK/Cn2GDJ2vh7/Vp0UqiwgDHp/IFXJWR/nLGxvAB3oheZL69xUwlwbzJuEoqM1XmxI8uUxbFgmff2cOaWKk0FFEo+hhVtN31zgcvcdmbo4jnqXZl4MFYCRuEzLLMIL6AQdpoaupeBjoSllY276qeVc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=MyScEaj5; arc=none smtp.client-ip=74.125.227.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	s=arc-20240116; t=1788531457; c=relaxed/simple;
+	bh=HKlCbSvo0dNLlf3v1BheuLBrraIIimPq4/G3TaHUcXI=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=lMAO72NFFOv8bRy5tADrCjp20ZMYAWSXw0KByVg0NivM9HBAxPMxzXDxHD87UjhO5wRlzzTg9mNGTICpUnHdUmRBcASt0DoD9N9elpIl7j5EmLaGHQA9YSjlqTP639ro6K4patfK3es3gbU6vBqaocxFtAqAO5O4lmyp8szX5DI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hSkLPCUQ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="MyScEaj5"
-Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2d6ff3aca07so97325ad.1
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 07:17:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1788531443; x=1789136243; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=60ByTjtXefcxnqfTN2YbLnHfehKM3hxAEVNuYOtMxjU=;
-        b=MyScEaj5nKVAXEo7j+AgSvNFk3FyevLaQijrZ4qQhnj54PaVyoFnydjwij5MaX+n7Z
-         /rGsbPB7+Jy9P+/9cFfmrs4ZeRJ2gGum8tlp7x2CMDPqoBpcTaoK4oY1cp8W4Eva3EMO
-         PFvg1yzH8WCSvJ2CGIUZDAVhwypkxdQ1usZxMhLH/zSQ4BPFN8I6RzEf2ouhQo5dkK60
-         uzz7Jzgj1k5j0ijbf37gJBN93EHGhrbsfGoDc6BbFoKswHQWwDXYRP+bz+3xLJg/d/mQ
-         QIAwRiEicmDTtTtehDJEmPnQg+z+v1SkMKT2Q13arDcN7dsCdpqfdgLHR8tpfup7pyVe
-         3A+g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788531443; x=1789136243;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=60ByTjtXefcxnqfTN2YbLnHfehKM3hxAEVNuYOtMxjU=;
-        b=NPwkMhNefcplUybn5IeRF+pzrF2+KxsVLsZcW5M7wlAg1KEsKBxZ+lSZ8crMW6xn6J
-         uudlWrO0VyZDovazNuQ+nDliX82gsEaQRD0ucvOJ0sFS+mUplH9E6QH/2s1UJcwjdAzz
-         vBD02y3YfjFAc2z3Z/fs7dAFbe1ByPtnjFCFx8rfGZrYrachY7Gg2HWypIkMqb5JOC9P
-         YMgjn276WarVxMCBXjuwHLVJgHNJHujyUGjNVF5N0ZsU0hlULI8ut9Jk62oz240a4LWa
-         vdZo03v+vLGIlLYoQYxx63GoPATGYh/dnqq4juodcLN19XQzBDZ0kzptRqOfvVMAG7bu
-         b7XQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxGQAKgL1cilMmw8QmBOWYZlSKe1ZY13OgirbE3GQFgK/1WMk61a4PAHrRN/KY2wLA9EZ1IvoPiAKZqxXQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++nMEQqyouYvK3QUQJc4DGUPMHKQBb4EEN7zeYmEofmwi52aurXx
-	28PNfhuoRNk3qi38GdPQjecIsVuy1DO1vB8aZMPx78q34XWeERiSsMiqFOUv1pdtzg==
-X-Gm-Gg: AYBFou1zoi7liWs+lHZ3kPlHtXwdzAWIRLXUfYyA0rkJBHFNYUsy3r42R+qdCw/5xJt
-	qx2rF8b06NeVQVu+cok1gGzT53zz9o0fuZ211Q+1i4IKgX9aLTTkzg6Xsf+UrL+hoyoZxh5RHfK
-	3e0ctvYcG/YnHYPx9JP35hbzMLfrUyUEuVvw1DjB//hHC5EttUtmYtqtg0mb+w7PtQJccGJHror
-	+aoShOeHWfk9k1J7HuIKF7c2X9P8ezzDAQA+V582HH6J5EX2a2KrL4SYlGs7toyeTs9QJFwOwpi
-	Te+vL9AXL+yKsLZaWXL1OlOKjFTFZ6S+RAW+NtYezbDqaP0i0HuRrmaljxE+IjFvzNWxUizgFWO
-	7yb3fC5roZN3tGAo+dE/QtiDFgK5AQ3vro87T8DqVJ99afaDENGCTV9u9fNLKklWrMhu8udUkb3
-	AKBAzBo6hcRsC4sjiup4SopoX9E2kmniBfDgirmKWRXgGINwPruqT5UFaUKUtrJMEVo1JwDFdUe
-	9W8HrGtQFtlNTG/tEeWlC+d3MAI3KpA5kVH
-X-Received: by 2002:a17:903:3c2b:b0:2db:2225:d2fd with SMTP id d9443c01a7336-2db2225d395mr1063405ad.16.1788531441093;
-        Fri, 04 Sep 2026 07:17:21 -0700 (PDT)
-Received: from google.com (164.210.142.34.bc.googleusercontent.com. [34.142.210.164])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b25f8d2c5sm5029514a91.2.2026.09.04.07.17.19
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 04 Sep 2026 07:17:20 -0700 (PDT)
-Date: Fri, 4 Sep 2026 14:17:15 +0000
-From: Pranjal Shrivastava <praan@google.com>
-To: Abdifatah Suruur <suruurism@gmail.com>
-Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Eric Auger <eric.auger@redhat.com>,
-	Mostafa Saleh <smostafa@google.com>,
-	Alex Williamson <alex@shazbot.org>
-Subject: Re: [PATCH v3] vfio/platform: prevent read-only region mappings from
- becoming writable
-Message-ID: <aprS65nZ3vi6TPxY@google.com>
-References: <20260903092907.419-1-suruurism@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hSkLPCUQ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 578221F00A3D;
+	Fri,  4 Sep 2026 14:17:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788531455;
+	bh=20zlPSRECV/prMcBjc8mTQlsecPP4fstkjGI7hAkh0g=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=hSkLPCUQH9h2xP4hiF5/50OgzXwXoDZRi92LExr9GuGCvoulWH/u5lL4UKHKyQmoN
+	 T7amb2VvAxdRUeFUM+jWaSQchnjRHRtk9l0p1wZ6ES5YCYUZXxRZCEmtmrh42AoRMM
+	 6AUVWTYYIMpTExUGHdPlcTAfMYfKPnsIicavxSgLr5563bhW0mN0tR84y+Stb18tES
+	 p+QKOisroVQxsTwny5wmC1WMvoHajZEQPhWnx4A6FBBcdUG1TKx3WHO1xAoPKUTs5B
+	 5ysmXVNF5qlaCz6GFbZeWOpOLXUXvya9SYQD9X4p/vZGiY3mzavq+FcOxBsyJBLwHk
+	 ipqu3cI432bFQ==
+Received: from sofa.misterjones.org ([185.219.108.64] helo=lobster-girl.misterjones.org)
+	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.98.2)
+	(envelope-from <maz@kernel.org>)
+	id 1x2UjV-00000004tRh-0iWB;
+	Fri, 04 Sep 2026 14:17:33 +0000
+Date: Fri, 04 Sep 2026 15:20:07 +0100
+Message-ID: <87tso53xpk.wl-maz@kernel.org>
+From: Marc Zyngier <maz@kernel.org>
+To: Adrian Ng Ho Yin <adrian.ho.yin.ng@altera.com>
+Cc: tglx@kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4] irqchip/gic-v3: Add Altera SoCFPGA Agilex5 GIC600 DMA32 erratum workaround
+In-Reply-To: <20260904091114.2259616-1-adrian.ho.yin.ng@altera.com>
+References: <20260904091114.2259616-1-adrian.ho.yin.ng@altera.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
+ FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
+ (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260903092907.419-1-suruurism@gmail.com>
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-SA-Exim-Connect-IP: 185.219.108.64
+X-SA-Exim-Rcpt-To: adrian.ho.yin.ng@altera.com, tglx@kernel.org, linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+X-SA-Exim-Mail-From: maz@kernel.org
+X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
 
-On Thu, Sep 03, 2026 at 12:29:07PM +0300, Abdifatah Suruur wrote:
-> vfio_platform_mmap() rejects writable mappings of regions without the
-> WRITE flag, but leaves VM_MAYWRITE set.  Userspace can map such a region
-> read-only and then upgrade the mapping to writable with mprotect().
+On Fri, 04 Sep 2026 10:11:14 +0100,
+Adrian Ng Ho Yin <adrian.ho.yin.ng@altera.com> wrote:
 > 
-> Clear VM_MAYWRITE for regions without the WRITE flag, as i915 does for
-> its read-only objects and as fixed in drm/vc4 (CVE-2026-68445),
-> drm/panthor (CVE-2024-53071) and commit a5edadbae57e ("ptp: vmclock:
-> prevent read-only mappings from becoming writable").
+> Agilex5 integrates GIC600 with an ACE-lite interface limited to a 32-bit
+> address bus, so the ITS can only access the first 4 GB of physical address
+> space. Add ALTERA_ERRATUM_AGILEX5 and register intel,socfpga-agilex5 on the
+> existing dma_32bit_impaired_platforms list.
 > 
-> Note this is defensive hardening: no in-tree platform driver currently
-> publishes a region without the WRITE flag.  The guard costs nothing and
-> keeps the mmap() interface honest if a read-only region ever appears.
+> This limitation is documented as Agilex 5 ES Device Errata 2.1.23 (825514).
 > 
-> Fixes: fad4d5b1f042 ("vfio/platform: support MMAP of MMIO regions")
-> Signed-off-by: Abdifatah Suruur <suruurism@gmail.com>
-> Reviewed-by: Mostafa Saleh <smostafa@google.com>
+> Signed-off-by: Adrian Ng Ho Yin <adrian.ho.yin.ng@altera.com>
 > ---
-> v2: commit log now states plainly that the read-only path is
-> unreachable in practice, per Alex's review; dropped Cc: stable as
-> there is no reachable issue to backport.
-> v3: use 'commit <sha> ("<title>")' style for the vmclock reference
-> and point Fixes at the MMAP support commit, per Mostafa's review.
+> Link: https://docs.altera.com/r/docs/825514/current/agilex-5-es-device-errata-and-user-guidelines/hps-gicv3-its-and-lpi-unable-to-access-physical-memory-larger-than-32-bits-causing-msi-x-interrupt-failure
+> Link: https://lore.kernel.org/linux-arm-kernel/372f059069a5551ea1096015f855cc306dbd7cd4.1747368554.git.adrianhoyin.ng@altera.com/ # v1
+> Link: https://lore.kernel.org/linux-arm-kernel/6a44509ca0edaabc17e59d2e27fef1c782183456.1751618484.git.adrianhoyin.ng@altera.com/ # v2
+> Link: https://lore.kernel.org/linux-arm-kernel/20260622024945.21354-1-muhammad.nazim.amirul.nazle.asmade@altera.com/ # v3 (untagged)
 > 
-> --- a/drivers/vfio/platform/vfio_platform_common.c
-> +++ b/drivers/vfio/platform/vfio_platform_common.c
-> @@ -594,7 +594,11 @@
->  	if (!(vdev->regions[index].flags & VFIO_REGION_INFO_FLAG_WRITE)
->  			&& (vma->vm_flags & VM_WRITE))
->  		return -EINVAL;
+> Changes in v4:
+> - Rebase onto dma_32bit_impaired_platforms shared quirk (post Renesas)
+> - Add ALTERA_ERRATUM_AGILEX5 Kconfig and silicon-errata entry
+> - Cite Agilex 5 ES Device Errata 2.1.23
 > 
-> +	/* Prevent read-only region mappings from being upgraded with mprotect() */
-> +	if (!(vdev->regions[index].flags & VFIO_REGION_INFO_FLAG_WRITE))
-> +		vm_flags_clear(vma, VM_MAYWRITE);
+> Changes in v3:
+> - Extend existing Rockchip dma32 quirk path for Agilex5
+> 
+> Changes in v2:
+> - Drop DT binding quirk; use IIDR + of_machine_is_compatible()
+> 
+>  Documentation/arch/arm64/silicon-errata.rst |  3 +++
+>  arch/arm64/Kconfig                          | 10 ++++++++++
+>  drivers/irqchip/irq-gic-v3-its.c            |  3 +++
+>  3 files changed, 16 insertions(+)
+> 
+> diff --git a/Documentation/arch/arm64/silicon-errata.rst b/Documentation/arch/arm64/silicon-errata.rst
+> index ac3248b9f2f3..8522ba072040 100644
+> --- a/Documentation/arch/arm64/silicon-errata.rst
+> +++ b/Documentation/arch/arm64/silicon-errata.rst
+> @@ -53,6 +53,9 @@ stable kernels.
+>  | Allwinner      | A64/R18         | UNKNOWN1        | SUN50I_ERRATUM_UNKNOWN1     |
+>  +----------------+-----------------+-----------------+-----------------------------+
+>  +----------------+-----------------+-----------------+-----------------------------+
+> +| Altera         | SoCFPGA Agilex5 | 2.1.23          | ALTERA_ERRATUM_AGILEX5      |
+> ++----------------+-----------------+-----------------+-----------------------------+
+> ++----------------+-----------------+-----------------+-----------------------------+
+>  | Ampere         | AmpereOne       | AC03_CPU_38     | AMPERE_ERRATUM_AC03_CPU_38  |
+>  +----------------+-----------------+-----------------+-----------------------------+
+>  | Ampere         | AmpereOne       | AC03_CPU_57     | N/A                         |
+> diff --git a/arch/arm64/Kconfig b/arch/arm64/Kconfig
+> index b5a51b0ef944..e3afb591db68 100644
+> --- a/arch/arm64/Kconfig
+> +++ b/arch/arm64/Kconfig
+> @@ -418,6 +418,16 @@ menu "Kernel Features"
+>  
+>  menu "ARM errata workarounds via the alternatives framework"
+>  
+> +config ALTERA_ERRATUM_AGILEX5
+
+Is this the sole erratum on this HW? The documentation says
+otherwise. So please add a suffix that uniquely identifies it
+(something like ALTERA_ERRATUM_AGILEX5_2_1_23).
+
+> +	bool "Altera Agilex5: GIC600 can not access physical addresses higher than 4GB"
+> +	default y
+> +	help
+> +	  The Altera SoCFPGA Agilex5 GIC600 SoC integration has ACE-lite
+> +	  addressing limited to the first 32bit of physical address space.
+> +	  This is documented as Agilex 5 ES Device Errata 2.1.23 (825514).
+> +
+> +	  If unsure, say Y.
 > +
 
-Minor Nit: We seem to be evaluating this condition twice, back-to-back:
+This is in the wrong place. Look where the other GIC errata are, and
+put it there. Also, this should be selected by ARCH_INTEL_SOCFPGA,
+instead of being left for the user to choose.
 
-if (!(vdev->regions[index].flags & VFIO_REGION_INFO_FLAG_WRITE))
+	M.
 
-We could consolidate this into a single block to make the intent and
-flow cleaner:
-
-        /* Prevent read-only region mappings from [...] */
-        if (!(vdev->regions[index].flags & VFIO_REGION_INFO_FLAG_WRITE)) {
-            if (vma->vm_flags & VM_WRITE)
-                return -EINVAL;
-            vm_flags_clear(vma, VM_MAYWRITE);
-        }
-
-Apart from that,
-
-Reviewed-by: Pranjal Shrivastava <praan@google.com>
-
-Thanks,
-Praan
+-- 
+Jazz isn't dead. It just smells funny.
