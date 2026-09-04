@@ -1,131 +1,114 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D3A3481650;
-	Fri,  4 Sep 2026 13:38:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1071C447811;
+	Fri,  4 Sep 2026 13:38:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788529100; cv=none; b=kzzPSAarbLsWkCzg5ETHSRPb7yJX843Jxazj1A2LNR/eUGCIFEFSMGoJYgFLT9Yt8NXA9BVyE0MnjMkh90zL/WrSQHJfy984xWrC80Y+mlJ1gIScZrUnjeb//DEAViac5OgHWBUUZa+uSkOsT9ERe27LoAVk0PdctvPGV2kspys=
+	t=1788529102; cv=none; b=JouNgySwh2oStMViSDcoQvDQ29W5coCDxtDBENGHldaYW4ypVtBbIXJ+yzXiMtI1aKKHAplFpRrvw46y1IPw9L7nlv9BLz5dz7eEQZSbaUjVR56qIPVuYt03u7vCYXHqiQy5zq0A/OrYTiPZMWUXtMVPVj3L/bPtU+gjlMqXkJo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788529100; c=relaxed/simple;
-	bh=S8m151s5d1xnf5HLA4fOnXWVZvWn3GVZ8dF3521nopA=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=ZSI+NqYMwuDvyTZRqWXYQcRdwUv8TikH1XYEA/0XUhR9vb2FTtfYWOzUOCvaLJmLRQh1DezPjdiBTFaMXmCelwAsNCVCQmntVsgpkBf3BmMMPGiFJ2ZCxdPis6XFh5HXeG2VykwkQ0OKROc3paMx+8W4MGhrH1zc3kjJWg/73as=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bxUcu7dw; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788529102; c=relaxed/simple;
+	bh=8Qhzsqo8mZKi+p534gFaAvP++PQLr1O56E0YQdeS668=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Zd/zc5Z5T55LayXb1wqJQn9Y/M4aH1CgrLzDMsXbXJiDp8CSMFnKj991K0upxqqCL2MiOcNNBninXYoKQ8GFHvXc82KITLTwl+Ljgvtwz7Gm3vmjiB+DVqS9UQZnFIWegBbdZ9dFg2hKR3xHsX4+llu/6aGcR3+qTxQ+8g641Ak=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aPBLWKDI; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bxUcu7dw"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A4B791F00A3D;
-	Fri,  4 Sep 2026 13:38:18 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aPBLWKDI"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 946031F00A3D;
+	Fri,  4 Sep 2026 13:38:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788529098;
-	bh=Bruh2vl+R4oOMZk7fJd+aHtzf3TUbalFwgoHSNuqAwc=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=bxUcu7dwF8RFPTmk5viCVWbKFUiVjWW5ZMvD09sDEFKcO9+C/kc0q48S72Iw0hTPt
-	 qYejGUfLuhsuk4/uC5PaJ7OkbsykbgxGuB51YBQBx2QB7yVJWc4GEMOkEhMKRRivMo
-	 gaA7lE10TAUdmvy0cfnb8G188AgudVFm0ksYyCbMQlTDaJomSB4sYfGWLfxPe60n2t
-	 gxa+AIczvSelGe01IMBDG8ceNbveaN+yWw+sieIMhsSlR606Mky+VrAXfTqknPQgFb
-	 tnePVJfI+38DrcuujJPodJI2FTU50wDav9XXVRiLYiXP0Mp1LeTea2NvYBDz/K0LJu
-	 J6L+khA/Htqqg==
-Received: from sofa.misterjones.org ([185.219.108.64] helo=lobster-girl.misterjones.org)
-	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.98.2)
-	(envelope-from <maz@kernel.org>)
-	id 1x2U7U-00000004sGq-1lgr;
-	Fri, 04 Sep 2026 13:38:16 +0000
-Date: Fri, 04 Sep 2026 14:40:50 +0100
-Message-ID: <87wlt13zj1.wl-maz@kernel.org>
-From: Marc Zyngier <maz@kernel.org>
-To: Thomas Gleixner <tglx@kernel.org>
-Cc: Mayank Rungta <mrungta@google.com>,
-	Wim Van Sebroeck
- <wim@linux-watchdog.org>,
-	Guenter Roeck <linux@roeck-us.net>,
-	Radu Rendec
- <radu@rendec.net>,
-	linux-watchdog@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org,
-	"Kirill A. Shutemov" <kas@kernel.org>,
-	Douglas Anderson <dianders@chromium.org>
-Subject: Re: [PATCH v3 1/5] genirq: Synchronize in-flight handlers during NMI teardown
-In-Reply-To: <87fqzp8jex.ffs@fw13>
-References: <20260902-qcom-wdt-nmi-series-v3-0-f3999362a9ea@google.com>
-	<20260902-qcom-wdt-nmi-series-v3-1-f3999362a9ea@google.com>
-	<87fqzp8jex.ffs@fw13>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
- FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
- (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+	s=k20260515; t=1788529100;
+	bh=ImHZfxtU81KZMYiwHk+GpoqZqQbLfpX8wQ5dvb5NL2s=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=aPBLWKDIH1u2uh9qt1fr5Txmnsj/o7b49sGvzCeJAansVIpptOaBJPmtwJH3TUk4M
+	 T6B2nSrzUwRl5DpUCWqr+HAsHRm00UZexQtxt1aGJSJaRRQFht4hK3YrK01trv7cq6
+	 kZqHmBt0DQuxC3F8LvKawzTu2dOLigtpt3kgAW4aAUr2d+dZ8UX6cjuSWdsP0lIFXX
+	 dAk5/JOzFhjYFHPyhxp/K/NtVHcpDDjitUAUyoqRoass3NbkmeGj/9jBRd594G5kOZ
+	 t1bEZbQT2vInEyleenT5lwprDiFsOnGmNoDRwQjZi/VfxNoiXdU9EegkwRUFwUr5lO
+	 JUnUro9UdV4hg==
+Received: by traversing.sirena.org.uk (Postfix, from userid 1000)
+	id 30892D8BEB2; Fri, 04 Sep 2026 14:38:07 +0100 (BST)
+Date: Fri, 4 Sep 2026 14:38:07 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Fuad Tabba <fuad.tabba@linux.dev>
+Cc: Will Deacon <will@kernel.org>, Marc Zyngier <maz@kernel.org>,
+	Oliver Upton <oupton@kernel.org>, Joey Gouly <joey.gouly@arm.com>,
+	Steffen Eiden <seiden@linux.ibm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Zenghui Yu <yuzenghui@huawei.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Mark Rutland <mark.rutland@arm.com>,
+	linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/2] KVM: arm64: Enable S1PIE for nVHE and hVHE
+Message-ID: <aprJv4vkguNJb5vG@sirena.org.uk>
+References: <20260904-kvm-arm64-nvhe-pie-v1-0-29d59f245e6c@kernel.org>
+ <20260904-kvm-arm64-nvhe-pie-v1-2-29d59f245e6c@kernel.org>
+ <86pkyt4gvt.wl-maz@kernel.org>
+ <eb788ad5-5bb3-4767-87b8-d35d9e3ab220@sirena.org.uk>
+ <apqrky27mJmUV9UA@willie-the-truck>
+ <05f1e2f4-173a-4226-8c98-1452c20f0a47@sirena.org.uk>
+ <CA+EHjTx87SnshzrUF69hGTSA9JmjW9oKbx+GbKjx5W+gnWYRgg@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-SA-Exim-Connect-IP: 185.219.108.64
-X-SA-Exim-Rcpt-To: tglx@kernel.org, mrungta@google.com, wim@linux-watchdog.org, linux@roeck-us.net, radu@rendec.net, linux-watchdog@vger.kernel.org, linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, kas@kernel.org, dianders@chromium.org
-X-SA-Exim-Mail-From: maz@kernel.org
-X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="UmjJAuB3W22tES9f"
+Content-Disposition: inline
+In-Reply-To: <CA+EHjTx87SnshzrUF69hGTSA9JmjW9oKbx+GbKjx5W+gnWYRgg@mail.gmail.com>
+X-Cookie: Orders subject to approval.
 
-On Fri, 04 Sep 2026 10:17:42 +0100,
-Thomas Gleixner <tglx@kernel.org> wrote:
-> 
-> On Wed, Sep 02 2026 at 18:54, Mayank Rungta wrote:
-> > diff --git a/kernel/irq/manage.c b/kernel/irq/manage.c
-> > index 2fbff2618a1e..a9973b61163a 100644
-> > --- a/kernel/irq/manage.c
-> > +++ b/kernel/irq/manage.c
-> > @@ -1379,6 +1379,14 @@ static bool irq_supports_nmi(struct irq_desc *desc)
-> >  	if (d->chip->irq_bus_lock || d->chip->irq_bus_sync_unlock)
-> >  		return false;
-> >  
-> > +	/*
-> > +	 * NMIs cannot set IRQD_IRQ_INPROGRESS because they cannot acquire
-> > +	 * spinlocks. Synchronous disable and teardown require querying the
-> > +	 * hardware state via ->irq_get_irqchip_state().
-> > +	 */
-> > +	if (!d->chip->irq_get_irqchip_state)
-> > +		return false;
-> > +
-> >  	return d->chip->flags & IRQCHIP_SUPPORTS_NMI;
-> >  }
-> >  
-> > @@ -2034,11 +2042,20 @@ static const void *__cleanup_nmi(unsigned int irq, struct irq_desc *desc)
-> >  	struct irqaction *action = NULL;
-> >  	const char *devname = NULL;
-> >  
-> > +	guard(mutex)(&desc->request_mutex);
-> > +
-> >  	scoped_guard(raw_spinlock_irqsave, &desc->lock) {
-> > -		irq_nmi_teardown(desc);
-> > +		irq_settings_clr_disable_unlazy(desc);
-> > +		irq_shutdown(desc);
-> > +	}
-> >  
-> > -		desc->istate &= ~IRQS_NMI;
-> > +	/*
-> > +	 * Ensure all in-flight NMI handlers on other CPUs complete before
-> > +	 * clearing desc->action or tearing down NMI state.
-> > +	 */
-> > +	__synchronize_hardirq(desc, true);
-> 
-> NMIs are strictly per CPU interrupts. So how is this supposed to work
-> correctly when looking at irqchip_state(ACTIVE) ?
-> 
-> Marc?
 
-I have no idea what this is trying to achieve.
+--UmjJAuB3W22tES9f
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-This can only work for a global interrupt, not for a CPU-private
-interrupt, since in general you can't observe the state of the
-interrupt on another CPU.
+On Fri, Sep 04, 2026 at 01:20:44PM +0100, Fuad Tabba wrote:
+> On Fri, 4 Sept 2026 at 12:48, Mark Brown <broonie@kernel.org> wrote:
 
-My guess is that the OP is trying to trigger an NMI using a global
-interrupt, which we never intended to be supported. That's not to say
-that it cannot be supported, but this patch seems to be breaking the
-core use case...
+> > I figure that if we're supporting hVHE it will end up less complicated
+> > to also enable nVHE, it reduces the potential for having bad or missing
+> > fallback paths for features downstream of S1POE.  It's not like it's a
+> > huge extra bit of code and it seems likely to save hassle down the line.
 
-	M.
+> For pKVM there's no fallback path to get wrong: any CPU with S1PIE has
+> VHE, so pKVM runs hVHE on it, and a CPU without VHE has no S1PIE to
+> disable. I couldn't construct the protected nVHE plus S1PIE case under
+> QEMU at all.
 
--- 
-Jazz isn't dead. It just smells funny.
+> Where I think it applies is kvm-arm.mode=nvhe on S1PIE hardware. That
+> boots, and it's the one configuration where the nVHE side of the patch
+> would run.
+
+Yes, exactly.  As you say any system with S1PIE would only run actual
+nNVHE mode if it was requested on the command line.  Realistically this
+is something that people end up doing relatively often in development
+even though it is not useful for production, so as Will said it should
+run.  It seemed explicitly excluding supporting the nVHE case was more
+likely to trip people up one way or another.
+
+Marc also started out with a flat no and didn't mention anything
+positive about the hVHE part so it appeared that he was objecting to the
+whole concept of the patch, including the hVHE aspect.  It seems you and
+Will are both OK with the hVHE bit and indifferent to the nVHE case, and
+I can certainly rework to unsupport nVHE mode.
+
+--UmjJAuB3W22tES9f
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqayb4ACgkQJNaLcl1U
+h9CFewf+Pe/GdgGreSGkHQC1BpvuxnEK1XKsZA/fuA6yTcpTySfrwg/DYRMk3uVZ
+qnqCmZyh0gVz+wvtAIGdEUm4FyzQCKtIFCXlYRiQyQeErja7FhYQx8hHJae3E1Ow
+Km5lZiibgiRy9noLNRRtXPJPDYcnG10C637ZtRYu13Eor1qXLFY4DgrjthVUHX+p
+S6oHXyi7Br15EhhnlxoTw4UZO5CFa3HT3R9OJeta0F6YMRPwmfsscNnNSAqkVodr
+kS4tVuUCOIGLeMUGZjebaXL9TuCADQW7Y6RYLTvoBKJ3vWILYC93OwxMwU2M0sXE
+PxsugHPRtBkiKW8qog+YpaXXek8PTg==
+=UFWG
+-----END PGP SIGNATURE-----
+
+--UmjJAuB3W22tES9f--
