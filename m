@@ -1,234 +1,186 @@
-Received: from mail-oo1-f49.google.com (mail-oo1-f49.google.com [209.85.161.49])
+Received: from mail-pf1-f172.google.com (mail-pf1-f172.google.com [209.85.210.172])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69E1B2D0C62
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 23:01:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 142CC38B157
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 23:01:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788562876; cv=none; b=oIxcF102BdTW8WdKEIXs5ogfDDVvBG1570b6nrRvwsHD0xR43U/TT7fwzY829fHM8th6YNE1WxSa1kRC52z+Qkd/yKA28YY1BpB/r4jqMxvYY4gZI9QoZcqklHpZQfIiY+l7YX5qOWNXdXFiXt+jRFKkpdqaeg/cGBRSgVI9n6E=
+	t=1788562908; cv=none; b=taDhDdA5vty/hyuushAnNfUQM+F7UUREx6lCh7dBqA5grN6WbymDCyrOefdY/HF1jlthqFKfcIgiR3mxKk27LsmtuZk/aHlo5AIeOQlUqyNW9jH0rfrySN8/nSJCJFcpSzaEtU+1PC+kRvjtxvq1nsePHp0yLihU965EQK+jmso=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788562876; c=relaxed/simple;
-	bh=HMEynMoBSSHgcFPFvGVxH0GP08GQhvLrBkqv+4vUEsA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=EBe26xNaWdtkolkdORRfFho+UbFA3gomk+jgnlLdYeH6w/Z47Bvx+XUndvCLYwekQzYxWQQv8uwVIKSmhvyIQI0pxY0x4O5zfPS79u+f2fTcEDvhu4K0GAjjP1WnMQ47DuHXLQZhIDF6PyxNIunFAfJZOVssDnQ2s0WAb8q1fD8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=purestorage.com; spf=pass smtp.mailfrom=purestorage.com; dkim=pass (2048-bit key) header.d=purestorage.com header.i=@purestorage.com header.b=FNxdK+iq; arc=none smtp.client-ip=209.85.161.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=purestorage.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=purestorage.com
+	s=arc-20240116; t=1788562908; c=relaxed/simple;
+	bh=ktEUA4I/QOWBXJdkm7apRaIMx8G1N83lADeV3M8pSqo=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=QbiWJjTfxbmzL6sw9CK4Wm8Y05aWCs4SmXThRhTD19NiQtRW/BlMUo1NTSW/l942eUcquJikeWwaKW9CclcekuiVtA2wVVMaRrF9rf1IY36yV2kzUFemUNu6GOdZios6/FdjIwam8VhzTuJPVKpaIPOsJDznyTn5/7dMBZL+YJU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MSkenvss; arc=none smtp.client-ip=209.85.210.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=purestorage.com header.i=@purestorage.com header.b="FNxdK+iq"
-Received: by mail-oo1-f49.google.com with SMTP id 006d021491bc7-6acc74fef22so810491eaf.3
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 16:01:14 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MSkenvss"
+Received: by mail-pf1-f172.google.com with SMTP id d2e1a72fcca58-8534d507f59so1686805b3a.0
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 16:01:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=purestorage.com; s=google2022; t=1788562873; x=1789167673; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=DWqZGlZlOXVkVFEw7jqJALzgTnRow1syDq0/rhbvtyU=;
-        b=FNxdK+iq96BXlVEHC4g6e4zVIfAFCbAvLFRcT09c7tbMxJHYsbE2lPE6NvsFonjQjg
-         KKXOk5EZOgewWkOnGcpip9VxHRlfcaH8nxWaP+e2RAItC/nXJR2/fM/g7SI53S9FZMkk
-         X6cZV3B7/ii1H3Sjt+C+VNLmf1zAey4NzcIqggPt3mORALX6Men8fIyLalAGLVjDSlQY
-         5ypjkEh0ROw+/0VmIvEpy65f1qucQ4XXXr9TBN9nqgzPAApnFLehG5zzCxlNenyJFWHb
-         Uw28bSXtJk+qDPfeFrpT1v1fIUWMghuWJxF4fPsiho+HDd50fijeSh4Mg8rhYOXWr2NE
-         avHg==
+        d=gmail.com; s=20251104; t=1788562906; x=1789167706; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Mj6rkiDUr48HOONfvJQ87MDV9HV1+Ud30doXtyCj4Sk=;
+        b=MSkenvssU/QEs5XARmvXVoaFykK5PHhnQ4l+dsLaoIjs2gHIhp9N7gYNsmRO04FVva
+         FHB1tTJfh7vknW2QHO5QfncSX49e7R+Dm0RCQy0QpSPgnRmZ7aV/ERCgRc/2ql54u1xH
+         G803GbKXv1uTzeuPONVGmWKdwQ7aGmxzbe5pQkdO0p/wMSc0V46WWxVsNOvYC4QtCYUV
+         9f10i9R7KSIms7YQ0sYPJECyvuuhwywX4szXuQGYtUn7IeQaZSn3v8Y4BSR+OQhgmc34
+         oG2we796NQe9kCfWdwmHq/B3ta+dFb58zyMnV7pb2+EISFafnT3QS9Z007Lif+nzbITG
+         G4Zw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788562873; x=1789167673;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=DWqZGlZlOXVkVFEw7jqJALzgTnRow1syDq0/rhbvtyU=;
-        b=fumJkyeIOdRVOZpIYjb+kmF+nmMThRcYVV7dxyjhY4G2K5CUnyIJkwbmBAKbdoPNa8
-         m0/heyCe0qJXAyGR2bSNmo0fBi9Djp1JJuT4QGltQK4U87FkW+oizMR6om+AsWItOh+1
-         e8lMaXt7EU+XbbWYC5elxKI2x0L8bl1XPJxikE/rXy3vTehM1aeYrnVEBsliTLUDbOti
-         EmX3pQEwAhCiASQrQ6hEgEbmOlcLJGXS87IO9rCbe6Y/D8rNYaQWta4+LK+usw37Mn9x
-         BcRlyWDkLVwxpybEPSuU11N6/oeXcVogfqU2COilOHrJ3CyhnvDW+nOxW3D8pLC4pId+
-         9dvA==
-X-Forwarded-Encrypted: i=1; AKwUvBzQcVrtmjd6jArSl++4H6JmmXt4yrgwOaGQWJV6Mlv8W/Jj5g7ORoziWDaBqihQkQKxwGJp4npWHAie8QA=@vger.kernel.org
-X-Gm-Message-State: AFuF++mPFCmALJRcd0+0GaX8Qf8s/m9vOuFCOP2Pv7dB0PyW5LOzUT1D
-	N3DjgqDMu1RIp/3PKoe2xspTDsSnktlSoPJGt8hAFqqSmtKwTuW1rp/cqnIIUxea7a8=
-X-Gm-Gg: AYBFou3YBDYL4DkjgW+3UBLnEtiVSsuptoqWT4LZepGvJ50Xq+PxDC5IJn2vyHKaeqS
-	+v46zNjGUgqoBwUyDQg8O/rWnDHCq84JN21Bwg1RTfay2LJr/bmscZSDtQ+Ec5Brpdw0GScvruB
-	eARyGinJeqzLxdrpqZrpFf6e5GSOL9rlknnEHhyh4lKyn+8WfNS2VL4ykb51Le3gPWgQF1SGKgc
-	CnNS14huPKCcZfLKMfI1UOCEZp0tguEcPZp4gzH1tOvHw/fanJl3ZLkuFSc5w+f7+d07g7fns8p
-	+dedyvYCgTBBUhuELVJfX4Ylyao3Qx2oXQpFEJDdeBmIngW/uIDZ5erBJZ+skqUb1yyfL5kDrSf
-	qZA0k+JEOHU2Qacer3YJGZPetwMee4J9E1s23GfJJTD2bTeIug0EY5Wh91Rgw2N9Td6sUKcOpFB
-	cKJNOTNKiJqzQS1XUl8VqePXs57tlRLtLnW0HjiZIe27SzOIW7rStHNJNMLL7oOTxm0Jg=
-X-Received: by 2002:a05:6820:810a:b0:6b7:46e9:96ff with SMTP id 006d021491bc7-6b746e9a376mr4834977eaf.47.1788562872859;
-        Fri, 04 Sep 2026 16:01:12 -0700 (PDT)
-Received: from medusa.lab.kspace.sh ([2607:fb90:9c20:7a99::791d])
-        by smtp.googlemail.com with ESMTPSA id 5a478bee46e88-3339bbf1feesm9376783eec.26.2026.09.04.16.01.11
+        d=1e100.net; s=20251104; t=1788562906; x=1789167706;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Mj6rkiDUr48HOONfvJQ87MDV9HV1+Ud30doXtyCj4Sk=;
+        b=HwzC+YQM15KzMB5K381VpyuQjvNb2rjIKy4n/W9mlr9LQivrf4o39hwtperQycgawU
+         yM2yKETzWY0zs3EFUmHOcaBbNZDqhKvmJhq1avQ+w5ufeaR5xRIIOqw7A0afB1FD17wY
+         zMWMb+u0jNNFDEBxruSHNbhkJVPKqjrR+/Lul6QKytKDvWJ31LDuAUsEJL6Q2TkaTxV/
+         yN/GPvqgIiQOtk1X+B98qiRlJmFFJs9GGYIcrxAQLRJp7tSFR2QS1HVTJ4vsycYdIfQ5
+         1bMmEQIt8uQw9HVk50XCcIgm0+pIg4td4TFYBn0jbM931gYA26IvS8qT+94rjm/tFRYF
+         qXJw==
+X-Forwarded-Encrypted: i=1; AKwUvBy21dN4nx6pZK/u74w7Gfl0OzQtMhbRqb4/Sb9t1OPZghLOyQYjUJhArUfSi6x3bwZr+SfGp4R7fDEPMlg=@vger.kernel.org
+X-Gm-Message-State: AFuF++l+nNBx3mo6orgK+8dDDLULHGrwCOtPl4m9knIITXOPHhD1T+Ri
+	nIekZkKA5Df1kHt3jQnbX7NyKSnZKKSW8pdHUDc24n7ZZwBAxDFssEcm
+X-Gm-Gg: AYBFou3iDwZ4g5EgXnd8sWIbq3y7dmA8OUnYVtV7M5fVdj669iW9uSDpwxydSJOVsUd
+	usddrtost5xJIWT/waX1SAoS1PddtnXibV4k6oInejxTS2+8sNJpkNN2RHh8m20KAYa+76v6u/T
+	ki8shZaWSB5PYqEVml5PnZobBT7Beaai80XlaKTFMgP2DkbK2gJJx3FXAzSCUu66tWWDYZv4aOs
+	GPNRlnLm2/DiDLHd+JUODH1uvs1U3g9FUSoJ3VxRuEzRzwz5BZ7cc995aNlbllrF6LpweMcfrjS
+	aQn0iSJ4F8p2SGpf4JKu2AwJwqeFztIzui32JuILSIQbvmSvAtkyYYFlmLMjQvnXFm80khHB6z7
+	9IxgHt6Vca8SmGK/jRb3COpcirC8eu43ENjJLWjIUMfKt599OCJ3TbTxIbW4v/v2REwOjAVgZUh
+	lyhMLLE35YZjA1HaLUy4FTsnW1cp77Rtj3bm+EOlD0lRbLMfuFOTSq44STU0ZiiQ6DY2C5rOoXk
+	5J6RXwNmWhM+YC9nSsK0P72UsiffXlIuAx1exOoDADAolJjfmQ7LU9HITJGdzJhwJYQ9N1uVbTB
+	J69gJf+T+tUqNXTDsJHzGlefHldqLcS3+JOgLg==
+X-Received: by 2002:a05:6a00:10d4:b0:857:7337:5db4 with SMTP id d2e1a72fcca58-8616a26166amr10487230b3a.18.1788562906198;
+        Fri, 04 Sep 2026 16:01:46 -0700 (PDT)
+Received: from ryzen.lan ([2601:644:8000:7a86::e34])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-86265451951sm723957b3a.50.2026.09.04.16.01.44
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 04 Sep 2026 16:01:11 -0700 (PDT)
-Date: Fri, 4 Sep 2026 16:01:10 -0700
-From: Mohamed Khalfella <mkhalfella@purestorage.com>
-To: Hannes Reinecke <hare@suse.de>
-Cc: Justin Tee <justin.tee@broadcom.com>,
-	Naresh Gottumukkala <nareshgottumukkala83@gmail.com>,
-	Paul Ely <paul.ely@broadcom.com>,
-	Chaitanya Kulkarni <kch@nvidia.com>, Christoph Hellwig <hch@lst.de>,
-	Jens Axboe <axboe@kernel.dk>, Keith Busch <kbusch@kernel.org>,
-	Sagi Grimberg <sagi@grimberg.me>,
-	James Smart <jsmart833426@gmail.com>,
-	Randy Jennings <randyj@purestorage.com>,
-	Dhaval Giani <dgiani@purestorage.com>,
-	Aaron Dailey <adailey@purestorage.com>,
-	linux-nvme@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v5 10/16] nvme-tcp: Use CCR to recover controller that
- hits an error
-Message-ID: <20260904230110.GC5552-mkhalfella@purestorage.com>
-References: <20260712022437.3743117-1-mkhalfella@purestorage.com>
- <20260712022437.3743117-11-mkhalfella@purestorage.com>
- <f27fdc8d-9aea-42d1-8f55-04d8355a50c4@suse.de>
+        Fri, 04 Sep 2026 16:01:45 -0700 (PDT)
+From: Rosen Penev <rosenp@gmail.com>
+To: linux-crypto@vger.kernel.org
+Cc: Herbert Xu <herbert@gondor.apana.org.au>,
+	"David S. Miller" <davem@davemloft.net>,
+	linux-kernel@vger.kernel.org (open list)
+Subject: [PATCH] crypto: amcc: trng: use int for ppc4xx_trng_probe()
+Date: Fri,  4 Sep 2026 16:01:44 -0700
+Message-ID: <20260904230144.127071-1-rosenp@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <f27fdc8d-9aea-42d1-8f55-04d8355a50c4@suse.de>
 
-On Mon 2026-07-13 09:17:33 +0200, Hannes Reinecke wrote:
-> On 7/12/26 4:23 AM, Mohamed Khalfella wrote:
-> > An alive nvme controller that hits an error now will move to FENCING
-> > state instead of RESETTING state. ctrl->fencing_work attempts CCR to
-> > terminate inflight IOs. Regardless of the success or failure of CCR
-> > operation the controller is transitioned to RESETTING state to continue
-> > error recovery process.
-> > 
-> > Signed-off-by: Mohamed Khalfella <mkhalfella@purestorage.com>
-> > ---
-> >   drivers/nvme/host/tcp.c | 30 +++++++++++++++++++++++++++++-
-> >   1 file changed, 29 insertions(+), 1 deletion(-)
-> > 
-> > diff --git a/drivers/nvme/host/tcp.c b/drivers/nvme/host/tcp.c
-> > index ba5c7b3e2a7c..a1711dd1d3c2 100644
-> > --- a/drivers/nvme/host/tcp.c
-> > +++ b/drivers/nvme/host/tcp.c
-> > @@ -161,6 +161,7 @@ struct nvme_tcp_ctrl {
-> >   	struct sockaddr_storage src_addr;
-> >   	struct nvme_ctrl	ctrl;
-> >   
-> > +	struct work_struct	fencing_work;
-> >   	struct work_struct	err_work;
-> >   	struct delayed_work	connect_work;
-> >   	struct nvme_tcp_request async_req;
-> > @@ -605,6 +606,12 @@ static void nvme_tcp_init_recv_ctx(struct nvme_tcp_queue *queue)
-> >   
-> >   static void nvme_tcp_error_recovery(struct nvme_ctrl *ctrl)
-> >   {
-> > +	if (nvme_change_ctrl_state(ctrl, NVME_CTRL_FENCING)) {
-> > +		dev_warn(ctrl->device, "starting controller fencing\n");
-> > +		queue_work(nvme_wq, &to_tcp_ctrl(ctrl)->fencing_work);
-> > +		return;
-> > +	}
-> > +
-> >   	if (!nvme_change_ctrl_state(ctrl, NVME_CTRL_RESETTING))
-> >   		return;
-> >   
-> > @@ -2494,12 +2501,29 @@ static void nvme_tcp_reconnect_ctrl_work(struct work_struct *work)
-> >   	nvme_tcp_reconnect_or_remove(ctrl, ret);
-> >   }
-> >   
-> > +static void nvme_tcp_fencing_work(struct work_struct *work)
-> > +{
-> > +	struct nvme_tcp_ctrl *tcp_ctrl = container_of(work,
-> > +			struct nvme_tcp_ctrl, fencing_work);
-> > +	struct nvme_ctrl *ctrl = &tcp_ctrl->ctrl;
-> > +	unsigned long rem;
-> > +
-> > +	rem = nvme_fence_ctrl(ctrl);
-> > +	if (rem)
-> > +		dev_info(ctrl->device, "CCR failed, starting error recovery\n");
-> > +
-> > +	nvme_change_ctrl_state(ctrl, NVME_CTRL_FENCED);
-> 
-> This needs to be before nvme_fence_ctrl(). Otherwise the state is 
-> meaningless are we're moving to RESETTING directly afterwards.
+Pass an error message to crypto4xx_probe() , which will allow handling
+failure. The inline function returns 0 as trng is optional
+functionality. Same with the of_node.
 
-The transition to FENCED signals that we are done with the fencing
-process. Only then FENCED -> RESETTING can happen. Yes, we are switching
-directly to RESETTING after that because we want to run error recovery
-to teardown and bring the controller back.
+Add an extra goto in crypto4xx_probe() to unregister algs as registering
+them happens before trng.
 
-The only reason FENCED exist is to prevent a controller in FENCING state
-from being reset or deleted.
-> 
-> > +	if (nvme_change_ctrl_state(ctrl, NVME_CTRL_RESETTING))
-> > +		queue_work(nvme_reset_wq, &tcp_ctrl->err_work);
-> > +}
-> > +
-> >   static void nvme_tcp_error_recovery_work(struct work_struct *work)
-> >   {
-> >   	struct nvme_tcp_ctrl *tcp_ctrl = container_of(work,
-> >   				struct nvme_tcp_ctrl, err_work);
-> >   	struct nvme_ctrl *ctrl = &tcp_ctrl->ctrl;
-> >   
-> > +	flush_work(&to_tcp_ctrl(ctrl)->fencing_work);
-> 
-> Not so happy with this one here.
-> _If_ fencing is still running we really should not be entering here.
-> And If fencing is not running we won't need to call it.
-> I'd prefer some sort of WARN_ON() here if fencing is still running.
+Signed-off-by: Rosen Penev <rosenp@gmail.com>
+---
+ drivers/crypto/amcc/crypto4xx_core.c |  6 +++++-
+ drivers/crypto/amcc/crypto4xx_trng.c | 15 ++++++++++-----
+ drivers/crypto/amcc/crypto4xx_trng.h |  6 +++---
+ 3 files changed, 18 insertions(+), 9 deletions(-)
 
-fencing_work should not be running. It should be exiting after it queued
-err_work. However, it does that asynchronously. It means it could still
-be running. flush_work() just makes sure it is 100% done because we are
-not expecting it in the middle doing any useful work at this time.
+diff --git a/drivers/crypto/amcc/crypto4xx_core.c b/drivers/crypto/amcc/crypto4xx_core.c
+index a044dce65cf4..acf18b71e54d 100644
+--- a/drivers/crypto/amcc/crypto4xx_core.c
++++ b/drivers/crypto/amcc/crypto4xx_core.c
+@@ -1315,9 +1315,13 @@ static int crypto4xx_probe(struct platform_device *ofdev)
+ 	if (rc)
+ 		goto err_irq;
+ 
+-	ppc4xx_trng_probe(core_dev);
++	rc = ppc4xx_trng_probe(core_dev);
++	if (rc)
++		goto err_crypto;
+ 	return 0;
+ 
++err_crypto:
++	crypto4xx_unregister_alg(core_dev->dev);
+ err_irq:
+ 	free_irq(core_dev->irq, core_dev);
+ err_tasklet:
+diff --git a/drivers/crypto/amcc/crypto4xx_trng.c b/drivers/crypto/amcc/crypto4xx_trng.c
+index cfd66b779ce1..83e9353529fc 100644
+--- a/drivers/crypto/amcc/crypto4xx_trng.c
++++ b/drivers/crypto/amcc/crypto4xx_trng.c
+@@ -68,7 +68,7 @@ static const struct of_device_id ppc4xx_trng_match[] = {
+ 	{},
+ };
+ 
+-void ppc4xx_trng_probe(struct crypto4xx_core_device *core_dev)
++int ppc4xx_trng_probe(struct crypto4xx_core_device *core_dev)
+ {
+ 	struct crypto4xx_device *dev = core_dev->dev;
+ 	struct device_node *trng = NULL;
+@@ -79,17 +79,21 @@ void ppc4xx_trng_probe(struct crypto4xx_core_device *core_dev)
+ 	trng = of_find_matching_node(NULL, ppc4xx_trng_match);
+ 	if (!trng || !of_device_is_available(trng)) {
+ 		of_node_put(trng);
+-		return;
++		return 0;
+ 	}
+ 
+ 	dev->trng_base = of_iomap(trng, 0);
+ 	of_node_put(trng);
+-	if (!dev->trng_base)
++	if (!dev->trng_base) {
++		err = -EINVAL;
+ 		goto err_out;
++	}
+ 
+ 	rng = kzalloc_obj(*rng);
+-	if (!rng)
++	if (!rng) {
++		err = -ENOMEM;
+ 		goto err_out;
++	}
+ 
+ 	rng->name = KBUILD_MODNAME;
+ 	rng->data_present = ppc4xx_trng_data_present;
+@@ -105,13 +109,14 @@ void ppc4xx_trng_probe(struct crypto4xx_core_device *core_dev)
+ 			err);
+ 		goto err_out;
+ 	}
+-	return;
++	return 0;
+ 
+ err_out:
+ 	iounmap(dev->trng_base);
+ 	kfree(rng);
+ 	dev->trng_base = NULL;
+ 	core_dev->trng = NULL;
++	return err;
+ }
+ 
+ void ppc4xx_trng_remove(struct crypto4xx_core_device *core_dev)
+diff --git a/drivers/crypto/amcc/crypto4xx_trng.h b/drivers/crypto/amcc/crypto4xx_trng.h
+index 7356716274cb..1030c3cfafd0 100644
+--- a/drivers/crypto/amcc/crypto4xx_trng.h
++++ b/drivers/crypto/amcc/crypto4xx_trng.h
+@@ -13,11 +13,11 @@
+ #define __CRYPTO4XX_TRNG_H__
+ 
+ #ifdef CONFIG_HW_RANDOM_PPC4XX
+-void ppc4xx_trng_probe(struct crypto4xx_core_device *core_dev);
++int ppc4xx_trng_probe(struct crypto4xx_core_device *core_dev);
+ void ppc4xx_trng_remove(struct crypto4xx_core_device *core_dev);
+ #else
+-static inline void ppc4xx_trng_probe(
+-	struct crypto4xx_core_device *dev __maybe_unused) { }
++static inline int ppc4xx_trng_probe(
++	struct crypto4xx_core_device *dev __maybe_unused) { return 0; }
+ static inline void ppc4xx_trng_remove(
+ 	struct crypto4xx_core_device *dev __maybe_unused) { }
+ #endif
+-- 
+2.55.0
 
-> 
-> >   	if (nvme_tcp_key_revoke_needed(ctrl))
-> >   		nvme_auth_revoke_tls_key(ctrl);
-> >   	nvme_stop_keep_alive(ctrl);
-> > @@ -2542,6 +2566,7 @@ static void nvme_reset_ctrl_work(struct work_struct *work)
-> >   		container_of(work, struct nvme_ctrl, reset_work);
-> >   	int ret;
-> >   
-> > +	flush_work(&to_tcp_ctrl(ctrl)->fencing_work);
-> 
-> Same here.
-
-This is needed in case nvme_tcp_fencing_work() loses the race as. Now
-reset_work needs to flush fencing_work because it took over instead of
-err_work.
-
-> 
-> >   	if (nvme_tcp_key_revoke_needed(ctrl))
-> >   		nvme_auth_revoke_tls_key(ctrl);
-> >   	nvme_stop_ctrl(ctrl);
-> > @@ -2667,13 +2692,15 @@ static enum blk_eh_timer_return nvme_tcp_timeout(struct request *rq)
-> >   	struct nvme_tcp_cmd_pdu *pdu = nvme_tcp_req_cmd_pdu(req);
-> >   	struct nvme_command *cmd = &pdu->cmd;
-> >   	int qid = nvme_tcp_queue_id(req->queue);
-> > +	enum nvme_ctrl_state state;
-> >   
-> >   	dev_warn(ctrl->device,
-> >   		 "I/O tag %d (%04x) type %d opcode %#x (%s) QID %d timeout\n",
-> >   		 rq->tag, nvme_cid(rq), pdu->hdr.type, cmd->common.opcode,
-> >   		 nvme_fabrics_opcode_str(qid, cmd), qid);
-> >   
-> > -	if (nvme_ctrl_state(ctrl) != NVME_CTRL_LIVE) {
-> > +	state = nvme_ctrl_state(ctrl);
-> > +	if (state != NVME_CTRL_LIVE && state != NVME_CTRL_FENCING) {
-> >   		/*
-> >   		 * If we are resetting, connecting or deleting we should
-> >   		 * complete immediately because we may block controller
-> > @@ -2928,6 +2955,7 @@ static struct nvme_tcp_ctrl *nvme_tcp_alloc_ctrl(struct device *dev,
-> >   
-> >   	INIT_DELAYED_WORK(&ctrl->connect_work,
-> >   			nvme_tcp_reconnect_ctrl_work);
-> > +	INIT_WORK(&ctrl->fencing_work, nvme_tcp_fencing_work);
-> >   	INIT_WORK(&ctrl->err_work, nvme_tcp_error_recovery_work);
-> >   	INIT_WORK(&ctrl->ctrl.reset_work, nvme_reset_ctrl_work);
-> >   
-> 
-> Cheers,
-> 
-> Hannes
-> -- 
-> Dr. Hannes Reinecke                  Kernel Storage Architect
-> hare@suse.de                                +49 911 74053 688
-> SUSE Software Solutions GmbH, Frankenstr. 146, 90461 Nürnberg
-> HRB 36809 (AG Nürnberg), GF: I. Totev, A. McDonald, W. Knoblich
