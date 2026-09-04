@@ -1,281 +1,194 @@
-Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com [209.85.214.172])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4EA3A442FC9
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 08:44:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.172
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788511486; cv=none; b=fTqnQZOtE6Mc5WV52jmHwEMxnnHzJuRK2l266+1U5GCIWfgXRMyzJmfYsmtQcFH/Utz5jWu2jqzribAK7arf38rGoBn8BMbhs7PDb51KK50Akfk1GpfJdfMu8B3qpQndB6a87DKM0p3rBTBvVDIWWrCB5IFUTXBZfbxLXbmOs/s=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788511486; c=relaxed/simple;
-	bh=dBf9woEenUcrdHpAE9+HbQwGhboCEhnqgSoXFFUAH9o=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=GgxPxou8wAZ4tqZlr3XKg8oh0jKssfVUS630zihBxvq5WwtdusbqucaZTqfddnT2jHtN1nBXAnAABWSqPdSaQ4cCVCMk5PF/ObSph6QqfEyCLKDIiG/MumSJXgXrWdnmY2ZieBVcFRWUhdiTkwgl84TQ5fTEJA00TWUwyXni3gI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=SF5MTBuZ; arc=none smtp.client-ip=209.85.214.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75395377A8C
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 08:45:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=170.10.133.124
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788511511; cv=pass; b=SiE7/NJyXw8IAeBGWb021aY78jDe1TrK9DA97XL5BdrfU1G3+uKcbLb2ztz7eDZuQrNI8+d21I+c61z6rl53KcN21v4UTv+X8fZgdxf6gtCLANkejRp4TmoYbmW6UDJv1f70soPQYOfnrnhFiFnIY/dr0EgM+H+RwiPAwS20hT0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788511511; c=relaxed/simple;
+	bh=ddWQm3AZ6cvQ44lJc0rMjwwvQelTHxTzDdlLxm7fDVs=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Pv8stfb1BfeZ4UUh0HJ+kTcUU9vRHzmtOr7spwVPeUCHtzjbF+B6CwVtwlPuqm25YoRkSxl0Ma4Q1d/da930nx7EGLW+th7dHvIsUlhcyXklwHez2Acy/sz4HOO5fhTIIeGgO9vWmsKF/Z3w672A2samSpf0LlmD0NmDvvFWUiQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=aDEgE3Gx; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=OHq3BLB2; arc=pass smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="SF5MTBuZ"
-Received: by mail-pl1-f172.google.com with SMTP id d9443c01a7336-2d58efc7356so9789975ad.1
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 01:44:44 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="aDEgE3Gx";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="OHq3BLB2"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1788511508;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=5hWDcK1vRIq8wGKAJgDKooIThOZ4ktEKyx/Je8y3ptg=;
+	b=aDEgE3Gx16F5a81dR4/WYqbjI5OePsUxtoW2tJaTndCIuk1X6wNOWneB/obrt0fA8i985j
+	WIUo8EPQZ/b2tcyG+fMpSC4tOTPo4lge3ljxh1QBMoyDEmbmki/wiKMu0k7woITd/qGWGR
+	KUGW1ozrbSeOW8H4+Jng/Ud2Gh5DfTE=
+Received: from mail-oa1-f70.google.com (mail-oa1-f70.google.com
+ [209.85.160.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-176-O-DQVerOMGquxHPd0Yer0w-1; Fri, 04 Sep 2026 04:45:04 -0400
+X-MC-Unique: O-DQVerOMGquxHPd0Yer0w-1
+X-Mimecast-MFC-AGG-ID: O-DQVerOMGquxHPd0Yer0w_1788511504
+Received: by mail-oa1-f70.google.com with SMTP id 586e51a60fabf-4519ef1babeso556509fac.2
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 01:45:04 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788511504; cv=none;
+        d=google.com; s=arc-20260327;
+        b=RTGrYMVb4We2LQqpeVe7jxKF1vZpfLKgUnRx4yBk8ukdb90OwZAjU4WiG+KE60n/95
+         M2pm5RcpsjhR2Eay6w8xYkafbFcKPND9qikyYzAimJOEc20Vp51WfsVjtZVRYZQxzaRH
+         JWfl8sSMegO7vsFEHgMLZnG8yDI6kv1Q6dbjpyZZjeb4ItBgBp/uODIG7yZfOJQ/fPm7
+         P4RnK6OZDSW1MkkDvcLPyHIH6NDCpdQuNJFw6XLwgEBgYrvIDs9BN/Ulf/h7d2imFeFS
+         jG3TCSvuQd+H4zR1jJNQPAcUhLkQZ0m/cguUIDIzdkIDCbJm+Rlj3njtrnQlxeAFfjCx
+         9TJA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=5hWDcK1vRIq8wGKAJgDKooIThOZ4ktEKyx/Je8y3ptg=;
+        fh=dIFsiOJ9cGOlUqHYmvWeL/J9NldOUTGaStieEYPgakU=;
+        b=a7yUoTDUeoZbnGhnS4Mmpp0oadZWHUYC4gnp8YzV29OGE33Ay+ceKqhSNh1KVAKvW0
+         miRFwVU/8OeMwf5d4802mGBf4sHUlc8EtFm94pxQIpp13eds+RHojgxFhPrCUNkmDhEb
+         8PpDSdw1gEbtykIgbr28uvM6nC3R8rquSaml4D2eGTAY7u6H8LCpP58PWHHGX62U5Z32
+         KxKu7zn7657PhRdmFRnmbDdOVV4OVR7eLY6uXQHm89FMFGfmHset8NWHHrouJ7k9GA4W
+         UU7qCeSj33eessnQEV3rhm7NNgYAEiv6idpH4Za5t2AQ/l+7qK9/RfDK/YbHOrMWeA1h
+         d+SA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1788511484; x=1789116284; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=7ZE0hpHw4voLLfSdVdvFiuLaZ8hcT2SD2vYw6zXNC1k=;
-        b=SF5MTBuZWyWtolBU8hwRzQtiqFDWqnIOJbeCm+yn+Qjncv1TdgPXr/ruQVd+QYC32f
-         Avoc1jlnOk16JeS8qRIbVUf4cx4uEwjtFTwtLInB/CV216DTqOFPLYsJ7MXFscn3hpNW
-         bE8I5ZQSwsGXqmnpb8JxpKQp9kKwVy2VKpVNM=
+        d=redhat.com; s=google; t=1788511504; x=1789116304; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=5hWDcK1vRIq8wGKAJgDKooIThOZ4ktEKyx/Je8y3ptg=;
+        b=OHq3BLB271y1jwP3b0ndufgr7TNvfUJRhjRvUJtosBavzp4H3EnvaTWaTVaNj0QGVU
+         QPGrYH6sMFqC8aMe78wydXChgzhUWYC9YMo9XT6hss52aXFnX0hOddzkpwIKusXeEIho
+         pMqklrdYX725vRVFRiqQE/VsOQA4xKFL4OQSKOwrepe50LRypCtcK0ismEzxo2VbHlDb
+         o5McWZ0MvCr84UjS/MFTr3HrwImPkiTWO/n6F+EgCS7sFb2e3mPbLE4uHQS8r7r7P0BJ
+         985x90yoOjZC/jCtnPB40nOeFMfqXYP78GnZ9FgFfELPH5pUvSURAey1x3c6NdglpSfk
+         j1fQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788511484; x=1789116284;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=7ZE0hpHw4voLLfSdVdvFiuLaZ8hcT2SD2vYw6zXNC1k=;
-        b=qh+HxiIECB3bsChDn4Ja+h60qBjPp7BD6zBQzVpK7XhtwGq+n+vJO3n3Av0fDBeQbE
-         5QUfmMgXUsIfLoAapQN3bQ8ShOPP1wGohqbt3rao200GVromlBaVxtZF33mCcnEeTPST
-         w40e02/RELhWGk3xYLjwGdkrG+S+Cxu3yzeafedlntBEHQFTKL1ijd4QOZtbdGdc25i/
-         B45/EIHfkNsfQn9xeFFfDPkCxxnJsPajdiw0aTkeWUhfjtYiXcd1AzyBsVoyedUyGSO5
-         +r1j8gZ19K7m/F/SlOtpvVEluYx8RYfWyIEZxkBZnqTfujz9+USqy2TXuF82tSgKxLZr
-         mQfA==
-X-Forwarded-Encrypted: i=1; AKwUvBw049j5OIvRxq0U1RRVdTigdNzLepo3y9l9HtWRdx1IMLGQeLJq0lBb/gGjAPR5XpNtsFTIp7bB6oL85rw=@vger.kernel.org
-X-Gm-Message-State: AFuF++n8RJk9nplqcT/Q5hfWauGLlCkoTlq9yJF4P92NdJYS+08pHMI3
-	fZrtyucaZKVQqVSwcHkN4hbSkkMIpTN+CYyODOo2MwfrQaJwkf1npAMEgZEVbkQtEw==
-X-Gm-Gg: AYBFou2QCdPTcfKSUX0HyY3Wg57VbbVbHr61YZhVYSiyvzSjRdfZ6xrYkXOnYbE9/n8
-	nDuSt/GtNexfKNrRKJSmOEEIlxUByVKx0gH45U1LJG98dRXwxFdw7ASuyzetWkLlqSXjBDIMgzE
-	u93u+dRgr9BfgLpAgX/1PjbSH4qDx6f4vbw/mGkVdlOOmAPli6vV27oRyERxI4Nap7O5U3zRWZG
-	kgHpLeQHWXAFhE97QmJNUzneqE5rKBAM6TG/qxpP0P9+73J3ZZTuIO3XV4OaP8dDi4JvbVWQZb6
-	ySutY9wFFX194XQpHkk/ZUBC8ipNpvFBTJhzcqPef0x2HnuLAx7J7iCqPjiLrEuJWhV9W6eIN+3
-	EYjj61m5WTlejjifF4DBT5Or4d5TMiCgyqd1f9mWMAkJQUAmmCldeeqjL1wzxygKwSEUiv5nscf
-	YmEbicYaJkbOgH47hFvY1mAW7MTCXuvCT5IAPjtPL6dtnudpaJ5RHkQCULJP59O6RCjuynd4v0y
-	Qgf7iht5GeS67m3ceIhiFaw8W1vdxiYgIBgIXDR6rsq
-X-Received: by 2002:a17:90b:1c8b:b0:398:9bd5:490c with SMTP id 98e67ed59e1d1-39b26214502mr5922699a91.19.1788511483659;
-        Fri, 04 Sep 2026 01:44:43 -0700 (PDT)
-Received: from wenst-7875.tpe.corp.google.com ([2a00:79e0:201d:8:343:bf21:3095:9c5])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b260fdf9asm3343538a91.9.2026.09.04.01.44.38
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 04 Sep 2026 01:44:43 -0700 (PDT)
-From: Chen-Yu Tsai <wenst@chromium.org>
-To: Bartosz Golaszewski <brgl@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	Daniel Scally <djrscally@gmail.com>,
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Cc: Wei Deng <wei.deng@oss.qualcomm.com>,
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-	Chen-Yu Tsai <wenst@chromium.org>,
-	linux-acpi@vger.kernel.org,
-	driver-core@lists.linux.dev,
-	linux-pm@vger.kernel.org,
-	linux-usb@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-mediatek@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Alan Stern <stern@rowland.harvard.edu>,
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Subject: [PATCH v8 16/16] arm64: dts: mediatek: mt8188-geralt: Add WiFi/BT as M.2 E-key slot
-Date: Fri,  4 Sep 2026 16:41:55 +0800
-Message-ID: <20260904084158.1341550-17-wenst@chromium.org>
-X-Mailer: git-send-email 2.55.0.979.g7e5102b832-goog
-In-Reply-To: <20260904084158.1341550-1-wenst@chromium.org>
-References: <20260904084158.1341550-1-wenst@chromium.org>
+        d=1e100.net; s=20251104; t=1788511504; x=1789116304;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=5hWDcK1vRIq8wGKAJgDKooIThOZ4ktEKyx/Je8y3ptg=;
+        b=IkA5x6puKpH31TH1pA6OMeTErEilmW5L73dc1OOlfBWl8/vH5Qbox33vg2W8We8vrl
+         /OTfnzk6Oj5kKEDLF/29r40b7ESDfFiFuhEAofzVR4Kus28Cw/uNIeFTu2/3E5ldiUdO
+         bMQbKhGrcPzY90ZrBnIK+o+iAdpiDRFNAtYQKGrQhp2VNrUd61aJVY/G3b+nNHTb1eLq
+         CpdLcpx6yaXQH4OfedoPNEiF0cRu8WtXdzrMeMyHxIiLFBqEykqwPNWm69kS7EAi2K2X
+         7NAtgFIRKO8q/FklnGons/NE+00Bwbv6+cYSNld+n1gU3T6wdr0JZT3/3179YpNAxKG9
+         XJTQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxgZnwl/pDu4MziJ+trxOMNTbPfkoifehvHRkvZIseeIO/aQ/HTiZpmICXbZcPm/Nyr4LTdoXzpKkod+mU=@vger.kernel.org
+X-Gm-Message-State: AFuF++k3oQo+A4cZM1klcOT8nMDPL1xcyQ+OhFtGHJ2/z1fg2fidRpN4
+	3LGbsEgVJpvCEgas6aZBSRf0Azyr5azfb1IxOIUdwRj7c8X5Ah7NE6cRnr+JGA4cnaZgFBT8vJc
+	Vrytiq9cJH8MOn0UFirIGkf7hSiMwanc3rerVQHLi0Hd9kWgAUls6aWfwDpfuGTofRwfXrG1V2e
+	9rYbBtjp/5URPe5/h5ntRWIhL7Wbz9LgbgC8uRU5Hz
+X-Gm-Gg: AYBFou1iSL67qdxDK3+m4qhLezl4Q8Wc207MRJ7ZPBYSoHJTvfJREj0sfeSPGY49+7I
+	jTUGQzSEKqWwLaXuXRbqi8d7aOJ5pvfd6yAUg4sQewsTCq4YUkPvr8BdUvWi0OmH6KDyfbqCgof
+	t4sj3Jk50S9HEvodTF+OMQNJik6XbCDSInTedbvTT7/MhpkuOxDMvMO70r
+X-Received: by 2002:a05:6820:16a2:b0:6b1:4280:9e18 with SMTP id 006d021491bc7-6b6fb8d26c1mr3436177eaf.13.1788511504122;
+        Fri, 04 Sep 2026 01:45:04 -0700 (PDT)
+X-Received: by 2002:a05:6820:16a2:b0:6b1:4280:9e18 with SMTP id
+ 006d021491bc7-6b6fb8d26c1mr3436163eaf.13.1788511503655; Fri, 04 Sep 2026
+ 01:45:03 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260904075113.125751-1-hpa@redhat.com> <20260904075113.125751-2-hpa@redhat.com>
+ <app-yOyzA32vQE7e@valkosipuli.retiisi.eu> <apqCH5zmpHdgr7cT@valkosipuli.retiisi.eu>
+In-Reply-To: <apqCH5zmpHdgr7cT@valkosipuli.retiisi.eu>
+From: Kate Hsuan <hpa@redhat.com>
+Date: Fri, 4 Sep 2026 16:44:50 +0800
+X-Gm-Features: AcwNN1XTYKXi-Mg7NPCpn9KaqgTU2gMB3DRT1LOh7pBu5pPrgKf8OCjGK4zxtSc
+Message-ID: <CAEth8oGi2funBOGaG71SpyGoSnPbvxuobmWV+Ay3Hqc46PM+vg@mail.gmail.com>
+Subject: Re: [PATCH v2 1/3] media: i2c: imx471: Add line length PCK setting
+To: Sakari Ailus <sakari.ailus@iki.fi>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, Hans de Goede <hansg@kernel.org>, 
+	Hans Verkuil <hverkuil+cisco@kernel.org>, Sakari Ailus <sakari.ailus@linux.intel.com>, 
+	Jai Luthra <jai.luthra@ideasonboard.com>, linux-media@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-The MT8188 Geralt design features a chip-on-board WiFi/BT solution. This
-is a M.2 E-key WiFi/BT board layout directly inserted into the mainboard
-design. The connections to the rest of the board are almost the same as
-if it were a separate M.2 card. The only addition is the PMU_EN pin on
-the chip; on M.2 cards this would be tied to the primary power source.
+Hi Sakari,
 
-Model the chip-on-board WiFi/BT solution as a M.2 E-key slot with PCIe,
-USB and auxiliary signals. The PMU_EN pin, which enables the internal
-power controls and regulators, is modeled as a regulator fed by the
-pp3300_wlan regulator. Since power sequencing is now correctly modeled
-using the M.2 E-key slot, drop the "regulator-always-on" property one
-pp3300_wlan regulator. Also drop the comment in xhci2 saying "MT7921's
-power is controlled by PCIe".
+Thank you for reviewing this.
 
-Also drop the voltage range on the pp3300_wlan regulator. This
-"regulator" is just a load switch and does not provide any regulation.
+On Fri, Sep 4, 2026 at 4:32=E2=80=AFPM Sakari Ailus <sakari.ailus@iki.fi> w=
+rote:
+>
+> On Fri, Sep 04, 2026 at 11:18:16AM +0300, Sakari Ailus wrote:
+> > Hi Kate,
+> >
+> > On Fri, Sep 04, 2026 at 03:51:11PM +0800, Kate Hsuan wrote:
+> > > Add the line length PCK setting to the IMX471 driver. This parameter
+> > > determines the horizontal line scan duration and is used to calculate
+> > > and control the sensor frame rate.
+> > > Set the line length PCK value to 0x0a00 (matching the original value
+> > > in ipu6-drivers), which maintains a frame rate close to the datasheet
+> > > spec (~150 FPS in 2328x1304 binning mode).
+> >
+> > This fits on fewer lines, please rewrap.
+Okay
 
-Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Signed-off-by: Chen-Yu Tsai <wenst@chromium.org>
----
-Changes since v2:
-- Drop default GPIO output state from kill pins pinconfig
----
- .../boot/dts/mediatek/mt8188-geralt.dtsi      | 92 ++++++++++++++++++-
- 1 file changed, 88 insertions(+), 4 deletions(-)
+> >
+> > >
+> > > Signed-off-by: Kate Hsuan <hpa@redhat.com>
+> > > ---
+> > >  drivers/media/i2c/imx471.c | 2 ++
+> > >  1 file changed, 2 insertions(+)
+> > >
+> > > diff --git a/drivers/media/i2c/imx471.c b/drivers/media/i2c/imx471.c
+> > > index 4053aed84340..3c939f2a9056 100644
+> > > --- a/drivers/media/i2c/imx471.c
+> > > +++ b/drivers/media/i2c/imx471.c
+> > > @@ -91,6 +91,7 @@
+> > >  #define IMX471_CSI_2_LANE_MODE                     1
+> > >  #define IMX471_CSI_4_LANE_MODE                     3
+> > >
+> > > +#define IMX471_REG_LINE_LENGTH_PCK         CCI_REG16(0x0342)
+> > >  #define IMX471_REG_X_ADD_STA                       CCI_REG16(0x0344)
+> > >  #define IMX471_REG_Y_ADD_STA                       CCI_REG16(0x0346)
+> > >  #define IMX471_REG_X_ADD_END                       CCI_REG16(0x0348)
+> > > @@ -240,6 +241,7 @@ static const struct cci_reg_sequence mode_1928x10=
+88_regs[] =3D {
+> > >     { CCI_REG8(0x030d), 0x02 },
+> > >     { CCI_REG8(0x030e), 0x00 },
+> > >     { CCI_REG8(0x030f), 0x53 },
+> > > +   { IMX471_REG_LINE_LENGTH_PCK, 2560 },
+> >
+> > The register definition is nice but there's already a control for this.
+> > Could you do this via s_ctrl()?
+okay. I'll update the value when set V4L2_CID_HBLANK.
 
-diff --git a/arch/arm64/boot/dts/mediatek/mt8188-geralt.dtsi b/arch/arm64/boot/dts/mediatek/mt8188-geralt.dtsi
-index dee946309121..73b5c0fdeae6 100644
---- a/arch/arm64/boot/dts/mediatek/mt8188-geralt.dtsi
-+++ b/arch/arm64/boot/dts/mediatek/mt8188-geralt.dtsi
-@@ -88,13 +88,11 @@ pp3300_z1: regulator-pp3300-z1 {
- 	pp3300_wlan: regulator-pp3300-wlan {
- 		compatible = "regulator-fixed";
- 		regulator-name = "pp3300_wlan";
--		regulator-always-on;
--		regulator-min-microvolt = <3300000>;
--		regulator-max-microvolt = <3300000>;
- 		enable-active-high;
- 		gpio = <&pio 12 GPIO_ACTIVE_HIGH>;
- 		pinctrl-0 = <&wlan_en>;
- 		pinctrl-names = "default";
-+		/* load switch */
- 		vin-supply = <&pp3300_z1>;
- 	};
- 
-@@ -161,6 +159,17 @@ ppvar_mipi_disp_avee: regulator-ppvar-mipi-disp-avee {
- 		vin-supply = <&pp5000_z1>;
- 	};
- 
-+	/* PMU_EN pin controls internal regulators and power sequence */
-+	wlan_pmu: regulator-wlan-pmu {
-+		compatible = "regulator-fixed";
-+		regulator-name = "wlan-pmu";
-+		enable-active-high;
-+		gpio = <&pio 145 GPIO_ACTIVE_HIGH>;
-+		pinctrl-0 = <&wlan_pmu_en>;
-+		pinctrl-names = "default";
-+		vin-supply = <&pp3300_wlan>;
-+	};
-+
- 	reserved_memory: reserved-memory {
- 		#address-cells = <2>;
- 		#size-cells = <2>;
-@@ -195,6 +204,39 @@ adsp_dma_mem: memory@61000000 {
- 			no-map;
- 		};
- 	};
-+
-+	wifi-bt-connector {
-+		compatible = "pcie-m2-e-connector";
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&m2_e_key_kill_pins>;
-+		vpcie1v8-supply = <&mt6359_vcn18_ldo_reg>;
-+		vpcie3v3-supply = <&wlan_pmu>;
-+		w-disable1-gpios = <&pio 13 GPIO_ACTIVE_LOW>;
-+		w-disable2-gpios = <&pio 14 GPIO_ACTIVE_LOW>;
-+
-+		ports {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+
-+			/* PCIe for WiFi */
-+			port@0 {
-+				reg = <0>;
-+
-+				wifi_ep: endpoint {
-+					remote-endpoint = <&pcie_ep>;
-+				};
-+			};
-+
-+			/* USB for Bluetooth */
-+			port@2 {
-+				reg = <2>;
-+
-+				bt_ep: endpoint {
-+					remote-endpoint = <&usb2_ep>;
-+				};
-+			};
-+		};
-+	};
- };
- 
- &adsp {
-@@ -659,6 +701,22 @@ &pcie {
- 	pinctrl-names = "default";
- 	pinctrl-0 = <&pcie_pins>;
- 	status = "okay";
-+
-+	pcie@0 {
-+		compatible = "pciclass,0604";
-+		reg = <0 0 0 0 0>;
-+		device_type = "pci";
-+		num-lanes = <1>;
-+		#address-cells = <3>;
-+		#size-cells = <2>;
-+		ranges;
-+
-+		port {
-+			pcie_ep: endpoint {
-+				remote-endpoint = <&wifi_ep>;
-+			};
-+		};
-+	};
- };
- 
- &pciephy {
-@@ -1002,6 +1060,13 @@ pins-bus {
- 		};
- 	};
- 
-+	m2_e_key_kill_pins: m2-e-key-kill-pins {
-+		pins-kill {
-+			pinmux = <PINMUX_GPIO13__FUNC_B_GPIO13>,
-+				 <PINMUX_GPIO14__FUNC_B_GPIO14>;
-+		};
-+	};
-+
- 	mipi_disp_avdd_en: mipi-disp-avdd-en-pins {
- 		pins-en-ppvar-mipi-disp {
- 			pinmux = <PINMUX_GPIO3__FUNC_B_GPIO3>;
-@@ -1174,6 +1239,13 @@ pins-bus {
- 		};
- 	};
- 
-+	wlan_pmu_en: wlan-pmu-en-pins {
-+		pins-wlan-pmu-en {
-+			pinmux = <PINMUX_GPIO145__FUNC_B_GPIO145>;
-+			output-low;
-+		};
-+	};
-+
- 	wlan_en: wlan-en-pins {
- 		pins-en-pp3300-wlan {
- 			pinmux = <PINMUX_GPIO12__FUNC_B_GPIO12>;
-@@ -1417,10 +1489,22 @@ vdosys1_ep_ext: endpoint@1 {
- };
- 
- &xhci2 {
--	/* no power supply since MT7921's power is controlled by PCIe */
- 	/* MT7921's USB BT has issues with USB2 LPM */
- 	usb2-lpm-disable;
- 	status = "okay";
-+
-+	ports {
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+
-+		port@1 {
-+			reg = <1>;
-+
-+			usb2_ep: endpoint {
-+				remote-endpoint = <&bt_ep>;
-+			};
-+		};
-+	};
- };
- 
- #include <arm/cros-ec-keyboard.dtsi>
--- 
-2.55.0.979.g7e5102b832-goog
+The original driver in the ipu6-drivers sets this register with 2560
+and I found that a larger value slows down the fps. I try to make the
+fps close to the datasheet.
+
+> >
+> > There's also another set addressing related issues here
+> > <URL:https://lore.kernel.org/linux-media/20260904075113.125751-1-hpa@re=
+dhat.com/T/#t>.
+>
+> Wrong URL, I meant this one
+> <URL:https://patchwork.linuxtv.org/project/linux-media/patch/ede568ada430=
+4d2dc92cd43986fc07aa68628154.1788377269.git.christian@themurphys.eu/>.
+It's ok :)
+Ah yes, I noticed that. We can discuss the pixel rate there.
+
+>
+> --
+> Sakari Ailus
+>
+
+
+--=20
+BR,
+Kate
 
