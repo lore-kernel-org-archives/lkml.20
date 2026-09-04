@@ -1,72 +1,72 @@
-Received: from mail-ot1-f46.google.com (mail-ot1-f46.google.com [209.85.210.46])
+Received: from mail-oo1-f54.google.com (mail-oo1-f54.google.com [209.85.161.54])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 631423793D3
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 11:33:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 941F7478E58
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 11:33:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788521588; cv=none; b=bPuI9J0+dFiNshVO4mP6aZteRPfdNvlFacNyPOMpMemp/oiqoCzn+jh45bhNyxeqAaNKI5ydXbi0F4qL3PywGEo+TDumGJU9u87NrJZGZ+EsT4wxFrL1gyoipKAhJg0dKns6zsDK2hiKepXp9mg9bmFL+IKv3gWFLRcspkQawDU=
+	t=1788521591; cv=none; b=TTJ9dY1dBtZN+1nw5Kl9lEdjm7+20nFfs7I3PZWpuP9+JPXqfF7Y0QT9R/u9KDSV7otgvfM0Yx2gGGF6QCUdwpBjnESmJCnA2TtMWMvv706LzOrDPGgQD3+4SwX4h5K0AayUPPO2s3WwSViu7GhPAuUD4vPA4SOoqP1KAnOSerQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788521588; c=relaxed/simple;
-	bh=UwgLMIrmDPHPdVOs4f2CMMUTct58tVKlcy6cqzCatsM=;
+	s=arc-20240116; t=1788521591; c=relaxed/simple;
+	bh=7PDPqTJeVpY7sV80mv2Dt/DZ2OUC0Kw0gnHDFrloR9w=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=mltjja9cd1z/9+heLkwPQeZTOsYWGR2DpYeijwcxftiVIkStTv82VcVDZRiXTkzUsWjJu58N5CMGMsHbh04jXlipreEeAvYIl4qS9RVX3IkE9nIUdAS5f/F2j6xDtu94F0xcnBJTxs4UqsD0T4MJfRtGjLLzLyjLZRGepwEsKS4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Qm3SQAIo; arc=none smtp.client-ip=209.85.210.46
+	 MIME-Version; b=Zf29sP05HpXB+rnODCtj2m7FNFFIxnQszX+xvc1qBVzbFw28n7ZpbUz9gHigyTH/qDXnPWPgOolqBpbgZj+MLuzrQN+hSI+bhvOMTGjlM/giEzeDAG7lo7gAwIjklBkV/UiiOhQ4Yo8h12qpSKvhYQj0/kpeykuBF1OdVkBIdXc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ANhjfi3J; arc=none smtp.client-ip=209.85.161.54
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Qm3SQAIo"
-Received: by mail-ot1-f46.google.com with SMTP id 46e09a7af769-7f5934ba2a5so462119a34.3
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 04:33:06 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ANhjfi3J"
+Received: by mail-oo1-f54.google.com with SMTP id 006d021491bc7-6b1b233ca98so664534eaf.1
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 04:33:09 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788521585; x=1789126385; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1788521588; x=1789126388; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=euVKfdJ7nhmJ+/QxZ/Ovr4SAaOtQvGgHZZQ0sz9pYzY=;
-        b=Qm3SQAIoVzmyXvBomgy8GeJL/yMPwD+r+POgVCp0i/Y0e0n7LgegJx8ZJlEmQGUA18
-         2dNBB65C+L79WrbCmWAopMRpvM1QMFJ3lr8pqi6TMPk97gg3HD4nM5duddd/XamJmVh+
-         XdNr2D1xlEwrYcTN4qnU53gLsGWRFIS4msbYTR3NbJKCHrMpllpVlIskTCHmHpkMu376
-         AyEJ4n7ugT49wjFDiZ3bFkniwtplt6xtG0D75t2E3CHkr/MPbrCiyippmoTNyr8Kcxk9
-         EGfyBFNjrcF0C5cdiPpwM65BkO54AWvYBpvYQDgwsYGI3Bk8OdbSs1kOPEBxmVzqUHsr
-         e3fA==
+        bh=ikztmPTNBMqsUkOsnaMhukEmaEOjEaj+FkA+gBzLwdE=;
+        b=ANhjfi3J22Gtg/85NohE0UvzxNCUKWOFYwEj0iwXGGOIiWOF+Q1RzGf9akG/hFOZwH
+         3COCHHfp+OrRZBDnO49oYOX99sPZOPNMhuNktxYZ/v70z5GHZtIyzUXzd8Jka4t7G4LX
+         gApFAef/QiMEmd4+1Q4hHrMWzDpiNlFG2y6+ctMKVcZ20HqhGPTHAGmx+MxWu442MyaK
+         CspUfoRTu48O3I1ihIWEZ4F6d+pKbEKpZya0PnYjmfuIYhoTm334Q8r4Ny9ucKuj+6YU
+         nWcV1sIWicX8pJrUUmZ0DnN7OyQNbAgIriGiRGo8b5ytjvHVAAPGuwVm070zkK0N3Lpj
+         DdUA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788521585; x=1789126385;
+        d=1e100.net; s=20251104; t=1788521588; x=1789126388;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=euVKfdJ7nhmJ+/QxZ/Ovr4SAaOtQvGgHZZQ0sz9pYzY=;
-        b=NB5j5qRPEXrjiMgId95plcsVjGHsP47vVS/u2TydBvWR7Yz4jmvPSqLVnJP38YLE2r
-         +MxdJdnsbvGOv8bM/6IUxzldh0mS63+JeTCMtCdlX/jKQbOKB3Ho91Ty1Rk2vNOvFPh+
-         66q6urWx7VfBU/BQ0X1eodA7Rc86RcAdFmgAbQ4KL2075qY+3ev6/DoabTo6nsgpL/TV
-         cGm6MEzYT3aa69YHpuPYR9iEVHnxBMDpDpTPDQQxiTImAbKZ632cmtoOilwDbPIqBw4h
-         6LD4GrXTOdC+ySVPE4QjyXtuNQL/TfgmBSc5Zzamvz9ih3y+zPI5su1mCawDS/mR6KVE
-         IIHg==
-X-Gm-Message-State: AFuF++lHIzGmt9MtD8t/dZLvvTEFrY2UP+Tbo8/Bkvwm4QnzU2U0VgVl
-	SLeym7Xnein60wqM1WdWuxuuDZ10r6g2d235UD/1xkPQrGuPccCXjBTMZLXKmjYK03Q=
-X-Gm-Gg: AYBFou2K7f+r4R4TBjO2ED/gf3adSLBvObuGzW1EBls8N5uwUFCEX3XB7TUL2FgFjyS
-	U2v+hiNkYzoJQBqwHVwmhAcVVcpHrmQaqeKe444KzBYKFyXggzd8kR8Yu4oTX8pNL2t/CFNS6qb
-	0x09D56ScKBD4FlBq6MiJYzGHhmnrY0tyBBmNZaSbfobl7SKpmChh7H89943hFXRbRIaPAyeqaL
-	YkI3aHG3mwYvExPb+BDgJtJUxcomwT6jeBkohQaHPfvR4K2hB/PguJck21ObiPyK09Zce5mJqtR
-	PTaczA7gutuA4CcffV2amMAEFkLMpNfc9oHFtqc6fOmxVjHFcoMrvpSFPwsqg73Rp2n+lUXnfWU
-	thJTCbTXH0CVaMnHOy7aQFdCo0UcI3FfPKKzEZharYpp2eHWuC96RNjgqQe0qIDa1kXpV0Z22jR
-	z6UCJ2LJyUcWZvvctb9bgV4lomv9SFOiEBrWqSXBdenlx9HrbxSeLfnrNFNhSJKUsmCsOOTmdR0
-	j3Zz3YU4kKtDsRb3d5bQxJQ3g==
-X-Received: by 2002:a05:6820:1996:b0:6b4:96b:3e12 with SMTP id 006d021491bc7-6b6fd7d704bmr4206715eaf.23.1788521585217;
-        Fri, 04 Sep 2026 04:33:05 -0700 (PDT)
+        bh=ikztmPTNBMqsUkOsnaMhukEmaEOjEaj+FkA+gBzLwdE=;
+        b=VVxh0et+uFBNKZ7BKNVx+ecpyZqiwSWZwCywem5pNr6JwxLM0hbr0xLggB3cogcKi8
+         V0TUQK4IOl1l46dm/9czxUTTlRigp0TUnlz4fwOk1cHP670D+xpQNrP0QzKcYBbU/6dq
+         77h/ujaQ1ge9qyDItjRbMkkdIkbph8HO1YeFFPG5ZwWSsmL/qVjybciNfgGc5wghStnT
+         zi6iUpZG91I8vwTtYY2m4otvg7p9m2WfkkTcfqA8B5dwgl5gpHqmt+/dgifeCRCQsThF
+         74fbBn5pw31yawKZF8WIHt1eOs2iT131PxRAzFi3tQ3zqQ3Apsw0SvCqdCuA0lymdg6i
+         WHOg==
+X-Gm-Message-State: AFuF++l3HQ0lNcP77FMpId3QgAjtkrHstc8YOGHrsn4ZDaey/trAR9m+
+	Va8AYWsFzeW0/0mV/Z7MdDZ64Ju+x2W5iXSlxJGXdGAVsMS/Rt4PCI0MzcTR2+T8SRQ=
+X-Gm-Gg: AYBFou14Iaes+PBQJfOPdE7BbcLCdfzLjhv1yx4i0ErgD5VM1aZbB22tanliTDmQuHr
+	cc0ill/MicVixgGo+IAS2jVfoKBaTTQcvJtyiXwvDl11wMIK/fy7cZ9ILyLeAMQAxhj/6Q97/wf
+	P06aYOyUHM/KxsOWqMDDsBek6AsXdmsZYruQUCpTuuSJbf2unNOX9rT+sPIP2DZXhV73rDPPZEC
+	ViHDypgijLsUwinqt6Dwa2Pr/xNwQkv6uGjhghZmDaCucWjt2vQjWxcEXYVXtHqpmvan0K8q5ky
+	KPnfvjKzq++dFTbXa8mTY0hCLv6T+jtzVXqVbHM9D26NymL7uoPUMP47dWOU3mXEUc41XiAlHwU
+	WHiXAKiwrp1zcwPxL1lkAPVwtW3u1TJLUx1m10XYiPqfvbwatrMk52ooWOv5EYKW/DjPIOjBbd6
+	dIRNvKqIkKn/I8CjA5ZIfJMWtm83bNDq8hwA7XdUYq8Hmn7VD6c6cJmsayp9kQQqSX4bELwISxW
+	Pns3OzwhDY7umc=
+X-Received: by 2002:a05:6820:8118:b0:6b7:8415:d78c with SMTP id 006d021491bc7-6b78415d913mr1302066eaf.55.1788521588529;
+        Fri, 04 Sep 2026 04:33:08 -0700 (PDT)
 Received: from volcano9f6e-hostos.amd.com ([165.204.217.251])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339a534d0asm6469759eec.8.2026.09.04.04.33.02
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339a534d0asm6469759eec.8.2026.09.04.04.33.06
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 04 Sep 2026 04:33:04 -0700 (PDT)
+        Fri, 04 Sep 2026 04:33:08 -0700 (PDT)
 From: Hemanth Selam <hemanth.selam@gmail.com>
 To: Jonathan Corbet <corbet@lwn.net>,
 	Shuah Khan <skhan@linuxfoundation.org>,
 	Randy Dunlap <rdunlap@infradead.org>
 Cc: linux-kernel@vger.kernel.org,
 	linux-doc@vger.kernel.org
-Subject: [PATCH 1/2] Documentation/core-api: fix typo "maintainance" in comment
-Date: Fri,  4 Sep 2026 17:02:55 +0530
-Message-ID: <20260904113257.13594-2-hemanth.selam@gmail.com>
+Subject: [PATCH 2/2] tools/lib: fix typos in comments
+Date: Fri,  4 Sep 2026 17:02:56 +0530
+Message-ID: <20260904113257.13594-3-hemanth.selam@gmail.com>
 X-Mailer: git-send-email 2.48.1
 In-Reply-To: <20260904113257.13594-1-hemanth.selam@gmail.com>
 References: <20260904113257.13594-1-hemanth.selam@gmail.com>
@@ -78,29 +78,43 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Correct "maintainance" to "maintenance", reported by scripts/checkpatch.pl
-using the misspelling list in scripts/spelling.txt.  Only touches comments,
-no code changes.
+Fix typos in comments, reported by scripts/checkpatch.pl using the
+misspelling list in scripts/spelling.txt.  Only touches comments, no code
+changes.
 
 Assisted-by: Cursor:claude-opus-5
 Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
 ---
- Documentation/core-api/housekeeping.rst | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ tools/lib/python/kdoc/c_lex.py        | 2 +-
+ tools/lib/python/kdoc/xforms_lists.py | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/Documentation/core-api/housekeeping.rst b/Documentation/core-api/housekeeping.rst
-index ccb0a88b9cb3..71ba5d86f249 100644
---- a/Documentation/core-api/housekeeping.rst
-+++ b/Documentation/core-api/housekeeping.rst
-@@ -9,7 +9,7 @@ extreme workloads can't stand, such as in some DPDK usecases.
+diff --git a/tools/lib/python/kdoc/c_lex.py b/tools/lib/python/kdoc/c_lex.py
+index cb95f5172448..efbc23c01abd 100644
+--- a/tools/lib/python/kdoc/c_lex.py
++++ b/tools/lib/python/kdoc/c_lex.py
+@@ -68,7 +68,7 @@ class CToken():
  
- The kernel work moved away by CPU isolation is commonly described as
- "housekeeping" because it includes ground work that performs cleanups,
--statistics maintainance and actions relying on them, memory release,
-+statistics maintenance and actions relying on them, memory release,
- various deferrals etc...
+     MISMATCH = 255  #: an error indicator: should never happen in practice.
  
- Sometimes housekeeping is just some unbound work (unbound workqueues,
+-    # Dict to convert from an enum interger into a string.
++    # Dict to convert from an enum integer into a string.
+     _name_by_val = {v: k for k, v in dict(vars()).items() if isinstance(v, int)}
+ 
+     # Dict to convert from string to an enum-like integer value.
+diff --git a/tools/lib/python/kdoc/xforms_lists.py b/tools/lib/python/kdoc/xforms_lists.py
+index e3dda2fe8a53..423e2bab7667 100644
+--- a/tools/lib/python/kdoc/xforms_lists.py
++++ b/tools/lib/python/kdoc/xforms_lists.py
+@@ -53,7 +53,7 @@ class CTransforms:
+         (CMatch("__attribute__"), ""),
+ 
+         #
+-        # Macro __struct_group() creates an union with an anonymous
++        # Macro __struct_group() creates a union with an anonymous
+         # and a non-anonymous struct, depending on the parameters. We only
+         # need one of those at kernel-doc, as we won't be documenting the same
+         # members twice.
 -- 
 2.48.1
 
