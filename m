@@ -1,110 +1,165 @@
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
+Received: from mail-oo2-f2.google.com (mail-oo2-f2.google.com [74.125.231.130])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3F204AF9C0
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 14:14:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8FF44AFE1C
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 14:14:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788531278; cv=none; b=eOV/ZIlcHi+49zmwrimu22OpUhNs8pX5S6U7U8ygutrbCO5LqA1CId2Yzrq9G6FsX+PD8aUJi1xM7dlg6APYfZQir6Ko+PxYDnFzO/BUcQpUdp51Fra0BHJzT+GCMpfHU01c3qZ5+6su93BHfY7BXfIw8D289h0qy8DfxdeH+tU=
+	t=1788531279; cv=none; b=vBoDqX3tcJv27KWZ4bqXEJwzLvho5H7x0KWiTsEHwGESwpOoQIMvAUG+uxE2Js3P0RkzKLfEAf6kGTG+w+nTkwHsPcpWCnm6eKL4XBgCnAQ5Fi2y3zwLXxK1JAawZeZl7xG0NIGfSdeycjIbPy0wLOYCt9D3OjaKFQVfBIpXVEo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788531278; c=relaxed/simple;
-	bh=DGn209hkaWMFOjkQ83re+KwEpJGKoTo3ez+Bt3Mu1Zc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=OM3jO2BEUPAkMDvA+4RpLV3CbjF0mIBmMayWUPjK6+W0pEWbW7m+PC5VUlEv2eqgEhg7PkzhUePfoO2TXo3F+SzVTP+aPfh1XUIl5XOCxax0kBYLr8HICOSWprYnMfc4LxkcdpX9jRssnANgSBKCj+8rtJ3Mg51uMWmu6EvDIcQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=L69cR4+/; arc=none smtp.client-ip=209.85.128.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="L69cR4+/"
-Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-49ccfae359fso8494255e9.3
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 07:14:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1788531274; x=1789136074; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=z6Qo+0/1udSWJ0STlhhWyqGdrWWVT73HGXaXcBOH950=;
-        b=L69cR4+/Ts69gQIcwhc1+/X6M2ElOBQ14JlJ0G7v4X5CnKlRh4iltojDWu3ndhb9Ee
-         aYz04/hedCX/4wGTJg+CMrusYAUcBmAe+tQYhuCn//TETnwdeS/MUjRraEOEHxi3wGGH
-         0tvpHe9PcZdnw4OFJ1ARbPMXVirUF3ZsKqR3gcZ0Uxx8drmRj4/qBKeHBzxtDtSV9Hs4
-         RmTHTzQm2v2pzCBr6oGa40Eylq0gA/UN+40TixuaqdQnVzicGx0MhZaSALnVdcoiVK0w
-         6v1/WFSEkTXYiRD40zAOUjUQcqh3F0Jxghpvl9x1u66+FowunAaG7y3YvV+5twJuPK90
-         lfzw==
+	s=arc-20240116; t=1788531279; c=relaxed/simple;
+	bh=5cOsq/Q3S9J60MxF0T7IjniXMOMBOWSojeVSUpw78wQ=;
+	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=cB/L0DB2hXU7ndHRn16l+fVVwAJFKMiUoRzcq9Vkgg7O/JPD3OWzb/kUNsK7kk4xef0uqRj3qBYtbtsorw5u0L7zXhA/RF9HY3jXuXktMw9p3jXJVc3jqVBRtVKGN/ahyxrLeaQm4OKy17NuU/mnV+4sbRdP8JTpftiwkeSZPcc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=74.125.231.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oo2-f2.google.com with SMTP id 006d021491bc7-6b626da193aso103267eaf.1
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 07:14:37 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788531274; x=1789136074;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=z6Qo+0/1udSWJ0STlhhWyqGdrWWVT73HGXaXcBOH950=;
-        b=Y1rp/fgBlPUyagNzOVFL4jvBYL+dm/1wF3/wn8yQTcpFBfz4X7fhb9FmlU6F7EqAhJ
-         P2TROe/A9Dx+ST95XzpmpmdjjctDtRWQeJaVESeupVVpnccr3ddC6CUG3rbBAybTc0fz
-         2zswTSGU1tPINqR+axpojT8xIlmDnV1423G/ROcnMqL0/TSPqRzggaRTczAeNmVKP2t6
-         SaMzez7qeBE3qZieTrSg4hG4/XOYL4FOee5sWlBQkTTUOLWQBbNreXfv6m4C18KePU2d
-         dxMIZAK1RY2GXiH3EnmDBAxDnniq+CBWFvqzrr5mWl4RGjQFUST2XQVJiUVafNKUPPgd
-         P8jQ==
-X-Gm-Message-State: AFuF++mcqUF+HKMJM7KkJoSGl4JODCrWWaRMgG9NFOh0dljisiqvBV3i
-	+JeiJCxFXPrYzLgWLSsT7yYzKcpvR3W1TMy/FSbojv0duAM1HeIYvQdfqOezKNSLCudr76QEu73
-	9NAHtCeo=
-X-Gm-Gg: AYBFou2yoXcVgexg6l5xBZTxOFHMmzQDaAobVJEOj8DJ8BDTMvNIHd24HoaCMxPirDi
-	V9sdgK9ZAxIvCDqvNRlScbGf5HX2y2KWwC3xxsHDZMBW2nQsLA06gAA2V2zaboDJqQG0cV5hq5M
-	EendUTwGa0TM+jbblRvdjiITCiY7sIn/G2814suO03166KB/lvwqGCsTp4JHu4drQiN5J5IPvc+
-	2xIT5y2dnkUolKQl87v4eRAuQphcNNdUFMqWFyK5r8DzKnkG9RGNCeZd8tLuX5DxDENdYqMOBN9
-	rSFqgVA3fnIKj7ya8v6ukwc0RuQYY/DdMCv0Z42U3GdLzdi7qUj2v7WLragR2R2ocH0e2iQjjp5
-	7toH9NZqHJJij0/z0keQqs6pBL223HSZUz6/Yqw7gv7sBCcMgPg5ll92gIl2R8w/vFIr3aOieg8
-	2bM/EgacdfKZhrVmsKapW8uTpUPjYSla5XxFVw5PmnvHq/SbpigXUUNfBmpcytNujCftRRapdyx
-	WL1/pG/f3pWstbi0B1bww==
-X-Received: by 2002:a05:600c:474a:b0:499:79b9:e220 with SMTP id 5b1f17b1804b1-49cf825d722mr60991895e9.10.1788531274384;
-        Fri, 04 Sep 2026 07:14:34 -0700 (PDT)
-Received: from localhost.localdomain ([2a00:6d43:105:c401:e307:1a37:2e76:ce91])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cf5135353sm84723225e9.2.2026.09.04.07.14.33
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 04 Sep 2026 07:14:33 -0700 (PDT)
-From: Marco Crivellari <marco.crivellari@suse.com>
-To: linux-kernel@vger.kernel.org
-Cc: Tejun Heo <tj@kernel.org>,
-	Lai Jiangshan <jiangshanlai@gmail.com>,
-	Frederic Weisbecker <frederic@kernel.org>,
-	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
-	Marco Crivellari <marco.crivellari@suse.com>,
-	Michal Hocko <mhocko@suse.com>,
-	Breno Leitao <leitao@debian.org>
-Subject: [PATCH v3 2/2] doc: Update WQ_UNBOUND documentation
-Date: Fri,  4 Sep 2026 16:14:21 +0200
-Message-ID: <20260904141421.287647-3-marco.crivellari@suse.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260904141421.287647-1-marco.crivellari@suse.com>
-References: <20260904141421.287647-1-marco.crivellari@suse.com>
+        d=1e100.net; s=20251104; t=1788531277; x=1789136077;
+        h=content-type:to:from:subject:message-id:date:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=BrmQXxq+VMZilUy3MnBpTbj9a1HxAA2ccanctw/k1pk=;
+        b=Xuy10jt8qCVPlfOFwWCH/Fd5iADm4dWoKpMHZu4tz76tmgEydWiF+vA3qm+Cn5v4J3
+         ziOyWo8pr5PwaFbu0Jlk6fxZVXb8y1OcmjaH6hCmO/uqVrLOlX4Cdagq7J9HybvYWoxm
+         uUcNhzTEgybKUpgWM+wp3ONsjymb3hcPm1/qGBVuG8UuVCamfysee9O6nADTzj0G+GYO
+         LuMUAOr1vwYysxNlCJ6Kwit76GBbEcovtiIgIlADYOGhgu9sXSGUt4C2Z221y3Dwo8Tz
+         mUhaKhdZj5kqwHNLwvWjG5ug6b6Q1z5eidVGaCmnlJMmTpCAM5ZsPXIyQjqSo2IhevP4
+         uHbQ==
+X-Forwarded-Encrypted: i=1; AKwUvByeLSXH1+LFDFiR5KfeVg+Ky0mapMdSiT46alQf9Zarm2S1u5QYhvIjegkcrD1JGtC7A5SqQGzWPpMede4=@vger.kernel.org
+X-Gm-Message-State: AFuF++lToreI8lwUFWT4iasLSjErpHvL9pria/u0YREpRmygUgq0jwsk
+	JsVLkJWt/m17IT7FtzEV3li/haRSYAN63CNscV2uNUL8JQ7rqLhZyW5/6jR2z3g7W2BAwO7+YrK
+	DB7BGMjQVASzVLyU/a+rv+iyliLF+F555vRDhoU1/2VQ6PQVJIflZHHzyD/w=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-Received: by 2002:a05:6820:214:b0:6b3:61fa:102 with SMTP id
+ 006d021491bc7-6b6fdfc2b9bmr4233842eaf.34.1788531276739; Fri, 04 Sep 2026
+ 07:14:36 -0700 (PDT)
+Date: Fri, 04 Sep 2026 07:14:36 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6a9ad24c.b5d4176b.238c3e.0001.GAE@google.com>
+Subject: [syzbot] [bpf?] WARNING in bpf_mark_chain_precision
+From: syzbot <syzbot+7b47f87674e9a1569110@syzkaller.appspotmail.com>
+To: andrii@kernel.org, ast@kernel.org, bpf@vger.kernel.org, 
+	daniel@iogearbox.net, eddyz87@gmail.com, emil@etsalapatis.com, 
+	ihor.solodrai@linux.dev, jolsa@kernel.org, linux-kernel@vger.kernel.org, 
+	martin.lau@linux.dev, memxor@gmail.com, netdev@vger.kernel.org, 
+	song@kernel.org, syzkaller-bugs@googlegroups.com, yonghong.song@linux.dev
+Content-Type: text/plain; charset="UTF-8"
 
-When WQ_PERCPU is not present the default behavior is now WQ_UNBOUND,
-so update the documentation, reflecting this change.
+Hello,
 
-Link: https://lore.kernel.org/all/20250221112003.1dSuoGyc@linutronix.de/
-Suggested-by: Tejun Heo <tj@kernel.org>
-Signed-off-by: Marco Crivellari <marco.crivellari@suse.com>
+syzbot found the following issue on:
+
+HEAD commit:    e044668419b9 Merge branch 'misc-bug-fixes-part-1'
+git tree:       bpf
+console+strace: https://syzkaller.appspot.com/x/log.txt?x=162038f9580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=13dd96f4206498c4
+dashboard link: https://syzkaller.appspot.com/bug?extid=7b47f87674e9a1569110
+compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
+syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=165fcb49580000
+C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=112038f9580000
+
+Downloadable assets:
+disk image: https://storage.googleapis.com/syzbot-assets/2c0c9fa35baf/disk-e0446684.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/1ed2d74549a1/vmlinux-e0446684.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/479e5164ed3b/bzImage-e0446684.xz
+
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+7b47f87674e9a1569110@syzkaller.appspotmail.com
+
+------------[ cut here ]------------
+verifier bug: backtracking misuse
+WARNING: kernel/bpf/backtrack.c:829 at bpf_mark_chain_precision+0x571b/0x76b0 kernel/bpf/backtrack.c:829, CPU#1: syz-executor403/5624
+Modules linked in:
+CPU: 1 UID: 0 PID: 5624 Comm: syz-executor403 Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 07/24/2026
+RIP: 0010:bpf_mark_chain_precision+0x571b/0x76b0 kernel/bpf/backtrack.c:829
+Code: ff 89 d9 80 e1 07 80 c1 03 38 c1 0f 8c 16 ff ff ff 48 89 df e8 76 17 44 00 e9 09 ff ff ff e8 0c d0 d4 ff 48 8d 3d b5 50 6a 0e <67> 48 0f b9 3a 48 8b 3c 24 48 81 c7 88 08 00 00 48 c7 c6 a0 c6 f6
+RSP: 0018:ffffc90003957228 EFLAGS: 00010293
+RAX: ffffffff81f23d54 RBX: 0000000000000001 RCX: ffff88807f7b9f40
+RDX: 0000000000000000 RSI: 0000000000000003 RDI: ffffffff905c8e10
+RBP: 0000000000000003 R08: ffff88807f7b9f40 R09: 0000000000000003
+R10: 0000000000000007 R11: 0000000000000000 R12: ffff88807f4f3050
+R13: dffffc0000000000 R14: 0000000000000001 R15: 0000000000000000
+FS:  00005555805e0400(0000) GS:ffff888125024000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 00000000006a9ee0 CR3: 000000007133a000 CR4: 00000000003526f0
+Call Trace:
+ <TASK>
+ mark_chain_precision kernel/bpf/verifier.c:3373 [inline]
+ check_helper_call kernel/bpf/verifier.c:10894 [inline]
+ do_check_insn+0x12a74/0x17c20 kernel/bpf/verifier.c:18177
+ do_check kernel/bpf/verifier.c:18363 [inline]
+ do_check_common+0x3c19/0x5d30 kernel/bpf/verifier.c:19444
+ do_check_main kernel/bpf/verifier.c:19540 [inline]
+ bpf_check+0x2639/0x2e10 kernel/bpf/verifier.c:21195
+ bpf_prog_load+0x14d6/0x1c20 kernel/bpf/syscall.c:3133
+ __sys_bpf+0xd0d/0xd90 kernel/bpf/syscall.c:6367
+ __do_sys_bpf kernel/bpf/syscall.c:6486 [inline]
+ __se_sys_bpf kernel/bpf/syscall.c:6483 [inline]
+ __x64_sys_bpf+0xba/0xd0 kernel/bpf/syscall.c:6483
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x7f4f25cf1749
+Code: c0 79 93 eb d5 48 8d 7c 1d 00 eb 99 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 d8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007fff991a6f18 EFLAGS: 00000246 ORIG_RAX: 0000000000000141
+RAX: ffffffffffffffda RBX: 0000000000000000 RCX: 00007f4f25cf1749
+RDX: 0000000000000080 RSI: 0000200000000300 RDI: 0000000000000005
+RBP: 0000000000000000 R08: 0000000000000006 R09: 0000000000000006
+R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
+R13: 0000000000000000 R14: 00007f4f25d84c40 R15: 0000000000000002
+ </TASK>
+----------------
+Code disassembly (best guess):
+   0:	ff 89 d9 80 e1 07    	decl   0x7e180d9(%rcx)
+   6:	80 c1 03             	add    $0x3,%cl
+   9:	38 c1                	cmp    %al,%cl
+   b:	0f 8c 16 ff ff ff    	jl     0xffffff27
+  11:	48 89 df             	mov    %rbx,%rdi
+  14:	e8 76 17 44 00       	call   0x44178f
+  19:	e9 09 ff ff ff       	jmp    0xffffff27
+  1e:	e8 0c d0 d4 ff       	call   0xffd4d02f
+  23:	48 8d 3d b5 50 6a 0e 	lea    0xe6a50b5(%rip),%rdi        # 0xe6a50df
+* 2a:	67 48 0f b9 3a       	ud1    (%edx),%rdi <-- trapping instruction
+  2f:	48 8b 3c 24          	mov    (%rsp),%rdi
+  33:	48 81 c7 88 08 00 00 	add    $0x888,%rdi
+  3a:	48                   	rex.W
+  3b:	c7                   	.byte 0xc7
+  3c:	c6                   	(bad)
+  3d:	a0                   	.byte 0xa0
+  3e:	c6                   	(bad)
+  3f:	f6                   	.byte 0xf6
+
+
 ---
- Documentation/core-api/workqueue.rst | 2 ++
- 1 file changed, 2 insertions(+)
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
 
-diff --git a/Documentation/core-api/workqueue.rst b/Documentation/core-api/workqueue.rst
-index bb770f556568..3ca636e065ef 100644
---- a/Documentation/core-api/workqueue.rst
-+++ b/Documentation/core-api/workqueue.rst
-@@ -206,6 +206,8 @@ resources, scheduled and executed.
-   * Long running CPU intensive workloads which can be better
-     managed by the system scheduler.
- 
-+  Workqueue without ``WQ_PERCPU`` are unbound by default.
-+
- ``WQ_FREEZABLE``
-   A freezable wq participates in the freeze phase of the system
-   suspend operations.  Work items on the wq are drained and no
--- 
-2.55.0
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
 
+If the report is already addressed, let syzbot know by replying with:
+#syz fix: exact-commit-title
+
+If you want syzbot to run the reproducer, reply with:
+#syz test: git://repo/address.git branch-or-commit-hash
+If you attach or paste a git patch, syzbot will apply it before testing.
+
+If you want to overwrite report's subsystems, reply with:
+#syz set subsystems: new-subsystem
+(See the list of subsystem names on the web dashboard)
+
+If the report is a duplicate of another one, reply with:
+#syz dup: exact-subject-of-another-report
+
+If you want to undo deduplication, reply with:
+#syz undup
