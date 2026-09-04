@@ -1,78 +1,78 @@
-Received: from mail-pg1-f227.google.com (mail-pg1-f227.google.com [209.85.215.227])
+Received: from mail-pj1-f97.google.com (mail-pj1-f97.google.com [209.85.216.97])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82A0C47607C
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 10:52:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.227
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7FF747F2EA
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 10:52:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.97
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788519173; cv=none; b=UYi4pVz7IONjE5p2InPNjSW+7wX3e8ZrvFayzDRImC4Janod9eVq4HiOb+uMOIVlDcyfeHeHavEMAd++RW2CO1//XuYm4SyiQ+kCaZqgwXJhOZwam/Ka/pmtQNQNN7VD2Yn4vp4b/AS5uHyEE0PztsXF319UacYgApBB/YKfqFQ=
+	t=1788519173; cv=none; b=fThXvPRMeM3reEYPf5c+yryipKBwc0ZfyVwPXSYeJyYyfM7DV1kCu4EXvuj5PiGcpnwtOG5J/uyM4BFXIOjnbuil3uCw8spGPuwZcGPj8F0420TyCwsNzbbp8uKxAchixfIfPo2280+Rbx7Wc+JVyNK9PQaBlqr4FxmxqoihF48=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788519173; c=relaxed/simple;
-	bh=tTgtgyFIKd3q9DiaMOuxIhyUZuqzafNqO++JxmVf1hY=;
+	bh=viRaCPo5YHaiEcl+azpxon3HYStvJzOI9Ej4z1U2YY4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=B9OXIwu4d5fiYU+FQ+Z7v3AisxQ74RrGamxLM359LvQeYOyjcsRzEsrxUg5bZ9lYLY8GbBK+Mm/g30KjbnNClayYBJpj4uFYh7cThNwVdJVGYsiU1LsX+CXcxVzib8lDyM3oke7O59SbWcDWlgA5S0ZTy8+0kQPJH3Q5qbraQ7s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com; spf=fail smtp.mailfrom=broadcom.com; dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b=BByScYKP; arc=none smtp.client-ip=209.85.215.227
+	 MIME-Version; b=r4uYRnWGSu/Bmc5fxy6EG2wtIwKVaqz86VOvl1h91gYPnxYDivGO5O1dEUcLcZAGIRGzOsZM79cf36Y4QPAO8T8rZ7tThsm2vi/lrbB3GhnTGNDIkRpobuq+B6ISEN1euI1N9kexf1IhkiNcXoZiayExP91CPen+mqloC/EPHfc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com; spf=fail smtp.mailfrom=broadcom.com; dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b=DkzxYfaT; arc=none smtp.client-ip=209.85.216.97
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b="BByScYKP"
-Received: by mail-pg1-f227.google.com with SMTP id 41be03b00d2f7-cc1c9879395so752789a12.1
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 03:52:47 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b="DkzxYfaT"
+Received: by mail-pj1-f97.google.com with SMTP id 98e67ed59e1d1-39675172593so683780a91.2
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 03:52:43 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788519166; x=1789123966;
+        d=1e100.net; s=20251104; t=1788519161; x=1789123961;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:dkim-signature:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=SHKvq6U9+uHkmjRYJnuNGHeZf+WZK0TeIRdc8ogSsSA=;
-        b=X3GTsCNU4azrYpWxqgtrprjMo7LPPkANjt5NYsncS0mMv++VmF7M4ZuA5Sj0itN4aS
-         Og5VVFHWOtwPQblW0PNDFQMC6ZdfliezRK32QG69pEWedoAb17wyW8U25no18fP2Ab02
-         puvFSNcVLeojA2NGJb09ttNoIvzw2mgUUvRIe6QH5/1CUq9p/RLQZVMoSLeqOardM/OV
-         SW/x8Dbx2V3W2DgMpBp9j2Skzex3PMG34HFGPp4pcAA5y6KSr4ZbTg8OsgMNAC9eIN4F
-         HTCBeV5rmCMQqKODc+wPIdkLKza9uSFtfsWU24Fg1voQ08XsQXoQuA0pdXyksydvBCce
-         zb6A==
-X-Forwarded-Encrypted: i=1; AKwUvBxGsm0ZSujqFyoIkFfEVV5M6JeMm3UeObqKAgi+/+r9eh3AKw1XOoUlCB4uoVx3Zm4Gz59c0L5IguLZf5E=@vger.kernel.org
-X-Gm-Message-State: AFuF++lxSw4AjaOMfKbBj9muda0f/+cV30j186QRUbnsmoufLitPrQzq
-	Iszt+DF6SGPy8AiI/DrsFlKMgWmRMHZ5Xe1yc9pw1sxMleRYIZsTeI7aTdICRYfDjEEhBYvPXiu
-	v8TfOA4JM9qFu9nQzui2OyhD50zUhCiO1bhZ4CWqSWGziQuGN6OY7dSFLHC2ZkIiPRK/YRUsa14
-	fGZvM9E0AesCqUsduwRddI36UfWSSyFIOx7AMSrldxLKm8C2GBSmCynj4AoDtjzV76QJGnhtX0K
-	Ph9Sg0nIQodRV75q8ke
-X-Gm-Gg: AYBFou0uArGCioWCAe6BQ6UvjKX14KsIcChLmNWNOInYEFlytS+wdGD5K7lotR8YnzH
-	cCEgCWNKo/HzCjKewAYCUWznHVRhmYO8a/WztYdoQdAT18q1/NMep4xPoPkwJI/tCE9bUg60q61
-	BNPooyTYESEy65Lto3HzJ/0/tfkJfFEgCO0ISKXE748ggl3H68V0lkNmReLdkLxVMZHqaaEnVOI
-	SAW56E2kQpVMD4uH/cPf8GZ7hdO4JLdYCKIgj6HNRlb5QCgE/ZBskMhNBpKBZMdRsKthqHGDhUO
-	ZS7hDAZIQI4fmIhGdkUJp4iAl61LjAMRqWWo0jrycRSENGLkqlJg6l86fY3ZTysoljw7aF4idxs
-	s9A3XtF2NbK1yJkLMMeIVHjKBBk9BgChsvwF+FQ6s1v2uENM+GwwIf/GpUtAAcRMrPxLWFzeq0C
-	EZy05XdOpN3nB1dNhWvPZSHB78Lu52UU4Fjw==
-X-Received: by 2002:a05:6a21:8202:b0:3c3:7a0a:18a6 with SMTP id adf61e73a8af0-3da3a11eee0mr7472687637.18.1788519166443;
-        Fri, 04 Sep 2026 03:52:46 -0700 (PDT)
-Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-27.dlp.protect.broadcom.com. [144.49.247.27])
-        by smtp-relay.gmail.com with ESMTPS id 41be03b00d2f7-cc455447beesm387529a12.9.2026.09.04.03.52.45
+        bh=ExK6Cc2ds2XilVIq9fO163k/yfk/DjaJUZLyRhH88WQ=;
+        b=fyn/MycS0sdjREnQfJBLvmn+sqQ9PriALalRB2qmeCJkQy+MJn0pbGzbH6NCx/Fc75
+         sxD8F3+itLdeEWT6gaGD86dUE40+hNtb50Fw2BxvtZE3/YoVBKGXkVNwxei7YTG8GufK
+         36YaOadbCUFicLIzzQLZOXesjjy0QbFVpT6/lMxt9ZZmpkla8aNLBbG+fkZUebaS8cpE
+         FFq9Gqk5PcMGl2YKe6OEnco0H1Q1NErRGLRIE/5ymJUnKB/m6VIZutnbLRc2f2CBCBBy
+         04hqXL/0fKwr0hg3UbsMQLb0LFI5cUNSI1QZMvBRP+rbKR5L5ypImTU1ifUP3eUEFvKk
+         9kQA==
+X-Forwarded-Encrypted: i=1; AKwUvByNFbaa22E4qfQC/gtukgysYxmeENQRIAlTWPzpAiLPiVtqrmQ26vSFJRb9ge4i1B5DyBhqHuHTWGcbCqA=@vger.kernel.org
+X-Gm-Message-State: AFuF++m5OBhkbrHk38l+d5eUfZhOkBp9GB9SoTxdhFF2M3FtZEKuAmMW
+	iUbspBnC+I5oosdY7pWiGhIjuEfmYteYTkHS0F56Gh9hjWa/2n7BTK87Y2coH2jVz7IXofK0rcl
+	03apNd5XIwds+m1ySmU6iKsBdLx8LPdNorPRu31OczdvnawuxcOd+sI7ZQrUB0Zn9CZIZBBBpra
+	IhNoVvU8iy67WS9T8Pcrg3YyVgGRPagDlQtg6GzIM4YNem78XttBoBL5y2/vAT+Tnu5APblRhs7
+	bdGrlwZh0fxJs2Saj30
+X-Gm-Gg: AYBFou1EwFqnkmIAEj+BTQHk2xeY01ZcRXWIKrD7EfXHaLMD0jifz6QVcCRaBJ70uI4
+	MCh1rtz4ThcBZwqoRvqa6hSiw7H0vRHvnxJIMOfVEso8DX8oL8CffytEe11YlwuySSLkMFMCuVt
+	heSGWKn8gVd1X1edhDN/UqmXESaOkXgQ96vH8P1ZtisuTL/5Yzh7wJeGvicUhrsv528//GAcbbL
+	m48w7fgsJSeAzBtyMVhSxzkooSdHNNJWKBzvm6oMzZVimuTZPSSXYEHkDr0ek1/Wn7aIIdBJuXp
+	Tg8qF3VLoUvZwl6V+BoeXvn9yGGT/zHZJ5/TdnKXLjmhPEjvhsJOrAWJ4X+5fykJgCqXBM1L+8x
+	5G88VnLHImTsJvU9LLPQApghe8sObfIwHkogMAcg0nWF7yXpPFXNnQJs6SC2PNdJjGTK0TNiUlJ
+	g8shi1JKH/8twjKub0qkkx9+1ATEs/yBs2gzl4
+X-Received: by 2002:a17:90a:2c9:b0:39b:2b5a:8dc5 with SMTP id 98e67ed59e1d1-39b2b5a9b24mr3356415a91.6.1788519161365;
+        Fri, 04 Sep 2026 03:52:41 -0700 (PDT)
+Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-125.dlp.protect.broadcom.com. [144.49.247.125])
+        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-39b1600a403sm2506906a91.4.2026.09.04.03.52.40
         for <linux-kernel@vger.kernel.org>
         (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Fri, 04 Sep 2026 03:52:46 -0700 (PDT)
+        Fri, 04 Sep 2026 03:52:41 -0700 (PDT)
 X-Relaying-Domain: broadcom.com
 X-CFilter-Loop: Reflected
-Received: by mail-pl1-f200.google.com with SMTP id d9443c01a7336-2d6fb956002so13016565ad.1
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 03:52:45 -0700 (PDT)
+Received: by mail-pg1-f199.google.com with SMTP id 41be03b00d2f7-cc1ca15334cso1269686a12.1
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 03:52:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=broadcom.com; s=google; t=1788519164; x=1789123964; darn=vger.kernel.org;
+        d=broadcom.com; s=google; t=1788519159; x=1789123959; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=SHKvq6U9+uHkmjRYJnuNGHeZf+WZK0TeIRdc8ogSsSA=;
-        b=BByScYKPY2T4f+0e3BU/AGWwnbybutXs3OL1R3LoIBWgpTFyDAzqIIBJJHW6292ru4
-         4XvtkI1KmzRCeTa7W0AJyhqxwv+bRoKrxNkA1HO4DXmAlwn3MxjxXQK2wtGqpimWRKU+
-         NcJzO36uTgfCujPytDQqdeYGRs6oH3CNGxRKU=
-X-Forwarded-Encrypted: i=1; AKwUvBxKPmntFBfK7pPgpfJukhzg3TrRsMFWbK++uzCWrq4NWJgnJqbli7mPZT+U/paRCLPDzgrN4xrDlm97a5w=@vger.kernel.org
-X-Received: by 2002:a17:902:f1d3:b0:2da:f3f6:7cb1 with SMTP id d9443c01a7336-2db12666affmr45712545ad.19.1788519164096;
-        Fri, 04 Sep 2026 03:52:44 -0700 (PDT)
-X-Received: by 2002:a17:902:f1d3:b0:2da:f3f6:7cb1 with SMTP id d9443c01a7336-2db12666affmr45712155ad.19.1788519163535;
-        Fri, 04 Sep 2026 03:52:43 -0700 (PDT)
+        bh=ExK6Cc2ds2XilVIq9fO163k/yfk/DjaJUZLyRhH88WQ=;
+        b=DkzxYfaTtrEDwgl9qRYcoBNsPOCVwPPlL4cpHPZUQJAGh9WlJI1uSx4yERBeKlk0xO
+         xPGAxDWhgcA9+A1nArm73g+PPVgzC+j6sIggywNEGQTeVHUHH07bqUCmeqtgAt8YssFw
+         25/HOz9N7SfUYoEbZUrx03/7Y0J7XwS11FqEI=
+X-Forwarded-Encrypted: i=1; AKwUvBwhujtpJZw5+heLp6U879RauIRvxDt4Wix1biRD5ItbHeVTt7IPbXcimDuld81BWt2gXoRwV1SMd0zGy14=@vger.kernel.org
+X-Received: by 2002:a17:90a:51c6:b0:39b:29ca:3d23 with SMTP id 98e67ed59e1d1-39b29ca41d5mr4043865a91.17.1788519158787;
+        Fri, 04 Sep 2026 03:52:38 -0700 (PDT)
+X-Received: by 2002:a17:90a:51c6:b0:39b:29ca:3d23 with SMTP id 98e67ed59e1d1-39b29ca41d5mr4043807a91.17.1788519158140;
+        Fri, 04 Sep 2026 03:52:38 -0700 (PDT)
 Received: from mgmt5.dhcp.broadcom.net ([192.19.222.250])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339a534d0asm6171170eec.8.2026.09.04.03.52.42
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339a534d0asm6171170eec.8.2026.09.04.03.52.37
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 04 Sep 2026 03:52:42 -0700 (PDT)
+        Fri, 04 Sep 2026 03:52:37 -0700 (PDT)
 From: Siva Reddy Kallam <siva.kallam@broadcom.com>
 To: leonro@nvidia.com,
 	jgg@nvidia.com,
@@ -87,9 +87,9 @@ Cc: netdev@vger.kernel.org,
 	linux-rdma@vger.kernel.org,
 	Suresh Rupanagudi <suresh.rupanagudi@broadcom.com>,
 	Siva Reddy Kallam <siva.kallam@broadcom.com>
-Subject: [PATCH 11/15] RDMA/bng_re: Add SRQ verbs
-Date: Fri,  4 Sep 2026 03:43:19 -0700
-Message-ID: <20260904104328.763768-12-siva.kallam@broadcom.com>
+Subject: [PATCH 09/15] RDMA/bng_re: Add MR verbs
+Date: Fri,  4 Sep 2026 03:43:17 -0700
+Message-ID: <20260904104328.763768-10-siva.kallam@broadcom.com>
 X-Mailer: git-send-email 2.43.5
 In-Reply-To: <20260904104328.763768-1-siva.kallam@broadcom.com>
 References: <20260904104328.763768-1-siva.kallam@broadcom.com>
@@ -105,586 +105,778 @@ X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
 From: Suresh Rupanagudi <suresh.rupanagudi@broadcom.com>
 
 This patch adds below verbs.
-- bng_re_create_srq
-- bng_re_modify_srq
-- bng_re_query_srq
-- bng_re_destroy_srq
+- bng_re_get_dma_mr
+- bng_re_alloc_mr
+- bng_re_map_mr_sg
+- bng_re_reg_user_mr
+- bng_re_reg_user_mr_dmabuf
+- bng_re_dereg_mr
 
 Signed-off-by: Suresh Rupanagudi <suresh.rupanagudi@broadcom.com>
 Signed-off-by: Siva Reddy Kallam <siva.kallam@broadcom.com>
 ---
- drivers/infiniband/hw/bng_re/bng_dev.c   |   5 +
- drivers/infiniband/hw/bng_re/bng_re.h    |   1 +
- drivers/infiniband/hw/bng_re/bng_res.c   |   1 +
- drivers/infiniband/hw/bng_re/bng_res.h   |   9 +
- drivers/infiniband/hw/bng_re/bng_sp.c    | 144 +++++++++++++++
- drivers/infiniband/hw/bng_re/bng_sp.h    |  28 +++
- drivers/infiniband/hw/bng_re/bng_verbs.c | 216 +++++++++++++++++++++++
- drivers/infiniband/hw/bng_re/bng_verbs.h |  25 +++
- include/uapi/rdma/bng_re-abi.h           |  14 ++
- 9 files changed, 443 insertions(+)
+ drivers/infiniband/hw/bng_re/bng_dev.c   |   8 +
+ drivers/infiniband/hw/bng_re/bng_res.h   |  15 +-
+ drivers/infiniband/hw/bng_re/bng_sp.c    | 210 ++++++++++++++
+ drivers/infiniband/hw/bng_re/bng_sp.h    |  52 ++++
+ drivers/infiniband/hw/bng_re/bng_verbs.c | 333 +++++++++++++++++++++++
+ drivers/infiniband/hw/bng_re/bng_verbs.h |  27 ++
+ 6 files changed, 640 insertions(+), 5 deletions(-)
 
 diff --git a/drivers/infiniband/hw/bng_re/bng_dev.c b/drivers/infiniband/hw/bng_re/bng_dev.c
-index 9c35c56ae583..a42e24691cad 100644
+index b8a50c8cd299..44c278a93778 100644
 --- a/drivers/infiniband/hw/bng_re/bng_dev.c
 +++ b/drivers/infiniband/hw/bng_re/bng_dev.c
-@@ -57,6 +57,11 @@ static const struct ib_device_ops bng_re_dev_ops = {
- 	.resize_user_cq		= bng_re_resize_cq,
- 	.req_notify_cq		= bng_re_req_notify_cq,
- 	.destroy_cq		= bng_re_destroy_cq,
-+	.create_srq		= bng_re_create_srq,
-+	.modify_srq		= bng_re_modify_srq,
-+	.query_srq		= bng_re_query_srq,
-+	.destroy_srq		= bng_re_destroy_srq,
-+	INIT_RDMA_OBJ_SIZE(ib_srq, bng_re_srq, ib_srq),
- 	INIT_RDMA_OBJ_SIZE(ib_cq, bng_re_cq, ib_cq),
+@@ -46,6 +46,12 @@ static const struct ib_device_ops bng_re_dev_ops = {
+ 	.del_gid		= bng_re_del_gid,
+ 	.alloc_pd		= bng_re_alloc_pd,
+ 	.dealloc_pd		= bng_re_dealloc_pd,
++	.get_dma_mr		= bng_re_get_dma_mr,
++	.alloc_mr		= bng_re_alloc_mr,
++	.map_mr_sg		= bng_re_map_mr_sg,
++	.reg_user_mr		= bng_re_reg_user_mr,
++	.reg_user_mr_dmabuf	= bng_re_reg_user_mr_dmabuf,
++	.dereg_mr		= bng_re_dereg_mr,
  	INIT_RDMA_OBJ_SIZE(ib_pd, bng_re_pd, ib_pd),
  	INIT_RDMA_OBJ_SIZE(ib_ucontext, bng_re_ucontext, ib_uctx),
-diff --git a/drivers/infiniband/hw/bng_re/bng_re.h b/drivers/infiniband/hw/bng_re/bng_re.h
-index 47b4037e124e..70851f1180d0 100644
---- a/drivers/infiniband/hw/bng_re/bng_re.h
-+++ b/drivers/infiniband/hw/bng_re/bng_re.h
-@@ -296,6 +296,7 @@ struct bng_re_dev {
- 	struct bng_re_dpi		dpi_privileged;
- 	struct bng_sp_cq_coal_param	cq_coalescing;
- 	DECLARE_HASHTABLE(cq_hash, MAX_CQ_HASH_BITS);
-+	DECLARE_HASHTABLE(srq_hash, 8);  /* SRQ hash table */
  };
- 
- #define to_bng_re_dev(ptr, member)	\
-diff --git a/drivers/infiniband/hw/bng_re/bng_res.c b/drivers/infiniband/hw/bng_re/bng_res.c
-index 8bf6e8efa182..024d49f68b09 100644
---- a/drivers/infiniband/hw/bng_re/bng_res.c
-+++ b/drivers/infiniband/hw/bng_re/bng_res.c
-@@ -265,6 +265,7 @@ int bng_re_alloc_init_hwq(struct bng_re_hwq *hwq,
- 	hwq->max_elements = hwq->depth;
- 	hwq->element_size = stride;
- 	hwq->qe_ppg = pg_size / stride;
-+	hwq->is_user = !!hwq_attr->sginfo->umem;
- 	/* For direct access to the elements */
- 	lvl = hwq->level;
- 	if (hwq_attr->sginfo->nopte && hwq->level)
+@@ -91,6 +97,7 @@ static void bng_re_destroy_chip_ctx(struct bng_re_dev *rdev)
+ 	chip_ctx = rdev->chip_ctx;
+ 	rdev->chip_ctx = NULL;
+ 	rdev->rcfw.res = NULL;
++	rdev->bng_res.rcfw = NULL;
+ 	rdev->bng_res.cctx = NULL;
+ 	rdev->bng_res.pdev = NULL;
+ 	kfree(chip_ctx);
+@@ -117,6 +124,7 @@ static int bng_re_setup_chip_ctx(struct bng_re_dev *rdev)
+ 	aux_dev = rdev->aux_dev;
+ 	rdev->bng_res.pdev = aux_dev->pdev;
+ 	rdev->rcfw.res = &rdev->bng_res;
++	rdev->bng_res.rcfw = &rdev->rcfw;
+ 	chip_ctx = kzalloc_obj(*chip_ctx);
+ 	if (!chip_ctx)
+ 		return -ENOMEM;
 diff --git a/drivers/infiniband/hw/bng_re/bng_res.h b/drivers/infiniband/hw/bng_re/bng_res.h
-index 0f832f9bae20..00429b4a7d30 100644
+index 72afe51c6bfa..cb0f302fc06a 100644
 --- a/drivers/infiniband/hw/bng_re/bng_res.h
 +++ b/drivers/infiniband/hw/bng_re/bng_res.h
-@@ -170,6 +170,7 @@ struct bng_re_hwq {
- 	u32				cons;
- 	/* queue entry per page */
- 	u16				qe_ppg;
-+	u8				is_user;
+@@ -38,6 +38,8 @@
+ 
+ #define RCFW_DBR_PCI_BAR_REGION		2
+ 
++#define BNG_RE_FR_PMR		0x80000000
++
+ struct bng_re_gid {
+ 	u8 data[16];
+ };
+@@ -123,14 +125,16 @@ enum bng_re_pbl_lvl {
+ 
+ enum bng_re_hwq_type {
+ 	BNG_HWQ_TYPE_CTX,
+-	BNG_HWQ_TYPE_QUEUE
++	BNG_HWQ_TYPE_QUEUE,
++	BNG_HWQ_TYPE_MR
  };
  
- struct bng_re_stats {
-@@ -288,6 +289,14 @@ static inline void bng_re_ring_nq_db(struct bng_re_db_info *info,
- 	bng_re_ring_db(info, type);
- }
+ struct bng_re_sg_info {
+-	u32	npages;
+-	u32	pgshft;
+-	u32	pgsize;
+-	bool	nopte;
++	u32			npages;
++	u32			pgshft;
++	u32			pgsize;
++	bool			nopte;
++	struct ib_umem		*umem;
+ };
  
-+static inline void bng_re_srq_arm_db(struct bng_re_db_info *info, u32 th)
-+{
-+	u64 key = 0;
-+
-+	key = BNG_RE_INIT_DBHDR(info->xid, DBC_DBC_TYPE_SRQ_ARM, th, info->toggle);
-+	writeq(key, info->priv_db);
-+}
-+
- static inline void bng_re_hwq_incr_cons(u32 max_elements, u32 *cons, u32 cnt,
- 					u32 *dbinfo_flags)
- {
+ struct bng_re_hwq_attr {
+@@ -216,6 +220,7 @@ struct bng_re_res {
+ 	struct bng_re_pd_tbl		pd_tbl;
+ 	/* Serialize access to PD table */
+ 	struct mutex			pd_tbl_lock;
++	struct bng_re_rcfw		*rcfw;
+ };
+ 
+ #define to_bng_re_res(ptr, member)	container_of(ptr, struct bng_re_res, member)
 diff --git a/drivers/infiniband/hw/bng_re/bng_sp.c b/drivers/infiniband/hw/bng_re/bng_sp.c
-index 04488db6d016..78e2bb9ad859 100644
+index 97768a25c0e4..cd33ff32845a 100644
 --- a/drivers/infiniband/hw/bng_re/bng_sp.c
 +++ b/drivers/infiniband/hw/bng_re/bng_sp.c
-@@ -816,3 +816,147 @@ int bng_sp_destroy_cq(struct bng_re_res *res, struct bng_sp_cq *cq)
+@@ -371,3 +371,213 @@ int bng_sp_dealloc_pd(struct bng_re_res *res,
+ 	mutex_unlock(&res->pd_tbl_lock);
  	return 0;
  }
- 
-+int bng_sp_create_srq(struct bng_re_res *res, struct bng_sp_srq *srq)
++
++/* MR allocation/de-allocation functions */
++int bng_sp_alloc_mrw(struct bng_re_res *res, struct bng_re_mrw *mrw)
++{
++	struct bng_re_rcfw *rcfw = res->rcfw;
++	struct creq_allocate_mrw_resp resp = {};
++	struct bng_re_cmdqmsg msg = {};
++	struct cmdq_allocate_mrw req = {};
++	int rc;
++
++	bng_re_rcfw_cmd_prep((struct cmdq_base *)&req,
++			     CMDQ_BASE_OPCODE_ALLOCATE_MRW,
++			     sizeof(req));
++
++	req.pd_id = cpu_to_le32(mrw->pd->id);
++	req.mrw_flags = mrw->type;
++
++	if ((mrw->type == CMDQ_ALLOCATE_MRW_MRW_FLAGS_PMR &&
++	     mrw->access_flags & BNG_RE_FR_PMR) ||
++	    mrw->type == CMDQ_ALLOCATE_MRW_MRW_FLAGS_MW_TYPE2A ||
++	    mrw->type == CMDQ_ALLOCATE_MRW_MRW_FLAGS_MW_TYPE2B)
++		req.access = CMDQ_ALLOCATE_MRW_ACCESS_CONSUMER_OWNED_KEY;
++	req.mrw_handle = cpu_to_le64(mrw);
++
++	bng_re_fill_cmdqmsg(&msg, &req, &resp, NULL, sizeof(req),
++			    sizeof(resp), 0);
++	rc = bng_re_rcfw_send_message(rcfw, &msg);
++	if (rc)
++		return rc;
++
++	if (mrw->type == CMDQ_ALLOCATE_MRW_MRW_FLAGS_MW_TYPE1 ||
++	    mrw->type == CMDQ_ALLOCATE_MRW_MRW_FLAGS_MW_TYPE2A ||
++	    mrw->type == CMDQ_ALLOCATE_MRW_MRW_FLAGS_MW_TYPE2B)
++		mrw->rkey = le32_to_cpu(resp.xid);
++	else
++		mrw->lkey = le32_to_cpu(resp.xid);
++
++	return 0;
++}
++
++int bng_sp_alloc_fast_reg_page_list(struct bng_re_res *res,
++				    struct bng_re_frpl *frpl,
++				    int max_pg_ptrs)
++{
++	struct bng_re_hwq_attr hwq_attr = {};
++	struct bng_re_sg_info sginfo = {};
++	struct bng_re_hwq *hwq;
++	int pg_ptrs, pages, rc;
++
++	pg_ptrs = roundup_pow_of_two(max_pg_ptrs);
++	pages = pg_ptrs >> MAX_PBL_LVL_1_PGS_SHIFT;
++	if (!pages)
++		pages++;
++
++	if (pages > MAX_PBL_LVL_1_PGS)
++		return -ENOMEM;
++
++	sginfo.pgsize = PAGE_SIZE;
++	sginfo.nopte = true;
++
++	hwq_attr.res = res;
++	hwq_attr.depth = pg_ptrs;
++	hwq_attr.stride = PAGE_SIZE;
++	hwq_attr.sginfo = &sginfo;
++	hwq_attr.type = BNG_HWQ_TYPE_CTX;
++
++	hwq = &frpl->hwq;
++	rc = bng_re_alloc_init_hwq(hwq, &hwq_attr);
++	if (!rc)
++		frpl->max_pg_ptrs = pg_ptrs;
++
++	return rc;
++}
++
++int bng_sp_free_mrw(struct bng_re_res *res,
++		    struct bng_re_mrw *mrw)
++{
++	struct creq_deallocate_key_resp resp = {};
++	struct cmdq_deallocate_key req = {};
++	struct bng_re_rcfw *rcfw = res->rcfw;
++	struct bng_re_cmdqmsg msg = {};
++	struct bng_re_hwq *hwq;
++	int rc;
++
++	if (mrw->lkey == BNG_RE_RSVD_LKEY)
++		return 0;
++
++	bng_re_rcfw_cmd_prep((struct cmdq_base *)&req,
++			     CMDQ_BASE_OPCODE_DEALLOCATE_KEY,
++			     sizeof(req));
++
++	req.mrw_flags = mrw->type;
++
++	if (mrw->type == CMDQ_ALLOCATE_MRW_MRW_FLAGS_MW_TYPE1 ||
++	    mrw->type == CMDQ_ALLOCATE_MRW_MRW_FLAGS_MW_TYPE2A ||
++	    mrw->type == CMDQ_ALLOCATE_MRW_MRW_FLAGS_MW_TYPE2B)
++		req.key = cpu_to_le32(mrw->rkey);
++	else
++		req.key = cpu_to_le32(mrw->lkey);
++
++	bng_re_fill_cmdqmsg(&msg, &req, &resp, NULL, sizeof(req),
++			    sizeof(resp), 0);
++	rc = bng_re_rcfw_send_message(rcfw, &msg);
++	if (rc)
++		return rc;
++
++	hwq = &mrw->hwq;
++	if (hwq->max_elements)
++		bng_re_free_hwq(res, hwq);
++
++	return 0;
++}
++
++int bng_sp_free_fast_reg_page_list(struct bng_re_res *res,
++				   struct bng_re_frpl *frpl)
++{
++	struct bng_re_hwq *hwq;
++
++	hwq = &frpl->hwq;
++	bng_re_free_hwq(res, hwq);
++	return 0;
++}
++
++int bng_sp_reg_mr(struct bng_re_res *res, struct bng_re_mrw *mr,
++		  struct ib_umem *umem, int num_pbls, u32 buf_pg_size,
++		  bool unified_mr)
 +{
 +	struct bng_re_rcfw *rcfw = res->rcfw;
 +	struct bng_re_hwq_attr hwq_attr = {};
-+	struct creq_create_srq_resp resp = {};
++	struct bng_re_sg_info sginfo = {};
++	struct creq_register_mr_resp resp = {};
 +	struct bng_re_cmdqmsg msg = {};
-+	struct cmdq_create_srq req = {};
-+	struct bng_re_pbl *pbl;
-+	u16 pg_sz_lvl;
-+	int rc, idx;
++	struct cmdq_register_mr req = {};
++	int pages, rc;
++	u32 pg_size;
++	u16 level;
 +
-+	hwq_attr.res = res;
-+	hwq_attr.sginfo = &srq->sginfo;
-+	hwq_attr.depth = srq->max_wqe;
-+	hwq_attr.stride = srq->wqe_size;
-+	hwq_attr.type = BNG_HWQ_TYPE_QUEUE;
-+	rc = bng_re_alloc_init_hwq(&srq->hwq, &hwq_attr);
-+	if (rc)
-+		return rc;
-+
-+	srq->dbinfo.flags = 0;
-+	bng_re_rcfw_cmd_prep((struct cmdq_base *)&req,
-+			     CMDQ_BASE_OPCODE_CREATE_SRQ,
-+			     sizeof(req));
-+
-+	/* Configure the request */
-+	req.dpi = cpu_to_le32(srq->dpi->dpi);
-+	req.srq_handle = cpu_to_le64((uintptr_t)srq);
-+
-+	req.srq_size = cpu_to_le16((u16)srq->hwq.max_elements);
-+	pbl = &srq->hwq.pbl[BNG_PBL_LVL_0];
-+	pg_sz_lvl = ((u16)bng_re_base_pg_size(&srq->hwq) <<
-+		     CMDQ_CREATE_SRQ_PG_SIZE_SFT);
-+	pg_sz_lvl |= (srq->hwq.level & CMDQ_CREATE_SRQ_LVL_MASK) <<
-+		      CMDQ_CREATE_SRQ_LVL_SFT;
-+	req.pg_size_lvl = cpu_to_le16(pg_sz_lvl);
-+	req.pbl = cpu_to_le64(pbl->pg_map_arr[0]);
-+	req.pd_id = cpu_to_le32(srq->pd->id);
-+	req.eventq_id = cpu_to_le16(srq->eventq_hw_ring_id);
-+
-+	bng_re_fill_cmdqmsg(&msg, &req, &resp, NULL, sizeof(req), sizeof(resp), 0);
-+	rc = bng_re_rcfw_send_message(rcfw, &msg);
-+	if (rc)
-+		goto fail;
-+
-+	srq->id = le32_to_cpu(resp.xid);
-+	srq->start_idx = 0;
-+	srq->last_idx = srq->hwq.max_elements - 1;
-+
-+	/* Allocate shadow queue for kernel SRQs */
-+	if (!srq->hwq.is_user) {
-+		srq->swq = kcalloc(srq->hwq.max_elements, sizeof(*srq->swq),
-+				   GFP_KERNEL);
-+		if (!srq->swq) {
-+			rc = -ENOMEM;
-+			goto fail_swq;
++	if (num_pbls) {
++		pages = roundup_pow_of_two(num_pbls);
++		/* Allocate memory for the non-leaf pages to store buf ptrs.
++		 * Non-leaf pages always uses system PAGE_SIZE
++		 */
++		/* Free the hwq if it already exist, must be a rereg */
++		if (mr->hwq.max_elements)
++			bng_re_free_hwq(res, &mr->hwq);
++		hwq_attr.res = res;
++		hwq_attr.depth = pages;
++		hwq_attr.stride = sizeof(dma_addr_t);
++		hwq_attr.type = BNG_HWQ_TYPE_MR;
++		hwq_attr.sginfo = &sginfo;
++		hwq_attr.sginfo->umem = umem;
++		hwq_attr.sginfo->npages = pages;
++		hwq_attr.sginfo->pgsize = buf_pg_size;
++		hwq_attr.sginfo->pgshft = ilog2(buf_pg_size);
++		rc = bng_re_alloc_init_hwq(&mr->hwq, &hwq_attr);
++		if (rc) {
++			dev_err(&res->pdev->dev,
++				"SP: Reg MR memory allocation failed\n");
++			return -ENOMEM;
 +		}
-+		for (idx = 0; idx < srq->hwq.max_elements; idx++)
-+			srq->swq[idx].next_idx = idx + 1;
-+		srq->swq[srq->last_idx].next_idx = -1;
 +	}
 +
-+	srq->dbinfo.hwq = &srq->hwq;
-+	srq->dbinfo.xid = srq->id;
-+	srq->dbinfo.db = srq->dpi->dbr;
-+	srq->dbinfo.max_slot = 1;
-+	srq->dbinfo.priv_db = res->dpi_tbl.priv_db;
-+
-+	/* Arm the SRQ */
-+	bng_re_armen_db(&srq->dbinfo, DBC_DBC_TYPE_SRQ_ARMENA);
-+
-+	return 0;
-+
-+fail_swq:
-+	bng_sp_destroy_srq(res, srq);
-+	return rc;
-+
-+fail:
-+	bng_re_free_hwq(res, &srq->hwq);
-+	kfree(srq->swq);
-+	srq->swq = NULL;
-+
-+	return rc;
-+}
-+
-+int bng_sp_query_srq(struct bng_re_res *res, struct bng_sp_srq *srq)
-+{
-+	struct bng_re_rcfw *rcfw = res->rcfw;
-+	struct creq_query_srq_resp resp = {};
-+	struct bng_re_cmdqmsg msg = {};
-+	struct bng_re_rcfw_sbuf sbuf;
-+	struct creq_query_srq_resp_sb *sb;
-+	struct cmdq_query_srq req = {};
-+	int rc;
-+
 +	bng_re_rcfw_cmd_prep((struct cmdq_base *)&req,
-+			     CMDQ_BASE_OPCODE_QUERY_SRQ,
++			     CMDQ_BASE_OPCODE_REGISTER_MR,
 +			     sizeof(req));
 +
 +	/* Configure the request */
-+	sbuf.size = ALIGN(sizeof(*sb), BNG_FW_CMDQE_UNITS);
-+	sbuf.sb = dma_alloc_coherent(&rcfw->pdev->dev, sbuf.size,
-+				     &sbuf.dma_addr, GFP_KERNEL);
-+	if (!sbuf.sb)
-+		return -ENOMEM;
-+	req.resp_size = sbuf.size / BNG_FW_CMDQE_UNITS;
-+	req.srq_cid = cpu_to_le32(srq->id);
-+	sb = sbuf.sb;
++	if (mr->hwq.level == BNG_PBL_LVL_MAX) {
++		/* No PBL provided, just use system PAGE_SIZE */
++		level = 0;
++		req.pbl = 0;
++		pg_size = PAGE_SIZE;
++	} else {
++		level = mr->hwq.level;
++		req.pbl = cpu_to_le64(mr->hwq.pbl[BNG_PBL_LVL_0].pg_map_arr[0]);
++	}
++	pg_size = buf_pg_size ? buf_pg_size : PAGE_SIZE;
++	req.log2_pg_size_lvl = (level << CMDQ_REGISTER_MR_LVL_SFT) |
++			       ((ilog2(pg_size) <<
++				 CMDQ_REGISTER_MR_LOG2_PG_SIZE_SFT) &
++				CMDQ_REGISTER_MR_LOG2_PG_SIZE_MASK);
++	req.log2_pbl_pg_size = cpu_to_le16(((ilog2(PAGE_SIZE) <<
++				 CMDQ_REGISTER_MR_LOG2_PBL_PG_SIZE_SFT) &
++				CMDQ_REGISTER_MR_LOG2_PBL_PG_SIZE_MASK));
++	req.access = (mr->access_flags & BNG_RE_MR_ACCESS_MASK);
++	req.va = cpu_to_le64(mr->va);
++	req.key = cpu_to_le32(mr->lkey);
++	if (unified_mr)
++		req.key = cpu_to_le32(mr->pd->id);
++	req.flags = cpu_to_le16(mr->flags);
++	req.mr_size = cpu_to_le64(mr->total_size);
 +
-+	bng_re_fill_cmdqmsg(&msg, &req, &resp, &sbuf, sizeof(req),
++	bng_re_fill_cmdqmsg(&msg, &req, &resp, NULL, sizeof(req),
 +			    sizeof(resp), 0);
 +	rc = bng_re_rcfw_send_message(rcfw, &msg);
-+	if (!rc)
-+		srq->threshold = le16_to_cpu(sb->srq_limit);
-+	dma_free_coherent(&rcfw->pdev->dev, sbuf.size,
-+			  sbuf.sb, sbuf.dma_addr);
-+
-+	return rc;
-+}
-+
-+int bng_sp_destroy_srq(struct bng_re_res *res, struct bng_sp_srq *srq)
-+{
-+	struct bng_re_rcfw *rcfw = res->rcfw;
-+	struct creq_destroy_srq_resp resp = {};
-+	struct bng_re_cmdqmsg msg = {};
-+	struct cmdq_destroy_srq req = {};
-+	int rc;
-+
-+	bng_re_rcfw_cmd_prep((struct cmdq_base *)&req,
-+			     CMDQ_BASE_OPCODE_DESTROY_SRQ,
-+			     sizeof(req));
-+
-+	/* Configure the request */
-+	req.srq_cid = cpu_to_le32(srq->id);
-+
-+	bng_re_fill_cmdqmsg(&msg, &req, &resp, NULL, sizeof(req), sizeof(resp), 0);
-+	rc = bng_re_rcfw_send_message(rcfw, &msg);
 +	if (rc)
-+		return rc;
-+	bng_re_free_hwq(res, &srq->hwq);
-+	kfree(srq->swq);
++		goto free_hwq;
++
++	if (unified_mr) {
++		mr->lkey = le32_to_cpu(resp.xid);
++		mr->rkey = mr->lkey;
++	}
 +
 +	return 0;
++
++free_hwq:
++	if (mr->hwq.max_elements)
++		bng_re_free_hwq(res, &mr->hwq);
++	return rc;
 +}
 diff --git a/drivers/infiniband/hw/bng_re/bng_sp.h b/drivers/infiniband/hw/bng_re/bng_sp.h
-index d05151123f98..da4dceba4f46 100644
+index 136703942e1f..6dd3ff911548 100644
 --- a/drivers/infiniband/hw/bng_re/bng_sp.h
 +++ b/drivers/infiniband/hw/bng_re/bng_sp.h
-@@ -166,6 +166,31 @@ struct bng_sp_cq {
- 	u16				cnq_events;
+@@ -4,6 +4,8 @@
+ #ifndef __BNG_SP_H__
+ #define __BNG_SP_H__
+ 
++#include <rdma/ib_umem.h>
++
+ #include "bng_fw.h"
+ 
+ #define BNG_VAR_MAX_WQE		4352
+@@ -57,6 +59,45 @@ struct bng_sp_pd {
+ 	u32	id;
  };
  
-+/* SRQ shadow work queue entry */
-+struct bng_sp_swq {
-+	u64		wr_id;
-+	int		next_idx;
++/* Access flags */
++#define BNG_RE_ACCESS_LOCAL_WRITE	BIT(0)
++#define BNG_RE_ACCESS_REMOTE_READ	BIT(1)
++#define BNG_RE_ACCESS_REMOTE_WRITE	BIT(2)
++#define BNG_RE_ACCESS_REMOTE_ATOMIC	BIT(3)
++#define BNG_RE_ACCESS_MW_BIND		BIT(4)
++#define BNG_RE_ACCESS_ZERO_BASED	BIT(5)
++#define BNG_RE_ACCESS_ON_DEMAND		BIT(6)
++
++struct bng_re_mrw {
++	struct bng_sp_pd		*pd;
++	int				type;
++	u32				access_flags;
++#define BNG_RE_MR_ACCESS_MASK		0xFF
++	u32				lkey;
++	u32				rkey;
++#define BNG_RE_RSVD_LKEY		0xFFFFFFFF
++	u64				va;
++	u64				total_size;
++	u32				npages;
++	u16				flags;
++	u64				mr_handle;
++	struct bng_re_hwq		hwq;
++	u16				ctx_size_sb;
 +};
 +
-+/* SRQ SP layer structure */
-+struct bng_sp_srq {
-+	struct bng_sp_pd		*pd;
-+	struct bng_re_dpi		*dpi;
++struct bng_re_frpl {
++	int				max_pg_ptrs;
 +	struct bng_re_hwq		hwq;
-+	struct bng_re_db_info		dbinfo;
-+	struct bng_re_sg_info		sginfo;
-+	struct bng_sp_swq		*swq;
-+	u32				start_idx;
-+	u32				last_idx;
-+	u64				srq_handle;
-+	u32				id;
-+	u16				wqe_size;
-+	u32				max_wqe;
-+	u32				max_sge;
-+	u32				threshold;
-+	u16				eventq_hw_ring_id;
++};
++
++struct bng_sp_mrinfo {
++	struct bng_re_mrw		*mrw;
++	struct bng_re_sg_info		sg;
++	u64				*ptes;
++	bool				is_dma;
++	bool				request_relax_order;
 +};
 +
  int bng_re_get_dev_attr(struct bng_re_rcfw *rcfw);
  int bng_sp_alloc_sgid_tbl(struct bng_re_sgid_tbl *sgid_tbl, u16 size);
  
-@@ -200,5 +225,8 @@ void bng_sp_resize_cq_complete(struct bng_re_res *res, struct bng_sp_cq *cq);
- int bng_sp_resize_cq(struct bng_re_res *res, struct bng_sp_cq *cq,
- 		     int new_cqes);
- int bng_sp_destroy_cq(struct bng_re_res *res, struct bng_sp_cq *cq);
-+int bng_sp_create_srq(struct bng_re_res *res, struct bng_sp_srq *srq);
-+int bng_sp_query_srq(struct bng_re_res *res, struct bng_sp_srq *srq);
-+int bng_sp_destroy_srq(struct bng_re_res *res, struct bng_sp_srq *srq);
+@@ -76,4 +117,15 @@ int bng_sp_dealloc_pd(struct bng_re_res *res,
+ 		      struct bng_re_pd_tbl *pdt,
+ 		      struct bng_sp_pd *pd);
  
++int bng_sp_alloc_mrw(struct bng_re_res *res, struct bng_re_mrw *mrw);
++int bng_sp_alloc_fast_reg_page_list(struct bng_re_res *res,
++				    struct bng_re_frpl *frpl,
++				    int max_pg_ptrs);
++int bng_sp_free_fast_reg_page_list(struct bng_re_res *res,
++				   struct bng_re_frpl *frpl);
++int bng_sp_free_mrw(struct bng_re_res *res, struct bng_re_mrw *mrw);
++int bng_sp_reg_mr(struct bng_re_res *res, struct bng_re_mrw *mr,
++		  struct ib_umem *umem, int num_pbls, u32 buf_pg_size,
++		  bool unified_mr);
++
  #endif
 diff --git a/drivers/infiniband/hw/bng_re/bng_verbs.c b/drivers/infiniband/hw/bng_re/bng_verbs.c
-index b08ac20d788d..e48caefa64ee 100644
+index 140a972a0316..fe227d20513a 100644
 --- a/drivers/infiniband/hw/bng_re/bng_verbs.c
 +++ b/drivers/infiniband/hw/bng_re/bng_verbs.c
-@@ -1196,3 +1196,219 @@ int bng_re_destroy_cq(struct ib_cq *ib_cq, struct ib_udata *udata)
- 	kfree(cq->cql);
+@@ -560,3 +560,336 @@ int bng_re_dealloc_pd(struct ib_pd *ib_pd, struct ib_udata *udata)
+ 	}
  	return 0;
  }
 +
-+/* SRQ helper function */
-+static int bng_re_init_user_srq(struct bng_re_dev *rdev,
-+				struct bng_re_pd *pd,
-+				struct bng_re_srq *srq,
-+				struct ib_udata *udata)
++/* Helper functions for MR operations */
++static inline bool _is_relaxed_ordering_supported(u16 dev_cap_ext_flags2)
 +{
-+	struct bng_re_ucontext *cntx =
-+		rdma_udata_to_drv_context(udata, struct bng_re_ucontext,
-+					  ib_uctx);
-+	struct bng_sp_srq *sp_srq = &srq->sp_srq;
-+	struct bng_re_srq_req ureq;
-+	struct ib_umem *umem;
-+	int bytes = 0;
-+
-+	if (ib_copy_from_udata(&ureq, udata, sizeof(ureq)))
-+		return -EFAULT;
-+
-+	bytes = (sp_srq->max_wqe * sp_srq->wqe_size);
-+	bytes = PAGE_ALIGN(bytes);
-+	umem = ib_umem_get_va(&rdev->ibdev, ureq.srqva, bytes,
-+			      IB_ACCESS_LOCAL_WRITE);
-+	if (IS_ERR(umem))
-+		return PTR_ERR(umem);
-+
-+	srq->umem = umem;
-+	sp_srq->sginfo.umem = umem;
-+	sp_srq->sginfo.pgsize = PAGE_SIZE;
-+	sp_srq->sginfo.pgshft = PAGE_SHIFT;
-+	sp_srq->srq_handle = ureq.srq_handle;
-+	sp_srq->dpi = &cntx->dpi;
-+
-+	return 0;
++	return dev_cap_ext_flags2 & CREQ_QUERY_FUNC_RESP_SB_MEMORY_REGION_RO_SUPPORTED;
 +}
 +
-+/* SRQ operations */
-+int bng_re_create_srq(struct ib_srq *ib_srq,
-+		      struct ib_srq_init_attr *srq_init_attr,
-+		      struct ib_udata *udata)
++static void bng_re_check_and_set_relaxed_ordering(struct bng_re_dev *rdev,
++						  struct bng_re_mrw *mr)
 +{
-+	struct bng_re_dev_attr *dev_attr;
-+	struct bng_re_ucontext *uctx;
-+	struct bng_re_dev *rdev;
-+	struct bng_re_srq *srq;
-+	struct bng_re_pd *pd;
-+	struct ib_pd *ib_pd;
-+	int rc, entries;
++	struct bng_re_dev_attr *dev_attr = rdev->dev_attr;
 +
-+	ib_pd = ib_srq->pd;
-+	pd = container_of(ib_pd, struct bng_re_pd, ib_pd);
-+	rdev = pd->rdev;
-+	dev_attr = rdev->dev_attr;
-+	srq = container_of(ib_srq, struct bng_re_srq, ib_srq);
++	if (_is_relaxed_ordering_supported(dev_attr->dev_cap_flags2) &&
++	    pcie_relaxed_ordering_enabled(rdev->aux_dev->pdev))
++		mr->flags |= CMDQ_REGISTER_MR_FLAGS_ENABLE_RO;
++}
 +
-+	if (srq_init_attr->attr.max_wr > dev_attr->max_srq_wqes) {
-+		ibdev_err(&rdev->ibdev, "Create SRQ failed - max exceeded\n");
-+		rc = -EINVAL;
-+		goto exit;
-+	}
++static int __from_ib_access_flags(int iflags)
++{
++	int qflags = 0;
 +
-+	if (srq_init_attr->srq_type != IB_SRQT_BASIC) {
-+		rc = -EOPNOTSUPP;
-+		goto exit;
-+	}
++	if (iflags & IB_ACCESS_LOCAL_WRITE)
++		qflags |= BNG_RE_ACCESS_LOCAL_WRITE;
++	if (iflags & IB_ACCESS_REMOTE_READ)
++		qflags |= BNG_RE_ACCESS_REMOTE_READ;
++	if (iflags & IB_ACCESS_REMOTE_WRITE)
++		qflags |= BNG_RE_ACCESS_REMOTE_WRITE;
++	if (iflags & IB_ACCESS_REMOTE_ATOMIC)
++		qflags |= BNG_RE_ACCESS_REMOTE_ATOMIC;
++	if (iflags & IB_ACCESS_MW_BIND)
++		qflags |= BNG_RE_ACCESS_MW_BIND;
++	if (iflags & IB_ZERO_BASED)
++		qflags |= BNG_RE_ACCESS_ZERO_BASED;
++	if (iflags & IB_ACCESS_ON_DEMAND)
++		qflags |= BNG_RE_ACCESS_ON_DEMAND;
 +
-+	uctx = rdma_udata_to_drv_context(udata, struct bng_re_ucontext, ib_uctx);
-+	srq->rdev = rdev;
-+	srq->sp_srq.pd = &pd->sp_pd;
-+	srq->sp_srq.dpi = &rdev->dpi_privileged;
-+	/* Allocate 1 more than what's provided so posting max doesn't
-+	 * mean empty
-+	 */
-+	entries = bng_re_init_depth(srq_init_attr->attr.max_wr + 1, uctx);
-+	if (entries > dev_attr->max_srq_wqes + 1)
-+		entries = dev_attr->max_srq_wqes + 1;
-+	srq->sp_srq.max_wqe = entries;
++	return qflags;
++}
 +
-+	srq->sp_srq.max_sge = srq_init_attr->attr.max_sge;
-+	/* 128 byte wqe size for SRQ. So use max sges */
-+	srq->sp_srq.wqe_size = bng_re_get_rwqe_size(dev_attr->max_srq_sges);
-+	srq->sp_srq.threshold = srq_init_attr->attr.srq_limit;
-+	srq->srq_limit = srq_init_attr->attr.srq_limit;
-+	srq->sp_srq.eventq_hw_ring_id = rdev->nqr->nq[0].ring_id;
-+	srq->sp_srq.sginfo.pgsize = PAGE_SIZE;
-+	srq->sp_srq.sginfo.pgshft = PAGE_SHIFT;
++static inline bool _is_alloc_mr_unified(struct bng_re_dev_attr *dattr)
++{
++	return dattr->dev_cap_flags &
++	       CREQ_QUERY_FUNC_RESP_SB_MR_REGISTER_ALLOC;
++}
 +
-+	if (udata) {
-+		rc = bng_re_init_user_srq(rdev, pd, srq, udata);
-+		if (rc)
-+			goto fail;
-+	}
++struct ib_mr *bng_re_get_dma_mr(struct ib_pd *ib_pd, int mr_access_flags)
++{
++	struct bng_re_pd *pd = container_of(ib_pd, struct bng_re_pd, ib_pd);
++	struct bng_re_dev *rdev = pd->rdev;
++	struct bng_re_mr *mr;
++	struct bng_re_res *sp_res;
++	int rc;
 +
-+	rc = bng_sp_create_srq(&rdev->bng_res, &srq->sp_srq);
++	mr = kzalloc_obj(*mr, GFP_KERNEL);
++	if (!mr)
++		return ERR_PTR(-ENOMEM);
++
++	mr->rdev = rdev;
++	mr->sp_mr.pd = &pd->sp_pd;
++	mr->sp_mr.access_flags = __from_ib_access_flags(mr_access_flags);
++	mr->sp_mr.type = CMDQ_ALLOCATE_MRW_MRW_FLAGS_PMR;
++
++	if (mr_access_flags & IB_ACCESS_RELAXED_ORDERING)
++		bng_re_check_and_set_relaxed_ordering(rdev, &mr->sp_mr);
++
++	sp_res = &rdev->bng_res;
++	rc = bng_sp_alloc_mrw(sp_res, &mr->sp_mr);
 +	if (rc) {
-+		ibdev_err(&rdev->ibdev, "Create HW SRQ failed!\n");
-+		goto fail;
++		ibdev_err(&rdev->ibdev, "Allocate DMA MR failed: %d\n", rc);
++		goto free_mr;
 +	}
 +
-+	if (udata) {
-+		struct bng_re_srq_resp resp = {};
++	mr->sp_mr.hwq.level = BNG_PBL_LVL_MAX;
++	/* Infinite length for DMA MR */
++	mr->sp_mr.total_size = -1;
 +
-+		resp.srqid = srq->sp_srq.id;
-+		if (rdev->chip_ctx->modes.toggle_bits & BNG_RE_SRQ_TOGGLE_BIT) {
-+			srq->uctx_srq_page = (void *)get_zeroed_page(GFP_KERNEL);
-+			if (!srq->uctx_srq_page) {
-+				rc = -ENOMEM;
-+				bng_sp_destroy_srq(&rdev->bng_res, &srq->sp_srq);
-+				goto fail;
-+			}
-+			hash_add(rdev->srq_hash, &srq->hash_entry, srq->sp_srq.id);
-+			resp.comp_mask |= BNG_RE_SRQ_TOGGLE_PAGE_SUPPORT;
-+		}
-+		rc = ib_copy_to_udata(udata, &resp, sizeof(resp));
-+		if (rc) {
-+			ibdev_err(&rdev->ibdev, "SRQ copy to udata failed!\n");
-+			if (srq->uctx_srq_page) {
-+				free_page((unsigned long)srq->uctx_srq_page);
-+				hash_del(&srq->hash_entry);
-+			}
-+			bng_sp_destroy_srq(&rdev->bng_res,
-+					   &srq->sp_srq);
-+			goto fail;
-+		}
++	/* Register the MR */
++	rc = bng_sp_reg_mr(sp_res, &mr->sp_mr, NULL, 0, PAGE_SIZE, false);
++	if (rc) {
++		ibdev_err(&rdev->ibdev, "Register DMA MR failed: %d\n", rc);
++		goto free_mrw;
 +	}
-+	spin_lock_init(&srq->lock);
 +
-+	return 0;
++	/* Set the keys */
++	mr->ib_mr.lkey = mr->sp_mr.lkey;
++	if (mr_access_flags & (IB_ACCESS_REMOTE_WRITE | IB_ACCESS_REMOTE_READ |
++			       IB_ACCESS_REMOTE_ATOMIC))
++		mr->ib_mr.rkey = mr->ib_mr.lkey;
 +
-+fail:
-+	ib_umem_release(srq->umem);
-+exit:
-+	return rc;
++	return &mr->ib_mr;
++
++free_mrw:
++	bng_sp_free_mrw(sp_res, &mr->sp_mr);
++free_mr:
++	kfree(mr);
++	return ERR_PTR(rc);
 +}
 +
-+int bng_re_modify_srq(struct ib_srq *ib_srq, struct ib_srq_attr *srq_attr,
-+		      enum ib_srq_attr_mask srq_attr_mask,
-+		      struct ib_udata *udata)
++struct ib_mr *bng_re_alloc_mr(struct ib_pd *ib_pd, enum ib_mr_type type,
++			      u32 max_num_sg)
 +{
-+	struct bng_re_srq *srq = container_of(ib_srq, struct bng_re_srq, ib_srq);
-+	struct bng_re_dev *rdev = srq->rdev;
++	struct bng_re_pd *pd = container_of(ib_pd, struct bng_re_pd, ib_pd);
++	struct bng_re_dev *rdev = pd->rdev;
++	struct bng_re_res *sp_res;
++	struct bng_re_mr *mr = NULL;
++	int rc;
 +
-+	switch (srq_attr_mask) {
-+	case IB_SRQ_MAX_WR:
-+		/* SRQ resize is not supported */
-+		return -EINVAL;
-+	case IB_SRQ_LIMIT:
-+	{
-+		unsigned long flags;
-+
-+		/* Change the SRQ threshold */
-+		if (srq_attr->srq_limit > srq->sp_srq.max_wqe)
-+			return -EINVAL;
-+
-+		spin_lock_irqsave(&srq->lock, flags);
-+		srq->sp_srq.threshold = srq_attr->srq_limit;
-+		bng_re_srq_arm_db(&srq->sp_srq.dbinfo, srq->sp_srq.threshold);
-+
-+		/* On success, update the shadow */
-+		srq->srq_limit = srq_attr->srq_limit;
-+		spin_unlock_irqrestore(&srq->lock, flags);
-+		return 0;
++	if (type != IB_MR_TYPE_MEM_REG) {
++		ibdev_dbg(&rdev->ibdev, "MR type 0x%x not supported\n", type);
++		return ERR_PTR(-EINVAL);
 +	}
-+	default:
++
++	if (max_num_sg > MAX_PBL_LVL_1_PGS) {
++		ibdev_dbg(&rdev->ibdev, "Max SG %u exceeds limit %d\n",
++			  max_num_sg, MAX_PBL_LVL_1_PGS);
++		return ERR_PTR(-EINVAL);
++	}
++
++	mr = kzalloc_obj(*mr, GFP_KERNEL);
++	if (!mr)
++		return ERR_PTR(-ENOMEM);
++
++	mr->rdev = rdev;
++	mr->sp_mr.pd = &pd->sp_pd;
++	mr->sp_mr.access_flags = BNG_RE_FR_PMR;
++	mr->sp_mr.type = CMDQ_ALLOCATE_MRW_MRW_FLAGS_PMR;
++
++	sp_res = &rdev->bng_res;
++	rc = bng_sp_alloc_mrw(sp_res, &mr->sp_mr);
++	if (rc) {
++		ibdev_err(&rdev->ibdev, "Allocate MR failed: %d\n", rc);
++		goto free_mr;
++	}
++
++	mr->ib_mr.lkey = mr->sp_mr.lkey;
++	mr->ib_mr.rkey = mr->ib_mr.lkey;
++
++	rc = bng_sp_alloc_fast_reg_page_list(sp_res,
++					     &mr->sp_frpl, max_num_sg);
++	if (rc) {
 +		ibdev_err(&rdev->ibdev,
-+			  "Unsupported srq_attr_mask 0x%x\n", srq_attr_mask);
-+		return -EINVAL;
++			  "Failed to allocate HW FR page list: %d\n", rc);
++		goto free_mrw;
 +	}
++
++	mr->pages = kcalloc(mr->sp_frpl.max_pg_ptrs, sizeof(*mr->pages),
++			    GFP_KERNEL);
++	if (!mr->pages) {
++		rc = -ENOMEM;
++		goto free_frpl;
++	}
++
++	return &mr->ib_mr;
++
++free_frpl:
++	bng_sp_free_fast_reg_page_list(sp_res, &mr->sp_frpl);
++free_mrw:
++	bng_sp_free_mrw(sp_res, &mr->sp_mr);
++free_mr:
++	kfree(mr);
++	return ERR_PTR(rc);
 +}
 +
-+int bng_re_query_srq(struct ib_srq *ib_srq, struct ib_srq_attr *srq_attr)
++static int bng_re_set_page(struct ib_mr *ib_mr, u64 addr)
 +{
-+	struct bng_re_srq *srq = container_of(ib_srq, struct bng_re_srq, ib_srq);
-+	struct bng_re_dev *rdev = srq->rdev;
-+	struct bng_sp_srq sp_srq = {};
-+	int rc;
++	struct bng_re_mr *mr = container_of(ib_mr, struct bng_re_mr, ib_mr);
 +
-+	/* Get live SRQ attr */
-+	sp_srq.id = srq->sp_srq.id;
-+	rc = bng_sp_query_srq(&rdev->bng_res, &sp_srq);
-+	if (rc) {
-+		ibdev_err(&rdev->ibdev, "Query HW SRQ failed!\n");
-+		return rc;
-+	}
++	if (unlikely(mr->npages == mr->sp_frpl.max_pg_ptrs))
++		return -ENOMEM;
 +
-+	srq_attr->max_wr = srq->sp_srq.max_wqe;
-+	srq_attr->max_sge = srq->sp_srq.max_sge;
-+	srq_attr->srq_limit = sp_srq.threshold;
-+
++	mr->pages[mr->npages++] = addr;
 +	return 0;
 +}
 +
-+int bng_re_destroy_srq(struct ib_srq *ib_srq, struct ib_udata *udata)
++int bng_re_map_mr_sg(struct ib_mr *ib_mr, struct scatterlist *sg, int sg_nents,
++		     unsigned int *sg_offset)
 +{
-+	struct bng_re_dev *rdev;
-+	struct bng_re_srq *srq;
++	struct bng_re_mr *mr = container_of(ib_mr, struct bng_re_mr, ib_mr);
++
++	mr->npages = 0;
++	return ib_sg_to_pages(ib_mr, sg, sg_nents, sg_offset, bng_re_set_page);
++}
++
++static struct ib_mr *__bng_re_user_reg_mr(struct ib_pd *ib_pd, u64 length,
++					  u64 virt_addr, int mr_access_flags,
++					  struct ib_umem *umem)
++{
++	struct bng_re_pd *pd = container_of(ib_pd, struct bng_re_pd, ib_pd);
++	struct bng_re_dev *rdev = pd->rdev;
++	unsigned long page_size;
++	struct bng_re_mr *mr;
++	int umem_pgs, rc;
++
++	if (length > BNG_RE_MAX_MR_SIZE) {
++		ibdev_err(&rdev->ibdev, "MR Size: %llu > Max supported:%llu\n",
++			  (unsigned long long)length,
++			  (unsigned long long)BNG_RE_MAX_MR_SIZE);
++		return ERR_PTR(-ENOMEM);
++	}
++
++	page_size = ib_umem_find_best_pgsz(umem, BNG_RE_PAGE_SIZE_SUPPORTED, virt_addr);
++	if (!page_size) {
++		ibdev_err(&rdev->ibdev, "umem page size unsupported!\n");
++		return ERR_PTR(-EINVAL);
++	}
++
++	mr = kzalloc_obj(*mr, GFP_KERNEL);
++	if (!mr)
++		return ERR_PTR(-ENOMEM);
++
++	mr->rdev = rdev;
++	mr->sp_mr.pd = &pd->sp_pd;
++	mr->sp_mr.access_flags = __from_ib_access_flags(mr_access_flags);
++	mr->sp_mr.type = CMDQ_ALLOCATE_MRW_MRW_FLAGS_MR;
++
++	if (!_is_alloc_mr_unified(rdev->dev_attr)) {
++		rc = bng_sp_alloc_mrw(&rdev->bng_res, &mr->sp_mr);
++		if (rc) {
++			ibdev_err(&rdev->ibdev, "Failed to allocate MR rc = %d\n", rc);
++			rc = -EIO;
++			goto free_mr;
++		}
++		/* The fixed portion of the rkey is the same as the lkey */
++		mr->ib_mr.rkey = mr->sp_mr.rkey;
++	} else {
++		mr->sp_mr.flags = CMDQ_REGISTER_MR_FLAGS_ALLOC_MR;
++	}
++	mr->ib_umem = umem;
++	mr->sp_mr.va = virt_addr;
++	mr->sp_mr.total_size = length;
++
++	if (mr_access_flags & IB_ACCESS_RELAXED_ORDERING)
++		bng_re_check_and_set_relaxed_ordering(rdev, &mr->sp_mr);
++
++	umem_pgs = ib_umem_num_dma_blocks(umem, page_size);
++	rc = bng_sp_reg_mr(&rdev->bng_res, &mr->sp_mr, umem,
++			   umem_pgs, page_size,
++			   _is_alloc_mr_unified(rdev->dev_attr));
++	if (rc) {
++		ibdev_err(&rdev->ibdev, "Failed to register user MR - rc = %d\n", rc);
++		rc = -EIO;
++		goto free_mrw;
++	}
++
++	mr->ib_mr.lkey = mr->sp_mr.lkey;
++	mr->ib_mr.rkey = mr->sp_mr.lkey;
++
++	return &mr->ib_mr;
++
++free_mrw:
++	bng_sp_free_mrw(&rdev->bng_res, &mr->sp_mr);
++free_mr:
++	kfree(mr);
++	return ERR_PTR(rc);
++}
++
++struct ib_mr *bng_re_reg_user_mr(struct ib_pd *ib_pd, u64 start, u64 length,
++				 u64 virt_addr, int mr_access_flags,
++				 struct ib_dmah *dmah,
++				 struct ib_udata *udata)
++{
++	struct bng_re_pd *pd = container_of(ib_pd, struct bng_re_pd, ib_pd);
++	struct bng_re_dev *rdev = pd->rdev;
++	struct ib_umem *umem;
++	struct ib_mr *ib_mr;
++
++	umem = ib_umem_get_va(&rdev->ibdev, start, length, mr_access_flags);
++	if (IS_ERR(umem))
++		return ERR_CAST(umem);
++
++	ib_mr = __bng_re_user_reg_mr(ib_pd, length, virt_addr, mr_access_flags, umem);
++	if (IS_ERR(ib_mr))
++		ib_umem_release(umem);
++	return ib_mr;
++}
++
++struct ib_mr *bng_re_reg_user_mr_dmabuf(struct ib_pd *ib_pd, u64 start,
++					u64 length, u64 virt_addr, int fd,
++					int mr_access_flags,
++					struct ib_dmah *dmah,
++					struct uverbs_attr_bundle *attrs)
++{
++	struct bng_re_pd *pd = container_of(ib_pd, struct bng_re_pd, ib_pd);
++	struct bng_re_dev *rdev = pd->rdev;
++	struct ib_umem_dmabuf *umem_dmabuf;
++	struct ib_umem *umem;
++	struct ib_mr *ib_mr;
++
++	ibdev_dbg(&rdev->ibdev, "Register user DMA-BUF MR\n");
++
++	umem_dmabuf = ib_umem_dmabuf_get_pinned(&rdev->ibdev, start, length,
++						fd, mr_access_flags);
++	if (IS_ERR(umem_dmabuf))
++		return ERR_CAST(umem_dmabuf);
++
++	umem = &umem_dmabuf->umem;
++
++	ib_mr = __bng_re_user_reg_mr(ib_pd, length, virt_addr, mr_access_flags, umem);
++	if (IS_ERR(ib_mr)) {
++		ib_umem_release(umem);
++		return ib_mr;
++	}
++
++	return ib_mr;
++}
++
++int bng_re_dereg_mr(struct ib_mr *ib_mr, struct ib_udata *udata)
++{
++	struct bng_re_mr *mr = container_of(ib_mr, struct bng_re_mr, ib_mr);
++	struct bng_re_dev *rdev = mr->rdev;
++	struct bng_re_res *sp_res;
 +	int rc;
 +
-+	srq = container_of(ib_srq, struct bng_re_srq, ib_srq);
-+	rdev = srq->rdev;
++	sp_res = &rdev->bng_res;
 +
-+	rc = bng_sp_destroy_srq(&rdev->bng_res, &srq->sp_srq);
++	rc = bng_sp_free_mrw(sp_res, &mr->sp_mr);
 +	if (rc) {
-+		ibdev_err(&rdev->ibdev, "Destroy SRQ failed: %d\n", rc);
++		ibdev_err(&rdev->ibdev, "Dereg MR failed: %d\n", rc);
 +		return rc;
 +	}
 +
-+	if (srq->uctx_srq_page) {
-+		free_page((unsigned long)srq->uctx_srq_page);
-+		srq->uctx_srq_page = NULL;
-+		hash_del(&srq->hash_entry);
++	/* Free page list if it was allocated for fast registration */
++	if (mr->pages) {
++		bng_sp_free_fast_reg_page_list(sp_res, &mr->sp_frpl);
++		kfree(mr->pages);
 +	}
 +
-+	ib_umem_release(srq->umem);
++	ib_umem_release(mr->ib_umem);
++
++	kfree(mr);
 +
 +	return 0;
 +}
 diff --git a/drivers/infiniband/hw/bng_re/bng_verbs.h b/drivers/infiniband/hw/bng_re/bng_verbs.h
-index 839967c73f08..dd9fac0f33c0 100644
+index ea017f70142e..0ef7a7535e87 100644
 --- a/drivers/infiniband/hw/bng_re/bng_verbs.h
 +++ b/drivers/infiniband/hw/bng_re/bng_verbs.h
-@@ -64,6 +64,17 @@ struct bng_re_cq {
- 	struct hlist_node		hash_entry;
+@@ -37,6 +37,16 @@ struct bng_re_pd {
+ 	struct bng_sp_pd	sp_pd;
  };
  
-+struct bng_re_srq {
-+	struct ib_srq		ib_srq;
++struct bng_re_mr {
 +	struct bng_re_dev	*rdev;
-+	u32			srq_limit;
-+	struct bng_sp_srq	sp_srq;
-+	struct ib_umem		*umem;
-+	spinlock_t		lock;		/* protect srq */
-+	void			*uctx_srq_page;
-+	struct hlist_node	hash_entry;
++	struct ib_mr		ib_mr;
++	struct ib_umem		*ib_umem;
++	struct bng_re_mrw	sp_mr;
++	u32			npages;
++	u64			*pages;
++	struct bng_re_frpl	sp_frpl;
 +};
-+
- static inline u32 bng_re_init_depth(u32 ent, struct bng_re_ucontext *uctx)
- {
- 	/* roundup_pow_of_two(0) is undefined (UBSAN: shift by 64 on 64-bit). */
-@@ -71,6 +82,12 @@ static inline u32 bng_re_init_depth(u32 ent, struct bng_re_ucontext *uctx)
- 				   ent : roundup_pow_of_two(ent) : ent;
- }
- 
-+static inline u16 bng_re_get_rwqe_size(int nsge)
-+{
-+	/* RQ WQE header + SGEs */
-+	return 16 + (nsge * 16); /* header=16, each sge=16 bytes */
-+}
 +
  int bng_re_query_device(struct ib_device *ibdev, struct ib_device_attr *ib_attr,
  			struct ib_udata *udata);
  int bng_re_modify_device(struct ib_device *ibdev, int device_modify_mask,
-@@ -122,6 +139,14 @@ int bng_re_resize_cq(struct ib_cq *ibcq, unsigned int cqe, struct ib_udata *udat
- int bng_re_req_notify_cq(struct ib_cq *ib_cq,
- 			 enum ib_cq_notify_flags ib_cqn_flags);
- int bng_re_destroy_cq(struct ib_cq *cq, struct ib_udata *udata);
-+int bng_re_create_srq(struct ib_srq *ib_srq,
-+		      struct ib_srq_init_attr *srq_init_attr,
-+		      struct ib_udata *udata);
-+int bng_re_modify_srq(struct ib_srq *ib_srq, struct ib_srq_attr *srq_attr,
-+		      enum ib_srq_attr_mask srq_attr_mask,
-+		      struct ib_udata *udata);
-+int bng_re_query_srq(struct ib_srq *ib_srq, struct ib_srq_attr *srq_attr);
-+int bng_re_destroy_srq(struct ib_srq *ib_srq, struct ib_udata *udata);
- 
+@@ -64,5 +74,22 @@ int bng_re_add_gid(const struct ib_gid_attr *attr, void **context);
+ int bng_re_del_gid(const struct ib_gid_attr *attr, void **context);
+ int bng_re_alloc_pd(struct ib_pd *ib_pd, struct ib_udata *udata);
+ int bng_re_dealloc_pd(struct ib_pd *ib_pd, struct ib_udata *udata);
++
++struct ib_mr *bng_re_alloc_mr(struct ib_pd *ib_pd, enum ib_mr_type type,
++			      u32 max_num_sg);
++int bng_re_map_mr_sg(struct ib_mr *ib_mr, struct scatterlist *sg, int sg_nents,
++		     unsigned int *sg_offset);
++int bng_re_dereg_mr(struct ib_mr *ib_mr, struct ib_udata *udata);
++struct ib_mr *bng_re_get_dma_mr(struct ib_pd *ib_pd, int mr_access_flags);
++struct ib_mr *bng_re_reg_user_mr(struct ib_pd *ib_pd, u64 start, u64 length,
++				 u64 virt_addr, int mr_access_flags,
++				 struct ib_dmah *dmah,
++				 struct ib_udata *udata);
++struct ib_mr *bng_re_reg_user_mr_dmabuf(struct ib_pd *ib_pd, u64 start,
++					u64 length, u64 virt_addr,
++					int fd, int mr_access_flags,
++					struct ib_dmah *dmah,
++					struct uverbs_attr_bundle *attrs);
++
  #endif /* __BNG_RE_VERBS_H__ */
  
-diff --git a/include/uapi/rdma/bng_re-abi.h b/include/uapi/rdma/bng_re-abi.h
-index 2a88f36bcacd..49931b7c1344 100644
---- a/include/uapi/rdma/bng_re-abi.h
-+++ b/include/uapi/rdma/bng_re-abi.h
-@@ -61,4 +61,18 @@ struct bng_re_resize_cq_req {
- 	__aligned_u64 cq_va;
- };
- 
-+struct bng_re_srq_req {
-+	__aligned_u64 srqva;
-+	__aligned_u64 srq_handle;
-+};
-+
-+enum bng_re_srq_mask {
-+	BNG_RE_SRQ_TOGGLE_PAGE_SUPPORT = 0x1,
-+};
-+
-+struct bng_re_srq_resp {
-+	__u32 srqid;
-+	__aligned_u64 comp_mask;
-+};
-+
- #endif /* __BNG_RE_UVERBS_ABI_H__*/
 -- 
 2.43.5
 
