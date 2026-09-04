@@ -1,196 +1,308 @@
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-203.mta0.migadu.com [91.218.175.203])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88E503AFAEC
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 02:58:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A631D3ABD8E
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 02:59:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.203
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788490729; cv=none; b=f6BtHHg554kATwPVP4AggetJlv7HJbz1uB7v1vkDMLafWNjKVowj6EDIavgHh3ipbemFv/aa7OSOtIKQUDIJS3b9533KZ5O5CkK2H0BoS3JkjueiVZqwMZW24wryL0XnPZgALoAtV/K+vqxfKTTSamki3WviahkqybqxaIhJyXE=
+	t=1788490744; cv=none; b=rigaGPPywxQ9FQ16AtRm5ojo6kJYkZffCdb8cXfqY4oAY9LVmo8QhvcdwAW+LL02i8y4JHoPjDR+26PS1ZN61weHDg4YNQttFSwiRd//9FeeuZFAWqJAZXeN+laYP1OzOXWITvsCZNi2dAh2/Rea9s3gI2fNN7EQnZ3zLpKrc1E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788490729; c=relaxed/simple;
-	bh=w2ZPqyMg0hY8zy4lHxP0yghfkNnLuc29syjg5x/2siM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=q2vuQVL5dUPhb7xCLrT0aC7Uvdhe4KmyKYubANZA5t102EQc/0je2xUq2qIk25qlmxYtbo4IGhKH/j06NWQyn2+UzSvbsCTquIZqvbPsW5xcXE1OoWgpOlIzZ4YCvvY4+Ga2dF2rb+E9Zq0iwjAY8XzW8Gco8zwAxDnmDKWrIyU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=sBjjob1O; arc=none smtp.client-ip=148.163.156.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1788490744; c=relaxed/simple;
+	bh=Dj/WJ7sVczHSWQazSEovDF0THqaEKKKSpFpv+TX23F8=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=oOXlyw7RBf+8+fsK48dM3rWvbeOVBMzBbg1lZh89RgGoNGltS/JnIDxTou5x/1wa3QB73Arbpdd6t1tjDcWjUCstPGF46dGWNdBTYQouf3I1JtWM3l+WNjd9lmx/4iwmZ6gHCXxqRcbRuv3GtPNblpKY+hkFP0D+wQ5gSBO8vRM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=v2dFD1/5; arc=none smtp.client-ip=91.218.175.203
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="sBjjob1O"
-Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68401mao210605;
-	Fri, 4 Sep 2026 02:58:41 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=pp1; bh=MS9O0KQITrNvh4YnJynMJV63sZc3hghW0hjdnMkCT
-	Tg=; b=sBjjob1OO7+Cb0NmsZB/kBEVCwxo5A5m/sGiWk9Rcg1F9TptM8fu9NQgP
-	/ubv4ZX9vg7sfnCqJ7KqMqZOAxuqhrAV2IyuXyiO2dNfoGdBkZ3eYIwLj6r83qTX
-	523OdQlkwrbI6AN8suFqcs0Sn0Itr8RCMwrVE2MVjkonIFHG+gyEXHwgaB2mmlVj
-	Xxlnhe+lbIMU5inOroRQZIPLjNvWeNEHWjD5WEujmW8si918+sHPFiwJoHepAECz
-	weTY+TqsLKZbXw9KZcSwl6oqdu7nUMOWZLugmPUSkf0gt/Pk/gY/DMGTzY02HY+L
-	9GyQ+VKvqPcrK7WP3Q5eEGgkG+DFQ==
-Received: from ppma21.wdc07v.mail.ibm.com (5b.69.3da9.ip4.static.sl-reverse.com [169.61.105.91])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gbq558bq2-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 04 Sep 2026 02:58:40 +0000 (GMT)
-Received: from pps.filterd (ppma21.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma21.wdc07v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 6842uhLw004484;
-	Fri, 4 Sep 2026 02:58:39 GMT
-Received: from smtprelay07.fra02v.mail.ibm.com ([9.218.2.229])
-	by ppma21.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4gcarkjrq9-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 04 Sep 2026 02:58:39 +0000 (GMT)
-Received: from smtpav03.fra02v.mail.ibm.com (smtpav03.fra02v.mail.ibm.com [10.20.54.102])
-	by smtprelay07.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6842wZV951511604
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Fri, 4 Sep 2026 02:58:35 GMT
-Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 4F41B20043;
-	Fri,  4 Sep 2026 02:58:35 +0000 (GMT)
-Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 8CA9820040;
-	Fri,  4 Sep 2026 02:58:32 +0000 (GMT)
-Received: from aboo.ibm.com.com (unknown [9.84.232.156])
-	by smtpav03.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Fri,  4 Sep 2026 02:58:32 +0000 (GMT)
-From: Aboorva Devarajan <aboorvad@linux.ibm.com>
-To: Madhavan Srinivasan <maddy@linux.ibm.com>, linuxppc-dev@lists.ozlabs.org,
-        Mukesh Kumar Chaurasiya <mchauras@linux.ibm.com>
-Cc: Christophe Leroy <chleroy@kernel.org>,
-        Shrikanth Hegde <sshegde@linux.ibm.com>, linux-kernel@vger.kernel.org,
-        Ritesh Harjani <ritesh.list@gmail.com>,
-        "Nysal Jan K . A ." <nysal@linux.ibm.com>,
-        Aboorva Devarajan <aboorvad@linux.ibm.com>
-Subject: [PATCH v2] powerpc/entry: Fix double accounting of user time on interrupt entry
-Date: Fri,  4 Sep 2026 08:28:30 +0530
-Message-ID: <20260904025831.3439809-1-aboorvad@linux.ibm.com>
-X-Mailer: git-send-email 2.54.0
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="v2dFD1/5"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=Dj/WJ7sVczHSWQazSEovDF0THqaEKKKSpFpv+TX23F8=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788490740; v=1; x=1789095540;
+ b=v2dFD1/5en6o8BOW0P/w0fsqIdJq75YGUlot1c53Blc3akBLfHsUdJSYg8hfaS9pUur7bRj3
+ 2DY3Ch4yAt8NE3d0GWpdfbm69TqbmEzkZMW0pESrARG6sN1NL5RG8cbhUBn3ihocjAXdG05uYe9
+ vEqKx4P3xKu1AHumpU35k3n8=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 745325d3d55639af;
+	Fri, 04 Sep 2026 02:58:59 +0000
+X-Mizu-Trace-ID: 745325d3d55639af
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <76ad7da7-7651-4250-b41d-bb2425a608b5@linux.dev>
+Date: Fri, 4 Sep 2026 08:28:54 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+From: Vineet Gupta <vineet.gupta@linux.dev>
+Subject: Re: [RFC bpf-next 2/6] bpf: move the linked-scalar flags into
+ bpf_reg_state->flags [NFC]
+To: Eduard Zingerman <eddyz87@gmail.com>, ast@kernel.org,
+ daniel@iogearbox.net, andrii@kernel.org, memxor@gmail.com
+Cc: martin.lau@linux.dev, song@kernel.org, yonghong.song@linux.dev,
+ jolsa@kernel.org, emil@etsalapatis.com, ihor.solodrai@linux.dev,
+ john.fastabend@gmail.com, shuah@kernel.org, bpf@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org
+References: <20260814231945.3884596-1-vineet.gupta@linux.dev>
+ <20260814231945.3884596-3-vineet.gupta@linux.dev>
+ <82363647cb12b75398e34c7d66a9f0c527940c8d.camel@gmail.com>
+Content-Language: en-US
+In-Reply-To: <82363647cb12b75398e34c7d66a9f0c527940c8d.camel@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA0MDAyMSBTYWx0ZWRfX9RCQErDH+Gr1
- QbEMzG5gub3ajO4r4tQ793QXwjIFaWjI0cOQunvNjA3Nrge7vxbvB+vCuzXW8fTZlbtJY/1mFdr
- WusE+lOgyhp7w9oP9sCQVacIP0CmjJjF0kCDXzy6wXNLndCBQEQ+0UAKtF4p12gDdC0fP1Um75C
- 5OpERmAl0Bx4yw/TCUWnEEJ0L/DJnlIXAA0MndE+VDuqNPbep4JWBpSUEM6UVdnCBT/14SLokW7
- IdUQz1r4LBwEuC8ZGV5Glk/srrYka7hWJkwuKPuBQWII4ERGZJSl/WbO9u0yZR0NcO+I5OqfQuZ
- X/5chKa9qNvp38IrttLrvtdiqoRzOW4tEMBtxQAwYxAW3gtOT/Ixdv0OzeoAfy+fXN+V0yV9NKX
- sSJDPofA+BBjCtnBogFLCwTHcQI/6Q8gF8dDV+zb8OYm3r7gT67pUplMSjzOvViRXbWYSzHFQ0Y
- edEcneX4VL499UNEiPQ==
-X-Proofpoint-ORIG-GUID: oLwQf3Cg5RhnoHr2Csc4yQnsJY5em0LN
-X-Authority-Analysis: v=2.4 cv=CNgamxrD c=1 sm=1 tr=0 ts=6a9a33e1 cx=c_pps
- a=GFwsV6G8L6GxiO2Y/PsHdQ==:117 a=GFwsV6G8L6GxiO2Y/PsHdQ==:17
- a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
- a=U7nrCbtTmkRpXpFmAIza:22 a=VwQbUJbxAAAA:8 a=VnNF1IyMAAAA:8 a=pGLkceISAAAA:8
- a=vAT63eVcdtpXN5Bls-IA:9
-X-Proofpoint-GUID: tR4UP0n87co6_IJJne5qi5rYQOSaMm-m
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA0MDAyMSBTYWx0ZWRfX4a9nwOt5rQFk
- I453HLdhGuayv6z2HzwtENOCTK3ZExwUzmFakBNzyTqfTPWJvuW9k5u3duhc9PgVkobREs+4kVq
- GeSZzXLNgnTarSyG0gTOJuXZ8Zvp/AM=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-03_07,2026-09-03_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 bulkscore=0 suspectscore=0 phishscore=0 lowpriorityscore=0
- priorityscore=1501 clxscore=1015 impostorscore=0 adultscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609040021
 
-Since the switch to generic entry, an interrupt from user mode
-accounts user time twice: once in arch_interrupt_enter_prepare()
-and again in arch_enter_from_user_mode(), which irqentry_enter()
-invokes for the same interrupt:
+On 8/19/26 4:21 AM, Eduard Zingerman wrote:
+> On Fri, 2026-08-14 at 16:19 -0700, Vineet Gupta wrote:
+>
+> +#define BPF_FLAG_ADD_CONST32	(1U << 0)
+> +#define BPF_FLAG_ADD_CONST64	(1U << 1)
+> +#define BPF_FLAG_ADD_CONST	(BPF_FLAG_ADD_CONST32 | BPF_FLAG_ADD_CONST64)
+>   #define BPF_FLAG_PRECISE	(1U << 7)
+> I'd still suggest to use bitfields.
 
-	arch_interrupt_enter_prepare()
-	  account_cpu_user_entry()		/* first */
-	irqentry_enter()
-	  arch_enter_from_user_mode()
-	    account_cpu_user_entry()		/* second */
+Done.
 
-The second call charges the same interval again, because
-account_cpu_user_entry() accumulates the time spent in user mode
-since the last return to user space.
+FWIW I've used enum bitfields which guarantees type safety for mutual 
+exclusions of 32 and 64 flags.
 
-The two calls come from the GENERIC_ENTRY preparation series,
-where each step was a no-op on its own. Commit 09a9d3a8499d
-("powerpc: introduce arch_enter_from_user_mode") added the hook
-with the user-time accounting in it, but nothing called it yet.
-Commit 893082ac769b ("powerpc: Prepare for IRQ entry exit")
-copied interrupt_enter_prepare() verbatim into entry-common.h as
-arch_interrupt_enter_prepare(); that copy was equally unused, as
-handlers still called interrupt_enter_prepare().
+>> diff --git a/kernel/bpf/states.c b/kernel/bpf/states.c
+>> index f7a0314fa106..d3105b9a9965 100644
+>> --- a/kernel/bpf/states.c
+>> +++ b/kernel/bpf/states.c
+>> @@ -370,12 +370,12 @@ static bool check_ids(u32 old_id, u32 cur_id, struct bpf_idmap *idmap)
+>>    * to cur_id=0 and pass. With temp IDs: r6 maps X->temp1, r7 tries to map
+>>    * X->temp2, but X is already mapped to temp1, so the check fails correctly.
+>>    *
+>> - * When old_id has BPF_ADD_CONST set, the compound id (base | flag) and the
+>> - * base id (flag stripped) must both map consistently. Example: old has
+>> - * r2.id=A, r3.id=A|flag (r3 = r2 + delta), cur has r2.id=B, r3.id=C|flag
+>> - * (r3 derived from unrelated r4). Without the base check, idmap gets two
+>> - * independent entries A->B and A|flag->C|flag, missing that A->C conflicts
+>> - * with A->B. The base ID cross-check catches this.
+>> + * ->id is a plain identifier -- the ADD_CONST relationship lives in
+>> + * ->flags -- so there is no compound (base | flag) key to unpack here.
+>> + * Registers sharing a base id go through one idmap entry, which is what
+>> + * catches e.g. old r2.id=A, r3.id=A (r3 = r2 + delta) against cur r2.id=B,
+>> + * r3.id=C: A->B and A->C conflict. Matching ->flags and ->delta are checked
+>> + * by the caller in regsafe().
+> Nit: the above paragraph can be dropped altogether now.
 
-Commit bee25f97ad24 ("powerpc: Enable GENERIC_ENTRY feature")
-made both live. On the syscall side it did the full conversion:
-system_call_exception() now accounts once through the hook via
-syscall_enter_from_user_mode(), rather than calling
-account_cpu_user_entry() directly. On the interrupt side it
-switched the handler macros to arch_interrupt_enter_prepare()
-followed by irqentry_enter(), which also runs the hook, but the
-accounting in arch_interrupt_enter_prepare() was not removed to
-match. The double accounting starts with that commit.
+Done.
 
-With CONFIG_VIRT_CPU_ACCOUNTING_NATIVE=y this roughly doubles the
-reported user time of any workload that takes interrupts. The
-other accounting modes compile account_cpu_user_entry() to an
-empty stub, so they are not affected.
+>>    */
+>>   static bool check_scalar_ids(u32 old_id, u32 cur_id, struct bpf_idmap *idmap)
+>>   {
+>> @@ -384,15 +384,7 @@ static bool check_scalar_ids(u32 old_id, u32 cur_id, struct bpf_idmap *idmap)
+>>
+>>   	cur_id = cur_id ? cur_id : ++idmap->tmp_id_gen;
+>>
+>> -	if (!check_ids(old_id, cur_id, idmap))
+>> -		return false;
+>> -	if (old_id & BPF_ADD_CONST) {
+>> -		old_id &= ~BPF_ADD_CONST;
+>> -		cur_id &= ~BPF_ADD_CONST;
+>> -		if (!check_ids(old_id, cur_id, idmap))
+>> -			return false;
+>> -	}
+>> -	return true;
+>> +	return check_ids(old_id, cur_id, idmap);
+>>   }
+> I think sashiko is correct when it comments about:
+>
+>> Does the explore_alu_limits verification path also need a similar update?
+> Both check_scalar_ids() call sites need an update.
+> That being said, I'd say that the following case in regsafe()
+>
+> 		if (env->explore_alu_limits) {
+> 			/* explore_alu_limits disables tnum_in() and range_within()
+> 			 * logic and requires everything to be strict
+> 			 */
+> 			return memcmp(rold, rcur, offsetof(struct bpf_reg_state, id)) == 0 &&
+> 			       check_scalar_ids(rold->id, rcur->id, idmap);
+> 		}
+>
+>
+> can be replaced with `if (...) return regs_exact(rold, rcur, idmap)`,
+> parent_id should be zero for SCALAR_VALUE.
 
-Remove the accounting from arch_interrupt_enter_prepare() and rely
-on arch_enter_from_user_mode(), which already runs for both
-syscalls and interrupts. The duplicate account_stolen_time() call
-is removed the same way.
+And actually this can be moved out to the NFC patch (fwiw i dropped the 
+helper link_flags_check).
 
-On a pseries LPAR a busy loop reports 6s user time in 3s elapsed
-(~210% CPU) before the fix, and 3s (~105% CPU) after it:
+Re. the next instance of check_scalar_ids () call - there is no direct 
+change to that effect - the check for flags above it (existing for 
+add_const, new for  sugreg) provide the coverage.
 
-  $ python3 -c 'while True: pass' &
-  $ sleep 3; ps -p $! -o etime,time,pcpu
+One thing that did came up out of this deliberations and closely related 
+albeit not to directly here.
 
-            ELAPSED     TIME  %CPU
-  Before      00:03 00:00:06   210
-  After       00:03 00:00:03   105
+The NFC patch 1 moved the flags out but didn't update regs_exact() for 
+checking the add_const flag explicitly which was happening implicitly 
+before the series. That causes the NFC to accept the following incorrectly.
+        old {r1.id=A, r2.id=A+delta}  vs cur {r1.id=B, r2.id=B}
 
-A 50% load reports ~70% usr / 30% idle before the fix, and
-~49% usr / 51% idle after it:
+If regs_exact () is updated in the NFC, it fixes above but it also 
+starts rejecting (correctly) something that pre-series was not.
+        old {r2.id=A+delta32}         vs cur {r2.id=B+delta64}
 
-  $ taskset -c 6 stress-ng --cpu 1 --cpu-load 50 &
-  $ mpstat -P 6 1
+That's fine except it is no longer NFC.
 
-            CPU    %usr   %idle
-  Before      6   69.74   30.26
-  After       6   48.51   50.50
+So what would your preference be: NFC + addon patch to introduce or 
+remove the NFC label.
+The scenario is apparently hard to hit in real life but possible 
+theoritically.
 
-Fixes: bee25f97ad24 ("powerpc: Enable GENERIC_ENTRY feature")
-Reviewed-by: Mukesh Kumar Chaurasiya (IBM) <mkchauras@gmail.com>
-Signed-off-by: Aboorva Devarajan <aboorvad@linux.ibm.com>
----
-Changes in v2:
- - Explain which commits introduced each accounting call and how
-   they overlapped in commit message.
- - Drop the code comment.
+>>   static void __clean_func_state(struct bpf_verifier_env *env,
+>> @@ -488,11 +480,32 @@ static int clean_verifier_state(struct bpf_verifier_env *env,
+>>   	return 0;
+>>   }
+>>
+>> +/*
+>> + * Do rold and rcur describe the same relationship to their ->id set?
+>> + *
+>> + * The link flags live in ->flags, which sits past the end of every memcmp()
+>> + * window used for state comparison.
+> --- 8< ----------------------------
+>                                          and check_ids() only ever sees the plain
+>> + * ->id. So unlike when these bits rode along in the top of ->id, they have to
+>> + * be compared explicitly everywhere ->id is.
+> ---------------------------- >8 ---
+>
+> Nit: let's drop this sentence.
 
-v1: https://lore.kernel.org/linuxppc-dev/20260902050628.2553909-1-aboorvad@linux.ibm.com/
+The actual helper below is gone in v2 so this is gone too.
 
- arch/powerpc/include/asm/entry-common.h | 2 --
- 1 file changed, 2 deletions(-)
+>> + *
+>> + * Only meaningful when rold carries an id: the flags are only ever set
+>> + * together with one, so rold->id == 0 implies none of them is set.
+>> + */
+>> +static bool link_flags_match(const struct bpf_reg_state *rold,
+>> +			     const struct bpf_reg_state *rcur)
+>> +{
+>> +	if (!rold->id)
+>> +		return true;
+>> +
+>> +	return (rold->flags & BPF_FLAG_ADD_CONST) == (rcur->flags & BPF_FLAG_ADD_CONST);
+>> +}
+>> +
+> ...
+>
+>> @@ -590,17 +603,24 @@ static bool regsafe(struct bpf_verifier_env *env, struct bpf_reg_state *rold,
+>>   		 */
+>>
+>>   		/*
+>> -		 * ADD_CONST flags must match exactly: BPF_ADD_CONST32 and
+>> -		 * BPF_ADD_CONST64 have different linking semantics in
+>> +		 * ADD_CONST flags must match exactly: BPF_FLAG_ADD_CONST32 and
+>> +		 * BPF_FLAG_ADD_CONST64 have different linking semantics in
+>>   		 * sync_linked_regs() (alu32 zero-extends, alu64 does not),
+>>   		 * so pruning across different flag types is unsafe.
+>>   		 */
+>> -		if (rold->id &&
+>> -		    (rold->id & BPF_ADD_CONST) != (rcur->id & BPF_ADD_CONST))
+>> +		if (!link_flags_match(rold, rcur))
+>>   			return false;
+>>
+>> -		/* Both have offset linkage: offsets must match */
+>> -		if ((rold->id & BPF_ADD_CONST) && rold->delta != rcur->delta)
+>> +		/*
+>> +		 * Both have offset linkage: offsets must match. The rold->id
+>> +		 * test is redundant today -- BPF_FLAG_ADD_CONST is only ever set
+>> +		 * together with an id -- but it used to be structural, because
+>> +		 * the flag lived in the id itself. Keep it explicit so the
+>> +		 * invariant does not rest on every ->id = 0 site remembering to
+>> +		 * clear ->flags too.
+>> +		 */
+> Nit: Let's shorten this comment to it's original form.
+>       A comment on ->flags field saying that "->flags != 0 iff ->id != 0" should suffice.
+>       Let's also drop the 'rold->id && ' part.
 
-diff --git a/arch/powerpc/include/asm/entry-common.h b/arch/powerpc/include/asm/entry-common.h
-index c5adb5006361..000fa925e26a 100644
---- a/arch/powerpc/include/asm/entry-common.h
-+++ b/arch/powerpc/include/asm/entry-common.h
-@@ -222,8 +222,6 @@ static inline void arch_interrupt_enter_prepare(struct pt_regs *regs)
- 
- 	if (user_mode(regs)) {
- 		kuap_lock();
--		account_cpu_user_entry();
--		account_stolen_time();
- 	} else {
- 		kuap_save_and_lock(regs);
- 		/*
+Done.
 
-base-commit: fb442a6673ff1046bf67754957d95880fdb394b5
--- 
-2.54.0
+>> diff --git a/kernel/bpf/verifier.c b/kernel/bpf/verifier.c
+>> index 8925749d636e..93e69116ca9e 100644
+>> --- a/kernel/bpf/verifier.c
+>> +++ b/kernel/bpf/verifier.c
+>> @@ -1806,6 +1806,7 @@ static void __mark_reg_known(struct bpf_reg_state *reg, u64 imm)
+>>   	       offsetof(struct bpf_reg_state, var_off) - sizeof(reg->type));
+>>   	reg->id = 0;
+>>   	reg->parent_id = 0;
+>> +	reg->flags &= ~BPF_FLAG_ADD_CONST;
+>>   	___mark_reg_known(reg, imm);
+>>   }
+>>
+>> @@ -3308,6 +3309,7 @@ static void clear_scalar_id(struct bpf_reg_state *reg)
+>>   {
+>>   	reg->id = 0;
+>>   	reg->delta = 0;
+>> +	reg->flags &= ~BPF_FLAG_ADD_CONST;
+>>   }
+> sashiko is correct about the following branch in the
+> check_stack_write_fixed_off():
+>
+> 		if (!reg_value_fits)
+> 			state->stack[spi].spilled_ptr.id = 0;
+>
+> this seem to be the only missing location, the rest deals with
+> pointers, where ->flags should already be zero.
+
+Now clear_scalar_id(&state->stack[spi].spilled_ptr)
+
+>> @@ -15950,18 +15951,19 @@ static void sync_linked_regs(struct bpf_verifier_env *env, struct bpf_verifier_s
+>>   				: &vstate->frame[e->frameno]->stack[e->spi].spilled_ptr;
+>>   		if (reg->type != SCALAR_VALUE || reg == known_reg)
+>>   			continue;
+>> -		if ((reg->id & ~BPF_ADD_CONST) != (known_reg->id & ~BPF_ADD_CONST))
+>> +		if (reg->id != known_reg->id)
+>>   			continue;
+>>   		/*
+>>   		 * Skip mixed 32/64-bit links: the delta relationship doesn't
+>>   		 * hold across different ALU widths.
+>>   		 */
+>> -		if (((reg->id ^ known_reg->id) & BPF_ADD_CONST) == BPF_ADD_CONST)
+>> +		if (((reg->flags ^ known_reg->flags) & BPF_FLAG_ADD_CONST) == BPF_FLAG_ADD_CONST)
+>>   			continue;
+>> -		if ((!(reg->id & BPF_ADD_CONST) && !(known_reg->id & BPF_ADD_CONST)) ||
+>> +		if ((!(reg->flags & BPF_FLAG_ADD_CONST) && !(known_reg->flags & BPF_FLAG_ADD_CONST)) ||
+>>   		    reg->delta == known_reg->delta) {
+>>   			*reg = *known_reg;
+>>   		} else {
+>> +			u8 saved_add_const = reg->flags & BPF_FLAG_ADD_CONST;
+>        ---------------------^
+>>      |         	s32 saved_off = reg->delta;
+>>      | 		u32 saved_id = reg->id;
+>>      |
+>> @@ -|5976,11 +15978,12 @@ static void sync_linked_regs(struct bpf_verifier_env *env, struct bpf_verifier_s
+>>      | 		 */
+>>      | 		reg->delta = saved_off;
+>>      | 	        reg->id = saved_id;
+>> +   | 		reg->flags = (reg->flags & ~BPF_FLAG_ADD_CONST) | saved_add_const;
+>>      -----------------------^
+>        I'm not sure we need to inherit flags from known_reg here.
+>        Let's avoid that and go with just saved_flags.
+
+Done.
+
+>> --- a/tools/testing/selftests/bpf/progs/verifier_linked_scalars.c
+>> +++ b/tools/testing/selftests/bpf/progs/verifier_linked_scalars.c
+>> @@ -349,8 +349,9 @@ l0_%=:							\
+>>   }
+>>
+>>   /*
+>> - * Test that sync_linked_regs() checks reg->id (the linked target register)
+>> - * for BPF_ADD_CONST32 rather than known_reg->id (the branch register).
+>> + * Test that sync_linked_regs() consults reg->flags (the linked target
+>                                     ^^^^^^^^
+>                                 nit: checks
+>> + * register) for BPF_FLAG_ADD_CONST32, not just known_reg->flags (the branch
+>> + * register): the gate is (reg->flags | known_reg->flags).
+>                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+>                 nit: please drop.
+
+Fixed.
+
+Thx,
+-Vineet
