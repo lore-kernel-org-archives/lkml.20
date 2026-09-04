@@ -1,121 +1,211 @@
-Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71FB438DC6F
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 23:25:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC0AE3CF207;
+	Fri,  4 Sep 2026 23:25:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788564304; cv=none; b=c/IeXMowzyISexveozvRc/RGZqFzT2r9jLinxIEv6Ei3v+E7ZEuRPa9pPRpSfMzqz9UC50O9h3CYaUYokHzsOXILonLcFXP7z3XJv9HXWzxNhjoj1mTvvxjSxvCn+/BBWO1ARCOCoFYCUfvWHAYelyX8WH0b8kt6gy+Fa9nF7gY=
+	t=1788564326; cv=none; b=GfBgDF0CQ+prgaa/5BgH7UogAy4GG1PzXlr56hjVtVmvW0YnSMB/3fzFctY9D+lVhruWPEvyub31cIVSLoYqHmRywr2/KUxs7XzwjoJIDju/KUNi6nMamk0dxherq6ESgdPqhBoGVQmGKyhD+PaESNZJOZkvHmXE4M+IUipit5s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788564304; c=relaxed/simple;
-	bh=K1s3LaP7Jy4m4cGgbuRjp7GOXlBBFK1CH2OoNIQ1nqo=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=KWgQMuc4o4zuQcBw9lu+++CnKWvbD4+lZkIydnccLmLLydGJ05AUylj8niXLJQSl+mhCxJV+nE48yQAF+HHcfGxlscBCCyNX2A1VePMJiGbabqiinIRiavduh3Mn6fu/55EpEqN7EMTIFnpa2TdGZwYiRcHQa8PA4KIhNvkkXek=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=lex.la; spf=pass smtp.mailfrom=lex.la; dkim=pass (2048-bit key) header.d=lex.la header.i=@lex.la header.b=N3zRa16v; arc=none smtp.client-ip=209.85.221.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=lex.la
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lex.la
+	s=arc-20240116; t=1788564326; c=relaxed/simple;
+	bh=cy8ngxjbdJglkiDx9JMXUMAtXM0YrFwE5pxHzkk58O4=;
+	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
+	 References:Date:Message-Id; b=De0DmMrog8A+N0+ixcsBq9lEc93qmNxseT0fdKacXsJSflD7BP9CqM9zc+Jv/xSiHlJAPm2EiA5BeklfvPCvUmlsHpGhpH0eRwVvXKMmAxVR/OAMPlZ2zAQ4LdN7Mz+emjtrwrols8zBW+668DGBl/GnyUFohSjcDYZkkbeTyLI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QiLVIXxm; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=lex.la header.i=@lex.la header.b="N3zRa16v"
-Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-482f9309813so1431653f8f.1
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 16:25:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=lex.la; s=google; t=1788564300; x=1789169100; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=K1s3LaP7Jy4m4cGgbuRjp7GOXlBBFK1CH2OoNIQ1nqo=;
-        b=N3zRa16v+cz43pk6LTT/24nkrJRqiMgJf7RCCzI6PVa08F9SXLe+Ob5E/XCQq5FlT4
-         iDf6+Ho7SC/QcxGAhSyPnuLHM5qu9yBRNloHTlYpjpdk/4pWwEj2URKMWghwV9aOAcHw
-         PnDBhxys2tLUovBqn0OjbUDXXANcPRHmr0bOa761CzNBW/WIjNC0qh7zmbMVXBaATLYI
-         m6OPzMN8ft/kR/nEYz9x1f6aflYc2iM3RPyTz6wFXesanNukdGJXSPqPl9vvIgT3e46d
-         WEBh2xi2AT9D1jjoQI+GT0hV3TLD+NQm7SvDthJr/mLHf0P+KVl+tU2t+0bUO7kdaozv
-         ZaIg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788564300; x=1789169100;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=K1s3LaP7Jy4m4cGgbuRjp7GOXlBBFK1CH2OoNIQ1nqo=;
-        b=OYWjWObZx6JZpwraw9O03ne+QjpK+GUilvcptI15ryz3W/p/JBJ+rOyrcDvw/ph5ap
-         DaWJphF8djY0NR64Akl8nMt8qJOSddIaIJl2oEt/bvQy8cC0vlC6+cFLVmYUeF208myk
-         5ktRrdOC7253MuuQqz4YiHN6UeVJYF9geTyyXOpsWv5VOXD0/Dttq/jRG0R2HaETPYKc
-         FoDmKWkE3Fcf5Moq3pTYmNHQtSCMnYQkk2+gf7fffcG6L8KLVf6AcTviz5QIvR1rtPkI
-         boZsumUC8EQ+P/DO5Sf9yZvJKJbl4fmDWpg7zygn2rxKyC/YpZqi/OpvTpvMexagYcX2
-         x8Zg==
-X-Forwarded-Encrypted: i=1; AKwUvBzWCcaHZA/u7N5gYmwAlVk8OLhx9bZvBbm/cjXaM621YMXkvZrob5XxlCBebIiIdIZu2yu26vC+zcjatWA=@vger.kernel.org
-X-Gm-Message-State: AFuF++nhk3M8ZpfN8jCFwUVGJIZVTu4TxnNiEqV4TxriHY/5yr1DUpj3
-	b0K0mR0FyRwN3Ae8/eAA3JYSmP/ayzHctPpPQLdujqH77R7ftFQIhRfanCVSCVtgC9c=
-X-Gm-Gg: AYBFou2jf+79sy9/CJSHo+1+ozc6CV6t7I3+ccvCY10zsjmkR4e67dWi9zMA01AVIBx
-	5AJfugA0jo1d3xxvdkkzcjx/zG5V8wrWG9X4mT+adXrXagmrkjY+0S3CroarjAr/OZgMz/JFusF
-	AtY767on2hxoqhiAUFRoCIiz9pO1ZFRjqoL2XWCp+PWQeNiB8XfeMwPlRVxw25KBW0vsPbc6CQa
-	PjOVq1oUvdKvxC/BXLmtJtfKWHrtxWkEx28hoQSu8mjK0rV/GtXTn6Pwb6Yfp1rDki9gXnL1bIk
-	CE6Eh7xQA0MZIi5zikUIyZBO76/30tjy8ROoWzstS6Ge2/00Dbbb4FMC3wWbigjxODWey1yt+yM
-	fpG3fuex5qS6o9DL/W5DWfx1r6vbhUX3HtOI3pgz2JrLzuRgAqt00yDC+ea4mIbXAA7G5v8AhUW
-	fMtFyDFXCYzlAVt7B/QAe0XKloaaxJ308HNrQ9Frc=
-X-Received: by 2002:a05:6000:2508:b0:485:8c16:5ee5 with SMTP id ffacd0b85a97d-4858e8bd21dmr3475598f8f.31.1788564300124;
-        Fri, 04 Sep 2026 16:25:00 -0700 (PDT)
-Received: from remote-01 ([84.17.55.227])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4859207c28fsm461764f8f.5.2026.09.04.16.24.58
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 04 Sep 2026 16:24:59 -0700 (PDT)
-From: Aleksei Sviridkin <f@lex.la>
-To: Aleksander Jan Bajkowski <olek2@wp.pl>
-Cc: Vladislav Karmanov <vladislav.karmanov.dev@gmail.com>,
-	chester.a.unal@arinc9.com,
-	daniel@makrotopia.org,
-	andrew@lunn.ch,
-	olteanv@gmail.com,
-	nbd@nbd.name,
-	lorenzo@kernel.org,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	linux@armlinux.org.uk,
-	dqfext@gmail.com,
-	matthias.bgg@gmail.com,
-	angelogioacchino.delregno@collabora.com,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org
-Subject: Re: [PATCH net v5 1/2] net: dsa: mt7530: populate lpi_interfaces to fix EEE support
-Date: Fri,  4 Sep 2026 23:24:54 +0000
-Message-ID: <20260904232454.391138-1-f@lex.la>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <780c9e93-ca6d-4481-8709-c8e5058f0073@wp.pl>
-References: <20260903123644.23800-1-f@lex.la> <20260903123644.23800-2-f@lex.la> <780c9e93-ca6d-4481-8709-c8e5058f0073@wp.pl>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QiLVIXxm"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 453881F00A3D;
+	Fri,  4 Sep 2026 23:25:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788564324;
+	bh=olXaCCmLL4STsRadbiIcy5erQtuSsCpf7EdPkeUzBIk=;
+	h=Subject:From:To:Cc:In-Reply-To:References:Date;
+	b=QiLVIXxmyzG3YRudLZhUzgbYOQVN3ycrbozIdRRmqCobltaG37Lj8W2BhblGXmH0Y
+	 PtvfJfN+etm78s88sLQfCQufxqIVsDjE/YRS08K80RQba2vA4vUDyrpAWofL6t2VqO
+	 59utRjJ3DGNCO2l1qK7oUPoZEWppsqJg2MG5vt17MwLNN7SXNnmGfBZjKSJ22xrPhG
+	 8Biv2/pYVB8VQobaYU3IEBvqRseOmUlHinAOZw8M3uyoDsIAR0jENLOJWajFHS45lx
+	 AiKBtOgUi5y7hKtArQWUKfFb7acGP6hjHq62ro0Kfol8wrYx3WkYaxGrPbmL1ANu+C
+	 oG4nXVS/a5qnw==
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH 4/4] kconfig: prevent out-of-bounds user input for
+ numeric options
+From: Nathan Chancellor <nathan@kernel.org>
+To: Julian Braha <julianbraha@gmail.com>
+Cc: nathan@kernel.org, nsc@kernel.org, nico@fluxnic.net, 
+ rdunlap@infradead.org, grahamr@qti.qualcomm.com, kees@kernel.org, 
+ pengpeng@iscas.ac.cn, vegard.nossum@oracle.com, 
+ linux-kernel@vger.kernel.org, linux-kbuild@vger.kernel.org
+In-Reply-To: <20260829171902.1510587-5-julianbraha@gmail.com>
+References: <20260829171902.1510587-1-julianbraha@gmail.com>
+ <20260829171902.1510587-5-julianbraha@gmail.com>
+Date: Fri, 04 Sep 2026 16:25:14 -0700
+Message-Id: <178856431424.3782172.2818215537125415152.b4-review@b4>
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4628; i=nathan@kernel.org;
+ h=from:subject:message-id; bh=cy8ngxjbdJglkiDx9JMXUMAtXM0YrFwE5pxHzkk58O4=;
+ b=owGbwMvMwCUmm602sfCA1DTG02pJDFmzg+N29X/NWT6jh39l60HPKwta3BckMLde8px8NCSl5
+ NO/icecOkpZGMS4GGTFFFmqH6seNzScc5bxxqlJMHNYmUCGMHBxCsBEmG0YGZY6T5adLN81L8B7
+ ceK1/N3fpt7gCij+FJrwv04mWvTKzuWMDCd//j33lHn73raS507i/essje9JeR6arDlJ4V6xf8q
+ /owwA
+X-Developer-Key: i=nathan@kernel.org; a=openpgp;
+ fpr=2437CB76E544CB6AB3D9DFD399739260CB6CB716
 
-On Sat, 5 Sep 2026 01:10:33 +0200, Aleksander Jan Bajkowski wrote:
-> I'm a little confused by this patch. At the same time, there are patches
-> floating around mailing list to disable EEE on the MT7530 PHY[1]. Does
-> the EEE work, or is it broken?
+> diff --git a/scripts/kconfig/confdata.c b/scripts/kconfig/confdata.c
+> index 4234a51d16fd..2227d89d6328 100644
+> --- a/scripts/kconfig/confdata.c
+> +++ b/scripts/kconfig/confdata.c
+> @@ -354,6 +354,12 @@ static int conf_set_sym_val(struct symbol *sym, int def, int def_flags, char *p)
+>  	case S_INT:
+>  	case S_HEX:
+>  		if (sym_string_valid(sym, p)) {
+> +			if (def != S_DEF_AUTO &&
+> +			    !sym_string_check_bounds(sym, p))
+> +				/* hex uses 64-bit unsigned integer */
+> +				conf_warning("value '%s' for %s is outside the 64-bit %s integer bounds",
+> +					     p, sym->name,
+> +					     sym->type == S_INT ? "signed" : "unsigned");
+>  			sym->def[def].val = xstrdup(p);
+>  			sym->flags |= def_flags;
+>  		} else {
+...
+> diff --git a/scripts/kconfig/menu.c b/scripts/kconfig/menu.c
+> index 2d8b0c65ce1e..6f99216ee76d 100644
+> --- a/scripts/kconfig/menu.c
+> +++ b/scripts/kconfig/menu.c
+> @@ -4,7 +4,6 @@
+>   */
+>  
+>  #include <ctype.h>
+> -#include <errno.h>
+>  #include <stdarg.h>
+>  #include <stdlib.h>
+>  #include <string.h>
+> @@ -255,17 +254,13 @@ static int menu_validate_number(struct symbol *sym, struct symbol *sym2,
+>  		return 1;
+>  	}
+>  
+> -	errno = 0;
+> -	if (sym->type == S_INT) {
+> +	if (sym->type == S_INT)
+>  		type_bounds = "64-bit signed integer";
+> -		strtoll(sym2->name, NULL, 10);
+> -	} else {
+> +	else
+>  		/* hex */
+>  		type_bounds = "64-bit unsigned integer";
+> -		strtoull(sym2->name, NULL, 16);
+> -	}
+>  
+> -	if (errno == ERANGE) {
+> +	if (!sym_string_check_bounds(sym, sym2->name)) {
+>  		fprintf(stderr,
+>  			"%s:%d: error: %s constant '%s' is outside the %s bounds\n",
+>  			prop->filename, prop->lineno, sym_type_name(sym->type),
 
-Both, at different layers, and the two patches don't collide.
+With this, you could inline the type bounds string like you did above:
 
-The MT7530 internal GE PHY really does have broken EEE, and Vladislav's
-patch fixes that in the PHY driver where it belongs. Mine is on the MAC
-side: since the phylink managed EEE conversion, lpi_interfaces was left
-empty for every mt753x port, so phylink never saw the MAC as EEE capable
-and ethtool answered "Not supported" everywhere, including on boards
-whose PHY is fine.
+diff --git a/scripts/kconfig/menu.c b/scripts/kconfig/menu.c
+index 6f99216ee76d..f4b5b11991b4 100644
+--- a/scripts/kconfig/menu.c
++++ b/scripts/kconfig/menu.c
+@@ -238,8 +238,6 @@ void menu_add_symbol(enum prop_type type, struct symbol *sym, struct expr *dep)
+ static int menu_validate_number(struct symbol *sym, struct symbol *sym2,
+ 				const struct property *prop)
+ {
+-	const char *type_bounds;
+-
+ 	if (sym->type != S_INT && sym->type != S_HEX)
+ 		return 0;
+ 
+@@ -254,17 +252,11 @@ static int menu_validate_number(struct symbol *sym, struct symbol *sym2,
+ 		return 1;
+ 	}
+ 
+-	if (sym->type == S_INT)
+-		type_bounds = "64-bit signed integer";
+-	else
+-		/* hex */
+-		type_bounds = "64-bit unsigned integer";
+-
+ 	if (!sym_string_check_bounds(sym, sym2->name)) {
+ 		fprintf(stderr,
+-			"%s:%d: error: %s constant '%s' is outside the %s bounds\n",
++			"%s:%d: error: %s constant '%s' is outside the 64-bit %s integer bounds\n",
+ 			prop->filename, prop->lineno, sym_type_name(sym->type),
+-			sym2->name, type_bounds);
++			sym2->name, sym->type == S_INT ? "signed" : "unsigned");
+ 
+ 		return 1;
+ 	}
 
-They compose, and the PHY wins. phy_disable_eee() clears
-eee_cfg.tx_lpi_enabled and fills eee_disabled_modes, phy.c:1027 builds
-phydev->enable_tx_lpi from that flag, phylink copies it into
-pl->phy_enable_tx_lpi at phylink.c:1997, and phylink_activate_lpi() is
-gated on (pl->mac_supports_eee && pl->phy_enable_tx_lpi) at
-phylink.c:1583. A PHY that disabled EEE keeps LPI off no matter what the
-MAC declares.
+> diff --git a/scripts/kconfig/symbol.c b/scripts/kconfig/symbol.c
+> index 7e81b3676ee9..2d1c021fa395 100644
+> --- a/scripts/kconfig/symbol.c
+> +++ b/scripts/kconfig/symbol.c
+> @@ -5,6 +5,7 @@
+>  
+>  #include <sys/types.h>
+>  #include <ctype.h>
+> +#include <errno.h>
+>  #include <stdlib.h>
+>  #include <string.h>
+>  #include <regex.h>
+> @@ -711,6 +712,21 @@ bool sym_string_valid(struct symbol *sym, const char *str)
+>  	}
+>  }
+>  
+> +bool sym_string_check_bounds(struct symbol *sym, const char *str)
+> +{
+> +	errno = 0;
+> +
+> +	if (sym->type == S_INT)
+> +		strtoll(str, NULL, 10);
+> +	else if (sym->type == S_HEX)
+> +		strtoull(str, NULL, 16);
+> +	else
+> +		/* string */
+> +		return true;
+> +
+> +	return errno != ERANGE;
+> +}
+> +
+>  bool sym_string_within_range(struct symbol *sym, const char *str)
+>  {
+>  	struct property *prop;
+> @@ -722,6 +738,8 @@ bool sym_string_within_range(struct symbol *sym, const char *str)
+>  	case S_INT:
+>  		if (!sym_string_valid(sym, str))
+>  			return false;
+> +		if (!sym_string_check_bounds(sym, str))
+> +			return false;
+>  		prop = sym_get_range_prop(sym);
+>  		if (!prop)
+>  			return true;
+> @@ -731,6 +749,8 @@ bool sym_string_within_range(struct symbol *sym, const char *str)
+>  	case S_HEX:
+>  		if (!sym_string_valid(sym, str))
+>  			return false;
+> +		if (!sym_string_check_bounds(sym, str))
+> +			return false;
+>  		prop = sym_get_range_prop(sym);
+>  		if (!prop)
+>  			return true;
 
-So with both applied, boards with the broken MT7530 PHY stay EEE off
-through the PHY driver, and boards with a working PHY get back the
-ability to turn it on. Mine doesn't enable anything by itself, LPI stays
-off until userspace asks.
+Sashiko has a comment that seems to be relevant here unless I
+misunderstand what it is complaining about:
+
+https://sashiko.dev/#/patchset/64934
+
+Otherwise, I like the direction here.
+
+-- 
+Cheers,
+Nathan
+
