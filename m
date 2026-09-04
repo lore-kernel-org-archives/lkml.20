@@ -1,119 +1,113 @@
-Received: from mta1.migadu.com (out-177.mta1.migadu.com [95.215.58.177])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from out30-97.freemail.mail.aliyun.com (out30-97.freemail.mail.aliyun.com [115.124.30.97])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EAD893BFE4C
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 03:34:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.177
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87A3E3C0607
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 03:35:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.97
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788492865; cv=none; b=QPM4p7ObtKgnCBUY+Bj0Yeo+MHRhej19kfy8D47QvdN1qAapI/ydrWF0zTrS8q8gbTxkFhTGAz5uKd1LJCz6idm5GI6q/bVnGC2kdhemo5gR37b+muxqtdDsjGBMXjKS6faTj0WZUj1Nf1nFFt71ecdLW2V6fYTP74dtADQjsu0=
+	t=1788492919; cv=none; b=IlhIeXftmMSCTC8VIBTZ0yUKcEAWnT0BH1bx43gNslxiTP6PulF1nHPqtYgIuYD0djpAIGBQNM/4qr+gMxwjCNJax7OXMFtc2tT7TjKd0jbqHONsDfMagUcNfivAKhHhjSgatbrWSzikaVbiX6GbgTH+Lj+9lyXt5TUD46uOXZ0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788492865; c=relaxed/simple;
-	bh=DzX2NTbsze0dSJnwYdpWB3c79mh2V1AmJ6cw5XBcxo4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=LouoxbUH8bl7MawozhoUTNfQRGjpdQD17xkbbiT0WXPgGSFymLmEgK3SV20LscvQuO4NELivjXW489MUPRiNk9Zy2M7vncRCi5LGxjkkWxCQQuQ5+S/4pyaEYDHiqjUsjEQxjNrz3Sd1LOmeXdokOjNxUr/2Z7Q4L9nbW1EydeY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=SvgTWmyw; arc=none smtp.client-ip=95.215.58.177
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1788492919; c=relaxed/simple;
+	bh=SZZ/XXTWjtwQwLFvqUz2mnkpYl/V8jLH8EudSuG4KqM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=Am+ij5sm0Yp+6bsowusxR6uqFedQXFSfdZ35UolBkFrUxJ7CrmMCWZBRnYNkIqA6T3DIlV0Wnv+faiRfi6SXS6bXQy2kTvZNjltPYrK1Peobwm6mHkrordXapWBUmFwvMZG4l+tuvfWwdSGiNQ31cyY6EsET0n4Zo1oBWQCEhQk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=LWl3KEoF; arc=none smtp.client-ip=115.124.30.97
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="SvgTWmyw"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=DzX2NTbsze0dSJnwYdpWB3c79mh2V1AmJ6cw5XBcxo4=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788492861; v=1; x=1789097661;
- b=SvgTWmywf+U96HXGJDJ3SvcHNJr+nHqbZ2dxnXG9n/HJEjO5rIwLLaqifmDbTOIBiI3EaT6s
- xUybHAUNYf4qs+sfRKiK+azrT6t2XWdGufeC7DpaePbVTt/nJ/k02ek1XNHpNCaQXKHMfHNVFml
- uCsPYrt/AsXHaqAKpB+DaCu8=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta10.migadu.com with ESMTPS id f11963f51e07d4f7;
-	Fri, 04 Sep 2026 03:34:11 +0000
-X-Mizu-Trace-ID: f11963f51e07d4f7
-X-Migadu-Flow: FLOW_OUT
-Date: Fri, 4 Sep 2026 11:33:59 +0800
-From: Baoquan He <baoquan.he@linux.dev>
-To: Youngjun Park <youngjun.park@lge.com>
-Cc: Baoquan He <hebaoquan@kylinos.cn>, linux-mm@kvack.org,
-	akpm@linux-foundation.org, chrisl@kernel.org, kasong@tencent.com,
-	nphamcs@gmail.com, baohua@kernel.org, hannes@cmpxchg.org,
-	yosry@kernel.org, shikemeng@huaweicloud.com,
-	chengming.zhou@linux.dev, david@kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 00/16] xswap: extendable swap device backed by zswap
-Message-ID: <apo8J72dWW0CoS82@fedora>
-References: <20260827094509.1016740-1-hebaoquan@kylinos.cn>
- <apkjJo+g6ewvLy5+@yjaykim-PowerEdge-T330>
+	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="LWl3KEoF"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1788492912; h=From:To:Subject:Date:Message-ID:MIME-Version:Content-Type;
+	bh=qj3Huu9bCMAMtfBo9byDIptTGO/Fh1SmkPuNKeo+iXw=;
+	b=LWl3KEoFYWgam/KXPm/JB+g3nGUlBFL+rJ5WZRZJ3p9+GcCYorJFBBXmO5JNlDArcAzjN9vcvoxKaAwgPxk2uhaLkiQyrtg8LP3pkv1EIcgQezyOiXhV40SpLnMpwohFdlJT3kVISI8+1fXhjaZaGkkI+G2VHGZ+LuGnjfKZP1Y=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R111e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037009110;MF=qinyuntan@linux.alibaba.com;NM=1;PH=DS;RN=23;SR=0;TI=SMTPD_---0XAHQrK6_1788492909;
+Received: from banye.tbsite.net(mailfrom:qinyuntan@linux.alibaba.com fp:SMTPD_---0XAHQrK6_1788492909 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Fri, 04 Sep 2026 11:35:10 +0800
+From: Qinyun Tan <qinyuntan@linux.alibaba.com>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: =?UTF-8?q?Michal=20Koutn=C3=BD?= <mkoutny@suse.com>,
+	David Hildenbrand <david@kernel.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	Zi Yan <ziy@nvidia.com>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	"Liam R . Howlett" <liam@infradead.org>,
+	Nico Pache <nico.pache@linux.dev>,
+	Ryan Roberts <ryan.roberts@arm.com>,
+	Dev Jain <dev.jain@arm.com>,
+	Barry Song <baohua@kernel.org>,
+	Lance Yang <lance.yang@linux.dev>,
+	Usama Arif <usama.arif@linux.dev>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	Yosry Ahmed <yosry@kernel.org>,
+	Nhat Pham <nphamcs@gmail.com>,
+	Chengming Zhou <chengming.zhou@linux.dev>,
+	Kairui Song <kasong@tencent.com>,
+	Shakeel Butt <shakeel.butt@linux.dev>,
+	Xunlei Pang <xlpang@linux.alibaba.com>,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	Qinyun Tan <qinyuntan@linux.alibaba.com>
+Subject: [PATCH 2/2] mm: zswap: mark the zswap shrinker SHRINKER_NONSLAB
+Date: Fri,  4 Sep 2026 11:35:03 +0800
+Message-ID: <20260904033503.4067283-3-qinyuntan@linux.alibaba.com>
+X-Mailer: git-send-email 2.43.7
+In-Reply-To: <20260904033503.4067283-1-qinyuntan@linux.alibaba.com>
+References: <20260904033503.4067283-1-qinyuntan@linux.alibaba.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <apkjJo+g6ewvLy5+@yjaykim-PowerEdge-T330>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On 09/03/26 at 04:35pm, Youngjun Park wrote:
-> On Thu, Aug 27, 2026 at 05:44:50PM +0800, Baoquan He wrote:
-> > xswap is an extendable swap device with no backing storage. Swapped-out
-> > pages live only in zswap, so the device wastes no disk space and its
-> > size is independent of any physical device.
-> > 
-> > xswap decouples PTE swap entries from physical backing storage. The
-> > cluster_info array is backed by a sparse vmalloc (VM_SPARSE) area that is
-> > grown and shrunk on demand:
-> > 
-> > - Grow: when cluster allocation runs out of free clusters and the device
-> >   is below its ceiling, more physical pages are mapped into the VM_SPARSE
-> >   area and their clusters are added to the free list.
-> > 
-> > - Shrink: when contiguous free clusters accumulate at the tail of the
-> >   mapped range (tracked in O(1) via nr_free_tail), they are unmapped and
-> >   the backing pages freed.  Shrink is deferred to a workqueue to avoid
-> >   lock recursion.
-> > 
-> > A per-device ceiling (nr_clusters) bounds growth and is adjustable at
-> > runtime via debugfs.
-> > 
-> > Interface:
-> > 
-> >   /sys/kernel/mm/xswap/create           write "<percent> [<prio>]" to
-> >                                         create a device; percent is a
-> >                                         percent of RAM (0 for the default),
-> >                                         prio is an optional swap priority
-> >                                         (default DEF_SWAP_PRIO)
-> 
-> As discussed before, until there's a per-memcg tier concept, is there
-> a meaningful use case for having more than one xswap device? Would it
-> make sense to limit it to a single device for now, and add support
-> for multiple devices later once that structure exists?
+With kmem accounting disabled (cgroup.memory=nokmem), memcg reclaim
+never invokes the zswap shrinker: a cgroup under memory pressure does
+not write back its own zswapped pages to make room; they are only
+written back by global reclaim or once the global pool limit kicks in.
 
-Hi Youngjun,
+The zswap shrinker is registered memcg-aware but without
+SHRINKER_NONSLAB, so under nokmem it is treated as a slab shrinker:
+before commit 03375203e1da ("mm: do not allocate shrinker info with
+cgroup.memory=nokmem") it was skipped by the !memcg_kmem_online()
+check in shrink_slab_memcg(); since that commit it is demoted to
+non-memcg-aware at registration.  But the zswap shrinker is not a slab
+shrinker: it tracks zswap entries and resolves the owning memcg from
+the folio's objcg, independent of kmem accounting.
 
-Thanks for careful checking and your question.
+This was noticed by Michal during review of the patch "mm/list_lru:
+don't copy stale shrinker id from non-memcg-aware shrinkers" [1].
 
-Here, I am also confused why both you and Nhat oppose per-device xswap.
-Actually, supporting per-device xswap was part of Chris's original plan
-and was designed for the swap tier. From my perspective, it's also a
-very natural thing because the current swap code natively supports
-per-device, and swap tier needs to use it anyway, so I don't bother
-to add code to restrict it to single device. More importantly, for
-per-device xswap, you can use one if you want, or multiple if you want
-too, it won't prevent anyone from using a single xswap instance.
+Mark it SHRINKER_NONSLAB so it keeps its memcg awareness and runs
+under memcg reclaim with nokmem.
 
-> 
-> Also, if xswap accepts an explicit prio, xswap devices would need to
-> stay grouped within the same tier. But a slow tier with a different
-> priority range could end up sandwiched in between, or an xswap device
-> could fall outside the priority range needed to belong to the same
-> tier.
-> 
-> Could prio just be fixed instead? Is there a reason it needs to be
-> assignable per device?
+[1] https://lore.kernel.org/lkml/697713c4-0857-485b-aba7-c74f37a3c8b4@linux.alibaba.com/
 
-A good question. I haven't thought of a good way for xswap prio. Fixed
-prio, or a high prio region for xswap? Zram is ram swap device too, it
-shares the same prio setting semantics as a normal one. Can we keep it
-as is, to leave it to xswap user?
+Fixes: b5ba474f3f51 ("zswap: shrink zswap pool based on memory pressure")
+Suggested-by: Michal Koutný <mkoutny@suse.com>
+Signed-off-by: Qinyun Tan <qinyuntan@linux.alibaba.com>
+---
+ mm/zswap.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-Thanks
-Baoquan
+diff --git a/mm/zswap.c b/mm/zswap.c
+index 761cd699e0a3e..8bcc2997d7719 100644
+--- a/mm/zswap.c
++++ b/mm/zswap.c
+@@ -1263,8 +1263,8 @@ static struct shrinker *zswap_alloc_shrinker(void)
+ {
+ 	struct shrinker *shrinker;
+ 
+-	shrinker =
+-		shrinker_alloc(SHRINKER_NUMA_AWARE | SHRINKER_MEMCG_AWARE, "mm-zswap");
++	shrinker = shrinker_alloc(SHRINKER_NUMA_AWARE | SHRINKER_MEMCG_AWARE |
++				  SHRINKER_NONSLAB, "mm-zswap");
+ 	if (!shrinker)
+ 		return NULL;
+ 
+-- 
+2.43.7
+
