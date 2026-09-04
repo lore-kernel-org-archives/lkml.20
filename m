@@ -1,111 +1,93 @@
-Received: from mta1.migadu.com (out-238.mta1.migadu.com [95.215.58.238])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90D1A3859E2
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 14:33:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.238
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B0C23876C6
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 14:34:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788532435; cv=none; b=D382R/og8ezpAt7vxBAAyA0ZO7QtT+k2YKPR3m3Q1r29lrHoo8IZCf8n4qfHmF6S6nWITU5zDQAH03uYY2LfuVG95R59eQh88zIy/2zkRkOYTzCvUyy8gpwuwKkr8M//jEtmp/srMhdaMRfJ9zTatnRzyQGhNQnMre7ihswE1Ew=
+	t=1788532472; cv=none; b=A/N1ZDCYvodRI2M5VQrtwqnnaaVXS64mx+MwKGWZzWLffyjRwD6u1Cdg7R2EaC389YI1fFfbnSNwrAsJGaqvyoSQKwiOxducRnje/cKr6726WPe+BLGu0GkrfpvUFzb/ZsFKEzv5H1xkPxM735gVQwq9I0kkTkdkfLqczxsLIZ8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788532435; c=relaxed/simple;
-	bh=JuPH7/2Y2ltdy3iQbdznIQ0SDNwJB4Wc+2UbdaNxT08=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=fhVk/Wfe3TyKnXITfnVd6/IrpzgyYMQ2p/TRUEq41mz9FngpkGacHI7qyf/rCzOfvoX/5bXmUKU5E5iDUVq3vuco8kom5///4UVtaSLas9pX+MAgTAdDdj9cR8F9JUxCVndHsjkx9M5YLYWY2ZiwYoPctczfvbND1kyF71lMiNw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=aqEbJ3iP; arc=none smtp.client-ip=95.215.58.238
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1788532472; c=relaxed/simple;
+	bh=Lu/ZbFQR8YsB0RojeQRe14FK9q1Bse2/VuOriIcwpu0=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=EE1qZo3zGulfEaP5A1CuiAfyPiPhiMQ5uZeBrO67+Kl4/0yGFpa3g4LHnrvK/DdX9C+UT/Atl4JBCeM8ty1kJSrJ5i/7JSsJkvvi/lUavv7Q0vONAlYwx8qcd3U9Qq3gHxuKiNsERPjteYEC+WwQelPKig3i/mOhT8x1Y+y4wyI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XGmtDWDI; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="aqEbJ3iP"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=JuPH7/2Y2ltdy3iQbdznIQ0SDNwJB4Wc+2UbdaNxT08=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788532431; v=1; x=1789137231;
- b=aqEbJ3iPMSzdysHD6Z/Nn6ZNICUweuIjiyQHuaG4hUEKRQlp8XnbAeVWf18r15aXp1uaFGZD
- fQbT6jXcJMypMkuZomlcBp9mTodoBVTFrw2jGNfnmtyLL2Luvgz0KzsT+oF3zyGMd0CEHo4DgfL
- 8Krn04WRcb5Irl8A5iIFRVpY=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 46051ea72cb9bae1;
-	Fri, 04 Sep 2026 14:33:51 +0000
-X-Mizu-Trace-ID: 46051ea72cb9bae1
-X-Migadu-Flow: FLOW_OUT
-Date: Fri, 4 Sep 2026 07:33:45 -0700
-From: Shakeel Butt <shakeel.butt@linux.dev>
-To: Christian Brauner <brauner@kernel.org>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	Tejun Heo <tj@kernel.org>, Christian Brauner <christian@brauner.io>, 
-	Meta kernel team <kernel-team@meta.com>, linux-kselftest@vger.kernel.org, driver-core@lists.linux.dev, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] selftests: cover kernfs dentry revalidation
-Message-ID: <aprVEyqOrdmuD-HN@linux.dev>
-References: <20260902014050.499002-1-shakeel.butt@linux.dev>
- <20260904-kandidat-bergbahn-ersonnen-3a6dd1f1cf0e@brauner>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XGmtDWDI"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5E1911F00ACF
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 14:34:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788532471;
+	bh=9OaydGP9xdIbN8GYTuPmveI5wh8brRuL4Gew5fDc4mQ=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=XGmtDWDIYg+/2iYGY71haJDwmG1d4p+yYKb+c7xvk9+nGk//B9R7XmSlt1koJcHUS
+	 ON/R6KcBKVW74/4u2zMwPjzru/T/YHRk9mt4Y2YkRRAWvg0MO10wXCX8Olb9p5nheB
+	 mTObehVAKyoD97JHjn/veaRT85g6Q6/O/Qc3RlInTbvsJzxzTitfFFRI9oO/ygWaCz
+	 lKUsBFGYBdX9lCWuVQ1Y/5cxur7/CzieWXTu+8s+53HjiZzYnSNFe3HMen4yiyEmuQ
+	 xkf5MycabAVwcYO3L9n5xJxtKLHOFaa0idkmMYospji3KNA2k3vbZQwLvfGAHkBb7c
+	 3hUZfjvIjQIIw==
+Received: by mail-vk1-f174.google.com with SMTP id 71dfb90a1353d-5bf9506704fso493608e0c.2
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 07:34:31 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBzfTjKpIXvlZhFccQghDqM02+MGlMvb/lkEim25a8qQ0B60xErq+weS+QXReF7mrogp0Ji1LJuje3ujDH0=@vger.kernel.org
+X-Gm-Message-State: AFuF++kPY0vxRzg7JEx8o/iDy+NIE1F1MmkJuHY1hR8VwcQebXH5w3CZ
+	/8EHU8Jt3raflWNuBDsRJ8NpxQeFSvAcXsN+zlv3KOD8M8c4hkSWZRk43usra/Ct8beremTAgg7
+	ipk142bnJUG86cvulI66nH7QbuX/6NlQ=
+X-Received: by 2002:a05:6122:1306:b0:5c6:5daf:52ea with SMTP id
+ 71dfb90a1353d-5c7ed3ed7bdmr2902940e0c.6.1788532470566; Fri, 04 Sep 2026
+ 07:34:30 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260904-kandidat-bergbahn-ersonnen-3a6dd1f1cf0e@brauner>
+References: <20260819174020.1184329-1-sathyanarayanan.kuppuswamy@linux.intel.com>
+In-Reply-To: <20260819174020.1184329-1-sathyanarayanan.kuppuswamy@linux.intel.com>
+From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
+Date: Fri, 4 Sep 2026 16:33:27 +0200
+X-Gmail-Original-Message-ID: <CAJZ5v0gipmERFJTDYYR0M2geK6B5aUz_7O7X9jBSfuOTjNQdvQ@mail.gmail.com>
+X-Gm-Features: AcwNN1X9yqqT8-6jct4nBXFu8D7mFBst4d2UlF-O1r1syPYPum7YIsH6i1Du3wo
+Message-ID: <CAJZ5v0gipmERFJTDYYR0M2geK6B5aUz_7O7X9jBSfuOTjNQdvQ@mail.gmail.com>
+Subject: Re: [PATCH v1] powercap: intel_rapl: Add rugged Panther Lake support
+To: Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>
+Cc: "Rafael J . Wysocki" <rafael@kernel.org>, 
+	Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>, linux-kernel@vger.kernel.org, 
+	linux-pm@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Fri, Sep 04, 2026 at 10:13:11AM +0200, Christian Brauner wrote:
-> On Tue, Sep 01, 2026 at 06:40:50PM -0700, Shakeel Butt wrote:
-> > kernfs_test only checked two xattr calls. It did not touch the part of
-> > kernfs that userspace hits most: the dentry cache.
-> > 
-> > The kernel adds and removes kernfs nodes on its own, with no VFS call
-> > behind it, and removal cannot always unhash the dentries that are
-> > already cached. So ->d_revalidate() is what keeps the cache honest,
-> > let's add tests for it.
-> > 
-> > Add tests that make the kernel change kernfs directly, instead of going
-> > through create and unlink:
-> > 
-> >  - writing cgroup.subtree_control makes the kernel add and remove files
-> >    in every child cgroup. That checks two things: a cached negative
-> >    dentry is dropped once the file appears, and a cached positive one
-> >    is dropped once the file goes away.
-> >  - renaming a network interface renames the sysfs node under a dentry
-> >    that is already cached.
-> >  - sysfs mounted in a new network namespace must list that namespace's
-> >    interfaces and not the parent's, which covers the KERNFS_NS tagging
-> >    code.
-> >  - many lookups running against concurrent mkdir and rmdir. A lookup
-> >    may only succeed or fail with an errno that means "it is gone".
-> >  - open across removal, readdir returning each entry once, and a
-> >    telldir()/seekdir() round trip, which uses the name hash cookie in
-> >    kernfs_dir_pos().
-> > 
-> > Test the other direction too: walking dentries that are already cached
-> > must not drop them. That is not just a slowdown. d_invalidate() calls
-> > detach_mounts(), so a dentry dropped by mistake also unmounts whatever
-> > is mounted under that directory.
-> > 
-> > Both filesystems are needed. cgroup2 has no ->rename and is not
-> > namespace tagged. sysfs cannot be mounted with a set of children we
-> > control. The config fragment stops a kernel built with kselftest-merge
-> > from passing while it runs almost nothing.
-> > 
-> > To confirm the tests really catch a broken backstop, kernfs_dir_changed()
-> > was stubbed to return false. 8 of the 11 tests then failed.
-> > 
-> > Signed-off-by: Shakeel Butt <shakeel.butt@linux.dev>
-> > ---
-> 
-> I have to say I would appreciate trimmed-down commit messages with less
-> relative clauses. This reads very LLMy still. Especially for tests my
-> appetite for wading through multiple paragraphs of info is very low.
-> Same goes for the very wordy changelog below...
+On Wed, Aug 19, 2026 at 7:40=E2=80=AFPM Kuppuswamy Sathyanarayanan
+<sathyanarayanan.kuppuswamy@linux.intel.com> wrote:
+>
+> From: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>
+>
+> Add RAPL support for rugged Panther Lake.
+>
+> Signed-off-by: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>
+> ---
+>  drivers/powercap/intel_rapl_msr.c | 1 +
+>  1 file changed, 1 insertion(+)
+>
+> diff --git a/drivers/powercap/intel_rapl_msr.c b/drivers/powercap/intel_r=
+apl_msr.c
+> index a34543e66446..2c1b799d3c54 100644
+> --- a/drivers/powercap/intel_rapl_msr.c
+> +++ b/drivers/powercap/intel_rapl_msr.c
+> @@ -456,6 +456,7 @@ static const struct x86_cpu_id rapl_ids[]  =3D {
+>         X86_MATCH_VFM(INTEL_EMERALDRAPIDS_X,            &rapl_defaults_sp=
+r_server),
+>         X86_MATCH_VFM(INTEL_LUNARLAKE_M,                &rapl_defaults_co=
+re),
+>         X86_MATCH_VFM(INTEL_PANTHERLAKE_L,              &rapl_defaults_co=
+re_pl4_pmu),
+> +       X86_MATCH_VFM(INTEL_PANTHERLAKE_R,              &rapl_defaults_co=
+re_pl4_pmu),
+>         X86_MATCH_VFM(INTEL_WILDCATLAKE_L,              &rapl_defaults_co=
+re_pl4_pmu),
+>         X86_MATCH_VFM(INTEL_NOVALAKE,                   &rapl_defaults_co=
+re_pl4),
+>         X86_MATCH_VFM(INTEL_NOVALAKE_L,                 &rapl_defaults_co=
+re_pl4),
+> --
 
-My appologies, I will be more precise and concise in future.
-
-I assume the kernfs bug fixes [1] will also go to your vfs branch. I will send a
-v2 of that series with appropriate tags and will try to improve the commit
-messages as well. I have a followup improvements for kernfs_rwsem which I will
-base on vfs branch. Just wanted to give a headsup.
-
-Thanks a lot, Christian.
-
-[1] https://lore.kernel.org/all/20260903040253.670020-1-shakeel.butt@linux.dev/ 
+Applied as 7.4 material, thanks!
