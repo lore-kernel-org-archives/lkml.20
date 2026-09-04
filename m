@@ -1,80 +1,142 @@
-Received: from r3-19.sinamail.sina.com.cn (r3-19.sinamail.sina.com.cn [202.108.3.19])
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.3])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FA2436D9E7
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 01:32:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.108.3.19
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A3134CCDE5
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 01:33:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.3
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788485548; cv=none; b=qm13y/+OxPGBbWelFwVGctI0ou14BT+PEifyiO4jXKkmyAGFy6MlB5CnRByfaz49CKRww/6gcCA+FGIE8w67LObOydWst9JGZb7nTygjWuV93IA5u1IYIFos5Bim5pp8cmW3tZCB34/fZFdMIT9r7LTDFuYkiyZVfag8pNQ6uAg=
+	t=1788485588; cv=none; b=k9QNmFS/F75bk1P8WxPNb2KQXzWKoXh8bJZMfhy4+vSCwomJpOcCSUGat0vtQHS755DqvUl3u3EI4Fh2g1fiW12oBuIeaksAf0diM3L+yG5a7+mtkapqBgeB5HSFl75GDa7qXVuvaICBA7YczSjYx5BlbNZ/J6R27PY/t3vWmWo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788485548; c=relaxed/simple;
-	bh=TTVXc2AWzcWPnl0L0Hv1ZtAJrPN4xEhDzyu/5s2D/bQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ZI4VmckqkJg9iWpB1U9Hx1dWPanPEJPYad2VbMuyIdp13x5ahepOEQRP3SMD9D7WHX1rmhva7v7a9eEtgIW0gB1tTGNhBIUj7TYR00/cY4ZrVdEe1d68G1lWkdGF2twvU+0sPXlZLC/Nh7vCw34IdsLFPkwsQPWkrQjCbwGAs0A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sina.com; spf=pass smtp.mailfrom=sina.com; dkim=pass (1024-bit key) header.d=sina.com header.i=@sina.com header.b=xCekR6NW; arc=none smtp.client-ip=202.108.3.19
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sina.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sina.com
+	s=arc-20240116; t=1788485588; c=relaxed/simple;
+	bh=QMGDN7UWqvyzj4uYWIrOiDAcu8Any7ncs7JdxASNOg8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=StOASoPur0fiw/7jrYXMc+CCRyfTj5ZiRxdWcN/OxIeES8FZDnA3M+yJ7zNfIlGT1qU4fhfYVD3CLOuglPfLI7W8FFQU+9JI/gcrgi8VY6P359rceOE9wK2bTcdmux3iISwLQAnTTn1pDVBdiSi80doF+l9FkYJyDNTGL0R+Njc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=K4U7AraB; arc=none smtp.client-ip=117.135.210.3
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=sina.com header.i=@sina.com header.b="xCekR6NW"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sina.com; s=201208; t=1788485544;
-	bh=8hZ//X7DPMAvHOt+s+ezgZcbsunUPEZNrcuRE8W+05Y=;
-	h=From:Subject:Date:Message-ID;
-	b=xCekR6NWgMRdl8+JVIscOoyOciD/jU5e98E7+7ZRnjp9LW3XgduX3K3owSvDtDgml
-	 kTvxWW22nGlJe/XG2vWyPMw+rE7UcUrZJPa4aL3oI+sEcl4efHcygFc4wMqVb1ZuK5
-	 lcVPeDrAh8NN5RGfu5X9rvtz2V9vBD6u5+xwlQq8=
-X-SMAIL-HELO: lxu-ped-host..
-Received: from unknown (HELO lxu-ped-host..)([111.198.231.89])
-	by sina.com (10.54.253.32) with ESMTP
-	id 6A9A1F7300003A3C; Fri, 4 Sep 2026 09:31:33 +0800 (CST)
-X-Sender: eadavis@sina.com
-X-Auth-ID: eadavis@sina.com
-Authentication-Results: sina.com;
-	 spf=none smtp.mailfrom=eadavis@sina.com;
-	 dkim=none header.i=none;
-	 dmarc=none action=none header.from=eadavis@sina.com
-X-SMAIL-MID: 8961904457251
-X-SMAIL-UIID: 0B59C65336A24BB3B8344B7A00C94136-20260904-093133-1
-From: Edward Adam Davis <eadavis@sina.com>
-To: syzbot+fefa0af09f7891b1800e@syzkaller.appspotmail.com
-Cc: linux-kernel@vger.kernel.org,
-	syzkaller-bugs@googlegroups.com
-Subject: Re: [syzbot] [block?] general protection fault in blk_mq_quiesce_queue
-Date: Fri,  4 Sep 2026 09:31:31 +0800
-Message-ID: <20260904013131.574605-1-eadavis@sina.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <6a99dfb2.9266084e.bf0d7.027c.GAE@google.com>
-References: <6a99dfb2.9266084e.bf0d7.027c.GAE@google.com>
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="K4U7AraB"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=Message-ID:Date:MIME-Version:Subject:To:From:
+	Content-Type; bh=2yZtti8UnCE2Bw/Nr6RulJp+hgYwmiGN9/iQf2NRUWg=;
+	b=K4U7AraBzmHAYMt3lQQ0L468GOLLqdnm7Bq/B1ie8qxoab6Ucz5PM+TNtuyGyq
+	7qrDtkh+uD7nLF48OLbP8dUtx6qxkR8G/YI/go7FoLCiJtwClo47sytq/q+Frte1
+	GTttLuP02m4fNZ8NwbKnMCzmP4dS2mEhbUDGoUL1sbMGA=
+Received: from [IPV6:2409:8900:1a96:d5f:519a:bd19:ff78:1325] (unknown [])
+	by gzsmtp3 (Coremail) with SMTP id PigvCgCnpgW6H5pqVXVIQw--.44861S2;
+	Fri, 04 Sep 2026 09:32:44 +0800 (CST)
+Message-ID: <1995795b-e410-46fa-b49e-5373233f4ac7@163.com>
+Date: Fri, 4 Sep 2026 09:32:42 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] ntfs: fix sector conversion on 4Kn devices
+To: =?UTF-8?B?5pyxIOWkqea1qQ==?= <zhutianhao75@hotmail.com>,
+ "linkinjeon@kernel.org" <linkinjeon@kernel.org>,
+ "hyc.lee@gmail.com" <hyc.lee@gmail.com>
+Cc: "ntfs@lists.linux.dev" <ntfs@lists.linux.dev>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+References: <SY0P300MB0312121B2DA3A618B0632D3BDEB62@SY0P300MB0312.AUSP300.PROD.OUTLOOK.COM>
+Content-Language: en-US
+From: liubaolin <liubaolin12138@163.com>
+In-Reply-To: <SY0P300MB0312121B2DA3A618B0632D3BDEB62@SY0P300MB0312.AUSP300.PROD.OUTLOOK.COM>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:PigvCgCnpgW6H5pqVXVIQw--.44861S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxXFWUAr43Gry5ur47AF1kKrg_yoW5urW5pF
+	sIyF1SyF4DGF17t3ZI9a129F1F934xK3WUGrW7Ww17urs7Krn7tF1kKryYg3WktrWftrn7
+	Xa1DJrW3CryDXrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07U2zuZUUUUU=
+X-CM-SenderInfo: xolxutxrol0iasrtmqqrwthudrp/xtbCwhw4A2qaH7x4hgAA3I
 
-From: Edward Aadm Davis <eadavis@sina.com>
 
-#syz test: upstream 940de590b839
 
-diff --git a/drivers/nvme/target/loop.c b/drivers/nvme/target/loop.c
-index fcb1f8186fdd..ec56085add72 100644
---- a/drivers/nvme/target/loop.c
-+++ b/drivers/nvme/target/loop.c
-@@ -561,8 +561,6 @@ static struct nvme_ctrl *nvme_loop_create_ctrl(struct device *dev,
- 	ctrl->ctrl.opts = opts;
- 	INIT_LIST_HEAD(&ctrl->list);
- 
--	INIT_WORK(&ctrl->ctrl.reset_work, nvme_loop_reset_ctrl_work);
--
- 	ret = nvme_init_ctrl(&ctrl->ctrl, dev, &nvme_loop_ctrl_ops,
- 				0 /* no quirks, we're perfect! */);
- 	if (ret) {
-@@ -593,6 +591,8 @@ static struct nvme_ctrl *nvme_loop_create_ctrl(struct device *dev,
- 	if (ret)
- 		goto out_free_queues;
- 
-+	INIT_WORK(&ctrl->ctrl.reset_work, nvme_loop_reset_ctrl_work);
-+
- 	ret = nvme_loop_configure_admin_queue(ctrl);
- 	if (ret)
- 		goto out_remove_admin_tagset;
+在 2026/9/3 20:44, 朱 天浩 写道:
+> The NTFS driver was converting byte offsets to bio sector numbers using
+> the filesystem block size (sb->s_blocksize_bits).  However, block layer
+> sector numbers - bio->bi_iter.bi_sector and sector_t - are always in
+> units of 512 bytes, independent of the filesystem block size.
+> 
+> On a device with a 4096 byte logical block size (4Kn), sb_min_blocksize()
+> lifts s_blocksize to 4096, so every MFT writeback bio built by
+> ntfs_sync_mft_mirror(), write_mft_record_nolock() and
+> ntfs_mft_writepages() ended up with a sector number eight times too
+> small.  The resulting LBA is not only wrong, it is usually not a
+> multiple of the logical block size either, and some controllers reject
+> the write outright, e.g.:
+> 
+>    ntfs: (device nvme0n1p3): ntfs_sync_mft_mirror(): I/O error while
+>    writing mft mirror record 0x3!
+>    ntfs: (device nvme0n1p3): write_mft_record_nolock(): I/O error while
+>    writing mft record 0x3!  Marking base inode as bad.
+> 
+> Reproduced on an Apple SSD AP0256J (4Kn) with a volume using 4096 byte
+> sectors, 4096 byte clusters and clusters_per_mft_record = 1; after the
+> fix a 13 MB file written to the volume is byte-for-byte identical
+> after a umount/mount cycle.
+> 
+> Fixes: 40796051991d ("ntfs: update in-memory, on-disk structures and headers")
+> Signed-off-by: Zhu Tianhao <zhutianhao75@hotmail.com>
+> ---
+>   fs/ntfs/ntfs.h | 15 ++++++++++++---
+>   1 file changed, 12 insertions(+), 3 deletions(-)
+> 
+> diff --git a/fs/ntfs/ntfs.h b/fs/ntfs/ntfs.h
+> index df5a75d506f6..b66ce62f67c9 100644
+> --- a/fs/ntfs/ntfs.h
+> +++ b/fs/ntfs/ntfs.h
+> @@ -20,6 +20,7 @@
+>   #include <linux/smp.h>
+>   #include <linux/pagemap.h>
+>   #include <linux/uidgid.h>
+> +#include <linux/blkdev.h>      /* For SECTOR_SHIFT. */
+>   
+>   #include "volume.h"
+>   #include "layout.h"
+> @@ -71,7 +72,11 @@
+>   #define NTFS_CLU_TO_POFS(vol, clu) (((u64)(clu) << (vol)->cluster_size_bits) & \
+>   				    ~PAGE_MASK)
+>   
+> -#define NTFS_B_TO_SECTOR(vol, b) ((b) >> ((vol)->sb)->s_blocksize_bits)
+> +/*
+> + * bio->bi_iter.bi_sector and sector_t are always in 512-byte sectors, even
+> + * when the filesystem block size is larger (for example 4KiB).
+> + */
+> +#define NTFS_B_TO_SECTOR(vol, b) ntfs_bytes_to_sector(vol, b)
+>   
+>   enum {
+>   	NTFS_BLOCK_SIZE		= 512,
+> @@ -154,11 +159,15 @@ static inline u64 ntfs_cluster_to_poff(const struct ntfs_volume *vol,
+>   	return (clu << vol->cluster_size_bits) & ~PAGE_MASK;
+>   }
+>   
+> -/* Convert byte offset to sector (block) number. */
+> +/* Convert byte offset to a block layer sector number.  Those are always in
+> + * units of 512 bytes, never in units of sb->s_blocksize, which is raised to
+> + * the device logical block size on 4Kn devices.
+> + */
+>   static inline sector_t ntfs_bytes_to_sector(const struct ntfs_volume *vol,
+>   		u64 bytes)
+>   {
+> -	return bytes >> vol->sb->s_blocksize_bits;
+> +	(void)vol;
+> +	return bytes >> SECTOR_SHIFT;
+>   }
+>   
+>   /* Global variables. */
+
+Hi Tianhao,
+    Thank you for submitting this patch.
+    This issue has already been fixed by commit 6faa235a649e ("ntfs: 
+compute bi_sector in 512-byte units"), which is included in the current 
+ntfs-next branch. The existing fix covers the same MFT write paths, so 
+this patch does not need to be applied again.
+    Thank you for your work.
+
+Thanks,
+Baolin.
+
