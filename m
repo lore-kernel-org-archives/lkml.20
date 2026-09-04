@@ -1,69 +1,81 @@
-Received: from mail-ot1-f41.google.com (mail-ot1-f41.google.com [209.85.210.41])
+Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com [209.85.216.48])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0EE823F871B
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 12:51:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3189E385D72
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 12:52:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788526281; cv=none; b=Gg9sECpktAkpkOJ/GOurUNnSp9vhJ2qO157uIKooXSv1RsGUwaEXIcxGGmgcx2jDL/PZSYKg4v3sCQVs40wrFsedykgKC9mVvJzZyO3xuvyklHWLDCOV784wOyojsPsR2khbhpSpy1DsN88TxYwKzXW39ydoKPApMQ1XC66Oxek=
+	t=1788526338; cv=none; b=Vp7tJyeOisqPHZGm7GkdjEc8ycYrwsOcSevOZqbg9+f+CJF2yppkUlFqRuHfDvKJSaAmrRWFHQD4uI9o3Yhvw+ZvGvlTjRjtbWH11Mf1TgEYtC77xIGMK0Ycqx3kvAKTuKHP76XYXMI50/dPYdsMbgOsI+YT9YJnB0+cGgJfcn0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788526281; c=relaxed/simple;
-	bh=qrxYd+dt37Pe1GMjqFV/nYaWaKAThqfGvMluiNGMYeg=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Xtk72eZWPNRGxjg6vFF5h5FEEPIKD4D32XduB1mZjvBeR1B+W+vqV/PLlz4f9sTz58YgHRn2GK9r4TQ6s3kU7sZ/U6nShPfo+kiatEtKrIg5Y8c69o+OrbDzYHiLV26CSnfNBO0Jh5c91wqfmK+kLYK1ffSFm3AZrQmC//NbnhI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=O8fx5Zle; arc=none smtp.client-ip=209.85.210.41
+	s=arc-20240116; t=1788526338; c=relaxed/simple;
+	bh=sokDvgJXj5WharIosRIU+sz3oSNd7WZxEo2k/p/DzCc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=PXyJMAE3G5lSxlr3G+kDEq2IW3BTpXaBwnFbd7rEUhjnUVld7/QYPJVF9GtzKv/Z9XZWLgNAWaB/suG/yXy/QYkvlQj80Sys/nsNjqEKosmFwiQL76R0EFJ9NW8Z3r9U4fbCnD0q+ZIp9rVujKRk3p7oQ9W4aZmAW5sTCbGbZIc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=by5T/PdC; arc=none smtp.client-ip=209.85.216.48
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="O8fx5Zle"
-Received: by mail-ot1-f41.google.com with SMTP id 46e09a7af769-7f84a55cc06so769241a34.2
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 05:51:18 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="by5T/PdC"
+Received: by mail-pj1-f48.google.com with SMTP id 98e67ed59e1d1-398c1101c1bso900036a91.1
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 05:52:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788526278; x=1789131078; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1788526336; x=1789131136; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=01VUs/XTkap+IEnmurcqlPrtlSflSCjekh84gJJmzvg=;
-        b=O8fx5ZleThtQvYu2iR09o2z2jAYjWIJZtL0MSQFi56VBCZkv2doiixmOgisWV9MJj6
-         Mjh7xbeJhMg98snmgaNaF1ny+c6LUhQUhUQRp1oX6/0lKcCwaomZBq9oX8tL3cfxLg0s
-         bOCXjXiPMXzL24pFyoh7wTcMzbVdEu22BdoVp9P+QvxQ9s+XwY/fKYxtK2bYd/wnSd/Q
-         rI7vQ/tbgjTXb+//qj4Sga7Rn2Xf7MjfHE1I7DWbSSo+9+aVrwH4qy18Kbsh6UqmEnIU
-         e0U8HKlOFhi8e33qQlvDunNHCB7sZtA3cqnLZiU1eYX4MIzNoNgQpHZMso8ceBb0B86o
-         488A==
+        bh=yCG99e+5QxRQXSuO8zd59u52whzEDFO7RhFXyu9E9Gk=;
+        b=by5T/PdC2QRwNxKeaeALtg7rJm77RSfCfOF0keajM2SQwJip8M9HXKxstfsfHDM4rB
+         Qew3n5W6rZpFITnvjnoivcJDGdQbmHl5jcV5xgiWWLaBs0he4sXQ9xKMPD2R2j4TNivc
+         A6Z0jPk4veiFv0ujoc4Fn46T5aAY3Spud16iu14BTcASlDO5FNTrfEOkurPLS0EcPL93
+         gQJrjBiX+qY97yOM9QHo51AF2nj1bbOFvsIf5MdQfAYPufrnEzzOes6e3MaWq5Zwsi7s
+         /hDbTqQOF4vhP0e5uV6iH+KLExRqC16bqjPOSN4a5bDHOoTroAiQLScJxiCBX4XuDGNo
+         HRpQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788526278; x=1789131078;
+        d=1e100.net; s=20251104; t=1788526336; x=1789131136;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=01VUs/XTkap+IEnmurcqlPrtlSflSCjekh84gJJmzvg=;
-        b=o+IHbq7ekhkHRrT6oy33rj9WTHnyQVu4HZxxvlEb/BfF8kpJiPHRByrIcOgS8UuTVI
-         UdEa0qT/kOmRCivZmIBG+U5jrQQamRVxnjdG9Ay5G7QtXeYfKgLghzBl39caD/gY0cx/
-         0YgSXwnEmypIkoaA+nZhlVgVoUM0tPcFvJFIj77T4Bo6NLYDqPMcKWLW4sH4AEvitTWH
-         j7Yv9k+BasO9p+wPi2BOIzWjZ4JE7LurVIlgtNF2mq+/46H/pzsgxUR+dDoIFi/Y9LCe
-         Xcmp3odbNXFynBlk0tOe7X2zG5FZa9ABiN/SAgU5kYKHotcu1HiMuw8U1dg5mX29Lh9H
-         I96w==
-X-Gm-Message-State: AFuF++kCRzCQJ/YLo9CFdIjvx/j+G0rPMrLkDkcOlPjR1HeH2iDSD8Yv
-	rM8+2RAdbt5kJwlvdVyeffkm5eiwKeCJn0S2pgYoClP1LcrcSNBYo/tH
-X-Gm-Gg: AYBFou2ntr/ldaaD52QoN8RdRaIQ+s+6/ladI7mFpV2qQ+lzF8trZ8CU52FB0mtnhT/
-	QXtdSCAZ0ipqsZdpRFPr47UwMQrp4CqECZqDFzp4GYjwK0Juc81tMY/fEpaQXpF4h0ecGxas9iu
-	de/PZh9DrefNfuB4eTHmAlJ2Ml9KAD88rfbrQD69rqLTdDfjUT+ZiTwZ++xpSKv2KLHfzXE6Vj1
-	7lCGWWX08VFaVGQjUqdlL/kVU9Doa6+v3of324uIxIJCRlDOoNWTNzB19G45r7Bmpatbzksg0SF
-	z8U5UfZTVd0KIW2eiwwYhQeKPNr9ldzHG76eUsKJ8+Z4qIayS7sQn17rt2p3WXLrvinoHDpNl2l
-	uC3siI9MDihY6v+dkpFSMPq3La5yMbiVs7AeGlKIcN3oB87frAM1UMLXJj0q+bZBcJ3mVjLEMuk
-	n4baAF4TdpCcQ6JAToOmOFcl4drVY/lmJqznwRqaUT/qUb0UdMR3NUZnpqn/bFQj6/TlgOPl5qu
-	NNRQ6lMbwWGZvgHXqMnaklj1g==
-X-Received: by 2002:a4a:e84a:0:b0:6b1:4a71:775a with SMTP id 006d021491bc7-6b6fcbde97emr3668982eaf.19.1788526277676;
-        Fri, 04 Sep 2026 05:51:17 -0700 (PDT)
+        bh=yCG99e+5QxRQXSuO8zd59u52whzEDFO7RhFXyu9E9Gk=;
+        b=puF1X8d6Se2OuoBFr5HaOhQ+HaVm54kbjgLK/m157XceNgO0s+Xyi7lZf4+1gFLl9z
+         YeCr/8vM800Xde3u1gQSHPH86slPuAaQvbkLBTqNAX/co2QPW1aefQtF6TtDwy+ASrvj
+         b6L4GMA1cXkfKq6K5SSTSJp1OgQRUn859YDmv5iEVKlYY87zhn92aQxpfg54bFpgnEUo
+         JogwAnDeAvaVUxay1GixQjT+HE1NdI/V6wnsOBa4RUgwI2ENky35EzYPrvITnWlFyb1h
+         25AOJI+u/SV5vWn/pUykFkz87ULZ82AzWXAw6LAY2HbxxgG36Kh4iFpWY0PFSAcEzw+N
+         IijQ==
+X-Gm-Message-State: AFuF++khN8uneVj5AYlQZLDsS5nqK1Upwj3oO6sbdt/sxd+a2sMc/bxO
+	OH+xwVnDhypwlXRKgM0QgTQ5hvHDdhk/2Fb3UVMJ708hg55ujub771pq
+X-Gm-Gg: AYBFou0yem+DDchtNroMIaPp10zCrj7wRQJ1tJnoHefDJodAk84MyRdpcr784+0lSxQ
+	FyfKT0w5L0f68UeAdNUZsG8g2uEbavpdDs0OMemc9pAdLQYQ57rjEQgIIkJnnH8Q84NpO55X5Lr
+	WN8/UfkRH2WAXAbGufAKPI7PeOLwtE2MfIcXz47RpExLlPLY6/bSDfT1A1E2t2qBNCWkRRZXtes
+	h9WotNP13YCLiAjWweGYTXdciffkNKDixQlX5TIVRdHoUrWqOiKyXzfE3jL52skGIFFzMI3qHXM
+	j43BRB4iY9JowRz4dXbluL4z6LXlmO7wYg/iQsf0ogdbce/BBmjWDto2xJOJXB/0+BXS4h3qsi4
+	fNm09EKHvdqKXNCqaufVEswxAD6+2ipDiy8kNIi7eMvgYhXvWldiGZvJyE0qBdlhwobYW4ArTej
+	hPvf1dtath+OUF7t4zG6eI3mtziVHEIZtzANFbBMrrx7ltx+pJtaZjoPa7u5pnsDk+qdUGPx6tX
+	cks6dVYOfP2CXg=
+X-Received: by 2002:a17:90b:1dc3:b0:398:d6f4:c61a with SMTP id 98e67ed59e1d1-39b26207ee4mr9145959a91.17.1788526335895;
+        Fri, 04 Sep 2026 05:52:15 -0700 (PDT)
 Received: from volcano9f6e-hostos.amd.com ([165.204.217.251])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1432424d27asm9649360c88.2.2026.09.04.05.51.15
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339af25062sm9816370eec.16.2026.09.04.05.52.10
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 04 Sep 2026 05:51:17 -0700 (PDT)
+        Fri, 04 Sep 2026 05:52:15 -0700 (PDT)
 From: Hemanth Selam <hemanth.selam@gmail.com>
-To: "Martin K. Petersen" <mkp@kernel.org>
+To: Robert Jarzmik <robert.jarzmik@free.fr>,
+	Miquel Raynal <miquel.raynal@bootlin.com>,
+	Richard Weinberger <richard@nod.at>,
+	Vignesh Raghavendra <vigneshr@ti.com>,
+	Kyungmin Park <kyungmin.park@samsung.com>,
+	Han Xu <han.xu@nxp.com>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Pratyush Yadav <pratyush@kernel.org>,
+	Michael Walle <mwalle@kernel.org>,
+	Takahiro Kuwano <takahiro.kuwano@infineon.com>
 Cc: linux-kernel@vger.kernel.org,
-	linux-scsi@vger.kernel.org,
-	target-devel@vger.kernel.org
-Subject: [PATCH] target: fix typos in comments
-Date: Fri,  4 Sep 2026 18:21:08 +0530
-Message-ID: <20260904125113.11494-1-hemanth.selam@gmail.com>
+	linux-mtd@lists.infradead.org,
+	imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org
+Subject: [PATCH] mtd: fix typos in comments
+Date: Fri,  4 Sep 2026 18:22:03 +0530
+Message-ID: <20260904125208.12099-1-hemanth.selam@gmail.com>
 X-Mailer: git-send-email 2.48.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -80,170 +92,182 @@ changes.
 Assisted-by: Cursor:claude-opus-5
 Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
 ---
- drivers/target/iscsi/iscsi_target.c       | 4 ++--
- drivers/target/iscsi/iscsi_target_erl0.c  | 4 ++--
- drivers/target/iscsi/iscsi_target_login.c | 4 ++--
- drivers/target/iscsi/iscsi_target_tmr.c   | 2 +-
- drivers/target/iscsi/iscsi_target_tpg.c   | 2 +-
- drivers/target/target_core_pr.c           | 2 +-
- drivers/target/target_core_transport.c    | 4 ++--
- drivers/target/tcm_fc/tfc_io.c            | 2 +-
- include/target/iscsi/iscsi_target_core.h  | 2 +-
- 9 files changed, 13 insertions(+), 13 deletions(-)
+ drivers/mtd/devices/docg3.c                | 4 ++--
+ drivers/mtd/nand/onenand/onenand_base.c    | 2 +-
+ drivers/mtd/nand/raw/fsmc_nand.c           | 2 +-
+ drivers/mtd/nand/raw/gpmi-nand/gpmi-nand.c | 2 +-
+ drivers/mtd/nand/raw/mtk_nand.c            | 2 +-
+ drivers/mtd/nand/raw/nand_base.c           | 2 +-
+ drivers/mtd/nand/raw/nand_legacy.c         | 4 ++--
+ drivers/mtd/spi-nor/otp.c                  | 2 +-
+ include/linux/mtd/bbm.h                    | 2 +-
+ include/linux/mtd/rawnand.h                | 2 +-
+ include/linux/mtd/sh_flctl.h               | 4 ++--
+ 11 files changed, 14 insertions(+), 14 deletions(-)
 
-diff --git a/drivers/target/iscsi/iscsi_target.c b/drivers/target/iscsi/iscsi_target.c
-index 62ada3a52210..7f0f513ca95a 100644
---- a/drivers/target/iscsi/iscsi_target.c
-+++ b/drivers/target/iscsi/iscsi_target.c
-@@ -108,7 +108,7 @@ void iscsit_put_tiqn_for_login(struct iscsi_tiqn *tiqn)
+diff --git a/drivers/mtd/devices/docg3.c b/drivers/mtd/devices/docg3.c
+index 603fd0efc2ea..84566997d665 100644
+--- a/drivers/mtd/devices/docg3.c
++++ b/drivers/mtd/devices/docg3.c
+@@ -1884,7 +1884,7 @@ static void doc_release_device(struct mtd_info *mtd)
+ 
+ /**
+  * docg3_resume - Awakens docg3 floor
+- * @pdev: platfrom device
++ * @pdev: platform device
+  *
+  * Returns 0 (always successful)
+  */
+@@ -1963,7 +1963,7 @@ static int docg3_suspend(struct platform_device *pdev, pm_message_t state)
+  * @pdev: platform device
+  *
+  * Probes for a G3 chip at the specified IO space in the platform data
+- * ressources. The floor 0 must be available.
++ * resources. The floor 0 must be available.
+  *
+  * Returns 0 on success, -ENOMEM, -ENXIO on error
+  */
+diff --git a/drivers/mtd/nand/onenand/onenand_base.c b/drivers/mtd/nand/onenand/onenand_base.c
+index d08aeac86f9f..bca5a3bebd41 100644
+--- a/drivers/mtd/nand/onenand/onenand_base.c
++++ b/drivers/mtd/nand/onenand/onenand_base.c
+@@ -3279,7 +3279,7 @@ static void onenand_check_features(struct mtd_info *mtd)
+ 			 *
+ 			 * Now it has as following
+ 			 * KFM4G16Q4M has NOP 4 with version ID 0x0131
+-			 * KFM4G16Q5M has NOP 1 with versoin ID 0x013e
++			 * KFM4G16Q5M has NOP 1 with version ID 0x013e
+ 			 */
+ 			if ((this->version_id & 0xf) == 0xe)
+ 				this->options |= ONENAND_HAS_NOP_1;
+diff --git a/drivers/mtd/nand/raw/fsmc_nand.c b/drivers/mtd/nand/raw/fsmc_nand.c
+index b13b2b0c3f30..08ef4425559c 100644
+--- a/drivers/mtd/nand/raw/fsmc_nand.c
++++ b/drivers/mtd/nand/raw/fsmc_nand.c
+@@ -461,7 +461,7 @@ static int fsmc_correct_ecc1(struct nand_chip *chip,
+ 				      chip->ecc.size, sm_order);
+ }
+ 
+-/* Count the number of 0's in buff upto a max of max_bits */
++/* Count the number of 0's in buff up to a max of max_bits */
+ static int count_written_bits(u8 *buff, int size, int max_bits)
+ {
+ 	int k, written_bits = 0;
+diff --git a/drivers/mtd/nand/raw/gpmi-nand/gpmi-nand.c b/drivers/mtd/nand/raw/gpmi-nand/gpmi-nand.c
+index 527165ccc839..c61f3983a713 100644
+--- a/drivers/mtd/nand/raw/gpmi-nand/gpmi-nand.c
++++ b/drivers/mtd/nand/raw/gpmi-nand/gpmi-nand.c
+@@ -2271,7 +2271,7 @@ static int nand_boot_init(struct gpmi_nand_data  *this)
+ {
+ 	nand_boot_set_geometry(this);
+ 
+-	/* This is ROM arch-specific initilization before the BBT scanning. */
++	/* This is ROM arch-specific initialization before the BBT scanning. */
+ 	if (GPMI_IS_MX23(this))
+ 		return mx23_boot_init(this);
+ 	return 0;
+diff --git a/drivers/mtd/nand/raw/mtk_nand.c b/drivers/mtd/nand/raw/mtk_nand.c
+index 21c7e1102746..c439b7814ebb 100644
+--- a/drivers/mtd/nand/raw/mtk_nand.c
++++ b/drivers/mtd/nand/raw/mtk_nand.c
+@@ -42,7 +42,7 @@
+ #define		CON_BRD			BIT(8)  /* burst  read */
+ #define		CON_BWR			BIT(9)	/* burst  write */
+ #define		CON_SEC_SHIFT		(12)
+-/* Timming control register */
++/* Timing control register */
+ #define NFI_ACCCON		(0x0C)
+ #define NFI_INTR_EN		(0x10)
+ #define		INTR_AHB_DONE_EN	BIT(6)
+diff --git a/drivers/mtd/nand/raw/nand_base.c b/drivers/mtd/nand/raw/nand_base.c
+index a5b278ab9384..a225b10f8145 100644
+--- a/drivers/mtd/nand/raw/nand_base.c
++++ b/drivers/mtd/nand/raw/nand_base.c
+@@ -6205,7 +6205,7 @@ static int nand_scan_tail(struct nand_chip *chip)
+ 	/*
+ 	 * FIXME: some NAND manufacturer drivers expect the first die to be
+ 	 * selected when manufacturer->init() is called. They should be fixed
+-	 * to explictly select the relevant die when interacting with the NAND
++	 * to explicitly select the relevant die when interacting with the NAND
+ 	 * chip.
+ 	 */
+ 	nand_select_target(chip, 0);
+diff --git a/drivers/mtd/nand/raw/nand_legacy.c b/drivers/mtd/nand/raw/nand_legacy.c
+index 97700f80d5b8..94d5c7723c5a 100644
+--- a/drivers/mtd/nand/raw/nand_legacy.c
++++ b/drivers/mtd/nand/raw/nand_legacy.c
+@@ -319,7 +319,7 @@ static void nand_command(struct nand_chip *chip, unsigned int command,
+ 				      NAND_CTRL_CLE | NAND_CTRL_CHANGE);
+ 		chip->legacy.cmd_ctrl(chip, NAND_CMD_NONE,
+ 				      NAND_NCE | NAND_CTRL_CHANGE);
+-		/* EZ-NAND can take upto 250ms as per ONFi v4.0 */
++		/* EZ-NAND can take up to 250ms as per ONFi v4.0 */
+ 		nand_wait_status_ready(chip, 250);
+ 		return;
+ 
+@@ -459,7 +459,7 @@ static void nand_command_lp(struct nand_chip *chip, unsigned int command,
+ 				      NAND_NCE | NAND_CLE | NAND_CTRL_CHANGE);
+ 		chip->legacy.cmd_ctrl(chip, NAND_CMD_NONE,
+ 				      NAND_NCE | NAND_CTRL_CHANGE);
+-		/* EZ-NAND can take upto 250ms as per ONFi v4.0 */
++		/* EZ-NAND can take up to 250ms as per ONFi v4.0 */
+ 		nand_wait_status_ready(chip, 250);
+ 		return;
+ 
+diff --git a/drivers/mtd/spi-nor/otp.c b/drivers/mtd/spi-nor/otp.c
+index 7d0b145d78d8..61c55227e15d 100644
+--- a/drivers/mtd/spi-nor/otp.c
++++ b/drivers/mtd/spi-nor/otp.c
+@@ -25,7 +25,7 @@
+  * Read a security register by using the SPINOR_OP_RSECR commands.
+  *
+  * In Winbond/GigaDevice datasheets the term "security register" stands for
+- * an one-time-programmable memory area, consisting of multiple bytes (usually
++ * a one-time-programmable memory area, consisting of multiple bytes (usually
+  * 256). Thus one "security register" maps to one OTP region.
+  *
+  * This method is used on GigaDevice and Winbond flashes.
+diff --git a/include/linux/mtd/bbm.h b/include/linux/mtd/bbm.h
+index d890805f5494..67929fdf2dff 100644
+--- a/include/linux/mtd/bbm.h
++++ b/include/linux/mtd/bbm.h
+@@ -75,7 +75,7 @@ struct nand_bbt_descr {
+  * with NAND_BBT_CREATE.
+  */
+ #define NAND_BBT_CREATE_EMPTY	0x00000400
+-/* Write bbt if neccecary */
++/* Write bbt if necessary */
+ #define NAND_BBT_WRITE		0x00002000
+ /* Read and write back block contents when writing bbt */
+ #define NAND_BBT_SAVECONTENT	0x00004000
+diff --git a/include/linux/mtd/rawnand.h b/include/linux/mtd/rawnand.h
+index 5c70e7bd3ed5..43fefff02025 100644
+--- a/include/linux/mtd/rawnand.h
++++ b/include/linux/mtd/rawnand.h
+@@ -1592,7 +1592,7 @@ void nand_wait_ready(struct nand_chip *chip);
  
  /*
-  * Note that IQN formatting is expected to be done in userspace, and
-- * no explict IQN format checks are done here.
-+ * no explicit IQN format checks are done here.
+  * Free resources held by the NAND device, must be called on error after a
+- * sucessful nand_scan().
++ * successful nand_scan().
   */
- struct iscsi_tiqn *iscsit_add_tiqn(unsigned char *buf)
- {
-@@ -4545,7 +4545,7 @@ static void iscsit_logout_post_handler_closesession(
- 	/*
- 	 * Traditional iscsi/tcp will invoke this logic from TX thread
- 	 * context during session logout, so clear tx_thread_active and
--	 * sleep if iscsit_close_connection() has not already occured.
-+	 * sleep if iscsit_close_connection() has not already occurred.
- 	 *
- 	 * Since iser-target invokes this logic from it's own workqueue,
- 	 * always sleep waiting for RX/TX thread shutdown to complete
-diff --git a/drivers/target/iscsi/iscsi_target_erl0.c b/drivers/target/iscsi/iscsi_target_erl0.c
-index 24db6b07493e..38c1574a855d 100644
---- a/drivers/target/iscsi/iscsi_target_erl0.c
-+++ b/drivers/target/iscsi/iscsi_target_erl0.c
-@@ -343,7 +343,7 @@ static int iscsit_dataout_check_datasn(
+ void nand_cleanup(struct nand_chip *chip);
  
- 	/*
- 	 * Considering the target has no method of re-requesting DataOUT
--	 * by DataSN, if we receieve a greater DataSN than expected we
-+	 * by DataSN, if we receive a greater DataSN than expected we
- 	 * assume the functions for DataPDUInOrder=[Yes,No] below will
- 	 * handle it.
- 	 *
-@@ -394,7 +394,7 @@ static int iscsit_dataout_pre_datapduinorder_yes(
- 
- 	/*
- 	 * For DataSequenceInOrder=Yes: If the offset is greater than the global
--	 * DataPDUInOrder=Yes offset counter in struct iscsit_cmd a protcol error has
-+	 * DataPDUInOrder=Yes offset counter in struct iscsit_cmd a protocol error has
- 	 * occurred and fail the connection.
- 	 *
- 	 * For DataSequenceInOrder=No: If the offset is greater than the per
-diff --git a/drivers/target/iscsi/iscsi_target_login.c b/drivers/target/iscsi/iscsi_target_login.c
-index aafc94bcb635..790928012ce0 100644
---- a/drivers/target/iscsi/iscsi_target_login.c
-+++ b/drivers/target/iscsi/iscsi_target_login.c
-@@ -548,7 +548,7 @@ int iscsi_login_post_auth_non_zero_tsih(
- 	 * We use the original ExpStatSN sent in the first login request
- 	 * to acknowledge commands for the failed connection.
- 	 *
--	 * Also note that an explict logout may have already been sent,
-+	 * Also note that an explicit logout may have already been sent,
- 	 * but the response may not be sent due to additional connection
- 	 * loss.
- 	 */
-@@ -1261,7 +1261,7 @@ static int __iscsi_target_login_thread(struct iscsi_np *np)
- 	} else {
- 		/*
- 		 * Add a new connection to an existing session.
--		 * We check for a non-existant session in
-+		 * We check for a non-existent session in
- 		 * iscsi_login_non_zero_tsih_s2() below based
- 		 * on ISID/TSIH, but wait until after authentication
- 		 * to check for connection reinstatement, etc.
-diff --git a/drivers/target/iscsi/iscsi_target_tmr.c b/drivers/target/iscsi/iscsi_target_tmr.c
-index 620de3910599..aa73cc0f504b 100644
---- a/drivers/target/iscsi/iscsi_target_tmr.c
-+++ b/drivers/target/iscsi/iscsi_target_tmr.c
-@@ -450,7 +450,7 @@ static int iscsit_task_reassign_complete(
- /*
-  *	Handles special after-the-fact actions related to TMRs.
-  *	Right now the only one that its really needed for is
-- *	connection recovery releated TASK_REASSIGN.
-+ *	connection recovery related TASK_REASSIGN.
+diff --git a/include/linux/mtd/sh_flctl.h b/include/linux/mtd/sh_flctl.h
+index 78fc2d4218c8..15adf2474fa0 100644
+--- a/include/linux/mtd/sh_flctl.h
++++ b/include/linux/mtd/sh_flctl.h
+@@ -60,8 +60,8 @@
+  * Some hardware uses bits called PULSEx instead of FCKSEL_E and QTSEL_E
+  * to control the clock divider used between the High-Speed Peripheral Clock
+  * and the FLCTL internal clock. If so, use CLK_8_BIT_xxx for connecting 8 bit
+- * and CLK_16_BIT_xxx for connecting 16 bit bus bandwith NAND chips. For the 16
+- * bit version the divider is seperate for the pulse width of high and low
++ * and CLK_16_BIT_xxx for connecting 16 bit bus bandwidth NAND chips. For the 16
++ * bit version the divider is separate for the pulse width of high and low
+  * signals.
   */
- int iscsit_tmr_post_handler(struct iscsit_cmd *cmd, struct iscsit_conn *conn)
- {
-diff --git a/drivers/target/iscsi/iscsi_target_tpg.c b/drivers/target/iscsi/iscsi_target_tpg.c
-index 99772364c88e..db140bb48def 100644
---- a/drivers/target/iscsi/iscsi_target_tpg.c
-+++ b/drivers/target/iscsi/iscsi_target_tpg.c
-@@ -308,7 +308,7 @@ int iscsit_tpg_enable_portal_group(struct iscsi_portal_group *tpg)
- 	}
- 	/*
- 	 * Make sure that AuthMethod does not contain None as an option
--	 * unless explictly disabled.  Set the default to CHAP if authentication
-+	 * unless explicitly disabled.  Set the default to CHAP if authentication
- 	 * is enforced (as per default), and remove the NONE option.
- 	 */
- 	param = iscsi_find_param_from_key(AUTHMETHOD, tpg->param_list);
-diff --git a/drivers/target/target_core_pr.c b/drivers/target/target_core_pr.c
-index 25b1bcacc0c8..3cd23ea321ae 100644
---- a/drivers/target/target_core_pr.c
-+++ b/drivers/target/target_core_pr.c
-@@ -3655,7 +3655,7 @@ target_scsi3_emulate_pr_out(struct se_cmd *cmd)
- 	}
- 	/*
- 	 * If the backend device has been configured to force APTPL metadata
--	 * write-out, go ahead and propigate aptpl=1 down now.
-+	 * write-out, go ahead and propagate aptpl=1 down now.
- 	 */
- 	if (dev->dev_attrib.force_pr_aptpl)
- 		aptpl = 1;
-diff --git a/drivers/target/target_core_transport.c b/drivers/target/target_core_transport.c
-index dcfe94594916..14c60afb16f2 100644
---- a/drivers/target/target_core_transport.c
-+++ b/drivers/target/target_core_transport.c
-@@ -1869,7 +1869,7 @@ EXPORT_SYMBOL_GPL(target_submit_prep);
-  * This may only be called from process context, and also currently
-  * assumes internal allocation of fabric payload buffer by target-core.
-  *
-- * It also assumes interal target core SGL memory allocation.
-+ * It also assumes internal target core SGL memory allocation.
-  *
-  * This function must only be used by drivers that do their own
-  * sync during shutdown and does not use target_stop_session. If there
-@@ -3505,7 +3505,7 @@ static const struct sense_detail sense_detail_table[] = {
- 		 * REGISTER AND MOVE service actionis attempted,
- 		 * but there are insufficient device server resources to complete the
- 		 * operation, then the command shall be terminated with CHECK CONDITION
--		 * status, with the sense key set to ILLEGAL REQUEST,and the additonal
-+		 * status, with the sense key set to ILLEGAL REQUEST,and the additional
- 		 * sense code set to INSUFFICIENT REGISTRATION RESOURCES.
- 		 */
- 		.key = ILLEGAL_REQUEST,
-diff --git a/drivers/target/tcm_fc/tfc_io.c b/drivers/target/tcm_fc/tfc_io.c
-index 45329284f52f..9568042b200c 100644
---- a/drivers/target/tcm_fc/tfc_io.c
-+++ b/drivers/target/tcm_fc/tfc_io.c
-@@ -248,7 +248,7 @@ void ft_recv_write_data(struct ft_cmd *cmd, struct fc_frame *fp)
- 		 * header is posted in receive queue.
- 		 *
- 		 * If "Sequence Initiative (TSI)" bit is not set, means error
--		 * condition w.r.t. DDP, hence drop the packet and let explict
-+		 * condition w.r.t. DDP, hence drop the packet and let explicit
- 		 * ABORTS from other end of exchange timer trigger the recovery.
- 		 */
- 		if (f_ctl & FC_FC_SEQ_INIT)
-diff --git a/include/target/iscsi/iscsi_target_core.h b/include/target/iscsi/iscsi_target_core.h
-index 51ca80abacf7..ccaa28c3abad 100644
---- a/include/target/iscsi/iscsi_target_core.h
-+++ b/include/target/iscsi/iscsi_target_core.h
-@@ -57,7 +57,7 @@ struct sock;
- #define TA_CACHE_DYNAMIC_ACLS		0
- /* Enabled by default in demo mode (generic_node_acls=1) */
- #define TA_DEMO_MODE_WRITE_PROTECT	1
--/* Disabled by default in production mode w/ explict ACLs */
-+/* Disabled by default in production mode w/ explicit ACLs */
- #define TA_PROD_MODE_WRITE_PROTECT	0
- #define TA_DEMO_MODE_DISCOVERY		1
- #define TA_DEFAULT_ERL			0
+ #define PULSE3	(0x1 << 27)
 -- 
 2.48.1
 
