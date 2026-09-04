@@ -1,280 +1,388 @@
-Received: from SN4PR2101CU001.outbound.protection.outlook.com (mail-southcentralusazon11012030.outbound.protection.outlook.com [40.93.195.30])
+Received: from fout-a1-smtp.messagingengine.com (fout-a1-smtp.messagingengine.com [103.168.172.144])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E4C34EBAD3;
-	Fri,  4 Sep 2026 15:10:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.195.30
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788534640; cv=fail; b=d/T9evcNLDS6LdMLQrL7jQOo96cpVpowCDSfuGoJFCzVlRLEoin4Dr346HIiV3eL21PUrHZhIIJj3URQl511UOzxmohQL0GzrZIMmeE8Yf364wjnekHqO8/9OeLCnQDgjmEH2ITkLvKFSRY+Pi1eqs39pSjJJSis3nbXX3ir924=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788534640; c=relaxed/simple;
-	bh=y3uxwc5q7BQ3E0PiX4Flh2lZvijxug9OQAnP7uYdEMw=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D93384EBAFD
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 15:10:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.144
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788534641; cv=none; b=aux2VwJbqKRq5Zaw4iskuRia44xJ4BqjqPaGvIZM51g39UqoaQl4/hoalKkkxYXI6LU8vzGtF361NR71XkPaTe13e2KoZjYHV4s2KX/9UScTZnVxnGsq9UdTm46f1qrrrKcxsQs1aCPMtiZl0/4VXm/Ugx4em9Lg3eQFoCtI0OE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788534641; c=relaxed/simple;
+	bh=1NZNGa/Aw9M2kA9PN64vUL4MGJOi0br60Hrt3XL1fUI=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=QrrReCtvYUYYik3oRl9l4U5zYPbtPCaBRF3XdkOisdh2lBEy3Jr10aIhI5ElHEwXuapzO1RMi8QqarKl+En+WeVZPhDSObBViGVPfjEbsxN48RRRN1t6Lpy6CcZosmx+6BPS6AroMjnU6N/jjVSDja7ERePJXgBKARrKAnI2icw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=UZoxQoc+; arc=fail smtp.client-ip=40.93.195.30
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	 MIME-Version; b=KS8RZTcJGGlHckzmBoImarlrBL2UIHK35kemekbp0mFircI9E0m+IUN3HzcZ0YygzgmWxdPr6UHCqvPRO5VWtdK8ANjzQ8Z/398kKJKeru8SQboLX9NDxXbsOPCwT/8/nrB4/gPGip5dXrelLXLMwpOItxVQXd6sMut0GPnXa/E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=shutemov.name; spf=pass smtp.mailfrom=shutemov.name; dkim=pass (2048-bit key) header.d=shutemov.name header.i=@shutemov.name header.b=BwOt+/mF; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=Tcm0kQra; arc=none smtp.client-ip=103.168.172.144
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=shutemov.name
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=shutemov.name
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="UZoxQoc+"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=vFOCJBFQTfWdjtVEAVoTCZzxbWR7ogIKcJb+QSEtAWYBqmdDo8Z6ia6bTOSbFgVVbF/2V1lCzztoLZMLoPbPXdl1W02Jz+WL0Cv7MIEe5Yh03yUff8Jf/0/w2PLrd4rjj1yLMl/DTX5DXN8cMhse8TN1nqZE96QWnjG+/zWHXr41iXq+BbEKH2R0JfynNoJagk1N2T6MDX2ljqufL1685tV3DseYaqXiYf1eS2LQDRm5feleYnsk9GfSk989LNLcWSbVvA7sva2qq25yWzRe7mfM+zTkwuulycmuIC8lU04oNaCag/XmjcD0EV8uTasjugR8JftGFI1UWmvX1Gb1Vg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=55CKOlJDuzcxiVxXB/ipq9IEKZ5il8Exdsy9b4Arfvo=;
- b=SPab+2oD3D++53oPB4wq3oDnmCDBYPEOC2liuyoLvvslK5kysVeqwPom4+s3i0tVOOsmVNPOzJEGpXIkgo69dkdWnz0WlSLKkrk8jbfA6rBJlGoa7TqeVS6K0EIgNZqgIUGx+1X/4S87ptWeP+z9A3AXdriUr2QPrqMMy04JRbXKDjg4d0cPVWYXEpkJ5QRMBhXgRBYlFJQ5utR6H6RKuab2Y//UM2Xs55kqhfk2ylVf5dIa9KgfzY+RdwFbr6bC5sw16A5h6ywYvI6/Ig9zjYW1mgzaIemScsEURqYYy/MZMxyV8oKHq4RJciNoDqjNM1B1yk1hY6Khzkmc0UeT3Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=55CKOlJDuzcxiVxXB/ipq9IEKZ5il8Exdsy9b4Arfvo=;
- b=UZoxQoc+hqybpr/8bJKrxIebvTegZx05cSQksLdE/uQeQnCzXrB7g5rCkRHOdv0DX8qBYLAnFD9xhFr+rXQ6PG7Ljg8h3+WAE3llp/Q7ygSp2aQjn8cYRELBg0piWJO/ADkszDZNC9jEx3P/gWUYoBuPrtrTiPxXf7590dxP5nEm0fA8T91gv+IpZvCHS+ZmkDgNMA7AavkOD5O9jC0EY97jyiWpgJQPrDnri8ziHr1xAMgMZo3fRNJYQBMdt4b7EsJjzCznz4PB7f2UCbV7aIzJMqr67uUSSRcyCC2M9lHJVjPLZLha9bsTlpqJOt77Wrw90d4nwSubtVpqPNtHeA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from IA0PR12MB8374.namprd12.prod.outlook.com (2603:10b6:208:40e::7)
- by DS0PR12MB8502.namprd12.prod.outlook.com (2603:10b6:8:15b::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Fri, 4 Sep
- 2026 15:10:30 +0000
-Received: from IA0PR12MB8374.namprd12.prod.outlook.com
- ([fe80::d85f:4c87:ae84:3f16]) by IA0PR12MB8374.namprd12.prod.outlook.com
- ([fe80::d85f:4c87:ae84:3f16%5]) with mapi id 15.21.0360.008; Fri, 4 Sep 2026
- 15:10:29 +0000
-From: Zi Yan <ziy@nvidia.com>
-To: Qinyun Tan <qinyuntan@linux.alibaba.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
- Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@suse.com>,
- Roman Gushchin <roman.gushchin@linux.dev>,
- Shakeel Butt <shakeel.butt@linux.dev>, Muchun Song <muchun.song@linux.dev>,
- David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- Xunlei Pang <xlpang@linux.alibaba.com>,
- "Liam R . Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>,
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
- Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
- Usama Arif <usama.arif@linux.dev>, Vlastimil Babka <vbabka@kernel.org>,
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
- Chris Down <chris@chrisdown.name>, Chuanhua Han <hanchuanhua@oppo.com>,
- Kairui Song <kasong@tencent.com>, linux-mm@kvack.org,
- cgroups@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH 1/2] mm: memcg: settle memory.high debt after THP faults
- with non-blocking gfp
-Date: Fri, 04 Sep 2026 11:10:27 -0400
-X-Mailer: MailMate (3.0r7028)
-Message-ID: <6B46E8DF-679B-4254-A4AF-7B992B0F6460@nvidia.com>
-In-Reply-To: <20260904035407.4098627-2-qinyuntan@linux.alibaba.com>
-References: <20260904035407.4098627-1-qinyuntan@linux.alibaba.com>
- <20260904035407.4098627-2-qinyuntan@linux.alibaba.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-MS-Reactions: disallow
-X-ClientProxiedBy: MN0P222CA0005.NAMP222.PROD.OUTLOOK.COM
- (2603:10b6:208:531::8) To IA0PR12MB8374.namprd12.prod.outlook.com
- (2603:10b6:208:40e::7)
+	dkim=pass (2048-bit key) header.d=shutemov.name header.i=@shutemov.name header.b="BwOt+/mF";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="Tcm0kQra"
+Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
+	by mailfout.phl.internal (Postfix) with ESMTP id EAD38EC00AA;
+	Fri,  4 Sep 2026 11:10:37 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-03.internal (MEProxy); Fri, 04 Sep 2026 11:10:37 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shutemov.name;
+	 h=cc:cc:content-transfer-encoding:content-type:date:date:from
+	:from:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:subject:subject:to:to; s=fm2; t=1788534637; x=
+	1788621037; bh=nyjSpTkitaIBwBQZFVJW04eBDamEuOqIJHNiEPmdqUM=; b=B
+	wOt+/mFnt/h/sU+raMZxq/x1lYjxE5boHz0Hy8uREHkZaQbiqeWSGEEFwPzXfZ9h
+	qBOpgGexXa8fFndj4lUwdjMX/97SC1FNwJg4r3t7b8gjcLFHckbY4m5xfI9ROWZI
+	sAljvXaKv4Mq+L3AqEiQGuML1CabxtZYzP2dek7FYyb9Mxl5y+XUw4Ajzej3NW7i
+	zftOnVvczlm5eviZgAjOYIPIaT1wVEF3Yeb4b++ElYDHwfYS00vW6+ygv7yKPj5V
+	dVE9ZgPZH2XQmCAeFkZziCiHJRCj5++s4Y3BMMG4My7tajZh+OJFHG3pwKu/YNfD
+	/VdwsO6YNaeZAATW66brQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:date:date:feedback-id:feedback-id:from:from
+	:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
+	:x-me-sender:x-sasl-enc; s=fm1; t=1788534637; x=1788621037; bh=n
+	yjSpTkitaIBwBQZFVJW04eBDamEuOqIJHNiEPmdqUM=; b=Tcm0kQratdTRy0Ygm
+	P8kL1rZ0CLg9Qv0GrMWpgMEY6iXtoSrrRVbqm5C9u9NNxdBkQrNXr2Ux6f2+PkYr
+	DGqQNm264adjxGuRKJ+uEA43oJMBjsBvJX+zS6cdjPTi7Ec6YVImhp5Cz5Oppjki
+	gt3NZc2PBG4nSI/tjQYOCzi4bZW/LWIyrhZ8qAnusL3ok9dYhw5H7SA8Cv0jDzK4
+	RnKDMiZxrlGHZQNavRrncekq+gfqZxPnmbvN6v5Qu/tNalB3JqyXPK15tATFXo9T
+	IHtV5Nhkjw+7WncrfcXxlC3ezOD9F1Ml7jky71kwLy9YLJT90yzw1vcsU5FV3U5H
+	VVr8A==
+X-ME-Sender: <xms:bd-aauNvc5t1O9JKgJVqYz5GikyPXClz7WmUlFGQ3k3vaJeOS2j7Yw>
+    <xme:bd-aaucx0qh_UvRUBLrTsqyvAq1YSY3dDIdNMl-7dXhrm_O9ZvDA8dEPmGisYx320
+    QetRdd8eYfDkK8qaBaI_hjgWEI8Wk4_YJJaX_2Gz5k2cvjipXeW80G4>
+X-ME-Received: <xmr:bd-aai6i7i-lVuzHB-onSVQNiopwR-KN477rHncJXSSzi8kLpFowwXT2ZjM>
+X-ME-Proxy-Cause: dmFkZTFdOocfRN4jOpcQf0AqfSai/YCGo+xlO94MLvzn7lqitof50EENUNEgJzLPt2H+RQ
+    DWgrwJL5dg2BaLkWQfjz0w8mX09EzID7A24sM1R0CcrzJ0aCsxP+pgO1accdG5RnvXKoNP
+    Qi2+ranCgsFBQlrx3RUM64Xgm9l9zr2TPWbzFNtan3mUwkVlJ/gBEGXolzLuuMZ3CJ6e8L
+    gmzum6oDDF3av5ecJE/wINba64+XlYa/U9oL8c0Dkr16eu3wp8w8wOsHTRTsCgO4oV0meO
+    0fb7rtZliPO8XPlA3k/rGcTv+01JWMnSe6fG3OACTE4UctUjoP9cM2YnBbUckeF0hhckbq
+    Cvz8P0mWGH45WdOwqnu+TKhOr5lwKVKaMaZXfHg9pm/WzuEvez6nqQcMig9ee23pQT31jw
+    lmXwJAIgzz8MoxjOko5trLcvXSnI2oKuuqaTJA8txpBkIwZoisx0vYswzoGI0pqomz0FKS
+    m5gEJgYwGJd/KDyqT/mCOiTQE3HyM+MgLriFa3c35xwK3aPx3PR6PBmlY2DR++iRoh09E7
+    L7tCNNLglqlPCbc406tgC8hCPZQSP/xqDAWKT1xiyKaedO/SI/dc56VVJrkiarMU3nCC+e
+    oKsesJWIY0XwAoZMINTbJm7TYwNxM4dPRS0e1rXNI2QuCQn0BPdZKdwmuPVQ
+X-ME-Proxy: <xmx:bd-aamIUeEGsQzgA2-z9EhSMHy2aGQIENfYmmjnjA0nrr8-Hu-XMHQ>
+    <xmx:bd-aam5V8SUSwA6b4-tsNH80o0Fg20eQwQCg1nwaxkP8eRtZ6CLMvw>
+    <xmx:bd-aalZTiWrF4_NUa_UQjFZmtpeHrJ_FxZpYGET5Y_nKUc1K-rmfGw>
+    <xmx:bd-aatxWuobouDCAnUsROQHad4hn_mjHCN6LA2kYKdKqthn6nSUyVg>
+    <xmx:bd-aam08GwXkH1YRtJ04mazxx9DOwTETJgeQY9sXZQtcCdoXjh5Zd3FJ>
+Feedback-ID: ie3994620:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
+ 4 Sep 2026 11:10:37 -0400 (EDT)
+From: Kiryl Shutsemau <kirill@shutemov.name>
+To: Andrew Morton <akpm@linux-foundation.org>,
+	David Hildenbrand <david@kernel.org>,
+	Lorenzo Stoakes <ljs@kernel.org>
+Cc: linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	kernel-team@meta.com,
+	Zi Yan <ziy@nvidia.com>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	"Liam R . Howlett" <liam@infradead.org>,
+	Nico Pache <nico.pache@linux.dev>,
+	Ryan Roberts <ryan.roberts@arm.com>,
+	Dev Jain <dev.jain@arm.com>,
+	Barry Song <baohua@kernel.org>,
+	Lance Yang <lance.yang@linux.dev>,
+	Usama Arif <usama.arif@linux.dev>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Jann Horn <jannh@google.com>,
+	"Kiryl Shutsemau (Meta)" <kas@kernel.org>
+Subject: [PATCH 04/12] mm/collapse: add collapse.h for the collapse interface
+Date: Fri,  4 Sep 2026 16:10:18 +0100
+Message-ID: <ec5230f43af7153e18aed02c6ee38f010106d8e8.1788533997.git.kas@kernel.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <cover.1788533997.git.kas@kernel.org>
+References: <cover.1788533997.git.kas@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: IA0PR12MB8374:EE_|DS0PR12MB8502:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6ecab842-dca8-420d-ed9a-08df0a96a867
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|7416014|23010399003|1800799024|366016|11063799006|10067099003|4143699003|22082099003|18002099003|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	5fPWWy6Qn+0YEyHNFbvrI693IvS9bvzpRBiZBsH3Izz8FlhE+SL6kC9gzIaPWRc6ByJ/COeZE/tJRYtFGjNKWAGqP4PcWC2NJJfCwJKiHvR/Z9mBdznbzmQBBzB1VtlZkzbqFMiTPXa5+eBxvf2DLv8Q9XnL4UlAOgJPoB7Zk2Atpo9c6l5beCWarnSWdV+LJq+Zah2qHn4N9sXB6th6pOA3xpICfyKebzbBdXzqxmjkSMiDbrwK2+7leKWQe42eBsCs8obkKjAZu3AiDFCz+uFPUaGENfT/SOhYW1ILJojYDadyd4yEc8FjuNg0wuC5scIbw4NNexB2kLKaLEmnEArJw5sHHiWErzS7D/nCnK8STHbP8ozzPcuweNKSY/to1nTffbu21UAztkPWmGX7/zBOrLDOYPnnE03wglU3kTRLcEa9VKQwXWGcM5eOM6vLDAcUNUs+z8y1CWIj9sLTvpd01wZo5XVQ/0bXcQxriA8eedZhblbsX/vdBjlpSwQzJW+1KwBlZKKw8zDQiaY1gohmsQvBYXhLcHlCU3xBwiKycIPNyIbpVKEqB6zG0Wsexk7D3Mwau73psLE5MZXE9iOibIUolVDzqt5kQwSSMXIJqSSNyTtr+LZBkZoZpTj8wVYpHwg+ASW52vJhiImCit+J+6iQQG1Rw4ChAfbOc6g=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA0PR12MB8374.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(23010399003)(1800799024)(366016)(11063799006)(10067099003)(4143699003)(22082099003)(18002099003)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?dHU4ejVEZHpQR0M4TGJjci9NWWF5MVRlUlVHaTZ5L0tEWDhVM3crVWtzTzg5?=
- =?utf-8?B?dW5IemNDd0MxZ3N4ZWg0Q3djY0h3Wi8xN1lmZS9lOWFzcy80NUthbU04aDAv?=
- =?utf-8?B?WnF4dWk1ZFh5RnByUHpCMndkemsyelpyUjhnTHVGa1RPdkVWUkV6YnRubVdD?=
- =?utf-8?B?bHg0cmUyOStmSVN0cGhIOC9qZFNFcXZKZkwxSm41Y1lLbHNRMDR2bmJoa0tM?=
- =?utf-8?B?dWVHT1k5M2hrVTk3NmFzaTl2akYvV05SRkNpYXorQzhWdVpiczU4SkZyN3pn?=
- =?utf-8?B?NlBYeGdmNW01dTZKSmZLYUtaYTFGMEFmRUp4NitHSTUxWk0wY09kNzlFYmIw?=
- =?utf-8?B?Mk1BdUZ4K2gvMTB4S2NIVCt3TW1pRlJINjlxTWwyS2ZGaEdwdFBRcFQ2emxP?=
- =?utf-8?B?SzBObTdiS2lrQitJMjljcnQxNVZkd08xRkdsT0lQTklvZEdPR3Vub0t6NDVa?=
- =?utf-8?B?ektNTWNGVkplV3dPNGY2eUJUcHc2MUZrQ1Q1cXhQcWxZZTY2QU5ZQXloTGd2?=
- =?utf-8?B?UTBLRkorOUR1UlM4QkRKSWFvbHA4M1paaE1iSkQ4bEs1NWQyb1NYd2R1RzZS?=
- =?utf-8?B?QVN0azBkMitkTHRERHQ5WFBtU1M2WVh4czFzTzBpWVhrY0t4NFMwc1k0RTNH?=
- =?utf-8?B?RHJGbzl0ZFVuL21ia0JGMUlNcU44TzlTR2RRM2ZXNXRZWCtLcWdXa3pZSnUw?=
- =?utf-8?B?SDFNL3phTE1seG9lTlhJbElMWG0rUzd5SWFXS2puNmhjSjl1U25SSU9nMUdZ?=
- =?utf-8?B?NmxjMXVWaTFuSDE2QWIvaXhSL3VJYlk3czhLZHdjS2RrTXY4ajYvL3Z2dFFy?=
- =?utf-8?B?cGFUaG1vaUpTcEt2WTZUVXE2UUk0K0lzM2o3ZWFPT1RSN3h5dUtjZ1BkOWlN?=
- =?utf-8?B?Zm9NQjY5cFNaMWExVDIyZWZ0RXgrYWdhdDhxZE5qQ0t2RHMrOHVXUDlvMkt5?=
- =?utf-8?B?aG5QQ0VhZm43cmpXOUVlNlFUYmRyaEs0SGtNbTRvNGZmdk5veks1ci9LTmZN?=
- =?utf-8?B?UDNrd0hnK1JZemxQNkNIcjZtTmdPZ3NMVmRuSDd5YXNoeEc4blQ2T3ZMcGhp?=
- =?utf-8?B?VGVnR1laNEdMdm5WL285Z3RpQVcwUHZLY1Q2THd2K2Q0WE9nZTdIOGt1RWFC?=
- =?utf-8?B?RCtWallMTUdPYTFtdHJ1eitueDFja3FzRGNNbEtGTzFjKzVsdkNMSzVuRmFu?=
- =?utf-8?B?dEtINk10UGpGNGViNmIvLzdDMWt4Y3FTZjJXUnlzNlh3UmFxaHhqKzFaU3Bq?=
- =?utf-8?B?bUVBYjFVeFNHenF3cGF6K2dZQkZtV0R1WlcvYkx3b1VYZFFzRmpTdy9VeGov?=
- =?utf-8?B?UUkvbW5JeHVPZWpaTFlyRWhOb2lPZFFTK3c2eHkvbFR2YWM4Yndsak1mRVls?=
- =?utf-8?B?M2pIUjZLWE9CcThuUDBSeUIwRzJjRHZmdnREY3VSSlcwZ3JuM1NiSjNUOExO?=
- =?utf-8?B?aWpjUnlVWHozZEhGdFpXaTRTaURjaWpwVTBVWGNJYjdUTWlUdVI3V2pXL2FL?=
- =?utf-8?B?VE8xYTY2SC9MYnNTQjJhQ3lmREpJUUhXVnZWcFZ0R0laYS9sdDdvV1R3OXNG?=
- =?utf-8?B?Y3F6Z2hTVGJKWnIyZGVBQWJuWm5XQ0Z5cnFBZXMyS3ZFMW9NUDVyeHRGcUdW?=
- =?utf-8?B?SlhxaUtqcmRVVW5WaDhLcmsrUkJPWXJ5T04rNUJFK09XQktiOTliMWVUQlIx?=
- =?utf-8?B?ZFhqTjhOY3hmS1JuSytGNVhBYVZMSG9UaUllRngvRzVxRS94RWhSTzMvWGpI?=
- =?utf-8?B?c2VTOVRva1JFbVl3ZzNuT1htSUp6MzNMa0NvOEVVOGhXcUNneGFTdkdlb1JM?=
- =?utf-8?B?K2lXUm1HMmI3allZc1JnQmRkeHJqQ01QVDFHaCtGdnZEdURhMkY1MnJVS2h0?=
- =?utf-8?B?dVlXdFlmbjRqcHdERjErSmkxbVlxK1dRRzNNNzl2MmdBN1RxZVpJNVNxN2JD?=
- =?utf-8?B?cHhBSDVuLzRRb3ZkMEx0VjNGR2NIOWRKMEs0dXhnWXJ0TUNlMW9hTFdmOG82?=
- =?utf-8?B?a3RJR3ZodUxFeCtrbUNZZjlydlJja3ZEUlZUbE11SUpKUVMrY1JiNU9HcDhN?=
- =?utf-8?B?UG1UYU11VzJFand4MDNYYW9iam1kQlVrQVBhK3dzTFdIajdXaXlmWmo3RkRP?=
- =?utf-8?B?Z3pHRTFZek5HdUl1SHJDNEtXcWo0Z2czYWxUQitvb0NQdytSaGU2aXJyekYv?=
- =?utf-8?B?Q01taWtxWnZsdnpaTVdiRUxkM3BoRjMyVFd4WUF3YlIyRUV3cFlrZlVLekhU?=
- =?utf-8?B?Ty9QckU5WXpxZjFVSGFFNjBPck81ZU1SZElqSU5tS1FqVnRaUkxSMWdMNk9z?=
- =?utf-8?Q?SHXXVthUdHpaaPZ8+j?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6ecab842-dca8-420d-ed9a-08df0a96a867
-X-MS-Exchange-CrossTenant-AuthSource: IA0PR12MB8374.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Sep 2026 15:10:29.7606
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: txGp9Ck4q/vyCt0dxqJzH7h9a2mABddYFv7zcEkceM+KGB3a8WWi5gdYhQMLdxaa
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8502
+Content-Transfer-Encoding: 8bit
 
-On 3 Sep 2026, at 23:54, Qinyun Tan wrote:
+From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
 
-> Anonymous THP faults happening in a kernel loop that does not return
-> to userspace -- the populate loop of a single mlock() call, or any
-> GUP-driven population -- can drive a memcg's usage from memory.high
-> all the way up to memory.max with zero reclaim and zero penalty
-> sleep.
->
-> This defeats the containment memory.high is supposed to provide:
-> above high, the documented promise is that "the processes of the
-> cgroup are throttled and put under heavy reclaim pressure", and
-> userspace OOM handlers (oomd, Kubernetes) rely on the high..max
-> buffer as their reaction window.  Only after hitting memory.max does
-> the non-blocking charge fail, THP fall back to 4K, and
+khugepaged.c holds both the users of collapse and the machinery that
+performs it.  The daemon's scan loop, the sysfs tunables, MADV_COLLAPSE's
+entry point and the collapse itself all sit in one file and reach into
+each other freely.  Nothing marks where a user ends and the engine
+begins.
 
-Why not force THP to fall back to 4KB when memory.high is reached?
-If reaching memory.high means the processes are under heavy reclaim
-pressure, I do not think it is reasonable to give any more THP.
+Start drawing that line.
 
-> folio_prealloc()'s GFP_KERNEL charge finally restore throttling --
-> by which point the entire buffer has been consumed.
->
-> memory.high is enforced at two points after a charge succeeds:
->
->   1. from resume_user_mode_work() on return to userspace, requested
->      via set_notify_resume();
->   2. synchronously in try_charge_memcg() for large overcharges, added
->      by commit c9afe31ec443 ("memcg: synchronously enforce memory.high
->      for large overcharges"), gated on gfpflags_allow_blocking().
->
-> A populate loop does not return to userspace between faults, so gate
-> 1 never runs.  Gate 2 is defeated by the charge gfp: since
-> commit 3b3636924dfe ("mm, memcg: sync allocation and memcg charge
-> gfp flags for THP"), the THP fault path passes the allocation gfp
-> from vma_thp_gfp_mask() to mem_cgroup_charge().  With defrag=3Ddefer
-> that gfp is GFP_TRANSHUGE_LIGHT | __GFP_KSWAPD_RECLAIM; with the
-> default defrag=3Dmadvise and no MADV_HUGEPAGE it is plain
-> GFP_TRANSHUGE_LIGHT.  Neither allows blocking.  This is the right
-> policy for the physical allocation -- a THP is not worth direct
-> compaction, fall back to 4K instead -- but try_charge_memcg() also
+Add mm/collapse.h for what the two sides have to agree on:
 
-Right, why doesn=E2=80=99t memcg just turn the THP allocation into a 4KB fa=
-llback?
+  - enum scan_result - what the engine hands back;
+  - struct collapse_control - the state a request carries.
 
-> interprets it as "this context cannot sleep" and skips the
-> synchronous enforcement, even
-> though fault context sleeps just fine (it holds the mmap or per-VMA
-> read lock).
->
-> Fix this in the fault paths, which know their context can sleep:
-> after a successful THP/mTHP charge, settle any accrued over-high
-> debt via mem_cgroup_handle_over_high(GFP_KERNEL).  This reuses the
+And two constants move with them:
 
-Why a magic GFP_KERNEL? Would adding __GFP_RECLAIM to the existing gfp work=
-?
+  - KHUGEPAGED_MAX_PTES_LIMIT -> COLLAPSE_MAX_PTES_LIMIT;
+  - KHUGEPAGED_MIN_MTHP_ORDER -> COLLAPSE_MIN_MTHP_ORDER.
 
-> existing throttling machinery (reclaim + calculate_high_delay()
-> penalty sleep) and is a no-op read of
-> current->memcg_nr_pages_over_high when there is no debt.
->
-> Deliberately not changed:
->
->  - The charge gfp itself is kept coupled to the allocation gfp, so the
->    fail-fast behaviour at memory.max (charge fails -> fall back to 4K
->    instead of reclaiming or OOMing for a THP) that the coupling was
->    introduced for is fully preserved.
->
->  - try_charge_memcg() is not touched: gfpflags_allow_blocking() is the
->    only signal it has, and it must stay conservative for callers that
->    genuinely cannot sleep.
->
-> The pre-existing selftest test_memcg_high_sync, added alongside the
-> synchronous enforcement by commit 6323ec54b450 ("selftests: memcg:
-> test high limit for single entry allocation"), readily reproduces
-> this: it mlocks 200M against memory.high=3D30M and memory.max=3D140M
-> with swap disabled, and expects high events with no max events.  On
-> systems with transparent_hugepage/enabled=3Dalways it fails without
-> this patch -- the population bursts through to memory.max -- and
-> passes with it.
->
-> Fixes: c9afe31ec443 ("memcg: synchronously enforce memory.high for large =
-overcharges")
-> Cc: <stable@vger.kernel.org>
-> Signed-off-by: Qinyun Tan <qinyuntan@linux.alibaba.com>
-> ---
->
-> Note for stable backports: mem_cgroup_handle_over_high() only gained
-> its gfp_mask argument in v6.6, from commit 9ea9cb00a82b ("mm:
-> memcontrol: fix GFP_NOFS recursion in memory.high enforcement"); on
-> older kernels the call sites take no argument.
->
->  mm/huge_memory.c | 8 ++++++++
->  mm/memory.c      | 2 ++
->  2 files changed, 10 insertions(+)
->
-> diff --git a/mm/huge_memory.c b/mm/huge_memory.c
-> index ced400f72d43..543ba4a74dc3 100644
-> --- a/mm/huge_memory.c
-> +++ b/mm/huge_memory.c
-> @@ -1329,6 +1329,14 @@ static struct folio *vma_alloc_anon_folio_pmd(stru=
-ct vm_area_struct *vma,
->  		return NULL;
->  	}
->
-> +	/*
-> +	 * The charge gfp encodes THP allocation policy and may not allow
-> +	 * blocking, which makes try_charge skip its synchronous memory.high
-> +	 * throttling. Fault context can sleep, so settle any over-high debt
-> +	 * here instead of letting usage grow unthrottled up to memory.max.
-> +	 */
-> +	mem_cgroup_handle_over_high(GFP_KERNEL);
-> +
->  	if (folio_memcg_alloc_deferred(folio)) {
->  		folio_put(folio);
->  		count_vm_event(THP_FAULT_FALLBACK);
-> diff --git a/mm/memory.c b/mm/memory.c
-> index 8b0c2c735d3d..24cbf2a26905 100644
-> --- a/mm/memory.c
-> +++ b/mm/memory.c
-> @@ -5362,6 +5362,8 @@ static struct folio *alloc_anon_folio(struct vm_fau=
-lt *vmf)
->  			folio_put(folio);
->  			goto next;
->  		}
-> +		/* Same reasoning as in vma_alloc_anon_folio_pmd(). */
-> +		mem_cgroup_handle_over_high(GFP_KERNEL);
->  		if (order > 1 && folio_memcg_alloc_deferred(folio)) {
->  			folio_put(folio);
->  			goto fallback;
-> --=20
-> 2.55.0
+Neither is a fact about the daemon, so both lose the KHUGEPAGED_ prefix.
 
+No functional change.
 
-Best Regards,
-Yan, Zi
+Assisted-by: Claude-Code:claude-opus-5
+Signed-off-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+---
+ MAINTAINERS     |  1 +
+ mm/collapse.h   | 67 +++++++++++++++++++++++++++++++++++++++++
+ mm/khugepaged.c | 79 ++++++++-----------------------------------------
+ 3 files changed, 81 insertions(+), 66 deletions(-)
+ create mode 100644 mm/collapse.h
+
+diff --git a/MAINTAINERS b/MAINTAINERS
+index a9245d827ddb..4d1ff4c76496 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -17433,6 +17433,7 @@ F:	Documentation/admin-guide/mm/transhuge.rst
+ F:	include/linux/huge_mm.h
+ F:	include/linux/khugepaged.h
+ F:	include/trace/events/huge_memory.h
++F:	mm/collapse.h
+ F:	mm/huge_memory.c
+ F:	mm/khugepaged.c
+ F:	mm/mm_slot.h
+diff --git a/mm/collapse.h b/mm/collapse.h
+new file mode 100644
+index 000000000000..1c40229b9554
+--- /dev/null
++++ b/mm/collapse.h
+@@ -0,0 +1,67 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++#ifndef __MM_COLLAPSE_H
++#define __MM_COLLAPSE_H
++
++#include <linux/mm.h>
++#include <linux/nodemask.h>
++#include <linux/pgtable.h>
++#include <linux/types.h>
++
++/* The most the max_ptes_* tunables accept */
++#define COLLAPSE_MAX_PTES_LIMIT		(HPAGE_PMD_NR - 1)
++
++/* The smallest order a collapse will build */
++#define COLLAPSE_MIN_MTHP_ORDER		2
++
++enum scan_result {
++	SCAN_FAIL,
++	SCAN_SUCCEED,
++	SCAN_NO_PTE_TABLE,
++	SCAN_PMD_MAPPED,
++	SCAN_EXCEED_NONE_PTE,
++	SCAN_EXCEED_SWAP_PTE,
++	SCAN_EXCEED_SHARED_PTE,
++	SCAN_PTE_NON_PRESENT,
++	SCAN_PTE_UFFD,
++	SCAN_PTE_MAPPED_HUGEPAGE,
++	SCAN_LACK_REFERENCED_PAGE,
++	SCAN_PAGE_NULL,
++	SCAN_SCAN_ABORT,
++	SCAN_PAGE_COUNT,
++	SCAN_PAGE_LRU,
++	SCAN_PAGE_LOCK,
++	SCAN_PAGE_ANON,
++	SCAN_PAGE_LAZYFREE,
++	SCAN_PAGE_COMPOUND,
++	SCAN_ANY_PROCESS,
++	SCAN_VMA_NULL,
++	SCAN_VMA_CHECK,
++	SCAN_ADDRESS_RANGE,
++	SCAN_DEL_PAGE_LRU,
++	SCAN_ALLOC_HUGE_PAGE_FAIL,
++	SCAN_CGROUP_CHARGE_FAIL,
++	SCAN_TRUNCATED,
++	SCAN_PAGE_HAS_PRIVATE,
++	SCAN_STORE_FAILED,
++	SCAN_COPY_MC,
++	SCAN_PAGE_FILLED,
++	SCAN_PAGE_DIRTY_OR_WRITEBACK,
++};
++
++struct collapse_control {
++	bool is_khugepaged;
++
++	/* Num pages scanned per node */
++	u32 node_load[MAX_NUMNODES];
++
++	/* Num pages scanned (see khugepaged_pages_to_scan) */
++	unsigned int progress;
++
++	/* nodemask for allocation fallback */
++	nodemask_t alloc_nmask;
++
++	/* Each bit marks a PTE the scan accepted as a collapse source */
++	DECLARE_BITMAP(eligible_ptes, MAX_PTRS_PER_PTE);
++};
++
++#endif	/* __MM_COLLAPSE_H */
+diff --git a/mm/khugepaged.c b/mm/khugepaged.c
+index 6a437d6fe016..972843c45250 100644
+--- a/mm/khugepaged.c
++++ b/mm/khugepaged.c
+@@ -26,44 +26,10 @@
+ #include <linux/cleanup.h>
+ 
+ #include <asm/tlb.h>
++#include "collapse.h"
+ #include "internal.h"
+-#include "page_alloc.h"
+ #include "mm_slot.h"
+-
+-enum scan_result {
+-	SCAN_FAIL,
+-	SCAN_SUCCEED,
+-	SCAN_NO_PTE_TABLE,
+-	SCAN_PMD_MAPPED,
+-	SCAN_EXCEED_NONE_PTE,
+-	SCAN_EXCEED_SWAP_PTE,
+-	SCAN_EXCEED_SHARED_PTE,
+-	SCAN_PTE_NON_PRESENT,
+-	SCAN_PTE_UFFD,
+-	SCAN_PTE_MAPPED_HUGEPAGE,
+-	SCAN_LACK_REFERENCED_PAGE,
+-	SCAN_PAGE_NULL,
+-	SCAN_SCAN_ABORT,
+-	SCAN_PAGE_COUNT,
+-	SCAN_PAGE_LRU,
+-	SCAN_PAGE_LOCK,
+-	SCAN_PAGE_ANON,
+-	SCAN_PAGE_LAZYFREE,
+-	SCAN_PAGE_COMPOUND,
+-	SCAN_ANY_PROCESS,
+-	SCAN_VMA_NULL,
+-	SCAN_VMA_CHECK,
+-	SCAN_ADDRESS_RANGE,
+-	SCAN_DEL_PAGE_LRU,
+-	SCAN_ALLOC_HUGE_PAGE_FAIL,
+-	SCAN_CGROUP_CHARGE_FAIL,
+-	SCAN_TRUNCATED,
+-	SCAN_PAGE_HAS_PRIVATE,
+-	SCAN_STORE_FAILED,
+-	SCAN_COPY_MC,
+-	SCAN_PAGE_FILLED,
+-	SCAN_PAGE_DIRTY_OR_WRITEBACK,
+-};
++#include "page_alloc.h"
+ 
+ #define CREATE_TRACE_POINTS
+ #include <trace/events/huge_memory.h>
+@@ -91,7 +57,6 @@ static DECLARE_WAIT_QUEUE_HEAD(khugepaged_wait);
+  *
+  * Note that these are only respected if collapse was initiated by khugepaged.
+  */
+-#define KHUGEPAGED_MAX_PTES_LIMIT (HPAGE_PMD_NR - 1)
+ unsigned int khugepaged_max_ptes_none __read_mostly;
+ static unsigned int khugepaged_max_ptes_swap __read_mostly;
+ static unsigned int khugepaged_max_ptes_shared __read_mostly;
+@@ -101,24 +66,6 @@ static DEFINE_READ_MOSTLY_HASHTABLE(mm_slots_hash, MM_SLOTS_HASH_BITS);
+ 
+ static struct kmem_cache *mm_slot_cache __ro_after_init;
+ 
+-#define KHUGEPAGED_MIN_MTHP_ORDER	2
+-
+-struct collapse_control {
+-	bool is_khugepaged;
+-
+-	/* Num pages scanned per node */
+-	u32 node_load[MAX_NUMNODES];
+-
+-	/* Num pages scanned (see khugepaged_pages_to_scan) */
+-	unsigned int progress;
+-
+-	/* nodemask for allocation fallback */
+-	nodemask_t alloc_nmask;
+-
+-	/* Each bit marks a PTE the scan accepted as a collapse source */
+-	DECLARE_BITMAP(eligible_ptes, MAX_PTRS_PER_PTE);
+-};
+-
+ /**
+  * struct khugepaged_scan - cursor for scanning
+  * @mm_head: the head of the mm list to scan
+@@ -267,7 +214,7 @@ static ssize_t max_ptes_none_store(struct kobject *kobj,
+ 	unsigned long max_ptes_none;
+ 
+ 	err = kstrtoul(buf, 10, &max_ptes_none);
+-	if (err || max_ptes_none > KHUGEPAGED_MAX_PTES_LIMIT)
++	if (err || max_ptes_none > COLLAPSE_MAX_PTES_LIMIT)
+ 		return -EINVAL;
+ 
+ 	khugepaged_max_ptes_none = max_ptes_none;
+@@ -292,7 +239,7 @@ static ssize_t max_ptes_swap_store(struct kobject *kobj,
+ 	unsigned long max_ptes_swap;
+ 
+ 	err  = kstrtoul(buf, 10, &max_ptes_swap);
+-	if (err || max_ptes_swap > KHUGEPAGED_MAX_PTES_LIMIT)
++	if (err || max_ptes_swap > COLLAPSE_MAX_PTES_LIMIT)
+ 		return -EINVAL;
+ 
+ 	khugepaged_max_ptes_swap = max_ptes_swap;
+@@ -318,7 +265,7 @@ static ssize_t max_ptes_shared_store(struct kobject *kobj,
+ 	unsigned long max_ptes_shared;
+ 
+ 	err  = kstrtoul(buf, 10, &max_ptes_shared);
+-	if (err || max_ptes_shared > KHUGEPAGED_MAX_PTES_LIMIT)
++	if (err || max_ptes_shared > COLLAPSE_MAX_PTES_LIMIT)
+ 		return -EINVAL;
+ 
+ 	khugepaged_max_ptes_shared = max_ptes_shared;
+@@ -378,19 +325,19 @@ static unsigned int collapse_max_ptes_none(struct collapse_control *cc,
+ 	if (is_pmd_order(order))
+ 		return max_ptes_none;
+ 	/*
+-	 * for mTHP collapse with the sysctl value set to KHUGEPAGED_MAX_PTES_LIMIT,
++	 * for mTHP collapse with the sysctl value set to COLLAPSE_MAX_PTES_LIMIT,
+ 	 * scale the maximum number of PTEs to the order of the collapse.
+ 	 */
+-	if (max_ptes_none == KHUGEPAGED_MAX_PTES_LIMIT)
++	if (max_ptes_none == COLLAPSE_MAX_PTES_LIMIT)
+ 		return (1 << order) - 1;
+ 	/*
+-	 * For mTHP collapse of values other than 0 or KHUGEPAGED_MAX_PTES_LIMIT,
++	 * For mTHP collapse of values other than 0 or COLLAPSE_MAX_PTES_LIMIT,
+ 	 * emit a warning and return 0.
+ 	 */
+ 	if (max_ptes_none)
+ 		pr_warn_once("mTHP collapse does not support max_ptes_none"
+ 		     " values other than 0 or %u, defaulting to 0.\n",
+-		     KHUGEPAGED_MAX_PTES_LIMIT);
++		     COLLAPSE_MAX_PTES_LIMIT);
+ 	return 0;
+ }
+ 
+@@ -476,7 +423,7 @@ int __init khugepaged_init(void)
+ 		return -ENOMEM;
+ 
+ 	khugepaged_pages_to_scan = HPAGE_PMD_NR * 8;
+-	khugepaged_max_ptes_none = KHUGEPAGED_MAX_PTES_LIMIT;
++	khugepaged_max_ptes_none = COLLAPSE_MAX_PTES_LIMIT;
+ 	khugepaged_max_ptes_swap = HPAGE_PMD_NR / 8;
+ 	khugepaged_max_ptes_shared = HPAGE_PMD_NR / 2;
+ 
+@@ -1571,8 +1518,8 @@ static enum scan_result mthp_collapse(struct mm_struct *mm,
+ 		 * any smaller order enabled. When at the smallest order
+ 		 * we must always move to the next offset.
+ 		 */
+-		if (order > KHUGEPAGED_MIN_MTHP_ORDER &&
+-			(enabled_orders & GENMASK(order - 1, 0))) {
++		if (order > COLLAPSE_MIN_MTHP_ORDER &&
++		    (enabled_orders & GENMASK(order - 1, 0))) {
+ 			order--;
+ 			continue;
+ 		}
+@@ -1636,7 +1583,7 @@ static enum scan_result collapse_scan_pmd(struct mm_struct *mm,
+ 	 * is then checked again in mthp_collapse() for each attempted order.
+ 	 */
+ 	if (enabled_orders != BIT(HPAGE_PMD_ORDER))
+-		max_ptes_none = KHUGEPAGED_MAX_PTES_LIMIT;
++		max_ptes_none = COLLAPSE_MAX_PTES_LIMIT;
+ 
+ 	pte = pte_offset_map_lock(mm, pmd, start_addr, &ptl);
+ 	if (!pte) {
+-- 
+2.54.0
+
