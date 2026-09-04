@@ -1,136 +1,111 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi1-f179.google.com (mail-oi1-f179.google.com [209.85.167.179])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47E8F521211;
-	Fri,  4 Sep 2026 21:07:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDC745221F6
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 21:08:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.179
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788556078; cv=none; b=gA+mvmmkq1Ows4gUBMLZMqi2+s8sQnuOZFgdSmubypPOHkKsiRN3lda9gVkWIqkv0xBiwzjtxaAnRFjYGWL12HQhW32xwAYjK/dxdtwtQYfUcAtidwGMZs6oEe3tJQOrzV2C88Pgd7yBr1EX1WwBP1Yo19bexhnTJIQnaQi+DtU=
+	t=1788556104; cv=none; b=IwqSjsF36LmG/sWQXFA4R1vrUYCrcSrqYfCPOrwX4NeaX874TQwCehGWxwwhnD9Shjudg3kyzTqEL23Hekqof9d+FD89fO+AVd4w4P0EnRIJgtj/+EgyPWmJQxkj8dcA0RsI/gG4wNPsFklIt8tqYBSNl96Amidbsxu9NwLu6qo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788556078; c=relaxed/simple;
-	bh=OcN3BZ4A6KpdYS+WMT/+ILplvgW62mU+jHQZrpov2J4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ZdBH+Ah+Dr4qY20NJj1KXId4UavIuForYaHUkv6/7c7W8xTKoBC/A5DxoIjmDw3hk6CAZVWY1F5SYLg1Rl+ndDK0+ayAdakotLL1vAZ5+x4FGvtnizefV54x1sR0pXwxVo8POqOXxcHFIJRubn21zpi/a3E4Xy1YYdCR3YbmdYE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=S50/g39Y; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788556104; c=relaxed/simple;
+	bh=TLbkhy7UhS98+n2pJ1BtGLZtz1S+VYaSrwgfIluJQvk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Dwtz6pLkT36MfkTzP2RIearqEyPOlrlUy/N7ctU18S/MZoYDah5ybiaTBL5lM//NbTF4sTPTPiaLC4H7iiYuccMpberCxdDBLqwDPTVthz+HZFDBDKE0TxOctpRENykswtElDBK/YdhZgP8O0eSDPcobOxxKpGWGPeued358oQI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxfoundation.org; spf=pass smtp.mailfrom=linuxfoundation.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=hKQB6+Ae; arc=none smtp.client-ip=209.85.167.179
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxfoundation.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="S50/g39Y"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 893101F00A3D;
-	Fri,  4 Sep 2026 21:07:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788556071;
-	bh=v7qKDhZ+F/2Bi/cyOsP+5DU9BRD5spx5V6SRGgxoqJo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=S50/g39YB+UKTmtZhDM86RL7eGgd5uMqzVcDE1aAlJT8XMQAqeHfkE58X7ZAr26AU
-	 onB1eejg3jb1WO8cKRmxSPB3MvyMNkr+eT23R7PfSmy7LO9lko3ShF5ipG7JZ7cvjK
-	 q7gKapYUS2LKKN7GMUzxJQeSbrSD8BweqOm9/PJ3wP56Q8qBtTRvbEQXecVhtbHxyT
-	 V1F0xaFHoUj4i7tRvSu7cjG+ZxAaQ5wQiUaK5QERMs4M/zsPmmXntBhiXosa0wCNDL
-	 NGiSltNgHL1pCcWcMBTEQwVSodVuiSuCD2HOgsoLUQe9Mudv0UuHFyJgj7i2Mz0Lsq
-	 yQK3y0OxWGV8A==
-Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
-	id 77FD41AC52F1; Fri, 04 Sep 2026 22:07:49 +0100 (BST)
-Date: Fri, 4 Sep 2026 22:07:49 +0100
-From: Mark Brown <broonie@kernel.org>
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>, Marc Zyngier <maz@kernel.org>,
-	Joey Gouly <joey.gouly@arm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Shuah Khan <shuah@kernel.org>, Oliver Upton <oupton@kernel.org>,
-	Fuad Tabba <fuad.tabba@linux.dev>,
-	Peter Maydell <peter.maydell@linaro.org>,
-	Leonardo Bras <leo.bras@arm.com>,
-	Wei-Lin Chang <weilin.chang@arm.com>,
-	Yao Yuan <yaoyuan@linux.alibaba.com>,
-	linux-arm-kernel@lists.infradead.org, linux-doc@vger.kernel.org,
-	kvmarm@lists.linux.dev, linux-kselftest@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v20 03/14] KVM: arm64: Manage GCS access and registers
- for guests
-Message-ID: <apszJZ17KUvd6BJ7@sirena.co.uk>
-References: <20260901-arm64-gcs-v20-0-f31750bdfadb@kernel.org>
- <20260901-arm64-gcs-v20-3-f31750bdfadb@kernel.org>
- <apmfx08vccSd2MXw@gremlin>
- <d2659ac3-2f00-4fc4-8f9e-0585691a4ba2@sirena.org.uk>
- <apqA_SuoA6-TyHsS@gremlin>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="hKQB6+Ae"
+Received: by mail-oi1-f179.google.com with SMTP id 5614622812f47-4b28db31b89so984467b6e.1
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 14:08:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linuxfoundation.org; s=google; t=1788556100; x=1789160900; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=WBcQO8IW5vaft9DEnj/gUzJmSXgNK0HzXFdKXlnG8Tw=;
+        b=hKQB6+AeHcrv91DJJrKy/lpU0rfxaaj5ynT2KAELjDocSimnwmV2ArKafAUO93CCoq
+         JCgGGfKSynjZ41PKBkOCzdDtoJbB9qkIh+dKj+N6RjEl+0x16RR5UIHgX2NzsyogZqYR
+         HfUhmcFubkDuYcBSHz0yoDsT7CzhGqh4aevEk=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788556100; x=1789160900;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=WBcQO8IW5vaft9DEnj/gUzJmSXgNK0HzXFdKXlnG8Tw=;
+        b=YWGzTPzxdDVNwzKHwOqNsH66LYV4vr1O7ynUMtOrKIxS+AJzvrcVvStQQsdYg2iqku
+         soCA7QHdXwKnmrSNBK7Gs1Q/NuexuCIqskTODBfDidd6i2JNrLYL98H23uviBeAuIoHP
+         3E1fesPYsvZt1SiwXZ02viJaKw5Y+0AumgIKNLfZD/3dwrVrTw2002AaGIam28wxj3cG
+         I7vsiMVhU/4vbc8HWqukDuAxR7mrYgM1ZgFzvOC2jHSyIaojkzz1nkAGuBrjYxqbMZV4
+         zIVClN0tLsxhYvxDY+xQX2Ai/8lgezhO9hh2RcwyzNO03ULmi5c1Mx0YB8XwDpV7Xwtf
+         b8gg==
+X-Forwarded-Encrypted: i=1; AKwUvBzRM4eMFef22MEoB3ewnboM6Ec7hwF3DD+OmHwGRKZ0I5F+GUon502O+CFLefSdYz6c8BANmNXZ+kp+O/Y=@vger.kernel.org
+X-Gm-Message-State: AFuF++mP/vCgJyXqPpExiDET8lijaKPzcOtgYK/XIBtzNkshDu+9UTFl
+	ReFYJNTPQyrzqVN7pMuQJtiy+kEo8/VwkozL9ydWh9a8aoczpq2KCSLhL/8SxpGwNlE=
+X-Gm-Gg: AYBFou3HwQuKtDyXMr+f1XvZV6aAWxzCl0AemXSOw/lxsOisGq7+l9wrWRmOQ825g0/
+	zPSUhJ8r1tMQZHDZ1h75aRCu91GrPsmgx9Ix1kkc7wbgRA2WadLjqQfhSktMSD/QUKfobMS3KOG
+	HtXgeFS/W9YM0h1P9aKc0i4alo/TbA1/HxMHcYIr6Co9JhWktJAKcUMkjggncnAXmBInb1UMWs1
+	KDJGJ2uZyrgG7u6mSmsuqn5pcnP+BmbiBpDrHBy7Q9hpcGMqMz56MxthcQtcY2wr1mDO1r7/qdD
+	y0UyMzL5OLDfC+5He8pAc7FIjiGim15Zd4rmcqdrFjMwPSI2Jd+nCIhugFuuKClqzCez/0gVBxF
+	lFoN2IRJVH4giwTDkiqxPNviE96THjxEbP+uueD+4x1oJlnxXv0jbyxy3Lh0dQYyMVUJgCXspyJ
+	S3oYOxk3jh/OcXnL2V3Ba14tFc7pmtCntzAHZAO4W7xog3wcYYq4SVUGvu7ZoRbV6FREOd
+X-Received: by 2002:a05:6808:23c3:b0:4b3:7efc:e970 with SMTP id 5614622812f47-4b96026e6ecmr6951990b6e.5.1788556099903;
+        Fri, 04 Sep 2026 14:08:19 -0700 (PDT)
+Received: from [192.168.1.128] ([38.15.57.99])
+        by smtp.gmail.com with ESMTPSA id 5614622812f47-4b971b97c72sm3487810b6e.15.2026.09.04.14.08.18
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 04 Sep 2026 14:08:19 -0700 (PDT)
+Message-ID: <fe373fd0-6577-4f5c-8285-d8398d867797@linuxfoundation.org>
+Date: Fri, 4 Sep 2026 15:08:16 -0600
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="UxxT9yru8a/XGYWy"
-Content-Disposition: inline
-In-Reply-To: <apqA_SuoA6-TyHsS@gremlin>
-X-Cookie: My vaseline is RUNNING...
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 7.2 000/713] 7.2.4-rc1 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
+ conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
+ achill@achill.org, sr@sladewatkins.com,
+ Shuah Khan <skhan@linuxfoundation.org>
+References: <20260904045803.810145556@linuxfoundation.org>
+Content-Language: en-US
+From: Shuah Khan <skhan@linuxfoundation.org>
+In-Reply-To: <20260904045803.810145556@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
+On 9/3/26 22:49, Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 7.2.4 release.
+> There are 713 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+> 
+> Responses should be made by Sun, 06 Sep 2026 04:56:59 +0000.
+> Anything received after that time might be too late.
+> 
+> The whole patch series can be found in one patch at:
+> 	https://www.kernel.org/pub/linux/kernel/v7.x/stable-review/patch-7.2.4-rc1.gz
+> or in the git tree and branch at:
+> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-7.2.y
+> and the diffstat can be found below.
+> 
+> thanks,
+> 
+> greg k-h
+> 
 
---UxxT9yru8a/XGYWy
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Compiled and booted on my test system. No dmesg regressions.
 
-On Fri, Sep 04, 2026 at 09:54:51AM +0100, Lorenzo Stoakes (ARM) wrote:
-> On Thu, Sep 03, 2026 at 09:41:26PM +0100, Mark Brown wrote:
+Tested-by: Shuah Khan <skhan@linuxfoundation.org>
 
-> > originally written the code without expressing this dependency but on a
-> > previous version Marc asked for this nesting as an optimisation.  Since
-> > it's about optimisastion adding checks that don't otherwise exist on the
-> > restore path would doubtless get the similar complaints.  Exactly the
-> > same concerns were raised on v19.
-
-> Could you implement the nesting the same in the cases where there is a bare
-> ctx_has_gcs() as an alternative?
-
-> So then it'd always be tcrx -> s1pie -> gcs everywhere and that'd resolve things
-> also and make things symmetric.
-
-> You could also I think express the dependency if it makes sense to.
-
-Clearly we *can*, it's a question of what'd be acceptable - it'd result
-in the compiler emitting a bunch of extra alternatives and conditionals
-in the context switch path.
-
-> > We could do checking of the ID registers at vCPU creation so we could
-> > avoid worrying about them in the fast path but there was also feedback
-> > about not doing that.  One idea I had was to generate feature
-
-> Could you possibly check in sanitise_id_aa64pfr1_el1(), something like:
-
-Sanitising the writes is a bit tricky since multiple ID registers are
-involved, TCRX and S1PIE are in ID_AA64MMFR3_EL1 while GCS is in
-ID_AA64PFR1_EL1 so you'd create an ordering constraint for userspace,
-and you'd also have to handle the case where TCR2 or S1PIE are turned
-off with GCS already enabled.  It feels like a bunch of complication,
-especially if you start applying the same approach with other features.
-
-If we're going to validate the ID registers it feels safer to check at
-the point where we finalise the ID registers and refuse to start the
-vCPU if there's an unsupportable configuration, that would mean the
-check would only need to be done in one place and userspace wouldn't
-trip over any ordering requirements with how it updates registers.  Only
-userspaces that set architecturally invalid configurations should see an
-error.  We could also handle things by fixing up the configuration at
-the same point, disabling features that are missing their dependencies,
-that's a bit more friendly in the short term but could lead to trouble
-later on as it means we hide issues in userspace.
-
-I think the best thing overall would be to leave the runtime paths as
-they are and refuse to run with an architecturally invalid setup, that
-would avoid bloating the fast path.
-
---UxxT9yru8a/XGYWy
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqbMyQACgkQJNaLcl1U
-h9DE8Qf/VR7HYcBaMw2G7Ups8tn2qUfYjOTJ99VnF8o6I1RpC8Nl2GgzkjHXBJyx
-/nQjWZNQ2wAy/rdn2lQtjolxCA4p5ZnYXJwG6dVQmDAKGSvJJ5MxqgRAt0i220TR
-F7XnsZKbtHp+rri39JMZoLszEfc28vUcUxh19+PF1UQfRaXniazCXbnBOAqyU6lM
-+ROUaor3Rve9TvHm/uqKw7eiDnyYIZjxn/nj3S9GdFwTVKstI0WX1iu+LHNPcuva
-qO3rGmzDFOtxScggNgCj497tEj1vvj8qb1Cz/+NnC5Px4NJKgqUq03twCDtTkWOr
-flTA3wHWYD88gDv/NRFpxyWaWE+XdQ==
-=j1jf
------END PGP SIGNATURE-----
-
---UxxT9yru8a/XGYWy--
+thanks,
+-- Shuah
