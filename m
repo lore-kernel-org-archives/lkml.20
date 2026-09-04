@@ -1,181 +1,95 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 011173D812A;
-	Fri,  4 Sep 2026 07:51:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C8883B71B9
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 07:51:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788508292; cv=none; b=G2zTWsz3bz+FKv963xlnhi4F++DrN1Kw9XbH+mkLkvHIY/mdbWxq1KjawXO4BoYKUapIvCSPMDHs238UdJJOofeXOgf0CENQ48Z+hzo/Sa+e56CUMFQpnNK+WxrM0is1pPitYLiiaUp4vOz+djUq1BUbpLteEQhOcvlH7ivLsWE=
+	t=1788508306; cv=none; b=ShTOk5r+BZudB8qLSuN8iLNsbWP4rHdQ3svQYd2GKwEzjj0FFGDq6R6OFhe+Ei67uSKKq2cBqIx9kU+ObJGJgeOhq4c8GRZzh1WOUrbRT734O4ojTv6XjtB4+tJZnRH/UMtqVJkSZrfl1lA9SJVoR0na7Nn4Yrnmz+4OBnR6UEw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788508292; c=relaxed/simple;
-	bh=vl7JJZa4/NdA/aF2AbiJiCqDLpZ1443pCF3bkVVzarE=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=kUvSinauAFxk3ZEpVW6gzxlbkbtrHhnTU4ZqMGYiVLlqQ0YWPSQF1+oNhgQoWq/BHfY1m2ppfe1M1M+x/1DDiaI7rBqmpplhHRkvH5O23sYEAF2bR/hM5+S2o4rlseW9zQ4V92xdWgSvgTI9ZG2rEkheqKjAHI7SaFxT149QYmo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TLIw0zFg; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788508306; c=relaxed/simple;
+	bh=nneXBwY8HKJPvinM0pRgTWfvkeMfpmqsCYtbYI4c2+0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=BMZvgTSG8jyxliSFXr77D/IxqYDpYyKkQj0OrlXB2K5wNPFawvmqB8QQw8ZhgL2Ss1it4DRiDp8xw/23X3oa/f0kwDIRa86w0Y7tADK/9/91fDP37a4GMfOBUYigdOXWzXZIVSa9bBvHZa8TN8eUjsN0ye8mXrSw9s0mnInVKeg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=igMM4HSG; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TLIw0zFg"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 83B091F00A3D;
-	Fri,  4 Sep 2026 07:51:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788508290;
-	bh=8+LnYxn6LugYvNdyOdQjROelzsYqUVDn0UISl/V+oKM=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=TLIw0zFgyzyv+MG+Kehh+5Mzp4S8C/RTGA6krixJPZtv5S+h6cAkjLIuSH+BlY5kt
-	 Fc8dgU2AKlSS9HZQLSVtoHZwpmYvcCaNZen2/4P2saZB2oMUJWVu6VOQgRZAueGZmV
-	 aKpanRlBQ412TeKxepE8u7zOSWohx6miD/DcsM7j/Ok6nbsJZBpxVfHRFWLYI+5SUf
-	 VbAyqfD9K2oXadPLIkkb3EQSMe+Cb0dA0dlFrsBVMwgflzU1C5m0hjXzIHGkpcYLyF
-	 lkdjrMyk5G88dNizwjUwiyDLMOazmLut+uvxPZ2IcXU0dezf33erGXckr7FgDs4l78
-	 4KzKLW3zvdsaQ==
-Received: from sofa.misterjones.org ([185.219.108.64] helo=lobster-girl.misterjones.org)
-	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.98.2)
-	(envelope-from <maz@kernel.org>)
-	id 1x2Ohs-00000004haK-2Pgw;
-	Fri, 04 Sep 2026 07:51:28 +0000
-Date: Fri, 04 Sep 2026 08:54:02 +0100
-Message-ID: <874ig55u5h.wl-maz@kernel.org>
-From: Marc Zyngier <maz@kernel.org>
-To: Shuai Xue <xueshuai@linux.alibaba.com>
-Cc: Wei-Lin Chang <weilin.chang@arm.com>,
-	Wang Han <wanghan@linux.alibaba.com>,
-	linux-arm-kernel@lists.infradead.org,
-	kvmarm@lists.linux.dev,
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="igMM4HSG"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1788508303;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=gdBhk9sOhs+VzTAXh4Hh7u6l52/P77aXQhA3RXIaOjI=;
+	b=igMM4HSGOWU1u7RHmdB6qKCWZNAZjGrlVkyMpz7LJwF7DgbW9Q9tKLUR/vVKwbAMWdbQMR
+	cHAVeyVTNtyGNpLTEuNuIjbOMocQO508muEcELrktbjpGSj2YZw2Jk0lO3rXmipS3ljBvq
+	ZDup+7R8rUXv7ovE99Sqbnug9qegGcA=
+Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-212-BQQesCthPEijmf79OqztGQ-1; Fri,
+ 04 Sep 2026 03:51:39 -0400
+X-MC-Unique: BQQesCthPEijmf79OqztGQ-1
+X-Mimecast-MFC-AGG-ID: BQQesCthPEijmf79OqztGQ_1788508298
+Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id C7365195F14E;
+	Fri,  4 Sep 2026 07:51:37 +0000 (UTC)
+Received: from hpa-thinkpadx1carbongen12.taipei.csb (headnet05.pony-001.prod.iad2.dc.redhat.com [10.2.32.117])
+	by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 4A83E18001D0;
+	Fri,  4 Sep 2026 07:51:33 +0000 (UTC)
+From: Kate Hsuan <hpa@redhat.com>
+To: Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Hans de Goede <hansg@kernel.org>,
+	Hans Verkuil <hverkuil+cisco@kernel.org>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Jai Luthra <jai.luthra@ideasonboard.com>
+Cc: linux-media@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	oupton@kernel.org,
-	tabba@google.com,
-	joey.gouly@arm.com,
-	seiden@linux.ibm.com,
-	suzuki.poulose@arm.com,
-	catalin.marinas@arm.com,
-	will@kernel.org,
-	ljs@kernel.org,
-	itaru.kitayama@fujitsu.com
-Subject: Re: [PATCH v5 0/6] KVM: arm64: nv: Implement nested stage-2 reverse map (new data structure)
-In-Reply-To: <46342b48-550e-42c1-9d9f-e800c72269c2@linux.alibaba.com>
-References: <20260810205038.118843-1-weilin.chang@arm.com>
-	<20260902163500.1841671-1-wanghan@linux.alibaba.com>
-	<877bl26aqg.wl-maz@kernel.org>
-	<wsnf276xrun3g4hjr3t6alprapctg5z4kpj422v3hujqdjnrsa@swq4blkqvvj5>
-	<46342b48-550e-42c1-9d9f-e800c72269c2@linux.alibaba.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
- FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
- (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+	Kate Hsuan <hpa@redhat.com>
+Subject: [PATCH v2 0/3] media: i2c: imx471: Add line length PCK setting and calculate pixel rate based on external clock rate
+Date: Fri,  4 Sep 2026 15:51:10 +0800
+Message-ID: <20260904075113.125751-1-hpa@redhat.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-SA-Exim-Connect-IP: 185.219.108.64
-X-SA-Exim-Rcpt-To: xueshuai@linux.alibaba.com, weilin.chang@arm.com, wanghan@linux.alibaba.com, linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev, linux-kernel@vger.kernel.org, oupton@kernel.org, tabba@google.com, joey.gouly@arm.com, seiden@linux.ibm.com, suzuki.poulose@arm.com, catalin.marinas@arm.com, will@kernel.org, ljs@kernel.org, itaru.kitayama@fujitsu.com
-X-SA-Exim-Mail-From: maz@kernel.org
-X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
 
-On Fri, 04 Sep 2026 08:01:24 +0100,
-Shuai Xue <xueshuai@linux.alibaba.com> wrote:
-> 
-> 
-> 
-> On 9/3/26 9:28 PM, Wei-Lin Chang wrote:
-> > On Thu, Sep 03, 2026 at 08:43:35AM +0100, Marc Zyngier wrote:
-> >> On Wed, 02 Sep 2026 17:35:00 +0100,
-> >> Wang Han <wanghan@linux.alibaba.com> wrote:
-> >>> 
-> >>> Hi Wei-Lin,
-> >>> 
-> >>> I tested this series on a Yitian 710 system with an ARM Neoverse-N2 CPU
-> >>> (128 CPUs, 2 NUMA nodes).
-> >>> 
-> >>> Test environment
-> >>> ----------------
-> >>> 
-> >>>    L0 kernel: Linux v7.2-rc6
-> >>>    L1 guest: Ubuntu 26.04 LTS, kernel 7.0.0-27-generic (aarch64)
-> >>>    QEMU: 10.2.3
-> >>> 
-> >>> L0 NUMA balancing was enabled (`/proc/sys/kernel/numa_balancing=1`).
-> >>> The host was booted with `kvm_arm.mode=nested`.
-> >>> 
-> >>> This series fixes a functional hang that is exposed when NUMA balancing is
-> >>> enabled.  The previous nested stage-2 unmap path is too slow for this
-> >>> workload, making the performance problem user-visible: NUMA balancing can
-> >>> leave the L1 guest unable to make progress and eventually hang during boot.
-> >>> 
-> >>> The L1 was started with 8 vCPUs and 32 GiB of RAM using:
-> >>> 
-> >>>    qemu-system-aarch64 -smp 8 -m 32G \
-> >>>      -machine virt,accel=kvm,gic-version=3,virtualization=on \
-> >>>      -cpu host -nographic -enable-kvm \
-> >>>      -drive if=pflash,format=raw,readonly=on,file=pflash0_bak.img \
-> >>>      -drive if=pflash,format=raw,file=pflash1_bak.img \
-> >>>      -drive file=./ubuntu-vm.qcow2,format=qcow2,if=virtio,cache=none,aio=native \
-> >>>      -nic user,model=virtio-net-pci,hostfwd=tcp::11234-:22 \
-> >>>      -serial mon:stdio
-> >>> 
-> >> 
-> >> Puzzling. If you are only running an L1 in VHE mode, there is no
-> >> shadow S2, and therefore nothing to unmap. For shadow S2s to be built
-> >> and affect the MMU notifiers, you need to run an L2.
-> > 
-> > I was thinking the same at first, but realized even with L1 in VHE mode
-> > there is a small period of time where L1 runs in its EL1 during boot, so
-> > one nested MMU will become valid for each vCPU. That causes
-> > kvm_nested_s2_unmap() to iterate through the entire IPA space 8 times
-> > (-smp 8).
-> > 
-> > What I am curious about is whether one single notifier unmap is enough
-> > to hang L1, or were there multiple notifier unmaps.
-> > 
-> > QEMU with -machine virt uses 40 IPA bits only, unmapping that takes:
-> > 1024  (4KB pages,  unmapping 1GB per iteration)
-> > 32768 (16KB pages, unmapping 32MB per iteration)
-> > 2048  (64KB pages, unmapping 512MB per iteration)
-> > iterations for each page size. There aren't many mappings in each
-> > iteration too. Does this really take that long on real hardware (even if
-> > this must be done 8 times)?
-> > 
-> > Thanks,
-> > Wei-Lin Chang
-> > 
-> >> 
-> >> So what are your actual test conditions?
-> >> 
-> >> 	M.
-> >> 
-> 
-> Hi, Wei-Lin and Marc,
-> 
-> I was able to reproduce this issue and capture ftrace evidence that confirms
-> the root cause. Below is the analysis, trace log, and timing data.
+This patchset adds the line length PCK setting and calculates the pixel
+rate based on the external clock rate.
 
-[...]
+Changes in v2:
+The patchset contains three patches:
+1. Add line length PCK setting
+2. Name the PLL registers in the OP domain
+3. Calculate pixel rate based on the external clock rate and the PLL
+   configurations in the OP domain.
 
-> Each set_migration_pte line is a single-page NUMA migration. Yet each
-> migration triggers one full kvm_nested_s2_unmap() that takes 877 ms.
+The line length PCK setting is added to the sensor driver to ensure the
+pixel rate is correct. The pixel rate is calculated based on the external
+clock rate. Moreover, since the sensor runs in the PLL DUAL mode, the
+configurations of the OP domain are considered.
 
-And why is it taking so long? It should be *empty* after the first
-iteration.
+Tested with libcamera 0.7.2 and the patchset mitigated the horizontal
+line noise.
 
-[...]
+Changes in v1:
+1. Add line length PCK setting
 
-> ## Conclusion
-> 
-> The root cause is confirmed: kvm_nested_s2_unmap() performs a full IPA space
-> unmap in the MMU notifier path instead of unmapping only the affected
-> GPA/CPAI range. The interval-tree-based precise range unmap approach is the
-> right fix.
+Kate Hsuan (3):
+  media: i2c: imx471: Add line length PCK setting
+  media: i2c: imx471: Name the PLL registers in the OP domain
+  media: i2c: imx471: Calculate pixel rate based on external clock rate
 
-No. This just indicates that this is papering over a bigger problem,
-and your AI is jumping to conclusions.
-
-> Please consider applying the patch that replaces the full unmap with
-> kvm_nested_unmap_cipa_range() to avoid scanning the entire nested stage-2
-> page table on every NUMA migration.
-
-Not until we get to the bottom of this issue.
-
-	M.
+ drivers/media/i2c/imx471.c | 39 ++++++++++++++++++++++++++++----------
+ 1 file changed, 29 insertions(+), 10 deletions(-)
 
 -- 
-Jazz isn't dead. It just smells funny.
+2.55.0
+
