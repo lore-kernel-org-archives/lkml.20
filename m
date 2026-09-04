@@ -1,145 +1,253 @@
-Received: from mta0.migadu.com (out-149.mta0.migadu.com [91.218.175.149])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDFAD4F55D4
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 15:28:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.149
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27B993EF66B;
+	Fri,  4 Sep 2026 15:29:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788535701; cv=none; b=gn0sFIXLNPjzUVKvieB2hj7/iC37MbGDZuEh3sTo6M7VVxO3jOqd9zp4H5TRl0yvF3dPi/VdNYqSlB81msYlA/QoKRKECC/QCL6/i9UK+bzIN58q+rIcdyB0pmQRsWz7chy+HGvbHsvoZ9p3uxcbssqy0hpN9WNkmZrJhkoGiGI=
+	t=1788535743; cv=none; b=XFUcNMp+ajhv1Caco4r2ttgy4MDyMBlsO8o0hDVUjreondlIhD7adaoqjDxH29F689mid5Fy5W0tXPohqoDCpfKV+6h8VI/Rg2UHv1tK8kZth49x7XUCNcSZRdL5AYvF2l40TQUOtD6k626wWjJNbbXdDwJ+ugdj4WqA5Fh7EOk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788535701; c=relaxed/simple;
-	bh=svWZ9zpx2LBS4ke8ImROCzfa4vg56SD715HVVMsnjko=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=npUlhKKu2xlZlCsp6Ugkm1k5x9Ezhz8gsEIaCW5jnG3n19rEs32gxX06jJ3tTxmq1Nkjzc1nGbkceXFKjypu4pTDHDQko30SutGIWFQBtte1k0zx9DvyYPFBTthfihHsUU7IA1Y+iUsc404bvj/jagRcYLR6Xsec45+rPQbVEAw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=reiFS/PK; arc=none smtp.client-ip=91.218.175.149
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1788535743; c=relaxed/simple;
+	bh=6JZB0w29LQ4lg/CRMhk4MHcw92V0Fm8ZlMDdCZRPypc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=DRVeuIw+XiM6/VqiXr3V+ypxvXbLScjlZZ1uTNZE80eAuGYOdN8z1sTPKHjDvPrSKDLMYy7JAPbnMEyd1O3V86g9F/JRuq5DTuIpMa3bKtUXw9OWG3GHkNuloMJ7dqkSKRQB9q2ZcoYzo/Ovlc+bOdOoBZlIpZWQR8RHHb/Ralk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KhhAeBGX; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="reiFS/PK"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=svWZ9zpx2LBS4ke8ImROCzfa4vg56SD715HVVMsnjko=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788535697; v=1; x=1789140497;
- b=reiFS/PKJLtEa8BcNqbi6xLO+tw1KajZgWqMk3wF90MaehHg81e7tQ/dfWbo7M31s21/Gy9I
- vPsS3j/HJQXlBctYC+tYZqkZidKrS7qBYBjS72cDmWiBwXuFTpCbdF2n3S22MyCcRLxb5pjK00n
- V+s8JtyyEydeMPK5HhCv8hIA=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 30bf5abb2794981b;
-	Fri, 04 Sep 2026 15:28:17 +0000
-X-Mizu-Trace-ID: 30bf5abb2794981b
-X-Migadu-Flow: FLOW_OUT
-From: Kaitao Cheng <kaitao.cheng@linux.dev>
-To: Alexander Viro <viro@zeniv.linux.org.uk>,
-	Christian Brauner <brauner@kernel.org>,
-	Jan Kara <jack@suse.cz>,
-	Dan Williams <djbw@kernel.org>,
-	Matthew Wilcox <willy@infradead.org>
-Cc: Muchun Song <muchun.song@linux.dev>,
-	linux-fsdevel@vger.kernel.org,
-	nvdimm@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Kaitao Cheng <chengkaitao@kylinos.cn>
-Subject: [PATCH 2/2] fs/dax: Make dax_layout_busy_page_range() static
-Date: Fri,  4 Sep 2026 23:27:49 +0800
-Message-ID: <20260904152749.84493-3-kaitao.cheng@linux.dev>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <20260904152749.84493-1-kaitao.cheng@linux.dev>
-References: <20260904152749.84493-1-kaitao.cheng@linux.dev>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KhhAeBGX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ABA871F00A3D;
+	Fri,  4 Sep 2026 15:28:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788535741;
+	bh=SzTVWioPMn/eUN8JebTME7TENuk6Gd+DFGYc+ZIXvoY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=KhhAeBGXWdHD0WOVo+1LUWvHKbix/TMAGxcYwlKoET6AwtHthxRdv8Pw9ChYa04oV
+	 OWERxbB4cokq2hrGmNQSgJPU8pb+NvWxOz9ExWCnctwl2NtgzyOt8ev2rPEAi5lxSr
+	 2lx3COPOTk6xw/XdcvwSyTeB/lp23fNATH0UiuxmfaNaYcZQYVB04LhW5+YjNhlP1i
+	 kNmO3Eb2gTzve72n5gGSMni95M4N5HxXa5rOZTZm9wOIlZLdjRctvxntLlCquMzAzN
+	 QIo1BLOo7HMXgZIQ+DHj/r4n6i4NIjVUPAztH8t3SU375vx/64SNNlQ7B+/hz42/9y
+	 WlUD9k+fS0Irg==
+Date: Fri, 4 Sep 2026 16:28:57 +0100
+From: Conor Dooley <conor@kernel.org>
+To: zjzhao <zjzhao@edatec.cn>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jiri Slaby <jirislaby@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org,
+	linux-serial@vger.kernel.org, devicetree@vger.kernel.org
+Subject: Re: [PATCH v3 2/2] dt-bindings: serial: Document WK2xxx SPI UART
+ bindings
+Message-ID: <20260904-satisfy-ocean-69c916e07d1e@spud>
+References: <20260904093341.100826-1-zjzhao@edatec.cn>
+ <20260904105243.120769-1-zjzhao@edatec.cn>
+ <20260904105243.120769-3-zjzhao@edatec.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="4wPLBzKbDJ+R/WxB"
+Content-Disposition: inline
+In-Reply-To: <20260904105243.120769-3-zjzhao@edatec.cn>
 
-From: Kaitao Cheng <chengkaitao@kylinos.cn>
+--4wPLBzKbDJ+R/WxB
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-dax_layout_busy_page_range() no longer has callers outside fs/dax.c.
-Keeping the range helper exported unnecessarily exposes a low-level
-implementation detail.
+On Fri, Sep 04, 2026 at 06:52:43PM +0800, zjzhao wrote:
+> Add a DT binding for the WK2xxx SPI to UART bridge ICs (WK2124, WK2132,
+> WK2168, WK2202 and WK2204) from WKmic (Chengdu Weikai Microelectronics).
+> Each UART channel is described by a serial@N child node that carries its
+> own serial and RS-485 properties. Also register the wkmic vendor prefix.
+>=20
+> Signed-off-by: zjzhao <zjzhao@edatec.cn>
+> ---
+>  .../bindings/serial/wkmic,wk2xxx.yaml         | 115 ++++++++++++++++++
+>  .../devicetree/bindings/vendor-prefixes.yaml  |   2 +
+>  2 files changed, 117 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/serial/wkmic,wk2xxx=
+=2Eyaml
+>=20
+> diff --git a/Documentation/devicetree/bindings/serial/wkmic,wk2xxx.yaml b=
+/Documentation/devicetree/bindings/serial/wkmic,wk2xxx.yaml
+> new file mode 100644
+> index 000000000000..c781482c0f2d
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/serial/wkmic,wk2xxx.yaml
 
-Make the helper static and remove its export and header definitions.
+Filename patching a compatible please.
 
-Also fix the stale dax_layout_busy_page_range() comment to match the
-implementation.
+> @@ -0,0 +1,115 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/serial/wkmic,wk2xxx.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: WKmic WK2xxx SPI to UART bridge
+> +
+> +maintainers:
+> +  - EDATEC Technology Co., Ltd. <zjzhao@edatec.cn>
 
-Signed-off-by: Kaitao Cheng <chengkaitao@kylinos.cn>
----
- fs/dax.c            | 18 ++++++++----------
- include/linux/dax.h |  6 ------
- 2 files changed, 8 insertions(+), 16 deletions(-)
+This should be your name. We want people here.
 
-diff --git a/fs/dax.c b/fs/dax.c
-index 1e19e4a354ce..c6ad9533aa54 100644
---- a/fs/dax.c
-+++ b/fs/dax.c
-@@ -770,24 +770,23 @@ static void *grab_mapping_entry(struct xa_state *xas,
- 
- /**
-  * dax_layout_busy_page_range - find first pinned page in @mapping
-- * @mapping: address space to scan for a page with ref count > 1
-+ * @mapping: address space to scan for a pinned page
-  * @start: Starting offset. Page containing 'start' is included.
-  * @end: End offset. Page containing 'end' is included. If 'end' is LLONG_MAX,
-  *       pages from 'start' till the end of file are included.
-  *
-- * DAX requires ZONE_DEVICE mapped pages. These pages are never
-- * 'onlined' to the page allocator so they are considered idle when
-- * page->count == 1. A filesystem uses this interface to determine if
-- * any page in the mapping is busy, i.e. for DMA, or other
-- * get_user_pages() usages.
-+ * DAX requires ZONE_DEVICE mapped pages. A page is considered busy when
-+ * folio_ref_count(folio) exceeds folio_mapcount(folio). This helper is
-+ * used to determine if any page in the mapping is busy, i.e. for DMA,
-+ * or other get_user_pages() usages.
-  *
-  * It is expected that the filesystem is holding locks to block the
-  * establishment of new mappings in this address_space. I.e. it expects
-- * to be able to run unmap_mapping_range() and subsequently not race
-+ * to be able to run unmap_mapping_pages() and subsequently not race
-  * mapping_mapped() becoming true.
-  */
--struct page *dax_layout_busy_page_range(struct address_space *mapping,
--					loff_t start, loff_t end)
-+static struct page *dax_layout_busy_page_range(struct address_space *mapping,
-+					       loff_t start, loff_t end)
- {
- 	void *entry;
- 	unsigned int scanned = 0;
-@@ -839,7 +838,6 @@ struct page *dax_layout_busy_page_range(struct address_space *mapping,
- 	xas_unlock_irq(&xas);
- 	return page;
- }
--EXPORT_SYMBOL_GPL(dax_layout_busy_page_range);
- 
- static int __dax_invalidate_entry(struct address_space *mapping,
- 				  pgoff_t index, bool trunc)
-diff --git a/include/linux/dax.h b/include/linux/dax.h
-index 05e59e45a1c2..f2d47975d905 100644
---- a/include/linux/dax.h
-+++ b/include/linux/dax.h
-@@ -155,7 +155,6 @@ int dax_writeback_mapping_range(struct address_space *mapping,
- 		struct dax_device *dax_dev, struct writeback_control *wbc);
- int dax_folio_reset_order(struct folio *folio);
- 
--struct page *dax_layout_busy_page_range(struct address_space *mapping, loff_t start, loff_t end);
- dax_entry_t dax_lock_folio(struct folio *folio);
- void dax_unlock_folio(struct folio *folio, dax_entry_t cookie);
- dax_entry_t dax_lock_mapping_entry(struct address_space *mapping,
-@@ -172,11 +171,6 @@ static inline int fs_dax_get(struct dax_device *dax_dev, void *holder,
- {
- 	return -EOPNOTSUPP;
- }
--static inline struct page *dax_layout_busy_page_range(struct address_space *mapping, pgoff_t start, pgoff_t nr_pages)
--{
--	return NULL;
--}
--
- static inline int dax_writeback_mapping_range(struct address_space *mapping,
- 		struct dax_device *dax_dev, struct writeback_control *wbc)
- {
--- 
-2.50.1 (Apple Git-155)
+> +
+> +description:
+> +  The WK2xxx family (WK2124, WK2132, WK2168, WK2202 and WK2204) are SPI =
+to
+> +  UART bridge ICs from WKmic (Chengdu Weikai Microelectronics). Each IC
+> +  exposes two or four full-duplex UART channels with 256-byte RX/TX FIFOs
+> +  through a single SPI slave interface and one interrupt line. Each chan=
+nel
+> +  is described by a "serial@N" child node that carries its own serial and
+> +  RS-485 properties.
+> +
+> +properties:
+> +  compatible:
+> +    enum:
+> +      - wkmic,wk2124
+> +      - wkmic,wk2132
+> +      - wkmic,wk2168
+> +      - wkmic,wk2202
+> +      - wkmic,wk2204
 
+Why are these devices not compatible with one another?
+If they aren't, state why in your commit message.
+pw-bot: changes-requested
+
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  interrupts:
+> +    description:
+> +      When missing, the device driver uses polling instead.
+> +    maxItems: 1
+> +
+> +  clock-frequency:
+> +    description:
+> +      Crystal or external clock frequency for the IC in Hz. The WK2xxx h=
+as
+> +      no internal clock, so this must match the connected crystal.
+> +    default: 11059200
+
+I think I would drop this default and make the property required.
+
+> +    minimum: 1
+> +    maximum: 30000000
+
+I find the 1 Hz minimum hard to believe!
+
+> +
+> +  "#address-cells":
+> +    const: 1
+> +
+> +  "#size-cells":
+> +    const: 0
+> +
+> +patternProperties:
+> +  "^serial@[0-3]$":
+> +    type: object
+> +    description: A single UART channel of the chip.
+> +    allOf:
+> +      - $ref: /schemas/serial/serial.yaml#
+> +      - $ref: /schemas/serial/rs485.yaml#
+> +    properties:
+> +      reg:
+> +        description: UART channel number on the chip.
+> +        maximum: 3
+> +    required:
+> +      - reg
+> +    unevaluatedProperties: false
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - "#address-cells"
+> +  - "#size-cells"
+> +
+> +allOf:
+> +  - $ref: /schemas/spi/spi-peripheral-props.yaml#
+> +
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            enum:
+> +              - wkmic,wk2132
+> +              - wkmic,wk2202
+> +    then:
+> +      patternProperties:
+> +        "^serial@[23]$": false
+> +
+> +unevaluatedProperties: false
+> +
+> +examples:
+> +  - |
+> +    #include <dt-bindings/interrupt-controller/irq.h>
+> +    spi {
+> +        #address-cells =3D <1>;
+> +        #size-cells =3D <0>;
+> +
+> +        serial@0 {
+> +            compatible =3D "wkmic,wk2132";
+> +            reg =3D <0>;
+> +            spi-max-frequency =3D <10000000>;
+> +            clock-frequency =3D <11059200>;
+> +            interrupt-parent =3D <&gpio>;
+> +            interrupts =3D <24 IRQ_TYPE_LEVEL_LOW>;
+> +            #address-cells =3D <1>;
+> +            #size-cells =3D <0>;
+> +
+> +            serial@0 {
+> +                reg =3D <0>;
+> +            };
+> +
+> +            serial@1 {
+> +                reg =3D <1>;
+> +                rs485-rts-active-low;
+> +                linux,rs485-enabled-at-boot-time;
+> +            };
+> +        };
+> +    };
+> diff --git a/Documentation/devicetree/bindings/vendor-prefixes.yaml b/Doc=
+umentation/devicetree/bindings/vendor-prefixes.yaml
+> index ba2002969373..654fc8525559 100644
+> --- a/Documentation/devicetree/bindings/vendor-prefixes.yaml
+> +++ b/Documentation/devicetree/bindings/vendor-prefixes.yaml
+> @@ -1907,6 +1907,8 @@ patternProperties:
+>      description: Wireless Tag (qiming yunduan)
+>    "^wits,.*":
+>      description: Shenzhen Merrii Technology Co., Ltd. (WITS)
+> +  "^wkmic,.*":
+> +    description: Chengdu Weikai Microelectronics Co., Ltd.
+
+"wkmic" doesn't come naturally to me as a non-chinese speaker from
+"Chengdu Weikai Microelectronics". Usually we use stock ticker symbols,
+or website URLs to form the vendor prefix. I tried lookig for one here
+but could not find it. Why not use "weikai," here?
+
+Cheers,
+Conor.
+
+>    "^wlf,.*":
+>      description: Wolfson Microelectronics
+>    "^wm,.*":
+> --=20
+> 2.43.0
+>
+
+--4wPLBzKbDJ+R/WxB
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaprjuQAKCRB4tDGHoIJi
+0tMmAQDxtZxa0dn7niH7wpAcwm1fJ/ofF5H/1qTzlvjmEDXhMAD/YB3txuD+xFX2
+PC3iOTuP7j+1rmwoPM8aqIPGd+r4/Qk=
+=G2Gz
+-----END PGP SIGNATURE-----
+
+--4wPLBzKbDJ+R/WxB--
