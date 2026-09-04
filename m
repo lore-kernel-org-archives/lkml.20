@@ -1,204 +1,165 @@
-Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com [209.85.214.176])
+Received: from mail-ej1-f48.google.com (mail-ej1-f48.google.com [209.85.218.48])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F49642B74B
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 20:25:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.176
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788553527; cv=none; b=mSwkDmg1FDwX3ycjWe40ZPk0CuecssMQS/+LemQGH8MNaMhZXHQVt/ajRcjbkbEXiijBPtaF6Nq43NU9zFdBvHRVR7mp3lB/xgdgDmQSrtC/f6zXG35h/EZf40Or3KpYXiKC/gJ8gYauZgL+bJQOn9YDDipt8abMfFpGcKkwcFE=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788553527; c=relaxed/simple;
-	bh=RkC7B1HjR0ml1UrF7WPIGhZi8gjG9mXWmeILFQwtK2I=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=fwQhMcVeyCTOomufcnD1KE2/4uu3H5q6Q87sV99DM+hSRg9PCKoib5a82RDc6YJTFUIhdOYvrXfqj7MIcCXlCktcaE04smf/iJGO0WgWxbRydlKKG0xvQZBHaTXtMUC0oBxPuiHmfC9bcGtxtJAVOYj+je+/SXF+5w10F4MeLX4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=AdzKKqbg; arc=none smtp.client-ip=209.85.214.176
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 889A7448D14
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 20:26:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.48
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788553612; cv=pass; b=OhF5z4XDzbEE5zJw/HfqtyJsERVG0VGTgJWwFjoadJmjjnYD15NE/DiU/mcwMVQ0hHms/ZUUE4CaPFf6m+0UPh/XAB4MpnwuiCXEyH38UypyNIvQyEnTkHcoVM+88rQFjjB7S/AF5pxH0BUpNWZkyVIkKPsVB2Slwjm5T6sGbd4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788553612; c=relaxed/simple;
+	bh=apsCJPAEvIxcNPrv06lf8gEHanZVwcDw0wrGmMSJ0Og=;
+	h=From:References:MIME-Version:In-Reply-To:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=ESNnUmEehfTCAsiQsHfTi1d3zOcDjuZs0ws1e+JDtPdY/mI9saSiEuOV8C1f2/MczRE2itecL1vMuaxwG0I6XJypTZMN2Fva2b8WCOBIyX2OKeZzTAmvrqAeucKNrNnYVU+Ax1es2SAgpLTHwM0HObNU6aL0Vok5fYtWcm/WEuM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=haSTrzaW; arc=pass smtp.client-ip=209.85.218.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="AdzKKqbg"
-Received: by mail-pl1-f176.google.com with SMTP id d9443c01a7336-2d9004f39d3so17090405ad.2
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 13:25:19 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="haSTrzaW"
+Received: by mail-ej1-f48.google.com with SMTP id a640c23a62f3a-c20e70a0962so186699366b.2
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 13:26:48 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788553606; cv=none;
+        d=google.com; s=arc-20260327;
+        b=jbJKK6lBMkO9W77rvpiFRyCfoF8Y78XKHKXQUoX3ljGrRc0SGoXVAxHhd9obys71yb
+         DaTivTWO5l5WoHEyk1b9yIcYX3EfOYx6ys4qZxni/oS0xKTACxrheA9uXerQxcJXQIoD
+         TvYLh6pgts8T1By9F3q+mzLqXQ9adaJ63O6vDM9V2QFuwgHkauapwaM9i3ynmera16zL
+         1CW4tQT3e1NaT7XDOHTzbGT1aSHXRDrkoAf1tqpjRbpMkrIUtoteLq0+l71df1miptgZ
+         oEgVhpwoVX1k4kuprmUHa+Gg7pirHCOALztIHl8PURcODlJHMSi12+yQTvQtTgeUX5at
+         DPmA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:in-reply-to:mime-version:references
+         :from:dkim-signature;
+        bh=uC9g/nTRfwFfgs5BRRrEUydMiSWINf/QbLL9mGYRBG4=;
+        fh=P2ylUAa3YFxqLcLOiHcz2TYNSinzJcggetMz4tYbQt0=;
+        b=ZXiPhzs17DXwAeT9ZN9r347ptczoS4sUmIkrbqxREgXLpWlagHEKcOXmolFnU5zk1X
+         g30HcLpPNqWCeIXhYU6Dd0Xk+gqgngbmikSj+QHIbTE/nRiQahfgOkcr02wvxg2CcDeC
+         kNgVpKx3t9IVJA2ebCkdSI9U8bydUuBthOgV7Ur7ZZ4e9vZZ9qIlEgUjzD4c/1dOs6GH
+         ZH82k3oem0/3d2XAtireQCMlus5QOVsGXzQvIXvFW61f3o5iPQgYPXnolXuDeui9PCCD
+         o9oWVpFdpuIYOzUao9fdAHCwJttnMSy1/fVKt/JqixPaYo7C1byN8MZ4dl5VGKVJXfix
+         P1Fg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1788553513; x=1789158313; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=N6QGXZnzimnwApACmTHrGvREBiPCHGg32ZkJMN7Mvro=;
-        b=AdzKKqbggCp3BNgi9PaPZMwv5Rw8w0GYbLLvzLEoe+pWtHJZSSqs7Jtm01N4h/JuLJ
-         wYo/90wEeX9kdGC6s12QViYIuA7SUUtrHHJVSWpCd8DshU/e2GSngORiHNoisGR2n8ZI
-         d9BYHKJHsQXfBgRHIt3yvepyyCAHQayv2jVltVvgsPmkqlwJ6/7pbbRQ6XeaJBC7q5R7
-         wgFfJbYl2grZ+49dBa+jy4ChLzV0ZAaYs5zU/7ddMcMrJma+P13JDjuq7R3DIlLhS5fk
-         fvBodQ60O4a3klrYnVs1fLsBhofAvDv++5mRXRlUrvAZeqO3en5N8g/appN07KIF5vc3
-         1Aig==
+        d=baylibre.com; s=google; t=1788553606; x=1789158406; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:in-reply-to:mime-version
+         :references:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=uC9g/nTRfwFfgs5BRRrEUydMiSWINf/QbLL9mGYRBG4=;
+        b=haSTrzaWX5OJ04nXMEULYY0HKzjqkZgR04cImDdjtwUipEAEcdqRFwnzfNBoKJIUnQ
+         p80NTflIJHwoySN4WuvJdtljR6Z3LU6/P9WgRxB7BI6zlhvfCTUMkKAOCFsTvr61HGNk
+         cwaqZmdU6TW1H/AGStz7Sr8znLLY72y5HwpRCS0N0WJNkAA5E0m5TkWWqMAlnbbqFJic
+         jxd3djtAa5GyQfK9+h0Zynju+QWPS/JepG+AvTY6auJzHueDTB622iy8CwtRdYvk5CoI
+         437cGXCsF02dsrdcyRFei6r8KMCR324/D6UNqynZCBsiCvbAWHrPAuBH9hvU/bbROq3m
+         cxIQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788553513; x=1789158313;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=N6QGXZnzimnwApACmTHrGvREBiPCHGg32ZkJMN7Mvro=;
-        b=TBT+r4z7EjmkbTfmpPzV8eFgXJb9t0/x/pHLkrAoYoijoyNdGxA7Z0UcEHhyoYFkd0
-         4kYFuTHdt05wXJ5FQQ09KIiWe4b2tyr9KkjJ7FxKomQ0LeTJphSn5WlUIzpAj1t7V8vG
-         lDi++GSqQi33RLvZPmhiGjf6H0lNpSfI6+CpNdXTM84yIsf8PoG2dmA74OG06VcvleIV
-         vOiCy3t1UvsdcpPEUJQR5N2Jv4lGIiXK+mpSNOVg3z5OTptXhOoOI4a9NjIJD+VwKC9m
-         Ji6OZM16T109Usof00TszdE8b61dmB4NHAExKp7py/6WD63NdAbq0myy9igGX3berWq+
-         tZlg==
-X-Forwarded-Encrypted: i=1; AKwUvBy7XQx6P2Zteajr6FuJE4LJRa8CNGxgQzL3vZ8TcSVlSR+D1x4LN9zRmwLq08+49MuzUcS/8GV5Ehtlnwo=@vger.kernel.org
-X-Gm-Message-State: AFuF++miflIhta6ZIoETjcn31c42jO1FpWaEPT7N396sFG13o8BkQFfN
-	Gjs0ZxWaLMcxprzdj7PqiEJKkKThEJ7cRqBnT43VgnU8k5jDcp45S2dq9l92PjklS+M=
-X-Gm-Gg: AYBFou3RsvpxKcL10KLaXrzXYI8WEWkBxM2eSsGue+SZ9RxSMXaH3vWBwDEaY4T2BFx
-	9I8dMzw6+Gq346O70WKfwUesLa4CasV3IbruwYjFWN2nyj+BXarFenYTb2xyn4mYJy0tDUIq72v
-	RsEvMILxLtlveE1Dcf8ZMgAl8nQv7bcC4N92BoMUgbvxtmnywyd+mId9PfYsNvXs4NPqTcz/ljl
-	IkgNhSRX9F5faYhAMwtaFbMW3y7UB1p5oE9O0EexvMR+IKq7ru3P6xATKiMPqEM1OgmfXTuqC0v
-	9+46C1BY7iH62jT6fBt1tXLifOWqWwfz/b8CLcoQGyo2Z3RsSA5OFVP4OSGMTGVI4YKNCnEfsmG
-	6isgZJmrUuXrOdNttkhHEaxsX0Xa0lKemgcWntxP8O2T1tXA3r9r1Bwfo9Tm1Nkh8ObaC9+Rmws
-	PTyXzv0+AeJcO4RC4VMdCyi4Y/0uiRaj0GrqJ6DePZ5GdUa2HsW31GDwKFrGITI8w5
-X-Received: by 2002:a17:90b:224c:b0:398:9bd4:d15 with SMTP id 98e67ed59e1d1-39b26245d08mr11013302a91.20.1788553512350;
-        Fri, 04 Sep 2026 13:25:12 -0700 (PDT)
-Received: from p14s ([2604:3d09:148c:c800:f95f:75de:b3f0:3bf5])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b26127fddsm5795159a91.12.2026.09.04.13.25.11
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 04 Sep 2026 13:25:11 -0700 (PDT)
-Date: Fri, 4 Sep 2026 14:25:09 -0600
-From: Mathieu Poirier <mathieu.poirier@linaro.org>
-To: tanmay.shah@amd.com
-Cc: Arnaud POULIQUEN <arnaud.pouliquen@foss.st.com>, andersson@kernel.org,
-	corbet@lwn.net, skhan@linuxfoundation.org,
-	linux-remoteproc@vger.kernel.org, linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v8 0/5] Enhance RPMsg buffer management
-Message-ID: <apspJRn0LJ-Gvucv@p14s>
-References: <20260828145853.2843486-1-tanmay.shah@amd.com>
- <4f8cc4b4-8c44-4d2d-befd-63911afe27a5@foss.st.com>
- <20f53e0f-4b9a-44fe-bb6a-ea0f988b64b9@amd.com>
+        d=1e100.net; s=20251104; t=1788553606; x=1789158406;
+        h=content-type:cc:to:subject:message-id:date:in-reply-to:mime-version
+         :references:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=uC9g/nTRfwFfgs5BRRrEUydMiSWINf/QbLL9mGYRBG4=;
+        b=SZWLRcQ0ovi/NjirV6kSACMgvRglPYRkTE0jLMpGvHAJeJpTdhK2gZ0fGnq+TJIhCy
+         UyayYteFIDs+iIlyqrJkblbqW9i3kL1a4VnSfjNV78hoaMsdhDDR2HpjGdxsNjfnZ+AI
+         wkTusVtXinpHBARpxTVJKe63g2CC9dr6vJq3TPoVFJuQet9q94DLRw4g9lKuj1XjqNe8
+         0/pQsVENWeGIYDkE3Wyyi9bccC3bYBhdAL0qs0gKxs16JalC68jEqvMiMraw6fiZC+QZ
+         800gl+TOQSd6CRLKJZFdm3i0p1X1xlsTyGnO/zu1KWP1O9sKatooX8fh+hHgTG0iaBj4
+         55rw==
+X-Forwarded-Encrypted: i=1; AKwUvBwmA8qtmTEqcb5QJQhjmqJUNf3vS5o45ujjjUAm8FI85NLapI/oALaVf9M0fQUCqEVrQV1gGaSjzg09gWk=@vger.kernel.org
+X-Gm-Message-State: AFuF++lHdbr5KZ+wRiFjvk0krcpI/M81xwPlKLyNM5b+sz9klU7stl6V
+	/GWHvlGp5JSmGirqoBOCINLYs+xLvOS4zem0Ct3QhHt3fsaAx5gSOkSlJ6Prl+vtmDdxDQ/vjtJ
+	Iw8ArFhQltB6A67+OkPV6Itj5CEAfFx8Putou9TtwAw==
+X-Gm-Gg: AYBFou2GvClX1XE25AY5RNW2iP4/8FcVkRR5O0k4WYipcYk4YhPfW+Ro17jehq4QvlH
+	2G8BWU2WTqBXEXV6r1EJugTIjh/p4It24dX2eUpx94C2YXpaLPGB3J5VRAyoHiFFEV/v2kfGQi0
+	W+A/pAZhjXTW+u5GLV9Qazu8S99xqu+fWb2VLxWSHMIbUNtxAT5JrITs/MeYjrJ5Y/xIf5bbwf3
+	q+u7RTiX4C8oX9QcPugm09etHMF1EO3uAUXfWF9WB0k4L4RDuvtjmMxAwZ6gpZw/SIfeZBc3Ksz
+	b1rmenKWW/C10B0HXayjc8P1avO4JbKwAqRigq5s9g==
+X-Received: by 2002:a17:906:ba82:b0:c19:5572:d234 with SMTP id
+ a640c23a62f3a-c260c6a0ea0mr658955066b.1.1788553605796; Fri, 04 Sep 2026
+ 13:26:45 -0700 (PDT)
+Received: from 753933720722 named unknown by gmailapi.google.com with
+ HTTPREST; Fri, 4 Sep 2026 15:26:45 -0500
+Received: from 753933720722 named unknown by gmailapi.google.com with
+ HTTPREST; Fri, 4 Sep 2026 15:26:45 -0500
+From: Angelo Dureghello <adureghello@baylibre.com>
+References: <20250121-coldfire-global-pool-v1-0-382a7235c2aa@yoseli.org>
+ <20250121-coldfire-global-pool-v1-2-382a7235c2aa@yoseli.org>
+ <Z5h0vvL0B5ktd3sM@infradead.org> <ba7ea0f0-be38-49a7-b416-3dc62c7e7425@yoseli.org>
+ <Z5h70TL6lSWzGA4f@infradead.org> <8b453664-13b6-430c-a865-9675edcdf369@yoseli.org>
+ <Z5h9ZySKFwHRjg0O@infradead.org> <44398a86-cf85-4c7b-85f1-de9beedc72fc@yoseli.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20f53e0f-4b9a-44fe-bb6a-ea0f988b64b9@amd.com>
+In-Reply-To: <44398a86-cf85-4c7b-85f1-de9beedc72fc@yoseli.org>
+Date: Fri, 4 Sep 2026 15:26:45 -0500
+X-Gm-Features: AcwNN1UeHDiIoMnhpwFKK6XEr1ozLUIj6HzYctMfqmwrWSoz_rKyl2uviZtEeDg
+Message-ID: <CALSJ-wBWQQMWnex9=bhdtdg1QM4KJ6eRvHNOi54ZtTfznQ8SjQ@mail.gmail.com>
+Subject: Re: [PATCH 2/2] arch: m68k: Add DMA mapping operations for Coldfire M5441x
+To: Jean-Michel Hautbois <jeanmichel.hautbois@yoseli.org>
+Cc: Christoph Hellwig <hch@infradead.org>, Geert Uytterhoeven <geert@linux-m68k.org>, 
+	Greg Ungerer <gerg@linux-m68k.org>, linux-m68k@lists.linux-m68k.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Thu, Sep 03, 2026 at 10:28:09AM -0500, Shah, Tanmay wrote:
-> 
-> 
-> On 9/1/2026 8:03 AM, Arnaud POULIQUEN wrote:
-> > 
-> > 
-> > On 8/28/26 16:58, Tanmay Shah wrote:
-> >> Current design uses fixed (512 bytes) rpmsg buffer size in both rx and
-> >> tx directions. This design is not suitable if the payload is larger than
-> >> 512 bytes or the payload is very small and doesn't need that much
-> >> memory. Instead introduce new virtio feature to retrieve rpmsg tx buf
-> >> size and rx buf size from the virtio config space in the resource table.
-> > 
-> > This version seems good to me, with or without my suggestion in patch 4/5
-> > 
-> > Acked-by: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
-> > 
-> > Thanks!
-> > 
-> > Arnaud
-> > 
-> 
-> Thank You Arnaud.
-> 
-> If I end up spinning another revision with any more comments, then I
-> will address suggestion in the patch 4/5 as well. If I get Mathieu's RB
-> for this series, then we can merge this series as it is.
-> 
+Hi Jean-Muchel and all,
 
-I edited 4/5 to include Arnaud's suggestion and applied this set.
+just asking if this job is in progress, since i have the same
+dspi issue open, and need dma eventually for other drivers.
 
-> Tanmay
-> 
-> >>
-> >> Changes in v8:
-> >>    - fix commit message of 3/5, "%s/enable/Enabled"
-> >>    - introduce new function to get buffer size for the vdev device
-> >>    - fix description of VIRTIO_RPMSG_F_BUFSZ define
-> >>    - "%s/or differnt RX and TX sizes)/or different RX and TX queue
-> >> sizes)/"
-> >>
-> >> Changes in v7:
-> >>    - Fix 5/5 commit text, and move change log out of commit text
-> >>
-> >> Changes in v6:
-> >>    - remove buffer alignment from config space
-> >>    - rpmsg.rst: modify alignment related documentation
-> >>
-> >> Changes in v5:
-> >>    - fix documentation about alignment of the buffer size
-> >>    - change version field from u16 to u8
-> >>    - remove buffer alignment check
-> >>    - Separate buffer alignment vs MTU of a single buffer
-> >>    - Use buffer alignment only to get next buffer address at alignment
-> >>      boundary
-> >>
-> >> Changes in v4:
-> >>    - Introduce new patch to modify rpmsg.rst documentation
-> >>    - check version is always 1.
-> >>    - check size field is same as size of struct virtio_rpmsg_config
-> >>    - introduce alignment field
-> >>    - check alignment field is power of 2
-> >>    - check tx and rx buf size is aligned with alignment passed in the
-> >>      structure
-> >>    - check msg size is < MTU size
-> >>
-> >> Changes in v3:
-> >>    - new patch [1/4] that renames variables with clear names.
-> >>    - %s/rbufs/rx_bufs/
-> >>    - %s/sbufs/tx_bufs/
-> >>    - %s/last_sbuf/last_tx_buf/
-> >>    - add num_rx_buf and num_tx_buf in the documentation
-> >>    - change version field from u16 to u8
-> >>    - introduce size field in the rpmsg_virtio_config structure
-> >>    - check version field is set to any non-zero value.
-> >>    - check size field is not 0.
-> >>    - Remove field for private config, as not needed for now.
-> >>    - add documentation of rpmsg_virtio_config structure
-> >>    - Check for error when retrieving MTU size in the sample driver
-> >>    - %s/mtu/MTU/
-> >>
-> >> Changes in v2:
-> >>    - Change author
-> >>    - fix commit message with better explanation
-> >>    - %s/sbuf/tx_buf
-> >>    - %s/rbuf/rx_buf
-> >>    - %s/num_rbuf/num_rx_buf/
-> >>    - %s/num_sbuf/num_tx_buf/
-> >>    - %s/sbuf_size/tx_buf_size/
-> >>    - %s/rbuf_size/rx_buf_size/
-> >>    - fix typo
-> >>    - do not use ALIGN on buf size, rely on allocator
-> >>    - make err msg more explicit, %s/vdev config:/bad vdev config/
-> >>    - fix license and add AMD copyrights in the header virtio_rpmsg.h
-> >>    - Assign bit 1 to VIRTIO_RPMSG_F_BUFSZ feature
-> >>    - use __virtio32 over __u32
-> >>    - add version field to virtio rpmsg config structure
-> >>    - Introduce new patch to print rpmsg mtu size in the sample rpmsg
-> >> driver
-> >>    - move linux/virtio_rpmsg.h to linux/rpmsg/virtio_rpmsg.h
-> >>
-> >>
-> >> Tanmay Shah (5):
-> >>    rpmsg: virtio_rpmsg_bus: rename rbufs and sbufs
-> >>    rpmsg: virtio_rpmsg_bus: allow different size of tx and rx bufs
-> >>    rpmsg: virtio_rpmsg_bus: get buffer size from config space
-> >>    docs: rpmsg: add virtio config space details
-> >>    samples: rpmsg: add MTU size info
-> >>
-> >>   Documentation/staging/rpmsg.rst     |  17 +++
-> >>   drivers/rpmsg/virtio_rpmsg_bus.c    | 156 +++++++++++++++++++---------
-> >>   include/linux/rpmsg/virtio_rpmsg.h  |  41 ++++++++
-> >>   samples/rpmsg/rpmsg_client_sample.c |  20 +++-
-> >>   4 files changed, 186 insertions(+), 48 deletions(-)
-> >>   create mode 100644 include/linux/rpmsg/virtio_rpmsg.h
-> >>
-> >>
-> >> base-commit: d4d61a4b0a52e8f3cdb3e1578602850a3452ec3e
-> > 
-> 
+I can eventually help on this, i have hardware for testing.
+
+On Wed, Jan 29, 2025 at 08:32:52AM +0100, Jean-Michel Hautbois wrote:
+> Hi Christoph,
+>
+> On 28/01/2025 07:47, Christoph Hellwig wrote:
+> > On Tue, Jan 28, 2025 at 07:43:23AM +0100, Jean-Michel Hautbois wrote:
+> > > > It really should not be hard.  The dynamic mappings already work fine
+> > > > as m68k is using the generic code.  So the only thing you want is
+> > > > to dip into the glonal pool for coherent allocations. For that you
+> > > > need to select the DMA_GLOBAL_POOL config option and fill the pool
+> > > > with dma_init_global_coherent().
+> > > >
+> > >
+> > > Isn't it done in patch 1/2 ? Or did I miss something ?
+> >
+> > The point is that this is all you need.  No need for new dma ops.
+> >
+>
+> Indeed, I tested it and it works fine.
+> I have removed the test in fec_main to be certain, but I think it would be
+> better to change the COLDFIRE_COHERENT_DMA conditional ?
+> What sounds like the most efficient way ?
+> I can' do:
+>
+> - #if defined(CONFIG_COLDFIRE) && !defined(CONFIG_COLDFIRE_COHERENT_DMA)
+> + #if defined(CONFIG_COLDFIRE) && !defined(CONFIG_COLDFIRE_COHERENT_DMA) &&
+> !defined(CONFIG_DMA_GLOBAL_POOL)
+>
+> I suppose it would be better to modify it in the Kconfig, but I can't find a
+> nice way to do it without having a circular dependency:
+> arch/m68k/Kconfig.cpu
+> @@ -555,6 +555,7 @@ config COLDFIRE_COHERENT_DMA
+>         default y
+>         depends on COLDFIRE
+>         depends on !HAVE_CACHE_CB && !CACHE_D && !CACHE_BOTH
+> +       depends on DMA_GLOBAL_POOL
+>
+> =>
+> error: recursive dependency detected!
+>         symbol DMA_DIRECT_REMAP is selected by M68K_NONCOHERENT_DMA
+>         symbol M68K_NONCOHERENT_DMA depends on COLDFIRE_COHERENT_DMA
+>         symbol COLDFIRE_COHERENT_DMA depends on DMA_GLOBAL_POOL
+>         symbol DMA_GLOBAL_POOL depends on DMA_DIRECT_REMAP
+>
+>
+> I will send a v2 with the global pool.
+>
+> Thanks !
+> JM
+>
+>
+Regards,
+angelo
+
+>
