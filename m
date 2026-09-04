@@ -1,59 +1,65 @@
-Received: from smtpbgjp3.qq.com (smtpbgjp3.qq.com [54.92.39.34])
+Received: from smtpbgau1.qq.com (smtpbgau1.qq.com [54.206.16.166])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFFCD509F02
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 19:44:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.92.39.34
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1086938DC64;
+	Fri,  4 Sep 2026 19:47:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.206.16.166
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788551053; cv=none; b=TiPrcRHTMj1z26o5lH9aoo2x9Goby9ImTfFx0/Haq6uYbCHEakc7Km9EyaE2e9OfMNHSI+erQPLGVTbT7emXedMnG+UhacN+W4u9ysDq20cv0sQY8bPZxo/YyrlqAD3AU9GovPYikZTk2ouKfFAD7xi/799alHAuyCLpuf2+xVA=
+	t=1788551270; cv=none; b=lJUmt8FZo078u0jWKJ1xfSoTeg1o4xbcRy39N518yGQwPqPrVILp++GOj/d2GQW76/lflL3q5V1+HFIj5eqbz0V0HJw9MLeFB6F5QKMtdnmGSNsL1T0cAa+pba8xTd8t0AFFwalyvcqdqlEH7a/fTVHV2O36J6FBaI3AM93Tyo8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788551053; c=relaxed/simple;
-	bh=/bTzgWMEy9BDvp6IwS6vIzYT5e916ZycKbA3gsTQSN4=;
+	s=arc-20240116; t=1788551270; c=relaxed/simple;
+	bh=Y5OfE5RetYN+Tz0y0lxN+Zusr9FUzQLGAiWkpONLRus=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=nBNyp9shJvrTE8RJpou2FVcnI2SDfCvGsia6sbuYmsaxI2AGV26wwuclnAI61d5P2cBPt3sR9ySzX1ivrahR4mFoA7zdKksWfhLDpKXOqnL0BkdrbJrpgBPaKEcmDomCaLwCPrLcGa3X1Rr0O5PNA8RtK75UbQIpKFf7HQPmH0w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=JSL+okaC; arc=none smtp.client-ip=54.92.39.34
+	 MIME-Version; b=qk/OE3lxbIJpL5Cs/fIiT+HKecqlaufI0DuU7FhWdjaHJSpILRWTIe3dWfK/X163nX1KorAp7078DQgU1gdpcFRW8XOIRmt5gsZjeLlW+F5exDBHACgUQIRQydpUi2KV42KMJjk0W8c72FP21b0qff0obcyTAyqTuFt2n2Bnx9w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=N6ehktTz; arc=none smtp.client-ip=54.206.16.166
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="JSL+okaC"
+	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="N6ehktTz"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
-	s=onoh2408; t=1788551019;
-	bh=vdqcgDWDRYb5T8iNF+ov3y6T/OLrNQ3mp3fJFvYbja8=;
+	s=onoh2408; t=1788551170;
+	bh=ySogpzswJxoAl7WyHwxHElt28x3uWsH2QkWK4MRVu8A=;
 	h=From:To:Subject:Date:Message-Id:MIME-Version;
-	b=JSL+okaCL39JVbb+lH+FIuyWxuMQm8tw029018ANVEifP0HCiKvTwxdchJd7dNBT8
-	 ciwuW/HHtH4C4EFGtR7BmwZc4MlRE6vjwhpl79vU+npNhtRaXcRQSvYxr4bOxahnKt
-	 K9qc/tdvJEW10BuG4+uSC785bQ51Ztn5E/Qh6Dns=
-X-QQ-mid: zesmtpgz5t1788551001tce9aa63b
-X-QQ-Originating-IP: SC4xcQ2AUZyWLQjL7sMo/Lm5tVZSsV3X7Qmh2D24Kws=
+	b=N6ehktTzUMyZSanvsXF+R4tFJ3qnrf0Hf4zuA0XDAwGWqzokLnm7pGgZP/j3c+RIc
+	 CFul2yDQqcZA2Av4jjocFlm2OHTYa+dmv7blSPCtL1eaYjoNUZjwDqNkGfFTg8eGpJ
+	 hTeTHcwoK5KIR8KsemhUjinAn5MZgiP9PdbQjj9Y=
+X-QQ-mid: zesmtpsz8t1788551165t062e92ba
+X-QQ-Originating-IP: Mh6UQHmyb+mASp+4mMFL/LbRJAAX0oMHj0gvmf4T3tc=
 Received: from localhost.localdomain ( [113.57.152.160])
 	by bizesmtp.qq.com (ESMTP) with 
-	id ; Sat, 05 Sep 2026 03:43:18 +0800 (CST)
+	id ; Sat, 05 Sep 2026 03:46:01 +0800 (CST)
 X-QQ-SSF: 0000000000000000000000000000000
 X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 861377282768174038
-EX-QQ-RecipientCnt: 15
+X-BIZMAIL-ID: 7964370203424878226
+EX-QQ-RecipientCnt: 21
 From: Wentao Guan <guanwentao@uniontech.com>
-To: qinyuntan@linux.alibaba.com
-Cc: akpm@linux-foundation.org,
-	baolin.wang@linux.alibaba.com,
-	david@fromorbit.com,
-	david@kernel.org,
-	hannes@cmpxchg.org,
-	lance.yang@linux.dev,
+To: gregkh@linuxfoundation.org
+Cc: achill@achill.org,
+	akpm@linux-foundation.org,
+	broonie@kernel.org,
+	conor@kernel.org,
+	f.fainelli@gmail.com,
+	hargar@microsoft.com,
+	jonathanh@nvidia.com,
 	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org,
-	mkoutny@suse.com,
-	muchun.song@linux.dev,
-	qi.zheng@linux.dev,
-	roman.gushchin@linux.dev,
-	xlpang@linux.alibaba.com,
+	linux@roeck-us.net,
+	lkft-triage@lists.linaro.org,
+	patches@kernelci.org,
+	patches@lists.linux.dev,
+	pavel@nabladev.com,
+	rwarsow@gmx.de,
+	shuah@kernel.org,
+	sr@sladewatkins.com,
+	stable@vger.kernel.org,
+	sudipm.mukherjee@gmail.com,
+	torvalds@linux-foundation.org,
 	Wentao Guan <guanwentao@uniontech.com>
-Subject: Re: [PATCH] mm/list_lru: don't copy stale shrinker id from non-memcg-aware shrinkers
-Date: Sat,  5 Sep 2026 03:43:15 +0800
-Message-Id: <20260904194315.9954-1-guanwentao@uniontech.com>
+Subject: Re: [PATCH 6.18 000/552] 6.18.50-rc1 review
+Date: Sat,  5 Sep 2026 03:46:00 +0800
+Message-Id: <20260904194600.10243-1-guanwentao@uniontech.com>
 X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20260901115104.2944996-1-qinyuntan@linux.alibaba.com>
-References: <20260901115104.2944996-1-qinyuntan@linux.alibaba.com>
+In-Reply-To: <20260904045747.813364717@linuxfoundation.org>
+References: <20260904045747.813364717@linuxfoundation.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -62,70 +68,41 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpgz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz3a-0
-X-QQ-XMAILINFO: Nt9NcOjqvGa9L9O8wL7bW5Xnc9CMSt+RMQzdo8KXn1gMoX1RKB9IIPax
-	ovnCH7++5PqfFFvSe5KUNCgcTGmCZIUaZWsU28GlMiCc/QSE1Nh8JtQu5vNK/MDqHG6kWBo
-	hxue068J1lNvN7eGsAkyPZ2PzloTfoOkPX3rE06hT0OnGNqmrh4Pr2u+XPVDBheGpu+tjav
-	UZOcLPcpo8dejAGL+DsjaQSrufOX3GW0hGqE3t4qK9MUjuPdBD1M6egbXlTGAENdC2O2O0d
-	TE4hNFN1YGnCnoZbocW/hae/FliNNxdWiJxFMHZ27GwVMAa+g2Cq0Wb/Qygw5E5y2o0irRi
-	ojwxTKcZYyqAAIedP5LaTHHYs6eEm/WliaboG7A6qC+wLVZ/WObb7292bm3jfcYoQahlfuQ
-	oElvI+dDVEcdTSrUFaE14syfDt+NFXRt1peO6guaqIH1brV1udnk88H1U3XsH4BvYEO8av9
-	83tDl4HdPX9mhvdrKrQmemigYyDtIBbUFYYb7QkjMWGG+gNYRA55vdyygmxtMHhneJZEZWk
-	SZo+oXc0W6PIr8WGTE3xqo4LJRiKdwt2Pq2hSImakzrP5ltOZsGzZdIuiXvGKk/ROK/MNiu
-	EvtgwzOq6d6DCIftM5WXTlygza2GpykaaU/mQ1GnmPLOAHLX4Z78YL5U4d41e7Nfd8zfNhG
-	mdL6oVhyqo63rngkpXhm2xjqjAcXkb0XrvhqtLjQBMTpWNQpWHYNcoiKgpnx45MKZlUFUjy
-	SfDyu/jRoQ9w+CpW+75dV6F4C/e3aWaF7CR1gJgKnCHIsA+HI1fhbc1CS9q0RYCumIYj/j4
-	bwyPxgAZrLbNJSEXoEXDTtzdORKLoSayzWhQmIQwY0yAL2PyI+QZq84Tl+3ktvyIb8RpyrP
-	sDGtgXWH/HuIpSXNKvw451flXzPmI7LxyWcRA+/S8smkEmAW65imN2Hh2T3wn1ep6GDoiJE
-	1EnFNz5N6qgvAXkLf0wE/fsIhucH55ObOmg/KxgsPdyoN564Pjge0YwsVU+jytdbm6RJqeH
-	gmMaSS0D9SWdlW1CT0w3WVoch2Wy1Rbp9wttGCJg4E3yJtw3u9/AQ+WWe9Au9Tzh7zfcE1H
-	UeKgVCU4g5Jz93RLQw1r1xI2/EAkXg/oQ==
-X-QQ-XMRINFO: NS+P29fieYNwqS3WCnRCOn9D1NpZuCnCRA==
+Feedback-ID: zesmtpsz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz3a-0
+X-QQ-XMAILINFO: NAU+NnQ/rJI9mukbpEhTMINu7zZJb8x50Tm4ob9vXGLbh9takl3VAlfv
+	sfo/wOWgfgawj/OQ1pAe8U+PGNBR9bLIlpNJsaUXjrW85oiEuk2G7K4xDjEPjcmKXl7vAZp
+	v3gzHvqFBh+IM9Z+iueBv8373FRX4cNQjGBbwGQCP2/0K6bBKwkWlhRMpjy+As+4T9NUoBW
+	6XmKTHmUyFFLROUeDziVVw7pD/OFcRuSatv4HFkX0XAO81R3/eg0hHpYIElr68cNoEd+pIU
+	hq/4ClGXzlj0NlpQHGpFvu2ewKN8iAVVtsTd64COCNtJB10bwu29duwPggERE7ptEPbneyp
+	xmKXhaxit4QYrROZjqsmzM0Gnx8omuL9cBrv9joTH9UbFOxXcau/Ou4IIcRvd3iyca70stl
+	hrA/ZMmJQTGOxmtNa9ZhRFMuGVXeIQ3AUWosDkacDJYWlO87QFJ6NCrfDD7uhXXWZkaxmTU
+	YQxVw6UTN8EYYZuy7MuEnAZdjZh+VY6L1PY5UjGz50i6NPT8G5SYz1LTpiQlN51+cZkU34J
+	gV/XJLKTYder6jFAIV2Z8iPSW/2U/CbTxQ2d80j6I61EOkp5bhaaRzXBNqB8Du4To6BGo6O
+	INUTsWNuLz0g/eOK06O51scfmOv/y+hac5+lCHUDnpJFqZyF+0XKZPPss9FtbtN6vB9QY5R
+	JgoFaeOar3m68LD26icuGOxeT9hqWO2KEr9qTxars0a+wF3xSWZ2Dj7tx0B5L5OYbAnnuWY
+	NIUARsOh2ZHuw0F6nldDjvbIWwpOUcJIsLfRvC8ZIAQECapnEvDreSORDBKHdaRai5gleei
+	gcI3CmU30AZFht8gTLp+podg2ko25fEfpNQBG/4+TxiQ5k+vqhItQ5LGk26HmaDymM5DOWz
+	VqSRXnWmoI6B/8eMrrJbt/R5ljbLe8dM0gOFstiCNQs5qm++ulYkrWfGLn1RiMP55detrzk
+	CutoM7ulURZtNK0TECNfh1npuKwRI4fBfPKVxmM0NZzDblvdLYf7p2f6XJMd7HgIe5qs6gG
+	WIb0RQUG4RbVG+RIyoOqBnDqQTtRiiGUztIxUZFHRz9u8wXRW/+B/XdbDSvWVFwUmg0UKf7
+	Hpt/gANLX8d
+X-QQ-XMRINFO: MSVp+SPm3vtSI1QTLgDHQqIV1w2oNKDqfg==
 X-QQ-RECHKSPAM: 0
 
-> On Sep 1, 2026, at 19:51, Qinyun Tan <qinyuntan@linux.alibaba.com> wrote:
->
-> With cgroup.memory=nokmem, shrinker_memcg_alloc() fails with -ENOSYS
-> for shrinkers without SHRINKER_NONSLAB, and shrinker_alloc() falls
-> back to a non-memcg-aware shrinker.  On this fallback path,
-> shrinker->id is never assigned and keeps 0 from kzalloc(), which is a
-> valid id belonging to whichever memcg-aware shrinker registers first.
->
-> __list_lru_init() copies shrinker->id unconditionally, so every
-> list_lru backed by such a fallback shrinker (thp-deferred_split,
-> zswap-shrinker, workingset shadow nodes, superblock lrus, ...) ends
-> up with lru->shrinker_id == 0 instead of -1.
->
-> Under nokmem the list_lru collapses to the shared per-node lists, but
-> __list_lru_add() still calls set_shrinker_bit() against the memcg of
-> the added object.  Most list_lru users are unaffected because their
-> objects resolve to a NULL memcg without kmem accounting, but the THP
-> deferred split queue holds user folios, which are charged regardless
-> of nokmem.  Since no memcg-aware shrinker can register under nokmem,
-> shrinker_nr_max stays 0 and every memcg's shrinker_info has
-> map_nr_max == 0, so the first folio added by khugepaged triggers on
-> every boot:
->
->  WARNING: mm/shrinker.c:212 at set_shrinker_bit+0x99/0xa0
->
-> On systems where a SHRINKER_NONSLAB shrinker (btrfs, xfs) did register
-> and expand the maps, there is no warning; instead bit 0 is set
-> spuriously for an unrelated shrinker.
->
-> shrinker->id is only meaningful while SHRINKER_MEMCG_AWARE is set,
-> and all readers inside mm/shrinker.c already check the flag before
-> using the id.  Make __list_lru_init() do the same and fall back to -1,
-> so set_shrinker_bit() is never reached with a bogus id.  The stale
-> shrinker->id itself is left as is; cleaning that up is a separate
-> topic.
->
-> Fixes: 03375203e1da8 ("mm: do not allocate shrinker info with cgroup.memory=nokmem")
-> Signed-off-by: Qinyun Tan <qinyuntan@linux.alibaba.com>
+Build tested in our x86,arm64,loongarch,riscv config successfully without error.
 
 Tested-by: Wentao Guan <guanwentao@uniontech.com>
 
-The patch solved my problem in link:
-https://lore.kernel.org/linux-mm/20260904190028.21542-1-guanwentao@uniontech.com/
-
-Thanks
+Best Regards
 Wentao Guan
+
+Log:
+Linux version 6.18.50-rc1-g96ff57c9007f (guanwentao@uos-PC) (aarch64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) # SMP PREEMPT_DYNAMIC
+Linux version 6.18.50-rc1-g96ff57c9007f (guanwentao@uos-PC) (aarch64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) #2 SMP PREEMPT_DYNAMIC Sat Sep  5 02:03:27 CST 2026
+Linux version 6.18.50-rc1-g96ff57c9007f (guanwentao@uos-PC) (loongarch64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) # SMP PREEMPT_DYNAMIC
+Linux version 6.18.50-rc1-g96ff57c9007f (guanwentao@uos-PC) (loongarch64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) #3 SMP PREEMPT_DYNAMIC Sat Sep  5 02:18:48 CST 2026
+Linux version 6.18.50-rc1+ (guanwentao@uos-PC) (riscv64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) # SMP PREEMPT
+Linux version 6.18.50-rc1+ (guanwentao@uos-PC) (riscv64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) #4 SMP PREEMPT Sat Sep  5 02:34:29 CST 2026
+Linux version 6.18.50-rc1-g96ff57c9007f (guanwentao@uos-PC) (gcc (Deepin 12.3.0-17deepin18) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) # SMP PREEMPT_DYNAMIC
+Linux version 6.18.50-rc1-g96ff57c9007f (guanwentao@uos-PC) (gcc (Deepin 12.3.0-17deepin18) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) #1 SMP PREEMPT_DYNAMIC Sat Sep  5 01:40:19 CST 2026
+	
