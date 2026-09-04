@@ -1,75 +1,68 @@
-Received: from mail-oo1-f48.google.com (mail-oo1-f48.google.com [209.85.161.48])
+Received: from mail-pl1-f180.google.com (mail-pl1-f180.google.com [209.85.214.180])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D6C144AB9B
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 10:48:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B5EE3A873D
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 10:48:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.180
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788518888; cv=none; b=cO8KIfJxEvj5pIpA5x9cGV/jBwVXGgqOyX8oNl3pZ9G8vCAuWB93V1J6Iy4w358CIv5YhiKxcqb0HjpbvFuqys5tNjTmylfd8xaAPokE/7RsJr0G/Yh84bpScUV29H3+++Pim/2HS2xO82QcGvfLrBkYiwYwFbirpc01cr5I8qs=
+	t=1788518941; cv=none; b=cxOo53vUAwHt0/ddeXImUGRVUMA+i0Ne+mNimuC7+KI97AfZM6SMXhIcMERx32hlW4yVMWLPSl15w6CeOKoDQZDR5KNOPJoc+ujxI3e8XB3W4rekEonXKILQg8QGTsZsaIB9NHVSJsozzK7R8hHddR9EBhGKMqIr9nFTITsjvuo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788518888; c=relaxed/simple;
-	bh=8Pwg7mAyZQOld8TWfdbWMimIhOeca8eZ59WqtIuVCEQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=OtLjMYhfbAdjgadaPzpNDKIahykTG0kD0SAILiRuUXEK7yPnwz2JKE52JtuN3UMJS6qW5to+qbFscgpZZWIaxiTUqr4ledH8l2MEmQL7FUwn5eGr60cIbEGONEYFwyhtEiFsR7NvJ9QSYSuxz6Yv56MjHDzPV++JWrjrUPqPVUg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YKk3/YyB; arc=none smtp.client-ip=209.85.161.48
+	s=arc-20240116; t=1788518941; c=relaxed/simple;
+	bh=ATMZJFGb5ERJbSHOppq/ZCSghx8JjVtVQx57qewU6Vg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=bnSTT1Zr5ILHl51ZWR8U3a7zdOGAcA0sGvY/xARgo+ypE9l+HcgmsUxsBKWkP4kqnZc+UmG8ls4kbFwT5Cg/gzhhVNXmIve04f5iTfxLw13KJwPucDA7J0oRNccJm4DUKgizB3FUefU6xdyhFC5y5WN3pKysO6dVwxx1jXBB2+Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VZOgxg13; arc=none smtp.client-ip=209.85.214.180
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YKk3/YyB"
-Received: by mail-oo1-f48.google.com with SMTP id 006d021491bc7-6b1afdf98dfso525006eaf.3
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 03:48:06 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VZOgxg13"
+Received: by mail-pl1-f180.google.com with SMTP id d9443c01a7336-2d9201076b3so10712825ad.0
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 03:48:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788518885; x=1789123685; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1788518939; x=1789123739; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=V2A0zeO3ugV0JUUNHg2Amdc4tuaijpGdF0pZT16CH0g=;
-        b=YKk3/YyBdVcfdC1Rwy3GkOTpp/UmfGDckmpxeLBFkzzSopXSMZyq1+Co62F1Ss+23e
-         XiA0uWpspcEQhzt2T7zkM1fEpFny64xhPBflThHOiRYL9SbfNy5Xx3ZRnKsyDk1O1WYd
-         8k4Tw2h0gPs3BKN8nJqgQ9FJwt5Cpr40WkQJSQkaDJIogunbfCxXpLEFQLXHCgGjfwlK
-         KeqwNWXZi/56MzZx/TUxY7ZGQhN3NuzOg2etY62ZevTFUDEZImN+3LACOfqF2/w2phPH
-         Q5yORmsDRkkzRo/8fIghPEVwAi0xJNAqa3NThtd9hrAFvALKCPvtcii7O8Mtlwx9h89u
-         b9ew==
+        bh=REmdRHWoxQ2dVqjHU016OpmJaejwQCwqIB/tmYXM8VE=;
+        b=VZOgxg13yUm3/TBVUOCNmJNUjSgK5j7zn4dATP97E0vuxIlJ0+Vo1HdnLzULJ+qFYi
+         VXvaEOwQFv9Ct/69/xJ3ogtgpLnjJOdguv1JpyuPv8W0165lJD2RYj7ZkNRZkLv2LzGL
+         XCjsAQSVmkeUQ+lQNW08B6Hx8rlIqApdgkaz1MKkPoc5SkBoXi2s3Izklouah83LC3lf
+         SEtk8vcqr5rZ7Ux6eChvSBlqUbLsoQHqRoZvAlk6V7gh+GM+Mk0qPN8+T7xeiB9PaCXt
+         jkgr7Nryv+h7VY1vTG/KN82R2KW6Q7nmdC9HaCiQBLbh5EUpVFjNC0oAPd94EfGFHgbS
+         pKsA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788518885; x=1789123685;
+        d=1e100.net; s=20251104; t=1788518939; x=1789123739;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=V2A0zeO3ugV0JUUNHg2Amdc4tuaijpGdF0pZT16CH0g=;
-        b=AbV0LkK59huXRE9EiB/XK8E06R6lV6VljZyVRIcZiQTMny8TT2bjhepzSUxmYHJCHl
-         cZkNKzgR8P5piveB+fAww6lhZy3jf43sKmyMPZLej15OSo1qXTAQwDHtZY3eUi83S8Zk
-         Yweg7kSkLMKn6TK7Qm5Rez5LGeirxzAWNJECkeNl7T9bSsJwZlgA1tNs22fKndzz5IbG
-         gVuG4KWtlS2vs5uJ4rQGivNIn6T6vO2LzicFhZ8+fnMO000kF6Zm9pEW/3+FbM0e5UIr
-         /2pRsZfxp34HEcUGJ1DwBFmCHnHidVw0ybZicgAYfKfdzaygGRURQlyuAXZCEWto/Hzx
-         7TEQ==
-X-Gm-Message-State: AFuF++nlUeE/d+0d4qtPYqR2ewEUm0xhCyB0g4qf0Pdya24XSncuEnUw
-	SRLiXTxa5CWdKFD9wMXbNAAIjfD7JZh1tOS63SniSa6lure7dDcXcwvH
-X-Gm-Gg: AYBFou3xEMkHsypKsDoOA8+ZUXgw4aG97nyvvh09fXytEzb4DeXbrHifPew7SYMaxUv
-	wxG5nSPDSUaE/k5EoZcV1V1NCIEWVj7sUcsf+7zjo6Qcqk9Ny7irvSY+cf7jZdhla5aoizIS+LF
-	vnjQkmsvDTtivXfb8y2kg9nvMS9zedJODhgaVMGvXEiIkpd0a/l/6NhJKrY5pOJ1xi98r/BT9Ht
-	Vcn/iEuhSEdEU3u2mZJ9jfjlfXIeOw+5kphmnUZsRTZcRPZdKD3wofE0fBYnC0Atwo1KY2+Alwz
-	64soOyvivKdiIginpItV6Vx0Svl4FWK8IEfq2I180iL64HvV888LA8tTiRiXO9MKG3Cjjx1+EKJ
-	Od3KPhiax4iYV4K3VbuRQDQQxAkOOHzZW+hQmLJ+VQJalL4ZL1KkfEjHm7sok4un8s44IE2o5Ml
-	Cjh7NOGXYw2PFqUKsfXt8WkspC2Vm9jyAteE12QFHHyXlE38W2fxGHw0oRDlXVK99BFzbbguutW
-	1oWa74L8aaWeTM=
-X-Received: by 2002:a05:6820:809:b0:6b7:83c5:fde9 with SMTP id 006d021491bc7-6b783c6033amr1231122eaf.42.1788518885125;
-        Fri, 04 Sep 2026 03:48:05 -0700 (PDT)
+        bh=REmdRHWoxQ2dVqjHU016OpmJaejwQCwqIB/tmYXM8VE=;
+        b=KFL9oQf6z3JrNsHF8RIuw2W3YLclpFllkZHifp2QjKJqAeKOFT6rd97vQJUPmkWLHc
+         8QssdWZsfgJeZ+FfZxZVZdSHI/da3e/FDxaurLvf14MQv0zGAUzrBZ6+Vyw8s+baLj9t
+         VBEE1vStxzIp9y4L7QBLIY6LofjHbi/go2D+OSLRO9+KvfjvAWYspWeQxibx2O/rKBOq
+         AYGZrJrVcPqQmWHTbj1h9taTDJ+hdvPEA6RagzPtuXyaYJjAYqFQC+XQX3ov+iZ1K63W
+         oA+hMrqbIWGt6ZcP/zu2humBwKrEBP5yHBR3mUklkqf1W0Z2CqEMx9Ar0tiYzpoqb4iu
+         U6hw==
+X-Gm-Message-State: AFuF++lKmVYj+LhP2tc1ot38x48GDPJgZQNJGN9XQuGQ5JtFDQcwNDUR
+	sKdWZReUTi3u/LN1nw06QPiYKjSLtQ0nNXS5ED6wbqNTE9cfrCnu+wg/oVt6eMnNg1Y=
+X-Gm-Gg: AYBFou1Rxgy4zZm1gTtSqpqRbcRLrsqNK9ISOrr43RSgcqUkbUa0Q9y1hkNbV54Yoln
+	zZqmAKMR1ZBzPdS1PR8Q4zXqRTI090J5HXgC02EHCRqd1Nk+fFX1fVXJBWgpjSBUIy1H0wLhf6t
+	6bseJDDbcEVQqS4PHo1nRYbiNEEt8xJ6bDHD8h3xvwkLWk3dctJC93yTKTdCiGw0Gw8mI00St18
+	QnotDp+lKb2Pii/1uKJYScH4OitRAdXm7+YeanChu/CA6HODqzPiZMH3VbNNs6FBPJpKOBlVQ+d
+	RTbkgBNpI5phVl+zBfUlPd5INjfnFSuhS1I1GyTbEPpWKOZiyzEOyhQp+9CaYWMDSkJArc4ka3M
+	9tM0wSu0ny8BdhYAOLs2diDcRkmFUnfjHprQXNjbSqEBJpP/AZsHbUQtTxhDY+9wd9ZbXsejdlU
+	V+TerdU5ZsmUqJjdB5BqRBV+YXLnGQmC5KILa6Xiysai4jQMfoG/cV9jD4927WFpZB86Y72t2Jp
+	n7lyLuXs2syTTQ=
+X-Received: by 2002:a17:90b:5845:b0:383:5a16:bd70 with SMTP id 98e67ed59e1d1-39b2620547amr7743577a91.16.1788518939254;
+        Fri, 04 Sep 2026 03:48:59 -0700 (PDT)
 Received: from volcano9f6e-hostos.amd.com ([165.204.217.251])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-143243bfbe3sm5858825c88.11.2026.09.04.03.48.01
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339af25062sm8583927eec.16.2026.09.04.03.48.57
+        for <linux-kernel@vger.kernel.org>
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 04 Sep 2026 03:48:04 -0700 (PDT)
+        Fri, 04 Sep 2026 03:48:58 -0700 (PDT)
 From: Hemanth Selam <hemanth.selam@gmail.com>
-To: Joshua Kinard <linux@kumba.dev>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Kevin Hilman <khilman@baylibre.com>,
-	Jerome Brunet <jbrunet@baylibre.com>,
-	Martin Blumenstingl <martin.blumenstingl@googlemail.com>
-Cc: linux-kernel@vger.kernel.org,
-	linux-rtc@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-amlogic@lists.infradead.org
-Subject: [PATCH] rtc: fix typos in comments
-Date: Fri,  4 Sep 2026 16:17:54 +0530
-Message-ID: <20260904104758.23905-1-hemanth.selam@gmail.com>
+To: 
+Cc: linux-kernel@vger.kernel.org
+Subject: [PATCH 0/5] asm-generic: fix typos in comments
+Date: Fri,  4 Sep 2026 16:18:45 +0530
+Message-ID: <20260904104854.25272-1-hemanth.selam@gmail.com>
 X-Mailer: git-send-email 2.48.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -79,139 +72,43 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Fix typos in comments, reported by scripts/checkpatch.pl using the
-misspelling list in scripts/spelling.txt.  Only touches comments, no code
-changes.
+This corrects 5 misspellings in comments.  Each is a separate patch so
+that any one of them can be dropped without touching the rest.
 
-Assisted-by: Cursor:claude-opus-5
-Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
----
- drivers/rtc/rtc-ds1685.c   | 6 +++---
- drivers/rtc/rtc-meson.c    | 2 +-
- drivers/rtc/rtc-pcf8583.c  | 2 +-
- drivers/rtc/rtc-rk808.c    | 2 +-
- drivers/rtc/rtc-sa1100.c   | 2 +-
- drivers/rtc/rtc-spear.c    | 2 +-
- include/linux/rtc/ds1685.h | 4 ++--
- 7 files changed, 10 insertions(+), 10 deletions(-)
+Nothing outside comments changes.  Every touched C file was checked by
+dropping its comments, replacing each string literal with a placeholder
+and collapsing whitespace; what remained was identical before and after,
+so the compiled code cannot differ.
 
-diff --git a/drivers/rtc/rtc-ds1685.c b/drivers/rtc/rtc-ds1685.c
-index 5fc8e36b1abf..beb987b76f24 100644
---- a/drivers/rtc/rtc-ds1685.c
-+++ b/drivers/rtc/rtc-ds1685.c
-@@ -1231,7 +1231,7 @@ ds1685_rtc_probe(struct platform_device *pdev)
- 		dev_warn(&pdev->dev,
- 			 "Main battery is exhausted! RTC may be invalid!\n");
- 
--	/* Check the auxillary battery.  It is optional. */
-+	/* Check the auxiliary battery.  It is optional. */
- 	if (!(rtc->read(rtc, RTC_EXT_CTRL_4A) & RTC_CTRL_4A_VRT2))
- 		dev_warn(&pdev->dev,
- 			 "Aux battery is exhausted or not available.\n");
-@@ -1395,7 +1395,7 @@ ds1685_rtc_poweroff(struct platform_device *pdev)
- 		rtc->write(rtc, RTC_CTRL_A, ctrla);
- 
- 		/*
--		 * Read Control 4A and check the status of the auxillary
-+		 * Read Control 4A and check the status of the auxiliary
- 		 * battery.  This must be present and working (VRT2 = 1)
- 		 * for wakeup and kickstart functionality to be useful.
- 		 */
-@@ -1407,7 +1407,7 @@ ds1685_rtc_poweroff(struct platform_device *pdev)
- 			rtc->write(rtc, RTC_EXT_CTRL_4A, ctrl4a);
- 
- 			/*
--			 * The auxillary battery is present and working.
-+			 * The auxiliary battery is present and working.
- 			 * Enable extended functions (ABE=1), enable
- 			 * wake-up (WIE=1), and enable kickstart (KSE=1)
- 			 * in Control 4B.
-diff --git a/drivers/rtc/rtc-meson.c b/drivers/rtc/rtc-meson.c
-index 21eceb9e2e13..44bcc0678dee 100644
---- a/drivers/rtc/rtc-meson.c
-+++ b/drivers/rtc/rtc-meson.c
-@@ -1,6 +1,6 @@
- // SPDX-License-Identifier: GPL-2.0
- /*
-- * RTC driver for the interal RTC block in the Amlogic Meson6, Meson8,
-+ * RTC driver for the internal RTC block in the Amlogic Meson6, Meson8,
-  * Meson8b and Meson8m2 SoCs.
-  *
-  * The RTC is split in to two parts, the AHB front end and a simple serial
-diff --git a/drivers/rtc/rtc-pcf8583.c b/drivers/rtc/rtc-pcf8583.c
-index df5e20cbc26c..d0ebf4fd227b 100644
---- a/drivers/rtc/rtc-pcf8583.c
-+++ b/drivers/rtc/rtc-pcf8583.c
-@@ -7,7 +7,7 @@
-  *
-  *  Driver for PCF8583 RTC & RAM chip
-  *
-- *  Converted to the generic RTC susbsystem by G. Liakhovetski (2006)
-+ *  Converted to the generic RTC subsystem by G. Liakhovetski (2006)
-  */
- #include <linux/module.h>
- #include <linux/i2c.h>
-diff --git a/drivers/rtc/rtc-rk808.c b/drivers/rtc/rtc-rk808.c
-index 59b8e9a30fe6..718f19b5911f 100644
---- a/drivers/rtc/rtc-rk808.c
-+++ b/drivers/rtc/rtc-rk808.c
-@@ -295,7 +295,7 @@ static int rk808_rtc_alarm_irq_enable(struct device *dev,
- 
- /*
-  * We will just handle setting the frequency and make use the framework for
-- * reading the periodic interupts.
-+ * reading the periodic interrupts.
-  *
-  * @freq: Current periodic IRQ freq:
-  * bit 0: every second
-diff --git a/drivers/rtc/rtc-sa1100.c b/drivers/rtc/rtc-sa1100.c
-index 26b2f4184ecc..144bb6fd8f6b 100644
---- a/drivers/rtc/rtc-sa1100.c
-+++ b/drivers/rtc/rtc-sa1100.c
-@@ -228,7 +228,7 @@ int sa1100_rtc_init(struct platform_device *pdev, struct sa1100_rtc *info)
- 	 * initialization is unknown and could in principle happen during
- 	 * normal processing.
- 	 *
--	 * Notice that clearing bit 1 and 0 is accomplished by writting ONES to
-+	 * Notice that clearing bit 1 and 0 is accomplished by writing ONES to
- 	 * the corresponding bits in RTSR. */
- 	writel_relaxed(RTSR_AL | RTSR_HZ, info->rtsr);
- 
-diff --git a/drivers/rtc/rtc-spear.c b/drivers/rtc/rtc-spear.c
-index 959acff8faff..74d4aa96826a 100644
---- a/drivers/rtc/rtc-spear.c
-+++ b/drivers/rtc/rtc-spear.c
-@@ -43,7 +43,7 @@
- #define YEARS_UNITS		(0xf<<16)	/* years units position */
- #define YEARS_TENS		(0xf<<20)	/* years tens position */
- #define YEARS_HUNDREDS		(0xf<<24)	/* years hundereds position */
--#define YEARS_MILLENIUMS	(0xf<<28)	/* years millenium position */
-+#define YEARS_MILLENIUMS	(0xf<<28)	/* years millennium position */
- 
- /* MASK SHIFT TIME_REG & ALARM_TIME_REG*/
- #define SECOND_SHIFT		0x00		/* seconds units */
-diff --git a/include/linux/rtc/ds1685.h b/include/linux/rtc/ds1685.h
-index 8ec0ebfaef04..55d3edc7e972 100644
---- a/include/linux/rtc/ds1685.h
-+++ b/include/linux/rtc/ds1685.h
-@@ -200,7 +200,7 @@ struct ds1685_rtc_platform_data {
-  * access to the extended NV-SRAM by automatically incrementing the address
-  * register when they are read from or written to.
-  */
--#define RTC_CTRL_4A_VRT2	BIT(7)	/* Auxillary Battery Status */
-+#define RTC_CTRL_4A_VRT2	BIT(7)	/* Auxiliary Battery Status */
- #define RTC_CTRL_4A_INCR	BIT(6)	/* Increment-in-Progress Status */
- #define RTC_CTRL_4A_PAB		BIT(3)	/* Power-Active Bar Control */
- #define RTC_CTRL_4A_RF		BIT(2)	/* RAM-Clear Flag */
-@@ -215,7 +215,7 @@ struct ds1685_rtc_platform_data {
- /*
-  * Bit names in Extended Control Register 4B.
-  */
--#define RTC_CTRL_4B_ABE		BIT(7)	/* Auxillary Battery Enable */
-+#define RTC_CTRL_4B_ABE		BIT(7)	/* Auxiliary Battery Enable */
- #define RTC_CTRL_4B_E32K	BIT(6)	/* Enable 32.768Hz on SQW Pin */
- #define RTC_CTRL_4B_CS		BIT(5)	/* Crystal Select */
- #define RTC_CTRL_4B_RCE		BIT(4)	/* RAM Clear-Enable */
+The mistakes were found with scripts/checkpatch.pl against the list in
+scripts/spelling.txt.  The scanning, the edits and the changelogs were
+produced with Cursor running the claude-opus-5 model, from a request to
+find and fix spelling mistakes across the tree, and every correction was
+then re-checked by the comparison described above.  Words that name an
+identifier were left alone deliberately, even when they read as typos,
+because correcting the prose would make the comment disagree with the
+code it describes.
+
+Tested by building x86_64 defconfig at v7.3-rc1-269-gbc35965f6940, which
+is clean.  Nothing else was built, so any patch touching code that
+x86_64 defconfig does not compile has been read but not compiled.
+
+Hemanth Selam (5):
+  asm-generic: fix typo "explicity" in comment
+  char: fix typo "funcion" in comment
+  lib: fix typos in comments
+  mm: fix typo "mergable" in comment
+  tools/testing: fix typo "mergable" in comment
+
+ drivers/char/mem.c                     | 2 +-
+ include/linux/mm.h                     | 2 +-
+ include/uapi/asm-generic/mman-common.h | 2 +-
+ lib/flex_proportions.c                 | 2 +-
+ lib/rcuref.c                           | 4 ++--
+ lib/textsearch.c                       | 2 +-
+ tools/testing/vma/include/dup.h        | 2 +-
+ 7 files changed, 8 insertions(+), 8 deletions(-)
+
 -- 
 2.48.1
 
