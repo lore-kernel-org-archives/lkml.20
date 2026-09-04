@@ -1,73 +1,73 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5CDA3D9023
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 13:52:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C46148820A
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 13:52:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788529929; cv=none; b=pVLCSIaJOSC4AEIOJt7wOip4SumkdYktkIVsk9OGhcl4VqINjJCzNm6awXrp6KtcGP8xf6t3M1bBzpGb8X3a/hMYEXtlOwBiUWPSDnD3r0dARrwJfRuSqrCuIeFYL4M02e6v11w8LrE+Md8m4lV3uNURJTLMrJpZI1hh8yRsC2A=
+	t=1788529972; cv=none; b=nsRdHgPI3HONDzqHxNNPhEKRkUVqwg9DfkckLKrdvNmi3eXU00DzLWis37xYT2HmHFbvV7JBywSqfMBy6w8ia6h5fjDPLxSYPvBssPvNOSktDy8MTmxDuOUDyIBO97pqM5j5EXe0rRu47iVEhnRiSbRj6PCzPWMPIwyKNtl5HOs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788529929; c=relaxed/simple;
-	bh=jHnLUWIESbcX49x//Q4q7Bwcagr68GVUnUN7YIG+4NE=;
+	s=arc-20240116; t=1788529972; c=relaxed/simple;
+	bh=cbJnf8w+Y5JNyp0zuHB0ouQjulCvUDh/QzcYV4fgdew=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=GB4f+NV/rfYkmvOmDnSwmnT29PbCS968Xu10NfnsYhfVVGocUaWXE6CQjgQJYqmzjWwPLLZwFkaj37vJr/ABS/N+1PPGtOvfiY5FNU4Y4U3jKhZgiBp3ZBD+wGUGhVXRTcB4Jh6V4ck1B10qavN7v5qHx1ArRnd4p0oFpf6PNJU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=eqlbIxHm; arc=none smtp.client-ip=170.10.133.124
+	 In-Reply-To:Content-Type; b=WnAFd8D6sxfv/e8GST+4Hxcpjf1xipZo2D6eQReh4kQYxJZaboV9Aq8sv1DC/4gVaRkhAZBPBszpG3ZZG9af/7m91gvY+3gtUwfjgpnRcxVEWu2fawwpPlljbrn0RKPsgB9mNXmLGOgg1MJcsYPPqVCWretV9eF61XBjyF50Ir0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=RcKOjYvH; arc=none smtp.client-ip=170.10.129.124
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="eqlbIxHm"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="RcKOjYvH"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1788529926;
+	s=mimecast20190719; t=1788529970;
 	h=from:from:reply-to:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=IhhXcRIecUQqwiCbMDmvIAEilzEU8sFSDbKFkRHxEJU=;
-	b=eqlbIxHm1BXgDYYa5qbjXVDwpAZCIO3zsQBsageKCvLuL06OdE6j7jqLWJtazO/+byc1Zd
-	J/IoNxy9bHUPEgqeLjJTQQtlD7JhkvCrCb5Mky4DR5R9zQh5NsepCfQAY5R7hEm2cc55uW
-	wXXHm197/Wx2KtvonrfTDef70hAzTzY=
-Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
- [209.85.128.71]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=PO2JPImVYoYhZX0bdNIxqdW6FWQOlugQ0UKBvGT+L9Q=;
+	b=RcKOjYvHzj+Q0YGnKJHuET7ulkhjOxHdtihgQvUiGnN7I1AiKVeLrqN+DnisQlqEYKcduO
+	wGpTch83PN22bsxqLMq8go4o6ppree8OL9pdfm7YDekUpiITaQLtwO6BHuYHKGeogCK3ca
+	azHtE674odhkVoF3WmhRQ30u8uviQz0=
+Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com
+ [209.85.128.69]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-638-V-iKjlLsPb2y22KCVwCK-Q-1; Fri, 04 Sep 2026 09:52:05 -0400
-X-MC-Unique: V-iKjlLsPb2y22KCVwCK-Q-1
-X-Mimecast-MFC-AGG-ID: V-iKjlLsPb2y22KCVwCK-Q_1788529924
-Received: by mail-wm1-f71.google.com with SMTP id 5b1f17b1804b1-49a1b4ea633so10259545e9.0
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 06:52:05 -0700 (PDT)
+ us-mta-211-AJTDqWH0OIiDq-UOiU9cAA-1; Fri, 04 Sep 2026 09:52:48 -0400
+X-MC-Unique: AJTDqWH0OIiDq-UOiU9cAA-1
+X-Mimecast-MFC-AGG-ID: AJTDqWH0OIiDq-UOiU9cAA_1788529967
+Received: by mail-wm1-f69.google.com with SMTP id 5b1f17b1804b1-49b8c651ac0so18189045e9.2
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 06:52:48 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788529924; x=1789134724;
+        d=1e100.net; s=20251104; t=1788529967; x=1789134767;
         h=content-transfer-encoding:content-type:in-reply-to:from:references
          :cc:to:content-language:subject:reply-to:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=IhhXcRIecUQqwiCbMDmvIAEilzEU8sFSDbKFkRHxEJU=;
-        b=njD/9jzNdq2sWEAsplfBynRFmxLLUavJfXE8EnCpIW/AAtJ/waQIrl2gkol0OkGljN
-         /LOT8JpFKdfDSI4YUHswGMi25npspEkfEGN+7Sm4dcdxDMV0Oh7mpTk4IF74KuzM1mQa
-         rzbAGGlDD4bivvu7C/VhFn71UxMIlduDW6rEoIaXZGz3QCK0I+mBqlHAgtzmKyxuoCs9
-         RRidOL2BJQtJKDT1GydkSdMv0hRiJX1ArAoH2RghgiJ5un4B311AVyYUTfDwYOAFwM9P
-         /Bfk3rJMHZmW3iK6ElsEhmLz2j/7OxjZbEtqqBPjOdLZjHNZwfjrcB9OR4DydgkA1Y1k
-         bnxw==
-X-Forwarded-Encrypted: i=1; AKwUvBzfiYCjrDLCdc3RsAnYRlrPe88uULvkt0hgGWLrk598Me8pal/Eu8Vbh8oevikzjsMS1XvMIVgFfVutEPI=@vger.kernel.org
-X-Gm-Message-State: AFuF++nltOwZLJgDIM1A1V9K5fIc7dP4E/pZkXx7bw13tW+NLQjD7cn2
-	Dh8dLOWekotl+kIR+IEE4hQKdtQvx8co/6UJU+kwpdorC9wcp8HiQvFCYGCgrwfmY5UvVE32vmN
-	By0fZ3tKN/4Jgzo/rj6GtigWnD5eClaQSbJYIZt9MNBG00nqvb4+UxZToMJKDj294LQ==
-X-Gm-Gg: AYBFou3Wra8y+vc6MpKjOjs+KwCxU/qOVd7hpeeD6rFX1EavCqAXVTOphhwdNoG07vv
-	gnh1cz76EyK0ozJgUpA3slcn53kCS4u2IgrqBw5MVOYRJmWP20uKHQs0lwNgpkRG+wHvjk5nKm4
-	6YOmKg1GiYa/pu1Aa7X2VYpgBhT4TpKbzihRHGqWAqPS+6LG61JAtKZPhDTg3oBwBaU0sQIn/a8
-	n6VjISwZWeMtSrtUYMldlbQtg9WYJET0qO2sQWh+85sT66wWFBCKYB1cjfzItr7AddIsypyFLbC
-	1AVqw+gsoZQM5P88u756a9biL1RCXQ06Cy2sF3Dk1FTtipWgaVVV93UAs7MJApcf3L+FchWf9DK
-	h6gmiqLSLBKAAg8ByZPZRXGNdF+8Ql5PSBw==
-X-Received: by 2002:a05:600c:8b09:b0:499:b65e:49c9 with SMTP id 5b1f17b1804b1-49cf823f57fmr113368275e9.10.1788529924242;
-        Fri, 04 Sep 2026 06:52:04 -0700 (PDT)
-X-Received: by 2002:a05:600c:8b09:b0:499:b65e:49c9 with SMTP id 5b1f17b1804b1-49cf823f57fmr113367165e9.10.1788529923865;
-        Fri, 04 Sep 2026 06:52:03 -0700 (PDT)
+        bh=PO2JPImVYoYhZX0bdNIxqdW6FWQOlugQ0UKBvGT+L9Q=;
+        b=rdvfknb82DRS2GLcQpk8nGFVIiW/hk53eDSfBveGWEZkuYdfxvPQcgMVcoPsBAw/lH
+         IMtMkXetYvO/9dlJlqW2lnASJBzqNzpM2ej6NkR9JqxbxFXzpCF1Ze19wATKtKsffRwz
+         TSkRoSyxTS3da1I67w2FRPNYg846n6rsUgRNybBxSVpm9sJ9bGa2Lwe8eTw14E7xPRQX
+         VAKXWbOligjhvfyzZFOvReDA4rysDgpDzSD2lF9K/kj7ILIh86hqWKtgeIhngWITaKNQ
+         jm9Dp0hux+b3psHuQjDb3O4hLcFfUkUs+wez2ew/2EuSrv0hnjctZNy4oZc+MpDEU1Kd
+         0BpA==
+X-Forwarded-Encrypted: i=1; AKwUvByOAJ7aE0evwYIlqQUXkU60wlQ538KKmkVET22N8GOmElBrK/rYrJW2ORhTmlOlA26g3cMlZIcz7L5RIWM=@vger.kernel.org
+X-Gm-Message-State: AFuF++meep+Lmkyq30lh9q3pfUG2Lejureio2NdPxglU3+wf1eIu5iOO
+	aePCWw8Dn5frl97znXJ0pSb4cnInC5TDTjxweitY+Dg0f4mCzAyS5ZwRberc/86OddyWgZD+Duy
+	s14SFrSYr9Lw+XqSxiBNiYVkB4wNC2Qf20QCGybT/+jFt1i8Rj/Mpn3IlaktO2glYfQ==
+X-Gm-Gg: AYBFou3olnuMfqmYDS5PvA/FFGK3EITeMtvq14w/BfQrPKSXcmrv3KJVdcWB7V4zl2G
+	rLJI8N1ncDXXGGqOmooKgtwy3T8kO2qGWScJ6MKMPLR+fCo0jTlHPww+OcRa+2YygNvlD8LvwB9
+	q/6A4UhjJbIj8UYZdruuldvex/UCJoTzMXCHc1yDdTNiYZHuZ2fJiArJTNODY377QOSC/y+yJsM
+	GR0JpcqDx1Gxh+RhKWiILw21hvMmGG4KuK9qPvcbhUxhjq6kMBbSF55CB8qVkpNhaMqOXjO+pNK
+	BPLtLZ0F40AmXPvD7aSddJY6G/V+//c1WcOCDoMLnsOVDo6559GkasJKy/5w5MK2+mulA2GqKl2
+	+ddGAXkObuXZogRZTk/fe5XUfwUGmHgaQZ8uPSZYOsQK2belh
+X-Received: by 2002:a05:600c:3b02:b0:49b:9202:6f80 with SMTP id 5b1f17b1804b1-49cf8220edemr68105965e9.6.1788529967407;
+        Fri, 04 Sep 2026 06:52:47 -0700 (PDT)
+X-Received: by 2002:a05:600c:3b02:b0:49b:9202:6f80 with SMTP id 5b1f17b1804b1-49cf8220edemr68105315e9.6.1788529966874;
+        Fri, 04 Sep 2026 06:52:46 -0700 (PDT)
 Received: from ?IPV6:2a01:e0a:f0e:9070:527b:9dff:feef:3874? ([2a01:e0a:f0e:9070:527b:9dff:feef:3874])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cee6024a8sm160985535e9.6.2026.09.04.06.52.02
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ce5927b68sm199544355e9.1.2026.09.04.06.52.45
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 04 Sep 2026 06:52:03 -0700 (PDT)
-Message-ID: <882503c8-6993-452a-98e5-2eb72faff58b@redhat.com>
-Date: Fri, 4 Sep 2026 15:52:01 +0200
+        Fri, 04 Sep 2026 06:52:45 -0700 (PDT)
+Message-ID: <c048e397-a06e-4e58-89b9-f6feadb632f2@redhat.com>
+Date: Fri, 4 Sep 2026 15:52:44 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -76,55 +76,64 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Reply-To: eric.auger@redhat.com
-Subject: Re: [PATCH] vfio/platform: keep logical vm_pgoff in MMIO region mmap
+Subject: Re: [PATCH v3] vfio/platform: prevent read-only region mappings from
+ becoming writable
 Content-Language: en-US
 To: Abdifatah Suruur <suruurism@gmail.com>, kvm@vger.kernel.org,
  linux-kernel@vger.kernel.org
 Cc: Mostafa Saleh <smostafa@google.com>,
  Pranjal Shrivastava <praan@google.com>, Alex Williamson <alex@shazbot.org>
-References: <20260903092927.502-1-suruurism@gmail.com>
+References: <20260903092907.419-1-suruurism@gmail.com>
 From: Eric Auger <eric.auger@redhat.com>
-In-Reply-To: <20260903092927.502-1-suruurism@gmail.com>
+In-Reply-To: <20260903092907.419-1-suruurism@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-Hi Abdifatah,
+Hi,
 
 On 9/3/26 11:29 AM, Abdifatah Suruur wrote:
-> vfio_platform_mmap_mmio() overwrites vma->vm_pgoff with the physical
-> frame number of the MMIO region and passes it to remap_pfn_range().
-> The VMA is inserted into the device file's mapping->i_mmap interval
-> tree keyed by vm_pgoff, which VFIO expects to be the logical file
-> offset: the core links every device mmap to the device inode's
-> i_mapping precisely so that unmap_mapping_range() can revoke all
-> mappings associated with a device (see vfio_device_cdev_open()).
+> vfio_platform_mmap() rejects writable mappings of regions without the
+> WRITE flag, but leaves VM_MAYWRITE set.  Userspace can map such a region
+> read-only and then upgrade the mapping to writable with mprotect().
 >
-> With a raw PFN in vm_pgoff the interval tree entry lands in the wrong
-> coordinate space and unmap_mapping_range() cannot find the VMA,
-> leaving stale MMIO mappings behind any revocation attempt.  Keep
-> vm_pgoff in the logical VFIO offset space, as vfio-pci does, and pass
-> the physical PFN to remap_pfn_range() explicitly.
+> Clear VM_MAYWRITE for regions without the WRITE flag, as i915 does for
+> its read-only objects and as fixed in drm/vc4 (CVE-2026-68445),
+> drm/panthor (CVE-2024-53071) and commit a5edadbae57e ("ptp: vmclock:
+> prevent read-only mappings from becoming writable").
 >
-> Fixes: fad4d5b1f042a ("vfio/platform: support MMAP of MMIO regions")
+> Note this is defensive hardening: no in-tree platform driver currently
+> publishes a region without the WRITE flag.  The guard costs nothing and
+> keeps the mmap() interface honest if a read-only region ever appears.
+>
+> Fixes: fad4d5b1f042 ("vfio/platform: support MMAP of MMIO regions")
 > Signed-off-by: Abdifatah Suruur <suruurism@gmail.com>
->
-> ---
-> --- a/drivers/vfio/platform/vfio_platform_common.c
-> +++ b/drivers/vfio/platform/vfio_platform_common.c
-> @@ -559,6 +559,5 @@
->  	vma->vm_page_prot = pgprot_noncached(vma->vm_page_prot);
-> -	vma->vm_pgoff = (region.addr >> PAGE_SHIFT) + pgoff;
-> -
-> -	return remap_pfn_range(vma, vma->vm_start, vma->vm_pgoff,
-> +	return remap_pfn_range(vma, vma->vm_start,
-> +			       (region.addr >> PAGE_SHIFT) + pgoff,
->  			       req_len, vma->vm_page_prot);
->  }
->
-While at it, don't you want to fix the same pattern in cdx/main.c,
-fsl-mc/vfio_fsl_mc.c?
+> Reviewed-by: Mostafa Saleh <smostafa@google.com>
+Reviewed-by: Eric Auger <eric.auger@redhat.com>
 
 Thanks
 
 Eric
+> ---
+> v2: commit log now states plainly that the read-only path is
+> unreachable in practice, per Alex's review; dropped Cc: stable as
+> there is no reachable issue to backport.
+> v3: use 'commit <sha> ("<title>")' style for the vmclock reference
+> and point Fixes at the MMAP support commit, per Mostafa's review.
+>
+> --- a/drivers/vfio/platform/vfio_platform_common.c
+> +++ b/drivers/vfio/platform/vfio_platform_common.c
+> @@ -594,7 +594,11 @@
+>  	if (!(vdev->regions[index].flags & VFIO_REGION_INFO_FLAG_WRITE)
+>  			&& (vma->vm_flags & VM_WRITE))
+>  		return -EINVAL;
+>
+> +	/* Prevent read-only region mappings from being upgraded with mprotect() */
+> +	if (!(vdev->regions[index].flags & VFIO_REGION_INFO_FLAG_WRITE))
+> +		vm_flags_clear(vma, VM_MAYWRITE);
+> +
+>  	vma->vm_private_data = vdev;
+>
+>  	if (vdev->regions[index].type & VFIO_PLATFORM_REGION_TYPE_MMIO)
+>  		return vfio_platform_mmap_mmio(vdev->regions[index], vma);
+>
 
