@@ -1,320 +1,103 @@
-Received: from smtp.forwardemail.net (smtp.forwardemail.net [149.28.215.223])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F2694EE86F
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 15:13:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=149.28.215.223
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E91084EBAEB;
+	Fri,  4 Sep 2026 15:14:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788534836; cv=none; b=e9WiLlR702H1r1owRo990giQeHPbB/+gdCDVLFGulsBc3RxdgVIbiaiHqco3Cy3l4WGZQYyyejJjNU61wrzg/5q8UftWmvFUE73sR3ticXiNcalf/aEpqqhBUXxLUvXpabw6xMohbdIvUID9y8B0Ai6wdjCHfFJTZotLXIfgteU=
+	t=1788534858; cv=none; b=H5+lqp9eClNuveRZ4+B4RnCgcsZa2bXCVNuVkbvc8iovigJ30/NVIBtdjVOvg1ccb2F2hDqCWm3RX+dRG+CHlViLTuZAng8KgS1yJfPgiklLrhUrnpUszgFacRae8eKxX/kwiLmbQdyYgabP7kX1HCSfsfVaiI87I8uhc+lJg4Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788534836; c=relaxed/simple;
-	bh=seRwgqmK7wkA4WaGmSlHoknG8zIwR/4ksaxu0H/F9qM=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
-	 References:In-Reply-To; b=HtZKec3t2Sw3Bzla7dd2qAQDVMn5RROTtlm0F7ibGTo78TBgfD3ksriO8G2rYOGERdj2w1AzxK5EwCNelYmTVB0c9Yu1SxbMsnAs+BheR1BRuJ6wN+qUCGid2nR3hL6516hRhy73rQgdq7Zprq/xIaHDiDoWsYYbE4tidT05JvE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ubuntu.com; spf=pass smtp.mailfrom=fe-bounces.ubuntu.com; dkim=pass (2048-bit key) header.d=ubuntu.com header.i=@ubuntu.com header.b=GX9Sxe0M; arc=none smtp.client-ip=149.28.215.223
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ubuntu.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fe-bounces.ubuntu.com
+	s=arc-20240116; t=1788534858; c=relaxed/simple;
+	bh=A93PyV8Ku4pRVQCF21zpJL0Wct1LHUTtdd2RKHStkhA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=WlnljrbMhaCnL2MKbdyBc7mo1GznwWEwuDhkWfoJpePJYOgh+tA5WDJs4Mp79Va3U3jKI5fbaYAys/GayLNJUNTlch0nT5DOdBGCBL5Q5qI1C6bcvMnzXvETEBvGDBf9Z2g+vFDldH/XLorLvcayNVhRuMgJ7+vGnbFLCNrVTcg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=G3BX6yu3; arc=none smtp.client-ip=220.197.31.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ubuntu.com header.i=@ubuntu.com header.b="GX9Sxe0M"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ubuntu.com;
- h=In-Reply-To: References: To: From: Subject: Cc: Message-Id: Date:
- Content-Type: Content-Transfer-Encoding: Mime-Version; q=dns/txt;
- s=fe-953a8a3ca9; t=1788534827;
- bh=J66fN78gjzDvd/CtvKdQYi/6n2qcde6bjwwV8TUBACo=;
- b=GX9Sxe0Mhsd60B2jsZ56LpjBl251tXpM9xwa4ku6ac0Vnxyv/RGRrLafZm6/BW6t0IYhZSfn4
- K96DxsvDwgemZ0bgo/+UzRS1gBvEOl5qbKgiYDUoD4fNHS5hVQBtYMASnoE/v1P2w+y0mcwe9LQ
- T+z5NZsgFjNvSWI4rJV3Iye83/90WPJMx97vwKdaFQ/yBRv6IZqFC5T18frHjhviE79CKYhx7la
- uXhYwHEBYw9T9adpT26zE6KlaUyMy+pa2041C5ly4ZFZh5znjhopXnLthjHme6ly6ibjHl0cGyr
- 8//30lxri2S2EAAqsTFTeHEwmFABaHofXMawuy8g4SEQ==
-X-Forward-Email-ID: 6a9ae0044b8c51dfb697c95f
-X-Forward-Email-Sender: rfc822; jpeisach@ubuntu.com, smtp.forwardemail.net,
- 149.28.215.223
-X-Forward-Email-Version: 2.14.0
-X-Forward-Email-Website: https://forwardemail.net
-X-Complaints-To: abuse@forwardemail.net
-X-Report-Abuse: abuse@forwardemail.net
-X-Report-Abuse-To: abuse@forwardemail.net
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="G3BX6yu3"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=Date:From:To:Subject:Message-ID:MIME-Version:
+	Content-Type; bh=We4qH7+B5B5S9aGBqZjtepABNgouZfkXtz4+EaeaWds=;
+	b=G3BX6yu39sSD8Rv+Ji3//W1ngCocNacHXF6iZyko59Vjug1wKzNUtOhH9k1uQ0
+	pkPtrtkgIGhqIhNz4d2+RzeEo5z4PvZVRbXA+L7g2Q5mswjPaIeyBvSLjweA8VKA
+	YO3DQNdck4k0c/pDb4IF/xTBD+V0g9o6sq2K6QL/xQsbM=
+Received: from localhost (unknown [])
+	by gzsmtp2 (Coremail) with SMTP id PSgvCgB3DPss4JpqOjmCOg--.59808S2;
+	Fri, 04 Sep 2026 23:13:50 +0800 (CST)
+Date: Fri, 4 Sep 2026 23:13:48 +0800
+From: Melon Liu <melon1335@163.com>
+To: Qu Wenruo <quwenruo.btrfs@gmx.com>
+Cc: Qu Wenruo <wqu@suse.com>, clm@fb.com, dsterba@suse.com, 
+	fdmanana@suse.com, linux-btrfs@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Subject: Re: [PATCH] btrfs: fix deadlocks with transaction commit when
+ cloning inline extents
+Message-ID: <dwbfev763nkhdhnrghozhutmloduv3mtyzeysrcyddhnpyynsu@mxofgp3xhzwf>
+References: <a74ov5nvs5u4nkqhrs5lp2jaj664wewkqqsjxzhuemzazzmzvx@eeof6sjb3xdc>
+ <bbcc2791-442f-4bf5-aabf-40eb2edc0165@suse.com>
+ <byfdpkxktwidszfv3yss7nxajjioxq7nhcmnxrzrwkvvzqaejh@ovl6qwbe6du6>
+ <9a5f0b52-a363-4b7f-a207-677fa6938cac@gmx.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8; format=Flowed
-Date: Fri, 04 Sep 2026 11:13:05 -0400
-Message-Id: <DL6MO1P17KSW.1DKQ6HW2U2ZCK@ubuntu.com>
-Cc: <linux-phy@lists.infradead.org>, <devicetree@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
- <mfd@lists.linux.dev>, <linux-clk@vger.kernel.org>,
- <linux-arm-kernel@lists.infradead.org>,
- <linux-rockchip@lists.infradead.org>, <linux-riscv@lists.infradead.org>,
- "Andy Yan" <andyshrk@163.com>, "Marek Szyprowski"
- <m.szyprowski@samsung.com>, "Maud Spierings" <maud_spierings@murena.io>,
- "Graham Markall" <hello@big-grey.co.uk>, "Icenowy Zheng"
- <zhengxingda@iscas.ac.cn>
-Subject: Re: [PATCH v3 00/19] drm: starfive: jh7110: Enable display
- subsystem
-From: "Joshua Peisach" <jpeisach@ubuntu.com>
-To: "Michal Wilczynski" <m.wilczynski@samsung.com>, "Vinod Koul"
- <vkoul@kernel.org>, "Neil Armstrong" <neil.armstrong@linaro.org>, "Rob
- Herring" <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>,
- "Conor Dooley" <conor+dt@kernel.org>, "Andrzej Hajda"
- <andrzej.hajda@intel.com>, "Robert Foss" <rfoss@kernel.org>, "Laurent
- Pinchart" <Laurent.pinchart@ideasonboard.com>, "Jonas Karlman"
- <jonas@kwiboo.se>, "Jernej Skrabec" <jernej.skrabec@gmail.com>, "Luca
- Ceresoli" <luca.ceresoli@bootlin.com>, "David Airlie" <airlied@gmail.com>,
- "Simona Vetter" <simona@ffwll.ch>, "Maarten Lankhorst"
- <maarten.lankhorst@linux.intel.com>, "Maxime Ripard" <mripard@kernel.org>,
- "Thomas Zimmermann" <tzimmermann@suse.de>, "Lee Jones" <lee@kernel.org>,
- "Andy Yan" <andy.yan@rock-chips.com>, "Philipp Zabel"
- <p.zabel@pengutronix.de>, "Emil Renner Berthing" <kernel@esmil.dk>, "Hal
- Feng" <hal.feng@starfivetech.com>, "Michael Turquette"
- <mturquette@baylibre.com>, "Stephen Boyd" <sboyd@kernel.org>, "Brian
- Masney" <bmasney@redhat.com>, "Heiko Stuebner" <heiko@sntech.de>, "Conor
- Dooley" <conor@kernel.org>, "Paul Walmsley" <pjw@kernel.org>, "Palmer
- Dabbelt" <palmer@dabbelt.com>, "Albert Ou" <aou@eecs.berkeley.edu>,
- "Alexandre Ghiti" <alex@ghiti.fr>, "Dominique Belhachemi" <db@domibel.de>,
- "Brian Masney" <bmasney+clk@redhat.com>, "Jerome Brunet"
- <jbrunet+clk@baylibre.com>
-X-Mailer: aerc 0.21.0
-References: <CGME20260904132708eucas1p1adfa26ef0fe5109eca63a3aeadf74915@eucas1p1.samsung.com> <20260904-jh7110-clean-send-v3-0-484f9ae72715@samsung.com>
-In-Reply-To: <20260904-jh7110-clean-send-v3-0-484f9ae72715@samsung.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <9a5f0b52-a363-4b7f-a207-677fa6938cac@gmx.com>
+X-CM-TRANSID:PSgvCgB3DPss4JpqOjmCOg--.59808S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7ArWrKF45ZF4rAFyUuFW7Arb_yoW8AryDpF
+	W7Ca1DJr4DJw1Uuw1v9w1DZFy09r1kJrW7XFn8Ww42vas0yr1kKFW2gryY93yFvr1kCFWU
+	AFWjq3savw45AFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07U3wIgUUUUU=
+X-CM-SenderInfo: ppho00irttkqqrwthudrp/xtbC4w6EpWqa4C5-PQAA3w
 
-On Fri Sep 4, 2026 at 9:27 AM EDT, Michal Wilczynski wrote:
-> This series enables the display subsystem on the StarFive JH7110.
->
-> The dom_vout block holds the display controller (dc8200), the clock
-> generator (voutcrg) and the HDMI IP, all inside PD_VOUT. The HDMI IP is
-> a single register block containing both the controller and the PHY, and
-> it has a circular clock dependency with voutcrg:
->
->   - the HDMI controller needs pclk/mclk/bclk from voutcrg
->   - voutcrg needs the pixel clock for its dc8200 pixel MUXes, and that
->     clock is generated by the HDMI PHY
->
-> The loop only exists if the HDMI block is treated as one device. The
-> PHY's reference clock is xin24m, not a voutcrg output, so splitting the
-> node into a parent plus phy and controller children gives deferred probe
-> a linear order: hdmi-phy, then voutcrg, then hdmi-controller.
->
-> The parent maps the register block and owns the regmap its two children
-> share. Everything in the region sits behind one NoC port whose clock and
-> reset gate access to it, inside PD_VOUT, so the vout subsystem node from
-> the RFC is back and owns those for as long as any child exists.
->
-> Patch 10 adds a .mode_valid platform op to inno-hdmi.
-> inno_hdmi_bridge_mode_valid() checks the pixel clock against
-> hdmi->refclk, but that clock only exists where a "ref" clock is
-> described. The JH7110 gets its pixel clock from the PHY, so refclk is
-> NULL and the check was skipped: unsupported modes were advertised, the
-> modeset then "succeeded" because the atomic enable path cannot fail, and
-> the display stayed blank.
->
-> Patches 15-17 drop the PHY duplication from the RFC. The JH7110 has the
-> same Innosilicon PHY as the RK3328, offset by 0x100 because it sits
-> behind the controller in the shared register block. Patch 15 factors out
-> the pre-PLL config format, table lookup, determine_rate, recalc_rate and
-> the pre-PLL programming; patch 16 moves Rockchip onto it; patch 17 adds
-> the JH7110 driver. Pixel clock tables, post-PLL and analog config stay
-> SoC specific.
->
-> Patch 16 should be a no-op for Rockchip - same writes, same order, same
-> values - and RK3228, whose pre-PLL is at different addresses, keeps its
-> own register code and shares only the lookup. I have no Rockchip
-> hardware, so it is build tested only (arm and riscv). A Tested-by would
-> help.
->
-> The dc8200 driver, th1520 reset controller and inno-hdmi bridge that the
-> RFC listed as prerequisites are all upstream now, so there are no
-> out-of-tree dependencies.
->
-> Testing
-> =3D=3D=3D=3D=3D=3D=3D
->
-> Tested on a VisionFive 2 v1.3B using modetest.
->
-> All 42 modes the sink advertises work, with nothing in dmesg. Pixel
-> clocks run from 25.175 MHz (640x480@59.94) up to 297 MHz
-> (4096x2160@30), including 3840x2160 and the full 1920x1080 and 1280x720
-> rate families.
->
-> The four modes the RFC reported as broken work now too: 2560x1440@59.95,
-> 2048x1080@60.00, 2048x1080@24.00 and 720x400@70.08.
->
-> Before patch 10, four of the advertised modes failed: 1680x1050@59.95
-> (146.250 MHz), 1400x1050@59.98 (121.750), 1152x864@59.97 (81.768) and
-> 1280x768@60.35 (80.140). Those pixel clocks are not in the PHY pre-PLL
-> table, so clk_set_rate() returned -EINVAL and the screen stayed black
-> while userspace saw a successful modeset. They are rejected in
-> .mode_valid now; the other refresh rates of those resolutions still work.
->
-> Every commit builds for riscv, and the Rockchip PHY also for arm.
->
-> Notes
-> =3D=3D=3D=3D=3D
->
-> The JH7110 has no central MAINTAINERS entry and maintainership is
-> fragmented, so patch 19 adds one for the display subsystem and I am
-> happy to help maintain it. The new PHY library lives under drivers/phy/,
-> already covered by the generic PHY framework entry.
->
-> checkpatch warns "does MAINTAINERS need updating?" on the patches adding
-> files, because that entry comes in patch 19.
->
-> Thanks to Icenowy Zheng for the dc8200 driver and for explaining how the
-> SoC and the display pipeline fit together.
->
-> Thanks also to Dominique Belhachemi, who got rid of the vout-subsystem
-> wrapper and helped with the testing, to Maud Spierings for testing on a
-> Framework 13 panel, and to Graham Markall for testing
-> the JH7110 display patches independently and writing up the results:
-> https://big-grey.co.uk/2026/01/26/testing-starfive-jh7110-display-control=
-ler-patches/
->
-> Link to v1: https://lore.kernel.org/all/20251108-jh7110-clean-send-v1-0-0=
-6bf43bb76b1@samsung.com/
->
-> ---
-> Changes in v3:
-> - Brought back the vout subsystem node and driver, now owning the NoC
->   bus clock, its reset and PD_VOUT for the whole region, with dc8200,
->   the HDMI block, the syscon and voutcrg as its children (Icenowy Zheng).
-> - Fixed a hard hang when the bridge is built as a module: the PHY's
->   .is_prepared read a register in the window gated by the controller's
->   system clock, so clk_disable_unused() wedged the CPU before the
->   controller had bound. The op is gone; the framework uses the software
->   prepare count instead. (Marek Szyprowski)
-> - The HDMI controller now programs the display mux in dom_vout_syscon
->   from the port graph rather than inheriting whatever the bootloader
->   left, with a phandle to the syscon (Icenowy Zheng).
-> - The register access clock is named "pclk" to match the existing
->   inno-hdmi binding, so the generic driver no longer picks up the pixel
->   clock. Previously it held the pre-PLL powered from probe and sized the
->   DDC divider from the wrong rate.
-> - Dropped the clk suffixes and the single-entry -names properties from
->   the bindings (Conor Dooley). mclk and bclk keep their names: per TRM
->   5.3 they are the HDMI audio clocks, not module and bus clocks, so the
->   descriptions say that instead.
-> - Replaced patternProperties with plain properties in the hdmi-subsystem
->   binding (Conor Dooley).
-> - dc8200 gets an SoC specific compatible, and inherits dma-noncoherent
->   from the subsystem bus node, so it validates against verisilicon,dc.
-> - Added the pre-PLL entry for the Framework 13 panel and fixed two
->   devicetree whitespace nits (Maud Spierings).
-> - select REGMAP_MMIO, CLK_SET_RATE_NO_REPARENT on the dc8200 pixel MUXes
->   so clk_set_rate() cannot reroute them, and inno-hdmi register reads
->   return 0 instead of stack garbage when regmap_read() fails.
-> - phy: rockchip: dropped the local pre-PLL lookup wrapper and the 28 now
->   unused RK3328 pre-PLL macros, and restored the VCO debug output, this
->   time in the shared helper so both drivers get it (Jonas Karlman).
-> - Rebased onto v7.3-rc1.
-> - Link to v2: https://lore.kernel.org/r/20260828-jh7110-clean-send-v2-0-3=
-31680c8b9d1@samsung.com
->
-> Changes since the RFC:
-> - Dropped the vout-subsystem wrapper driver and its binding, along with
->   the patch relaxing the voutcrg binding; genpd handles PD_VOUT per
->   node.
-> - Renamed the compatible to starfive,jh7110-hdmi-subsystem, dropping
->   "mfd" as a Linux term (Conor Dooley).
-> - Absolute $refs in the bindings, unused example labels dropped, and the
->   examples deduplicated between parent and children (Conor Dooley).
-> - Added the .mode_valid platform operation (patch 7).
-> - Split the inno-hdmi rework into a mechanical probe/bind split (patch
->   4)
->   and the regmap-from-parent change (patch 5). struct inno_hdmi is no
->   longer exported; no platform glue dereferences it.
-> - Replaced the duplicated PHY driver with a shared Innosilicon library
->   and moved Rockchip onto it (patches 11-13).
-> - Fixed pre-PLL lock detection, which masked the status read with the
->   register address instead of the lock bit.
-> - Fixed a pixel clock refcount underflow: enable returns early on
->   failure while disable tore down unconditionally.
-> - voutcrg patch reduced to adding CLK_SET_RATE_PARENT to the two dc8200
->   pixel MUXes.
-> - Rebased onto v7.2.
->
-> ---
-> Michal Wilczynski (19):
->       dt-bindings: phy: Add starfive,jh7110-inno-hdmi-phy
->       dt-bindings: display: bridge: Add starfive,jh7110-inno-hdmi-control=
-ler
->       dt-bindings: mfd: Add starfive,jh7110-hdmi-subsystem
->       dt-bindings: soc: starfive: Add starfive,jh7110-vout-syscon
->       dt-bindings: soc: starfive: Add starfive,jh7110-vout-subsystem
->       dt-bindings: display: verisilicon: Add starfive,jh7110-dc8200
->       drm/bridge: inno-hdmi: Split probe out of bind
->       drm/bridge: inno-hdmi: Allow the register map to come from a parent
->       drm/bridge: inno-hdmi: Add .disable platform operation
->       drm/bridge: inno-hdmi: Add .mode_valid platform operation
->       soc: starfive: Add jh7110-hdmi-subsystem driver
->       soc: starfive: Add jh7110-vout-subsystem driver
->       clk: starfive: jh7110-vout: Allow pixel clock rate propagation
->       drm/bridge: starfive: Add JH7110 HDMI controller driver
->       phy: Add common Innosilicon HDMI PHY helpers
->       phy: rockchip: inno-hdmi: Use the common Innosilicon PHY helpers
->       phy: starfive: Add jh7110-inno-hdmi-phy driver
->       riscv: dts: starfive: jh7110: Update DT for display subsystem
->       MAINTAINERS: Add StarFive JH7110 display subsystem entry
->
->  .../starfive,jh7110-inno-hdmi-controller.yaml      | 121 +++++
->  .../bindings/display/verisilicon,dc.yaml           |   1 +
->  .../mfd/starfive,jh7110-hdmi-subsystem.yaml        |  95 ++++
->  .../phy/starfive,jh7110-inno-hdmi-phy.yaml         |  49 ++
->  .../soc/starfive/starfive,jh7110-syscon.yaml       |   6 +
->  .../starfive/starfive,jh7110-vout-subsystem.yaml   | 100 ++++
->  MAINTAINERS                                        |  13 +
->  arch/riscv/boot/dts/starfive/jh7110-common.dtsi    | 121 ++++-
->  arch/riscv/boot/dts/starfive/jh7110.dtsi           | 102 +++-
->  drivers/clk/starfive/clk-starfive-jh7110-vout.c    |   6 +-
->  drivers/gpu/drm/bridge/Kconfig                     |  11 +
->  drivers/gpu/drm/bridge/Makefile                    |   1 +
->  drivers/gpu/drm/bridge/inno-hdmi.c                 |  84 ++-
->  drivers/gpu/drm/bridge/jh7110-inno-hdmi.c          | 318 +++++++++++
->  drivers/phy/Kconfig                                |   8 +
->  drivers/phy/Makefile                               |   1 +
->  drivers/phy/phy-inno-hdmi.c                        | 298 +++++++++++
->  drivers/phy/rockchip/Kconfig                       |   1 +
->  drivers/phy/rockchip/phy-rockchip-inno-hdmi.c      | 165 +-----
->  drivers/phy/starfive/Kconfig                       |  20 +
->  drivers/phy/starfive/Makefile                      |   1 +
->  drivers/phy/starfive/phy-jh7110-inno-hdmi.c        | 579 +++++++++++++++=
-++++++
->  drivers/soc/Kconfig                                |   1 +
->  drivers/soc/Makefile                               |   1 +
->  drivers/soc/starfive/Kconfig                       |  43 ++
->  drivers/soc/starfive/Makefile                      |   3 +
->  drivers/soc/starfive/jh7110-hdmi-subsystem.c       |  74 +++
->  drivers/soc/starfive/jh7110-vout-subsystem.c       |  83 +++
->  include/drm/bridge/inno_hdmi.h                     |  10 +-
->  include/linux/phy/inno-hdmi-phy.h                  |  85 +++
->  30 files changed, 2227 insertions(+), 174 deletions(-)
-> ---
-> base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
-> change-id: 20251031-jh7110-clean-send-7d2242118026
->
-> Best regards,
+On Mon, Aug 31, 2026 at 08:05:16AM +0930, Qu Wenruo wrote:
+> 
+> 
+> 在 2026/8/30 20:12, Melon Liu 写道:
+> > On Sat, Aug 29, 2026 at 06:25:11PM +0930, Qu Wenruo wrote:
+> > > 
+> > > 
+> > > 在 2026/8/29 17:09, Melon Liu 写道:
+> > > > Commits b48c980b6a7e ("btrfs: fix deadlock between reflink and transaction
+> > > > commit when using flushoncommit") and 532085d00eb5 ("btrfs: fix deadlock
+> > > > cloning inline extent when using flushoncommit") moved the destination
+> > > > i_size update before btrfs_start_transaction() to prevent
+> > > > extent_writepage() from invalidating a folio beyond EOF.  However, two
+> > > > deadlock windows remain.
+> > > > 
+> > > > First, after the folio is dirtied but before i_size is updated,
+> > > > extent_writepage() can still see the folio beyond EOF.  It calls
+> > > > folio_invalidate(), and btrfs_invalidate_folio() waits for the destination
+> > > > extent range lock held by the clone task.
+> > > > 
+> > > > Second, if extent_writepage() sees the folio within EOF, it proceeds to
+> > > > writepage_delalloc(), which also waits for the destination extent range
+> > > > lock.
+> > > 
+> > > What about letting the agent to create a reproducer, trigger it and paste
+> > > the lockdep/hang calltrace?
+> > > 
+> > > Also an ASCII chart showing the window between involved threads?
+> > > 
+> [...]
+> > > > Fixes: 05a5a7621ce6 ("Btrfs: implement full reflink support for inline extents")
+> > > > Cc: stable@vger.kernel.org
+> > > > Signed-off-by: Melon Liu <melon1335@163.com>
+> > > 
+> > > And AI disclosure.
+> > > 
+> > Thanks for the review. I'll address your comments and send a v2.
+> 
+> And also check the sashiko review:
+> 
+> https://sashiko.dev/#/patchset/a74ov5nvs5u4nkqhrs5lp2jaj664wewkqqsjxzhuemzazzmzvx%40eeof6sjb3xdc
 
-So as a kernel newbie, and someone who happens to have this device,
-it's nice to see it here.
+OK.
 
-It looks good to me, just a few questions:
+Thanks.
 
-- One patch mentioned in a comment "the docs" - is there documentation
-for the device?
-
-- There are multiple pieces, like the hdmi and vout subsystem, and also
-the inno helpers. Should those be separate patches? I honestly don't
-have enough experience (or authority) to suggest doing so.
-
-
-I thought this would be great as a possible driver I could do to learn
-kernel dev.. looks like I was very wrong. Great work, and hopefully
-in the future I get my hands on some device that needs a driver to be
-written for it.
-
-I'm at university, once my board gets mailed from home I'll be able to
-test. For now,
-
-Reviewed-by: Joshua Peisach <jpeisach@ubuntu.com>
