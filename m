@@ -1,140 +1,246 @@
-Received: from mail-qk1-f170.google.com (mail-qk1-f170.google.com [209.85.222.170])
+Received: from mail-oo2-f4.google.com (mail-oo2-f4.google.com [74.125.231.132])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94555426692
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 20:10:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7451251C352
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 20:10:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.132
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788552616; cv=none; b=Epo/PO33+r7SNZfzcgY97yI4HwZsJImpCZ0St6s36/9LcOMz4hnFncakcucrcXi7aH8aQ/y9YzBwdbBHDjpybJfFIbJTuAt9HHR4Jx3UU+sGrxIWgLMkZsbJE1mri8obn++oL9q3gntvcfcaTCugiJAzeoDXGCaARrtws6W8eXo=
+	t=1788552657; cv=none; b=OzWDWIsp55bz8ZkiCwrYb2e5x/7BvQDJqqk4a3Nf3bmY/s2b3r2qFcEBiPCCDatfX2Wuf3SwSYixXcZL2smBwvcgeBKkJWlC0sbpflh8nvWodQ1h1UsO+YzQSxYGyM8FojOoo+UyxVUwWtC7/a/YrknzdSh06plZDP9Z7S9k/N4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788552616; c=relaxed/simple;
-	bh=LbnGFeWWs+TsgLAYv87ny3UAH2zYj9/qtZT4Ag6c/lc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=bMARlDlHE9710aLY41MWFAQnNkdlxBrIUHtP6a72/ToiTqgOEm9RZ8Pch7KrTuDDtWsyNiDXbtsID/QVt47012+m19uATqJJkbkCLo8Dm4oMmx7il5DiEDYJ+ED4E+1FjWDrNUSTVK5mmrq/rcb7hT5SlBKD/RscvQxaFn4ETG4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu; spf=fail smtp.mailfrom=g.harvard.edu; dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.b=BmSSq44n; arc=none smtp.client-ip=209.85.222.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=g.harvard.edu
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.b="BmSSq44n"
-Received: by mail-qk1-f170.google.com with SMTP id af79cd13be357-92e50a650a0so143502785a.1
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 13:10:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=rowland.harvard.edu; s=google; t=1788552601; x=1789157401; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=T9CNgWjbt7ef+8FMX6LnCv6P10Cc+jpnjwbdViiMfNc=;
-        b=BmSSq44nAl++oWp4sUWZxHzEp/uKTuW8/7gSg9qmgSZHdvkKzo72v+wwewXGznI+NC
-         6gnCvI/Ik9aIrfYXW49qcB4MEYGu+VqHX1AFTKNFyPO8fLmtMeVo8X00cx17+qfBm9oz
-         p/mxMGLiLb5fjDWKiBH+KvcdCqlI0nzA1/fVEWoqAywqltHEre7r0MuUGfq609qn7Eqb
-         7WmLKDYdACREP2Xf+YRjEhvvLdgaWIqtDj7VQ43adNbO+D9pKjedYGNzkTY9+H7D9Q6S
-         nZsCNYi7mo9K8qS7ivgKbmPIFZ0f+KUswBlEUF963OePpaC14/3hGtbvq67H1Vy59Bi8
-         MSQw==
+	s=arc-20240116; t=1788552657; c=relaxed/simple;
+	bh=nRKVo8z4LPmzzDy8qR9kkFT6OQiJRmAOOsJQi77U4/I=;
+	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=BYToeypFdGgYAVl5cLZdtbShDzrdQQ0pmBLOhJhUnhOEN4RDcffqG/IWRU/+Y/kreiOu0e76qPr+JDI4LEWYq6ay26QK8hXxEEoAPqU/gEZ9S2HgpRvK6FbbuXiJuWPmtSktr7SuADkstJe9nW/3gNjCSRp+EegJnAaUkcA6ZQ0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=74.125.231.132
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oo2-f4.google.com with SMTP id 46e09a7af769-7f4e9ec63a7so347677a34.1
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 13:10:47 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788552601; x=1789157401;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20251104; t=1788552644; x=1789157444;
+        h=content-type:to:from:subject:message-id:date:mime-version
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=T9CNgWjbt7ef+8FMX6LnCv6P10Cc+jpnjwbdViiMfNc=;
-        b=sj3qvgzzub7dsI417dPd1g5N5M0+e/p4xCr6np+CWrAwjZC5Vki0yx+sCRfknSYcRy
-         MbGq+c3ZAKWrwVh+ImxZPro4VbSzyVAdcmGUvkzCHn47aDAxJI0GsTb3y/XxBgFmOaDm
-         f298YhHItm8ZqSe05WF9n38EKsMHxFJobCdUE5oUnvwqw8QqDldEdJG6aYndpcIPc13R
-         3XfQRXuGUiqPYzYKRmOTeM4ezkj35/ZxtowCG5tQzjSFz1Q+J9hdep6QNGidWo08WixP
-         b6L1olzA0N/nAuVVo9dntfzZ9UM8FrazIqhEBk3sWJQwoncqXboCnos6HYbJCA02WnGq
-         Yh6A==
-X-Forwarded-Encrypted: i=1; AKwUvBwJ7CZxr7F/8usM8XabBgnywPzXfx3hl28RmmE+aSCY8mcCuRwrg+wXW3TE8BrBstN53ftgguDy66Qdq54=@vger.kernel.org
-X-Gm-Message-State: AFuF++n/tzO9ggRszKOldXACsp/NldTZVJhlQkNVL3vwVSHQzMW7nLx1
-	5qCuitk+vnbnHfL13xC8VYoFsEO7pov0N2s9YKzbS3vtLHfCQJpP9VHd7Wcg97Ig3umaM/xvU/0
-	kDE4cJQ==
-X-Gm-Gg: AYBFou1fyZqE4s2FCMlLIuQ2+SRJKy2SRzfhyoeYx13Myjilkl/xwjmRvrH33926C7x
-	CWUbFvDYu5dZE+raGPJw1ff/K9EGd/gZmkuA2xGp5v790Bo15JXDtFbWLFhvElaVO32N/EJjBgf
-	qYPYqh5nyarZE/AJ9KI3CsXDN+wrCx/RFbXTEH/5kyPPqsrpPGwMAxIxY4s6sA/vp5yh4e7X/gf
-	C06MuTziTCWbRNFlv5AhmWIkIvN4wMb3XVA6PjdvY+c6NrBYy23YtrI6g61kgpT/hUpBr3PuJrf
-	YXjvJ97smKM7zd6WR4QPYfyc2CDioDzFujN8Rmgo30BjWZuMZsii/kOgk+7q5luuWm6XRir2i6E
-	IZjxaFmnNUu1iF4o3MIUlGhJkzPtZevcIAInY3RDTrcK9a81Gd4u1H+Rapo2qxMrVwb5UMeAqtn
-	78GyWAHio3UcdaM0k6YKIdfv9FxV0VoEH42ljjDAFnhvC8gXP45FnyZt41Ge7/kw==
-X-Received: by 2002:a05:620a:f04:b0:939:57ca:7e07 with SMTP id af79cd13be357-939802f3248mr852703585a.10.1788552601085;
-        Fri, 04 Sep 2026 13:10:01 -0700 (PDT)
-Received: from rowland.harvard.edu ([2601:19b:d01:d210::7544])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-9397fba21d6sm283222885a.37.2026.09.04.13.09.59
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 04 Sep 2026 13:10:00 -0700 (PDT)
-Date: Fri, 4 Sep 2026 16:09:57 -0400
-From: Alan Stern <stern@rowland.harvard.edu>
-To: Minseo Kim <neck3922@gmail.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Andrey Konovalov <andreyknvl@gmail.com>, linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org, syzkaller@googlegroups.com
-Subject: Re: [BUG] usb: gadgetfs: KASAN null-ptr-deref and intermittent UAF
- in ep_aio_cancel()
-Message-ID: <f928b74b-ce57-4454-bdd4-511b823bf742@rowland.harvard.edu>
-References: <cd57f283-71e6-4531-a311-1180ccc22ab8@rowland.harvard.edu>
- <CAFmvuTVH=mVMZNoYnU07_WA+cBc4m+UG2BBTLwF5KWhcj-z-KA@mail.gmail.com>
- <908a5b29-e6d8-4595-b451-6c328e25c60e@rowland.harvard.edu>
- <CAFmvuTU5HnBKbve=v_C7Mhw2586rR_8qsRNua2XPokgKy_o31w@mail.gmail.com>
- <0305182d-5914-4022-a0a6-1ab4221b0a6c@rowland.harvard.edu>
- <CAFmvuTULxq6O0t7FyhEwnGVdMMpbj1yZrPN6mVRDWTgF0ODJxg@mail.gmail.com>
- <1b92cd86-fe64-43eb-9539-53a559cd14e3@rowland.harvard.edu>
- <CAFmvuTWw90k+Fvs5Ve=1nxCDSQrzH7rytY-3vjGwv=edQOCBPw@mail.gmail.com>
- <fb56064c-6481-44b3-88e5-8e5ff7b85703@rowland.harvard.edu>
- <CAFmvuTXWxQJUZfAAC=vs5QM=myDLE-o0jZZ8OXdqiGioPkRwfA@mail.gmail.com>
+        bh=cyj/MQbZ3CnRsM9xdfcHXW6PeGA2zTO6K/woZMytc9M=;
+        b=f25r6P//weG5vYhu8CL4KupsPk7pN9Q09dRIhOiDWzmyx1e0YxgQe9iDZw8jU8GtqD
+         Deemww43c1E+QzNb1qzeX3nMx1ibsqTm6phI7m03xJ4Wp48/l7r/Ets/SBoPuzIOTbrk
+         QrAUjNBk7iL7dlqhPSkQD+fjrarHF51oSi/ruvj+61VQwpklRHQv8obK3KkU6MZk02Q9
+         oUmel4T4NRjFN8+g1oRdOAqpPrUQqwDVWFud9rqawlVv6b9D7PbhbLuSzA9m8z8Haq3h
+         TeWhdgzPN2XkfnBo8Ek6T6Nf8lmkOgrMjB3m6TQiRepXf2VJv+N0SXxnBLS700/2YDU7
+         MqvQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxEHoidOnIN34Tcs9qjDG9ecMy2VA1Or0zBzfpowQXOb6dpQ4ayaeJOzGFN4F+sleCcMzMJlUtGk2PFmuw=@vger.kernel.org
+X-Gm-Message-State: AFuF++mQ6rpNzCQRbp4V2Xxhha47f7uBFSHId0/h/nR57HjSru0H4GYP
+	0SkYBUPSqjBJz1D9EtSKuERbl7eqMsxwi/aQDUZJKbSAxM6g6s134iqGEBgMmIMvlU2DgNq0crk
+	ciVVUu7szGSmYkNc7Ss88a/AXJNoAU32Z/SmrEIGUsAwBBnirrYG3yt93uKQ=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAFmvuTXWxQJUZfAAC=vs5QM=myDLE-o0jZZ8OXdqiGioPkRwfA@mail.gmail.com>
+X-Received: by 2002:a05:6820:826:b0:6b1:29eb:93f5 with SMTP id
+ 006d021491bc7-6b6fc2e029fmr5917195eaf.15.1788552643912; Fri, 04 Sep 2026
+ 13:10:43 -0700 (PDT)
+Date: Fri, 04 Sep 2026 13:10:43 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6a9b25c3.b5d4176b.238c3e.0004.GAE@google.com>
+Subject: [syzbot] [crypto?] possible deadlock in __blk_crypto_evict_key
+From: syzbot <syzbot+20d60aafd9a0d1f2a380@syzkaller.appspotmail.com>
+To: davem@davemloft.net, herbert@gondor.apana.org.au, 
+	linux-crypto@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-On Fri, Sep 04, 2026 at 11:00:23PM +0900, Minseo Kim wrote:
-> Hi Alan,
-> 
-> Thank you for the updated patch.
-> 
-> > If you trim your patch down to the parts that only target the AIO races,
-> > do you get anything significantly different from my version?
-> 
-> I compared your current patch with my AIO-only version and found no
-> significant difference in the AIO cancellation state machine or IRQ-state
-> handling.
-> 
-> Both versions snapshot epdata and ep alongside req before
-> usb_ep_dequeue(). In the directed cross-CPU test, a control based on your
-> current patch but without the local snapshots of epdata and ep reproduced
-> the earlier ep_unlink_worker() UAF; I did not reproduce it with your
-> current patch.
-> 
-> The only substantive implementation difference I found in the AIO-only
-> comparison was the criterion used alongside the req->actual check to
-> decide whether to queue copy work. My version used
-> iov_iter_count(&priv->to), whereas your current patch uses the explicit
-> is_read flag. I agree that is_read makes this decision more explicit and
-> avoids requiring the reader to infer it from how priv->to is initialized.
-> 
-> With your current patch, native PREAD and one- and two-segment PREADV
-> copied their payloads correctly. PWRITE, PWRITEV, and zero-length PREAD
-> and PWRITE completed without invoking ep_user_copy_worker().
-> 
-> I also reran the original null-ptr-deref and UAF reproducers, the exact
-> pre-queue cancellation matrix, and the reproducers for the earlier
-> candidate-patch regressions. I separately tested deferred giveback,
-> forced dequeue failure, and the earlier NULL-endpoint case. All of these
-> tests produced the expected results, and none of the corresponding
-> earlier failure signatures recurred.
-> 
-> One small point in the ep_aio_cancel() comment: as I understand it, the
-> completion function pointer in struct kiocb is named ki_complete, which
-> is also the name I used in my previous message. I wondered whether
-> iocb->kio_complete() was intended to be iocb->ki_complete().
+Hello,
 
-Yes, that was simply a typo.  Thanks for spotting it.
+syzbot found the following issue on:
 
-> Thank you again for updating the patch.
+HEAD commit:    8ab1afb2eb24 Merge tag 'for-7.3/dm-fixes' of git://git.ker..
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=13ea0215580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=e909ffe6b35dddb7
+dashboard link: https://syzkaller.appspot.com/bug?extid=20d60aafd9a0d1f2a380
+compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
 
-You're welcome.  And now it's time to submit this patch.  Is it okay
-to add your Tested-by: tag?
+Unfortunately, I don't have any reproducer for this issue yet.
 
-Alan Stern
+Downloadable assets:
+disk image (non-bootable): https://storage.googleapis.com/syzbot-assets/d900f083ada3/non_bootable_disk-8ab1afb2.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/5edb29856782/vmlinux-8ab1afb2.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/4d05b2b79211/bzImage-8ab1afb2.xz
+
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+20d60aafd9a0d1f2a380@syzkaller.appspotmail.com
+
+
+======================================================
+WARNING: possible circular locking dependency detected
+syzkaller #0 Not tainted
+------------------------------------------------------
+kswapd0/72 is trying to acquire lock:
+ffff88803f7de4c8 (&profile->lock){++++}-{4:4}, at: blk_crypto_hw_enter block/blk-crypto-profile.c:55 [inline]
+ffff88803f7de4c8 (&profile->lock){++++}-{4:4}, at: __blk_crypto_evict_key+0x111/0x5e0 block/blk-crypto-profile.c:359
+
+but task is already holding lock:
+ffffffff8ee91d60 (fs_reclaim){+.+.}-{0:0}, at: balance_pgdat mm/vmscan.c:7177 [inline]
+ffffffff8ee91d60 (fs_reclaim){+.+.}-{0:0}, at: kswapd+0xa08/0x32c0 mm/vmscan.c:7555
+
+which lock already depends on the new lock.
+
+
+the existing dependency chain (in reverse order) is:
+
+-> #1 (fs_reclaim){+.+.}-{0:0}:
+       __fs_reclaim_acquire mm/page_alloc.c:4375 [inline]
+       fs_reclaim_acquire+0x71/0x100 mm/page_alloc.c:4389
+       might_alloc include/linux/sched/mm.h:316 [inline]
+       slab_pre_alloc_hook mm/slub.c:4636 [inline]
+       slab_alloc_node mm/slub.c:4974 [inline]
+       __do_kmalloc_node mm/slub.c:5413 [inline]
+       __kmalloc_noprof+0xbc/0x720 mm/slub.c:5439
+       _kmalloc_noprof include/linux/slab.h:995 [inline]
+       _kzalloc_noprof include/linux/slab.h:1312 [inline]
+       adiantum_setkey+0x139/0x620 crypto/adiantum.c:129
+       crypto_skcipher_setkey+0x2a3/0x460 crypto/skcipher.c:422
+       crypto_sync_skcipher_setkey include/crypto/skcipher.h:621 [inline]
+       blk_crypto_fallback_keyslot_program+0x1ad/0x440 block/blk-crypto-fallback.c:122
+       blk_crypto_get_keyslot+0x941/0x1070 block/blk-crypto-profile.c:295
+       blk_crypto_fallback_encrypt_bio block/blk-crypto-fallback.c:362 [inline]
+       blk_crypto_fallback_bio_prep+0x424/0x1b40 block/blk-crypto-fallback.c:505
+       blk_crypto_submit_bio include/linux/blk-crypto.h:211 [inline]
+       f2fs_submit_write_bio+0x11b/0x2e0 fs/f2fs/data.c:575
+       __submit_merged_bio+0x258/0x6a0 fs/f2fs/data.c:590
+       __f2fs_submit_merged_write fs/f2fs/data.c:682 [inline]
+       __submit_merged_write_cond+0x3c9/0x4e0 fs/f2fs/data.c:706
+       f2fs_submit_merged_write_cond fs/f2fs/data.c:731 [inline]
+       f2fs_write_cache_pages fs/f2fs/data.c:3495 [inline]
+       __f2fs_write_data_pages fs/f2fs/data.c:3603 [inline]
+       f2fs_write_data_pages+0x2a27/0x36f0 fs/f2fs/data.c:3641
+       do_writepages+0x338/0x560 mm/page-writeback.c:2560
+       filemap_writeback mm/filemap.c:387 [inline]
+       filemap_fdatawrite_range mm/filemap.c:412 [inline]
+       file_write_and_wait_range+0x36e/0x440 mm/filemap.c:786
+       f2fs_do_sync_file+0x69d/0x1960 fs/f2fs/file.c:359
+       generic_write_sync include/linux/fs.h:2686 [inline]
+       f2fs_file_write_iter+0x68e/0x2920 fs/f2fs/file.c:5720
+       new_sync_write fs/read_write.c:595 [inline]
+       vfs_write+0x612/0xba0 fs/read_write.c:687
+       ksys_write+0x150/0x270 fs/read_write.c:739
+       do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+       do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
+       entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+-> #0 (&profile->lock){++++}-{4:4}:
+       check_prev_add kernel/locking/lockdep.c:3181 [inline]
+       check_prevs_add kernel/locking/lockdep.c:3300 [inline]
+       validate_chain kernel/locking/lockdep.c:3924 [inline]
+       __lock_acquire+0x15ff/0x2e50 kernel/locking/lockdep.c:5254
+       lock_acquire+0x115/0x350 kernel/locking/lockdep.c:5908
+       down_write+0x96/0x200 kernel/locking/rwsem.c:1631
+       blk_crypto_hw_enter block/blk-crypto-profile.c:55 [inline]
+       __blk_crypto_evict_key+0x111/0x5e0 block/blk-crypto-profile.c:359
+       blk_crypto_evict_key+0x230/0x3c0 block/blk-crypto.c:443
+       fscrypt_destroy_inline_crypt_key+0x1b9/0x260 fs/crypto/block.c:164
+       fscrypt_destroy_prepared_key fs/crypto/keysetup.c:173 [inline]
+       put_crypt_info+0x110/0x2f0 fs/crypto/keysetup.c:560
+       fscrypt_put_encryption_info+0xf6/0x140 fs/crypto/keysetup.c:786
+       f2fs_evict_inode+0x1c9f/0x21f0 fs/f2fs/inode.c:1105
+       evict+0x624/0xb50 fs/inode.c:822
+       dispose_list fs/inode.c:864 [inline]
+       prune_icache_sb+0x223/0x2d0 fs/inode.c:1011
+       super_cache_scan+0x3f5/0x500 fs/super.c:240
+       do_shrink_slab+0x6d0/0x10e0 mm/shrinker.c:443
+       shrink_slab_memcg mm/shrinker.c:560 [inline]
+       shrink_slab+0x838/0x1220 mm/shrinker.c:638
+       shrink_one+0x2a2/0x730 mm/vmscan.c:5119
+       shrink_many mm/vmscan.c:5180 [inline]
+       lru_gen_shrink_node mm/vmscan.c:5258 [inline]
+       shrink_node+0x35d0/0x3e30 mm/vmscan.c:6247
+       kswapd_shrink_node mm/vmscan.c:7101 [inline]
+       balance_pgdat mm/vmscan.c:7279 [inline]
+       kswapd+0x185e/0x32c0 mm/vmscan.c:7555
+       kthread+0x38b/0x480 kernel/kthread.c:436
+       ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
+       ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+
+other info that might help us debug this:
+
+ Possible unsafe locking scenario:
+
+       CPU0                    CPU1
+       ----                    ----
+  lock(fs_reclaim);
+                               lock(&profile->lock);
+                               lock(fs_reclaim);
+  lock(&profile->lock);
+
+ *** DEADLOCK ***
+
+locks held by kswapd0/72: 2, last CPU#0:
+ #0: ffffffff8ee91d60 (fs_reclaim){+.+.}-{0:0}, at: balance_pgdat mm/vmscan.c:7177 [inline]
+ #0: ffffffff8ee91d60 (fs_reclaim){+.+.}-{0:0}, at: kswapd+0xa08/0x32c0 mm/vmscan.c:7555
+ #1: ffff88801fc4e0e8 (&type->s_umount_key#52){.+.+}-{4:4}, at: super_trylock_shared fs/super.c:688 [inline]
+ #1: ffff88801fc4e0e8 (&type->s_umount_key#52){.+.+}-{4:4}, at: super_cache_scan+0x94/0x500 fs/super.c:213
+
+stack backtrace:
+CPU: 0 UID: 0 PID: 72 Comm: kswapd0 Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+Call Trace:
+ <TASK>
+ dump_stack_lvl+0xe8/0x150 lib/dump_stack.c:120
+ print_circular_bug+0x2e2/0x300 kernel/locking/lockdep.c:2059
+ check_noncircular+0x12f/0x150 kernel/locking/lockdep.c:2191
+ check_prev_add kernel/locking/lockdep.c:3181 [inline]
+ check_prevs_add kernel/locking/lockdep.c:3300 [inline]
+ validate_chain kernel/locking/lockdep.c:3924 [inline]
+ __lock_acquire+0x15ff/0x2e50 kernel/locking/lockdep.c:5254
+ lock_acquire+0x115/0x350 kernel/locking/lockdep.c:5908
+ down_write+0x96/0x200 kernel/locking/rwsem.c:1631
+ blk_crypto_hw_enter block/blk-crypto-profile.c:55 [inline]
+ __blk_crypto_evict_key+0x111/0x5e0 block/blk-crypto-profile.c:359
+ blk_crypto_evict_key+0x230/0x3c0 block/blk-crypto.c:443
+ fscrypt_destroy_inline_crypt_key+0x1b9/0x260 fs/crypto/block.c:164
+ fscrypt_destroy_prepared_key fs/crypto/keysetup.c:173 [inline]
+ put_crypt_info+0x110/0x2f0 fs/crypto/keysetup.c:560
+ fscrypt_put_encryption_info+0xf6/0x140 fs/crypto/keysetup.c:786
+ f2fs_evict_inode+0x1c9f/0x21f0 fs/f2fs/inode.c:1105
+ evict+0x624/0xb50 fs/inode.c:822
+ dispose_list fs/inode.c:864 [inline]
+ prune_icache_sb+0x223/0x2d0 fs/inode.c:1011
+ super_cache_scan+0x3f5/0x500 fs/super.c:240
+ do_shrink_slab+0x6d0/0x10e0 mm/shrinker.c:443
+ shrink_slab_memcg mm/shrinker.c:560 [inline]
+ shrink_slab+0x838/0x1220 mm/shrinker.c:638
+ shrink_one+0x2a2/0x730 mm/vmscan.c:5119
+ shrink_many mm/vmscan.c:5180 [inline]
+ lru_gen_shrink_node mm/vmscan.c:5258 [inline]
+ shrink_node+0x35d0/0x3e30 mm/vmscan.c:6247
+ kswapd_shrink_node mm/vmscan.c:7101 [inline]
+ balance_pgdat mm/vmscan.c:7279 [inline]
+ kswapd+0x185e/0x32c0 mm/vmscan.c:7555
+ kthread+0x38b/0x480 kernel/kthread.c:436
+ ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
+ ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+ </TASK>
+
+
+---
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
+
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+
+If the report is already addressed, let syzbot know by replying with:
+#syz fix: exact-commit-title
+
+If you want to overwrite report's subsystems, reply with:
+#syz set subsystems: new-subsystem
+(See the list of subsystem names on the web dashboard)
+
+If the report is a duplicate of another one, reply with:
+#syz dup: exact-subject-of-another-report
+
+If you want to undo deduplication, reply with:
+#syz undup
