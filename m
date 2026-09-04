@@ -1,238 +1,207 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f70.google.com (mail-ed1-f70.google.com [209.85.208.70])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01D174A1E19;
-	Fri,  4 Sep 2026 15:33:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85546381E84
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 15:33:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.70
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788535984; cv=none; b=BSmAybFtv6eiIgQPOEM5zpKa4zDaY7c3lrTucJxNktYcRsXPbsgnLLFvB6HVXqapdFSTo5GMOHkZS9qSZf4iEdZ4jDQG2HdkKO5amcQEDXmPdYt7h0KNAyfxJMqwSDkrv9/BCSP5btD3saLjknJsxHLjeNpNk+UJSLLnc0lrLxk=
+	t=1788536020; cv=none; b=ZBYEOLeTcHYfn6OBwR8jVTGoUnDDVtgw9T3/RPDsUV4watGNIC2ya/U4r6z2h7NRzLb13xnEyHI2Nrevv+CMGftqIfmD2VDHsQC/LuBWrDjNklTE+WEoqcyHfK91Z7CFgdQES+wGQFMM0+Ii7mgRAmmRy2K9+Pj/IOtlh6rA4ho=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788535984; c=relaxed/simple;
-	bh=CnSAFD6rlndSqM250EuSHcBPlhVJ+BFLsyUu02VpByE=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Subject:Cc:To:From:
-	 References:In-Reply-To; b=QBwzm0Nf8V/RsDKbsoJsy/wEWPj8yAO+O87Yx9VmnmjUsDsj1jEtJi+eRcwoW5dDgFu4NdCeLP78AKS8rFO4L5bLj7BCtguYNuqPELeBojlyCMzfzrEi7zHbwGRsMCAfdpFGRx81G9fpzHZKgnmZI2vhHOdcuYmdRKmaBA7EQEs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Q9XCxnK+; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788536020; c=relaxed/simple;
+	bh=XS3nqehPXvBU2QE/XQ6aKQd2nnMe72lQNj3nM14MBfc=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=ZNtlzfuzIwGiE7K63mDB7hbECugzqU15njy+dkkC1GyLxv/LfVtxYgCqJKAVxWYCRxlRNn5rXaTVVIsYJQtKDGPeN4OLtoMDwc+S4839v3dkH0smwgn5beFodWE1IYur869XJEBohkxrM6zLFuaMY06X4MjLoRoi3nmKxWL4TrM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--tarunsahu.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=aHs5xdpz; arc=none smtp.client-ip=209.85.208.70
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--tarunsahu.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Q9XCxnK+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1C0281F00A3D;
-	Fri,  4 Sep 2026 15:32:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788535982;
-	bh=mHQYPGPdzlGxXMNKZnACiaB//jM8t7QwCLZn+xl/ipU=;
-	h=Date:Subject:Cc:To:From:References:In-Reply-To;
-	b=Q9XCxnK+Ao/JAb6ul5UFx2KsHLa7LxDBLiAEV5Xqa7+lWsX6U0sRbJ0GHgfuuTKx2
-	 dnp+mOpB+kmvTDgq2cO5JoBAhVahscyDSVLD+to1VsZkJbCdJ501AGJjyQzsAiMXjf
-	 1tn9pX5LGpqDjhn9SwTOooDx6nAA4sXg2CmZqaG5b1AM5kMNDSdEDzFFpzbucpSK5h
-	 dMHKcRChOCGvBaT/nNIYUu0/8hmbrxuGnacDL53b53cYzB7K1GtYfH6gRx1mOkZ6WY
-	 axoNRnNipTdv/hhdsXHrOoaTQ4oqXegu+ikptbRpK3dyvBMBYRifKzQWFJHChon0sm
-	 VkrdAlajKogCw==
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="aHs5xdpz"
+Received: by mail-ed1-f70.google.com with SMTP id 4fb4d7f45d1cf-6a60a4f1ae2so1537432a12.2
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 08:33:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1788536016; x=1789140816; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=MYO1KvVzPLClFw7IZqRu5rT86PANfLF01lGRYL9GdyA=;
+        b=aHs5xdpzSh0lhGcXmJd5IUCNQRT0xnXz6jMPGwJYFTYX20UR7kE9TzhEh/oHu2w/Og
+         e8Vvfvyc4r930Ugg8DHWnFx3sxed2pJfiYLtVZsDOPHz3eIG3idsHzHB2D79uvPYJEcg
+         i1pDweKaPlq8B/JEjxKTJYFkoVzDvbvqUfgtKYn3sdRLJpT8sVjHX/CE6ec2XZbe27Ac
+         bXZiCBa9KjY7sqR7dPIdNryA/dhUBpYZqhJvRqyWhA//bQFzd65EgznRTx9w3OmJC8i4
+         j0mp+UlNKZ4d8dnKK8b30mS67rTnW8S3OVTfutD4smeUgxYKrHbNFiVGsZ1TDCBfz2cH
+         5Fcg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788536016; x=1789140816;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=MYO1KvVzPLClFw7IZqRu5rT86PANfLF01lGRYL9GdyA=;
+        b=Dc0t82lMD0CId7hRjzQej5chZsDVreafbr852RJIGDr3Ixm0nifNQDmGPjzf28rcgB
+         I6Cj5/onk8d3/MFiFKnyvafsgcfBCjA6KN9qg1FkfJqhfuAKSC9iuTS5g2RBe1hKk7/0
+         7wqQzFC6JxBeSuXmlJBI1wNcK5eih2j8BIgk4L8rnUNp4rVc4Dp4WOz7I8Tvl4eOvJVG
+         /4W2DthTO3bJ4vdDrta/eXxAuY56Zf25XjZg/vdZxTbrRdEZYAKgJh8XwdoZS77o0VcD
+         q6ccoW3oglvGODxdSnfme+oem6oh9b+I8GqGzC2F/d2NBnYvmytz1DMCrlYfKzbyYgAR
+         sO5Q==
+X-Gm-Message-State: AFuF++maLzmRljbDDstJORsOVf5Kieb8qsey4wQ9L3mnGVVboJAwlekJ
+	kNg1D48HP2ia680O/TaIlOxdJWYP/GYfhOzeb4hko6ji40Q03/YcH5hoHdAAnE4gC1caCgKW8Un
+	l4lnfp8Zq3k+SXz9wlQ==
+X-Received: from edj28.prod.google.com ([2002:a05:6402:325c:b0:6a7:e24b:5a30])
+ (user=tarunsahu job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:6402:f0b:b0:6a7:ee56:815f with SMTP id 4fb4d7f45d1cf-6a7ee568276mr1201539a12.45.1788536016263;
+ Fri, 04 Sep 2026 08:33:36 -0700 (PDT)
+Date: Fri, 04 Sep 2026 15:33:35 +0000
+In-Reply-To: <925c45d9-91dc-406a-9ff5-8c16f3ee0d9f@arm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Fri, 04 Sep 2026 17:32:55 +0200
-Message-Id: <DL6N387CE2AT.1LU4TDUB8QBIU@kernel.org>
-Subject: Re: [PATCH v10 1/2] rust: Add dma_fence abstractions
-Cc: "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>,
- "Gary Guo" <gary@garyguo.net>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
- <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
- Hindborg" <a.hindborg@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>,
- "Trevor Gross" <tmgross@umich.edu>, "Daniel Almeida"
- <daniel.almeida@collabora.com>, "Tamir Duberstein" <tamird@kernel.org>,
- "Alexandre Courbot" <acourbot@nvidia.com>, =?utf-8?q?Onur_=C3=96zkan?=
- <work@onurozkan.dev>, "Sumit Semwal" <sumit.semwal@linaro.org>,
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, "Greg
- Kroah-Hartman" <gregkh@linuxfoundation.org>, "Yury Norov (NVIDIA)"
- <yury.norov@gmail.com>, "Asahi Lina" <lina+kernel@asahilina.net>, "Burak
- Emir" <burak.emir@gmail.com>, "Lorenzo Stoakes" <ljs@kernel.org>, "Joel
- Fernandes" <joelagnelf@nvidia.com>, "FUJITA Tomonori"
- <fujita.tomonori@gmail.com>, "Boris Brezillon"
- <boris.brezillon@collabora.com>, <linux-kernel@vger.kernel.org>,
- <rust-for-linux@vger.kernel.org>, <linux-media@vger.kernel.org>,
- <dri-devel@lists.freedesktop.org>, <linaro-mm-sig@lists.linaro.org>
-To: "Philipp Stanner" <phasta@kernel.org>
-From: "Danilo Krummrich" <dakr@kernel.org>
-References: <20260812072217.1971807-2-phasta@kernel.org>
- <20260812072217.1971807-3-phasta@kernel.org>
-In-Reply-To: <20260812072217.1971807-3-phasta@kernel.org>
+References: <20260903155907.1065681-1-tarunsahu@google.com> <925c45d9-91dc-406a-9ff5-8c16f3ee0d9f@arm.com>
+Message-ID: <9huz4ig51168.fsf@tarunix.c.googlers.com>
+Subject: Re: [PATCH] memblock: use binary search to locate candidate regions
+From: tarunsahu@google.com
+To: Dev Jain <dev.jain@arm.com>, dmatlack@google.com, 
+	Pasha Tatashin <pasha.tatashin@soleen.com>, Mike Rapoport <rppt@kernel.org>, 
+	Andrew Morton <akpm@linux-foundation.org>, Pratyush Yadav <pratyush@kernel.org>
+Cc: linux-kernel@vger.kernel.org, kexec@lists.infradead.org, 
+	linux-mm@kvack.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Wed Aug 12, 2026 at 9:22 AM CEST, Philipp Stanner wrote:
-> Add abstractions for dma_fence in Rust.
+Dev Jain <dev.jain@arm.com> writes:
 
-I was about to pick this up, but ended up with too many things to tweak.
+> On 03/09/26 9:29 pm, Tarun Sahu wrote:
+>> Use binary search (memblock_bsearch_start) in memblock_add_range() and
+>> memblock_isolate_range() to locate candidate regions instead of linearly
+>> scanning from index 0.
+>> 
+>> Under heavy memory fragmentation (such as KHO page preservation registering
+>> hundreds of thousands of disjoint folios), scanning from index 0 on every
+>> insertion and isolation results in O(N^2) complexity, causing boot-time
+>> memory retrieval to take several minutes (~268s for 393k pages).
+>> 
+>> Using binary search reduces the worst-case complexity to O(N log N)
+>> (and O(N) for sequential appends), cutting KHO memory retrieval time
+>> from ~268s to ~50ms.
+>> 
+>> Signed-off-by: Tarun Sahu <tarunsahu@google.com>
+>> ---
+>
+> I recall noticing this 2 years ago : ) but then abandoned because
+> I couldn't think of a usecase.
+>
+> I have forgotten memblock and no idea on KHO, but are you sure
+> this patch won't have negative consequence for the usual cases?
+> In other words is this something KHO specific, and in the usual
+> cases a linear search is more cache/CPU friendly?
+>
 
-  * Fix checkpatch.pl warnings,
-  * take &CStr instead of CString in FenceContext::new(),
-  * change DriverFenceAllocation::ops to &'static from *const,
-  * remove # Safety comment on AlwaysRefCounted::dec_ref() impl,
-  * use Opaque::zeroed() instead of __GFP_ZERO,
-  * use kernel vertical import style.
+Linear search on very large list: A very big problem
+Linear search on small list (< 100): Good and almost 100% cache hit
+because of next memory prediction by CPU.
 
-Here's the diff I suggest for a v11:
+Binary Search on very large list: very good thing
+Binary search on small list (< 100): Algorithm anyway faster (worst case
+cycle 3-4 vs 100 in linear search), yes cache miss is problem but IIUC,
+To contribute to latency significantly, the quantity of such cache
+misses is very less. Binary search uses more instruction per loop than
+linear search, so of course linear search is better in this case, But
+that micro/nano seconds latency affect is really an issue here? because
+memblock is boot time initialization code. (Except memory hotplug) So No
+userspace application like HFT or gaming will be affected by this.
 
-diff --git a/rust/helpers/dma_fence.c b/rust/helpers/dma_fence.c
-index 0e08411098fa..549f6b6a7171 100644
---- a/rust/helpers/dma_fence.c
-+++ b/rust/helpers/dma_fence.c
-@@ -37,7 +37,8 @@ __rust_helper void rust_helper_dma_fence_lock_irqsave(str=
-uct dma_fence *f, unsig
- 	dma_fence_lock_irqsave(f, *flags);
- }
+So I believe, binary search wins here. Let me know your thoughts?
 
--__rust_helper void rust_helper_dma_fence_unlock_irqrestore(struct dma_fenc=
-e *f, unsigned long *flags)
-+__rust_helper void rust_helper_dma_fence_unlock_irqrestore(struct dma_fenc=
-e *f,
-+							   unsigned long *flags)
- {
- 	dma_fence_unlock_irqrestore(f, *flags);
- }
-diff --git a/rust/kernel/dma_buf/dma_fence.rs b/rust/kernel/dma_buf/dma_fen=
-ce.rs
-index f22f4a07c152..d82b69f68e61 100644
---- a/rust/kernel/dma_buf/dma_fence.rs
-+++ b/rust/kernel/dma_buf/dma_fence.rs
-@@ -102,21 +102,23 @@ impl<'a, T: Send + Sync + FenceContextOps> FenceConte=
-xt<T> {
-     /// Create a new `FenceContext`.
-     pub fn new<E>(
-         initial_seqno: u64,
--        driver_name: CString,
--        timeline_name: CString,
-+        driver_name: &CStr,
-+        timeline_name: &CStr,
-         data: impl PinInit<T, E>,
-     ) -> impl PinInit<Self, Error>
-     where
-         Error: From<E>,
-     {
-+        let driver_name =3D CString::try_from(driver_name);
-+        let timeline_name =3D CString::try_from(timeline_name);
-         try_pin_init!(Self {
-             // SAFETY: `dma_fence_context_alloc()` merely works on a globa=
-l
-             // atomic. Parameter `1` is the number of contexts we want to
-             // allocate.
-             nr: unsafe { bindings::dma_fence_context_alloc(1) },
-             seqno: Atomic::new(initial_seqno),
--            driver_name,
--            timeline_name,
-+            driver_name: driver_name?,
-+            timeline_name: timeline_name?,
-             nr_of_unsignaled_fences: Atomic::new(0),
-             data <- data,
-         })
-@@ -141,7 +143,7 @@ pub fn new_fence_allocation(
-             rcu_head: Default::default(),
-             // `inner` remains uninitialized until a `DriverFence` takes o=
-ver.
-             inner: Fence {
--                inner: Opaque::uninit(),
-+                inner: Opaque::zeroed(),
-             },
-             fctx: self,
-             data,
-@@ -154,7 +156,7 @@ pub fn new_fence_allocation(
-         //
-         // Hence, we need the manage the memory manually. It will be freed=
- by the
-         // C backend automatically once the refcount within `Fence` drops =
-to 0.
--        let data =3D KBox::new(fence_data, GFP_KERNEL | __GFP_ZERO)?;
-+        let data =3D KBox::new(fence_data, GFP_KERNEL)?;
+> Also below I see you have implemented a custom binary search helper.
+> I recall a generic one is there in some .h file somewhere in the
+> codebase, perhaps that may be useful, just FYI, ignore if already
+> tried that.
 
-         Ok(DriverFenceAllocation {
-             data,
-@@ -212,7 +214,7 @@ fn drop(self: Pin<&mut Self>) {
-         // Fence ops callbacks can be called on unsignaled fences. Since t=
-hese
-         // callbacks can access the fence context and its data, it needs t=
-o be
-         // guaranteed that a context only drops after all associated
--        // `DriverFence`s have been dropped. This is unlikely to ocurr, bu=
-t would
-+        // `DriverFence`s have been dropped. This is unlikely to occur, bu=
-t would
-         // result in silent UAF. Throw a panic to prevent that.
-         //
-         // TODO:
-@@ -568,9 +570,6 @@ fn inc_ref(&self) {
-         unsafe { bindings::dma_fence_get(self.as_raw()) }
-     }
+This one does lower bound serach:  To find the first element where the
+addition can be done instead of trying to find the exact match.
 
--    /// # Safety
--    ///
--    /// `ptr`must be a valid pointer to a [`DriverFence`].
-     unsafe fn dec_ref(ptr: NonNull<Self>) {
-         // SAFETY: `ptr` is never a NULL pointer; and when `dec_ref()` is =
-called
-         // the fence is by definition still valid.
-@@ -640,15 +639,17 @@ struct DriverFenceData<'a, T: Send + Sync + FenceCont=
-extOps> {
- /// # Examples
- ///
- /// ```
--/// use kernel::dma_buf::{
--///     DriverFence,
--///     FenceContext,
--///     FenceContextOps,
--///     FenceCallback,
--///     FenceCallbackRegistration, //
-+/// use kernel::{
-+///     dma_buf::{
-+///         DriverFence,
-+///         FenceContext,
-+///         FenceContextOps,
-+///         FenceCallback,
-+///         FenceCallbackRegistration,
-+///     },
-+///     str::CString,
-+///     sync::aref::ARef,
- /// };
--/// use kernel::str::CString;
--/// use kernel::sync::aref::ARef;
- /// use core::fmt::Display;
- ///
- /// struct CallbackData { }
-@@ -674,18 +675,16 @@ struct DriverFenceData<'a, T: Send + Sync + FenceCont=
-extOps> {
- ///
- /// let fctx_data =3D FenceContextData::new();
- ///
--/// let driver_name =3D CString::try_from_fmt(fmt!("dummy_driver"))?;
--/// let timeline_name =3D CString::try_from_fmt(fmt!("dummy_timeline"))?;
--///
- /// let mut fctx =3D KBox::pin_init(
--///     FenceContext::new(0, driver_name, timeline_name, fctx_data), GFP_K=
-ERNEL)?;
-+///     FenceContext::new(0, c"dummy_driver", c"dummy_timeline", fctx_data=
-),
-+///     GFP_KERNEL,
-+/// )?;
- ///
- /// struct FenceData {
- ///     data: CString,
- /// }
- ///
--/// let data =3D CString::try_from_fmt(fmt!("dummy_data"))?;
--/// let fence_data =3D FenceData { data };
-+/// let fence_data =3D FenceData { data: c"dummy_data".try_into()? };
- ///
- /// let fence_alloc =3D fctx.new_fence_allocation(fence_data)?;
- /// let mut fence =3D fence_alloc.new_fence();
-@@ -718,8 +717,8 @@ pub struct DriverFenceAllocation<'a, T: Send + Sync + F=
-enceContextOps> {
-     /// Handed over to a [`DriverFence`], or deallocated once the
-     /// [`DriverFenceAllocation`] drops.
-     data: KBox<DriverFenceData<'a, T>>,
--    /// Pointer for the ops for the associated [`FenceContext`]
--    ops: *const bindings::dma_fence_ops,
-+    /// Reference for the ops for the associated [`FenceContext`]
-+    ops: &'static bindings::dma_fence_ops,
- }
+This one has a fast-path unlike to general binary search:
 
- impl<'a, T: Send + Sync + FenceContextOps> DriverFenceAllocation<'a, T> {
++	if (type->cnt && base >= type->regions[type->cnt - 1].base +
++				 type->regions[type->cnt - 1].size)
++		return type->cnt;
+
+Also, I followed what memblock_search already does, Having its own
+binary search.
+
+~Tarun
+
+>
+>>  mm/memblock.c | 38 ++++++++++++++++++++++++++++++++++++--
+>>  1 file changed, 36 insertions(+), 2 deletions(-)
+>> 
+>> diff --git a/mm/memblock.c b/mm/memblock.c
+>> index 9ce86349a29f..88940474b020 100644
+>> --- a/mm/memblock.c
+>> +++ b/mm/memblock.c
+>> @@ -160,6 +160,11 @@ static __refdata struct memblock_type *memblock_memory = &memblock.memory;
+>>  	     i < memblock_type->cnt;					\
+>>  	     i++, rgn = &memblock_type->regions[i])
+>>  
+>> +#define for_each_memblock_type_from(i, memblock_type, rgn, start)	\
+>> +	for (i = (start), rgn = &memblock_type->regions[i];		\
+>> +	     i < memblock_type->cnt;					\
+>> +	     i++, rgn = &memblock_type->regions[i])
+>> +
+>>  #define memblock_dbg(fmt, ...)						\
+>>  	do {								\
+>>  		if (memblock_debug)					\
+>> @@ -591,6 +596,33 @@ static void __init_memblock memblock_insert_region(struct memblock_type *type,
+>>  	type->total_size += size;
+>>  }
+>>  
+>> +/**
+>> + * memblock_bsearch_start - Find the first region index where rend > base
+>> + * @type: memblock type to search
+>> + * @base: base physical address of the candidate range
+>> + *
+>> + * Returns the first region index that could potentially overlap @base.
+>> + */
+>> +static int __init_memblock memblock_bsearch_start(struct memblock_type *type,
+>> +						  phys_addr_t base)
+>> +{
+>> +	int mid, low = 0;
+>> +	int high = type->cnt;
+>> +
+>> +	if (type->cnt && base >= type->regions[type->cnt - 1].base +
+>> +				 type->regions[type->cnt - 1].size)
+>> +		return type->cnt;
+>> +
+>> +	while (low < high) {
+>> +		mid = (low + high) / 2;
+>> +		if (type->regions[mid].base + type->regions[mid].size <= base)
+>> +			low = mid + 1;
+>> +		else
+>> +			high = mid;
+>> +	}
+>> +	return low;
+>> +}
+>> +
+>>  /**
+>>   * memblock_add_range - add new memblock region
+>>   * @type: memblock type to add new region into
+>> @@ -651,7 +683,8 @@ static int __init_memblock memblock_add_range(struct memblock_type *type,
+>>  	base = obase;
+>>  	nr_new = 0;
+>>  
+>> -	for_each_memblock_type(idx, type, rgn) {
+>> +	for_each_memblock_type_from(idx, type, rgn,
+>> +				    memblock_bsearch_start(type, base)) {
+>>  		phys_addr_t rbase = rgn->base;
+>>  		phys_addr_t rend = rbase + rgn->size;
+>>  
+>> @@ -827,7 +860,8 @@ static int __init_memblock memblock_isolate_range(struct memblock_type *type,
+>>  		if (memblock_double_array(type, base, size) < 0)
+>>  			return -ENOMEM;
+>>  
+>> -	for_each_memblock_type(idx, type, rgn) {
+>> +	for_each_memblock_type_from(idx, type, rgn,
+>> +				    memblock_bsearch_start(type, base)) {
+>>  		phys_addr_t rbase = rgn->base;
+>>  		phys_addr_t rend = rbase + rgn->size;
+>>  
