@@ -1,128 +1,85 @@
-Received: from mail-oi1-f181.google.com (mail-oi1-f181.google.com [209.85.167.181])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3DF8444705
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 22:18:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8740B47887E;
+	Fri,  4 Sep 2026 22:21:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788560286; cv=none; b=l8r2Ca7Yt4Xin3cJbxYDcMt72Ua1/BLUwO9rgPNIiBa/ADXlIZJOJ5VGVrhvTtsOv+hUL57Be/TboBLoE13Rnv2b7X730G7BI66CBQSKJTnYWsY3am+pR/PwaGijvCgNZJfLa+/HBRBiVJ0pWdnfuFddhOedzvdNndP9SnpnK/4=
+	t=1788560494; cv=none; b=NgaD47ymna2HShVr53SpGKJQOsE8sE44+Qmnwf4WDP1VHqNDmWcIBnAFjU2EScjrrJFDw4uMyLzAKfberXPwkKeLnCNryjpcoJcvBVgJIQtUnRzP6SuaWWuAVrmaQkgMdIn9Nm7DZ+p6E6sAU6o9N3wCx+q/BSab34mKsR+oO9Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788560286; c=relaxed/simple;
-	bh=M3ljDf5cp1LAD/hxypnrKeBycVDg5CrbHCeWC0NTb5Q=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=Kj9XH24zyyA9llgyXc07FMY+5YLowL9lrQcCwYFl23y9/DaCW848Oq/4G8vO6cn48pQsdYkoXuqEpMIyoDVyUTJAgrkPt9xItmIZzwE76p8leB6FhGXx0MCY/GHVUDtsZJh78LpRoJ2ewic/ngofd1VjgrSKUUaFnaTWcLTozUY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sB8d7N9x; arc=none smtp.client-ip=209.85.167.181
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788560494; c=relaxed/simple;
+	bh=I1+DlDXXZMKXVxWFcR3HcrMpIS3F/JxDgU5beXboqBM=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=AILJ+GQpyQEG8iEarGFu6oZHm3vGDxGBCmt7kX2PG6j+ICAA2s61aeLVEYTAyP8jmRQLLnYWz42wUU8Dk+Wa2VrzVNyeSHn+go1TY6+Cya0pY65yW0lU2Ma08XL0YuGyc40hXLn+dfHDS8prYvh/yQ9PnRKIeF9sS2OlflbLrNg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jinurUqm; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sB8d7N9x"
-Received: by mail-oi1-f181.google.com with SMTP id 5614622812f47-4af81963f35so926052b6e.0
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 15:18:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788560282; x=1789165082; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=937oNA2R/MB70KQ5+NEYQ+AXWnqJFM7/BAjPlSp0cIU=;
-        b=sB8d7N9xR174ERGeKGUXgcU+Qim0RlcUSFzZeiU8VJGI+W7BZPV/hm8c0zRm+b8Yup
-         o2s0j6wsytdH9I3E/7rfYnsnaHDOOZMa9taEfbBfkIOvtEH8ywzwzUuK5HUkMYUNAtTQ
-         yWXzZvnZ3iFUp/Hf8vAjv7jvkEl+yYx3m0SepPTYJ47CErTY5VZCKMcMyYvptgQ+9VHi
-         mwpJwh4xsPY8AZOyrDRrGu1u5w9ik/R1CAAWGIV8oztZHnlKF/OvTDxHOS6dTPuRq+Ll
-         W2ItJYvLX30TAidDLWBZsqwjNXY9wipp3iCtSoMRJWOpH1rRPyupjuUWOWWJSgA8EOBF
-         /nNQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788560282; x=1789165082;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=937oNA2R/MB70KQ5+NEYQ+AXWnqJFM7/BAjPlSp0cIU=;
-        b=Zmexo4cGBrImsnBLrudXxxP91cbfEZ3Et78yljhkB6ARLMJfspsoCcTK9cVDdYbxmi
-         mogWl6QECOtnsv4oTLS7lFeXjQS/i9/GV49enBieautP9kSTqVWSFEOaY5R0q/Gnkuu5
-         ww4ZK1NhnBg5xoAlfJfIyXqGe/k50g9FFt+t5nNnea64ltVIpy8ktl5kq9PS3jGpk+c3
-         YFRnrG7UGVbrtdhdVvvNZ12RP95WVythBkehPo1cfFzByFIxT5CXfl0B741R7lsy624U
-         YrNn8ZOqj15VS4AbqrPbMVlYBUu2q+vmp3C2MbsQj+VgPwwXe2tx+5wcSXCDV/pf2aWQ
-         PDWA==
-X-Forwarded-Encrypted: i=1; AKwUvBwejoANz412/qltD9ocYycbr9Agl1XjfclWtlYisOb6/mqqIcgVN9lPbMlHtlU5sqStommzm6OonzDlBRU=@vger.kernel.org
-X-Gm-Message-State: AFuF++ngJ2L/w6eGxWZ7CrAEXqgDTclkvXZqDt879i8GO+qw0ZFeyQMl
-	8Zj6PRBz5PeEjs5blCrzswpGipe8I6euSK2pu4W3S10XP7+JvRPs4bAn
-X-Gm-Gg: AYBFou2vYj4cHrHXizWd8VSW9lCH2IB2Ipt7+kpL4tOf7DqSMREVZbNrXvUpYsAPFHq
-	hBqBrQKdmw+VPszdq638quMMO1aKvxgPBcwA/UxbEW3uaXAq/t4o5Hy2wlmmOYVhrTXvxgB0X+y
-	HaOQGjKBAzIC0+4ouIe3fdVL2NRfhrw8tYrJMVZ/UBNfUL3MF4NuS6nTVd6fBtmtDzsLqyqAQnL
-	7sLRPsjTZbiT5qBnwOM/fvI873B9SMA1xwg8F5ulI5r+kjIVBvVy2AaCYHQuNVnkdhOzv4238l0
-	jwbSCBwqQmBn6sFmztqNA0lMx9UG1TcQarOszMXiTe7a3VqUb6Ccb+sWI9fxaC14fkgNjmrdIW6
-	j/yYtSktoGMDTr6Ljc6DIkNsxTKYFltiSrPqz2ha3f4uMpPmVLg/esybE8SC7q9V16fmMJ9aTQG
-	B3fBPiX4lytThjkwzSinwZIvFY2w1e3LqrMBLivwF+krW6UjwHqcJCrujT+HmFb7UGimaPVbkOf
-	XqfPSxT2O5OmTUN1QOmXNr7MUYunxWDNu95b87zkZVQCCiCpz5+u/BU1Mm4/dq4A7shOlzoPTa6
-	Vcjnr9p/1Cyf+z1cAdhgioZDnB7OjF+Pxl65hVj/1yWPZDmhcKaIK5z+FLyuaLyU1bJZkE4Ge1S
-	yH1HPdJ4uV8GKruKZOw==
-X-Received: by 2002:a05:6808:6807:b0:4a3:fb6c:9adf with SMTP id 5614622812f47-4b9622c35abmr8613617b6e.12.1788560282554;
-        Fri, 04 Sep 2026 15:18:02 -0700 (PDT)
-Received: from [127.0.1.1] (184-96-151-165.hlrn.qwest.net. [184.96.151.165])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-4b971c8ed6asm3718199b6e.17.2026.09.04.15.18.01
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 04 Sep 2026 15:18:01 -0700 (PDT)
-From: James Hilliard <james.hilliard1@gmail.com>
-Date: Fri, 04 Sep 2026 16:17:58 -0600
-Subject: [PATCH] mtd: rawnand: sunxi: fix free OOB section offsets
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jinurUqm"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 98D791F00A3D;
+	Fri,  4 Sep 2026 22:21:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788560484;
+	bh=Q2lLPA0/RY7sYTvVQwJN5wkIUDKkohZsu8pi8u9FSDA=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=jinurUqmztEnowGbjLE0CXx111Ok8dRVX51tDuGIkL8wdmawLXA1I9dKkAAEJUbSH
+	 MPM7+pQRtv0lIouNA5BBEUUnhiuW1WCKHLNfCHd8Tj/wysdxY+JK6lmyTjml6bXUFC
+	 MvBPlllcCr3PAAD4k7dRXFTrFo3N/XY38AQ7wqg7rnGmoYy2R28RPmUe6cThRFc2gm
+	 BTyWxYKeLLoN9oBPute9QzcFv8YxMt0i7ghHm7C/ZSH+QTDxzHh+c+e8T7y6UjhrXG
+	 JxQi7MUqSO742boEE3uwPb8g6R4RX2HIdiVZCmICIMh2kOITT7VSJe64KNzB8StBvp
+	 vrKhSGh6fCmkw==
+Date: Fri, 4 Sep 2026 23:21:20 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Amiitesh TSP <tspamiitesh@gmail.com>
+Cc: gregkh@linuxfoundation.org, dlechner@baylibre.com, nuno.sa@analog.com,
+ andy@kernel.org, linux-iio@vger.kernel.org, linux-staging@lists.linux.dev,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] docs: fix typos in drivers/staging/iio
+Message-ID: <20260904232120.63ece599@jic23-huawei>
+In-Reply-To: <20260904165115.228990-1-tspamiitesh@gmail.com>
+References: <20260904165115.228990-1-tspamiitesh@gmail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260904-submit-sunxi-nand-free-oob-offset-v1-1-cf389b9ac94c@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWN2wrCMBBEf6Xss0trLC31V8SHXDZ2hW4kiRIo/
- XcTfRrOMJzZIVFkSnDtdoj04cRBKpxPHdhVy4OQXWVQg5qGZRgxvc3GuYYURtHi0EciDMFg8D5
- RRu3GyzIpP89+gep5RfJcfh+3+5+r5Ek2N3FbGJ0ITdRi11Zt2fXN3AuVDMfxBUIgyQelAAAA
-X-Change-ID: 20260904-submit-sunxi-nand-free-oob-offset-ad43962f77f9
-To: Miquel Raynal <miquel.raynal@bootlin.com>, 
- Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>, 
- Chen-Yu Tsai <wens@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Samuel Holland <samuel@sholland.org>, 
- Richard Genoud <richard.genoud@bootlin.com>
-Cc: linux-mtd@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
- linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org, James Hilliard <james.hilliard1@gmail.com>
-X-Mailer: b4 0.15.2
 
-The sunxi hardware ECC OOB layout places protected user data before the
-ECC bytes for every step. Since variable user-data lengths were
-introduced, free sections after the first use sunxi_get_ecc_offset(),
-which skips the protected user data and points at the ECC bytes instead.
+On Fri,  4 Sep 2026 22:21:15 +0530
+Amiitesh TSP <tspamiitesh@gmail.com> wrote:
 
-As a result, the MTD free-OOB interface addresses ECC bytes rather than
-the protected user data for those sections. Use sunxi_get_oob_offset() to
-point each free section at the beginning of its protected user data. Keep
-the special two-byte offset for section zero to reserve the bad block
-marker.
+> Fix typo error in iio staging documentation from none zero to non-zero
+> 
+> Signed-off-by: Amiitesh TSP <tspamiitesh@gmail.com>
+Hi Amiitesh,
 
-Fixes: 54dcd6aa69db ("mtd: rawnand: sunxi: introduce maximize variable user data length")
-Cc: stable@vger.kernel.org
-Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
----
- drivers/mtd/nand/raw/sunxi_nand.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+So I'm kind of assuming Amiitesh TSP isn't a legal name (which is
+anyway no longer a requirement for a SoB).  A bit of googling shows
+you've at been using it in various other forums, so I think that
+meets the requirement of a known ID.
 
-diff --git a/drivers/mtd/nand/raw/sunxi_nand.c b/drivers/mtd/nand/raw/sunxi_nand.c
-index 83666dd6cb2a..559b42687b1b 100644
---- a/drivers/mtd/nand/raw/sunxi_nand.c
-+++ b/drivers/mtd/nand/raw/sunxi_nand.c
-@@ -2013,7 +2013,7 @@ static int sunxi_nand_ooblayout_free(struct mtd_info *mtd, int section,
- 		return 0;
- 	}
- 
--	oobregion->offset = sunxi_get_ecc_offset(sunxi_nand, ecc, section);
-+	oobregion->offset = sunxi_get_oob_offset(sunxi_nand, ecc, section);
- 	oobregion->length = user_data_sz;
- 
- 	return 0;
+So with that in mind,
 
----
-base-commit: def559a215699aa2f2d8ef98f30156b9d562a154
-change-id: 20260904-submit-sunxi-nand-free-oob-offset-ad43962f77f9
+Applied, thanks!
 
-Best regards,
---  
-James Hilliard <james.hilliard1@gmail.com>
+Jonathan
+
+> ---
+>  drivers/staging/iio/Documentation/sysfs-bus-iio-adc-ad7280a | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/staging/iio/Documentation/sysfs-bus-iio-adc-ad7280a b/drivers/staging/iio/Documentation/sysfs-bus-iio-adc-ad7280a
+> index 863d3856718a..d19db00acd1d 100644
+> --- a/drivers/staging/iio/Documentation/sysfs-bus-iio-adc-ad7280a
+> +++ b/drivers/staging/iio/Documentation/sysfs-bus-iio-adc-ad7280a
+> @@ -4,7 +4,7 @@ Contact:	linux-iio@vger.kernel.org
+>  Description:
+>  		Writing 1 enables the cell balance output switch corresponding
+>  		to input Y. Writing 0 disables it. If the inY-inZ_balance_timer
+> -		is set to a none zero value, the corresponding switch will
+> +		is set to a non-zero value, the corresponding switch will
+>  		enable for the programmed amount of time, before it
+>  		automatically disables.
+>  
 
