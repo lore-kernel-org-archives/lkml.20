@@ -1,369 +1,223 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oo1-f72.google.com (mail-oo1-f72.google.com [209.85.161.72])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22EC54FDE55;
-	Fri,  4 Sep 2026 21:59:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21911431E5E
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 22:00:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788559214; cv=none; b=Thken4LtyK8ZG1MkkPNJRcr0pM+alqe9lvA8rbLCxtnKBVaPJyUbA49LwEjzKW4iZrVTqnmibOazAKOIYhE2U1TA09CpTYFPDOJ2DKC7ojS1jgVWmKWGOk60LP/oaLaphnoJiG8ZckyrgluJsyZI3NolXB0SIQ8ErNAGIaJ1gD0=
+	t=1788559232; cv=none; b=jddaE0l2GPIsyHHd2WV+sM2K57XZuRXmSVAfbiQ3dx0snYNBWgEABwj58mHhDtVnScvLiG9QqsFcewOMT58s93bEjjkbABhO/IPQtzCiCj0OPgjNIkb5N5Kri/exjkDn+ITWf/I7ybfZxO/2W5uW48XL7JUd7uQ2OYqtdxGmTNE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788559214; c=relaxed/simple;
-	bh=yvaxJRKIvppfFL8wWPTvkEtg5yGvkXX0L2nrA19bQus=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Veq0Prh3qeK3p/PAicUTc5smJcLEmM0cF4ZSQ2EFy3VrbbkPNP6jgBlh2iGKVVPg/zZl0tNbstCLEslTaeH9N4Pt5H7ETF78kT8lZpYD1u5089uHiN5sbYhukSs/gl1Qie9uHCMKf8yFlZHzYJpYmpCGaKcjXhtcqzQMcgPuUOM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=nKqnve37; arc=none smtp.client-ip=198.175.65.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="nKqnve37"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788559202; x=1820095202;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=yvaxJRKIvppfFL8wWPTvkEtg5yGvkXX0L2nrA19bQus=;
-  b=nKqnve37DmTPqwv8PHSPXXsasABPdzmO9+PXMHtqdCJTPTxcboCJPYIr
-   z59FDm/O9yYO3p835ywueyBvu/OnvxXLXwSlxm4+NGo2Ao1t3BieWf0Qx
-   PNK2dj6uvsoWiNGoFiH+0ps14u8eRs2Fn9ZOCRxy02P4NwkvRrkMUF9C6
-   xOfk4N5f9fHslgv8kQdOhfgX3VEp9a3/ojulY0/ZUhPm6wDrDHPDaTM10
-   oGRm+6Zvbcq60oJvpQTJHr7WnY5pVKxCQaz/dJsqbuxuTuF8R1A+9e6FY
-   1d/ke+eJZGxyugcNkhSSb68TCuWc4xAnByzlp9TVidFQFHPYY0BC5JNyP
-   w==;
-X-CSE-ConnectionGUID: y5WfT7F0SdqksZLXQgrWYA==
-X-CSE-MsgGUID: ftmSl668TMuwhv342GNmPw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11896"; a="100224858"
-X-IronPort-AV: E=Sophos;i="6.25,262,1779174000"; 
-   d="scan'208";a="100224858"
-Received: from orviesa009.jf.intel.com ([10.64.159.149])
-  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Sep 2026 14:59:24 -0700
-X-CSE-ConnectionGUID: c8kQOBSNSIefV5sPcJ12vQ==
-X-CSE-MsgGUID: tmQzknVIRE2EK8Lp/CP7tA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,262,1779174000"; 
-   d="scan'208";a="270675046"
-Received: from rpedgeco-desk.jf.intel.com ([10.88.27.135])
-  by orviesa009-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Sep 2026 14:59:23 -0700
-From: Rick Edgecombe <rick.p.edgecombe@intel.com>
-To: bp@alien8.de,
-	dave.hansen@intel.com,
-	hpa@zytor.com,
-	kas@kernel.org,
-	kvm@vger.kernel.org,
-	linux-coco@lists.linux.dev,
-	linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	mingo@redhat.com,
-	nik.borisov@suse.com,
-	pbonzini@redhat.com,
-	seanjc@google.com,
-	tglx@kernel.org,
-	vannapurve@google.com,
-	x86@kernel.org,
-	chao.gao@intel.com,
-	yan.y.zhao@intel.com,
-	kai.huang@intel.com,
-	tony.lindgren@linux.intel.com,
-	binbin.wu@intel.com,
-	sohil.mehta@intel.com
-Cc: rick.p.edgecombe@intel.com,
-	Hongyu Ning <hongyu.ning@linux.intel.com>,
-	Binbin Wu <binbin.wu@linux.intel.com>,
-	Dave Hansen <dave.hansen@linux.intel.com>
-Subject: [PATCH v11 08/11] KVM: TDX: Get/put PAMT pages when (un)mapping private memory
-Date: Fri,  4 Sep 2026 14:58:38 -0700
-Message-ID: <20260904215841.303070-9-rick.p.edgecombe@intel.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260904215841.303070-1-rick.p.edgecombe@intel.com>
-References: <20260904215841.303070-1-rick.p.edgecombe@intel.com>
+	s=arc-20240116; t=1788559232; c=relaxed/simple;
+	bh=ynm7sEqQ3KSr8jwMPaEN1cYByfVXNcWazHGRrpo6es8=;
+	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=D8eYoul3evKDYqTh2enZWSVTEl+HTl7+ShBnMuU/WtvT9rJtviwEGKBwhkGozxLP+qosUFnu+ZSaE0FsN5DHfp2/wa9KPJyivhWjlNJEOF7gnO8z2F/UE1OF3Hk5aRXwUmacAquHfPV4ed7dw8HOVYtMZqE3T667fkHTkBgpp2U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.161.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oo1-f72.google.com with SMTP id 006d021491bc7-6b1b19eab8bso1094981eaf.0
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 15:00:28 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788559226; x=1789164026;
+        h=content-type:to:from:subject:message-id:date:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=dO7aa6Y0Re9KYAlKh9YoKOJummlZlCZLSFYR4cBNXoQ=;
+        b=tATv1G+W3uWBWOWEATSigMeTgeMg0aLWgYYR/qbEawS+/RzU8ATWqVfv7Z1ntkXzJD
+         zuiZVMQzcl9598WoDhw8JLNRPRrARVYp7cmg9NaBmh7XJtXu59pU1O6q6+OA+IWeyCfl
+         aiTKIxceIx/ooF3H8Z0GSngfu17iZL5uU2DrkCTQz8PPquY82HC/qg9svh9ms2Y/EuIK
+         rEKirymqcXmglpUP0wXZHKYXPSXhVSmSh5VIPhaxu6NFOuzkq+A+3hXsT2syRMI2NpaH
+         CveKa9etkCjTjY+k1axdeZDy7MpVFBUQPL58s53ppjt8dlQDu+gz92oAo13M+20DSyko
+         z4Bg==
+X-Gm-Message-State: AFuF++kbNarS8wgKL9q4En8uYkqjZAcWogsdc8qOpzycDCpVhmNOgzZL
+	sPzPwyu/6kwfRxVktwDPYYnUyNwZkmH/TO9DH9UJTMKQ+0pUSpqW5zqX3rCDmZK6yVAuzmoet+V
+	x3ZhzIHJEPiasTvC9oEcq0ILn3so2lXDsJbYbt/kinRiNgUjSRkAO6l59E8A=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-Received: by 2002:a05:6820:1997:b0:6a3:7ad3:e728 with SMTP id
+ 006d021491bc7-6b6fe2aefbbmr6942530eaf.28.1788559226728; Fri, 04 Sep 2026
+ 15:00:26 -0700 (PDT)
+Date: Fri, 04 Sep 2026 15:00:26 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6a9b3f7a.2e649fcc.1e1977.0001.GAE@google.com>
+Subject: [syzbot] KASAN: slab-use-after-free Write in o2hb_region_dev_store
+From: syzbot <syzbot+3025e3e8fc0b928af8f5@syzkaller.appspotmail.com>
+To: linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-From: "Kirill A. Shutemov" <kirill.shutemov@linux.intel.com>
+Hello,
 
-Add Dynamic PAMT support to KVM's S-EPT MMU by "getting" a PAMT page when
-adding guest memory (PAGE.ADD or PAGE.AUG), and "putting" the page when
-removing guest memory (PAGE.REMOVE).
+syzbot found the following issue on:
 
-To access the per-vCPU PAMT caches without plumbing @vcpu throughout the
-TDP MMU, begrudgingly use kvm_get_running_vcpu() to get the vCPU, and bug
-the VM if KVM attempts to set an S-EPT leaf without an active vCPU.  KVM
-only supports creating _new_ mappings in page (pre)fault paths, all of
-which require an active vCPU.
+HEAD commit:    bc35965f6940 Merge tag 'mm-hotfixes-stable-2026-09-03-17-4..
+git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
+console output: https://syzkaller.appspot.com/x/log.txt?x=119c84f9580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=8c5c3949d762a91f
+dashboard link: https://syzkaller.appspot.com/bug?extid=3025e3e8fc0b928af8f5
+compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
+C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=1714a8f9580000
 
-The PAMT memory holds metadata for TDX protected memory. With Dynamic
-PAMT, PAMT_4K is allocated on demand. The kernel supplies the TDX module
-with a few pages that cover 2MB of host physical memory.
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+3025e3e8fc0b928af8f5@syzkaller.appspotmail.com
 
-Releases are balanced via tdx_pamt_put(): every control-page free goes
-through tdx_free_control_page(), and guest data pages are put directly on
-the successful tdh_mem_page_remove() path and in the
-tdx_mem_page_add/aug() error path.
+==================================================================
+BUG: KASAN: slab-use-after-free in o2hb_map_slot_data fs/ocfs2/cluster/heartbeat.c:1811 [inline]
+BUG: KASAN: slab-use-after-free in o2hb_region_dev_store+0x1751/0x1b00 fs/ocfs2/cluster/heartbeat.c:1936
+Write of size 8 at addr ffff8880262b82e8 by task syz.3.20/6459
 
-Signed-off-by: Kirill A. Shutemov <kirill.shutemov@linux.intel.com>
-Co-developed-by: Sean Christopherson <seanjc@google.com>
-Signed-off-by: Sean Christopherson <seanjc@google.com>
-[rick: enhance log, reviewing, rebase, with help from AI tooling]
-Co-developed-by: Rick Edgecombe <rick.p.edgecombe@intel.com>
-Signed-off-by: Rick Edgecombe <rick.p.edgecombe@intel.com>
-Tested-by: Hongyu Ning <hongyu.ning@linux.intel.com>
-Reviewed-by: Binbin Wu <binbin.wu@linux.intel.com>
-Reviewed-by: Tony Lindgren <tony.lindgren@linux.intel.com>
-Reviewed-by: Dave Hansen <dave.hansen@linux.intel.com>
-Reviewed-by: Vishal Annapurve <vannapurve@google.com>
-Acked-by: Sohil Mehta <sohil.mehta@intel.com>
-Acked-by: Sean Christopherson <seanjc@google.com>
+CPU: 2 UID: 0 PID: 6459 Comm: syz.3.20 Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+Call Trace:
+ <TASK>
+ __dump_stack lib/dump_stack.c:94 [inline]
+ dump_stack_lvl+0x100/0x190 lib/dump_stack.c:120
+ print_address_description mm/kasan/report.c:378 [inline]
+ print_report+0x13d/0x4b0 mm/kasan/report.c:482
+ kasan_report+0xdf/0x1c0 mm/kasan/report.c:595
+ o2hb_map_slot_data fs/ocfs2/cluster/heartbeat.c:1811 [inline]
+ o2hb_region_dev_store+0x1751/0x1b00 fs/ocfs2/cluster/heartbeat.c:1936
+ flush_write_buffer fs/configfs/file.c:207 [inline]
+ configfs_write_iter+0x302/0x4e0 fs/configfs/file.c:229
+ new_sync_write fs/read_write.c:595 [inline]
+ vfs_write+0x6af/0x1050 fs/read_write.c:687
+ ksys_write+0x12a/0x250 fs/read_write.c:739
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x7f79d5d9e019
+Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007f79d6c1c028 EFLAGS: 00000246 ORIG_RAX: 0000000000000001
+RAX: ffffffffffffffda RBX: 00007f79d6025fa0 RCX: 00007f79d5d9e019
+RDX: 0000000000000001 RSI: 00002000000005c0 RDI: 0000000000000004
+RBP: 00007f79d5e3500c R08: 0000000000000000 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
+R13: 00007f79d6026038 R14: 00007f79d6025fa0 R15: 00007ffc42008128
+ </TASK>
+
+Allocated by task 6459:
+ kasan_save_stack+0x30/0x50 mm/kasan/common.c:57
+ kasan_save_track+0x14/0x30 mm/kasan/common.c:78
+ poison_kmalloc_redzone mm/kasan/common.c:398 [inline]
+ __kasan_kmalloc+0xaa/0xb0 mm/kasan/common.c:415
+ kasan_kmalloc include/linux/kasan.h:263 [inline]
+ __do_kmalloc_node mm/slub.c:5414 [inline]
+ __kmalloc_noprof+0x32f/0x840 mm/slub.c:5439
+ _kmalloc_noprof include/linux/slab.h:995 [inline]
+ _kzalloc_noprof include/linux/slab.h:1312 [inline]
+ o2hb_map_slot_data fs/ocfs2/cluster/heartbeat.c:1802 [inline]
+ o2hb_region_dev_store+0x88b/0x1b00 fs/ocfs2/cluster/heartbeat.c:1936
+ flush_write_buffer fs/configfs/file.c:207 [inline]
+ configfs_write_iter+0x302/0x4e0 fs/configfs/file.c:229
+ new_sync_write fs/read_write.c:595 [inline]
+ vfs_write+0x6af/0x1050 fs/read_write.c:687
+ ksys_write+0x12a/0x250 fs/read_write.c:739
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+Freed by task 6458:
+ kasan_save_stack+0x30/0x50 mm/kasan/common.c:57
+ kasan_save_track+0x14/0x30 mm/kasan/common.c:78
+ kasan_save_free_info+0x3b/0x70 mm/kasan/generic.c:584
+ poison_slab_object mm/kasan/common.c:253 [inline]
+ __kasan_slab_free+0x5f/0x80 mm/kasan/common.c:285
+ kasan_slab_free include/linux/kasan.h:235 [inline]
+ slab_free_hook mm/slub.c:2748 [inline]
+ slab_free mm/slub.c:6499 [inline]
+ kfree+0x22b/0x6d0 mm/slub.c:6792
+ o2hb_unmap_slot_data+0x190/0x330 fs/ocfs2/cluster/heartbeat.c:1596
+ o2hb_region_dev_store+0x112e/0x1b00 fs/ocfs2/cluster/heartbeat.c:2027
+ flush_write_buffer fs/configfs/file.c:207 [inline]
+ configfs_write_iter+0x302/0x4e0 fs/configfs/file.c:229
+ new_sync_write fs/read_write.c:595 [inline]
+ vfs_write+0x6af/0x1050 fs/read_write.c:687
+ ksys_write+0x12a/0x250 fs/read_write.c:739
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+The buggy address belongs to the object at ffff8880262b8200
+ which belongs to the cache kmalloc-256 of size 256
+The buggy address is located 232 bytes inside of
+ freed 256-byte region [ffff8880262b8200, ffff8880262b8300)
+
+The buggy address belongs to the physical page:
+page: refcount:0 mapcount:0 mapping:0000000000000000 index:0x0 pfn:0x262b8
+head: order:1 mapcount:0 entire_mapcount:0 nr_pages_mapped:0 pincount:0
+flags: 0xfff00000000040(head|node=0|zone=1|lastcpupid=0x7ff)
+page_type: f5(slab)
+raw: 00fff00000000040 ffff88801c042b40 dead000000000100 dead000000000122
+raw: 0000000000000000 0000000000100010 00000000f5000000 0000000000000000
+head: 00fff00000000040 ffff88801c042b40 dead000000000100 dead000000000122
+head: 0000000000000000 0000000000100010 00000000f5000000 0000000000000000
+head: 00fff00000000001 ffffffffffffff81 00000000ffffffff 00000000ffffffff
+head: ffffffffffffffff 0000000000000000 00000000ffffffff 0000000000000002
+page dumped because: kasan: bad access detected
+page_owner tracks the page as allocated
+page last allocated via order 1, migratetype Unmovable, gfp_mask 0xd2040(__GFP_IO|__GFP_NOWARN|__GFP_NORETRY|__GFP_COMP|__GFP_NOMEMALLOC), pid 39, tgid 39 (kdevtmpfs), ts 6186544854
+ set_page_owner include/linux/page_owner.h:33 [inline]
+ post_alloc_hook+0xfd/0x120 mm/page_alloc.c:1871
+ prep_new_page mm/page_alloc.c:1879 [inline]
+ get_page_from_freelist+0x110d/0x35d0 mm/page_alloc.c:3943
+ __alloc_frozen_pages_noprof+0x2eb/0x3300 mm/page_alloc.c:5436
+ alloc_slab_page mm/slub.c:3347 [inline]
+ allocate_slab mm/slub.c:3462 [inline]
+ new_slab+0xa9/0x6e0 mm/slub.c:3513
+ refill_objects+0xe3/0x410 mm/slub.c:7410
+ refill_sheaf mm/slub.c:2885 [inline]
+ __pcs_replace_empty_main+0x35e/0x650 mm/slub.c:4774
+ alloc_from_pcs mm/slub.c:4850 [inline]
+ slab_alloc_node mm/slub.c:4984 [inline]
+ __do_kmalloc_node mm/slub.c:5413 [inline]
+ __kmalloc_noprof+0x67c/0x840 mm/slub.c:5439
+ _kmalloc_noprof include/linux/slab.h:995 [inline]
+ _kmalloc_array_noprof include/linux/slab.h:1211 [inline]
+ security_inode_init_security+0x113/0x370 security/security.c:1347
+ shmem_mknod+0x2ce/0x480 mm/shmem.c:3838
+ vfs_mknod+0x3a5/0x7f0 fs/namei.c:5269
+ handle_create drivers/base/devtmpfs.c:232 [inline]
+ handle drivers/base/devtmpfs.c:384 [inline]
+ devtmpfs_work_loop+0x48d/0xae4 drivers/base/devtmpfs.c:399
+ devtmpfsd+0x3f/0x50 drivers/base/devtmpfs.c:441
+ kthread+0x373/0x450 kernel/kthread.c:436
+ ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
+ ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+page_owner free stack trace missing
+
+Memory state around the buggy address:
+ ffff8880262b8180: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
+ ffff8880262b8200: fa fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+>ffff8880262b8280: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+                                                          ^
+ ffff8880262b8300: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
+ ffff8880262b8380: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
+==================================================================
+
+
 ---
-v8:
- - Remove extra new line around *topup_external_cache() (Sean)
- - Make +1/-1 logic clearer by just coding the easily optimizable math.
-   (Nikolay, Sean)
- - Do KVM_BUG_ON() on tdx_pamt_get() return. (Sean)
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
 
-v7:
- - Don't do to_tdx() before NULL check for readability (Binbin, Sean)
- - Fixup tags (Sean)
- - Export tdx_supports_dynamic_pamt() since it's used in KVM here and no
-   longer an static inline.
----
- arch/x86/include/asm/kvm-x86-ops.h |  1 +
- arch/x86/include/asm/kvm_host.h    |  1 +
- arch/x86/kvm/mmu/mmu.c             |  4 ++
- arch/x86/kvm/vmx/tdx.c             | 64 ++++++++++++++++++++++++++----
- arch/x86/kvm/vmx/tdx.h             |  2 +
- arch/x86/virt/vmx/tdx/tdx.c        |  1 +
- 6 files changed, 65 insertions(+), 8 deletions(-)
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
 
-diff --git a/arch/x86/include/asm/kvm-x86-ops.h b/arch/x86/include/asm/kvm-x86-ops.h
-index e213c9ae3e301..5c358c40eae8a 100644
---- a/arch/x86/include/asm/kvm-x86-ops.h
-+++ b/arch/x86/include/asm/kvm-x86-ops.h
-@@ -99,6 +99,7 @@ KVM_X86_OP_OPTIONAL_RET0(tdp_has_smep)
- KVM_X86_OP(load_mmu_pgd)
- KVM_X86_OP_OPTIONAL_RET0(set_external_spte)
- KVM_X86_OP_OPTIONAL(free_external_spt)
-+KVM_X86_OP_OPTIONAL_RET0(topup_external_cache)
- KVM_X86_OP(has_wbinvd_exit)
- KVM_X86_OP(get_l2_tsc_offset)
- KVM_X86_OP(get_l2_tsc_multiplier)
-diff --git a/arch/x86/include/asm/kvm_host.h b/arch/x86/include/asm/kvm_host.h
-index 683bb8bf43a94..57d37491c7c09 100644
---- a/arch/x86/include/asm/kvm_host.h
-+++ b/arch/x86/include/asm/kvm_host.h
-@@ -1644,6 +1644,7 @@ struct kvm_x86_ops {
- 	/* Update external page tables for page table about to be freed. */
- 	void (*free_external_spt)(struct kvm *kvm, struct kvm_mmu_page *sp);
- 
-+	int (*topup_external_cache)(struct kvm_vcpu *vcpu, int min_nr_spts);
- 
- 	bool (*has_wbinvd_exit)(void);
- 
-diff --git a/arch/x86/kvm/mmu/mmu.c b/arch/x86/kvm/mmu/mmu.c
-index 064ecc33b9267..2816861ca279c 100644
---- a/arch/x86/kvm/mmu/mmu.c
-+++ b/arch/x86/kvm/mmu/mmu.c
-@@ -617,6 +617,10 @@ static int mmu_topup_memory_caches(struct kvm_vcpu *vcpu, bool maybe_indirect)
- 					       PT64_ROOT_MAX_LEVEL);
- 		if (r)
- 			return r;
-+
-+		r = kvm_x86_call(topup_external_cache)(vcpu, PT64_ROOT_MAX_LEVEL);
-+		if (r)
-+			return r;
- 	}
- 	r = kvm_mmu_topup_memory_cache(&vcpu->arch.mmu_shadow_page_cache,
- 				       PT64_ROOT_MAX_LEVEL);
-diff --git a/arch/x86/kvm/vmx/tdx.c b/arch/x86/kvm/vmx/tdx.c
-index 3592596b5649a..7c79f4d4bf99a 100644
---- a/arch/x86/kvm/vmx/tdx.c
-+++ b/arch/x86/kvm/vmx/tdx.c
-@@ -681,6 +681,8 @@ int tdx_vcpu_create(struct kvm_vcpu *vcpu)
- 	if (!irqchip_split(vcpu->kvm))
- 		return -EINVAL;
- 
-+	tdx_init_pamt_cache(&tdx->pamt_cache);
-+
- 	fpstate_set_confidential(&vcpu->arch.guest_fpu);
- 	vcpu->arch.apic->guest_apic_protected = true;
- 	INIT_LIST_HEAD(&tdx->vt.pi_wakeup_list);
-@@ -866,6 +868,8 @@ void tdx_vcpu_free(struct kvm_vcpu *vcpu)
- 	struct vcpu_tdx *tdx = to_tdx(vcpu);
- 	int i;
- 
-+	tdx_free_pamt_cache(&tdx->pamt_cache);
-+
- 	if (vcpu->cpu != -1) {
- 		KVM_BUG_ON(tdx->state == VCPU_TD_STATE_INITIALIZED, vcpu->kvm);
- 		tdx_flush_vp_on_cpu(vcpu);
-@@ -1618,6 +1622,17 @@ void tdx_load_mmu_pgd(struct kvm_vcpu *vcpu, hpa_t root_hpa, int pgd_level)
- 	td_vmcs_write64(to_tdx(vcpu), SHARED_EPT_POINTER, root_hpa);
- }
- 
-+static int tdx_topup_external_pamt_cache(struct kvm_vcpu *vcpu, int min_nr_spts)
-+{
-+	/*
-+	 * Minus one page to exclude the root SPT, but plus one page for a
-+	 * possible 4KB private mapping.
-+	 */
-+	min_nr_spts += -1 + 1;
-+
-+	return tdx_topup_pamt_cache(&to_tdx(vcpu)->pamt_cache, min_nr_spts);
-+}
-+
- static int tdx_mem_page_add(struct kvm *kvm, gfn_t gfn, enum pg_level level,
- 			    kvm_pfn_t pfn)
- {
-@@ -1676,16 +1691,28 @@ static struct page *tdx_spte_to_sept_pt(struct kvm *kvm, gfn_t gfn,
- static int tdx_sept_map_nonleaf_spte(struct kvm *kvm, gfn_t gfn,
- 				     enum pg_level level, u64 new_spte)
- {
-+	struct kvm_vcpu *vcpu = kvm_get_running_vcpu();
- 	gpa_t gpa = gfn_to_gpa(gfn);
- 	u64 err, entry, level_state;
- 	struct page *sept_pt;
-+	int ret;
-+
-+	if (KVM_BUG_ON(!vcpu, kvm))
-+		return -EIO;
- 
- 	sept_pt = tdx_spte_to_sept_pt(kvm, gfn, new_spte, level);
- 	if (!sept_pt)
- 		return -EIO;
- 
-+	ret = tdx_pamt_get(page_to_pfn(sept_pt), &to_tdx(vcpu)->pamt_cache);
-+	if (KVM_BUG_ON(ret, kvm))
-+		return ret;
-+
- 	err = tdh_mem_sept_add(&to_kvm_tdx(kvm)->td, gpa, level, sept_pt,
- 			       &entry, &level_state);
-+	if (err)
-+		tdx_pamt_put(page_to_pfn(sept_pt));
-+
- 	if (unlikely(tdx_operand_busy(err)))
- 		return -EBUSY;
- 
-@@ -1698,8 +1725,13 @@ static int tdx_sept_map_nonleaf_spte(struct kvm *kvm, gfn_t gfn,
- static int tdx_sept_map_leaf_spte(struct kvm *kvm, gfn_t gfn, enum pg_level level,
- 				  u64 new_spte)
- {
-+	struct kvm_vcpu *vcpu = kvm_get_running_vcpu();
- 	struct kvm_tdx *kvm_tdx = to_kvm_tdx(kvm);
- 	kvm_pfn_t pfn = spte_to_pfn(new_spte);
-+	int ret;
-+
-+	if (KVM_BUG_ON(!vcpu, kvm))
-+		return -EIO;
- 
- 	/* TODO: handle large pages. */
- 	if (KVM_BUG_ON(level != PG_LEVEL_4K, kvm))
-@@ -1707,6 +1739,10 @@ static int tdx_sept_map_leaf_spte(struct kvm *kvm, gfn_t gfn, enum pg_level leve
- 
- 	WARN_ON_ONCE((new_spte & VMX_EPT_RWX_MASK) != VMX_EPT_RWX_MASK);
- 
-+	ret = tdx_pamt_get(pfn, &to_tdx(vcpu)->pamt_cache);
-+	if (KVM_BUG_ON(ret, kvm))
-+		return ret;
-+
- 	/*
- 	 * Ensure pre_fault_allowed is read by kvm_arch_vcpu_pre_fault_memory()
- 	 * before kvm_tdx->state.  Userspace must not be allowed to pre-fault
-@@ -1719,10 +1755,15 @@ static int tdx_sept_map_leaf_spte(struct kvm *kvm, gfn_t gfn, enum pg_level leve
- 	 * If the TD isn't finalized/runnable, then userspace is initializing
- 	 * the VM image via KVM_TDX_INIT_MEM_REGION; ADD the page to the TD.
- 	 */
--	if (unlikely(kvm_tdx->state != TD_STATE_RUNNABLE))
--		return tdx_mem_page_add(kvm, gfn, level, pfn);
-+	if (likely(kvm_tdx->state == TD_STATE_RUNNABLE))
-+		ret = tdx_mem_page_aug(kvm, gfn, level, pfn);
-+	else
-+		ret = tdx_mem_page_add(kvm, gfn, level, pfn);
- 
--	return tdx_mem_page_aug(kvm, gfn, level, pfn);
-+	if (ret)
-+		tdx_pamt_put(pfn);
-+
-+	return ret;
- }
- 
- /*
-@@ -1819,6 +1860,7 @@ static int tdx_sept_remove_leaf_spte(struct kvm *kvm, gfn_t gfn,
- 		return -EIO;
- 
- 	tdx_quirk_reset_paddr(PFN_PHYS(pfn), PAGE_SIZE);
-+	tdx_pamt_put(pfn);
- 	return 0;
- }
- 
-@@ -1862,6 +1904,8 @@ static int tdx_sept_set_private_spte(struct kvm *kvm, gfn_t gfn, u64 old_spte,
-  */
- static void tdx_sept_free_private_spt(struct kvm *kvm, struct kvm_mmu_page *sp)
- {
-+	struct page *sept_pt = virt_to_page(sp->external_spt);
-+
- 	/*
- 	 * KVM doesn't (yet) zap page table pages in mirror page table while
- 	 * TD is active, though guest pages mapped in mirror page table could be
-@@ -1875,15 +1919,15 @@ static void tdx_sept_free_private_spt(struct kvm *kvm, struct kvm_mmu_page *sp)
- 	 * the page to prevent the kernel from accessing the encrypted page.
- 	 */
- 	if (KVM_BUG_ON(is_hkid_assigned(to_kvm_tdx(kvm)), kvm) ||
--	    tdx_reclaim_page(virt_to_page(sp->external_spt)))
-+	    tdx_reclaim_page(sept_pt))
- 		goto out;
- 
- 	/*
--	 * Immediately free the S-EPT page because RCU-time free is unnecessary
--	 * after TDH.PHYMEM.PAGE.RECLAIM ensures there are no outstanding
--	 * readers.
-+	 * Immediately free the S-EPT page as the TDX subsystem doesn't support
-+	 * freeing pages from RCU callbacks, and more importantly because
-+	 * TDH.PHYMEM.PAGE.RECLAIM ensures there are no outstanding readers.
- 	 */
--	free_page((unsigned long)sp->external_spt);
-+	tdx_free_control_page(sept_pt);
- out:
- 	sp->external_spt = NULL;
- }
-@@ -3480,6 +3524,10 @@ int __init tdx_hardware_setup(void)
- 
- 	vt_x86_ops.set_external_spte = tdx_sept_set_private_spte;
- 	vt_x86_ops.free_external_spt = tdx_sept_free_private_spt;
-+
-+	if (tdx_supports_dynamic_pamt(tdx_sysinfo))
-+		vt_x86_ops.topup_external_cache = tdx_topup_external_pamt_cache;
-+
- 	vt_x86_ops.protected_apic_has_interrupt = tdx_protected_apic_has_interrupt;
- 	return 0;
- 
-diff --git a/arch/x86/kvm/vmx/tdx.h b/arch/x86/kvm/vmx/tdx.h
-index ac8323a68b163..fd368e3ee060b 100644
---- a/arch/x86/kvm/vmx/tdx.h
-+++ b/arch/x86/kvm/vmx/tdx.h
-@@ -72,6 +72,8 @@ struct vcpu_tdx {
- 
- 	u64 map_gpa_next;
- 	u64 map_gpa_end;
-+
-+	struct tdx_pamt_cache pamt_cache;
- };
- 
- void tdh_vp_rd_failed(struct vcpu_tdx *tdx, char *uclass, u32 field, u64 err);
-diff --git a/arch/x86/virt/vmx/tdx/tdx.c b/arch/x86/virt/vmx/tdx/tdx.c
-index 39865a2da5822..ff00ee6d5705a 100644
---- a/arch/x86/virt/vmx/tdx/tdx.c
-+++ b/arch/x86/virt/vmx/tdx/tdx.c
-@@ -2049,6 +2049,7 @@ bool tdx_supports_dynamic_pamt(const struct tdx_sys_info *sysinfo)
- 	/* To be enabled when kernel is ready. */
- 	return false;
- }
-+EXPORT_SYMBOL_FOR_KVM(tdx_supports_dynamic_pamt);
- 
- static struct page *tdx_alloc_page_pamt_cache(struct tdx_pamt_cache *cache)
- {
--- 
-2.55.0
+If the report is already addressed, let syzbot know by replying with:
+#syz fix: exact-commit-title
 
+If you want syzbot to run the reproducer, reply with:
+#syz test: git://repo/address.git branch-or-commit-hash
+If you attach or paste a git patch, syzbot will apply it before testing.
+
+If you want to overwrite report's subsystems, reply with:
+#syz set subsystems: new-subsystem
+(See the list of subsystem names on the web dashboard)
+
+If the report is a duplicate of another one, reply with:
+#syz dup: exact-subject-of-another-report
+
+If you want to undo deduplication, reply with:
+#syz undup
