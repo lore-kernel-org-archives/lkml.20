@@ -1,99 +1,81 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 684613B5837;
-	Fri,  4 Sep 2026 07:48:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.2
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0EAFB3CF02E;
+	Fri,  4 Sep 2026 07:48:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788508094; cv=none; b=QxFoGmzi+7nQRYTnFoBPQdJIt314D796q0EncRnDo7olW85mMP2xNRVyNRSOKJ65pAXLOiyc8Mnc46D7tjCUUhva8aCXX0WPMf7H6g7/8DESN03hvDDgF/gF61nMKYMa7b1IPZlT/iCE0geqgGz4Psf8jYKmlBaTIzoIha8Lfzo=
+	t=1788508132; cv=none; b=i1TzGZ6MKPlll/VHAzvUWWKXGdxAkr1GSRo/AZcIvlK9zWt4Ipb3waNoVpl/VtICYtiyuh4X8pfynXbNx3K/tbHBzQGY87XOObc+lEYlrrp7Ab43+tGMnJmiF60cmuXzMlXDr6E+oQbdCSsgX/VZ16WM7UROaKC35NkSSesMvDo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788508094; c=relaxed/simple;
-	bh=cXicb+6WFbyg0nQa6eIWsi3x59U76GSl9xN4Nx8RUAs=;
+	s=arc-20240116; t=1788508132; c=relaxed/simple;
+	bh=3suuW/WPNHxJ4naV580x1p8zMeyrhXQAmIfX9M8X370=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=aBKQ8Y2vuWZGZzOcSNMZMTwfuRl3BF71DIwXFZ2Ubw3EcKh4d2tz0Ie6PqyqaL0L2KSzVWbfE3a4X1UahFXDneDfCDiwazBWmMYVpugu8GT3y/q/8TxyZ/G2K0s/JM9kA90pAwE4/MRUDrWIK+2jLhJ9nL2KrtHuD9oSTaxvstk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=DiAwu5J3; arc=none smtp.client-ip=220.197.31.2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	 MIME-Version:Content-Type; b=eUy6yZu9vaF7CUVqNCE809Bm6/wZGNsQZ+NfQYwpZRQMkLXdjNObZymfWU7djrFkiY6SemadYk4ynhSwtJEIW1Q0RmY2oPmbp34UlvJHrfZbyg9QwofL5yVsxPjd1/49K/TNJ1dhKBmeH4Q4M+ZuLEyt4iCjKY+bJn4BUYEDHgs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ituYMMNG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="DiAwu5J3"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=cX
-	icb+6WFbyg0nQa6eIWsi3x59U76GSl9xN4Nx8RUAs=; b=DiAwu5J3FeDobR2m7l
-	Bl2ou0xl16EBGqE1MFmHgyfyYuWh1P+UOTI3/7zbFwnEzriHcen47hNhen2IPdTu
-	bQp+YnabXtqGufXxchCD6rpsveahqY3eGYMvSsa4x0NL9E6LSKYgKAN7U6q3ThSe
-	K0E0cfpL0WTTSXdI9MKfJnk8w=
-Received: from sky.localdomain (unknown [])
-	by gzga-smtp-mtada-g1-0 (Coremail) with SMTP id _____wBXPyWUd5pqPaRUAg--.32109S2;
-	Fri, 04 Sep 2026 15:47:33 +0800 (CST)
-From: Junnan Zhang <zhangjn_dev@163.com>
-To: netdev-bot+sashiko@kernel.org
-Cc: davem@davemloft.net,
-	edumazet@google.com,
-	horms@kernel.org,
-	kuba@kernel.org,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ituYMMNG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EAB8A1F00A3D;
+	Fri,  4 Sep 2026 07:48:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788508130;
+	bh=g/hRjVwq9fUsDToDiqPe96z1+CyN9A9espmJr7PDA3Y=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=ituYMMNGsx8cHBERBH2p9hQ6Siuc6jQwTsXRCiodHhADkJ1oABOX9towzpIXqaAhM
+	 tcni0gVUf7K4LGhOy/p0bCAo9M1DN+IcvW4YcGxPH7FMNBg6NSYZnyZdHf7VIkMIin
+	 eWDpcUn61dzrwMVpyfr+dEJu1xO9eJaa9h7ElkOyK5VXf4Px89NpvhVDyUKxaGz3K+
+	 KJ/glm9p7VUW2Mtk1Z/eSsZhrQyeVP1mQXj4hsnxlR5aCaF3fo5aps2RyuZvwY9noO
+	 +qwVAgwUR0f37BOvYH9H6WtNIQq07uMIf0dxI5OXtypI7lTezmtBENJZ/71MlYFheZ
+	 b3lSPWPL/iKug==
+From: Christian Brauner <brauner@kernel.org>
+To: raven@themaw.net,
+	Jeffin Philip <jeffinphilip14@gmail.com>
+Cc: Christian Brauner <brauner@kernel.org>,
+	bodonnel@redhat.com,
+	autofs@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	liuhangbin@gmail.com,
-	mst@redhat.com,
-	netdev@vger.kernel.org,
-	pabeni@redhat.com,
-	sunshx@chinatelecom.cn,
-	willemdebruijn.kernel@gmail.com,
-	zhangjn11@chinatelecom.cn,
-	zhangjn_dev@163.com
-Subject: Re: [PATCH net v3] net/packet: fix network header offset for non-VLAN raw packets on VLAN subinterfaces
-Date: Fri,  4 Sep 2026 15:47:31 +0800
-Message-ID: <20260904074731.42652-1-zhangjn_dev@163.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <178842152801.3394541.15512936705284584859@kernel.org>
-References: <178842152801.3394541.15512936705284584859@kernel.org>
+	syzbot+df1db6e034b3953e19f5@syzkaller.appspotmail.com,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] fs: autofs: fix memory leak in autofs_fill_super()
+Date: Fri,  4 Sep 2026 09:48:44 +0200
+Message-ID: <20260904-knochen-klemmen-weisung-48c397853dbe@brauner>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260903081048.132524-1-jeffinphilip14@gmail.com>
+References: <20260903081048.132524-1-jeffinphilip14@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1212; i=brauner@kernel.org; h=from:subject:message-id; bh=3suuW/WPNHxJ4naV580x1p8zMeyrhXQAmIfX9M8X370=; b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWTNKr/rzf3Yc/XbFvX1JsqKx/NCTfoEFz456NTQXKpk/ nyTpMr/jlIWBjEuBlkxRRaHdpNwueU8FZuNMjVg5rAygQxh4OIUgImomTEy3BNt+Ws854HEsqji KeXXFx9YtNn7ssP19d46ii93cRSbGjEydMew1xsG2/X8mzpBZv/+h//0+vbsWrQ+9HOTfIaQ3zJ NVgA=
+X-Developer-Key: i=brauner@kernel.org; a=openpgp; fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wBXPyWUd5pqPaRUAg--.32109S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7ZF4DGrWftF4DGr4kur1rJFb_yoW8WrW5pa
-	y5Jas3Jr4DJ3Zxtrn7tw18Xa1j9r4xC3W3WFWfGrWj9a15uFyFyryfKFW29FyUJ34xXrWj
-	qr12qayYkF48Kw7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0JUsID7UUUUU=
-X-CM-SenderInfo: x2kd0wxmqbvvry6rljoofrz/xtbC7hVE2Wqad5XJFAAA3p
 
-Hi,
+On Thu, 03 Sep 2026 13:40:48 +0530, Jeffin Philip wrote:
+> In autofs_fill_super(), we create a new inode using
+> autofs_new_ino(), however, if we fail to create root_inode,
+> (that is, root_inode failure path), we return -ENOMEM without
+> freeing the new inode(ino) that we created causing a memory leak.
+> Fix this by adding autofs_free_ino() to free the inode we created
+> in root_inode failure path before returning ENOMEM.
+> 
+> [...]
 
-The High finding from the Sashiko review is correct.
+Applied to the vfs.fixes branch of the vfs/vfs.git tree.
+Patches in the vfs.fixes branch should appear in linux-next soon.
 
-Commit 447cbe95ebb953 ("vlan: fix skb_under_panic and races when
-toggling HW VLAN offload") is now in mainline (v7.3-rc1). It makes
-vlan_dev_init() keep hard_header_len == real_dev->hard_header_len
-unconditionally and accounts VLAN tag space in needed_headroom
-instead.
+Please report any outstanding bugs that were missed during review in a
+new review to the original patch series allowing us to drop it.
 
-With that change, a VLAN subinterface on a plain Ethernet NIC has
-hard_header_len == min_header_len == ETH_HLEN, so packet_snd() already
-places network_header at the L2/L3 boundary of the user-supplied
-frame. The branch added by this patch writes back the identical value
-and is a no-op. I applied 447cbe95ebb953 on my baseline and re-ran my
-reproducer (virtio_net without NETIF_F_HW_VLAN_CTAG_TX, AF_PACKET
-SOCK_RAW + PACKET_VNET_HDR over a VLAN subinterface): the failure is
-gone.
+It's encouraged to provide Acked-bys and Reviewed-bys even though the
+patch has now been applied. If possible patch trailers will be updated.
 
-On the Medium finding: the concern is valid. For a VLAN subinterface
-over a with hard_header_len < min_header_len (e.g.
-cx82310_eth, which sets hard_header_len = 0), the new branch would
-point network_header at min_header_len even for frames shorter than
-that, recreating the mac_len > skb->len state that 993675a3100b1
-(": reset network header if packet shorter than ll reserved
-space") was written to avoid. Had the patch survived, it would need a
-frame-length guard (e.g. skb->len >= skb->dev->min_header_len).
+Note that commit hashes shown below are subject to change due to rebase,
+trailer updates or similar. If in doubt, please check the listed branch.
 
-My v1-v3 baseline predated 447cbe95ebb953, which is why the issue
-reproduced back then. The patch is now superseded; please drop it if
-it is still queued.
+tree:   https://git.kernel.org/pub/scm/linux/kernel/git/vfs/vfs.git
+branch: vfs.fixes
 
-Willem, thank you for the thorough reviews on all three versions.
-
-Thanks,
-Junnan
-
+[1/1] fs: autofs: fix memory leak in autofs_fill_super()
+      https://git.kernel.org/vfs/vfs/c/5ab54837fce0
