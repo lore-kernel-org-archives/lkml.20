@@ -1,103 +1,96 @@
-Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF98A154458
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 00:43:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.197
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 006361BC2A;
+	Fri,  4 Sep 2026 00:44:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788482634; cv=none; b=cf6AViVWkevgwRxM/B1CU/ay24KFimgPqilQmQiwkYmrkPNqTo2i6FoEgpNPN5ZDa1855B4O64cW6Y8HnKGBXNp6VhyhulUZx4ZNCdfE5uq+tRsRZP4sVhz03KdOYu8ToSJPL/qYaNEqGcNYY9HtKe1Jj/mxWdbqoA59CUkb+v0=
+	t=1788482655; cv=none; b=kkabesCNKSWx6CJ6SVNf2rufD//cKJnJTGqYOJZNLEfZCwxUqI3gqWfiCg299jccz6SZpq1u06L7tQ0BDZE6drl0MRhm0UQu3vmuEqFxhTrEB5ZGwsVmvTB1KiIziS+5HYjIzAacDqD4j1i36V+0XymAksTgHdSAf4RNUZzivLc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788482634; c=relaxed/simple;
-	bh=6EXt8N4NB6wdsJJax8tCW8eA4hmgUvS/E4AdZRLfLIY=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=sxgNy1Rh6DsG0XcMT7iIhVSa46ppYujowKmWWHifZmUrhS62kL8/mg4wioDrbFsj8sU3qjn4Vx/9J/gIGBh43rEE00SFMwVd5Najh7BAKwxaXy+rwv0moLANkMEZia5RV0dRibSi924RyJVXqxQ+wSgnGReDaXetS+sYClDFF40=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=VsPDfhJ/; arc=none smtp.client-ip=209.85.214.197
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
+	s=arc-20240116; t=1788482655; c=relaxed/simple;
+	bh=IpaniWpl4q+8kiIAFgq+x65paTc23TjQM5EsmdPM+OQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Qj+5PcO73RowR5Kw0uMpNint+Jw+ZkX4WNhd4+be6xmt4Qa6N66htuqB8Ke9XSzO41Wfe+qKcFab+pz3zDNsPDi6+W2rMjrKi4z1IgggYPJLgaXr0ngOpWUPbmC2Ps4/u+NeQUqUYdApgC/3uSE+mKkMvCBI0dVdaQgfnbpzqtY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=C8pOMMDh; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="VsPDfhJ/"
-Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2d6fb956002so6043905ad.1
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 17:43:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1788482629; x=1789087429; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:reply-to:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=fmFU3kERqueHfMT+w5tRedl69A06EilNg6dxFGGZ7ys=;
-        b=VsPDfhJ/SJbIod8bTMSAW68lMosWE+eZ+TBYuHESbG874P87EC5wmJK+lYdlPKzd69
-         oqB4Z5zGXFluVoYerNRrBS0dv/yXAT8+EnQd8iROAK7ZkAhOkLIv1schG5KsRR9v6QDm
-         tTJnDnp5jqdddpuU0PHtMijlcKKMPIwHtn6cy6nmejieCYMtoGm/RyCU21tKW0qBZA4e
-         5698sINJLNaIx5VIT6HDG0g+SQT1s+ijIo6QnwIKG4L0+DUbwcleNgTrc5msoY9riBik
-         m/cnSBS4mKflpjt6M2l5Ub7JXGzAKMBUMs+pQZnZU54yq7s9uxDvsl1NPjBJ5nBB+T0p
-         zkZg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788482629; x=1789087429;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:reply-to:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=fmFU3kERqueHfMT+w5tRedl69A06EilNg6dxFGGZ7ys=;
-        b=nRQkyGlgGNjS7HER4vKaZpnB8cue4yYQ2e3cXwdgrHwE7oO+DMC+qqMuDoYr4u+KDq
-         G8dSlRIG5kSJPvJIEcs/mRx4++7/2IfTJZ9VXI3omrV6mIKxHQ9vcTPGvDCTgImqwqUy
-         /EkHgeAGUgIUoRuc8YXBSYk0ahPN3SLbQA+y78mGhqgZFmpqqdn9noC9BhEYRLvtyXvr
-         s6s3O2uk4fJpWSoNsa2BN9Xyhi1nW5JQdfrRb+kM7RpsfcNbfsjUn2QuVoP+i5pFeXzg
-         pYoR7by6nNEPeiZDmphpKTi9lFmONi1qQQrv2OeiCHIeJH1eR3Ik0pM/njLnxQ3Xbf+I
-         G3UQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzDNK+hXZIlJyN0PUUFTLHk6ZfFerH2lhbJDjNfwJAOhmV9JVNDuT/3yqaSfVQ8FS1bYeKBWxeS4SCeOTQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++nT86h/iu5GqosyrPyLbiwa/zdFhRzVX/tfR4IF7SSuT5o+xK1t
-	UXIJSUpWJDpaJ5Ha0HwJXLVYOXUXLQrlLJKdNrIxD8SGGEqEx5/ffY/qY+6PJzjEd7AB+d7QsRh
-	+qPGjLg==
-X-Received: from pltt21.prod.google.com ([2002:a17:902:d155:b0:2cf:afd2:6506])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:902:f64b:b0:2da:eccf:751d
- with SMTP id d9443c01a7336-2db126b5ed0mr37542275ad.22.1788482628767; Thu, 03
- Sep 2026 17:43:48 -0700 (PDT)
-Reply-To: Sean Christopherson <seanjc@google.com>
-Date: Thu,  3 Sep 2026 17:43:42 -0700
-In-Reply-To: <20260904004342.3162959-1-seanjc@google.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="C8pOMMDh"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 180D91F000E9;
+	Fri,  4 Sep 2026 00:44:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788482653;
+	bh=KraBssmMEiWIBzyn65iDWbUViqjTaiDbL8M21HHwgAw=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=C8pOMMDh1Z7TttwCKihKzuccCRBEZrjT7j/gIJuixvaPcRyABx0q5vkmdefdAFVEw
+	 gmTdX5+k8WBG43R6I6IRzTFITAC7liJ1tduPzDmZ+IzDSg+RSiDdPij31M3uA1LW3H
+	 IPUb55zkVjTROVZWmvIoa/qGLAtXc26UbslMIIMjedyl/0jBtwTf+taIQf6DDZb5Bb
+	 0pmW6bv7X/hyAAZHoW2MasZxmB/RjxFXbXEcbcmMORoVMvXtOBKaYARyejgBtGrTK3
+	 kdEbBsanlq6IiPYeeUGWDInPYRArnHJxb1xPD3TOhK8jGIhZ9rIX//UBtOleT/ZwIP
+	 /ZmeyT06BpDlw==
+From: SJ Park <sj@kernel.org>
+To: Zenghui Yu <zenghui.yu@linux.dev>
+Cc: SJ Park <sj@kernel.org>,
+	linux-mm@kvack.org,
+	linux-kselftest@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	akpm@linux-foundation.org,
+	david@kernel.org,
+	ljs@kernel.org,
+	liam@infradead.org,
+	vbabka@kernel.org,
+	rppt@kernel.org,
+	surenb@google.com,
+	mhocko@suse.com,
+	shuah@kernel.org,
+	ziy@nvidia.com,
+	baolin.wang@linux.alibaba.com,
+	nico.pache@linux.dev,
+	ryan.roberts@arm.com,
+	dev.jain@arm.com,
+	baohua@kernel.org,
+	lance.yang@linux.dev,
+	usama.arif@linux.dev,
+	Kiryl Shutsemau <kas@kernel.org>
+Subject: Re: [PATCH] selftests/mm: remove unreachable returns after ksft exit helpers
+Date: Thu,  3 Sep 2026 17:44:05 -0700
+Message-ID: <20260904004405.116994-1-sj@kernel.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260903135251.39593-1-zenghui.yu@linux.dev>
+References: 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260904004342.3162959-1-seanjc@google.com>
-X-Mailer: git-send-email 2.55.0.979.g7e5102b832-goog
-Message-ID: <20260904004342.3162959-5-seanjc@google.com>
-Subject: [PATCH v3 4/4] KVM: guest_memfd: Drop superfluous WRITE_ONCE() when
- binding a memslot
-From: Sean Christopherson <seanjc@google.com>
-To: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>
-Cc: David Hildenbrand <david@kernel.org>, kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Stefan Teodorescu <fane@google.com>, Dennis Tighe <dtighe@google.com>, 
-	Sashiko Bot <sashiko-bot@kernel.org>, Yan Zhao <yan.y.zhao@intel.com>
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Drop the superfluous WRITE_ONCE() when setting a memslot's guest_memfd file
-during initial binding, as the memslot *must* be inactive and unreachable.
-The superfluous WRITE_ONCE() was added by commit 67b43038ce14 ("KVM:
-guest_memfd: Remove RCU-protected attribute from slot->gmem.file") to
-maintain rough "parity" with the existing rcu_assign_pointer(), not
-realizing that the only reason rcu_assign_pointer() was used was to make
-sparse and other checkers happy.
+'get_maintainer.pl --nogit --nogit-fallback' on mm-new suggests adding Kiryl.
+I added him.
 
-Cc: Yan Zhao <yan.y.zhao@intel.com>
-Signed-off-by: Sean Christopherson <seanjc@google.com>
----
- virt/kvm/guest_memfd.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+- Kiryl Shutsemau <kas@kernel.org>
 
-diff --git a/virt/kvm/guest_memfd.c b/virt/kvm/guest_memfd.c
-index 0b48e9a775aa..6c8df67382fc 100644
---- a/virt/kvm/guest_memfd.c
-+++ b/virt/kvm/guest_memfd.c
-@@ -653,7 +653,7 @@ int kvm_gmem_bind(struct kvm *kvm, struct kvm_memory_slot *slot,
- 	 * kvm_gmem_bind() must occur on a new memslot.  Because the memslot
- 	 * is not visible yet, kvm_gmem_get_pfn() is guaranteed to see the file.
- 	 */
--	WRITE_ONCE(slot->gmem.file, file);
-+	slot->gmem.file = file;
- 	slot->gmem.pgoff = start;
- 	if (kvm_gmem_supports_mmap(inode))
- 		slot->flags |= KVM_MEMSLOT_GMEM_ONLY;
--- 
-2.55.0.979.g7e5102b832-goog
+On Thu,  3 Sep 2026 21:52:51 +0800 Zenghui Yu <zenghui.yu@linux.dev> wrote:
 
+> From: "Zenghui Yu (Huawei)" <zenghui.yu@linux.dev>
+> 
+> The ksft_exit*() helpers such as ksft_exit_fail_msg() are declared
+> __noreturn, and the ksft_exit() and ksft_finished() macros expand to calls
+> of them, always terminating the process via exit().  Any return statements
+> following such calls are unreachable, both at the end of main() and on
+> error paths of helper functions.
+> 
+> Remove all of them.  No functional change.
+
+Makes sense and looks correct to me :)
+
+> 
+> Assisted-by: GLM-5.3 OpenCode
+> Signed-off-by: Zenghui Yu (Huawei) <zenghui.yu@linux.dev>
+
+Reviewed-by: SJ Park <sj@kernel.org>
+
+
+Thanks,
+SJ
+
+[...]
