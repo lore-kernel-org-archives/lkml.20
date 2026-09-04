@@ -1,74 +1,98 @@
-Received: from mail-qv1-f49.google.com (mail-qv1-f49.google.com [209.85.219.49])
+Received: from mail-qk1-f181.google.com (mail-qk1-f181.google.com [209.85.222.181])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B04FF3EC807
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 18:20:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78FE6511231
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 18:20:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788546007; cv=none; b=MmIyTvpIzAgKnZoy9WBmB3xilBOGRym2fwP2KVCVRXlrTlyXBnlcnBaXJRRYHHKk/p90a8HlU+EUCFDwvMpCpb5az4q7zGOk/7dUqAVlPViTHqLRTPgvzIDHy1eduleJZ1DdbIXq6P4knVGhdQWWCrL9M+koF3bRey3AhiUtYaE=
+	t=1788546019; cv=none; b=AiMkhGRTGXu7sDjCZb2vvGZmfAO2HCd0AbfIWagSte6RDLU7OTcVYBTEme+Bdn0lXxehE8jKc0kv/szLEn1dOtin16GwOTE3JM8CnXncRNiLiHvPQenH34pyB8jKPtdtCnnPJNIQ7KNGraFH/QFBpNQWSKve1mL+HNaHLJVR1d4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788546007; c=relaxed/simple;
-	bh=zm8TN2xPa5JL/ZTyjZUP3HljYWUuDS5MN3Zj9QJzrjU=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=Q0eaJ88mTDBdwTaBAi+2RIOWiTMTumsS8uhTugprYwN+ubyuTs/qhigJvfj9dZ9WIKgXSacwKR0ImxE7AsIXNdGCkS0cUx/hRUiFpOzPyKKh2QD6NuTtWkYdrTWM1vL2+Rqhr0XDmmBLHdJG3gcsF+wdqLctq4Tyx8vHf5MGebo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=I+KxVzXb; arc=none smtp.client-ip=209.85.219.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788546019; c=relaxed/simple;
+	bh=d2NCExlfP/h2C8234YBmgoaVvL1y1L3WCe77vhIYyDg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=EflPVBhr9G0z5mTCs4L0DlfPx6FHsFi8CncUNbKdHWVbcgJP4wl/M6lzy/xzh5axdBqQ4358+hfGzBMBdVtgKQeIxvHl3ohqqwVD8QdBElyRXfHV2EEphJMsEnPsrnRgLCFKTbzT5LmgRkHlGTvyiov5CA6uMQl0GPHc7ouacXg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net; spf=pass smtp.mailfrom=gourry.net; dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b=s1uUw3kt; arc=none smtp.client-ip=209.85.222.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="I+KxVzXb"
-Received: by mail-qv1-f49.google.com with SMTP id 6a1803df08f44-9103f5b813aso8820656d6.3
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 11:20:05 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b="s1uUw3kt"
+Received: by mail-qk1-f181.google.com with SMTP id af79cd13be357-92e99ef0902so110873085a.2
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 11:20:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788546004; x=1789150804; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:sender:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=YhHRDInvyI4x0tUqUbt97XsUeP2DQ10IkqTjP6rmV2U=;
-        b=I+KxVzXbozLy8JQldmQpYXWEBMi3LXhT6ZYQJxfPOmq0lmZRUszxb6HTwyVnc8vxIT
-         vnwXsvnmGikTbP/o77PbHWFbiJpM8Ojbg15kSDWhk72RHl4bCWkAHb6ML5P7RI25lNxk
-         bR/x+8I4ohCP+FRCFjVN3SAt5kk3k03A75Yr1x/Ie3+OlJXkBCPVgr9yry+Jifz+EaiG
-         cVnycgkUm/ThLkT18YbG8APKExe5FIRCMfCS+/3h/WMH0sJSbOWEO3qIy/5acq1Sm5Zb
-         CkRxB6kqF7cRsneiGplRDHoQvhncTCC1QjWQEmQ0jFDSpD7v4i4ceNaKMUhySsleraJx
-         Dd7A==
+        d=gourry.net; s=google; t=1788546016; x=1789150816; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=15/euYVzQb+bVm46MuDTQD81/N6uJc5AIVkvvPF4JRU=;
+        b=s1uUw3kt9ASWTY1jalbIsunJnAq0/L85ROnRpq7LZbGlvF3xsJQKgW5wY+wZAvf4Y3
+         ldNo2s4vCsS8CBu6Eb405ccuoyK6DdLNcCD8AXEIK6RlqxVMmydliF8XFhhCehOH4wML
+         bJDxpLqX/ENxMUckIdZf8+0P3wY5bMvGKeNdHTQUv+00t9SCF2OIgdylmXQVWXytsJkf
+         ti1soM08HX5V9jzwHRyNkn8AvAcwA8EWP70IsKdm0K0i3drTwT8V4rwjtE2upxvXdGKJ
+         hWo3dn7Mj/YE7+PVFtMeGiKSZA0NQyPacvBB2EfvAtAUIpSCWNdh+oWkPMCpMXi+VgpM
+         EPyw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788546004; x=1789150804;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:sender:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=YhHRDInvyI4x0tUqUbt97XsUeP2DQ10IkqTjP6rmV2U=;
-        b=bmnOHYXRRlUuTWeZWpkTlI45FY5LbaCODNu9nKRkXtMB9KZuZMsA5wYFb0ARw+hDyZ
-         /ZRuVJTiobYowxx5K2CrxRmlUa3f2y2w8ruI2PQtsiMc4H7p7QYk1KAYJUlRr65qwb19
-         3wdyUHAWem0BLHLb2EpD0rdHw45ds6tCARTU1ECgNldKk1QNFwSiUVxuacFXlkv/s240
-         EDPOAhbrLV4rp8HhohklhgFq+h1OCBHD9iV8YQ+KVEzYZ4DJaOmPzPiEIz6+0nEiv1fv
-         XpiG1Ct2IEt8WmmiBKAVBv+zbBLwqYbNLHTrdvuzY8lUv1tKmi7nznUFVFgoxwhJTeXG
-         x0ww==
-X-Forwarded-Encrypted: i=1; AKwUvBz/P3tZX79UEgYYcnHy5lDGCf7qt1OD/j5wuvBVWPTQ4A/LBScFesn6reXuWifeqR3hT9bAjMok9HHyVWQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++l7yrVKptAcq4LXfQcSCOAzZ+4bS2U9sJRY7/9GyRSTm65k/QAp
-	6tXEg6Vm8sHyUsz1yteyY4mNUrDEmHZClDEbT9It3OsiBz75sbZTwuw=
-X-Gm-Gg: AYBFou0h5dBrAgk1vesH6vIJaz8v0VX9RODr4tsemVu8mU2o3v6ILwvKZ9M0WyshTTD
-	zDpoSKXMeKk6+tcuG5W2yg8mOoB546dumInZrE3iXY9Y8T4cEX/RLqAYobiGdMAUqto6DOGqWw3
-	c39BIgc5klX7u1l9pJwwiovWl2lZUM+crFhoLsUYasVc87sgFa37/RjqB+8a7WW6eWiQSETaOZn
-	wjWNYfkSo5Mn7U1rkHx+Ad6D+TREu0atbcxYQczob4N5sCcMjap1eU/jt0bh6ZDzrtZo3HJGeJc
-	RZ1Y62B9SEzZvb8hWm6IL/BxJIfwxunFTQ38qDwUbL1f0N1Jq6BfX9p+T0jJx+lqraWk/KR8nMM
-	KS9XZKe9n1kEbGT3RbMl9NG+O4M9ffTBVwmPSL5unoswwKVGG3cmYl1momFTyqEzW35NFHo3/7a
-	I9UJzVpulPoGyY5U20cGwV78tPU6U0j4lZ/8pLqxFeykwcLxTWizLd3j38cZp5TCTBU8sd9QtHB
-	y8N5TTbsI7tKLOa7yddlvwI6n4RSbYdmA/efKKyMcopFfSfK4vOx12G+QsnhIiXuMCvXy6z7aGB
-	HVKB
-X-Received: by 2002:a05:6214:21c8:b0:910:3270:51cd with SMTP id 6a1803df08f44-9103ef9568amr87602966d6.19.1788546004315;
-        Fri, 04 Sep 2026 11:20:04 -0700 (PDT)
-Received: from nn ([2001:1ab8:1003:0:5454:f357:ba89:4e22])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-9104067b033sm26251956d6.30.2026.09.04.11.20.02
+        d=1e100.net; s=20251104; t=1788546016; x=1789150816;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=15/euYVzQb+bVm46MuDTQD81/N6uJc5AIVkvvPF4JRU=;
+        b=NMyXwp+MqnnzOXbUjDTJV1YcbrqAurEIh4m2j2oEzzBrCOAUQAH2XLzsFiodYDoNEA
+         cTIr9sGY1ZMFPb3O6xE1+aQR1rilt50hU6jgU4CrXKnTINsmjJ4jQGPnSMI5UsoaVMuN
+         Lv95SwrFGVJqq6ifZwyqR0NYO3CYjMVKVW65n6NFrOoNRom2kMsQ8LILwsYWdGq+fJVl
+         M0dVLK9m1Sx+SQ55unNeaDyYjyWw+hns6FWH9w/EXUe+izf/OmO8LWUByYJSDL0fAbqK
+         bxl6vHUptZY48TogqVf7Mg9WytpdtfBau7poLNoG4+gxjPhSsYgWrkTYyccAxWMv7HMQ
+         nbbQ==
+X-Gm-Message-State: AFuF++nc3mQP2FoZQRjlYZNFUcR56ZZGiyQnYD01EzWtmhissd32AlLe
+	FFJ7EYmk81DyTS1UCJKY/dL3BQde1IZLWJHOZ+0uMsKEMLcwZyfaEkaJRBlGCJ3cWtc=
+X-Gm-Gg: AYBFou0kloWX6VpM4qULWnJTqxEr3rkNo6zWk43ieFpYvhcZI6fZ73X/rhxI5erUkaH
+	Y4WCr50yrwWxv2JP4+JM94cd/5sOkKV6YMNxH75KDWMs4eGfet4TZXDrOtdU2E9OkGPFHpgzcQt
+	bznDTxBNeZXvODxWLaGxOEzK3JyCyB+4wPepNkf4YpLOsaXLG53PDGTONzSp3motjp1ww/nfPT6
+	+sHvynJSWit3uWazzSG0CcxNMM/OmQT9Y1Ybm0tUR3VPovbQY38qiiha/eSTMeZc+RHS4YVa7Tl
+	PbovBpXtkVpeoI169PsyUANHjl9vbC+o/eQRiw7u60j3MypJRWzXUl+8PQkHEGRFuCNoQYUp0QG
+	8AgC3UjCL1wy1FyBtR/z/ByHubUsJZuLNcvcsssOcrHSAXZCJRHHwOSdHo4r73Cl6gnHWo1UxNE
+	YlDt20cW5vZEZUgnKqYksjIKZ4X39xXGs9BoP05SPNAqVmZPN3gUNtiOmSjzCKY7Gcf+v/xLDwp
+	hezz2CJSGf2xDEHkeIxgfz9CTiwlyO6up2XYkORtOVu2KXYAQ==
+X-Received: by 2002:a05:620a:3c13:b0:939:69a:4764 with SMTP id af79cd13be357-939804a4503mr516368085a.39.1788546016090;
+        Fri, 04 Sep 2026 11:20:16 -0700 (PDT)
+Received: from gourry-fedora-PF4VCD3F.lan (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-93982db6a95sm207374585a.9.2026.09.04.11.20.14
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 04 Sep 2026 11:20:04 -0700 (PDT)
-Sender: N B <gen.benner@gmail.com>
-From: =?UTF-8?q?Nerijus=20Bend=C5=BEi=C5=ABnas?= <nerijus.bendziunas@gmail.com>
-To: =?UTF-8?q?Toke=20H=C3=B8iland-J=C3=B8rgensen?= <toke@toke.dk>,
-	linux-wireless@vger.kernel.org
-Cc: Simon Wunderlich <sw@simonwunderlich.de>,
-	Kalle Valo <kvalo@kernel.org>,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2] wifi: ath9k: count spectral samples in the driver's own RX stats
-Date: Fri,  4 Sep 2026 21:19:58 +0300
-Message-ID: <20260904181958.790792-1-nerijus.bendziunas@gmail.com>
+        Fri, 04 Sep 2026 11:20:15 -0700 (PDT)
+From: Gregory Price <gourry@gourry.net>
+To: linux-mm@kvack.org
+Cc: linux-kernel@vger.kernel.org,
+	kernel-team@meta.com,
+	akpm@linux-foundation.org,
+	david@kernel.org,
+	ljs@kernel.org,
+	liam@infradead.org,
+	vbabka@kernel.org,
+	rppt@kernel.org,
+	surenb@google.com,
+	mhocko@suse.com,
+	mingo@redhat.com,
+	peterz@infradead.org,
+	juri.lelli@redhat.com,
+	vincent.guittot@linaro.org,
+	dietmar.eggemann@arm.com,
+	rostedt@goodmis.org,
+	bsegall@google.com,
+	mgorman@suse.de,
+	vschneid@redhat.com,
+	kprateek.nayak@amd.com,
+	ziy@nvidia.com,
+	matthew.brost@intel.com,
+	joshua.hahnjy@gmail.com,
+	rakie.kim@sk.com,
+	byungchul@sk.com,
+	gourry@gourry.net,
+	ying.huang@linux.alibaba.com,
+	apopple@nvidia.com,
+	raghavendra.kt@amd.com,
+	shy828301@gmail.com,
+	baolin.wang@linux.alibaba.com,
+	osalvador@suse.de
+Subject: [PATCH 0/2] sched/numa: stop VMA scan filters from gating promotion
+Date: Fri,  4 Sep 2026 14:20:04 -0400
+Message-ID: <20260904182006.1562449-1-gourry@gourry.net>
 X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -76,183 +100,52 @@ List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-ath_cmn_process_fft() is shared by ath9k and ath9k_htc, but it casts
-common->priv to struct ath_softc to reach the rx_spectral_sample_good
-and rx_spectral_sample_err counters. On ath9k_htc common->priv is a
-struct ath9k_htc_priv, and with CONFIG_ATH9K_DEBUGFS the increment
-lands far past the end of that allocation, once per FFT sample. On
-x86-64 with a distribution config the structure is 2664 bytes and the
-counters sit at offset 11912 of struct ath_softc.
+task_numa_work() applies a series of VMA-level filters before it will mark
+a VMA for hint faults.  Those filters were written when the hint fault was
+a socket-residency signal. Skipping a VMA only cost some resolution.
 
-Store a pointer to the driver's struct ath_rx_stats in struct
-ath_spec_scan_priv and count through it. Both drivers pass their own
-stats to ath9k_cmn_spectral_init_debug(), and both print them in the
-shared recv debugfs file, so the two counters now also work on
-ath9k_htc. A pointer keeps the common code free of driver structures,
-which a check on the driver type would not. Without debugfs the
-pointer stays NULL and nothing is counted, as before.
+Under memory tiering the hint fault is not a signal, it is the mechanism.
+A folio on the slow tier is considered for promotion only because the scan
+marked it and something then touched it.  A VMA excluded from the scan is
+excluded from promotion, and stays excluded, because the filters take
+their input from faults the scan itself produces.
 
-Fixes: 03224678c013 ("ath9k: add counters for good and errorneous FFT/spectral frames")
-Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-fable-5-1
-Signed-off-by: Nerijus Bendžiūnas <nerijus.bendziunas@gmail.com>
----
-Changes in v2:
-- Say where the quoted sizes come from and why a stats pointer rather
-  than a check on the driver type.
-- Add Assisted-by, rewrite the commit message, rebase onto ath-next. No
-  code change.
+Patch 1 covers the per-VMA PID filter, which is self-referential: a VMA
+needs a hint fault to earn a scan, and a scan to produce a hint fault.
 
- .../net/wireless/ath/ath9k/common-spectral.c  | 29 ++++++++++++-------
- .../net/wireless/ath/ath9k/common-spectral.h  | 11 +++++--
- drivers/net/wireless/ath/ath9k/debug.c        |  3 +-
- .../net/wireless/ath/ath9k/htc_drv_debug.c    |  3 +-
- 4 files changed, 32 insertions(+), 14 deletions(-)
+Patch 2 covers the read-only file mapping exclusion, whose premise:
+"if we are never going to migrate the page, it is overhead for no gain"
+only applies to socket-residency, not tier-residency.
 
-diff --git a/drivers/net/wireless/ath/ath9k/common-spectral.c b/drivers/net/wireless/ath/ath9k/common-spectral.c
-index ca01a07f6630..d8be24ebcd24 100644
---- a/drivers/net/wireless/ath/ath9k/common-spectral.c
-+++ b/drivers/net/wireless/ath/ath9k/common-spectral.c
-@@ -465,6 +465,20 @@ ath_cmn_is_fft_buf_full(struct ath_spec_scan_priv *spec_priv)
- 		return 0;
- }
- 
-+static void ath_cmn_count_fft_sample(struct ath_spec_scan_priv *spec_priv,
-+				     int ret)
-+{
-+	struct ath_rx_stats *rx_stats = spec_priv->rx_stats;
-+
-+	if (!rx_stats)
-+		return;
-+
-+	if (ret == 0)
-+		rx_stats->rx_spectral_sample_good++;
-+	else
-+		rx_stats->rx_spectral_sample_err++;
-+}
-+
- /* returns 1 if this was a spectral frame, even if not handled. */
- int ath_cmn_process_fft(struct ath_spec_scan_priv *spec_priv, struct ieee80211_hdr *hdr,
- 		    struct ath_rx_status *rs, u64 tsf)
-@@ -472,7 +486,6 @@ int ath_cmn_process_fft(struct ath_spec_scan_priv *spec_priv, struct ieee80211_h
- 	u8 sample_buf[SPECTRAL_SAMPLE_MAX_LEN] = {0};
- 	struct ath_hw *ah = spec_priv->ah;
- 	struct ath_common *common = ath9k_hw_common(spec_priv->ah);
--	struct ath_softc *sc = common->priv;
- 	u8 num_bins, *vdata = (u8 *)hdr;
- 	struct ath_radar_info *radar_info;
- 	int len = rs->rs_datalen;
-@@ -624,10 +637,7 @@ int ath_cmn_process_fft(struct ath_spec_scan_priv *spec_priv, struct ieee80211_h
- 				ret = fft_handler(rs, spec_priv, sample_buf,
- 						  tsf, freq, chan_type);
- 
--				if (ret == 0)
--					RX_STAT_INC(sc, rx_spectral_sample_good);
--				else
--					RX_STAT_INC(sc, rx_spectral_sample_err);
-+				ath_cmn_count_fft_sample(spec_priv, ret);
- 
- 				/* Mix the received bins to the /dev/random
- 				 * pool
-@@ -642,10 +652,7 @@ int ath_cmn_process_fft(struct ath_spec_scan_priv *spec_priv, struct ieee80211_h
- 				ret = fft_handler(rs, spec_priv, sample_start,
- 						  tsf, freq, chan_type);
- 
--				if (ret == 0)
--					RX_STAT_INC(sc, rx_spectral_sample_good);
--				else
--					RX_STAT_INC(sc, rx_spectral_sample_err);
-+				ath_cmn_count_fft_sample(spec_priv, ret);
- 
- 				/* Mix the received bins to the /dev/random
- 				 * pool
-@@ -1052,8 +1059,10 @@ void ath9k_cmn_spectral_deinit_debug(struct ath_spec_scan_priv *spec_priv)
- EXPORT_SYMBOL(ath9k_cmn_spectral_deinit_debug);
- 
- void ath9k_cmn_spectral_init_debug(struct ath_spec_scan_priv *spec_priv,
--				   struct dentry *debugfs_phy)
-+				   struct dentry *debugfs_phy,
-+				   struct ath_rx_stats *rx_stats)
- {
-+	spec_priv->rx_stats = rx_stats;
- 	spec_priv->rfs_chan_spec_scan = relay_open("spectral_scan",
- 					    debugfs_phy,
- 					    1024, 256, &rfs_spec_scan_cb,
-diff --git a/drivers/net/wireless/ath/ath9k/common-spectral.h b/drivers/net/wireless/ath/ath9k/common-spectral.h
-index 011d8ab8b974..0e2c7d6d3487 100644
---- a/drivers/net/wireless/ath/ath9k/common-spectral.h
-+++ b/drivers/net/wireless/ath/ath9k/common-spectral.h
-@@ -94,12 +94,16 @@ struct ath_ht20_40_fft_packet {
- 	struct ath_radar_info radar_info;
- } __packed;
- 
-+struct ath_rx_stats;
-+
- struct ath_spec_scan_priv {
- 	struct ath_hw *ah;
- 	/* relay(fs) channel for spectral scan */
- 	struct rchan *rfs_chan_spec_scan;
- 	enum spectral_mode spectral_mode;
- 	struct ath_spec_scan spec_config;
-+	/* driver's RX statistics to account samples into, if any */
-+	struct ath_rx_stats *rx_stats;
- };
- 
- #define SPECTRAL_HT20_40_TOTAL_DATA_LEN	(sizeof(struct ath_ht20_40_fft_packet))
-@@ -169,7 +173,9 @@ static inline u8 spectral_bitmap_weight(u8 *bins)
- }
- 
- #ifdef CONFIG_ATH9K_COMMON_SPECTRAL
--void ath9k_cmn_spectral_init_debug(struct ath_spec_scan_priv *spec_priv, struct dentry *debugfs_phy);
-+void ath9k_cmn_spectral_init_debug(struct ath_spec_scan_priv *spec_priv,
-+				   struct dentry *debugfs_phy,
-+				   struct ath_rx_stats *rx_stats);
- void ath9k_cmn_spectral_deinit_debug(struct ath_spec_scan_priv *spec_priv);
- 
- void ath9k_cmn_spectral_scan_trigger(struct ath_common *common,
-@@ -181,7 +187,8 @@ int ath_cmn_process_fft(struct ath_spec_scan_priv *spec_priv, struct ieee80211_h
- 		    struct ath_rx_status *rs, u64 tsf);
- #else
- static inline void ath9k_cmn_spectral_init_debug(struct ath_spec_scan_priv *spec_priv,
--						 struct dentry *debugfs_phy)
-+						 struct dentry *debugfs_phy,
-+						 struct ath_rx_stats *rx_stats)
- {
- }
- 
-diff --git a/drivers/net/wireless/ath/ath9k/debug.c b/drivers/net/wireless/ath/ath9k/debug.c
-index 74a0134075cf..042a4f542a94 100644
---- a/drivers/net/wireless/ath/ath9k/debug.c
-+++ b/drivers/net/wireless/ath/ath9k/debug.c
-@@ -1389,7 +1389,8 @@ int ath9k_init_debug(struct ath_hw *ah)
- 
- 	ath9k_dfs_init_debug(sc);
- 	ath9k_tx99_init_debug(sc);
--	ath9k_cmn_spectral_init_debug(&sc->spec_priv, sc->debug.debugfs_phy);
-+	ath9k_cmn_spectral_init_debug(&sc->spec_priv, sc->debug.debugfs_phy,
-+				      &sc->debug.stats.rxstats);
- 
- 	debugfs_create_devm_seqfile(sc->dev, "dma", sc->debug.debugfs_phy,
- 				    read_file_dma);
-diff --git a/drivers/net/wireless/ath/ath9k/htc_drv_debug.c b/drivers/net/wireless/ath/ath9k/htc_drv_debug.c
-index 9437d69877cc..9d354b1d929c 100644
---- a/drivers/net/wireless/ath/ath9k/htc_drv_debug.c
-+++ b/drivers/net/wireless/ath/ath9k/htc_drv_debug.c
-@@ -487,7 +487,8 @@ int ath9k_htc_init_debug(struct ath_hw *ah)
- 	priv->debug.debugfs_phy = debugfs_create_dir(KBUILD_MODNAME,
- 					     priv->hw->wiphy->debugfsdir);
- 
--	ath9k_cmn_spectral_init_debug(&priv->spec_priv, priv->debug.debugfs_phy);
-+	ath9k_cmn_spectral_init_debug(&priv->spec_priv, priv->debug.debugfs_phy,
-+				      &priv->debug.rx_stats);
- 
- 	debugfs_create_file("tgt_int_stats", 0400, priv->debug.debugfs_phy,
- 			    priv, &fops_tgt_int_stats);
+Neither patch removes a filter.
 
-base-commit: 1d8e73163ef933624341075f576e2f36ef9133f7
+Patch 1 adds vma->numab_state->slow_only, which restricts one scan of one
+VMA to folios on non-toptier nodes, and scans the rejected VMAs under it.
+
+Patch 2 reuses it.  A toptier folio is never marked anywhere the filters
+would not already have marked it, in any mode, so placement behaviour is
+unchanged and only promotion candidates are added.
+
+On a 768G DRAM + 256G CXL host running two ~430G database services:
+
+  before - DRAM bandwidth decayed from 200GB/s to 150GB/s, CXL climbed
+           from 5GB/s to 45GB/s and capped, request latency went from
+           800us to 5ms and tracked CXL bandwidth
+
+  after  - DRAM holds 200-250GB/s, CXL holds 7-10GB/s, request latency
+           sits at 800us-2ms and tracks request load
+
+Gregory Price (2):
+  sched/numa: do not let the per-VMA PID filter gate promotion
+  sched/numa: scan read-only file mappings in tiering mode
+
+ include/linux/mm_types.h |  7 +++++++
+ kernel/sched/fair.c      | 41 ++++++++++++++++++++++++++++++++++------
+ mm/mempolicy.c           |  9 +++++----
+ 3 files changed, 47 insertions(+), 10 deletions(-)
+
 -- 
 2.55.0
 
