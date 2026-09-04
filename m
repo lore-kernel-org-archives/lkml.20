@@ -1,206 +1,114 @@
-Received: from BYAPR05CU005.outbound.protection.outlook.com (mail-westusazon11010008.outbound.protection.outlook.com [52.101.85.8])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f169.google.com (mail-pg1-f169.google.com [209.85.215.169])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22DD43002A0;
-	Fri,  4 Sep 2026 08:53:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.85.8
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31DFD3DD537
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 08:53:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.215.169
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788512023; cv=fail; b=ohh+4/adHJai7ZW5RTlBscVgwpgNUuVSyY+d0HVoJ2IFSIahIQxW7R6o43a8fxAPOas87OGx/pvoKewR7+vrgG/SE8waWekQWxWmXwwQCMlMaSd6ibVsfhsCVYVwn3BoJA6HE8uZuteznDcPYilxnvDUpG89wyNK2Tq1HFKyFAs=
+	t=1788512025; cv=pass; b=pUwTB1vz5FBXGP4oyRL8mbLI1pt52ufv6QapMqX09v/7i5j2EUfy2ZfEQ26hHyEx3E0SxmERRBBwv3qec6MR3NXp7KyhPJ22K/+m8ov4vZUF5+ZybFBL3DiYv8ensWJ8rJU5BhUUb2YmAmGcN1bcJSs4+MGd07qWkqMZIjdvPV0=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788512023; c=relaxed/simple;
-	bh=H9CY1GNb/L7OUTtls/OS1/s2YcH7YS2eRQotcQMp45g=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=rrahtfCRUBDcbXkBMwwAFhluxWKs0fMjgzKMWkF87vrp7y7STu2gvz2U7BN0xl3+HG/f9Q7qzWh1sxLIwty0MWglbR3a0hozTfbeE4+mtyVBqwToFt/407JF1LGqlSVuRJAhFgft2stKm8Cya+Sl8sEpVLiq9oKl+m9bjlhRXAY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=altera.com; spf=pass smtp.mailfrom=altera.com; dkim=pass (2048-bit key) header.d=altera.com header.i=@altera.com header.b=FT0R8PbH; arc=fail smtp.client-ip=52.101.85.8
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=altera.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=altera.com
+	s=arc-20240116; t=1788512025; c=relaxed/simple;
+	bh=cAIBUjFQ+3Ly1pIl7XaJ88bzL4A1FyWiRTzQz4fZMtA=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=EQZbKfFGX48PoAf98TCb28o4geZo12NRs5jvIy+87I+zD2iLMkkJcVFlgkOX36fC/s+36kHXyuxHR7Wi4mOUdYQtbPAzbr5bwbOHmgyVRXJhWrWa3oYZL48+YDIVh5DA9T67lYAlw7qaIGgFJD7rE/L/ByWXnUGQHi6l02Dd0ys=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BZJulo9j; arc=pass smtp.client-ip=209.85.215.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=altera.com header.i=@altera.com header.b="FT0R8PbH"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=JW4ZvbF3xv4esGnMtQoNqzQurTupf05XHKl1Foh8+dCzwhk5Xs0rA0QmCTyZwqKQ2x/sALN/FdpsHLInMqlKfBCNhT2nxNxGByXcAfUZhWfIT7CtFAKTrrcfLiMso4OW7k8NcPgl06GuH29BOLBKaNzJajOTgg/d2NG9wDxwZkop5+Iyo4r5DqxZM0EgA3Qz7xHApxLcc5fBqVCAEmDcmopAhnp8le5c1OhIMJufbelADhS/sLsY7D3GWuPC65jo7iNGrba6eAXhieRo+qf512pC55orL7TRnwb6Kma1BMGFxUCEEG/vIigvQi7xgjZ2PshT+IKfbboJkdZjfui//g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=fXnz/Ass51Rh16gWTeqXy7Mn5Q/ea2gDCJpwbYBZzDs=;
- b=BdTP4gk3pmZvvW+mqlBpK59LgGpoxCqX992bqmJU/8nfdevNK2tgZ0fqGUp/M30LjZ3AHSeRkhQGLSJFgeCW0oYTXdqMFo3ObFcpJ6PvlYAzFCbAVDtpK2kfuhvexP4h0TN1q4Kh4b2RzY689VyhVddMHjMQlgVo1Bu4/Kzz3tOgoTPYOLWcMqavaj+5T3H+WS0Z9YnJMz8zaEgPdvI9MDoZ3EQN4VHzpqYPaBiRNDau+6wPej4lqS/LUUVirVFts2rIalRmEJOrvl9ZFquOVG3I7mDf7G849bsEVawqwLJuZUvSmIOIn4vedpla1z9piqXNczgQblOOKOV2UubH/g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=altera.com; dmarc=pass action=none header.from=altera.com;
- dkim=pass header.d=altera.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=altera.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=fXnz/Ass51Rh16gWTeqXy7Mn5Q/ea2gDCJpwbYBZzDs=;
- b=FT0R8PbHWzSeY+e2S5jO8eg9x7HGKv4mG8UoEXyGvkksP4rxGmG13O3BVks7xT9cPdbjgNBYwSAfSXfAVXw6m/RGEFRBTFgy+ELxzeJLlI+oF82sqnuryIP7Y9c39ivvI2uVjK0oLtEW8uqvy8nrxN9K5xcxZ/EQZuTjWxhGSZMdBWBy1jvj9wuRAxQEFfzloXFqIbNAVWFxPgAgBzklW8Y7izah3H2n+bNwA4uFfM+zscGeV5eJcr+N//uWVszn+DgyGWK+zEVTkzXZ9vA/1kpEU7IhvmHp5y+6LCLN1JXdo+EglTdiAjyQZCAkY1a2opw5Y123PwPKWlFOuHGEHQ==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=altera.com;
-Received: from DM8PR03MB6230.namprd03.prod.outlook.com (2603:10b6:8:3c::13) by
- DM4PR03MB5981.namprd03.prod.outlook.com (2603:10b6:5:388::24) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.360.13; Fri, 4 Sep 2026 08:53:39 +0000
-Received: from DM8PR03MB6230.namprd03.prod.outlook.com
- ([fe80::abad:9d80:7a13:9542]) by DM8PR03MB6230.namprd03.prod.outlook.com
- ([fe80::abad:9d80:7a13:9542%3]) with mapi id 15.21.0360.008; Fri, 4 Sep 2026
- 08:53:39 +0000
-From: Adrian Ng Ho Yin <adrian.ho.yin.ng@altera.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Thinh Nguyen <Thinh.Nguyen@synopsys.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Dinh Nguyen <dinguyen@kernel.org>,
-	linux-usb@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: Adrian Ng Ho Yin <adrian.ho.yin.ng@altera.com>
-Subject: [PATCH v4 2/4] arm64: dts: intel: agilex5: add USB3.1 controller node
-Date: Fri,  4 Sep 2026 16:46:11 +0800
-Message-ID: <f479477d21c3f8a3eeecd24cd34ce936c52a9201.1788503540.git.adrian.ho.yin.ng@altera.com>
-X-Mailer: git-send-email 2.49.GIT
-In-Reply-To: <cover.1788503540.git.adrian.ho.yin.ng@altera.com>
-References: <cover.1788503540.git.adrian.ho.yin.ng@altera.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: SI2PR01CA0022.apcprd01.prod.exchangelabs.com
- (2603:1096:4:192::14) To DM8PR03MB6230.namprd03.prod.outlook.com
- (2603:10b6:8:3c::13)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BZJulo9j"
+Received: by mail-pg1-f169.google.com with SMTP id 41be03b00d2f7-cc1c73645a1so736769a12.1
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 01:53:42 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788512022; cv=none;
+        d=google.com; s=arc-20260327;
+        b=eA3lLgU0l6ZgE+TrgIwJQ+kFSAGmjY4L7ljLhD+kvcgvEFN5MHlpE3dEzGCE7hcgZE
+         m14CYSosC6YEZBcgKZhIrH/cmfPeKjtp1+HTK/DHwoXRvCHqG06UmIOpbKKiX0P64qiu
+         xZKiSMqLU6a8DLLnyHnRvcoKJ0l7fSW2r42oDoy/7rnAaOHIbSjObBTZYAPMrWnOCdJq
+         e37WvX5f5YFoY4GaOwptTT4aCLo6gC581mT+pBuD7Pq6c1qKa9skRxgaE6hkLldVmuVK
+         NOucQyXcfCN4TiA3x0APGVkLdtAOsUm9Jgbd5e1SwWSnB2/a7gC43FYGNyVMMWmnr/f7
+         e61g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=cAIBUjFQ+3Ly1pIl7XaJ88bzL4A1FyWiRTzQz4fZMtA=;
+        fh=gEqmoUB6xEmXzjohLAFd9HxwSgVlGqK58fVDb3V6ZRI=;
+        b=D00waEvZI/V0lcGDCmWqFLYCpJgXOPM34713q50VzeybK8mMdwc+lTDH95QUR29G0q
+         rEHQvzoT8+UhJK0NO/wW8LFnCczMsgLMtpayn/LQj+7zXOQsKWAqtGqnkY5Zm+GSLXfb
+         ThxIdjZPLv9IszsMBvCHOgYJXeSl1rEv7EcKA36i2VOcUMfaCxQme+OZLy3CmTsGk0Cv
+         WZP7kAExTS5p04B43QXgJgnrYYTsCVrplnTPu5XP+DDTASp63Iqf4z93TvtTnleasd/U
+         COa9i2c+i+DdzdcdDeY4U4U70MDxHXvgYZW3u9hTgJldtdF26Bu9UX9S5I0loGaNImpg
+         +xxA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788512022; x=1789116822; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=cAIBUjFQ+3Ly1pIl7XaJ88bzL4A1FyWiRTzQz4fZMtA=;
+        b=BZJulo9jQqiYoxnm5Zm5YU/Jfpw4cSfSc72+jWkeVqaWiGQBQLd6+5KWCMZNJzwfFn
+         hwT5m3yeuLwJ/pMcOXnHNH+JpHVuBxAU4y/Cz1hUM5W/8a/APGW9NdUBSm0OPDLocIsO
+         cwvYdcHZqZv23Rrqo53E06UNywpha5Fnm2+r2dNVlmTBI9kM166BMVZYlCvuTT86h57K
+         ki9J/TQqJXM8EWszs/CrMs5t6ozbthcuQZRh/wtuCQbXqPkvTFLwOPKTv9TsMUnvebvG
+         zS7FY2hM6bDCEUccVs0LUsIE61bgwFlwAsf1T9hf1dDD7Zfhp9OKk+oaxksUrbE1TsQv
+         iZBQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788512022; x=1789116822;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=cAIBUjFQ+3Ly1pIl7XaJ88bzL4A1FyWiRTzQz4fZMtA=;
+        b=B1PjbaUnHtE+0GHBt4XPsC4iwaKdU1Y+S0UKugckcxADm4E2m3Qht2jbDxoyMU8abg
+         VKoLogUMR0NtdZMM8xXl4f7GfSwpBuSc2Bpg2Y9Cmikk8ne1lLSFxy0Wcx34GRR2RsYP
+         mRI0YOXiTTaYXHSAz+lOH4mR6lHOkTGE26neAsTr6PAc0SZ/VKH88iJBTAbQWkU3Mf+8
+         kds6Zu6C4luQNvhOTVUREaN3sgWHXipCiq7xxr7JiVbihlZyP4hcfjz4spFE3ErxolO+
+         Nl1/eBh6beovuPbfukceNCr+AAaULJPwM9ih6pNcBfohzPK2dpKL1YJXrJoROgPmhZJl
+         u5Jg==
+X-Forwarded-Encrypted: i=1; AKwUvBwtv0aB2VHd9yNyjwGKQkwm6JoKhGfRpBAh9UwfoxejlrMPgW9rc5+2OiREiIdryWdw/qY92TYC79gWUUI=@vger.kernel.org
+X-Gm-Message-State: AFuF++nLPb/3iME6C+yK6OfqtfpXV+DkoaspAU7BsPTcghH4ea+qa99h
+	WQLMEYK0T4ivrojOyQRAoz+WJSr66gJgdE3rZjhdrmJP8aqVSxWodJmCX0H/yXGJP2k2NWPiYZs
+	YS9Gnf8WGPBUlQDk/kcp7Iwtf+u/SCeo=
+X-Gm-Gg: AYBFou1/iX4k+5Rb6kLQ3BdB/ey+mY4Me8h72c8WN94h62BCocRL6z5rAsrlf+DROZ5
+	eiQ4MI0U3we76FqDgAL/l2j4UAshg4IVc+k6EO7mZ0G1YqABT2Q+XN31nMGxfhcqQbGjGx8Hb21
+	XZKLruhTxapRHwnAdPnEGDfpzmirmsT5p38AaHos8RFuFBUXf2YMyc40/4pWVJcqQ8YCtECm4jd
+	9Wq1kNtue9ds06SlifHA4l03VxUODaf5pCJeMUz8uKS0dXqiQcW+5brv4lcBmLN6GKhp8snMEuN
+	HYKjA4NCt9XitALyrCSWid2O+4vXssCVvxK41GpDyg2PqgVo7sa9l07oYgquFvUUEzt50vkV35T
+	z/hfyXL1T86Pjwe+JCE0H7xJzLWTOFXqinLrxP7ltDdxqTVle40p8uHTT
+X-Received: by 2002:a05:6a21:487:b0:3c3:9df0:2d66 with SMTP id
+ adf61e73a8af0-3da39b71849mr6947233637.6.1788512022315; Fri, 04 Sep 2026
+ 01:53:42 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM8PR03MB6230:EE_|DM4PR03MB5981:EE_
-X-MS-Office365-Filtering-Correlation-Id: ff9438e1-8b66-485c-48a3-08df0a6203b2
-X-MS-Exchange-AtpMessageProperties: SA
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|23010399003|376014|366016|10067099003|56012099006|11063799006|55112099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	IbkdtjbNJDgfi4xtbMA6OZhYGoooCimm/6efie/7ndVYoyyleJNtCbUm84kzI7La+z/lOUARq4TxdYQn7exPzzp15nCZ6yirXDoQmYptpTsOn9ixDts8UURW2B6j95S6nTSibYyNDl6c3yErOqMXeKgzfDAi6VWoTX3YPQAEkxmweALLOaDhJ5FeyVZ6oDC03TjcKHbnxHuneo1zuyMh2Q9q4JQlgJrUk/ezNNBuo4KYubcmH5tCVV44VYmJtsB3pbPXOUKV4XlPj+WHpGNfduugHDgbcp4FbFBZle8H99y0TC38eoJ2WpIbj4mhhXEHl7TwctKgZstY8VqKXL6Xid02evqhKwDrNTdktwaF56qzWIOf4PQVEhWbUYxadg0/E5vXxt25Lgo/y630nZlKUWEJQV/BIrIinEGpqVrQ3oj9dCjKqMrteGag/UY/3QYO8F1YH0V5VtAKj2hJvfBIkywhg2lmsEfnsXcANlAsde+IeEQPtB2CJ+zNw+ZZQBZJbRWOtNczzGzPLFQpo2T71DueIvhFzn0VesYQcHhUxrmnVV4j4/810V5Ti4weBPaRokS/Xi1h+XWD2nJSsRUrrYjLvjHy6P4/4VPf9ibO+BT4UPyVY0DPwasTLgHRVaGEOK8x3IIExJ8OSCBCU0ygkUKmATliAT2ChJX/UpP/AkM=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM8PR03MB6230.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(376014)(366016)(10067099003)(56012099006)(11063799006)(55112099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?ESVs1Rji0lGEdH6P3zzS5tfVKJS5MptG4lkL+lWnGcclFvMqmGrqk8MFLH1K?=
- =?us-ascii?Q?pYx6xZK/iaQH122RplUDdPxwEKSioLpqGUhANnQvCy0zUxVzgOwST/Ys9NGi?=
- =?us-ascii?Q?jPgTJv2QGYTN1M/94mZXBEWGhyjl06HiLld8panKym9NSw8jTe06E9AV02c3?=
- =?us-ascii?Q?V1m+W5nAO6YEDFMNpgcxrODAl/ExUGhj53TD8DU7X/Cgah2KOp4WHB3k7sSC?=
- =?us-ascii?Q?LVRQD4IzCmrC+z25Qc5f82Cqu9eqn6yCmrX09XJX1L3HX3yNVkEJDD7uXZD8?=
- =?us-ascii?Q?xSK9tsC1D5SDERu4V+zm5DKVHdqB9K1in+J3g8SjnT0wtbZqWZX7jxmL1H37?=
- =?us-ascii?Q?MHHi+OJMxjGiSSskdQtJJn3dpPNy5C/j8UZdpf/EJNgEYUMfvb72nR4n9zm5?=
- =?us-ascii?Q?WkBppAqx6wGyXV5H+lIlq+OLf6eLWxT39Ma5rCfc97zV591G4YTLP+x6aSFp?=
- =?us-ascii?Q?EUWPcVIw3uYEJvph9FI3W9ZZfqQLl/isxVL95+zTE8i0tcBkU6nlVH1k835e?=
- =?us-ascii?Q?VOdtjGY0x40JIJ/b0OohOP982jRG/gxIcVsV95/AWM+rhzxtqxwg531TItGP?=
- =?us-ascii?Q?EtF3NhRl1diqrNC8hecPDdavZsymGkX2C78bDJNcEizBtODYW4SCnKLQBKPC?=
- =?us-ascii?Q?NgL/Hx+MOQUr9IMknrHni/KAhtGVyo797TpZYSVyiiHl9CwhVGcU5/OPjWSE?=
- =?us-ascii?Q?bMVGnJ3BqRUs4Hgw02ShcRldBI4EtIZvYxNvrLRlmgaQhXH+5q0Bfn5R4GMD?=
- =?us-ascii?Q?tpjMYIHEjCTfjiqgc+eVNFafbtkHT6/DI+5qG7Gq2rvhPp3A1OOa//+DmlXK?=
- =?us-ascii?Q?PFaPmp4Kl3m2aB7CuNWGkcr9FHtnB5Uro4fnYjBO7KLPmPHd8jxDS3Df31mJ?=
- =?us-ascii?Q?kZHDE5NbDvNSwm5YEamLbd3DeiLnwVpBaQkaM9eCe5M+L4lqNzCncW8Apa8j?=
- =?us-ascii?Q?5SU8OzbislQwyuhsxuXNogadNnN9BHB/ypVL2K9N9nDiitTFUHbobxT60GRL?=
- =?us-ascii?Q?BQjqzPpgwCkuTW7i5duIF77D9m5rWc2gH63voSbEwQkUMaCOMD0o1JqqQBX2?=
- =?us-ascii?Q?O/lK6PadDR13Lh4/X0WCvx7Wc9EiYPLTN6t6WCXcVmacoCSsaqLnehrj2yo0?=
- =?us-ascii?Q?U7NfMxMPS8iVESmlwqLTPi/sf2IfSvl0c8aceV895ogesq6wQbIYShSfuH++?=
- =?us-ascii?Q?Zut0T95nYaz5Xzl2kKsKNS95XjlX0DN37BFBd4BPFAIKqqa+vjqs5hKj2p93?=
- =?us-ascii?Q?JcXJZTm+27MWZoHIhf+XZUho2w1MIW/Srl3E3e0Mc1lMnwfbU5w3/S7nwgl8?=
- =?us-ascii?Q?Ou5OyhjtVoP1SCckYPty+WIyfj88O4BPutltMiZ/Cj361BY9gKzMYW7lxaU+?=
- =?us-ascii?Q?WfXXESNz9nE3pcTn8nhmdo8nJ9YD6VGFanapKXs0+3jwRFcmS1Lt7VktjZHy?=
- =?us-ascii?Q?if89Go02dEc+CH6Z+3/pHciPpZbci7fxXzBr0b8bEOJCNwkWZ5G3OCgSzZ6B?=
- =?us-ascii?Q?Dyh2EIquaLIpy/38Q+u4KXWQLTgAzeensv8BMfROeP30OHbDwgMjJoBqIujs?=
- =?us-ascii?Q?3VqKxyhnLal35S7WblCokN0QAYNSeE6rUKg63QguQNjy/ixPX+cIGMrHgRxu?=
- =?us-ascii?Q?j/SLqRnHU1HMMy4I7EbfDZdOp74OB63yOTOYW3Z8H0L6XRWvPFRCbsW9E1t4?=
- =?us-ascii?Q?E9Jwc3e9ZgaGqQ4N60Cq409+rfdCSNM/duzbI3Bm+WCBCT5VT3KWOD1SI9PR?=
- =?us-ascii?Q?fikRmq40s73ykhDgtjBabjKz0uWr/UY=3D?=
-X-OriginatorOrg: altera.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ff9438e1-8b66-485c-48a3-08df0a6203b2
-X-MS-Exchange-CrossTenant-AuthSource: DM8PR03MB6230.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Sep 2026 08:53:39.5924
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: fbd72e03-d4a5-4110-adce-614d51f2077a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 62FPzB1r6mXPfmZ7QsRGRworYRCCMA5N+eg6wZzOWn9YDlwZqZhfJm4deTaYhygsRe04hA1wvs1PWJUv7ePJG16MDbZXGPMzs9w5KoGAWdk=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR03MB5981
+References: <20260810051907.27136-1-phucduc.bui@gmail.com> <fe85bcab-0467-4cab-97e0-8427387358cc@foss.st.com>
+In-Reply-To: <fe85bcab-0467-4cab-97e0-8427387358cc@foss.st.com>
+From: Bui Duc Phuc <phucduc.bui@gmail.com>
+Date: Fri, 4 Sep 2026 15:53:29 +0700
+X-Gm-Features: AcwNN1WTqdbmh2TSlvmQXAuzUgfnu8PThlxFIUq7F0eBJ6BcdpQVRvfvYmsXbIc
+Message-ID: <CAABR9nFsV2dSbw1NSeVwoEPJ9YvNCLD9-D9vin+43LrCaKqWmg@mail.gmail.com>
+Subject: Re: [Linux-stm32] [PATCH] remoteproc: stm32_rproc: Propagate errors
+ from optional IRQ lookup
+To: Arnaud POULIQUEN <arnaud.pouliquen@foss.st.com>
+Cc: Bjorn Andersson <andersson@kernel.org>, Mathieu Poirier <mathieu.poirier@linaro.org>, 
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+	linux-remoteproc@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-Add a DTS node for the Synopsys DWC3 USB3.1 controller on the Agilex5 SoC.
-Place it under a simple-bus with a 40-bit dma-ranges window (#address-cells
-= 2) to match the USB DMA address width of the interconnect. Enable it in
-host mode on the SoCDK board.
+Hi Arnaud,
 
-ref and suspend both use AGILEX5_USB31_SUSPEND_CLK because they share the
-same hardware clock source on this SoC.
+Thank you for the Acked-by tag!
 
-Signed-off-by: Adrian Ng Ho Yin <adrian.ho.yin.ng@altera.com>
----
- .../arm64/boot/dts/intel/socfpga_agilex5.dtsi | 35 +++++++++++++++++++
- .../boot/dts/intel/socfpga_agilex5_socdk.dts  |  5 +++
- 2 files changed, 40 insertions(+)
+> >
+> > Signed-off-by: bui duc phuc <phucduc.bui@gmail.com>
+>
+> Acked-by: Arnaud Pouliquen arnaud.pouliquen@foss.st.com
+>
 
-diff --git a/arch/arm64/boot/dts/intel/socfpga_agilex5.dtsi b/arch/arm64/boot/dts/intel/socfpga_agilex5.dtsi
-index f54767d1526e..523f722a2a64 100644
---- a/arch/arm64/boot/dts/intel/socfpga_agilex5.dtsi
-+++ b/arch/arm64/boot/dts/intel/socfpga_agilex5.dtsi
-@@ -493,6 +493,41 @@ usb0: usb@10b00000 {
- 			status = "disabled";
- 		};
- 
-+		usb31_bus: usb-bus@11000000 {
-+			compatible = "simple-bus";
-+			#address-cells = <2>;
-+			#size-cells = <2>;
-+			ranges = <0x0 0x0 0x11000000 0x0 0x100000>;
-+			/*
-+			 * USB interconnect DMA is limited to 40-bit addresses
-+			 * (1 TiB window from 0).
-+			 */
-+			dma-ranges = <0x0 0x0 0x0 0x100 0x0>;
-+
-+			usb31: usb@0 {
-+				compatible = "altr,agilex5-dwc3";
-+				reg = <0x0 0x0 0x0 0x100000>;
-+				interrupts = <GIC_SPI 94 IRQ_TYPE_LEVEL_HIGH>;
-+				/*
-+				 * ref and suspend share the same hardware
-+				 * source; reuse the published suspend clock ID.
-+				 */
-+				clocks = <&clkmgr AGILEX5_USB31_BUS_CLK_EARLY>,
-+					 <&clkmgr AGILEX5_USB31_SUSPEND_CLK>,
-+					 <&clkmgr AGILEX5_USB31_SUSPEND_CLK>;
-+				clock-names = "bus_early", "ref", "suspend";
-+				resets = <&rst USB1_RESET>, <&rst USB1_OCP_RESET>;
-+				reset-names = "core", "ecc";
-+				iommus = <&smmu 7>;
-+				phys = <&usbphy0>, <&usbphy0>;
-+				phy-names = "usb2-phy", "usb3-phy";
-+				maximum-speed = "super-speed";
-+				snps,dis_u2_susphy_quirk;
-+				snps,dis_u3_susphy_quirk;
-+				status = "disabled";
-+			};
-+		};
-+
- 		watchdog0: watchdog@10d00200 {
- 			compatible = "snps,dw-wdt";
- 			reg = <0x10d00200 0x100>;
-diff --git a/arch/arm64/boot/dts/intel/socfpga_agilex5_socdk.dts b/arch/arm64/boot/dts/intel/socfpga_agilex5_socdk.dts
-index 1e9b87d96765..aa9294494421 100644
---- a/arch/arm64/boot/dts/intel/socfpga_agilex5_socdk.dts
-+++ b/arch/arm64/boot/dts/intel/socfpga_agilex5_socdk.dts
-@@ -109,6 +109,11 @@ &usb0 {
- 	disable-over-current;
- };
- 
-+&usb31 {
-+	dr_mode = "host";
-+	status = "okay";
-+};
-+
- &watchdog0 {
- 	status = "okay";
- };
--- 
-2.49.GIT
+I noticed that the tag is missing the angle brackets around your email address.
+I'll fix that and send v2 shortly.
 
+Best regards,
+Phuc
