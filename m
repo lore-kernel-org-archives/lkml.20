@@ -1,99 +1,295 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f174.google.com (mail-pg1-f174.google.com [209.85.215.174])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB40C481FC9;
-	Fri,  4 Sep 2026 10:54:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 970C7470426
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 10:55:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788519287; cv=none; b=DRD12cAEuObnM+GQ/HAwrqpemU4/PnREpjH35rZ7pWVchurF0ZD4wDv+R7tV3NxOGG3UzM9EoL8lt8lbD/ZKp/bwtP/Z+RdgcrgELMRR/TYSDnOCGqJ+Ts0uZIs77SsCDLVOHWQSb6aEqYk5bUU0RF+dZ9YKlQctGNTQfRHk0Ig=
+	t=1788519310; cv=none; b=LKwihmKaHB2i2eVntMN7j7DEW9ey8cl5wumjY1zx7jXMGX17FyXuticlXRVNyTLb2IDJKddBkEvBceThQs3BF05U3qVv4jLUsb/wOrxA8Cv62hNNy7wJcG7/oKvqlNRG9V6TgQ7ooQo0SIt0fAeBqz40coGdcvcc8B9NBeRVGv8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788519287; c=relaxed/simple;
-	bh=0vXi4sTWwwejFmubENVNFUoP5Fs625tkRrB7WOkTw10=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=tcXh6zSdzYp8/vfrX5tx4xSwNZY6wefPLEAAub99izdwjJ6xN/01+NG2j0tl2QEMeCiGzXD3QtaFKAisVoqiWhj1jSyp0I2GhMtdb+mwpIPBPB26pv5ul7J+7RTUdIsTkyfqQ0du+QI0QiZ63Y1+beC80gR7MLDXZtuo+xHUhKQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=V3+nX3+d; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=q0Qjfy7Z; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	s=arc-20240116; t=1788519310; c=relaxed/simple;
+	bh=zvRp1ma2mwiDvH/BIWs5oSjIWZr662xutAh8n1iN/lg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=RR+Hkm5WiWMbs3TUzWa9iVCqc1yjXb0NTKwy31CSdaPEhDYb2sa7s374kLFnK+4zollxCuMU20HDsHQkHybVYtNQJheonqeRixdKthPZdUMtwbzvJcYCkmG4RfAFItHNPp6u4Bk3ljGt6SMLSoSiFedHByzb6QqHqLP8kJKIvcg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nHhlzFn6; arc=none smtp.client-ip=209.85.215.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="V3+nX3+d";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="q0Qjfy7Z"
-Date: Fri, 4 Sep 2026 12:54:39 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1788519282;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=5NZkbZfp4QWxq6NIlGw0GUtfJE7/9+ScOiFCYA8JVFU=;
-	b=V3+nX3+dicgX0EdZFKSsoPUtS1mpf6m3jZmiy99PBeEDoL+7yaIxWWlLzWOsSzF3Dm34sm
-	OBQXEXK55pW33YQgXBliVZLSs1UJ7UDgENPmtM30IaX5oAz9zRlTet17nlV2MIJxsSbXaI
-	YAKv94l2EbIQpZ6ZRNIAHBA618vbVMXWLEhxOMfiq2l2pI2tq32X1hU0kqDkBZgKkf+KO+
-	bseqYFHHWZVjJnDTYSS9nEpN8NFDVnHLh1/z3h2KNu0NZXHWBJxINzMQUiDyFterUNT5wR
-	vZfKHz0YW8i8RNECZMOwCgHB39Kzf+Zhii2QcGxlRiR+vp2cK9a61tScgWKVVg==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1788519282;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=5NZkbZfp4QWxq6NIlGw0GUtfJE7/9+ScOiFCYA8JVFU=;
-	b=q0Qjfy7Z4Y/z6m3z8RSkHYN3a7Y18qDnT/VCW+8eyKAEaQ3eS1i86ezFykReHCm4rfq9O5
-	6rXnMrrJzU5/z7CQ==
-From: Gregor Herburger <gregor.herburger@linutronix.de>
-To: Andrea della Porta <andrea.porta@suse.com>
-Cc: Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Florian Fainelli <florian.fainelli@broadcom.com>, 
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-rpi-kernel@lists.infradead.org, linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH v2] arm64: dts: broadcom: bcm2712-rpi-5-b: add spi0
- interface
-Message-ID: <i6fbcajsiol77m6x3dbcay6bgpxwhy5axayb2633yklxl6rswl@luknor3eryoo>
-References: <20260904-bcm2712-spi-v2-1-6f8fdfb030bc@linutronix.de>
- <apqej5QyjOHu702A@apocalypse>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nHhlzFn6"
+Received: by mail-pg1-f174.google.com with SMTP id 41be03b00d2f7-cc1bc88a20eso1306464a12.3
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 03:55:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788519308; x=1789124108; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=hCcMOQVVRtRJCmTlUSthMzO4PsVA01kcK/x92csoajc=;
+        b=nHhlzFn6MfFmhu0to+X72JAbRSWf6EcN91w2yL2avBiELLB15vp+kxP2Zp0xA7PxM0
+         a9pwGaBulNVsEdHAT10TYlXojqHU7kJs/tn45glCfdTrxlJV+5l90muJPvvP0ji7Kn6S
+         gQYdCpWs17vYNKcQ9xcFkHjTFchIfy80wfMwgXdiLpJ7GLYgmOZp4IJIHaDfi0uSM4Zi
+         TrQ34x2A+orZ42PM1ZXju4RUWrzFNmLvQDrXoeoFJTRd25syyl7CbPkfjg0HbqyPhhB4
+         1oivVV808GcmkQ640sbVOzw6PP5ow8/JROAuMT6h6JRwmo+Wx4ctuxaUO//CLYwBZk7k
+         k2YA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788519308; x=1789124108;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=hCcMOQVVRtRJCmTlUSthMzO4PsVA01kcK/x92csoajc=;
+        b=LSOeFbOF8MNb3VECaI3GKrTF7LK82B9+5IqyQvw3W/Md7IQR8MnXGZiunlMd9fRorw
+         SRLMUpk5No+1nIbn1AXkIevISsCnp6hlw8jDHxEc02tQwW9vDdz3k+V7oRgfdRMYlKTg
+         w6DqrIKp2r/gI8UVJ+uTyABWaXK77q1lc8Lte1jlsiQ90wdc7cTCKm8SW8Yra9TtIkPC
+         v9E4Lv1gNG81DAs+aEfzmW3bWyZEJJVAQ9hGuhVG5+w+xT062ik9qK9l4TvxU8ONEtTW
+         Xwjm2gE5qtCMd43MXn3NYB8qNdBuS+kQETIT9j5lSKQyz7rv/RwBhzd15I2QH/yAuLCj
+         RXZQ==
+X-Gm-Message-State: AFuF++k1iluU5Nym2LTNxzvet36yMUCdrgdcH0qlrlHCeasn32RCYxmk
+	o2sW2KQHEhl1D+oBqsrqj706OZ+yEni/fTTgPI3xkjKCDZuYrJGNOQF4
+X-Gm-Gg: AYBFou3ffNNH2KA0tpjhS/w7aAIGfilWBZsr0plBQUi8CNlyHuTvMoIRrMqgNDhSPGu
+	ZlFwICC2/I5wjDtfwRmhA/QBLo5CXmmJ/OQ8hK51h31EB4a5Eb9ZZ7grqh30KFcntAvRimglteb
+	vgp23za6YFFXbygfHgpjv92KTuNMiJ8RbEByoJLt/itaS/iSE/Avcz6RPRK8DEBtwXFdnW/fBT3
+	7KfDYFTXIBYBQ1kwNEfd6rMbFp95iHBP8RmidCiIVnhynXcHFghK1HKvtrRK27Aj3AOMEyy+4Zr
+	bnqofPxCwJVkgpeG+jRvsm4TuCHK16a2dmuBJQzMlWQ8M/15eyiN26BeL5LqGTnjc4A8bH+EVK8
+	eOq1HgvkfiiuRkfeljfB+FSruUlrPnsCZJPU0jcCdgGqCITkHn9EsmhafF62DCfqR9un370IkF9
+	YibLn7XN1hgSbmQ3NmpokMyqeJSlbeHsoKWSfIo7JrSsPekRSZYeqGkWlXGq0oWAUBx81HQZGcy
+	emII0ZllgNWFlE=
+X-Received: by 2002:a17:90b:2e0e:b0:398:9be5:b419 with SMTP id 98e67ed59e1d1-39b2622bfecmr8626947a91.20.1788519307614;
+        Fri, 04 Sep 2026 03:55:07 -0700 (PDT)
+Received: from volcano9f6e-hostos.amd.com ([165.204.217.251])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339b123731sm5504962eec.18.2026.09.04.03.55.04
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 04 Sep 2026 03:55:07 -0700 (PDT)
+From: Hemanth Selam <hemanth.selam@gmail.com>
+To: Jens Axboe <axboe@kernel.dk>,
+	Tejun Heo <tj@kernel.org>,
+	Josef Bacik <josef@toxicpanda.com>,
+	Jonathan Derrick <jonathan.derrick@linux.dev>,
+	Ming Lei <tom.leiming@gmail.com>
+Cc: linux-kernel@vger.kernel.org,
+	linux-block@vger.kernel.org,
+	cgroups@vger.kernel.org
+Subject: [PATCH] block: fix typos in comments
+Date: Fri,  4 Sep 2026 16:24:56 +0530
+Message-ID: <20260904105501.35807-1-hemanth.selam@gmail.com>
+X-Mailer: git-send-email 2.48.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <apqej5QyjOHu702A@apocalypse>
 
-Hi Andrea,
+Fix typos in comments, reported by scripts/checkpatch.pl using the
+misspelling list in scripts/spelling.txt.  Only touches comments, no code
+changes.
 
-On Fri, Sep 04, 2026 at 12:33:51PM +0200, Andrea della Porta wrote:
-> Hi Gregor,
-> 
-> On 11:24 Fri 04 Sep     , Gregor Herburger wrote:
-> > The Raspberry Pi 5 routes the spi0 of the rp1 chip to the pin header.
-> > Add the rp1_spi0 node and its pinctrl node to the devicetree to enable
-> > the spi interface.
-> 
-> Just a nit-pick: in the comment it's stated that the spi interface is enabled,
-> which is not true since rp1_usb inherit status="disabled" from its node
-> definition. This is fine because the user would probably want to enable the
-> spi interface through some overlay, so no need to resend the patch (at least
-> for me), so:
-Indeed. It could be rephrased to:
+Assisted-by: Cursor:claude-opus-5
+Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
+---
+ block/blk-cgroup-rwstat.c         | 2 +-
+ block/blk-iocost.c                | 6 +++---
+ block/blk-iolatency.c             | 4 ++--
+ block/blk-merge.c                 | 2 +-
+ block/blk-mq.c                    | 2 +-
+ block/ioprio.c                    | 2 +-
+ block/opal_proto.h                | 4 ++--
+ block/partitions/sun.c            | 2 +-
+ block/sed-opal.c                  | 2 +-
+ drivers/block/mtip32xx/mtip32xx.c | 2 +-
+ drivers/block/mtip32xx/mtip32xx.h | 2 +-
+ drivers/block/ublk_drv.c          | 2 +-
+ 12 files changed, 16 insertions(+), 16 deletions(-)
 
-	Add the rp1_spi0 node and its pinctrl nodes to the devicetree to make
-	the spi interface available.
-
-@Florian: Should I send another version or do you want to change it yourself?
-
-Best regards,
+diff --git a/block/blk-cgroup-rwstat.c b/block/blk-cgroup-rwstat.c
+index 2e9bf081cce2..ab87b33a29b0 100644
+--- a/block/blk-cgroup-rwstat.c
++++ b/block/blk-cgroup-rwstat.c
+@@ -31,7 +31,7 @@ EXPORT_SYMBOL_GPL(blkg_rwstat_exit);
+  * @pd: policy private data of interest
+  * @rwstat: rwstat to print
+  *
+- * Print @rwstat to @sf for the device assocaited with @pd.
++ * Print @rwstat to @sf for the device associated with @pd.
+  */
+ u64 __blkg_prfill_rwstat(struct seq_file *sf, struct blkg_policy_data *pd,
+ 			 const struct blkg_rwstat_sample *rwstat)
+diff --git a/block/blk-iocost.c b/block/blk-iocost.c
+index 2745bffcd5ee..c14b79a5b2b0 100644
+--- a/block/blk-iocost.c
++++ b/block/blk-iocost.c
+@@ -68,7 +68,7 @@
+  * gets 300/(100+300) or 75% share, and A0 and A1 equally splits the rest,
+  * 12.5% each.  The distribution mechanism only cares about these flattened
+  * shares.  They're called hweights (hierarchical weights) and always add
+- * upto 1 (WEIGHT_ONE).
++ * up to 1 (WEIGHT_ONE).
+  *
+  * A given cgroup's vtime runs slower in inverse proportion to its hweight.
+  * For example, with 12.5% weight, A0's time runs 8 times slower (100/12.5)
+@@ -833,7 +833,7 @@ static int ioc_autop_idx(struct ioc *ioc, struct gendisk *disk)
+ }
+ 
+ /*
+- * Take the followings as input
++ * Take the following as input
+  *
+  *  @bps	maximum sequential throughput
+  *  @seqiops	maximum sequential 4k iops
+@@ -2154,7 +2154,7 @@ static void ioc_forgive_debts(struct ioc *ioc, u64 usage_us_sum, int nr_debtors,
+ }
+ 
+ /*
+- * Check the active iocgs' state to avoid oversleeping and deactive
++ * Check the active iocgs' state to avoid oversleeping and deactivate
+  * idle iocgs.
+  *
+  * Since waiters determine the sleep durations based on the vrate
+diff --git a/block/blk-iolatency.c b/block/blk-iolatency.c
+index 2caa79a008ad..cd85809586a6 100644
+--- a/block/blk-iolatency.c
++++ b/block/blk-iolatency.c
+@@ -18,7 +18,7 @@
+  * every configured node, and each configured node has it's own independent
+  * queue depth.  This means that we only care about our latency targets at the
+  * peer level.  Some group at the bottom of the hierarchy isn't going to affect
+- * a group at the end of some other path if we're only configred at leaf level.
++ * a group at the end of some other path if we're only configured at leaf level.
+  *
+  * Consider the following
+  *
+@@ -34,7 +34,7 @@
+  * throttle "unloved", but nobody else.
+  *
+  * In this example "fast", "slow", and "normal" will be the only groups actually
+- * accounting their io latencies.  We have to walk up the heirarchy to the root
++ * accounting their io latencies.  We have to walk up the hierarchy to the root
+  * on every submit and complete so we can do the appropriate stat recording and
+  * adjust the queue depth of ourselves if needed.
+  *
+diff --git a/block/blk-merge.c b/block/blk-merge.c
+index 258a726071d1..6b87b0d34f34 100644
+--- a/block/blk-merge.c
++++ b/block/blk-merge.c
+@@ -401,7 +401,7 @@ int bio_split_io_at(struct bio *bio, const struct queue_limits *lim,
+ 	 * there may either be too many discontiguous vectors for the max
+ 	 * segments limit, or contain virtual boundary gaps without having a
+ 	 * valid block sized split. A zero byte result means one of those
+-	 * conditions occured.
++	 * conditions occurred.
+ 	 */
+ 	bytes = ALIGN_DOWN(bytes, bio_split_alignment(bio, lim));
+ 	if (!bytes)
+diff --git a/block/blk-mq.c b/block/blk-mq.c
+index a26a11c73ee3..a1c3cf269072 100644
+--- a/block/blk-mq.c
++++ b/block/blk-mq.c
+@@ -2358,7 +2358,7 @@ void blk_mq_run_hw_queue(struct blk_mq_hw_ctx *hctx, bool async)
+ EXPORT_SYMBOL(blk_mq_run_hw_queue);
+ 
+ /*
+- * Return prefered queue to dispatch from (if any) for non-mq aware IO
++ * Return preferred queue to dispatch from (if any) for non-mq aware IO
+  * scheduler.
+  */
+ static struct blk_mq_hw_ctx *blk_mq_get_sq_hctx(struct request_queue *q)
+diff --git a/block/ioprio.c b/block/ioprio.c
+index f0ee2798539c..69af8831a5b2 100644
+--- a/block/ioprio.c
++++ b/block/ioprio.c
+@@ -153,7 +153,7 @@ static int get_task_ioprio(struct task_struct *p)
+  * Return raw IO priority value as set by userspace. We use this for
+  * ioprio_get(pid, IOPRIO_WHO_PROCESS) so that we keep historical behavior and
+  * also so that userspace can distinguish unset IO priority (which just gets
+- * overriden based on task's nice value) from IO priority set to some value.
++ * overridden based on task's nice value) from IO priority set to some value.
+  */
+ static int get_task_raw_ioprio(struct task_struct *p)
+ {
+diff --git a/block/opal_proto.h b/block/opal_proto.h
+index 7c24247aa186..3224452fa53d 100644
+--- a/block/opal_proto.h
++++ b/block/opal_proto.h
+@@ -237,7 +237,7 @@ enum opal_revertlsp {
+ 
+ /* Packets derived from:
+  * TCG_Storage_Architecture_Core_Spec_v2.01_r1.00
+- * Secion: 3.2.3 ComPackets, Packets & Subpackets
++ * Section: 3.2.3 ComPackets, Packets & Subpackets
+  */
+ 
+ /* Comm Packet (header) for transmissions. */
+@@ -449,7 +449,7 @@ struct d0_single_user_mode {
+ };
+ 
+ /*
+- * Additonal Datastores feature
++ * Additional Datastores feature
+  *
+  * code == 0x0202
+  */
+diff --git a/block/partitions/sun.c b/block/partitions/sun.c
+index 92c645fcd2e0..bf51227727d6 100644
+--- a/block/partitions/sun.c
++++ b/block/partitions/sun.c
+@@ -98,7 +98,7 @@ int sun_partition(struct parsed_partitions *state)
+ 
+ 	/*
+ 	 * So that old Linux-Sun partitions continue to work,
+-	 * alow the VTOC to be used under the additional condition ...
++	 * allow the VTOC to be used under the additional condition ...
+ 	 */
+ 	use_vtoc = use_vtoc || !(label->vtoc.sanity ||
+ 				 label->vtoc.version || label->vtoc.nparts);
+diff --git a/block/sed-opal.c b/block/sed-opal.c
+index 79b290d9458a..4749a5e63051 100644
+--- a/block/sed-opal.c
++++ b/block/sed-opal.c
+@@ -2114,7 +2114,7 @@ static int set_lr_boolean_ace(struct opal_dev *dev,
+ 		/*
+ 		 * Add boolean operator in postfix only with
+ 		 * two or more authorities being added in ACE
+-		 * expresion.
++		 * expression.
+ 		 * */
+ 		if (u > 0)
+ 			add_boolean_object_ref(&err, dev, OPAL_BOOLEAN_OR);
+diff --git a/drivers/block/mtip32xx/mtip32xx.c b/drivers/block/mtip32xx/mtip32xx.c
+index 113bdb868c46..0893e2cd9e95 100644
+--- a/drivers/block/mtip32xx/mtip32xx.c
++++ b/drivers/block/mtip32xx/mtip32xx.c
+@@ -2679,7 +2679,7 @@ static int mtip_hw_get_identify(struct driver_data *dd)
+ 		}
+ 	}
+ 
+-	/* get write protect progess */
++	/* get write protect progress */
+ 	memset(&attr242, 0, sizeof(struct smart_attr));
+ 	if (mtip_get_smart_attr(dd->port, 242, &attr242))
+ 		dev_warn(&dd->pdev->dev,
+diff --git a/drivers/block/mtip32xx/mtip32xx.h b/drivers/block/mtip32xx/mtip32xx.h
+index 0963c07b5845..064afcc9c8fb 100644
+--- a/drivers/block/mtip32xx/mtip32xx.h
++++ b/drivers/block/mtip32xx/mtip32xx.h
+@@ -20,7 +20,7 @@
+ /* Offset of Subsystem Device ID in pci confoguration space */
+ #define PCI_SUBSYSTEM_DEVICEID	0x2E
+ 
+-/* offset of Device Control register in PCIe extended capabilites space */
++/* offset of Device Control register in PCIe extended capabilities space */
+ #define PCIE_CONFIG_EXT_DEVICE_CONTROL_OFFSET	0x48
+ 
+ /* check for erase mode support during secure erase */
+diff --git a/drivers/block/ublk_drv.c b/drivers/block/ublk_drv.c
+index 6c5bec7da97c..b9daf0c11ef7 100644
+--- a/drivers/block/ublk_drv.c
++++ b/drivers/block/ublk_drv.c
+@@ -2529,7 +2529,7 @@ static void ublk_ch_release_work_fn(struct work_struct *work)
+ 	 *
+ 	 * Wait until active references are dropped for avoiding use-after-free
+ 	 *
+-	 * registered buffer may be unregistered in io_ring's release hander,
++	 * registered buffer may be unregistered in io_ring's release handler,
+ 	 * so have to wait by scheduling work function for avoiding the two
+ 	 * file release dependency.
+ 	 */
 -- 
-Gregor Herburger
-Linutronix GmbH | Bahnhofstrasse 3 | D-88690 Uhldingen-Mühlhofen
-Phone: +49 7556 25 999 35; Fax.: +49 7556 25 999 99
+2.48.1
 
-Hinweise zum Datenschutz finden Sie hier (Informations on data privacy 
-can be found here): https://linutronix.de/legal/data-protection.php
-
-Linutronix GmbH | Firmensitz (Registered Office): Uhldingen-Mühlhofen | 
-Registergericht (Registration Court): Amtsgericht Freiburg i.Br., HRB700 
-806 | Geschäftsführer (Managing Directors): Dr. Wilfried Wessner, 
-Katharina Kopp, Alexander Gieringer
