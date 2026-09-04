@@ -1,80 +1,161 @@
-Received: from outboundhk.mxmail.xiaomi.com (outboundhk.mxmail.xiaomi.com [118.143.206.90])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 1CB37233949;
-	Fri,  4 Sep 2026 06:45:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=118.143.206.90
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DCF13A0E99;
+	Fri,  4 Sep 2026 06:46:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788504320; cv=none; b=q239Hsxdd2VrBbixo3t9wbihORQD4Ox0eWQp5l1Y24ywYKHO4O0ppwNUfQgZpRsG55Pup60ANtsYaWwNpdyJKWscJ4TzkAac+Q96RRJmTjlF/MVtxZ9Sn28K2MwNkP9pCl/tLqpEy6fbB4In0Iom+3mKmudCcoy03kOBuIU/oSc=
+	t=1788504410; cv=none; b=kuFh91MlIn0mW8kJFqZ6n6m1hSVY2aeLTbUnunsk2nTOZJKdqeJkfBCBxRPo0gvq2JLQbbsgGC+R8g8cKKF7vvW1D4H/7lF6VV1B1eUOUkRMScitWLs6UYtor4cbz4JZDY6ZWvwxBAAw1fOUqDe8BPkLrAHX5tMXe8Mn6I4vqJ0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788504320; c=relaxed/simple;
-	bh=Be3NKpeYyku2QkrBjKFmErRhp0bgBDENK4U0S0pHM6k=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=b8WmPKQAsgatuUUtN7/SnJ52iCoqETilRq1fqxDK8MVZwq8X1kKbmcogIkxeiNnXPQKgkwOViW/NdFOC/O6NpaWoqL/f8sCkz7gygREBxRMtmC2AAK9N5iRHmLx2kwJ7JUmCcXoIYuJjL4qODC0roJ41kiKxYRLqicmoNW2vmjM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=xiaomi.com; spf=pass smtp.mailfrom=xiaomi.com; arc=none smtp.client-ip=118.143.206.90
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=xiaomi.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaomi.com
-X-CSE-ConnectionGUID: 7Z/tdsLnSyGvG78wVVpMhw==
-X-CSE-MsgGUID: Ff33qnlCQ/SkQYzfNFynVA==
-X-IronPort-AV: E=Sophos;i="6.25,260,1779120000"; 
-   d="scan'208";a="161531732"
-From: Wang Shuaiwei <wangshuaiwei1@xiaomi.com>
-To: Frederic Weisbecker <frederic@kernel.org>, Thomas Gleixner
-	<tglx@kernel.org>, Jens Axboe <axboe@kernel.dk>
-CC: Sebastian Andrzej Siewior <bigeasy@linutronix.de>, <wanghui33@xiaomi.com>,
-	Wang Shuaiwei <wangshuaiwei1@xiaomi.com>, <linux-kernel@vger.kernel.org>,
-	<linux-block@vger.kernel.org>
-Subject: [PATCH] tick/block: Add BLOCK_SOFTIRQ to the hotplug safe mask
-Date: Fri, 4 Sep 2026 14:45:06 +0800
-Message-ID: <20260904064506.671203-1-wangshuaiwei1@xiaomi.com>
-X-Mailer: git-send-email 2.43.0
+	s=arc-20240116; t=1788504410; c=relaxed/simple;
+	bh=Uv4s7+6NVe79bGgtdC3so9tDKE20mEijXN8pqBgRYI4=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=a92xMFu1fHr3nkytt0tbc2Xu0/1mxKdeuwrZ2ubia/pmaDKnfpU5qvxaBQo17o6xk2JidRK8lgoRDyENAz8e5NnDshK5ir32dttRV3amBp/o4xTU80uc+ldT+N3UzuE2bounXRhyBHaUyxhsPUwgxkXMY7FU5lFHsc42aav9ZlU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JfyDrPCh; arc=none smtp.client-ip=10.30.226.201
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JfyDrPCh"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 1EE50C2BCC7;
+	Fri,  4 Sep 2026 06:46:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1788504410;
+	bh=Uv4s7+6NVe79bGgtdC3so9tDKE20mEijXN8pqBgRYI4=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=JfyDrPChMpkgHRUcvIGy8OVRXzVtmPhZaywnSu24q+AtLgiWgTtRAftUsTUQrqYjN
+	 ZIqTln30fnfLTXHeL242SBPwAXI2fpmiyA93y4xyadKcSr8uSZSum9+4b/J9HN8mXV
+	 5Kz/0+oA0fUb/YX0I6rzH7lLG39Nl+WQHZndFlqHlluCc0A+rsp1hMqiwu8KfB2JAl
+	 bsVHMSQWrRrXJ2E4lcqVAVctfXMbt/h75VZv0QHMeFrSK4lwoBUgSIsiyCsjT24kng
+	 vVizi8j1jaSK7MrIxGQxEvles98UaYGKHSI2m3tjRUmc7JJxjflTKcGF5kMtgOsIzn
+	 nNPBFohvK/JFw==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 05C8FC79F80;
+	Fri,  4 Sep 2026 06:46:50 +0000 (UTC)
+From: Jack Wu via B4 Relay <devnull+jackbb_wu.compal.com@kernel.org>
+Date: Fri, 04 Sep 2026 14:46:48 +0800
+Subject: [PATCH] platform/x86: dell-dw5826e: Extend _DSM support to
+ revision 0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: BJ-MBX03.mioffice.cn (10.237.8.123) To bj-mbx11.mioffice.cn
- (10.237.8.131)
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260904-dw5826e-acpi-reset-add-revision-v1-1-1be7153c3453@compal.com>
+X-B4-Tracking: v=1; b=H4sIAFdpmmoC/zXNwQ6CMBCE4Vche3aTsoEGfBXjobSjrgckXVASw
+ rtbNR6/w/yzkSErjI7VRhlPNX2MBfWhongL4xWsqZjEiXe9azi92k48OMRJOcMwc0iJ/1vuomu
+ DH9CL1FQqU8ZF1+/D6fyzLcMdcf5kad/fi3xu1oMAAAA=
+X-Change-ID: 20260904-dw5826e-acpi-reset-add-revision-8c05a6be9221
+To: Hans de Goede <hansg@kernel.org>, 
+ =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Cc: platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Jack Wu <jackbb_wu@compal.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788504409; l=2846;
+ i=jackbb_wu@compal.com; s=20260526; h=from:subject:message-id;
+ bh=fovlMwmuerLb6eG4K1KmkpjYm+R0JncemqL/v2DeZFs=;
+ b=Qbr+okLi4FCD/FC6/l2ybR5+kxybzzasXI0nuQnPnJy0M9zfRRFMzoad/zHvXXgjT7qd0t9N6
+ bfbv4y6/mbaDdM+Sc2d75VaUxW56PV8EF7F1sonCt1bSh/Mvzws1FD8
+X-Developer-Key: i=jackbb_wu@compal.com; a=ed25519;
+ pk=VH1prTWixNl8OEUPPSfII3p46MzJpQN8J3+ecE1tZXg=
+X-Endpoint-Received: by B4 Relay for jackbb_wu@compal.com/20260526 with
+ auth_id=793
+X-Original-From: Jack Wu <jackbb_wu@compal.com>
+Reply-To: jackbb_wu@compal.com
 
-During CPU-hotplug stress testing combined with an I/O
-workload, the following message is observed:
+From: Jack Wu <jackbb_wu@compal.com>
 
-  "NOHZ tick-stop error: local softirq work is pending, handler #10!!!"
+The driver evaluates the PALC0001 _DSM with revision 1 only. Extend it
+to also support firmware implementing revision 0, as found on Slate PTL
+CS 14, Yukon PTL CSLW 14 and Yukon PTL 360 14.
 
-On CPU offline, ksoftirqd is parked at CPUHP_AP_SMPBOOT_THREADS while
-the CPU still takes interrupts. A block completion raised after that
-point stays pending, and if the dying CPU goes idle before teardown,
-report_idle_softirq() sees it, keeps the tick alive and prints the
-error above.
+The supported revision is detected once during probe. Revision 1 is
+checked first so that existing systems keep their current behaviour, and
+the accepted revision is then used for evaluating the reset _DSM.
 
-Such pending block completions on the outgoing CPU are drained later by
-blk_softirq_cpu_dead() (CPUHP_BLOCK_SOFTIRQ_DEAD), so a pending
-BLOCK_SOFTIRQ is harmless here. Add it to SOFTIRQ_HOTPLUG_SAFE_MASK
-like the other teardown-covered vectors.
-
-Signed-off-by: Wang Shuaiwei <wangshuaiwei1@xiaomi.com>
+Signed-off-by: Jack Wu <jackbb_wu@compal.com>
 ---
- include/linux/interrupt.h | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+ drivers/platform/x86/dell/dell-dw5826e-reset.c | 30 ++++++++++++++++++++++----
+ 1 file changed, 26 insertions(+), 4 deletions(-)
 
-diff --git a/include/linux/interrupt.h b/include/linux/interrupt.h
-index 3bf969ad8fe0..52bb684090c0 100644
---- a/include/linux/interrupt.h
-+++ b/include/linux/interrupt.h
-@@ -573,9 +573,11 @@ enum
-  * _ IRQ_POLL: irq_poll_cpu_dead() migrates the queue
-  *
-  * _ (HR)TIMER_SOFTIRQ: (hr)timers_dead_cpu() migrates the queue
-+ *
-+ * _ BLOCK_SOFTIRQ: blk_softirq_cpu_dead() completes the remaining requests
+diff --git a/drivers/platform/x86/dell/dell-dw5826e-reset.c b/drivers/platform/x86/dell/dell-dw5826e-reset.c
+index 64e6e9b1d7a0..c72c243b460e 100644
+--- a/drivers/platform/x86/dell/dell-dw5826e-reset.c
++++ b/drivers/platform/x86/dell/dell-dw5826e-reset.c
+@@ -6,8 +6,10 @@
   */
--#define SOFTIRQ_HOTPLUG_SAFE_MASK (BIT(TIMER_SOFTIRQ) | BIT(IRQ_POLL_SOFTIRQ) |\
--				   BIT(HRTIMER_SOFTIRQ) | BIT(RCU_SOFTIRQ))
-+#define SOFTIRQ_HOTPLUG_SAFE_MASK (BIT(TIMER_SOFTIRQ) | BIT(BLOCK_SOFTIRQ) |\
-+				   BIT(IRQ_POLL_SOFTIRQ) | BIT(HRTIMER_SOFTIRQ) | BIT(RCU_SOFTIRQ))
  
+ #include <linux/acpi.h>
++#include <linux/array_size.h>
+ #include <linux/bits.h>
+ #include <linux/device.h>
++#include <linux/gfp_types.h>
+ #include <linux/module.h>
+ #include <linux/platform_device.h>
+ #include <linux/types.h>
+@@ -15,15 +17,23 @@
  
- /* map softirq index to softirq name. update 'softirq_to_name' in
--- 
-2.43.0
+ #define PALC_DSM_FN_TRIGGER_PLDR    1
+ 
++static const u64 palc_dsm_revs[] = { 1, 0 };
++
+ static guid_t palc_dsm_guid =
+ 	GUID_INIT(0x5a1a4bba, 0x8006, 0x487e, 0xbe, 0x0a, 0xac, 0xf5, 0xd8, 0xfd, 0xfe, 0x59);
+ 
++struct palc_data {
++	u64 dsm_rev;
++};
++
+ static int trigger_palc_pldr(struct device *dev, acpi_handle handle)
+ {
++	struct palc_data *data = dev_get_drvdata(dev);
+ 	union acpi_object *obj;
+ 	int ret = 0;
+ 
+-	obj = acpi_evaluate_dsm(handle, &palc_dsm_guid, 1, PALC_DSM_FN_TRIGGER_PLDR, NULL);
++	obj = acpi_evaluate_dsm(handle, &palc_dsm_guid, data->dsm_rev,
++				PALC_DSM_FN_TRIGGER_PLDR, NULL);
+ 	if (!obj) {
+ 		dev_err(dev, "Failed to evaluate _DSM\n");
+ 		return -EIO;
+@@ -60,16 +70,28 @@ ATTRIBUTE_GROUPS(palc);
+ 
+ static int palc_probe(struct platform_device *pdev)
+ {
++	struct palc_data *data;
+ 	acpi_handle handle;
++	unsigned int i;
+ 
+ 	handle = ACPI_HANDLE(&pdev->dev);
+ 	if (!handle)
+ 		return -ENODEV;
+ 
+-	if (!acpi_check_dsm(handle, &palc_dsm_guid, 1, BIT(PALC_DSM_FN_TRIGGER_PLDR)))
+-		return -ENODEV;
++	data = devm_kzalloc(&pdev->dev, sizeof(*data), GFP_KERNEL);
++	if (!data)
++		return -ENOMEM;
++
++	for (i = 0; i < ARRAY_SIZE(palc_dsm_revs); i++) {
++		if (acpi_check_dsm(handle, &palc_dsm_guid, palc_dsm_revs[i],
++				   BIT(PALC_DSM_FN_TRIGGER_PLDR))) {
++			data->dsm_rev = palc_dsm_revs[i];
++			platform_set_drvdata(pdev, data);
++			return 0;
++		}
++	}
+ 
+-	return 0;
++	return -ENODEV;
+ }
+ 
+ static const struct acpi_device_id palc_acpi_ids[] = {
+
+---
+base-commit: a500db7819c50db59e55f1b4fa1c3baa5a2616f3
+change-id: 20260904-dw5826e-acpi-reset-add-revision-8c05a6be9221
+
+Best regards,
+--  
+Jack Wu <jackbb_wu@compal.com>
+
 
