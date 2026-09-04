@@ -1,341 +1,202 @@
-Received: from mail-ed1-f70.google.com (mail-ed1-f70.google.com [209.85.208.70])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D8D9511E84
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 17:16:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.70
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77B21511E94
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 17:17:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.17
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788542183; cv=none; b=ZSHw29zhnaRAxq6vdZpFL12qt8If2zTCQRfjLqxZCs2dL6zBV3H7usEFlsqWl+HuFtEvW6rDlonKbAzumGXr3CUpi7vT7XvWos3M/Tig+KMIv9eUqUYyKlAAX/tUqlCiDj8kZwQuEAIld6L+Ng33lRMOVjBVp9cSHI+pJZcTTl0=
+	t=1788542231; cv=none; b=sVU6Vy32DWW8ocRkbP2krK6AAllF38r5N8gQp1yGRxSaDhTWV1Kr/oB1rvH9QzLjbup9gpHrD0CUiMpWCXVWx96C2c52HNQt/kl/iw2lT5dVloyoCMz6Iq2uZoThaMjOHyUH9oSgV0XE6LSV4ygLa9tueBJ1s/URrb9KQZf4A5U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788542183; c=relaxed/simple;
-	bh=a2UdRo64Nhr6RoZuxvwyT+i6GcExSXCf3YBAO8Exug4=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=D9Cf6WIGqCpMhWWnZ5Yc1zfcVQux8UiZcqb4m4CXjgZ6wY0ZtJ9l1b11qDKkslOCHUVejZtiyZ1hLRDQ/OYyuO4rYWIztDhD3K4mirJqNLWGmsMbxooftMO5kmRsu5nV0nssQnlQrKmUskaFLtT2EhUgZwZXY/aBky4PdeJN4dE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--tarunsahu.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=FahOE8N3; arc=none smtp.client-ip=209.85.208.70
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--tarunsahu.bounces.google.com
+	s=arc-20240116; t=1788542231; c=relaxed/simple;
+	bh=Jj4QyleD0ZUKrok69aamvZai5mrmHlNQmRfHuu3fllw=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=Ny0VXjbhSZXJLAfKLAqYWyg8fzbc9P7IEv5onyGKzMKEBIlGIPCHn1rNpzm8vhNY4zWj9PqdAbAsQbNNYzGdqBlLTNvqOYhV1DS10pcsZGUkdhk3fVSBF6rJzTj9/Q1U6f43QVjjsp+NzyT9lj6/QHXfQ+p+Ry0ecHCTZP1EGJI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=lnqtcupL; arc=none smtp.client-ip=198.175.65.17
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="FahOE8N3"
-Received: by mail-ed1-f70.google.com with SMTP id 4fb4d7f45d1cf-6a64cb77b0aso1145739a12.3
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 10:16:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1788542177; x=1789146977; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=NikJEXjNYjtOdRdsXEH0yQrsx5J1yuBuYOZC90aY1Z4=;
-        b=FahOE8N3j2eIwvE2xVSm9KF/mg3Tco0fEBPd+HJA/+AH3E2phBxUzGsKfN9fwhCJyq
-         ZkwqW/PkFgociOsgzSQAAVBZ+ngW6R8gSIeLe7etmOlPDq8XLTB7hdJEYPwrgRw3yXR5
-         1zrWH5YCC+2yqtRTf14sPCmFOcFrcaL3qNoL5IlEyktlogV+V5iAUiiGJ92dlzICbzqU
-         Po9qS31KBtTEDzrq4yNWnDN8aBbEUMZm8DLDbO6EjOfx+LxY79JkDCSnTlAtqS1TBMQ6
-         K3vk7EQ+Ao6MMP8z5ChBEwPaYcpKgu7oD0ZhgBfZUVStT04MScZ8zWV4zkBf7HAzXwMs
-         +CWQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788542177; x=1789146977;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=NikJEXjNYjtOdRdsXEH0yQrsx5J1yuBuYOZC90aY1Z4=;
-        b=oHP0uWlUksd+c/Ivwa5mafXODE2vPR40BHdT3OAezrKjm1yhOYtGeANHhWpZPcPj4s
-         FPKOfuAuZvUZAJsgZEwiDLh1MckC7J9tl/35B7+YtuKXFhtBLrip8L3Rr9smmz9IQ/Re
-         xf4GuTfulnqjZRIXM9fxnarbyy4AnJn1BvtXny+ZRepw8eddff2g3nbGK3rGR+C7NVWa
-         P+ea1MB3+ZR3nqpyHS5rqEczxDCrzqmOLRQ86hBcDb849iqksR67km+EP+Ux5SrnK/ti
-         vX2pTH65c3ETDHfgUDu81ACfn0vSRDR0u04/vOB35jEz2htJPng/HptvMpkAtU4QQK1K
-         iopg==
-X-Forwarded-Encrypted: i=1; AKwUvBwU43U6g3aQqC4/MxbhKUwi2HkDL3CWAW8ON53xkl19yyU1vhHkwmOrDqE5em9q+73ETikv3mynNZbUiZI=@vger.kernel.org
-X-Gm-Message-State: AFuF++nIw4EEuSm6GQI7T6t+65O9Lyo4JWjgn8pleP6iE/XUkNHPo2Wy
-	YnTSAqhhuR+K81HUxt5+kX/zPd7BOuwAKbMSONDmulVwhBZOVZTOVSizu5u1n9fSEn1GRFOj8jo
-	4Q4gnMZ/nIAXjifLSxw==
-X-Received: from edfy24.prod.google.com ([2002:a05:6402:a3d8:b0:6a7:e348:5a70])
- (user=tarunsahu job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:6402:a256:20b0:6a7:ee54:f8a6 with SMTP id 4fb4d7f45d1cf-6a7ee55000fmr1421309a12.42.1788542176533;
- Fri, 04 Sep 2026 10:16:16 -0700 (PDT)
-Date: Fri,  4 Sep 2026 17:16:09 +0000
-In-Reply-To: <20260904171610.3342398-1-tarunsahu@google.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="lnqtcupL"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788542225; x=1820078225;
+  h=message-id:subject:from:to:cc:date:in-reply-to:
+   references:content-transfer-encoding:mime-version;
+  bh=Jj4QyleD0ZUKrok69aamvZai5mrmHlNQmRfHuu3fllw=;
+  b=lnqtcupLbttmPLoi7t1OqldZ1xPaDcIYoBuy8Gj5pzmvH6b20gPUyDYA
+   AiY3zYqUohZSvH9uqcTSjuSF3HBCgdl0MH9873qzUQug7D9hn/B1HFmln
+   RQVmiJeYOuxOuHJ7MwmxEe9qsDPSvew1guA3qrgwTv+U/FfI9UlFTDncU
+   E2awgWt/YYauVC5BoRSFiA8EMYtdYSTJuiLkK/GBM3dvaDsVDIDnivcv1
+   pdgDCovYMZk34qqjV+xZUv7a8hBDmf0I5xMgrotickZTkMCPxlrUsN/rz
+   krfrpFsAdZe/YX8qZn2gu98xxhFyqWL4ePQ0gB7LT4OahqzKAJRbbkmby
+   Q==;
+X-CSE-ConnectionGUID: J+l0zH2NRw+K+iJcs1oYNQ==
+X-CSE-MsgGUID: sZZJmYOFRq+7+dKBkht68A==
+X-IronPort-AV: E=McAfee;i="6800,10657,11896"; a="89083374"
+X-IronPort-AV: E=Sophos;i="6.25,262,1779174000"; 
+   d="scan'208";a="89083374"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Sep 2026 10:17:04 -0700
+X-CSE-ConnectionGUID: jsXcnIOqQWWJ9U2h4ExrnA==
+X-CSE-MsgGUID: ObxladWfRg2ERlmgCjHv4g==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,262,1779174000"; 
+   d="scan'208";a="270617094"
+Received: from sghuge-mobl2.amr.corp.intel.com (HELO [10.125.111.11]) ([10.125.111.11])
+  by orviesa009-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Sep 2026 10:17:05 -0700
+Message-ID: <84f83c4dab930ff41cafbe614bbfa866003caa21.camel@linux.intel.com>
+Subject: Re: [PATCH v3 1/2] sched/numa: Drive NUMA task tick from execution
+ context
+From: Tim Chen <tim.c.chen@linux.intel.com>
+To: Hui Su <sh_def@163.com>, peterz@infradead.org, mingo@redhat.com, 
+	yu.c.chen@intel.com, kprateek.nayak@amd.com
+Cc: juri.lelli@redhat.com, vincent.guittot@linaro.org,
+ dietmar.eggemann@arm.com, 	rostedt@goodmis.org, bsegall@google.com,
+ mgorman@suse.de, vschneid@redhat.com, 	connoro@google.com,
+ jstultz@google.com, linux-kernel@vger.kernel.org
+Date: Fri, 04 Sep 2026 10:17:04 -0700
+In-Reply-To: <20260904085244.799276-2-sh_def@163.com>
+References: <20260904085244.799276-1-sh_def@163.com>
+	 <20260904085244.799276-2-sh_def@163.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.1 (3.58.1-1.fc43) 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260904171610.3342398-1-tarunsahu@google.com>
-X-Mailer: git-send-email 2.55.0.979.g7e5102b832-goog
-Message-ID: <20260904171610.3342398-4-tarunsahu@google.com>
-Subject: [PATCH v4 3/3] powerpc/ps3: use put_device() on device_register()
- failure in ps3_system_bus_device_register
-From: Tarun Sahu <tarunsahu@google.com>
-To: Russell King <linux@armlinux.org.uk>, Geoff Levand <geoff@infradead.org>, 
-	Masakazu Mokuno <mokuno@sm.sony.co.jp>, "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>, 
-	Madhavan Srinivasan <maddy@linux.ibm.com>, Michael Ellerman <mpe@ellerman.id.au>, 
-	Paul Mackerras <paulus@ozlabs.org>, helgaas@kernel.org, Nicholas Piggin <npiggin@gmail.com>, 
-	sourabhjain@linux.ibm.com
-Cc: linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, Tarun Sahu <tarunsahu@google.com>
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
 
-As per the kernel documentation of device_register() function, it is
-important to call put_device even if device_register returns an error.
+On Fri, 2026-09-04 at 16:52 +0800, Hui Su wrote:
+> Proxy execution separates the scheduling context in rq->donor from the
+> execution context in rq->curr. sched_tick() invokes task_tick() for the
+> donor's scheduling class.
+>=20
+> task_tick_numa() operates on state associated with the task actually
+> executing, including its mm and NUMA work state. With proxy execution,
+> rq->donor provides the scheduling context while rq->curr identifies the
+> execution context.
+>=20
+> Task-level execution runtime is likewise accounted to rq->curr, and
+> task_tick_numa() uses that runtime to drive periodic NUMA scanning.
+> Keeping task_tick_numa() under task_tick_fair() also means that it is not
+> invoked when a fair task executes on behalf of an RT or deadline donor.
+>=20
+> Move NUMA tick handling into a scheduler helper for the execution
+> context, and invoke it from both sched_tick() and sched_tick_remote().
+>=20
+> Fixes: 7de9d4f94638 ("sched: Start blocked_on chain processing in find_pr=
+oxy_task()")
+> Suggested-by: K Prateek Nayak <kprateek.nayak@amd.com>
+> Suggested-by: Tim Chen <tim.c.chen@linux.intel.com>
+> Signed-off-by: Hui Su <sh_def@163.com>
+> ---
+>  kernel/sched/core.c  | 14 ++++++++++++++
+>  kernel/sched/fair.c  |  7 ++-----
+>  kernel/sched/sched.h |  1 +
+>  3 files changed, 17 insertions(+), 5 deletions(-)
+>=20
+> diff --git a/kernel/sched/core.c b/kernel/sched/core.c
+> index f78275192036..4db55e4ace9e 100644
+> --- a/kernel/sched/core.c
+> +++ b/kernel/sched/core.c
+> @@ -5762,6 +5762,17 @@ static int __init setup_resched_latency_warn_ms(ch=
+ar *str)
+>  }
+>  __setup("resched_latency_warn_ms=3D", setup_resched_latency_warn_ms);
+> =20
+> +static void sched_tick_exec_ctx(struct rq *rq)
 
-To follow this guidelines and properly release the resources after
-device_register() failure, call put_device() instead of kfree()
+Just a minor nit.  We could consider putting sched_tick_exec_ctx()
+in fair.c and export it instead.
+That allows task_tick_numa() and task_tick_cache() declaration to
+remain static.
 
-Also there are in-function-defined struct layout which make struct device
-(core) to be child of layout-child's member (layout.dev.core). Also
-definition of struct layout is not unique across functions in the driver.
-To be able to free struct layout's dynamic allocation via put_device we
-need to make sure that the core's release function must call the free
-on parent of core and the parent must be at the location 0 of the struct
-layout which will inherently free struct layout. This is to not
-complicate the code and keep it as it currently implemented. To check
-the location of parent at 0 of struct layout, I have added BUILD_BUG_ON.
+No big deal either way.
 
-Fixes: d4ad304841a9 ("powerpc/ps3: Fix memory leak in device init")
-Reviewed-by: Sourabh Jain <sourabhjain@linux.ibm.com>
-Signed-off-by: Tarun Sahu <tarunsahu@google.com>
----
- arch/powerpc/platforms/ps3/device-init.c | 83 ++++++++++++++----------
- arch/powerpc/platforms/ps3/system-bus.c  |  2 +
- 2 files changed, 52 insertions(+), 33 deletions(-)
+Otherwise the two patches in the series look good to me.
 
-diff --git a/arch/powerpc/platforms/ps3/device-init.c b/arch/powerpc/platforms/ps3/device-init.c
-index 9109c218a060..8d0c77db1764 100644
---- a/arch/powerpc/platforms/ps3/device-init.c
-+++ b/arch/powerpc/platforms/ps3/device-init.c
-@@ -90,14 +90,12 @@ static int __init ps3_register_lpm_devices(void)
- 	if (result) {
- 		pr_debug("%s:%d ps3_system_bus_device_register failed\n",
- 			__func__, __LINE__);
--		goto fail_register;
-+		return result;
- 	}
- 
- 	pr_debug(" <- %s:%d\n", __func__, __LINE__);
- 	return 0;
- 
--
--fail_register:
- fail_rights:
- fail_read_repo:
- 	kfree(dev);
-@@ -121,6 +119,12 @@ static int __init ps3_setup_gelic_device(
- 		struct ps3_dma_region d_region;
- 	} *p;
- 
-+	/*
-+	 * ps3_system_bus_release_device() calls kfree(&p->dev).
-+	 * dev must be at offset 0 so kfree() frees outer p.
-+	 */
-+	BUILD_BUG_ON(offsetof(struct layout, dev) != 0);
-+
- 	pr_debug(" -> %s:%d\n", __func__, __LINE__);
- 
- 	BUG_ON(repo->bus_type != PS3_BUS_TYPE_SB);
-@@ -164,13 +168,12 @@ static int __init ps3_setup_gelic_device(
- 	if (result) {
- 		pr_debug("%s:%d ps3_system_bus_device_register failed\n",
- 			__func__, __LINE__);
--		goto fail_device_register;
-+		return result;
- 	}
- 
- 	pr_debug(" <- %s:%d\n", __func__, __LINE__);
- 	return result;
- 
--fail_device_register:
- fail_dma_init:
- fail_find_interrupt:
- 	kfree(p);
-@@ -192,6 +195,12 @@ static int __init ps3_setup_uhc_device(
- 	u64 bus_addr;
- 	u64 len;
- 
-+	/*
-+	 * ps3_system_bus_release_device() calls kfree(&p->dev).
-+	 * dev must be at offset 0 so kfree() frees outer p.
-+	 */
-+	BUILD_BUG_ON(offsetof(struct layout, dev) != 0);
-+
- 	pr_debug(" -> %s:%d\n", __func__, __LINE__);
- 
- 	BUG_ON(repo->bus_type != PS3_BUS_TYPE_SB);
-@@ -252,13 +261,12 @@ static int __init ps3_setup_uhc_device(
- 	if (result) {
- 		pr_debug("%s:%d ps3_system_bus_device_register failed\n",
- 			__func__, __LINE__);
--		goto fail_device_register;
-+		return result;
- 	}
- 
- 	pr_debug(" <- %s:%d\n", __func__, __LINE__);
- 	return result;
- 
--fail_device_register:
- fail_mmio_init:
- fail_dma_init:
- fail_find_reg:
-@@ -291,6 +299,12 @@ static int __init ps3_setup_vuart_device(enum ps3_match_id match_id,
- 		struct ps3_system_bus_device dev;
- 	} *p;
- 
-+	/*
-+	 * ps3_system_bus_release_device() calls kfree(&p->dev).
-+	 * dev must be at offset 0 so kfree() frees outer p.
-+	 */
-+	BUILD_BUG_ON(offsetof(struct layout, dev) != 0);
-+
- 	pr_debug(" -> %s:%d: match_id %u, port %u\n", __func__, __LINE__,
- 		match_id, port_number);
- 
-@@ -308,15 +322,10 @@ static int __init ps3_setup_vuart_device(enum ps3_match_id match_id,
- 	if (result) {
- 		pr_debug("%s:%d ps3_system_bus_device_register failed\n",
- 			__func__, __LINE__);
--		goto fail_device_register;
-+		return result;
- 	}
- 	pr_debug(" <- %s:%d\n", __func__, __LINE__);
- 	return 0;
--
--fail_device_register:
--	kfree(p);
--	pr_debug(" <- %s:%d fail\n", __func__, __LINE__);
--	return result;
- }
- 
- static int ps3_setup_storage_dev(const struct ps3_repository_device *repo,
-@@ -327,6 +336,12 @@ static int ps3_setup_storage_dev(const struct ps3_repository_device *repo,
- 	u64 port, blk_size, num_blocks;
- 	unsigned int num_regions, i;
- 
-+	/*
-+	 * ps3_system_bus_release_device() calls kfree(&p->sbd).
-+	 * sbd must be at offset 0 so kfree() frees outer p.
-+	 */
-+	BUILD_BUG_ON(offsetof(struct ps3_storage_device, sbd) != 0);
-+
- 	pr_debug(" -> %s:%u: match_id %u\n", __func__, __LINE__, match_id);
- 
- 	result = ps3_repository_read_stor_dev_info(repo->bus_index,
-@@ -395,13 +410,12 @@ static int ps3_setup_storage_dev(const struct ps3_repository_device *repo,
- 	if (result) {
- 		pr_debug("%s:%u ps3_system_bus_device_register failed\n",
- 			 __func__, __LINE__);
--		goto fail_device_register;
-+		return result;
- 	}
- 
- 	pr_debug(" <- %s:%u\n", __func__, __LINE__);
- 	return 0;
- 
--fail_device_register:
- fail_read_region:
- fail_find_interrupt:
- 	kfree(p);
-@@ -445,6 +459,12 @@ static int __init ps3_register_sound_devices(void)
- 		struct ps3_mmio_region m_region;
- 	} *p;
- 
-+	/*
-+	 * ps3_system_bus_release_device() calls kfree(&p->dev).
-+	 * dev must be at offset 0 so kfree() frees outer p.
-+	 */
-+	BUILD_BUG_ON(offsetof(struct layout, dev) != 0);
-+
- 	pr_debug(" -> %s:%d\n", __func__, __LINE__);
- 
- 	p = kzalloc_obj(*p);
-@@ -461,15 +481,10 @@ static int __init ps3_register_sound_devices(void)
- 	if (result) {
- 		pr_debug("%s:%d ps3_system_bus_device_register failed\n",
- 			__func__, __LINE__);
--		goto fail_device_register;
-+		return result;
- 	}
- 	pr_debug(" <- %s:%d\n", __func__, __LINE__);
- 	return 0;
--
--fail_device_register:
--	kfree(p);
--	pr_debug(" <- %s:%d failed\n", __func__, __LINE__);
--	return result;
- }
- 
- static int __init ps3_register_graphics_devices(void)
-@@ -479,6 +494,12 @@ static int __init ps3_register_graphics_devices(void)
- 		struct ps3_system_bus_device dev;
- 	} *p;
- 
-+	/*
-+	 * ps3_system_bus_release_device() calls kfree(&p->dev).
-+	 * dev must be at offset 0 so kfree() frees outer p.
-+	 */
-+	BUILD_BUG_ON(offsetof(struct layout, dev) != 0);
-+
- 	pr_debug(" -> %s:%d\n", __func__, __LINE__);
- 
- 	p = kzalloc_obj(struct layout);
-@@ -495,16 +516,11 @@ static int __init ps3_register_graphics_devices(void)
- 	if (result) {
- 		pr_debug("%s:%d ps3_system_bus_device_register failed\n",
- 			__func__, __LINE__);
--		goto fail_device_register;
-+		return result;
- 	}
- 
- 	pr_debug(" <- %s:%d\n", __func__, __LINE__);
- 	return 0;
--
--fail_device_register:
--	kfree(p);
--	pr_debug(" <- %s:%d failed\n", __func__, __LINE__);
--	return result;
- }
- 
- static int __init ps3_register_ramdisk_device(void)
-@@ -514,6 +530,12 @@ static int __init ps3_register_ramdisk_device(void)
- 		struct ps3_system_bus_device dev;
- 	} *p;
- 
-+	/*
-+	 * ps3_system_bus_release_device() calls kfree(&p->dev).
-+	 * dev must be at offset 0 so kfree() frees outer p.
-+	 */
-+	BUILD_BUG_ON(offsetof(struct layout, dev) != 0);
-+
- 	pr_debug(" -> %s:%d\n", __func__, __LINE__);
- 
- 	p = kzalloc_obj(struct layout);
-@@ -530,16 +552,11 @@ static int __init ps3_register_ramdisk_device(void)
- 	if (result) {
- 		pr_debug("%s:%d ps3_system_bus_device_register failed\n",
- 			__func__, __LINE__);
--		goto fail_device_register;
-+		return result;
- 	}
- 
- 	pr_debug(" <- %s:%d\n", __func__, __LINE__);
- 	return 0;
--
--fail_device_register:
--	kfree(p);
--	pr_debug(" <- %s:%d failed\n", __func__, __LINE__);
--	return result;
- }
- 
- /**
-diff --git a/arch/powerpc/platforms/ps3/system-bus.c b/arch/powerpc/platforms/ps3/system-bus.c
-index 0537a678a32f..0918c74d3e19 100644
---- a/arch/powerpc/platforms/ps3/system-bus.c
-+++ b/arch/powerpc/platforms/ps3/system-bus.c
-@@ -774,6 +774,8 @@ int ps3_system_bus_device_register(struct ps3_system_bus_device *dev)
- 	pr_debug("%s:%d add %s\n", __func__, __LINE__, dev_name(&dev->core));
- 
- 	result = device_register(&dev->core);
-+	if (result)
-+		put_device(&dev->core);
- 	return result;
- }
- 
--- 
-2.55.0.979.g7e5102b832-goog
+Reviewed-by: Tim Chen <tim.c.chen@linux.intel.com>
 
+Tim
+
+> +{
+> +	struct task_struct *curr =3D rq->curr;
+> +
+> +	if (curr->sched_class !=3D &fair_sched_class)
+> +		return;
+> +
+> +	if (static_branch_unlikely(&sched_numa_balancing))
+> +		task_tick_numa(rq, curr);
+> +}
+> +
+>  /*
+>   * This function gets called by the timer code, with HZ frequency.
+>   * We call it with interrupts disabled.
+> @@ -5794,6 +5805,8 @@ void sched_tick(void)
+>  		resched_curr(rq);
+> =20
+>  	donor->sched_class->task_tick(rq, donor, 0);
+> +	sched_tick_exec_ctx(rq);
+> +
+>  	if (sched_feat(LATENCY_WARN))
+>  		resched_latency =3D cpu_resched_latency(rq);
+>  	calc_global_load_tick(rq);
+> @@ -5890,6 +5903,7 @@ static void sched_tick_remote(struct work_struct *w=
+ork)
+>  				WARN_ON_ONCE(delta > (u64)NSEC_PER_SEC * 30);
+>  			}
+>  			curr->sched_class->task_tick(rq, curr, 0);
+> +			sched_tick_exec_ctx(rq);
+> =20
+>  			calc_load_nohz_remote(rq);
+>  		}
+> diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
+> index 8dff37059faf..55f0460e4ae3 100644
+> --- a/kernel/sched/fair.c
+> +++ b/kernel/sched/fair.c
+> @@ -4425,7 +4425,7 @@ void init_numa_balancing(u64 clone_flags, struct ta=
+sk_struct *p)
+>  /*
+>   * Drive the periodic memory faults..
+>   */
+> -static void task_tick_numa(struct rq *rq, struct task_struct *curr)
+> +void task_tick_numa(struct rq *rq, struct task_struct *curr)
+>  {
+>  	struct callback_head *work =3D &curr->numa_work;
+>  	u64 period, now;
+> @@ -4491,7 +4491,7 @@ static void update_scan_period(struct task_struct *=
+p, int new_cpu)
+> =20
+>  #else /* !CONFIG_NUMA_BALANCING: */
+> =20
+> -static void task_tick_numa(struct rq *rq, struct task_struct *curr)
+> +void task_tick_numa(struct rq *rq, struct task_struct *curr)
+>  {
+>  }
+> =20
+> @@ -15042,9 +15042,6 @@ static void task_tick_fair(struct rq *rq, struct =
+task_struct *curr, int queued)
+>  	if (queued)
+>  		return;
+> =20
+> -	if (static_branch_unlikely(&sched_numa_balancing))
+> -		task_tick_numa(rq, curr);
+> -
+>  	task_tick_cache(rq, curr);
+> =20
+>  	update_misfit_status(curr, rq);
+> diff --git a/kernel/sched/sched.h b/kernel/sched/sched.h
+> index e656c7059bf8..4d619f272b15 100644
+> --- a/kernel/sched/sched.h
+> +++ b/kernel/sched/sched.h
+> @@ -4152,6 +4152,7 @@ extern void sched_cache_active_set(void);
+>  void sched_domains_free_llc_id(int cpu);
+> =20
+>  extern void init_sched_mm(struct task_struct *p);
+> +void task_tick_numa(struct rq *rq, struct task_struct *p);
+> =20
+>  extern u64 avg_vruntime(struct cfs_rq *cfs_rq);
+>  extern int entity_eligible(struct cfs_rq *cfs_rq, struct sched_entity *s=
+e);
+>=20
