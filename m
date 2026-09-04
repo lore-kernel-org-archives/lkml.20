@@ -1,110 +1,130 @@
-Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 753CC19E97B;
-	Fri,  4 Sep 2026 00:46:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.109.113.108
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94C8DDF59;
+	Fri,  4 Sep 2026 00:47:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788482764; cv=none; b=UAZlhRnmSDmBhleq4gUEAmUGcmKYRkr+QEyM16QJ7tELTKMC+Nvhx2uujX5MRWib7jp2DewFVc1Yu0CYDmmNu4R9rRj8V9fZUJESH6FlkkrW3e/pi1GRiuNIXtoT0l5DphjcgQH1zT4FQyYBkqCMqnbgOjjc/bH0aL848UuJJLo=
+	t=1788482837; cv=none; b=JZ4Y4mzTbKe3NDtH2tlSqcG0WvHd2ZnscTTxOwKCta9Wq81WATotCjZMZZoxebUIDv3rOvxFxHedJ/thVfgzbLs4IksydcZvCK5nB0rVb0OVHgw0qPEi+wZ51ZQqiG8LWZWSgAfgHPsUl4SJ1pLl3RzcVCdxP80cuOAs4roVJZ8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788482764; c=relaxed/simple;
-	bh=G+cbfp3/DrJbJ39GkXJwA59yVN4l2KvaFalZw3bvCrU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=GtgBVqwR72PPSprUTHreYsBXYYS6s6v3w/ke+0NKZbWe+a8AAbQK7SZ629l18n/doBMUBxxWHJuUssMUwbY5a0E7Ki3d42sbvwl3HZdzJB3SZf8hyONZcchGg/lnN7zTphs+UrvR3CFEXgx4NYzesE33f73rtZF50VWYQT8r+uA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de; spf=pass smtp.mailfrom=alien8.de; dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b=ZztCZJJT; arc=none smtp.client-ip=65.109.113.108
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
+	s=arc-20240116; t=1788482837; c=relaxed/simple;
+	bh=1Rj6DGdQT4blbVu2h7Vt4I+rc6NkpCrfGiFJ9H1m9qo=;
+	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
+	 Mime-Version:Content-Type; b=VhXsevPIP5au9MnQGsGxPQb69esotrB886mHDwnpWEX0yTnJZhEuybz/ZXEumqaUCDgiVTri8z7cplP+5xn29+O94cfyLs9pbATBXc4nNbaC9G6eoUMSWKGAWCDC57oJtUoxBw9gFYi33Orp7FFpyHZyH84CJF5DXsTeCdDGvgc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ied/Q2OQ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b="ZztCZJJT"
-Received: from localhost (localhost.localdomain [127.0.0.1])
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id AA19240E0301;
-	Fri,  4 Sep 2026 00:45:58 +0000 (UTC)
-X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
-Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
-	header.d=alien8.de
-Received: from mail.alien8.de ([127.0.0.1])
-	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
-	with ESMTP id H7HxSG7FG3cq; Fri,  4 Sep 2026 00:45:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
-	t=1788482748; bh=KTfmakfyUbrCg+U7pnBILM91XEjE6ocQsxObCugcJco=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=ZztCZJJTW8OajFH741mU9mzaC540yt4lJieqBEHWcOKvKdOipC/wawWtlyG9E4UgJ
-	 C+3PatJBW4OC2ydPIMagQ3BWLTRNoF62V+ykTUcubWUnqc/sfGSebFZyyW9kq4PJg6
-	 W2J7Cx/8erz+b7Vgg1mfM1n9drSyjeX32vrkMee987qy0nCk4EZVJCe+2MRExcSsep
-	 ERzcXHgQ0eR7VpsA1Bz4pui5xIo+AIOummWRFPdlW6zCWo8vQwcPeC3CbldknYVzpY
-	 2or0S/hjWkxppg+h5wN8pjiegaCZJGUUFmE7Zna/xhuO6YI5qbIkVHIhkBcoiC2sX3
-	 h7jWdiQdXe3fC4ajHvNFMNjMO9X4Mu3TyQbZ9q33EHbyoqKZg9f0jQUmNCwrtib4Eb
-	 IUtvBMSpTOphSYgQ+bMaZQR0fc6CU8SVC7eAtDzExVP51AGLV+t9UURG4ek26uESsG
-	 y6UWCvS91kurKrIuETd48voiIV4SfMTxCuAByltKNPh1EV1RF6/2UxiWDlk2ziMIqP
-	 h125XqUpka/HyjXkjGLYsQLFlMyYO1NGEvDPQSZE4TLHzL2YDAqB6+mk7+K1hN7tYo
-	 D9j0c4BqNxab5AnPeR2ABwmdf2zfpVn5mYpqRIn8FQQSLn1GgsJo3XAVyEBjQrz/F5
-	 49YlYhYbnP8bzeE88t63KxkQ=
-Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::46])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
-	(No client certificate requested)
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 01B6F40E016C;
-	Fri,  4 Sep 2026 00:45:31 +0000 (UTC)
-Date: Thu, 3 Sep 2026 17:45:28 -0700
-From: Borislav Petkov <bp@alien8.de>
-To: Aaron Tomlin <atomlin@atomlin.com>
-Cc: tony.luck@intel.com, tglx@kernel.org, mingo@redhat.com,
-	dave.hansen@linux.intel.com, x86@kernel.org, hpa@zytor.com,
-	frederic@kernel.org, marco.crivellari@suse.com, neelx@suse.com,
-	sean@ashe.io, chjohnst@gmail.com, mproche@gmail.com,
-	nick.lange@gmail.com, linux-edac@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v5 0/3] x86/mce: Fix timer list corruption and avoid
- redundant polling
-Message-ID: <20260904004528.GBapoUqPa1vDY3TP0n@fat_crate.local>
-References: <20260903194130.186096-1-atomlin@atomlin.com>
- <20260903221745.GAapnyCYVOL0qeip6N@fat_crate.local>
- <3we2xmx4fwgrgj7ixnkeskbht5yxsgzgffy6yn45xxvdnl4nkz@6yktlrqvgwcq>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ied/Q2OQ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CDC391F000E9;
+	Fri,  4 Sep 2026 00:47:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788482836;
+	bh=5PoirAbTzXhUzGqr98L7qjL9f6MVl7KJM5VoZrFAO8o=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=Ied/Q2OQoPRqI2M3twPYYGpO3Dscab4q63GHlMtGRxY1NxGr9WkwKjvxolKXp6F1Q
+	 m7HFDiT36r3HWjX3iQuzN8nvcBgLikLKpeZMcfvBj61RTyyUxkSoOaaOWn7g4EFuGD
+	 haWRMHV4a6NZAyNjmcjHbTLMmtpBvT9hvZgzpMsUI1NY7TjqImNb+x/3lmSjPhol3Y
+	 k8z/t19XyW9envohrINNxkyeMETfDOyqqN9LL0WXs0vak+0Uo3n2e4ANRFufB50GYi
+	 6oo3UwJRMpXljyQFSayqYBp4vKcrfYt6X2J7Le7+IE3QqENCYKm5mv42INz2oDDMj8
+	 ThlQFhBTXFytA==
+Date: Fri, 4 Sep 2026 09:47:12 +0900
+From: Masami Hiramatsu (Google) <mhiramat@kernel.org>
+To: Steven Rostedt <rostedt@goodmis.org>
+Cc: LKML <linux-kernel@vger.kernel.org>, Linux Trace Kernel
+ <linux-trace-kernel@vger.kernel.org>, Masami Hiramatsu
+ <mhiramat@kernel.org>, Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+Subject: Re: [PATCH v2] ftrace: Synchronize the initialization of ftrace_ops
+Message-Id: <20260904094712.495d57be3c22a6b00529e7b9@kernel.org>
+In-Reply-To: <20260902095501.6b59af20@gandalf.local.home>
+References: <20260902095501.6b59af20@gandalf.local.home>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <3we2xmx4fwgrgj7ixnkeskbht5yxsgzgffy6yn45xxvdnl4nkz@6yktlrqvgwcq>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Thu, Sep 03, 2026 at 08:30:40PM -0400, Aaron Tomlin wrote:
-> The rapid cadence was not borne out of impatience, but rather active,
-> iterative engagement with Tony Luck and Marco Crivellari to incorporate
-> their direct feedback, alongside addressing pre-existing issues flagged by
-> Sashiko. Each revision sought to turn around those specific corrections
-> promptly.
+On Wed, 2 Sep 2026 09:55:01 -0400
+Steven Rostedt <rostedt@goodmis.org> wrote:
 
-How would you feel if I am doing a patchset and I send you a new version each
-time I fix an issue there?
+> From: Steven Rostedt <rostedt@goodmis.org>
+> 
+> There's some internal state that ftrace_ops needs to have set, but since
+> it can be declared outside of the ftrace.c code, it calls
+> ftrace_ops_init() on the ops in every global function. The issue is that
+> if two tasks call it on the same ops at the same time it is possible to
+> have the initialization of one corrupt the initialization of the other
+> call.
+> 
+> Create a ops_mutex to use to synchronize every initialization of the
+> ftrace_ops. The mutex is taken within checking the ftrace_ops flag that
+> states it was initializied but the flag is checked again after the mutex
+> has been taken. Checking first outside the mutex allows it to shortcut
+> having to take the mutex. But then the check needs to be done again after
+> the mute is taken in case of races.
+> 
 
-That's not how this is done.
+Looks good to me.
 
-You collect *all* feedback, you reply to the list with your feedback to
-Sashiko review so that people can see whether that is going to be addressed or
-it doesn't make sense after explaining why, you test your patchset thoroughly and
-*then* you send again.
+Reviewed-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
 
-You don't have to wait a whole week but you have to give people a chance to
-take a look at your pile. Note that you're not the only one sending patches.
+Thanks,
 
-How about you try to review some patches of other people instead of only
-sending, while waiting for people to take a look at yours?
+> Cc: stable@vger.kernel.org
+> Fixes: f04f24fb7e48d ("ftrace, kprobes: Fix a deadlock on ftrace_regex_lock")
+> Reported-by: sashiko-bot@kernel.org
+> Close: https://lore.kernel.org/all/20260829025528.49A831F000E9@smtp.kernel.org/
+> Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
+> ---
+> Changes since v1: https://patch.msgid.link/20260901202020.09a1119a@robin
+> 
+> - Added smp_load_acquire() and smp_store_release() to make sure that
+>   the flags value that is compared is really updated after the code has
+>   been initialized. (Sashiko)
+> 
+>  kernel/trace/ftrace.c | 13 +++++++++++--
+>  1 file changed, 11 insertions(+), 2 deletions(-)
+> 
+> diff --git a/kernel/trace/ftrace.c b/kernel/trace/ftrace.c
+> index c7cf36f2dd7b..53d5db60bfa5 100644
+> --- a/kernel/trace/ftrace.c
+> +++ b/kernel/trace/ftrace.c
+> @@ -75,6 +75,8 @@
+>  	.func_hash		= &opsname.local_hash,			\
+>  	.local_hash.regex_lock	= __MUTEX_INITIALIZER(opsname.local_hash.regex_lock), \
+>  	.subop_list		= LIST_HEAD_INIT(opsname.subop_list),
+> +/* Used only to synchronize the initialization of ftrace_ops */
+> +static DEFINE_MUTEX(ops_mutex);
+>  #else
+>  #define INIT_OPS_HASH(opsname)
+>  #endif
+> @@ -159,11 +161,18 @@ const struct ftrace_ops ftrace_nop_ops = {
+>  static inline void ftrace_ops_init(struct ftrace_ops *ops)
+>  {
+>  #ifdef CONFIG_DYNAMIC_FTRACE
+> -	if (!(ops->flags & FTRACE_OPS_FL_INITIALIZED)) {
+> +	unsigned long flags = smp_load_acquire(&ops->flags);
+> +
+> +	if (!(flags & FTRACE_OPS_FL_INITIALIZED)) {
+> +		guard(mutex)(&ops_mutex);
+> +		/* Could have been initialized before lock taken */
+> +		if (unlikely(ops->flags & FTRACE_OPS_FL_INITIALIZED))
+> +			return;
+>  		mutex_init(&ops->local_hash.regex_lock);
+>  		INIT_LIST_HEAD(&ops->subop_list);
+>  		ops->func_hash = &ops->local_hash;
+> -		ops->flags |= FTRACE_OPS_FL_INITIALIZED;
+> +		flags = ops->flags | FTRACE_OPS_FL_INITIALIZED;
+> +		smp_store_release(&ops->flags, flags);
+>  	}
+>  #endif
+>  }
+> -- 
+> 2.53.0
+> 
 
-And perhaps test some -rc kernels and report issues?
-
-That would be of immense help than simply only sending patches.
-
-Balancing the generation of new code and reviewing of other code on the ML
-would be the optimal thing to do, I would say. And very much appreciated by
-maintainers - much more than only sending patches.
-
-Thx.
 
 -- 
-Regards/Gruss,
-    Boris.
-
-https://people.kernel.org/tglx/notes-about-netiquette
+Masami Hiramatsu (Google) <mhiramat@kernel.org>
