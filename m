@@ -1,154 +1,136 @@
-Received: from mail-wr2-f9.google.com (mail-wr2-f9.google.com [74.125.225.73])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26ED04FECE7
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 20:03:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.73
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 019693803D0
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 20:03:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788552228; cv=none; b=deeFafKrKuHMBO1PttsyeuE40InASqH2cvVmYCkwdspQzxaFRnmr5Pi9C7hfaECdyH2JTzVqrLVzBwJVN4Pj2n3ZDYIlnaYbvIgshq0WaSuNjB7gt9l45GjfGqddO25DCl4gXRDbLUcRgdK0PptKumFJwcVUh8aq2UqrIStorkQ=
+	t=1788552236; cv=none; b=ReIJr14oXBQoxH5QWtWQ3/YDonUkZB7BBzfJUbF80iHsxP9uCzrx2fVzE/+itnCjhM5iHMt66Nwi8HK+gYFROrtAikd8pJJmgjUckD9aWZfXDhyEhvSZgQC6wGqPXsYT9NbGiVvY+/PriUq43dUZ70GGnr+WqovEbGnJdOb/Lvk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788552228; c=relaxed/simple;
-	bh=vmLc0QU+7tEqTAWdMzWFy6dCmHlNO9qldr5uF86+PMw=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=YppWHishFxQLnuHhNVOhyPs1C8Ro2PFWnIa5M5ld5rTM2UGs+KfBCwC8OxfIH9NS5LwD1LDUWB6TtJK9KMpI/PhmPJd2m62MHpoGVgnkIz4GvKtj2d+IKtrChGvALO4a0w9VBT1ebwQaJdJx94ajQho+lFK93c1QrOdftNWhCo4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JXkF5btR; arc=none smtp.client-ip=74.125.225.73
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788552236; c=relaxed/simple;
+	bh=B3mbXGgcUMU41mdHor14hlewxI1TjYBtrggKnKgV6iQ=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=m60zhwPHlD4b27YnTs1UV2gIBy4G93jFvaSN8tVBfTkkTP+aQbeQ/fXMVOF6vP+s+jVKt6ZQAy6ctGtgDDAoERvpz3mlKl65iOCeul/fS4YTAGEvEMqKjhz53pcMGF/BX1Zn6kU45/65cQF1uwaApDlRA/RhsJuIHXkT0md/WR8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=IHCCFT4n; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=aKZ4d1q6; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JXkF5btR"
-Received: by mail-wr2-f9.google.com with SMTP id ffacd0b85a97d-4843169420fso320029f8f.1
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 13:03:42 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="IHCCFT4n";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="aKZ4d1q6"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1788552232;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=B3mbXGgcUMU41mdHor14hlewxI1TjYBtrggKnKgV6iQ=;
+	b=IHCCFT4n+Kpn2fEJM4+Su/5yfBE5uIjVsW3xu4GsXeKi7n2V3MWj4gqhNC4f4D5ZBXasq2
+	gumUGOIvxnrrr6h75Oa0EXJHKYYqvi9ykPlSdHsJ7uFzj/K3JTKcTtFNRaPu5VpyXmWl2c
+	8CmVP3l0y+5qH00N1kPQgDN9RrrJk6w=
+Received: from mail-yw1-f200.google.com (mail-yw1-f200.google.com
+ [209.85.128.200]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-621-eNnylW51MZ2d6WRQu3FnSQ-1; Fri, 04 Sep 2026 16:03:51 -0400
+X-MC-Unique: eNnylW51MZ2d6WRQu3FnSQ-1
+X-Mimecast-MFC-AGG-ID: eNnylW51MZ2d6WRQu3FnSQ_1788552231
+Received: by mail-yw1-f200.google.com with SMTP id 00721157ae682-836c8fc09cfso34084457b3.1
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 13:03:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788552220; x=1789157020; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=3UTb+wha3en9T7ds19Z5GD7eJbXn6Ymtux42hGN1TZs=;
-        b=JXkF5btRjLVeBkun5UWWZ/sB4imYW/MqmMiEabig3BelE+mXsbsUUY0xs6KJ8mH4nK
-         bK1uwlCD3G/9qGfC+ozlr46ZGGCUy5XLApTPh71d/m0Rlb6TROhsTWBkPIFLYWnxeQpz
-         up2ZjGbIneuzNoeqNAJpYATV8dnt6VspNUnWL1opUjp2ur2zOpHzEnQjgNaeJJ/NV2KX
-         Ko0T6thZcLn9z7a2T0GR2DvVmpepI2SiXUB2VxAg7f9jJqjzchPS+PXrTaC5E+3lPot8
-         QSK5b4ugBMOFAhAijP7c0q182jVm29oN2GSE0PDEyc4xF4GctS0gu3w35SL4+Inq5k52
-         fnsw==
+        d=redhat.com; s=google; t=1788552230; x=1789157030; darn=vger.kernel.org;
+        h=mime-version:user-agent:content-type:autocrypt:references
+         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=B3mbXGgcUMU41mdHor14hlewxI1TjYBtrggKnKgV6iQ=;
+        b=aKZ4d1q6+vxd7iG7wrLHuJwMe4cA1Kw3cHcOACOpo3Ag5WHK+1EkQFmsbMaXcvcxin
+         SV2HyJ1815Sa/L0j3eZsq/UL28f2EhsfH5bQbXnjO84XNFh9hO+HoANFWsfrSMD4YyQW
+         9VQ5eM5DioxcrXUw9YKjkk8YZHZ3jy9TSQHFrk/Yd0+wl29AQOAjt2Lt088cFzw0kOPI
+         x7qxhx0WPzCNwUAFw8jU5Q1fCQ/prernf0QafE8YmbtF92Cz5bYjZch7ISZAi/O3T6SQ
+         0SC9yv1Tnsh3WP4fdJWxTxYaVWdLWEhFN7WrG0qIK0FEj0nH7K13cg4XipACLSuIZXV/
+         e1IA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788552220; x=1789157020;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=3UTb+wha3en9T7ds19Z5GD7eJbXn6Ymtux42hGN1TZs=;
-        b=LCC3rGFLuxkvM0siH71Z8IXZUy+bKaAd5rSctd857L7mATkHVnmQDKN6elp+q6BZPO
-         hvitLTN+W/U+vGr2VyzJvRb0Y7re5y1ctsuodTwNuWpDnmTKE+TFSopZtpkOLf6UFjtJ
-         g31nlTiiqI7ljZiiHW+pyaGvCjZtXh3fpxAYRKnG4fIhrwZ3dP5SR6hNZ2ElQRQR2r+v
-         kvtZq8zQNAHKm/NXDpfqjzG8pL8lvUQe3uNVlaEwDpCVQhXAzNJgF4F2w1GXmM5RQBYk
-         Wy0UcowhhzvsofGmNGLL6yssFAXCFE827ec7t9C9Cpn2qNn6yW7DIRit6t87idinC6p9
-         15lA==
-X-Forwarded-Encrypted: i=1; AKwUvBzc09ROerIQ9IWfrP5CPWvV0ygNNaHsTT1HuXtURztAH6Pr1T96fD7//vOUXQDQC29Y2cKH9uCdbh9U3S0=@vger.kernel.org
-X-Gm-Message-State: AFuF++lu80ajY3g5ABsuiAhxQliLPMy3Qy7wJDIVJeR/dnRJQFM7PGcQ
-	jjy+dDOEaGFHS0krK+CRdUdxBblPBksoXkHlo6HAYy5EJrDm+M9w/CxB
-X-Gm-Gg: AYBFou0c2bXT147290j2x6p1L3i5VB1F3LBgMbuIBj2WpfeJn+aJdHUMm4QRN1Ey5Mw
-	XV9Oxyd/ydzUJtXnkRmD0qiXlNu8KgrhCxCzqr0ce41q23Gn/i609o3IX6wFEiEh23zyPmyed93
-	I13O1FD68ep5bPQrAwYarBz2LNj3YPSFgDwdysZMASZhQec5dRHyx47CF7UIMwkViD9jK/n1LS0
-	w0j6aJBZ81JOoNE3/3/2GLVUxdnclNOh7q+mwf+jgSFGpb05iJzuAGrClnF/NUKZWR5Y3gN4jvW
-	LLE7McSVQuBTD/kjbd1Gx8FHMkg3iys6cT0oBnTsJpkgbewTIkIDPqKk34K7L84mkMU1cJ1kkUS
-	B5Vuk+HAxsKC7HWQsBZISEetqIlbrqRk/jvd0NZch16/mpnh0p8PSHY1IKH8ADGqGF/ZFo9D6Tc
-	L7x+Z7rgGVepFcWeCJMH4pNLsnutyuLdRhF+L79dI5bBIW8Tp2mR/WacDLhCg1VW/1fTzYo1hUX
-	twv+DsGBpB3/aunAG1gubLGP1k=
-X-Received: by 2002:a05:6000:610:b0:485:82bf:8728 with SMTP id ffacd0b85a97d-48586e32b7amr11331315f8f.0.1788552219337;
-        Fri, 04 Sep 2026 13:03:39 -0700 (PDT)
-Received: from serhat-ubuntu.home ([212.253.216.238])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-485885c5bbdsm7868460f8f.36.2026.09.04.13.03.36
+        d=1e100.net; s=20251104; t=1788552230; x=1789157030;
+        h=mime-version:user-agent:content-type:autocrypt:references
+         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=B3mbXGgcUMU41mdHor14hlewxI1TjYBtrggKnKgV6iQ=;
+        b=PXsilxg9WGqXJySXbDyx94auOwodpc5Z5Aj3sVdgIrSk94bgEAotQgw7rsW0Byr80/
+         4zqHvpIR+ZaHnRHT3xuZO19+Z1aTNEg7HgLTuJ31L8MWRCyKRdn/GFhcjT269g9/AqHU
+         HeOR3aarC0ty3PradcbDrxLTN7kJpuP2rxFF2Yk3jzBQeAc9e9jKeWcADNZQ2Cla4h0w
+         WRsrghhjq+XnoTU1+8zJWf9qKlLIyXFR3HT/ZapfTZ82c8/k/+3eu+CGysAOQd84SBa9
+         a8NtPiYHTnXd9rPzEkt3Ppd1tNCflfFPljATY7OMW+fwYEhrMReLhjZ1byIq0zHanCzu
+         f9Ag==
+X-Forwarded-Encrypted: i=1; AKwUvBwBYU1XvoE9386gJsQ1R8VtJ3fzjcYkq12oomy59bGcahodIqgicuW3XG+8wcBrEccINrxnjkQPMShgkYw=@vger.kernel.org
+X-Gm-Message-State: AFuF++kewZ1KPE5/uylI1ucoNQIglra/BVAONssIYsyzbhOVGGEhKzZ8
+	X/MDQZvA9b6YDRCaN2wQsVp/GWQKckyajB7Yl2eo5KX5nrldRqzscRBqbj4gwqDWttePOvCcRMk
+	RDPUtUgrZaK0jccZDcq7PHLr8ADSovj3/qpj+PpSJ97VU3/QuE/c+TthEuawpLKBfltj9D99Wsg
+	==
+X-Gm-Gg: AYBFou1/U4UoW2TDI5LeiJLIKv9cznpmtLyKedlHPA+lgyHzTPRtLjkwgSeRrb60v4X
+	+X+2HCDHgW3gES8w0DQ9CdxbulQe0nvks82P1/eb+fiWLD4xzb5RwkHT7cEdbUJdRnPc7zsZeG+
+	C5zt4i9lHd9iKlVenkDoOq6KuezuK4+z6zH2XqhVyfz/Ih9IYNQmImpX5tRX+BYej7A4ylIlBVw
+	ia5RNPbzfwy0QDkstl4UMLi7dMLM6XOJIO0LnffqU/A1rwfkYGujfl0jUYcWWtC0vIk8rfFHXHn
+	ZcFl8Esmrzlu1ROcO8xFT58/CoOKrY+VVoaxKEFAtJ71AjG3IqCDPF7/aCxx3zIbCHlTgumNiup
+	WLtdkd9L58lKNk0BzGXxtwXBJOE/iLm///R3n3s5nH0nOzzCOjawh/Dfxs2cu0PQtlzhRuIGo+x
+	XbGDo0y+v9qkqVTV3lctRSww==
+X-Received: by 2002:a05:690e:43da:b0:66f:c1bc:4017 with SMTP id 956f58d0204a3-66fc1bc48f8mr902100d50.68.1788552230313;
+        Fri, 04 Sep 2026 13:03:50 -0700 (PDT)
+X-Received: by 2002:a05:690e:43da:b0:66f:c1bc:4017 with SMTP id 956f58d0204a3-66fc1bc48f8mr902075d50.68.1788552229718;
+        Fri, 04 Sep 2026 13:03:49 -0700 (PDT)
+Received: from chaithco-thinkpadp16vgen1.rmtusco.csb (184-96-189-144.hlrn.qwest.net. [184.96.189.144])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91040647592sm28398006d6.13.2026.09.04.13.03.47
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 04 Sep 2026 13:03:38 -0700 (PDT)
-From: Serhat Kumral <serhatkumral1@gmail.com>
-To: Bart Van Assche <bvanassche@acm.org>,
-	Jason Gunthorpe <jgg@ziepe.ca>,
-	Leon Romanovsky <leon@kernel.org>
-Cc: Sagi Grimberg <sagi@grimberg.me>,
-	linux-rdma@vger.kernel.org,
-	target-devel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Serhat Kumral <serhatkumral1@gmail.com>
-Subject: [PATCH v2] RDMA/srpt: Clamp the CQ size request to max_cqe
-Date: Fri,  4 Sep 2026 23:02:40 +0300
-Message-ID: <20260904200240.48976-1-serhatkumral1@gmail.com>
-X-Mailer: git-send-email 2.53.0
+        Fri, 04 Sep 2026 13:03:48 -0700 (PDT)
+Message-ID: <667d8fa9bf7b0e129cc86c66966a221038d7bc86.camel@redhat.com>
+Subject: Re: [PATCH] watchdog: Differentiate scenarios when watchdog is
+ closed
+From: "chaithco@redhat.com" <chaithco@redhat.com>
+To: Guenter Roeck <linux@roeck-us.net>
+Cc: wim@linux-watchdog.org, linux-watchdog@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Date: Fri, 04 Sep 2026 14:03:46 -0600
+In-Reply-To: <1c15e728-cafc-43c3-87d8-981a2682d441@roeck-us.net>
+References: <20260901214251.760184-1-chaithco@redhat.com>
+	 <1c15e728-cafc-43c3-87d8-981a2682d441@roeck-us.net>
+Autocrypt: addr=chaithco@redhat.com; prefer-encrypt=mutual;
+ keydata=mDMEapCVehYJKwYBBAHaRw8BAQdAORXHCioh8sg4JScf3G8JrmX1nUt+teTWsqlbk67dr
+ va0NkNoYXJsZXMgSGFpdGhjb2NrIChXb3JrIEdQRyBLZXkpIDxjaGFpdGhjb0ByZWRoYXQuY29tPo
+ iTBBMWCgA7FiEEoln/+dhdP2hiiZGQ86/NNaAhFjYFAmqQlXoCGwMFCwkIBwICIgIGFQoJCAsCBBY
+ CAwECHgcCF4AACgkQ86/NNaAhFjbm1gEA9t0Iaxr6IkGONOjD7eB10PjTYyDGVd4QdJYPohP8xRsA
+ /0OETJIGSr5rxRqG23AGUdlnUfzFlgm3QuyfNpGHcv0C
+Content-Type: multipart/signed; micalg="pgp-sha512";
+	protocol="application/pgp-signature"; boundary="=-WByAc/hJFcOuzza19si6"
+User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-srpt_create_ch_ib() asks ib_cq_pool_get() for ch->rq_size + sq_size
-completion queue entries. rq_size is bounded by max_qp_wr, but sq_size
-comes from the per-port srp_sq_size configfs attribute, which is only
-validated against MAX_SRPT_SRQ_SIZE (65535) and never compared with
-dev->attrs.max_cqe. The largest configuration srpt accepts therefore
-asks for 128 + 65535 = 65663 entries, while rxe caps max_cqe at 32767
-and cxgb4 and ionic are in the same range.
 
-Such a request cannot be met, and ib_cq_pool_get() does not reject it.
-It clamps every CQ it creates to max_cqe, so no CQ it adds to the pool
-can ever fit the request, and it keeps allocating batches until the
-allocation fails. A single SRP login against such a target exhausts
-memory:
+--=-WByAc/hJFcOuzza19si6
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-  Out of memory and no killable processes...
-  Kernel panic - not syncing: System is deadlocked on memory
-  Workqueue: ib_cm cm_work_handler
-  Call Trace:
-   __vmalloc_node_range_noprof
-   vmalloc_user_noprof
-   rxe_queue_init
-   rxe_cq_from_init
-   rxe_create_cq
-   __ib_alloc_cq
-   ib_cq_pool_get
-   srpt_cm_req_recv.cold
+On Tue, 2026-09-01 at 16:02 -0700, Guenter Roeck wrote:
+>=20
+> Applied, but please version your patches in the future.
+>=20
+Ah thank you so much for the feedback! I am a fair bit newer to
+contributing upstream; I presumed (erroneously) adding the versioning
+after --- was sufficient. I will make sure to add the version number to
+the commit message in the future as well!
 
-Before commit c804af2c1d31 ("IB/srpt: use new shared CQ mechanism") the
-same request went to ib_alloc_cq_any(), which rejected it with -EINVAL.
+--=-WByAc/hJFcOuzza19si6
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
 
-The existing backoff, which halves sq_size when queue pair creation
-fails, only runs after ib_cq_pool_get() has returned, so shrink sq_size
-before asking for the CQ. rq_size never exceeds MAX_SRPT_RQ_SIZE (128),
-far below the max_cqe any device reports in practice, so the
-subtraction does not underflow. With the clamp the same login proceeds
-exactly like a correctly sized target.
+-----BEGIN PGP SIGNATURE-----
 
-Fixes: c804af2c1d31 ("IB/srpt: use new shared CQ mechanism")
-Signed-off-by: Serhat Kumral <serhatkumral1@gmail.com>
----
-Changes since v1:
-- Move the fix from the RDMA core to ib_srpt, as requested by Leon
-  Romanovsky.
-- Clamp sq_size before the CQ request instead of rejecting oversized
-  requests in ib_cq_pool_get().
+iHUEABYKAB0WIQSiWf/52F0/aGKJkZDzr801oCEWNgUCapskIgAKCRDzr801oCEW
+Nsx+AQD5YpCe/jGsd9liJwhzqeCLgrsPtjkX9wSLiUmJxrsYGwEAzljO0vv89nGP
+eB8SPwY6hunIwWvi31fIccz/45cFrwc=
+=ynrZ
+-----END PGP SIGNATURE-----
 
-v1: https://lore.kernel.org/linux-rdma/20260831171354.72140-1-serhatkumral1@gmail.com/
-
- drivers/infiniband/ulp/srpt/ib_srpt.c | 7 +++++++
- 1 file changed, 7 insertions(+)
-
-diff --git a/drivers/infiniband/ulp/srpt/ib_srpt.c b/drivers/infiniband/ulp/srpt/ib_srpt.c
-index 7197d95f2216..58064a4c606b 100644
---- a/drivers/infiniband/ulp/srpt/ib_srpt.c
-+++ b/drivers/infiniband/ulp/srpt/ib_srpt.c
-@@ -1867,6 +1867,13 @@ static int srpt_create_ch_ib(struct srpt_rdma_ch *ch)
- 	if (!qp_init)
- 		goto out;
- 
-+	/* The send and receive queues share a single CQ. */
-+	if (ch->rq_size + sq_size > attrs->max_cqe) {
-+		sq_size = attrs->max_cqe - ch->rq_size;
-+		pr_debug("reduced sq_size to %u because max_cqe is %u\n",
-+			 sq_size, attrs->max_cqe);
-+	}
-+
- retry:
- 	ch->cq = ib_cq_pool_get(sdev->device, ch->rq_size + sq_size, -1,
- 				 IB_POLL_WORKQUEUE);
-
-base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
--- 
-2.53.0
+--=-WByAc/hJFcOuzza19si6--
 
