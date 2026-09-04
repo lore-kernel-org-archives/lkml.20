@@ -1,129 +1,120 @@
-Received: from mail-pf1-f179.google.com (mail-pf1-f179.google.com [209.85.210.179])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63AF03905E0
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 23:19:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DF6E3BB40
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 23:20:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788563966; cv=none; b=m5gYvOsrdGNKzicra2k/0ZDmZ64pI+zFLrifOIEj79qdvD0E+pq+1eCQx0im4aI4lAZXYhgaGZjm5NGHn2aEBTfNt9GylvAL02nqLeACLV54eWa8TnW59mjXQXkE9Xouz05xIFbFU7xFqLT6+BzAyNbS5jqbKXfEXKYnYZLD12w=
+	t=1788564022; cv=none; b=TO7ND6BFvyeqqUdK0FSUGuO4h2e5vyIOxZVRNIJgQmPwjFpjXYrtQNeo7smH8BP04uRYJf69M3j/AOzMVKsUAxYc2Y8FZusVCWEUq5E3/udHLu+YVtsZpYBRrpTL7Au+nYrH9DMVYQolfm+Y/THTWLv3YgJv40shHnioPld+PZI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788563966; c=relaxed/simple;
-	bh=EMddTuz2If/O557kFaVn0pLqsbdE6FjylrqHOOTUqMc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ravsdOcwjyYM/OBPNlTTNlYJ4sOa7ji7iS7q2izD1h1/Cd/C7nABsdnH1iRK4W81JxQ87xrD3m5f/z2aMVlAi26QhQltoc830ANPC60i739qhVdEldGMiVOMhq0ZP1jXcfpqDK+ruZFA0PrzQGTC8EdLbuofG68esB1S7GccUBo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=purestorage.com; spf=pass smtp.mailfrom=purestorage.com; dkim=pass (2048-bit key) header.d=purestorage.com header.i=@purestorage.com header.b=Hfn6sUTg; arc=none smtp.client-ip=209.85.210.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=purestorage.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=purestorage.com
+	s=arc-20240116; t=1788564022; c=relaxed/simple;
+	bh=be0dhoqD+CCsnk3XYIC4FC3me6Bv6sGV/NZJ3Tymcu8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
+	 In-Reply-To:Content-Type; b=ZqgRxmRhXgxqqL0q1hMkCiMk1uUvQVbG2PN+JvQaWzreatNaslhn3yH6+kiY4Od/n47zN9dX08SpmqOpK4t1ygUNpJ6jS/73lX+Sv2PWQqlzIddDgaZfIoWq7BBZ4DsnQ1D7SrB+nUYl3yyRvDJiv94j31+IS6cRAwRYRNH0SiU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=EbxMLq7U; arc=none smtp.client-ip=192.198.163.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=purestorage.com header.i=@purestorage.com header.b="Hfn6sUTg"
-Received: by mail-pf1-f179.google.com with SMTP id d2e1a72fcca58-853c947bfefso1329798b3a.0
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 16:19:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=purestorage.com; s=google2022; t=1788563965; x=1789168765; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=PWMdt4xelSS3XutaBqfp0rye6ojxHME7341jO04CtRw=;
-        b=Hfn6sUTgCRNlXmyVelGj++vNtqeD8ZwOFVwIydcVNrGM3bgsaKZLDXkynsjQrc9LX7
-         O1N4wdCzNdGjdxq3LeyMInVNdJEB9g/on3fHnfMHBGqCp+hZmYD84EmX/gmMvacbdK8i
-         PTRG+OlonkekZ6YgVzWYdRYSCxQ6OyyVr9bfPoUo71pK9EMBU1xCBPpNEaPobO7X+NeX
-         2ke0pji9c5IIw7O0Dh/Zl8I23EMXU4sj2nu+dbOfxYexlFhrSN25kDorTD52XSdrhYdw
-         GqZSjLDYR8Z/vSljIz5K5v9Kr/wiRLt3kg/RF+zkKQhh83Nor3sfRpKb6KH3BJ8Rch3M
-         LHtQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788563965; x=1789168765;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=PWMdt4xelSS3XutaBqfp0rye6ojxHME7341jO04CtRw=;
-        b=SH2f7f746ay82I+z52gJGOI0LodClVjlf7PuKEesYRb9hHuPnderSQxrgolUGZ0zWR
-         4v+R16WNqFkmfG48FTt484ZTeDiXRDK5fGww5Qx/A5t6boXXZYeM7OGmBG4Exsl10XHg
-         WI1Jb0dFBQ/mpIwoVcx1y1SfCvLFPvw/OMtwMtTwgJ9+W6oVdsZapaGN8PIizB12oRir
-         KQ25B8Gof/adkuenCE9+m9YOLKq2ZsUTn571+o2+74JSXimBYxxgrQ0TQDyv6TPjcITj
-         femS/Yvg3XNQCJik5AO8wiXx9GqMPKfQIY/ij9tQiCi5HProCzgL77lLUZ5sXm3Qp6mB
-         Tkaw==
-X-Forwarded-Encrypted: i=1; AKwUvBy5f3tVlH6vAM7ahEKK2eSfWx1aZtCEIqj+PtCC1y2Riu8c2Gn2lWzv+s/EwPJPmGWumZi0n3g8u6DXIKY=@vger.kernel.org
-X-Gm-Message-State: AFuF++mjhmY/Ft+zyJQsZbbFhgreApBSgZi4x7s2QmVEBfyJVHnONrj5
-	roL6nwZzJ90rb6pArpeR1M81X2x0fwvp5uZY/3u0LrMV1fCqX/MTjJ5fQy9sxy0eH4w=
-X-Gm-Gg: AYBFou1xFlYmr4AjxkOQATbpbvdeAENz/KrhJybI8itlDP3Qj2z6HQOExlgBGsF9In2
-	0m5+J0OqfzQv9XUCkbgXKR/vmHtprvhoj+F+7NAqEJCkK6iFg5OkczJl2iPTScFKJQAoJP3uwm6
-	/1XWwupP0DeA03K5xou/DalBMqVBEe3qOC7jvmmtS5znJZAJjhf/QvpvCi0RVDA1ZKyD07UiUQy
-	TrEs/y3DlIN3+P1NezZaw4eanvOTcTsfH8NVhuGRvMYAAud/z5yP7wd5HVeQvaixzMYK0SqkjUZ
-	shRevPjbLmaycsLiGYmvp9WXxpJ24NgGFfFrQBHOxK9ptNS4R45jgxRYASeGzlyp/WinN+P8yJQ
-	HJNo22b1YdR/WmvUKv+wFW3qgXIjiPW1oZQTtJfXxevdv9BNoUVYBuZiWytpdfZBCorKwbzkCHf
-	hfYWCaD/nnl9wXwRG0Kq1Ltip7uB6Bl5sPMtyMoZECK3roJ4eEHlaUH0+/G/tO0SFay+Q=
-X-Received: by 2002:a05:6a21:7117:b0:3bf:8a0e:dd99 with SMTP id adf61e73a8af0-3da215aacc4mr17994990637.17.1788563964413;
-        Fri, 04 Sep 2026 16:19:24 -0700 (PDT)
-Received: from medusa.lab.kspace.sh ([2607:fb90:9c20:7a99::791d])
-        by smtp.googlemail.com with ESMTPSA id 5a478bee46e88-333c9db92b1sm8818568eec.9.2026.09.04.16.19.23
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 04 Sep 2026 16:19:23 -0700 (PDT)
-Date: Fri, 4 Sep 2026 16:19:22 -0700
-From: Mohamed Khalfella <mkhalfella@purestorage.com>
-To: Hannes Reinecke <hare@suse.de>
-Cc: Justin Tee <justin.tee@broadcom.com>,
-	Naresh Gottumukkala <nareshgottumukkala83@gmail.com>,
-	Paul Ely <paul.ely@broadcom.com>,
-	Chaitanya Kulkarni <kch@nvidia.com>, Christoph Hellwig <hch@lst.de>,
-	Jens Axboe <axboe@kernel.dk>, Keith Busch <kbusch@kernel.org>,
-	Sagi Grimberg <sagi@grimberg.me>,
-	James Smart <jsmart833426@gmail.com>,
-	Randy Jennings <randyj@purestorage.com>,
-	Dhaval Giani <dgiani@purestorage.com>,
-	Aaron Dailey <adailey@purestorage.com>,
-	linux-nvme@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v5 12/16] nvme-fc: Refactor IO error recovery
-Message-ID: <20260904231922.GF5552-mkhalfella@purestorage.com>
-References: <20260712022437.3743117-1-mkhalfella@purestorage.com>
- <20260712022437.3743117-13-mkhalfella@purestorage.com>
- <da754227-87f9-44b1-926b-9b3b6ead6e19@suse.de>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="EbxMLq7U"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788564020; x=1820100020;
+  h=message-id:date:mime-version:subject:to:references:from:
+   in-reply-to:content-transfer-encoding;
+  bh=be0dhoqD+CCsnk3XYIC4FC3me6Bv6sGV/NZJ3Tymcu8=;
+  b=EbxMLq7UaYqlqYcB1uIOAu9yReNVk8qVQJXOTJNRm5BePS1iKWnDeVK8
+   ScjzCHVCzmoyOULbDNeOGcmMDF390AvgVaGDRnrJjiEJ9OA0G+eWRfXin
+   E3OxRW+AmDbr6Ivzxb94Ltfum8hWRmMNr3/HZ+Xv4+T7xLRJpGq4p9kBJ
+   1pu5lUUTXuCbvP77iqjKK8YCTAh4dy24SA4fBOLIXRqB01/0/C/83SBgZ
+   UDnIpc2Oi/2O7lpzhcAXoUSG6/W/mT0L4Lhm8TjAfMHV/6HatMQdDGQZF
+   MNp4yPgtAx/TQIPJMHK0lHFV46r7sl3rCw0j1RA4xIA2q1Rw4i6hKSkgY
+   w==;
+X-CSE-ConnectionGUID: quZPDBtlR6y3nr2wadJoKA==
+X-CSE-MsgGUID: rYiaJvwwS0+V4komHxwpYw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11896"; a="92887323"
+X-IronPort-AV: E=Sophos;i="6.25,262,1779174000"; 
+   d="scan'208";a="92887323"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Sep 2026 16:20:18 -0700
+X-CSE-ConnectionGUID: Aap4IqP5RFyuozL80BBmEg==
+X-CSE-MsgGUID: jWJSeYwJQlqWAwKPxxUiew==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,262,1779174000"; 
+   d="scan'208";a="293661410"
+Received: from jmaxwel1-mobl.amr.corp.intel.com (HELO [10.125.110.252]) ([10.125.110.252])
+  by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Sep 2026 16:20:18 -0700
+Message-ID: <a1b85e8b-cae0-4737-9d77-bec1866839c4@intel.com>
+Date: Fri, 4 Sep 2026 16:20:17 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <da754227-87f9-44b1-926b-9b3b6ead6e19@suse.de>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [syzbot] [kernel?] WARNING in __ioremap_caller
+To: syzbot <syzbot+49b1021becba70c1f3f6@syzkaller.appspotmail.com>,
+ bp@alien8.de, dave.hansen@linux.intel.com, hpa@zytor.com,
+ linux-kernel@vger.kernel.org, luto@kernel.org, mingo@redhat.com,
+ peterz@infradead.org, syzkaller-bugs@googlegroups.com, tglx@kernel.org,
+ x86@kernel.org
+References: <6a9b3ff8.04649fcc.10325f.0005.GAE@google.com>
+From: Dave Hansen <dave.hansen@intel.com>
+Content-Language: en-US
+Autocrypt: addr=dave.hansen@intel.com; keydata=
+ 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
+In-Reply-To: <6a9b3ff8.04649fcc.10325f.0005.GAE@google.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Mon 2026-07-13 09:29:44 +0200, Hannes Reinecke wrote:
-> On 7/12/26 4:23 AM, Mohamed Khalfella wrote:
-> > Added new nvme_fc_start_ioerr_recovery() to trigger error recovery
-> > instead of directly queueing ctrl->ioerr_work. nvme_fc_error_recovery()
-> > now called only from ctrl->ioerr_work has been updated to not depend on
-> > nvme_reset_ctrl() to handle error recovery. nvme_fc_error_recovery()
-> > effectively resets the controller and attempts reconnection if needed.
-> > This makes nvme-fc ioerr handling similar to other fabric transports.
-> > 
-> > Update nvme_fc_timeout() to not abort timed out IOs. IOs aborted from
-> > nvme_fc_timeout() are not accounted for in ctrl->iocnt and this causes
-> > nvme_fc_delete_association() not to wait for them. Instead of aborting
-> > IOs nvme_fc_timeout() calls nvme_fc_start_ioerr_recovery() to start IO
-> > error recovery. Since error recovery runs in ctrl->ioerr_work this
-> > change fixes the issue reported in the link below.
-> > 
-> > Link: https://lore.kernel.org/all/20250529214928.2112990-1-mkhalfella@purestorage.com/
-> > Signed-off-by: Mohamed Khalfella <mkhalfella@purestorage.com>
-> > ---
-> >   drivers/nvme/host/fc.c | 119 +++++++++++++++++++++++------------------
-> >   1 file changed, 66 insertions(+), 53 deletions(-)
-> > 
-> This is hard to read. Please split it several parst, one with
-> open-coding nvme_reset_work(), one with adding 
-> nvme_fc_start_ioerr_recovery((), and another one with the rest.
-> If that makes sense to you...
+On 9/4/26 15:02, syzbot wrote:
+> C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=16a09215580000
 
-Okay, I will take a look and see if I can do that.
+Heh, that's a fun reproducer as usual. Looks like it's mmap()'ing some
+PCI device resource the accessing the mmap() with /proc/$pid/mem. The
+thing that's weird is how a PCI device resource ends up pointing at
+system RAM.
 
-> 
-> Cheers,
-> 
-> Hannes
-> -- 
-> Dr. Hannes Reinecke                  Kernel Storage Architect
-> hare@suse.de                                +49 911 74053 688
-> SUSE Software Solutions GmbH, Frankenstr. 146, 90461 Nürnberg
-> HRB 36809 (AG Nürnberg), GF: I. Totev, A. McDonald, W. Knoblich
+/proc/iomem might be enlightening as would 'lspci -vvv'. But it makes me
+wonder if the PCI device enumeration inside the VM is broken or something.
