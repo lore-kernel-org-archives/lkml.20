@@ -1,63 +1,63 @@
-Received: from mail-qt1-f169.google.com (mail-qt1-f169.google.com [209.85.160.169])
+Received: from mail-qt1-f178.google.com (mail-qt1-f178.google.com [209.85.160.178])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99BF4449B0C
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 11:17:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A37F46AEF4
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 11:17:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.178
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788520671; cv=none; b=X1lCzc1r+MwwpP+sJVFB1OYDmZyW5RdKaIw1/k1hQyuJE0GKzXX+rIsFVQzcDX2/k9IrQZz5QsseCDnp8QiR77DLuzD0YO1io/JSwV2Pr5V1wDURWRAfyDJHeGd+my5qZeDResnvfvR/Nc86aUxZIPCBjF08QSFHExFFbPRXYRk=
+	t=1788520674; cv=none; b=dz+k4J82YKZpOZAZ7Vmriy/ChXU9J4m+mlXxakmbCcDdQa0JoD3MVnEMkBW2o5FUj96PgTRAnaBeFOacu2MF/XGIeocQjxm2L8dReD0/qcws/tFDl9dYMIxBdUV9RgvbyZZG0hK/hXGcSYo2tupzzTZVsGQ/Zb44kdvlS6RHN/c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788520671; c=relaxed/simple;
-	bh=zTBizNpKtLSPwFZHxtHy4hNNKWWCzaj01cIzBDvTbX0=;
+	s=arc-20240116; t=1788520674; c=relaxed/simple;
+	bh=4DIUolQj5K7s0LXB5mQXEoJFCJfRS2EJ6t4V8xTTHv0=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=CmVoulJjeSfT1wsR6GFe5nbHWRClitSl3bqesE5Q95gwXvg3Y5ojXzXhIyZT6/omFIigrGTrsNw6c+j2lk7sheQgQtILzjLyde9OaUGeJcbXvMCtZNRA6l02BaVf1e1o53WLrjI/yQivi0SVBJPnn7tTzmc3XvBdYOuMOYHV4Pg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pmlD2FUT; arc=none smtp.client-ip=209.85.160.169
+	 MIME-Version; b=G9ErQHJNU14Lx7maykjXvhW6wM2lZqX9B4YME2Z0hKXO5jU6yb1WcCu/wE+FBkuGqffqTZpb1xelGyc4wMT5yjsUsV9WwGTjIbNGgLFsuy9cEXm1pbJzWp1mVxyGSNlT/PX9ia54yy1RnwhqKfFOBBXmlcPPimYhBwlVBeL4Tjc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MTXY7njk; arc=none smtp.client-ip=209.85.160.178
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pmlD2FUT"
-Received: by mail-qt1-f169.google.com with SMTP id d75a77b69052e-5302b692c8eso9878891cf.2
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 04:17:48 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MTXY7njk"
+Received: by mail-qt1-f178.google.com with SMTP id d75a77b69052e-530420edf1bso15737841cf.1
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 04:17:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788520667; x=1789125467; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1788520671; x=1789125471; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=zfFWJk7PUW5CrjR05hNpDl61wr3Ggr/JyLicmdvD02M=;
-        b=pmlD2FUT6C9OtuQeDRP82EDckNrrO7ndxIhp9tX8/4EyJhTj6UHvYzDZZri2KNMVIw
-         gIstLQTB67yCTXsWrIS473nEU0D4zsytuZl6cIGvF1dQPIH19Ti6HnlWdWy50c/PFbAV
-         n06OQXfITjQjeF6HQqQsAAIKqz6tC3143HQu4L5RcQWoiieKOsqecH49IvtWoTXPwJgt
-         qxzcub3yrd/zX+VHq+R/pj7x1AHBThEPN6gE0+dDR3UsqUlhWPkUOUryUPWTTV7io1HO
-         5A1zv+b27aGU766D/GsMzbAjRDcrcBayF60W0ZHIPhJxDP5rNpqWFx+XeqU3uhEi2IYr
-         sV+A==
+        bh=a8aI67v2qHq2F9XuFlZJpkBUyR2T964WRJn0GOGoYgs=;
+        b=MTXY7njk0OvkwDvPY2MVXvq/rHzM5p9XFSgqGtmkie0CGgIwXYzH1LgBEHoe1qXniS
+         n8THd91ssV5KYCiDlSdMVLaXFcnzhFyu5zU61JL82uB+Lyv3lkEancp2/Nq1xWYcE5q+
+         HQG8P2NC5a7FhbFluIVDhLh3oSsK4B+oZwdV2fJHp/8rXZNG9fQj025ypYPATZryiMnP
+         iVHf9al8Fptpkp2rGvDNMGA4D5cq8E9yiDGu9XbbffxNXFUHo30KVQwAO4b9EW4oFpzx
+         srcB9GXYy2vjgFnGsoIebL7T9UH0MwYClOR478zY/bqft2UJypiNZPFWT94PnxkJhtbh
+         WIXg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788520667; x=1789125467;
+        d=1e100.net; s=20251104; t=1788520671; x=1789125471;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=zfFWJk7PUW5CrjR05hNpDl61wr3Ggr/JyLicmdvD02M=;
-        b=E/FIuomSzYBCFxlmofR2FWGinJD+E9C4EJH5rhk4MkpE1bRtFdYw7EeOphPCuAAH3m
-         Evv07NW43+IHrkMWU7uBR5jgvtrtpWTZfPilCRZmDqfyCsCqapfq5kftVkXcR15HbhiZ
-         I0mngwUKbvN0jxl9jK50YPqycDqHYAD3IL+Gq4FCKD7JMauZsJBGRLWOZDY5wEYRGKs4
-         rFfbeWLcaKOT5+k/Y6QQv3ROkA+U/OMBtMbQNAN2sBqI4pmohNFaTvL8iLxavd51s0Q1
-         JQGnzbspz8ljpONFbd5cQ/72U53wWi8JIPFLT0mlNd4y3hE6wo38AVTmLwhxxoZljPxc
-         XZXA==
-X-Forwarded-Encrypted: i=1; AKwUvBxtIE0jCbNL/YJSJxttHri+L19t4OzA9T/9lawTxlvZVE0ckFURkwQop118Sg9zqBkILc/8zgKlJA2R13c=@vger.kernel.org
-X-Gm-Message-State: AFuF++nI8cUNHWxcKbdikEr5/SbM2gxetTplAkMnkwKOIGxFOO7BGM4r
-	6mpxHA0IVbGD3ao307+1kkmtWuMd/yzFi8PpF9X+zwRZcMewqAw9tz9w
-X-Gm-Gg: AYBFou0ocVdwLZiEZDDBmbYenmZIZt40injvxLen1V/6sc3F/S1TAN9FAxWrRIt34vg
-	CkCMKp0hD6l3/erwZKJr8DldEbtHRfyrPeLNYa880PB2YoW6Pb7swEemgvMnw0lscEM5i/DUz7G
-	TTyl4P6JVKIXW2zUfBumLVESbxTYv7PWpZaln2cT75msSW2I76joHxEV2u1VsNVY3xFNUMNmpa8
-	N1dMdwrMQnOssf9e5giNpy7O0qoqiLIUJiH1uVtYrqNQzZBGc70HMIeJbeO8/eKdqJFp+C2TrY4
-	wy/fw4+Dz+jz2xlDixEHugm77zsqlbTefJvMV8Uq/9wmuLyYbxXiULAyz5W1Gaj/L/T1RJIcamD
-	6U7vYyuy7E5SIGfWGEWLyHs/ke0YQlASd/9o0ml89sgleJNjEvAWRqXGniDbFGXCkixqdKChO2+
-	sKVWvqTkvu+7BDfjatm+tlzYhWtmAB9Q+LL2Hklt9yguc6CA3TXETk4mRV
-X-Received: by 2002:a05:622a:c88:b0:530:42f6:82a7 with SMTP id d75a77b69052e-53054a16543mr56198681cf.47.1788520667203;
-        Fri, 04 Sep 2026 04:17:47 -0700 (PDT)
+        bh=a8aI67v2qHq2F9XuFlZJpkBUyR2T964WRJn0GOGoYgs=;
+        b=lb2nAQvw0wZGMMZf00jgsmj5JIHtpAnbMZxwfIy9Emso58++buH5TVoyNR46zWY3ut
+         WTEo9xVe9vwd3I4kqYkTKo7B8htZP3VG524R82Ly5rtMXzd+LtVdFngkBcKIf+5K8e2F
+         yPUjt/coGfYYQ/HjotMEO0DGpsi4n8Blqop4/ITsRa8PF45pc4vJrS7E+4lY2xjLC5HK
+         LhQt30hi61Pmo9VcJoEVgSmlMGpPt+3tpgBms8bBdo+/HRREziIUtYNh7qrg1zZO90fw
+         FTJ7XKIf//S0WgBAvNa9NBOT5mQqBin7vAQafv0kZR6rn6VQlCH/Y2PyqzjsViIrRwv1
+         hZRg==
+X-Forwarded-Encrypted: i=1; AKwUvBwWglVtvEBl1t7y/FwUo29XNbSvC/zOmDuDCc/DZcs/bIPqYZu76wYgKdxVOWVjexb1nGpfHrwL7GopNkc=@vger.kernel.org
+X-Gm-Message-State: AFuF++nyQ5OAmYM1v2w30zRCRCTe1GE68JjJ7yjb4BveGjiTNI0ZYVkn
+	5VEiRw09LVHbTROjtJjbHKIBhX83zbDzncuBhMgddKUvXk+3Lhkbx+1j
+X-Gm-Gg: AYBFou17pN/r4TgaMlqUUgBz6MfP4ieIkaYQ5vZ+VIWLovU71UEGmDmCATQ5/5rLYeM
+	/U0zf0egno5cHPOiiM8HgfvWKCvV8pFLuN0Ag27quo7m97w/DZiPXZsh4oFeXfFCluF6Yv9O+KD
+	FRYszOST0bUyW5NrRTZmGOYzxLbef9RMP/ojH8g/FjPNrHIE+/tJmS8EKh8xsiKyt70yRG0+cTl
+	vr3F+beBtWeym0wuuV37TO8YdKPyDXAfbYb3yqi+jtd6A1XCVCWC+UjyGuWUQQVFOGPbn3votCt
+	fB3QJ1PrkmgGMiWvoGK28gFJXk932mnSkBj1eOAAVunKHrX6ARGUWlFwBsQYwjhhfTwvDxcLoLD
+	6JX8OzcUkaeqKWf2EH7OFep65I5DlI6Kr3uL5VXbHKWNnir3x45JPAKDVfcaX2gZHUJa27nP8Ki
+	/Rkp8UOPIH4v2nYybTejDlnuh7yNTGbh+33h+ifoRRh7skyx6nljwB6DfpWG65aYlhfEA=
+X-Received: by 2002:ac8:6108:0:b0:530:42e4:f003 with SMTP id d75a77b69052e-530549bb544mr68480221cf.48.1788520671204;
+        Fri, 04 Sep 2026 04:17:51 -0700 (PDT)
 Received: from Turin ([187.15.144.163])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-5305402a8fcsm18350171cf.1.2026.09.04.04.17.44
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-5305402a8fcsm18350171cf.1.2026.09.04.04.17.48
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 04 Sep 2026 04:17:45 -0700 (PDT)
+        Fri, 04 Sep 2026 04:17:49 -0700 (PDT)
 From: Nicholas Dudar <main.kalliope@gmail.com>
 To: ast@kernel.org,
 	daniel@iogearbox.net,
@@ -76,9 +76,9 @@ Cc: martin.lau@linux.dev,
 	bpf@vger.kernel.org,
 	linux-mips@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH bpf-next v2 1/2] bpf, mips: Factor register moves into helpers
-Date: Fri,  4 Sep 2026 07:17:30 -0400
-Message-ID: <20260904111731.673341-2-main.kalliope@gmail.com>
+Subject: [PATCH bpf-next v2 2/2] bpf, mips: Add support for BPF_MOVSX in the JITs
+Date: Fri,  4 Sep 2026 07:17:31 -0400
+Message-ID: <20260904111731.673341-3-main.kalliope@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260904111731.673341-1-main.kalliope@gmail.com>
 References: <20260904111731.673341-1-main.kalliope@gmail.com>
@@ -90,115 +90,196 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-BPF_MOVSX carries its source width in insn->off. Both MIPS JITs
-currently lower register MOV instructions directly in build_insn().
-Keeping the forthcoming MOVSX width switch there would split the move
-operation between dispatcher cases and backend emitters.
+Both MIPS JITs ignore insn->off when lowering register MOV
+instructions, so BPF_MOVSX is emitted as an ordinary move. Since
+build_insn() accepts it, affected programs are silently miscompiled
+instead of falling back to the interpreter.
 
-Factor ALU32 and ALU64 register moves into helpers for each backend and
-route the existing MOV paths through them. The helpers own the complete
-move operation, including MIPS32 register-pair handling and the ALU32
-upper-half state. This keeps the following MOVSX width decoding inside
-one per-backend, per-width-class move emitter rather than in dispatcher
-case arms or generic primitives.
+Decode insn->off in the register-move helpers and sign-extend 8- and
+16-bit ALU32 operands and 8-, 16-, and 32-bit ALU64 operands. On
+MIPS32, propagate the sign into the high word for ALU64 while
+preserving the existing ALU32 zero-extension handling.
 
-Keep the verifier-inserted zero-extension marker on its dedicated path.
-No functional change is intended.
+Use shift pairs rather than seb/seh so the lowering works on every CPU
+supported by these JITs. seb/seh would save one instruction on
+R2-or-newer CPUs but would require adding those opcodes to uasm.
 
 Assisted-by: Codex:gpt-5.6-sol
 Signed-off-by: Nicholas Dudar <main.kalliope@gmail.com>
 ---
- arch/mips/net/bpf_jit_comp32.c | 22 ++++++++++++++++++----
- arch/mips/net/bpf_jit_comp64.c | 18 +++++++++++++++---
- 2 files changed, 33 insertions(+), 7 deletions(-)
+ arch/mips/net/bpf_jit_comp32.c | 56 ++++++++++++++++++++++++++++------
+ arch/mips/net/bpf_jit_comp64.c | 54 +++++++++++++++++++++++++++-----
+ 2 files changed, 93 insertions(+), 17 deletions(-)
 
 diff --git a/arch/mips/net/bpf_jit_comp32.c b/arch/mips/net/bpf_jit_comp32.c
-index 40a878b672f5..bfe73b023983 100644
+index bfe73b023983..885da0d0d74b 100644
 --- a/arch/mips/net/bpf_jit_comp32.c
 +++ b/arch/mips/net/bpf_jit_comp32.c
-@@ -190,6 +190,22 @@ static void emit_zext_ver(struct jit_context *ctx, const u8 dst[])
+@@ -190,20 +190,58 @@ static void emit_zext_ver(struct jit_context *ctx, const u8 dst[])
  	}
  }
  
-+/* Register move operation (32-bit) */
-+static void emit_mov_r32(struct jit_context *ctx, const u8 dst[],
-+			 const u8 src[])
-+{
-+	emit_mov_r(ctx, lo(dst), lo(src));
-+	emit_zext_ver(ctx, dst);
-+}
-+
-+/* Register move operation (64-bit) */
-+static void emit_mov_r64(struct jit_context *ctx, const u8 dst[],
-+			 const u8 src[])
-+{
-+	emit_mov_r(ctx, lo(dst), lo(src));
-+	emit_mov_r(ctx, hi(dst), hi(src));
-+}
-+
- /* Load delay slot, if ISA mandates it */
- static void emit_load_delay(struct jit_context *ctx)
+-/* Register move operation (32-bit) */
++/* Register move operation (32-bit), optionally with sign extension */
+ static void emit_mov_r32(struct jit_context *ctx, const u8 dst[],
+-			 const u8 src[])
++			 const u8 src[], s16 off)
  {
-@@ -1485,8 +1501,7 @@ int build_insn(const struct bpf_insn *insn, struct jit_context *ctx)
+-	emit_mov_r(ctx, lo(dst), lo(src));
++	int shift;
++
++	switch (off) {
++	case 8:
++	case 16:
++		shift = 32 - off;
++		emit(ctx, sll, lo(dst), lo(src), shift);
++		emit(ctx, sra, lo(dst), lo(dst), shift);
++		break;
++	default:
++		/* off == 0 is MOV; the verifier rejects other offsets. */
++		emit_mov_r(ctx, lo(dst), lo(src));
++		break;
++	}
++	clobber_reg(ctx, lo(dst));
+ 	emit_zext_ver(ctx, dst);
+ }
+ 
+-/* Register move operation (64-bit) */
++/* Register move operation (64-bit), optionally with sign extension */
+ static void emit_mov_r64(struct jit_context *ctx, const u8 dst[],
+-			 const u8 src[])
++			 const u8 src[], s16 off)
+ {
+-	emit_mov_r(ctx, lo(dst), lo(src));
+-	emit_mov_r(ctx, hi(dst), hi(src));
++	int shift;
++
++	switch (off) {
++	case 8:
++	case 16:
++		shift = 32 - off;
++		emit(ctx, sll, lo(dst), lo(src), shift);
++		emit(ctx, sra, lo(dst), lo(dst), shift);
++		emit(ctx, sra, hi(dst), lo(dst), 31);
++		break;
++	case 32:
++		emit(ctx, move, lo(dst), lo(src));
++		emit(ctx, sra, hi(dst), lo(dst), 31);
++		break;
++	default:
++		/*
++		 * off == 0 is ordinary MOV. The verifier rejects other
++		 * offsets; defined exceptions require
++		 * bpf_jit_supports_percpu_insn() or bpf_jit_supports_arena(),
++		 * neither implemented by MIPS.
++		 */
++		emit_mov_r(ctx, lo(dst), lo(src));
++		emit_mov_r(ctx, hi(dst), hi(src));
++		break;
++	}
++	clobber_reg64(ctx, dst);
+ }
+ 
+ /* Load delay slot, if ISA mandates it */
+@@ -1501,7 +1539,7 @@ int build_insn(const struct bpf_insn *insn, struct jit_context *ctx)
  			/* Special mov32 for zext */
  			emit_mov_i(ctx, hi(dst), 0);
  		} else {
--			emit_mov_r(ctx, lo(dst), lo(src));
--			emit_zext_ver(ctx, dst);
-+			emit_mov_r32(ctx, dst, src);
+-			emit_mov_r32(ctx, dst, src);
++			emit_mov_r32(ctx, dst, src, off);
  		}
  		break;
  	/* dst = -dst */
-@@ -1555,8 +1570,7 @@ int build_insn(const struct bpf_insn *insn, struct jit_context *ctx)
+@@ -1570,7 +1608,7 @@ int build_insn(const struct bpf_insn *insn, struct jit_context *ctx)
  		break;
  	/* dst = src (64-bit) */
  	case BPF_ALU64 | BPF_MOV | BPF_X:
--		emit_mov_r(ctx, lo(dst), lo(src));
--		emit_mov_r(ctx, hi(dst), hi(src));
-+		emit_mov_r64(ctx, dst, src);
+-		emit_mov_r64(ctx, dst, src);
++		emit_mov_r64(ctx, dst, src, off);
  		break;
  	/* dst = -dst (64-bit) */
  	case BPF_ALU64 | BPF_NEG:
 diff --git a/arch/mips/net/bpf_jit_comp64.c b/arch/mips/net/bpf_jit_comp64.c
-index fa7e9aa37f49..45fee6f6b87e 100644
+index 45fee6f6b87e..a1dfb7492a9c 100644
 --- a/arch/mips/net/bpf_jit_comp64.c
 +++ b/arch/mips/net/bpf_jit_comp64.c
-@@ -120,6 +120,19 @@ static void emit_zext_ver(struct jit_context *ctx, u8 dst)
+@@ -120,17 +120,55 @@ static void emit_zext_ver(struct jit_context *ctx, u8 dst)
  		emit_zext(ctx, dst);
  }
  
-+/* Register move operation (32-bit) */
-+static void emit_mov_r32(struct jit_context *ctx, u8 dst, u8 src)
-+{
-+	emit_mov_r(ctx, dst, src);
-+	emit_zext_ver(ctx, dst);
-+}
-+
-+/* Register move operation (64-bit) */
-+static void emit_mov_r64(struct jit_context *ctx, u8 dst, u8 src)
-+{
-+	emit_mov_r(ctx, dst, src);
-+}
-+
- /* dst = imm (64-bit) */
- static void emit_mov_i64(struct jit_context *ctx, u8 dst, u64 imm64)
+-/* Register move operation (32-bit) */
+-static void emit_mov_r32(struct jit_context *ctx, u8 dst, u8 src)
++/* Register move operation (32-bit), optionally with sign extension */
++static void emit_mov_r32(struct jit_context *ctx, u8 dst, u8 src, s16 off)
  {
-@@ -656,8 +669,7 @@ int build_insn(const struct bpf_insn *insn, struct jit_context *ctx)
+-	emit_mov_r(ctx, dst, src);
++	int shift;
++
++	switch (off) {
++	case 8:
++	case 16:
++		shift = 32 - off;
++		/* dsll32 and dsra32 add 32 to the shift argument. */
++		emit(ctx, dsll32, dst, src, shift);
++		emit(ctx, dsra32, dst, dst, shift);
++		break;
++	default:
++		/* off == 0 is MOV; the verifier rejects other offsets. */
++		emit_mov_r(ctx, dst, src);
++		break;
++	}
++	clobber_reg(ctx, dst);
+ 	emit_zext_ver(ctx, dst);
+ }
+ 
+-/* Register move operation (64-bit) */
+-static void emit_mov_r64(struct jit_context *ctx, u8 dst, u8 src)
++/* Register move operation (64-bit), optionally with sign extension */
++static void emit_mov_r64(struct jit_context *ctx, u8 dst, u8 src, s16 off)
+ {
+-	emit_mov_r(ctx, dst, src);
++	int shift;
++
++	switch (off) {
++	case 8:
++	case 16:
++		shift = 32 - off;
++		/* dsll32 and dsra32 add 32 to the shift argument. */
++		emit(ctx, dsll32, dst, src, shift);
++		emit(ctx, dsra32, dst, dst, shift);
++		break;
++	case 32:
++		emit_sext(ctx, dst, src);
++		break;
++	default:
++		/*
++		 * off == 0 is ordinary MOV. The verifier rejects other
++		 * offsets; defined exceptions require
++		 * bpf_jit_supports_percpu_insn() or bpf_jit_supports_arena(),
++		 * neither implemented by MIPS.
++		 */
++		emit_mov_r(ctx, dst, src);
++		break;
++	}
++	clobber_reg(ctx, dst);
+ }
+ 
+ /* dst = imm (64-bit) */
+@@ -669,7 +707,7 @@ int build_insn(const struct bpf_insn *insn, struct jit_context *ctx)
  			/* Special mov32 for zext */
  			emit_zext(ctx, dst);
  		} else {
--			emit_mov_r(ctx, dst, src);
--			emit_zext_ver(ctx, dst);
-+			emit_mov_r32(ctx, dst, src);
+-			emit_mov_r32(ctx, dst, src);
++			emit_mov_r32(ctx, dst, src, off);
  		}
  		break;
  	/* dst = -dst */
-@@ -742,7 +754,7 @@ int build_insn(const struct bpf_insn *insn, struct jit_context *ctx)
+@@ -754,7 +792,7 @@ int build_insn(const struct bpf_insn *insn, struct jit_context *ctx)
  		break;
  	/* dst = src (64-bit) */
  	case BPF_ALU64 | BPF_MOV | BPF_X:
--		emit_mov_r(ctx, dst, src);
-+		emit_mov_r64(ctx, dst, src);
+-		emit_mov_r64(ctx, dst, src);
++		emit_mov_r64(ctx, dst, src, off);
  		break;
  	/* dst = -dst (64-bit) */
  	case BPF_ALU64 | BPF_NEG:
