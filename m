@@ -1,99 +1,111 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A70D426694;
-	Fri,  4 Sep 2026 10:33:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4828E46AA97
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 10:33:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788518011; cv=none; b=ecjxazqHXsTyfy//43XEi3OMlT6cCpJV9mdvE+aRSk1e1X+OMnNODv6tP8LmHj/s/i0HeiNBEj2aSdVLODCRGc3DjG9b2ydt5pZgfvHIN3BzYnJbel9QxBScoJwMYlntoJE5spC4KrxEh2f4VRBpAx5ba9wa0X89wHd+y3EP3iM=
+	t=1788518038; cv=none; b=UzMV+YbhvHKATwA7/CNQ6YF79KPY5NTdXKlMzS0cKbjGQ/s+eZIGu08SKdNjpL5UBj9lY1/IaRRUyYMlUD+5g5q1/4dl4HfcROxebjLTe2dhkFb7oeFi/A/Me3MNxuxA1at4KVwHTB7HLXYHEc8hLRk/NEkLLVrSCbSePog1jx8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788518011; c=relaxed/simple;
-	bh=um+PdFFJR98kQldzpxMzgk/ZDhAliw12h80hk8FMLrg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ONysmmYHY/8IhygTRQ9GTCy09ExUTGZjOSP8BO1smSbwt3F51jHn2YSelcRhjPg7g5rBoBDTq9epDKsxEgBwV7xr9qTmBNrkCKw1tF68EbF54Txno0lpVy5sxyeSh02R1cbIC02CTnbWmRxASlA2Ceya9/DbPz8qUNWm4JaAW1w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kFuGwZ4h; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788518038; c=relaxed/simple;
+	bh=lnOd2Cu+mfYC06hiaS9xwajbcEsrwnQBxbyBPrBJXnM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=B/nCU2n+9riV4xDY1Giplr/4d8o4Bxebx7FaA5BVmJAGlpt+CkVPF6AyWHkYXXdh39pVHiBUebKCSJMaiFDGDpfqP5kAFNFFQaB5SHU/y8B7VJTbEmKMZuME4rOt98xThch57hXOz4Zwug9TE3VxrN8tJbxpQWqDWFUvb+nwC1w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ionos.com; spf=pass smtp.mailfrom=ionos.com; dkim=pass (2048-bit key) header.d=ionos.com header.i=@ionos.com header.b=dHQE+2sJ; arc=none smtp.client-ip=209.85.128.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ionos.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ionos.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kFuGwZ4h"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 323F61F00A3D;
-	Fri,  4 Sep 2026 10:33:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788518009;
-	bh=KA6Z2/LU2nu5o8uMhRKWPli4CzL+4jTmOudkvcs6Nvc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=kFuGwZ4htkAaxQDnVGD3u1NcaOHnoTNSbBzIBHfIMlM/r81LttdcFdSdVzog56lgC
-	 F4LfKaclWVS6r3c2xzyeHkHtEQs6HlmLKPN3ypnJF7sNqMavkmSuBFAOF+eyT50rR3
-	 YtOnugjv7rNuykj+n4ws9+JmNHXzHUPIc+5qLfuYwMaddkG21QUsqJmI1gTmuDZel5
-	 7YYHe7FyCz6n6eSjUXRsKbKBAYF2vwPhgJbWspmLOa3zK2RbzQDA81OGjfrlneGgAh
-	 o1qV/uUMw7SqQNOuPxtqYjbSGAXaT7DR7xRkJiyt/Kvd8zPsOpJNLhCjWqS4xyqx5q
-	 O4YjNEQ/ZFv8w==
-Date: Fri, 4 Sep 2026 11:33:24 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Marc Zyngier <maz@kernel.org>
-Cc: Oliver Upton <oupton@kernel.org>, Fuad Tabba <fuad.tabba@linux.dev>,
-	Joey Gouly <joey.gouly@arm.com>,
-	Steffen Eiden <seiden@linux.ibm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Zenghui Yu <yuzenghui@huawei.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
-	linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev,
+	dkim=pass (2048-bit key) header.d=ionos.com header.i=@ionos.com header.b="dHQE+2sJ"
+Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-49cd9add88aso5610055e9.3
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 03:33:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=ionos.com; s=google; t=1788518034; x=1789122834; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=CH4/K0wijj7OtRSv4HcTF7FzgieNSCBLu9edWOGkVVg=;
+        b=dHQE+2sJcyvfOvlxjN8MRvfSKb0YVCp2Nh2xKoUKmKqESo+yJSxQBAsUf4e92TLuAr
+         n64RhNIAl4NCmEMxs4TGKEBlcD+cs2LDzMxNnAQ6uLiI2USwrp5n4dFWO2cA27irnjr6
+         unPz6FMFM0xsqSgN/V+6P0WgZ9B8NmkIIf8AEqazeu1v1Tb+Gig8CVynvrA+K36ICWNt
+         NkIapDGIiOqLxbvKmK7uIrrgGzmHv7/Y106KsDsbJfxtmitQCnvSLpsAHtvmPw6XvrjM
+         qbxW2gH9Fd4kovWnkN8DzC61cziSH5C7aB5c1GDdND+NT/DGT9VcRZBm+Fj1wmtOLIpZ
+         dmgw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788518034; x=1789122834;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=CH4/K0wijj7OtRSv4HcTF7FzgieNSCBLu9edWOGkVVg=;
+        b=MIDSgwUh5q7maSYUCHkIwdVFEd9oQDi5FoKNWR7g6UPJWkZwFiURvVtEZzdfyYeO4k
+         aukqre19nwDwLVkUZ0K4qlYI/tmzYT3m8aaz5gzxToIya16MNvYT1gBJ0SxPBgcrlj0Q
+         auzwXjGqoCcPusFBfXuog4qsdNgSPoZMlU+p+lZSFbjbiLjli9BPAwWXllsdsxE36GHg
+         u3rrj3xmCijsFnxXkyCN7/XPfnElwb/mK90yl9BLnpkXKQviGLRkmVTpn3PDhBQcT3qU
+         t5YIRQ2BzYMMav4LAsLr93ibefpJSKOL64SSeAxyWjpelSKjYozdu4I68ssiYp9oR8P6
+         KDeg==
+X-Forwarded-Encrypted: i=1; AKwUvBzmWkCzrjgMQSfQJCRFJaQfP50GoloM8ojseIJDm0ZL/iEWpJpK0teDaJ4eVeuOgj5ZUmi/wKYAtSqMSx0=@vger.kernel.org
+X-Gm-Message-State: AFuF++lWRS7i2H2HZv220rZJXx/0RsilkOwI8PXcy0U5e/qaovCkOZuN
+	axe/b9RHU97ZDPbMWjRZfcII4nUjyk+bwocSLJhtR3E3cvsnYHgv0qYO3BGLuQqrWlU=
+X-Gm-Gg: AYBFou3YYQAafhyFppRF6rj5/t0t1LYI9Q/tsuXyLDM4lodClPCoPUyF22FZDP+5Z9P
+	GeKcFUdRyzVueJ0FQWJ44szyp6+Gmy6xHeemujiRSTxG/lwwgghiJ2JNxywIW68RPNp8dXpT7tV
+	yxAEt5slqxmXdLSb1fSB72jd9rgTTjOMFlcrxTs8p/Phs0ZlEPT0lH0HQobkqWFJuSgDHhSacCC
+	Nmwj5SDY+umziAY1TVwtkK9OQIA6/xoNjKEwpJJViwFHrX9l47VPGuWc8zxwlERXgad9NrGHQxw
+	tI8Ya0wKc2IXikRzt8djFQBhwETaLbMwehGhQLcYfdHWwg6JW0YcfuuF6EY9FYEy9UUdnr/GH5d
+	BgTGVAlyglfZ95kWiBSidRBTxOxGBOouxyX5H5YUxsHOOFnpmAgcJE+9nJU3qGmmkZ6/O8/FYhU
+	4x5IZhVbCTKUAZs8JQ79WSjDawn5jUtFMqZdTbSQLV+9db/MXdZ0IxQ/SfXiFxItwsil16Ap3CC
+	r11zIeTHGCUZRyTLg4RzTkZ+R/Xsbh7YtVdSSo4BMG1366hr9mK5qSQEeFsxb24
+X-Received: by 2002:a05:600c:1914:b0:49c:ff23:a6d5 with SMTP id 5b1f17b1804b1-49cff23a70bmr3661865e9.0.1788518034477;
+        Fri, 04 Sep 2026 03:33:54 -0700 (PDT)
+Received: from raven.intern.cm-ag (p200300dc6f04b700023064fffe740809.dip0.t-ipconnect.de. [2003:dc:6f04:b700:230:64ff:fe74:809])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cee80eda4sm141003045e9.15.2026.09.04.03.33.53
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 04 Sep 2026 03:33:54 -0700 (PDT)
+From: Max Kellermann <max.kellermann@ionos.com>
+To: idryomov@gmail.com,
+	amarkuze@redhat.com,
+	xiubo.li@clyso.com,
+	ceph-devel@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/2] KVM: arm64: Enable S1PIE for nVHE and hVHE
-Message-ID: <eb788ad5-5bb3-4767-87b8-d35d9e3ab220@sirena.org.uk>
-References: <20260904-kvm-arm64-nvhe-pie-v1-0-29d59f245e6c@kernel.org>
- <20260904-kvm-arm64-nvhe-pie-v1-2-29d59f245e6c@kernel.org>
- <86pkyt4gvt.wl-maz@kernel.org>
+Cc: Max Kellermann <max.kellermann@ionos.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] ceph: avoid pending truncate during nonblocking cap acquire
+Date: Fri,  4 Sep 2026 12:33:51 +0200
+Message-ID: <20260904103351.15357-1-max.kellermann@ionos.com>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="SRGhXbx+xRQ2WZrs"
-Content-Disposition: inline
-In-Reply-To: <86pkyt4gvt.wl-maz@kernel.org>
-X-Cookie: A is for Apple.
+Content-Transfer-Encoding: 8bit
 
+Readahead acquires caps while the folios are locked.  This can
+deadlock when processing a pending truncate; truncate_pagecache() can
+then attempt to a folio that is already locked.
 
---SRGhXbx+xRQ2WZrs
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Return -EAGAIN instead when `NON_BLOCKING` is set, causing the
+readahead to be abandoned.
 
-On Fri, Sep 04, 2026 at 08:25:58AM +0100, Marc Zyngier wrote:
-> Mark Brown <broonie@kernel.org> wrote:
+Fixes: 49870056005c ("ceph: convert ceph_readpages to ceph_readahead")
+Cc: stable@vger.kernel.org
+Signed-off-by: Max Kellermann <max.kellermann@ionos.com>
+---
+ fs/ceph/caps.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-> > When FEAT_S1PIE (stage 1 permission indirection) is supported we
-> > currently enable and use it in the hypervisor when running in VHE mode
-> > but not when running in nVHE or hVHE mode.  While systems with
-> > FEAT_S1PIE would normally use VHE users can configure them for nVHE or
-> > hVHE, for example in order to run protected guests.  Enable FEAT_S1PIE
-> > with nVHE and hVHE.
+diff --git a/fs/ceph/caps.c b/fs/ceph/caps.c
+index bcb04c6cb92c..86e195c5fd32 100644
+--- a/fs/ceph/caps.c
++++ b/fs/ceph/caps.c
+@@ -2889,6 +2889,10 @@ static int try_get_cap_refs(struct inode *inode, int need, int want,
+ 	}
+ 
+ 	/* finish pending truncate */
++	if (ci->i_truncate_pending && (flags & NON_BLOCKING)) {
++		ret = -EAGAIN;
++		goto out_unlock;
++	}
+ 	while (ci->i_truncate_pending) {
+ 		spin_unlock(&ci->i_ceph_lock);
+ 		if (snap_rwsem_locked) {
+-- 
+2.47.3
 
-> No. nVHE is dead, and I'm not adding support for random stuff that
-> appeared over 10 years after v8.0. If you have S1PIE, you have VHE.
-
-> If you force the kernel to run with E2H==0, that's your own problem.
-
-What about pKVM, my understanding was that that is very much an ongoing
-concern and uses the nVHE hypervisor?  My expectation was that this
-would only ever get used in hVHE configurations when people enable pKVM
-on modern hardware, actual nVHE mode was mostly just carried along with
-that.
-
---SRGhXbx+xRQ2WZrs
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqannMACgkQJNaLcl1U
-h9ClCAf/VHBLEA44WZBa2i3kDIYbv8kQYBTPQtGFRc4TgF8ppyYGd/1uG1a4oLwT
-OnnTBuAmQtfxIYsQaUpK48EjYRr+nqWVn7prOwftXyzvFeNaWchCJwjYNMjfndHc
-qBQZkER5xOLeQ52Np/XMF0UarDT0VGkZinLql+a6bVd6VEYiYsvCH3dUs6GQ1ACM
-7+XetScfgfE95q1hBBiwz5nqaNWyrPE3omzHq8yLZ5ZVDG7S7QcG8PUsBrRUKmFb
-ppwT6bR9zQwshxF5OBkfp7uKA9t6h2+ueCp8LErLEx1KyiOy63w1TSpkCgKxyuMw
-n+x1qZTqmQx95z6mQSHoijN5M1/3uQ==
-=+aEE
------END PGP SIGNATURE-----
-
---SRGhXbx+xRQ2WZrs--
