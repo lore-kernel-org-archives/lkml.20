@@ -1,220 +1,186 @@
-Received: from mail-oo1-f53.google.com (mail-oo1-f53.google.com [209.85.161.53])
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 032A83DBD76
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 11:04:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B6E8274658
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 11:05:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788519874; cv=none; b=Iaq3ClKERpXEVbW5MlPYVwLiSYlM4nhNPH94k9A9wCElTPsgn96TQ4R7peWPZm2zECR2lipUMrgj3j/hVflEUcgraNeVG3jofPDSjPCk7v2RG9oxfmLHFAnrTffEeBmoU+HqZqAixV5gVDxuXgWPCnWoCOTOf1e3YWH7XVWt9Kk=
+	t=1788519907; cv=none; b=JOh/O5MGbv/kUKx5FAXBCxX+YcTvkd8hV3ryxFqGHLXw8jfGyuAT7BMLCB19KvrSiWFA31CH5m2jh3g3rDsvjLtZywAfDK7W7d7IAwlzq+NiN/42B+N3en/q5ytC65CHofN8V00wm+YeXHw0R/a2QU9e0UgZLMxHdsF2EVEf7sU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788519874; c=relaxed/simple;
-	bh=dJkuxRnLtXHX0hYD2tPNeJpdMPMlGF6LLVMZdpV+Dlg=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=aoWk9ECSu/YY3b6dj2UNzjDDe7cNHwIsskjn6WxJpwJtKnLr1sYrZmZkD3omOapifmFRa0q4WajP4qvBHnn7Pe/OhR6IxAZ1LnPz4Ipz7ZJZu4yuiAFM4I+/EV55Hfn1UhbivUU6GFA1+WxfCGqIit6oOmT+MCSdHs4nm4zMOHs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=E5dH8GAy; arc=none smtp.client-ip=209.85.161.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788519907; c=relaxed/simple;
+	bh=CIEikly5adBPfI4DC6vpJFIgu0yg2lYRS72GJUddXmI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=fVid5S9qxeOlxRHRvw77ooYtJI3VMc21Gvq4Rn89dViMr2IK4145EkbwGow8InS3YCbDWeJUdJepO4RG84oylqlBEP9mY53tRTnM+K/CDbBQZi02puyP9GjZi5twADydrfzwx64tTFazoN8bghWbn/iXIk2N26g8M/wusqqxQ0Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=DhXYdk69; arc=none smtp.client-ip=209.85.128.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="E5dH8GAy"
-Received: by mail-oo1-f53.google.com with SMTP id 006d021491bc7-6b1b1cb72d0so423422eaf.1
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 04:04:32 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="DhXYdk69"
+Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-490cf322ed0so9092965e9.1
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 04:05:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788519872; x=1789124672; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=14NhbWVwArhRPWoqbEkyydWg2Xn0PWXC+Lz7VEuzIKQ=;
-        b=E5dH8GAyieB9JYR2B6NOH8bhotlnt2xbF+AY+6p4D6u6d5otH6bNjRtm+Y6rmlqis0
-         EzabQBPaG6RhqVV0aXcqePvoH3aeAHhX9ABfFV2RKqQ/DtiUwFqPHiHFOE0IA/0zE/ni
-         VuYdcwcSticEc6xB/zaE0XwYFWfKlzoWcB4DgeKgRcFZI3fTvLR1Ffh6NZWMmPZsWA+O
-         CKPxBfHy/mCy4Iz2dEBVqZ/ylGurpSrTU8MUPSqeZdlAPFqW8J8Ikxchgza/8zh53Kvy
-         p+VVJRz0ZODOrx5NF5XLRQS3EvQZMUKvYeE1W/pnDNMbfR1PO4XtOImB2/C1hpBFTNbI
-         Anaw==
+        d=suse.com; s=google; t=1788519903; x=1789124703; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=1rOqG9BbmC32OqlOD3H5WvHopYjdITPBpgRjKKEHgD8=;
+        b=DhXYdk69auscKzWs6fzK4RnAlAty1jjv50wFLQMo83mSHr+QJvdy/ZBg8N2XNoxTUy
+         qgkCh4+4+NO33t/1dZ4ALQLooUUFkCRazncu/j+TiGpZ+JPOcM3XvvGWotMj6O7nwjZD
+         dyuKfdtIi3comBblfmDHIeTqp57xr8R/nrKX5EO/7JGq6Rvd9YSTjDrm95m0uDGls8SS
+         D0WbzHZtt7GwWgAunFO6A/ib6PS0X6+nSLE5mZAGkapVe9E2u0EjI9DR21tjVyOpdLsF
+         cSjj6pozLHYj8jnrAzx5hUPquLzIM+Y1zzxb6AQbi3c67PLOliizbVP+ZXgF9+aufVnz
+         O04w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788519872; x=1789124672;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=14NhbWVwArhRPWoqbEkyydWg2Xn0PWXC+Lz7VEuzIKQ=;
-        b=lKFtqJqCZMgaH4W5xk7XybbnEzQTz47kzyzMPJg/L82r144drd1/WDKlBQ3cftvwOB
-         gzc0rE+hdINfATCadjD862k9mmlaj8f5qjuWeV04GakoP5hfq+rvdkFl5qDhVUb4EPKl
-         96EGxtb2XrjMS/EGBG2Gri43yB41muolvuHM3VS8GylQp0OVATFdXI6+Sy2w0BNX6ZS2
-         Uy0nc6HL6iAFBOZL3YSQK1zDRmGOvQzPZJTVtRJRiTKzWe296v8x2VP32D96gQold+ij
-         CGLW4VZo7u+5WIz0er/wjuHNVT0VIpREEksxc+hJ2NdH2LbqGLHlL9PqdPFI+uE6qKqv
-         UYHA==
-X-Gm-Message-State: AFuF++mPvCbp7PtfLwcXMYIuqoDZFRgGgQ/FOsBQ/qPyh2NT8+XTp+Ap
-	71/Xjd1q7UcKxf5V5yB7s1imcOZQ7St2imBncYiOPyDlMjQH5cxrlrLh
-X-Gm-Gg: AYBFou1ByEuyAvB0wbMMoLM3PS4uPfoO/YWTwOo8UuiU4wZTRSYGJIhGnSiH+qb5WuS
-	46hj2qDfzKGo6QY1EZqrGdEK+PxJ85OVdenQTN9rREJsyVev+i8GfOVvMu442wnyKeo1uMsSiKR
-	00BwqEuebc7Hs8Zc1KFsLEOx4FYmaOPkqQ7iEULM0eFUWHffMkXRHBFmbrONBMWM9jDRoWuygCo
-	2CVHIZHwmNn2Eg0o7RAE4iXb1OabIFtelY+A+55CBNuX4Xq6xSnbFKtTcCXgyJHoKqFBO2Hgabl
-	6qI7q8p7K7rXK/Lp2kVRaAUo9YVo1j/rpZW1uSjhNGxvA+5slKiv8knbfO6SBigdtpl8io0ajxp
-	3+6Z+tRAHR+H0JS+Po49030KM+DArQPuZ5NZJ3YqIZPDohMis5fIX4Ko7OLvhvavGcQNf8QknSb
-	lsVx95ULgtmp140mYsPB5Yw0wAhEYikerWwdQmu1q/3daJ6AzxSUaKI9me55j3mZ8+nEq8EIfL9
-	AfQI2Umo2KqfSw=
-X-Received: by 2002:a05:6820:81e:b0:6b1:afca:5c78 with SMTP id 006d021491bc7-6b6fddba8bbmr3334490eaf.32.1788519871772;
-        Fri, 04 Sep 2026 04:04:31 -0700 (PDT)
-Received: from volcano9f6e-hostos.amd.com ([165.204.217.251])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339885d29esm6640159eec.2.2026.09.04.04.04.23
+        d=1e100.net; s=20251104; t=1788519903; x=1789124703;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=1rOqG9BbmC32OqlOD3H5WvHopYjdITPBpgRjKKEHgD8=;
+        b=FSi/LpxtgC4b+szaHnublQr3CHqhHPmteDUJ66CsI1ZWWzboPjCasebHblb2+P0Th4
+         6mcE0ziUGVTpYoRJ0Slp0d48EZ6XHDjlDoLEDw6YvPiHPPHZExXNfkIbw5OU17VGDz+o
+         tUp7EdcxuKhAhlUmU1UP0B5QEbevaDDzxq49rLNr2jelNzjP1h35WGZKcftzTEOgfggj
+         JBQQqWSlLIlwQ5RTH8Ybx/244EBSOAhVlweMHGZH7/ikjm2FTBgW5wGfRgqkcOzdkQ7b
+         BjA5uCAcE+mgKdFuXgkg6Pej2cxrdZrscgVFYKDc2GPH3NzpD5/lj/wlBEukOHwL9ipr
+         kPZQ==
+X-Forwarded-Encrypted: i=1; AKwUvBx0mKiKjiHEDRdlzRLPc+8qF+1KNvCkoYvkBHFxRF7JraZQw/SwtFFbICQxJWR90dCTVRlnoY5qHoA8/9E=@vger.kernel.org
+X-Gm-Message-State: AFuF++mU7i51BOAJaKtxH9/cEg2xqfaGvCYagdZsZmIW6kqVwHU8Moe4
+	L1d3KBAZsz1SuPciCd6Q5dYh3JqHMz1hCCYTMcSkX/itFkMve7rMXImPId5ZzSdgsBc=
+X-Gm-Gg: AYBFou3eeT8aukmi8n9AqjVVBzCmbfp2Gjca5aoCPzaXyY73KTOGeOBTRHIzBgE6ChW
+	s3pAF326ODK+5ZjqfFuDIJTR+wD7wgSKtpPfUO88Kg6B1Al9WifL5KI+hHkKzbFL75sUWgRwTHd
+	VpLF8R9SUVsUevNhRngW8e+8LoCXJFxrmxMpXZIsPsqrU5Xta3qqd4H0cV/SHOSljf58MLhXJte
+	j2NEF1Vpr0YfLMZYoVuHKIxBS5pLUA4ThN09Z2b5c64GHew7xeRLmnmRQx9JZtOroa/sjFJzUMv
+	flFUqZNFJZW6LHbv+UQuCNgRakOPnZgvOvn2DbcnrpfxYti2Z4R73LyvSd+vQ04NQWfOUskFXlq
+	E3mFhCQurXLkpU5ljPSOx0nA1zbVpoKiBsHqns4UJryBRj/HmEIN9LHXFzqWtzEvYPHQJq1jb3u
+	rm4OGbvr/kEiSvIoKub8OPtiSgV0Uymc5W2xXpm+lqA/LO19NuVn46N4PQjldi8YBWPKeaIxsXH
+	A==
+X-Received: by 2002:a05:600c:3508:b0:49c:fc6c:be02 with SMTP id 5b1f17b1804b1-49cfc6cc032mr25392865e9.25.1788519903187;
+        Fri, 04 Sep 2026 04:05:03 -0700 (PDT)
+Received: from localhost (109-81-91-122.rct.o2.cz. [109.81.91.122])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cf771e9absm62865535e9.9.2026.09.04.04.05.02
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 04 Sep 2026 04:04:30 -0700 (PDT)
-From: Hemanth Selam <hemanth.selam@gmail.com>
-To: Jonas Gorski <jonas.gorski@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
-	Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Andi Shyti <andi.shyti@kernel.org>,
-	Tudor Ambarus <tudor.ambarus@linaro.org>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	Peter Griffin <peter.griffin@linaro.org>,
-	Alim Akhtar <alim.akhtar@samsung.com>,
-	Alain Volmat <alain.volmat@foss.st.com>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Chen-Yu Tsai <wens@kernel.org>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Samuel Holland <samuel@sholland.org>,
-	Michal Simek <michal.simek@amd.com>
-Cc: linux-kernel@vger.kernel.org,
-	linux-spi@vger.kernel.org,
-	imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	linux-samsung-soc@vger.kernel.org,
-	linux-stm32@st-md-mailman.stormreply.com,
-	linux-sunxi@lists.linux.dev
-Subject: [PATCH] spi: fix typos in comments
-Date: Fri,  4 Sep 2026 16:34:16 +0530
-Message-ID: <20260904110420.13707-1-hemanth.selam@gmail.com>
-X-Mailer: git-send-email 2.48.1
+        Fri, 04 Sep 2026 04:05:02 -0700 (PDT)
+Date: Fri, 4 Sep 2026 13:05:00 +0200
+From: Michal Hocko <mhocko@suse.com>
+To: Ye Liu <ye.liu@linux.dev>
+Cc: Miaohe Lin <linmiaohe@huawei.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Ye Liu <liuye@kylinos.cn>,
+	Naoya Horiguchi <nao.horiguchi@gmail.com>, linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 4/8] mm/memory-failure: convert process iterator to
+ for_each_process_rcu
+Message-ID: <apql3JZ3dryCzJtz@tiehlicka>
+References: <20260904083001.553587-1-ye.liu@linux.dev>
+ <20260904083001.553587-5-ye.liu@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260904083001.553587-5-ye.liu@linux.dev>
 
-Fix typos in comments, reported by scripts/checkpatch.pl using the
-misspelling list in scripts/spelling.txt.  Only touches comments, no code
-changes.
+On Fri 04-09-26 16:29:56, Ye Liu wrote:
+> From: Ye Liu <liuye@kylinos.cn>
+> 
+> Replace the manual rcu_read_lock()/rcu_read_unlock() pairs combined
+> with for_each_process() loop in mm/memory-failure.c with
+> for_each_process_rcu().
+> 
+> No functional change.
+> 
+> Signed-off-by: Ye Liu <liuye@kylinos.cn>
 
-Assisted-by: Cursor:claude-opus-5
-Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
----
- drivers/spi/spi-bcm63xx.c     | 2 +-
- drivers/spi/spi-imx.c         | 2 +-
- drivers/spi/spi-omap2-mcspi.c | 2 +-
- drivers/spi/spi-pic32.c       | 2 +-
- drivers/spi/spi-s3c64xx.c     | 2 +-
- drivers/spi/spi-stm32.c       | 2 +-
- drivers/spi/spi-sun6i.c       | 2 +-
- drivers/spi/spi-xilinx.c      | 2 +-
- 8 files changed, 8 insertions(+), 8 deletions(-)
+Acked-by: Michal Hocko <mhocko@suse.com>
 
-diff --git a/drivers/spi/spi-bcm63xx.c b/drivers/spi/spi-bcm63xx.c
-index 1d8e257bad30..3f349c1db581 100644
---- a/drivers/spi/spi-bcm63xx.c
-+++ b/drivers/spi/spi-bcm63xx.c
-@@ -413,7 +413,7 @@ static irqreturn_t bcm63xx_spi_interrupt(int irq, void *dev_id)
- 	struct bcm63xx_spi *bs = spi_controller_get_devdata(host);
- 	u8 intr;
- 
--	/* Read interupts and clear them immediately */
-+	/* Read interrupts and clear them immediately */
- 	intr = bcm_spi_readb(bs, SPI_INT_STATUS);
- 	bcm_spi_writeb(bs, SPI_INTR_CLEAR_ALL, SPI_INT_STATUS);
- 	bcm_spi_writeb(bs, 0, SPI_INT_MASK);
-diff --git a/drivers/spi/spi-imx.c b/drivers/spi/spi-imx.c
-index 79a6c1a60b0a..6f9686df0486 100644
---- a/drivers/spi/spi-imx.c
-+++ b/drivers/spi/spi-imx.c
-@@ -673,7 +673,7 @@ static int mx51_ecspi_prepare_message(struct spi_imx_data *spi_imx,
- 	 * propagate into the hardware. It takes exactly one tick of the
- 	 * SCLK clock, but we will wait two SCLK clock just to be sure. The
- 	 * effect of the delay it takes for the hardware to apply changes
--	 * is noticable if the SCLK clock run very slow. In such a case, if
-+	 * is noticeable if the SCLK clock run very slow. In such a case, if
- 	 * the polarity of SCLK should be inverted, the GPIO ChipSelect might
- 	 * be asserted before the SCLK polarity changes, which would disrupt
- 	 * the SPI communication as the device on the other end would consider
-diff --git a/drivers/spi/spi-omap2-mcspi.c b/drivers/spi/spi-omap2-mcspi.c
-index a3355147f5de..90f3990e0060 100644
---- a/drivers/spi/spi-omap2-mcspi.c
-+++ b/drivers/spi/spi-omap2-mcspi.c
-@@ -1244,7 +1244,7 @@ static int omap2_mcspi_transfer_one(struct spi_controller *ctlr,
- 		omap2_mcspi_set_fifo(spi, t, 0);
- 
- out:
--	/* Restore defaults if they were overriden */
-+	/* Restore defaults if they were overridden */
- 	if (par_override) {
- 		par_override = 0;
- 		status = omap2_mcspi_setup_transfer(spi, NULL);
-diff --git a/drivers/spi/spi-pic32.c b/drivers/spi/spi-pic32.c
-index 972128271e4b..8363bc873b03 100644
---- a/drivers/spi/spi-pic32.c
-+++ b/drivers/spi/spi-pic32.c
-@@ -53,7 +53,7 @@ struct pic32_spi_regs {
- #define  TX_FIFO_ALL_EMPTY	0 /* completely empty */
- #define  TX_FIFO_EMPTY		1 /* empty */
- #define  TX_FIFO_HALF_EMPTY	2 /* empty by half or more */
--#define  TX_FIFO_NOT_FULL	3 /* atleast one empty */
-+#define  TX_FIFO_NOT_FULL	3 /* at least one empty */
- 
- #define CTRL_MSTEN	BIT(5) /* enable master mode */
- #define CTRL_CKP	BIT(6) /* active low */
-diff --git a/drivers/spi/spi-s3c64xx.c b/drivers/spi/spi-s3c64xx.c
-index 8d4120cf9df1..3546414dfc70 100644
---- a/drivers/spi/spi-s3c64xx.c
-+++ b/drivers/spi/spi-s3c64xx.c
-@@ -661,7 +661,7 @@ static int s3c64xx_wait_for_pio(struct s3c64xx_spi_driver_data *sdd,
- 	 * loops = length / max fifo size (calculated by using the
- 	 * fifo mask).
- 	 * For any size less than the fifo size the below code is
--	 * executed atleast once.
-+	 * executed at least once.
- 	 */
- 	loops = xfer->len / sdd->fifo_depth;
- 	buf = xfer->rx_buf;
-diff --git a/drivers/spi/spi-stm32.c b/drivers/spi/spi-stm32.c
-index be88e62075af..5f5c43ae5096 100644
---- a/drivers/spi/spi-stm32.c
-+++ b/drivers/spi/spi-stm32.c
-@@ -515,7 +515,7 @@ static int stm32h7_spi_get_bpw_mask(struct stm32_spi *spi)
- 
- 	/*
- 	 * The most significant bit at DSIZE bit field is reserved when the
--	 * maximum data size of periperal instances is limited to 16-bit
-+	 * maximum data size of peripheral instances is limited to 16-bit
- 	 */
- 	stm32_spi_set_bits(spi, STM32H7_SPI_CFG1, STM32H7_SPI_CFG1_DSIZE);
- 
-diff --git a/drivers/spi/spi-sun6i.c b/drivers/spi/spi-sun6i.c
-index 4631e9c7ca1d..6b7a05dd0de8 100644
---- a/drivers/spi/spi-sun6i.c
-+++ b/drivers/spi/spi-sun6i.c
-@@ -386,7 +386,7 @@ static int sun6i_spi_transfer_one(struct spi_controller *host,
- 		 * SPI_CLK = MOD_CLK / (2 ^ cdr)
- 		 * Or we can use CDR2, which is calculated with the formula:
- 		 * SPI_CLK = MOD_CLK / (2 * (cdr + 1))
--		 * Wether we use the former or the latter is set through the
-+		 * Whether we use the former or the latter is set through the
- 		 * DRS bit.
- 		 *
- 		 * First try CDR2, and if we can't reach the expected
-diff --git a/drivers/spi/spi-xilinx.c b/drivers/spi/spi-xilinx.c
-index dc1e968659e1..df4ea99a5427 100644
---- a/drivers/spi/spi-xilinx.c
-+++ b/drivers/spi/spi-xilinx.c
-@@ -460,7 +460,7 @@ static int xilinx_spi_probe(struct platform_device *pdev)
- 	host->num_chipselect = num_cs;
- 
- 	/*
--	 * Detect endianess on the IP via loop bit in CR. Detection
-+	 * Detect endianness on the IP via loop bit in CR. Detection
- 	 * must be done before reset is sent because incorrect reset
- 	 * value generates error interrupt.
- 	 * Setup little endian helper functions first and try to use them
+> ---
+>  mm/memory-failure.c | 16 ++++------------
+>  1 file changed, 4 insertions(+), 12 deletions(-)
+> 
+> diff --git a/mm/memory-failure.c b/mm/memory-failure.c
+> index a8b03e2920ba..63a2ff08ee33 100644
+> --- a/mm/memory-failure.c
+> +++ b/mm/memory-failure.c
+> @@ -555,8 +555,7 @@ static void collect_procs_anon(const struct folio *folio,
+>  		return;
+>  
+>  	pgoff = page_pgoff(folio, page);
+> -	rcu_read_lock();
+> -	for_each_process(tsk) {
+> +	for_each_process_rcu(tsk) {
+>  		struct vm_area_struct *vma;
+>  		struct anon_vma_chain *vmac;
+>  		struct task_struct *t = task_early_kill(tsk, force_early);
+> @@ -572,7 +571,6 @@ static void collect_procs_anon(const struct folio *folio,
+>  			add_to_kill_anon_file(t, page, vma, to_kill, addr);
+>  		}
+>  	}
+> -	rcu_read_unlock();
+>  	anon_vma_unlock_read(av);
+>  }
+>  
+> @@ -589,9 +587,8 @@ static void collect_procs_file(const struct folio *folio,
+>  	pgoff_t pgoff;
+>  
+>  	i_mmap_lock_read(mapping);
+> -	rcu_read_lock();
+>  	pgoff = page_pgoff(folio, page);
+> -	for_each_process(tsk) {
+> +	for_each_process_rcu(tsk) {
+>  		struct task_struct *t = task_early_kill(tsk, force_early);
+>  		unsigned long addr;
+>  
+> @@ -611,7 +608,6 @@ static void collect_procs_file(const struct folio *folio,
+>  			add_to_kill_anon_file(t, page, vma, to_kill, addr);
+>  		}
+>  	}
+> -	rcu_read_unlock();
+>  	i_mmap_unlock_read(mapping);
+>  }
+>  
+> @@ -635,8 +631,7 @@ static void collect_procs_fsdax(const struct page *page,
+>  	struct task_struct *tsk;
+>  
+>  	i_mmap_lock_read(mapping);
+> -	rcu_read_lock();
+> -	for_each_process(tsk) {
+> +	for_each_process_rcu(tsk) {
+>  		struct task_struct *t = tsk;
+>  
+>  		/*
+> @@ -653,7 +648,6 @@ static void collect_procs_fsdax(const struct page *page,
+>  				add_to_kill_fsdax(t, page, vma, to_kill, pgoff);
+>  		}
+>  	}
+> -	rcu_read_unlock();
+>  	i_mmap_unlock_read(mapping);
+>  }
+>  #endif /* CONFIG_FS_DAX */
+> @@ -2288,8 +2282,7 @@ static void collect_procs_pfn(struct pfn_address_space *pfn_space,
+>  	struct address_space *mapping = pfn_space->mapping;
+>  
+>  	i_mmap_lock_read(mapping);
+> -	rcu_read_lock();
+> -	for_each_process(tsk) {
+> +	for_each_process_rcu(tsk) {
+>  		struct task_struct *t = tsk;
+>  
+>  		t = task_early_kill(tsk, true);
+> @@ -2303,7 +2296,6 @@ static void collect_procs_pfn(struct pfn_address_space *pfn_space,
+>  				add_to_kill_pgoff(t, vma, to_kill, pgoff);
+>  		}
+>  	}
+> -	rcu_read_unlock();
+>  	i_mmap_unlock_read(mapping);
+>  }
+>  
+> -- 
+> 2.25.1
+> 
+
 -- 
-2.48.1
-
+Michal Hocko
+SUSE Labs
