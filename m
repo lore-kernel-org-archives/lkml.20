@@ -1,79 +1,84 @@
-Received: from mail-ed1-f49.google.com (mail-ed1-f49.google.com [209.85.208.49])
+Received: from mail-pg1-f174.google.com (mail-pg1-f174.google.com [209.85.215.174])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB9B8374A1E
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 01:20:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A4FA23A561
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 01:23:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788484835; cv=none; b=H38A1KZyX1HAR7jpY2qem6VAXO0sHWzXeb9NbiPf7fEoPRSGY7EDw8axoKM2cHJDM5dRMryW8/AWx4tG3+goQkJuqZZhIC1X6lPuu6NPAA7Km97Pnzn9dT+/quj5ftl12VIcaGccGQItFKanBXrYzb9Z8O7nlu1vIyP2boQ4Cm0=
+	t=1788485012; cv=none; b=QP2MJ84gd3ZGPWhrXxzoEWke4no2A70cvhu5u48/wX8f5GVrcj/JUeZBEmXunUYmvmaGCnSjTbtT0w7lm4W0IsfThzCB1ha0JSwRJNUmxKRsERnwhjSe/F276bfD4Kk3RpBzPOdcBNcDJNGwvGWZWSozpMQvyeNAtcU7VMVF8pc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788484835; c=relaxed/simple;
-	bh=1QelEwIJoyX4RIohNHqaWm/A7yAkYc8mb1sw7dBCzus=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=axzLJaltp7clGQsLyUJ83FzzLxSAaZ2URSSlJ8dEoBfoC2b4iUvmpR+P1nPMkfILTqkU8RCxHRQ42PT7IvkR8/5uSDpwuMvKPSCHZV61BxgxoZ7LQCcSOpJ0WfyacKGT2ZwERDmTOT/uJAr/tsRzsMZJYXm7evLPtlDeUcerUKU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Z83pcL4e; arc=none smtp.client-ip=209.85.208.49
+	s=arc-20240116; t=1788485012; c=relaxed/simple;
+	bh=GrZTQHRL+xr7CiDtU2wF/9vzloMtIaBswpy7OyErfqk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Y7LjJdbu/xYG0zILByuI85/6bzkQHHNJDN7XT3AY76jKfo1LXNupbCRqxVugW6JKn+ZiOTCZ939r7xdjn7AD4KMbIW8G1ianmaoHvC+u6QS5ATj5tXhS1B7TeWvlCuJbqcbpyo6bybJjOTLzfr3Y8PqgodOyTzxKLbsSJ5CFA4k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=j1Xd5/+o; arc=none smtp.client-ip=209.85.215.174
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Z83pcL4e"
-Received: by mail-ed1-f49.google.com with SMTP id 4fb4d7f45d1cf-6a5ded53570so492224a12.3
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 18:20:33 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="j1Xd5/+o"
+Received: by mail-pg1-f174.google.com with SMTP id 41be03b00d2f7-ca12086c06eso501363a12.0
+        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 18:23:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788484832; x=1789089632; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=b14eGL8N5nmOiZXVHg8S+JBuSRaDNLLRVrrk6X0ilfE=;
-        b=Z83pcL4elr3Bnd45zSiUpRw5Ki25m1jrJ3uZBxl+6RcE6x8BugCnm3thwP+znTmHaW
-         Js7O0zDSdf5HL25AOT9PzeNHiIr6BlyewIBKDvtcqAub7roc3ZsahFFrOkoXP91BcAR1
-         fMQkKsEh+NZH/3ipzGB938AOfGejZeDHbdLEOux8FBqJIZbw/dSzF2mVh0rxgZLnqzCs
-         cBqJgZwzp4BE+idq3egFcb8sBW48zQaQlEHK4O+IbTTZhTw1alZjbFEKCcj2eTq5TG/F
-         L7vv9Ppd9tvfqj7U4MJjj1vBWXCektB11QDQoYtTEcVSZ8OcJjv1SqbF1jMAR/E6cfx/
-         tqMQ==
+        d=gmail.com; s=20251104; t=1788485010; x=1789089810; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Agf6KzSE2M9rfW3DTQHxsj+kTxob2VTdMv9WkSeHlI0=;
+        b=j1Xd5/+o+ZyU0lMFkD5JlrGA/85HyKmlnrtDPup8kQdRwaPYnDNfXEJ8lNBaguKjd0
+         dQoSDlVNdsWnFzdwWZRpVqQMx/mHH3esHKkUK7kXorNdAGbthz0E102gtSkreu7RHBoI
+         ibiQiVAv3EAa2kMrr72BfHR6Dbsi8FsR0AyPyx6la/kg6g4F3bNH95g7KyuV+5sQc8S/
+         IJLt17RhsFAOXmDJMB/fB8L4roIS8i02glOWoV5PS4akiRTyaavrTmMW+xDRiKtNe+nL
+         I6JQOJbbDL+nJ0Ua76E3Ml0xyZjHarEbcMUhjwRrsOYkqt5hjM34q7lJJDshObw5CHJp
+         vUbQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788484832; x=1789089632;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=b14eGL8N5nmOiZXVHg8S+JBuSRaDNLLRVrrk6X0ilfE=;
-        b=CCWVac9hsTNBkx0LtbDanYurltAAL/vOxLsxN4XEy2zzObMs1mbSfLgd1A9i8Kmz3X
-         TeDeAHiKTXdV3bZ46fpwufpVGJsfpvxCLOTQN20LjDNU/1It2y0GsRJFFk94X5+FGUHG
-         201zhtRkK8HkXRCi2Q5KV8NHfm3zOCMPwL/2Ch3TvdPxDTrIGEbrCTg7yGEXbfg0aoHw
-         uODqE3mjLmlwX+uz5qTDyVjFeoP5wtoZjyjPXJzGih7lx+IL9aqnGyHjmL6fBqqVzmeJ
-         a9MJHNAoQtikZ8OGgP+38oXx4C75dZzyeY2K1mPKkWPSKeBkf72a29R6MtRRprN79WHs
-         ThcA==
-X-Forwarded-Encrypted: i=1; AKwUvBw6uUCwCKjsEs7Qc4CIchubDryDYuRt/WAE9rHYxEhI7sV87FpEnjLQaGpLMwMyyCWbN8d3Fg+aktWTSW8=@vger.kernel.org
-X-Gm-Message-State: AFuF++kKpZI06SD+UhyHIe8turZTXNgUUabx2KP75qEz6OJefWXPjZgI
-	c4p4Whkzg8Rl9svg7qCqx9R2kViaSkF0vhRgK1LjFlOqccjJXsn+9iI8
-X-Gm-Gg: AYBFou0DGsK0cnbGnnJbf07TzKpzstM+lQ6g/NbALlyIw2nMyGrurTDj8yFokA2Umza
-	kAaHvbTZcxbbVIs/RDfeKZ69RDggkveWXHHxfbeMmIL31F3yN5TVEMbDrqtt2EjVUhhPfPEMXtN
-	aSFWgOO08DbDXTui50cXrEgnIsCgJTFJi07rRhXYjS3FecV879zmvEZ7ukbjygBUez0dplttk31
-	G7fQ4i0S2AcY/G0CW79C1xY2g9RueOTXCYVAgQ7A+3eLqdGP35oBUYMcbW9Wn1AHJq9jpA8z6dV
-	IXAxTrM6VRaLZ6nvVtFQjHiiFN0CvdbubkfIYPVISKxIyxQklEpVQndvnUk4l64/7VIVBQGKrF/
-	DEYu71Jbw9y8HZKRcNDtlyz5CIw/z8i8i5i0JgbbY/9/CM81mgV4WC94noNQpQUT7UopT1107ZO
-	XDwmIPIXVHIiHOHdKIn55x1K2gLCp/mnE1f7jcfSKjhCk0aEo9hNwN9mpdLiMSK838x/pSpi7cQ
-	R9vtKwkxWWrZPuNyz3lPm/7nZRuv+8iBwGrzpXcSZp+PAfW7um8J2pP+yuz
-X-Received: by 2002:a05:6402:380a:b0:6a6:32fa:1e9d with SMTP id 4fb4d7f45d1cf-6a7e90d5896mr1059464a12.21.1788484831992;
-        Thu, 03 Sep 2026 18:20:31 -0700 (PDT)
-Received: from localhost ([188.234.148.119])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a7e6bf3370sm465774a12.27.2026.09.03.18.20.29
+        d=1e100.net; s=20251104; t=1788485010; x=1789089810;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Agf6KzSE2M9rfW3DTQHxsj+kTxob2VTdMv9WkSeHlI0=;
+        b=GkOkydfmVH//p/JTlkAretTIuyb0idzsBGpwh1BsBJ7wJsK6WlR+NEXdhM7rQmy49J
+         24qT4pBDBb4YC3Ae0yadyBMdD04de38V6dAYgkMVnsnFCnyFLIc0Yy4jYcKTRDtSzC9+
+         2/rZnEeMg8tf66fa0/JkOYiCVwY5yJyObqGsjzihSBTmbhBbkbb3cOEfOeoToS9fplc0
+         7Vbc5Ipi0zAzRMp9tCRQU3P387nx04CZVtu/HmoEMzzgwytO1qFhnTH6iOeRG4cgCsIq
+         2CMDHZORfWjZG0CCB3QnxwC9EYderLN2yXAr1dMEMnlWtu9QzOyh2lwxNW6Fq08bpmAl
+         x/kQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzfGNLcyIYI7ZlVMi6IidHNWTZsAQeJPukmzJ3cPBjEV0E+GwV+ikRcQ49bUh4E/XyydAkeqVVqpH2lgLQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++nZ5JhH8zRfDonpZrIHBguDoWkNcvV1lwzwspPxkdLgvAWAsLpR
+	jpjqSVSmYlZQfgyL9aNsJTVu41jzFFia2HTyhvIDAobsTP8GyaU1c9z7
+X-Gm-Gg: AYBFou18++3/HxRHmq4vpkoR1ZuhGkIbOW5xH7VwGNlW/iLfp1LHdhlWckfgjadqHU8
+	FDGbP4EDG1X0yIWQw+69Nu5IrLXIaFV2/Udoov2gyB7kGhDEnO/+pHg5jq57bU1zKAh+TSx+rur
+	QgWYYE+eghq8zM0iRHoNP0KvR4cyq87ABSwUkqM9Qii8auNjfA1I0mZUkuKON+Yp4GdTfW0drJ5
+	ADpxOgvWm4zER7WkxyoWTN9Z8OsoNgwgWWW7lI6ffXP2gfYlzoo6p5sBoJFL+AAeZKxYtnYGsOr
+	VcgILSYyPqPCHgLKTzdm5xDGD5aQKfncz5R9YaS9q31UMyU/wG6SFH3JDqxZcVeAI+2HbrS0Nk2
+	YpOZdvfeOjcZ/1c0Ps66xxDAtmuZeZyZ7Aw+ynw0JCwrzFcZhj1OtvoXUpWrU5uDTwVj5bYC1ZM
+	74F7prrraAgSq1hN+gvFDpagH6XJ4oXPohepHr2fWgQBDX6BNOILs9omCJKv3P4s80Zm0GAzGHJ
+	EHltWh5N9sKHdYsP2P5il+KBmWW6ZyMHSnOKSzeu/dL6LaXsVRD2DPa7nEZyqiu8Q==
+X-Received: by 2002:a17:90b:1a8f:b0:38e:9045:babe with SMTP id 98e67ed59e1d1-39b2612ed35mr3678175a91.7.1788485009621;
+        Thu, 03 Sep 2026 18:23:29 -0700 (PDT)
+Received: from hanzj-mi.. (ec2-99-79-140-187.ca-central-1.compute.amazonaws.com. [99.79.140.187])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b26123c99sm1513842a91.11.2026.09.03.18.23.16
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 03 Sep 2026 18:20:30 -0700 (PDT)
-From: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
-To: marcel@holtmann.org,
-	luiz.dentz@gmail.com
-Cc: nicoyip.dev@gmail.com,
-	pav@iki.fi,
-	linux-bluetooth@vger.kernel.org,
+        Thu, 03 Sep 2026 18:23:29 -0700 (PDT)
+From: Zhijian Han <hanzhijian1991@gmail.com>
+To: Richard Zhu <hongxing.zhu@nxp.com>,
+	Lucas Stach <l.stach@pengutronix.de>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	=?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>
+Cc: Rob Herring <robh@kernel.org>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	linux-pci@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	imx@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
-	Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>,
-	syzbot+74071deb72339c215b2e@syzkaller.appspotmail.com
-Subject: [PATCH v2] Bluetooth: RFCOMM: defer security confirmation to krfcommd
-Date: Fri,  4 Sep 2026 06:20:28 +0500
-Message-ID: <20260904012028.77590-1-mikhail.v.gavrilov@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260902235132.453044-1-mikhail.v.gavrilov@gmail.com>
-References: <20260902235132.453044-1-mikhail.v.gavrilov@gmail.com>
+	sashiko-bot@kernel.org,
+	Zhijian Han <hanzhijian1991@gmail.com>
+Subject: [PATCH v7] PCI: imx6: fix resource leaks in probe error paths
+Date: Fri,  4 Sep 2026 09:23:07 +0800
+Message-ID: <20260904012307.3434449-1-hanzhijian1991@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -82,359 +87,150 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-An RFCOMM connect() issued while a BR/EDR link is being authenticated
-makes lockdep report a circular dependency, and the reported cycle is a
-real AB/BA between rfcomm_mutex and hdev->lock.
+imx_pcie_probe() leaks both pwrctrl devices and power domains on failure:
 
-rfcomm_security_cfm() is called from the HCI event path, which already
-holds hdev->lock:
+- imx_pcie_attach_pd() attaches the "pcie" and "pcie_phy" power domains
+  and adds device links to them, but nothing detaches the domains or
+  removes the links on probe failure or deferral, so they leak.
 
-  hci_rx_work()
-    hci_event_packet()
-      hci_cc_read_enc_key_size()   [hdev->lock]
-        hci_encrypt_cfm()          [hci_cb_list_lock]
-          rfcomm_security_cfm()    [rfcomm_mutex]
+- A failure of devm_pm_runtime_set_active_enabled() returns directly
+  without destroying the pwrctrl devices.
 
-while an RFCOMM connect() from userspace takes the same two locks the
-other way round:
+- A partial failure inside imx_pcie_attach_pd() leaks the power domains
+  that were already attached.
 
-  rfcomm_sock_connect()
-    rfcomm_dlc_open()              [rfcomm_mutex]
-      __rfcomm_dlc_open()
-        rfcomm_session_create()
-          kernel_connect()
-            l2cap_sock_connect()
-              l2cap_chan_connect() [hdev->lock]
+Add imx_pcie_detach_pd() to remove the device links and detach the power
+domains in reverse order of acquisition and register it with
+devm_add_action_or_reset() so they are released automatically on probe
+failure.
 
-  WARNING: possible circular locking dependency detected
-  kworker/u131:1/1128 is trying to acquire lock:
-  rfcomm_mutex, at: rfcomm_security_cfm+0x31/0x3e0 [rfcomm]
-  but task is already holding lock:
-  hci_cb_list_lock, at: hci_cc_read_enc_key_size+0x1d2/0xcc0
-  Chain exists of:
-    rfcomm_mutex --> &hdev->lock --> hci_cb_list_lock
-
-hci_auth_complete_evt() and hci_encrypt_change_evt() reach the callback
-the same way.
-
-Both orders have to be seen in the same boot, which is why a BR/EDR
-connection alone is not enough to show it: a session set up by the
-remote side is created by rfcomm_accept_connection() in krfcommd, which
-calls kernel_accept() and never takes hdev->lock under rfcomm_mutex.
-Connecting a device that authenticates and encrypts the link and then
-calling connect() on an RFCOMM socket towards any address - the connect
-does not have to succeed, the order is recorded before the page timeout
-- reports it every time.
-
-The callback does not have to run in the HCI event context at all: it
-only updates DLC flags and timers that krfcommd consumes in
-rfcomm_process_dlcs(), and it already ends with rfcomm_schedule().  So
-queue the confirmation instead of taking rfcomm_mutex from the HCI
-event path, and let krfcommd apply it under rfcomm_mutex on its next
-pass, ahead of session processing.
-
-The queued entry pins both the connection and the controller, and
-krfcommd takes hdev->lock while applying it, so the lookup and
-hci_conn_check_secure() run in the same context as before.  A session
-that was torn down and set up again while the confirmation was queued
-runs over a different hci_conn and is skipped.  A confirmation that
-cannot be allocated is dropped and the DLC closes on its auth timeout.
-
-Fixes: 759c185d0bbd ("Bluetooth: RFCOMM: serialize security confirmation handling")
-Reported-by: Pauli Virtanen <pav@iki.fi>
-Closes: https://lore.kernel.org/linux-bluetooth/5e76a95e934e451e7006db28827c2d64af5a88be.camel@iki.fi/
-Reported-by: syzbot+74071deb72339c215b2e@syzkaller.appspotmail.com
-Closes: https://lore.kernel.org/linux-bluetooth/6a92fadc.08e933ee.dbf97.008f.GAE@google.com/
-Cc: stable@vger.kernel.org
-Signed-off-by: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+Reported-by: sashiko-bot@kernel.org
+Link: https://lore.kernel.org/all/20260822013640.182C01F000E9@smtp.kernel.org/
+Fixes: 2c5768344f88 ("PCI: imx6: Move pci_pwrctrl_create_devices() to imx_pcie_probe()")
+Signed-off-by: Zhijian Han <hanzhijian1991@gmail.com>
 ---
+Changes in v7:
+- Register the devm action before imx_pcie_attach_pd() and drop the
+  imx_pcie_detach_pd() calls from its error paths, since the devm
+  action already tears everything down on probe failure
 
-The commit this fixes is in v7.3-rc1 and is marked for stable, so this
-probably wants the bluetooth fixes tree rather than -next.
+Changes in v6:
+- Keep the device links stateless and remove them with device_link_del()
+  in imx_pcie_detach_pd() instead of using DL_FLAG_AUTOREMOVE_CONSUMER,
+  which creates managed links to power-domain devices that never bind a
+  driver and would trigger a WARN_ON in device_links_driver_bound()
 
-v1: https://lore.kernel.org/linux-bluetooth/20260902235132.453044-1-mikhail.v.gavrilov@gmail.com/
+Changes in v5:
+- Register imx_pcie_detach_pd() with devm_add_action_or_reset() instead
+  of calling it manually on the error paths
 
-v2:
- - free queued confirmations from rfcomm_init() and rfcomm_exit() after
-   hci_unregister_cb(), instead of at the end of rfcomm_run(); the init
-   error path stops the thread before unregistering the callback, so
-   the old placement leaked there
- - pin the controller too and take hdev->lock while the confirmation is
-   applied, so conn->sec_level is read in the same context as before
- - skip a session that runs over a different hci_conn than the one the
-   confirmation was reported for
- - context-analysis annotations for security_cfm_list and
-   __rfcomm_security_cfm(); not verified with clang, done by inspection
- - the reproducer below now uses spaces, gitlint tripped over the tabs
+ drivers/pci/controller/dwc/pci-imx6.c | 56 +++++++++++++++++++++------
+ 1 file changed, 44 insertions(+), 12 deletions(-)
 
-Tested on 7.3.0-rc1 with an MT7922 controller (btusb).  Without the
-patch the steps above report the inversion on every run.  With v2
-applied the reproducer leaves the validator armed and silent
-(debug_locks: 1), and a 2.5 hour session with three BR/EDR headsets
-(soundcore Liberty 5, FIIO UTWS17, JBL Tour Pro 3), HFP/SCO audio and
-AVRCP produced no lockdep report.
-
-The connect() side used for testing, so that it does not depend on which
-end sets up the HFP session:
-
-  #include <stdint.h>
-  #include <string.h>
-  #include <unistd.h>
-  #include <sys/socket.h>
-
-  #define BTPROTO_RFCOMM 3
-
-  struct sockaddr_rc {
-      unsigned short  rc_family;
-      uint8_t         rc_bdaddr[6];   /* little endian */
-      uint8_t         rc_channel;
-  };
-
-  int main(void)
-  {
-      struct sockaddr_rc addr = { .rc_family = AF_BLUETOOTH,
-                                  .rc_channel = 1 };
-      int fd = socket(AF_BLUETOOTH, SOCK_STREAM, BTPROTO_RFCOMM);
-
-      memcpy(addr.rc_bdaddr, "\x55\x44\x33\x22\x11\x00", 6);
-      connect(fd, (struct sockaddr *)&addr, sizeof(addr));
-      close(fd);
-      return 0;
-  }
-
- net/bluetooth/rfcomm/core.c | 178 ++++++++++++++++++++++++++++--------
- 1 file changed, 140 insertions(+), 38 deletions(-)
-
-diff --git a/net/bluetooth/rfcomm/core.c b/net/bluetooth/rfcomm/core.c
-index f7463f092283..246c811dfca1 100644
---- a/net/bluetooth/rfcomm/core.c
-+++ b/net/bluetooth/rfcomm/core.c
-@@ -49,6 +49,18 @@ static DEFINE_MUTEX(rfcomm_mutex);
+diff --git a/drivers/pci/controller/dwc/pci-imx6.c b/drivers/pci/controller/dwc/pci-imx6.c
+index 39790e66b98d..371b2a11d8f5 100644
+--- a/drivers/pci/controller/dwc/pci-imx6.c
++++ b/drivers/pci/controller/dwc/pci-imx6.c
+@@ -180,8 +180,12 @@ struct imx_pcie {
+ 	struct imx_lut_data	luts[IMX95_MAX_LUT];
+ 	/* power domain for pcie */
+ 	struct device		*pd_pcie;
++	/* device link for pcie power domain */
++	struct device_link	*pd_link;
+ 	/* power domain for pcie phy */
+ 	struct device		*pd_pcie_phy;
++	/* device link for pcie phy power domain */
++	struct device_link	*pd_phy_link;
+ 	struct phy		*phy;
+ 	const struct imx_pcie_drvdata *drvdata;
  
- static LIST_HEAD(session_list);
- 
-+/* Security confirmations handed over from the HCI event handler to krfcommd */
-+struct rfcomm_sec_cfm {
-+	struct list_head	list;
-+	struct hci_dev		*hdev;
-+	struct hci_conn		*conn;
-+	u8			status;
-+	u8			encrypt;
-+};
-+
-+static DEFINE_SPINLOCK(security_cfm_lock);
-+static __guarded_by(&security_cfm_lock) LIST_HEAD(security_cfm_list);
-+
- static int rfcomm_send_frame(struct rfcomm_session *s, u8 *data, int len);
- static int rfcomm_send_sabm(struct rfcomm_session *s, u8 dlci);
- static int rfcomm_send_disc(struct rfcomm_session *s, u8 dlci);
-@@ -2122,6 +2134,117 @@ static void rfcomm_process_sessions(void)
- 	rfcomm_unlock();
+@@ -639,10 +643,34 @@ static int imx6q_pcie_abort_handler(unsigned long addr,
  }
+ #endif
  
-+static void rfcomm_sec_cfm_free(struct rfcomm_sec_cfm *cfm)
++static void imx_pcie_detach_pd(struct imx_pcie *imx_pcie)
 +{
-+	hci_conn_put(cfm->conn);
-+	hci_dev_put(cfm->hdev);
-+	kfree(cfm);
-+}
-+
-+static struct hci_conn *rfcomm_session_hcon(struct rfcomm_session *s)
-+{
-+	struct l2cap_conn *conn = l2cap_pi(s->sock->sk)->chan->conn;
-+
-+	return conn ? conn->hcon : NULL;
-+}
-+
-+static void __rfcomm_security_cfm(struct rfcomm_sec_cfm *cfm)
-+	__must_hold(&rfcomm_mutex)
-+{
-+	struct rfcomm_session *s;
-+	struct rfcomm_dlc *d, *n;
-+
-+	s = rfcomm_session_get(&cfm->hdev->bdaddr, &cfm->conn->dst);
-+	if (!s)
-+		return;
-+
-+	/* The confirmation belongs to the link it was reported for.  A
-+	 * session that was torn down and set up again in the meantime runs
-+	 * over a different connection and must not be judged by it.
-+	 */
-+	if (rfcomm_session_hcon(s) != cfm->conn)
-+		return;
-+
-+	list_for_each_entry_safe(d, n, &s->dlcs, list) {
-+		if (test_and_clear_bit(RFCOMM_SEC_PENDING, &d->flags)) {
-+			rfcomm_dlc_clear_timer(d);
-+			if (cfm->status || cfm->encrypt == 0x00) {
-+				set_bit(RFCOMM_ENC_DROP, &d->flags);
-+				continue;
-+			}
-+		}
-+
-+		if (d->state == BT_CONNECTED && !cfm->status &&
-+		    cfm->encrypt == 0x00) {
-+			if (d->sec_level == BT_SECURITY_MEDIUM) {
-+				set_bit(RFCOMM_SEC_PENDING, &d->flags);
-+				rfcomm_dlc_set_timer(d, RFCOMM_AUTH_TIMEOUT);
-+				continue;
-+			} else if (d->sec_level == BT_SECURITY_HIGH ||
-+				   d->sec_level == BT_SECURITY_FIPS) {
-+				set_bit(RFCOMM_ENC_DROP, &d->flags);
-+				continue;
-+			}
-+		}
-+
-+		if (!test_and_clear_bit(RFCOMM_AUTH_PENDING, &d->flags))
-+			continue;
-+
-+		if (!cfm->status && hci_conn_check_secure(cfm->conn,
-+							  d->sec_level))
-+			set_bit(RFCOMM_AUTH_ACCEPT, &d->flags);
-+		else
-+			set_bit(RFCOMM_AUTH_REJECT, &d->flags);
++	if (!IS_ERR_OR_NULL(imx_pcie->pd_phy_link)) {
++		device_link_del(imx_pcie->pd_phy_link);
++		imx_pcie->pd_phy_link = NULL;
++	}
++	if (!IS_ERR_OR_NULL(imx_pcie->pd_link)) {
++		device_link_del(imx_pcie->pd_link);
++		imx_pcie->pd_link = NULL;
++	}
++	if (!IS_ERR_OR_NULL(imx_pcie->pd_pcie_phy)) {
++		dev_pm_domain_detach(imx_pcie->pd_pcie_phy, true);
++		imx_pcie->pd_pcie_phy = NULL;
++	}
++	if (!IS_ERR_OR_NULL(imx_pcie->pd_pcie)) {
++		dev_pm_domain_detach(imx_pcie->pd_pcie, true);
++		imx_pcie->pd_pcie = NULL;
 +	}
 +}
 +
-+static void rfcomm_process_security_cfm(void)
++static void imx_pcie_detach_pd_action(void *data)
 +{
-+	struct rfcomm_sec_cfm *cfm, *n;
-+	LIST_HEAD(cfm_list);
-+
-+	spin_lock(&security_cfm_lock);
-+	list_splice_init(&security_cfm_list, &cfm_list);
-+	spin_unlock(&security_cfm_lock);
-+
-+	if (list_empty(&cfm_list))
-+		return;
-+
-+	rfcomm_lock();
-+
-+	list_for_each_entry_safe(cfm, n, &cfm_list, list) {
-+		/* Restores the context the callback used to run in, so that
-+		 * hci_conn_check_secure() sees a stable sec_level.
-+		 */
-+		hci_dev_lock(cfm->hdev);
-+		__rfcomm_security_cfm(cfm);
-+		hci_dev_unlock(cfm->hdev);
-+
-+		list_del(&cfm->list);
-+		rfcomm_sec_cfm_free(cfm);
-+	}
-+
-+	rfcomm_unlock();
++	imx_pcie_detach_pd(data);
 +}
 +
-+/* Drops confirmations that krfcommd will not get to any more.  Called once
-+ * the HCI callback is unregistered and the thread is gone.
-+ */
-+static void rfcomm_flush_security_cfm(void)
-+{
-+	struct rfcomm_sec_cfm *cfm, *n;
-+	LIST_HEAD(cfm_list);
-+
-+	spin_lock(&security_cfm_lock);
-+	list_splice_init(&security_cfm_list, &cfm_list);
-+	spin_unlock(&security_cfm_lock);
-+
-+	list_for_each_entry_safe(cfm, n, &cfm_list, list) {
-+		list_del(&cfm->list);
-+		rfcomm_sec_cfm_free(cfm);
-+	}
-+}
-+
- static int rfcomm_add_listener(bdaddr_t *ba)
+ static int imx_pcie_attach_pd(struct device *dev)
  {
- 	struct sockaddr_l2 addr;
-@@ -2201,6 +2324,7 @@ static int rfcomm_run(void *unused)
- 	while (!kthread_should_stop()) {
+ 	struct imx_pcie *imx_pcie = dev_get_drvdata(dev);
+-	struct device_link *link;
  
- 		/* Process stuff */
-+		rfcomm_process_security_cfm();
- 		rfcomm_process_sessions();
+ 	/* Do nothing when in a single power domain */
+ 	if (dev->pm_domain)
+@@ -654,11 +682,11 @@ static int imx_pcie_attach_pd(struct device *dev)
+ 	/* Do nothing when power domain missing */
+ 	if (!imx_pcie->pd_pcie)
+ 		return 0;
+-	link = device_link_add(dev, imx_pcie->pd_pcie,
+-			DL_FLAG_STATELESS |
+-			DL_FLAG_PM_RUNTIME |
+-			DL_FLAG_RPM_ACTIVE);
+-	if (!link) {
++	imx_pcie->pd_link = device_link_add(dev, imx_pcie->pd_pcie,
++					    DL_FLAG_STATELESS |
++					    DL_FLAG_PM_RUNTIME |
++					    DL_FLAG_RPM_ACTIVE);
++	if (!imx_pcie->pd_link) {
+ 		dev_err(dev, "Failed to add device_link to pcie pd\n");
+ 		return -EINVAL;
+ 	}
+@@ -667,11 +695,11 @@ static int imx_pcie_attach_pd(struct device *dev)
+ 	if (IS_ERR(imx_pcie->pd_pcie_phy))
+ 		return PTR_ERR(imx_pcie->pd_pcie_phy);
  
- 		wait_woken(&wait, TASK_INTERRUPTIBLE, MAX_SCHEDULE_TIMEOUT);
-@@ -2214,50 +2338,25 @@ static int rfcomm_run(void *unused)
+-	link = device_link_add(dev, imx_pcie->pd_pcie_phy,
+-			DL_FLAG_STATELESS |
+-			DL_FLAG_PM_RUNTIME |
+-			DL_FLAG_RPM_ACTIVE);
+-	if (!link) {
++	imx_pcie->pd_phy_link = device_link_add(dev, imx_pcie->pd_pcie_phy,
++						DL_FLAG_STATELESS |
++						DL_FLAG_PM_RUNTIME |
++						DL_FLAG_RPM_ACTIVE);
++	if (!imx_pcie->pd_phy_link) {
+ 		dev_err(dev, "Failed to add device_link to pcie_phy pd\n");
+ 		return -EINVAL;
+ 	}
+@@ -1951,6 +1979,10 @@ static int imx_pcie_probe(struct platform_device *pdev)
  
- static void rfcomm_security_cfm(struct hci_conn *conn, u8 status, u8 encrypt)
- {
--	struct rfcomm_session *s;
--	struct rfcomm_dlc *d, *n;
-+	struct rfcomm_sec_cfm *cfm;
+ 	platform_set_drvdata(pdev, imx_pcie);
  
- 	BT_DBG("conn %p status 0x%02x encrypt 0x%02x", conn, status, encrypt);
- 
--	rfcomm_lock();
--
--	s = rfcomm_session_get(&conn->hdev->bdaddr, &conn->dst);
--	if (!s) {
--		rfcomm_unlock();
-+	cfm = kmalloc_obj(*cfm);
-+	if (!cfm)
- 		return;
--	}
--
--	list_for_each_entry_safe(d, n, &s->dlcs, list) {
--		if (test_and_clear_bit(RFCOMM_SEC_PENDING, &d->flags)) {
--			rfcomm_dlc_clear_timer(d);
--			if (status || encrypt == 0x00) {
--				set_bit(RFCOMM_ENC_DROP, &d->flags);
--				continue;
--			}
--		}
--
--		if (d->state == BT_CONNECTED && !status && encrypt == 0x00) {
--			if (d->sec_level == BT_SECURITY_MEDIUM) {
--				set_bit(RFCOMM_SEC_PENDING, &d->flags);
--				rfcomm_dlc_set_timer(d, RFCOMM_AUTH_TIMEOUT);
--				continue;
--			} else if (d->sec_level == BT_SECURITY_HIGH ||
--				   d->sec_level == BT_SECURITY_FIPS) {
--				set_bit(RFCOMM_ENC_DROP, &d->flags);
--				continue;
--			}
--		}
- 
--		if (!test_and_clear_bit(RFCOMM_AUTH_PENDING, &d->flags))
--			continue;
--
--		if (!status && hci_conn_check_secure(conn, d->sec_level))
--			set_bit(RFCOMM_AUTH_ACCEPT, &d->flags);
--		else
--			set_bit(RFCOMM_AUTH_REJECT, &d->flags);
--	}
-+	/* hci_conn drops its own reference on hdev once it is deleted, so
-+	 * both objects are pinned until krfcommd is done with them.
-+	 */
-+	cfm->hdev = hci_dev_hold(conn->hdev);
-+	cfm->conn = hci_conn_get(conn);
-+	cfm->status = status;
-+	cfm->encrypt = encrypt;
- 
--	rfcomm_unlock();
-+	spin_lock(&security_cfm_lock);
-+	list_add_tail(&cfm->list, &security_cfm_list);
-+	spin_unlock(&security_cfm_lock);
- 
- 	rfcomm_schedule();
- }
-@@ -2333,6 +2432,7 @@ static int __init rfcomm_init(void)
- 
- unregister:
- 	hci_unregister_cb(&rfcomm_cb);
-+	rfcomm_flush_security_cfm();
- 
- 	return err;
- }
-@@ -2345,6 +2445,8 @@ static void __exit rfcomm_exit(void)
- 
- 	kthread_stop(rfcomm_thread);
- 
-+	rfcomm_flush_security_cfm();
++	ret = devm_add_action_or_reset(dev, imx_pcie_detach_pd_action, imx_pcie);
++	if (ret)
++		return ret;
 +
- 	rfcomm_cleanup_ttys();
+ 	ret = imx_pcie_attach_pd(dev);
+ 	if (ret)
+ 		return ret;
+@@ -1975,7 +2007,7 @@ static int imx_pcie_probe(struct platform_device *pdev)
+ 			pm_runtime_no_callbacks(dev);
+ 			ret = devm_pm_runtime_set_active_enabled(dev);
+ 			if (ret < 0)
+-				return ret;
++				goto err_pwrctrl_destroy;
+ 		}
  
- 	rfcomm_cleanup_sockets();
--- 
-2.55.0
-
+ 		if (imx_check_flag(imx_pcie, IMX_PCIE_FLAG_SKIP_L23_READY))
