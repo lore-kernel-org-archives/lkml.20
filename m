@@ -1,165 +1,325 @@
-Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com [209.85.216.54])
+Received: from mail-ed1-f43.google.com (mail-ed1-f43.google.com [209.85.208.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAFF4285061
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 11:06:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 590BA46EF64
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 11:06:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788519990; cv=none; b=CYdqDs64gAuX4ymAXcX5ruis3G6jIRVY2rPMLxvwJBDDlgyTZKBZnk0LDAxL6cEwyq8wuTRXu+qm4cO9NYCjQNVVMeZ0qyTVABl3itA6BY/Tii+xo+jH2tnm+BmleG8B9omMkamuw8J7AEoHTb1E0DCCQtQp+FMXjnSKkgrMTkY=
+	t=1788519995; cv=none; b=Ft1caa+AMsRfLm9JgDMsggAgCE3xEb8kCBu6f5qGrmRuuLup233WC/jRujmlDsx+0WkRepulwoJyPEll9zvX6PnEgLk3nLReyXu2gzunKAmik6YPIHJgWA9Y22Hd4/qsx4eRP23qQ9O4rLX10R2vHqQMUBUoYkYdrIPAyzAutWg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788519990; c=relaxed/simple;
-	bh=zlFsQT3h1ltuPNqq0iEcO2fIxzGUxsHB1hWzWBCpM5s=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=VfqTCBOIT6NIzFUrVQAp7odfKW1zVTGDkw2pf/BhEw9/Nzk4wejlK/j2uwvJAaDa+NSpXoqxu+uOFS9p3jwURUhvGG+xuZTcyP5Fd6PYyWNjyjYp0rfQwC4N0QI6gF053p+i6/bNyUi1HfVsCoLWQy8hhxeUvsN3VjcYWVBS8RA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Pr1Z3zTn; arc=none smtp.client-ip=209.85.216.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788519995; c=relaxed/simple;
+	bh=w61n32K7yju7ZBZSoaJ7YUaVGJsA65OE5vqupbVdfuo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=JfPfupHGphGApv6RPgtAcavZgsvmoJfDVaZXtHlD+hlrnPCxmxGNcLOomznVnNTQqWQv9+Qn+44rSt00P3hi8u59jCDONimRTE8JZfvNOCzyH93jKnt3+bIlJbjeIYcBsJPpktEYlNJxQz7Lz0e1T23PoHheo9+dNWfOX8pnoYY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=MoFnhj+h; arc=none smtp.client-ip=209.85.208.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Pr1Z3zTn"
-Received: by mail-pj1-f54.google.com with SMTP id 98e67ed59e1d1-38e58034d05so698801a91.2
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 04:06:28 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="MoFnhj+h"
+Received: by mail-ed1-f43.google.com with SMTP id 4fb4d7f45d1cf-6a682579c72so1058441a12.1
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 04:06:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788519988; x=1789124788; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=EeD81+YoExo7WV5sA8eQjKsV8woAk/oGQD7yWcfEMis=;
-        b=Pr1Z3zTnyKcadlF/Mps+i1y4AZKECrVN+jUZgF/AHVWzqagwEGtw8T1pqXPJj2oC/v
-         ALzgSmQ3STpzBp3CT0PLryyzMVISRmBdLhYE4bHqjSd3KcEsmIQD2F/RT8okM8rXko68
-         ZPGaz6JYxlq4vauVHKDgi/tg94N7FBDs1estQjl0lB80r9MvhzxEDOuaLJKX5BS45f26
-         c5XkCNbNnD0NAtd6Qhcc6oWZqUj+nARUV3YffunRoPmkPNWnDSvTQDw11d3VIQTrK6Z2
-         /vVXWJ+7a98Tnzi+snZQrwFvONHg876fGrLnJ+MLXGbe3d3dImFn+YdZrSGrPz0wRg/q
-         Lqiw==
+        d=suse.com; s=google; t=1788519989; x=1789124789; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=w8c0zgCdZSXgeITpMZz/Cd5zd6jUWTEuCO88FJazoaM=;
+        b=MoFnhj+hLz0GZUtOH6vGsGe1frAO5pWV6S9cuKDXl8IsqVCT6r4bslOJiLoUrXZb7W
+         jz5uSsxJuwXLQWb8vrvHDFuby7qvV9t2NkQ/RR0ype0LW47cFas3SvVeGJCyUIsKKCht
+         omqnULLGaylf9TP3uNDrfQY0W1MazIdS5YjC2irE9UjhnnolvmXewV+8l64Gk3rMl4A1
+         r/Gp0KOP8y0QQpXKSq0ODelgVylZhFUbEx5WaSrmUoryeG8AsXoz+6gqJtbxfbkfUvY8
+         3rd3YBf53l7yOUrUaW0/pyzId+Ps6wH+D2YBhUOdMCFsbjnSiAfJKY3Lt+G9ENvA4iqC
+         Z2vw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788519988; x=1789124788;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=EeD81+YoExo7WV5sA8eQjKsV8woAk/oGQD7yWcfEMis=;
-        b=FJCPSvYo+odh/a6OzpZ7JuvPYQF611IcrEcBzaez5jIKRlhDowomkdlVSYniTEa5zx
-         aRDCvLlUubJEXrSY6HxkSQ1gGQuEs4x82O8usDmNYt2DAaqOZfSVzE0BIDDmB/INjZ74
-         69I9lCBtJQhNznV+WV3ehKP/rFn8wnH14zQLwZNMjRNkMpKXQHqsvFJ95RbKsPQXZztM
-         x9xPqDTtdmSpOlav9/klF3mnllN0ukKjgkFWdfPSXynN6bz5uqhEPh4ifDLO1KUe7PzI
-         9DEmw2km6B+BBLGdDZ5ulZVavb3cMI6PrI+Gtxq9051h1kK8ci6uAzpOGJF5yK+lVq9y
-         eoJw==
-X-Gm-Message-State: AFuF++nIYr6W7P7dJ/Nfou/68IbHa5M2HaG5GxtizYNOwuU8cAyX9w6D
-	CEPiZQz0NZV37sPuun75D+/cBuBkYVUU2kLGSc6Y+rtjj67scbBK9qqi
-X-Gm-Gg: AYBFou3AFKxB48F2mr3Ag8PS8jyDleXAHhaG8+ogq9FTosGuW4Ocr3YFqv4L44SWDBe
-	KVdMz2R+wEGqD2SiUooHpYkrpjyxAGAu44Y87N1CVy5TW+x88Geco2zmV57AJPV5yygN5v4qmBO
-	Q8ifvf4HFBCpsImXRTtv536uzBa8Q7Qo2lPlaoOrRFX7FMdIbhFOIbP2+Yr9EWX9VP8uvVvY5Kz
-	U/baek2hkvKfyxgBOThx7mcSoKWIIVpc3YXEv/RTJlnERyZLt3+i+qmgD0w40alc2zPcCuiKFXM
-	zcOuVRc+P2Wt29yohttH0QMWbdvsa1rkGX5AVqreLN5egbSog9PP2/v9T3wQjoNVdBgH3w4Aeeu
-	63fxI7iSpUK1c6nijeiGgkJWg6Lc2rwXgjT4E1WqtOMQNcJbqdp+iTn4a4MzJEq0EQbH9j8dbVY
-	FaOAfvsfe4Bm5ZtdE8z2xn3rjPHgdTOdl8+gX6POjDhQC29HQuSJhS3ZAm7l+2JyEzdM9bk8p9T
-	BWWDxF1OFu9L/md9u8bKmtIFg==
-X-Received: by 2002:a17:90b:3804:b0:366:3517:1aa2 with SMTP id 98e67ed59e1d1-39b25f4397emr8136899a91.0.1788519987928;
-        Fri, 04 Sep 2026 04:06:27 -0700 (PDT)
-Received: from volcano9f6e-hostos.amd.com ([165.204.217.251])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339b314cfcsm6141919eec.19.2026.09.04.04.06.25
+        d=1e100.net; s=20251104; t=1788519989; x=1789124789;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=w8c0zgCdZSXgeITpMZz/Cd5zd6jUWTEuCO88FJazoaM=;
+        b=cW4DrMtlH3KNZUfw769v/2CpJI+0qE0124coZfoKBUtGpf5xPevJJEoP2DH+iw6btR
+         tBfUvNeN6xtXiMR66RJqqlYD+4r0+0/utZ30/rcpOFNLtjQnIYbobGciWFX2aiNokqQj
+         M2DE4etbzuUqF4S9mZfCVjDKBCqQXIoJ5jVNcPI0oj9sqN+hJku3fMjherzXHEpjGrHa
+         pP7/93yujMVuaUJ+8pqSY6vSFnnh2dfR3lNYOrJ4iYXPrI5ncUzXeMCixKR+PMWKm3at
+         g/fJ0SdDKbpiegiQsYKDfuOOFzZQX45Q7VltvFfOurg4IzFg0lPhCGZZyqUbSDOQsWPe
+         3VPw==
+X-Forwarded-Encrypted: i=1; AKwUvBzxo+kJrAj+bEyioDo1WthTWNSzohqbZghk2IiK2FihcUJDBkmCpoKCHoDD/Seieb3SbOvcc9wKU72krBs=@vger.kernel.org
+X-Gm-Message-State: AFuF++kkS2nH1mjOcO4H/xPsDC4Uv8+TaNGmbrWaSGaTL9RL5QT3orGm
+	07+g435uwe6M/SjYJs2iGH1IM6Oak9mvaZq+b+GjBr8PUpdjXRzheYEDbcc5eUoJeSI=
+X-Gm-Gg: AYBFou3RINwI6buXeJ8QiT/6tke63LYSBvssfMvA+ihMY+eLzwpkNo+zJdHferIlzG6
+	leNLN4w1d6qKk6JkdWIfbYzS6sEycI8pGspJpGqnMYZcSx+Xt3jx3//sLUl8G4FMKY9pqx2LRdq
+	LS/Fwcx2mShZIjROO4oQoRAQR85uto0Y0h6IfOU/G6ZHg866bXBIYYHpB0LR86rwJMQX7X6W5Qm
+	gZXti44g4D08YCc+OjlgibnoOk+ybNLnsmasVhmGHlp8eU0iwBXxKe7HMH8nYCoufWNM3Z4EsAr
+	iZi1dwT+CjlHYFtqkOqmD52inLE5Bwiwb8bcAMsJYMgVNW2r2KR+sYhZDANuMBOwMT8L1+jZ+hl
+	86jBZdbkrv523kHGo5UoLQPAKhwpdNMn3R24amJXbGgTUNqDsUPZy4P652lSsqCCB4INTA7vC3s
+	4cs2PktbrdG8Ij98QoPaUwrG2busZjJLLpLlVR6qIWCNOJhJHqcz0Pdv05yhSUG//WZvkVFi0YD
+	A==
+X-Received: by 2002:a17:907:94c7:b0:c15:e8c8:340 with SMTP id a640c23a62f3a-c260cb54a27mr338016566b.23.1788519989375;
+        Fri, 04 Sep 2026 04:06:29 -0700 (PDT)
+Received: from localhost (109-81-91-122.rct.o2.cz. [109.81.91.122])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-485885b7bfasm5673432f8f.29.2026.09.04.04.06.28
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 04 Sep 2026 04:06:27 -0700 (PDT)
-From: Hemanth Selam <hemanth.selam@gmail.com>
-To: MyungJoo Ham <myungjoo.ham@samsung.com>,
-	Chanwoo Choi <cw00.choi@samsung.com>,
-	Krzysztof Kozlowski <krzk@kernel.org>
-Cc: linux-kernel@vger.kernel.org
-Subject: [PATCH] extcon: fix typos in comments
-Date: Fri,  4 Sep 2026 16:36:20 +0530
-Message-ID: <20260904110622.16766-1-hemanth.selam@gmail.com>
-X-Mailer: git-send-email 2.48.1
+        Fri, 04 Sep 2026 04:06:28 -0700 (PDT)
+Date: Fri, 4 Sep 2026 13:06:27 +0200
+From: Michal Hocko <mhocko@suse.com>
+To: Ye Liu <ye.liu@linux.dev>
+Cc: Thomas Gleixner <tglx@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Ingo Molnar <mingo@redhat.com>, Will Deacon <will@kernel.org>,
+	Boqun Feng <boqun@kernel.org>,
+	"Paul E. McKenney" <paulmck@kernel.org>,
+	Frederic Weisbecker <frederic@kernel.org>,
+	Neeraj Upadhyay <neeraj.upadhyay@kernel.org>,
+	Joel Fernandes <joelagnelf@nvidia.com>,
+	Josh Triplett <josh@joshtriplett.org>,
+	Uladzislau Rezki <urezki@gmail.com>,
+	Juri Lelli <juri.lelli@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Josh Poimboeuf <jpoimboe@kernel.org>, Ye Liu <liuye@kylinos.cn>,
+	Pavel Machek <pavel@kernel.org>, Lance Yang <lance.yang@linux.dev>,
+	Petr Mladek <pmladek@suse.com>, Waiman Long <longman@redhat.com>,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	Lai Jiangshan <jiangshanlai@gmail.com>,
+	Zqiang <qiang.zhang@linux.dev>,
+	Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
+	Valentin Schneider <vschneid@redhat.com>,
+	K Prateek Nayak <kprateek.nayak@amd.com>,
+	Mark Rutland <mark.rutland@arm.com>, linux-kernel@vger.kernel.org,
+	linux-pm@vger.kernel.org, rcu@vger.kernel.org,
+	linux-trace-kernel@vger.kernel.org
+Subject: Re: [PATCH 5/8] kernel: convert process/thread iterators to
+ for_each_*_rcu
+Message-ID: <apqmM9GCQn9KFxEA@tiehlicka>
+References: <20260904083001.553587-1-ye.liu@linux.dev>
+ <20260904083001.553587-6-ye.liu@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260904083001.553587-6-ye.liu@linux.dev>
 
-Fix typos in comments, reported by scripts/checkpatch.pl using the
-misspelling list in scripts/spelling.txt.  Only touches comments, no code
-changes.
+On Fri 04-09-26 16:29:57, Ye Liu wrote:
+> From: Ye Liu <liuye@kylinos.cn>
+> 
+> Replace the manual rcu_read_lock()/rcu_read_unlock() and guard(rcu)
+> pairs combined with for_each_process(), for_each_thread() and
+> for_each_process_thread() loops across kernel/ with the
+> for_each_*_rcu() macros.
+> 
+> No functional change.
+> 
+> Signed-off-by: Ye Liu <liuye@kylinos.cn>
 
-Assisted-by: Cursor:claude-opus-5
-Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
----
- drivers/extcon/devres.c              | 6 +++---
- drivers/extcon/extcon-intel-cht-wc.c | 4 ++--
- drivers/extcon/extcon-max77693.c     | 4 ++--
- 3 files changed, 7 insertions(+), 7 deletions(-)
+Acked-by: Michal Hocko <mhocko@suse.com>
 
-diff --git a/drivers/extcon/devres.c b/drivers/extcon/devres.c
-index f9d52e8ec5cf..01da069ad4c9 100644
---- a/drivers/extcon/devres.c
-+++ b/drivers/extcon/devres.c
-@@ -113,7 +113,7 @@ EXPORT_SYMBOL_GPL(devm_extcon_dev_free);
-  * If extcon device is registered with this function and the device needs to be
-  * unregistered separately, devm_extcon_dev_unregister() should be used.
-  *
-- * Returns 0 if success or negaive error number if failure.
-+ * Returns 0 if success or negative error number if failure.
-  */
- int devm_extcon_dev_register(struct device *dev, struct extcon_dev *edev)
- {
-@@ -167,7 +167,7 @@ EXPORT_SYMBOL_GPL(devm_extcon_dev_unregister);
-  * "old_state", not the current state. The current state can be retrieved
-  * by looking at the third pameter (edev pointer)'s state value.
-  *
-- * Returns 0 if success or negaive error number if failure.
-+ * Returns 0 if success or negative error number if failure.
-  */
- int devm_extcon_register_notifier(struct device *dev, struct extcon_dev *edev,
- 				unsigned int id, struct notifier_block *nb)
-@@ -223,7 +223,7 @@ EXPORT_SYMBOL(devm_extcon_unregister_notifier);
-  * device resource management and simplify the control of unregistering
-  * the notifier of extcon device. To get more information, refer that function.
-  *
-- * Returns 0 if success or negaive error number if failure.
-+ * Returns 0 if success or negative error number if failure.
-  */
- int devm_extcon_register_notifier_all(struct device *dev, struct extcon_dev *edev,
- 				struct notifier_block *nb)
-diff --git a/drivers/extcon/extcon-intel-cht-wc.c b/drivers/extcon/extcon-intel-cht-wc.c
-index 99a9dfc62e2b..0f2168150a98 100644
---- a/drivers/extcon/extcon-intel-cht-wc.c
-+++ b/drivers/extcon/extcon-intel-cht-wc.c
-@@ -145,7 +145,7 @@ static int cht_wc_extcon_get_charger(struct cht_wc_extcon_data *ext,
- 	int ret, usbsrc, status;
- 	unsigned long timeout;
- 
--	/* Charger detection can take upto 600ms, wait 800ms max. */
-+	/* Charger detection can take up to 600ms, wait 800ms max. */
- 	timeout = jiffies + msecs_to_jiffies(800);
- 	do {
- 		ret = regmap_read(ext->regmap, CHT_WC_USBSRC, &usbsrc);
-@@ -192,7 +192,7 @@ static int cht_wc_extcon_get_charger(struct cht_wc_extcon_data *ext,
- 		return EXTCON_CHG_USB_CDP;
- 	case CHT_WC_USBSRC_TYPE_DCP:
- 	case CHT_WC_USBSRC_TYPE_DCP_EXTPHY:
--	case CHT_WC_USBSRC_TYPE_MHL: /* MHL2+ delivers upto 2A, treat as DCP */
-+	case CHT_WC_USBSRC_TYPE_MHL: /* MHL2+ delivers up to 2A, treat as DCP */
- 		ext->usb_type = POWER_SUPPLY_USB_TYPE_DCP;
- 		return EXTCON_CHG_USB_DCP;
- 	case CHT_WC_USBSRC_TYPE_ACA:
-diff --git a/drivers/extcon/extcon-max77693.c b/drivers/extcon/extcon-max77693.c
-index 2c567e0b7b7f..2839f0c946c9 100644
---- a/drivers/extcon/extcon-max77693.c
-+++ b/drivers/extcon/extcon-max77693.c
-@@ -689,7 +689,7 @@ static int max77693_muic_adc_handler(struct max77693_muic_info *info)
- 		 *
- 		 * The MAX77693 MUIC device can detect total 34 cable type
- 		 * except of charger cable and MUIC device didn't define
--		 * specfic role of cable in the range of from 0x01 to 0x12
-+		 * specific role of cable in the range of from 0x01 to 0x12
- 		 * of ADC value. So, can use/define cable with no role according
- 		 * to schema of hardware board.
- 		 */
-@@ -708,7 +708,7 @@ static int max77693_muic_adc_handler(struct max77693_muic_info *info)
- 		 *
- 		 * The MAX77693 MUIC device can detect total 34 cable type
- 		 * except of charger cable and MUIC device didn't define
--		 * specfic role of cable in the range of from 0x01 to 0x12
-+		 * specific role of cable in the range of from 0x01 to 0x12
- 		 * of ADC value. So, can use/define cable with no role according
- 		 * to schema of hardware board.
- 		 */
+> ---
+>  kernel/cpu.c             | 4 +---
+>  kernel/freezer.c         | 4 +---
+>  kernel/hung_task.c       | 7 ++-----
+>  kernel/locking/lockdep.c | 4 +---
+>  kernel/rcu/update.c      | 4 +---
+>  kernel/sched/core.c      | 3 +--
+>  kernel/sched/debug.c     | 4 +---
+>  kernel/trace/fgraph.c    | 8 ++------
+>  kernel/unwind/deferred.c | 3 +--
+>  9 files changed, 11 insertions(+), 30 deletions(-)
+> 
+> diff --git a/kernel/cpu.c b/kernel/cpu.c
+> index b3c8553d7bd6..bc70fd21561a 100644
+> --- a/kernel/cpu.c
+> +++ b/kernel/cpu.c
+> @@ -1254,8 +1254,7 @@ void clear_tasks_mm_cpumask(int cpu)
+>  	 * full-fledged tasklist_lock.
+>  	 */
+>  	WARN_ON(cpu_online(cpu));
+> -	rcu_read_lock();
+> -	for_each_process(p) {
+> +	for_each_process_rcu(p) {
+>  		struct task_struct *t;
+>  
+>  		/*
+> @@ -1268,7 +1267,6 @@ void clear_tasks_mm_cpumask(int cpu)
+>  		arch_clear_mm_cpumask_cpu(cpu, t->mm);
+>  		task_unlock(t);
+>  	}
+> -	rcu_read_unlock();
+>  }
+>  
+>  /* Take this CPU down. */
+> diff --git a/kernel/freezer.c b/kernel/freezer.c
+> index a76bf957fb32..a27b2382fda9 100644
+> --- a/kernel/freezer.c
+> +++ b/kernel/freezer.c
+> @@ -217,11 +217,9 @@ void thaw_process(struct task_struct *p)
+>  {
+>  	struct task_struct *t;
+>  
+> -	rcu_read_lock();
+> -	for_each_thread(p, t) {
+> +	for_each_thread_rcu(p, t) {
+>  		__thaw_task(t);
+>  	}
+> -	rcu_read_unlock();
+>  }
+>  
+>  /**
+> diff --git a/kernel/hung_task.c b/kernel/hung_task.c
+> index 6fcc94ce4ca9..76871f78497f 100644
+> --- a/kernel/hung_task.c
+> +++ b/kernel/hung_task.c
+> @@ -315,8 +315,7 @@ static void check_hung_uninterruptible_tasks(unsigned long timeout)
+>  		return;
+>  
+>  	this_round_count = 0;
+> -	rcu_read_lock();
+> -	for_each_process_thread(g, t) {
+> +	for_each_process_thread_rcu(g, t) {
+>  		if (!max_count--)
+>  			goto unlock;
+>  		if (time_after(jiffies, last_break + HUNG_TASK_LOCK_BREAK)) {
+> @@ -337,9 +336,7 @@ static void check_hung_uninterruptible_tasks(unsigned long timeout)
+>  			hung_task_info(t, timeout, this_round_count);
+>  		}
+>  	}
+> - unlock:
+> -	rcu_read_unlock();
+> -
+> +unlock:
+>  	if (!this_round_count)
+>  		return;
+>  
+> diff --git a/kernel/locking/lockdep.c b/kernel/locking/lockdep.c
+> index c56a7f91d72e..9c3dce0f0c4b 100644
+> --- a/kernel/locking/lockdep.c
+> +++ b/kernel/locking/lockdep.c
+> @@ -6834,15 +6834,13 @@ void debug_show_all_locks(void)
+>  	}
+>  	pr_warn("\nShowing all locks held in the system:\n");
+>  
+> -	rcu_read_lock();
+> -	for_each_process_thread(g, p) {
+> +	for_each_process_thread_rcu(g, p) {
+>  		if (!p->lockdep_depth)
+>  			continue;
+>  		lockdep_print_held_locks(p);
+>  		touch_nmi_watchdog();
+>  		touch_all_softlockup_watchdogs();
+>  	}
+> -	rcu_read_unlock();
+>  
+>  	pr_warn("\n");
+>  	pr_warn("=============================================\n\n");
+> diff --git a/kernel/rcu/update.c b/kernel/rcu/update.c
+> index 2a778b8ab4ad..c48a84a0da82 100644
+> --- a/kernel/rcu/update.c
+> +++ b/kernel/rcu/update.c
+> @@ -548,15 +548,13 @@ void synchronize_rcu_trivial_preempt(void)
+>  	struct task_struct *t;
+>  
+>  	smp_mb(); // Order prior accesses before grace-period start.
+> -	rcu_read_lock(); // Protect task list.
+> -	for_each_process_thread(g, t) {
+> +	for_each_process_thread_rcu(g, t) {
+>  		if (t == current)
+>  			continue;  // Don't deadlock on ourselves!
+>  		// Order later rcu_read_lock() on other tasks after QS.
+>  		while (smp_load_acquire(&t->rcu_trivial_preempt_nesting))
+>  			continue;
+>  	}
+> -	rcu_read_unlock();
+>  }
+>  EXPORT_SYMBOL_GPL(synchronize_rcu_trivial_preempt);
+>  #endif // #if IS_ENABLED(CONFIG_TRIVIAL_PREEMPT_RCU)
+> diff --git a/kernel/sched/core.c b/kernel/sched/core.c
+> index 0697ed0f1c3d..a41cdd2ff02f 100644
+> --- a/kernel/sched/core.c
+> +++ b/kernel/sched/core.c
+> @@ -2005,8 +2005,7 @@ static void uclamp_sync_util_min_rt_default(void)
+>  	smp_mb__after_spinlock();
+>  	read_unlock(&tasklist_lock);
+>  
+> -	guard(rcu)();
+> -	for_each_process_thread(g, p)
+> +	for_each_process_thread_rcu(g, p)
+>  		uclamp_update_util_min_rt_default(p);
+>  }
+>  
+> diff --git a/kernel/sched/debug.c b/kernel/sched/debug.c
+> index 72236db67983..8f37b1a7adfe 100644
+> --- a/kernel/sched/debug.c
+> +++ b/kernel/sched/debug.c
+> @@ -1029,14 +1029,12 @@ static void print_rq(struct seq_file *m, struct rq *rq, int rq_cpu)
+>  #endif
+>  		   "\n");
+>  
+> -	rcu_read_lock();
+> -	for_each_process_thread(g, p) {
+> +	for_each_process_thread_rcu(g, p) {
+>  		if (task_cpu(p) != rq_cpu)
+>  			continue;
+>  
+>  		print_task(m, rq, p);
+>  	}
+> -	rcu_read_unlock();
+>  }
+>  
+>  void print_cfs_rq(struct seq_file *m, int cpu, struct cfs_rq *cfs_rq)
+> diff --git a/kernel/trace/fgraph.c b/kernel/trace/fgraph.c
+> index 40d373d65f9b..e522433ec8a5 100644
+> --- a/kernel/trace/fgraph.c
+> +++ b/kernel/trace/fgraph.c
+> @@ -1057,11 +1057,10 @@ static int alloc_retstack_tasklist(unsigned long **ret_stack_list)
+>  		}
+>  	}
+>  
+> -	rcu_read_lock();
+> -	for_each_process_thread(g, t) {
+> +	for_each_process_thread_rcu(g, t) {
+>  		if (start == end) {
+>  			ret = -EAGAIN;
+> -			goto unlock;
+> +			goto free;
+>  		}
+>  
+>  		if (t->ret_stack == NULL) {
+> @@ -1074,9 +1073,6 @@ static int alloc_retstack_tasklist(unsigned long **ret_stack_list)
+>  			t->ret_stack = ret_stack_list[start++];
+>  		}
+>  	}
+> -
+> -unlock:
+> -	rcu_read_unlock();
+>  free:
+>  	for (i = start; i < end; i++)
+>  		kmem_cache_free(fgraph_stack_cachep, ret_stack_list[i]);
+> diff --git a/kernel/unwind/deferred.c b/kernel/unwind/deferred.c
+> index 5bea47314254..61fe2d4727ce 100644
+> --- a/kernel/unwind/deferred.c
+> +++ b/kernel/unwind/deferred.c
+> @@ -319,9 +319,8 @@ void unwind_deferred_cancel(struct unwind_work *work)
+>  
+>  	synchronize_srcu(&unwind_srcu);
+>  
+> -	guard(rcu)();
+>  	/* Clear this bit from all threads */
+> -	for_each_process_thread(g, t) {
+> +	for_each_process_thread_rcu(g, t) {
+>  		atomic_long_andnot(BIT(bit),
+>  				   &t->unwind_info.unwind_mask);
+>  		if (t->unwind_info.cache)
+> -- 
+> 2.25.1
+> 
+
 -- 
-2.48.1
-
+Michal Hocko
+SUSE Labs
