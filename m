@@ -1,46 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20E44530E12;
-	Fri,  4 Sep 2026 22:25:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B77E85328C7;
+	Fri,  4 Sep 2026 22:25:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788560737; cv=none; b=DDMephU9iwfqHmu3001ckBWFkL0qz7kMfUZJ1CpskyxlmX93pZGIQz0kYi60qYP7MHbHTl9C/wiv0kplaCxa62qlxJ0/4fAnQM52B56dPYVn4ut1fbzVR0Nz2727pi46IDbYqPwT6hDEUgx8rPbenRKcekwA2CdP4vuZJZnm1h4=
+	t=1788560741; cv=none; b=qaocKPryKu3WvP2b2bdrbzltWDSuUCvyEh57UqhIJZ4bMR32LaUKmZr8G9pn8Pcp+6blSzKeayzNBGuyGiDnZzdbfSf3V7pZzSKkt+mUif02no7UEQYZljHD5JGA9rDMmHZtMgTfvNnvlGinHhA8uhEuohtNNf5ZwYQFTIJFI18=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788560737; c=relaxed/simple;
-	bh=73TqY1hzZSGd5Lj8EWlZy+FVNz6F+JsNBa6s9k5UxRo=;
+	s=arc-20240116; t=1788560741; c=relaxed/simple;
+	bh=qvsT0W+v5bzqv6EBQ6wEE6IZX3pigF4LBvlOFMiTfXI=;
 	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=eepAU9Z9ZfwQa9BnqT0h9sUKEV5ZqCrL26rOHVIHgyxrIG9LKuUrUZe5x6MfDLedg+R8Xv4IHvt0c5qU9tTlOjzBZlzYts22PWqhh2IrN75/40ePJAO2iuiOsGg8iUKcFajMowgOc4gex0Vxn04YWd1OEI//PKXTEoEOxpN1Hk4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jdjq+vNm; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:MIME-Version; b=Z6RT2vmexYDJbcNSbK9DWQYL7/fdzRfzZwsPZt5N6ociOVAgjWeN7+GBZHPLBAlDmv8fBctxc2W/gYlVvyuMjWjwEvWqMZVPrABuDSMo3VMEaDkJBjTqg8dQbMb7ypA735KoJNaDRHHKFZ4M99KtKyhzlQjn2vmqMSN9U/7alcE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OK2UNyrC; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jdjq+vNm"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 12A5F1F00A3D;
-	Fri,  4 Sep 2026 22:25:34 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OK2UNyrC"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2810F1F00A3D;
+	Fri,  4 Sep 2026 22:25:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788560735;
-	bh=/p0MwaYW8aQ0BJ6a1TuPdBmkEYreNxZkQRpD4pIs0as=;
+	s=k20260515; t=1788560738;
+	bh=BODUg4diNtAxt2eo94DXsAxAYTsQqkqw87fLf07CnyY=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=jdjq+vNm9uqBKHx/HaxeWJ5GQpvuXlOmOWHNp46G892FFQ3BAklgsdccpiTq/lq78
-	 E4DHHsMmHDBnkm4LwU0PLysWwjbVKMZ2ej7q8UA5Rmz0q0wD1gpOlhAbu49aSB7uEm
-	 RsFwMoa0XAe81cFcwzohFqnsKuf2q+fD0CKrAZnM7We+VGNRS0nvzRR298XmiJTD7a
-	 09YeaqAXfwJ7ltPc0RcJBoZ3akkLzKUQYfUw5LaPHb11MTHMx45T+Jkx5ny817oww3
-	 aDTS6h+jM2bbvF17FcI24zSK6+mXWRWzY40kDO91sE7I7xz7XcC3jvg3+G0QntU8eq
-	 3KimCsbvrpMGw==
-Subject: Re: [PATCH v3 net-next 8/8] net: dsa: netc: add PTP one-step
- timestamping support
+	b=OK2UNyrCd2VmypIPMDK1eVKp8GX/FxDc9eVLE6bCYGShkrSAsHMwiy4xAqx4k9V5f
+	 +y7+XFYBg4lu34ACFtV1l/WCnEjtO0m4qBVoZmdX8voFMrYa2jzJC5rSQdIue4GJSt
+	 NMpre8kV5Slds1jbvD4wkBQdoP8zrgLXZxhRWabtMNzFJqBIhwQvlGKdnDCwSRaJeQ
+	 CGVt54c8nLBlIGAZDaHJ2jh9I25A4v2avyqqJQJTgGoC8tkShDnrDA2qjKfKjbI2S+
+	 novY6YSXEh1diE0Dh+ylhzc561JzXvrpATZzgh8/eeSxGIoKPvR210qcF1hkL5W2Zs
+	 C7jIrrPOnBbIA==
+Subject:
+ Re: [PATCH net-next v1 1/2] netdevsim: add TLS device offload emulation
 From: netdev-bot+sashiko@kernel.org
-To: wei.fang@oss.nxp.com
-Cc: xiaoning.wang@nxp.com, andrew@lunn.ch, olteanv@gmail.com,
- andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
- richardcochran@gmail.com, wei.fang@nxp.com, imx@lists.linux.dev,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- linuxppc-dev@lists.ozlabs.org, linux-arm-kernel@lists.infradead.org
-Date: Fri, 04 Sep 2026 22:25:33 +0000
-Message-ID: <178856073363.219967.13962315129616292452@kernel.org>
-In-Reply-To: <20260831082335.1184605-9-wei.fang@oss.nxp.com>
-References: <20260831082335.1184605-9-wei.fang@oss.nxp.com>
-X-sashiko-severity: High
+To: jiayuan.chen@linux.dev
+Cc: netdev@vger.kernel.org, andrew+netdev@lunn.ch, davem@davemloft.net,
+ edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, shuah@kernel.org,
+ linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org
+Date: Fri, 04 Sep 2026 22:25:37 +0000
+Message-ID: <178856073774.219967.3771752588848719293@kernel.org>
+In-Reply-To: <20260901154914.11637-2-jiayuan.chen@linux.dev>
+References: <20260901154914.11637-2-jiayuan.chen@linux.dev>
+X-sashiko-severity: Medium
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 Precedence: bulk
@@ -50,383 +47,311 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 4 potential
+Thank you for your contribution! Sashiko AI review found 5 potential
 issue(s) to consider:
 
-Critical: 0 · High: 2 · Medium: 2 · Low: 0 (1)
+Critical: 0 · High: 0 · Medium: 2 · Low: 3
 
-- [High] netc_port_onestep_alloc() takes try_module_get(THIS_MODULE) for
-  every user port at switch setup time and the matching module_put()…
-- [High] The one-frame-at-a-time interlock protecting the shared per-port
-  PM_SINGLE_STEP register uses skb->destructor as the 'frame has…
-- [Medium] netc_port_prepare_onestep_sync()
-  (drivers/net/dsa/netc/netc_ptp.c) performs its unsupported-case checks…
-- [Medium] netc_port_prepare_onestep_sync() accepts whatever
-  ptp_classify_raw() returns, including PTP_CLASS_V1_IPV4/V1_IPV6, and…
-
-Pre-existing issues:
-- [Low] The three new drop sites (NETC_PTP_FLAG_DROP handling in
-  netc_xmit(), the NETC_ONESTEP_QTH queue-full drop in…
+- [Medium] The whole RX half of the emulation is a dead decision: every
+  frame nsim_tls_rx() inspects already has skb->decrypted == 1 set by…
+- [Medium] nsim_tls_tx_zero_tags() aborts the whole record walk with
+  'break' as soon as tls_get_record() returns NULL or a start-marker…
+- [Low] Claim that the new TLS emulation has no in-tree consumer / no
+  selftest, so the commit message's stated purpose (code coverage and…
+- [Low] The lock-scope annotation on the new struct nsim_tls in
+  drivers/net/netdevsim/netdevsim.h ('spinlock_t lock; /* protects conns…
+- [Low] nsim_tls_tx_zero_tags() rewrites tag_size payload bytes (the
+  auth-tag placeholder, memset at drivers/net/netdevsim/tls.c:188) from…
 
 --
 
-net: dsa: netc: add PTP one-step timestamping support
+netdevsim: add TLS device offload emulation
 
-This adds one-step TX timestamping for PTP Sync frames on the NETC switch.
-The xmit path classifies a Sync frame and hands it to a per-port work,
-which reads the PTP time, programs PM_SINGLE_STEP, patches the
-originTimestamp field and transmits the frame to the conduit via a new
-tagger callback.
+This adds an emulated kTLS device offload to netdevsim: tlsdev_ops plus
+NETIF_F_HW_TLS_TX/RX so kTLS sockets over netdevsim take the device path,
+with TX zeroing the auth tag placeholder and RX marking skbs decrypted.
+A per-port debugfs "tls" file exposes the connection list and counters.
 
-> diff --git a/drivers/net/dsa/netc/netc_ptp.c b/drivers/net/dsa/netc/netc_ptp.c
-> index f55010f46819c..8e6ab4b065802 100644
-> --- a/drivers/net/dsa/netc/netc_ptp.c
-> +++ b/drivers/net/dsa/netc/netc_ptp.c
-> @@ -4,13 +4,307 @@
+A few questions below.
 
-[ ... ]
-
-> +static void netc_onestep_destroy_work(struct work_struct *work)
-> +{
-> +	struct netc_onestep *onestep = container_of(work, struct netc_onestep,
-> +						    destroy_work);
-> +
-[ ... ]
-> +	cancel_work_sync(&onestep->work);
-> +	netc_port_purge_onestep_queue(onestep, true);
-> +	mutex_destroy(&onestep->work_lock);
-> +	kfree(onestep);
-> +	module_put(THIS_MODULE);
-> +}
-
-[ ... ]
-
-> +static void netc_onestep_skb_destructor(struct sk_buff *skb)
-> +{
-> +	struct netc_onestep *onestep = skb_shinfo(skb)->destructor_arg;
-> +
-> +	/* skb has been transmitted by hardware. Schedule work to send the next
-> +	 * queued one-step Sync packet, then release this skb's reference on the
-> +	 * context. If the port has already been torn down and this is the last
-> +	 * reference, the context is freed via netc_onestep_release().
-> +	 */
-> +	schedule_work(&onestep->work);
-> +	netc_onestep_put(onestep);
-> +}
-
-[Severity: High]
-Is skb->destructor a reliable "the frame has egressed" signal for the
-PM_SINGLE_STEP interlock?
-
-netc_port_program_onestep() calls skb_orphan(skb), which leaves
-skb->sk == NULL, and then installs this destructor. Any later orphaning
-fires and clears the destructor before the frame is transmitted, for
-example in net/sched/sch_fq.c:fq_classify():
-
-	if (!sk || sk_listener_or_tw(sk)) {
-		unsigned long hash = skb_get_hash(skb) & q->orphan_mask;
-		...
-		skb_orphan(skb);
-
-Since skb->sk was already cleared by the driver, this triggers at enqueue
-time for every one-step frame when the conduit uses fq, and sch_netem does
-the same via skb_orphan_partial().  A qdisc drop frees the skb too.  In
-those cases the in-flight slot is released while the frame is still queued,
-and the real TX completion can no longer kick the work.
-
-Even in the normal case, conduit TX completion only means the frame was
-handed to the switch; it still has to traverse the switch and be scheduled
-on the user port MAC.  Can netc_onestep_work() then reprogram OFFSET/CH for
-frame N+1 while frame N is still waiting for egress, so the residence time
-is patched at the wrong offset when consecutive frames differ in
-encapsulation (L2 versus UDP, VLAN versus untagged)?
-
-The commit message states the opposite invariant:
-
-    "keeping PM_SINGLE_STEP always matched to the frame being transmitted"
-
-Is there anything that structurally guarantees this, given there is no
-egress confirmation from the destination port?
-
-> +static void netc_port_program_onestep(struct netc_port *np,
-> +				      struct netc_onestep *onestep,
-> +				      struct sk_buff *skb,
-> +				      u64 tstamp)
-> +{
-
-[ ... ]
-
-> +update_timestamp:
-> +	__put_unaligned_t(__be16, new_sec_h, hdr + tstamp_offset);
-> +	__put_unaligned_t(__be32, new_sec_l, hdr + tstamp_offset + 2);
-> +	__put_unaligned_t(__be32, new_ns, hdr + tstamp_offset + 6);
-> +
-> +	netc_port_set_onestep_control(np, csum_update, correction_offset);
-> +
-> +	/* Orphan the skb to release the socket send buffer quota immediately.
-> +	 * This is safe because sock_wfree() does not access skb->data or any
-> +	 * frame content. After skb_orphan(), we install our own destructor so
-> +	 * that when the conduit driver frees the skb after TX completion, we
-> +	 * get notified to send the next queued Sync packet.
-> +	 */
-> +	skb_orphan(skb);
-> +	netc_onestep_get(onestep); /* in-flight reference */
-> +	skb_shinfo(skb)->destructor_arg = onestep;
-> +	skb->destructor = netc_onestep_skb_destructor;
-> +}
-
-[ ... ]
-
-> +static void netc_onestep_work(struct work_struct *work)
-> +{
-
-[ ... ]
-
-> +	np = onestep->np;
-> +	priv = np->switch_priv;
-> +	if (unlikely(netc_get_phc_time(priv, &tstamp))) {
-[ ... ]
-> +		dev_dbg_ratelimited(priv->dev,
-> +				    "Port %d PTP timer unavailable, drop Sync\n",
-> +				    np->dp->index);
-> +		kfree_skb(skb);
-> +		schedule_work(&onestep->work);
-> +		goto unlock_work;
-> +	}
-
-[ ... ]
-
-> +static int netc_port_onestep_alloc(struct netc_port *np)
-> +{
-> +	struct netc_onestep *onestep;
-> +	int err;
-> +
-> +	/* Hold a module reference until the last in-flight one-step Sync skb
-> +	 * is freed by the conduit. Without this, the module could be unloaded
-> +	 * before netc_onestep_skb_destructor() returns, causing a panic.
-> +	 * Released in netc_onestep_destroy_work() after all cleanup is done.
-> +	 */
-> +	if (!try_module_get(THIS_MODULE)) {
-> +		dev_err(np->switch_priv->dev,
-> +			"Failed to get the driver module\n");
-> +		return -ENODEV;
-> +	}
-
-[Severity: High]
-Does this make the module permanently unloadable while the switch is bound?
-
-The reference is taken once per user port from netc_setup() ->
-netc_init_all_ports() -> netc_port_ptp_init() -> netc_port_onestep_alloc(),
-not per in-flight skb, so it is held for the whole bound lifetime.  The
-matching module_put(THIS_MODULE) only runs from netc_onestep_destroy_work(),
-which requires the owner kref to be dropped in netc_free_ports_resources(),
-i.e. it requires the remove path:
-
-  rmmod -> delete_module() -> try_stop_module() -> try_release_module_ref()
-
-That returns non-zero with references outstanding and delete_module() fails
-with -EWOULDBLOCK, so mod->exit (pci_unregister_driver) never runs and the
-kref is never dropped.  Is there a path that can ever release these
-references?
-
-Separately, module_put(THIS_MODULE) is the last statement of
-netc_onestep_destroy_work(), which lives in module text.  If that were the
-final reference, can free_module() unmap the text while this work function
-is still returning and while the workqueue core still has
-worker->current_func pointing into it?
-
-The in-flight skb already holds a kref on the context, so is the module
-self-reference adding anything beyond blocking rmmod?
-
-> +
-> +	onestep = kzalloc_obj(*onestep);
-> +	if (!onestep) {
-> +		err = -ENOMEM;
-> +		goto put_module;
-> +	}
-
-[ ... ]
-
-> @@ -455,10 +754,100 @@ bool netc_port_rxtstamp(struct dsa_switch *ds, int port, struct sk_buff *skb,
->  	return false;
->  }
+> diff --git a/drivers/net/netdevsim/netdev.c b/drivers/net/netdevsim/netdev.c
+> index b4a99f3ceac60..b9e0a2f5b18fc 100644
+> --- a/drivers/net/netdevsim/netdev.c
+> +++ b/drivers/net/netdevsim/netdev.c
+> @@ -151,6 +151,8 @@ static netdev_tx_t nsim_start_xmit(struct sk_buff *skb, struct net_device *dev)
+>  	if (dr)
+>  		goto out_drop_free;
 >  
-> +static void netc_port_prepare_onestep_sync(struct netc_port *np,
-> +					   struct sk_buff *skb,
-> +					   u32 ptp_class, bool *twostep)
-> +{
+> +	nsim_do_tls(skb, ns, peer_ns);
+> +
+>  	rxq = skb_get_queue_mapping(skb);
+>  	if (rxq >= peer_dev->num_rx_queues)
+>  		rxq = rxq % peer_dev->num_rx_queues;
 
 [ ... ]
 
-> +	ptp_hdr = ptp_parse_header(skb, ptp_class);
-> +	if (unlikely(!ptp_hdr)) {
-> +		NETC_SKB_CB(skb)->ptp_flag = NETC_PTP_FLAG_DROP;
-> +		dev_dbg_ratelimited(priv->dev,
-> +				    "Port %d failed to parse Sync header\n",
-> +				    np->dp->index);
-> +		return;
-> +	}
-> +
-> +	msg_type = ptp_get_msgtype(ptp_hdr, ptp_class);
-> +	twostep_flag = ptp_hdr->flag_field[0] & 0x2;
-> +
-> +	pkt_hdr = skb_mac_header(skb);
-> +	correction_offset = (u8 *)&ptp_hdr->correction - pkt_hdr;
-> +	tstamp_offset = (u8 *)ptp_hdr + sizeof(*ptp_hdr) - pkt_hdr;
-
-[Severity: Medium]
-Should this path require PTP_CLASS_V2?
-
-ptp_classify_raw() masks the version nibble and can return
-PTP_CLASS_V1_IPV4 / PTP_CLASS_V1_IPV6, and ptp_parse_header() only length
-checks, so a legacy PTPv1 event message reaches here.  For v1,
-ptp_get_msgtype() deliberately reads hdr->control:
-
-include/linux/ptp_classify.h:ptp_get_msgtype() {
-	if (unlikely(type & PTP_CLASS_V1))
-		/* msg type is located at the control field for ptp v1 */
-		msgtype = hdr->control;
-	...
-}
-
-For a PTPv1 Sync that field is 0, which equals PTP_MSGTYPE_SYNC, so the
-message-type test passes.  twostep_flag is then read from
-ptp_hdr->flag_field[0], which in a PTPv1 header is a byte of the 16-byte
-subdomain name, and for common subdomains that byte has bit 1 clear, so the
-frame is accepted as a genuine one-step Sync.
-
-netc_port_program_onestep() then writes 10 bytes at ptp_header+34 (not the
-v1 originTimestamp), programs PM_SINGLE_STEP[OFFSET] with ptp_header+8
-(inside the v1 subdomain), and fixes up the UDP checksum over those wrong
-bytes.  Can a PTPv1 Sync be corrupted on the wire this way?
-
-> +
-> +	/* Ensure that the entire originTimestamp field is present in the
-> +	 * linear buffer of the skb and the correction_offset must be within
-> +	 * the hardware capability.
-> +	 */
-> +	if (unlikely(tstamp_offset + 10 > skb_headlen(skb) ||
-> +		     correction_offset > NETC_MAX_STEP_OFFSET)) {
-> +		NETC_SKB_CB(skb)->ptp_flag = NETC_PTP_FLAG_DROP;
-> +		dev_dbg_ratelimited(priv->dev,
-> +				    "Port %d PTP offset check error\n",
-> +				    np->dp->index);
-> +		return;
-> +	}
-> +
-> +	/* Only a Sync frame with the twoStepFlag cleared can use one-step
-> +	 * timestamping. A frame that requests two-step (or is not a Sync)
-> +	 * carries different on-wire fields, so this is a real classification;
-> +	 * report it through *twostep so the caller falls back to the two-step
-> +	 * path.
-> +	 */
-> +	if (msg_type != PTP_MSGTYPE_SYNC || twostep_flag != 0) {
-> +		*twostep = true;
-> +		return;
-> +	}
-
-[Severity: Medium]
-Should the Sync/twoStepFlag classification happen before the
-unsupported-case checks?
-
-As written, the order is skb_linearize() failure -> DROP,
-ptp_parse_header() == NULL -> DROP, tstamp_offset + 10 > skb_headlen() ||
-correction_offset > NETC_MAX_STEP_OFFSET -> DROP, and only then the
-msg_type / twostep_flag test.  So any PTP frame that trips one of the
-earlier checks, including a Delay_Req that only wants a two-step timestamp,
-gets NETC_PTP_FLAG_DROP and is freed by netc_xmit() instead of taking the
-two-step fallback.
-
-ptp_classify_raw() only inspects the first two bytes of the PTP payload,
-while ptp_parse_header() needs 34 bytes and this code needs
-tstamp_offset + 10 bytes in the linear area.  Can a short frame sent to UDP
-port 319 by any local sender therefore be silently discarded regardless of
-its message type, with only a dev_dbg_ratelimited() trace?  The same applies
-to skb_linearize() failure under memory pressure.
-
-For comparison, enetc_xmit() falls back to two-step when the parse fails and
-still transmits the frame.
-
-netc_onestep_work() adds a fourth drop site: when netc_get_phc_time() fails,
-an already-accepted Sync is freed with kfree_skb().
-
-The commit message states:
-
-    "frames that cannot be handled as one-step fall back to the two-step
-    path or are sent as normal frames"
-
-Can that be reconciled with the four kfree_skb() sites, or should the
-description be adjusted?
-
-[ ... ]
-
-> @@ -466,6 +855,50 @@ void netc_port_txtstamp(struct dsa_switch *ds, int port, struct sk_buff *skb)
-
-[ ... ]
-
-> +void netc_port_onestep_sync_enqueue(struct dsa_switch *ds, int port,
-> +				    struct sk_buff *skb)
-> +{
-
-[ ... ]
-
-> +	spin_lock_bh(&onestep->queue_lock);
-> +	if (unlikely(skb_queue_len(&onestep->queue) >= NETC_ONESTEP_QTH)) {
-> +		spin_unlock_bh(&onestep->queue_lock);
-> +		kfree_skb(skb);
-> +		return;
-> +	}
+> diff --git a/drivers/net/netdevsim/netdevsim.h b/drivers/net/netdevsim/netdevsim.h
+> index 55aec41237b9b..b4646c7061bd0 100644
+> --- a/drivers/net/netdevsim/netdevsim.h
+> +++ b/drivers/net/netdevsim/netdevsim.h
+> @@ -56,6 +56,20 @@ struct nsim_ipsec {
+>  	u32 tx;
+>  };
+>  
+> +struct nsim_tls {
+> +	struct list_head conns;
+> +	spinlock_t lock;	/* protects conns and the counters below */
+> +	struct dentry *dfile;
+> +	u32 count;
+> +	u32 tx_conn;
+> +	u32 rx_conn;
+> +	atomic64_t tx_packets;
+> +	atomic64_t tx_bytes;
+> +	atomic64_t rx_packets;
+> +	atomic64_t rx_bytes;
+> +	atomic64_t resyncs;
+> +};
 
 [Severity: Low]
-This isn't a bug introduced by this patch, but the new drop sites do not
-touch any drop counter.  The queue-full drop here, the
-NETC_PTP_FLAG_DROP branch in netc_xmit(), and the PHC-failure drop in
-netc_onestep_work() all free the skb after dsa_user_xmit() has already
-accounted it:
+This isn't a bug, but does the annotation match the code?  Of the fields
+below the lock, only count, tx_conn and rx_conn are updated under
+ns->tls.lock (nsim_tls_dev_add(), nsim_tls_dev_del(),
+nsim_tls_teardown()).
 
-net/dsa/user.c:dsa_user_xmit() {
-	dev_sw_netstats_tx_add(dev, 1, skb->len);
+The five atomic64_t counters are only ever touched from the lockless xmit
+path, in nsim_tls_tx(), nsim_tls_rx() and nsim_tls_dev_resync():
+
+	atomic64_inc(&ns->tls.tx_packets);
+	atomic64_add(skb->len, &ns->tls.tx_bytes);
+
+and count is additionally read with no lock held in nsim_tls_rx():
+
+	if (!READ_ONCE(ns->tls.count))
+		return;
+
+Would "protects conns, count, tx_conn and rx_conn" describe the actual
+contract better, so nobody later adds a plain counter there and updates it
+from the xmit path?
+
+[ ... ]
+
+> diff --git a/drivers/net/netdevsim/tls.c b/drivers/net/netdevsim/tls.c
+> new file mode 100644
+> index 0000000000000..079d30a86b5d6
+> --- /dev/null
+> +++ b/drivers/net/netdevsim/tls.c
+> @@ -0,0 +1,482 @@
+
+[ ... ]
+
+> +static bool nsim_tls_rx_offloaded(struct netdevsim *ns,
+> +				  const struct nsim_tls_tuple *t)
+> +{
+> +	struct nsim_tls_conn *conn;
+> +
+> +	list_for_each_entry_rcu(conn, &ns->tls.conns, list) {
+> +		if (conn->dir != TLS_OFFLOAD_CTX_DIR_RX ||
+> +		    conn->lport != t->dport || conn->rport != t->sport ||
+> +		    !ipv6_addr_equal(&conn->laddr, &t->daddr) ||
+> +		    !ipv6_addr_equal(&conn->raddr, &t->saddr))
+> +			continue;
+> +
+> +		/* Anything before start_sn predates the offload and has to
+> +		 * stay encrypted.  Only worth asking once: TCP sequence
+> +		 * numbers wrap, and a stream that has moved 2G past a
+> +		 * sequence it is still compared against looks like it went
+> +		 * backwards.
+> +		 */
+> +		if (!READ_ONCE(conn->started)) {
+> +			if (before(t->seq, conn->start_sn))
+> +				return false;
+> +			WRITE_ONCE(conn->started, true);
+> +		}
+> +
+> +		return true;
+> +	}
+> +
+> +	return false;
+> +}
+
+[ ... ]
+
+> +static void nsim_tls_tx_zero_tags(struct sk_buff *skb)
+> +{
+
+[ ... ]
+
+> +	spin_lock_irqsave(&tx_ctx->lock, flags);
+> +	while (before(seq, end)) {
+> +		struct tls_record_info *record;
+> +		skb_frag_t *frag;
+> +		u64 rcd_sn;
+> +
+> +		record = tls_get_record(tx_ctx, seq, &rcd_sn);
+> +		if (!record || tls_record_is_start_marker(record))
+> +			break;
+
+[Severity: Medium]
+Can this break put un-zeroed tag placeholders on the wire?
+
+tls_get_record() returns the start marker record for any sequence before
+start_offload_tcp_sn:
+
+net/tls/tls_device.c:tls_get_record() {
+	...
+	if (likely(!tls_record_is_start_marker(info))) {
 	...
 }
 
-So tx_packets counts frames that never left the box while tx_dropped stays
-zero.  The accounting side is pre-existing framework behaviour (dsa_user_xmit()
-itself drops on skb_ensure_writable_head_tail() failure without accounting),
-but would it be worth bumping a drop counter at the new sites?
+include/net/tls.h:
+static inline bool tls_record_is_start_marker(struct tls_record_info *rec)
+{
+	return rec->len == 0;
+}
+
+So for a segment that starts with pre-offload bytes and continues into the
+first offloaded record, the walk breaks on the very first iteration and no
+record in that skb gets its tag placeholder cleared, even though the start
+marker's end_seq gives the boundary to continue from.
+
+The helper returns void, nsim_tls_tx() still returns true and
+nsim_start_xmit() forwards the frame, so the uninitialized page frag bytes
+reach the peer's receive path where AF_PACKET, tc/BPF or XDP in that netns
+can read them.  That is the leak the commit message says it closes:
+
+    "the placeholder the stack leaves for it comes from a page frag that is
+    never zeroed, so clear it instead of putting stale page contents on the
+    wire"
+
+Would it be better for this helper to report failure and have the skb
+dropped, or to skip past the start marker via record->end_seq and keep
+walking?
 
 > +
-> +	__skb_queue_tail(&onestep->queue, skb);
-> +	if (!onestep->in_flight) {
-> +		onestep->in_flight = true;
-> +		kick = true;
+> +		frag = &record->frags[record->num_frags - 1];
+> +		memset(skb_frag_address(frag) + skb_frag_size(frag) - tag_size,
+> +		       0, tag_size);
+
+[Severity: Low]
+This isn't a bug in the supported setup, but the memset rewrites tag_size
+payload bytes from inside ndo_start_xmit without touching the L4 checksum.
+
+netdevsim has NETIF_F_HW_CSUM in hw_features (nsim_setup()), so "ethtool -K
+nsimX tx off" is accepted.  netdev_fix_features() then also clears
+NETIF_F_HW_TLS_TX, but tls_dev_event() only re-checks that tlsdev_ops
+exist, so a live socket keeps ctx->netdev pointing at this device and keeps
+taking the device TX path.  With csum offload gone, skb_checksum_help()
+runs before ndo_start_xmit and computes over the un-zeroed placeholder;
+nsim_tls_tx_zero_tags() then changes those bytes, and since netdevsim never
+sets CHECKSUM_UNNECESSARY on receive the peer's TCP drops every segment and
+the connection stalls.
+
+The sibling emulation in the same driver repairs this, nsim_do_psp():
+
+		uh->check = udp_v4_check(udplen, iph->saddr, iph->daddr, csum);
+		...
+		skb->ip_summed	= CHECKSUM_NONE;
+
+Would skipping (or compensating for) the memset when skb->ip_summed !=
+CHECKSUM_PARTIAL be worth doing here?
+
+> +
+> +		seq = record->end_seq;
 > +	}
-> +	spin_unlock_bh(&onestep->queue_lock);
+> +	spin_unlock_irqrestore(&tx_ctx->lock, flags);
+> +}
 
 [ ... ]
 
-> diff --git a/net/dsa/tag_netc.c b/net/dsa/tag_netc.c
-> index d46576ae2f751..d9bc4a5e8ae9a 100644
-> --- a/net/dsa/tag_netc.c
-> +++ b/net/dsa/tag_netc.c
-> @@ -138,9 +195,19 @@ static struct sk_buff *netc_xmit(struct sk_buff *skb,
->  	if (likely(!ptp_flag)) {
->  		netc_fill_tp_tag_subtype0(skb, ndev);
->  		return skb;
-> +	}
+> +static bool nsim_tls_tx(struct netdevsim *ns, struct sk_buff *skb)
+> +{
+> +	if (!tls_is_skb_tx_device_offloaded(skb))
+> +		return false;
 > +
-> +	if (ptp_flag == NETC_PTP_FLAG_ONESTEP) {
+> +	/* The question tls_validate_xmit_skb() asks: on anything other than
+> +	 * the device the context is attached to, the core has already
+> +	 * encrypted the record in software, so it is real ciphertext and none
+> +	 * of our business.
+> +	 */
+> +	if (rcu_dereference_bh(tls_get_ctx(skb->sk)->netdev) != ns->netdev)
+> +		return false;
+
 [ ... ]
-> +		netc_onestep_sync_enqueue(skb, ndev);
-> +		return NULL;
->  	} else if (ptp_flag == NETC_PTP_FLAG_TWOSTEP) {
->  		netc_fill_tp_tag_subtype2(skb, ndev);
-> -	} else {
-> +	} else { /* NETC_PTP_FLAG_DROP */
->  		kfree_skb(skb);
->  		return NULL;
->  	}
+
+> +static void nsim_tls_rx(struct netdevsim *ns, struct sk_buff *skb)
+> +{
+> +	struct nsim_tls_tuple t;
+> +
+> +	/* Not every port registers the offload, and one that does not never
+> +	 * initializes the list head, so gate on the count.  It is the
+> +	 * cheaper test anyway.
+> +	 */
+> +	if (!READ_ONCE(ns->tls.count))
+> +		return;
+> +
+> +	if (!nsim_tls_parse(skb, &t))
+> +		return;
+> +
+> +	if (!nsim_tls_rx_offloaded(ns, &t))
+> +		return;
+> +
+> +	skb->decrypted = 1;
+
+[Severity: Medium]
+Is skb->decrypted already 1 by the time this runs, making the whole RX
+decision unobservable?
+
+For a device-offloaded kTLS socket the TX side sets it:
+
+net/tls/tls_device.c:tls_push_data() {
+	...
+	flags |= MSG_SENDPAGE_DECRYPTED;
+	...
+}
+
+net/ipv4/tcp.c:tcp_sendmsg_locked() {
+	...
+	skb->decrypted = !!(flags & MSG_SENDPAGE_DECRYPTED);
+	...
+}
+
+netdevsim hands that same skb to the peer via nsim_forward_skb() ->
+__dev_forward_skb() -> skb_scrub_packet(), which clears pkt_type, iif, dst,
+extensions, ct, mark and tstamp but not decrypted.  On the peer,
+tls_device_decrypted() reads skb->decrypted whenever rx_conf == TLS_HW.
+
+If so, the tuple match and the "predates the offload" rejection in
+nsim_tls_rx_offloaded():
+
+		if (!READ_ONCE(conn->started)) {
+			if (before(t->seq, conn->start_sn))
+				return false;
+
+cannot have any effect, and the mid-stream behaviour the commit message
+describes does not happen:
+
+    "Anything else - a peer with no matching context, a context installed
+    mid stream - has the core run the software AEAD over plaintext, which
+    fails the connection with -EBADMSG."
+
+The same inheritance also seems to defeat the ctx->netdev != ns->netdev
+bail-out in nsim_tls_tx().  If the sending port goes down, tls_device_down()
+clears ctx->netdev while tx_conf stays TLS_HW, so subsequent sends go
+through tls_validate_xmit_skb() and the software fallback.  decrypted lives
+inside struct_group(headers, ...) in struct sk_buff, so the fallback skb
+built by complete_skb()/skb_copy_header() inherits the bit.  Would that
+deliver real ciphertext to a peer that still has a matching RX connection,
+with tls_device_decrypted() returning 1, the software AEAD skipped and
+userspace handed ciphertext rather than plaintext or -EBADMSG?
+
+Should the emulation clear skb->decrypted for frames it does not claim, the
+way a real wire drops an in-kernel-only bit?
+
+> +	atomic64_inc(&ns->tls.rx_packets);
+> +	atomic64_add(skb->len, &ns->tls.rx_bytes);
+> +}
 
 [ ... ]
 
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260831082335.1184605-1-wei.fang%40oss.nxp.com
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260901154914.11637-1-jiayuan.chen%40linux.dev
