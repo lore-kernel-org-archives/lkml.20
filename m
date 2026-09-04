@@ -1,63 +1,63 @@
-Received: from mail-oo1-f50.google.com (mail-oo1-f50.google.com [209.85.161.50])
+Received: from mail-ot1-f52.google.com (mail-ot1-f52.google.com [209.85.210.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEE67486E40
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 12:25:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B35D48BD57
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 12:25:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788524703; cv=none; b=ByoOuqNmld5C11dJuztKhmQr2zIGyuH9xCnoyST/tnFvxS5w5wDbPi9wFzpl0DdlvBbc2D3JXGF0QQBCO0J0Z/SenOcERXyMqlr7XGU7yiO76iD/w/n4CNJmcPd7lsdSwkKL476SYr0sM2nefaS9NQhFh1JxwfdKoj7FkimgvuU=
+	t=1788524708; cv=none; b=E7WCAT8xNcmsQKGcDnNPQegqQU69jqRKhX9x7rdLeudfcx6I47z1wTI3uHmR8sBbJ6iq4Vc6HMZaQ0MlF3guRrw0aDxOfAsm278UkrwX+MF249HKQudfm41Oh6WhwZSc3xuCznU34a8chjIbVd0DT3y03wtFYNn5gGwdURLYP7U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788524703; c=relaxed/simple;
-	bh=PqwhrNyABnZAOTbk3+DQqjSMv0diEZDOtPwkTzZvqnw=;
+	s=arc-20240116; t=1788524708; c=relaxed/simple;
+	bh=3iUriw5G9tLLdUldFdWduwupBM4ijNn3LE6YBKuKoRM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=b5dFBFV2T8kUqML000o257VEUD6BUaVjpyMJRySP55w5EKNqcwPgX6dz1U6JSYKgDM1h9ytdzsMY41pSgt8obn/kLoFKhPuePWpZpY6PAYP4BUthzVF/b86jRK+53AbX6q5A4lpFD0Qz6O8n8h9fPxDgiLUYnl9+rQuoSmD1VtA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Fj5Pp8Dr; arc=none smtp.client-ip=209.85.161.50
+	 MIME-Version; b=qTRvW7ntPlfANfU06Mkut0eKf0Ab/evTTU0eAUVkS41T5MkKZe93wq1O8KUwTGcbfsSzpKXwyMnzrwOftTVhgqMHQp6k/t6m27n5m3g55W6Th3HZH5wj7bZy4AMb7SrC9j+DoAaiUlTl66GIvVamL3er5GQI2BBlJyyF39630D4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LJn1p3pv; arc=none smtp.client-ip=209.85.210.52
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Fj5Pp8Dr"
-Received: by mail-oo1-f50.google.com with SMTP id 006d021491bc7-6b1b233ca8dso456048eaf.2
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 05:25:01 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LJn1p3pv"
+Received: by mail-ot1-f52.google.com with SMTP id 46e09a7af769-7f4f824de5dso416610a34.2
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 05:25:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788524700; x=1789129500; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1788524706; x=1789129506; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=kjXI7c1o2fMUZ4gP/lf6VLU7Bny6ysM8MfilUau8IZs=;
-        b=Fj5Pp8DrO5TxcBGWQjFVk9OBK4K1ijbZC2ykvUs0F3N59XvlpcGpjwhXcumcGH2O21
-         fXjaGunVSfxhNOEXcmrcX5E2MKndQtmgTSG53Ft2E1K9V3xGPOMJeg/7YYBfJWwPLtPu
-         iyTAo7a1OfH//yhL3LCK0ExUnt0a1mARtsy1lDrphOblJvaHNPZl4YcAtGk+M6v2zNdR
-         zgf5rRolOGvWJA1J36fJZNFz7pJTvrscjalX/d2A+kJ+eO7iQHA0u+SADuT0eUz3Md7t
-         GyD1lmUfLDuIkClMr2tWx9/2PuONnz5mSJSJKsnTpEk2V/iQZlIsc069vKmkxd5QUPte
-         A9EQ==
+        bh=TQohy1k6O8N4/FlPUm0T2gOe7iYaF+RMdNWyiCLqF0I=;
+        b=LJn1p3pvHaRLGk4yluy75aAaddWBgFgYofPYYjZT77CzQ1FcgmrismAsn1QsDAnEJn
+         TBCaePYo55IYLWXMwuq6s9geWTObimY2FB3y1VJ2or/bFYxb2EDnAaxHSNrKyTt5d3MX
+         mTeZ57+YLf19hzZZv7sE5SQ21z6P76p5Yxyf95EBmqT6zI8I05tqre3CDO/9KC7s11RB
+         KtlAXZX4nt1LHYH7dyP/5jLMXpiPiWyB6Xdyx/gdT1lV09IjMT/k4JFfd6LghLULWn2W
+         Hq1bTz09oubImw4KTMm7ruUCgj2GwAPTT1Qe7EIizyPRAibKbT4pyXjXVIbDOmLjHYOE
+         GmwA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788524700; x=1789129500;
+        d=1e100.net; s=20251104; t=1788524706; x=1789129506;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=kjXI7c1o2fMUZ4gP/lf6VLU7Bny6ysM8MfilUau8IZs=;
-        b=YcfsYz7cUKfYQmKghNw6J9h9reukhhLMZ6BcBuOLMvFstNcQoCNX19OkZR2qEv4AaS
-         roH8Dp8G8Z9a5/5wn8z0zF2wDMnhvtucPPob99T5Z4eOAQLtRISj/4LJiFHe7K96f6mt
-         12jM86Jg/cTa2l1SPib6aLk4N+AFkF5PepWrzYQQsIwekvXZZWWZMCeMog5uWitOm6y3
-         7miRDQwtB+gScB+V5sMjRKhlTfTTW4yI6l+IZOetyp5ceVBVoXCTzsh8F6MSsH5tKTFm
-         6zH1dChhPpiiB6g6Q37ZS/bNyU1qUSU1BbeAfqAiWw0ZphbW0EQc/wxCyavdllXotU2D
-         fulQ==
-X-Gm-Message-State: AFuF++kSeiC7mg7rMam/UWh+sPgFBf6pxKiHF1KePfJnENSLwK6HBdjz
-	F4FXgurnmu3XeHg+BfCYXojD/q6qNgWG0lOKD+KY7atONN/A5nsI3jzu
-X-Gm-Gg: AYBFou0XOw0xkYOuHQT3QQcimOAS2s7LHlCmnSHxQWJ4dsMX1D/P6p9HQ0Qpn/APCzw
-	AZIPy/KA37tti+621GX4oDRpR9PNWOq7V95YovGhw4XEjQSx8xOFxbE+v0Tux+dm+mpHkPBrsel
-	EYsICtV5eksZ+6jAIODXAg/6CGntoOsNG+bYGZrgLXx0D0Fdk7ha+Jkbh77fMWl36brh4IaossR
-	1t37ZAVohB0d5VbXOnO5j9mQ2aGJCIkUP33Tf1+LmvPkbchbOUKZ+evJ7PHjDMfudpYewXtGAsW
-	ig6BP4+MbZnyFlh4jvNKAOUx/NsYvDKF6ucylGC3efDUVAp+OyYDo4VBxPP52MiY1C4WUSyqNbs
-	XmY/m/tERBHEohXhiUgtPSxZWL2rztq1JO0AVywQRIeb3//3hLKVNxsQHiZI6KQgIbN9hUn7oVe
-	p4y1TZonNT2XCZ5btXH4Cja3WN4TmoS7OY0OM37UXyL6Kcna0SNizOvRDHhug31F8/bolgE0H8c
-	W26T4/OH5qWTMs=
-X-Received: by 2002:a05:6820:160b:b0:6b0:1b86:fb0 with SMTP id 006d021491bc7-6b6fe59c86dmr3821145eaf.31.1788524700176;
-        Fri, 04 Sep 2026 05:25:00 -0700 (PDT)
+        bh=TQohy1k6O8N4/FlPUm0T2gOe7iYaF+RMdNWyiCLqF0I=;
+        b=FZ95wPCDtjJb1LAcmaQZAUC00ltyRnaVAtxLqFhkdsXSld7H7ny4nw0XjLNAVEYdfV
+         MUP7VEohQDuK6f624e8e6JpZkKP0EokI9lyg+3tzv60msvj3k3Xsfr2CeBy4iXKJUC5f
+         EmuWRcgEO0Ui/8u1MRirqGxERCiji6lQnP9eO2bINJl1m85s6qiakTHuV/VCHsAyot5d
+         kzRlW/XFIMneyjj4io3EifycHKBlJIP+trDBB7fa2qP38zocYypdb66zmV053lGeBJ6S
+         gBWtgaCWoercsEb8u3BM8LTKY2V0K5I1AeCHT4Sv2O8rTHHDr7ZACpFHJ2IMJZq+WZ31
+         qJrg==
+X-Gm-Message-State: AFuF++lVmqpE3Rm77dgnddhN8OJgkMDbNhSNjqxfpCc3FBxaox7irjWn
+	WD75iuZlpJm78JrTnMoHIBz4cjvf3vixxk1/Ei1ULeQjxaDvCnMoaqTX
+X-Gm-Gg: AYBFou0fZ8uenk9mVGL/W85rz0w8z2s2qapSuDCjMgIVP4+YtR2vDa23cC1jbgVjYgd
+	p5PUkZCNJl5DsJ3pbnihfzKPnC7KDpwCP4EUtVs9Y3TMPY7xCK0AIk08gRleCh7NGzCNbvedAbW
+	oWqBflON0Ii/DNcMWBnCMUHsbw+m+rRc8sLfyEklHiySDxsz9Y4JmRp0zOQeghZrXRfm0RT2hqI
+	ItLSWpDlBChyIfIg8I8NYEQPySJnNxTEB/ihjVJKF/4S6t1UDElx+fL7eCrQNIbTbmDmUdfsyai
+	zGuRG5NnVP4622HlRyBDe1PIRlOehwKOSnrY+IW1xMEESDEA3Oee8qgaG3rq9JaT/URwQO5w65G
+	p6NOKZM2Glw98Kzj4HtHB2zu6VPTwnqnkkZaFYNioKYPkCHg38L7jej1v4tqRncMXMDywowHU3l
+	NNwNsCcsA4ubzsjTtFethjiCa/yUBTJoMqr098VCD6i9kllrOPe9ydjBfod/hlQwpB6SmoQtNcw
+	8V26Km4o5cMnf4=
+X-Received: by 2002:a05:6820:60b:b0:6b7:8396:f3c2 with SMTP id 006d021491bc7-6b78396f7ecmr1517046eaf.36.1788524705780;
+        Fri, 04 Sep 2026 05:25:05 -0700 (PDT)
 Received: from volcano9f6e-hostos.amd.com ([165.204.217.251])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339b8f787esm5880860eec.23.2026.09.04.05.24.55
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339b8f787esm5880860eec.23.2026.09.04.05.25.01
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 04 Sep 2026 05:24:59 -0700 (PDT)
+        Fri, 04 Sep 2026 05:25:04 -0700 (PDT)
 From: Hemanth Selam <hemanth.selam@gmail.com>
 To: Marc Zyngier <maz@kernel.org>,
 	Oliver Upton <oupton@kernel.org>,
@@ -66,17 +66,15 @@ To: Marc Zyngier <maz@kernel.org>,
 	Steffen Eiden <seiden@linux.ibm.com>,
 	Suzuki K Poulose <suzuki.poulose@arm.com>,
 	Zenghui Yu <yuzenghui@huawei.com>,
-	Paolo Bonzini <pbonzini@redhat.com>,
-	Sean Christopherson <seanjc@google.com>,
-	Shuah Khan <shuah@kernel.org>
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>
 Cc: linux-kernel@vger.kernel.org,
 	linux-arm-kernel@lists.infradead.org,
-	kvmarm@lists.linux.dev,
-	kvm@vger.kernel.org,
-	linux-kselftest@vger.kernel.org
-Subject: [PATCH 2/3] selftests: kvm: fix typos in comments
-Date: Fri,  4 Sep 2026 17:54:41 +0530
-Message-ID: <20260904122445.31163-3-hemanth.selam@gmail.com>
+	kvmarm@lists.linux.dev
+Subject: [PATCH 3/3] arm64: kvm: fix repeated word 'is' in comment
+Date: Fri,  4 Sep 2026 17:54:42 +0530
+Message-ID: <20260904122445.31163-4-hemanth.selam@gmail.com>
 X-Mailer: git-send-email 2.48.1
 In-Reply-To: <20260904122445.31163-1-hemanth.selam@gmail.com>
 References: <20260904122445.31163-1-hemanth.selam@gmail.com>
@@ -88,46 +86,28 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Fix typos in comments, reported by scripts/checkpatch.pl using the
-misspelling list in scripts/spelling.txt.  Only touches comments, no code
-changes.
+Drop the second 'is', reported by checkpatch.pl as a possible repeated
+word.  Only touches a comment, no code changes.
 
 Assisted-by: Cursor:claude-opus-5
 Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
 ---
- tools/testing/selftests/kvm/arm64/debug-exceptions.c | 2 +-
- tools/testing/selftests/kvm/arm64/hypercalls.c       | 4 ++--
- 2 files changed, 3 insertions(+), 3 deletions(-)
+ arch/arm64/kvm/pauth.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/tools/testing/selftests/kvm/arm64/debug-exceptions.c b/tools/testing/selftests/kvm/arm64/debug-exceptions.c
-index 7dc5f0b4f6ad..9da6dc5bcfe6 100644
---- a/tools/testing/selftests/kvm/arm64/debug-exceptions.c
-+++ b/tools/testing/selftests/kvm/arm64/debug-exceptions.c
-@@ -387,7 +387,7 @@ static void guest_code_ss(int test_cnt)
- 		 * Enable Single Step execution.  Note!  This _must_ be a bare
- 		 * ucall as the ucall() path uses atomic operations to manage
- 		 * the ucall structures, and the built-in "atomics" are usually
--		 * implemented via exclusive access instructions.  The exlusive
-+		 * implemented via exclusive access instructions.  The exclusive
- 		 * monitor is cleared on ERET, and so taking debug exceptions
- 		 * during a LDREX=>STREX sequence will prevent forward progress
- 		 * and hang the guest/test.
-diff --git a/tools/testing/selftests/kvm/arm64/hypercalls.c b/tools/testing/selftests/kvm/arm64/hypercalls.c
-index 5d96cdf382c4..a24becda9e62 100644
---- a/tools/testing/selftests/kvm/arm64/hypercalls.c
-+++ b/tools/testing/selftests/kvm/arm64/hypercalls.c
-@@ -1,9 +1,9 @@
- // SPDX-License-Identifier: GPL-2.0-only
- 
--/* hypercalls: Check the ARM64's psuedo-firmware bitmap register interface.
-+/* hypercalls: Check the ARM64's pseudo-firmware bitmap register interface.
+diff --git a/arch/arm64/kvm/pauth.c b/arch/arm64/kvm/pauth.c
+index d5eb3ae876be..22ff4b78d0e9 100644
+--- a/arch/arm64/kvm/pauth.c
++++ b/arch/arm64/kvm/pauth.c
+@@ -5,7 +5,7 @@
   *
-  * The test validates the basic hypercall functionalities that are exposed
-- * via the psuedo-firmware bitmap register. This includes the registers'
-+ * via the pseudo-firmware bitmap register. This includes the registers'
-  * read/write behavior before and after the VM has started, and if the
-  * hypercalls are properly masked or unmasked to the guest when disabled or
-  * enabled from the KVM userspace, respectively.
+  * Primitive PAuth emulation for ERETAA/ERETAB.
+  *
+- * This code assumes that is is run from EL2, and that it is part of
++ * This code assumes that is run from EL2, and that it is part of
+  * the emulation of ERETAx for a guest hypervisor. That's a lot of
+  * baked-in assumptions and shortcuts.
+  *
 -- 
 2.48.1
 
