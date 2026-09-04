@@ -1,122 +1,159 @@
-Received: from mail-ed1-f42.google.com (mail-ed1-f42.google.com [209.85.208.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEF0541A4F8
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 06:13:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.42
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788502439; cv=pass; b=BGAS6vle1G4uI24gMqg70rV18gZBWx4WIfXtQ4axxHHsGDCZ58AvXfbhnE9GZN41AdJof5OXhvH1w4r3Q9fP+EY+3QyoNacfFuJ79p+3TZLov3ot9bEicQcbJ15bMqThSQtGaYkuFTf4/sAcRQygMIiRMXZsdR/wdvl/vVJ1OLw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788502439; c=relaxed/simple;
-	bh=4dOgcAQlgO1QoOYmAB+wFP5Ip8y+D8KPjRKJ5U4MjNU=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Wp3XKMoLxy68dKIo91dNU3tia+iA6e8wC2LjerjOm9Wm7wLtEFXFNLIX/OjS6+L/7fVLSlbr+uGdBKxEbYQdpLiaDiEKrDGu9QUsdKckJ6ihxzZZJL+nL0Eo5vMLJbDm/pzj6ZGqgv7OtiBi5ufl5Cfd1Ap6FV1Rjb7XNyNvBqA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Jdml6mr3; arc=pass smtp.client-ip=209.85.208.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A00DC41A54B;
+	Fri,  4 Sep 2026 06:15:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788502529; cv=none; b=ekqECcmqFdrU+qMkGQ7020MUv4Li1LWKXK6cPKkqYKitLDc8SEGvSqIZgvZVx/j2wnXE74ea/KXYxgMEvnUiPbbSPuLrQ2epMFgZhWWo33EIWsha1c+/ri1PgXKNLkNkOP1VwrM/O/17SQxIckU67SpNswi72zHoqIp7bt2XK54=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788502529; c=relaxed/simple;
+	bh=w0py64JAiTHH54rlutyVKlhVTkMXKEtppjhX7QwE64A=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=f8X3r6XmEkIxKk72PlvY9DRaGv73KgeAzoY9qHCVp6/5Pc3ECNdagVaIB0m8wY1Qfn5/Lu1aMc8U15hCMV0rFbYyeFxvS/18r/cI5kCxGDgv47ltJPZYC64ylvk8QbU6usu2AcqMPu6qVG12niHI4mtTrW7+avWpcg4knvCzLpE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=kys6+e3P; arc=none smtp.client-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Jdml6mr3"
-Received: by mail-ed1-f42.google.com with SMTP id 4fb4d7f45d1cf-6a668ce86abso880718a12.2
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 23:13:57 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788502436; cv=none;
-        d=google.com; s=arc-20260327;
-        b=FzTmakv1amujJn0ht+gPZ57ZnH2C8HOcF+vaOhoY+N5ixhBoqxcgkbbA+cHIbKs2Zg
-         YulSK58gpVzaYMJix1PHDcLmkdZuvSXecRNZuw6D3hYArt3J6kDC+V2muuKANuP/JDRX
-         TptLkosAOFW9L6Ww0Ii7Ki0beaEDuiwqDkajZG+jbRA2cSbmUeSmD0t4sLAfvVcdKGUf
-         fSDPprVqa39KD0FXEyNJKdl16PL4Tf2jIWqYr+v4EawA1GjFQnDfu4mnFE9KyhdZ6379
-         CZXU0oIK4noRNqn46U5FbnTnd9NNHi3pYSA1g9o1TPL0MduybCyanOfKot+nYy39Igdh
-         6ZTA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=4dOgcAQlgO1QoOYmAB+wFP5Ip8y+D8KPjRKJ5U4MjNU=;
-        fh=V8YeQ8vtvZvP5yZufBjoC7dbaa5M0a7VfAp9QRiXDYM=;
-        b=ZlIZZZA7QORg4Fps9feFnkP2duZIER/OeMU8OZELUKyM0LtNte1zzd3XJY5cT0xB49
-         u8/qqNCE2qgQEEMYtjn3wnI/CfDZBOq8YUu0qepQaTIpMYWibBNmH2CT3KgV/PQj73+b
-         EGk8WWo6GAep+UxORKxoVXvd+Qb+q5mBzGSwr0eP0ajc0KGIGIbs/HsL1DOOUucdJ+Xb
-         4WRoPsvvm+9arrNNhIbxWhc0qy67hnV1vNospsOsq+TmhctxGPGQA1lF8B+ZTdgTQCrv
-         bNv8A86LxS68O/Zw6scwsaT2kV5tQV6vAPdj7PLaGCD92sgRj6l6FpsAws4tcdIDMMv8
-         umtQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788502436; x=1789107236; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=4dOgcAQlgO1QoOYmAB+wFP5Ip8y+D8KPjRKJ5U4MjNU=;
-        b=Jdml6mr3zaJdqdlBLmwY4XR3DyaMt6UVj+RrpvUccUAgAhxLkAJrowYyrxRQFhIoI4
-         SFMo9P6pmG/zs5G0i4r06tFu7OzCsJNsjtIovofmLTCa1ETNmq1ySaCoppH9xw7+jRO5
-         kpa+4BFPGENcquNHvcWbiFezTJ7t+UPQTVZ8szMSKH5imCpPBYDpGeJ8oC47XpX6Pc2l
-         tOm73krqlGnR5/rddSkj8pDV59Ur+mb8k/X5yfB9bOLqjbCYAbPr8LlREHKCQPjWpHwI
-         TaGy6n4nCeZ87ZF8OVjnT3VRS2LFuvBDh+W0zWOjb3AHCngRjwHDiGeXMuAzRIRJxfsy
-         xEWA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788502436; x=1789107236;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=4dOgcAQlgO1QoOYmAB+wFP5Ip8y+D8KPjRKJ5U4MjNU=;
-        b=n/eFd94yRzuwyOoS0EKLSvjubAGlnv+idilf7yzXCMujj9dMAPwQm/SUNayB8t5r0N
-         n1/87LeKRReA5mh39cYCrHwr/Rj/jun0YRpnpUv3hS3w26efeysA3VXbosLmcMjWhAKE
-         nhr6JlpEPEEFRiwq2EyfafZTxvME4Eop5GTs2GW52pLkE1UcOOO9lmquGiJ4xzosn7W5
-         cZ4OKJ22iwUYPelg+6hRIBmgJT9b7qkXg8jyH8QfKTxKKyE5dTSWeE+MI2PKypV47O0u
-         sQKo1gVIYTklLeUBg6avAiHq/43pJEvVaIQ7FtQVra0z/m1JczcoVWf4hUitdBUFw61y
-         oS/Q==
-X-Forwarded-Encrypted: i=1; AKwUvBwHnwL8Fz4927EGbmj687AovW6fihiwoeWh34BZub1bqj1KYxDHK0QM2CfYb7PCxGc1DYjHWf9WzyQI0dY=@vger.kernel.org
-X-Gm-Message-State: AFuF++nTLGY/TKgdhaK33k0YPIHwU0BrDYDwwRGsw3+GQ9UVCXihjPsC
-	MxvCoex9oQDSS2e2UXB6vhbQARzBNoZxVfF/G58AJVoacMKx/u3vj3kcwXGb2ViwKhuHFiSdI6G
-	9h40fkC5lJi5ey5IhC8sVG7mBu/AhMhw=
-X-Gm-Gg: AYBFou19CuZB+cOU43977IamdUXj4dvm74sTgPV1fLCGFrexCTJLxEorvCZcNFDS5is
-	RNcDqatAwcEDfOGbTGkxE4YkNCScV/1M95S4hOVzzZwYRkqHgJATWtMW3csgQIAzSV/+1iBXDlW
-	QO+phYlsdinH8fPkdO9Xqy9Rhb+trmXGSSRYeWvMmlOsQZhgvLjrk9YfWy9Uz9hg61omm03XJ9p
-	cJiDF20DmOc+HyDeKZ6AAnMx0J9HwrtUB6UL+kZ2EZ9+r1Gerrv4lZy/i2Vei3duWavk0Onfmy1
-	Jqzdty4nSnY0nlhmnudhOISBm45B/ZnuF3TbaNzXdZFTeRtaVBJ6W4eIBzKba+PuINDY6yHri2x
-	6XlqrKLnNfTDaV6NO1qX3uEmBHAKKzBE=
-X-Received: by 2002:a05:6402:46d0:b0:6a5:f44e:a009 with SMTP id
- 4fb4d7f45d1cf-6a7e8d5a9f1mr1690015a12.7.1788502435914; Thu, 03 Sep 2026
- 23:13:55 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="kys6+e3P"
+Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68464K3D936887;
+	Fri, 4 Sep 2026 06:15:15 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=Zs+bfG
+	sceV55tHLs8SsiQNaKNP5DpPT1h08NiQJeLmw=; b=kys6+e3PJSyHnYq7fzDLKK
+	nxLoSQyOeIuSz7fD0Ow2wo/BXlRMIbVS6yBRRyhFObp8nq3uUnD4rdNJRl3m8XRB
+	MtHaeTcn2YXyCNpDfUrfGO+HR0rByklLHb53cnAtI1DHSR7jp3HunwOQjFIn9wtM
+	JiCvtCgb8OqmdQt0O+oPEN8brRAoQpW42S/LVPmn8CJvSptbxlcd8NA3H4zzLusn
+	e03052eoKEdUcYP7kf1VFv8FBPdhHEpPTAt0Fq9lSx0djTsNypV3/Em0gICsGuvc
+	KTc09bRS4ypLaGls3YFcHPky8CPkX8aFHRCPqoao+5m8AUZZU7c2Yftu+zGLOslQ
+	==
+Received: from ppma22.wdc07v.mail.ibm.com (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gbpx611yp-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Fri, 04 Sep 2026 06:15:14 +0000 (GMT)
+Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma22.wdc07v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 6846Bhbb004591;
+	Fri, 4 Sep 2026 06:15:13 GMT
+Received: from smtprelay06.fra02v.mail.ibm.com ([9.218.2.230])
+	by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4gecjauwc3-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Fri, 04 Sep 2026 06:15:13 +0000 (GMT)
+Received: from smtpav05.fra02v.mail.ibm.com (smtpav05.fra02v.mail.ibm.com [10.20.54.104])
+	by smtprelay06.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6846F9M939059788
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Fri, 4 Sep 2026 06:15:09 GMT
+Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 6FC7B20043;
+	Fri,  4 Sep 2026 06:15:09 +0000 (GMT)
+Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 495B720040;
+	Fri,  4 Sep 2026 06:15:03 +0000 (GMT)
+Received: from [9.61.247.46] (unknown [9.61.247.46])
+	by smtpav05.fra02v.mail.ibm.com (Postfix) with ESMTPS;
+	Fri,  4 Sep 2026 06:15:02 +0000 (GMT)
+Message-ID: <2e33d09e-fe99-4ba4-a5ef-d456a8a1c039@linux.ibm.com>
+Date: Fri, 4 Sep 2026 11:44:59 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260803-alpha-fp-exceptions-v1-0-c99d75608e60@gmail.com>
- <20260803-alpha-fp-exceptions-v1-3-c99d75608e60@gmail.com> <CA+=Fv5QUxT-T0XgXccAF=1_6Dz=nCpY=NQu=ruOrYjbB+q7YCA@mail.gmail.com>
-In-Reply-To: <CA+=Fv5QUxT-T0XgXccAF=1_6Dz=nCpY=NQu=ruOrYjbB+q7YCA@mail.gmail.com>
-From: Magnus Lindholm <linmag7@gmail.com>
-Date: Fri, 4 Sep 2026 08:13:44 +0200
-X-Gm-Features: AcwNN1VrnhEuSNjXaQkRHQ6SzaIw81uvdMaGdmatxDoxs1iIKPoZwAWCS6BhE2g
-Message-ID: <CA+=Fv5S_ZrHedEVPR9Oet2Egg2hwy33pEqEXaQa0zGdQdNjWRg@mail.gmail.com>
-Subject: Re: [PATCH 3/3] alpha: determine tininess after rounding in the FP emulation
-To: Matt Turner <mattst88@gmail.com>
-Cc: Richard Henderson <richard.henderson@linaro.org>, linux-alpha@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, sparclinux@vger.kernel.org, 
-	linuxppc-dev@lists.ozlabs.org, linux-sh@vger.kernel.org, 
-	"David S. Miller" <davem@davemloft.net>, Andreas Larsson <andreas@gaisler.com>, stable@vger.kernel.org, 
-	Michael Ellerman <mpe@ellerman.id.au>, Yoshinori Sato <ysato@users.sourceforge.jp>, dalias@libc.org, 
-	John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 06/10] pseries/plpks: fix self-reference in plpks_var
+ initializer
+To: Srish Srinivasan <ssrish@linux.ibm.com>, linux-integrity@vger.kernel.org,
+        keyrings@vger.kernel.org, linuxppc-dev@lists.ozlabs.org
+Cc: maddy@linux.ibm.com, mpe@ellerman.id.au, npiggin@gmail.com,
+        christophe.leroy@csgroup.eu, James.Bottomley@HansenPartnership.com,
+        jarkko@kernel.org, zohar@linux.ibm.com, linux-kernel@vger.kernel.org,
+        linux-security-module@vger.kernel.org, nayna@linux.ibm.com
+References: <20260831111738.334857-1-ssrish@linux.ibm.com>
+ <20260831111738.334857-7-ssrish@linux.ibm.com>
+Content-Language: en-US
+From: R Nageswara Sastry <rnsastry@linux.ibm.com>
+In-Reply-To: <20260831111738.334857-7-ssrish@linux.ibm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Authority-Analysis: v=2.4 cv=PPc/P/qC c=1 sm=1 tr=0 ts=6a9a61f3 cx=c_pps
+ a=5BHTudwdYE3Te8bg5FgnPg==:117 a=5BHTudwdYE3Te8bg5FgnPg==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=iQ6ETzBq9ecOQQE5vZCe:22 a=VnNF1IyMAAAA:8
+ a=VwQbUJbxAAAA:8 a=t0uVcPVhsug3MTqwcVsA:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-GUID: lXQqJ2oKxUgKTmmqJZbwtT8LYI6mYxWM
+X-Proofpoint-ORIG-GUID: 4Qtsx4D5r3SaZlfsNS9vwQHV4c8k5Yw5
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA0MDA1NCBTYWx0ZWRfXzewx17SIbfep
+ XZajJR3uK4eI1HZkTdj3yqOq5Gal/aSviAHOYZOxpwRmKOPvxsXeKhsm78IhopyNRsl6aju8ful
+ 1hK+USxRsvnqRQT2+EzrCEGdotf5vPM=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA0MDA1NCBTYWx0ZWRfX6D6bRr6lv8g/
+ +3ELmooVlxITlqaqQNWsJo2mck5veSTyJccfRXaGdXxVUWCEctgjto6xub+Mj1B1ajzWDaXSL9r
+ Joeer+aOdicq962qTo3v6cNDVAub3NE4hEGypc3qZ+yfK5w3MN/gIQKBfB9+MRpItvN0ebqbCjE
+ +TwZLlgbKc8b1mjoORNLML8T12ZkUv3SVCQunQjphKbnQX+6W9qnyNtHBBOan5nQc/br9k61HjN
+ +P4jK9HGLUPc4INMFvIL9eycQzVto1ZMBjtupsngBKg2Jnib0PgSZtZjDMEorHeOmA7d5YDGdFi
+ n5LNq0RJlNpWCUxr4DUuSZK5p38RNt899NHb+gYujFYNJqdOQ/FnLydQ3ehMWdE6P8idVWAK0aD
+ gRLKlWYQdRg4bF3nx0rpXP6454J6Nce4L8ujm+JezL8T4ShrKkPFrBiiMpEqHMocg9w97IfVs3u
+ zMbwvSODqY49lp4ojTQ==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-04_02,2026-09-03_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 phishscore=0 adultscore=0 suspectscore=0 bulkscore=0
+ spamscore=0 priorityscore=1501 impostorscore=0 malwarescore=0
+ lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2609040054
 
-Hi everyone,
 
-Adding Michael, Yoshinori, Rich and Adrian directly, although this
-is an alpha series, patch 3/3 also touches the shared soft-fp code in
-include/math-emu/ (op-common.h, soft-fp.h), which your architectures
-build against too (confirmed by grepping arch/{powerpc,sh,sparc} for
-includes of those headers; parisc/m68k/mips/x86 have their own
-separate math-emu and aren't touched).
-The new _FP_TININESS_AFTER_ROUNDING macro defaults to 0, so the
-intent is no behavioural change on your side. The new guard it adds
-in op-common.h is a regular runtime `if` rather than `#if` though, so
-it still gets compiled against your macro instantiations even if it
-should dead-code-eliminate at -O.
-No action needed if it builds fine for you, just flagging since it's
-tagged for stable. Let us know if it causes any problems, or feel
-free to ack if you're happy with it.
-I've reviewed and tested patch 3/3 on alpha already (Reviewed-by/
-Tested-by posted).
+On 31.08.2026 4:47 PM, Srish Srinivasan wrote:
+> In plpks_gen_wrapping_key() and plpks_wrap_object(), strlen(var.name) is
+> used to initialize var.namelen within the same struct initializer. This
+> references a member of var before initialization of var is complete.
+>
+> Use the compile-time length of PLPKS_DEFAULT_WRAPKEY_LABEL instead.
+>
+> Reported-by: R Nageswara Sastry <rnsastry@linux.ibm.com>
+> Fixes: 133aa79e211d ("pseries/plpks: add HCALLs for PowerVM Key Wrapping Module")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Srish Srinivasan <ssrish@linux.ibm.com>
+Tested-by: R Nageswara Sastry <rnsastry@linux.ibm.com>
 
-Thanks,
-Magnus
+Tested on ppc64le PowerVM LPARs on firmware with wrap/unwrap support,
+with and without Secure Boot enabled.
+
+Verified that PKWM initialisation and trusted key seal/unseal work
+correctly with the compile-time label length fix in place.
+> ---
+>   arch/powerpc/platforms/pseries/plpks.c | 4 ++--
+>   1 file changed, 2 insertions(+), 2 deletions(-)
+>
+> diff --git a/arch/powerpc/platforms/pseries/plpks.c b/arch/powerpc/platforms/pseries/plpks.c
+> index b553f7b130b6..d582c786ccad 100644
+> --- a/arch/powerpc/platforms/pseries/plpks.c
+> +++ b/arch/powerpc/platforms/pseries/plpks.c
+> @@ -939,7 +939,7 @@ int plpks_gen_wrapping_key(void)
+>   	int rc = 0, pseries_status = 0;
+>   	struct plpks_var var = {
+>   		.name = PLPKS_DEFAULT_WRAPKEY_LABEL,
+> -		.namelen = strlen(var.name),
+> +		.namelen = sizeof(PLPKS_DEFAULT_WRAPKEY_LABEL) - 1,
+>   		.policy = PLPKS_WRAPPINGKEY,
+>   		.os = PLPKS_VAR_LINUX,
+>   		.component = PLPKS_WRAPKEY_COMPONENT
+> @@ -1034,7 +1034,7 @@ int plpks_wrap_object(u8 **input_buf, u64 input_len, u16 wrap_flags,
+>   	bool sb_enforce_bit = wrap_flags & BIT(1);
+>   	struct plpks_var var = {
+>   		.name = PLPKS_DEFAULT_WRAPKEY_LABEL,
+> -		.namelen = strlen(var.name),
+> +		.namelen = sizeof(PLPKS_DEFAULT_WRAPKEY_LABEL) - 1,
+>   		.os = PLPKS_VAR_LINUX,
+>   		.component = PLPKS_WRAPKEY_COMPONENT
+>   	};
+
+-- 
+Thanks and Regards
+R.Nageswara Sastry
+
