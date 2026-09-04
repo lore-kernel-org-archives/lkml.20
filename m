@@ -1,57 +1,56 @@
-Received: from mta1.migadu.com (out-113.mta1.migadu.com [95.215.58.113])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A6E03CB2DB
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 07:38:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.113
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CEE13CBE80;
+	Fri,  4 Sep 2026 07:38:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788507494; cv=none; b=Tsx5XXCCFpIziLJ0gAql0ouf36FZcVUDhGlCdqjG/6X6YhNyl1DfR6OApYNU+owo+rFL9pIRcs8P5iZ3dunIg29Ed/qUa15oY8aV+BcKRG85pPIWweeWVPOqDg7/OAOQPNai7GMXKe9ooM2jum2R9IsY/u9OXpdxRwY+YVIjpBo=
+	t=1788507494; cv=none; b=N7Yo1fZ+h79oLqoItfnZsDevgpZ4P6rnMgAHTsg9sMTSzE54zMfMHgOr2d5oBYOxk4zjJXiYzeRRpD2Kd+k1pFQLYJO+u/UGQMva37OEvGcgvh2eOpPPTnY/+KiaunyjKnEXpljAh5Csye0u5NqyDqbjBRx9Kr6tCEj1ipYNpAU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788507494; c=relaxed/simple;
-	bh=ut1RAeTmhP4u08aElYbIvkNLEWQ6+/R9w+gyuZCJDQc=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=jZ1uAg/XK8Q9CHnHJUXEdFpBFYYQuU+Itcc60t8BQUv2FnIGdiRyq0ZC6+AmFfNYOQwP3yLrCR7wOA0Gz4LhE9lbFET4QZKD5El/FcFNGaiVuUN+rqG+t1rHS5KOY0f0yIkKBb7iX0YeoIgu4cQdRXkAXxqv1mw2Q5lwMGVZ1a8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=YVH9nXP+; arc=none smtp.client-ip=95.215.58.113
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	bh=l0EPpfNkaiNtCICSpDydo6nmVZq8IYPhlOLDpKHrpoc=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=HHgS11p3zW+bYBZjQtlaJ/U7d7eKhfCQQOlgR1WGpBhf2ulztpXWIg6CkenI8Niqq7GJmFy+fs2+Fw/CBmJ7x2+w2QbR3YperJm5sKCQfotlaeGLgfBzQg57ohtfCagDxrwyrrg05IGpBnckZTpxqWJNALVwEIBkwF0ljmciwu4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=OLAzCrcK; arc=none smtp.client-ip=198.175.65.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="YVH9nXP+"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=ut1RAeTmhP4u08aElYbIvkNLEWQ6+/R9w+gyuZCJDQc=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788507485; v=1; x=1789112285;
- b=YVH9nXP+5RuWifVAj3y5SLiBTdmYe5A1JlRW3MY/3T65Ud7GHmU2EKYxWKlOvZOZ238JF84X
- NlEvHeSEXbVK++OsPYhjzbQ3UUJj6i13HY6awxaZiB5HD923yhx2U3qGehWVFzswuvu96K7Jr5W
- goAd93v5d1yTyQ2Co0ZJTAEc=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id ba18ad104a91eea3;
-	Fri, 04 Sep 2026 07:37:54 +0000
-X-Mizu-Trace-ID: ba18ad104a91eea3
-X-Migadu-Flow: FLOW_OUT
-From: Jiayuan Chen <jiayuan.chen@linux.dev>
-To: bpf@vger.kernel.org
-Cc: Jiayuan Chen <jiayuan.chen@linux.dev>,
-	Andrii Nakryiko <andrii@kernel.org>,
-	Eduard Zingerman <eddyz87@gmail.com>,
-	Ihor Solodrai <ihor.solodrai@linux.dev>,
-	Alexei Starovoitov <ast@kernel.org>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
-	Martin KaFai Lau <martin.lau@linux.dev>,
-	Song Liu <song@kernel.org>,
-	Yonghong Song <yonghong.song@linux.dev>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Emil Tsalapatis <emil@etsalapatis.com>,
-	Shuah Khan <shuah@kernel.org>,
-	Yiyang Chen <chenyy23@mails.tsinghua.edu.cn>,
-	Puranjay Mohan <puranjay@kernel.org>,
-	Lorenzo Bianconi <lorenzo@kernel.org>,
-	linux-kselftest@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH bpf-next v1] selftests/bpf: Fix flaky bpf_nf test when random NAT port is 0
-Date: Fri,  4 Sep 2026 15:37:39 +0800
-Message-ID: <20260904073745.363314-1-jiayuan.chen@linux.dev>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="OLAzCrcK"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788507491; x=1820043491;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=l0EPpfNkaiNtCICSpDydo6nmVZq8IYPhlOLDpKHrpoc=;
+  b=OLAzCrcKkkYyn1oG3D8hmQxzStq5T9jVnhdMKKHjbMgMLGtQNcX3lJ5F
+   w4i4wQTIRsdHshDCZom1vJFo7T1JsFZJEJP6hEQm42iGZOrCA0mai1Rd7
+   HRi0vGayLJc6VIRK/qgW2ZHgZUN1cEjexNmjGDrjVTvs+DjF8FqXZH5ek
+   ug2CMk1hpKYwsqhF12YMrt3nkRukz8OFoKZs4NeqS0WdFVC5FLQDia3uQ
+   91FW2e3TjNo0XUkVUMuKD8PE9o2shrPVz+/W/m5jdxE/Z6XlIYp0EQ8E9
+   tGuXmaK5U67UKfPXdHKgffJpQOiF3eCb3UtftHO8O6KHbinAk2TXC2Msy
+   Q==;
+X-CSE-ConnectionGUID: g8feQfwjSYykAcSXfQOpqw==
+X-CSE-MsgGUID: /GXIOTDcSBWn3vdt7ykIWw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11895"; a="100523371"
+X-IronPort-AV: E=Sophos;i="6.25,260,1779174000"; 
+   d="scan'208";a="100523371"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Sep 2026 00:38:08 -0700
+X-CSE-ConnectionGUID: OjpRpL4iQTyhJhi0oZMK6g==
+X-CSE-MsgGUID: qzRLKEXjRpum1do7o+pIWA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,260,1779174000"; 
+   d="scan'208";a="263769418"
+Received: from senthil-nuc10i7fnh.iind.intel.com ([10.223.163.42])
+  by fmviesa009.fm.intel.com with ESMTP; 04 Sep 2026 00:38:07 -0700
+From: Saranya Gopal <saranya.gopal@intel.com>
+To: linux-acpi@vger.kernel.org
+Cc: linux-pm@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	rafael.j.wysocki@intel.com
+Subject: [PATCH] ACPI: s2idle: Add _Ixx GPE wake indicator support
+Date: Fri,  4 Sep 2026 13:08:44 +0530
+Message-Id: <20260904073844.2740931-1-saranya.gopal@intel.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -60,53 +59,68 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The bpf_nf test allocs a ct, sets snat and dnat with random addr and
-port via bpf_ct_set_nat_info(), then looks the ct up and checks the
-reply tuple against what was set.
+ACPI 6.6 defines _Ixx indicator objects under \_GPE to mark GPEs that
+should remain wake-enabled in s2idle without a _PRW association.
+To support them, add new function acpi_setup_ixx_gpes() that looks for
+_Ixx objects for all GPEs in the FADT 0/1 blocks and if it finds any, it
+marks the corresponding GPE as wake-capable, in which case the GPE is
+also enabled so long as it has a handler method because marking it as
+wake-capable causes acpi_update_all_gpes() to skip it. Since that only
+needs to be done if suspend-to-idle is enabled, make acpi_s2idle_setup()
+call that new function.
 
-The port comes from bpf_get_prandom_u32() and can be 0. For
-bpf_ct_set_nat_info(), port 0 means "port not specified", so only the
-addr is mapped and the kernel keeps the original port. The check then
-compares that port with 0 and fails, which shows up as a flaky
-"Test for source natting" failure in CI [1][2].
+For now, this is limited to x86 systems and it assumes that the GPEs
+with _Ixx will not cause spurious wakeups to occur while suspended.
 
-Keep the random port in 1..65535 so it is always specified.
-
-[1] https://github.com/kernel-patches/bpf/actions/runs/33830002889/job/100893868791
-[2] https://github.com/kernel-patches/bpf/actions/runs/33829976794/job/100893220999
-
-Fixes: b06b45e82b59 ("selftests/bpf: add tests for bpf_ct_set_nat_info kfunc")
-Signed-off-by: Jiayuan Chen <jiayuan.chen@linux.dev>
+Signed-off-by: Saranya Gopal <saranya.gopal@intel.com>
 ---
- tools/testing/selftests/bpf/progs/test_bpf_nf.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ drivers/acpi/x86/s2idle.c | 26 ++++++++++++++++++++++++++
+ 1 file changed, 26 insertions(+)
 
-diff --git a/tools/testing/selftests/bpf/progs/test_bpf_nf.c b/tools/testing/selftests/bpf/progs/test_bpf_nf.c
-index df43649ecb78..eda9b7bbab75 100644
---- a/tools/testing/selftests/bpf/progs/test_bpf_nf.c
-+++ b/tools/testing/selftests/bpf/progs/test_bpf_nf.c
-@@ -190,8 +190,8 @@ nf_ct_test(struct nf_conn *(*lookup_fn)(void *, struct bpf_sock_tuple *, u32,
- 	ct = alloc_fn(ctx, &bpf_tuple, sizeof(bpf_tuple.ipv4), &opts_def,
- 		      sizeof(opts_def));
- 	if (ct) {
--		__u16 sport = bpf_get_prandom_u32();
--		__u16 dport = bpf_get_prandom_u32();
-+		__u16 sport = bpf_get_prandom_u32() % 65535 + 1;
-+		__u16 dport = bpf_get_prandom_u32() % 65535 + 1;
- 		union nf_inet_addr saddr = {};
- 		union nf_inet_addr daddr = {};
- 		struct nf_conn *ct_ins;
-@@ -293,8 +293,8 @@ nf_ct_opts_new_test(struct nf_conn *(*lookup_fn)(void *, struct bpf_sock_tuple *
- 	ct = alloc_fn(ctx, &bpf_tuple, sizeof(bpf_tuple.ipv4), &opts_def,
- 		      sizeof(opts_def));
- 	if (ct) {
--		__u16 sport = bpf_get_prandom_u32();
--		__u16 dport = bpf_get_prandom_u32();
-+		__u16 sport = bpf_get_prandom_u32() % 65535 + 1;
-+		__u16 dport = bpf_get_prandom_u32() % 65535 + 1;
- 		union nf_inet_addr saddr = {};
- 		union nf_inet_addr daddr = {};
- 		struct nf_conn *ct_ins;
+diff --git a/drivers/acpi/x86/s2idle.c b/drivers/acpi/x86/s2idle.c
+index b6b1dd76a06b..ac49f9e75fae 100644
+--- a/drivers/acpi/x86/s2idle.c
++++ b/drivers/acpi/x86/s2idle.c
+@@ -24,6 +24,31 @@
+ 
+ #ifdef CONFIG_SUSPEND
+ 
++static void acpi_setup_ixx_gpes(void)
++{
++	acpi_handle gpe_root;
++	unsigned int i;
++	char gpe_nr_str[5];
++
++	if (ACPI_FAILURE(acpi_get_handle(NULL, "\\_GPE", &gpe_root)))
++		return;
++
++	for (i = 0; i <= 0xff; i++) {
++		scnprintf(gpe_nr_str, sizeof(gpe_nr_str), "_I%02X", i);
++		if (!acpi_has_method(gpe_root, gpe_nr_str))
++			continue;
++		/*
++		 * Enable the GPE if it has a handler method because marking it
++		 * as wake-capable causes acpi_update_all_gpes() to skip it.
++		 */
++		if (ACPI_FAILURE(acpi_enable_gpe_cond(NULL, i, ACPI_GPE_DISPATCH_METHOD)))
++			continue;
++		acpi_mark_gpe_for_wake(NULL, i);
++		acpi_set_gpe_wake_mask(NULL, i, ACPI_GPE_ENABLE);
++		pm_pr_dbg("ACPI: GPE 0x%02x armed for wake via %s\n", i, gpe_nr_str);
++	}
++}
++
+ static bool sleep_no_lps0 __read_mostly;
+ module_param(sleep_no_lps0, bool, 0644);
+ MODULE_PARM_DESC(sleep_no_lps0, "Do not use the special LPS0 device interface");
+@@ -649,6 +674,7 @@ void __init acpi_s2idle_setup(void)
+ {
+ 	acpi_scan_add_handler(&lps0_handler);
+ 	s2idle_set_ops(&acpi_s2idle_ops_lps0);
++	acpi_setup_ixx_gpes();
+ }
+ 
+ int acpi_register_lps0_dev(struct acpi_s2idle_dev_ops *arg)
 -- 
-2.43.0
+2.34.1
 
