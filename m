@@ -1,215 +1,116 @@
-Received: from LO2P265CU024.outbound.protection.outlook.com (mail-uksouthazon11021126.outbound.protection.outlook.com [52.101.95.126])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oo1-f53.google.com (mail-oo1-f53.google.com [209.85.161.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1922237DEBB
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 11:17:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.95.126
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788520649; cv=fail; b=fYcfrKPWZ3Of+RjfXEVdrcjdWPOPBIRNmfqf0yt+07AQMfy6o8hk6Dc89588Bg/pDe/tr3hJTB5BBUIydZ267tFL+v0UCSDWo3JofCKFxQO3Am4iCN1LUArS+WM631/ttISuWIpnSPflr2fwCk1hvGigSLDRFMqQvNk5edCzt1A=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788520649; c=relaxed/simple;
-	bh=sgIclST75VQ7j3ON0ZhLuFP6dRDGJk7NiyO9lzNBWY8=;
-	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:References:
-	 In-Reply-To:MIME-Version; b=Wz6ly4Q4h6Ayte+MZY+bcQjxmdn+yvtZj5fHazhHqtEZWXUyJ4gcQ8UrKOOfRZFim6mQVZDhUQDq5waiI2pz1QYhmS0Fvovd0HRA84R1pJ0lAByEypMdeX5QOb9Z+Y8uL3dOzTmTBhTgHfTO064saHyIT5JroXyYQO2iBHn/O3A=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net; spf=pass smtp.mailfrom=garyguo.net; dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b=zb2sujqr; arc=fail smtp.client-ip=52.101.95.126
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=garyguo.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E18342E43B
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 11:17:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.53
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788520651; cv=none; b=K1lIDEY60dnX332NbeAmNetHvYIWOo2uaZlHUfRJ5IPaBfvVLw3YHzGUP429Cnbu/2VoLU2NPvQLYNH/1nmsPOMMryveBLZgz/wKolhVX5QfqMT+zRCatwFBSMvWHXdK+jP2PHqVzg+IPfm9Fo//XQ81u7pxRkB8nibDshpRwpY=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788520651; c=relaxed/simple;
+	bh=wJcQXhX2p7ArrlqvtSK6wNpa5H9F05dc8xrHIKvtv2U=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ST2cQfTQYyLHuKFhB/zuKtZHDrjAXDhDAcokzB71x/Buq5GylCwHZjkIp6DYqH/p7FvM27iOzqZgHxV05MzDuScFXPu2yoUyXdMap7Wv/O3adNa7NPrKdXV4xtabnpbZAW9cylrj0Yw5dOyxH7Fpu/68b7TIJlN1sPbQs2mo9K4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PJ/K5sFM; arc=none smtp.client-ip=209.85.161.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b="zb2sujqr"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=qIb6A1dJarirLuGDQgUHvONe1wtEWUu4xOkPrkZVymRWG27f8Yl2EJWRYHlYh1SRuCPXVjSH5M6la/TNc1BI8LC9Vp3woJ7rKaokC/GiklWIgvbLh9iwAxk8nX23cpN8ljpngSaEc8TUgZ18rvOWDU7TXJYaU3pzUNwJAqvNtk88gwWcLY14UsLS7j83V9VstC5grEfd0eqTUesQHl5EMQ9j2Qg0Zju1VtM6/MywLxBmuHYDSydTcD98Xe+9qt0LirC8rKhYwFDjT4uTqj9WPhWIZrRUP9eDOwM0OmIkac4PG4Ay8SCf5Yqw27yHO5ZegLjRfJtVFxo6QaArTt6YGQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=EJ4q/Qx+U41fcqa0NWQRZoohfoYh6mAPzhrDO45LaPY=;
- b=WP01ebi66jEnF5X2etsnlDkz8WEe5d5a1ITSc2iPbA/oIDy+wUQPQZsZFLlpi5QCqEGEc7lKmeaVC3If0sIPrpZa2J4xZ6vknPOW4961uk3uFF/hsDxOAqfYC5PFBr6CUIvN/cO0tjgzlMZ9u8ebiRBW6gHe471WFRlKuJHmsTB1vMV006XZov+JKUCa/J9hwHPk5cI4DPNULScxw+bKAA3X6lnW5g9cbEKj4sMwUbDfyfTLkQsGEZoJRmO5w6+Dqbnzqxsn/DNJbiTOJNGKLJF4NvD7CHYkjty2tJLLV88kxXuNpzZaYkXhhInfZuvOvZ2bVSZCrLWhmgFJ2Rjljg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
- dkim=pass header.d=garyguo.net; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=EJ4q/Qx+U41fcqa0NWQRZoohfoYh6mAPzhrDO45LaPY=;
- b=zb2sujqr3zP6XzLWTnNQnZYNQU5JVJ+Ys3yEe7BeqBiJKdJlrb4fD/cDdvoUQuKCUrmbtdUVXiZOSOokHrRo0y+ocBEcRtxvj1AevKLtrZz9h3FfD8l91/lWri/hfj5q6MWvYCT2pb2aHa0P0CIDvRLWqsGccv4m+nhbaFinM34=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=garyguo.net;
-Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:4ab::19)
- by LO2P265MB2542.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:125::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.10; Fri, 4 Sep
- 2026 11:17:22 +0000
-Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
- ([fe80::f60b:1537:68d7:4fc1]) by LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
- ([fe80::f60b:1537:68d7:4fc1%4]) with mapi id 15.21.0360.008; Fri, 4 Sep 2026
- 11:17:20 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Fri, 04 Sep 2026 12:17:19 +0100
-Message-Id: <DL6HNIUL8F4C.2BK4H023OWBVK@garyguo.net>
-Cc: "Danilo Krummrich" <dakr@kernel.org>, "Timur Tabi" <ttabi@nvidia.com>,
- "Alistair Popple" <apopple@nvidia.com>, "Eliot Courtney"
- <ecourtney@nvidia.com>, "Zhi Wang" <zhiw@nvidia.com>, "David Airlie"
- <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Bjorn Helgaas"
- <bhelgaas@google.com>, "Miguel Ojeda" <ojeda@kernel.org>, "Alex Gaynor"
- <alex.gaynor@gmail.com>, "Boqun Feng" <boqun.feng@gmail.com>, "Gary Guo"
- <gary@garyguo.net>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
- <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
- Hindborg" <a.hindborg@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>,
- "Trevor Gross" <tmgross@umich.edu>, <nova-gpu@lists.linux.dev>, "LKML"
- <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v3 09/14] gpu: nova-core: recover the GSP receive path
- from corrupt framing
-From: "Gary Guo" <gary@garyguo.net>
-To: "Alexandre Courbot" <acourbot@nvidia.com>, "John Hubbard"
- <jhubbard@nvidia.com>
-X-Mailer: aerc 0.22.0
-References: <20260903031514.1515905-1-jhubbard@nvidia.com>
- <20260903031514.1515905-10-jhubbard@nvidia.com>
- <DL6H5DZZH2LO.2G3VISAA35F0T@nvidia.com>
-In-Reply-To: <DL6H5DZZH2LO.2G3VISAA35F0T@nvidia.com>
-X-ClientProxiedBy: LO4P123CA0179.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:18a::22) To LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:4ab::19)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PJ/K5sFM"
+Received: by mail-oo1-f53.google.com with SMTP id 006d021491bc7-6b1bcd9e00bso653653eaf.2
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 04:17:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788520649; x=1789125449; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=t/aNANTfjkHFW3Qz0CZuwn+uWl1/BO2PZTx/B0W7ELs=;
+        b=PJ/K5sFMQ1RBLJT1aLBe33Lmb50L6VZtxoSN6aDTtMvXJxJG0XwvaUQJsxzf4cAXGk
+         DaCzWNZr8i7hY8f3tqVW7h6eQtqUgfx9Gy/onoAfDMM8ccdBNPvk3DhUkGTzcQCLF+oG
+         G9PreEShQ0CWLGso5jw/cDEkIPBI6ZLHvYBbHjuNH9aCj8y5YW0lE8JT17DFT8dckGtX
+         kk3zaa4PVu2qd0PYp4IbvFBRfmd2R9DF9/xoneQPPmcjjLKGMBuRRvZfh1AMsdtzkwny
+         G0n/8V0kpD3Zk8TaT5DgvajJzcXWmMAVwQONW9cdS3hvG/SEaFYxLrhC2InaPdIFJT3s
+         i2gA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788520649; x=1789125449;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=t/aNANTfjkHFW3Qz0CZuwn+uWl1/BO2PZTx/B0W7ELs=;
+        b=NrSByXJXb7IWhYEcvtXyIJjPQ+ycmCrLTW1z6IV1ZeX0i6WlWQGUJvmtdX37aE5LSe
+         v3oFa0U7R56qLlmtu1qZqtRTD8T/dg6BmFm2M6oeDzsfUNcgjAVypLS9l+Ow+LChf5KD
+         PLthR0x0RpcJsA0NLGNdXC1FYONvehoEIqIUHFgzmeQS43KejUun+c+yuz5+OrWfip60
+         Fe+qQ7b2Z/IR3dhyrJbLG4XR/raI15AJfYmY3dU321MDQ9zcdq1QYYwhbmrMP7LWwWGy
+         osf7dFykkzvmcYgF8smeIJ4pTFF/6K54uaWDYVtHcfu/6WNig7PA6slS9DzuHZwy2ON+
+         uC9w==
+X-Gm-Message-State: AFuF++mvBzDWjayvuPUES65FMUDXpDnzzgZKa5eH23AhhFnyJtoHJOZx
+	mm4LQC758SQGcbpNqZP2+m6uI/QDiGijXMr9WG5hwnKUwAAeNIoYdghz
+X-Gm-Gg: AYBFou138yN8e99ivLZlOVgHwDZcrRBWnSQnXFZUhTscvOR2zY2tP50ixL2rJ/RlMfu
+	wvhV6W53DLqeIFf/ZycUnLmqbl8d7IH173j2LxKwfrNN0OAh0W2TsmMB9yUOi6yJE+D12TC6+U+
+	D2ChiXnk5lRD39+VO4pfECjphvV05+e5VVWxNEAVN3mPab6p871VjLBm3Rl89ZYOKpi+tA8IRMw
+	KSuK1KMXvUgJZiQXLmgUFAA7p7Pp5j/f8EaMmZ3F5EqPW4FglBiaNsq7F5eFOXrgkg7cnMcYRIw
+	DQqOKpeuunpEm50GyE7LgbxGfzQ+57VCtFVbgqS5YDmXnQKveqpU0y+B5PXjf27QtXKGHEtRDXu
+	Uxtg9O5WM4mhx9LUKHkBLR199ZKmALNsdEsYBQRSIDKOqzUG9dYi1BaPHNmxjLi6Ev8L7g3cmZc
+	5hEVsYbtf7c9G1wdSpvq7VG+l7ztm2SkQiVsTteBv1j89h1+YNZtq1c4y0/7BKQqB5rZCi381cb
+	tsrJY/4rUCKcvE=
+X-Received: by 2002:a4a:e84a:0:b0:6b7:83c5:fdf7 with SMTP id 006d021491bc7-6b783c60350mr1319391eaf.56.1788520648768;
+        Fri, 04 Sep 2026 04:17:28 -0700 (PDT)
+Received: from volcano9f6e-hostos.amd.com ([165.204.217.251])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339aa33e96sm6297642eec.12.2026.09.04.04.17.26
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 04 Sep 2026 04:17:28 -0700 (PDT)
+From: Hemanth Selam <hemanth.selam@gmail.com>
+To: Dongsheng Yang <dongsheng.yang@linux.dev>,
+	Zheng Gu <cengku@gmail.com>,
+	Matthew Sakai <msakai@redhat.com>
+Cc: linux-kernel@vger.kernel.org,
+	dm-devel@lists.linux.dev
+Subject: [PATCH] md: fix typos in comments
+Date: Fri,  4 Sep 2026 16:47:22 +0530
+Message-ID: <20260904111723.30326-1-hemanth.selam@gmail.com>
+X-Mailer: git-send-email 2.48.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LOAP265MB8560:EE_|LO2P265MB2542:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3fd4e1cd-5d3d-45c5-a9b9-08df0a7615d1
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|23010399003|1800799024|10070799003|366016|376014|18002099003|22082099003|56012099006|4143699003|10067099003;
-X-Microsoft-Antispam-Message-Info:
-	IjNTvkuXjRW7VS5IWk4wjpmkoLklDfO87zWJ7tJdR+h/jbyu+FHu1DAxghKOORRJUtRyCL0cyj59A0Z63JrF1SJivrp0+TEptIPaW5f3Xf6QMg++XcPzhHC0DamhHDloWxK6dgs7o+GnoFvakDNlw4jE3AoMa1WfyH4wKRHYfhrV/HcaQ7E2NRxp9Gt2bWU1biOzn6itFHtRC1vmATDIafsCkRajxRCQrlJPWDbpBbyHV1idEM4gXvHmO57edFiePet1KtSLkPd4Ek/DKyZvlhYbVdL6fXWvnLtkv9wwM5RtxrLePnfRYGJRlNVz+sVEiuvYYIbczNVzCLGUAA1+Z0lvXuCWclYXp+q97glJYwMdMMuPQqV3wDIqcrHQQRzxsu7BQnrnGJYupGNbuiJPwRyzA0xxJthzMpQs/rAoeDFdGtPgfkh75hsHKU8FEGHe7AyIAM/Ua7TJSGAtOq7IBLRHTY12IM7029fnVKyi0zAn68/sgLiN/6qmRKmdQU/ro+DJ89WqN8wI9lWK844GnT7jJnakrEvCDd1+eki7ZQpQ/nLmHMKsfpTwahR2FQMVnJDluotAx2ojQxKiXIlfvYzo1wV+s590J0lacx/TTK04nysfFsPwQivEW2Q/wZZXkrXySE3ukXuO6MZWGNQYA/KBSMM4pFXKE++rctztdBU=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(7416014)(23010399003)(1800799024)(10070799003)(366016)(376014)(18002099003)(22082099003)(56012099006)(4143699003)(10067099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?eW5EV21TM0V0dmRoSDBSc3FxenYyVnRxZlc3YUExSFgwTm5HNm1PeGRUak5U?=
- =?utf-8?B?aEovVkx6eGlHUzdQVDBpNmRuRUU3YmhDUSs5QXZvMDN2NHpFbVhqcisvRXhh?=
- =?utf-8?B?Z3ozOFlVdmM3NmVqQ3BYUnZQcW1ETnk4aEFsRVlXWUZ0RWIrVGl6ZjFVQ1NQ?=
- =?utf-8?B?K3VVWW1FZUcycFJXUXg1N2Z5NEZhQXBpcFA1K0RpajZKTTBpbStnMk5lb3g4?=
- =?utf-8?B?bk8rSHpSOFZEbURRMkh3anEzTG4yVnV0UElqQTlnNnZQdjJCQ09MbFVQeWZH?=
- =?utf-8?B?REplYThGN0RLQU9jU285aU8wYWFlb1ZvRUpobzJic09CUjdTVlI2eU1zYWF4?=
- =?utf-8?B?eGlmWVBLQWR2NWZ0eTJxQ1UyUkpmenFTTXBIZDFaRytqbU5iZXVXaDIzZjM1?=
- =?utf-8?B?TG84R09QdTR6d0JieTJjTnNVckxVZE9QL0VGL3NpUXJudll4WURDSnVHL1cx?=
- =?utf-8?B?a1BOMlZOYXg0RXVNRmpHekFnYW55RnlPSmdsSGR0V2E3ckx5cEJrdjQ0ZlM4?=
- =?utf-8?B?V2VaeGIxM0gwNGY4TGc1VERicHNqRklXS3JSWTlTTTlINEpQbHY2b3RUYXB6?=
- =?utf-8?B?MXVPREpkME1xYWZqVXMyR3QyZytJUDZjNjZrYWNNN2U4R004aFo5QXpXc0RM?=
- =?utf-8?B?Znp5TGxRcjhaWGxCNER4UlZsbDN3N1NzT3JvUytkVzhLdzJQZXlhcjdIZzVu?=
- =?utf-8?B?ekF1NFhmK3A5TVV6QWt1Q1NWYXVpSHJzeG1YOFV2cDJDd2x2QjF6MDJsYUha?=
- =?utf-8?B?TmF6U0lzOFArRnRnR2Y2cStqUnByZ1VjYW5uK052cmRzVks4NkMzWXpNc3hx?=
- =?utf-8?B?RUovZjJKdms2ckJJUm9aSlY1aEYrSHFsTDA1RGRQSGt4RWp6enZhZFlra0Nt?=
- =?utf-8?B?SXJ5bmZoQkN2VzJmdWxXSXZqZXJYZWo3d2FNMTExYy9YcERoWWpXUENXOVJm?=
- =?utf-8?B?TjljcDVhb3BidXVvb2JaNFd1ckNpNXNUYzg2WHpsR1gvbFNnTG01T0l6c3F2?=
- =?utf-8?B?a3p3ZEJzRGNjenNtTCt5U2pGT3lrd2ZQL3dGbUxRQzhQbHlrNnAvUXNIQWEr?=
- =?utf-8?B?VitPaVlDdWViWnNMcE5xRFRZNjRibzhoN1h6UXl6NERCWlZWMlQ5L01EMlVj?=
- =?utf-8?B?ck00b1dvRUIxUThtdXdBOXBJbDc1KzNlTFZmcXBaaGFhRDVzWnEyUW4wMUZH?=
- =?utf-8?B?blZBSVI4czZoMkw0ZzVBVzZEbktVdURwRldCcnFHMjVwUnI3Z1NlN3U0d0lQ?=
- =?utf-8?B?bjFCSms5V0xCbEExN0RtNndtcTM2a0JEdGNuRWMyOVI1b1FJMWV4dWg2UDNi?=
- =?utf-8?B?TWRxbndVS285Qk5PNTJvTFZvQ2swVzNtQ2Q3RFJRTVhuaWtHRDB4UVpHUHdP?=
- =?utf-8?B?bUNIZE5zc3Voem1uVXgrVzNLOW5vVXpkMzNSVUZoZ3prRDBwMWVPTHVCempt?=
- =?utf-8?B?RGQxMjNhVUVFSVUrdGx5QzVqRk5Idk0wTXlqbG1Sd1FkRVFPcWZRblVmd1g4?=
- =?utf-8?B?andqbkFEUjhKamZDOEhKSktxZk4yajhPQnlsN3R3elJyRURsYktmODU1Rmxy?=
- =?utf-8?B?VGRDYXlTb3JBdnVubE9rcnphVjdkMDhuUStTTXd2TjE1L3VFcDU3M3MvS1Ur?=
- =?utf-8?B?VEswTXN5REloMUVvcHhwZk9IT3BiWWw4L0JqRjM3Szgzb0ZlQUNsS1FMZnZM?=
- =?utf-8?B?TXppTlFDRHhUSU9jRkc1MFBDenBjRVdzN2dpNXRxdDBQOEFCblRTL1E0Vnd2?=
- =?utf-8?B?ek1HSnhvT1dXUThjS3RwSWxBbEJBbG9yZ1FCSnZ4eDd6cHVySG5WTHdDNWNl?=
- =?utf-8?B?bzloTmRITWEzUDBiZzN5aEg1WlpsVkRUeEI5TXdOdi9JTUdhUFFocXpqL1lC?=
- =?utf-8?B?WGxWWmNYODQ5ZmRXVmw5aVVnZEVhM0p6bEJBYWtzYXJZWjk2WDV0V253NHB5?=
- =?utf-8?B?UEc3KzlwdDN5OC8wSGxPeHdNQjBxRnhoaGFOMnlZUlpHWXdGclNVd2p5Ympt?=
- =?utf-8?B?SUdwd2labmNQTUlYcTNEaXFtWUpMT25Zdm9NUWVmMDhtRU1HMzZxdlFTQlo3?=
- =?utf-8?B?QmxDcnMxcmY4Z25wVGF4MWR6ZmJaMlFTNHRmb1JLVzJmR2JhUmJzQmdnODAw?=
- =?utf-8?B?Ly9iQkZhR0FWYkhTcHMxZld5cjBCTWJ5cTVqZlhvSURDTk5nV3ZVTjhhSk1q?=
- =?utf-8?B?WUhBaVplV3c0ZTRrczJwaTBOQ0VaVlJud3BGOWxkb1pLRGhLZnpjZWlnQWNy?=
- =?utf-8?B?WjZZbVg1OUhEOVpJY1JBNXlRcE1za3lLVG9WUzM5NVlTYUVPZ0xSL2EvbmhP?=
- =?utf-8?B?ejFidUlybTF0cGp5Q0tkcmNjTWFhL2NGbTBqbjJ5TWpoMmFIRlpodz09?=
-X-OriginatorOrg: garyguo.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3fd4e1cd-5d3d-45c5-a9b9-08df0a7615d1
-X-MS-Exchange-CrossTenant-AuthSource: LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Sep 2026 11:17:19.9785
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 4+rlXgDLkDtV4GcTat6Cye3grQpzgQfYHPwlM8A5CqjLIxdOoLP08iuddfhrGOADm0Dez26uxdXgn7KcT6D1wA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO2P265MB2542
+Content-Transfer-Encoding: 8bit
 
-On Fri Sep 4, 2026 at 11:53 AM BST, Alexandre Courbot wrote:
-> On Thu Sep 3, 2026 at 12:15 PM JST, John Hubbard wrote:
-> <...>
->> @@ -838,23 +871,26 @@ fn receive_msg<M: MessageFromGsp>(&mut self, timeo=
-ut: Delta) -> Result<M>
->>          let function =3D message.header.function();
->>          let seq =3D message.header.sequence();
->> =20
->> -        // Bind the result rather than returning early. The read pointe=
-r must advance past this
->> -        // message on every path.
->> +        // Every path must advance the read pointer past this message, =
-including a failed decode.
->>          let result =3D if matches!(function, Ok(f) if f =3D=3D M::FUNCT=
-ION) {
->> -            let (cmd, contents_1) =3D M::Message::from_bytes_prefix(mes=
-sage.contents.0).ok_or(EIO)?;
->> -            let mut sbuffer =3D SBufferIter::new_reader([contents_1, me=
-ssage.contents.1]);
->> -
->> -            M::read(cmd, &mut sbuffer)
->> -                .map_err(|e| e.into())
->> -                .inspect(|_| {
->> -                    if !sbuffer.is_empty() {
->> -                        dev_warn!(
->> -                            &self.dev,
->> -                            "GSP message {:?} has unprocessed data\n",
->> -                            M::FUNCTION
->> -                        );
->> -                    }
->> -                })
->> +            match M::Message::from_bytes_prefix(message.contents.0) {
->> +                Some((cmd, contents_1)) =3D> {
->> +                    let mut sbuffer =3D SBufferIter::new_reader([conten=
-ts_1, message.contents.1]);
->> +
->> +                    M::read(cmd, &mut sbuffer)
->> +                        .map_err(|e| e.into())
->> +                        .inspect(|_| {
->> +                            if !sbuffer.is_empty() {
->> +                                dev_warn!(
->> +                                    &self.dev,
->> +                                    "GSP message {:?} has unprocessed d=
-ata\n",
->> +                                    M::FUNCTION
->> +                                );
->> +                            }
->> +                        })
->> +                }
->> +                None =3D> Err(EIO),
->
-> This error path is the only one without a warning. How about:
->
->     None =3D> Err(EIO)
->         .inspect_err(|_| dev_warn!(&self.dev, "GSP message {:?} too short=
-\n", M::FUNCTION)),
+Fix typos in comments, reported by scripts/checkpatch.pl using the
+misspelling list in scripts/spelling.txt.  Only touches comments, no code
+changes.
 
-I don't see why we want to use `inspect_err` here (just to make it an oneli=
-ner?)
+Assisted-by: Cursor:claude-opus-5
+Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
+---
+ drivers/md/dm-pcache/backing_dev.c | 2 +-
+ drivers/md/dm-vdo/block-map.c      | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
 
-Please do
-
-    None =3D> {
-        dev_warn!(&self.dev, "GSP message {:?} too short\n", M::FUNCTION);
-        Err(EIO)
-    }
-
-Instead.
-
-Thanks,
-Gary
-
+diff --git a/drivers/md/dm-pcache/backing_dev.c b/drivers/md/dm-pcache/backing_dev.c
+index 7165fc0364bb..23002beb192a 100644
+--- a/drivers/md/dm-pcache/backing_dev.c
++++ b/drivers/md/dm-pcache/backing_dev.c
+@@ -68,7 +68,7 @@ void backing_dev_stop(struct dm_pcache *pcache)
+ 	struct pcache_backing_dev *backing_dev = &pcache->backing_dev;
+ 
+ 	/*
+-	 * There should not be any new request comming, just wait
++	 * There should not be any new request coming, just wait
+ 	 * inflight requests done.
+ 	 */
+ 	wait_event(backing_dev->inflight_wq,
+diff --git a/drivers/md/dm-vdo/block-map.c b/drivers/md/dm-vdo/block-map.c
+index 5ffc360540ed..258ad5521f51 100644
+--- a/drivers/md/dm-vdo/block-map.c
++++ b/drivers/md/dm-vdo/block-map.c
+@@ -240,7 +240,7 @@ static int __must_check allocate_cache_components(struct vdo_page_cache *cache)
+  * assert_on_cache_thread() - Assert that a function has been called on the VDO page cache's
+  *                            thread.
+  * @cache: The page cache.
+- * @function_name: The funtion name to report if the assertion fails.
++ * @function_name: The function name to report if the assertion fails.
+  */
+ static inline void assert_on_cache_thread(struct vdo_page_cache *cache,
+ 					  const char *function_name)
+-- 
+2.48.1
 
