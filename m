@@ -1,42 +1,39 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3EB03FC5C9
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 09:01:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.2
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD1AD4266B8
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 09:01:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788512505; cv=none; b=Mb9/Rz4Agl6ea9xblRwHd9mhS2oMe5XuP0wlZefqXzvp5zLKGC3ec8t2DUkBTCcxBGKNq/MOCA86y9WhOlRIrFgdN5vTFEd4U7R+dlIPlDS9mjwBYofI38hfdhUyyu3mmdhh+4j4ZOhX+lFDS+7pDKxquk63s/bXE4dv1rtkFbI=
+	t=1788512505; cv=none; b=lx3kj+KqImWxIOVUrtGLtBj+r6ztqn/BMQRGiUAdexF36BN6Bh/csMn3aCYH8crmGXRSM62N2qnP/PBzjM3UWruVRo0GrU23euJhLOmC16wIS7eug2iWUYxB2QxWtx5fLvv5RgaZmUEJhPVLT1vI2snRD2R44GdyCf+IxCh0iPI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788512505; c=relaxed/simple;
-	bh=9uBlqEjiAXyypijmEOGf0qaPPewJUOcsaqPql5duWsc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=uvGH2ohc4YV/TGcEITJWvgIQ47MoAQ2HxMiTMB8TBN7Vx0neuxZJxwt+2FNJIxSGOKwSXNLhmLLHHLJTNtpB64qvlgReydhyF2Y2byDvV2HmXdGrq1+0tsNMalk+i5J6ZfkxpLydb3RBoS2lZr8dO50N5IGZfDEgZ79xqG44GNs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=FAu47L+M; arc=none smtp.client-ip=117.135.210.2
+	bh=B1SA4x2HJ9PgE14PaEnX0hd7BnztFbOnzEbOVeP9V7c=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=tNwngIpAovfXBb/YdqMoYeD/tnWdawY0w5PWEv5bGgUSwj/xfw4mm9D9n4fq7FFCWO/24WQISCMo4b/9CmD8Bdn1NKBiTNHKHZ4AMe+BJQcYN1zpvhQ9e1O8twgyQrzzpJn0uSEsfoMTEimkGdvIP52ybfSGKN/OsuWWARrkUCY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=gVAApm5X; arc=none smtp.client-ip=117.135.210.5
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="FAu47L+M"
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="gVAApm5X"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=jR
-	n1xiWbbjvW1QMlGXZTnpr3hkMo6O3/2pu4o6mX07U=; b=FAu47L+M97h+jIwzTh
-	3AgJrv8UYyEALapQvqomWmLOVLFHR61bWfWmK0tbn0Zv5hwhokmahliCml3USiJC
-	01BQTvxygjOVMNEwG8cmMWenp2XNTRzTrrnlPT8ImWu94LkF00e12NmJyDeeilI7
-	kIVmYbJvTGEZitao697FK0Svc=
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=m7
+	lJyr9ZcjOr+g95OJhkQRTUO4dnvLiehplKxsu+0ss=; b=gVAApm5XAzEOvzmtYM
+	zpZYRV8a9IXAXv+l7c6qZBeo7VcgO7E302zo06yWkhPe1g0xJa6ZIB2/clMiLnGM
+	1Cg5NTcRiGg6V7l21Jw3QF+D2VLcTQPLqiA5ZhB/Y2x7fLByVbphGiFrtgigGBJz
+	TV0J0o57gO9e20or/8oypevU0=
 Received: from liubaolin-ThinkPad-E15-Gen-2 (unknown [])
-	by gzga-smtp-mtada-g1-4 (Coremail) with SMTP id _____wAHU97ViJpqDNWCAg--.41284S3;
-	Fri, 04 Sep 2026 17:01:13 +0800 (CST)
+	by gzga-smtp-mtada-g1-4 (Coremail) with SMTP id _____wAHU97ViJpqDNWCAg--.41284S2;
+	Fri, 04 Sep 2026 17:01:11 +0800 (CST)
 From: Baolin Liu <liubaolin12138@163.com>
 To: linkinjeon@kernel.org,
 	hyc.lee@gmail.com
 Cc: ntfs@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
 	Baolin Liu <liubaolin@kylinos.cn>
-Subject: [PATCH v2 1/5] ntfs: return -EINVAL from ntfs_collate_ntofs_ulongs() on bad length
-Date: Fri,  4 Sep 2026 17:00:50 +0800
-Message-ID: <20260904090054.3365538-2-liubaolin12138@163.com>
+Subject: [PATCH v2 0/5] ntfs: fix incorrect error codes returned to callers
+Date: Fri,  4 Sep 2026 17:00:49 +0800
+Message-ID: <20260904090054.3365538-1-liubaolin12138@163.com>
 X-Mailer: git-send-email 2.51.0
-In-Reply-To: <20260904090054.3365538-1-liubaolin12138@163.com>
-References: <20260904090054.3365538-1-liubaolin12138@163.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -44,48 +41,63 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wAHU97ViJpqDNWCAg--.41284S3
-X-Coremail-Antispam: 1Uf129KBjvJXoW7KFyfZFWkGFWruw4DtF1UWrg_yoW8JFW3pF
-	9rCFn7Ga1kJr12yrs2yr43GayavwnrGr47t390gw1xX3sYqF1rtr1FqF1I9r4IvaykZw4r
-	Xr10q3y3ZrykZaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UMWl9UUUUU=
-X-CM-SenderInfo: xolxutxrol0iasrtmqqrwthudrp/xtbC6RqZZGqaiNqvVQAA3W
+X-CM-TRANSID:_____wAHU97ViJpqDNWCAg--.41284S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxJrW8Kr1rGrWfJrWxCrWUXFb_yoW8tFW7pF
+	9xCrn3tr4kJ34IkFZYvay7Aw1S9F93J3y7tr1qgw1Iva45Xr1UXr18K3W09rWSkrWrJw1U
+	Xr40gan3CFy7ZFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jnfHUUUUUU=
+X-CM-SenderInfo: xolxutxrol0iasrtmqqrwthudrp/xtbCwReYY2qaiNf8FgAA3o
 
 From: Baolin Liu <liubaolin@kylinos.cn>
 
-ntfs_collate_ntofs_ulongs() returns -1 when the key lengths differ or are
-not a multiple of 4. But -1 is also what cmp_int() returns for "collates
-before", so the error is indistinguishable from an ordinary result.
+Changes in v2:
+- Patch 2: Fixed ntfs_extent_inode_open() to use ERR_PTR() instead of NULL,
+  so it can properly propagate error codes (suggested by maintainer).
+  Updated ntfs_inode_attach_all_extents() to use IS_ERR()/PTR_ERR() to
+  preserve the actual error code from ntfs_extent_inode_open().
+- Patches 1, 3, 4, 5: No code changes, added Reviewed-by tag from Hyunchul Lee
 
-ntfs_ie_lookup() acts on that difference: it maps -EINVAL to -ERANGE, but
-treats -1 as a tree-descent hint and breaks out of the loop. A malformed
-entry in $Reparse/$R or $ObjId/$O is therefore silently taken as a lookup
-miss.
+Five places in fs/ntfs/ return the wrong error code: a real errno is
+replaced by -1 or by a hardcoded substitute, so callers and userspace see
+something unrelated to what actually went wrong. The fixes are
+independent of each other.
 
-Return -EINVAL, as the sibling ntfs_collate_ntofs_ulong() already does.
-Well-formed keys are unaffected; both indexes use key sizes that are
-multiples of 4.
+Patch 1 is different from the rest: there the error is not just
+mislabelled, it is not seen as an error at all. -1 is what a normal
+comparison returns for "collates before", so ntfs_ie_lookup() acts on it
+as a tree-descent hint, and a malformed entry in $Reparse/$R or $ObjId/$O
+is silently treated as a lookup miss instead of being reported.
 
-Fixes: 5218cd102aec ("ntfs: update misc operations")
-Signed-off-by: Baolin Liu <liubaolin@kylinos.cn>
-Reviewed-by: Hyunchul Lee <hyc.lee@gmail.com>
----
- fs/ntfs/collate.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Patch 2 fixes ntfs_extent_inode_open() which had two bugs: it treated
+map_mft_record() failure as success, and returned NULL for all errors
+(losing error information). Now it returns ERR_PTR() with the actual
+error code (-EIO, -ENOMEM, -EINVAL).
 
-diff --git a/fs/ntfs/collate.c b/fs/ntfs/collate.c
-index 77e34038902d..744fdfd7bf58 100644
---- a/fs/ntfs/collate.c
-+++ b/fs/ntfs/collate.c
-@@ -73,7 +73,7 @@ static int ntfs_collate_ntofs_ulongs(struct ntfs_volume *vol,
- 
- 	if (data1_len != data2_len || data1_len & 3) {
- 		ntfs_error(vol->sb, "data1_len or data2_len not valid\n");
--		return -1;
-+		return -EINVAL;
- 	}
- 
- 	len = data1_len;
--- 
+Patch 3 fixes a -1 return in inode.c that reaches userspace as EPERM.
+It loses ENOSPC among others, so a full volume misreports create(),
+mkdir() and link().
+
+Patches 4 and 5 restore errors that are already available as an ERR_PTR.
+Both collapse -ENOMEM into something else, so an allocation failure is
+misreported.
+
+No control flow is changed; every callee already returned these codes.
+
+Based on ntfs-next (0fecc393f206).
+
+Baolin Liu (5):
+  ntfs: return -EINVAL from ntfs_collate_ntofs_ulongs() on bad length
+  ntfs: fix error handling in ntfs_extent_inode_open and propagate errors
+  ntfs: preserve the truncate error in ntfs_enlarge_attribute()
+  ntfs: propagate the map_mft_record() error in ntfs_attrlist_entry_add()
+  ntfs: propagate the ntfs_attr_iget() error in update_reparse_data()
+
+ fs/ntfs/attrlist.c |  4 ++--
+ fs/ntfs/collate.c  |  2 +-
+ fs/ntfs/inode.c    | 28 ++++++++++++++++++----------
+ fs/ntfs/reparse.c  |  2 +-
+ 4 files changed, 22 insertions(+), 14 deletions(-)
+
+--
 2.51.0
 
