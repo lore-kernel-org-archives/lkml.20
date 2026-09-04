@@ -1,209 +1,129 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 625994BD11B;
-	Fri,  4 Sep 2026 14:45:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 154434CA76C
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 14:45:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788533130; cv=none; b=m60L04rRsLtVKzxaz3lSRNhZxefwhsTDguMyAet1LAZ0VKBmRF5eD5pNXRE2Jm9KjUODQ+M3SIqJqioRpGu8x35Y/7OT9ICGar2MrIMe5kjCvFP5Xk/1L+8BTl8GD9UrSaB4ZAiEeaTJ02X/wgbXj86Z+jrRlcHwaaObDZXPL+Q=
+	t=1788533134; cv=none; b=f8W+ZZ9jyNDEbSui06ZiTeiK40k2qzN76R9ONEJQDfw/V8QZ1GaCtnvfScL/SpnH4m/FdhbF02cXi/u0DyBj2pghdAQy/aNz+1tse3imIwV+uXvVQpFXdvhJO9YNYuIINrPEIxWjlJOPdxxmftIOse4iuAD2PZ9QN+ynHkWpCo8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788533130; c=relaxed/simple;
-	bh=slERl2dvq5Spzqv2HIyb/3aymRLpbkntgzHliuFBwV8=;
-	h=Date:Message-ID:From:To:Cc:Subject:MIME-Version:Content-Type; b=f8rs03wF/W77Gt2Ipj5LZt83b817Cr25WJ8kmfpaUfBy8/MP045PnHU/6LjhHeHvyeIxbrRzajaWN66OqRLa8xbVgZzpwFDsKVBFK16exMvYEv+SoFqz1Nk/tCm5oAFKcRa95xIWXQoWGfCQcYG8+RCWhAmq9LrAOWSxSo3kiJs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=cVcDSyxP; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=WCawr2qe; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=cgQ6uVlj; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=Bt1ix3eA; arc=none smtp.client-ip=195.135.223.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	s=arc-20240116; t=1788533134; c=relaxed/simple;
+	bh=EQfoer8prDYVkfx3gMt3zq280IbcjP6BuMNJz2oRoN4=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=jGcYCmZMJWIb++8pOUKCHXtS4GISCRPecE/uyMfIdPwp5J8F4GnNO179ewfpnwH1L6KgSuZHcLzqrLOGzkI5JRyjMdk+6mIKrhdJp3068uL7bE08HAMWiEpkkBXQX5IE4KB2Pw5FdUUCSdSVu9r0QcZkeKMS2sMdT+hm0tbnbaw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HjWbiuQ4; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="cVcDSyxP";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="WCawr2qe";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="cgQ6uVlj";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="Bt1ix3eA"
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 0AA0022540;
-	Fri,  4 Sep 2026 14:45:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1788533122; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type;
-	bh=zGLmfvZ8R5JB0SBfBij6xq4Jo14B7AnjDL+sevxZuWA=;
-	b=cVcDSyxPva+Ic+/bobPkbQKBRzpM0vXey8FuD79ExT49n4kpkSb7KKt38H+U0csADXbtWl
-	SiULFJMXDULK5tAbU9sFIZcso3Wf591ikDqTN4lY85jqUHAIhHAgAov5Fao6wIfW8nHHZ6
-	A0lnEcZL+sLPg0dVOocUs2qSDBMmUuE=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1788533122;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type;
-	bh=zGLmfvZ8R5JB0SBfBij6xq4Jo14B7AnjDL+sevxZuWA=;
-	b=WCawr2qe7PFejIun6DQf7aUrNz6j+P52G977qkqaCy4KAqI5DMSWqzta92bVKPCgtfhla/
-	z0xp2H1EyJBV5WDg==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1788533118; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type;
-	bh=zGLmfvZ8R5JB0SBfBij6xq4Jo14B7AnjDL+sevxZuWA=;
-	b=cgQ6uVljsa7uhObOqqIbxb5eoK7UN/JIaZWaI8A8kpZJiz1hKOpxMR2I8MNL+37DvE5wwy
-	xDKP2Xw2XlRQS+UILEhsIOayhHdRPYM8EjgDEPcrC/FMUuLmPbuoCc3BQ3ttnIqlUWotLi
-	3+DG/1X0D00Qz8P5VaGtTjXc1YgbqTs=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1788533118;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type;
-	bh=zGLmfvZ8R5JB0SBfBij6xq4Jo14B7AnjDL+sevxZuWA=;
-	b=Bt1ix3eAa8/prjqRnMwTSQidHeZSEQKy2IJKuMcThVPTC7UPw37211q/F9eyjBT2l28Ff0
-	554awvupUonJcBDg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id C930613726;
-	Fri,  4 Sep 2026 14:45:17 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id YgPbL33Zmmq3WQAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Fri, 04 Sep 2026 14:45:17 +0000
-Date: Fri, 04 Sep 2026 16:45:17 +0200
-Message-ID: <875x0l5b42.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Cc: Linux Sound Mailing List <linux-sound@vger.kernel.org>, Linux Kernel
- Mailing List <linux-kernel@vger.kernel.org>
-Subject: [GIT PULL] sound fixes for 7.3-rc2
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HjWbiuQ4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 63C701F00A3D
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 14:45:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788533131;
+	bh=VAYnd2iSJeM1slAl/miuSRNwIx7PbMyJJK4gRm9hL5g=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=HjWbiuQ4mKx1gpt3v48T42ysmOCo594xmiDtJaSxLAb8wdw7Q23g3Lq1f73WT4F7L
+	 a6LMSkuRZjX2VisOpmJCuq3VAtqlu3SkmwX5CaByb5mV5AP94df1m8ZhSZV0sWTDcs
+	 tPnk0Y6X9DRCKKD9iXYEqLgOZfs2QSa48uQozMoGAn61KiVGIHC0+JNjDovJdF3tSy
+	 0X9hWOyxK7JcWJlLWm+w5gpL8hHV97UCt7jTa2PATSWRYvtjlYuS0/EUHGHyHvNJyM
+	 jhLr1KLvvR3taAPNyoqhf0xl5U9tQ3VyTK8ngbOrzvI2L+ypPVGPiE7SsRsFasTgiu
+	 BdUMnHpt0E7sw==
+Received: by mail-lj1-f169.google.com with SMTP id 38308e7fff4ca-3a35920ff96so18582671fa.0
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 07:45:31 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBxKPhwgUDy9btUwmW/GbgigvjoyUsvk43QmzdeyQGqoSANGCB9k54bQyJcNVEoh3B/fSbcHkQA9NyGAbHw=@vger.kernel.org
+X-Gm-Message-State: AFuF++nCL/l2pxuDOy/W0auqYDn4aWRFS9KBEHxr7QHLQbU7S2VKkMp9
+	l4LDG+lOGhHk3im8uJE55N3ZALJwddaHHOE59IMdH+2s6epRbRWvHZkj/6FD8keMPeqNR5Q2sve
+	o80Sk3869UxpbnY2rYuEjOKd/er1+f48=
+X-Received: by 2002:a05:651c:a141:b0:39a:c1dd:5399 with SMTP id
+ 38308e7fff4ca-3a372cf14a0mr6008851fa.7.1788533129780; Fri, 04 Sep 2026
+ 07:45:29 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Spam-Level: 
-X-Spam-Score: -3.30
-X-Spam-Flag: NO
-X-Spamd-Result: default: False [-3.30 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-0.996];
-	MIME_GOOD(-0.10)[text/plain];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	ARC_NA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	RCVD_TLS_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	TO_DN_ALL(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCPT_COUNT_THREE(0.00)[3];
-	FROM_EQ_ENVFROM(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:mid,imap1.dmz-prg2.suse.org:helo]
+MIME-Version: 1.0
+References: <20260826153144.299746-3-blum@kernel.org> <fb91525abdaa6b6955d9af96f3b16f0dbbae8e85.camel@linux.intel.com>
+In-Reply-To: <fb91525abdaa6b6955d9af96f3b16f0dbbae8e85.camel@linux.intel.com>
+From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
+Date: Fri, 4 Sep 2026 16:44:27 +0200
+X-Gmail-Original-Message-ID: <CAJZ5v0h7mE9U4u_dLZv-TyR1hYnX_FDU3UgWnb7RUtfkK1f9rw@mail.gmail.com>
+X-Gm-Features: AcwNN1VWEBxKMEvbAUOFkFan5BUFB08sT6DQS0hZSXMjxzPS0IqiPCLrz7sJFmQ
+Message-ID: <CAJZ5v0h7mE9U4u_dLZv-TyR1hYnX_FDU3UgWnb7RUtfkK1f9rw@mail.gmail.com>
+Subject: Re: [PATCH] thermal: intel: int340x: Fix temperature selection around
+ 0 C
+To: srinivas pandruvada <srinivas.pandruvada@linux.intel.com>, Thorsten Blum <blum@kernel.org>
+Cc: Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>, 
+	Lukasz Luba <lukasz.luba@arm.com>, Stanislaw Gruszka <stanislaw.gruszka@linux.intel.com>, 
+	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>, linux-pm@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Linus,
+On Fri, Aug 28, 2026 at 10:20=E2=80=AFPM srinivas pandruvada
+<srinivas.pandruvada@linux.intel.com> wrote:
+>
+> On Wed, 2026-08-26 at 17:31 +0200, Thorsten Blum wrote:
+> > Since commit 7251b9e8a007 ("thermal/intel: Fix intel_tcc_get_temp()
+> > to
+> > support negative CPU temperature"), intel_tcc_get_temp() can report
+> > negative temperatures.
+> >
+> > proc_thermal_get_zone_temp() still uses *temp as the current maximum
+> > and
+> > as an implicit "no reading yet" marker. However, this breaks when a
+> > CPU
+> > reports 0 C, because a subsequent negative reading can overwrite it.
+> >
+> > Use bool temp_valid to track whether a valid temperature has been
+> > read.
+> > Initialize *temp with the first valid reading and only update it with
+> > warmer readings.
+> >
+> > Fixes: 7251b9e8a007 ("thermal/intel: Fix intel_tcc_get_temp() to
+> > support negative CPU temperature")
+> > Cc: stable@vger.kernel.org # 6.3+
+> > Signed-off-by: Thorsten Blum <blum@kernel.org>
+>
+>     Acked-by: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>
 
-please pull sound fixes for v7.3-rc2 from:
+Applied as 7.4 material, thanks!
 
-  git://git.kernel.org/pub/scm/linux/kernel/git/tiwai/sound.git tags/sound-7.3-rc2
-
-The topmost commit is 3b26ceef88c110f4d188387cffa0df78657be904
-
-----------------------------------------------------------------
-
-sound fixes for 7.3-rc2
-
-A collection of small fixes since 7.3-rc1.  Quite a few fixes are
-for ALSA core for issues that have been detected by the things you
-know well.  Additionally a series of hardening for runtime PM, and
-usual quirk updates, and some other misc driver fixes are included.
-
-* Core:
-- Fixes for PCM races
-- UMP parser NULL dereference fix
-- Fix error handling in rawmidi ioctl
-
-* USB- and HD-audio:
-- Implement missing runtime PM guards across multiple interfaces
-- Fix for OOB access in US-122L MIDI driver
-- Double-free fix for CAIAQ driver
-- Quirks for HD-audio Realtek & Cirrus codecs, Conexant S3-resume,
-  USB Audient devices
-
-* Others:
-- Fix of logical mistakes in dummy driver mixer and selftest code
-- Lock init fix in the legacy harmony driver
-
-----------------------------------------------------------------
-
-HyeongJun An (4):
-      ALSA: usb-audio: fix OOB write in snd_usbmidi_us122l_output()
-      ALSA: dummy: Report a change when one capture switch channel moves
-      ALSA: rawmidi: Return the error from snd_rawmidi_input_params()
-      selftests/alsa: Fix the step check for INTEGER controls
-
-Jonne Vuorela (1):
-      ALSA: hda/cs420x: Add CS4208 fixup for MacBookAir 7,2
-
-Oleksandr Kovalov (1):
-      ALSA: hda/realtek: Fix cold-boot headset misdetection on Acer Aspire A515-57G
-
-Peter Drabik (1):
-      ALSA: usb-audio: Add mixer map quirk for Audient iD24
-
-Qingyu Zhang (1):
-      ALSA: ump: do not touch legacy_rmidi before it exists
-
-Riku Matsumura (1):
-      ALSA: hda/realtek: Add quirk for VAIO VJS131
-
-Runyu Xiao (1):
-      ALSA: harmony: initialize locks before requesting IRQ
-
-Takashi Iwai (2):
-      ALSA: pcm: Fix race between non-atomic ops and trigger-start
-      ALSA: caiaq: Fix potential double-free at error path
-
-Will Porter (6):
-      ALSA: usb-audio: Add PM guard to Studio 1810c controls
-      ALSA: usb-audio: Add PM guards to US-16x08 transfers
-      ALSA: usb-audio: Add PM guard to Scarlett meter reads
-      ALSA: usb-audio: Guard Scarlett2 protocol transfers
-      ALSA: usb-audio: Add PM guards to RME Digiface controls
-      ALSA: usb-audio: Guard FCP protocol transfers
-
-Xu Rao (1):
-      ALSA: hda: restore MFG widget enumeration after core split
-
-Yilin Zhang (1):
-      ALSA: pcm: Serialize PCM mmap with buffer reallocation to fix page UAF
-
-Zhang Heng (2):
-      ALSA: hda/realtek: Add quirk for Lenovo Yoga Slim 9 14ILL10
-      ALSA: hda/realtek: Add quirk for Acer Predator PHN16-72
-
-feng liu (1):
-      ALSA: hda/conexant:Fix abnormal Mic/Speaker functionality on SN6140 after S3 wake-up
-
----
- sound/core/pcm_native.c                   | 37 +++++++++++++++++++++--------
- sound/core/rawmidi.c                      |  2 +-
- sound/core/ump.c                          |  4 ++++
- sound/drivers/dummy.c                     |  2 +-
- sound/hda/codecs/cirrus/cs420x.c          |  2 ++
- sound/hda/codecs/conexant.c               | 20 ++++++++++++++++
- sound/hda/codecs/realtek/alc269.c         | 39 ++++++++++++++++++++++++++++++-
- sound/hda/core/device.c                   |  5 ++--
- sound/parisc/harmony.c                    |  6 ++---
- sound/usb/caiaq/audio.c                   | 10 ++++----
- sound/usb/fcp.c                           |  8 +++++++
- sound/usb/midi.c                          |  2 ++
- sound/usb/mixer_maps.c                    | 18 ++++++++++++++
- sound/usb/mixer_quirks.c                  |  8 +++++++
- sound/usb/mixer_s1810c.c                  |  8 +++++++
- sound/usb/mixer_scarlett.c                |  4 ++++
- sound/usb/mixer_scarlett2.c               | 36 +++++++++++++++++++++++-----
- sound/usb/mixer_us16x08.c                 |  7 ++++++
- tools/testing/selftests/alsa/mixer-test.c |  4 ++--
- 19 files changed, 191 insertions(+), 31 deletions(-)
-
+>
+> > ---
+> >  .../intel/int340x_thermal/processor_thermal_device.c   | 10 +++++++-
+> > --
+> >  1 file changed, 7 insertions(+), 3 deletions(-)
+> >
+> > diff --git
+> > a/drivers/thermal/intel/int340x_thermal/processor_thermal_device.c
+> > b/drivers/thermal/intel/int340x_thermal/processor_thermal_device.c
+> > index f80dbe2ca7e4..b0284c2e2e74 100644
+> > ---
+> > a/drivers/thermal/intel/int340x_thermal/processor_thermal_device.c
+> > +++
+> > b/drivers/thermal/intel/int340x_thermal/processor_thermal_device.c
+> > @@ -179,17 +179,21 @@ static int proc_thermal_get_zone_temp(struct
+> > thermal_zone_device *zone,
+> >  {
+> >       int cpu;
+> >       int curr_temp, ret;
+> > -
+> > -     *temp =3D 0;
+> > +     bool temp_valid =3D false;
+> >
+> >       for_each_online_cpu(cpu) {
+> >               ret =3D intel_tcc_get_temp(cpu, &curr_temp, false);
+> >               if (ret < 0)
+> >                       return ret;
+> > -             if (!*temp || curr_temp > *temp)
+> > +             if (!temp_valid || curr_temp > *temp) {
+> >                       *temp =3D curr_temp;
+> > +                     temp_valid =3D true;
+> > +             }
+> >       }
+> >
+> > +     if (!temp_valid)
+> > +             return -ENODATA;
+> > +
+> >       *temp *=3D 1000;
+> >
+> >       return 0;
