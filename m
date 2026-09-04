@@ -1,45 +1,80 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com [209.85.216.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEFBA409624;
-	Fri,  4 Sep 2026 11:45:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 879D730149F
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 11:45:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788522317; cv=none; b=Lue9i4nY+as8LSzOzpEPbovd7J/wk+M25UVQA3DXMNT5yEVR1gw+Lqt+1JwsEguKsSEjpiReAv+bODanEKjntIoL+W+x7eUfmZL6W63JNaPExfjLh4WT0G++TrIBsFdC16EshBSrqLzerAP4LiltnZqTjTtHLKHVvcblWdUNDkc=
+	t=1788522346; cv=none; b=glOT98D/Ax1OBMwF/6u1RqMT3SeUkr258ojbpHwP3x+5cnNCGigMKTpbrS0RRGsAS3/03IXGgLu8yAG+CL3DotqRjQFxAqKmDYVqK/6yAfn2HpRCXGORxvMSw1WtQweoNhsMBnlthr1vF2RjsxD9RLyAkV3igbWk/66zebXrays=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788522317; c=relaxed/simple;
-	bh=FaBeAMRHl+rx7geJPB4JImFJWNXCPdDdVLQ6qarzyo0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=pJCznAd8kv3YIJPm82d0bumJrIAoWDBAJ//kVTbQoiHWzBm6IaIexSXhzWcEZaU+zK7clq/iuRxH9Bl6vBle1vmbPEvMh0vDi8eQQD/3pG3GNc43LTHX8/S18aiNaNnWfoXBwBNQfg0FIcSTRQWgdFIsgArL19aBj0cfkB+gBco=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XdD6/emr; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788522346; c=relaxed/simple;
+	bh=4DYiEOsZKjx/4f4PSXfRJejITB67NJXF4cNdrqZROfk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Rak4NA1cDS4SF9sYMsk3wnGRZ3dMwZEtlANSZU/6r//lvCq/lA/cCeFqJ/9EjuCL7QTl61V+2KLewTZo2D8XFk66nO4lHWu/vdF3dYuXX1TiwoFqoOk9B8o0dlHcNDhQR3yO/Wz3W4VQsku7LXqiJzHJ65XGZSNNA1ZEqI95bwU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=glMIBwnc; arc=none smtp.client-ip=209.85.216.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XdD6/emr"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 59FA61F00A3E;
-	Fri,  4 Sep 2026 11:45:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788522315;
-	bh=LwuY1rXitDNsVaFuMeOwWfQr8oiaOeC08TkleCwI42o=;
-	h=From:To:Cc:Subject:Date;
-	b=XdD6/emrU5rkPfWMRVXbfIoandoNpOuK2XWf3WDm0OP26AYSRWpMzTsFfU7HrdQnZ
-	 mCrcJSxldahWmJ//fy7ZJDhV9dmwO4URUVvEd/H3WBwm6dnrUZ6hipQ4qryJ2f7io1
-	 55Kx82LGhDfnDaPVLKbKvXBv2NzhUcHiSpNFg7SDFDIA3unXb8/Lot6tlqy2tdG2ED
-	 sF9QsTlSZBlGjq0DDDbOUEVlQat1217qT3MPJwm+PNzovt+IZWxT+WGvA+WF4YbTCR
-	 s5QEZqWeMEyaMEcP5oLW7lF12CXEL0XYxplGRRC1HZQGzrl+6ANr+HXiPbg7NnUZ0I
-	 GQ4zV8l6BueYw==
-Received: from johan by xi.lan with local (Exim 4.99.4)
-	(envelope-from <johan@kernel.org>)
-	id 1x2SM4-00000006z1P-40Db;
-	Fri, 04 Sep 2026 13:45:12 +0200
-From: Johan Hovold <johan@kernel.org>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>
-Cc: linux-serial@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Johan Hovold <johan@kernel.org>,
-	stable@vger.kernel.org
-Subject: [PATCH v2] serial: fix ioctl hangup race
-Date: Fri,  4 Sep 2026 13:44:48 +0200
-Message-ID: <20260904114448.1664502-1-johan@kernel.org>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="glMIBwnc"
+Received: by mail-pj1-f49.google.com with SMTP id 98e67ed59e1d1-398a4dcf289so1050803a91.2
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 04:45:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788522345; x=1789127145; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Ypdm6ycnQEZOWN8WJPUUE2HwMGTgKp4dCj8wtNt7vJI=;
+        b=glMIBwncTttwvAe5mGxgfuLlNw2tGMxm8GK/vE00V2EV+D5nQR4OM6pDKnTCDJrarr
+         VRIIWrSu6Be0a4wwUH4gjT8BU5fH1e37niqC+ldAEXYVqls70gcwILPRRkzbx7xiHlwo
+         J1qS6IFF5XtXKY5Rf9gUlzA2eHQRg9qSOWhVh/M2Q/KayChmZdJnhnjGVCfLMD2Gx3qh
+         qg6L6OBBKVIizJqTTuMEq6xrsiI95TFv0ww/I0nj3vRANAIJEwlWuWQ0w+elFtwMZxRN
+         EGjA5Q8W5qjTrdOW4B0X1q3TpCr/6qsCZ1PLme9zvwwwKlzwtNqiVV3+IRDknIlfRDYA
+         KJAQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788522345; x=1789127145;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Ypdm6ycnQEZOWN8WJPUUE2HwMGTgKp4dCj8wtNt7vJI=;
+        b=XhiRgNMqC+NY/9ko/Pf48vaVcEpAbSze+71xqaw7Posc8Gg1S/d18qco1twMf85On3
+         G6xGMqhPIR4D/SSewk32hxEaXoZWmoWBjnHr7bRwZH6ZpJqF5b9vPc6j9syogUUaisSE
+         drUd+3HmZ3LoOn2OUCpD6WhsZLTTW8gi1hfmF8V3dXbQ5way2afwld23y8nmENCVvyB4
+         4WL+9kH+abhDplh9L+S0aegGq8pQgzN3UFdeGigU9RrKIAQRShk5Qu5Am/Mv1hxZ5CIw
+         S27GlUo+XwowDHcQ78h+BLOgWdyjgBXLANjUv35CZSKPRKddy7HhkcCYwVPAiewWXrmX
+         uH7Q==
+X-Gm-Message-State: AFuF++l65xNWbXwHW4Si3cxPGu2dJO6+cWpJQ1xBEhQuO3+SXsD/LLMQ
+	jmXB4NtqwBgOwVZHJ24dXQ56TZd+N1BYpb40vAs0o43IYw8svL1o6Qsy
+X-Gm-Gg: AYBFou3iEZV5go0+CH1G8AGyd00b/rxj9isX8C1x2CSKEJ5j5Anw+ifVP4o5fvjekIQ
+	K/RzvKw9dk8U5FTUOqey6vQBn9ipm47Nqr3hOiEQByd2Cm554H4/dWbZdvuk9/MVG/lwa/Wba/a
+	hz/WtbF7o7mv/Gy+vkl8Aq0i48UgEl3OFlGYlREf6eIozCy6Q7mtw1+vx6ZP6my0YJolA94tYSK
+	0tNPp1//nqaaxLBK6zOAjFheHbvbOEDXMvXqf5BsVOE5TF8DNyaCE3xe0Ljns820yIEw8iQX1wG
+	SekNxYRJQyhLwEFufWKlFUob9THsyrDupfxkxlj5UmkYLt1l3aaV4DrvmOl6WzRNeYXGeb2TYe1
+	E64Z//irssvcZM8UyyZiWaavISQ/OU3pC+LsC5uyh6jDjU8AkPk1/JxPKXnyQDExH9Wq9K9pTnt
+	0Sjyp8T+TANECYIsbOKjBBIg7ntiEFpcYXjlpM0BeO7mpRN+b9agb2QV7y1s+Bqte4iDbfNT/dx
+	R1p7X0HPDu7iMWg0ilOhrKDWw==
+X-Received: by 2002:a17:90a:e7c2:b0:398:9be8:ea66 with SMTP id 98e67ed59e1d1-39b261da126mr7004862a91.19.1788522344797;
+        Fri, 04 Sep 2026 04:45:44 -0700 (PDT)
+Received: from volcano9f6e-hostos.amd.com ([165.204.217.251])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339885ca07sm7148372eec.1.2026.09.04.04.45.40
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 04 Sep 2026 04:45:44 -0700 (PDT)
+From: Hemanth Selam <hemanth.selam@gmail.com>
+To: Simon Horman <horms@verge.net.au>,
+	Julian Anastasov <ja@ssi.bg>,
+	Pablo Neira Ayuso <pablo@netfilter.org>,
+	Florian Westphal <fw@strlen.de>,
+	Phil Sutter <phil@nwl.cc>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>
+Cc: linux-kernel@vger.kernel.org,
+	netdev@vger.kernel.org,
+	lvs-devel@vger.kernel.org,
+	netfilter-devel@vger.kernel.org,
+	coreteam@netfilter.org
+Subject: [PATCH] net: netfilter: fix typo "specifiy" in comment
+Date: Fri,  4 Sep 2026 17:15:36 +0530
+Message-ID: <20260904114537.29953-1-hemanth.selam@gmail.com>
+X-Mailer: git-send-email 2.48.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -48,138 +83,29 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The tty ioctls can race with hangup and end up calling into a tty
-driver for a device that is already gone or powered down.
+Correct "specifiy" to "Specify", reported by scripts/checkpatch.pl using
+the misspelling list in scripts/spelling.txt.  Only touches comments, no
+code changes.
 
-Add the missing checks to make sure the port has not been hung up before
-accessing the hardware to avoid issues like kernel panic due to
-unclocked accesses.
-
-Note that TIOCGSERIAL, TIOCGICOUNT do not access hardware and are
-therefore not affected by the race.
-
-Fixes: 04f378b198da ("tty: BKL pushdown")
-Cc: stable@vger.kernel.org	# 2.6.26
-Signed-off-by: Johan Hovold <johan@kernel.org>
+Assisted-by: Cursor:claude-opus-5
+Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
 ---
+ net/netfilter/ipvs/ip_vs_sync.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-I botched the scoped_guard() conversion as Sashiko pointed out so here's
-a v2.
-
-Johan
-
-
-Changes in v2
- - include TIOCMIWAIT which also access hardware
- - replace broken scoped_guard() construct in wait loop
-
-
- drivers/tty/serial/serial_core.c | 36 +++++++++++++++++++++++---------
- 1 file changed, 26 insertions(+), 10 deletions(-)
-
-diff --git a/drivers/tty/serial/serial_core.c b/drivers/tty/serial/serial_core.c
-index 95774b0f1484..b0d3902fe4fc 100644
---- a/drivers/tty/serial/serial_core.c
-+++ b/drivers/tty/serial/serial_core.c
-@@ -896,7 +896,7 @@ static int uart_set_info(struct tty_struct *tty, struct tty_port *port,
- 	upf_t old_flags, new_flags;
- 	int retval;
+diff --git a/net/netfilter/ipvs/ip_vs_sync.c b/net/netfilter/ipvs/ip_vs_sync.c
+index ea5fdd4f4ce7..5ddde3ab2e59 100644
+--- a/net/netfilter/ipvs/ip_vs_sync.c
++++ b/net/netfilter/ipvs/ip_vs_sync.c
+@@ -1344,7 +1344,7 @@ static void set_mcast_pmtudisc(struct sock *sk, int val)
+ }
  
--	if (!uport)
-+	if (!uport || tty_io_error(tty))
- 		return -EIO;
- 
- 	new_port = new_info->port;
-@@ -1119,7 +1119,7 @@ static int uart_break_ctl(struct tty_struct *tty, int break_state)
- 	guard(mutex)(&port->mutex);
- 
- 	uport = uart_port_check(state);
--	if (!uport)
-+	if (!uport || tty_io_error(tty))
- 		return -EIO;
- 
- 	if (uport->type != PORT_UNKNOWN && uport->ops->break_ctl)
-@@ -1144,7 +1144,7 @@ static int uart_do_autoconfig(struct tty_struct *tty, struct uart_state *state)
- 	 */
- 	scoped_cond_guard(mutex_intr, return -ERESTARTSYS, &port->mutex) {
- 		uport = uart_port_check(state);
--		if (!uport)
-+		if (!uport || tty_io_error(tty))
- 			return -EIO;
- 
- 		if (tty_port_users(port) != 1)
-@@ -1199,7 +1199,7 @@ static void uart_enable_ms(struct uart_port *uport)
-  * FIXME: This wants extracting into a common all driver implementation
-  * of TIOCMWAIT using tty_port.
+ /*
+- *      Specifiy default interface for outgoing multicasts
++ *      Specify default interface for outgoing multicasts
   */
--static int uart_wait_modem_status(struct uart_state *state, unsigned long arg)
-+static int uart_wait_modem_status(struct tty_struct *tty, struct uart_state *state, unsigned long arg)
+ static int set_mcast_if(struct sock *sk, struct net_device *dev)
  {
- 	struct uart_port *uport;
- 	struct tty_port *port = &state->port;
-@@ -1213,9 +1213,17 @@ static int uart_wait_modem_status(struct uart_state *state, unsigned long arg)
- 	uport = uart_port_ref(state);
- 	if (!uport)
- 		return -EIO;
--	scoped_guard(uart_port_lock_irq, uport) {
--		memcpy(&cprev, &uport->icount, sizeof(struct uart_icount));
--		uart_enable_ms(uport);
-+
-+	scoped_guard(mutex, &port->mutex) {
-+		if (tty_io_error(tty)) {
-+			ret = -EIO;
-+			goto out_deref;
-+		}
-+
-+		scoped_guard(uart_port_lock_irq, uport) {
-+			memcpy(&cprev, &uport->icount, sizeof(struct uart_icount));
-+			uart_enable_ms(uport);
-+		}
- 	}
- 
- 	add_wait_queue(&port->delta_msr_wait, &wait);
-@@ -1245,6 +1253,7 @@ static int uart_wait_modem_status(struct uart_state *state, unsigned long arg)
- 	}
- 	__set_current_state(TASK_RUNNING);
- 	remove_wait_queue(&port->delta_msr_wait, &wait);
-+out_deref:
- 	uart_port_deref(uport);
- 
- 	return ret;
-@@ -1567,7 +1576,7 @@ uart_ioctl(struct tty_struct *tty, unsigned int cmd, unsigned long arg)
- 
- 	/* This should only be used when the hardware is present. */
- 	if (cmd == TIOCMIWAIT)
--		return uart_wait_modem_status(state, arg);
-+		return uart_wait_modem_status(tty, state, arg);
- 
- 	/* rs485_config requires more locking than others */
- 	if (cmd == TIOCSRS485)
-@@ -1646,7 +1655,7 @@ static void uart_set_termios(struct tty_struct *tty,
- 	guard(mutex)(&state->port.mutex);
- 
- 	uport = uart_port_check(state);
--	if (!uport)
-+	if (!uport || tty_io_error(tty))
- 		return;
- 
- 	/*
-@@ -1798,7 +1807,14 @@ static void uart_wait_until_sent(struct tty_struct *tty, int timeout)
- 	 * 'timeout' / 'expire' give us the maximum amount of time
- 	 * we wait.
- 	 */
--	while (!port->ops->tx_empty(port)) {
-+	for (;;) {
-+		mutex_lock(&state->port.mutex);
-+		if (tty_io_error(tty) || port->ops->tx_empty(port)) {
-+			mutex_unlock(&state->port.mutex);
-+			break;
-+		}
-+		mutex_unlock(&state->port.mutex);
-+
- 		msleep_interruptible(jiffies_to_msecs(char_time));
- 		if (signal_pending(current))
- 			break;
 -- 
-2.55.0
+2.48.1
 
