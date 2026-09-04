@@ -1,114 +1,153 @@
-Received: from fhigh-a3-smtp.messagingengine.com (fhigh-a3-smtp.messagingengine.com [103.168.172.154])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07C9543FD0B;
-	Fri,  4 Sep 2026 09:31:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.154
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8511344238E;
+	Fri,  4 Sep 2026 09:31:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788514306; cv=none; b=dHFQkSqm228YRzOyxysp7fCS6iHt+ZxMUpcKMyKgbzCnio+ZLQY8N2TBbN0Ehbyp2QXnEHrmNgqpt+//twEfk6NKWbk3PdSn82fTcLuNvb7FCvJ1q3YcCeQMB1WQAIR5n1cyqCZ9FsLfP1+58vsQf/ofA92AzV1y7Wf+VMU28mk=
+	t=1788514311; cv=none; b=Vlb8LmcL40HrMmTOr7lF+N8nQHtS7Pza3O2fuTuntmzAoT42+jMfCWB4+aXjpaVGl2vPae1QLY2sZ73qYqTO00cL4rJ1WW8qdy4fD3uNwymMLo4Wbq8dQ6K0CIfl98t3QkRWvUcLZSvDlCLGabHOU1QCw2T2634+d9gj1rMoimw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788514306; c=relaxed/simple;
-	bh=zLTL0XSX377Q5uxNjt9iEMwwDbPUSFjdEiz/iPykOT4=;
-	h=To:Cc:Message-ID:In-Reply-To:References:From:Subject:Date; b=KV+ESIqOalQO8tkr+uQ6B2m1AbA4zJLUeWpikzmd+mSRHIG7WUmMV5MjzOPUi9cylTp9cLmpSXjrdh29jvuStJDgVmha+VsgcLsmO5tBooVgRAJzqOuryMbBU1m+3ijV6QL2i85u1c6QIZ9K4+kG4R3VMGGsRb65YP8THsE8lrQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=none smtp.mailfrom=linux-m68k.org; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=JM8p6LZe; arc=none smtp.client-ip=103.168.172.154
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux-m68k.org
+	s=arc-20240116; t=1788514311; c=relaxed/simple;
+	bh=9hm7BE+ZsFE5TmrxPA2/EyYAsXYR/AQZ960fjIriESg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=sBq8gNBKdTsRk+amTgXIQv6VgcOA9+2SsF5AREWQqh2mz1qE2ameWoFdeCJsjkC1CjQKP45lRjq5M+u+PVM25i5F4bA1IsWTdRMS7liItEhkjR+Tu60Quafg5N1qJnJtiDtQgc2FlNhuyPHC2YOHghPy0ElsU3dMTJd+zQvTrbs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=XnNG65jT; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=HorEgO25; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=PZ69kzBW; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=AYyyhke1; arc=none smtp.client-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="JM8p6LZe"
-Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
-	by mailfhigh.phl.internal (Postfix) with ESMTP id EB3D21400032;
-	Fri,  4 Sep 2026 05:31:42 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-01.internal (MEProxy); Fri, 04 Sep 2026 05:31:42 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:date:date:feedback-id
-	:feedback-id:from:from:in-reply-to:in-reply-to:message-id
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1788514302; x=
-	1788600702; bh=6enK1e/BFMkuBg8+irnlLj0CqFHztSRmCrF0cLMxqjM=; b=J
-	M8p6LZe1YpTgYlrsryI1mg2tesLwa8dqyQdeyUovoE673BUHR8YEeivKcLtkiysr
-	k2VLWd2hzbtb80eZXGwng42YKGZTLBpk2iOecccpwKJWqw8Whe5tJbOl38A+R0rd
-	0nUwodBUtvyRUYQszgm1ayvg+DUW702j2qKfv20P8/8F8to9I8FZdAsxlEPrBYNL
-	hl50FQIBWqaannYFdCebgUeiRYRhaUbDwkvMLgR9eJzmP8Bvln8F7MOLmn1SE0bc
-	vQck2fTnTCnkRzDHBJOpHs4CavJekHyZQA/5/vvfKjnOvuR24QmCVZ9qtJJCY7WX
-	OwfEzqrANvn22iPeU01sg==
-X-ME-Sender: <xms:_o-aavCniIi7ZUZjB0_TxuIfSMivisaKOcRDIxh7_L6VhKJlDT8Sdw>
-    <xme:_o-aavmAniyhYFdRAxZfnjT7fnYoKbYu-9XJZZ9RcLwNoofySxNOL2Tx_Z1ZA634e
-    pMzmfyTDv1ii_eJgMhS7o7oHvibR8S8RujXx9WQcsXxH6fwXLU2XRtA>
-X-ME-Received: <xmr:_o-aaqf7wq66X212N26es7bBoKNTIrLqZeNsrWQY8H8zXEjuDUDBgW6mXC7FZdmAu7gU3ZyN3SQe71890H4n8vtVYzJfeGeOvmQ>
-X-ME-Proxy-Cause: dmFkZTEAKPWJVEMqJ16jAjOL9FB/rBffUzJbSVLQHlq9+RC52fsBvb13o/7yjvGYTuY3IH
-    ZNCMm3A3s3Wzl4RLMlWp0jCSYNVS7BZQKRPO2yqi1PfebCSoLOeHqK6FATWT8bd3IKpoKZ
-    CEwyBEjTXEy3FLlbxSNZDKwf3xO9EeiRAKVkzcAluKXcPMqMkrDpp1BPxnn7TPE8fvHu4l
-    eJtWE0FI2UehL/YEbD5REmldbzGnWmAWgAUgfm0dSu3fH37RyKRhvYbjCw4HLJaLhP6501
-    B+Avisf8hlO2cQGDcAA1USTZdkjGliJjHtwHNkdXiWoCX0/+3sglem9KJOr2WDslSbN9I5
-    0PdLxvukadh6i2I3gYKXNv7IUbX6BNxZpHmSMD7c9cj8LUjNETU3CYGgAF/J4UVV6dMxuF
-    NPnLK6Ty1cymiY7Q0u4mmW9Kf+3vrd1G/oLEe7QURr78z4cLt7dXc0lqGib3Sp+Kcg11c1
-    AbWe88+ExaurIfJicFrg+aWUlTF9szELhEp2fVGQ3+bCbjylHX5ooSrmBmDeCcnRkkSXCk
-    HMQAyrlX/EEVccTPF6gaXCVaFc8QqKZgnKOqwR7Ow/RGau2wAYeTKEMTRgAVVkZCmhi/9W
-    uJrwU8pGoc/+MaucrM+CH78ecivNEgAJY6B5QFHs6GZvbzQRtJ2L0BtEXd0g
-X-ME-Proxy: <xmx:_o-aajQrevXg06CEthrRaLw_txR_iqS9lVWCo2ADbii0jVAPbkFrDA>
-    <xmx:_o-aahvbUcfjaK3E4hACd3ZPsRw1V-OnOVwPgyfb8Rk6G5joHF36bA>
-    <xmx:_o-aakeqgUTFJEVvQYvUEVgbuaS5sr-brcgtpkny2_ZgtvTrg6-HLg>
-    <xmx:_o-aarbY413FD-hqoJ6xbO9o09jwIgGAp8zuX_e10fYgucu_3rH-Zg>
-    <xmx:_o-aanyDRnMPvYRreEi-47BJw4AUytzzOTIeVoQsIsFJKJxYXfyT1Qco>
-Feedback-ID: i58a146ae:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
- 4 Sep 2026 05:31:41 -0400 (EDT)
-To: Jens Axboe <axboe@kernel.dk>,
-    Laurent Vivier <laurent@vivier.eu>
-Cc: Geert Uytterhoeven <geert@linux-m68k.org>,
-    Joshua Thompson <funaho@jurai.org>,
-    linux-block@vger.kernel.org,
-    linux-m68k@lists.linux-m68k.org,
-    linux-kernel@vger.kernel.org
-Message-ID: <370f73fcceb53ce4860904ce6cf4f06ade0e43d5.1788513996.git.fthain@linux-m68k.org>
-In-Reply-To: <cover.1788513996.git.fthain@linux-m68k.org>
-References: <cover.1788513996.git.fthain@linux-m68k.org>
-From: Finn Thain <fthain@linux-m68k.org>
-Subject: [PATCH v3 02/33] swim: Select appropriate drive once only
-Date: Fri, 04 Sep 2026 19:26:36 +1000
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="XnNG65jT";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="HorEgO25";
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="PZ69kzBW";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="AYyyhke1"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id ABF05203A6;
+	Fri,  4 Sep 2026 09:31:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1788514302; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Dqqu47eLr7+qgcvKMTvP8XYk3U9M1m+TBbkru5VtPWo=;
+	b=XnNG65jT1XRDOE02Bc3G3PhbjAySrlW7i3+qHNg3MMVIOa/qrtJF9l/SgMnjvgKQxPgwIJ
+	ebqjeTPL6coBE7mUvuwSuOr0k0+Hvp7Y1Jc2qbH2Ydgymf04cjU3np71yeVTyXwDC0NuTh
+	SxirWVFzUD1qz3Lfw46/354brWB60Tg=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1788514302;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Dqqu47eLr7+qgcvKMTvP8XYk3U9M1m+TBbkru5VtPWo=;
+	b=HorEgO25yo0R7QsG5/Qi9PSNzBiqT/ht9FEsHm0rAqtSBTZdzMCxkzlFwf84JMl9EHOxYL
+	uJ3BUk5r45p1kfCg==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1788514298; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Dqqu47eLr7+qgcvKMTvP8XYk3U9M1m+TBbkru5VtPWo=;
+	b=PZ69kzBWMQO5svqYDZY7y17nvSHPTZQraabNDfECByo2/i16hBhzUoBQBIHeAQaAV724wX
+	hAdDiH2VBAPovT115BXXMpqOiBWmXuP1uKpPv32/u+s2RNZ+kISF7+Kjiu1HM10WyQsoy2
+	YastFeRIAyJ92fgFLbmGwkBqVS6di7I=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1788514298;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Dqqu47eLr7+qgcvKMTvP8XYk3U9M1m+TBbkru5VtPWo=;
+	b=AYyyhke1jHHDRMuESUaJoHyUsY3w3FwVuPpf5iPBVd32qX7INW9SWXJqWbYr2JSgKYDPz5
+	hmecPN1svO/DF+CA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 86E1F13678;
+	Fri,  4 Sep 2026 09:31:38 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id +g7nIPqPmmrDDQAAD6G6ig
+	(envelope-from <jack@suse.cz>); Fri, 04 Sep 2026 09:31:38 +0000
+Received: by quack3.suse.cz (Postfix, from userid 1000)
+	id 1E703A13CE; Fri, 04 Sep 2026 11:31:38 +0200 (CEST)
+Date: Fri, 4 Sep 2026 11:31:38 +0200
+From: Jan Kara <jack@suse.cz>
+To: Karl Mehltretter <kmehltretter@gmail.com>
+Cc: Jan Kara <jack@suse.cz>, Alexander Viro <viro@zeniv.linux.org.uk>, 
+	Christian Brauner <brauner@kernel.org>, Oleg Nesterov <oleg@redhat.com>, linux-fsdevel@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] super: remember whether freeze holds writer rwsems
+Message-ID: <hyhuckyohsabx2suvq3z7uy3pbgmihva6wgzxr3op7pzcrlu33@p7zzlgp2ehjf>
+References: <20260903060855.4610-1-kmehltretter@gmail.com>
+ <yly6lgithikpjfvmozn73zvcivoftko7ou6qozsf6xntaoi6yc@44aw3yj4i7rh>
+ <apnNew8Exp44CgQh@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <apnNew8Exp44CgQh@gmail.com>
+X-Spam-Level: 
+X-Spam-Score: -3.80
+X-Spam-Flag: NO
+X-Spamd-Result: default: False [-3.80 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_RHS_NOT_FQDN(0.50)[];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	ARC_NA(0.00)[];
+	MISSING_XM_UA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	FREEMAIL_TO(0.00)[gmail.com];
+	RCPT_COUNT_SEVEN(0.00)[7];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	TO_DN_SOME(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RCVD_COUNT_THREE(0.00)[3];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	RCVD_TLS_LAST(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.com:email]
 
-Before turning off the spindle motor, call swim_drive() to select the
-appropriate drive. Remove the swim_drive() call from swim_add_floppy()
-because it was already called by swim_floppy_init().
+On Thu 03-09-26 21:50:45, Karl Mehltretter wrote:
+> On Thu, Sep 03, 2026 at 12:40:42PM +0100, Jan Kara wrote:
+> > This looks like one of these theoretical issues LLMs come up with. Frankly,
+> > I just wouldn't bother. If the fs gets forcibly remounted RO due to
+> > metadata errors, a frozen fs is likely the least of your worries.
+> > 
+> 
+> You may be right that this is not worth fixing in generic VFS. I tried the
+> real filesystem paths anyway:
+> 
+>           Without patch                 With patch
+> ext2      next write hangs, unmount     write and unmount complete
+>           gives three RCU warnings
+> NILFS2    unmount gives three           unmount completes cleanly
+>           RCU warnings
+> 
+> These tests use FIFREEZE, FITHAW, and corrupted filesystem images.
+> Other filesystems have similar error paths.
+> 
+> The f2fs report fixed by 930c6ab93492 exercised the same sequence. The ext4
+> change d3476f3dad4a removed the analogous SB_RDONLY assignment because it
+> confused filesystem freezing.
+> 
+> The VFS patch only makes thaw release what freeze acquired. It is needed
+> because these filesystems change SB_RDONLY outside the remount path.
 
-Reviewed-by: Laurent Vivier <laurent@vivier.eu>
-Fixes: 8852ecd97488 ("m68k: mac - Add SWIM floppy support")
-Signed-off-by: Finn Thain <fthain@linux-m68k.org>
----
- drivers/block/swim.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+Yes, generally just flipping SB_RDONLY bit is problematic and can lead
+to more surprises than just fs freezing issues. So yes, I think improving
+filesystems so that they just don't set SB_RDONLY on error is a better way
+of handling these problems. I'd certainly accept a patch for ext2 for this.
 
-diff --git a/drivers/block/swim.c b/drivers/block/swim.c
-index 5d89e7813049..4721e073a874 100644
---- a/drivers/block/swim.c
-+++ b/drivers/block/swim.c
-@@ -679,8 +679,10 @@ static void floppy_release(struct gendisk *disk)
- 	else if (fs->ref_count > 0)
- 		--fs->ref_count;
- 
--	if (fs->ref_count == 0)
-+	if (fs->ref_count == 0) {
-+		swim_drive(base, fs->location);
- 		swim_motor(base, OFF);
-+	}
- 	mutex_unlock(&swim_mutex);
- }
- 
-@@ -752,8 +754,6 @@ static int swim_add_floppy(struct swim_priv *swd, enum drive_location location)
- 
- 	fs->location = location;
- 
--	swim_drive(base, location);
--
- 	swim_motor(base, OFF);
- 
- 	fs->type = HD_MEDIA;
+								Honza
 -- 
-2.52.0
-
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
