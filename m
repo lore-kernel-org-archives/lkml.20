@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02EDA419FB0;
-	Fri,  4 Sep 2026 06:22:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67B3E4229B0;
+	Fri,  4 Sep 2026 06:22:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788502971; cv=none; b=YhQiBifbYQM3j74dkK7gLXJQEptCQ39lT4/zhOQQViAjSfzUMjEuJDztxXySjpJuMnjkezVUbswpxuGUx4TPaUhcS4NQCKjAeR6RV8/a0VFI8BJMrP2NjpQcYg6m2Ie+qcpiIfPDXw3pik/DDweVnWKymHw5EeNeLCfim/XvPBE=
+	t=1788502977; cv=none; b=p6ka+3rqplfnYU7ZwmvMfhGus7COFYrUxB7eRWtRlsGTwCsqoNiQOsP7WjUSshpgVLkUfwloTgS4tIgPCI6foTVMTRyeN/sf7E1ZjxIhrW46FfwQrCisKItsY+soFypH01UKmLAYmw3kC3l4l/xnzEpMXTBuVOvfGMYLk9+5x2A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788502971; c=relaxed/simple;
-	bh=QCmcf0QzC3r+XhbIdRyrPKSNfK3PwUWKTYndHV9Zs8c=;
+	s=arc-20240116; t=1788502977; c=relaxed/simple;
+	bh=+crEaoDmfDySxTGM46G9W2G1oAR65m3Tb1BPMjmKKz0=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=dKMCSbHywBxy+4xe72gHbEuF8GWDZVGYjsBMR7xBLniIOfXUV58xpjyPGc4cb5fMty/jlKCQLuekaIeeci3fXT6BM8ZqYFsIgZWQcWW9UJ+uciORDXjczgRzW4rB3AoihGRjOHcPnjbDlcchn4nrchFEUHzix33k8iGwbukuaRw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Hohbnd9g; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=J3rvccPEAVMTy1WVIc7i7Buf9rNsFFnmIP+ROmtfLB2HmqhB9XAPzGsKPIkdFc3DyIBU54sCPeL2sOsoi/5Er0KiCkhPJSdnosdKnUB4n3unan/shxkw3VyIMdRb4BwEn7x1P9uG1i8ghnQnYXmYvl8Kl4qJ+ZldecrQ1Mm48sw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GgCJwBE8; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Hohbnd9g"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2ABC91F00A3E;
-	Fri,  4 Sep 2026 06:22:44 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GgCJwBE8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4C8B41F00A3D;
+	Fri,  4 Sep 2026 06:22:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788502969;
-	bh=OjSLnAK36/Iy6En+0C4s1F+7poHDvf4ljb0FedB21Vk=;
+	s=k20260515; t=1788502976;
+	bh=ZEw/En/O87IQsmpM3QULNbvX5YJIhymReEbqN49YJbM=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=Hohbnd9g2dxkyE+nh0TdWRWW8iyJL1t28MP/NJGKnKo1mi24WJS5Cb/DwVLXICLuH
-	 b6yB+tVdi0UrwY33RXUn0JF4JyqusADCV8e1/9dWeSvqLTZUiEorbL2m8IUocHojsA
-	 zelCZidmPbsfvclDZtjGlPxifrvobbe4ZvB7EIvjqQzuAMJ2UM/53rFdOxdte1Dbvn
-	 2EQXDLu0qqlUyiWawND5S4IbHUP0oVWq685J+JSDU+ftPdCcaXVRWq6VErXdr12m2S
-	 8YMXCDXWGiKoh9Rlf0TCm8wPwr0NkvW28VB9/aqcdOF+3gdM7SQ1ubjo0pb0DP6h+a
-	 Dpv85LgGCYhSg==
-Message-ID: <18b4e806-ceb3-4f8f-8307-b714cbd0640a@kernel.org>
-Date: Fri, 4 Sep 2026 08:22:42 +0200
+	b=GgCJwBE86MGq43SOSrmyzHhyzdLmVGaDkW8rNyUveZih4hgYuDXmDAdtg56MQ/n4/
+	 Iaot4QGzFRGv7jWSn/cOTzKRb3apJbt9YOWsoENGmZqW4QkLzccpNZnWrozqtwlaMQ
+	 iVX5+CH5VfSiJdmxxNyquPlBAMczp3IkXs0XqPKkKxOWZhif04L/stbAthyrGpl4d/
+	 9+q6/LySzmsKouSSc9nb6JtT0XBqnv1btF5cAfjGyliGpWLzmg+a8LedtoBoPFC6YK
+	 sl5SqJzbNiHhUeYdfJSs7b21xlIK25aLdXGYBfWAHSKDxsVFrciw3BF8QDTFKhDJR3
+	 crPqnHUpH0PsA==
+Message-ID: <b393b193-4160-42d1-8492-baa6a3a45fa4@kernel.org>
+Date: Fri, 4 Sep 2026 08:22:48 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -35,7 +35,7 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/3] arm64: dts: apple: Fix style issues for t600x multi
+Subject: Re: [PATCH 2/3] arm64: dts: apple: Fix style issues for t602x multi
  die .dtsi
 To: Janne Grunau <j@jannau.net>, Sven Peter <sven@kernel.org>,
  Neal Gompa <neal@gompa.dev>, Rob Herring <robh@kernel.org>,
@@ -43,7 +43,7 @@ To: Janne Grunau <j@jannau.net>, Sven Peter <sven@kernel.org>,
 Cc: asahi@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
 References: <20260903-apple-soc-multi-die-style-v1-0-eeb05ea0c187@jannau.net>
- <20260903-apple-soc-multi-die-style-v1-1-eeb05ea0c187@jannau.net>
+ <20260903-apple-soc-multi-die-style-v1-2-eeb05ea0c187@jannau.net>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -89,21 +89,20 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <20260903-apple-soc-multi-die-style-v1-1-eeb05ea0c187@jannau.net>
+In-Reply-To: <20260903-apple-soc-multi-die-style-v1-2-eeb05ea0c187@jannau.net>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 03/09/2026 15:59, Janne Grunau wrote:
-> The M1 Pro/Max/Ultra .dtsi files containing most MMIO nodes are a
+> The M2 Pro/Max/Ultra .dtsi files containing most MMIO nodes are a
 > collection of nodes without parent. The proper embedding inside a
-> "simple-bus" parent only happens in t6001.dtsi and t6002.dtsi.
+> "simple-bus" parent only happens in t6021.dtsi and t6022.dtsi.
 > Fix these dt style issue by using a define for their parent soc node and
 > bracket those MMIO nodes inside it.
 > 
 > Link: https://lore.kernel.org/asahi/e2365307-32d6-4ef9-9919-55ba69786741@kernel.org/
 > Suggested-by: Krzysztof Kozlowski <krzk@kernel.org>
 > Signed-off-by: Janne Grunau <j@jannau.net>
-> ---
 
 Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
