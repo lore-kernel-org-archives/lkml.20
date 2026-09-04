@@ -1,340 +1,109 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com [209.85.216.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83B5C254AFF;
-	Fri,  4 Sep 2026 01:17:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B494211466
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 01:18:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788484641; cv=none; b=OnXix+i1aeAUIBzjJU9vEX6QNww22M3su7hbVdfFjvqzOgO7OBCRTDkBKZnn6RomT3oD/s94vdRO83fFskGfbSE+Ll/8GXiBMseVMCEdChXGNryQkVox2W8OUpEpGaVZClAII8eTTEkC2VUjwO94k66eeF4sNPO0dCvEq8LOlHE=
+	t=1788484707; cv=none; b=KpDMOBiBRqOyjtx8hUmHiwfsIHSLwrR4YOSjKwxHipHbv9m2A6pVTegh9j7b61zASASwoohr6pjF72/6W8NoBvNRWGo6uXT6WUHUKSUsv2cuqMpQlCX4s+77OY+A9ykmaXp9DBrEY6hFZ3nlXqXu2LxQrDY/m3EXoHGdqs7Dl4I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788484641; c=relaxed/simple;
-	bh=Za9YOpn5USIQZTS6tZB+AkLZginFf1c5OKbIGGhDcs4=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=OPDG+/Qv4v1W7Cv9Db8WYRhvI7wuf5aPXtQkFSekc3+8+wqtztLARl5IDIQKAZUfbZL5H6KM82ZfBC/cNyLhHoh21UBTSn+CZ2ugYcCGPRD+qt9fOSswcrG5tQWsQ3qC5ktUsIzeE6NpGygNixtTDIoZu5y39+qX1AHj6u3+uLE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DYBuoSnL; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788484707; c=relaxed/simple;
+	bh=gYbVwSamD5AxEVCquK+e+L4qZKQ7NpCzRyjlH8wqBBQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Z3gglX4qNrTT7YT3R1q40bgPn40DckbUS7hpm3MvzD+g05NlQBbfLrWYNPuE226Ul2op+KbWHPyKJdHZ3laNmCqRdSg56Hmpd/I0TERE2fJia94gGTwpnaHvPHtE3dxQyvZnDxjeGQCY67eeEWgPBBq72ArBh8t33e7MVjVF6OY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qNSA4oBk; arc=none smtp.client-ip=209.85.216.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DYBuoSnL"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8E0EE1F00A3D;
-	Fri,  4 Sep 2026 01:17:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788484639;
-	bh=iMGAqUaafWVSEvBLWUQ9JIuS3x4p9XcAnPtwqq453a8=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=DYBuoSnLeDL3ms98FhSmOWxhXgkfGzDaFnIMaT7eA7DJQDk7oMpVrCwij2nU5XIpl
-	 PH0Cyz/1WpjZXg4T/dUsh9lsdd0dcNbj+tYCMsYU4QvXf1Rrg4TVCsPe4zM/nWDw+s
-	 +ZeNZlb0PSRrNxJqIqyUnsdSoZrYCa5r5oPOQ+jsEocGIVXo7J54s9gLjH6LeVFalO
-	 3+/j7+jDcv7djU1fEAXpnUY5FIRbPuc/tXDU5U03tx0Jzywyw+5QBGKRytQSgPFUeo
-	 T415aoBssmXzlquiGSbIy+qgu21aGvcAUtt4vhpak7BCWTQk5ozYqeBzGl9N108OKc
-	 r7F9LHaV5X8/g==
-Subject: Re: [PATCH net-next v4 2/2] net: stmmac: dwmac-socfpga: mask
- XGMAC_TSIE during cross-timestamp
-From: netdev-bot+sashiko@kernel.org
-To: zxyan0222@gmail.com
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com, mcoquelin.stm32@gmail.com,
- alexandre.torgue@foss.st.com, richardcochran@gmail.com,
- maxime.chevallier@bootlin.com, muhammad.nazim.amirul.nazle.asmade@altera.com,
- rohan.g.thomas@altera.com, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Date: Fri, 04 Sep 2026 01:17:18 +0000
-Message-ID: <178848463816.4131868.6619682657776561531@kernel.org>
-In-Reply-To: <20260902131441.322167-3-zxyan0222@gmail.com>
-References: <20260902131441.322167-3-zxyan0222@gmail.com>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qNSA4oBk"
+Received: by mail-pj1-f46.google.com with SMTP id 98e67ed59e1d1-3965d3d9ab8so322952a91.3
+        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 18:18:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788484705; x=1789089505; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=ULiSgzHfmvT7NB3kNetHvVNjR8ABCL+iHYfHXbGS15U=;
+        b=qNSA4oBkkT+z7ZyacpXcv0gp5hXmjwda9aLkDK7eRWo+DseCIcdqHuL/9J/L6EZ+4p
+         do9RApq+Bhj3jQWCgwovCZaxU4ZZNf+G/snycs1G4gfCGc7aZ6IJ5/G3rvTmByz1R6rj
+         WYaEZd/Uh7/PH/8t0VbzgAPtKu7LIlflXWK3kPbS9cNXQifT2Gfz8dn1O9ZOTWc179Oa
+         yIWPCJ33+KAlxlSlA2slrLj4yII9+tcYwlijdhPxHQvhOPePVDiLLNuSSWS1quCbnx3V
+         kkLZpmJsn5POvG3xZRN+ljhMP0iwqpCcVpnwy4TfWfRE+Ye0Jf6t8ZsCbFlzGaXcEUkz
+         sFng==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788484705; x=1789089505;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ULiSgzHfmvT7NB3kNetHvVNjR8ABCL+iHYfHXbGS15U=;
+        b=nZ5UGcVSADGKSGxkpjTVMQ76sc86JYWsr+/Dzc7H5YdcPTzmpDjNBwD+hkKishPsp7
+         g2U23J+z3WeKdNhtMdr0DEbmPudyLzPaqk76DmK3coRDox4x6KDszPqXk25b1zLqC9mI
+         f3fUpIqBXcfbFsVgddFtKZm5pZ1GDJYlRmQ7mJPNxkUzx0o67QFY3zo2QTbvLsWMX1RP
+         FJGelCigJa0hs6Dc4IjEgo/SapciNdqhSvdnATNQys9ot0FEK0qFxkl1FQrleoLGx80+
+         +lkdAoERiQWzKPwIhLLT/Iu7+nbzcL87hvaGBpdmuJUspeYq0BBdB4RbttWf0wMOQ6st
+         l16g==
+X-Forwarded-Encrypted: i=1; AKwUvBwf5KH+mVbNPUq97KRjuwXxdjr9X2wmo6dYSmjJ33sqeoE6jXv4SIMQuWSx47E69FHH8D+/gnEH6UtdY5o=@vger.kernel.org
+X-Gm-Message-State: AFuF++kQtATLbSxTJatGMcouycgv3TyDLlOXe/GcBdIL12B6OTQc3uCV
+	KXIipDM9M3cGZ1RJV9fRTJro8q/loOS0zH6c7+n5MRygWcHhCOoPQckv
+X-Gm-Gg: AYBFou2hby2suP+Brk9WXWWqhCwgxykTEXvQQ4+xlvcGKMt8HFxJjO14uZTcefR8vkZ
+	QMMZ6KkPtcDAuYWhAhT2dTr7MsIqbdL6DKIfLBAj6ipPTTWi3ij0dv+UN8E9SpNqhwK/YWrBi1s
+	wUoqxW6HBd8ijwcXJZaJUJKj8yJqOlypjPvG3P6AyzzsRAps1ScUyb5oGaOSeWoxC7/ty4nwNCk
+	WYGCGgGNWQSySUfKNeXKGWeTHB5ngNydxoosVFCyyhGWyhZP9iVmbmtJYsfyj3yWbqqQyyHy8DY
+	46ysRAJIZrXG2W07Ksw4XnLGNeSmcYd4K/cZEIS4iBkWXjqtmcLasyuomKiNBoUGFV5uxVwPYxb
+	h7lBHoWFoKbuTjfSoOVMlM0m+FzEHaLTGo0UrnyVZ4BDOL0jAmCMfMHdteoeS+tJAuyy8Kqwo+p
+	64BHsPZgPGQZiTDAJO5pAmfW5OnTxFxz9lyHTJa2Wuf/5PgTVw3DhL0zndIB+M
+X-Received: by 2002:a17:90b:1dc3:b0:398:d6f4:c61a with SMTP id 98e67ed59e1d1-39b26207ee4mr3987950a91.17.1788484705186;
+        Thu, 03 Sep 2026 18:18:25 -0700 (PDT)
+Received: from localhost ([115.70.157.242])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b08ca63b3sm7852282a91.11.2026.09.03.18.18.24
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 03 Sep 2026 18:18:24 -0700 (PDT)
+Date: Fri, 4 Sep 2026 11:18:17 +1000
+From: Tsz Shan Chan <tsz.chan.dev@gmail.com>
+To: Andy Shevchenko <andriy.shevchenko@intel.com>
+Cc: Subhajit Ghosh <subhajit.ghosh@tweaklogic.com>, 
+	Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, 
+	Nuno =?utf-8?B?U8Oh?= <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, linux-iio@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Tsz Shan Chan <tchan@jacques.com.au>
+Subject: Re: [PATCH v2] iio: light: apds9306: fix default sampling frequency
+ definition
+Message-ID: <apoYIkJGtnX8O0kN@fedora-1>
+References: <20260903-apds9306-v2-1-e8673986ae56@jacques.com.au>
+ <apkmS32q9UI-qQw1@ashevche-desk.local>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <apkmS32q9UI-qQw1@ashevche-desk.local>
 
-Thank you for your contribution! Sashiko AI review found 3 potential
-issue(s) to consider:
+On Thu, Sep 03, 2026 at 10:48:27AM +0300, Andy Shevchenko wrote:
+> On Thu, Sep 03, 2026 at 05:05:35PM +1000, Tsz Shan Chan wrote:
+> > APDS9306_SAMP_FREQ_10HZ is defined as 0.
+> > 
+> > According to the datasheet (Broadcom AV02-4755EN,
+> > https://docs.broadcom.com/doc/AV02-4755EN, page 11, ALS_MEAS_RATE),
+> 
+> Make it a tag
+> 
+> > bits[2:0] set the measurement rate:
+> > - 000: 25ms  (40Hz)
+> > - 001: 20ms  (20Hz)
+> > - 010: 100ms (10Hz)
+> > 
+> > Change APDS9306_SAMP_FREQ_10HZ from 0 to 2 to write the correct value
+> > for 10Hz.
+> 
+> Datasheet: $URL
+> 
+> > Fixes: 620d1e6c7a3f ("iio: light: Add support for APDS9306 Light Sensor")
+> > Signed-off-by: Tsz Shan Chan <tchan@jacques.com.au>
+> 
+> With that being addressed,
+> Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
 
-Critical: 0 · High: 1 (1) · Medium: 2 · Low: 0
-
-- [High] The fix does not close the race it claims to close: masking
-  XGMAC_INT_EN.TSIE does not prevent the destructive read of…
-- [Medium] Series ordering leaves a knowingly broken intermediate commit
-  and an undocumented backport dependency.
-- [Medium] The new mask/unmask pair in smtg_crosststamp() is neither
-  state-preserving nor nestable.
-
-Pre-existing issues:
-- [High] smtg_crosststamp() uses the aggregate TSIS bit as its completion
-  condition without ever clearing it before arming the snapshot, and…
-
---
-
-net: stmmac: dwmac-socfpga: mask XGMAC_TSIE during cross-timestamp
-
-This masks the XGMAC timestamp interrupt enable bit (XGMAC_TSIE) around the
-auxiliary snapshot trigger and FIFO read in smtg_crosststamp(), and restores
-it on the -EINVAL, timeout and success return paths.  The stated goal is to
-keep the DWXGMAC2 timestamp interrupt handler from clearing TSIS while the
-poll loop in smtg_crosststamp() is waiting for it.
-
-No Link: tags are present in the commit header.
-
-Before the diff, a couple of notes about the commit message and the series
-ordering.
-
-[Severity: Medium]
-
-The commit message says:
-
-  "Once XGMAC_TSIE is unmasked (done by a companion change that enables it
-  in XGMAC_INT_DEFAULT_EN)"
-
-Could that companion change be named explicitly?  The preceding commit in
-this series, f4fbb4b15db4 ("net: stmmac: dwxgmac2: add XGMAC timestamp
-interrupt support"), is the one that adds XGMAC_TSIE to
-XGMAC_INT_DEFAULT_EN (at the baseline the macro is only
-(XGMAC_LPIIE | XGMAC_PMTIE)).
-
-That ordering means a bisect that lands on f4fbb4b15db4 alone has Agilex5
-PTP_SYS_OFFSET_PRECISE failing with the exact message quoted here.  Since
-f4fbb4b15db4 fixes a user-visible problem on its own, it looks like a
-plausible stable backport candidate, and neither commit carries a Fixes: or
-dependency tag.
-
-Reversing the order does not help either, because the exit paths added here
-unconditionally set XGMAC_TSIE, which would enable it on trees where the
-default mask deliberately omits it.  Would folding this masking into
-f4fbb4b15db4 (or at minimum adding "Fixes: f4fbb4b15db4" and naming the
-dependency) be preferable?
-
-Separately, the driver already has a generic mechanism for this exact
-problem: STMMAC_FLAG_INT_SNAPSHOT_EN together with priv->tstamp_busy_wait,
-as used by intel_crosststamp() in dwmac-intel.c.  Could the commit message
-explain why a second, platform-private mechanism is added instead of reusing
-that one?
-
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-socfpga.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-socfpga.c
-> index 1d7f0a57d288..a4d00bf81423 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-socfpga.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-socfpga.c
-> @@ -310,6 +310,13 @@ static int smtg_crosststamp(ktime_t *device, struct system_counterval_t *system,
->  	if (priv->plat->flags & STMMAC_FLAG_EXT_SNAPSHOT_EN)
->  		return -EBUSY;
->  
-> +	/* The XGMAC timestamp interrupt handler clears TSIS by reading
-> +	 * XGMAC_TIMESTAMP_STATUS, which would race with the TSIS poll
-> +	 * below.  Mask XGMAC_TSIE for the duration of the cross-timestamp
-> +	 * so the handler does not run while we own the snapshot FIFO.
-> +	 */
-> +	stmmac_mac_irq_modify(priv, XGMAC_TSIE, 0);
-> +
-
-[Severity: High]
-
-Does masking XGMAC_TSIE actually stop the read that clears TSIS?
-
-dwmac-socfpga does not set STMMAC_FLAG_MULTI_MSI_EN, so Agilex5 runs the
-legacy shared handler, and the dispatch to the timestamp callback is not
-gated on TSIS or on XGMAC_INT_EN:
-
-drivers/net/ethernet/stmicro/stmmac/stmmac_main.c:stmmac_interrupt() {
-	...
-	stmmac_common_interrupt(priv);
-	...
-}
-
-drivers/net/ethernet/stmicro/stmmac/stmmac_main.c:stmmac_common_interrupt() {
-	...
-	stmmac_timestamp_interrupt(priv, priv);
-	...
-}
-
-drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c:dwxgmac2_timestamp_interrupt() {
-	ts_status = readl(priv->ioaddr + XGMAC_TIMESTAMP_STATUS);
-	...
-}
-
-The clear-on-read of XGMAC_TIMESTAMP_STATUS is the first statement of
-dwxgmac2_timestamp_interrupt(), before the STMMAC_FLAG_EXT_SNAPSHOT_EN early
-return.  Since stmmac_common_interrupt() is reached on every device
-interrupt, including ordinary RX/TX DMA completions, wouldn't any interrupt
-during the up-to-10 ms readl_poll_timeout() window still clear TSIS and make
-the poll return -ETIMEDOUT with the same "Wait for time sync operation
-timeout" message?
-
-There is a second consumer of the same clear-on-read register that no
-interrupt mask can affect:
-
-drivers/net/ethernet/stmicro/stmmac/stmmac_main.c:stmmac_get_tx_hwtstamp() {
-	...
-	} else if (!stmmac_get_mac_tx_timestamp(priv, priv->hw, &ns)) {
-	...
-}
-
-drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c:dwxgmac2_get_mac_tx_timestamp() {
-	if (readl_poll_timeout_atomic(ioaddr + XGMAC_TIMESTAMP_STATUS,
-				      value, value & XGMAC_TXTSC, 100, 10000))
-	...
-}
-
-That runs from the TX completion path whenever TX hardware timestamping is
-enabled, which is the configuration in which cross-timestamping is used.
-
-Two smaller points on the same mechanism.  There is no synchronize_irq()
-after the mask, so a handler already in flight on another CPU still performs
-the destructive read.  And dwxgmac2_core_init() writes the whole enable mask
-directly:
-
-drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c:dwxgmac2_core_init() {
-	...
-	writel(XGMAC_INT_DEFAULT_EN, ioaddr + XGMAC_INT_EN);
-	...
-}
-
-which now includes XGMAC_TSIE and bypasses hw->irq_ctrl_lock, so it can
-re-enable TSIE inside the masked window.
-
-Would gating the destructive read in software (an ownership flag, as the
-Intel path does with STMMAC_FLAG_INT_SNAPSHOT_EN), or keying completion off
-the persistent ATSNS count rather than the transient TSIS bit, replace this
-approach rather than extend it?
-
->  	mutex_lock(&priv->aux_ts_lock);
->  	/* Enable Internal snapshot trigger */
->  	acr_value = readl(ptpaddr + PTP_ACR);
-> @@ -329,6 +336,7 @@ static int smtg_crosststamp(ktime_t *device, struct system_counterval_t *system,
->  		break;
->  	default:
->  		mutex_unlock(&priv->aux_ts_lock);
-> +		stmmac_mac_irq_modify(priv, 0, XGMAC_TSIE);
->  		return -EINVAL;
->  	}
->  	writel(acr_value, ptpaddr + PTP_ACR);
-
-[Severity: Medium]
-
-Is the restore actually a restore?  The acquire in smtg_crosststamp() does
-not sample XGMAC_INT_EN, and dwxgmac2_irq_modify() in dwxgmac2_core.c is a
-plain read-modify-write with no notion of a previous value or of nested
-owners:
-
-drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c:dwxgmac2_irq_modify() {
-	...
-	value = readl(int_mask) & ~disable;
-	value |= enable;
-	...
-}
-
-All three release sites here (this -EINVAL path, the timeout path and the
-success path) unconditionally set XGMAC_TSIE.  If TSIE was deliberately
-masked when smtg_crosststamp() was entered, does this callback silently
-force it back on, so dwxgmac2_timestamp_interrupt() starts running and
-consuming XGMAC_TIMESTAMP_STATUS on a configuration that never asked for it?
-
->  	/* Clear FIFO */
->  	acr_value = readl(ptpaddr + PTP_ACR);
->  	acr_value |= PTP_ACR_ATSFC;
->  	writel(acr_value, ptpaddr + PTP_ACR);
->  	/* Release the mutex */
->  	mutex_unlock(&priv->aux_ts_lock);
-> @@ -353,6 +361,7 @@ static int smtg_crosststamp(ktime_t *device, struct system_counterval_t *system,
->  	ret = readl_poll_timeout(priv->ioaddr + XGMAC_INT_STATUS, v,
->  				 (v & XGMAC_INT_TSIS), 100, 10000);
->  	if (ret) {
-> +		stmmac_mac_irq_modify(priv, 0, XGMAC_TSIE);
->  		netdev_err(priv->dev, "%s: Wait for time sync operation timeout\n",
->  			   __func__);
->  		return ret;
-
-[Severity: Medium]
-
-Related to the point above: can a second concurrent caller end the first
-caller's masked window here?
-
-priv->aux_ts_lock is dropped right after the FIFO clear, well before this
-poll, and the PTP chardev does not serialize the callback:
-
-drivers/ptp/ptp_chardev.c:ptp_ioctl() {
-	...
-	case PTP_SYS_OFFSET_PRECISE:
-	case PTP_SYS_OFFSET_PRECISE2:
-		return ptp_sys_offset_precise(ptp, argptr,
-					      ptp->info->getcrosststamp);
-	...
-}
-
-ptp_sys_offset_precise() -> stmmac_getcrosststamp() ->
-get_device_system_crosststamp() -> smtg_crosststamp(), and no FMODE_WRITE is
-required.  If two threads issue PTP_SYS_OFFSET_PRECISE at the same time,
-thread B's unconditional stmmac_mac_irq_modify(priv, 0, XGMAC_TSIE) on its
-timeout or success path re-arms the interrupt while thread A is still inside
-this poll.  Would sampling XGMAC_INT_EN and restoring exactly that value, or
-serializing the whole cross-timestamp sequence, address both this and the
-force-enable case?
-
->  	}
-> @@ -375,6 +384,8 @@ static int smtg_crosststamp(ktime_t *device, struct system_counterval_t *system,
->  		read_unlock_irqrestore(&priv->ptp_lock, flags);
->  	}
->  
-> +	stmmac_mac_irq_modify(priv, 0, XGMAC_TSIE);
-> +
->  	get_smtgtime(priv->mii, SMTG_MDIO_ADDR, &smtg_time);
->  	system->cycles = smtg_time;
->  
-
-[Severity: High]
-
-This isn't a bug introduced by this patch, but while looking at the TSIS
-poll: can smtg_crosststamp() return 0 without ever writing *device?
-
-TSIS is set by any MAC timestamp-module event, as the new handler from the
-preceding commit itself documents:
-
-drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c:dwxgmac2_timestamp_interrupt() {
-	/* ... TX timestamp polling may have already cleared TSIS
-	 * and AUXTSTRIG, so rely on ATSNS instead. */
-	...
-}
-
-smtg_crosststamp() flushes only the aux snapshot FIFO via PTP_ACR_ATSFC and
-never reads XGMAC_TIMESTAMP_STATUS to drain a stale or foreign TSIS.
-readl_poll_timeout() evaluates its condition on the first read, so a TSIS
-latched by an unrelated event satisfies the poll immediately, possibly
-before the auxiliary snapshot is latched.  Then:
-
-	num_snapshot = FIELD_GET(XGMAC_TIMESTAMP_ATSNS_MASK,
-				 readl(ioaddr + XGMAC_TIMESTAMP_STATUS));
-
-	for (i = 0; i < num_snapshot; i++) {
-		read_lock_irqsave(&priv->ptp_lock, flags);
-		stmmac_get_ptptime(priv, ptpaddr, &ptp_time);
-		*device = ns_to_ktime(ptp_time);
-		read_unlock_irqrestore(&priv->ptp_lock, flags);
-	}
-	...
-	return 0;
-
-With num_snapshot == 0 the loop body, which is the only writer of *device,
-never runs, yet the function returns 0.  ptp_sys_offset_precise() zeroes its
-crosststamp struct:
-
-drivers/ptp/ptp_chardev.c:ptp_sys_offset_precise() {
-	struct system_device_crosststamp xtstamp = { .clock_id = CLOCK_REALTIME };
-	...
-	ts = ktime_to_timespec64(xtstamp.device);
-	...
-}
-
-so userspace gets a device timestamp of 0 paired with a real system time and
-a success return.  The latched snapshot also stays in the FIFO with ATSEN
-still set until the next invocation's FIFO clear.
-
-Would reading XGMAC_TIMESTAMP_STATUS once before arming to clear a stale
-TSIS, and treating num_snapshot == 0 as an error rather than success, be the
-right shape here?  Note that the masking added by this patch removes one of
-the consumers that would otherwise have drained a stale TSIS, and it keeps
-TSIS rather than the persistent ATSNS count as the completion condition.
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260902131441.322167-1-zxyan0222%40gmail.com
+Will fix it in v3. Thanks
