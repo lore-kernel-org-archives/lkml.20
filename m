@@ -1,97 +1,103 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from out30-131.freemail.mail.aliyun.com (out30-131.freemail.mail.aliyun.com [115.124.30.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA109418359
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 09:05:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A139D39EF1C;
+	Fri,  4 Sep 2026 09:05:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788512744; cv=none; b=q13T+UrlpmQnJVDS1Gqi7eu6LHz+E3tn1W6MLpflh/P8TifbWdhXAtGFbQP0glca8SPwF4im+A/EWc7tlVLMOf0NGx4M9gk2THw7ekHUKwelRTEUksR3jVnhmwNjhcMxhub+ZoDLylwpcWbKgAMvw8HQqFT7nhkfxAS8UWwCSvU=
+	t=1788512754; cv=none; b=Vc/xFMx9ld/0s2C5SJiYgJtUsT2F4egDeobJ0F6EEOJUn0Dg1fB1h9nMonfxiGdqZRzCivFqTRe6nTs5PgV0qs/K4XQdkm0U8l4J15X5kqk5WWFNIXkNo64WLDkW+sgbccEeUevwLPXsP+aOEC6rsk6UjNDdOzW0GpxvtPRS+RQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788512744; c=relaxed/simple;
-	bh=M6w7B48YIF+aPWOx3xihk4xBVrqMn/9Q/N/IqvBUIpk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=LDF0gYG8of2QGIli5GQkvV4SrlfpNDMwJCt3RvbWuXIGU6IdEF1WmXI4vDZ5EczaRyBP671RRqUE2YbjaItZ/Nu8eeWb4QnB22KjKpTf9R4TlZabhHd6FDTAgmAuij3fjU21HNzRSsp++IgurjHbQ+d0ySamonZFTyfmA46ffi0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=HiUxEDXK; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1788512754; c=relaxed/simple;
+	bh=ipcHRxzW/g7VAbOv/YCHkXwa+Zj3T9xePkroGbszt7A=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Jeug0RlJQGt5voMJbSj15iFN3A+wqerAS9FwjSCAmgqJ78ssLNWRsDFDmIzDn6Br4vaxU6uEqbWCFiPRsN5fVnFAL1roozkaHDsaA1e8D7hXtvyrvlv0MptWzJCzP8MYPYVkM0bXv5lVNdpC/gZvOP473+M8KkaRtNvSgxtp2NQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=lcczhL0i; arc=none smtp.client-ip=115.124.30.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="HiUxEDXK"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1788512740;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=4u1C7OXtz+q7Du9mudTGLU9pxTJSa31ihUy6u+Fg95k=;
-	b=HiUxEDXK8ziFwHAFuqWhjvAX38iVgNJat3peR+VARKWc9V+lo/ISjhyDUbdJTYqdAHEnMP
-	SKcQRgFb1fh1jUBtzn+JbngBa8LG11LFf3JjS4r11UYSoEUM+l04ju/tzj4ftY1wdLPC+s
-	x7egMP8R6SrA/fcAg6XIP7B/rXIiyYU=
-Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-374-1Qwbf8GEMzKcrmrW0S84tQ-1; Fri,
- 04 Sep 2026 05:05:37 -0400
-X-MC-Unique: 1Qwbf8GEMzKcrmrW0S84tQ-1
-X-Mimecast-MFC-AGG-ID: 1Qwbf8GEMzKcrmrW0S84tQ_1788512734
-Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 829841829E26;
-	Fri,  4 Sep 2026 09:05:33 +0000 (UTC)
-Received: from fedora (headnet03.pony-001.prod.iad2.dc.redhat.com [10.2.32.114])
-	by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with SMTP id C1B591800598;
-	Fri,  4 Sep 2026 09:05:27 +0000 (UTC)
-Received: by fedora (nbSMTP-1.00) for uid 1000
-	oleg@redhat.com; Fri,  4 Sep 2026 11:05:33 +0200 (CEST)
-Date: Fri, 4 Sep 2026 11:05:26 +0200
-From: Oleg Nesterov <oleg@redhat.com>
-To: Ye Liu <ye.liu@linux.dev>
-Cc: Tony Luck <tony.luck@intel.com>,
-	Reinette Chatre <reinette.chatre@intel.com>, x86@kernel.org,
-	Christian Brauner <brauner@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Jann Horn <jannh@google.com>,
-	"David Hildenbrand (arm)" <david@kernel.org>,
-	"Mike Rapoport (Microsoft)" <rppt@kernel.org>,
-	Alexey Dobriyan <adobriyan@gmail.com>,
-	Lorenzo Stoakes <ljs@kernel.org>, Ye Liu <liuye@kylinos.cn>,
-	Dave Martin <Dave.Martin@arm.com>,
-	James Morse <james.morse@arm.com>, Babu Moger <babu.moger@amd.com>,
-	linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org
-Subject: Re: [PATCH 6/8] fs: convert process/thread iterators to
- for_each_*_rcu
-Message-ID: <apqJ1t4L2KkIDRlP@redhat.com>
-References: <20260904083001.553587-1-ye.liu@linux.dev>
- <20260904083001.553587-7-ye.liu@linux.dev>
+	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="lcczhL0i"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1788512742; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
+	bh=HvVcR1L5HLtDSGjj5QAvynuTIH/BiFENIznYFocO2Uw=;
+	b=lcczhL0i1+cS3e7USBlJfyNcU6OkC6qKih29D+N0aY1oqkIfuAKlGhxK2m41aBPRzX8v0s1ZFQ4nom/Yq/oXpRZq/l3iZIWP/wA7zTyizXIcEX+77cFY8PM+bzZHzmNXOUo+snDgWcFiIkFq/rd3TV0kLfGS3fd/0RSYo5BwM3w=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R121e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037009110;MF=qinyuntan@linux.alibaba.com;NM=1;PH=DS;RN=28;SR=0;TI=SMTPD_---0XAIQHTh_1788512738;
+Received: from 30.178.82.219(mailfrom:qinyuntan@linux.alibaba.com fp:SMTPD_---0XAIQHTh_1788512738 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Fri, 04 Sep 2026 17:05:40 +0800
+Message-ID: <d40413c0-d826-4797-b768-644f38f4e5b6@linux.alibaba.com>
+Date: Fri, 4 Sep 2026 17:05:36 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260904083001.553587-7-ye.liu@linux.dev>
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] mm: memcg: settle memory.high debt after THP faults
+ with non-blocking gfp
+To: Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Andrew Morton <akpm@linux-foundation.org>
+Cc: Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@suse.com>,
+ Roman Gushchin <roman.gushchin@linux.dev>,
+ Shakeel Butt <shakeel.butt@linux.dev>, Muchun Song <muchun.song@linux.dev>,
+ David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
+ Zi Yan <ziy@nvidia.com>, Xunlei Pang <xlpang@linux.alibaba.com>,
+ "Liam R . Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>,
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
+ Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
+ Usama Arif <usama.arif@linux.dev>, Vlastimil Babka <vbabka@kernel.org>,
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
+ Chris Down <chris@chrisdown.name>, Chuanhua Han <hanchuanhua@oppo.com>,
+ Kairui Song <kasong@tencent.com>, linux-mm@kvack.org,
+ cgroups@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20260904035407.4098627-1-qinyuntan@linux.alibaba.com>
+ <20260904035407.4098627-2-qinyuntan@linux.alibaba.com>
+ <de28b6a7-7f51-4344-8139-1ec412604062@linux.alibaba.com>
+From: Qinyun Tan <qinyuntan@linux.alibaba.com>
+In-Reply-To: <de28b6a7-7f51-4344-8139-1ec412604062@linux.alibaba.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On 09/04, Ye Liu wrote:
->
-> @@ -1160,8 +1160,7 @@ static int __set_oom_adj(struct file *file, int oom_adj, bool legacy)
->  	if (mm) {
->  		struct task_struct *p;
->
-> -		rcu_read_lock();
-> -		for_each_process(p) {
-> +		for_each_process_rcu(p) {
->  			if (same_thread_group(task, p))
->  				continue;
+Hi Baolin,
 
-Hmm... I am not aware of for_each_process_rcu(), but looking at this
-change I guess it includes something like scope_guard(rcu) ?
+On 9/4/26 2:50 PM, Baolin Wang wrote:
+> 
+> 
+> On 9/4/26 11:54 AM, Qinyun Tan wrote:
+> 
+> This doesn't convince me. If the user sets defrag=defer, it means large folio allocations should not block, so using gfpflags_allow_blocking() to decide whether to call mem_cgroup_handle_over_high() is reasonable.
+> 
+> If you call mem_cgroup_handle_over_high() directly in the allocation functions, it would definitely increase allocation latency. This is not what we expect when setting defrag=defer.
+> 
+> On the other hand, I wonder if briefly exceeding memory.high is really a problem in the real products. If this is only to fix the test_memcg_high_sync selftest below, which is full of magic numbers, I don't think it makes much sense.
+> 
+I agree defrag expresses that the THP *allocation* should not block,
+and the patch keeps the allocation path untouched.
 
-Perhaps makes sense, but the naming looks sligthly confusing to me.
-I mean, to for_each_process_rcu() looks like (say) list_for_each_entry_rcu()
-where _rcu has another meaning...
+That said, let me share a small comparison I ran, which shows what
+this means for memory.high in practice.  Same kernel, one mlock(40M)
+in a cgroup with memory.high=30M (no memory.max set), measuring
+end-to-end mlock() time:
 
-Oleg.
+              no memory.high    memory.high=30M
+  THP on      0.00s              2.03s
+  THP off     0.01s             33.73s
 
+With 4K pages the populate is throttled on every charge batch and
+the cost scales with the overshoot -- memory.high working as
+documented.  With THP, all 40M is populated unthrottled and the
+entire enforcement collapses into one penalty sleep on return to
+userspace, clamped at MEMCG_MAX_HIGH_DELAY_JIFFIES (2s) -- a flat
+fee independent of the overshoot (a 200M mlock pays the same 2s).
+
+So the same workload under the same memory.high gets a completely
+different level of enforcement depending on the folio order of the
+allocation.  That looks more like a design question than anything
+else, and I'm not sure the current behavior is what we expect --
+would like to hear your thoughts.
+
+Thanks again for taking the time to review, much appreciated!
+
+Thanks,
+Qinyun Tan
