@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73B3E284B4F;
-	Fri,  4 Sep 2026 14:11:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60F3E3E3169;
+	Fri,  4 Sep 2026 14:12:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788531109; cv=none; b=F6wnCkSxApJu4LleIa6bDye5JPkJL/u0eAexplbBlj0cEYEbG+hGbtu9blSmMDijt1a8NF/0CWhQ2gZZt4ovF9NswvzfykDgVp/RetG7YwaZuNzmwzKUhzmf6qtZX56+oBylsUW1/SdXADXK8IdHYWyUMThpjpAmen1lLL1jXO8=
+	t=1788531125; cv=none; b=oVzHoOYN6AmfUm6+l246XYs8+56+htIH0cga2/bIHy1Fp60AXHzjRtJW4WmC55KHpQs+bRAYL2xfQRYREENVUV6GfXNL88XPsLI4z+eWVm7daNQGYcjn/oGB+tmy+Z9nbm3JokMzQ8NtdFhlbmLMGgyki1mvPhf+Gz4gYuzQsNU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788531109; c=relaxed/simple;
-	bh=6DkFsycShLR1u2Zwsaq9Qz26riEMfjv9aH4D9RuY/eo=;
+	s=arc-20240116; t=1788531125; c=relaxed/simple;
+	bh=4hPXPpMVtufBarZhUpztHFuCmYQv+MJIYTrof+gNltY=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=UWNqzToeYkwJ0FpHk3ct07nZwco4pi+2Xt6gsTJSbYWMJDIWQRuAFs/77kUsn2fnbx7ilE/tHzVQ3ApVJbezYEsvZOBT5aCtUbtokw6R+chxASm6D1qhOzZ20Bcv2IkdBNTipYZonoJ/hTHwb6h4LJGoDovHwfkExzYbQYZToYg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AztKYxVc; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=IQ8XghXWW8l1LxvAWDOXdVO1VsJDgY3zi4aLWY45xdsaYjB5zD9s31ItdSekkfSlr5QSOcsxTFvphp7JSIPz3w1Y+nCsYNlUDSX+zWQB4HYA0ZhgXr0fcq28oRV9CDC8hI0p06U4jcS03OwbaqZdAcuQ+vqG6BjGhrrgrdXlyiA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BrE+ZMtf; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AztKYxVc"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9DCB61F00A3D;
-	Fri,  4 Sep 2026 14:11:41 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BrE+ZMtf"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6D4211F00A3D;
+	Fri,  4 Sep 2026 14:11:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788531108;
-	bh=p0TIVjxGW79UaSz0A6FR6XVFc32IWgbgWnSVNO92cjg=;
+	s=k20260515; t=1788531124;
+	bh=HslPyUpRcbehZSDwq6RcvWYGlQd9VOcvDUYf4trg7Og=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=AztKYxVcBjGISkSZ5O4+2xKFQjXGeoLBu6aeCP2DYZ2si3oSyXM/DvVg08IY7kOoL
-	 HPFnNr5yBBg3O/DTdfxOh/paGigizVsIxiaMojTHKK2UrXhF/R601rv0ouQT1cgn25
-	 zQNV1ke9SQmjMQCWiaMDham1/j6L5wERm6uG5bqR5+3F2vM2BGJ/XNb0OsNeLfqswe
-	 h9NAfMpbeXtPaoVuBzglMzgznQdvFik4Gz/tlctCFe6gbHa+L4k4xK8My1kX/fBCj0
-	 1EJJgw6g1T7X38Ozk1AJyJ7unkoEFZq0YSloOBloIjp5peq2kI9eLg/YYOzSy5q8+m
-	 7w5O5UCBCHP5w==
-Message-ID: <dcc33c42-c897-4fcb-ac25-6d7c63402d35@kernel.org>
-Date: Fri, 4 Sep 2026 16:11:39 +0200
+	b=BrE+ZMtfse74Rx9gXb8TBDlul9CFpphp+iDqcuvaKvn+la0P4nw5x+dpLJxpxymss
+	 Fs3KqhtyP8Y5icHlBfXtie/e7n3oDDCiUPhZMb2z4zlcBvtOi8L+OmAJuavGfAlGrs
+	 cXtecutkELrLQLHpstHEKDgODcyKR1f9W8IYLMCJ5IN1eY5iumCefMXOEHCTqsuitP
+	 ny3AZ/M7WoDBugBXgLtjoiKCabNy4omvWzIwPrvn8EX3kpo73VlkRer+YmR0M1jHGH
+	 kROjVJDipV2iUMvn9dIfWNAesAHo6z6phJRoseA1bL5GIfnFKW3k4F/FOU9ZFkNNN+
+	 E/dfVEFGq0SAg==
+Message-ID: <8cc503d9-04a1-4d90-874c-ada6c0ac5147@kernel.org>
+Date: Fri, 4 Sep 2026 16:11:57 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -35,100 +35,177 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 00/10] Remove support for platform data from samsung
- keypad
-To: Dmitry Torokhov <dmitry.torokhov@gmail.com>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Peter Griffin
- <peter.griffin@linaro.org>, Alim Akhtar <alim.akhtar@samsung.com>,
- Russell King <linux@armlinux.org.uk>, Mark Brown <broonie@kernel.org>,
- Linus Walleij <linusw@kernel.org>,
- Charles Keepax <ckeepax@opensource.cirrus.com>,
- Sam Protsenko <semen.protsenko@linaro.org>, Arnd Bergmann <arnd@arndb.de>,
- Bartosz Golaszewski <brgl@bgdev.pl>
-Cc: linux-input@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-samsung-soc@vger.kernel.org, patches@opensource.cirrus.com,
- Conor Dooley <conor.dooley@microchip.com>,
- Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-References: <20260711-samsung-kp-v3-0-b2fcaba77aff@gmail.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
+Subject: Re: [PATCH v4] mm/page_alloc: avoid direct compaction for costly
+ __GFP_NORETRY allocations
 Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20260711-samsung-kp-v3-0-b2fcaba77aff@gmail.com>
+To: Salvatore Dipietro <dipiets@amazon.it>, linux-kernel@vger.kernel.org,
+ hch@infradead.org
+Cc: abuehaze@amazon.com, akpm@linux-foundation.org, alisaidi@amazon.com,
+ blakgeof@amazon.com, brauner@kernel.org, dgc@kernel.org,
+ dipietro.salvatore@gmail.com, djwong@kernel.org, hannes@cmpxchg.org,
+ linux-fsdevel@vger.kernel.org, linux-mm@kvack.org,
+ linux-xfs@vger.kernel.org, mhocko@suse.com, ritesh.list@gmail.com,
+ rvvandan@amazon.com, stable@vger.kernel.org, surenb@google.com,
+ willy@infradead.org, ziy@nvidia.com, David Hildenbrand <david@redhat.com>,
+ Christoph Hellwig <hch@lst.de>, Brendan Jackman <brendan.jackman@linux.dev>
+References: <20260904115629.3993331-1-dipiets@amazon.it>
+From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
+Autocrypt: addr=vbabka@kernel.org; keydata=
+ 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
+In-Reply-To: <20260904115629.3993331-1-dipiets@amazon.it>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 12/07/2026 04:12, Dmitry Torokhov wrote:
-> Hi,
+On 9/4/26 13:56, Salvatore Dipietro wrote:
+> Commit 5d8edfb900d5 ("iomap: Copy larger chunks from userspace")
+> introduced high-order folio allocations in the iomap buffered write
+> path.  When memory is fragmented, each failed costly-order allocation
+> enters __alloc_pages_slowpath() which runs direct compaction and
+> drain_all_pages(), causing a 0.38x throughput drop on PostgreSQL
+> pgbench (simple-update) with 1024 clients on a 96-vCPU arm64 system.
 > 
-> This series converts the Samsung keypad driver and the Cragganmore 6410
-> board to generic device properties, allowing the removal of legacy platform
-> data and GPIO lookup tables.
+> The root issue is that direct compaction is too expensive for hot
+> allocation paths that have fallbacks to smaller allocations.
+> __filemap_get_folio_mpol() already marks higher-order allocations with
+> __GFP_NORETRY | __GFP_NOWARN, signalling that the caller can handle
+> failure.  However, the page allocator still attempts full direct
+> compaction for costly orders with __GFP_NORETRY, which is unnecessarily
+> aggressive when the caller will simply retry at a lower order.
 > 
-> We rework the Samsung keypad driver to stop using platform data, utilizing
-> a new compact matrix keypad binding. To support this on the Cragganmore
-> board, we add infrastructure to associate software nodes with Samsung
-> gpio_chips, and add software node propagation support to the wm831x MFD
-> core to route DVS GPIO to the PMIC regulator.
+> For costly-order allocations with __GFP_NORETRY, clear
+> __GFP_DIRECT_RECLAIM at the very start of the slowpath, before
+> can_direct_reclaim, can_compact and the nofail checks are evaluated.
+> This makes the entire slowpath treat the request as non-blocking: no
+> direct reclaim, no direct compaction and no drain_all_pages() IPI
+> across every CPU. kswapd (and in turn kcompactd) is still woken further
+> down for background defragmentation, so compaction keeps working for
+> long-term system health while being removed from the latency-critical
+> direct allocation path.
 > 
-> Finally, we convert all peripherals on the Cragganmore board (including
-> keypad, GPIO keys, PMIC, WM1250, SPI0, basic-mmio-gpio, and LEDs) to
-> software properties. This allows us to eliminate all legacy GPIO lookup
-> tables and fixes incorrect GPIO chip names from previous conversions.
+> Allocations that also request __GFP_THISNODE are exempted.  That flag
+> pairing identifies the local-node-first THP attempt issued by
+> alloc_pages_mpol() (mempolicy.c), which relies on direct compaction to
+> form transparent huge pages.
 > 
-> Mark, it would be great if you could give this a spin on Cragganmore.
+> Test environment:
+>   Hardware:  AWS EC2 m8g.24xlarge (96 vCPU, arm64)
+>              12x 1TB IO2 32000 IOPS RAID0 XFS
+>   OS:        AL2023
+>   Kernel:    v7.3-rc1
+>   Database:  PostgreSQL 18.4
+>   Workload:  pgbench simple-update, 1024 clients, 96 threads, 1200s
 > 
-> The majority of changes are in arch/board code, with a couple of input
-> matches and one for MFD. If everyone agrees maybe we can merge it all
-> through the soc tree?
+> Results (average of 3 runs, TPS):
 > 
-> Thanks!
+>   Config                   Avg TPS      % vs Baseline
+>   baseline (no patch)       59,408       -
+>   With this patch          155,409      +161.6%
+> 
+> Link: https://lore.kernel.org/all/20260403193535.9970-1-dipiets@amazon.it/T/#t [v1]
+> Link: https://lore.kernel.org/linux-mm/20260420161404.642-1-dipiets@amazon.it/T/#u [v2]
+> Link: https://lore.kernel.org/all/20260710143437.12379-1-dipiets@amazon.it/T/#u [v3]
+> Fixes: 5d8edfb900d5 ("iomap: Copy larger chunks from userspace")
+> Cc: stable@vger.kernel.org
+> Cc: Andrew Morton <akpm@linux-foundation.org>
+> Cc: Vlastimil Babka <vbabka@suse.cz>
+> Cc: David Hildenbrand <david@redhat.com>
+> Cc: Michal Hocko <mhocko@suse.com>
+> Cc: Johannes Weiner <hannes@cmpxchg.org>
+> Cc: Matthew Wilcox <willy@infradead.org>
+> Cc: Christoph Hellwig <hch@lst.de>
+> Cc: Dave Chinner <dgc@kernel.org>
+> Cc: Ritesh Harjani <ritesh.list@gmail.com>
+> Cc: linux-mm@kvack.org
+> Cc: linux-fsdevel@vger.kernel.org
+> Cc: linux-xfs@vger.kernel.org
+> Signed-off-by: Salvatore Dipietro <dipiets@amazon.it>
 
-Appplied 1-6 with conflicts needing manual resolution around
-linux/gpio/legacy.h (commit 8c44b5f068a36d168687d64f3801c11d3252c1d2).
+I guess this will have to do until unlikely(we figure out a better API)...
 
-Best regards,
-Krzysztof
+Acked-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
+
+> ---
+> v4: Clear __GFP_DIRECT_RECLAIM early in the slowpath and exempt
+>     __GFP_THISNODE so THP attempt keeps using direct compaction
+> v3: Move to mm/page_alloc.c, wake kcompactd instead of avoiding it
+> v2: Move from fs/iomap/buffered-io.c to mm/filemap.c
+> v1: Avoid compaction in iomap folio allocation
+> 
+>  mm/page_alloc.c | 18 +++++++++++++++---
+>  1 file changed, 15 insertions(+), 3 deletions(-)
+> 
+> diff --git a/mm/page_alloc.c b/mm/page_alloc.c
+> index 12fac9084c48..542c2ec31061 100644
+> --- a/mm/page_alloc.c
+> +++ b/mm/page_alloc.c
+> @@ -4784,10 +4784,10 @@ static inline struct page *
+>  __alloc_pages_slowpath(gfp_t gfp_mask, unsigned int order,
+>  						struct alloc_context *ac)
+>  {
+> -	bool can_direct_reclaim = gfp_mask & __GFP_DIRECT_RECLAIM;
+> -	bool can_compact = can_direct_reclaim && gfp_compaction_allowed(gfp_mask);
+> -	bool nofail = gfp_mask & __GFP_NOFAIL;
+>  	const bool costly_order = order > PAGE_ALLOC_COSTLY_ORDER;
+> +	bool can_direct_reclaim;
+> +	bool can_compact;
+> +	bool nofail;
+>  	struct page *page = NULL;
+>  	unsigned int alloc_flags;
+>  	unsigned long did_some_progress;
+> @@ -4802,6 +4802,18 @@ __alloc_pages_slowpath(gfp_t gfp_mask, unsigned int order,
+>  	bool can_retry_reserves = true;
+>  	unsigned long alloc_start_time = jiffies;
+>  
+> +	/*
+> +	 * Costly __GFP_NORETRY callers have a cheap fallback, so don't stall
+> +	 * them in reclaim or compaction. __GFP_THISNODE callers are exempt.
+> +	 */
+> +	if (costly_order && (gfp_mask & __GFP_NORETRY) &&
+> +	    !(gfp_mask & __GFP_THISNODE))
+> +		gfp_mask &= ~__GFP_DIRECT_RECLAIM;
+> +
+> +	can_direct_reclaim = gfp_mask & __GFP_DIRECT_RECLAIM;
+> +	can_compact = can_direct_reclaim && gfp_compaction_allowed(gfp_mask);
+> +	nofail = gfp_mask & __GFP_NOFAIL;
+> +
+>  	if (unlikely(nofail)) {
+>  		/*
+>  		 * Also we don't support __GFP_NOFAIL without __GFP_DIRECT_RECLAIM,
+
