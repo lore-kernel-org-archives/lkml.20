@@ -1,72 +1,71 @@
-Received: from mail-pg1-f180.google.com (mail-pg1-f180.google.com [209.85.215.180])
+Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com [209.85.216.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFA1D48165B
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 11:49:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.180
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83C22481FCF
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 11:49:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788522571; cv=none; b=gc5gO/9N2CVCu/dLve580BfZ+ujaV2LtkKBW6shgWFcAGmSD0dhZZcvPyJyOyUEw9DLfA+5R0B2NSM4PwovKglCvuaa6C9np/svG0i6fiZCWTDCRvRiGwivICEqkQzc2Iie9eTj2G3XyvuBQshwxMM0k17BkOL3YAITZax1QceA=
+	t=1788522573; cv=none; b=l9/aLLeODv2bJrytCXcCcTcRVj1YMUAKeEwzypP5omtdmyZ3G0SrsrBz9zxBFw8u+gAqNao4lXYtsmtLmQiZOBI1lghCrPI7hi/DKTJqOF0Kubccvf9xL4xsIiiZSAqkFeyT3+E1AxWWPxa8PUae+P8EI600xvfoGh4JHMoNRkk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788522571; c=relaxed/simple;
-	bh=1N6S/0++RuO3ppCjn2I3KMPwSzeZZUApnT+MaalWnhc=;
+	s=arc-20240116; t=1788522573; c=relaxed/simple;
+	bh=5nTjrxW57IdkIRPU+UEstMk3obJo2VZuD5Vqdw3PKD4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=C7uHiP2xH5mef/7fmVWNR9gGDb9nwSy2v8QjO5q8qvHCcTwaR6QQSqTRl5g7ga12GnfNe+rFw57Ptg232bDHn/i+Ch8r7lVIDuspLnNh0KxdNRGHZY5FOQE45FOLJesN3nnJmhgEyTl1ikDcmiodzE6n6LSS9SbJSisH7DJ3Jm4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WLy/PKUa; arc=none smtp.client-ip=209.85.215.180
+	 MIME-Version; b=OM5veY/Js591VthlyGkTuWUf8hIJtvdmiwVqJ5BONPFfMo3djDU8XM5no0F2AKWGcIjJ38+F2nrG8ceV3rtSWAajHb6NxMV7mZmipHfsaegCYJDTUAQjEpYeSfwJe3QYmyYC/H+o7avHJuK18OKhNN8w1/e+3FdF9n4W2qBgVuY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=T+lzDKpJ; arc=none smtp.client-ip=209.85.216.49
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WLy/PKUa"
-Received: by mail-pg1-f180.google.com with SMTP id 41be03b00d2f7-cc439bfb2d8so697310a12.2
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 04:49:29 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="T+lzDKpJ"
+Received: by mail-pj1-f49.google.com with SMTP id 98e67ed59e1d1-38dfe7eb825so742931a91.0
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 04:49:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788522569; x=1789127369; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1788522572; x=1789127372; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=NENJaIws9zKIIeoeNZgCpTiVTdEc2ZBt9Jz4F+j3AgM=;
-        b=WLy/PKUaqZVbs9cBl9W25dBzcUC/EaiTMpxULe25fw6OkTypYVlJJrzTncE2R0pRbj
-         5+VoiVYtifOYg48tLidsDM/gPZtBFNvVFGscuSirs5KDQX9lXPbKdXt+XqtVpy2S/5Wp
-         MK0wJaFp8oGEN7lAEsjBj75KVJyoD4eMwCpvW/DOkiktQ2fcf4NTD8ui00Gxq/lzOmTh
-         NSYx6txjPNxbTxAiJ56p0JeZnbDtems8qSh6+jeYLXpBGBkfb+SgL5szs/NXT8+VqJHO
-         X1uNq7SLEtfOPWHn3mOI8nk3G21mZkbOO70SYPWjvbpKY92NbcU3ukdBRAgBGpOjo0KR
-         RvJA==
+        bh=VjCLIyzePlNTkK1yiS5FCzuzSQtJtiHE3r3cJxDUeOM=;
+        b=T+lzDKpJIsfZj1K9feQz5qejwoxa6JXMK7PakGx92rD66JufmmvuVagM7zZLauFJ9u
+         e8wblqzfAqwRARGW3GYs4cfCQwFeYYCNbyGD9FSvZEvlD9FEmHUJGQLhwht7tTA5Xa3D
+         jWpSG5xcei9od8MCKDacoe8vPPFQeSqSFgwBywM3pwUizDY5PDH//d6zYbFG4MA/XF8C
+         R1ELpf2aD1p8Cj3mnMRhzQBzBxVUPBYCs00vCjHvS6Qn/LkvAsRFXWRLT7T8wZVtTleW
+         2E5W+jsfS/MQelzrwytEx/gKCrGw9SgNLTO0DTdlLvN3W4HOnJsGm/NOA6NJGxw3Wv1L
+         poxw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788522569; x=1789127369;
+        d=1e100.net; s=20251104; t=1788522572; x=1789127372;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=NENJaIws9zKIIeoeNZgCpTiVTdEc2ZBt9Jz4F+j3AgM=;
-        b=IRyl5sltvWrNOs+vrfhSRCo9OMaSXF+XkinJqBSM5AfN1OPJ4DkhVDWI+qQlCY35Ep
-         NxVpNzytfs0ZTlIaJupJnY5rgtMSTkJF287+S86C+v5Qhu0nBvMlnlT3RoUoZa6+ZtO3
-         rYWaWpGy9DUoGZBSVMQ0f6xMUBkCVq28hblQIly9JJ2ottNXu86MxB6QkGh4jTIjkkVY
-         6ubD7DTjQA0XHbr7j0IfQ6lVjU4AMgfyGqpZD66ngp1VE1ML702hIbbBI5GIOF0yT1wM
-         2QkAMncmQN58tqxTdsCxfZeKQ9Plou+m1j42xWprTK5elh4etFl0mXu67KKD2+L6DZmA
-         6pKA==
-X-Gm-Message-State: AFuF++ntHQwyAzg0hnp6YTwbpNU7ebvHlWTZ2zf6lsm9fyHyZdxl1JXX
-	4o7Zca0O296XWbPIENevMcCbRvoD2YyoeqiiGyowFJ1wD+23GWJa3RLQYqWBemIiX9A=
-X-Gm-Gg: AYBFou1ne/5SMvYlfrRsULnuZGSdTC8gPXB+7m//6K37HJ+AsAgJFySoCN3sMKE4jvf
-	tCtY/XWgXcdAew9hFYVyUx461j8EfCSqg3yVW0MxzDIS80ZZx+RXGrGIrM/Mw61gcHNg7HK3nxt
-	EBOEHRv5fFT/7pOF7sDhB3gseytTwi0hf0EvYSoNcZ666Oi1wjp8G+1icI0y5I554RqMWqWVqE9
-	GAe92H4pHGWeeuGZ9rQc2RZ5/8DeJezPB9ohlFsabaVGYM3s15Si9NsR+3Vu57r58CaXW9sVHOr
-	M9/Bepua4xbFqBptYy8B4ky0SX47H2lfeLy9SdUpXjAHDTdNS36Mevd1R6VQX2kT41pf3ZmzAZL
-	v3f3JLu5E+DtcA+NIa0O7ZL+2/VkwzUUCYNw/8u0Ta4xYcKKaj1T1BxQTpvEyOcqilFQ6SnTwCa
-	1nGhMDcHgaccPRvEj1xgTWxbuVK+pX9o956cgoww422JeDlUcyADVFsmwXMllNckPpQxY1oLvHf
-	TehDLImV328mjg=
-X-Received: by 2002:a17:90a:d2c7:b0:398:9bd1:3216 with SMTP id 98e67ed59e1d1-39b262e4e02mr8362834a91.23.1788522569111;
-        Fri, 04 Sep 2026 04:49:29 -0700 (PDT)
+        bh=VjCLIyzePlNTkK1yiS5FCzuzSQtJtiHE3r3cJxDUeOM=;
+        b=RyuAKujS1ASiRYGwogRxIDbFnf3T/MxlJ6E8g7gxbK5wJ3r3eQjqG1ePjijFxVgPKd
+         L3DtztGPpoMDfPMUG76tw1q0CRXQThR/USr52TEVPTu5+7pkhzY2J+ahKfmpK5Hswwh0
+         RtAdRwCkEGEUMALP4WvsRAo9mVxwoE5+3yKFg5n3GcjfyaTjhRhnE6Qi1ZOzMEnnxxdd
+         5IZ4JW+Q5vTBDNvN+Izy+h6vcAJ9+CKXvxY4TyXxX6zaSRa1Wo2ZRGZAu0/DZvoK4hP+
+         P0BQ445IPPgjVNSlYewIOCDIJP/NGqrub89BRD2VENKsyL3c292SW40IvbgQfxXqjazH
+         xQZQ==
+X-Gm-Message-State: AFuF++nwHGKDeLQMrxq6/XaU+mK7uOTJkEx3e4bgdioA7Uar1kE7MF8/
+	igdJ9fdqzL8FLbhrlwE1vSNtrw4Bkuh4Wklm65qm+23A9lcXsibfgv6v
+X-Gm-Gg: AYBFou0HyDXuvTsf+sBWnaobanJPEwRGjq1gztsJ8oZPGj7UB9+z4VZKV398SvxoPyN
+	nvWI9Ff0qW2I4XlWxeyrM8i1L2KOBxiuxml96YDx0Bd+Losv66BRK72usocA0k0C60g1oevnCkg
+	fhD3lkRPxv5NgnBnsrBFQ+mwx9fODee/J4GQAbC7zc88jnI1Kx8OfsGWNevbokQcW8T2wWwesME
+	F0qbCUxPgNG5FzRDjzIa+V3uI9MXX9l0So0pw4mFA3dpq7dazGmPnfGtv0edfLLLlOHtOzwR+ML
+	WqCVmcTl42wlIqUO+5MQCbwZqPZsW/36fkoOOMAqOnVuruDs1JroiObB7rXm0iFJv5LCfb1tCit
+	WLCfPZlLZWtBFEqkih83GzITSDecBo/EmX4Cdxyl/QN8DozI8xl0QI+trMnwXbzjgOgj/irVnpF
+	gN5DVIRjXYcV+5t0fYlkOsAAzqtJ7dkJ0Ci3FGmaRie0aAQGLVlXf2Ksf9+uo3UyW+eq8ByOcTy
+	gNBx4HG0TcJq8tesBEEJPA/5w==
+X-Received: by 2002:a17:90b:3a81:b0:398:c292:ac80 with SMTP id 98e67ed59e1d1-39b2612eaa4mr7429499a91.10.1788522571824;
+        Fri, 04 Sep 2026 04:49:31 -0700 (PDT)
 Received: from volcano9f6e-hostos.amd.com ([165.204.217.251])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339b6036fcsm6723317eec.20.2026.09.04.04.49.27
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339b6036fcsm6723317eec.20.2026.09.04.04.49.30
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 04 Sep 2026 04:49:28 -0700 (PDT)
+        Fri, 04 Sep 2026 04:49:31 -0700 (PDT)
 From: Hemanth Selam <hemanth.selam@gmail.com>
-To: Simon Trimmer <simont@opensource.cirrus.com>,
-	Charles Keepax <ckeepax@opensource.cirrus.com>,
-	Richard Fitzgerald <rf@opensource.cirrus.com>
+To: Lee Jones <lee@kernel.org>
 Cc: linux-kernel@vger.kernel.org,
-	patches@opensource.cirrus.com
-Subject: [PATCH 2/3] firmware: cirrus: fix typo "upto" in comment
-Date: Fri,  4 Sep 2026 17:19:13 +0530
-Message-ID: <20260904114917.28603-3-hemanth.selam@gmail.com>
+	patches@opensource.cirrus.com,
+	mfd@lists.linux.dev
+Subject: [PATCH 3/3] mfd: fix typo "convertor" in comment
+Date: Fri,  4 Sep 2026 17:19:14 +0530
+Message-ID: <20260904114917.28603-4-hemanth.selam@gmail.com>
 X-Mailer: git-send-email 2.48.1
 In-Reply-To: <20260904114917.28603-1-hemanth.selam@gmail.com>
 References: <20260904114917.28603-1-hemanth.selam@gmail.com>
@@ -78,29 +77,29 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Correct "upto" to "up to", reported by scripts/checkpatch.pl using the
-misspelling list in scripts/spelling.txt.  Only touches comments, no code
-changes.
+Correct "convertor" to "converter", reported by scripts/checkpatch.pl using
+the misspelling list in scripts/spelling.txt.  Only touches comments, no
+code changes.
 
 Assisted-by: Cursor:claude-opus-5
 Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
 ---
- drivers/firmware/cirrus/cs_dsp.c | 2 +-
+ drivers/mfd/wm831x-auxadc.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/firmware/cirrus/cs_dsp.c b/drivers/firmware/cirrus/cs_dsp.c
-index bb93b24c659d..04015280ac5d 100644
---- a/drivers/firmware/cirrus/cs_dsp.c
-+++ b/drivers/firmware/cirrus/cs_dsp.c
-@@ -3505,7 +3505,7 @@ EXPORT_SYMBOL_NS_GPL(cs_dsp_chunk_write, "FW_CS_DSP");
-  *
-  * As cs_dsp_chunk_write only writes data when a whole DSP word is ready to
-  * be written out it is possible that some data will remain in the cache, this
-- * function will pad that data with zeros upto a whole DSP word and write out.
-+ * function will pad that data with zeros up to a whole DSP word and write out.
-  *
-  * Return: Zero for success, a negative number on error.
-  */
+diff --git a/drivers/mfd/wm831x-auxadc.c b/drivers/mfd/wm831x-auxadc.c
+index 744e1d161c5a..6280d4f38981 100644
+--- a/drivers/mfd/wm831x-auxadc.c
++++ b/drivers/mfd/wm831x-auxadc.c
+@@ -132,7 +132,7 @@ static irqreturn_t wm831x_auxadc_irq(int irq, void *irq_data)
+ 			1 << input, 0);
+ 	wm831x->auxadc_active &= ~(1 << input);
+ 
+-	/* Turn off the entire convertor if idle */
++	/* Turn off the entire converter if idle */
+ 	if (!wm831x->auxadc_active)
+ 		wm831x_reg_write(wm831x, WM831X_AUXADC_CONTROL, 0);
+ 
 -- 
 2.48.1
 
