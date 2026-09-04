@@ -1,77 +1,94 @@
-Received: from mail.cyberchaos.dev (mail.cyberchaos.dev [195.39.247.168])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com [209.85.214.198])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9C553939B0;
-	Fri,  4 Sep 2026 19:50:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.39.247.168
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFD693CAE80
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 19:50:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.198
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788551408; cv=none; b=rSvw7zAG5z3UZlbuc2X29Mb2EIWp0vTq6O91vgG3eMKP5tj3nfUGlLeYA+2F9rA7/5nbSxUPjS0oCGEM7LWcc7DzMfqtzI9WHGQL9XfhQVQu3vwKHkJONiGzRFPcqZTlphPOlkEdvHO3b47nGy7qYLMQ+C36lbXokxDys0q3zMg=
+	t=1788551407; cv=none; b=jB1KqxvtK85ZwhO0VKkSzT5biO2lPDKdHhnonJw0xjFum5Q9Li8Z8PTLZx8/P9Xy6sS+0dwaS15V07nv3anGAnNhIIWu2ZyGPBMPThIGF6B5NwzjXq3R7qrOMHT8foA/cE6UeZ5rRLFsAWPpYOaMw5bEVuxOdCEiDACryHgI5rQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788551408; c=relaxed/simple;
-	bh=CXj+icXWNtP+kWIdP0einQIx1r24LE2szcQxXlI1FL4=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=OhF3I2QlmOaP7P5IneeW2Lrb9a8030tZ9Lw94U3y0SdSRT+Huc3wcUnkw4eb/i22ANq0EU6vSOoy/pFBcu7GtaFrb3Dx//lNXjB3luwDk8TMOPs2rO3dteSFx45EPwUas+p4X6pYzIDbi27mzCV1++B1aVJHTGc395PyCMk2KOg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cyberchaos.dev; spf=pass smtp.mailfrom=cyberchaos.dev; dkim=pass (1024-bit key) header.d=cyberchaos.dev header.i=@cyberchaos.dev header.b=nVRBG4E/; arc=none smtp.client-ip=195.39.247.168
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cyberchaos.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cyberchaos.dev
+	s=arc-20240116; t=1788551407; c=relaxed/simple;
+	bh=5ZgMDCkwGquoA60xxL2RxGgZZW/RACRs9YLh6Dt2BX8=;
+	h=Date:Mime-Version:Message-ID:Subject:From:To:Content-Type; b=QsXrZ0W4N+5cODA3yLiFfVU59foQd1LbfkoIEZvGYhBeIWyPQri7wXcuYe3N1muhtDOSOvVOtvwLYbY+xdYcwbB+OSPcB/rAbTWtCBkBZGDpa3m5wIvR56vE5Jef02O0Jdh3NrlKnhm3f0q48DBBZ5BMUPQ8bmVG9JE6f5M/piw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=I+sVzjsN; arc=none smtp.client-ip=209.85.214.198
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=cyberchaos.dev header.i=@cyberchaos.dev header.b="nVRBG4E/"
-From: Yureka Lilian <yureka@cyberchaos.dev>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cyberchaos.dev;
-	s=mail; t=1788551398;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=03++u1hMJUN4CZOnETD7tedBCxAbjIXy0LEGbGeWhRE=;
-	b=nVRBG4E/PeFU3TVNNZq9jmhM9oC8orfOE0SM/nLoLI9Jb25QDoa6i/Z385rmKqw9oAn04E
-	ZQb/PGvX0RxghI3/613mbbsW1lLzjYEZZUxzJaiQj7kBaR9CL8FM/DbiLcWh1/4PfRtRNs
-	Abjw+at8jUcdu38LoKyZQkMtsosmC2o=
-Date: Fri, 04 Sep 2026 21:49:38 +0200
-Subject: [PATCH 5/6] dt-bindings: watchdog: apple,wdt: Add t8140 compatible
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="I+sVzjsN"
+Received: by mail-pl1-f198.google.com with SMTP id d9443c01a7336-2ccb6823efcso14284885ad.0
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 12:50:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1788551399; x=1789156199; darn=vger.kernel.org;
+        h=content-type:to:from:subject:message-id:mime-version:date:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=HdsG6fcfBmaq2Sjx7PG0uI85rwv0h/nu4vJY5O/MUH0=;
+        b=I+sVzjsNhAf/37UbtuZsbwO1G2bY0siJcqiFzUH52vmLh5n6KArB80+vFsqIxqYc61
+         +Ch4IVXzsvsVC6sL9OcFu/IkM4MXlLy0wsDwdsswLy/6kV6S1XxqaJEYPVU8/DGwpkHz
+         MzopI8Is19CjDxSHj/2NM/aN9W71EZLZZ/keTRlJohhHBAcGaCkmCurc6cK9LUickrmg
+         fvD9vb8RB83u5b7gjj8ImRz3Ixk2FhlmGZdsChcVfpDRzB2eh0ZfSANGsvjMvMCO1PE6
+         2Lvr9Xd2wxTYPzjmZKh0lcAAKwPMNvNaQVUFf+YAVHbf1+Yh9+bLw3FAbMs8rqPG9wSo
+         4/ww==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788551399; x=1789156199;
+        h=content-type:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=HdsG6fcfBmaq2Sjx7PG0uI85rwv0h/nu4vJY5O/MUH0=;
+        b=LkZiUEi7+O/t/1uadPYhGsMNmOH2Ddjr7dYLockYpcVE72nHhhcsJswMYnOF68K/eS
+         5T/gKbobkgnlRmDmtDBPNtsu3dYqEvJ6nzy9Cn7jcN+0N7qFosoWNT1EODmal2to/BAN
+         7UzUBpx8tPyOkYhr3NVJi3aukTWTD9nB4Kb989xXpzycsqXyn7E7I36TJtagVELIuonw
+         8te6EvdhnP6w/XUPxzMCrzvIwJqkC3AbHKqc7SHih4WVMaF2EW1jeTPySusMtap54HIV
+         y0Z7VdTZRKJtKHe63tWATjbOcHVlGCcs0bbB7RRIwgVE1waHGCBVshzSa6OQCsg6MklP
+         Adrw==
+X-Forwarded-Encrypted: i=1; AKwUvByAH5x1KclvCa9wvzb3/Z2+mkIZVAfpmL9vOy3fCCuLmPD5UidSDw5w543sFEHfp/gRdqIqeChxcP9zb1c=@vger.kernel.org
+X-Gm-Message-State: AFuF++nies2/wEZaCj6krr6+qezs38v9G0pHJLtt2jg37bKr3ySEmymy
+	KDB+45cfRMwXsZn/diNdLv0ouGJGJcWU5c+WIuVNrTn15mIHVwtRw9sauZdNk6lgWDzsYG5G8YF
+	FmfCIBXcBpg==
+X-Received: from dyx20.prod.google.com ([2002:a05:693c:8214:b0:32c:bcf2:5193])
+ (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a20:7284:b0:3cc:f280:ebc6
+ with SMTP id adf61e73a8af0-3da39eacf9amr10926007637.5.1788551398676; Fri, 04
+ Sep 2026 12:49:58 -0700 (PDT)
+Date: Fri,  4 Sep 2026 12:49:54 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260904-apple-a18-pro-initial-devicetrees-v1-5-0c25401d165d@cyberchaos.dev>
-References: <20260904-apple-a18-pro-initial-devicetrees-v1-0-0c25401d165d@cyberchaos.dev>
-In-Reply-To: <20260904-apple-a18-pro-initial-devicetrees-v1-0-0c25401d165d@cyberchaos.dev>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Lorenzo Pieralisi <lpieralisi@kernel.org>, Sven Peter <sven@kernel.org>, 
- Janne Grunau <j@jannau.net>, Neal Gompa <neal@gompa.dev>, 
- Hector Martin <marcan@marcan.st>, Thomas Gleixner <tglx@kernel.org>, 
- Radu Rendec <radu@rendec.net>, Wim Van Sebroeck <wim@linux-watchdog.org>, 
- Guenter Roeck <linux@roeck-us.net>
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- asahi@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
- linux-watchdog@vger.kernel.org, Yureka Lilian <yureka@cyberchaos.dev>
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.55.0.979.g7e5102b832-goog
+Message-ID: <20260904194954.1192154-1-irogers@google.com>
+Subject: [PATCH v1] perf test: Avoid call to missing cleanup function
+From: Ian Rogers <irogers@google.com>
+To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
+	Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, Jiri Olsa <jolsa@kernel.org>, 
+	Ian Rogers <irogers@google.com>, Adrian Hunter <adrian.hunter@intel.com>, 
+	James Clark <james.clark@linaro.org>, Dapeng Mi <dapeng1.mi@linux.intel.com>, 
+	Zide Chen <zide.chen@intel.com>, linux-perf-users@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-The watchdog on the Apple t8140 (A18 Pro) SoC is compatible with the
-M1-M4 SoCs. Add "apple,t8140-wdt" as SoC specific compatible.
+Cleanup function was removed by writing to /dev/null rather than
+temporary files. The exit path still had a call.
 
-Signed-off-by: Yureka Lilian <yureka@cyberchaos.dev>
+Fixes: 44f6b4402791 ("perf test: Fix hybrid testing of event fallback test")
+Signed-off-by: Ian Rogers <irogers@google.com>
 ---
- Documentation/devicetree/bindings/watchdog/apple,wdt.yaml | 1 +
- 1 file changed, 1 insertion(+)
+ tools/perf/tests/shell/test_event_open_fallback.sh | 2 --
+ 1 file changed, 2 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/watchdog/apple,wdt.yaml b/Documentation/devicetree/bindings/watchdog/apple,wdt.yaml
-index ca4cf01db59f..1af924157f7c 100644
---- a/Documentation/devicetree/bindings/watchdog/apple,wdt.yaml
-+++ b/Documentation/devicetree/bindings/watchdog/apple,wdt.yaml
-@@ -22,6 +22,7 @@ properties:
-               - apple,t6031-wdt
-               - apple,t8122-wdt
-               - apple,t8132-wdt
-+              - apple,t8140-wdt
-           - const: apple,t8103-wdt
-       - items:
-           - enum:
-
+diff --git a/tools/perf/tests/shell/test_event_open_fallback.sh b/tools/perf/tests/shell/test_event_open_fallback.sh
+index 9420a7557c13..27d440a5355d 100755
+--- a/tools/perf/tests/shell/test_event_open_fallback.sh
++++ b/tools/perf/tests/shell/test_event_open_fallback.sh
+@@ -57,8 +57,6 @@ ret=0
+ test_decrease_precise_ip		|| ret=$? ; count_result $ret ; ret=0
+ test_decrease_precise_ip_complicated	|| ret=$? ; count_result $ret ; ret=0
+ 
+-cleanup
+-
+ if [ ${err_cnt} -gt 0 ] ; then
+ 	exit 1
+ fi
 -- 
-2.55.0
+2.55.0.979.g7e5102b832-goog
 
