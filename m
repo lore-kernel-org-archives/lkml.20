@@ -1,107 +1,70 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6E0C3612E2
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 07:52:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 524B23D7D7E;
+	Fri,  4 Sep 2026 07:52:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788508335; cv=none; b=uiV3/pSiY28Ay48t8nJOxyjHyPQ1or8+hGmHshAd5X884MmqC5dDCIIJHwDpGZYT9bmiSwpTa4EQ2eBA3jVwlp9yPF192mlR4nsSEHz8YreKldkKTlN9RwxOK6CCL4OlYR4Yu4EQW6qLcZ+iROS1NcIhVv6HivpunJYLCZUXMzQ=
+	t=1788508353; cv=none; b=DFWHRjNE9P+CSAlHWiH7EYdbQ5liddj5+bVeOtwKjS68rdEjS6NlE266Wca8IJ87Gp61k4m/dV/eokDot8RDJScDBoW8OP0dKK7DS1kbAdWqlzBUvxssGBIsdi092/LmB4aY2Pp+qeu/n9iaQJaXijk1Uq/fGbLcpgQxkN9nxEw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788508335; c=relaxed/simple;
-	bh=IiaOlIOx3X3W6DFnx1Teyhn32TkW+Oje3m5teqBJGiQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=NujFAhRjsU4NHLtLHobdNPx/ADnwqdtyRB51BqFiBfit12lwmDofyfL8dwhmjMf3x1aaFsq8eqRKnxhsIZYGWwbqF5fb+YU8YrDx6p4pFs3nyjgvXiZerDPqEKraFvHXsk5pxzD2SxJ/xO1sxqE7IebS1wupPua6Fzel0UyCuGk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=MpanSPlV; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1788508353; c=relaxed/simple;
+	bh=jEAl2HVmOXBTfZRdguPW6L2Wf/n3WoEsLeLQH+D/imY=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=uQ6K6he1Rlitbg8Nj8K+IQHOpZuxzXy9Ng4k3lQEH4PiYGk8nC1FYDtYSNOFoS2XGG6X9+xmnyd51F5Lg7tW3E9nJX3DOAFvY5lCmNG26DGnhljrNWAy418MaXQhXaN0axLYKZ5BgArxKpBl8ra51Sv6ejWtwzZDscJ+WiDdlHc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=e8FJX0/1; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="MpanSPlV"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1788508332;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=kce8DglwAH31zHJL/kQHurhnPheFXUZ6gKNThVu2MfA=;
-	b=MpanSPlV6ua6NGi5M91iu/kqjfatp5QY2FMI77hJraZaiGST9U6Rh50ErDBwevH3qYE16r
-	PWGDkP3+fWTHZ2ynlwTgpmsjUaJ4A5N18G1axUu8fFrPOS28tPPlDCLvLrfNwzMTUPNFZW
-	ML/h1xde+vsAw75E4sETYLnK9R5ABDI=
-Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-378-MGoWLxE2PFa_LpGguzij3g-1; Fri,
- 04 Sep 2026 03:52:08 -0400
-X-MC-Unique: MGoWLxE2PFa_LpGguzij3g-1
-X-Mimecast-MFC-AGG-ID: MGoWLxE2PFa_LpGguzij3g_1788508326
-Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 90E07195DE67;
-	Fri,  4 Sep 2026 07:52:06 +0000 (UTC)
-Received: from hpa-thinkpadx1carbongen12.taipei.csb (headnet05.pony-001.prod.iad2.dc.redhat.com [10.2.32.117])
-	by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 2D3331800609;
-	Fri,  4 Sep 2026 07:52:02 +0000 (UTC)
-From: Kate Hsuan <hpa@redhat.com>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Hans de Goede <hansg@kernel.org>,
-	Hans Verkuil <hverkuil+cisco@kernel.org>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Jai Luthra <jai.luthra@ideasonboard.com>
-Cc: linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Kate Hsuan <hpa@redhat.com>
-Subject: [PATCH v2 3/3] media: i2c: imx471: Calculate pixel rate based on external clock rate
-Date: Fri,  4 Sep 2026 15:51:13 +0800
-Message-ID: <20260904075113.125751-4-hpa@redhat.com>
-In-Reply-To: <20260904075113.125751-1-hpa@redhat.com>
-References: <20260904075113.125751-1-hpa@redhat.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="e8FJX0/1"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 206D21F00A3D;
+	Fri,  4 Sep 2026 07:52:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788508352;
+	bh=ZivGdNQ3WNPzqFX/awBPwifUwaOW7ieSdZtEVQOV0vI=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=e8FJX0/1oHuwQ0VlxZ4KlL2PIFs8ErbOMZgBbexGOg0z9bh6ws6TUvm91m1t55AWr
+	 wpoWNeqNBPe4J47m+WQauNMeH9FqoCA6qqhAq9Huvuxf1MD82ngwKTAGh3K4rYZN8P
+	 CL2XKflNOGNO9/jt6jm06CnbreSEkQVHLgJ7SJ0Gv158dV914wTp4JMi//dTdhzV2y
+	 uj969Xb30Epg7G5SFAF3CGDeFxW7BjQjT7UGjnuwtlqaggUeyDefIlLP9TWR79kIWY
+	 Zh8u7OqrTIw/cMrdlxUFnksnUfr8eQNGgbpMEsoMQBvsdH2NmDmfSt80z62AA7g68/
+	 p+eltDXX5MvYA==
+From: Christian Brauner <brauner@kernel.org>
+To: netfs@lists.linux.dev, linux-kernel@vger.kernel.org, 
+ Zenghui Yu <zenghui.yu@linux.dev>
+Cc: dhowells@redhat.com
+In-Reply-To: <20260620131425.8210-1-zenghui.yu@linux.dev>
+References: <20260620131425.8210-1-zenghui.yu@linux.dev>
+Subject: Re: [PATCH] cachefiles: Fix path of the "debug" module parameter
+ in help paragraph
+Message-Id: <20260904-dahin-zeitfaktor-deckname-e614210965bc@brauner>
+Date: Fri, 04 Sep 2026 09:52:29 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.17-dev-db0b7
 
-The IMX471 sensor operates in PLL Dual Mode, so OP domain configurations
-must be used to determine the pixel rate. Based on the IMX471 clock tree
-topology, the pixel rate is calculated as:
+On Sat, 20 Jun 2026 21:14:25 +0800, Zenghui Yu wrote:
+> The correct path of the "debug" module parameter should be
+> /sys/module/cachefiles/parameters/debug. Fix it.
 
-(extclk * IOP_PLL_MPY * DDR_FACTOR) / (IOP_PREPLLCK_DIV * IOP_SYNCK_DIV * BPP)
+Applied to the vfs-7.4.netfs branch of the vfs/vfs.git tree.
+Patches in the vfs-7.4.netfs branch should appear in linux-next soon.
 
-With the register values, this yields a pixel rate of 159.36 MPix/s.
+Please report any outstanding bugs that were missed during review in a
+new review to the original patch series allowing us to drop it.
 
-Signed-off-by: Kate Hsuan <hpa@redhat.com>
----
- drivers/media/i2c/imx471.c | 13 +++++++++++--
- 1 file changed, 11 insertions(+), 2 deletions(-)
+It's encouraged to provide Acked-bys and Reviewed-bys even though the
+patch has now been applied. If possible patch trailers will be updated.
 
-diff --git a/drivers/media/i2c/imx471.c b/drivers/media/i2c/imx471.c
-index 316383076b3d..d81d64dd8761 100644
---- a/drivers/media/i2c/imx471.c
-+++ b/drivers/media/i2c/imx471.c
-@@ -701,8 +701,17 @@ static int imx471_init_controls(struct imx471 *sensor)
- 					   0,
- 					   link_freq_menu_items);
- 
--	/* pixel_rate = link_freq * 2 * nr_of_lanes / bits_per_sample */
--	pixel_rate = div_u64(IMX471_LINK_FREQ_DEFAULT * 2 * 4, 10);
-+	/*
-+	 * The sensor runs in the PLL DUAL mode so the configurations of the
-+	 * OP domain are considered. According to the imx471 clock tree,
-+	 * the pixel rate can be calculated as follows:
-+	 * (exck_freq * IOP_PLL_MPY * DDR factor) /
-+	 * (IOP_PREPLLCK_DIV * IOP_SYNCK_DIV * RAW10 bits) = 159.36 MPix/s
-+	 */
-+	pixel_rate = (IMX471_EXT_CLK * IMX471_PLL_OP_MPY * (u64)2) /
-+		     (IMX471_PREPLLCK_OP_DIV * IMX471_OPSYCK_DIV * (u64)10);
-+
-+	dev_dbg(sensor->dev, "pixel_rate: %llu\n", pixel_rate);
- 
- 	v4l2_ctrl_new_std(ctrl_hdlr, &imx471_ctrl_ops,
- 			  V4L2_CID_PIXEL_RATE, pixel_rate,
--- 
-2.55.0
+Note that commit hashes shown below are subject to change due to rebase,
+trailer updates or similar. If in doubt, please check the listed branch.
+
+tree:   https://git.kernel.org/pub/scm/linux/kernel/git/vfs/vfs.git
+branch: vfs-7.4.netfs
+
+[1/1] cachefiles: Fix path of the "debug" module parameter in help paragraph
+      https://git.kernel.org/vfs/vfs/c/880a32f0a6e6
 
