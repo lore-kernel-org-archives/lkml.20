@@ -1,183 +1,176 @@
-Received: from mail-oo1-f41.google.com (mail-oo1-f41.google.com [209.85.161.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from out03.mta.xmission.com (out03.mta.xmission.com [166.70.13.233])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 108434756DF
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 12:06:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E084B481647
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 12:06:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=166.70.13.233
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788523583; cv=none; b=GHbvI9uWhj3Yxwv6sW6CvBx/ZRolPT60hCCsoBH/d0CBcF2RGH+c570KdPNq2gL7kgpCNKhNYZ6OQFIilFB+xVfKLRibJVmDoKPXK83dm42TveqKb6fbfRLYfw9+SonMquhCbJopWqHHlHe5kFjZP+JWkWrl6HivdysOVKM1/vs=
+	t=1788523583; cv=none; b=cATFvU6/eOJLyg/SDIPD2NtVaWzBfrnm8wI3plYw03R4ks0X99xZlR7Z9fo6hDuW9zh3WGUjC8Lp74kbA0fuh5jIMiYGpzH9Jkh5EatdV6h6+kVfsC2d+Fm6TIwjjLclo8d4FBOdLDgu4+1lBPDykU01YGolYuyUQOdiiJ8HqVI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788523583; c=relaxed/simple;
-	bh=sPN9S2SipzeCvUtPxw8RMcHggMANadY+KjgyyNcHFCg=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=E4qOENzfxbFNmuk4BtDVX2JRuX0dGrhoxfz7mM1/9Qk2GfRTxsQihKa+47V7QgL3xG9qcsb39Tcy+T+/nY0fcK79m4Qdshkzylu8DVQVLYdwAbYsko/PNVvbCt5CGTQvsePo4E2uciqgE9G9YafvZXYVBPUGKIUxek0TmMDx6jg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pOasWwII; arc=none smtp.client-ip=209.85.161.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	bh=/ORfFco1F4drQGsF5t31hcJjMb5ghwHYvUrVtq1Azco=;
+	h=From:To:Cc:In-Reply-To:References:Date:Message-ID:MIME-Version:
+	 Content-Type:Subject; b=M7VCaDfQIbc1fd4HYzmyiWpLyZCcf4ir6MzIdxswd02QWbq/ij8JOEXWhTxtCg3zj5LdNIA8q8EJ2HqGg48PxUbcE7TG8guVhMukH3kNp4CQ6lyOfD06HiQqeFmrZ2YfHIyzTBNH/e/BIz4ynuYxuxk3jZoDl55Uh/sHcmFl510=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=xmission.com; spf=pass smtp.mailfrom=xmission.com; dkim=pass (1024-bit key) header.d=xmission.com header.i=@xmission.com header.b=kbOjni+G; arc=none smtp.client-ip=166.70.13.233
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=xmission.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xmission.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pOasWwII"
-Received: by mail-oo1-f41.google.com with SMTP id 006d021491bc7-6b1c75f0049so694766eaf.3
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 05:06:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788523580; x=1789128380; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=LpjAUK45k2PJKSjdfeljwO5d42gX8uNwxDJAnF1e9RY=;
-        b=pOasWwIIt9BWLLuuZudzx+UGJbRieNF7J8i2WiRkGX4FoAzr4GhhsuYut5iK67QYv4
-         LB0l5Tz+evzfTwkGHRQwQ1cSSFdUD6dMH1R5upg7WYBEdc7MoeEVq/nJ4sAiQRiAJopw
-         /pHnaWp9OUQkV4diQ4zBct1poQRc30Eu9AVD0WKnftiY+ZvKUl8gFIe5QmEStM+4rz4t
-         iW2kgpubuMAlDR6OBFsEs4/+YF/itI6NhoZ2KtAGlEQSoDOpUnFFGZ8zji/vfxfP78rw
-         vjkfZTWym/IEMLrBMU/scCc3cU8T62srYnbwpbk0l+une4hZfCSgxQZpYVU4pvWG5WXT
-         wr8A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788523580; x=1789128380;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=LpjAUK45k2PJKSjdfeljwO5d42gX8uNwxDJAnF1e9RY=;
-        b=Pjv0O62OcONtjmg1jYTj/LNCQxzWtWUWx+0OGBSdU5pENSWjZMVfkBXnowFoYHMnIp
-         YgtfutFsJz+jsYuPDKbqu6C0wZHzgVG5rywcR1r7+4WceolQyqtVl/x9cg77eBSdLcl2
-         qeY1+9StRJqOrmCcCmLH44m26P4Z6YtbzyTRMlfs4YHT8W3D4yMPCYLCBxoO/m1f/x6Y
-         MXsGAk2+tvilPQiYpfKFyKSKwd7khtC1dzg03no9DBMMqFAvDslQyOKU5JpP2iNoQUHO
-         QIWvG/iHEqsH2VsLBYETZuFbPKv17c4COtbEQ4/th7RYIY/R77/ejqdsZYyAKeGBSKts
-         pGdQ==
-X-Gm-Message-State: AFuF++nkeJSCQIpdbsW4fWZ3iY9HHUqJ+rUvR/Fl6bL4a0jFuvDga9Wq
-	AlvTD4l1pSMD+bNGjHWSoOG8eYKMz9uVitc/IfbCRcByFfstl2x6RTqB
-X-Gm-Gg: AYBFou00ibMHHd/hgyq3JfkzfPaB42t4dMH0s/gmc0hs+uemkZCOzPCWORDoBpYDrrP
-	TlzujZ3Z7XNGIrS9+BU14TkW/fZtp6SjLgDAYF4KxP/SMhhA3laAGB0COVmJnN0wcS8EcpZ33w4
-	N7p2ZO5VnRie/l+Q6kpxL0OVfz++yORPEG7LYMUB7f/w+VQXMJqpvxgELg0ZwAH6qRpStsoeAuk
-	aHT0xgFNzQ7HAIrPOlh8UZ3TXYtHTT5i4Nj3cR98UH+pVo1r1sRYxoxu9yaK2LY7U8RIOP07jkz
-	LBiCRlf+L+qcNrcaMe2C0J9jid0u5BrP+gnINaQYIYHkpa7cwyZwu82en6fo4+ihECjm8uHBArK
-	VLggmA9PGP7muxA8gr+AIeppCJZBL/ePdJcHXUFkAPphdDgTeXzGiFSBo0O24A09o8Q56owR2sx
-	mxJCjP48ZZsYKYNaEkO/RC9yW+aijniJos3m93/w3GGFwH/BxSCTI7FUQoIMJTmNzbqQ2F9331V
-	+ZTsx4FWFb5LJyYcGKqVDuHGw==
-X-Received: by 2002:a4a:e914:0:b0:6b2:69bf:c8d7 with SMTP id 006d021491bc7-6b6fb3df17emr3896155eaf.10.1788523579864;
-        Fri, 04 Sep 2026 05:06:19 -0700 (PDT)
-Received: from volcano9f6e-hostos.amd.com ([165.204.217.251])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339b8f44d7sm6321674eec.22.2026.09.04.05.06.13
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 04 Sep 2026 05:06:19 -0700 (PDT)
-From: Hemanth Selam <hemanth.selam@gmail.com>
-To: Rob Clark <robin.clark@oss.qualcomm.com>,
-	Sean Paul <sean@poorly.run>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Akhil P Oommen <akhilpo@oss.qualcomm.com>,
-	Dmitry Baryshkov <lumag@kernel.org>,
-	Abhinav Kumar <abhinav.kumar@linux.dev>,
-	Jessica Zhang <jesszhan0024@gmail.com>,
-	Marijn Suijten <marijn.suijten@somainline.org>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	Sumit Semwal <sumit.semwal@linaro.org>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: linux-kernel@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	freedreno@lists.freedesktop.org,
-	linux-media@vger.kernel.org,
-	linaro-mm-sig@lists.linaro.org
-Subject: [PATCH 2/2] drm: fix repeated words in comments
-Date: Fri,  4 Sep 2026 17:35:57 +0530
-Message-ID: <20260904120601.18363-3-hemanth.selam@gmail.com>
-X-Mailer: git-send-email 2.48.1
-In-Reply-To: <20260904120601.18363-1-hemanth.selam@gmail.com>
-References: <20260904120601.18363-1-hemanth.selam@gmail.com>
+	dkim=pass (1024-bit key) header.d=xmission.com header.i=@xmission.com header.b="kbOjni+G"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=simple/simple; d=xmission.com;
+	 s=xmission; h=Subject:Content-Type:MIME-Version:Message-ID:Date:References:
+	In-Reply-To:Cc:To:From:Sender:Reply-To:Content-Transfer-Encoding:Content-ID:
+	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+	:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+	List-Post:List-Owner:List-Archive;
+	bh=/ORfFco1F4drQGsF5t31hcJjMb5ghwHYvUrVtq1Azco=; b=kbOjni+G6al/jFwRkYVacXj2P/
+	iMyfA70DDC6uc5rzeaZjaAyztJcmhEWnB4LOp6c3zaar+2Um6Ns+cMTGMgYkJLYEVJEW4MtjEa3FR
+	FUBJ3cwvgyFB9fHudNpIpZ+F5aU2rWWcABKZ289NGfqfmosgTNyL19q/Bf2id5YeZO4c=;
+Received: from in02.mta.xmission.com ([166.70.13.52]:48372)
+	by out03.mta.xmission.com with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.93)
+	(envelope-from <ebiederm@xmission.com>)
+	id 1x2SgQ-003zkT-NX; Fri, 04 Sep 2026 06:06:14 -0600
+Received: from ip72-198-198-28.om.om.cox.net ([72.198.198.28]:46620 helo=email.froward.int.ebiederm.org.xmission.com)
+	by in02.mta.xmission.com with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.93)
+	(envelope-from <ebiederm@xmission.com>)
+	id 1x2SgP-0035SB-Kg; Fri, 04 Sep 2026 06:06:14 -0600
+From: "Eric W. Biederman" <ebiederm@xmission.com>
+To: Thomas Gleixner <tglx@kernel.org>
+Cc: LKML <linux-kernel@vger.kernel.org>,  Hyunwoo Kim <imv4bel@gmail.com>,
+  Oleg Nesterov <oleg@redhat.com>,  Frederic Weisbecker
+ <frederic@kernel.org>,  Christian Brauner <brauner@kernel.org>,  Peter
+ Zijlstra <peterz@infradead.org>,  John Stultz <jstultz@google.com>,  Ingo
+ Molnar <mingo@kernel.org>,  Alexander Viro <viro@zeniv.linux.org.uk>
+In-Reply-To: <20260904112202.400768514@kernel.org> (Thomas Gleixner's message
+	of "Fri, 04 Sep 2026 13:22:49 +0200")
+References: <20260904112100.683893401@kernel.org>
+	<20260904112202.400768514@kernel.org>
+Date: Fri, 04 Sep 2026 07:06:08 -0500
+Message-ID: <871pb9cjbj.fsf@email.froward.int.ebiederm.org>
+User-Agent: Gnus/5.13 (Gnus v5.13)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-XM-SPF: eid=1x2SgP-0035SB-Kg;;;mid=<871pb9cjbj.fsf@email.froward.int.ebiederm.org>;;;hst=in02.mta.xmission.com;;;ip=72.198.198.28;;;frm=ebiederm@xmission.com;;;sPfnum=0;;;sPf=pass
+X-XM-AID: U2FsdGVkX18ook4WXEVJePT02q9ro+7v4QumrS6SgOY=
+X-Spam-Level: *
+X-Spam-Report: 
+	* -1.0 ALL_TRUSTED Passed through trusted hosts only via SMTP
+	*  0.1 BAYES_50 BODY: Bayes spam probability is 40 to 60%
+	*      [score: 0.5000]
+	*  0.7 XMSubLong Long Subject
+	*  1.5 XMNoVowels Alpha-numberic number with no vowels
+	*  0.0 T_TM2_M_HEADER_IN_MSG BODY: No description available.
+	* -0.0 DCC_CHECK_NEGATIVE Not listed in DCC
+	*      [sa07 1397; Body=1 Fuz1=1 Fuz2=1]
+	*  0.4 FVGT_m_MULTI_ODD Contains multiple odd letter combinations
+	*  0.2 XM_B_SpammyWords One or more commonly used spammy words
+	*  0.0 T_TooManySym_02 5+ unique symbols in subject
+	*  0.0 T_TooManySym_01 4+ unique symbols in subject
+X-Spam-DCC: XMission; sa07 1397; Body=1 Fuz1=1 Fuz2=1 
+X-Spam-Combo: *;Thomas Gleixner <tglx@kernel.org>
+X-Spam-Relay-Country: 
+X-Spam-Timing: total 623 ms - load_scoreonly_sql: 0.05 (0.0%),
+	signal_user_changed: 13 (2.0%), b_tie_ro: 11 (1.8%), parse: 0.97
+	(0.2%), extract_message_metadata: 4.3 (0.7%), get_uri_detail_list: 2.0
+	(0.3%), tests_pri_-2000: 3.5 (0.6%), tests_pri_-1000: 2.4 (0.4%),
+	tests_pri_-950: 0.97 (0.2%), tests_pri_-900: 0.98 (0.2%),
+	tests_pri_-90: 244 (39.2%), check_bayes: 242 (38.9%), b_tokenize: 9
+	(1.4%), b_tok_get_all: 9 (1.4%), b_comp_prob: 2.8 (0.4%),
+	b_tok_touch_all: 218 (34.9%), b_finish: 1.15 (0.2%), tests_pri_0: 333
+	(53.4%), check_dkim_signature: 0.59 (0.1%), check_dkim_adsp: 3.2
+	(0.5%), poll_dns_idle: 0.99 (0.2%), tests_pri_10: 2.4 (0.4%),
+	tests_pri_500: 10 (1.5%), rewrite_mail: 0.00 (0.0%)
+Subject: Re: [patch 7/8] posix-cpu-timers: Prevent enqueueing when
+ PF_EXITING is set
+X-SA-Exim-Connect-IP: 166.70.13.52
+X-SA-Exim-Rcpt-To: viro@zeniv.linux.org.uk, mingo@kernel.org, jstultz@google.com, peterz@infradead.org, brauner@kernel.org, frederic@kernel.org, oleg@redhat.com, imv4bel@gmail.com, linux-kernel@vger.kernel.org, tglx@kernel.org
+X-SA-Exim-Mail-From: ebiederm@xmission.com
+X-SA-Exim-Scanned: No (on out03.mta.xmission.com); SAEximRunCond expanded to false
 
-Drop words accidentally written twice, reported by checkpatch.pl as a
-possible repeated word.  Only touches comments, no code changes.
+Thomas Gleixner <tglx@kernel.org> writes:
 
-Assisted-by: Cursor:claude-opus-5
-Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
----
- drivers/gpu/drm/msm/adreno/a6xx_gmu.c  | 4 ++--
- drivers/gpu/drm/msm/msm_gem.c          | 4 ++--
- drivers/gpu/drm/msm/msm_gem_shrinker.c | 2 +-
- include/uapi/drm/msm_drm.h             | 4 ++--
- 4 files changed, 7 insertions(+), 7 deletions(-)
+> To prepare for cleaning up POSIX CPU timers in do_exit(), prevent
+> enqueueing POSIX CPU timers on a task which has PF_EXITING set.
+>
+> Queueing a timer on such a task is pointless because the task won't expire
+> the timer anymore.
+>
+> Pretending that the timer is armed allows to keep the POSIX timer mechanism
+> "working" so that the timer stays accessible up to the point where a task
+> is unhashed.
+>
+> Signed-off-by: Thomas Gleixner <tglx@kernel.org>
+> ---
+>  kernel/time/posix-cpu-timers.c |   27 +++++++++++++++++++++++++++
+>  1 file changed, 27 insertions(+)
+>
+> --- a/kernel/time/posix-cpu-timers.c
+> +++ b/kernel/time/posix-cpu-timers.c
+> @@ -628,6 +628,7 @@ static int posix_cpu_timer_del(struct k_
+>  	}
+>  
+>  	if (!ret) {
+> +		WARN_ON_ONCE(cpu_timer_queued(&timer->it.cpu));
+>  		put_pid(timer->it.cpu.pid);
+>  		timer->it_status = POSIX_TIMER_DISARMED;
+>  	}
+> @@ -674,6 +675,15 @@ void posix_cpu_timers_exit_group(struct
+>  	cleanup_timers(&tsk->signal->posix_cputimers);
+>  }
+>  
+> +static inline bool task_can_enqueue(struct k_itimer *timer, struct task_struct *p)
+> +{
+> +	if (likely(!(p->flags & PF_EXITING)))
+> +		return true;
+> +
+> +	/* Allow TGID type unless the last thread is on the way out. */
+> +	return clock_pid_type(timer->it_clock) == PIDTYPE_TGID && atomic_read(&p->signal->live);
 
-diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-index 27cac853975f..16fed0066f00 100644
---- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-+++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-@@ -1759,7 +1759,7 @@ static int a6xx_gmu_rpmh_arc_votes_init(struct device *dev, u32 *votes,
- 		}
- 
- 		/*
--		 * Look for a level in in the secondary list that matches. If
-+		 * Look for a level in the secondary list that matches. If
- 		 * nothing fits, use the maximum non zero vote
- 		 */
- 
-@@ -2378,7 +2378,7 @@ int a6xx_gmu_init(struct a6xx_gpu *a6xx_gpu, struct device_node *node)
- 	if (ret)
- 		goto err_memory;
- 
--	/* Allocate memory for for the HFI queues */
-+	/* Allocate memory for the HFI queues */
- 	ret = a6xx_gmu_memory_alloc(gmu, &gmu->hfi, SZ_16K, 0, "hfi");
- 	if (ret)
- 		goto err_memory;
-diff --git a/drivers/gpu/drm/msm/msm_gem.c b/drivers/gpu/drm/msm/msm_gem.c
-index c4cff3d53d81..7ad450b574bf 100644
---- a/drivers/gpu/drm/msm/msm_gem.c
-+++ b/drivers/gpu/drm/msm/msm_gem.c
-@@ -502,8 +502,8 @@ void msm_gem_unpin_locked(struct drm_gem_object *obj)
- 
- /* Special unpin path for use in fence-signaling path, avoiding the need
-  * to hold the obj lock by only depending on things that a protected by
-- * the LRU lock.  In particular we know that that we already have backing
-- * and and that the object's dma_resv has the fence for the current
-+ * the LRU lock.  In particular we know that we already have backing
-+ * and that the object's dma_resv has the fence for the current
-  * submit/job which will prevent us racing against page eviction.
-  */
- void msm_gem_unpin_active(struct drm_gem_object *obj)
-diff --git a/drivers/gpu/drm/msm/msm_gem_shrinker.c b/drivers/gpu/drm/msm/msm_gem_shrinker.c
-index 9d2788f79ace..d84cbb64bc56 100644
---- a/drivers/gpu/drm/msm/msm_gem_shrinker.c
-+++ b/drivers/gpu/drm/msm/msm_gem_shrinker.c
-@@ -47,7 +47,7 @@ with_vm_locks(void (*fn)(struct drm_gem_object *obj),
- 	      struct drm_gem_object *obj)
- {
- 	/*
--	 * Track last locked entry for for unwinding locks in error and
-+	 * Track last locked entry for unwinding locks in error and
- 	 * success paths
- 	 */
- 	struct drm_gpuvm_bo *vm_bo, *last_locked = NULL;
-diff --git a/include/uapi/drm/msm_drm.h b/include/uapi/drm/msm_drm.h
-index 3d363f12f66a..9b6b30189230 100644
---- a/include/uapi/drm/msm_drm.h
-+++ b/include/uapi/drm/msm_drm.h
-@@ -102,7 +102,7 @@ struct drm_msm_timespec {
-  *
-  * With VM_BIND enabled, userspace does not include a submit_bo table in the
-  * SUBMIT ioctl (this will be rejected), the resident set is determined by
-- * the the VM_BIND ops.
-+ * the VM_BIND ops.
-  *
-  * Enabling VM_BIND will fail on devices which do not have per-process pgtables.
-  * And it is not allowed to disable VM_BIND once it has been enabled.
-@@ -366,7 +366,7 @@ struct drm_msm_vm_bind_op {
- 	__u64 obj_offset;
- 	/** @iova: Address to operate on */
- 	__u64 iova;
--	/** @range: Number of bites to to map/unmap */
-+	/** @range: Number of bites to map/unmap */
- 	__u64 range;
- 	/** @flags: Bitmask of MSM_VM_BIND_OP_FLAG_x */
- 	__u32 flags;
--- 
-2.48.1
+Couldn't this be?
 
+	/* Allow TGID type unless the group is on the way out. */
+	return (clock_pid_type(timer->it_clock) == PIDTYPE_TGID) &&
+        	!(p->signal->flags & SIGNAL_GROUP_EXIT);
+> +}
+
+I don't understand why we would want to re-arm a timer after it has
+been decided the group is dying.
+
+Plush I really don't like the idea of p->signal->live spreading to more
+places.  In the future that has the potential to complicate any changes
+to the group_dead calculation.
+
+>  /*
+>   * Insert the timer on the appropriate list before any timers that
+>   * expire later.  This must be called with the sighand lock held.
+> @@ -684,7 +694,24 @@ static void arm_timer(struct k_itimer *t
+>  	struct cpu_timer *ctmr = &timer->it.cpu;
+>  	u64 newexp = cpu_timer_getexpires(ctmr);
+>  
+> +	lockdep_assert_held(&p->sighand->siglock);
+> +
+>  	timer->it_status = POSIX_TIMER_ARMED;
+> +
+> +	/*
+> +	 * Don't enqueue timers when the task or the group is exiting. That
+> +	 * ensures that timer operations are still succeeding as long as the
+> +	 * tasks are visible, but won't enqueue the timers on the task or
+> +	 * process. They won't expire anyway because run_posix_cpu_timers()
+> +	 * exits early when PF_EXITING is set.
+> +	 *
+> +	 * Enqueue is skipped if PF_EXITING is set when the timer is per task
+> +	 * and when the last thread decremented p::signal::live to zero also for
+> +	 * per process timers.
+> +	 */
+> +	if (unlikely(!task_can_enqueue(timer, p)))
+> +		return;
+> +
+>  	if (!cpu_timer_enqueue(&base->tqhead, ctmr))
+>  		return;
+>  
