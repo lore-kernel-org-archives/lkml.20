@@ -1,82 +1,70 @@
-Received: from mail-pg1-f173.google.com (mail-pg1-f173.google.com [209.85.215.173])
+Received: from mail-pg1-f176.google.com (mail-pg1-f176.google.com [209.85.215.176])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08F50472F82
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 10:55:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D68E46D2D8
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 10:56:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.176
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788519361; cv=none; b=XOea7LUs7RusAF8UjkxjChXOzYn7yxi81FsoOwVNcK1iS/AK+jyd0PsoGD3lJZeqcQJefSeskDlTtDfEGe+wFpptrkfBgYCVu0aCQW/JywqlyQIFi4DboKo1isWJJGpimgREC6wy1DTKXzeGyFTEeUKLrDy0n/FVPEW4Bx+RrQg=
+	t=1788519362; cv=none; b=d0nsUZk8pXMT5bGMZ8aYa1C2xAa9/Y3GQyi8jt4xT2V4gWYM2TG2BT9V011hgW9ZQ3n+DcIEkTyhredrmEaMbvo/e0fR/Rap7H3Q84OioJTRDysjFxKRyNA8BxjXxY7ieRJcrMb7t69AbgzXEBqOaOgjiONn3ztGtrz2InJChCg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788519361; c=relaxed/simple;
-	bh=v/kjOdY5Lu1zx1XvZRZFRlrggOLQEbcgXqmMq7HMqbM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=E1mHUqUkjzj/6Z486H9N6Z3obFodXDkrxCGpxCNd8oo2+O+L6rdSsURiHV+NtGHo6OMU9PNj9Ovh8bSurGN/kQjCxJMkUSHvWAT+dKM0knKFxi1ay2r+XI+SMp/ngrJcGfl017L//FfDko6EtqBsMGN0GdRw+y3z4TI4M7LoNG0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RvtWzbst; arc=none smtp.client-ip=209.85.215.173
+	s=arc-20240116; t=1788519362; c=relaxed/simple;
+	bh=ZvWjXP9SQ6F7xBOna1ztMKNNzIZ8ubCD+ndNFz1ciyg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=sV+XDcUChbw02LPGG8s4TVs5bMCnMZ1p1OCGC5X1FtI0HfoP42KrvxG6PAliqufoXDZNUtzr/Xm0mAuIln5DsdQP86vp3qNwT+Bbk6RYQ2Vgt/fgbiMcsirVd3AWrTyQBJfRgo9c1cypR2Bn33KWMNnJgzjdMzUJAIS0FVL+tWc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=l6mnOwDL; arc=none smtp.client-ip=209.85.215.176
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RvtWzbst"
-Received: by mail-pg1-f173.google.com with SMTP id 41be03b00d2f7-cc147d86bebso904998a12.0
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 03:55:59 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="l6mnOwDL"
+Received: by mail-pg1-f176.google.com with SMTP id 41be03b00d2f7-cc149372c14so542446a12.1
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 03:56:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788519359; x=1789124159; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1788519361; x=1789124161; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=VKYmUlTOqIu/1cBSCueueKVNw/xbCQqglwL7pQcSE8g=;
-        b=RvtWzbstjTqLvkEiFx0fZfqyw50Y/66L5Ph72ANnoag967aBk+QGAGV0lODjMniCSU
-         GRIzyDsG2Qg1Hh9WwdG4ccB2Ijmt3DWJo+zOytJJaeT7NCrsiJ8bis84rAMU+o/V49/3
-         Vk1QaPxx2JWufg/voxftEFitFXopdVB2NNXzIg8kpwFlNqMXvIbLdIU2qAECOAT4fSa7
-         jSx9L1K9xHUAIhl2lKTkW2tZmgAgbPx+JVdteg5PPIDtr3Qd7QgqO6c+aPSLos9awxHj
-         k3u46LQj3gyscvq/7fiR/SqkZ+2+A2/FFq3yixcXrQKrxvBgCVfTtY9kwb2SIFOv+NYb
-         fh5Q==
+        bh=f2SDkRiYdFp13zqgvGKD/ii41aRHGwkv/AHP8UEqIJ4=;
+        b=l6mnOwDLHEUUoCOtaZE4Hx27bNMfOzshDzUL7MomfThmv24OImsrYttM3pe0iLvKe2
+         /vjGMFxDOFZERjMV3yQO4UymXTiknEjc7y/2qGElI8Ih1rcCLGAV4VjbXHfPTz+oRMvM
+         mLGxGEoWNHTCUC/zkCpSNUZqdKTlNufoY3HLeMM9Bl+O1Euf4/DgCB0EFoTotmrvWQ3Y
+         oNCrgga+jsrPo0DJNVEXCQHcMXWrwEjrQHmSvFOlJpmFkBDRhFfvumUPBe16UGlR6Ol5
+         ao734+nuAbU1BIJhw6rxkJfhPzRw0EOba4Ol7IcAAfvk38yonX2runJLI3MaifAKkOug
+         K55A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788519359; x=1789124159;
+        d=1e100.net; s=20251104; t=1788519361; x=1789124161;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=VKYmUlTOqIu/1cBSCueueKVNw/xbCQqglwL7pQcSE8g=;
-        b=BeyjvXohkxkjoe+w6bOK4LrunLs0nfGjncPB8rU82MgLzBHNkWxvyIQb5zav11gbYn
-         4jPKo116Ie3XCg6T7mELdDNfgyl00EhWw6gkZazSLw/a9iNKUdX4p3cG9uqluUDrjrmN
-         bPpH4GWcev8ST/mT838DNZlfFKvruspnrbVUv/2JsJdvn124jwVoe0OycR9dWYFGh+sF
-         PppzdDXI5K8SlXWSpnwFDCsaE335S4R7IkKZvRkLJKaJ54SEkn7PFOR88kM/DE2AB/Ul
-         7ef8HCor2HyLeOd0Cag99vc3jcgjCxoLDfomMcobt9SiIiWQfJwxKJatPQe8wdeYjIdw
-         saEw==
-X-Forwarded-Encrypted: i=1; AKwUvBw1yDFdoeY99btbp0ux8DKK+kqdyPEJ98YTD2FWP4SZHDTeztu1+BRnNWDotoDkrsDo+QqADHvqriBrkMM=@vger.kernel.org
-X-Gm-Message-State: AFuF++lTcRKixk4z1Q3gPvqcb7nmgFCeKzx+AcOq3hsRvIvWE9RuG+i6
-	Uq5vjfGFP6RmsBTwwMoz9UInig4zBQjpIYirrVMOcxttPmcFTNNW30El
-X-Gm-Gg: AYBFou06/cAFrAsk3al78qXodGzbm6WUP0lLFn+LCmFuPxUFy/lJvqukPjuHkyoyb3H
-	v/+Aoxc38jjGGQ2UOiyB4J91aceUSNNgdNfHWgqAHtq+dFc76Y5ohUK0HYkp3A/bRcDYLvOVx0t
-	BkMFzUj6/j5VYyNgZhbX0QuuryRP9+a/kQM+nIOlNMZPwhcA1kV5kfHosH+gcI28+5c25TRVttV
-	dNAOh1oGCwslJoOAsv0PDFewhehCvjLFLXWRQJCeM1gdvxBtUbJnNSYoBy4sgVf0CLbrDRP9F8A
-	DghbPIv5qiMoTAc9QfeBz32W/aVr7AoD2mfY6KDAh84q8GNT+Uu6/rP3JJDjLEXkXdTpAjQ4Pgd
-	MGftyPbG8AATrcEscdvariHksKtVGOtDEVxn2OzAWvJFam3Up2Fm2Mpc06a9wvJJmW0FOCdVTTd
-	J3gQHyqTN4SD9ulC6Uq8swlbink5EZFaanRuLRgeOK+aA30PkCCmMqzcircR7iuYBYby3TehpRk
-	Aihclo9SU5eQZIjxS3gbt2m38GZiCYSWayduCQJxSaL51QvNtM98IwF3eS88xgqfXyld/T9Dbie
-	hlIyF0f1xV94WaF8
-X-Received: by 2002:a17:90b:3b41:b0:398:9bd3:d6d2 with SMTP id 98e67ed59e1d1-39b27ea25b9mr3194454a91.12.1788519358927;
-        Fri, 04 Sep 2026 03:55:58 -0700 (PDT)
-Received: from phuc-desktop.. ([183.91.15.56])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b2612ba2bsm3842279a91.14.2026.09.04.03.55.54
+        bh=f2SDkRiYdFp13zqgvGKD/ii41aRHGwkv/AHP8UEqIJ4=;
+        b=HR7LP6sL/6AvuqPNFtLiU3FM8vGyFGNczBTUuqBJOa3QQyk7FlRQzlzURkobe8NPyL
+         SZMe8ecbQkXgf4sp5BTvzbMPfeYPVMiWNYhY1CaXO8EGrAitFzJ5HOUGZrTCi+loLitf
+         eOrXJvEIqa+mzxTM1n1UKSSs66OTPZZuPuvxtxfRJeesSqCriggQ+9OeLRYjSB5HCWTy
+         g8r0bXqntwqJ/FZvY1P2X+twt7RxrEtd7+lAMw2kc8wiXrtslDeTMPBnbmMnRs3C1bTq
+         4SCHb+YaAn3UcZaJbvj42HF0tYz25Qe4FdII5EZe/xEV2KwDp2XawAjrXoRtvbKVerzk
+         sWNw==
+X-Gm-Message-State: AFuF++lj5/AqCE0LPFdEQ1sftI9a8OOZoVq85tWy1xlat8EnIfc8xfrJ
+	uS3laVtDT98Wyl37DNwbnIggzk8ZKm/zFpFAdkN95LDsqZMgh9yPWzxJkcuLWg1Jl7Q=
+X-Gm-Gg: AYBFou2Yqjo0K5tbNBkucHkt/azDr4+8RPI5zCXvtIi25lzGdXCSAB7/g/RnYbaw6IJ
+	LApBZUZp6YiphLQ3I1EyQT3Cn5luuLeOgcQ3Edtnt/qlS5mqk0c4zWDwA3aY69rhXDlpMnIUPWk
+	gEvbrvgxvshUHNkTzY8n9nyYFNbbq5uSOH/170IF8M4msSOPgxGGAbSypwLB6RWA4OeNb20i/9E
+	+7DkoOzWIZ28C/3BW1bj6pic9dbN6JqxEeFzQnGpo3sdZokFNaKskLdojj171bJ64/itmgbs0g5
+	QbSPoS6YUWErP1dDEYRnr4MwgDbThRhvMwMrTr9V2pR7Zw5yDeseOA6aD8/8T6NTeTnHB+o3elZ
+	bVOp0Apj8rXB/RMxBEHgtvvlC32S6VPkCKlehV/0Fd5TaWmrYLdwrMNSL/FaYErq3E56l/fPES2
+	ieQa+Axld6gUIes6KkII5EP7sA1ZBFuYhzyRKIMmzUb7SwhnzbaDDT1GIVR9Ya5IZilUn+PLhIS
+	Hex48iqms+BCk0=
+X-Received: by 2002:a17:90b:3852:b0:38e:9ef9:eb97 with SMTP id 98e67ed59e1d1-39b26272d69mr8165885a91.16.1788519360466;
+        Fri, 04 Sep 2026 03:56:00 -0700 (PDT)
+Received: from volcano9f6e-hostos.amd.com ([165.204.217.251])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-143243767e1sm5155621c88.6.2026.09.04.03.55.58
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 04 Sep 2026 03:55:58 -0700 (PDT)
-From: phucduc.bui@gmail.com
-To: Wei Fang <wei.fang@nxp.com>,
-	Frank Li <frank.li@nxp.com>,
-	Shenwei Wang <shenwei.wang@nxp.com>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
-	davem@davemloft.net,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Richard Cochran <richardcochran@gmail.com>,
-	Stephen Boyd <swboyd@chromium.org>,
-	imx@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	netdev@vger.kernel.org,
-	bui duc phuc <phucduc.bui@gmail.com>
-Subject: [PATCH net v3] net: fec: Propagate PTP initialization errors
-Date: Fri,  4 Sep 2026 17:55:42 +0700
-Message-ID: <20260904105542.70540-1-phucduc.bui@gmail.com>
-X-Mailer: git-send-email 2.43.0
+        Fri, 04 Sep 2026 03:56:00 -0700 (PDT)
+From: Hemanth Selam <hemanth.selam@gmail.com>
+To: Minas Harutyunyan <hminas@synopsys.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: linux-kernel@vger.kernel.org,
+	linux-usb@vger.kernel.org
+Subject: [PATCH] usb: dwc2: fix typos in comments
+Date: Fri,  4 Sep 2026 16:25:53 +0530
+Message-ID: <20260904105555.37215-1-hemanth.selam@gmail.com>
+X-Mailer: git-send-email 2.48.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -85,143 +73,112 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: bui duc phuc <phucduc.bui@gmail.com>
+Fix typos in comments, reported by scripts/checkpatch.pl using the
+misspelling list in scripts/spelling.txt.  Only touches comments, no code
+changes.
 
-Change fec_ptp_init() to return an error code instead of silently
-ignoring failures during PTP initialization.
-
-The PPS IRQ is not required for the FEC/PTP functionality, so its
-absence should not make the probe fail. However, an unavailable
-optional IRQ should be distinguished from an actual error returned
-during the IRQ lookup.
-
-If a platform does not support the PPS IRQ, it can omit the IRQ from
-its device tree and the optional lookup will return -ENXIO. Propagate
-other errors from the IRQ lookup instead of silently ignoring them.
-
-Also propagate failures from devm_request_irq() and ptp_clock_register().
-
-Update the function declaration in fec.h accordingly.
-
-Found by manual code inspection.
-
-Fixes: b86bcb299092 ("net: fec_ptp: Use platform_get_irq_xxx_optional() to avoid error message")
-Signed-off-by: bui duc phuc <phucduc.bui@gmail.com>
+Assisted-by: Cursor:claude-opus-5
+Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
 ---
+ drivers/usb/dwc2/core.c     | 2 +-
+ drivers/usb/dwc2/core.h     | 2 +-
+ drivers/usb/dwc2/gadget.c   | 6 +++---
+ drivers/usb/dwc2/hcd.c      | 4 ++--
+ drivers/usb/dwc2/hcd_ddma.c | 2 +-
+ 5 files changed, 8 insertions(+), 8 deletions(-)
 
-Link v1: 
-https://lore.kernel.org/all/20260820111416.97917-1-phucduc.bui@gmail.com/
-Link v2:
-https://lore.kernel.org/all/20260903092430.354186-1-phucduc.bui@gmail.com/
-Changes in v2:
- - Squash the two patches into one.
- - Add error handling for platform_get_irq_byname_optional().
- - Fix error handling for ptp_clock_register().
-Changes in v3:
- - Retarget the patch to the net tree instead of net-next.
- - Add error handling for platform_get_irq_byname_optional() 
-   in fec_probe() for the fec_enet_interrupt IRQ.
-
- drivers/net/ethernet/freescale/fec.h      |  2 +-
- drivers/net/ethernet/freescale/fec_main.c | 11 ++++++++---
- drivers/net/ethernet/freescale/fec_ptp.c  | 22 ++++++++++++++--------
- 3 files changed, 23 insertions(+), 12 deletions(-)
-
-diff --git a/drivers/net/ethernet/freescale/fec.h b/drivers/net/ethernet/freescale/fec.h
-index 7176803146f3..8831da37326b 100644
---- a/drivers/net/ethernet/freescale/fec.h
-+++ b/drivers/net/ethernet/freescale/fec.h
-@@ -692,7 +692,7 @@ struct fec_enet_private {
- 	u64 ethtool_stats[];
- };
+diff --git a/drivers/usb/dwc2/core.c b/drivers/usb/dwc2/core.c
+index f375c5185bfe..6a0135e06b00 100644
+--- a/drivers/usb/dwc2/core.c
++++ b/drivers/usb/dwc2/core.c
+@@ -173,7 +173,7 @@ static void dwc2_restore_essential_regs(struct dwc2_hsotg *hsotg, int rmode,
+ 	/* Umnask global Interrupt in GAHBCFG and restore it */
+ 	dwc2_writel(hsotg, gr->gahbcfg | GAHBCFG_GLBL_INTR_EN, GAHBCFG);
  
--void fec_ptp_init(struct platform_device *pdev, int irq_idx);
-+int fec_ptp_init(struct platform_device *pdev, int irq_idx);
- void fec_ptp_restore_state(struct fec_enet_private *fep);
- void fec_ptp_save_state(struct fec_enet_private *fep);
- void fec_ptp_stop(struct platform_device *pdev);
-diff --git a/drivers/net/ethernet/freescale/fec_main.c b/drivers/net/ethernet/freescale/fec_main.c
-index 794ec427b0ee..a9a458703547 100644
---- a/drivers/net/ethernet/freescale/fec_main.c
-+++ b/drivers/net/ethernet/freescale/fec_main.c
-@@ -5384,8 +5384,11 @@ fec_probe(struct platform_device *pdev)
- 		goto failed_reset;
+-	/* Clear all pending interupts */
++	/* Clear all pending interrupts */
+ 	dwc2_writel(hsotg, 0xffffffff, GINTSTS);
  
- 	irq_cnt = fec_enet_get_irq_cnt(pdev);
--	if (fep->bufdesc_ex)
--		fec_ptp_init(pdev, irq_cnt);
-+	if (fep->bufdesc_ex) {
-+		ret = fec_ptp_init(pdev, irq_cnt);
-+		if (ret)
-+			goto failed_reset;
-+	}
- 
- 	ret = fec_enet_init(ndev);
- 	if (ret)
-@@ -5394,7 +5397,9 @@ fec_probe(struct platform_device *pdev)
- 	for (i = 0; i < irq_cnt; i++) {
- 		snprintf(irq_name, sizeof(irq_name), "int%d", i);
- 		irq = platform_get_irq_byname_optional(pdev, irq_name);
--		if (irq < 0)
-+		if (irq < 0 && irq != -ENXIO)
-+			return irq;
-+		if (irq == -ENXIO)
- 			irq = platform_get_irq(pdev, i);
- 		if (irq < 0) {
- 			ret = irq;
-diff --git a/drivers/net/ethernet/freescale/fec_ptp.c b/drivers/net/ethernet/freescale/fec_ptp.c
-index 56801c2009d5..557a76797eba 100644
---- a/drivers/net/ethernet/freescale/fec_ptp.c
-+++ b/drivers/net/ethernet/freescale/fec_ptp.c
-@@ -736,7 +736,7 @@ static irqreturn_t fec_pps_interrupt(int irq, void *dev_id)
-  * cyclecounter init routine and exits.
-  */
- 
--void fec_ptp_init(struct platform_device *pdev, int irq_idx)
-+int fec_ptp_init(struct platform_device *pdev, int irq_idx)
- {
- 	struct net_device *ndev = platform_get_drvdata(pdev);
- 	struct fec_enet_private *fep = netdev_priv(ndev);
-@@ -779,26 +779,32 @@ void fec_ptp_init(struct platform_device *pdev, int irq_idx)
- 		      HRTIMER_MODE_REL);
- 
- 	irq = platform_get_irq_byname_optional(pdev, "pps");
--	if (irq < 0)
-+	if (irq < 0 && irq != -ENXIO)
-+		return irq;
-+	if (irq == -ENXIO) {
- 		irq = platform_get_irq_optional(pdev, irq_idx);
--	/* Failure to get an irq is not fatal,
--	 * only the PTP_CLOCK_PPS clock events should stop
--	 */
--	if (irq >= 0) {
-+		if (irq < 0 && irq != -ENXIO)
-+			return irq;
-+	}
-+
-+	if (irq > 0) {
- 		ret = devm_request_irq(&pdev->dev, irq, fec_pps_interrupt,
- 				       0, pdev->name, ndev);
- 		if (ret < 0)
--			dev_warn(&pdev->dev, "request for pps irq failed(%d)\n",
--				 ret);
-+			return ret;
- 	}
- 
- 	fep->ptp_clock = ptp_clock_register(&fep->ptp_caps, &pdev->dev);
- 	if (IS_ERR(fep->ptp_clock)) {
-+		ret = PTR_ERR(fep->ptp_clock);
- 		fep->ptp_clock = NULL;
- 		dev_err(&pdev->dev, "ptp_clock_register failed\n");
-+		return ret;
- 	}
- 
- 	schedule_delayed_work(&fep->time_keep, HZ);
-+
-+	return 0;
+ 	/* Unmask restore done interrupt */
+diff --git a/drivers/usb/dwc2/core.h b/drivers/usb/dwc2/core.h
+index 767251aa1aa3..015a5fb7842d 100644
+--- a/drivers/usb/dwc2/core.h
++++ b/drivers/usb/dwc2/core.h
+@@ -334,7 +334,7 @@ enum dwc2_ep0_state {
+  *                           (default when phy_type is Full Speed)
+  * @oc_disable:		Flag to disable overcurrent condition.
+  *			0 - Allow overcurrent condition to get detected
+- *			1 - Disable overcurrent condtion to get detected
++ *			1 - Disable overcurrent condition to get detected
+  * @ts_dline:           Enable Term Select Dline pulsing
+  *                       0 - No (default)
+  *                       1 - Yes
+diff --git a/drivers/usb/dwc2/gadget.c b/drivers/usb/dwc2/gadget.c
+index 102169b40419..4f493601e728 100644
+--- a/drivers/usb/dwc2/gadget.c
++++ b/drivers/usb/dwc2/gadget.c
+@@ -658,7 +658,7 @@ static int dwc2_hsotg_write_fifo(struct dwc2_hsotg *hsotg,
  }
  
- void fec_ptp_save_state(struct fec_enet_private *fep)
+ /**
+- * get_ep_limit - get the maximum data legnth for this endpoint
++ * get_ep_limit - get the maximum data length for this endpoint
+  * @hs_ep: The endpoint
+  *
+  * Return the maximum data that can be queued in one go on a given endpoint
+@@ -5501,7 +5501,7 @@ int dwc2_gadget_exit_hibernation(struct dwc2_hsotg *hsotg,
+ 	dwc2_hib_restore_common(hsotg, rem_wakeup, 0);
+ 
+ 	if (!reset) {
+-		/* Clear all pending interupts */
++		/* Clear all pending interrupts */
+ 		dwc2_writel(hsotg, 0xffffffff, GINTSTS);
+ 	}
+ 
+@@ -5550,7 +5550,7 @@ int dwc2_gadget_exit_hibernation(struct dwc2_hsotg *hsotg,
+ 	}
+ 	/* Wait for interrupts which must be cleared */
+ 	mdelay(2);
+-	/* Clear all pending interupts */
++	/* Clear all pending interrupts */
+ 	dwc2_writel(hsotg, 0xffffffff, GINTSTS);
+ 
+ 	/* Restore global registers */
+diff --git a/drivers/usb/dwc2/hcd.c b/drivers/usb/dwc2/hcd.c
+index 2414291aa908..32ce38c7096a 100644
+--- a/drivers/usb/dwc2/hcd.c
++++ b/drivers/usb/dwc2/hcd.c
+@@ -5656,7 +5656,7 @@ int dwc2_host_exit_hibernation(struct dwc2_hsotg *hsotg, int rem_wakeup,
+ 	 */
+ 	mdelay(100);
+ 
+-	/* Clear all pending interupts */
++	/* Clear all pending interrupts */
+ 	dwc2_writel(hsotg, 0xffffffff, GINTSTS);
+ 
+ 	/* De-assert Restore */
+@@ -5726,7 +5726,7 @@ int dwc2_host_exit_hibernation(struct dwc2_hsotg *hsotg, int rem_wakeup,
+ 
+ 	hprt0 = dwc2_readl(hsotg, HPRT0);
+ 
+-	/* Clear all pending interupts */
++	/* Clear all pending interrupts */
+ 	dwc2_writel(hsotg, 0xffffffff, GINTSTS);
+ 
+ 	/* Restore global registers */
+diff --git a/drivers/usb/dwc2/hcd_ddma.c b/drivers/usb/dwc2/hcd_ddma.c
+index 994a78ad084b..703cda5a5895 100644
+--- a/drivers/usb/dwc2/hcd_ddma.c
++++ b/drivers/usb/dwc2/hcd_ddma.c
+@@ -963,7 +963,7 @@ static void dwc2_complete_isoc_xfer_ddma(struct dwc2_hsotg *hsotg,
+ 		 * whether some of the descriptors (frames) succeeded or not.
+ 		 * Pass error code to completion routine as well, to update
+ 		 * urb->status, some of class drivers might use it to stop
+-		 * queing transfer requests.
++		 * queuing transfer requests.
+ 		 */
+ 		int err = halt_status == DWC2_HC_XFER_AHB_ERR ?
+ 			  -EIO : -EOVERFLOW;
 -- 
-2.43.0
+2.48.1
 
