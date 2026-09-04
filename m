@@ -1,105 +1,109 @@
-Received: from mail-vs1-f50.google.com (mail-vs1-f50.google.com [209.85.217.50])
+Received: from mail-oo1-f69.google.com (mail-oo1-f69.google.com [209.85.161.69])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D55051632DD
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 13:05:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.217.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A3D72E8DEC
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 13:07:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.69
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788527156; cv=none; b=SzbtREGwK9H6xXDQshL9+/oSsiRXJj2aEJqVZ4/Rqcf3vikkKmJPotZMHpBv7EwnvZZo8qSECslsFUktOJXKl+LydFoqf8eH/Ge9XadbfkUe823LUPUNWGVtHNzdDewrfEBNGqXTfPvE/D8on3QExixvZ7n+GrfqQu+J66vUUjo=
+	t=1788527261; cv=none; b=tVrr/1O+RC7Hyv4c0qRU6/0+5tJnFfDO9WjoIxcNHpWuwuAXyLFCmvqp2l/lZ+b/WgVc+xEzvZMyISS5nwhGG+G9pYWBOQsoCYZgJYVCM4JgpCfaCdxfVm4emldA/6OfD7k7mBtdayjhHpr2U3W/hqTX8YaQN4VmIeVIYgNoG3s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788527156; c=relaxed/simple;
-	bh=/ypz6zJjPNKfNpTn4drsgfOEfmGR4cl9pbI1Kxi8oLQ=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=u9JQKAWQ0zzht2CIlnUyS/qXFVaztYb/vVGEfh1gqbhg+Duck/3/+lobIyQxcjscBZ5+9lpVrA8Kd1gja6HRNAYU9QQzJplKUIaWDuaCmj8NhqYFWVPmpRrBC1g3p0F4KF7Gd6FDs3N31XBXTU9PA/CKYdNWTvWfCAnJIYTVqaQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.217.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-vs1-f50.google.com with SMTP id ada2fe7eead31-777c2d69446so693778137.2
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 06:05:54 -0700 (PDT)
+	s=arc-20240116; t=1788527261; c=relaxed/simple;
+	bh=Ozfy9lFyB8tifz3y3TriGEUfFP2na9pX1tPK8w8VsZw=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=t3cOVGvymopq8lsxnF4+/Fv79bAv4L5NYof5iLLqJKd5rg1XFW1GMyDqdZA8sVlTpYf7vPCYjn9PtgozUnA8uLPfd5wm6jTjni9cMLF2tA/S8BdNZ0moFQhHHVQKRdaeqJTZ3xyb3uV87jyYHgTS2lEO8SJDebdxd2l5NZc5whk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.161.69
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oo1-f69.google.com with SMTP id 006d021491bc7-6b1bf511988so1243622eaf.2
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 06:07:40 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788527154; x=1789131954;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=8NOF30mvWowB029u1n+aELPP6OhCTftCoi3R2I9gbMk=;
-        b=XzVRwM/v1+1lgQo7lmKUjOcF4u87sySgtB+XS2ZxZQmnmCnEyw3BMY5T6rr/P2ExOo
-         Rh3nXDNgBpvsk/tc31C7luy4BGRjuqvZ+gPdc3+Jc5MggPtGLYqwgAoPYAkGM4QC9m7x
-         MLMydFU0yHfWqR/BWG+BvJVC7EDlmHdtDqRZ2bRlpL3kBbfR+4SeptX7Zys2ji1RGvLt
-         btJfYwIrniGhZpHyw9Jn9gSBYPcrO1aWwpq+Ch4Xp6Svr8xmhSLTAa6w2WQY1LAkfvnz
-         oXsL5NbeSJ0uffK+z034B0gBRf44lnMs1rrLrUmADQdev7IVbN3iVnrxN3ORUYpwWX/K
-         3QXA==
-X-Forwarded-Encrypted: i=1; AKwUvBzBVxX8yrDTBsvphke4htVe728oKx2Vw5AAHI7uUKVqZWkYciXk/YlYGZScr4Ic/eAUv1WBDhLNaRh0eyo=@vger.kernel.org
-X-Gm-Message-State: AFuF++k4wMbKzocb1OoEls9f1+gT5uEMUI+tIAwv4ZscnfM1Ct7rc4m1
-	PIklZ8ypls5Aknvx/3p9N1QLvLeuSPKwUSfOTwyXwgbt1KA2maYdCd7v1W0Xd4Zgc0Y=
-X-Gm-Gg: AYBFou2Ex3rrtc5Bhg7ejWTnXF2JePhv7/rARZ1YKikec1svSn1HWOVwrMzRVEGNkx9
-	MLlOiPwgIagnTJBisN5EvHcFNa6UueiAu/lE8xaQPi0Wgp05YyscfjQ21fgF35Ez9MhG68NHZas
-	mrN1B2t4B2tPhvOIr/hql4N8LSQWdo0dje/kc/lYtXqJVBx4sU2tWmbavsvQkoHtN8tBd4nmjYS
-	sDgLZmyCv8Dn8ASpJ6ATgM4ZqY7DOUwc71/OLZgWTExt7yg1XHNH5oExcG5Hq/JoOyLbuKTIJvT
-	uXWTcfgIqREh6sH3vPLfB1qP6bC88Ol9EnUINOE/bqljOxCwuj0q7HbFq0tk+uZec3LgWjp3KTr
-	Wpx9YNdvE24bm6+q3K70ViC7CYxbVxvLjJN81c3tmkHqX4fSta5SRoFgxBUbyD7IFA+Vfhmp6sW
-	bTXAvKnK3ljrEtmjCxbpwpr/EkTN3uLUP6QugrZ2SfWP9V4llgmBPfP8XAaWQVU2EONTGYUQ/rC
-	KXdeP9lyhZpNQBJrXh8oS+V7g==
-X-Received: by 2002:a05:6102:50aa:b0:77f:9278:af6e with SMTP id ada2fe7eead31-78a4aabb472mr1823654137.9.1788527153566;
-        Fri, 04 Sep 2026 06:05:53 -0700 (PDT)
-Received: from mail-vs1-f49.google.com (mail-vs1-f49.google.com. [209.85.217.49])
-        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-9808e98a9b3sm1540545241.0.2026.09.04.06.05.52
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 04 Sep 2026 06:05:52 -0700 (PDT)
-Received: by mail-vs1-f49.google.com with SMTP id ada2fe7eead31-783047c8464so728091137.0
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 06:05:52 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBwlNcEZCccKH/AKKG5sI3PQLn6jvBug9zfqwRn94EL1S5f7+qNjJDM5vkAogYHNOo4+9kwEAsPieroH7uE=@vger.kernel.org
-X-Received: by 2002:a05:6102:290a:b0:785:f288:c23 with SMTP id
- ada2fe7eead31-78a4a918bdfmr1975845137.3.1788527151892; Fri, 04 Sep 2026
- 06:05:51 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1788527259; x=1789132059;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=ENZTYQ0HGy3+FSmfPdjCu9Za6MUoaMvB0s1C8b2taM8=;
+        b=nW8e9Opp26v65PlRElUPa2mYlcOoAGT0euL8PO0WgvhgWt2TzdMC/UkSEDdSL9PKX/
+         TUMe5aZ3AClIcn94C0FrusWZk/zqbJAK8LLxsy1d9+DaXzlDChMf5OaJ5IPt9i9hsc3s
+         pNiUR6GLFb9E99xu9Z7KZOZCKZrzgF9fS00GNMVgHTzML7LrvLUaLC/2ugjS6xTl3hzW
+         Dd4KihGcdLZFoajIaSKmvveq0+WrtLIZoiSV50eT+/NjvaiYhyZch8ukWE7xZa9jGvSt
+         XKfyEHKXYfbDQpSl08DkxmWu3vDyjs7qBzWUGoeLBV1Z4Mt6gV+iiDSMrxJ4dn3Rf59d
+         pIqQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxLfOWSsYjzeyIob07YS+Q+i2kDPsGS+jCv87ZIZB5gqSIskdG1cFmJ2214xMGo0yeQwDj+RteFtKR4rxc=@vger.kernel.org
+X-Gm-Message-State: AFuF++kDPO4+O2EkfvDHhnCO4Q1OPe2jKmRr/kXuMMSIgtYXh8SOBXDN
+	TlrsJ8uXt8ahb9H7s8IimRR6kPWIh8yN8mF6spK8snjwwG6rX7o38f0i6ejr4Dxn6j6R9gAiLq6
+	q0KRHTEZISGPdn8y2WpDgTQUKV/d7wioLV1n657bqKzjEs/ODm075Z9XHvos=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260904125425.412632-1-claudiu.beznea+renesas@tuxon.dev> <20260904125425.412632-6-claudiu.beznea+renesas@tuxon.dev>
-In-Reply-To: <20260904125425.412632-6-claudiu.beznea+renesas@tuxon.dev>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Fri, 4 Sep 2026 15:05:39 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdV2NavSY5K3Em4jTKuiWCZCc+XOWW4nH4HHh76aoiuWEA@mail.gmail.com>
-X-Gm-Features: AcwNN1VET22qEnErTI_Nd7aROS6yUTveXM7jVaLpauOVguTdNaHuyqM0FX-8ExU
-Message-ID: <CAMuHMdV2NavSY5K3Em4jTKuiWCZCc+XOWW4nH4HHh76aoiuWEA@mail.gmail.com>
-Subject: Re: [PATCH v7 5/5] pinctrl: renesas: rzg2l: Add RZ/G3S support for
- selecting the I3C power source
-To: Claudiu Beznea <claudiu.beznea+renesas@tuxon.dev>
-Cc: linusw@kernel.org, robh@kernel.org, krzk+dt@kernel.org, 
-	conor+dt@kernel.org, magnus.damm@gmail.com, 
-	prabhakar.mahadev-lad.rj@bp.renesas.com, claudiu.beznea@tuxon.dev, 
-	linux-renesas-soc@vger.kernel.org, linux-gpio@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>, 
-	Wolfram Sang <wsa+renesas@sang-engineering.com>
+X-Received: by 2002:a05:6820:4c09:b0:6b7:83c5:fdf4 with SMTP id
+ 006d021491bc7-6b783c603ccmr1554482eaf.53.1788527259249; Fri, 04 Sep 2026
+ 06:07:39 -0700 (PDT)
+Date: Fri, 04 Sep 2026 06:07:39 -0700
+In-Reply-To: <000000000000bce370061f4207cf@google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6a9ac29b.04649fcc.10325f.0000.GAE@google.com>
+Subject: Re: [syzbot] [kernel?] WARNING in firmware_fallback_sysfs (2)
+From: syzbot <syzbot+8f06445357a052a92657@syzkaller.appspotmail.com>
+To: dakr@redhat.com, gregkh@linuxfoundation.org, linux-kernel@vger.kernel.org, 
+	mcgrof@kernel.org, rafael@kernel.org, russ.weight@linux.dev, 
+	syzkaller-bugs@googlegroups.com
 Content-Type: text/plain; charset="UTF-8"
 
-On Fri, 4 Sept 2026 at 14:54, Claudiu Beznea
-<claudiu.beznea+renesas@tuxon.dev> wrote:
-> From: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
->
-> The Renesas RZ/G3S I3C pins can be powered at either 1.8V or 1.2V. The
-> pin controller provides a register to select between these two options.
-> Update the Renesas RZ/G2L pin controller driver to allow selecting the
-> I3C power source on RZ/G3S SoC.
->
-> Tested-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
-> Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
-> Signed-off-by: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
+syzbot has found a reproducer for the following issue on:
 
-Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
-i.e. will queue in renesas-pinctrl for v7.4.
+HEAD commit:    bc35965f6940 Merge tag 'mm-hotfixes-stable-2026-09-03-17-4..
+git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
+console output: https://syzkaller.appspot.com/x/log.txt?x=123d08f9580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=8c5c3949d762a91f
+dashboard link: https://syzkaller.appspot.com/bug?extid=8f06445357a052a92657
+compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
+C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=125c6125580000
 
-Gr{oetje,eeting}s,
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+8f06445357a052a92657@syzkaller.appspotmail.com
 
-                        Geert
+usb 7-1: Falling back to sysfs fallback for: v4l-pvrusb2-160xxx-01.fw
+------------[ cut here ]------------
+ret
+WARNING: drivers/base/firmware_loader/fallback.c:158 at fw_load_from_user_helper drivers/base/firmware_loader/fallback.c:158 [inline], CPU#0: pvrusb2-context/2510
+WARNING: drivers/base/firmware_loader/fallback.c:158 at firmware_fallback_sysfs+0x6ef/0xc60 drivers/base/firmware_loader/fallback.c:248, CPU#0: pvrusb2-context/2510
+Modules linked in:
+CPU: 0 UID: 0 PID: 2510 Comm: pvrusb2-context Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+RIP: 0010:fw_load_from_user_helper drivers/base/firmware_loader/fallback.c:158 [inline]
+RIP: 0010:firmware_fallback_sysfs+0x6ef/0xc60 drivers/base/firmware_loader/fallback.c:248
+Code: ff ff e9 2f 42 d0 fa e8 af ab 9b fb e8 6a 31 5f fb 31 ff 89 c3 89 c6 e8 0f a6 9b fb 85 db 0f 84 f5 fa ff ff e8 92 ab 9b fb 90 <0f> 0b 90 48 8b 3c 24 4c 89 e2 48 c7 c6 20 f2 93 8c e8 6b 11 d0 fa
+RSP: 0018:ffffc90007d1f8d0 EFLAGS: 00010293
+RAX: 0000000000000000 RBX: 00000000fffffff5 RCX: 0000000000000000
+RDX: ffff88802e7e2580 RSI: ffffffff8670447e RDI: ffff88802e7e2580
+RBP: 0000000000000001 R08: 0000000000000005 R09: 0000000000000000
+R10: 00000000fffffff5 R11: 000000000000761b R12: ffffffff8cff0200
+R13: ffff888027cff200 R14: 0000000000001770 R15: ffff888027cff210
+FS:  0000000000000000(0000) GS:ffff8880d5b60000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 00007f735b1f0980 CR3: 0000000035e42000 CR4: 0000000000352ef0
+Call Trace:
+ <TASK>
+ _request_firmware+0xfd7/0x13c0 drivers/base/firmware_loader/main.c:898
+ request_firmware+0x35/0x50 drivers/base/firmware_loader/main.c:948
+ pvr2_locate_firmware+0x8f/0x330 drivers/media/usb/pvrusb2/pvrusb2-hdw.c:1359
+ pvr2_upload_firmware1+0x1ca/0x920 drivers/media/usb/pvrusb2/pvrusb2-hdw.c:1426
+ pvr2_hdw_setup_low drivers/media/usb/pvrusb2/pvrusb2-hdw.c:2107 [inline]
+ pvr2_hdw_setup drivers/media/usb/pvrusb2/pvrusb2-hdw.c:2261 [inline]
+ pvr2_hdw_initialize+0x3e6/0x3710 drivers/media/usb/pvrusb2/pvrusb2-hdw.c:2338
+ pvr2_context_check drivers/media/usb/pvrusb2/pvrusb2-context.c:111 [inline]
+ pvr2_context_thread_func+0x253/0x920 drivers/media/usb/pvrusb2/pvrusb2-context.c:158
+ kthread+0x373/0x450 kernel/kthread.c:436
+ ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
+ ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+ </TASK>
 
--- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
 
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+---
+If you want syzbot to run the reproducer, reply with:
+#syz test: git://repo/address.git branch-or-commit-hash
+If you attach or paste a git patch, syzbot will apply it before testing.
