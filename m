@@ -1,115 +1,129 @@
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f45.google.com (mail-ej1-f45.google.com [209.85.218.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19CEF4EE878
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 15:25:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA5544EC661
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 15:26:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788535537; cv=none; b=nC02xrGmgG4WuhFRZ2RkApzyqbjqQd/tKMTfOqoI83PcIEivYI14giX9BYkNXmnB+h+5hDRdh7UBQGrlow82TYki90lMg+okgriEC9Q3erkIYWMqfLoddfD5+4zAqQ5pgpeB8GJ4QPYF9489lJecoF1cMOYlObW0Y4bR3eXDcas=
+	t=1788535601; cv=none; b=UQGoDTZLtsheMlcIEMhtXHdIxQn8c7V3rqwh74C3a08SmIY9cllSDTiW/tYJnCIZ0GEtp10h6e9TJo9Y+nKkukQfq5LXfnsQRbLQaeGMwpF5p4zHC6in1O8GL568V9edigUwKPfVqL7kQ+HWTUBKMFXck/gLTUo0YyRYWZ7jBZk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788535537; c=relaxed/simple;
-	bh=5uhsMLow8Lx02qer76mHoXCy/SCAVTsb68IEGdwbSXA=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=PFdE90Mlp4RgAdnf1PTJx9clkUCuyUI3cTvbF/MfXBo7RgF1a0miyG/Fx30iTz6oZfk+/6o0r2qV1Z+78BmBO04MKdIT19xr8pks98GjeE0efo0fSp0Ewu5muoBtnvV7nYCEdxic9+lZyqp4w+3HQUWdUpZnvdGEXfK3n3ciVrg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=lL/IgV+0; arc=none smtp.client-ip=185.246.85.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1788535601; c=relaxed/simple;
+	bh=qNnNX/36mqoUdlV2+0R6ltbvZcLwzDeDWBL5FNc5Cio=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=qh+h5efAxbRI23gwMKibs/IEgTmnY0Eu1MQw8nQQ7LuoBXg31aYmpIpUZxd3SspQ2XVHW12WShQmYanBIRfJbyt/crBK9hQBLV/2aJIe97ce0mDDAlX/kY1Xmtk0NRkhEWPtmBsLFSfuEZaESW3gWqllNcbDDeF+J05h4u7O9WA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=lUnilH8f; arc=none smtp.client-ip=209.85.218.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="lL/IgV+0"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id 198324E41511;
-	Fri,  4 Sep 2026 15:25:33 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id D1A9B6057F;
-	Fri,  4 Sep 2026 15:25:32 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id B9AFA11C78288;
-	Fri,  4 Sep 2026 17:25:28 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1788535532; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=v1mdNZgtA3Wo9M3mbbKh8ENXPA2Gg1HukmOKrHjLDus=;
-	b=lL/IgV+0tG/cxZy8W9MtDYgTLdFCSAp1pFWMdy+8VxRNCLS4Vqy99w5bAWZeBgC3WbAsI7
-	blqA35NXsvUgoOba39w9A/drk2o/XnufvFUm9qtEvwZXyH89zuMxBGlRxzma5+DIc9I0a5
-	crtENZZ1VMCcqNVBZnWYcIsIoDuR8wemKMmeTDXSo3pcIyQs+lycebfVFiqER1eGd5OFLi
-	ipLCu6FVfYyFP+2mnr9kuKljFNdy8O94U3NXYGsF4sOqqFX4o01wZvJ4VLNxQO0ofi0usj
-	rIakqMFrwl4aLVWgMBuzRUXFlIHKwH3dhBvQ7dgT3YvY5rpqeSvsYz80wEq/hg==
-From: Miquel Raynal <miquel.raynal@bootlin.com>
-To: James Hilliard <james.hilliard1@gmail.com>
-Cc: linux-mtd@lists.infradead.org,  linux-sunxi@lists.linux.dev,
-  stable@vger.kernel.org,  Richard Weinberger <richard@nod.at>,  Vignesh
- Raghavendra <vigneshr@ti.com>,  Chen-Yu Tsai <wens@kernel.org>,  Jernej
- Skrabec <jernej.skrabec@gmail.com>,  Samuel Holland <samuel@sholland.org>,
-  Richard Genoud <richard.genoud@bootlin.com>,  Geert Uytterhoeven
- <geert+renesas@glider.be>,  Boris Brezillon <bbrezillon@kernel.org>,
-  linux-arm-kernel@lists.infradead.org,  linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] mtd: rawnand: sunxi: reject invalid ECC step sizes
-In-Reply-To: <20260811060651.227431-1-james.hilliard1@gmail.com> (James
-	Hilliard's message of "Tue, 11 Aug 2026 00:06:48 -0600")
-References: <20260811060651.227431-1-james.hilliard1@gmail.com>
-User-Agent: mu4e 1.12.12; emacs 30.2
-Date: Fri, 04 Sep 2026 17:25:28 +0200
-Message-ID: <87ecf911jr.fsf@bootlin.com>
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="lUnilH8f"
+Received: by mail-ej1-f45.google.com with SMTP id a640c23a62f3a-c250a2bc3b3so141390366b.2
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 08:26:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1788535598; x=1789140398; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Kxdc8UCOdo2zUrsNltwRqDpZNcgqltscYU0aNpNuXNI=;
+        b=lUnilH8fqeWbVr7AFMcLyIhPLXGkTAPlq9XwM4lf/866veiBRfmZX4jmhzoYnlCN6+
+         ljnCACraQE+5WnA3O3xVRRp0caU3ZuS4TABQrCACMtQ/l4RzXncxe8qY1MAZ6I/Yfufl
+         F5v1xXLKbOswllszSYfXfjIpIPv/hrUssOfcU=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788535598; x=1789140398;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Kxdc8UCOdo2zUrsNltwRqDpZNcgqltscYU0aNpNuXNI=;
+        b=AfpSUaqKZbclMdBsByhnVGObYKSBlgbnap3RrTKZUXz2I+LSk6jLTKcJbzscI+Z1k5
+         5kAVt4GMaNaW5nNFs1KNCfIs4BHZasyv/8SbHIh6VrteINq5vLRPbaevcGzi1YnflXES
+         iyfRaXlZUpYZryn5raOx/8gmfWC7Ug3BLcNzGZkRAVW6yTsQ8hlA/Z+VfnRm0QHo+do0
+         cxbSd9pXPSJNB4behdgC7ZH+F5BmelkclR3sfPAH7vXYosIiPUri0Y+zMYT9FRzQ55lx
+         hN4s/wuYFqW6sRA/tsAmd+Uv4+xzq/lOdggmSo+RU/JmvNG+TjJO8/5CUU6/214JTnSU
+         Fh5Q==
+X-Forwarded-Encrypted: i=1; AKwUvBxqx45jzPQsj6BNp6ReB6yJHvEamQ1u/2DoFt5Weix3myPfyGKRuJRbPo7uO3mZIgoO7IkVaFijxiEbAAU=@vger.kernel.org
+X-Gm-Message-State: AFuF++lHQdrS+lpIa9bKsXgqrg5AsNZgPm4v5nYa0Ap1B9EjOGYI5y8+
+	ztKhWo7UExCMYIyCjeyzVusAmnwu9V/HvvC8akz3tDn5mcauWr1ggTyCBYwSHkzjA+mXhuEauDG
+	MfF8=
+X-Gm-Gg: AYBFou1vb6D7vMB9UC8X7OikYPb1AO+iJJo5ONrAmkZWfoyyLEzu7yBBsPP/5ZDLLUr
+	hw9bnzDoeAe30SZcoYXX76KEonMzs9/iZbV4/akEVwWdOM5aJwwagWWwURltrpDjQ5RP3wOrvMx
+	04KMvdYBCJQ6DbNtwck2ElOVODPfVi7/haKRpjwPb/OoD1CE/xExDlQJ2dYHf+amQ0XsdyKFD7u
+	ooGaiMhRUxV6mc4QnT+OvJPEtEdUBPImPANt2/3YXE1195RoIi+acjEEpktzPg7ZNSYCA6p20S6
+	ThBM5sVehrBSjUnmyLU17O2yV0Ev6c8vYld8XHSbS78QDvWQN1YGJUaySTxvU9m58akxl3K7eVR
+	Bt/35hdm+yXx3KlwwDnwbouj9ZsMi9rfNAvXfbnRoxLKdSFj0eggBXZlZplgGTNBJq1+ao5hWm6
+	fnumz0RsQHeIwTsJT+0Qjt0jKrWxvTgKFC+Aot8Qv2JWI13rMn+U5/6ZmmLEnad/n1itVkQ1O5A
+	O1Syl+ZUOnPI+NjKpAR79aoyrM=
+X-Received: by 2002:a17:907:c5c5:b0:c26:19e3:e983 with SMTP id a640c23a62f3a-c2619e3ef06mr171384266b.35.1788535597634;
+        Fri, 04 Sep 2026 08:26:37 -0700 (PDT)
+Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com. [209.85.221.41])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c260d4a9cbbsm126657366b.13.2026.09.04.08.26.34
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 04 Sep 2026 08:26:36 -0700 (PDT)
+Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-482dd6ee390so1148134f8f.3
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 08:26:34 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBzz3QTXvPpYY3rU+6jv20+0uZDSW/UaFWokmJOMj9HoTjfhcW7QMu1VZXyUouf8Ob9W+G9Khl+nOPlHWLU=@vger.kernel.org
+X-Received: by 2002:a05:6000:471a:b0:484:3311:3176 with SMTP id
+ ffacd0b85a97d-485872899a7mr10104340f8f.23.1788535593276; Fri, 04 Sep 2026
+ 08:26:33 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+References: <20260902-qcom-wdt-nmi-series-v3-0-f3999362a9ea@google.com>
+ <20260902-qcom-wdt-nmi-series-v3-1-f3999362a9ea@google.com>
+ <87fqzp8jex.ffs@fw13> <87wlt13zj1.wl-maz@kernel.org> <87v78l6oha.ffs@fw13>
+In-Reply-To: <87v78l6oha.ffs@fw13>
+From: Doug Anderson <dianders@chromium.org>
+Date: Fri, 4 Sep 2026 08:26:20 -0700
+X-Gmail-Original-Message-ID: <CAD=FV=Wdqn7UiuRy1VY-qH+JYChLTEQgmj2q6Q=FBjCZ+5eo1A@mail.gmail.com>
+X-Gm-Features: AcwNN1UDO0a-WZIN6LFn5huqxNCHPkaPn__17lQp2Fu-mhl0U14skIaSjsZ2sL0
+Message-ID: <CAD=FV=Wdqn7UiuRy1VY-qH+JYChLTEQgmj2q6Q=FBjCZ+5eo1A@mail.gmail.com>
+Subject: Re: [PATCH v3 1/5] genirq: Synchronize in-flight handlers during NMI teardown
+To: Thomas Gleixner <tglx@kernel.org>
+Cc: Marc Zyngier <maz@kernel.org>, Mayank Rungta <mrungta@google.com>, 
+	Wim Van Sebroeck <wim@linux-watchdog.org>, Guenter Roeck <linux@roeck-us.net>, 
+	Radu Rendec <radu@rendec.net>, linux-watchdog@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+	"Kirill A. Shutemov" <kas@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-X-Last-TLS-Session-Version: TLSv1.3
 
-On 11/08/2026 at 00:06:48 -06, James Hilliard <james.hilliard1@gmail.com> w=
-rote:
+Hi,
 
-> ECC maximization forces a 1024-byte ECC step and divides the
-> available OOB bytes by the number of steps. A NAND with a smaller
-> page therefore produces zero steps and a division by zero.
-
-No, steps cannot be < 1. If they are, it's a bug that must be fixed.
-
-> An explicitly configured ECC step which is larger than, or does not
-> divide, the page also produces an unusable step count before the NAND
-> core can diagnose the configuration.
+On Fri, Sep 4, 2026 at 8:11=E2=80=AFAM Thomas Gleixner <tglx@kernel.org> wr=
+ote:
 >
-> Validate the step size at both points where the driver derives the
-> number of sectors and reject invalid geometries.
+> The driver change is here:
 >
-> Fixes: 4796d8655915 ("mtd: nand: sunxi: Support ECC maximization")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
-> ---
->  drivers/mtd/nand/raw/sunxi_nand.c | 17 +++++++++++++++--
->  1 file changed, 15 insertions(+), 2 deletions(-)
+>    [1] https://lore.kernel.org/all/20260902-qcom-wdt-nmi-series-v3-5-f399=
+9362a9ea@google.com/
 >
-> diff --git a/drivers/mtd/nand/raw/sunxi_nand.c b/drivers/mtd/nand/raw/sun=
-xi_nand.c
-> index 45ccbce91551..ad314c0e30b2 100644
-> --- a/drivers/mtd/nand/raw/sunxi_nand.c
-> +++ b/drivers/mtd/nand/raw/sunxi_nand.c
-> @@ -2032,6 +2032,15 @@ static void sunxi_nand_detach_chip(struct nand_chi=
-p *nand)
->  	sunxi_nand->user_data_bytes =3D NULL;
->  }
->=20=20
-> +static int sunxi_nfc_ecc_steps(struct mtd_info *mtd, unsigned int step_s=
-ize)
-> +{
-> +	if (!step_size || mtd->writesize < step_size ||
-> +	    mtd->writesize % step_size)
+> >  @@ -311,10 +321,25 @@ static int qcom_wdt_probe(struct platform_device=
+ *pdev)
+> >                if (irq < 0 && irq !=3D -ENXIO)
+> >                        return irq;
+> >                if (irq > 0) {
+> >  -                    ret =3D devm_request_irq(dev, irq, qcom_wdt_isr, =
+0,
+> >  -                                           "wdt_bark", &wdt->wdd);
+> >  -                    if (ret)
+> >  -                            return ret;
+> >  +                    wdt->irq =3D irq;
+> >  +                    irq_flags =3D IRQF_PERCPU | IRQF_NOBALANCING |
+> >  +                                IRQF_NO_AUTOEN | IRQF_NO_THREAD;
+> >  +
+> >  +                    ret =3D request_nmi(irq, qcom_wdt_isr, irq_flags,
+> >  +                                      "wdt_bark", &wdt->wdd);
+>
+> Of course this is a regular global interrupt otherwise it couldn't be
+> requested normally. So this sets IRQF_PERCPU (it has to otherwise
+> request_nmi() would fail), but that looks like a hack to me.
 
-I don't get it, mtd->writesize < step_size is conceptually
-impossible. If that happens, it must be fixed earlier than that.
+At least on GIC, promoting a regular global interrupt to NMI (or
+pseudo-NMI) level is possible, and Mayank's use case here seems
+legitimate. Any suggestions you have for making this look less like a
+hack are appreciated! :-)
 
-> +		return -EINVAL;
-> +
-> +	return mtd->writesize / step_size;
-> +}
-> +
->  static int sunxi_nfc_maximize_user_data(struct nand_chip *nand, uint32_t=
- oobsize,
->  					int ecc_bytes, int nsectors)
->  {
-
-Thanks,
-Miqu=C3=A8l
+-Doug
