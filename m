@@ -1,81 +1,124 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-190.mta1.migadu.com [95.215.58.190])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3AF4938CFED
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 22:46:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09BBC374E74
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 22:47:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.190
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788561961; cv=none; b=ERbJ1eXZbjyjjoyPoKWs9RwekhKLrq5sJ+d/E6wu4YMz3LG19fkjBC1wM7N7V9LMDbwyKYX+e/g8tfdl7CXVJdBgStAXQq2rpNwSK3Vzb/smOu9JB9g+wBoPKDnr3g2IDRT0w6sW7QscerXbt5fS6lC28z/vIRtvCXETl6xhUog=
+	t=1788562052; cv=none; b=futuiGnUpfKD1ZWMTZLbv2PrOreffmm3dHwgFe6yjUBSBOb7ad398jWgtSxt9S3epAkvXmsfJ4BUij4fr/r+tV4aCL+d2eYPdeEymj8KsNvjle4uqM3IdKUAfbdCT6g3c2vI9yCs7YRXABRwlE8dqiLz/ecT5bMoW0wNFaIOrXY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788561961; c=relaxed/simple;
-	bh=N6PrZC21iwen1B31Vi2jxyoGAz00i3RnJHUvEeJPYKI=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=JD/g+etDzOEzEUqAIqwoOlYKiXxFe45BAj/8W0P3W8Cs6rglgZ75LL/Zn6ozvtiMq6iy+XFTL6up9khf/34A7gZxckpQyN6iGRZilEyFcdvXJXVgoqUQdnKi39L8+4UtyWOzYlxAozVxsC3vLy8dvMaP02POayJLx3v1F7ScjSE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=d70iELOP; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788562052; c=relaxed/simple;
+	bh=a9LWtZEwa63QJ3Ja33Gs2KV3YWbCdmNNXpX1BLghxQk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=bl8uEUQeJq9/WrsmuK9E+id+BiWq8LwWx7a2lfcEtV/lcLTMUCXlHFkJrTQDtEH3b/ZX1UJVa9xjBCxKIuIsfKUVgRPJhDKRMOI1MJzhpIxCqIGshIJCRYxSSo5qNOV/KVoFTNkSbfM86eKwhxku7J7nmgwj824S3jxqTQwj6K0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=uvmke9U0; arc=none smtp.client-ip=95.215.58.190
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="d70iELOP"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D62101F01559
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 22:45:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788561959;
-	bh=N6PrZC21iwen1B31Vi2jxyoGAz00i3RnJHUvEeJPYKI=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=d70iELOPejhaBBj5+6MW44oGn0aWXKRbgAohwfHSsU/NLiIvY/fHQDlN6hkNCQojh
-	 KhsDrUKRNEtpUBfA4wXzCclmbNO5nsV0ItTAAd+M7utWhgIOTI88JJVCdlEfYcfHrZ
-	 Sp+cvzGDdyzy5G5Ds/uDrCbuGDYAm4vbC6ahg99HB8cJlTwyoMUzwGszByY5/+7QWO
-	 hGA+wKRDNsUhZmdcUspY3bXo33TZP7b4J95yD78zG9+PN2BrODGzpSpap7cLoFk2oZ
-	 xdMdKxA+P3VuuxMZkwX/X0dNbrCd4U0OrHFZtaKhN8khrcIWsGPUbucNxAh4IFP59x
-	 lI2oMGKWEi3Rw==
-Received: by mail-lf1-f44.google.com with SMTP id 2adb3069b0e04-5aec201b582so1861022e87.1
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 15:45:59 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBwKFvTAdzwkt/IJmyAfPRo1PWCGh2pX+JRZo1R1RnQwpwtVUOoN7lfPz8yGDkNRS6GoXfDEdmrtoZMo2gQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++m450yNKPw4YWoVRaD3AmzSpcVPJ4jBzJSntZW61WrcKyO1cm63
-	BFNM0EPpZGw48ZtqiTgN33773ne2vEKEg9UTCjm56r+oIE2EObeGNjPNF3t2DkWdG6a8ytTeJCZ
-	bD0SzrDHTnJCSjHslmBEL8YpzN88pwf8=
-X-Received: by 2002:a05:6512:a84:b0:5b0:eda:de26 with SMTP id
- 2adb3069b0e04-5b616f2f892mr1623528e87.16.1788561958599; Fri, 04 Sep 2026
- 15:45:58 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="uvmke9U0"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=a9LWtZEwa63QJ3Ja33Gs2KV3YWbCdmNNXpX1BLghxQk=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788562047; v=1; x=1789166847;
+ b=uvmke9U0SECNi9AL1bXd/PYSoouG969CYCJqT+hKYaz5DTcBTMUrdHVOX81GM3+WfuNPXjfy
+ Awh8hWU7jaLEQvJoSGruF6ZiVD5Vb6SvRlskOo/TUheP9q9aCMzVTzNs3ieOmT8i0ydlDrSR2JZ
+ pTkfi8F6ygVbUSEZlGd4WLjU=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 1e87ab9cb44541fb;
+	Fri, 04 Sep 2026 22:47:27 +0000
+X-Mizu-Trace-ID: 1e87ab9cb44541fb
+X-Migadu-Flow: FLOW_OUT
+Date: Fri, 4 Sep 2026 15:47:22 -0700
+From: Shakeel Butt <shakeel.butt@linux.dev>
+To: Joshua Hahn <joshua.hahnjy@gmail.com>
+Cc: hannes@cmpxchg.org, mhocko@kernel.org, roman.gushchin@linux.dev, 
+	muchun.song@linux.dev, akpm@linux-foundation.org, david@kernel.org, ljs@kernel.org, 
+	liam@infradead.org, vbabka@kernel.org, rppt@kernel.org, surenb@google.com, 
+	dev@lankhorst.se, mripard@kernel.org, nat@pixelcluster.dev, tj@kernel.org, 
+	mkoutny@suse.com, osalvador@suse.de, cgroups@vger.kernel.org, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, kernel-team@meta.com
+Subject: Re: [PATCH v5 3/7] mm/page_counter: introduce per-page_counter stock
+Message-ID: <aptJ5qQfjMB-24WB@linux.dev>
+References: <20260831163752.2193337-1-joshua.hahnjy@gmail.com>
+ <20260831163752.2193337-4-joshua.hahnjy@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260904-cv75-v5-v6-0-e918514cb3b1@ambarella.com> <20260904-cv75-v5-v6-13-e918514cb3b1@ambarella.com>
-In-Reply-To: <20260904-cv75-v5-v6-13-e918514cb3b1@ambarella.com>
-From: Linus Walleij <linusw@kernel.org>
-Date: Sat, 5 Sep 2026 00:45:46 +0200
-X-Gmail-Original-Message-ID: <CAD++jL=tVwQPPCFCc=J6gxBt4VvSJKWKvbAeSRSybfXjvpcdPQ@mail.gmail.com>
-X-Gm-Features: AcwNN1WvpRED5iixL57tKxLT16byEdBDfHJOlSmTYR0bXv5jc6tVAgVJ2Y214Ck
-Message-ID: <CAD++jL=tVwQPPCFCc=J6gxBt4VvSJKWKvbAeSRSybfXjvpcdPQ@mail.gmail.com>
-Subject: Re: [PATCH v6 13/13] MAINTAINERS: add ARM/AMBARELLA SoC support
-To: longzhao@ambarella.com
-Cc: Arnd Bergmann <arnd@arndb.de>, Krzysztof Kozlowski <krzk@kernel.org>, 
-	Alexandre Belloni <alexandre.belloni@bootlin.com>, soc@lists.linux.dev, 
-	linux-arm-kernel@lists.infradead.org, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, 
-	Bartosz Golaszewski <brgl@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	Jiri Slaby <jirislaby@kernel.org>, Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
-	=?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
-	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, Long Zhao <zl020895@163.com>, 
-	Lee Jones <lee@kernel.org>, mfd@lists.linux.dev, devicetree@vger.kernel.org, 
-	linux-clk@vger.kernel.org, linux-gpio@vger.kernel.org, 
-	linux-serial@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260831163752.2193337-4-joshua.hahnjy@gmail.com>
 
-On Fri, Sep 4, 2026 at 8:39=E2=80=AFAM Long Zhao via B4 Relay
-<devnull+longzhao.ambarella.com@kernel.org> wrote:
+On Mon, Aug 31, 2026 at 09:37:47AM -0700, Joshua Hahn wrote:
+> In order to avoid expensive hierarchy walks on every memcg charge and
+> limit check, memcontrol uses per-cpu stocks (memcg_stock_pcp) to cache
+> pre-charged pages and introduce a fast path to try_charge_memcg.
+> 
+> However, there are a few quirks with the current implementation that
+> can be improved upon.
+> 
+> First, each memcg_stock_pcp can only cache the charges of 7 memcgs
+> (NR_MEMCG_STOCK). When an 8th memcg wants to cache its charge on a CPU,
+> a victim memcg is chosen among the 7 cached memcgs and is evicted,
+> losing all cached charges.
+> 
+> Second, stock draining is per-CPU rather than per-memcg. That is,
+> when a memcg is under pressure and must retrieve all cached charges,
+> it iterates through every CPU and drains the stock charges of all
+> present memcgs. This means that one under-pressure memcg evicts the
+> caches of all co-cpu-resident memcg stock caches.
+> 
+> Finally, stock is tightly coupled with memcg, so adding new
+> page_counters to memcg is an unscalable operation where only one counter
+> gets to use the fastpath.
+> 
+> We can address all of these concerns by pushing stock caches down to the
+> page_counter level, and making each counter responsible for its own
+> charge.
+> 
+> Introduce struct page_counter_stock along with its allocation, free, and
+> per-CPU drain helpers.
+> 
+> No functional change intended.
+> 
+> Suggested-by: Johannes Weiner <hannes@cmpxchg.org>
+> Signed-off-by: Joshua Hahn <joshua.hahnjy@gmail.com>
+> ---
+>  include/linux/page_counter.h | 16 +++++++
+>  mm/page_counter.c            | 90 ++++++++++++++++++++++++++++++++++++
+>  2 files changed, 106 insertions(+)
+> 
+> diff --git a/include/linux/page_counter.h b/include/linux/page_counter.h
+> index 89a083f16fbf7..c1fe331f34e7e 100644
+> --- a/include/linux/page_counter.h
+> +++ b/include/linux/page_counter.h
+> @@ -5,8 +5,11 @@
+>  #include <linux/atomic.h>
+>  #include <linux/cache.h>
+>  #include <linux/limits.h>
+> +#include <linux/workqueue_types.h>
+>  #include <asm/page.h>
+>  
+> +struct page_counter_stock;
+> +
+>  struct page_counter {
+>  	/*
+>  	 * Make sure 'usage' does not share cacheline with any other field in
+> @@ -41,6 +44,13 @@ struct page_counter {
+>  	unsigned long high;
+>  	unsigned long max;
+>  	struct page_counter *parent;
+> +	struct page_counter_stock __percpu *stock;
 
-> From: Long Zhao <longzhao@ambarella.com>
->
-> Add a maintainer entry covering Ambarella CV75 bindings, DTS and
-> related drivers.
->
-> Signed-off-by: Long Zhao <longzhao@ambarella.com>
+On gcc 14.2.1, I get
 
-Reviewed-by: Linus Walleij <linusw@kernel.org>
+In file included from mm/page_counter.c:8:
+./include/linux/page_counter.h:47:44: error: expected ‘:’, ‘,’, ‘;’, ‘}’ or ‘__attribute__’ before ‘*’ token
+   47 |         struct page_counter_stock __percpu *stock;
+      |                                            ^
 
-Yours,
-Linus Walleij
+I think you need an appropriate header in this file.
