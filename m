@@ -1,257 +1,126 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
+Received: from relay.hostedemail.com (smtprelay0015.hostedemail.com [216.40.44.15])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9500D4F55A2
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 16:24:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=192.198.163.7
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788539047; cv=fail; b=Ev7agAwJX/lF8oWtof7Muv3rwPCZi57KOH/82OQdM2L1SXMwrcUa8dV+p4ImR5MqIh1d2RA3hROpT8Uwb25mw7B9U1XHNYtBdfx0VqfY6l0puJsYochX7EwW9PCZjJC1tlGaCjlVJV/eDyr1L+P+s3jwfY6RWvIieI1ue92E83g=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788539047; c=relaxed/simple;
-	bh=rfNZUWjX5TZrWpCnfvRK0oUy9mBVykr5QlmxSN0UTVQ=;
-	h=Date:From:To:CC:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=UTnwvE6ScxWvAqwZP0WwYW9sLKfiOjsE/QXyAYFwiPPLTUucd1H6koi0fCoH6HIllhcIBdw9eBDdRtAXEOOLPjHDhnJgHKNC1fQUzP4f+oliRdTBpysHMGIcs3qwuLDergEVIRGaHqPsj1iaaWhYYnAn4C+qttAYbdApNOihahw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Dk2yMAKA; arc=fail smtp.client-ip=192.198.163.7
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8285F4EE84D
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 16:24:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=216.40.44.15
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788539078; cv=none; b=cJV+vXP6lRq4xoxq62aEDMGtSFhDkr5/1+ke4x5LxvZMyDK/s9SP4RpmKpSWjVjSzqloavFUW8xsBFgk2Eufhs9V8QbEDNovoM8iDWlqkz7lmSEOKeIUOeQy3fxYX4cKVw0s2eA4pIVKqLsSIHUwOcJJxT0RT6CoPNMAVJ7Lqaw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788539078; c=relaxed/simple;
+	bh=jzg5fo1gm9O5grgWkNzk82QwUT/s5qXEwN59hnQjBnc=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=gUA7vNSO52Nz/bLSRvyvNnmxnouVuDdte7IKviSyTq16f4dbd0jXFRblZgSIYvh6OUI+SMWXTpH0oaENcgRKvfOLa0e/YrzpoNqLUpv7PksGc4skG9Krla9xKzOjeQJu8NVBNKYcqQOIn2b69QftvOss7FU/0TBqPGWoMGulP3U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org; spf=pass smtp.mailfrom=goodmis.org; dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b=vaZftFJf; arc=none smtp.client-ip=216.40.44.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Dk2yMAKA"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788539044; x=1820075044;
-  h=date:from:to:cc:subject:message-id:references:
-   content-transfer-encoding:in-reply-to:mime-version;
-  bh=rfNZUWjX5TZrWpCnfvRK0oUy9mBVykr5QlmxSN0UTVQ=;
-  b=Dk2yMAKAWSbYRRyynLHFhBpr3ty0Y3P42E4Kxdgh+K/e/+nGtQipOkb/
-   ylSXXBqKbGhV7Dd+Oh7q9PhU95dBbUp9vO2XdCmxFHDjPI1ttfaDiuPBl
-   vyHlUNuesY3A99AmOIpq5WrBLQjVVQNlagk15kjyPxIrciutQUrLRfiZz
-   GL9+YMXoFmzTAmfeVaLdzkSJube9i04wT28fcL7u6LoHg5dkIu8l00cFw
-   uAXQzvxf6JmxinGRWbp9zZYFtLuQzlmCaIAwRwA4C1Qy1eMTNaFxtK0pY
-   mmSprBfjJ3MNUgys2RcG/RUcNPF8+3v5HwOzzzF6dge7sexdyiJyP6bY2
-   A==;
-X-CSE-ConnectionGUID: MBNHIvHmS9GwO7EAYj5XqQ==
-X-CSE-MsgGUID: eJunc6rnRSuD1TvXsZov/Q==
-X-IronPort-AV: E=McAfee;i="6800,10657,11895"; a="114587494"
-X-IronPort-AV: E=Sophos;i="6.25,262,1779174000"; 
-   d="scan'208";a="114587494"
-Received: from orviesa009.jf.intel.com ([10.64.159.149])
-  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Sep 2026 09:23:59 -0700
-X-CSE-ConnectionGUID: 3V3D1wyjRQmR3mnhWKyeQA==
-X-CSE-MsgGUID: ktC/djxPS7iWMIouzBkuYg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,262,1779174000"; 
-   d="scan'208";a="270603759"
-Received: from fmsmsx903.amr.corp.intel.com ([10.18.126.92])
-  by orviesa009.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Sep 2026 09:23:59 -0700
-Received: from FMSMSX902.amr.corp.intel.com (10.18.126.91) by
- fmsmsx903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Fri, 4 Sep 2026 09:23:57 -0700
-Received: from fmsedg901.ED.cps.intel.com (10.1.192.143) by
- FMSMSX902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46 via Frontend Transport; Fri, 4 Sep 2026 09:23:57 -0700
-Received: from CO1PR03CU002.outbound.protection.outlook.com (52.101.46.58) by
- edgegateway.intel.com (192.55.55.81) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Fri, 4 Sep 2026 09:23:57 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=MoSkfCECPdqcuDPVdAXlHV/fHbLJig8yy2LHjfiLTCxbUJdIcCly7WJ9lAgxhNBuz/+J9NvARK03U4dqG8z1fo5Wxhn002/Ra6Xy5ZZ4qUTAeln63DRb8P1JdBtnbG05Xl2UdMNu7tpgSssrDOg2x6VPKJCvSnRmQuqhKdZI9gxTcq+Y4o/ksIRhfhcmOJ1nHyoiJNMbLcklMOlZlK6lbDSoTt2IoRjSANuljlBFxw7oxeOCk+WX/PcSNQ1PsrJ5ku4NviHLxOmHxRI9kUVeyCnPNzczjcUYUdnR2wCNu2XDuhNe7dOlmaJ8JX+mVkosWZET9mxUugakrJdELlRgGQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=jKPRpzChJQiMzIztF+StWqQ1C4Ecv94e/GVr6LksFzs=;
- b=wr/qeC/9YuSceBEK0WBiJafwBaeX9XsbgidNL6qRfXlgHzEWb6XkfWemZjSecY/84pwrEL56GSzqkNgvBtsFDEp10bg4VEN/HM9DfbAwoTimMT/7C8f+8X2/V3V4hXusLSC6IFe9nrJLda0ru4eo2+y/3tHKnvHAX+6PcwLPzboN94lEStzy3HxXojRJGwoZ7s1azxOK5t5nSqPsI7jc+BCq2OrsHdnhPDXN6j9sBehSaIbtlY9J7Hacf0eawL5YYFhQq9BEwgmCvZZXq3DUaiDEPS2/JBzbVWmCjYpfMvNbITBaCilqtPMlUb5mZSPhKB3paDiQ4Wj/4lHIWodHZQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from DM4PR11MB6020.namprd11.prod.outlook.com (2603:10b6:8:61::19) by
- DS0PR11MB7412.namprd11.prod.outlook.com (2603:10b6:8:152::20) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.382.10; Fri, 4 Sep 2026 16:23:54 +0000
-Received: from DM4PR11MB6020.namprd11.prod.outlook.com
- ([fe80::3058:1480:e4ac:5765]) by DM4PR11MB6020.namprd11.prod.outlook.com
- ([fe80::3058:1480:e4ac:5765%4]) with mapi id 15.21.0382.007; Fri, 4 Sep 2026
- 16:23:54 +0000
-Date: Sat, 5 Sep 2026 00:10:27 +0800
-From: Chen Yu <yu.c.chen@intel.com>
-To: Tim Chen <tim.c.chen@linux.intel.com>
-CC: Hui Su <sh_def@163.com>, K Prateek Nayak <kprateek.nayak@amd.com>, "Juri
- Lelli" <juri.lelli@redhat.com>, Vincent Guittot <vincent.guittot@linaro.org>,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>, Valentin Schneider
-	<vschneid@redhat.com>, John Stultz <jstultz@google.com>, Ingo Molnar
-	<mingo@redhat.com>, Peter Zijlstra <peterz@infradead.org>,
-	<linux-kernel@vger.kernel.org>, "chen.yu@linux.dev" <chen.yu@linux.dev>
-Subject: Re: [PATCH v2 1/2] sched/numa: Drive NUMA task tick from execution
- context
-Message-ID: <aprtc9-xD2qCZeW0@fengwei-dev>
-References: <20260903041154.2479761-1-sh_def@163.com>
- <20260903041154.2479761-2-sh_def@163.com>
- <4593a7a4-cde1-499c-bba8-2fbe24f35422@intel.com>
- <08f682ba75a4700694d6f94719b367b4d26c032f.camel@linux.intel.com>
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <08f682ba75a4700694d6f94719b367b4d26c032f.camel@linux.intel.com>
-X-ClientProxiedBy: TPYP295CA0040.TWNP295.PROD.OUTLOOK.COM
- (2603:1096:7d0:7::12) To DM4PR11MB6020.namprd11.prod.outlook.com
- (2603:10b6:8:61::19)
+	dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b="vaZftFJf"
+Received: from omf18.hostedemail.com (lb01a-stub [10.200.18.249])
+	by unirelay04.hostedemail.com (Postfix) with ESMTP id DA2ED1A013B;
+	Fri,  4 Sep 2026 16:24:32 +0000 (UTC)
+Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf18.hostedemail.com (Postfix) with ESMTPA id D2F4031;
+	Fri,  4 Sep 2026 16:24:30 +0000 (UTC)
+Date: Fri, 4 Sep 2026 12:25:36 -0400
+From: Steven Rostedt <rostedt@goodmis.org>
+To: Ye Liu <ye.liu@linux.dev>
+Cc: "Peter Zijlstra (Intel)" <peterz@infradead.org>, Marco Elver
+ <elver@google.com>, Ye Liu <liuye@kylinos.cn>, Yi Tao
+ <escape@linux.alibaba.com>, Tejun Heo <tj@kernel.org>, Bart Van Assche
+ <bvanassche@acm.org>, Christian Brauner <brauner@kernel.org>,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/8] mm: introduce for_each_process_rcu and
+ for_each_thread_rcu
+Message-ID: <20260904122536.1079b279@gandalf.local.home>
+In-Reply-To: <20260904083001.553587-2-ye.liu@linux.dev>
+References: <20260904083001.553587-1-ye.liu@linux.dev>
+	<20260904083001.553587-2-ye.liu@linux.dev>
+X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR11MB6020:EE_|DS0PR11MB7412:EE_
-X-MS-Office365-Filtering-Correlation-Id: ea1a78e0-35ba-46bd-6e0a-08df0aa0e997
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|7416014|1800799024|376014|366016|23010399003|10067099003|56012099006|5023799004|11063799006|4143699003|6133799003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: WRqD52VGSJrauQGivuUiKu/slWQYtTmKDfoGpEPj6sMoKBiqDPDDaepBxqfl9BzBb2HXs0eDJ8uNAb3XhavSu/WWCW6edQjDqISKiJjYWroODBiUBtvNAMG0YPoGjDU/r5EyuwwrFo7xBb0BU14B9QE11K6VsSOLLpPkv1JlF3oXmVV5VYIi3sxu/+yg0dE5AamtNBaH7icRMj+salsISIHxuFVvTMMT4Af8aA13mjzTNdGV2ZXCkcHwST28DPlJr7YDKlqsBmDZMzPN+u3h6y4Vs7S8PjSNgJLEzPpM5ju22YLdDEAaS8fYfHGExP1Vlxfrgd+woAWY877n2YumJMamgvbVBBf6qBPARuCjegZeaERsxAGqfi1f19D3w5aAq8Awz9+5Ygk2JbZlOAS11pFvPkSblhXDmOx4bUZtLA57xD0EOsGnTRKFEKQA0wouv8yrsAcB8MLVpoU1JYPs66ptjOJdzLoM3/pSFeynmiy7gj+4kQZrDPt35tagu08F+FZWqX2mnkEthcNTU1+QvfwcdZPgussPwhBNQnfgdOqW9H3ngTQfKwcxHPVm0kpLX+AZIOeuXKHjpAWCxomfdojY0lBJq3szppdS+KgGjuM5OT3i/aVHbWhmChCxOrSL7+IymvDpSSctf8RIOFEvOL40qHoEkCM5JC62VvTQiwI=
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM4PR11MB6020.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(1800799024)(376014)(366016)(23010399003)(10067099003)(56012099006)(5023799004)(11063799006)(4143699003)(6133799003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?iso-8859-1?Q?9Zx4nFnn1TSpaqwxFXSkXiuJ7oCxyXVGe62KJmLMxsshnpOWiK5lwOqsB6?=
- =?iso-8859-1?Q?S8dr0kDCW/9cDC5u2UNqaANELAKZCMMMt8wy75tAMpCHvQ/zxbSAa04MQJ?=
- =?iso-8859-1?Q?Bs0WrLR3fpZebPuSrk2BOtM+qUf3icYkx54C9j2u4WQKeovmN85AtcNzev?=
- =?iso-8859-1?Q?FlMbUtaQruKBmTQaxgkQs8QP5WVrbqc7snif0Hvu78xqCaQ1m/43fwqwDx?=
- =?iso-8859-1?Q?EOd91EP4emzolGkuWz1bqI7JAHQvYNE0fiioit5pj1UaZqgdsm0GtbeY3S?=
- =?iso-8859-1?Q?MbS1mqS6uXwMGUq88fU3K/WmCDS/rMUXXHu5E9O/j/aqaNRhgnnhoqnWTm?=
- =?iso-8859-1?Q?7EtAds6ge1KmSS1836wzg+gD0yOTyEHfP33plAg0ziRaAeO5UcUq6t8Kyu?=
- =?iso-8859-1?Q?fW16Oc+Cltpx8wdYQFe6z8P5pEvSZmt/5SNy4yeBb1Cb90LFX39VGQeLbG?=
- =?iso-8859-1?Q?FzSL3bUsNdiNzNCX+08lLPdEKxf98P/Ov/H9W5JxPtbwTKrME0bItIy7fc?=
- =?iso-8859-1?Q?USYMdlcLX3nKnIlbn/8g8DIjGHvR6JQ9JCOupMTBLrbGuusMI+ZzpHYtxF?=
- =?iso-8859-1?Q?YFt1sHiUAvkQxU6/iIS1uzgYgDHI92MtSzz57tUeGPNltCsTaCxnZD5dGK?=
- =?iso-8859-1?Q?8djlwTCdpFR8ZimUDifzS1DpO6UByEFZPzD+B8WX9fBfRy4blL5xUwMk0u?=
- =?iso-8859-1?Q?BqO4mI0tPb2bX1lheC/NVbli8mD33Jh7mNY0RfboIz1HO8Gr1fF3Nmhf7p?=
- =?iso-8859-1?Q?zbUwakMZZQxeXL62BrhXKKwuODZc/E3hxD+GFiUWBTNrkCJKIecYWK6c5P?=
- =?iso-8859-1?Q?7OHqr7Ow7CZCLCSwhn75RIH6ZGu57061weLcVSd6KiLKswdXfOTDtTc547?=
- =?iso-8859-1?Q?HWT3vIaEWX8SkyF/iyJT9RyHo2ki7YWEg/cqWZfl5zGhANBE2NebYR1lzh?=
- =?iso-8859-1?Q?2RAla1jjUsHzenOALt4bTwAlGpz48Fg/rdf74k+VSIxIkJYzAUSJWpeHf7?=
- =?iso-8859-1?Q?wMx5UfnQAu+lbx6fabn50eMQviUnQ+4cPZiR0ubeilcUVwGvYSkfpLDrjA?=
- =?iso-8859-1?Q?BnWLviOasKvfToIaDwRMNDk4LRl2Co2VI0PdGyqrMHV0yk9XxbsoWmA6Y1?=
- =?iso-8859-1?Q?hG2mS047GFxgjPWuqPf0i/CZPXHEZoTdus9FuZ56u4QZLojvprC1MJNBMd?=
- =?iso-8859-1?Q?HQ/EDiUVzOdK9zR8PGkqWYsdVQiNtd6aNXFy5isRGu4f+Nv4qZOe1faq9/?=
- =?iso-8859-1?Q?DmWwfATJhzTvJ5iUAk1CIilpZMrijJvMjj2WpVMhdiaYqnQ+XPyjAE0Ze3?=
- =?iso-8859-1?Q?hLF0hy77yA9BFpcAwV1ilwtcFp91tSxBwL98VzHRroOynIsRd/fCE91p6Q?=
- =?iso-8859-1?Q?QdwNN7MpHOL2lVgu3B0d3zS1mBxGoi6/LRr1JB5/Ppx98RFuXDTdkmWGT3?=
- =?iso-8859-1?Q?l73SKN4B1BTKNy2AOuoWe5msRR9tgJN7xqevD00v9bXBYCqVq2oXRZ5DNS?=
- =?iso-8859-1?Q?Juw/tOtr6jY+eDjNSlEIehhkT8If2mh0zlCGHCVbZEGoWazR51bAVrN02Q?=
- =?iso-8859-1?Q?t39rh3E/yRHziWAmZnERR8/fQNZH1WV/e2h+m0csSPf0QbHM4hkJzZJ6JW?=
- =?iso-8859-1?Q?oqjG8GAFVtRtVf+KnJiGGvvAEXR+VwndLDMfRUy8avZPcbqGXebZ9sFDrP?=
- =?iso-8859-1?Q?FERehI1nkmKvSZ52xCHxFb32fek9t8vmjgw9z2NcM4zeNwOIaVdd+xbrSx?=
- =?iso-8859-1?Q?M7dfenA3Ob7RD7q1pW9NqSQYZxRAiXB5hFBcJtuNwkqJetYj84vx13NZRo?=
- =?iso-8859-1?Q?hyoY5hhhyg=3D=3D?=
-X-Exchange-RoutingPolicyChecked: zrPKZeb3MBstxGdxMgwMxYXg0DYp5H2jrv+vVsGAdBP266Qk1cU0iJJLHavw0AEAakE9hb/HCjJgoEKsPUB30jwb6azmT7R4ixXhCM0n+Fx2qKOk4rA1dtxny3daSBY5wlk6CQAKSJTkWkUdUg+daPI3TV2qGnfNiQ4OQK/WRUji5A8riIakAbXK19G/CABCsh+i7j/d/sywan39/Pidjac2ZnYl1GtuLrE/qVYO8OZYRwWaJlqZhcZ2zqVeW4EBo8kPYxD8kZhLDjESzD1ebrNwH+4pGh9tacAkmNLp7DYv/lhYLWpOLzbC+i+as/DlbETLf3dLjQr1vEMY6uIpDQ==
-X-MS-Exchange-CrossTenant-Network-Message-Id: ea1a78e0-35ba-46bd-6e0a-08df0aa0e997
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR11MB6020.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Sep 2026 16:23:54.1186
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: qTZFfqNbT/TlIItqKrlnTglzr205N1MuEzAgl+7iYkx5EC1Bm6DIaZjIbPQ//aNhDoOhG6o5HAAeK9KKd0DTDQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR11MB7412
-X-OriginatorOrg: intel.com
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+X-Stat-Signature: phj8gw9y4r7hse95f7zdhq8f8gbhpghr
+X-Rspamd-Server: rspamout02
+X-Rspamd-Queue-Id: D2F4031
+X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
+X-Session-ID: U2FsdGVkX1+DgCb1jW/moBB4arwK5GlRDfn58cXQqc8=
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=+Ex9Rkg/KO6cLgnqSsw+Vjqk0fF9NzG4lVkIirwCvJA=; b=vaZftFJf8DlrJd4qbW6b0AYwvOOAvVfNtv6Ib+Y9UTdNwVNveOyxV+v/E8iHXSAQjwfnferHrJXsUdm9+JjJ+iCWd2XBzfk26hsF3nZedoqx2SaqBLJIqBBZ6waX2sBGNhD8DMnQE1jQ/VBokW3rLNfEZnH5fsOnuJeE2d2L4BQ=
+X-HE-Tag: 1788539070-798385
+X-HE-Meta: U2FsdGVkX1+yzuW6B1LZJmnrshWIJ3/Q+osE++aApAVu0kvBN60tkNOah7OouiyfZaBFuXS2funzoG3kKBYVEy5jS4g3DOIc0D/+AyHCBqYTViDy8fdSp7JKy3b8hySztpmbnd6DaDc78hQyOVkJ2TRBy6wJZILihUJmpOEDHfyhQN2gQqE9xHzj9tgzDDNz6szPsalbtAg/wNdLbCVjE9yAzc/YSOnE1HK8E1ddkhJJzLEnJPiufCs//Y2BMrCcX5inkgANTD80tybwZxBx9Y+rnwV5sp+ECkpFe7OU0oBP0DpCsnGHiGyVgIc27WbX
 
-On Thu, Sep 03, 2026 at 02:30:25PM -0700, Tim Chen wrote:
-> On Thu, 2026-09-03 at 20:41 +0800, Chen, Yu C wrote:
+On Fri,  4 Sep 2026 16:29:53 +0800
+Ye Liu <ye.liu@linux.dev> wrote:
 
-[ ... ]
-
-> > But I also see that in task_tick_core(), the sum_exec_runtime is also 
-> > leveraged
-> > to calculate the delta "wall time" via __entity_slice_used():
-> > se->sum_exec_runtime - se->prev_sum_exec_runtime
-> > does it mean task_tick_core() also needs to be bring one level up to 
-> > sched_tick()
-> > and passed with rq->curr?
+> From: Ye Liu <liuye@kylinos.cn>
 > 
-> I think task_tick_core() needs to stay with the donor's context
-> as it is the scheduling context.
+> Introduce for_each_process_rcu(), for_each_thread_rcu() and
+> for_each_process_thread_rcu() macros that acquire the RCU read lock
+> before the iteration starts and release it when the loop is left, so
+> that the RCU read-side critical section is scoped to the loop body
+> instead of an externally managed rcu_read_lock()/rcu_read_unlock()
+> pair.
 > 
-> task_tick_core() is not about the execution context -- 
-> it decides whether the current scheduling context has used
-> up enough of its slice to let a force-idled SMT sibling run. That
-> slice belongs to the donor, so the donor is the right task to pass.
+> Signed-off-by: Ye Liu <liuye@kylinos.cn>
+> ---
+>  include/linux/sched/signal.h | 19 +++++++++++++++++++
+>  1 file changed, 19 insertions(+)
 > 
-> There is a separate issue lurking here, task_tick_core() measures consumed slice as
-> se->sum_exec_runtime - se->prev_sum_exec_runtime. Under proxy the
-> donor's sum_exec_runtime does not advance (update_se() charges the
-> runtime to rq->curr instead), so that delta stays near zero and the
-> force-idle resched may never trigger. 
-> 
-> Passing rq->curr does not fix it either. __entity_slice_used() takes
-> the runtime and the slice from the same entity, so passing rq->curr
-> just compares the running task against its own slice. But this check
-> is about the donor: it asks whether the scheduling context that owns
-> the CPU has used up its slice. The running task is only borrowing the
-> CPU through proxy, so its slice is not the one we care about here.
->
-
-Got it, I see.
-
-> Maybe something like below (only compile tested) to fix the issue.
-> That said, this is somewhat orthogonal to the issue that the execution context
-> series is trying to solve. It should be fixed separately.
-> 
-> diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
-> index 8dff37059faf..cd240bf52d03 100644
-> --- a/kernel/sched/fair.c
-> +++ b/kernel/sched/fair.c
-> @@ -14748,10 +14748,29 @@ static void rq_offline_fair(struct rq *rq)
->  static inline bool
->  __entity_slice_used(struct sched_entity *se, int min_nr_tasks)
->  {
-> -	u64 rtime = se->sum_exec_runtime - se->prev_sum_exec_runtime;
-> -	u64 slice = se->slice;
-> +	u64 vslice, vused;
+> diff --git a/include/linux/sched/signal.h b/include/linux/sched/signal.h
+> index 584ae88b435e..fe0c41dc99a1 100644
+> --- a/include/linux/sched/signal.h
+> +++ b/include/linux/sched/signal.h
+> @@ -2,6 +2,7 @@
+>  #ifndef _LINUX_SCHED_SIGNAL_H
+>  #define _LINUX_SCHED_SIGNAL_H
 >  
-> -	return (rtime * min_nr_tasks > slice);
-> +	/*
-> +	 * @se is the scheduling context (rq->donor). Under proxy execution
-> +	 * it need not be the task executing on the CPU, so its
-> +	 * sum_exec_runtime is not advanced and cannot be used to tell how
-> +	 * much of its slice it has consumed. Its vruntime, however, is
-> +	 * advanced by update_curr() with the proxy runtime, and its EEVDF
-> +	 * deadline reflects the granted slice, so measure the consumed
-> +	 * fraction in virtual time instead.
-> +	 *
-> +	 * This is equivalent to the previous real-time comparison in the
-> +	 * non-proxy case: both @vused and @vslice are scaled by the same
-> +	 * weight factor, so the ratio (and thus the min_nr_tasks test) is
-> +	 * unchanged.
-> +	 */
-> +	if (vruntime_cmp(se->vruntime, ">=", se->deadline))
-> +		return true;
+> +#include <linux/cleanup.h>
+>  #include <linux/rculist.h>
+>  #include <linux/signal.h>
+>  #include <linux/sched.h>
+> @@ -663,6 +664,24 @@ extern bool current_is_single_threaded(void);
+>  #define for_each_process_thread(p, t)	\
+>  	for_each_process(p) for_each_thread(p, t)
+>  
+> +/*
+> + * RCU-internal variants: automatically acquire and release the RCU read
+> + * lock around the iteration.  Equivalent to scoped_guard(rcu) combined
+> + * with the respective non-_rcu variant.
+> + */
+> +#define for_each_process_rcu(p) \
+> +	scoped_guard(rcu) \
+> +	for (p = &init_task ; (p = next_task(p)) != &init_task ; )
 > +
-> +	vslice = calc_delta_fair(se->slice, se);
-> +	vused = vslice - (se->deadline - se->vruntime);
+> +#define for_each_thread_rcu(p, t) \
+> +	scoped_guard(rcu) \
+> +	__for_each_thread((p)->signal, t)
 > +
-> +	return (vused * min_nr_tasks > vslice);
->  }
 
-This fix looks good to me. And just one minor question that I'm
-trying to figure out:
+I would rename it to: *_rculock()
 
-Consider that there is only one running task p on one of the SMT siblings.
-The original comparison is between:
-se->sum_exec_runtime - se->prev_sum_exec_runtime vs slice,
-and since there is only one runnable task, p continues to run
-without any preemption, so se->prev_sum_exec_runtime remains
-unchanged, while se->sum_exec_runtime moves forward. Therefore,
-the duration delta of se->sum_exec_runtime - se->prev_sum_exec_runtime
-could expand to many slices in theory.
-After switching to the vruntime-based comparison, even
-if p has not been preempted, se->deadline together with se->vruntime
-will move forward by update_dealine(). That is to say, we now only
-consider the delta within one slice. This seems to tighten the
-restriction for task_tick_core() to trigger a force reschedule.
-But Overall I think it should not be a good deal to check
-within a slice period.
+as there are already *_rcu() list iterators that are used to be done within
+an rcu locked region. Using just *_rcu() would make it confusing to know if
+the rcu lock was taken or if the loop is expected to be locked within RCU.
 
-thanks,
-Chenyu
+
+> +/* Careful: this is a double loop, 'break' won't work as expected. */
+> +#define for_each_process_thread_rcu(p, t) \
+> +	scoped_guard(rcu) \
+> +	for_each_process(p) for_each_thread(p, t)
+
+I would not do this one. It is prone to bugs. As it is a double loop, the
+way to "break" is to do a goto. That will be bug to have a goto jump out of
+a scoped_guard().
+
+-- Steve
+
+
+> +
+>  typedef int (*proc_visitor)(struct task_struct *p, void *data);
+>  void walk_process_tree(struct task_struct *top, proc_visitor, void *);
+>  
+
