@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67B3E4229B0;
-	Fri,  4 Sep 2026 06:22:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3880D428830;
+	Fri,  4 Sep 2026 06:23:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788502977; cv=none; b=p6ka+3rqplfnYU7ZwmvMfhGus7COFYrUxB7eRWtRlsGTwCsqoNiQOsP7WjUSshpgVLkUfwloTgS4tIgPCI6foTVMTRyeN/sf7E1ZjxIhrW46FfwQrCisKItsY+soFypH01UKmLAYmw3kC3l4l/xnzEpMXTBuVOvfGMYLk9+5x2A=
+	t=1788502982; cv=none; b=LDpR5uaeFsibRoQoWQx7QU5hqtcqZC16M0SK35BZX/loJNQemqnn1D8EiP+eku+DOA/T3he0E30A4BC8PNNEOAJ/jkgR0QkePD3yqGH17pFH62HWuWKvf0YxvcJQOxaWwEVfqt4ui+Rj4keuLelTu2DTc+ugcIgOZ6WmWPbbs8M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788502977; c=relaxed/simple;
-	bh=+crEaoDmfDySxTGM46G9W2G1oAR65m3Tb1BPMjmKKz0=;
+	s=arc-20240116; t=1788502982; c=relaxed/simple;
+	bh=U85CziX/HmA2iwUsPlh1C9IED3yiJ134tT0uMp2w34c=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=J3rvccPEAVMTy1WVIc7i7Buf9rNsFFnmIP+ROmtfLB2HmqhB9XAPzGsKPIkdFc3DyIBU54sCPeL2sOsoi/5Er0KiCkhPJSdnosdKnUB4n3unan/shxkw3VyIMdRb4BwEn7x1P9uG1i8ghnQnYXmYvl8Kl4qJ+ZldecrQ1Mm48sw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GgCJwBE8; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=B9lznPPGudmks1Xy1gOjaGsZHUKdXj3k+5OwFpriKD5z3Hp+eRh+XMGvcTGXvwABzF1g0gs2oLKIbu13uDziUzxMfmGCyDnns6lyWGndmHEV6mnY7IXGL3Bq8FxKweP+Ki3UiOSNIHASqHViTt4PqEkKU6DeICsZi4kAxCMvqqM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kTGZIlAm; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GgCJwBE8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4C8B41F00A3D;
-	Fri,  4 Sep 2026 06:22:50 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kTGZIlAm"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A71101F00A3F;
+	Fri,  4 Sep 2026 06:22:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788502976;
-	bh=ZEw/En/O87IQsmpM3QULNbvX5YJIhymReEbqN49YJbM=;
+	s=k20260515; t=1788502981;
+	bh=TrCji40er+z6R1XNjAPWAWG4RA4rjIlGB1pHkphcM+k=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=GgCJwBE86MGq43SOSrmyzHhyzdLmVGaDkW8rNyUveZih4hgYuDXmDAdtg56MQ/n4/
-	 Iaot4QGzFRGv7jWSn/cOTzKRb3apJbt9YOWsoENGmZqW4QkLzccpNZnWrozqtwlaMQ
-	 iVX5+CH5VfSiJdmxxNyquPlBAMczp3IkXs0XqPKkKxOWZhif04L/stbAthyrGpl4d/
-	 9+q6/LySzmsKouSSc9nb6JtT0XBqnv1btF5cAfjGyliGpWLzmg+a8LedtoBoPFC6YK
-	 sl5SqJzbNiHhUeYdfJSs7b21xlIK25aLdXGYBfWAHSKDxsVFrciw3BF8QDTFKhDJR3
-	 crPqnHUpH0PsA==
-Message-ID: <b393b193-4160-42d1-8492-baa6a3a45fa4@kernel.org>
-Date: Fri, 4 Sep 2026 08:22:48 +0200
+	b=kTGZIlAmAUmX2nKQaUq1NjHC87lTWWovH+gKkiLMP8L5Un2opXNR4nfhnuE8RONK6
+	 9pVG2UFoOUK4ktNDn3TX6+P76w6h5VMKFtcYIBh885eoII2sCrwBWRGbIiKRevTsef
+	 41LG6DJq52hKmYZ7Vk79hHv+o0dtA7pOsyL/us+9hKgaztFJziMiUXylvYW7JTCSj2
+	 KwcLHqk4kZjJUNyItLL2SC7CZzG6e+kCSjNZ4ko3DviRic6wP66g69yfoNEpIKc/9N
+	 OGjaNrRlbLHdw0muQ/bHaNTtTsBjghsY32cvTeyFDHsvHtbSYWtNPgBfk0IS6sCY31
+	 XNmbJFSsCgBLA==
+Message-ID: <3c8c1465-4b4a-40d4-a247-27218623ecb5@kernel.org>
+Date: Fri, 4 Sep 2026 08:23:00 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -35,7 +35,7 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/3] arm64: dts: apple: Fix style issues for t602x multi
+Subject: Re: [PATCH 3/3] arm64: dts: apple: Fix style issues for t6031 multi
  die .dtsi
 To: Janne Grunau <j@jannau.net>, Sven Peter <sven@kernel.org>,
  Neal Gompa <neal@gompa.dev>, Rob Herring <robh@kernel.org>,
@@ -43,7 +43,7 @@ To: Janne Grunau <j@jannau.net>, Sven Peter <sven@kernel.org>,
 Cc: asahi@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
 References: <20260903-apple-soc-multi-die-style-v1-0-eeb05ea0c187@jannau.net>
- <20260903-apple-soc-multi-die-style-v1-2-eeb05ea0c187@jannau.net>
+ <20260903-apple-soc-multi-die-style-v1-3-eeb05ea0c187@jannau.net>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -89,20 +89,21 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <20260903-apple-soc-multi-die-style-v1-2-eeb05ea0c187@jannau.net>
+In-Reply-To: <20260903-apple-soc-multi-die-style-v1-3-eeb05ea0c187@jannau.net>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 03/09/2026 15:59, Janne Grunau wrote:
-> The M2 Pro/Max/Ultra .dtsi files containing most MMIO nodes are a
-> collection of nodes without parent. The proper embedding inside a
-> "simple-bus" parent only happens in t6021.dtsi and t6022.dtsi.
+> The M3 Max/Ultra .dtsi files containing most MMIO nodes are a collection
+> of nodes without parent. The proper embedding inside a "simple-bus"
+> parent only happens in t6031.dtsi and t6032.dtsi.
 > Fix these dt style issue by using a define for their parent soc node and
 > bracket those MMIO nodes inside it.
 > 
 > Link: https://lore.kernel.org/asahi/e2365307-32d6-4ef9-9919-55ba69786741@kernel.org/
 > Suggested-by: Krzysztof Kozlowski <krzk@kernel.org>
 > Signed-off-by: Janne Grunau <j@jannau.net>
+> ---
 
 Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
