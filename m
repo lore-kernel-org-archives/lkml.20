@@ -1,52 +1,83 @@
-Received: from smtpbgau1.qq.com (smtpbgau1.qq.com [54.206.16.166])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 215EE456DEF
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 10:10:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.206.16.166
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A67F453A44
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 10:12:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788516657; cv=none; b=ZjjNDOQRN3McaHZuUcM17ZnzKg3GBD/MLB6e3lKyE1OxF3ToYuBmYDPEiKv261+Smh5G2BjHJwpuvVr+swN+yrkmvgWCXIcTRnUKG3VWW1lNUF839IjnswW/4Y8t4lttQc9F1RZwn/aMcrU6pDfmkb1gkFqFm4sUn49kSoJq14U=
+	t=1788516773; cv=none; b=XvlfGpcAj63vMiedvjQGbjwEISpaLd0ixO1Px8IrRUR0p1aeBPR7utuVKl0J7yFMufi0RQIW45cXkK33H+B4oZmPu/6ujHlq5tYOiqN27atww7vusjnxICVI/C2+arJR496lsZK8eWHNiCwx45RHGRrjf56otExpeZdp19HLEUE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788516657; c=relaxed/simple;
-	bh=5fVXuYgBCiRDQq4sF5FGYubdN9/PYophxDDbTwrAFT4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=HhmYmgtrOxdW62/DUurB/a7UYGpJRzLsByeexzyUP/ErSAqOYtU0nymYTuUz6jLNIkcTsPTELg6ZNleC/LCJKsCoAb1IoKq5TCants3r3tA34R8G82hAA+hlgEgciEWUa1WdxlyrRtb++TiC5Y2m0Bx+688eHZYIfnsRa5NkbRM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=cQVWWnVi; arc=none smtp.client-ip=54.206.16.166
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
+	s=arc-20240116; t=1788516773; c=relaxed/simple;
+	bh=iguEiGcH/ezFs4Bo4isq1Q5LN9dy7pu9TwwJTw0C/qY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=eqrNU0fMP4rbjbeSizkMppCVGacsk7bw1i8/OjsAKty7uF5oN4dPVZwCnCYFAEZM7fVI4Prm7Z1+a4/dbwNGdr8EOZMzJd3OwJXqmbRr+L2Hn7OZ1TEIB2aS2JPzbhjfAZiUmJysjwJ/WV1WAbyGDFfjKYjkvDNGjGC43Asw2r4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=amarulasolutions.com; spf=pass smtp.mailfrom=amarulasolutions.com; dkim=pass (1024-bit key) header.d=amarulasolutions.com header.i=@amarulasolutions.com header.b=f2cvCJqA; arc=none smtp.client-ip=209.85.221.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=amarulasolutions.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amarulasolutions.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="cQVWWnVi"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
-	s=onoh2408; t=1788516574;
-	bh=oYE+vq7JoinPXqlPiiLFr6Z7aSo9LWECAdI/awbwABU=;
-	h=From:To:Subject:Date:Message-ID:MIME-Version;
-	b=cQVWWnViZ2DuikCfgtFBwbwrErF1bepZdgdLzut85NMmCs7yd0Pcszzs/38HYU1HV
-	 hQJ8qj54khx2k8Z7XLTHxMOvVEbGpFQTvpW3RuSCx7KfbarqH2w6rUyexh/GSWtogd
-	 tFkcdcWw8iUXSREtagWvcUI1Sz4rSUe8Vopz+hAM=
-X-QQ-mid: zesmtpgz4t1788516571t8b9c63d0
-X-QQ-Originating-IP: cuuYc32YtZREKSHjW7EbuP6Q2GYO8WdR0JvfjfVTmqo=
-Received: from zzz-PC ( [113.57.152.160])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Fri, 04 Sep 2026 18:09:24 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 14653282178175958479
-From: zhaozhengzhuo <zhaozhengzhuo@uniontech.com>
-To: Mike Kaplinskiy <mike@recall.ai>
-Cc: linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	Andrew Morton <akpm@linux-foundation.org>,
-	"Liam R . Howlett" <liam@infradead.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	David Hildenbrand <david@kernel.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Jann Horn <jannh@google.com>
-Subject: [RFC PATCH v1] mm/madvise: prefetch private file COW swap entries
-Date: Fri,  4 Sep 2026 18:09:19 +0800
-Message-ID: <D758D1DD4372AF8E+20260904100919.2139680-1-zhaozhengzhuo@uniontech.com>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <CABeknB82T0d3VUjz6Xwcdfa8spHvNzO6tZNTMwjJgF00EwrWWA@mail.gmail.com>
-References: <CABeknB82T0d3VUjz6Xwcdfa8spHvNzO6tZNTMwjJgF00EwrWWA@mail.gmail.com>
+	dkim=pass (1024-bit key) header.d=amarulasolutions.com header.i=@amarulasolutions.com header.b="f2cvCJqA"
+Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-485850cf499so443963f8f.3
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 03:12:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=amarulasolutions.com; s=google; t=1788516770; x=1789121570; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=8GlZLcOq/1TKQQu2gibplQv4pt4AVLjA4QI65SUIoMs=;
+        b=f2cvCJqAavjKk+Kh2imE75RPPG3zjwSpQSUh8Qdkrfy0ubrEMMIYXd7zcWJ9/pSn7o
+         RRqGf2p271JszIkyXCRttPIH/WFQ1DGc4xrwnopDaIl/MzB8vrSgSirF6NDTpT2bC6Iw
+         Mvn9Vzz9rJ297YhCJ6AoS45a3u26i9bPmHrmo=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788516770; x=1789121570;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=8GlZLcOq/1TKQQu2gibplQv4pt4AVLjA4QI65SUIoMs=;
+        b=tOBFVCN9SzBYggCW7DOul8lwWdMdMq1hNaxJ0/yMWMr1puSk0cPuFZb+tV7PXtgKA0
+         5XJBNykek80Vn5eU33L1kUgpsKBwHmvHZZ6vbgXs49ULvso2CywjUqAgK/pyuRrXxpfM
+         htaJRaosSmjUXVxpX4oZYkx5mbw0EeeRSLgWFRn1TArEjw/vQ7JoeUZ8fmGc4dnIKS7e
+         YtkBQJFSyKrdV1tk8UYU25RCb9N4dF3TKWr1xT74JqFyqdzoUOWAej9Zx4Nvz+RBGjnK
+         HFJvslc+T5Ud1IBXtHMeRI3W2D1k3OauKs7Lz7AV9KCn+S9GtIcs1gxsJd5GQDbqd4VP
+         bZqQ==
+X-Gm-Message-State: AFuF++lFvUlGiO9P1xRXgL7kUjOgx+xkW1XMFY23easkMYh9QgfbrjB1
+	wAHFtsjITkhhivELbSbY169Aj2qfV+gZ2SdSaJo+Fmh1fT4xrXGnZ/NkUBy3VkTq9PmWp6itC1q
+	UR0e5pn0=
+X-Gm-Gg: AYBFou24MUvAENm1W5zdMYC82BFEnwxK6L6pkuCQvjyxEEcmsfmRi3UNt46//u7fG/t
+	NoSW2y6vTo2WiuUwJ0U+rovl9Qe+XduFaKudGXq+HywoIct+ZkThTqASVa1tN1TIWJsRfL5MmyM
+	dSKAklST+noB04F/eGMxDTmZpVqkqgOUHfr5L776yfIhf4B/p6292km3i2GKkV1kWsxUOJC7jTo
+	91sFRhEc8c9K+zApdrFGxWN7+HG8SpnQxMhASNwvc/DPIWarvpIHHX6M91YWOaI0ToHuLl+sEU8
+	8+wqOze/FBHe8ruhMyRju29oHIDXbMdk4aUAxPS0M6bljxKxpwyd8Ffc4EztJdwZyGA8PpRZTIJ
+	krqUPfb5ERE82l1Yym6U5p+rB9do/4C+1CJnWzVTRoIZTwgZowipGu+nFhT2taK81Q/wlAWOpFy
+	x4w31DeMTX+TPagrceyS69BD0u8K4XH74pRq+PJBZ9qyWCojw7Ka+BKsN77JfKNXwGqLm+rADI/
+	zqq07OJ5FD4Y3z1W/1ZxG2I5E3m0hOC06YrpxxZoqwXpNt3VGRuTEVlNLZRTFfd5+c8hqcQz1r5
+	K602oya+KtmiKVOpUBkAWxtwLXyprvG14Fk3OXM5ClBYJSvn2yerlAc=
+X-Received: by 2002:a05:6000:46c8:b0:483:ca4a:530c with SMTP id ffacd0b85a97d-485872a5523mr6326417f8f.18.1788516769126;
+        Fri, 04 Sep 2026 03:12:49 -0700 (PDT)
+Received: from dario-ThinkPad-P14s-Gen-5.amarulasolutions.com (host-95-245-93-90.retail.telecomitalia.it. [95.245.93.90])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48588390e30sm5317990f8f.7.2026.09.04.03.12.47
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 04 Sep 2026 03:12:48 -0700 (PDT)
+From: Dario Binacchi <dario.binacchi@amarulasolutions.com>
+To: linux-kernel@vger.kernel.org
+Cc: michael@amarulasolutions.com,
+	linux-amarula@amarulasolutions.com,
+	Dario Binacchi <dario.binacchi@amarulasolutions.com>,
+	Abel Vesa <abelvesa@kernel.org>,
+	Brian Masney <bmasney+clk@redhat.com>,
+	Cristian Marussi <cristian.marussi@arm.com>,
+	Fabio Estevam <festevam@gmail.com>,
+	Frank Li <Frank.Li@nxp.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	Peng Fan <peng.fan@nxp.com>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Sebin Francis <sebin.francis@ti.com>,
+	Stephen Boyd <sboyd@kernel.org>,
+	imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-clk@vger.kernel.org
+Subject: [PATCH v14 0/4] Support spread spectrum clocking for i.MX8M PLLs
+Date: Fri,  4 Sep 2026 12:06:29 +0200
+Message-ID: <20260904101243.412006-1-dario.binacchi@amarulasolutions.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -54,207 +85,136 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpgz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz5b-2
-X-QQ-XMAILINFO: OS03Bzyx9zEDU1sgPBctWmK9/4gN2flMQSQpp+W+wILlj/CZhZPK3D5e
-	9Rdx6g2TL4GmNm1lzB6Sto5qRMIMOLoYa3LofatSOkVRodroXzznQq9iDPW8qSwJta1uGAO
-	fiIIe971dHbsAPDdjsO1Zmduc2EnsamFJJmv+0G3cgi9YR4u5J8txC1d2kSYt31OQU3VhTu
-	Kl+Q5J75bziHnM9ihqaH2stgJZ3LqunHAuBkYh6foakI0wWLTVlbmFlInfVTNU7w/redNUh
-	YZcUKAakkp6DaVihraauFUshujSgY7FEMdi48Q0Z9akjl12iUpvdPYJ82bpZ+FjmxeXGKCt
-	JzCqsevD8W07Dp2rEH8fCWShjzPA3eZrDj957JHDO0suta6lDZrJmGkNWEEJ6JislRaAFWm
-	nnPNBZaqpmMvpSY8Sz2GkQMtuas8hVZ7i+ODsLomN1jqUw2wm3xj3gvMDxURftY+Zb5ECNg
-	DgRexqqha+6vaYbEtvBAEpRGj4DqZL+d+4buMmSqkcpWkptE3t2aLYdSOV4m8Z8TjWEXyYD
-	Dkh00XoFF0HgsHBeu9ilzD99LtL1GBg66O1dbOfBLav44OeQRM7aoxrTKcuHV5UWTSCXlyG
-	RCbc+x6Z+D/o+hy3lwJjc3J6xA83CeFQ3vOysQetI1nn5t0JfUZgNvi5hAkE3o4IXjJ8uJu
-	7ul+L4s/hSuAJkg4NYU6B+kuTXeCaO8iTg35awQCfsnnUCOOFRmseYA44RUBUNAUX6yKx34
-	8Ljgl/65ywpHfzTnP5VKNVRHegBoH6pQirIPjyg6/JocI+7k3FOMdy5RyKdIcRxc15jYh7j
-	T8YA6olDDohIbO0qR7+WT7a06nY9z/v8/9Pom8UKRVDHq8APqzRMZ/DurpertlBqRAq+EB7
-	YTNfU+Olqd6MeVg6D7hGH2Isl1L2lLBvvNhDdT3eVCCO/Sh9ZjH8QaK6IoL8gmpzUQaepCV
-	Itiq1Z7LUKJtte49WvPIdENuQr9gXPxLPOsIKPbclNjYIkx8ayAVVYcXhlA9oH/lqXTpdsk
-	pCcGtIl5+zRuMqwMN1O/c89C1ZMp4mRkb6tnfx7zswkMTg+0R0knjU7uBLqeQ=
-X-QQ-XMRINFO: NI4Ajvh11aEjEMj13RCX7UuhPEoou2bs1g==
-X-QQ-RECHKSPAM: 0
 
-Hi Mike,
+The series adds support for spread spectrum clocking for i.MX8M{M,N,P}
+PLLs (audio, video and DRAM). It has been tested for the video PLL on
+boards using i.MX8MN and i.MX8MP.
 
-Thanks for the report and for offering to let me take a first pass at the
-fix.  I reproduced the behaviour and prepared the RFC below.  I would
-appreciate feedback from you and the mm maintainers on both the scope and the
-locking model before I prepare a non-RFC revision.
+While at it, it validates the spread spectrum configuration in the clk
+core before it reaches the providers, and fixes the i.MX SCMI OEM
+extension, which converted the spread to the wrong unit.
 
-MADV_WILLNEED currently uses file readahead whenever a VMA has vm_file.  For
-a MAP_PRIVATE file mapping, however, a write fault creates anonymous COW
-folios whose swap entries live only in the PTE.  File readahead cannot
-prefetch those modified contents, so the pages are still read synchronously
-when the application later touches them.
+Patches 1 and 2 are fixes for 7.3 with Peng's Reviewed-by and do not
+depend on the rest of the series, so they can be picked up separately.
+Patches 3 and 4 are new material for the next merge window.
 
-This RFC walks PTEs for private file VMAs that have an anon_vma and schedules
-reads for their swap entries before continuing with the existing file or
-shmem path.  The anon_vma check avoids an additional walk for private file
-mappings that have never taken a COW fault.  The existing shmem XArray path
-is retained; private shmem COW PTEs are covered by the same walk.
+Changes in v14:
+ - Move the fixes first, so that they can be picked up separately from
+   the new patches.
 
-The change also avoids draining the current CPU's LRU pagevec when the new
-PTE walk did not find a folio.  The existing shmem path is otherwise left
-unchanged in this RFC.
+Changes in v13:
+ - Add patch "clk: scmi: reject SSC configuration out of the OEM field
+   range".
+ - Rename patch "clk: scmi: fix SSC permyriad conversion" to "clk: scmi:
+   fix SSC spread conversion".
 
-One detail from testing is worth calling out.  Mike's original reproducer
-uses a file under /tmp, and /tmp is tmpfs (shmem) on the test VM.  I initially
-tested a version that excluded shmem, but that version did not fix the
-original reproducer: after a private shmem write fault, the modified
-anonymous COW page has a swap entry only in the PTE, while the original
-shmem page's swap entry is tracked in the shmem XArray.  Consequently, the
-PTE walk is needed for private shmem COW pages even though
-shmem_swapin_range() must remain for pages tracked by the shmem XArray.  The
-RFC therefore covers private shmem as well as regular file mappings, while
-leaving the existing shmem path in place.
+Changes in v12:
+ - Add patch "clk: scmi: fix SSC permyriad conversion" to fix the
+   permyriad to percent conversion in clk-scmi-oem.c, reported by
+   Sashiko AI review.
+ - Fix issues claimed by Sashiko for patch "clk: imx: pll14xx: support
+   spread spectrum clock". See the details in the patch changelog.
 
-Test setup
-----------
+Changes in v11:
+ - Add patch "clk: validate spread spectrum configuration" to reject
+   invalid parameters in the clk core before they reach the providers.
+ - Fix issues claimed by Sashiko for patch "clk: imx: pll14xx: support
+   spread spectrum clock". See the details in the patch changelog.
+ 
+Changes in v10:
+ - Drop patches 1-22, superseded by the generic spread spectrum clocking
+   support from Peng Fan, merged in 7.3, so the i.MX8M specific infrastructure
+   is no longer needed. This patch is now based on the following commits:
+    - ae794aa6e88d ("dt-bindings: clock: Add spread spectrum definition")
+    - c86814e70390 ("clk: Introduce clk_hw_set_spread_spectrum")
+    - a7f16660af39 ("clk: conf: Support assigned-clock-sscs")
+    - 7d98de6ffdab ("clk: Add KUnit tests for assigned-clock-sscs")
+    https://lore.kernel.org/all/20260826165611.236321-1-sboyd@kernel.org/
 
-I tested on x86-64 with the mm-unstable tree at e3b5239afe1b, using the
-following workload:
+Changes in v9:
+ - Add 'Reviewed-by' tag of Peng Fan for imx8mn platform patches
+ - Fix building warning raised by the kernel test robot for patch
+   v8, 11/18 clk: imx: add support for i.MX8MN anatop clock driver
+ - Add patches for imx8m{m,p} platforms:
+    - 23/23 clk: imx8mm: support spread spectrum clock generation
+    - 22/23 clk: imx: add support for i.MX8MM anatop clock driver
+    - 21/23 clk: imx8mp: support spread spectrum clock generation
+    - 20/23 clk: imx8mp: rename ccm_base to base
+    - 19/23 clk: imx: add support for i.MX8MP anatop clock driver
 
-  * 64 MiB MAP_PRIVATE mapping;
-  * write one byte in every page to create private COW folios;
-  * MADV_PAGEOUT, followed by approximately 1 GiB of memory pressure;
-  * MADV_WILLNEED, then a page-by-page read of the mapping;
-  * 2.3 GiB VM RAM and a 2.5 GiB disk-backed swap device.
+Changes in v8:
+ - Drop the patches added in version 7:
+    - 10/23 dt-bindings: clock: imx8m-clock: add phandle to the anatop
+    - 11/23 arm64: dts: imx8mm: add phandle to anatop within CCM
+    - 12/23 arm64: dts: imx8mn: add phandle to anatop within CCM
+    - 13/23 arm64: dts: imx8mp: add phandle to anatop within CCM
+    - 14/23 arm64: dts: imx8mq: add phandle to anatop within CCM
 
-The reproducer is based on Mike's original program.  I changed the backing
-file to a regular XFS file for the first comparison, and added timing and
-pswpin counters.  I also ran the same workload with a memfd to exercise the
-private-shmem case.  The complete source is not repeated here because it is
-already present in the original thread.
+Changes in v7:
+ - Add and manage fsl,anatop property as phandle to the anatop node with
+   the new patches:
+    - 10/23 dt-bindings: clock: imx8m-clock: add phandle to the anatop
+    - 11/23 arm64: dts: imx8mm: add phandle to anatop within CCM
+    - 12/23 arm64: dts: imx8mn: add phandle to anatop within CCM
+    - 13/23 arm64: dts: imx8mp: add phandle to anatop within CCM
+    - 14/23 arm64: dts: imx8mq: add phandle to anatop within CCM
 
-Results
--------
+Changes in v6:
+ - Merge patches:
+    10/20 dt-bindings: clock: imx8mm: add binding definitions for anatop
+    11/20 dt-bindings: clock: imx8mn: add binding definitions for anatop
+    12/20 dt-bindings: clock: imx8mp: add binding definitions for anatop
+    to
+    05/20 dt-bindings: clock: imx8m-anatop: define clocks/clock-names
+    now renamed
+    05/18 dt-bindings: clock: imx8m-anatop: add oscillators and PLLs
+ - Split the patch
+    15/20 dt-bindings-clock-imx8m-clock-support-spread-spectru.patch
+    into
+    12/18 dt-bindings: clock: imx8m-clock: add PLLs
+    16/18 dt-bindings: clock: imx8m-clock: support spread spectrum clocking
 
-For one representative regular-file run, the counters and wall-clock times
-were:
+Changes in v5:
+ - Fix compilation errors.
+ - Separate driver code from dt-bindings
 
-                         MADV_WILLNEED       subsequent touch
-  ---------------------  -----------------  -----------------
-  baseline pswpin        +2,578             +16,718
-  RFC v1 pswpin          +17,610            +0
-  baseline time          16.5 ms            752 ms
-  RFC v1 time            274 ms             55 ms
+Changes in v4:
+ - Add dt-bindings for anatop
+ - Add anatop driver
+ - Drop fsl,ssc-clocks from spread spectrum dt-bindings
 
-The exact values vary with swap pressure and asynchronous I/O completion.
-Across additional runs, the RFC version prefetched approximately 17,000 to
-19,000 pages during MADV_WILLNEED, while the subsequent touch usually
-performed no additional swap-in.
+Changes in v3:
+ - Patches 1/8 has been added in version 3. The dt-bindings have
+   been moved from fsl,imx8m-anatop.yaml to imx8m-clock.yaml. The
+   anatop device (fsl,imx8m-anatop.yaml) is indeed more or less a
+   syscon, so it represents a memory area accessible by ccm
+   (imx8m-clock.yaml) to setup the PLLs.
+ - Patches {3,5}/8 have been added in version 3.
+ - Patches {4,6,8}/8 use ccm device node instead of the anatop one.
 
-The private-shmem test also moved the majority of the COW swap-in into the
-MADV_WILLNEED phase, while retaining shmem_swapin_range() for pages tracked
-only by the shmem XArray.
+Changes in v2:
+ - Add "allOf:" and place it after "required:" block, like in the
+   example schema.
+ - Move the properties definition to the top-level.
+ - Drop unit types as requested by the "make dt_binding_check" command.
 
-For mappings with no swap entries, repeated advice calls showed no measurable
-extra cost for private-none or private-clean mappings because of the
-anon_vma guard.  A private-COW mapping paid for the additional PTE walk; the
-observed extra wall time was roughly 20 us for 64 MiB, 0.1--0.2 ms for
-256 MiB, and 0.5--0.6 ms for 1 GiB on this VM.
+Dario Binacchi (4):
+  clk: scmi: fix SSC spread conversion
+  clk: validate spread spectrum configuration
+  clk: scmi: reject SSC configuration out of the OEM field range
+  clk: imx: pll14xx: support spread spectrum clock generation
 
-On an x86-64 VM with a 64 MiB mapping, 2.3 GiB RAM and 2.5 GiB swap, the
-unpatched kernel read 2,578 pages during MADV_WILLNEED and 16,718 pages on
-the subsequent touch.  This version read 17,610 pages during MADV_WILLNEED
-and none on the touch in the corresponding run.  The advice/touch wall time
-was 16.5/752 ms before and 274/55 ms after; values vary with swap pressure.
-The same test with a memfd (private shmem) also prefetched the COW pages,
-while retaining the existing shmem XArray path.
+ drivers/clk/clk-scmi-oem.c             |  27 ++++++-
+ drivers/clk/clk.c                      |  14 ++++
+ drivers/clk/clk_test.c                 |  12 +--
+ drivers/clk/imx/clk-pll14xx.c          | 103 +++++++++++++++++++++++++
+ drivers/clk/kunit_clk_assigned_rates.h |   4 +-
+ 5 files changed, 148 insertions(+), 12 deletions(-)
 
-Locking and open questions
---------------------------
-
-The PTE walk keeps the mmap read lock, as the existing anonymous
-MADV_WILLNEED path does.  Swap reads for ordinary block devices are normally
-submitted asynchronously, but folio allocation, zswap, and synchronous swap
-devices can still make this path block.  I have not attempted to collect
-addresses, drop mmap_lock, and perform the reads later: doing that safely
-would require pinning or revalidating the VMA, PTEs, swap entries, and NUMA
-policy after the unlock.
-
-Could the maintainers please advise on the following points?
-
-  1. Is reusing the existing mmap-lock and PTE-walk model acceptable for this
-     small fix, or should this wait for a more general swap-in redesign?
-  2. Should private shmem COW PTEs be included in this change, or should the
-     first version be limited to regular file mappings?
-  3. Is the anon_vma guard and conditional LRU drain the right trade-off, or
-     would you prefer a smaller change that keeps the existing drain calls?
-
-I have built mm/madvise.o, run git diff --check, and run checkpatch.pl --strict
-on this version.  Any review of the implementation, test methodology, or
-the proposed scope would be very helpful before I send a v2.
-
-Fixes: 1998cc048901 ("mm: make madvise(MADV_WILLNEED) support swap file prefetch")
-Reported-by: Mike Kaplinskiy <mike@recall.ai>
-Link: https://lore.kernel.org/linux-mm/CABeknB_S2XJSHFgnHdgnN0rjzHhH4oQJs_APq9fvxHztQ_pgiA@mail.gmail.com/
-Signed-off-by: zhaozhengzhuo <zhaozhengzhuo@uniontech.com>
 ---
- mm/madvise.c | 32 ++++++++++++++++++++++++++------
- 1 file changed, 26 insertions(+), 6 deletions(-)
+base-commit: bc35965f6940a9bf834d54187b6088b8eb09206d
+branch: imx-pll14xx-spread-spectrum
 
-diff --git a/mm/madvise.c b/mm/madvise.c
-index 73c2901b9adb..96cbce6c7f8b 100644
---- a/mm/madvise.c
-+++ b/mm/madvise.c
-@@ -193,10 +193,16 @@ static int madvise_update_vma(vm_flags_t new_flags,
- }
- 
- #ifdef CONFIG_SWAP
-+struct swapin_walk_ctx {
-+	struct vm_area_struct *vma;
-+	bool swapped;
-+};
-+
- static int swapin_walk_pmd_entry(pmd_t *pmd, unsigned long start,
- 		unsigned long end, struct mm_walk *walk)
- {
--	struct vm_area_struct *vma = walk->private;
-+	struct swapin_walk_ctx *swc = walk->private;
-+	struct vm_area_struct *vma = swc->vma;
- 	struct swap_io_ctx ctx = {};
- 	pte_t *ptep = NULL;
- 	spinlock_t *ptl;
-@@ -223,8 +229,10 @@ static int swapin_walk_pmd_entry(pmd_t *pmd, unsigned long start,
- 
- 		folio = read_swap_cache_async(&ctx, entry, GFP_HIGHUSER_MOVABLE,
- 					vma, addr);
--		if (folio)
-+		if (folio) {
-+			swc->swapped = true;
- 			folio_put(folio);
-+		}
- 	}
- 
- 	if (ptep)
-@@ -297,10 +305,22 @@ static long madvise_willneed(struct madvise_behavior *madv_behavior)
- 	loff_t offset;
- 
- #ifdef CONFIG_SWAP
--	if (!file) {
--		walk_page_range_vma(vma, start, end, &swapin_walk_ops, vma);
--		lru_add_drain(); /* Push any new pages onto the LRU now */
--		return 0;
-+	bool private_file = file && !(vma->vm_flags & VM_SHARED);
-+
-+	/*
-+	 * A private file mapping can contain anonymous COW pages. Once such
-+	 * pages are swapped out, their PTEs contain swap entries even though
-+	 * the VMA still has vm_file set. Prefetch those pages as well; file
-+	 * readahead can only fetch the original file contents.
-+	 */
-+	if (!file || (private_file && vma->anon_vma)) {
-+		struct swapin_walk_ctx ctx = { .vma = vma };
-+
-+		walk_page_range_vma(vma, start, end, &swapin_walk_ops, &ctx);
-+		if (ctx.swapped)
-+			lru_add_drain(); /* Push any new pages onto the LRU now */
-+		if (!file)
-+			return 0;
- 	}
- 
- 	if (shmem_mapping(file->f_mapping)) {
 -- 
 2.43.0
+
