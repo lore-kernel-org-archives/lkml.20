@@ -1,319 +1,164 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com [209.85.214.172])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6447C3D6CA5;
-	Fri,  4 Sep 2026 08:05:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D3CF3CF212
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 08:06:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788509148; cv=none; b=AbbRkdf2KSmvGYusALQSWVav6NqAg19OKh+DCBwHO9lGRiXuZ7ly6lG8CuH8omgdbrW9f3OUSZRyt7bZSBeBcWPyTWFECX14ybniFxjjYfOQJtni732un5TMoi9K0Bg0fdLN5IWwaawqA1zJhhMbTEdAcxraehmSnY3TezeyYwI=
+	t=1788509185; cv=none; b=eQb5y0TgnsKJ+e0FCAOCNUgE5v91S1X4BNgghPZ84gYt6xrDw+9XPIpnpXiY7cUiJiqQs0u7JrFBXwExcejWIpfpAX8dBkUzq7SkB6WU4hmeiNu0lQ/WqKFNl3yPa4Z7XHP9WXuof/EqhXMCN2mPuuW8uPdHu3bnWuWxG1eofKc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788509148; c=relaxed/simple;
-	bh=ePnqaBcOWeyOgNt5so4yYLtNXzzwmxG2dsnuykQE/14=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=Rnn18nyCQw/6js2X+MM04ThV756rGrE56/7z/7VZ701zYnZouO3mad55q68lX1pM4XFjJpZlhydzxjuZuGg06ZU1ScuiWQVVdaUONlA7iIh7D78Ortw141bnNE5FIFdsyHuee7hH+1IDr6RQe20tmR7UZy4BppV79Rtqqjsv+wE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Xtrf4NM1; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788509185; c=relaxed/simple;
+	bh=E4VO9N7Z2bwf8/j2sBtJ951y3XLN+Ou+PXkX4zCtGIo=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=DRo2Ln90Q0hgyru3ot4lWnxqAJspnG/DIve7xOsNJTBHPu0Ejd8bF8FzgUbWD5BPt7AePhUowZPX5cITllsEn26WjFu1DoY52mb3btlP3V7slsYcYKCHncfdBFaPXMfvLtykQ2NTqOLw7TLLYzHZQxyqa9jQgg6CXKs+IjiooK0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=izTBAEgh; arc=none smtp.client-ip=209.85.214.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Xtrf4NM1"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 609941F00A3D;
-	Fri,  4 Sep 2026 08:05:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788509147;
-	bh=W3IBYM2BK6Wix3zBHARNq8foS186+CWOMXqyLhUGZkM=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=Xtrf4NM1b8EMUWg5cmpUD154lwWf1Bu+Tv2RNTpdj9Hb+RTJ4AUGX/G2fOCRENIN+
-	 YMQ1zvmuUDXb3iV3aRH5rfowYYE/s3mnbpK8wgIQciFou6KP23aGLAjxo8E1CL56pw
-	 yTpeVospw9oFoRRmBpvTuVgcH2uP6FeeHhOWj6Epgr5VPI/X6Sv/CxUDhALSHIA5LF
-	 iLWKCQSal93g77CloCpaC+D6lCvIXS8idkedrF+4DTZN9fTHgULirB05dQ5yqv1JrB
-	 nbuXVsy4ykP0h4cC6qcVdArCg18sTrNnvuRHYtmRCHDbiqZbo3/3LtgRwyoRSnhCbt
-	 WII2a9wWFix1w==
-Subject: Re: [PATCH net v4 2/2] net: phy: restore the interrupt after a
- generic-driver bind cycle
-From: netdev-bot+sashiko@kernel.org
-To: f@lex.la
-Cc: andrew@lunn.ch, hkallweit1@gmail.com, linux@armlinux.org.uk,
- olteanv@gmail.com, davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
- pabeni@redhat.com, horms@kernel.org, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Date: Fri, 04 Sep 2026 08:05:45 +0000
-Message-ID: <178850914589.4131868.9416190597237041128@kernel.org>
-In-Reply-To: <20260902080511.2211261-3-f@lex.la>
-References: <20260902080511.2211261-3-f@lex.la>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="izTBAEgh"
+Received: by mail-pl1-f172.google.com with SMTP id d9443c01a7336-2d6fe26ef1cso8351615ad.2
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 01:06:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788509184; x=1789113984; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=AvzKUaxKqDduKUy6EaV8rSY/p2Qwfvb5qYVmt7Thsg8=;
+        b=izTBAEghFRgX9ORJBe2LsCoC67fk+Z6TFfsD8DHWjtex5ZVPvc4rZt4plaVMaaOsvk
+         L8bW+dbmFi5KK4TsjfR2KPgeO0c4o+zdB3+ezhE3uuBv2WXn8Lkbi79DVKofKUdJqK9X
+         0xTIOHzFtHkv6m0oV25QFscBs9hVF4eOpY8YRc4xEV3/2tgmoOYT09YeIQ+e5TWod+rG
+         tzhzFCX8R3f1QJAKxAmHvpZEYR/WwSX9bw10UqJIyG2pqcG4xaZHQRfTPgWUWutoypgL
+         9eOx0XuRU9b8jFzol11D8UPTUIRlDS7KXm7/dXy9DCB5KgMI7QjTJHSRHDQWqtoSh/F5
+         q/Yw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788509184; x=1789113984;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=AvzKUaxKqDduKUy6EaV8rSY/p2Qwfvb5qYVmt7Thsg8=;
+        b=dvlURHatClo56Qv846XQnVN4EYffOasZh4nuKYpkPlCdDAeL0kBI0tsOpjXFc0GpMY
+         0iCVps0j9plFAhcyiraMzfEbGqnMyCe3nuDysQX+zTKCGaDi/CCjZdqjWrB0ytdCdqC9
+         /BNR8mxwvSTm3I+OFIipjiGRxn4/afJdKzjm3f+wOib8Bdk1kP7HERbugHHy3iRR0Asv
+         hrQpYdcRFZGkVy3/dyJtRESn9cJMS+Jd5rWGHKriUFw3igcMKuuZ6EuR4qDfw+DuQrbr
+         21yZps9j2Ul+iz9ryUn2etzA7D1tXcjkAsNv4y10/h/qORFefqFmC7jk7NnQS7dBhi5J
+         YPUw==
+X-Forwarded-Encrypted: i=1; AKwUvBwFUY9LAJnavSsL9HPseltKhYQRLFH89k1ktI8j+2x/g+P2ocWoDtjs9x9xd1NO4qMm8G6uBCOewbNACF8=@vger.kernel.org
+X-Gm-Message-State: AFuF++kaxeX1N5mjae8gl+f+FA8orCw0yljoxdt3kHvXDxYGB9zU8cLq
+	3hJd9WA92b+BQiED8W+CZRhkCrX5IMpdIaEsyVv4QG1vHblb5S99/yk=
+X-Gm-Gg: AYBFou16ah8VTAmHIPoSzLpsozIrRkS0y4g6q9sX36Y25Vt+PV6FFcQhZARlH/DFsA+
+	NmgeZTZFbrl2sUXCYTV4+Zd2evmhg1jQdH4maLhpV7botzbfdsO8zvNiSpLXDXbnx9omwefkczO
+	OErtp9WY6nGblA5QijvUTCnj+2/OnvZVMbhnOBbdt71SETrMZ5u6FGhsY4qjTKrZBGk7PdGOAw3
+	/L8oWTF9ZTGFcdlEDq7p0IHczEaIpru7ZAzfPT2ajgknfCJaduAS6wgArT6gpyUPhA1/qvnNHCL
+	XnGBdugqNur2VspSwBQp6Ec7M9V3ZD96h/huF+D78t/xYeYd8VgZAciBcuKxagTN6L0ZxsI0qMc
+	sRIThHAh5ZF79KWpaWW9SrelSUSuoI9mi7lKnrydjwxvQhwNEkOVmFhKRtrtJ+D96c8ukY9nYKO
+	fNuAdyfqaQMZmE6N2DLBj/w9LcEsyQqhuFhGYsD5cF4uWg8p8FM4z5g6L7F/7azTMkrXAsa6f9o
+	o7DouYjJDQO4tQSoU5obl1n2z8=
+X-Received: by 2002:a17:90b:2f87:b0:38e:9045:bac0 with SMTP id 98e67ed59e1d1-39b260fe42amr7289642a91.5.1788509183617;
+        Fri, 04 Sep 2026 01:06:23 -0700 (PDT)
+Received: from MalHyuk.localdomain ([211.201.32.99])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b261549f3sm3181153a91.16.2026.09.04.01.06.20
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 04 Sep 2026 01:06:22 -0700 (PDT)
+From: "Jonghyuk Kim(MalHyuk)" <malhyuk97@gmail.com>
+To: phasta@kernel.org,
+	christian.koenig@amd.com,
+	tursulin@ursulin.net,
+	matthew.brost@intel.com,
+	dakr@kernel.org
+Cc: dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	mdaenzer@redhat.com,
+	alessio.belle@imgtec.com,
+	luigi.santivetti@imgtec.com,
+	"Jonghyuk Kim(MalHyuk)" <malhyuk97@gmail.com>
+Subject: [PATCH v4 0/3] drm/sched: fix use-after-free of the fence timeline name
+Date: Fri,  4 Sep 2026 17:06:15 +0900
+Message-ID: <20260904080618.2098450-1-malhyuk97@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 4 potential
-issue(s) to consider:
+drm_sched_fence_get_timeline_name() dereferences fence->sched->name. A driver
+that allocates a drm_gpu_scheduler per context, queue or VM frees that scheduler
+on context teardown, but the finished fence can outlive it: unprivileged
+userspace holds the exported fence via a sync_file or drm_syncobj and later
+queries its timeline name (e.g. SYNC_IOC_FILE_INFO), reading the freed
+scheduler. Same class as CVE-2025-38703 (drm/xe) and CVE-2025-71302
+(drm/panthor); amdxdna, nouveau and msm (VM_BIND) are still affected in
+mainline, so this fixes it in the core.
 
-Critical: 0 · High: 1 · Medium: 3 (1) · Low: 0
+v3 tried to drop the finished fence's ->release so that dma_fence detaches the
+ops on signalling. That turned out not to be viable:
 
-- [High] phy_restore_genphy_irq() in drivers/net/phy/phy_device.c uses
-  bus->irq[phydev->mdio.addr] as the recovery source and its new comment…
-- [Medium] phy_restore_genphy_irq()
-  (drivers/net/phy/phy_device.c:1742-1746) infers "the bind cycle…
-- [Medium] The value is destroyed by phy_probe() (the driver-core ->probe
-  callback, drivers/net/phy/phy_device.c:3710-3711) for ANY driver where…
-- [Medium] The new phy_restore_genphy_irq() call added at
-  phy_attach_direct()'s error_module_put label…
+ - amdgpu dereferences to_drm_sched_fence() unconditionally
+   (amdgpu_cs_p2_dependencies(), amdgpu_ctx_fence_time()), and ops-detach makes
+   the helper return NULL for a signalled fence - a deterministic NULL deref
+   reachable by an unprivileged process;
+ - drm/imagination uses the ops pointer as an identity test in
+   pvr_queue_fence_is_native(), which Philipp showed would then race; and
+ - Christian pointed out that the reference must go from the finished to the
+   scheduled fence, not the other way around, so v3's refcount rework was wrong.
 
-Pre-existing issues:
-- [Medium] Pre-existing defect on the error label this patch extends
-  (reported only because validation was requested; it is not part of…
+So v4 goes back to the minimal caching fix: get_timeline_name() returns a name
+cached at fence init and never dereferences ->sched. Both .release callbacks,
+the shared allocation, the call_rcu() free and to_drm_sched_fence() all stay
+exactly as they are today, so there is no amdgpu/pvr regression and nothing new
+for the backend to reason about.
 
---
+Detaching the ops is still the better fix in the long run - it is what the
+dma-fence rules ask for, and it would also cover get_driver_name(), which can
+return a string literal from a module that has since been unloaded. Patch 2
+records that as a TODO entry (and a comment next to the fence ops) with the
+three blockers that have to be solved first, so the cleanup is not lost.
 
-net: phy: restore the interrupt after a generic-driver bind cycle
+There is no unrelated formatting churn in this version; the kerneldoc reflow
+that was mixed into v3 is gone.
 
-A PHY that gets the generic driver at attach time has phydev->irq forced to
-PHY_POLL by phy_probe(), and nothing puts it back when the generic driver is
-released or when its probe fails.  This patch adds a helper that copies
-bus->irq[addr] back into phydev->irq, called from phy_detach() and from the
-error_module_put label in phy_attach_direct().
+Tested with KUnit under KASAN and kmemleak (kunit.py --arch=x86_64), matched
+pair:
 
-Reference given below the --- separator:
-https://lore.kernel.org/netdev/20260824024029.41310-3-f@lex.la/
+  - unfixed (get_timeline_name() dereferencing ->sched):
+      [FAILED] drm_sched_dma_fence_uaf
+      BUG: KASAN: slab-use-after-free in
+          drm_sched_fence_get_timeline_name+0x9c/0xb0
+  - fixed (this series):
+      [PASSED] drm_sched_dma_fence_uaf
+      Testing complete. Ran 43 tests: passed: 43
 
-> diff --git a/drivers/net/phy/phy_device.c b/drivers/net/phy/phy_device.c
-> index 94b2e85e00a37..20fc29355f60b 100644
-> --- a/drivers/net/phy/phy_device.c
-> +++ b/drivers/net/phy/phy_device.c
-> @@ -1734,6 +1734,17 @@ static bool phy_drv_supports_irq(const struct phy_driver *phydrv)
->  	return phydrv->config_intr && phydrv->handle_interrupt;
->  }
->  
-> +/* Undo the PHY_POLL that phy_probe() sets when a driver without
-> + * interrupt callbacks binds. The bind cycle never writes bus->irq[],
-> + * so the table still holds the pre-bind value; anything else the PHY
-> + * carries did not come from the bind and must stand.
-> + */
-> +static void phy_restore_genphy_irq(struct phy_device *phydev)
-> +{
-> +	if (phydev->irq == PHY_POLL)
-> +		phydev->irq = phydev->mdio.bus->irq[phydev->mdio.addr];
-> +}
+No kmemleak reports, and the whole drm_sched suite passes with no regressions.
 
-[Severity: High]
-The comment states that "the table still holds the pre-bind value".  Is that
-true for buses whose consumers install the PHY interrupt only into
-phydev->irq and never touch the table?
+Link to v3 (ops-detach):
+https://lore.kernel.org/lkml/20260902144204.1843670-1-malhyuk97@gmail.com/
+Link to v2 (caching):
+https://lore.kernel.org/lkml/20260902105808.1541063-1-malhyuk97@gmail.com/
 
-mdiobus_alloc_size() fills every entry with PHY_POLL:
+v4:
+ - Drop the ops-detach/refcount rework; return to caching the timeline name
+   (per the amdgpu/pvr regression above and Christian's reference-direction
+   point).
+ - Add a TODO comment and a Documentation/gpu/todo.rst entry for the
+   ops-detach cleanup (per Philipp).
+ - Keep Cc: stable with "we don't know since when" (per Philipp).
+ - No formatting-only hunks in the fix patch.
+ - Test suite renamed to drm_sched_dma_fence_uaf_tests for consistency with the
+   sibling suites; re-verified under kmemleak as well as KASAN.
 
-drivers/net/phy/mdio_bus_provider.c:mdiobus_alloc_size() {
-	...
-	for (i = 0; i < PHY_MAX_ADDR; i++)
-		bus->irq[i] = PHY_POLL;
-	...
-}
+Jonghyuk Kim(MalHyuk) (3):
+  drm/sched: cache the timeline name to fix a use-after-free
+  drm/sched: add the fence ops-detach cleanup to the TODO list
+  drm/sched/tests: add a UAF regression test for the timeline name
 
-smsc95xx_bind() allocates its bus with mdiobus_alloc() and then only does:
-
-drivers/net/usb/smsc95xx.c:smsc95xx_bind() {
-	...
-	pdata->phydev->irq = phy_irq;
-	...
-}
-
-lan78xx does the same with the irq_domain mapping:
-
-drivers/net/usb/lan78xx.c {
-	...
-		phydev->irq = dev->domain_data.phyirq;
-	...
-}
-
-For those setups the sequence the changelog describes seems to survive
-unchanged: phy_probe() writes PHY_POLL, phy_restore_genphy_irq() reads
-PHY_POLL back out of the table, and the specific driver that binds later
-still starts polled.  Only producers that mirror the value into the table
-(fwnode_mdio.c, stmmac_mdio.c, mlxbf_gige_main.c) are recovered.
-
-Would saving the pre-bind phydev->irq itself, rather than deriving it from
-bus->irq[], cover every source?  As it stands, the in-tree comment documents
-an invariant that MAC drivers are not currently required to maintain, and
-nothing next to mii_bus::irq mentions the new expectation.
-
-[Severity: Medium]
-The comment also claims that "anything else the PHY carries did not come from
-the bind and must stand", and the changelog says the restore happens "only
-where the cycle left PHY_POLL".  Since no pre-bind value or provenance is
-recorded, can the equality test really distinguish a bind-installed PHY_POLL
-from a caller-installed one?
-
-Other in-tree writers of PHY_POLL, none of which come from the bind cycle:
-
-drivers/net/phy/phy_device.c:phy_attach_direct() {
-	...
-	if (phydev->dev_flags & PHY_F_NO_IRQ)
-		phydev->irq = PHY_POLL;
-	...
-}
-
-drivers/net/ethernet/xscale/ixp4xx_eth.c:ixp4xx_eth_probe() {
-	...
-	phydev->irq = PHY_POLL;	/* right after of_phy_get_and_connect() */
-	...
-}
-
-drivers/net/ethernet/asix/ax88796c_main.c:ax88796c_probe() {
-	...
-	ax_local->phydev->irq = PHY_POLL;	/* after phy_connect() */
-	...
-}
-
-drivers/net/ethernet/qualcomm/emac/emac-mac.c also does this.
-
-For such a PHY on a bus that does mirror a live interrupt into bus->irq[],
-phy_detach() now hands back the interrupt number that the board or MAC had
-deliberately taken out of service.  The next phy_connect_direct() acts on it:
-
-drivers/net/phy/phy_device.c:phy_connect_direct() {
-	...
-	if (phy_interrupt_is_valid(phydev))
-		phy_request_interrupt(phydev);
-	...
-}
-
-and because those MACs re-assert PHY_POLL after connect, phy_disconnect()
-skips phy_free_interrupt(), which is the requested-and-never-freed asymmetry
-the changelog says the guard avoids.
-
-There is one more case in the same direction: phy_probe() only overwrites the
-irq when phy_interrupt_is_valid() is true:
-
-drivers/net/phy/phy_device.c:phy_probe() {
-	...
-	if (!phy_drv_supports_irq(phydrv) && phy_interrupt_is_valid(phydev))
-		phydev->irq = PHY_POLL;
-	...
-}
-
-so a PHY that entered the generic bind already polling is untouched by the
-probe, yet it is still "restored" on the way out.  Could the guard be keyed on
-state the bind cycle actually records, or the comment reworded as a heuristic?
-
-[Severity: Medium]
-The value is destroyed in phy_probe(), which is the driver core ->probe
-callback, for any driver where !phy_drv_supports_irq(phydrv).  Why is the undo
-placed in the phylib attach/detach pair rather than in phy_remove(), the
-matching ->remove callback installed by phy_driver_register()?
-
-phy_remove() already reverts other probe-time state (clears phydev->drv,
-re-asserts the reset, unregisters the LED triggers) but does not touch
-phydev->irq, and it is reachable without going through phy_detach():
-
-drivers/base/bus.c:unbind_store() {
-	...
-	if (dev && bus_rescan_devices_helper(dev, NULL) == 0) {
-		device_driver_detach(dev);
-	...
-}
-
-After a sysfs unbind of the generic driver, does phydev->irq stay at
-PHY_POLL, so that a real interrupt-capable driver binding afterwards inherits
-it and the PHY is polled for the rest of the uptime again?
-
-The same question applies to a real, non-generic PHY driver that lacks
-config_intr/handle_interrupt: phy_probe() clobbers phydev->irq for it too, but
-phydev->is_genphy_driven is 0, so neither new call site restores anything.
-
-Restoring in phy_remove() from a value saved in phy_probe() would need neither
-the irq == PHY_POLL heuristic nor the assumption about bus->irq[].
-
-The changelog says the change covers "both exits" of the bind cycle; the sysfs
-unbind exit is mentioned only in the lore link below the --- separator, so it
-will not be in git history.
-
->  
->  /**
->   * phy_attach_direct - attach a network device to a given PHY device pointer
->   * @dev: network device to attach
-> @@ -1896,6 +1907,7 @@ int phy_attach_direct(struct net_device *dev, struct phy_device *phydev,
->  
->  error_module_put:
->  	module_put(d->driver->owner);
-> +	phy_restore_genphy_irq(phydev);
->  	phydev->is_genphy_driven = 0;
->  	d->driver = NULL;
->  error_put_device:
-
-[Severity: Medium]
-Is this label reached only for "a generic probe that fails", as the changelog
-says?  phydev->is_genphy_driven is a persistent bit on the phy_device, and the
-probe/bind block in phy_attach_direct() is gated on that bit and runs before
-the already-attached check:
-
-drivers/net/phy/phy_device.c:phy_attach_direct() {
-	...
-	if (phydev->is_genphy_driven) {
-		err = d->driver->probe(d);
-		if (err >= 0)
-			err = device_bind_driver(d);
-
-		if (err)
-			goto error_module_put;
-	}
-
-	if (phydev->attached_dev) {
-		dev_err(&dev->dev, "PHY already attached\n");
-		err = -EBUSY;
-		goto error;
-	}
-	...
-}
-
-So a second phy_attach_direct() on a phydev that is already attached and
-genphy-driven (for instance two MACs whose phy-handle resolves to the same DT
-node) re-runs probe and device_bind_driver() on an already bound device.
-device_bind_driver() -> driver_sysfs_add() -> sysfs_create_link() returns
--EEXIST for the links that already exist, and control lands here.
-
-Does that then rewrite the live PHY's irq?  The first successful attach left
-it at PHY_POLL, and on a DT/fwnode bus bus->irq[addr] holds a real number.
-Once phydev->irq is no longer PHY_POLL the state machine stops re-arming:
-
-drivers/net/phy/phy.c:_phy_state_machine() {
-	...
-	if (phy_polling_mode(phydev) && phy_is_started(phydev))
-		phy_queue_state_machine(phydev,
-					phy_get_next_update_time(phydev));
-	...
-}
-
-and no interrupt was ever requested for the restored number, so link changes
-on the still-attached PHY would go undetected with no message.
-
-[Severity: Medium]
-This isn't a bug introduced by this patch, but the label being extended here
-does not unwind a successful phy_probe().  When probe() returns 0 and
-device_bind_driver() then fails, the device is not bound, so the driver core
-never calls phy_remove() for this attempt, and this label only does
-module_put(), clears is_genphy_driven, clears d->driver and puts the device.
-
-Left behind from phy_probe():
-
-drivers/net/phy/phy_device.c:phy_probe() {
-	...
-	/* Deassert the reset signal */
-	phy_device_reset(phydev, 0);
-	...
-	if (!phydev->is_on_sfp_module)
-		phy_led_triggers_register(phydev);
-	...
-}
-
-The phydev is not freed here (the mdio bus owns it), so
-phydev->phy_led_triggers keeps pointing at the array allocated by
-phy_led_triggers_register(), the ports set up by phy_setup_ports() and the sfp
-upstream registration stay live, and the PHY is left with its reset
-de-asserted.  Should this label also assert the reset and drop those
-allocations, or call into a shared unwind with phy_remove()?
+ Documentation/gpu/todo.rst                    | 39 ++++++++
+ drivers/gpu/drm/scheduler/sched_fence.c       | 24 ++++-
+ drivers/gpu/drm/scheduler/tests/Makefile      |  1 +
+ .../drm/scheduler/tests/tests_integration.c   | 88 +++++++++++++++++++
+ include/drm/gpu_scheduler.h                   | 18 +++-
+ 5 files changed, 168 insertions(+), 2 deletions(-)
+ create mode 100644 drivers/gpu/drm/scheduler/tests/tests_integration.c
 
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260902080511.2211261-1-f%40lex.la
+2.43.0
+
