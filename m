@@ -1,87 +1,271 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ot1-f52.google.com (mail-ot1-f52.google.com [209.85.210.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCE204A3F17;
-	Fri,  4 Sep 2026 16:15:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62AF718BC3B
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 16:15:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788538534; cv=none; b=WXLHoIs8DLFFNuZpMTgWF1aIBAfH0Y0sgK3W0v5Nyo0uv2iEHT+/+djOri/RVOBuFr7jw91KDN9J0RMC9IKLXycK7m8bdXBzWXzKa2JPciwgxRCxPMTtwPsHA3pJ5UDdQRft9Lrpb3py3scTib8YhVr8qjWFEqTQktYJwirR9gI=
+	t=1788538561; cv=none; b=h7bkcJ7M2Gbe0vSQMEMe7zlNKOLc5mjj4q7A2tjBR5jWwmL1pE1kA7yUl+Lwhgzffe1eNW0HJN7sAdv5c2O+w8Hb1eGhKHlcrmzSifYklkxXNopk1LBRTo0hsuNjHZVoI+8cAHE0pzPQxjx4kNF+iNHUJu5If9rVpwMPz/6P4mw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788538534; c=relaxed/simple;
-	bh=jXlLT8SaK+Ps3N5vV4xJEUHEU3WB8mRODl7Q9bkHRKw=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=rraqdV1rK0Z/e/k5R3ZJ0QPzVzPpc3LmP0NIUr1cpo4EED9KuiToeW7aPUCpIdU2WSWbhJ3t7awTa5X6l0GzBC6V2ViDtzA05vYuJDWqwjeTMMoFgyMrduj/bOpqRo/1OzjmjgzsDstqOlPoGR7FFlURtj6W02cKgoldeho6pFQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=IAl74W7I; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1788538561; c=relaxed/simple;
+	bh=RcAGFUg1z+YcHee5CAWGvwD5i9w/2k+xAov1aHj+l2M=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=jP+YQJQdi+GPJzUu33L4ZTCgEOofmlsu1HnwOUNJZEKN5bY5YQOaykyy/ccus+HcsjU22VcfqxjRZlFnZX/IfDWugoqckyRG7u4/KNt0hSqWNKKWSYWPAz8a0jywWSErhnb1J1hGmm0BPmcMMBGnl27oMV6siz0wNlhk5uWLfMQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PpWGLava; arc=none smtp.client-ip=209.85.210.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="IAl74W7I"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 16F961A19AB;
-	Fri,  4 Sep 2026 16:15:31 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id DA2B36057F;
-	Fri,  4 Sep 2026 16:15:30 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 9C09211C78767;
-	Fri,  4 Sep 2026 18:15:25 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1788538526; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=SYNMh+wlYQbXqey/rgOB5yDcItmOFPFcTITbDauYbKE=;
-	b=IAl74W7ImszHKs0rHmLq7TC01B3a+fipQqD9OUxGgAnar6XLleRvLssoJa/mjAme5IvCUg
-	fz4n1vWwsLgHlEbXwZkqPlxG2nfPVcoC5Qq6hS4hvzn61FID2DVqso+cNUKTx7WQgR5/Pj
-	wyNBOXVQLrby+Azn+5uvOAdJUYWFbQGtXs4fR9YfK/BRlBGO771PasLZarWIyvWIfqtpqp
-	4KbSza2273Afyy8XYuHkRqYsHFywo6n+TQQIa7OkNJ/auftcZ92cgvYoL+m0RMxsIO+ob3
-	oJ5AAhX3nzcfiDQIxlnz1h/6+r18+80n3l4eeL0F2ocVyUowS8QOxFO1xn0THA==
-From: Miquel Raynal <miquel.raynal@bootlin.com>
-Date: Fri, 04 Sep 2026 18:15:11 +0200
-Subject: [PATCH 2/2] spi: ma35d1-qspi: Allow DTR operations with the
- regular SPI API
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PpWGLava"
+Received: by mail-ot1-f52.google.com with SMTP id 46e09a7af769-7f5934ba2a5so748889a34.3
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 09:15:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788538558; x=1789143358; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=A1hemwYtwG/7uIhW+qr1t1TgzDnEp44et00l3jfA9Gc=;
+        b=PpWGLavasMJIbRdZrf6vNvPrZeQUXSecZeucaH1B8OwWTWEJ5jacssR1FybuAZnZ4R
+         XRXnHYVHzbQlVl4fq7NUcOyHlql1T9Dml9QC8sV3i+7vQN6Z+TDnuk7xPGZyJHioaAMW
+         1VJ2UuYr2K7SeENwndwJdB4TSS+CxHKamp/S7uw4NzvDcKr1MIMnV6vG9Ql7nMOreF9L
+         0w/DVWmVOuS6SVCi1YPfLHZTodfjAju37MkMyP+v+r9Qj1owRoEnPoSws+gWWgVNMwbg
+         VDB+5rk3wrq/oOpBYD9k6rJvirQEYLEFZW2kx2qmbmBiYb196e/+CpNJBpAJeU1eS2Zv
+         QDCA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788538558; x=1789143358;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=A1hemwYtwG/7uIhW+qr1t1TgzDnEp44et00l3jfA9Gc=;
+        b=T7u9x2ZafTQ+geKXQMd6jRI1fvcm0ScMTTxcKXf1VdOMaSgfalVYyv8HMK9pJPEQYh
+         4wqZqqci6zCnx7EFxMzzAJgFiPWAbp9wKU2d6Ag5dsPLaw8RGnaAq1PSP0tWEvgnUQkI
+         p3IjE3Zdxyb0ivVbmBf9HWc2svEe9Gw6AmRCNbStqTSQ/5mN0s0u2ADRSzQih6GrqhVF
+         hOGnpeyh8eXQayJLdeJ5t0N2ZIlNFThsWY499JRc33EQnUmaVRjN7NVoW1fjjEN7mdQF
+         +upyXOWsCa6jPIWt8F7Is+RvN+5W1lwYVpcKtcKlZyXDZG9UHEZVp0fFibwKSd5ryX7Q
+         epDQ==
+X-Forwarded-Encrypted: i=1; AKwUvBz2sfxtPC9tpCT5DsQFcC50Qfo7JSs5g2ROcRULkJ8/rr+arhrxAwYDhmHKjnirtbXLwEN04zwomKkWxSA=@vger.kernel.org
+X-Gm-Message-State: AFuF++lqrcLBM8SOGr8SzmA+ydIJ4pYv45dG9FYECXEVsoqXz38ilX7h
+	3aKf8a1VeiiCaXFME/VDtFsta1oxqRX3UqLYvOFwNYhhX7Cjq/ewfUT9
+X-Gm-Gg: AYBFou0xqzc5cVBJ73fOFAYvTejJdhhlaRVapex3jZhKLJneOhuQmxngEJLjmMqXqiM
+	6uwct4eLKo+5xihmmcyJ41SLBI/REfTm0YkGmbDMrHuNxaqe8trZfyafEGiXRfscDiKsTaPuDd4
+	a2n7Ua0e3qy9wjhgUpqJthJB8s/t7vdAlelQEylzbcw25cXWRX6K0D5DhwbJuTKZsob82zzwOIp
+	aXKzxbEeP4wgoMje60pK8lS7HbDzUd6tiXMNh1Ztt3MBc/Ex8qBNFoz0Veb4taPMiHbzXtQdGst
+	6xwiH7jRj+7HxTcxpyQT3TWHtrzpMBSnXMAZyr8BD7Er1chifjMoc1JIxwTP14e2GfeH7fCBBpK
+	q3YEq95Jo2IMSB+ZGeI0XEgy8q8Rv5xGwe8uTA+7pLKyuhKj+jmvrfnDw/kgBM49kTJUC8iBUm+
+	1HeltbymTLsX8lzlk5bdBI9QaVvcfwlJZU47YDxzUbRf2qWM9wEGLPNHojHPm/vitvOK8/qQLdX
+	pCMtSsmgYUJJVwKGW1L93R89vjw+pM=
+X-Received: by 2002:a05:6830:211a:b0:7fa:ab72:9dfa with SMTP id 46e09a7af769-7faab72a5c0mr3279420a34.18.1788538557859;
+        Fri, 04 Sep 2026 09:15:57 -0700 (PDT)
+Received: from archlinux.lan ([136.34.156.120])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-7fa02cddc41sm3275988a34.22.2026.09.04.09.15.56
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 04 Sep 2026 09:15:57 -0700 (PDT)
+From: Danish Khateeb <danishkhateeb03@gmail.com>
+To: Jiri Kosina <jikos@kernel.org>,
+	Benjamin Tissoires <bentiss@kernel.org>
+Cc: Chen Changcheng <chenchangcheng@kylinos.cn>,
+	linux-input@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Danish Khateeb <danishkhateeb03@gmail.com>,
+	syzbot+abcedffc9201f2bb66c2@syzkaller.appspotmail.com
+Subject: [PATCH v2] HID: corsair: use disable_work_sync() to tear down the LED workers
+Date: Fri,  4 Sep 2026 11:15:31 -0500
+Message-ID: <20260904161531.160118-1-danishkhateeb03@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260904143610.119808-1-danishkhateeb03@gmail.com>
+References: <20260904143610.119808-1-danishkhateeb03@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260904-perso-ma35d1-master-v1-2-b6936e8c6fa1@bootlin.com>
-References: <20260904-perso-ma35d1-master-v1-0-b6936e8c6fa1@bootlin.com>
-In-Reply-To: <20260904-perso-ma35d1-master-v1-0-b6936e8c6fa1@bootlin.com>
-To: Mark Brown <broonie@kernel.org>, Jacky Huang <ychuang3@nuvoton.com>, 
- Shan-Chun Hung <schung@nuvoton.com>
-Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
- linux-spi@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, 
- Miquel Raynal <miquel.raynal@bootlin.com>
-X-Mailer: b4 0.14.3
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Transfer-Encoding: 8bit
 
-The feature was implemented but not actually enabled for regular SPI
-operations (as opposed to spi-mem operations). Make sure the missing
-capability is actually set.
+Tearing down the K90 LEDs races with their brightness workers in two
+different ways, and swapping cancel_work_sync() and
+led_classdev_unregister() around only trades one for the other.
 
-Reported-by: Mark Brown <broonie@kernel.org>
-Closes: https://lore.kernel.org/all/09c3928f-4b58-4ac6-8e1a-84dfe3ff6b92@sirena.org.uk/
-Fixes: 15e9362f6190 ("spi: ma35d1-qspi: Add DTR support")
-Signed-off-by: Miquel Raynal <miquel.raynal@bootlin.com>
+Cancelling before the unregister, as k90_cleanup_backlight() and
+k90_cleanup_macro_functions() have done since
+commit eb51c9f8cb4f ("HID: corsair: cancel worker before
+unregistering LED to fix use-after-free"), leaves
+led_classdev_unregister() free to re-arm the worker: it calls
+led_set_brightness(led_cdev, LED_OFF), which reaches
+k90_brightness_set() and schedule_work()s the item again. The structure
+holding that work is then freed while it is still linked into the
+worklist:
+
+  BUG: KASAN: slab-use-after-free in __list_add_valid_or_report+0x186/0x210
+  Read of size 8 at addr ffff888102a1ead0 by task kworker/0:1/11
+    __queue_work+0xade/0x1350
+    queue_work_on+0xb6/0xc0
+    led_classdev_unregister+0x26b/0x340
+    corsair_remove+0x1c2/0x2d0
+    hid_device_remove+0xba/0x1e0
+    usbhid_disconnect+0xa0/0xe0
+  Allocated by task 129:
+    corsair_probe+0x560/0xd50
+  Freed by task 11:
+    corsair_remove+0xec/0x2d0
+
+Cancelling after the unregister avoids that, but reintroduces precisely
+the use-after-free that commit set out to fix: a worker that has
+already tested led->removed and found it false goes on to dereference
+led->cdev.dev, which led_classdev_unregister() has meanwhile freed via
+device_unregister().
+
+Use disable_work_sync(), which provides both halves at once. It waits
+for a worker that is already executing, so nothing can be sitting
+between the led->removed test and the led->cdev.dev dereference when the
+device goes away, and it makes the subsequent schedule_work() from the
+LED_OFF callback fail rather than queue, so nothing is left on the
+worklist to be freed. The ordering then stops mattering. The removed
+flag is left alone; it is redundant for these paths now but harmless.
+
+The fail_sysfs error path in k90_init_macro_functions() unregisters
+before cancelling, and so still carries the dereference-after-free that
+was fixed in the teardown paths, so convert it too.
+
+Fixes: eb51c9f8cb4f ("HID: corsair: cancel worker before unregistering LED to fix use-after-free")
+Reported-by: syzbot+abcedffc9201f2bb66c2@syzkaller.appspotmail.com
+Link: https://syzkaller.appspot.com/bug?extid=abcedffc9201f2bb66c2
+Assisted-by: LLM
+Signed-off-by: Danish Khateeb <danishkhateeb03@gmail.com>
 ---
- drivers/spi/spi-ma35d1-qspi.c | 1 +
- 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/spi/spi-ma35d1-qspi.c b/drivers/spi/spi-ma35d1-qspi.c
-index 7f938d0c6f1f..ee3427640f3a 100644
---- a/drivers/spi/spi-ma35d1-qspi.c
-+++ b/drivers/spi/spi-ma35d1-qspi.c
-@@ -645,6 +645,7 @@ static int nuvoton_qspi_probe(struct platform_device *pdev)
- 	ctlr->max_message_size = nuvoton_qspi_max_message_size;
- 	ctlr->mem_ops = &nuvoton_qspi_mem_ops;
- 	ctlr->mem_caps = &nuvoton_qspi_mem_caps;
-+	ctlr->dtr_caps = true;
- 	ctlr->set_cs = nuvoton_qspi_set_cs;
- 	ctlr->transfer_one = nuvoton_qspi_transfer_one;
- 	ctlr->bits_per_word_mask = SPI_BPW_MASK(8);
+Changes in v2:
+- v1 moved cancel_work_sync() after led_classdev_unregister(). That was
+  in effect a revert of the commit in the Fixes: tag and reintroduced
+  the use-after-free it fixed; thanks to the Sashiko review on the v1
+  thread for catching it.
+- Use disable_work_sync() instead, which closes both races without
+  depending on the ordering at all.
+- Also convert the fail_sysfs error path in k90_init_macro_functions(),
+  which v1 left alone and which still had the same use-after-free.
 
+Tested with the reproducer below on a KASAN kernel with panic_on_warn=1,
+so any report would have been fatal: 15 probe/remove cycles, no reports.
+Unpatched it panics on the first unbind. That exercises the re-arm race
+only. The dereference-after-free race is a few instructions wide and I
+was not able to trigger it, so that half rests on the disable_work_sync()
+semantics and on the analysis in the Fixes: commit.
+
+Reproducer. Needs CONFIG_HID_CORSAIR, CONFIG_USB_DUMMY_HCD,
+CONFIG_USB_CONFIGFS_F_HID and KASAN. It fakes a K90 with a configfs
+gadget on dummy_hcd and unbinds it. syzbot has no reproducer for this one.
+
+  #!/bin/sh
+  # Reproducer for the hid-corsair teardown use-after-free.
+  #
+  # Emulates a Corsair K90 (1b1c:1b02) with a configfs USB gadget bound to
+  # dummy_hcd, so hid-corsair probes and registers its two LEDs. Unbinding the
+  # gadget drives corsair_remove(), which is the path under test:
+  #
+  #	removed = true;
+  #	cancel_work_sync(&work);        <- work cancelled
+  #	led_classdev_unregister(&cdev); <- led_set_brightness(LED_OFF) re-queues it
+  #	kfree(k90);                     <- freed while still on the worklist
+  #
+  # The splat surfaces on the *next* worklist insertion, as a KASAN
+  # slab-use-after-free in __list_add_valid_or_report() under __queue_work().
+  #
+  # Run inside a KASAN guest. Fires on the first unbind.
+  set -e
+
+  G=/sys/kernel/config/usb_gadget/k90
+
+  mountpoint -q /sys/kernel/config || mount -t configfs none /sys/kernel/config
+
+  UDC=$(ls /sys/class/udc | head -1)
+  [ -n "$UDC" ] || { echo "no UDC found (need CONFIG_USB_DUMMY_HCD)"; exit 1; }
+  echo "using UDC: $UDC"
+
+  cleanup() {
+  	[ -d "$G" ] || return 0
+  	echo "" > "$G/UDC" 2>/dev/null || true
+  	rm -f "$G"/configs/c.1/hid.usb0 2>/dev/null || true
+  	rmdir "$G"/configs/c.1/strings/0x409 "$G"/configs/c.1 2>/dev/null || true
+  	rmdir "$G"/functions/hid.usb0 "$G"/strings/0x409 "$G" 2>/dev/null || true
+  }
+  cleanup
+
+  mkdir -p "$G"
+  cd "$G"
+  echo 0x1b1c > idVendor          # USB_VENDOR_ID_CORSAIR
+  echo 0x1b02 > idProduct         # USB_DEVICE_ID_CORSAIR_K90
+
+  mkdir -p strings/0x409
+  echo "0001"    > strings/0x409/serialnumber
+  echo "Corsair" > strings/0x409/manufacturer
+  echo "K90"     > strings/0x409/product
+
+  mkdir -p functions/hid.usb0
+  echo 1 > functions/hid.usb0/protocol      # keyboard
+  echo 1 > functions/hid.usb0/subclass
+  echo 8 > functions/hid.usb0/report_length
+  # Standard HID boot-keyboard report descriptor, 63 bytes.
+  # NOTE: octal escapes, not \xHH -- Debian's /bin/sh is dash, whose printf does
+  # not implement \xHH and would write the escapes out as literal ASCII text.
+  printf '\005\001\011\006\241\001\005\007\031\340\051\347\025\000\045\001\165\001\225\010\201\002\225\001\165\010\201\003\225\005\165\001\005\010\031\001\051\005\221\002\225\001\165\003\221\003\225\006\165\010\025\000\045\145\005\007\031\000\051\145\201\000\300' \
+  	> functions/hid.usb0/report_desc
+
+  desc_sz=$(wc -c < functions/hid.usb0/report_desc)
+  [ "$desc_sz" -eq 63 ] || { echo "BAD DESCRIPTOR ($desc_sz bytes, want 63)"; exit 1; }
+
+  mkdir -p configs/c.1/strings/0x409
+  echo "c1" > configs/c.1/strings/0x409/configuration
+  ln -s functions/hid.usb0 configs/c.1/
+
+  echo "binding gadget..."
+  echo "$UDC" > UDC
+  sleep 2
+
+  dev=$(ls /sys/bus/hid/drivers/corsair/ 2>/dev/null | grep ':' || true)
+  [ -n "$dev" ] || { echo "hid-corsair did not bind - check dmesg"; cleanup; exit 1; }
+  echo "bound: $dev"
+  echo "LEDs: $(ls /sys/class/leds 2>/dev/null | grep "$dev" | tr '\n' ' ')"
+
+  echo "--- unbinding (triggers corsair_remove) ---"
+  echo "" > UDC
+  sleep 2
+
+  cleanup
+  echo "done (no splat)"
+ drivers/hid/hid-corsair.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/hid/hid-corsair.c b/drivers/hid/hid-corsair.c
+index 278c6efb565d..f966005d69dd 100644
+--- a/drivers/hid/hid-corsair.c
++++ b/drivers/hid/hid-corsair.c
+@@ -507,8 +507,8 @@ static int k90_init_macro_functions(struct hid_device *dev)
+ 
+ fail_sysfs:
+ 	k90->record_led.removed = true;
++	disable_work_sync(&k90->record_led.work);
+ 	led_classdev_unregister(&k90->record_led.cdev);
+-	cancel_work_sync(&k90->record_led.work);
+ fail_record_led:
+ 	kfree(k90->record_led.cdev.name);
+ fail_record_led_alloc:
+@@ -524,7 +524,7 @@ static void k90_cleanup_backlight(struct hid_device *dev)
+ 
+ 	if (drvdata->backlight) {
+ 		drvdata->backlight->removed = true;
+-		cancel_work_sync(&drvdata->backlight->work);
++		disable_work_sync(&drvdata->backlight->work);
+ 		led_classdev_unregister(&drvdata->backlight->cdev);
+ 		kfree(drvdata->backlight->cdev.name);
+ 		kfree(drvdata->backlight);
+@@ -540,7 +540,7 @@ static void k90_cleanup_macro_functions(struct hid_device *dev)
+ 		sysfs_remove_group(&dev->dev.kobj, &k90_attr_group);
+ 
+ 		k90->record_led.removed = true;
+-		cancel_work_sync(&k90->record_led.work);
++		disable_work_sync(&k90->record_led.work);
+ 		led_classdev_unregister(&k90->record_led.cdev);
+ 		kfree(k90->record_led.cdev.name);
+ 
 -- 
-2.54.0
+2.55.0
 
