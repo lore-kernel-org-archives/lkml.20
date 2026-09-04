@@ -1,72 +1,97 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FFB34A8A2E;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B48924A8A2F;
 	Fri,  4 Sep 2026 13:40:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788529238; cv=none; b=d3zFiW+TSlM6PoHWtG14vw/ZcGBmLWgfOzddopboFVzk/Nj2iEhoQaHo/mXZ3/YGb5gexnkWzIT+eTbiJ1sl7Z5+h0kC4Lje8SHbbIFrVLmvHrcZey4QXUh7y5KgvxPfbal7PLRtmn4ELb5WtXSOol66kOs8C1hW8fY1q0T1txU=
+	t=1788529239; cv=none; b=QaMTxSJ/lc2cK5TRaJouNsmoh8rV4xp1VoL/vgYbjAb4r7wiIhaWfkgQke//+UyJz+zRq4+mqnNBmGmei+LEgLQJfEemsbhkIyNl+kYeo6Phj2LvEXnpmL7C6BxNNlYxmUsIony3W685rYVo7jZMTA+6E8zuTjKaeQmby7JMCFE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788529238; c=relaxed/simple;
-	bh=BqXkFmr2BFmvprEIenjqZoQHObgtMMV0RDJ1nAP08Q4=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=oohKjRQ7ELmtj/uvajaEISAc3wEuUE/fLNNbAEfmtcE4fC2M7tOg3FRYpwXN84mgM4vPCKDjBLs0dpAD2zMqjn4TTat1vtVdk7ZUOZYKk2XJP8H2Ht/YraNmtp/3/U/2TI1WFLvtX/U4Kh2SAX6l4GvNLWjgoxfqGpYENvMVUE4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ijU2MkHx; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788529239; c=relaxed/simple;
+	bh=oDTUjGw+6W/laJihCaI/nHIVNNBRUwU1ZUguXF7ceNo=;
+	h=Date:Content-Type:MIME-Version:From:Cc:To:In-Reply-To:References:
+	 Message-Id:Subject; b=nrfJKhoNebXvTkB3gjugN5GlAJDnudeip9FgwGtWJA/9jzH1N8bulld6+3+MU9z0DLspEv5hzESjaOI1QwH+h2I+SZk8fqOoOlILlhotyeFfF0AFea2sfeZX0Z1Cg0JcvN9OcV/kUYu5lOrucP7YOE/a75vpHZCszJWXJ5zomSs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QowOtgL7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ijU2MkHx"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4BB291F00A3D;
-	Fri,  4 Sep 2026 13:40:35 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QowOtgL7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 30ECF1F00A3E;
+	Fri,  4 Sep 2026 13:40:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1788529237;
-	bh=xTPV7lTpc7c2c1AVQyRzJ8VBjOgJlpzZPhcxPzeE5iU=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=ijU2MkHxl8Hr0e4IPPiedEvNTmWsoUO7MnI2tsbq/cw7NuYbtVOEAxVrDetrE+10s
-	 aLeppAXf4eildOCH41aPRyIrP9MwY19wvRF+uf/OLj++WUHWV4jMdW9m/6lQ3FDRJu
-	 77eb5xT741kR4WxQ/bBUVCvvYZji63A+C5iXNWAOVLum0sg+rjk8XHDkddbEo6JyCz
-	 N0qsJYhPZvtt0zdJvDzzs31tjVVmtV5bw0KNgYVJtMYQLCpSsbeNr9oUJGSJ2sKbr/
-	 hBsyTHXKiIVc6eQq+2wP1pFCqcK+y450gBHYSYA226B1mC2kE7B/I6Wp4pu/P15dNo
-	 DRTi3Q0nzC9zw==
-From: Michael Walle <mwalle@kernel.org>
-To: pratyush@kernel.org, tudor.ambarus@linaro.org, 
- miquel.raynal@bootlin.com, richard@nod.at, vigneshr@ti.com, 
- HyeongJun An <sammiee5311@gmail.com>
-Cc: takahiro.kuwano@infineon.com, linux-mtd@lists.infradead.org, 
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-In-Reply-To: <20260720141104.2054417-1-sammiee5311@gmail.com>
-References: <20260720141104.2054417-1-sammiee5311@gmail.com>
-Subject: Re: [PATCH v2 0/2] mtd: spi-nor: sfdp: bound two optional
- parameter tables
-Message-Id: <178852923504.3340372.1775017146035395867.b4-ty@b4>
-Date: Fri, 04 Sep 2026 15:40:35 +0200
+	bh=qSvx0dH2njZ5k/zFksKTcMGlm2nSFiXEvYGqs2t+ybA=;
+	h=Date:From:Cc:To:In-Reply-To:References:Subject;
+	b=QowOtgL77QVimOnRTCXdrXfBmc83w2GgoSYbfiQsdp3TRdT91e55tt8kx/1SgoDZf
+	 pYNfEXF6S7V7fC3mwvN3h3Rb0DV1yWA78Z4Mb9wMbLE9Wm5rNpNif2I8jwEa6IQIWe
+	 DGs+x+85+VhP1QxBX0nbHxwqZw6O9E1ZUiDuMVsxaJZHhuw9iV2ctqk/Lr9uPPAte3
+	 UWrl4r3lKO137HOaZROWzS3MsWvMeZd2ibAwVNP0fsnDXHEK21emIQDdUXhqSCvzFY
+	 Tfde95Xpix+MOEZW+rAWt0a4TuF6dEDnmTt0Ml3/UoMH7KQOtlpK4QhF50FPVlsQVD
+	 eemSoxeSsWt8A==
+Date: Fri, 04 Sep 2026 08:40:34 -0500
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.16.0
+From: "Rob Herring (Arm)" <robh@kernel.org>
+Cc: krzk+dt@kernel.org, stanley_chang@realtek.com, afaerber@suse.com, 
+ bartosz.golaszewski@oss.qualcomm.com, linux-spi@vger.kernel.org, 
+ conor+dt@kernel.org, cy.huang@realtek.com, devicetree@vger.kernel.org, 
+ broonie@kernel.org, linux-kernel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-realtek-soc@lists.infradead.org, 
+ jyanchou@realtek.com, james.tai@realtek.com
+To: Yu-Chun Lin <eleanor.lin@realtek.com>
+In-Reply-To: <20260904031252.244280-2-eleanor.lin@realtek.com>
+References: <20260904031252.244280-1-eleanor.lin@realtek.com>
+ <20260904031252.244280-2-eleanor.lin@realtek.com>
+Message-Id: <178852862340.96570.7431727982828977183.robh@kernel.org>
+Subject: Re: [PATCH 1/3] dt-bindings: spi: Add Realtek RTD1625 SPI support
 
 
-On Mon, 20 Jul 2026 23:11:02 +0900, HyeongJun An wrote:
-> Two of the optional SFDP parameter table parsers size a buffer from the
-> table length the flash reports, then index it at fixed offsets without
-> checking the table is long enough.
+On Fri, 04 Sep 2026 11:12:50 +0800, Yu-Chun Lin wrote:
+> From: Jyan Chou <jyanchou@realtek.com>
 > 
->   spi_nor_parse_profile1()  reads up to DWORD5,  never checks the length
->   spi_nor_parse_sccr()      reads up to DWORD22, never checks the length
+> Add DT binding schema for Realtek RTD1625 SPI Flash Controller
 > 
-> [...]
+> Signed-off-by: Jyan Chou <jyanchou@realtek.com>
+> Co-developed-by: Yu-Chun Lin <eleanor.lin@realtek.com>
+> Signed-off-by: Yu-Chun Lin <eleanor.lin@realtek.com>
+> ---
+>  .../bindings/spi/realtek,rtd1625-nor.yaml     | 68 +++++++++++++++++++
+>  1 file changed, 68 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/spi/realtek,rtd1625-nor.yaml
+> 
 
-Applied, thanks!
+My bot found errors running 'make dt_binding_check' on your patch:
 
-[1/2] mtd: spi-nor: sfdp: check the length of the xSPI Profile 1.0 table
-      commit: b9f34a95a81021fa1f3c9cb8cfd458e66824cad6
-[2/2] mtd: spi-nor: sfdp: check the length of the SCCR map
-      commit: 1413f38f37194673502e61cd3749e091c031370b
+yamllint warnings/errors:
 
-Best regards,
--- 
-Michael Walle <mwalle@kernel.org>
+dtschema/dtc warnings/errors:
+Documentation/devicetree/bindings/spi/realtek,rtd1625-nor.example.dts:18:18: fatal error: dt-bindings/clock/realtek,rtd1625-clk.h: No such file or directory
+   18 |         #include <dt-bindings/clock/realtek,rtd1625-clk.h>
+      |                  ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+make[2]: *** [scripts/Makefile.dtbs:140: Documentation/devicetree/bindings/spi/realtek,rtd1625-nor.example.dtb] Error 1
+make[2]: *** Waiting for unfinished jobs....
+make[1]: *** [/builds/robherring/linux-dt-review/Makefile:1717: dt_binding_check] Error 2
+make: *** [Makefile:248: __sub-make] Error 2
+
+doc reference errors (make refcheckdocs):
+
+See https://patchwork.kernel.org/project/devicetree/patch/20260904031252.244280-2-eleanor.lin@realtek.com
+
+The base for the series is generally the latest rc1. A different dependency
+should be noted in *this* patch.
+
+If you already ran 'make dt_binding_check' and didn't see the above
+error(s), then make sure 'yamllint' is installed and dt-schema is up to
+date:
+
+pip3 install dtschema --upgrade
+
+Please check and re-submit after running the above command yourself. Note
+that DT_SCHEMA_FILES can be set to your schema file to speed up checking
+your schema. However, it must be unset to test all examples with your schema.
 
