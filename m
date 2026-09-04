@@ -1,161 +1,97 @@
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+Received: from dggsgout11.his.huawei.com (dggsgout11.his.huawei.com [45.249.212.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D76783ECBCF;
-	Fri,  4 Sep 2026 06:13:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 070C8419FB0;
+	Fri,  4 Sep 2026 06:13:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.249.212.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788502423; cv=none; b=GCTa6pCvXSy6T/S4TbK8NZx4WwP/NYD9KmESx0ZSAlYTND93qJoVtF/MdAk4o94TC6wtYfUIRq6cwiw3ToIqTZsmQ1WqkYBIiXURzOWUqDl4QESNCX932dFfFBCjG+jOsQ6Pej+zDxKSNjG4/eOQr4n3k1QbEdncLEMtFAfrDAQ=
+	t=1788502437; cv=none; b=psRNiLV+D1q3mqVYG4xbNSQyCMT7YokH3BlmFHds7Dr+UjBso1UW+3i+CJxUunIjwztcoAWOkj77TiDFx8HrmIFXa0rn7IlBGtPMV+I3MNaRVSYEQjWQsgEpIzXFhMx611XUyPasiwAJlNBhyAM9XQFDXX+FgG3L+O3/doamxec=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788502423; c=relaxed/simple;
-	bh=adMK/Wxbt1OgPGIFVMT0FK7zRuOmnvONKI5RSaumWRM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=WGgNkwyWjlVyZK9YPlcSBNawbLRu+GIVsm7sxtFrG4Wpc/gHSKT1K7OM0IahIV+3MzM4tsb1NIjduu3m6wBnq4hddWTe6IQ5dW8AR1t6uGtKyQIT3sSHKsIh/JDqiO6ivqQUWFagWmQ477sEft0UOzlNyTCwL6g1nCShrx4epzY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=oxjsSuJd; arc=none smtp.client-ip=148.163.158.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="oxjsSuJd"
-Received: from pps.filterd (m0356516.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68464hWB815320;
-	Fri, 4 Sep 2026 06:13:28 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=6n1JxR
-	uSL8vaIscXA3VKgpNWi7ByB64W0wt/XykGF/k=; b=oxjsSuJd7cfTloEQXqJG/r
-	HDwiL1BJ+1e3DjuX3UWdX4cRNTZ9Skc8wy+XRM9Vwx2uNiDRaOzkLYQvL+quVu2t
-	IemwploS0SUECVEv8i5M8NkP5bp83G/+LbovLbZulFdDKRXKYbLstz+heCuEI7w+
-	PeOMfhJQeWHhwyjgfOHbM50Y/cnd2A0opVdG//MHymiV+wY+06qfQHBshbeYYwCy
-	KSJ8fLodoLW0Ivw5LbiIuQqHbRIf940j2/nBX9G20e7xGDbIa78VeAyqKc8tyd18
-	DhrAgFykrb3CdwD8tAsLWlPWle/2TY3/FVVy+1F/FR3KvRu4hmrfh69zUR3eU6nA
-	==
-Received: from ppma12.dal12v.mail.ibm.com (dc.9e.1632.ip4.static.sl-reverse.com [50.22.158.220])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gbmuj8q78-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 04 Sep 2026 06:13:27 +0000 (GMT)
-Received: from pps.filterd (ppma12.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma12.dal12v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 6846BikZ023276;
-	Fri, 4 Sep 2026 06:13:26 GMT
-Received: from smtprelay04.fra02v.mail.ibm.com ([9.218.2.228])
-	by ppma12.dal12v.mail.ibm.com (PPS) with ESMTPS id 4gc9rqup4m-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 04 Sep 2026 06:13:26 +0000 (GMT)
-Received: from smtpav05.fra02v.mail.ibm.com (smtpav05.fra02v.mail.ibm.com [10.20.54.104])
-	by smtprelay04.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6846DMCd30737110
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Fri, 4 Sep 2026 06:13:22 GMT
-Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id B88D820040;
-	Fri,  4 Sep 2026 06:13:22 +0000 (GMT)
-Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 89B7920043;
-	Fri,  4 Sep 2026 06:13:16 +0000 (GMT)
-Received: from [9.61.247.46] (unknown [9.61.247.46])
-	by smtpav05.fra02v.mail.ibm.com (Postfix) with ESMTPS;
-	Fri,  4 Sep 2026 06:13:16 +0000 (GMT)
-Message-ID: <5eff9ad8-a772-429a-b313-b1bf3571206b@linux.ibm.com>
-Date: Fri, 4 Sep 2026 11:43:12 +0530
+	s=arc-20240116; t=1788502437; c=relaxed/simple;
+	bh=/DLlz09o7G5yTC/pdR4ntqZXukfqSChR5QrE3u4iNmU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=OSGGkfUG4f9Bf2OzewkpkBlo8Q7PGHOpTXZvYJ1JeoroyrOnNWnVV+kqA8bvzpwg4IcVCw2hqSM/xvnHxm7+e084ggTwF1QRGKcdng0bITnGz1Xx8PBamgQScRFfqZLZoSWnqWNhViXn+TJPMbZd8k5O1GLp5Sn9oN66pVkTAhI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com; spf=pass smtp.mailfrom=huaweicloud.com; arc=none smtp.client-ip=45.249.212.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huaweicloud.com
+Received: from mail.maildlp.com (unknown [172.19.163.198])
+	by dggsgout11.his.huawei.com (SkyGuard) with ESMTPS id 4hbmNh2d8CzYQtyH;
+	Fri,  4 Sep 2026 14:13:08 +0800 (CST)
+Received: from mail02.huawei.com (unknown [10.116.40.112])
+	by mail.maildlp.com (Postfix) with ESMTP id 7D17340DD8;
+	Fri,  4 Sep 2026 14:13:52 +0800 (CST)
+Received: from huaweicloud.com (unknown [10.50.85.155])
+	by APP1 (Coremail) with UTF8SMTPSA id cCh0CgCHbwqeYZpqTb3FAg--.50434S7;
+	Fri, 04 Sep 2026 14:13:52 +0800 (CST)
+From: Zizhi Wo <wozizhi@huaweicloud.com>
+To: cem@kernel.org,
+	dgc@kernel.org,
+	djwong@kernel.org,
+	hch@lst.de,
+	linux-xfs@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	yangerkun@huawei.com,
+	chengzhihao1@huawei.com,
+	wozizhi@huawei.com
+Subject: [PATCH 3/5] xfs: remove unused xfs_buf_iodone declaration
+Date: Fri,  4 Sep 2026 14:06:46 +0800
+Message-ID: <20260904060648.1966130-4-wozizhi@huaweicloud.com>
+X-Mailer: git-send-email 2.52.0
+In-Reply-To: <20260904060648.1966130-1-wozizhi@huaweicloud.com>
+References: <20260904060648.1966130-1-wozizhi@huaweicloud.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 05/10] pseries/plpks: rename the default wrapping key
- macro
-To: Srish Srinivasan <ssrish@linux.ibm.com>, linux-integrity@vger.kernel.org,
-        keyrings@vger.kernel.org, linuxppc-dev@lists.ozlabs.org
-Cc: maddy@linux.ibm.com, mpe@ellerman.id.au, npiggin@gmail.com,
-        christophe.leroy@csgroup.eu, James.Bottomley@HansenPartnership.com,
-        jarkko@kernel.org, zohar@linux.ibm.com, linux-kernel@vger.kernel.org,
-        linux-security-module@vger.kernel.org, nayna@linux.ibm.com
-References: <20260831111738.334857-1-ssrish@linux.ibm.com>
- <20260831111738.334857-6-ssrish@linux.ibm.com>
-Content-Language: en-US
-From: R Nageswara Sastry <rnsastry@linux.ibm.com>
-In-Reply-To: <20260831111738.334857-6-ssrish@linux.ibm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-GUID: qQXQqPVto-QjaQ-JmTFPCZ0s9scTMzxH
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA0MDA1NCBTYWx0ZWRfXz9yZmZHQ50jJ
- ggaLMrl10AUoSGhPQ9qp4/Zp2Bh8pg2QVOh2qnHPwTVX+uDkfGdzhzOPFblrDcUcuArBn/0Y1M0
- BuTVWU7fcd4YDHmAT6OBFGkWHIvZU3fkaiDY273hPbVVsBdoxgK8nUW/WEtzutQJKAiOkR9N9cE
- gPf1BA/sOOY5Qw85SObp8X4tRX8jJx0asEowu98RQL68hKnnju5OHlG+Lgu8Ke0MTHFPCwJn2nk
- c9dX8rdG0vBnFzzj095fI/nM3BnP7hRuhBqK3HBuYls3+CKcMBQJWBSVoIM2XjpzG41P6bDseyH
- HXm1ak2VfxdrOENpvfBHyCLpuDe03AM1J2gIdblCcE7HyG+Fm9Fby4N6zto5ar1mIOSv24CY0I2
- hv9L/DxDbHBx+0QWuD/RJxrdcD2OlNjihj8c+F/axciHYpSjHMuVE1wz7tu1GYv7VTD5RqSK0WA
- Ni8jizfzUcZuIv6QTnw==
-X-Authority-Analysis: v=2.4 cv=Osl/DS/t c=1 sm=1 tr=0 ts=6a9a6187 cx=c_pps
- a=bLidbwmWQ0KltjZqbj+ezA==:117 a=bLidbwmWQ0KltjZqbj+ezA==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=Y2IxJ9c9Rs8Kov3niI8_:22 a=VnNF1IyMAAAA:8
- a=3Kc4Bribtl25CmZOErgA:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA0MDA1NCBTYWx0ZWRfX2Jd7gKuVHjbQ
- +1vmSVtFKy9HP0suNG2lyWImTd88GKX7RJSgOzZ8n+C0q4cctNEA0lJE2an8/WS4WmC0Y5/3Yi7
- ogTUaZWzw5+yeZkS+/IHVkHYp0Zg5Y0=
-X-Proofpoint-ORIG-GUID: p7HtDouQjYyjllcRxaW5zj0nA3fyakWH
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-04_02,2026-09-03_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 malwarescore=0 suspectscore=0 bulkscore=0 lowpriorityscore=0
- adultscore=0 impostorscore=0 phishscore=0 clxscore=1015 priorityscore=1501
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609040054
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:cCh0CgCHbwqeYZpqTb3FAg--.50434S7
+X-Coremail-Antispam: 1UD129KBjvdXoWrZrW7Kw1xtw45JF17tw1fJFb_yoWDJrX_K3
+	y3Kr4Sqa4UJry7Aw47Gr4vqFyqqa1xCan7CayUAas0qw12q3ZYvrWDAFyUZr9Ig39xJr1f
+	Ja45WrWjgr9FyjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUIcSsGvfJTRUUUbTAYFVCjjxCrM7AC8VAFwI0_Wr0E3s1l1xkIjI8I6I8E6xAIw20E
+	Y4v20xvaj40_Wr0E3s1l1IIY67AEw4v_Jr0_Jr4l82xGYIkIc2x26280x7IE14v26r1rM2
+	8IrcIa0xkI8VCY1x0267AKxVW5JVCq3wA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK
+	021l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F
+	4j6r4UJwA2z4x0Y4vEx4A2jsIE14v26F4UJVW0owA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_
+	GcCE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx
+	0E2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWU
+	JVW8JwACjcxG0xvY0x0EwIxGrwCY1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrw
+	CFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE
+	14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2
+	IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxK
+	x2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI
+	0_Gr1j6F4UJbIYCTnIWIevJa73UjIFyTuYvjxUFF4iUUUUU
+X-CM-SenderInfo: pzr2x6tkl6x35dzhxuhorxvhhfrp/
 
+From: Zizhi Wo <wozizhi@huawei.com>
 
-On 31.08.2026 4:47 PM, Srish Srinivasan wrote:
-> Rename PLPKS_WRAPKEY_NAME to PLPKS_DEFAULT_WRAPKEY_LABEL to clarify that
-> the macro represents the default wrapping key label used by PKWM.
->
-> Signed-off-by: Srish Srinivasan <ssrish@linux.ibm.com>
-Tested-by: R Nageswara Sastry <rnsastry@linux.ibm.com>
+Commit 664ffb8a429a ("xfs: move the buffer retry logic to xfs_buf.c")
+removed the xfs_buf_iodone() implementation and its last caller in
+favour of xfs_buf_ioend_finish(), but the declaration in xfs_buf_item.h was
+left behind. It has been a dead prototype ever since (2020).
 
-Tested on ppc64le PowerVM LPARs on firmware with wrap/unwrap support,
-with and without Secure Boot enabled.
+Remove the stale declaration.
 
-Verified that PKWM initialisation and trusted key seal/unseal continue to
-work correctly after the rename.
-> ---
->   arch/powerpc/platforms/pseries/plpks.c | 6 +++---
->   1 file changed, 3 insertions(+), 3 deletions(-)
->
-> diff --git a/arch/powerpc/platforms/pseries/plpks.c b/arch/powerpc/platforms/pseries/plpks.c
-> index 45278c5a45c1..b553f7b130b6 100644
-> --- a/arch/powerpc/platforms/pseries/plpks.c
-> +++ b/arch/powerpc/platforms/pseries/plpks.c
-> @@ -10,7 +10,7 @@
->   #define pr_fmt(fmt) "plpks: " fmt
->   
->   #define PLPKS_WRAPKEY_COMPONENT	"PLPKSWR"
-> -#define PLPKS_WRAPKEY_NAME	"default-wrapping-key"
-> +#define PLPKS_DEFAULT_WRAPKEY_LABEL	"default-wrapping-key"
->   
->   /*
->    * To 4K align the {input, output} buffers to the {UN}WRAP H_CALLs
-> @@ -938,7 +938,7 @@ int plpks_gen_wrapping_key(void)
->   	struct label *label;
->   	int rc = 0, pseries_status = 0;
->   	struct plpks_var var = {
-> -		.name = PLPKS_WRAPKEY_NAME,
-> +		.name = PLPKS_DEFAULT_WRAPKEY_LABEL,
->   		.namelen = strlen(var.name),
->   		.policy = PLPKS_WRAPPINGKEY,
->   		.os = PLPKS_VAR_LINUX,
-> @@ -1033,7 +1033,7 @@ int plpks_wrap_object(u8 **input_buf, u64 input_len, u16 wrap_flags,
->   	bool sb_audit_or_enforce_bit = wrap_flags & BIT(0);
->   	bool sb_enforce_bit = wrap_flags & BIT(1);
->   	struct plpks_var var = {
-> -		.name = PLPKS_WRAPKEY_NAME,
-> +		.name = PLPKS_DEFAULT_WRAPKEY_LABEL,
->   		.namelen = strlen(var.name),
->   		.os = PLPKS_VAR_LINUX,
->   		.component = PLPKS_WRAPKEY_COMPONENT
+Assisted-by: Claude-Code:GLM-5.2
+Signed-off-by: Zizhi Wo <wozizhi@huawei.com>
+---
+ fs/xfs/xfs_buf_item.h | 1 -
+ 1 file changed, 1 deletion(-)
 
+diff --git a/fs/xfs/xfs_buf_item.h b/fs/xfs/xfs_buf_item.h
+index 3159325dd17b..28c79989d725 100644
+--- a/fs/xfs/xfs_buf_item.h
++++ b/fs/xfs/xfs_buf_item.h
+@@ -60,7 +60,6 @@ static inline void xfs_buf_dquot_iodone(struct xfs_buf *bp)
+ {
+ }
+ #endif /* CONFIG_XFS_QUOTA */
+-void	xfs_buf_iodone(struct xfs_buf *);
+ bool	xfs_buf_log_check_iovec(struct kvec *iovec);
+ 
+ unsigned int xfs_buf_inval_log_space(unsigned int map_count,
 -- 
-Thanks and Regards
-R.Nageswara Sastry
+2.52.0
 
