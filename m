@@ -1,81 +1,138 @@
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 670BD3EC837;
-	Fri,  4 Sep 2026 03:48:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7A293AD511;
+	Fri,  4 Sep 2026 03:48:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788493699; cv=none; b=k0s+XX4ziURDDrP7auAwtKXM2/Wb7E9/xrvY+2aN+1GI8V9xHHMCUhXpWBsdGxXojMHjjifNs+owWcbhR5sw5p8CvPxEUdFTrWTObDv/kVNVB47x3etm4f0iTjsLyKB5x3Tyfp29XnaNWqB7Wl6vMZDn5skO6efbs8hy/Pyzu6A=
+	t=1788493720; cv=none; b=Ml2IfdTbb2eY09tI8e4Hu0hySrfkzQn/oDyFdqYIucMjZnOMLGRyJHW8fNyeRUXUUJgNlD2jmqrm0LAGr6KhvGIcwPGTjVMERc9NIOednRtbQw+DdtyHp+70EV/q/LS8/n6QKU8cB619bEpqPqPqZJ4u92Ertl6MPO3dxMeoXio=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788493699; c=relaxed/simple;
-	bh=zucHfOmnE8OQI0qiGvt0nQJc4QeLYF5p1QUsbyvFH2k=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=IOJKjLd4S24vedMkCa5L6e+VhNK/4Mr3O5GlaQikZfjf49d63b9OQG9LsCxNSMxe1S9G2Bp/mWC8w0t1E9yiSVZdT2OCbq+wc9KAuhvIwmmdzteXLfYJQFObUhPHlzWp4+wwOpzXcPVybTShiTpoJVFcP3LNx5/oMxndXm1moH8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: 7212e6d6a81311f19a56ed5b684f684d-20260904
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:f6b24725-d03b-45f1-a6ad-5270d03f674f,IP:0,U
-	RL:0,TC:0,Content:-5,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
-	:release,TS:-5
-X-CID-META: VersionHash:7db8b62,CLOUDID:daa6f7d960b79d765dc4312fd635329a,BulkI
-	D:nil,BulkQuantity:0,SF:81|82|83|102|850|865|898,TC:nil,Content:0|15|50|99
-	,EDM:-3,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,O
-	SA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 7212e6d6a81311f19a56ed5b684f684d-20260904
-X-User: huangwei@kylinos.cn
-Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
-	(envelope-from <huangwei@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 1839889899; Fri, 04 Sep 2026 11:48:09 +0800
-From: Huang Wei <huangwei@kylinos.cn>
-To: =?UTF-8?q?Iv=C3=A1n=20Ezequiel=20Rodriguez?= <ivanrwcm25@gmail.com>
-Cc: Huang Wei <huangwei@kylinos.cn>,
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Fan Wu <fanwu01@zju.edu.cn>,
-	linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v2] usb: typec: ucsi: acpi: fix use-after-free on driver removal
-Date: Fri,  4 Sep 2026 11:48:06 +0800
-Message-Id: <20260904034806.739234-1-huangwei@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20260903232121.271776-1-ivanrwcm25@gmail.com>
-References: <20260903030356.58597-1-ivanrwcm25@gmail.com> <20260903232121.271776-1-ivanrwcm25@gmail.com>
+	s=arc-20240116; t=1788493720; c=relaxed/simple;
+	bh=MT6MfLHzUWlYjBxa45N8wdeJ+sOo6aJ71kPXxy2tg3Q=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=O/Mib1qkNqAI47O0tT1ltc7eVYixi5njSXxFDCDB2wUzjrUBkbvEUukGzx+X2bS6R72fpqHixPAVn9oAq5kcBW8c8plf4hBeYbj3PMe9k5Z/quaH9uvMs0sjAlTbaqSveafmoX60W0CBfIhQvGqegdh2EJ9+NHwWpdUwn3NVU7M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=pYYnPWxT; arc=none smtp.client-ip=117.135.210.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="pYYnPWxT"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=P3
+	SGhphpkiE9E2YevTfiMjq9NUdddUaAUez/XmB+dLo=; b=pYYnPWxTnlMQ6Bo5iL
+	bECPS7TpFGu1wAj/OsWHgTBkZx0QzZ2PNuheGxcrU6dVQyVvC+MOaKcU7lInT5wd
+	YXngNX87sS0xENfWDeBs6814BmH3ttQ+KFoManYk3CFlg/VAv4nas8Kbnn4eosWg
+	xhEfI6ylAT2rnnuztBSmmWA4s=
+Received: from localhost (unknown [])
+	by gzsmtp1 (Coremail) with SMTP id PCgvCgAH8447P5pqxZOENg--.44249S2;
+	Fri, 04 Sep 2026 11:47:08 +0800 (CST)
+From: Hui Su <sh_def@163.com>
+To: Tejun Heo <tj@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Juri Lelli <juri.lelli@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	Michal Koutny <mkoutny@suse.com>
+Cc: Hui Su <sh_def@163.com>,
+	Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Ben Segall <bsegall@google.com>,
+	Mel Gorman <mgorman@suse.de>,
+	Valentin Schneider <vschneid@redhat.com>,
+	K Prateek Nayak <kprateek.nayak@amd.com>,
+	John Stultz <jstultz@google.com>,
+	cgroups@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2] sched: Account cgroup CPU time to the execution context
+Date: Fri,  4 Sep 2026 11:47:07 +0800
+Message-ID: <20260904034707.268416-1-sh_def@163.com>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:PCgvCgAH8447P5pqxZOENg--.44249S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxGrW8JFW5Zw4xAr45ur1UGFg_yoW5Zw4kpF
+	Z5Xa1UXws5tF1jyr4jyasY934fGws3JwnIqr4DJw1fAFyfG3W8KryI9r1jyF1jyr4IyF1I
+	vrsY934xCF1UKw7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0zi75r7UUUUU=
+X-CM-SenderInfo: xvkbvvri6rljoofrz/xtbC6R4gf2qaPz7mowAA3c
 
-Hi Iván,
+Proxy execution separates the scheduling context from the execution
+context. Commit aa4f74dfd42b ("sched: Fix runtime accounting w/ split
+exec & sched contexts") made per-task and thread-group runtime
+accounting follow the task that actually executes, while cgroup CPU
+usage is charged to the donor.
 
-This is a nice piece of work. (And apologies for the duplicate of my
-earlier note on v1 -- that was an accidental resend.)
+When the donor and execution task belong to different cgroups, this
+makes a task's execution time count against a different cgroup from the
+one the task belongs to.
 
-I went and checked the ACPICA side after reading your notes:
-acpi_remove_notify_handler() does call acpi_os_wait_events_complete()
-on the device-notify path, so the flush argument holds up. The stall
-you measured for the v1 ordering is a good catch too -- I was happy
-enough with the plain reorder on v1 and would have missed that
-ucsi_unregister() depends on the notify path for its completions.
+Cgroup CPU usage should follow the execution context, matching the
+per-task, thread-group, and cgroup user/system accounting. Keep
+scheduling state associated with the donor, but charge cgroup CPU
+usage to rq->curr.
 
-The quiescing + CCI masking looks right to me, and keeping the fix
-ACPI-local answers my question about the other backends.
+A reproducer with the donor and execution task in separate cgroups
+showed the execution task accumulating runtime while cgroup CPU usage
+was charged to the donor's cgroup. With this change, the execution
+task's cgroup accumulates the CPU usage instead. The same behavior was
+verified with an RT donor and with legacy cpuacct accounting.
 
-If you do post the harness separately I'd find it useful -- the
-ordering comparison alone is worth having in the archives.
+Fixes: aa4f74dfd42b ("sched: Fix runtime accounting w/ split exec & sched contexts")
+Suggested-by: Tejun Heo <tj@kernel.org>
+Signed-off-by: Hui Su <sh_def@163.com>
+---
+Changes since v1:
+- Rework the fix following Tejun Heo's review: make cgroup CPU usage
+  follow the execution context instead of moving cgroup user/system
+  accounting to the scheduling context.
+- Drop the per-rq cputime owner, deferred boundary handling, and donor
+  lifetime tracking, which are no longer needed.
+- Rework the reproducer expectation around execution-context cgroup
+  CPU usage.
 
-Reviewed-by: Huang Wei <huangwei@kylinos.cn>
+Testing:
+- cgroup v2 proxy reproducer: executor runtime +1.483s, donor cgroup A
+  usage +0, and executor cgroup B usage +1.629s.
+- RT donor reproducer: executor runtime +0.991s, donor cgroup A usage
+  +125us, and executor cgroup B usage +0.991s.
+- cgroup v1 cpuacct: usage charged to the executor cgroup.
+- sched_proxy_exec=off control passed.
+- CONFIG_SCHED_PROXY_EXEC / CONFIG_CGROUPS /
+  CONFIG_CGROUP_CPUACCT build matrix passed.
+- W=1 kernel/sched/fair.o passed.
+- checkpatch --strict and git diff --check passed.
 
-Thanks,
-Huang Wei
+v1: https://lore.kernel.org/lkml/5733b51108eda90c1bda98a68d58b5e6ccbc24ec.1788433334.git.sh_def@163.com/
+
+ kernel/sched/fair.c | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
+
+diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
+index 8dff37059faf..6fcf67d741e8 100644
+--- a/kernel/sched/fair.c
++++ b/kernel/sched/fair.c
+@@ -1404,7 +1404,6 @@ static s64 update_se(struct rq *rq, struct sched_entity *se)
+ 
+ 	se->exec_start = now;
+ 	if (entity_is_task(se)) {
+-		struct task_struct *donor = task_of(se);
+ 		struct task_struct *running = rq->curr;
+ 		/*
+ 		 * If se is a task, we account the time against the running
+@@ -1417,8 +1416,7 @@ static s64 update_se(struct rq *rq, struct sched_entity *se)
+ 		account_group_exec_runtime(running, delta_exec);
+ 		account_mm_sched(rq, running, delta_exec);
+ 
+-		/* cgroup time is always accounted against the donor */
+-		cgroup_account_cputime(donor, delta_exec);
++		cgroup_account_cputime(running, delta_exec);
+ 	} else {
+ 		/* If not task, account the time against donor se  */
+ 		se->sum_exec_runtime += delta_exec;
+-- 
+2.54.0
+
