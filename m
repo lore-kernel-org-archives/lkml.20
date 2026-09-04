@@ -1,51 +1,52 @@
 Received: from bkemail.birger-koblitz.de (bkemail.birger-koblitz.de [23.88.97.239])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58042511E9C;
-	Fri,  4 Sep 2026 17:28:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A488513559;
+	Fri,  4 Sep 2026 17:28:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=23.88.97.239
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788542927; cv=none; b=mbcuUj99mV7j+Ry/ljYcteXqIKQYr4wQpQ+kvXeSKJT+zr3kcvInNY2vG4nRpI8keD7MUHijfwEgUSjXS2cSUIFpHWfw+K3loazU7PvmrsGeuvOaeC/s/8rtrMpuaV8ut4MWgsA1PzGKoLLmN6a7b1TiTDSiya6dzT/fik5Cv3E=
+	t=1788542932; cv=none; b=V0PZIwQi8EcDHMCM9Mmzgt03xxjxgDyNh2WqpFKFp/QsZPsBuM6mXzXPBUWXK5KmCb3fixfPlL/3UcdveF7EMkynm2kqWkHFz1i7DFYka2z5IOdbaswSF22z5+Jtc1KFxHNx5CBHDg6jV7hlYQe5dxcduxs6NHysbT6Y9zHrFa8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788542927; c=relaxed/simple;
-	bh=73U+Om09CTj2ym0rVGjPeN4Mm2JBCPoUyOCgnLcEhPQ=;
+	s=arc-20240116; t=1788542932; c=relaxed/simple;
+	bh=UcT1TW4Sdw6h/EHK92PDO/srxgGudwpIfaE1pzE+OMg=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=P9saSDPPLlMPBKnrgG6TgD5ndqm/bRTzrlR9XpPBE2Z7VZAsQbcwq5YK8ojsZ3Q+Aqukx8wOQqN5mXp0NKemH8N9BXqjJVxShC3MVQxpuFsK7HWCV8WsMA6QIq2LboUYZxM7AttxIdm7ePUxU3iRSc+ezKqetonalRcLqfRhtjE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=birger-koblitz.de; spf=pass smtp.mailfrom=birger-koblitz.de; dkim=pass (2048-bit key) header.d=birger-koblitz.de header.i=@birger-koblitz.de header.b=qQEVaG8V; dkim=pass (2048-bit key) header.d=birger-koblitz.de header.i=@birger-koblitz.de header.b=0dmjUI4a; arc=none smtp.client-ip=23.88.97.239
+	 In-Reply-To:To:Cc; b=lib76B26A9+AE0SnxSpQb/nAUqDjPrih8MAeqOMtImHrnOWe0XqiXi5sR82aSgyW22OLMYZ7XhXCw6PfpnGSMQZDqUKWVINhEvgxZ6WWmNS0g7jHz82TEzPneeAr6tS0eDOfGPm6lTlGzsSraZqvGuhzLvefkg4mJsU3SHLf2mE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=birger-koblitz.de; spf=pass smtp.mailfrom=birger-koblitz.de; dkim=pass (2048-bit key) header.d=birger-koblitz.de header.i=@birger-koblitz.de header.b=wOwyCmLi; dkim=pass (2048-bit key) header.d=birger-koblitz.de header.i=@birger-koblitz.de header.b=2UX5CCUH; arc=none smtp.client-ip=23.88.97.239
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=birger-koblitz.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=birger-koblitz.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=birger-koblitz.de header.i=@birger-koblitz.de header.b="qQEVaG8V";
-	dkim=pass (2048-bit key) header.d=birger-koblitz.de header.i=@birger-koblitz.de header.b="0dmjUI4a"
+	dkim=pass (2048-bit key) header.d=birger-koblitz.de header.i=@birger-koblitz.de header.b="wOwyCmLi";
+	dkim=pass (2048-bit key) header.d=birger-koblitz.de header.i=@birger-koblitz.de header.b="2UX5CCUH"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=birger-koblitz.de;
-	s=default; t=1788542915;
-	bh=73U+Om09CTj2ym0rVGjPeN4Mm2JBCPoUyOCgnLcEhPQ=;
+	s=default; t=1788542916;
+	bh=UcT1TW4Sdw6h/EHK92PDO/srxgGudwpIfaE1pzE+OMg=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=qQEVaG8VqNuDxjyE8J+OBe0jmNx84alKdlg2aOGEDKQ/gg2KthWQA+1xajZQlZ5Oo
-	 xS/DkBLjjT0+/yK3f9hx5fPWXKGtUcVuNE7XC28lpPgA/4ubFnRRpsVggNh9e/CVLT
-	 uLyh4lYSul3STPir5Pid96MHsRxzePWN7HM86bYGW0NHd8E4RXs6EWUpNO4Q4+uLl2
-	 LZhXa49TxBWEdeac6ueSRHSDmKexHaV3GSYMioTmJKoH+MN16HVOQP2fv8lImT3oi0
-	 b9oaQCN31gCfavBSr73QUlIHsVi/J8RnxPpT/whCyl9VDAIyOVcih34B+YZfSrxZ6m
-	 gmNqY3pWqWHhw==
+	b=wOwyCmLi8Qbuwj5GWycloRQod1mjtHZRq4xYoX2RWgg+ZBkEOKASbCUtTh6QV74YN
+	 s7s8XZl0TZwim1HmCPH7xFXPgYldCltxV+SHFLSkDqiTGZtCZNNdoANeQqR8rY7jSc
+	 bDBLNgFRCyUD9ZuJMVUA5lkbEkHOT0HAc9/VnnCKTTfSE1dmfHZM+Hh5iHtU9ADfDT
+	 2t51ccAXyeqBbnxRcDJ0br4g3L4pEcAz3F8dDw3jU2HjB36QP+NywJP3V5leUCarMg
+	 4hGuMf4eEuRRMgIlyXp+JrqXDQZf4AJfWanXCNan0AgPlF9iXs1zejxSMcUOdS90gg
+	 h0pU8IuDCZ2jw==
 Received: by bkemail.birger-koblitz.de (Postfix, from userid 109)
-	id 03CE53F0F4; Fri,  4 Sep 2026 17:28:35 +0000 (UTC)
+	id 486AC3F105; Fri,  4 Sep 2026 17:28:36 +0000 (UTC)
 X-Spam-Level: 
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=birger-koblitz.de;
-	s=default; t=1788542913;
-	bh=73U+Om09CTj2ym0rVGjPeN4Mm2JBCPoUyOCgnLcEhPQ=;
+	s=default; t=1788542914;
+	bh=UcT1TW4Sdw6h/EHK92PDO/srxgGudwpIfaE1pzE+OMg=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=0dmjUI4aoDtjxDNEhVB+az2Kue5pzmWgNAYlhAP9VHQGin/q7S8PSy/zdl3dTL+Yl
-	 1Io2J/+FwdBwbriaRN2ABuUFF9K+O3p1HsozWeB9vBShs4BQW4Z6BONVIOChQPsBjX
-	 wfxhwi6RiAF14/g208lpo5Tmky2MOH5CosvY41SVFXqxCpPgDrLDqLFy/zSYP6Q7D9
-	 Rv8vzjkeoN+vvwlvgNut6QjssQcv7cD1SGDgnpOptKoOsVyiYxe58Hjdyli1Av70/r
-	 3AOoWNY4ecjG4AIOQ/Vyi6XTjVE1xLiRIP4twXJyDlkt+DC+93+5aQLpRwYxzu2+hj
-	 +/UKw1G49GAPQ==
+	b=2UX5CCUHD70pODEv3UMV8fNTf87DlSJA7UUo5B2qtKudoqIGJWTZ8IJ2bw7YO+MRM
+	 x8pyHZmYvFS7TkUhutn8kKd9S684ODE2mvJ0XiRI56ti4Lx1OEPhMJojsue6y6O2Fe
+	 8L6Xo9M6rYqC4lH9aK9+aU9DkH+blerlN0LXaq/DGrAtp4Palz20m4VLLDxAsGiKUv
+	 pLQm2KtRDcFnIx2JLGW7eD5oj/8iJRzvhiOQZAYHrkQAsMDYGgcOeVw8JRI5Oq0fgx
+	 1VeBPr1Q4z73I6DurshRm64tSShuqoOK7U0DkrUg3T0nh+WZ1pp0Q0WqFfAk+GkMpS
+	 0L9oeTe2EcBBA==
 Received: from AMDDesktop.lan (unknown [IPv6:2a00:6020:47a3:e800:271c:c6c5:9fde:77cb])
-	by bkemail.birger-koblitz.de (Postfix) with ESMTPSA id 1776A3F0D5;
+	by bkemail.birger-koblitz.de (Postfix) with ESMTPSA id DA0B53F0DD;
 	Fri,  4 Sep 2026 17:28:33 +0000 (UTC)
 From: Birger Koblitz <mail@birger-koblitz.de>
-Date: Fri, 04 Sep 2026 19:28:26 +0200
-Subject: [PATCH net-next v10 01/15] phylink: Add phylink_mac_interrupt
+Date: Fri, 04 Sep 2026 19:28:28 +0200
+Subject: [PATCH net-next v10 03/15] ax88179_178a: Fix endianness of pause
+ watermark register
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -54,7 +55,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260904-ax88179a-v10-1-b5e60eca7690@birger-koblitz.de>
+Message-Id: <20260904-ax88179a-v10-3-b5e60eca7690@birger-koblitz.de>
 References: <20260904-ax88179a-v10-0-b5e60eca7690@birger-koblitz.de>
 In-Reply-To: <20260904-ax88179a-v10-0-b5e60eca7690@birger-koblitz.de>
 To: Andrew Lunn <andrew+netdev@lunn.ch>, 
@@ -67,58 +68,48 @@ Cc: linux-usb@vger.kernel.org, netdev@vger.kernel.org,
  Jianhui Xu <neuromoments@gmail.com>
 X-Mailer: b4 0.14.2
 
-Add the phylink_mac_interrupt() function to phylink, which
-passes a link-change interrupt received by the MAC to phylib.
-This function can be used by drivers which want to avoid
-polling the PHY and instead rely on an interrupt received by
-the MAC when a link-change happens.
+The 16-bit pause watermark register is little endian as
+described in the ASIX 4.1.0 out-of-tree driver. Correct the
+register byte sequence but also swap the configuration values
+used in the code in order to keep the current behaviour.
+
+The endianness is relevant for 16-bit writes to the register.
 
 Signed-off-by: Birger Koblitz <mail@birger-koblitz.de>
 Reviewed-by: Andrew Lunn <andrew@lunn.ch>
 ---
- drivers/net/phy/phylink.c | 16 ++++++++++++++++
- include/linux/phylink.h   |  1 +
- 2 files changed, 17 insertions(+)
+ drivers/net/usb/ax88179_178a.c | 9 ++++-----
+ 1 file changed, 4 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/net/phy/phylink.c b/drivers/net/phy/phylink.c
-index 3ec3bb43910953f3d57a4601633d0c3be65e959d..96ed13458e9f399fa911a145613d213b1c4433c8 100644
---- a/drivers/net/phy/phylink.c
-+++ b/drivers/net/phy/phylink.c
-@@ -1612,6 +1612,22 @@ static bool phylink_link_is_up(struct phylink *pl)
- 	return pl->netdev ? netif_carrier_ok(pl->netdev) : pl->old_link_state;
- }
+diff --git a/drivers/net/usb/ax88179_178a.c b/drivers/net/usb/ax88179_178a.c
+index 81d8412ce8e2fac981df076ea1385e6e87525cfe..2ed46ab62c0065d32040439f31d44f118d7e9952 100644
+--- a/drivers/net/usb/ax88179_178a.c
++++ b/drivers/net/usb/ax88179_178a.c
+@@ -32,8 +32,8 @@
+ #define AX_ACCESS_EEPROM			0x04
+ #define AX_ACCESS_EFUS				0x05
+ #define AX_RELOAD_EEPROM_EFUSE			0x06
+-#define AX_PAUSE_WATERLVL_HIGH			0x54
+-#define AX_PAUSE_WATERLVL_LOW			0x55
++#define AX_PAUSE_WATERLVL_LOW			0x54
++#define AX_PAUSE_WATERLVL_HIGH			0x55
  
-+/**
-+ * phylink_mac_interrupt() - wrapper for phy_mac_interrupt()
-+ * @pl: a pointer to a &struct phylink returned from phylink_create()
-+ *
-+ * Passes a link-change interrupt received by the MAC to phylib.
-+ */
-+void phylink_mac_interrupt(struct phylink *pl)
-+{
-+	struct phy_device *phy;
-+
-+	phy = pl->phydev;
-+	if (phy)
-+		phy_mac_interrupt(phy);
-+}
-+EXPORT_SYMBOL_GPL(phylink_mac_interrupt);
-+
- static void phylink_resolve(struct work_struct *w)
- {
- 	struct phylink *pl = container_of(w, struct phylink, resolve);
-diff --git a/include/linux/phylink.h b/include/linux/phylink.h
-index 1dda5c7ed5f146930d1acc6f06072e6755167af6..f6c1db837fb5062c6d42ffc6489ec06ae84e535b 100644
---- a/include/linux/phylink.h
-+++ b/include/linux/phylink.h
-@@ -768,6 +768,7 @@ int phylink_ethtool_set_eee(struct phylink *link, struct ethtool_keee *eee);
- int phylink_mii_ioctl(struct phylink *, struct ifreq *, int);
- int phylink_speed_down(struct phylink *pl, bool sync);
- int phylink_speed_up(struct phylink *pl);
-+void phylink_mac_interrupt(struct phylink *pl);
+ #define PHYSICAL_LINK_STATUS			0x02
+ 	#define	AX_USB_SS		0x04
+@@ -1619,11 +1619,10 @@ static int ax88179_reset(struct usbnet *dev)
+ 	dev->rx_urb_size = 1024 * 20;
  
- #define phylink_zero(bm) \
- 	bitmap_zero(bm, __ETHTOOL_LINK_MODE_MASK_NBITS)
+ 	*tmp = 0x34;
+-	ax88179_write_cmd(dev, AX_ACCESS_MAC, AX_PAUSE_WATERLVL_LOW, 1, 1, tmp);
++	ax88179_write_cmd(dev, AX_ACCESS_MAC, AX_PAUSE_WATERLVL_HIGH, 1, 1, tmp);
+ 
+ 	*tmp = 0x52;
+-	ax88179_write_cmd(dev, AX_ACCESS_MAC, AX_PAUSE_WATERLVL_HIGH,
+-			  1, 1, tmp);
++	ax88179_write_cmd(dev, AX_ACCESS_MAC, AX_PAUSE_WATERLVL_LOW, 1, 1, tmp);
+ 
+ 	/* Enable checksum offload */
+ 	*tmp = AX_RXCOE_IP | AX_RXCOE_TCP | AX_RXCOE_UDP |
 
 -- 
 2.47.3
