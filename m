@@ -1,80 +1,35 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32EBF50EBE3
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 16:55:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CD4650AC3E;
+	Fri,  4 Sep 2026 16:57:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788540958; cv=none; b=UuClUTMxS5I2X9ZGqsplsR0nEBZUgR9BRXaI/ixyUKgo32LcoImLNbKEJDNbK3hKABTgW+xVtJL8ENgveU2s1Tt2fwdDjL/Dd9VdPOpeCX/6GKxsGl7QhDIR40SeXsxLpJf9NE1wRNklGN+8QZJuAgeBU8SDkcD4LVjh5XkWwnY=
+	t=1788541030; cv=none; b=H7Z+ueuXpBZGoUiivt3kvEJwAVLVcR/xYM6i/IDLfo8N6bL4y29fJ8MvPE/jR2UJPLRq+CSGgaiSIaHtgkrH5nSvdGzYjoJ06Gelh2Hv/gX9u/vaUl2lVVD3gJYpKYp9iX8Om9jF2LMVDIZK1RQZ8AExK+8fiuqnTlFC8NtqqsY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788540958; c=relaxed/simple;
-	bh=7Ib8IcvKeHtblIcGzQNVS6oUxOoSw6QIGv40Sk/T8uQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ojPtm6MFUD9KJqNB5Xd7laH0bN0f5MX/lDUUA2pgbidJmYmiZRWMN5Q0+TSvNIfbtYKzwBAQmYiug0qmEsfgQ0C5JoF47379VqGyAJ8AbgWiEIBRVNuz/hlrVnRfbF2dMdHjGtYzFG8B+mas8TcG4cS+wsBUIQQvlhARG2+n3kM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KVGNI0cV; arc=none smtp.client-ip=74.125.227.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788541030; c=relaxed/simple;
+	bh=N/Ez1PS7YZ0kmdDQrrg63+3U/GnnKx1VXCodi2n8J20=;
+	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc; b=eKhcZGCZ5VagicN9fmqSiHu+5rJ0crKiSbZVq4MtC0ArPJGflRCx02LpQw6BIZMqdBplWbA9Mm8CzFWa598+J7cILNTqxqLkU+8igxKzlest684/y++uZVAy/wY7rL0SrrzUkkgkWObog1HdNlDxKQHgBD9jQobyMBObEGIPUTE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NJvz1p64; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KVGNI0cV"
-Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-39666e7c9eeso3292a91.0
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 09:55:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788540956; x=1789145756; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=8Pugumtiy8a7ud4fT7dQUu5IP2KC8hqTj50eSk7DgzY=;
-        b=KVGNI0cVQiXO3Ys1406hyAujbA0cwj4dT2YHfOubzYCLBOt2tZUFkt6nHSI+zZoKXA
-         4mGlpSfVGXpQfrAhqidx/2V5RNft2gT+JehUrMv2DOaErHk434nlY3hQnvhVStpO6ipN
-         X9HUDx19sWKQds4dLRmRWg7w0RY9M68yl66k4+495iYO7BQtyUNiZ6JM9i1Q2D3YDOiQ
-         ujLaMFBIbqagqC/6TJDawckDSvJnRdG4H8/Ekr3brP6f7rQPlSirfaXEibwAyQ5b+b8b
-         PmICa7gpzeZ5btpb4I3Buf816Pq6B97JFwBMRQC3+xMr56hRYUXm2cYJ0KeE5cLC5/+d
-         C2pg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788540956; x=1789145756;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=8Pugumtiy8a7ud4fT7dQUu5IP2KC8hqTj50eSk7DgzY=;
-        b=ikqG6zmoP1SF+9qoSb2elAzcabDm2OpHm0bnaFO2YgSd86eRjzxpBEyN+fgC0A5sF1
-         QMpeMKMxHIpKXEOym/rxCGH1a6uco6sXf1ypPevQtqZJgQPHy+tuB5n6G2z7uXgC8C0x
-         +uts/GyE37EM8Jp28pQBMc7WSNkOR5wiiaQlgDs5r/PlYV3GC2zAyxMcJ4CaXQoqlXF5
-         p7xT53ArVmpdwMlqZ2qG9jjtpTYV9YBAWYVZdI2A5HjWf+W5Lfck2orY6y9hN3J2Jsi1
-         3ed4ue2+MGAm832K5u7RIFmMBKL31Z+HKGx6zzZyq4MhiK73dwxs1Tl66kNf5l4aQbK1
-         u1ZQ==
-X-Forwarded-Encrypted: i=1; AKwUvBywPw6VJHSqMy7g5swATiWSLmSSW6e/bDZ3u2S3XVZQYDm9el/+DLE80U2pisHrczONn9sVuQ3NcV/Q+Dw=@vger.kernel.org
-X-Gm-Message-State: AFuF++ngUXrJ8xJmCy+Cvktfl9aTdSfvLnTe2u06/H5DASFCnf9syIlT
-	21n9e9BFQ+pqfu0arEQJmlWzIY3VdzYhA42j6FY8DGgOe4QLnRQCOz50
-X-Gm-Gg: AYBFou1/Q2mYhBszdDmIGoqXD5mho28Woyo+8ZOu/fBa1akhHGbyQE81ZzxPZgqRq+X
-	6QtcJ66WjL6o4dvhAq4jd30kM9VAw98+G7jHSmTJo6XmyGOOuJZ/oTWd/ETviwWJaYsf4BN6eB+
-	Fyrky4DzdNdpiuVQ/jP/dkgu+72QQuo/vDRTHY9gKd1bgc6+pSxq1oyohdJlKU0q2y3nezwxivr
-	byHYgxJDyAHICZ92dxkK8RyKES3lsPuGN8Yxe+9DUk9v2kT51W/7arf69t70iWuIfQvgqplH+HN
-	l4OVoNdwBKAk4IRTu/1S/tmS4jj8m+YEjUpa0pTRDzfNVArJSRX1gd3NVpA0MMLNPW/2ZHmQqCK
-	lOs7UxVA7l1WJTdFXeU8PtOn+qILTzYgkuRIeeHqbm1zseifTRYSDLuBRsURN/CbQsnNVfswE27
-	C4oMBlEZVk3QykWPCmN0bGsTzwoSifd68q1HRvn3ojuIf3s+FYVR9PXucPSDTC7pHyiHmFNEhAk
-	Quk6IGTbB50tEbi9U/brYJI3tP0KjbSdyZo/k4lyw8l5qVEk1Hj+Lidgg==
-X-Received: by 2002:a17:90b:562b:b0:396:d27b:86a4 with SMTP id 98e67ed59e1d1-39b3d5f2c09mr392878a91.2.1788540956155;
-        Fri, 04 Sep 2026 09:55:56 -0700 (PDT)
-Received: from localhost.localdomain (45.78.64.189.16clouds.com. [45.78.64.189])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339befe870sm8685464eec.30.2026.09.04.09.55.52
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 04 Sep 2026 09:55:55 -0700 (PDT)
-From: Chengfeng Ye <nicoyip.dev@gmail.com>
-To: David Ahern <dsahern@kernel.org>,
-	Ido Schimmel <idosch@nvidia.com>,
-	netdev@vger.kernel.org
-Cc: "David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Xin Long <lucien.xin@gmail.com>,
-	William Tu <u9012063@gmail.com>,
-	linux-kernel@vger.kernel.org,
-	Chengfeng Ye <nicoyip.dev@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH net v4] ip_tunnel: reserve FOU/GUE headroom before encapsulation
-Date: Sat,  5 Sep 2026 00:55:44 +0800
-Message-ID: <20260904165544.1362052-1-nicoyip.dev@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NJvz1p64"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1C5C61F00A3D;
+	Fri,  4 Sep 2026 16:57:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788541028;
+	bh=FynJtHXnHr/s/9tnayXAtyCjmExWB3RfiHJOkbSqKLw=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=NJvz1p64YnzVTzHnT4SA6FwHEt1fsdBX5VZF+FT6kLvtXX8oSyOit5cM1U3NJ14Qp
+	 70Lkwl1+bJ9KnxEIX2HCActvPMYRzQRf/1YOs9w6gODpz6xnocu2YnfDqJcx74u6CS
+	 8JqnZZgZXrTa0EmLSNpQ6XBhLVxjycwKtXSXeFGJ4ETTQVGHcxDnbW1cabbwaLAQMC
+	 ueEv3hp0zBtL2puzxpbegtvVhAS7ejmV2ceRWu0xXadx7oho09xiBtKnyXPcrvk2Ks
+	 SJ0wZqOaKwukWJTNGLqUxz4STksMNaJ7AZaYVnQz8d02AA2/GWlfMid/ftB7ZSNnuW
+	 14FVGcHAMP6Sg==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 19BD43924A50;
+	Fri,  4 Sep 2026 16:56:10 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -82,174 +37,57 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH v5 1/2] Bluetooth: btusb: mediatek: Fix leaked runtime PM
+ reference in reset
+From: patchwork-bot+bluetooth@kernel.org
+Message-Id: 
+ <178854096871.344939.9581829532701269317.git-patchwork-notify@kernel.org>
+Date: Fri, 04 Sep 2026 16:56:08 +0000
+References: 
+ <dac8ddf07cb1bb79c70d5a516f0ff7baf41eb462.1788507854.git.liujiajia@kylinos.cn>
+In-Reply-To: 
+ <dac8ddf07cb1bb79c70d5a516f0ff7baf41eb462.1788507854.git.liujiajia@kylinos.cn>
+To: Jiajia Liu <liujiajia@kylinos.cn>
+Cc: marcel@holtmann.org, luiz.dentz@gmail.com, yinghsu@chromium.org,
+ apusaka@chromium.org, abhishekpandit@google.com, matthias.bgg@gmail.com,
+ angelogioacchino.delregno@collabora.com, jing.cai@mediatek.com,
+ sean.wang@mediatek.com, chris.lu@mediatek.com,
+ linux-bluetooth@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org
 
-ip_tunnel_encap() expects its callers to reserve headroom based on
-ip_encap_hlen(). ip_tunnel_xmit() currently pushes FOU and GUE headers
-before it grows the skb headroom.
+Hello:
 
-That becomes visible when ipgre_changelink() publishes UDP
-encapsulation before it updates the device headroom. The transmit path
-does not serialize with RTNL, so it can interleave as follows:
+This series was applied to bluetooth/bluetooth-next.git (master)
+by Luiz Augusto von Dentz <luiz.von.dentz@intel.com>:
 
-  CPU 0 (ipgre_changelink)        CPU 1 (ipgre_xmit)
-  install GUE encapsulation
-                                  reserve the old needed_headroom
-  publish larger GRE flags
-  update tunnel->tun_hlen
-                                  push the larger GRE header
-                                  push the GUE and UDP headers
-  update dev->needed_headroom
+On Fri,  4 Sep 2026 16:03:50 +0800 you wrote:
+> MT7925 on HP Pro Mini 260 sometimes timed out during reloading driver
+> and reset usb device. btusb_suspend is not called again after closing
+> bluetooth interface.
+> 
+>  usbcore: registered new interface driver btusb
+>  Bluetooth: hci0: HW/SW Version: 0x00000000, Build Time: 20260605184935
+>  Bluetooth: hci0: Execution of wmt command timed out
+>  Bluetooth: hci0: Failed to send wmt patch dwnld (-110)
+>  Bluetooth: hci0: Failed to set up firmware (-110)
+>  usb 3-10: reset high-speed USB device number 4 using xhci_hcd
+>  Bluetooth: hci0: HW/SW Version: 0x00000000, Build Time: 20260605184935
+>  Bluetooth: hci0: Device setup in 1856545 usecs
+>  Bluetooth: hci0: AOSP extensions version v1.00
+>  Bluetooth: hci0: AOSP quality report is supported
+>  Bluetooth: MGMT ver 1.23
+> 
+> [...]
 
-With REMCSUM, the new layout can push 16 bytes of GRE and 20 bytes of
-GUE/UDP headers into an skb with only 32 bytes of actual headroom. The
-final UDP push writes four bytes before skb->head.
+Here is the summary with links:
+  - [v5,1/2] Bluetooth: btusb: mediatek: Fix leaked runtime PM reference in reset
+    https://git.kernel.org/bluetooth/bluetooth-next/c/a78f54e23804
+  - [v5,2/2] Bluetooth: btusb: Fix leaked runtime PM reference in btusb_reset
+    https://git.kernel.org/bluetooth/bluetooth-next/c/71729d60938f
 
-With the update window widened, the kernel reported:
-
-  skbuff: skb_under_panic: ... len:128 put:8 ... dev:gre0poc
-  kernel BUG at net/core/skbuff.c:214!
-  Oops: invalid opcode: 0000 [#1] SMP KASAN NOPTI
-  Call Trace:
-   skb_push
-   fou_build_udp
-   gue_build_header
-   ip_tunnel_xmit
-   __gre_xmit
-   ipgre_xmit
-
-Snapshot tunnel->encap, route and perform PMTU handling first, then
-reserve the final headroom before ip_tunnel_encap() builds the UDP
-tunnel headers. Because encapsulation is now delayed, pass the
-snapshotted encap length into tnl_update_pmtu() so the inner packet
-size stays skb->len + encap_hlen - tunnel_hlen.
-
-ip_md_tunnel_xmit() is left unchanged. It takes FOU/GUE parameters
-from the skb metadata dst, not from the device configuration, so it
-is not exposed to this race. tnl_update_pmtu() still runs after
-encapsulation there, so that path passes 0 for the extra length.
-
-The IPv6 analogue of this headroom reservation is still work in
-progress.
-
-Link: https://lore.kernel.org/netdev/b58876297f7d45de008f2e94b6ecab8b2ed84d21.1786088695.git.petalzu987@gmail.com/
-Fixes: dd9d598c6657 ("ip_gre: add the support for i/o_flags update via netlink")
-Cc: stable@vger.kernel.org
-Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
----
-Changes in v4:
-- Not restructure ip_md_tunnel_xmit(); only pass 0 into the new
-  tnl_update_pmtu() argument.
-- Snapshot tunnel->encap with data_race() and reuse the copy for both
-  ip_encap_hlen() and ip_tunnel_encap().
-- Fix tnl_update_pmtu() inner packet size after delaying the encap
-  push: pkt_size = skb->len + encap_hlen - tunnel_hlen.
-- Keep reverse xmas tree for the new locals.
-- Note that the IPv6 FOU/GUE headroom fix is still WIP.
-
-Changes in v3:
-- Move the headroom reservation into ip_tunnel_xmit() instead of
-  growing the skb inside the FOU/GUE builders.
-- Use ip_encap_hlen() to reserve the final caller-side headroom before
-  ip_tunnel_encap().
-- Drop the IPv4 raw-pointer refreshes that were only needed when
-  skb_cow_head() could run inside the encapsulation builders.
-
-Link: https://lore.kernel.org/netdev/20260824111944.187200-1-nicoyip.dev@gmail.com/ [v3]
-Link: https://lore.kernel.org/netdev/20260808005956.3761487-1-nicoyip.dev@gmail.com/ [v2]
-Link: https://lore.kernel.org/netdev/20260801060115.3538849-1-nicoyip.dev@gmail.com/ [v1]
----
- net/ipv4/ip_tunnel.c | 24 ++++++++++++++++++------
- 1 file changed, 18 insertions(+), 6 deletions(-)
-
-diff --git a/net/ipv4/ip_tunnel.c b/net/ipv4/ip_tunnel.c
-index 9d114bd575f9..447b435b10cc 100644
---- a/net/ipv4/ip_tunnel.c
-+++ b/net/ipv4/ip_tunnel.c
-@@ -512,14 +512,15 @@ EXPORT_SYMBOL_GPL(ip_tunnel_encap_setup);
- static int tnl_update_pmtu(struct net_device *dev, struct sk_buff *skb,
- 			    struct rtable *rt, __be16 df,
- 			    const struct iphdr *inner_iph,
--			    int tunnel_hlen, __be32 dst, bool md)
-+			    int tunnel_hlen, __be32 dst, bool md,
-+			    int encap_hlen)
- {
- 	struct ip_tunnel *tunnel = netdev_priv(dev);
- 	int pkt_size;
- 	int mtu;
- 
- 	tunnel_hlen = md ? tunnel_hlen : tunnel->hlen;
--	pkt_size = skb->len - tunnel_hlen;
-+	pkt_size = skb->len + encap_hlen - tunnel_hlen;
- 	pkt_size -= dev->type == ARPHRD_ETHER ? dev->hard_header_len : 0;
- 
- 	if (df) {
-@@ -629,7 +630,7 @@ void ip_md_tunnel_xmit(struct sk_buff *skb, struct net_device *dev,
- 	if (test_bit(IP_TUNNEL_DONT_FRAGMENT_BIT, key->tun_flags))
- 		df = htons(IP_DF);
- 	if (tnl_update_pmtu(dev, skb, rt, df, inner_iph, tunnel_hlen,
--			    key->u.ipv4.dst, true)) {
-+			    key->u.ipv4.dst, true, 0)) {
- 		ip_rt_put(rt);
- 		goto tx_error;
- 	}
-@@ -671,6 +672,7 @@ void ip_tunnel_xmit(struct sk_buff *skb, struct net_device *dev,
- {
- 	struct ip_tunnel *tunnel = netdev_priv(dev);
- 	struct ip_tunnel_info *tun_info = NULL;
-+	struct ip_tunnel_encap ipencap;
- 	const struct iphdr *inner_iph;
- 	unsigned int max_headroom;	/* The extra header space needed */
- 	struct rtable *rt = NULL;		/* Route to the other host */
-@@ -680,6 +682,7 @@ void ip_tunnel_xmit(struct sk_buff *skb, struct net_device *dev,
- 	bool md = false;
- 	bool connected;
- 	int err_count;
-+	int encap_hlen;
- 	u8 tos, ttl;
- 	__be32 dst;
- 	__be16 df;
-@@ -765,7 +768,10 @@ void ip_tunnel_xmit(struct sk_buff *skb, struct net_device *dev,
- 			    tunnel->net, READ_ONCE(tunnel->parms.link),
- 			    tunnel->fwmark, skb_get_hash(skb), 0);
- 
--	if (ip_tunnel_encap(skb, &tunnel->encap, &protocol, &fl4) < 0)
-+	/* Snapshot encap; ipgre_changelink() can update it concurrently. */
-+	ipencap = data_race(tunnel->encap);
-+	encap_hlen = ip_encap_hlen(&ipencap);
-+	if (encap_hlen < 0)
- 		goto tx_error;
- 
- 	if (connected && md) {
-@@ -803,7 +809,8 @@ void ip_tunnel_xmit(struct sk_buff *skb, struct net_device *dev,
- 	if (payload_protocol == htons(ETH_P_IP) && !tunnel->ignore_df)
- 		df |= (inner_iph->frag_off & htons(IP_DF));
- 
--	if (tnl_update_pmtu(dev, skb, rt, df, inner_iph, 0, 0, false)) {
-+	if (tnl_update_pmtu(dev, skb, rt, df, inner_iph, 0, 0, false,
-+			    encap_hlen)) {
- 		ip_rt_put(rt);
- 		goto tx_error;
- 	}
-@@ -834,7 +841,7 @@ void ip_tunnel_xmit(struct sk_buff *skb, struct net_device *dev,
- 	}
- 
- 	max_headroom = LL_RESERVED_SPACE(rt->dst.dev) + sizeof(struct iphdr)
--			+ rt->dst.header_len + ip_encap_hlen(&tunnel->encap);
-+			+ rt->dst.header_len + encap_hlen;
- 
- 	if (skb_cow_head(skb, max_headroom)) {
- 		ip_rt_put(rt);
-@@ -845,6 +852,11 @@ void ip_tunnel_xmit(struct sk_buff *skb, struct net_device *dev,
- 
- 	ip_tunnel_adj_headroom(dev, max_headroom);
- 
-+	if (ip_tunnel_encap(skb, &ipencap, &protocol, &fl4) < 0) {
-+		ip_rt_put(rt);
-+		goto tx_error;
-+	}
-+
- 	iptunnel_xmit(NULL, rt, skb, fl4.saddr, fl4.daddr, protocol, tos, ttl,
- 		      df, !net_eq(tunnel->net, dev_net(dev)), 0);
- 	return;
+You are awesome, thank you!
 -- 
-2.43.0
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
+
