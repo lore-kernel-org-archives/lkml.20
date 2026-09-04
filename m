@@ -1,49 +1,63 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-197.mta1.migadu.com [95.215.58.197])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F49E43E9E0;
-	Fri,  4 Sep 2026 09:50:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB87244606D
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 09:50:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.197
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788515418; cv=none; b=CTjuKQugY3FUMv8PJi+xmkTqRE8DXH8885aZpsj/ivhfw7NEzqKm4Aobz/NjvBJBFIErKZQKGYIq6DTZ4KShGlzCIbnCRSKLLTtRPw57E/8shI2nNn4FOa8C4HFMdU8TIcuCjzaCfjMnsEzmxpYeV6PzA5DD25G23rAuYtTjSZU=
+	t=1788515425; cv=none; b=HKpP3ZWckWxB4aWnpvlump0lqKfoGsbwaw438XKEM1t9Xhzxp5PnRshCJS1gOfzkJ8lk4hK6V4AuSBtEDjBpSP/NxtFcfoGAxuh87j7fbzDc8dlRQYxP5qETd7p4VImp2JtPFzjyHDUXu6VzGxiCk4pWS9Ek++1GgfHfJDkgugc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788515418; c=relaxed/simple;
-	bh=4AWLRwWWDLwU3KrI/9WXiviT9ra+wAs4RsjHG5zi6xM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=JFJyOEb7AERi7o7t0KeroS0Kz9offc119KAL5dwOn7CeFPA8lKrs/g0bNCbA3MNlI8FkDCTjYygvhDaJljqPifQ6l7y0Vt0RTmh/a4QkvSX2PHHHSJXXLpYhyUueeaEsW5jx1NRMGO+DMTAp0LfXT6EAhjAUdTi3btdEy6XleKw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lCmh5U2G; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788515425; c=relaxed/simple;
+	bh=EAsMAvBTcviNBGAG81DhWph2becLaMvRGr2P16KnjLk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=YkitIXm+276M1kBwAftBQIiZnRp7y/YNO+TQ5zeDUVNCvsm8c1AMpcQdhDvJpP3SfkoiOEoVxYGtpth8AnTq0qdj9z/3BliGNNpHwYr5IcQpZs1ryigJo0VRBoNKg89Fzao559c98Vsislqm7WXr0Yp4QxyEZbkpYX5CmPUgmLQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=wc0fXvoL; arc=none smtp.client-ip=95.215.58.197
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lCmh5U2G"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0A29F1F00A3D;
-	Fri,  4 Sep 2026 09:50:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788515417;
-	bh=JgdXBDDgWhINzJnCEwyOSF2W+5SgQKNfmGsCa9IDw3U=;
-	h=From:To:Cc:Subject:Date;
-	b=lCmh5U2GNlU+1TWW+D2Dhf3P6Hm7OvYcOwlSqO1Gg8o+a//8+vsSE+0vqH77Bd/N3
-	 0qPr9rURmz98lSin+21Lz9N9t3Z/cy0G8AA/LEtGKBFOnm7OINSwgf/SOVIXhkkzsP
-	 9Le/9+8TB3rtx1iL0OBeorUuvjQUPHTxcPIxIUv68KT++WA/VSCxWX8IKBIs68HtFi
-	 nv0G+xnLDDYA/BcJ1g8aqL2qgS5k6x5x0cVisa2h4UpMvGSTlFKkXnAExIOZ0ufQkH
-	 VeruVVxNdvh09krhwbJw0YMD5Qn9E0NUFsylArzuDkPD69HbuYbC0IfJV8iRln5Pl7
-	 ovtjLaJB4G+qQ==
-From: "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>
-To: linux-coco@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Cc: "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Greg KH <gregkh@linuxfoundation.org>,
-	Jeremy Linton <jeremy.linton@arm.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Sudeep Holla <sudeep.holla@arm.com>,
-	Will Deacon <will@kernel.org>,
-	Steven Price <steven.price@arm.com>,
-	Suzuki K Poulose <Suzuki.Poulose@arm.com>,
-	Andre Przywara <andre.przywara@arm.com>
-Subject: [PATCH v10 0/7] Switch Arm SMCCC firmware services to an SMCCC bus
-Date: Fri,  4 Sep 2026 15:19:53 +0530
-Message-ID: <20260904095000.1184861-1-aneesh.kumar@kernel.org>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="wc0fXvoL"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=EAsMAvBTcviNBGAG81DhWph2becLaMvRGr2P16KnjLk=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788515420; v=1; x=1789120220;
+ b=wc0fXvoLp6xhAHfsSZGkjaDOhDzwNPalLo0bvjRuset4iZ68vWktIoxbvB3EeoUxZP+o9qXL
+ WGCyfsnP0oJJfqZwxxpGETkCw3xPzkCHVGTBQ2ueOovEJF54hr2umG2ARps0O9qBJ+pgVN93bgU
+ mCQxA/m2mzxuNcE4XlPcqJYQ=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 32d6539a7a9261dc;
+	Fri, 04 Sep 2026 09:50:20 +0000
+X-Mizu-Trace-ID: 32d6539a7a9261dc
+X-Migadu-Flow: FLOW_OUT
+From: Jiayuan Chen <jiayuan.chen@linux.dev>
+To: bpf@vger.kernel.org
+Cc: Jiayuan Chen <jiayuan.chen@linux.dev>,
+	Xiang Mei <xmei5@asu.edu>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	John Fastabend <john.fastabend@gmail.com>,
+	Stanislav Fomichev <sdf@fomichev.me>,
+	Martin KaFai Lau <martin.lau@linux.dev>,
+	Alexei Starovoitov <ast@kernel.org>,
+	Andrii Nakryiko <andrii@kernel.org>,
+	Eduard Zingerman <eddyz87@gmail.com>,
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+	Song Liu <song@kernel.org>,
+	Yonghong Song <yonghong.song@linux.dev>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Emil Tsalapatis <emil@etsalapatis.com>,
+	Ihor Solodrai <ihor.solodrai@linux.dev>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Shuah Khan <shuah@kernel.org>,
+	Aditi Ghag <aditi.ghag@isovalent.com>,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org
+Subject: [PATCH bpf v2 1/2] bpf: Fix out-of-bounds read of sk_protocol in bpf_sock_destroy()
+Date: Fri,  4 Sep 2026 17:49:36 +0800
+Message-ID: <20260904094954.63447-1-jiayuan.chen@linux.dev>
 X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -53,160 +67,84 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-As discussed here:
-https://lore.kernel.org/all/20250728135216.48084-12-aneesh.kumar@kernel.org
+sk_protocol lives in struct sock, not in struct sock_common. A timewait
+or request sock handed to bpf_sock_destroy() by the tcp iterator is
+neither, so reading sk->sk_protocol runs past the object:
 
-The earlier CCA guest support used an arm-cca-dev platform device as a pure
-software anchor for the TSM class device. That platform device did not
-correspond to a DT/ACPI described device, MMIO range, interrupt, or other
-platform resource; it existed only to make the CCA guest driver bind and to
-place the resulting TSM device in the driver model. The same pattern also
-exists for smccc_trng. Creating separate platform devices for such
-SMCCC-discovered features is misleading, because those features are not
-independent platform devices.
+==================================================================
+BUG: KASAN: slab-out-of-bounds in bpf_sock_destroy+0xc7/0xe0
+Read of size 2 at addr ffff8881047d11b4 by task test_progs/428
 
-This series adds an Arm SMCCC bus for services discovered through the SMCCC
-firmware interface. The bus provides SMCCC device and driver registration
-helpers, SMCCC function id based matching, uevent modalias generation, and
-a sysfs modalias attribute. SMCCC service drivers can use
-MODULE_DEVICE_TABLE(arm_smccc, ...) to emit arm_smccc:f<functionid>
-aliases, allowing userspace to autoload service drivers when the SMCCC core
-registers matching firmware-service devices.
+Tainted: [W]=WARN
+Call Trace:
+ <TASK>
+ dump_stack_lvl+0x91/0xf0
+ print_report+0xd1/0x630
+ kasan_report+0xf3/0x130
+ __asan_report_load2_noabort+0x14/0x30
+ bpf_sock_destroy+0xc7/0xe0
+ bpf_prog_c3dd61f9d9cd9f37_iter_tcp6_timewait+0x9f/0xb7
+ bpf_iter_run_prog+0x538/0xde0
+ bpf_iter_tcp_seq_show+0x26b/0x4b0
+ bpf_seq_read+0x424/0x1210
+ vfs_read+0x197/0xe40
+ ksys_read+0x119/0x240
+ __x64_sys_read+0x72/0xc0
+ x64_sys_call+0x647/0x27e0
+ do_syscall_64+0xe5/0x610
+ entry_SYSCALL_64_after_hwframe+0x76/0x7e
 
-The series then moves SMCCC TRNG and the Arm CCA guest RSI service off the
-platform bus. When the SMCCC core discovers the corresponding firmware
-service, it registers an arm-smccc device for that service. The hwrng
-arm_smccc_trng driver and the Arm CCA guest TSM provider are converted to
-SMCCC drivers that bind to those discovered devices.
+Only check sk_protocol on full socks. tcp_abort() already knows how to
+deal with TIME_WAIT and NEW_SYN_RECV socks. Also fix the comment, it
+never matched the code.
 
-The old arm-cca-dev platform device has also been used by userspace as a Realm
-guest indicator. Removing it without a replacement would leave userspace
-depending on an internal driver-binding device. This series therefore adds
-/sys/firmware/cca/realm_guest as a stable, architecture-provided ABI for
-detecting whether the kernel is running as an Arm CCA Realm guest, and then
-removes the dummy arm-cca-dev platform-device registration.
+Fixes: 4ddbcb886268 ("bpf: Add bpf_sock_destroy kfunc")
+Reported-by: Xiang Mei (Microsoft) <xmei5@asu.edu>
+Closes: https://lore.kernel.org/bpf/20260702224519.800135-1-xmei5@asu.edu/
+Signed-off-by: Jiayuan Chen <jiayuan.chen@linux.dev>
+---
+A reviewer asked to add ENOENT to the list of errors in the comment.
+I'd rather not list what the handlers return, that can change any time,
+so the comment now says "EOPNOTSUPP, or whatever the protocol specific
+destroy handler returns".
 
-Changes from v9:
-https://lore.kernel.org/all/20260805063255.1638614-1-aneesh.kumar@kernel.org
-* Rename CONFIG_ARM_RMM to CONFIG_ARM_RMM_RSI to make the Kconfig option RSI-specific.
-* Update the modalias to use the SMCCC function ID.
-* Don't issue SMC64 SMCCC calls on arm32.
-* Drop the IDA usage.
+v1 -> v2: modify comment AND avoid flaky about selftest
+v1: https://lore.kernel.org/bpf/20260903125306.299943-1-jiayuan.chen@linux.dev/
+---
+ net/core/filter.c | 13 +++++++++----
+ 1 file changed, 9 insertions(+), 4 deletions(-)
 
-
-Changes from v8:
-https://lore.kernel.org/all/20260707081351.1680209-1-aneesh.kumar@kernel.org
-* Rebase onto the arm64 for-next/core branch.
-* Move the RSI code from arch/arm64 to drivers/firmware/arm_rmm in patch 3.
-* Add a new patch to move the Realm memory-encryption operations to the RSI code.
-* Drop the Reviewed-by tag from patch 3.
-
-Changes from v7:
-https://lore.kernel.org/all/20260611130429.295516-1-aneesh.kumar@kernel.org
-* Rebase to latest kernel
-* Add id_table check in arm_smccc_driver_register
-* Add smccc device name check in arm_smccc_device_register
-* Drop driver_data from struct arm_smccc_device_id
-
-Changes from v6:
-https://lore.kernel.org/all/20260527100233.428018-1-aneesh.kumar@kernel.org
-* Move SMCCC bus-related code to bus.c.
-* Remove CONFIG_ARM64 #ifdefs and switch device creation to use the generic function-ID support framework.
-* Move version-specific checks and other conditionals to the device driver probe routines.
-* Move RSI definitions to include/linux/arm-smccc-rsi.h.
-* Split the file and variable renames into a separate patch.
-
-Changes from v5:
-https://lore.kernel.org/all/20260514094030.42495-1-aneesh.kumar@kernel.org
-* Replace the arm-smccc platform-device plus auxiliary-child model with a
-  dedicated Arm SMCCC bus.
-* Add SMCCC module alias support so SMCCC service drivers can use
-  MODULE_DEVICE_TABLE(arm_smccc, ...) and autoload through arm_smccc:<name>
-  aliases.
-* Convert smccc_trng from a platform driver to an SMCCC driver.
-* Convert the Arm CCA guest TSM provider from the arm-cca-dev platform device
-  to an SMCCC driver bound to the discovered RSI service.
-* Add /sys/firmware/cca/realm_guest before removing the old arm-cca-dev dummy
-  platform device.
-
-Changes from v4:
-https://lore.kernel.org/all/20260427061615.905018-1-aneesh.kumar@kernel.org
-* Add /sys/firmware/cca/realm_guest for detecting realm guest
-* Convert smccc_trng to auxiliary device from platform device
-
-Changes from v3:
-https://lore.kernel.org/all/20260309100507.2303361-1-aneesh.kumar@kernel.org
-* Rebased onto the latest kernel
-* Drop pr_fmt() from drivers/firmware/smccc/rmm.c
-
-Cc: Catalin Marinas <catalin.marinas@arm.com>
-Cc: Greg KH <gregkh@linuxfoundation.org>
-Cc: Jeremy Linton <jeremy.linton@arm.com>
-Cc: Jonathan Cameron <jic23@kernel.org>
-Cc: Lorenzo Pieralisi <lpieralisi@kernel.org>
-Cc: Mark Rutland <mark.rutland@arm.com>
-Cc: Sudeep Holla <sudeep.holla@arm.com>
-Cc: Will Deacon <will@kernel.org>
-Cc: Steven Price <steven.price@arm.com>
-Cc: Suzuki K Poulose <Suzuki.Poulose@arm.com>
-Cc: Andre Przywara <andre.przywara@arm.com>
-
-Aneesh Kumar K.V (Arm) (7):
-  firmware: smccc: Add an Arm SMCCC bus
-  firmware: hwrng: arm_smccc_trng: Register as an SMCCC device
-  firmware: arm_rmm: Move RSI support out of arch/arm64
-  arm64: realm: Move Realm memory encryption ops to RSI code
-  virt: coco: arm-cca-guest: Rename TSM report source file
-  firmware: smccc: arm-cca-guest: Bind the TSM provider to an SMCCC
-    device
-  coco: guest: arm64: Replace dummy CCA device with sysfs ABI
-
- Documentation/ABI/testing/sysfs-firmware-cca  |  10 ++
- arch/arm/include/asm/archrandom.h             |   2 +-
- arch/arm64/Kconfig                            |   1 +
- arch/arm64/include/asm/archrandom.h           |   2 +-
- arch/arm64/include/asm/io.h                   |   2 +-
- arch/arm64/include/asm/mem_encrypt.h          |   5 +-
- arch/arm64/include/asm/pgtable-prot.h         |   2 +-
- arch/arm64/include/asm/rsi.h                  |  70 --------
- arch/arm64/kernel/Makefile                    |   2 +-
- arch/arm64/kernel/setup.c                     |   2 +-
- arch/arm64/mm/init.c                          |   3 +-
- arch/arm64/mm/pageattr.c                      |  38 +----
- drivers/char/hw_random/arm_smccc_trng.c       |  32 ++--
- drivers/firmware/Kconfig                      |   1 +
- drivers/firmware/Makefile                     |   1 +
- drivers/firmware/arm_rmm/Kconfig              |  17 ++
- drivers/firmware/arm_rmm/Makefile             |   2 +
- .../kernel => drivers/firmware/arm_rmm}/rsi.c |  78 +++++++--
- drivers/firmware/smccc/Makefile               |   2 +-
- drivers/firmware/smccc/bus.c                  | 151 ++++++++++++++++++
- drivers/firmware/smccc/smccc.c                |  67 ++++++--
- drivers/virt/coco/arm-cca-guest/Kconfig       |   3 +-
- drivers/virt/coco/arm-cca-guest/Makefile      |   2 +
- .../arm-cca-guest/{arm-cca-guest.c => main.c} |  55 +++----
- .../linux/arm-rsi-cmds.h                      |  76 ++++++++-
- include/linux/arm-smccc-bus.h                 |  48 ++++++
- .../linux/arm-smccc-rsi.h                     |   6 +-
- include/linux/device-id/arm_smccc.h           |  15 ++
- include/linux/mod_devicetable.h               |   1 +
- scripts/mod/devicetable-offsets.c             |   3 +
- scripts/mod/file2alias.c                      |   8 +
- 31 files changed, 518 insertions(+), 189 deletions(-)
- create mode 100644 Documentation/ABI/testing/sysfs-firmware-cca
- delete mode 100644 arch/arm64/include/asm/rsi.h
- create mode 100644 drivers/firmware/arm_rmm/Kconfig
- create mode 100644 drivers/firmware/arm_rmm/Makefile
- rename {arch/arm64/kernel => drivers/firmware/arm_rmm}/rsi.c (70%)
- create mode 100644 drivers/firmware/smccc/bus.c
- rename drivers/virt/coco/arm-cca-guest/{arm-cca-guest.c => main.c} (82%)
- rename arch/arm64/include/asm/rsi_cmds.h => include/linux/arm-rsi-cmds.h (69%)
- create mode 100644 include/linux/arm-smccc-bus.h
- rename arch/arm64/include/asm/rsi_smc.h => include/linux/arm-smccc-rsi.h (98%)
- create mode 100644 include/linux/device-id/arm_smccc.h
-
-
-base-commit: 89a312991dc6e638a36adc43ccb91dbc25504c04
+diff --git a/net/core/filter.c b/net/core/filter.c
+index 61940e753552..a41cc60a401a 100644
+--- a/net/core/filter.c
++++ b/net/core/filter.c
+@@ -12912,8 +12912,9 @@ __bpf_kfunc_start_defs();
+  * @sock: Pointer to socket to be destroyed
+  *
+  * Return:
+- * On error, may return EPROTONOSUPPORT, EINVAL.
+- * EPROTONOSUPPORT if protocol specific destroy handler is not supported.
++ * On error, may return EOPNOTSUPP, or whatever the protocol specific
++ * destroy handler returns.
++ * EOPNOTSUPP if protocol specific destroy handler is not supported.
+  * 0 otherwise
+  */
+ __bpf_kfunc int bpf_sock_destroy(struct sock_common *sock)
+@@ -12925,8 +12926,12 @@ __bpf_kfunc int bpf_sock_destroy(struct sock_common *sock)
+ 	 * Supporting protocols will need to acquire sock lock in the BPF context
+ 	 * prior to invoking this kfunc.
+ 	 */
+-	if (!sk->sk_prot->diag_destroy || (sk->sk_protocol != IPPROTO_TCP &&
+-					   sk->sk_protocol != IPPROTO_UDP))
++	if (!sk->sk_prot->diag_destroy)
++		return -EOPNOTSUPP;
++
++	if (sk_fullsock(sk) &&
++	    sk->sk_protocol != IPPROTO_TCP &&
++	    sk->sk_protocol != IPPROTO_UDP)
+ 		return -EOPNOTSUPP;
+ 
+ 	return sk->sk_prot->diag_destroy(sk, ECONNABORTED);
 -- 
 2.43.0
 
