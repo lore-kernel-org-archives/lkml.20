@@ -1,247 +1,183 @@
-Received: from mail-oi1-f173.google.com (mail-oi1-f173.google.com [209.85.167.173])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from YT6PR01CU002.outbound.protection.outlook.com (mail-canadacentralazon11022103.outbound.protection.outlook.com [40.107.193.103])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22F4827A10F
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 13:00:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.173
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788526830; cv=none; b=RWILEF20EjtxwUuj7tUPYUStUfbhshETuMp4SA+6yDZDV+gvxYm88V6E3U/XeK6uATKEDHMcgAsMTIOwPrIU8BD4W4zI2AbiKmRv5uvdfCR7BDqaO4PY19Qb4bEtvSavhfBdK32xToPZ2r4CvBRQK6ArNtaAxXvmisPnLmGMUoM=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788526830; c=relaxed/simple;
-	bh=Ydv31/vgUq8AU53l8gZREKvZGMpW9JqKhtiuGxHvbpU=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=HKy1DuhuMsh8QlZE+ErpMu7StX+T/dkkCL+lKIktNQbDsZRuX4GAHFGmZyCd1yjBsh4jDr+GiPtHDw9OcE8EG5tpDfTXRCnZLiQ8z6teWAmnFCZZhlunSwistnU6Q40JDcVq4NQyxdAmTIfO59M9k4yDNkeWaCg5zSb6pop42iw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=hedEUAbZ; arc=none smtp.client-ip=209.85.167.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7F91223336;
+	Fri,  4 Sep 2026 13:01:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.193.103
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788526871; cv=fail; b=HB8O/6XSJoN6UPxdJr8sv9l9zkWB2yxw6vF85/0sZ5fdpMztuDx37yR0OEUdfyAEohzII/5nxfKNDP8vJTBx0N+YXtfsl20dYwzEIFSoKKlxnEQWMPSKHmZABiG4fKwjq1yQObB0ChP6eD/3Vj5qjTb388868VyN+8A3xKrbWEA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788526871; c=relaxed/simple;
+	bh=9Ya/+U54wH/jpdiKTS4de6+qjxkPFPBN4R4wDutfKlo=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=RtO+ll7GVADToQs6st/kuKcducYL1+XpvWt5qRKBNOE2yp52AJkBA3nnfe9NAwuc902VJraMr5YyFH3D3p7AiYqV0N/hEscVcARuhP9+ktGWjF8UO5i82obXJQu6NDFC5R0q8nhZSDwUN6gXyfZQkd9yFqcDqUrA+V4Zi8b5ZUs=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=efficios.com; spf=pass smtp.mailfrom=efficios.com; dkim=pass (2048-bit key) header.d=efficios.com header.i=@efficios.com header.b=iwzp+An3; arc=fail smtp.client-ip=40.107.193.103
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=efficios.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=efficios.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="hedEUAbZ"
-Received: by mail-oi1-f173.google.com with SMTP id 5614622812f47-4b1fcd3b1a9so465140b6e.0
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 06:00:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1788526826; x=1789131626; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=7DTIePpegKNFCm1xJl3uPsht9O3FJLaiNySzF0iZoEo=;
-        b=hedEUAbZENQepfVI6dHi+OHBv40dvHOA/vB7dIjZOcPxrUS7dwkxyvAj9QWe75v6rM
-         aHH8DK5oF/w3ERrS3RPLN7DYZCAFjzUziYSxM+FnpetnxTlnXMst5dDgKJE7x5yA3/gw
-         Lb/1Oj8QGj/Gq+6RPha9WSyqd3SImHx58ZFAQ=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788526826; x=1789131626;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=7DTIePpegKNFCm1xJl3uPsht9O3FJLaiNySzF0iZoEo=;
-        b=gYM1+/u6EaF0/+O3jwurViIgNAa/pjyswzA7Z7FxLgYXXdhUeo/ky0t6dQk3DP/sIb
-         zysKzP+zbRCXsuHIwjMSPouR/74gHCXpjedFMV0Ueq1E09oVhCcULDT7l7cErMH5Ft96
-         bGnhXAPizVHNc8VOBTMRzpvZhNRfa4Q8gpEBs08tvbN6CXFRrBdnNkZPgi2xiV7Lm9gE
-         yLfhT4AxQoKboBX+enLEmDvlOxScgrpnmbkpJRgbudKlUstQkM3DhInWatEJYGCz+bUX
-         l6JOWML8E9bxhrBgTQ1GjIaPI0Vy1FvmZhSKSPVjGZ/Pk+eQaedLnYUIQNkMQZozb1kS
-         zHPg==
-X-Forwarded-Encrypted: i=1; AKwUvBxYoCDPiA7wESWD7IwiyWZvWirgoBXkNHlVjaaVtzfsSUZPh6Deq9VemeZId4ryXVhLConobksg+aLh5SQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++mlP28pchGYkeYImG9Lv45sqsf0g4ZGXiz51MmkHgCiRzym+V11
-	45aJV/OYc6zy+YF1WE+oViapZFWoZf7rsYUBYQL7qHYI3ezhHMXRGGmLreJa9xbe2ifRYlEgMsx
-	VvEMn/Q==
-X-Gm-Gg: AYBFou2HG1Oc9IWaJDeATFngP2mZBYSiEC4Vr8qIS/NpFtLTgrsp89txuPV3HPCJsAa
-	Kw7sYfBlRuU3UVaHCpiNxZuETz4MVoUerHHSH6t7kZux8+AhiEpSk6mIbIUbJSkcovauoJQTdnM
-	ZlGQgnATtXDXukg25ieQV7IdrlzoerMTIaG7+vV1DDgXUWub3m8L9gP/GOHNRDNixK7DihpPAtH
-	ZPqTkWGLaX22gdKWFB8VwKco3T0EzHzD8vwRchv5UYvsCOLlVG8TbJ/RKbnHzNhW+AU8x0b5S+D
-	aZDkjoG3zZS/1U4B4kW9TU7tDbVK6keXVbnJtSCA/0gTlwei3FJdMMAcb1vzXrNWSjfZcsvp/A3
-	dAfo+6+4ZDbCAHU+ID70v5OSYCDJ/KGjJfeagmFKjLd0Xd/3UXDnEQmfelCgdpbwuCd7rgnhFmn
-	LejAru7HMq8javMLgFoqI1mNDcEcsQxFCUEGkHNbS3vpQPsrZFqv1IZAY5jvERlINVi8cvYrIbP
-	Ztjt8Lsss20sEH5QDMnP1ByVg==
-X-Received: by 2002:a05:6809:307:10b0:4ba:3ae0:b680 with SMTP id 5614622812f47-4ba3ae0bd38mr693720b6e.26.1788526825485;
-        Fri, 04 Sep 2026 06:00:25 -0700 (PDT)
-Received: from mail-ot1-f54.google.com (mail-ot1-f54.google.com. [209.85.210.54])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-4b971c8ed6asm2139907b6e.17.2026.09.04.06.00.24
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 04 Sep 2026 06:00:24 -0700 (PDT)
-Received: by mail-ot1-f54.google.com with SMTP id 46e09a7af769-7e9fc3de7ceso575033a34.1
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 06:00:24 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBwCgwNBOxOKy7jhTy7y3WoBaWAqf6c2+6JXeU/zVZL2mpXOzpmQbAZ7lra9eT4tyJcBTzFQDwYypM5MHyw=@vger.kernel.org
-X-Received: by 2002:a05:6820:609:b0:6b1:67e1:fc8e with SMTP id
- 006d021491bc7-6b6fd9c7a86mr4365581eaf.25.1788526822975; Fri, 04 Sep 2026
- 06:00:22 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=efficios.com header.i=@efficios.com header.b="iwzp+An3"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=hEijYreH1QaCIMwVYdWbIWngoGHVMA7c/TH1G5ul7snqzUyYTP7DiaUEyAuLD/R0pcDlPwIeoXRWnTBP4eDQtn7VTRnQp5Kab8iuQ32vamjieLjZXOBiwQ+WApOze++5et2yICXAbNREO9jQxCsK4+wglaTNl1vxGK+CNKB7GlvxqFeYjBYMMwG1KDybRPxGPOohZ0Zto1irH01AtUM1HmNYWNu5U8jCXL1Ue8dq9/BHJxh844PU1WKpsd/6aE/fXicLShFLcl4ICe/yE8m10KWx0TRHY6aODe97ivF1/tfO8CHzgILIf6h2IsxyWYA7dYkYtD22B1uVmOzqGHsFqA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=KYOwvdiiyJkc2cSf62650hPwPU9TFmW/fZVSrNu/3Lo=;
+ b=w2QJnNen+r5JW/LeX/2NL+tYU+M/L/b4D3fdqxfpaR6E1sF9O+Mie/x4gp203896aFS7Xz5a4R6GnMZLSWeDl3JW3HCXCded0yF2PG5nD6icFSSUvKnx5UJccc1/YKe70BmuguIBQjkEMeEyQQotMQuap26z+rI0qUpfpCR/Nv/fAt7iYsylB8iKJRfIg+RALWXVsziiwIqUqLR7+8apUFnnd9p8iE0zE4HfrLMX2L04QqenD3WZI/aeWn/YdFvHTTs2NZY8b+OlxNfl6veY45AjGko2GR8OtFMb8v9GBzOOlGBuXFZqZYK1cW/cMhFnm1WwZ+vZGW0+9PYUTdYQ8Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=efficios.com; dmarc=pass action=none header.from=efficios.com;
+ dkim=pass header.d=efficios.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=efficios.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=KYOwvdiiyJkc2cSf62650hPwPU9TFmW/fZVSrNu/3Lo=;
+ b=iwzp+An3GhrDx423XieUKyNWdJ/npAMLy0/c2oHQ93YTjijqXYdjirX5rUAfmEYzJIQ+sCjTUpT0N+Ey4u2PKTVE/gAboJiW5CmM5e2UATebPBXHovoRDYneABBcN8dEN4M2oGzodLgP02bEYSB7hbkBFQSJte07kb7bfrd9fpGGTAhOwtp8d+pyZPgfeqqkbj67vN8TkmHHPxnyqDKJYkwlixm6hQVwMF/RK1CU++drzM21SBboKB+lEzxSmtLBLH/QzN+nrW5+Iv9bXmXFS2Einfrxxjxo7d3aePuQmRACosFIQE2WOvQkH6KAm/Uudd8bNqfxU3/+3lfOPuOnGg==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=efficios.com;
+Received: from YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:1d0::10) by TO1PPF85685F8CA.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b08::664) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Fri, 4 Sep
+ 2026 13:01:07 +0000
+Received: from YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
+ ([fe80::6b9e:a901:67c5:7ddc]) by YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
+ ([fe80::6b9e:a901:67c5:7ddc%6]) with mapi id 15.21.0360.008; Fri, 4 Sep 2026
+ 13:01:07 +0000
+Message-ID: <cd110e62-da2c-4366-b9c9-24c1df6a39ec@efficios.com>
+Date: Fri, 4 Sep 2026 09:01:05 -0400
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] hazptrtorture: Fix inverted sleep condition in do_pending
+ kthread
+To: Bradley Morgan <include@grrlz.net>, "Paul E . McKenney"
+ <paulmck@kernel.org>, Frederic Weisbecker <frederic@kernel.org>,
+ Neeraj Upadhyay <neeraj.upadhyay@kernel.org>,
+ Joel Fernandes <joelagnelf@nvidia.com>, Josh Triplett
+ <josh@joshtriplett.org>, Boqun Feng <boqun@kernel.org>,
+ Uladzislau Rezki <urezki@gmail.com>
+Cc: Steven Rostedt <rostedt@goodmis.org>,
+ Lai Jiangshan <jiangshanlai@gmail.com>, Zqiang <qiang.zhang@linux.dev>,
+ rcu@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260804000340.4812-1-include@grrlz.net>
+From: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+Content-Language: en-US
+In-Reply-To: <20260804000340.4812-1-include@grrlz.net>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: YQBPR0101CA0229.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c01:66::35) To YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:1d0::10)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260903131141.6368-1-huhb1@xiaopeng.com> <20260903141532.6693-1-huhb1@xiaopeng.com>
-In-Reply-To: <20260903141532.6693-1-huhb1@xiaopeng.com>
-From: Ricardo Ribalda <ribalda@chromium.org>
-Date: Fri, 4 Sep 2026 15:00:09 +0200
-X-Gmail-Original-Message-ID: <CANiDSCuxtH1wbXAwoWrbV6Y97dN3Ym-A2zSbkEpLVEGFToXLfg@mail.gmail.com>
-X-Gm-Features: AcwNN1UnYF_YOwvF0cdMkhyo9nu_QNK48v5jfa70Pj-GAzCpgE_WUDV5GZ1ST1I
-Message-ID: <CANiDSCuxtH1wbXAwoWrbV6Y97dN3Ym-A2zSbkEpLVEGFToXLfg@mail.gmail.com>
-Subject: Re: [PATCH v2] media: uvcvideo: defer cancelled buffer completion
- until copies finish
-To: Hongbing Hu <huhb04@gmail.com>
-Cc: laurent.pinchart@ideasonboard.com, hansg@kernel.org, mchehab@kernel.org, 
-	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: YT6PR01MB491026:EE_|TO1PPF85685F8CA:EE_
+X-MS-Office365-Filtering-Correlation-Id: 30b928e3-4de2-4a1b-124a-08df0a8495b4
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|7416014|23010399003|366016|376014|22082099003|18002099003|56012099006|5023799004|10067099003;
+X-Microsoft-Antispam-Message-Info:
+	GaKYayRGKBn+/goKuoK/xaFfcDsLuvaeWOqsjX+Fc9PQEFBUB4bdXt82eojPo7kvzji0BzB0spQHW8bm//9aOQkAQYG+FIb0PO6AfSsCKmK9yvGrSOaTn5EvVbsQbqJHWH2f1Um8mmM/dx91rF2A6kwAh/h/JUqW3Ez0KSsuJE+A9uOBF16qxxaBN+sbj24oEEc93SD3iI4cq2bDb2jkMoVJXIWtbrBmkLwrGB+FzPTxRGtaufclqHmhdx4PrSHFPuWYUdVbsQYIDkGjiCeE9QWJTTu5Fm4u1db1EfYPghvGJ8zdUKhY8bYOJfHPQcodnj6iKY9Psa6tgCSdqGwOnxuZVTcfY2j3kix+Dookhkd0x5HCxpt6GNTvp/dtks4o4W/D+w5Bla5IUDERvTzQ4CnINGWvCZe6c2w2CwVcipYZ0a9dUnAI2s7nnNTMxBR0XKzHWDC16FzqeCv2wTkAcX2hp6upFGcYS7mjz18vbUYuZOdEjUzspGkgbOi85fajD2nm4MxOpZFxkx+GJGYVHyobI6trYvAryb+sSU+18vhVfKxSGlRyzqYOsMsq4moqyfSvhhj38LYhVhGtuAJS1vbUj4gwlM1V9kXjPlYvPkc=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(7416014)(23010399003)(366016)(376014)(22082099003)(18002099003)(56012099006)(5023799004)(10067099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?QjhRWnRqQzVPcnp4MkNXcVRvdjJydlhhbFowMkRHM2YwUWlhelZjNi9Ma3JC?=
+ =?utf-8?B?Y3MvYnZOZ3E3V2p2OXlFRDFsbDlQQmY1Y3lFT3ZiSjQ5N2U5M00vbWlOdmhy?=
+ =?utf-8?B?ak9iMFJObElrOEh2aktvQW1TTFlWeWRNYzVYL3IxV25DckpZdE81U05nM0VG?=
+ =?utf-8?B?czlmNzhYeFNtSFFRSTBWWkdXcFU4NGpJUFlpaHlMalNrNXJHVWR3SlZ3N1lx?=
+ =?utf-8?B?Mk9LWkQ2YTY3bEZjMUwyMkt0R1lhczhZNkVhM0VLQnpUNU9BUUN4R1pqcGsz?=
+ =?utf-8?B?ZE85V2p1TE5aVHNhZFdsMEk2VWxnemthQkV4UzhTNzBydXFnenZmSkt3M2Vo?=
+ =?utf-8?B?NjkrZVFRQ3lyY21iVG53ckVIQWc4NkhuQmpBRUM3Z3VZUTVMK2FsQnZqSEIw?=
+ =?utf-8?B?d241NzBpSjN3R1YzU2FpYmErU2JpS2VNcGZsak9FdW1tMCtnbzEwdGMxSnVn?=
+ =?utf-8?B?QlJJZ00rc05objRldmo0VVdJMmZDdFBiT1ExeVoxRkV2aFo3UXNuTTE1aXZq?=
+ =?utf-8?B?b3kzWVdGeENhRm1rS3BxUUllazBBd1lzbFRnK0xBRGpRNmVFcGxsRjJpdSs5?=
+ =?utf-8?B?R3g3aWViTzAvbThleDk4RURRQTJIc0NyZ0tNUlI2Ykpwemk0eTcrV0RIa2t5?=
+ =?utf-8?B?Ylcvd0llTEpxNXNlbVZ3aVk2WDkrWTYvWmQxbmErK0U0eEx2QjRCSXB0OXBt?=
+ =?utf-8?B?U0NWMStNNnV5NGJsaWVNaE15dTZVVURaYXhCekh0bjgyWkRVbmgzQVI3eFRN?=
+ =?utf-8?B?VkVGYnp3blJjR3cydnhvUGk4ampJc21RQnVsYk9XOHNiWlFBL2JIcUpjUjln?=
+ =?utf-8?B?SUtQenhrbjY2cG5VR0MwUmN1a2JPSzc1Q2c2cWpsR2ptQXNNN1FxcHJaOGxB?=
+ =?utf-8?B?a3JLLzMvMmJmeEFHMDNGU0lJRU1MNEZXaFQyVU1OK2dzWk9kUjQ3VVpCNksv?=
+ =?utf-8?B?UVBoRTkwcmlrMEMwQ2liejZiTU0rZlJIWFQ3VnkrdjNoaGNIQjF0TE05WVRo?=
+ =?utf-8?B?QmVEQzR5THFGbFR1U001Z2dtL0Y5a0VUdm1UbFE3VVRzZnBESWNaMHZDMFdF?=
+ =?utf-8?B?ZlV3SkQrK3JKbXRPZGs3cnBOTlpGbWs4aEwwRzBzaUF1NnhncURRM1FESUVN?=
+ =?utf-8?B?U1dNNWN4SFVLMXU4NkNKUHlRbzZlN2tFNU00OVBjbFFrOUI2ZW4rK24vUUNX?=
+ =?utf-8?B?Q05wdkJ5bFpURHlZOGhKL1BHdW1DZFRMQ3dVMElIN29INXJwRFNGUHEvK1pW?=
+ =?utf-8?B?LzhWK0trYk0zdWp2aXQ2RW5hWUlNMWFKelJzOFNMcHRydUFCaXBSUUV3RFRD?=
+ =?utf-8?B?S1VRV253bjM0WWtPNHR5OFNZTk9JR3hnOHdNa2lzMlp6aWRJZ21sajlYM0Nw?=
+ =?utf-8?B?MDZTc3VqdTVYcWMvbjN6elVOREgvUitZMWE0dDBQc1hES0ZQdlF2bXQ5ajBk?=
+ =?utf-8?B?TXB3NnJ1QXNiR01Yajk2UEhhajhwWWxydkpMemdnQWxzWllxSUwrRzJJWDVJ?=
+ =?utf-8?B?YXFocmtyc0RRZXRzMW82QXBDS0JQUUFGOFlpcnpyMkxtTklUaUdHZVNYT1c0?=
+ =?utf-8?B?SGhMRzg2SVJVZDlvNXB6TG8xMGVJc0VnUmxmQ2Z0dkdrTzJYb2l6TFJoN2FR?=
+ =?utf-8?B?S05BQ3k5Snk1Nm9ob3Y3VVFmQlk0amJURXFTVkxoY3JIYmZDT3MxS1NWUWZn?=
+ =?utf-8?B?RUdyZXNucndUajBzbDVEQitxdXNLL000aVhPMkJ4enk2a1JxazBkcDlMcVdU?=
+ =?utf-8?B?NE1qb01XU0hKTU1uOXFFZGtKenBEbE1sYjFwelNZZjI2TXZpZytmam8zQ21n?=
+ =?utf-8?B?Z2dYR090U2I4Y0JzakVpdUpxajAyRkdnMm9JL1RuV1dnMVdpd3Rxd3Q3Ukh0?=
+ =?utf-8?B?cUdwVDE5RE9ldkVJSGpsaWNZaFBMNXpFNWdOc0k1N2hlUndFOGlZSTQzMmpU?=
+ =?utf-8?B?OW9FRk9keFkxRW1CT1h6aXRPcmE3N2NEbUlUTmluM2FTMHlRRlcyT0hVdG9I?=
+ =?utf-8?B?cVBEWS9YS3VMRXU5V3BRQlRwd0pSSDJiNFZsOHRQQ1pCdFJGV3pxcU0zMzZ5?=
+ =?utf-8?B?TitmV0VOZTFKWUNzUWNEVmxHay9aTUt1VUZPSWRuSG1iamJFT0FXYmxMR2RM?=
+ =?utf-8?B?TnM0anhZNGt1c21iN0ZESGcwb0FVN3FBY2J4SEFBVkI2dDRZb3lzYmxwWFMy?=
+ =?utf-8?B?ekkxbFRLRHlZaDVTeXFjMEk5a25zeStqaWhTaVlGeWFMNmpkT0JVNmxBSklZ?=
+ =?utf-8?B?VlNHNWZ0ZnF4QTE0alFWcFRIT2hUc2dJUTNGNFMvYkhzejFsYk1Pb3dvaFJi?=
+ =?utf-8?B?WDlsaEIybGh0ZGJiNFFFL0I4STI2OFozWHlNK25ZUUhSZ3VNN2FGRlp5TzEr?=
+ =?utf-8?Q?+exjtwaBrzd7aUts=3D?=
+X-OriginatorOrg: efficios.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 30b928e3-4de2-4a1b-124a-08df0a8495b4
+X-MS-Exchange-CrossTenant-AuthSource: YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Sep 2026 13:01:07.4215
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 4f278736-4ab6-415c-957e-1f55336bd31e
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: r35X/6ng4qRN1DwVOyEPNYi+ESVsJ7Vi7FUc9ybZFLVRN1fE0Izo83Kb2F6EZDuU2lyxZAObW7mLO/I/9nQbxZ6HC5lTdz6ubBZjT0Hej1I=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TO1PPF85685F8CA
 
-Hi Hongbing
+On 2026-08-03 20:03, Bradley Morgan wrote:
+> The do_pending kthread never sleeps. Its supposed to.
+> kthread_do_pending_ms sets the gap between cleanups, and the docs
+> say so too. But the sleep sits behind torture_must_stop(), and thats
+> false while the test runs. So the kthread never sleeps. It just loops.
+> It drains the pending lists over and over, no pause, and burns a full
+> CPU for the whole test.
 
-Let me rewrite the commit message for me, because it took me a while
-to understand what was going on. (totally on me). Please correct me if
-I miss-understood the issue.
+Paul, I just found this patch in my junk email folder. Maybe relevant
+for you ?
 
-The UVC driver processes frames in urbs. A frame usually is divided in
-multiple urbs. The urb handler parses the header and the metadata, but
-leaves the expensive memcpy to a workqueue.
+Thanks,
 
-At any given moment, during streamon we will have:
-- the current frame with (0-N) async memcpys waiting to happen. The
-current frame is in queue->irqqueue. It has a refcnt of 1 + N memcpy
-- Previous frames with (N) async memcpys waiting to happen. They are
-not in queue->irqqueue. They have a refcnt of N memcpy
+Mathieu
 
-With the current behaviour, when there is urb with an error we flush
-the queue->irqque() irrespetively if they have any pending memcpys.
-
-There can be situations where the memcpy occurs after we have flushed
-the frames and they are returned to the user. Instead, we should
-exploit the refcnt mechanism to return the frames only after the
-memcpys have been completed.
-
-This patch does so
-
-On Thu, 3 Sept 2026 at 16:33, Hongbing Hu <huhb04@gmail.com> wrote:
->
-> From: Hongbing Hu <huhb04@gmail.com>
->
-> uvc_queue_cancel() returns queued buffers to videobuf2 directly via
-> vb2_buffer_done(). This is unsafe because asynchronous memcpy workers may
-> still hold a reference on the same uvc_buffer. Once vb2_buffer_done() has
-> run, userspace can dequeue and requeue the buffer while the old worker is
-> still running, leading to the same list_head being inserted into irqqueue
-> twice and corrupting the list.
->
-> The crash manifests in two ways depending on the drop-corrupted-frames
-> module parameter:
->
-> 1. With the drop corrupted frames enabled, the old worker's
->    final kref_put reaches uvc_queue_buffer_complete(), sees buf->error set,
->    and calls uvc_queue_buffer_requeue(). This performs list_add_tail() on
->    buf->queue even though userspace has already QBUF'd the same buffer and
->    added it to irqqueue.
->
-> 2. With nodrop=1, uvc_queue_buffer_complete() calls vb2_buffer_done() a
->    second time. If userspace has already dequeued and requeued the buffer,
->    the second completion exposes it to userspace again, and the next
->    DQBUF/QBUF inserts the still-linked list_head into irqqueue a second
->    time.
->
-> Both cases produce the kind of list_del corruption seen here:
->
->     list_del corruption. next->prev should be ..., but was ...
->     kernel BUG at lib/list_debug.c:64!
->
-> Fix the cancel path to remove buffers from irqqueue and drop the queue's
-> reference through uvc_queue_buffer_release() (i.e. kref_put()). The final
-> VB2 completion then only happens from uvc_queue_buffer_complete() once the
-> last async reference is released, so userspace cannot reuse the buffer
-> while an old worker still accesses it.
->
-> A buffer whose state is already UVC_BUF_STATE_ERROR is forced to complete
-> as an error and must not be requeued by the corrupted-frame policy. Normal
-> malformed frames are still requeued/dropped as before.
->
-> Fixes: 01e90464e42e ("media: uvcvideo: queue: Support asynchronous buffer handling")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Hongbing Hu <huhb04@gmail.com>
+> 
+> Flip the check. With !torture_must_stop() it sleeps for
+> kthread_do_pending_ms between passes. When the test stops it does one
+> last cleanup and exits. Nothing left to do, so no sleep needed then.
+> 
+> Fixes: 94d2e93c222e ("hazptrtorture: Add kthread to release deferred hazard pointers")
+> Signed-off-by: Bradley Morgan <include@grrlz.net>
 > ---
-> v2: corrected author real name in From/SOB per maintainer feedback
->
->  drivers/media/usb/uvc/uvc_queue.c | 30 ++++++++++++++++++++++++++++--
->  1 file changed, 28 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/media/usb/uvc/uvc_queue.c b/drivers/media/usb/uvc/uvc_queue.c
-> index 3c002c8f44..9206e0a355 100644
-> --- a/drivers/media/usb/uvc/uvc_queue.c
-> +++ b/drivers/media/usb/uvc/uvc_queue.c
-> @@ -289,10 +289,19 @@ int uvc_queue_init(struct uvc_streaming *stream, struct uvc_video_queue *queue,
->   */
->  void uvc_queue_cancel(struct uvc_video_queue *queue, int disconnect)
->  {
-> +       struct uvc_buffer *buf, *next;
-> +       struct list_head local_list;
->         unsigned long flags;
->
-> +       INIT_LIST_HEAD(&local_list);
-> +
->         spin_lock_irqsave(&queue->irqlock, flags);
-> -       __uvc_queue_return_buffers(queue, UVC_BUF_STATE_ERROR);
-> +       while (!list_empty(&queue->irqqueue)) {
-> +               buf = list_first_entry(&queue->irqqueue, struct uvc_buffer, queue);
-> +               list_del(&buf->queue);
-> +               buf->state = UVC_BUF_STATE_ERROR;
-> +               list_add_tail(&buf->queue, &local_list);
-> +       }
->         /*
->          * This must be protected by the irqlock spinlock to avoid race
->          * conditions between uvc_buffer_queue and the disconnection event that
-> @@ -303,6 +312,17 @@ void uvc_queue_cancel(struct uvc_video_queue *queue, int disconnect)
->         if (disconnect)
->                 queue->flags |= UVC_QUEUE_DISCONNECTED;
->         spin_unlock_irqrestore(&queue->irqlock, flags);
-
-
-I *think* that you do not need to call uvc_queue_buffer_release
-outisde spin_unlock_irqrestore(). You could do it
-inside the previous while() and simplify the code.
-
-The only way to deadlock is  if uvc_queue_buffer_requeue() is called
-and you are actively blocking that in your next snippet.
-
-I would recommend to add a comment in uvc_queue_buffer_complete if you
-go that way.
-> +
-> +       /*
-> +        * Release the queue-owned kref outside the irqlock. The final VB2
-> +        * completion only happens from uvc_queue_buffer_complete() once all
-> +        * asynchronous copy references have been released, preventing userspace
-> +        * from reusing the buffer while an old worker still accesses it.
-> +        */
-> +       list_for_each_entry_safe(buf, next, &local_list, queue) {
-> +               list_del(&buf->queue);
-> +               uvc_queue_buffer_release(buf);
-> +       }
->  }
->
->  /*
-> @@ -356,7 +376,13 @@ static void uvc_queue_buffer_complete(struct kref *ref)
->         struct vb2_buffer *vb = &buf->buf.vb2_buf;
->         struct uvc_video_queue *queue = vb2_get_drv_priv(vb->vb2_queue);
-
-If we called uvc_queue_cancel() buf->error is not 1, but the frame is
-not complete.
-
-You cannot return VB2_BUF_STATE_DONE in that situation. I think you
-should set buf->error =1 inside uvc_queue_cancel
-
->
-> -       if (buf->error && !uvc_no_drop_param) {
-> +       /*
-> +        * Buffers cancelled from uvc_queue_cancel() are forced to complete as
-> +        * errors. They must not be requeued by the corrupted-frame policy even
-> +        * when buf->error is set.
-> +        */
-> +       if (buf->state != UVC_BUF_STATE_ERROR &&
-> +           buf->error && !uvc_no_drop_param) {
->                 uvc_queue_buffer_requeue(queue, buf);
->                 return;
->         }
-> --
-> 2.34.1
->
->
+>   kernel/rcu/hazptrtorture.c | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/kernel/rcu/hazptrtorture.c b/kernel/rcu/hazptrtorture.c
+> index 72aeb50668e9..7c8b5899fb01 100644
+> --- a/kernel/rcu/hazptrtorture.c
+> +++ b/kernel/rcu/hazptrtorture.c
+> @@ -555,7 +555,7 @@ static int hazptr_torture_do_pending(void *arg)
+>   			cpu = cpumask_next_wrap(cpu, cpu_possible_mask);
+>   			hazptr_torture_do_one_pending(cpu, &rand);
+>   		}
+> -		if (torture_must_stop())
+> +		if (!torture_must_stop())
+>   			torture_hrtimeout_ms(kthread_do_pending_ms, USEC_PER_MSEC, &rand);
+>   		// Omit stutter_wait() because this function needs to do cleanup.
+>   	} while (!torture_must_stop());
 
 
 -- 
-Ricardo Ribalda
+Mathieu Desnoyers
+EfficiOS Inc.
+https://www.efficios.com
