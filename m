@@ -1,274 +1,130 @@
-Received: from mail-lj1-f172.google.com (mail-lj1-f172.google.com [209.85.208.172])
+Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com [209.85.216.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41AD23AFB1C
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 05:42:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.172
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788500544; cv=pass; b=lyeKvKgXJ1n8Fh+mcmibh6XlynhwbU2YX6eA15SGSJpbkxNYCMX+HLh4GFtA4yW0Elqz07ylk5RKxC9yalCHMPk3QWLjJn8QgHrXB+etVMUDxlh+fiB9He7Gd1OJ3j+5LVT2z1zblaTJlmyymsIDhUO0PUXpERuAPdVA7ijhT7g=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788500544; c=relaxed/simple;
-	bh=7a9ytScdRalaQfs49ax3SHBjSOpZN0zrjBNJQ4qqRgw=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=AKo6SAMnxAgMn8bJsE/FuZtJtQKOe/SjzMH0KCxKFaPXiugvyMvPrt8N/vwWij2ks7V0Cac0H7rTk/oHraYCsXvZ/01FwbV28VaQs8joiUPfVpudstiWW6GKZjZjs/ZMt7aE8IjumOQyEHaz/RsPRM5wGj/AYhIW4WhAOeu+frQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai; spf=pass smtp.mailfrom=nebusec.ai; dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b=XR5HqxlY; arc=pass smtp.client-ip=209.85.208.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nebusec.ai
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFF542AD37
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 05:43:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.43
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788500590; cv=none; b=KSjvn75WcneHLLOr4FwvVHzb7rOpQ9YG+d4Ega4dK+m2NcUsX9Cx+KrLRDT9TXmHkifxZlel6dYnEqrk31vl38I1GDeNxqMDXTCJR3AjuiZ936yu/PPZbFtH5jxZbZLjqtF1HgDAX/pjYMiRy4QP+lGffSXweDlu34N9dfOr5+M=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788500590; c=relaxed/simple;
+	bh=WKOAdQYFmbJHqAPATl7qzYWXuN0szCi6+F+swb/3dYU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=TVxXeYRTEoEsqv1TeH55aX3b2vXl1RUbuRaobw3IYnD7N6CawLw+bWQYccMvDCJzD2h0SgLM0euJWGoAKgK1GfSWiidmEtpXXzmkRpVnMZPYBvTBUhWh7cZdwRWb7v79jZbsXDIckMkrrjjo6ETCkujvTeH9hquv0/8B1Lem/Sc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Bxvvzzw9; arc=none smtp.client-ip=209.85.216.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b="XR5HqxlY"
-Received: by mail-lj1-f172.google.com with SMTP id 38308e7fff4ca-3a20f06cce6so5585091fa.1
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 22:42:22 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788500540; cv=none;
-        d=google.com; s=arc-20260327;
-        b=WAHelfjPDR9LKTB3kGTbhui1F869k0xbd4D18jnQa/HjkkuEVlyDqP89RWVMClLO/9
-         4+w8HiZKy743OnnVyBxByeLQqqKkrKgqmlTtufYbSuh+WFXe5EVBsCMV7g+q799ALWca
-         f+inEJ4H6d7OakiBZtSqHHbYAmW8jPfLDxQlfq+gF88j331HdUgQtAN/Zb9UnR/us0lh
-         oYajFaUnUZjD7FKQQeXqQubAvgLtkJ5uAcB2sgi5b5LznpvucKoKp32f/A8E8eZSAU4m
-         tYJKtC1z0CgiX8OzYu+Wom1Ek9tybOUJmAFa3ZaEVKPlpbrmOK7uia9Ymx/gYdGGo6TZ
-         WGCg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=WP9LYTFZF8MbWwJfhaukl4r1/bwWhLGNTeX8IkDlRSA=;
-        fh=VnL/cSKhCHi0V8v/uPxIq7imNSv0AJqdP5cCSJDUBYY=;
-        b=X2EhdO2JlHBwQjE6yvcg1fRIOqE7DsfP29OZY9Cd59J/GxRlKfe3XAvnqzLQyMoYi9
-         +7I0yvwPjvt8hKBByTeaQSim+w+meWSM3O/hI1eVb9+pTE0+UB3AwdiGtaIklJpiyuwU
-         UQAWnn9cwbwEFr5y4IYxNDOxIE5hBcFrMZz8pHX6lmgSzGTLV17v+ZCF+9Dfxp9KWPeV
-         uKRC2lAX+fhwRHKxsFO4Psaccisr+w1tfRI360f66jUKRCpdgOfsL75I7D9wyozMJqWf
-         oxHJ5Dz3XIZ8JFAqsw/cOKFKgDUyPM2A3lwIrGqdbkkeM2QjrKFrO2ypHA0ZRFVQphgh
-         h7iA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Bxvvzzw9"
+Received: by mail-pj1-f43.google.com with SMTP id 98e67ed59e1d1-38511175ad3so549729a91.2
+        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 22:43:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=nebusec.ai; s=google; t=1788500540; x=1789105340; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+        d=gmail.com; s=20251104; t=1788500588; x=1789105388; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=WP9LYTFZF8MbWwJfhaukl4r1/bwWhLGNTeX8IkDlRSA=;
-        b=XR5HqxlY+Mahz09OZo80Hn5QddQI+Y1xc3wGYM51C8r9jjtRqYpb4SQQjkDxdVIf8t
-         yg/7H0yiRLPckeljaBeJLoYWMwdba6Qkt1Lx5+hTquI9TKokB9ICbn8+DmzaKCSqlXKf
-         Wo/Jbzjorw2r+LnW5tCHlc/njxQF4RQ0dJrPMbJmhyaFGRUJSJBrq4nx3q9IW7vTNnq/
-         BeuTWl6Q9u38q8wnXz3MlgwGfgz4ZqbxoYkL3p25HWalD0+lSk1mpDi+md8c/6+jJiac
-         nunhIciRrKl/gYvB5spC4JADvuexX2vmokSm6G+ccMuiBwhPyDeD4f20CHrOiPEw5G6r
-         04Xg==
+        bh=fyaQ4vR8zK9HgI6ETSL4jxpRT+46yI+OILInPbjhckM=;
+        b=Bxvvzzw9/oYjHI2POVeFHDI+04X/NkDJ69a3ZBfe5+WT8QONin2aUmcPkY4QmT+vZr
+         pNZJukUA/pD8n5JiDaa87n0abIvL2g3fss+CA6lyDp9Go8r7nUpN9afrzZuM/X3ATpnY
+         3PPQS/XAc3NN4sWFMoQdaK77hxZGmpgk3fsYLKorGVoWrgaAKTGdJcCV7S0WG1h3rRVb
+         X8UzkYwgjKvxlFRnjcA4ikqfR1+i+JNjjmdZp+nXZNKwl2qi/TfA+tCxKgUiduJp1tO2
+         jXwgI4rGfCLbTVa06KB589AlPN3+r2CmdVdvKQSAjQEKyF9t42gl9gbPZ6eM01nGKC3I
+         V73Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788500540; x=1789105340;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20251104; t=1788500588; x=1789105388;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=WP9LYTFZF8MbWwJfhaukl4r1/bwWhLGNTeX8IkDlRSA=;
-        b=pZ8BhqPCTUAlyayjE9q3+GqKOwdt6wWoA/6CkSertSiGz/Qk5aSnIJUI3scuZDefb8
-         GgOQkXBWx51OU7GCAMrWW/tycahI+X7E/EqW6Pj6LT0HDuTA/ntZnmimBNZtHHis/N03
-         wb1r2PnbbzBIVfdZ3upMjxX85WQ5BxG8mKMiZC0M7p1M1Lbn+fJxQtR2iP9sqYxGXkH4
-         AilWqQUKG/KMYWgg2jf8id8fCvOFkDvF39uYvVNb03te2GCIDdKfcrFJs/Xjm/K1HviG
-         bAg8CWYf/PN9M/ycfBLGf9SL4y6kWYQVXqEU2C06wH6J1Vn8t2et+iGlMmSo8GU3bvxT
-         HJwQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzbCd7PhUwCE7lxmmAOHxpzos8iqCEzGobRytxcwjwIv5yHW5aDGiY3ZK0U508xvcl1RBCFaUcU5PogSZ4=@vger.kernel.org
-X-Gm-Message-State: AFuF++mGWc8fZQUwi6NdRy2m3MqgUznqYQh8TwM+fFv58LUjKB1nNhAz
-	1CDXrCmbOV0dP1OR3z3vFS3XtJ21ymtPilBnbms/BNl6RgjVvzaYRiWL9iZ3+AHGq6frGHga0rs
-	/ET0FYJqupgq1SXPKXV1Bbg2fX9sfKxXhMn/dRcmzGWI=
-X-Gm-Gg: AYBFou0ETj93VUJaeIc7EPpytwVdMpuT7uznrFfpBBRcvDOsPkIg+GgspNefGm9lbaq
-	CgilQaVH0K0bCYNEekv7/BKOje4YYcjFzqApqj92fLLujuq7diGwDCjfBvCi1swj0LbUn8p5CGP
-	PthS7a3xYr/mgTY6FyUJGRMgS9v/eebk3mOwKvcAttjHQW1wUs9W5YmJPohjdfr+SQVnwb4nSbH
-	F30gnYb35Z2lqxQAQabU7ELixgN9tUgtgd3nf+crwJbEAdtBu/S7TOKBPp3kMEr2mfXbeJaL7kp
-	ABwb4Kyt6wu55lRK8iSQTS0paFfueAyfOByxiw2eAXkrMqAfk4SnujaBwJ/H2MDyE9WKUp0S1lM
-	=
-X-Received: by 2002:a2e:b8c3:0:b0:3a3:61ec:43bd with SMTP id
- 38308e7fff4ca-3a361ec44d3mr7558051fa.14.1788500539833; Thu, 03 Sep 2026
- 22:42:19 -0700 (PDT)
+        bh=fyaQ4vR8zK9HgI6ETSL4jxpRT+46yI+OILInPbjhckM=;
+        b=CwVz1a/swlrC2Tlf1UqyTMrfjpvLn+F7+SkQBFjlui4avrVr3OIYoO/SitDNRIJi3O
+         XCbPXAZD7o0ODVCViGz9B9uncAmV2JMtC/hOF//RNPMPE9nQUw5ZdKyAutlyk9EwZ3PM
+         6qgElfVCL0gqWvy80MJZVVJZUB/yF5ZhYimj64hIf883FkBwcWFLwWbXY88uyx57UlcU
+         1aNhpD/srKrMDyR0yPvnVaRlOEHz3pCCAzEEwcSfZ972se2YvFdGxRMKD7/eBCceTRzL
+         gCyEi91p2dgFWFSs+i3mmOLYT48Vb8TAbvpk/xtsLQncfAkDN9/x8yHKcd1a0Sf7wG3v
+         nn1g==
+X-Forwarded-Encrypted: i=1; AKwUvBx7XOQX3ne8qSdBneWO7jPIxYm9fXpAbVcBVZTI2nbgqgTQ5DdBDZshELRjEv7WcJAOjHxbFcawdhL0hT8=@vger.kernel.org
+X-Gm-Message-State: AFuF++lt/bs9/pwinTx5TgBiS16cCmkY1DrSI5BUYz8E2R2oAAKKLWPI
+	w4qUipXWswzFQa9P248qpL1RUPYZndtxe+S2b3oah6joPInrZKUf9SAcmut8coJ+
+X-Gm-Gg: AYBFou1IyHvD579PRkz0VAXiWL/MVXMBz2Akr3zMX4Nqk70iyn2rINKBs0CzVeVl4Kj
+	Ind5isoyKqQrNWtKoN3gXD7R6/SAPv0+LbzA/Im7qfWjuQM/RjcMK0G59K8jNMGDcMrSpKcmGCA
+	7i8TQ193YoA/bRCIG1hybcaTXjRQpvfAKqTyVtL8RAxcRT8zrhUKKlfUqOqSr9Jp1rojCXwkAYa
+	r8DB13YGU/dFs0t4jBde3N5eoJLfG2UDaPse0WS0FXEDf0EQb/PJ/aCsSGYshSKtnNOKk1Fhnhv
+	GhqwVshJW1daNFhSQbx6XdPgUEpdtEmU5yXupE5gD8roO9UhE+xvhblKwnoW9ncEimiXxgxjAMA
+	MhcpFHF0aJ+LkLaxafedbprl5u2ipawYdtjIRTb4zkcWJfWgryZF+UD/OF/2T7efMZkXenuCgR6
+	f+tH9yAEblch0ShT562tR28bQJWLT4jP09fMHWulmx5d8edbrhslZzfDTjxgkQsrnGM+sDCHEqN
+	ULLvoFeIR2rCXLmtsbQ8+A4iJQ/EfMWH2go
+X-Received: by 2002:a17:90b:4a49:b0:392:ca3b:370a with SMTP id 98e67ed59e1d1-39b26100cd2mr5232253a91.2.1788500588005;
+        Thu, 03 Sep 2026 22:43:08 -0700 (PDT)
+Received: from li-1a3e774c-28e4-11b2-a85c-acc9f2883e29.ibm.com ([122.161.52.230])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b2615039asm2556683a91.15.2026.09.03.22.43.04
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 03 Sep 2026 22:43:07 -0700 (PDT)
+Date: Fri, 4 Sep 2026 11:13:01 +0530
+From: Mukesh Kumar Chaurasiya <mkchauras@gmail.com>
+To: Thorsten Leemhuis <regressions@leemhuis.info>
+Cc: Venkat Rao Bagalkote <venkat88@linux.ibm.com>, 
+	Shrikanth Hegde <sshegde@linux.ibm.com>, LKML <linux-kernel@vger.kernel.org>, 
+	linuxppc-dev <linuxppc-dev@lists.ozlabs.org>, Madhavan Srinivasan <maddy@linux.ibm.com>, 
+	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>, Peter Zijlstra <peterz@infradead.org>, 
+	Linux kernel regressions list <regressions@lists.linux.dev>
+Subject: Re: [REGRESSION] Power9 pseries boot hang in v7.2-rc6, narrowed to
+ PowerPC GENERIC_ENTRY conversion window
+Message-ID: <appZ1UB1tzKz3IY9@li-1a3e774c-28e4-11b2-a85c-acc9f2883e29.ibm.com>
+References: <96dae110-f79b-4e54-8a9b-514369019b5d@linux.ibm.com>
+ <e27eeaf4-c2c9-4ef7-9e1c-0a5fb45755d0@linux.ibm.com>
+ <6d1b5f38-f4e4-46ca-88b4-7c18dd6c6280@linux.ibm.com>
+ <anq72IebDSu-wWbb@li-1a3e774c-28e4-11b2-a85c-acc9f2883e29.ibm.com>
+ <ansZjSJMWMV8DDF-@li-1a3e774c-28e4-11b2-a85c-acc9f2883e29.ibm.com>
+ <2f7e6c34-7258-4b20-a38e-cedebccb835f@linux.ibm.com>
+ <985770a7-e488-456a-a9fa-aa71f1cbafd5@leemhuis.info>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <cover.1788259244.git.zihanx@nebusec.ai> <34824eaea68a895a3fe9ed5337248eca1d81f74f.1788259244.git.zihanx@nebusec.ai>
- <3674f5d34d731403bfa0e680c9e5718237612315.camel@iki.fi>
-In-Reply-To: <3674f5d34d731403bfa0e680c9e5718237612315.camel@iki.fi>
-From: zihan xi <zihanx@nebusec.ai>
-Date: Fri, 4 Sep 2026 13:42:08 +0800
-X-Gm-Features: AcwNN1UfMQ3DTycfG08OX_qcUrL1qPCx5CxEUb6NKsdMUjjJ1Z01C_kABixHz6I
-Message-ID: <CAANe3eTturj=T-H_O+eA=XF1jcJdt0TkRnG_UJEbeGsvgr-Gyw@mail.gmail.com>
-Subject: Re: [PATCH v2 1/1] Bluetooth: Fix parent socket UAF in accept queues
-To: Pauli Virtanen <pav@iki.fi>
-Cc: linux-bluetooth@vger.kernel.org, Marcel Holtmann <marcel@holtmann.org>, 
-	Luiz Augusto von Dentz <luiz.dentz@gmail.com>, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <985770a7-e488-456a-a9fa-aa71f1cbafd5@leemhuis.info>
 
-Hi Pauli,
+On Thu, Sep 03, 2026 at 01:22:35PM +0200, Thorsten Leemhuis wrote:
+> On 8/12/26 07:16, Venkat Rao Bagalkote wrote:
+> > On 11/08/26 6:16 pm, Mukesh Kumar Chaurasiya wrote:
+> >> On Tue, Aug 11, 2026 at 11:37:45AM +0530, Mukesh Kumar Chaurasiya wrote:
+> >>> On Mon, Aug 10, 2026 at 05:19:27PM +0530, Venkat Rao Bagalkote wrote:
+> >>>> On 04/08/26 8:23 pm, Shrikanth Hegde wrote:
+> >>>>> On 8/4/26 2:04 PM, Venkat Rao Bagalkote wrote:
+> >>>>>>
+> >>>>>> I'm seeing a boot regression on a Power9 pseries LPAR. The system
+> >>>>>> hangs very early during boot after:
+> >>>>>>
+> >>>>>> Quiescing Open Firmware ...
+> >>>>>> Booting Linux via __start() ...
+> >>>>>>
+> >>>>> That is strange. not sure where to look at without any logs.
+> >>>>> Is it a specific config that fails or this specific LPAR that fails?
+> >>>>>
+> >>> Is this a specific lpar or all power9 pseries are exhibiting same
+> >>> behaviour?
+> > Its specific to a lpar.
+> >>
+> >> Can you try the below fix?
+> > [...]
+> >
+> > I tired this fix, but issue still persists.
+> This regression made it to my list of tracked regression -- and it looks
+> like this stalled. Is that the case? Or was this resolved meanwhile?
+> 
+> Ciao, Thorsten
 
-On Thu, Sep 3, 2026 at 11:11=E2=80=AFPM Pauli Virtanen <pav@iki.fi> wrote:
->
-> Hi,
->
-> to, 2026-09-03 kello 11:11 +0000, Zihan Xi kirjoitti:
-> > Bluetooth children queued on a listening socket store the listener in
-> > bt_sk(sk)->parent, but the accept queue did not hold a reference on
-> > that parent socket.  The child side can later fetch that pointer and
-> > unlink itself from the accept queue while still needing to notify the
-> > listener, for example from L2CAP, ISO or RFCOMM teardown/state-change
-> > callbacks.
->
-> Please revalidate the KASAN crash on current bluetooth-next/master,
-> there have been related fixes since v1 of the patch and the v7.2-rc6
-> shown in the KASAN crash in the cover letter.
->
-> With commit d4bfa78fd679 ("Bluetooth: L2CAP: reject accept queue add
-> unless BT_LISTEN") in v7.3-rc1 cherry-picked on v7.2-rc6 the POC no
-> longer reproduces for me.
->
+Hey Thorsten,
+I am working on this, as of now I have a theory that the RMA size
+boundry is being crossed by something and causing this thing.
 
- Thanks for the review.
+For now the workaround is disabling KASAN. Can you also confirm the
+same.
+Can I also know the compiler version you are using?
 
-We revalidated this. On bluetooth-next with 9db7e5fffbae ("Bluetooth:
-L2CAP: reject accept queue add unless BT_LISTEN") =E2=80=94 the same change=
- as
-d4bfa78fd679 =E2=80=94 our PoC no longer hits the l2cap_sock_ready_cb UAF.
-That matches what you saw after cherry-picking d4bfa78fd679 onto
-v7.2-rc6.
-
-The KASAN report in the cover letter was captured on v7.2-rc6 after
-reverting that commit. I should not have presented it as a crash on
-current bluetooth-next/master.
-
-> ***
->
-> The design intent AFAICS is that the accept queue of the parent socket
-> shall be empty when the parent socket is freed.
->
-> Otherwise, the child sockets in accept queue would leak.
->
-> There must then be parent->sk_state =3D=3D BT_LISTEN check before
-> bt_accept_enqueue() and some were missing in v7.2-rc6.
->
-> bt_sk(sk)->parent read/write is guarded by lock_sock(sk), and it is set
-> to NULL when removed from accept queue.
->
-> Dangling bt_sk(sk)->parent should then not occur.
->
-> If bt_sk(sk)->parent !=3D NULL is observed under lock_sock(sk), the
-> parent socket is valid during that critical section.
->
-> The sock_hold/put(parent) in this patch are in lock_sock(sk) critical
-> sections, so should be no-ops.
->
-> The accept queue items owning reference to parent also should be no-
-> ops.
-
-Agreed. Once the BT_LISTEN check is in place, close() empties the
-accept queue before the parent is freed, and lock_sock(sk) serializes
-ready/teardown against unlink. The extra parent references do not
-change the lifetime of the listener, so this patch is not needed on
-current bluetooth-next.
-
-I will drop this series.
-
-Thanks,
-Zihan Xi
->
-> > If the listener is closed concurrently, removing the child from the
-> > accept queue can drop the last listener reference before those
-> > callbacks call parent->sk_data_ready(parent), leaving a stale parent
-> > pointer and a use-after-free.
-> >
-> > Take a reference on the parent when a child is queued and drop it when
-> > the child is unlinked.  Since unlinking now drops the accept-queue
-> > parent reference, take a temporary parent reference in the callbacks
-> > that continue to notify the parent after bt_accept_unlink().
-> >
-> > Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-> > Cc: stable@vger.kernel.org
-> > Reported-by: Vega <vega@nebusec.ai>
-> > Assisted-by: Codex:gpt-5.4
-> > Signed-off-by: Zihan Xi <zihanx@nebusec.ai>
-> > ---
-> > changes in v2:
-> >   - rebase onto current bluetooth-next
-> >   - refresh trailers to the current submission template
-> >   - retarget author identity to Zihan Xi <zihanx@nebusec.ai>
-> >   - v1 Link: https://lore.kernel.org/all/65767989c644f8adf52f35334f4034=
-c66f47881f.1784383243.git.xizh2024@lzu.edu.cn/
-> >
-> >  net/bluetooth/af_bluetooth.c | 2 ++
-> >  net/bluetooth/iso.c          | 2 ++
-> >  net/bluetooth/l2cap_sock.c   | 2 ++
-> >  net/bluetooth/rfcomm/sock.c  | 2 ++
-> >  4 files changed, 8 insertions(+)
-> >
-> > diff --git a/net/bluetooth/af_bluetooth.c b/net/bluetooth/af_bluetooth.=
-c
-> > index 411d66f24393..61a232378e6c 100644
-> > --- a/net/bluetooth/af_bluetooth.c
-> > +++ b/net/bluetooth/af_bluetooth.c
-> > @@ -218,6 +218,7 @@ void bt_accept_enqueue(struct sock *parent, struct =
-sock *sk, bool bh)
-> >       BT_DBG("parent %p, sk %p", parent, sk);
-> >
-> >       sock_hold(sk);
-> > +     sock_hold(parent);
-> >
-> >       if (bh)
-> >               bh_lock_sock_nested(sk);
-> > @@ -266,6 +267,7 @@ void bt_accept_unlink(struct sock *sk)
-> >       spin_unlock_bh(&bt_sk(parent)->accept_q_lock);
-> >       bt_sk(sk)->parent =3D NULL;
-> >       sock_put(sk);
-> > +     sock_put(parent);
-> >  }
-> >  EXPORT_SYMBOL(bt_accept_unlink);
-> >
-> > diff --git a/net/bluetooth/iso.c b/net/bluetooth/iso.c
-> > index 75bfd5938b2e..e709292aa112 100644
-> > --- a/net/bluetooth/iso.c
-> > +++ b/net/bluetooth/iso.c
-> > @@ -286,8 +286,10 @@ static void iso_chan_del(struct sock *sk, int err)
-> >
-> >       parent =3D bt_sk(sk)->parent;
-> >       if (parent) {
-> > +             sock_hold(parent);
-> >               bt_accept_unlink(sk);
-> >               parent->sk_data_ready(parent);
-> > +             sock_put(parent);
-> >       } else {
-> >               sk->sk_state_change(sk);
-> >       }
-> > diff --git a/net/bluetooth/l2cap_sock.c b/net/bluetooth/l2cap_sock.c
-> > index b553b6356af8..3720ab2e39ed 100644
-> > --- a/net/bluetooth/l2cap_sock.c
-> > +++ b/net/bluetooth/l2cap_sock.c
-> > @@ -1748,8 +1748,10 @@ static void l2cap_sock_teardown_cb(struct l2cap_=
-chan *chan, int err)
-> >               sk->sk_err =3D err;
-> >
-> >               if (parent) {
-> > +                     sock_hold(parent);
-> >                       bt_accept_unlink(sk);
-> >                       parent->sk_data_ready(parent);
-> > +                     sock_put(parent);
-> >               } else {
-> >                       sk->sk_state_change(sk);
-> >               }
-> > diff --git a/net/bluetooth/rfcomm/sock.c b/net/bluetooth/rfcomm/sock.c
-> > index 958081adb9b5..a16daa68ecb8 100644
-> > --- a/net/bluetooth/rfcomm/sock.c
-> > +++ b/net/bluetooth/rfcomm/sock.c
-> > @@ -78,11 +78,13 @@ static void rfcomm_sk_state_change(struct rfcomm_dl=
-c *d, int err)
-> >
-> >       parent =3D bt_sk(sk)->parent;
-> >       if (parent) {
-> > +             sock_hold(parent);
-> >               if (d->state =3D=3D BT_CLOSED) {
-> >                       sock_set_flag(sk, SOCK_ZAPPED);
-> >                       bt_accept_unlink(sk);
-> >               }
-> >               parent->sk_data_ready(parent);
-> > +             sock_put(parent);
-> >       } else {
-> >               if (d->state =3D=3D BT_CONNECTED)
-> >                       rfcomm_session_getaddr(d->session,
->
-> --
-> Pauli Virtanen
+Regards,
+Mukesh
