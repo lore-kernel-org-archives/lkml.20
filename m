@@ -1,101 +1,126 @@
-Received: from mail-pg1-f179.google.com (mail-pg1-f179.google.com [209.85.215.179])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85C73448B84
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 11:21:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CEECA3B3BF2
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 11:22:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788520920; cv=none; b=iUMiQZCRnBNy9qXJpcDSA55cjCWF4NVPJpwBfdTTwYO3D4C2bz5jtolp0uESi6IiCXikYnZOoJNka5WvdCTvn+jpo4+tqYvxlm/Z40UtdlPBXH0hVFhW1zaE4v2Juwi/Dn/XxyTBtumzF9bf5Ge1M6tt5oRlcKDWXlpMXCXyLsE=
+	t=1788520941; cv=none; b=UprdUlBRawBPsYfR0r8PWh8vAFTbyFXllNNcCO1gXOJXWQ0QwMnPGo/WUV1bpvFqFuWPEFTTyW5Kv/XsdnFzpT0rxAuyCrQSl6Bb5I0fEXxQkKAoWhVJVi4fTu/ASa56LMMr2pNVZp17toi/HaDAqUyUfCBUy+h+jOocW5uZO60=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788520920; c=relaxed/simple;
-	bh=Wc6pgt7YhERBx8wee7jvDtqzYFDwXexGEaDpDSo98GU=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ZLt27tiSjLbBJIyHN+taxrZQiNAzkEoq46igwYtz1ENyiKLqzIwmMzhkqlROX8m+hAdaQliKahJkB0UpcolVCHRyNm0znth7nUFdD+63HefTqjJi8S+BNtCtk1lwv3zoyYqW+QRtCeYz+Po6JShBM0/twwhTV2vKyy8toRzBtkc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SyseFi/y; arc=none smtp.client-ip=209.85.215.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788520941; c=relaxed/simple;
+	bh=wGfnsgjxq6Qr50w5mAQwczabeGNWOLFizrzsi3Zry24=;
+	h=Date:Message-ID:From:To:Cc:Subject; b=DT1Aw0td/imP8oCsdkzl+lSpRGiu/7gKP2DCbKSVQ3PB/cVKuc9OTG9/XIdBqpHFCYVs6XuYEVoEcmIPLQUh7ZGB1b9ajv/eMNkjPQJu/5SU0odnwaRjLQem9p488h8DeqVA1KORY/booX5JkwaJVp493SB7xMXtS3aCbznRH34=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GPaGJ4bM; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SyseFi/y"
-Received: by mail-pg1-f179.google.com with SMTP id 41be03b00d2f7-cbedd5aece4so1467479a12.0
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 04:21:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788520919; x=1789125719; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=YpfeOJNW2r8GlKUp3djYiRs+6CRfoMBlInK9gOtGNZ4=;
-        b=SyseFi/yibuyIuWHxNbyIjbqpKlDzbq7EtUvmpC76WV6YvUxxQixBD8Dv7LmATAYa1
-         baXcGmxifDGydx9/UxJnTxG5QQLgfXWxWm0yBWyj5Urtemp3G3lwNXw36u9dwFCkItgO
-         gpYEPZyu8xvy2DtAOkcsytV8tuQtdzQDcPmmzMS/BBk+b9s6g0kbxLukeddkmD8qdhBq
-         BqsoHLfW/nF6WHleNfdBdPy28qkcU9wF8AvbyFvVMiSZbB7LAr/1UvHfCo16I03J5ezN
-         yttDpj/HLpvEd4DEezS8BFDb0jo3RDlGekX+RoyWz8Ke3Ymkcdahuq75aM0zjF+VJXVh
-         TxMw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788520919; x=1789125719;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=YpfeOJNW2r8GlKUp3djYiRs+6CRfoMBlInK9gOtGNZ4=;
-        b=cutEAK28be+7ZhBau/xO2osh+C1vVqelbphoysJVWN4GZipFfYA+ZAUnvzOerwdQ+K
-         htea4n+xHVjR7Rz+Xm9ttF6+eXqUD8GpO+A0fA76LO1nVMh2KvKxmY6sewp+1hCpWGb8
-         iX6mC0XtdU5PQ4yZmwqJAYErkRn8iq6vzBivcs6CZfVas64zUQ6QuSZgxJ+AUG45IBe6
-         vf85OrAPtal5T6XJ6KVwfR0sXPR1An5mN6WipVrveiPu9hYgfRtmthlLyEbeaMWa0dlI
-         sy+LkZOazLixYaV9XOk1wLf4xsOyRaeb83KA+gpJXWRzj6JFEUXXTUUpX7dTpvX6qlmB
-         b3Hg==
-X-Gm-Message-State: AFuF++momBITkftsW/0vLAwFxGagjjC4XKR5EPByjLrIkd8ZFpqVhVnV
-	R7gsnlD94Rex6OBIRGCwEAi4dGOspnckpz/+Rd8I18J8yfgQuddI3AWL
-X-Gm-Gg: AYBFou0PJHdtqYiGCDnLOUiWfKxUcttOSkzwDezS/II/Sh8ENkW1BVKdTBZETxPCFfN
-	42lgTjiaHi67mLQHZvWuG9Ig63TQBabESDtgXumENP/UZv3jVjQyyBHofzEWRSP5E+cN7ERDe4F
-	NbRpovWrx0y5Yw3k7MtBa9u3Y2D8rUC5XRFVkRltnvam1SZd4ir8vqn69ghPPNwn32BnWMgSzXc
-	KqZZTlP7MPlchJQkVIydgLrivFQCaKqgHdRkQi3RI4nect/8wDSBJx3sDJsbA8I0d0LBsPl2ZBx
-	rf/KEAmpslLSFGs50xBtQhiq9mAg/I7EBGUaIXjnu8ERQg3Y7/MSGp9zVLuB2a1xSy4AClt/Lta
-	PXtpALU2qAcLah4+gqfX+SpEBx1NDKqq5Q5HFqf1R3fBAJNPvdBZusJLtCEKWGSUjQsAlWR9HDq
-	oQb+3YTnVC9I+m5SensAYrzTiMjlGieAkkVUFpgA63XA3QBALbft1eaE8bEKic8+uV19SAChxzw
-	wMUE+G79Gd6Jk8=
-X-Received: by 2002:a17:90b:2e46:b0:38f:a81:15b1 with SMTP id 98e67ed59e1d1-39b08653554mr16094570a91.19.1788520918783;
-        Fri, 04 Sep 2026 04:21:58 -0700 (PDT)
-Received: from volcano9f6e-hostos.amd.com ([165.204.217.251])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339bbf1feesm6121711eec.26.2026.09.04.04.21.56
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 04 Sep 2026 04:21:58 -0700 (PDT)
-From: Hemanth Selam <hemanth.selam@gmail.com>
-To: Moritz Fischer <mdf@kernel.org>,
-	Xu Yilun <yilun.xu@intel.com>,
-	Tom Rix <trix@redhat.com>
-Cc: linux-kernel@vger.kernel.org,
-	linux-fpga@vger.kernel.org
-Subject: [PATCH] fpga: fix repeated word 'if' in comment
-Date: Fri,  4 Sep 2026 16:51:52 +0530
-Message-ID: <20260904112153.35820-1-hemanth.selam@gmail.com>
-X-Mailer: git-send-email 2.48.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GPaGJ4bM"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9C89D1F00A3F;
+	Fri,  4 Sep 2026 11:22:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788520940;
+	bh=LgjK4siUtTym00EFs0eol48dYUfeBw/Fpq3o47gcf7U=;
+	h=Date:From:To:Cc:Subject;
+	b=GPaGJ4bMKjIC+uUvpZZMI4EvlhxnC7VzUBeJVy1ormYtZl/cxkGiMvd3u68ErdeOX
+	 eAGWErMt0aoalpnvnQOaEZNkss+v9NZ9XypHDTmHjb4feXaltqJ6xkMlEBTZsx6v5i
+	 E5IcEHJW+eeuw4oYBweOejfRiV30XlcpK+oDbyL/zQpHIZkaV0BECGtCgaGbOq06Xe
+	 Muzy9sKIRvb4jm6orbwnEoMyM/D1AufqukBuRcWEwtiM9GdaGXvKlhjShsDsqEdPy2
+	 GsVgWH3YtGj7R4wUH+NDt9UIeGVkjdbzeBD9+qb2uJaTY/VIhLiFFBb2KXrzsX6E1R
+	 3zLtKy7sfg4IA==
+Date: Fri, 04 Sep 2026 13:22:17 +0200
+Message-ID: <20260904112100.683893401@kernel.org>
+User-Agent: quilt/0.69
+From: Thomas Gleixner <tglx@kernel.org>
+To: LKML <linux-kernel@vger.kernel.org>
+Cc: Hyunwoo Kim <imv4bel@gmail.com>,
+ Oleg Nesterov <oleg@redhat.com>,
+ Frederic Weisbecker <frederic@kernel.org>,
+ Christian Brauner <brauner@kernel.org>,
+ Peter Zijlstra <peterz@infradead.org>,
+ John Stultz <jstultz@google.com>,
+ Ingo Molnar <mingo@kernel.org>,
+ Alexander Viro <viro@zeniv.linux.org.uk>,
+ "Eric W. Biederman" <ebiederm@xmission.com>
+Subject: [patch 0/8] exec/exit: POSIX timer related bugfixes and related
+ cleanups
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-Drop the second 'if', reported by checkpatch.pl as a possible repeated
-word.  Only touches a comment, no code changes.
+Recent findings from Hyunwoo unearthed two bugs in handling POSIX timers on
+exec().
 
-Assisted-by: Cursor:claude-opus-5
-Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
+The relevant patches, reports and discussions can be found here:
+
+   https://patch.msgid.link/aok1rdkBgZsynHZB@v4bel
+   https://patch.msgid.link/ao7Q8miiuLAPVnWv@v4bel
+
+TLDR:
+
+Both problems are related to non-leader exec(). POSIX CPU timers which are
+targeted at tasks hold a pid reference of the target task, which is used to
+look up the task in the related POSIX timer operations.
+
+The non-leader exec() switches the TID of the old and the new leader, which
+obviously invalidates these references for pid_task(PIDTYPE_PID) lookups.
+
+This causes UAFs due to the resulting list corruptions or premature freeing
+without removing the underlying POSIX CPU timers from the involved tasks.
+
+The first issue which corrupts the signal pending list is solved by:
+
+    - Preventing the queueing of per task signals on a task which has
+      PF_EXITING set.
+
+    - Protecting the unlocked setting of PF_EXITING in exit_signals() with
+      sighand lock.
+
+    - Flushing all per task signals right in exit_signals()
+
+The second issue which keeps the POSIX CPU timers queued on the new leader
+is solved by:
+
+    - Moving the exec related POSIX timer cleanup right after de_thread()
+      which ensures that the timers queued in new_leader::posix_cputimers
+      are removed before the underlying POSIX timers are deleted.
+
+After looking deeper at the exit() handling it turned out that the POSIX
+timer cleanups can be done early in do_exit() instead of delaying them
+until release_task().
+
+The reason for this late cleanup is that POSIX CPU timers can be created,
+rearmed and deleted as long as a task is visible, i.e. the pid is hashed
+and sighand is not NULL. This allows to retrieve information from the timer
+up to the point where the task is gone for real and that can't be changed
+easily as that'd be a user visible change.
+
+But once PF_EXITING is set on a task the task does not longer expire POSIX
+CPU timers. So it makes no sense that the timers stay queued in
+task::posix_cputimers after that point.
+
+The only thing which needs to be prevented is that timers are requeued on
+task::posix_cputimers once PF_EXITING is set or requeued on
+signal::posix_cputimers when PF_EXITING is set and signal::live is zero,
+which indicates that the thread group is dead.
+
+With that solved the timers can be dequeued from task::posix_cputimer
+pending when a task exits and from signal::posix_cputimer pending once the
+threadgroup reaches the dead state, i.e. signal::live goes to zero.
+
+The series applies on 7.3-rc1 and is avalaible from git:
+
+    git://git.kernel.org/pub/scm/linux/kernel/git/tglx/devel.git posix-timers
+
+Thanks,
+
+	tglx
 ---
- drivers/fpga/stratix10-soc.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/fpga/stratix10-soc.c b/drivers/fpga/stratix10-soc.c
-index b8ec2e6f615f..c08d60e3c85f 100644
---- a/drivers/fpga/stratix10-soc.c
-+++ b/drivers/fpga/stratix10-soc.c
-@@ -286,7 +286,7 @@ static int s10_ops_write(struct fpga_manager *mgr, const char *buf,
- 
- 	/*
- 	 * Loop waiting for buffers to be returned.  When a buffer is returned,
--	 * reuse it to send more data or free if if all data has been sent.
-+	 * reuse it to send more data or free if all data has been sent.
- 	 */
- 	while (count > 0 || s10_free_buffer_count(mgr) != NUM_SVC_BUFS) {
- 		reinit_completion(&priv->status_return_completion);
--- 
-2.48.1
-
+ fs/exec.c                      |   18 ++++---
+ include/linux/posix-timers.h   |   39 ++--------------
+ include/linux/sched/task.h     |    1 
+ kernel/exit.c                  |   24 +++------
+ kernel/signal.c                |   70 ++++++++++++++++------------
+ kernel/time/posix-cpu-timers.c |   99 +++++++++++++++++++++++++++++++++++++----
+ kernel/time/posix-timers.c     |   26 ++++++++--
+ kernel/time/posix-timers.h     |    3 +
+ 8 files changed, 179 insertions(+), 101 deletions(-)
