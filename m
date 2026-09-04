@@ -1,75 +1,61 @@
-Received: from mail-oo1-f49.google.com (mail-oo1-f49.google.com [209.85.161.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mout-p-201.mailbox.org (mout-p-201.mailbox.org [80.241.56.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1389447F77E
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 12:11:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 756403BF679;
+	Fri,  4 Sep 2026 12:11:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788523862; cv=none; b=mAcHgpDi20earM+Iv8q6o5/zSiL6rlnt+A3J+yAFPOvcRiVqiqbpGnEtt3+4Jl7yDdTqk1rC3gpVSEowWl6iCm1Hjp99ZNq8fSyKEwmSGIQQaSZJkNja76YpCJGuqG0xUpRW5yrjsHgdkQpoZJUVlsia1t39uL1Xn+6QxH8A8rg=
+	t=1788523877; cv=none; b=LeWUtverjJqgSCh1ZUbukmnZWzKWwAz2f8KwMeZKER9CC4BNh3HUnnYZlI6svR5f+/kThMoZKpipJ1SZz/QE8O5S/m45YN2Nfw16JeI9LeQEjnuwBewtjcRIOoJEOtqa7o5Degmz94yHxWw1f2x56EGgdB7rq3NFWtUpO5yIUcM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788523862; c=relaxed/simple;
-	bh=Pq3cl7yQ2QNaCZJt/nNrvJhW6CeSfRnWOXTi3RilZFY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=LI9slARofUHb6IEW2WMkvJxlFDCilPdmbI0OUWkN5W6+UTiVfh+XUt5VsRx/BlXOYj9dmrh6/vmTSVbd99ZFMhXT7N3hk4I6hJt7ZLmxBFucvS1NL/kCKFT1PoBNvDJOf3UN+zTRvgauOsV3hI7yLxNiu/82PQF9KWkT/EHUtNw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WB3UU587; arc=none smtp.client-ip=209.85.161.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788523877; c=relaxed/simple;
+	bh=eUjTHN9dyMl0vVDBg6k8jcBVvowq9uxqibLPGWC4dgg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=N/rrkjKD9hfad+mb1RR9zr7ru1jQ4jBp2LZFJIpHdxUx7yzLEZjEG+XGuk1IYbOEYOsD1G0RRIWJBT3A75zSlCTAwrhUVO1BxAgXfU/2QH08L1gnQcmE7e41gmVDP+dOyR2wkrEDa8zhffWSBvUDb2vD5vj/mzRCeX4QoLk79tQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=ZEZM99Tq; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=sRfwW/MS; arc=none smtp.client-ip=80.241.56.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WB3UU587"
-Received: by mail-oo1-f49.google.com with SMTP id 006d021491bc7-6b1b233ca8dso446165eaf.2
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 05:11:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788523860; x=1789128660; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=hRdr8GJ/+SsuQYeXKm29acq0jkmVX3isHirCcw8TxR0=;
-        b=WB3UU587ZX+GUC+ztX9e2eZNTPtDbPunBjPGna0FgTRhmzxdLz8jpRcq+1/99klOB/
-         EDzXq+fwmJsS3YnIGQAOpwGCnuwKLw8IRRxit397j8SbmPYaT4eU+kk3wEyHFJ9n1/Sp
-         XNXLoX1JuWRv7OrLVwRjuYlyJmbEuD2OJrWeI+cyDO3q5muZCubhJavMDvNmb+sx3YpA
-         wYBUyGFV0SlUj/l0Bj4BbH6fVDxY7kajv33/G6SNgI2aSI8X9RnAI+yC0zHglstykQ4H
-         rbWZmCYdybIrvN1HsMN6c6X+AChD9QA6BmIuJ1EUBcxsWmaP8xT57BqStAuW3zKM/pAj
-         sREQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788523860; x=1789128660;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=hRdr8GJ/+SsuQYeXKm29acq0jkmVX3isHirCcw8TxR0=;
-        b=h97JDEAJK66BeyIXIG6mhKJ0ipcjmR6d8jEMkQ5JYFFFh4U2z4jro0mxzr2KayZdZf
-         gj+R+YB769fshI+4l7I/c0ytxObCUgbamDfTQ5pt/0oPOvcwLoHoYbB7233XrAO4EGCA
-         l5w9vjJ6ABbbfD5xGdn7KCnsOb85wH9jplP94o4yjPTqxoeJZL5SiUJy3okFV7YLcILJ
-         z+Bwg7mExucM8w/p5w0mpvgJrRSYwgYhnHfcqgcfn39Sulwzkw1qoC9gihVlgPnWD5oK
-         TefcRcqa+uRD98MgAYQLvRZK372GrL0IYLWnf6ZKiWZkWoKJMEMhJ5VAu1fpMase/fQi
-         eIVg==
-X-Gm-Message-State: AFuF++lAQpHLM9dPiD7n8d/yaVE7f7Q5rZVsJ9LbBJzwL6FF1eMseNff
-	eolgsxAHwWqRVp+gqPGK/EPY0xSZKw0LH9hJHzX8ptdipzZdb+0sxPKp
-X-Gm-Gg: AYBFou0PDnK9dDHwy6uH+9oNmH74V9HLuVOr/L3llJdd9f9DXffU567rz7UGeo3Upf2
-	G4EsDiFmvLRbTtgXM8CNH9KI0kjyrWjVSL1A4o/gspcoyC7duvVN7P2lmCwN3q992+fbXx765wH
-	v2x/0juayMq2nkdUSmjX0/bUYkSk9n5eZmZj+L4bEPhWnCgjvo8ys+LhOtdG5Q4doMJw/d3sFoc
-	N6jxUEQ/McHWBHTeq9kVII9tElrBhoMYamk/J2xfDMYKgRuU2u2ZRjJU0M0mIikanTfB8KjjGDm
-	BlIHZDi5y+m7NLoEINqnirqy0N8rBaxiUcS+Lf6VJWM/HtkfT/DTRxCAb1Wdq4qm5QihNq/SNIH
-	0rARVq29h9fLtE8DkqJ7MfWtgPkbfToi6zqMJK0b0ZucFzH3UlJgFToQ5L1jcLP1KzbUNItdit8
-	qJLn6YHs7VQmPVtz5hyWQoyVPfULoWIXV31xmtWNG1YGQg8w0Utqpj5L/KzzEHgmqn2Du0reUGY
-	5VmlWTxKpcEBjujcEbiPX5yyRQ=
-X-Received: by 2002:a4a:ee1a:0:b0:6b1:4b76:1c18 with SMTP id 006d021491bc7-6b6fd7d85d4mr3858206eaf.24.1788523860068;
-        Fri, 04 Sep 2026 05:11:00 -0700 (PDT)
-Received: from volcano9f6e-hostos.amd.com ([165.204.217.251])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339aa31b24sm6461237eec.13.2026.09.04.05.10.57
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 04 Sep 2026 05:10:59 -0700 (PDT)
-From: Hemanth Selam <hemanth.selam@gmail.com>
-To: "Joerg Roedel (AMD)" <joro@8bytes.org>,
-	Will Deacon <will@kernel.org>,
-	Robin Murphy <robin.murphy@arm.com>
-Cc: linux-kernel@vger.kernel.org,
-	iommu@lists.linux.dev
-Subject: [PATCH 2/2] iommu: fix repeated word 'have' in comment
-Date: Fri,  4 Sep 2026 17:40:44 +0530
-Message-ID: <20260904121047.21701-3-hemanth.selam@gmail.com>
-X-Mailer: git-send-email 2.48.1
-In-Reply-To: <20260904121047.21701-1-hemanth.selam@gmail.com>
-References: <20260904121047.21701-1-hemanth.selam@gmail.com>
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="ZEZM99Tq";
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="sRfwW/MS"
+Received: from smtp2.mailbox.org (smtp2.mailbox.org [10.196.197.2])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-201.mailbox.org (Postfix) with ESMTPS id 4hbwKk68lmzMlFf;
+	Fri, 04 Sep 2026 14:11:06 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1788523866;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=SNjGGfYKOiqw6qQ1250aXHKA8K2I0V6WNge1XrEBt2c=;
+	b=ZEZM99TqHkRo37T3FU6nZwUyEyF25bJxFcpsJ119IZ80Gf7SHyXPUeXRWwSjhmeNRV4aUu
+	LVm9qHauxWYXU6Ru96uIRDItdDVSm9nv8BTnEctcADGLGT0H21XxTVJX9XxRnfXLQsBEgF
+	Yuac2icKluBrNdLSoy3SyIWJpsnEqTWdxedtRxILJ3hYewyWare9kkxwVx2qFu4/sNL5mN
+	k0Btp+o92ets+aCBInE1fXemk5cNWTplXRAxFnV1V65GXHccqEEr1jsW2ppGEo377OPs8s
+	KhYHrYwfBFTbMQGnIw2JfSdnQDNv3OgVn/NRgB2js34850Y40ovCiRj/qUtL5g==
+From: Manuel Ebner <manuelebnerli@mailbox.org>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1788523865;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=SNjGGfYKOiqw6qQ1250aXHKA8K2I0V6WNge1XrEBt2c=;
+	b=sRfwW/MS74yC0M5SseDFgxyG/M4QiiYgIErm6f6JLHJwGhyrIoAqI1oIowOiGlkNCJeMnt
+	yNreAp1H4U8QLYX/2md3BU6Dh6QSRc8YZDv+91saEKYX/EnuyqOIc0HEYYGYvoFy9s2GPE
+	0f7+bAf+4E92PlF34DQ9KGOBLTYmPj2ZtU571UO0zAQA0SVuySBbbleLEunqy4i+bCkLNF
+	knj+VCEnU5ysDC2qLbKlk31f/0+Q0bLiIzWjtjN/MeY7KJIwbT8rT1rStLU7Mvm12/YZ5m
+	WEB5FspQOy05kxMQIqNJCxE7lSH8Y/GwdoYA7m0fiJQ5Xi9MFHZWBQu1b8wJzw==
+To: Henk Vergonet <Henk.Vergonet@gmail.com>,
+	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>
+Cc: Manuel Ebner <manuelebnerli@mailbox.org>,
+	linux-input@vger.kernel.org,
+	linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 20/32] Input: yealink.rst: Fix bracket
+Date: Fri,  4 Sep 2026 14:10:26 +0200
+Message-ID: <20260904121026.759218-3-manuelebnerli@mailbox.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -77,29 +63,29 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-MBO-RS-META: o6bb1kuonptaokoy5ajjctjpd8pfjtma
+X-MBO-RS-ID: acc02d7438f2c191d66
 
-Drop the second 'have', reported by checkpatch.pl as a possible repeated
-word.  Only touches a comment, no code changes.
+Remove needless '['.
 
-Assisted-by: Cursor:claude-opus-5
-Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
+Signed-off-by: Manuel Ebner <manuelebnerli@mailbox.org>
 ---
- drivers/iommu/iommu-pages.c | 2 +-
+ Documentation/input/devices/yealink.rst | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/iommu/iommu-pages.c b/drivers/iommu/iommu-pages.c
-index 3bab175d8557..0c469b9dd185 100644
---- a/drivers/iommu/iommu-pages.c
-+++ b/drivers/iommu/iommu-pages.c
-@@ -104,7 +104,7 @@ static void __iommu_free_desc(struct ioptdesc *iopt)
-  * iommu_free_pages - free pages
-  * @virt: virtual address of the page to be freed.
-  *
-- * The page must have have been allocated by iommu_alloc_pages_node_sz()
-+ * The page must have been allocated by iommu_alloc_pages_node_sz()
-  */
- void iommu_free_pages(void *virt)
- {
+diff --git a/Documentation/input/devices/yealink.rst b/Documentation/input/devices/yealink.rst
+index bb5a1aafe..de86cf7f5 100644
+--- a/Documentation/input/devices/yealink.rst
++++ b/Documentation/input/devices/yealink.rst
+@@ -205,7 +205,7 @@ Troubleshooting
+ :Q: Module yealink compiled and installed without any problem but phone
+     is not initialized and does not react to any actions.
+ :A: If you see something like:
+-    hiddev0: USB HID v1.00 Device [Yealink Network Technology Ltd. VOIP USB Phone
++    hiddev0: USB HID v1.00 Device Yealink Network Technology Ltd. VOIP USB Phone
+     in dmesg, it means that the hid driver has grabbed the device first. Try to
+     load module yealink before any other usb hid driver. Please see the
+     instructions provided by your distribution on module configuration.
 -- 
-2.48.1
+2.54.0
 
