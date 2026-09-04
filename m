@@ -1,50 +1,86 @@
-Received: from smtpbgau2.qq.com (smtpbgau2.qq.com [54.206.34.216])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3643941F5F3
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 19:01:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.206.34.216
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7933D3D6CB0
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 19:03:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788548491; cv=none; b=RkSjkmUV4MoPV/c4pQuxXLvX6t+hBEztump8G0uNA+9a1CHMhD9rVui5yDNz/STxgupEhwH2HpiiFO3zGqrZDZj8FdfiavKYj6LQotslTvzpiC4JkkJXxLGdAgHIG2/Me66vFQDAuReyglnC6heMtr2F/W/KlrRkxibhAojMgGY=
+	t=1788548594; cv=none; b=MqmfUCQLbHdGp21bzDO/O2zZy5XyWUm5e3yM4P4q9VyWsHDt4oSVt9Pr5quiSzu3Fho2mlOel67jSvpH3HD++KA3v19n1RuD2gWm5VUrrSbSkcMRQbS+n0D9zLFXVU27wP6548PQXhpTzpBHS/LHy1CfPFiJoUY+IjXVqnzAoL8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788548491; c=relaxed/simple;
-	bh=Dx0GSPYGIfUQLppaPVXlJMMHizMg/xAt5dml5PKbk/I=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=N7A7IhDoeybr52AQgPplis9IFJvByxfMgxcXp2ZgTUCG/A44O0Cqf394u7VgXJkzTvm/hPDXINcCz/32ioNIZu8e1zPaKyzeprUq6CSM8/7YerCqnTh0VxNahlbP9hl/dwxhsHx0rGal1gHgjplc8pdTOC/YYyohFt6mJIPLdiA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=l3rBDNTj; arc=none smtp.client-ip=54.206.34.216
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
+	s=arc-20240116; t=1788548594; c=relaxed/simple;
+	bh=8R4/NVGFvwwBFp0K57CYXj8nWvSaeS/7ZTI2XPzrhfM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=kYCjilp7m5a1foCaoQ7gMkYDislGDmuYkdsdACZO6aND7orhfYj5S0jNBH2dP2FDOMmffImAiyDbxy9+OEe5wMaayGpqxNaQR52Ki687w3BDZ161NYgWehiGgmtCSImY0SmfPX2FXeEofN3d4yeQM+ATWAM9ZxKkFX8/Rgdv1/A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=lex.la; spf=pass smtp.mailfrom=lex.la; dkim=pass (2048-bit key) header.d=lex.la header.i=@lex.la header.b=Hg9gWEjp; arc=none smtp.client-ip=209.85.128.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=lex.la
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lex.la
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="l3rBDNTj"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
-	s=onoh2408; t=1788548440;
-	bh=UcOmkfW2ZFxthOlyo7oYIE1Vjb1R2Z7a4/GWDq7I1Ck=;
-	h=From:To:Subject:Date:Message-Id:MIME-Version;
-	b=l3rBDNTjTL0yF0NP3My9oCBCABG3IrqEUxi76wdLf3tOV9uJeaCUtmNbFUAwqC2v8
-	 NY3HprGqFd+4gJI4l0EX3urdxQMd4rXC+Jt1MZrzPJWnfGAcNFoc4RkT0CRc4ePoSH
-	 vISNYpWRHA25JqnRg+5iyCgCg/s67qJl7goIWgvI=
-X-QQ-mid: esmtpsz10t1788548434t4ffa4808
-X-QQ-Originating-IP: tPtF9edAtIQDM30B6GGR5BAuwcOTCe2L8C0nf2UkaZM=
-Received: from localhost.localdomain ( [113.57.152.160])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Sat, 05 Sep 2026 03:00:32 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 9379820658307783900
-EX-QQ-RecipientCnt: 9
-From: Wentao Guan <guanwentao@uniontech.com>
-To: david@fromorbit.com,
-	hannes@cmpxchg.org
-Cc: qinyuntan@linux.alibaba.com,
-	qi.zheng@linux.dev,
-	shakeel.butt@linux.dev,
-	kasong@tencent.com,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	Wentao Guan <guanwentao@uniontech.com>
-Subject: [PATCH] mm: list_lru: clear shrinker id when disabling memcg awareness
-Date: Sat,  5 Sep 2026 03:00:28 +0800
-Message-Id: <20260904190028.21542-1-guanwentao@uniontech.com>
-X-Mailer: git-send-email 2.30.2
+	dkim=pass (2048-bit key) header.d=lex.la header.i=@lex.la header.b="Hg9gWEjp"
+Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4957eefd361so10927415e9.1
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 12:03:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=lex.la; s=google; t=1788548588; x=1789153388; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Yf0aKsZ1iXAzFzECqXKGTn9Dxl8O6Scv1+EVxQaYW8o=;
+        b=Hg9gWEjpFlpCWBIKgdC+r0KnvaBaPjFjwf12HsN02VdFc/i/PZWCJ8+twEBFuGRwSF
+         XkCjTx3NPvw7pBjywkv2+nnGRHyEqla8he+6VScySpxjng8z1t5qKxjcI6QqtPMsiGTv
+         4XrrT8itWSTjLtF3J6y6goGmkkKu43yqaOrPCiiJdvuIkka2gWqnPXrBvZxQyImSRBjw
+         9AJKlvOE1pTP6524D6iDcJ1YMnMgeNMEtf3/wJqMa1ydWPv2XFDoLxYgdm7YKo+7FWiz
+         7bZsjusPYtE9bFfNgoYJeTb/gM4sOS0lCw0cvYk2hGz49cJ3D3V/yXa4aEuylLoZ2FoF
+         nD/g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788548588; x=1789153388;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Yf0aKsZ1iXAzFzECqXKGTn9Dxl8O6Scv1+EVxQaYW8o=;
+        b=NkD8LGTt0pZyqEls9XL8g9gcf/uw9DZRj9HOs/ASFE10JdjK+1SoyBJKySKoQRXdLC
+         uYSyx54F6fqycptpZScL5vs0f89QzBlCJ27r535e17PT9Nf8f38hJSGHtB654cCU87Jm
+         T30kQRXvLEPBwmnxvOvbWl0GlMYj2Fnwv/UTBe/yxl0C57+GqFRdsfXA0oIpnj/Lbk1Z
+         B5+SzhBgKLIWPa6efRGXcjGabM6jji/O310Q4qyqNLT723u+JBSasfM903MN1IlTavwu
+         iAaywZotyr4RPEl4nAFcj954rBjzMAqvnTNWqfDbyyVz1S1YPtCgbMA3YZ0DBYsEQdmw
+         eWZw==
+X-Forwarded-Encrypted: i=1; AKwUvBxbQ2ilSsPmQKLbsJER4vVvRqWWz2npTtnetAxVXU0alP9T8UQq1W3mHYBMIVY8X3nKNugSHeO8cwIQc9s=@vger.kernel.org
+X-Gm-Message-State: AFuF++keXYyHiTNNkXE9+ftxoFaEdxzbZoYqYPWHyrOCgIb734loTdQE
+	9JtNNrcfa0EARoCvGBjhT1BtQEPd4YlKwuBfuofTgJsWv4cIcSRgi5ME30O9LRnjdTg=
+X-Gm-Gg: AYBFou1da80agQAlAgHI9kr+WUMircO+/2E+P6waTA+NmStNgm1/pKxPxVNeUZq3j1f
+	hdjSVcC0HhTi7nQzutYTkoBgQjVukkbRrmk8GyIE5P2U3xCDyK2WfxvrcI51y/rpV5OzSzdsjFh
+	M+sRBZZ+jzA5J1raj1T6A8EeWOKsi7BB+W1eKrcDdjxchiYCjL3QO6+JaERg0Iv/EImvQcCbtsN
+	DbyLyNTfUMenMzAPMmxk8QV0VSz7okDdWiO9I4XfFoa8YlSHsHZeH8/wYrGLBNa0epFCYuQ2Uza
+	MI3WX3/gYmzfOqtYv2/4v7TdN6nAThGMHRI62rNxHz6SRMeu4l64Ohvx6CKLoUqeoR9ml0H5sLb
+	exqRjDtv5/lgS3MAUYzwp657/YwSiJxk/Ix2IJRMNxsVwokC+vxyDWWvL/HTNUi1CqL/G42KPYX
+	7NC9FqBvVezBP8miM3zYP6/SxXBAb5SR3jwF/9P48=
+X-Received: by 2002:a05:600c:46d1:b0:493:bd2a:93be with SMTP id 5b1f17b1804b1-49cf820c992mr86205475e9.6.1788548587745;
+        Fri, 04 Sep 2026 12:03:07 -0700 (PDT)
+Received: from remote-01 ([84.17.55.227])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cee60d8a6sm172195485e9.10.2026.09.04.12.03.06
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 04 Sep 2026 12:03:07 -0700 (PDT)
+From: Aleksei Sviridkin <f@lex.la>
+To: Andrew Lunn <andrew@lunn.ch>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	Russell King <linux@armlinux.org.uk>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Cc: Eric Woudstra <ericwouds@gmail.com>,
+	netdev@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [RFC PATCH net-next v2 01/10] dt-bindings: net: add Airoha EN8811H PHY MCU
+Date: Fri,  4 Sep 2026 19:02:55 +0000
+Message-ID: <74144d4bcef8546126b66d9541ed2233a2c04aec.1788548229.git.f@lex.la>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <cover.1788548229.git.f@lex.la>
+References: <cover.1788548229.git.f@lex.la>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -52,107 +88,133 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: esmtpsz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz3a-0
-X-QQ-XMAILINFO: M5znx2hx04lbpoOMoO88JiSBtTYP6nekwxgAzfuIjrO7fQdi5Su1fYp6
-	Q6PciVO8CAKv8wSI0XzUCxSVbI+06MYLhnSw2ZZGLewCM1dMYXjjgMezH7VyioOCOxH0dDn
-	dp1ve+PPz06DpXhJDFnwF7/66HRoBF9f4BqnHP2/qBtIVOIKYhgXLDslj5yOkf3BazjnQ8B
-	brHpOhUUgVLrV0pyI/73CM2GU9juec00CSPfqkjFreOF3sUD+GWftIxZ5ytk/G8SyUunll8
-	ggTTPFTk+VfamEbRY3ikGuXs3c9zZOcfDeYPEkjLS7ZjMnaNaOOAYCsqOltkBahTGPifsgz
-	K+6E86b4ryKRlclq7/oS+QSV2YV2PpufafD5T3J/lzjsBpAovlXaVvTYsIpN4RSl7rEvlNd
-	f5qZWCqusJY28FHaniG7j+nOxsL2tNDQmiaXzMzod2ySblW7l22cVo1lCKIe7v6/EntLXrO
-	U1feJlpSlOzykklyi6EHVS3TI8LMtvE+28Wf92HHpAdYijBG3BLklxgtuPg38wG46ptkJYA
-	/etV7W9acW3EOpjqq19JWN85MiPy67Nh8vaMK4+h627PRwjgnmA2Rvjv9XIPxaXScGm7ptn
-	anz8ekM1Hy3sD1XWeBfjLrigiYmnY4qCx+K0OKvMNGHAC8/oY+Xvs1zpSzyPS2odLBmWPD1
-	R9zKoMR470gyF0njLzCqtazs1nzIe7YppFnN5BW/7sAKku9Ck64vxf7IUAmt2FzW5rEU+9Z
-	3NWhRtOS/lookT4aTvoKDqA2RBA1enumqJN2piOZMU+hGQIM5jtt4U6fEsqKBngdc/vMStE
-	VEnrHVv9D+z8CKtKlyUNtDWDUzRMDeAK8qZU4iYqff9FS8CQrR9PEnTR7iv7ede5C0pP+tb
-	4WYZVb/0Q7qMS2dwoihT7inJ7jdXp5HLLBHd/Zx/J5Up8qM4StqO0bKFoD3/63NGXx/3FU7
-	64inMkTpfWn4qcWQVNcGM3IGfjWdr0MmfUBBW2MZLkqt68UdK8FprLjbkGHclwTjrzQS6DO
-	o3Pxly0aCxmYtCnOUe3OMS0R1fdffj3m2qNessKU7GszfhNTJtFmL2In3CZ/E7RKqbh7ufU
-	Q==
-X-QQ-XMRINFO: Nq+8W0+stu50tPAe92KXseR0ZZmBTk3gLg==
-X-QQ-RECHKSPAM: 0
 
-When cgroup.memory=nokmem is in effect, __list_lru_init() disables
-memcg awareness for the list_lru, but it leaves lru->shrinker_id copied
-from the supplied shrinker.
+The EN8811H answers its PHY ID from power-on, but a link is only
+possible once its MD32 MCU runs firmware that the host loads over
+MDIO into volatile RAM. On systems that keep the firmware files in
+a filesystem, the files arrive long after the MDIO bus was scanned,
+and the PHY node alone cannot express that gap.
 
-This used to be mostly harmless for memcg-aware slab list_lrus because,
-with kmem accounting disabled, slab objects are not charged to memcgs and
-list_lru_add_obj() passes NULL memcgs. The THP deferred split conversion
-changed that: it initializes a memcg-aware list_lru with the THP shrinker
-and later adds anon THPs with the folio memcg, even when kmem accounting
-is disabled. The list_lru itself has been collapsed to plain per-node
-lists, but the stale shrinker id still makes __list_lru_add() call
-set_shrinker_bit().
+Describe the MCU as an MDIO device of its own, with the PHY node on
+a child bus underneath it. The device downloads the firmware when
+the files appear, or adopts firmware the bootloader left running,
+and registers the child bus only then, so the PHY never becomes
+visible before the chip can serve it.
 
-This was reproduced on a kernel with CONFIG_MEMCG=y and
-CONFIG_TRANSPARENT_HUGEPAGE=y, booted with kernel memory accounting
-disabled. The same condition can be reproduced by booting with:
+The reset line belongs to this node, not to the PHY node: firmware
+lives in volatile RAM, so reset may be asserted only while the MCU
+is not executing it. On a PHY node the line would be pulsed by
+every phy_detach() and wipe the running firmware.
 
-  cgroup.memory=nokmem
-
-and then faulting in anonymous THPs so that they are queued on the THP
-deferred split list_lru. The warning showed that the memcg had no kmem id
-and no memcg shrinker bitmap capacity, while the list_lru still carried a
-valid shrinker id:
-
-  set_shrinker_bit: memcg=ffff8d23cbe60000 css_id=31 kmem_id=-1 \
-    dying=0 nid=0 shrinker_id=0 shrinker_nr_max=0 map_nr_max=0 \
-    info=ffff8d23d68c60c0
-  WARNING: mm/shrinker.c:218 at set_shrinker_bit+0xdb/0x100
-
-The stack was:
-
-  set_shrinker_bit
-  __list_lru_add
-  deferred_split_folio
-  map_anon_folio_pmd_nopf
-  map_anon_folio_pmd_pf
-  __do_huge_pmd_anonymous_page
-  do_huge_pmd_anonymous_page
-  __handle_mm_fault
-  handle_mm_fault
-  do_user_addr_fault
-  exc_page_fault
-  asm_exc_page_fault
-
-The list_lru code already uses shrinker_id == -1 as the sentinel that
-prevents set_shrinker_bit() from doing any memcg bitmap operation. Keep
-that invariant when memcg awareness is forced off due to disabled kmem
-accounting.
-
-This is related to the cgroup_disable=memory case fixed by Qinyun Tan,
-where __list_lru_init() also needs to collapse list_lrus to plain
-per-node lists when the memory controller is disabled entirely. That
-patch makes the memcg awareness decision complete; this patch keeps the
-shrinker id in sync with that decision.
-
-Link: https://lore.kernel.org/linux-mm/20260902093202.609559-1-qinyuntan@linux.alibaba.com/
-Fixes: fafaeceb89a5 ("mm: switch deferred split shrinker to list_lru")
-Assisted-by: atomcode:gpt-5.5-medium
-Signed-off-by: Wentao Guan <guanwentao@uniontech.com>
+Assisted-by: LLM
+Signed-off-by: Aleksei Sviridkin <f@lex.la>
 ---
- mm/list_lru.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ .../bindings/net/airoha,en8811h-mcu.yaml      | 96 +++++++++++++++++++
+ 1 file changed, 96 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/net/airoha,en8811h-mcu.yaml
 
-diff --git a/mm/list_lru.c b/mm/list_lru.c
-index 36662d02ff963..c08a5e2367106 100644
---- a/mm/list_lru.c
-+++ b/mm/list_lru.c
-@@ -671,8 +671,10 @@ int __list_lru_init(struct list_lru *lru, bool memcg_aware, struct shrinker *shr
- 	else
- 		lru->shrinker_id = -1;
- 
--	if (mem_cgroup_kmem_disabled())
-+	if (mem_cgroup_kmem_disabled()) {
- 		memcg_aware = false;
-+		lru->shrinker_id = -1;
-+	}
- #endif
- 
- 	lru->node = kzalloc_objs(*lru->node, nr_node_ids);
+diff --git a/Documentation/devicetree/bindings/net/airoha,en8811h-mcu.yaml b/Documentation/devicetree/bindings/net/airoha,en8811h-mcu.yaml
+new file mode 100644
+index 000000000000..99a494f6ca1e
+--- /dev/null
++++ b/Documentation/devicetree/bindings/net/airoha,en8811h-mcu.yaml
+@@ -0,0 +1,96 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/net/airoha,en8811h-mcu.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Airoha EN8811H PHY MCU
++
++maintainers:
++  - Aleksei Sviridkin <f@lex.la>
++
++description: |
++  The Airoha EN8811H 2.5G PHY is built around an MD32 core that executes
++  firmware from volatile RAM. The chip answers an MDIO address from
++  power-on, but the PHY function does not exist until firmware has been
++  loaded over MDIO, and it disappears again if that RAM is cleared.
++
++  This node describes the MD32 core. The PHY function answers on a child
++  MDIO bus below it, at the same address the core occupies on the parent
++  bus, and only while firmware is running.
++
++  The reset line is wired to the core, and asserting it clears the
++  firmware RAM. It therefore belongs to this node: a reset described on
++  the PHY node would be pulsed by that node's own lifecycle, whatever
++  the core is doing.
++
++  A board that has firmware in hand while its MDIO bus is enumerated can
++  describe the PHY on its own, as airoha,en8811h.yaml does, and that form
++  stays valid. This binding is for the boards where firmware arrives
++  later, so that there is no PHY to describe until the core has it.
++
++properties:
++  compatible:
++    const: airoha,en8811h-mcu
++
++  reg:
++    maxItems: 1
++
++  reset-gpios:
++    maxItems: 1
++    description:
++      The GPIO phandle and specifier for the reset signal wired to the
++      MD32 core.
++
++  reset-assert-us:
++    description:
++      Delay after the reset was asserted in microseconds. If this
++      property is missing the delay will be skipped.
++
++  reset-deassert-us:
++    description:
++      Delay after the reset was deasserted in microseconds. If this
++      property is missing the delay will be skipped.
++
++  mdio:
++    $ref: mdio.yaml#
++    unevaluatedProperties: false
++    description:
++      The bus the PHY function answers on while firmware is running, at
++      the same address this node occupies on the parent bus.
++
++required:
++  - compatible
++  - reg
++  - mdio
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/gpio/gpio.h>
++    #include <dt-bindings/interrupt-controller/irq.h>
++
++    mdio {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        ethernet-phy-mcu@d {
++            compatible = "airoha,en8811h-mcu";
++            reg = <0xd>;
++            reset-gpios = <&pio 14 GPIO_ACTIVE_LOW>;
++            reset-assert-us = <10000>;
++            reset-deassert-us = <20000>;
++
++            mdio {
++                #address-cells = <1>;
++                #size-cells = <0>;
++
++                ethernet-phy@d {
++                    compatible = "ethernet-phy-id03a2.a411";
++                    reg = <0xd>;
++                    interrupts-extended = <&pio 15 IRQ_TYPE_LEVEL_LOW>;
++                };
++            };
++        };
++    };
 -- 
-2.30.2
+2.53.0
 
