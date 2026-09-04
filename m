@@ -1,68 +1,70 @@
-Received: from mail-oo1-f43.google.com (mail-oo1-f43.google.com [209.85.161.43])
+Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com [209.85.214.178])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84AA13EBF02
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 11:54:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45E56423E98
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 11:55:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.178
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788522891; cv=none; b=CGv5ilVQ+LpxjP5u2vwU5rQ5JirhQ0MPLtEZ1jB9vDfgGzM238oljBEKbACRl99JTty0wyssMRuSe/2NebvX+hzmNuBFmuPuZ82KtUTxrUerlhDTWcPMwj59oyQjdCGgshK25L542BLyZvD4jPqPH5RZ1QWuyKgWvBB+yyDGPoM=
+	t=1788522941; cv=none; b=l+xQd7C0UsUedcFya/+TjnYu9+fTqxL0AnVtrfxCFJmR06HzhNavOCmMhO5qNVG51mYs1dxeVYSIVJ4euy0TcaGaHRo1lBpCW1grUm7g9T+aJSWy2Ks+V5mILDFpy1HvPOBPV0l883QAOC8JeLIt2ppPN5ZMUrI7Emg7tH78kbY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788522891; c=relaxed/simple;
-	bh=jusHzKoVhkao8JeAX9oPIbju8ArWLvXrmJZyQ8jsvTE=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=G2yFNQoIJTkmm0SKkPNXair6G8VhdsK2UPeUcxWYI9Tftm2QuoQvbJblG2sQ8qMOuK/t6nXgWZRGpgsQ97LBEhUJkfWlH+5FWEeNkqJB8MKjojjcTDXjA/YH37MFb1lNc4UBXEEdcedSyB3MXEcyNGuMP9c+o4HP9/jVkFePDS8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XwhvkjUc; arc=none smtp.client-ip=209.85.161.43
+	s=arc-20240116; t=1788522941; c=relaxed/simple;
+	bh=z8iIzs5DDnWzQtw2LUYeiEuFEzPHhCuXMUc1+Axn0VU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=IJE+MZe221uc+87qbclfCiahXYZUqUHuKDEMgBDoCPxCfNuvgwWqQT9WkZLLfQlENMSfkYAXAidewm2776WpwPX2jVR8sq7Xunq1vNpssRWsmxwMeJCpG5N8HhyFM26IafD7ZlzEWaxSANZQcXuMj3QGiGNhvnBH7niG41SQLps=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SvXmmnOa; arc=none smtp.client-ip=209.85.214.178
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XwhvkjUc"
-Received: by mail-oo1-f43.google.com with SMTP id 006d021491bc7-6b1afdf98dfso571823eaf.3
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 04:54:49 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SvXmmnOa"
+Received: by mail-pl1-f178.google.com with SMTP id d9443c01a7336-2d6e954afbdso5877115ad.2
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 04:55:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788522888; x=1789127688; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1788522940; x=1789127740; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=folFrH9uw2PuUynBhmUN5Wc2/Vdy05QW9u2royXb9N8=;
-        b=XwhvkjUcM2A1DYX72P7gc2Nze4e2+i9boDSCnJKFGJRzPSJwULiI6AABdW+Zl8Qz2q
-         vNJqHSDXr/H4MznN8OmDvIvdG60pHtG+/qIQh9nWnvKJktLVGJi5ns02Qito1ptXVAnP
-         AfWwVPn+W81KPEKf8hxTfewG3g7uddq1AwhenOLRqF4+QOuHbUHlTPu8zBuuzGxR73XE
-         vBx97FhhAGvzg9xWZUHXPjCQm0P+hxBPQEMrykKNEBSVM38kykwhjQ9asSL5PqrVdoV5
-         sCdMivetb1cbTpsXI0VG0PxoBf5lBEPz6VRzemYrHtgz5f0wdJFEridLMaIetirq3sRz
-         CxEA==
+        bh=Xdr1Kg5gJsWYJr/v5Af5lr5k6jYnKDbP79UXMnLtwuM=;
+        b=SvXmmnOaPnZEz2k7Tmbq9GY0Uedt57A5MkQqqwpFpIr7+JWb8nEq04iev9PqJw6T2Z
+         HA7FQyVQM3slEXNUuG41uE/yUfy3f0MD6tS/whueLddOvCrvxAeN2Ob61rsmPK75rOWN
+         vJLSxvCyE6cb2Ho/bmZTfQnXTuO10fVR1JNCQ2KghIwKEQb9uo29+D7/mltKGj9LsAri
+         uJmRrT/BNAQMhvOh0whQFp89F6anmj1ldQve4i/Lu2+UXLU5l6H0Cxc0JyCaQGS1T6x0
+         T5e6pBnx8WXtxAf92tCshM5c7Ee9hvmbwCUIwLDGj/13HYV2QZzb+OeeBczPpaobauSB
+         ObQg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788522888; x=1789127688;
+        d=1e100.net; s=20251104; t=1788522940; x=1789127740;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=folFrH9uw2PuUynBhmUN5Wc2/Vdy05QW9u2royXb9N8=;
-        b=GoMBdemmeUwJYRuH3OU4fNz/+OP1mgL21SCEqKBjXccIa26FlOaa5QRjZ/AmXqDwKj
-         SCDZ3Ij+uku2uTYsWEsZuAaEqkvmZKC6KQlfWxnl3up5i+7BZl1s/8WoLEPhcknlXnyX
-         oVZaFjtJT0qolnIGcKettjpxpP1woq8NC2U1eG1dKCZCzsLXMnyKtOXt8vozsKYoq1TM
-         ymhlLHAOkqwQGGeoab6HFSpu/7wNpFIJpI3qoYQdQh6KpyaPXy/UEgomLCHCYySBVX94
-         An1V5jVltJbDefJaf/uZ65XnQ3Yiq4Uoujx/Sd/CwoaJk5xMEqLyx6LOH9TW7bRJwefb
-         zwQA==
-X-Gm-Message-State: AFuF++nTuIdRfjBVUEUFZ4NMGtfD09TXdTpi+GqTkEd7qLgEE7hfBcEl
-	SQ3mI2APRZSSRUa55ipHO6sqtoFu4CaclgMyYI49R6B2qPtXQzwp3vbM
-X-Gm-Gg: AYBFou3GxRNDWx2mr3r5FVXJRP6Um6fCxyRbm7DUMGo3nfdmsxNNvAL4wyAVn/9mIj6
-	jumb2/tBnQZ3x6qdGtgPf9knq+NzYGMpC9tVaUr21eNpLmk2gRDg9NVWNkiiyo8plXPh1mLzEwZ
-	O5UpCFgU2lwnrJB/JLb1iMFVkJ+KcNPpQk7iQNoRznkDqTlA3wqRPedk7Aaeyif0Fr3xTKUGHPS
-	x0I1EIWAs+Kagj+ueZATd4KDgzkwqdY7NyKs2h+38XYSsnoL6zytusGHZ8NqjUARv2P2BkDl7Hq
-	fhU1CfyOjMmQKZeOmYN8ms9Lk/hyeqWr0kVBHBQtmPQWC5ZK7RgVmRhNWm/lWcSJ8TcW4wVKc54
-	osfJZ4+fix1uDzd3RsXVdZg2Ud3MSKep8mp45aXuftCHzmWFSLS4ju0Z7W6JN0LlGzagUrF8HnV
-	AsxPz0qEBbxx0slJY5dlppVAJDvNJt/NdkxlB+sc+waamYL+z3+Dg5tDwNJ8Ym3HqRrXs8nbpwe
-	kpS071EBxyi6bo=
-X-Received: by 2002:a05:6820:190b:b0:6b7:83c5:fdf1 with SMTP id 006d021491bc7-6b783c6039amr1442395eaf.50.1788522888262;
-        Fri, 04 Sep 2026 04:54:48 -0700 (PDT)
+        bh=Xdr1Kg5gJsWYJr/v5Af5lr5k6jYnKDbP79UXMnLtwuM=;
+        b=VOzqrE9k/HdpHnIElprMqS4jBOp9bxL4HezYCemIDd2RObwZn0gfodKCj7Bjsb42Um
+         pmmPXtNIr6+yiZ0h1XjyBil2XofBpJ5SeGa+tkCp0Z5yw0Cpb55pduFQsdDeJ+QFOzbY
+         dceaa6tgq6K4jDfEFl+C4L4ik+9GySvd7MM9u/5LiNijVftICqCdrnpdZxlgXOPPOwMK
+         uxXxi7Q++SQIQu1sVR38fRxWOtPNygz4yPbgfdHixgRyjnvMBrw4lM2nsmROBTITpRS0
+         dTYJRbzMmXn7xe+Hid6IfwBpNd0weuLf8ZghpkmrkUaZz6XoKEwo6IYCQcYjNprnY5VD
+         D0cg==
+X-Gm-Message-State: AFuF++lvYHkl4ltbpw9F0fpoiRDaA4Eeq3KJj61z2cjQj1SAuaXM+2OS
+	XdHU9C7waIC2S9CjBqIFSDPrRnmpc9Roope0vmbWRaiZNh6YExhUcZq0riJyccCPNZc=
+X-Gm-Gg: AYBFou0bRz41nZfiVHOyZAEAAwFR4woEfOjx3SknH+U0sXJXgnLQzuGzDWsQKdGmXbz
+	wEiH/zuwWtr/RNUeOA0h5P8p7ob6OzrL5gt+y4NHmvWvUVs06Ceno5qYNA5V33T7AgwkGqd2Qga
+	+tTVPsK5KuCOPjmvN3Jjw+yG976ud3pg6rqHH309wcb4wsIrMokt1/M7O4Xwz1FV7VPmKiWTSgz
+	T24IHYqSp2Mflt2CpkU/xdARPZBpX2AYS+PmiRbQwSPWFD9XMCQUnBGNGi9JZAHSXC+XYHLNdMN
+	KjGFrZYozPX2byNdflTvWpqN5eacb3s//9lWzXvKWvh0EcNObl4AAqdgbXqMHSEC3N8Yym60irg
+	ZfLG5BKUSdrgROowyP0NwGhWdAJDnhc5yuaVPlZTB3gaoRSkZYSAJfHeTU3AdRetNGljDd7hkB2
+	mrJ+f3hkTVGe8dgA2RprQ8HORY1kS6EJTC9MTLCqHFoiOOAM2mQX59TsYnHXz3M6BdKqZzupNLF
+	ZdBWXev30gDcdo=
+X-Received: by 2002:a17:90b:2749:b0:398:d292:e6d5 with SMTP id 98e67ed59e1d1-39b26304385mr9396199a91.24.1788522939620;
+        Fri, 04 Sep 2026 04:55:39 -0700 (PDT)
 Received: from volcano9f6e-hostos.amd.com ([165.204.217.251])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339a62be87sm5643585eec.6.2026.09.04.04.54.46
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339af25062sm9246445eec.16.2026.09.04.04.55.37
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 04 Sep 2026 04:54:47 -0700 (PDT)
+        Fri, 04 Sep 2026 04:55:39 -0700 (PDT)
 From: Hemanth Selam <hemanth.selam@gmail.com>
-To: Chris Zankel <chris@zankel.net>,
-	Max Filippov <jcmvbkbc@gmail.com>
-Cc: linux-kernel@vger.kernel.org
-Subject: [PATCH] xtensa: fix typos in comments
-Date: Fri,  4 Sep 2026 17:24:41 +0530
-Message-ID: <20260904115443.10393-1-hemanth.selam@gmail.com>
+To: Jon Mason <jdmason@kudzu.us>,
+	Dave Jiang <dave.jiang@intel.com>,
+	Allen Hubbe <allenbh@gmail.com>
+Cc: linux-kernel@vger.kernel.org,
+	ntb@lists.linux.dev
+Subject: [PATCH] ntb: fix typo "atleast" in comments
+Date: Fri,  4 Sep 2026 17:25:33 +0530
+Message-ID: <20260904115534.11165-1-hemanth.selam@gmail.com>
 X-Mailer: git-send-email 2.48.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -72,70 +74,37 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Fix typos in comments, reported by scripts/checkpatch.pl using the
-misspelling list in scripts/spelling.txt.  Only touches comments, no code
-changes.
+Correct "atleast" to "at least", reported by scripts/checkpatch.pl using
+the misspelling list in scripts/spelling.txt.  Only touches comments, no
+code changes.
 
 Assisted-by: Cursor:claude-opus-5
 Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
 ---
- arch/xtensa/include/uapi/asm/mman.h | 2 +-
- arch/xtensa/kernel/entry.S          | 2 +-
- arch/xtensa/kernel/vectors.S        | 2 +-
- arch/xtensa/mm/init.c               | 2 +-
- 4 files changed, 4 insertions(+), 4 deletions(-)
+ drivers/ntb/ntb_transport.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/arch/xtensa/include/uapi/asm/mman.h b/arch/xtensa/include/uapi/asm/mman.h
-index 99d4ccee7f6e..aa64ab9109c5 100644
---- a/arch/xtensa/include/uapi/asm/mman.h
-+++ b/arch/xtensa/include/uapi/asm/mman.h
-@@ -96,7 +96,7 @@
- #define MADV_HUGEPAGE	14		/* Worth backing with hugepages */
- #define MADV_NOHUGEPAGE	15		/* Not worth backing with hugepages */
+diff --git a/drivers/ntb/ntb_transport.c b/drivers/ntb/ntb_transport.c
+index f9caa1a653c5..47585dc62eb7 100644
+--- a/drivers/ntb/ntb_transport.c
++++ b/drivers/ntb/ntb_transport.c
+@@ -611,7 +611,7 @@ static int ntb_transport_setup_qp_mw(struct ntb_transport_ctx *nt,
  
--#define MADV_DONTDUMP   16		/* Explicity exclude from the core dump,
-+#define MADV_DONTDUMP   16		/* Explicitly exclude from the core dump,
- 					   overrides the coredump filter bits */
- #define MADV_DODUMP	17		/* Clear the MADV_NODUMP flag */
+ 	qp->remote_rx_info = qp->rx_buff + rx_size;
  
-diff --git a/arch/xtensa/kernel/entry.S b/arch/xtensa/kernel/entry.S
-index 272fff587907..49b4c9eca80e 100644
---- a/arch/xtensa/kernel/entry.S
-+++ b/arch/xtensa/kernel/entry.S
-@@ -1671,7 +1671,7 @@ ENTRY(fast_second_level_miss)
- 	 * This allows to map the three most common regions to three different
- 	 * DTLBs:
- 	 *  0,1 -> way 7	program (0040.0000) and virtual (c000.0000)
--	 *  2   -> way 8	shared libaries (2000.0000)
-+	 *  2   -> way 8	shared libraries (2000.0000)
- 	 *  3   -> way 0	stack (3000.0000)
- 	 */
+-	/* Due to housekeeping, there must be atleast 2 buffs */
++	/* Due to housekeeping, there must be at least 2 buffs */
+ 	qp->rx_max_frame = min(transport_mtu, rx_size / 2);
+ 	qp->rx_max_entry = rx_size / qp->rx_max_frame;
+ 	qp->rx_index = 0;
+@@ -1195,7 +1195,7 @@ static int ntb_transport_init_queue(struct ntb_transport_ctx *nt,
+ 	tx_size -= sizeof(struct ntb_rx_info);
+ 	qp->rx_info = qp->tx_mw + tx_size;
  
-diff --git a/arch/xtensa/kernel/vectors.S b/arch/xtensa/kernel/vectors.S
-index 1073fe4a584d..063a6acc64e9 100644
---- a/arch/xtensa/kernel/vectors.S
-+++ b/arch/xtensa/kernel/vectors.S
-@@ -21,7 +21,7 @@
-  * use a first-level dispatch table to dispatch the exception to a registered
-  * fast handler or the default handler, if no fast handler was registered.
-  * The default handler sets up a C-stack and dispatches the exception to a
-- * registerd C handler in the second-level dispatch table.
-+ * registered C handler in the second-level dispatch table.
-  *
-  * Fast handler entry condition:
-  *
-diff --git a/arch/xtensa/mm/init.c b/arch/xtensa/mm/init.c
-index fe83a68335da..7b5f82932a45 100644
---- a/arch/xtensa/mm/init.c
-+++ b/arch/xtensa/mm/init.c
-@@ -43,7 +43,7 @@ void __init bootmem_init(void)
- 	 * accounting doesn't work for pages below that address.
- 	 *
- 	 * If PHYS_OFFSET is zero reserve page at address 0:
--	 * successfull allocations should never return NULL.
-+	 * successful allocations should never return NULL.
- 	 */
- 	memblock_reserve(0, PHYS_OFFSET ? PHYS_OFFSET : 1);
+-	/* Due to housekeeping, there must be atleast 2 buffs */
++	/* Due to housekeeping, there must be at least 2 buffs */
+ 	qp->tx_max_frame = min(transport_mtu, tx_size / 2);
+ 	qp->tx_max_entry = tx_size / qp->tx_max_frame;
  
 -- 
 2.48.1
