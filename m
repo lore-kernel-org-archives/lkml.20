@@ -1,65 +1,65 @@
-Received: from mail-oi1-f174.google.com (mail-oi1-f174.google.com [209.85.167.174])
+Received: from mail-oi1-f177.google.com (mail-oi1-f177.google.com [209.85.167.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF0414CC283
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 17:54:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE0F8511192
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 17:57:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.177
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788544480; cv=none; b=d3UabLT6qd+sv6sZiwun2djFi/QhWWnR1CctybvJ6DDf2p0c359Vj1mG/2QGANrCvjE5Suk+l122+4xv8o3U7+l3Mp0fkzAGzf1fUwU7ESJvXikIPI6mPS38uLthFPVsUaVtmUtrt/Nc93LtvtBHfe7PRgGV0Fo3FhFgi4nl1nM=
+	t=1788544673; cv=none; b=YzYlU07wCs99OQunHMvgVN8cV0ls1e4fbJbkmzlR+oD8Q8M231n+kaLEfwRMu/bexWNQGqPmwedAzscGZ0z7VEVyhWJKAHr8p8FhDp6SEuS4RvDX5IueROYuI6MueR5kfKYdCJspqVs4QIQeXYAfs2+v7vtmwaFNBOcIb4O6wgI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788544480; c=relaxed/simple;
-	bh=EjQj2LS0JNyUic2hcCxEF400RxvSSgR2RMKFB+bwmO0=;
+	s=arc-20240116; t=1788544673; c=relaxed/simple;
+	bh=SSdKA8aPi6Eb8JDii0pSei85yNM9d7eeM43+xAQL63M=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Nx4rlrbkCvSi57q1/33mBjfqdhCpm5tnnzh94EaRLVHm1MCVnuoKpuqedgVQLyIQnU6kFMsBtj2ygXQkJHX1wGSOjfgpFqnmv3+u21kHTtc3T5GS7oIm4tOUEBx7A2AhkooA3msUkK+rEADTFSX7PPDB1gjXqnijcaAD/NB5hAQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxfoundation.org; spf=pass smtp.mailfrom=linuxfoundation.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=VYoFjNaV; arc=none smtp.client-ip=209.85.167.174
+	 In-Reply-To:Content-Type; b=IaWcCGpaOJ1qhhXSwdLC614rCoFHsDXhpEbotHngnTt6xTr7P8enl23CRXoaPPh6bCl3E7CemMWHxrK7MGif7mPkMHwSLYrL2URhVa2uYKDDQ8XpOaZixqpuynIcohc4Z+He3AypfYx6RqzwR8eMzz2OmW7LrGnyRuZZ1ALvdvY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxfoundation.org; spf=pass smtp.mailfrom=linuxfoundation.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=ZIUjUm8i; arc=none smtp.client-ip=209.85.167.177
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxfoundation.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="VYoFjNaV"
-Received: by mail-oi1-f174.google.com with SMTP id 5614622812f47-4b28d9537bcso1101374b6e.0
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 10:54:37 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="ZIUjUm8i"
+Received: by mail-oi1-f177.google.com with SMTP id 5614622812f47-4b21f09ec76so1061814b6e.0
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 10:57:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linuxfoundation.org; s=google; t=1788544477; x=1789149277; darn=vger.kernel.org;
+        d=linuxfoundation.org; s=google; t=1788544670; x=1789149470; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:in-reply-to:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=sswBzQfsCyKYg2+YC2ZCiHjV592pYawy0eyNgxUcAfc=;
-        b=VYoFjNaVBHsVGKsuPz378EzHq6+F9r9rtq2n+9NftMpFSIRDlbUl/pZyJyUU532zPH
-         /AUeTM14qNkAunLuUghnRxYkevoeuQ8NithBW9ZbwDIUIEHrTrGYHygEASXwfNNuzYxy
-         adkaCUTy3v9G6ebKCMKjzgQdu4vVo0ib9KXn4=
+        bh=jxL9xWJoyXLMWiLXTBKm65nu9qcQOBFMxo0Z1T8WZso=;
+        b=ZIUjUm8iqfXDPwqblE+3Jgr2Nnl5f9fAaJGIRy/Ta7WGOYLYKVxjnzksOvTJReU3rK
+         trsN7ZkLYDyhhwkST8NQBRmIcC0bDsrB0Pf/6/OZzZ+ddLedZSwJ1TnmZVcoQxZDYzap
+         uPml95VEs97OIvyhhGoylYOpPuVJp/kasVrw4=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788544477; x=1789149277;
+        d=1e100.net; s=20251104; t=1788544670; x=1789149470;
         h=content-transfer-encoding:content-type:in-reply-to:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=sswBzQfsCyKYg2+YC2ZCiHjV592pYawy0eyNgxUcAfc=;
-        b=MaSDM07bREh036pqFEvFgm8buRYyTCIvrEGMSr7bJ98W2IMQVOZ+POKY7E1C2Koppf
-         6Bpazp2sF4EjcUL72/EF9ckNBAdokR8KFoDVWlqB0RutcPjx8JFIJBjdiYD7hcb2jNec
-         rNkP4pB8UPdwXuJt0CjYWBu55QIIjLtxabpWnHFyyY9jPW/2nbsYG935Ka91zIfeUNC8
-         ca0VeqXoi9fQYz6aGlNM6MRyxJoRDRzcHneFt3CX+iy3GxkIVUzTBhaqwnjTVapMpGea
-         xGJoxr6ceeC1D2Rnu2XgMEqOqEJNE9W9U1+ezyN1cGhchnh4SBoca80JMsDt3kcNP4Sm
-         P0rQ==
-X-Forwarded-Encrypted: i=1; AKwUvBw6URQR8IooUT4CtHqAgXBgF2F7etvo5ONfe93VjMEGX5+iF7BZ1+drxcRsUDYTuzgdDXFOzlKdzLctjpw=@vger.kernel.org
-X-Gm-Message-State: AFuF++mrVrGTVWoLnNsCniE31Y5P9DeZuajxdxDJL8fjwvliD1rHKEtw
-	M2P/TjGo+WJB0nwMjuIZ9NZRBUtE4nyXs4ZVcZ9x0zQFxIoJa27NPxBDr3MQnh2WPkI=
-X-Gm-Gg: AYBFou3+F6D0ikwlo7ktX4F9kQJ+PO9JlQX7o1tAozq+0aGVWu+RbPrafiDcda14rCd
-	8wlfp924TveZIwDvFOdhMQCkmdiABJXFIDZIopWbaWsi6wdpbk4Mg3luQAxlBAVCbl8HPa4nnfe
-	8GVbBiEF7KUFSdpjYhRxYOmqwagwg00B4ZdvSBjWnU/V6HUXXGCj12vzVTr2F+t6OlIBGChiN4r
-	4yMn4ZntfFuHoSboLIHEXQpSBbIn5vLzNPHe9c0RzFe8mo36AsGn0PYeoxcai6Gnded4d3Q/76o
-	GgRIoVJmpWYAsXjpOHb1saBqN7HbaMFIz+XQPfbrHXtubY1z7X7SytvhuFaP9UmaB5kYxHxjVf1
-	SrX7T239ETNHU5lhClpcFkGSndlnZvR0EpNLIEgxw4anrCPhSf9UDdAaPNgjC86rpwE2TmuqeXv
-	fEZ4YdMzm83Eduge0rhq6iTssV3mM8CXWeCydqVMy6fYQD3/vT6tuuroqgvHuq18UQdUWLzMCIC
-	NwuEsZtNwY=
-X-Received: by 2002:a05:6808:5387:b0:4ab:224d:6dd6 with SMTP id 5614622812f47-4b7deda428bmr6794706b6e.15.1788544476511;
-        Fri, 04 Sep 2026 10:54:36 -0700 (PDT)
+        bh=jxL9xWJoyXLMWiLXTBKm65nu9qcQOBFMxo0Z1T8WZso=;
+        b=XKkETMLyRa9c9dJrLIAzKmFJ91x68Fe8CyDdM8h9Xx4dSwBMnhvghfxRxxIleUHDxJ
+         ugGjQX5nKoLsLbcQmlgsjGJoQNbqj3kb/LJLDb8h6nsAeduTjf28ej1p88zFWA18fNmv
+         O4AOUYvrkU9YA6MRQFzNJdaGIw6VVKPS2zL3RJS3WU2WQM+AgiB6x9dEB+wFcLv+LGbd
+         61vqaj0Db4CVflbJCrxyG0RDrUjM9XPhQSXGV/9uJw8S0GA6pdcMob1+jSsdJfOwlhPj
+         PlUzjdDkaaHo/2LoYx23YuuPu8ok6z0fK248Ls1al5PZtFf9bT+1uHARfO7QiQnu25Uu
+         VgtQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzJ2Dhv31FJdx6H240XHNw4fGaWI4geSPmWxZhTToyVYbK/NAUL7wtdow6/G5vLJVaBuRRKKleZoi2sU78=@vger.kernel.org
+X-Gm-Message-State: AFuF++kK8ceQNuyJLjPK5w0a0I2NqegNk9PWkJvzjPwU2tKzd1RpqLkO
+	HTA+/jn0SiVejx6quEFCEN98duBf0TaX87r4XnQ/ZA2v/HmIEUhV/z3vztzbRbrl9Kc=
+X-Gm-Gg: AYBFou2DczhquaLT/q+5Nll8u+irIAYM/sYoizlGmS5zYiLqa0WcErtDdYLpbqlj+w4
+	9nXgT+/TZkKHEm6tEPPndLeTC4vhPASkq+eyLENqBeKn+yBPZ1zw+LQUFVLy9zDctCRtdBBmezK
+	zzKI01Z5eEpjUTKvyNRK56Kmf4C8naa8SeeFQG+usx2+k39jO4zR4BnjhiVweplqzl6wZifN8v3
+	poSZ7kggJEoyUymycbyTWlnpHS5PMH4PYvBtLNMwyhBPrE6lShJgYD2dtvImK/WWPiLUWVGOk9I
+	bCn90lYP6tMnaLyJwpjgkytFH9gRE2627QMvgv4rsyrpOtYzJKezVSJf2WBQVRWQ/Sp/Oav8wAu
+	iEKQbplSTJ7PnoiUPxrSx9/GPWtSUL6yJjAWvntnEGJK3QGsf0+pROUr/5QhDtENjeShc4+dlMl
+	F8ztF5XHS08sCUwOqiU5g97zu7ccRAZfGqMgRjbpof1Sk4iiq6uBK8ckdbx12mmW+0Q5/V+WQ15
+	hPAv18DEw==
+X-Received: by 2002:a05:6808:13c8:b0:4b2:9d0d:ffa with SMTP id 5614622812f47-4b95bf9c315mr6608717b6e.0.1788544669623;
+        Fri, 04 Sep 2026 10:57:49 -0700 (PDT)
 Received: from [192.168.1.128] ([38.15.57.99])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-4b970d1ff95sm2596901b6e.6.2026.09.04.10.54.32
+        by smtp.gmail.com with ESMTPSA id 5614622812f47-4b97167bd69sm3087057b6e.13.2026.09.04.10.57.45
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 04 Sep 2026 10:54:33 -0700 (PDT)
-Message-ID: <aa803d8d-25af-48eb-bc6d-2476fc795c80@linuxfoundation.org>
-Date: Fri, 4 Sep 2026 11:54:31 -0600
+        Fri, 04 Sep 2026 10:57:47 -0700 (PDT)
+Message-ID: <14f16376-a0fa-4ea4-b14f-65eac5839bc0@linuxfoundation.org>
+Date: Fri, 4 Sep 2026 11:57:43 -0600
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -67,129 +67,49 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/1] cpupower: monitor: Show how a counter value is
- exported
-To: Hemanth Selam <hemanth.selam@gmail.com>, Thomas Renninger
+Subject: Re: [PATCH] tools cpupower: Fix signed shift UB in amd_fam14h_idle
+To: liujing <liujing@cmss.chinamobile.com>, Thomas Renninger
  <trenn@suse.com>, Shuah Khan <shuah@kernel.org>,
- "John B . Wyatt IV" <jwyatt@redhat.com>, John Kacur <jkacur@redhat.com>
+ "John B . Wyatt IV" <jwyatt@redhat.com>, John Kacur <jkacur@redhat.com>,
+ Shuah Khan <skhan@linuxfoundation.org>
 Cc: linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org,
  Shuah Khan <skhan@linuxfoundation.org>
-References: <20260818095538.1196953-1-hemanth.selam@gmail.com>
- <20260818095538.1196953-2-hemanth.selam@gmail.com>
+References: <20260903082644.5149-1-liujing@cmss.chinamobile.com>
 Content-Language: en-US
 From: Shuah Khan <skhan@linuxfoundation.org>
-In-Reply-To: <20260818095538.1196953-2-hemanth.selam@gmail.com>
+In-Reply-To: <20260903082644.5149-1-liujing@cmss.chinamobile.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 8/18/26 03:55, Hemanth Selam wrote:
-> "cpupower monitor -l" lists the name, the processor hierarchy level and
-> a description of every counter, but not how its value is exported. Some
-> counters are a percentage of the time spent in a state, others are
-> absolute values with their own unit, for example the Mperf "Freq"
-> counter reports MHz and the RAPL zones report micro Joule. Both cannot
-> be told apart from the listing.
+On 9/3/26 02:26, liujing wrote:
+> From: Liu Jing <liujing@cmss.chinamobile.com>
 > 
-> Show the value type behind the hierarchy level and document it:
+> In amd_fam14h_get_nb_power(), the expression `1 << 31` performs a
+> signed integer shift, which is undefined behavior in C.
 > 
->    [%]   The counter is a percentage of the time spent in the state.
->    [abs] The counter is an absolute value, its unit depends on the
->          counter, MHz for "Freq" or micro Joule for a RAPL zone.
-> 
-> Before:
-> 
->    $ cpupower monitor -l
->    Monitor "Mperf" (3 states) - Might overflow after 922000000 s
->    C0	[T] -> Processor Core not idle
->    Cx	[T] -> Processor Core in an idle state
->    Freq	[T] -> Average Frequency (including boost) in MHz
-> 
-> After:
-> 
->    $ cpupower monitor -l
->    Monitor "Mperf" (3 states) - Might overflow after 922000000 s
->    C0	[T] [%] -> Processor Core not idle
->    Cx	[T] [%] -> Processor Core in an idle state
->    Freq	[T] [abs] -> Average Frequency (including boost) in MHz
-> 
-> The time granularity part of the ToDo needs a new cstate_t member every
-> monitor has to fill in, keep it noted.
+> Fix it by using `1U << 31` to perform an unsigned shift.
 
+How did you find this problem?
 
 > 
-> Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
+> Signed-off-by: Liu Jing <liujing@cmss.chinamobile.com>
 > ---
->   tools/power/cpupower/man/cpupower-monitor.1   |  8 +++++++
->   .../utils/idle_monitor/cpupower-monitor.c     | 22 ++++++++++++++++---
->   2 files changed, 27 insertions(+), 3 deletions(-)
-> 
-> diff --git a/tools/power/cpupower/man/cpupower-monitor.1 b/tools/power/cpupower/man/cpupower-monitor.1
-> index 89af019f8dc4..c8008919627c 100644
-> --- a/tools/power/cpupower/man/cpupower-monitor.1
-> +++ b/tools/power/cpupower/man/cpupower-monitor.1
-> @@ -51,6 +51,14 @@ coverage in square brackets:
->   .IP \(bu
->   [M] \-> Machine/Platform wide counter
->   .RE
-> +.IP \(bu
-> +How the counter is exported, in square brackets behind the hierarchy level:
-> +.RS 4
-> +.IP \(bu
-> +[%] \-> Percentage of the time spent in the state
-> +.IP \(bu
-> +[abs] \-> Absolute value, the unit depends on the counter
-> +.RE
->   .RE
->   .RE
->   .PP
-> diff --git a/tools/power/cpupower/utils/idle_monitor/cpupower-monitor.c b/tools/power/cpupower/utils/idle_monitor/cpupower-monitor.c
-> index e8b3841d5c0f..376a1e30653a 100644
-> --- a/tools/power/cpupower/utils/idle_monitor/cpupower-monitor.c
-> +++ b/tools/power/cpupower/utils/idle_monitor/cpupower-monitor.c
-> @@ -269,6 +269,20 @@ static void parse_monitor_param(char *param)
->   	avail_monitors = hits;
+> --- a/tools/power/cpupower/utils/idle_monitor/amd_fam14h_idle.c
+> +++ b/tools/power/cpupower/utils/idle_monitor/amd_fam14h_idle.c
+> @@ -270,7 +270,7 @@
+>   {
+>   	uint32_t val;
+>   	val = pci_read_long(amd_fam14h_pci_dev, PCI_NBP1_CAP_OFFSET);
+> -	return val & (1 << 31);
+> +	return val & (1U << 31);
 >   }
 >   
-> +/*
-> + * A monitor exports a counter either as a percentage of the time spent
-> + * in the state or as an absolute value. Tell both apart, so that the
-> + * numbers a measurement run prints can be interpreted.
-> + */
-> +static const char *value_abbr(const cstate_t *state)
-> +{
-> +	if (state->get_count_percent)
-> +		return "%";
-> +	if (state->get_count)
-> +		return "abs";
-> +	return "?";
-> +}
-
-Way too much complexity to do this.
-
-> +
->   void list_monitors(void)
->   {
->   	unsigned int mon;
-> @@ -284,10 +298,12 @@ void list_monitors(void)
->   		for (state = 0; state < monitors[mon]->hw_states_num; state++) {
->   			s = monitors[mon]->hw_states[state];
->   			/*
-> -			 * ToDo show more state capabilities:
-> -			 * percent, time (granlarity)
-> +			 * ToDo show the time granularity of a counter, this
-> +			 * needs a new cstate_t member every monitor has to
-> +			 * fill in.
->   			 */
-> -			printf("%s\t[%c] -> %s\n", s.name, range_abbr[s.range],
-> +			printf("%s\t[%c] [%s] -> %s\n", s.name,
-> +			       range_abbr[s.range], value_abbr(&s),
-
-Find a simpler way to do this instead of adding a new routine.
-Hint: you can check it right here.
-
->   			       gettext(s.desc));
->   		}
->   	}
+>   struct cpuidle_monitor *amd_fam14h_register(void)
+> 
+> 
+> 
+> 
 
 thanks,
 -- Shuah
+
