@@ -1,148 +1,62 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1FA143E083;
-	Fri,  4 Sep 2026 10:26:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DFD83E558C;
+	Fri,  4 Sep 2026 10:28:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788517565; cv=none; b=J0SfP9YmewJaq2CwHeEnpkb2GvhKWe4Tia3rxSCjdEFyXxk+jzIZJLsbiyUqxaaVOllMe8jVAVzncftBJ86iLOGcwSz+jR9+UiAKClx/R61UCw0jug9+3ewg8F/IgmskoY+gzvzFWNyr4GaxlaCXM945wvpfij4xxlPXMNgpy+g=
+	t=1788517682; cv=none; b=TNYjZOhMi4LboDHUULvv8smA5hV2zqNvonCs1S5n2qV92UA64ZKQJMqG75P4WGBTFNSgNY4s/KJEM33uGlv8yNapWUL9uDRDkBCrsuaAbQgThv8PhaunXsxB1OzUQN/bqSCKtCJ345pv+H+LmQTwMmFjDwbTW64vBzWNdbKW9SE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788517565; c=relaxed/simple;
-	bh=rm0cgSkyePdb0TIKGTVPe5pgNno3rpqxW6Qht5RNYKs=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=GQmfwqY/ZBdnEQkha6TxS5Ism74YYZ0U2M44RtOSznolJr+jfXWm24VwpkrbakSgiDT/6+KE6WiTHux+SscyJdKOu9AfH9wtSs1RlBsUdR3nfDOCo1CtMqijFyhw2ZmibzQ8z6dVhEO41Lzs9ow/3HqmGX140ZqDQnA5LoC7KRo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=QPY9G30p; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=8LQEZ4Kf; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=SCdzZpgM; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=ji4tOIVZ; arc=none smtp.client-ip=195.135.223.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	s=arc-20240116; t=1788517682; c=relaxed/simple;
+	bh=Wxi4QLkMt7yCafK+vWErvjbZ67P91pfTsuTtTlo5z44=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=PZnT3bZMIS+Z5PTe5t5rFmGBLv/LFTI6JMxc3LOgn5PZn2AdqVSXQR2FPYPV6tCkYuTaKs05FxHUFR2YG3sp07JCfN1+ZZYZPYyJtzYRjlW7Oex0wKhdZauuw1T65zQOPt4uSVe2m2KBgijrvE4GHgMyTIQRh0Pmg72brpuFtE8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gqY0Tu3w; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="QPY9G30p";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="8LQEZ4Kf";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="SCdzZpgM";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="ji4tOIVZ"
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id A8D4E228D0;
-	Fri,  4 Sep 2026 10:25:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1788517551; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=FXZEZTVRA+G8eyu4HzT/YM+2x3IU6orNt2nSuWc118Y=;
-	b=QPY9G30pxOlRQRLr5YlyLoHbkh6aFAU9g2OYo5NOwSpB9m+H36/lgC4bReDkFkx9KcFkXP
-	ybOR1yRcoPbjSpSXQK8jT+W/Ce9WEZ0H/zSqvR6oh26cC3uKNuvyG5jnBipC2tDJCzGKvC
-	Y3AO9aTC7IhAA5nKWxI162ugodOdreA=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1788517551;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=FXZEZTVRA+G8eyu4HzT/YM+2x3IU6orNt2nSuWc118Y=;
-	b=8LQEZ4KfvUHzZzBeyy9xcgDmcq4yqYNy4uaMVE/0jhTz2f1JUArZPeSIUCXtE6hx0IcO4Q
-	fVIAtEGm8xWfFeAA==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1788517547; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=FXZEZTVRA+G8eyu4HzT/YM+2x3IU6orNt2nSuWc118Y=;
-	b=SCdzZpgMnC50Q6XsMEXDtrdQc3ZhJhRYAf8XTSKlMOua4y+MWY/jzxc+yNjNdReMB+lH6f
-	ycng1EO2shL9oTuroN+l1Uv3NxZmwvbitIOQRT0NYjZoRqrtcgp788KetJTwMxvYRAyOll
-	c4+I+RubjVRrmaJ+tFgR6W7yFGUqtaw=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1788517547;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=FXZEZTVRA+G8eyu4HzT/YM+2x3IU6orNt2nSuWc118Y=;
-	b=ji4tOIVZRHthdxKah7QMOHsXvy2K/8lnOHt9K7eGXy1RofQLAVTm5sslbWh3vx2hA6fj5d
-	qmnndcdMjcqbcsCQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 61C5713726;
-	Fri,  4 Sep 2026 10:25:47 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id pgSiFqucmmqESwAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Fri, 04 Sep 2026 10:25:47 +0000
-Date: Fri, 04 Sep 2026 12:25:46 +0200
-Message-ID: <87wlt15n4l.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Tristan Madani <tristmd@gmail.com>
-Cc: Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Tristan Madani <tristan@talencesecurity.com>,
-	stable@vger.kernel.org
-Subject: Re: [PATCH 1/2] ALSA: usbusx2y: fix in04_last array size causing slab OOB read
-In-Reply-To: <20260904095154.3905899-1-tristmd@gmail.com>
-References: <20260904095154.3905899-1-tristmd@gmail.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gqY0Tu3w"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 13F321F00A3D;
+	Fri,  4 Sep 2026 10:27:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788517680;
+	bh=Z5uJkJhagrwdl4sZQ1qPHpYHc2S+e7JnS08j6EzBqQE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=gqY0Tu3wXVzYMSmLWPbyDK59qOz1oMuQGaXKFGMTG0gLFo6jCCJWxoFQ2mUQxp6+Y
+	 ELt5BM9CBVfbT/Wbw1BkjurvS+4TzFAiZVJsK7GkTechxStOnGMsTth5OD3UhbpG5/
+	 mI82fbGmJOXW2io1gRWN6STjKyg8uy0pmMrJRx3USzcyB2hAH7GJuw/HkNUiGrixOL
+	 jFVVIPv8FDDkvRmbh2appi2tvHXtFHlX2Spd78jNJMkYZwNPugMdkysBeTO5P8ppY0
+	 iflWPmcxZ+UKy7gYPweNolZ56rDR7O1/n+4f359pTh/R6DTcttPfEb3aiYl0tgBpfB
+	 Uh7XnaCK22eYA==
+Date: Fri, 4 Sep 2026 12:27:55 +0200
+From: Christian Brauner <brauner@kernel.org>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: Disha Goel <disgoel@linux.ibm.com>, shuah@kernel.org, 
+	wenyang.linux@foxmail.com, jlayton@kernel.org, jack@suse.cz, djwong@kernel.org, 
+	aleksa@amutable.com, linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-fsdevel@vger.kernel.org
+Subject: Re: [PATCH] selftests/filesystems: fix missing and stale TARGETS
+ entries
+Message-ID: <20260904-textpassagen-zugezogen-fachverband-3e338cb727b0@brauner>
+References: <20260703150742.58991-1-disgoel@linux.ibm.com>
+ <20260706-geerntet-neonlicht-liege-d005ee1904b3@brauner>
+ <cecdc333-f58a-4e8b-a3f5-774fd0e69cf7@linux.ibm.com>
+ <20260902191720.464705fabe41818d747ff3c7@linux-foundation.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Spam-Level: 
-X-Spam-Score: -3.30
-X-Spam-Flag: NO
-X-Spamd-Result: default: False [-3.30 / 50.00];
-	BAYES_HAM(-3.00)[99.99%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_SHORT(-0.20)[-0.999];
-	MIME_GOOD(-0.10)[text/plain];
-	RCPT_COUNT_SEVEN(0.00)[7];
-	MIME_TRACE(0.00)[0:+];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	ARC_NA(0.00)[];
-	FREEMAIL_TO(0.00)[gmail.com];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	RCVD_TLS_ALL(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:mid,talencesecurity.com:email,imap1.dmz-prg2.suse.org:helo]
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260902191720.464705fabe41818d747ff3c7@linux-foundation.org>
 
-On Fri, 04 Sep 2026 11:51:54 +0200,
-Tristan Madani wrote:
+On Wed, Sep 02, 2026 at 07:17:20PM -0700, Andrew Morton wrote:
+> On Mon, 31 Aug 2026 15:16:45 +0530 Disha Goel <disgoel@linux.ibm.com> wrote:
 > 
-> From: Tristan Madani <tristan@talencesecurity.com>
+> > Gentle ping — is this patch merged or queued for a future merge window.
+> > 
 > 
-> The in04_last array in struct usx2ydev is declared as char[24], but
-> in04_buf (the source for memcpy) is allocated with kmalloc(21).  In
-> i_usx2y_in04_int(), when ctl_snapshot_last == -2 (initialization path):
-> 
->     memcpy(usx2y->in04_last, usx2y->in04_buf, sizeof(usx2y->in04_last));
-> 
-> This copies 24 bytes from a 21-byte slab allocation, reading 3 bytes
-> past the end of the kmalloc-32 object.
-> 
-> The comparison loop already uses the correct bound of 21:
-> 
->     for (i = 0; i < 21; i++) {
-> 
-> Fix by reducing the in04_last array to 21 bytes, matching the actual
-> USB interrupt transfer size and the in04_buf allocation.
-> 
-> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Tristan Madani <tristan@talencesecurity.com>
+> I can help with that ;)
 
-Better to introduce a constant definition and use it in all places
-instead of magic numbers.  Could you rework your patches with it?
-
-
-thanks,
-
-Takashi
+No, that's already picked up in the vfs tree where it belongs.
