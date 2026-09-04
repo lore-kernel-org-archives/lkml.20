@@ -1,27 +1,26 @@
 Received: from dggsgout11.his.huawei.com (dggsgout11.his.huawei.com [45.249.212.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 070C8419FB0;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06F99415F22;
 	Fri,  4 Sep 2026 06:13:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.249.212.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788502437; cv=none; b=psRNiLV+D1q3mqVYG4xbNSQyCMT7YokH3BlmFHds7Dr+UjBso1UW+3i+CJxUunIjwztcoAWOkj77TiDFx8HrmIFXa0rn7IlBGtPMV+I3MNaRVSYEQjWQsgEpIzXFhMx611XUyPasiwAJlNBhyAM9XQFDXX+FgG3L+O3/doamxec=
+	t=1788502438; cv=none; b=K8xs/56cs0H0eg/4j17qXo4z1ou8CLUwPdUPmHl7SxQfO6JCpAZuxIWOVgB3kan8eB6ncOb1CgQEUCbBWeMZP/3c+cYfYfaPpjSl9MQhVMxM5aDlPT47CmQvyNcmqUMYXpQqyWM41NBAcbGG5XchfpOwYnl7Xa3vmulZG7NAvc4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788502437; c=relaxed/simple;
-	bh=/DLlz09o7G5yTC/pdR4ntqZXukfqSChR5QrE3u4iNmU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=OSGGkfUG4f9Bf2OzewkpkBlo8Q7PGHOpTXZvYJ1JeoroyrOnNWnVV+kqA8bvzpwg4IcVCw2hqSM/xvnHxm7+e084ggTwF1QRGKcdng0bITnGz1Xx8PBamgQScRFfqZLZoSWnqWNhViXn+TJPMbZd8k5O1GLp5Sn9oN66pVkTAhI=
+	s=arc-20240116; t=1788502438; c=relaxed/simple;
+	bh=6yubANoTlfE+JFXCBqEAvgBg1wORssAZjBQ1vWXLDe0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=aM0nXuSPra3Axr87/GouVVOpMTS9vITCOSqEN12uhgcE4vBBKzbAkaYqe3/ettSKE7zPYZYSD4aRUM478MqELyX25tyHy3PkDY1vGJ38GOu9eWKDCtKmFWj2dmQjDoER+/DHdrTjz2/auqfJGq6fGnQelC4cXdwdcMt51RGVDYc=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com; spf=pass smtp.mailfrom=huaweicloud.com; arc=none smtp.client-ip=45.249.212.51
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huaweicloud.com
 Received: from mail.maildlp.com (unknown [172.19.163.198])
-	by dggsgout11.his.huawei.com (SkyGuard) with ESMTPS id 4hbmNh2d8CzYQtyH;
+	by dggsgout11.his.huawei.com (SkyGuard) with ESMTPS id 4hbmNh1pmWzYQtwr;
 	Fri,  4 Sep 2026 14:13:08 +0800 (CST)
 Received: from mail02.huawei.com (unknown [10.116.40.112])
-	by mail.maildlp.com (Postfix) with ESMTP id 7D17340DD8;
+	by mail.maildlp.com (Postfix) with ESMTP id 5ED4E40DC0;
 	Fri,  4 Sep 2026 14:13:52 +0800 (CST)
 Received: from huaweicloud.com (unknown [10.50.85.155])
-	by APP1 (Coremail) with UTF8SMTPSA id cCh0CgCHbwqeYZpqTb3FAg--.50434S7;
+	by APP1 (Coremail) with UTF8SMTPSA id cCh0CgCHbwqeYZpqTb3FAg--.50434S4;
 	Fri, 04 Sep 2026 14:13:52 +0800 (CST)
 From: Zizhi Wo <wozizhi@huaweicloud.com>
 To: cem@kernel.org,
@@ -33,12 +32,10 @@ Cc: linux-kernel@vger.kernel.org,
 	yangerkun@huawei.com,
 	chengzhihao1@huawei.com,
 	wozizhi@huawei.com
-Subject: [PATCH 3/5] xfs: remove unused xfs_buf_iodone declaration
-Date: Fri,  4 Sep 2026 14:06:46 +0800
-Message-ID: <20260904060648.1966130-4-wozizhi@huaweicloud.com>
+Subject: [PATCH 0/5] xfs: remove leftover dead declarations in headers
+Date: Fri,  4 Sep 2026 14:06:43 +0800
+Message-ID: <20260904060648.1966130-1-wozizhi@huaweicloud.com>
 X-Mailer: git-send-email 2.52.0
-In-Reply-To: <20260904060648.1966130-1-wozizhi@huaweicloud.com>
-References: <20260904060648.1966130-1-wozizhi@huaweicloud.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -46,52 +43,57 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:cCh0CgCHbwqeYZpqTb3FAg--.50434S7
-X-Coremail-Antispam: 1UD129KBjvdXoWrZrW7Kw1xtw45JF17tw1fJFb_yoWDJrX_K3
-	y3Kr4Sqa4UJry7Aw47Gr4vqFyqqa1xCan7CayUAas0qw12q3ZYvrWDAFyUZr9Ig39xJr1f
-	Ja45WrWjgr9FyjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUIcSsGvfJTRUUUbTAYFVCjjxCrM7AC8VAFwI0_Wr0E3s1l1xkIjI8I6I8E6xAIw20E
-	Y4v20xvaj40_Wr0E3s1l1IIY67AEw4v_Jr0_Jr4l82xGYIkIc2x26280x7IE14v26r1rM2
-	8IrcIa0xkI8VCY1x0267AKxVW5JVCq3wA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK
-	021l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F
-	4j6r4UJwA2z4x0Y4vEx4A2jsIE14v26F4UJVW0owA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_
-	GcCE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx
-	0E2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWU
-	JVW8JwACjcxG0xvY0x0EwIxGrwCY1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrw
-	CFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE
-	14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2
-	IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxK
-	x2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI
-	0_Gr1j6F4UJbIYCTnIWIevJa73UjIFyTuYvjxUFF4iUUUUU
+X-CM-TRANSID:cCh0CgCHbwqeYZpqTb3FAg--.50434S4
+X-Coremail-Antispam: 1UD129KBjvJXoW7Cw4xJFW3ZF47tw1rKw4rZrb_yoW8Jw43p3
+	WSg3WIk3WDJ34jvFn2qwn7G3y293ykC347W3ZxK34Iqwn8Crn2qr17tF4j9FyrGFWYqw4Y
+	gryUtr98uw15ZaUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUyKb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k2
+	6cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4
+	vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xIIjxv20xvEc7Cj
+	xVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVWxJr0_GcWl84ACjcxK6I8E87Iv6xkF7I
+	0E14v26rxl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40E
+	x7xfMcIj6xIIjxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x
+	0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lc7CjxVAaw2AFwI0_Jw0_GFyl42xK82IYc2Ij
+	64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x
+	8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE
+	2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r1j6r4UMIIF0xvE42
+	xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF
+	7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjxUF1v3UUUUU
 X-CM-SenderInfo: pzr2x6tkl6x35dzhxuhorxvhhfrp/
 
-From: Zizhi Wo <wozizhi@huawei.com>
+While reading the XFS log code I noticed that the implementation of
+xlog_assign_tail_lsn() had already been removed, but its declaration was
+left behind in the header. Such orphaned declarations (implementation gone,
+no callers) can simply be dropped.
 
-Commit 664ffb8a429a ("xfs: move the buffer retry logic to xfs_buf.c")
-removed the xfs_buf_iodone() implementation and its last caller in
-favour of xfs_buf_ioend_finish(), but the declaration in xfs_buf_item.h was
-left behind. It has been a dead prototype ever since (2020).
+Suspecting more of these existed, I scanned the XFS headers (using GLM-5.2
+to help, then verified each by hand) and this series removes the leftover
+declarations I could confirm. Some of these have been stale for a long time
+-- the oldest dates back to 2006.
 
-Remove the stale declaration.
+Note that scrub still has a fair number of functions that do have
+implementations but no callers (e.g. xchk_process_rt_error). I'm not sure
+removing those is appropriate, since they may be intended for future use,
+so they are not touched here.
 
-Assisted-by: Claude-Code:GLM-5.2
-Signed-off-by: Zizhi Wo <wozizhi@huawei.com>
----
- fs/xfs/xfs_buf_item.h | 1 -
- 1 file changed, 1 deletion(-)
+Cleanup only, no functional change.
 
-diff --git a/fs/xfs/xfs_buf_item.h b/fs/xfs/xfs_buf_item.h
-index 3159325dd17b..28c79989d725 100644
---- a/fs/xfs/xfs_buf_item.h
-+++ b/fs/xfs/xfs_buf_item.h
-@@ -60,7 +60,6 @@ static inline void xfs_buf_dquot_iodone(struct xfs_buf *bp)
- {
- }
- #endif /* CONFIG_XFS_QUOTA */
--void	xfs_buf_iodone(struct xfs_buf *);
- bool	xfs_buf_log_check_iovec(struct kvec *iovec);
- 
- unsigned int xfs_buf_inval_log_space(unsigned int map_count,
+Zizhi Wo (5):
+  xfs: remove unused xlog_assign_tail_lsn declarations
+  xfs: remove unused xfs_iext_realloc declaration
+  xfs: remove unused xfs_buf_iodone declaration
+  xfs: remove unused kmem_to_page helper
+  xfs: remove never-implemented scrub declarations
+
+ fs/xfs/scrub/common.h   |  1 -
+ fs/xfs/scrub/scrub.h    |  1 -
+ fs/xfs/scrub/tempfile.h |  4 ----
+ fs/xfs/xfs_buf_item.h   |  1 -
+ fs/xfs/xfs_inode.h      |  1 -
+ fs/xfs/xfs_log.h        |  2 --
+ fs/xfs/xfs_platform.h   | 11 -----------
+ 7 files changed, 21 deletions(-)
+
 -- 
 2.52.0
 
