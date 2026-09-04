@@ -1,585 +1,186 @@
-Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazon11013029.outbound.protection.outlook.com [40.107.162.29])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90BC63C276B;
-	Fri,  4 Sep 2026 19:52:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.162.29
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6E79427F8A
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 19:55:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=205.220.180.131
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788551561; cv=fail; b=sF2ArOEy+UrPqN+JkYSx0YbyL3Ij0gc4TfAWXiei8P8CiC3TYnBdRBDWVAV2h6AHq3176Stikead/pMo8tALBuMs+VmDAyydeeji/Ppq56XGwLTU65XYlMtNmk7NScSrRywKGlUkJ5Xb+ACWlkqe7xO49BI6q3Z2ILZt54fMwc0=
+	t=1788551721; cv=pass; b=MIf5sOvxzWWLViPdNJdyWHx6QGbrkWpnv3HS86QQXMPbEFPai4MBLlT/eE8UwrijFavXCJIAIm/u148chdRDDJvnN5uM4K8ZxpyK7oeM7YJrdKyFng3zQ5rZzc3qdBM2beOb8A+ku6FNB/LTKF7bd+lfHztEHVlImfZWWc0/36o=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788551561; c=relaxed/simple;
-	bh=T3vBycGF/uD7VQuOJjYX5DwREqX0qCua+O4QsaRuobo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=T+/+pMANhHy18TxT1GQVlC+aCHdXmxuZzmr+UQQdJyZTAVXBVG+AS+ja4+wfsVu2RPcuaCq1akZa+q9kRUo+so6Zh/Rf//Boa+f9se8F94OwkpmoQ2aklEKkF6D9x1eWekc1GOoNuqNKHfpipcX+8A/vu7h35ahtVR4KRcJDbLY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=X5uvPJUz; arc=fail smtp.client-ip=40.107.162.29
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	s=arc-20240116; t=1788551721; c=relaxed/simple;
+	bh=Cuy4oNKyaJF2ZdAr5zW3Dz+9GPWKnBVFeBK1jrQaFGE=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=BKOCA2jIFAJHQwMjVnjZPYrToukvD9xfQAGsWsbdlqWZYUxE0ds40HUXpTwLSbZCQGOdR2ga+6ncHAFyh+yMDe3CYhBNuORs+pQGZb8/kYcpXBaMTVr/+byC7ZoluaLNx1xHNLfn5nWlSAWVhUXvfU+NlRMRe3QsWF6legGo9eM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=l+UwIbQE; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=dZGMSVO2; arc=pass smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="X5uvPJUz"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=AIBql8clI2GNM5pdtpfTfCvyCkx6LzT/hlZ0/QOLBLfnZe+4CSM7djynE4syg8AaLx8y8E3nPhPgscKWvcrwr0baG19rafeOma7MzzA13cyjCDLkDmedOscJPTdvc1T7RTngt0rc6sTsco6FqcvfKvw/CTzit4eyCIYX3p3d9s4m1DHqvaoVIe8LnyIYC4lC5qu9+FFnXGpNw2jyswBTI84e+u0g6xdH3UsvnC5xM0RSAZgtv5XXxIL78mPyntOE95IN/f24cQc3vrIGyx+4ubKjtwffpomD5s215wEG9HZ/6pI5em8WI7IkenqHj5wREC1tUswLmDsySbKuLAL8DQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=6F0gYvn+x6z8o0NG6EaW6f1jR26vAAlK7zT7DZJQQpU=;
- b=uVRLROslCRLae+lHkEjtt7w+0UvEq6dDMLWrT2kTkAxZrV8Bwqi6x6g25fGAVCyAkY6piGmExEj0yKoy4i7fszqj5jE4/k4HOIlNg5vCJkI7QEz9G4nmb6wZcWO5QNC6VhIvee7Quk1XK0TBFW7qH6XXEuxgNhAph8ZEJxe6VfrkQu5vYTC9gF9+RFcOjOwaCMeSp0sfwXrLC/f5F2YRkCkzncN/m1qZ3q3b/tGP/JjtDWXLUekqqXCt6YBdex5M/4MY5vk4eVqAI/H+pD/AWGJrx3g3Qh/98KGL4cujU9MXOKzrJ/7gGgTwxoGuw6TS2pD7F4LrXBsRgy5wxfTJLQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=6F0gYvn+x6z8o0NG6EaW6f1jR26vAAlK7zT7DZJQQpU=;
- b=X5uvPJUzEcmMVCPG1DulumSE9dcWp2Kyf7ziQ3jjdvhbTAAsUwvhVYUrDNt8SQwSrzITdzNs8CwVuVzAzjbZKdmEUFFzWWRkXr3l+syfsE2sDu2q01EXjlpqtcmkqiHBjtWBsjc6j0omb44pji96Ge2tAVpF/oZGv1ADo6rHW5TLIeGTOod1NKlMMBP9eaymGltAZhzX8Scrv5B1BCfIESheBI95yBWdpa8DK51XRx7QbOmsdfH0MZ1kn0zrMWyg4bEplVirjkqG8ljdKN4wneoyE3Lt4eWLdzcYhPQXjA01Ll+eLnAjwS0AyOpLjlp9gDYcbN17fEAQctd01836gA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from DU4PR04MB11791.eurprd04.prod.outlook.com (2603:10a6:10:623::11)
- by GV4PR04MB11896.eurprd04.prod.outlook.com (2603:10a6:150:2ec::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Fri, 4 Sep
- 2026 19:52:31 +0000
-Received: from DU4PR04MB11791.eurprd04.prod.outlook.com
- ([fe80::11ca:6b74:3234:d7de]) by DU4PR04MB11791.eurprd04.prod.outlook.com
- ([fe80::11ca:6b74:3234:d7de%5]) with mapi id 15.21.0382.007; Fri, 4 Sep 2026
- 19:52:31 +0000
-Date: Fri, 4 Sep 2026 15:52:13 -0400
-From: Frank Li <Frank.li@oss.nxp.com>
-To: Lakshay Piplani <lakshay.piplani@nxp.com>
-Cc: linux-kernel@vger.kernel.org, linux-i3c@lists.infradead.org,
-	alexandre.belloni@bootlin.com, krzk+dt@kernel.org, robh@kernel.org,
-	conor+dt@kernel.org, devicetree@vger.kernel.org, broonie@kernel.org,
-	lee@kernel.org, Frank.Li@nxp.com, lgirdwood@gmail.com,
-	vikash.bansal@nxp.com, priyanka.jain@nxp.com,
-	aman.kumarpandey@nxp.com
-Subject: Re: [PATCH v18 2/8] i3c: master: Add controller-only device
- operation helpers
-Message-ID: <apshbUUOVH83-UhQ@lizhi-Precision-Tower-5810>
-References: <20260903062108.2712296-1-lakshay.piplani@nxp.com>
- <20260903062108.2712296-3-lakshay.piplani@nxp.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260903062108.2712296-3-lakshay.piplani@nxp.com>
-X-ClientProxiedBy: CY5PR14CA0013.namprd14.prod.outlook.com
- (2603:10b6:930:2::23) To VI0PR04MB11784.eurprd04.prod.outlook.com
- (2603:10a6:800:2ea::12)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="l+UwIbQE";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="dZGMSVO2"
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 684HI9Ex208810
+	for <linux-kernel@vger.kernel.org>; Fri, 4 Sep 2026 19:55:16 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	7+S2fUNcs/9WkA3bU1bHtkI2dA6OSW0Car4DEk+gp/4=; b=l+UwIbQEhpKBzgLY
+	uptB0RNGGwdGSX/uUdUjHSMXvRcp1Ny6If/J65idpGn5MtAwUovCWyZpYZQLkNQi
+	Of1kwXhfQYcQv3+xfAcVpPlDnxXpuUVzAQ4GOv7MSEQ54bU+BwGDng4gN+QVsHhk
+	zF0NLmeLK3go4dxt5klAgacaMsHs0VdBkqvV9I2JGJho8zYMhgVieMpq4iEw9/99
+	3FDHiFTn3mehNx/Cr8Z8SP3CpgNYS9VCy83P0WXyerFYScO+33KZTh+8ucyfy+Ct
+	FA8RLsBYSxxFjuXTWiROxGwFjF6uZdHlGaz33kAPBfD9HZ39u/gSeJ2fLXTP0elF
+	fsR7GQ==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gfp784gyr-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 19:55:15 +0000 (GMT)
+Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-93494cce712so249333985a.3
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 12:55:15 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788551715; cv=none;
+        d=google.com; s=arc-20260327;
+        b=UBs22+KnjeU1SkddBFzTT+E61sMCI/7PmDPALkXHyOq0jVlAqmtj0CtieYk3HOfgEs
+         7fxWFlFhPeMUTc5Mz6izTkqXdT8CNKKKFc/mWbTUZYGOv35an3BMnPMNkYtfrXwxpgam
+         3A40VLNi4LjJTPRP1dlpCOKgw+h3g0n9QSBp1izNMNFNGOGbupk9/9iDELZwU7HsuefP
+         m6hSAjjJ/T3n34YLcG7RHQlq4tf97a2aYntgwUYi96PwKQAK0vGwGxnmU6a4XiMLsUpD
+         vuUUNkXtkoRSnJHIH9ppmqIcNb5piT5WprwX7wV21NjhrsbsJeVjxr2fuKJM53wcBBjC
+         EMSA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=7+S2fUNcs/9WkA3bU1bHtkI2dA6OSW0Car4DEk+gp/4=;
+        fh=MZPSc8u5/eTe1okdO821D5lKi0xJ3UGV2PTnbAGpg4s=;
+        b=LAYyLhK/icIXVTbmAvCPdXQyn3ZWOSlxsmxrvo0InQJA3Q0JuNybv6XvOGqLwKCXDo
+         ltBjdyTRP6CalshFX5QNEU0lv+MYJRdWcdwiB8QlIC8u9D8j9siYzUUpdC7oIlVn+o70
+         5CMUAedzdM2GZQE2Ya5CZIh7i2utqMMsNDDuvUXjEEnSKuzBO+KUxZIViK/GjnwBUHS+
+         D9zBlAoKSL64oDz9/YL+j1ijKIXyUARBeDdEcwdBjOGlEkgbmD79SUwnjuz/XvNrcC/2
+         vYFmwGDFUig7Dhb136caCQVAcZU9JJZFzgakwNeM6cpUa4wlGc2MNpd7H6mI49xThu4B
+         DKIw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1788551715; x=1789156515; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=7+S2fUNcs/9WkA3bU1bHtkI2dA6OSW0Car4DEk+gp/4=;
+        b=dZGMSVO2HK7zY7/S8dX+pARokyGm12TijPDnyXgoAhU3v17OELXYdLxbpG931mlShy
+         HFyxVLc5UG0KZaBMHIaPJDzacEwPrW9w7ivFG9DN7V1Qct3FqlxW6LgkoVv9mUGW5DyB
+         poUJLD8DPQcjef926VRMixtl/XXnFKeUtuhZRA3R69ENUrk6+KphIRfkPFyurAT/wPc8
+         O4+FreIfrntOBzMPcUkMe7bZVGMC5LusgpOFN7Y1uLFaGNsKu09BIfyKnzrh5GOmHWKv
+         O6VLqGHVSCF6s1VMw9wau+E5agst6eDw1N3jwVzkGhjVpKDzH1GADcCaOfagYzfwctyu
+         YtEA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788551715; x=1789156515;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=7+S2fUNcs/9WkA3bU1bHtkI2dA6OSW0Car4DEk+gp/4=;
+        b=cnotzRmh3JD4ykK1p5Xa4TpnQGpEBShvjysGYf7TG5ku8Vy7zTFkI5nKv3mKz+iRAg
+         ueYQdpvpJlPUR2TjRYCuZRSmzAiaa4rko0tBNPSCC8ZWstUCocte+3JlDLTrCr+0meAM
+         VdKXlqxxzrVwkRwx1+k9WPgFtoZlEeYJp+e71S9T6uVZ2rnXLt0p1gA9oN+a7BAbgI0Q
+         /Cckmoym9Kv4/KV4DFX6x+8BwiOPYH6JSky+cXvKqwclwahkArsdL9iAJYGGXV77g7dd
+         k1goIWA9hBZJzEsKFeJZbZV7doRB2VpjNj83KtaGNTYJCoCRT59qufAM/g7FQsk5FJYZ
+         l0tg==
+X-Forwarded-Encrypted: i=1; AKwUvBwdwbhP8TV2K3OWUExxKQpQppFhemEDDkj5+S9dzWsYbtITCh3WWU2uDgRH37lYQxXp5iV+P2uOxvXrhto=@vger.kernel.org
+X-Gm-Message-State: AFuF++lyPubZJV5Fi+ku3s8CzmFwxbw8llcCDvJm7QFGEn4E8GqL018y
+	yKWkPVr1oEUSjdubKKBk6XVJE6JgaYxsxEnyuBVM+cJTN+TMpC/Cf20z+VREBSMPiB8TTnH2BZ9
+	HeJSVDhDqUlpue5Q/6eEF0ArKflUpUIUMJW0Ul5tUST455hlAO3XT3AkzVIO6P+2TZWq5+nZ/5L
+	gdn1fwGM41NwcVRsAVQAv5SuSpaePphI2hRPmQocUSbw==
+X-Gm-Gg: AYBFou2HCCn3evldgVldnHiOwb9kcSYYCbIByEp/vAL1cq7Evo0TCEuovEH1xk3nqxN
+	+XXLbSRq33/OLaKIgAn39Q0kAGmJksUFla/d8jhDanpu9P9pIdmwkS/sRYZbxutsIZl6EOj3IPv
+	tNPvcd9Htfwgl+bB00vsZ2GfU/k8ltHNEjQ4Z+Y4iJYHEMjPT2Y3q9i3MTPcXDRqvvPfiuT51aC
+	m73v5Z3TLtsu8vWNyzTLhuPbucwT7JFIGha0/bmT+/grcC95/2h2lOf+jGvr5yKUUlk3PZMmjI=
+X-Received: by 2002:a05:620a:46a1:b0:915:9e84:85d1 with SMTP id af79cd13be357-939803a4a96mr811791585a.23.1788551715391;
+        Fri, 04 Sep 2026 12:55:15 -0700 (PDT)
+X-Received: by 2002:a05:620a:46a1:b0:915:9e84:85d1 with SMTP id
+ af79cd13be357-939803a4a96mr811784085a.23.1788551714708; Fri, 04 Sep 2026
+ 12:55:14 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DU4PR04MB11791:EE_|GV4PR04MB11896:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1af95ea6-d28d-4b30-2e77-08df0abe0cde
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|1800799024|376014|7416014|19092799006|366016|10067099003|6133799003|4143699003|56012099006|5023799004|22082099003|11063799006|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	UNdyrqjzHA09s6TWex1jDvlhBUBmVKdMdqc1jqmwEhKllJqWlStA3eRXpI9k4xR/Kk8GWKRiftbE6Kepov24E65LRvxsJ3gG7xi1HnQE2EUek8Io6fNM3oKti0u482hk/HtJPZvMfeSWCwxfb4EIIsw1CxfTHRvUrGquWbcUGXhyodFK82qPBdF+0zPcXuhHAE/trxKlOXZhK+KhIX8NkEw9SPdO2s7QTI92iq0fuS6L8fjkjYe0kRhqT1+VhBNLaESWSCdu5hPbvZ/pIUMfnDjpLSmtduR4maP+GLVtgJwoYvk28kMQPpPwNmPLLH5uKJri1MlAFnpLgTIpuQhhxQ/80135nCDfeTme5rBegogGEqOMGxtZarfpRhXSNDigi52Zu9qwdVOw7XgslxqoaqqVXyHqlVhB5ETfOe2etiHKUSsgZpGJUOEUNsEfW3fIVGywbE+2UyDuZivSLf0021fl00MDYbvAKTy4UE+f1MSRiHQh6wuDpQDxuoN2tkhHwyha19+alRRskx2BNRCJhGIPjujotG5eQym+pjiISVMNtIssDqQ1T4AzlY29zDWHrycBK04Ooji3f2+MC4zrwhJaSGtX8h+Zju3K/jwho8zVJiH0zfK0tjlbGrfM24RPCcjr/lk83eGvTT2QQuwptO3kl7GKhN9roM/GkcUb2oA=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU4PR04MB11791.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(376014)(7416014)(19092799006)(366016)(10067099003)(6133799003)(4143699003)(56012099006)(5023799004)(22082099003)(11063799006)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?2NmoHGpkllPR/h+Z5N24hqT8YYDC/5z83PaCvMjYdbicmcjMu+sUuNyWYeyn?=
- =?us-ascii?Q?dPrgr7KXhqjHUAlWrdHAIlEasrSdT65MtYxpcNeGCknr2awd8KIVscqrrV3S?=
- =?us-ascii?Q?MsjhF3rptXEsFSz6dZjgqWc9lhCLuXoo5nmYiW/ojKriCOXYuayl9jxrR0z0?=
- =?us-ascii?Q?Wq3zvopSkN4+xHWI+mphOB4UYgiynsRF1/alB/rBhMJZ5E+j1vhTm9LH7WKa?=
- =?us-ascii?Q?kRZsrv7qBIsZgnI1LNXW21kIkhIcuvVnYH0gewKaVreQjCitp+t8XxMlgvAd?=
- =?us-ascii?Q?lCOhJDwhpJuYWVp8doRqpeho6U333W4vUxgZ6jPGVyhXC87hz93/iPegAkJZ?=
- =?us-ascii?Q?YHqkip763DIPWqqoFttM00+aX3xGOIruiV972gsYbk5Q6OknHQmeVcdyVBsl?=
- =?us-ascii?Q?sdlrACU8jHgqFwUCr3aapSNAK+PQa6Xnpd6MCXkcBTUedIaKNMuHcSh2HddV?=
- =?us-ascii?Q?4oHhq2rWcERNzc7e9iqbLq8+utTw9EcXwjT7hhyki6MFobmQroBwhiJRgm5n?=
- =?us-ascii?Q?vioG8gCnJF2tzv8ucm/R9BQQeawlVodPtNyJskGlTjfwoIUCjsLrnbf1OAgy?=
- =?us-ascii?Q?KxbF+Fof2J2Q6EGhkNZ7/m+zxJWf3zNd9ZGDbd0KTB6zsja0zG7M2DFdU2Qp?=
- =?us-ascii?Q?obij2JJKGooyuRUZwzLRila1zMQIBswXdnO/XPNJhhJj5fjR1hW5IrL4AzwG?=
- =?us-ascii?Q?Y/rvSYgUgtBpHZGcm6TTMY6Z+JfWjWDFq1w10usBwATQ3c9qbfK6ULCm1Ac3?=
- =?us-ascii?Q?9wPTrPZ+BfcpC8hM8B38xdOA7kFgOT1ak30GAJsdmELoUjgvtgUPdl+YYRyd?=
- =?us-ascii?Q?U7Qr9tFvdmhyqO2eihJB7MrbK2coTBHgLpqt7+PjBkRjas6l3nmsmUrg5qVX?=
- =?us-ascii?Q?lVAmaFp30h+D5C/L+jYSytDMleBhMGWfNh3TpcEKNTNJkhdHSXZDBDEeoPGr?=
- =?us-ascii?Q?EwARJP1pSOc0DfPnuOgGHgKzLHVEuWNPLRjO8uSWczbe9VK2pKKlmxJtNj0Q?=
- =?us-ascii?Q?5+xOGWky1gFJNI+57/ZFSaeyjlsh1B5jdDYCqC5mqeJ6j70d7DOxcBiaIoL1?=
- =?us-ascii?Q?uK9LV6KXIWegg7zG0Lm1G4WD6RMTAhJ8T5nzCagChs3CV6I8MzxmUrHfJKWj?=
- =?us-ascii?Q?YAmMlabM9nPQCOMop1YqiL9xsij4AV3hjaLgNieZlnp0QoRTdhcxz/F2E5zj?=
- =?us-ascii?Q?Bj2s2Wv9iZP/zi1Un3aZTf8qqGkdTFyyoJBRN9rseh2Jqf1PjQBu2EXn5CmO?=
- =?us-ascii?Q?OhfkGnNPmYKzmIcmxcSyD+3UMtxScTZxEqTvjnRSVQtWURFRNGoeCEruAYcP?=
- =?us-ascii?Q?DaWFZ4zKvsgWI11Xg4tygsqmspeum3bd2unIr6v2Iv17ImGdKBpU84d749M4?=
- =?us-ascii?Q?IN4Hm7BX1tpczXYcOvcVGqN/zPQD5UFNxSCwoGlt9Z8hGn2oThpzgfHFnbN5?=
- =?us-ascii?Q?Yu1IV+I19XRyum9c+nrVrxMl4dbFQnEeQjuhX/6LUFGgzN4GL8neZBDpmPd/?=
- =?us-ascii?Q?K/z+zZb/TfxSfvY/ieL9FfgbmiZEgl8WQlr3mMyWHYGTL84LYO6vYEMGO5AU?=
- =?us-ascii?Q?Fy9dltBHZpUw3GolZaAddmCU9Li2RMjcf5dlbPUO4fSwxDoAo1IYXhmHRCzN?=
- =?us-ascii?Q?Omz1UA2VtcLJhJIe5kJZQoYcYgM3QJy1MXjtkYRtLj/KMQlUzfzuznkYXpWX?=
- =?us-ascii?Q?mjhogIxBCzprSWteO8EKE/98vPLF976hbGEnjFvYhOI71AQWelltsiza58jD?=
- =?us-ascii?Q?8cFKamtdQPtdRRi0GxM2lbLdQO/2CFLFYyqw0N3oHKv+Iu7dQqfV?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1af95ea6-d28d-4b30-2e77-08df0abe0cde
-X-MS-Exchange-CrossTenant-AuthSource: VI0PR04MB11784.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Sep 2026 19:52:31.1658
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: mapJgwZU1pq/2eQ6nTjEtfuHNjkvk2M2EMPk1K0jDAalrGdkL1ozOoxZMmwTAHCaSMkQCvk1OYZUtAeLdkTcH8E+X/ly0M3B53ysVvrhUy8X4aumcIEEidLFPp96+H3p
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV4PR04MB11896
+References: <20260904-x1e-camss-csi2-phy-dtsi-v5-0-dc81d85b599d@linaro.org> <20260904-x1e-camss-csi2-phy-dtsi-v5-2-dc81d85b599d@linaro.org>
+In-Reply-To: <20260904-x1e-camss-csi2-phy-dtsi-v5-2-dc81d85b599d@linaro.org>
+From: Loic Poulain <loic.poulain@oss.qualcomm.com>
+Date: Fri, 4 Sep 2026 21:55:03 +0200
+X-Gm-Features: AcwNN1W9wMgd18cVEyYOdj6YVkfohjR1CF5BB3XCNyAGw8QQbTcGw0lxRrgxPso
+Message-ID: <CAFEp6-3EqEghkrsUMYtV=1z6n9Y+bPG9YHj6Wf2gOVboDE3hKg@mail.gmail.com>
+Subject: Re: [PATCH v5 02/13] dt-bindings: media: qcom,x1e80100-camss: Make
+ vdd-csiphy supplies optional
+To: "Bryan O'Donoghue" <bryan.odonoghue@linaro.org>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        "Bryan O'Donoghue" <bod@kernel.org>,
+        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-media@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA0MDE4MiBTYWx0ZWRfX28pAxiogFaHW
+ quEeAbYfFzprjWGs5OUl9MIGY6I5UsbfL3I06KSAZ8f5oYVq/5+z0UdSVAuN2xtycJ0USRXT9OY
+ 5j/KN8vZdexZfmphsGf3e3ftDJ0+3wE=
+X-Proofpoint-ORIG-GUID: tLwlEzhA0-fZNBCCpV1gT1lvjZBRZO_e
+X-Authority-Analysis: v=2.4 cv=ab5RWxot c=1 sm=1 tr=0 ts=6a9b2223 cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
+ a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=gowsoOTTUOVcmtlkKump:22 a=KKAkSRfTAAAA:8 a=EUspDBNiAAAA:8
+ a=dr_jwI5W_23fGTPCCGYA:9 a=QEXdDO2ut3YA:10 a=PEH46H7Ffwr30OY-TuGO:22
+ a=cvBusfyB2V15izCimMoJ:22
+X-Proofpoint-GUID: tLwlEzhA0-fZNBCCpV1gT1lvjZBRZO_e
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA0MDE4MiBTYWx0ZWRfX5OQ36cRLrwoA
+ Qxhv5AwpUFbeuFntbmAUypHmYZtBgBRKoHSp6n+U3pBo46Gc+bMy8J8sXkTYIzMPnODFhZOgB81
+ VOagKQ81djCm7DjIEe7q0i1G25K5/oMYf5GYWQLNrMQtIunVU3c3njKsgA49QJipA7N5o32TvaQ
+ kz9/hf/LRVCVDm9rqRkqQtRbD4Z7UchlsrM/ytWZtr1zPuLj75HSM/bzer4P7qUen1NUX84zx5D
+ 48HxMWMdsqgWw6MDjkn1MDieXuIZZvDZhD/xbwR5NhgHXnqqqDcTAGAhLcrfOcWy3tR5WmWS4Mx
+ UL2LlHxCpitsUHFbKYiFMj1xpcKlhDU9s9tMhUzY2sPJkxKsfSPxXDWeKK/pAHpnEHYAfx9sVNn
+ bkVDtM17ihNkBdoRtGNqZQgmhOhOd+BstfvH9NoUWvrKvhuUDxbnQXNyoSKp2B3J9Uq6J+vONLc
+ Cj2cfN2MTHVt0FN4G1Q==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-04_05,2026-09-03_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 phishscore=0 clxscore=1015 impostorscore=0 suspectscore=0
+ lowpriorityscore=0 adultscore=0 bulkscore=0 priorityscore=1501 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609040182
 
-On Thu, Sep 03, 2026 at 11:51:02AM +0530, Lakshay Piplani wrote:
-> The generic I3C device attach and IBI paths perform both core-level
-> bookkeeping and controller-specific operations. An I3C hub, however,
-> maintains a logical device descriptor on the virtual downstream bus and
-> a separate parent-facing descriptor used by the physical parent
-> controller.
+On Fri, Sep 4, 2026 at 12:56=E2=80=AFPM Bryan O'Donoghue
+<bryan.odonoghue@linaro.org> wrote:
 >
-> Add controller-only helpers that invoke the controller callbacks
-> without updating the bus device list, address-slot state, or generic IBI
-> lifecycle. This allows the hub framework to keep the logical descriptor
-> associated with the virtual controller while using a permanent
-> parent-facing descriptor for operations handled by the physical
-> controller.
+> The vdd-csiphy supplies power the CSIPHY blocks. CSIPHYs may be
+> described as standalone phy nodes carrying their own supplies, in which
+> case the CAMSS node has none. Make the supplies optional; existing DTS
+> remain valid.
 >
-> Add helpers for:
->   - attaching, reattaching, and detaching a device from a controller;
->   - requesting and freeing controller IBI resources;
->   - enabling and disabling IBIs at the controller;
->   - recycling controller IBI slots.
->
-> Refactor the existing generic core paths to use these helpers, keeping
-> the current behaviour unchanged for regular I3C devices.
->
-> Also release the generic IBI workqueue and state when the controller
-> request callback fails.
->
-> The helpers are declared in the I3C internal header because they are
-> intended for use by the generic I3C hub framework rather than by
-> individual controller drivers.
->
-> Signed-off-by: Lakshay Piplani <lakshay.piplani@nxp.com>
-> Signed-off-by: Aman Kumar Pandey <aman.kumarpandey@nxp.com>
-> Signed-off-by: Vikash Bansal <vikash.bansal@nxp.com>
->
+> Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
 
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
+Reviewed-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
 
 > ---
-> Changes in v18:
->  - Rebased onto v7.3-rc1; no intended driver behaviour changes
+>  Documentation/devicetree/bindings/media/qcom,x1e80100-camss.yaml | 2 --
+>  1 file changed, 2 deletions(-)
 >
-> Changes in v17:
->  - Document the calling context of i3c_dev_recycle_ibi_slot_controller():
->    it runs in workqueue context without the bus lock held, while the
->    controller owns and synchronizes its IBI pool
->  - Retain the request_ibi capability check to preserve the pre-series
->    behaviour for regular I3C devices
+> diff --git a/Documentation/devicetree/bindings/media/qcom,x1e80100-camss.=
+yaml b/Documentation/devicetree/bindings/media/qcom,x1e80100-camss.yaml
+> index 126400772d028..57a838fe2d229 100644
+> --- a/Documentation/devicetree/bindings/media/qcom,x1e80100-camss.yaml
+> +++ b/Documentation/devicetree/bindings/media/qcom,x1e80100-camss.yaml
+> @@ -186,8 +186,6 @@ required:
+>    - iommus
+>    - power-domains
+>    - power-domain-names
+> -  - vdd-csiphy-0p8-supply
+> -  - vdd-csiphy-1p2-supply
+>    - ports
 >
-> Changes in v16:
->  - Rename the controller-only device helpers with a "_locked" suffix to make
->    the locking contract explicit (caller must hold the parent bus lock)
->  - Route i3c_master_handle_ibi() through i3c_dev_recycle_ibi_slot_controller()
->    instead of calling master->ops->recycle_ibi_slot() directly
->  - Destroy the generic IBI workqueue when the controller request_ibi()
->    callback fails, avoiding a workqueue leak on the request error path
+>  additionalProperties: false
 >
-> Changes in v15:
->  - Rework the patch to introduce controller-only attach, reattach and detach
->    helpers for use by the I3C hub core
->  - Add controller-only helpers for requesting, freeing, enabling, disabling
->    and recycling IBI resources
-> ---
-> ---
->  drivers/i3c/internals.h |  14 +++
->  drivers/i3c/master.c    | 239 +++++++++++++++++++++++++++++++++++-----
->  2 files changed, 225 insertions(+), 28 deletions(-)
->
-> diff --git a/drivers/i3c/internals.h b/drivers/i3c/internals.h
-> index 86a36b951e0d..416c37e2f75a 100644
-> --- a/drivers/i3c/internals.h
-> +++ b/drivers/i3c/internals.h
-> @@ -22,6 +22,20 @@ int i3c_dev_setdasa_locked(struct i3c_dev_desc *dev);
->  int i3c_dev_do_xfers_locked(struct i3c_dev_desc *dev,
->  			    struct i3c_xfer *xfers,
->  			    int nxfers, enum i3c_xfer_mode mode);
-> +
-> +int i3c_master_attach_i3c_dev_controller_locked(struct i3c_dev_desc *dev);
-> +int i3c_master_reattach_i3c_dev_controller_locked(struct i3c_dev_desc *dev,
-> +						  u8 old_dyn_addr);
-> +void i3c_master_detach_i3c_dev_controller_locked(struct i3c_dev_desc *dev);
-> +
-> +int i3c_dev_disable_ibi_controller_locked(struct i3c_dev_desc *dev);
-> +int i3c_dev_enable_ibi_controller_locked(struct i3c_dev_desc *dev);
-> +int i3c_dev_request_ibi_controller_locked(struct i3c_dev_desc *dev,
-> +					  const struct i3c_ibi_setup *req);
-> +void i3c_dev_free_ibi_controller_locked(struct i3c_dev_desc *dev);
-> +void i3c_dev_recycle_ibi_slot_controller(struct i3c_dev_desc *dev,
-> +					 struct i3c_ibi_slot *slot);
-> +
->  int i3c_dev_disable_ibi_locked(struct i3c_dev_desc *dev);
->  int i3c_dev_enable_ibi_locked(struct i3c_dev_desc *dev);
->  int i3c_dev_request_ibi_locked(struct i3c_dev_desc *dev,
-> diff --git a/drivers/i3c/master.c b/drivers/i3c/master.c
-> index 9ea4726495ff..b864fcbb1a59 100644
-> --- a/drivers/i3c/master.c
-> +++ b/drivers/i3c/master.c
-> @@ -1898,6 +1898,30 @@ static int i3c_master_get_i3c_addrs(struct i3c_dev_desc *dev)
->  	return -EBUSY;
->  }
->
-> +/**
-> + * i3c_master_attach_i3c_dev_controller_locked() - Attach device state to
-> + *						   controller
-> + * @dev: I3C device descriptor
-> + *
-> + * Invoke the current controller's attach callback without changing address
-> + * slot state or adding the device to the controller's device list.
-> + *
-> + * Context: The caller must hold the bus lock.
-> + *
-> + * Return: 0 on success, or a negative error code returned by the controller.
-> + */
-> +int i3c_master_attach_i3c_dev_controller_locked(struct i3c_dev_desc *dev)
-> +{
-> +	struct i3c_master_controller *master = i3c_dev_get_master(dev);
-> +
-> +	/* Do not attach the master device itself. */
-> +	if (master->this != dev && master->ops->attach_i3c_dev)
-> +		return master->ops->attach_i3c_dev(dev);
-> +
-> +	return 0;
-> +}
-> +EXPORT_SYMBOL_GPL(i3c_master_attach_i3c_dev_controller_locked);
-> +
->  static int i3c_master_attach_i3c_dev(struct i3c_master_controller *master,
->  				     struct i3c_dev_desc *dev)
->  {
-> @@ -1915,12 +1939,10 @@ static int i3c_master_attach_i3c_dev(struct i3c_master_controller *master,
->  		return ret;
->
->  	/* Do not attach the master device itself. */
-> -	if (master->this != dev && master->ops->attach_i3c_dev) {
-> -		ret = master->ops->attach_i3c_dev(dev);
-> -		if (ret) {
-> -			i3c_master_put_i3c_addrs(dev);
-> -			return ret;
-> -		}
-> +	ret = i3c_master_attach_i3c_dev_controller_locked(dev);
-> +	if (ret) {
-> +		i3c_master_put_i3c_addrs(dev);
-> +		return ret;
->  	}
->
->  	list_add_tail(&dev->common.node, &master->bus.devs.i3c);
-> @@ -1928,6 +1950,31 @@ static int i3c_master_attach_i3c_dev(struct i3c_master_controller *master,
->  	return 0;
->  }
->
-> +/**
-> + * i3c_master_reattach_i3c_dev_controller_locked() - Reattach controller
-> + *						     device state
-> + * @dev: I3C device descriptor
-> + * @old_dyn_addr: Previous dynamic address
-> + *
-> + * Invoke the current controller's reattach callback without modifying the
-> + * controller's address-slot state.
-> + *
-> + * Context: The caller must hold the bus lock.
-> + *
-> + * Return: 0 on success, or a negative error code returned by the controller.
-> + */
-> +int i3c_master_reattach_i3c_dev_controller_locked(struct i3c_dev_desc *dev,
-> +						  u8 old_dyn_addr)
-> +{
-> +	struct i3c_master_controller *master = i3c_dev_get_master(dev);
-> +
-> +	if (master->ops->reattach_i3c_dev)
-> +		return master->ops->reattach_i3c_dev(dev, old_dyn_addr);
-> +
-> +	return 0;
-> +}
-> +EXPORT_SYMBOL_GPL(i3c_master_reattach_i3c_dev_controller_locked);
-> +
->  /**
->   * i3c_master_reattach_i3c_dev_locked() - reattach an I3C device with a new address
->   * @dev: I3C device descriptor to reattach
-> @@ -1958,25 +2005,39 @@ int i3c_master_reattach_i3c_dev_locked(struct i3c_dev_desc *dev,
->  						     I3C_ADDR_SLOT_FREE);
->  	}
->
-> -	if (master->ops->reattach_i3c_dev) {
-> -		ret = master->ops->reattach_i3c_dev(dev, old_dyn_addr);
-> -		if (ret) {
-> -			i3c_master_put_i3c_addrs(dev);
-> -			return ret;
-> -		}
-> +	ret = i3c_master_reattach_i3c_dev_controller_locked(dev, old_dyn_addr);
-> +	if (ret) {
-> +		i3c_master_put_i3c_addrs(dev);
-> +		return ret;
->  	}
->
->  	return 0;
->  }
->  EXPORT_SYMBOL_GPL(i3c_master_reattach_i3c_dev_locked);
->
-> -static void i3c_master_detach_i3c_dev(struct i3c_dev_desc *dev)
-> +/**
-> + * i3c_master_detach_i3c_dev_controller_locked() - Detach device state from
-> + *						   controller
-> + * @dev: I3C device descriptor
-> + *
-> + * Invoke the current controller's detach callback without releasing address
-> + * slots or removing the device from the controller's device list.
-> + *
-> + * Context: The caller must hold the bus lock.
-> + */
-> +void i3c_master_detach_i3c_dev_controller_locked(struct i3c_dev_desc *dev)
->  {
->  	struct i3c_master_controller *master = i3c_dev_get_master(dev);
->
->  	/* Do not detach the master device itself. */
->  	if (master->this != dev && master->ops->detach_i3c_dev)
->  		master->ops->detach_i3c_dev(dev);
-> +}
-> +EXPORT_SYMBOL_GPL(i3c_master_detach_i3c_dev_controller_locked);
-> +
-> +static void i3c_master_detach_i3c_dev(struct i3c_dev_desc *dev)
-> +{
-> +	i3c_master_detach_i3c_dev_controller_locked(dev);
->
->  	i3c_master_put_i3c_addrs(dev);
->  	list_del(&dev->common.node);
-> @@ -3520,7 +3581,6 @@ static void i3c_master_handle_ibi(struct work_struct *work)
->  	struct i3c_ibi_slot *slot = container_of(work, struct i3c_ibi_slot,
->  						 work);
->  	struct i3c_dev_desc *dev = slot->dev;
-> -	struct i3c_master_controller *master = i3c_dev_get_master(dev);
->  	struct i3c_ibi_payload payload;
->
->  	payload.data = slot->data;
-> @@ -3529,7 +3589,7 @@ static void i3c_master_handle_ibi(struct work_struct *work)
->  	if (dev->dev)
->  		dev->ibi->handler(dev->dev, &payload);
->
-> -	master->ops->recycle_ibi_slot(dev, slot);
-> +	i3c_dev_recycle_ibi_slot_controller(dev, slot);
->  	if (atomic_dec_and_test(&dev->ibi->pending_ibis))
->  		complete(&dev->ibi->all_ibis_handled);
->  }
-> @@ -3640,6 +3700,29 @@ i3c_generic_ibi_alloc_pool(struct i3c_dev_desc *dev,
->  }
->  EXPORT_SYMBOL_GPL(i3c_generic_ibi_alloc_pool);
->
-> +/**
-> + * i3c_dev_recycle_ibi_slot_controller() - Recycle an IBI slot through
-> + *					   the current controller
-> + * @dev: I3C device descriptor
-> + * @slot: IBI slot to recycle
-> + *
-> + * Invoke the current controller's IBI slot recycling callback.
-> + *
-> + * Context: Called from the generic IBI work handler in workqueue context.
-> + * No bus lock is taken here: the controller owns its IBI pool and is
-> + * responsible for synchronizing access to it. The generic pool
-> + * implementation uses its own spinlock.
-> + */
-> +void i3c_dev_recycle_ibi_slot_controller(struct i3c_dev_desc *dev,
-> +					 struct i3c_ibi_slot *slot)
-> +{
-> +	struct i3c_master_controller *master = i3c_dev_get_master(dev);
-> +
-> +	if (master->ops->recycle_ibi_slot)
-> +		master->ops->recycle_ibi_slot(dev, slot);
-> +}
-> +EXPORT_SYMBOL_GPL(i3c_dev_recycle_ibi_slot_controller);
-> +
->  /**
->   * i3c_generic_ibi_get_free_slot() - Get a free slot from a generic IBI pool
->   * @pool: the pool to query an IBI slot on
-> @@ -3951,6 +4034,32 @@ int i3c_dev_do_xfers_locked(struct i3c_dev_desc *dev, struct i3c_xfer *xfers,
->  }
->  EXPORT_SYMBOL_GPL(i3c_dev_do_xfers_locked);
->
-> +/**
-> + * i3c_dev_disable_ibi_controller_locked() - Disable IBI in the controller
-> + * @dev: I3C device descriptor
-> + *
-> + * Invoke the current controller's IBI disable callback without waiting for
-> + * pending IBIs or updating the generic IBI enabled state.
-> + *
-> + * Context: The caller must serialize access to @dev->ibi and the generic
-> + * IBI lifecycle.
-> + *
-> + * Return: 0 on success, or a negative error code.
-> + */
-> +int i3c_dev_disable_ibi_controller_locked(struct i3c_dev_desc *dev)
-> +{
-> +	struct i3c_master_controller *master = i3c_dev_get_master(dev);
-> +
-> +	if (!dev->ibi)
-> +		return -EINVAL;
-> +
-> +	if (!master->ops->disable_ibi)
-> +		return -EOPNOTSUPP;
-> +
-> +	return master->ops->disable_ibi(dev);
-> +}
-> +EXPORT_SYMBOL_GPL(i3c_dev_disable_ibi_controller_locked);
-> +
->  /**
->   * i3c_dev_disable_ibi_locked() - Disable IBIs coming from a specific device
->   * @dev: device on which IBIs should be disabled
-> @@ -3963,14 +4072,9 @@ EXPORT_SYMBOL_GPL(i3c_dev_do_xfers_locked);
->   */
->  int i3c_dev_disable_ibi_locked(struct i3c_dev_desc *dev)
->  {
-> -	struct i3c_master_controller *master;
->  	int ret;
->
-> -	if (!dev->ibi)
-> -		return -EINVAL;
-> -
-> -	master = i3c_dev_get_master(dev);
-> -	ret = master->ops->disable_ibi(dev);
-> +	ret = i3c_dev_disable_ibi_controller_locked(dev);
->  	if (ret)
->  		return ret;
->
-> @@ -3984,6 +4088,32 @@ int i3c_dev_disable_ibi_locked(struct i3c_dev_desc *dev)
->  }
->  EXPORT_SYMBOL_GPL(i3c_dev_disable_ibi_locked);
->
-> +/**
-> + * i3c_dev_enable_ibi_controller_locked() - Enable controller IBI resources
-> + * @dev: I3C device descriptor
-> + *
-> + * Invoke the current controller's IBI enable callback without updating the
-> + * generic IBI enabled state.
-> + *
-> + * Context: The caller must serialize access to @dev->ibi and the generic
-> + * IBI lifecycle.
-> + *
-> + * Return: 0 on success, or a negative error code.
-> + */
-> +int i3c_dev_enable_ibi_controller_locked(struct i3c_dev_desc *dev)
-> +{
-> +	struct i3c_master_controller *master = i3c_dev_get_master(dev);
-> +
-> +	if (!dev->ibi)
-> +		return -EINVAL;
-> +
-> +	if (!master->ops->enable_ibi)
-> +		return -EOPNOTSUPP;
-> +
-> +	return master->ops->enable_ibi(dev);
-> +}
-> +EXPORT_SYMBOL_GPL(i3c_dev_enable_ibi_controller_locked);
-> +
->  /**
->   * i3c_dev_enable_ibi_locked() - Enable IBIs from a specific device (lock held)
->   * @dev: device on which IBIs should be enabled
-> @@ -4000,13 +4130,9 @@ EXPORT_SYMBOL_GPL(i3c_dev_disable_ibi_locked);
->   */
->  int i3c_dev_enable_ibi_locked(struct i3c_dev_desc *dev)
->  {
-> -	struct i3c_master_controller *master = i3c_dev_get_master(dev);
->  	int ret;
->
-> -	if (!dev->ibi)
-> -		return -EINVAL;
-> -
-> -	ret = master->ops->enable_ibi(dev);
-> +	ret = i3c_dev_enable_ibi_controller_locked(dev);
->  	if (!ret)
->  		dev->ibi->enabled = true;
->
-> @@ -4014,6 +4140,35 @@ int i3c_dev_enable_ibi_locked(struct i3c_dev_desc *dev)
->  }
->  EXPORT_SYMBOL_GPL(i3c_dev_enable_ibi_locked);
->
-> +/**
-> + * i3c_dev_request_ibi_controller_locked() - Request controller IBI resources
-> + * @dev: I3C device descriptor
-> + * @req: IBI setup request
-> + *
-> + * Invoke the current controller's IBI request callback without allocating the
-> + * generic IBI object or workqueue. The caller must ensure that @dev->ibi has
-> + * already been initialized.
-> + *
-> + * Context: The caller must serialize access to @dev->ibi and the generic
-> + * IBI lifecycle.
-> + *
-> + * Return: 0 on success, or a negative error code.
-> + */
-> +int i3c_dev_request_ibi_controller_locked(struct i3c_dev_desc *dev,
-> +					  const struct i3c_ibi_setup *req)
-> +{
-> +	struct i3c_master_controller *master = i3c_dev_get_master(dev);
-> +
-> +	if (!dev->ibi)
-> +		return -EINVAL;
-> +
-> +	if (!master->ops->request_ibi)
-> +		return -EOPNOTSUPP;
-> +
-> +	return master->ops->request_ibi(dev, req);
-> +}
-> +EXPORT_SYMBOL_GPL(i3c_dev_request_ibi_controller_locked);
-> +
->  /**
->   * i3c_dev_request_ibi_locked() - Request an IBI
->   * @dev: device for which we should enable IBIs
-> @@ -4056,8 +4211,15 @@ int i3c_dev_request_ibi_locked(struct i3c_dev_desc *dev,
->  	ibi->num_slots = req->num_slots;
->
->  	dev->ibi = ibi;
-> -	ret = master->ops->request_ibi(dev, req);
-> +	ret = i3c_dev_request_ibi_controller_locked(dev, req);
->  	if (ret) {
-> +		/*
-> +		 * The controller request callback failed, so tear down the
-> +		 * workqueue allocated above before freeing the IBI object.
-> +		 * This is the owner of the workqueue, so it must destroy it
-> +		 * here to avoid leaking it on the error path.
-> +		 */
-> +		destroy_workqueue(ibi->wq);
->  		kfree(ibi);
->  		dev->ibi = NULL;
->  	}
-> @@ -4066,6 +4228,27 @@ int i3c_dev_request_ibi_locked(struct i3c_dev_desc *dev,
->  }
->  EXPORT_SYMBOL_GPL(i3c_dev_request_ibi_locked);
->
-> +/**
-> + * i3c_dev_free_ibi_controller_locked() - Free controller IBI resources
-> + * @dev: I3C device descriptor
-> + *
-> + * Invoke the current controller's IBI free callback without destroying the
-> + * generic IBI workqueue or freeing @dev->ibi.
-> + *
-> + * Context: The caller must serialize access to @dev->ibi and the generic
-> + * IBI lifecycle.
-> + */
-> +void i3c_dev_free_ibi_controller_locked(struct i3c_dev_desc *dev)
-> +{
-> +	struct i3c_master_controller *master = i3c_dev_get_master(dev);
-> +
-> +	if (!dev->ibi)
-> +		return;
-> +
-> +	master->ops->free_ibi(dev);
-> +}
-> +EXPORT_SYMBOL_GPL(i3c_dev_free_ibi_controller_locked);
-> +
->  /**
->   * i3c_dev_free_ibi_locked() - Free all resources needed for IBI handling
->   * @dev: device on which you want to release IBI resources
-> @@ -4096,7 +4279,7 @@ void i3c_dev_free_ibi_locked(struct i3c_dev_desc *dev)
->  			dev_err(&master->dev, "Failed to disable IBI before freeing\n");
->  	}
->
-> -	master->ops->free_ibi(dev);
-> +	i3c_dev_free_ibi_controller_locked(dev);
->
->  	if (dev->ibi->wq) {
->  		destroy_workqueue(dev->ibi->wq);
 > --
-> 2.25.1
+> 2.55.0
 >
