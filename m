@@ -1,98 +1,96 @@
-Received: from mail-vs1-f42.google.com (mail-vs1-f42.google.com [209.85.217.42])
+Received: from mail.jetone.com.tw (mail.arestech.com.tw [210.61.96.229])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73D7D3D1A8F
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 08:01:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.217.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 562B13CAE7F;
+	Fri,  4 Sep 2026 08:01:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.61.96.229
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788508865; cv=none; b=YgPoueieo4JNBkOnWyhyh2r9PraQJ8oboaWsxgAso7s8ctCgGP5SQ2PofnCcf/Mxu+ppd5zZ7Ut/FPIN/Rjt5l8uDcvEeuMwZxWhtaNJ/+rosiI8RJ4bdt7Zy82kqY5jV9vVALrl0J/WmUU/c+W1QewO+Di9gNHwbpI15RcRLeM=
+	t=1788508870; cv=none; b=UqfJ2OrC87m9lMSjYPw2heXknr02XCzq+z0kp8fnVk2YYivJSTRM8jdO/z3N/43zLJqE/bWHFMkMo774pgMja9gTCsmepsS1IwV4jrC5N/wnTOhqf6zrMH36FW5NZbu/OJlMg654lB8Fot0rlwNdlURflZM/aWBFi7FRWnTQJEo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788508865; c=relaxed/simple;
-	bh=5STgmEpuSXLAENtQSqsuFnM5l/nP8haJUcsvw0rzQek=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=NhOvHBGMIZgU2J4HxVy6UpY2w88U38gvw3NbfYfJBT1Tn9cfkK0R4GBJxPFwyiGq6eHQp1/3tvHW4kNIUacuV6IONIosFeWb5H1/Re787jfFHnGfvtzg+IyBSnIezIie/WWxcks3liEqmeUXY6A0Z7oGksvwu01P9vuAQn2+dfA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.217.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-vs1-f42.google.com with SMTP id ada2fe7eead31-7542a2ee156so435773137.0
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 01:01:03 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788508862; x=1789113662;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=DHcVzyvg5T1LbBIIYfTsEAB71A8C4BjQEyDgYTrzH78=;
-        b=Tk+4PNAxtQITqAMlhYggTnwKWHoRUS1ZPKAS/r/jsdhVjzo9w6dgoKudsHfUuCe7+b
-         EuLJ8Xdfhnue6eUmXhhUsCgJrWFFl1erjQfe7xMMI7qUkesOFb/jMGk/73AxjukPB0Gn
-         h8SM7v3Ob7t9Cyn/811sWWStcKcpmC7+M1uH7WetoN/k+NAHXa5OdVJwRjlpSKc+7jtn
-         eRicpEvGMPn4VdD1aNKcalIlLh+L6CMb5ReGb9rKgbD4hhN5nOXgOw1HK2QPlWWLgkb/
-         3NcX/ClXC9pFO3BBWAxls+vZW+I6CMgD8qI+XDAIcJCVcqMcLrvNoviA/sn/H7m+kNmm
-         8/yw==
-X-Forwarded-Encrypted: i=1; AKwUvBzBO4sovVnMoyiC6tJjSH5rvd9OrsaCsO6zcf02NGPUdDuF21IuTKAandfhjdg7P/+U9GZQaHHKKQDvIDI=@vger.kernel.org
-X-Gm-Message-State: AFuF++l7QOgX7dyT6NC3z1TzS7PnoGV9xZhgRfLpMVv2oI2Hji6mriGQ
-	3hqqoZy0gvBgKqfjQuMmMUx9Lbfha4VDD1Vz6GAPTDzTO235Q5YxCbi4nyOom2LzURM=
-X-Gm-Gg: AYBFou2JM0tWDTA7JtIuFtBBuPRdRr2wqBBHQKOQSRX82bbKcW/M1lgZ9VwZ3n8t9il
-	VjnPgIeGvsNLM8sNVVOGqhtY4Sc1fyFwiq3O3BzGPsbS7d3jLH2EfD1sdRUDSMZiWNyg+zQ13z1
-	2NLTGzdSX64FECrahxHa9fUJUOESN1PzP2DFSCEfSesjFMLlvs5WUM2iaO1VGNnigQdioVSd2bp
-	IfZGvtXxIHsFOMWFOtUpx5NSvTf8+6k1cA9/C2yHJHObl0kkfVBCz9Z7BeX6v2J3bMBLgQOG0fP
-	iQBc5+g8djpUleeGX0U57OfAKAB6Zcs0/OYYK4T0ZDP4yhYhYIOtFDaP4hrrmnWZUFINEUckOlU
-	Jg2+Ocv+iLmELtNiCeNLwEywm8Hfrgep0p68Cw+aaDoxE/nDVIXuNk0KIyaBToWcnhZSJK7060+
-	mIyVnpyGiYQE11PwTsUufMIo8mLVKIhb5mqI6meHcC68brs/TcslYoB2oiejHzR6sdsvSg25diN
-	WuwX7QrNbld9KlP9hZEtIP2uw==
-X-Received: by 2002:a05:6102:1484:b0:785:1d9c:633c with SMTP id ada2fe7eead31-78a4a8436b7mr1486177137.7.1788508861981;
-        Fri, 04 Sep 2026 01:01:01 -0700 (PDT)
-Received: from mail-vs1-f42.google.com (mail-vs1-f42.google.com. [209.85.217.42])
-        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-78a47ad27bdsm1285924137.6.2026.09.04.01.01.00
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 04 Sep 2026 01:01:00 -0700 (PDT)
-Received: by mail-vs1-f42.google.com with SMTP id ada2fe7eead31-74ab99038afso512721137.3
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 01:01:00 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBz0n//yxvkUA/4WzZBnkCjUgOLrsNMsfMQS50aUBpfGiA8mwGdIVfGigjTEplMurEvCxDL9tDnhWbb15jQ=@vger.kernel.org
-X-Received: by 2002:a05:6102:e0d:b0:778:5bbb:b2d2 with SMTP id
- ada2fe7eead31-78a4a97bda0mr1434786137.11.1788508859808; Fri, 04 Sep 2026
- 01:00:59 -0700 (PDT)
+	s=arc-20240116; t=1788508870; c=relaxed/simple;
+	bh=dBVFzNkm7C/8meYf7vsNJU9XTGhVurtsIEQb9dBqdBE=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=VpjO/SvJobxKXwP8DQ0FQxcSdOGgqHi3RV3cPwQEOVPIcoakH0Z14iw8ZFAs0TpPJqarTvoLZe8zjxWAKpVTHwB6kTXYjGI2jDBmFY6KT9f5Pt1YcHU/T/lkrpme+4xmFAW4DdlPWLBPKNAi0abU8r1A2cjf3AU5yiFT5cd483A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=jetone.com.tw; spf=pass smtp.mailfrom=jetone.com.tw; arc=none smtp.client-ip=210.61.96.229
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=jetone.com.tw
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jetone.com.tw
+X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 68480wi763293343, This message is accepted by code: ctloc85258
+Received: from mail.jetone.local ([192.168.0.53])
+	by mail.jetone.com.tw (8.15.2/3.29/5.94) with ESMTP id 68480wi763293343;
+	Fri, 4 Sep 2026 16:00:58 +0800
+Received: from ian-lin-DREAMBOOK-PRO-14V.jetone.local (192.168.0.137) by
+ VM-EX2019.JETONE.LOCAL (192.168.0.53) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1258.34; Fri, 4 Sep 2026 16:00:58 +0800
+From: Ian Lin <ian.lin@jetone.com.tw>
+To: Johan Hovold <johan@kernel.org>
+CC: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+        <linux-usb@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+        Ian Lin
+	<ian.lin@jetone.com.tw>
+Subject: [PATCH] USB: serial: option: add Compal EXC-T1 support
+Date: Fri, 4 Sep 2026 16:00:46 +0800
+Message-ID: <20260904080046.56772-1-ian.lin@jetone.com.tw>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260820171657.62815-1-biju.das.jz@bp.renesas.com> <apnUfCIcTG4bmYZF@ninjato>
-In-Reply-To: <apnUfCIcTG4bmYZF@ninjato>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Fri, 4 Sep 2026 10:00:48 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdVOY2CYKfhmx4qmRPkf3a002NEbWuwafLvrJTXvLb9PLA@mail.gmail.com>
-X-Gm-Features: AcwNN1URdf1eUYUIsC6Dx67B7nRZjxmnJO7wd9vXW0tYWJ8jFblIIeeoKCEUiQM
-Message-ID: <CAMuHMdVOY2CYKfhmx4qmRPkf3a002NEbWuwafLvrJTXvLb9PLA@mail.gmail.com>
-Subject: Re: [PATCH v24 00/15] Add Renesas RZ/G3L SD/eMMC support
-To: Wolfram Sang <wsa+renesas@sang-engineering.com>
-Cc: Biju <biju.das.au@gmail.com>, Ulf Hansson <ulfh@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Geert Uytterhoeven <geert+renesas@glider.be>, Philipp Zabel <p.zabel@pengutronix.de>, 
-	Magnus Damm <magnus.damm@gmail.com>, Biju Das <biju.das.jz@bp.renesas.com>, 
-	linux-mmc@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org, 
-	Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: VM-EX2019.JETONE.LOCAL (192.168.0.53) To
+ VM-EX2019.JETONE.LOCAL (192.168.0.53)
 
-On Thu, 3 Sept 2026 at 22:11, Wolfram Sang
-<wsa+renesas@sang-engineering.com> wrote:
-> Although there are still issues to be handled, I tested this series on a
-> R-Car S4 (Spider) with HS400 eMMC and on a R-Car V4H (SparrowHawk) with
-> a UHS SD card. No regressions.
+The Compal EXC-T1 is a Qualcomm MDM9207-based LTE modem which reports
+"EXC-x1" as its USB product string. It exposes diagnostic, modem, AT,
+and NMEA ports as vendor-specific interfaces with subclass 0x10 and
+protocols 0x01 through 0x04.
 
-FTR, boot-tested on a wide range of Renesas platforms (RZ/A1H, RZ/A2M,
-R-Mobile A1, SH-Mobile AG5, R-Car Gen1-4, RZ/Five)
-Tested-by: Geert Uytterhoeven <geert+renesas@glider.be>
+Add exact interface matches for these four ports, leaving the ff/ff/ff
+interface unbound.
 
-Gr{oetje,eeting}s,
+Relevant output from usb-devices:
 
-                        Geert
+T:  Bus=03 Lev=02 Prnt=03 Port=03 Cnt=01 Dev#=  6 Spd=480  MxCh= 0
+D:  Ver= 2.00 Cls=00(>ifc ) Sub=00 Prot=00 MxPS=64 #Cfgs=  1
+P:  Vendor=04b7 ProdID=4d22 Rev=03.18
+S:  Manufacturer=CEI
+S:  Product=EXC-x1
+C:  #Ifs= 6 Cfg#= 1 Atr=a0 MxPwr=500mA
+I:  If#= 0 Alt= 0 #EPs= 2 Cls=ff(vend.) Sub=10 Prot=01 Driver=option
+I:  If#= 1 Alt= 0 #EPs= 3 Cls=ff(vend.) Sub=10 Prot=02 Driver=option
+I:  If#= 2 Alt= 0 #EPs= 3 Cls=ff(vend.) Sub=10 Prot=03 Driver=option
+I:  If#= 3 Alt= 0 #EPs= 3 Cls=ff(vend.) Sub=10 Prot=04 Driver=option
+I:  If#= 4 Alt= 0 #EPs= 1 Cls=ff(vend.) Sub=ff Prot=ff Driver=(none)
+I:  If#= 5 Alt= 0 #EPs= 3 Cls=ff(vend.) Sub=10 Prot=05 Driver=qmi_wwan
 
+Tested on a Compal EXC-T1 modem using an Ubuntu kernel build. The four
+serial interfaces bound to option and exposed ttyUSB3 through ttyUSB6.
+
+Assisted-by: Codex:GPT-5
+Signed-off-by: Ian Lin <ian.lin@jetone.com.tw>
+---
+ drivers/usb/serial/option.c | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/drivers/usb/serial/option.c b/drivers/usb/serial/option.c
+index 03c3785a1..a42c37450 100644
+--- a/drivers/usb/serial/option.c
++++ b/drivers/usb/serial/option.c
+@@ -2433,6 +2433,10 @@ static const struct usb_device_id option_ids[] = {
+ 	  .driver_info = RSVD(5) },
+ 	{ USB_DEVICE_INTERFACE_CLASS(0x0489, 0xe167, 0xff),                     /* Foxconn T99W640 MBIM */
+ 	  .driver_info = RSVD(3) },
++	{ USB_DEVICE_AND_INTERFACE_INFO(0x04b7, 0x4d22, 0xff, 0x10, 0x01) },	/* Compal EXC-T1 */
++	{ USB_DEVICE_AND_INTERFACE_INFO(0x04b7, 0x4d22, 0xff, 0x10, 0x02) },
++	{ USB_DEVICE_AND_INTERFACE_INFO(0x04b7, 0x4d22, 0xff, 0x10, 0x03) },
++	{ USB_DEVICE_AND_INTERFACE_INFO(0x04b7, 0x4d22, 0xff, 0x10, 0x04) },
+ 	{ USB_DEVICE_AND_INTERFACE_INFO(0x04b7, 0x8217, 0xff, 0xff, 0x30) },	/* Compal EXM-G1x */
+ 	{ USB_DEVICE_AND_INTERFACE_INFO(0x04b7, 0x8217, 0xff, 0xff, 0x40) },
+ 	{ USB_DEVICE_AND_INTERFACE_INFO(0x04b7, 0x8217, 0xff, 0xff, 0x60) },
+
+base-commit: 7f11480cda081de78a05d8c97073df66326b50b3
 -- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+2.43.0
 
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
