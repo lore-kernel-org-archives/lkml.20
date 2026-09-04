@@ -1,64 +1,65 @@
-Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com [209.85.216.48])
+Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com [209.85.216.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6523E3CF212
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 08:06:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D5143DA5B7
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 08:06:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788509191; cv=none; b=RKmD95Mp6amPpqblEr4FdiLktFCm5AynQenvCJZ3qQ026UqnwXWIzB7+x3fd945nf20JwjYRer21WVWJD3hGqojPXgyNrWGSaznBN45ho5meECMW2Aj+yBqzaTXVzCXZM8dbwFOgP46JQ2ByuKvHO10yCLykXlI7s1xzMK538q0=
+	t=1788509192; cv=none; b=pppxrsbwDUfA+5fH5mS1FSUXhethS45NHE0qBxZzCZUpEVJyIVu5/caPPoQpYAbsmCssbXBIY8s4XeS623ocKxk3KH1JVT5mAXPk1ZJNpmZ8aeiYPyYrkWSBTSjDv6Qp37i//4ocuBk2rVdHghplwHitSGWxYerU9no2N2fmtlM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788509191; c=relaxed/simple;
-	bh=566pGj/JIlarQnjQku7K9YiHj6xZhXg/CQfHU+iJ6cc=;
+	s=arc-20240116; t=1788509192; c=relaxed/simple;
+	bh=jJufBHy0XOHSgCuO4Zat9GBLKTZbHQ5kUy9KcZGBSaw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=QpHlbBGTKiEro5jyjU682iHZaWAgbmJHG9g5LtgAKDYCKP1QsZvXWSkOi9P9qWTOAOeVzP5XzjP+hbaXKYxJ9WUdLej+lT22ukN3a12WpDqqXgZhmbWlIe2Pvx2DWG5Do4IQZUG1yOWfImzbobEhVMG9rQK6S96QN2f5KTCHUa0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=k8xYTChI; arc=none smtp.client-ip=209.85.216.48
+	 MIME-Version:Content-Type; b=BAsaBJDzTq7lxAvxd+G5LBad8IjFgC7ZXx2GPoAkbnZJITlBamf/T92x0M8N6U88fEM+UVcoZzjkESNWp0hVza+7zp7QEk5HoOAnDqumqez08uJSSZTLg7MEfNBsl3Sj9bXYOPIggPr+FkY+q5lZw001I7jfQwaSpgO8gqympsE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cvIi2z3G; arc=none smtp.client-ip=209.85.216.51
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="k8xYTChI"
-Received: by mail-pj1-f48.google.com with SMTP id 98e67ed59e1d1-39b2ad862bdso456879a91.2
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 01:06:29 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cvIi2z3G"
+Received: by mail-pj1-f51.google.com with SMTP id 98e67ed59e1d1-383b4a3755fso720381a91.3
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 01:06:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788509189; x=1789113989; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=OLEldnOCQedCUETCWprtecBudZpW3CKJjf9frld/ASI=;
-        b=k8xYTChI64+l3BJLKiJ51OZEBJDYq2aqGmNL+YeFmkvFwKrl5jMs0h1LFBfrwkg4mZ
-         o+DRr9+BBBKKsJG1WyGFthddkwQOaifqPidMXPvyc3t3gUvTlCG0nDbBUtFKtf0gHhDY
-         Pyijrz2MOOg8bVhssx9s9HBTfccCUEZa6e5lRtpZ6VSbGEzln0xcvzAKIZQyuvQIIuGS
-         I+4MKk/366/VEzYIMzZTBy3q4hNK34pgUTMIc/gs0DYdudmsY55Lvk2Qh4HUlQzRyj/f
-         h2VSl8MFOzRYTyCyk6cgdTM97ZK9uXKBakkalxCTC0U5uWo6zEiUGqYcFwx8ns9yiXzp
-         i1JA==
+        d=gmail.com; s=20251104; t=1788509190; x=1789113990; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=QTyILQ3Nb9xTYITTyUAAxXfDx2OTqAg1QFKIj6VFxCw=;
+        b=cvIi2z3G/FyEPlEM6kzAS6FschP+zDTysHgRwMIBTKxUESG7Fqmt/rX/sOpqikxbWV
+         U8qvJj7JyO/1hraa/mIU/rJaUdpUfpr78ZROhArNK70kcGO5Z5QucDfdyQAlMF6ZroF9
+         EWg9Z3s4hZ3ujb0/FJYPpk1fT9KUtCG6f1sygpNKaMniDhRdJwmjZfBqLCB9AAb1yPLH
+         WmlqDOlxW61lL0E5Z+uS5xAgtAIdEx91tGOXQiepw9BVL4r3BeFNGrrez5fbDH1k9+x2
+         uvUY1Na2nZVuKbW82katZfLp4Xy/FLFiKNGdv+RzNxyZzYL6X0G8lKIc2YwParGSbryh
+         djmg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788509189; x=1789113989;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=OLEldnOCQedCUETCWprtecBudZpW3CKJjf9frld/ASI=;
-        b=FHo8VQkNKnLdOeHR4zmPu1vjB+yI63NMZ9A3RkktTwSFxRnS9Mp5ozD8E7fxvb48nm
-         fCbtSBJYtF2GrUCmmFzLZPondgsroV8Ojb0JIitVt3IM4dEO3KXEVVxvCsBrh/JMZ8A7
-         6qw7g9sLQ55NXLoAYB2ZufbfaHJT010ZWaShdtLc1roWccVofpobjKUg6BynugbTNqUa
-         DE5PTJ8qJMZ8tn3g8eb8v3bugTz10iV44aF67gyQeCjAkfMvLT1i+jS9PLKasQ8kbnx3
-         GKJVwtDbYoZKKh3pRbovhM2kgb8lcWgDZ+yJmpCKYkaJqOOCkZ7Z6c3L6oeA9JrQNSz5
-         fsJQ==
-X-Forwarded-Encrypted: i=1; AKwUvBy6TOinE2GPDUJsVGCLv9537aXH04MaIBm9wtw3YbBm0PGpUohdCVBtw62TmE2C58Sz9kiZZpGSwTfHIYw=@vger.kernel.org
-X-Gm-Message-State: AFuF++ntIB6OOrB3zmsoFLqVM0Tjygno03rNM2Ul3HpZ1+zdD4KpKsEJ
-	7rgeLWN+R5XueiyplsCwYhHCRyuAKUc6sU2rDafGvHoE6rdqQgWH+1s=
-X-Gm-Gg: AYBFou1BkaGCx/6fxH6zoF4X2rPiiexmtqBnxh8VS6JfTSFLQqdPPdqhUVHa3ipUr3G
-	DLjCRycN5Fq9+tPlNnZ7qE13jZ34t6QI91KF8HgJ9+m94lrhCP5MajJKE0zd1tXA+qbdG2xlqbW
-	5bJa/43/ht9h6R6fxd+7ln0dydWeH8qh1txuMdtVH5AYXtSlC1VM9RCeAtqgqL+SSW1FXCzzueH
-	DsTQk9yYd0uoOL98wEQv2q6wMWyUoIqA2QSh50oJ8EaqwEC/T1im4Ls5QjsAe1qq+j0bC6GVRP2
-	ZEO1c25sSnK4SQyvcGWwqJGmWPwumyvoyWQBYF7QsyoASwUOn21CjluRGEmkYnk9RNN5BjKcwrO
-	7HIbymDMZGciDdAtHry7dCImd/S3EQvQo5aTPb+Dosz8bJUHjbtImmKrITd3j7ilB1dwTViIvzI
-	m0LC4ccomsVWyGmXDGRv4y8Hd5x+ipuD8LID1L6tXWlzWcftZ14Kc75Te0eVYiq8lyQ6xXMPzT5
-	wG74vXPG7DIEYkhDblaYx/j5Ns=
-X-Received: by 2002:a17:90a:ec8d:b0:38e:67e1:15b with SMTP id 98e67ed59e1d1-39b261002f5mr6201345a91.6.1788509187124;
-        Fri, 04 Sep 2026 01:06:27 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1788509190; x=1789113990;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=QTyILQ3Nb9xTYITTyUAAxXfDx2OTqAg1QFKIj6VFxCw=;
+        b=aRnKEjKhYj9mDH98HobVna3zyYOA5gyWfKeGzKQIjWvPNFBLKS8NyPL6jyxUGpiRHY
+         JjrqsETGW+TZuDnILQhmqdW3WOMwWAcrlebp1Cus+IpEU4RKaP4qKiAPL+cC1ulD5EXD
+         bTwNNHE3YMv3PuK+BGBoyDQMclQsWj8pEDpKWLSc3KV1ob3+zvf7N+GFGvOdCtKvyLIK
+         /suJ7yVMODEWCyjgvSBDsfiB8iBzafvX2ub5BnM8neJPznv/ranI5qf4zyOhYw4H8a5k
+         AAltVlTNs850eK2CAO1HmShcDXqUuEJHQmoQqLP0zNln0ichGFDrhjbL9tY10lNB+knk
+         bA+A==
+X-Forwarded-Encrypted: i=1; AKwUvBzmea6zSSTwMbPeV5TEoOcNNHgYipfbLSKqLoA/jiDA3WrY7BmurXVN/1dDVpSmGUyGSfsBd4U7Rjsy6nc=@vger.kernel.org
+X-Gm-Message-State: AFuF++nhTV8yXOaAr8OhlmEvjyQA7zNnR/5S6U6+8KxZmCIP3IT58VU9
+	0/hDgbkbTMyu8Vc9CPVDTcgy2ebfYkQZJN3RfEKbNM47oxYENoBH4fM=
+X-Gm-Gg: AYBFou35ur8nKkJlhDGUqRrk7FExEc7zqqQaHTNVV4g/yflC+fPyWWl84Jn1X1PoNjg
+	QOAcdSSsBtSLZpqCuKt9LtDAYjx/97i0vjB5+oGtijCFrZ4SdOB6zrFbsc45HnmeQQTTlGve2Zx
+	LnncUZoyky0SemcHRPlfhNRe3NN37mcavcT0lyM0FxUpXbc9K1URdInxka7wjjy00dwrVrU60K5
+	B7f2YS4ffuQMcUX7Iep88osGaiS+GrtzdKt0nMAYzo+wny2FRhv00cX3SQ1/FYnZ8DaVs/L3O4u
+	qI+DmL87vtYEatIhZchrS+M3Jo//ma3d4yDIImIMX1Aj1u14i+Sosn5v2X6FI3xzv03rs/pkhcZ
+	lYQetivtp6h4LGOBuCO0aIMpmKeVQPBP27MtLruYqt85hBhlbSwQQDtL9ls39UtooCYWnR852by
+	ppvFBYPQMas+8iAuAkr/4lzuPvg9dugUjc4QB73BesWxsWG3pgeqelHh63Hq5vzQQQt5SrjzEmG
+	jIsS3USRWM8dBZqE708jDl8RCI=
+X-Received: by 2002:a17:90b:28cc:b0:36d:b424:4f17 with SMTP id 98e67ed59e1d1-39b260e13d5mr7636395a91.1.1788509190441;
+        Fri, 04 Sep 2026 01:06:30 -0700 (PDT)
 Received: from MalHyuk.localdomain ([211.201.32.99])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b261549f3sm3181153a91.16.2026.09.04.01.06.23
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b261549f3sm3181153a91.16.2026.09.04.01.06.27
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 04 Sep 2026 01:06:26 -0700 (PDT)
+        Fri, 04 Sep 2026 01:06:29 -0700 (PDT)
 From: "Jonghyuk Kim(MalHyuk)" <malhyuk97@gmail.com>
 To: phasta@kernel.org,
 	christian.koenig@amd.com,
@@ -70,11 +71,10 @@ Cc: dri-devel@lists.freedesktop.org,
 	mdaenzer@redhat.com,
 	alessio.belle@imgtec.com,
 	luigi.santivetti@imgtec.com,
-	"Jonghyuk Kim(MalHyuk)" <malhyuk97@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v4 1/3] drm/sched: cache the timeline name to fix a use-after-free
-Date: Fri,  4 Sep 2026 17:06:16 +0900
-Message-ID: <20260904080618.2098450-2-malhyuk97@gmail.com>
+	"Jonghyuk Kim(MalHyuk)" <malhyuk97@gmail.com>
+Subject: [PATCH v4 2/3] drm/sched: add the fence ops-detach cleanup to the TODO list
+Date: Fri,  4 Sep 2026 17:06:17 +0900
+Message-ID: <20260904080618.2098450-3-malhyuk97@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260904080618.2098450-1-malhyuk97@gmail.com>
 References: <20260904080618.2098450-1-malhyuk97@gmail.com>
@@ -84,133 +84,78 @@ List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-drm_sched_fence_get_timeline_name() returns fence->sched->name, and the
-drm_sched_fence ops keep a .release callback, so the fence is not
-ops-detached on signalling (dma_fence_signal_timestamp_locked() only
-clears ->ops for fences without .release/.wait). The callback therefore
-stays reachable on a long-signalled, userspace-held finished fence and
-unconditionally dereferences fence->sched.
+The previous patch caches the timeline name so that get_timeline_name() no
+longer dereferences a scheduler that a userspace-held fence has outlived.
+That is a targeted fix: the underlying reason the callback is reachable at
+all is that both drm_sched fences implement .release, so dma_fence never
+detaches their ops on signalling. get_driver_name() has the same exposure
+for module unload.
 
-A driver that allocates a drm_gpu_scheduler at per-context/per-queue/per-VM
-granularity and frees it on an unprivileged context/fd close, while
-exporting the resulting finished fence to userspace (drm_syncobj /
-sync_file / dma_resv), leaves fence->sched dangling after the free. A
-subsequent SYNC_IOC_FILE_INFO ioctl (which calls get_timeline_name()) then
-reads the freed scheduler:
+Dropping the .release callbacks is the complete fix, but it requires
+auditing every to_drm_sched_fence() caller (ops-detach makes it return NULL
+for signalled fences), a different identity mechanism for
+pvr_queue_fence_is_native(), and a rework of the shared allocation's
+reference handling. Record that as a TODO entry so the cleanup is not lost.
 
-  BUG: KASAN: slab-use-after-free in drm_sched_fence_get_timeline_name
-
-This is the same class as CVE-2025-38703 (drm/xe) and CVE-2025-71302
-(drm/panthor), which were fixed per-driver. amdxdna, nouveau and msm
-(VM_BIND) are still affected in mainline, so fix it in the core to cover
-any per-context-scheduler driver at once.
-
-Cache the scheduler's name pointer in the fence at init time, while the
-scheduler is guaranteed alive, and return the cached value from
-get_timeline_name() without dereferencing fence->sched. The timeline name
-is not guaranteed by the contract to outlive the scheduler, so document in
-struct drm_sched_init_args that the @name passed to drm_sched_init() must
-follow the dma-fence safe access rules and outlive any exported fence.
-Every in-tree driver passes a string literal, which satisfies this;
-commit 299bc6d50b1b ("drm/xe/guc: Keep scheduler timeline name alive")
-keeps drm/xe's dynamically-allocated name alive across the RCU grace and
-can be simplified on top of this.
-
-Fixes: 506aa8b02a8d ("dma-fence: Add safe access helpers and document the rules")
-Cc: stable@vger.kernel.org # we don't know since when
+Suggested-by: Philipp Stanner <phasta@kernel.org>
 Signed-off-by: Jonghyuk Kim(MalHyuk) <malhyuk97@gmail.com>
 ---
- drivers/gpu/drm/scheduler/sched_fence.c | 24 +++++++++++++++++++++++-
- include/drm/gpu_scheduler.h             | 18 +++++++++++++++++-
- 2 files changed, 40 insertions(+), 2 deletions(-)
+ Documentation/gpu/todo.rst | 39 ++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 39 insertions(+)
 
-diff --git a/drivers/gpu/drm/scheduler/sched_fence.c b/drivers/gpu/drm/scheduler/sched_fence.c
-index 096fe28aa9c9..b2a842a1c9ba 100644
---- a/drivers/gpu/drm/scheduler/sched_fence.c
-+++ b/drivers/gpu/drm/scheduler/sched_fence.c
-@@ -92,7 +92,13 @@ static const char *drm_sched_fence_get_driver_name(struct dma_fence *fence)
- static const char *drm_sched_fence_get_timeline_name(struct dma_fence *f)
- {
- 	struct drm_sched_fence *fence = to_drm_sched_fence(f);
--	return (const char *)fence->sched->name;
+diff --git a/Documentation/gpu/todo.rst b/Documentation/gpu/todo.rst
+index 14cf37590fc7..284aeba3c752 100644
+--- a/Documentation/gpu/todo.rst
++++ b/Documentation/gpu/todo.rst
+@@ -990,6 +990,45 @@ Contact:
+ 
+ Level: Beginner
+ 
++Detach the scheduler fence ops on signalling
++--------------------------------------------
 +
-+	/*
-+	 * Do not dereference fence->sched here: a userspace-held finished
-+	 * fence can outlive a per-context scheduler. Return the name cached
-+	 * in drm_sched_fence_init() instead.
-+	 */
-+	return fence->sched_name;
- }
++The dma-fence contract forbids touching driver-provided data - everything
++reachable through &dma_fence.ops - once a fence is signalled. dma_fence enforces
++that by detaching a fence's ops on signalling, but only for fences that carry
++neither a .release nor a .wait callback (see
++dma_fence_signal_timestamp_locked()).
++
++Both drm_sched fences implement .release, so their ops stay attached forever.
++That leaves the callbacks reachable on a long-signalled fence that userspace
++still holds through a sync_file or drm_syncobj, even after the scheduler is
++gone: get_timeline_name() used to dereference the freed &drm_sched_fence.sched
++(fixed by caching the name), and get_driver_name() can still return a string
++literal belonging to a module that has since been unloaded.
++
++Dropping the .release callbacks so that the ops are detached on signalling is
++the complete fix, and it is what the dma-fence rules ask for. It is not
++straightforward:
++
++Tasks:
++
++- Audit every to_drm_sched_fence() caller. Detaching the ops makes the helper
++  return NULL for a signalled fence, and callers such as
++  amdgpu_cs_p2_dependencies() and amdgpu_ctx_fence_time() dereference the result
++  unconditionally.
++- drm/imagination uses the ops pointer as an identity test in
++  pvr_queue_fence_is_native(); that needs a different mechanism.
++- Rework the reference handling. The scheduled and the finished fence share one
++  allocation, and the finished fence's .release currently drops the scheduled
++  fence's reference, so the callbacks cannot simply be deleted.
++
++Contact:
++
++- Philipp Stanner <phasta@kernel.org>
++- Christian König <christian.koenig@amd.com>
++
++Level: Advanced
++
+ Outside DRM
+ ===========
  
- static void drm_sched_fence_free_rcu(struct rcu_head *rcu)
-@@ -180,6 +186,14 @@ static void drm_sched_fence_set_deadline_finished(struct dma_fence *f,
- 		dma_fence_set_deadline(parent, deadline);
- }
- 
-+/*
-+ * TODO: Both fences implement .release, so dma_fence keeps their ops attached
-+ * after signalling. Dropping the callbacks would let dma_fence detach the ops,
-+ * after which neither get_timeline_name() nor get_driver_name() can run against
-+ * a freed scheduler or an unloaded module - the complete fix. It first requires
-+ * auditing every to_drm_sched_fence() caller, since ops-detach makes the helper
-+ * return NULL for a signalled fence. See Documentation/gpu/todo.rst.
-+ */
- static const struct dma_fence_ops drm_sched_fence_ops_scheduled = {
- 	.get_driver_name = drm_sched_fence_get_driver_name,
- 	.get_timeline_name = drm_sched_fence_get_timeline_name,
-@@ -228,6 +242,14 @@ void drm_sched_fence_init(struct drm_sched_fence *fence,
- 	unsigned seq;
- 
- 	fence->sched = entity->rq->sched;
-+	/*
-+	 * Cache the scheduler's timeline name. The finished fence may be
-+	 * exported to userspace and outlive @sched (per-context schedulers are
-+	 * freed on context teardown), so get_timeline_name() must not
-+	 * dereference @sched. The name is required to outlive any exported
-+	 * fence (see @name in struct drm_sched_init_args).
-+	 */
-+	fence->sched_name = fence->sched->name;
- 	seq = atomic_inc_return(&entity->fence_seq);
- 	dma_fence_init(&fence->scheduled, &drm_sched_fence_ops_scheduled,
- 		       &fence->lock, entity->fence_context, seq);
-diff --git a/include/drm/gpu_scheduler.h b/include/drm/gpu_scheduler.h
-index 7a64cc11de08..412b8c4643f1 100644
---- a/include/drm/gpu_scheduler.h
-+++ b/include/drm/gpu_scheduler.h
-@@ -322,6 +322,17 @@ struct drm_sched_fence {
-          * belongs to.
-          */
- 	struct drm_gpu_scheduler	*sched;
-+	/**
-+	 * @sched_name: the timeline name of @sched, cached at init time.
-+	 *
-+	 * &drm_sched_fence.finished may be exported to userspace (via a
-+	 * sync_file or drm_syncobj) and can outlive @sched: a driver using a
-+	 * per-context scheduler frees it on context teardown while a
-+	 * userspace-held finished fence still references it. The
-+	 * get_timeline_name() callback must therefore not dereference @sched;
-+	 * it returns this cached name instead.
-+	 */
-+	const char			*sched_name;
-         /**
-          * @lock: the lock used by the scheduled and the finished fences.
-          */
-@@ -646,7 +657,12 @@ struct drm_gpu_scheduler {
-  * @timeout: timeout value in jiffies for submitted jobs.
-  * @timeout_wq: workqueue to use for timeout work. If NULL, the system_wq is used.
-  * @score: score atomic shared with other schedulers. May be NULL.
-- * @name: name (typically the driver's name). Used for debugging
-+ * @name: name (typically the driver's name). Used for debugging, and as the
-+ *	dma-fence timeline name of the scheduler's fences. It must follow the
-+ *	dma-fence safe access rules: a &drm_sched_fence.finished exported to
-+ *	userspace can outlive the scheduler, so @name has to outlive any such
-+ *	fence - use a string literal, or free it only after an RCU grace period
-+ *	past the last exported fence. See drm_sched_fence_get_timeline_name().
-  * @dev: associated device. Used for debugging
-  */
- struct drm_sched_init_args {
 -- 
 2.43.0
 
