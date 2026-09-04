@@ -1,99 +1,88 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-217.mta1.migadu.com [95.215.58.217])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9202C38A734
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 02:26:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 184642192F9
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 02:27:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.217
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788488779; cv=none; b=F0VdRNKZlfofOKRW4DDoDLhX/j17hyrgkEdmIC7HTx9fIZxjGm9dkbOwsY1n8Yy9r8qgS2oN/yUB0LvZNuadCOEtBpkIrxDtRouTK8ukJ525hsPpYP+FMDkQwVlXTvM6iPBPvLGltp/eWVQEgLrsv4M85rTssbLEE0LFBuaWos4=
+	t=1788488838; cv=none; b=u6+xvXIWE91nZqZ0956cbsFwFpPrVL7wUIr5Hug1YbdM17eaoJJ17aPt0Xlh8XCaeN54SijgynWMxh3LAE/wBFDvwIczCq0usWi2nbgEI2LDHCn4PNmLh0bVIuS+s8MHWYppXthHz1sRrHd2CEomc3OGgfFUqWGOkkKt+HhTvhk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788488779; c=relaxed/simple;
-	bh=Tg6zuH3sUWluVbRaNeVKRZOy8j03OWHB4FCc0r2dNYg=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=uW0z2z4r+B+YpvbT02jbGFQAqgQVYoFKisLGSkJV4NXAemRCE+izu0RMFdL7Q1nQAGW4F7PC3lJcHrrhRMUJoOqJH8AdwNddeBmbdhlFvUNRX3/1Ogk7ZEPKraWNooh0qcLwHZxtg2hOX3Ex4FdP/F7Ze0NUN3M9NpIXsV02L2E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JmU3JtgO; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788488838; c=relaxed/simple;
+	bh=ReFqBqr6par/UGlKlh7klHni6a0vGR+ynsPeX9dR/mo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ZniIukjnWmGF5QLII+Kvsd3iC5IDNVtLqb6VyPoCbsra9t5snRmB91Ga+GfBi6rUDD4KF8mersR1QHvcBjTlwq8XjOq8ZbdO8vpR/uEiHOiNE7dGkNu7G6Tjb4eZJmAzw4m+bjYISmEzvhhXX1eFV7E37Uz1NpWi86B6XUCbOYo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=jU3zEbOz; arc=none smtp.client-ip=95.215.58.217
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JmU3JtgO"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 746221F00ADF
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 02:26:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788488778;
-	bh=tV/I5xR6ZF28TVIBU+cDKkpI/SFenH9y4vbThQbqUZo=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=JmU3JtgOBrhkoXsZRm8CpcRDfYsQinlkJThB2bv/50zsc1Tj2rWIYjSWw7KJkhxkj
-	 3AQNnC8a5TVyoFIHjqxG+GKsPsBdgXJNrITzY/L1EL3DQ29sBEpmnxoI9c3izTfQ8O
-	 hzLIE6ltpVuTARLXotL+rxD/7yvgqOj8vlt528ke5juI340eGShVj3bGMzeTf6G51q
-	 hwmEuFe5K0nXdjaTHr6MguQ9+xEbSUYTC4YGIE5nSOcAKpmFpsPhXmAAYq9nGtX5vW
-	 4yGSHXKAeKZpvi9jWT2K2KeOnuYyPod9l6P6awh4t/WGPGIBRnXT8AuHtR6hHRyYx/
-	 El0EJCJlLZ7Dw==
-Received: by mail-ej1-f52.google.com with SMTP id a640c23a62f3a-c160420289bso59395766b.0
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 19:26:18 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBxOQzpVGiC97KEj/KkZBGqum14p5KVfukTP2beu5Wz/8HgWYyuR0IQ42oV8BAY3YSXqPRqld5t7pgGbByE=@vger.kernel.org
-X-Gm-Message-State: AFuF++kFqloa7KWw4RxwtN4fwIAwqdiRg1YLAXFhbwWrJY9jdBDpC7Mn
-	B8pTuWukvvWtjZUTdbxRKKLmz/PeW7sKTriL/GdvdfXQ/w6K8tCGToPbqgN+pqLnV6YLlTvPXr6
-	qJ+l0iYHSdOGSid4BLZvKMkD58RL5xXU=
-X-Received: by 2002:a17:907:608b:b0:c24:c0f4:899d with SMTP id
- a640c23a62f3a-c260cb46b1cmr197588766b.22.1788488777053; Thu, 03 Sep 2026
- 19:26:17 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="jU3zEbOz"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=ReFqBqr6par/UGlKlh7klHni6a0vGR+ynsPeX9dR/mo=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788488834; v=1; x=1789093634;
+ b=jU3zEbOzpsmCx6wQz6XLHMz86d8KSN9yymBct+A4V8QQuSpsbLjQEjcGoFo5rkoVQbQOXr7M
+ 0Brj48HDbfH8Tdfx6G+kJhBrBDpQbFnQ0lUmRnEWsmDfCoRh5DOlMUO3dxuvZnh9LvxG8NPOd6O
+ 5R/8yTJx7gDkkGhZg9m+unSE=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id b3ab1c27f19562f0;
+	Fri, 04 Sep 2026 02:27:13 +0000
+X-Mizu-Trace-ID: b3ab1c27f19562f0
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <bf3f945f-207f-4416-b8c2-8d23ffcb8e62@linux.dev>
+Date: Fri, 4 Sep 2026 10:27:04 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260903212858.728118-1-doebel@amazon.de>
-In-Reply-To: <20260903212858.728118-1-doebel@amazon.de>
-From: Namjae Jeon <linkinjeon@kernel.org>
-Date: Fri, 4 Sep 2026 11:26:04 +0900
-X-Gmail-Original-Message-ID: <CAKYAXd8rJF4qV1hkuaA6PQkngV7DM-HesoQ0ATWHEGa0Bm=krg@mail.gmail.com>
-X-Gm-Features: AcwNN1VDwbMsOiTILhXofXiDSvCFjUYC07piWa6RnxgEF613YvSytKyy4xqmpns
-Message-ID: <CAKYAXd8rJF4qV1hkuaA6PQkngV7DM-HesoQ0ATWHEGa0Bm=krg@mail.gmail.com>
-Subject: Re: [PATCH] smb: client: avoid leaking refcount in cifs_queue_oplock_break()
-To: Bjoern Doebel <doebel@amazon.de>
-Cc: Paulo Alcantara <pc@manguebit.org>, stable@vger.kernel.org, 
-	Ronnie Sahlberg <ronniesahlberg@gmail.com>, Shyam Prasad N <sprasad@microsoft.com>, 
-	Tom Talpey <tom@talpey.com>, Bharath SM <bharathsm@microsoft.com>, linux-cifs@vger.kernel.org, 
-	samba-technical@lists.samba.org, linux-kernel@vger.kernel.org, 
-	Aurelien Aptel <aaptel@suse.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] mm/hugetlb: charge folios to the target mm's memcg
+To: Jinmeng Zhou <jinmengzhou22@gmail.com>,
+ Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>,
+ David Hildenbrand <david@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>,
+ Michal Hocko <mhocko@kernel.org>, Roman Gushchin <roman.gushchin@linux.dev>,
+ Shakeel Butt <shakeel.butt@linux.dev>,
+ Andrew Morton <akpm@linux-foundation.org>, Nhat Pham <nphamcs@gmail.com>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ cgroups@vger.kernel.org, Jinmeng Zhou <zhoujinmeng@bytedance.com>,
+ stable@vger.kernel.org, hongfu.li@linux.dev
+References: <20260903075048.3316-1-zhoujinmeng@bytedance.com>
+From: Hongfu Li <hongfu.li@linux.dev>
+In-Reply-To: <20260903075048.3316-1-zhoujinmeng@bytedance.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Fri, Sep 4, 2026 at 6:29=E2=80=AFAM Bjoern Doebel <doebel@amazon.de> wro=
-te:
+
+On 9/3/26 3:50 PM, Jinmeng Zhou wrote:
+> HugeTLB folios are currently charged to the memcg of the allocating
+> task.  This gives the wrong result when a userfaultfd handler populates a
+> HugeTLB VMA that belongs to another process.  The UFFDIO_COPY ioctl
+> operates on the userfaultfd context's mm, but get_mem_cgroup_from_current()
+> charges the folio to the handler's memcg instead.
 >
-> cifs_queue_oplock_break() unconditionally takes a reference on the
-> target file before queueing cifs_oplock_break(). Only that work item
-> decreases the reference counter again.
+> This can be reproduced by placing the faulting process and its userfaultfd
+> handler in different memory cgroups.  Have the target process register a
+> HugeTLB mapping with userfaultfd, trigger a missing fault, and let the
+> handler resolve it with UFFDIO_COPY.  The hugepage usage is then reported
+> in the handler's memory.current instead of the target's.
 >
-> If another oplock break arrives while that work is still queued,
-> queue_work() will return false and not queue this second work item. As a
-> result, we will never reach the point to drop the file reference again
-> and are leaking this reference. This can be triggered when interacting
-> with a slow-responding server.
+> The generic userfaultfd population path avoids this problem by charging
+> folios to dst_vma->vm_mm.
 >
-> As a result, later unmount operations for this file system will fail with
+> Pass the target mm through hugetlb_alloc_folio() and charge the folio by
+> using get_mem_cgroup_from_mm().  This preserves the existing charge timing
+> and error handling while making HugeTLB userfaultfd population consistent
+> with the generic path.
 >
->   BUG: Dentry ... still in use (1) [unmount of cifs cifs]
->   VFS: Busy inodes after unmount of cifs (cifs)
->   kernel BUG at fs/super.c:777!
->
-> Fix this by only incrementing the reference count if the work has been
-> queued successfully. Taking it after queue_work() is safe because all
-> three callers hold tcon->open_file_lock across the call and
-> _cifsFileInfo_put() decrements under that same lock, so a worker that
-> starts the handler in the window cannot drop the reference before it has
-> been taken.
->
-> Fixes: b98749cac4a69 ("CIFS: keep FileInfo handle live during oplock brea=
-k")
+> Fixes: 8cba9576df60 ("hugetlb: memcg: account hugetlb-backed memory in memory controller")
 > Cc: stable@vger.kernel.org
-> Assisted-by: Kiro:claude-opus-5
-> Signed-off-by: Bjoern Doebel <doebel@amazon.de>
-This seems to fix the issue previously reported:
+> Signed-off-by: Jinmeng Zhou <zhoujinmeng@bytedance.com>
 
-  https://lore.kernel.org/linux-cifs/8a5fd5ca-9f77-42f0-9141-d5d88c1df067@c=
-henxiaosong.com/T/#u
+Reviewed-by: Hongfu Li <lihongfu@kylinos.cn>
 
-Reviewed-by: Namjae Jeon <linkinjeon@kernel.org>
+-- 
+Best regards,
+Hongfu
 
-Thanks!
