@@ -1,183 +1,175 @@
-Received: from YT6PR01CU002.outbound.protection.outlook.com (mail-canadacentralazon11022103.outbound.protection.outlook.com [40.107.193.103])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f43.google.com (mail-ej1-f43.google.com [209.85.218.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7F91223336;
-	Fri,  4 Sep 2026 13:01:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.193.103
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7889C288C2D
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 13:02:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.43
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788526871; cv=fail; b=HB8O/6XSJoN6UPxdJr8sv9l9zkWB2yxw6vF85/0sZ5fdpMztuDx37yR0OEUdfyAEohzII/5nxfKNDP8vJTBx0N+YXtfsl20dYwzEIFSoKKlxnEQWMPSKHmZABiG4fKwjq1yQObB0ChP6eD/3Vj5qjTb388868VyN+8A3xKrbWEA=
+	t=1788526962; cv=pass; b=ZWXWp6qvhYXTzSTpYCKK1HKSEUag/ZWD1VRte+xSzEYwrAS8hI5ZRiq8rWthTKvXwaYT4EoBfYkoGyt42/OEfaNAVkC/oFFEtCvuZ0uvrw6mzftd+P9vRfL1vYcnO1iJfd9Jl7QYTL+A1DLaYd1ddSyArcbBxvLV57CzqjAte7w=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788526871; c=relaxed/simple;
-	bh=9Ya/+U54wH/jpdiKTS4de6+qjxkPFPBN4R4wDutfKlo=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=RtO+ll7GVADToQs6st/kuKcducYL1+XpvWt5qRKBNOE2yp52AJkBA3nnfe9NAwuc902VJraMr5YyFH3D3p7AiYqV0N/hEscVcARuhP9+ktGWjF8UO5i82obXJQu6NDFC5R0q8nhZSDwUN6gXyfZQkd9yFqcDqUrA+V4Zi8b5ZUs=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=efficios.com; spf=pass smtp.mailfrom=efficios.com; dkim=pass (2048-bit key) header.d=efficios.com header.i=@efficios.com header.b=iwzp+An3; arc=fail smtp.client-ip=40.107.193.103
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=efficios.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=efficios.com
+	s=arc-20240116; t=1788526962; c=relaxed/simple;
+	bh=jA/Pi3dFWAvnVX/ST1pvVL4fyN3fIOOPQixPvnlSwNM=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=VDrk2369B2uxfZBtlqVhQHLdMg0KaJHZgnoBEVyEQrdgIZRLIehXDf1+nOJl8GEp6QS9Z79+hMPaqDUR2lPEHMmV1A4Ck5N7ZWxP7PTzTtyKIpIIEKrDJFCBFMZ3ORPZy25Yd47rc8w0UjMxiseksDe4mhr9V9VH4bKSK2s/7Qw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Flx9ywXR; arc=pass smtp.client-ip=209.85.218.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=efficios.com header.i=@efficios.com header.b="iwzp+An3"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=hEijYreH1QaCIMwVYdWbIWngoGHVMA7c/TH1G5ul7snqzUyYTP7DiaUEyAuLD/R0pcDlPwIeoXRWnTBP4eDQtn7VTRnQp5Kab8iuQ32vamjieLjZXOBiwQ+WApOze++5et2yICXAbNREO9jQxCsK4+wglaTNl1vxGK+CNKB7GlvxqFeYjBYMMwG1KDybRPxGPOohZ0Zto1irH01AtUM1HmNYWNu5U8jCXL1Ue8dq9/BHJxh844PU1WKpsd/6aE/fXicLShFLcl4ICe/yE8m10KWx0TRHY6aODe97ivF1/tfO8CHzgILIf6h2IsxyWYA7dYkYtD22B1uVmOzqGHsFqA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=KYOwvdiiyJkc2cSf62650hPwPU9TFmW/fZVSrNu/3Lo=;
- b=w2QJnNen+r5JW/LeX/2NL+tYU+M/L/b4D3fdqxfpaR6E1sF9O+Mie/x4gp203896aFS7Xz5a4R6GnMZLSWeDl3JW3HCXCded0yF2PG5nD6icFSSUvKnx5UJccc1/YKe70BmuguIBQjkEMeEyQQotMQuap26z+rI0qUpfpCR/Nv/fAt7iYsylB8iKJRfIg+RALWXVsziiwIqUqLR7+8apUFnnd9p8iE0zE4HfrLMX2L04QqenD3WZI/aeWn/YdFvHTTs2NZY8b+OlxNfl6veY45AjGko2GR8OtFMb8v9GBzOOlGBuXFZqZYK1cW/cMhFnm1WwZ+vZGW0+9PYUTdYQ8Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=efficios.com; dmarc=pass action=none header.from=efficios.com;
- dkim=pass header.d=efficios.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=efficios.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=KYOwvdiiyJkc2cSf62650hPwPU9TFmW/fZVSrNu/3Lo=;
- b=iwzp+An3GhrDx423XieUKyNWdJ/npAMLy0/c2oHQ93YTjijqXYdjirX5rUAfmEYzJIQ+sCjTUpT0N+Ey4u2PKTVE/gAboJiW5CmM5e2UATebPBXHovoRDYneABBcN8dEN4M2oGzodLgP02bEYSB7hbkBFQSJte07kb7bfrd9fpGGTAhOwtp8d+pyZPgfeqqkbj67vN8TkmHHPxnyqDKJYkwlixm6hQVwMF/RK1CU++drzM21SBboKB+lEzxSmtLBLH/QzN+nrW5+Iv9bXmXFS2Einfrxxjxo7d3aePuQmRACosFIQE2WOvQkH6KAm/Uudd8bNqfxU3/+3lfOPuOnGg==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=efficios.com;
-Received: from YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:1d0::10) by TO1PPF85685F8CA.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b08::664) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Fri, 4 Sep
- 2026 13:01:07 +0000
-Received: from YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
- ([fe80::6b9e:a901:67c5:7ddc]) by YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
- ([fe80::6b9e:a901:67c5:7ddc%6]) with mapi id 15.21.0360.008; Fri, 4 Sep 2026
- 13:01:07 +0000
-Message-ID: <cd110e62-da2c-4366-b9c9-24c1df6a39ec@efficios.com>
-Date: Fri, 4 Sep 2026 09:01:05 -0400
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] hazptrtorture: Fix inverted sleep condition in do_pending
- kthread
-To: Bradley Morgan <include@grrlz.net>, "Paul E . McKenney"
- <paulmck@kernel.org>, Frederic Weisbecker <frederic@kernel.org>,
- Neeraj Upadhyay <neeraj.upadhyay@kernel.org>,
- Joel Fernandes <joelagnelf@nvidia.com>, Josh Triplett
- <josh@joshtriplett.org>, Boqun Feng <boqun@kernel.org>,
- Uladzislau Rezki <urezki@gmail.com>
-Cc: Steven Rostedt <rostedt@goodmis.org>,
- Lai Jiangshan <jiangshanlai@gmail.com>, Zqiang <qiang.zhang@linux.dev>,
- rcu@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260804000340.4812-1-include@grrlz.net>
-From: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-Content-Language: en-US
-In-Reply-To: <20260804000340.4812-1-include@grrlz.net>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: YQBPR0101CA0229.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:66::35) To YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:1d0::10)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Flx9ywXR"
+Received: by mail-ej1-f43.google.com with SMTP id a640c23a62f3a-c1670dad7a8so145312866b.3
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 06:02:40 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788526958; cv=none;
+        d=google.com; s=arc-20260327;
+        b=sAhjCnZ4k5UKm59L3VjVYk6SVBJLE1h/hA4GeVn+Ig63tkVIS6HbUdipP3TwdqPzfA
+         uXUdfoXDbwef2KLtPRhAo9CS0Dayo47aJCruPbjGRnjxkzvSASXUEo2CNpQca4pmCo7M
+         CCp/Qi4LDFK2oJb5wSQ6J5pdyFpTAh77V+3gfnF2xblx1wjohm/YWsyEmZW3ZZkgg9Ar
+         o6Zgv2/Dwoyzyu2dmNaj+NQFOKpGWM4FEkx50XOZ5zNhVHPE9kRV0B0+SzXmE2kFDfNA
+         vqY83IoonDiG3eZ9g3UTrB7cShJoblam+0tSnsRRrzGMWB2zRAqL6VY8CPkLWTko/zLf
+         IM5w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=A1Y7YmZWSzxr2iY3IqKw6JuwDP6OUCGK+XiwHXOkRsQ=;
+        fh=JYKz/dD6DbqUj33gEfsVLsYA2M0mDtvNJM+OPs7WuWY=;
+        b=hzJygnRklx4VMWLWetgKCdbKsX93R3wbbSueEApddly7j6U1Fooffg1NH4fSXXD7pB
+         HMHZgNiL7cYoy/ph9NQTGHPkj/Mku/FNuOaHo1uVCKB2lAP78ujI5al+d2JGFt1tGssX
+         IkT65TI3mEkWb/WaQxcWTrEzJLwtFS77O916+WVuxCtpipCeeelP5mE90BM/NDiK9Vti
+         orQtuqnoGpaP46SE8QTjBKT57eP0PxYx62ZCzWrjS+OOX3/WUrNiRa2rjNv/43BcCoQr
+         p0ExMMTI8wykHcoYCtXD07NcnJAGM9zqxGGlgWQO38yp1N4USyYpfTeJR+WrCRqhvGh9
+         QIWw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788526958; x=1789131758; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=A1Y7YmZWSzxr2iY3IqKw6JuwDP6OUCGK+XiwHXOkRsQ=;
+        b=Flx9ywXRl7cCMXQRwfQoYlxUS3aTaakwGY0AxPmdXc/wvuMw4OB7SQgQCCcQzQmmb7
+         NQ5DonArgGLRnwld4CpulBGLKFKOeWjY4nf6/RqV064nptigCfrRCWiY/+Q7y0McQtzk
+         kI0wW3SFUHMWneM5JGVd6Az/yG4oulE9Vt+AVKrx8EZcTkH4v2BQ53y1GJNo+aq+yG5P
+         xqgG0ydi6KuIrPGilPz0lKiS4RrHk9FelFixR+hd/54I5kJzyidQafAnkGRu3BjJ81+2
+         4m8wWR2MsOH5Q+x2GO0bQLLbE0OEFjJjdUY1+ZszLut65KNgxu2k/8xQERd/ljtVf1Iq
+         9iaA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788526958; x=1789131758;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=A1Y7YmZWSzxr2iY3IqKw6JuwDP6OUCGK+XiwHXOkRsQ=;
+        b=SGXTcBldvXTjxASkIVQm4tScfHH7yD0J4a5FNkNymtMKBGs+QRQrZ7F1EfvMEwtoTi
+         C9pGh9r33PlwH6mIDn8YSstEKg55mJDxDk/Jv5POJzEhi/Jq5p9CJgwncWAzt2GkUJMr
+         yeNUDhRgo2M7+z3SF8e1XYdenFnpWyhpZQk97wnxXT437pwA2uRrQ2fYXJasPWdVja8V
+         /sgP2pn+hr3dWmPfdrKnd+LAh/aqnsbPhExmAbu0wyQ/julvPb9uL0ZvBWzBxgE68An0
+         SvuvrJYaTviCMB7iVAN5PkAdp0EPuMPLWN6FdPTyjhV/NXmUbm7lc6k07zqORD49JkWK
+         tbuQ==
+X-Forwarded-Encrypted: i=1; AKwUvBx/eguxZlxsJ8fPLMKdvfVAGU9VTK4fwzFrZIyw23TYycO+WivlUW6A+p6BpNFzkg2oByGB61shLITvVF4=@vger.kernel.org
+X-Gm-Message-State: AFuF++lrMff+C2WXlsLdTZxfhS7mbE1ZaND6dwgC1svYBEuZ9TvkL+xN
+	oATWQFJPQzdrPOjeGKvGhxqf0TX7/6pgV6/q6Q7ccHyGhjVmNgOyzaKYAgjPofr1d4R/0MP/428
+	c2CAUg3iAwNNaHGuUC/grINZ9CNfQ7Y4=
+X-Gm-Gg: AYBFou1GhwzIaFTupdkICkp+njJZv08kkb0cIM7Bd6OSKsNdoCC3a3InaKwlx7+AKpT
+	UL7KjyWZZ1cm6O0fpCtNIpJB3jRocDtIYQ17PD20Ux0NkgNL1cOPbMZfOsjUDOP1FtN+8gUZDpV
+	MtxxX+QM3xwLKwAwr4c/zyJXcTba1v4TSJNvDPs3W1r4b8kbC0oHAD4BUvM5ZgX+BrQi1FOhMxE
+	bpwYVI1L6wME3oGbM1MxAzN62IL0Y5TZzVZzgANuSeReC5zSAaOSlLa20qXPfJ3CldEhWjSgWoV
+	O7CsJHJdd4psMqa4tXu6NqrrLos6eDeRIfGDG2AGWvoeVIZpH42PVFfRpzAIzE7OSqzd++M37Yg
+	sFg==
+X-Received: by 2002:a17:907:807:b0:c26:19de:912d with SMTP id
+ a640c23a62f3a-c2619dea0a3mr112357266b.32.1788526957825; Fri, 04 Sep 2026
+ 06:02:37 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: YT6PR01MB491026:EE_|TO1PPF85685F8CA:EE_
-X-MS-Office365-Filtering-Correlation-Id: 30b928e3-4de2-4a1b-124a-08df0a8495b4
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|7416014|23010399003|366016|376014|22082099003|18002099003|56012099006|5023799004|10067099003;
-X-Microsoft-Antispam-Message-Info:
-	GaKYayRGKBn+/goKuoK/xaFfcDsLuvaeWOqsjX+Fc9PQEFBUB4bdXt82eojPo7kvzji0BzB0spQHW8bm//9aOQkAQYG+FIb0PO6AfSsCKmK9yvGrSOaTn5EvVbsQbqJHWH2f1Um8mmM/dx91rF2A6kwAh/h/JUqW3Ez0KSsuJE+A9uOBF16qxxaBN+sbj24oEEc93SD3iI4cq2bDb2jkMoVJXIWtbrBmkLwrGB+FzPTxRGtaufclqHmhdx4PrSHFPuWYUdVbsQYIDkGjiCeE9QWJTTu5Fm4u1db1EfYPghvGJ8zdUKhY8bYOJfHPQcodnj6iKY9Psa6tgCSdqGwOnxuZVTcfY2j3kix+Dookhkd0x5HCxpt6GNTvp/dtks4o4W/D+w5Bla5IUDERvTzQ4CnINGWvCZe6c2w2CwVcipYZ0a9dUnAI2s7nnNTMxBR0XKzHWDC16FzqeCv2wTkAcX2hp6upFGcYS7mjz18vbUYuZOdEjUzspGkgbOi85fajD2nm4MxOpZFxkx+GJGYVHyobI6trYvAryb+sSU+18vhVfKxSGlRyzqYOsMsq4moqyfSvhhj38LYhVhGtuAJS1vbUj4gwlM1V9kXjPlYvPkc=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(7416014)(23010399003)(366016)(376014)(22082099003)(18002099003)(56012099006)(5023799004)(10067099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?QjhRWnRqQzVPcnp4MkNXcVRvdjJydlhhbFowMkRHM2YwUWlhelZjNi9Ma3JC?=
- =?utf-8?B?Y3MvYnZOZ3E3V2p2OXlFRDFsbDlQQmY1Y3lFT3ZiSjQ5N2U5M00vbWlOdmhy?=
- =?utf-8?B?ak9iMFJObElrOEh2aktvQW1TTFlWeWRNYzVYL3IxV25DckpZdE81U05nM0VG?=
- =?utf-8?B?czlmNzhYeFNtSFFRSTBWWkdXcFU4NGpJUFlpaHlMalNrNXJHVWR3SlZ3N1lx?=
- =?utf-8?B?Mk9LWkQ2YTY3bEZjMUwyMkt0R1lhczhZNkVhM0VLQnpUNU9BUUN4R1pqcGsz?=
- =?utf-8?B?ZE85V2p1TE5aVHNhZFdsMEk2VWxnemthQkV4UzhTNzBydXFnenZmSkt3M2Vo?=
- =?utf-8?B?NjkrZVFRQ3lyY21iVG53ckVIQWc4NkhuQmpBRUM3Z3VZUTVMK2FsQnZqSEIw?=
- =?utf-8?B?d241NzBpSjN3R1YzU2FpYmErU2JpS2VNcGZsak9FdW1tMCtnbzEwdGMxSnVn?=
- =?utf-8?B?QlJJZ00rc05objRldmo0VVdJMmZDdFBiT1ExeVoxRkV2aFo3UXNuTTE1aXZq?=
- =?utf-8?B?b3kzWVdGeENhRm1rS3BxUUllazBBd1lzbFRnK0xBRGpRNmVFcGxsRjJpdSs5?=
- =?utf-8?B?R3g3aWViTzAvbThleDk4RURRQTJIc0NyZ0tNUlI2Ykpwemk0eTcrV0RIa2t5?=
- =?utf-8?B?Ylcvd0llTEpxNXNlbVZ3aVk2WDkrWTYvWmQxbmErK0U0eEx2QjRCSXB0OXBt?=
- =?utf-8?B?U0NWMStNNnV5NGJsaWVNaE15dTZVVURaYXhCekh0bjgyWkRVbmgzQVI3eFRN?=
- =?utf-8?B?VkVGYnp3blJjR3cydnhvUGk4ampJc21RQnVsYk9XOHNiWlFBL2JIcUpjUjln?=
- =?utf-8?B?SUtQenhrbjY2cG5VR0MwUmN1a2JPSzc1Q2c2cWpsR2ptQXNNN1FxcHJaOGxB?=
- =?utf-8?B?a3JLLzMvMmJmeEFHMDNGU0lJRU1MNEZXaFQyVU1OK2dzWk9kUjQ3VVpCNksv?=
- =?utf-8?B?UVBoRTkwcmlrMEMwQ2liejZiTU0rZlJIWFQ3VnkrdjNoaGNIQjF0TE05WVRo?=
- =?utf-8?B?QmVEQzR5THFGbFR1U001Z2dtL0Y5a0VUdm1UbFE3VVRzZnBESWNaMHZDMFdF?=
- =?utf-8?B?ZlV3SkQrK3JKbXRPZGs3cnBOTlpGbWs4aEwwRzBzaUF1NnhncURRM1FESUVN?=
- =?utf-8?B?U1dNNWN4SFVLMXU4NkNKUHlRbzZlN2tFNU00OVBjbFFrOUI2ZW4rK24vUUNX?=
- =?utf-8?B?Q05wdkJ5bFpURHlZOGhKL1BHdW1DZFRMQ3dVMElIN29INXJwRFNGUHEvK1pW?=
- =?utf-8?B?LzhWK0trYk0zdWp2aXQ2RW5hWUlNMWFKelJzOFNMcHRydUFCaXBSUUV3RFRD?=
- =?utf-8?B?S1VRV253bjM0WWtPNHR5OFNZTk9JR3hnOHdNa2lzMlp6aWRJZ21sajlYM0Nw?=
- =?utf-8?B?MDZTc3VqdTVYcWMvbjN6elVOREgvUitZMWE0dDBQc1hES0ZQdlF2bXQ5ajBk?=
- =?utf-8?B?TXB3NnJ1QXNiR01Yajk2UEhhajhwWWxydkpMemdnQWxzWllxSUwrRzJJWDVJ?=
- =?utf-8?B?YXFocmtyc0RRZXRzMW82QXBDS0JQUUFGOFlpcnpyMkxtTklUaUdHZVNYT1c0?=
- =?utf-8?B?SGhMRzg2SVJVZDlvNXB6TG8xMGVJc0VnUmxmQ2Z0dkdrTzJYb2l6TFJoN2FR?=
- =?utf-8?B?S05BQ3k5Snk1Nm9ob3Y3VVFmQlk0amJURXFTVkxoY3JIYmZDT3MxS1NWUWZn?=
- =?utf-8?B?RUdyZXNucndUajBzbDVEQitxdXNLL000aVhPMkJ4enk2a1JxazBkcDlMcVdU?=
- =?utf-8?B?NE1qb01XU0hKTU1uOXFFZGtKenBEbE1sYjFwelNZZjI2TXZpZytmam8zQ21n?=
- =?utf-8?B?Z2dYR090U2I4Y0JzakVpdUpxajAyRkdnMm9JL1RuV1dnMVdpd3Rxd3Q3Ukh0?=
- =?utf-8?B?cUdwVDE5RE9ldkVJSGpsaWNZaFBMNXpFNWdOc0k1N2hlUndFOGlZSTQzMmpU?=
- =?utf-8?B?OW9FRk9keFkxRW1CT1h6aXRPcmE3N2NEbUlUTmluM2FTMHlRRlcyT0hVdG9I?=
- =?utf-8?B?cVBEWS9YS3VMRXU5V3BRQlRwd0pSSDJiNFZsOHRQQ1pCdFJGV3pxcU0zMzZ5?=
- =?utf-8?B?TitmV0VOZTFKWUNzUWNEVmxHay9aTUt1VUZPSWRuSG1iamJFT0FXYmxMR2RM?=
- =?utf-8?B?TnM0anhZNGt1c21iN0ZESGcwb0FVN3FBY2J4SEFBVkI2dDRZb3lzYmxwWFMy?=
- =?utf-8?B?ekkxbFRLRHlZaDVTeXFjMEk5a25zeStqaWhTaVlGeWFMNmpkT0JVNmxBSklZ?=
- =?utf-8?B?VlNHNWZ0ZnF4QTE0alFWcFRIT2hUc2dJUTNGNFMvYkhzejFsYk1Pb3dvaFJi?=
- =?utf-8?B?WDlsaEIybGh0ZGJiNFFFL0I4STI2OFozWHlNK25ZUUhSZ3VNN2FGRlp5TzEr?=
- =?utf-8?Q?+exjtwaBrzd7aUts=3D?=
-X-OriginatorOrg: efficios.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 30b928e3-4de2-4a1b-124a-08df0a8495b4
-X-MS-Exchange-CrossTenant-AuthSource: YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Sep 2026 13:01:07.4215
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 4f278736-4ab6-415c-957e-1f55336bd31e
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: r35X/6ng4qRN1DwVOyEPNYi+ESVsJ7Vi7FUc9ybZFLVRN1fE0Izo83Kb2F6EZDuU2lyxZAObW7mLO/I/9nQbxZ6HC5lTdz6ubBZjT0Hej1I=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TO1PPF85685F8CA
+References: <20260829-swap-pcp-priq-v2-resend-0-68d3d925578c@gmail.com>
+ <appvhlPleahTRklV@yjaykim-PowerEdge-T330> <20260904100900.21517-1-lianux.mm@gmail.com>
+In-Reply-To: <20260904100900.21517-1-lianux.mm@gmail.com>
+From: Kairui Song <ryncsn@gmail.com>
+Date: Fri, 4 Sep 2026 21:02:00 +0800
+X-Gm-Features: AcwNN1Vm-0llheBPana_0CljCj4L1V8rcsjZv3MdI7EdXVkr6QNxUdxDIn19Bb4
+Message-ID: <CAMgjq7Bh0hdVoRcS4xMRL0YG-zmjh-TxyF9xXCmP2MRarAyksQ@mail.gmail.com>
+Subject: Re: [RESEND RFC PATCH v2 00/13] mm/swap: introduce per-priority
+ allocation queues
+To: "Lian Wang (ProcessMission)" <lianux.mm@gmail.com>
+Cc: Youngjun Park <youngjun.park@lge.com>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+	Andrew Morton <akpm@linux-foundation.org>, Chris Li <chrisl@kernel.org>, 
+	Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>, Barry Song <baohua@kernel.org>, 
+	Kemeng Shi <shikemeng@huaweicloud.com>, Jihan LIN <linjh22s@gmail.com>, 
+	Kunwu Chan <kunwu.chan@linux.dev>, Kees Cook <kees@kernel.org>, 
+	"Gustavo A. R. Silva" <gustavoars@kernel.org>, Thomas Gleixner <tglx@kernel.org>, linux-hardening@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 2026-08-03 20:03, Bradley Morgan wrote:
-> The do_pending kthread never sleeps. Its supposed to.
-> kthread_do_pending_ms sets the gap between cleanups, and the docs
-> say so too. But the sleep sits behind torture_must_stop(), and thats
-> false while the test runs. So the kthread never sleeps. It just loops.
-> It drains the pending lists over and over, no pause, and burns a full
-> CPU for the whole test.
+On Fri, Sep 4, 2026 at 6:12=E2=80=AFPM Lian Wang (ProcessMission)
+<lianux.mm@gmail.com> wrote:
+>
+> On Fri, 4 Sep 2026 16:13:10 +0900 Youngjun Park <youngjun.park@lge.com> w=
+rote:
+>
+> > Since tiers come up further down, I'd like to raise a point about the
+> > patch subject line too. As Kairui mentioned in RFC v1 that we would
+> > stay aligned with tiers, would it make sense to frame this RFC as a
+> > per-tier allocation policy (or something along those lines)? Kairui,
+> > what's your opinion?
+>
+> Thanks for the thoughtful feedback and for taking an initial pass over
+> the series.
+>
+> I agree that this queue could naturally become an in-tier allocation
+> policy. For this RFC, I would prefer to keep it separate and scoped to
+> the existing priority semantics while the tier and virtual-swap
+> directions are still being settled. We can revisit the subject and
+> naming once that boundary is clearer.
 
-Paul, I just found this patch in my junk email folder. Maybe relevant
-for you ?
+Hi All!
 
-Thanks,
+We can start with adpating the default priority if tiering still needs
+more time to land, Not changing the user interface means less risk.
+It's also fine to implement tiering first, there are some other
+blocking issues for tier though.
 
-Mathieu
+With tiering I think we will still need rotation of devices in the
+same priorities / tier. Once tier is ready, we can further extend the
+rotation in the same tier; that's something to discuss.
 
-> 
-> Flip the check. With !torture_must_stop() it sleeps for
-> kthread_do_pending_ms between passes. When the test stops it does one
-> last cleanup and exits. Nothing left to do, so no sleep needed then.
-> 
-> Fixes: 94d2e93c222e ("hazptrtorture: Add kthread to release deferred hazard pointers")
-> Signed-off-by: Bradley Morgan <include@grrlz.net>
-> ---
->   kernel/rcu/hazptrtorture.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/kernel/rcu/hazptrtorture.c b/kernel/rcu/hazptrtorture.c
-> index 72aeb50668e9..7c8b5899fb01 100644
-> --- a/kernel/rcu/hazptrtorture.c
-> +++ b/kernel/rcu/hazptrtorture.c
-> @@ -555,7 +555,7 @@ static int hazptr_torture_do_pending(void *arg)
->   			cpu = cpumask_next_wrap(cpu, cpu_possible_mask);
->   			hazptr_torture_do_one_pending(cpu, &rand);
->   		}
-> -		if (torture_must_stop())
-> +		if (!torture_must_stop())
->   			torture_hrtimeout_ms(kthread_do_pending_ms, USEC_PER_MSEC, &rand);
->   		// Omit stutter_wait() because this function needs to do cleanup.
->   	} while (!torture_must_stop());
+>
+> I will also sync with Kairui when he has time. He has several things in
+> flight, but his view on the ownership and framing would be valuable.
+>
+> > Devices assigned to the same tier already share the same priority, so
 
+Hmm, the current posted tier is a band of priorities. Do you mean that
+when tiering is enabled, devices in the same tier, despite of having
+different priority, will be used equally? And is priority ineffective
+then?
 
--- 
-Mathieu Desnoyers
-EfficiOS Inc.
-https://www.efficios.com
+> > I don't think the allocation policy needs more than one option for
+> > that case (I can't think of a use case that would need it).
+> >
+> > 1. For legacy swap with no tier configured, define it as a single
+> >    priority treated as one tier.
+> > 2. When priorities match, allocation naturally falls to a single
+> >    policy (not a queue). the concrete policy here is this
+> >    queue-based scheme.
+> > 3. When tiers are enabled, devices previously assigned under legacy
+> >    swap are reassigned to tiers at runtime.
+> >    (This means different swap device on same tier handled like same pri=
+ority device)
+>
+> These are useful design points. I would like to study the concrete v11
+> before deciding between runtime, boot-time, or compile-time tier
+> assignment. It seems safer not to bind this queue RFC to a permanent
+> tier interface while those semantics and the virtual-swap backend model
+> are still under discussion.
+>
+> > I think this feature will also be needed on the virtualized swap side,
+> > which makes me wonder whether this patch should go back into the swap
+> > tier series instead. Kairui, Lian, what do you think? (Or separately?)
+
+I'm fine as long as there won't be a regression. I remember V10 of
+tier didn't touch this yet so the regression is limited to tier
+enabled case, so no existing case will experience any issue, that is
+fine. Causing a performance regression for existing usecases is
+usually a bad idea.
