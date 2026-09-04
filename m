@@ -1,100 +1,108 @@
-Received: from mail-ot1-f41.google.com (mail-ot1-f41.google.com [209.85.210.41])
+Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com [209.85.218.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34824485CF2
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 12:44:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.41
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788525894; cv=none; b=ZVXiJ+pqByI8RYIDus9wPryALVUuhTqGM5ZereBmeiVmBo5TxxnXXM+ZWOgrKaC6761BHtOMxHaqyEvbaFLsTujrSmLTImDK6xEAr/y61UGNESvcj1yDsahQmTbfMmIJEcKnFZDc4J8fj2fpadKEDBm5XkTmht6qq+6h69N9NNg=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788525894; c=relaxed/simple;
-	bh=USyaP1c0hTWMfiIXxol/8YxXcSe9Nch7yzmLAIwCl3c=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=C/q37r8I6nM17FSVPAtptT3z5XTsCumOfJVPSszsCrbR4hVlhHhZDxKQlr3kxK/qXzhNGoeliObBip+PmiAiykd9VgakVbRKb211RY3JZT6ALUJbHBkzwh21YAqC4CE6GIPW6CIs5KvAmhAGLLIilfYzZXZb+mEvSpaLlJa/9Gw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jczB6ZGX; arc=none smtp.client-ip=209.85.210.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C1A546AA97
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 12:45:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.41
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788525932; cv=pass; b=h3Ts3gY1xpiUm8pgU3yZq1IJcRZp3ur990LnBhniLm0Zw5XE8DXfHIHG8y70xeweLmxBqRf3+2p+eBYLhz2rLqRSLLrIpHDF2coYR3gz+epoHwzgnYkRhUpTvr9LQrmwv0zzEynwzQaZUzQIoafYmq47c3Y22ZAsgFJN7V0FXZE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788525932; c=relaxed/simple;
+	bh=SzDs2yWMGbqw4SuOTjqilOjXglSn17D0yFwlVfQoGko=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=VD/XVhzwzn3tsfuAENT/SxS5oNAOvHlUH4rjLJ4LrHRsfNAzH1r4YR1Xx4K854JgLi2Zo14Jc6IbpPYggP+FPZWWWQM6mLkVz8/hXeyt3CHm1bqigSTZsh7EeUaLvYI4dJLbhuRAW0nexw9PC4G+Q4ND842Wm7vHzaPGtYX/t3s=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Nlj2Z3NM; arc=pass smtp.client-ip=209.85.218.41
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jczB6ZGX"
-Received: by mail-ot1-f41.google.com with SMTP id 46e09a7af769-7f4e596e393so1048339a34.1
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 05:44:53 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Nlj2Z3NM"
+Received: by mail-ej1-f41.google.com with SMTP id a640c23a62f3a-c255c58156bso178619366b.3
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 05:45:31 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788525930; cv=none;
+        d=google.com; s=arc-20260327;
+        b=ODGaFC5x24DDDg64oCpYqS9iZaboMHrWlnaBdXITiG1s1EF8gZRgi2A/+KKJntSRfQ
+         o68x0nWt5+/i5r632lteOF92TnQ2k2B70b/Y7uBgmwZyQ8R7ZWixJ6YaCWAGlKYTz0Vi
+         eSUnADYVZuI28gbeCE8+EYPzZIldLsbBpGt1rXpcg7ictsKGZz9ue80//pxFi9IF6+ka
+         frWh+BLjADmTaRjOO6djOFUHzJGoKiwpREdUtAGXyo0dWVj7my00xHrTjTxp96MxLu2d
+         IsNeNuUN8CXI8ghnRp0kIPB/f2Qrg4Py63slJ+v+zJceZFlzHBxWz0Rr1Dljblr5ReEg
+         NVaA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=SzDs2yWMGbqw4SuOTjqilOjXglSn17D0yFwlVfQoGko=;
+        fh=YG4b0GBipV9KdTUKlSok1l4SZwoZw92AFFZexLe4jsE=;
+        b=Ki3qGEOi8K6+qPYI1801y+w0dGwXm5zXM3n07aZ6Xbqft2k2ApZsw12P/uNNEDJWaf
+         8LA0l55TJ/LEHyDM8GVK3KUtZ8WxgllC56zsLG/li84Nb+QejdRU4yXM556PeaC/nbtm
+         LlgqC4KZeDSVW8kgtezKGsQhznuPrE0cVBV+fkPCpuEU56iMnPHQ4vGMIw1ZfuU2vS2E
+         VcTaLLTgx+ziFvzCnMGuU357rthjqV+JWZ5ShRtkErUhiz0meYPLLYDKmXJ9VV8AiqLT
+         1KyIE7b5SXM5QHGOuoiQh8nhG71zxRWBif/eaz2yoXz4saGO92WYDyDwKtGpf/ud4E51
+         eyPQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788525892; x=1789130692; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=afStDJ0p96QePHpdDq4rxwCyajyjIl0hbxi8e2vmI+4=;
-        b=jczB6ZGXA08uYVCDzKEg0BtbB0NwEDL7RSoXSf/oJvH5/whzpii2KLXdQPOKiWC+aP
-         L3exdaZYec/8a8qqDc/HSTHLQBJsb8i+mM36WRm5xHrs+DYwqOFp0ZDr/xP2mz3q6ObP
-         FQ99Dd+5hy/yoD2U3Jaa80bl5JzyYoDMEEhX+Ufxvf/2Gs1SAoKlk8/d/SNucYDOeZor
-         utK5Z3AcEXijWILODQX/YfCu665IJaj/5b3znjfakRbgN3osekICp1tV057K4Zl8T6W2
-         iczaXXjqjbSCTJi/hPOd3hIWLv3nxyhjS4oYtURtAPYGde9Ov8t/JDgwYg+vbSXUjG1l
-         Z5nQ==
+        d=gmail.com; s=20251104; t=1788525930; x=1789130730; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=SzDs2yWMGbqw4SuOTjqilOjXglSn17D0yFwlVfQoGko=;
+        b=Nlj2Z3NMP945vYPmFS8A/T+djK5rR0QOM/Sf77FlLxxYI05mI1l0HnYr3Nuce5iSRO
+         QKeS7bHvw6LjQfqEfx7Kt12GPatAVlpUaUXz7QT3xdTOm5p7wX5k/0uI4vGuzvFVmnIi
+         Y2mH+HtMg7cSKyCxrFTiTSbSKon1wdYgt+HSH2v4ORuB8vU2Md2By3TeX21e0T/8OdAx
+         A6DaW85w3yMlHgKOSd3JoUqx8GImv1rVtR8W7FwtyaJU6YglUD2AAXO7Y4O3Y4wujYnT
+         cTAhkV3RJ3GebedisXrFdvdpCJ5VttrjAEO0NrOvFgZsri4RSE5vADGdpYTomFt5os9X
+         uMwg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788525892; x=1789130692;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=afStDJ0p96QePHpdDq4rxwCyajyjIl0hbxi8e2vmI+4=;
-        b=cc5WGrLgX8VAST9OtrgK3b1cy1EDcRPjD59Ah2VTIjNVja82zjbtofUC1WbQmu7CUR
-         JBeB3HMTLK7rzGLZu4BtO/QUfATByEayUQFNhLdGk009JqfBrSySHKPYUy02383oOsV+
-         yjsMSXqiPXrxtDGcPkN02Oj51Eto51iJsbKQIfPNR8HUb5PruV4Nu4jwrOGPFWey8rPz
-         aIExP1XbsSgJxWayoGz6y3DLotiNVz2kCTiAVMnqrlmKMujwL706u444cBva8ppdlz6H
-         CxboVQG6gnya3lFk4g0BYcIqSH5M8d9Q/4/I6pzbD8vyPG3uYoSC67C7EoHZXKlu8rTY
-         q90Q==
-X-Gm-Message-State: AFuF++lHZyIYxAKEGJdH32pCkFZPkRtBqsJ1kTp0i7+1eRs/caNc557M
-	6bC1DsOzQtMkRls3rgaSz6SuUZtTruyb3K/11in5594KCyS1+CJ7M5P8
-X-Gm-Gg: AYBFou120isxF1xTIn16QND4kpjt1DREf1ExKH/O+jzJYwsicsQgKbCcdCQwRo4eVV/
-	VC8Ie6CgkRnTc/fFdzUo7kzh9DvARQUFQlvYWPJofDgiVUPcmTxeKRXAWjw1QgnPKXFQxIkCFjc
-	7e9rRuUYLLq5+vwVBD6f6iywI4mAxueKdpvlm1fIiHHO5wj7oE7AI5d4PWD1y+NFEfI9HwHtDj9
-	k4cYBLpvzo9C3NxlkD+yih9+idaY7WLoLlFhNypo+gef2UAZqUo1XSXGg19i6rQFTg4KXYWS9jR
-	QpNdAY4JJQmtMmOI7Z+hHh1z5y9gIzd19EUmPd5g8yn5RnIqMQAlcKRJM0gtGWWHYwjymkOxP+R
-	XzkkbTaZY3yjCwN6lE93odkoSGOns1VS0Tilk+nJydO866e8Y47zY6P256RckpCDQ6oiy2NXNH7
-	fnFpYmagnJlJd/f2mhTJmMx7rvmT+6/Pzu5nvHc8Gl+ORKv8M2o3lWv+HDU9R9rM8JqP2OdKKkt
-	KGwDgHqtT+O6KU=
-X-Received: by 2002:a4a:e904:0:b0:6b7:83c5:fdf0 with SMTP id 006d021491bc7-6b783c603b3mr1907290eaf.49.1788525891923;
-        Fri, 04 Sep 2026 05:44:51 -0700 (PDT)
-Received: from volcano9f6e-hostos.amd.com ([165.204.217.251])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339b314cfcsm6805245eec.19.2026.09.04.05.44.50
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 04 Sep 2026 05:44:51 -0700 (PDT)
-From: Hemanth Selam <hemanth.selam@gmail.com>
-To: Martin Schiller <ms@dev.tdt.de>
-Cc: linux-kernel@vger.kernel.org,
-	linux-x25@vger.kernel.org
-Subject: [PATCH] x25: fix typo "compatibilty" in comment
-Date: Fri,  4 Sep 2026 18:14:46 +0530
-Message-ID: <20260904124447.7040-1-hemanth.selam@gmail.com>
-X-Mailer: git-send-email 2.48.1
+        d=1e100.net; s=20251104; t=1788525930; x=1789130730;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=SzDs2yWMGbqw4SuOTjqilOjXglSn17D0yFwlVfQoGko=;
+        b=Nvt09WbL2Fo2KYXRJFW+B+hrlZDl3+IOKypfJ5OilVb0E6c/1Y5uy5y32QQuIwfBUo
+         4sppe/qnNqFi+oqhcWUrdIcHuLWf/hCEJRsRVuiruW7nxmIDSh0W5Kph/EOT9yJPnmTQ
+         nKS43QMi+7EO0zt5puwJzxh9ZTZeawNmHSfBo8v3G9vGqAEQpFpFXY7OinRTod5czQ4y
+         Sa+ZKyZojdWxJKo+xJhaCFjuYp26o0N1HNSbMvAz2g9rOaTFvbkjjsJUkG91pKXbjSL1
+         nUxkUFoWb5EJ0S2K2+zX79s+IUhU2b5OBKDanEZy5no8QfCY3WixsiE2y4c0G3dS5tTA
+         hpKg==
+X-Forwarded-Encrypted: i=1; AKwUvBy4D5zwskut6gVNw8Ve5uzeHIXO1u8NXtnuX9HhyI3I7HPbhT9o5rhCfAr+h1awzJcmOh5HkM+oyCsr6B4=@vger.kernel.org
+X-Gm-Message-State: AFuF++mY96JsIq3wd7sF+nUryLEGBZEbvsVylhu/RRxM1DZG6tiGXKbj
+	EgOGuIae+vunzlXX70dtyWg4I4poYP45CtiOORKJyN9j21bngzSxmTq6WKwKbw7dZJBTZ/QKFJB
+	/+dmOeNYmh8Eg524TiKBWkFtU/fvkpl4=
+X-Gm-Gg: AYBFou3wGch1A2awWObgTDVi6baKqtta5mEvPD8kgC188zmXosje9sORC0/k9v1fi0g
+	9drUpSNdZPr6Sv6UacIrkvq4oZFpwTzXl/x9pgcKLixBexlNGTQhUMtN1OpW/+asgFfJMgrXG+w
+	Vw4QX6LVG58Qwu3tJBSJ6sQ+9UPPX15aHQYuwnkwL4HTGfjzBuBA8/kepymdyAuj8g6ubYfd6Jn
+	fRpPmTlFZsNsf2oeUK+KR8OlWqu/wMHpi49sYpv1+EcesRNuKwqFD80dEEW0gg9bhY0ASykk0e/
+	qZqeBK+4oBL5IPjjE5qH2fLgvVMSzRO099c8OvbxkVyncQ==
+X-Received: by 2002:a17:906:c14e:b0:c16:2dc0:e1ef with SMTP id
+ a640c23a62f3a-c260c988de0mr274506066b.14.1788525929567; Fri, 04 Sep 2026
+ 05:45:29 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260904111731.673341-2-main.kalliope@gmail.com> <e473cea93e948db9c27dc4ae0e993eb3e09011e7cbe8c8e4b305c3b12d866502@mail.kernel.org>
+In-Reply-To: <e473cea93e948db9c27dc4ae0e993eb3e09011e7cbe8c8e4b305c3b12d866502@mail.kernel.org>
+From: Nicholas Dudar <main.kalliope@gmail.com>
+Date: Fri, 4 Sep 2026 08:45:18 -0400
+X-Gm-Features: AcwNN1XHcgBQzn_feFro3WF9Vkiwio-_jIt5iIjF6wB3SyaChhdHyChwkqqr430
+Message-ID: <CAJZwKkgz6h7cjeduFqh8yFsPLZrHaaJ6jp7BYrxjV40YDgnyxQ@mail.gmail.com>
+Subject: Re: [PATCH bpf-next v2 1/2] bpf, mips: Factor register moves into helpers
+To: bot+bpf-ci@kernel.org
+Cc: ast@kernel.org, daniel@iogearbox.net, andrii@kernel.org, eddyz87@gmail.com, 
+	memxor@gmail.com, johan.almbladh@anyfinetworks.com, paulburton@kernel.org, 
+	tsbogend@alpha.franken.de, martin.lau@linux.dev, song@kernel.org, 
+	yonghong.song@linux.dev, jolsa@kernel.org, emil@etsalapatis.com, 
+	ihor.solodrai@linux.dev, bpf@vger.kernel.org, linux-mips@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, martin.lau@kernel.org, mason@kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-Correct "compatibilty" to "compatibility", reported by
-scripts/checkpatch.pl using the misspelling list in scripts/spelling.txt.
-Only touches comments, no code changes.
+> Could the two be collapsed into a single sentence about why the move
+> lowering needs to live in one emitter?
 
-Assisted-by: Cursor:claude-opus-5
-Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
----
- include/uapi/linux/x25.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+The first paragraph describes the problem with adding width handling in
+build_insn(), while the second describes the refactor and the state owned
+by the helpers. I think that distinction is useful, so I prefer to keep
+the current wording.
 
-diff --git a/include/uapi/linux/x25.h b/include/uapi/linux/x25.h
-index 034b7dc5593a..f0dca6c63f90 100644
---- a/include/uapi/linux/x25.h
-+++ b/include/uapi/linux/x25.h
-@@ -67,7 +67,7 @@ struct sockaddr_x25 {
-  *	DTE/DCE subscription options.
-  *
-  *      As this is missing lots of options, user should expect major
-- *	changes of this structure in 2.5.x which might break compatibilty.
-+ *	changes of this structure in 2.5.x which might break compatibility.
-  *      The somewhat ugly dimension 200-sizeof() is needed to maintain
-  *	backward compatibility.
-  */
--- 
-2.48.1
-
+Nicholas
