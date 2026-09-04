@@ -1,79 +1,98 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E861A3AB28E;
-	Fri,  4 Sep 2026 02:57:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB3BC29B781;
+	Fri,  4 Sep 2026 02:57:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.19
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788490652; cv=none; b=ONkIOmLnqtN5MIXHpNJKCwB2MAgZuNSXgnwOEdi6pjIKmgJeg85iUmIMe6ojmrJgCD/w4CCXWOKfOpnvRIW+mOdJ50LwUcckAdEUtjF0As1kL+o/Qh5JQ8WsNfm6jVD2ViypU/FbalA1kBIPwdnwY1lLlZLv7eaxaBkzlke0pLY=
+	t=1788490680; cv=none; b=j/4cnoimhsUMkTQXY8N3z4bhB5zse3fJcOp/LY+zXh14l9F3fA0xu1gp7Hyk9a1AcdMtnbWDYQ5evn5UV6K7ek5AhbzNGa8IQtkYBLRE/9cz1N2H4sjZLHj1+5bWxQVheGlekXrjwKDxUFdx1OT5U0H8Kd3nvZjFGcHnmNCflsM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788490652; c=relaxed/simple;
-	bh=GemFk7qd7jKf36VUjTw88H+RTl2AUJYtDiHlNxzn8vE=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=tn3a7Y/raG3jI3Ojr2axPC+d6AMefM4wcvwF/2nMVsT6tUwtgLsQWfOCZu1n26S5M4DLRxb/oM1VJlHFf0ezmL6Ee0dJpGX8qrTXylR/roC7DamAqzZ6yxViOmpPJhohEZlf9nEb9Z+I6ESGpu7n5oOwKPC/wywvnEBWx1PkdRo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jBek6etm; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788490680; c=relaxed/simple;
+	bh=ZFpG/XZaw/0wnI7NAOncgWaZNM7SZLhlnBzJhDF1cYg=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:References:
+	 In-Reply-To:Content-Type; b=PvIR8CYsSOeUtUDcU0h/4u6TbVGHcwSzoyutcAkzLIOZHJg2p8IGGZoBXy2HRITK0YbkleX7Ns4HqGmkOay/1ngCtCa3qHM6UDvfsJCp13FxrOfKXx1o+JADPCwO+NuyCkcAS1SVjAeaQ3QNhdbGvlusG1Bfqgvxk357mLLeD+M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=O7sxg/p0; arc=none smtp.client-ip=192.198.163.19
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jBek6etm"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A8FBB1F000E9;
-	Fri,  4 Sep 2026 02:57:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788490650;
-	bh=/OON/wKQui0ZRYf4x/MB2IOYmtvsSN6+9H+z12uAFCg=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=jBek6etmBZvZVphHhuWa3J8bvivsrOYR3ZDEardAzJ9jYrLn1qmh+ONIZyBedHVaA
-	 KIn4q3frC+35IVmE2iVj7pWDTQEfECa4VGHSelO7WH9nh7r3Nu5YWUrWcvR5S7Bx3X
-	 M0jN2o8wsnkkc6/XLoakySaqEfHGJMZQafUUgCCIK8biakYsQAtF0f+Ympb/qyvnq7
-	 ZtsdQbm331gL5AS1a3BES4rDBydqqXlSW57XE25fBKR1d7qxCfJo59zwbhrC+030KL
-	 13PZuVOJJWGcL2CC4WgOAVmeFYV37/gPrkfD1C2lSaA3gESKqFYRkCIysjQW0rWy6z
-	 tuPdxWUQ5ycmQ==
-Date: Fri, 4 Sep 2026 03:57:20 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Eliav Farber <farbere@amazon.com>
-Cc: <rafael@kernel.org>, <tony.luck@intel.com>, <bp@alien8.de>,
- <guohanjun@huawei.com>, <mchehab@kernel.org>, <xueshuai@linux.alibaba.com>,
- <lenb@kernel.org>, <laurent.pinchart@ideasonboard.com>,
- <linusw@kernel.org>, <brgl@kernel.org>, <orsonzhai@gmail.com>,
- <baolin.wang@linux.alibaba.com>, <zhang.lyra@gmail.com>,
- <dlechner@baylibre.com>, <nuno.sa@analog.com>, <andy@kernel.org>,
- <dmitry.torokhov@gmail.com>, <hansg@kernel.org>,
- <ilpo.jarvinen@linux.intel.com>, <W_Armin@gmx.de>, <ukleinek@kernel.org>,
- <fabio.m.de.francesco@linux.intel.com>, <kaihengf@nvidia.com>,
- <ankita@nvidia.com>, <leitao@debian.org>, <pedro.pbg@usp.br>,
- <paulmck@kernel.org>, <frederic@kernel.org>, <kees@kernel.org>,
- <saket.dumbre@intel.com>, <linux-acpi@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <linux-gpio@vger.kernel.org>,
- <linux-pwm@vger.kernel.org>, <linux-iio@vger.kernel.org>,
- <linux-input@vger.kernel.org>, <platform-driver-x86@vger.kernel.org>,
- <acpica-devel@lists.linux.dev>, Jonathan Cameron
- <jonathan.cameron@oss.qualcomm.com>
-Subject: Re: [PATCH v5 04/13] iio: position: iqs624: use
- devm_blocking_notifier_chain_register()
-Message-ID: <20260904035720.6046b03c@jic23-huawei>
-In-Reply-To: <20260816060648.4030-5-farbere@amazon.com>
-References: <20260816060648.4030-1-farbere@amazon.com>
-	<20260816060648.4030-5-farbere@amazon.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="O7sxg/p0"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788490679; x=1820026679;
+  h=message-id:date:mime-version:subject:from:to:references:
+   in-reply-to:content-transfer-encoding;
+  bh=ZFpG/XZaw/0wnI7NAOncgWaZNM7SZLhlnBzJhDF1cYg=;
+  b=O7sxg/p0hzg1Tw9rrQR3ZxvmunNo8JJY3m0QmaZd9xvtE9XiQE55UTnB
+   2g0cFS+msmZDsoyPcUo2qq+0TroDQiEsGh5V+GxCiYQao+7A1RS0M/OKL
+   pK+Nnx2DRbW+qgGXatdDjQ8vQ//GXlgLk6tkk9zqBNZg+1QF9+Cw5gchf
+   57xpKO6n7t58eqNpdlCcMHEdtCJkFw5byq1rd2wOkNa+r27IRXEnbyc26
+   +aTOKTqT0uvjOGGWextIC/pwJDm73BIUtwS7f5EpLyscyMJFtHyTm43yA
+   XzjV5X9eVKMpol1fA5vOmrhW/ISNaj4NhSatYGkAmZc8vEJ3hYTwzca1/
+   A==;
+X-CSE-ConnectionGUID: /sTEd+9nQTC/qHaDvBtjJQ==
+X-CSE-MsgGUID: LLNQ6Z3uTl6n7pk/BBeOQQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11895"; a="87926625"
+X-IronPort-AV: E=Sophos;i="6.25,260,1779174000"; 
+   d="scan'208";a="87926625"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Sep 2026 19:57:58 -0700
+X-CSE-ConnectionGUID: xacLvhE8T7qdgBwJJPb/gQ==
+X-CSE-MsgGUID: 2VbywhQzR6qHkni0ew7b8w==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,260,1779174000"; 
+   d="scan'208";a="270437902"
+Received: from aschende-mobl.amr.corp.intel.com (HELO [10.125.110.190]) ([10.125.110.190])
+  by orviesa009-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Sep 2026 19:57:58 -0700
+Message-ID: <58601306-2401-47ce-a051-684312ff6630@intel.com>
+Date: Thu, 3 Sep 2026 19:57:57 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] MAINTAINERS: Add Richard Cheng to CXL subsystem as a
+ Reviewer
+From: Dave Jiang <dave.jiang@intel.com>
+To: linux-cxl@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260902235348.3563444-1-dave.jiang@intel.com>
+Content-Language: en-US
+In-Reply-To: <20260902235348.3563444-1-dave.jiang@intel.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On Sun, 16 Aug 2026 06:06:03 +0000
-Eliav Farber <farbere@amazon.com> wrote:
 
-> Replace the blocking_notifier_chain_register() +
-> devm_add_action_or_reset() pattern with a single call to
-> devm_blocking_notifier_chain_register(), removing the
-> iqs624_pos_notifier_unregister() callback.
+
+On 9/2/26 4:53 PM, Dave Jiang wrote:
+> Add Richard as a reviewer for CXL subsystem.
 > 
-> Signed-off-by: Eliav Farber <farbere@amazon.com>
-> Acked-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
-Applied to the testing branch of iio.git
+> Cc: Davidlohr Bueso <dave@stgolabs.net>
+> Cc: Jonathan Cameron <jic23@kernel.org>
+> Cc: Alison Schofield <alison.schofield@intel.com>
+> Cc: Vishal Verma <vishal.l.verma@intel.com>
+> Cc: Richard Cheng <icheng@nvidia.com>
+> Signed-off-by: Dave Jiang <dave.jiang@intel.com>
 
-Thanks,
+Applied to cxl/next
+6495547d643d
 
-Jonathan
+> ---
+>  MAINTAINERS | 1 +
+>  1 file changed, 1 insertion(+)
+> 
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 3a19da74d00c..25d61ce9506a 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -6567,6 +6567,7 @@ M:	Vishal Verma <vishal.l.verma@intel.com>
+>  M:	Dan Williams <djbw@kernel.org>
+>  R:	Ira Weiny <iweiny@kernel.org>
+>  R:	Li Ming <ming.li@zohomail.com>
+> +R:	Richard Cheng <icheng@nvidia.com>
+>  L:	linux-cxl@vger.kernel.org
+>  S:	Maintained
+>  F:	Documentation/driver-api/cxl
+> 
+> base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+
