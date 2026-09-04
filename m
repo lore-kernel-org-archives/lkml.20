@@ -1,85 +1,119 @@
-Received: from mail.avm.de (mail.avm.de [212.42.244.119])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from relay.hostedemail.com (smtprelay0017.hostedemail.com [216.40.44.17])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73FE651E437;
-	Fri,  4 Sep 2026 18:34:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.42.244.119
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0F6F51E435;
+	Fri,  4 Sep 2026 18:34:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=216.40.44.17
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788546868; cv=none; b=pLLJnPf/z+U5pilgikAJlc9TIO0LNXy/mLMLSkyI0y6oHgV6ig9qdtkxjtXNB7j1WIPOfRBJcsgPhCQfLvVJxMGxafOgT/CAIitSl8D1HMeeRZVnNQTFNfQphvOcsvFccrpdRdFaQTcadtxnRyl0BXcMDGnSNrOQZ+hYtO0cn6k=
+	t=1788546882; cv=none; b=uIDu8UTODjfi8Kz4zvafLMJtOAanuOr19tQIWCgVkQKlrGJTaF5C418YM19QlZUsioUP/v6HjB+gVctHi/SfthRY1MlMRjl2XUIdn7fv+Fz4o/U4kXNcQFHFI7GY0+8rJMYYDyP9tedvl1tdq7gT3TsY2l6gjRIlmyTJ1WmJAK0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788546868; c=relaxed/simple;
-	bh=lt27UchPaDdsqKXnly6UKAN5TMB885tT3yzomVzDTSE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=oifutjMi6Nai547jcNXBNoUYJYqlWXVBmDVvd8aWpAZv59x/kMSRZgVXlDewAgvPeNgxgNX9q8ihtifrZxmkyOv9RvoZrcqyGta+Ed6YMXEF7u+1+1FL81Z7y8/tvXjkPeWHFBiuf8FZGQcSUCscDy07awCfD/WG1/QTxzqlBzk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fritz.com; spf=pass smtp.mailfrom=fritz.com; dkim=pass (2048-bit key) header.d=fritz.com header.i=@fritz.com header.b=ZA7WEWT8; arc=none smtp.client-ip=212.42.244.119
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fritz.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fritz.com
+	s=arc-20240116; t=1788546882; c=relaxed/simple;
+	bh=5m3wMCU1AJd5q6WrHI3GkFqXq8h9NqIW2Wy4+pU3BBE=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=oUJmnXTRVnF8M4UyTehYBXDjgwaYC87wXjix+ylbyLwit+mnYv50h3cS5Snr+f0jAVS3TDJexhaVyFUi4j0F0mNgYlqxdJzMVyNHwCFsCLFJZNaazvNiltkCbuggKfrsmMUa5JR08+STSVWXVRK1yCwNc9E4EySwCMryH9lj4cQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org; spf=pass smtp.mailfrom=goodmis.org; dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b=WpyvQE9r; arc=none smtp.client-ip=216.40.44.17
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fritz.com header.i=@fritz.com header.b="ZA7WEWT8"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=fritz.com; s=mail;
-	t=1788546851; bh=lt27UchPaDdsqKXnly6UKAN5TMB885tT3yzomVzDTSE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=ZA7WEWT8PvUePYK6h0M0D7q9FCa4n+xSrwoZlC/l2d8QV8Eq+6s5toGo3mpg51wUt
-	 WyjWErMoTEmCwm57JC/a7HNycGlTlHpadYg52NJ3SE2+YVEb9e7r+GyGLj7sr2dyGP
-	 AQ0Kfbp6cWFUsIDM78q6si9tPIqsJdazRMJE3cWmPPPzIZcgRL6Es7hailiYu9C6cK
-	 t4fX6NRPRfkoYkk3ccnHOvMW7o+a9MWMDrCsDcQorktVLIKbR2TNkHshMy1uk08WEg
-	 Sc2Q3TH8xx370zszHMmilEbmbXmrN+SLUayGqs0ryjryH7k+PEV+1hQcUP2ZUqDXVB
-	 BAxMZT77o2jxg==
-Received: from [212.42.244.78] (helo=mail.avm.de)
-	by mail.avm.de with ESMTP (eXpurgate 4.57.1)
-	(envelope-from <n.schier@fritz.com>)
-	id 6a9b0f23-c6f5-7f0000032729-7f000001d34e-1
-	for <multiple-recipients>; Fri, 04 Sep 2026 20:34:11 +0200
-Received: from mail-auth.fritz.com (unknown [212.42.244.78])
-	by mail.avm.de (Postfix) with ESMTPS;
-	Fri,  4 Sep 2026 20:34:11 +0200 (CEST)
-Date: Fri, 4 Sep 2026 20:34:09 +0200
-From: Nicolas Schier <n.schier@fritz.com>
-To: Nathan Chancellor <nathan@kernel.org>
-Cc: Hemanth Selam <hemanth.selam@gmail.com>,
-	Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>,
-	linux-kernel@vger.kernel.org, linux-kbuild@vger.kernel.org
-Subject: Re: [PATCH] kbuild: fix typo "funtions" in comment
-Message-ID: <20260904-quick-gleaming-kakapo-aed84a@l-nschier-aarch64>
-References: <20260904122002.27960-1-hemanth.selam@gmail.com>
- <CANiq72=QNpuvP01TfXEkjj4i7p4QU5WGj4mjHjrKyrUMsjEwWw@mail.gmail.com>
+	dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b="WpyvQE9r"
+Received: from omf10.hostedemail.com (lb01a-stub [10.200.18.249])
+	by unirelay06.hostedemail.com (Postfix) with ESMTP id 0F4ECA2D9E;
+	Fri,  4 Sep 2026 18:34:23 +0000 (UTC)
+Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf10.hostedemail.com (Postfix) with ESMTPA id 2743F30;
+	Fri,  4 Sep 2026 18:34:22 +0000 (UTC)
+Date: Fri, 4 Sep 2026 14:35:27 -0400
+From: Steven Rostedt <rostedt@goodmis.org>
+To: Vincent Donnefort <vdonnefort@google.com>
+Cc: mhiramat@kernel.org, linux-trace-kernel@vger.kernel.org,
+ mathieu.desnoyers@efficios.com, kernel-team@android.com,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v10 2/4] tracing: Fix subbuf resize races with
+ trace_pipe_raw readers
+Message-ID: <20260904143527.40e73d36@gandalf.local.home>
+In-Reply-To: <20260904164450.1345852-3-vdonnefort@google.com>
+References: <20260904164450.1345852-1-vdonnefort@google.com>
+	<20260904164450.1345852-3-vdonnefort@google.com>
+X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CANiq72=QNpuvP01TfXEkjj4i7p4QU5WGj4mjHjrKyrUMsjEwWw@mail.gmail.com>
-Organization: FRITZ! Technology GmbH
-x-ms-reactions: disallow
-X-purgate-ID: 149429::1788546851-64C0BB9A-5D0DD5E9/0/0
-X-purgate-type: clean
-X-purgate-size: 805
-X-Notice: Whitelisted
-X-purgate: This mail is considered clean (visit https://www.eleven.de for further information)
-X-purgate: clean
-X-pfmilter: host: postfix-mx-02  mail-id: 46279A048E  external: no
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+X-Stat-Signature: hwwnj8p4hbowsuprhpszwe718aw4u8ut
+X-Rspamd-Server: rspamout04
+X-Rspamd-Queue-Id: 2743F30
+X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
+X-Session-ID: U2FsdGVkX18FSR5EA53aYPjptzNCeVA1n0JRdeGNdec=
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=Ku5LYoL7PvOLqayMNOglNE2RaUJlMb2qSapB2xO3a90=; b=WpyvQE9rEfv9i6q7WW8P2h5Px+TfVfCt6JjiEvXfrFdNvzbcOL3TKk5bBPOEAH7YTgRMj0MW4VCVVG/5o1zD9+tVAby+4mOVVFcBt+piH4wKlLj+HpPI4z+eSCW2w9C9lLBEBXqd6kSx0bpwTyjtTPmIhayvxUPuETgH2mB2Pb4=
+X-HE-Tag: 1788546862-248759
+X-HE-Meta: U2FsdGVkX19iMqgLf7Ez23LZKcDPQng/ZCEJ0SuEDVNGCCqP+f9iIkft91rpFZsgjtEJbUYtqpubN51UAIlAmUf2RV7mwYp9eX0bd9nsp1y5nqOUHfIbJP0f6WU0znpK0FaKX8YtLNLtfTJefSkjVrIt2EEFICPkYCNJGSJ1xwARKgnIiWIwfN2dlqKIT9yvabQx5q5EgEezyA+/OI6p2+8og/CC0y9GVU3UINrKOrAgQeB9MuWVttDRRKsp9VCArQefJdDnFqhlx07OWe1yLPS6hYVBZogbsl04CLcK6AlnfZpzphMo6yO3ZCOOOfxobZH4aBlM0srRDQbgL5kuetGqNzh2cyeR
 
-On Fri, Sep 04, 2026 at 04:23:28PM +0200, Miguel Ojeda wrote:
-> On Fri, Sep 4, 2026 at 3:11 PM Hemanth Selam <hemanth.selam@gmail.com> wrote:
-> >
-> > Correct "funtions" to "functions", reported by scripts/checkpatch.pl using
-> > the misspelling list in scripts/spelling.txt.  Only touches comments, no
-> > code changes.
-> >
-> > Assisted-by: Cursor:claude-opus-5
-> > Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
-> 
-> Welcome! I noticed this one in my spam folder.
-> 
-> But, yeah, it looks wrong:
-> 
-> Fixes: 5270316c9fec ("kbuild: Use -fmin-function-alignment when available")
+On Fri,  4 Sep 2026 17:44:48 +0100
+Vincent Donnefort <vdonnefort@google.com> wrote:
 
-thanks for the patch and the Fixes: trailer.  As this is not relevant 
-for the build, Nathan will probably pick it up for kbuild-next (aka v7.4).
+> @@ -7306,25 +7281,37 @@ ssize_t tracing_buffers_splice_read(struct file *file, loff_t *ppos,
+>  
+>  		refcount_set(&ref->refcount, 1);
+>  		ref->buffer = iter->array_buffer->buffer;
+> -		ref->page = ring_buffer_alloc_read_page(ref->buffer, iter->cpu_file);
+> -		if (IS_ERR(ref->page)) {
+> -			ret = PTR_ERR(ref->page);
+> -			ref->page = NULL;
+> +
+> +		ret = ring_buffer_alloc_read_page(ref->buffer, iter->cpu_file, &ref->rpage);
+> +		if (ret) {
+>  			kfree(ref);
+>  			break;
+>  		}
+>  		ref->cpu = iter->cpu_file;
+>  
+> -		r = ring_buffer_read_page(ref->buffer, ref->page,
+> -					  len, iter->cpu_file, 1);
+> +		page_size = ring_buffer_read_page_size(ref->rpage);
+> +
+> +		r = -EINVAL;
+> +		if (IS_ALIGNED(*ppos, page_size) && len >= page_size) {
+> +			r = ring_buffer_read_page(ref->buffer, ref->rpage, len, iter->cpu_file, 1);
+> +		} else if (!i) {
+> +			/*
+> +			 * We failed to read because the length is too small
+> +			 * or unaligned. If this is the first iteration, it's
+> +			 * an invalid userspace input. Otherwise, this is due
+> +			 * to a subbuf order change. Do not report an error
+> +			 * and just finish the read.
 
-Reviewed-by: Nicolas Schier <n.schier@fritz.com>
+This isn't quite true. It can be an invalid length and not the first
+iteration. If you ask for a length that isn't subbuffer aligned but greater
+than one subbuffer in size it will work the first iteration but fail at the
+end where it couldn't get a full page.
+
+That is valid but would also trigger this path.
+
+This is the only issue I have with this patch set. I'll just take it as is
+now. We can fix the comment later. I want to start testing it and get it to
+Linus before the next RC release is out. If it fails the tests, then we can
+fix the comment as it will not make the next release.
+
+-- Steve
+
+
+> +			 */
+> +			ret = -EINVAL;
+> +		}
+> +
+>  		if (r < 0) {
+> -			ring_buffer_free_read_page(ref->buffer, ref->cpu,
+> -						   ref->page);
+> +			ring_buffer_free_read_page(ref->buffer, ref->cpu, ref->rpage);
+>  			kfree(ref);
+>  			break;
+>  		}
+>  
+> -		page = virt_to_page(ring_buffer_read_page_data(ref->page));
+> +		page = virt_to_page(ring_buffer_read_page_data(ref->rpage));
+>  
+>  		spd.pages[i] = page;
+>  		spd.partial[i].len = page_size;
