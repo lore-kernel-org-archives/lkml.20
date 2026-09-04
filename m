@@ -1,121 +1,159 @@
-Received: from mail-ot1-f51.google.com (mail-ot1-f51.google.com [209.85.210.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4481E2D5925
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 23:34:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E230139185E;
+	Fri,  4 Sep 2026 23:34:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788564844; cv=none; b=foa8HiM6zVoYNR5YMbuupyA/jlPJociwNF/oYq5mWR79SzxrfnxxFBCrNAH4gLWfuQeGy2minnTjms1P+Oy6dbVwNdyCvkSIcned94WBUAU4Uhvg5RURWpnT6EUvrIi8OleJ/LAFbf5S9ZlmRj/zk/Er3Q2f9/KZVAaYq1hpPPs=
+	t=1788564875; cv=none; b=TDNaVbTBhKr5RKJNzIiYyWEO2XGEkrpJSiZ+PoxyM4Zk2l1D1LsiGuXxE7EH25eF2lqsD+Y1g23fT9D9kPsWLhWLiOxooRy7Mh3Iqcg9t53tEpe1gnK7Gri1aBp74WwILByh7HsrHFqL1ZIWydLeU+ljJ21TIiCfiGODXOhIEYM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788564844; c=relaxed/simple;
-	bh=Ez7++x6Bs0exrn0n9e59sy5TlkUL9gaUMT4RkGtCat8=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
-	 References:In-Reply-To; b=Kyz4z+XM2Z9pIrJjPYun33EvSe1I4JEST4AA9P18c06dJdpAV5X4YyvGWEx1MBL4C2YhelNZWIM+lwUMJnWiSo/soGQLxLbZkNBkA7kOA4rzKOGKYcKDWo/9sgUCKVv17ZsqPpX8Qoplriu6gBRXqSfi0tNE77i7E7ijAtdHcC0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FMzrs0Fs; arc=none smtp.client-ip=209.85.210.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788564875; c=relaxed/simple;
+	bh=vLKLtc6DsKV4Uo/b6kp9DxmZQan2o1S1atw2yN2MGlQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=H9v521apBjBpgoU4Y8znL90buNbYy4XdoxXvwHB4bWiVU3uxVt4/jN+oLSoTuBYCe7MWusqZKnlbNjGSbpouOWcbN+FRZZXyz+Ej4k8v1+NVPq0m3l4GIQKipNCPlS4DCjGoGlNEvFlHWR6A/kin95je0fZEx8uvvxiudx5ikxU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Jt4p7vy4; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FMzrs0Fs"
-Received: by mail-ot1-f51.google.com with SMTP id 46e09a7af769-7ee37dc91f5so1094167a34.3
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 16:34:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788564842; x=1789169642; darn=vger.kernel.org;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-type:content-transfer-encoding:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=Ez7++x6Bs0exrn0n9e59sy5TlkUL9gaUMT4RkGtCat8=;
-        b=FMzrs0FsukxowoPhFJ1vs8tO3LtgDq6p84oHyZFLufj7c/je5fIlfzEAEiVtySTpm2
-         JHiJiCvoXJsIPwSfhSaw+VG7HVRe7i12LUD8FK2uWtmeoP99poGBqg91iYWyTQGsuTvl
-         XAkwC36y2s/HmiBAcLkbkF8/PdfWVd2uexpUO3j/RYYMaDxfAY5O6iSkccUv0cJdSa1l
-         qTJbubHFvVWOL6CJUQfY8Q5lSPui8wjqffUCg+/xvXZ/UxME9mOwPOY+jAAgmYtPUI4L
-         FNCGogNyYad8v28VSHrkJS3Us9g22XXhMcZ6vD7GTZgyHYvnDvJ0phgolYDK12J+2Db0
-         Yoag==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788564842; x=1789169642;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-type:content-transfer-encoding:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Ez7++x6Bs0exrn0n9e59sy5TlkUL9gaUMT4RkGtCat8=;
-        b=C6CO1OuZfyV6Htbu3EkVfwVbhLw2X4YpxKLny64OYFYr4ZrwCmqxQV310j6ZVXbidB
-         O0nALMuzG+touihjhCFeEGtgY0RNukcWzwXm1BmCDbBkl6Rgfl7JpeWw4vtVt4VzQgj2
-         fz2yn8DIonBLPcy4Sg7UGI/NPpsuqbyP/LuBMzFkdSYIPsn13GKB6iLEPN/FOTeTIXwK
-         IOZrohCr/u/jQH5jaByuYVNGzaJSbQaglgsXGiIrzcDJ+zCFdGPSBD384Sq5qKdtRAUa
-         NSbbvX+zsUlcNJVrZfHJcXdVCVdC5gx8OkyiD86ejRkdCKH7rCJs6RCkTR6M2Gha98Nq
-         2mlw==
-X-Forwarded-Encrypted: i=1; AKwUvBzt/WlGxi4L4GJUdIswn1I/Y3MGRj3rx2SqJ/XeApxzi+I70k9q1kn2oH6FaNKijpdVEdOZcyMa6O/EhWU=@vger.kernel.org
-X-Gm-Message-State: AFuF++kvKMjIrXAZMUG6AKdstfgxZA40GBMsJ2aqazVIkNXDpuQntfCX
-	CvqO+VifvCif9c2+tTvT/V0d3+qbIa7L/PrbS9qDzEr8U88JwVxxPcZYSbR5rw==
-X-Gm-Gg: AYBFou0rs75nzZlz9mhb44ToRTov2XUPP4CZ148NkHi1wzHr/kjj1ESGKvMwiCgUL2A
-	1mQrwv8hG9cRvTiCOT8KCpzkca6qz9YFRilSzCQv2j4b6qg0sTHUThq5P5bPFYygC1VJw99mO5i
-	Ck6oysLCvEqq31ba96fewNhwBZJDaMKM8eL27G6Y/08d+EE7Qhw0mgph10X62djnleldbnt2mnn
-	G+r4MPdvIJoQVgCiQOLVYbX0xbiq8r3nyDXgrZNUzUwEnnnzYWQKm+41CXrbcZvYcBwfo21nSGG
-	3CCL74GqV8be/DsIz2xF7ylWTQtd4BKSYRPcQKXyclkesFIUPOkN2IvELlIRfuXyna9Tdz9mqPO
-	x5xkKtKt6NYRMULfMbadmue28jK8FbdxcTzO8eCaPYHa9rBsmYRwX4/Bc9VOwSxaYIOqa57Q5uL
-	OmXifIxiIA9HBXEP6Uu0WQWl3bHfyAWMkqQHdS9IYURX352TpChSK1JK6bfzonJGZlcBGYKqsZK
-	xQnKDEcnlYDXx/Y0EYY0vsbsdQRaTWlh8+dg0vwCOlmP9BGAq0COw==
-X-Received: by 2002:a9d:7654:0:b0:7fa:5c68:d053 with SMTP id 46e09a7af769-7fa5c68d6f8mr3561333a34.29.1788564842051;
-        Fri, 04 Sep 2026 16:34:02 -0700 (PDT)
-Received: from localhost ([2a03:2880:10ff:f::])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-7f9f7adfce8sm4355756a34.24.2026.09.04.16.34.00
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 04 Sep 2026 16:34:01 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Jt4p7vy4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 514051F00A3D;
+	Fri,  4 Sep 2026 23:34:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788564873;
+	bh=Z1h6AbZU7N8JIvRkcwd6on/Y+M5Pw4rMc16HoaDvh0E=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Jt4p7vy44okBO1duOsblAXefxOpHrj65FhTrzLDBr5fkYyXi967S1XOmcvvRFx1PE
+	 5rk338U3Drs4aciMjVJkzg7VgQmr0Op9Ujng53lVbSJpdDyzRK0j9GCwpC6CwNorSQ
+	 yLJDyjf5TIrlOxxfYwZz481tLlhEyaK0AmOw/GNQvD+cHbleP9nq7KVs7lXYbS3nCg
+	 9gMGc6M227OF+cKaEZBuQI65po1BoejItDD4jpml0fOVCaHIBXzDuxnhu7uE6OaQeN
+	 3i+PEnlUgeTu31oPDxnMmefiPLQb8vpU241yU21GEZVwoi+o9zQU1lTOYQUwYLiutc
+	 MMr7NYJF+PFEw==
+Date: Fri, 4 Sep 2026 16:34:33 -0700
+From: Kees Cook <kees@kernel.org>
+To: Bill Wendling <morbo@google.com>,
+	Christian Brauner <brauner@kernel.org>
+Cc: Thomas =?iso-8859-1?Q?Wei=DFschuh?= <thomas.weissschuh@linutronix.de>,
+	Bradley Morgan <brads@mainlining.org>,
+	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
+	Aleksa Sarai <cyphar@cyphar.com>, Jan Kara <jack@suse.cz>,
+	Nathan Chancellor <nathan@kernel.org>,
+	Miguel Ojeda <ojeda@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
+	Nicolas Schier <nsc@kernel.org>, Gary Guo <gary@garyguo.net>,
+	Alice Ryhl <aliceryhl@google.com>,
+	Douglas Anderson <dianders@chromium.org>,
+	Anand Moon <linux.amoon@gmail.com>, Oleg Nesterov <oleg@redhat.com>,
+	codemender-patching+linux@google.com, linux-kernel@vger.kernel.org,
+	linux-hardening@vger.kernel.org
+Subject: Re: [PATCH v4 2/2] userns: Add KUnit test suite for uid_gid_map
+Message-ID: <202609041620.81446C2A@keescook>
+References: <20260823125155.1136740-1-morbo@google.com>
+ <20260826220041.4075333-1-morbo@google.com>
+ <20260826220041.4075333-2-morbo@google.com>
+ <20260827152612-d0c71c10-cbe5-49f3-9be0-47eb76cd9b48@linutronix.de>
+ <CAGG=3QWPTL5z8MfAxJLpHb0P-3Ah6K+FzgrVHyRRcvRK7-6dSA@mail.gmail.com>
+ <20260831111423-400ed79e-6e52-438c-aa9f-f289e6dbdee5@linutronix.de>
+ <CAGG=3QUAY4BDiJM64uTX8C1A2WPg6dPRexbgUQZoi4QKkkpP9Q@mail.gmail.com>
+ <20260904091410-3a87d211-edf8-4ead-8b91-004a4a96a161@linutronix.de>
+ <CAGG=3QV1G0=19riYPPWhTXrW2X0YvyESdY=GesWm2F_8FEZwMg@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Fri, 04 Sep 2026 16:34:00 -0700
-Message-Id: <DL6XBKITK7ZT.3RXK9YGGUYZZE@gmail.com>
-Cc: "Gabriele Monaco" <gmonaco@redhat.com>, "Nam Cao"
- <namcao@linutronix.de>, "LKML" <linux-kernel@vger.kernel.org>,
- "linux-trace-kernel" <linux-trace-kernel@vger.kernel.org>, "bpf"
- <bpf@vger.kernel.org>, "Wen Yang" <wen.yang@linux.dev>, "Tobias Schaffner"
- <tobias.schaffner@siemens.com>, "Viktor Malik" <vmalik@redhat.com>, "Linus
- Torvalds" <torvalds@linux-foundation.org>
-Subject: Re: [RFC PATCH 00/20] rv: Add support for BPF monitors
-From: "Alexei Starovoitov" <alexei.starovoitov@gmail.com>
-To: "Steven Rostedt" <rostedt@goodmis.org>
-X-Mailer: aerc
-References: <20260831090524.106845-1-gmonaco@redhat.com>
- <87se3sakgi.fsf@yellow.woof>
- <df6e9168cb06c35e21db7f9d17cfbca6bd87005b.camel@redhat.com>
- <DL5B40CU17WD.3KD75URQZ6RRR@gmail.com>
- <eb3dd8158942d663ec8ad4c529eacd666c5f96d9.camel@redhat.com>
- <20260903090211.50d15220@gandalf.local.home>
- <CAADnVQK8e1Qp9rf1zThZxb3vr4Gc_bpo0nqpEO2LdnEwHdKokA@mail.gmail.com>
- <20260904074317.01b2c0e1@robin> <DL6O0KLPXLTA.2HJJUXQUVCP5@gmail.com>
- <20260904123108.1fa1d815@gandalf.local.home>
- <20260904132421.111c0279@gandalf.local.home>
-In-Reply-To: <20260904132421.111c0279@gandalf.local.home>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAGG=3QV1G0=19riYPPWhTXrW2X0YvyESdY=GesWm2F_8FEZwMg@mail.gmail.com>
 
-On Fri Sep 4, 2026 at 10:24 AM PDT, Steven Rostedt wrote:
-> On Fri, 4 Sep 2026 12:31:08 -0400
-> Steven Rostedt <rostedt@goodmis.org> wrote:
->
->> In the beginning, Daniel Bristot looked into doing this with BPF and fou=
-nd
->> issues with it. I do not recall what they were and unfortunately Daniel =
-is
->> no longer around to explain it. Maybe Gabriele knows what they were.
->
-> IIRC, Daniel even told me there was a competing effort within Red Hat to
-> implement the same functionality using only BPF. That effort never
-> materialized and everything went toward the RV code Daniel was working on=
-.
+On Fri, Sep 04, 2026 at 01:37:00PM -0700, Bill Wendling wrote:
+> On Fri, Sep 4, 2026 at 1:02 AM Thomas Weißschuh
+> <thomas.weissschuh@linutronix.de> wrote:
+> >
+> > On Thu, Sep 03, 2026 at 01:21:27PM -0700, Bill Wendling wrote:
+> > > On Mon, Aug 31, 2026 at 2:22 AM Thomas Weißschuh
+> > > <thomas.weissschuh@linutronix.de> wrote:
+> > > > On Thu, Aug 27, 2026 at 12:27:30PM -0700, Bill Wendling wrote:
+> > > > > On Thu, Aug 27, 2026 at 6:37 AM Thomas Weißschuh
+> > > > > <thomas.weissschuh@linutronix.de> wrote:
+> > > >
+> > > > (...)
+> > > >
+> > > > > > > +config USER_NAMESPACE_KUNIT_TEST
+> > > > > > > +     bool "Test user namespace map insertion" if !KUNIT_ALL_TESTS
+> > > > > > > +     depends on KUNIT=y
+> > > > > >
+> > > > > > Urgh.
+> > > > > >
+> > > > > ?? What's wrong? It's identical to the conditional for EXEC_KUNIT_TEST:
+> > > >
+> > > > Sorry for this non-descript review comment.
+> > > >
+> > > > > config EXEC_KUNIT_TEST
+> > > > >      bool "Build execve tests" if !KUNIT_ALL_TESTS
+> > > > >      depends on KUNIT=y
+> > > > >      default KUNIT_ALL_TESTS
+> > > > >      help
+> > > > >           This builds the exec KUnit tests, which tests boundary conditions
+> > > > >           of various aspects of the exec internals.
+> > > >
+> > > > The problem is that KUNIT can be built as module, which would prevent this
+> > > > test from being built. We have include/kunit/visibility.h to export certain
+> > > > symbols only to tests and avoid this issue.
+> > > > But I can see that some maintaines don't like this pattern, so maybe they can
+> > > > chime in at some point.
+> > >
+> > > Bradley commented on this earlier (which is why I mentioned EXEC_KUNIT_TEST):
+> > >
+> > > <comment>
+> > > The test is #include'd into user_namespace.c, which is builtin (USER_NS
+> > > is a bool), so =m here still compiles the suite into vmlinux. With
+> > > KUNIT=m that calls kunit symbols that live in a module, and the link
+> > > fails. Make it bool and depend on KUNIT=y, like EXEC_KUNIT_TEST:
+> > >
+> > >  bool "KUnit test for user namespace map insertion" if !KUNIT_ALL_TESTS
+> > >  depends on USER_NS && KUNIT=y
+> > > </comment>
+> > >
+> > > So there's a conflict and, because I'm not a KUnit guru, I'm not sure
+> > > which way is "best".
+> >
+> > It's subjective. So as mentioned before, the preference of the maintainers
+> > should go into it. The aproach I prefer requires a bit more setup boilerplate
+> > but make the tests usable in more circumstances.
+> >
+> Because user_namespace.c is always built-in (USER_NS is a bool),
+> compiling the test into vmlinux causes linker failures if
+> CONFIG_KUNIT=m. Using the "visibility.h" version also strips static
+> from insert_extent() and sort_idmaps() or exporting internal user
+> namespace functions into the kernel symbol table, which isn't ideal.
 
-bpf in 2022 was surely less capable then it is today.
-It took us 2 years of bpf core development to statisfy sched-ext demands
-and we're still adding new features for sched-ext needs.
-If you're trully willing to remove 90% of kernel/trace/rv/ and refactor
-it into tiny shim where all of the core pieces are bpf driven we can
-certainly work together (like we did with sched-ext) and add whatever
-is missing on bpf side. Then all existing monitors will become bpf programs=
-.
-But adding bpf as another 'monitor', sorry but hard NO.
-If hardcoded monitors was a mistake then admit it and fix it by deleting it=
-,
-if it's not a mistake then keep adding hardcoded monitors.
+The export namespacing should limit it to just KUnit, so that should be
+okay, I would think? My guide for this in the past has been "did the
+kernel get less fast/safe because of Kunit exports, etc?" I don't
+_think_ that's the case here.
+
+So, I guess it's down to a matter of taste by USER_NS maintainers? I've
+move Christian to "To:" from "Cc:", as I think he is the defacto USER_NS
+maintainer? I don't know, though, there is no MAINTAINERS entry for it. 
+
+> > > Test (3) (which I'll add in my next upload) throws a sanitizer exception.
+> >
+> > What is the point of testing this specifically for user namespaces?
+> > Normally we expect a used subsystem to work as advertised.
+> > It is that used subsystem's responsibility to test that it does so.
+> > If there is currently no test that validates __counted_by then it surely
+> > should be created. But not here.
+> >
+> This would directly test that the attribute on the struct field is
+> caught by UBSAN. I'm not sure how we could more directly test it
+> otherwise...
+
+It is tricky to catch the traps sanely with KUnit. All the Oops tests
+I've written for it are in LKDTM, and only __bdos is tested in
+lib/tests/overflow_kunit.c. I was playing with catching Oops in KUnit
+for testing KCFI recently, but haven't come back to finishing it safely:
+https://lore.kernel.org/lkml/20260618210946.it.538-kees@kernel.org/
+
+-Kees
+
+-- 
+Kees Cook
