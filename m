@@ -1,71 +1,93 @@
-Received: from sipsolutions.net (s3.sipsolutions.net [168.119.38.16])
+Received: from mail-m155101.qiye.163.com (mail-m155101.qiye.163.com [101.71.155.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F38703A4F50;
-	Fri,  4 Sep 2026 07:00:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=168.119.38.16
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFE0232ED4E;
+	Fri,  4 Sep 2026 07:00:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.71.155.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788505209; cv=none; b=QP/NNREfmmxTmqb4K6OhY77OE0wKWV1gXVQDmvzZ9g9uK1JXb/rd7lksBlul1+9jOwWMWzss1F1bB7X+JUankIpVJrhO7rESOCvTvOy1jqPwovWPQoxdNY9KuJlurGcIH62XNuH8h2Yd9uUoq1N/OfhM3aB+9iCP97oMv1m1ch4=
+	t=1788505234; cv=none; b=aUM1DM1t3tbasoWTTcA+El+CSMjrkSQP1CWHZXjby8PzeLjjGL5eUr9kLkseiygm52WbITNR8wKqwDVyMBfKnODQPpJvGelXX4xK1YQTxM0/EXUjHMc7W/0H3rxS6TwVyhrXKr6j3dyIYiScp6pGaculqkDJw4DtQLyzlGYd04Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788505209; c=relaxed/simple;
-	bh=HdP1e9LEi5R4f0ioMOHcHU9Ul+kojzvDxwkVthFrZjE=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=dwZjCaRDKKBRCjI+I203SV2kaFdDXSITZhRvssBv25Zbx98E3UhDUF7Dacx2Guy7WAncz3sfu56JSb9Z5EdG1d75CNVPK08lQcThAxIcmAk9keSnM3mgh8wzyA6036sHNt2kA2nyAhbOLqq7zxrWynEcLdTv8UdnVgVzDv1p20k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=permerror header.from=sipsolutions.net; spf=pass smtp.mailfrom=sipsolutions.net; dkim=pass (2048-bit key) header.d=sipsolutions.net header.i=@sipsolutions.net header.b=wZwbsK/X; arc=none smtp.client-ip=168.119.38.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=permerror header.from=sipsolutions.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sipsolutions.net
+	s=arc-20240116; t=1788505234; c=relaxed/simple;
+	bh=SOJ8QCflRbkW8jpMaQoN3egliz/RPrUaGCkqQ+5BElk=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=GbpnwqH3MX1p/S0BqbYSV1O0gn8egvhanxBwe7aH8QMYFamXeNDrkFnuwt972vc5MT3II/gSLkH1a51bPjevqVWE3Y0ePgwcaGsh+lZ3qOqEXLsPWikP9lC2UYGBTWAtz4eOn8vGMQ03zLkWecQgtN4kif3qsq0h5qP2s91YZMc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=WbO+boOa; arc=none smtp.client-ip=101.71.155.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sipsolutions.net header.i=@sipsolutions.net header.b="wZwbsK/X"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=sipsolutions.net; s=mail; h=MIME-Version:Content-Transfer-Encoding:
-	Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender
-	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-To:
-	Resent-Cc:Resent-Message-ID; bh=HdP1e9LEi5R4f0ioMOHcHU9Ul+kojzvDxwkVthFrZjE=;
-	t=1788505207; x=1789714807; b=wZwbsK/X6j1YGdOg/0+lXIVxw29ymmE+klWm8B8Zc7HIcwe
-	DgG4YB7bC1LtRp5ZRcXubkhwPryQYm6ATsbeD1Kfb22bFR0r8qircarfOobvKccanvT3Pe/xwAjxJ
-	N+cJ+S/9fOItfCgeRHKoftKWRGfkS5UpyAwjyaJ30o5E0+2JD0rFCuw5qUrn2CHk/SluuLE6E1AmK
-	F/Cu5muLHaSwpzW8X//dkSQdYm/BJIPYM9dkNcM9PVNyvqRnRRPh6syIsV44p8yyR2aEe3AxlTJjt
-	Z6bDDLVnRhLrLpDYZUDdwfhSz1ItaG56uYmUDayI+LfvH8HB6jfZezmSqt1Zo/DA==;
-Received: by sipsolutions.net with esmtpsa (TLS1.3:ECDHE_X25519__ECDSA_SECP256R1_SHA256__AES_256_GCM:256)
-	(Exim 4.98.2)
-	(envelope-from <johannes@sipsolutions.net>)
-	id 1x2Nu7-00000001DpE-3w8w;
-	Fri, 04 Sep 2026 09:00:04 +0200
-Message-ID: <b641fcfecbb189227da60e2a886c798b5463e0ad.camel@sipsolutions.net>
-Subject: Re: [PATCH wireless-next] wifi: p54: Use flexible array for channel
- list
-From: Johannes Berg <johannes@sipsolutions.net>
-To: Rosen Penev <rosenp@gmail.com>, linux-wireless@vger.kernel.org
-Cc: Christian Lamparter <chunkeey@googlemail.com>, Kees Cook
- <kees@kernel.org>,  "Gustavo A. R. Silva"	 <gustavoars@kernel.org>, open
- list <linux-kernel@vger.kernel.org>, "open list:KERNEL HARDENING (not
- covered by other  ""areas):Keyword:\\b__counted_by(_le|_be)?\\b"	
- <linux-hardening@vger.kernel.org>
-Date: Fri, 04 Sep 2026 09:00:02 +0200
-In-Reply-To: <20260511075640.446181-1-rosenp@gmail.com>
-References: <20260511075640.446181-1-rosenp@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
+	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="WbO+boOa"
+Received: from PC-202605011814.localdomain (unknown [222.191.246.242])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 4c86dea68;
+	Fri, 4 Sep 2026 15:00:19 +0800 (GMT+08:00)
+From: Runyu Xiao <runyu.xiao@seu.edu.cn>
+To: Mark Fasheh <mark@fasheh.com>,
+	Joel Becker <jlbec@evilplan.org>,
+	Joseph Qi <joseph.qi@linux.alibaba.com>,
+	Kurt Hackel <kurt.hackel@oracle.com>
+Cc: ocfs2-devel@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Runyu Xiao <runyu.xiao@seu.edu.cn>,
+	Jianhao Xu <jianhao.xu@seu.edu.cn>
+Subject: [PATCH] ocfs2: shut down idle timer during socket teardown
+Date: Fri,  4 Sep 2026 15:00:14 +0800
+Message-Id: <20260904070014.4049073-1-runyu.xiao@seu.edu.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-malware-bazaar: not-scanned
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa06b37e1e603a1kunma597ccf12d247
+X-HM-MType: 10
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCTUlDVkJNHkkfGhlDSEhJGlYeHw
+	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJSUlVSkJKVUlPTVVJT0lZV1kWGg8SFR0UWUFZT0tIVUpLSE
+	pPSExVSktLVUpCS0tZBg++
+DKIM-Signature: a=rsa-sha256;
+	b=WbO+boOa7XZEEcM7AncrzXxwxm03MYOM8GNKZ3BOz0v0bCCZc08oORGuR3nlfebO1ClBhLYS2drkm7bqG0fXz9ZoBFtFlnCog6Ei06g+LOgDRPX/eZlEdko6ibLaESfhnAXbi3uElgh8cme37PT99JeHutm3l9m0IEHP5ckz69g=; c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1;
+	bh=ZjSgnYmrCgIxaVCe4AaedaNBdz6nUCnBC2pw0ArPvbk=;
+	h=date:mime-version:subject:message-id:from;
 
-On Mon, 2026-05-11 at 00:56 -0700, Rosen Penev wrote:
-> Store generated channel entries in the p54 channel list allocation
-> instead of allocating them separately.
+o2net_idle_timer() rearms sc_idle_timeout from its callback. The socket
+shutdown path uses timer_delete_sync(), which waits for a running callback
+but does not prevent the callback from rearming the timer after deletion.
 
+The socket container is released after this path, and sc_kref_release()
+expects the timer to be inactive. Use timer_shutdown_sync() so the timer
+cannot be queued again during teardown.
 
-Somehow this was still on my list, despite mostly having decided to
-ignore these __counted_by() things ...
+Fixes: 98211489d414 ("[PATCH] OCFS2: The Second Oracle Cluster Filesystem")
+Cc: stable@vger.kernel.org
+Assisted-by: Codex:GPT-5
+Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
+---
+ fs/ocfs2/cluster/tcp.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-And you clearly didn't even run the code or pay attention to what you
-were doing, since p54_update_channel_param() has a bug that this would
-have exposed.
-
-johannes
+diff --git a/fs/ocfs2/cluster/tcp.c b/fs/ocfs2/cluster/tcp.c
+index 474fe1414..cef8cfa2a 100644
+--- a/fs/ocfs2/cluster/tcp.c
++++ b/fs/ocfs2/cluster/tcp.c
+@@ -733,7 +733,7 @@ static void o2net_shutdown_sc(struct work_struct *work)
+ 	if (o2net_unregister_callbacks(sc->sc_sock->sk, sc)) {
+ 		/* we shouldn't flush as we're in the thread, the
+ 		 * races with pending sc work structs are harmless */
+-		timer_delete_sync(&sc->sc_idle_timeout);
++		timer_shutdown_sync(&sc->sc_idle_timeout);
+ 		o2net_sc_cancel_delayed_work(sc, &sc->sc_keepalive_work);
+ 		sc_put(sc);
+ 		kernel_sock_shutdown(sc->sc_sock, SHUT_RDWR);
+@@ -1513,7 +1513,7 @@ static void o2net_sc_send_keep_req(struct work_struct *work)
+ 	sc_put(sc);
+ }
+ 
+-/* socket shutdown does a timer_delete_sync against this as it tears down.
++/* socket shutdown shuts down this timer as it tears down.
+  * we can't start this timer until we've got to the point in sc buildup
+  * where shutdown is going to be involved */
+ static void o2net_idle_timer(struct timer_list *t)
+-- 
+2.34.1
 
