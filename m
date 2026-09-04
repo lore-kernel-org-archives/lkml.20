@@ -1,39 +1,39 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D9C53655EA
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 09:01:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.2
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB0E83E5A29
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 09:01:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788512501; cv=none; b=mSw7MkxiuQrFz4DqckF/WO+6wU0VdYzj3KcewE9Z7Nk4MQHysVlbbFcQdlwrNb67Xof2NBwuKm977zJwSBsGjXjyzZO8MEEAFW6DeXzmGeUnJ2AUvqUCFS2hudpyS11nQeRQ4CoWFHz6tnXVNbgB29aZSaAd7HV8al4dxGxMhq4=
+	t=1788512502; cv=none; b=mcFKWEAdDrISEBmq+ja3+dAhsrWujdYGrWj+zGgRYZ2cMdQzocO4XsZIhpyb8gpEamk/8p9FaaGqcXIf6hZpuDNmpqGgJAG3vPPopByHdnao5rs2U/iIKoAws57CiEe8hv3lCBiF6i1xnufztLYmv8qQdshcOOwFUNVAniPzM0g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788512501; c=relaxed/simple;
-	bh=nFmFAlfMfvchNY8wxK6eXDlPjjlVlM5IsxUS5faaTzs=;
+	s=arc-20240116; t=1788512502; c=relaxed/simple;
+	bh=ZBNlgBctMhChDAE7o/5kMOQwK6g5AZoQLqncJ0hGTbU=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=YGANcN46cFAnF0wX/goXue5/LV9rO6/YZCPnibwEDjoEie9k4vXaAdhvaA1eIns7Nr9EPPTL1TJdTITRtPv3Nu344NGhwzCxd1OGbf1INOLPEYl4LW7dY4FZPRJ/dkYslW/JhaL1eohWS6Ce0N5P2TIjfez5lRNRuaAi6S6RWb8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=W3yrBs7f; arc=none smtp.client-ip=220.197.31.2
+	 MIME-Version; b=rS8BtG3drI03FdRmImLIoos59iGBW0prXDGNABvyXMBBO6ry2rTsg5kyoDlZ3XVIKKK2qy5yM03/vwHaTaNj6wAZhGjvpRy9eMSq2YuhgiJ0oNkYlkcQtpIK2V26ePvqYSmpaEdNUWJ6x8sU2xuEF63KFIafNAW+Hu7Dphy82zE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=JfYLFhWT; arc=none smtp.client-ip=220.197.31.4
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="W3yrBs7f"
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="JfYLFhWT"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=nu
-	j0+1XQbhDECxrIopxhQRoG1J/egygz61nzFEiJBpk=; b=W3yrBs7fwzFqRNOgA1
-	MEseH6I/LZrHsvJHG2cfBuMw5+m6thAUzwRu6V7xwTOi1+bWYQExAlR/6cfaw1Mc
-	GflyyD7vIibK4VbVxmSoTmp9gvi2PYzM1GyZS06KQqx5iX84l2JhfRxL2tReRWUf
-	18TmixH6Veid/+UM34OgwD9Zc=
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=na
+	ms8Fs7eVl6yuVlTVHApCwYJyqrJBhy/Ngo/qTmZsI=; b=JfYLFhWTbqZCTl2Ffa
+	SoyJ9DPgTkH/GuMr3jdhoUBR1rx2JjbvgCBHO/tdLZkx8q5WAyHw9MS1kiIjDyx6
+	ZvWBkgZOsq1Kc0MzIcZ6mcjlm1Gq3c0q5LgUtVeiimk6nktk0kuVMKFXMSNkwZPZ
+	DL2ZpQtQpZgZ+IljwcxyJEQ3s=
 Received: from liubaolin-ThinkPad-E15-Gen-2 (unknown [])
-	by gzga-smtp-mtada-g1-4 (Coremail) with SMTP id _____wAHU97ViJpqDNWCAg--.41284S5;
-	Fri, 04 Sep 2026 17:01:20 +0800 (CST)
+	by gzga-smtp-mtada-g1-4 (Coremail) with SMTP id _____wAHU97ViJpqDNWCAg--.41284S4;
+	Fri, 04 Sep 2026 17:01:17 +0800 (CST)
 From: Baolin Liu <liubaolin12138@163.com>
 To: linkinjeon@kernel.org,
 	hyc.lee@gmail.com
 Cc: ntfs@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
 	Baolin Liu <liubaolin@kylinos.cn>
-Subject: [PATCH v2 3/5] ntfs: preserve the truncate error in ntfs_enlarge_attribute()
-Date: Fri,  4 Sep 2026 17:00:52 +0800
-Message-ID: <20260904090054.3365538-4-liubaolin12138@163.com>
+Subject: [PATCH v2 2/5] ntfs: fix error handling in ntfs_extent_inode_open and propagate errors
+Date: Fri,  4 Sep 2026 17:00:51 +0800
+Message-ID: <20260904090054.3365538-3-liubaolin12138@163.com>
 X-Mailer: git-send-email 2.51.0
 In-Reply-To: <20260904090054.3365538-1-liubaolin12138@163.com>
 References: <20260904090054.3365538-1-liubaolin12138@163.com>
@@ -44,50 +44,118 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wAHU97ViJpqDNWCAg--.41284S5
-X-Coremail-Antispam: 1Uf129KBjvJXoW7KFy3CF4rCF45CFW7XFWkZwb_yoW8XrW8pr
-	ZrAry7Kw4Fv347Wr1v9a1qq3Wjvay3KrW5tFyq9w1xA3Zxtw1Dt34Fyw10gw4IkrW8X3yj
-	qr48uay7uFy2vrDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jW9a9UUUUU=
-X-CM-SenderInfo: xolxutxrol0iasrtmqqrwthudrp/xtbC6QCbZmqaiOCwPQAA3B
+X-CM-TRANSID:_____wAHU97ViJpqDNWCAg--.41284S4
+X-Coremail-Antispam: 1Uf129KBjvJXoWxuryfKF45ZrWDur4rCFy3urg_yoWrGFykpF
+	sruw1xtw47Jry7KrWvyr4q9FyakF4xKrW7Gr1Dtwn7Aas8t340vF1Utr109F1SyrZ5t34S
+	vr4jka17ua47ZFDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jyxRhUUUUU=
+X-CM-SenderInfo: xolxutxrol0iasrtmqqrwthudrp/xtbC6h2aZWqaiN051QAA3B
 
 From: Baolin Liu <liubaolin@kylinos.cn>
 
-ntfs_enlarge_attribute() discards the error from ntfs_attr_truncate() and
-returns -1, which reaches userspace as EPERM. The discarded codes are
-meaningful: -ENOSPC when the attribute cannot grow, -EACCES when it is
-encrypted, -EOPNOTSUPP when compressed, plus -EINVAL and -ENOMEM.
+ntfs_extent_inode_open() has two issues:
 
-Most callers of ntfs_inode_attr_pwrite() compare the result against the
-requested length and substitute -EIO, masking this. ntfs_ib_write() does
-not; it returns the value verbatim, which propagates through
-ntfs_index_add_filename() to __ntfs_create() and __ntfs_link(), so a full
-volume reports EPERM instead of ENOSPC from create(), mkdir() and link().
+1. When map_mft_record() fails, it returns the non-NULL 'ni' pointer
+   instead of an error, causing the caller to treat the failure as success.
+
+2. It returns NULL for all errors, losing information about what actually
+   went wrong (-EIO, -ENOMEM, -EINVAL, etc.).
+
+Fix both by converting the function to return ERR_PTR() on error, and
+update the single caller (ntfs_inode_attach_all_extents) to check with
+IS_ERR() and propagate the actual error code with PTR_ERR().
 
 Fixes: af0db57d4293 ("ntfs: update inode operations")
 Signed-off-by: Baolin Liu <liubaolin@kylinos.cn>
-Reviewed-by: Hyunchul Lee <hyc.lee@gmail.com>
 ---
- fs/ntfs/inode.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+ fs/ntfs/inode.c | 23 +++++++++++++----------
+ 1 file changed, 13 insertions(+), 10 deletions(-)
 
 diff --git a/fs/ntfs/inode.c b/fs/ntfs/inode.c
-index 747a60ae27c9..9b2ff15da94c 100644
+index 5aedc045f65a..xxxxxxxxxxxx 100644
 --- a/fs/ntfs/inode.c
 +++ b/fs/ntfs/inode.c
-@@ -3618,9 +3618,10 @@ static inline int ntfs_enlarge_attribute(struct inode *vi, s64 pos, s64 count,
- 		return -EOPNOTSUPP;
- 
- 	if (pos + count > ni->data_size) {
--		if (ntfs_attr_truncate(ni, pos + count)) {
-+		ret = ntfs_attr_truncate(ni, pos + count);
-+		if (ret) {
- 			ntfs_debug("Failed to truncate attribute");
--			return -1;
-+			return ret;
+@@ -2904,8 +2904,7 @@ static inline void ntfs_init_big_inode(struct inode *vi)
+  * abort if deprotection or checks fail.
+  *
+  * Finally attach the ntfs inode to its base inode @base_ni and return a
+- * pointer to the ntfs_inode structure on success or NULL on error, with errno
+- * set to the error code.
++ * pointer to the ntfs_inode structure on success or ERR_PTR() on error.
+  *
+  * Note, extent inodes are never closed directly. They are automatically
+  * disposed off by the closing of the base inode.
+@@ -2921,7 +2920,7 @@ static struct ntfs_inode *ntfs_extent_inode_open(struct ntfs_inode *base_ni,
+ 	struct super_block *sb;
+
+ 	if (!base_ni)
+-		return NULL;
++		return ERR_PTR(-EINVAL);
+
+ 	sb = base_ni->vol->sb;
+ 	ntfs_debug("Opening extent inode %llu (base mft record %llu).\n",
+@@ -2940,7 +2939,7 @@ static struct ntfs_inode *ntfs_extent_inode_open(struct ntfs_inode *base_ni,
+ 			if (IS_ERR(ni_mrec)) {
+ 				ntfs_error(sb, "failed to map mft record for %llu",
+ 						ni->mft_no);
+-				goto out;
++				return ERR_PTR(PTR_ERR(ni_mrec));
+ 			}
+ 			/* Verify the sequence number if given. */
+ 			seq_no = MSEQNO_LE(mref);
+@@ -2949,7 +2948,7 @@ static struct ntfs_inode *ntfs_extent_inode_open(struct ntfs_inode *base_ni,
+ 				ntfs_error(sb, "Found stale extent mft reference mft=%llu",
+ 						ni->mft_no);
+ 				unmap_mft_record(ni);
+-				goto out;
++				return ERR_PTR(-EINVAL);
+ 			}
+ 			unmap_mft_record(ni);
+ 			goto out;
+@@ -2958,7 +2957,7 @@ static struct ntfs_inode *ntfs_extent_inode_open(struct ntfs_inode *base_ni,
+ 	/* Wasn't there, we need to load the extent inode. */
+ 	ni = ntfs_new_extent_inode(base_ni->vol->sb, mft_no);
+ 	if (!ni)
+-		goto out;
++		return ERR_PTR(-ENOMEM);
+
+ 	ni->seq_no = (u16)MSEQNO_LE(mref);
+ 	ni->nr_extents = -1;
+@@ -2968,8 +2967,10 @@ static struct ntfs_inode *ntfs_extent_inode_open(struct ntfs_inode *base_ni,
+ 		i = (base_ni->nr_extents + 4) * sizeof(struct ntfs_inode *);
+
+ 		extent_nis = kvzalloc(i, GFP_NOFS);
+-		if (!extent_nis)
++		if (!extent_nis) {
++			ni = ERR_PTR(-ENOMEM);
+ 			goto err_out;
++		}
+ 		if (base_ni->nr_extents) {
+ 			memcpy(extent_nis, base_ni->ext.extent_ntfs_inos,
+ 					i - 4 * sizeof(struct ntfs_inode *));
+@@ -2984,7 +2985,6 @@ static struct ntfs_inode *ntfs_extent_inode_open(struct ntfs_inode *base_ni,
+ 	return ni;
+ err_out:
+ 	ntfs_destroy_ext_inode(ni);
+-	ni = NULL;
+ 	goto out;
+ }
+
+@@ -3025,9 +3025,12 @@ int ntfs_inode_attach_all_extents(struct ntfs_inode *ni)
+ 	while ((u8 *)ale < ni->attr_list + ni->attr_list_size) {
+ 		if (ni->mft_no != MREF_LE(ale->mft_reference) &&
+ 				prev_attached != MREF_LE(ale->mft_reference)) {
+-			if (!ntfs_extent_inode_open(ni, ale->mft_reference)) {
++			struct ntfs_inode *ext_ni;
++
++			ext_ni = ntfs_extent_inode_open(ni, ale->mft_reference);
++			if (IS_ERR(ext_ni)) {
+ 				ntfs_debug("Couldn't attach extent inode.\n");
+-				return -1;
++				return PTR_ERR(ext_ni);
+ 			}
+ 			prev_attached = MREF_LE(ale->mft_reference);
  		}
- 
- 		ntfs_attr_reinit_search_ctx(ctx);
--- 
+--
 2.51.0
 
