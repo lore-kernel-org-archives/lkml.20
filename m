@@ -1,138 +1,115 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oo1-f70.google.com (mail-oo1-f70.google.com [209.85.161.70])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7A293AD511;
-	Fri,  4 Sep 2026 03:48:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8AE9A4CCDFB
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 03:50:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.70
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788493720; cv=none; b=Ml2IfdTbb2eY09tI8e4Hu0hySrfkzQn/oDyFdqYIucMjZnOMLGRyJHW8fNyeRUXUUJgNlD2jmqrm0LAGr6KhvGIcwPGTjVMERc9NIOednRtbQw+DdtyHp+70EV/q/LS8/n6QKU8cB619bEpqPqPqZJ4u92Ertl6MPO3dxMeoXio=
+	t=1788493814; cv=none; b=qrFf+vsQCxaI1sp+cqZpBvSTzAmeE992qWx3EjmBfNfxvBmx5BiyE7oyEPleFlsAsKu6jaJzgnbmri9YEAVJBcVygPnY9s7TG9WeCWP8msY1udYUM/x9qGF+pkb2zToafavBIyvXHb70P2MtkLVzhUQvf2NRQ5YfOsf+ej8yMfE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788493720; c=relaxed/simple;
-	bh=MT6MfLHzUWlYjBxa45N8wdeJ+sOo6aJ71kPXxy2tg3Q=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=O/Mib1qkNqAI47O0tT1ltc7eVYixi5njSXxFDCDB2wUzjrUBkbvEUukGzx+X2bS6R72fpqHixPAVn9oAq5kcBW8c8plf4hBeYbj3PMe9k5Z/quaH9uvMs0sjAlTbaqSveafmoX60W0CBfIhQvGqegdh2EJ9+NHwWpdUwn3NVU7M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=pYYnPWxT; arc=none smtp.client-ip=117.135.210.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="pYYnPWxT"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=P3
-	SGhphpkiE9E2YevTfiMjq9NUdddUaAUez/XmB+dLo=; b=pYYnPWxTnlMQ6Bo5iL
-	bECPS7TpFGu1wAj/OsWHgTBkZx0QzZ2PNuheGxcrU6dVQyVvC+MOaKcU7lInT5wd
-	YXngNX87sS0xENfWDeBs6814BmH3ttQ+KFoManYk3CFlg/VAv4nas8Kbnn4eosWg
-	xhEfI6ylAT2rnnuztBSmmWA4s=
-Received: from localhost (unknown [])
-	by gzsmtp1 (Coremail) with SMTP id PCgvCgAH8447P5pqxZOENg--.44249S2;
-	Fri, 04 Sep 2026 11:47:08 +0800 (CST)
-From: Hui Su <sh_def@163.com>
-To: Tejun Heo <tj@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Juri Lelli <juri.lelli@redhat.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	Michal Koutny <mkoutny@suse.com>
-Cc: Hui Su <sh_def@163.com>,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Ben Segall <bsegall@google.com>,
-	Mel Gorman <mgorman@suse.de>,
-	Valentin Schneider <vschneid@redhat.com>,
-	K Prateek Nayak <kprateek.nayak@amd.com>,
-	John Stultz <jstultz@google.com>,
-	cgroups@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2] sched: Account cgroup CPU time to the execution context
-Date: Fri,  4 Sep 2026 11:47:07 +0800
-Message-ID: <20260904034707.268416-1-sh_def@163.com>
-X-Mailer: git-send-email 2.54.0
+	s=arc-20240116; t=1788493814; c=relaxed/simple;
+	bh=GI9qra2mc1OBA/mnKbX/5DgNvZ85PoXWaWJ7afr/iYw=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:Cc:
+	 Content-Type; b=BURy7T0F6YJmKZYU63pQI4v3biZ1ybx2DAVwk+HKcCbXgDqdMJRMN/8MpbYjWi68s4ymFclqeT6vORFAMzdyME7xItLMRcnfrFxqMW9DdwlFlgqO9pNLnZ33q3tJ/Uv7ETBKAmf6qt24V2vC2cP8TeB0lyN5ldbOCLpec/DXDzg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.161.70
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oo1-f70.google.com with SMTP id 006d021491bc7-6b163fddf0aso1744199eaf.1
+        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 20:50:12 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788493811; x=1789098611;
+        h=content-transfer-encoding:content-type:cc:to:from:subject
+         :message-id:in-reply-to:date:mime-version:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=GI9qra2mc1OBA/mnKbX/5DgNvZ85PoXWaWJ7afr/iYw=;
+        b=qER+f59/x0iUTnrR2obsKLp435TvviWmlvgmMsc9w39waoZBzCTZQLPr7KoHNQWsR0
+         4PbXKeC2UFPWfuJCLZcNFlJoXLmlmYGD8jVTltpdaW5M1jcXDLz4Ax++DYuOQiQ2sMMe
+         C3A6NGTxPMwniqAaZmEinMBtpME3UODsGW12aXcO6kLbIPcWur8hfV2Hu5yX8yXDRWAI
+         HdG/RO97zqXwTmy3niZOFB9Ef/K4P/frzSdo5uMHW/z1N2WtMrwAH0okoCumKlrbzfBi
+         XoVgjQ0l2FFkqXmJMpY6YT1Cp5myvdmpj7KbWrvqeivCelCBOdWyr/tiS3uob5fSA5ZX
+         xE2Q==
+X-Forwarded-Encrypted: i=1; AKwUvBxGQk13V13HzGkHSmoeR4EEDZ5qpsp0uy9aiyyrhCqzc4e5PwRLLQOYl16pbUh311N6D2zxkeX9lfMaBRA=@vger.kernel.org
+X-Gm-Message-State: AFuF++lyW6swlVlJ1vLrvARvLcm3uDCtRuuuUnfkmcFH6GYQc72PjgV+
+	+nDWageAJY5sPdt0mMQmMmy7jJKAvtXYQX991Gxca51KhlhGb3Es75f0aaVntux3dqYcN01j2wF
+	XtyFUDWYU5aC1BljBmUjkmsuQrMQay56s+DuZEyz4a59sgNeHeqxtUciw95A=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:PCgvCgAH8447P5pqxZOENg--.44249S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxGrW8JFW5Zw4xAr45ur1UGFg_yoW5Zw4kpF
-	Z5Xa1UXws5tF1jyr4jyasY934fGws3JwnIqr4DJw1fAFyfG3W8KryI9r1jyF1jyr4IyF1I
-	vrsY934xCF1UKw7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0zi75r7UUUUU=
-X-CM-SenderInfo: xvkbvvri6rljoofrz/xtbC6R4gf2qaPz7mowAA3c
+X-Received: by 2002:a05:6820:1886:b0:6b1:3534:a5bf with SMTP id
+ 006d021491bc7-6b5854bb7c9mr4949767eaf.14.1788493811434; Thu, 03 Sep 2026
+ 20:50:11 -0700 (PDT)
+Date: Thu, 03 Sep 2026 20:50:11 -0700
+In-Reply-To: <a39a7d13-8f39-413a-95bb-74a86c2803f3@me.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6a9a3ff3.0b659fcc.16ebfd.0005.GAE@google.com>
+Subject: =?UTF-8?B?UmU6IFJlOsKgW3N5emJvdF0gW21lZGlhP10gV0FSTklORyBpbiBjeDI1ODQwX2luaXQ=?=
+From: syzbot <syzbot+9123948aef13fe92d706@syzkaller.appspotmail.com>
+To: m.harisawan@icloud.com
+Cc: m.harisawan@icloud.com, linux-kernel@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Proxy execution separates the scheduling context from the execution
-context. Commit aa4f74dfd42b ("sched: Fix runtime accounting w/ split
-exec & sched contexts") made per-task and thread-group runtime
-accounting follow the task that actually executes, while cgroup CPU
-usage is charged to the donor.
+> #syz test diff --git a/drivers/media/i2c/cx25840/cx25840-core.c b/drivers=
+/media/i2c/cx25840/cx25840-core.c index a8e21a28174f..6df912c9381b 100644 -=
+-- a/drivers/media/i2c/cx25840/cx25840-core.c +++ b/drivers/media/i2c/cx258=
+40/cx25840-core.c @@ -2298,28 +2298,26 @@ static int cx25840_init(struct v4=
+l2_subdev *sd, u32 val) struct cx25840_state *state =3D to_state(sd); + if =
+(!is_cx2584x(state)) + return -EOPNOTSUPP; + state->generic_mode =3D true; =
+- if (is_cx2584x(state)) { - /* set datasheet video output defaults */ - st=
+ate->vid_config =3D CX25840_VCONFIG_FMT_BT656 | - CX25840_VCONFIG_RES_8BIT =
+| - CX25840_VCONFIG_VBIRAW_DISABLED | - CX25840_VCONFIG_ANCDATA_ENABLED | -=
+ CX25840_VCONFIG_TASKBIT_ONE | - CX25840_VCONFIG_ACTIVE_HORIZONTAL | - CX25=
+840_VCONFIG_VALID_NORMAL | - CX25840_VCONFIG_HRESETW_NORMAL | - CX25840_VCO=
+NFIG_CLKGATE_NONE | - CX25840_VCONFIG_DCMODE_DWORDS | - CX25840_VCONFIG_IDI=
+D0S_NORMAL | - CX25840_VCONFIG_VIPCLAMP_DISABLED; - - /* add additional set=
+tings */ - cx25840_vconfig_add(state, val); - } else { - /* TODO: generic m=
+ode needs to be developed for other chips */ - WARN_ON(1); - } + /* set dat=
+asheet video output defaults */ + state->vid_config =3D CX25840_VCONFIG_FMT=
+_BT656 | + CX25840_VCONFIG_RES_8BIT | + CX25840_VCONFIG_VBIRAW_DISABLED | +=
+ CX25840_VCONFIG_ANCDATA_ENABLED | + CX25840_VCONFIG_TASKBIT_ONE | + CX2584=
+0_VCONFIG_ACTIVE_HORIZONTAL | + CX25840_VCONFIG_VALID_NORMAL | + CX25840_VC=
+ONFIG_HRESETW_NORMAL | + CX25840_VCONFIG_CLKGATE_NONE | + CX25840_VCONFIG_D=
+CMODE_DWORDS | + CX25840_VCONFIG_IDID0S_NORMAL | + CX25840_VCONFIG_VIPCLAMP=
+_DISABLED; + + /* add additional settings */ + cx25840_vconfig_add(state, v=
+al); return 0; } On 4 Sep 2026, at 4:09, syzbot <syzbot+9123948aef13fe92d70=
+6@syzkaller.appspotmail.com> wrote: #syz test: git:// git.kernel.org/pub/sc=
+m/linux/kernel/git/torvalds/linux.git 940de590b839f71d6dc846160534bf202401b=
+8b7 diff --git a/drivers/media/i2c/cx25840/cx25840-core.c b/drivers/media/i=
+2c/cx25840/cx25840-core.c index a8e21a28174f..6df912c9381b 100644 --- a/dri=
+vers/media/i2c/cx25840/cx25840-core.c +++ b/drivers/media/i2c/cx25840/cx258=
+40-core.c @@ -2298,28 +2298,26 @@ static int cx25840_init(struct v4l2_subde=
+v *sd, u32 val) struct cx25840_state *state =3D to_state(sd); + if (!is_cx2=
+584x(state)) + return -EOPNOTSUPP; + state->generic_mode =3D true; - if (is=
+_cx2584x(state)) { - /* set datasheet video output defaults */ - state->vid=
+_config =3D CX25840_VCONFIG_FMT_BT656 | - CX25840_VCONFIG_RES_8BIT | - CX25=
+840_VCONFIG_VBIRAW_DISABLED | - CX25840_VCONFIG_ANCDATA_ENABLED | - CX25840=
+_VCONFIG_TASKBIT_ONE | - CX25840_VCONFIG_ACTIVE_HORIZONTAL | - CX25840_VCON=
+FIG_VALID_NORMAL | - CX25840_VCONFIG_HRESETW_NORMAL | - CX25840_VCONFIG_CLK=
+GATE_NONE | - CX25840_VCONFIG_DCMODE_DWORDS | - CX25840_VCONFIG_IDID0S_NORM=
+AL | - CX25840_VCONFIG_VIPCLAMP_DISABLED; - - /* add additional settings */=
+ - cx25840_vconfig_add(state, val); - } else { - /* TODO: generic mode need=
+s to be developed for other chips */ - WARN_ON(1); - } + /* set datasheet v=
+ideo output defaults */ + state->vid_config =3D CX25840_VCONFIG_FMT_BT656 |=
+ + CX25840_VCONFIG_RES_8BIT | + CX25840_VCONFIG_VBIRAW_DISABLED | + CX25840=
+_VCONFIG_ANCDATA_ENABLED | + CX25840_VCONFIG_TASKBIT_ONE | + CX25840_VCONFI=
+G_ACTIVE_HORIZONTAL | + CX25840_VCONFIG_VALID_NORMAL | + CX25840_VCONFIG_HR=
+ESETW_NORMAL | + CX25840_VCONFIG_CLKGATE_NONE | + CX25840_VCONFIG_DCMODE_DW=
+ORDS | + CX25840_VCONFIG_IDID0S_NORMAL | + CX25840_VCONFIG_VIPCLAMP_DISABLE=
+D; + + /* add additional settings */ + cx25840_vconfig_add(state, val); ret=
+urn 0; } I've failed to parse your command. Did you perhaps forget to provi=
+de the branch name, or added an extra ':'? Please use one of the two suppor=
+ted formats: 1. #syz test 2. #syz test: repo branch-or-commit-hash Note the=
+ lack of ':' in option 1.
 
-When the donor and execution task belong to different cgroups, this
-makes a task's execution time count against a different cgroup from the
-one the task belongs to.
-
-Cgroup CPU usage should follow the execution context, matching the
-per-task, thread-group, and cgroup user/system accounting. Keep
-scheduling state associated with the donor, but charge cgroup CPU
-usage to rq->curr.
-
-A reproducer with the donor and execution task in separate cgroups
-showed the execution task accumulating runtime while cgroup CPU usage
-was charged to the donor's cgroup. With this change, the execution
-task's cgroup accumulates the CPU usage instead. The same behavior was
-verified with an RT donor and with legacy cpuacct accounting.
-
-Fixes: aa4f74dfd42b ("sched: Fix runtime accounting w/ split exec & sched contexts")
-Suggested-by: Tejun Heo <tj@kernel.org>
-Signed-off-by: Hui Su <sh_def@163.com>
----
-Changes since v1:
-- Rework the fix following Tejun Heo's review: make cgroup CPU usage
-  follow the execution context instead of moving cgroup user/system
-  accounting to the scheduling context.
-- Drop the per-rq cputime owner, deferred boundary handling, and donor
-  lifetime tracking, which are no longer needed.
-- Rework the reproducer expectation around execution-context cgroup
-  CPU usage.
-
-Testing:
-- cgroup v2 proxy reproducer: executor runtime +1.483s, donor cgroup A
-  usage +0, and executor cgroup B usage +1.629s.
-- RT donor reproducer: executor runtime +0.991s, donor cgroup A usage
-  +125us, and executor cgroup B usage +0.991s.
-- cgroup v1 cpuacct: usage charged to the executor cgroup.
-- sched_proxy_exec=off control passed.
-- CONFIG_SCHED_PROXY_EXEC / CONFIG_CGROUPS /
-  CONFIG_CGROUP_CPUACCT build matrix passed.
-- W=1 kernel/sched/fair.o passed.
-- checkpatch --strict and git diff --check passed.
-
-v1: https://lore.kernel.org/lkml/5733b51108eda90c1bda98a68d58b5e6ccbc24ec.1788433334.git.sh_def@163.com/
-
- kernel/sched/fair.c | 4 +---
- 1 file changed, 1 insertion(+), 3 deletions(-)
-
-diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
-index 8dff37059faf..6fcf67d741e8 100644
---- a/kernel/sched/fair.c
-+++ b/kernel/sched/fair.c
-@@ -1404,7 +1404,6 @@ static s64 update_se(struct rq *rq, struct sched_entity *se)
- 
- 	se->exec_start = now;
- 	if (entity_is_task(se)) {
--		struct task_struct *donor = task_of(se);
- 		struct task_struct *running = rq->curr;
- 		/*
- 		 * If se is a task, we account the time against the running
-@@ -1417,8 +1416,7 @@ static s64 update_se(struct rq *rq, struct sched_entity *se)
- 		account_group_exec_runtime(running, delta_exec);
- 		account_mm_sched(rq, running, delta_exec);
- 
--		/* cgroup time is always accounted against the donor */
--		cgroup_account_cputime(donor, delta_exec);
-+		cgroup_account_cputime(running, delta_exec);
- 	} else {
- 		/* If not task, account the time against donor se  */
- 		se->sum_exec_runtime += delta_exec;
--- 
-2.54.0
+I've failed to parse your command.
+Did you perhaps forget to provide the branch name, or added an extra ':'?
+Please use one of the two supported formats:
+1. #syz test
+2. #syz test: repo branch-or-commit-hash
+Note the lack of ':' in option 1.
 
