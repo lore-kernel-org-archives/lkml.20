@@ -1,148 +1,190 @@
-Received: from mail-yw1-f169.google.com (mail-yw1-f169.google.com [209.85.128.169])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F875412294
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 19:06:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9077A51E437;
+	Fri,  4 Sep 2026 19:06:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.151
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788548794; cv=none; b=nK9lPIiD0QC2AAjyQ+/M/rUYQG+dAMQsWwtrab+GlHHTtCqXjb27LeAaDSHUhaMBI6J7kZAFy7mVrSdLPsNjsDCW1Qn1ESyNf93jonHeCAUQ7rfGKPezma01adtiWCk5eYavRaIRQA0R/139S1priyIA6YnS1WD/XnvxjYLroM4=
+	t=1788548803; cv=none; b=npiZC6VFu0H1MIsn4FHec9HUwOq7Azqtl5a6I51bAbUsxD52cIPk2CfXqS02MjA75vPfKuFJ1ihajmRXgcAYjJA4H155gQFKiK5OzkeDz5D9cwHohIs3q1gQYJM5jCOkTnYcRQ0feh4lNkNc2QGURxZx42lnU00Ezem5gxVf2hQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788548794; c=relaxed/simple;
-	bh=21Bh4RJxpeiCW82oSWerk5Qo5AfL15/5sh5ePR1ifY8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=eUxeculAoah8b2DY/lgOpBJoE41Xpsf20w4HmbeJRlxRGBea0nBlm3VKPFb6zgjPjiQolIHoFqHK8DMqo6XjWpY4uecAWL1m0gUmw58SsF517m/lj5qNCz2cVZYkx8BeZ4JtTwS+96bl/LzwFmk1ygAO8LjWPXkOdBe9xopsni4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca; spf=pass smtp.mailfrom=ziepe.ca; dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b=ODcRLImc; arc=none smtp.client-ip=209.85.128.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
+	s=arc-20240116; t=1788548803; c=relaxed/simple;
+	bh=BPD4fIE2hQPUTf0oTIx+CTkhgcJjNoGrsoDwgxoCIRw=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=A0fJJLiIp7rarJjasiB0e8rGf8OCXWO+TY5/48c6eWJiAq81TDKR9v7DZVpsXRKYYSWC5BFa+QRjYvUwLRAhbI8tHaZyfSdWznfFp2nRSqTegy3KeUpp/qbTQiUcvWXnpFCTJ2+kVoW97zKdP/NEYHcq3trBLKcAI+WbS5gVphM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=IcP9Q/jl; arc=none smtp.client-ip=80.241.56.151
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b="ODcRLImc"
-Received: by mail-yw1-f169.google.com with SMTP id 00721157ae682-865bdc6ed72so27934117b3.2
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 12:06:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ziepe.ca; s=google; t=1788548787; x=1789153587; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=P3rzU4rRnN7pu/GZMmTRQuFVrRv0l5idd5+55lRqVAM=;
-        b=ODcRLImcsIS5iVNl+ZahRycAduLdy9JKF4ZXLUxRp/0zaap7yPdhEQ55TLbSREotDR
-         t2D2pU4eLgK9qUdmPunJpyqByPO9UY0gCm6KqjN5ljyHH5QRjXk940z3BI6OZbumZtJA
-         8iwFPX/VNeXGrdgyIcxN+4E2w9Szh1dSdOmn3IHVWAzH+4lASnZGhj4Bp9jY/OxRq/se
-         dkpCoRlQKHxFddxqxH69HJKK1KSfw59L0IvPUY5OGUQT7Ula/prBAY6qTZfaZSURxI6m
-         z7UH4wK4/5jA7+nIIK5HYcSBdzF0eB4TvrCQJ8J+99z2ht0kLl9BKuqXXWQeetwrGUGl
-         ENmQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788548787; x=1789153587;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=P3rzU4rRnN7pu/GZMmTRQuFVrRv0l5idd5+55lRqVAM=;
-        b=f/9UlK52qZUbBeWpZhJZR1hdhZCB2IEcOkmw2ui1IyF0IKdtoiKA/wXiMeNJwPwk3z
-         kyHDih6Xd2dM4895bR4vAlnNx5pbSP/sPmqwD83JEttKWi/BCvEkXv17+vrYEMRUtE+q
-         eYoSG08aSGk5B8BVmcd6XgFaeH4ntVrHv0ynWc/Q0jFndvhMq6T1XvpNFStYEvxeGnYt
-         xdBis0DpN+a6Ni4qWY/+xhoUdZQ3W2AieNrvLKPxh1TkNlUN7h0IhxCSkxCXm/5cPbSs
-         YMye2o80lxjkbSdq/eXEcvCTu4SdyLLX/7G/Ro/YmXVcOjFJ9Jw+JgIdD8r6nTotBOZI
-         4HLA==
-X-Forwarded-Encrypted: i=1; AKwUvBwg1ckV4TMe/r6L/NedcEuKwe6q3fE6YYiFZIiMEwkeQ4vPesix3BL6o0jkGjikg/3q7IGBkqvm5A/6XIo=@vger.kernel.org
-X-Gm-Message-State: AFuF++mHPzU3uZwydgl+NCiji1ylL+jcRmpPwp4DXaqQxmsHDJ54TvAr
-	ArcEl8+nb+4dtckI/lpvbPQW4xADsyme65N22zFrP/Vwvy30cfFkY+o/kUpjElshWSM=
-X-Gm-Gg: AYBFou1Mppy1qqU0ZZEUSg4xwSb4ZXKphvc5pDIxYlq3g4AuTxUzXHtOWMeYDHEbXzH
-	23XSWAbqPOZLM3yQcS//cCtvDCgbiOR/0MUovTLVkJP3dfEwdNOX/4xqvj+RII7pdzuVdOZuWa3
-	AMEDOHn4Q2PjAFx1EiiiOHIMEZfIokvHzFEZhrXCHqLqvqUfJCqEG6oGnntRNrfjLbL6wc4HDEM
-	P9GW4oyRacyrK5SCWaPOyFKrLbUv9EcugeBEn47hYOn9LuPugD7EgBuAEmN+YJtVp1ZuUJIQmwb
-	lcS42bD4QNy42DsI+V3+OYITxoNMu3ID0ghr0t+fKZCZCih8ulTt6dal7ZxH9Ncs9uHeMU5SLsN
-	oNQOu8ePD1nBQoNJf2I9DsJWiT+mubQmQ8IimqwUW+2IfgXEZoKdjiwt4jiL9al9wjfGXjCUx/C
-	5WI8+ApE+VaffhMAtmO0agkDnOGddG2MXVN4olLlsMd07qd4hT/9hwltoajakYB6bdruTle7xOh
-	R6TPIqBz7qNNZLsoK3lrv9qtMIyfdI4iHhdPkku6mDp+uZxFq1LmJWLgg==
-X-Received: by 2002:a05:690e:2026:b0:66f:c284:4834 with SMTP id 956f58d0204a3-66fc2844e8amr819081d50.60.1788548787246;
-        Fri, 04 Sep 2026 12:06:27 -0700 (PDT)
-Received: from ziepe.ca (hlfxns010zw-159-2-239-150.pppoe-dynamic.high-speed.ns.bellaliant.net. [159.2.239.150])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-910406481b4sm27434626d6.17.2026.09.04.12.06.26
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 04 Sep 2026 12:06:26 -0700 (PDT)
-Received: from jgg by wakko with local (Exim 4.97)
-	(envelope-from <jgg@ziepe.ca>)
-	id 1x2ZF3-00000002uJq-3KUc;
-	Fri, 04 Sep 2026 16:06:25 -0300
-Date: Fri, 4 Sep 2026 16:06:25 -0300
-From: Jason Gunthorpe <jgg@ziepe.ca>
-To: Samiullah Khawaja <skhawaja@google.com>
-Cc: Nicolin Chen <nicolinc@nvidia.com>,
-	Alex Williamson <alex.williamson@nvidia.com>,
-	"Tian, Kevin" <kevin.tian@intel.com>, kvm <kvm@vger.kernel.org>,
-	Alex Williamson <alex@shazbot.org>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	linux-kernel <linux-kernel@vger.kernel.org>,
-	linux-pci <linux-pci@vger.kernel.org>, iommu@lists.linux.dev
-Subject: Re: [RFC PATCH 1/5] PCI: Refuse function reset of an SR-IOV PF with
- enabled VFs
-Message-ID: <20260904190625.GA667892@ziepe.ca>
-References: <20260812045325.2733631-2-alex.williamson@nvidia.com>
- <an5JbIzz40svS3xe@google.com>
- <20260814083737.66bb83fb@nvidia.com>
- <20260817121810.GC933791@ziepe.ca>
- <CO1PR11MB48354AC2854C4D8E9984FD8E8CA62@CO1PR11MB4835.namprd11.prod.outlook.com>
- <20260818140304.GC5482@ziepe.ca>
- <20260818143906.1f58aecb@nvidia.com>
- <aod22_H66eUth9av@google.com>
- <20260820233722.GA1110819@ziepe.ca>
- <aoeffe1v--CgRK0a@google.com>
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="IcP9Q/jl"
+Received: from smtp102.mailbox.org (smtp102.mailbox.org [IPv6:2001:67c:2050:b231:465::102])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4hc5Y411JPz8sZs;
+	Fri, 04 Sep 2026 21:06:32 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1788548792; h=from:from:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=BPD4fIE2hQPUTf0oTIx+CTkhgcJjNoGrsoDwgxoCIRw=;
+	b=IcP9Q/jlU3GD+WteFSdXisILUqTCOPkmKmbsWQdAnMn4fA56SAlBscpRgXBKr8AtONeQhX
+	BVfdLHl4RddM8Qdnh79CPCeDC7mLMjmL1xEaJ6yy5GspcYFVeLpopDjiI02yuZurggwJ2V
+	YemJwHmgwcYu3E5ClOMA0NAKOI82mD6wmLClQBDfYV2z4AnO8d9gPpTMP14jo0NiTn3RI4
+	KZR4GGXbCst2pqowkaixF3vLWBDVYD7/g+6tzQ+NL85u8QIyQ/FRhsFXzZFG12YIXuwMBg
+	6f1FRndku5/bexC57K1akKR2SkVj93a29YddVmcw5Q/auXh5oJ1/G3+F/Wl29g==
+Message-ID: <7e4497506bb051fd1c25ed54f88a8036084e779c.camel@mailbox.org>
+Subject: Re: [PATCH v4 1/3] drm/sched: cache the timeline name to fix a
+ use-after-free
+From: Philipp Stanner <phasta@mailbox.org>
+Reply-To: phasta@kernel.org
+To: Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, 
+	phasta@kernel.org, "Jonghyuk Kim(MalHyuk)" <malhyuk97@gmail.com>, 
+	tursulin@ursulin.net, matthew.brost@intel.com, dakr@kernel.org
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+	mdaenzer@redhat.com, alessio.belle@imgtec.com, luigi.santivetti@imgtec.com,
+ 	stable@vger.kernel.org
+Date: Fri, 04 Sep 2026 21:06:27 +0200
+In-Reply-To: <a41a35b8-c78b-4c18-af11-26374918f222@amd.com>
+References: <20260904080618.2098450-1-malhyuk97@gmail.com>
+	 <20260904080618.2098450-2-malhyuk97@gmail.com>
+	 <f25f2a91-b72e-4392-ab53-c11ef60e0fe0@amd.com>
+	 <ee27d37269f609192cdfd7a217d9731d7dca04c8.camel@mailbox.org>
+	 <a41a35b8-c78b-4c18-af11-26374918f222@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <aoeffe1v--CgRK0a@google.com>
+X-MBO-RS-META: rshw34mo1xxwztyre7cgrfju8ajtnzzf
+X-MBO-RS-ID: eb457b034488acf701f
 
-On Fri, Aug 21, 2026 at 02:20:55AM +0000, Samiullah Khawaja wrote:
-> On Thu, Aug 20, 2026 at 08:37:22PM -0300, Jason Gunthorpe wrote:
-> > On Thu, Aug 20, 2026 at 10:38:07PM +0000, Samiullah Khawaja wrote:
-> > 
-> > > > The blocking domain operation looks like it might be simplest to
-> > > > implement in the IOMMU core.  We can set a flag for a default blocking
-> > > > domain on the IOMMU group when we take_dma_ownership of the group.  Then
-> > > > release_dma_ownership picks the blocking rather than default domain.
-> > > >
-> > > > This is then unwound in use_default_domain, called via dma_configure,
-> > > > attaching the device to the default domain in probe of the next driver.
-> > > > Therefore until probe by another driver, a device used by vfio would
-> > > > remain in a blocking domain even while unused and unbound.
-> > > 
-> > > The devices are expected to be attached to the default_domain even when
-> > > these are unbound and the use_default_domain assumes that, and it only
-> > > checks the ownership and doesn't switch the domain to default_domain. I
-> > > guess we should add a WARN in use_default_domain() if that is not true.
-> > > I will probably send out a patch for that separately.
-> > > 
-> > > I think we can move the device back to default_domain after reset after
-> > > unbind, maybe it can be done in pci_dma_cleanup() based on
-> > > driver_managed_dma?
-> > 
-> > This blocking domain stuff sounds very similar to what Nicolin
-> > implemented for the per-function ATS issue?
-> 
-> I see you are talking about this invalidation stuff:
-> 
-> https://lore.kernel.org/all/348c50ab6e95b5ec6d48ee3fa05d529a784a34c3.1765834788.git.nicolinc@nvidia.com/
-> 
-> But this was the case where the device is going to be reset and to
-> prevent ATS issues, we attach it to blocking domain before doing the
-> reset. But of course, with the PF reset here, it induces the same kind
-> of ATS issues on the VFs.
+On Fri, 2026-09-04 at 14:49 +0200, Christian K=C3=B6nig wrote:
+> On 9/4/26 10:31, Philipp Stanner wrote:
+> > On Fri, 2026-09-04 at 10:20 +0200, Christian K=C3=B6nig wrote:
+> > >=20
 
-Yes, we need to attach a blocking domain before we make the function
-unable to respond to ATC invalidation. PF or VF reset both trigger
-this condition.
+[=E2=80=A6]
 
-> Hmm... doing that for SRIOV also, by allowing PF reset but attaching the
-> VFs to blocking domains before the PF is reset, will only resolve the
-> ATS issues. But the software state is still out of sync with hardware
-> state.
+> > >=20
+> > > That sounds like a bad idea as well.
+> > >=20
+> > > Dropping the fence->ops is to detach the fence from the module
+> > > which originally issued it and not solve lifetime problems
+> > > between the scheduler and the driver.
+> >=20
+> > It can be used to solve that problem though, can it not?
+>=20
+> Yes, but I think forcing dma_fence implementations to drop their
+> release callback to fix lifetime problems with the driver and
+> timeline name functions is a bad idea.
 
-Sure, it doesn't fix everything, but it is something you'd need to do
-to avoid problems in the iommu driver side..
+The issue we're facing is not so much related with life times, is it?
 
-Jason
+Even if the driver correctly tears down the scheduler (i.e., signal all
+hardware fences), this problem still exists.
+
+>=20
+> We should keep this fix simple and focused so that we can easily backport=
+ it.
+
+My hope would be that the dma_fence backend solution can be used that
+*already exists*. That could then both be simple and maintainable.
+
+
+Correct me if I'm wrong, but it seems we have not found an alternative
+solution that can work yet?
+
+>=20
+> Fixing all dma_fence implementations to not need the release callback
+> is something I really like to have as well, but not to fix this issue
+> here.=20
+>=20
+> >=20
+> > The underlying problem is that the driver has no chance to figure out
+> > when the scheduler is actually done with all the sched_fences.
+> >=20
+> > Remember our lengthy discussions about drm_sched_fini(). Maybe we want
+> > to reconsider providing a function with which the driver can wait until
+> > the scheduler is done with all finished_fences?
+>=20
+> The problem is that won't help unless we either add more checks or
+> fix the checks in dma_fence_driver_name()/dma_fence_timeline_name().
+>=20
+> The dma_fence object can trivially outlive both the driver and the
+> scheduler instance it originally issued.
+
+Right.
+
+>=20
+> > >=20
+> > > I think we should rather re-consider patch
+> > > 035219a760edb35ae9a9e96beba7f122e26a997b ("dma-buf: dma-fence:
+> > > Fix potential NULL pointer dereference"):
+> > >=20
+> > > Here we changed the check in dma_fence_driver_name() and
+> > > dma_fence_timeline_name():
+> > >=20
+> > > @@ -1167,7 +1167,7 @@ const char __rcu *dma_fence_driver_name(struct =
+dma_fence *fence)
+> > > =C2=A0
+> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /* RCU protection is requi=
+red for safe access to returned string */
+> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ops =3D rcu_dereference(fe=
+nce->ops);
+> > > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (!dma_fence_test_signaled_fl=
+ag(fence))
+> > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (ops)
+> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0 return (const char __rcu *)ops->get_driver_name(fence=
+);
+> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 else
+> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0 return (const char __rcu *)"detached-driver";
+> > >=20
+> > > The problem is that we didn't considered that there a fence
+> > > implementations which still have a release or wait callbacks but
+> > > rely on not needing to return a string for a signaled fence.
+> > >=20
+> >=20
+> > Could we move the signaled check to amdgpu and pvr?
+>=20
+> Yes we could. I also considered that. But I would rather like to see
+> it handled in the common dma_fence code.
+>=20
+> If I remember correctly either Tvrko, you or somebody else was in
+> favor of doing "if (!dma_fence_test_signaled_flag(fence) && ops)"
+> here but I though that this was unnecessary and we would rather
+> remove the release callbacks. Maybe I was wrong with that.
+
+I hope that wasn't me because that again looks very racy.
+
+I think that there is no way around using the spinlock. As I have
+pointed out many times, the fact that the signaled-bit is set with lock
+protection and read without it is fundamentally broken :(
+
+> > IOW, we keep the solution presented here (removing ops->release for
+> > finished-fence) and the few drivers that check whether a fence is
+> > their
+> > own first do a locked dma_fence_is_signaled() check?
+>=20
+> Works for me as well, but as I said I would rather like to keep it
+> simple and stupid for backporting.
+
+If you can think of a stupid and simple solution, shoot. The only thing
+I can think of is moving the string into the dma_fence, as a hard copy
+:)
+
+
+In the mean time, my proposal is to keep aiming for removing
+sched_fence->ops->release and fixing pvr and amdgpu.
+
+I think that will have to entail a signaled-check. Question would then
+be whether we place it in the driver or the backend.
+
+
+P.
