@@ -1,148 +1,103 @@
-Received: from mail-qk1-f170.google.com (mail-qk1-f170.google.com [209.85.222.170])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7170A3D955D
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 14:13:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.170
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5E7064A92E4
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 14:13:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788531208; cv=none; b=HfvS+PlMJP8e1tXaRDKuZxzKFsaEoIKJU6JLJj1ggqyK89bTyteJ5PmG/RV1anG+ZESRZbxE095SxWPB2Ollk5+6K/YwnlkL7C3eUc9gSxWhSwHL9Dnz7o2vTmDYq+WpaUO1l1wTh1KpBY1OZajq3/kGcrNnqsOPZvDMVo+toIo=
+	t=1788531220; cv=none; b=o03M3wFNclloKDCGS1vKkLXBrzvlLNFvmIMylDQNZ4badCL6KSQkdty+dP+a7ucvqaYqkxVg1/kIppBHdKwIGcpPbpNykxVLlSb3+iAvExvjekqpIwkpQsMMWWyNWHEHhVN34TGp3Iq8EEiXAoAH0jMIdpnCrQbqT+UpxZn4+qE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788531208; c=relaxed/simple;
-	bh=vMueACiGC1q4rjqD2bksa/EDtJQRCWH+HapwBBqFDZY=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=tGzt+Fy5svxk0SebQiICSyaN75VqTRApwArBdIWgXgFfQeVs/zVC3VFlLyVwb9mtRxPYsycnkJ0jvIs49DJdrvbwGGmlImFisO3kMVlZHj01KSweqF5Wf545VxKhzgmlk/8Z5KujyU/ZE3mpECQxc8rUbD7NC7kObyYvQbsuyLg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=stellman-greene.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BapTLHNE; arc=none smtp.client-ip=209.85.222.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=stellman-greene.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788531220; c=relaxed/simple;
+	bh=mbcX0BRjZ9tHtv7uAMzxSZb/LiI6JSOCvOcS1JOdIek=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=pXnouQw1uT/bsyLtAhrNR08hN5Y2QC7MSXnvKiYmUAZIuYA8WXhsvASTtlk1gN48Blanau9JALHaQQaSzg0gAYsy3lwnB8WdxJPb7n+RtHFf7Q9aiK64riF3xxK8LcbAXxmHuQoBl0bY1GbLdGP+sb1FEPyGRq62Kb2xA2lL8pU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=gbQgRzTx; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BapTLHNE"
-Received: by mail-qk1-f170.google.com with SMTP id af79cd13be357-9391e3b21fbso98622985a.2
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 07:13:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788531205; x=1789136005; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:sender:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=dk9pnlg6SvIAGqoJPX46s5o8Gmgm9I8OPIZtQkBklA0=;
-        b=BapTLHNEM45z5zVsMoHfrxispe2PdtqvxELhebwmSGTSKgZxea11s5CaKUt0Hm4bid
-         vrY91tMwuy9O5U9BJYR3PUAcx0foVZ74FteVBLnO3xM6xnwC6qovvLKjf2NhO3Qe3IeI
-         c0aGUf7i+sH8fe+IYbYCObSrUoT5ww8zULYMJTqJlB3y8BMDKpH0NcYmZWeOU0mnmwe+
-         hRCt+qU6Knw1TxmriEF7rzbSi+k4/JAKDdfX/49hj0DX7IvjPHRrNXgRMA5FhSDpxQtW
-         jGfeExJhj2k4GBmPtQ/+7wviofN9nodf6kWJE0LZFgm7n4CQ9B7D2tTCQLfTMZPHoEV2
-         BVGQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788531205; x=1789136005;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:sender:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=dk9pnlg6SvIAGqoJPX46s5o8Gmgm9I8OPIZtQkBklA0=;
-        b=kde08Q+a/Bx6ljnmlmdRwzZiBroGF2DOaGM046gHoSKQOjgAUpONIkRTwLLl7OO4YN
-         rIPQqGQKuryL6hztoeoOg99sFLARPBt01fPGLP1ZiMdAcm6uJowYn9XsRJDuTyFVMiH/
-         6aLvf7RM8rZ9n1XY3NwjEsO1QIVlXFVlr+6/f4xlRAL/HoVXXRMf/x6Mbhk5mEKON5Hs
-         08Jxp+BoVpWcOpX8R15D0PZu/iQZVo/oSjd1Ngr/SE75kz3OsvyPsHULnhW2n7n3I/rW
-         oRqWySpnBY8c8apHM0/oCUnBgQOOuStdpYa8xNVZ3+e6SJlKDB+5C1oMPl7tp+5ePNU5
-         WBvw==
-X-Forwarded-Encrypted: i=1; AKwUvBxeBbJQzn8Jd5rDw1AuNczPbYhZNwHTUeB613m8vFp28ZBtzVt79IFFAzBwAhn3pVnXve9pjeUQY5pcHpw=@vger.kernel.org
-X-Gm-Message-State: AFuF++lA3i1Xuu1QIoZOVNe9EeaXa5Q2ABNejuNqlvrKh0YPWaDVMjlN
-	DeK1ejHOed7jzTO8o2dM/k+RoPHkkMjegZS17wv8xRj/GXDV88rSo+jA
-X-Gm-Gg: AYBFou0/YjcR3gfCwlaO3iGSeYnUz2AVPeC0kb+Z5Oc1mytEi+j6cUuIdMy0I/hkqIW
-	5F1Az2pO3jjHdSj2AqwGDgUpgVjCKYW0bDJjzVvpIV/8BByUw6m9D9RZ3NB91FiuBmGu5RdJAj3
-	sGh1wOhDRcJERunUOGoX3nMBWVStCNgt62kvzWrJuMxd1JsONM+yHI2eV5XEjTSwP+6IesH2sk2
-	xZ+71FhIowlkJKY0zexaiRpY4ClRT1SPb+c4M2pUCy0kuqe1v2i2tV8svLn0HLPH3b/k3Ay6+jg
-	aGAWVJ+o9zK5uoKz495L/Ueq7V/+QLh2feZ648DnvdRRmVxOaLrBfbcWlkqC/8oPtVQoxxc2Qch
-	xKslDeG/liSO09TvuuFWU7/QYYPl6emEwMn8SOpb9TQSknX8MbXx/adUTgciqRoqWVU4HNQCIKe
-	eP5cJo/4/iFYmRcLkdARP4s1PSqk5BmKKCkR0uCNmHWoIV0mzfAVwFMvIv4/sH18Zs++V+rX67p
-	AIJYR2BntUDDkFZ3S8eEVUzsll0gH5Kz0E2CksNmBurvkCscv3W7PSPhPVPnEWMoztrBI3n+SAY
-	c8JdJIBhpZMaXMjz5BSo+5NM29V8kXgcxK8Vx+WuOB/W93ABmeeK/qIo+z3HhNINS/jtwOla8A=
-	=
-X-Received: by 2002:a05:620a:811f:b0:939:6dea:374b with SMTP id af79cd13be357-939804f7c81mr480625185a.47.1788531205179;
-        Fri, 04 Sep 2026 07:13:25 -0700 (PDT)
-Received: from Mac.mynetworksettings.com ([2600:4041:5c28:200:bc26:3e94:1d7f:e1ff])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-9397faf927bsm217736285a.8.2026.09.04.07.13.24
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Fri, 04 Sep 2026 07:13:24 -0700 (PDT)
-Sender: Andrew Stellman <stellman@gmail.com>
-From: Andrew Stellman <astellman@stellman-greene.com>
-To: mst@redhat.com
-Cc: jasowangio@gmail.com,
-	xuanzhuo@linux.alibaba.com,
-	eperezma@redhat.com,
-	virtualization@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	astellman@stellman-greene.com
-Subject: [PATCH v3] virtio-pci: return IRQ_HANDLED after non-zero ISR
-Date: Fri,  4 Sep 2026 10:13:18 -0400
-Message-ID: <20260904141318.30278-1-astellman@stellman-greene.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="gbQgRzTx"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 0F775152B;
+	Fri,  4 Sep 2026 07:13:34 -0700 (PDT)
+Received: from e140010.arm.com (unknown [10.57.70.12])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 6BDC93F673;
+	Fri,  4 Sep 2026 07:13:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1788531217; bh=mbcX0BRjZ9tHtv7uAMzxSZb/LiI6JSOCvOcS1JOdIek=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=gbQgRzTxT6BPex33JLT7Pp8oraxak7yfyL5lHfSf7+jZx6hiadbkvjkMYEO3tQ3Vc
+	 WZy/t6W/Ia+cI4ajpvLK/YblZ7ei6nrRcxN9vJYWnNYh3U+WhXknz0/g6SPUckWI02
+	 rNKmKVIqOG71DPAI0cNlqDoxy12rjpZgTpRVpb7k=
+Date: Fri, 4 Sep 2026 15:13:31 +0100
+From: Alexandru Elisei <alexandru.elisei@arm.com>
+To: Will Deacon <will@kernel.org>
+Cc: Fuad Tabba <fuad.tabba@linux.dev>, Mark Brown <broonie@kernel.org>,
+	Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>,
+	Joey Gouly <joey.gouly@arm.com>,
+	Steffen Eiden <seiden@linux.ibm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Zenghui Yu <yuzenghui@huawei.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Mark Rutland <mark.rutland@arm.com>,
+	linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/2] KVM: arm64: Enable S1PIE for nVHE and hVHE
+Message-ID: <aprSC0hpm6tWdXvh@e140010.arm.com>
+References: <20260904-kvm-arm64-nvhe-pie-v1-0-29d59f245e6c@kernel.org>
+ <20260904-kvm-arm64-nvhe-pie-v1-2-29d59f245e6c@kernel.org>
+ <86pkyt4gvt.wl-maz@kernel.org>
+ <eb788ad5-5bb3-4767-87b8-d35d9e3ab220@sirena.org.uk>
+ <apqrky27mJmUV9UA@willie-the-truck>
+ <05f1e2f4-173a-4226-8c98-1452c20f0a47@sirena.org.uk>
+ <CA+EHjTx87SnshzrUF69hGTSA9JmjW9oKbx+GbKjx5W+gnWYRgg@mail.gmail.com>
+ <aprKiP2YlBuBwDU8@willie-the-truck>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <aprKiP2YlBuBwDU8@willie-the-truck>
 
-vp_interrupt() reads the ISR before dispatching config-change and
-vring handling. Reading the ISR also clears it, so once the read
-returns non-zero the interrupt was from this device and has already
-been consumed.
+Hi Will,
 
-Currently vp_interrupt() returns the result of vp_vring_interrupt().
-For a config-change interrupt with no vring work, that can return
-IRQ_NONE even though the ISR was non-zero and the interrupt was
-handled.
+On Fri, Sep 04, 2026 at 02:41:28PM +0100, Will Deacon wrote:
+> On Fri, Sep 04, 2026 at 01:20:44PM +0100, Fuad Tabba wrote:
+> > On Fri, 4 Sept 2026 at 12:48, Mark Brown <broonie@kernel.org> wrote:
+> > >
+> > > On Fri, Sep 04, 2026 at 12:29:23PM +0100, Will Deacon wrote:
+> > > > On Fri, Sep 04, 2026 at 11:33:24AM +0100, Mark Brown wrote:
+> > >
+> > > > > What about pKVM, my understanding was that that is very much an ongoing
+> > > > > concern and uses the nVHE hypervisor?  My expectation was that this
+> > > > > would only ever get used in hVHE configurations when people enable pKVM
+> > > > > on modern hardware, actual nVHE mode was mostly just carried along with
+> > > > > that.
+> > >
+> > > > pKVM uses hVHE wherever it can nowadays, so I'm fine with only supporting
+> > > > S1PIE on hVHE and VHE configurations if that's easier to maintain. We
+> > > > just need to make sure that the failure mode for nVHE results in the
+> > > > feature being gracefully disabled, rather than e.g. crashing or quietly
+> > > > doing the wrong thing.
+> > >
+> > > I figure that if we're supporting hVHE it will end up less complicated
+> > > to also enable nVHE, it reduces the potential for having bad or missing
+> > > fallback paths for features downstream of S1POE.  It's not like it's a
+> > > huge extra bit of code and it seems likely to save hassle down the line.
+> > 
+> > For pKVM there's no fallback path to get wrong: any CPU with S1PIE has
+> > VHE, so pKVM runs hVHE on it, and a CPU without VHE has no S1PIE to
+> > disable. I couldn't construct the protected nVHE plus S1PIE case under
+> > QEMU at all.
+> 
+> I can't remember the exact incantation, but there's definitely a way to
+> force pKVM + nVHE on VHE-capable hardware on the cmdline. So we should
+> just make sure that doesn't go horribly wrong!
 
-Call vp_vring_interrupt() for any queue work, but once the ISR is
-non-zero return IRQ_HANDLED.
+arm64_sw.hvhe=0 id_aa64mmfr1.vh=0
 
-Tested with QEMU virtio-blk-pci forced to INTx using vectors=0 and
-pci=nomsi. On an idle device, 200 config-change interrupts were
-generated using QMP block_resize.
+From kernel-paramters.txt, and last time I checked (two or three kernel versions
+ago) it was working.
 
-Before this change, irq_handler_exit reported ret=unhandled and
-/proc/irq/11/spurious increased from 0 to 200 unhandled interrupts.
-After this change, irq_handler_exit reported ret=handled and the
-unhandled count remained at 0.
-
-The issue was found during an LLM-assisted Quality Playbook review.
-
-Fixes: 77cf524654a8 ("virtio_pci: split up vp_interrupt")
-Suggested-by: Michael S. Tsirkin <mst@redhat.com>
-Assisted-by: LLM
-Signed-off-by: Andrew Stellman <astellman@stellman-greene.com>
----
-Changes from v2:
-- Repost as a standalone patch in a new thread, per maintainer request.
-- Add LLM-assistance disclosure.
-- No code changes.
-
-Changes from v1:
-- Return IRQ_HANDLED for any non-zero ISR, as suggested by Michael.
-- Add Fixes and Suggested-by tags.
-- Test the change with virtio-blk forced to legacy INTx under QEMU.
-
-Full red/green test logs and the tested v2 patch:
-https://github.com/andrewstellman/quality-playbook/tree/11ba61d/evidence/virtio-pci-intx
-
- drivers/virtio/virtio_pci_common.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/virtio/virtio_pci_common.c b/drivers/virtio/virtio_pci_common.c
-index 10371ecbc054..b90c174450b2 100644
---- a/drivers/virtio/virtio_pci_common.c
-+++ b/drivers/virtio/virtio_pci_common.c
-@@ -120,7 +120,9 @@ static irqreturn_t vp_interrupt(int irq, void *opaque)
- 	if (isr & VIRTIO_PCI_ISR_CONFIG)
- 		vp_config_changed(irq, opaque);
- 
--	return vp_vring_interrupt(irq, opaque);
-+	vp_vring_interrupt(irq, opaque);
-+
-+	return IRQ_HANDLED;
- }
- 
- static int vp_request_msix_vectors(struct virtio_device *vdev, int nvectors,
-base-commit: bc35965f6940a9bf834d54187b6088b8eb09206d
-
--- 
-2.43.0
-
+Thanks,
+Ale
