@@ -1,69 +1,74 @@
-Received: from mail-pg1-f181.google.com (mail-pg1-f181.google.com [209.85.215.181])
+Received: from mail-oo1-f45.google.com (mail-oo1-f45.google.com [209.85.161.45])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECCA0397933
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 12:45:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FC8D47FAEA
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 12:45:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788525947; cv=none; b=qzIkWHYh2o6a/l6Fil01uEKW8ZD3GRvn2ZnT/LzVNU0atJ8q0dIKbBV4QKPc8M35E1DpaOLu1WqdZPQrtGaX9/uY7z8iJ1vxigNEhMMHo8dQai7ENndl2X3nhruPzmFHeROZL4hcqrVhIUeHORrPpeCh+93mYoAWvOIGTEW29aA=
+	t=1788525951; cv=none; b=ulms6SXre210Jt9OukPFe9+0Xlj9YY2nQR0V8ptilA27qAev2H9V6VXX6bMRWErqsAvR9JMGJFd3XlqBBiTqutqUmr6vtnS/k8JcXJhn9gWwzb/wOv6BpndX63FVJNo5FOIRp9rFBK5Ahghok5PjZo46v/lrdVREJsiQKAo7Kdg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788525947; c=relaxed/simple;
-	bh=JsRRwSlNiqv4IXD/QI8rYmUOsCYo1uGGXOpdJuGeWz8=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=r8MyqyA2Y31WI+f/BmPXdDOfNgD9pgi9nGaY2lVeAQtaSifp+cYcIIoMCD+7bvjCo+fQ+OXOpXbk9Lu5iIL3rR6LX1+OI4a4aFxJkNRRwXLCdhcioGflAUqfozblWqtV2e0c8ullsMtfarlhkXb1K26LwXmGBKxaIWLL0xBSkyY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rCJrFWgw; arc=none smtp.client-ip=209.85.215.181
+	s=arc-20240116; t=1788525951; c=relaxed/simple;
+	bh=2erL2bLaccwPjVwcqdzIu+2SXFnnGxmZhjrm52aiW+I=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=dY1YuczksQNA4Z/K74JPJDRpKG2LC/zp/odDMaZKhSg2rpSGrcAP+4sg8hAhNoWHqz3/NePhNFRjsFqyJOMDInJ8khZ0UBe+BBpmo1KPfoevKo0WXzCzmJ2foyj+hL7tL2J7YI44fosGHpVqGSwgSG7rLtOxQHizd9ZmQPkygwA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XMNPDMnL; arc=none smtp.client-ip=209.85.161.45
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rCJrFWgw"
-Received: by mail-pg1-f181.google.com with SMTP id 41be03b00d2f7-cbb8b54fcf8so1299247a12.0
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 05:45:45 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XMNPDMnL"
+Received: by mail-oo1-f45.google.com with SMTP id 006d021491bc7-6b1b766bf01so431236eaf.0
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 05:45:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788525945; x=1789130745; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Lkgv/aabiJLYo7a8HITqJAk0AcGMc8Bodgv/8vkpuHw=;
-        b=rCJrFWgwUhysHJW2MtNjDVo66D7D7G4pLug++T9TVNy6vL8yctcwLi4zY4nLg0FEto
-         N9s01SL6sJ/riY01djv+S79f4N+1KMy3FiaZCQUzGsTsUgnGTDodGdLbPkXUocuJm4h0
-         K58Homkb3UabYtRTRgno3uW/0iQ/0n8sRzzjjyFqYSaYh1255p1raN0zoNmM5lYdVpFr
-         iRSS7NpimKUnW3NlKPsphkLKgRoooJ/B4PxSxLQ9Ki0HLxGKv7G/irLJtHNhksnyHaRO
-         WNfzCcRGFexQ4OuuD1/9pwPC1KqSoe3gwr+duHT9yRMWofjzjsV0XI0MLuQKBgiLnFWW
-         +hnQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788525945; x=1789130745;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1788525949; x=1789130749; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Lkgv/aabiJLYo7a8HITqJAk0AcGMc8Bodgv/8vkpuHw=;
-        b=r6GT3mYHQyLCoZlayvzNie4Isn49iYlWvySKkmFiKE7KgYUOlK1Cy3HQxWaA6w4xBz
-         uv8PCmHtD0zyqjnO7uwOpDfMdpy9b20hnozhSb8yZFgPmy4UjNzB60xslrFZXh19qJt9
-         dOCxqruhJHKyAFWAe/lbg0BAUgSeEFEP3fNJk2TKX/xYKvmKoE3WNo1BZ4KXv+DSEZHo
-         fsSGWmclSMQoeu08mENq7Nx8VrF35uLInY1HXRWsfY2PaV2A3xlPt7uPWPNdTou4yz9T
-         Jlv29pSRXAzBI+IB0xlVg1g0z1CMlmKybY/BgJULeUygddx2aqloq4/wuOctlU/CfRhA
-         khaQ==
-X-Gm-Message-State: AFuF++kqMqFpmDIXJ/ibQ8NdRlMmb2MUfo9PnWMmGOnu1G368KQ4zvJN
-	oZbpKDyeCJUq/024ZhBSi4ohAHMfevkRzC3Kvt0mAAHB2rgjJEuO5ryK37BGw6TZ8xk=
-X-Gm-Gg: AYBFou0Z5dyVPsR/zHo7q0ZtD9Z8jdvaIz6L4u20q8WP93QdPKlkp4UzRrHJuRx7fZm
-	HX1z2tz6tjSpFyM3V9fIho33KUeDz/ScdhupoKO3475iEFZixOPFc/GDSBFkoG1kdGgYXELftL3
-	NOncPUWINaCVbXWLdlak2DUDLFgkXpR11NC4Mw1YW6ZTnJsldxs3/xYrF33t5TU5W42Za5CT96B
-	xI3eDvJPDj7zXGXN1GR6jFEVUa4in7AOyrhoL3vzXINyvC0PTJ+8yx0+BLx+b+JcY7OY1YsF/SK
-	bZKMiIrOjx5L8+BGzHEvULqAsmJiQAUye9HPNbEHiepaeheBpTmPquXSDAK6fWKpyA6/WNwnf6Y
-	YWt9ROWfD8df0fLl9/FyL6lM2YYrZzubS0fmK3mQkz1YD7hU5eMB+hS3IQ7vk+GAbVAcKmpElfm
-	7qCDF3viqqrNb4rqQJxGdJmFaJn7LdysMbOgDdPujwCTERrHPRQ01oqOlCQ95MEPfIQJImV+LnF
-	xVR9SRd9q1pvnA=
-X-Received: by 2002:a17:90b:586c:b0:398:a2ed:7b5c with SMTP id 98e67ed59e1d1-39b2623ef65mr10310318a91.24.1788525944749;
-        Fri, 04 Sep 2026 05:45:44 -0700 (PDT)
+        bh=yCmaPe0iP6tKAqZOH5fpzpvMEa+c8TRt94OkvkEgA6g=;
+        b=XMNPDMnLvMbJE66jKiMTjPypMwlanvHtDvpxaavmSMJ8wg6XxnTqyytQ5vmJ4BXCS8
+         73aAtLo5XREA3eYvsvt+r/esuVB3au35Mw2o+ecW1heTZdkx//ORhl4xgJBHyJFbEGi2
+         AEm3EoVLa9ZJnQ8ETkAvLRRcivCSqkSPDeDTjnC5rLIh3geMl+cBs9b4rQn0Rzy214mS
+         d/610vdyJfCaTQmymc3I4FMpXaTtkD1FJFJT5Bi11fRVUB67c23piiLyGEX65B7uYlug
+         MP43P9EAK2w2F1eq4r3TQwUNqU6eNtlNXe/KjBv6yXPzmAscdJ5kDkHLEgRlylDr5YNQ
+         1hnA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788525949; x=1789130749;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=yCmaPe0iP6tKAqZOH5fpzpvMEa+c8TRt94OkvkEgA6g=;
+        b=df3hsEuQrmaOQmzfXIEqUkht7R9elT1jwZ2c8PaG4Xci10mGR3YDvjn/RZn4UxGtPF
+         u0qUPpIOVt0iL9WKerxRGUGMJoofn3Zl8wbrO2+IiYrwFcm4D0bzkTX09PSN+/wQnw7s
+         ipgbhPBdPs29fI+EqT/BFYxsfMHdKYWDvSrOI1UL0Z1eCgESo8nHLj8hAuWEtnDV4aXm
+         jF+ku2V3MWGs+Hml9nxjhr4vipXuSMGxVtWv4bW0BDBcJorNGSkgS30vKuIBel9swqdo
+         ADOay2Uri6vPlrsS+va3uxwsNCQ1hunKy11dDVCnmRNQbPBkhoEryclZWioH07T5RSWx
+         kQTw==
+X-Gm-Message-State: AFuF++mqIc/mz3GISR1pJqiLCB1AqbogSwUslEt1o0FwKQwZPaTLApfT
+	cfxEZgM7EkP2tYsUiziYWxvlms5Wv9BINePYg0UQyP8S6ZDXqNkCEqB/
+X-Gm-Gg: AYBFou13KDwz0sQV7WB0YGOORjaanzakngh6hlOWIaiD4v5M7CiFRqH/Fe5BcyMio9+
+	Bfd8NXc3w4sMHDb8r42JxHryfgHdZrSsgf9O9v7kzHjtuaJsp/G/VvwHrfGktATHmKcuLdX5fCm
+	tVGIEVowoAO87xz8wYJWrhSqXoKfpvtwyCAMHmJ03gPt5YmxYt1wr8oJk97qZ30yu5Yjl5HnMwT
+	LB0YcOsUVsOJZ7IUWQjsF4PzzU/x2rvSqCZ8noXKKEpeTorRxYfNUrlyjeq/au6v/Tbg0Cf1iL1
+	+w2V5I+GnmAypRyrZQW3D7Y2rFFf7UDUMsjw9MsAoO07JimoBKAjlTx5t59pqKtkks2HC+g5h++
+	POIbWKYECN9SCkYlIpVf7dOB+FEq5nm5G64/L7XD0PuEe840ej/7EBZ0BQ3XdB86V8Fx+KqRegD
+	+kO/QDI7Djw9xJBkSDK0uQwhtEvqaSceWKyNgV5JwMKVoejXck9YPXt/nlgrVvgZq4YXize5Ttv
+	I6hhpdqGyZcxdg=
+X-Received: by 2002:a05:6820:f00b:b0:6b1:24ce:6264 with SMTP id 006d021491bc7-6b6fe3af760mr4231568eaf.30.1788525948980;
+        Fri, 04 Sep 2026 05:45:48 -0700 (PDT)
 Received: from volcano9f6e-hostos.amd.com ([165.204.217.251])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-143243f780csm6477419c88.13.2026.09.04.05.45.43
-        for <linux-kernel@vger.kernel.org>
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-143243f780csm6477419c88.13.2026.09.04.05.45.46
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 04 Sep 2026 05:45:44 -0700 (PDT)
+        Fri, 04 Sep 2026 05:45:48 -0700 (PDT)
 From: Hemanth Selam <hemanth.selam@gmail.com>
-To: 
-Cc: linux-kernel@vger.kernel.org
-Subject: [PATCH 0/3] macintosh: fix typos and repeated words in comments
-Date: Fri,  4 Sep 2026 18:15:34 +0530
-Message-ID: <20260904124540.7652-1-hemanth.selam@gmail.com>
+To: "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>
+Cc: linux-kernel@vger.kernel.org,
+	linuxppc-dev@lists.ozlabs.org,
+	linux-arm-kernel@lists.infradead.org
+Subject: [PATCH 1/3] macintosh: fix typos in comments
+Date: Fri,  4 Sep 2026 18:15:35 +0530
+Message-ID: <20260904124540.7652-2-hemanth.selam@gmail.com>
 X-Mailer: git-send-email 2.48.1
+In-Reply-To: <20260904124540.7652-1-hemanth.selam@gmail.com>
+References: <20260904124540.7652-1-hemanth.selam@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -72,44 +77,140 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-This corrects 3 misspellings and repeated words in comments.  Each is a
-separate patch so that any one of them can be dropped without touching
-the rest.
+Fix typos in comments, reported by scripts/checkpatch.pl using the
+misspelling list in scripts/spelling.txt.  Only touches comments, no code
+changes.
 
-Nothing outside comments changes.  Every touched C file was checked by
-dropping its comments, replacing each string literal with a placeholder
-and collapsing whitespace; what remained was identical before and after,
-so the compiled code cannot differ.
-
-The mistakes were found with scripts/checkpatch.pl against the list in
-scripts/spelling.txt.  The scanning, the edits and the changelogs were
-produced with Cursor running the claude-opus-5 model, from a request to
-find and fix spelling mistakes across the tree, and every correction was
-then re-checked by the comparison described above.  Words that name an
-identifier were left alone deliberately, even when they read as typos,
-because correcting the prose would make the comment disagree with the
-code it describes.
-
-Tested by building x86_64 defconfig at v7.3-rc1-269-gbc35965f6940, which
-is clean.  Nothing else was built, so any patch touching code that
-x86_64 defconfig does not compile has been read but not compiled.
-
-Hemanth Selam (3):
-  macintosh: fix typos in comments
-  bus: fsl-mc: fix repeated word 'for' in comment
-  macintosh: fix repeated word 'up' in comment
-
- drivers/bus/fsl-mc/fsl-mc-msi.c          | 2 +-
+Assisted-by: Cursor:claude-opus-5
+Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
+---
  drivers/macintosh/adbhid.c               | 4 ++--
  drivers/macintosh/macio_asic.c           | 2 +-
- drivers/macintosh/mediabay.c             | 2 +-
  drivers/macintosh/via-pmu.c              | 6 +++---
  drivers/macintosh/windfarm_lm75_sensor.c | 2 +-
  drivers/macintosh/windfarm_pm81.c        | 2 +-
  drivers/macintosh/windfarm_pm91.c        | 2 +-
  drivers/soc/fsl/qbman/qman_portal.c      | 2 +-
- 9 files changed, 12 insertions(+), 12 deletions(-)
+ 7 files changed, 10 insertions(+), 10 deletions(-)
 
+diff --git a/drivers/macintosh/adbhid.c b/drivers/macintosh/adbhid.c
+index 6155da58091b..68d1df6bc92d 100644
+--- a/drivers/macintosh/adbhid.c
++++ b/drivers/macintosh/adbhid.c
+@@ -32,7 +32,7 @@
+  *
+  * Improve Kensington support.
+  * Split mouse/kbd
+- * Move to syfs
++ * Move to sysfs
+  */
+ 
+ #include <linux/module.h>
+@@ -604,7 +604,7 @@ adbhid_buttons_input(unsigned char *data, int nb, int autopoll)
+ 
+ 			case 0x7f:
+ 			case 0xff:
+-				/* keypad overlay toogle */
++				/* keypad overlay toggle */
+ 				break;
+ 
+ 			default:
+diff --git a/drivers/macintosh/macio_asic.c b/drivers/macintosh/macio_asic.c
+index ee3caa3d87d1..926bd074352b 100644
+--- a/drivers/macintosh/macio_asic.c
++++ b/drivers/macintosh/macio_asic.c
+@@ -749,7 +749,7 @@ static void macio_pci_remove(struct pci_dev* pdev)
+ 
+ /*
+  * MacIO is matched against any Apple ID, it's probe() function
+- * will then decide wether it applies or not
++ * will then decide whether it applies or not
+  */
+ static const struct pci_device_id pci_ids[] = { {
+ 	.vendor		= PCI_VENDOR_ID_APPLE,
+diff --git a/drivers/macintosh/via-pmu.c b/drivers/macintosh/via-pmu.c
+index 8c652c15018c..736936152b0b 100644
+--- a/drivers/macintosh/via-pmu.c
++++ b/drivers/macintosh/via-pmu.c
+@@ -482,7 +482,7 @@ static int __init via_pmu_start(void)
+ 	/* Make sure PMU settle down before continuing. This is _very_ important
+ 	 * since the IDE probe may shut interrupts down for quite a bit of time. If
+ 	 * a PMU communication is pending while this happens, the PMU may timeout
+-	 * Not that on Core99 machines, the PMU keeps sending us environement
++	 * Not that on Core99 machines, the PMU keeps sending us environment
+ 	 * messages, we should find a way to either fix IDE or make it call
+ 	 * pmu_suspend() before masking interrupts. This can also happens while
+ 	 * scolling with some fbdevs.
+@@ -1286,7 +1286,7 @@ pmu_wait_complete(struct adb_request *req)
+ 
+ /* This function loops until the PMU is idle and prevents it from
+  * anwsering to ADB interrupts. pmu_request can still be called.
+- * This is done to avoid spurrious shutdowns when we know we'll have
++ * This is done to avoid spurious shutdowns when we know we'll have
+  * interrupts switched off for a long time
+  */
+ void
+@@ -1549,7 +1549,7 @@ pmu_sr_intr(void)
+ 			/* 
+ 			 * For PMU sleep and freq change requests, we lock the
+ 			 * PMU until it's explicitly unlocked. This avoids any
+-			 * spurrious event polling getting in
++			 * spurious event polling getting in
+ 			 */
+ 			current_req = req->next;
+ 			req->reply_len += data_index;
+diff --git a/drivers/macintosh/windfarm_lm75_sensor.c b/drivers/macintosh/windfarm_lm75_sensor.c
+index 128e9944429a..085b8c640e3a 100644
+--- a/drivers/macintosh/windfarm_lm75_sensor.c
++++ b/drivers/macintosh/windfarm_lm75_sensor.c
+@@ -108,7 +108,7 @@ static int wf_lm75_probe(struct i2c_client *client)
+ 		return -ENXIO;
+ 	}
+ 
+-	/* Usual rant about sensor names not beeing very consistent in
++	/* Usual rant about sensor names not being very consistent in
+ 	 * the device-tree, oh well ...
+ 	 * Add more entries below as you deal with more setups
+ 	 */
+diff --git a/drivers/macintosh/windfarm_pm81.c b/drivers/macintosh/windfarm_pm81.c
+index 2a4a3746f6a0..308ed55688b2 100644
+--- a/drivers/macintosh/windfarm_pm81.c
++++ b/drivers/macintosh/windfarm_pm81.c
+@@ -734,7 +734,7 @@ static void wf_smu_remove(struct platform_device *ddev)
+ 
+ 	/* Release all sensors */
+ 	/* One more crappy race: I don't think we have any guarantee here
+-	 * that the attribute callback won't race with the sensor beeing
++	 * that the attribute callback won't race with the sensor being
+ 	 * disposed of, and I'm not 100% certain what best way to deal
+ 	 * with that except by adding locks all over... I'll do that
+ 	 * eventually but heh, who ever rmmod this module anyway ?
+diff --git a/drivers/macintosh/windfarm_pm91.c b/drivers/macintosh/windfarm_pm91.c
+index 14089d57e5f7..d2e72d1aa6bc 100644
+--- a/drivers/macintosh/windfarm_pm91.c
++++ b/drivers/macintosh/windfarm_pm91.c
+@@ -656,7 +656,7 @@ static void wf_smu_remove(struct platform_device *ddev)
+ 
+ 	/* Release all sensors */
+ 	/* One more crappy race: I don't think we have any guarantee here
+-	 * that the attribute callback won't race with the sensor beeing
++	 * that the attribute callback won't race with the sensor being
+ 	 * disposed of, and I'm not 100% certain what best way to deal
+ 	 * with that except by adding locks all over... I'll do that
+ 	 * eventually but heh, who ever rmmod this module anyway ?
+diff --git a/drivers/soc/fsl/qbman/qman_portal.c b/drivers/soc/fsl/qbman/qman_portal.c
+index 456ef5d5c199..e44de59ec522 100644
+--- a/drivers/soc/fsl/qbman/qman_portal.c
++++ b/drivers/soc/fsl/qbman/qman_portal.c
+@@ -33,7 +33,7 @@
+ struct qman_portal *qman_dma_portal;
+ EXPORT_SYMBOL(qman_dma_portal);
+ 
+-/* Enable portal interupts (as opposed to polling mode) */
++/* Enable portal interrupts (as opposed to polling mode) */
+ #define CONFIG_FSL_DPA_PIRQ_SLOW  1
+ #define CONFIG_FSL_DPA_PIRQ_FAST  1
+ 
 -- 
 2.48.1
 
