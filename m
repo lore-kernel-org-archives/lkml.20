@@ -1,183 +1,114 @@
-Received: from mail-pl1-f180.google.com (mail-pl1-f180.google.com [209.85.214.180])
+Received: from mail-oo1-f71.google.com (mail-oo1-f71.google.com [209.85.161.71])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B3F73C0A17
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 20:40:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.180
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 330613644C1
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 20:46:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.71
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788554437; cv=none; b=IU1/wupotIXKlPRJH+ZO3fDmKNxrO6k3nxV1nNoet5rAH3XXzKZOj8YXtNIKgI7ju1MpcbtlmyoF/OwU4PJwVmJv9TNrvlHJSN65AsH/EM1pkUqDF6NUfZxUHTMmJUHkK1VjFfqY35DbMezu9LEBAyoqG4mLE2QmbMMM/Y/CD7Q=
+	t=1788554787; cv=none; b=SgJs8eeaGnSmXLp8s+dYDFXZfT1cJgVrjjDyAuXdczKXIvlneRPj26rYGOOSb6+oycT9JSeFohAdr4sGPI3GTpIIkTPjjQSskMAudrWbreD5Loqi4MDICsxgHwz70KGE0JwBWehxGvFRiXDYqdqEWlEINcsyU+CLwUZXEbKYWXI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788554437; c=relaxed/simple;
-	bh=Ht189HnxuW9/5kZPei1tU8ZN06U8E6CpummCXodBWJs=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=KgalC1J45LVYXY9cI5zBfJrQNAcxEfMr9S9PIIw83++pGKF4Ga2Yu92WOtgOxQ4b7z1jvkeZxTqOFHSeiObQSbck9dCYbZPNfh7K0xuYbrQtI8EgV+we5hLdhV5cNd3MAbrzri5MVhT9WvBJVcC60MWCCjfKElL8vOCJ3vwM/cM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CUQyD+WA; arc=none smtp.client-ip=209.85.214.180
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CUQyD+WA"
-Received: by mail-pl1-f180.google.com with SMTP id d9443c01a7336-2d9520b9155so11702095ad.3
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 13:40:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788554431; x=1789159231; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=B7pP4ZoCtvrO0SLtDKQxVQKoo2XC7Dfze8y4P05m/Gw=;
-        b=CUQyD+WANJtMEJoIp4RvUDxQFHwkf70TyAsgjQxrtfgeX9py6UNWrtYQY6S1eRozFO
-         yOiU3/xi9tsFjCDpbVCSsY2Y6AIF2i9xaqlycrH0qnnuZR4KFiDhU/oJTSCGu3y9qBMe
-         bSm7Rkt4jyKaJpIS2OYVh5xjYEjy/2uPoAbFv7EWMgJCkyfujNJLvO9RCEb4+pW3eWvi
-         TUuRwIDvGlMuv9V59rOBC/wiKVgJbFNohqIivG8+njJLgNU8p+C6m4vj8LXOxHqr1mXZ
-         SZTIc8BxorOda7hy1S7AcXbjY4p2retbchwoDErByubM88vtF4mT9LWUr4qNMjreCiDo
-         ardg==
+	s=arc-20240116; t=1788554787; c=relaxed/simple;
+	bh=zHoit6yLi3fXOCiRdtBQT2k7fF7NAw0hJ+ckUM7JHuk=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=WTnON8VnbxYQ9wnLED88uYTpLKpkKCqeQUVoDQDm6dDrX6fjtMQ3KxRC6vZCRBmxFchTuO/J3fGvD/q4uHONzmt7haE4KCqor7Vx7309fKeWDYD/25VKr2ZZ3BZBd0Ro+vCGB2B1y/fbo4PkuRmJP5uYh1mZA37EXmwWw3n5cMo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.161.71
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oo1-f71.google.com with SMTP id 006d021491bc7-6b131719584so1783066eaf.2
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 13:46:24 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788554431; x=1789159231;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=B7pP4ZoCtvrO0SLtDKQxVQKoo2XC7Dfze8y4P05m/Gw=;
-        b=iIEbITa2xAgTeBEE1tbMI8KtiJFP0MVCx7ekgNWBGqln4hkn7grgRp8v9v0AOZ3i2G
-         dKjiZt9ELejADCjTu9i9Nx4NLYfhwMCOdFM4ZjZPuJUNn/dQv+kbfKpUWeyheht2B+tQ
-         Q6+yAepr/JLR62xQjes1/jNc41fE4DUkkKlqlMsKKzmqEyKS82bjlO7b4ljrq+9v77wZ
-         kArd6QQZ2aWqdsn/91v5PjL3P+70S4JeGvX7r8fZZI/dKy1lHrgxrvhFh4K00p1OMo4v
-         M0Bwi8I8TjLeXiq2MYuyPvdViV51uPIbb7EfsowDsPgbtC8elBVAdXl0ZifXzjGvZFRG
-         /UtQ==
-X-Forwarded-Encrypted: i=1; AKwUvByIEd9by5pK4r+cj//DW1M1rhxj0HWTb+lS5sP5UReHIiYJZehy0RnmhRzZWsg9EGyBpXTSz/snyM636Kw=@vger.kernel.org
-X-Gm-Message-State: AFuF++lvlZjjTvgxgwaQkp4ZVGmsv3RhghWldZE/9rOKwZk6LvPAyFq8
-	GpZQXLTSwSiawX3I2/6tjLa15mOk7g5hF9vUNb86maWO9u3xsh/wqn14
-X-Gm-Gg: AYBFou18O/jTXSRey1WEFJNVeSdFf1qfrUvNg7xiiALHeQeY9dc1rRw4IgU+B62tDXw
-	0HsLfYZ16YkHxZC/4OwQ3LvbjS7teOPgIFIp9Bed9QUERu2AnB4fi97lrcCQz+7dBKzvKQgF+GN
-	lUaRtBhXrnFgvD0Qv77BL3eEFg9M/pcDFUkMM7u6DKN9dFVlLDToYABPGTX9WF7PpKhTBUqz10h
-	dnK9ZehsficU31m8XRFE1PIXyiJ06qv/C8d3GEHB/doQV0ICRpk6RNiIQrWXo1WGihD6r7c4kRn
-	urqh6shHoZim24SjzhFwJvP89x8akF0/j3JJAR0bdzRJ2i2nlXSLyfUDIEhtHwmRN7LlsEA7TL1
-	IDe5GVq3G4m2r5RPidEG0zr1prdh/CzjXAcj/9UyZEY+1lEuBED3Ha884Wv2g1I7twpo9P7281f
-	nloaZ2hg0ml43JVwlCm2FvWnSmg/OMIE57mGwDKVvRjDnkvPhvEbs0xaF/ZO+l5AmVmArmvBa5Y
-	SxEjGCNAiiTaDo1th+BSgqnZr3sIWInWwVQfylQ3M7EfdQqAUjHcXe5oTzUfOWkbUxycfU28QtN
-	4YNajXdHtJmbDWjiD8GN7QaRFkbpclcyJ7p4jw==
-X-Received: by 2002:a17:90a:c106:b0:398:e1f4:bda1 with SMTP id 98e67ed59e1d1-39b2624cf3fmr13075002a91.21.1788554431089;
-        Fri, 04 Sep 2026 13:40:31 -0700 (PDT)
-Received: from ryzen.lan ([2601:644:8000:7a86::e34])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b08c397b1sm12081357a91.8.2026.09.04.13.40.29
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 04 Sep 2026 13:40:30 -0700 (PDT)
-From: Rosen Penev <rosenp@gmail.com>
-To: linux-crypto@vger.kernel.org
-Cc: Herbert Xu <herbert@gondor.apana.org.au>,
-	"David S. Miller" <davem@davemloft.net>,
-	linux-kernel@vger.kernel.org (open list)
-Subject: [PATCHv2] crypto: talitos: pass talitos_private to irq handlers
-Date: Fri,  4 Sep 2026 13:40:28 -0700
-Message-ID: <20260904204028.56285-1-rosenp@gmail.com>
-X-Mailer: git-send-email 2.55.0
+        d=1e100.net; s=20251104; t=1788554783; x=1789159583;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=pWzV16Ft4hj12P0wEeA5w+i7D224GdQ4JfXKDriSivw=;
+        b=SVOwH7cJcNCuuUClHPPFEsupHWqaZQaNRr04yy6L1HJ1WHydbPyOHbe9wPwfPSt9ul
+         Qd2U520YpGnE34QDNTLMF8Xpnq830bqyCwdeknOrKc/l33t9tgY64uqD01ON/o5Wv7Cu
+         t9uaRe0l2Ox/mjfWKZniMQOtgGOEmy/3eQWVh8hBDYeaxL3JA+L1iekcyH+eQiLl5RUb
+         NKEzmfwr7Ut/LpEkmm6PwAj2+9hf2DFcSNTKEwcrla3cD9TKpg1ZCbyCodtF44+OgZjJ
+         A5+hgsv7Tw5mrPZGbLRZS1mGy2AAcmNeA76x3YQ9GqPNHRaJZCXdLpqdg03RYyW1sU22
+         SxhQ==
+X-Gm-Message-State: AFuF++nIoEvvwpTNKJnOxItf4wMKQHHoKQraQFs1kO1+/nESycI4R3JG
+	Q8TxZmoMwCeK46mIL+QSgY0lz9kdsQzqqhneYsBIGyoT9EcnpqMpVgKblRl+n9lCM7VDOxIcyLw
+	3mpGZ93AvzA9sLnVNvm534UZEi4UK49jPqTgGXBZ1JRy6edest50nMNvDXW0=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-Received: by 2002:a05:6820:f08:b0:6b1:b23c:2142 with SMTP id
+ 006d021491bc7-6b6fa5e819cmr6179657eaf.1.1788554783551; Fri, 04 Sep 2026
+ 13:46:23 -0700 (PDT)
+Date: Fri, 04 Sep 2026 13:46:23 -0700
+In-Reply-To: <6a972e63.610165a0.2b3dfd.0001.GAE@google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6a9b2e1f.a5e650b3.363816.0001.GAE@google.com>
+Subject: Re: [syzbot] [raid?] WARNING in create_strip_zones (2)
+From: syzbot <syzbot+a32ff75e417c0f49a8e9@syzkaller.appspotmail.com>
+To: linux-kernel@vger.kernel.org, linux-raid@vger.kernel.org, 
+	magiclinan@didiglobal.com, song@kernel.org, syzkaller-bugs@googlegroups.com, 
+	xiao@kernel.org, yukuai@fnnas.com, yukuai@fygo.io
+Content-Type: text/plain; charset="UTF-8"
 
-The irq handlers only need priv, which they can get from the
-dev_get_drvdata() they currently perform on the struct device passed
-as data. Pass priv directly as the irq handler data and drop the
-dev_get_drvdata() call, while deriving dev from priv->dev where
-still needed.
+syzbot has found a reproducer for the following issue on:
 
-Assisted-by: opencode:deepseek-v4-flash-free
-Signed-off-by: Rosen Penev <rosenp@gmail.com>
+HEAD commit:    bc35965f6940 Merge tag 'mm-hotfixes-stable-2026-09-03-17-4..
+git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
+console output: https://syzkaller.appspot.com/x/log.txt?x=12271215580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=8c5c3949d762a91f
+dashboard link: https://syzkaller.appspot.com/bug?extid=a32ff75e417c0f49a8e9
+compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
+C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=173f2b49580000
+
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+a32ff75e417c0f49a8e9@syzkaller.appspotmail.com
+
+------------[ cut here ]------------
+!(flags & __GFP_NOWARN)
+WARNING: mm/slub.c:7013 at __kvmalloc_node_noprof+0x646/0x9b0 mm/slub.c:7013, CPU#3: syz-executor142/6020
+Modules linked in:
+CPU: 3 UID: 0 PID: 6020 Comm: syz-executor142 Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+RIP: 0010:__kvmalloc_node_noprof+0x646/0x9b0 mm/slub.c:7013
+Code: c1 e8 2e 07 ff ff 4d 85 f6 0f 85 b6 fd ff ff 48 81 fb ff ff ff 7f 0f 86 4d fd ff ff 41 81 e4 00 20 00 00 0f 85 9c fd ff ff 90 <0f> 0b 90 e9 93 fd ff ff 41 be 10 00 00 00 e9 88 fd ff ff be 42 01
+RSP: 0018:ffffc900036bf948 EFLAGS: 00010246
+RAX: 0000000000000001 RBX: 0000000200000000 RCX: 0000000200000000
+RDX: 0000000000000000 RSI: ffffffff8c620f00 RDI: ffffffff8e6b6938
+RBP: 00000000001fffff R08: 00000000000029c0 R09: 00000000ffffffff
+R10: 0000000000000001 R11: 0000000000000000 R12: 0000000000000000
+R13: 00000000000029c0 R14: 0000000000000000 R15: 00000000ffffffff
+FS:  0000555559921400(0000) GS:ffff8880d5e60000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 000055bcaf223cc0 CR3: 0000000055943000 CR4: 0000000000352ef0
+Call Trace:
+ <TASK>
+ create_strip_zones+0x57f/0x1fa0 drivers/md/raid0.c:150
+ raid0_run+0x341/0x410 drivers/md/raid0.c:424
+ md_run+0xc2f/0x2510 drivers/md/md.c:6779
+ do_md_run+0x36/0x660 drivers/md/md.c:6880
+ md_ioctl+0x27eb/0x36d0 drivers/md/md.c:8515
+ blkdev_ioctl+0x5ad/0x6f0 block/ioctl.c:798
+ vfs_ioctl fs/ioctl.c:51 [inline]
+ __do_sys_ioctl fs/ioctl.c:597 [inline]
+ __se_sys_ioctl fs/ioctl.c:583 [inline]
+ __x64_sys_ioctl+0x18e/0x210 fs/ioctl.c:583
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x7f76d13e162b
+Code: 00 48 89 44 24 18 31 c0 48 8d 44 24 60 c7 04 24 10 00 00 00 48 89 44 24 08 48 8d 44 24 20 48 89 44 24 10 b8 10 00 00 00 0f 05 <89> c2 3d 00 f0 ff ff 77 1c 48 8b 44 24 18 64 48 2b 04 25 28 00 00
+RSP: 002b:00007ffc9fbd7ba0 EFLAGS: 00000246 ORIG_RAX: 0000000000000010
+RAX: ffffffffffffffda RBX: 0000000000000003 RCX: 00007f76d13e162b
+RDX: 0000000000000000 RSI: 00000000400c0930 RDI: 0000000000000003
+RBP: 0000000000000004 R08: 0000000000000000 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000246 R12: 00007f76d143a032
+R13: 0000000000000002 R14: 00007f76d1464cc0 R15: 0000000000000002
+ </TASK>
+
+
 ---
- v2: assign priv->dev
- drivers/crypto/talitos.c | 21 ++++++++++-----------
- 1 file changed, 10 insertions(+), 11 deletions(-)
-
-diff --git a/drivers/crypto/talitos.c b/drivers/crypto/talitos.c
-index fa96b6bf17e3..41a87d7c30a0 100644
---- a/drivers/crypto/talitos.c
-+++ b/drivers/crypto/talitos.c
-@@ -751,8 +751,7 @@ static void talitos_error(struct device *dev, u32 isr, u32 isr_lo)
- #define DEF_TALITOS1_INTERRUPT(name, ch_done_mask, ch_err_mask, tlet)	       \
- static irqreturn_t talitos1_interrupt_##name(int irq, void *data)	       \
- {									       \
--	struct device *dev = data;					       \
--	struct talitos_private *priv = dev_get_drvdata(dev);		       \
-+	struct talitos_private *priv = data;				       \
- 	u32 isr, isr_lo;						       \
- 	unsigned long flags;						       \
- 									       \
-@@ -765,7 +764,7 @@ static irqreturn_t talitos1_interrupt_##name(int irq, void *data)	       \
- 									       \
- 	if (unlikely(isr & ch_err_mask || isr_lo & TALITOS1_IMR_LO_INIT)) {    \
- 		spin_unlock_irqrestore(&priv->reg_lock, flags);		       \
--		talitos_error(dev, isr & ch_err_mask, isr_lo);		       \
-+		talitos_error(priv->dev, isr & ch_err_mask, isr_lo);	       \
- 	}								       \
- 	else {								       \
- 		if (likely(isr & ch_done_mask)) {			       \
-@@ -786,8 +785,7 @@ DEF_TALITOS1_INTERRUPT(4ch, TALITOS1_ISR_4CHDONE, TALITOS1_ISR_4CHERR, 0)
- #define DEF_TALITOS2_INTERRUPT(name, ch_done_mask, ch_err_mask, tlet)	       \
- static irqreturn_t talitos2_interrupt_##name(int irq, void *data)	       \
- {									       \
--	struct device *dev = data;					       \
--	struct talitos_private *priv = dev_get_drvdata(dev);		       \
-+	struct talitos_private *priv = data;				       \
- 	u32 isr, isr_lo;						       \
- 	unsigned long flags;						       \
- 									       \
-@@ -800,7 +798,7 @@ static irqreturn_t talitos2_interrupt_##name(int irq, void *data)	       \
- 									       \
- 	if (unlikely(isr & ch_err_mask || isr_lo)) {			       \
- 		spin_unlock_irqrestore(&priv->reg_lock, flags);		       \
--		talitos_error(dev, isr & ch_err_mask, isr_lo);		       \
-+		talitos_error(priv->dev, isr & ch_err_mask, isr_lo);	       \
- 	}								       \
- 	else {								       \
- 		if (likely(isr & ch_done_mask)) {			       \
-@@ -3242,7 +3240,7 @@ static void talitos_remove(struct platform_device *ofdev)
- 
- 	for (i = 0; i < 2; i++)
- 		if (priv->irq[i] > 0)
--			free_irq(priv->irq[i], dev);
-+			free_irq(priv->irq[i], priv);
- 
- 	tasklet_kill(&priv->done_task[0]);
- 	if (priv->irq[1] > 0)
-@@ -3361,7 +3359,7 @@ static int talitos_probe_irq(struct platform_device *ofdev)
- 
- 	if (is_sec1) {
- 		err = request_irq(priv->irq[0], talitos1_interrupt_4ch, 0,
--				  dev_driver_string(dev), dev);
-+				  dev_driver_string(dev), priv);
- 		goto primary_out;
- 	}
- 
-@@ -3372,18 +3370,18 @@ static int talitos_probe_irq(struct platform_device *ofdev)
- 	/* get the primary irq line */
- 	if (priv->irq[1] < 0) {
- 		err = request_irq(priv->irq[0], talitos2_interrupt_4ch, 0,
--				  dev_driver_string(dev), dev);
-+				  dev_driver_string(dev), priv);
- 		goto primary_out;
- 	}
- 
- 	err = request_irq(priv->irq[0], talitos2_interrupt_ch0_2, 0,
--			  dev_driver_string(dev), dev);
-+			  dev_driver_string(dev), priv);
- 	if (err)
- 		goto primary_out;
- 
- 	/* get the secondary irq line */
- 	err = request_irq(priv->irq[1], talitos2_interrupt_ch1_3, 0,
--			  dev_driver_string(dev), dev);
-+			  dev_driver_string(dev), priv);
- 	if (err) {
- 		dev_err(dev, "failed to request secondary irq\n");
- 		priv->irq[1] = 0;
-@@ -3422,6 +3420,7 @@ static int talitos_probe(struct platform_device *ofdev)
- 
- 	dev_set_drvdata(dev, priv);
- 
-+	priv->dev = dev;
- 	priv->ofdev = ofdev;
- 
- 	spin_lock_init(&priv->reg_lock);
--- 
-2.55.0
-
+If you want syzbot to run the reproducer, reply with:
+#syz test: git://repo/address.git branch-or-commit-hash
+If you attach or paste a git patch, syzbot will apply it before testing.
