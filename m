@@ -1,194 +1,108 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EDF646A5E5
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 10:30:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1100346AF00;
+	Fri,  4 Sep 2026 10:31:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788517860; cv=none; b=H2r0ajGOl/JmIKFXzS1T2WbVQGKIwkxU8JSix9m+BUrpks4RtHTwOWcosTa9mSe3PuMao1QRIV6FZhoFtT52KxUmv+D+FDKXpkomPMOTNkZN5odSNfrxtSOCgQ1TFL+yPidBDltUO0qGoRKACvdicH2/JzD4PNcL/WFNlp15q7M=
+	t=1788517862; cv=none; b=oj8Q3Ta9LaAQMib5a5SmMRzv8bcDdCIGTV3amFtG2+cTrd/+G8GNUgiMoQDBl87oeQ6B7fkTX7lEFjVIowCMjwg7u3jv3E7C5EJGztq4i5fRm+tKXTuaAhIHt5eIlBAFZd0Lc5rEHE85UjsL0dGTaVbEfCqE1RDR6jCRO7gx5F0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788517860; c=relaxed/simple;
-	bh=HSgeBQ0mHDQt1Sq43MY0o4wxhgcEwOVxtMn54CsehgA=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=r3OGnPb7Rmu9Da8SI1j8+/ue+ZAWQfscnvk2GbH5PV0Gm31RflaUDNVnRV22//K6KkMVb1NTK8Xi9R6l3gurVSV6RH2MI7hdnwdSgItJvXhaCGIdJoMfAURSyXmQIY5/a4hdJVEM5EIsstfXQsAmiFTt/KFhhsp+V53/tusPzuk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mUbo86UX; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788517862; c=relaxed/simple;
+	bh=ERLOHvLBv6usjPgYcxtkyqz5dH2tjXv8iFv/7TN3P0k=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=XWvwK8nMyNpDzaBoH33B6E/z5AN2PMj99t5B25xzxu6FN9VVQIjfB06l9fmjed3WFGSrycKNwetXLfsnlGluwGlHR5J/iqmsGolRS1fgLKzgx8JJMtwBMgDunbpioQKvBQi2Uq67vfJfDCKP+eYCdqllB96ZDzoG+110/UHISjo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=izlRrwoV; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mUbo86UX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 56CB51F00A3F
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 10:30:58 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="izlRrwoV"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D549B1F00A3D;
+	Fri,  4 Sep 2026 10:30:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788517858;
-	bh=Ak3IEV5EuNPQAh0ybs3J8IV2WjKmGgfXZ4hNk/xxyjM=;
-	h=References:In-Reply-To:Reply-To:From:Date:Subject:To:Cc;
-	b=mUbo86UXxBWE6CTcj70Nt+yzfQL8JPBmPwGRVX2JHufpjDw8QX02IMe5OhvQgptjM
-	 SwShFyYg4okprAeRMJouUbFefoRObxsWzgcKk46mZOJNjgBCYSn0Thhoyva09oRCGZ
-	 oJwnkhQ1qzXwGqTSwBzA8Zr1LzAlg3Ybw+HJcn/+FdH8RxXotFSyH3GhWmE7XVhdF3
-	 JgWIV77yI16EZy6cPlqHQauKysmSHQ1IetZ1LGwnDZT6EhBp/NMi9ozCI/ik2cD8eY
-	 o1uJOoRRgYULksn1fhY/vdzg+SEiuLW/Q8EnU9yO3lbMUIeTE9T0rZ6HCMPZFagkxR
-	 4T+Ka5P7ZGClQ==
-Received: by mail-lf1-f50.google.com with SMTP id 2adb3069b0e04-5b4adcce4b1so911308e87.1
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 03:30:58 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBxZktUww+w3yXBkGVskyKeR4TxBYigrgMgRp2FWDpHXqy/Lp47E0SDSwMVVdy7Lkm8MYGry4rNilU5EXP0=@vger.kernel.org
-X-Gm-Message-State: AFuF++nuMtZnxIeSN7051jvikBb+joJJ5JkXD2/ivtWk8yfdC/HSV0Z0
-	Pcaw98+vWZfXhYJqsdAhX31fVZYnxObwX0eaJPRx1CQD589fE41Q4LbUbXHZ2281jSNQHYKXIzg
-	RiHSAfc3WxEQhdruEc4cxNdN9Ke6OVfc=
-X-Received: by 2002:a2e:a7ca:0:b0:3a3:34:865 with SMTP id 38308e7fff4ca-3a371b6dd76mr9445761fa.5.1788517856421;
- Fri, 04 Sep 2026 03:30:56 -0700 (PDT)
+	s=k20260515; t=1788517860;
+	bh=SP6ddiw7eBcLy3vVBDzcACmuy68vI4vfWkI0ZNXWS98=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=izlRrwoVT/CR0RStDBkok1Am3vIUBmV6tdQYUNKUjEB2CDE/qaLNEBge3dFgZ36+v
+	 sCpve5rWzUKzUf7Ss1cWup4NoifdEUHe16IG8fIDBqewoyJexDEIhJQo61+0LuAOxS
+	 jRSMUI6vMX8tCSBPfil7cmg9p2WiRI/38cl+Vs22WhyZzzwgrdgIuDtGXcUl4rkAeS
+	 VsZ6Y09tz548+QfdSCJwdbZz5LyPpAZV6eVjXhsI6luli0u16JmcUS+yREWEeaTnn6
+	 clepyXVGqVrO1CTff8cp5l287V2OCAEFoLVigltg6tDJ7nsbF61o+uu/mAkUntaZUr
+	 bgwnkjyBM5+gA==
+Date: Fri, 4 Sep 2026 12:30:55 +0200
+From: Christian Brauner <brauner@kernel.org>
+To: Chuck Lever <cel@kernel.org>
+Cc: Jeff Layton <jlayton@kernel.org>, NeilBrown <neil@brown.name>, 
+	Olga Kornievskaia <okorniev@redhat.com>, Dai Ngo <Dai.Ngo@oracle.com>, Tom Talpey <tom@talpey.com>, 
+	Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>, Thomas Haynes <loghyr@gmail.com>, 
+	linux-nfs@vger.kernel.org, linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org
+Subject: Re: [PATCH v2 0/3] fs/nfsd: accept a backdated timestamp from a
+ delegation holder
+Message-ID: <20260904-einhalten-abwurf-geldanlage-80dc11239cac@brauner>
+References: <20260902-delegts-v2-0-383cb289ce88@kernel.org>
+ <3caef4ff-9f01-4b09-8e83-12bcb0a1ee17@app.fastmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260721065413.2306137-1-wenst@chromium.org> <20260721065413.2306137-7-wenst@chromium.org>
- <c6526ba0-be08-46c6-a501-1b161939657c@oss.qualcomm.com>
-In-Reply-To: <c6526ba0-be08-46c6-a501-1b161939657c@oss.qualcomm.com>
-Reply-To: wens@kernel.org
-From: Chen-Yu Tsai <wens@kernel.org>
-Date: Fri, 4 Sep 2026 18:30:43 +0800
-X-Gmail-Original-Message-ID: <CAGb2v66c8L20yNNmvj6TaQbS7LnqAyuv0tMQfj+0PSjMUcSByA@mail.gmail.com>
-X-Gm-Features: AcwNN1Xat96btOTDTzU9PGXAhyQrjVXT5ZP9qiHi9N7dj1ScKDZ_5SK_K-nNAtc
-Message-ID: <CAGb2v66c8L20yNNmvj6TaQbS7LnqAyuv0tMQfj+0PSjMUcSByA@mail.gmail.com>
-Subject: Re: [PATCH v6 06/16] usb: hub: Associate port@ fwnode with USB port device
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Cc: Chen-Yu Tsai <wenst@chromium.org>, Bartosz Golaszewski <brgl@kernel.org>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>, Daniel Scally <djrscally@gmail.com>, 
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
-	Sakari Ailus <sakari.ailus@linux.intel.com>, "Rafael J. Wysocki" <rafael@kernel.org>, 
-	Danilo Krummrich <dakr@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Matthias Brugger <matthias.bgg@gmail.com>, 
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, linux-acpi@vger.kernel.org, 
-	driver-core@lists.linux.dev, linux-pm@vger.kernel.org, 
-	linux-usb@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-mediatek@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, Manivannan Sadhasivam <mani@kernel.org>, 
-	Alan Stern <stern@rowland.harvard.edu>, 
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <3caef4ff-9f01-4b09-8e83-12bcb0a1ee17@app.fastmail.com>
 
-(dug this out of my kernel.org email)
-
-On Fri, Jul 31, 2026 at 10:44=E2=80=AFPM Konrad Dybcio
-<konrad.dybcio@oss.qualcomm.com> wrote:
->
-> On 7/21/26 8:54 AM, Chen-Yu Tsai wrote:
-> > When a USB hub port is connected to a connector in a firmware node
-> > graph, the port itself has a node in the graph.
+On Wed, Sep 02, 2026 at 08:03:53PM -0400, Chuck Lever wrote:
+> 
+> 
+> On Wed, Sep 2, 2026, at 2:54 PM, Jeff Layton wrote:
+> > The main problem is that an attribute delegation has strict rules about
+> > updates can be done, and that prevents applications that backdate
+> > timestamps on files after writing them, (e.g. tar -x, cp -p, etc.) from
+> > setting them properly.
 > >
-> > Associate the port's firmware node with the USB port's device,
-> > usb_port::dev. This is used in later changes for the M.2 slot power
-> > sequencing provider to match against the requesting port.
+> > We could fix this on the client by making it always issue an RPC for the
+> > SETATTR, but that would harm performance in these common use-cases.
+> > This set allows the server to accept some of these backdated mtime
+> > updates, by changing how the ctime is handled.
 > >
-> > To avoid potential conflicts with ACPI firmware nodes and then causing
-> > power management issues, only assign the firmware node if the hub's
-> > firmware node is not an ACPI firmware node.
+> > It'd be nice to see this in v7.4.
 > >
-> > Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-> > Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-> > Signed-off-by: Chen-Yu Tsai <wenst@chromium.org>
+> > Signed-off-by: Jeff Layton <jlayton@kernel.org>
 > > ---
->
-> [...]
->
-> > +     /*
-> > +      * ACPI FW nodes are associated later when device_register() happ=
-ens.
-> > +      * Skip assigning one here to avoid potential conflicts.
-> > +      */
-> > +     if (!is_acpi_node(fwnode)) {
-> > +             struct fwnode_handle *port;
-> > +
-> > +             /*
-> > +              * fwnode_graph_get_port_by_id() returns either a valid f=
-wnode handle
-> > +              * or NULL. Passing NULL to device_set_node() clears any =
-associated
-> > +              * fwnode. It is effectively a no-op here, since no fwnod=
-e has been
-> > +              * assigned to the newly created device yet.
-> > +              */
-> > +             port =3D fwnode_graph_get_port_by_id(fwnode, port1, FWNOD=
-E_GRAPH_DEVICE_DISABLED);
->
-> This works if the node at the other end of the graph is a
-> USB hub, e.g. from qcom/lemans-evk.dts:
->
-> usb_hub_3_x: hub@2 {
->         compatible =3D "usb5e3,625";
->         reg =3D <2>;
->
->         peer-hub =3D <&usb_hub_2_x>;
->
->         ports {
->                 #address-cells =3D <1>;
->                 #size-cells =3D <0>;
->
->                 port@1 {
->                         reg =3D <1>;
->
->                         usb_hub_3_1: endpoint {
->                                 remote-endpoint =3D <&hd3ss3220_1_out_ep>=
-;
->                         };
->                 };
->
->                 port@4 {
->                         reg =3D <4>;
->
->                         usb_hub_3_4: endpoint {
->                         };
->                 };
->         };
-> };
->
-> But something I faced when I was poking at USB4 was that dt-bindings
-> currently assume every controller is effectively single-port and the
-> of_graph ports under it represent HS/SS lanes, i.e. the entire
-> "ports" subnode represents a single USB port
+> > Changes in v2:
+> > - Split the change into three patches
+> > - Stamp now in inode_set_ctime_deleg() for a stale update, so nfsd need
+> >   not compare
+> > - Drop a SETATTR report that matches the inode, so an untouched file
+> >   keeps its change attribute
+> > - Set dl_setattr only on the branch that carries a c/mtime update
+> > - Compare against the inode, not the grant-time snapshots (Chuck)
+> > - Set the ctime whenever a CB_GETATTR moves the mtime
+> > - Take i_rwsem before the CB_GETATTR comparison
+> > - Drop the unused dl_atime, dl_mtime and dl_ctime, and make
+> >   nfsd4_vet_deleg_time() static
+> > - Link to v1: 
+> > https://lore.kernel.org/r/20260901-delegts-v1-1-9937f7ee4370@kernel.org
+> >
+> > ---
+> > Jeff Layton (3):
+> >       fs: stamp the current time for a stale delegated ctime update
+> >       nfsd: accept a backdated timestamp from a delegation holder
+> >       nfsd: compare CB_GETATTR times against the inode
+> >
+> >  fs/inode.c          | 17 +++++++++++----
+> >  fs/nfsd/nfs4proc.c  | 63 +++++++++++++++++++++++++++++++++++++++++++----------
+> >  fs/nfsd/nfs4state.c | 49 ++++++++++++++++++++++++++---------------
+> >  fs/nfsd/state.h     |  8 -------
+> >  4 files changed, 95 insertions(+), 42 deletions(-)
+> > ---
+> > base-commit: ac579868af0c900d8fd9c8cfe9e10db46ccc5a75
+> > change-id: 20260901-delegts-e91a648f1427
+> >
+> > Best regards,
+> > -- 
+> > Jeff Layton <jlayton@kernel.org>
+> 
+> Since the series modifies fs/inode.c, Christian will want to take it
+> through the VFS tree.
+> 
+> Acked-by: Chuck Lever <cel@kernel.org>
 
-Which controller is this? AFAIK for xHCI hosts there currently is no
-"ports" node specified in the common usb-hcd.yaml binding. I plan to
-add this separately, as it can already be used for USB A connectors.
-
-The kernel maps every downstream port of the root hub to a separate
-node. On the XHCI it is more complicated because it has two root hubs,
-one for HS and one for SS. I'm not familiar with the hardware specifics
-but they seem to map into one common namespace, so you probably get
-ports 1~8 for HS and then 9~12 for SS. Note the number of ports is
-different. This is just an example from my x86 workstation. And on
-x86 each port is mapped to a different ACPI node.
-
-> I think the solution here would be to do ports {} under the controller
-> and have every one of them have 2 endpoints (for HS and SS
-> respectively) - then, each DT-port would correspond to a USB port
-> (sorta like in the hub case, minus the hubs are split for HS/SS so
-> they have just a single endpoint under each port)
-
-But the hardware descriptors actually give two ports, one for HS and one
-for SS. And in the case of dwc3, I suspect that they always come with
-one downstream HS port and (optionally) one downstream SS port. So the
-binding is actually correct, except for the numbering.
-
-I'm looking into the dwc3 case. Changing the numbering might actually
-not break anything. Linux seems to just need one *a* graph connection,
-but doesn't care about the number. I looked through some other projects:
-
-- FreeBSD doesn't use the OF graph for anything
-- U-boot doesn't use the OF graph for USB
-- OpenBSD doesn't support dwc3, only the XHCI in dwc3, and doesn't use the
-  OF graph for USB
-- coreboot doesn't use the OF graph for anything
-- Zephyr doesn't support dwc3
-- TF-A doesn't use the OF graph for anything
-- EDK2 doesn't support dwc3 and doesn't support OF graph
-- OP-TEE doesn't support dwc3 and doesn't support OF graph
-
-> But that comes with a big breakage, as always..
-
-As I mentioned, it probably isn't as large of a breakage.
-
-
-ChenYu
+Thanks!
