@@ -1,98 +1,122 @@
-Received: from dggsgout12.his.huawei.com (dggsgout12.his.huawei.com [45.249.212.56])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f42.google.com (mail-ed1-f42.google.com [209.85.208.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD0C041D129;
-	Fri,  4 Sep 2026 06:13:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.249.212.56
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788502439; cv=none; b=BJ+aVyIRg7V+mrhVfsaClf18F2j2BIqhwD+ZN63wUDIecoPAyTmtQheoxXW9UVxbBKk8QgPiEYFPBCqE/EVGDIrsul7AucW5ei2uRBoOY1k0wRoYnaws5SFXUELUui7Gb0YrZNlNCvkjBDj10aB9tonWQwlAcuZFcYHj5PsNi1Q=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEF0541A4F8
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 06:13:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.42
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788502439; cv=pass; b=BGAS6vle1G4uI24gMqg70rV18gZBWx4WIfXtQ4axxHHsGDCZ58AvXfbhnE9GZN41AdJof5OXhvH1w4r3Q9fP+EY+3QyoNacfFuJ79p+3TZLov3ot9bEicQcbJ15bMqThSQtGaYkuFTf4/sAcRQygMIiRMXZsdR/wdvl/vVJ1OLw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788502439; c=relaxed/simple;
-	bh=Uo8y5tBNeUT0HdTgXThhfh+pf1xWUKH9ljEhliaSqj4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=h0YRMbmtsDkMYglcbW0iFeFr4ijbYr0vsJtgi696zUwAk/1HCawdHzRC6w9WcB/m5QGUXRJpI8ARnOWNXl6bE8HNn0yKMgWsRx2HlGTzErIt8wAXI4bHLxr8vvtzmLPrtMCkAaFlf7fGBl9Gj42YlIAGpPy1sIDeo3BOnXIKTVw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com; spf=pass smtp.mailfrom=huaweicloud.com; arc=none smtp.client-ip=45.249.212.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huaweicloud.com
-Received: from mail.maildlp.com (unknown [172.19.163.170])
-	by dggsgout12.his.huawei.com (SkyGuard) with ESMTPS id 4hbmNT411KzKHMWM;
-	Fri,  4 Sep 2026 14:12:57 +0800 (CST)
-Received: from mail02.huawei.com (unknown [10.116.40.112])
-	by mail.maildlp.com (Postfix) with ESMTP id 6AD224056D;
-	Fri,  4 Sep 2026 14:13:52 +0800 (CST)
-Received: from huaweicloud.com (unknown [10.50.85.155])
-	by APP1 (Coremail) with UTF8SMTPSA id cCh0CgCHbwqeYZpqTb3FAg--.50434S5;
-	Fri, 04 Sep 2026 14:13:52 +0800 (CST)
-From: Zizhi Wo <wozizhi@huaweicloud.com>
-To: cem@kernel.org,
-	dgc@kernel.org,
-	djwong@kernel.org,
-	hch@lst.de,
-	linux-xfs@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org,
-	yangerkun@huawei.com,
-	chengzhihao1@huawei.com,
-	wozizhi@huawei.com
-Subject: [PATCH 1/5] xfs: remove unused xlog_assign_tail_lsn declarations
-Date: Fri,  4 Sep 2026 14:06:44 +0800
-Message-ID: <20260904060648.1966130-2-wozizhi@huaweicloud.com>
-X-Mailer: git-send-email 2.52.0
-In-Reply-To: <20260904060648.1966130-1-wozizhi@huaweicloud.com>
-References: <20260904060648.1966130-1-wozizhi@huaweicloud.com>
+	bh=4dOgcAQlgO1QoOYmAB+wFP5Ip8y+D8KPjRKJ5U4MjNU=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Wp3XKMoLxy68dKIo91dNU3tia+iA6e8wC2LjerjOm9Wm7wLtEFXFNLIX/OjS6+L/7fVLSlbr+uGdBKxEbYQdpLiaDiEKrDGu9QUsdKckJ6ihxzZZJL+nL0Eo5vMLJbDm/pzj6ZGqgv7OtiBi5ufl5Cfd1Ap6FV1Rjb7XNyNvBqA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Jdml6mr3; arc=pass smtp.client-ip=209.85.208.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Jdml6mr3"
+Received: by mail-ed1-f42.google.com with SMTP id 4fb4d7f45d1cf-6a668ce86abso880718a12.2
+        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 23:13:57 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788502436; cv=none;
+        d=google.com; s=arc-20260327;
+        b=FzTmakv1amujJn0ht+gPZ57ZnH2C8HOcF+vaOhoY+N5ixhBoqxcgkbbA+cHIbKs2Zg
+         YulSK58gpVzaYMJix1PHDcLmkdZuvSXecRNZuw6D3hYArt3J6kDC+V2muuKANuP/JDRX
+         TptLkosAOFW9L6Ww0Ii7Ki0beaEDuiwqDkajZG+jbRA2cSbmUeSmD0t4sLAfvVcdKGUf
+         fSDPprVqa39KD0FXEyNJKdl16PL4Tf2jIWqYr+v4EawA1GjFQnDfu4mnFE9KyhdZ6379
+         CZXU0oIK4noRNqn46U5FbnTnd9NNHi3pYSA1g9o1TPL0MduybCyanOfKot+nYy39Igdh
+         6ZTA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=4dOgcAQlgO1QoOYmAB+wFP5Ip8y+D8KPjRKJ5U4MjNU=;
+        fh=V8YeQ8vtvZvP5yZufBjoC7dbaa5M0a7VfAp9QRiXDYM=;
+        b=ZlIZZZA7QORg4Fps9feFnkP2duZIER/OeMU8OZELUKyM0LtNte1zzd3XJY5cT0xB49
+         u8/qqNCE2qgQEEMYtjn3wnI/CfDZBOq8YUu0qepQaTIpMYWibBNmH2CT3KgV/PQj73+b
+         EGk8WWo6GAep+UxORKxoVXvd+Qb+q5mBzGSwr0eP0ajc0KGIGIbs/HsL1DOOUucdJ+Xb
+         4WRoPsvvm+9arrNNhIbxWhc0qy67hnV1vNospsOsq+TmhctxGPGQA1lF8B+ZTdgTQCrv
+         bNv8A86LxS68O/Zw6scwsaT2kV5tQV6vAPdj7PLaGCD92sgRj6l6FpsAws4tcdIDMMv8
+         umtQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788502436; x=1789107236; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=4dOgcAQlgO1QoOYmAB+wFP5Ip8y+D8KPjRKJ5U4MjNU=;
+        b=Jdml6mr3zaJdqdlBLmwY4XR3DyaMt6UVj+RrpvUccUAgAhxLkAJrowYyrxRQFhIoI4
+         SFMo9P6pmG/zs5G0i4r06tFu7OzCsJNsjtIovofmLTCa1ETNmq1ySaCoppH9xw7+jRO5
+         kpa+4BFPGENcquNHvcWbiFezTJ7t+UPQTVZ8szMSKH5imCpPBYDpGeJ8oC47XpX6Pc2l
+         tOm73krqlGnR5/rddSkj8pDV59Ur+mb8k/X5yfB9bOLqjbCYAbPr8LlREHKCQPjWpHwI
+         TaGy6n4nCeZ87ZF8OVjnT3VRS2LFuvBDh+W0zWOjb3AHCngRjwHDiGeXMuAzRIRJxfsy
+         xEWA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788502436; x=1789107236;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=4dOgcAQlgO1QoOYmAB+wFP5Ip8y+D8KPjRKJ5U4MjNU=;
+        b=n/eFd94yRzuwyOoS0EKLSvjubAGlnv+idilf7yzXCMujj9dMAPwQm/SUNayB8t5r0N
+         n1/87LeKRReA5mh39cYCrHwr/Rj/jun0YRpnpUv3hS3w26efeysA3VXbosLmcMjWhAKE
+         nhr6JlpEPEEFRiwq2EyfafZTxvME4Eop5GTs2GW52pLkE1UcOOO9lmquGiJ4xzosn7W5
+         cZ4OKJ22iwUYPelg+6hRIBmgJT9b7qkXg8jyH8QfKTxKKyE5dTSWeE+MI2PKypV47O0u
+         sQKo1gVIYTklLeUBg6avAiHq/43pJEvVaIQ7FtQVra0z/m1JczcoVWf4hUitdBUFw61y
+         oS/Q==
+X-Forwarded-Encrypted: i=1; AKwUvBwHnwL8Fz4927EGbmj687AovW6fihiwoeWh34BZub1bqj1KYxDHK0QM2CfYb7PCxGc1DYjHWf9WzyQI0dY=@vger.kernel.org
+X-Gm-Message-State: AFuF++nTLGY/TKgdhaK33k0YPIHwU0BrDYDwwRGsw3+GQ9UVCXihjPsC
+	MxvCoex9oQDSS2e2UXB6vhbQARzBNoZxVfF/G58AJVoacMKx/u3vj3kcwXGb2ViwKhuHFiSdI6G
+	9h40fkC5lJi5ey5IhC8sVG7mBu/AhMhw=
+X-Gm-Gg: AYBFou19CuZB+cOU43977IamdUXj4dvm74sTgPV1fLCGFrexCTJLxEorvCZcNFDS5is
+	RNcDqatAwcEDfOGbTGkxE4YkNCScV/1M95S4hOVzzZwYRkqHgJATWtMW3csgQIAzSV/+1iBXDlW
+	QO+phYlsdinH8fPkdO9Xqy9Rhb+trmXGSSRYeWvMmlOsQZhgvLjrk9YfWy9Uz9hg61omm03XJ9p
+	cJiDF20DmOc+HyDeKZ6AAnMx0J9HwrtUB6UL+kZ2EZ9+r1Gerrv4lZy/i2Vei3duWavk0Onfmy1
+	Jqzdty4nSnY0nlhmnudhOISBm45B/ZnuF3TbaNzXdZFTeRtaVBJ6W4eIBzKba+PuINDY6yHri2x
+	6XlqrKLnNfTDaV6NO1qX3uEmBHAKKzBE=
+X-Received: by 2002:a05:6402:46d0:b0:6a5:f44e:a009 with SMTP id
+ 4fb4d7f45d1cf-6a7e8d5a9f1mr1690015a12.7.1788502435914; Thu, 03 Sep 2026
+ 23:13:55 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:cCh0CgCHbwqeYZpqTb3FAg--.50434S5
-X-Coremail-Antispam: 1UD129KBjvdXoWrZrW7Jw4xGr43CrWkXryrJFb_yoWkCFb_Aa
-	18tr1I9w48tryfAF18C34IgFn8JrWIkwnxG3yFy3ZIkw1DJ3WFyw1qvr1aqrZ09rnrJFyf
-	Xr1DKr45tryvyjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUIcSsGvfJTRUUUbTkYFVCjjxCrM7AC8VAFwI0_Xr0_Wr1l1xkIjI8I6I8E6xAIw20E
-	Y4v20xvaj40_Wr0E3s1l1IIY67AEw4v_Jr0_Jr4l82xGYIkIc2x26280x7IE14v26r18M2
-	8IrcIa0xkI8VCY1x0267AKxVWUCVW8JwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK
-	021l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r
-	4j6F4UM28EF7xvwVC2z280aVAFwI0_Cr1j6rxdM28EF7xvwVC2z280aVCY1x0267AKxVW0
-	oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7V
-	C0I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j
-	6r4UM4x0Y48IcxkI7VAKI48JMxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMx
-	C20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAF
-	wI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20x
-	vE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v2
-	0xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxV
-	W8Jr0_Cr1UYxBIdaVFxhVjvjDU0xZFpf9x07UR89tUUUUU=
-X-CM-SenderInfo: pzr2x6tkl6x35dzhxuhorxvhhfrp/
+References: <20260803-alpha-fp-exceptions-v1-0-c99d75608e60@gmail.com>
+ <20260803-alpha-fp-exceptions-v1-3-c99d75608e60@gmail.com> <CA+=Fv5QUxT-T0XgXccAF=1_6Dz=nCpY=NQu=ruOrYjbB+q7YCA@mail.gmail.com>
+In-Reply-To: <CA+=Fv5QUxT-T0XgXccAF=1_6Dz=nCpY=NQu=ruOrYjbB+q7YCA@mail.gmail.com>
+From: Magnus Lindholm <linmag7@gmail.com>
+Date: Fri, 4 Sep 2026 08:13:44 +0200
+X-Gm-Features: AcwNN1VrnhEuSNjXaQkRHQ6SzaIw81uvdMaGdmatxDoxs1iIKPoZwAWCS6BhE2g
+Message-ID: <CA+=Fv5S_ZrHedEVPR9Oet2Egg2hwy33pEqEXaQa0zGdQdNjWRg@mail.gmail.com>
+Subject: Re: [PATCH 3/3] alpha: determine tininess after rounding in the FP emulation
+To: Matt Turner <mattst88@gmail.com>
+Cc: Richard Henderson <richard.henderson@linaro.org>, linux-alpha@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, sparclinux@vger.kernel.org, 
+	linuxppc-dev@lists.ozlabs.org, linux-sh@vger.kernel.org, 
+	"David S. Miller" <davem@davemloft.net>, Andreas Larsson <andreas@gaisler.com>, stable@vger.kernel.org, 
+	Michael Ellerman <mpe@ellerman.id.au>, Yoshinori Sato <ysato@users.sourceforge.jp>, dalias@libc.org, 
+	John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
+Content-Type: text/plain; charset="UTF-8"
 
-From: Zizhi Wo <wozizhi@huawei.com>
+Hi everyone,
 
-Commit 0dcd5a10d987 ("xfs: l_last_sync_lsn is really AIL state") moved log
-tail tracking entirely into the AIL and removed the implementations of
-xlog_assign_tail_lsn() and xlog_assign_tail_lsn_locked(). The prototypes
-for these two functions were left behind in xfs_log.h and no longer refer
-to anything.
+Adding Michael, Yoshinori, Rich and Adrian directly, although this
+is an alpha series, patch 3/3 also touches the shared soft-fp code in
+include/math-emu/ (op-common.h, soft-fp.h), which your architectures
+build against too (confirmed by grepping arch/{powerpc,sh,sparc} for
+includes of those headers; parisc/m68k/mips/x86 have their own
+separate math-emu and aren't touched).
+The new _FP_TININESS_AFTER_ROUNDING macro defaults to 0, so the
+intent is no behavioural change on your side. The new guard it adds
+in op-common.h is a regular runtime `if` rather than `#if` though, so
+it still gets compiled against your macro instantiations even if it
+should dead-code-eliminate at -O.
+No action needed if it builds fine for you, just flagging since it's
+tagged for stable. Let us know if it causes any problems, or feel
+free to ack if you're happy with it.
+I've reviewed and tested patch 3/3 on alpha already (Reviewed-by/
+Tested-by posted).
 
-Remove the dangling declarations.
-
-Signed-off-by: Zizhi Wo <wozizhi@huawei.com>
----
- fs/xfs/xfs_log.h | 2 --
- 1 file changed, 2 deletions(-)
-
-diff --git a/fs/xfs/xfs_log.h b/fs/xfs/xfs_log.h
-index ca66429bf6c9..f715695e8fcb 100644
---- a/fs/xfs/xfs_log.h
-+++ b/fs/xfs/xfs_log.h
-@@ -105,8 +105,6 @@ int	  xfs_log_mount(struct xfs_mount	*mp,
- 			int		 	num_bblocks);
- int	  xfs_log_mount_finish(struct xfs_mount *mp);
- void	xfs_log_mount_cancel(struct xfs_mount *);
--xfs_lsn_t xlog_assign_tail_lsn(struct xfs_mount *mp);
--xfs_lsn_t xlog_assign_tail_lsn_locked(struct xfs_mount *mp);
- void	xfs_log_space_wake(struct xfs_mount *mp);
- int	xfs_log_reserve(struct xfs_mount *mp, int length, int count,
- 			struct xlog_ticket **ticket, bool permanent);
--- 
-2.52.0
-
+Thanks,
+Magnus
