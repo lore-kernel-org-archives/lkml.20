@@ -1,115 +1,97 @@
-Received: from mail-ot1-f72.google.com (mail-ot1-f72.google.com [209.85.210.72])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from out28-50.mail.aliyun.com (out28-50.mail.aliyun.com [115.124.28.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 040C6377EB0
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 03:09:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E16F3AA51E
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 03:10:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788491344; cv=none; b=kiHzFUOACypy+LCTVWYifoEWYEsBudau0nZIfygTk5TjjYesNGYGoWrdsdbrTTuBotUlyYWfOeHLCPWPdCc+FtSPvLhpw9NwARl4ilViQzu2mA5SxK2U/vWzdJsba3ilg0TKH4Rg7tIsknpqIvVGcWwenkUeSF81u9hUjBPTJG8=
+	t=1788491425; cv=none; b=bdxnHBk1u5pwQsn5JjspVB2Xr3RIBGJ3aN6JOWEXoV8yLR0aFZHsbJKVx/NZPtUoM3pQGF5n7iL2jtZMilNGGMBHd7zGOsBUG5zwJbgzGmvX7F6Wu8BGl+WCZYG0BjwuNGOnp9mOOgXiJjJvOF5Op1P21XRHh6Rx6fe/MrXBo8s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788491344; c=relaxed/simple;
-	bh=TFiw3+rlof9d8hTcfoed+MRZI5OSNv9oJ+6vXKduEmE=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=XhVtbkmvFFgeh6GrNNsWjfoTQAGoX48rVuJ17H8l5dp5wn7QDKJyz/lqGlNHJQT0gLP+ZYGnmGm1lfVISejKMBqPafdtipWqiUIQQWbYiDaA36NPwBzZD4uqfrocr3lK5aiqUoytN7AzhxAWbSoKhBHImAXLO3JH2+QNpGNEH4A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.210.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-ot1-f72.google.com with SMTP id 46e09a7af769-7ec3b429610so778524a34.1
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 20:09:02 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788491342; x=1789096142;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=NJO9S81Lm7JAX9hAABPDjV3lYt4n/KmV9DT5CnYCcdA=;
-        b=dYKSSGdijPLOkwzBIY9FuCdnG+pgIbXn25SyeC0WCk42MUoA41UqahyuWsbdkSmG6R
-         3t5uJr0DZNCJ9+NGE61ntIPIeaon4fKcZXjO87D6O2M7FGeHHW3pLrN0nLY/RsCTh/ev
-         Lh6P/4Vt4fcyb8hql26e0RDXUcdLECZnUb1fuHs7P+EhVgH9V4gvsBiRjunhc8U8a4IJ
-         2VuZUW130ZV1m/IpY7GYpHc2rUSjpn0oY9ESPvsoGKof5q1MiwF2Vo3trjfD0Nodzvx0
-         2tXcPfW78Z6H6YWSYc7KvqmMx4CXUpLylAUmV+wOduHukvq+LR8AjsT7h2CkuUVEziYi
-         vfvg==
-X-Forwarded-Encrypted: i=1; AKwUvBxzqZu1ysdVkQ9l1s8555qP8hVFAZrEtstszALlObf9XVWPEvB9a+CQ/X3pRrfjtzmEMY9ye1z4riS+w+o=@vger.kernel.org
-X-Gm-Message-State: AFuF++mMOdbu5G36eDNVHALWPkOsGavXOsw2DCqTLl5q1DxGbOQGz0Az
-	ALvCV8CbQ2IV1y/GhBKKsg/CEknxozyaqnlL0/VqPg2mvzkr87WxctfrpgtjTLscFNJ3xYydHEU
-	JkiG805ztJIvjT8xQ4x64R3Ywis92+YLgXELHMETYjTHwlkgil/g7CBSvSkk=
+	s=arc-20240116; t=1788491425; c=relaxed/simple;
+	bh=TR1DU6xKSXoHFIgeof3CUzjvhLtuKnOEJ2ZTvUWg4oU=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=mZHVC71WhurBh+zvcMu4KxxvLmqbyGCRNe/O4UXzkuNCRXpFzRBBsrHxfFCBtXBHSA3TkkjR7iaOdWorAulfWzKxqeBDhQxJY9bnlHT1Dyp/4s6rOOSI/HHAE+T6Hd/rVh8TCMOy6oQ69bOUzQ1jleGi1JrIU2vpDH8PTJF3DDQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=open-hieco.net; spf=pass smtp.mailfrom=open-hieco.net; arc=none smtp.client-ip=115.124.28.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=open-hieco.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=open-hieco.net
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.1738966|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_alarm|0.00528743-8.67872e-05-0.994626;FP=14259654310229575967|1|1|1|0|-1|-1|-1;HT=maildocker-contentspam033023018039;MF=fuhao@open-hieco.net;NM=1;PH=DS;RN=10;RT=10;SR=0;TI=SMTPD_---.j54tlGi_1788491405;
+Received: from higon..(mailfrom:fuhao@open-hieco.net fp:SMTPD_---.j54tlGi_1788491405 cluster:ay29)
+          by smtp.aliyun-inc.com;
+          Fri, 04 Sep 2026 11:10:11 +0800
+From: Fu Hao <fuhao@open-hieco.net>
+To: puwen@hygon.cn,
+	tglx@kernel.org,
+	mingo@redhat.com,
+	bp@alien8.de,
+	dave.hansen@linux.intel.com,
+	x86@kernel.org,
+	hpa@zytor.com
+Cc: linux-kernel@vger.kernel.org,
+	tingyin.duan@gmail.com,
+	Fu Hao <fuhao@open-hieco.net>
+Subject: [PATCH v5 1/5] x86/cpu/hygon: Adjust the die_id and logical_die_id for Hygon models 0x4 through 0x8
+Date: Fri,  4 Sep 2026 11:09:57 +0800
+Message-Id: <1d19f337f055b74d3044ec347e5fa6d728067f7d.1788404433.git.fuhao@open-hieco.net>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <cover.1788404433.git.fuhao@open-hieco.net>
+References: <cover.1788404433.git.fuhao@open-hieco.net>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:162b:b0:6b7:46fa:1699 with SMTP id
- 006d021491bc7-6b746fa1a55mr855647eaf.46.1788491341938; Thu, 03 Sep 2026
- 20:09:01 -0700 (PDT)
-Date: Thu, 03 Sep 2026 20:09:01 -0700
-In-Reply-To: <20260904023838.579889-1-eadavis@sina.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6a9a364d.9266084e.bf0d7.03e5.GAE@google.com>
-Subject: Re: [syzbot] [block?] general protection fault in blk_mq_quiesce_queue
-From: syzbot <syzbot+fefa0af09f7891b1800e@syzkaller.appspotmail.com>
-To: eadavis@sina.com, linux-kernel@vger.kernel.org, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 8bit
 
-Hello,
+For Hygon processor models 0x4–0x8, the die ID should be obtained
+from the NodeId field in ECX of CPUID leaf 0x8000001e.
 
-syzbot has tested the proposed patch but the reproducer is still triggering an issue:
-WARNING in nvme_reset_ctrl_sync
+Starting with these models, Hygon CPUs support CPUID leaf 0xb but
+do not support leaf 0x80000026. Consequently, the die ID and
+logical die ID cannot be derived from the APIC ID space.
+CPUID leaf 0xb only supports core and package levels, it cannot
+enumerate die IDs within a socket.
 
-------------[ cut here ]------------
-!list_empty(&work->entry)
-WARNING: kernel/workqueue.c:2432 at __queue_work+0xee4/0x1370 kernel/workqueue.c:2432, CPU#0: syz-executor138/15710
-Modules linked in:
-CPU: 0 UID: 0 PID: 15710 Comm: syz-executor138 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-RIP: 0010:__queue_work+0xee4/0x1370 kernel/workqueue.c:2432
-Code: 44 89 f6 e8 9e 35 3b 00 45 84 f6 0f 85 f7 f1 ff ff e9 54 7f 51 ff e8 7b 3b 3b 00 90 0f 0b 90 e9 7c f4 ff ff e8 6d 3b 3b 00 90 <0f> 0b 90 e9 95 f5 ff ff e8 5f 3b 3b 00 4c 89 e2 48 b8 00 00 00 00
-RSP: 0018:ffffc90006c27af8 EFLAGS: 00010093
-RAX: 0000000000000000 RBX: ffff888028a59800 RCX: 0000000000000001
-RDX: ffff888047318000 RSI: ffffffff81d000c3 RDI: ffff888047318000
-RBP: ffff88806de38b10 R08: 0000000000000001 R09: 0000000000000000
-R10: 0000000000000001 R11: 0000000000000000 R12: ffff88806de38b18
-R13: 1ffff92000d84f69 R14: ffff8880277bb800 R15: dffffc0000000000
-FS:  0000000000000000(0000) GS:ffff888096967000(0063) knlGS:00000000f7e0eb40
-CS:  0010 DS: 002b ES: 002b CR0: 0000000080050033
-CR2: 00000000f7e0eda4 CR3: 0000000053b7d000 CR4: 0000000000352ef0
-Call Trace:
- <TASK>
- queue_work_on+0x180/0x1e0 kernel/workqueue.c:2501
- queue_work include/linux/workqueue.h:700 [inline]
- nvme_reset_ctrl drivers/nvme/host/core.c:226 [inline]
- nvme_reset_ctrl_sync+0x51/0xe0 drivers/nvme/host/core.c:236
- nvme_sysfs_reset+0x35/0x80 drivers/nvme/host/sysfs.c:21
- dev_attr_store+0x58/0x80 drivers/base/core.c:2509
- sysfs_kf_write+0xf2/0x150 fs/sysfs/file.c:145
- kernfs_fop_write_iter+0x3e0/0x5f0 fs/kernfs/file.c:345
- new_sync_write fs/read_write.c:595 [inline]
- vfs_write+0x6af/0x1050 fs/read_write.c:687
- ksys_write+0x12a/0x250 fs/read_write.c:739
- do_syscall_32_irqs_on arch/x86/entry/syscall_32.c:79 [inline]
- __do_fast_syscall_32+0x13a/0x8b0 arch/x86/entry/syscall_32.c:291
- do_fast_syscall_32+0x32/0x70 arch/x86/entry/syscall_32.c:316
- entry_SYSENTER_compat_after_hwframe+0x84/0x8e
-RIP: 0023:0xf7e37fec
-Code: Unable to access opcode bytes at 0xf7e37fc2.
-RSP: 002b:00000000f7e0e69c EFLAGS: 00000293 ORIG_RAX: 0000000000000004
-RAX: ffffffffffffffda RBX: 0000000000000004 RCX: 0000000080000480
-RDX: 0000000000000001 RSI: 0000000000000000 RDI: 0000000000000000
-RBP: 00000000f7e3cd89 R08: 0000000000000000 R09: 0000000000000000
-R10: 0000000000000000 R11: 0000000000000292 R12: 0000000000000000
-R13: 0000000000000000 R14: 0000000000000000 R15: 0000000000000000
- </TASK>
+However, we found that CPUID leaf 0x8000001e (ECX) provides the
+necessary information. In Hygon CPU design, the NodeId field [7:0]
+encodes both Socket and Die IDs in the format:
+   Bits [7:4]: Socket ID
+   Bits [3:0]: Die ID
 
+We can calculate the correct IDs(die_id and logical_die_id) by parsing
+this field.
 
-Tested on:
+Signed-off-by: Fu Hao <fuhao@open-hieco.net>
+---
+ arch/x86/kernel/cpu/hygon.c | 14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
 
-commit:         940de590 Merge tag 'hardening-v7.3-rc2' of git://git.k..
-git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
-console output: https://syzkaller.appspot.com/x/log.txt?x=16baa125580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=85bc5cc2fc7394d9
-dashboard link: https://syzkaller.appspot.com/bug?extid=fefa0af09f7891b1800e
-compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
-userspace arch: i386
-patch:          https://syzkaller.appspot.com/x/patch.diff?x=1172a125580000
+diff --git a/arch/x86/kernel/cpu/hygon.c b/arch/x86/kernel/cpu/hygon.c
+index 3e8891a9c..64f9a64c3 100644
+--- a/arch/x86/kernel/cpu/hygon.c
++++ b/arch/x86/kernel/cpu/hygon.c
+@@ -192,6 +192,20 @@ static void init_hygon(struct cpuinfo_x86 *c)
+ 
+ 	init_hygon_cacheinfo(c);
+ 
++	/*
++	 * Adjust the die_id and logical_die_id for Hygon models 0x4-0x8.
++	 * In Hygon CPU design, the NodeId field of CPUID leaf 0x8000001e (ECX)
++	 * is now fixed to represent the socket ID and die ID, allocated as
++	 * 4 bits each: socket ID = NodeId[7:4], die ID = NodeId[3:0].
++	 */
++	if (!boot_cpu_has(X86_FEATURE_HYPERVISOR) &&
++	    c->x86_model >= 0x4 && c->x86_model <= 0x8) {
++		c->topo.die_id = cpuid_ecx(0x8000001e) & 0xff;
++		c->topo.logical_die_id = (c->topo.die_id >> 4) *
++					 topology_amd_nodes_per_pkg() +
++					 (c->topo.die_id & 0xf);
++	}
++
+ 	if (cpu_has(c, X86_FEATURE_SVM)) {
+ 		rdmsrq(MSR_VM_CR, vm_cr);
+ 		if (vm_cr & SVM_VM_CR_SVM_DIS_MASK) {
+-- 
+2.34.1
 
