@@ -1,186 +1,129 @@
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78F08400DE8
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 06:04:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CAAF1390610;
+	Fri,  4 Sep 2026 06:04:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788501844; cv=none; b=ZMhzzmNn+kpphuT36a3rMJTECk6baX5HNLjTxeWrG1XvpzJCtmeuXBTehs1cghEMqm8z60npSlkxNj7L7wwV7+GY+tNTy4qMO4f9L9raNrBoX+SWlanpHHSrRz7oLmRBR+BbumzyNA+cZzudw0K0kJHfUE3aHG5C1+N5D1ixjGU=
+	t=1788501858; cv=none; b=lZWwgaOvhiOGYnnLbwqJUNmbGX9Lsa+iWYmMbD1RwVst0dzvf3wPxM160kvKYUnXD6JTtZk4Qqb7RxufzzBiKf1sD1DMsTvHpzZeNSIRfTWF3zINWU/6G/BjK0QjRQjhc/AXeVMMurE6YxGliwGN2WVCNhRbZsPadx59rAF6T7g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788501844; c=relaxed/simple;
-	bh=Ye6cOX802ZzZri16Xvh5i7MdcxBGeDBPODGuw8HpoKs=;
-	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
-	 Message-Id:References:To; b=YBqWMu6zC0iXwXLMxnQKyLmrNfLeP0NidqsFmvYgFM0sZC8OHos73y+WdvkEj2IhwWSSdmOY5ZD/01vnRtShoeBNmFOFCfq/OL6j33nSOUvcEh9Dxk4dIymQQ8kQmwT81DjiVddaZEDC15gfqa7sT1G9QBQ9DRF4zyKqKf4mArs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=gFQZLLY9; arc=none smtp.client-ip=148.163.156.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1788501858; c=relaxed/simple;
+	bh=1jCojS2k9dmomuM/T5Y/9PMCl0u+3Q640PkvDTWKiLw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=u3M34pZZH2E/FtjMXOTfzKMTbbnqrr+2HaD1HqpL0MXz7yKLm7d6x+8XuIPsjbXI0bRYcWx11XJ48zutiq3lZNAEHkKYyN3pUTu55+VUH2i/OQAMRmqZwu5wEx++Z3xkyYfk4e4RbDQmMkrmzYZtX/SpM6s2z065bFnbavje0Gc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Ez8gGPZJ; arc=none smtp.client-ip=198.175.65.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="gFQZLLY9"
-Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68431Q5l571234;
-	Fri, 4 Sep 2026 06:03:45 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=Ye6cOX
-	802ZzZri16Xvh5i7MdcxBGeDBPODGuw8HpoKs=; b=gFQZLLY9f49F3kv31svbgK
-	SD/4wgJLCVRi1xPuLmduqLn/MoNt0X1ddKZExxHFODklJQNQIS1XIcKa5zkC8Mjv
-	Voow1EtibeP7O9yy/A8heMIPhXC2oc1V2mpgQdwFms8N/Ohwx8Jzb+MXa6Anllv6
-	CpgjZygZ59/JY6gVs0tj7/cvR/IOUEEAl8gCsEdUlYDroVd8cyKVof5WojY08MpC
-	qU6To4bphY19n3OrCjm1cAxO06uKX2EoT42tPyfzKiVY0tI6xFLp6IsPFit/DZ0D
-	ufu6bq5odiAINpyeCdWf8KheE7BEtf8N0wnaNyelXBRGUeB5eZYFjY6Al9ZNs9Nw
-	==
-Received: from ppma22.wdc07v.mail.ibm.com (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gbq5592hm-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 04 Sep 2026 06:03:45 +0000 (GMT)
-Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma22.wdc07v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 6845uJZ6015890;
-	Fri, 4 Sep 2026 06:03:44 GMT
-Received: from smtprelay05.fra02v.mail.ibm.com ([9.218.2.225])
-	by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4gecjauucb-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 04 Sep 2026 06:03:43 +0000 (GMT)
-Received: from smtpav07.fra02v.mail.ibm.com (smtpav07.fra02v.mail.ibm.com [10.20.54.106])
-	by smtprelay05.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68463fc950200848
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Fri, 4 Sep 2026 06:03:42 GMT
-Received: from smtpav07.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id D23792004D;
-	Fri,  4 Sep 2026 06:03:41 +0000 (GMT)
-Received: from smtpav07.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 17B5E20043;
-	Fri,  4 Sep 2026 06:03:40 +0000 (GMT)
-Received: from smtpclient.apple (unknown [9.39.27.185])
-	by smtpav07.fra02v.mail.ibm.com (Postfix) with ESMTPS;
-	Fri,  4 Sep 2026 06:03:39 +0000 (GMT)
-Content-Type: text/plain;
-	charset=utf-8
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Ez8gGPZJ"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788501856; x=1820037856;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=1jCojS2k9dmomuM/T5Y/9PMCl0u+3Q640PkvDTWKiLw=;
+  b=Ez8gGPZJDI2XptSjspAXxaE0QrLZ1e79aPgLMI1mr/0Ywpiz8V65LmIG
+   2TMmmHd5tZ7yhaE0mF4VzN1N9uxJxTYkNNctpUHclVNxvLT8hAMVErFgX
+   qQ312M+IzzZcA4F1ySeau+WKZBVDJVayGzbDM9OuoOoKnXn6vxbxOxqEx
+   pvqqMUiVi119zASa2HxkERCYrmOz+mJA0NPwkPJ/P/Gj7T2Z5ULiRNC40
+   1fHfHPE9N7xLQAhtqN5I3nzXycg/yI/s/8CmJbY+5N4qapTzSMgiypbWG
+   Xkl7iFsCoATJXSItq69okgLSaFRBWSITlwvddG/U/wZ+go72rHvaqTxHV
+   A==;
+X-CSE-ConnectionGUID: mv0TdqG0Q7uXaxe0swuDug==
+X-CSE-MsgGUID: we8bXrJHQbeq+IqmWcSxTQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11895"; a="100516275"
+X-IronPort-AV: E=Sophos;i="6.25,260,1779174000"; 
+   d="scan'208";a="100516275"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Sep 2026 23:04:15 -0700
+X-CSE-ConnectionGUID: XZ+6LqDLQfumcewIwdVduQ==
+X-CSE-MsgGUID: S8npCM7eRcOSnkB7MxG2Dg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,260,1779174000"; 
+   d="scan'208";a="263745271"
+Received: from slindbla-desk.ger.corp.intel.com (HELO localhost) ([10.245.244.224])
+  by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Sep 2026 23:04:13 -0700
+Date: Fri, 4 Sep 2026 09:04:10 +0300
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Daniel Pereira <danielmaraboo@gmail.com>
+Cc: linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org,
+	shuah@kernel.org
+Subject: Re: [PATCH] lib: hexdump: convert test to KUnit framework
+Message-ID: <appfWm7KaBuk5iL1@ashevche-desk.local>
+References: <20260903213656.57203-1-danielmaraboo@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3864.300.41.1.7\))
-Subject: Re: [PATCH] powerpc/pseries/htmdump: Fix leak in htmdump_init_debugfs
-From: Athira Rajeev <atrajeev@linux.ibm.com>
-In-Reply-To: <anJDq-JckR6j-6EJ@michalis-linux>
-Date: Fri, 4 Sep 2026 11:33:27 +0530
-Cc: maddy@linux.ibm.com, mpe@ellerman.id.au, chleroy@kernel.org,
-        npiggin@gmail.com, linuxppc-dev@lists.ozlabs.org,
-        linux-kernel@vger.kernel.org
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <E8815BE1-1914-443C-A3D7-F1A85AFFB181@linux.ibm.com>
-References: <anJDq-JckR6j-6EJ@michalis-linux>
-To: Michail Tatas <michail.tatas@gmail.com>
-X-Mailer: Apple Mail (2.3864.300.41.1.7)
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA0MDA0OSBTYWx0ZWRfXw4pJtyjcH2Kd
- Kcc8UKmWsXAIHHtSgprzf1HA3cf392w77oOXX9jTo+CjJQqY2R44abqqTpQOcVJ4YtfLw05osX8
- x1wIgc3VB7/HP7QL45x78mbHHbxT62xfAaSH0GHuWfRtpM+7IVYvtiFofLzPV5W2roSByBsgW+t
- HAuymJEdvgMUYPpm+BU0+JNbl3YHGjjP9KllFGA6CTwaAx2e977XHJMULh71uUXwg0Kz4ApsgtY
- tvPeCag8NSeT0OKRezNVv/e4yUWUsOJ6r94K0ultA7VHkLVG6jvjt6Gb9mTXTeYxITk9szK8FdM
- 39GQLp96L+t5oVI5kbhIsqx6KuLwgWzjdQfu6fMfPpe1N6FrLtG/C7dDMR/NDnjwmr2+1i1K+I2
- buF7WdE9hG5b1KSeDT0A8xqF5k/VJ1RvoC3x7WEvVm1Hrm5m7yoq22Ke2daAM5jAT9nBG0v9HuK
- eG/PlT3DUwo+HPlRzNA==
-X-Proofpoint-ORIG-GUID: N_ZEmS4srIsW-tgHny2FYU9l7AgYglBQ
-X-Authority-Analysis: v=2.4 cv=CNgamxrD c=1 sm=1 tr=0 ts=6a9a5f41 cx=c_pps
- a=5BHTudwdYE3Te8bg5FgnPg==:117 a=5BHTudwdYE3Te8bg5FgnPg==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=U7nrCbtTmkRpXpFmAIza:22 a=pGLkceISAAAA:8
- a=VnNF1IyMAAAA:8 a=aGPZjXX-TVm_6tD4aQsA:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-GUID: Z_YaLQNdQrr4p4xtNjJqptg6ugTMFM8K
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA0MDA0OSBTYWx0ZWRfXxzvIhZha/g77
- QcA+/Nhfp436HehuVA9Dw1boz0i1dFq7K4uCDXU4Q8XjDTpSmqK2PgOCS7iYzxU8SXhDcYCMR/G
- bTITqmf9Ba4hFuHm7cSs6BiUFm0eTi8=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-04_01,2026-09-03_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 bulkscore=0 suspectscore=0 phishscore=0 lowpriorityscore=0
- priorityscore=1501 clxscore=1015 impostorscore=0 adultscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609040049
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260903213656.57203-1-danielmaraboo@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
+On Thu, Sep 03, 2026 at 06:36:56PM -0300, Daniel Pereira wrote:
+> The old test_hexdump module used the traditional kernel printing
+> functions to verify hex dumping capabilities.
+> 
+> This patch converts the existing test into the modern KUnit framework
+> to allow standard automation, faster execution, and better integration
+> with Kselftest CI.
 
+...
 
-> On 5 Aug 2026, at 1:25=E2=80=AFAM, Michail Tatas =
-<michail.tatas@gmail.com> wrote:
->=20
-> If any allocation fails during init all previous allocations are
-> leaked and the debugfs directory is left.
-> Fix by freeing the allocations that have already happened and also
-> remove the directory that has been created.
->=20
+> +++ b/lib/Kconfig.debug
 
-Reviewed-by: Athira Rajeev <atrajeev@linux.ibm.com>
+>  	tristate "KUnit test for cpumask" if !KUNIT_ALL_TESTS
+>  	depends on KUNIT
+>  	default KUNIT_ALL_TESTS
+> +	default KUNIT_ALL_TESTS
+>  	help
+>  	  Enable to turn on cpumask tests, running at boot or module load time.
+>  
+> @@ -2289,6 +2290,7 @@ config TEST_LIST_SORT
+>  	tristate "Linked list sorting test" if !KUNIT_ALL_TESTS
+>  	depends on KUNIT
+>  	default KUNIT_ALL_TESTS
+> +	default KUNIT_ALL_TESTS
+>  	help
+>  	  Enable this to turn on 'list_sort()' function test. This test is
+>  	  executed only once during system boot (so affects only boot time),
+> @@ -2300,6 +2302,7 @@ config TEST_SORT
+>  	tristate "Array-based sort test" if !KUNIT_ALL_TESTS
+>  	depends on KUNIT
+>  	default KUNIT_ALL_TESTS
+> +	default KUNIT_ALL_TESTS
 
-Thanks
-Athira
-> Signed-off-by: Michail Tatas <michail.tatas@gmail.com>
-> ---
-> arch/powerpc/platforms/pseries/htmdump.c | 19 +++++++++++++++----
-> 1 file changed, 15 insertions(+), 4 deletions(-)
->=20
-> diff --git a/arch/powerpc/platforms/pseries/htmdump.c =
-b/arch/powerpc/platforms/pseries/htmdump.c
-> index 489a80e87082..f33941b80ada 100644
-> --- a/arch/powerpc/platforms/pseries/htmdump.c
-> +++ b/arch/powerpc/platforms/pseries/htmdump.c
-> @@ -527,28 +527,28 @@ static int htmdump_init_debugfs(void)
-> htm_status_buf =3D kmalloc(PAGE_SIZE, GFP_KERNEL);
-> if (!htm_status_buf) {
-> pr_err("Failed to allocate htmstatus buf\n");
-> - return -ENOMEM;
-> + goto htm_status_buf_err;
-> }
->=20
-> /* Debugfs interface file to present System Processor Configuration */
-> htm_info_buf =3D kmalloc(PAGE_SIZE, GFP_KERNEL);
-> if (!htm_info_buf) {
-> pr_err("Failed to allocate htm info buf\n");
-> - return -ENOMEM;
-> + goto htm_info_buf_err;
-> }
->=20
-> /* Debugfs interface file to present HTM capabilities */
-> htm_caps_buf =3D kmalloc(PAGE_SIZE, GFP_KERNEL);
-> if (!htm_caps_buf) {
-> pr_err("Failed to allocate htm caps buf\n");
-> - return -ENOMEM;
-> + goto htm_caps_buf_err;
-> }
->=20
-> /* Memory to present HTM system memory configuration */
-> htm_mem_buf =3D kmalloc(PAGE_SIZE, GFP_KERNEL);
-> if (!htm_mem_buf) {
-> pr_err("Failed to allocate htm mem buf\n");
-> - return -ENOMEM;
-> + goto htm_mem_buf_err;
-> }
->=20
-> debugfs_create_file("htmstatus", 0400, htmdump_debugfs_dir, =
-htm_status_buf, &htmstatus_fops);
-> @@ -557,6 +557,17 @@ static int htmdump_init_debugfs(void)
-> debugfs_create_file("htmsystem_mem", 0400, htmdump_debugfs_dir, =
-htm_mem_buf, &htmsystem_mem_fops);
->=20
-> return 0;
-> +
-> +htm_mem_buf_err:
-> + kfree(htm_caps_buf);
-> +htm_caps_buf_err:
-> + kfree(htm_info_buf);
-> +htm_info_buf_err:
-> + kfree(htm_status_buf);
-> +htm_status_buf_err:
-> + debugfs_remove_recursive(htmdump_debugfs_dir);
-> + kfree(htm_buf);
-> + return -ENOMEM;
-> }
->=20
-> static int __init htmdump_init(void)
-> --=20
-> 2.43.0
->=20
+>  	  This option enables the self-test function of 'sort()' at boot,
+>  	  or at module load time.
+> @@ -2329,6 +2332,7 @@ config TEST_MULDIV64
+>  config TEST_IOV_ITER
+>  	tristate "Test iov_iter operation" if !KUNIT_ALL_TESTS
+>  	depends on KUNIT
+> +	default KUNIT_ALL_TESTS
+>  	depends on MMU
+>  	default KUNIT_ALL_TESTS
+>  	help
+> @@ -2343,6 +2347,7 @@ config KPROBES_SANITY_TEST
+>  	depends on DEBUG_KERNEL
+>  	depends on KPROBES
+>  	depends on KUNIT
+> +	default KUNIT_ALL_TESTS
+>  	select STACKTRACE if ARCH_CORRECT_STACKTRACE_ON_KRETPROBE
+>  	default KUNIT_ALL_TESTS
+>  	help
+
+Have you read the patch before sending?
+
+...
+
+Please, take your time and check what you are sending next time.
+This version is obviously no-go.
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
 
