@@ -1,131 +1,122 @@
-Received: from mail-pf1-f182.google.com (mail-pf1-f182.google.com [209.85.210.182])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail-m155101.qiye.163.com (mail-m155101.qiye.163.com [101.71.155.101])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6C573AA19B
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 03:03:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.210.182
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788491036; cv=pass; b=Qbi55DAPpM6I+dXJCk167XjtsN9IUKTqH002Slx7h+vCkRq8UGgYjdzO6+a8p+/91af6DKQM1x9Um0A8mCNVwbKXfcK/3/DT+Fgmif2Jy5PWIhAOqYwhoo9N1J5jTHif9V2yqfWiE8RSKYGf5AeAgSawWnSFtU+Z9UOoff8tK8M=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788491036; c=relaxed/simple;
-	bh=z2doF7EPWFGqoPz03TF8aMEAMJft9M8wIvsJEX1Rz0s=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=u+s2PH8R9grj7nYZ52ySDD47N9hftPQv6OVsvOdZI05a7fLtQqSux9dyOx7ZLshzOVqQxVrtOLtPR21b6n3tqbudAn3UPLfS3bDyjnV1oAQJeRgXtFh8yfrim1FsQc3fBHvCYX6GEn2+uAXosKgQ2mhpFYf0flNAGnvUzMrqekg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DsPkVhHr; arc=pass smtp.client-ip=209.85.210.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15D9430D402;
+	Fri,  4 Sep 2026 03:04:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.71.155.101
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788491100; cv=none; b=DeH2uqISU71r6evQdh8b8tVaqRcC9mlXg9E3RXi0hurB0oK35wMyzOWp2VlzScNRS6nBCn+bFJihRei7VlVgDd2V6IwDPVXJ7Qa9Tr0jaDtwl2v9ZHc5rzBYm5D+LjLRyfhIrxoFlWn7W6uIaS0WCd8BJSbqKU0cyBn5JRT/538=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788491100; c=relaxed/simple;
+	bh=Aq69RAkA6FKjqCIzGzLfmtFZtVEuLApBuB2X99ZA0Cg=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=oIdY+1gruhO8umWRn7V/eUQG+MV+9jrYor49LGBIDgWXsqSOBBOl9SZKo87CBNbtwkK5nytY2Ok47yMBUApwp82l6wsDQu3NIHrEIv9Yvaox5ANyB3jRZ0ulHai7skjTHL/v+OUNqYTiR/sSYgWTma/W74TdB09aoB1I14f687Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=LwEWueuJ; arc=none smtp.client-ip=101.71.155.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DsPkVhHr"
-Received: by mail-pf1-f182.google.com with SMTP id d2e1a72fcca58-84830c774a0so559343b3a.1
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 20:03:55 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788491035; cv=none;
-        d=google.com; s=arc-20260327;
-        b=JOIeM4bx1QEcQ4Pe7wH2lWE02iiMkdAxyGQ66VkgHG/VyGDWCFDihIQpzalhb6rEe6
-         bssQfR76LAsr4Vg4B/nq9djqEvSWDNasC3NT/Zjetrd5O/+pnb2+dTUelvmItZkEydiW
-         nMG+f2FfTIuugI24TQ4VSYl4cDBBHyLM9ulkka7d2pd8p0PfEKv7XdwF+26/luxdQ7w/
-         l5vbRFCmH5yPO0mLquw3xMY+YvlOXyiPY6qLHRVfzR+zFgMJlOmWX7OdeHdnp7XSup84
-         pKyIHN8PhgYzWgmUIXHkmKoyue0KCfu7iYb0IMP2S9id98FjUTmrbws7UDwf84L3XQro
-         3QnQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=z2doF7EPWFGqoPz03TF8aMEAMJft9M8wIvsJEX1Rz0s=;
-        fh=nmBecaHUb2ado5EUFjDnqOhy1yJGW8VpqSs9qX6/dhc=;
-        b=K2aXy8408JhS9m4qRGZAK1CEelZEnOOWs9VETTpHft6kZDv6O/qkJvi8bOjGrsuGJ1
-         3xNmUuBuAwHalJyfdwK8g4kuS/m5zrAIa7aUgQMD+PyQXamRUnm7IUE2zaU64oIqNS3H
-         e7oX3+eBPuwgwK/3MqQXBB3Yv448UYqCUx30Q0102HTOJCzLo5HL7ovndr6fR5kpqNfe
-         zyhEq0x+tcqZfb+FON92XTU/xX1LybhSFf4FXyKRM0ayoYc6H6nJM0uvTkbY3Kh1QNcQ
-         zIxsVUGol3gBFy8qpQTaZUhVEYUsZ6nkeE2xIjpqeS69PowO+eK8TzyoBSD83YpKGGMJ
-         9Ahw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788491035; x=1789095835; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=z2doF7EPWFGqoPz03TF8aMEAMJft9M8wIvsJEX1Rz0s=;
-        b=DsPkVhHrShIvaZ8APLjE0/nXsDKm6u49q/b3QZtHl7rIi2AXruYTXTNT8st7c7tabY
-         aizr6Ac+d/4R1ZHe9HgbZWP8ZIXMwmpivW0m8Z8txhurEgEcLM3bizno16whY7GW9kph
-         AnIgZzwIF9BnGy3hSxKbxp/qv1Sk1TGfvbqJ/9uyqFxnO2fJSSeYwWni/aanHYpTYTmz
-         QL+5LPMowzZvpFjAVOnJ3LC/I6lzj6NBWQNDAV/3tEyK/vj2bRhjbHG3h4OcjWUf2Imx
-         ghdvW74ecLcLQiq9yiZ9nT8+crUUuyIjz0kXchIxKNe50DVG39p2Sp8DCneixF3av1qs
-         HiHQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788491035; x=1789095835;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=z2doF7EPWFGqoPz03TF8aMEAMJft9M8wIvsJEX1Rz0s=;
-        b=fYS8d3oWF3tTYUWs17ullm34XwRuKhD6qM7haTrHzLEw26uXTenQrx7q5i5LtOc/qf
-         /a9Ty5CHecl6hyML+St2LQL4xf9yZdUO7yr6zvCWFuCyvbFuOjVIUyVQVzMu6C7g2Rpc
-         uunZWbVao9KzEOSHRjuT9pc4YlpTzvB3btcZOvrQulMtgZZkuGoWWvoXf7+EPcalr9Qv
-         pnFpe1gWI7CZzPxL4hmSGKBV2925/M5M1tIGlV5AM/B0dnF43fhhWYHbA1cSGVMxO3rM
-         ASI99nVlwJJ0ZiAlE2AXGEhhvOfb4cWGu+D/+ybq2+ebXaSc/03bKge+3s+EYosdNvlF
-         3eWw==
-X-Forwarded-Encrypted: i=1; AKwUvBzFvhG5Kp3MrtO7vL2Jcpd/r18AP8bIqedurTUDf+HmvqdPQqMEMrbSfXeFWVhJ/iJ3wq5bxDMwWpZirPQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++korV+/vNqasSYpWwR5AZyNNGEC9v4NYEMFNBqjqvohmC2ghZJ1
-	BFyyU2W19wuGeOK6hWQsvtaoM0oHFeEEyYm7mpMjrUc/UMCo4R7LHRZ7EMIrPymIA6yRtt/1bha
-	9hF5bGmWYOTiC0a69qDpmCOQixgj7686jYTBi
-X-Gm-Gg: AYBFou0Nqy7A/7mur/DKV2qIEpAvUCGAWzLIeZN/QNiXom1nZHjyOGieHkNIXx2d+Ru
-	tekNjV7lMajM+6c3oe0SfnAcHc0Mpjdhups5/DZ5HwZDlywsikAMZuuw5TbraaFFs5Rx/hfkqCi
-	SQJVKnl0/lD53TnlmF1DGwmfQ/eaFAiVLppU+gasyON22oFSZYuwDWMDZlG+6RQ9NFdolNSCSxB
-	xvepS1G0HNK0VBOyWRObuS+j0O1Hn+VW3RPpefEM7WLg6HnfX9kJ8bVVKX9CH8XhsVm3GISjxzw
-	/HxZRV0N+Qs24EC+8mHbTCguM3s4pIzDSVpvFwSm8dpIijVUrPSSxMslGm2pX5KIk9HOvRpsbhh
-	81YrcyECVF2UThVd8YtiHHSixLtLiuv4qBUW5zz6zTqTKRHDiKiF6X+aD
-X-Received: by 2002:a05:6a00:2c94:b0:857:727c:a1f2 with SMTP id
- d2e1a72fcca58-8616907f6e9mr4805768b3a.20.1788491034969; Thu, 03 Sep 2026
- 20:03:54 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="LwEWueuJ"
+Received: from PC-202605011814.localdomain (unknown [58.241.16.34])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 4c7f007bc;
+	Fri, 4 Sep 2026 11:04:45 +0800 (GMT+08:00)
+From: Runyu Xiao <runyu.xiao@seu.edu.cn>
+To: Nicolas Ferre <nicolas.ferre@microchip.com>,
+	Claudiu Beznea <claudiu.beznea@microchip.com>
+Cc: Richard Cochran <richardcochran@gmail.com>,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Runyu Xiao <runyu.xiao@seu.edu.cn>,
+	Jianhao Xu <jianhao.xu@seu.edu.cn>
+Subject: [PATCH net v2] net: macb: initialize PTP state before registering clock
+Date: Fri,  4 Sep 2026 11:04:39 +0800
+Message-Id: <20260904030439.3994047-1-runyu.xiao@seu.edu.cn>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260830153520.2710520-1-runyu.xiao@seu.edu.cn>
+References: <20260830153520.2710520-1-runyu.xiao@seu.edu.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260903092430.354186-1-phucduc.bui@gmail.com>
- <GV2PR04MB117394049F412AAAC59FE93FE88B62@GV2PR04MB11739.eurprd04.prod.outlook.com>
- <CAABR9nFD1+GJiWdyxiuGVRzKjpCUfu3TQHYOLnOym3hHzOM2tg@mail.gmail.com> <GV2PR04MB1173931CA07AEAB48339FF71588B52@GV2PR04MB11739.eurprd04.prod.outlook.com>
-In-Reply-To: <GV2PR04MB1173931CA07AEAB48339FF71588B52@GV2PR04MB11739.eurprd04.prod.outlook.com>
-From: Bui Duc Phuc <phucduc.bui@gmail.com>
-Date: Fri, 4 Sep 2026 10:03:42 +0700
-X-Gm-Features: AcwNN1WpmhDLd9SGZogKk2zYLLCenPMMN1VDDLJIPFCLsNZLZHavDM4ZfmsEdqA
-Message-ID: <CAABR9nFi06-7=uHmOBFGZv1eUYCskv8WspOdUxbDuQ6vMk68Dg@mail.gmail.com>
-Subject: Re: [PATCH net-next v2] net: fec: Propagate PTP initialization errors
-To: Wei Fang <wei.fang@nxp.com>
-Cc: Frank Li <frank.li@nxp.com>, Shenwei Wang <shenwei.wang@nxp.com>, 
-	Andrew Lunn <andrew+netdev@lunn.ch>, "davem@davemloft.net" <davem@davemloft.net>, 
-	Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	Richard Cochran <richardcochran@gmail.com>, Anson Huang <Anson.Huang@nxp.com>, 
-	Stephen Boyd <swboyd@chromium.org>, "imx@lists.linux.dev" <imx@lists.linux.dev>, 
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, 
-	"netdev@vger.kernel.org" <netdev@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa06a60347203a1kunmd3a8a79322e9a
+X-HM-MType: 10
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaS0JKVkIYTB9KSU1DT0hDGFYeHw
+	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlOQ1VJT0pVSk1VSE9ZV1kWGg8SFR0UWUFZT0tIVUpLSEpPSE
+	xVSktLVUpCS0tZBg++
+DKIM-Signature: a=rsa-sha256;
+	b=LwEWueuJAACMNaAuOMikf3ktS1QF5kerIEBzfET/wpAsQJuloQPmEm1PnQR2q+Kyq7KIHLyVUcH9tShqhRraWPWLMXd3TwnKSoO1sF//zhL9veypjkdAOySFZ/Vbcc4n3GYzrLMdWL+J3m874TWhHoH4uXemeHFcTQsyNSWFMbY=; c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1;
+	bh=WfbpHR/gm8DXEUdNxy+PXw4d5T9/+OG1QRUdwnFdjJE=;
+	h=date:mime-version:subject:message-id:from;
 
->
-> Is this a real bug that bothers people? or just an improvement?
-> For real bug, I think the patch should target to net tree.
->
+gem_ptp_init() registers the PTP clock before initializing
+bp->tsu_clk_lock and the TSU hardware. Since ptp_clock_register()
+publishes the PTP character device, userspace may invoke PTP callbacks
+before the lock and hardware are ready.
 
-I consider this a real bug rather than just an improvement, for two reasons.
+In addition, gem_ptp_init() is called from both the interface open and
+resume paths. Reinitializing tsu_clk_lock there can reset the lock while
+timestamp processing is using it.
 
-First, commit b86bcb299092 was a bug fix and was also backported to stable.
-This patch fixes the error handling in that change, which incorrectly
-treats errors
-other than -ENXIO as an absent optional IRQ. Therefore, I believe this
-fix is also
-relevant to stable kernels.
+Initialize tsu_clk_lock once during probe and initialize the TSU before
+registering the PTP clock.
 
-Second, the current implementation can silently ignore -EPROBE_DEFER and
-continue probing instead of deferring. On an affected platform, this
-can result in
-the PPS IRQ not being set up, causing the corresponding PPS functionality to be
-unavailable to the user.
+Fixes: ab91f0a9b5f4 ("net: macb: Add hardware PTP support")
+Cc: stable@vger.kernel.org
+Link: https://lore.kernel.org/all/20260830153520.2710520-1-runyu.xiao@seu.edu.cn/
+Assisted-by: Codex:GPT-5
+Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
+---
+v2:
+- Initialize tsu_clk_lock once during probe and initialize the TSU before
+  registering the PTP clock.
+---
+ drivers/net/ethernet/cadence/macb_main.c | 1 +
+ drivers/net/ethernet/cadence/macb_ptp.c  | 6 +-----
+ 2 files changed, 2 insertions(+), 5 deletions(-)
 
-I don't have hardware to reproduce this specific case, so the issue
-was found by
-code inspection rather than a user report.
-If you think this fix is appropriate for the net tree, I'm happy to
-retarget and resend it there.
-
-Best regards,
-Phuc
+diff --git a/drivers/net/ethernet/cadence/macb_main.c b/drivers/net/ethernet/cadence/macb_main.c
+index 76ee4f506..01b42b21a 100644
+--- a/drivers/net/ethernet/cadence/macb_main.c
++++ b/drivers/net/ethernet/cadence/macb_main.c
+@@ -5876,6 +5876,7 @@ static int macb_probe(struct platform_device *pdev)
+ 	}
+ 	spin_lock_init(&bp->lock);
+ 	spin_lock_init(&bp->stats_lock);
++	spin_lock_init(&bp->tsu_clk_lock);
+ 
+ 	/* setup capabilities */
+ 	macb_configure_caps(bp, macb_config);
+diff --git a/drivers/net/ethernet/cadence/macb_ptp.c b/drivers/net/ethernet/cadence/macb_ptp.c
+index e5195d7da..e9c9c2692 100644
+--- a/drivers/net/ethernet/cadence/macb_ptp.c
++++ b/drivers/net/ethernet/cadence/macb_ptp.c
+@@ -334,6 +334,7 @@ void gem_ptp_init(struct net_device *netdev)
+ 	bp->tsu_rate = bp->ptp_info->get_tsu_rate(bp);
+ 	bp->ptp_clock_info.max_adj = bp->ptp_info->get_ptp_max_adj();
+ 	gem_ptp_init_timer(bp);
++	gem_ptp_init_tsu(bp);
+ 	bp->ptp_clock = ptp_clock_register(&bp->ptp_clock_info, &netdev->dev);
+ 	if (IS_ERR(bp->ptp_clock)) {
+ 		pr_err("ptp clock register failed: %ld\n",
+@@ -345,10 +346,6 @@ void gem_ptp_init(struct net_device *netdev)
+ 		return;
+ 	}
+ 
+-	spin_lock_init(&bp->tsu_clk_lock);
+-
+-	gem_ptp_init_tsu(bp);
+-
+ 	dev_info(&bp->pdev->dev, "%s ptp clock registered.\n",
+ 		 GEM_PTP_TIMER_NAME);
+ }
+@@ -467,4 +464,3 @@ int gem_set_hwtst(struct net_device *netdev,
+ 
+ 	return 0;
+ }
+-
+-- 
+2.34.1
