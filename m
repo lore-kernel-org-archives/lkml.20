@@ -1,152 +1,99 @@
-Received: from mail-pf1-f169.google.com (mail-pf1-f169.google.com [209.85.210.169])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2DF738A734
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 02:26:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9202C38A734
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 02:26:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788488762; cv=none; b=DgSZ+BXisp4uXexHFtSDG/++RlZ5gl+UhPf8uf1iSrhU36135gc1luz2bsb/POFsaYV4h8IF8+15UIevkU4uYUo3hmbL5cAd70UIFTU/6WWoW70VmqyCts8npDuIemcf3OSumLoWXVqY0ZPj3qYOqISm6dY6BDfxKdo8uJsMyR4=
+	t=1788488779; cv=none; b=F0VdRNKZlfofOKRW4DDoDLhX/j17hyrgkEdmIC7HTx9fIZxjGm9dkbOwsY1n8Yy9r8qgS2oN/yUB0LvZNuadCOEtBpkIrxDtRouTK8ukJ525hsPpYP+FMDkQwVlXTvM6iPBPvLGltp/eWVQEgLrsv4M85rTssbLEE0LFBuaWos4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788488762; c=relaxed/simple;
-	bh=ugzVxAjTEnjShZeOxL+eJDmc/0g+rGyJoye29gd4s7w=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=hVcGXK3tj2f68Dq4Ulu3yLgAzbgEZKgutdFgyFtk8WW7hgzq8GAY3xbEWopl4YXmRr4sUaBOAQ9T79aRv5HYW2TXFEE3TlZ0SwXE7gFmcbbztmRI6n1/UjhV4RRoD+ve4UHtmG1xd0Cp92l7ejjBeCOcO8R4Q94r6mX7fD2QjDc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=akHKFqVx; arc=none smtp.client-ip=209.85.210.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788488779; c=relaxed/simple;
+	bh=Tg6zuH3sUWluVbRaNeVKRZOy8j03OWHB4FCc0r2dNYg=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=uW0z2z4r+B+YpvbT02jbGFQAqgQVYoFKisLGSkJV4NXAemRCE+izu0RMFdL7Q1nQAGW4F7PC3lJcHrrhRMUJoOqJH8AdwNddeBmbdhlFvUNRX3/1Ogk7ZEPKraWNooh0qcLwHZxtg2hOX3Ex4FdP/F7Ze0NUN3M9NpIXsV02L2E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JmU3JtgO; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="akHKFqVx"
-Received: by mail-pf1-f169.google.com with SMTP id d2e1a72fcca58-853c947bfefso429715b3a.0
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 19:26:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788488760; x=1789093560; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=4TQ9tB7GYsgLshxgrlgtnE3BzZ3XB27V3iJEzkjdXdY=;
-        b=akHKFqVxm38FokxZII2lY0rBRmePK9veAULaR0XT1TIXQE64jcZ/s1kvqdQdDpaj0H
-         9EVFhvRwqYda/r48J6M44D51uG1mUV7rmBSSttdd1nj7ttoXmu7gkSfPL8mVjb63Zk8r
-         Gf8pDRPsNPKnDEusApcvBWiridNSvxa4bJwVptcLxSW8QBTo8x87CDMjCSpek+a4uLkY
-         xS2NI1oOpCDAw7aDRG0nrZzgdhQQjgqEQFQ/Tag5WjBjtK7qC/VxDxATo4ugvVjnULvK
-         ROIZuUh/V3h0BA7cBTIKC3f3+pvaaTvLtMqsHTuSaIhsmiFA/k6C3we+DLQ1z3sU9kwX
-         Gs9A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788488760; x=1789093560;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=4TQ9tB7GYsgLshxgrlgtnE3BzZ3XB27V3iJEzkjdXdY=;
-        b=Dh5vwGhxcwYMU/PX4Bp6FcQ3mOpwR6zYbiL/qKTLxTozw3iymS/ZZziqnoz5a+8msr
-         UbhkCCyKa3PmxJQBHLLz/io/q092/MpKKa5cdqzZgCcpGrYSPzkikqEpnfbZ3qcWDz1S
-         8wdZsMdZHJ7DIBF0nAC8bAs/Amp62sA0BfsCaOsMVy/gBLZs1Nj97JZU+bOghp3Q80n1
-         6hkL2QVuBIytjmEIytOPjC+AZSh9z7wBHq5VgAJZzhcWBdgw2nJP57e8psDfhbH9DEHB
-         nLKr/T6D5u/IRuruMJSJqUUES85YuFb4pGZiGf8H4N/CGXZpHaeNlCW5E21qKcE46VW4
-         8M+w==
-X-Forwarded-Encrypted: i=1; AKwUvByie/r0JeBEKuCLhIJL+kP33OvM9No3NC9a57pcvPatl98OwO+vCq2QzjRp2EyWRLL3kNK+zl6xNwOhhqk=@vger.kernel.org
-X-Gm-Message-State: AFuF++lUjWrSNfE3W+QcPaBY+Hgkq92kd1wNFVHRsrmLZLCxVueuRpNN
-	EC+BV8oNMAGkKKyPkeuniMs3Fgmd7emGbJz06niGYzH+hDBuvVRPl+dQ
-X-Gm-Gg: AYBFou2wYoZ3pQXlMHhPgkmh+QPVoeI8iBQjx3Kj1J1hhPhiltE5g1CKZ3R0kDR4uX4
-	yCVXfSoQgYn82HtfWDpBqXR7ezG8cEl4764Le1j6gEZ3C8mPJN86vDW5ojYTOH35rq+ycTpGS7v
-	R2nzlJOjjIFsSWM8JluWFInLYbkPs3XEY/GdTMiHl88IkDSp7KkvtAHlDiUNOwEK8Qim32NplxZ
-	GNgrdim29fBtmzIouB5bvTknInxUfVQpo5Cp3SRwvJO8jDLsVn6rZLsLu3rNJWPM5euRuYOSvuV
-	SO/VOsQwXonZbiNfMeqHTs+4Ji8nif+VdBNzgHbQnXWOMW5sUtaXLic8zi054zUqrGdv2M5gFbk
-	kSd4tig5agenWu5lP2ILsAfo9QicH0kJ7hfobXiZ+yVPJrOdnEyCRAVXMbAKPKFspb/AlCQjWl1
-	Tf2TzrlVJmpk60c1eUCa+q0I7/cM4HotPe/8hiGdpVNShW0FyZEMpHePEHLp22z2MHUT6dn307R
-	BLA9dWt1xmHFGJnl1PwQXWg0f9r+CyXy6wqgpu/hK0Y8vtRNvIjuu4431o8r9jVBpoxUxt4EKC2
-	L/hfyNY0Hr7PgJuCXG5CZTrCVNP/UBqjS0vIcsxhWXxjo9Ja
-X-Received: by 2002:a05:6a00:138f:b0:851:80de:db56 with SMTP id d2e1a72fcca58-85ffe10a09amr8232438b3a.13.1788488759952;
-        Thu, 03 Sep 2026 19:25:59 -0700 (PDT)
-Received: from ryzen.lan ([2601:644:8000:7a86::e35])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8614f871fc6sm591487b3a.7.2026.09.03.19.25.58
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 03 Sep 2026 19:25:59 -0700 (PDT)
-From: Rosen Penev <rosenp@gmail.com>
-To: linux-wireless@vger.kernel.org
-Cc: Jeff Johnson <jjohnson@kernel.org>,
-	linux-kernel@vger.kernel.org (open list)
-Subject: [PATCH ath-devel] wifi: ath: split 5150-5350 regulatory rule
-Date: Thu,  3 Sep 2026 19:25:57 -0700
-Message-ID: <20260904022557.2679261-1-rosenp@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JmU3JtgO"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 746221F00ADF
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 02:26:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788488778;
+	bh=tV/I5xR6ZF28TVIBU+cDKkpI/SFenH9y4vbThQbqUZo=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=JmU3JtgOBrhkoXsZRm8CpcRDfYsQinlkJThB2bv/50zsc1Tj2rWIYjSWw7KJkhxkj
+	 3AQNnC8a5TVyoFIHjqxG+GKsPsBdgXJNrITzY/L1EL3DQ29sBEpmnxoI9c3izTfQ8O
+	 hzLIE6ltpVuTARLXotL+rxD/7yvgqOj8vlt528ke5juI340eGShVj3bGMzeTf6G51q
+	 hwmEuFe5K0nXdjaTHr6MguQ9+xEbSUYTC4YGIE5nSOcAKpmFpsPhXmAAYq9nGtX5vW
+	 4yGSHXKAeKZpvi9jWT2K2KeOnuYyPod9l6P6awh4t/WGPGIBRnXT8AuHtR6hHRyYx/
+	 El0EJCJlLZ7Dw==
+Received: by mail-ej1-f52.google.com with SMTP id a640c23a62f3a-c160420289bso59395766b.0
+        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 19:26:18 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBxOQzpVGiC97KEj/KkZBGqum14p5KVfukTP2beu5Wz/8HgWYyuR0IQ42oV8BAY3YSXqPRqld5t7pgGbByE=@vger.kernel.org
+X-Gm-Message-State: AFuF++kFqloa7KWw4RxwtN4fwIAwqdiRg1YLAXFhbwWrJY9jdBDpC7Mn
+	B8pTuWukvvWtjZUTdbxRKKLmz/PeW7sKTriL/GdvdfXQ/w6K8tCGToPbqgN+pqLnV6YLlTvPXr6
+	qJ+l0iYHSdOGSid4BLZvKMkD58RL5xXU=
+X-Received: by 2002:a17:907:608b:b0:c24:c0f4:899d with SMTP id
+ a640c23a62f3a-c260cb46b1cmr197588766b.22.1788488777053; Thu, 03 Sep 2026
+ 19:26:17 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260903212858.728118-1-doebel@amazon.de>
+In-Reply-To: <20260903212858.728118-1-doebel@amazon.de>
+From: Namjae Jeon <linkinjeon@kernel.org>
+Date: Fri, 4 Sep 2026 11:26:04 +0900
+X-Gmail-Original-Message-ID: <CAKYAXd8rJF4qV1hkuaA6PQkngV7DM-HesoQ0ATWHEGa0Bm=krg@mail.gmail.com>
+X-Gm-Features: AcwNN1VDwbMsOiTILhXofXiDSvCFjUYC07piWa6RnxgEF613YvSytKyy4xqmpns
+Message-ID: <CAKYAXd8rJF4qV1hkuaA6PQkngV7DM-HesoQ0ATWHEGa0Bm=krg@mail.gmail.com>
+Subject: Re: [PATCH] smb: client: avoid leaking refcount in cifs_queue_oplock_break()
+To: Bjoern Doebel <doebel@amazon.de>
+Cc: Paulo Alcantara <pc@manguebit.org>, stable@vger.kernel.org, 
+	Ronnie Sahlberg <ronniesahlberg@gmail.com>, Shyam Prasad N <sprasad@microsoft.com>, 
+	Tom Talpey <tom@talpey.com>, Bharath SM <bharathsm@microsoft.com>, linux-cifs@vger.kernel.org, 
+	samba-technical@lists.samba.org, linux-kernel@vger.kernel.org, 
+	Aurelien Aptel <aaptel@suse.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Allow initiation in the 5150-5240 MHz portion of the world
-regulatory rule while retaining NO_IR for 5260-5350 MHz, where
-radar detection is required.
+On Fri, Sep 4, 2026 at 6:29=E2=80=AFAM Bjoern Doebel <doebel@amazon.de> wro=
+te:
+>
+> cifs_queue_oplock_break() unconditionally takes a reference on the
+> target file before queueing cifs_oplock_break(). Only that work item
+> decreases the reference counter again.
+>
+> If another oplock break arrives while that work is still queued,
+> queue_work() will return false and not queue this second work item. As a
+> result, we will never reach the point to drop the file reference again
+> and are leaking this reference. This can be triggered when interacting
+> with a slow-responding server.
+>
+> As a result, later unmount operations for this file system will fail with
+>
+>   BUG: Dentry ... still in use (1) [unmount of cifs cifs]
+>   VFS: Busy inodes after unmount of cifs (cifs)
+>   kernel BUG at fs/super.c:777!
+>
+> Fix this by only incrementing the reference count if the work has been
+> queued successfully. Taking it after queue_work() is safe because all
+> three callers hold tcon->open_file_lock across the call and
+> _cifsFileInfo_put() decrements under that same lock, so a worker that
+> starts the handler in the window cannot drop the reference before it has
+> been taken.
+>
+> Fixes: b98749cac4a69 ("CIFS: keep FileInfo handle live during oplock brea=
+k")
+> Cc: stable@vger.kernel.org
+> Assisted-by: Kiro:claude-opus-5
+> Signed-off-by: Bjoern Doebel <doebel@amazon.de>
+This seems to fix the issue previously reported:
 
-The previous single rule marked both ranges NO_IR and unnecessarily
-restricted channels 36-48. Update the rule counts for the expanded
-rule list.
+  https://lore.kernel.org/linux-cifs/8a5fd5ca-9f77-42f0-9141-d5d88c1df067@c=
+henxiaosong.com/T/#u
 
-Assisted-by: Codex:gpt-5.6-luna
-Signed-off-by: Rosen Penev <rosenp@gmail.com>
----
- drivers/net/wireless/ath/regd.c | 13 +++++++------
- 1 file changed, 7 insertions(+), 6 deletions(-)
+Reviewed-by: Namjae Jeon <linkinjeon@kernel.org>
 
-diff --git a/drivers/net/wireless/ath/regd.c b/drivers/net/wireless/ath/regd.c
-index f15e7bd690b5..b129af0eed88 100644
---- a/drivers/net/wireless/ath/regd.c
-+++ b/drivers/net/wireless/ath/regd.c
-@@ -43,7 +43,8 @@ static int __ath_regd_init(struct ath_regulatory *reg);
- 					 NL80211_RRF_NO_OFDM)
- 
- /* We allow IBSS on these on a case by case basis by regulatory domain */
--#define ATH_5GHZ_5150_5350	REG_RULE(5150-10, 5350+10, 80, 0, 30,\
-+#define ATH_5GHZ_5150_5350	REG_RULE(5150-10, 5240+10, 80, 0, 30, 0),\
-+				REG_RULE(5260-10, 5350+10, 80, 0, 30,\
- 					 NL80211_RRF_NO_IR)
- #define ATH_5GHZ_5470_5850	REG_RULE(5470-10, 5850+10, 80, 0, 30,\
- 					 NL80211_RRF_NO_IR)
-@@ -64,7 +65,7 @@ static int __ath_regd_init(struct ath_regulatory *reg);
- /* Can be used for:
-  * 0x60, 0x61, 0x62 */
- static const struct ieee80211_regdomain ath_world_regdom_60_61_62 = {
--	.n_reg_rules = 5,
-+	.n_reg_rules = 6,
- 	.alpha2 =  "99",
- 	.reg_rules = {
- 		ATH_2GHZ_ALL,
-@@ -74,7 +75,7 @@ static const struct ieee80211_regdomain ath_world_regdom_60_61_62 = {
- 
- /* Can be used by 0x63 and 0x65 */
- static const struct ieee80211_regdomain ath_world_regdom_63_65 = {
--	.n_reg_rules = 4,
-+	.n_reg_rules = 5,
- 	.alpha2 =  "99",
- 	.reg_rules = {
- 		ATH_2GHZ_CH01_11,
-@@ -85,7 +86,7 @@ static const struct ieee80211_regdomain ath_world_regdom_63_65 = {
- 
- /* Can be used by 0x64 only */
- static const struct ieee80211_regdomain ath_world_regdom_64 = {
--	.n_reg_rules = 3,
-+	.n_reg_rules = 4,
- 	.alpha2 =  "99",
- 	.reg_rules = {
- 		ATH_2GHZ_CH01_11,
-@@ -95,7 +96,7 @@ static const struct ieee80211_regdomain ath_world_regdom_64 = {
- 
- /* Can be used by 0x66 and 0x69 */
- static const struct ieee80211_regdomain ath_world_regdom_66_69 = {
--	.n_reg_rules = 3,
-+	.n_reg_rules = 4,
- 	.alpha2 =  "99",
- 	.reg_rules = {
- 		ATH_2GHZ_CH01_11,
-@@ -105,7 +106,7 @@ static const struct ieee80211_regdomain ath_world_regdom_66_69 = {
- 
- /* Can be used by 0x67, 0x68, 0x6A and 0x6C */
- static const struct ieee80211_regdomain ath_world_regdom_67_68_6A_6C = {
--	.n_reg_rules = 4,
-+	.n_reg_rules = 5,
- 	.alpha2 =  "99",
- 	.reg_rules = {
- 		ATH_2GHZ_CH01_11,
--- 
-2.55.0
-
+Thanks!
