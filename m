@@ -1,169 +1,83 @@
-Received: from mail-oa1-f45.google.com (mail-oa1-f45.google.com [209.85.160.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4013937648F
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 15:07:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DB773859D3
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 15:07:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788534448; cv=none; b=L5QlX2eZvMWIm8+Je6DIi2BZfVH3ccx7ov01m9VwGESy8KpGEairjE4rRI1UhnYDXdax9NgmiMY2xtOXpUZKwQS4zeC1ccM8uqjgN+2zv9UhZCVzBEXkp8fXMnw593r2edPXzrXQgQx8aAk+iyN0jXF1kv/w38nXldtwyZ1cmBI=
+	t=1788534480; cv=none; b=R4MO4OAFxrJ+L6W8wzZIVHnuG8f6Av3qrLIxoG3vEuvJncqN6P0Rxw3ovBprviAXSxIzj5y4+FgVwffgkEXGOjYvNEqIoeoDaZySm2+nsQVuUozmlgENTx9TxEWxf5QHRugOzNakLXKB5Y7WBxTy1PXlp4qRnVuUtvlojTaQ724=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788534448; c=relaxed/simple;
-	bh=ghXH2BJF4jduj/BjXt7Xua8zEA4xRov01HKEMrdgGlc=;
+	s=arc-20240116; t=1788534480; c=relaxed/simple;
+	bh=ruWNXz+MH8ic+Hyiclg6XSxx5S6B8QbIlGJ/67iib3E=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=hOyA2QXy33mBk6AbLEVNuCBBN6cpZCpx6y9fivDzwec4amt5kEjR82ZHxlVEZcgSStpi1PVkRdaWkB4mnneXPTAUKva79DLudIufK9RjjqtQKWPx/usjOQdShnJ6jluX4Lka9f7iXemEh9iqypYgogX5R409XRdhJl7PCigkKMY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.160.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-oa1-f45.google.com with SMTP id 586e51a60fabf-4583b1703d3so679920fac.3
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 08:07:26 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788534446; x=1789139246;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=inqGTZSC3u1CgB7ts6dRXUQ1Jo9pob/IqZxPyHHBxZ8=;
-        b=RmShdZFjrG7/8ZKnWdDbjf5p+rnk9y49gGcxEO2pBYG0l+8/LXcBfKn6o6K0l7Cy0N
-         sCp5Bye4WH8p6HfSVrguirolmhmAez+nYXoU2Tl/Houm6NZXPRHGTpdEVmzb4Tdam9XW
-         OLHz0XLJuLO8d5qyXfeyEvxVU6SJeqiI8fiRA3ee4mg5ZbQ6GGht/dA9YXqDJwNOGHum
-         J3A8pNQPpCxlns20/KnNuXGOF64YaB6+FAJHFOwyWQ4J5bgxNRIIOn7NP0gz67ALCVaq
-         DP3E1CkEfsMmMTzp+TM47Yz/ecmIPN0tVWFfX2hRv1dc5DUWYApXXFe1b71FZrLjsukd
-         6lkA==
-X-Forwarded-Encrypted: i=1; AKwUvBwF7xZhXjOhSde/c0sYtOw4aUmFGsxLRQ4RgCLNPovT/HrnOQoGUXm8ZKBwoTBuROLvwy0e+UaRjPB8Vx4=@vger.kernel.org
-X-Gm-Message-State: AFuF++nwAiSzJhvFlg3wnfkDDZAyBx/7UMk1opy3ngyMMK7IVz53yjJu
-	1aDM7OivDSAfAh5SBGYBQngGa2DrQAPiJNUmar1ZGZXXwLXUBKQdj5ZopplIGY2m
-X-Gm-Gg: AYBFou0917J/vq9DYdq2l3gePBLDH0ajUVVzg3ceW+oUIsTY/Bl1sUL/knIrfjIWcst
-	pKDSMYc68h574nrtz1AMXYUH6kjGoVhfuhJXeesevpwKTYPwdHBgSm2022hQoYpkuLeDUgZBGea
-	u+JV9cuUGN3pKsyefpk0xa3y4vcyDcB8o5JXc7XloQlM3vGHw6YGCrOKrPxfrjijY+jcsRD+gmo
-	i7946zBLxCoAHCcueOe/er6y1DzOwHcmwthsvDFFZD465r6zu02xKFusrLvPCSq4s6+mBr9lOUw
-	B6p1vhDR7dt+/5rSJnF+UWjeUIOrgTutOSEvJP3A4KLAsUBS9JvIXeTS07Y9TK20K8iGZdegBue
-	jLD8lvSNF5d0g5GC5UDrZJ82k8kSGrvSJRyAkJoxdLRd8vQMoDHlKY0h97+J9gJ9NS2Mwzc/7AD
-	Gg6iRhwENB0L86YRfCW4L5Snq0fV8gHlqXak5cx+ldrojHX045XhTzEvPVarPFInvztPaofMS1g
-	Z8bOVApR/3cvIV6Lfvqedxtt//1/ZfGyu3Z
-X-Received: by 2002:a05:6870:d24a:b0:475:e0a7:9f2c with SMTP id 586e51a60fabf-475e0a7aa5dmr2360557fac.26.1788534444426;
-        Fri, 04 Sep 2026 08:07:24 -0700 (PDT)
-Received: from mail-oa1-f52.google.com (mail-oa1-f52.google.com. [209.85.160.52])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-47554935962sm2181079fac.12.2026.09.04.08.07.23
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 04 Sep 2026 08:07:24 -0700 (PDT)
-Received: by mail-oa1-f52.google.com with SMTP id 586e51a60fabf-46fdd5884d0so451572fac.0
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 08:07:23 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvByeCh6ejAzGIogx670Lcqw7lVUDPp4rtfSR41aa1wbaDJ9ds6pHmax5/Kuly0MDmxCOsBI6vLc3X5L83kc=@vger.kernel.org
-X-Received: by 2002:a05:6102:2907:b0:778:9033:e337 with SMTP id
- ada2fe7eead31-78a4a7186d7mr1918546137.7.1788533980738; Fri, 04 Sep 2026
- 07:59:40 -0700 (PDT)
+	 To:Cc:Content-Type; b=PcHOYyA3R7icvIeVa8xjGirIOlm+8mYYhozxl8DhTY5Z6SpDjrlmRmSvcDdvB6asVjuFcNRV9B/1X+m9+9OFgqB4zJiMdY3tqMCk5tE5v16yIUThPGnyhpxbU41SdEP1AdEfM+cfsdglN/zgFNr6FS6iSTB4o3sffDeUOkQ9zQc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=M1lRsXTj; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="M1lRsXTj"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 560621F00AC4
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 15:07:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788534478;
+	bh=ruWNXz+MH8ic+Hyiclg6XSxx5S6B8QbIlGJ/67iib3E=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=M1lRsXTjXYd6/GDJQnnM0A9IJrqKcy7+y43QwLsxNSVIhpJcUubFqVu37xxWL8qlt
+	 WnlDxgoD5lupufgaWqMDKvbXB3ogWMqN0/1KjbiGpv3LblydAkSrr39uNP4rl/BZBF
+	 wt6JByUnaKIa2GJEVXSWr+4Eq6MK4XXz0hqOtkfTmLqDh4eV1NonZhMPToKPZ6lwfj
+	 fxR/2w2IYKjut2fiPLBxJQuJJuSfDKeG4Fjyp/F6CzhRMEDbsppJcPUZIm3qtF0op9
+	 BeT1Xw4zRPIgYRi02rssDvfn8WqEDW6Meu/5nVrF8EHH+HhoJCnvV8hItB5sWsTFC/
+	 IW/T14rSGuhhQ==
+Received: by mail-lf1-f54.google.com with SMTP id 2adb3069b0e04-5b6188a2c0eso715156e87.1
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 08:07:58 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBzmvkNZbjZgKGRIJxn/r5JX/T81zvnCECTTWzYaBEDD4oslIv1G4c0E5CybAzPvitHgp/RtYXpZ1d1OhM8=@vger.kernel.org
+X-Gm-Message-State: AFuF++l4VRTfmhMaXl3p6ihkbaIhCXAiF34HnFCjebrbEoUS0a/6auvk
+	VJbFkwiZDplW+LwirNdanyqZIxt/lancn5kx2lkMI3aOpd7rIcoe0ZmIStoYCkd+h/2U5TCOgc2
+	loH9v1r0ALFMpLA24jhdb9raYknmZBB0=
+X-Received: by 2002:a05:6512:224b:b0:5b6:1a7c:fd8b with SMTP id
+ 2adb3069b0e04-5b61a7cfeebmr749153e87.49.1788534476676; Fri, 04 Sep 2026
+ 08:07:56 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260821150408.73829-1-ayman.chaudhry.kc@renesas.com>
- <20260821150408.73829-3-ayman.chaudhry.kc@renesas.com> <b2f486b8-a391-41bc-8a7f-dc81c6752205@kernel.org>
- <TYCPR01MB11865BD2FC199EFC6BE613A5DA2A82@TYCPR01MB11865.jpnprd01.prod.outlook.com>
- <a7cc6bf8-706a-4b51-a0ce-d6246045d5da@kernel.org>
-In-Reply-To: <a7cc6bf8-706a-4b51-a0ce-d6246045d5da@kernel.org>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Fri, 4 Sep 2026 16:59:29 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdWuhpaEjzoLowag=RUMah-LjtSkmkDSJu_ZaYYHAHHcSg@mail.gmail.com>
-X-Gm-Features: AcwNN1XOIqok-XF1Ox7YMle_czDmXRTGGzFdPMRVImnv13pc2p3_Z9A1m7XbeZw
-Message-ID: <CAMuHMdWuhpaEjzoLowag=RUMah-LjtSkmkDSJu_ZaYYHAHHcSg@mail.gmail.com>
-Subject: Re: [PATCH 02/10] dt-bindings: power: Add r8a774a3 SYSC power domain definitions
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Ayman Chaudhry <ayman.chaudhry.kc@renesas.com>, "magnus.damm" <magnus.damm@gmail.com>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
-	Jerome Brunet <jbrunet+clk@baylibre.com>, Ulf Hansson <ulfh@kernel.org>, 
-	"linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>, 
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>, 
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, 
-	"linux-clk@vger.kernel.org" <linux-clk@vger.kernel.org>, 
-	"linux-pm@vger.kernel.org" <linux-pm@vger.kernel.org>, Chris Paterson <Chris.Paterson2@renesas.com>, 
-	Biju Das <biju.das.jz@bp.renesas.com>, 
-	Fabrizio Castro <fabrizio.castro.jz@renesas.com>, 
-	Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>
+References: <83f87db8-fa13-41d0-ae52-544d22e228e6@oss.qualcomm.com>
+ <20260902041915.3453421-1-runyu.xiao@seu.edu.cn> <apelmtFEMcyXle8m@vireshk-B250M-D3H>
+In-Reply-To: <apelmtFEMcyXle8m@vireshk-B250M-D3H>
+From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
+Date: Fri, 4 Sep 2026 17:06:55 +0200
+X-Gmail-Original-Message-ID: <CAJZ5v0jVjW7XAsphJoMX9=RK0NHDtkz+9jLSDVbFwtxfGKNjcA@mail.gmail.com>
+X-Gm-Features: AcwNN1XBVhuHq9BgKwUfRlSsmNd6h6splQwKUoG3JYuxxWKyzFJc00eCNfX--TU
+Message-ID: <CAJZ5v0jVjW7XAsphJoMX9=RK0NHDtkz+9jLSDVbFwtxfGKNjcA@mail.gmail.com>
+Subject: Re: [PATCH v3] cpufreq: initialize policy rwsem before sysfs publication
+To: Viresh Kumar <viresh.kumar@linaro.org>, Runyu Xiao <runyu.xiao@seu.edu.cn>
+Cc: Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>, linux-pm@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Jianhao Xu <jianhao.xu@seu.edu.cn>
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Krzysztof,
-
-On Tue, 1 Sept 2026 at 16:15, Krzysztof Kozlowski <krzk@kernel.org> wrote:
-> On 01/09/2026 16:11, Ayman Chaudhry wrote:
-> >> From: Krzysztof Kozlowski <krzk@kernel.org>
-> >> On 21/08/2026 17:03, Ayman Chaudhry wrote:
-> >>> This patch adds power domain indices for the Renesas RZ/G2M v3.0
-> >>> (a.k.a. R8A774A3) SoC.
-> >>>
-> >>> Signed-off-by: Ayman Chaudhry <ayman.chaudhry.kc@renesas.com>
-
-> >>> --- /dev/null
-> >>> +++ b/include/dt-bindings/power/r8a774a3-sysc.h
-> >>> @@ -0,0 +1,30 @@
-> >>> +/* SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause) */
-> >>> +/*
-> >>> + * Copyright (C) 2026 Renesas Electronics Corp.
-> >>> + */
-> >>> +#ifndef __DT_BINDINGS_POWER_R8A774A3_SYSC_H__
-> >>> +#define __DT_BINDINGS_POWER_R8A774A3_SYSC_H__
-> >>> +
-> >>> +/*
-> >>> + * These power domain indices match the numbers of the interrupt bits
-> >>> + * representing the power areas in the various Interrupt Registers
-> >>> + * (e.g. SYSCISR, Interrupt Status Register) */
-> >>> +
-> >>> +#define R8A774A3_PD_CA57_CPU0               0
-> >>> +#define R8A774A3_PD_CA57_CPU1               1
-> >>> +#define R8A774A3_PD_CA53_CPU0               5
-> >>
-> >> No, value is 2. Or not a binding.
+On Wed, Sep 2, 2026 at 6:27=E2=80=AFAM Viresh Kumar <viresh.kumar@linaro.or=
+g> wrote:
+>
+> On 02-09-26, 12:19, Runyu Xiao wrote:
+> > cpufreq_policy_alloc() initializes policy->rwsem after
+> > kobject_init_and_add() has created the policy sysfs directory and its
+> > default attributes. A sysfs access can therefore reach a policy callbac=
+k
+> > before the semaphore has been initialized.
 > >
-> > The values are pulled directly from the R8A774A3 hardware manual and
-> > as a result are not sequential.
+> > Initialize policy->rwsem before publishing the policy kobject so sysfs
+> > callbacks always see an initialized semaphore.
+> >
+> > Fixes: 2fc3384dc75b ("cpufreq: Initialize policy->kobj while allocating=
+ policy")
+> > Cc: stable@vger.kernel.org
+> > Link: https://lore.kernel.org/all/20260830155301.2713780-1-runyu.xiao@s=
+eu.edu.cn/
+> > Assisted-by: Codex:GPT-5
+> > Reviewed-by: Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>
+> > Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
 >
-> So not really a binding.
->
-> > This is compliant with header files for similar devices, so if we were to change
-> > the approach now it would probably make things more confusing for the
->
-> No, it is not compliant. Maybe it is done the same way as old devices,
-> but feedback was provided already for a few years, so plenty of time to
-> accept it.
->
-> > user and it would also require some special handling. Given that this is
-> > compliant with the style for similar devices adopting the same bindings,
->
-> It is not compliant.
->
-> > it's easy to understand as the numbers come straight from the HW manual,
-> > I would actually prefer if we could stick with this numbering scheme if
-> > possible.
->
-> Nope, as explained many times already for obvious reasons. Otherwise
-> provide me clear pieces of code which you bind here (as in DT bindings
-> header purpose).
+> Acked-by: Viresh Kumar <viresh.kumar@linaro.org>
 
-I agree all numbers < 32 match a documented hardware bit, so technically
-we could use the numbers directly in DTS.
-Note that unlike e.g. interrupt numbers, the power domain numbers
-appear multiple times in DTS, and are also present in driver code
-(drivers/pmdomain/renesas/r8a774a3-sysc.c).  So having defines means
-having less magical numbers in driver code.
-
-BTW, due to similar pushbacks against offseted interrupt definitions,
-we are now ending up with duplicated defines in .dtsi and .dtso files:
-
-    arch/arm64/boot/dts/renesas/r9a09g077.dtsi:#define RZT2H_IRQ8   24
-    arch/arm64/boot/dts/renesas/r9a09g077m44-evk-cn15-lcdc.dtso:#define
-RZT2H_IRQ8  24
-
-So please let us have our symbolic definitions ;-)
-
-Gr{oetje,eeting}s,
-
-                        Geert
-
---
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
-
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+Applied as 7.3-rc material, thanks!
