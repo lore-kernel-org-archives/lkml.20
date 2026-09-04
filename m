@@ -1,42 +1,42 @@
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21C7E471273
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 17:19:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBDDB51356A
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 17:19:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788542366; cv=none; b=Y74ATeSmjE4NPpsMBnOlBcFCyECUOAf8U/0zP9lisuSKzpPGCAyZxpcXrDabdeXWVAh6p3S77tfxiDmwBe56itlV9pjkzNQBpQdP74w2mguHVanI0rg+HexvDyZTscfvlN7ld3+Vs14p/2u9qgSX+I1m7Rqjr71hnbff1PZYtrY=
+	t=1788542367; cv=none; b=qxc1ZxNI/GXF+uAcicEtkk+sZR+f4uIUEj9AsiknQjif4oAOFY9reYS0LOMmCXR0BkXqS5kFIU/VSfTMVK3pe9qdUqsa1n/NS0ZPe8KSyZawIMZjcW1egPZJHfC5pjG+FLtO5xm2uAhFA1kQ6yK5w9yEYpTquxEnLOuM2/RuThE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788542366; c=relaxed/simple;
-	bh=IcfJ2mtUnpG3xSaLW9GzzGyYn3ba0fOERFwQ31pGyOg=;
+	s=arc-20240116; t=1788542367; c=relaxed/simple;
+	bh=aCsx7Cm6UJsNd5qeomFiaVrm0lb62UMvJj7l0zXdUiY=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=cv9r1ekOlYlTA97eXW/hXWUcsGMyETe3y5JDuwzaAMmxGYgj885WUAlTRaL49dlAyQ8WQHHBM0iaVNw4sJBHy1g+o9VreYUPaz8ZtRLIOnZNH6PiDVcoYkp/c2AYlmcs5o2demui3ExM80ZGuRyqPZrLMN8btvi1raCZ/QjJ6hM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=oO6wqG+O; arc=none smtp.client-ip=185.246.85.4
+	 In-Reply-To:To:Cc; b=VfrTVnM8RRGK5P4xcb+DPPhwYaWL+5eXn+WyEx8OaONwqnrDtOHbIiiiMTEA5YtyHkdrIHC5bj4SfW9KnW/zECje0hqft7g7zc/JJvVyEEitZClta4DhWmI2lTB7ELaIakpUQgKL/Vb2erNqSKslNPMBWHdOJCMJd3sJcG9YGGU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=o6IivGG9; arc=none smtp.client-ip=185.246.84.56
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="oO6wqG+O"
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="o6IivGG9"
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id 986424E41514;
-	Fri,  4 Sep 2026 17:19:22 +0000 (UTC)
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 047F81A19B0;
+	Fri,  4 Sep 2026 17:19:24 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 66C8A6057F;
-	Fri,  4 Sep 2026 17:19:22 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id B20BF11C79AE2;
-	Fri,  4 Sep 2026 19:19:20 +0200 (CEST)
+	by smtpout-01.galae.net (Postfix) with ESMTPS id CD5146057F;
+	Fri,  4 Sep 2026 17:19:23 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 07D0811C78767;
+	Fri,  4 Sep 2026 19:19:21 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1788542361; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	t=1788542363; h=from:subject:date:message-id:to:cc:mime-version:content-type:
 	 content-transfer-encoding:in-reply-to:references;
-	bh=50UwMA2XWptlL2jHfcWAHUQHf2r0cSy636rR4blSvw0=;
-	b=oO6wqG+OcSPgSlIYjUal1la23IKqsEZYxTbnTSmjIE991+T0LE7m0Cw5xNxgpqalL3V3OC
-	nilctXWOlzGXXHw/N5tgy4VSYoz9geHXncTdGQnc+vSm9AaHsli4DNHmJACSPI/hFtYamu
-	UG+C2DxXVhe7laftuuhlGh/zmGR4RjvNdGK6mbRcatNrvRsXwk8nvP+iJumhp1Q1RT2r3X
-	Ajao3L0E2QH3YFSGsQhL0EhNrAp7jGVMHKo+6rlCzKoX9nHfiq50gCo6ycv4HwBm0nCvz0
-	OV3LWjKB4GrF3GDwZx1MoTdUz+boP8L6oJxMrD0AoKyTP10dxw1GuJ2O6U5Otw==
+	bh=9Ce20Jfpvb9YhNbBbIHNXF9lv/kpDC0mkSZLA1+S3ks=;
+	b=o6IivGG92hP8fUYcAiVo15f9FVagdtynTs0OlAxJ0hfQ0AK/P0r/Iycd9/IVMHKcuCg26L
+	hq0oA64AUsLL/U1b+0TrcDKJtGh/DjwjB5s7yR13IBFF0s/obHkOdVoD1yxcZegk3ytsY3
+	1pV4mHb1KWzDnJCa06Bvz1ID/jWNA/pYFl1wzhS90P7BRilx2f5oBXMHgd8Pi0najrzLJr
+	Jng+V+PMroNw7sQ1JLOYPZqdw1DFw4XCWtcY5HUxqbmLn1c7SEbM+fEmQqyFeTndm2aBUy
+	kGOY0rpJqzAeV1Y3y8w6XOJzB3A7268YROXZbj3NdCyujfNBOXk3LJXKMnz2yA==
 From: Miquel Raynal <miquel.raynal@bootlin.com>
-Date: Fri, 04 Sep 2026 19:18:59 +0200
-Subject: [PATCH v6 06/26] mtd: spi-nor: winbond: Properly document the chip
- names
+Date: Fri, 04 Sep 2026 19:19:00 +0200
+Subject: [PATCH v6 07/26] mtd: spi-nor: winbond: Make the RDCR fixup
+ Winbond wide
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -45,7 +45,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260904-winbond-v7-1-spi-nor-jv-cleanup-v6-6-bdb282f42a47@bootlin.com>
+Message-Id: <20260904-winbond-v7-1-spi-nor-jv-cleanup-v6-7-bdb282f42a47@bootlin.com>
 References: <20260904-winbond-v7-1-spi-nor-jv-cleanup-v6-0-bdb282f42a47@bootlin.com>
 In-Reply-To: <20260904-winbond-v7-1-spi-nor-jv-cleanup-v6-0-bdb282f42a47@bootlin.com>
 To: Pratyush Yadav <pratyush@kernel.org>, Michael Walle <mwalle@kernel.org>, 
@@ -57,167 +57,112 @@ Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
 X-Mailer: b4 0.14.3
 X-Last-TLS-Session-Version: TLSv1.3
 
-While the .name entry is a legacy field, is highly imprecise, and even
-wrong sometimes due to ID reuse, it is part of the sysfs ABI, we cannot
-remove it for existing chips. However, we can double the entry with the
-now usual comment with the newly instated naming scheme to indicate what
-chips are covered by each entry.
+The top level paragraph of the QER field in the JESD216B mentions:
+
+"In this standard, [...]  Status register 2 refers to the byte read
+using instruction 35h. Status register 2 is the second byte transferred
+in a Write Status (01h) command. [...]"
+
+Value 100b, named in Linux BFPT_DWORD15_QER_SR2_BIT1_NO_RD, does not
+mention anything about reads and only brings details about writes.
+
+This has been interpreted in the spi-nor core by the absence of read
+capability, but there is no explicit reason for that, except that there
+were probably some very old chips which didn't support command 35h.
+
+All quad capable Winbond chips carry a CMP SWP bit in SR2. SR2 is
+readable with command 35h. In practice, all Winbond families but the
+W25X family have support for this feature, so re-enable it Winbond-wide
+in a late vendor fixup, except for the {EF, 30, xx} family.
 
 Signed-off-by: Miquel Raynal <miquel.raynal@bootlin.com>
 ---
-I've been focusing on several chip families, but not all of them. I do
-not have enough information about the oldest chips at the moment to
-cleanup *all* IDs, but I am nevertheless trying to make a major cleaning
-step here.
----
- drivers/mtd/spi-nor/winbond.c | 22 ++++++++++++++++++++--
- 1 file changed, 20 insertions(+), 2 deletions(-)
+ drivers/mtd/spi-nor/winbond.c | 44 ++++++++++++++++++++-----------------------
+ 1 file changed, 20 insertions(+), 24 deletions(-)
 
 diff --git a/drivers/mtd/spi-nor/winbond.c b/drivers/mtd/spi-nor/winbond.c
-index ace9e620bfa6..1fd05a3f743d 100644
+index 1fd05a3f743d..acd3c38ca2f4 100644
 --- a/drivers/mtd/spi-nor/winbond.c
 +++ b/drivers/mtd/spi-nor/winbond.c
-@@ -218,16 +218,19 @@ static const struct flash_info winbond_nor_parts[] = {
- 		.size = SZ_1M,
- 		.no_sfdp_flags = SECT_4K,
- 	}, {
-+		/* W25Q32JV-Q/N */
- 		.id = SNOR_ID(0xef, 0x40, 0x16),
- 		.name = "w25q32",
- 		.size = SZ_4M,
- 		.no_sfdp_flags = SECT_4K,
- 	}, {
-+		/* W25Q64JV-Q/N */
- 		.id = SNOR_ID(0xef, 0x40, 0x17),
- 		.name = "w25q64",
- 		.size = SZ_8M,
- 		.no_sfdp_flags = SECT_4K | SPI_NOR_DUAL_READ | SPI_NOR_QUAD_READ,
- 	}, {
-+		/* W25Q128JV-Q/N */
- 		.id = SNOR_ID(0xef, 0x40, 0x18),
- 		/* Flavors w/ and w/o SFDP. */
- 		.name = "w25q128",
-@@ -236,18 +239,20 @@ static const struct flash_info winbond_nor_parts[] = {
- 		.no_sfdp_flags = SECT_4K | SPI_NOR_DUAL_READ | SPI_NOR_QUAD_READ,
- 		.fixups = &w25q128_fixups,
- 	}, {
-+		/* W25Q256JV-Q/N */
- 		.id = SNOR_ID(0xef, 0x40, 0x19),
- 		.name = "w25q256",
- 		.size = SZ_32M,
- 		.no_sfdp_flags = SECT_4K | SPI_NOR_DUAL_READ | SPI_NOR_QUAD_READ,
- 		.fixups = &w25q256_fixups,
- 	}, {
-+		/* W25Q512JV-Q/N */
- 		.id = SNOR_ID(0xef, 0x40, 0x20),
- 		.name = "w25q512jvq",
- 		.size = SZ_64M,
- 		.no_sfdp_flags = SECT_4K | SPI_NOR_DUAL_READ | SPI_NOR_QUAD_READ,
- 	}, {
--		/* W25Q01JV */
-+		/* W25Q01JV-Q/N */
- 		.id = SNOR_ID(0xef, 0x40, 0x21),
- 		.fixups = &winbond_nor_multi_die_fixups,
- 	}, {
-@@ -285,52 +290,60 @@ static const struct flash_info winbond_nor_parts[] = {
- 		.flags = SPI_NOR_HAS_LOCK | SPI_NOR_HAS_TB,
- 		.no_sfdp_flags = SECT_4K | SPI_NOR_DUAL_READ | SPI_NOR_QUAD_READ,
- 	}, {
-+		/* W25Q128FW-G/Q, W25Q128JW-Q/N */
- 		.id = SNOR_ID(0xef, 0x60, 0x18),
- 		.name = "w25q128fw",
- 		.size = SZ_16M,
- 		.flags = SPI_NOR_HAS_LOCK | SPI_NOR_HAS_TB,
- 		.no_sfdp_flags = SECT_4K | SPI_NOR_DUAL_READ | SPI_NOR_QUAD_READ,
- 	}, {
-+		/* W25Q256JW-Q/N */
- 		.id = SNOR_ID(0xef, 0x60, 0x19),
- 		.name = "w25q256jw",
- 		.size = SZ_32M,
- 		.flags = SPI_NOR_HAS_LOCK | SPI_NOR_HAS_TB | SPI_NOR_TB_SR_BIT6 | SPI_NOR_4BIT_BP,
- 		.no_sfdp_flags = SECT_4K | SPI_NOR_DUAL_READ | SPI_NOR_QUAD_READ,
- 	}, {
-+		/* W25Q512NW-Q/N */
- 		.id = SNOR_ID(0xef, 0x60, 0x20),
- 		.name = "w25q512nwq",
- 		.otp = SNOR_OTP(256, 3, 0x1000, 0x1000),
- 	}, {
--		/* W25Q01NW-Q */
-+		/* W25Q01NW-Q/N */
+@@ -73,26 +73,6 @@ static const struct spi_nor_fixups w25q256_fixups = {
+ 	.post_bfpt = w25q256_post_bfpt_fixups,
+ };
+ 
+-static int
+-winbond_rdcr_post_bfpt_fixup(struct spi_nor *nor,
+-			     const struct sfdp_parameter_header *bfpt_header,
+-			     const struct sfdp_bfpt *bfpt)
+-{
+-	/*
+-	 * W25H02NW, unlike its W25H512NW nor W25H01NW cousins, improperly sets
+-	 * the QE BFPT configuration bits, indicating a non readable CR. This is
+-	 * both incorrect and impractical, as the chip features a CMP bit for its
+-	 * locking scheme that lays in the Control Register, and needs to be read.
+-	 */
+-	nor->params->flags &= ~SNOR_F_NO_READ_CR;
+-
+-	return 0;
+-}
+-
+-static const struct spi_nor_fixups winbond_rdcr_fixup = {
+-	.post_bfpt = winbond_rdcr_post_bfpt_fixup,
+-};
+-
+ /**
+  * winbond_nor_select_die() - Set active die.
+  * @nor:	pointer to 'struct spi_nor'.
+@@ -313,7 +293,6 @@ static const struct flash_info winbond_nor_parts[] = {
  		.id = SNOR_ID(0xef, 0x60, 0x21),
  		.flags = SPI_NOR_HAS_LOCK | SPI_NOR_HAS_TB | SPI_NOR_TB_SR_BIT6 |
  			 SPI_NOR_4BIT_BP | SPI_NOR_HAS_CMP,
- 		.fixups = &winbond_rdcr_fixup,
+-		.fixups = &winbond_rdcr_fixup,
  	}, {
-+		/* W25Q16JV-M */
+ 		/* W25Q16JV-M */
  		.id = SNOR_ID(0xef, 0x70, 0x15),
- 		.name = "w25q16jv-im/jm",
- 		.size = SZ_2M,
- 		.flags = SPI_NOR_HAS_LOCK | SPI_NOR_HAS_TB,
- 		.no_sfdp_flags = SECT_4K | SPI_NOR_DUAL_READ | SPI_NOR_QUAD_READ,
+@@ -399,7 +378,6 @@ static const struct flash_info winbond_nor_parts[] = {
+ 		.id = SNOR_ID(0xef, 0x80, 0x22),
+ 		.flags = SPI_NOR_HAS_LOCK | SPI_NOR_HAS_TB | SPI_NOR_TB_SR_BIT6 |
+ 			 SPI_NOR_4BIT_BP | SPI_NOR_HAS_CMP,
+-		.fixups = &winbond_rdcr_fixup,
  	}, {
-+		/* W25Q32JV-M */
- 		.id = SNOR_ID(0xef, 0x70, 0x16),
- 		.name = "w25q32jv",
- 		.size = SZ_4M,
- 		.flags = SPI_NOR_HAS_LOCK | SPI_NOR_HAS_TB,
- 		.no_sfdp_flags = SECT_4K | SPI_NOR_DUAL_READ | SPI_NOR_QUAD_READ,
- 	}, {
-+		/* W25Q64JV-M */
- 		.id = SNOR_ID(0xef, 0x70, 0x17),
- 		.name = "w25q64jvm",
- 		.size = SZ_8M,
- 		.flags = SPI_NOR_HAS_LOCK | SPI_NOR_HAS_TB,
- 		.no_sfdp_flags = SECT_4K,
- 	}, {
-+		/* W25Q128JV-M */
- 		.id = SNOR_ID(0xef, 0x70, 0x18),
- 		.name = "w25q128jv",
- 		.size = SZ_16M,
- 		.flags = SPI_NOR_HAS_LOCK | SPI_NOR_HAS_TB,
- 		.no_sfdp_flags = SECT_4K | SPI_NOR_DUAL_READ | SPI_NOR_QUAD_READ,
- 	}, {
-+		/* W25Q256JV-M */
- 		.id = SNOR_ID(0xef, 0x70, 0x19),
- 		.name = "w25q256jvm",
- 	}, {
-@@ -343,6 +356,7 @@ static const struct flash_info winbond_nor_parts[] = {
- 		.size = SZ_64M,
- 		.no_sfdp_flags = SECT_4K | SPI_NOR_DUAL_READ | SPI_NOR_QUAD_READ,
- 	}, {
-+		/* W25Q32JW-M */
- 		.id = SNOR_ID(0xef, 0x80, 0x16),
- 		.name = "w25q32jwm",
- 		.size = SZ_4M,
-@@ -350,24 +364,28 @@ static const struct flash_info winbond_nor_parts[] = {
- 		.no_sfdp_flags = SECT_4K | SPI_NOR_DUAL_READ | SPI_NOR_QUAD_READ,
- 		.otp = SNOR_OTP(256, 3, 0x1000, 0x1000),
- 	}, {
-+		/* W25Q64JW-M */
- 		.id = SNOR_ID(0xef, 0x80, 0x17),
- 		.name = "w25q64jwm",
- 		.size = SZ_8M,
- 		.flags = SPI_NOR_HAS_LOCK | SPI_NOR_HAS_TB,
- 		.no_sfdp_flags = SECT_4K | SPI_NOR_DUAL_READ | SPI_NOR_QUAD_READ,
- 	}, {
-+		/* W25Q128JW-M */
- 		.id = SNOR_ID(0xef, 0x80, 0x18),
- 		.name = "w25q128jwm",
- 		.size = SZ_16M,
- 		.flags = SPI_NOR_HAS_LOCK | SPI_NOR_HAS_TB,
- 		.no_sfdp_flags = SECT_4K | SPI_NOR_DUAL_READ | SPI_NOR_QUAD_READ,
- 	}, {
-+		/* W25Q256JW-M */
- 		.id = SNOR_ID(0xef, 0x80, 0x19),
- 		.name = "w25q256jwm",
- 		.size = SZ_32M,
- 		.flags = SPI_NOR_HAS_LOCK | SPI_NOR_HAS_TB | SPI_NOR_TB_SR_BIT6 | SPI_NOR_4BIT_BP,
- 		.no_sfdp_flags = SECT_4K | SPI_NOR_DUAL_READ | SPI_NOR_QUAD_READ,
- 	}, {
-+		/* W25Q512NW-M */
- 		.id = SNOR_ID(0xef, 0x80, 0x20),
- 		.name = "w25q512nwm",
- 		.otp = SNOR_OTP(256, 3, 0x1000, 0x1000),
+ 		/* W25H512NW-M */
+ 		.id = SNOR_ID(0xef, 0xa0, 0x20),
+@@ -415,8 +393,13 @@ static const struct flash_info winbond_nor_parts[] = {
+ 		.id = SNOR_ID(0xef, 0xa0, 0x22),
+ 		.flags = SPI_NOR_HAS_LOCK | SPI_NOR_HAS_TB | SPI_NOR_TB_SR_BIT6 |
+ 			 SPI_NOR_4BIT_BP | SPI_NOR_HAS_CMP,
+-		.fixups = &winbond_rdcr_fixup,
+-	},
++	}, {
++		/*
++		 * Catch all entry to make sure all chips solely relying
++		 * on SFDP still go through the manufacturer hooks.
++		 */
++		.id = SNOR_ID(0xef),
++	}
+ };
+ 
+ /**
+@@ -508,6 +491,19 @@ static int winbond_nor_late_init(struct spi_nor *nor)
+ 	 */
+ 	params->set_4byte_addr_mode = winbond_nor_set_4byte_addr_mode;
+ 
++	/*
++	 * All W25Q/W25H chips do set the BFPT_DWORD15_QER_SR2_BIT1_NO_RD bit in
++	 * their SFDP tables. The historical spi-nor assumption in this case has
++	 * been to declare CR reads as unsupported, whereas the Jedec
++	 * specification doesn't clearly state that. In practice, all these
++	 * chips do support reading back the CR, which is needed for SWP support,
++	 * so make sure that capability remains enabled (needed for SWP).
++	 * In practice, only exclude the old W25X family (JEDEC ID: EF 30 xx)
++	 * which actually does not support this feature.
++	 */
++	if (nor->id[1] > 0x30)
++		nor->params->flags &= ~SNOR_F_NO_READ_CR;
++
+ 	return 0;
+ }
+ 
 
 -- 
 2.54.0
