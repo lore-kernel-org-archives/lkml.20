@@ -1,136 +1,75 @@
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5422E3BB11A
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 07:50:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D5B51B652E;
+	Fri,  4 Sep 2026 07:50:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788508230; cv=none; b=YrcILk955oKo4/ot/r3dIeKBct0yubZWwO2r7ASFPBrj7MbSvBcD47mZ8YDC8So399ViF0wZpnzGTpOuU42MuBz46O8fetHNcXfVjkv5Oww+/tneVL4x4RE/GBesDYsvlzn+qeVLFQjYkyG3Gaijuig3i+y+ZFwXcd4RT47JOzo=
+	t=1788508237; cv=none; b=XYVc3tcRuMw4is0LkvRwYEtQwcsHMqexP+PT+gr+O3DhUc8Wh9j0M4lMa++1BJQ9XSSY0cN0/fM/VmT4ONRkASC+HPCXGyvcuxy+u2MVHEv5C+3U6+M6Ds/5U+0ulVEdZbCWj0Y8m5ez5Gye+gF25h4Ui3Hu8evmsqFOUiOTYOk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788508230; c=relaxed/simple;
-	bh=DFJqynbfJcyY/fT0IlcnvoTXr3kzJwBLLpR+NqyctEM=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Subject:Cc:From:To:
-	 References:In-Reply-To; b=TotgMKlGMkLYm+lQmvk1k5SrD88+kWGeDGIehOSbDGHKya3AxqR/cbO9xjY7wdrX0yxzMEwhq/yPxxn4lLPq89FvsWS4tpVeQ/qoMlzsQq8cG5DxtlPMGPQx+XELcLFeF0CRWu32bHiExnelhDLy5+X8pfy52WNANPJRkL3P5vo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=e/U9fjWE; arc=none smtp.client-ip=185.246.85.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1788508237; c=relaxed/simple;
+	bh=maFN79B4UiNTNUcUR3QWi+OBdUrAcheaYp42ki0ovmM=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=gmVSvR7oIncB3G8eeXnaSOYFdU7Qk+YbA9qa3dyDXeMmo8DBNZsvSDwJKLl/h1XOx8PMiKF0gSm+22GWKyVQFv54mTzCT74JDWNjWIOKDN0m2/5HGPDGKXzagZLvCyUiiPiDbknhtsEmstwTPjzHQgHgp/U4V5Plsr9Blc0x+Fw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fd4MZmqE; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="e/U9fjWE"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id 8C6A74E41501;
-	Fri,  4 Sep 2026 07:50:26 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 579196057F;
-	Fri,  4 Sep 2026 07:50:26 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 64C7811C7A30E;
-	Fri,  4 Sep 2026 09:50:18 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1788508221; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=DFJqynbfJcyY/fT0IlcnvoTXr3kzJwBLLpR+NqyctEM=;
-	b=e/U9fjWEXF+m6hVFLQ53wEQs6l+kDrU+3Z9815kN2RMOJtWME0bjtdKiMvnlMqjPUMWa5/
-	IeuU0eKb/zWFgbqU4Xr/HkhHI2AKUhTBy1Mx2fu7K+/0XxnbhuQHnOMssBUUvjzlbJo9Ib
-	MJxzJSYjK+OEzLYNEQ8EkRziUKMuGJFF6DUBSAfrbNDFsyQ+XwKZiUA7URE8H5b7/q1vDm
-	sYJARvCyPNNqfLiqoCms87ZCF0Jd9+7WAae5Eqobgyym8aSon6IGBcLaU8OBCE8VYzwkOP
-	/7Walyrll6l+NM8ogte5ZS+pG9VYiW0OlwAxp5I2YTKUoi3xQAcXOMmHkawmzg==
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fd4MZmqE"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0A8CE1F00A3D;
+	Fri,  4 Sep 2026 07:50:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788508236;
+	bh=y9QnPABxRulC3VVKPDMatVPFU5510laiI9b7bfUp2OU=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=fd4MZmqED+wqifzc8YGn3rfQmFbWJJsNcl9i7XwZ+dimxFlhrRfRQVLZJkmRFByJH
+	 EIzVt9AW4fK8W52eLlYrWQGebC7Jo8V43MW+Msz9M1+3QMbQyuyk0MRzjBd855fhlT
+	 7ljcViG+8bFAf2ueUQ/s+xMTwfAnYdrTPigrO6Nz6G4SjdmSg/NYNEHyfBdDb3OL7t
+	 7mU8V4Xxq4s86bZomxpOSrSTXVTER8mGGpVK3aTAUnZKAtQbU/VdE9vkleIhC0/jMx
+	 UUDZ0HKLjoBEPw0q/5Ejj0I8MYNLwjY9IAXgQnSY1L2Lzng2WS19cBmNLvcsKrmsCH
+	 v4rJxW21J9lZw==
+From: Christian Brauner <brauner@kernel.org>
+To: Shuah Khan <shuah@kernel.org>, Paul Dolan <paul.dolan.dev@gmail.com>
+Cc: Luca Boccassi <luca.boccassi@gmail.com>, linux-kernel@vger.kernel.org, 
+ linux-kselftest@vger.kernel.org
+In-Reply-To: <20260902162615.11531-1-paul.dolan.dev@gmail.com>
+References: <20260902162615.11531-1-paul.dolan.dev@gmail.com>
+Subject: Re: [PATCH] selftests/pidfd: fix PPID values in error message
+Message-Id: <20260904-freuen-verrohen-zeigen-5af4629d9beb@brauner>
+Date: Fri, 04 Sep 2026 09:50:33 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Fri, 04 Sep 2026 09:50:17 +0200
-Message-Id: <DL6D90JSIJCC.FE91IM9ILYSI@bootlin.com>
-Subject: Re: [PATCH v2 0/2] clk: ti: mux: resolve parent clocks by DT index,
- not by name
-Cc: "Tero Kristo" <kristo@kernel.org>, "Michael Turquette"
- <mturquette@baylibre.com>, "Stephen Boyd" <sboyd@kernel.org>, "Brian
- Masney" <bmasney@redhat.com>, "Tony Lindgren" <tony@atomide.com>, "Thomas
- Petazzoni" <thomas.petazzoni@bootlin.com>, =?utf-8?q?Th=C3=A9o_Lebrun?=
- <theo.lebrun@bootlin.com>, =?utf-8?q?Gr=C3=A9gory_Clement?=
- <gregory.clement@bootlin.com>, <linux-omap@vger.kernel.org>,
- <linux-clk@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- <hns@goldelico.com>
-From: "Mathieu Dubois-Briand" <mathieu.dubois-briand@bootlin.com>
-To: "Andreas Kemnade" <andreas@kemnade.info>
-X-Mailer: aerc 0.21.0-0-g5549850facc2
-References: <20260727-mathieu-wdt-clock-theo-v2-0-c048a6394436@bootlin.com>
- <20260902082639.69643254@kemnade.info>
- <DL4OUCXRGBEA.2G2WHI4FH2AY8@bootlin.com>
- <20260902111556.38645f32@kemnade.info>
- <20260903115308.2a569a30@kemnade.info>
-In-Reply-To: <20260903115308.2a569a30@kemnade.info>
-X-Last-TLS-Session-Version: TLSv1.3
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.17-dev-db0b7
 
-On Thu Sep 3, 2026 at 11:53 AM CEST, Andreas Kemnade wrote:
-> We have:
-> localhost:/sys/kernel/debug/clk# grep '(' */clk_possible_parents=20
-> clkout2_src_ck/clk_possible_parents:(missing) (missing) (missing) (missin=
-g)
-> gpt10_fck/clk_possible_parents:(missing) (missing)
-> gpt11_fck/clk_possible_parents:(missing) (missing)
-> gpt2_fck/clk_possible_parents:(missing) (missing)
-> gpt3_fck/clk_possible_parents:(missing) (missing)
-> gpt4_fck/clk_possible_parents:(missing) (missing)
-> gpt5_fck/clk_possible_parents:(missing) (missing)
-> gpt6_fck/clk_possible_parents:(missing) (missing)
-> gpt7_fck/clk_possible_parents:(missing) (missing)
-> gpt8_fck/clk_possible_parents:(missing) (missing)
-> gpt9_fck/clk_possible_parents:(missing) (missing)
-> mcbsp1_fck/clk_possible_parents:(missing) (missing)
-> mcbsp2_fck/clk_possible_parents:(missing) (missing)
-> mcbsp3_fck/clk_possible_parents:(missing) (missing)
-> mcbsp4_fck/clk_possible_parents:(missing) (missing)
-> mcbsp5_fck/clk_possible_parents:(missing) (missing)
-> sgx_fck/clk_possible_parents:(missing) (missing) (missing) (missing) (mis=
-sing) (missing) (missing) (missing)
-> usim_fck/clk_possible_parents:(missing) (missing) (missing) (missing) (mi=
-ssing) (missing) (missing) (missing) (missing) (missing)
-> localhost:/sys/kernel/debug/clk#=20
->
-> All these clocks are composite clocks.
->
-> so the early-registration of timer-ti-dm-systimer seems not to be
-> the main issue here. Looking around what might be affected,
-> mux clocks build into composite clocks:
-> :~/linux/arch/arm/boot/dts/ti/omap$ grep -l ti,composite-mux *.dts*
-> omap2420-clocks.dtsi
-> omap2430-clocks.dtsi
-> omap24xx-clocks.dtsi
-> omap36xx-am35xx-omap3430es2plus-clocks.dtsi
-> omap36xx-omap3430es2plus-clocks.dtsi
-> omap3xxx-clocks.dtsi
-> omap44xx-clocks.dtsi
-> omap54xx-clocks.dtsi
->
-> So havoc all over the place, just worst in omap3 because more critical
-> clocks are affected.
->
-> So I think we need either a revert of these patches or a some
-> kind of quirk in clk_hw_register_composite_pdata to pass throuch somethin=
-g
-> between the mux component and the composite.
->
-> Regrads,
-> Andreas
+On Wed, 02 Sep 2026 17:26:15 +0100, Paul Dolan wrote:
+> The PIDFD_GET_INFO PPID check compares info.ppid against getppid(), but
+> its failure message prints pid and info.pid from the preceding PID
+> check.
+> 
+> Print the PPID values being compared so that a failure reports the
+> correct information.
+> 
+> [...]
 
-Hi Andreas,
+Applied to the vfs-7.4.misc branch of the vfs/vfs.git tree.
+Patches in the vfs-7.4.misc branch should appear in linux-next soon.
 
-Thanks for taking the time to investigate this issue.
+Please report any outstanding bugs that were missed during review in a
+new review to the original patch series allowing us to drop it.
 
-I believe I won't have much time to dive into it in the coming days, so
-I fear you are right and we will have to revert this patch for now.
-Except if someone else want to have a look at this.
+It's encouraged to provide Acked-bys and Reviewed-bys even though the
+patch has now been applied. If possible patch trailers will be updated.
 
-I will try to get some OMAP3 board and come back to it a bit later.
+Note that commit hashes shown below are subject to change due to rebase,
+trailer updates or similar. If in doubt, please check the listed branch.
 
-Thanks,
-Mathieu
+tree:   https://git.kernel.org/pub/scm/linux/kernel/git/vfs/vfs.git
+branch: vfs-7.4.misc
 
---=20
-Mathieu Dubois-Briand, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+[1/1] selftests/pidfd: fix PPID values in error message
+      https://git.kernel.org/vfs/vfs/c/b4ad6eb49532
 
