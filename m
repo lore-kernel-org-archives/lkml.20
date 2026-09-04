@@ -1,166 +1,259 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1ECFC3385AC
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 09:00:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788512414; cv=none; b=cs6dvvZvJJU51jm+6ndDT0An2RaVcBO5N/669TOij9jJf5jp8un4i42RcOxkpP/qA8VE0tDok2mpl1gmSbMNmIBM2BPSBG+B1bfwDu7/mTRNZrpzJ5gMxL8KqkCVjfWvIydkH8G3TVtOalhXT75Bd5hhCMFC/0yLIieUAd8tDto=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788512414; c=relaxed/simple;
-	bh=TwdMkfkku+7xLhkQkYda0UxtIy+OV/r23+7AedMhDfE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=NzYR9+Q+o93bm/IwS8XlmAHq4Ss1Igvw0b5uuFdoO8XUWNQyrALDdy1Rrp6nx+8d+I9shhOXjsDtGCXKqIog9Cuxn7IhrSCFYIUgRpYMDy2vQP0dQlugWJc268sDbHVnkAsWNYXOgOSHVmLvPfkAG7RTX+YdUjLiYBjDOdL6bRA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=RgwQcusi; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=jdsnk4EK; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 973D33F7AAB
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 09:00:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=170.10.133.124
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788512418; cv=pass; b=qnUrngt/qgSp+n8XGAM/Fb7JeUNGNBuETogJH7WIKAros4+H78lzT88DAjdus3E8FAVcyRVHmFWuIUS959Q5yuo3VzJbM1YzJCN1fM3TTKvo+qdpAuKajv+4DRTI6DiLgfVYABqzSLLqKL8QKUD7F55Bz9p8a8INC6EgvCDSPMo=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788512418; c=relaxed/simple;
+	bh=CmvRkw0tcfjCM8LSq8XxS0x2PFuwr0H01M7Zp2qL7tY=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=bcfKFq97lCa28ltJe6rS1AiOPxnTTkW06iYMzr/M4JYOVVYbYDDoJCzV/SDWHq8f6Bc+Ajo6yB56NDz+BzQu8lquEmD0MwoHGwrMlP61EVcefge8vPUe2DESnlMj8KQ5SMchnv7ejDiptZ5nlKhbXYAPA+DOdFnUsAXrT52+znk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=Hh9Y0gU2; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=KbZ5kUIM; arc=pass smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="RgwQcusi";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="jdsnk4EK"
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6847mlrt1770395
-	for <linux-kernel@vger.kernel.org>; Fri, 4 Sep 2026 09:00:11 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	hPrFnyRkQ5lya7hdY6VenELDRNtS6j9fb64j+zDHYFs=; b=RgwQcusiD+sBqz0F
-	jF2XOTgx2pvLO5qTcCp/KU57VdohSxr1FqohE1cUY2tk70/TPuqmFfLaMLktqg5G
-	p4MqrQnqlWaHEFJUah4LmnpDevNJ2eLS/gnd0y1pFcnONHPfRtNjZQIVvRymxVSY
-	v4R5GIk+wNf0LXbGizShkEWD5YmrmXmp0Xbd1PHNjPXeDphndDl8Ddm1kU8w8OZB
-	/YZ6QQtzCG95q1v9KMPEviI16gYbWaZVyfLdO+kisFMjX9kKo1Ks5eGMfFdUZiSs
-	rUPqZPmbNa63fw8kXGxpLCAHsjUTGkR52R5Qo/+UoO25SToQqlmkMr/Y2+Ue1T1w
-	ifDMYw==
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gfpmqrwqs-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 09:00:10 +0000 (GMT)
-Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-93821883e26so17275285a.2
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="Hh9Y0gU2";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="KbZ5kUIM"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1788512413;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=bW/1iYuMrSnS89b1ddhWDpNkS+WRr5i40Ku0yGmKoHY=;
+	b=Hh9Y0gU2xLRXXKGUdhv6aVf3dtICmyzugEzibQbTeTheCq8V25aVmMh6XCwXEGE+7Gj6bK
+	/hU2xOm2P9Cttr8NaMe6/fk6hnG/ZYjKKfByBvqHkfqVZM6c5DciWcskTbxJyjAba1qBsl
+	vKYK7uv97yEVEiGyvjyVYAgdJaYZNjg=
+Received: from mail-oa1-f71.google.com (mail-oa1-f71.google.com
+ [209.85.160.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-164-5AE-KTxONxiwFNCVy_m8uA-1; Fri, 04 Sep 2026 05:00:11 -0400
+X-MC-Unique: 5AE-KTxONxiwFNCVy_m8uA-1
+X-Mimecast-MFC-AGG-ID: 5AE-KTxONxiwFNCVy_m8uA_1788512410
+Received: by mail-oa1-f71.google.com with SMTP id 586e51a60fabf-466d41a1d9aso766176fac.0
         for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 02:00:10 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788512410; cv=none;
+        d=google.com; s=arc-20260327;
+        b=iiBnwCxovp86c1cLaHeJZ9UiF0+0BCT7Y6Gj2x8dxhllugjlIqaORU8637rkQ5O2r+
+         EWDDuiKhhE9TfntEXQyBd4OqRoB6zEgKLXbpahBtsEeCeosL2aBKLDO+x9F03rccuprv
+         F4OWwixNSfk855ORq3jAokZX7OsE2SwP4y+nGeehUNOBCoQkRZ7yB7E7VSrDyQgtKEk2
+         Wf868nWQ8hZSbVZODUn6zU6Z9OZfhOClS42Y4HUaYdEj6GUD3YjCVRv+qR8vRnrrD4e8
+         VztDX3qBa7bjvUu4Yzj7C62t6EfKyZONpdEeAAgtzutWMP+Sh6oQKhy7uxqXIBpltjwQ
+         Q6vw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=bW/1iYuMrSnS89b1ddhWDpNkS+WRr5i40Ku0yGmKoHY=;
+        fh=FoeN+eHAn9udgkrhSZhIvSAdBz1oyr6KTZkAY7CEAic=;
+        b=BZQmQyal+Mq5oZYkjHhPhGVIunqj+tRE82qL6z8UhfH5coEwh+GtksydfpYaWH8BxS
+         kLKtF+SPMgMDfeG9dKlpOsfCbY6ntn5eOh76bVI8z45lXB+MrOXeY3Gw+yqINUN3F4Ax
+         /bwfwXqCHcWAoPqXHRm9JYH84FOH5RevM7U0dBvIa6oNh/mvYvd/bqyHHSznJuk9jIOs
+         U3/8bOpkEBN+p+/1dXM8zy4eHrGqJ/sKE04eRvqWCkR2sUBJv65RjOJUXMr/kZIcqshU
+         h//Mo2qQa8grWe2Xsit7jZjLh50yHv7FOQK0KPgCkyFJGE27LjleLPyRh3FfuCdSTTwG
+         RYYw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1788512410; x=1789117210; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=hPrFnyRkQ5lya7hdY6VenELDRNtS6j9fb64j+zDHYFs=;
-        b=jdsnk4EKXh1WqVTD9C1oTBn+Uu6oiMFKyeZjw3rDJOHOqNFAbSFSLiXnyeqmUJ716q
-         k6BuLP9rMlm3LvzQH5aKTJ69VW4aH4Jgvpcwnd/u5f+BWs8gzijsrrJ51IHJ+tNyrJwH
-         HY6Qgd/bcpam873DI5q8CG2Gr3NfaDAThuzBK3/Jgz1wWeHkm4kTgYAAxdIkJyJ1J25P
-         udSCsfBRFyfudfue4AxElVrHgoHM3MqiRu8sYQdsgylW4VaAuW99L1lKdo0z5GuWsp9i
-         QPwLNtQAGhO97PeuUcewqKy5tv5o1BfmNiM8vEh/UclW6eqj22Fel+uIWUopYRn3+VuM
-         BK8w==
+        d=redhat.com; s=google; t=1788512410; x=1789117210; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=bW/1iYuMrSnS89b1ddhWDpNkS+WRr5i40Ku0yGmKoHY=;
+        b=KbZ5kUIMB8P1Jkfdsc2zUQSPglrxeTARdmKGVz25M/yhzEdcVIMvKeOoCvdW4qTMBf
+         CSwtUHzZWqx6vnKtAiGxMhAcdQw+4HDRiLfU9c/7TpguNXd1w2ygQSMWwHKfpC4D0Xhh
+         7EIByKOxOTxIBzZ3555y6jobIY37/KiXXm+UhoCPHeFYPDzf+y7nXSFSk1cqBS+NGN6t
+         nafAiz5u1Ws4PLRpyWwIRr7Mkn8AFaohSP7jD3Tz/YYES2kz33wY7shvQbMne2j38aGA
+         rQVjBowC+6cDKC2HIETRdaPCilJB8K4cqjcLWmRYVdjFVr0+oF0v/4uAasAjYeby5Lf2
+         kDUw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20251104; t=1788512410; x=1789117210;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=hPrFnyRkQ5lya7hdY6VenELDRNtS6j9fb64j+zDHYFs=;
-        b=lTLG55U+4eFOeRV2wOdi9VwRNBnfBpeCbKTmLgbCk7ygQDHQB7qbgXZCPSMudXAtq5
-         A5Je7U1aFaymY3GjwQymeUfwS4Y2ZIW8YdmAMk0l6I0+5GSI29nOfr8Ft7h9ymCJNdKu
-         K6LopROk30mmDI98PnQ3n1q7rXpvuY9NH/gosElbPgtwm7ZRGbK78MbZMRaDbXCou8PM
-         wW9M7stJJSnFW418CTvR134/K7KtPdBFpbmjJPW0lJxBTpLGVW3sP7RE4aTMrdcqQBaE
-         mpSGrtu1a60IMpAGox7mr+e/ZYxKmjObJFbc6JB4pH9u6N2Gt1ggcWWHYeLKBAbP6JDc
-         W0WQ==
-X-Forwarded-Encrypted: i=1; AKwUvBy20RV7l/2y7Nyuo+vyjhUE+sYMo+vQoh0RE6b9Lbsw2tHSCizHPvL6qgi/sALQDb+oMJG+qiNgfm5t7m4=@vger.kernel.org
-X-Gm-Message-State: AFuF++ndn9Gcj4x23Ib2Tqj+29Wa/pS2ZvJuGHJPFj1xcEBcUBFcGXhv
-	VgWhRbJ3eHBrf+GwSN46t2hO+YJb1tnIgsVICVkMZI2oYUCDlaV2N+5j5cPuyMk1bymj6bTUD8G
-	ydCQI6/emxTcRMUUqXBbecwjqwWTmu5G9mcYwbh/dNw7M0mIBDMHW5o6Y+VaiHWTTRx0=
-X-Gm-Gg: AYBFou3jNCCkduO+L/BB1Azizwb/js8/4GA058OssZOBQJaCALCRG/oPwX8EX7TBQSX
-	KuQNOCK1sDLglJlT1eSbQdYJ6A6U2stOUgQCA6Xt/5ZBjxW5BESYZmf4pPv6wE7OvFqnneSkGRW
-	/SrjvVQqzeZS6J1Xdg5OXftg3MQ8nInPud90ax0h5wGdG1Pv4c6fqT8aF90y1u17ovnELjGF/D3
-	kvBrALAX1lchWskAXEaC9X96Hn4ncbQXSB0bQpQ8/EU48lrS6VgzAT0wNsT0nkPolKcWkcxET44
-	RAP60zVf/58OoYCAeWpFwZExcIkrLbLILMNHT9+89L8mZzOClHPjEjUi57I6fBzYtuGyeMmEtGA
-	RYhhhGUZSKjwkH46ImF1CAg==
-X-Received: by 2002:a05:620a:178d:b0:939:4a24:4de4 with SMTP id af79cd13be357-93980c5c987mr285927685a.5.1788512406231;
-        Fri, 04 Sep 2026 02:00:06 -0700 (PDT)
-X-Received: by 2002:a05:620a:178d:b0:939:4a24:4de4 with SMTP id af79cd13be357-93980c5c987mr285923885a.5.1788512405649;
-        Fri, 04 Sep 2026 02:00:05 -0700 (PDT)
-Received: from [192.168.202.12] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a7e6c20c0fsm895767a12.30.2026.09.04.02.00.01
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 04 Sep 2026 02:00:03 -0700 (PDT)
-Message-ID: <0f5494c7-c3c1-4668-a09f-d8c43d1c58b9@oss.qualcomm.com>
-Date: Fri, 4 Sep 2026 11:00:01 +0200
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=bW/1iYuMrSnS89b1ddhWDpNkS+WRr5i40Ku0yGmKoHY=;
+        b=NHrUcYpGqiNgjxcLunivSRQA8z5YkxcBoH1Jux6N/0shpTMrpGemSIRqJVyCYQkPLS
+         gA/LfUhRGWiMVLGgYrhoKKM0BJAsNeNcYLKAc8v6ZQytnr2Vpy33QvKMIPLxOSciaRY/
+         UwHQqnARE5zbC1XeK8x+/krhidnXOAljnNuBe8HdEweT+H5N6U/Q8IlJR2IGoD7A8HwN
+         vXqW3orPCRReiRIf3nkJbbfqOxF0Mt/XsYeGiw77fOs48gmYXmR4yM5C02o1nnMuabnz
+         Pcw/dK+nh3zH+N4G9DSqk544GZ+uXtJD8aeq+/T06QDEK3Uj6v9brhHi4P+MmYKulomR
+         qfcA==
+X-Forwarded-Encrypted: i=1; AKwUvByHz7xTvazmVZyrCC93qgxpu+/aUJ/Z7eu4gCXWo+5jRZ4WmP8YG5iYLH0MXgcH87AikuDNLAYii1Rydgo=@vger.kernel.org
+X-Gm-Message-State: AFuF++mzNfT8mWy226X81y1Bw8deMucX3cWywMxgvIWOx5ABv8mrZoMd
+	mE7gQB3PNv2SS8bfAMprCFOoPiRVLSr/Pz3eRpwU4X8G0TpbnesdDkJnsKn80ntMzng+NHhPP4N
+	CxuVouUXEF9wzoKX/zVHoZOefQBCB6C24vwno4KMCbnrZSe4+MetlaDVJgPTyU8m2Ij6KFtw1Wt
+	1rPGDDcq8InGgkIqaeNJqSxrdZblzm0UsPJfSfy9H7
+X-Gm-Gg: AYBFou0bionCjZ6buY21uJF2D090G6oLGf736m7If8DU0pa4aGMffYFVlevwYF3+q1F
+	cN0beLDF1vmH9scJLWu1w2qCw8Fb6ByPLnk/FvgVh96j3SG2bR+gMea99pkUqYGSwr0U4zbijNg
+	7d6AUF6udrfwxLf6A7VXfM40tBdvRPTFiZIZKQYCg3jIEZrLKVTMIGzwXr
+X-Received: by 2002:a05:6870:2184:b0:45e:25a9:5455 with SMTP id 586e51a60fabf-4755136f9b1mr4772108fac.2.1788512410052;
+        Fri, 04 Sep 2026 02:00:10 -0700 (PDT)
+X-Received: by 2002:a05:6870:2184:b0:45e:25a9:5455 with SMTP id
+ 586e51a60fabf-4755136f9b1mr4772063fac.2.1788512409513; Fri, 04 Sep 2026
+ 02:00:09 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 0/9] soc: qcom: geni: Derive SE clock configuration
- from OPP table on SA8255P
-To: Ulf Hansson <ulf.hansson@oss.qualcomm.com>,
-        Praveen Talari <praveen.talari@oss.qualcomm.com>
-Cc: Sudeep Holla <sudeep.holla@kernel.org>,
-        Cristian Marussi <cristian.marussi@arm.com>,
-        Ulf Hansson <ulfh@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-        Jiri Slaby <jirislaby@kernel.org>, Mark Brown <broonie@kernel.org>,
-        Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>,
-        Andi Shyti <andi.shyti@kernel.org>, mukesh.savaliya@oss.qualcomm.com,
-        chandana.chiluveru@oss.qualcomm.com, arm-scmi@vger.kernel.org,
-        linux-arm-kernel@lists.infradead.org, linux-pm@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        linux-serial@vger.kernel.org, linux-spi@vger.kernel.org,
-        linux-i2c@vger.kernel.org, Abel Vesa <abel.vesa@oss.qualcomm.com>
-References: <20260827-derive_clk_perf_tbl_from_perf_domain_opp_table-v2-0-091697dbeb02@oss.qualcomm.com>
- <CAPx+jO9fcvBsxe9yx9oK=0EXmpNwub5ba0a-TGk1WRFaRGsqpA@mail.gmail.com>
- <177884a8-902f-49be-8fcb-b2bec3ec7d6c@oss.qualcomm.com>
- <CAPx+jO8bXn2F3cWz87Ozjrh00E+a_UWBrHeUViTEkTL87JHW9Q@mail.gmail.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <CAPx+jO8bXn2F3cWz87Ozjrh00E+a_UWBrHeUViTEkTL87JHW9Q@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA0MDA4MSBTYWx0ZWRfXyHGPEkkgPyPO
- Zu85rxsJYa9YsQWqLMkDV2GbZHdGfM8ouUmwDhW/2HGKerWZInMRHJTPt4tfgXkFNPiO44to9sE
- KLEp5FL6fVAJ/SScpT696eAS8jKEGxc=
-X-Authority-Analysis: v=2.4 cv=eovvCIpX c=1 sm=1 tr=0 ts=6a9a889a cx=c_pps
- a=50t2pK5VMbmlHzFWWp8p/g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
- a=EUspDBNiAAAA:8 a=tfn4aQiUfrmVOWBwnpMA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=IoWCM6iH3mJn3m4BftBB:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA0MDA4MSBTYWx0ZWRfX7BbUpyCWx0tC
- Wf7kZdPjxKaXS39C9850gc0uvjIr4PPUhzH1muiC1kZ8kzYvjgJL4Z8UIASsbJ0xJlN8qebJDeP
- PmtzcY70SURRc/frlrMM4TMu5X8EzHQbCt+dYUifVyWtiBpXB8HW7HYMYRJJXTAfjeZ1drkvdII
- vJZN2y6XgRYx8JWYeNycvOQJGlAi4xElc5VHjOeAl8zv+Zg9AZYWERieQXfB1SjQDaEcAOxe1DY
- f6wT0+TelGknMrBp7geFt34zrm62NMdzaMR8fS/6xXdeJfQeFzLJirO13mBYayIyECTWP5LeExL
- 9TuOB8Q8k1fH/ZdzAsd+LpGtE3mcRtbxgm/9pO6NXrM32BRGnJ3k2Gg7ncdTB6nfuXiyzpoZEx4
- 34wmIE7z6jS/iJlfuslfvihELY1IyEyNkn02UDjSexf1Qrq5I4/u+562arkYY5IWcHHjNlT6j+R
- 7OisgUGXM/TcBccthvw==
-X-Proofpoint-ORIG-GUID: IzECLtBt9WnlIpX8lLuIC_ys7VyPxEgW
-X-Proofpoint-GUID: IzECLtBt9WnlIpX8lLuIC_ys7VyPxEgW
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-04_02,2026-09-03_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 phishscore=0 impostorscore=0 spamscore=0 adultscore=0
- lowpriorityscore=0 bulkscore=0 suspectscore=0 clxscore=1015 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609040081
+References: <ede568ada4304d2dc92cd43986fc07aa68628154.1788377269.git.christian@themurphys.eu>
+In-Reply-To: <ede568ada4304d2dc92cd43986fc07aa68628154.1788377269.git.christian@themurphys.eu>
+From: Kate Hsuan <hpa@redhat.com>
+Date: Fri, 4 Sep 2026 16:59:58 +0800
+X-Gm-Features: AcwNN1WYQ90aHpgHAa3kyg4v5hrd4_0w2-C967zk3QLCYwvdk7dagXtPUGOfwXo
+Message-ID: <CAEth8oF0__WNz9_gsSnrycP2SYcs_-G06r6TCPCFK2g1N=jbJA@mail.gmail.com>
+Subject: Re: [PATCH v2] media: i2c: imx471: Fix pixel rate and line length
+To: Christian Murphy <christian@themurphys.eu>
+Cc: linux-media@vger.kernel.org, sakari.ailus@linux.intel.com, 
+	mchehab@kernel.org, tarang.raval@siliconsignals.io, 
+	jai.luthra@ideasonboard.com, linux-kernel@vger.kernel.org, 
+	antti.laakso@linux.intel.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 9/4/26 9:56 AM, Ulf Hansson wrote:
-> On Tue, Sep 1, 2026 at 6:48 PM Praveen Talari
-> <praveen.talari@oss.qualcomm.com> wrote:
+Hi Christian,
 
-[...]
+Thank you for working on this.
 
-> So geni_se_clk_freq_match() is used by two consumer drivers today,
-> drivers/spi/spi-geni-qcom.c and drivers/tty/serial/qcom_geni_serial.c.
-> 
-> Beyond the $subject series, there will be even more consumer drivers
-> that call these platform specific functions. As I said above, I don't
-> think this is moving things in the right direction.
-> 
-> If this can't be solved with generic frameworks (clocks and OPP),
-> please clarify why so we can figure out a better way forward.
+On Thu, Sep 3, 2026 at 3:36=E2=80=AFAM Christian Murphy <christian@themurph=
+ys.eu> wrote:
+>
+> The pixel rate is derived from the CSI-2 link frequency, 200 MHz * 2 *
+> 4 lanes / 10 bits =3D 160 MHz, and the line length is the binned array
+> width, 2328. Neither describes the pixel array.
+>
+> The VT PLL gives 19.2 MHz / PREPLLCK_VT_DIV 2 * PLL_VT_MPY 121 /
+> VTPXCK_DIV 6 =3D 193.6 MHz and the array reads two pixels per clock, so
+> the pixel rate is 387.2 MHz. LINE_LENGTH_PCK is never written and its
+> power-on default reads back 5120. Timing frames at several written
+> line lengths confirms 387.2 MHz at every value.
+>
+> With the declared values the line duration comes out 14.55 us instead
+> of 13.22 us and exposure is overstated by 10%: libcamera reports a
+> maximum ExposureTime longer than the frame.
+>
+> Derive the pixel rate from the external clock and the VT PLL
+> parameters the mode table writes, and set the line length to 5120,
+> which changes HBLANK from 400 to 3192. No register write is added.
+>
+> Fixes: be1589e567ae ("media: i2c: imx471: Add Sony IMX471 image sensor dr=
+iver")
+> Link: https://lore.kernel.org/linux-media/20260728042013.23707-1-hpa@redh=
+at.com/
+> Assisted-by: Claude-Code:claude-fable-5
+> Signed-off-by: Christian Murphy <christian@themurphys.eu>
+> ---
+>
+> Notes:
+>     Changes since v1:
+>     - Calculate the pixel rate from the external clock and the VT PLL
+>       parameters (Sakari), naming the three the mode table writes so the
+>       table and the calculation share them. The object code is unchanged.
+>
+>     v1: https://lore.kernel.org/linux-media/20260830173345.15886-1-christ=
+ian@themurphys.eu/
+>
+>     LINE_LENGTH_PCK reads back 0x1400 (5120) from the streaming sensor.
+>     Written to 5632, 6144, 5008 and 5120 in one stream, the line period i=
+s
+>     llp / 387.2 MHz at every value (14.5457, 15.8680, 12.9341, 13.2234 us=
+).
+>
+>     Tested on a ThinkPad X1 Carbon Gen 14 (Debian linux 7.1.8-2, libcamer=
+a
+>     0.7.2): controls read back 387200000 / 3192, 17.296 ms frames, maximu=
+m
+>     ExposureTime 17.057 ms. v4l2-compliance 46/46; W=3D1 and sparse clean=
+.
+>     The driver is new in v7.3-rc1, so no Cc: stable.
+>
+>  drivers/media/i2c/imx471.c | 16 ++++++++++------
+>  1 file changed, 10 insertions(+), 6 deletions(-)
+>
+> diff --git a/drivers/media/i2c/imx471.c b/drivers/media/i2c/imx471.c
+> index 4053aed84340..0559195bcdd2 100644
+> --- a/drivers/media/i2c/imx471.c
+> +++ b/drivers/media/i2c/imx471.c
+> @@ -65,9 +65,12 @@
+>
+>  /* PLL */
+>  #define IMX471_REG_VTPXCK_DIV                  CCI_REG8(0x0301)
+> +#define IMX471_VTPXCK_DIV                      6
+>  #define IMX471_REG_VTSYCK_DIV                  CCI_REG8(0x0303)
+>  #define IMX471_REG_PREPLLCK_VT_DIV             CCI_REG8(0x0305)
+> +#define IMX471_PREPLLCK_VT_DIV                 2
+>  #define IMX471_REG_PLL_VT_MPY                  CCI_REG16(0x0306)
+> +#define IMX471_PLL_VT_MPY                      121
+>  #define IMX471_REG_OPPXCK_DIV                  CCI_REG8(0x0309)
+>  #define IMX471_REG_OPSYCK_DIV                  CCI_REG8(0x030b)
+>  #define IMX471_REG_PLL_MULT_DRIV               CCI_REG8(0x0310)
+> @@ -232,10 +235,10 @@ static const struct cci_reg_sequence mode_1928x1088=
+_regs[] =3D {
+>         { IMX471_REG_DIG_CROP_HEIGHT, 1088 },
+>         { IMX471_REG_X_OUTPUT_SIZE, 1928 },
+>         { IMX471_REG_Y_OUTPUT_SIZE, 1088 },
+> -       { IMX471_REG_VTPXCK_DIV, 0x06 },
+> +       { IMX471_REG_VTPXCK_DIV, IMX471_VTPXCK_DIV },
+>         { IMX471_REG_VTSYCK_DIV, 0x02 },
+> -       { IMX471_REG_PREPLLCK_VT_DIV, 0x02 },
+> -       { IMX471_REG_PLL_VT_MPY, 0x0079 },
+> +       { IMX471_REG_PREPLLCK_VT_DIV, IMX471_PREPLLCK_VT_DIV },
+> +       { IMX471_REG_PLL_VT_MPY, IMX471_PLL_VT_MPY },
+>         { IMX471_REG_OPSYCK_DIV, 0x01 },
+>         { CCI_REG8(0x030d), 0x02 },
+>         { CCI_REG8(0x030e), 0x00 },
+> @@ -282,7 +285,7 @@ static const struct imx471_mode imx471_modes[] =3D {
+>                 .height =3D 1088,
+>                 .fll_def =3D 1308,
+>                 .fll_min =3D 1308,
+> -               .llp =3D 2328,
+> +               .llp =3D 5120,
+>                 .default_mode_regs =3D mode_1928x1088_regs,
+>                 .default_mode_regs_length =3D ARRAY_SIZE(mode_1928x1088_r=
+egs),
+>         },
+> @@ -691,8 +694,9 @@ static int imx471_init_controls(struct imx471 *sensor=
+)
+>                                            0,
+>                                            link_freq_menu_items);
+>
+> -       /* pixel_rate =3D link_freq * 2 * nr_of_lanes / bits_per_sample *=
+/
+> -       pixel_rate =3D div_u64(IMX471_LINK_FREQ_DEFAULT * 2 * 4, 10);
+> +       /* The pixel array reads out two pixels per VT pixel clock */
+> +       pixel_rate =3D IMX471_EXT_CLK / IMX471_PREPLLCK_VT_DIV *
+> +                    IMX471_PLL_VT_MPY / IMX471_VTPXCK_DIV * 2;
+>
+>         v4l2_ctrl_new_std(ctrl_hdlr, &imx471_ctrl_ops,
+>                           V4L2_CID_PIXEL_RATE, pixel_rate,
+>
+> base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+> --
+> 2.53.0
+>
 
-The way I read it, isn't geni_se_clk_freq_match() more or less
-dev_pm_opp_find_freq_exact() called in a loop with an increasing
-divider?
+I proposed a v2 patch of line pck setting and pixel rate estimation.
+It can be found here
+https://lore.kernel.org/linux-media/20260904075113.125751-1-hpa@redhat.com/=
+T/#t
 
-Konrad
+According to the datasheet, since this sensor runs in PLL dual mode so
+the PLL configurations in the op domain are used to calculate the data
+rate and pixel rate.
+(If it runs in PLL single mode, vt domain settings are considered for
+the data rate. If I understand the clock tree correctly)
+
+My patchset includes naming the registers and pixel rate calculation.
+Could you please look into it?
+
+Thank you.
+
+
+--=20
+BR,
+Kate
+
