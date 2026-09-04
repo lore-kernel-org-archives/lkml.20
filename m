@@ -1,72 +1,80 @@
-Received: from mta0.migadu.com (out-150.mta0.migadu.com [91.218.175.150])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from r3-19.sinamail.sina.com.cn (r3-19.sinamail.sina.com.cn [202.108.3.19])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A54F367F3A
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 01:31:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.150
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FA2436D9E7
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 01:32:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.108.3.19
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788485467; cv=none; b=HkW/4YuF0zH7COXdQEdiJMQCWoFZ56KwQm92MnxaVjj2pkxH+sMefPD6YMVQz+rd0N2BlNBpqbhOI6gkkJ91pQYCXKGxPTIJYNYyYADqVg4gFbJPERY1AqMVmfkLVgDSjdLExMoQvI22ibscuvUjK+bBwe+qwPg/8wnV+J1JBOs=
+	t=1788485548; cv=none; b=qm13y/+OxPGBbWelFwVGctI0ou14BT+PEifyiO4jXKkmyAGFy6MlB5CnRByfaz49CKRww/6gcCA+FGIE8w67LObOydWst9JGZb7nTygjWuV93IA5u1IYIFos5Bim5pp8cmW3tZCB34/fZFdMIT9r7LTDFuYkiyZVfag8pNQ6uAg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788485467; c=relaxed/simple;
-	bh=0/Ct6AIndNTvT6iAd+65ykN/F9WS8WuWsFrODtlpE0c=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=bhl/qWCl2CoE0WSTOCCyRyWqImH2Uc3iog6M8KFEZzxBFyuBkpSfIegIFfuoHVMLiDcpXG2HLZDjvEjmIqZrr4Ef1o50UZp6rfZEZy/qv6yXxaRl2pKPiiPCGvJytEv+OTFKQGTTthCGabgf518AE8Gwm7Y90GTKcVVLIg7qcxE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=xRAnTQeh; arc=none smtp.client-ip=91.218.175.150
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1788485548; c=relaxed/simple;
+	bh=TTVXc2AWzcWPnl0L0Hv1ZtAJrPN4xEhDzyu/5s2D/bQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=ZI4VmckqkJg9iWpB1U9Hx1dWPanPEJPYad2VbMuyIdp13x5ahepOEQRP3SMD9D7WHX1rmhva7v7a9eEtgIW0gB1tTGNhBIUj7TYR00/cY4ZrVdEe1d68G1lWkdGF2twvU+0sPXlZLC/Nh7vCw34IdsLFPkwsQPWkrQjCbwGAs0A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sina.com; spf=pass smtp.mailfrom=sina.com; dkim=pass (1024-bit key) header.d=sina.com header.i=@sina.com header.b=xCekR6NW; arc=none smtp.client-ip=202.108.3.19
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sina.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sina.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="xRAnTQeh"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=0/Ct6AIndNTvT6iAd+65ykN/F9WS8WuWsFrODtlpE0c=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788485463; v=1; x=1789090263;
- b=xRAnTQeho3jycMsqBwlLBJd76QBNKYLsWAfmtFtQxHCF4D/WTOeYQFBrvOZfdMY48PcCxpgQ
- 9hI4Z1HfNIl3IctrC2YjiYLIxj0nzDVKcnP0j/A3A+NLUso2sEZ2KyrpTDwVkdiCRBy61vtja0j
- CQXrbqTDpkfTfb5uO2GqHOCQ=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id e4f56eb3bad9c50f;
-	Fri, 04 Sep 2026 01:31:03 +0000
-X-Mizu-Trace-ID: e4f56eb3bad9c50f
-X-Migadu-Flow: FLOW_OUT
-Date: Fri, 4 Sep 2026 09:30:51 +0800
-From: Hangbin Liu <hangbin.liu@linux.dev>
-To: Nikolay Aleksandrov <razor@blackwall.org>
-Cc: Matthieu Baerts <matttbe@kernel.org>, netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org, Hangbin Liu <liuhangbin@kylinos.cn>,
-	Jay Vosburgh <jv@jvosburgh.net>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Jussi Maki <joamaki@gmail.com>
-Subject: Re: [PATCH net v2] bonding: fix slave_cnt leak on XDP error paths
-Message-ID: <apofS1ZRjnyIhCbk@fedora>
-References: <20260903-bond_slave_cnt-v2-1-02e27304ca36@kylinos.cn>
- <62271715-fbd6-4047-9b69-b2bda40db056@kernel.org>
- <fe5f07d4-775c-4fe1-a4e8-384dbc11d7e7@blackwall.org>
+	dkim=pass (1024-bit key) header.d=sina.com header.i=@sina.com header.b="xCekR6NW"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sina.com; s=201208; t=1788485544;
+	bh=8hZ//X7DPMAvHOt+s+ezgZcbsunUPEZNrcuRE8W+05Y=;
+	h=From:Subject:Date:Message-ID;
+	b=xCekR6NWgMRdl8+JVIscOoyOciD/jU5e98E7+7ZRnjp9LW3XgduX3K3owSvDtDgml
+	 kTvxWW22nGlJe/XG2vWyPMw+rE7UcUrZJPa4aL3oI+sEcl4efHcygFc4wMqVb1ZuK5
+	 lcVPeDrAh8NN5RGfu5X9rvtz2V9vBD6u5+xwlQq8=
+X-SMAIL-HELO: lxu-ped-host..
+Received: from unknown (HELO lxu-ped-host..)([111.198.231.89])
+	by sina.com (10.54.253.32) with ESMTP
+	id 6A9A1F7300003A3C; Fri, 4 Sep 2026 09:31:33 +0800 (CST)
+X-Sender: eadavis@sina.com
+X-Auth-ID: eadavis@sina.com
+Authentication-Results: sina.com;
+	 spf=none smtp.mailfrom=eadavis@sina.com;
+	 dkim=none header.i=none;
+	 dmarc=none action=none header.from=eadavis@sina.com
+X-SMAIL-MID: 8961904457251
+X-SMAIL-UIID: 0B59C65336A24BB3B8344B7A00C94136-20260904-093133-1
+From: Edward Adam Davis <eadavis@sina.com>
+To: syzbot+fefa0af09f7891b1800e@syzkaller.appspotmail.com
+Cc: linux-kernel@vger.kernel.org,
+	syzkaller-bugs@googlegroups.com
+Subject: Re: [syzbot] [block?] general protection fault in blk_mq_quiesce_queue
+Date: Fri,  4 Sep 2026 09:31:31 +0800
+Message-ID: <20260904013131.574605-1-eadavis@sina.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <6a99dfb2.9266084e.bf0d7.027c.GAE@google.com>
+References: <6a99dfb2.9266084e.bf0d7.027c.GAE@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <fe5f07d4-775c-4fe1-a4e8-384dbc11d7e7@blackwall.org>
+Content-Transfer-Encoding: 8bit
 
-On Thu, Sep 03, 2026 at 02:53:29PM +0300, Nikolay Aleksandrov wrote:
-> Waaait a second, it is moved after slave arr update, yes that would cause those.
-> I missed it in the review, in my suggestion I specifically said it must be before
-> the slave array update because it uses slave_cnt.
-> 
-> It must be moved up. :)
+From: Edward Aadm Davis <eadavis@sina.com>
 
-Ah, bond_update_slave_arr()... I only notice the bond_xdp_set_features() and
-thought all the code after netdev_ops->ndo_bpf are xdp related...
+#syz test: upstream 940de590b839
 
-My bad, I should check the code more carefully, and do testings even with
-simple change.
-
-Hangbin
+diff --git a/drivers/nvme/target/loop.c b/drivers/nvme/target/loop.c
+index fcb1f8186fdd..ec56085add72 100644
+--- a/drivers/nvme/target/loop.c
++++ b/drivers/nvme/target/loop.c
+@@ -561,8 +561,6 @@ static struct nvme_ctrl *nvme_loop_create_ctrl(struct device *dev,
+ 	ctrl->ctrl.opts = opts;
+ 	INIT_LIST_HEAD(&ctrl->list);
+ 
+-	INIT_WORK(&ctrl->ctrl.reset_work, nvme_loop_reset_ctrl_work);
+-
+ 	ret = nvme_init_ctrl(&ctrl->ctrl, dev, &nvme_loop_ctrl_ops,
+ 				0 /* no quirks, we're perfect! */);
+ 	if (ret) {
+@@ -593,6 +591,8 @@ static struct nvme_ctrl *nvme_loop_create_ctrl(struct device *dev,
+ 	if (ret)
+ 		goto out_free_queues;
+ 
++	INIT_WORK(&ctrl->ctrl.reset_work, nvme_loop_reset_ctrl_work);
++
+ 	ret = nvme_loop_configure_admin_queue(ctrl);
+ 	if (ret)
+ 		goto out_remove_admin_tagset;
