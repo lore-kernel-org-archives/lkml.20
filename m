@@ -1,269 +1,134 @@
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9649C3F6C55
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 10:05:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42BAD448B97
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 10:05:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788516324; cv=none; b=oJb3qyTq8Iw79kqHE0umPBmdbHPR1+rjfxsvZU1+ModhUaY/kWiyobXo/5WVgrBOQB9u9uNJT1bjlqtfDtGi2y9WGTrgo8ffK8h9ZmU4DT7RHB7vcYHMZ7Pmd6xhODf+71WNPxqloDO4bKxKNmXjFs4chm/Z/mgLcBQQTk78bKE=
+	t=1788516340; cv=none; b=ceH6QmT0eDX1yq42Q8eCk8s7zfV4JGCR+Xdi2z4ORWKEpU8UJT/H0vSK1zwZG2jIxSvRfCJOFeiPxwRoCtp6HoIkFjfcBimP2o4azdUHC8m0tRssSMgJ4O5bpZUh8hhWv5sSgBQgk1yO0VeMASPU5BGLlcfdcK8EKDGO3QgZHDc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788516324; c=relaxed/simple;
-	bh=HqvcSV4ECGmAqoG9n/CKdSZANq5jxOq8i9pnyNrOndE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=m01d/thA2q05RzXQHdLkL+l1qHgz5cULajdcGmDI1hKS2Eoi4n9nldSxGCId9BnkHgfTLdZzg+pOr6TRE3KuKYC4hGazkV+4+zMAGndLfuNJpygJwRRcsqgeJ7bcTWwJPqx6X1znOMgdBnr+w+4qMfeU0ddCLEvmITx43ufEOYo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=KgdFHgVr; arc=none smtp.client-ip=148.163.158.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1788516340; c=relaxed/simple;
+	bh=PonluXIqpdK5YVnIwW1ZKIfyugR2p2Y9j8kib4Q/qvI=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=imKLhWv5lfoDJBHxH/xP8oT3784V2soY9gpoePHIl3dQDdpE3+GKtbwyhBufC0oiu9E2r/7r1VHBGBIoSkeNG4P/bjTnuy2Af/d6PIbu4QNu9WWT+GqUhssm+Km1LKfTMsZM1zPSVGubk9mOxFYfhj4A9PjUJeq3e/bj7RYIsSc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LiDI5Usg; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="KgdFHgVr"
-Received: from pps.filterd (m0353725.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68464ja33994215;
-	Fri, 4 Sep 2026 10:05:02 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=Tt278+
-	PuJiVNKdTw+nz7DMikcJ69J4GTQ6t7C0y8U+0=; b=KgdFHgVraRBGutUHIIWY8A
-	+geGIDR/JOdloJNmmmaiOQnD6GJVJTlErfetaAnXyQ8brn2kT2KuN2EJvdoX2CGn
-	him4bg3tsDTCNa66fb27mcB84c4suDLozowq6qvPMybUymkDXbB0349hwFwcAMWh
-	gXZYuTrq+EXDFYI0iWMp0X08vOqq8lfp6hjtE6i6rtnVZBoWKZ/wcS87bFxz6dNp
-	cjJwFZ2rmsUu/LtCrJdWfl/vxylzC34+c+Eu9nq84Czr2Uky3+BYKlFY/zUdap13
-	09iKmWczSXi+3sEEQ904S4wbNj7gl92R2iJuyQuJ+3eguda7Rj97da81cPkH4AxQ
-	==
-Received: from ppma22.wdc07v.mail.ibm.com (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gbnue9hxw-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 04 Sep 2026 10:05:01 +0000 (GMT)
-Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma22.wdc07v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 6849uXc1025129;
-	Fri, 4 Sep 2026 10:05:00 GMT
-Received: from smtprelay04.fra02v.mail.ibm.com ([9.218.2.228])
-	by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4gecjavsu8-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 04 Sep 2026 10:05:00 +0000 (GMT)
-Received: from smtpav02.fra02v.mail.ibm.com (smtpav02.fra02v.mail.ibm.com [10.20.54.101])
-	by smtprelay04.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 684A4tCE29164116
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Fri, 4 Sep 2026 10:04:56 GMT
-Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 0B92A20040;
-	Fri,  4 Sep 2026 10:04:55 +0000 (GMT)
-Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id D41E02005A;
-	Fri,  4 Sep 2026 10:04:51 +0000 (GMT)
-Received: from [9.124.221.192] (unknown [9.124.221.192])
-	by smtpav02.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Fri,  4 Sep 2026 10:04:51 +0000 (GMT)
-Message-ID: <c11197ac-ce7b-4fba-8ea5-4f38be9f7106@linux.ibm.com>
-Date: Fri, 4 Sep 2026 15:34:50 +0530
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LiDI5Usg"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E68D61F00ADB
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 10:05:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788516338;
+	bh=+MVFKDGPp4UWg5sRJHXl+lvkq3CQatW3Z5Cpu0PPOY4=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=LiDI5UsgHWTMHnyuAJRu5WXd2blippVQ1EjhRDEiBVHQ+3z2JeRZ7R53hOD1lolVb
+	 C+GBw5OeE5d/vLIEaSG7Hl67OAu9YiFjGonBOvbUZ7mS0owGTCQMuGZ9My3t1oAxDx
+	 TdBADZ9QCT/R0vce7ePuixbj18GeKoiU30YrRDIl1BafpXXldjqpG9L/ZQ0xGJm1Sx
+	 mA8zl8wyH1P3N8ek3cUmLg0mbQ4L1EBqyyAcZiHVS8se1XwFD3ZvjdsElneRPQrmUO
+	 qGz1LijHMM6LD5/ot3wF/SDDkmuTfEEmJvMcOwdgCQMtWr2iwtsrSg6L6/FWeXOI1R
+	 cBedRM+M4XtBw==
+Received: by mail-lf1-f48.google.com with SMTP id 2adb3069b0e04-5b4afc8465eso1073063e87.2
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 03:05:38 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBzaNP+4d4Q0gOSFfkr6PzcSqt7PowVySsfP8MUbzUGdBtOB6KNw1N/+lbL8IGdXQbFiM/JfAw+3h6G38Z8=@vger.kernel.org
+X-Gm-Message-State: AFuF++kiuonFk8XkFfQwUHV9D9w2tlPWLF3dfBdHWiLNiLMSBcvzucCo
+	e93SUuNSvIUDg5KK5PZm6v7KYArQ6nWI8cf3Uc5U4hL1vihg+OLyF9dDcT8kOcL1aPPfdRPMmc2
+	OMcQ5JZ1f3YYBdQuf480e8VYvVcVt85s=
+X-Received: by 2002:a05:6512:2521:b0:5b6:1a7c:fd84 with SMTP id
+ 2adb3069b0e04-5b61a7cfeb4mr382887e87.42.1788516337225; Fri, 04 Sep 2026
+ 03:05:37 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 3/3] powerpc/numa: Support coregroup on PowerNV
-To: Srikar Dronamraju <srikar@linux.ibm.com>,
-        linuxppc-dev <linuxppc-dev@lists.ozlabs.org>,
-        Madhavan Srinivasan <maddy@linux.ibm.com>,
-        Michael Ellerman <mpe@ellerman.id.au>,
-        Nicholas Piggin <npiggin@gmail.com>,
-        "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>
-Cc: skiboot@lists.ozlabs.org, arbab@linux.ibm.com, mahesh@linux.ibm.com,
-        Ritesh Harjani <ritesh.list@gmail.com>,
-        Andrew Morton <akpm@linux-foundation.org>,
-        "Mike Rapoport (Microsoft)" <rppt@kernel.org>,
-        linux-kernel@vger.kernel.org
-References: <20260902123458.340456-5-srikar@linux.ibm.com>
- <20260902123458.340456-8-srikar@linux.ibm.com>
-Content-Language: en-US
-From: Shrikanth Hegde <sshegde@linux.ibm.com>
-In-Reply-To: <20260902123458.340456-8-srikar@linux.ibm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-GUID: T6fjphv16xz__ksgV9FV8DBS00VnbVoj
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA0MDA5MSBTYWx0ZWRfX517Sit4aupoC
- nxn1Z0QEMatz56EyHZQ04rLaC8dnw9KyWy3yLiuzF+ugz2RG6NryaLA0VCWmz8PwI41j8v9UVj7
- j7I/Gg4Rw/xgQqTz5PBe1eWmC8G9ah2bAOyx9Z6lxFIpt2IPIxAUhFEPp0SIA34JC+z9TIX6OrA
- GKwp/r6imREgiMJA1hI9JAJXc3n+kkWntv3HGhri2R3z089P5O2x0zUpfizch1pSLX3yKEKSlwK
- PxmQwNpqhhcgu5HwR//DpomvXS9BYvOBUg/rvMSPVAptRPdx9bBmyuQqwXXQUqBlrJgzXj982I5
- wpZLuTDzTOZU2e20SoGJo70LbGSi3LAQw08p9WF7DWfKY4eO6+VdA17aOiZQil/28Ze+50Q5PQO
- S0gJQy2E1+Fa8Bm/9wRDfkcPl0xlYUbm8UHtXJW8A0htuSTWaMul6DssWC2r+2BLhCnO0goOpH7
- xPrZXu/qq4tj9cFltEQ==
-X-Proofpoint-ORIG-GUID: _VmXG-DC84mzdIuoGF-oSdXv1zxk0qIB
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA0MDA5MSBTYWx0ZWRfX9JzXYSVCNakm
- y8kQYKBBS8BaRqieyAnY0zwa/UVsLdwWPdA2OPSzmJgJ8sWvWeP+RfR2l8ePEQqXiR+S6MSMDI2
- Wad8ns0Ff1jk1okV5thAdikHLgPZKZ4=
-X-Authority-Analysis: v=2.4 cv=B92JFutM c=1 sm=1 tr=0 ts=6a9a97ce cx=c_pps
- a=5BHTudwdYE3Te8bg5FgnPg==:117 a=5BHTudwdYE3Te8bg5FgnPg==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=V8glGbnc2Ofi9Qvn3v5h:22 a=VwQbUJbxAAAA:8
- a=VnNF1IyMAAAA:8 a=xOIxTGQp75SbQC7pz58A:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-04_02,2026-09-03_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 spamscore=0 clxscore=1011 suspectscore=0 phishscore=0
- lowpriorityscore=0 bulkscore=0 priorityscore=1501 impostorscore=0
- malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2609040091
+References: <6044499.DvuYhMxLoT@rafael.j.wysocki> <20260904094030.2455645-1-peixin.xie@linux.spacemit.com>
+In-Reply-To: <20260904094030.2455645-1-peixin.xie@linux.spacemit.com>
+From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
+Date: Fri, 4 Sep 2026 12:04:36 +0200
+X-Gmail-Original-Message-ID: <CAJZ5v0hLz3=RVDD3YeT0=Xk0w_fLmGTCGMuYyZhX10th3-xtSw@mail.gmail.com>
+X-Gm-Features: AcwNN1XfOQA-QVk9dEc9RzdSjjBbI02RHKxBUUUm3VlDAMgsThBFfV2VTf3DEXo
+Message-ID: <CAJZ5v0hLz3=RVDD3YeT0=Xk0w_fLmGTCGMuYyZhX10th3-xtSw@mail.gmail.com>
+Subject: Re: [PATCH v3 0/4] ACPI: scan: Adjust power management initialization
+ and PCI devices handling
+To: Peixin Xie <peixin.xie@linux.spacemit.com>
+Cc: rafael@kernel.org, andriy.shevchenko@linux.intel.com, hansg@kernel.org, 
+	helgaas@kernel.org, ilpo.jarvinen@linux.intel.com, linux-acpi@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-pci@vger.kernel.org, 
+	linux-pm@vger.kernel.org, lukas@wunner.de, mika.westerberg@linux.intel.com, 
+	sakari.ailus@linux.intel.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+On Fri, Sep 4, 2026 at 11:41=E2=80=AFAM Peixin Xie
+<peixin.xie@linux.spacemit.com> wrote:
+>
+> Hi Rafael,
+>
+> On Thu, 03 Sep 2026 18:57:09 +0200, Rafael J. Wysocki wrote:
+> > Hi All,
+> >
+> > This is an update of
+> >
+> > https://lore.kernel.org/linux-acpi/5144065.31r3eYUQgx@rafael.j.wysocki/
+> >
+> > that adds 1 patch, 3 two patches, and addresses review comments in patc=
+h [2/4].
+> >
+> > The new patch drops in v3 is a cleanup relocating the acpi_bus_init_pow=
+er()
+> > declaration to an internal header file in the core ACPI support code (p=
+atch
+> > [3/4]).
+> >
+> > One of the patches dropped from the v2 has been folded into patch [2/4]
+> > and the other two have become cleanups on top of this series that can b=
+e
+> > done later.
+> >
+> > Overall, the series aims at addressing a few issues present in the core=
+ ACPI
+> > device enumeration code, mostly related to the acpi_bus_attach() functi=
+on.
+> >
+> > The first one is that, on some systems, ACPI power management is initia=
+lized
+> > twice for devices that have missing dependencies to start with.  An att=
+empt
+> > to address this issue had been made during the 7.3 merge window, but it=
+ had
+> > to be reverted [1].  The approach used here is roughly the same as in t=
+he
+> > reverted commit, but it takes PCI devices (which are a special case) in=
+to
+> > account.
+> >
+> > In addition to the above, ACPI power management may be initialized prem=
+aturely
+> > for device objects whose parents are not ready for enumeration.
+> >
+> > The other issues are that flags are unnecessarily cleared by acpi_bus_a=
+ttach()
+> > for devices with missing dependencies and PCI devices are handled by
+> > acpi_bus_attach() like any other devices which is a mistake.
+> >
+> > Please see the changelogs of individual patches for details.
+> >
+> > Thanks!
+> >
+> >
+> > Link: https://lore.kernel.org/linux-acpi/20260820-acpi-power-resource-r=
+ef-fix-v2-1-29818173ea13@linux.spacemit.com/ [1]
+>
+> I tested the complete v3 series on the SpacemiT K3 RISC-V Pico-ITX platfo=
+rm
+> where the original duplicate ACPI PowerResource reference issue was
+> observed.
+>
+> The power resource left on by firmware is now turned off as unused after
+> the namespace scan. After the device dependency is satisfied, the power
+> resource is turned on once for the device and is turned off normally
+> during runtime suspend. Runtime resume also works correctly.
+>
+> Tested-by: Peixin Xie <peixin.xie@linux.spacemit.com>
 
-
-On 9/2/26 6:05 PM, Srikar Dronamraju wrote:
-> Coregroup support on powerpc has so far been limited to PowerVM LPARs.
-> However, PowerNV can also support coregroups when firmware exposes the
-> required coregroup information through the associativity hierarchy.
-> 
-
-Existing firmware does expose this info already?
-
-> Detect coregroup support by checking whether primary_domain_index is the
-> penultimate domain in the CPU node's ibm,associativity property. On
-> PowerNV, a non-penultimate primary_domain_index indicates that firmware
-> provides an additional level for coregroup information.
-> 
-> This keeps the logic compatible with PowerVM systems, where
-> primary_domain_index is likewise not the penultimate associativity
-> domain.
-> 
-
-Could you please put the ibm,associativity on this powernv? as well
-PowerVM's so that one understands it better?
-
-> Signed-off-by: Srikar Dronamraju <srikar@linux.ibm.com>
-> ---
-> Changelog from v2:
-> - Handle comments from Ritesh (one hunk needed to be moved from patch 2 to
->    patch 3 to build correctly)
-> 
-> Changelog from v1: https://lkml.kernel.org/r/20260524010017.140408-1-srikar@linux.ibm.com
-> - Handle comments from Christophe Leroy; make code more flat
-> 
->   arch/powerpc/mm/numa.c | 58 ++++++++++++++++++++++++++++++++++--------
->   1 file changed, 48 insertions(+), 10 deletions(-)
-> 
-> diff --git a/arch/powerpc/mm/numa.c b/arch/powerpc/mm/numa.c
-> index 5f326b005a2a..e97b624203ea 100644
-> --- a/arch/powerpc/mm/numa.c
-> +++ b/arch/powerpc/mm/numa.c
-> @@ -889,12 +889,32 @@ static int __init numa_setup_drmem_lmb(struct drmem_lmb *lmb,
->   	return 0;
->   }
->   
-> +/*
-> + * If hierarchy extends beyond primary_domain_index + 1, then next
-> + * level corresponds to coregroup.
-> + */
-> +static int detect_and_enable_coregroup(const __be32 *associativity, int index)
-> +{
-> +	if (!associativity || index == -1)
-> +		goto out;
-> +
-> +	index = of_read_number(associativity, 1);
-> +
-> +	if (index > primary_domain_index + 1) {
-> +		coregroup_enabled = 1;
-> +		return index;
-> +	}
-> +out:
-> +	coregroup_enabled = 0;
-> +	return -1;
-> +}
-> +
->   static int __init parse_numa_properties(void)
->   {
->   	struct device_node *memory, *pci;
-> -	int default_nid = 0;
-> -	unsigned long i;
-> +	int default_nid = 0, index = 0;
->   	const __be32 *associativity;
-> +	unsigned long i;
->   
->   	if (numa_enabled == 0) {
->   		pr_warn("disabled by user\n");
-> @@ -927,7 +947,6 @@ static int __init parse_numa_properties(void)
->   	 */
->   	for_each_present_cpu(i) {
->   		__be32 vphn_assoc[VPHN_ASSOC_BUFSIZE];
-> -		struct device_node *cpu;
->   		int nid = NUMA_NO_NODE;
->   
->   		memset(vphn_assoc, 0, VPHN_ASSOC_BUFSIZE * sizeof(__be32));
-> @@ -935,7 +954,9 @@ static int __init parse_numa_properties(void)
->   		if (__vphn_get_associativity(i, vphn_assoc) == 0) {
->   			nid = associativity_to_nid(vphn_assoc);
->   			initialize_form1_numa_distance(vphn_assoc);
-> +			index = detect_and_enable_coregroup(vphn_assoc, index);
-
-nit: I don't see return value being used.
-
-Other than that, rest looks good to me.
-Reviewed-by: Shrikanth Hegde <sshegde@linux.ibm.com>
-
->   		} else {
-> +			struct device_node *cpu;
->   
->   			/*
->   			 * Don't fall back to default_nid yet -- we will plug
-> @@ -948,6 +969,7 @@ static int __init parse_numa_properties(void)
->   			associativity = of_get_associativity(cpu);
->   			if (associativity) {
->   				nid = associativity_to_nid(associativity);
-> +				index = detect_and_enable_coregroup(associativity, index);
->   				initialize_form1_numa_distance(associativity);
->   			}
->   			of_node_put(cpu);
-> @@ -1445,7 +1467,9 @@ static long vphn_get_associativity(unsigned long cpu,
->   
->   int cpu_to_coregroup_id(int cpu)
->   {
-> -	__be32 associativity[VPHN_ASSOC_BUFSIZE] = {0};
-> +	int coregroup_id = cpu_to_core_id(cpu);
-> +	struct device_node *cpunode = NULL;
-> +	const __be32 *associativity;
->   	int index;
->   
->   	if (cpu < 0 || cpu > nr_cpu_ids)
-> @@ -1454,17 +1478,31 @@ int cpu_to_coregroup_id(int cpu)
->   	if (!coregroup_enabled)
->   		goto out;
->   
-> -	if (!firmware_has_feature(FW_FEATURE_VPHN))
-> -		goto out;
-> +	if (firmware_has_feature(FW_FEATURE_VPHN)) {
-> +		__be32 tmp[VPHN_ASSOC_BUFSIZE] = {0};
->   
-> -	if (vphn_get_associativity(cpu, associativity))
-> +		if (vphn_get_associativity(cpu, tmp))
-> +			goto out;
-> +
-> +		associativity = tmp;
-> +
-> +	} else {
-> +		cpunode = of_get_cpu_node(cpu, NULL);
-> +		if (!cpunode)
-> +			goto out;
-> +
-> +		associativity = of_get_associativity(cpunode);
-> +	}
-> +	if (!associativity)
->   		goto out;
->   
->   	index = of_read_number(associativity, 1);
->   	if (index > primary_domain_index + 1)
-> -		return of_read_number(&associativity[index - 1], 1);
-> +		coregroup_id = of_read_number(&associativity[index - 1], 1);
->   
->   out:
-> -	return cpu_to_core_id(cpu);
-> -}
-> +	if (cpunode)
-> +		of_node_put(cpunode);
->   
-> +	return coregroup_id;
-> +}
-
+Thank you!
