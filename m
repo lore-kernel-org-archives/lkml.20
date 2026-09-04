@@ -1,210 +1,73 @@
-Received: from mx0a-00364e01.pphosted.com (mx0a-00364e01.pphosted.com [148.163.135.74])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1A81517BA3
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 22:35:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.135.74
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0BF54E80BF
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 22:35:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788561315; cv=none; b=uLLbHxwjhbQvkmqH36zI3iUmazlMK929/UfdYNp8q88iiPapCriwa7h71e17Qj+5Gfn2m1GvGPoCFLIL0Lq62suI6qzVWUVq2cFhNiG8nOjy5d9fZOcvYSm48dJxVbXwzbPGiVCk686rImoa3DwvyUfArpiKsiuKzn7rr+S6/mg=
+	t=1788561323; cv=none; b=qY5Xuc9cM7DoZUkq4IiL9TGICm/QMMgyYFfFQlA4liJGoCCPPxzHpNSv88bz4uAEz/qFsTtxSpaA6leVUNLcrnUQvSkyWjVonGByu62j2Vz2GcZ5qjENyFyeeWGnZUKGHbVXHskIUJWYqGcTyQ9h8ryMWNTWILcGJmMhypYf3HQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788561315; c=relaxed/simple;
-	bh=DA84oxU3rQPrvSsuP6rsi2zMphGkpHQDobH17fbWDNc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=YMxPaiPfb50SlIDCikAAaJyjoLiNY2SUuSUQnRFuvKs8RxGOLWBq0cmUW+zGkIkYrvxdi51qvWwgN9PkSJrElM6lKl1Q/9ccENBWJvoYENhcgQqOH7krjH1a1A6LzUaLScQg3QUuTt2CZ+5Tx28mX3vNEo0btHxF/GtsgAYvd54=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=columbia.edu; spf=pass smtp.mailfrom=columbia.edu; dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b=OM83EIbe; dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b=p4AhNWtA; arc=none smtp.client-ip=148.163.135.74
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=columbia.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=columbia.edu
+	s=arc-20240116; t=1788561323; c=relaxed/simple;
+	bh=8yr9KhiXPz+7kpFmn7dNCSjKVXIx4oNAi3Rj5/0r0S0=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=jGL20vRT2HaxfkZRPEKnvsKAazRvWeRqSdzZVhPijY4dYAA1i89B/2N3sN2UDdrUGfdQPAtSy0TKB3RAF13/Ge2yglPZfe3JQNSv3QqRRQA9x9MF3wt94drqgxFSS3FrQD6HmVRDGLHJd4LqQlf1s0bQtjGBY1b0n1BP+6CrXrU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=S1cNquca; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b="OM83EIbe";
-	dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b="p4AhNWtA"
-Received: from pps.filterd (m0167068.ppops.net [127.0.0.1])
-	by mx0a-00364e01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 684MXuuC3598371
-	for <linux-kernel@vger.kernel.org>; Fri, 4 Sep 2026 18:35:12 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=columbia.edu; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pps01; bh=NS3I
-	WLMNep/DrvoibIPUp7dIa6zL29X7BYhj1p+bdp0=; b=OM83EIbeyrJBmKFxiBn7
-	95BjxB368qVNGNObkjZ85O1d248QOiUYlzhhJJep+Gt6Hi2B8Fzo7oVG64eJc/tj
-	zbc2s9qp5g61Kxn9jIQmS3ffGdAlGQCLFIZHun44tpLrXKQNNfvb8FNBH5XRYio2
-	Z0cVo9Dhz5NYwVILy/CkqWJ4AHXPq0IB3wvtxsLVRMEl30S7UHiN5mLrnAZYCkPg
-	El3m/66187L/MxMuSPzMn+/WT6GRdkqqrMx3xhVwRJ1iy26arqEVzNfdiHL4NoDp
-	xnLYfSKwSetCrD1jSwhPGIAgpUmWjZfBSh9+fhBno0Kz/ApUcGuNj1MCJ7bpAC3u
-	VQ==
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
-	by mx0a-00364e01.pphosted.com (PPS) with ESMTPS id 4gg0a83krg-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 18:35:11 -0400 (EDT)
-Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-92e5e38fbc5so253211085a.2
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 15:35:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=columbia.edu; s=lionmail; t=1788561311; x=1789166111; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=NS3IWLMNep/DrvoibIPUp7dIa6zL29X7BYhj1p+bdp0=;
-        b=p4AhNWtAX8wTG5vcPeNMdAcvakpQAgw5k6QYrC1/brPsb0ngW6tTBFeahesat9odxP
-         3/CeRuSUVwltWS+YmhVbW32ySRK+wgeoOP1mAg5qJNFADd22/RTTdMNo4WY+nsgFcy3r
-         tIM/Lc66jspSRsVFs4xxPN+Iyz68ZXTVepvBh/ovG2zevFudQ6nymIw3vOLr+xw+dd+A
-         EMIVdCQHwdZQI0YqVYI0xQPp60no3jNtSJVJQMeZMMAwOv+upZeY/nwE2mtrIFqpUx++
-         99tApD++TY7WQocdN+Vb/ljMdRb2f+sL2dbkP2mxUEqvWoG27jkwA13Ty0hfNuxG3/9t
-         MyHQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788561311; x=1789166111;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=NS3IWLMNep/DrvoibIPUp7dIa6zL29X7BYhj1p+bdp0=;
-        b=G146GyxbtwRZ2pvqz6C2OoKEJ4LPVZkT5MSvFOOJUf+B02/4Jqosy8O88bBut8zyUM
-         OzGWaH2OX0Ze5aeVfqoOikatSIQgC+bHvTTe92DNIfvrYPD7WuYxovABSDKmcHQiGaLC
-         cjPtIjPQW8tXr4KPihGCy2Wgsl/x3pGiotd0i7c9vqE+rKDGOzDhW8VNjKFR9yXJ6FPt
-         7tVzUB1BzyLsaWhVaxvaTR6VaRDnnTLU2e/5R5n+BOmw3jfDd68BEtaECKH44OVXxn7j
-         Fuef+H1NtlzvHfT4fORk38IJqvqCLqG9/Y4Tj4ITI8/agkMM54jyRu4/whSiX5x+8cqn
-         L8+w==
-X-Forwarded-Encrypted: i=1; AKwUvBxUOW44SGW03XLvyJOpb3u6utfwORaTZS7TitFgf+kYOoGfFvUfV99BdyQ6jFrSuSUEtdKxWZ+YZ2nHkQ4=@vger.kernel.org
-X-Gm-Message-State: AFuF++mmY843ZbCWqqpMpm7CRomlC3IZC+jE/WjzHHxt1RlW0XU2R4jg
-	3YKoGmmB2wxO0nhpIbvTw7/xBb/OekNuM//3K+woiWggzqEk8+cxzRuGu2pTxfwimzV3tfE14x8
-	Aa9PGTAEMkZn0E62WmcRmrHGvMQe+tzW8xZVzrTmbvYx0KLRl0PFS2+x83Ei6Vg==
-X-Gm-Gg: AYBFou0mqL1HUZoHvCZo3rSSBisyklezqaYylG51pZz2sYFMbu5m5+5qK9f3hGPgju0
-	MYvy8OeqpVCFfkF5fM5te2hmlfw3UcDv4eVzxafH95kmSdPjpOhwF2JvJ4KRt3U7dqH/ciCzrZh
-	HDshvbIfzTOzVuI655/nWnhPT4sIBo/I2aGZleH2Cm02SaTSrlqnv3xuPqfxn6PHJPF1Mtoe2Mq
-	sLQNzTr4LHwB3Z+b7GxPZfyymBpVqaaIYd417zpTvS5LWHFRo0cGaFPPkbc9zhPhLboiTxzaFHE
-	g+D8fapzAvrl1YUsDlKI1SKmJFUSjr5McwrlfqaR6xJnLzhMOCc9EpUvRahlILHEGEBjtRJwkEC
-	VfrS6WdvFdZr1BHX8FI8cChHMfTTddS+UitzhQsORrn810QtDqXl4
-X-Received: by 2002:a05:620a:44c3:b0:939:8905:ce9b with SMTP id af79cd13be357-9398905d927mr531684585a.17.1788561310786;
-        Fri, 04 Sep 2026 15:35:10 -0700 (PDT)
-X-Received: by 2002:a05:620a:44c3:b0:939:8905:ce9b with SMTP id af79cd13be357-9398905d927mr531679985a.17.1788561310278;
-        Fri, 04 Sep 2026 15:35:10 -0700 (PDT)
-Received: from [10.207.49.22] (nat-128-59-177-158.net.columbia.edu. [128.59.177.158])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91040664be1sm31193686d6.18.2026.09.04.15.35.09
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 04 Sep 2026 15:35:09 -0700 (PDT)
-Message-ID: <789e5449-fc8b-4ef4-9571-26abd514681b@columbia.edu>
-Date: Fri, 4 Sep 2026 18:35:09 -0400
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="S1cNquca"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A92CB1F01558
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 22:35:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788561321;
+	bh=cjShX4oY7YbHcAVM4iaZJGTrGB0SElIHdue6RXDVlyE=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=S1cNqucaFHW6mj1AqtTBLFjH4Cf6LX5zm/BOYie6CBytNUQRVA+DFOwR+bf8ajugM
+	 5WxLAOBcHTa1qrIPmBbZ2Y5WjEKx7z1vltSxkB/Mtwn+7kANpK+2zJLQZIIxMKup6u
+	 qfGglqjzGDhAY1fmIqFMZSVmnzXb2KLlOE9fsbormEscl/1/PpOmnAnNHJUIFl5ckN
+	 E9jPBLynaz+haC7aPqJgw2QuY9UmDNTOWxkJ3l9eo1od2a26CQvs/J1+AF1Da24BnM
+	 3ckO8IpojGE+yYGzbQ34mObs8x4CsfbSFj00+x3SSRUlr5SFpwgzWwL/QElS8/rRs1
+	 F8WF4ng8vY7hQ==
+Received: by mail-lf1-f43.google.com with SMTP id 2adb3069b0e04-5b5e5ab03afso1309657e87.3
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 15:35:21 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBxo5YGgCGiADqjeESIupiBtIAgM0ksvZi3PbkD8g0Sjfu/uI8yKa1M4jVNzniz7YPYZtExjZIOFYc/Hk8c=@vger.kernel.org
+X-Gm-Message-State: AFuF++n65F2HYzMAinZmx1cvNVePGRv/RNc0oLAyVtkU9mJH0Je6+pWR
+	Fs6Pxav5SIo7jIqP9pncUCbMdlxyFhyMfiD/Y5KVv/MOdORL05HdMlTfcRkam9JuUwrUWfYA82F
+	ZVViUYWUMldwTfdbm/wkB6wSbFwFP9uI=
+X-Received: by 2002:a05:6512:124d:b0:5b6:1a7c:fd93 with SMTP id
+ 2adb3069b0e04-5b61a7cfe67mr1005642e87.57.1788561320389; Fri, 04 Sep 2026
+ 15:35:20 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 1/2] f2fs: complete dropbehind write bios in task
- context
-To: Wenjie Qi <qwjhust@gmail.com>, jaegeuk@kernel.org, chao@kernel.org
-Cc: linux-f2fs-devel@lists.sourceforge.net, linux-kernel@vger.kernel.org,
-        hch@lst.de, jack@suse.cz, axboe@kernel.dk, baohua@kernel.org,
-        linux-block@vger.kernel.org, linux-fsdevel@vger.kernel.org,
-        linux-mm@kvack.org, qiwenjie@xiaomi.com
-References: <cover.1788438786.git.qiwenjie@xiaomi.com>
- <c4e69fb1ffd6c6fd968683c690ba29f2b98c9fa8.1788438786.git.qiwenjie@xiaomi.com>
-Content-Language: en-US
-From: Tal Zussman <tz2294@columbia.edu>
-In-Reply-To: <c4e69fb1ffd6c6fd968683c690ba29f2b98c9fa8.1788438786.git.qiwenjie@xiaomi.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA0MDIwOSBTYWx0ZWRfXye8VUTVNs78l
- QVAD02SmerboezlCnhgSHZIMrsC/mWA8YzVPZR5NmBXx79YUpUanBjRshypVtgVhWCnRnul7hpQ
- sqTpD0uEK8ID/tMuFZDOSfRA8oFyoba9126OPhXtyW+WhM0VhA5O
-X-Proofpoint-GUID: x_3E3EkED2IMHFNJsKICywH0ZIozh2lt
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA0MDIwOSBTYWx0ZWRfX4IO9PjjZpEUF
- Q3VZxp7knWjagKiii3vUXsUPVufwogTWbAPrP4lseurSTz18Kq53k5ytpXUH5o45hb13PCkKv0t
- ST3sgQk/UNUiQ/zIBVYJxPOiBbkR4SSLnore7L7X881rTCsotDrkILy36pHmT2rLhDZrLCZlmIQ
- FXUsBpISJvynV9oBaUtqBMZlhLEpJpNUZ9OZMMvQdXT6YNGxEhzPtSb+82VumEU7bNMm4mjqxiM
- 3F/oGmc1fqlbwktuRoxH/dkJBcLHOdHGk4m4p6w3uFdtrTHLytx++z8YP+VJpbmtrEPfOUzUZev
- hp6PyJ7mvUZLqLB2fut0wv39li1L0q3DCqjRC/sjMfdVQPOuTcEit2TniwaPjv65iQqLmK7JzYy
- WxMZUkAqRPj0dQJDA+KNrSX7TbBwyYQgNDaORQMmZkCoAYz2lMtUXHP14Sb/pe1ff6QJriICt07
- cSNOHov37AYRfiaCbQA==
-X-Proofpoint-ORIG-GUID: x_3E3EkED2IMHFNJsKICywH0ZIozh2lt
-X-Authority-Analysis: v=2.4 cv=MZpcfZ/f c=1 sm=1 tr=0 ts=6a9b479f cx=c_pps
- a=qKBjSQ1v91RyAK45QCPf5w==:117 a=tLges04aSNaZGVAfhBIy2A==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=x7bEGLp0ZPQA:10 a=A0y_DWxS2BwA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=Da8U98TiO7q1upZEImrf:22 a=usPcmh10W0ubT8QP8_c3:22
- a=IeNN-m2dAAAA:8 a=r4jUT_wghbJ-rGNBW1sA:9 a=QEXdDO2ut3YA:10
- a=NFOGd7dJGGMPyQGDc5-O:22
-X-Proofpoint-Virus-Version: vendor=nai engine=6900 definitions=11896
- signatures=596817
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=10 spamscore=0 malwarescore=0 phishscore=0 impostorscore=10
- clxscore=1015 suspectscore=0 priorityscore=1501 adultscore=0
- lowpriorityscore=10 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2609040209
+References: <20260904115917.13695-1-hemanth.selam@gmail.com>
+In-Reply-To: <20260904115917.13695-1-hemanth.selam@gmail.com>
+From: Linus Walleij <linusw@kernel.org>
+Date: Sat, 5 Sep 2026 00:35:07 +0200
+X-Gmail-Original-Message-ID: <CAD++jLk6Z-xuq0G9+f_P7q6d=Ztb237FVNO_FOVn=vq0EgFp6g@mail.gmail.com>
+X-Gm-Features: AcwNN1WkiKWdoB-SHKS8eBdhTV4jKHtcnkd7zW72aQm4tmI1VLdCqZKMV8LqvFc
+Message-ID: <CAD++jLk6Z-xuq0G9+f_P7q6d=Ztb237FVNO_FOVn=vq0EgFp6g@mail.gmail.com>
+Subject: Re: [PATCH] net: cortina: fix typo "trigged" in comment
+To: Hemanth Selam <hemanth.selam@gmail.com>
+Cc: Hans Ulli Kroll <ulli.kroll@googlemail.com>, Andrew Lunn <andrew+netdev@lunn.ch>, 
+	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, linux-kernel@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, netdev@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 9/3/26 3:59 PM, Wenjie Qi wrote:
-> Buffered RWF_DONTCACHE writes invalidate dropbehind folios at writeback
-> completion. Mark these bios BIO_COMPLETE_IN_TASK so the block layer runs
-> F2FS completion in task context when needed.
-> 
-> Use the same flag to keep normal and dropbehind folios from merging in the
-> IPU and OPU paths. Classify the original page-cache folio rather than an
-> encrypted or compressed replacement folio.
-> 
-> Keep the existing large-ATC completion path unchanged.
-> 
-> Signed-off-by: Wenjie Qi <qiwenjie@xiaomi.com>
-> ---
->   fs/f2fs/data.c | 18 +++++++++++++++---
->   1 file changed, 15 insertions(+), 3 deletions(-)
-> 
-> diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
-> index 21f396ebe22..b0fedacfd12 100644
-> --- a/fs/f2fs/data.c
-> +++ b/fs/f2fs/data.c
-> @@ -503,6 +503,8 @@ static struct bio *__bio_alloc(struct f2fs_io_info *fio, int npages)
->   	bio = bio_alloc_bioset(bdev, npages,
->   				fio->op | fio->op_flags | f2fs_io_flags(fio),
->   				GFP_NOIO, &f2fs_bioset);
-> +	if (!is_read_io(fio->op) && folio_test_dropbehind(fio->folio))
-> +		bio_set_flag(bio, BIO_COMPLETE_IN_TASK);
->   	bio->bi_iter.bi_sector = sector;
->   	if (is_read_io(fio->op)) {
->   		bio->bi_end_io = f2fs_read_end_io;
-> @@ -793,6 +795,13 @@ static bool page_is_mergeable(struct f2fs_sb_info *sbi, struct bio *bio,
->   	return bio->bi_bdev == f2fs_target_device(sbi, cur_blkaddr, NULL);
->   }
->   
-> +static bool f2fs_bio_dropbehind_mergeable(struct bio *bio,
-> +					  struct f2fs_io_info *fio)
-> +{
-> +	return bio_flagged(bio, BIO_COMPLETE_IN_TASK) ==
-> +		folio_test_dropbehind(fio->folio);
-> +}
-> +
+On Fri, Sep 4, 2026 at 1:59=E2=80=AFPM Hemanth Selam <hemanth.selam@gmail.c=
+om> wrote:
 
-So I'm admittedly not very familiar with f2fs, but why is it necessary
-to prevent merging here? For iomap, we concluded that merging was fine,
-as it just results in some extra folios getting resolved in task context
-(see commit efbde6f9f449 ("iomap: use BIO_COMPLETE_IN_TASK for dropbehind
-writeback")).
+> Correct "trigged" to "triggered", reported by scripts/checkpatch.pl using
+> the misspelling list in scripts/spelling.txt.  Only touches comments, no
+> code changes.
+>
+> Assisted-by: Cursor:claude-opus-5
+> Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
 
->   static bool io_type_is_mergeable(struct f2fs_bio_info *io,
->   						struct f2fs_io_info *fio)
->   {
-> @@ -985,8 +994,10 @@ int f2fs_merge_page_bio(struct f2fs_io_info *fio)
->   
->   	trace_f2fs_submit_folio_bio(data_folio, fio);
->   
-> -	if (bio && !page_is_mergeable(fio->sbi, bio, *fio->last_block,
-> -						fio->new_blkaddr))
-> +	if (bio &&
-> +	    (!page_is_mergeable(fio->sbi, bio, *fio->last_block,
-> +				fio->new_blkaddr) ||
-> +	     !f2fs_bio_dropbehind_mergeable(bio, fio)))
->   		f2fs_submit_merged_ipu_write(fio->sbi, &bio, NULL);
->   alloc_new:
->   	if (!bio) {
-> @@ -1086,7 +1097,8 @@ void f2fs_submit_page_write(struct f2fs_io_info *fio)
->   	    (!io_is_mergeable(sbi, io->bio, io, fio, io->last_block_in_bio,
->   			      fio->new_blkaddr) ||
->   	     !f2fs_crypt_mergeable_bio(io->bio, fio_inode(fio),
-> -				bio_folio->index, fio)))
-> +				bio_folio->index, fio) ||
-> +	     !f2fs_bio_dropbehind_mergeable(io->bio, fio)))
->   		__submit_merged_bio(io);
->   alloc_new:
->   	if (io->bio == NULL) {
-> -- 
-> 2.43.0
-> 
+Reviewed-by: Linus Walleij <linusw@kernel.org>
 
+Yours,
+Linus Walleij
