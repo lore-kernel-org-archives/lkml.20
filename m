@@ -1,216 +1,113 @@
-Received: from mx.prosyst.ru (m2.prosoftsystems.ru [46.48.77.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF83B357CFE;
-	Fri,  4 Sep 2026 06:36:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=46.48.77.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 218CD417BCA;
+	Fri,  4 Sep 2026 06:37:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788503767; cv=none; b=aoQJDAbqfIJR3tJygyFB/PToPtrK3mhAFtkFPtF81BVraidfpnueE6tw3WJy4d4J9yhCdt7iGTai5Cnc6XqkiraGuzFEczrFH5ZjnfEE0Z5wLBo8oylE6IGFAFYPy96Kp1m+8fYpGMbju4Un3VsG3/kwgiTQ5HU5TDAh1okJ3Ag=
+	t=1788503854; cv=none; b=aCuC+JjAyxdkSXHa6HJDmMDFq4KcAJh9N2ZQGTVbF49+J8ScaN/bykl0VRQ2uV1ORfvvtOqnFlBYvdQJhKt40O4GT91Rv4rEk8qJVFRVQXOLnVb/ivfc/4WcRfKx6Upki3Q5tzujq2icGjJ6yi7f5FIWuSeE9OG6i3odDFW14Fk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788503767; c=relaxed/simple;
-	bh=Sr5z2khyE7oxPP8N1SJ67rnrsXky8jvMj7M8fTXvjgM=;
-	h=Content-Type:From:To:CC:Subject:Date:Message-ID:References:
-	 In-Reply-To:MIME-Version; b=IBb3QvOjTkOflSjCmDWsCZ/Gbo/4RzTptI6Pu8tB5aMf17SQuO3DAav5y8Lx51F7O6HwVXDHnGKY6Q6w8i70JtYBZATXtsLsq3Jd80xKTGK1OmXRwFby+74mNgW+vDb6ITymu4ekMs4NSZoZKgOI6oc8DG2bxWXW4UrGtVkY5jc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=prosoftsystems.ru; spf=pass smtp.mailfrom=prosoftsystems.ru; dkim=pass (2048-bit key) header.d=prosoftsystems.ru header.i=@prosoftsystems.ru header.b=aFySTzou; arc=none smtp.client-ip=46.48.77.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=prosoftsystems.ru
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=prosoftsystems.ru
+	s=arc-20240116; t=1788503854; c=relaxed/simple;
+	bh=Lyt4zTkns9ZnJm6rJ92Xc3dxZ6ixSlqnxUSLVKnW5rM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=jks7wH5pDGAOW1lBYWvRYZ0VeuZHoRRIQZQM53LP8NwwW0unYxZW0qYgojq3d4iprMGnOPd3HuwW4kEI1BrBxllVUhTn5nqX1bG7VW+wkJTdsguMazuVFSaLXgTNq1pLb7hAqTpRyy0jl305PeuoQpJ3YhhEDY0/boCZ8kuRrh8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EVD8kQi9; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=prosoftsystems.ru header.i=@prosoftsystems.ru header.b="aFySTzou"
-Content-Language: ru-RU
-Content-Type: text/plain; charset="koi8-r"
-Content-Transfer-Encoding: quoted-printable
-DKIM-Signature: v=1; a=rsa-sha256; d=prosoftsystems.ru; s=ps;
-	c=relaxed/relaxed; t=1788503692; h=from:to:date:message-id:subject;
-	bh=Xb2AMWxTPtB43313I9f0fpt4Huw3RGfytDf9R/zyYIc=;
-	b=aFySTzouKlw4mOWq9su+gnpjGu+jnbl3OSMkYI/CSSQMXyQequHRX8VpVoOWBxpUTPLS4wEL5mb
-	E8JQOTT8a/030WRub9HK+UY7ayy003g50BW8KypxEEL/Cbp1kTXPiOWGXSuRDq5vSnacrOtpLussf
-	1oSgfWrlEwpWXXp2x6M9a+zM3J6dppdCkTJ+u5+pSs+Cycql3b1Vvk5J7570yWEcXdfFAIRax0dVn
-	ibAu9L9Ih48WZZrdoSlKvmOL5PH5J6VfLW4yy9HIVh07/MLtSLDAK9vKvloayI8xU1XdKyXtmPrqn
-	FnFdfsfb6cGyrrvhYDGLkg1XfFhEU9ksN8mg==
-Received: from echo-2.prosoft.ural.ru (172.21.245.22) by mx.prosoftsystems.ru
- (172.21.240.33) with Microsoft SMTP Server (TLS) id 15.1.396.30; Fri, 4 Sep
- 2026 11:34:51 +0500
-Received: from echo-2.prosoft.ural.ru (172.21.245.22) by
- echo-2.prosoft.ural.ru (172.21.245.22) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1748.39; Fri, 4 Sep 2026 11:34:52 +0500
-Received: from echo-2.prosoft.ural.ru ([fe80::8f12:4f85:56d8:13ed]) by
- echo-2.prosoft.ural.ru ([fe80::8f12:4f85:56d8:13ed%17]) with mapi id
- 15.02.1748.039; Fri, 4 Sep 2026 11:34:52 +0500
-From: =?koi8-r?B?9sHNwsHLycXXIPLBxMnKIPLJy8HSxMnOz9fJ3g==?=
-	<r.zhambakiev@prosoftsystems.ru>
-To: Aaro Koskinen <aaro.koskinen@iki.fi>
-CC: =?koi8-r?B?9sHNwsHLycXXIPLBxMnKIPLJy8HSxMnOz9fJ3g==?=
-	<r.zhambakiev@prosoftsystems.ru>, Andreas Kemnade <andreas@kemnade.info>,
-	Kevin Hilman <khilman@baylibre.com>, Roger Quadros <rogerq@kernel.org>, "Tony
- Lindgren" <tony@atomide.com>, Lee Jones <lee@kernel.org>, Marcin Niestroj
-	<m.niestroj@grinn-global.com>, Grygorii Strashko <grygorii.strashko@ti.com>,
-	"linux-omap@vger.kernel.org" <linux-omap@vger.kernel.org>,
-	"mfd@lists.linux.dev" <mfd@lists.linux.dev>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, "lvc-project@linuxtesting.org"
-	<lvc-project@linuxtesting.org>, "stable@vger.kernel.org"
-	<stable@vger.kernel.org>
-Subject: [PATCH v3 3/3] mfd: tps65217: Use devres for IRQ domain and wake
- teardown
-Thread-Topic: [PATCH v3 3/3] mfd: tps65217: Use devres for IRQ domain and wake
- teardown
-Thread-Index: AQHdPDd9oXVGJ4sCjkm3Fq1ZVn5vTQ==
-Date: Fri, 4 Sep 2026 06:34:52 +0000
-Message-ID: <20260904063439.69881-4-r.zhambakiev@prosoftsystems.ru>
-References: <20260904063439.69881-1-r.zhambakiev@prosoftsystems.ru>
-In-Reply-To: <20260904063439.69881-1-r.zhambakiev@prosoftsystems.ru>
-Accept-Language: ru-RU, en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EVD8kQi9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 95E421F00A3D;
+	Fri,  4 Sep 2026 06:37:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788503852;
+	bh=YAopYbtE/Hwbe+f9dG8ogCM4RF9pPvDArMRzyY6VlZk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=EVD8kQi9541B9gB8iwLMxbNn0hTIyrYC7WZYV9fELRIEBDpbP3R16kT7MgaLIyLFB
+	 /6QtjpaSLE1ivp2QwGCCLxiqGW3En9gWZ3ibRvqXxFv1yOM6oytc42F1A0aqKxmOY9
+	 yndVDpJGN2lYOCudePgn+o/po73UzNn3HD2DRtwTqiIJ0EAVjA9MXi25iFPxDAK8wW
+	 ePK/iBziEyzIr8DbguFiUZbzy007KxJZeX6dEX5q4HMKaxbTmY72igvoiw9buc4Ekx
+	 pjeShEy2FWSlqBhP1wimBaxi/jf4qdAi/7he+r50Wpl6Ea9VgQAMxknEDoMMZ2LKZA
+	 M6CAB3UPp0r5Q==
+Date: Thu, 3 Sep 2026 20:37:31 -1000
+From: Tejun Heo <tj@kernel.org>
+To: Hui Su <sh_def@163.com>
+Cc: Ingo Molnar <mingo@redhat.com>, Peter Zijlstra <peterz@infradead.org>,
+	Juri Lelli <juri.lelli@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	Michal Koutny <mkoutny@suse.com>,
+	Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
+	Valentin Schneider <vschneid@redhat.com>,
+	K Prateek Nayak <kprateek.nayak@amd.com>,
+	John Stultz <jstultz@google.com>, cgroups@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] sched: Account cgroup CPU time to the execution
+ context
+Message-ID: <appnKwylGK3QUIJ3@slm.duckdns.org>
+References: <20260904034707.268416-1-sh_def@163.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260904034707.268416-1-sh_def@163.com>
 
-From: Radiy Zhambakiev <r.zhambakiev@prosoftsystems.ru>
+On Fri, Sep 04, 2026 at 11:47:07AM +0800, Hui Su wrote:
+> Proxy execution separates the scheduling context from the execution
+> context. Commit aa4f74dfd42b ("sched: Fix runtime accounting w/ split
+> exec & sched contexts") made per-task and thread-group runtime
+> accounting follow the task that actually executes, while cgroup CPU
+> usage is charged to the donor.
+> 
+> When the donor and execution task belong to different cgroups, this
+> makes a task's execution time count against a different cgroup from the
+> one the task belongs to.
+> 
+> Cgroup CPU usage should follow the execution context, matching the
+> per-task, thread-group, and cgroup user/system accounting. Keep
+> scheduling state associated with the donor, but charge cgroup CPU
+> usage to rq->curr.
+> 
+> A reproducer with the donor and execution task in separate cgroups
+> showed the execution task accumulating runtime while cgroup CPU usage
+> was charged to the donor's cgroup. With this change, the execution
+> task's cgroup accumulates the CPU usage instead. The same behavior was
+> verified with an RT donor and with legacy cpuacct accounting.
+> 
+> Fixes: aa4f74dfd42b ("sched: Fix runtime accounting w/ split exec & sched contexts")
+> Suggested-by: Tejun Heo <tj@kernel.org>
+> Signed-off-by: Hui Su <sh_def@163.com>
 
-Removing the parent device used to tear the IRQ domain down in
-tps65217_remove() before the MFD children are unbound: the i2c core
-only releases the parent's devres after the remove callback returns,
-whereas devm_mfd_add_devices() registered its own devres action which
-unbinds the children. Children that requested interrupts from the
-domain (e.g. tps65217-charger) therefore call free_irq() on virtual
-IRQs whose descriptors have already been disposed. With
-CONFIG_SPARSE_IRQ free_irq() then returns early without stopping the
-threaded handler, leaking the irqaction, the IRQ kthread and a module
-reference.
+Provided John is okay with going this way:
 
-Register the domain teardown as a devres action right after the domain
-is created instead. Devres actions are released in reverse order of
-registration, so the MFD children release their IRQs first, then the
-parent interrupt is freed and its thread stopped, and only then is the
-domain torn down. The same ordering covers probe failure, which no
-longer needs manual cleanup, and the remove callback can be dropped
-entirely.
+Acked-by: Tejun Heo <tj@kernel.org>
 
-Balance the enable_irq_wake() in tps65217_irq_init() by registering
-disable_irq_wake() as a devres action as well. Only do so when
-enabling actually succeeded, since the parent chip may not support
-setting wake-up.
+> diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
+> index 8dff37059faf..6fcf67d741e8 100644
+> --- a/kernel/sched/fair.c
+> +++ b/kernel/sched/fair.c
+> @@ -1404,7 +1404,6 @@ static s64 update_se(struct rq *rq, struct sched_entity *se)
+>  
+>  	se->exec_start = now;
+>  	if (entity_is_task(se)) {
+> -		struct task_struct *donor = task_of(se);
+>  		struct task_struct *running = rq->curr;
+>  		/*
+>  		 * If se is a task, we account the time against the running
+> @@ -1417,8 +1416,7 @@ static s64 update_se(struct rq *rq, struct sched_entity *se)
+>  		account_group_exec_runtime(running, delta_exec);
+>  		account_mm_sched(rq, running, delta_exec);
+>  
+> -		/* cgroup time is always accounted against the donor */
+> -		cgroup_account_cputime(donor, delta_exec);
+> +		cgroup_account_cputime(running, delta_exec);
 
-Fixes: 6556bdacf646fcaa ("mfd: tps65217: Add support for IRQs")
-Cc: stable@vger.kernel.org
-Signed-off-by: Radiy Zhambakiev <r.zhambakiev@prosoftsystems.ru>
----
- drivers/mfd/tps65217.c | 68 +++++++++++++++++++++++++++++++-----------
- 1 file changed, 50 insertions(+), 18 deletions(-)
+The diff looks so much better.
 
-diff --git a/drivers/mfd/tps65217.c b/drivers/mfd/tps65217.c
-index 9a1528456ffc..2d799b60c79b 100644
---- a/drivers/mfd/tps65217.c
-+++ b/drivers/mfd/tps65217.c
-@@ -146,6 +146,36 @@ static const struct irq_domain_ops tps65217_irq_domain=
-_ops =3D {
- 	.map =3D tps65217_irq_map,
- };
-=20
-+static void tps65217_irq_cleanup(struct tps65217 *tps)
-+{
-+	unsigned int virq;
-+	int i;
-+
-+	if (!tps->irq_domain)
-+		return;
-+
-+	for (i =3D 0; i < TPS65217_NUM_IRQ; i++) {
-+		virq =3D irq_find_mapping(tps->irq_domain, i);
-+		if (virq)
-+			irq_dispose_mapping(virq);
-+	}
-+
-+	irq_domain_remove(tps->irq_domain);
-+	tps->irq_domain =3D NULL;
-+}
-+
-+static void tps65217_domain_release(void *data)
-+{
-+	struct tps65217 *tps =3D data;
-+
-+	tps65217_irq_cleanup(tps);
-+}
-+
-+static void tps65217_irq_wake_disable(void *data)
-+{
-+	disable_irq_wake((unsigned int)(unsigned long)data);
-+}
-+
- static int tps65217_irq_init(struct tps65217 *tps, int irq)
- {
- 	int ret;
-@@ -170,6 +200,16 @@ static int tps65217_irq_init(struct tps65217 *tps, int=
- irq)
- 		return -ENOMEM;
- 	}
-=20
-+	/*
-+	 * Devres actions are released in reverse order of registration,
-+	 * so the domain is torn down after the parent interrupt and the
-+	 * MFD children, which are registered later in probe, have
-+	 * released their IRQs.
-+	 */
-+	ret =3D devm_add_action_or_reset(tps->dev, tps65217_domain_release, tps);
-+	if (ret)
-+		return ret;
-+
- 	ret =3D devm_request_threaded_irq(tps->dev, irq, NULL,
- 					tps65217_irq_thread, IRQF_ONESHOT,
- 					"tps65217-irq", tps);
-@@ -179,7 +219,16 @@ static int tps65217_irq_init(struct tps65217 *tps, int=
- irq)
- 		return ret;
- 	}
-=20
--	enable_irq_wake(irq);
-+	ret =3D enable_irq_wake(irq);
-+	if (ret) {
-+		dev_warn(tps->dev, "failed to enable IRQ wake: %d\n", ret);
-+	} else {
-+		ret =3D devm_add_action_or_reset(tps->dev,
-+				tps65217_irq_wake_disable,
-+				(void *)(unsigned long)irq);
-+		if (ret)
-+			return ret;
-+	}
-=20
- 	return 0;
- }
-@@ -380,22 +429,6 @@ static int tps65217_probe(struct i2c_client *client)
- 	return 0;
- }
-=20
--static void tps65217_remove(struct i2c_client *client)
--{
--	struct tps65217 *tps =3D i2c_get_clientdata(client);
--	unsigned int virq;
--	int i;
--
--	for (i =3D 0; i < TPS65217_NUM_IRQ; i++) {
--		virq =3D irq_find_mapping(tps->irq_domain, i);
--		if (virq)
--			irq_dispose_mapping(virq);
--	}
--
--	irq_domain_remove(tps->irq_domain);
--	tps->irq_domain =3D NULL;
--}
--
- static const struct i2c_device_id tps65217_id_table[] =3D {
- 	{"tps65217", TPS65217},
- 	{ /* sentinel */ }
-@@ -409,7 +442,6 @@ static struct i2c_driver tps65217_driver =3D {
- 	},
- 	.id_table	=3D tps65217_id_table,
- 	.probe		=3D tps65217_probe,
--	.remove		=3D tps65217_remove,
- };
-=20
- static int __init tps65217_init(void)
---=20
-2.55.0
+Thanks.
+
+-- 
+tejun
