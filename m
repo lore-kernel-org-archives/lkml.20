@@ -1,198 +1,141 @@
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ot1-f54.google.com (mail-ot1-f54.google.com [209.85.210.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C9CC47668A;
-	Fri,  4 Sep 2026 11:40:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C60C47CA6B
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 11:41:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788522058; cv=none; b=UnDuOAGUpjDfzB6UbZ+d/pg/CW25X21dkMW2hyzsDjrYV9xqAuGfcWp6IOKXeso5G4qnknbvmNvszmqL2Y6gg72pwwR3lKw2Ibi5f1WelBQwcKex9pT33T0QAYcjZOnS89XWopD4bjYY+nzU/b2tCINU4WRLxif33rO99A3qA3w=
+	t=1788522072; cv=none; b=coD+vTHiuM7vt39lVyrzG1XWK7qvl1d4GSL63KtNcqfpM4AtAOVNbtDHUf124tDpCZh623odNhJaN0vsaX0n6HQi9vkmbDLBd7HQENMNx15JEDTXGedTsmb2W2WMNpHvaJ/Ptu4Hax1FYB+FLUCIeg8NioNgMAtpbXNeJazHaZM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788522058; c=relaxed/simple;
-	bh=YuthCpoYgaozUFT0RrDPnJmeZiHeMQLHKD/NWI5I3wM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=nQNiCg/iWG0thgHITYd+YfNqcE6Aycjv2sghYHZJBxux3OJEkKPHy5RVWnlkTdrf7PkLAOAqkxNQuY+JD+1VOCZ9v+Sye7EbyOB66y4Gn3lBfklLJtDL//eroQK5ZoIxoMgfRMrK+YnKiTkvV8MwBixQjEvqyoKddcq68rz8rws=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=GZbQELKW; arc=none smtp.client-ip=148.163.156.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1788522072; c=relaxed/simple;
+	bh=C1mL5wvuXeiJL6+qNXcEHLeUtrImx4Eb3dS/c2suAC8=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=GjJMFzcU8ELB7UFUp9l+aFcXjmtC7LMqVN+023wZ2twU0vjnp48UNKgDjDr0nzvJ/xbxl55xE0XyCH7f34kIOcU5oxISIKqvBb+jenwZ5ZAbw8f6yyJRIiDXIuU2OQH4St3I1IC82S4mqvaI7YEdhdshM2EHPwG/eWQqlz/RDxY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DdDv3Olw; arc=none smtp.client-ip=209.85.210.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="GZbQELKW"
-Received: from pps.filterd (m0353729.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 684AVe9p3807368;
-	Fri, 4 Sep 2026 11:40:25 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=pp1; bh=/QhYY3cMo6ujVyxyegvMNjhHF60Bsa
-	MDpEUgMPs1h/w=; b=GZbQELKWWF8sx4n3RybtSDqlSIK16+tkdry7lNkR9F5aEv
-	puq05mIghaIOmFtd6OKsxftRG7IzY5Y6RBQfNhGx6iza1l/Cz8htaA1WxAbS8etp
-	NhBjtFNz9zGKkHGVmWsDPlquW+ciwcqZjjlM7H+LdKCIpDq5A1fl6i3+rfjHHHUX
-	5KqWThYT9LtVPdkz+s/ccSKoWBpm8gQDwbeeah5kfKpOQsvpKEYzMwZcs570xOvs
-	C9oEjVaJh9gK/GtFua7nZMnYKi2eROtCMZNMjWNo4CLaCmBPu3o7DSWwkq8EF0CM
-	RiZxGnCHIp1D9tq6Vi10F5YILfKaWakDOHjOlH4g==
-Received: from ppma22.wdc07v.mail.ibm.com (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gbq3rtfd8-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 04 Sep 2026 11:40:24 +0000 (GMT)
-Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma22.wdc07v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 684BQTwE010821;
-	Fri, 4 Sep 2026 11:40:23 GMT
-Received: from smtprelay07.fra02v.mail.ibm.com ([9.218.2.229])
-	by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4gecjaw6xd-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 04 Sep 2026 11:40:23 +0000 (GMT)
-Received: from smtpav03.fra02v.mail.ibm.com (smtpav03.fra02v.mail.ibm.com [10.20.54.102])
-	by smtprelay07.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 684BeJ3D49545618
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Fri, 4 Sep 2026 11:40:19 GMT
-Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 4AAF82004B;
-	Fri,  4 Sep 2026 11:40:19 +0000 (GMT)
-Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 0387320040;
-	Fri,  4 Sep 2026 11:40:14 +0000 (GMT)
-Received: from dhcp-9-123-3-18.bl1-in.ibm.com (unknown [9.123.3.18])
-	by smtpav03.fra02v.mail.ibm.com (Postfix) with ESMTPS;
-	Fri,  4 Sep 2026 11:40:13 +0000 (GMT)
-Date: Fri, 4 Sep 2026 17:10:11 +0530
-From: Gautam Menghani <gautam@linux.ibm.com>
-To: Sean Christopherson <seanjc@google.com>
-Cc: Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>,
-        Paolo Bonzini <pbonzini@redhat.com>,
-        Tianrui Zhao <zhaotianrui@loongson.cn>, Bibo Mao <maobibo@loongson.cn>,
-        Huacai Chen <chenhuacai@kernel.org>, Anup Patel <anup@brainfault.org>,
-        Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
-        Albert Ou <aou@eecs.berkeley.edu>,
-        Christian Borntraeger <borntraeger@linux.ibm.com>,
-        Janosch Frank <frankja@linux.ibm.com>,
-        Claudio Imbrenda <imbrenda@linux.ibm.com>,
-        Fuad Tabba <fuad.tabba@linux.dev>, Joey Gouly <joey.gouly@arm.com>,
-        Steffen Eiden <seiden@linux.ibm.com>,
-        Suzuki K Poulose <suzuki.poulose@arm.com>,
-        Zenghui Yu <yuzenghui@huawei.com>, Atish Patra <atish.patra@linux.dev>,
-        Alexandre Ghiti <alex@ghiti.fr>, David Hildenbrand <david@kernel.org>,
-        linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev,
-        kvm@vger.kernel.org, loongarch@lists.linux.dev,
-        kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org,
-        linux-kernel@vger.kernel.org,
-        Itaru Kitayama <itaru.kitayama@fujitsu.com>,
-        Nicholas Piggin <npiggin@gmail.com>,
-        Ritesh Harjani <ritesh.list@gmail.com>
-Subject: Re: [PATCH v2 05/20] KVM: selftests: Use goto instead of do-while to
- retry finding unused physical pages
-Message-ID: <apquG3ZPgTio1ckj@dhcp-9-123-3-18.bl1-in.ibm.com>
-References: <20260902164123.2546762-1-seanjc@google.com>
- <20260902164123.2546762-6-seanjc@google.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DdDv3Olw"
+Received: by mail-ot1-f54.google.com with SMTP id 46e09a7af769-7f84a55cc06so711248a34.2
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 04:41:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788522069; x=1789126869; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=6MSWHQJd1wpok7dr+QgiT6g7ewt6hYaNecwa2k2Spr8=;
+        b=DdDv3OlwkT2qOS6kyiYtyxg3Wj0+npa45z9bGBkdtsStYoZTzgffiGPxDx49UHzD3N
+         oxkSV9WrAag6dA60LZnJDUb+nE5uXzvDoDcrElw3S2VTjv9gTuyVlK/Cn3hJ6KCWC2xN
+         zeFocMAvnrz+xvnx0uk46eTyTo3w6k/lyh4gTd5vbDL1+zp+X/96ulUk4dCaiz4EPNvy
+         5BA+gGeKkG6mHRf/sCZddHFcm0bEg6VVkdanaEE/LmMCI9SYuRHH2Lhlk5y6QCrXfsgc
+         VxvxLewlDt4sYX4Jg+2AmmYkDgPwmsjGyGi+ZgnSUdz8FLK8IzADFF0kr0RuapkHXXIC
+         5WwA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788522069; x=1789126869;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=6MSWHQJd1wpok7dr+QgiT6g7ewt6hYaNecwa2k2Spr8=;
+        b=OMZzuAR6dlBTm79UBL2U6ADBX+75Q2jm1dmFlLYe1Qhasml4hDdzBu6MzoxCHRGvZM
+         xtaO4qcnqpKv9kBpCWKV3UeWPl9itx45v16XsFd1sjLreDp9okL1zllPDOywQetz7UnE
+         NjcggbulXH3Hx2iDi6HhYhuWNtNJa6szxwy0dUkmUzqg8uMUIP8A5PjgVZmS+AsOT+pa
+         iH0sk1ZE6UEqBuSiQqEQk31vxnQbifIyn7etN+9R/PJ8jQgd+phUeU+MG1kwnSvqKVAH
+         hfd1rzHB22zaBcxo1EpzaKpiRlk9Ih38HbdbdCJDkm1F9Tiz/xLG42QWSR8Eyz1AKo6H
+         aEPA==
+X-Gm-Message-State: AFuF++kdR3h6pVu9QU6QU9ZIoKYgx2x9Ba/pcnuaMJ02259ClXa7CUbq
+	G3m9NOj/3QVSPv3uJNsRW3WZMFipT5s3wPxL/l/0/K2Pcj6zmXgCwYhT
+X-Gm-Gg: AYBFou1WuwlAfLosE0p5XxUDJdCnjjED2a4prawV60qgfWgUXJz8MHzTL+C9O+S7ELv
+	PQVJYfHpcXkQGlr7/pwSvxlzvpRobvvEPGcWXkxtJpg+LsK5Rs0jl8Q81Fw8+d7vky+DsPmkqC5
+	4Bk6Ws2Ikdxh9Us9veLL0K8IRKIFRVQD4jcsvDi0iGC1e5jRI0FoQK1VgVu6tfvOZHSwSubznCe
+	0d/Q+qQda2R8cViu2cxqE6Ec27oThGKvxtXms55cPGM1Rks7219KYaqlPHgbQQ7eKMKsyP0UJr0
+	SEHnNZfVtXkSvYIuOYIt5WKVsAZopKMfrJa69rEZ8L8bVDzJbknmj1ctB0E8cFc0EoacfngID+c
+	kfU/EtBpbQr60EtzRqP4Q1I6APbA+CDI+5xywMbB+GY24OybLh63wqJrmRmlon6jWM/b7Byx8sr
+	9Vvu/ihHdWoea6royQ0csugjmaYMb/PE3ti6zl6i+FDTkiVbqgupcIAacApywdmk+Q1OaEG0vcg
+	INfPdoOO6fuuCQ=
+X-Received: by 2002:a05:6820:221c:b0:6b7:46fc:1ca with SMTP id 006d021491bc7-6b746fc0324mr1975976eaf.41.1788522068827;
+        Fri, 04 Sep 2026 04:41:08 -0700 (PDT)
+Received: from volcano9f6e-hostos.amd.com ([165.204.217.251])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33450e140d3sm2695292eec.4.2026.09.04.04.41.07
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 04 Sep 2026 04:41:08 -0700 (PDT)
+From: Hemanth Selam <hemanth.selam@gmail.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Alan Stern <stern@rowland.harvard.edu>
+Cc: linux-kernel@vger.kernel.org,
+	linux-usb@vger.kernel.org
+Subject: [PATCH 2/2] usb: fix repeated words in comments
+Date: Fri,  4 Sep 2026 17:10:38 +0530
+Message-ID: <20260904114046.24048-3-hemanth.selam@gmail.com>
+X-Mailer: git-send-email 2.48.1
+In-Reply-To: <20260904114046.24048-1-hemanth.selam@gmail.com>
+References: <20260904114046.24048-1-hemanth.selam@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260902164123.2546762-6-seanjc@google.com>
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Authority-Analysis: v=2.4 cv=EIc2FVZC c=1 sm=1 tr=0 ts=6a9aae29 cx=c_pps
- a=5BHTudwdYE3Te8bg5FgnPg==:117 a=5BHTudwdYE3Te8bg5FgnPg==:17
- a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=uAbxVGIbfxUO_5tXvNgY:22 a=pGLkceISAAAA:8
- a=omOdbC7AAAAA:8 a=1XWaLZrsAAAA:8 a=VnNF1IyMAAAA:8 a=ltp-RmMtnFz0lCvsd_sA:9
- a=CjuIK1q_8ugA:10
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA0MDEwNCBTYWx0ZWRfX/MfmOk+n849g
- itvdrttGkm0Wq5bsa2if3gCckUIyBuzuARTO71mudv9BASDtKDIsHtL/woQBUHKi8oDonptgR2Y
- Y3xtuyV2KY4kJWq+F2zX+yS4lxgeazdGj4Vm2M8aw2H4drLQMJ4Dkx3sXHUbiXfiTM4KCYx6pvG
- jRkS8K9ANvnQzdldsxZRV6gVWQqd28AeecGwFgWDmwECvirHH/P7ITSc4M+3+jMYvJ1S35n3vyI
- aAl+MJ+B9OXIJgFAENFnf/++eLNJ1yPxq+OJG5EmwhMRZUivC89f0NlYYwJCoTaF1PuME/oAvza
- bFO/djsVJQu1cj/ZJxD0F7QMpKZn5DFWONWav6CPhn/+AUtUjNtiy/fqogl55M0dwOv4Hbzy+VP
- eMp0Y66De0BWooL0dAGNy5Gvyhj76AZMJY4c503JArOtIDTzTIUtBRP2xpnFe/GAocl9rgUq4XL
- xdEFq0LXUv02wr4vpHg==
-X-Proofpoint-GUID: SOMG99MybV1SAPOTbg_7Iu48ydPZpa9w
-X-Proofpoint-ORIG-GUID: -Y1DSPNiCw8Ie2zXzwOPQQvkszDJwqsH
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA0MDEwNCBTYWx0ZWRfX+oE+5AD7/bGP
- Gq8dC/XQH9lfiTYA8sDpVENbQyWvOfRnhjTp+Z1I6RAzgIxO9pHJBI/rW6OWRSOmmSerC80cVU7
- 1mVQoqP8lIuNVY31rMT5VqN9/6vrDRg=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-04_03,2026-09-03_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 impostorscore=0 suspectscore=0 priorityscore=1501 clxscore=1011
- phishscore=0 spamscore=0 adultscore=0 lowpriorityscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609040104
+Content-Transfer-Encoding: 8bit
 
-On Wed, Sep 02, 2026 at 09:41:08AM -0700, Sean Christopherson wrote:
-> From: Nicholas Piggin <npiggin@gmail.com>
-> 
-> Rework the core loop of the physical page allocator to use a goto instead
-> of do-while loop when retrying with a new base address.  The do-while loop
-> obviously works, but it obfuscates the success vs. failure paths, and in
-> general is convoluted.
-> 
-> For all intents and purposes, no functional change intended.
-> 
-> Signed-off-by: Nicholas Piggin <npiggin@gmail.com>
-> [Rebased to latest mainline tree]
-> Signed-off-by: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
-> [sean: separate from alignment change, use enomem label, write changelog]
-> Tested-by: Itaru Kitayama <itaru.kitayama@fujitsu.com>
-> Signed-off-by: Sean Christopherson <seanjc@google.com>
-> ---
->  tools/testing/selftests/kvm/lib/kvm_util.c | 32 +++++++++++-----------
->  1 file changed, 16 insertions(+), 16 deletions(-)
-> 
-> diff --git a/tools/testing/selftests/kvm/lib/kvm_util.c b/tools/testing/selftests/kvm/lib/kvm_util.c
-> index b071d77dd301..bbf6d7684c0c 100644
-> --- a/tools/testing/selftests/kvm/lib/kvm_util.c
-> +++ b/tools/testing/selftests/kvm/lib/kvm_util.c
-> @@ -2049,23 +2049,15 @@ gpa_t __vm_phy_pages_alloc(struct kvm_vm *vm, size_t nr_pages, gpa_t min_gpa,
->  	TEST_ASSERT(!protected || region->protected_phy_pages,
->  		    "Region doesn't support protected memory");
->  
-> -	base = pg = min_gpa >> vm->page_shift;
-> -	do {
-> -		for (; pg < base + nr_pages; ++pg) {
-> -			if (!sparsebit_is_set(region->unused_phy_pages, pg)) {
-> -				base = pg = sparsebit_next_set(region->unused_phy_pages, pg);
-> -				break;
-> -			}
-> +	base = min_gpa >> vm->page_shift;
-> +again:
-> +	for (pg = base; pg < base + nr_pages; ++pg) {
-> +		if (!sparsebit_is_set(region->unused_phy_pages, pg)) {
-> +			base = sparsebit_next_set(region->unused_phy_pages, pg);
-> +			if (!base)
-> +				goto enomem;
-> +			goto again;
->  		}
-> -	} while (pg && pg != base + nr_pages);
-> -
-> -	if (pg == 0) {
-> -		fprintf(stderr, "No guest physical page available, "
-> -			"min_gpa: 0x%lx page_size: 0x%x memslot: %u\n",
-> -			min_gpa, vm->page_size, memslot);
-> -		fputs("---- vm dump ----\n", stderr);
-> -		vm_dump(stderr, vm, 2);
-> -		abort();
->  	}
->  
->  	for (pg = base; pg < base + nr_pages; ++pg) {
-> @@ -2075,6 +2067,14 @@ gpa_t __vm_phy_pages_alloc(struct kvm_vm *vm, size_t nr_pages, gpa_t min_gpa,
->  	}
->  
->  	return base * vm->page_size;
-> +
-> +enomem:
-> +	fprintf(stderr, "No guest physical page available, min_gpa: 0x%lx page_size: 0x%x memslot: %u\n",
-> +		min_gpa, vm->page_size, memslot);
-> +	fputs("---- vm dump ----\n", stderr);
-> +	vm_dump(stderr, vm, 2);
-> +	abort();
-> +	__builtin_unreachable();
->  }
->  
->  gpa_t vm_phy_page_alloc(struct kvm_vm *vm, gpa_t min_gpa, u32 memslot)
-> -- 
-> 2.55.0.966.g6673acef38-goog
-> 
+Drop words accidentally written twice, reported by checkpatch.pl as a
+possible repeated word.  Only touches comments, no code changes.
 
-Acked-by: Gautam Menghani <gautam@linux.ibm.com>
+Assisted-by: Cursor:claude-opus-5
+Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
+---
+ drivers/usb/gadget/udc/core.c    | 4 ++--
+ drivers/usb/host/uhci-platform.c | 2 +-
+ drivers/usb/host/uhci-q.c        | 2 +-
+ 3 files changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/usb/gadget/udc/core.c b/drivers/usb/gadget/udc/core.c
+index fa2022e9bc60..0faa0e07533b 100644
+--- a/drivers/usb/gadget/udc/core.c
++++ b/drivers/usb/gadget/udc/core.c
+@@ -177,7 +177,7 @@ EXPORT_SYMBOL_GPL(usb_ep_disable);
+ 
+ /**
+  * usb_ep_alloc_request - allocate a request object to use with this endpoint
+- * @ep:the endpoint to be used with with the request
++ * @ep:the endpoint to be used with the request
+  * @gfp_flags:GFP_* flags to use
+  *
+  * Request objects must be allocated with this call, since they normally
+@@ -992,7 +992,7 @@ EXPORT_SYMBOL_GPL(usb_gadget_unmap_request);
+ 
+ /**
+  * usb_gadget_giveback_request - give the request back to the gadget layer
+- * @ep: the endpoint to be used with with the request
++ * @ep: the endpoint to be used with the request
+  * @req: the request being given back
+  *
+  * This is called by device controller drivers in order to return the
+diff --git a/drivers/usb/host/uhci-platform.c b/drivers/usb/host/uhci-platform.c
+index f4419d4526c4..7967bb160917 100644
+--- a/drivers/usb/host/uhci-platform.c
++++ b/drivers/usb/host/uhci-platform.c
+@@ -21,7 +21,7 @@ static int uhci_platform_init(struct usb_hcd *hcd)
+ 	if (!uhci->rh_numports)
+ 		uhci->rh_numports = uhci_count_ports(hcd);
+ 
+-	/* Set up pointers to to generic functions */
++	/* Set up pointers to generic functions */
+ 	uhci->reset_hc = uhci_generic_reset_hc;
+ 	uhci->check_and_reset_hc = uhci_generic_check_and_reset_hc;
+ 
+diff --git a/drivers/usb/host/uhci-q.c b/drivers/usb/host/uhci-q.c
+index 9480d4ff0111..46b3bfe06adb 100644
+--- a/drivers/usb/host/uhci-q.c
++++ b/drivers/usb/host/uhci-q.c
+@@ -345,7 +345,7 @@ static int uhci_cleanup_queue(struct uhci_hcd *uhci, struct uhci_qh *qh,
+ 		goto done;
+ 	}
+ 
+-	/* If the QH element pointer is UHCI_PTR_TERM then then currently
++	/* If the QH element pointer is UHCI_PTR_TERM then currently
+ 	 * executing URB has already been unlinked, so this one isn't it. */
+ 	if (qh_element(qh) == UHCI_PTR_TERM(uhci))
+ 		goto done;
+-- 
+2.48.1
+
