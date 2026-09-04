@@ -1,68 +1,103 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oa1-f41.google.com (mail-oa1-f41.google.com [209.85.160.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 579494908BA;
-	Fri,  4 Sep 2026 12:45:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FFC3490BFE
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 12:45:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788525955; cv=none; b=kNMpJZLwKcclb+h9NMJbz5qB/0KFYuHuT0ow1U7gkI5skKTbmBi12+5AexETjYPxrCElaDUzCvwAUl/vsW0iWLWESyKHNsLucbmvIooWm+m3DeLFPtGH41z7gT/MHONdko+hqNo6OmyUXlocQjpugNbLU/1aW+um20ivvUyjOlY=
+	t=1788525956; cv=none; b=EHOHEndpCcaU8S+LUUO4XOgFwGuw8jZJhKuSugdQphbMoZDdcctKXXeyx/mcZVtezou5tGsEEh2igV5djgoZqMtpPiBsbGYXofR/zjD6XX3Yo50zAtsnhE9xh3j0x7FGzvJE4JU1+jMz8MMjKBDuM8T9sc3MNVAlT+L4K23cN+A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788525955; c=relaxed/simple;
-	bh=LtDSf5wMlA2r+uHZqfKaOqZ545wbJp1ntr1rZPKlqd0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Unf6skvDCpE9X4+uitw51QetLSiSb6nxwcsL1DP5hHNBZNV5Src0RngGFcOsBamwFbbvFjjep+YZ7X+Ho+NzAb2rjpRFghMLjrN/3nsYYxdxSM1yiUNC9y4lPj8GykKSjGxIYpDoIIVVECXKVEGBRioeHJvlr9BFORVo4bv+D/o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=PKFbW+GK; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	s=arc-20240116; t=1788525956; c=relaxed/simple;
+	bh=fOloAHRgdeLksJbr9YCfXbNpB+ehC4R05ST1dX0wcoM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=K9qVAfJe8SnwyH6NDyg6R87ROY8mYuLlcGg8DtAkNWH+blODWq/Niw2H1Q2rZn6hFYZP+sn7uDU6lHH2ykq1q9dRKAlXr32qYWN5jOWO05sJ8d4PIfGf0PVFvvRwbiAYM4v4bh728rlJxzXiv4vhZBnGU6RkVyeENrxcGzyzxCU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=eBLoOohv; arc=none smtp.client-ip=209.85.160.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="PKFbW+GK"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=++VVFRwRIs5zVADnPYbShAcw38wpWaquMiqbejU7Nt0=; b=PKFbW+GKUT54oAJFRHFkzm3whC
-	wDWRYbkzWsVMseahWm0mzViMNkUxip1IKFWxciZGDdOc3X3okEnBpTnnG+H/22W7paGxCxpiynLPd
-	ZezqicjzvgxMqx4FhMLDcH7BbPR1/DsTIIh0RQQ16GLU6o1XKvgeROLWup73I7N8WaYY=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1x2TIS-002yIc-4i; Fri, 04 Sep 2026 14:45:32 +0200
-Date: Fri, 4 Sep 2026 14:45:32 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Bui Duc Phuc <phucduc.bui@gmail.com>
-Cc: Wei Fang <wei.fang@nxp.com>, Frank Li <frank.li@nxp.com>,
-	Shenwei Wang <shenwei.wang@nxp.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"davem@davemloft.net" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Richard Cochran <richardcochran@gmail.com>,
-	Anson Huang <Anson.Huang@nxp.com>,
-	Stephen Boyd <swboyd@chromium.org>,
-	"imx@lists.linux.dev" <imx@lists.linux.dev>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"netdev@vger.kernel.org" <netdev@vger.kernel.org>
-Subject: Re: [PATCH net-next v2] net: fec: Propagate PTP initialization errors
-Message-ID: <d12608a5-468a-44ca-9442-07f2eee4e335@lunn.ch>
-References: <20260903092430.354186-1-phucduc.bui@gmail.com>
- <GV2PR04MB117394049F412AAAC59FE93FE88B62@GV2PR04MB11739.eurprd04.prod.outlook.com>
- <CAABR9nFD1+GJiWdyxiuGVRzKjpCUfu3TQHYOLnOym3hHzOM2tg@mail.gmail.com>
- <GV2PR04MB1173931CA07AEAB48339FF71588B52@GV2PR04MB11739.eurprd04.prod.outlook.com>
- <CAABR9nFi06-7=uHmOBFGZv1eUYCskv8WspOdUxbDuQ6vMk68Dg@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="eBLoOohv"
+Received: by mail-oa1-f41.google.com with SMTP id 586e51a60fabf-467f09c00c2so288420fac.3
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 05:45:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788525954; x=1789130754; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=5CKWYHFFj2+Ay68a1spLAYVC7QQVQgeLpgvyjnrg6qw=;
+        b=eBLoOohvbOhrzDwpo1zpKjbFRCnKTcVbWqm5fZ0KxbGjlpqd+UU2OjAfBGuQYZn9SG
+         +x9P8YdrImMrBz3B1d+l4aKSHhqx5n29AgBr5hKvLnQIyxc+BJTrhCsCfKMcFbCSY5S3
+         QZ3nTD+qulKMzPlud1fV+cq4a03DSCEX56+NCOx6ZXjkuVAp7kBNIA/FLjdaJrP83jO3
+         9mfpXfUNxAiGs0ok9k3JesfuFMceAs8ers2+L6HXF4lW4S80a5eRlIwHF1McMJZS5GQk
+         FTqLi6bL+6hH0S8j6YUAHhvywopmPYy0/tQdVurPrdkWxHjcAncY1YVheAhRJgeAy2EE
+         BMaw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788525954; x=1789130754;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=5CKWYHFFj2+Ay68a1spLAYVC7QQVQgeLpgvyjnrg6qw=;
+        b=Ycm6S+yRoOS0DwwjWXKfNeJIX3m64sTAaE0tUpeGfYoWFJNDXJUMaiOly0S/Z28MuH
+         99MzqqygNmL2RbBjVo5WFUlQBvR+a3rcPc8FKUo7sMPoZj1H0DDcRq1xNFcOox0PuJqc
+         mA1hbT6Tmu2tAJ4TgZdw9dCAPwDOe6drr4GSkOHHtr+bS2g6pLVGQbvhmMTEV5ojHleE
+         /Gqox1w5aiYYzEAMrj6FjIv7FqmHQJsMd4YRAOwgNnKBivrFo6ET48NhXdcOoEy2b405
+         aJo7kK+2K04E9p/YJKUPbkI2yt6GYlbqxzfVFxboIxmRrMcpAVNPZSBBinogVgFJVv65
+         JKFg==
+X-Gm-Message-State: AFuF++mH/J66G+CFfBUrZChEJ4vjs8kZTXZKbz+Q3aAZYPL4PcBLVQdQ
+	YE83tjqAw6YHfGuT1goaSePhsGD5sa/1RgFZoa75EOOuYQdpNM31YV73PucWS7fLeE0=
+X-Gm-Gg: AYBFou36ZFY2YrSUouiI7Y78uh4s0Eeu8DaMJ4XHrWfnfXZ+OrCkN+XlFneAal9YC4q
+	RwgRKn4IrBCo0iRCDOUrnrk3gvTubwb1KY/53CZsWnbeIxbjSzPlrYVA2o6qfXty2bKnG748m5i
+	LPCAQc8Se5MFPeW9DeGdjMiu6Sq53TMJybjpj1NglSpVGIoyxK44r1fOFZ4TyVIDTuMWymEnyku
+	cpEex0xvjqbmT6QTF+eWrr+e3SBY7vH5AGXoPJ5iOCY2Js5l8eEcmzPYRmd8I4OW/Nz+grFcQ5z
+	C/Ynyf3rsJZSpw8MGntm19y8Z8iWdUbwCvxWtWfYO6hbdF0Cq+B9zNY/6LUapXyVetCXJhl5/n8
+	W+jUNZAMUhL+5sRw1fg94kBR9jD9HSEmkb3pD0tk8mb8EscxHOvv9YnQ/Q6pxhYOw9X02s3PjZX
+	CHTz1YS8RCDh4fPACReCzyhCzpQ4sy9KS7Wc3g2xAs4HwNuZMSLXKcbYaP4lGYZknbJRcLVKRwG
+	knLbInw8rCFjBA=
+X-Received: by 2002:a05:6820:858e:20b0:6b7:e065:c4f9 with SMTP id 006d021491bc7-6b7e065c573mr613694eaf.57.1788525954014;
+        Fri, 04 Sep 2026 05:45:54 -0700 (PDT)
+Received: from volcano9f6e-hostos.amd.com ([165.204.217.251])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-143243f780csm6477419c88.13.2026.09.04.05.45.52
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 04 Sep 2026 05:45:53 -0700 (PDT)
+From: Hemanth Selam <hemanth.selam@gmail.com>
+To: 
+Cc: linux-kernel@vger.kernel.org,
+	linuxppc-dev@lists.ozlabs.org
+Subject: [PATCH 3/3] macintosh: fix repeated word 'up' in comment
+Date: Fri,  4 Sep 2026 18:15:37 +0530
+Message-ID: <20260904124540.7652-4-hemanth.selam@gmail.com>
+X-Mailer: git-send-email 2.48.1
+In-Reply-To: <20260904124540.7652-1-hemanth.selam@gmail.com>
+References: <20260904124540.7652-1-hemanth.selam@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAABR9nFi06-7=uHmOBFGZv1eUYCskv8WspOdUxbDuQ6vMk68Dg@mail.gmail.com>
+Content-Transfer-Encoding: 8bit
 
-> Second, the current implementation can silently ignore -EPROBE_DEFER and
-> continue probing instead of deferring.
+Drop the second 'up', reported by checkpatch.pl as a possible repeated
+word.  Only touches a comment, no code changes.
 
-This is a stronger reason. You should mention it in the commit message
-as part of your justification for net, rather than net-next.
+Assisted-by: Cursor:claude-opus-5
+Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
+---
+ drivers/macintosh/mediabay.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-	Andrew
+diff --git a/drivers/macintosh/mediabay.c b/drivers/macintosh/mediabay.c
+index 36070c6586d1..c5115b88beb6 100644
+--- a/drivers/macintosh/mediabay.c
++++ b/drivers/macintosh/mediabay.c
+@@ -331,7 +331,7 @@ static void keylargo_mb_un_reset_ide(struct media_bay_info* bay)
+ 
+ static inline void set_mb_power(struct media_bay_info* bay, int onoff)
+ {
+-	/* Power up up and assert the bay reset line */
++	/* Power up and assert the bay reset line */
+ 	if (onoff) {
+ 		bay->ops->power(bay, 1);
+ 		bay->state = mb_powering_up;
+-- 
+2.48.1
+
