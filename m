@@ -1,280 +1,216 @@
-Received: from mail-ed1-f50.google.com (mail-ed1-f50.google.com [209.85.208.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA9CF30146C
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 16:09:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.50
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788538186; cv=pass; b=NimuKX7XSdNWuzPz5DFz0EX0fMsKoKJJiTuzTlJ1c2LS6I+amI3m0Q8o8z5Sc2EA8JbzYM0a4aM5Ea5YFsk8Pk1PR8YXutOtUdKkNdVvyHVXFAuMXfnodomBFkVrO8hTLOmUC6Xx3YlFDNPD6ns5P0/L2yRsXjGrt/O6Np1284g=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788538186; c=relaxed/simple;
-	bh=I7FTVNlZ0dogb6C0eOyzR1YPRcNP3XiCf/wTZ1Mslsg=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47B803C585A
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 16:09:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788538189; cv=none; b=ONXk6FM7o8qZxknBMjw3XzMMnwYbXO+T0nWd3ENOMTK2hNf+HI6fqfmffjkK2N7HXG/D0NzmDY1xLAM1wRKuxyL7C3NZQDXtEoLI2k1KWyN08awlQZf1OWUEBCiKhe83XlGXSQy5ctBMl+mQHTM3Y0qmujhGc+O8G0GfeuiLdxw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788538189; c=relaxed/simple;
+	bh=6ouzDVC79cXNw75e318MwqRDCYf0r6uFT9/xncoPI78=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=oHwroKVLM7FWW3wW4Ed3ZdDc5bFsnoZ9AejJuTB/OlX6pn7byYYHA4E5KJst1xPf11ZjQcsfKNElTrr+gOqAyRy3qnSRuC4SFyVkq886MUkUx/j0F0JujNy7MYHq89mLoIG+ECDmzklzbnT0irRzwERSq11mKwMge2kprCfxcr0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mihalicyn.com; spf=pass smtp.mailfrom=mihalicyn.com; dkim=pass (1024-bit key) header.d=mihalicyn.com header.i=@mihalicyn.com header.b=LYJ24fIU; arc=pass smtp.client-ip=209.85.208.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mihalicyn.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mihalicyn.com
+	 To:Cc:Content-Type; b=ptYw8u0br6ORgJlSujMD9dSglwtRZs4pk4tz9/6/c5hZVzzBwuURyv1utAm0/LH98uAam+TxnwAEbE4U2ZbjmdSC4fTH9YzNWiVa7IEF6dg9iA+3QN4LNJu9s9E86pdUvFkzU6HP5mc8eANyiUJtm+LPNRoeP8ZAa4uvFGs5kRo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VOYe2PR3; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mihalicyn.com header.i=@mihalicyn.com header.b="LYJ24fIU"
-Received: by mail-ed1-f50.google.com with SMTP id 4fb4d7f45d1cf-6a051b737d8so1108049a12.1
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 09:09:42 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788538181; cv=none;
-        d=google.com; s=arc-20260327;
-        b=RSljEDByW8/j2+fwB40x+FSOo2HlZV3lalrg5+NZDQjl5AgCsr9Lo+UVlcqJPab4Ma
-         IJnqKCugchD1jO2EhifPxFRqKNS48vejkYa5wuTDAz9lTOhgV3eUs6Kf78EysVhbR26l
-         9I7X0+YMoSa7eEUNBC5tI4wlc78duF+7lKMH8W1GQK4TKiVcrHUG10qVYm4yKvNRawlF
-         H/ShTWS8/2KBnedz5pRxV7Y84qZZYoNSQ9kjT69dvuF28OAIuZxwrtmdeVgEh5YHvexR
-         HJjJYRmi6KeqOzAmHYwOgh4uWaTUAUNZaiTOh5JvKLJT3zyjsqtoLWLI1jB/Cwt4ORIT
-         dt8Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=FdR7pQWFNAy0Ig0AuVAHw6qnwdiJsW6s+mbBPNX+ky4=;
-        fh=TZAPo4yzRlML+8MMWjfv79HJ/e1Y9geyGh52al/vTn0=;
-        b=LAsZEks164JFozYzxNW/8LBLaJ8irnjgsRYuG+jmAiUoLG+m+dHZe9Y57Fbdbi4g6C
-         AenVMyAIbSHj5BsXiHflvv8T+KZkw+QUde9Z6/tcoMGXd2FzYd/uCJMgope5OBKjdolu
-         xAzDg7eSpGvEiJNjuFXVZD1ZiGuB3hlA1pWlQ6x6JcxS+hEzNrwJM4o05Q+83NXWnEAz
-         LrV66uG289GWlR2qGciK46AlX7/HNO+dw1ut3hanl/5F2SxTUtnE2+rJ4RD/Md0x7cRH
-         wlqWfXWS4zmQX77VTQqm2gqR2vnGJZsbNKLauxW1nZVY16n+Se7mxWtMrZvSNSx6g9PY
-         QAUA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=mihalicyn.com; s=mihalicyn; t=1788538181; x=1789142981; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=FdR7pQWFNAy0Ig0AuVAHw6qnwdiJsW6s+mbBPNX+ky4=;
-        b=LYJ24fIUloVu66b4e55n54uMqyxyA2RjXm5FqIxFGM9Cubpp/LXHdFIqU5drYl5M9W
-         RIQgYqmO+v2fUkKSbJwCngOh599KmOsNxRziD2G9pYDSrAjHq7jv3TURKSxKhvMNYdDT
-         ZeNjbTgzYZTRtNbY1TAykIPkUFUsV7HHw7ofw=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788538181; x=1789142981;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=FdR7pQWFNAy0Ig0AuVAHw6qnwdiJsW6s+mbBPNX+ky4=;
-        b=KOt0h1ChHJ7LHLpKMs5uQ0qMnmYONDRQZdOpW+CxFmxp9LgKDvdM9UR+ESyctfGPc9
-         bnRl43bAkVJBIkzoWQSRbfMaxnQtW++kanlpet/pAw9d7wA5BC0d8+Nv67Q0S1GY0D17
-         1hiY/RU+KHixCBvPfA9U6FBa7zGiZHLacSQOoDP//4XKQDLTnCRRsIjFBpobMjx56Mmx
-         OWHW1iGK9XbszGRFb4woRrTrSj8p6q/68QRnNLSY4cfLrP85H6bnzO/pfUAhOB69r2sW
-         Cuk2ybwASa3J4KhSo76ALlzIv074JbPhJ3qsDVh58ZXlwqN3s2PGH/bYjNmkGOyDl9ve
-         mAQw==
-X-Forwarded-Encrypted: i=1; AKwUvBwJcZ07lP+dTJSzT1eDMkY/RGbBG0H5Ip1DD9z1feYUJXgMHUNKGdrFg4+LxHpPUorRjwNBnGk/khQu6t0=@vger.kernel.org
-X-Gm-Message-State: AFuF++lYgpIvCz7rD71kL15Y+n96qWGgwZhForcxaPuEl/ahflAVSSn0
-	Ontn2UPUIM39G1GjW61D3K9UD+L6iy6v0+boMmWU1lpXB2BJs4e2+rBjZWzLqLam8Bt2EhjmR7h
-	KRnd86+7h1FRaDNceMySOCrK3bw3tLkmguZvI0eE7Zg==
-X-Gm-Gg: AYBFou3v4sh7Og2oNgOy402fQMtDTrn3zBMWEYqf7aY4r82fqtjcfcLucwnEd1Nn/y7
-	TuenU8pPpIE4MrAa7MQBO3ny6bPvtw8iXZ85G9nzvaoRwg5IJerFYJa5agt1+Qb14l++nzVfo5O
-	0jo75wjiMIHVXZAKceR8nrxlr0t4Et+le/+bPTAoZmg4EQTH7x7gK1kkTYmSVMde7QA7E4/ze7U
-	OW35ivM+pBxbXOr0AGh0zN4ccKvXbkuDgE1pJmJu70+Fc1xHY1zutI/mz3GYQ1wSOPEyX8IxaMC
-	6hwHdYMkOWfTHlHBgMzZxp6/8HbZ0N4/3sHVt6hlxDk4Eu+GCl0RvCc/hijDcU2aKdh9gOcGOxH
-	Y
-X-Received: by 2002:a05:6402:c2d1:b0:6a7:ee54:f8a7 with SMTP id
- 4fb4d7f45d1cf-6a7ee550028mr1195731a12.43.1788538180182; Fri, 04 Sep 2026
- 09:09:40 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VOYe2PR3"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6AB191F00ACF
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 16:09:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788538187;
+	bh=Eeq1cCGbIWkkHc8XN84l/PkE/s3OPAx4E/DdJKyKEcM=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=VOYe2PR3MDiMotRQLT7leWQ2WJJprtf6szl2QmGCnwpsMPNduyy5iI4sE4U86VJAL
+	 VCUT7yTGxb6+dQmdmCxfM+9Fk4uWK25UBCH8MLtV3Pn1QyN5lmIG8sHYZuVSGQQikI
+	 wLfO3JHOlKD8HFz4OluR+8zmcmQf0IzKEWnSlJEhM6NZG7CXJtIzlLtYD2buSAqLOk
+	 Lu1JE3d7U+GmLygai1R9RQxvBA8KtF3fj1Jazu2M3xNiHZcfeA2e/4FDG4OXtT7++9
+	 /AB35hSJlxt0IPLv34h1e3iyHEYSq3AYs2n6CvKSm7MIjPQzYJQL4HOu0qZ/0YzXJV
+	 UvlHEbVrOS2nw==
+Received: by mail-ej1-f47.google.com with SMTP id a640c23a62f3a-c250f28f1cdso192635366b.0
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 09:09:47 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvByvQBY4OA+2xbm56T8655UnpOygFfBCjEN7zwI6iGJdz01erSjGxDsLYWHOMgm5wYCYvtgZNRlA7vqPdXg=@vger.kernel.org
+X-Gm-Message-State: AFuF++n+8ZMHSAMWhPfVTdW92OPmyEV0wxeDwxDTppbwsr5bz3Bp3kq1
+	y6K0R2CZZfYWHFXXfUqjwpMxdcneMKkqoYcJ7nTtMS6i74S4LCx+TPyNliirTCUDpciwt7+FbjB
+	ZF6xgjrep+dplZPMt2AhFqT6cpfCw6yk=
+X-Received: by 2002:a17:907:6c0f:b0:c26:19de:9ac7 with SMTP id
+ a640c23a62f3a-c2619dea67cmr159398866b.31.1788538186259; Fri, 04 Sep 2026
+ 09:09:46 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260904144636.3443342-1-maoyixie.tju@gmail.com> <CANn89iJRG6UbnYX2xo1ZJR4k=Jr+PQEb48qELK9gpKp2QATKyg@mail.gmail.com>
-In-Reply-To: <CANn89iJRG6UbnYX2xo1ZJR4k=Jr+PQEb48qELK9gpKp2QATKyg@mail.gmail.com>
-From: Alexander Mikhalitsyn <alexander@mihalicyn.com>
-Date: Fri, 4 Sep 2026 18:09:28 +0200
-X-Gm-Features: AcwNN1Xq4Tt7rQDO1svcngvMnokM2FJKtX_ipen5pOVe3abVfNjqkDXYytdImE0
-Message-ID: <CAJqdLrqGUQ2YFMAg197OrZaHrYg+-ZDkcA3c+wmZs39uxRz78A@mail.gmail.com>
-Subject: Re: [PATCH net] netlink: render SCM_CREDENTIALS pid in the receiver's
- pid namespace
-To: Eric Dumazet <edumazet@google.com>
-Cc: Maoyi Xie <maoyixie.tju@gmail.com>, davem@davemloft.net, kuba@kernel.org, 
-	pabeni@redhat.com, kuniyu@google.com, horms@kernel.org, brauner@kernel.org, 
-	adobriyan@openvz.org, akpm@linux-foundation.org, leitao@debian.org, 
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <cover.1699104759.git.quic_charante@quicinc.com>
+ <a8e16f7eb295e1843f8edaa1ae1c68325c54c896.1699104759.git.quic_charante@quicinc.com>
+ <aphSYFTd12oia8K2@google.com> <apkhSHr3by5Bf8jW@tiehlicka>
+ <CAO9r8zPCYNmJbkQEA62z75AB=ziWqGb38_E-ee_6o40Sz=zHXA@mail.gmail.com> <apqppFukssaAQz3w@tiehlicka>
+In-Reply-To: <apqppFukssaAQz3w@tiehlicka>
+From: Yosry Ahmed <yosry@kernel.org>
+Date: Fri, 4 Sep 2026 09:09:35 -0700
+X-Gmail-Original-Message-ID: <CAO9r8zMBBhhqepbLR9buOOu7bpyLW+UTu55DjbCYrbBp56rkCw@mail.gmail.com>
+X-Gm-Features: AcwNN1UI8vVflFBHpjQw18qMFlO-gIfm7g3j2hfRTedEMhop9xXtUozwNzZigZA
+Message-ID: <CAO9r8zMBBhhqepbLR9buOOu7bpyLW+UTu55DjbCYrbBp56rkCw@mail.gmail.com>
+Subject: Re: [PATCH V3 3/3] mm: page_alloc: drain pcp lists before oom kill
+To: Michal Hocko <mhocko@suse.com>
+Cc: Charan Teja Kalla <quic_charante@quicinc.com>, akpm@linux-foundation.org, 
+	mgorman@techsingularity.net, david@redhat.com, vbabka@suse.cz, 
+	hannes@cmpxchg.org, quic_pkondeti@quicinc.com, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Am Fr., 4. Sept. 2026 um 17:48 Uhr schrieb Eric Dumazet <edumazet@google.co=
-m>:
+On Fri, Sep 4, 2026 at 4:21=E2=80=AFAM Michal Hocko <mhocko@suse.com> wrote=
+:
 >
-> On Fri, Sep 4, 2026 at 4:46=E2=80=AFPM Maoyi Xie <maoyixie.tju@gmail.com>=
- wrote:
-> >
-> > __scm_recv_common() translates uid and gid into the reader's user
-> > namespace but copies the pid as is. AF_UNIX gets away with that because
-> > unix_skb_to_scm() re-renders the pid with pid_vnr() at recvmsg time.
-> > netlink_sendmsg() renders it in the sender's namespace and stores a bar=
+> On Thu 03-09-26 07:03:33, Yosry Ahmed wrote:
+> > On Thu, Sep 3, 2026 at 12:27=E2=80=AFAM Michal Hocko <mhocko@suse.com> =
+wrote:
+> > >
+> > > On Wed 02-09-26 16:49:48, Yosry Ahmed wrote:
+> > > > On Sun, Nov 05, 2023 at 06:20:50PM +0530, Charan Teja Kalla wrote:
+> > > > > pcp lists are drained from __alloc_pages_direct_reclaim(), only i=
+f some
+> > > > > progress is made in the attempt.
+> > > > >
+> > > > > struct page *__alloc_pages_direct_reclaim() {
+> > > > >     .....
+> > > > >    *did_some_progress =3D __perform_reclaim(gfp_mask, order, ac);
+> > > > >    if (unlikely(!(*did_some_progress)))
+> > > > >       goto out;
+> > > > > retry:
+> > > > >     page =3D get_page_from_freelist();
+> > > > >     if (!page && !drained) {
+> > > > >         drain_all_pages(NULL);
+> > > > >         drained =3D true;
+> > > > >         goto retry;
+> > > > >     }
+> > > > > out:
+> > > > > }
+> > > > >
+> > > > > After the above, allocation attempt can fallback to
+> > > > > should_reclaim_retry() to decide reclaim retries. If it too retur=
+n
+> > > > > false, allocation request will simply fallback to oom kill path w=
+ithout
+> > > > > even attempting the draining of the pcp pages that might help the
+> > > > > allocation attempt to succeed.
+> > > > >
+> > > > > VM system running with ~50MB of memory shown the below stats duri=
+ng OOM
+> > > > > kill:
+> > > > > Normal free:760kB boost:0kB min:768kB low:960kB high:1152kB
+> > > > > reserved_highatomic:0KB managed:49152kB free_pcp:460kB
+> > > > >
+> > > > > Though in such system state OOM kill is imminent, but the current=
+ kill
+> > > > > could have been delayed if the pcp is drained as pcp + free is ev=
+en
+> > > > > above the high watermark.
+> > > > >
+> > > > > Fix this missing drain of pcp list in should_reclaim_retry() alon=
+g with
+> > > > > unreserving the high atomic page blocks, like it is done in
+> > > > > __alloc_pages_direct_reclaim().
+> > > > >
+> > > > > Signed-off-by: Charan Teja Kalla <quic_charante@quicinc.com>
+> > > >
+> > > > [Sorry for thread necromancy]
+> > > >
+> > > > Hi Charan,
+> > > >
+> > > > Are you planning to respin this patch?
+> > > >
+> > > > I know that Michal was questioning the need for it. While doing som=
 e
-> > u32, so a reader in another pid namespace sees a number from a namespac=
+> > > > stress testing I came across a couple of OOM kills that had signifi=
+cant
+> > > > amount of memory in pcplists. Something that would have been preven=
+ted
+> > > > by this patch.
+> > >
+> > > Could you share some numbers to see the scale of the problem?
+> >
+> > Sure, here's a sample from an OOM log (ignore mapped/free_mapped, it's
+> > from the ALLOC_UNMAPPED series):
+> >
+> > [   40.336188] Mem-Info:
+> > [   40.336195] active_anon:96 inactive_anon:1540181 isolated_anon:0
+> >                 active_file:51 inactive_file:0 isolated_file:0
+> >                 unevictable:382720 dirty:43 writeback:0
+> >                 slab_reclaimable:20339 slab_unreclaimable:26597
+> >                 mapped:382858 shmem:153 pagetables:8291
+> >                 sec_pagetables:0 bounce:0
+> >                 kernel_misc_reclaimable:0
+> >                 free:17264 free_pcp:16890 free_cma:0
+> > [   40.336199] Node 0 active_anon:384kB inactive_anon:6160724kB
+> > active_file:204kB inactive_file:0kB unevictable:1530880kB
+> > isolated(anon):0kB isolated(file):0kB mapped:1531432kB dirty:172kB
+> > writeback:0kB shmem:612kB shmem_thp:0kB shmem_pmdmapped:0kB
+> > anon_thp:10240kB kernel_stack:2576kB pagetables:33164kB
+> > sec_pagetables:0kB all_unreclaimable? yes Balloon:0kB gpu_active:0kB
+> > gpu_reclaim:0kB
+> > [   40.336202] DMA32 free:34808kB boost:0kB min:11028kB low:13784kB
+> > high:16540kB reserved_highatomic:0KB free_highatomic:0KB
+> > free_mapped:11032KB active_anon:0kB inactive_anon:1487720kB
+> > active_file:52kB inactive_file:20kB unevictable:393252kB
+> > writepending:4kB zspages:0kB present:2096760kB managed:1991156kB
+> > mlocked:393252kB bounce:0kB free_pcp:42404kB local_pcp:2460kB
+> > free_cma:0kB
+> > [   40.336205] lowmem_reserve[]: 0 5976 5976
+> > [   40.336210] Normal free:34248kB boost:0kB min:34024kB low:42528kB
+> > high:51032kB reserved_highatomic:0KB free_highatomic:0KB
+> > free_mapped:34028KB active_anon:384kB inactive_anon:4672764kB
+> > active_file:180kB inactive_file:0kB unevictable:1137628kB
+> > writepending:168kB zspages:0kB present:6291456kB managed:6120144kB
+> > mlocked:1137628kB bounce:0kB free_pcp:25156kB local_pcp:764kB
+> > free_cma:0kB
+> > [   40.336213] lowmem_reserve[]: 0 0 0
+> >
+> > As far as I can tell there's about ~65M of free memory stranded on
+> > pcplists (in an 8G VM), which would have kept the amount of free
+> > memory above the watermarks and prevented that specific OOM kill.
+> > Although, as I mentioned before, this is a synthetic stress test.
+> > Perhaps in practice it doesn't matter all that much in practice, but
+> > it seems like the logical thing to do.
+>
+> yes, pcp lists are quite (unusually) high. Is it possible they simply
+> got repopulated after the first direct reclaim run? Or is there
+> something else(odd) going on?
+
+I think in this case there wasn't a lot of reclaimable memory (mostly
+anon with no swap), so at some point direct reclaim didn't make any
+progress. __alloc_pages_direct_reclaim() only drains the pcplists if
+reclaim makes progress, I am not sure if that's intentional. An
+alternative would be perhaps removing this condition, something like
+this:
+
+diff --git a/mm/page_alloc.c b/mm/page_alloc.c
+index 8d79f76cdd0e1..98e9079240ad5 100644
+--- a/mm/page_alloc.c
++++ b/mm/page_alloc.c
+@@ -4592,11 +4592,12 @@ __alloc_pages_direct_reclaim(gfp_t gfp_mask,
+unsigned int order,
+        psi_memstall_enter(&pflags);
+        *did_some_progress =3D __perform_reclaim(gfp_mask, order, ac);
+        if (unlikely(!(*did_some_progress)))
+-               goto out;
++               goto drain;
+
+ retry:
+        page =3D get_page_from_freelist(gfp_mask, order, alloc_flags, ac);
+
++drain:
+        /*
+         * If an allocation failed after direct reclaim, it could be becaus=
 e
-> > it is not in. The sender chooses that number. An unprivileged sender in=
- a
-> > child namespace made the receiver see pid 300.
-> >
-> > Carry the sender's struct pid in NETLINK_CB and hand it to scm_set_cred=
-()
-> > in netlink_recvmsg(), the way af_unix does. netlink_skb_set_owner_r()
-> > takes the reference and netlink_skb_destructor() drops it. A reader in =
-a
-> > namespace the sender has no pid in now gets 0, like AF_UNIX.
-> >
-> > I found this with a CodeQL checker. I used Claude to help write the
-> > reproducers. The ones that reproduce the bug run unprivileged and need =
-no
-> > kernel changes. Tested on net with KASAN and lockdep, no reports. The t=
-ree
-> > has no netlink SCM selftest.
-> >
-> > Fixes: b488893a390e ("pid namespaces: changes to show virtual ids to us=
-er")
-> > Cc: stable@vger.kernel.org
-> > Assisted-by: Claude:claude-opus-5 codeql
-> > Signed-off-by: Maoyi Xie <maoyixie.tju@gmail.com>
-> > ---
-> >  include/linux/netlink.h  |  9 +++++++++
-> >  net/netlink/af_netlink.c | 30 ++++++++++++++++++++++++++++--
-> >  2 files changed, 37 insertions(+), 2 deletions(-)
-> >
-> > diff --git a/include/linux/netlink.h b/include/linux/netlink.h
-> > index 882e9c1b6c1dcc..26266754e27c14 100644
-> > --- a/include/linux/netlink.h
-> > +++ b/include/linux/netlink.h
-> > @@ -30,6 +30,15 @@ struct netlink_skb_parms {
-> >         struct sock             *sk;
-> >         bool                    nsid_is_set;
-> >         int                     nsid;
-> > +       /*
-> > +        * Sender's struct pid.  netlink_sendmsg() stores a borrowed po=
-inter
-> > +        * taken from its own scm_cookie.  netlink_skb_set_owner_r() ta=
-kes a
-> > +        * reference when it takes ownership of the skb for a receiver,=
- and
-> > +        * netlink_skb_destructor() drops that reference.  A clone star=
-ts out
-> > +        * borrowing again, because __skb_clone() clears both skb->sk a=
-nd
-> > +        * skb->destructor.  NULL for a kernel generated skb.
-> > +        */
-> > +       struct pid              *pid;
-> >  };
-> >
-> >  #define NETLINK_CB(skb)                (*(struct netlink_skb_parms*)&(=
-(skb)->cb))
-> > diff --git a/net/netlink/af_netlink.c b/net/netlink/af_netlink.c
-> > index e6b1d9758c9c92..170d90d472a0db 100644
-> > --- a/net/netlink/af_netlink.c
-> > +++ b/net/netlink/af_netlink.c
-> > @@ -379,13 +379,24 @@ static void netlink_skb_destructor(struct sk_buff=
- *skb)
-> >
-> >                 skb->head =3D NULL;
-> >         }
-> > -       if (skb->sk !=3D NULL)
-> > +       if (skb->sk) {
-> > +               /*
-> > +                * The reference is held for as long as skb->sk is set,=
- taken
-> > +                * in netlink_skb_set_owner_r() and dropped here.  The =
-pointer
-> > +                * is left in place: do_one_broadcast() orphans an skb =
-one
-> > +                * listener owned and hands it to the next, which takes=
- its
-> > +                * own reference, and the sender's scm_cookie keeps the=
- pid
-> > +                * alive across the whole broadcast.
-> > +                */
-> > +               put_pid(NETLINK_CB(skb).pid);
->
+         * pages are pinned on the per-cpu lists or in high alloc reserves.
+@@ -4608,7 +4609,6 @@ __alloc_pages_direct_reclaim(gfp_t gfp_mask,
+unsigned int order,
+                drained =3D true;
+                goto retry;
+        }
+-out:
+        psi_memstall_leave(&pflags);
 
-Dear friends,
-
-> I really have a bad feeling about this dance and these assumptions,
-> maybe this is just me.
-
-completely agree with Eric.
-
-1. We need to start from use-case here, because netlink sockets are
-quite special in many ways.
-     If you just found this using LLM and now we are going to change a
-behavior that was there for more than 22 years
-     ( just look
-https://github.com/torvalds/linux/blame/d679c5324d9a87c6295f56c2dea52d5f688=
-34f41/include/linux/netlink.h#L165
-)
-2. If you start tracking struct pid (which is a good idea
-theoretically, if we ignore 1.), then we should do it a bit smarter
-and
-    make use pidfs API [pidfs_register_pid() function] like we do it
-in unix_maybe_add_creds() to make sure that we properly support
-    dead pidfds too.
-
-Kind regards,
-Alex
-
->
-> Please include a dedicated selftest in tools/testing/selftests/net/
-> exercising SO_PASSCRED / SCM_CREDENTIALS
-> over netlink across PID namespaces to demonstrate the issue and
-> validate the proposed changes.
->
-> Thanks.
->
-> >                 sock_rfree(skb);
-> > +       }
-> >  }
-> >
-> >  static void netlink_skb_set_owner_r(struct sk_buff *skb, struct sock *=
-sk)
-> >  {
-> >         WARN_ON(skb->sk !=3D NULL);
-> > +       NETLINK_CB(skb).pid =3D get_pid(NETLINK_CB(skb).pid);
-> >         skb->sk =3D sk;
-> >         skb->destructor =3D netlink_skb_destructor;
-> >         sk_mem_charge(sk, skb->truesize);
-> > @@ -1880,6 +1891,13 @@ static int netlink_sendmsg(struct socket *sock, =
-struct msghdr *msg, size_t len)
-> >         NETLINK_CB(skb).dst_group =3D dst_group;
-> >         NETLINK_CB(skb).creds   =3D scm.creds;
-> >         NETLINK_CB(skb).flags   =3D netlink_skb_flags;
-> > +       /*
-> > +        * Borrowed here.  scm_destroy() below drops the scm_cookie's o=
-wn
-> > +        * reference, and every delivery in between is synchronous, so =
-the
-> > +        * pointer stays valid until netlink_skb_set_owner_r() takes a
-> > +        * reference of its own.
-> > +        */
-> > +       NETLINK_CB(skb).pid     =3D scm.pid;
-> >
-> >         err =3D -EFAULT;
-> >         if (memcpy_from_msg(skb_put(skb, len), msg, len)) {
-> > @@ -1971,7 +1989,15 @@ static int netlink_recvmsg(struct socket *sock, =
-struct msghdr *msg, size_t len,
-> >                 netlink_cmsg_listen_all_nsid(sk, msg, skb);
-> >
-> >         memset(&scm, 0, sizeof(scm));
-> > -       scm.creds =3D *NETLINK_CREDS(skb);
-> > +       /*
-> > +        * Render the sender's pid in the reader's pid namespace, the w=
-ay
-> > +        * unix_skb_to_scm() does through scm_set_cred().  A NULL pid g=
-ives 0,
-> > +        * so a control block that lost its reference reports "unknown"=
- rather
-> > +        * than the sender's own untranslated number.  scm_recv() below=
- drops
-> > +        * the reference taken here on both of its paths.
-> > +        */
-> > +       scm_set_cred(&scm, NETLINK_CB(skb).pid, NETLINK_CREDS(skb)->uid=
-,
-> > +                    NETLINK_CREDS(skb)->gid);
-> >         if (flags & MSG_TRUNC)
-> >                 copied =3D data_skb->len;
-> >
-> > --
-> > 2.34.1
-> >
+        return page;
