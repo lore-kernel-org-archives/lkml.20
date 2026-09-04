@@ -1,63 +1,63 @@
-Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com [209.85.216.42])
+Received: from mail-oo1-f50.google.com (mail-oo1-f50.google.com [209.85.161.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1832403E9D
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 12:24:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEE67486E40
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 12:25:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788524696; cv=none; b=sDeumUARJyz2dgRlB6xhGEwz7PIgGrwm3+SNxCK9mYQIFJGT0alMzZqCiuNTrmsuAQwS0yIK1HrZBf4h4m6zoT7QwqSflBIXlPM/b6VTVGxfmcqmzMMMb7LyMnB0dDH3Pciy1NOkmr622qXflH44J/qL4fRFvM8FsaRsVkwGVhc=
+	t=1788524703; cv=none; b=ByoOuqNmld5C11dJuztKhmQr2zIGyuH9xCnoyST/tnFvxS5w5wDbPi9wFzpl0DdlvBbc2D3JXGF0QQBCO0J0Z/SenOcERXyMqlr7XGU7yiO76iD/w/n4CNJmcPd7lsdSwkKL476SYr0sM2nefaS9NQhFh1JxwfdKoj7FkimgvuU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788524696; c=relaxed/simple;
-	bh=f8aGNyC4hhuimPFgaao0DU0lrWnNx6TAWDdKIId6TYc=;
+	s=arc-20240116; t=1788524703; c=relaxed/simple;
+	bh=PqwhrNyABnZAOTbk3+DQqjSMv0diEZDOtPwkTzZvqnw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=lnotAsXm4XNGoLktzd1NeQ6x7hyZpJaChLbEvmdl+Sh+EKYYi+Ph7JexXgxh6HLELWj894JfNdheGNXRifZ7MqigPrPsSJLQ+QE0rh/7h6wXLXPB6cyRbaE6YRKCkWnTOdb9PEaE6JAViuVritpC0jg3fVtLYV/Hii380z48oHc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kb8axn1E; arc=none smtp.client-ip=209.85.216.42
+	 MIME-Version; b=b5dFBFV2T8kUqML000o257VEUD6BUaVjpyMJRySP55w5EKNqcwPgX6dz1U6JSYKgDM1h9ytdzsMY41pSgt8obn/kLoFKhPuePWpZpY6PAYP4BUthzVF/b86jRK+53AbX6q5A4lpFD0Qz6O8n8h9fPxDgiLUYnl9+rQuoSmD1VtA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Fj5Pp8Dr; arc=none smtp.client-ip=209.85.161.50
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kb8axn1E"
-Received: by mail-pj1-f42.google.com with SMTP id 98e67ed59e1d1-38ec1402b05so839362a91.2
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 05:24:54 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Fj5Pp8Dr"
+Received: by mail-oo1-f50.google.com with SMTP id 006d021491bc7-6b1b233ca8dso456048eaf.2
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 05:25:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788524694; x=1789129494; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1788524700; x=1789129500; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=dSrYA1DkzHEof4sMwyJ4ZJLRu5Ytzn/ZSPLCLv7l2KM=;
-        b=kb8axn1EvPUUrO9QNfTNhUVrcoOrzabbK5BFMG1+7vrtxcIr8lezWYx1jKT/DNDt5g
-         H7+HSMrX5tsVyX1QuN/EsDXn8hEsLXUFwi+Uiq6KFPGabIgJZe3Yob780t+3gAd+ZcBG
-         fJZFfV1A+7ltjMDQ1DXwbZ5ReIk3fv4c7EPWrG4V5tD7zGtcCqiF7lU/1fPBjViltvJ7
-         HbQ5E1RuvRBGvNcF7yQzPFptB5yKjSEsIsDNzC/nA7Jj57vOlhyKYUY+MmhxVa0Ywsxc
-         j63vlKdzhkl9EcHU6/gyHt6R/bUwnzq+MOliycD64WxBY3Z2lXO7yqyS+eibUpDzP6R5
-         D30A==
+        bh=kjXI7c1o2fMUZ4gP/lf6VLU7Bny6ysM8MfilUau8IZs=;
+        b=Fj5Pp8DrO5TxcBGWQjFVk9OBK4K1ijbZC2ykvUs0F3N59XvlpcGpjwhXcumcGH2O21
+         fXjaGunVSfxhNOEXcmrcX5E2MKndQtmgTSG53Ft2E1K9V3xGPOMJeg/7YYBfJWwPLtPu
+         iyTAo7a1OfH//yhL3LCK0ExUnt0a1mARtsy1lDrphOblJvaHNPZl4YcAtGk+M6v2zNdR
+         zgf5rRolOGvWJA1J36fJZNFz7pJTvrscjalX/d2A+kJ+eO7iQHA0u+SADuT0eUz3Md7t
+         GyD1lmUfLDuIkClMr2tWx9/2PuONnz5mSJSJKsnTpEk2V/iQZlIsc069vKmkxd5QUPte
+         A9EQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788524694; x=1789129494;
+        d=1e100.net; s=20251104; t=1788524700; x=1789129500;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=dSrYA1DkzHEof4sMwyJ4ZJLRu5Ytzn/ZSPLCLv7l2KM=;
-        b=euR+t5DXyaPsmFcVY6/bwxEgi+WkI2lgbJY8R9zbor0DvfhG86+Gv6ZIZyj6Jp0YQY
-         39UiH89m1qxFH6IDk8/8kQnqzfmnkM5QuOunbYGwYUsnP8UXeFcVRZoB71poDD2NiIMh
-         zx5B15uh1eWkDQF/YFdQdkhXsVyOqI11BCtQ7J3qrLi7THd7vRBjOmwPrpbn1UU2MTXn
-         O1HtDl1wi5b6hstZFXHRDh6bK1aLKijLBjAK4dlnKzE8f2z6tCELzRpZoOXgEb8odxI/
-         qgRSWVA+1eJSXChtuxeDDO978NWESZWHLvrPh/HVLB5RngE6J5ZbWhldrZDNpp8qtB1L
-         0oOg==
-X-Gm-Message-State: AFuF++nCWLE7jiv0pDxvVLwzTR8LlQq06s3YjV2whKR5ciROvvFMoAe6
-	7TjbCPEh1xWFDV2dZSb/o2+l9qE0t0tvCzVQcj0yCPejJIhYa7pI1QaZ
-X-Gm-Gg: AYBFou177xk6McD4AnrOc83Z/O5PFV2rsmipC0lyIoorlRo8YS7K54/OVkkkZYZE4GX
-	iHVr7na5E6Y7QDWGq1sFue96YIcyhSQgUr2LVZ57lbL+4yQ+IclQ/KAzN1eXBIB/bcLIVa8/Bdn
-	35sSkJu7VragCxa4lfjMAJVOTtQqltgtjmVed9p2tNLqyunEV4pM1S7ji6rYNrarfRb86RQWuYz
-	H0+ezJBFUX2dBEGAciqw57FWLz5x99KwEZ8YTGbN9XBhD8VZvlMvquNdHcj7qQFZLLI8qQ2+6Dn
-	zxWVhELdsdSpfwvzjm9+endqtmOG9AnwTLrib/k0OsQnJrS4WI3KzxbhEBmYPuTjHIts/aKJIP9
-	j/BwFig4icrfKexf/A2NeTeS0nLFbFvHpLlUT1tkkTfABIkC1/OWwKntTje/XYGPtcLE5iRc74m
-	BP9Gkt3c0lUBwO6486Jq54GM46hv2/asEEYugXlK4ubLqdbxtDmfUFNuIvpjQwZhbQSKu66qG10
-	5CjFgkUW0sPPRtfND6h+GlXQHg=
-X-Received: by 2002:a17:90b:2e52:b0:38d:ddc2:7ccb with SMTP id 98e67ed59e1d1-39b260dd3efmr8705280a91.1.1788524694319;
-        Fri, 04 Sep 2026 05:24:54 -0700 (PDT)
+        bh=kjXI7c1o2fMUZ4gP/lf6VLU7Bny6ysM8MfilUau8IZs=;
+        b=YcfsYz7cUKfYQmKghNw6J9h9reukhhLMZ6BcBuOLMvFstNcQoCNX19OkZR2qEv4AaS
+         roH8Dp8G8Z9a5/5wn8z0zF2wDMnhvtucPPob99T5Z4eOAQLtRISj/4LJiFHe7K96f6mt
+         12jM86Jg/cTa2l1SPib6aLk4N+AFkF5PepWrzYQQsIwekvXZZWWZMCeMog5uWitOm6y3
+         7miRDQwtB+gScB+V5sMjRKhlTfTTW4yI6l+IZOetyp5ceVBVoXCTzsh8F6MSsH5tKTFm
+         6zH1dChhPpiiB6g6Q37ZS/bNyU1qUSU1BbeAfqAiWw0ZphbW0EQc/wxCyavdllXotU2D
+         fulQ==
+X-Gm-Message-State: AFuF++kSeiC7mg7rMam/UWh+sPgFBf6pxKiHF1KePfJnENSLwK6HBdjz
+	F4FXgurnmu3XeHg+BfCYXojD/q6qNgWG0lOKD+KY7atONN/A5nsI3jzu
+X-Gm-Gg: AYBFou0XOw0xkYOuHQT3QQcimOAS2s7LHlCmnSHxQWJ4dsMX1D/P6p9HQ0Qpn/APCzw
+	AZIPy/KA37tti+621GX4oDRpR9PNWOq7V95YovGhw4XEjQSx8xOFxbE+v0Tux+dm+mpHkPBrsel
+	EYsICtV5eksZ+6jAIODXAg/6CGntoOsNG+bYGZrgLXx0D0Fdk7ha+Jkbh77fMWl36brh4IaossR
+	1t37ZAVohB0d5VbXOnO5j9mQ2aGJCIkUP33Tf1+LmvPkbchbOUKZ+evJ7PHjDMfudpYewXtGAsW
+	ig6BP4+MbZnyFlh4jvNKAOUx/NsYvDKF6ucylGC3efDUVAp+OyYDo4VBxPP52MiY1C4WUSyqNbs
+	XmY/m/tERBHEohXhiUgtPSxZWL2rztq1JO0AVywQRIeb3//3hLKVNxsQHiZI6KQgIbN9hUn7oVe
+	p4y1TZonNT2XCZ5btXH4Cja3WN4TmoS7OY0OM37UXyL6Kcna0SNizOvRDHhug31F8/bolgE0H8c
+	W26T4/OH5qWTMs=
+X-Received: by 2002:a05:6820:160b:b0:6b0:1b86:fb0 with SMTP id 006d021491bc7-6b6fe59c86dmr3821145eaf.31.1788524700176;
+        Fri, 04 Sep 2026 05:25:00 -0700 (PDT)
 Received: from volcano9f6e-hostos.amd.com ([165.204.217.251])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339b8f787esm5880860eec.23.2026.09.04.05.24.50
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339b8f787esm5880860eec.23.2026.09.04.05.24.55
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 04 Sep 2026 05:24:53 -0700 (PDT)
+        Fri, 04 Sep 2026 05:24:59 -0700 (PDT)
 From: Hemanth Selam <hemanth.selam@gmail.com>
 To: Marc Zyngier <maz@kernel.org>,
 	Oliver Upton <oupton@kernel.org>,
@@ -66,15 +66,17 @@ To: Marc Zyngier <maz@kernel.org>,
 	Steffen Eiden <seiden@linux.ibm.com>,
 	Suzuki K Poulose <suzuki.poulose@arm.com>,
 	Zenghui Yu <yuzenghui@huawei.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>
+	Paolo Bonzini <pbonzini@redhat.com>,
+	Sean Christopherson <seanjc@google.com>,
+	Shuah Khan <shuah@kernel.org>
 Cc: linux-kernel@vger.kernel.org,
 	linux-arm-kernel@lists.infradead.org,
-	kvmarm@lists.linux.dev
-Subject: [PATCH 1/3] arm64: kvm: fix typo "synchonized" in comment
-Date: Fri,  4 Sep 2026 17:54:40 +0530
-Message-ID: <20260904122445.31163-2-hemanth.selam@gmail.com>
+	kvmarm@lists.linux.dev,
+	kvm@vger.kernel.org,
+	linux-kselftest@vger.kernel.org
+Subject: [PATCH 2/3] selftests: kvm: fix typos in comments
+Date: Fri,  4 Sep 2026 17:54:41 +0530
+Message-ID: <20260904122445.31163-3-hemanth.selam@gmail.com>
 X-Mailer: git-send-email 2.48.1
 In-Reply-To: <20260904122445.31163-1-hemanth.selam@gmail.com>
 References: <20260904122445.31163-1-hemanth.selam@gmail.com>
@@ -86,29 +88,46 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Correct "synchonized" to "synchronized", reported by scripts/checkpatch.pl
-using the misspelling list in scripts/spelling.txt.  Only touches comments,
-no code changes.
+Fix typos in comments, reported by scripts/checkpatch.pl using the
+misspelling list in scripts/spelling.txt.  Only touches comments, no code
+changes.
 
 Assisted-by: Cursor:claude-opus-5
 Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
 ---
- arch/arm64/kvm/hyp/entry.S | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ tools/testing/selftests/kvm/arm64/debug-exceptions.c | 2 +-
+ tools/testing/selftests/kvm/arm64/hypercalls.c       | 4 ++--
+ 2 files changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/arch/arm64/kvm/hyp/entry.S b/arch/arm64/kvm/hyp/entry.S
-index 308100ed25de..9709905f21b5 100644
---- a/arch/arm64/kvm/hyp/entry.S
-+++ b/arch/arm64/kvm/hyp/entry.S
-@@ -46,7 +46,7 @@ alternative_else_nop_endif
+diff --git a/tools/testing/selftests/kvm/arm64/debug-exceptions.c b/tools/testing/selftests/kvm/arm64/debug-exceptions.c
+index 7dc5f0b4f6ad..9da6dc5bcfe6 100644
+--- a/tools/testing/selftests/kvm/arm64/debug-exceptions.c
++++ b/tools/testing/selftests/kvm/arm64/debug-exceptions.c
+@@ -387,7 +387,7 @@ static void guest_code_ss(int test_cnt)
+ 		 * Enable Single Step execution.  Note!  This _must_ be a bare
+ 		 * ucall as the ucall() path uses atomic operations to manage
+ 		 * the ucall structures, and the built-in "atomics" are usually
+-		 * implemented via exclusive access instructions.  The exlusive
++		 * implemented via exclusive access instructions.  The exclusive
+ 		 * monitor is cleared on ERET, and so taking debug exceptions
+ 		 * during a LDREX=>STREX sequence will prevent forward progress
+ 		 * and hang the guest/test.
+diff --git a/tools/testing/selftests/kvm/arm64/hypercalls.c b/tools/testing/selftests/kvm/arm64/hypercalls.c
+index 5d96cdf382c4..a24becda9e62 100644
+--- a/tools/testing/selftests/kvm/arm64/hypercalls.c
++++ b/tools/testing/selftests/kvm/arm64/hypercalls.c
+@@ -1,9 +1,9 @@
+ // SPDX-License-Identifier: GPL-2.0-only
  
- 	// Ensure that __guest_enter() always provides a context
- 	// synchronization event so that callers don't need ISBs for anything
--	// that would usually be synchonized by the ERET.
-+	// that would usually be synchronized by the ERET.
- 	isb
- 	mov	x0, #ARM_EXCEPTION_IRQ
- 	ret
+-/* hypercalls: Check the ARM64's psuedo-firmware bitmap register interface.
++/* hypercalls: Check the ARM64's pseudo-firmware bitmap register interface.
+  *
+  * The test validates the basic hypercall functionalities that are exposed
+- * via the psuedo-firmware bitmap register. This includes the registers'
++ * via the pseudo-firmware bitmap register. This includes the registers'
+  * read/write behavior before and after the VM has started, and if the
+  * hypercalls are properly masked or unmasked to the guest when disabled or
+  * enabled from the KVM userspace, respectively.
 -- 
 2.48.1
 
