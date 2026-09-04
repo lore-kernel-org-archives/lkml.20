@@ -1,263 +1,157 @@
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+Received: from MRWPR03CU001.outbound.protection.outlook.com (mail-francesouthazon11011027.outbound.protection.outlook.com [40.107.130.27])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 776164FECD8;
-	Fri,  4 Sep 2026 15:59:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788537566; cv=none; b=TgK79Z0x5kKZvyFtjYinGLDtEIhmuRs4tS3txzN2Vssf6yfgCDqzx83c60lC1O0TY0zpFAir+O50aAz4p/HcYeLCaJQJRxcSSZ75KaI6VlAinENZWj7RkVKwdODENvChIyu1AlCvU2+QKpuPetOSlFOhpqZvd4EwIlLPny6+rW0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788537566; c=relaxed/simple;
-	bh=EGj2aW5bcUNOlKPHbeNUQG61OkeUalWoaaxG01CFuNE=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=ETyGRlhif012ds0g/T9JL0QU5GA70RqrU7WWtR0tsK2klBig4WrKf68mTRU2fLdhuUd02ELkpwfI6mTSNZ1wuNCF/Ft3jE3Hnn6vSuwtxjZKg07XADXYJQP5m24P0TQgHH7xoqwaKGsP0pGKGrNF517bjAzqMNiD5EuaEkSxoP8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=XXyWnZSu; arc=none smtp.client-ip=148.251.105.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 357AE517BB5;
+	Fri,  4 Sep 2026 15:59:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.130.27
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788537571; cv=fail; b=LfsVgv4PlQKMxhDqT7sW1SBsuXV8mKA1F652fpgnPnp1gcNpeL64m2TJTWIAxXtyXFA6EuTMOaD3pilaJcWEwAdK1yeh5eGi2T956JxTd8k0wtNKWSdq5v0ugoMMXlVXTT73HPbsDvQQ62FMTg6FfrG34Fv3i7n0/FtbpmqvcIY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788537571; c=relaxed/simple;
+	bh=suw2dk1s52pMdX6+2wejR9hqNYkV2xrhV1C+yJG/YbU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=Rpux7S+lBj+8Ep7FwNvEcrx2wUpOz+N6FRWHCd592gr3laecKB2VgaUd49KOGQblaU5iD/tgqohslx9PsYrj11paYikQuuyaI32eihSGZm9IDqVfWSmrHiVGWDbs15dLbc0MtgIQBRe3YUyjXDlRVnQzdui0uZzLD+Qr8k4rA/U=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=Y9uhKF3v; arc=fail smtp.client-ip=40.107.130.27
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="XXyWnZSu"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1788537562;
-	bh=EGj2aW5bcUNOlKPHbeNUQG61OkeUalWoaaxG01CFuNE=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=XXyWnZSuqCdxJWKbQVKLhL41Ns4ZsdFWOoB9gH7UCNT1D+qBMMArQqMdCUd8eDT73
-	 N7Bh8oMRztgLFBDr370LXHtWJlG7N/fy5ml6d2yckLaBoKY6aW5zg+KcVZWop2tZsD
-	 Ep+DVPOEV/NKGnHTMohkjbp7ZbHzQmMdaOkQgnQzQOJBSTyO9ld7dZwyKextfXdo0J
-	 TqQPCw56m2bml1QPf0lhc6cdH14FXNcnLXh5qs3NEBhJtmGNTsov41RFEVC2uF9/kb
-	 o2Ufg0qQc7fDq+RfcZ7ovCCwzzQTAYYqdPik62ym1Og+sB/XzLrLB29gXd6VKj1ccl
-	 s8BANU7BrwgMQ==
-Received: from yukiji.home (unknown [100.64.0.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: laeyraud)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 0F55717E35C2;
-	Fri, 04 Sep 2026 17:59:20 +0200 (CEST)
-From: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
-Date: Fri, 04 Sep 2026 17:58:38 +0200
-Subject: [PATCH v6 27/27] clk: mediatek: Add MT8189 ufs clock support
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="Y9uhKF3v"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=JCKcPPOHnBBQ9s2kBC9fJ2AR/oQ6+oq7uJccGKPJNhASm6/XWeYfcBFyFYTm5ITbRAyoU5Y5bqs9pkW1WLKFoZr4Jz3gp0uVrwhMLfe67FmotuIuYwEhuAVzjHT11t6oPh3h5Rc28FNqe1cRV0EYjmS6VQE27S46g9y783E46xxPb9IqR8XW7i+JNgugwmNT5Q6sAXLxDjLY1z07eg0Zl7f32U1Rn5M6d2wljuAxdftgHI2j+KKL44YwsyLcQjTb8imq39DwdoCsXo4j3QWfjrDo29Ru4ssZHaSTc8B7D7/Cb4Lrpqjs8K8CNm0UOWAkdY33IkDaRpcrBrEqaaixyA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=9WXZZ4xKHKdCCXDMYONYSFeNl/80G85FQd8mP2U9eHk=;
+ b=Wh3alWWPd2wI2xSTREOyL5GoQaY8AO5gfGcPnqzrbUcJXbUNmv+KeVanGOl6MBJRfy/+tXz1dFAf9qS85PGc5DyjM4USnrNHS4p3pNtomewHXqTwjAvno30LfEyAi6rt/R/xBVV8P3eB0Ke6AlbljZGlGQE+sxKalvjnh9Uqg6sqjzYjh96PWG1cle/bBwAofsXQzaNqhBghppoD4qc/QG5fXDpjrYbq8AaBLA/H2+HHJI0Cwq17At+LmtgU5X2R7synMjK2I8IuXvqR7PSWv+gUXHwtY/LspB3QJr0b/NNBQtjj8t9TVVWOgVKXx+373YRO1yf7koXy107NYpHwJA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=9WXZZ4xKHKdCCXDMYONYSFeNl/80G85FQd8mP2U9eHk=;
+ b=Y9uhKF3vHwJ2g4FZ+RZP/23/eHl0Dgt7+GwA6sDiIPki2QCBq43m43Cor/dSFR5PKuQJ56mbd1JPGJXwq9JXFuUDB5qj66IhOIzwBIm8tw7seN3WwvT+SFEwVDfKfxysK4wJHvFiBVoHsVGt5kEK8mnvFFxBJuGrZKXXj2toVetjxy8ZC0Bo//+ooo7Ho82znnBoPCHSMUxA3ubeEM1Gp3hot/jtBiWXiQfMecO/mGZDqiFmZ6f0WuEKX179TeznYOAN1izmQUP54Ive8gr7McPslb4977JP/ZJ1zPK4tHUh6rncgxe/BpS2j5aPBZ5UsQrXqGq4UdsqgFcWJzKOTw==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
+ by PA6PR04MB11714.eurprd04.prod.outlook.com (2603:10a6:102:526::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Fri, 4 Sep
+ 2026 15:59:27 +0000
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0360.008; Fri, 4 Sep 2026
+ 15:59:27 +0000
+Date: Fri, 4 Sep 2026 11:59:19 -0400
+From: Frank Li <Frank.li@oss.nxp.com>
+To: Pan Chuang <panchuang@vivo.com>
+Cc: Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
+	Kunihiko Hayashi <hayashi.kunihiko@socionext.com>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	"open list:DMA GENERIC OFFLOAD ENGINE SUBSYSTEM" <dmaengine@vger.kernel.org>,
+	"moderated list:ARM/UNIPHIER ARCHITECTURE" <linux-arm-kernel@lists.infradead.org>,
+	open list <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH 25/26] dmaengine: uniphier-xdmac: Remove redundant
+ dev_err()/dev_err_probe()
+Message-ID: <aprq16SYGQEazTd9@lizhi-Precision-Tower-5810>
+References: <20260709135846.97972-1-panchuang@vivo.com>
+ <20260709135846.97972-26-panchuang@vivo.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260709135846.97972-26-panchuang@vivo.com>
+X-ClientProxiedBy: CYZPR17CA0003.namprd17.prod.outlook.com
+ (2603:10b6:930:8c::23) To GV2PR04MB11799.eurprd04.prod.outlook.com
+ (2603:10a6:150:2cf::9)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260904-mt8189-clocks-system-base-v6-27-5df247f56938@collabora.com>
-References: <20260904-mt8189-clocks-system-base-v6-0-5df247f56938@collabora.com>
-In-Reply-To: <20260904-mt8189-clocks-system-base-v6-0-5df247f56938@collabora.com>
-To: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
- Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Matthias Brugger <matthias.bgg@gmail.com>, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
- Chun-Jie Chen <chun-jie.chen@mediatek.com>, 
- Chen-Yu Tsai <wenst@chromium.org>, Philipp Zabel <p.zabel@pengutronix.de>, 
- Edward-JW Yang <edward-jw.yang@mediatek.com>
-Cc: kernel@collabora.com, linux-clk@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
- Irving-CH Lin <irving-ch.lin@mediatek.com>, 
- Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788537522; l=7212;
- i=louisalexis.eyraud@collabora.com; s=20250113; h=from:subject:message-id;
- bh=EGj2aW5bcUNOlKPHbeNUQG61OkeUalWoaaxG01CFuNE=;
- b=+GKwMOkeKwczgutIQSXD7JgbCNYLSCVDjCl4OhjCGryvx1aUYUQV6rMaZo1PtkjblIC+ndb1K
- XzvaoXZexZ/DI9CJh9An/kwwhkD48CoIbtFEGsTSXccj0eJcyk+GoYJ
-X-Developer-Key: i=louisalexis.eyraud@collabora.com; a=ed25519;
- pk=CHFBDB2Kqh4EHc6JIqFn69GhxJJAzc0Zr4e8QxtumuM=
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|PA6PR04MB11714:EE_
+X-MS-Office365-Filtering-Correlation-Id: 49af4969-cd9f-4724-73c6-08df0a9d7f09
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|376014|19092799006|1800799024|366016|10067099003|4143699003|11063799006|22082099003|18002099003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	+w+cEHNBkT1LeZ9UNnZAMbzT/qkfjoP+buj3DWW4CIaBXz3Via9mqtn7G6yvprKGrWGBppMWfdzc/tmKkg7crgBp/qPWPPKk9/W0BsSKW4nfoKI/kkSr3fRYri6U6MjtT28TlAGbOmT95mfHxLk0WZ72Ca8Y5T7oE2UFoj4XGfNxFi2H48B1+A4cPfNASA8BafjzzVFeUs3kiPfWx6Z0pbKYa8FcSpr+FkpMdiVPmPZf1sR9Cg5mYfNqEU4XTJxydQ3svXoVf99D29YMW2b8yLZ9K8gQipEg5r3k7fyfD9ogpN7XIGQ6LorqrhZRXbCijv9NARL9qkx0obyRLQhkDxbqTuoxjekayBOXnD3P2lHXTdRHbGLHzOa5HE2w2q6BfbyZODM+00fOHjzTzVuJs+DbunFH0Z8ba1/D5d4ssZmDdRtxzim0CfzMnp4C6es6ueOZvaQEYMzwFfQmlcHb0BMPykBoL2zbzpXL1gn0kNV4S5Unyv34JO+Dfj/Re/UOJ1XB/50xLzfSJHk6K65S4RwKaOs7mKFZ4DToQupwd/SslA9cgHImTHDK2Dprs86egiVj9AleIq+BDCJ6+HmuBGzAvfAp8DUgScNYQ56OdyasyQ19z1+9qG1zUZku4y57b9ZtryxFElp63e39MpAThvblNIkrY9Tl60BXv18hzrg=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(19092799006)(1800799024)(366016)(10067099003)(4143699003)(11063799006)(22082099003)(18002099003)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?ds0AQXRj+4aqnicuLvnJ1QQUR83+1TBZEFEnfB+kPSBAXR1knWtlpjwnFVYb?=
+ =?us-ascii?Q?9bxIqM8ZBU5uq+FJjapgsc8MOxC7eqBqUScR1fkwxGPqG5O/6VZfUEu12uKc?=
+ =?us-ascii?Q?vc2YTaRLeiZwv1O6ZlCfSFyU6G0Yh8gl1DV7foR5vZBystEvI+s/pPozktGL?=
+ =?us-ascii?Q?VuOaPjWInOzURNwik9u1eAR9e5qZZSXAcTPRwnnL8+wibSJj82R7QtSZXYaO?=
+ =?us-ascii?Q?dFQFK7YqX8zRMEn/wITdX4Bl8epuApe0zwsf8R65/CXmDZOREDDJ2LKbHL1W?=
+ =?us-ascii?Q?G353ifBTSaqYNYZpFReBIJi+1RQmlg54QuSj0uo+BxGW93rf8vRDikvWcb87?=
+ =?us-ascii?Q?Xc7FJ5gJZ0ZRZ8dFQ7DoWSG7Apya38Jr47bE1x71NwV2eGbSyWHoOLNDHZiw?=
+ =?us-ascii?Q?2Uc7inyOFtu+WXb9KXhE1mdZMDv7t7M5H8Voz44xgMSiDlrTgB2jtuIPCgyB?=
+ =?us-ascii?Q?oOlbnlOYFI0Ox9+bVL+A9LNyBxoJuhNJWdRf6PJC5plQKm03SMaa86kyNZ6z?=
+ =?us-ascii?Q?Uq2c57k4qENMk95uAcmprqGYAnAxzvb3UXABiIr2RV3oVbgKDFngnOwv3kzm?=
+ =?us-ascii?Q?quDWOT+Yl8btdbzquLeTL+pujxgEWbQOGv2Lavobe70yVVBcDvoaddTxy9Ge?=
+ =?us-ascii?Q?Hn8OfAIhYYNXT+fNjxlAB0COOyr+pU5eO49p5IJc28D61xg08jcuQTFeFcLI?=
+ =?us-ascii?Q?0pBK5JL7HT9KYwZKRo6jiocWOCl+jZO/fmwIALAWwdlwRlItTRw6owVScWGq?=
+ =?us-ascii?Q?wfMb8EBcRU8kJsGNxZurFhOisX0S24AZH4AQ1zOhK/OsDVg6p4EUbxTRT6+P?=
+ =?us-ascii?Q?bmCLb9inRfgsYP/b2aZruN/R7b08hQuuztY7vFO6eY05CVgRmD0T0nCpmhvR?=
+ =?us-ascii?Q?EvVg+nTWcl/uB2F1/aZluDIJsvCe0pUJkwKLssFp8zu+3JjYA541f+yGFUNE?=
+ =?us-ascii?Q?RrWuUMU4LEAr31+KbDiqgZ6EIkPNj/wYDj0ruMfvC8/UjuLA2YPLBetSDWuw?=
+ =?us-ascii?Q?PrUgbCKRa0D9ZGqioQ1XEAa1HOpVj5TrxaJXBwT94kycDviGx/6Nv7O//DZu?=
+ =?us-ascii?Q?Q1ZMpkEfgMOTKAS6nMMDLmiN3A8mQNuKDtZb7yEDz1F01dRgfAL3Wmir2uIC?=
+ =?us-ascii?Q?U6+O7PckXtZjlfa/LZkRnXE932dh0UKJ63izjRJJ2sMCNs8AsPUfZmJ1zIew?=
+ =?us-ascii?Q?2PjN7sXiIu23ILQ0jWfEyDfQ/iaQeTacoBm9OKoIw8aznpkD8zpkK0yUZhJk?=
+ =?us-ascii?Q?YptF/ymLHvP8iIX/0UlUefwwvXssoFXJar/sK2aJS8qXMIJAF/TLax5ZQY9D?=
+ =?us-ascii?Q?6wmmCars6v5zxmTbG4Jg9VLQM7XZ4Y9gtcg285AflD/4JG89HGs9GxGW5+yY?=
+ =?us-ascii?Q?j67Malps5TbjxtpALWXNtfGr5iGYYpzf9lwm8t+kmVairC/5aJ30q+BrOiCo?=
+ =?us-ascii?Q?gjSnV2g8iTG2biqMyJnAsEa/CRQh5fvVSQHd1Kk3XIBEGDoyB+BlpInlwQ5T?=
+ =?us-ascii?Q?vAoCXtErR4dEkguegA1Moi0V9q9PjAMVmdQeoCQud9TQxFdfuMVlSnyL7X9e?=
+ =?us-ascii?Q?Y1HQznbBPMo5C44cWrQO1QIXD2HW9+M65ZeShkuPo7gbUHOVFOs4onog3ZR+?=
+ =?us-ascii?Q?fiJ/FBgcQ/ICJrq4ZhnB4m3yMCgOUvzYdLohSSfhE4V2Sbord6KvIAvszvwv?=
+ =?us-ascii?Q?CkSswkFrR/MmawogmWytxAtWPRkAKVECsN3wtfLRU2z8V629QkyBL9BdsOUj?=
+ =?us-ascii?Q?hyscqE84LW5kz4gz3ofkwpsEG7iBmFKVjdq//ScUvckAtVakhbDM?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 49af4969-cd9f-4724-73c6-08df0a9d7f09
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Sep 2026 15:59:27.0088
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: ngeGA6t2Mzt4OHAUuKYVGrWZTgzlk4YPJgCk+W/v5kS5RxfRfO2GOAQXoZGONyM0teIwQYAtxMcw+kocXqsrqq4q2/IODSUNmefQzjoI8aKv0UZeWyiKIoL3INx1nkCl
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA6PR04MB11714
 
-Add support for the MT8189 ufs clock controller,
-which provides clock gate control for Universal Flash Storage.
+On Thu, Jul 09, 2026 at 09:58:29PM +0800, Pan Chuang wrote:
+> The devm_request_irq() now automatically logs detailed error messages on
+> failure. This eliminates the need for driver-specific dev_err() and
+> dev_err_probe() calls that previously printed generic messages.
+>
+> Signed-off-by: Pan Chuang <panchuang@vivo.com>
+> ---
 
-Co-developed-by: Irving-CH Lin <irving-ch.lin@mediatek.com>
-Signed-off-by: Irving-CH Lin <irving-ch.lin@mediatek.com>
-Co-developed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Signed-off-by: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
----
- drivers/clk/mediatek/Kconfig          |  12 ++++
- drivers/clk/mediatek/Makefile         |   1 +
- drivers/clk/mediatek/clk-mt8189-ufs.c | 132 ++++++++++++++++++++++++++++++++++
- 3 files changed, 145 insertions(+)
+Reviewed-by: Frank Li <Frank.Li@nxp.com>
 
-diff --git a/drivers/clk/mediatek/Kconfig b/drivers/clk/mediatek/Kconfig
-index 17e0bfa695fe..d26c07afd085 100644
---- a/drivers/clk/mediatek/Kconfig
-+++ b/drivers/clk/mediatek/Kconfig
-@@ -892,6 +892,18 @@ config COMMON_CLK_MT8189_SCP
- 	  management for SCP-related features, ensuring proper clock
- 	  distribution and gating for power efficiency and functionality.
- 
-+config COMMON_CLK_MT8189_UFS
-+	tristate "Clock driver for MediaTek MT8189 ufs"
-+	depends on COMMON_CLK_MT8189
-+	default COMMON_CLK_MT8189
-+	help
-+	  Enable this to support the clock management for the Universal Flash
-+	  Storage (UFS) interface on MediaTek MT8189 SoCs. This includes
-+	  clock sources, dividers, and gates that are specific to the UFS
-+	  feature of the MT8189 platform. It is recommended to enable this
-+	  option if the system includes a UFS device that relies on the MT8189
-+	  SoC for clock management.
-+
- config COMMON_CLK_MT8192
- 	tristate "Clock driver for MediaTek MT8192"
- 	depends on ARM64 || COMPILE_TEST
-diff --git a/drivers/clk/mediatek/Makefile b/drivers/clk/mediatek/Makefile
-index e712815f7572..a0bba466bb93 100644
---- a/drivers/clk/mediatek/Makefile
-+++ b/drivers/clk/mediatek/Makefile
-@@ -131,6 +131,7 @@ obj-$(CONFIG_COMMON_CLK_MT8189_DBGAO) += clk-mt8189-dbgao.o
- obj-$(CONFIG_COMMON_CLK_MT8189_DVFSRC) += clk-mt8189-dvfsrc.o
- obj-$(CONFIG_COMMON_CLK_MT8189_IIC) += clk-mt8189-iic.o
- obj-$(CONFIG_COMMON_CLK_MT8189_SCP) += clk-mt8189-scp.o
-+obj-$(CONFIG_COMMON_CLK_MT8189_UFS) += clk-mt8189-ufs.o
- obj-$(CONFIG_COMMON_CLK_MT8192) += clk-mt8192-apmixedsys.o clk-mt8192.o
- obj-$(CONFIG_COMMON_CLK_MT8192_AUDSYS) += clk-mt8192-aud.o
- obj-$(CONFIG_COMMON_CLK_MT8192_CAMSYS) += clk-mt8192-cam.o
-diff --git a/drivers/clk/mediatek/clk-mt8189-ufs.c b/drivers/clk/mediatek/clk-mt8189-ufs.c
-new file mode 100644
-index 000000000000..ec98fe01a598
---- /dev/null
-+++ b/drivers/clk/mediatek/clk-mt8189-ufs.c
-@@ -0,0 +1,132 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Copyright (C) 2025-2026 MediaTek Inc.
-+ *                    Qiqi Wang <qiqi.wang@mediatek.com>
-+ *                    Irving-CH Lin <irving-ch.lin@mediatek.com>
-+ * Copyright (C) 2026 Collabora Ltd.
-+ *                    AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-+ *                    Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
-+ */
-+
-+#include <dt-bindings/clock/mediatek,mt8189-clk.h>
-+#include <dt-bindings/reset/mediatek,mt8189-resets.h>
-+
-+#include <linux/clk-provider.h>
-+#include <linux/module.h>
-+#include <linux/platform_device.h>
-+
-+#include "clk-mtk.h"
-+#include "clk-gate.h"
-+
-+#define MT8189_UFSCFG_AO_RST0_SET_OFFSET	0x48
-+#define MT8189_UFSCFG_PDN_RST0_SET_OFFSET	0x48
-+
-+static const struct mtk_gate_regs ufscfg_ao_reg_cg_regs = {
-+	.set_ofs = 0x8,
-+	.clr_ofs = 0xc,
-+	.sta_ofs = 0x4,
-+};
-+
-+#define GATE_UFSCFG_AO_REG(_id, _name, _parent, _shift)		\
-+	GATE_MTK(_id, _name, _parent, &ufscfg_ao_reg_cg_regs, _shift, &mtk_clk_gate_ops_setclr)
-+
-+static const struct mtk_gate ufscfg_ao_reg_clks[] = {
-+	GATE_UFSCFG_AO_REG(CLK_UFSCFG_AO_REG_UNIPRO_TX_SYM,
-+			   "ufscfg_ao_unipro_tx_sym", "clk26m", 1),
-+	GATE_UFSCFG_AO_REG(CLK_UFSCFG_AO_REG_UNIPRO_RX_SYM0,
-+			   "ufscfg_ao_unipro_rx_sym0", "clk26m", 2),
-+	GATE_UFSCFG_AO_REG(CLK_UFSCFG_AO_REG_UNIPRO_RX_SYM1,
-+			   "ufscfg_ao_unipro_rx_sym1", "clk26m", 3),
-+	GATE_UFSCFG_AO_REG(CLK_UFSCFG_AO_REG_UNIPRO_SYS,
-+			   "ufscfg_ao_unipro_sys", "ufs_sel", 4),
-+	GATE_UFSCFG_AO_REG(CLK_UFSCFG_AO_REG_U_SAP_CFG,
-+			   "ufscfg_ao_u_sap_cfg", "clk26m", 5),
-+	GATE_UFSCFG_AO_REG(CLK_UFSCFG_AO_REG_U_PHY_TOP_AHB_S_BUS,
-+			   "ufscfg_ao_u_phy_ahb_s_bus", "axi_u_sel", 6),
-+};
-+
-+static u16 ufscfg_ao_rst_ofs[] = {
-+	MT8189_UFSCFG_AO_RST0_SET_OFFSET,
-+};
-+
-+static u16 ufscfg_ao_rst_idx_map[] = {
-+	[MT8189_UFSAO_RST_UFS_MPHY] = 8,
-+};
-+
-+static const struct mtk_clk_rst_desc ufscfg_ao_rst_desc = {
-+	.version = MTK_RST_SET_CLR,
-+	.rst_bank_ofs = ufscfg_ao_rst_ofs,
-+	.rst_bank_nr = ARRAY_SIZE(ufscfg_ao_rst_ofs),
-+	.rst_idx_map = ufscfg_ao_rst_idx_map,
-+	.rst_idx_map_nr = ARRAY_SIZE(ufscfg_ao_rst_idx_map),
-+};
-+
-+static const struct mtk_clk_desc ufscfg_ao_reg_mcd = {
-+	.clks = ufscfg_ao_reg_clks,
-+	.num_clks = ARRAY_SIZE(ufscfg_ao_reg_clks),
-+	.rst_desc = &ufscfg_ao_rst_desc,
-+};
-+
-+static const struct mtk_gate_regs ufscfg_pdn_reg_cg_regs = {
-+	.set_ofs = 0x8,
-+	.clr_ofs = 0xc,
-+	.sta_ofs = 0x4,
-+};
-+
-+#define GATE_UFSCFG_PDN_REG(_id, _name, _parent, _shift)	\
-+	GATE_MTK(_id, _name, _parent, &ufscfg_pdn_reg_cg_regs, _shift, &mtk_clk_gate_ops_setclr)
-+
-+static const struct mtk_gate ufscfg_pdn_reg_clks[] = {
-+	GATE_UFSCFG_PDN_REG(CLK_UFSCFG_REG_UFSHCI_UFS,
-+			    "ufscfg_ufshci_ufs", "ufs_sel", 0),
-+	GATE_UFSCFG_PDN_REG(CLK_UFSCFG_REG_UFSHCI_AES,
-+			    "ufscfg_ufshci_aes", "aes_ufsfde_sel", 1),
-+	GATE_UFSCFG_PDN_REG(CLK_UFSCFG_REG_UFSHCI_U_AHB,
-+			    "ufscfg_ufshci_u_ahb", "axi_u_sel", 3),
-+	GATE_UFSCFG_PDN_REG(CLK_UFSCFG_REG_UFSHCI_U_AXI,
-+			    "ufscfg_ufshci_u_axi", "mem_sub_u_sel", 5),
-+};
-+
-+static u16 ufscfg_pdn_rst_ofs[] = {
-+	MT8189_UFSCFG_PDN_RST0_SET_OFFSET,
-+};
-+
-+static u16 ufscfg_pdn_rst_idx_map[] = {
-+	[MT8189_UFSPDN_RST_UFS_UNIPRO] = 0,
-+	[MT8189_UFSPDN_RST_UFS_CRYPTO] = 1,
-+	[MT8189_UFSPDN_RST_UFS_HCI] = 2,
-+};
-+
-+static const struct mtk_clk_rst_desc ufscfg_pdn_rst_desc = {
-+	.version = MTK_RST_SET_CLR,
-+	.rst_bank_ofs = ufscfg_pdn_rst_ofs,
-+	.rst_bank_nr = ARRAY_SIZE(ufscfg_pdn_rst_ofs),
-+	.rst_idx_map = ufscfg_pdn_rst_idx_map,
-+	.rst_idx_map_nr = ARRAY_SIZE(ufscfg_pdn_rst_idx_map),
-+};
-+
-+static const struct mtk_clk_desc ufscfg_pdn_reg_mcd = {
-+	.clks = ufscfg_pdn_reg_clks,
-+	.num_clks = ARRAY_SIZE(ufscfg_pdn_reg_clks),
-+	.rst_desc = &ufscfg_pdn_rst_desc,
-+};
-+
-+static const struct of_device_id of_match_clk_mt8189_ufs[] = {
-+	{ .compatible = "mediatek,mt8189-ufscfg-ao", .data = &ufscfg_ao_reg_mcd },
-+	{ .compatible = "mediatek,mt8189-ufscfg-pdn", .data = &ufscfg_pdn_reg_mcd },
-+	{ /* sentinel */ }
-+};
-+MODULE_DEVICE_TABLE(of, of_match_clk_mt8189_ufs);
-+
-+static struct platform_driver clk_mt8189_ufs_drv = {
-+	.probe = mtk_clk_simple_probe,
-+	.remove = mtk_clk_simple_remove,
-+	.driver = {
-+		.name = "clk-mt8189-ufs",
-+		.of_match_table = of_match_clk_mt8189_ufs,
-+	},
-+};
-+module_platform_driver(clk_mt8189_ufs_drv);
-+
-+MODULE_DESCRIPTION("MediaTek MT8189 ufs clocks driver");
-+MODULE_LICENSE("GPL");
-
--- 
-2.55.0
-
+>  drivers/dma/uniphier-xdmac.c | 4 +---
+>  1 file changed, 1 insertion(+), 3 deletions(-)
+>
+> diff --git a/drivers/dma/uniphier-xdmac.c b/drivers/dma/uniphier-xdmac.c
+> index 120c0d4f12dd..b23d61bf7fd5 100644
+> --- a/drivers/dma/uniphier-xdmac.c
+> +++ b/drivers/dma/uniphier-xdmac.c
+> @@ -532,10 +532,8 @@ static int uniphier_xdmac_probe(struct platform_device *pdev)
+>
+>  	ret = devm_request_irq(dev, irq, uniphier_xdmac_irq_handler,
+>  			       IRQF_SHARED, "xdmac", xdev);
+> -	if (ret) {
+> -		dev_err(dev, "Failed to request IRQ\n");
+> +	if (ret)
+>  		return ret;
+> -	}
+>
+>  	ret = dma_async_device_register(ddev);
+>  	if (ret) {
+> --
+> 2.34.1
+>
