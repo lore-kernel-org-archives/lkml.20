@@ -1,111 +1,122 @@
-Received: from mail-ot1-f52.google.com (mail-ot1-f52.google.com [209.85.210.52])
+Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com [209.85.216.45])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1F913955FE
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 21:12:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E4C9421F0F
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 21:12:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788556326; cv=none; b=YdkelAeMGVYLnGvhBEf8DAZKLpmWa0C/Nlsp6dqFAE1mwOoqZe8LLfjm4mxVTxXrjFnIsEIoIxaf5pyAynSRMeqwOvYoHivzITyHPhtGtVTy7F8ZNh0v+eLY3ye0bvYSomrxntsm8UtgTiTOz27pzcxilXgFhCFf7mAW1j7+L6g=
+	t=1788556354; cv=none; b=IaN8yxk7fJovJfjZNbxhaVWd6Gc91HuM0B9Rj5/vbPMx37rLQR22McOcMorHOdO0QeCNgoiAhyIrZO0hf0KqMmXduRiBwb5LvyuUT5DJ3Wu2adQKN+y7gHZJrohYjgZUjqX6QdWxD9gClU6HFxzD8HtgopH2GSrEF7OcTx6LAao=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788556326; c=relaxed/simple;
-	bh=XZ2O6+CuggsNKjJUiXGcVa4gfM4JZiv3nmeSny7FCe4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=R1+V9qTNulkhvtNDLw8gO4Zm0CJmazNih231AmfVgeKJ6cZ/D+K4yjsdi9RTEe6KEr18B2UJYZe0hyHteQQjnq1AoyiOL75sQwIU+Iu7VLI8kcJZiqv4MmBaa3bP+K2ndvx+TQHquZxJ2cnQ07QgKkIRv7RvWyjOaJifyAGcKME=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxfoundation.org; spf=pass smtp.mailfrom=linuxfoundation.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Y1GEkaYu; arc=none smtp.client-ip=209.85.210.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxfoundation.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
+	s=arc-20240116; t=1788556354; c=relaxed/simple;
+	bh=dnpaGTQQCUnJd8SVCrQ8hx7tay7KER/6iMa2evn8Ob0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=hEUiyCjqCezCKovnkUONmBaC02/aSh2KW2zibo6fh3vlBKmnd/RDP7dV3CEyn8F9OgVp1zC3k0aAdvurhsj14uJJI5F4brwrW2uJsdZRVOsYjba7n/wua34OR72TkirC3d0PFPTLG5PL25bRH+555Q6UhgWE7JPbPLTTQFjhwV8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UEjoj1LR; arc=none smtp.client-ip=209.85.216.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Y1GEkaYu"
-Received: by mail-ot1-f52.google.com with SMTP id 46e09a7af769-7f4df360cc9so1802009a34.1
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 14:12:04 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UEjoj1LR"
+Received: by mail-pj1-f45.google.com with SMTP id 98e67ed59e1d1-3964e480f76so1588550a91.1
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 14:12:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linuxfoundation.org; s=google; t=1788556323; x=1789161123; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=5AT5dBqnr/v+Pip1Q+2K4mDw2hDT4rcmlPRVl1ccW1U=;
-        b=Y1GEkaYuRJPVsuyM1iyN5x5+9Twg/UlZOBeCAk1v97/vyg12JfXXiFUUZwwELybSkA
-         +K4smh1eypeywKyKW0ZUoVPA6pEJ2VqJmycx4vPxtMLoCIUSGv5uzZdBfKzHcJyAjzmY
-         U0VUqvP5Dv2X0OeOjNhqanARKofuYufywQYfU=
+        d=gmail.com; s=20251104; t=1788556353; x=1789161153; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=NCsjELXMOcoA9VCek0qtUTdxrcqWJGzf9e5WVEMS6fg=;
+        b=UEjoj1LR0XX1PJJLRsajXZBDIpC2G8UoGhZEWSB+ud/NVah5r1t0O8QyPmoiMgWbiF
+         5dOffmzUEUfqmqVsTertvFXaRpEse23u7V9OPhtOSqVMwu6Kuzu8gx6bYCv7yRIUzc6w
+         G7llzKTeixKG0rPxg0iITKOgOZGgx7P4P7fiN2RPPcZyxTuhMl3tYAczXGR9UUcjXgWl
+         tv3JJ8aeoevi2x+gNaIgGcCiKCDmAT1xYPt4tF/p1gsDFb/mqT++kHxemHRJluwRNzqZ
+         plbNrop2Ae85J7WBSCV1O3QbZB7uPAsLE1yZXRpQftqMwmM81+XQVTSaeof8uhJYClza
+         AbFQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788556323; x=1789161123;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20251104; t=1788556353; x=1789161153;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=5AT5dBqnr/v+Pip1Q+2K4mDw2hDT4rcmlPRVl1ccW1U=;
-        b=TeWvKa/CdmrVkWwGcoZUjy6QwKUg6qBPNWiifiZqvrjAAfMNAKZGdQLXtUgRkfmZrg
-         KVWyG2GmomdmgCnD95XS5G4s4gYLxpbTDsTlJvS07UUdiRvt8R5XvThrGnPit4vbEfHq
-         EZKzGhQvA6AQMHkx+kQkIOjsQPI1R3hs/oH/Ba1YgtOq8UOoJt7s0SigGL3ywHHdxWke
-         0IjrDEhtC96PLr1PFAiup5C5H/i0BImOTOgwndaqmhgyK2UUzUOUawvDY0tOi4auwbZ5
-         Cc7WIXxFkE+7m0LP3q51JHdNBLxrPoczcgfHLwIY/yk7L/cKxi+bRSEQ25Kl+MtVQDHj
-         0NBA==
-X-Forwarded-Encrypted: i=1; AKwUvBwfdrzcen8xBhFTdglk3xj3+U0tI4Cdk+/IxM/2AnRDztqefHCg4OEbLdnY+DeKpOXW5h4h6rEX3cy8vrA=@vger.kernel.org
-X-Gm-Message-State: AFuF++n1XTNeF3aaMBoSpOd7OnXfjufQBKr0Y5g5yEthx1B3InuK+qaW
-	AUTfahJSl3s1WodxESBIiUq8VUtf9+VOEICh7C9jsgYSl5ofEo6G+RX+8t370/EhXzw=
-X-Gm-Gg: AYBFou1lNjRP43I7Iw1VXz0PY2NdYd3lj2eoFO3weoKhyu5zj/XZPZExn5QOwDThdnG
-	rHX2mA2/mO864T0A8eMCN2MJO+bVq7nPp4AtZjO4IEHdu+CoHghDF7wlGNrudEVeXCLiiTUhRgm
-	aFJ05lyWdoxc4hMkJnBePMXBk22LOpcEcaX06nXt7rNikqBatJHp5lmyPotDorWV928Z/v/byZ1
-	pVu/EC8fupZaMTHhvvE4felpRQLgYyVU8iLXUnNDeVE7FRoVjwHV5iKRlH3yxi1Qtzb05uMgU1s
-	Bke6exq3tkssJVlPaDNzw7K+u3vofpjSYZCUwBnSvMStmYWGD/WmOVzisZkf4cVxAOwGsIKfCc6
-	h6Ef859NsH+riflnLJaax0NmK2xxrh/FHiUqgxLkWjZ2F0NMHEKdKsYLVjUWqPKtBvkHxTn1x0n
-	v4uQyGwQ2tHr2nnY3lyzprO49jAH+kY4cSF2C+wY0FpBTNfFOMjiTgyqnBKLO5LHKp5qTQHQ==
-X-Received: by 2002:a05:6830:4392:b0:7f1:e04d:fc4e with SMTP id 46e09a7af769-7f899a8aa7amr8040035a34.2.1788556323643;
-        Fri, 04 Sep 2026 14:12:03 -0700 (PDT)
-Received: from [192.168.1.128] ([38.15.57.99])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-7f9f7aeac18sm4031241a34.25.2026.09.04.14.11.57
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 04 Sep 2026 14:12:03 -0700 (PDT)
-Message-ID: <82febd53-023f-48e0-a0b2-c5da95f069e2@linuxfoundation.org>
-Date: Fri, 4 Sep 2026 15:11:55 -0600
+        bh=NCsjELXMOcoA9VCek0qtUTdxrcqWJGzf9e5WVEMS6fg=;
+        b=s/M2kaZdz/js/OTNZgrUjBmPO4iQDXxS3CFR/yMVqGCW2JB9swT3fnPKoy0xd4LDj4
+         OIiu+ooOox/KB+BNTzewcfIEEDhLUZDqHalgnyXSlqh7reFZF/R0wEf6RTidSeH4QneR
+         041laMoN1t20uV/Y+lA4Mm9JZxaoVrbhFdCyfCSbNgvC4UobPBBbaS9zFhu4FEPS6txQ
+         hOhC9ipw7Z6+w5pMZSzQbrv9NB59V4m6DhBdg8sMiLhjWi8+1SmPFvp6TY1ORugTKhrW
+         m8mtnVYFh996Qy4MgMY03/Znghrgs4hnfzJA5lgbKRVi7un4ip/KB6IxWabZcFovopaa
+         tt+w==
+X-Forwarded-Encrypted: i=1; AKwUvBzea0dIyewYqi1S8xXeQdQbrAWXZmk2e6XZ2OnOYxbHFPb7Jwqqn9+PVvfjPJeXaMWdhtlV95Qz83irKGA=@vger.kernel.org
+X-Gm-Message-State: AFuF++lAeAFAp9EgH4knWjBqwUOujLQlcaxiaNGEpzvdOBr/QCSpgmzw
+	B0HYlWX1h+mtYZvbrp55m1HtkwvrouEWH674LStjrnO2LFfG4LftBjvc9s3hIw==
+X-Gm-Gg: AYBFou2lY7XJdhj2Ii+adhPZADKvocBtIMNaY29NAtB+iqEyMJbpumi6jm5PPBvhhXq
+	yieZHYIyDI/5UNmuPGU09lHZisDMS6qDSxfFEpBk5ItwsR5nsjC/DrikRqDyuoKgvntab8fCRvp
+	BmwWaZYVthEa6PrawLs7LC5p9bMkPOQ7B1pqdOB6bHzv5E8L2oH4hpR4gWZ8XlCqDiZh1jR1oAp
+	mbl88Fc8aFM0Q1Sv2u4yzhifgp7DDqGHH9HYxL+BnHT1ncuhSHtYDHgA7bWbT2bCpn8ShspM/7b
+	aKIotDsmD9Y6m49Tg+yk29eIZs8b19k7+v5CAmq1InS7lwZUuo/ybTx1TGCh7Rqi2imdViPA9VL
+	Yxj/xRVPHOdxuXVRiYx0T23AxFX7D119TbHTkTOXb0/pBqCkAKE32qQBtPRDyUk1edO1IqcVKoH
+	u3w7EfUNqWNBiZR588TONF7BaMGyolkxLvbM1gAJY3hYoy2KGLqZhIKLjkRRMgvNjN/0HcpSnlj
+	ZK0/sOuBXAPtP6Ek7U5jsnLLMDd45UiEpmkjYsd4EOS4bi9fWjcmg65kVT6xzdFFu+pJAnYL/iJ
+	hx/YHPcXcUWaA1tljIeC2A9MQvUu5bWjg7j54g==
+X-Received: by 2002:a17:90b:274e:b0:398:b1eb:136c with SMTP id 98e67ed59e1d1-39b2610fe62mr12902336a91.9.1788556352713;
+        Fri, 04 Sep 2026 14:12:32 -0700 (PDT)
+Received: from ryzen.lan ([2601:644:8000:7a86::e34])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b08bcc081sm12288540a91.6.2026.09.04.14.12.31
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 04 Sep 2026 14:12:31 -0700 (PDT)
+From: Rosen Penev <rosenp@gmail.com>
+To: linux-crypto@vger.kernel.org
+Cc: Herbert Xu <herbert@gondor.apana.org.au>,
+	"David S. Miller" <davem@davemloft.net>,
+	linux-kernel@vger.kernel.org (open list)
+Subject: [PATCH] crypto: talitos: request irq after tasklet_init()
+Date: Fri,  4 Sep 2026 14:12:30 -0700
+Message-ID: <20260904211230.81963-1-rosenp@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6.12 000/403] 6.12.109-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
- conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
- achill@achill.org, sr@sladewatkins.com,
- Shuah Khan <skhan@linuxfoundation.org>
-References: <20260904045734.806166532@linuxfoundation.org>
-Content-Language: en-US
-From: Shuah Khan <skhan@linuxfoundation.org>
-In-Reply-To: <20260904045734.806166532@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 9/3/26 22:56, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 6.12.109 release.
-> There are 403 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
-> 
-> Responses should be made by Sun, 06 Sep 2026 04:56:59 +0000.
-> Anything received after that time might be too late.
-> 
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.12.109-rc1.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.12.y
-> and the diffstat can be found below.
-> 
-> thanks,
-> 
-> greg k-h
-> 
+The talitos interrupt handlers schedule priv->done_task[] via
+tasklet_schedule().  In probe(), talitos_probe_irq() ran before
+tasklet_init(), so an interrupt arriving during that window (a shared
+IRQ, or a completion pending from an earlier transmission) would
+schedule an uninitialized tasklet.
 
-Compiled and booted on my test system. No dmesg regressions.
+Move talitos_probe_irq() after the tasklet_init() calls so the
+tasklets are fully set up before interrupts are enabled.  This matches
+remove(), which frees the IRQs before killing the tasklets.
 
-Tested-by: Shuah Khan <skhan@linuxfoundation.org>
+Assisted-by: opencode:big-pickle
+Signed-off-by: Rosen Penev <rosenp@gmail.com>
+---
+ drivers/crypto/talitos.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-thanks,
--- Shuah
+diff --git a/drivers/crypto/talitos.c b/drivers/crypto/talitos.c
+index 41a87d7c30a0..da08cf9615c9 100644
+--- a/drivers/crypto/talitos.c
++++ b/drivers/crypto/talitos.c
+@@ -3481,10 +3481,6 @@ static int talitos_probe(struct platform_device *ofdev)
+ 		stride = TALITOS2_CH_STRIDE;
+ 	}
+ 
+-	err = talitos_probe_irq(ofdev);
+-	if (err)
+-		goto err_out;
+-
+ 	if (has_ftr_sec1(priv)) {
+ 		if (priv->num_channels == 1)
+ 			tasklet_init(&priv->done_task[0], talitos1_done_ch0,
+@@ -3507,6 +3503,10 @@ static int talitos_probe(struct platform_device *ofdev)
+ 		}
+ 	}
+ 
++	err = talitos_probe_irq(ofdev);
++	if (err)
++		goto err_out;
++
+ 	priv->fifo_len = roundup_pow_of_two(priv->chfifo_len);
+ 
+ 	for (i = 0; i < priv->num_channels; i++) {
+-- 
+2.55.0
+
