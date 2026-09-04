@@ -1,109 +1,88 @@
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+Received: from mail-m49198.qiye.163.com (mail-m49198.qiye.163.com [45.254.49.198])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B5C0414A2A
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 06:11:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D84A741A54B;
+	Fri,  4 Sep 2026 06:11:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.198
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788502294; cv=none; b=l2AbtkXzJyWoN27KL4Dhrd9fgCEkGnv0nX53nk628c0XSCiQtCVJTvyitdgLFbwIxFSbt/tDbgMhBbHwj9dTXj1+RkFZvOOo79ur7okwtwZ1r0TdoFiQ6LeBB8QBASsTDBkrC/q76AtDHKgzv7eowxeQPwZxXu1sTrX6mGA5Qgs=
+	t=1788502316; cv=none; b=Gxsw/D+a7JFP4apj5KfK9YBXcdeC+wL2b7ztfvZt6N9A2VY/ZXBe80xaZnKeOpowPi4iK1ZA+eNdrwu5l4KZqFqN6JTlVycsWF54odiXCC3GIJNcespm2tAgSFRBjjFo8Q9UPl4MRufjUgDkN54pmD/N+FbxNeucDgUQGgRlUq0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788502294; c=relaxed/simple;
-	bh=JHkbB1JfRxNI1CsXHCi50vbXHL74mLGXT94u8wHDfJ8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=GvowX6ORaYje+GQ0FZPRkeY1o/NBgm0/am3AD/CADESjrv90gkolUAqYb1DHSKTHxlfrfDOt9Z5twKWNbpXYXbj55WDL5vUMo+xIRmokz/PMRWwat8KW7UVMSXkTrTLzMP4u7LzJJv60L06QIk3EtPSTDzAvfJi8hTlcD5LYRKc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=0NwTAcz0; arc=none smtp.client-ip=185.246.85.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1788502316; c=relaxed/simple;
+	bh=VWcCSH0dCpuBnV6oiRYjSwzVUgnxtoHKJ+yXnETEx3A=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=aiRmKgRTVhFULrJf7n1pJ0koKr6HgsjovruUycZhqbs/2jFwMlfbiQpLTJBtmPnbuJnosL0fK4TUpdTvK+gqEXhOS1IZkTLSv7FECImjJZl1ppOpRoNbQBWhgSA1/sUUWeRoh7HEbs4N3Sz9UH9gLpz8MdZyYF9KIIq2M5chmD8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=AXWOwarS; arc=none smtp.client-ip=45.254.49.198
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="0NwTAcz0"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id 60B1A4E414FB;
-	Fri,  4 Sep 2026 06:11:29 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 1BDEF6057F;
-	Fri,  4 Sep 2026 06:11:29 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id EC85711C79F76;
-	Fri,  4 Sep 2026 08:11:23 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1788502288; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=RjzcsyivNlPTUwhkXm3AdIxL5Bh4sKOmVQSxjRl8PGI=;
-	b=0NwTAcz0MdpOoqji7q2xKnNJsmjSu7eAV4DCPTkxjm2bz6sY218UF5hr5I1U2fiLxVcZK/
-	PKl6aLGBwKKLyAq3fgos0WtRv8PBkzjTurWfdK6FQ/JcUcUhmmuRQdnYAZ8F9XvemMKVTh
-	QdH3ZPOG+pskVTVF8f3x6HkslNdT0ovkmuPhGFLTVpnML3R6dRkW4H059ji5nfGVs22eEb
-	Sk7Zv5OiCMCsZoL9X3WuUQrNPclPlXqm4DgNz0GsNILau1nLMJd4EngNvu0NGwDhGncwji
-	G7LNbQk9jginQ8/55C+hynixCrjw89yeW7ZLj1wlZThmdoBSIPbTDhc+EwdXwA==
-Message-ID: <de57fcda-30b8-4afc-8711-0f0d06840fa2@bootlin.com>
-Date: Fri, 4 Sep 2026 08:11:22 +0200
+	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="AXWOwarS"
+Received: from PC-202605011814.localdomain (unknown [222.191.246.242])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 4c84a5972;
+	Fri, 4 Sep 2026 14:11:43 +0800 (GMT+08:00)
+From: Runyu Xiao <runyu.xiao@seu.edu.cn>
+To: Dipen Patel <dipenp@nvidia.com>
+Cc: Thierry Reding <thierry.reding@gmail.com>,
+	Jonathan Hunter <jonathanh@nvidia.com>,
+	timestamp@lists.linux.dev,
+	linux-tegra@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Runyu Xiao <runyu.xiao@seu.edu.cn>,
+	Jianhao Xu <jianhao.xu@seu.edu.cn>
+Subject: [PATCH] hte: tegra194-test: shut down timer before GPIO release
+Date: Fri,  4 Sep 2026 14:11:37 +0800
+Message-Id: <20260904061137.4037269-1-runyu.xiao@seu.edu.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next v2 0/2] selftests: drv-net: Allow cross-compiling
- the hardware tests
-To: Andrew Lunn <andrew@lunn.ch>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>, davem@davemloft.net,
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Donald Hunter <donald.hunter@gmail.com>,
- Simon Horman <horms@kernel.org>, Shuah Khan <shuah@kernel.org>,
- matttbe@kernel.org, Stanislav Fomichev <sdf@fomichev.me>,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- thomas.petazzoni@bootlin.com, linux-kselftest@vger.kernel.org
-References: <20260903155524.2241065-1-maxime.chevallier@bootlin.com>
- <2a595cf6-d208-4a0a-a96f-738235236aa1@lunn.ch>
- <b2f7d07b-5c14-4767-9fbf-47a72a6c22cd@bootlin.com>
- <a0ced283-7eac-451c-b22b-cb88a302995f@lunn.ch>
-Content-Language: en-US
-From: Maxime Chevallier <maxime.chevallier@bootlin.com>
-In-Reply-To: <a0ced283-7eac-451c-b22b-cb88a302995f@lunn.ch>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa06b0b635603a1kunm17d27c262ab16
+X-HM-MType: 10
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZHkkdVk1NSR8aTBpPGEtITVYeHw
+	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJSUlVSkJKVUlPTVVJT0lZV1kWGg8SFR0UWUFZT0tIVUpLSE
+	pPSExVSktLVUpCS0tZBg++
+DKIM-Signature: a=rsa-sha256;
+	b=AXWOwarS7QhrIVl02efjy5LRtr8InSgy0R+P+DmPuXR41PqxGFR9WfKc+qv1B4jEXVHajHqaf7ed7UJG4lgAHOpk3c9NkxCVR/cyKHXktdF/AFgfQKO6wBTtZHmfMf+Ou6hHsTbAB8gBJqWU1lqNI+pm2/FePwjoZY3AVwfuDGM=; c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1;
+	bh=zbYzMXzKyFZV0cyFot9tpNTeo7XFZPJwRoTE/bMycuU=;
+	h=date:mime-version:subject:message-id:from;
 
+tegra_hte_test_remove() releases GPIO descriptors before stopping
+hte.timer. gpio_timer_cb() accesses hte.gpio_out and rearms the timer, so
+a callback concurrent with remove can use a released descriptor and rearm
+after teardown.
 
+Shut down the timer before releasing the GPIO descriptors.
+timer_shutdown_sync() waits for a running callback and prevents it from
+being rearmed.
 
-On 9/3/26 23:59, Andrew Lunn wrote:
->> But then there's the kselftests that require a peer, and here it's another story.
->> Some tests, when using the SSH remote type, will scp a small binary on the peer
->> and use that binary for testing (sending specially crafted frames, etc.)
->>
->> Just in the drivers/net/hw tests, we have :
->>
->> drivers/net/hw/csum.py
->> drivers/net/hw/devmem_lib.py
->> drivers/net/hw/gro_hw.py
->> drivers/net/hw/iou-zcrx.py
->> drivers/net/hw/nk_qlease.py
-> 
-> But none of these are binary, so long as you run the .py file, not a
-> pyc file.
-> 
-> iou-zcrx.c ncdevmem.c nk_forward.bpf.c nk_primary_rx_redirect.bpf.c
-> toeplitz.c would be a problem.
+Fixes: 9a75a7cd03c9 ("hte: Add Tegra HTE test driver")
+Cc: stable@vger.kernel.org
+Assisted-by: Codex:GPT-5
+Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
+---
+ drivers/hte/hte-tegra194-test.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-What I meant is that all the .py files above are selftests that are copying
-actual biniares (generated from the c files you mention)
-
-e.g.
-
-drivers/net/hw/csum.py sends the binary generated from net/lib/csum.c to the peer
-
-
-> 
->> We could expand the remote_ssh logic to probe the peer, and raise a skip if it's
->> a different arch than the dut. Or better, have the DUT check if the peer doesn't
->> already have the tool in question, i.e. the kselftest "package" is also installed
->> there.
-> 
-> https://github.com/torvalds/linux/blob/master/Documentation/dev-tools/kselftest.rst#install-selftests
-> 
-> does talk about installing the self tests. Maybe somewhere in
-> /usr/local/libexec or /usr/local/bin. 
-
-Yep that's what I meant, this is what buildroot uses to populate the rootfs on the target
-
-Maxime
+diff --git a/drivers/hte/hte-tegra194-test.c b/drivers/hte/hte-tegra194-test.c
+index 32907d951..cca33868f 100644
+--- a/drivers/hte/hte-tegra194-test.c
++++ b/drivers/hte/hte-tegra194-test.c
+@@ -217,10 +217,10 @@ static void tegra_hte_test_remove(struct platform_device *pdev)
+ {
+ 	(void)pdev;
+ 
++	timer_shutdown_sync(&hte.timer);
+ 	free_irq(hte.gpio_in_irq, &hte);
+ 	gpiod_put(hte.gpio_in);
+ 	gpiod_put(hte.gpio_out);
+-	timer_delete_sync(&hte.timer);
+ }
+ 
+ static struct platform_driver tegra_hte_test_driver = {
+-- 
+2.34.1
 
