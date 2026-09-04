@@ -1,221 +1,106 @@
-Received: from mail-oa1-f50.google.com (mail-oa1-f50.google.com [209.85.160.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CE94476072
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 12:14:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5480838B158;
+	Fri,  4 Sep 2026 12:15:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788524096; cv=none; b=BmM5lswReQTa+94N29vt87WsKLxMrMD39dWM3o/jMVPf7kD9pN6Jp2vALyvN/FpYczff8Hq3PMR4r6nBAn56btJRlnK/DLOJeYUCfADaAWgC4pLZ8NC5vbmrXRdc/9SGP1mLrpdPHgNj/lZsEg4G8a0F45r2+Zmr+9fqWow+L7A=
+	t=1788524123; cv=none; b=EMCUsybEM4e50FurO3OFyMnkZswageyxphM4/6ZTMsCJfTjH993PEkUH8d5fs37Yq2r2YbxwM3oXv5AXyJC6/Hf0JO31hru/j+jakJJPM3QOA/gOZVNP4UI+0DObP9vMJy6R3V3ErmVo/o4iozp1+f3sQHNiuDmFjm1PWuM5Fd8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788524096; c=relaxed/simple;
-	bh=dd1lCGy0Kh3z0zS/NqxWoc16amM2UKMB9VnBcyxbIFQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=E3oYwfOEl91xTX3UgDC+pK1eqOqSiHg8Nysig4V90Pzdn1vQSZzIZmYiXmigZnhqqvqV2+UmXWc7pRHnjDL2e41QWWnV6WzZcIwLLtL9ARqQob0W07j7h62HJJ0Aac3gkStoZU8ocHUVuSQJ5rdnVeEnrWvjWMLxMGQeE1izsFQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=c+lL6tTY; arc=none smtp.client-ip=209.85.160.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788524123; c=relaxed/simple;
+	bh=12BfSrTcPi4xiLBNgNrbzE4C1/0ne2TkNTelRRlK+Nk=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=bMJeCZTFgWjfgpCiE8y1E+FvKBthrXBLh3+NADvpHqzrA6NIc0JF+Bz1Qb8D8UG05RZ2dERfpICU3unvEvs9s/VGe16FlWpIQQvmykO+/BlMIh/Qo5ebVu3y1CtG6hIy+wGGCX0alJMKljAMmetN8JfuxvEgxEjuIXthn6N7pzU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FeGEbBAf; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="c+lL6tTY"
-Received: by mail-oa1-f50.google.com with SMTP id 586e51a60fabf-469d76ce704so805931fac.2
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 05:14:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788524093; x=1789128893; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=wTh4q0fVS/vkJBpUmk5P6WbrM8N8JqcQKf6Z2q56q3g=;
-        b=c+lL6tTYmmsVSf++ktmoHE6AOgDet2C7okYRW5FMabVbx/ZCC3Ri+QAX7tgqwIHeh0
-         dbyUwcGk/x94mX+1l3/4nc8JH9s+YA9H6+RSza/R6wp/LvwjRqM6PrMcWE5aLr10bHLc
-         5cuLG4gmqrzCdYB4QNifqtoIKJcodmXDqmQv7/SyI4R14iRWlsQ7Tdo76i6qexgqAKq2
-         MQJbKdwOqBb2fkfPFErxtA9AUwfymSQ1w5Mu90BhXlg0sGfdzmzW2UpPFe900ppHWXWP
-         eXtUoIzrDeClgp2kdhAok2A68xlOWGduEnupRgPX2uoWZ8vZYJCUSkvd8PBlc/ypArJI
-         8N4g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788524093; x=1789128893;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=wTh4q0fVS/vkJBpUmk5P6WbrM8N8JqcQKf6Z2q56q3g=;
-        b=bDE6y4DpssjAep/E7kfn1OUSTCBAaPaHIHOC3d/phPgN/3f2r7M3qlsN5kfLOdDa5w
-         ZldrCJrf2sA+Pp3epGzTmqLvcsGjrxxbyyqYIQI5aPjsHaFr5GiYRtHrsZeMGcATu39u
-         34++ruY8AkV32dyl9yNpfk1PPXAwGDewvinR80Xp/kSOf16iZhYJjzI7qjV9zLi4mRBg
-         2MOoekKjWmkt5gHIjpA9UFVN4F3x5bxSTY9qDz9snwUkd3XwxNGDsjMJ7SBiNTkY5vQ1
-         LPE7Jwrr06TzgLiU2NLUBEJ/swC1IiGImh/XVi47w1eLLczRYAWso6Pko3lKetcAE80K
-         t6aw==
-X-Gm-Message-State: AFuF++mqv51wwMyzr7NLh0b+F0N0ap4GqpL/I0xGZUj7txe5lsiAVcCC
-	UntQOF8XLhbq8pLHm5fU5tXxQYWfuYVDotdg9pcLaQTVa84GyQMID+R+8EPvhMWRDKQ=
-X-Gm-Gg: AYBFou0fbVVmm9xywjSroqDtz0a2S2kfphfY6crfdPp1KCYGCPODUjrjSNA2YlGoaFx
-	z0c+xqFFfiG0JS5hFztbySAkTsdMIJRoGL/ZvmFYBWyFC18W4ZzoPM+HuaXhrTWBxvZiMPVmRga
-	tkCWL5PbsfPvOoQveBzfLJ72hUZyADaIkMxOMRAQ3OrnAg4hDqHen+s68vc27XnBsuPdx4X7bMJ
-	2yEvjeC0SXxYr2gF/RQn2SrZW1rkTbwvzsq8p86VuruZvSA0GypuFOjTWvKTuLSMMGQvps+vRea
-	XvrwvE2VvtF4JAu0OhTNPRlfQ3QtXP4KdAu105ts3Bg7IK0xejcRiRn71W4bZ4Xb+cN6arpBYHX
-	1atq/Qn9HzLE4vEkEmDG+69EuMkfgGPxgMbi7WgzR9Qe38IBTyZk2+nXYXx4I2+3ZSssE96q/Gt
-	GGWXjfhZZPD2tTgYprLx44cmQqwNiC5SYbsuajcI120g6o3ACYZKr8CVYptlGvcpQf6uhGhpnhL
-	4ZFHbqwkduuwtA=
-X-Received: by 2002:a05:6820:3102:b0:6b2:f445:af17 with SMTP id 006d021491bc7-6b6fc7d2b9cmr4190592eaf.26.1788524093027;
-        Fri, 04 Sep 2026 05:14:53 -0700 (PDT)
-Received: from volcano9f6e-hostos.amd.com ([165.204.217.251])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1432424d27asm9311666c88.2.2026.09.04.05.14.51
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 04 Sep 2026 05:14:52 -0700 (PDT)
-From: Hemanth Selam <hemanth.selam@gmail.com>
-To: 
-Cc: linux-kernel@vger.kernel.org
-Subject: [PATCH 0/2] scsi: fix typos and repeated words in comments
-Date: Fri,  4 Sep 2026 17:44:21 +0530
-Message-ID: <20260904121449.24178-1-hemanth.selam@gmail.com>
-X-Mailer: git-send-email 2.48.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FeGEbBAf"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id E3CF8C2BCC7;
+	Fri,  4 Sep 2026 12:15:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1788524122;
+	bh=12BfSrTcPi4xiLBNgNrbzE4C1/0ne2TkNTelRRlK+Nk=;
+	h=From:Subject:Date:To:Cc:Reply-To:From;
+	b=FeGEbBAfUeBrJ5kEIEwGSwifpL79dfm1I+myTrxT0TtKlUEYWymHpGJdfwUhPIuZJ
+	 Ma+d9wvsh7ClqBXWv8sl8MHUCNxn4LFADK9INsj/EBGx4y17oWnsfOW+9JqCz+yFve
+	 mB4MYtCMqpuGX6oZJH9ode9wQ5IWXDktHBy2EnVlWmvADzOa8n0e1PrIt8Wv6EYXyx
+	 Z+fnlhbbLwpGUrSWAzvApCgLdVNqb0TL7kLs8nPXkn+BUduDusgwAcBDvo/Ovt0lfe
+	 DTa73sJZLoY6BurgFfWVfIRvhstRbvjlXI56LZhBfBwNH/WYmtBExxSMOLOxe/XWgO
+	 uZ70/9u75bH1Q==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B2FADC61DD6;
+	Fri,  4 Sep 2026 12:15:22 +0000 (UTC)
+From: Muzaffer Kadir via B4 Relay <devnull+muzafferkadir.mainlining.org@kernel.org>
+Subject: [PATCH v3 0/2] Add pinctrl support for MSM8952
+Date: Fri, 04 Sep 2026 15:15:09 +0300
+Message-Id: <20260904-msm8952-pinctrl-v3-0-110515fff513@mainlining.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3XNQQqDMBCF4atI1k1JRmtiV71H6cKJUQc0SiKhR
+ bx7o6uCdPk/mG9WFqwnG9g9W5m3kQJNLkV+yZjpa9dZTk1qBgJKoWXJxzDq6gZ8JmcWP3A0gE2
+ hiwpKydLV7G1L70N8vlL3FJbJf44HUe7rfytKLnitQAGaBqRWj7EmN5Aj110n37EdjPCDgDgjk
+ BBsATUqzFWFJ2Tbti9zpKjZ+AAAAA==
+X-Change-ID: 20260816-msm8952-pinctrl-bc2bd4849261
+To: Bartosz Golaszewski <brgl@kernel.org>, 
+ Bjorn Andersson <andersson@kernel.org>, Linus Walleij <linusw@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
+ linux-arm-msm@vger.kernel.org, linux-gpio@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Muzaffer Kadir <muzafferkadir@mainlining.org>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788524120; l=1511;
+ i=muzafferkadir@mainlining.org; s=20260816; h=from:subject:message-id;
+ bh=12BfSrTcPi4xiLBNgNrbzE4C1/0ne2TkNTelRRlK+Nk=;
+ b=gsKkCZmEplMwyOZUY9hO8Di9Llmy5zgdfZBj0UJHiaIxlUdRcLwIDBchmxUk2Ang5y94+BQOF
+ iOp6Jkjbs+lCFQ8jVf4MdHlLcb4DwOql3ASQNLD9bmUbLcANPVCViJI
+X-Developer-Key: i=muzafferkadir@mainlining.org; a=ed25519;
+ pk=4zkv4suQ3cYcO4Z7CrV8JSSjEGLBGepUtvQCFjgnYIU=
+X-Endpoint-Received: by B4 Relay for muzafferkadir@mainlining.org/20260816
+ with auth_id=954
+X-Original-From: Muzaffer Kadir <muzafferkadir@mainlining.org>
+Reply-To: muzafferkadir@mainlining.org
 
-This corrects 2 misspellings and repeated words in comments.  Each is a
-separate patch so that any one of them can be dropped without touching
-the rest.
+MSM8952 has pinctrl system that is similar to MSM8917 pinctrl, but it
+has some differences in some of the pins and their functions.
+This driver tested on General Mobile GM 5 Plus.
 
-Nothing outside comments changes.  Every touched C file was checked by
-dropping its comments, replacing each string literal with a placeholder
-and collapsing whitespace; what remained was identical before and after,
-so the compiled code cannot differ.
+Signed-off-by: Muzaffer Kadir <muzafferkadir@mainlining.org>
+---
+Changes in v3:
+- Added missing functions and removed unnecessary functions
+  with Konrad Dybcio's suggestions.
+- Because of the changes on functions, I changed dt-bindings too.
+  Dropped Krzysztof's Reviewed-By attribute because of the changes.
+- Rebased and Tested on linux-next, next-20260902 tag.
+- Link to v2: https://lore.kernel.org/r/20260820-msm8952-pinctrl-v2-0-bf2b8b7b379b@mainlining.org
 
-The mistakes were found with scripts/checkpatch.pl against the list in
-scripts/spelling.txt.  The scanning, the edits and the changelogs were
-produced with Cursor running the claude-opus-5 model, from a request to
-find and fix spelling mistakes across the tree, and every correction was
-then re-checked by the comparison described above.  Words that name an
-identifier were left alone deliberately, even when they read as typos,
-because correcting the prose would make the comment disagree with the
-code it describes.
+Changes in v2:
+- Reworded dt-bindings commit as Krzysztof suggested.
+- Added depends and default to kconfig entry of pinctrl
+- Link to v1: https://lore.kernel.org/r/20260816-msm8952-pinctrl-v1-0-a7272bcd2187@mainlining.org
 
-Tested by building x86_64 defconfig at v7.3-rc1-269-gbc35965f6940, which
-is clean.  Nothing else was built, so any patch touching code that
-x86_64 defconfig does not compile has been read but not compiled.
+---
+Muzaffer Kadir (2):
+      dt-bindings: pinctrl: qcom: Add MSM8952 pinctrl
+      pinctrl: qcom: Add MSM8952 tlmm pinctrl driver
 
-Hemanth Selam (2):
-  scsi: fix typos in comments
-  scsi: fix repeated words in comments
+ .../bindings/pinctrl/qcom,msm8952-pinctrl.yaml     |  146 +++
+ drivers/pinctrl/qcom/Kconfig.msm                   |    8 +
+ drivers/pinctrl/qcom/Makefile                      |    1 +
+ drivers/pinctrl/qcom/pinctrl-msm8952.c             | 1194 ++++++++++++++++++++
+ 4 files changed, 1349 insertions(+)
+---
+base-commit: 32b6ef9a5d0eca44f9cd91f52f4faa89f145a0de
+change-id: 20260816-msm8952-pinctrl-bc2bd4849261
 
- drivers/scsi/aacraid/aachba.c                   |  2 +-
- drivers/scsi/aacraid/aacraid.h                  |  2 +-
- drivers/scsi/aacraid/commsup.c                  |  2 +-
- drivers/scsi/aha152x.c                          |  6 +++---
- drivers/scsi/aic7xxx/aic79xx.h                  |  8 ++++----
- drivers/scsi/aic7xxx/aic79xx_core.c             |  4 ++--
- drivers/scsi/aic7xxx/aic79xx_osm.c              |  2 +-
- drivers/scsi/aic7xxx/aic7xxx.h                  |  6 +++---
- drivers/scsi/aic7xxx/aic7xxx_core.c             |  2 +-
- drivers/scsi/aic7xxx/aicasm/aicasm_macro_scan.l |  2 +-
- drivers/scsi/aic7xxx/aiclib.h                   |  2 +-
- drivers/scsi/aic94xx/aic94xx_scb.c              |  2 +-
- drivers/scsi/arm/fas216.c                       |  8 ++++----
- drivers/scsi/arm/fas216.h                       |  6 +++---
- drivers/scsi/atp870u.c                          |  2 +-
- drivers/scsi/be2iscsi/be_cmds.c                 |  2 +-
- drivers/scsi/be2iscsi/be_iscsi.c                |  2 +-
- drivers/scsi/be2iscsi/be_main.c                 |  4 ++--
- drivers/scsi/be2iscsi/be_main.h                 |  6 +++---
- drivers/scsi/bfa/bfa_core.c                     |  2 +-
- drivers/scsi/bfa/bfa_defs.h                     |  2 +-
- drivers/scsi/bfa/bfa_defs_fcs.h                 |  2 +-
- drivers/scsi/bfa/bfa_defs_svc.h                 |  2 +-
- drivers/scsi/bfa/bfa_fc.h                       |  6 +++---
- drivers/scsi/bfa/bfa_fcpim.c                    |  6 +++---
- drivers/scsi/bfa/bfa_fcpim.h                    |  4 ++--
- drivers/scsi/bfa/bfa_fcs_fcpim.c                |  2 +-
- drivers/scsi/bfa/bfa_fcs_lport.c                |  4 ++--
- drivers/scsi/bfa/bfa_fcs_rport.c                |  6 +++---
- drivers/scsi/bfa/bfa_ioc.c                      |  6 +++---
- drivers/scsi/bfa/bfa_ioc.h                      |  2 +-
- drivers/scsi/bfa/bfa_svc.c                      |  2 +-
- drivers/scsi/bfa/bfa_svc.h                      |  2 +-
- drivers/scsi/bfa/bfad.c                         |  4 ++--
- drivers/scsi/bfa/bfad_bsg.c                     |  2 +-
- drivers/scsi/bfa/bfi.h                          |  4 ++--
- drivers/scsi/bfa/bfi_ms.h                       |  4 ++--
- drivers/scsi/bnx2fc/bnx2fc_fcoe.c               |  2 +-
- drivers/scsi/bnx2fc/bnx2fc_io.c                 |  2 +-
- drivers/scsi/bnx2fc/bnx2fc_tgt.c                |  2 +-
- drivers/scsi/bnx2i/bnx2i.h                      |  2 +-
- drivers/scsi/bnx2i/bnx2i_sysfs.c                |  2 +-
- drivers/scsi/csiostor/csio_hw.c                 |  2 +-
- drivers/scsi/csiostor/csio_hw.h                 |  2 +-
- drivers/scsi/csiostor/csio_isr.c                |  2 +-
- drivers/scsi/csiostor/csio_lnode.c              |  4 ++--
- drivers/scsi/csiostor/csio_mb.c                 |  2 +-
- drivers/scsi/csiostor/csio_scsi.c               | 14 +++++++-------
- drivers/scsi/csiostor/csio_wr.c                 |  8 ++++----
- drivers/scsi/dc395x.c                           |  2 +-
- drivers/scsi/esas2r/esas2r.h                    |  2 +-
- drivers/scsi/esas2r/esas2r_init.c               |  2 +-
- drivers/scsi/fcoe/fcoe_ctlr.c                   |  4 ++--
- drivers/scsi/fcoe/fcoe_transport.c              |  2 +-
- drivers/scsi/fnic/fnic_main.c                   |  2 +-
- drivers/scsi/fnic/fnic_trace.h                  |  2 +-
- drivers/scsi/fnic/vnic_devcmd.h                 |  2 +-
- drivers/scsi/hpsa.c                             |  2 +-
- drivers/scsi/hpsa_cmd.h                         |  2 +-
- drivers/scsi/ibmvscsi_tgt/ibmvscsi_tgt.c        |  2 +-
- drivers/scsi/ibmvscsi_tgt/ibmvscsi_tgt.h        |  2 +-
- drivers/scsi/imm.c                              |  4 ++--
- drivers/scsi/ipr.c                              |  2 +-
- drivers/scsi/libfc/fc_exch.c                    |  2 +-
- drivers/scsi/lpfc/lpfc_debugfs.c                |  6 +++---
- drivers/scsi/lpfc/lpfc_init.c                   |  2 +-
- drivers/scsi/lpfc/lpfc_sli.c                    |  2 +-
- drivers/scsi/megaraid.c                         |  4 ++--
- drivers/scsi/megaraid/megaraid_mbox.c           |  8 ++++----
- drivers/scsi/megaraid/megaraid_sas_fusion.c     |  4 ++--
- drivers/scsi/mpt3sas/mpi/mpi2_init.h            |  2 +-
- drivers/scsi/mpt3sas/mpt3sas_base.c             |  2 +-
- drivers/scsi/mpt3sas/mpt3sas_base.h             |  6 +++---
- drivers/scsi/mpt3sas/mpt3sas_ctl.c              |  8 ++++----
- drivers/scsi/mpt3sas/mpt3sas_scsih.c            | 12 ++++++------
- drivers/scsi/mpt3sas/mpt3sas_transport.c        |  2 +-
- drivers/scsi/mvsas/mv_sas.h                     |  2 +-
- drivers/scsi/ncr53c8xx.c                        |  4 ++--
- drivers/scsi/pcmcia/nsp_cs.c                    |  2 +-
- drivers/scsi/pcmcia/nsp_io.h                    |  2 +-
- drivers/scsi/pm8001/pm8001_sas.h                |  2 +-
- drivers/scsi/pm8001/pm80xx_hwi.h                |  4 ++--
- drivers/scsi/pmcraid.c                          |  4 ++--
- drivers/scsi/pmcraid.h                          |  2 +-
- drivers/scsi/ppa.c                              |  4 ++--
- drivers/scsi/qedf/qedf_main.c                   |  4 ++--
- drivers/scsi/qla1280.c                          |  2 +-
- drivers/scsi/qla2xxx/qla_fw.h                   |  2 +-
- drivers/scsi/qla2xxx/qla_iocb.c                 |  4 ++--
- drivers/scsi/qla2xxx/qla_nx.c                   |  2 +-
- drivers/scsi/qla2xxx/qla_os.c                   |  6 +++---
- drivers/scsi/qla2xxx/qla_target.c               |  4 ++--
- drivers/scsi/qla2xxx/qla_target.h               |  4 ++--
- drivers/scsi/qla2xxx/tcm_qla2xxx.c              |  2 +-
- drivers/scsi/qla4xxx/ql4_fw.h                   |  2 +-
- drivers/scsi/qla4xxx/ql4_nx.c                   |  2 +-
- drivers/scsi/qla4xxx/ql4_os.c                   |  2 +-
- drivers/scsi/qlogicfas408.c                     |  2 +-
- drivers/scsi/scsi_error.c                       |  2 +-
- drivers/scsi/scsi_transport_iscsi.c             |  2 +-
- drivers/scsi/sd.c                               |  2 +-
- drivers/scsi/sd_zbc.c                           |  2 +-
- drivers/scsi/sg.c                               |  4 ++--
- drivers/scsi/snic/snic_debugfs.c                |  2 +-
- drivers/scsi/snic/snic_fwint.h                  |  6 +++---
- drivers/scsi/snic/snic_scsi.c                   |  4 ++--
- drivers/scsi/snic/snic_stats.h                  |  4 ++--
- drivers/scsi/st.c                               |  2 +-
- drivers/scsi/sym53c8xx_2/sym53c8xx.h            |  2 +-
- drivers/scsi/sym53c8xx_2/sym_hipd.c             | 10 +++++-----
- drivers/scsi/sym53c8xx_2/sym_hipd.h             |  2 +-
- drivers/scsi/wd719x.c                           |  2 +-
- drivers/scsi/wd719x.h                           |  2 +-
- drivers/ufs/core/ufshcd.c                       |  4 ++--
- include/uapi/scsi/scsi_bsg_fc.h                 |  2 +-
- include/ufs/ufs_quirks.h                        |  2 +-
- 116 files changed, 194 insertions(+), 194 deletions(-)
-
+Best regards,
 -- 
-2.48.1
+Muzaffer Kadir <muzafferkadir@mainlining.org>
+
 
