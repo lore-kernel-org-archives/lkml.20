@@ -1,136 +1,115 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-22.mta1.migadu.com [95.215.58.22])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 019693803D0
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 20:03:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABFDB3E5A1D
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 20:03:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.22
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788552236; cv=none; b=ReIJr14oXBQoxH5QWtWQ3/YDonUkZB7BBzfJUbF80iHsxP9uCzrx2fVzE/+itnCjhM5iHMt66Nwi8HK+gYFROrtAikd8pJJmgjUckD9aWZfXDhyEhvSZgQC6wGqPXsYT9NbGiVvY+/PriUq43dUZ70GGnr+WqovEbGnJdOb/Lvk=
+	t=1788552239; cv=none; b=nb5beZTidw23kb759V9dPimr5BqfM7dr+UNnijDLDw43t3cGvv/Gzfdj9u/kEu5isVZ48uegJPNL99HSzee+1y85UcZVPiqNzhX6YKRL2U/suXEc5d222zkz7q1sX1KvaOGvUxEDJ5k2xvGxgHQZty3jYowitIqGhi9ZrahRfUs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788552236; c=relaxed/simple;
-	bh=B3mbXGgcUMU41mdHor14hlewxI1TjYBtrggKnKgV6iQ=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=m60zhwPHlD4b27YnTs1UV2gIBy4G93jFvaSN8tVBfTkkTP+aQbeQ/fXMVOF6vP+s+jVKt6ZQAy6ctGtgDDAoERvpz3mlKl65iOCeul/fS4YTAGEvEMqKjhz53pcMGF/BX1Zn6kU45/65cQF1uwaApDlRA/RhsJuIHXkT0md/WR8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=IHCCFT4n; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=aKZ4d1q6; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1788552239; c=relaxed/simple;
+	bh=qi6RHnGDCGkfNITqcvCFwcoWSmNWkH+un3Fby8LVM/w=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=jH5tacORn93/tMu1HzDXAHoRMBQcK07DlTIEpyY9aYbk1hLxq8XQjWR0etHbjBfWbqEWzeQyyWlxZBjFAL3JbteOkcAM3TaEkCSJ4Eh8VY8fJJ01bkKEVg2jd95N6MLRXgBZD5rzhby1ULAaaM4ArCujEwRqLtP5U9FX0KK218k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=justthetip.ca; spf=pass smtp.mailfrom=justthetip.ca; dkim=pass (2048-bit key) header.d=justthetip.ca header.i=@justthetip.ca header.b=gLC00eOX; arc=none smtp.client-ip=95.215.58.22
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=justthetip.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=justthetip.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="IHCCFT4n";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="aKZ4d1q6"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1788552232;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=B3mbXGgcUMU41mdHor14hlewxI1TjYBtrggKnKgV6iQ=;
-	b=IHCCFT4n+Kpn2fEJM4+Su/5yfBE5uIjVsW3xu4GsXeKi7n2V3MWj4gqhNC4f4D5ZBXasq2
-	gumUGOIvxnrrr6h75Oa0EXJHKYYqvi9ykPlSdHsJ7uFzj/K3JTKcTtFNRaPu5VpyXmWl2c
-	8CmVP3l0y+5qH00N1kPQgDN9RrrJk6w=
-Received: from mail-yw1-f200.google.com (mail-yw1-f200.google.com
- [209.85.128.200]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-621-eNnylW51MZ2d6WRQu3FnSQ-1; Fri, 04 Sep 2026 16:03:51 -0400
-X-MC-Unique: eNnylW51MZ2d6WRQu3FnSQ-1
-X-Mimecast-MFC-AGG-ID: eNnylW51MZ2d6WRQu3FnSQ_1788552231
-Received: by mail-yw1-f200.google.com with SMTP id 00721157ae682-836c8fc09cfso34084457b3.1
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 13:03:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1788552230; x=1789157030; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-type:autocrypt:references
-         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=B3mbXGgcUMU41mdHor14hlewxI1TjYBtrggKnKgV6iQ=;
-        b=aKZ4d1q6+vxd7iG7wrLHuJwMe4cA1Kw3cHcOACOpo3Ag5WHK+1EkQFmsbMaXcvcxin
-         SV2HyJ1815Sa/L0j3eZsq/UL28f2EhsfH5bQbXnjO84XNFh9hO+HoANFWsfrSMD4YyQW
-         9VQ5eM5DioxcrXUw9YKjkk8YZHZ3jy9TSQHFrk/Yd0+wl29AQOAjt2Lt088cFzw0kOPI
-         x7qxhx0WPzCNwUAFw8jU5Q1fCQ/prernf0QafE8YmbtF92Cz5bYjZch7ISZAi/O3T6SQ
-         0SC9yv1Tnsh3WP4fdJWxTxYaVWdLWEhFN7WrG0qIK0FEj0nH7K13cg4XipACLSuIZXV/
-         e1IA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788552230; x=1789157030;
-        h=mime-version:user-agent:content-type:autocrypt:references
-         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=B3mbXGgcUMU41mdHor14hlewxI1TjYBtrggKnKgV6iQ=;
-        b=PXsilxg9WGqXJySXbDyx94auOwodpc5Z5Aj3sVdgIrSk94bgEAotQgw7rsW0Byr80/
-         4zqHvpIR+ZaHnRHT3xuZO19+Z1aTNEg7HgLTuJ31L8MWRCyKRdn/GFhcjT269g9/AqHU
-         HeOR3aarC0ty3PradcbDrxLTN7kJpuP2rxFF2Yk3jzBQeAc9e9jKeWcADNZQ2Cla4h0w
-         WRsrghhjq+XnoTU1+8zJWf9qKlLIyXFR3HT/ZapfTZ82c8/k/+3eu+CGysAOQd84SBa9
-         a8NtPiYHTnXd9rPzEkt3Ppd1tNCflfFPljATY7OMW+fwYEhrMReLhjZ1byIq0zHanCzu
-         f9Ag==
-X-Forwarded-Encrypted: i=1; AKwUvBwBYU1XvoE9386gJsQ1R8VtJ3fzjcYkq12oomy59bGcahodIqgicuW3XG+8wcBrEccINrxnjkQPMShgkYw=@vger.kernel.org
-X-Gm-Message-State: AFuF++kewZ1KPE5/uylI1ucoNQIglra/BVAONssIYsyzbhOVGGEhKzZ8
-	X/MDQZvA9b6YDRCaN2wQsVp/GWQKckyajB7Yl2eo5KX5nrldRqzscRBqbj4gwqDWttePOvCcRMk
-	RDPUtUgrZaK0jccZDcq7PHLr8ADSovj3/qpj+PpSJ97VU3/QuE/c+TthEuawpLKBfltj9D99Wsg
-	==
-X-Gm-Gg: AYBFou1/U4UoW2TDI5LeiJLIKv9cznpmtLyKedlHPA+lgyHzTPRtLjkwgSeRrb60v4X
-	+X+2HCDHgW3gES8w0DQ9CdxbulQe0nvks82P1/eb+fiWLD4xzb5RwkHT7cEdbUJdRnPc7zsZeG+
-	C5zt4i9lHd9iKlVenkDoOq6KuezuK4+z6zH2XqhVyfz/Ih9IYNQmImpX5tRX+BYej7A4ylIlBVw
-	ia5RNPbzfwy0QDkstl4UMLi7dMLM6XOJIO0LnffqU/A1rwfkYGujfl0jUYcWWtC0vIk8rfFHXHn
-	ZcFl8Esmrzlu1ROcO8xFT58/CoOKrY+VVoaxKEFAtJ71AjG3IqCDPF7/aCxx3zIbCHlTgumNiup
-	WLtdkd9L58lKNk0BzGXxtwXBJOE/iLm///R3n3s5nH0nOzzCOjawh/Dfxs2cu0PQtlzhRuIGo+x
-	XbGDo0y+v9qkqVTV3lctRSww==
-X-Received: by 2002:a05:690e:43da:b0:66f:c1bc:4017 with SMTP id 956f58d0204a3-66fc1bc48f8mr902100d50.68.1788552230313;
-        Fri, 04 Sep 2026 13:03:50 -0700 (PDT)
-X-Received: by 2002:a05:690e:43da:b0:66f:c1bc:4017 with SMTP id 956f58d0204a3-66fc1bc48f8mr902075d50.68.1788552229718;
-        Fri, 04 Sep 2026 13:03:49 -0700 (PDT)
-Received: from chaithco-thinkpadp16vgen1.rmtusco.csb (184-96-189-144.hlrn.qwest.net. [184.96.189.144])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91040647592sm28398006d6.13.2026.09.04.13.03.47
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 04 Sep 2026 13:03:48 -0700 (PDT)
-Message-ID: <667d8fa9bf7b0e129cc86c66966a221038d7bc86.camel@redhat.com>
-Subject: Re: [PATCH] watchdog: Differentiate scenarios when watchdog is
- closed
-From: "chaithco@redhat.com" <chaithco@redhat.com>
-To: Guenter Roeck <linux@roeck-us.net>
-Cc: wim@linux-watchdog.org, linux-watchdog@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Date: Fri, 04 Sep 2026 14:03:46 -0600
-In-Reply-To: <1c15e728-cafc-43c3-87d8-981a2682d441@roeck-us.net>
-References: <20260901214251.760184-1-chaithco@redhat.com>
-	 <1c15e728-cafc-43c3-87d8-981a2682d441@roeck-us.net>
-Autocrypt: addr=chaithco@redhat.com; prefer-encrypt=mutual;
- keydata=mDMEapCVehYJKwYBBAHaRw8BAQdAORXHCioh8sg4JScf3G8JrmX1nUt+teTWsqlbk67dr
- va0NkNoYXJsZXMgSGFpdGhjb2NrIChXb3JrIEdQRyBLZXkpIDxjaGFpdGhjb0ByZWRoYXQuY29tPo
- iTBBMWCgA7FiEEoln/+dhdP2hiiZGQ86/NNaAhFjYFAmqQlXoCGwMFCwkIBwICIgIGFQoJCAsCBBY
- CAwECHgcCF4AACgkQ86/NNaAhFjbm1gEA9t0Iaxr6IkGONOjD7eB10PjTYyDGVd4QdJYPohP8xRsA
- /0OETJIGSr5rxRqG23AGUdlnUfzFlgm3QuyfNpGHcv0C
-Content-Type: multipart/signed; micalg="pgp-sha512";
-	protocol="application/pgp-signature"; boundary="=-WByAc/hJFcOuzza19si6"
-User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
+	dkim=pass (2048-bit key) header.d=justthetip.ca header.i=@justthetip.ca header.b="gLC00eOX"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=qi6RHnGDCGkfNITqcvCFwcoWSmNWkH+un3Fby8LVM/w=;
+ c=simple/simple; d=justthetip.ca;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788552234; v=1; x=1789157034;
+ b=gLC00eOXknMCaOe5+j7239KW24VeKllKW6uZEHK+bv49u5yRu+WRCL+G0U31O2CkpjPlReuN
+ aOV9v7LS+rPVMg4lGhNH2NCCu9QE09+3FJEuGvfEhPeknpfJ5clmosV87MaKEA6UDD0YAy0CXuA
+ ZKUa41UNk9RbzkWgHCy+U6ULEbH2tzpeeb5OFrsNRqMk2BahQr/j9uYQK4LrNX4JhABQN8GfF/6
+ 26B5HS6r1Sy07ONHABf5nosD66d0VaOVrBYyG0AKGQ1nhgfHVAHoK/M7l1KTxLg2Dd+EnCph7wC
+ 8AirpOOgCpQK/2fZG4YjxLgkxOofsfmf+wo+9/H7sNncQ==
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 7f571189813e464c;
+	Fri, 04 Sep 2026 20:03:44 +0000
+X-Mizu-Trace-ID: 7f571189813e464c
+X-Migadu-Flow: FLOW_OUT
+From: Devin Wittmayer <lucid_duck@justthetip.ca>
+To: Johannes Berg <johannes@sipsolutions.net>
+Cc: Felix Fietkau <nbd@nbd.name>,
+	linux-wireless@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH wireless v2] wifi: mac80211: refuse to make a monitor active when it has no queue
+Date: Fri,  4 Sep 2026 13:03:38 -0700
+Message-ID: <20260904200338.10829-1-lucid_duck@justthetip.ca>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
+A monitor interface only gets a TXQ if it's created active, and one can't
+be added later. Setting the flag on a down interface is still allowed, so
+the driver is handed a monitor with no queue. ath9k dereferences it:
 
---=-WByAc/hJFcOuzza19si6
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+  BUG: kernel NULL pointer dereference, address: 0000000000000066
+  RIP: 0010:ath_tx_node_init+0x49/0x170 [ath9k]
+   ath9k_add_interface+0x10c/0x140 [ath9k]
+   drv_add_interface+0x54/0x250 [mac80211]
+   ieee80211_do_open+0x32f/0x800 [mac80211]
 
-On Tue, 2026-09-01 at 16:02 -0700, Guenter Roeck wrote:
->=20
-> Applied, but please version your patches in the future.
->=20
-Ah thank you so much for the feedback! I am a fair bit newer to
-contributing upstream; I presumed (erroneously) adding the versioning
-after --- was sufficient. I will make sure to add the version number to
-the commit message in the future as well!
+Reached with CAP_NET_ADMIN by "iw dev X set monitor active" followed by
+"ip link set X up". RTNL is held, so netlink operations block behind it.
 
---=-WByAc/hJFcOuzza19si6
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
+Refuse the flag when there is no queue to give.
 
------BEGIN PGP SIGNATURE-----
+Fixes: 79af1f866193 ("mac80211: avoid allocating TXQs that won't be used")
+Cc: stable@vger.kernel.org
+Signed-off-by: Devin Wittmayer <lucid_duck@justthetip.ca>
+---
+Only drivers that advertise active monitor can reach this, since cfg80211
+refuses the flag otherwise.
 
-iHUEABYKAB0WIQSiWf/52F0/aGKJkZDzr801oCEWNgUCapskIgAKCRDzr801oCEW
-Nsx+AQD5YpCe/jGsd9liJwhzqeCLgrsPtjkX9wSLiUmJxrsYGwEAzljO0vv89nGP
-eB8SPwY6hunIwWvi31fIccz/45cFrwc=
-=ynrZ
------END PGP SIGNATURE-----
+  crashes   ath9k, mt7603
+  checks    mt7615, mt7915, mt7921, mt7925, mt7996
 
---=-WByAc/hJFcOuzza19si6--
+On the ones that check, the promotion works. A monitor promoted while down
+captures the same as one created active:
+
+  promoted        89, 89, 89 beacons in ten seconds
+  created active  88, 89, 88
+  passive         176
+
+So this refuses something that currently functions on five drivers.
+Reserving a queue for every monitor instead would keep it, at the cost of
+undoing the commit named above.
+
+Tested on a 7921 USB part: the promotion is refused, and both creating a
+monitor active and toggling one that already has a queue still work.
+
+v2: changelog and comment rewritten by hand. Dropped mt76x02 from the list
+    above, it does not use the interface queue at all.
+
+v1: https://lore.kernel.org/linux-wireless/20260824003656.27049-1-lucid_duck@justthetip.ca/
+
+ net/mac80211/cfg.c | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/net/mac80211/cfg.c b/net/mac80211/cfg.c
+index 23f4f9ec86d0..8b47468dd5c0 100644
+--- a/net/mac80211/cfg.c
++++ b/net/mac80211/cfg.c
+@@ -115,6 +115,10 @@ static int ieee80211_set_mon_options(struct ieee80211_sub_if_data *sdata,
+ 			return -EBUSY;
+ 	}
+ 
++	/* TXQs are reserved in ieee80211_if_add() and cannot be added later */
++	if ((params->flags & MONITOR_FLAG_ACTIVE) && !sdata->vif.txq)
++		return -EOPNOTSUPP;
++
+ 	/* validate whether MU-MIMO can be configured */
+ 	if (!ieee80211_hw_check(&local->hw, WANT_MONITOR_VIF) &&
+ 	    !ieee80211_hw_check(&local->hw, NO_VIRTUAL_MONITOR) &&
+-- 
+2.55.0
 
