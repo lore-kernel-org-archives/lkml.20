@@ -1,111 +1,63 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB81D30D402
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 00:34:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.21
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F4F131DD97;
+	Fri,  4 Sep 2026 00:35:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788482066; cv=none; b=KhkMYQkd0NgenMe5hY1CltJWtzVxbYb0Efgmtkr92RACAyVb1oaiamwRmW+51jnIsbQOfiyQwEJpaJWRnoP6EtISBYW3Tttp+UjOp+G9Q9bLZRo7v5WgPEIvFev37vW2tRjxOIHayWqfXaNsQ4g2iISursdeQbffrLbm3DIB9hg=
+	t=1788482133; cv=none; b=WDZrrmAv7iDji+FUixrNyh4YxKhP7RxURWHxbfWgg24LxkdimTgIH7I6OZAudB8niWzjQtpN7liM9LmrF2Rcmcn8cKEVK8J67us/QSstdeSa7cFxT7WWnrvjUdMhof43303Q5zAzKDasCZVCnNkQXKMfvCj3NEp8tmGJdK1XA1o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788482066; c=relaxed/simple;
-	bh=a4VTe6NE9NGlEJe3SJBZsmD34CWPoF3PWXmfEFo3IDY=;
-	h=Date:From:To:Cc:Subject:Message-ID; b=I8qBh5qPiLbQYEfa7PVjfkfUuGLiq1UhEcZnJxHSlmkulFhCXchopddK09iqSJ/pMlJKlrMONmkL7qmDYs/EP39SzTfdoVKhTzHp7Kz38aWAMBPkQgJcqgDpAiTZYNwTXK0oeKesPBtBTej3x+0TTNuQCFrRpq8wvYZEVrHqMfU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=hgUQkZOK; arc=none smtp.client-ip=198.175.65.21
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1788482133; c=relaxed/simple;
+	bh=NW45y9Uu299D/OOTBRKsqX1KiCUSeuBk9xT6VBJbxXs=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=lpw/+7t5O+te0/NNqcX4m+Ps0lyi/HDIZy1/L77WXKNaYz5VW51yUBQ6loqIPt6J2Zhr/vAslqg7lGKHqL2t+1phSGV2cXpU+UTuolCNPqnMao8H2jI5N3bdsiX+k5pQPz5YzlaUYsfK058iYXPtIUg0AhB4YvtyV/YCT7XE5Ko=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eNtntJC+; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="hgUQkZOK"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788482064; x=1820018064;
-  h=date:from:to:cc:subject:message-id;
-  bh=a4VTe6NE9NGlEJe3SJBZsmD34CWPoF3PWXmfEFo3IDY=;
-  b=hgUQkZOKmeYti7vuaVyMeobTg0kqY2SZy8O5GF+4o2uYFnyqTftNJu2S
-   U6TXpZkfUAWFid0IEhmSY4oPXk6E+9wVQbuHhTl/ejA6qFwSqRtOM9Te0
-   RlY8Lf4FIGTwVoJhJBHlK6tPWxq3RHtITRZyQsNhMCAYc1HS8OxMLriWC
-   f7Gwg2b2Af7pULK9G4qdetYEw4szl8xllZJAwGxk3TUu7NE4GGpxvuBFW
-   hcmKxeCYnfQ5F049kuZV//NaqLlK59khKKSzgyYzCBknACm+1Bo4IfUvV
-   QSQw7ERj83wWYujHCwRyCpxZ4NlmqDj8fpWlKRTPCn2qIcg/stdqcouTh
-   w==;
-X-CSE-ConnectionGUID: O8yoWQyeQyS13LVp3wWBZg==
-X-CSE-MsgGUID: JXkPpxKyRp2WlaDJGFI1nw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11895"; a="88826613"
-X-IronPort-AV: E=Sophos;i="6.25,260,1779174000"; 
-   d="scan'208";a="88826613"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
-  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Sep 2026 17:34:23 -0700
-X-CSE-ConnectionGUID: guwPD6aBT76swHkWZlFing==
-X-CSE-MsgGUID: PicQbSSFTveewJqC1Fm+zw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,260,1779174000"; 
-   d="scan'208";a="267310691"
-Received: from lkp-server01.sh.intel.com (HELO bfac249b2189) ([10.239.97.150])
-  by fmviesa008.fm.intel.com with ESMTP; 03 Sep 2026 17:34:21 -0700
-Received: from kbuild by bfac249b2189 with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1x2Hsp-000000005Ww-08oK;
-	Fri, 04 Sep 2026 00:34:19 +0000
-Date: Fri, 04 Sep 2026 08:33:59 +0800
-From: kernel test robot <lkp@intel.com>
-To: Lohita Mudimela <lohita.mudimela@amd.com>
-Cc: oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org,
- Alex Deucher <alexander.deucher@amd.com>,
- Martin Leung <martin.leung@amd.com>, James Lin <pinglei.lin@amd.com>
-Subject: 
- drivers/gpu/drm/amd/amdgpu/../display/modules/power/power_abm.c:817
- mod_power_update_backlight_on_mode_change() warn: inconsistent indenting
-Message-ID: <202609040849.tyd1k6g6-lkp@intel.com>
-User-Agent: s-nail v14.9.25
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eNtntJC+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E217D1F000E9;
+	Fri,  4 Sep 2026 00:35:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788482132;
+	bh=QQRaLYDUxy93Hz6VAFpiPT/0NSOIPKw/WnvayVAwG9E=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=eNtntJC+ZaU5DuPCGwWC4NMYJuf1+vBiSpsBcsil3YZ/WegGG3own2Hi8iJ3Wcs6U
+	 OXFgcfGVog5BiEDaue56KnV+r4azi9rCX+I2xLDr8298x4u3SFPQJfoI3y0gmEcRrA
+	 bB09BNDPwatvEH9Hr+QStwvfZDfbhyb63XpSFtSI6IfoXwxjD01d1BATqwtNCG4KfS
+	 zWi4QpQdhNTzCfcpe3bVA0MsBgongbtdAX1ADNWrl7hSj8z9LXFa9BeiCpnVT7xaGa
+	 sIMSKIe/Lolj2BSpW/8V2kW8FadSsHEhbr7TGJaoTkIv6O2vs490WAE2fOlLzBd6gs
+	 mIjZPKG9Sxygg==
+Date: Thu, 3 Sep 2026 17:35:29 -0700
+From: Jakub Kicinski <kuba@kernel.org>
+To: Vitaliy Sochnev <sochnev.v.74@gmail.com>
+Cc: Lorenzo Bianconi <lorenzo@kernel.org>, netdev@vger.kernel.org,
+ upstream@airoha.com, Andrew Lunn <andrew+netdev@lunn.ch>, "David S .
+ Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Paolo
+ Abeni <pabeni@redhat.com>, linux-mediatek@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net v3 1/2] net: airoha: handle RX_NO_CPU_DSCP
+ interrupt, not just RX_DONE
+Message-ID: <20260903173355.62780188@kicinski-fedora-PF5CM1Y0>
+In-Reply-To: <17f1beec505b87a4acf16557386a978c98f94b97.1788286284.git.sochnev.v.74@gmail.com>
+References: <20260831234701.206021-1-sochnev.v.74@gmail.com>
+	<cover.1788286284.git.sochnev.v.74@gmail.com>
+	<17f1beec505b87a4acf16557386a978c98f94b97.1788286284.git.sochnev.v.74@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-tree:   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
-head:   a500db7819c50db59e55f1b4fa1c3baa5a2616f3
-commit: 254a47ce0c8a52ff78a60f92a13b56db69f69096 drm/amd/display: Separate ABM functions into dedicated power_abm.c file
-date:   4 months ago
-config: i386-randconfig-141-20260903 (https://download.01.org/0day-ci/archive/20260904/202609040849.tyd1k6g6-lkp@intel.com/config)
-compiler: gcc-14 (Debian 14.2.0-19) 14.2.0
-smatch: v0.5.0-9187-g5189e3fb
+On Tue,  1 Sep 2026 19:32:53 +0100 Vitaliy Sochnev wrote:
+> Whether NO_CPU_DSCP re-latches while the ring is still empty is not
+> documented. If it does, a ring that cannot be refilled (page_pool
+> returning NULL) keeps reasserting it. Masking it until a refill succeeds
+> is worse: a starved ring never fires RX_DONE either, so it would stay
+> dead after the memory pressure clears.
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Fixes: 254a47ce0c8a ("drm/amd/display: Separate ABM functions into dedicated power_abm.c file")
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202609040849.tyd1k6g6-lkp@intel.com/
-
-smatch warnings:
-drivers/gpu/drm/amd/amdgpu/../display/modules/power/power_abm.c:817 mod_power_update_backlight_on_mode_change() warn: inconsistent indenting
-
-vim +817 drivers/gpu/drm/amd/amdgpu/../display/modules/power/power_abm.c
-
-   807	
-   808	void mod_power_update_backlight_on_mode_change(
-   809	    struct core_power *core_power,
-   810	    struct dc_link *link,
-   811	    unsigned int panel_inst,
-   812	    uint8_t aux_inst,
-   813	    bool is_hdr)
-   814	{
-   815	    struct set_backlight_level_params backlight_level_params = { 0 };
-   816	
- > 817			if (link->dpcd_sink_ext_caps.bits.hdr_aux_backlight_control == 1 ||
-   818				link->dpcd_sink_ext_caps.bits.sdr_aux_backlight_control == 1)
-   819				dc_link_set_backlight_level_nits(link, core_power->bl_state[panel_inst].isHDR,
-   820					core_power->bl_state[panel_inst].backlight_millinit, 0);
-   821	
-   822			backlight_level_params.frame_ramp = 0;
-   823	
-   824			fill_backlight_level_params(core_power, &backlight_level_params, panel_inst, aux_inst,
-   825				core_power->bl_state[panel_inst].backlight_pwm, link->backlight_control_type,
-   826				core_power->bl_state[panel_inst].backlight_millinit, 0, is_hdr);
-   827	
-   828			dc_link_set_backlight_level(link, &backlight_level_params);
-   829	}
-   830	
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+Since you're not sure you should probably add a timer to retry
+later? Maybe the IRQ is not needed at all, you could just check 
+on allocation failure if the right is completely drained or have 
+a periodic task a'la fbnic_napi_depletion_check()
