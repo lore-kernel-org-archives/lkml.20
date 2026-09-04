@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5A0A3EAC61;
-	Fri,  4 Sep 2026 22:25:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62F9C51FCA5;
+	Fri,  4 Sep 2026 22:25:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788560716; cv=none; b=fhBoJ1imW7RymRcGWBppgqBXGC/HwOpc469+PInwBD+hqPK79LeaLqtGPs+ZslWrROYAM92QcgpN9d5gWkSbVoaixdyyDPVWRO93Y/x33WdynhaL/WPqGkpeHc5PvewmNm+Q9hspuJPcVMcNU91aBSAiuXYRo32LW94DoH0Lmas=
+	t=1788560725; cv=none; b=IugNmGqb0zCZ0EKKGwaV28D6iL+IA4rw0tD4csxmf7wkZPq0b5BR4HOAfzC4GG0/mzx1DYAM10U3Q3Lc7p3d6+Hji9McikK2QPT2P1K2vjaGEjx52CqrBCIwswp1NvxxHyMVUI83t94Rm+XmQfOLiuaqxOGjQ2ncVjaR6+XjsDQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788560716; c=relaxed/simple;
-	bh=x3gaPD3IjylyNSX8QKDlEHLGeWTbwlWsTi8HOEUA+GU=;
+	s=arc-20240116; t=1788560725; c=relaxed/simple;
+	bh=ezWQ0yzRqeGLmloEsAks2XHUl0OR91UaAnmJ4MRwB10=;
 	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=LQgO1RuIW2xEXKOgVZvmnfOeiz3qZpi7uj3maixLvMz3zrW7DjfY8KG5PZaLkM0h/9aLo10KG01q/5qGXLhxGpE3X0sEMYEW4JUNjAI4cbN8tMUj62x04KNSZmOudmJ5p4H3bAdqgKkTsvcS42AoI2TCnerbqGqV/JwwcNb+DRY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lzqjwGe0; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:MIME-Version; b=LXKzNXu6tndYs5EqV3ZNFFjjGcFfpeUbiKj/F5ysnP1LBBOAj/NXxmpd751eDlcV+5YbUqWPzPA5bA3guDHBu2yfbv8oaFPveuB3Vk8KdCN3AzwCAsPYOCD7ry5HiD/bhJ1zwckAyDbTsMZd3Piop4ddnv+NH3jLV6hYqT1z4h4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Lw8zB6zw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lzqjwGe0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9868A1F00A3E;
-	Fri,  4 Sep 2026 22:25:09 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Lw8zB6zw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C5AF01F00A3D;
+	Fri,  4 Sep 2026 22:25:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788560710;
-	bh=oOzMiPOnMDaVVhnATr2bEe1DD3Ex7YWNhDPtG41yTxo=;
+	s=k20260515; t=1788560716;
+	bh=5SnnQCQ7yDdLHAiFM1uq+omxM8NKPbzf/DSxftTkKac=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=lzqjwGe0FL+OUpUxwKLKRn07UZOXT1r9gF7r+94TNr1PrCxlNOm5ENsv/wHSUdcQj
-	 n57tnq/0D1sTpOW/ESfb9lkWAtTVpPSIY9Sv0bGJ6tjYtWFVp4b2ICU0lKqDhvWyTH
-	 hDF0ygnyEIr49A3o1BeCqkQYCnsOuf8dU+RGCEg3UNEFUy23OkJPiLFL+2MPGpROqk
-	 HtNaUcsBOEzcDoYG7GAySBJiCRx55Ql7RlEPKPttRfgThfsW8cqH76aEQ30zHwHnxU
-	 puJ8JJRTrwFMArvpM+kcMt3Gqtqs9bCcu+MnAGXT9PQPrXPOWLzODDrHYGeiubIO7U
-	 n7HxN3AETf6hA==
-Subject: Re: [PATCH net v3 2/2] net: dsa: b53: offload 8021q uppers on
- standalone ports
+	b=Lw8zB6zwW1OfhF9Vj55x6YIxth4LdzxeuLw0ggRIV4PayxMIP/w9xSz4sElNlScfN
+	 kaFOUtwNDEsqClnHHedRgAMYcAvFAYW3J1xEDiMNdlyERH1MMS98U5WlnMur4cmMss
+	 YQ+O8f50QUKAflbbAi6QbwXlGqOavj/o0+CkfxiehqXMKDMt0Rexzy9oYtv0iAsxc2
+	 HwCE1oKOqbt2pYDfykRhfhHS4izmQzJ2eExmCFUSydigLNMN+/s49UVBQp2YUAwF5j
+	 ySO5EYodoOEQevAz8FOTgFEvoJiIs81uHiJkWxNkZ7fEIpg9yacpbrdfUqm1BIS0t/
+	 Vk99DFwEt/8Jg==
+Subject: Re: [PATCH net-next v9 1/7] r8169: add speed in private struct
 From: netdev-bot+sashiko@kernel.org
-To: strst.gs@gmail.com
-Cc: florian.fainelli@broadcom.com, jonas.gorski@gmail.com, andrew@lunn.ch,
- olteanv@gmail.com, davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
- pabeni@redhat.com, vladimir.oltean@nxp.com, horms@kernel.org,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-Date: Fri, 04 Sep 2026 22:25:09 +0000
-Message-ID: <178856070920.219967.188999912636170238@kernel.org>
-In-Reply-To: <20260831085217.391-3-strst.gs@gmail.com>
-References: <20260831085217.391-3-strst.gs@gmail.com>
-X-sashiko-severity: Medium
+To: javen_xu@realsil.com.cn
+Cc: hkallweit1@gmail.com, nic_swsd@realtek.com, andrew+netdev@lunn.ch,
+ davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+ maxime.chevallier@bootlin.com, horms@kernel.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, daniel@makrotopia.org, linux@armlinux.org.uk,
+ enelsonmoore@gmail.com, daniel@thingy.jp
+Date: Fri, 04 Sep 2026 22:25:15 +0000
+Message-ID: <178856071535.219967.13765117065982749067@kernel.org>
+In-Reply-To: <20260831053745.1197-2-javen_xu@realsil.com.cn>
+References: <20260831053745.1197-2-javen_xu@realsil.com.cn>
+X-sashiko-severity: Low
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 Precedence: bulk
@@ -48,357 +48,132 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 5 potential
+Thank you for your contribution! Sashiko AI review found 1 potential
 issue(s) to consider:
 
-Critical: 0 · High: 0 · Medium: 5 · Low: 0
+Critical: 0 · High: 0 · Medium: 0 · Low: 1
 
-- [Medium] b53_vlan_hw_entry() (drivers/net/dsa/b53/b53_common.c:901)
-  classifies every non-CPU member port whose dp->bridge is NULL as a…
-- [Medium] b53_standalone_vlan_resync() at the end of b53_br_leave()
-  (drivers/net/dsa/b53/b53_common.c:2458) derives the leaving port's…
-- [Medium] The new opt-in `dev->ds->needs_standalone_vlan_offload =
-  !is5325(dev) && !is5365(dev);` (drivers/net/dsa/b53/b53_common.c:3256)…
-- [Medium] When a port that already has a working 8021q upper joins a
-  VLAN-unaware offloaded bridge, b53_br_join() ->…
-- [Medium] b53 records both a bridge VLAN and an 8021q upper VLAN for the
-  same port/VID in the single bit dev->vlans[vid].members & BIT(port),…
+- [Low] Claimed stale-cache regression: the patch converts
+  rtl_coalesce_info() (r8169_main.c:2076,2080) and…
 
 --
 
-net: dsa: b53: offload 8021q uppers on standalone ports
+r8169: add speed in private struct
 
-The patch takes the new needs_standalone_vlan_offload opt-in in b53 and
-programs VLAN table entries for VIDs that carry a standalone port even while
-dev->vlan_filtering is false, masking the entry down to the standalone
-members plus the CPU port.  Bridge join/leave and b53_configure_vlan() now
-rewrite those entries, and the opt-in is skipped for BCM5325/BCM5365.
+This adds an int speed field to struct rtl8169_private, initializes it to
+SPEED_UNKNOWN in rtl_init_one() and updates it from r8169_phylink_handler().
+The consumers rtl_link_chg_patch(), rtl_coalesce_info() and
+r8169_get_tx_lpi_timer_us() are switched from tp->phydev->speed to the new
+cached value.
 
-No Link: tags present in the commit header.
+No Link: tags in the commit header.
 
-> diff --git a/drivers/net/dsa/b53/b53_common.c b/drivers/net/dsa/b53/b53_common.c
-> index 0880310c9ce3..b57c0bdacb27 100644
-> --- a/drivers/net/dsa/b53/b53_common.c
-> +++ b/drivers/net/dsa/b53/b53_common.c
-> @@ -898,10 +898,52 @@ static bool b53_vlan_port_may_join_untagged(struct dsa_switch *ds, int port)
->  	return dp->bridge == NULL;
->  }
+> diff --git a/drivers/net/ethernet/realtek/r8169_main.c b/drivers/net/ethernet/realtek/r8169_main.c
+> index ec4fc21fa21f..c60710f9bd21 100644
+> --- a/drivers/net/ethernet/realtek/r8169_main.c
+> +++ b/drivers/net/ethernet/realtek/r8169_main.c
+> @@ -750,6 +750,7 @@ struct rtl8169_private {
+>  	u32 irq_mask;
+>  	int irq;
+>  	struct clk *clk;
+> +	int speed;
 >  
-> +static bool b53_vlan_hw_entry(struct dsa_switch *ds, const struct b53_vlan *vl,
-> +			      struct b53_vlan *hw)
-> +{
-> +	struct b53_device *dev = ds->priv;
-> +	bool standalone = false;
-> +	struct dsa_port *dp;
-> +	unsigned int port;
-> +
-> +	*hw = *vl;
-> +
-> +	if (dev->vlan_filtering)
-> +		return true;
-> +
-> +	hw->members = 0;
-> +	hw->untag = 0;
-> +
-> +	b53_for_each_port(dev, port) {
-> +		if (!(vl->members & BIT(port)))
-> +			continue;
-> +
-> +		dp = dsa_to_port(ds, port);
-> +
-> +		if (!dsa_port_is_cpu(dp)) {
-> +			if (dp->bridge)
-> +				continue;
-> +
-> +			standalone = true;
-> +		}
-
-[Severity: Medium]
-Should a DSA link port be able to set standalone here?  A port of type
-DSA_PORT_TYPE_DSA never has dp->bridge set, so it passes the
-!dsa_port_is_cpu(dp) test and sets standalone = true.
-
-The DSA core does issue VLAN objects for those ports, so their bits do end
-up in dev->vlans[vid].members:
-
-net/dsa/switch.c:
-    /* Port VLANs match on the targeted port and on all DSA ports */
-    static bool dsa_port_vlan_match(struct dsa_port *dp,
-                                    struct dsa_notifier_vlan_info *info)
-    {
-            return dsa_port_is_dsa(dp) || dp == info->dp;
-    }
-
-On a cascaded b53 tree, does that mean b53_vlan_hw_entry() returns true for
-a VID whose only user-port members are bridge ports, and b53_vlan_add() /
-b53_vlan_del() / b53_configure_vlan() then write an entry containing only
-the DSA links and the CPU port?  Since b53 keeps VC0_VLAN_EN|VC0_VID_CHK_EN
-set at all times, the programmed member mask governs egress for that VID,
-so the bridged ports would be removed from that VID's forwarding domain
-while filtering is off.
-
-There is also no corrective path afterwards: b53_standalone_vlan_resync()
-is only reached from b53_br_join()/b53_br_leave(), which a DSA link never
-traverses, so the entry stays as written.
-
-Would including DSA link ports as members without letting them set
-standalone match the intent stated in the commit message ("Only the
-standalone members and the CPU port are written to such an entry")?
-
-> +
-> +		hw->members |= BIT(port);
-> +		hw->untag |= vl->untag & BIT(port);
-> +	}
-> +
-> +	if (!standalone) {
-> +		hw->members = 0;
-> +		hw->untag = 0;
-> +	}
-> +
-> +	return standalone;
-> +}
-> +
+>  	struct {
+>  		DECLARE_BITMAP(flags, RTL_FLAG_MAX);
 
 [ ... ]
 
-> @@ -1772,7 +1819,9 @@ int b53_vlan_del(struct dsa_switch *ds, int port,
->  {
->  	struct b53_device *dev = ds->priv;
->  	bool untagged = vlan->flags & BRIDGE_VLAN_INFO_UNTAGGED;
-> +	struct b53_vlan hw;
->  	struct b53_vlan *vl;
-> +	bool needs_hw;
->  	u16 pvid;
+> @@ -2074,11 +2073,11 @@ rtl_coalesce_info(struct rtl8169_private *tp)
+>  		ci = rtl_coalesce_info_8168_8136;
 >  
->  	if (vlan->vid == 0)
-> @@ -1782,6 +1831,8 @@ int b53_vlan_del(struct dsa_switch *ds, int port,
+>  	/* if speed is unknown assume highest one */
+> -	if (tp->phydev->speed == SPEED_UNKNOWN)
+> +	if (tp->speed == SPEED_UNKNOWN)
+>  		return ci;
 >  
->  	vl = &dev->vlans[vlan->vid];
->  
-> +	needs_hw = b53_vlan_hw_entry(ds, vl, &hw);
-> +
->  	vl->members &= ~BIT(port);
-
-[Severity: Medium]
-Can a bridge VLAN deletion here destroy the record of an 8021q upper on the
-same port and VID?  dev->vlans[vid].members has one bit per port with no
-per-owner accounting, and the core does not refcount VLANs on user ports:
-
-net/dsa/switch.c:dsa_port_do_vlan_add() {
-        /* No need to bother with refcounting for user ports. */
-        if (!(dsa_port_is_cpu(dp) || dsa_port_is_dsa(dp))) {
-                err = ds->ops->port_vlan_add(ds, port, vlan, extack);
-
-The colliding pair is only rejected while bridge VLAN filtering is on:
-
-net/dsa/user.c:dsa_user_vlan_add() {
-        if (br_vlan_enabled(dsa_port_bridge_dev_get(dp))) {
-                rcu_read_lock();
-                err = dsa_user_vlan_check_for_8021q_uppers(dev, vlan);
-
-so with vlan_filtering 0 the sequence
-
-  ip link add link ethX name ethX.100 type vlan id 100
-  ip link set dev ethX master br0        (br0 with vlan_filtering 0)
-  bridge vlan add dev ethX vid 100
-  bridge vlan del dev ethX vid 100
-
-leaves vl->members without BIT(port) although ethX.100 still exists.  After
-that, does anything rewrite the entry again?  b53_standalone_vlan_resync()
-skips the VID because of
-
-        if (!(vl->members & BIT(port)))
-                continue;
-
-and b53_configure_vlan()'s restore loop keys off v->members as well, so
-tagged reception on ethX.100 would stay dead until the upper is re-created.
-
->  
->  	if (pvid == vlan->vid)
-> @@ -1791,14 +1842,18 @@ int b53_vlan_del(struct dsa_switch *ds, int port,
->  	if (untagged && !b53_vlan_port_needs_forced_tagged(ds, port))
->  		vl->untag &= ~(BIT(port));
->  
-> -	if (!dev->vlan_filtering)
-> +	if (!needs_hw)
->  		return 0;
->  
-> -	b53_set_vlan_entry(dev, vlan->vid, vl);
-> +	b53_vlan_hw_entry(ds, vl, &hw);
-> +	b53_set_vlan_entry(dev, vlan->vid, &hw);
->  	b53_fast_age_vlan(dev, vlan->vid);
->  
-> -	b53_write16(dev, B53_VLAN_PAGE, B53_VLAN_PORT_DEF_TAG(port), pvid);
-> -	b53_fast_age_vlan(dev, pvid);
-> +	if (dev->vlan_filtering) {
-> +		b53_write16(dev, B53_VLAN_PAGE, B53_VLAN_PORT_DEF_TAG(port),
-> +			    pvid);
-> +		b53_fast_age_vlan(dev, pvid);
-> +	}
->  
->  	return 0;
->  }
-
-[ ... ]
-
-> @@ -2261,6 +2316,28 @@ int b53_mdb_del(struct dsa_switch *ds, int port,
->  }
->  EXPORT_SYMBOL(b53_mdb_del);
->  
-> +static void b53_standalone_vlan_resync(struct dsa_switch *ds, int port)
-> +{
-> +	struct b53_device *dev = ds->priv;
-> +	struct b53_vlan hw;
-> +	struct b53_vlan *vl;
-> +	u16 vid;
-> +
-> +	if (dev->vlan_filtering)
-> +		return;
-> +
-> +	for (vid = b53_default_pvid(dev) + 1; vid < dev->num_vlans; vid++) {
-> +		vl = &dev->vlans[vid];
-> +
-> +		if (!(vl->members & BIT(port)))
-> +			continue;
-> +
-> +		b53_vlan_hw_entry(ds, vl, &hw);
-> +		b53_set_vlan_entry(dev, vid, &hw);
-> +		b53_fast_age_vlan(dev, vid);
-> +	}
-> +}
-> +
->  int b53_br_join(struct dsa_switch *ds, int port, struct dsa_bridge bridge,
->  		bool *tx_fwd_offload, struct netlink_ext_ack *extack)
->  {
-> @@ -2324,6 +2401,8 @@ int b53_br_join(struct dsa_switch *ds, int port, struct dsa_bridge bridge,
->  	b53_write16(dev, B53_PVLAN_PAGE, B53_PVLAN_PORT_MASK(port), pvlan);
->  	dev->ports[port].vlan_ctl_mask = pvlan;
->  
-> +	b53_standalone_vlan_resync(ds, port);
-> +
-
-[Severity: Medium]
-When a port that already has a working 8021q upper joins a VLAN-unaware
-bridge, this call recomputes that upper's VID with dp->bridge now set, so
-b53_vlan_hw_entry() hits
-
-        if (dp->bridge)
-                continue;
-
-standalone stays false, and the entry is written back empty.  On bcm5301x,
-where a table miss is only forwarded toward the disabled IMP0 port, does
-that silently stop the upper from receiving tagged frames?
-
-Nothing reports the loss either: b53_vlan_add() returns 0 when
-b53_vlan_hw_entry() finds no standalone member, so DSA continues to track
-the VID as offloaded.
-
-Documentation/networking/switchdev.rst says:
-
-    When there is a VLAN device (e.g: sw0p1.100) configured on top of a
-    switchdev network device which is a bridge port member, the behavior of
-    the software network stack must be preserved, or the configuration must
-    be refused if that is not possible.
-
-and the DSA-side comment added by this series states:
-
-    net/dsa/port.c:
-         * ds->needs_standalone_vlan_offload switch keeps its 8021q upper
-         * VLANs whether bridged or not.
-
-Should this case be refused with an extack instead of dropping the offload
-silently?  The commit message's argument that "bridge VLANs keep having no
-effect while filtering is off" covers bridge VLANs, but the VID here comes
-from an 8021q upper.
-
->  	return 0;
->  }
->  EXPORT_SYMBOL(b53_br_join);
-> @@ -2376,6 +2455,8 @@ void b53_br_leave(struct dsa_switch *ds, int port, struct dsa_bridge bridge)
->  		vl->members |= BIT(port);
->  		b53_set_vlan_entry(dev, pvid, vl);
+>  	for (; ci->speed; ci++) {
+> -		if (tp->phydev->speed == ci->speed)
+> +		if (tp->speed == ci->speed)
+>  			return ci;
 >  	}
-> +
-> +	b53_standalone_vlan_resync(ds, port);
->  }
->  EXPORT_SYMBOL(b53_br_leave);
-
-[Severity: Medium]
-Is dp->bridge always already cleared when this runs?  On the normal leave
-path dsa_port_bridge_leave() calls dsa_port_bridge_destroy() before
-broadcasting DSA_NOTIFIER_BRIDGE_LEAVE, but the join rollback does the
-opposite order:
-
-net/dsa/port.c:dsa_port_bridge_join() {
-        ...
-out_rollback_unbridge:
-        dsa_broadcast(DSA_NOTIFIER_BRIDGE_LEAVE, &info);
-out_rollback:
-        dsa_port_bridge_destroy(dp, br);
-        return err;
-}
-
-So when switchdev_bridge_port_offload() or dsa_port_switchdev_sync_attrs()
-fails, b53_br_leave() -> b53_standalone_vlan_resync() runs with dp->bridge
-still set, b53_vlan_hw_entry() skips the port, and the entry is written
-empty even though the port becomes standalone again a moment later.
-
-Does anything restore it afterwards?  b53_vlan_add()/b53_vlan_del() are not
-called because the upper still exists, and b53_configure_vlan() only runs
-from b53_apply_config() on setup, resume, or a vlan_filtering change, so
-tagged reception on the port's uppers would stay off after a failed bridge
-join.
-
 >  
-> @@ -3172,6 +3253,8 @@ static int b53_switch_init(struct b53_device *dev)
->  	if (!dev->vlans)
->  		return -ENOMEM;
+> @@ -2236,7 +2235,7 @@ static void rtl_set_eee_txidle_timer(struct rtl8169_private *tp)
 >  
-> +	dev->ds->needs_standalone_vlan_offload = !is5325(dev) && !is5365(dev);
-
-[Severity: Medium]
-Does this condition exclude BCM5365 on kernels built without
-CONFIG_BCM47XX?
-
-drivers/net/dsa/b53/b53_priv.h:
-    static inline int is5365(struct b53_device *dev)
-    {
-    #ifdef CONFIG_BCM47XX
-            return dev->chip_id == BCM5365_DEVICE_ID;
-    #else
-            return 0;
-    #endif
-    }
-
-while b53_switch_detect() sets the chip id with no config guard:
-
-        } else {
-                dev->chip_id = BCM5365_DEVICE_ID;
-        }
-
-and both b53_mdio.c and b53_spi.c carry a "brcm,bcm5365" match.  On such a
-build the flag would be set for a chip with .vlans = 256, so
-NETIF_F_HW_VLAN_CTAG_FILTER gets advertised and every upper VID reaches
-b53_vlan_prepare():
-
-        if (vlan->vid >= dev->num_vlans)
-                return -ERANGE;
-
-Would ip link add link ethX name ethX.300 type vlan id 300 then fail where
-it previously created a working software VLAN?  That is the case the commit
-message says is preserved:
-
-    BCM5325 and BCM5365 stay out of the opt-in, ... b53_vlan_prepare() would
-    refuse any upper whose VID lies beyond the table, an interface that works
-    today.
-
-Would testing dev->chip_id (or dev->num_vlans) directly rather than the
-CONFIG_BCM47XX-conditional helper keep that policy in every build?
-
+>  static unsigned int r8169_get_tx_lpi_timer_us(struct rtl8169_private *tp)
+>  {
+> -	unsigned int speed = tp->phydev->speed;
+> +	unsigned int speed = tp->speed;
+>  	unsigned int timer = tp->tx_lpi_timer;
 >  
->  	dev->reset_gpio = b53_switch_get_reset_gpio(dev);
+>  	if (!timer || speed == SPEED_UNKNOWN)
+> @@ -4968,8 +4967,9 @@ static void r8169_phylink_handler(struct net_device *ndev)
+>  	struct rtl8169_private *tp = netdev_priv(ndev);
+>  	struct device *d = tp_to_dev(tp);
 >  
->  	if (PTR_ERR(dev->reset_gpio) == -EPROBE_DEFER)
+> +	tp->speed = tp->phydev->speed;
+
+[Severity: Low]
+This isn't a bug, but the v3 entry in the changelog below the --- line says:
+
+  Changes in v3:
+   - update tp->speed in rtl8169_set_link_ksettings()
+
+That hunk does not appear in this diff. After this patch the only runtime
+writer of tp->speed is r8169_phylink_handler(), while the SFP branch of
+rtl8169_set_link_ksettings() still writes phydev->speed directly and
+reprograms the SerDes without touching tp->speed:
+
+	if (!phy_check_valid(speed, duplex, phydev->supported))
+		return -EINVAL;
+
+	mutex_lock(&phydev->lock);
+
+	phydev->autoneg = AUTONEG_DISABLE;
+	phydev->speed = speed;
+	phydev->duplex = duplex;
+
+	rtl_sfp_init(tp);
+
+	mutex_unlock(&phydev->lock);
+
+Should the changelog entry be dropped, or was the intended
+rtl8169_set_link_ksettings() update accidentally lost in a rebase?
+
+Following the two converted consumers, the divergence does not look
+observable today. tp->sfp_mode is only assigned inside
+if (rtl_is_8125(tp)) in rtl_init_one(), and both rtl_get_coalesce() and
+rtl_set_coalesce() start with:
+
+	if (rtl_is_8125(tp))
+		return -EOPNOTSUPP;
+
+so rtl_coalesce_info() cannot be reached on the chips that take the SFP
+write path. The SFP branch is also gated by phy_check_valid() against
+phydev->supported, and rtlgen_sfp_get_features() in
+drivers/net/phy/realtek/realtek_main.c only sets
+ETHTOOL_LINK_MODE_10000baseT_Full_BIT, so no other speed can be forced
+there, and r8169_get_tx_lpi_timer_us() keeps seeing the real link rate that
+rtlgen_sfp_read_status() decodes from RTL_PHYSR.
+
+The construct is also replaced later in this series by "r8169: add support
+for phylink", where rtl8169_set_link_ksettings() only calls
+phylink_ethtool_ksettings_set() and tp->speed is written from
+rtl_mac_link_up() and rtl_mac_link_down(), so only the changelog/diff
+mismatch remains.
+
+>  	if (netif_carrier_ok(ndev)) {
+> -		rtl_link_chg_patch(tp);
+> +		rtl_link_chg_patch(tp, tp->speed);
+>  		rtl_enable_tx_lpi(tp, tp->phydev->enable_tx_lpi);
+>  		pm_request_resume(d);
+>  	} else {
+> @@ -5667,6 +5667,7 @@ static int rtl_init_one(struct pci_dev *pdev, const struct pci_device_id *ent)
+>  				     ext_xid_str, xid);
+>  	tp->mac_version = chip->mac_version;
+>  	tp->fw_name = chip->fw_name;
+> +	tp->speed = SPEED_UNKNOWN;
+
+[ ... ]
 
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260831085217.391-1-strst.gs%40gmail.com
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260831053745.1197-1-javen_xu%40realsil.com.cn
