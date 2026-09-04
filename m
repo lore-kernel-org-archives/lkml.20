@@ -1,105 +1,117 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lj1-f172.google.com (mail-lj1-f172.google.com [209.85.208.172])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C5454A2A65;
-	Fri,  4 Sep 2026 15:05:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 433D54E80C5
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 15:06:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788534358; cv=none; b=BBQqbh+Zu0B/Ey8oNnZr+EV8ZC6VnwTVgi173zg3MZmvreKi+q4VKdoFgOYGj80HJMKd1Qq9gJlizzHR+CnHp9Gf14aYma0vtbNrv1ep1SCjbKWH92HPophvCvXwp9frAF3yYnk2tLBnc5Rl63PVRN1m/KNLcEPEvkyqdxd96Zs=
+	t=1788534377; cv=none; b=fCinKdt+jxCq54b6dj02yvPbh61MosK+3hARBaFPrTsmReLcSM/CfbIHrIwXmd4so9oP6mJouU0bZ3gFnlD45id1Q9pxDehbjNgwzCYjmDC9qNoeMVLVxijfE1jCC/GMlZC8sg8eA1acPZi/eMVbmQjbjnVqD8yhehuqHLDoIXQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788534358; c=relaxed/simple;
-	bh=cvlne63BbiZ6RD2newI5QrPXiEQd5qJ7/aO+WLY4d8M=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=lUQVVCz0iEcbenAYF0gqId7HajEVXDHA3TWQS+l/aIXyfQAsyWae58wFwtR9V2a2gSE3nJ2GING2FRPphNS4FYBGVPz4XKmf85lBcLglJARN47Axf3JyyvsrNFB591OUx2rKeNFxSLARuWFAu+UDdQvzRfNumaKdlD3P9Z2An3M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dvh4BTqs; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788534377; c=relaxed/simple;
+	bh=7gNCncRwcYB9lWmv5bcgCTAj/WG9KBrvFMQ3voJc5e4=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=duAO8Z8RqWxF+rakNZk3/szmEV4DpXCqj2htS6PFUPrqFDEDUn/devmZBHzEXDuELFIj4Fka0ov2kD+HebMr9+X2gmMpHuW4u1YXlYghHlhDxCep783IIG3qZlWqXNUqf1fYianfmgGCsr2ZI68MYP+M9GRsqbtz4Bevoy4wpzw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=RU65Z85f; arc=none smtp.client-ip=209.85.208.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dvh4BTqs"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 18DDF1F00A3D;
-	Fri,  4 Sep 2026 15:05:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788534349;
-	bh=ZdoZOK25d3S+VRV+k2N9yh/rrgWBljAQIjGYofH4lzI=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=dvh4BTqsfO5a8o97Jw0nT5RRJBNHPC50v91pcqG7adTzYmgNrWuXTYVgbetspMTVF
-	 GeHfYDC8SdMhR4itYstujRA9XPgSqN6/fCBv1xJ+xMgGuGkp56hbS6QMxxOAW5Ruxt
-	 XbH8/v4wAaIv18obFpNif4j+VUYtjLkO6dCVIL3Pu1tsUWGbg5QLHYcBjUYCAXd52C
-	 Tzfdpd+uAYeUrCCNz4qTGiriaesf9U/X64zGUWbIlOVfCsM+JimdQU2cqS7RrU5NsH
-	 JdFFJ5KJy6lUo6F7IiU1rOAcpHIhZGUf3ipLKJTO4VQ+7jGdPkuoZJEpK85dZlci0H
-	 s01Q7408DySmA==
-From: Thomas Gleixner <tglx@kernel.org>
-To: Doug Anderson <dianders@chromium.org>
-Cc: Mayank Rungta <mrungta@google.com>, Wim Van Sebroeck
- <wim@linux-watchdog.org>, Guenter Roeck <linux@roeck-us.net>, Radu Rendec
- <radu@rendec.net>, linux-watchdog@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, "Kirill A.
- Shutemov" <kas@kernel.org>, Marc Zyngier <maz@kernel.org>
-Subject: Re: [PATCH v3 3/5] genirq: Export NMI APIs
-In-Reply-To: <CAD=FV=VMExH-K68aDfNsFBnQRSaYSNwbHo7hLhpzhpWN+r+Fsw@mail.gmail.com>
-References: <20260902-qcom-wdt-nmi-series-v3-0-f3999362a9ea@google.com>
- <20260902-qcom-wdt-nmi-series-v3-3-f3999362a9ea@google.com>
- <87ecf98ivn.ffs@fw13>
- <CAD=FV=VMExH-K68aDfNsFBnQRSaYSNwbHo7hLhpzhpWN+r+Fsw@mail.gmail.com>
-Date: Fri, 04 Sep 2026 17:05:45 +0200
-Message-ID: <87y0dh6oqe.ffs@fw13>
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="RU65Z85f"
+Received: by mail-lj1-f172.google.com with SMTP id 38308e7fff4ca-39c95395230so11067981fa.2
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 08:06:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1788534370; x=1789139170; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=7gNCncRwcYB9lWmv5bcgCTAj/WG9KBrvFMQ3voJc5e4=;
+        b=RU65Z85fa/y6MRdrm0/iTY1Yym2etlIlg5flUujWAWxp5I2tiHSGt4n91fpgP74G9D
+         nRdfU36TY7kfPBeCm7ZReKr/Pzh1U+8f61wac9zebHb9PDjpD5dlQcLD1z4t6TZp7GFY
+         JBJrA9TdmIuaob+mSFMGXdpzDILS0bs07PEZo=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788534370; x=1789139170;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=7gNCncRwcYB9lWmv5bcgCTAj/WG9KBrvFMQ3voJc5e4=;
+        b=RxzZNZjF18f33hbQOHSHKeTI5fbHc2ov7Uhr2wvnYC1Gi4ZZFd2CTQuIU05VVi/9vc
+         hbIIjfA6mqjgGFRfk1pgXBT/tvylm+VrCxQ8HVr/38ODfxzzAwcvnF3JJXnH514Zdnp0
+         uKF01RXtleKYjGh6incK2mu91fdkWuQf7w/+pUv43ZCezClQ6N6a9HzZ+y12yiYLWqnJ
+         hofnIjbRCA2ECvcUm6mMKXBHwntldrHs6djPcYM/Uc5/xPNiiHH6dSHJsUJ0Ogg2PBrY
+         AUm03yjw5HXOB2MsPrTvzVBvtmfA7e/1ZLahtuzl2b3lRsC7oqPbvB/u7zIWaPCXVU1N
+         kpxg==
+X-Forwarded-Encrypted: i=1; AKwUvBzfmwaOz/nIfghaYpXbtaN6XthzK2FxQtuhOg/mEbkjkEcUn+N1KlDNrMflpx6Mbl5EQpbWGdG8rTEBc08=@vger.kernel.org
+X-Gm-Message-State: AFuF++lwDeVSu7V4IM+63lO7jb+AmeuIjMZgYRjYy3oZ1g+d5+lNKozq
+	0CPEHOozJQyFGIBlN4KoYRo5f19iPrWP7j0ulTIWCdpD2I0zOUhDqwG3nCR+0WyXc2irdXnzHXD
+	e8TM=
+X-Gm-Gg: AYBFou1CSM4ok1Mp3I+322LJPcwcnJTY07DCndm32+F09o+VD0d3aV8JthV5Vqezf3D
+	RW4PLKVkWPDxGAnxdz2h3p3gQ7G2C2+FjaodxWbaEFxb+LO7oyvBbnlUswSIRP0Eg6+04SGwrxa
+	VcxRZ3vS+W46+9Q2u/DIl7FNT/vyGT2WjNsbNz17Su9YxS+aLOzR1ivkhDxIr4A+cYvzfhj0yJ7
+	6ZGD8t0B/TiwLk1HtyhDOyveNVcz+s6CJh8y40EoYUC+RQjhzYZm5bLILSCuCtapG+3mWW+DCgc
+	WbAVun1SeYZzrKkiKEkP3+bJtQ2bUVBQEQsDNY4Yawh6Jb5JjB6G/+dLjkLVSmK/HgcAU7SE5IM
+	d2REeYVxSOzxcUQDPKyjRihGD54T5Mc+i1XxQ3vWeAm5khih7f7gjUmT+E4p0/PKJJoAx+beRtJ
+	138T8t9zn/myEsbG446p0KQSTvPTlI83XpEHFBvRmrUlA2AR4cuaoFqpYH0a4Bh62+3gYk4rF4o
+	agZDRfDmjXT+Y4rg8fDXxzvalQ=
+X-Received: by 2002:a05:6512:b91:b0:5b6:1a7c:fd82 with SMTP id 2adb3069b0e04-5b61a7cfecamr778329e87.40.1788534370271;
+        Fri, 04 Sep 2026 08:06:10 -0700 (PDT)
+Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com. [209.85.221.53])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b61669b408sm567824e87.1.2026.09.04.08.06.08
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 04 Sep 2026 08:06:08 -0700 (PDT)
+Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-482e4998d28so827750f8f.2
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 08:06:08 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBxDVbfMQU0vh8HHyVv0VDci0yOUphp8vhuuJoVsVO0/VeAGykRJxTh5S0Cui4dMTI77BQUfkHT9Ra/ToeI=@vger.kernel.org
+X-Received: by 2002:a05:6000:60e:b0:485:8c16:a355 with SMTP id
+ ffacd0b85a97d-4858c16a6c2mr4328911f8f.45.1788534366728; Fri, 04 Sep 2026
+ 08:06:06 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+References: <20260904035009.4114363-1-justin.yeh@mediatek.com>
+In-Reply-To: <20260904035009.4114363-1-justin.yeh@mediatek.com>
+From: Doug Anderson <dianders@chromium.org>
+Date: Fri, 4 Sep 2026 08:05:55 -0700
+X-Gmail-Original-Message-ID: <CAD=FV=Us7FrQ2GYYSfm+freDNTWv8xd260kA2Z3B5jFzw5OBgw@mail.gmail.com>
+X-Gm-Features: AcwNN1U5Q3Et8gbm1HfFEKvqA92RRKLIkp4skB9nrMClbBiYdjjt_11lut00YBI
+Message-ID: <CAD=FV=Us7FrQ2GYYSfm+freDNTWv8xd260kA2Z3B5jFzw5OBgw@mail.gmail.com>
+Subject: Re: [PATCH] HID: i2c-hid: Skip SET_POWER on shutdown for panel followers
+To: Justin Yeh <justin.yeh@mediatek.com>
+Cc: Jiri Kosina <jikos@kernel.org>, Benjamin Tissoires <bentiss@kernel.org>, 
+	Matthias Brugger <matthias.bgg@gmail.com>, 
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
+	Maxime Ripard <mripard@kernel.org>, Project_Global_Chrome_Upstream_Group@mediatek.com, 
+	linux-arm-kernel@lists.infradead.org, linux-input@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-mediatek@lists.infradead.org
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Fri, Sep 04 2026 at 07:07, Doug Anderson wrote:
-> On Fri, Sep 4, 2026 at 2:29=E2=80=AFAM Thomas Gleixner <tglx@kernel.org> =
-wrote:
->> On Wed, Sep 02 2026 at 18:54, Mayank Rungta wrote:
->> > Currently, request_nmi(), free_nmi(), enable_nmi(), disable_nmi_nosync=
-(),
->> > and disable_nmi() are restricted to built-in kernel code because they =
-are
->> > not exported.
->> >
->> > Export these symbols with EXPORT_SYMBOL_GPL so loadable kernel modules=
- can
->> > register and manage NMIs.
->>
->> I'm not really fond of that.
+Hi,
+
+On Thu, Sep 3, 2026 at 8:50=E2=80=AFPM Justin Yeh <justin.yeh@mediatek.com>=
+ wrote:
 >
-> Is this to be taken a NAK on the whole idea, then?
+> When an i2c-hid device is a panel follower, drm_atomic_helper_shutdown()
+> unprepares the panel before device_shutdown() gets around to the i2c
+> client. The panel_unpreparing() callback already calls
+> i2c_hid_core_suspend() with force_poweroff set, which sends
+> SET_POWER(SLEEP) and then drops the device's regulators.
 >
-> The last patch in the series [1] wants to promote a HW watchdog bark
-> interrupt to NMI. This seems like a pretty useful thing to do and an
-> appropriate use of NMI, but the HW watchdog driver is a kernel module.
-> Do you have another suggestion for solving that?
+> So by the time i2c_hid_core_shutdown() runs, the controller is unpowered
+> and can no longer complete a transfer. On MT8196 the SET_POWER(SLEEP)
+> issued there burns the full i2c-mt65xx bus timeout before failing,
+> adding two seconds to every reboot.
 
-I understand the intent and why it might be a good idea, but letting
-random modules convert interrupts into NMIs is a scary thought.
+I don't think there is any guarantee here though, is there? In your
+case the panel might have been powered off before
+i2c_hid_core_shutdown(), but is there something that ensures that? I'm
+not aware of it.
 
-We can export it in a restricted way though to limit the exposure and
-force people to go through a thorough review of these use cases.
+Would it be better to follow in the example of i2c_hid_core_remove()
+and just remove ourselves as a panel follower? That would
+automatically call the power-off functions if needed, right?
 
-That could be a subsystem restricted export or an explicit restriction
-via EXPORT..FOR_MODULES().
-
->> Funny enough there is already a driver which claims it can be built as
->> module which uses these interfaces. Oh well...
->>
->> > Assisted-by: Antigravity:gemini
->>
->> I'm impressed that AI is required to add four EXPORT_SYMBOL_GPL()
->> instances.
->
-> Hmm, I guess it's hard to figure out the guidance here. I think Mayank
-> is only adding this tag to try match what's documented in
-> `coding-assistants.rst`. If you've got an AI helping you with a
-> series, it's pretty much touching all the patches. I guess you're
-> suggesting that, even if AI touched it, trivial patches should remove
-> the tag?
-
-I really have no strong opinion about it. But it just amused me and I
-couldn't help my self from commenting.
-
-Thanks,
-
-        tglx
+-Doug
