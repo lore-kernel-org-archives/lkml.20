@@ -1,89 +1,153 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f54.google.com (mail-ej1-f54.google.com [209.85.218.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 793983859E2
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 14:38:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A2D338237B
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 14:38:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788532683; cv=none; b=t+9GXZzjW15KwcWNlFjZw9RGKK2wlsG6m0r8F3neWV8JJD6eYFTet6m5G9vZbsmC+o+TZDvzCybGO5h6wd6trWEIPG3ny2uj3yL34t4dDXBdXPg73tQ1PgOI9l3180uI1tq554bZyL1yNWZ+9gMz56sWC8EFKWdnL1tjeXnXoBo=
+	t=1788532693; cv=none; b=MY1xWLFeU1W3aUxaUXmdza8cfknoTO56yGInqtU8cLZgDhlLET5lXBNsGE0R6nmqlzOHngb3ZDXNZBw8NwaHPdb2cvUJembDbIpNTSo+4VJLdaxOo7ItIwhlTuaDd2qIO1SnK9I1Dd6Fv3gLLDjN0Ty/D2MueSr8ZAqU/KnXSrs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788532683; c=relaxed/simple;
-	bh=VIKMGOABbmGORlaALDqzUfvqMWhZh9adDdBOyKk2I7Q=;
+	s=arc-20240116; t=1788532693; c=relaxed/simple;
+	bh=JH7KvzgDb3hj1YazwEjzQhCEGqKDsL5tuzoEKmOZ7Kc=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=hcXeXuZkcf4k0PjvaMFGzyCSJANM7OHgwu09xqWmgq5ff3/wtWbHoefULBiMziRxpbY6ARUql+VhNj1yJXv+LxxYmQFr0swWBOCNzgLJp7QCsy24n/yEQh+Vjiu01nx+8UNK0sl7CXVKqOWAilnLx8Z2Gbc6b8GEyLovWZXfJOA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=N6NTM0Lu; arc=none smtp.client-ip=100.103.45.18
+	 To:Cc:Content-Type; b=Bc6Ajj0D0vxBOsCHM8ECcSBnWN6RMkal9NKc8lXQVT97K9hsoht9kBgBCckJPkjYGxIFYnEU8gDKWVYlaqpnrwcLfDdS1y6TaaXEYAuEDSiHEPAzWsrYRQtp6U62dOj+SLlB5JY10Rsc/NGBxbpPJDV9CjNCNRpTn0EPNPJa8Dc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=AAZqo1Eq; arc=none smtp.client-ip=209.85.218.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="N6NTM0Lu"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EE0621F00ACA
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 14:38:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788532682;
-	bh=Q7BGRg8LCxGXSnhUr8e0NA7RBh6XartT5oLwBHQ7kS4=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=N6NTM0Lus4vWw1IASnLW+FZQUBEAYP3MRabFRRouNclKK9BkiSLYALsZuOWtmFIWx
-	 f/QIopiwpcGc9P8YF+a3GfT8ec+JMKCxjIKY8ngf1ok7QOfXObVBg1kZ8KRuQb8EzB
-	 xlX2mo43dHF+LcyLDS5CApdEkKGNgdKi0fhwZa7qA1J3MkPhgRUxfdfe4gXeVBxANx
-	 ELAHT/2HsQ6huxpzOi5LrjeEolSj6jeW4tItlQaCR1aJNO5mPoFJgFuP6qBM370nAd
-	 V/AA+5Vt8azcXm4MFQrvp7sznfE4sYWZ45nRrWIggLUG7N3WIr32mclWBUm7vrIFS7
-	 c1Vd5gbca0l6w==
-Received: by mail-vk1-f177.google.com with SMTP id 71dfb90a1353d-5bf9506704fso495727e0c.2
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 07:38:01 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBwJc0AHXfuRuJfwjlU1JZJjrfblt6kdyRttayofA8xtMW1A5/1Zod1iFKrUFUypLYRrr61HsEa3hn8LmoI=@vger.kernel.org
-X-Gm-Message-State: AFuF++mRxkcpRK6DkI1d/X/lLOf2+yMydg/3w+p1G0NqWNA3AGd0U3td
-	E6KLVH2lPDsRtotw02YXGmgEBgcR97xty1Q+f7MqkTKZnywlpbzo/iRXAbpVQ3XhRn98dOX4tSv
-	NERdfrRWVIjrErwnTqM7Fd2JeP9dSkGA=
-X-Received: by 2002:a05:6122:e189:b0:5c7:a9ee:dcfb with SMTP id
- 71dfb90a1353d-5c7ed3d6e40mr2833424e0c.5.1788532681171; Fri, 04 Sep 2026
- 07:38:01 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="AAZqo1Eq"
+Received: by mail-ej1-f54.google.com with SMTP id a640c23a62f3a-c25b661d37dso154662866b.0
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 07:38:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1788532689; x=1789137489; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=17oI+rSj+VUBq1gOiNZqYe2TLy7jpSRVJ40pUTx77t8=;
+        b=AAZqo1Eq290sBuUqQpir3xhjsIRd9vxUkeBxIkZ78ZsUQ1TCwAAcxCl1d1lC2iqoFt
+         H1mjlICU4NhFh5Nx5csZetueNhJniAqEoP8cSqLrlSqyGKYcU7GkPnnWXY1s6zpE7qWd
+         Fzh97vac2ifuYxCe2gB9pBzGKAkdfxzfQXNz4=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788532689; x=1789137489;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=17oI+rSj+VUBq1gOiNZqYe2TLy7jpSRVJ40pUTx77t8=;
+        b=peHNsfe0VZtkY93mpbCdQ/mW6zOywT0kewu/DwS4eM3O0Hsd44UKHk27Oq7psYnb6a
+         cjgwwLlGtPEpEBQnobT5h4xRix6vPeMKf2cSgI3EXbOErFiaKQiJfjLOloHiK8rRezGY
+         Dn/VuR4ZpuRzkJ4qlNpFUIwwicga6PnykZwqt0omOILnRKUFAyw0oZOWU7h/MmXkHFl0
+         DD8h6E8WvNrIaOSmeeQr958nSY9rEVO9Nzbf04hmE6C+w3NAT18kjT1vaJSVqd/N1og+
+         7dyR+HpS+4Fl0PKkpAjbNlDAt+Dk1Q/O1Ljl1OkT/fhtAhcEVzru3878FS2IWD3bn/pf
+         3XKA==
+X-Forwarded-Encrypted: i=1; AKwUvBzzNj+j0ieQzNtsDFzqcX1LLTQdhuXUIvK6j6rA7+Lq/oO2c3aXBFlIOG3Q0929oVPatfCnQRUOiMLK/Kw=@vger.kernel.org
+X-Gm-Message-State: AFuF++mkW4JLCrVmkY68d2/lWMjBqTFyx8iaqs1EHI+w3759ZRfknTMN
+	kczXspdTU0sYFRzk1tiwol5i2pN47riEB/slVObWEI9Xu0GF4/8b1O6A/QPiopzvWodTerVriFz
+	xDME=
+X-Gm-Gg: AYBFou1Sa2rzczUbbquVvHBCVrBd86T9DPWIM0UfPv18fjm2Gx1xOwumUuOrF42COlb
+	rBlRThIYNKtn+gdKkw9bIKnDhh0d+MBlzvX77WKl8XQI2OyMelpeZbhRtEaOQny/vX5OcysPbvI
+	7qn1eErheX2mxshW54kb4yO80QFSj/EZSKvjnFbVN2evBCvB0Nn7lmyQJ1JiiOmaR1wo3vEr+W0
+	GgIj6HkGUbX5lbv9dGi072R4rQWT+wPtV1kef63ZMJEE2p++aKk/D9EEXi8u6gBNqbr4ilqAgby
+	Iwcv5o8rNoYLYI2PfWzdeKzOBHbv5pTw2JhW7SttUyZl1LS0py0Cwnl3iTEjbSAcHaP1rM+Oe3x
+	ZMy3ITDo8g6cQtJh3RB1xf/kYK5KSVIcfyrEsp7HRzZeGjy5FvUfJDBam2upjGC5uhSsxVR6G0D
+	I/9rAWGZ5/iijX6PX/HKA4TtxDjPWb9wkyo0RGQqN/X4lhz2pmbKi1jD7AbrgNYZw4hm9oj53Ow
+	OvxprjonLl8y8hGKm5e5yM10e0=
+X-Received: by 2002:a17:907:5cb:b0:c25:afb6:2d91 with SMTP id a640c23a62f3a-c260c65c15amr326833066b.2.1788532689340;
+        Fri, 04 Sep 2026 07:38:09 -0700 (PDT)
+Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com. [209.85.221.51])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c260d4a98efsm116241066b.14.2026.09.04.07.38.08
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 04 Sep 2026 07:38:08 -0700 (PDT)
+Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-47ddf7b09e5so1132910f8f.1
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 07:38:08 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBzSSYN8P7uI0Vr2MrarU+St+JIphJs12WQptNSSyKzBNjv+a3dnms07sjABn4/Gi8oyiN02SMhWAQZun1A=@vger.kernel.org
+X-Received: by 2002:a05:6000:4a0b:b0:485:8c16:a32e with SMTP id
+ ffacd0b85a97d-4858c16a585mr3711212f8f.35.1788532686831; Fri, 04 Sep 2026
+ 07:38:06 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260819174122.1184364-1-sathyanarayanan.kuppuswamy@linux.intel.com>
-In-Reply-To: <20260819174122.1184364-1-sathyanarayanan.kuppuswamy@linux.intel.com>
-From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Date: Fri, 4 Sep 2026 16:36:58 +0200
-X-Gmail-Original-Message-ID: <CAJZ5v0gdO41izSghgyCY_-kfMPWz0MyZxzA-Y_F8DMypBc26qQ@mail.gmail.com>
-X-Gm-Features: AcwNN1UKLpohgs8WM7lD-jdP4W-3Phfu0YSWy464nrPfyEpJuOf_2vntJEnnCN0
-Message-ID: <CAJZ5v0gdO41izSghgyCY_-kfMPWz0MyZxzA-Y_F8DMypBc26qQ@mail.gmail.com>
-Subject: Re: [PATCH v1] thermal: intel: intel_tcc_cooling: Add rugged Panther
- Lake support
-To: Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>
-Cc: Daniel Lezcano <daniel.lezcano@kernel.org>, "Rafael J . Wysocki" <rafael@kernel.org>, 
-	Lukasz Luba <lukasz.luba@arm.com>, 
-	Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>, Zhang Rui <rui.zhang@intel.com>, 
-	linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org
+References: <20260902-qcom-wdt-nmi-series-v3-0-f3999362a9ea@google.com>
+ <20260902-qcom-wdt-nmi-series-v3-5-f3999362a9ea@google.com>
+ <3de593de-6851-4a53-8309-a6bf13e9a8f7@oss.qualcomm.com> <CABz7rdBv74pZe6jDRifTKRAKzGZB6L08n81_0gCqF0g=s+FEcw@mail.gmail.com>
+In-Reply-To: <CABz7rdBv74pZe6jDRifTKRAKzGZB6L08n81_0gCqF0g=s+FEcw@mail.gmail.com>
+From: Doug Anderson <dianders@chromium.org>
+Date: Fri, 4 Sep 2026 07:37:55 -0700
+X-Gmail-Original-Message-ID: <CAD=FV=VUyQ4F-HC=cmD9Ay-JHcWJCVDc5BSWRax7a6FRJ_v0bQ@mail.gmail.com>
+X-Gm-Features: AcwNN1Wo5IR-SJM2QYyqYIK33CmEpWmvlDIs54NEnTFP7obdj1kaNXFucZN0GAE
+Message-ID: <CAD=FV=VUyQ4F-HC=cmD9Ay-JHcWJCVDc5BSWRax7a6FRJ_v0bQ@mail.gmail.com>
+Subject: Re: [PATCH v3 5/5] watchdog: qcom: Register pretimeout interrupt as NMI
+To: Mayank Rungta <mrungta@google.com>
+Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
+	Wim Van Sebroeck <wim@linux-watchdog.org>, Guenter Roeck <linux@roeck-us.net>, 
+	Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>, linux-watchdog@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+	"Kirill A. Shutemov" <kas@kernel.org>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Wed, Aug 19, 2026 at 7:41=E2=80=AFPM Kuppuswamy Sathyanarayanan
-<sathyanarayanan.kuppuswamy@linux.intel.com> wrote:
->
-> From: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>
->
-> Add TCC cooling support to rugged Panther Lake.
->
-> Signed-off-by: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>
-> ---
->  drivers/thermal/intel/intel_tcc_cooling.c | 1 +
->  1 file changed, 1 insertion(+)
->
-> diff --git a/drivers/thermal/intel/intel_tcc_cooling.c b/drivers/thermal/=
-intel/intel_tcc_cooling.c
-> index 52ea4f7fc9f9..75f6fbec2530 100644
-> --- a/drivers/thermal/intel/intel_tcc_cooling.c
-> +++ b/drivers/thermal/intel/intel_tcc_cooling.c
-> @@ -69,6 +69,7 @@ static const struct x86_cpu_id tcc_ids[] __initconst =
-=3D {
->         X86_MATCH_VFM(INTEL_ARROWLAKE_U, NULL),
->         X86_MATCH_VFM(INTEL_ARROWLAKE_H, NULL),
->         X86_MATCH_VFM(INTEL_PANTHERLAKE_L, NULL),
-> +       X86_MATCH_VFM(INTEL_PANTHERLAKE_R, NULL),
->         X86_MATCH_VFM(INTEL_WILDCATLAKE_L, NULL),
->         X86_MATCH_VFM(INTEL_NOVALAKE, NULL),
->         X86_MATCH_VFM(INTEL_NOVALAKE_L, NULL),
-> --
+Hi,
 
-Applied as 7.4 material, thanks!
+On Thu, Sep 3, 2026 at 1:58=E2=80=AFPM Mayank Rungta <mrungta@google.com> w=
+rote:
+>
+> Hi,
+>
+> > > When a system is completely unresponsive due to an interrupt storm or
+> > > deadlocked CPU cores with standard interrupts disabled, a standard
+> > > watchdog pretimeout bark interrupt will fail to execute, preventing t=
+he
+> > > pretimeout governor from capturing CPU backtraces before the hardware
+> > > reset bite.
+> >
+> > [...]
+> >
+> > > -                     ret =3D devm_request_irq(dev, irq, qcom_wdt_isr=
+, 0,
+> > > -                                            "wdt_bark", &wdt->wdd);
+> > > -                     if (ret)
+> > > -                             return ret;
+> > > +                     wdt->irq =3D irq;
+> > > +                     irq_flags =3D IRQF_PERCPU | IRQF_NOBALANCING |
+> > > +                                 IRQF_NO_AUTOEN | IRQF_NO_THREAD;
+> > > +
+> > > +                     ret =3D request_nmi(irq, qcom_wdt_isr, irq_flag=
+s,
+> > > +                                       "wdt_bark", &wdt->wdd);
+> > > +                     if (ret) {
+> > > +                             /* Fallback to normal interrupt if NMI =
+not supported */
+> > > +                             ret =3D devm_request_irq(dev, irq, qcom=
+_wdt_isr, 0,
+> > > +                                                    "wdt_bark", &wdt=
+->wdd);
+> >
+> > GPT noticed this IRQ is requested but never enabled (NO_AUTOEN)
+>
+> For the NMI path: request_nmi() requires IRQF_NO_AUTOEN. To balance
+> this, enable_nmi(irq) is called immediately upon successful
+> registration in the probe function:
+>
+> For the IRQ fallback: devm_request_irq() passes 0 (not irq_flags). In
+> __setup_irq(), when IRQF_NO_AUTOEN is absent, the core calls
+> irq_startup(), automatically enabling the interrupt line as it has
+> always done in mainline.
+>
+> Both paths are therefore enabled upon probe.
+
+I wonder if it would make sense to either:
+
+1. Rename the variable to 'nmi_flags'?
+
+2. Get rid of the variable and just directly pass the flags to the request_=
+nmi()
+
+That would avoid the confusion. While I agree that your code now is
+correct, I can understand why GPT (and humans) would get confused...
+
+
+-Doug
