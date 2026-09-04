@@ -1,120 +1,147 @@
-Received: from mailout2.w1.samsung.com (mailout2.w1.samsung.com [210.118.77.12])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF06336C0C8
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 08:49:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.118.77.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 536FE32470E
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 08:49:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788511781; cv=none; b=KLpCzkn8SPwf3dQrgitYpLlDmo8r8pIRUJXIww45i1eaq+RhbesM6NCgcHGQBSSsamgNy+zqsiUUM+Ub33hYmgXwiPI+vx52zvZJIa28dcGZYvEKomTjy84ZYyvUnBr6+5XbTVFz0LiYUUKrV1v+cIfb1iGgv41lTPzN0P3be5I=
+	t=1788511785; cv=none; b=Bz7CW1as6ldWtdkBS9azQ/V8v/85U1B1243azhTLblpBdSG5sY1r8/26ueLKN18XQRkBo9nqS+gxAfiWGqVaw4MUBCumo3Zj0YVbtoBCkiBEupax7Ow1vg9JG2HnZw9Ymt8cYFhtlkw6iAQNjq7KKPGtFrmFR0HUaPhVcXdmoL0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788511781; c=relaxed/simple;
-	bh=E7DlWlAAt6X48ZBw22IDOTtmj08VFwzhfvZoHumv1k4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:From:In-Reply-To:
-	 Content-Type:References; b=HN5uDZUjP166w6btlKrsgddRiZ4gowvMvVZTfAjvkznoSDWTajfrzcf+8eq598WRxGAgR6HcpYxCqcmSnhdY1GV0MAtO+Ok1EWsHxreHoYT+a6+uOuzk253Dn4uoZMf5NOJ7RR6Wr9OizLJ2kqBq6JkqmU08QVJ6sJLmJ/mrGlY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=k+xjfBZb; arc=none smtp.client-ip=210.118.77.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+	s=arc-20240116; t=1788511785; c=relaxed/simple;
+	bh=Z8mPENNWcv1eq8P/28+Mi9OOdfEllu2+UZehW5EHxFU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ltNjbP0Pnlqfq72nJws2ApiQ4kypJXvZZJSAIIxTW7o8RpZZXI+Qfy+8PTf7rHLPB3yZaciCw7YmZgLgQO1E47BCjeQ9uXlRb3G903emgwHS6l/cGuy7OniQ8H47Qv/q5cA2BsnwdfFQnfd60dmAqTgfawQ2HWIh3iOkQWXWApI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=n1lOqSst; arc=none smtp.client-ip=209.85.128.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="k+xjfBZb"
-Received: from eucas1p2.samsung.com (unknown [182.198.249.207])
-	by mailout2.w1.samsung.com (KnoxPortal) with ESMTP id 20260904084935euoutp02d6498587a1c6844e24c90ece282080fc~SEfvYtlpz0254402544euoutp02E
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 08:49:35 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.w1.samsung.com 20260904084935euoutp02d6498587a1c6844e24c90ece282080fc~SEfvYtlpz0254402544euoutp02E
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1788511775;
-	bh=TRJp0dKoJ0AAnYHiw2vjCZISve1u5NQsN4lNqiqXCas=;
-	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
-	b=k+xjfBZb8EOgq/nE1LFiRwgk5san30m75zav5GE5AIdFn+n0lmmiAZtv4FivAlksh
-	 bJ5/si4pfBP2lD8+pAhcxxk0v9sRIdacAvSwO1YIzUbUWc6vSx15ara/qBcyWU+o8V
-	 4RUUlXPJK6m6r6nr55E02f5HQmfNf6DFKccChJsM=
-Received: from eusmtip2.samsung.com (unknown [203.254.199.222]) by
-	eucas1p1.samsung.com (KnoxPortal) with ESMTPA id
-	20260904084935eucas1p13ee1a4294211aadad724ea4db531ad41~SEfvIXAcH1432814328eucas1p1d;
-	Fri,  4 Sep 2026 08:49:35 +0000 (GMT)
-Received: from [106.210.134.192] (unknown [106.210.134.192]) by
-	eusmtip2.samsung.com (KnoxPortal) with ESMTPA id
-	20260904084934eusmtip2ef0e7280d599597ee308dfec8b910eca~SEfuw0oom1654116541eusmtip2n;
-	Fri,  4 Sep 2026 08:49:34 +0000 (GMT)
-Message-ID: <7a964778-adc3-4186-9122-3858bb61c372@samsung.com>
-Date: Fri, 4 Sep 2026 10:49:34 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="n1lOqSst"
+Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-495437bb891so5548835e9.1
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 01:49:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788511782; x=1789116582; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Jfu2EemlakeU3G/i0hecUm1qkaXQeHbKJFBtMpImgJw=;
+        b=n1lOqSstD3Dli/+SNwFHxQkCrAzROyLT0LInxHbSTlaMF0/lRvLfiJpIxgX+7hbYxa
+         /FlJ3YmqBSEo+VxK84raVUghIeROORfFY5MZZT3NHfd1ZaJteHxBQPTHIanHnI8tviaQ
+         QNLki2uYxRCTN/eCwzZBxG+e+JXQW+0GHuKcRbcuGlAhrlpGkIIKPdMlOVQD/8XS8kXZ
+         sfD+675CKJwXrkdNElNqXfssQ2KCGkaxKfW45HBZPYV722n+h4hx63IV+d8aWGqjA+bO
+         zmMfBOxmN64pMUVW7UtGcsj5yjA0sxlkStC9l0jhcUQphIm6JjWNmkF+DrBD51a7DY5t
+         AwtA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788511782; x=1789116582;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Jfu2EemlakeU3G/i0hecUm1qkaXQeHbKJFBtMpImgJw=;
+        b=FhWGbczGm7m8ensa/Re7f2K8wSAacDfobT3XHYb2Y+09jnbpcwMjo5CNtGtI6X4g6o
+         uiMiZ9QLEuGRs8w4tiRIJ5Pq08C2oKPj2NNVnVZJUFq/JqJIfECNsNAqDjbWGbrqwnTB
+         fmk0J4Ys906bAzCwJmgFCBkDBLA14ArDhjKYNUrXC0fEiTXqWOeKr1dS7DW1+QYaU2Ox
+         9zabdz4y5uO7dPdnCRiJs9479pmvp02FqusbJJLxq2K1tzHHVOzWfXQQT+E8Zpx6tN26
+         QQciaTRIR7c8NAIrfxJt5DvJx6axsjipcgLvWQtWNZOb8zHV+N3yow3SgnSdhew+1QxT
+         Ohzg==
+X-Forwarded-Encrypted: i=1; AKwUvBxPQGh63iaOI0+i1e2S1k/Vi55atwhtyks7S9BhduaibTFTWvcgPL2TdOpxi8Q9Kr5oP/S/8rkqRFgHNbA=@vger.kernel.org
+X-Gm-Message-State: AFuF++mhvEgja+Mgk5tAzyUhLbhVo8WAecpE/l/UrHP2U1YpQTLtU4pT
+	snzPSbxuoSFMQ1c5fJksKqo5paoOI69iHZZnN2YWof8xq4JxDT3WGqI=
+X-Gm-Gg: AYBFou3ucrunXL0giJ1iX60lTgunImcnsQFRCYNPV22Zmp0ISOZHwkd1BwV3VNT3cbI
+	aDdd4Gtt/bJXJBce2PkybNS2StyqjY3IUs/2Vfkm5StiPXmy4qu7/xT+7188jWCseDdCuK2shXC
+	Myi6QVupk3l8K3STTtjc1yJ9tmhzbIbytunQuqK3dKWdsSaNXzAK356wJ83JjWOmegMpjt4hvGv
+	cjyH9meEQPf/cOxN0cIrEYxfqF4HqYjHJjchC++Y0l6+kxESp7V0VqHHANvjnTLz2ncgq39vAGj
+	gBAymKaD71lx8U0EG5wX8ILEBizzTpKFSFxKvVMj3CxF1sZNN4wk/XfpLq+5FTJrbaJZVdP2uwf
+	lgqVDigvP31tdHzn/yk2KCrXBftw9dIw2Eap1rqMOSHk3/Vh5nYbQ++BDMaOkIKzHKCjn/yhZaj
+	l13uRSUHSe5XAYGm0Qy7DLhAUcjEiSWg==
+X-Received: by 2002:a05:600c:8b8c:b0:49c:f13e:e52 with SMTP id 5b1f17b1804b1-49cf893b58bmr31193105e9.15.1788511782473;
+        Fri, 04 Sep 2026 01:49:42 -0700 (PDT)
+Received: from debian.. ([2001:41d0:303:db6b::])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ce5941cb4sm83963155e9.4.2026.09.04.01.49.41
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 04 Sep 2026 01:49:41 -0700 (PDT)
+From: Tristan Madani <tristmd@gmail.com>
+To: Ping-Ke Shih <pkshih@realtek.com>
+Cc: linux-wireless@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Tristan Madani <tristan@talencesecurity.com>,
+	stable@vger.kernel.org
+Subject: [PATCH wireless] wifi: rtlwifi: fix OOB reads in IE parsing functions
+Date: Fri,  4 Sep 2026 08:49:40 +0000
+Message-ID: <20260904084940.3885379-1-tristmd@gmail.com>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Betterbird (Windows)
-Subject: Re: [PATCH v2 1/5] of: reserved_mem: skip init for regions whose
- early reservation failed
-To: Wandun <chenwandun1@gmail.com>, robh@kernel.org, saravanak@kernel.org,
-	rppt@kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org
-Cc: akpm@linux-foundation.org
-Content-Language: en-US
-From: Marek Szyprowski <m.szyprowski@samsung.com>
-In-Reply-To: <af87036b-0809-4880-b088-545780b4d963@gmail.com>
 Content-Transfer-Encoding: 8bit
-X-CMS-MailID: 20260904084935eucas1p13ee1a4294211aadad724ea4db531ad41
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-X-RootMTR: 20260818092438eucas1p20115e5d33908e32ef4433cb246da8098
-X-EPHeader: CA
-X-CMS-RootMailID: 20260818092438eucas1p20115e5d33908e32ef4433cb246da8098
-References: <20260818092420.2859026-1-chenwandun1@gmail.com>
-	<CGME20260818092438eucas1p20115e5d33908e32ef4433cb246da8098@eucas1p2.samsung.com>
-	<20260818092420.2859026-2-chenwandun1@gmail.com>
-	<72074a49-2963-4f96-b939-79bf95a829cb@samsung.com>
-	<af87036b-0809-4880-b088-545780b4d963@gmail.com>
 
-On 31.08.2026 15:04, Wandun wrote:
-> On 8/26/26 21:14, Marek Szyprowski wrote:
->> On 18.08.2026 11:24, Wandun Chen wrote:
->>> From: Wandun Chen <chenwandun@lixiang.com>
->>>
->>> __reserved_mem_reserve_reg() discards the error from
->>> early_init_dt_reserve_memory() and returns 0 unconditionally, so the
->>> caller counts the node in total_reserved_mem_cnt and the late scan
->>> initializes it without checking whether the early reservation actually
->>> succeeded. A region whose reservation failed is then handed to a
->>> device assuming the memory is protected.
->>>
->>> Propagate the error so failed reservations are no longer counted, and
->>> record the failed nodes so fdt_scan_reserved_mem_late() can skip them.
->>>
->>> Recording the failed nodes explicitly is necessary because
->>> fdt_scan_reserved_mem_late() rescans the DT independently. It cannot
->>> tell from memblock whether early reservation succeeded.
->>>
->>> The failed-node array is bounded by MAX_RESERVED_REGIONS, the number
->>> of static regions is not bounded by it, so on overflow the extra nodes
->>> fall back to being initialized, which is the current behavior.
->> I'm not very keen on such partial solution. Indeed we have no place to
->>
->> store the result of the early init call, but we can check if the given
->>
->> region has been earlier marked in memblock as reserved or no-map in
->>
->> fdt_scan_reserved_mem_late(). If those attributes don't match the
->>
->> region can be simply skipped then.
-> Considering the later patches that reject reservations for overlapping
-> nodes, checking the memblock state in fdt_scan_reserved_mem_late() may
-> produce false positives.
->
-> For example, if region A is reserved first and region B is a subset of
-> A, reserving B will fail because it overlaps with A (in patch 02/03).
-> However, during fdt_scan_reserved_mem_late(), B will still appear to
-> be reserved because its range is already covered by A. As a result,
-> B would be initialized even though its own reservation failed, which
-> is contrary to the intended behavior.
-Imho the overlapping reserved regions are some kind of configuration 
-mismatch and it is enough to detect them. fdt_scan_reserved_mem_late()
-can first store all regions to dynamic reserved_mem array, then check
-for overlaps, and only then initialize those, which don't overlap and
-have proper memblock attributes?
+From: Tristan Madani <tristan@talencesecurity.com>
 
-Best regards
+rtl_find_ie() and rtl_find_221_ie() iterate over information elements
+in beacon frames using a loop condition of `while (pos < end)`.  When
+only one byte remains (pos == end - 1), the loop body accesses pos[1]
+which reads one byte beyond the validated buffer boundary.
+
+In rtl_find_ie(), pos[1] is read in the bounds check expression
+`pos + 2 + pos[1] > end` before the result of that check can prevent
+the access.
+
+In rtl_find_221_ie(), the situation is worse: when the last byte
+happens to be 0xDD (221, vendor-specific IE), the code accesses
+pos[1] for the length, pos[2] for the data pointer, and passes both to
+rtl_chk_vendor_ouisub() which performs memcmp() on the out-of-bounds
+data.  The bounds check `pos + 2 + pos[1] > end` only appears after the
+vendor IE has already been fully processed.
+
+Fix both functions by tightening the loop condition to
+`while (pos + 2 <= end)`, which ensures that at least the IE id (pos[0])
+and length (pos[1]) bytes are within bounds before any access.
+Additionally, in rtl_find_221_ie(), move the full IE bounds check before
+the vendor-specific processing to prevent accessing IE data that extends
+past the buffer.
+
+Fixes: acd48572c396 ("rtlwifi: Change base routines for addition of rtl8192se and rtl8192de")
+Cc: stable@vger.kernel.org
+Signed-off-by: Tristan Madani <tristan@talencesecurity.com>
+---
+ drivers/net/wireless/realtek/rtlwifi/base.c | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
+
+diff --git a/drivers/net/wireless/realtek/rtlwifi/base.c b/drivers/net/wireless/realtek/rtlwifi/base.c
+index 9e98c01bb90e6..9671b9247b571 100644
+--- a/drivers/net/wireless/realtek/rtlwifi/base.c
++++ b/drivers/net/wireless/realtek/rtlwifi/base.c
+@@ -2373,7 +2373,7 @@ u8 *rtl_find_ie(u8 *data, unsigned int len, u8 ie)
+ 
+ 	pos = (u8 *)mgmt->u.beacon.variable;
+ 	end = data + len;
+-	while (pos < end) {
++	while (pos + 2 <= end) {
+ 		if (pos + 2 + pos[1] > end)
+ 			return NULL;
+ 
+@@ -2597,17 +2597,17 @@ static bool rtl_find_221_ie(struct ieee80211_hw *hw, u8 *data,
+ 
+ 	pos = (u8 *)mgmt->u.beacon.variable;
+ 	end = data + len;
+-	while (pos < end) {
+-		if (pos[0] == 221) {
++	while (pos + 2 <= end) {
++		if (pos + 2 + pos[1] > end)
++			return false;
++
++		if (pos[0] == 221 && pos[1] >= 3) {
+ 			vendor_ie.length = pos[1];
+ 			vendor_ie.octet = &pos[2];
+ 			if (rtl_chk_vendor_ouisub(hw, vendor_ie))
+ 				return true;
+ 		}
+ 
+-		if (pos + 2 + pos[1] > end)
+-			return false;
+-
+ 		pos += 2 + pos[1];
+ 	}
+ 	return false;
 -- 
-Marek Szyprowski, PhD
-Samsung R&D Institute Poland
+2.47.3
 
