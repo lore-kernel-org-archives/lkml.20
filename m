@@ -1,85 +1,74 @@
-Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
+Received: from abb.hmeau.com (abb.hmeau.com [180.181.231.80])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF0E23C8C52;
-	Fri,  4 Sep 2026 03:38:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.109.113.108
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9257A3C8C52;
+	Fri,  4 Sep 2026 03:41:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=180.181.231.80
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788493103; cv=none; b=nqNXNHEDYK2KPaHgpi4HLz+ElKi6JaNWhHUzNZ0SS1yKGkc0pN92vA8GA6G+yKRHiXE/bbR3DJ4BVwdYGcf2vbd/XrThP6qfk1Qzv1PHgouQD8sgO6l8TBMEc2EkIU+QYOWycV3g4CsXBQRan99JpmeXtabeAcIZW8PasRnRs8w=
+	t=1788493278; cv=none; b=iwb7ndBxuQDWH4ZR+PDviIvR/V8NFruIo2NQleniF0qspL59b53mUmTkAjKKKBsHY4DOi1z2imC5v4arK4CRkxgnfcmL/d/axgVsfVMABDi51LdKergjYQqH9b6TeMrJ80Ggc5NrxjseGoDi54aic8ZqbUZYWfQs5CZ7iIWwhLs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788493103; c=relaxed/simple;
-	bh=B/Uwu3tSJCx/BGi14uLQD7KBnCJ9U1h3zvdgO7QlpK8=;
+	s=arc-20240116; t=1788493278; c=relaxed/simple;
+	bh=foxIeghAg2saABL37v1NutmmyqD4Xn1mhU596aHrAtM=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=HlGHiKxR9NgQZF2in3QArkSzZWCfEGPPju4vVjHM8QWD7D7Mcze6r29hzGF05JIM/7+L/JGyJxNgark6Bkxx7nEVnOzePwO47xk8DF/JKrShIVWSbKNHNFE/K1V0HiGyGdNv6iossXblrNgQWvWu33fN+13YXfj9laRRLwYNJEc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de; spf=pass smtp.mailfrom=alien8.de; dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b=Z7s8VEGG; arc=none smtp.client-ip=65.109.113.108
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
+	 Content-Type:Content-Disposition:In-Reply-To; b=asNQp7zHUZzz//juEoqCtW1KhodWmzrqIKw9sjzcPJkGB71p2FbWkoFbxpUEkq43loEpObzOShA98SXP8JBsLDVOULF2LimdbRQdWFG1Rae6Eb3AELC+OfPHgXwnX1xF/rOxXW4eayHA4ERfgxy2YA9WGD+aX0pHNS6NSbhF85s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au; spf=pass smtp.mailfrom=gondor.apana.org.au; dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b=sdG6JmY9; arc=none smtp.client-ip=180.181.231.80
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gondor.apana.org.au
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b="Z7s8VEGG"
-Received: from localhost (localhost.localdomain [127.0.0.1])
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 3719A40E016C;
-	Fri,  4 Sep 2026 03:38:19 +0000 (UTC)
-X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
-Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
-	header.d=alien8.de
-Received: from mail.alien8.de ([127.0.0.1])
-	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
-	with ESMTP id OunsccZEpS6a; Fri,  4 Sep 2026 03:38:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
-	t=1788493089; bh=puQU8kxmxcVlZJ33kJImb3eTEgEbDYI/ctH1clNKuRE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Z7s8VEGGVGNdr03uNrd96I2wtGpHKZ8FXvGtwCm89Igi4AoWxSUuxBOrt55qH/wme
-	 52QFiFEO6iavP5aJOq+MTUekz191tC7puYD38DuCcad3FeKhHiORwKjNcQMfxfa1cr
-	 HM4gnLJMn5YfYrDMjH9Tb/GVT2FwhakvbHyMbY9+7qjx+TOyLt+2WrWrwhZAZv/852
-	 /aJAdiXktBL0Ikd/DmOOukjgL8qUDSn0O91/wZhHs1rOLQrqmuI0EZjdJAcz2zPBnI
-	 53feFWzvRaLp0TQQFlEmtz/zzjkOmh6Xgu4iaXfntnUzUnQQLczfNKEZOoLZ+NIoUa
-	 LHX7+Z3h20SzwOU5EmVrwwOv9A3J4cgeXg1AGEn+IlCO9mTNFa3E+h6zN4qxmW9ncr
-	 NcITqx+cfbmv186YVAE6NiV/JU+PmiBr+kQ/+BkYFNJYzL14OnYrvZ7Ac8sCSU754E
-	 PLXGFwKF8o9Ed46XzzqKn3ZD7D4dm68vL2ZRKjBKdbkV0sU3EQ9HLz2SOZWNCbL2te
-	 lu8/AayQg8Pao0P9DUeq//3NP6ZZjCakudWlrisMUaLoTUmmLNQ7HjxuFtYgpPEq/D
-	 HcX8x6MS3hGNC2tWKKHlEVvqOtMXbl9UVuyZhfyDbd67U8GXDRUsULJjwkx332iRze
-	 Fht+vggHmVFBILqhx/V0d+Oc=
-Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::46])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
-	(No client certificate requested)
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 8CBD240E027F;
-	Fri,  4 Sep 2026 03:37:54 +0000 (UTC)
-Date: Thu, 3 Sep 2026 20:37:51 -0700
-From: Borislav Petkov <bp@alien8.de>
-To: Reinette Chatre <reinette.chatre@intel.com>
-Cc: Ben Horgan <ben.horgan@arm.com>, x86@kernel.org, james.morse@arm.com,
-	fenghuay@nvidia.com, linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, tglx@linutronix.de,
-	mingo@redhat.com, dave.hansen@linux.intel.com, hpa@zytor.com,
-	corbet@lwn.net, linux-doc@vger.kernel.org, dave.martin@arm.com
-Subject: Re: [PATCH v5 0/3] x86,fs/resctrl,arm_mpam: Factor MBA parse-time
- conversion to be per-arch
-Message-ID: <20260904033751.GCapo9D5ZZXWuQkIpc@fat_crate.local>
-References: <20260709093111.367851-1-ben.horgan@arm.com>
- <165e7636-d7e9-4d16-aad1-657b4a9698d0@intel.com>
- <b0a7035e-7ffe-4e22-a4ae-a177640234b8@intel.com>
+	dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b="sdG6JmY9"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=gondor.apana.org.au; s=h01; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:cc:to:subject:message-id:date:
+	from:content-type:reply-to; bh=Hdfi3jZgauIFaRpLs/gfb6nxMfDXlGViRJTkgxXxiNQ=; 
+	b=sdG6JmY9Ks4YCQkzcoKYRyHlGggfgmNU/0/i/kfPL1MMpHhojkepsSOd4Nkl8UUib24Lcp5jWhJ
+	p7+WwQPWh5W9ULoxQU0bdEZ504URyTIoYUu9e+YkeWqz77pQq00cCSSUeLQXvGPxUYSkYLOYAMM3q
+	WPNaT/j//ri22clpfZt78tRglKOh0xA6iXQ7Zq2i1gtXjkUNCLMSgVN5xIqZLY5n2glxxlXn+3o7V
+	kCwumLt6JksTOPVTZsomirXZxz8JHxmPRpbKU5AHJqi51vAGC5EEXSrme0khvH/fD3KyYCtZ+z09B
+	8LUKVYUJDPQhhqhc72EA8+CcAOawToB2yCvg==;
+Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
+	by formenos.hmeau.com with smtp (Exim 4.98.2 #2 (Debian))
+	id 1x2Knd-0000000AhQD-2DH4;
+	Fri, 04 Sep 2026 11:41:10 +0800
+Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation); Fri, 04 Sep 2026 13:41:09 +1000
+Date: Fri, 4 Sep 2026 13:41:09 +1000
+From: Herbert Xu <herbert@gondor.apana.org.au>
+To: Eric Biggers <ebiggers@kernel.org>
+Cc: linux-crypto@vger.kernel.org, linux-kernel@vger.kernel.org,
+	x86@kernel.org, stable@vger.kernel.org,
+	Taehee Yoo <ap420073@gmail.com>
+Subject: Re: [PATCH RESEND] crypto: x86/aria - add missing vzeroupper in
+ AVX-512 code
+Message-ID: <apo91cGr1a6lhXUc@gondor.apana.org.au>
+References: <20260831211812.213262-1-ebiggers@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <b0a7035e-7ffe-4e22-a4ae-a177640234b8@intel.com>
+In-Reply-To: <20260831211812.213262-1-ebiggers@kernel.org>
 
-On Thu, Sep 03, 2026 at 08:40:48AM -0700, Reinette Chatre wrote:
-> Could you please consider this series for inclusion during this cycle? It applies cleanly on
-> top of v7.3-rc1.
+On Mon, Aug 31, 2026 at 02:18:12PM -0700, Eric Biggers wrote:
+> Since the AVX-512 optimized ARIA code uses ZMM registers, execute
+> vzeroupper before returning from it.  This is needed to avoid degrading
+> the performance of any later SSE code that may happen to be executed.
 > 
-> Please do let us know if you have a preference for how changes touching all parts
-> of resctrl (filesystem, x86, Arm) should be handled.
+> Fixes: c970d42001f2 ("crypto: x86/aria - implement aria-avx512")
+> Cc: stable@vger.kernel.org
+> Cc: Taehee Yoo <ap420073@gmail.com>
+> Signed-off-by: Eric Biggers <ebiggers@kernel.org>
+> ---
+> 
+> This didn't get picked up by the x86 maintainers yet.  Herbert, can you
+> take this through the crypto tree?
+> 
+>  arch/x86/crypto/aria-gfni-avx512-asm_64.S | 3 +++
+>  1 file changed, 3 insertions(+)
 
-Lemme have a look.
-
+Patch applied.  Thanks.
 -- 
-Regards/Gruss,
-    Boris.
-
-https://people.kernel.org/tglx/notes-about-netiquette
+Email: Herbert Xu <herbert@gondor.apana.org.au>
+Home Page: http://gondor.apana.org.au/~herbert/
+PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
