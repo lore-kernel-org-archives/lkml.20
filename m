@@ -1,38 +1,67 @@
-Received: from mta1.migadu.com (out-217.mta1.migadu.com [95.215.58.217])
+Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com [209.85.216.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5D4B36A372
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 01:20:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.217
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BBE136E460
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 01:20:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788484806; cv=none; b=GPVpcHVR4bhrz0IE2RC7HWNTmygdwhE66cUZeJiFj6/Etuan8sEy3CdhkNmWMHhAjIm6yVdSqefOGJ7ZtL6KG7ieilBSRtfNTkv0RDinDDhzLGbnPmHtLsx9CxBd1YE3Ve0a1ASaMO4pG4RSUTkfS2hhCUcxnQdrwGPsjt2pggo=
+	t=1788484814; cv=none; b=c6+VLATDb2L4t1bePUYUJyvCl42ovv2Bz8QGZ0mYCBtS9J3BBdxh1QgdI3qeRzNd9HAIvZvbQ9mGm91nI69Kr1t6ES1+IwJBHU2PwGnZkki09Hl3fcEnmGEC887lpGPpb5wWp1UXDzcPLswd0MzCVotSxjXms/R4DzrNUXb4Wm4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788484806; c=relaxed/simple;
-	bh=oXghULZQP5z/j8O8DwSIl930v8B9ioftFHOPhE8OqdI=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=LnbYg97tZ0Ijw9yes5iQMvJ9UJ5Wi2xLAb6UjqdidfizZjodvmSUWbmpbeKEus0lpeeCQexJdA0axiI8LcyY/DqZeMNWXm8T35qFplj6rPypS+kpr9VwyFnrOoDE6oYcqdjcXuMjrSmj2GeK8BWdqROPIn5m7CixlYL1T9wN4e8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=BslwH27b; arc=none smtp.client-ip=95.215.58.217
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1788484814; c=relaxed/simple;
+	bh=e4653IP/trF4uBg0DR7xcpti6kLMuWqCSiHaFgMw+Lg=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=W6P/W9XJn3sSnAd6Qwy+ASpUwj3o+nLwWz82VYhzXaqGr9qlvomuus8QsqLIJxCnYswQLyAHOZOlJrk8sOOlGEW7ThpFV9PJ05ArPd4529XFi1THCMp0YRo2YdgdUsm3K8fzuE7fUOm8EhWcUNFLMCSpVH/wyrAC2Vm+aIZy3yA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=iQcIOYtG; arc=none smtp.client-ip=209.85.216.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="BslwH27b"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=oXghULZQP5z/j8O8DwSIl930v8B9ioftFHOPhE8OqdI=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788484801; v=1; x=1789089601;
- b=BslwH27bA5fLwi9nsQVPxwSHOsXUmmf92PCRHVpYoWFZF6hE80AU2ozPwSiYsJCqRWRBkKqn
- BQ+DWAtxoUrYhIWD9BNnnBTHitU8o2c3ADTZrfXAHRMbFwPuWplLxCbxYBltIWJGi2Kfdw/MPyI
- KUp/NwkyLa1rANJ6cLkfqZY4=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 9c8df039287fc77a;
-	Fri, 04 Sep 2026 01:20:01 +0000
-X-Mizu-Trace-ID: 9c8df039287fc77a
-X-Migadu-Flow: FLOW_OUT
-From: "Jose Fernandez (Anthropic)" <jose.fernandez@linux.dev>
-Date: Fri, 04 Sep 2026 01:18:38 +0000
-Subject: [PATCH RFC 6/8] arm64: ftrace: Support CALL_OPS on kernels built
- with kCFI
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="iQcIOYtG"
+Received: by mail-pj1-f46.google.com with SMTP id 98e67ed59e1d1-382ef647e20so474730a91.1
+        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 18:20:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788484808; x=1789089608; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=D4Os4KnbXoc/aK/y8zUHh1cLpQDSR2C+747U1B3xOdc=;
+        b=iQcIOYtGDCoOKaob+PcF60eogfyIpn9hh95Wib+6GWPpx41TKLlYXq8o3BxdhoC7LT
+         mX1TyBt+h6np9uvMmriXDvabaUkBI1JJLAMJwRwk5RHLtX23l6gApeDIhd1TD+4Tj6TY
+         dv+2HHz29BY3TqHO3Mar7qn/NTtH2z+guwXfO8Ux+uNvOaJuBMBivbSovfcvdwaL+IfR
+         duC5XSP06uYZ4xFjivUdg679JmPdXavQhDAgxpSY7qeCe8UrwjNzgnc5/iZitzEAedLY
+         YohPWQaYru9fKDBOyuu5CWlpf7QocxcYDpa0eF+eeW7J6ND2F9w3sOzWsn9CzycjgBCf
+         vKlA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788484808; x=1789089608;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=D4Os4KnbXoc/aK/y8zUHh1cLpQDSR2C+747U1B3xOdc=;
+        b=JZb2uzHF8l3Q+BIgi+KE6ZRrCLOEwbVTXXBdxtDkd/jlYSUVi81eSX7hO5uI+HgYYz
+         gHxA1VYN6HoKb/NvzFp0781KvAjD3grQ3rNsRxG5dqcWo5ToxPn7/mXtdcElFgq4zKJT
+         X8yIJNGEjgB4vIlFfj8lEXUouSTcd9aDG2NH9bI8UC7VrzlGdcyKCgElapwWLPWXWg6Z
+         V1Ns+CcDUeGF4LQFeElp7VcvlLo4kVMAsB9t550h+lzYewz/YZ7nl4MSG9CJ57eOM1EQ
+         a7lELYJ+TmJ8eEauVZeLb/zWKrRmKFoPyHlIB5JZ2vi3gbq694yWplR5L7IOUZIaKgL3
+         2zqA==
+X-Forwarded-Encrypted: i=1; AKwUvByx8+/pgHRu1p2chgQA5MSx6XY5E9xf6Hh6SIXjJ/lszt6oXzawR2A7MyxpuSPqCAivwDlV7MSPkB2FaKc=@vger.kernel.org
+X-Gm-Message-State: AFuF++malkZwfy9+SPU/DExNuWMVDOlYwlXffVlAYdHFqyn/SE2NRNB2
+	GlpvXjBdLY30Ns4AqZ7ng4Eiazsosc3S/P1ADrvGrMMjRcQIr44CM3HG
+X-Gm-Gg: AYBFou1MjXZDHmh+XTWOT6QeRGTyCNsbAtfCfLxRhJlJPJ225OtMZlxZ2x47EMLZmq0
+	7xLGzgLVW/X9h/ZmjD3funXjUuA0Uk4ocOo1ttPHOkBe8ioVe1sSGAEzI3OmIPZ+cWdMoBAc76u
+	T84Tr3W/18EJsD9EY0sM202nPPBEn0L/Opu7bMq8qQUOWAmRP7o2zrNLiAWpbkl8ngHHqPVi7hz
+	9SYaaFRGctM/0fNiBHzCBywOf/AnCSw+5ifRetuN754H1JlLxQ3C+rzjNytX9rR196IrK+o5wZm
+	gAt9rIp7EPCpGshifs0U5JDhcH3Nh+0zzSn5q5nODo+tuw0RrkQbLCL2eStKtn9v48f5TnHzxHN
+	SZH9lC10kJ9G8VNZd7HuCubGeDXuRgweHA5mLLKGiAxn3c62+9sdtJ97HuJAzk1pBTKvCGjZdS4
+	uXvWPhsdqW9HM7DU0D9SZtgb3IJ25P4mtmPuErzBsIVkGCGGuP9pZ1vGbGIvpAgyYsxA==
+X-Received: by 2002:a17:90b:5790:b0:398:9bd5:4910 with SMTP id 98e67ed59e1d1-39b2624f0ffmr3999853a91.23.1788484808487;
+        Thu, 03 Sep 2026 18:20:08 -0700 (PDT)
+Received: from [192.168.20.42] ([115.70.157.242])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b08bcc060sm8992418a91.3.2026.09.03.18.20.04
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 03 Sep 2026 18:20:08 -0700 (PDT)
+From: Tsz Shan Chan <tsz.chan.dev@gmail.com>
+X-Google-Original-From: Tsz Shan Chan <tchan@jacques.com.au>
+Date: Fri, 04 Sep 2026 11:19:48 +1000
+Subject: [PATCH v3] iio: light: apds9306: fix default sampling frequency
+ definition
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -41,229 +70,69 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260904-b4-arm64-callops-kcfi-v1-6-ce6687739b0c@linux.dev>
-References: <20260904-b4-arm64-callops-kcfi-v1-0-ce6687739b0c@linux.dev>
-In-Reply-To: <20260904-b4-arm64-callops-kcfi-v1-0-ce6687739b0c@linux.dev>
-To: Steven Rostedt <rostedt@goodmis.org>, 
- Masami Hiramatsu <mhiramat@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
- Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>, 
- Nick Desaulniers <ndesaulniers@google.com>, 
- Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>, 
- Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
- Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
- Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
- Kumar Kartikeya Dwivedi <memxor@gmail.com>, 
- Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>, 
- Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, 
- Emil Tsalapatis <emil@etsalapatis.com>, 
- Puranjay Mohan <puranjay@kernel.org>, Xu Kuohai <xukuohai@huaweicloud.com>, 
- Ard Biesheuvel <ardb@kernel.org>, 
- Ilias Apalodimas <ilias.apalodimas@linaro.org>, 
- Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
- Gary Guo <gary@garyguo.net>, 
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
- Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
- Danilo Krummrich <dakr@kernel.org>, 
- Daniel Almeida <daniel.almeida@collabora.com>, 
- Tamir Duberstein <tamird@kernel.org>, 
- Alexandre Courbot <acourbot@nvidia.com>, 
- =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
- Sami Tolvanen <samitolvanen@google.com>, Kees Cook <kees@kernel.org>
-Cc: Leon Hwang <leon.hwang@linux.dev>, 
- Ihor Solodrai <ihor.solodrai@linux.dev>, 
- Josh Poimboeuf <jpoimboe@kernel.org>, live-patching@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org, 
- linux-kbuild@vger.kernel.org, llvm@lists.linux.dev, 
- linux-arm-kernel@lists.infradead.org, bpf@vger.kernel.org, 
- linux-efi@vger.kernel.org, rust-for-linux@vger.kernel.org, 
- Ben Cressey <ben@cressey.dev>, 
- "Florent Revest (Anthropic)" <florent.revest@linux.dev>, 
- "Jose Fernandez (Anthropic)" <jose.fernandez@linux.dev>
-X-Mailer: b4 0.15.2
+Message-Id: <20260904-apds9306-v3-1-4f668393c2ae@jacques.com.au>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3WMyw6CMBBFf4XM2pI+oFBX/odxMcAgNZFiK42G8
+ O8W1rg8N/ecBQJ5SwHO2QKeog3WjQnUKYN2wPFOzHaJQXKpueGK4dQFo7hmDXUNVk1VUGkg3Sd
+ Pvf3sqest8WDD2/nvXo5iWw8iUTDBVF8biVj0otSXB7avmULeumeOM2ylKP/ZMtlU60qZWiMd2
+ Ou6/gBAD3864wAAAA==
+X-Change-ID: 20260903-apds9306-bedba7b74e59
+To: Subhajit Ghosh <subhajit.ghosh@tweaklogic.com>, 
+ Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, 
+ =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
+ Andy Shevchenko <andy@kernel.org>
+Cc: linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Jonathan Cameron <jic23@kernel.org>, 
+ Andy Shevchenko <andriy.shevchenko@intel.com>, 
+ Tsz Shan Chan <tchan@jacques.com.au>
+X-Mailer: b4 0.14.3
 
-CALL_OPS and kCFI have been mutually exclusive on arm64 since commit
-baaf553d3bc3 ("arm64: Implement HAVE_DYNAMIC_FTRACE_WITH_CALL_OPS").
-kCFI checks the type hash at a fixed offset before the entry point, so
-every function needs the same number of prefix NOPs. Before clang 21,
-prefix NOPs came only with an entry in ftrace's table, and untraced
-functions had none. Since commit 9315e22b0c0a ("arm64: ftrace: allow
-DIRECT_CALLS without CALL_OPS") a kCFI kernel can attach BPF
-trampolines. But without CALL_OPS, a trampoline out of BL range is
-reached through ftrace_caller, ~10 ns more per call than on a CALL_OPS
-kernel, plus ~4 ns for every extra ftrace_ops registered.
+APDS9306_SAMP_FREQ_10HZ is defined as 0.
 
-Clang 21 added a third argument to -fpatchable-function-entry that names
-the section the entries go to [1]. Point it at a section the linker
-scripts already drop and a function gets prefix NOPs with no entry in
-ftrace's table. When CFI and CALL_OPS are both enabled, compile every
-object with
--fpatchable-function-entry=M,M,.discard.patchable_function_entries,
-where M is CONFIG_ARM64_FUNCTION_PREFIX_NOPS.
+According to the datasheet (Broadcom AV02-4755EN, page 11,
+ALS_MEAS_RATE), bits[2:0] set the measurement rate:
+- 000: 25ms  (40Hz)
+- 001: 20ms  (20Hz)
+- 010: 100ms (10Hz)
 
-Gate CALL_OPS under CFI on ARM64_CFI_PERMITS_CALL_OPS, which needs
-clang 21 or newer and RUST off. rustc has its own flag for the prefix
-NOPs and this patch does not pass it, so Rust functions would have no
-prefix and a different hash offset.
+Change APDS9306_SAMP_FREQ_10HZ from 0 to 2 to write the correct value
+for 10Hz.
 
-M is 3 because the ops pointer needs an aligned 8-byte slot inside the
-prefix NOPs, and the 4-byte hash puts the NOPs at offset 4. A traced
-function, with the two entry NOPs from CC_FLAGS_FTRACE, then looks
-like this:
-
-  func-16:            .word <hash>    // kCFI type hash
-  func-12:            NOP
-  func-08:            NOP             // ops pointer, 8 bytes
-  func-04:            NOP             //
-  func+00:    func:   NOP             // To be patched to MOV X9, LR
-  func+04:            NOP             // To be patched to BL <caller>
-
-Size of .text in vmlinux on a defconfig-based config with clang 21.1.4:
-
-  Kernel                 || .text bytes | Delta       | Delta
-  =======================++=============+=============+=======
-  kCFI, base             ||  21,023,888 |             |
-  kCFI, M = 3            ||  22,031,504 |  +1,007,616 | +4.8%
-  -----------------------++-------------+-------------+-------
-
-Numbers below are from a KVM guest on a Graviton4 host, v7.3-rc1 with
-and without this series. The workload is a fentry program on
-__arm64_sys_getpid, 20M calls per pass, six passes per boot, six
-boots, each cell the call with the program attached minus the call
-without it. The in-range rows are the same kernels booted with nokaslr.
-
-  Kernel            | Trampoline   | Extra      || Per-call cost (ns)
-                    | vs. BL range | ftrace_ops || Median | Min  | Max
-  ==================+==============+============++========+======+======
-  kCFI, base        | out of range |          0 ||   32.9 | 32.6 | 33.4
-  kCFI, base        | out of range |         16 ||   92.6 | 92.4 | 96.3
-  kCFI, base        | in range     |          0 ||   21.3 | 21.0 | 21.8
-  ------------------+--------------+------------++--------+------+------
-  kCFI, this series | out of range |          0 ||   22.7 | 22.0 | 22.9
-  kCFI, this series | out of range |         16 ||   22.1 | 21.9 | 22.4
-  kCFI, this series | in range     |          0 ||   22.4 | 22.1 | 22.6
-  ------------------+--------------+------------++--------+------+------
-
-Out of range this saves ~10 ns per call and the cost stops growing
-with extra ftrace_ops. In range both kernels branch straight to
-the trampoline and the numbers roughly match.
-
-ftracetest and the BPF trampoline, struct_ops and kprobe_multi
-selftests pass with CFI enforcing.
-
-[1] https://github.com/llvm/llvm-project/pull/131230
-
-Reviewed-by: Ben Cressey <ben@cressey.dev>
-Reviewed-by: Florent Revest (Anthropic) <florent.revest@linux.dev>
-Assisted-by: LLM
-Signed-off-by: Jose Fernandez (Anthropic) <jose.fernandez@linux.dev>
+Datasheet: https://docs.broadcom.com/doc/AV02-4755EN
+Fixes: 620d1e6c7a3f ("iio: light: Add support for APDS9306 Light Sensor")
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
+Signed-off-by: Tsz Shan Chan <tchan@jacques.com.au>
 ---
- arch/arm64/Kconfig                    | 15 ++++++++++++++-
- arch/arm64/Makefile                   | 12 +++++++++++-
- arch/arm64/kernel/pi/Makefile         |  2 ++
- arch/arm64/kernel/vdso/Makefile       |  2 +-
- drivers/firmware/efi/libstub/Makefile |  2 +-
- 5 files changed, 29 insertions(+), 4 deletions(-)
+Changes in v3:
+- Move datasheet URL to datasheet tag in the commit message
+- Link to v2: https://lore.kernel.org/r/20260903-apds9306-v2-1-e8673986ae56@jacques.com.au
 
-diff --git a/arch/arm64/Kconfig b/arch/arm64/Kconfig
-index 9fbcf12a3808b..6e5fa009c11af 100644
---- a/arch/arm64/Kconfig
-+++ b/arch/arm64/Kconfig
-@@ -190,7 +190,8 @@ config ARM64
- 	select HAVE_DYNAMIC_FTRACE_WITH_DIRECT_CALLS \
- 		if DYNAMIC_FTRACE_WITH_ARGS
- 	select HAVE_DYNAMIC_FTRACE_WITH_CALL_OPS \
--		if (DYNAMIC_FTRACE_WITH_ARGS && !CFI && \
-+		if (DYNAMIC_FTRACE_WITH_ARGS && \
-+		    (!CFI || ARM64_CFI_PERMITS_CALL_OPS) && \
- 		    (CC_IS_CLANG || !CC_OPTIMIZE_FOR_SIZE))
- 	select FTRACE_MCOUNT_USE_PATCHABLE_FUNCTION_ENTRY \
- 		if DYNAMIC_FTRACE_WITH_ARGS
-@@ -276,8 +277,20 @@ config GCC_SUPPORTS_DYNAMIC_FTRACE_WITH_ARGS
- 	def_bool CC_IS_GCC
- 	depends on $(cc-option,-fpatchable-function-entry=2)
- 
-+config CC_HAS_PATCHABLE_FUNCTION_ENTRY_SECTION
-+	# The section argument needs clang 21 or later:
-+	# https://github.com/llvm/llvm-project/pull/131230
-+	def_bool $(cc-option,-fpatchable-function-entry=1$(comma)1$(comma).discard.patchable_function_entries)
-+
-+config ARM64_CFI_PERMITS_CALL_OPS
-+	def_bool y
-+	depends on CFI
-+	depends on CC_HAS_PATCHABLE_FUNCTION_ENTRY_SECTION
-+	depends on !RUST
-+
- config ARM64_FUNCTION_PREFIX_NOPS
- 	int
-+	default 3 if DYNAMIC_FTRACE_WITH_CALL_OPS && CFI
- 	default 2 if DYNAMIC_FTRACE_WITH_CALL_OPS
- 	default 0
- 
-diff --git a/arch/arm64/Makefile b/arch/arm64/Makefile
-index 6b005c8fef706..653c1ed6ef38f 100644
---- a/arch/arm64/Makefile
-+++ b/arch/arm64/Makefile
-@@ -142,7 +142,17 @@ CHECKFLAGS	+= -D__aarch64__
- 
- ifeq ($(CONFIG_DYNAMIC_FTRACE_WITH_CALL_OPS),y)
-   KBUILD_CPPFLAGS += -DCC_USING_PATCHABLE_FUNCTION_ENTRY
--  CC_FLAGS_FTRACE := -fpatchable-function-entry=4,2
-+  prefix_nops := $(CONFIG_ARM64_FUNCTION_PREFIX_NOPS)
-+  CC_FLAGS_FTRACE := -fpatchable-function-entry=$(shell expr $(prefix_nops) + 2),$(prefix_nops)
-+  ifeq ($(CONFIG_CFI),y)
-+    # Every object gets the prefix NOPs and no ftrace entry by default.
-+    # CC_FLAGS_FTRACE comes later for traced objects and overrides the
-+    # -fpatchable-function-entry.
-+    CFI_PREFIX_CFLAGS := -fpatchable-function-entry=$(prefix_nops),$(prefix_nops),.discard.patchable_function_entries \
-+			 -DCC_USING_PATCHABLE_FUNCTION_PREFIX=$(prefix_nops)
-+    KBUILD_CFLAGS += $(CFI_PREFIX_CFLAGS)
-+    export CFI_PREFIX_CFLAGS
-+  endif
- else ifeq ($(CONFIG_DYNAMIC_FTRACE_WITH_ARGS),y)
-   KBUILD_CPPFLAGS += -DCC_USING_PATCHABLE_FUNCTION_ENTRY
-   CC_FLAGS_FTRACE := -fpatchable-function-entry=2
-diff --git a/arch/arm64/kernel/pi/Makefile b/arch/arm64/kernel/pi/Makefile
-index be92d73c25b21..df9f78dd9daec 100644
---- a/arch/arm64/kernel/pi/Makefile
-+++ b/arch/arm64/kernel/pi/Makefile
-@@ -18,6 +18,8 @@ CFLAGS_map_range.o += -mstrict-align
- KBUILD_CFLAGS	:= $(filter-out $(CC_FLAGS_SCS), $(KBUILD_CFLAGS))
- # disable LTO
- KBUILD_CFLAGS	:= $(filter-out $(CC_FLAGS_LTO), $(KBUILD_CFLAGS))
-+# the discard section holds absolute relocations, which relacheck rejects
-+KBUILD_CFLAGS	:= $(filter-out $(CFI_PREFIX_CFLAGS), $(KBUILD_CFLAGS))
- 
- hostprogs	:= relacheck
- 
-diff --git a/arch/arm64/kernel/vdso/Makefile b/arch/arm64/kernel/vdso/Makefile
-index 7dec05dd33b70..44f4a6622ccd2 100644
---- a/arch/arm64/kernel/vdso/Makefile
-+++ b/arch/arm64/kernel/vdso/Makefile
-@@ -38,7 +38,7 @@ ccflags-y += -DDISABLE_BRANCH_PROFILING -DBUILD_VDSO
- CC_FLAGS_REMOVE_VDSO := $(CC_FLAGS_FTRACE) -Os $(CC_FLAGS_SCS) \
- 			$(RANDSTRUCT_CFLAGS) $(KSTACK_ERASE_CFLAGS) \
- 			$(GCC_PLUGINS_CFLAGS) \
--			$(CC_FLAGS_LTO) $(CC_FLAGS_CFI) \
-+			$(CC_FLAGS_LTO) $(CC_FLAGS_CFI) $(CFI_PREFIX_CFLAGS) \
- 			-Wmissing-prototypes -Wmissing-declarations
- 
- CC_FLAGS_ADD_VDSO := -O2 -mcmodel=tiny -fasynchronous-unwind-tables
-diff --git a/drivers/firmware/efi/libstub/Makefile b/drivers/firmware/efi/libstub/Makefile
-index 77a2b2d74f3f6..9fb4e23da4535 100644
---- a/drivers/firmware/efi/libstub/Makefile
-+++ b/drivers/firmware/efi/libstub/Makefile
-@@ -53,7 +53,7 @@ KBUILD_CFLAGS := $(filter-out $(RANDSTRUCT_CFLAGS), $(KBUILD_CFLAGS))
- # remove SCS flags from all objects in this directory
- KBUILD_CFLAGS := $(filter-out $(CC_FLAGS_SCS), $(KBUILD_CFLAGS))
- # disable CFI
--KBUILD_CFLAGS := $(filter-out $(CC_FLAGS_CFI), $(KBUILD_CFLAGS))
-+KBUILD_CFLAGS := $(filter-out $(CC_FLAGS_CFI) $(CFI_PREFIX_CFLAGS), $(KBUILD_CFLAGS))
- # disable LTO
- KBUILD_CFLAGS := $(filter-out $(CC_FLAGS_LTO), $(KBUILD_CFLAGS))
- 
+Changes in v2:
+- Add datasheet link to commit message
+- Remove blank line in the tag block
+- Link to v1: https://lore.kernel.org/r/20260903-apds9306-v1-1-3f892aa4f156@jacques.com.au
+---
+ drivers/iio/light/apds9306.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
+diff --git a/drivers/iio/light/apds9306.c b/drivers/iio/light/apds9306.c
+index f681b02e4922..7dd41136734f 100644
+--- a/drivers/iio/light/apds9306.c
++++ b/drivers/iio/light/apds9306.c
+@@ -61,7 +61,7 @@
+ #define APDS9306_NUM_REPEAT_RATES	7
+ #define APDS9306_INT_SRC_CLEAR	0
+ #define APDS9306_INT_SRC_ALS	1
+-#define APDS9306_SAMP_FREQ_10HZ	0
++#define APDS9306_SAMP_FREQ_10HZ	2
+ 
+ /**
+  * struct part_id_gts_multiplier - Part no. and corresponding gts multiplier
+
+---
+base-commit: 940de590b839f71d6dc846160534bf202401b8b7
+change-id: 20260903-apds9306-bedba7b74e59
+
+Best regards,
 -- 
-2.52.0
+Tsz Shan Chan <tchan@jacques.com.au>
 
