@@ -1,252 +1,168 @@
-Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com [209.85.216.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from BN1PR04CU002.outbound.protection.outlook.com (mail-eastus2azon11010062.outbound.protection.outlook.com [52.101.56.62])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD297390223
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 22:57:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.50
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788562629; cv=none; b=CjCRQS/JhXbIayjLfqg7JORKpmGxkMWh0PssetpRGXFc/ud80YrGoPslVHGlnoQrsfbQAWZ05T7Pah5zBAx6Wo6qDAnFo/lOHIHmxbO1zgpXQLnED24IIphvSrXx5lxPzJVBBey9lzYxlQVOFgLqGgHviSuCsns9XOZosMAcCsU=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788562629; c=relaxed/simple;
-	bh=dzEvNmjdyNIVi6iYSCSIFXaRFg+2yslmOVwcjZe1bEo=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=SCoOfgEdHL9Otg1sjQZ41LWkTsg62+YFilyZbzj/z+OWXIwsvjbJXSP+x2Ldx8t7X7SgiXZWXw38rjEyTyuyYqnWSSytCnEYHdmfv/XavGa+2k51p+Nhvs/ZG63hLWaURYLRjxgywz+aeMNpUB5CJbXdEIPq54v4DWIvllUYFYs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=B9myiEYV; arc=none smtp.client-ip=209.85.216.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3973A37F74A;
+	Fri,  4 Sep 2026 22:57:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.56.62
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788562658; cv=fail; b=kK2QP9FDEQTAonQ06SZbM5Tncx8dpumGUsu7VReI/kbWXvCOzV5rbQcRH6sfA+5ys7nU4EYNtDtKOtHr1r5y+F2DizXrBZ8rb3w7DnfMACZgNqDiqFx3l25Idy+c9VgKIVAlWx6w7cYxbUK5xY+RxmZMz3QQxtGGK28W5IbpmcQ=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788562658; c=relaxed/simple;
+	bh=bn1NYcsJrNEQsbnWYjWrnMAvqdRJKdjmfpOGlNswFxM=;
+	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=j+GX3ih3QZhQEraiK2LUGtAWLGlNYHXzICMrQw204dGMdzzPPxX23EbyAajR53zrDmx87v7d4ytObUeVtgQHceIInol3wa9BnLLXc8gZ7m6QP+5p7Tbe6lpjnXVy963QyUwGcAgxCQAz0+ZIJnhv+Qa2UkUBirQ4f0WUw3FnIH4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=risz1AVu; arc=fail smtp.client-ip=52.101.56.62
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="B9myiEYV"
-Received: by mail-pj1-f50.google.com with SMTP id 98e67ed59e1d1-398e9698a70so1364314a91.0
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 15:57:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1788562626; x=1789167426; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=y0qNwPkJWJhdb13h4cmrx4hOhK/NXhQErJYGrT9/AmE=;
-        b=B9myiEYVJFRW2vQsxbOzMFOiopL0j54Ex4bhdxDJwEMXoyV0Kj3H5msnKjPdw0siVp
-         /+Ryvcq47jBWZDcZbnWj0AaqqhM1i6AZnMsTU7G3PHknBIaBy+O3IWDptlLDOu4ZaUJ5
-         b/8iKvJeo0vhIq2wEDStnKHyukTCzbuiXryz8=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788562626; x=1789167426;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=y0qNwPkJWJhdb13h4cmrx4hOhK/NXhQErJYGrT9/AmE=;
-        b=FtYhcgA0yNzXUxo01xymhUNvrOdZl+sOumt8wg/jJNr/5KXvlsuirkzTL1de2tfWNQ
-         2LqK9tJqmkBxjOlvPZfTibpc7Xg7Uml9ex+4+eb3iWCPfoirxzSSnNn+FuQ/K/ltKzYD
-         6LFNObqWf215/4rOhpxf7PfVBexI3yPdCs1R03QFbdAXljWOxatxvlyM6fSe3GI1RB/e
-         UIWqY8g3y0Q7N9duicgnBQmDCkYSjuIUEcdhJeZg0/FrSSmTQgKAhBCfJ1F2ZxmT/kZF
-         7Z6eO5WhTV1W6uM1xP2G03D3iSOYYnMyeVkVffRMd5xR8ETrLJoOgtbMBTtZSJiPr3J2
-         czDw==
-X-Forwarded-Encrypted: i=1; AKwUvBwh5nBNWZCdCX5UALURQteUjROf5WyX25aNhzwwCgf55beG1UaI0RYo39AhNNuWwCAdziiCKF5yiVGG/Cs=@vger.kernel.org
-X-Gm-Message-State: AFuF++moV1c5PYE6XRJWW8fQ7c15fqoCckVi3OC6j5DwzkRXGuU5AIH8
-	I18ukh+RWpr3K/GgbmNqdTUS9WdDXJ6x/2sJB3l/yHh/UflOdFMNinaVPJQ208oYmw==
-X-Gm-Gg: AYBFou19ZMzK0KXMDwaCnNCGW7Z7Kc9W8xGgCNiIJNVa6Iuh53812JjLfT7wmw0xANi
-	y6Lm4oaBuphg+Td7BdOUfWhexIu1246k97vxFuY18u2xe/XH7NQzZesXcRGdxOrZlRJJFAjc5uv
-	e6ZEgXbOGjj4v0/DKoZ7FWjzw9MyFlPQPiSkeZ1iBcilk4omOl7M0afa4OfI4RnXYRxQqrBsvF4
-	3mRb5LT0MDGLomVLQ0lDae+R2XYu9+0e/zrts1wHDnV/jdBez5s3fKYuwtbPd5beuTQootz3u1r
-	ZwTI1LyTsYie7tgd7eSB91vjOLD1flvBIT2rQA46GmgxOZXUictevLgkY70NRjakDkozOrB+6fX
-	9DngOa99ofsUhXm93s++GE2aY+tbj4rm4fy73GK/leN6x4JA8w5LBtZVw48SE9S0PY8dZSZR2tl
-	RxLWpn14WXv+LqB9eQE2HCfWMFy0sXF3ImMzKHIO6EVdI00roYI7l6eczJ0tzk+QjXkGa02XTph
-	t0wuKE8UNLXHoWiAd0kgeG4UqeX0x0fHjIX4Tw=
-X-Received: by 2002:a17:90b:3852:b0:38e:9ef9:eb97 with SMTP id 98e67ed59e1d1-39b26272d69mr13463573a91.16.1788562625925;
-        Fri, 04 Sep 2026 15:57:05 -0700 (PDT)
-Received: from localhost ([2a00:79e0:2e7c:8:5597:62ab:c321:4a7f])
-        by smtp.gmail.com with UTF8SMTPSA id 5a478bee46e88-3339aa37dbdsm8157345eec.11.2026.09.04.15.57.03
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 04 Sep 2026 15:57:04 -0700 (PDT)
-From: Brian Norris <briannorris@chromium.org>
-To: Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Cc: Chen-Yu Tsai <wenst@chromium.org>,
-	linux-mediatek@lists.infradead.org,
-	Julius Werner <jwerner@chromium.org>,
-	linux-kernel@vger.kernel.org,
-	Conor Dooley <conor+dt@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	linux-arm-kernel@lists.infradead.org,
-	Brian Norris <briannorris@chromium.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Doug Anderson <dianders@chromium.org>,
-	chrome-platform@lists.linux.dev,
-	Tzung-Bi Shih <tzungbi@kernel.org>,
-	devicetree@vger.kernel.org
-Subject: [PATCH v2] arm64: dts: mediatek: Add #{address,size}-cells to Chromium-based /firmware
-Date: Fri,  4 Sep 2026 15:56:22 -0700
-Message-ID: <20260904155621.v2.1.I33d1d66d4724587a981f706243cdc2f264670a40@changeid>
-X-Mailer: git-send-email 2.55.0.979.g7e5102b832-goog
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="risz1AVu"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=jjmwqpi6o6tA2tbcyxc4fSpc/xWpkNZVD5WR0tIzUWrmJstjgpgO4upjfvdDcUNlOQOgB/LzE+bJEITT32JBJUUI7IQjeYplrMhR4NFLdcpUtmPipKWMC5AiMomMEXgJ8O7M6PmSAAAoem3OyEVwdI2BZeQkoZyIAogl2HdVzMdq5Mowt/H49+1AnvTZLyrSs3edtxx4kjuGQBweLbG3MZ+S3p5wblZAHVDN2c56g3uoxtSlDs+wxY1Ryc2jPvwMtzNptMkVj5udTefF88TxBYglJ/42B2mDTFbGPFExLnLUw+zzh0DyOarqidhW4A1/Bx1gogpvtbGQhJg+B6srcg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=iPbIgqSkBwQ2KDwgvNvCRhxjM6UlbU5yXmSdqDfrGVk=;
+ b=Zt6X64tejzUHQBf8GrggV+VP1OD6idXS1ZPo/gldhqAP4r3BLaDFZ6OXXUV9ovFyIPjJK0O2aMX00JZP1hevdVrAd+3SC655u6d/djoRfTWZWC2i4NuDC4zJ7FNOb30XizkjiitRxanMvaZbEHtBLm//gWiLku/jSHzgReLh5RVrTwtXBhZFtlzhn6lZk/HATloNygCb1ewVgJUgmRe7WcyH5hUCRVSV6Mq6HLCGgf2JJ16i+26tF7ZGTpyb2WCrREH3jNr5kf6H3iAsLRnExqb70iOsJzAFczdYKFm8FkoOoRxQ0WzOMVC8aMEUS+o1WOcguuE3NEvxESmX2KWG8w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 216.228.118.233) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=nvidia.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=iPbIgqSkBwQ2KDwgvNvCRhxjM6UlbU5yXmSdqDfrGVk=;
+ b=risz1AVu4wOViNhmAHwL6qGYZomz6WUPyaOVkEVCOIQkPntH/6SewMfg6dd9rG1zU10gd2RkolRG9IQPMnN/68qFnIcdSt6RxSCM/AmlWlsleNReKL1DjV8ocpN4XkKBzk4wJANxQg/hoFHvNIiO5ko0kHkjUSss7NC+PONADv+niEvvA49TDwLyF4coMddL4sHFYm7XLuKxBC/EzMS/UtyY/NoPhRDiMiia9uiqMRK8gT3ApvtAxWi8A5ss4C6qsvrxpFBsO9ntuyvLYiqVNweO/3GNzzLg7d8DO+3mmJ9pNPDxhFQxVHspAHXQIhHS1Namp/59MrjPoizD0tzcag==
+Received: from BN1PR13CA0011.namprd13.prod.outlook.com (2603:10b6:408:e2::16)
+ by PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.8; Fri, 4 Sep 2026
+ 22:57:32 +0000
+Received: from BN2PEPF00004FBB.namprd04.prod.outlook.com
+ (2603:10b6:408:e2:cafe::3f) by BN1PR13CA0011.outlook.office365.com
+ (2603:10b6:408:e2::16) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.406.4 via Frontend Transport; Fri, 4
+ Sep 2026 22:57:32 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.118.233)
+ smtp.mailfrom=nvidia.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 216.228.118.233 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.118.233; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.118.233) by
+ BN2PEPF00004FBB.mail.protection.outlook.com (10.167.243.181) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.382.8 via Frontend Transport; Fri, 4 Sep 2026 22:57:32 +0000
+Received: from drhqmail202.nvidia.com (10.126.190.181) by mail.nvidia.com
+ (10.127.129.6) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Fri, 4 Sep
+ 2026 15:57:17 -0700
+Received: from drhqmail201.nvidia.com (10.126.190.180) by
+ drhqmail202.nvidia.com (10.126.190.181) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Fri, 4 Sep 2026 15:57:17 -0700
+Received: from nvidia.com (10.127.8.13) by mail.nvidia.com (10.126.190.180)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46 via Frontend
+ Transport; Fri, 4 Sep 2026 15:57:14 -0700
+Date: Fri, 4 Sep 2026 15:57:14 -0700
+From: Nicolin Chen <nicolinc@nvidia.com>
+To: Jason Gunthorpe <jgg@nvidia.com>
+CC: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>, <will@kernel.org>,
+	<robin.murphy@arm.com>, <joro@8bytes.org>, <bhelgaas@google.com>,
+	<praan@google.com>, <kevin.tian@intel.com>, <kees@kernel.org>,
+	<smostafa@google.com>, <baolu.lu@linux.intel.com>,
+	<linux-arm-kernel@lists.infradead.org>, <iommu@lists.linux.dev>,
+	<linux-kernel@vger.kernel.org>, <linux-pci@vger.kernel.org>,
+	<skaestle@nvidia.com>, <mmarrid@nvidia.com>, <skolothumtho@nvidia.com>,
+	<bbiber@nvidia.com>, <harsha.v@oss.qualcomm.com>
+Subject: Re: [PATCH v3 03/13] iommu/arm-smmu-v3: Drain in-flight fault events
+ on domain detach
+Message-ID: <aptMynoQtAf1Jcr5@nvidia.com>
+References: <cover.1788222485.git.nicolinc@nvidia.com>
+ <8717f3329313f40308cff20006066283ebbb3a56.1788222485.git.nicolinc@nvidia.com>
+ <178846311316.1308030.6266899352044838554.b4-review@b4>
+ <20260904140906.GR4157646@nvidia.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <20260904140906.GR4157646@nvidia.com>
+X-NV-OnPremToCloud: ExternallySecured
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN2PEPF00004FBB:EE_|PH7PR12MB5685:EE_
+X-MS-Office365-Filtering-Correlation-Id: 936f03ee-d457-4fdb-7010-08df0ad7e739
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700016|376014|1800799024|7416014|82310400026|23010399003|18002099003|22082099003|56012099006|5023799004|6133799003|10067099003|11063799006|4143699003;
+X-Microsoft-Antispam-Message-Info:
+	kh0sV+nfDsEZk278y1pEsbhL3fcgrP+e2XkXUaxjSAvx9v7ZsMvWSlSR+bnjTd3vhpH6BoP+ybSMx7sbZD7SdfVexl5Rl0/MCmcVCNlrvGEsn4M/dFGzvnQXkTs9m+Wj+WMytU4J0k7sUQcNj3KrcRMcnrRbS23wLIKLeem4yn3sfL9dNjKY/raK+dIZuGpIOo7/qanTjNAPmSnp41o33wVLGyujG2vKFdrQOrDg/nk1xy/f/J4ivmcJdBwPp3MX9cSInh5jvgkF+dFobNc1vJTdxOCTcFQJQg885PnBjuZzAAmXwc5HbxTz08aanDd+C2+56MGlyFnLEjr4f8aD3drAWBcF4twtjIYLmrSzs7xuS7EN1Na3VxBVCipC3knngIN3MM+qUJBPJqYG2k5L729zeIJu+1INyO6CT2b+6Q0ObdGVZlT6XSJOPBA5WR1i6YDzxQFYcxGdPnD+IFBIqdtLveZAzayFBtU2KjoAWP/QWQref3O4tjlI0bB9iyIW1jtEccDC2Ow3kxRWiHF4SAR0/etssprsYqREuVE+tDmtDEY4/2IJwiX1eM3WWsY/zziOkXh3HEIRQ6LYoCK99btSNDwprQ710mvqQnUgyv882sKSn0Y8AMQvicpBBlxQsvwsUx6VIjLL60NTVst8q2ij7MLvu0FclufRAeQziyGbtm3A9cHnSggqfcG61sJNEo3x+kXRnbmCWOdnsSW40A==
+X-Forefront-Antispam-Report:
+	CIP:216.228.118.233;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc7edge2.nvidia.com;CAT:NONE;SFS:(13230040)(36860700016)(376014)(1800799024)(7416014)(82310400026)(23010399003)(18002099003)(22082099003)(56012099006)(5023799004)(6133799003)(10067099003)(11063799006)(4143699003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	A4i6VApyHeKvpNRbXFW8ctpt2S1llKQCdwsmgdEtvSmIUKCLwC0YUoP4QnS/HP9D9XYLcB4JA0TDT8oRps5iLZaYtUujVKOhqH0IlioyxYFmPmQeoJds37YxKfhv8fDdcia+zANYiFccMN5VQXGbCo32Oi3rl8HB2+GhdCrPwsqpeUuViIKNLkk47TbUlKPKkq8gna1ZXFLSjMdCt4bnutc6mj2M6OKdxkEahp1uG6iVGk+hUKtx5IwAsPyL0t4T9psC/BHsgVjuii74IYEIv/S824NSLDjyvEMM/7KC9Sxji1vaJWppqDcq5dMzldedSan/gHUqfZFv1GIpDBtJMs3PBmBcyIOPDNB8ukCtgNDkXF1a1X+1RoALItiYc+9n3Q6tShM19XRE5Jbrq3eoh7LRM1sIhtC0UzbPRH7XKVA/a6OmH92TO6OsEfxqxsJH
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Sep 2026 22:57:32.1600
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 936f03ee-d457-4fdb-7010-08df0ad7e739
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.118.233];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BN2PEPF00004FBB.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB5685
 
-Chromium/Depthcharge bootloaders may dynamically add a few device nodes
-to a system's DTB under a /firmware node. A typical DT looks something
-like the following:
+On Fri, Sep 04, 2026 at 11:09:06AM -0300, Jason Gunthorpe wrote:
+> On Thu, Sep 03, 2026 at 12:18:33PM -0700, Jonathan Cameron wrote:
+> > > Also run the drain for every stall-capable master, even when the departing
+> > > attachment did not enable IOPF: such a stall event has to be aborted while
+> > > it still resolves to the old attach handle, 
+> 
+> That isn't the model for fault handling. The fault is delivered
+> unpredictably into either old or new domain. It doesn't matter which
+> one.
+> 
+> Domains have to conclude their fault proceessing before they are
+> destroyed, and attach to the a non-fault domain has to conclude faults
+> before completing the attach.
+> 
+> But there is no requirement to deliver faults to any particular thing.
 
-/ {
-        firmware {
-                ranges;
+Edited:
 
-                coreboot {
-                        compatible = "coreboot";
-                        reg = <...>;
-                        ...;
-                };
-        };
-};
+Also run the drain for every stall-capable master, even when the departing
+attachment did not enable IOPF. An attachment has to conclude its in-flight
+faults before the attach completes, as the incoming domain might not handle
+a fault at all.
 
-Notably, the /firmware node has an empty 'ranges', but does not have
-address/size-cells.
+> > > could pick it up right after the handle swap, mistakenly resuming it as if
+> > > it were a valid page fault against a new domain.
+> > 
+> > Useful perhaps to call out if this has been seen in real systems or
+> > not. I agree with the analysis but would rather hope drivers are
+> > well behaved in ensuring all traffic is done, adn this is hardeninging
+> > / handling of naught hardware activity (all good if so!)
+> 
+> There is a firm API contract on the iommu drivers, they cannot
+> propogate faults at unexpected times because the consumers cannot deal
+> with it.
+> 
+> We don't reason about well behaved drivers at this level because vfio
+> cannot be trusted to be well behaved. So any nonsense vfio can trigger
+> has to be handled without crashing the kernel.
 
-Commit 6e5773d52f4a ("of/address: Fix WARN when attempting translating
-non-translatable addresses") started requiring #address-cells for a
-device's parent if we want to use the reg resource in a device node.
-This leads to errors like the following:
+Added:
 
-[    7.763870] coreboot_table firmware:coreboot: probe with driver coreboot_table failed with error -22
+This is an API contract, not hardening against odd hardware: a detach may
+arrive at any moment from a userspace driver behind VFIO, which cannot be
+trusted to quiesce its device first.
 
-Add appropriate #{address,size}-cells to work around the problem.
-
-Note that Google has also patched the Depthcharge bootloader source to
-add {address,size}-cells [1], but bootloader updates are typically
-delivered only via Google OS updates. Not all users install Google
-software updates, and even if they do, Google may not produce updated
-binaries for all/older devices.
-
-[1] https://lore.kernel.org/all/20241209092809.GA3246424@google.com/
-    https://crrev.com/c/6051580 ("coreboot: Insert #address-cells and
-    #size-cells for firmware node")
-
-Closes: https://lore.kernel.org/all/aeKlYzTiL0OB1y3g@google.com/
-Fixes: 6e5773d52f4a ("of/address: Fix WARN when attempting translating non-translatable addresses")
-Signed-off-by: Brian Norris <briannorris@chromium.org>
-Reviewed-by: Chen-Yu Tsai <wenst@chromium.org>
-Reviewed-by: Douglas Anderson <dianders@chromium.org>
----
-v1 series:
-https://lore.kernel.org/all/20260428200712.2660635-1-briannorris@chromium.org/
-
-There is a little more background in the v1 cover letter. I didn't feel
-like a new cover letter was needed for a single patch-resend.
-
-Changes in v2:
- * resent separately from the series, since the rest were applied by
-   their maintainers
- * trim other-arch maintainers from CC list
- * Add Reviewed-by
- * Add missing linux-mediatek@lists.infradead.org Cc. It claims to be
-   moderated, and its "join" seems broken, so I'll probably get bounced.
-   (https://lists.openwrt.org/mailman/subscribe/linux-mediatek is
-   disabled, and linux-mediatek-join@lists.openwrt.org gives me error 550)
- * otherwise, no change from v1
-
- arch/arm64/boot/dts/mediatek/mt8173-elm.dtsi     | 5 +++++
- arch/arm64/boot/dts/mediatek/mt8183-kukui.dtsi   | 5 +++++
- arch/arm64/boot/dts/mediatek/mt8186-corsola.dtsi | 5 +++++
- arch/arm64/boot/dts/mediatek/mt8188-geralt.dtsi  | 5 +++++
- arch/arm64/boot/dts/mediatek/mt8192-asurada.dtsi | 5 +++++
- arch/arm64/boot/dts/mediatek/mt8195-cherry.dtsi  | 5 +++++
- 6 files changed, 30 insertions(+)
-
-diff --git a/arch/arm64/boot/dts/mediatek/mt8173-elm.dtsi b/arch/arm64/boot/dts/mediatek/mt8173-elm.dtsi
-index a0573bc359fb..777da2129e77 100644
---- a/arch/arm64/boot/dts/mediatek/mt8173-elm.dtsi
-+++ b/arch/arm64/boot/dts/mediatek/mt8173-elm.dtsi
-@@ -16,6 +16,11 @@ aliases {
- 		mmc2 = &mmc3;
- 	};
- 
-+	firmware {
-+		#address-cells = <2>;
-+		#size-cells = <2>;
-+	};
-+
- 	memory@40000000 {
- 		device_type = "memory";
- 		reg = <0 0x40000000 0 0x80000000>;
-diff --git a/arch/arm64/boot/dts/mediatek/mt8183-kukui.dtsi b/arch/arm64/boot/dts/mediatek/mt8183-kukui.dtsi
-index 69cab9f9c530..fa359440ed60 100644
---- a/arch/arm64/boot/dts/mediatek/mt8183-kukui.dtsi
-+++ b/arch/arm64/boot/dts/mediatek/mt8183-kukui.dtsi
-@@ -22,6 +22,11 @@ chosen {
- 		stdout-path = "serial0:115200n8";
- 	};
- 
-+	firmware {
-+		#address-cells <2>;
-+		#size-cells <2>;
-+	};
-+
- 	backlight_lcd0: backlight_lcd0 {
- 		compatible = "pwm-backlight";
- 		pwms = <&pwm0 0 500000>;
-diff --git a/arch/arm64/boot/dts/mediatek/mt8186-corsola.dtsi b/arch/arm64/boot/dts/mediatek/mt8186-corsola.dtsi
-index ff20376a44d7..2b327d9ef65e 100644
---- a/arch/arm64/boot/dts/mediatek/mt8186-corsola.dtsi
-+++ b/arch/arm64/boot/dts/mediatek/mt8186-corsola.dtsi
-@@ -26,6 +26,11 @@ chosen {
- 		stdout-path = "serial0:115200n8";
- 	};
- 
-+	firmware {
-+		#address-cells = <2>;
-+		#size-cells = <2>;
-+	};
-+
- 	memory@40000000 {
- 		device_type = "memory";
- 		/* The size should be filled in by the bootloader. */
-diff --git a/arch/arm64/boot/dts/mediatek/mt8188-geralt.dtsi b/arch/arm64/boot/dts/mediatek/mt8188-geralt.dtsi
-index f382f90c48f5..c65805f2a7e0 100644
---- a/arch/arm64/boot/dts/mediatek/mt8188-geralt.dtsi
-+++ b/arch/arm64/boot/dts/mediatek/mt8188-geralt.dtsi
-@@ -41,6 +41,11 @@ dmic-codec {
- 		wakeup-delay-ms = <100>;
- 	};
- 
-+	firmware {
-+		#address-cells = <2>;
-+		#size-cells = <2>;
-+	};
-+
- 	memory@40000000 {
- 		device_type = "memory";
- 		/* The size will be filled in by the bootloader */
-diff --git a/arch/arm64/boot/dts/mediatek/mt8192-asurada.dtsi b/arch/arm64/boot/dts/mediatek/mt8192-asurada.dtsi
-index 40d34b16dc80..e8ebbb74987f 100644
---- a/arch/arm64/boot/dts/mediatek/mt8192-asurada.dtsi
-+++ b/arch/arm64/boot/dts/mediatek/mt8192-asurada.dtsi
-@@ -25,6 +25,11 @@ chosen {
- 		stdout-path = "serial0:115200n8";
- 	};
- 
-+	firmware {
-+		#address-cells = <2>;
-+		#size-cells = <2>;
-+	};
-+
- 	memory@40000000 {
- 		device_type = "memory";
- 		reg = <0 0x40000000 0 0x80000000>;
-diff --git a/arch/arm64/boot/dts/mediatek/mt8195-cherry.dtsi b/arch/arm64/boot/dts/mediatek/mt8195-cherry.dtsi
-index ef7afc436aef..f06ca2bc165d 100644
---- a/arch/arm64/boot/dts/mediatek/mt8195-cherry.dtsi
-+++ b/arch/arm64/boot/dts/mediatek/mt8195-cherry.dtsi
-@@ -42,6 +42,11 @@ dmic-codec {
- 		wakeup-delay-ms = <50>;
- 	};
- 
-+	firmware {
-+		#address-cells = <2>;
-+		#size-cells = <2>;
-+	};
-+
- 	memory@40000000 {
- 		device_type = "memory";
- 		reg = <0 0x40000000 0 0x80000000>;
--- 
-2.55.0.979.g7e5102b832-goog
-
+Thanks
+Nicolin
