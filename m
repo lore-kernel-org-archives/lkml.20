@@ -1,316 +1,423 @@
-Received: from outbound.st.icloud.com (st-2006g-snip4-11.eps.apple.com [57.103.76.161])
+Received: from TYVP286CU001.outbound.protection.outlook.com (mail-japaneastazon11021081.outbound.protection.outlook.com [52.101.125.81])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CF5C3C8719
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 17:14:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=57.103.76.161
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788542073; cv=none; b=PDrJwnHJ/EHLSz7fBwR/iU3TRrVPT0RwZKUTBWMLKJo+EW2z0iTGLOmbTJxHZPQoSn27PcPp69FX80dNNpRyh7I5extufGccbBl73HgbY71oSjNXUDd5zf5+L523IkENnaydIRMGySwuEG1s3o/WKmytGSvjKLMYLcqoVgcnoPI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788542073; c=relaxed/simple;
-	bh=c9lUyxKZgyyy9bUiRrVR7tTO2q58MZ2LsaVIGbKm4EQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=CqvZEljYgRJH3E/UNXgW8HNfuPWIdAaet7ZQj5L45ANPaxKbSjlsyIagENivsOInvPefXTf+5shUGz71ZoY4/8RDuiK01viu8uxWWxZFzSlSJWISGBDvZDqPHx52fKlVsmsxSLB89Uk4MWP17akc3NNLb9I1UniA0nhMJMaRyH8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=icloud.com; spf=pass smtp.mailfrom=icloud.com; dkim=pass (2048-bit key) header.d=icloud.com header.i=@icloud.com header.b=Nvk14w0C; arc=none smtp.client-ip=57.103.76.161
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=icloud.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=icloud.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11B195111A8;
+	Fri,  4 Sep 2026 17:15:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.125.81
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788542145; cv=fail; b=DLyF22rMgyv5xjvVkg6SqCl5PG9ZlyXYvH4i7vX+GjYeuEsLmeley2JkC+ZRmVDtKkp+Bd+3CRksQOp07IVrbycJw819JgfeZpe8WqiKGxQ2yRLtpp28T9ysqQrhnLe5Z1grq2rlizw/0p9jaIJQCEK7fh0Nt9KCz1l3S7zjd6w=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788542145; c=relaxed/simple;
+	bh=Lo34/ESmLVIdFffi+yxGVLIWdpXO7f9ZP1uG12MbF7Y=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=BEWWgSd1fS6SG+VJ6/iJhdgshGDVU7SoK0e8p0wyI8DfmBcRCKyz+NOqFqKoJ8xOQ2aD91MZ/UH/lOZmPK3hsQ4/vI0vENHKoX07X2Ko2BSXn/xvKuJpqsjuMpYYknYpaHg436Xyuak4BIYLcKEAGT7/T+0SeDnHwYk6eal/w5o=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=valinux.co.jp; spf=pass smtp.mailfrom=valinux.co.jp; dkim=pass (1024-bit key) header.d=valinux.co.jp header.i=@valinux.co.jp header.b=fWijuY6M; arc=fail smtp.client-ip=52.101.125.81
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=valinux.co.jp
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=valinux.co.jp
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=icloud.com header.i=@icloud.com header.b="Nvk14w0C"
-Received: from outbound.st.icloud.com (unknown [127.0.0.2])
-	by p00-icloudmta-asmtp-us-east-1a-100-percent-8 (Postfix) with ESMTPS id A913918001E7;
-	Fri, 04 Sep 2026 17:14:24 +0000 (UTC)
-X-ICL-RepId: 01a06d6a-17b8-7a68-ada1-712180f6f38f
-X-ICL-Out-Info: HUtFAUMEWwJACUgBTUQeDx5WFlZNRAJCTQtPHV4PRQBAC1YGVBcOVk1bHlQYWCtbE1UXRgkZCF0dGR5XUF4IXh9MHB0OWAYSAlpFAV0XA1ccVkVcGEMJXQVXHB0eQ0VbE1UXRgkZCF0dGQhHHwowA0IOVgNDB0UALRkcV1BeCF4fTBwdDlgGEh1QHA5RVhtASGBLVQ9oMXwUcyJrH3cpez5+PnIjcCxnPxQ1cF0JS0YJSR0OBFQHXQVd
-Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=icloud.com; s=1a1hai; t=1788542070; x=1791134070; bh=3PUjns3T+p/kPui4QPMIUQkm8bxeLcpKz5BN+CLKbhk=; h=Date:From:To:Subject:Message-ID:MIME-Version:Content-Type:x-icloud-hme; b=Nvk14w0C+eqLgxeJsNZc5d6EbYHz/zNgykmIaeHIGbym3fwCI5wqoFcTcPVast29Ev/y3nM6A5dP48IqEhA/ri+CHa5PaKhOQFH656NZHGK+Tb+XQxJo9rb2aNZGyHTacmdMLnD/y8ZDbYGi4XlzYL3m9VtARP2HwYAkTY9griHnPGlCXrKdZ5H4IH1jLtOoMFouh0LnRNbRDurdHayuGZo7ZOhPUYtqAEO+PAcvMncksR+Zn2PR40VjSwJQy17Y5kQv5OR63MyjyiUo2ACJpSeFwcb2alu3Db783nniSjkplaj/CCXaSaAXhd3fJ93+U5JOHVkAF6aUXXc2Lwj9Rg==
-mail-alias-created-date: 1772519804199
-Received: from BINGFANGGUO-MC0 (unknown [17.156.216.30])
-	by p00-icloudmta-asmtp-us-east-1a-100-percent-8 (Postfix) with ESMTPSA id 8B93318001CF;
-	Fri, 04 Sep 2026 17:14:17 +0000 (UTC)
-Date: Sat, 5 Sep 2026 01:14:11 +0800
-From: Bingfang Guo <bfguo@icloud.com>
-To: Kairui Song <ryncsn@gmail.com>
-Cc: bingfangguo@tencent.com, Andrew Morton <akpm@linux-foundation.org>,
-	Chris Li <chrisl@kernel.org>,
-	Kemeng Shi <shikemeng@huaweicloud.com>,
-	Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>,
-	Barry Song <baohua@kernel.org>,
-	Youngjun Park <youngjun.park@lge.com>,
-	Qi Zheng <qi.zheng@linux.dev>,
-	Shakeel Butt <shakeel.butt@linux.dev>,
-	Axel Rasmussen <axelrasmussen@google.com>,
-	Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	David Hildenbrand <david@kernel.org>,
-	Michal Hocko <mhocko@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
-	linux-mm@kvack.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3] mm/memcg: clear folio memcg after changing per memcg
- stats
-Message-ID: <apr8Y3fb_ZNdJZXr@BINGFANGGUO-MC0>
-References: <20260902-memcg-swapcache-stats-fix-v3-1-795f5d455f7b@tencent.com>
- <CAMgjq7BNk004x_zQM3k4QuCLmqMx0BVvd4HLxHq5+XvZ0fTk2Q@mail.gmail.com>
+	dkim=pass (1024-bit key) header.d=valinux.co.jp header.i=@valinux.co.jp header.b="fWijuY6M"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=WuN8WRF+jWeBshuUi03Y0m2pSn4+PMN/sdgt7AmGKXRka7cwXJEfeYQZQTG3X3ZmFQI0hNSHD89p0SNf9qankwPhgMfVwdgSD8r5LI8igrjOLxxiZgmsW8FP1HVaBY3uUotI1NTThNX8TuckC9OBGyiJWWTA4h/T8A2l47W/4pFKRFKjAjW+y7FV/39jXEdNegndqmPMbk5WEUi5T0r1CkjEFidUHWnznyk0P4GkQuwPs1uuJVs5O42Cg+tjzE/8qQ3NcBRp560kkjRgvoX9NmA01ZGcwik1vqOnmZB/Jgj+miWVSNpHOhtcrgSsDRXsFqvgDWQayVY0yQnWVd6Rmw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=VnFu2n368/wyL/h+A9uJmjbrffqV1I0VQzCVDT9JqaU=;
+ b=DXtoCUG6qLR+q0DGup9LhNvtTrnrvtCGZ0bXntnS48LvZI4GcnSE4jBseF22HCxV28sN6aWbC8U3rzgiTLSitF9qMKYy+2YkNPil2WJ5474n2dWwaXEC+csCgSgY9j1d0N418JyqTVKckxK9uUs/skgyfIMlU6CURngxL1V6SdZVc9ako947omjr4HkivDqxBFMx8rIni0TO7nt6Pp72GGepgJcZzpnB2w0YVAVOvcMv6adUQUE4eMiwQ7SGcoO4m74mngyi0L5DxrwsRWtg8jFKP6+X5RRlj16nVg44Z/UW3wx6B+Q1xmoSuwBel1iPtXcE6EGM8SaOYaphREWRdw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=valinux.co.jp; dmarc=pass action=none
+ header.from=valinux.co.jp; dkim=pass header.d=valinux.co.jp; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=valinux.co.jp;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=VnFu2n368/wyL/h+A9uJmjbrffqV1I0VQzCVDT9JqaU=;
+ b=fWijuY6M+J2vNrZhZac6htZF650dqYHW7Gg3QIuEHDRFUjXw0iQyMhYuSw7paIte5/GAaaRioYuAXOoBX3d5UcBlHrBgJWlUL8kHAE4yAiJqEYh+nJiQMX5JrdhItrwX8EcfrMNWb/X7waKrRssc+M0HjazLmhVPN5hfGtf+f9g=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=valinux.co.jp;
+Received: from TY7P286MB7722.JPNP286.PROD.OUTLOOK.COM (2603:1096:405:38f::10)
+ by TY1P286MB3422.JPNP286.PROD.OUTLOOK.COM (2603:1096:400:2e2::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Fri, 4 Sep
+ 2026 17:15:40 +0000
+Received: from TY7P286MB7722.JPNP286.PROD.OUTLOOK.COM
+ ([fe80::2305:327c:28ec:9b32]) by TY7P286MB7722.JPNP286.PROD.OUTLOOK.COM
+ ([fe80::2305:327c:28ec:9b32%4]) with mapi id 15.21.0360.008; Fri, 4 Sep 2026
+ 17:15:39 +0000
+Date: Sat, 5 Sep 2026 02:15:38 +0900
+From: Koichiro Den <den@valinux.co.jp>
+To: Frank Li <Frank.li@oss.nxp.com>
+Cc: Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>, 
+	Manivannan Sadhasivam <mani@kernel.org>, Devendra K Verma <devverma@amd.com>, dmaengine@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 2/3] dmaengine: dw-edma: Configure remote interrupt
+ routing
+Message-ID: <75noofzi2u3gc4gyjgiiuprhth6zesufqtytbpun2ew45bewda@nhu24spu2cyw>
+References: <20260903064533.2269557-1-den@valinux.co.jp>
+ <20260903064533.2269557-3-den@valinux.co.jp>
+ <aprmu6McROxJrDLW@SMW015318>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <aprmu6McROxJrDLW@SMW015318>
+X-ClientProxiedBy: TY4P286CA0048.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:405:36e::9) To TY7P286MB7722.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:405:38f::10)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAMgjq7BNk004x_zQM3k4QuCLmqMx0BVvd4HLxHq5+XvZ0fTk2Q@mail.gmail.com>
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA0MDE1NyBTYWx0ZWRfX8KJhLY/XYNm8
- KVgE+6yqZ82TCqBx3HEMQ8nLljrTMWviaRMC+NrwGVBAv7tYvk5RXVmOnYNHovEHn7gai62u5Dh
- P+wrQw82yC2neCKtFtmoP7Z143jZW1rZ90qNVMpt+wd6Y1AzwUYBno3lsrH9YTYeccraT/QhyiA
- Mr7xYO7GmRT2J86KbLqLdvxlprZS4OdXzbByTp57Ki/ae829ezGZXozKvOKaFFaM96WICDHmL+j
- ShQlaKkWp3D39qLNVnmacJgX1JjnlEZDiEgp/UsDNMeMB4hZVsA88MKEz0IyFyIo65xjLdPtRZK
- qqH7rix9LN/uerMvGMU19b3KVYaVjLPqpZBCQ/bMnPGMaOdDMVbBf681DjdlEc=
-X-Authority-Info-Out: v=2.4 cv=dorWylg4 c=1 sm=1 tr=0 ts=6a9afc73
- cx=c_apl:c_pps:t_out a=oyWFxbOnq+dmhQrAPgaJYA==:117
- a=oyWFxbOnq+dmhQrAPgaJYA==:17 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
- a=x7bEGLp0ZPQA:10 a=vu5NlEYW-o8A:10 a=VkNPw1HP01LnGYTKEx00:22
- a=VwQbUJbxAAAA:8 a=GvQkQWPkAAAA:8 a=63lRpd9jxPUBlUCG1FUA:9 a=3ZKOabzyN94A:10
- a=QEXdDO2ut3YA:10
-X-Proofpoint-GUID: AoQW78-Djq_M_fGKO5SCjzuqySa_Yud-
-X-Proofpoint-ORIG-GUID: AoQW78-Djq_M_fGKO5SCjzuqySa_Yud-
-X-JNJ: AAAAAAABRHED1L5dBQ4HEu/bug8yg6PIzAZSBuaZH7zY4mi9le0sMftYg+WAhyJhSG6Us3ZNdSywY6+YjgrYwMnvqJ/DCpVneNPBYnWR/R5czNVQg3WWgN38Tqux5xD0MS7RQfF3wx7jJeDYRwJfjICit4Eym0nx9aUW3BqEUUkS4r4XmN2wIYX00Q5vs+xPa/ZtH3UeE1zdae2+eUoRmCM0HTI6TUYm5Ebg2FNs0tWJ+OJQI6fd7Kwc764RY2NtF/PCEcN/MTGE3FcqQAfUGTKGdzkCy2uSAQBBSAG7XXHTzPdE7tiLGz0C/ojTFmTkYv/YyYPw/x2DsC68SnD7M6A7VXgi24bHLmEw5qx2lwZJrtFi3a/23C+fJIQfYhYy1jD063sEgQuRKZPJQKVojVyIbKGoPJMCLlTxrnKjbJf1pQQakCHPs7Ddu5UKXMEc9o+KA7JYWQuGpUEXOaCBlsvjaRJFUquy0XDl3ShGcZAdk3SdNJw5QNONAQkfh8hFRQqrifuB+1ZLam6K7qrvND5s0jB6Lt31rWrzo6cW/pIHJQArxtR/nmUwcZX2wnVH8jUYdzOQHgBXyVi2mdb8jcKSPAPwwDWSmaXLuOk/j+ZNyDP/7OgcwAeCU1IerQNQPdQy2xEuFcgDiFaIha+IXCpAo07TkQwxaT/IYJK7pd/yeb4Jv57gMTQ7rB2Tex5CXte+zQCKXNorkddTjEBMx3+Fxa2JvnPwi4L2XDjams2OH92C+yGjnjcaMaor7TJIOS595ag6qJAGlsGP2XPfSFu4+dHXJZOdkFjwHsHFqYABOUjMi5p0bPzlZiduO5Pxmcd4JivmhwvKQ15JoEKi1gJ7YDGODqDkLavN3KcBbcHxvtiVT3TnT5WSfoDvf1lU844M7cMIO9SG/57Sj1C4TLoQyJgPeCiWW/WshuW0USRkdjJn1QoJXrqhUm9DmnUFHQlk+beIW+mIDHEcu99nfw7mPT2z5OL
- vd6nVisrKeH+lVGHJJ7Han1hEMBLfq6beQSm0TGW0TU5Q5DBbI3CrfbuLQGFTBiOj4a61nCcDU7MFvD7evwpaH1GsJEcRUQvEcG3qcdLoqka7bnjvxTtcdrO+wV5n//CdidB13vVcERkmmOOOUSmuxevkWE2l5qlx7PKH4iW+uVZnSgtyCSKlfiSyv4XUOWnG7kwfVV6LHWI0NuGSk2qbRuMsuHENdDoi0mnwXFQ41hF2V4Uis1BjD298VwMu24VrzRxHIV2lhQxvD65q2H2PrWT2RACh38F55zukK39/noZPftU/EEfTBefnaLX3wgKsgFx5QfamrsKUrLwxYz7Z/Uh3FXok1npPktBRfI6ldDcPRHL3e/1Ec0fv4WRl8RGqsMaxnWtqcuSHChPOhjjB1rbdfyff8NATRhfI60G/+79Eig6f/OjZ/6OcyEMepqK7bh/f/F93ynVOW5gVzDshK5AVoi/26j84GolFE6bQ
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: TY7P286MB7722:EE_|TY1P286MB3422:EE_
+X-MS-Office365-Filtering-Correlation-Id: aba4a628-fb9e-47bd-58b5-08df0aa824cc
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|23010399003|1800799024|10070799003|366016|6133799003|4143699003|10067099003|18002099003|22082099003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	uM7Mx3hTeaa9ykvH/5Gx2X/IarsNgggKj7QNLPDxidWk6pLSn+fqQMcSwguiOkoO84Exkk4rp/yqtx/WSx+5rwpeG+Qnl/Mzi4Vul1jFYfONox/D0z6WYv/0KE6d8d95k0lTWOYMrijA/TYOE+UaSYpU/0pT8qlhCwqJwF2esBE5OhBfzuPxQkCaUepfwlJCf1ud07+4yKeqD21a7NPXPR3argbDR9rtGagDhOIDLowOPHJXyTZzLbrAxMpW0kkZGPxcAje84vzjpI8alWugI2EdBvS8CdDqNda3/JiAt0ee/WQSTgsQHTP5ov6t5ZX5BVbQ2Hejm4+p9QU2EEGkc286fvoCTi2B1ovhirKM15L6sr7815fHWeYqMGcHhRkfzdtjechiEE0MAOBmob1/c6dluumzH7dxOo86wbEH+ZGk7guowEIb5UYaK0h4ZC8MA3Mf/tYb1bK6AJUeghnmHk3/AHaHwAWCtUFBGsmAEju4+SiTW9LKKTCcYwgweD208NuWBchHQPNWJrPszo6utkcGcfhcfQSOsbpH8K6niClblRpI4GbCHnAbtY9sonJgXA9IpBk21E54MfQiBX2rTcZFZMB5tTkF5KFhiXfPSgs=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TY7P286MB7722.JPNP286.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(376014)(23010399003)(1800799024)(10070799003)(366016)(6133799003)(4143699003)(10067099003)(18002099003)(22082099003)(56012099006);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?8u4LYtQgYpizL3+I503PwXhQgbtDArJWOUy0I51/R+QP4NeWcoSda3df5FJH?=
+ =?us-ascii?Q?G0itrd45X3N6wtT+v6Q33PDxr0mhonXdl7FqzEg/xnegcY05Qo1ZCi27sCfd?=
+ =?us-ascii?Q?Ao3rZ01uaXTq7ZWIoq16d6pi18+z7zC/RTaSikusjFnH/bo2ZEi3IJ/gN08A?=
+ =?us-ascii?Q?GKck5BY0vo4+Q+2dqqbnEc9egSael33pEZLM42WKatyMkKui6wYtojFMg4TL?=
+ =?us-ascii?Q?DbWl6F+0qnJy+9+zciuh6kLRLFGukjAcnbmJSGWDYg29qbsZ4u5g3fQBzZPn?=
+ =?us-ascii?Q?S+7NyU5xU7cEFlrJPO6jV4qQIA6boLfbQsaUXOpg1imIrrNlOIkdS4S5+dAw?=
+ =?us-ascii?Q?Za/UOPd5/K95P4PNmVzaH9tDyUjBiJp7VH2oImFKZjH2y1NiIGG72z245dx4?=
+ =?us-ascii?Q?uNCPvDWuZTWOLNJpRkQdIq3bxAtwbyfelD6pyB5eQEfdoO34KApkQjqypm8P?=
+ =?us-ascii?Q?/KVZH982lDOBFV8t7llqxe4QnpXAPIgHicQbnOniMopCBWVKO+nkx7H9f8a+?=
+ =?us-ascii?Q?8CXSP51IaLfQY0cTjMXeyKVVJ6EkhoBakMZ7q1R/h3JMy4ZwtsyflGcXGB+t?=
+ =?us-ascii?Q?BxmJSSpi30f3Pf6LUtNjdgzpgEUbTPqnNy0C61qxU1xx1eyOPvR6xyRq9bQ3?=
+ =?us-ascii?Q?CoSkNPTSX5TXSzNC/NULtmnxpk/CkyGifzt0+AspQK5FdUL5f4tqRvHqn9RE?=
+ =?us-ascii?Q?Nb9dXM9Gi8BFtQ15CxdPcye1ZWoUr0xqDpXK68viYtfDtOq+6tZb51BTnvuI?=
+ =?us-ascii?Q?Mwf5Vr+k8176XlX7CVY5nbmtuSBQvb3arKmaJcMre67KceWAaBL2omV6Puro?=
+ =?us-ascii?Q?yadu2Q/T6WOei/O03yu3ODmmOPi4LCljakLcooXd1gaPSfbUt32TU6OYeQeK?=
+ =?us-ascii?Q?R2Md/Ig6xpNdKdyEGRRAyVg9S5lBU6EjoQ7EZIE8kAPpFscwMEOP9nWNN6Qo?=
+ =?us-ascii?Q?m6j2MJqiYinJdag+9tZcxss4AFWhHD9xsgyj/mcILYB99+F/1i9pv06KA0A0?=
+ =?us-ascii?Q?4YWcP48AHODoAhbbVnObP1P4w7ceXH6iTVHc6yrHhqIsImB2xammL/XSJr/k?=
+ =?us-ascii?Q?fexP/mcgrBPH5hyY7zTQkMxPWvaKt4fciYmurNDtcMmmRclN2U6olI3nrU2G?=
+ =?us-ascii?Q?EbmMJVlN2r1TSupQOdKC2l8C5V65sXlbyv3MGw8JmOW7E+B/KPOxG3tCqpcc?=
+ =?us-ascii?Q?kaB/UqMH58B+LN7Z+JmdVY1VtQmqRfMsn8uxoGps4GJn6fdVPRme6kVKoItJ?=
+ =?us-ascii?Q?f7te9LwxX+qqnK+9ydKuCEJs5YrqhK6A8G9fZaaocgnYHPZwS9GoYqdSyD+w?=
+ =?us-ascii?Q?czZPapqZGLHu4Dy1MTru+XwuPRzL1f4PGyXk7sCD9mAemQP0R4eU428t1XGD?=
+ =?us-ascii?Q?W5N1Ia4UVKArB96ko+QGRh5cJxtl/TxTg7+aTfzCgAi9Z9v2s3UcEm3CTQSu?=
+ =?us-ascii?Q?DaFLNyikQ0S4Fehmbq2dikh7mtblTA2qxXqQiw0sBQ05ka8W4r+nmd29sIQP?=
+ =?us-ascii?Q?h8f7t5eX/TZ6jHyD2VH9jU2iXfO5rZPFtzAk9uGrQwQ/THiDDKAbIsxaeAdM?=
+ =?us-ascii?Q?NlEzzHloyKfqTPfqjSeL44VNRgBkKx7A2b4FCVV8zKvogB0kjClKmMN+ao6C?=
+ =?us-ascii?Q?L6KiApLc9tjhaM4lMPH+a53xsYrJBPeb6kJ+rzagQddG2VY4Ex58y8G0jymZ?=
+ =?us-ascii?Q?21Ul//Xh9ZoEFgFRA4uCWIicrIJaU3RYRaK2M/UdrZxGBIIjcNiuZsTAQVGo?=
+ =?us-ascii?Q?i1c91Q4zc1O+E4GwcH4NlFs4/d+I4pKAJnQ4mAiUD485hJaATb2H?=
+X-OriginatorOrg: valinux.co.jp
+X-MS-Exchange-CrossTenant-Network-Message-Id: aba4a628-fb9e-47bd-58b5-08df0aa824cc
+X-MS-Exchange-CrossTenant-AuthSource: TY7P286MB7722.JPNP286.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Sep 2026 17:15:39.8805
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 7a57bee8-f73d-4c5f-a4f7-d72c91c8c111
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 9DYnLnjE/LfxAf+HCnpmoqQDcdyReQdVkuNWcaDr0+mjnRTt4S7R2mx/dB7kKWFfLor6U31Ox9K+gkw7X6Q13A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TY1P286MB3422
 
-On Fri, Sep 04, 2026 at 08:42:05PM +0800, Kairui Song wrote:
-> On Wed, Sep 2, 2026 at 10:07 AM Bingfang Guo via B4 Relay
-> <devnull+bingfangguo.tencent.com@kernel.org> wrote:
+On Fri, Sep 04, 2026 at 10:41:47AM -0500, Frank Li wrote:
+> On Thu, Sep 03, 2026 at 03:45:32PM +0900, Koichiro Den wrote:
+> > An endpoint function can reserve an endpoint-local channel while the RC
+> > programs it through an exposed register window. Such a channel must route
+> > interrupts remotely and ignore them on the endpoint.
 > >
-> > From: Bingfang Guo <bingfangguo@tencent.com>
+> > Use dma_slave_config to set per-channel interrupt routing on idle channels
+> > of a local eDMA-compatible instance. Releasing a remote-routed channel
+> > quiesces the hardware and drains its local IRQ before restoring the default
+> > routing.
 > >
-> > I notice extremely high swapcached count in the per memcg level
-> > memory.stat when running tests with cgroupv1 setup by swapping pages in
-> > and out.  It seems that the counter never gets decreased so the value is
-> > rather useless and confusing to users reading it. So I think fixing it
-> > so that the value can reflect the actual swapcache usage correctly could
-> > be helpful.
-> 
-> Thanks! Good catch, I missed the V1 case.
-> 
-
-Hi, Kairui. Thanks for your reviewing!
-
-> > __memcg1_swapout() transfers the memsw charge of a folio to its swap
-> > entry and clears folio->memcg_data as part of that.  In the vmscan
-> > swapout path it runs before __swap_cache_del_folio(), which then
-> > decrements the swapcache stats through lruvec_stat_mod_folio().  Since
-> > folio->memcg_data has already been cleared, folio_memcg() returns NULL
-> > and the NR_SWAPCACHE decrement only updates the node-level counter
-> > instead of the memcg's lruvec, leaking the per-memcg swapcache count.
+> > The eDMA quiesce may stop a complete direction. The caller must own every
+> > channel in that direction and stop remote programming first.
 > >
-> > Move the __memcg1_swapout() call into __swap_cache_del_folio(), after
-> > the NR_FILE_PAGES and NR_SWAPCACHE updates but before
-> > __swap_cache_do_del_folio() removes the folio from the swap cache.  This
-> > keeps the stats attributed to the folio's memcg while still recording
-> > the swap cgroup with a valid folio->swap.  Add a swapout parameter so
-> > the plain swap_cache_del_folio() path is left unchanged.
-> >
-> > Fixes: b197d41462c20 ("mm/memcg, swap: store cgroup id in cluster table directly")
-> 
-> Is this the right Fixes? I think the problem could be introduced by
-> 2732acda82c9?
-> 
-
-You are right... I'll update it in the next version.
-
-> > Signed-off-by: Bingfang Guo <bingfangguo@tencent.com>
-> > ---
-> > The problem is reproducible using the following script and program:
-> >
-> > ```
-> > #!/bin/bash
-> > set -e
-> >
-> > CG=/sys/fs/cgroup/memory/swapcache-leak-test
-> > SIZE=$((256 * 1024 * 1024))   # 256 MiB of anon memory
-> >
-> > [ "$(id -u)" -eq 0 ] || { echo "must run as root"; exit 1; }
-> > grep -q . /proc/swaps <<<"$(tail -n +2 /proc/swaps)" || { echo "no swap active; run: swapon <dev>"; exit 1; }
-> >
-> > cleanup() { rmdir "$CG" 2>/dev/null || true; }
-> > trap cleanup EXIT
-> >
-> > cc -O2 swapout.c -o swapout
-> >
-> > mkdir -p "$CG"
-> > echo "+memory" > /sys/fs/cgroup/cgroup.subtree_control 2>/dev/null || true
-> >
-> > echo "== before reclaim =="
-> > grep -E '^(swapcached|anon) ' "$CG/memory.stat"
-> >
-> > # Put ourselves in the cgroup, allocate & touch anon memory, then wait to be reclaimed.
-> > (
-> >         echo $BASHPID > "$CG/cgroup.procs"
-> >         # Allocate and dirty SIZE bytes of anonymous memory.
-> >         ./swapout
-> > ) &
-> > WORKER=$!
-> > sleep 2
-> >
-> > echo "== after reclaim (swap cache should drain to ~0) =="
-> > grep -E '^(swapcached|anon) ' "$CG/memory.stat"
-> >
-> > SWAPCACHED=$(awk '/^swapcached /{print $2}' "$CG/memory.stat")
-> > echo
-> > if [ "$SWAPCACHED" -gt $((1024 * 1024)) ]; then
-> >         echo "LEAK DETECTED: swapcached = $SWAPCACHED bytes (expected ~0)  [BUGGY kernel]"
-> >         RC=1
-> > else
-> >         echo "OK: swapcached = $SWAPCACHED bytes  [FIXED kernel]"
-> >         RC=0
-> > fi
-> >
-> > kill "$WORKER" 2>/dev/null || true
-> > wait "$WORKER" 2>/dev/null || true
-> > exit $RC
-> > ```
-> >
-> > swapout.c:
-> > ```
-> > #include <stdio.h>
-> > #include <stdlib.h>
-> > #include <string.h>
-> > #include <unistd.h>
-> > #include <sys/mman.h>
-> >
-> > int main(int argc, char **argv)
-> > {
-> >         size_t mib = (argc > 1) ? strtoul(argv[1], NULL, 10) : 256;
-> >         size_t size = mib * 1024UL * 1024UL;
-> >         long page = sysconf(_SC_PAGESIZE);
-> >         char *buf;
-> >         size_t i;
-> >
-> >         buf = mmap(NULL, size, PROT_READ | PROT_WRITE,
-> >                    MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
-> >         if (buf == MAP_FAILED) {
-> >                 perror("mmap");
-> >                 return 1;
-> >         }
-> >
-> >         /* Fault in and dirty every page so it becomes reclaimable anon. */
-> >         for (i = 0; i < size; i += page)
-> >                 buf[i] = 1;
-> >
-> >         printf("allocated and dirtied %zu MiB, paging out...\n", mib);
-> >
-> >         /* Force the whole range out to swap. */
-> >         if (madvise(buf, size, MADV_PAGEOUT)) {
-> >                 perror("madvise(MADV_PAGEOUT)");
-> >                 return 1;
-> >         }
-> >
-> >         /* Give reclaim a moment, then stay alive so the cgroup can be inspected. */
-> >         printf("paged out; sleeping so memory.stat can be read. pid=%d\n", getpid());
-> >         sleep(30);
-> >
-> >         munmap(buf, size);
-> >         return 0;
-> > }
-> > ```
-> >
-> > Test result:
-> >
-> > before:
-> > ```
-> > == before reclaim ==
-> > swapcached 0
-> > allocated and dirtied 256 MiB, paging out...
-> > paged out; sleeping so memory.stat can be read. pid=4778
-> > == after reclaim (swap cache should drain to ~0) ==
-> > swapcached 268435456
-> >
-> > LEAK DETECTED: swapcached = 268435456 bytes (expected ~0)  [BUGGY kernel]
-> > ```
-> >
-> > after the patch:
-> > ```
-> > == before reclaim ==
-> > swapcached 0
-> > allocated and dirtied 256 MiB, paging out...
-> > paged out; sleeping so memory.stat can be read. pid=2601
-> > == after reclaim (swap cache should drain to ~0) ==
-> > swapcached 0
-> >
-> > OK: swapcached = 0 bytes  [FIXED kernel]
-> > ```
-> 
-> Nice, the reproducer is under "---" so won't be included in the commit
-> message but anyone can find it on lore.
-> 
+> > Suggested-by: Frank Li <Frank.Li@nxp.com>
+> > Signed-off-by: Koichiro Den <den@valinux.co.jp>
 > > ---
 > > Changes in v3:
-> > - Add doc for the new parameter.
-> > - Link to v2: https://lore.kernel.org/r/20260901-memcg-swapcache-stats-fix-v2-1-9caad330459b@tencent.com
+> >   - Add struct dw_edma_chan_config with validity flags for non-LL mode and
+> >     interrupt routing. (Frank)
+> >     https://lore.kernel.org/r/apWj7zzAw57U2r4F@SMW015318/
+> >   - Do not skip generic dma_slave_config fields when private settings are
+> >     supplied. (Sashiko)
+> >     https://lore.kernel.org/r/20260828164950.61AE51F000E9@smtp.kernel.org/
+> >   - Use READ_ONCE()/WRITE_ONCE() for IRQ mode accessed by shared handlers
+> >     and drain the channel IRQ before restoring local routing. (Sashiko)
 > >
-> > Changes in v2:
-> > - Update the commit message to describe the problem in the beginnning.
-> > - Change function declaration for !CONFIG_SWAP as well.
-> > - Link to v1: https://lore.kernel.org/r/20260831-memcg-swapcache-stats-fix-v1-1-1c0819ebdb86@tencent.com
-> > ---
-> >  mm/swap.h       |  6 ++++--
-> >  mm/swap_state.c | 11 ++++++++---
-> >  mm/vmscan.c     |  3 +--
-> >  3 files changed, 13 insertions(+), 7 deletions(-)
+> >  drivers/dma/dw-edma/dw-edma-core.c | 135 ++++++++++++++++++++++-------
+> >  drivers/dma/dw-edma/dw-edma-core.h |   5 +-
+> >  include/linux/dma/edma.h           |  19 ++++
+> >  3 files changed, 126 insertions(+), 33 deletions(-)
 > >
-> > diff --git a/mm/swap.h b/mm/swap.h
-> > index 0b5d507739bcb..b3b54c28929a1 100644
-> > --- a/mm/swap.h
-> > +++ b/mm/swap.h
-> > @@ -319,7 +319,8 @@ struct folio *swap_cache_alloc_folio(swp_entry_t target_entry, gfp_t gfp_mask,
-> >  void __swap_cache_add_folio(struct swap_cluster_info *ci,
-> >                             struct folio *folio, swp_entry_t entry);
-> >  void __swap_cache_del_folio(struct swap_cluster_info *ci,
-> > -                           struct folio *folio, swp_entry_t entry, void *shadow);
-> > +                           struct folio *folio, swp_entry_t entry, void *shadow,
-> > +                           bool swapout);
-> >  void __swap_cache_replace_folio(struct swap_cluster_info *ci,
-> >                                 struct folio *old, struct folio *new);
-> >
-> > @@ -452,7 +453,8 @@ static inline void swap_cache_del_folio(struct folio *folio)
+> > diff --git a/drivers/dma/dw-edma/dw-edma-core.c b/drivers/dma/dw-edma/dw-edma-core.c
+> > index a678c70a78fe..e3786d960a43 100644
+> > --- a/drivers/dma/dw-edma/dw-edma-core.c
+> > +++ b/drivers/dma/dw-edma/dw-edma-core.c
+> > @@ -177,48 +177,79 @@ dw_edma_get_default_irq_mode(struct dw_edma_chan *chan)
+> >  						  DW_EDMA_CH_IRQ_REMOTE;
 > >  }
 > >
-> >  static inline void __swap_cache_del_folio(struct swap_cluster_info *ci,
-> > -               struct folio *folio, swp_entry_t entry, void *shadow)
-> > +               struct folio *folio, swp_entry_t entry, void *shadow,
-> > +               bool swapout)
+> > +static int dw_edma_device_config_irq_mode(struct dw_edma_chan *chan,
+> > +					  enum dw_edma_ch_irq_mode mode)
+> > +{
+> > +	if (!(chan->dw->chip->flags & DW_EDMA_CHIP_LOCAL) ||
+> > +	    (mode != DW_EDMA_CH_IRQ_LOCAL && mode != DW_EDMA_CH_IRQ_REMOTE))
+> > +		return -EINVAL;
+> > +
+> > +	guard(spinlock_irqsave)(&chan->vc.lock);
+> > +
+> > +	if (chan->configured || chan->status != EDMA_ST_IDLE ||
+> > +	    chan->request != EDMA_REQ_NONE)
+> > +		return -EBUSY;
+> > +
+> > +	WRITE_ONCE(chan->irq_mode, mode);
+> > +
+> > +	return 0;
+> > +}
+> > +
+> >  static int dw_edma_device_config(struct dma_chan *dchan,
+> >  				 struct dma_slave_config *config)
 > >  {
+> > +	const struct dw_edma_chan_config *dw_config = config->peripheral_config;
+> >  	struct dw_edma_chan *chan = dchan2dw_edma_chan(dchan);
+> > -	bool cfg_non_ll;
+> > -	int non_ll = 0;
+> > -
+> > -	chan->non_ll = false;
+> > -	if (chan->dw->chip->mf == EDMA_MF_HDMA_NATIVE) {
+> > -		if (config->peripheral_config &&
+> > -		    config->peripheral_size != sizeof(int)) {
+> > -			dev_err(dchan->device->dev,
+> > -				"config param peripheral size mismatch\n");
+> > +	bool non_ll = false;
+> > +	u32 flags = 0;
+> > +	int ret;
+> > +
+> > +	if (dw_config) {
+> > +		if (config->peripheral_size != sizeof(*dw_config) ||
+> > +		    dw_config->flags & ~(DW_EDMA_CH_CONFIG_NON_LL |
+> > +					 DW_EDMA_CH_CONFIG_IRQ_MODE))
+> > +			return -EINVAL;
+> > +		flags = dw_config->flags;
+> > +	}
+> > +
+> > +	/*
+> > +	 * When there is no valid LLP base address available then the
+> > +	 * default DMA ops will use the non-LL mode.
+> > +	 *
+> > +	 * When LL mode is the default, clients can request non-LL mode
+> > +	 * through DW_EDMA_CH_CONFIG_NON_LL.
+> > +	 */
+> > +	non_ll = chan->dw->chip->mf == EDMA_MF_HDMA_NATIVE &&
+> > +		 chan->dw->chip->cfg_non_ll;
+> > +
+> > +	if (flags & DW_EDMA_CH_CONFIG_NON_LL) {
+> > +		if (chan->dw->chip->mf != EDMA_MF_HDMA_NATIVE)
+> > +			return -EINVAL;
+> > +
+> > +		if (chan->dw->chip->cfg_non_ll && !dw_config->non_ll) {
+> > +			dev_err(dchan->device->dev, "invalid configuration\n");
+> >  			return -EINVAL;
+> >  		}
+> >
+> > -		/*
+> > -		 * When there is no valid LLP base address available then the
+> > -		 * default DMA ops will use the non-LL mode.
+> > -		 *
+> > -		 * Cases where LL mode is enabled and client wants to use the
+> > -		 * non-LL mode then also client can do so via providing the
+> > -		 * peripheral_config param.
+> > -		 */
+> > -		cfg_non_ll = chan->dw->chip->cfg_non_ll;
+> > -		if (config->peripheral_config) {
+> > -			non_ll = *(int *)config->peripheral_config;
+> > +		non_ll = dw_config->non_ll;
+> > +	}
+> >
+> > -			if (cfg_non_ll && !non_ll) {
+> > -				dev_err(dchan->device->dev, "invalid configuration\n");
+> > -				return -EINVAL;
+> > -			}
+> > +	if (flags & DW_EDMA_CH_CONFIG_IRQ_MODE) {
+> > +		switch (chan->dw->chip->mf) {
+> > +		case EDMA_MF_EDMA_LEGACY:
+> > +		case EDMA_MF_EDMA_UNROLL:
+> > +		case EDMA_MF_HDMA_COMPAT:
+> > +			break;
+> > +		default:
+> > +			return -EINVAL;
+> >  		}
+> >
+> > -		if (cfg_non_ll || non_ll)
+> > -			chan->non_ll = true;
+> > -	} else if (config->peripheral_config) {
+> > -		dev_err(dchan->device->dev,
+> > -			"peripheral config param applicable only for HDMA\n");
+> > -		return -EINVAL;
+> > +		ret = dw_edma_device_config_irq_mode(chan, dw_config->irq_mode);
+> > +		if (ret)
+> > +			return ret;
+> >  	}
+> >
+> > +	chan->non_ll = non_ll;
+> >  	memcpy(&chan->config, config, sizeof(*config));
+> >  	chan->configured = true;
+> >
+> > @@ -890,11 +921,48 @@ static void dw_edma_wait_termination(struct dma_chan *dchan)
+> >  		 "timeout waiting for channel termination\n");
 > >  }
 > >
-> > diff --git a/mm/swap_state.c b/mm/swap_state.c
-> > index 305877e1f4d7b..99985208b529b 100644
-> > --- a/mm/swap_state.c
-> > +++ b/mm/swap_state.c
-> > @@ -306,6 +306,7 @@ static void __swap_cache_do_del_folio(struct swap_cluster_info *ci,
-> >   * @folio: The folio.
-> >   * @entry: The first swap entry that the folio corresponds to.
-> >   * @shadow: shadow value to be filled in the swap cache.
-> > + * @swapout: whether this operation swaps out the folio.
-> >   *
-> >   * Removes a folio from the swap cache and fills a shadow in place.
-> >   * This won't put the folio's refcount. The caller has to do that.
-> > @@ -314,13 +315,17 @@ static void __swap_cache_do_del_folio(struct swap_cluster_info *ci,
-> >   * using the index of @entry, and lock the cluster that holds the entries.
-> >   */
+> > +static void dw_edma_synchronize_chan_irq(struct dw_edma_chan *chan)
+> > +{
+> > +	struct dw_edma *dw = chan->dw;
+> > +	unsigned long *mask;
+> > +	int i;
+> > +
+> > +	/*
+> > +	 * With nr_irqs == 1, the common handler can enter for the other direction
+> > +	 * and retain a status snapshot for the remotely owned direction across
+> > +	 * quiesce. With multiple IRQs, the handler covering this channel can likewise
+> > +	 * enter for another IRQ sharer. Drain the IRQ whose mask contains the channel
+> > +	 * before restoring local routing.
+> > +	 */
+> > +	for (i = 0; i < dw->nr_irqs; i++) {
+> > +		mask = chan->dir == EDMA_DIR_WRITE ? dw->irq[i].wr_mask :
+> > +						     dw->irq[i].rd_mask;
+> > +		if (!test_bit(chan->id, mask))
+> > +			continue;
+> > +
+> > +		synchronize_irq(dw->chip->ops->irq_vector(dw->chip->dev, i));
+> > +		return;
+> > +	}
+> > +}
+> > +
+> >  static void dw_edma_device_synchronize(struct dma_chan *dchan)
+> >  {
+> >  	struct dw_edma_chan *chan = dchan2dw_edma_chan(dchan);
+> > +	bool remote;
+> > +
+> > +	scoped_guard(spinlock_irqsave, &chan->vc.lock)
+> > +		remote = chan->dw->chip->flags & DW_EDMA_CHIP_LOCAL &&
+> > +			 chan->irq_mode == DW_EDMA_CH_IRQ_REMOTE;
+> > +
+> > +	if (remote && dw_edma_core_ch_quiesce(chan))
+> > +		dev_warn(chan->dw->chip->dev,
+> > +			 "failed to quiesce remote-routed %s channel %u\n",
+> > +			 chan->dir == EDMA_DIR_WRITE ? "write" : "read",
+> > +			 chan->id);
+> >
+> >  	dw_edma_wait_termination(dchan);
+> > +	if (remote)
+> > +		dw_edma_synchronize_chan_irq(chan);
+> >  	cancel_work_sync(&chan->irq_work);
+> >  	atomic_set(&chan->irq_pending, 0);
+> >  	vchan_synchronize(&chan->vc);
+> > @@ -903,12 +971,17 @@ static void dw_edma_device_synchronize(struct dma_chan *dchan)
+> >  static void dw_edma_free_chan_resources(struct dma_chan *dchan)
+> >  {
+> >  	struct dw_edma_chan *chan = dchan2dw_edma_chan(dchan);
+> > +	enum dw_edma_ch_irq_mode default_mode =
+> > +			dw_edma_get_default_irq_mode(chan);
+> >
+> >  	dw_edma_device_terminate_all(dchan);
+> >  	dw_edma_device_synchronize(dchan);
+> >
+> > -	scoped_guard(spinlock_irqsave, &chan->vc.lock)
+> > +	scoped_guard(spinlock_irqsave, &chan->vc.lock) {
+> >  		chan->configured = false;
+> > +		if (chan->irq_mode != default_mode)
+> > +			WRITE_ONCE(chan->irq_mode, default_mode);
+> > +	}
+> >
+> >  	vchan_free_chan_resources(&chan->vc);
+> >  }
+> > diff --git a/drivers/dma/dw-edma/dw-edma-core.h b/drivers/dma/dw-edma/dw-edma-core.h
+> > index f6a5ad317567..275d362d1805 100644
+> > --- a/drivers/dma/dw-edma/dw-edma-core.h
+> > +++ b/drivers/dma/dw-edma/dw-edma-core.h
+> > @@ -280,11 +280,12 @@ static inline bool
+> >  dw_edma_core_ch_ignore_irq(struct dw_edma_chan *chan)
+> >  {
+> >  	struct dw_edma *dw = chan->dw;
+> > +	enum dw_edma_ch_irq_mode mode = READ_ONCE(chan->irq_mode);
+> >
+> >  	if (dw->chip->flags & DW_EDMA_CHIP_LOCAL)
+> > -		return chan->irq_mode == DW_EDMA_CH_IRQ_REMOTE;
+> > +		return mode == DW_EDMA_CH_IRQ_REMOTE;
+> >  	else
+> > -		return chan->irq_mode == DW_EDMA_CH_IRQ_LOCAL;
+> > +		return mode == DW_EDMA_CH_IRQ_LOCAL;
+> >  }
 > 
-> Perhaps the Context: part of kdoc could briefly mention that for
-> "swapout = true" case, the folio should be a reclaiming one?
+> does this tunk fix something, you make this change later.
 
-Of course, that will be better! I think I can do this:
+I added this for a possible race with the shared IRQ handler, especially when
+nr_irqs == 1.
 
----
-diff --git a/mm/swap_state.c b/mm/swap_state.c
-index 049635247964..9c37a0f5f049 100644
---- a/mm/swap_state.c
-+++ b/mm/swap_state.c
-@@ -313,6 +313,7 @@ static void __swap_cache_do_del_folio(struct swap_cluster_info *ci,
-  *
-  * Context: Caller must ensure the folio is locked and in the swap cache
-  * using the index of @entry, and lock the cluster that holds the entries.
-+ * @swapout should be set if the folio is being reclaimed.
-  */
- void __swap_cache_del_folio(struct swap_cluster_info *ci, struct folio *folio,
-                            swp_entry_t entry, void *shadow, bool swapout)
+... but after carefully thinking about this again, the hunk seems unnecessary.
+
+- Before undelegating (changing the irq_mode from REMOTE to LOCAL), the client
+  must stop remote programming, and the driver quiesces the direction and
+  synchronizes the local IRQ.
+  At that point, no-one is supposed to issue any transfer for the channel
+- Conversely, remote routing is configured while the channel is idle, before the
+  peer starts programming it.
+
+If the peer continued programming during either transition, it just breaks
+things. READ_ONCE()/WRITE_ONCE() would not make the handoff safe.
+
+I will drop this hunk and the corresponding WRITE_ONCE() use.
+
+> 
+> >
+> >  #endif /* _DW_EDMA_CORE_H */
+> > diff --git a/include/linux/dma/edma.h b/include/linux/dma/edma.h
+> > index 3c8e2ef9dee0..93f866d57987 100644
+> > --- a/include/linux/dma/edma.h
+> > +++ b/include/linux/dma/edma.h
+> > @@ -101,6 +101,25 @@ enum dw_edma_ch_irq_mode {
+> >  	DW_EDMA_CH_IRQ_REMOTE,
+> >  };
+> >
+> > +#define DW_EDMA_CH_CONFIG_NON_LL	BIT(0)
+> 
+> you need update other non_ll user to set DW_EDMA_CH_CONFIG_NON_LL.
+
+Ugh, I missed updating the existing non-LL user. I will respin.
+
+Thanks for the review.
+
+Best regards,
+Koichiro
+
+> 
+> Frank
+> 
+> > +#define DW_EDMA_CH_CONFIG_IRQ_MODE	BIT(1)
+> > +
+> > +/**
+> > + * struct dw_edma_chan_config - dw-edma channel configuration
+> > + * @flags: fields selected by DW_EDMA_CH_CONFIG_*
+> > + * @non_ll: use HDMA non-linked-list mode
+> > + * @irq_mode: interrupt routing mode
+> > + *
+> > + * Pass this structure through dma_slave_config.peripheral_config. Before
+> > + * synchronizing a remote-routed channel, the client must stop remote
+> > + * programming and own every channel affected by the hardware quiesce.
+> > + */
+> > +struct dw_edma_chan_config {
+> > +	u32 flags;
+> > +	bool non_ll;
+> > +	enum dw_edma_ch_irq_mode irq_mode;
+> > +};
+> > +
+> >  /**
+> >   * struct dw_edma_chip - representation of DesignWare eDMA controller hardware
+> >   * @dev:		 struct device of the eDMA controller
+> > --
+> > 2.51.0
+> >
