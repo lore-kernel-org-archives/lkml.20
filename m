@@ -1,176 +1,251 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 262EF43DA20
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 09:45:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02C8E446058;
+	Fri,  4 Sep 2026 09:45:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788515102; cv=none; b=uDlas2/csjpXksBoHZXIxmt8g4gOSr1McKoNR05aifckA+0Vvo9jXNJuCwTQeP3HgapfiH/LxEh5e+M+TxceJUz+NBILa4bXFp3nxw4cYN5ad8fP3qRLMBax0YoW2Fqw8kWoWwuQg5LJKaOQtE8l93kdPp7Oeb0jmvivRrmA2e8=
+	t=1788515105; cv=none; b=iYZh9vKWH8MGIjRItLPVhpMzZY3QZXeAwyTiczzvV7OvjwjHWUjQdgl5YZrd/bx+axFJS8sRPJSPIOMK5kypJ9l8Ig8AhUYrVDSRPnVIKoe5v3In4M2kjNvCqsS1An/3dTHH8fQcbJmzFFdB9dMEik9PZjPVrlG/SonTMQM2BMo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788515102; c=relaxed/simple;
-	bh=zVrsOBbUBsqRW8lZE59vCWEnEi6cLmNkhdl/0iaYt6w=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=PLGEjF8/WKp2a+IadotCTlr1C1f9k1ZYSfi1+BcnGbqxBuOShXFnmE6xAJeubYMa5BMtzKm/VW3JP1I6jqXFbSpr8Ou1Ntqw70432+zjR6ZptYTGt9q1jXOAGaYOvefrZ1hkOa9F1oKEY5AUOmLr4LiZKF0A2Kw4+hbhr0uYNkc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=I+ylvqLL; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=HlT7wDXP; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1788515105; c=relaxed/simple;
+	bh=dOlZgo6ftjlbfiT07KB/jipdctXPJlYiw672b5Hinrw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=bvy6IRDjewvlTB1DnbbxJWhyLJ018DI4AINxpGmDbpEukbQKPAYojZUJ3n9K8uVK+TNu2oRF0BQBgkZ3UrYpiB47UvW3jAFx2v/uohgLxiDVrIYerzOIBCjf3l31rmsN5kpA+M0KZtsxglINEjk0y6lxBxhKs7Mgv4E3VRzUP+8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=delAv2oa; arc=none smtp.client-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="I+ylvqLL";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="HlT7wDXP"
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6847mu3G2430365
-	for <linux-kernel@vger.kernel.org>; Fri, 4 Sep 2026 09:45:00 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	+8D5YW4aMjYqkv07n5OIFJYINICm6DBJu2yq9WVbe+8=; b=I+ylvqLLLLgJPGX0
-	J4MRCr1bKezTgXDYnj6VwxvaI14kiNq83vRgzc2OZShwpLAt65CC7bWQOOG4NDhS
-	eZDowL7tahOXy4y6LgcF/EBMEnjEtcI+4wxlhPEYGTBZEqqQwJhmIqgOf4C7NQ6w
-	13d6QSs7uQCmoydDb8q7HwMz2EHLEBg1XbPDTy0M5TkenpgtSw7PcoF9AvcoIqg6
-	787fNoKGjFPZEYr1yGKEQLGxwd6Gxy/M6zpeDaxACjYUWemAJxPxU7h8rTYogyvt
-	tXa5KmElgYFevjgXUEq4TNcPaI67wNgCiYMwiyUkTQNo3f0u8C++t8KAmwBa61/G
-	9jC7Og==
-Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com [209.85.160.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gfk921mbq-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 09:45:00 +0000 (GMT)
-Received: by mail-qt1-f199.google.com with SMTP id d75a77b69052e-52ffd22d2b1so2074161cf.2
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 02:45:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1788515098; x=1789119898; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=+8D5YW4aMjYqkv07n5OIFJYINICm6DBJu2yq9WVbe+8=;
-        b=HlT7wDXPnnb/qidYJmjTQPMDy7Gzu6XStDjlrWvgsyj+OoeKbn5E1mfNv9ggjexgUJ
-         10UjBITdtyFdXi9djZ8S+doXg8Y7UwQGClbyk9+oFPW+EsSi5h/Xg4IKWBEwNHBCJIiI
-         HEeH4F81UG9qTrh11LvNJLeqN9At6dnrGbH/Q49O3U7qti+UW2PWQnkDCl2M2nWhKBPf
-         mXFuJCPZONEe8w7D6VHu3v0BqNcMuthmyBO34cS1Nq+YCDG06JzGJsYGTaUcBnutk9xV
-         3/AHZnFAaSuLkZwa43HiDRiLsewctUnO5XagxrZh2QjVqBK1uibu+fommufsg+gD5DfS
-         Q1oA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788515098; x=1789119898;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=+8D5YW4aMjYqkv07n5OIFJYINICm6DBJu2yq9WVbe+8=;
-        b=cU1z2svWSkg2jv/g/7nz3ETvn2g/0U/MhwRs/0TdGVZD8qjvXtV3S+YlmHtHHnYi/6
-         99+rNg+I4spmZUAcuY1/n+XTkfDf6OztScoj9Z+32yUDDP3xAxBO7aLcYUgMAiLQUKwl
-         DZEFP4jp0G5BHc3BYpuaP0ob1ZlvvbQQAfFFeewWaoOlBeZpjpHSuzldZ3xbh+ZAfW3Q
-         HdVbQX2FuKSMQ6GnZjR6AMxORnWgDRby0ZPiEWGfVXS5FKzHMZrWO5kI+Al8Hh8zMY6u
-         1IvP5cYUBOGNc0ZAY/a+CSWIdAxjskxTVwZs+3ty3FgWvtViSV7HwXc70vLObncQbwbQ
-         68zA==
-X-Forwarded-Encrypted: i=1; AKwUvBxKAYKN3KBz/U0eFBlqYKY4dsgruf7YnSk+MK2SAois4x6ug5POr2GFkg80xg0AUvO41rNPMDeK5ph91SI=@vger.kernel.org
-X-Gm-Message-State: AFuF++lLBYQv3jvmA852VxyYxzXSIEfpWhYnuyKsmift1zMWkNOaNcko
-	v7tMVQmiAx5O3LIuTC4/5xtownkFrDfbnUYI69/E38YBYnF3bOtLyOKdB2Lak7kxowJSehi5xMk
-	sdaPpHwsrgu26A0pIuw54+2Djt/Jf0hUYf4oux3aJ7EkuhZ/eMxSmHUk61g/pkvImXmb6vxIxVQ
-	Q=
-X-Gm-Gg: AYBFou1s1Hi0jjUKUgKuGsGGSNE2Q14M26d5SVTbZ5i09s3gs+TUN+HrNg8AYaMpb5L
-	2gyKFPYZcBWHZ020SWBAUVIEjPbi/xe9SVivQz+iTpFmCWJcxFllMI+CJlTMU9x44/PcQ1lXOyq
-	p/PZWu8Y+rAWumCfFy8AZ5d7YHLdhNGDluZSrYJ0eY8AzzZGjNsOi0o7mXLCUYB0yfigH5tdwCz
-	HGrDnWYIgBgrl7C6J5CljJMZHDiceB6KPscB6qQDHqKl5sX8qz0wQHLpFvChVDCFXQXkXKbLkwT
-	SMsGiOUmCAIeQtdneH9Ceu2xIZI9iuuRSqgvERrTZtav96rKu4z7aTO/oYpY7s8JTuECJmEMPEb
-	keiuJoke44sUV5hwaa8dN0Q==
-X-Received: by 2002:a05:620a:4686:b0:939:47f4:935a with SMTP id af79cd13be357-939807adf30mr345133785a.5.1788515097836;
-        Fri, 04 Sep 2026 02:44:57 -0700 (PDT)
-X-Received: by 2002:a05:620a:4686:b0:939:47f4:935a with SMTP id af79cd13be357-939807adf30mr345131285a.5.1788515097419;
-        Fri, 04 Sep 2026 02:44:57 -0700 (PDT)
-Received: from [192.168.202.12] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c260d6dfad6sm83831366b.60.2026.09.04.02.44.55
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 04 Sep 2026 02:44:56 -0700 (PDT)
-Message-ID: <62c7ed77-32c7-4e4a-ab44-64bb174a88f8@oss.qualcomm.com>
-Date: Fri, 4 Sep 2026 11:44:54 +0200
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="delAv2oa"
+Received: from pps.filterd (m0353729.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68464OBI3254246;
+	Fri, 4 Sep 2026 09:44:52 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=pp1; bh=Ot8lMqVKrK2MCXCFN1U+MH81eZoDspSkXBAXCul8v
+	Hw=; b=delAv2oayo7o7uv4xZSWJZhx7oOIc5VxxqRHVcqAYSQgXgCo9LJqvudTr
+	ntaKKOIWmieT5wDeebr9NP6dIsbLMhu0xg8p1Ec5JAEdyOn7TULikwyBwxP/qLZX
+	g19NDuWNA/R1ZIladA8dt7MqPqZXXfp4jcJV1R+r0M3FIStM9fCnMFJQBCL+dgC8
+	ExTPsbZHZACAEPd5ifse5oOsozdAe68ndqdudUEWptthFjgr0+TRNHb+K4f/EpOy
+	qMzGzWysJ6KbSNkL08Iom54RfegO5bL0qxnDDDO8kSp1B6wBXgdY1zuLrEA1CqDl
+	zCCUFHqfFsUzs2AQm54lt0sukPK6Q==
+Received: from ppma12.dal12v.mail.ibm.com (dc.9e.1632.ip4.static.sl-reverse.com [50.22.158.220])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gbq3rsxq3-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Fri, 04 Sep 2026 09:44:51 +0000 (GMT)
+Received: from pps.filterd (ppma12.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma12.dal12v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 6849fHUn023256;
+	Fri, 4 Sep 2026 09:44:50 GMT
+Received: from smtprelay04.fra02v.mail.ibm.com ([9.218.2.228])
+	by ppma12.dal12v.mail.ibm.com (PPS) with ESMTPS id 4gc9rqvfve-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Fri, 04 Sep 2026 09:44:50 +0000 (GMT)
+Received: from smtpav05.fra02v.mail.ibm.com (smtpav05.fra02v.mail.ibm.com [10.20.54.104])
+	by smtprelay04.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6849ikIa17629518
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Fri, 4 Sep 2026 09:44:46 GMT
+Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 8E8F32004B;
+	Fri,  4 Sep 2026 09:44:46 +0000 (GMT)
+Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 48CC120043;
+	Fri,  4 Sep 2026 09:44:46 +0000 (GMT)
+Received: from tuxmaker.boeblingen.de.ibm.com (unknown [9.87.85.9])
+	by smtpav05.fra02v.mail.ibm.com (Postfix) with SMTP;
+	Fri,  4 Sep 2026 09:44:46 +0000 (GMT)
+Received: by tuxmaker.boeblingen.de.ibm.com (Postfix, from userid 55271)
+	id 2BD5D160E20; Fri, 04 Sep 2026 11:44:46 +0200 (CEST)
+From: Alexandra Winter <wintera@linux.ibm.com>
+To: "D. Wythe" <alibuda@linux.alibaba.com>,
+        Dust Li <dust.li@linux.alibaba.com>,
+        Sidraya Jayagond <sidraya@linux.ibm.com>,
+        Mahanta Jambigi <mjambigi@linux.ibm.com>,
+        David Miller <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>,
+        Paolo Abeni <pabeni@redhat.com>, Eric Dumazet <edumazet@google.com>,
+        Andrew Lunn <andrew+netdev@lunn.ch>
+Cc: Tony Lu <tonylu@linux.alibaba.com>, Wen Gu <guwen@linux.alibaba.com>,
+        netdev@vger.kernel.org, linux-s390@vger.kernel.org,
+        linux-kernel@vger.kernel.org, Heiko Carstens <hca@linux.ibm.com>,
+        Vasily Gorbik <gor@linux.ibm.com>,
+        Alexander Gordeev <agordeev@linux.ibm.com>,
+        Christian Borntraeger <borntraeger@linux.ibm.com>,
+        Sven Schnelle <svens@linux.ibm.com>, Simon Horman <horms@kernel.org>
+Subject: [PATCH net-next] dibs: Avoid inconsistent lockstate warning in dibs_lo_move_data()
+Date: Fri,  4 Sep 2026 11:44:46 +0200
+Message-ID: <20260904094446.1342654-1-wintera@linux.ibm.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] platform: arm64: Add Radxa SVC GLINK driver
-To: Xilin Wu <sophon@radxa.com>, Guenter Roeck <linux@roeck-us.net>,
-        Jonathan Corbet <corbet@lwn.net>,
-        Shuah Khan <skhan@linuxfoundation.org>,
-        Randy Dunlap <rdunlap@infradead.org>, Hans de Goede <hansg@kernel.org>,
-        =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-        Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Cc: linux-hwmon@vger.kernel.org, linux-doc@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        platform-driver-x86@vger.kernel.org
-References: <20260831-radxa-svc-v1-0-7c028de6a387@radxa.com>
- <20260831-radxa-svc-v1-1-7c028de6a387@radxa.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260831-radxa-svc-v1-1-7c028de6a387@radxa.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA0MDA4OCBTYWx0ZWRfX/wGzNYJ3AhIh
- rjgIIrFe0WR2DwIA1GaF9Nfzx28OGZ0ePnq1RAGS+/v3SImm1uC1pBlZBvAVGQsunNWHYM+O5hL
- 0+WM4O7NsR22HPNxZEnIO7keedrk2aDnaHppp5qEQtJAdcBWuNnNQZLRvXs1MGTwHgipdjuOUv5
- XY4pLgbJmP0bDdqYOp5B1hUWhxHrLC4PJfgp89MHi1FPpUzrHq70/7EqVv9jqbyjO51dPBEN9n8
- XQ875zcWw0R/NLJNeFE7I9tPSzNk82e00u6wflf+EPDKtNjG2iVjTTZxzra6nEiVn8rVoHdoRj0
- 3KqrkrW93K7OBc5ArcP6nBdYLPz+iwRCDXmv0Mux3M78xgaf1s3+iobOWtegTHLxB3Mc9orAdum
- DWRL33WmVgH25qDKjEYn/ocTVFxSVqAn8ezl1BkOc8/mLKfP6MLl2OfTZXX67roZoWOQCSAGvdR
- QY3vN/GhsXvSxjlcxqQ==
-X-Authority-Analysis: v=2.4 cv=Oc2oyBTY c=1 sm=1 tr=0 ts=6a9a931c cx=c_pps
- a=WeENfcodrlLV9YRTxbY/uA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
- a=ksxQWNrZAAAA:8 a=oytB4wdSUnn8FBOm40sA:9 a=QEXdDO2ut3YA:10
- a=kacYvNCVWA4VmyqE58fU:22 a=l7WU34MJF0Z5EO9KEJC3:22
-X-Proofpoint-ORIG-GUID: cVMXy3O1RrZVDeiXphkfqoc5QR1ndE6R
-X-Proofpoint-GUID: cVMXy3O1RrZVDeiXphkfqoc5QR1ndE6R
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA0MDA4OCBTYWx0ZWRfX7d5qMxe6bORn
- +95wICRgaFQNnX++3m19voSO/qa/JQ8Tx2k2d1LvfwDlaxo8zWVXJV5ujxdxFYFtwlSSrl5+xZB
- DEd+M3MHDnEhaZgbjbs8wZLrJYuxZ40=
+Content-Transfer-Encoding: quoted-printable
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Authority-Analysis: v=2.4 cv=EIc2FVZC c=1 sm=1 tr=0 ts=6a9a9314 cx=c_pps
+ a=bLidbwmWQ0KltjZqbj+ezA==:117 a=bLidbwmWQ0KltjZqbj+ezA==:17
+ a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
+ a=uAbxVGIbfxUO_5tXvNgY:22 a=VnNF1IyMAAAA:8 a=_GMgnms4JJcc9UvDeZwA:9
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA0MDA4NiBTYWx0ZWRfX2al4fzN2YsZg
+ wgfTOjjIhoWKGJfIcb1L3OQPftFRa+2jWk0vmSw6Ufw8E+5+2m59dYSlfndj6k2Rf0tEva4KMk0
+ TzwEd4qfwsr6How5QVo9FPw95FurpMVs2rc2eKcnUf93EvVqtw/XpZOFUpdMLVErGmQBZRR2rz9
+ Cxo0U1yRr8aLg35MqicsRbbbgrSLAsGDEEDQRjBwfqSEZTNZJ2OPhhXSvJb9FFtWfoalP134xKP
+ XI7qqZkkbiA6brT/HsU96KDp6VWFFiW7VN9Ztg7dbxmQCP720/MA159xxzMZnHaiG6pyekX35IF
+ w7NNk9CBAVqL21xCIUTEQeaBUmavE0+qEiABpTHlppOw3FN3ArTGiVfJdvWB+eeUu+ALjDPF6IR
+ eoqiHiaxS+cW6qn8UjC90jV6hAEPeinntQgUTXc4p3g2JINzYUKUQLF441CykDOEmlW349HR+nD
+ vRzjjO6ICcaLvPei+tQ==
+X-Proofpoint-GUID: EIWQ9tpHHz2IsiTjxBevSKHGrt_uaVHN
+X-Proofpoint-ORIG-GUID: mynprZMyK13b6b1VOzhnBykBPs6ykw7n
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA0MDA4NiBTYWx0ZWRfXwcezzeGo45kY
+ Ao/Hl79IVh6yRKP0C+cwtaPFJDYldQvdURUKZWBI3/bLVGr7F7M+DY2qfL91UN9WTen2P27N4h2
+ rdATKzGB1J6qB4C82rPDfZ192G3jfN4=
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-09-04_02,2026-09-03_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 adultscore=0 impostorscore=0 bulkscore=0 suspectscore=0
- priorityscore=1501 spamscore=0 clxscore=1015 phishscore=0 malwarescore=0
+ bulkscore=0 impostorscore=0 suspectscore=0 priorityscore=1501 clxscore=1015
+ phishscore=0 spamscore=0 adultscore=0 lowpriorityscore=0 malwarescore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609040088
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609040086
 
-On 8/31/26 5:09 PM, Xilin Wu wrote:
-> Add an rpmsg client for the RADXA_SVC_ADSP_APPS firmware service used
-> on supported Radxa boards with Qualcomm SoCs.
-> 
-> Expose fan control through the standard hwmon pwm1 and pwm1_enable
-> attributes. SET_PROFILE only changes the fan curve, so map its quiet and
-> performance curves to automatic modes instead of platform_profile.
-> 
-> Signed-off-by: Xilin Wu <sophon@radxa.com>
-> ---
+dibs->lock is acquired in process context and interrupt context
+(ism_handle_irq()). So always use spin_lock_irqsave() in process context.
 
-[...]
+Note that this is not a real deadlock, as dibs_lo devices don't have
+any interrupt context.
 
-> +static int radxa_svc_request(struct radxa_svc_glink *svc, u32 opcode,
-> +			     const void *req_payload, size_t req_len,
-> +			     void *rsp_payload, size_t *rsp_len);
+Example warning:
+[  153.760872] =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+[  153.760878] WARNING: inconsistent lock state
+[  153.760885] 7.2.0-15871-g544d85de4dc2 #16 Not tainted
+[  153.760891] --------------------------------
+[  153.760896] inconsistent {IN-HARDIRQ-W} -> {HARDIRQ-ON-W} usage.
+[  153.760901] python3/5134 [HC0[0]:SC0[2]:HE1:SE0] takes:
+[  153.760909] 0001222c0fe72428 (&dibs->lock){?...}-{2:2}, at: dibs_lo_mo=
+ve_data+0x1ce/0x380
+[  153.760932] {IN-HARDIRQ-W} state was registered at:
+[  153.760937]   __lock_acquire+0x59c/0x15d0
+[  153.760947]   lock_acquire.part.0+0x11c/0x290
+[  153.760953]   lock_acquire+0xb4/0x1e0
+[  153.760959]   _raw_spin_lock+0x58/0xb0
+[  153.760966]   ism_handle_irq+0x80/0x3f0 [ism]
+[  153.760974]   __handle_irq_event_percpu+0x282/0x920
+[  153.760983]   handle_irq_event_percpu+0x26/0xe0
+[  153.760989]   handle_percpu_irq+0x10e/0x1a0
+[  153.760997]   handle_irq_desc+0xa6/0x100
+[  153.761003]   zpci_floating_irq_handler+0x3ca/0x610
+[  153.761011]   do_airq_interrupt+0x206/0x500
+[  153.761018]   __handle_irq_event_percpu+0x282/0x920
+[  153.761025]   handle_irq_event_percpu+0x26/0xe0
+[  153.761031]   handle_percpu_irq+0x10e/0x1a0
+[  153.761039]   handle_irq_desc+0xa6/0x100
+[  153.761045]   do_irq_async+0xec/0x150
+[  153.761052]   do_io_irq+0x150/0x2e0
+[  153.761060]   io_int_handler+0xec/0x118
+[  153.761066]   arch_cpu_idle+0x120/0x130
+[  153.761118]   arch_cpu_idle+0xbe/0x130
+[  153.761124]   s390_enter_idle+0x20/0x30
+[  153.761131]   cpuidle_enter_state+0xb6/0x440
+[  153.761138]   cpuidle_enter+0x64/0xb0
+[  153.761144]   cpuidle_idle_call+0x174/0x380
+[  153.761151]   do_idle+0x16e/0x250
+[  153.761157]   cpu_startup_entry+0x70/0x80
+[  153.761163]   smp_start_secondary+0x36e/0x440
+[  153.761171]   restart_int_handler+0x72/0x88
+[  153.761178] irq event stamp: 46536
+[  153.761182] hardirqs last  enabled at (46536): [<000127b697450a90>] __=
+local_bh_enable_ip+0x140/0x270
+[  153.761193] hardirqs last disabled at (46535): [<000127b697450b20>] __=
+local_bh_enable_ip+0x1d0/0x270
+[  153.761202] softirqs last  enabled at (46532): [<000127b6185f82c8>] sm=
+c_close_active+0x438/0xba0 [smc]
+[  153.761232] softirqs last disabled at (46534): [<000127b6185ee998>] sm=
+c_cdc_get_slot_and_msg_send+0x218/0x370 [smc]
+[  153.761257]
+               other info that might help us debug this:
+[  153.761262]  Possible unsafe locking scenario:
 
-I don't think you need this forward-declaration
+[  153.761267]        CPU0
+[  153.761271]        ----
+[  153.761274]   lock(&dibs->lock);
+[  153.761282]   <Interrupt>
+[  153.761286]     lock(&dibs->lock);
+[  153.761294]
+                *** DEADLOCK ***
 
-[...]
+[  153.761299] locks held by python3/5134: 3, last CPU#1:
+[  153.761305]  #0: 0001222bab975f50 (&sb->s_type->i_mutex_key#11){+.+.}-=
+{3:3}, at: __sock_release+0x7e/0x230
+[  153.761329]  #1: 0001222ba5450378 (sk_lock-AF_SMC){+.+.}-{0:0}, at: sm=
+c_close_active+0x438/0xba0 [smc]
+[  153.761360]  #2: 0001222ba54508a0 (&smc->conn.send_lock){+...}-{2:2}, =
+at: smc_cdc_get_slot_and_msg_send+0x218/0x370 [smc]
+[  153.761394]
+               stack backtrace:
+[  153.761400] CPU: 1 UID: 0 PID: 5134 Comm: python3 Not tainted 7.2.0-15=
+871-g544d85de4dc2 #16 PREEMPT
+[  153.761406] Hardware name: IBM 3931 A01 703 (LPAR)
+[  153.761408] Call Trace:
+[  153.761409]  [<000127b697366190>] dump_stack_lvl+0xe8/0x140
+[  153.761415]  [<000127b6975ccc8c>] print_usage_bug.part.0+0x2ec/0x3a0
+[  153.761419]  [<000127b6975cd454>] mark_lock_irq+0x714/0xa20
+[  153.761422]  [<000127b6975cda52>] mark_lock+0x2f2/0x790
+[  153.761426]  [<000127b6975ce2e6>] mark_usage+0x136/0x1c0
+[  153.761430]  [<000127b6975ce90c>] __lock_acquire+0x59c/0x15d0
+[  153.761433]  [<000127b6975cfa5c>] lock_acquire.part.0+0x11c/0x290
+[  153.761437]  [<000127b6975cfc84>] lock_acquire+0xb4/0x1e0
+[  153.761441]  [<000127b699d02a98>] _raw_spin_lock+0x58/0xb0
+[  153.761444]  [<000127b6992ca4fe>] dibs_lo_move_data+0x1ce/0x380
+[  153.761449]  [<000127b6185f0912>] smcd_tx_ism_write+0x182/0x250 [smc]
+[  153.761469]  [<000127b6185ee4c6>] smcd_cdc_msg_send+0x156/0x410 [smc]
+[  153.761487]  [<000127b6185ee9a2>] smc_cdc_get_slot_and_msg_send+0x222/=
+0x370 [smc]
+[  153.761507]  [<000127b6185f8370>] smc_close_active+0x4e0/0xba0 [smc]
+[  153.761526]  [<000127b6185a293c>] __smc_release+0x4ac/0x6a0 [smc]
+[  153.761546]  [<000127b6185a2c6e>] smc_release+0x13e/0x480 [smc]
+[  153.761565]  [<000127b6994544d4>] __sock_release+0xa4/0x230
+[  153.761569]  [<000127b69945468c>] sock_close+0x2c/0x40
+[  153.761573]  [<000127b697e57180>] __fput+0x2f0/0x880
+[  153.761579]  [<000127b697e58440>] fput_close_sync+0xd0/0x1c0
+[  153.761583]  [<000127b697e4b3f0>] __s390x_sys_close+0x90/0xf0
+[  153.761586]  [<000127b699cdc19e>] __do_syscall+0x1be/0x5a0
+[  153.761590]  [<000127b699d04c7a>] system_call+0x72/0x90
+[  153.761594] INFO: lockdep is turned off.
 
+Signed-off-by: Alexandra Winter <wintera@linux.ibm.com>
+---
+ drivers/dibs/dibs_loopback.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
-> +	reinit_completion(&svc->rsp);
-> +
-> +	spin_lock_irqsave(&svc->rsp_lock, flags);
+diff --git a/drivers/dibs/dibs_loopback.c b/drivers/dibs/dibs_loopback.c
+index 649e4e375be3..44a2e74c2efc 100644
+--- a/drivers/dibs/dibs_loopback.c
++++ b/drivers/dibs/dibs_loopback.c
+@@ -238,6 +238,7 @@ static int dibs_lo_move_data(struct dibs_dev *dibs, u=
+64 dmb_tok,
+ {
+ 	struct dibs_lo_dmb_node *rmb_node =3D NULL, *tmp_node;
+ 	struct dibs_lo_dev *ldev;
++	unsigned long flags;
+ 	u16 s_mask;
+ 	u8 client_id;
+ 	u32 sba_idx;
+@@ -267,12 +268,12 @@ static int dibs_lo_move_data(struct dibs_dev *dibs,=
+ u64 dmb_tok,
+ 	if (!sf)
+ 		return 0;
+=20
+-	spin_lock(&dibs->lock);
++	spin_lock_irqsave(&dibs->lock, flags);
+ 	client_id =3D dibs->dmb_clientid_arr[sba_idx];
+ 	s_mask =3D ror16(0x1000, idx);
+ 	if (likely(client_id !=3D NO_DIBS_CLIENT && dibs->subs[client_id]))
+ 		dibs->subs[client_id]->ops->handle_irq(dibs, sba_idx, s_mask);
+-	spin_unlock(&dibs->lock);
++	spin_unlock_irqrestore(&dibs->lock, flags);
+=20
+ 	return 0;
+ }
+--=20
+2.53.0
 
-
-GPT says:
-
-High: A late response from a timed-out request can complete and corrupt
-the next transaction.
-
-In patch 1, radxa_svc_request() clears pending and returns after the
-5-second timeout, then a later request calls reinit_completion() and
-installs its new pending_seq (patch lines 526-540, 550-555). The callback
-sets do_complete under rsp_lock, drops the lock, and only then calls
-complete() (patch lines 612-624). 
-
-Konrad
