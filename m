@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9DE1423E9A;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A047D41F5D7;
 	Fri,  4 Sep 2026 06:39:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788503954; cv=none; b=fiRheVpvfLLFYn2NdsxWkK5FpiDlaEx2nC7Z0kjSWOgE8nlxjW4TDCxOTM3zDJkprdFw/bKUmqyVpHYoG6ch1xaHof6su9fxeivew2eDKkfsKlKoRt+H91b/k7pCXujnrk4vsW2sTozq94MIU5b0KvhVqdelIdkKlI6Gjeep+Pg=
+	t=1788503954; cv=none; b=KC+Zl8F35w1U6+TeXDaIajpfm3viLziZf2H4lkHHpqRdedR0CMKKqyHoIbD9iSEMBsFAVivSwsYei47Op13YtLIj00FNEHRJ/ZqaS8MsAW2XVGCS+WXR9CPGz/+4dirVzMKcdOjLnQJLHo/Kg+hATO1nKODbd4b0+A1YVoaLQQ4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788503954; c=relaxed/simple;
-	bh=R+lKcLFLoJm1Ld9aWAwyIbEP5wstiA7F2ghODRPvZ6U=;
+	bh=r4yme7FRSW8qMCF1+BSpasmdZD2Vf8zFJ46MWRuLUqo=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=hBe8C8L+p0m5QyEhHYYCVr5p9rVB6wBzLQUcEHaxsd+l/xMFRW9vsdKmEJOdUzXHqOAx9+qO/zmZ+dXtG7gaL6aIjrvpWwEvZm7/Sym0h068pGiFF5DRjsxgiEp9brZG8vBjjXFMW1x0qRdozzkXXQqSKv8p2/gVERfqGRaN4wM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bj+PhlOv; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=jn8cciVS3e+sZcZN1RW9NQ+AHdbyZBLr/qowKk+xsEzgmciprvws7BWdXPn+ezio7rGDe4oAYUCsZjtO5xt+uKkPvnJVmdjBvonJmd6aTxOlTfwzxWled6HWkUxCfabZrCb032bOfyH5zedCPsB6noolQr58is1ecXBa34rfPag=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NNV6JFOg; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bj+PhlOv"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id A052DC4AF18;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NNV6JFOg"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 5EC82C4AF10;
 	Fri,  4 Sep 2026 06:39:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1788503954;
-	bh=R+lKcLFLoJm1Ld9aWAwyIbEP5wstiA7F2ghODRPvZ6U=;
+	bh=r4yme7FRSW8qMCF1+BSpasmdZD2Vf8zFJ46MWRuLUqo=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=bj+PhlOv1QjphXlUoGB9IzzEEoqmZgpDM7g8YICwePjWYrLN2k1vYbCZzDxTwCNAI
-	 Wf9ssI4V78z8QbZte6NT9GE9oxAjXTqDzRqvtHC8odBJU07HO+ykaIl3qOnzHZwRCN
-	 nRMzbNVDr2yttTEOM2w57sdiGJ7kQZ74nNsqqfcgD/T0zKXeT16U59arwxnb8oB+Yg
-	 WQvFtwTfeVX43MYGXSWNx7t9gdAbvVK/H+ALOVGmGR3+T18aGnmW41tuEmctQC7Gzk
-	 aNwLutzz7goUfUMWHPXdqY/tFDlewhmRgUYAX1fri1uFaYU4COLZJcqTqYWrjrsVQU
-	 qgpxMKN5zBWVg==
+	b=NNV6JFOgP/JIDypWO+NQSAvjMBmz21LmtiAbhhU/zStKxI77G8Ip1URXcNNFqKRjH
+	 E6kiS7eEL1KLu8lsQlb7qJ41Pv0sKAu+FBXFfohPRf4v9nwjBHlL4xu70EGh7vuhfr
+	 oW0ARFgJt3fFG26aNXvsbPHG2bhIsbgsCLzCs95qF1vaBIFhVjZiMlkDN5K8E8kBxT
+	 sEy5nOxndMp6e9A9z8AuAGIBwxwkqfU7Rn9KpWCWleWw5soo1b9dmFZa7edYX/n/RY
+	 LZfJFcB6EPy32SraTClN6G8asxPbTydFMXO8AveAd0kGeo6z2nhHcN4h2/0xHiulXU
+	 04LtLETXyc9NQ==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 89D76C79F87;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 48067C79F82;
 	Fri,  4 Sep 2026 06:39:14 +0000 (UTC)
 From: Long Zhao via B4 Relay <devnull+longzhao.ambarella.com@kernel.org>
-Date: Fri, 04 Sep 2026 14:38:19 +0800
-Subject: [PATCH v6 12/13] arm64: ambarella: add ARCH_AMBARELLA and CV75 EVK
- DT
+Date: Fri, 04 Sep 2026 14:38:16 +0800
+Subject: [PATCH v6 09/13] gpio: pl061: use gpio-regmap and add Ambarella
+ layout
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -41,7 +41,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260904-cv75-v5-v6-12-e918514cb3b1@ambarella.com>
+Message-Id: <20260904-cv75-v5-v6-9-e918514cb3b1@ambarella.com>
 References: <20260904-cv75-v5-v6-0-e918514cb3b1@ambarella.com>
 In-Reply-To: <20260904-cv75-v5-v6-0-e918514cb3b1@ambarella.com>
 To: Arnd Bergmann <arnd@arndb.de>, Krzysztof Kozlowski <krzk@kernel.org>, 
@@ -63,11 +63,11 @@ Cc: Long Zhao <longzhao@ambarella.com>, Rob Herring <robh@kernel.org>,
  linux-gpio@vger.kernel.org, linux-serial@vger.kernel.org, 
  linux-kernel@vger.kernel.org
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788503951; l=8059;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788503951; l=18274;
  i=longzhao@ambarella.com; s=20260730; h=from:subject:message-id;
- bh=9ADmB3uZTKZnKQXTjGNmZfv6b5ugBQAknwN0jZpggVQ=;
- b=GhwTQV5b0y8a6OuJ2CACcpaoqMeo6RRC0K7DQwjM2M5yggPhAlygNLgVCD2QIu6rLjJOV1MHM
- kE5uvdyLTU+DHQ1msYNfN6UTREYL24CJgqdmPQZFm+X6RpXCcWbzRiy
+ bh=V1wgVvwkEs+6fWnu6vAzP061lTGyxowJwkCsFwebUoA=;
+ b=WSk9h9IAGipLjwvvCloqfx8Qa9bZ7od7bKIDIJU0zD1keqZaZRzw1tXXuIW4G0DCnRqcmXGld
+ 3GJVg5tcEFID81ggrOz88Qa6FT9k07WOBC2PQ0wQ6h1vyXsDN+ODUaA
 X-Developer-Key: i=longzhao@ambarella.com; a=ed25519;
  pk=/xGhPTOX0/eYsyTWzyjjgAIW1Z/YD+IlnOnvcdRozow=
 X-Endpoint-Received: by B4 Relay for longzhao@ambarella.com/20260730 with
@@ -77,288 +77,572 @@ Reply-To: longzhao@ambarella.com
 
 From: Long Zhao <longzhao@ambarella.com>
 
-Enable ARCH_AMBARELLA and add a minimal CV75 SoC / EVK device tree for
-console bring-up with the RCT clocks, UART, pinctrl and GPIO banks.
+Convert PL061 data and direction handling to gpio-regmap while
+keeping the existing PL061 irqchip path. Add an Ambarella CV75
+register layout variant on the AMBA bus, without claiming unverified
+GPIO suspend/resume support for Ambarella.
 
 Signed-off-by: Long Zhao <longzhao@ambarella.com>
 ---
- arch/arm64/Kconfig.platforms               |   6 +
- arch/arm64/boot/dts/Makefile               |   1 +
- arch/arm64/boot/dts/ambarella/Makefile     |   3 +
- arch/arm64/boot/dts/ambarella/cv75-evk.dts |  30 +++++
- arch/arm64/boot/dts/ambarella/cv75.dtsi    | 177 +++++++++++++++++++++++++++++
- arch/arm64/configs/defconfig               |   1 +
- 6 files changed, 218 insertions(+)
+ drivers/gpio/Kconfig      |   2 +
+ drivers/gpio/gpio-pl061.c | 342 ++++++++++++++++++++++++++++------------------
+ include/linux/amba/bus.h  |   1 +
+ 3 files changed, 212 insertions(+), 133 deletions(-)
 
-diff --git a/arch/arm64/Kconfig.platforms b/arch/arm64/Kconfig.platforms
-index d2acfac73003..16d7e3a4c2d6 100644
---- a/arch/arm64/Kconfig.platforms
-+++ b/arch/arm64/Kconfig.platforms
-@@ -26,6 +26,12 @@ config ARCH_SUNXI
+diff --git a/drivers/gpio/Kconfig b/drivers/gpio/Kconfig
+index f03c05288376..55a129836158 100644
+--- a/drivers/gpio/Kconfig
++++ b/drivers/gpio/Kconfig
+@@ -583,6 +583,8 @@ config GPIO_PL061
+ 	depends on ARM_AMBA || COMPILE_TEST
+ 	select IRQ_DOMAIN
+ 	select GPIOLIB_IRQCHIP
++	select GPIO_REGMAP
++	select REGMAP_MMIO
  	help
- 	  This enables support for Allwinner sunxi based SoCs like the A64.
+ 	  Say yes here to support the PrimeCell PL061 GPIO device.
  
-+config ARCH_AMBARELLA
-+	bool "Ambarella SoC family"
-+	select PINCTRL
-+	help
-+	  This enables support for the ARM64 based Ambarella SoCs like CV75.
+diff --git a/drivers/gpio/gpio-pl061.c b/drivers/gpio/gpio-pl061.c
+index 919cf86fd590..6b09031f8664 100644
+--- a/drivers/gpio/gpio-pl061.c
++++ b/drivers/gpio/gpio-pl061.c
+@@ -13,6 +13,7 @@
+ #include <linux/device.h>
+ #include <linux/errno.h>
+ #include <linux/gpio/driver.h>
++#include <linux/gpio/regmap.h>
+ #include <linux/init.h>
+ #include <linux/interrupt.h>
+ #include <linux/io.h>
+@@ -22,20 +23,36 @@
+ #include <linux/module.h>
+ #include <linux/pinctrl/consumer.h>
+ #include <linux/pm.h>
++#include <linux/regmap.h>
+ #include <linux/seq_file.h>
+ #include <linux/slab.h>
+ #include <linux/spinlock.h>
+ 
+-#define GPIODIR 0x400
+-#define GPIOIS  0x404
+-#define GPIOIBE 0x408
+-#define GPIOIEV 0x40C
+-#define GPIOIE  0x410
+-#define GPIORIS 0x414
+-#define GPIOMIS 0x418
+-#define GPIOIC  0x41C
+-
+-#define PL061_GPIO_NR	8
++#define PL061_REG_NONE		((unsigned int)-1)
 +
- config ARCH_ALPINE
- 	bool "Annapurna Labs Alpine platform"
- 	select ALPINE_MSI if PCI
-diff --git a/arch/arm64/boot/dts/Makefile b/arch/arm64/boot/dts/Makefile
-index fc726b215f12..f1709eb5d915 100644
---- a/arch/arm64/boot/dts/Makefile
-+++ b/arch/arm64/boot/dts/Makefile
-@@ -4,6 +4,7 @@ subdir-y += airoha
- subdir-y += allwinner
- subdir-y += altera
- subdir-y += amazon
-+subdir-y += ambarella
- subdir-y += amd
- subdir-y += amlogic
- subdir-y += apm
-diff --git a/arch/arm64/boot/dts/ambarella/Makefile b/arch/arm64/boot/dts/ambarella/Makefile
-new file mode 100644
-index 000000000000..ddca3d7b18cc
---- /dev/null
-+++ b/arch/arm64/boot/dts/ambarella/Makefile
-@@ -0,0 +1,3 @@
-+# SPDX-License-Identifier: GPL-2.0
++#define PL061_GPIO_NR		8
++#define AMBARELLA_GPIO_NR	32
 +
-+dtb-$(CONFIG_ARCH_AMBARELLA) += cv75-evk.dtb
-diff --git a/arch/arm64/boot/dts/ambarella/cv75-evk.dts b/arch/arm64/boot/dts/ambarella/cv75-evk.dts
-new file mode 100644
-index 000000000000..42a0fe24b83b
---- /dev/null
-+++ b/arch/arm64/boot/dts/ambarella/cv75-evk.dts
-@@ -0,0 +1,30 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+/*
-+ * Ambarella CV75 EVK board
-+ */
++struct pl061_variant_data {
++	unsigned int data;
++	unsigned int dir;
++	unsigned int is;
++	unsigned int ibe;
++	unsigned int iev;
++	unsigned int ie;
++	unsigned int ris;
++	unsigned int mis;
++	unsigned int ic;
++	unsigned int mask;
++	unsigned int enable;
++	unsigned int ngpio;
++	bool access_32bit;
++	bool masked_data_address;
++	bool write_data_after_dir;
++	bool clear_irq_on_type;
++	bool pm_save_restore;
++	const struct regmap_config *regmap_config;
++};
+ 
+ struct pl061_context_save_regs {
+ 	u8 gpio_data;
+@@ -48,74 +65,47 @@ struct pl061_context_save_regs {
+ 
+ struct pl061 {
+ 	raw_spinlock_t		lock;
+-
+ 	void __iomem		*base;
+-	struct gpio_chip	gc;
++	const struct pl061_variant_data *variant;
++	struct gpio_irq_chip	girq;
+ 	int			parent_irq;
+ 
+ 	struct pl061_context_save_regs csave_regs;
+ };
+ 
+-static int pl061_get_direction(struct gpio_chip *gc, unsigned offset)
+-{
+-	struct pl061 *pl061 = gpiochip_get_data(gc);
+-
+-	if (readb(pl061->base + GPIODIR) & BIT(offset))
+-		return GPIO_LINE_DIRECTION_OUT;
+-
+-	return GPIO_LINE_DIRECTION_IN;
+-}
+-
+-static int pl061_direction_input(struct gpio_chip *gc, unsigned offset)
++static struct pl061 *pl061_from_gpio_chip(struct gpio_chip *gc)
+ {
+-	struct pl061 *pl061 = gpiochip_get_data(gc);
+-	unsigned long flags;
+-	unsigned char gpiodir;
+-
+-	raw_spin_lock_irqsave(&pl061->lock, flags);
+-	gpiodir = readb(pl061->base + GPIODIR);
+-	gpiodir &= ~(BIT(offset));
+-	writeb(gpiodir, pl061->base + GPIODIR);
+-	raw_spin_unlock_irqrestore(&pl061->lock, flags);
+-
+-	return 0;
++	return gpio_regmap_get_drvdata(gpiochip_get_data(gc));
+ }
+ 
+-static int pl061_direction_output(struct gpio_chip *gc, unsigned offset,
+-		int value)
++static u32 pl061_read(struct pl061 *pl061, unsigned int reg)
+ {
+-	struct pl061 *pl061 = gpiochip_get_data(gc);
+-	unsigned long flags;
+-	unsigned char gpiodir;
++	if (pl061->variant->access_32bit)
++		return readl(pl061->base + reg);
+ 
+-	raw_spin_lock_irqsave(&pl061->lock, flags);
+-	writeb(!!value << offset, pl061->base + (BIT(offset + 2)));
+-	gpiodir = readb(pl061->base + GPIODIR);
+-	gpiodir |= BIT(offset);
+-	writeb(gpiodir, pl061->base + GPIODIR);
+-
+-	/*
+-	 * gpio value is set again, because pl061 doesn't allow to set value of
+-	 * a gpio pin before configuring it in OUT mode.
+-	 */
+-	writeb(!!value << offset, pl061->base + (BIT(offset + 2)));
+-	raw_spin_unlock_irqrestore(&pl061->lock, flags);
+-
+-	return 0;
++	return readb(pl061->base + reg);
+ }
+ 
+-static int pl061_get_value(struct gpio_chip *gc, unsigned offset)
++static void pl061_write(struct pl061 *pl061, u32 value, unsigned int reg)
+ {
+-	struct pl061 *pl061 = gpiochip_get_data(gc);
+-
+-	return !!readb(pl061->base + (BIT(offset + 2)));
++	if (pl061->variant->access_32bit)
++		writel(value, pl061->base + reg);
++	else
++		writeb(value, pl061->base + reg);
+ }
+ 
+-static int pl061_set_value(struct gpio_chip *gc, unsigned int offset, int value)
++static int pl061_reg_mask_xlate(struct gpio_regmap *gpio, unsigned int base,
++				unsigned int offset, unsigned int *reg,
++				unsigned int *mask)
+ {
+-	struct pl061 *pl061 = gpiochip_get_data(gc);
++	struct pl061 *pl061 = gpio_regmap_get_drvdata(gpio);
+ 
+-	writeb(!!value << offset, pl061->base + (BIT(offset + 2)));
++	/* ARM PL061 data bits use masked addresses: bits [9:2] select pins. */
++	if (base == pl061->variant->data)
++		*reg = BIT(offset + 2);
++	else
++		*reg = base;
++	*mask = BIT(offset);
+ 
+ 	return 0;
+ }
+@@ -123,18 +113,17 @@ static int pl061_set_value(struct gpio_chip *gc, unsigned int offset, int value)
+ static int pl061_irq_type(struct irq_data *d, unsigned trigger)
+ {
+ 	struct gpio_chip *gc = irq_data_get_irq_chip_data(d);
+-	struct pl061 *pl061 = gpiochip_get_data(gc);
++	struct pl061 *pl061 = pl061_from_gpio_chip(gc);
++	const struct pl061_variant_data *variant = pl061->variant;
+ 	int offset = irqd_to_hwirq(d);
+ 	unsigned long flags;
+-	u8 gpiois, gpioibe, gpioiev;
+-	u8 bit = BIT(offset);
++	u32 gpiois, gpioibe, gpioiev;
++	u32 bit = BIT(offset);
+ 
+-	if (offset < 0 || offset >= PL061_GPIO_NR)
++	if (offset < 0 || offset >= (int)gc->ngpio)
+ 		return -EINVAL;
+ 
+-	if ((trigger & (IRQ_TYPE_LEVEL_HIGH | IRQ_TYPE_LEVEL_LOW)) &&
+-	    (trigger & (IRQ_TYPE_EDGE_RISING | IRQ_TYPE_EDGE_FALLING)))
+-	{
++	if ((trigger & IRQ_TYPE_LEVEL_MASK) && (trigger & IRQ_TYPE_EDGE_BOTH)) {
+ 		dev_err(gc->parent,
+ 			"trying to configure line %d for both level and edge "
+ 			"detection, choose one!\n",
+@@ -142,14 +131,13 @@ static int pl061_irq_type(struct irq_data *d, unsigned trigger)
+ 		return -EINVAL;
+ 	}
+ 
+-
+ 	raw_spin_lock_irqsave(&pl061->lock, flags);
+ 
+-	gpioiev = readb(pl061->base + GPIOIEV);
+-	gpiois = readb(pl061->base + GPIOIS);
+-	gpioibe = readb(pl061->base + GPIOIBE);
++	gpioiev = pl061_read(pl061, variant->iev);
++	gpiois = pl061_read(pl061, variant->is);
++	gpioibe = pl061_read(pl061, variant->ibe);
+ 
+-	if (trigger & (IRQ_TYPE_LEVEL_HIGH | IRQ_TYPE_LEVEL_LOW)) {
++	if (trigger & IRQ_TYPE_LEVEL_MASK) {
+ 		bool polarity = trigger & IRQ_TYPE_LEVEL_HIGH;
+ 
+ 		/* Disable edge detection */
+@@ -199,9 +187,11 @@ static int pl061_irq_type(struct irq_data *d, unsigned trigger)
+ 			 offset);
+ 	}
+ 
+-	writeb(gpiois, pl061->base + GPIOIS);
+-	writeb(gpioibe, pl061->base + GPIOIBE);
+-	writeb(gpioiev, pl061->base + GPIOIEV);
++	pl061_write(pl061, gpiois, variant->is);
++	pl061_write(pl061, gpioibe, variant->ibe);
++	pl061_write(pl061, gpioiev, variant->iev);
++	if (variant->clear_irq_on_type)
++		pl061_write(pl061, bit, variant->ic);
+ 
+ 	raw_spin_unlock_irqrestore(&pl061->lock, flags);
+ 
+@@ -213,16 +203,15 @@ static void pl061_irq_handler(struct irq_desc *desc)
+ 	unsigned long pending;
+ 	int offset;
+ 	struct gpio_chip *gc = irq_desc_get_handler_data(desc);
+-	struct pl061 *pl061 = gpiochip_get_data(gc);
++	struct pl061 *pl061 = pl061_from_gpio_chip(gc);
+ 	struct irq_chip *irqchip = irq_desc_get_chip(desc);
+ 
+ 	chained_irq_enter(irqchip, desc);
+ 
+-	pending = readb(pl061->base + GPIOMIS);
++	pending = pl061_read(pl061, pl061->variant->mis);
+ 	if (pending) {
+-		for_each_set_bit(offset, &pending, PL061_GPIO_NR)
+-			generic_handle_domain_irq(gc->irq.domain,
+-						  offset);
++		for_each_set_bit(offset, &pending, gc->ngpio)
++			generic_handle_domain_irq(gc->irq.domain, offset);
+ 	}
+ 
+ 	chained_irq_exit(irqchip, desc);
+@@ -231,13 +220,13 @@ static void pl061_irq_handler(struct irq_desc *desc)
+ static void pl061_irq_mask(struct irq_data *d)
+ {
+ 	struct gpio_chip *gc = irq_data_get_irq_chip_data(d);
+-	struct pl061 *pl061 = gpiochip_get_data(gc);
+-	u8 mask = BIT(irqd_to_hwirq(d) % PL061_GPIO_NR);
+-	u8 gpioie;
++	struct pl061 *pl061 = pl061_from_gpio_chip(gc);
++	u32 mask = BIT(irqd_to_hwirq(d) % gc->ngpio);
++	u32 gpioie;
+ 
+ 	raw_spin_lock(&pl061->lock);
+-	gpioie = readb(pl061->base + GPIOIE) & ~mask;
+-	writeb(gpioie, pl061->base + GPIOIE);
++	gpioie = pl061_read(pl061, pl061->variant->ie) & ~mask;
++	pl061_write(pl061, gpioie, pl061->variant->ie);
+ 	raw_spin_unlock(&pl061->lock);
+ 
+ 	gpiochip_disable_irq(gc, d->hwirq);
+@@ -246,15 +235,15 @@ static void pl061_irq_mask(struct irq_data *d)
+ static void pl061_irq_unmask(struct irq_data *d)
+ {
+ 	struct gpio_chip *gc = irq_data_get_irq_chip_data(d);
+-	struct pl061 *pl061 = gpiochip_get_data(gc);
+-	u8 mask = BIT(irqd_to_hwirq(d) % PL061_GPIO_NR);
+-	u8 gpioie;
++	struct pl061 *pl061 = pl061_from_gpio_chip(gc);
++	u32 mask = BIT(irqd_to_hwirq(d) % gc->ngpio);
++	u32 gpioie;
+ 
+ 	gpiochip_enable_irq(gc, d->hwirq);
+ 
+ 	raw_spin_lock(&pl061->lock);
+-	gpioie = readb(pl061->base + GPIOIE) | mask;
+-	writeb(gpioie, pl061->base + GPIOIE);
++	gpioie = pl061_read(pl061, pl061->variant->ie) | mask;
++	pl061_write(pl061, gpioie, pl061->variant->ie);
+ 	raw_spin_unlock(&pl061->lock);
+ }
+ 
+@@ -269,18 +258,18 @@ static void pl061_irq_unmask(struct irq_data *d)
+ static void pl061_irq_ack(struct irq_data *d)
+ {
+ 	struct gpio_chip *gc = irq_data_get_irq_chip_data(d);
+-	struct pl061 *pl061 = gpiochip_get_data(gc);
+-	u8 mask = BIT(irqd_to_hwirq(d) % PL061_GPIO_NR);
++	struct pl061 *pl061 = pl061_from_gpio_chip(gc);
++	u32 mask = BIT(irqd_to_hwirq(d) % gc->ngpio);
+ 
+ 	raw_spin_lock(&pl061->lock);
+-	writeb(mask, pl061->base + GPIOIC);
++	pl061_write(pl061, mask, pl061->variant->ic);
+ 	raw_spin_unlock(&pl061->lock);
+ }
+ 
+ static int pl061_irq_set_wake(struct irq_data *d, unsigned int state)
+ {
+ 	struct gpio_chip *gc = irq_data_get_irq_chip_data(d);
+-	struct pl061 *pl061 = gpiochip_get_data(gc);
++	struct pl061 *pl061 = pl061_from_gpio_chip(gc);
+ 
+ 	return irq_set_irq_wake(pl061->parent_irq, state);
+ }
+@@ -306,42 +295,41 @@ static const struct irq_chip pl061_irq_chip = {
+ static int pl061_probe(struct amba_device *adev, const struct amba_id *id)
+ {
+ 	struct device *dev = &adev->dev;
++	struct gpio_regmap_config config = {};
++	const struct pl061_variant_data *variant = id->data;
+ 	struct pl061 *pl061;
+ 	struct gpio_irq_chip *girq;
++	struct regmap *regmap;
+ 	int ret, irq;
+ 
+ 	pl061 = devm_kzalloc(dev, sizeof(*pl061), GFP_KERNEL);
+ 	if (pl061 == NULL)
+ 		return -ENOMEM;
+ 
++	pl061->variant = variant;
 +
-+/dts-v1/;
+ 	pl061->base = devm_ioremap_resource(dev, &adev->res);
+ 	if (IS_ERR(pl061->base))
+ 		return PTR_ERR(pl061->base);
+ 
+ 	raw_spin_lock_init(&pl061->lock);
+-	pl061->gc.request = gpiochip_generic_request;
+-	pl061->gc.free = gpiochip_generic_free;
+-	pl061->gc.base = -1;
+-	pl061->gc.get_direction = pl061_get_direction;
+-	pl061->gc.direction_input = pl061_direction_input;
+-	pl061->gc.direction_output = pl061_direction_output;
+-	pl061->gc.get = pl061_get_value;
+-	pl061->gc.set = pl061_set_value;
+-	pl061->gc.ngpio = PL061_GPIO_NR;
+-	pl061->gc.label = dev_name(dev);
+-	pl061->gc.parent = dev;
+-	pl061->gc.owner = THIS_MODULE;
+-
+-	/*
+-	 * irq_chip support
+-	 */
+-	writeb(0, pl061->base + GPIOIE); /* disable irqs */
 +
-+#include "cv75.dtsi"
++	regmap = devm_regmap_init_mmio(dev, pl061->base, variant->regmap_config);
++	if (IS_ERR(regmap))
++		return PTR_ERR(regmap);
 +
-+/ {
-+	model = "Ambarella CV75 EVK Board";
-+	compatible = "ambarella,cv75-evk", "ambarella,cv75";
++	pl061_write(pl061, 0, variant->ie); /* disable irqs */
++	if (variant->mask != PL061_REG_NONE)
++		pl061_write(pl061, GENMASK(variant->ngpio - 1, 0), variant->mask);
++	if (variant->enable != PL061_REG_NONE)
++		pl061_write(pl061, GENMASK(variant->ngpio - 1, 0), variant->enable);
 +
-+	aliases {
-+		serial0 = &uart0;
-+	};
+ 	irq = adev->irq[0];
+ 	if (!irq)
+ 		dev_warn(&adev->dev, "IRQ support disabled\n");
+ 	pl061->parent_irq = irq;
+ 
+-	girq = &pl061->gc.irq;
++	girq = &pl061->girq;
+ 	gpio_irq_chip_set_chip(girq, &pl061_irq_chip);
+ 	girq->parent_handler = pl061_irq_handler;
+ 	girq->num_parents = 1;
+@@ -353,7 +341,19 @@ static int pl061_probe(struct amba_device *adev, const struct amba_id *id)
+ 	girq->default_type = IRQ_TYPE_NONE;
+ 	girq->handler = handle_bad_irq;
+ 
+-	ret = devm_gpiochip_add_data(dev, &pl061->gc, pl061);
++	config.parent = dev;
++	config.regmap = regmap;
++	config.ngpio = variant->ngpio;
++	config.reg_dat_base = GPIO_REGMAP_ADDR(variant->data);
++	config.reg_set_base = GPIO_REGMAP_ADDR(variant->data);
++	config.reg_dir_out_base = variant->dir;
++	if (variant->masked_data_address)
++		config.reg_mask_xlate = pl061_reg_mask_xlate;
++	config.write_data_after_dir = variant->write_data_after_dir;
++	config.girq = girq;
++	config.drvdata = pl061;
 +
-+	chosen {
-+		stdout-path = &uart0;
-+	};
++	ret = PTR_ERR_OR_ZERO(devm_gpio_regmap_register(dev, &config));
+ 	if (ret)
+ 		return ret;
+ 
+@@ -366,19 +366,23 @@ static int pl061_probe(struct amba_device *adev, const struct amba_id *id)
+ static int pl061_suspend(struct device *dev)
+ {
+ 	struct pl061 *pl061 = dev_get_drvdata(dev);
++	const struct pl061_variant_data *variant = pl061->variant;
+ 	int offset;
+ 
++	if (!variant->pm_save_restore)
++		return 0;
 +
-+	memory@200000 {
-+		device_type = "memory";
-+		reg = <0x0 0x00200000 0x0 0x07e00000>;
-+	};
+ 	pl061->csave_regs.gpio_data = 0;
+-	pl061->csave_regs.gpio_dir = readb(pl061->base + GPIODIR);
+-	pl061->csave_regs.gpio_is = readb(pl061->base + GPIOIS);
+-	pl061->csave_regs.gpio_ibe = readb(pl061->base + GPIOIBE);
+-	pl061->csave_regs.gpio_iev = readb(pl061->base + GPIOIEV);
+-	pl061->csave_regs.gpio_ie = readb(pl061->base + GPIOIE);
+-
+-	for (offset = 0; offset < PL061_GPIO_NR; offset++) {
+-		if (pl061->csave_regs.gpio_dir & (BIT(offset)))
++	pl061->csave_regs.gpio_dir = pl061_read(pl061, variant->dir);
++	pl061->csave_regs.gpio_is = pl061_read(pl061, variant->is);
++	pl061->csave_regs.gpio_ibe = pl061_read(pl061, variant->ibe);
++	pl061->csave_regs.gpio_iev = pl061_read(pl061, variant->iev);
++	pl061->csave_regs.gpio_ie = pl061_read(pl061, variant->ie);
++
++	for (offset = 0; offset < variant->ngpio; offset++) {
++		if (pl061->csave_regs.gpio_dir & BIT(offset))
+ 			pl061->csave_regs.gpio_data |=
+-				pl061_get_value(&pl061->gc, offset) << offset;
++				pl061_read(pl061, BIT(offset + 2));
+ 	}
+ 
+ 	return 0;
+@@ -387,31 +391,103 @@ static int pl061_suspend(struct device *dev)
+ static int pl061_resume(struct device *dev)
+ {
+ 	struct pl061 *pl061 = dev_get_drvdata(dev);
++	const struct pl061_variant_data *variant = pl061->variant;
+ 	int offset;
+ 
+-	for (offset = 0; offset < PL061_GPIO_NR; offset++) {
+-		if (pl061->csave_regs.gpio_dir & (BIT(offset)))
+-			pl061_direction_output(&pl061->gc, offset,
+-					pl061->csave_regs.gpio_data &
+-					(BIT(offset)));
+-		else
+-			pl061_direction_input(&pl061->gc, offset);
++	if (!variant->pm_save_restore)
++		return 0;
++
++	for (offset = 0; offset < variant->ngpio; offset++) {
++		u32 dir = pl061_read(pl061, variant->dir);
++
++		if (pl061->csave_regs.gpio_dir & BIT(offset)) {
++			u32 value = !!(pl061->csave_regs.gpio_data & BIT(offset)) << offset;
++
++			pl061_write(pl061, value, BIT(offset + 2));
++			pl061_write(pl061, dir | BIT(offset), variant->dir);
++			/*
++			 * gpio value is set again, because pl061 doesn't allow to set value of
++			 * a gpio pin before configuring it in OUT mode.
++			 */
++			pl061_write(pl061, value, BIT(offset + 2));
++		} else {
++			pl061_write(pl061, dir & ~BIT(offset), variant->dir);
++		}
+ 	}
+ 
+-	writeb(pl061->csave_regs.gpio_is, pl061->base + GPIOIS);
+-	writeb(pl061->csave_regs.gpio_ibe, pl061->base + GPIOIBE);
+-	writeb(pl061->csave_regs.gpio_iev, pl061->base + GPIOIEV);
+-	writeb(pl061->csave_regs.gpio_ie, pl061->base + GPIOIE);
++	pl061_write(pl061, pl061->csave_regs.gpio_is, variant->is);
++	pl061_write(pl061, pl061->csave_regs.gpio_ibe, variant->ibe);
++	pl061_write(pl061, pl061->csave_regs.gpio_iev, variant->iev);
++	pl061_write(pl061, pl061->csave_regs.gpio_ie, variant->ie);
+ 
+ 	return 0;
+ }
+ 
+ static DEFINE_SIMPLE_DEV_PM_OPS(pl061_dev_pm_ops, pl061_suspend, pl061_resume);
+ 
++static const struct regmap_config pl061_arm_regmap_config = {
++	.reg_bits = 16,
++	.val_bits = 8,
++	.reg_stride = 4,
++	.max_register = 0x400,
++	.fast_io = true,
 +};
 +
-+&uart0 {
-+	status = "okay";
++static const struct regmap_config pl061_ambarella_regmap_config = {
++	.reg_bits = 32,
++	.val_bits = 32,
++	.reg_stride = 4,
++	.max_register = 0x2c,
++	.fast_io = true,
 +};
-diff --git a/arch/arm64/boot/dts/ambarella/cv75.dtsi b/arch/arm64/boot/dts/ambarella/cv75.dtsi
-new file mode 100644
-index 000000000000..c36b6af48237
---- /dev/null
-+++ b/arch/arm64/boot/dts/ambarella/cv75.dtsi
-@@ -0,0 +1,177 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+/*
-+ * Ambarella CV75 SoC
-+ *
-+ * Boot peripheral: UART0 console.
-+ * Clocks: a single ambarella,cv75-rct provider.
-+ */
 +
-+#include <dt-bindings/clock/ambarella,cv75-rct.h>
-+#include <dt-bindings/interrupt-controller/arm-gic.h>
-+
-+/ {
-+	compatible = "ambarella,cv75";
-+	interrupt-parent = <&gic>;
-+	#address-cells = <2>;
-+	#size-cells = <2>;
-+
-+	cpus {
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+
-+		cpu@0 {
-+			compatible = "arm,cortex-a76";
-+			device_type = "cpu";
-+			reg = <0x000>;
-+			enable-method = "psci";
-+		};
-+
-+		cpu@1 {
-+			compatible = "arm,cortex-a76";
-+			device_type = "cpu";
-+			reg = <0x100>;
-+			enable-method = "psci";
-+		};
-+	};
-+
-+	osc: oscillator {
-+		compatible = "fixed-clock";
-+		#clock-cells = <0>;
-+		clock-frequency = <24000000>;
-+		clock-output-names = "osc";
-+	};
-+
-+	psci {
-+		compatible = "arm,psci-0.2";
-+		method = "smc";
-+	};
-+
-+	soc {
-+		compatible = "simple-bus";
-+		#address-cells = <2>;
-+		#size-cells = <2>;
-+		ranges;
-+
-+		ahb@ffe0000000 {
-+			compatible = "simple-bus";
-+			reg = <0xff 0xe0000000 0x0 0x01000000>;
-+			ranges = <0xe0000000 0xff 0xe0000000 0x01000000>;
-+			#address-cells = <1>;
-+			#size-cells = <1>;
-+
-+			s_scratchpad_syscon: scratchpad@e002e000 {
-+				compatible = "ambarella,cv75-sec-scratchpad", "syscon";
-+				reg = <0xe002e000 0x1000>;
-+			};
-+		};
-+
-+		apb@ffe4000000 {
-+			compatible = "simple-bus";
-+			reg = <0xff 0xe4000000 0x0 0x01000000>;
-+			ranges = <0xe4000000 0xff 0xe4000000 0x01000000>;
-+			#address-cells = <1>;
-+			#size-cells = <1>;
-+
-+			uart0: serial@e4000000 {
-+				compatible = "ambarella,cv75-uart", "snps,dw-apb-uart";
-+				reg = <0xe4000000 0x1000>;
-+				clocks = <&rct CV75_GCLK_UART0>;
-+				interrupts = <GIC_SPI 170 IRQ_TYPE_LEVEL_HIGH>;
-+				reg-shift = <2>;
-+				reg-io-width = <4>;
-+				pinctrl-names = "default";
-+				pinctrl-0 = <&uart0_pins>;
-+
-+				status = "disabled";
-+			};
-+
-+			pinctrl: pinctrl@e4010000 {
-+				compatible = "ambarella,cv75-pinctrl";
-+				reg = <0xe4010000 0x1000>;
-+				ambarella,drive-strength-syscon = <&rct>;
-+				ambarella,pull-syscon = <&s_scratchpad_syscon>;
-+
-+				uart0_pins: uart0-pins {
-+					function = "uart0";
-+					groups = "uart0";
-+				};
-+			};
-+
-+			gpio0: gpio@e4013000 {
-+				compatible = "ambarella,cv75-gpio", "arm,primecell";
-+				reg = <0xe4013000 0x1000>;
-+				clocks = <&rct CV75_GCLK_APB>;
-+				clock-names = "apb_pclk";
-+				interrupts = <GIC_SPI 163 IRQ_TYPE_LEVEL_HIGH>;
-+				gpio-controller;
-+				#gpio-cells = <2>;
-+				gpio-ranges = <&pinctrl 0 0 32>;
-+				interrupt-controller;
-+				#interrupt-cells = <2>;
-+				arm,primecell-periphid = <0x000e8061>;
-+			};
-+
-+			gpio1: gpio@e4014000 {
-+				compatible = "ambarella,cv75-gpio", "arm,primecell";
-+				reg = <0xe4014000 0x1000>;
-+				clocks = <&rct CV75_GCLK_APB>;
-+				clock-names = "apb_pclk";
-+				interrupts = <GIC_SPI 164 IRQ_TYPE_LEVEL_HIGH>;
-+				gpio-controller;
-+				#gpio-cells = <2>;
-+				gpio-ranges = <&pinctrl 0 32 32>;
-+				interrupt-controller;
-+				#interrupt-cells = <2>;
-+				arm,primecell-periphid = <0x000e8061>;
-+			};
-+
-+			gpio2: gpio@e4015000 {
-+				compatible = "ambarella,cv75-gpio", "arm,primecell";
-+				reg = <0xe4015000 0x1000>;
-+				clocks = <&rct CV75_GCLK_APB>;
-+				clock-names = "apb_pclk";
-+				interrupts = <GIC_SPI 165 IRQ_TYPE_LEVEL_HIGH>;
-+				gpio-controller;
-+				#gpio-cells = <2>;
-+				gpio-ranges = <&pinctrl 0 64 32>;
-+				interrupt-controller;
-+				#interrupt-cells = <2>;
-+				arm,primecell-periphid = <0x000e8061>;
-+			};
-+		};
-+
-+		rct: clock-controller@ffed080000 {
-+			compatible = "ambarella,cv75-rct", "syscon";
-+			reg = <0xff 0xed080000 0x0 0x1000>;
-+			clocks = <&osc>;
-+			clock-names = "osc";
-+			#clock-cells = <1>;
-+			#reset-cells = <1>;
-+			assigned-clocks = <&rct CV75_GCLK_UART0>;
-+			assigned-clock-parents = <&osc>;
-+			assigned-clock-rates = <24000000>;
-+		};
-+
-+		gic: interrupt-controller@fff0101000 {
-+			compatible = "arm,gic-400";
-+			reg = <0xff 0xf0101000 0x0 0x1000>,
-+			      <0xff 0xf0102000 0x0 0x2000>,
-+			      <0xff 0xf0104000 0x0 0x2000>,
-+			      <0xff 0xf0106000 0x0 0x2000>;
-+			interrupt-controller;
-+			#interrupt-cells = <3>;
-+			#address-cells = <0>;
-+			interrupts = <GIC_PPI 9
-+				      (GIC_CPU_MASK_SIMPLE(2) | IRQ_TYPE_LEVEL_HIGH)>;
-+		};
-+	};
-+
-+	timer {
-+		compatible = "arm,armv8-timer";
-+		interrupts = <GIC_PPI 13 (GIC_CPU_MASK_SIMPLE(2) | IRQ_TYPE_LEVEL_LOW)>,
-+			     <GIC_PPI 14 (GIC_CPU_MASK_SIMPLE(2) | IRQ_TYPE_LEVEL_LOW)>,
-+			     <GIC_PPI 11 (GIC_CPU_MASK_SIMPLE(2) | IRQ_TYPE_LEVEL_LOW)>,
-+			     <GIC_PPI 10 (GIC_CPU_MASK_SIMPLE(2) | IRQ_TYPE_LEVEL_LOW)>,
-+			     <GIC_PPI 12 (GIC_CPU_MASK_SIMPLE(2) | IRQ_TYPE_LEVEL_LOW)>;
-+	};
++static struct pl061_variant_data pl061_arm = {
++	.data = 0x000,
++	.dir = 0x400,
++	.is = 0x404,
++	.ibe = 0x408,
++	.iev = 0x40c,
++	.ie = 0x410,
++	.ris = 0x414,
++	.mis = 0x418,
++	.ic = 0x41c,
++	.mask = PL061_REG_NONE,
++	.enable = PL061_REG_NONE,
++	.ngpio = PL061_GPIO_NR,
++	.masked_data_address = true,
++	.write_data_after_dir = true,
++	.pm_save_restore = true,
++	.regmap_config = &pl061_arm_regmap_config,
 +};
-diff --git a/arch/arm64/configs/defconfig b/arch/arm64/configs/defconfig
-index ad3bd3d9507b..454f07a6a6a6 100644
---- a/arch/arm64/configs/defconfig
-+++ b/arch/arm64/configs/defconfig
-@@ -36,6 +36,7 @@ CONFIG_CRASH_DUMP=y
- CONFIG_ARCH_ACTIONS=y
- CONFIG_ARCH_AIROHA=y
- CONFIG_ARCH_SUNXI=y
-+CONFIG_ARCH_AMBARELLA=y
- CONFIG_ARCH_ALPINE=y
- CONFIG_ARCH_APPLE=y
- CONFIG_ARCH_ARTPEC=y
++
++static struct pl061_variant_data pl061_ambarella = {
++	.data = 0x00,
++	.dir = 0x04,
++	.is = 0x08,
++	.ibe = 0x0c,
++	.iev = 0x10,
++	.ie = 0x14,
++	.ris = 0x1c,
++	.mis = 0x20,
++	.ic = 0x24,
++	.mask = 0x28,
++	.enable = 0x2c,
++	.ngpio = AMBARELLA_GPIO_NR,
++	.access_32bit = true,
++	.clear_irq_on_type = true,
++	.regmap_config = &pl061_ambarella_regmap_config,
++};
++
+ static const struct amba_id pl061_ids[] = {
+ 	{
+ 		.id	= 0x00041061,
+ 		.mask	= 0x000fffff,
++		.data	= &pl061_arm,
++	},
++	{
++		.id	= (AMBA_VENDOR_AMBARELLA << 12) | 0x061,
++		.mask	= 0x000fffff,
++		.data	= &pl061_ambarella,
+ 	},
+ 	{ 0, 0 },
+ };
+diff --git a/include/linux/amba/bus.h b/include/linux/amba/bus.h
+index 80a74cd2da7e..411533bfa61d 100644
+--- a/include/linux/amba/bus.h
++++ b/include/linux/amba/bus.h
+@@ -98,6 +98,7 @@ enum amba_vendor {
+ 	AMBA_VENDOR_ST = 0x80,
+ 	AMBA_VENDOR_QCOM = 0x51,
+ 	AMBA_VENDOR_LSI = 0xb6,
++	AMBA_VENDOR_AMBARELLA = 0xe8,
+ };
+ 
+ extern const struct bus_type amba_bustype;
 
 -- 
 2.34.1
