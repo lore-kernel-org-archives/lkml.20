@@ -1,115 +1,107 @@
-Received: from mail-oo1-f70.google.com (mail-oo1-f70.google.com [209.85.161.70])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mailgw01.mediatek.com (unknown [60.244.123.138])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8AE9A4CCDFB
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 03:50:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.70
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DB094CCDFB;
+	Fri,  4 Sep 2026 03:50:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=60.244.123.138
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788493814; cv=none; b=qrFf+vsQCxaI1sp+cqZpBvSTzAmeE992qWx3EjmBfNfxvBmx5BiyE7oyEPleFlsAsKu6jaJzgnbmri9YEAVJBcVygPnY9s7TG9WeCWP8msY1udYUM/x9qGF+pkb2zToafavBIyvXHb70P2MtkLVzhUQvf2NRQ5YfOsf+ej8yMfE=
+	t=1788493824; cv=none; b=VrluebKvP7Y8nlNFJe4U5ha5qdKGGo6dqfLMs/5fqcCEggCnZzgNlf7fMUiXVX6E0wQx7UBGNYVa/2loamLuNg96qq4g4l6YztP8IjZOWmoLQXwlcliWkX7TTecXt6zCpJQHTSG1iYORzAGwaZJhRmDDMD2MB1Vw+YnY7AwCjG4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788493814; c=relaxed/simple;
-	bh=GI9qra2mc1OBA/mnKbX/5DgNvZ85PoXWaWJ7afr/iYw=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:Cc:
-	 Content-Type; b=BURy7T0F6YJmKZYU63pQI4v3biZ1ybx2DAVwk+HKcCbXgDqdMJRMN/8MpbYjWi68s4ymFclqeT6vORFAMzdyME7xItLMRcnfrFxqMW9DdwlFlgqO9pNLnZ33q3tJ/Uv7ETBKAmf6qt24V2vC2cP8TeB0lyN5ldbOCLpec/DXDzg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.161.70
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oo1-f70.google.com with SMTP id 006d021491bc7-6b163fddf0aso1744199eaf.1
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 20:50:12 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788493811; x=1789098611;
-        h=content-transfer-encoding:content-type:cc:to:from:subject
-         :message-id:in-reply-to:date:mime-version:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=GI9qra2mc1OBA/mnKbX/5DgNvZ85PoXWaWJ7afr/iYw=;
-        b=qER+f59/x0iUTnrR2obsKLp435TvviWmlvgmMsc9w39waoZBzCTZQLPr7KoHNQWsR0
-         4PbXKeC2UFPWfuJCLZcNFlJoXLmlmYGD8jVTltpdaW5M1jcXDLz4Ax++DYuOQiQ2sMMe
-         C3A6NGTxPMwniqAaZmEinMBtpME3UODsGW12aXcO6kLbIPcWur8hfV2Hu5yX8yXDRWAI
-         HdG/RO97zqXwTmy3niZOFB9Ef/K4P/frzSdo5uMHW/z1N2WtMrwAH0okoCumKlrbzfBi
-         XoVgjQ0l2FFkqXmJMpY6YT1Cp5myvdmpj7KbWrvqeivCelCBOdWyr/tiS3uob5fSA5ZX
-         xE2Q==
-X-Forwarded-Encrypted: i=1; AKwUvBxGQk13V13HzGkHSmoeR4EEDZ5qpsp0uy9aiyyrhCqzc4e5PwRLLQOYl16pbUh311N6D2zxkeX9lfMaBRA=@vger.kernel.org
-X-Gm-Message-State: AFuF++lyW6swlVlJ1vLrvARvLcm3uDCtRuuuUnfkmcFH6GYQc72PjgV+
-	+nDWageAJY5sPdt0mMQmMmy7jJKAvtXYQX991Gxca51KhlhGb3Es75f0aaVntux3dqYcN01j2wF
-	XtyFUDWYU5aC1BljBmUjkmsuQrMQay56s+DuZEyz4a59sgNeHeqxtUciw95A=
+	s=arc-20240116; t=1788493824; c=relaxed/simple;
+	bh=pcpvL4zZrnXQA5afU7ffPQcFlJ/g/ZaHMgUWuUvxeUc=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=kQe0g+q73hgz4pHAj3vT5bxotk92LFGoYWv+PSB/2X3x0+1ESRZXEVU37iHBYDNSlmwc2UduxMRVjU7ShllOegyTk1QnhJzVZTDsZmBkWw4ND1W00Ksf9lIn2NZFVudd+1+dyvZ1H0cIWzdB8pqYSoIfB22C7fEQA5a/xM/zFQA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com; spf=pass smtp.mailfrom=mediatek.com; dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b=sXfGs63r; arc=none smtp.client-ip=60.244.123.138
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mediatek.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b="sXfGs63r"
+X-UUID: bc57f5eca81311f1b1788b6acf885367-20260904
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com; s=dk;
+	h=Content-Type:Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:CC:To:From; bh=f/lMlDVWYpAH/dp1lGoT+o/qCqrGW19Qk0/3sL3d8SE=;
+	b=sXfGs63rhiyd38+4YXy151g4JwYCD3nz24eU3sx5LrKaB/4AEaenBR3XQ89/anWKxiHzdvyHou4jFTbKtmkXPlHKYu240ZZ++f5N32iGSOATFVKeERq1EquS/byCkdnwK6vnmSQ76hQpOyKJ4Ef1+C8kI8MmCzj9d2bt2QEL1vw=;
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:511129ed-8a3e-439e-aad6-53d61c50aae5,IP:0,U
+	RL:0,TC:0,Content:47,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
+	:release,TS:47
+X-CID-META: VersionHash:7db8b62,CLOUDID:0bdd6c96-8382-4d0c-b42c-b0965a0d23b4,B
+	ulkID:nil,BulkQuantity:0,SF:102|836|865|888|898,TC:-5,Content:4|15|50|99,E
+	DM:-3,IP:nil,URL:0,File:130,RT:0,Bulk:nil,QS:nil,BEC:-1,COL:0,OSI:0,OSA:0,
+	AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: bc57f5eca81311f1b1788b6acf885367-20260904
+Received: from mtkmbs09n1.mediatek.inc [(172.21.101.35)] by mailgw01.mediatek.com
+	(envelope-from <justin.yeh@mediatek.com>)
+	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
+	with ESMTP id 1474300989; Fri, 04 Sep 2026 11:50:14 +0800
+Received: from mtkmbs13n2.mediatek.inc (172.21.101.108) by
+ MTKMBS14N1.mediatek.inc (172.21.101.75) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.29; Fri, 4 Sep 2026 11:50:12 +0800
+Received: from mtksitap99.mediatek.inc (10.233.130.16) by
+ mtkmbs13n2.mediatek.inc (172.21.101.73) with Microsoft SMTP Server id
+ 15.2.2562.29 via Frontend Transport; Fri, 4 Sep 2026 11:50:12 +0800
+From: Justin Yeh <justin.yeh@mediatek.com>
+To: Jiri Kosina <jikos@kernel.org>, Benjamin Tissoires <bentiss@kernel.org>,
+	Matthias Brugger <matthias.bgg@gmail.com>, AngeloGioacchino Del Regno
+	<angelogioacchino.delregno@collabora.com>, Douglas Anderson
+	<dianders@chromium.org>, Maxime Ripard <mripard@kernel.org>
+CC: <Project_Global_Chrome_Upstream_Group@mediatek.com>,
+	<linux-arm-kernel@lists.infradead.org>, <linux-input@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, <linux-mediatek@lists.infradead.org>, Justin
+ Yeh <justin.yeh@mediatek.com>
+Subject: [PATCH] HID: i2c-hid: Skip SET_POWER on shutdown for panel followers
+Date: Fri, 4 Sep 2026 11:50:02 +0800
+Message-ID: <20260904035009.4114363-1-justin.yeh@mediatek.com>
+X-Mailer: git-send-email 2.45.2
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:1886:b0:6b1:3534:a5bf with SMTP id
- 006d021491bc7-6b5854bb7c9mr4949767eaf.14.1788493811434; Thu, 03 Sep 2026
- 20:50:11 -0700 (PDT)
-Date: Thu, 03 Sep 2026 20:50:11 -0700
-In-Reply-To: <a39a7d13-8f39-413a-95bb-74a86c2803f3@me.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6a9a3ff3.0b659fcc.16ebfd.0005.GAE@google.com>
-Subject: =?UTF-8?B?UmU6IFJlOsKgW3N5emJvdF0gW21lZGlhP10gV0FSTklORyBpbiBjeDI1ODQwX2luaXQ=?=
-From: syzbot <syzbot+9123948aef13fe92d706@syzkaller.appspotmail.com>
-To: m.harisawan@icloud.com
-Cc: m.harisawan@icloud.com, linux-kernel@vger.kernel.org, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-MTK: N
 
-> #syz test diff --git a/drivers/media/i2c/cx25840/cx25840-core.c b/drivers=
-/media/i2c/cx25840/cx25840-core.c index a8e21a28174f..6df912c9381b 100644 -=
--- a/drivers/media/i2c/cx25840/cx25840-core.c +++ b/drivers/media/i2c/cx258=
-40/cx25840-core.c @@ -2298,28 +2298,26 @@ static int cx25840_init(struct v4=
-l2_subdev *sd, u32 val) struct cx25840_state *state =3D to_state(sd); + if =
-(!is_cx2584x(state)) + return -EOPNOTSUPP; + state->generic_mode =3D true; =
-- if (is_cx2584x(state)) { - /* set datasheet video output defaults */ - st=
-ate->vid_config =3D CX25840_VCONFIG_FMT_BT656 | - CX25840_VCONFIG_RES_8BIT =
-| - CX25840_VCONFIG_VBIRAW_DISABLED | - CX25840_VCONFIG_ANCDATA_ENABLED | -=
- CX25840_VCONFIG_TASKBIT_ONE | - CX25840_VCONFIG_ACTIVE_HORIZONTAL | - CX25=
-840_VCONFIG_VALID_NORMAL | - CX25840_VCONFIG_HRESETW_NORMAL | - CX25840_VCO=
-NFIG_CLKGATE_NONE | - CX25840_VCONFIG_DCMODE_DWORDS | - CX25840_VCONFIG_IDI=
-D0S_NORMAL | - CX25840_VCONFIG_VIPCLAMP_DISABLED; - - /* add additional set=
-tings */ - cx25840_vconfig_add(state, val); - } else { - /* TODO: generic m=
-ode needs to be developed for other chips */ - WARN_ON(1); - } + /* set dat=
-asheet video output defaults */ + state->vid_config =3D CX25840_VCONFIG_FMT=
-_BT656 | + CX25840_VCONFIG_RES_8BIT | + CX25840_VCONFIG_VBIRAW_DISABLED | +=
- CX25840_VCONFIG_ANCDATA_ENABLED | + CX25840_VCONFIG_TASKBIT_ONE | + CX2584=
-0_VCONFIG_ACTIVE_HORIZONTAL | + CX25840_VCONFIG_VALID_NORMAL | + CX25840_VC=
-ONFIG_HRESETW_NORMAL | + CX25840_VCONFIG_CLKGATE_NONE | + CX25840_VCONFIG_D=
-CMODE_DWORDS | + CX25840_VCONFIG_IDID0S_NORMAL | + CX25840_VCONFIG_VIPCLAMP=
-_DISABLED; + + /* add additional settings */ + cx25840_vconfig_add(state, v=
-al); return 0; } On 4 Sep 2026, at 4:09, syzbot <syzbot+9123948aef13fe92d70=
-6@syzkaller.appspotmail.com> wrote: #syz test: git:// git.kernel.org/pub/sc=
-m/linux/kernel/git/torvalds/linux.git 940de590b839f71d6dc846160534bf202401b=
-8b7 diff --git a/drivers/media/i2c/cx25840/cx25840-core.c b/drivers/media/i=
-2c/cx25840/cx25840-core.c index a8e21a28174f..6df912c9381b 100644 --- a/dri=
-vers/media/i2c/cx25840/cx25840-core.c +++ b/drivers/media/i2c/cx25840/cx258=
-40-core.c @@ -2298,28 +2298,26 @@ static int cx25840_init(struct v4l2_subde=
-v *sd, u32 val) struct cx25840_state *state =3D to_state(sd); + if (!is_cx2=
-584x(state)) + return -EOPNOTSUPP; + state->generic_mode =3D true; - if (is=
-_cx2584x(state)) { - /* set datasheet video output defaults */ - state->vid=
-_config =3D CX25840_VCONFIG_FMT_BT656 | - CX25840_VCONFIG_RES_8BIT | - CX25=
-840_VCONFIG_VBIRAW_DISABLED | - CX25840_VCONFIG_ANCDATA_ENABLED | - CX25840=
-_VCONFIG_TASKBIT_ONE | - CX25840_VCONFIG_ACTIVE_HORIZONTAL | - CX25840_VCON=
-FIG_VALID_NORMAL | - CX25840_VCONFIG_HRESETW_NORMAL | - CX25840_VCONFIG_CLK=
-GATE_NONE | - CX25840_VCONFIG_DCMODE_DWORDS | - CX25840_VCONFIG_IDID0S_NORM=
-AL | - CX25840_VCONFIG_VIPCLAMP_DISABLED; - - /* add additional settings */=
- - cx25840_vconfig_add(state, val); - } else { - /* TODO: generic mode need=
-s to be developed for other chips */ - WARN_ON(1); - } + /* set datasheet v=
-ideo output defaults */ + state->vid_config =3D CX25840_VCONFIG_FMT_BT656 |=
- + CX25840_VCONFIG_RES_8BIT | + CX25840_VCONFIG_VBIRAW_DISABLED | + CX25840=
-_VCONFIG_ANCDATA_ENABLED | + CX25840_VCONFIG_TASKBIT_ONE | + CX25840_VCONFI=
-G_ACTIVE_HORIZONTAL | + CX25840_VCONFIG_VALID_NORMAL | + CX25840_VCONFIG_HR=
-ESETW_NORMAL | + CX25840_VCONFIG_CLKGATE_NONE | + CX25840_VCONFIG_DCMODE_DW=
-ORDS | + CX25840_VCONFIG_IDID0S_NORMAL | + CX25840_VCONFIG_VIPCLAMP_DISABLE=
-D; + + /* add additional settings */ + cx25840_vconfig_add(state, val); ret=
-urn 0; } I've failed to parse your command. Did you perhaps forget to provi=
-de the branch name, or added an extra ':'? Please use one of the two suppor=
-ted formats: 1. #syz test 2. #syz test: repo branch-or-commit-hash Note the=
- lack of ':' in option 1.
+When an i2c-hid device is a panel follower, drm_atomic_helper_shutdown()
+unprepares the panel before device_shutdown() gets around to the i2c
+client. The panel_unpreparing() callback already calls
+i2c_hid_core_suspend() with force_poweroff set, which sends
+SET_POWER(SLEEP) and then drops the device's regulators.
 
-I've failed to parse your command.
-Did you perhaps forget to provide the branch name, or added an extra ':'?
-Please use one of the two supported formats:
-1. #syz test
-2. #syz test: repo branch-or-commit-hash
-Note the lack of ':' in option 1.
+So by the time i2c_hid_core_shutdown() runs, the controller is unpowered
+and can no longer complete a transfer. On MT8196 the SET_POWER(SLEEP)
+issued there burns the full i2c-mt65xx bus timeout before failing,
+adding two seconds to every reboot.
+
+Skip the redundant SET_POWER for panel followers, matching how
+i2c_hid_core_pm_suspend() and friends already bail out for them.
+free_irq() and the shutdown_tail() hook are unaffected.
+
+Fixes: 96a37bfd232a ("HID: i2c-hid: Support being a panel follower")
+Signed-off-by: Justin Yeh <justin.yeh@mediatek.com>
+---
+ drivers/hid/i2c-hid/i2c-hid-core.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/hid/i2c-hid/i2c-hid-core.c b/drivers/hid/i2c-hid/i2c-hid-core.c
+index 0ff07fdab442..2e787c17256d 100644
+--- a/drivers/hid/i2c-hid/i2c-hid-core.c
++++ b/drivers/hid/i2c-hid/i2c-hid-core.c
+@@ -1355,7 +1355,9 @@ void i2c_hid_core_shutdown(struct i2c_client *client)
+ {
+ 	struct i2c_hid *ihid = i2c_get_clientdata(client);
+ 
+-	i2c_hid_set_power(ihid, I2C_HID_PWR_SLEEP);
++	if (!ihid->is_panel_follower)
++		i2c_hid_set_power(ihid, I2C_HID_PWR_SLEEP);
++
+ 	free_irq(client->irq, ihid);
+ 
+ 	i2c_hid_core_shutdown_tail(ihid);
+-- 
+2.45.2
 
