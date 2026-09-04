@@ -1,177 +1,113 @@
-Received: from mail-pg1-f198.google.com (mail-pg1-f198.google.com [209.85.215.198])
+Received: from mail-pf1-f225.google.com (mail-pf1-f225.google.com [209.85.210.225])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20A4939CD00
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 23:21:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.198
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 243E435E1B8
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 23:23:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.225
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788564075; cv=none; b=j3S2wCrlng625fq8RR/PZqU+yuVuCFlzMvWqzUKhH7qZQw6XMZ4BpOE5SgPdCROSuIN7bFsBh3sFCZe/VeM+bE7hkuGBFKPxrbgqLq2Q8R8g0cP2HHWLg7bhYQVyi9sIhbTe5nXWxkVdqclZ0aOwUizO0m6Ko1BDA0qkS3Poz84=
+	t=1788564226; cv=none; b=ORhOhidc3y6JWHsM/VLKZSIMja5rYrXATpQt1Kh1/7sYJmvl+BQrbjtfMYcXBbLm12EWSdepfHHAC5und5VuLOA54ToIEcCi8cEFDazrOU8hYuVtBMp+0C81raM+4r28+8Z2EwQLCpN3mBDldjYk7+mLCZSX/Zlj7ZzKTXijIPY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788564075; c=relaxed/simple;
-	bh=mFKfiW7m4C22p52MsDdwYU0NcfC494ItXTGRtMvxW9Y=;
-	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=k6okZv3hiDxTOXRnGqXOuodtMvoIqyIc8EHu5LCCBUywdhxueH3JZiPrA+7jvas2qynG/rwpTJjUQIA7Ak0bbB3OJF48eBFwfOb6RsWuhKsljrMpiHQPufZH1v/6YbbyiU4svbWtIqXxBoHvk2mAe/VA71qB+TwEZu4S8eewdb4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--wfelipe.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=ND4M2+vZ; arc=none smtp.client-ip=209.85.215.198
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--wfelipe.bounces.google.com
+	s=arc-20240116; t=1788564226; c=relaxed/simple;
+	bh=1D/6Tr5xBcXUuHizxCrM5fO+eUcmJoNR2aK9tSGyl/k=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=s8mcADI1EeMH2bubjHvFJk3oQarEDc/NBH3dffMOBcr+E2jeL9hfu3cLX4Z9nAyhdR+jDL+0a3Y5L5mOzKaOERiDVPy8RQ3A4zeBLO5nzZTbHZSetjKtUfUb7wRSXOvdBczw0lqS+mwfMpEOkQDH4xAj38APUqCrUaoieO1y+qM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=everpuredata.com; spf=pass smtp.mailfrom=everpuredata.com; dkim=pass (2048-bit key) header.d=everpuredata.com header.i=@everpuredata.com header.b=yAE/0u7+; arc=none smtp.client-ip=209.85.210.225
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=everpuredata.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=everpuredata.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="ND4M2+vZ"
-Received: by mail-pg1-f198.google.com with SMTP id 41be03b00d2f7-cc1bbd7d6e6so1818266a12.3
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 16:21:11 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=everpuredata.com header.i=@everpuredata.com header.b="yAE/0u7+"
+Received: by mail-pf1-f225.google.com with SMTP id d2e1a72fcca58-8485b358552so1358622b3a.2
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 16:23:45 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1788564071; x=1789168871; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=kJKXKrq7yq1xNiVeL0CLanUf8ioKHs425feCWZPQVgw=;
-        b=ND4M2+vZdFm9W0d51U0QYmp98IytRX4m+1QwNh8iOcLVt3aLaUQJplExuzSvhHRqEF
-         d7GDXosFTQdMnrrBh8rPonBzuuaSiMqsiH2DgCmm3fsQCXozk5cD6I7828KBYtKCDHTj
-         Rw1x2DlZS5ps0uXcvb771lhbrNJ4kN3ZZX26K+iAJe7UoRPBIxs6n9q7cHM9WHnKUXJu
-         pfYedN5ErX8KBEX0Y3UBNYu3pC1Scq1mFqRo9D2ntnpMNAGiBdMaFrHkg3ZagJzcamnd
-         SzkQWZWeYE1wvPSnBml94rCSYY5MFwFud9WLivoxrbmrnOUbA77C8gWrUNa6nJrBuZw+
-         +jSQ==
+        d=everpuredata.com; s=google; t=1788564224; x=1789169024; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=1D/6Tr5xBcXUuHizxCrM5fO+eUcmJoNR2aK9tSGyl/k=;
+        b=yAE/0u7+VHGr4bWCbQNrzOItj33W7N4Ee3rgPgfi/NnNKw+gYNmyJq2lHHmN3sYeHe
+         Q1Dcm/52Vb+E02e+3DQbMRaOP+JPdOVFYG9tCL3NTjqjfTdF20tJtbCf/rltRTykSCXP
+         qfULlKkb/ljU8wRa/Oy0bZhOcqEOaZYohIDCLW5LfoDrYpkzR+D+rWCmn3SbKSa1uL2t
+         1bS4sPJ0Tq1C25Skc+Pq5qBZVnUJWN0urOdSDND4y1aV8rRww3bDYdbwlflanwa67mGP
+         AQ62U+H7Spc7pfbS0NEmODLfl4nob17Vc7H2T+oQ4j0BBrtzMohC418QFNNbWzapLMYZ
+         nqCw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788564071; x=1789168871;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=kJKXKrq7yq1xNiVeL0CLanUf8ioKHs425feCWZPQVgw=;
-        b=kC9pgo5RARBEWaDy+KRVOxic9katSgw4kjGCmNbF8GzhUWaI+syYHG/amvboJSqUIe
-         FgCQkYCjNzKHgRB/QsdBusnCTpvXFou+uyTc+ZOeejeeY1HIvDthGXzg/pD6U2Ls8/e9
-         N3gSY0nfTmQL5dLwHi+a0m6lnn2G0e0L8xWeh8J2Wb/nCPnrT+BSFyxViyEH/xTOwVYz
-         Swjaf8+ZnWyXKy3EwcNAyktIxC56m9SlQ1sQrHt/Us7ijBOgrFDzkM1yIg93RQBQbC4g
-         EuHYm6EI/fFj+sFTDjGcsYTQXFajUeztw9NHf+PRN9xGQ1cO0+3a/zkGj56saTq+TtX8
-         2KHg==
-X-Forwarded-Encrypted: i=1; AKwUvBwYQeFE9nOSPn1qjX/xpcfqcoHE9uxZbMppJlQhwEX79QdQzKUHFMLWGMZKpRsFvffQbZHrG0CrRP/bdxk=@vger.kernel.org
-X-Gm-Message-State: AFuF++m5uXin/ZlwldzMqD7dfr6Ln2aCZFIOIQLI+yeo/okxesouX2vj
-	Nq5A8eWVXO0Wa5kzIcgp38Q88Z1SPSZOBhm0TRT2wXG3wZUka70ECBu5FgHPttSnIh/rQhU+nMc
-	WiRLsqwbm7A==
-X-Received: from pfux26.prod.google.com ([2002:a05:6a00:bda:b0:84e:1951:8efd])
- (user=wfelipe job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a00:8009:b0:852:3726:dfde
- with SMTP id d2e1a72fcca58-8616809429bmr12694250b3a.9.1788564071116; Fri, 04
- Sep 2026 16:21:11 -0700 (PDT)
-Date: Fri,  4 Sep 2026 23:20:47 +0000
+        d=1e100.net; s=20251104; t=1788564224; x=1789169024;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=1D/6Tr5xBcXUuHizxCrM5fO+eUcmJoNR2aK9tSGyl/k=;
+        b=P6e5RLT5Db92ybHgomcx274cIa7LDGtsW2jj+4rU1LZS1f4FPtBR/z17RP/LUcfqcC
+         uOA2NDiwXdAEaqR8cwz3f3IvchaZZqtXyYKhQLx4xWsDsg6DLQz59q0zcZeBdDKoBXlS
+         a1dsIpr9dWNn2XhvlZHLfJUN1E9bcic/JmeOQ0TaGyFJCLOSXdykI/o13iO4INCh3qz2
+         fhgW8K+zpsSww8pW3VNLuWQLFK0u9ICkrypOuuxuNxl1NozCH7t5Xfr+NV/MKDpmrK9s
+         sDtdOkkLgctgNVLCusnvfqjolT3JcOiBcEbgCkFO0LjRC3UryMjrsZN8u/xB3VfM1uXx
+         MwFA==
+X-Forwarded-Encrypted: i=1; AKwUvBzP7LAA1cI+muM6DGTkCeN7M0EfUh2MLrGUypVUFDFi4jT3gW11PDXSv54+pycsR96bJmJhPkl5ciUzZ60=@vger.kernel.org
+X-Gm-Message-State: AFuF++n0XqQqjh1UFpnQgOT4n9OCvcdS2Yf6KYMCpskZScbNTUPKewKz
+	AoefXD8/VPk8ro5ncoQ/gg9ecWyw1OU8c/TUiSPpxCdxDEir/PQe/aXq6WqdKH6y9xgWTNihD91
+	v78g9xvKYlsNJZjJtWd81Mus8O00FgQFkdHNO
+X-Gm-Gg: AYBFou1PNa6Kx2O7Pv4xCkET0bQBDZHgIakpMVf+dASWtKoChpT9MdYT8r0k/+oXM3e
+	0k/Uv580hnCEGg57m+qsWBg/TRmyCObqg/JIeKT8/GgblvY5AKi/1EziEH8yErhQG7d8Yx02kVQ
+	CliVdm2QNHNB6NnbK4q866LSMwvn6+FV2oJiCBLh8B4Al0Uupct1dBll7eqi2LZ/qogZgAwFzWh
+	YamJzPvHPHXlvd18jKucC6/QtKMa558CVT63yQ1wyR9Yz0xOVZrVeHnY7q+2HLSEO02hKxs3y63
+	I6F+bmEUF8AbSQizd+n1Hz1lwCYTg5yFiC2U2vNVtXXoOVjnuBVVzIVLcXbkYG8iXtnJN74JNRI
+	3RIut7DFD1Zlf7eE+fKOKCXyW9U5K2sHaKmiES4E=
+X-Received: by 2002:a05:6a00:2c94:b0:848:3f07:c5a2 with SMTP id d2e1a72fcca58-86167aab584mr11848768b3a.4.1788564224491;
+        Fri, 04 Sep 2026 16:23:44 -0700 (PDT)
+Received: from c14-smtp-2023.dev.purestorage.com ([208.88.158.129])
+        by smtp-relay.gmail.com with ESMTPS id d2e1a72fcca58-86150750808sm1257514b3a.4.2026.09.04.16.23.43
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 04 Sep 2026 16:23:44 -0700 (PDT)
+X-Relaying-Domain: everpuredata.com
+Received: from irdv-tmenninger.dev.purestorage.com (irdv-tmenninger.dev.purestorage.com [10.32.149.15])
+	by c14-smtp-2023.dev.purestorage.com (Postfix) with ESMTPS id 0239C340200;
+	Fri,  4 Sep 2026 16:23:43 -0700 (PDT)
+From: Tim Menninger <tmenninger@everpuredata.com>
+To: Chuck Lever <cel@kernel.org>
+Cc: Trond Myklebust <trondmy@kernel.org>,
+	Anna Schumaker <anna@kernel.org>,
+	Tejun Heo <tj@kernel.org>,
+	Lai Jiangshan <jiangshanlai@gmail.com>,
+	linux-nfs@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Eric Badger <ebadger@everpuredata.com>,
+	Jon Curley <jcurley@everpuredata.com>
+Subject: Re: [PATCH RFC 6/8] SUNRPC: Reduce rpciod workqueue contention
+Date: Fri,  4 Sep 2026 23:23:42 +0000
+Message-Id: <20260904232342.1907377-1-tmenninger@everpuredata.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <336623df-ead4-4802-91c5-aa3e785f2971@slotpi15m67>
+References: <336623df-ead4-4802-91c5-aa3e785f2971@slotpi15m67>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-X-Mailer: git-send-email 2.55.0.979.g7e5102b832-goog
-Message-ID: <20260904232108.3034333-1-wfelipe@google.com>
-Subject: [PATCH] mm/zswap: convert zswap_store_page() and zswap_compress() to
- take a folio
-From: Wilson Felipe Pereira <wfelipe@google.com>
-To: Johannes Weiner <hannes@cmpxchg.org>, Yosry Ahmed <yosry@kernel.org>, Nhat Pham <nphamcs@gmail.com>, 
-	Chengming Zhou <chengming.zhou@linux.dev>, Andrew Morton <akpm@linux-foundation.org>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	Wilson Felipe Pereira <wfelipe@google.com>
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Currently, zswap_store() iterates through a folio and extracts individual
-struct page pointers using folio_page() to pass into zswap_store_page()
-and zswap_compress().
+I realized the bad state correlates with where the RDMA CQs' completion
+work runs.
 
-Pass the folio and the page index directly into these functions instead.
-This eliminates the need to materialize struct page pointers inside the
-zswap_store() loop and replaces legacy page-based accessors with their
-folio equivalents:
+This client has 16 RDMA transports and 32 CQs. The CQs receive 32
+consecutive completion vectors out of the mlx5 device's 63-vector ring.
+Depending on the global round-robin starting point, all 32 CQ workers can
+execute on NUMA node 0, or they can split 17/15 between the two NUMA nodes.
 
-- sg_set_page() -> sg_set_folio()
-- kmap_local_page() -> kmap_local_folio()
-- page_to_nid() -> folio_nid()
-- page_swap_entry() -> calculated via folio->swap and index
+On unpatched mainline (940de590b839 without your patch set), I tested five
+consecutive allocation windows. On three of those, all 32 CQs executed on
+NUMA node 0. On the other two they fell with a 17/15 split. All five
+sustained ~46 GB/s.
 
-Signed-off-by: Wilson Felipe Pereira <wfelipe@google.com>
----
- mm/zswap.c | 26 ++++++++++++--------------
- 1 file changed, 12 insertions(+), 14 deletions(-)
+With your v2 applied, all-local windows fall to roughly 24-28 GB/s while
+split windows sustain ~46 GB/s.
 
-diff --git a/mm/zswap.c b/mm/zswap.c
-index 37f34e406c8e..225308c195c7 100644
---- a/mm/zswap.c
-+++ b/mm/zswap.c
-@@ -837,8 +837,8 @@ static int zswap_cpu_comp_prepare(unsigned int cpu, struct hlist_node *node)
- 	return ret;
- }
- 
--static bool zswap_compress(struct page *page, struct zswap_entry *entry,
--			   struct zswap_pool *pool)
-+static bool zswap_compress(struct folio *folio, long index,
-+			   struct zswap_entry *entry, struct zswap_pool *pool)
- {
- 	struct crypto_acomp_ctx *acomp_ctx;
- 	struct scatterlist input, output;
-@@ -854,7 +854,7 @@ static bool zswap_compress(struct page *page, struct zswap_entry *entry,
- 
- 	dst = acomp_ctx->buffer;
- 	sg_init_table(&input, 1);
--	sg_set_page(&input, page, PAGE_SIZE, 0);
-+	sg_set_folio(&input, folio, PAGE_SIZE, index * PAGE_SIZE);
- 
- 	sg_init_one(&output, dst, PAGE_SIZE);
- 	acomp_request_set_params(acomp_ctx->req, &input, &output, PAGE_SIZE, dlen);
-@@ -883,8 +883,7 @@ static bool zswap_compress(struct page *page, struct zswap_entry *entry,
- 	 */
- 	if (comp_ret || !dlen || dlen >= PAGE_SIZE) {
- 		rcu_read_lock();
--		if (!mem_cgroup_zswap_writeback_enabled(
--					folio_memcg(page_folio(page)))) {
-+		if (!mem_cgroup_zswap_writeback_enabled(folio_memcg(folio))) {
- 			rcu_read_unlock();
- 			comp_ret = comp_ret ? comp_ret : -EINVAL;
- 			goto unlock;
-@@ -892,12 +891,12 @@ static bool zswap_compress(struct page *page, struct zswap_entry *entry,
- 		rcu_read_unlock();
- 		comp_ret = 0;
- 		dlen = PAGE_SIZE;
--		dst = kmap_local_page(page);
-+		dst = kmap_local_folio(folio, index * PAGE_SIZE);
- 		mapped = true;
- 	}
- 
- 	gfp = GFP_NOWAIT | __GFP_NORETRY | __GFP_HIGHMEM | __GFP_MOVABLE;
--	handle = zs_malloc(pool->zs_pool, dlen, gfp, page_to_nid(page));
-+	handle = zs_malloc(pool->zs_pool, dlen, gfp, folio_nid(folio));
- 	if (IS_ERR_VALUE(handle)) {
- 		alloc_ret = PTR_ERR((void *)handle);
- 		goto unlock;
-@@ -1405,21 +1404,22 @@ static void shrink_worker(struct work_struct *w)
- * main API
- **********************************/
- 
--static bool zswap_store_page(struct page *page,
-+static bool zswap_store_page(struct folio *folio, long index,
- 			     struct obj_cgroup *objcg,
- 			     struct zswap_pool *pool)
- {
--	swp_entry_t page_swpentry = page_swap_entry(page);
-+	swp_entry_t page_swpentry = swp_entry(swp_type(folio->swap),
-+					      swp_offset(folio->swap) + index);
- 	struct zswap_entry *entry, *old;
- 
- 	/* allocate entry */
--	entry = zswap_entry_cache_alloc(GFP_KERNEL, page_to_nid(page));
-+	entry = zswap_entry_cache_alloc(GFP_KERNEL, folio_nid(folio));
- 	if (!entry) {
- 		zswap_reject_kmemcache_fail++;
- 		return false;
- 	}
- 
--	if (!zswap_compress(page, entry, pool))
-+	if (!zswap_compress(folio, index, entry, pool))
- 		goto compress_failed;
- 
- 	old = xa_store(swap_zswap_tree(page_swpentry),
-@@ -1528,9 +1528,7 @@ bool zswap_store(struct folio *folio)
- 	}
- 
- 	for (index = 0; index < nr_pages; ++index) {
--		struct page *page = folio_page(folio, index);
--
--		if (!zswap_store_page(page, objcg, pool))
-+		if (!zswap_store_page(folio, index, objcg, pool))
- 			goto put_pool;
- 	}
- 
--- 
-2.55.0.979.g7e5102b832-goog
+I also tested this by changing only mlx5 IRQ affinity. I redirected
+completion vectors 20-34 from node 0 to CPUs 24-38 on node 1. CQ allocation
+windows 5-36 and 6-37, which would otherwise be entirely local and slow,
+then sustained ~46 GB/s with their CQs split 17/15 across the nodes.
 
+So the CQ allocation determines whether the regression is exposed, but
+mainline is insensitive to that placement. The series introduces the
+performance sensitivity. This also explains why v2 appeared
+nondeterministic with respect to the rpciod affinity scope alone.
