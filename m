@@ -1,55 +1,74 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail-4319.protonmail.ch (mail-4319.protonmail.ch [185.70.43.19])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD08E38AC65;
-	Fri,  4 Sep 2026 05:48:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 006A737C106;
+	Fri,  4 Sep 2026 05:48:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.19
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788500885; cv=none; b=ptkfEbGEstGDwMpV949LaPEZ9UwxHlIhoY8qe4D66NCLQK/aEbPIlFCKQaBLNwI602ERTereEgltFBI7toB3SFpruwmghhgdAV0tuFVhHeypqOkxGsPXIyVKKr0/xsQGaZyL21W8fXu64wR8MXihjs+B+R/CJ+dIYZM5qjZwqo0=
+	t=1788500900; cv=none; b=N1afhmNTVb1WLb+SbRSlQtDkSr7sqnnyV59m3O4amXDOjfZrXMyZ1+OfWYHw4BPWdsOvc4c50Pg2WMO01XFvKvnrNBC0Aue8Wn+WWYHwPPHZZ8xO7wjHvY4CVwJ33VwWdgTkib9LgGOvL+7OSNoST3cDzOKW7qVLdIgSlEAr+Vs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788500885; c=relaxed/simple;
-	bh=W8RBbz+XXrNAiGf0dEzEa5e85chLBxyTzdi8DHtfQW4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Dq04kRW6ObBNo/GIjqN3XGiUm0uFC9dhzjHxHm+xbWDQMDnWgGtglTlm+oDibxvoh2hRaiZhJCiDeqS6hfacggcbzVOY6tfn2TvEC2XeTI/kYoakf38nSKAfWxvzXs9Cuq90DRTc6sDBzcYqJm/Dmbwd2ChYr73Vv33i7/MjldA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=szp/19aX; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788500900; c=relaxed/simple;
+	bh=nTRG8ZSZ4H/hiNYQ88c54TfPICLXerjHa8lyT2x1eog=;
+	h=Date:To:From:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=SquGRE1R4YqvdQAAaJ7IK2S7ovHsx5Ff4gRnsmsFFrxqycVJSxdjPACda+zOig9Y3KS6s5z5L2XbwtO3PdMsRKzb1z9UX1UUS1+dGSuwJWfWMEwiOYQZ0EZmvlDNb9N7I2/whXCwl1f4aF8bK4VU1lOBqnKhJtruzx7c8hPDd9k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me; spf=pass smtp.mailfrom=proton.me; dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b=iG/nZC+r; arc=none smtp.client-ip=185.70.43.19
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="szp/19aX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 258C61F00A3E;
-	Fri,  4 Sep 2026 05:48:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788500884;
-	bh=PMYXTVjEdcDWnPvOcERCkaaUJnBRor3Y/ruS6Wk04hU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=szp/19aXtJ5IfHSljqrd/seeVkBGTAg5o6/Nys436Ig6WYSQlp4fLsMpMNTNvwSDP
-	 yIOB2nDZOm3n1hAsWuN0tZhpdVSEY0eqzzjy6e1Aav9FKr9NKEyKP2r3YQpgJpEFqn
-	 RsMfiU0nuGX79TkBk4sztjcB2vWY8uVfVEOg0EFc=
-Date: Fri, 4 Sep 2026 07:46:20 +0200
-From: Greg KH <gregkh@linuxfoundation.org>
-To: Suraj Theekshana <surajtheekshana1111@gmail.com>
-Cc: vireshk@kernel.org, johan@kernel.org, elder@kernel.org,
-	greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] greybus: cap: bound IMS/auth memcpy to ioctl size
-Message-ID: <2026090450-prolonged-tucking-0a55@gregkh>
-References: <20260904034628.12376-1-surajtheekshana1111@gmail.com>
- <2026090416-humbly-remix-5d86@gregkh>
- <CA+_JcNRPo1dojU4EmegM5Fv-YpZqiyd_K7SRz8km1VzzPv2nMw@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b="iG/nZC+r"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
+	s=protonmail; t=1788500887; x=1788760087;
+	bh=kEUTSb9f+CkR7/rItg94sgkcqIObQKv/H0yUJzqRSp0=;
+	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=iG/nZC+rYj50IwFjr37KRIVc7vj8CATlrdlBzzBbKXaoNqMibXhrU4brpIwWgqJxX
+	 fgMZETyDf3egWQPe5Cpuy7wo4sXguFnNEh+5+QE5hXoVX+T3blDvdzmzniInnA5v3N
+	 VojCyF1txLU5NkKHDH+Ivn8Hv1HCxMfCmAQGPEUTyT8y4W9pvwH/pr5ZMPL/cu0JVj
+	 xMzVIk02XBDRXzLmgEt1DYgoiwlHva5RKlrOID77Mx/5/fg87MH65oRQ1optLKRicu
+	 fmtEEJhco0fyHY0ErZOQAhXBkSlZvsUmpnnDn57URiuztts9TSkeXbp2ig402oaTjX
+	 Mro7sj3AYK5Wg==
+Date: Fri, 04 Sep 2026 05:48:04 +0000
+To: "gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>
+From: contectforbusiness@proton.me
+Cc: "sudipm.mukherjee@gmail.com" <sudipm.mukherjee@gmail.com>, "teddy.wang@siliconmotion.com" <teddy.wang@siliconmotion.com>, "linux-fbdev@vger.kernel.org" <linux-fbdev@vger.kernel.org>, "linux-staging@lists.linux.dev" <linux-staging@lists.linux.dev>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: [PATCH 1/2] staging: sm750fb: make g_fbmode const to fix checkpatch warning
+Message-ID: <KW1s60gR5As9PdhLGq5MQYR9QPxr-tCZUn_dxvjME1PM6lW4ilRIG0gq8mbir7y9oBSlnEIhPq-EkEjHkruVnDNZpsJ-2OF2OIAEZLEZs7E=@proton.me>
+Feedback-ID: 147676893:user:proton
+X-Pm-Message-ID: f04f51274e6fa22ad2180c7eebb231b8a723548c
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CA+_JcNRPo1dojU4EmegM5Fv-YpZqiyd_K7SRz8km1VzzPv2nMw@mail.gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On Fri, Sep 04, 2026 at 10:54:49AM +0530, Suraj Theekshana wrote:
-> Hello Greg,
+checkpatch reports:
 
-Sorry, but the mailing list rejects html emails, please fix your email
-client and try again?  Also, please try to not top-post.
+  WARNING: static const char * array should probably be
+  static const char * const
 
-thanks,
+g_fbmode is never modified, so make the pointers const as well.
+This quiets the warning and makes the intent clearer.
 
-greg k-h
+No functional change.
+
+Signed-off-by: Vaibhav <contectforbusiness@proton.me>
+---
+ drivers/staging/sm750fb/sm750.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/staging/sm750fb/sm750.c b/drivers/staging/sm750fb/sm75=
+0.c
+index 039e2033f..f731ef53e 100644
+--- a/drivers/staging/sm750fb/sm750.c
++++ b/drivers/staging/sm750fb/sm750.c
+@@ -12,7 +12,7 @@
+ static int g_hwcursor =3D 1;
+ static int g_noaccel __ro_after_init;
+ static int g_nomtrr __ro_after_init;
+-static const char *g_fbmode[] =3D {NULL, NULL};
++static const char * const g_fbmode[] =3D {NULL, NULL};
+ static const char *g_def_fbmode =3D "1024x768-32@60";
+ static char *g_settings;
+ static int g_dualview __ro_after_init;
