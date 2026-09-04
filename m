@@ -1,109 +1,175 @@
-Received: from mail-pg1-f175.google.com (mail-pg1-f175.google.com [209.85.215.175])
+Received: from mail-wm2-f10.google.com (mail-wm2-f10.google.com [74.125.225.138])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF3EE470456
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 10:49:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.175
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C946445AFC
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 10:49:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.138
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788518966; cv=none; b=eNrz3eqIplrbYpTycsZ4XGm7LfnJxV/eM39Z60zxoOWnqftR8WNhOWp/C8MquOqcxVfV5lXN2Ai6PsyoeR5XBKhybCZxY4RHJYaNxYhEB3RcMku2KPezrWbj4LUu+iD7HhRjGdB1G7oSYMs2bY4PWGx3uIJ68UzSfunw8n93euo=
+	t=1788518987; cv=none; b=NpGBU7Xn7ZLqOHtxFKj4m72HeKFc9V8IL3YadC1ZAx77LNebt3Ldo6U9axp53pwl2O7rvN3JnvehRxvZYdYpXKdhWk2UxTdh36kYfXV/6ZccjMoxMBymaP73rtmoLlI/PSmAhPw5brjZj/mvxbT4dHHApvAaW1CfcG6Ir3gy8G4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788518966; c=relaxed/simple;
-	bh=eaDqc+KS2JyPXBBj+soX3Rz5sKCo5S+dz6ZJuOsKyU0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Ea94hT6x74duON9YGzCBcung247fxagYX6LoOsJlwSvfPYequ6wLRylk5riK8tbj9feZ5CLRBO00R4JMcLP1ykt4oDSy+rO4PtsJvInzNoxgv2NfxvYmyUfly2udh9fksaxxrDemaFuqmd1QXAVU2TZedX0KVeR9RZXusGPDIVo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YiL0kLQ9; arc=none smtp.client-ip=209.85.215.175
+	s=arc-20240116; t=1788518987; c=relaxed/simple;
+	bh=14oWaO8y6kGduZOTbJrPXUHKyBBu9i5dpXXvYnAKRSM=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Subject:From:To:Cc:
+	 References:In-Reply-To; b=a8TPuL+vCkxiEFwIT3ZcpId3ruOPxmiKpurgLpfuR0KqraLbaSEZFHsmmn3c3+53UKcw9deAsD9DykPbJjOeQeivVxvXmnBoVrL8vPGefsDwkmckMwE8v6SSnp7KUyazABwdG6CYmoVt9EhEIKLhtFyDdH61JPfuV+m0QbUn/rk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bIORgWTR; arc=none smtp.client-ip=74.125.225.138
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YiL0kLQ9"
-Received: by mail-pg1-f175.google.com with SMTP id 41be03b00d2f7-cc1c7364550so1089316a12.1
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 03:49:23 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bIORgWTR"
+Received: by mail-wm2-f10.google.com with SMTP id 5b1f17b1804b1-49b92ccb8e0so2629255e9.1
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 03:49:45 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788518963; x=1789123763; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=+p3qhdKCBh5IlPhZs/uQwjI5uPM2Gq0BK3muJ2QsC0g=;
-        b=YiL0kLQ9FWlmXhT0N8g0TL7QSNZ/pRTBxt7vzx7ntoG8JHRZ9URY0gYX8aOSrE86+3
-         j7LBnM4TlvGqev0h7CBMip7Z1IqVcTi4jMPGnKkLXrtTSYOqnJHCvBclQLSRGU9t0AWU
-         fw7OHBO2uGg9KgvpfgB+kBTc68l9/21rKVNnpLnRlg54OfCic4BPQMaksP+DH53epPj0
-         jsHQWps6/1gZVPxcjsoLXG4cBsRv7M6n1QUkRDqDp2s8gxZhV0himcpXbY3/3cr35Rlg
-         5yhYu5CQ/USouBdk9d0fAcq+LhihyEt5YZN7poODF7BIlTGQEInFwwHTrHnQojfdDfOM
-         KnZA==
+        d=gmail.com; s=20251104; t=1788518984; x=1789123784; darn=vger.kernel.org;
+        h=in-reply-to:references:cc:to:from:subject:message-id:date
+         :content-type:content-transfer-encoding:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=R3u9g8flI7rRarp9QuZV2hara4otiGm0KnyRuI1Bei8=;
+        b=bIORgWTRvmWjQSxSXxLvJxYYovQvEDHq2HnOUeNQtouc8LdXexBsJh9l2mOtqzqMBm
+         +Ic7jcmbtp4Y2pj1vqYtPiJtTobfTbRDgSgx0l9Kmyr7k229qbc2v9YKsJ+wLwh+6iXT
+         /t49JXB2swCnHIBNbHgbevKa1qQ4SgQZ3pkmKvghB9f3YNR8n6SmekCpGfHrOGUf4ekO
+         nnMNHhMa1/hRm0X6RfC4egbmEkkWnh+UWw42b3aZRl2pnYl+jyStUVUUbcJ/fLVhS7E1
+         FFgCttQvDdXrpPiP+O1gQ/6ZuR34mHoYcN6jN5qmFmidtzYzXzoip6jCGksl3zcGogPe
+         CBEg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788518963; x=1789123763;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=+p3qhdKCBh5IlPhZs/uQwjI5uPM2Gq0BK3muJ2QsC0g=;
-        b=bGH/UVI65LUa+bknoqsi1JlP25XcTrNEaBsDHjLWN8ZSPUbZn/A8UVmRZHLle4xafA
-         uOKBjIEEguSpQ+61flkRnEFYzp0UACaYvxFDOZHRO6R/viCQGzAxmBvn2qWPRF6axb8N
-         JQtTtc/ndOy11mIGoa/Mqq43Fgq03dqhtxNQsL7ouisQ1I8Aj2owZ7ZPg2mWN+qPJscR
-         MqxTFKhX/q7UNMgzjHewyYmvw4G1mt/lXdMUoesBW5L2zgDtnY+OW72nW9kr2KLskrLK
-         eTf/AqNrkbBdF/xIlmTZe2INYLt6G+WWfzhXeDUUvMuZ+Av0X8io8RRYw4rNLVzNiBiK
-         2gFg==
-X-Gm-Message-State: AFuF++lbgD+pkcWbeMRVOWYKwxacY8JOXeZritzPy6G1xJRIMp3Jh1vC
-	lrtOfwjUzlzJ0QBq6FubPApFrgOjxVw5FlIajV75g8NFucFne+m197Ft
-X-Gm-Gg: AYBFou1Qf/1emxLxKnvuMlOJ87POoL9Jaqe6UgHseZFyxY8R6lW5XfPLQGQzP6cDYdJ
-	XDVv6N6mQJ7/FrrORKDLnlIp5Xao6GQpZIrHubIsTzBaz2yiH0YJSBciRVoDe3JjMNDAQY+dZ6H
-	WgL8rI8hewOLiO+ddags/xKdUK7ewQPgCvYGBXANxEi6i24Q6R24hM1zPELYYYCLbJUsvFmO1Pw
-	SjQKhi19IJmb//M7SiF3vFTozOt+JSh9OOlsiTK17GYZvPAyZsMZaySO3BlECqbXm1U6nROyGC7
-	/CSiyyOD3wI/Q1fd3bBCkKriTI78kGSfdo4urWDlsfe3nLzaSdMu58SJ4RI5yHyfokX5mxAaAuM
-	FDbI5podx0KH6tGOv3rO1ViDDMS6mRrYYUF6sfo+jN5KRoPGp858Quh20vMWfeluJ6WjUFTEaRc
-	rX3cY/aYenRR25l435+kelspVHIAsVBLpbVttYKIMlwBTvxr0ass60NhsvCRFws+NPD1tIHnxjE
-	eY5KXaOnNaC9c7a80MDY7nDtgc=
-X-Received: by 2002:a17:90b:3ccf:b0:399:ea1:5a82 with SMTP id 98e67ed59e1d1-39b26101277mr6729394a91.3.1788518962867;
-        Fri, 04 Sep 2026 03:49:22 -0700 (PDT)
-Received: from volcano9f6e-hostos.amd.com ([165.204.217.251])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339af25062sm8583927eec.16.2026.09.04.03.49.19
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 04 Sep 2026 03:49:22 -0700 (PDT)
-From: Hemanth Selam <hemanth.selam@gmail.com>
-To: Andrew Morton <akpm@linux-foundation.org>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Jann Horn <jannh@google.com>,
-	Pedro Falcato <pfalcato@suse.de>
-Cc: linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org
-Subject: [PATCH 5/5] tools/testing: fix typo "mergable" in comment
-Date: Fri,  4 Sep 2026 16:18:50 +0530
-Message-ID: <20260904104854.25272-6-hemanth.selam@gmail.com>
-X-Mailer: git-send-email 2.48.1
-In-Reply-To: <20260904104854.25272-1-hemanth.selam@gmail.com>
-References: <20260904104854.25272-1-hemanth.selam@gmail.com>
+        d=1e100.net; s=20251104; t=1788518984; x=1789123784;
+        h=in-reply-to:references:cc:to:from:subject:message-id:date
+         :content-type:content-transfer-encoding:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=R3u9g8flI7rRarp9QuZV2hara4otiGm0KnyRuI1Bei8=;
+        b=Q+iHUgpns1VBo3rUTlkgYtRKPwsWu6G9BfDOjySq1GEbrfYK8w5TiG7e270Yt+Yu9A
+         Cx6Kol5HE2xM0eZqiAxJye+1YrdQ+erFSM2Aw6q2C5Jm7UGVTSPCV08xsezzmx6qFnQM
+         ZweOw+7O5SRLT0HgDfaZmfEFwKDrC/Gel3SOG+mkgW0rlD6vbSqhEChzMQpt88akrFq/
+         P6EcylJ2l4nbmDG06rDpbQ0ic0wq1uzMD0SA0KDcSZZ2ukN8Mpx142yBwWCOLNT+fzLv
+         D170tGa9bjc7VKrJUUNDWcMOwLughGbfMa93rhW15wlzzCQTPGQ9ZWPtWfE3bgekEt0M
+         4uuw==
+X-Gm-Message-State: AFuF++lxpw6/KHg7nAmoaXlCJ1Z/ftPF81XARDF2FNxvujlwad/RALxm
+	cNKMFuBTkc0f2Tp2qnVqydAQ5mFoZOXD4afNvaGc1/5YszimZ7xYoF/2
+X-Gm-Gg: AYBFou1E7Yn9gcYSu7eyCCbcZGaS9uJbO2JQI0OlCMVgGaQZ3dVHcXMxKKy+1IATNni
+	sMzAAQqZB+0hnqJyapKd4udYnJeVK8MsR8bDz5k9nHkyi2OH37Re6mZ+WTx7+Lk2G3D6b7nNv06
+	EfysIbYUaogU1ommCF0U5Nt1I62BjD557ZWUyjH70AZkh0m3C28/2nm2KFP1g0ImMMjXI9XpAX7
+	2jE/S7I0QkLmB2HOCCSynwZ3/Ky4A/KfGeaQVrf64TLf7p2ZJz7Vz74OAtmGzORusPpMNabdzJo
+	bEd7ufqZcPnEoOK6NVkJnNS+h5rw84whGsQtMB24gl6bEok2/aBqbmQei0aXKtG7x/UfT+kVTaL
+	l3VAoYHiYPqvHDnitaInODH5RYxFQVOuaadQi/ShhLh8setvr17eoz0/Bt+A9+nFkop30c5uJgj
+	3FMK12dpmteTvBSarJtLr9jbu5S9uJFc3+hHsl/HpxCVHVK4Q0U1RuJd9uPqGcbgG8e8E+4zIXI
+	LpKYTiDYFHTa4OmkjErlukewFSA3lgYxNu/O3/vcqvnCtnMxApLgO98oCbRJXNBECEIhcs9Fkji
+	8lQ+8skVkMM4AOYI8tHZwktWaM4=
+X-Received: by 2002:a05:600c:46d1:b0:493:bd2a:93be with SMTP id 5b1f17b1804b1-49cf820c992mr53868815e9.6.1788518983443;
+        Fri, 04 Sep 2026 03:49:43 -0700 (PDT)
+Received: from localhost (nat-icclus-192-26-29-3.epfl.ch. [192.26.29.3])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cee80eda4sm141983635e9.15.2026.09.04.03.49.42
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 04 Sep 2026 03:49:42 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Fri, 04 Sep 2026 12:49:42 +0200
+Message-Id: <DL6H2DO8O3BZ.3CU50815EL05A@gmail.com>
+Subject: Re: [PATCH bpf-next v3 0/4] bpf: Cancel special fields in resizable
+ hashtab on recycle
+From: "Kumar Kartikeya Dwivedi" <memxor@gmail.com>
+To: <chenyuan_fl@163.com>, <bpf@vger.kernel.org>
+Cc: <linux-kernel@vger.kernel.org>, <linux-kselftest@vger.kernel.org>,
+ "Mykyta Yatsenko" <mykyta.yatsenko5@gmail.com>, "Alexei Starovoitov"
+ <ast@kernel.org>, "Daniel Borkmann" <daniel@iogearbox.net>, "Andrii
+ Nakryiko" <andrii@kernel.org>, "Eduard Zingerman" <eddyz87@gmail.com>,
+ "Martin KaFai Lau" <martin.lau@linux.dev>, "Emil Tsalapatis"
+ <emil@etsalapatis.com>, "Ihor Solodrai" <ihor.solodrai@linux.dev>, "Shuah
+ Khan" <shuah@kernel.org>, "Nuoqi Gui" <gnq25@mails.tsinghua.edu.cn>, "Yuan
+ Chen" <chenyuan@kylinos.cn>
+X-Mailer: aerc 0.21.0
+References: <0560a24d-2cf9-4e5b-aa61-580af1e56de1@gmail.com>
+ <20260901062845.1379760-1-chenyuan_fl@163.com>
+In-Reply-To: <20260901062845.1379760-1-chenyuan_fl@163.com>
 
-Correct "mergable" to "mergeable", reported by scripts/checkpatch.pl using
-the misspelling list in scripts/spelling.txt.  Only touches comments, no
-code changes.
+On Tue Sep 1, 2026 at 8:28 AM CEST, chenyuan_fl wrote:
+> From: Yuan Chen <chenyuan@kylinos.cn>
+>
+> v3 addresses Mykyta's review of v2 [3]. Both comments concern patch 1:
+>
+>   1. "Could you please double check if this is needed at all? I think
+>      bpf_map_free_internal_structs() going to reset special fields to 0,
+>      so immediate reuse by __bpf_async_init(), bpf_task_work_schedule()
+>      correctly identifies fresh fields."
+>      -> Correct: bpf_obj_cancel_fields() resets the timer/workqueue/
+>      task_work slots in place (xchg to NULL in bpf_async_cancel_and_free(=
+)
+>      and bpf_task_work_cancel_and_free()), so no re-initialization is
+>      needed on reuse. rhtab_init_map_value() is dropped entirely; the
+>      element alloc path now matches htab's non-prealloc path
+>      (alloc_htab_elem()), which also performs no explicit init.
+>
+>   2. "Let's directly call bpf_obj_cancel_fields() here and below, so it
+>      is consistent with htab."
+>      -> Done: the rhtab_cancel_fields() wrapper is removed and
+>      rhtab_delete_elem()/rhtab_map_update_existing() call
+>      bpf_obj_cancel_fields() directly.
+>
 
-Assisted-by: Cursor:claude-opus-5
-Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
----
- tools/testing/vma/include/dup.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+I split out two fixes from this, given Nuoqi's patch was already acked befo=
+re, I
+decided to take that one with Mykyta's ack, and also rewrote commit log and
+simplified tests where possible. The remaining issue should be th BTF relat=
+ed
+problem, please send that separately, but also simplify it.
 
-diff --git a/tools/testing/vma/include/dup.h b/tools/testing/vma/include/dup.h
-index 4c58487b764e..302a6774fca5 100644
---- a/tools/testing/vma/include/dup.h
-+++ b/tools/testing/vma/include/dup.h
-@@ -353,7 +353,7 @@ enum {
- #define VMA_ACCESS_FLAGS mk_vma_flags(VMA_READ_BIT, VMA_WRITE_BIT, VMA_EXEC_BIT)
- 
- /*
-- * Special vmas that are non-mergable, non-mlock()able.
-+ * Special vmas that are non-mergeable, non-mlock()able.
-  */
- #define VM_SPECIAL (VM_IO | VM_DONTEXPAND | VM_PFNMAP | VM_MIXEDMAP)
- 
--- 
-2.48.1
+The current fix is too convoluted. Just taking extra map BTF refcount for t=
+he
+dtor record should hopefully suffice.
+
+> The resizable hashtab still eagerly calls bpf_obj_free_fields() on
+> element delete/replace, which runs kptr destructors from the caller's
+> execution context (unsafe in NMI). This follows the existing discussion
+> on RHash special-field recycling (Nuoqi Gui's series [2] and the review
+> [1]): patch 1 applies the cancel semantics like hash/array maps
+> (a3a81d247651); patch 2 fixes a program-BTF use-after-free in the
+> mem-alloc destructor found while testing; patches 3-4 add regression
+> tests (NMI update, and per-field delete/re-insert cycles).
+>
+> Changes since v2 (all from Mykyta's review [3]):
+>
+>   * Drop rhtab_init_map_value(): bpf_obj_cancel_fields() resets the
+>     timer/workqueue/task_work slots to zero on delete, fresh elements
+>     come zeroed from the bpf mem allocator, and kptr slots must stay
+>     untouched, so no re-initialization is needed (matching htab's
+>     non-prealloc path).
+>   * Call bpf_obj_cancel_fields() directly instead of a rhtab-specific
+>     wrapper, consistent with htab.
+>
+> [1] https://lore.kernel.org/bpf/DKEVG8ZVJDDQ.2G40FTOIZKU57@gmail.com/
+> [2] https://lore.kernel.org/bpf/20260726-f01-23-rhash-cancel-bpf-next-v1-=
+0-6e5e1131d885@mails.tsinghua.edu.cn/
+> [3] https://lore.kernel.org/bpf/0560a24d-2cf9-4e5b-aa61-580af1e56de1@gmai=
+l.com/
+>
+> Yuan Chen (4):
+>   bpf: Cancel special fields in resizable hashtab on recycle
+>   bpf: Fix use-after-free of program BTF in mem-alloc destructor
+>   selftests/bpf: Test rhtab kptr recycle from NMI context
+>   selftests/bpf: Test rhtab special-field combinations
+>
+>  kernel/bpf/hashtab.c                               |  98 +++++-
+>  .../selftests/bpf/prog_tests/rhtab_fields.c        | 337 +++++++++++++++=
++++
+>  .../testing/selftests/bpf/prog_tests/rhtab_kptr.c  | 184 ++++++++++
+>  tools/testing/selftests/bpf/progs/rhtab_fields.c   | 378 +++++++++++++++=
+++++++
+>  tools/testing/selftests/bpf/progs/rhtab_kptr.c     | 146 ++++++++
+>  tools/testing/selftests/bpf/rhtab_fields_common.h  |  19 ++
+>  tools/testing/selftests/bpf/rhtab_kptr_common.h    |   6 +
+>  7 files changed, 1152 insertions(+), 16 deletions(-)
+>  create mode 100644 tools/testing/selftests/bpf/prog_tests/rhtab_fields.c
+>  create mode 100644 tools/testing/selftests/bpf/prog_tests/rhtab_kptr.c
+>  create mode 100644 tools/testing/selftests/bpf/progs/rhtab_fields.c
+>  create mode 100644 tools/testing/selftests/bpf/progs/rhtab_kptr.c
+>  create mode 100644 tools/testing/selftests/bpf/rhtab_fields_common.h
+>  create mode 100644 tools/testing/selftests/bpf/rhtab_kptr_common.h
+>
+> --
+> 2.54.0
 
