@@ -1,217 +1,170 @@
-Received: from mta1.migadu.com (out-211.mta1.migadu.com [95.215.58.211])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF2FB3F328A
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 08:39:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.211
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DD1F30D41B
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 08:40:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788511161; cv=none; b=dzXzRTugh1T7vGW+UEJmshM0UQ4uC0+rpWefiVVoneyVxDToiuKwSsoqKYpF7xcil2hIa/1sP9ZTjq9ul4JPRcn2GnmbmB6eJiyB7buLnRLR7etYjpLoxC83yv2FePUF7ztKVZTd4tqWB4a5NQb8aQ1b4jhzEKBDfnU+H+9/gOc=
+	t=1788511205; cv=none; b=mRXqvheYE4i32OuDFejSkKKQD581ybw0Ozr3UpHZBY3N0D30ojoruipqWGAAiJA+dAOdPotxzxefJrhghU7qhjOTocQ8O4BGPBdvFuSitFchsjTTwO8yBKHxEllaLGC05yJ2YfoExvombPBT2+QL6PBT/ZSder4i3dg3uaZ6GrM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788511161; c=relaxed/simple;
-	bh=ez4hNx4DVEe8KBHqNb84IrBjM+F93g8WM7rAblDyLXo=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=HsDjjpbnlB4DlJrxgBgRO6Zmj98aE+I4qcLSznX81SoiTqu1hjLcCmWOt1Pc52NllO9cvi2awTpDpaPcu5F3O5llQkS0G82W8vcRTApVCM9ZoZ/Lu1aVFMLNjThxNbVv7Wh1RBoe5Eku4A3P+uB7TUUssJVI2KN3dwXeqALJx8Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=Nr515e14; arc=none smtp.client-ip=95.215.58.211
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1788511205; c=relaxed/simple;
+	bh=+EFBmrk+lrbYw/pwHAUolLIV5YChYfe8ATnXLmYKc68=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=hLybi63Qt99gixnjk2eB8gatsvoGMd4GZ4zXlrnjFIUCymZ5d9sYAhPl8+zJfFthKpshSjbe8qYjpCDtd8Xv929NM/vuWuias6OTDfq/i+FtkDNqIU/3anFqkAbgKIe9yOfJ2A1WP2liTTrj+5Ah16RXS9apwLK/zGO/Cc4crqI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=TbZNw/no; arc=none smtp.client-ip=80.241.56.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="Nr515e14"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=ez4hNx4DVEe8KBHqNb84IrBjM+F93g8WM7rAblDyLXo=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788511157; v=1; x=1789115957;
- b=Nr515e14o6jo5iYmFOgF9Ul0KQGsN4/MwD7YQM1jBLzTR2DSJi0ZNDm5ljCFnnKSwVBqI6si
- +Be1fYxEijBB4EL+C7CLLSyQzOdDY6InG0+NdFBV2+rKqu9ALRwhpDSxoeiy5kF/ZfdHZS4bQCo
- vMVaSxh/Kxh/Jn8jdR7sDLNQ=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 49074bc093ed1894;
-	Fri, 04 Sep 2026 08:39:17 +0000
-X-Mizu-Trace-ID: 49074bc093ed1894
-X-Migadu-Flow: FLOW_OUT
-Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b4a0b384c4so3588e87.1
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 01:39:17 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBzv1K3aLgx3O0K9JPquSgbcRsFeYwD4pJsRMNfQXIYd/37tudemIPV8VPxJVRraOk95POUW9/V2NkONFTE=@vger.kernel.org
-X-Gm-Message-State: AFuF++lz7b9dY+q4ku/DzY3T5wmyMAgJLuz19i4Dwfh5Yqpk4YjITJ/r
-	Sw0noTzRzLlpsuyJGqE5Gq+DtzZARHNYD3wl0uDslD+N2/m0eE5XDRBVvBwF8GpooZYVGm1LGmh
-	JHBDWPUKAr7FQTSggE5AGpZC9TdPPYtAoPLmUbnjP
-X-Received: by 2002:a05:6512:2352:b0:5b4:9dba:7401 with SMTP id
- 2adb3069b0e04-5b6182512c1mr68725e87.11.1788511156074; Fri, 04 Sep 2026
- 01:39:16 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="TbZNw/no"
+Received: from smtp202.mailbox.org (smtp202.mailbox.org [10.196.197.202])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4hbqf73hkpzMlP2;
+	Fri, 04 Sep 2026 10:39:59 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1788511199; h=from:from:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=jH2uLsC7WJQSI+F9UTh8XM4wmuGO2p9r3sUh4J5zSQQ=;
+	b=TbZNw/noO1prHxarOkgk3xXiT7Yddgx5Sl94ZILtzjInU7nBko+3rNtbBr3gSq4VxP8Eg1
+	5MKoAQPTK7xcGXwENxEpfh4Kr4XFTRXuAYKcDxu/yGRIfjpo1xZ6pbyaLYQVmd/jM0OVGP
+	lj+n+LbT0y0Dqgj4Z1LJJjDCfBR0GoaWE+SvPEHCZ0RS8db9F4v7SSRAUWK+DKTBwuFObZ
+	QKTq5L8P45UUeoGEtePFBYgJwlIxgDNOJN0n/s4vvi1gkbSMj9N8fIgaiJ36lpceFeGy+N
+	UL4EUkbETQzMlnzHDVP4pV+/ExNb9OQIVMHya94nm/Lvqp6C39FxNPdK9ZnYzA==
+Message-ID: <196070b75705e9bc38106c235dab75e92d98cb2b.camel@mailbox.org>
+Subject: Re: [PATCH v4 1/3] drm/sched: cache the timeline name to fix a
+ use-after-free
+From: Philipp Stanner <phasta@mailbox.org>
+Reply-To: phasta@kernel.org
+To: "Jonghyuk Kim(MalHyuk)" <malhyuk97@gmail.com>, christian.koenig@amd.com,
+ 	phasta@kernel.org, tursulin@ursulin.net, matthew.brost@intel.com,
+ dakr@kernel.org
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+	mdaenzer@redhat.com, alessio.belle@imgtec.com, luigi.santivetti@imgtec.com
+Date: Fri, 04 Sep 2026 10:39:55 +0200
+In-Reply-To: <20260904083138.2135429-1-malhyuk97@gmail.com>
+References: <20260904080618.2098450-1-malhyuk97@gmail.com>
+	 <20260904080618.2098450-2-malhyuk97@gmail.com>
+	 <f25f2a91-b72e-4392-ab53-c11ef60e0fe0@amd.com>
+	 <20260904083138.2135429-1-malhyuk97@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260826-arm64-52bit-va-v1-0-14ec98211363@fujitsu.com> <20260826-arm64-52bit-va-v1-1-14ec98211363@fujitsu.com>
-In-Reply-To: <20260826-arm64-52bit-va-v1-1-14ec98211363@fujitsu.com>
-From: Fuad Tabba <fuad.tabba@linux.dev>
-Date: Fri, 4 Sep 2026 09:38:39 +0100
-X-Gmail-Original-Message-ID: <CA+EHjTy6EH-d=O+dtRdWdTUkS0zkXeW=auxiK6N5Dc-yihrYRw@mail.gmail.com>
-X-Gm-Features: AcwNN1Ue3UiJZXsq0JIrKBZUTapvpCHZ2jnrY0FG9kKB_BUUN5ArhPu7u2gQg_E
-Message-ID: <CA+EHjTy6EH-d=O+dtRdWdTUkS0zkXeW=auxiK6N5Dc-yihrYRw@mail.gmail.com>
-Subject: Re: [PATCH 1/2] KVM: selftest: arm64: Support 5-level paging in stage
- 1 translation table
-To: Itaru Kitayama <itaru.kitayama@fujitsu.com>
-Cc: Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, Joey Gouly <joey.gouly@arm.com>, 
-	Steffen Eiden <seiden@linux.ibm.com>, Suzuki K Poulose <suzuki.poulose@arm.com>, 
-	Zenghui Yu <yuzenghui@huawei.com>, Paolo Bonzini <pbonzini@redhat.com>, 
-	Shuah Khan <shuah@kernel.org>, linux-arm-kernel@lists.infradead.org, 
-	kvmarm@lists.linux.dev, kvm@vger.kernel.org, linux-kselftest@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Takayuki Okamoto <tokamoto@fujitsu.com>
-Content-Type: text/plain; charset="UTF-8"
+X-MBO-RS-ID: 878bbfafc54389cb408
+X-MBO-RS-META: 5m9cmtes7t7juujy1d8z5qotj7cypkqf
 
-Hi Itaru,
+On Fri, 2026-09-04 at 17:31 +0900, Jonghyuk Kim(MalHyuk) wrote:
+> On 9/4/26 10:20, Christian K=C3=B6nig wrote:
+> Understood - ops-detach is about producer/module decoupling, not about th=
+e
+> scheduler's lifetime relative to the driver, so framing it as "the comple=
+te
+> fix" for this bug was wrong. I will drop the TODO patch as well.
 
-The usual subject prefix in the tree is "KVM: arm64: selftests:", for
-this patch and the next one.
+Please wait a bit until we discussed it for a bit.
 
-On Tue, 25 Aug 2026 at 22:18, Itaru Kitayama <itaru.kitayama@fujitsu.com> wrote:
->
-> Add p4d_index() for when 5-level paging required, i.e., V52 guest mode
-> IDs. With the index helper function, _virt_pg_map() handles 5-level
+>=20
+> > I think we should rather re-consider patch 035219a760edb35ae9a9e96beba7=
+f122e26a997b
+> > ("dma-buf: dma-fence: Fix potential NULL pointer dereference"):
+> > [...]
+> > The problem is that we didn't considered that there a fence implementat=
+ions
+> > which still have a release or wait callbacks but rely on not needing to
+> > return a string for a signaled fence.
+>=20
+> That matches what I see in the code, thanks - this is the actual root cau=
+se and
+> it is not drm/sched specific.
+>=20
+> dma_fence_signal_timestamp_locked() only clears the ops pointer for fence=
+s that
+> carry neither .release nor .wait:
+>=20
+> 	ops =3D rcu_dereference_protected(fence->ops, true);
+> 	if (!ops->release && !ops->wait)
+> 		RCU_INIT_POINTER(fence->ops, NULL);
+>=20
+> drm_sched_fence implements .release, so its ops survive signalling. Befor=
+e
+> 035219a760ed the helpers gated on the signaled bit, so such a fence retur=
+ned
+> the static string and the producer callback was never reached. Since that
+> commit they gate on the ops pointer alone, so get_timeline_name() /
+> get_driver_name() are called on a long-signalled fence - which is exactly=
+ the
+> window my report hits, with ->sched already freed.
+>=20
+> To be clear, I am not suggesting a revert: 035219a760ed fixes a real prob=
+lem,
+> namely that "set signaled bit, then NULL the ops" and "load ops, then che=
+ck the
+> signaled bit" can be reordered on weakly ordered platforms, and using the=
+ ops
+> pointer as the synchronization point solves that elegantly. That property
+> should stay.
+>=20
+> What seems to be missing is that the ops check answers "may I dereference=
+ the
+> pointer", not "may I call into the producer". The dma-fence rules say the
+> latter is not allowed once the fence is signalled, so I think both condit=
+ions
+> are needed:
+>=20
+> 	ops =3D rcu_dereference(fence->ops);
+> 	if (ops && !dma_fence_test_signaled_flag(fence))
+> 		return (const char __rcu *)ops->get_timeline_name(fence);
+> 	else
+> 		return (const char __rcu *)"signaled-timeline";
+>=20
+> The ops load keeps the RCU/ordering guarantee from 035219a760ed, and the
+> signaled check restores the contract. That fixes every implementation whi=
+ch
+> keeps .release or .wait and assumes it is not called after signalling, ra=
+ther
+> than just drm/sched, and it puts no lifetime burden on drivers.
+>=20
+> Philipp, since 035219a760ed is yours - do you agree with adding the signa=
+led
+> check back on top of the ops check? I would rather have your ack on that =
+before
+> I respin.
 
-Only VM_MODE_P52V52_4K has five levels. The 16K and 64K V52 modes get
-four and three, so this is for the 4K granule rather than for V52
-modes as a class.
+That commit has to stay because it solves an ordering problem on some
+architectures.
 
-...
+I do agree to having a conversation with Christian in my other mail,
+where I wonder whether it would be better if a driver does the is-
+signaled check, holding the lock.
 
->  u64 *virt_get_pte_hva_at_level(struct kvm_vm *vm, gva_t gva, int level)
->  {
-> +       int start_level = 4 - vm->mmu.pgtable_levels;
->         u64 *ptep;
->
-> +       TEST_ASSERT(level >= start_level && level <= 3,
-> +                   "Invalid translation level %d, valid range is %d-3",
-> +                   level, start_level);
-> +
->         if (!vm->mmu.pgd_created)
->                 goto unmapped_gva;
->
->         ptep = addr_gpa2hva(vm, vm->mmu.pgd) + pgd_index(vm, gva) * 8;
->         if (!ptep)
->                 goto unmapped_gva;
-> -       if (level == 0)
-> +       /*
-> +        * Stage-1 translation starts at level -1 for a five-level page
-> +        * table, and at levels 0, 1, or 2 for four-, three-, or two-level
-> +        * page tables, respectively.
-> +        */
-> +       if (level == start_level)
+These things are extremely complicated and cannot be rushed. We
+discussed dma_fence synchronization for weeks this summer and concluded
+that there is no easy solution at hands for some problems, notably
+because of callbacks and legacy callbacks, and also because Christian
+and I disagree on to what degree a fence should be locked.
 
+>=20
+> One thing I noticed while checking the callers: the tracepoints in
+> include/trace/events/dma_fence.h and drivers/gpu/drm/amd/amdgpu/amdgpu_tr=
+ace.h
+> call fence->ops->get_driver_name() / get_timeline_name() directly instead=
+ of
+> going through the helpers, so they are not covered by the above. That loo=
+ks
+> like a pre-existing and much narrower exposure (tracing only), but let me=
+ know
+> if you want it addressed in the same series or separately.
 
-This changes what level means for the existing three-level modes:
-level 0 used to return the top-level entry and now trips the assert,
-level 1 used to return the leaf and now returns the top level. No
-caller in tree asks for either of those two levels, and the new
-numbering matches the architecture.
-
-...
-
-> @@ -321,12 +356,14 @@ void aarch64_vcpu_setup(struct kvm_vcpu *vcpu, struct kvm_vcpu_init *init)
->         case VM_MODE_PXXVYY_4K:
->                 TEST_FAIL("AArch64 does not support 4K sized pages "
->                           "with ANY-bit physical address ranges");
-> +       case VM_MODE_P52V52_64K:
-
-These VM_MODE_ enumerators arrive in patch 2, so this patch does not
-build on its own:
-
-  lib/arm64/processor.c:359:7: error: use of undeclared identifier
-'VM_MODE_P52V52_64K'; did you mean 'VM_MODE_P52V48_64K'?
-  lib/arm64/processor.c:360:7: error: duplicate case value 'VM_MODE_P52V48_64K'
-
-There are other build errors from the same cause. Could you move the
-enum values and their vm_guest_mode_string()/vm_guest_mode_params[]
-entries into this patch, or a new one altogether?
-
->         case VM_MODE_P52V48_64K:
->         case VM_MODE_P48V48_64K:
->         case VM_MODE_P40V48_64K:
->         case VM_MODE_P36V48_64K:
->                 tcr_el1 |= TCR_TG0_64K;
->                 break;
-> +       case VM_MODE_P52V52_16K:
->         case VM_MODE_P52V48_16K:
->         case VM_MODE_P48V48_16K:
->         case VM_MODE_P40V48_16K:
-> @@ -334,6 +371,7 @@ void aarch64_vcpu_setup(struct kvm_vcpu *vcpu, struct kvm_vcpu_init *init)
->         case VM_MODE_P36V47_16K:
->                 tcr_el1 |= TCR_TG0_16K;
->                 break;
-> +       case VM_MODE_P52V52_4K:
->         case VM_MODE_P52V48_4K:
->         case VM_MODE_P48V48_4K:
->         case VM_MODE_P40V48_4K:
-> @@ -348,6 +386,9 @@ void aarch64_vcpu_setup(struct kvm_vcpu *vcpu, struct kvm_vcpu_init *init)
->
->         /* Configure output size */
->         switch (vm->mode) {
-> +       case VM_MODE_P52V52_4K:
-> +       case VM_MODE_P52V52_16K:
-> +       case VM_MODE_P52V52_64K:
->         case VM_MODE_P52V48_4K:
->         case VM_MODE_P52V48_16K:
->         case VM_MODE_P52V48_64K:
-> @@ -578,6 +619,42 @@ static u32 max_ipa_for_page_size(u32 vm_ipa, u32 gran,
->                 return min(vm_ipa, 48U);
->  }
->
-> +u32 aarch64_get_supported_va_size(void)
-
-This repeats aarch64_get_supported_page_sizes() below it and builds a
-second probe VM one line after the first. Could it take a u32 *va
-out-param, so both ID registers come off the one vCPU?
-
-VARange is the 52-bit VA indicator for the 64K granule only, so a bare
-52 or 48 reads as granule-independent. The caller in patch 2 only uses
-it for 64K, so nothing is wrong today.
-
-Cheers,
-/fuad
+Do you generate part of your mails with an LLM? It seems to be a huge
+corpus for 11min of time between receiving and answer
 
 
-> +{
-> +       struct kvm_vcpu_init preferred_init = {};
-> +       int kvm_fd, vm_fd, vcpu_fd, err;
-> +       u64 val;
-> +       u32 va_range;
-> +       struct kvm_one_reg reg = {
-> +               .id     = KVM_ARM64_SYS_REG(SYS_ID_AA64MMFR2_EL1),
-> +               .addr   = (u64)&val,
-> +       };
-> +
-> +       kvm_fd = open_kvm_dev_path_or_exit();
-> +       vm_fd = __kvm_ioctl(kvm_fd, KVM_CREATE_VM, NULL);
-> +       TEST_ASSERT(vm_fd >= 0, KVM_IOCTL_ERROR(KVM_CREATE_VM, vm_fd));
-> +
-> +       vcpu_fd = ioctl(vm_fd, KVM_CREATE_VCPU, 0);
-> +       TEST_ASSERT(vcpu_fd >= 0, KVM_IOCTL_ERROR(KVM_CREATE_VCPU, vcpu_fd));
-> +
-> +       err = ioctl(vm_fd, KVM_ARM_PREFERRED_TARGET, &preferred_init);
-> +       TEST_ASSERT(err == 0, KVM_IOCTL_ERROR(KVM_ARM_PREFERRED_TARGET, err));
-> +
-> +       err = ioctl(vcpu_fd, KVM_ARM_VCPU_INIT, &preferred_init);
-> +       TEST_ASSERT(err == 0, KVM_IOCTL_ERROR(KVM_ARM_VCPU_INIT, err));
-> +
-> +       err = ioctl(vcpu_fd, KVM_GET_ONE_REG, &reg);
-> +       TEST_ASSERT(err == 0, KVM_IOCTL_ERROR(KVM_GET_ONE_REG, err));
-> +
-> +       va_range = FIELD_GET(ID_AA64MMFR2_EL1_VARange, val);
-> +
-> +       close(vcpu_fd);
-> +       close(vm_fd);
-> +       close(kvm_fd);
-> +
-> +       return va_range >= ID_AA64MMFR2_EL1_VARange_52 ? 52 : 48;
-> +}
-> +
->  void aarch64_get_supported_page_sizes(u32 ipa, u32 *ipa4k,
->                                       u32 *ipa16k, u32 *ipa64k)
->  {
->
-> --
-> 2.43.0
->
+P.
