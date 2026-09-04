@@ -1,110 +1,162 @@
-Received: from fhigh-a3-smtp.messagingengine.com (fhigh-a3-smtp.messagingengine.com [103.168.172.154])
+Received: from mout.gmx.net (mout.gmx.net [212.227.17.20])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B386426EB7;
-	Fri,  4 Sep 2026 09:32:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.154
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07E1D44238E;
+	Fri,  4 Sep 2026 09:32:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.227.17.20
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788514323; cv=none; b=ekTjwnnGe8s1SLp2o8R0Zr6ke0N238rLouNamuipqLhFkhU2jtQRqZOgnix5wpIX5+HraroVm9p2mJMSagMka6PM9edikdb4eycLryQsKhcgjwSWYLjJkSiAw5XqsqRDHCqRY3BkA0f37dNDSGApS/qrw9PbO6rTEqQJo4p5vDQ=
+	t=1788514327; cv=none; b=R712ybc79V8Hvou0A6kwvk7inTI08nIitUSI4wpw8RWicfejyaDNPPYJqHIaFptz2RcNiLAuOH7f4sWY1+LAiytekX3o3IgaT86ThGeONyDt78XPABt/abw4wvqkSgmvNJMB6un8HOnWx5hftvCroU1PUWRx6L0kiwBSri3XNmM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788514323; c=relaxed/simple;
-	bh=6osIxefW9WuJTL+x/nXswa0PPTDUDWFo8rRm7h//FJk=;
-	h=To:Cc:Message-ID:In-Reply-To:References:From:Subject:Date; b=cugfiTyKrVdeBZkksbnbm5tHMGyy1deiU4V3JtMiasUyLmkoTrEnR4ccmHZaVbupUcSvO4aORvPxWk7d2g7hnOBEcABcUL08CZqlSOwPEUZSB+8F5Z7IOYZGCBuxXO93qwx922rvl95ONA2TGX4kYoUpsOK8S9/exBMAiSAJ+2g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=none smtp.mailfrom=linux-m68k.org; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=F5tyZmQv; arc=none smtp.client-ip=103.168.172.154
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux-m68k.org
+	s=arc-20240116; t=1788514327; c=relaxed/simple;
+	bh=SSebE+ST6hsckt7BsoZWaCrfWED87E2Ve65oZGO3YSg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=j8kjS91TOEDSX7HeRwIZIoCsPFAENS25l0q+uQdLXKHoCsZpMfAOqA/epxyvc3Nj5ir0vFdAQQrcEJXHJaJ0EfYpAtNUIIt+sYhwSY4aXx4YV2qONg8739siW+fD+eF7pg8H5Ak6raxcuQ2mzU33QhS9bNc5rDQ5Phe65QGZKMo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.de; spf=pass smtp.mailfrom=gmx.de; dkim=pass (2048-bit key) header.d=gmx.de header.i=rwarsow@gmx.de header.b=qtr+Ch0g; arc=none smtp.client-ip=212.227.17.20
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmx.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="F5tyZmQv"
-Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
-	by mailfhigh.phl.internal (Postfix) with ESMTP id 6FBD014000B7;
-	Fri,  4 Sep 2026 05:32:01 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-02.internal (MEProxy); Fri, 04 Sep 2026 05:32:01 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:date:date:feedback-id
-	:feedback-id:from:from:in-reply-to:in-reply-to:message-id
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1788514321; x=
-	1788600721; bh=gDu691Ym/3Wgf1jg+44n93Um7djI9WASUBUmb+nUwCo=; b=F
-	5tyZmQvernSgBlICdoorrSGFjBendHBlpKOMfMbETiLObACZ/nca9LsujUNhe0Y1
-	Fyz6QzJyH7EFUulpi0hVWL53Tt7IjodWug7ayFbikd/jiiHt74Npsx5vHYRUY1p6
-	3iSSxcJnnz5t8EWI0alujWAi7/xMuNagBqUBKdpJUYem+6PQb3x47wEH9hZEuFC1
-	mONBxfziBpLMRhHShRxj293HfXDcHD5kj3rHWCgx2+oFvhBvD/J/V+rkEro6NZBp
-	A2re9eArggzr0+LPhyq7H7992Lmjv3WKQPu8OA/GdO0MR5zqd1xPm3zZdzErTV5v
-	H7/zRDzaar0rGkz3HltRA==
-X-ME-Sender: <xms:EZCaavwPQa_xfyGZA3C6d_VSlP67PKfvl6ucLze20_P_iT2dJdELBw>
-    <xme:EZCaahWWranD3ue1ugbRUBSKqyUC0CaNeNh1RIMjQOTVbIUWYOPqXIl53IhkBg-V2
-    tVZzrE8SsBnN08QDWO2mMLCmITRmjMUrdn51FADzj4SrNY8qoM9gAKk>
-X-ME-Received: <xmr:EZCaapMg9jhnD3FAGNDdOYbm8DbEaj3z6meDsQrdMtmyhrwXtFxcTghwDOY7FpmSv4uFmS33CILwaUVmpxmwb-UOx6w1RBDCUhA>
-X-ME-Proxy-Cause: dmFkZTFwU+S4kdAMlQ0v/k0AIIWH8NEZGASJORdIHxKTKTXUZu4/+TuTqA94nuiEUMaRxS
-    Gofh+bL92h8RMpG66xVFwu0W+p9wbh5ZRd08LqtVKnsUP/9Qrp2soVjzNROQy1equ47t7H
-    GqReSb441wEtgq6NIY2eQSaFWVAevL8uK2VrYQsRbjCnFUu9sctSvc8HbwNcOZhBWEvrxc
-    v4dU6ftgbUqTDUj8aqtOMM9o2mrrjTYuxdDT/c0DbswJjHoKR/5ejCxg8Y/5mjJMzYLbmT
-    GHbOCAcx+v5nQg51GRLb73A1+7BY5hn9tVP95J29cL5TZcJG84qND/yu/wkLW77nvFWlU4
-    yw5nNHdUJw9PFoq3R0XlCxYDTeokboKRRKq2IZTIC1DwsS5pse0c9iPJXqzu6kJU9xupCR
-    eGThEVo9OURlerh/TprEmXWyAOmPwUBszET0DPAGnrAmLjtbim/UnVz1di4MZZ4lHumF1b
-    W77H10Baieug5/VK2zCZM6ICEEXyeVfYyQxpNiYby0cqijK612Mcxip6mkcvwR3zSP4OvO
-    lsWebpEtaOPcDmDZgCX6omrhmAXtq2Jse52rrwv8e+edpfyLI2OC8j7m/Yg16SYI23sCIh
-    7ntqpWc8uN1d1IkTjzC6bnHzRTGUiWXUqxWigLVYmTCavSeEAYGcybycyuEg
-X-ME-Proxy: <xmx:EZCaarDr_HGO_hXJ-Rdh4TFe5venUUDJUUg57Nx_YsK5s9MfPgsTXw>
-    <xmx:EZCaauc3PT5se_cLweDOtvqhpVQwcLeYdm2xIHofdWV5PRlnniocOA>
-    <xmx:EZCaaiN1J9BKhDiryrrpoHVTzjZr1sAxBcw8Lh7E8o1M3rS4Uzigbw>
-    <xmx:EZCaamLgjJJ9o9w_kgJiQCwKUis8sauQzR6ZylkIBGko0tV0LmJ8Ng>
-    <xmx:EZCaagiDLSHEtZwUSa5T3VKCqS--rvXKzgtqFGHQ2EjG1R4v8T-Znk_x>
-Feedback-ID: i58a146ae:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
- 4 Sep 2026 05:31:59 -0400 (EDT)
-To: Jens Axboe <axboe@kernel.dk>,
-    Laurent Vivier <laurent@vivier.eu>
-Cc: Geert Uytterhoeven <geert@linux-m68k.org>,
-    Joshua Thompson <funaho@jurai.org>,
-    linux-block@vger.kernel.org,
-    linux-m68k@lists.linux-m68k.org,
-    linux-kernel@vger.kernel.org
-Message-ID: <fc511e72753ae18b6f021701aa00d480335b0caf.1788513996.git.fthain@linux-m68k.org>
-In-Reply-To: <cover.1788513996.git.fthain@linux-m68k.org>
-References: <cover.1788513996.git.fthain@linux-m68k.org>
-From: Finn Thain <fthain@linux-m68k.org>
-Subject: [PATCH v3 04/33] swim: Don't disable drive after every sector
-Date: Fri, 04 Sep 2026 19:26:36 +1000
+	dkim=pass (2048-bit key) header.d=gmx.de header.i=rwarsow@gmx.de header.b="qtr+Ch0g"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
+	s=s31663417; t=1788514285; x=1789119085; i=rwarsow@gmx.de;
+	bh=SSebE+ST6hsckt7BsoZWaCrfWED87E2Ve65oZGO3YSg=;
+	h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
+	 References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:cc:content-transfer-encoding:
+	 content-type:date:from:message-id:mime-version:reply-to:subject:
+	 to;
+	b=qtr+Ch0gyBkk9O3nRD6UbaCoy1fWcof8hIfpMKucUpzyK4CghmOpyxx4b9jf+Wuw
+	 xVUv2XanBAu8vIPoanD3q52H0wGyHA4+ZavdmKoC3bCpX+9IijIS4FqCDDUKtqBgx
+	 hBFVTvHCKf7maLcP+P18f7FYRVrC477rZ7Mciyvy7AJ9e3QpU5Sx/OvCmZB0NYP37
+	 c8WPqWb98B0d7HJB9gO6XaJaLY0LvhVMQtBcQPGqw4D29kWGEkV3OX+Xq0shbe7ce
+	 2xZnUYVl/u3M9/3idK9jWLn63mS1Ntg68J3v46d9VbmT8izMgmQmlD9em5Pleq6LG
+	 gG46YVs9ftuUh0ceYA==
+X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
+Received: from client.hidden.invalid by mail.gmx.net (mrgmx104
+ [212.227.17.168]) with ESMTPSA (Nemesis) id 1MOzOm-1xEavp2h36-00IgAL; Fri, 04
+ Sep 2026 11:31:25 +0200
+Message-ID: <ed1c95fa-279b-424f-b230-f5618e3a4695@gmx.de>
+Date: Fri, 4 Sep 2026 11:31:23 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 7.2 000/713] 7.2.4-rc1 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, conor@kernel.org,
+ hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
+ sr@sladewatkins.com
+References: <20260904045803.810145556@linuxfoundation.org>
+From: Ronald Warsow <rwarsow@gmx.de>
+Content-Language: de-DE, en-US
+In-Reply-To: <20260904045803.810145556@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Provags-ID: V03:K1:OT384EFXixUADbI8RvreZkS9qfFz0ci+TLqOOJXbI8pJYHocwQE
+ 1r86Dr5nxZfIJKqkMGeBQAcOlFRNj4/+1nYcl05q2GayJeIsJgy6f7z7qCXk7Vjv8tM5ZYK
+ tYtojwZGTsbgeQQzbJ2DqLQzeDY6fFi7eODMhMGV5An0rcvwRW4V70wZ2XQfTkQIIwkYAC3
+ uUfTQh/IZ3sJZhRlfg+bQ==
+X-Spam-Flag: NO
+UI-OutboundReport: notjunk:1;M01:P0:YDim9XWMhIY=;SBMC8VMwHjrFSAolODEXDxBarem
+ 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
+ KoGRGSOUOYoS5aYkvk4=
 
-This fixes multi-sector reads on a Sony drive. The Mitsubishi drive
-doesn't seem to care either way.
+Hi
 
-Reviewed-by: Laurent Vivier <laurent@vivier.eu>
-Fixes: 8852ecd97488 ("m68k: mac - Add SWIM floppy support")
-Signed-off-by: Finn Thain <fthain@linux-m68k.org>
----
- drivers/block/swim.c | 4 ----
- 1 file changed, 4 deletions(-)
+kernel build / boot test on x86_64 (Intel).
 
-diff --git a/drivers/block/swim.c b/drivers/block/swim.c
-index 4ddb87977fe1..3f92677ad127 100644
---- a/drivers/block/swim.c
-+++ b/drivers/block/swim.c
-@@ -473,8 +473,6 @@ static inline int swim_read_sector(struct floppy_state *fs,
- 	short i;
- 
- 	swim_track(fs, track);
--
--	swim_write(base, mode1, MOTON);
- 	swim_head(base, side);
- 	swim_write(base, mode0, side);
- 
-@@ -490,8 +488,6 @@ static inline int swim_read_sector(struct floppy_state *fs,
- 	}
- 	local_irq_restore(flags);
- 
--	swim_write(base, mode0, MOTON);
--
- 	if ((header.side != side)  || (header.track != track) ||
- 	     (header.sector != sector))
- 		return 0;
--- 
-2.52.0
+No regressions here.
 
+Thanks
+
+Tested-by: Ronald Warsow <rwarsow@gmx.de>
