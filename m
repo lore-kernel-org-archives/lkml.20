@@ -1,101 +1,70 @@
-Received: from mail-yx1-f41.google.com (mail-yx1-f41.google.com [74.125.224.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A02EF4EC657
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 15:12:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.41
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id A41A736F434;
+	Fri,  4 Sep 2026 15:13:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788534735; cv=none; b=VjX8g/ox2av5p9TtbQsZ2nQEIUIl/RvhsTRVohUAlAcRXBx5yDBye9u+GL05W/mHVi05oYdHXDzD/S7oQIn/XBdPT40j6y5vuh/Ded4Wh2SYVJFMJzLzNHWKNYsJ6kdxhHPbU+lNjD9hzbZAK0njR4ytBKCatC6+YzVrlcH+JRA=
+	t=1788534787; cv=none; b=UpCT6/J/e1xbIZa9Iwk3FTXoKE9zSXj4lkN+qHW9oQfFLe3oZ7iwBoDO4GjjNvnD7ujg091KmlBol+xPNuSeXnGrRdjCxiOX6jsVcSjA4cdCKJaS6HEOam4VcFyry2vTu7zmxq03oWy3+Dltz58FjL04ggKRt0Ja9uredGVPfQ4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788534735; c=relaxed/simple;
-	bh=d1r8YLCgRIdy4KEcRiU5xhMZDzm5Ir3G6LE/EtLImp0=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Li7Qq4/ACX82M6S1/mHPzsUayDoHQ2LW4lufkdgrWiquvadeeMV+d9U5HbHwHW5rr/nUJ68yyk5UdWRLeiE5HkECMVNbSIpdhiD+cchuYJd+OTTZMf1q6Rg58mvbv9M92FM1kzX5RGND12i2phX72Gr1qaaCs0GIuBiIQ1ZXfvA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=74.125.224.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-yx1-f41.google.com with SMTP id 956f58d0204a3-66fb8a78ad2so1001171d50.2
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 08:12:13 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788534732; x=1789139532;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=DBpBma5dCQR0Szv2MO2Socgh1RkSDenfZa0jgmlXBh4=;
-        b=kWNSfr2vS5XmXHVI3ZjgWsYhAryXln1TP66QdmX3lrn0B6ri4mMLISsvQAKHiiYbER
-         TV9qvq6VIlFEaIsddACJQsSfvD1UEXobU5ngph3tKT6tsnPyJJ1tybwLFaTh5jvGrlNf
-         ocJfOrqg/xV7IXdTejTEVIqwggS7McPZlyhIek4udzW0fIfoEv7BZoNrdqFT5XYELbfG
-         2UFI0NyUUez0O63klY8o9wFXdfVKZP6NANaIQMGnazPmvNxu7lo0PWM7XqPk8RF6S6bH
-         HWllTMlVMU0HIIdqD3QLGfYfADedxtUrHs4+dSF6siTBM2TQwxQOE41ZvzaNH0vUYYxM
-         DFEw==
-X-Forwarded-Encrypted: i=1; AKwUvByF+rOOx/U7UoENV5XPyWus6OaSXiI1derSmAnYCxHNn5//POFWp2LAAC9+m/CX5kx+OHJUfgly7ch8Lr0=@vger.kernel.org
-X-Gm-Message-State: AFuF++l8X5Nzul72KD20mNY5LIA8pjpd2/ourLKUbf81rW3Rn48tXyHA
-	UqjPaUs1LY8xDZTS65PJg4+hXxwipcsKDYBqw46+ulPda8YhwEIokPwnJVUwUZMg
-X-Gm-Gg: AYBFou0FyWCctWgYJFyDKNBNWzoIWKaGSJ2xrZ73yATogL6xcFKBdfgZF53QdDjKuG/
-	yQJrYjoIaF7dWxfz9eqDfGyRKuQtuNwGCE9y6Rf6yp/E0Y2th/vTdXbbNiSojZ9tliQkwC6uHee
-	AtSVIokiiNteZlv+RMrocR6fPfdoNMbgfXE3YHLYPh2ztgispWq37gsAHB5wuGU6XcSdlvt5Ywa
-	z+IsezW2cIG8EXE8ozRgw6ImpmmhH2MLFcMdDa/cr1jQphFYLskZP6cbDSiqF5X0c4nL5cQJczY
-	uuyfdKOrt5x51ArHQDCUDVGwFkCfxT+Mjf17BdUMd1a2eU1EdGyx/zZeBsxR14zGFE+hjJ/5Kml
-	bgz6Lg0nYtrIPIr1R3WrMAIb6MqvbsZxtdZZsJr0cim1+bH1rfQ/cnDejeKlTLYMSn2AV+C779o
-	yC988KxEE0drqiImjYkQLyZJTJLMKWAGMOKdoL8tr9wSu/GMFITRfK+YgSx0l/hUzx0kw7a8Cki
-	hF7Y8xYkxgXtYgzYS9VS8XV85nba70wK0N3
-X-Received: by 2002:a05:690e:484c:b0:66e:44e4:436f with SMTP id 956f58d0204a3-66fb592e358mr1870451d50.14.1788534732351;
-        Fri, 04 Sep 2026 08:12:12 -0700 (PDT)
-Received: from mail-yx1-f52.google.com (mail-yx1-f52.google.com. [74.125.224.52])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-66fb494b79bsm2382667d50.16.2026.09.04.08.12.12
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 04 Sep 2026 08:12:12 -0700 (PDT)
-Received: by mail-yx1-f52.google.com with SMTP id 956f58d0204a3-66ce4a63e17so1242028d50.3
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 08:12:12 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBxRg5Finx+9OlWq7SU5QBzpCzvp5fXvAJN/XZ0jSYJgrzMSy6y69Jizol27QOVXRQq3RRjBgw7P78KuTF4=@vger.kernel.org
-X-Received: by 2002:a05:6102:f06:b0:785:eb33:8794 with SMTP id
- ada2fe7eead31-78a4a91756dmr2264959137.10.1788534332492; Fri, 04 Sep 2026
- 08:05:32 -0700 (PDT)
+	s=arc-20240116; t=1788534787; c=relaxed/simple;
+	bh=RXrBZhE/ukpzVTZYI9deZoWytyqusRSvDISlhwKvQ/w=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=LB6eo13Yr3nSrvbj9XFfo28a0HM1ta3I20akhcSF8Xi1SwlDV2iIRScvSKAMGgfGQHUYNANzPXtP0P2RW4DLbeUfRzyj/K9n1EOFW0+trZI4eePteLgo5H60C3CBP4l2aZS9qOsVyAE6ssk5PJHHXwL/1AztIQsFTEQ9e8jTMlk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=rZydSQVj; arc=none smtp.client-ip=13.77.154.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="rZydSQVj"
+Received: from localhost.localdomain (unknown [4.194.122.162])
+	by linux.microsoft.com (Postfix) with ESMTPSA id 6274A20B7167;
+	Fri,  4 Sep 2026 08:12:19 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 6274A20B7167
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
+	s=default; t=1788534748;
+	bh=n7au8vxqsflc8mQdS/nOVCGhh6qmoyLCUlVGbYJqjJA=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=rZydSQVjmEqpCD+wZ9AR7DUKuMBbLgxUjcolSDRu4biE+pKh43hbiwXIlkdHGKl5u
+	 sLI0fUXqVuThhOM5UUx/K7onnFFXp6A878mAgosbv/GRTbZqnYXEzRbXIVzCWgatVF
+	 7vySEi/7uaaU94BiNhE/Wrxod+NshnL/oTCPI0Qc=
+From: "Cen Zhang (Microsoft Security FORGE Labs)" <cenzhang@linux.microsoft.com>
+To: gregkh@linuxfoundation.org
+Cc: AutonomousCodeSecurity@microsoft.com,
+	Dai.Ngo@oracle.com,
+	bfields@fieldses.org,
+	cel@kernel.org,
+	jlayton@kernel.org,
+	kys@microsoft.com,
+	linux-kernel@vger.kernel.org,
+	linux-nfs@vger.kernel.org,
+	neil@brown.name,
+	okorniev@redhat.com,
+	stable@vger.kernel.org,
+	tgopinath@linux.microsoft.com,
+	tom@talpey.com,
+	xmei5@asu.edu
+Subject: Re: [PATCH] nfsd: hold cl_lock in client_has_state()
+Date: Fri,  4 Sep 2026 11:12:13 -0400
+Message-ID: <20260904151213.44891-1-cenzhang@linux.microsoft.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <2026082828-palpable-dingo-241b@gregkh>
+References: <2026082828-palpable-dingo-241b@gregkh>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260821150408.73829-1-ayman.chaudhry.kc@renesas.com> <20260821150408.73829-6-ayman.chaudhry.kc@renesas.com>
-In-Reply-To: <20260821150408.73829-6-ayman.chaudhry.kc@renesas.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Fri, 4 Sep 2026 17:05:21 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdVch5xkg3p0+9mvEk9393ZuV2TO-kcyVci+VBAMCG4RPg@mail.gmail.com>
-X-Gm-Features: AcwNN1XC5gp_Xk8OzyKjoKwIynG-nLTbzWvj7aLGFiNz0LjJGn_EivdUH3_smAk
-Message-ID: <CAMuHMdVch5xkg3p0+9mvEk9393ZuV2TO-kcyVci+VBAMCG4RPg@mail.gmail.com>
-Subject: Re: [PATCH 05/10] soc: renesas: rcar-rst: Add support for RZ/G2M v3.0
-To: Ayman Chaudhry <ayman.chaudhry.kc@renesas.com>
-Cc: Magnus Damm <magnus.damm@gmail.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
-	Jerome Brunet <jbrunet+clk@baylibre.com>, Ulf Hansson <ulfh@kernel.org>, 
-	linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org, 
-	linux-pm@vger.kernel.org, Chris Paterson <Chris.Paterson2@renesas.com>, 
-	Biju Das <biju.das.jz@bp.renesas.com>, 
-	Fabrizio Castro <fabrizio.castro.jz@renesas.com>, 
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-On Fri, 21 Aug 2026 at 17:05, Ayman Chaudhry
-<ayman.chaudhry.kc@renesas.com> wrote:
-> Add support for Renesas RZ/G2M v3.0 (a.k.a. R8A774A3) SoC to the R-Car
-> RST driver.
->
-> Signed-off-by: Ayman Chaudhry <ayman.chaudhry.kc@renesas.com>
+On Fri, Aug 28, 2026 at 07:29:11AM +0200, Greg KH wrote:
+> Please use your microsoft.com email address, and not a random gmail.com
+> address.  It's kind of odd that Microsoft would have to rely on Google
+> to send kernel patches :)
 
-Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
-i.e. will queue in renesas-devel for v7.4.
+Thanks for pointing this out. I now have cenzhang@linux.microsoft.com
+set up and will use it for future kernel submissions.
 
-Gr{oetje,eeting}s,
+Chuck, since the patch is already in nfsd-testing, please let me know if
+I should send a v2 from this address to update the author email.
 
-                        Geert
-
--- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
-
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+Thanks,
+Cen
