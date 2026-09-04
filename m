@@ -1,187 +1,257 @@
-Received: from mail-ed1-f51.google.com (mail-ed1-f51.google.com [209.85.208.51])
+Received: from mail-pg1-f179.google.com (mail-pg1-f179.google.com [209.85.215.179])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0CE0374E74
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 23:15:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.51
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788563735; cv=pass; b=l58mGSotlEpIHWsWF0mnT+XOpKpjqxsLY8oSncUQAvspRTsyR6lvfKUWOtC4SrbgPSvi4CBOAJULl6dyLj9lAgvP//oQuBbYrcwbPiE+jUIlk4fmKXx0cefXfT6gtHARWXNZbDOvrbdCsDcC18sIdkINY141QRYLqg5dkyZqlEo=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788563735; c=relaxed/simple;
-	bh=BB6EHdcKaA/c/EJGmaFUXmWq/ZA2wzbj+weVgexRWpI=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Content-Type; b=eu+0HR5phkdCweXxC6rhFkaazPizOBZi7rXh2abJXru1JXMJxe4OBCmeigTPPZwaDgjBIelRh8lKzJDK+p+JlqOmjaxb5CIPnwlS5fchi+ZO5KsbZiHDn4RgjnaYU/hAa93uBdOd+gbrRasKUQB6F3nSSu7aG3QiwIItIw1yUJM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TOsR0Ahy; arc=pass smtp.client-ip=209.85.208.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CCAE37C91A
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 23:16:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.179
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788563795; cv=none; b=iEfD0R6gcd4s451s9vm1Omdn9xeAh5j/qSfTBYj48LZ2SthnS9G1puC1fZw7ITxP7p2uOqWk7mhBpx+zdpRx+8KFMPkjaInnn0hHeAbE097g8LxQyU7yzcY9X3s3ZQLJFmx/2thOXF6sqNCBV+w6bwBK/H1g8xqz1fZMsOYXIqg=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788563795; c=relaxed/simple;
+	bh=toX5g90APAEIw/JrBp16zerys93inZQ7yKT1M0I3GvE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Mk2uYyXpWZsZpKU/CirDDq9zJoZBVGBQ9t6tLG3hyJ5YW38arAhM5ka3bwftqhrmBFNgeDj6m4QCHNQKRXlBDdrX6LG5CaUcy72VBcRsgXGoj/W79LJoUS4g1VNyFNUvzGaHMVGi1LInIeM1jw+HTbOMZYdEr6qRj0Riwz9rWd0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OVH3aavB; arc=none smtp.client-ip=209.85.215.179
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TOsR0Ahy"
-Received: by mail-ed1-f51.google.com with SMTP id 4fb4d7f45d1cf-6a63c610b8dso2171341a12.2
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 16:15:32 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788563730; cv=none;
-        d=google.com; s=arc-20260327;
-        b=k448FPBjsvTfaha1gEIb7/ClwD8tbZEAR5HT8+Mu//1OLX93sz/WknAqs5z+un8PFw
-         5dLJ74pXGioxs7gnSq08/38NKSKXkk2CpPZc8TbMfcxs9RSmrnC/5BhuQZxG2Q4diEAT
-         o41Sck7IFb4C0Kko3OrWfJLRwcwxDTbff+8wykSX5UIXT6di7JnHIpYZHs64IWxVV7lQ
-         BUJMdWeDEyecXgeRy4kKP63arEh3shmhL4swGL+iYzGtpbfJl34yBgnOlTwg6STLgtiw
-         eFVEjdyE8Ddmq4kCAMbCNXbUZCO0XD/ZG6FXC5mV+swMc+Vhk/7isVzCPCDj1y0LNdNj
-         Oovg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=9+oPFVCHlIoWQo6jiz+svGdAWRzZsX5XNSQUMsdvUXQ=;
-        fh=q8WZ/u4qpvnLwCT4XZdZBAn8r/39NdpL8SQcfysnmFg=;
-        b=dJqtzd8KXyf1kXstMkqVD6INJ1lWnS5Z+nBlaCeRislkBxWXKRcLhw4IHLnvBI7QEw
-         jwxfK9QwnCiDcb+mI8llpInwAwcnjprln52T8Q9qtc/qOdeJ6Kuo/rV7BRvwgBWCfotZ
-         g3jdlq0ccnD1xfM1foaCrvCg3XyXUa3srjW6aoUqNIoRYfrFVpnxrC9ubMHYiYe2Th3z
-         AFwqt0Ztrb5LTIiydxIxMTH8BNVUtk3zndjHmDCYJyRa8znxfKR93/EYxmTJJnEUP6Wm
-         QyjqtRNDSdxg1l+05TCE1UjmA62hMt7WLekHHmN9JNSEG266hGvYcdT3W9CH1tpSzOHH
-         Fk0g==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OVH3aavB"
+Received: by mail-pg1-f179.google.com with SMTP id 41be03b00d2f7-cc149372c14so865223a12.1
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 16:16:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788563730; x=1789168530; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:to:subject:message-id:date
-         :from:in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=9+oPFVCHlIoWQo6jiz+svGdAWRzZsX5XNSQUMsdvUXQ=;
-        b=TOsR0Ahyx2rc8fPoCXaAmmdH+JBj/dKF2JsrnSUXh31gxGcDlD+rz0SjrL4nt8NeeM
-         OqVBqB4tnXygC7K55VeXl/wPuFm9+3K7cyNfDegiQkIycQ2hiopFdxW4CVpuPtSwoVLN
-         OA+FGd/YeIdXjrjgZuOORaJH+VlqS2jWxZcbfYZSCqfGjiY8PRFqtkJLwUdS0CW2DIoX
-         MXGXXfx1E5wXNIDAuYgcT2vElR94BrDgCUeZQG/8/exxMdhJgWpnNmshcwD+kD/cgGwy
-         mf4nkN8n7+F214FdoYfU7LcNe5owwHUi8VuvZvVH3vx5AAsfsdS5ef3TCF73xI7aPPzG
-         ti7Q==
+        d=gmail.com; s=20251104; t=1788563793; x=1789168593; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Fkj+tOdPJa9maROU9VRDjz0YPmPUFkrYUP9fpE+J1l4=;
+        b=OVH3aavB5WPEknnETtImhRFxCL3BpbzOYUFY94/2rXlaTkElbj7Pk2/V6kedNoRxwu
+         MCDljp5tbKrVDZZjW6fkwL0+kdAHInl/Z4Ztx2Wgc2rjOAG1qHY0slX1DPu9Chr1KFZc
+         jJzj+BPydGCwpZQp3BlU5NNAKnHZD5KKL6VqVnJOKobjs4n5Ah7z79JVMt4b5ZbrkDel
+         yBRceUQy8LdH1Fe5K2/2ngmD54gYiqct9DupY5OorqEybgRv3ZBu8Up6hVLzd0HMNwJc
+         rNydsWTy51fHJXfvKCY9lRB70w0HS+Z7ErzuOsr3S1gbF4j5VEivkA6beSgW9iPmKEKR
+         T0Dg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788563730; x=1789168530;
-        h=content-transfer-encoding:content-type:to:subject:message-id:date
-         :from:in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=9+oPFVCHlIoWQo6jiz+svGdAWRzZsX5XNSQUMsdvUXQ=;
-        b=SbHopdHuGxh07BnGCffR0BfS6S5WraWDfHAStwnC4ujsB9BKhfMtXUMi8WWeoA/eu2
-         0qOkMUlq3I2rJxZsIEwuOEVvOcKEqpJIFcL0RejtT9mYUaO6161NtRgciY6ojw5CAOa8
-         V362guXyjVJodiMLV1lT/gQ2bggDJhbEa2gxdO2prICKD8W9YR7MB7H9T2Az6JttZMF8
-         U70lIgBKh07vJn6uu3KlfI34g/K/I7CWPEWXjTywvND5Wq0HzfGLAet3uuVVOEcmVYRB
-         hr/oM0voXj38cXC9c0KulB/Pnysb2dR1JAgvW0QWqL5euA5CE6cr4zTIfXDUX6uDcS36
-         lj0g==
-X-Forwarded-Encrypted: i=1; AKwUvBxncd7dpq/JqsCZnixvc+XCNdb/xlT66vDK7E/T1kISYKRFEbh5iwY83Nx8AzOCx80JqU5M9ghY0awp7lo=@vger.kernel.org
-X-Gm-Message-State: AFuF++kGRAmjw1iRf5Jui8geULE7qkV2/2wms61Ls7QvV4t0gNwitcIf
-	l+6jeW94ELNjEUObUcKHl1jxy9NtUNQeFZof8wjuK0FK3yxx7AeyxiBCY2rRT8h2nT0uasrfzcP
-	CjDQgfDtSJAEOFylWY6uEPtG70ZX0Rkw=
-X-Gm-Gg: AYBFou3qMhpGLFHOSJCiCiTCZPGZbQGeSTJ3lc1q/KnklIaqEiHCzX68aJn1JrJl3Mf
-	DryLUTYjly0yQToRH80ruxji5XKgFuLdahM9HAx3AxDhlJq55QITL8OooslL3DEZsVSM2+wJ1aT
-	nDaeBj8OcDNiU6mPugpk0uq7zgdCs6MrYSAMYdiYtL3ZxOnBkeWyTciBrDlzbqiDY5yg2RJWxwa
-	Yt068RVvqP8Xx2KnECn8rdXP+bEJHK5sCea4ccYgopI8foWS6miQ6+UzvbbVG/hX8Y81Pr8ezU8
-	BZmlMsIRSW35Ykvh5+Jw51s1gp3MoiUJDqg/tCwVOSdQdisQNlQJZoxvthh5VeLgtv8ovEAAJHs
-	oUN50P5DWLwTKSH5r++QIxUzj6OyF+UE=
-X-Received: by 2002:a05:6402:27cd:b0:6a4:21c6:1d14 with SMTP id
- 4fb4d7f45d1cf-6a7e85e4d77mr5260992a12.0.1788563730187; Fri, 04 Sep 2026
- 16:15:30 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1788563793; x=1789168593;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Fkj+tOdPJa9maROU9VRDjz0YPmPUFkrYUP9fpE+J1l4=;
+        b=KBJrsZkR01AvKAcv3Mih0YAZEd1Ua3QL1vjez8bJiVXGtRx/07lxpPdSXiAkYVZdfv
+         eNOR7TBBfjtWXiV80SpDfzyO2cKnT39s/NlXBQB2eDtyhkr4sPvcTmzGHqlYU3FHRz0M
+         CaEHvphbPA4FKFDs6x042aC2PI+WFVnqruHmAFNCFQJyy+FEQWGjE1f5RChyCxoy568x
+         Krh6Y0d+If00xDRxkQyExrDYVFzwnQBP8I5BU/t+vUletN3rCDTk7Wk2cWhrKoUqxlYe
+         42fsTilB/WjO+6Vm+GviffSBAAevxiOqtxxoeo6Qj81i5I3602QHbiqHZmPySWhPZTRR
+         d1Ow==
+X-Forwarded-Encrypted: i=1; AKwUvBwkhBw5mCUFCMlly6rmFqsK/spkGrj+dsqtisyGsKpwfMg9NgMZiIdFMG7nbZssw9VlmUiDMr20TuSjqa4=@vger.kernel.org
+X-Gm-Message-State: AFuF++lGQyoH/Hlq/XlrfZMAt4j41AI1Ry6VB7KUw2Hrb8I8iyyrmwjo
+	xfmGrpc3TkWyY2XSCcyYuBu7A1aZWbf1PV7O2YPKopM8yJU4nq8WmdEx
+X-Gm-Gg: AYBFou25oAKijNzwwU82cRF6Mni1iMguksxqZ8jMEVXTEoiwRt55lhyhonx9CSMmpZd
+	dBCEjtvT6SpE9S5yy+Eer9lIejGNOT8WO3qsoWJefCATwPWqCbnXQMczl0uAV7Z1OGO8QFnlK05
+	nOOwivvUmnO736IWIYD82W2/Dto/9vg3lt4gC5n9W6f2Nclwd000jgRH8QD+5sOYp5dwpzlzvnv
+	XyLgofqfi8QwDxc/Th7MRDCM1OKNUacXyDIWGipG8kAagARNV0gVlaSdF/ugcAft/wDjDYdWGrl
+	eI2o9fnSbhCvbFDqJPC6+VwLCwXsSbBv78N/GyutyIirEXjAJR/ZTADvyTkFLRCuGWp1wIgn9e5
+	Kvj4gn2n9Q7xWN5YfCSL7+uzC2rRQrzeyzv7TLlZHT7NIaFf94uA/rEpsh5guyR9skdk7gTKnuM
+	5Jzkpiyx04u4nGzGpOmB+6stoUrB2d9h2/vBl8ml1TfhBrULpGFGKqbVjSwFwun0NIUHOVzYuQ2
+	bBar81GY6S1czLGYhRAXLfRiFzYqKjNNooVA0oxT/AA/Bl2/qIQrw5wNvhLaBNYFykT2MWciRNI
+	QQKThehc6XY7kj5sRp2vFKxAnpOH8sWpBXLuaH+KwxY=
+X-Received: by 2002:a17:90b:2b8b:b0:398:c0ad:711c with SMTP id 98e67ed59e1d1-39b26272f0fmr14642210a91.15.1788563793256;
+        Fri, 04 Sep 2026 16:16:33 -0700 (PDT)
+Received: from localhost.localdomain (23-93-86-111.dedicated.static.sonic.net. [23.93.86.111])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339b314cfcsm9579481eec.19.2026.09.04.16.16.32
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 04 Sep 2026 16:16:32 -0700 (PDT)
+From: Rithvik Vibhu <rithvikvibhu@gmail.com>
+To: Takashi Iwai <tiwai@suse.com>,
+	Jaroslav Kysela <perex@perex.cz>
+Cc: linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Rithvik Vibhu <rithvikvibhu@gmail.com>
+Subject: [PATCH] ALSA: hda/realtek: Fix Acer Nitro 5 AN515-57 mic resume
+Date: Fri,  4 Sep 2026 16:15:45 -0700
+Message-ID: <20260904231545.33505-1-rithvikvibhu@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <cover.1788277742.git.mattst88@gmail.com> <61175f9015771b6a6d78624579ecc180f57d17e9.1788277742.git.mattst88@gmail.com>
- <CA+=Fv5TYnwcDLPvwScOcGq-7CUSs2bDMqrYEj-Lhf4XfQ=yTzA@mail.gmail.com> <apsqmKw1pLmOXVgg@creeky>
-In-Reply-To: <apsqmKw1pLmOXVgg@creeky>
-From: Magnus Lindholm <linmag7@gmail.com>
-Date: Sat, 5 Sep 2026 01:15:18 +0200
-X-Gm-Features: AcwNN1VmVYiQOCieWwnQgTF_EcXBKZAMYOMzLNI8gu2I3ggOXSm8eITiFc6_Xk8
-Message-ID: <CA+=Fv5Sg1KjAZZ3X=Yh62hUr=5qeRg_ZVq=A_C4bBovde1MeoA@mail.gmail.com>
-Subject: Re: [PATCH 03/24] alpha: select ARCH_HAS_UBSAN
-To: Michael Cree <mcree@orcon.net.nz>, Magnus Lindholm <linmag7@gmail.com>, 
-	Matt Turner <mattst88@gmail.com>, linux-alpha@vger.kernel.org, 
-	richard.henderson@linaro.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-Hi Michael,
+The existing pin-configuration quirk exposes headset mic pin 0x19, but
+the ALC295 loses the correct combo-jack state across suspend-to-RAM
+(S3). After resume, pin 0x19 can remain falsely present after unplug and
+the capture mixer can remain routed away from the internal mic on pin
+0x12. The failure occurs on both 6.12 and v7.2-rc7.
 
-On Fri, Sep 4, 2026 at 10:31=E2=80=AFPM Michael Cree <mcree@orcon.net.nz> w=
-rote:
->
-> On Wed, Sep 02, 2026 at 12:34:50AM +0200, Magnus Lindholm wrote:
-> > On Tue, Sep 1, 2026 at 5:50=E2=80=AFPM Matt Turner <mattst88@gmail.com>=
- wrote:
-> > >
-> > > GCC's undefined behavior sanitizer has no architecture-specific runti=
-me
-> > > requirements. Enable it for Alpha to allow UBSAN instrumentation of t=
-he
-> > > kernel.
-> > >
-> > I tested this patch on top of my rebased Alpha GENERIC_ENTRY patch on a=
-n
-> > AlphaServer ES40. The kernel built and booted successfully with
-> > CONFIG_UBSAN=3Dy, and the UBSAN instrumentation is active.
->
-> So have I, on an XP1000 and ES45.
->
-> > CONFIG_UBSAN_ALIGNMENT did expose a misaligned struct bucket_table
-> > allocation in lib/rhashtable.c. This appears to be a generic rhashtable
-> > allocation-alignment issue rather than an Alpha UBSAN problem.
->
-> But in my case the kernel vomited copious misaligned access reports,
-> so many that it took quite a few minutes to boot and I lost much of
-> the kernel log before disks were mounted.  A few examples that
-> were recorded later in the boot on the ES45:
->
-> Sep 03 21:12:36 electro kernel: UBSAN: misaligned-access in net/core/dev.=
-c:1401:2
-> Sep 03 21:12:36 electro kernel: member access within misaligned address (=
-____ptrval____) for type 'struct net_device'
-> Sep 03 21:12:36 electro kernel: which requires 64 byte alignment
->
-> Sep 03 21:12:36 electro kernel: UBSAN: misaligned-access in kernel/signal=
-.c:4362:4
-> Sep 03 21:12:36 electro kernel: member access within misaligned address 0=
-000000058e1e939 for type 'struct task_struct'
-> Sep 03 21:12:36 electro kernel: which requires 64 byte alignment
->
-> Sep 03 21:13:04 electro kernel: UBSAN: misaligned-access in drivers/net/e=
-thernet/intel/e100.c:1941:36
-> Sep 03 21:13:04 electro kernel: member access within misaligned address 0=
-00000001c866fa6 for type 'struct rfd'
-> Sep 03 21:13:04 electro kernel: which requires 4 byte alignment
->
-> Interestingly "kernel unaligned acc" in /proc/cpuinfo remained at
-> zero, which really makes me wonder whether these reports are all
-> false-positives.
->
-Good question, had to dig deeper here,
+Give subsystem 1025:1539 a model-specific fixup which initializes the
+Acer combo-jack coefficients, enables the full Realtek CTIA/OMTP
+headset state machine, gates the headset mic with the reliable
+headphone pin 0x21, and feeds the corrected cached jack state through
+generic HDA mic autoswitching. This keeps the actual capture mux
+synchronized across boot, hotplug, unplug and S3 resume.
 
-Not false positives - real UB, but harmless, and I tracked down why.
-for_each_thread() and for_each_netdev_rcu() are list_for_each_entry
-macros: their loop computes container_of() once extra per traversal,
-unconditionally, to test for end-of-list. That test compares against
-the list head (&signal->thread_head, &net->dev_base_head), which lives
-in a different struct entirely (signal_struct, net) - not
-task_struct/net_device. At the real end of the list, container_of()
-still subtracts offsetof(task_struct, thread_node) from that head's
-address anyway, producing a pointer that looks nothing like a real
-task_struct. It's used only for a pointer-value comparison, never
-dereferenced - confirmed with a printk inside find_alive_thread()'s
-loop body that never fired even when UBSAN caught the same line. Zero
-unaligned-access count follows directly: nothing ever loads or stores
-through it.
+Apply the correction from both the headphone and microphone callback
+paths. A direct event from mic pin 0x19 otherwise bypasses the headphone
+hook and can restore the unreliable raw pin sense. Invalidate and
+refetch pin 0x21 when handling such an event before deriving the
+corrected microphone state.
 
-If it's worth fixing rather than living with: the sentinel comparison
-in list_entry_rcu()/list_for_each_entry_rcu() only needs the raw
-pointer value, not a type-checked container_of(). Splitting that one
-use into an unchecked pointer subtraction for the loop-termination
-test, keeping checked container_of() for the real element on every
-other iteration, would remove the false trigger without losing any
-real coverage. Not alpha-specific, so probably wants a wider list than
-this one if someone wants to pick it up.
+Pin 0x21 indicates that a combo-jack plug is present but cannot
+distinguish three-pole headphones from a four-pole headset.
+Consequently, as with other headphone-gated mic configurations, a
+three-pole plug is exposed as a headset mic.
 
-e100.c's struct rfd is unrelated: casts skb->data (not guaranteed
-4-byte aligned) to struct rfd *, writes via put_unaligned_le32() - UB
-in the cast, safe access after.
-Not alpha-specific either - list_for_each_entry is everywhere.
-CONFIG_UBSAN_ALIGNMENT just defaults on for us
-(!HAVE_EFFICIENT_UNALIGNED_ACCESS) and off elsewhere.
-Confirmed on the UP2000+ rather than assumed: 7 reports,
-"kernel unaligned acc: 0" never moved.
+Tested with cold boot and repeated S3 cycles in the unplugged and
+four-pole-headset states, including unplug and reinsert after resume.
 
-Magnus
+Fixes: 51db05283f7c ("ALSA: hda/realtek: Enable headset mic for Acer Nitro 5")
+Cc: stable@vger.kernel.org # 6.12+
+Assisted-by: LLM
+Signed-off-by: Rithvik Vibhu <rithvikvibhu@gmail.com>
+---
+The 6.12.y backport requires adaptation because the Realtek codec code
+is located in sound/pci/hda/patch_realtek.c there.
+
+base-commit: 3b26ceef88c110f4d188387cffa0df78657be904
+
+ sound/hda/codecs/realtek/alc269.c | 105 +++++++++++++++++++++++++++++-
+ 1 file changed, 104 insertions(+), 1 deletion(-)
+
+diff --git a/sound/hda/codecs/realtek/alc269.c b/sound/hda/codecs/realtek/alc269.c
+index 95b40a177..f1a83908e 100644
+--- a/sound/hda/codecs/realtek/alc269.c
++++ b/sound/hda/codecs/realtek/alc269.c
+@@ -3740,6 +3740,103 @@ static void alc2xx_fixup_headset_mic(struct hda_codec *codec,
+ 	}
+ }
+ 
++static void alc295_acer_nitro_mic_autoswitch(struct hda_codec *codec,
++					     struct hda_jack_callback *jack)
++{
++	struct alc_spec *spec = codec->spec;
++	struct hda_jack_tbl *hp_jack, *mic_jack;
++	hda_nid_t hp_pin = alc_get_hp_pin(spec);
++	bool auto_mic = spec->gen.auto_mic;
++	bool hp_present;
++
++	hp_jack = snd_hda_jack_tbl_get(codec, hp_pin);
++	mic_jack = snd_hda_jack_tbl_get(codec, 0x19);
++	if (!hp_jack || !mic_jack) {
++		codec_warn(codec, "failed to find Acer Nitro combo-jack entries\n");
++		return;
++	}
++
++	/* A mic callback must not reuse a possibly stale cached HP sense. */
++	if (jack && jack->nid == 0x19)
++		hp_jack->jack_dirty = 1;
++	hp_present = snd_hda_jack_detect(codec, hp_pin);
++
++	/*
++	 * The codec reports a stale or inverted presence state for mic pin 0x19
++	 * after S3.  Pin 0x21 continues to track the shared combo jack reliably,
++	 * so use it as the presence source for 0x19.  Leave the entry clean so
++	 * the normal report pass does not immediately replace this value with a
++	 * broken raw pin-sense read.
++	 */
++	mic_jack->pin_sense &= ~AC_PINSENSE_PRESENCE;
++	if (hp_present)
++		mic_jack->pin_sense |= AC_PINSENSE_PRESENCE;
++	mic_jack->jack_dirty = 0;
++
++	/* Route the actual capture mux from the corrected jack state. */
++	spec->gen.auto_mic = 1;
++	snd_hda_gen_mic_autoswitch(codec, jack);
++	spec->gen.auto_mic = auto_mic;
++}
++
++static void alc295_acer_nitro_hp_automute(struct hda_codec *codec,
++					  struct hda_jack_callback *jack)
++{
++	/* Refresh the reliable HP jack and the Realtek headset mode first. */
++	alc_update_headset_jack_cb(codec, jack);
++	alc295_acer_nitro_mic_autoswitch(codec, jack);
++}
++
++static void alc295_fixup_acer_nitro_headset_mode(struct hda_codec *codec,
++						 const struct hda_fixup *fix,
++						 int action)
++{
++	struct alc_spec *spec = codec->spec;
++	static const struct hda_pintbl pincfgs[] = {
++		{ 0x19, 0x03a1103c },
++		{ }
++	};
++
++	if (action == HDA_FIXUP_ACT_PRE_PROBE) {
++		snd_hda_apply_pincfgs(codec, pincfgs);
++		alc_update_coef_idx(codec, 0x45, 0xf << 12 | 1 << 10, 5 << 12);
++		spec->parse_flags |= HDA_PINCFG_HEADSET_MIC;
++	}
++
++	alc271_hp_gate_mic_jack(codec, fix, action);
++	alc_fixup_headset_mode_no_hp_mic(codec, fix, action);
++
++	if (action == HDA_FIXUP_ACT_PROBE) {
++		int int_mic_idx = -1, headset_mic_idx = -1;
++		int i;
++
++		for (i = 0; i < spec->gen.input_mux.num_items; i++) {
++			if (spec->gen.imux_pins[i] == 0x12)
++				int_mic_idx = i;
++			else if (spec->gen.imux_pins[i] == 0x19)
++				headset_mic_idx = i;
++		}
++		if (int_mic_idx < 0 || headset_mic_idx < 0) {
++			codec_warn(codec,
++				   "failed to find Acer Nitro mic mux entries\n");
++			return;
++		}
++
++		spec->gen.am_num_entries = 2;
++		spec->gen.am_entry[0] = (struct automic_entry) {
++			.pin = 0x12,
++			.idx = int_mic_idx,
++		};
++		spec->gen.am_entry[1] = (struct automic_entry) {
++			.pin = 0x19,
++			.idx = headset_mic_idx,
++		};
++		spec->gen.hp_automute_hook = alc295_acer_nitro_hp_automute;
++		spec->gen.mic_autoswitch_hook =
++			alc295_acer_nitro_mic_autoswitch;
++	}
++}
++
+ static void alc245_fixup_hp_spectre_x360_eu0xxx(struct hda_codec *codec,
+ 					  const struct hda_fixup *fix, int action)
+ {
+@@ -4335,6 +4432,7 @@ enum {
+ 	ALC287_FIXUP_THINKPAD_I2S_SPK,
+ 	ALC287_FIXUP_MG_RTKC_CSAMP_CS35L41_I2C_THINKPAD,
+ 	ALC2XX_FIXUP_HEADSET_MIC,
++	ALC295_FIXUP_ACER_NITRO_HEADSET_MODE,
+ 	ALC289_FIXUP_DELL_CS35L41_SPI_2,
+ 	ALC256_FIXUP_ACER_SFG16_MICMUTE_LED,
+ 	ALC256_FIXUP_HEADPHONE_AMP_VOL,
+@@ -6854,6 +6952,10 @@ static const struct hda_fixup alc269_fixups[] = {
+ 		.type = HDA_FIXUP_FUNC,
+ 		.v.func = alc2xx_fixup_headset_mic,
+ 	},
++	[ALC295_FIXUP_ACER_NITRO_HEADSET_MODE] = {
++		.type = HDA_FIXUP_FUNC,
++		.v.func = alc295_fixup_acer_nitro_headset_mode,
++	},
+ 	[ALC289_FIXUP_DELL_CS35L41_SPI_2] = {
+ 		.type = HDA_FIXUP_FUNC,
+ 		.v.func = cs35l41_fixup_spi_two,
+@@ -7177,7 +7279,8 @@ static const struct hda_quirk alc269_fixup_tbl[] = {
+ 	SND_PCI_QUIRK(0x1025, 0x1430, "Acer TravelMate B311R-31", ALC256_FIXUP_ACER_MIC_NO_PRESENCE),
+ 	SND_PCI_QUIRK(0x1025, 0x1466, "Acer Aspire A515-56", ALC255_FIXUP_ACER_HEADPHONE_AND_MIC),
+ 	SND_PCI_QUIRK(0x1025, 0x1534, "Acer Predator PH315-54", ALC255_FIXUP_ACER_MIC_NO_PRESENCE),
+-	SND_PCI_QUIRK(0x1025, 0x1539, "Acer Nitro 5 AN515-57", ALC2XX_FIXUP_HEADSET_MIC),
++	SND_PCI_QUIRK(0x1025, 0x1539, "Acer Nitro 5 AN515-57",
++		      ALC295_FIXUP_ACER_NITRO_HEADSET_MODE),
+ 	SND_PCI_QUIRK(0x1025, 0x159c, "Acer Nitro 5 AN515-58", ALC287_FIXUP_ACER_MICMUTE_LED),
+ 	SND_PCI_QUIRK(0x1025, 0x1597, "Acer Nitro 5 AN517-55", ALC2XX_FIXUP_HEADSET_MIC),
+ 	SND_PCI_QUIRK(0x1025, 0x159e, "Acer Nitro 5 AN515-46", ALC2XX_FIXUP_HEADSET_MIC),
+-- 
+2.55.0
