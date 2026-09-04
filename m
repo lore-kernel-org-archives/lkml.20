@@ -1,82 +1,139 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f177.google.com (mail-pg1-f177.google.com [209.85.215.177])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C10F377EDC
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 05:45:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA102335BBB
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 05:46:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.177
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788500758; cv=none; b=O8Mtbm4nstpK+ZDag6RAJnh46Ys2DmrQC/COykQ3kv2kv6D5gh8f5CHnXtwZ9qLfC/nL7t5QDeifzzqWY+PHahSt+rbczSZ9J9H7IJKOBqGCyLiKnXupDZovmfpn6/LDFgfoCwgFhWu8sADRTmi1HbVjpa+o8dBwVUFB6920rtU=
+	t=1788500772; cv=none; b=D1GIxaSkV2PU+WNSwgPRJ4+NJTp+6Kco1XmHmhYquPYv8wqUtL8jTqZK897dceFVgcBAt2ejTf7g591k+htFKFg+p53qBGNwcD5u5Pz0IEXrQ3MTpUhWQBXN7JzhYu1ka4ao2p07wiHaesr9HwJPBdJ7gxRndPoDsqsbn0pq+uQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788500758; c=relaxed/simple;
-	bh=QTu9PnvDsQzQLUNvKhaCPETfiCq9YRqyZZqjyNCocuw=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=BIn9z8iLrRXYMVl0mbTAHAi+wyg1ZiQ2IEL0I/f727vw1jmBuxvhBqezuLKBRQ5tquOSup/dH+qwZwQ/felpj+cm0HqeVxvBHePAc89VRadmB01uJzMNIzmK17al1tVqqmdqF29QBKtUBLq4yHm3P4UFr+s0rzICnSkSgZLcYPU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=MPTqyvGc; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=0YRlq9oX; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	s=arc-20240116; t=1788500772; c=relaxed/simple;
+	bh=+p9muWoFiyM9sOBvVa06eGraG+/N0W0Tuk17+ALO2TY=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Oq7hiFL3I+n5UQxWe8Mkdzag7enkQmsBWurAL/n+tUvJZj2Jg92w1p1wM6GcieST/nV3nUxG/EK46BroJvL1LSQINpOvyMf5znALGa8l6+QAvAFXyyWwy0rjV0t+wM6mlhxcK3xD1CHva+ktJ6SUb+J+5Bz6GOzvwtGLVeNE3JI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Er+bNteN; arc=none smtp.client-ip=209.85.215.177
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="MPTqyvGc";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="0YRlq9oX"
-From: Thomas Gleixner <tglx@linutronix.de>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1788500754;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=lSy1/YOqSRv5Xucjo4fenIDYrvZFmoA3GFjyNG26I+8=;
-	b=MPTqyvGcMbakOrSfpWPCZYo0Dsz2Rp3snKVS+kBaatyF1vIh3MCQMAoFH4cOwhDNz+o2KY
-	QuvZ7TajmFZutQbz3SZ/9kQM4auyPaLil7QLwqbs5NdjyCYQ3atSXN61XZ7wr8WPIEqLlV
-	rauV5QIhTUBwsrWpb+o7DHSayTH6MzQcYAxZDL0cjoVIbE0oQntchw21f3F3u5hcQAARMn
-	Ll3+HxYRh51Fck0PfzeHS4fGVG5QY70X9o0Ix8QpT0Uy2D2hi/RcN1JTCIFi+STy3jyGPH
-	iUap3kDF+FEip8kQLjvN2umXxGHFzCsT+253tOYqo+P75DrPBuSycs18TJpwJQ==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1788500754;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=lSy1/YOqSRv5Xucjo4fenIDYrvZFmoA3GFjyNG26I+8=;
-	b=0YRlq9oX2AuiLL3LPSMeH4FfcXwdYN8YepcyH3+2s8VM1DsoeNHUPX0HgTFrRrvV4xk0S+
-	gK3csU0FXeqX4vCA==
-To: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-Cc: Peter Zijlstra <peterz@infradead.org>, linux-kernel@vger.kernel.org,
- =?utf-8?Q?Andr=C3=A9?= Almeida <andrealmeid@igalia.com>, Darren Hart
- <dvhart@infradead.org>, Davidlohr Bueso <dave@stgolabs.net>, Ingo Molnar
- <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, Yao Kai
- <yaokai34@huawei.com>
-Subject: Re: [PATCH v3 1/2] futex: Add missing rt_mutex_.*_schedule() around
- rt_mutex_wait_proxy_lock()
-In-Reply-To: <874ig5a7wd.ffs@fw13>
-References: <20260824125544.2353006-1-bigeasy@linutronix.de>
- <20260824125544.2353006-2-bigeasy@linutronix.de>
- <20260824132334.GI687043@noisy.programming.kicks-ass.net>
- <874igghi3w.ffs@fw13> <20260827083738.-6QSwUwb@linutronix.de>
- <874ig5a7wd.ffs@fw13>
-Date: Fri, 04 Sep 2026 07:45:54 +0200
-Message-ID: <871pb9a7sd.ffs@fw13>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Er+bNteN"
+Received: by mail-pg1-f177.google.com with SMTP id 41be03b00d2f7-cbee846deecso1007810a12.1
+        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 22:46:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788500770; x=1789105570; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Tk539GniTdCZ8Wj9Su5lzhCLfBhK51JlU0xrDVWOeAs=;
+        b=Er+bNteNI+1quJAkkegTQyKHx9QlJ7gMwsEw0otX/w8myHnKU0HT5JjQaAsxrAaSrQ
+         0zNaVmzgtqS2opww8CE1d6xfctLyxcqArLz4GLDqu+mga4eKtt7616VUCYJjTuaqOIy+
+         vVrt727nuzbCg/fREvqfPaqXfMvwUUltpeiaeIp6t24/yaUoemzl7b3U+H8fGvDjiypa
+         oDnI1Le75rmTQ9VMHUm2iDhQH9qKzclH0/bI7r0z53fM6/QpkqE/XcoagdzFeRPLrehU
+         X+LiOCgabsvbBaS+qlpW0qH/4EUfPS7CCHqHabbYrmYbaaAD1qhYeaDp+TiCtFSagF+O
+         OCMg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788500770; x=1789105570;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Tk539GniTdCZ8Wj9Su5lzhCLfBhK51JlU0xrDVWOeAs=;
+        b=iv6yHGR5PU9m5JUsSf2YdkuVHWP2VFVXkHutwFWP1fsNg1wZcq6SnQXkN+6elqclzI
+         XY2x9vi4wZPVcLejfBcC0/5esr7aTDs5go5jPTIJiD7wkrZmQ40KvyBR+9amhgJbgGO8
+         +O6KLWymqaBYb0T4S7Wagv8gcntDUPoHdQq9nUsUOCCfkc/wNbOyNxM243jjTFdCxz+1
+         AzU0LKePi30hYmLg00E5zt/H9w5LWqBeMxIxdieCTI0YZKbzJyX0Rg6OkSCz+27fRT7D
+         9Lgm/jA+IczVPmT/BI3B2KwHB3fDKqTzwvPl6EZlP7SD/rKDwncBwnlCC1G2SxPcfSkn
+         GJdQ==
+X-Forwarded-Encrypted: i=1; AKwUvBx/8E6WhawyUdIOGBHrt8R9TDonmsQC09Pv776WKD/i/Un4UP3C/v9qt5V7M2OC/3RKwjWPPW4yFM94CHY=@vger.kernel.org
+X-Gm-Message-State: AFuF++kpql5iUfOhfrtrC7X5Vkj1RIZMr5H1PhG4D4HOEjpnf/Qa59v0
+	d9a6Mvctq60eRKZo54yxYiFLyw8Io7MQlCT+OdquQeFMHqFHCCG5rvvut0mO0+L9
+X-Gm-Gg: AYBFou2CfSIm7qpXxsIjbBq8PRdvk3B7XCoDprIOcobklgQnE6ufARkMoQn7wBKaLT7
+	fWPwqO7xZbXU84duOkdPanpNQWL4OW3GRJ8YLJ8D/lTvozSpoZ2RIkO8A7xzsAv+1ZiBfMNva0b
+	4R+IJvOZvRwNA041ZhlZAUZkgQdH5KMJ5Qu6VZJw0To4eUYuKJfVHYhOA35KitOstShXAy87SGJ
+	tpeUnqWXz/sSE6KFMzQidj+srYn1jpq126gEplMGSz4Ru1FJUqXNgwVTw59wY0SPgnSVOf7icXh
+	Ytzo+qJ2Qe5nqhSpOpo1FiWUBWokedkuldlax7Bp2Mk97t7fw4pe6pGaNscjqQ4Ym/I7H4mjRz3
+	iedZUohgGxjRXfnekW8PombR2nnOziNEnet+Hmk2rm9nl28n9SIK2KLZdDFu2DeJ2veXzHq65vN
+	d800ZxMD+Pk4h+m4ypdlRRPt984oCiewzF9Y6pPNNyu7qzP0es9DaF+SZhQvcfL2+rG86CGWAqS
+	WpE5TJQTM//zVQAGG+Gbq72FZaOX2+Yahh6HHn6f5mTNp8Ycw8AKPaQpJA=
+X-Received: by 2002:a05:6a20:2d20:b0:3d3:ae50:97cd with SMTP id adf61e73a8af0-3da3a217583mr5400981637.26.1788500769794;
+        Thu, 03 Sep 2026 22:46:09 -0700 (PDT)
+Received: from localhost.localdomain ([240e:46e:1a00:17c3:cd45:a98c:4d40:1db8])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc455158babsm458700a12.4.2026.09.03.22.46.04
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Thu, 03 Sep 2026 22:46:09 -0700 (PDT)
+From: Yafang Shao <laoar.shao@gmail.com>
+To: jinkehan@didiglobal.com
+Cc: bp@alien8.de,
+	dave.hansen@linux.intel.com,
+	hpa@zytor.com,
+	kees@kernel.org,
+	linux-kernel@vger.kernel.org,
+	mhiramat@kernel.org,
+	mingo@redhat.com,
+	peterz@infradead.org,
+	rppt@kernel.org,
+	tglx@kernel.org,
+	x86@kernel.org,
+	Yafang Shao <laoar.shao@gmail.com>
+Subject: Re: [PATCH] x86/kprobe: Fix crash when probe cs call
+Date: Fri,  4 Sep 2026 13:45:48 +0800
+Message-ID: <20260904054549.98217-1-laoar.shao@gmail.com>
+X-Mailer: git-send-email 2.50.1
+In-Reply-To: <20260827025756.GA26653@didi-ThinkCentre-M920t-N000>
+References: <20260827025756.GA26653@didi-ThinkCentre-M920t-N000>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Transfer-Encoding: 8bit
 
-On Fri, Sep 04 2026 at 07:43, Thomas Gleixner wrote:
-
-> On Thu, Aug 27 2026 at 10:37, Sebastian Andrzej Siewior wrote:
->> On 2026-08-26 20:06:11 [+0200], Thomas Gleixner wrote:
->> So this code simply failed to do that, which triggers the
->>> lockdep_assert() in rt_mutex_schedule().
->>> 
->>> And it's obvious from the surrounding comments how this task got there, no?
->>
->> I would suggest to strip it all from the futex part, not do the flush
->> and just please the assert so it keeps quiet. I did some explaining in
->> the v2 and then Yao suggested
->> 	https://lore.kernel.org/all/5df8a43e-11bb-4881-877d-40034c414984@huawei.com/
->>
->> which is what I had in mind.
+On Thu, 27 Aug 2026 at 10:57 AM Jinke Han <jinkehan@didiglobal.com> wrote:
+> When I used eBPF to probe the call instructions within a function,
+> we encountered a kernel crash.
 >
-> and I'm waiting for a proper patch with changelog for that.
+> The ebpf tool probes the 257 offset of the __hrtimer_run_queues
+> function.
+>
+> <__hrtimer_run_queues+249>:  nopl   0x0(%rax,%rax,1)
+> <__hrtimer_run_queues+254>:  mov    %r14,%rdi
+> <__hrtimer_run_queues+257>:  cs call <__x86_indirect_thunk_r12>
+> <__hrtimer_run_queues+263>:  mov    %eax,%r12d
+> <__hrtimer_run_queues+266>:  xchg   %ax,%ax
+> <__hrtimer_run_queues+268>:  mov    %r13,%rdi
+>
+> The scene of kernel crash is as follows:
+>
+> [73665.737181] BUG: unable to handle page fault for address: 00000000000f41c9
+> [73665.744253] #PF: supervisor write access in kernel mode
+> [73665.749643] #PF: error_code(0x0002) - not-present page
+> [73665.754843] PGD 0 P4D 0
+> [73665.757390] Oops: 0002 [#1] SMP NOPTI
+> [73665.761073] CPU: 1 PID: 0 Comm: swapper/1 Kdump: loaded Tainted: P
+> [73665.782671] RIP: 0010:__hrtimer_run_queues+0x106/0x230
+> 
+> Note that __hrtimer_run_queues+0x106 is __hrtimer_run_queues+262, which is
+> at the 6th byte of the above cs call instruction. Since the cs call
+> instruction occupies 6 bytes, the exception occurred in the middle of that
+> call instruction.
+>
+> The root cause is that when using eBPF tools to probe in the middle of a
+> function, kprobe with int3 is used as the underlying implementation.
+> During single-step emulation of the original call instruction,
+> int3_emulate_call assumes that the probed call instruction is 5 bytes
+> long. However, the actual CS-prefixed call instruction occupies 6 bytes,
+> so it constructs an incorrect exception return address. When the CPU
+> returns from the kprobe handler, the next instruction to be executed is at
+> the address of the last byte of that CS call instruction. Coincidentally,
+> starting from that address, the CPU fetches and decodes a completely
+> different instruction, which ultimately triggers a kernel crash.
+>
+> Fix the issue by using the actual instruction length obtained from
+> the instruction decoder when constructing the exception return
+> address, rather than relying on the hardcoded CALL_INSN_SIZE macro.
+>
+> Cc: stable@kernel.org
+> Fixes: 6256e668b7af ("x86/kprobes: Use int3 instead of debug trap for single-step")
+> Signed-off-by: Jinke Han <jinkehan@didiglobal.com>
 
-Nevermind. Found it :)
+LGTM
+Acked-by: Yafang Shao <laoar.shao@gmail.com>
