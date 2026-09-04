@@ -1,94 +1,158 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpbgau2.qq.com (smtpbgau2.qq.com [54.206.34.216])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD0853BB117
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 19:00:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3643941F5F3
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 19:01:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.206.34.216
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788548472; cv=none; b=obKFNNFdOGowbh/gogWTvQQatlfuI9ByJDmDwd1qkdQynnDPA88I+TFWFmCXTDqJ5a7DpHnKSxtmNG48EbRSoR93H7NWfJLNJJlfWB430tiyeWmYj3gtQx2QfhLXEabdwbW5unCTZJDjxl4abhHsO0bP7och0FRBfatuDrRrUGU=
+	t=1788548491; cv=none; b=RkSjkmUV4MoPV/c4pQuxXLvX6t+hBEztump8G0uNA+9a1CHMhD9rVui5yDNz/STxgupEhwH2HpiiFO3zGqrZDZj8FdfiavKYj6LQotslTvzpiC4JkkJXxLGdAgHIG2/Me66vFQDAuReyglnC6heMtr2F/W/KlrRkxibhAojMgGY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788548472; c=relaxed/simple;
-	bh=g9tgsg4yqnSAMJo5kY6mXq0PH2NelBacUUL3GjIWDcs=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=bxiKf2k1bk9iQqXDuJHp5gitAClUAaIyBnP6ILUcOkyE0R60XRevV48+U+acImbyURtOgWPjYAm5T69I4aNthCRx3+6kdxzH7lndEGyWzqaIoai9TdqIcGlG0V3ujE5vi/BjJQae2o8VLrBS8hS3O0S/b4srfBfLJzT1oyWG34E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UWslN8VT; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788548491; c=relaxed/simple;
+	bh=Dx0GSPYGIfUQLppaPVXlJMMHizMg/xAt5dml5PKbk/I=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=N7A7IhDoeybr52AQgPplis9IFJvByxfMgxcXp2ZgTUCG/A44O0Cqf394u7VgXJkzTvm/hPDXINcCz/32ioNIZu8e1zPaKyzeprUq6CSM8/7YerCqnTh0VxNahlbP9hl/dwxhsHx0rGal1gHgjplc8pdTOC/YYyohFt6mJIPLdiA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=l3rBDNTj; arc=none smtp.client-ip=54.206.34.216
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UWslN8VT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1B5F61F00ACF;
-	Fri,  4 Sep 2026 19:00:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788548451;
-	bh=BRw6QX3F0kqzDQvc8Txrjq/R6k0aiCJr3Pfe7plpCu8=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=UWslN8VTQVPw2ryT/T4dCzBkqQtqt57mKXp9YsSx/49yE8cFKEzDgZoCK2u/GYZqk
-	 nnQba5gSu7jOmPgxKOBAWCKmIbhkkSIEch4KoBYUKNL46uImgggXtJYKasEH5vh/mN
-	 Ef/oQ1eyzsqZM0Jhsl5EALipxBHZYHtES87STJx8TYzFh8beK4E9mphJJTiJaQt3Mx
-	 QQOfrt3RKMLzJJyvWV9K+cwpZ6CLf5AlBBgLZwu/8UonnV+dv/JJ7XrIB2jmRtVwbi
-	 YdCrzJxz0Hnt7Zmyw5oIvXUEj+xdElazcgC3LZ4QP6UF6C67i/XboSZ/zPpGr++ycw
-	 ZRU7CU8nIkjEw==
-From: Thomas Gleixner <tglx@kernel.org>
-To: Mark Brown <broonie@kernel.org>, linux-kernel@vger.kernel.org
-Cc: Farhad Alemi <farhad.alemi@berkeley.edu>, Mark Brown <broonie@kernel.org>
-Subject: Re: [PATCH] regmap: irq: Free the irqdomain we create
-In-Reply-To: <20260901-regmap-irq-deallocate-domain-v1-1-4bfed4aff559@kernel.org>
-References: <20260901-regmap-irq-deallocate-domain-v1-1-4bfed4aff559@kernel.org>
-Date: Fri, 04 Sep 2026 21:00:48 +0200
-Message-ID: <87mrtw7sf3.ffs@fw13>
+	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="l3rBDNTj"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
+	s=onoh2408; t=1788548440;
+	bh=UcOmkfW2ZFxthOlyo7oYIE1Vjb1R2Z7a4/GWDq7I1Ck=;
+	h=From:To:Subject:Date:Message-Id:MIME-Version;
+	b=l3rBDNTjTL0yF0NP3My9oCBCABG3IrqEUxi76wdLf3tOV9uJeaCUtmNbFUAwqC2v8
+	 NY3HprGqFd+4gJI4l0EX3urdxQMd4rXC+Jt1MZrzPJWnfGAcNFoc4RkT0CRc4ePoSH
+	 vISNYpWRHA25JqnRg+5iyCgCg/s67qJl7goIWgvI=
+X-QQ-mid: esmtpsz10t1788548434t4ffa4808
+X-QQ-Originating-IP: tPtF9edAtIQDM30B6GGR5BAuwcOTCe2L8C0nf2UkaZM=
+Received: from localhost.localdomain ( [113.57.152.160])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Sat, 05 Sep 2026 03:00:32 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 1
+X-BIZMAIL-ID: 9379820658307783900
+EX-QQ-RecipientCnt: 9
+From: Wentao Guan <guanwentao@uniontech.com>
+To: david@fromorbit.com,
+	hannes@cmpxchg.org
+Cc: qinyuntan@linux.alibaba.com,
+	qi.zheng@linux.dev,
+	shakeel.butt@linux.dev,
+	kasong@tencent.com,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	Wentao Guan <guanwentao@uniontech.com>
+Subject: [PATCH] mm: list_lru: clear shrinker id when disabling memcg awareness
+Date: Sat,  5 Sep 2026 03:00:28 +0800
+Message-Id: <20260904190028.21542-1-guanwentao@uniontech.com>
+X-Mailer: git-send-email 2.30.2
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Transfer-Encoding: 8bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: esmtpsz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz3a-0
+X-QQ-XMAILINFO: M5znx2hx04lbpoOMoO88JiSBtTYP6nekwxgAzfuIjrO7fQdi5Su1fYp6
+	Q6PciVO8CAKv8wSI0XzUCxSVbI+06MYLhnSw2ZZGLewCM1dMYXjjgMezH7VyioOCOxH0dDn
+	dp1ve+PPz06DpXhJDFnwF7/66HRoBF9f4BqnHP2/qBtIVOIKYhgXLDslj5yOkf3BazjnQ8B
+	brHpOhUUgVLrV0pyI/73CM2GU9juec00CSPfqkjFreOF3sUD+GWftIxZ5ytk/G8SyUunll8
+	ggTTPFTk+VfamEbRY3ikGuXs3c9zZOcfDeYPEkjLS7ZjMnaNaOOAYCsqOltkBahTGPifsgz
+	K+6E86b4ryKRlclq7/oS+QSV2YV2PpufafD5T3J/lzjsBpAovlXaVvTYsIpN4RSl7rEvlNd
+	f5qZWCqusJY28FHaniG7j+nOxsL2tNDQmiaXzMzod2ySblW7l22cVo1lCKIe7v6/EntLXrO
+	U1feJlpSlOzykklyi6EHVS3TI8LMtvE+28Wf92HHpAdYijBG3BLklxgtuPg38wG46ptkJYA
+	/etV7W9acW3EOpjqq19JWN85MiPy67Nh8vaMK4+h627PRwjgnmA2Rvjv9XIPxaXScGm7ptn
+	anz8ekM1Hy3sD1XWeBfjLrigiYmnY4qCx+K0OKvMNGHAC8/oY+Xvs1zpSzyPS2odLBmWPD1
+	R9zKoMR470gyF0njLzCqtazs1nzIe7YppFnN5BW/7sAKku9Ck64vxf7IUAmt2FzW5rEU+9Z
+	3NWhRtOS/lookT4aTvoKDqA2RBA1enumqJN2piOZMU+hGQIM5jtt4U6fEsqKBngdc/vMStE
+	VEnrHVv9D+z8CKtKlyUNtDWDUzRMDeAK8qZU4iYqff9FS8CQrR9PEnTR7iv7ede5C0pP+tb
+	4WYZVb/0Q7qMS2dwoihT7inJ7jdXp5HLLBHd/Zx/J5Up8qM4StqO0bKFoD3/63NGXx/3FU7
+	64inMkTpfWn4qcWQVNcGM3IGfjWdr0MmfUBBW2MZLkqt68UdK8FprLjbkGHclwTjrzQS6DO
+	o3Pxly0aCxmYtCnOUe3OMS0R1fdffj3m2qNessKU7GszfhNTJtFmL2In3CZ/E7RKqbh7ufU
+	Q==
+X-QQ-XMRINFO: Nq+8W0+stu50tPAe92KXseR0ZZmBTk3gLg==
+X-QQ-RECHKSPAM: 0
 
-On Tue, Sep 01 2026 at 22:55, Mark Brown wrote:
-> When domain support was added to regmap-irq it was not possible to
-> remove domains, this was added later by 8ee99ada293b (irqdomain: Support
-> removal of IRQ domains.).  We did update the main removal path to free
-> the domain but forgot the error unwinding case during creation that is
-> now in regmap_add_irq_chip_fwnode() after some code motion, meaning that
-> errors during instantiation result in an unused irqchip being left
-> hanging around.  Add the missing irq_remove_domain() call where the
-> comment says it should be.
->
-> Reported-by: Farhad Alemi <farhad.alemi@berkeley.edu>
-> Reported-by: Thomas Gleixner <tglx@kernel.org>
-> Signed-off-by: Mark Brown <broonie@kernel.org>
-> ---
->  drivers/base/regmap/regmap-irq.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/drivers/base/regmap/regmap-irq.c b/drivers/base/regmap/regmap-irq.c
-> index 99b55b1053ee..715eb9e7aa2a 100644
-> --- a/drivers/base/regmap/regmap-irq.c
-> +++ b/drivers/base/regmap/regmap-irq.c
-> @@ -963,7 +963,7 @@ int regmap_add_irq_chip_fwnode(struct fwnode_handle *fwnode,
->  	return 0;
->  
->  err_domain:
-> -	/* Should really dispose of the domain but... */
-> +	irq_domain_remove(d->domain);
+When cgroup.memory=nokmem is in effect, __list_lru_init() disables
+memcg awareness for the list_lru, but it leaves lru->shrinker_id copied
+from the supplied shrinker.
 
-That won't work.
+This used to be mostly harmless for memcg-aware slab list_lrus because,
+with kmem accounting disabled, slab objects are not charged to memcgs and
+list_lru_add_obj() passes NULL memcgs. The THP deferred split conversion
+changed that: it initializes a memcg-aware list_lru with the THP shrinker
+and later adds anon THPs with the folio memcg, even when kmem accounting
+is disabled. The list_lru itself has been collapsed to plain per-node
+lists, but the stale shrinker id still makes __list_lru_add() call
+set_shrinker_bit().
 
-The case which is affected is the one which allocates interrupts
-upfront via alloc_irq_descs().
+This was reproduced on a kernel with CONFIG_MEMCG=y and
+CONFIG_TRANSPARENT_HUGEPAGE=y, booted with kernel memory accounting
+disabled. The same condition can be reproduced by booting with:
 
-In that case the domain creation will associate allocated interrupts
-because info.virq_base is > 0.
+  cgroup.memory=nokmem
 
-This wont trigger the WARN_ON() in irq_domain_remove() because it's a
-fixed sized linear domain, but irq_domain_remove() will leak the
-interrupt descriptors which still have a reference (pointer) to the irq
-chip and the domain. So the same UAF is still there :)
+and then faulting in anonymous THPs so that they are queued on the THP
+deferred split list_lru. The warning showed that the memcg had no kmem id
+and no memcg shrinker bitmap capacity, while the list_lru still carried a
+valid shrinker id:
 
-What you need to do before removing the domain is
+  set_shrinker_bit: memcg=ffff8d23cbe60000 css_id=31 kmem_id=-1 \
+    dying=0 nid=0 shrinker_id=0 shrinker_nr_max=0 map_nr_max=0 \
+    info=ffff8d23d68c60c0
+  WARNING: mm/shrinker.c:218 at set_shrinker_bit+0xdb/0x100
 
-     if (irq_base > 0)
-     	irq_domain_free_irqs(irq_base, chip->num_irqs);
+The stack was:
 
-Thanks,
+  set_shrinker_bit
+  __list_lru_add
+  deferred_split_folio
+  map_anon_folio_pmd_nopf
+  map_anon_folio_pmd_pf
+  __do_huge_pmd_anonymous_page
+  do_huge_pmd_anonymous_page
+  __handle_mm_fault
+  handle_mm_fault
+  do_user_addr_fault
+  exc_page_fault
+  asm_exc_page_fault
 
-        tglx
+The list_lru code already uses shrinker_id == -1 as the sentinel that
+prevents set_shrinker_bit() from doing any memcg bitmap operation. Keep
+that invariant when memcg awareness is forced off due to disabled kmem
+accounting.
+
+This is related to the cgroup_disable=memory case fixed by Qinyun Tan,
+where __list_lru_init() also needs to collapse list_lrus to plain
+per-node lists when the memory controller is disabled entirely. That
+patch makes the memcg awareness decision complete; this patch keeps the
+shrinker id in sync with that decision.
+
+Link: https://lore.kernel.org/linux-mm/20260902093202.609559-1-qinyuntan@linux.alibaba.com/
+Fixes: fafaeceb89a5 ("mm: switch deferred split shrinker to list_lru")
+Assisted-by: atomcode:gpt-5.5-medium
+Signed-off-by: Wentao Guan <guanwentao@uniontech.com>
+---
+ mm/list_lru.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/mm/list_lru.c b/mm/list_lru.c
+index 36662d02ff963..c08a5e2367106 100644
+--- a/mm/list_lru.c
++++ b/mm/list_lru.c
+@@ -671,8 +671,10 @@ int __list_lru_init(struct list_lru *lru, bool memcg_aware, struct shrinker *shr
+ 	else
+ 		lru->shrinker_id = -1;
+ 
+-	if (mem_cgroup_kmem_disabled())
++	if (mem_cgroup_kmem_disabled()) {
+ 		memcg_aware = false;
++		lru->shrinker_id = -1;
++	}
+ #endif
+ 
+ 	lru->node = kzalloc_objs(*lru->node, nr_node_ids);
+-- 
+2.30.2
 
