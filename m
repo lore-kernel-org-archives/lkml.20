@@ -1,99 +1,131 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpbgjp3.qq.com (smtpbgjp3.qq.com [54.92.39.34])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 324D852121C;
-	Fri,  4 Sep 2026 19:42:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFFCD509F02
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 19:44:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.92.39.34
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788550981; cv=none; b=pj0bjq7j6n3f0HvcnsDn0vBH/nnzfNbvGAilHywLkhjc+3OD5CWH/xzr5sPTw/1UQgO83xtZKtUcUoMxWWACqI6vpFGvrg0yxS6Gukg9GpP6Umz558q3Y/PCFlkFn/xy/o4oWVglEwdHz6V8NAa8698MbAV92t0wO98fLYLh62A=
+	t=1788551053; cv=none; b=TiPrcRHTMj1z26o5lH9aoo2x9Goby9ImTfFx0/Haq6uYbCHEakc7Km9EyaE2e9OfMNHSI+erQPLGVTbT7emXedMnG+UhacN+W4u9ysDq20cv0sQY8bPZxo/YyrlqAD3AU9GovPYikZTk2ouKfFAD7xi/799alHAuyCLpuf2+xVA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788550981; c=relaxed/simple;
-	bh=/AdwIK6AeqCLwMkN7rIEC/Xz9ssthdQzeLlM/HNuEGM=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=uikB1cwA846RWoQez3RqqL819gPV2uMZrd1fdzKJ7XvPcgAmTWg3pt3useZ0zHeOYjdHVvc68NoFda7jNe/4jRGzYzkiCCIYhMpYMMDyReew4kyAnvlLd8wUu9jnOmnPu995nmfGfu5AAbpp69xQ+0UiWUeUt2/If+YjeVXNS5o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OMcU/YKT; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788551053; c=relaxed/simple;
+	bh=/bTzgWMEy9BDvp6IwS6vIzYT5e916ZycKbA3gsTQSN4=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=nBNyp9shJvrTE8RJpou2FVcnI2SDfCvGsia6sbuYmsaxI2AGV26wwuclnAI61d5P2cBPt3sR9ySzX1ivrahR4mFoA7zdKksWfhLDpKXOqnL0BkdrbJrpgBPaKEcmDomCaLwCPrLcGa3X1Rr0O5PNA8RtK75UbQIpKFf7HQPmH0w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=JSL+okaC; arc=none smtp.client-ip=54.92.39.34
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OMcU/YKT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8602A1F00A3D;
-	Fri,  4 Sep 2026 19:42:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788550972;
-	bh=pr9OfyLVQuN5Rx3bNQsJLYj1tIF/Zqhj511pC7wSZtI=;
-	h=From:Date:Subject:To:Cc;
-	b=OMcU/YKTo/KgjLF70QdwXeRAIHr1xpbNzN6MGU2dMN33ZCiKw1e/sQUbnEizcSIO+
-	 tv+8erG/04hGqmzpaK41YquB14wrW4pWcODHofe9AWforjaqIFWmBuRDlwSlqNcWZm
-	 Vj3DKS/bSZtIElW5V4OZJtsbLWkvJZ+1U0T10/Jw+LWAjajD83YoRNzixZpLKxHIRm
-	 OOPaTyGjN62wWeFd9o79lk0ZY/TpH34v0rmQDxj/Wr87sooBhM/Wz8MS9OhGq6OnQ5
-	 d3a9Sevh2vCzaJVdryCiz6REbwhACEEqR+53q4689gQQwdjrQlPB8jlpSUMDfrXMTG
-	 7Otcn0BiRAtdg==
-From: Jeff Layton <jlayton@kernel.org>
-Date: Fri, 04 Sep 2026 15:42:48 -0400
-Subject: [PATCH] nfsd: shorten extack string returned with dodgy listener
+	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="JSL+okaC"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
+	s=onoh2408; t=1788551019;
+	bh=vdqcgDWDRYb5T8iNF+ov3y6T/OLrNQ3mp3fJFvYbja8=;
+	h=From:To:Subject:Date:Message-Id:MIME-Version;
+	b=JSL+okaCL39JVbb+lH+FIuyWxuMQm8tw029018ANVEifP0HCiKvTwxdchJd7dNBT8
+	 ciwuW/HHtH4C4EFGtR7BmwZc4MlRE6vjwhpl79vU+npNhtRaXcRQSvYxr4bOxahnKt
+	 K9qc/tdvJEW10BuG4+uSC785bQ51Ztn5E/Qh6Dns=
+X-QQ-mid: zesmtpgz5t1788551001tce9aa63b
+X-QQ-Originating-IP: SC4xcQ2AUZyWLQjL7sMo/Lm5tVZSsV3X7Qmh2D24Kws=
+Received: from localhost.localdomain ( [113.57.152.160])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Sat, 05 Sep 2026 03:43:18 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 1
+X-BIZMAIL-ID: 861377282768174038
+EX-QQ-RecipientCnt: 15
+From: Wentao Guan <guanwentao@uniontech.com>
+To: qinyuntan@linux.alibaba.com
+Cc: akpm@linux-foundation.org,
+	baolin.wang@linux.alibaba.com,
+	david@fromorbit.com,
+	david@kernel.org,
+	hannes@cmpxchg.org,
+	lance.yang@linux.dev,
+	linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org,
+	mkoutny@suse.com,
+	muchun.song@linux.dev,
+	qi.zheng@linux.dev,
+	roman.gushchin@linux.dev,
+	xlpang@linux.alibaba.com,
+	Wentao Guan <guanwentao@uniontech.com>
+Subject: Re: [PATCH] mm/list_lru: don't copy stale shrinker id from non-memcg-aware shrinkers
+Date: Sat,  5 Sep 2026 03:43:15 +0800
+Message-Id: <20260904194315.9954-1-guanwentao@uniontech.com>
+X-Mailer: git-send-email 2.30.2
+In-Reply-To: <20260901115104.2944996-1-qinyuntan@linux.alibaba.com>
+References: <20260901115104.2944996-1-qinyuntan@linux.alibaba.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260904-nfsd-nl-hang-v1-1-8c8035b6294d@kernel.org>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
- vPSU3UzU4B8JSMDIzMDSwMT3by04hTdvBxdkKSuRbJ5klGaUbKBRZqpElBLQVFqWmYF2Ljo2Np
- aAE0Dvv1eAAAA
-X-Change-ID: 20260904-nfsd-nl-hang-8c7b2f2c08f5
-To: Chuck Lever <cel@kernel.org>, NeilBrown <neil@brown.name>, 
- Olga Kornievskaia <okorniev@redhat.com>, Dai Ngo <Dai.Ngo@oracle.com>, 
- Tom Talpey <tom@talpey.com>
-Cc: linux-nfs@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Jeff Layton <jlayton@kernel.org>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1137; i=jlayton@kernel.org;
- h=from:subject:message-id; bh=/AdwIK6AeqCLwMkN7rIEC/Xz9ssthdQzeLlM/HNuEGM=;
- b=owEBbQKS/ZANAwAKAQAOaEEZVoIVAcsmYgBqmx87Oy/7jw4W7AXN3addy/mINDRLbiNSml9A0
- p6JeNYCRQeJAjMEAAEKAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCapsfOwAKCRAADmhBGVaC
- FQnnD/9aWPuZ+Ll9kyytf/60So2f+aQGRFxAMelLzNunGHlKJtpBRh+UOCMcP+RHdWwTmzC+ggf
- wT+K5o9dDPJ9+N3unCE4xl++sf/73l2Z1LpKgbeAeSO945HZYEe5dUSUEt3MGJJy0gm1YSveFN1
- ML1mvGwvE4Pwh4P5aCafHYO1gI3LhNqxfUIOKWiBIEGPsGlBHN3GOlmtX3g7nG48+EbzInFaAJW
- ruz0YvywvkLZxHvDY+TrXt06oxxMmJP2LPc/5dy0vHeGzXbrL6Or4FbWVpzK7zNFV9uu/7odAa8
- BId61ASZuaLgg91eO/JHuDSDonVLyIRVGJcnOI3v9x7BCzlMZAaX82z7BeNJRSe3DVZ08VPz23d
- 8f+47cx0FjYrd8Va9Vy3d5eJopSmL/iXXHtqx/+ALTolNuDYLWXAlrnPyaDkLxoEGU90Yl7BiCJ
- vvwOqhGyRlV3nl0kH+BDGdmRQYLaqXraxB+MP95bGr0wjPk293j3FazqYfvgd/wrFS7Zp+1ipTF
- 8+8P5kQp7vz2OqSoFMGErA254afhnTdbz7wvZDF1XXzSpQrV9RSyii0GE7ysJ2dwtRSPqu0lYU8
- Zm/+esFaurAVR1fs3vBZbP4k8Ubyd/H0Ca4s/nxqYmQj54j1R6065sMt5r1Gs+bWCIeNMbxdqaS
- 8QlvjaEyzmkxfUQ==
-X-Developer-Key: i=jlayton@kernel.org; a=openpgp;
- fpr=4BC0D7B24471B2A184EAF5D3000E684119568215
+Content-Transfer-Encoding: 8bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: zesmtpgz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz3a-0
+X-QQ-XMAILINFO: Nt9NcOjqvGa9L9O8wL7bW5Xnc9CMSt+RMQzdo8KXn1gMoX1RKB9IIPax
+	ovnCH7++5PqfFFvSe5KUNCgcTGmCZIUaZWsU28GlMiCc/QSE1Nh8JtQu5vNK/MDqHG6kWBo
+	hxue068J1lNvN7eGsAkyPZ2PzloTfoOkPX3rE06hT0OnGNqmrh4Pr2u+XPVDBheGpu+tjav
+	UZOcLPcpo8dejAGL+DsjaQSrufOX3GW0hGqE3t4qK9MUjuPdBD1M6egbXlTGAENdC2O2O0d
+	TE4hNFN1YGnCnoZbocW/hae/FliNNxdWiJxFMHZ27GwVMAa+g2Cq0Wb/Qygw5E5y2o0irRi
+	ojwxTKcZYyqAAIedP5LaTHHYs6eEm/WliaboG7A6qC+wLVZ/WObb7292bm3jfcYoQahlfuQ
+	oElvI+dDVEcdTSrUFaE14syfDt+NFXRt1peO6guaqIH1brV1udnk88H1U3XsH4BvYEO8av9
+	83tDl4HdPX9mhvdrKrQmemigYyDtIBbUFYYb7QkjMWGG+gNYRA55vdyygmxtMHhneJZEZWk
+	SZo+oXc0W6PIr8WGTE3xqo4LJRiKdwt2Pq2hSImakzrP5ltOZsGzZdIuiXvGKk/ROK/MNiu
+	EvtgwzOq6d6DCIftM5WXTlygza2GpykaaU/mQ1GnmPLOAHLX4Z78YL5U4d41e7Nfd8zfNhG
+	mdL6oVhyqo63rngkpXhm2xjqjAcXkb0XrvhqtLjQBMTpWNQpWHYNcoiKgpnx45MKZlUFUjy
+	SfDyu/jRoQ9w+CpW+75dV6F4C/e3aWaF7CR1gJgKnCHIsA+HI1fhbc1CS9q0RYCumIYj/j4
+	bwyPxgAZrLbNJSEXoEXDTtzdORKLoSayzWhQmIQwY0yAL2PyI+QZq84Tl+3ktvyIb8RpyrP
+	sDGtgXWH/HuIpSXNKvw451flXzPmI7LxyWcRA+/S8smkEmAW65imN2Hh2T3wn1ep6GDoiJE
+	1EnFNz5N6qgvAXkLf0wE/fsIhucH55ObOmg/KxgsPdyoN564Pjge0YwsVU+jytdbm6RJqeH
+	gmMaSS0D9SWdlW1CT0w3WVoch2Wy1Rbp9wttGCJg4E3yJtw3u9/AQ+WWe9Au9Tzh7zfcE1H
+	UeKgVCU4g5Jz93RLQw1r1xI2/EAkXg/oQ==
+X-QQ-XMRINFO: NS+P29fieYNwqS3WCnRCOn9D1NpZuCnCRA==
+X-QQ-RECHKSPAM: 0
 
-The kernel test robot reports:
+> On Sep 1, 2026, at 19:51, Qinyun Tan <qinyuntan@linux.alibaba.com> wrote:
+>
+> With cgroup.memory=nokmem, shrinker_memcg_alloc() fails with -ENOSYS
+> for shrinkers without SHRINKER_NONSLAB, and shrinker_alloc() falls
+> back to a non-memcg-aware shrinker.  On this fallback path,
+> shrinker->id is never assigned and keeps 0 from kzalloc(), which is a
+> valid id belonging to whichever memcg-aware shrinker registers first.
+>
+> __list_lru_init() copies shrinker->id unconditionally, so every
+> list_lru backed by such a fallback shrinker (thp-deferred_split,
+> zswap-shrinker, workingset shadow nodes, superblock lrus, ...) ends
+> up with lru->shrinker_id == 0 instead of -1.
+>
+> Under nokmem the list_lru collapses to the shared per-node lists, but
+> __list_lru_add() still calls set_shrinker_bit() against the memcg of
+> the added object.  Most list_lru users are unaffected because their
+> objects resolve to a NULL memcg without kmem accounting, but the THP
+> deferred split queue holds user folios, which are charged regardless
+> of nokmem.  Since no memcg-aware shrinker can register under nokmem,
+> shrinker_nr_max stays 0 and every memcg's shrinker_info has
+> map_nr_max == 0, so the first folio added by khugepaged triggers on
+> every boot:
+>
+>  WARNING: mm/shrinker.c:212 at set_shrinker_bit+0x99/0xa0
+>
+> On systems where a SHRINKER_NONSLAB shrinker (btrfs, xfs) did register
+> and expand the maps, there is no warning; instead bit 0 is set
+> spuriously for an unrelated shrinker.
+>
+> shrinker->id is only meaningful while SHRINKER_MEMCG_AWARE is set,
+> and all readers inside mm/shrinker.c already check the flag before
+> using the id.  Make __list_lru_init() do the same and fall back to -1,
+> so set_shrinker_bit() is never reached with a bogus id.  The stale
+> shrinker->id itself is left as is; cleaning that up is a separate
+> topic.
+>
+> Fixes: 03375203e1da8 ("mm: do not allocate shrinker info with cgroup.memory=nokmem")
+> Signed-off-by: Qinyun Tan <qinyuntan@linux.alibaba.com>
 
->> fs/nfsd/nfsctl.c:2253:4: warning: 'snprintf' will always be truncated; specified size is 80, but format string expands to at least 94 [-Wformat-truncation]
+Tested-by: Wentao Guan <guanwentao@uniontech.com>
 
-Shorten the extack string in this case so that it will fit in 80 chars.
+The patch solved my problem in link:
+https://lore.kernel.org/linux-mm/20260904190028.21542-1-guanwentao@uniontech.com/
 
-Signed-off-by: Jeff Layton <jlayton@kernel.org>
----
- fs/nfsd/nfsctl.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/fs/nfsd/nfsctl.c b/fs/nfsd/nfsctl.c
-index c6f6bc3b1281..9c55a7be1937 100644
---- a/fs/nfsd/nfsctl.c
-+++ b/fs/nfsd/nfsctl.c
-@@ -2251,7 +2251,7 @@ int nfsd_nl_listener_set_doit(struct sk_buff *skb, struct genl_info *info)
- 					   bad_xprt);
- 		else if (skipped_rpcb)
- 			NL_SET_ERR_MSG_FMT(info->extack,
--					   "cannot create %s listener; rpcbind did not answer earlier, so some listeners are not registered",
-+					   "cannot create %s listener; rpcbind did not answer earlier",
- 					   bad_xprt);
- 		else
- 			NL_SET_ERR_MSG_FMT(info->extack,
-
----
-base-commit: a5c1bd1a4490d86935bda04967726cf540c7b05a
-change-id: 20260904-nfsd-nl-hang-8c7b2f2c08f5
-
-Best regards,
--- 
-Jeff Layton <jlayton@kernel.org>
-
+Thanks
+Wentao Guan
