@@ -1,52 +1,52 @@
 Received: from bkemail.birger-koblitz.de (bkemail.birger-koblitz.de [23.88.97.239])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F062751476C;
-	Fri,  4 Sep 2026 17:28:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64304517BCF;
+	Fri,  4 Sep 2026 17:28:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=23.88.97.239
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788542937; cv=none; b=kts86lt0fm5Lr5ASj5QFmzehyPir1GznOPITE6qulCi7bYs5vPSdJYjmh9pg08MlOF4ZRamrneWAQTST8NrkHD2x+5LONFPzekYsfbjbB3Sas74Qkmb46i7TUhCCeCFEMWjJyaBnbAHYvx9byoTsyFcw8xgE3dW1nZtxDnHVjk0=
+	t=1788542948; cv=none; b=ZsKYsFpBUdmnmGQvo+e+vWm8hmsw1QqRNQwOORVDullSHZHqenVuq2+ufNcEgDThLOc+lRPhJFAbttD+UE3fOdxvkcxc9jEhY2K8iT1shuV++QK+3b6Va1ZCd1a6xmx9t8NTCGAovV4tgmxoUG98mUnpQ0eEgwSGn/NV87bVRzU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788542937; c=relaxed/simple;
-	bh=wlYvlqMeNeN1YEtfU+bl3W3gyW5Xl0ZDMWtm6GNrP6E=;
+	s=arc-20240116; t=1788542948; c=relaxed/simple;
+	bh=Vs8kCnN22Z+qLs5Czfaa/Cs53Fn8mkbv+W+xbBDEH4o=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=GjzPZCRJzsynI0vhHffrjfv9IS5NceRCYcZ/HSWk5W7bZYEfq68iKhFDfyFvQlDPtW1Fv6LvwgfEk4cohvrB2aEwd1A/5s5D9lEbjvSpf2TS1Nc62huCI6z7ydtZOHC+3W2J/dgChto0SpM/S9fPYeLnBesEospUrSZsgj67rzM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=birger-koblitz.de; spf=pass smtp.mailfrom=birger-koblitz.de; dkim=pass (2048-bit key) header.d=birger-koblitz.de header.i=@birger-koblitz.de header.b=K/tl9T1i; dkim=pass (2048-bit key) header.d=birger-koblitz.de header.i=@birger-koblitz.de header.b=s9M6dtl+; arc=none smtp.client-ip=23.88.97.239
+	 In-Reply-To:To:Cc; b=pw4kTF6U7gMZhWDBnMxLM2Zv79PgrS1rEoYZtzqVT8jXpCQYahRZh666SqxWy+R9GC1w5BGjBj8Z/Ln82hQsIgJPIWQ+aVqQ0BLhX/E5NbSh0IhewEFK6JvVbigbWOSvBXbx+ZC1u/3QnqY2QDi/nsxXFEchIh9QeUlUAIXru00=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=birger-koblitz.de; spf=pass smtp.mailfrom=birger-koblitz.de; dkim=pass (2048-bit key) header.d=birger-koblitz.de header.i=@birger-koblitz.de header.b=vRO+lEJ1; dkim=pass (2048-bit key) header.d=birger-koblitz.de header.i=@birger-koblitz.de header.b=ygp61Wgj; arc=none smtp.client-ip=23.88.97.239
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=birger-koblitz.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=birger-koblitz.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=birger-koblitz.de header.i=@birger-koblitz.de header.b="K/tl9T1i";
-	dkim=pass (2048-bit key) header.d=birger-koblitz.de header.i=@birger-koblitz.de header.b="s9M6dtl+"
+	dkim=pass (2048-bit key) header.d=birger-koblitz.de header.i=@birger-koblitz.de header.b="vRO+lEJ1";
+	dkim=pass (2048-bit key) header.d=birger-koblitz.de header.i=@birger-koblitz.de header.b="ygp61Wgj"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=birger-koblitz.de;
-	s=default; t=1788542926;
-	bh=wlYvlqMeNeN1YEtfU+bl3W3gyW5Xl0ZDMWtm6GNrP6E=;
+	s=default; t=1788542931;
+	bh=Vs8kCnN22Z+qLs5Czfaa/Cs53Fn8mkbv+W+xbBDEH4o=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=K/tl9T1i9CFunj7f3OzOmjwl6vbBI1VG8k8R3irTPqiZsAilxTbaaMMhBNue/qm1u
-	 dMsibfcxz9MBKqpb1m1UWSkGhpvp8XFPLeVxhlSrO7nVwHfNjU926+3Wa7IIxpUYRz
-	 X98dbLqJItrbUwyE2NaUR+96v7pH3gExKQiy+1axYk4uquTjD/Om8fe5E8ol+Betkl
-	 8wLGXykZd15l4ui4pKpiQ1LjTrqtKgo3lWh4OHD+Nqf1tD1e+W4Zay7gq8hU4+wl4I
-	 pOFDElaBpQGwuBxspkVnpRFZuQ1JFob/fFwKUK2InvMK54OvzBUVXEPu1xgsfNpR7C
-	 vCDAB0v51spKQ==
+	b=vRO+lEJ13bPWawVV6ZONlX6H8W6UNZ+KE7KzNljGrdNicRwVHhgT47fewx7pkGHpT
+	 X24jRIlhp3tBCTEz+coK9RV7BFbTDdMXXEhPgR5UzIER6GS0ZuWV3bMMHAZdGztTqd
+	 5byGOllUdgYdStm93F1BTt1rWy0TtqmBgeHkNB5pQ48ULFygPYnmu4FGjvSImK/Cl2
+	 On5W8KH3eQTP6xtwvXhSz8Noiff1A3OE/ZmvdddGwQx0T5BN+rwLEhy9PwufvK8+F+
+	 Jq0EMwvcigLWwyXhXSN+KN6SSSlib+gMdJAQPRPKmSQdBw8R5VdV9jBhg7yEf6Y6YM
+	 itCvVyl9ym1BQ==
 Received: by bkemail.birger-koblitz.de (Postfix, from userid 109)
-	id E73803F0F8; Fri,  4 Sep 2026 17:28:46 +0000 (UTC)
+	id 9010A3F0D8; Fri,  4 Sep 2026 17:28:51 +0000 (UTC)
 X-Spam-Level: 
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=birger-koblitz.de;
-	s=default; t=1788542916;
-	bh=wlYvlqMeNeN1YEtfU+bl3W3gyW5Xl0ZDMWtm6GNrP6E=;
+	s=default; t=1788542918;
+	bh=Vs8kCnN22Z+qLs5Czfaa/Cs53Fn8mkbv+W+xbBDEH4o=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=s9M6dtl+wel+n0Eu+gYR6wjA5iCJCZvNhDyS41P4AbreQN8aZFjP+ytajj4ZqHyQ9
-	 lah/sKF3NKeWx+Lk/zBsdDIZ4AOTf29ulm6XhFBKWiSGTfY+wy9Y1BImdEff+kyPjL
-	 3USYiEJpqiYp2rVB2kSSQoOZJO+HqrhJF8cCj0h41zZ/FIyy2i9RNuM8bKBy1tB0/P
-	 /K0ErDzXpxw2ssby/d/+DP48OmlxAhLX7VnMSf2pYUH3KjIiZD3Dmo1plcZkouRHxZ
-	 xAwwbAxOzr2c746AU2XfLpBBriE4HTcpzlbhSlOzvUvwguT0M95u3MEioNZrocnlfy
-	 c7Qou88QGfp1Q==
+	b=ygp61Wgj3iK/APbmwsaOwpoxtRH/5ZDGM7hYJsG94LjV9WVh8JdUrbAdjgTT+xhkL
+	 z29e9EtYeimNx/uj3UVdAdbQ2IJQFvvN50DxJNaSOnEPBk+9Hr9rTfylw57CsNSMLv
+	 Lxg2z7FgSXNdgzTYAjYhWxiG/vSDtvEvUqiCHk+ZYeh7uQNNspiQ+VTfi7AVgY74Ps
+	 CuBmGA9eIV+B/PGzTm2FWOCgwYil4wQlvgBHXYZPgrcU/3/XY9kcRDuYPxSlKm6tHg
+	 N28e6rqn9oCQOWBNfiIrB7vu0bo1Dl/XFvzy/cZrWsLIFBkV6/gToHPWih9UCrczdz
+	 l2Q9TtIRCcqVQ==
 Received: from AMDDesktop.lan (unknown [IPv6:2a00:6020:47a3:e800:271c:c6c5:9fde:77cb])
-	by bkemail.birger-koblitz.de (Postfix) with ESMTPSA id 456CD3F0D7;
-	Fri,  4 Sep 2026 17:28:36 +0000 (UTC)
+	by bkemail.birger-koblitz.de (Postfix) with ESMTPSA id 3BE623F0E9;
+	Fri,  4 Sep 2026 17:28:38 +0000 (UTC)
 From: Birger Koblitz <mail@birger-koblitz.de>
-Date: Fri, 04 Sep 2026 19:28:34 +0200
-Subject: [PATCH net-next v10 09/15] ax88179_178a: Add VLAN offload support
- for AX88179A
+Date: Fri, 04 Sep 2026 19:28:39 +0200
+Subject: [PATCH net-next v10 14/15] ax88179_178a: Add support for
+ AX88179A/772D/279 EEPROM access
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -55,7 +55,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260904-ax88179a-v10-9-b5e60eca7690@birger-koblitz.de>
+Message-Id: <20260904-ax88179a-v10-14-b5e60eca7690@birger-koblitz.de>
 References: <20260904-ax88179a-v10-0-b5e60eca7690@birger-koblitz.de>
 In-Reply-To: <20260904-ax88179a-v10-0-b5e60eca7690@birger-koblitz.de>
 To: Andrew Lunn <andrew+netdev@lunn.ch>, 
@@ -68,165 +68,152 @@ Cc: linux-usb@vger.kernel.org, netdev@vger.kernel.org,
  Jianhui Xu <neuromoments@gmail.com>
 X-Mailer: b4 0.14.2
 
-The AX88179A-based chips support VLAN offload. Add configuration
-support in netdev_ops. Features supported are:
-NETIF_F_HW_VLAN_CTAG_TX, NETIF_F_HW_VLAN_CTAG_RX
-and NETIF_F_HW_VLAN_CTAG_FILTER.
+The AX88179A/772D devices have 32 efuses with 20 bytes each,
+which can be randomly programmed. The AX88279 has 16K FLASH.
+
+Provide ethtool read capability for these devices. However,
+no write access is provided.
 
 Signed-off-by: Birger Koblitz <mail@birger-koblitz.de>
 Reviewed-by: Andrew Lunn <andrew@lunn.ch>
 ---
- drivers/net/usb/ax88179_lib.c      |   2 +
- drivers/net/usb/ax88179a_devices.c | 102 +++++++++++++++++++++++++++++++++++++
- 2 files changed, 104 insertions(+)
+ drivers/net/usb/ax88179_178a.c | 19 +++++++++++++++
+ drivers/net/usb/ax88179_lib.c  | 54 ++++++++++++++++++++++++++++++++----------
+ 2 files changed, 61 insertions(+), 12 deletions(-)
 
-diff --git a/drivers/net/usb/ax88179_lib.c b/drivers/net/usb/ax88179_lib.c
-index ea36aef3d3e45ee4f84362a1b87628a12a355bbf..3324069e90fc352048817963f27a49ed3872b348 100644
---- a/drivers/net/usb/ax88179_lib.c
-+++ b/drivers/net/usb/ax88179_lib.c
-@@ -346,6 +346,7 @@ int ax88179_set_features(struct net_device *net, netdev_features_t features)
- {
- 	u8 tmp;
- 	struct usbnet *dev = netdev_priv(net);
-+	struct ax88179_data *data = dev->driver_priv;
- 	netdev_features_t changed = net->features ^ features;
+diff --git a/drivers/net/usb/ax88179_178a.c b/drivers/net/usb/ax88179_178a.c
+index 1d35ef90eceb77b27e8d96e64a008c63b40f4bd7..55564aa0ca63f09d5f592415e15df20368c3238a 100644
+--- a/drivers/net/usb/ax88179_178a.c
++++ b/drivers/net/usb/ax88179_178a.c
+@@ -687,6 +687,19 @@ static int ax88179_bind(struct usbnet *dev, struct usb_interface *intf)
+ 	ax179_data->resume = ax88179_resume;
+ 	ax179_data->suspend = ax88179_suspend;
  
- 	if (changed & NETIF_F_IP_CSUM) {
-@@ -365,6 +366,7 @@ int ax88179_set_features(struct net_device *net, netdev_features_t features)
- 		tmp ^= AX_RXCOE_IP | AX_RXCOE_TCP | AX_RXCOE_UDP |
- 		       AX_RXCOE_TCPV6 | AX_RXCOE_UDPV6;
- 		ax88179_write_cmd(dev, AX_ACCESS_MAC, AX_RXCOE_CTL, 1, 1, &tmp);
-+		data->rx_checksum = !!(features & NETIF_F_RXCSUM);
- 	}
++	ret = ax88179_read_cmd(dev, AX_ACCESS_MAC, AX_CHIP_STATUS,
++			       1, 1, &ax179_data->chip_version);
++	if (ret < 0)
++		goto err_nodev;
++
++	ax179_data->chip_version = (ax179_data->chip_version & 0xf0) >> 4;
++	ax179_data->is_ax88772d = 0;
++	ax179_data->ip_align = 1;
++	ax179_data->eeprom_read_cmd = AX_ACCESS_EEPROM;
++	ax179_data->eeprom_write_cmd = AX_ACCESS_EEPROM;
++	ax179_data->eeprom_block = 2;
++	ax179_data->eeprom_wen = 0;
++
+ 	dev->net->netdev_ops = &ax88179_netdev_ops;
+ 	dev->net->ethtool_ops = &ax88179_ethtool_ops;
+ 	dev->net->needed_headroom = 8;
+@@ -711,6 +724,12 @@ static int ax88179_bind(struct usbnet *dev, struct usb_interface *intf)
+ 	ax88179_reset(dev);
  
  	return 0;
-diff --git a/drivers/net/usb/ax88179a_devices.c b/drivers/net/usb/ax88179a_devices.c
-index 6a5381ebc245697d1633f198b940ebe78bb7c628..12885a4936223def82e4b85951a566cbb64d2193 100644
---- a/drivers/net/usb/ax88179a_devices.c
-+++ b/drivers/net/usb/ax88179a_devices.c
-@@ -239,6 +239,62 @@ static const struct ethtool_ops ax88179a_ethtool_ops = {
- 	.get_ts_info		= ethtool_op_get_ts_info,
- };
- 
-+static int ax88179a_vlan_rx_kill_vid(struct net_device *net, __be16 proto, u16 vid)
-+{
-+	struct usbnet *dev = netdev_priv(net);
-+	u8 vlan_ctrl;
-+	u16 reg16;
-+	u8 reg8;
 +
-+	ax88179_read_cmd(dev, AX_ACCESS_MAC, AX88179A_VLAN_ID_CONTROL, 1, 1, &reg8);
-+	vlan_ctrl = reg8;
++err_nodev:
++	kfree(ax179_data);
++	ax179_data = NULL;
 +
-+	/* Address */
-+	reg8 = (vid / 16);
-+	ax88179_write_cmd(dev, AX_ACCESS_MAC, AX88179A_VLAN_ID_ADDRESS, 1, 1, &reg8);
-+
-+	/* Data */
-+	reg8 = vlan_ctrl | AX_VLAN_CONTROL_RD;
-+	ax88179_write_cmd(dev, AX_ACCESS_MAC, AX88179A_VLAN_ID_CONTROL, 1, 1, &reg8);
-+
-+	ax88179_read_cmd(dev, AX_ACCESS_MAC, AX88179A_VLAN_ID_DATA0, 2, 2, &reg16);
-+	reg16 &= ~(1 << (vid % 16));
-+	ax88179_write_cmd(dev, AX_ACCESS_MAC, AX88179A_VLAN_ID_DATA0, 2, 2, &reg16);
-+
-+	reg8 = vlan_ctrl | AX_VLAN_CONTROL_WE;
-+	ax88179_write_cmd(dev, AX_ACCESS_MAC, AX88179A_VLAN_ID_CONTROL, 1, 1, &reg8);
-+
-+	return 0;
-+}
-+
-+static int ax88179a_vlan_rx_add_vid(struct net_device *net, __be16 proto, u16 vid)
-+{
-+	struct usbnet *dev = netdev_priv(net);
-+	u8 vlan_ctrl;
-+	u16 reg16;
-+	u8 reg8;
-+
-+	ax88179_read_cmd(dev, AX_ACCESS_MAC, AX88179A_VLAN_ID_CONTROL, 1, 1, &reg8);
-+	vlan_ctrl = reg8;
-+
-+	/* Address */
-+	reg8 = (vid / 16);
-+	ax88179_write_cmd(dev, AX_ACCESS_MAC, AX88179A_VLAN_ID_ADDRESS, 1, 1, &reg8);
-+
-+	/* Data */
-+	reg8 = vlan_ctrl | AX_VLAN_CONTROL_RD;
-+	ax88179_write_cmd(dev, AX_ACCESS_MAC, AX88179A_VLAN_ID_CONTROL, 1, 1, &reg8);
-+
-+	ax88179_read_cmd(dev, AX_ACCESS_MAC, AX88179A_VLAN_ID_DATA0, 2, 2, &reg16);
-+	reg16 |= (1 << (vid % 16));
-+	ax88179_write_cmd(dev, AX_ACCESS_MAC, AX88179A_VLAN_ID_DATA0, 2, 2, &reg16);
-+
-+	reg8 = vlan_ctrl | AX_VLAN_CONTROL_WE;
-+	ax88179_write_cmd(dev, AX_ACCESS_MAC, AX88179A_VLAN_ID_CONTROL, 1, 1, &reg8);
-+
-+	return 0;
-+}
-+
- static void ax88179a_mdio_unregister(struct ax88179_data *data)
- {
- 	mdiobus_unregister(data->mdio);
-@@ -499,6 +555,49 @@ static int ax88179a_init_mdio(struct usbnet *dev)
- 	return ret;
++	return ret;
  }
  
-+static int ax88179a_set_features(struct net_device *net, netdev_features_t features)
+ static void ax88179_unbind(struct usbnet *dev, struct usb_interface *intf)
+diff --git a/drivers/net/usb/ax88179_lib.c b/drivers/net/usb/ax88179_lib.c
+index 3b498206c50d5b5d9d5cd489114ef28bf280fe97..db77b7d4539ec52756a93d3c56d46155de5570df 100644
+--- a/drivers/net/usb/ax88179_lib.c
++++ b/drivers/net/usb/ax88179_lib.c
+@@ -194,36 +194,61 @@ int ax88179_set_wol(struct net_device *net, struct ethtool_wolinfo *wolinfo)
+ 	return 0;
+ }
+ 
++static void
++ax88179_eeprom_access_params(struct ax88179_data *ax179_data, int i, u16 *value, u16 *idx)
 +{
-+	struct usbnet *dev = netdev_priv(net);
-+	netdev_features_t changed;
-+	int ret;
-+	u8 tmp;
-+
-+	changed = net->features ^ features;
-+
-+	ret = ax88179_set_features(net, features);
-+	if (ret)
-+		return ret;
-+
-+	if (changed & NETIF_F_HW_VLAN_CTAG_FILTER) {
-+		ax88179_read_cmd(dev, AX_ACCESS_MAC, AX88179A_VLAN_ID_CONTROL, 1, 1, &tmp);
-+		tmp ^= AX_VLAN_CONTROL_VFE;
-+		ax88179_write_cmd(dev, AX_ACCESS_MAC, AX88179A_VLAN_ID_CONTROL, 1, 1, &tmp);
-+		if (features & NETIF_F_HW_VLAN_CTAG_FILTER) {
-+			for (int i = 0; i < 256; i++) {
-+				u16 tmp16 = 0;
-+				/* Address */
-+				tmp = i;
-+				ax88179_write_cmd(dev, AX_ACCESS_MAC, AX88179A_VLAN_ID_ADDRESS,
-+						  1, 1, &tmp);
-+				/* Data */
-+				ax88179_write_cmd(dev, AX_ACCESS_MAC, AX88179A_VLAN_ID_DATA0,
-+						  2, 2, &tmp16);
-+				tmp = AX_VLAN_CONTROL_WE;
-+				ax88179_write_cmd(dev, AX_ACCESS_MAC, AX88179A_VLAN_ID_CONTROL,
-+						  1, 1, &tmp);
-+			}
-+		}
++	/* AX88179 has a word-addressable EEPROM
++	 * AX88179A uses EFUSES with 20 bytes length
++	 * AX88279 has an EEPROM addressable in 256 byte blocks
++	 */
++	if (ax179_data->chip_version < AX_VERSION_AX88179A) {
++		*value = i;
++		*idx = 1;
++	} else if (ax179_data->chip_version >= AX_VERSION_AX88279) {
++		*value = (i * ax179_data->eeprom_block) >> 16;
++		*idx = (i * ax179_data->eeprom_block) & 0xffff;
++	} else {
++		*value = i << 4;
++		*idx = 0;
 +	}
-+
-+	if (changed & NETIF_F_HW_VLAN_CTAG_RX) {
-+		ax88179_read_cmd(dev, AX_ACCESS_MAC, AX88179A_VLAN_ID_CONTROL, 1, 1, &tmp);
-+		tmp ^= AX_VLAN_CONTROL_VSO;
-+		ax88179_write_cmd(dev, AX_ACCESS_MAC, AX88179A_VLAN_ID_CONTROL, 1, 1, &tmp);
-+	}
-+
-+	return 0;
 +}
 +
- static const struct net_device_ops ax88179a_netdev_ops = {
- 	.ndo_open		= usbnet_open,
- 	.ndo_stop		= usbnet_stop,
-@@ -509,6 +608,9 @@ static const struct net_device_ops ax88179a_netdev_ops = {
- 	.ndo_set_mac_address	= ax88179_set_mac_addr,
- 	.ndo_validate_addr	= eth_validate_addr,
- 	.ndo_eth_ioctl		= usbnet_mii_ioctl,
-+	.ndo_set_features	= ax88179a_set_features,
-+	.ndo_vlan_rx_add_vid	= ax88179a_vlan_rx_add_vid,
-+	.ndo_vlan_rx_kill_vid	= ax88179a_vlan_rx_kill_vid,
- };
+ int ax88179_get_eeprom(struct net_device *net, struct ethtool_eeprom *eeprom, u8 *data)
+ {
+ 	struct usbnet *dev = netdev_priv(net);
+-	u16 *eeprom_buff;
+-	int first_word, last_word;
+-	int i, ret;
++	struct ax88179_data *ax179_data;
++	int first, last, i, ret;
++	u8 *eeprom_buff;
++
++	ax179_data = dev->driver_priv;
  
- static int ax88179a_bind(struct usbnet *dev, struct usb_interface *intf)
+ 	if (eeprom->len == 0)
+ 		return -EINVAL;
+ 
+ 	eeprom->magic = AX88179_EEPROM_MAGIC;
+ 
+-	first_word = eeprom->offset >> 1;
+-	last_word = (eeprom->offset + eeprom->len - 1) >> 1;
+-	eeprom_buff = kmalloc_array(last_word - first_word + 1, sizeof(u16),
+-				    GFP_KERNEL);
++	first = eeprom->offset / ax179_data->eeprom_block;
++	last = (eeprom->offset + eeprom->len - 1) / ax179_data->eeprom_block;
++
++	eeprom_buff = kzalloc((last - first + 1) * ax179_data->eeprom_block, GFP_KERNEL);
+ 	if (!eeprom_buff)
+ 		return -ENOMEM;
+ 
+-	/* ax88179/178A returns 2 bytes from eeprom on read */
+-	for (i = first_word; i <= last_word; i++) {
+-		ret = __ax88179_read_cmd(dev, AX_ACCESS_EEPROM, i, 1, 2,
+-					 &eeprom_buff[i - first_word]);
++	for (i = first; i <= last; i++) {
++		u16 value, idx;
++
++		ax88179_eeprom_access_params(ax179_data, i, &value, &idx);
++		ret = __ax88179_read_cmd(dev, ax179_data->eeprom_read_cmd,
++					 value, idx, ax179_data->eeprom_block,
++					 eeprom_buff + (i - first) * ax179_data->eeprom_block);
++
+ 		if (ret < 0) {
+ 			kfree(eeprom_buff);
+ 			return -EIO;
+ 		}
+ 	}
+ 
+-	memcpy(data, (u8 *)eeprom_buff + (eeprom->offset & 1), eeprom->len);
++	memcpy(data, eeprom_buff + eeprom->offset % ax179_data->eeprom_block, eeprom->len);
+ 	kfree(eeprom_buff);
+ 	return 0;
+ }
+@@ -231,12 +256,17 @@ int ax88179_get_eeprom(struct net_device *net, struct ethtool_eeprom *eeprom, u8
+ int ax88179_set_eeprom(struct net_device *net, struct ethtool_eeprom *eeprom, u8 *data)
+ {
+ 	struct usbnet *dev = netdev_priv(net);
++	struct ax88179_data *ax179_data;
+ 	u16 *eeprom_buff;
+ 	int first_word;
+ 	int last_word;
+ 	int ret;
+ 	int i;
+ 
++	ax179_data = dev->driver_priv;
++	if (ax179_data->chip_version >= AX_VERSION_AX88179A)
++		return -EOPNOTSUPP;
++
+ 	netdev_dbg(net, "write EEPROM len %d, offset %d, magic 0x%x\n",
+ 		   eeprom->len, eeprom->offset, eeprom->magic);
+ 
 
 -- 
 2.47.3
