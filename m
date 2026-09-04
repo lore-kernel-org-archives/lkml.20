@@ -1,287 +1,186 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A087323C39A;
-	Fri,  4 Sep 2026 00:26:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8801F64A8D;
+	Fri,  4 Sep 2026 00:28:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788481597; cv=none; b=kxbfTdOoodVsAxx++WDrzv98/xR2Ro/5x3dO9TKc9Uh34Qx/1TXjsLNFEhe6DPzG5k2fJ5hKFBIxWEeheI/T50rcWT5l6fWrH82cfwsoz9bdDec7AV/Eq2ZnupdTgj3oKI+iduLiEs0PGgthWUiMUvA7ziJY1plCSSlDASzqMDA=
+	t=1788481719; cv=none; b=iSvRW0uX8ivwO8rB7VyVH9zDcAo/wrBdmQyHQZKgVdbLqJc4Hr5/4YxGmucMUfHcl8Q9KcYIpSZM2FMlDjsRmXk1SH9nJk2KJNThFcMqUIKPY/3IEZiOP24G8dRt6KiGTaoz9AnJC+2JReiL39RIFAANPRqgd3IsKWKetOvLxew=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788481597; c=relaxed/simple;
-	bh=oRrGffu/kiLX2HyQGVv4EIwKUR82c/crUs40BeVP+Qc=;
-	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
-	 Mime-Version:Content-Type; b=eD/JPdwUSaqd6jZZQ4uR6RqVbmeYfS/n/O70JaongMg7WNrY7HqQzqlfEiXAh+v4m1c2IalxtkIZifEvn022ThcKid7w67OA64QsG7foBdphiKyJFA2b0aRcelAgQflG2vVp+/OUgoliVx72ftCQaX3IujXbH+ESBXJDVcyTQZc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OCIThmja; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788481719; c=relaxed/simple;
+	bh=E2pPTMj2y0igH8/fLVW/oBV18kRCmsEZu9oDLRGSds0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Fa0uESN2j58dPIsH0hFAvGDFNiL+B4DurarForCX5wIm4/n6SHOP7E3bPlSVI/LDivdox3FFrPL0rC2W8mu/jploRYHK2tjgxx771ZFWykIfGb30ftOJnuJqd+KKRMTi2Vi1nCurM8S/3C6/OVRfp3BMpJosGc13tOQGX7sgmmk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=a5TBCL0l; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OCIThmja"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 04E041F000E9;
-	Fri,  4 Sep 2026 00:26:33 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="a5TBCL0l"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D7A01F000E9;
+	Fri,  4 Sep 2026 00:28:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788481595;
-	bh=uogExHDyGP0YvaOO7+efzg/2nlKu8rYGscbsG4u5gJc=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=OCIThmjaOyTg6cc7895Q0D2BIw6uBeoevft1g9WKJyKGNDJ6IpQrylZe2aQsS6bAp
-	 xK73G3R5l6b3mVo+UhEfG7o5uzW4NUuXnyzWgcpT+XOAibarHjp+15B8dpnb/wFs6M
-	 su5ZnR9ZvzpOOHD34nEJ+jHeUdC+yxWkht18N/bVjsshETwqpmfGEXrP3cZ6iZlWWA
-	 aMoHkA4q74R/Msj/RcB4mLsSQeYnNW+TRffcKfCbENPVeKwbq+CWUWVrNu3cmVu+HV
-	 f/x94yST6ublZnfKhgRJr1J5xinBmfotVLVIT21m0ck1d7BLMKVXz3CtITcTefObx1
-	 nOZbgq+M00Z4Q==
-Date: Fri, 4 Sep 2026 09:26:31 +0900
-From: Masami Hiramatsu (Google) <mhiramat@kernel.org>
-To: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
-Cc: Steven Rostedt <rostedt@goodmis.org>, Breno Leitao <leitao@debian.org>,
- linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org
-Subject: Kernel parameter collision/duplicate behavior (Re: [PATCH v3]
- bootconfig: Skip printing early params to cmdline from bootconfig)
-Message-Id: <20260904092631.89dfb0f39ad73684630850a9@kernel.org>
-In-Reply-To: <178844899530.263905.7707547252181797215.stgit@devnote2>
-References: <178844899530.263905.7707547252181797215.stgit@devnote2>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	s=k20260515; t=1788481718;
+	bh=166TVcIhx+0QErke7o9FSwWx5qn3nWzpmAkGNjrnyxo=;
+	h=From:To:Cc:Subject:Date;
+	b=a5TBCL0lOqtdWhuMu8eqDhclsqwxPf/1VXkbfpNmnIcjvwjDn80KggTx9+l4jPfIG
+	 OJ+2gO/99uTovvA+HLAQNk5LgV3QqxyNxVMSYAF79F1BpUun4xBFzMQfE+3vUmDNY6
+	 I9q1gPKx6r5qi8ZelTUBBv7ECk7+bzrm2EzAwzD/JMclfrGieDUZQD2qPXAwtu0iDP
+	 4ngSvns5LNd+t3kVnYKkgTOCrR2urpvCBpUW7tIRO5x0g7jHIVcJnQP3p12iifdCwt
+	 7cQQjxOOvKQnP0CZVRPR14yV8SW4M8P/hwCJR/FRofKl3gJfW5cRlBaloEThAw0k7K
+	 yki2hn2G0y2FQ==
+From: SJ Park <sj@kernel.org>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: Nathan Gao <zcgao@amazon.com>,
+	"David Hildenbrand (Arm)" <david@kernel.org>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	Ryan Roberts <ryan.roberts@arm.com>,
+	SJ Park <sj@kernel.org>,
+	damon@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org,
+	stable@vger.kernel.org
+Subject: [PATCH v5] mm/damon/ops-common: use a page-aligned address in damon_ptep_mkold()
+Date: Thu,  3 Sep 2026 17:28:27 -0700
+Message-ID: <20260904002829.116381-1-sj@kernel.org>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Hi,
+From: Nathan Gao <zcgao@amazon.com>
 
-Related to this fix, I found another issue to be noted.
+__damon_va_prepare_access_check() picks a random byte address within the
+region and stores it in r->sampling_addr. damon_va_mkold() passes it into
+a page table walk, which hands it to damon_ptep_mkold() as the address of
+the page to sample:
 
-While bootconfig appends its kernel/init parameters to cmdline buffer
-at boot time, the specific interpretation of each parameter remains
-somewhat ambiguous.
-If mutually contradictory parameters exist in Bootconfig and cmdline,
-the kernel should ideally prioritize cmdline; However, which one wins
-depends on the implementation.
-Currently bootconfig expects LAST_WIN or SCAN_ALL, so it copies its
-kernel parameters right before the cmdline kernel parameters, like this:
+  damon_va_mkold(mm, r->sampling_addr)
+    damon_va_walk_page_range(mm, addr, addr + 1)
+      damon_mkold_pmd_entry()
+        damon_ptep_mkold(pte, vma, addr)
+          ptep_test_and_clear_young(vma, addr, pte)
+          mmu_notifier_clear_young(mm, addr, addr + PAGE_SIZE)
 
-[bootconfig-kernel-params][cmdline-for-kernel][--][bootconfig-init-params][cmdline-for-init]
+For arm64, before commit 6f0e1142173a ("arm64: mm: support batch
+clearing of the young flag for large folios"), the contpte helper walked
+exactly CONT_PTES entries from the aligned-down page table pointer and
+used @addr only to pass down to each entry, so an unaligned value was
+harmless:
 
-I have raughly checked the ratio of such behavior:
+        ptep = contpte_align_down(ptep);
+        addr = ALIGN_DOWN(addr, CONT_PTE_SIZE);
+        for (i = 0; i < CONT_PTES; i++, ptep++, addr += PAGE_SIZE)
 
-Total Legacy Handlers Audited: 761
-├─ LAST_WIN (Scalar Overwrites):          635 (~83.4%)
-├─ FIRST_WIN (Latch / Write-Once Guards):  23 (~3.0%)
-├─ SCAN_ALL (Additive Collections / Lists): 15 (~2.0%)
-├─ BITMASK_OR (Monotonic Bit Accumulation): 5 (~0.7%)
-└─ Complex / Other Subsystem Logic:        83 (~10.9%)
+Now the range to walk is derived from @addr instead: end = addr +
+nr * PAGE_SIZE, rounded up to CONT_PTE_SIZE. For a sample in the last
+page of a contpte block, the sub-page offset puts end just past the
+block boundary, so the round-up lands a whole block further and the
+walk clears PTE_AF in CONT_PTES entries beyond the sampled block. For
+the last block in a page table page, those entries are past the end of
+that page, so the walk writes into the page that follows.
 
-(Note: Standard module_param() parameters handled by kernel/params.c
- already implement LAST_WIN by design).
+Triggered by the full 7.1/7.2 kernel selftest suite on arm64 (EC2
+c/m6g.4xlarge). The kernel sometimes crashes at or shortly after the
+DAMON test.
 
-So, in most case, the parameters already LAST_WIN model. I think we can
-change the FIRST_WIN cases to LAST_WIN. But in short term we may need
-to document it.
+What the overrun does depends on the page that happens to follow the
+page table, so there is no single signature. If that page is read-only,
+the write faults in the sampling path itself:
 
-Thank you,
+  Unable to handle kernel write to read-only memory at virtual address ffff0003c5d2d000
+    FSC = 0x0f: level 3 permission fault
+    CM = 0, WnR = 1, TnD = 0, TagAccess = 0
+  CPU: 10 UID: 0 PID: 3487 Comm: kdamond.2
+  pc : contpte_test_and_clear_young_ptes+0x70/0xc0
+  lr : damon_ptep_mkold+0x1e8/0x1f8
+  Call trace:
+   contpte_test_and_clear_young_ptes+0x70/0xc0 (P)
+   damon_mkold_pmd_entry+0x150/0x170
+   walk_pmd_range+0x110/0x2b0
+   walk_pud_range+0x10c/0x208
+   walk_pgd_range+0x134/0x258
+   __walk_page_range+0x98/0x1b0
+   walk_page_range_vma_unsafe+0x90/0x148
+   walk_page_range_vma+0x28/0x40
+   damon_va_walk_page_range+0x114/0x2b8
+   damon_va_prepare_access_checks+0xec/0x1a8
+   kdamond_fn+0x534/0x770
+   kthread+0x128/0x138
+   ret_from_fork+0x10/0x20
 
-On Fri,  4 Sep 2026 00:23:15 +0900
-"Masami Hiramatsu (Google)" <mhiramat@kernel.org> wrote:
+Otherwise the page is writable, the PTE_AF clearing succeeds silently
+and the damage only surfaces later, in whatever happened to own the
+page, so the backtrace is unrelated to DAMON and differs between runs.
 
-> From: Masami Hiramatsu (Google) <mhiramat@kernel.org>
-> 
-> If user configures `kernel.key` in bootconfig, the 'key' is shown
-> in kernel cmdline (/proc/cmdline) and kernel boot parameter
-> handler associated with 'key' is invoked. However, since the
-> bootconfig does not support the parameter defined with early_param,
-> those keys are shown in '/proc/cmdline' but not handled by kernel.
-> 
-> This could easily mislead users who expected to be able to specify
-> early parameters via the boot configuration, leading them to wonder
-> why it doesn't work.
-> 
-> Let's skip printing out early params to cmdline buffer, and warn
-> if there is such parameters in bootconfig.
-> 
-> Signed-off-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
-> ---
-> Changes in v3:
->  - Add xbc_snprint_cmdline_filter() for filter support.
->  - Fix param matching for dual early/late params (e.g. console=) and
->    module parameters so they are not incorrectly dropped.
->  - Print warning for skipped parameter.
-> ---
->  include/linux/bootconfig.h |   10 +++++-
->  init/main.c                |   73 ++++++++++++++++++++++++++++++++++++++++----
->  lib/bootconfig.c           |   16 +++++++---
->  3 files changed, 87 insertions(+), 12 deletions(-)
-> 
-> diff --git a/include/linux/bootconfig.h b/include/linux/bootconfig.h
-> index deda507500da..1f929034d42f 100644
-> --- a/include/linux/bootconfig.h
-> +++ b/include/linux/bootconfig.h
-> @@ -266,7 +266,15 @@ int __init xbc_node_compose_key_after(struct xbc_node *root,
->  			struct xbc_node *node, char *buf, size_t size);
->  
->  /* Render key/value pairs under @root as a flat cmdline string */
-> -int __init xbc_snprint_cmdline(char *buf, size_t size, struct xbc_node *root);
-> +typedef bool (*xbc_cmdline_filter_fn)(struct xbc_node *node, const char *key, void *data);
-> +
-> +int __init xbc_snprint_cmdline_filter(char *buf, size_t size, struct xbc_node *root,
-> +				      xbc_cmdline_filter_fn filter, void *data);
-> +
-> +static inline int __init xbc_snprint_cmdline(char *buf, size_t size, struct xbc_node *root)
-> +{
-> +	return xbc_snprint_cmdline_filter(buf, size, root, NULL, NULL);
-> +}
->  
->  /**
->   * xbc_node_compose_key() - Compose full key string of the XBC node
-> diff --git a/init/main.c b/init/main.c
-> index 2613d3f9b3ce..aaee5625e123 100644
-> --- a/init/main.c
-> +++ b/init/main.c
-> @@ -325,9 +325,64 @@ static void * __init get_boot_config_from_initrd(size_t *_size)
->  
->  #ifdef CONFIG_BOOT_CONFIG
->  
-> +/* Check if a parameter name matches an obs_kernel_param entry */
-> +static bool __init match_obs_param(const char *param, const char *pattern)
-> +{
-> +	size_t n = strlen(pattern);
-> +
-> +	if (n > 0 && pattern[n - 1] == '=')
-> +		return parameqn(param, pattern, n - 1) && param[n - 1] == '\0';
-> +
-> +	return parameq(param, pattern);
-> +}
-> +
-> +/* Return true if the given param is only defined by early_param(). */
-> +static bool __init is_early_only_param(const char *param)
-> +{
-> +	const struct obs_kernel_param *p;
-> +	const struct kernel_param *kp;
-> +	bool has_early = false;
-> +
-> +	/* If handled by a regular module_param, it is not early-only */
-> +	for (kp = __start___param; kp < __stop___param; kp++) {
-> +		if (parameq(param, kp->name))
-> +			return false;
-> +	}
-> +
-> +	/* Check __setup / early_param table */
-> +	for (p = __setup_start; p < __setup_end; p++) {
-> +		if (match_obs_param(param, p->str)) {
-> +			if (!p->early)
-> +				return false;
-> +			has_early = true;
-> +		}
-> +	}
-> +	return has_early;
-> +}
-> +
-> +struct xbc_filter_data {
-> +	bool warn;
-> +};
-> +
-> +static bool __init xbc_kernel_param_filter(struct xbc_node *node,
-> +					   const char *key, void *data)
-> +{
-> +	struct xbc_filter_data *fdata = data;
-> +
-> +	if (is_early_only_param(key)) {
-> +		if (fdata && fdata->warn)
-> +			pr_warn("bootconfig: early_param 'kernel.%s' cannot be applied from bootconfig, skipping\n",
-> +				key);
-> +		return false;
-> +	}
-> +	return true;
-> +}
-> +
->  /* Make an extra command line under given key word */
-> -static char * __init xbc_make_cmdline(const char *key)
-> +static char * __init xbc_make_cmdline(const char *key, bool is_kernel)
->  {
-> +	struct xbc_filter_data fdata = { .warn = true };
-> +	xbc_cmdline_filter_fn filter = is_kernel ? xbc_kernel_param_filter : NULL;
->  	struct xbc_node *root;
->  	char *new_cmdline;
->  	int ret, len = 0;
-> @@ -336,8 +391,12 @@ static char * __init xbc_make_cmdline(const char *key)
->  	if (!root)
->  		return NULL;
->  
-> -	/* Count required buffer size */
-> -	len = xbc_snprint_cmdline(NULL, 0, root);
-> +	/*
-> +	 * Pass 1: Count required buffer size. Emit warnings for skipped early
-> +	 * params in this pass so they are logged even if all parameters under
-> +	 * @key are skipped and len becomes 0.
-> +	 */
-> +	len = xbc_snprint_cmdline_filter(NULL, 0, root, filter, &fdata);
->  	if (len <= 0)
->  		return NULL;
->  
-> @@ -347,7 +406,9 @@ static char * __init xbc_make_cmdline(const char *key)
->  		return NULL;
->  	}
->  
-> -	ret = xbc_snprint_cmdline(new_cmdline, len + 1, root);
-> +	/* Pass 2: Render into buffer with warnings suppressed */
-> +	fdata.warn = false;
-> +	ret = xbc_snprint_cmdline_filter(new_cmdline, len + 1, root, filter, &fdata);
->  	if (ret < 0 || ret > len) {
->  		pr_err("Failed to print extra kernel cmdline.\n");
->  		memblock_free(new_cmdline, len + 1);
-> @@ -427,9 +488,9 @@ static void __init setup_boot_config(void)
->  		 * before this series.
->  		 */
->  		if (!from_embedded || !xbc_embedded_cmdline_applied())
-> -			extra_command_line = xbc_make_cmdline("kernel");
-> +			extra_command_line = xbc_make_cmdline("kernel", true);
->  		/* Also, "init." keys are init arguments */
-> -		extra_init_args = xbc_make_cmdline("init");
-> +		extra_init_args = xbc_make_cmdline("init", false);
->  	}
->  	return;
->  }
-> diff --git a/lib/bootconfig.c b/lib/bootconfig.c
-> index 89c88e359179..820f6cf28456 100644
-> --- a/lib/bootconfig.c
-> +++ b/lib/bootconfig.c
-> @@ -539,18 +539,21 @@ static char xbc_namebuf[XBC_KEYLEN_MAX] __initdata;
->  #define rest(dst, end) ((end) > (dst) ? (end) - (dst) : 0)
->  
->  /**
-> - * xbc_snprint_cmdline() - Render bootconfig keys under @root as a cmdline string
-> + * xbc_snprint_cmdline_filter() - Render bootconfig keys as cmdline string
->   * @buf: Destination buffer (may be NULL when @size is 0 to query the length)
->   * @size: Size of @buf in bytes
->   * @root: Subtree root whose key=value pairs should be rendered
-> + * @filter: Filter callback (returns true to include, false to skip; may be NULL)
-> + * @data: Private context passed to @filter
->   *
->   * Walk all key/value pairs under @root and emit them as a space-separated
->   * cmdline string into @buf. Values containing whitespace are quoted with
-> - * double quotes. Returns the number of bytes that would be written if @buf
-> - * were large enough (matching snprintf semantics), or a negative errno on
-> - * failure.
-> + * double quotes. Keys for which @filter returns false are omitted.
-> + * Returns the number of bytes that would be written if @buf were large enough
-> + * (matching snprintf semantics), or a negative errno on failure.
->   */
-> -int __init xbc_snprint_cmdline(char *buf, size_t size, struct xbc_node *root)
-> +int __init xbc_snprint_cmdline_filter(char *buf, size_t size, struct xbc_node *root,
-> +				      xbc_cmdline_filter_fn filter, void *data)
->  {
->  	struct xbc_node *knode, *vnode;
->  	const char *val, *q;
-> @@ -582,6 +585,9 @@ int __init xbc_snprint_cmdline(char *buf, size_t size, struct xbc_node *root)
->  		if (ret < 0)
->  			return ret;
->  
-> +		if (filter && !filter(knode, xbc_namebuf, data))
-> +			continue;
-> +
->  		vnode = xbc_node_get_child(knode);
->  		if (!vnode) {
->  			ret = snprintf(buf ? buf + len : NULL, rest(len, size),
-> 
+Pass a page-aligned address to the ptep_test_and_clear_young() call in
+damon_ptep_mkold(), which is the only place DAMON can reach
+contpte_test_and_clear_young_ptes() from. Nothing else sees the aligned
+address, and r->sampling_addr itself is left as is, so the sampling and
+region bookkeeping semantics are unchanged.
 
+Fixes: 6f0e1142173a ("arm64: mm: support batch clearing of the young flag for large folios")
+Cc: Baolin Wang <baolin.wang@linux.alibaba.com>
+Cc: David Hildenbrand (Arm) <david@kernel.org>
+Cc: Ryan Roberts <ryan.roberts@arm.com>
+Cc: stable@vger.kernel.org
+Signed-off-by: Nathan Gao <zcgao@amazon.com>
+Reviewed-by: SJ Park <sj@kernel.org>
+Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
+Signed-off-by: SJ Park <sj@kernel.org>
+---
+Changes From v4
+- v4: https://lore.kernel.org/20260902031655.84721-1-zcgao@amazon.com
+- Collect R-b: from Baolin.
+- Rebase to latest mm-new.
 
+V3 -> V4:
+- Align only the address that is passed to ptep_test_and_clear_young(),
+  rather than @addr for the whole of damon_ptep_mkold(), so the
+  mmu_notifier_clear_young() call keeps seeing the sampled address (SJ)
+
+V2 -> V3:
+- Move the alignment into damon_ptep_mkold(), instead of aligning in
+  damon_va_mkold() and damon_va_young().  The ptep_test_and_clear_young()
+  call in damon_ptep_mkold() is DAMON's only path to
+  contpte_test_and_clear_young_ptes(), so damon_ptep_mkold() is the
+  closest place in DAMON to the function that requires an aligned
+  address (SJ)
+
+V1 -> V2:
+- Align inside damon_va_mkold() and damon_va_young() rather than aligning
+  r->sampling_addr itself, so that sub-page sampling addresses remain
+  possible for future non-PTE access check primitives (SJ)
+- Point Fixes: at 6f0e1142173a instead of 3f49584b262c, since the
+  unaligned address was harmless before that commit (SJ)
+- Describe how the issue was noticed and what it does to the kernel (SJ)
+
+v3: https://lore.kernel.org/all/20260901201001.33271-1-zcgao@amazon.com/
+v2: https://lore.kernel.org/all/20260831221151.50561-1-zcgao@amazon.com/
+v1: https://lore.kernel.org/all/20260827193821.46115-1-zcgao@amazon.com/
+
+ mm/damon/ops-common.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
+
+diff --git a/mm/damon/ops-common.c b/mm/damon/ops-common.c
+index 7a2e40bc7baed..7219c608b1952 100644
+--- a/mm/damon/ops-common.c
++++ b/mm/damon/ops-common.c
+@@ -61,7 +61,12 @@ void damon_ptep_mkold(pte_t *pte, struct vm_area_struct *vma, unsigned long addr
+ 	 * device aspects.
+ 	 */
+ 	if (likely(pte_present(pteval)))
+-		young |= ptep_test_and_clear_young(vma, addr, pte);
++		/*
++		 * Arch implementation of ptep_test_and_clear_young() may
++		 * require aligned @addr
++		 */
++		young |= ptep_test_and_clear_young(vma, PAGE_ALIGN_DOWN(addr),
++				pte);
+ 	young |= mmu_notifier_clear_young(vma->vm_mm, addr, addr + PAGE_SIZE);
+ 	if (young)
+ 		folio_set_young(folio);
+
+base-commit: 87db3abd2b79ed6ccaaf6d3c25df6adbd8ea3596
 -- 
-Masami Hiramatsu (Google) <mhiramat@kernel.org>
+2.47.3
