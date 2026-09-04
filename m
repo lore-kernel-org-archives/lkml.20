@@ -1,113 +1,295 @@
-Received: from relay.yourmailgateway.de (relay.yourmailgateway.de [185.244.194.184])
+Received: from DB3PR0202CU003.outbound.protection.outlook.com (mail-northeuropeazon11010011.outbound.protection.outlook.com [52.101.84.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F262C4EBAEC
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 15:23:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.244.194.184
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788535384; cv=none; b=piVBfHE1OXfjiBtcDuoYlgjWqVLAmEZpwG98Fch082ZI/N8ds+KXa5nwdxitzU6XKgM+dN8JN3mj+PfOVSl0Y7XBjdXWeLbiwscLeB6p+vsPICz8nfVhDJU01la6gS8sm3Dxrhxprx85kMllFRJZWNQ9DFXO/uW4A7kEEmZhlQA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788535384; c=relaxed/simple;
-	bh=nxI97ubcEM5+2BBS4utR3zx7Wwf4emiSTt1Vf7EV6EU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ier08k3bgW9/PXTbXwUydbNj0j+PADjVsKZ52EPhaL4zHjtJA1AW7IBZPFwPvo3HTmYQuHte8pHeCSddbrihiz15MTmhU2ZH21SecHsOye8AGEgbGAZDwq+ML0hs1be89Mnz0mCi4Vmslvmgm3bEb/0R26P0cg05/kCx+c54+to=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=leemhuis.info; spf=pass smtp.mailfrom=leemhuis.info; dkim=pass (2048-bit key) header.d=leemhuis.info header.i=@leemhuis.info header.b=CS8zyAGO; arc=none smtp.client-ip=185.244.194.184
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=leemhuis.info
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=leemhuis.info
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A53EC489866;
+	Fri,  4 Sep 2026 15:23:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.84.11
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788535409; cv=fail; b=WC8OjSaGxi1JPIIKr4+x4loYheA8IHVvsU8yTja9J9ftpQXUmZsGDRc3UhAtVVaVJPsbFREds2ZcOs4jGYeIP64Tqg8xT/qnGm+NZZVm2/A94Db39uTTg9RDKkPexSFhGH1i5P1qvAZJibEP7Uu1+lkOUgot9WkXkYsHf/4VoNo=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788535409; c=relaxed/simple;
+	bh=e2x/GK9R6j5GXIYmmFHvoetnZ6VbHoInwMqmdFIXtCU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=iUlvVuZIBm9SxlZjsGXA3Cy6HFrBV/TxWW9KmPRwpYHk0ZT5NC9IPVEIh+vOeT/7bROjR32QWb1Y153vefSo0akI2cuwpLXtQ/cV+2cJfmdLTiiKkXA0VP9qZ+rU74JNn2dDuze5sQObasnJJd5qGNZ70LjTCLRt+3ZhVZ1OEUE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=fail (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=dc3eNFft reason="signature verification failed"; arc=fail smtp.client-ip=52.101.84.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=leemhuis.info header.i=@leemhuis.info header.b="CS8zyAGO"
-Received: from relay01-mors.netcup.net (localhost [127.0.0.1])
-	by relay01-mors.netcup.net (Postfix) with ESMTPS id 4hc0b13zTjz9MW5;
-	Fri,  4 Sep 2026 17:22:53 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=leemhuis.info;
-	s=key2; t=1788535373;
-	bh=nxI97ubcEM5+2BBS4utR3zx7Wwf4emiSTt1Vf7EV6EU=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=CS8zyAGOP9LXa05GPpn9Vq1he1xRlR/5ZxoiFbeciZjmClL3Xcr1Ow8oTETujBzml
-	 RN57ezgBln53pwYuG0ZGfFNwsN1IJFKdYsJ/I/R4PtYVyY9VaZHhHUxRGFIqYgv/60
-	 UUXGGQR73bzVi4E4LdONz8HkaFND4h6JQZ40egYoyEUSmnBkBhJgCleo7fNODJIiTC
-	 r2RSOBv2I10GYgJUvVin7pqTrcaDhkHKX9m2NMsm8O3P0/ks5HDXI7BtHRRY3oetxS
-	 /gzgwzKQ4nEuY3Vrobi+eoDJFvjkbawSXrYztgOHG4fTM8FICGScP/t39z7CK+PP2F
-	 DJMoqo95Dq4Ww==
-Received: from policy02-mors.netcup.net (unknown [46.38.225.35])
-	by relay01-mors.netcup.net (Postfix) with ESMTPS id 4hc0b13HR1z7xH9;
-	Fri,  4 Sep 2026 17:22:53 +0200 (CEST)
-Received: from mxe9fb.netcup.net (unknown [10.243.12.53])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by policy02-mors.netcup.net (Postfix) with ESMTPS id 4hc0b00M77z8sgw;
-	Fri,  4 Sep 2026 17:22:52 +0200 (CEST)
-Received: from [IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f] (unknown [IPv6:2a02:8108:8984:1d00:a0cf:1912:4be:477f])
-	by mxe9fb.netcup.net (Postfix) with ESMTPSA id 276FA5FAB5;
-	Fri,  4 Sep 2026 17:22:47 +0200 (CEST)
-Authentication-Results: mxe9fb;
-        spf=pass (sender IP is 2a02:8108:8984:1d00:a0cf:1912:4be:477f) smtp.mailfrom=regressions@leemhuis.info smtp.helo=[IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f]
-Received-SPF: pass (mxe9fb: connection is authenticated)
-Message-ID: <10138a14-a7c6-424e-950e-c1e5f878beac@leemhuis.info>
-Date: Fri, 4 Sep 2026 17:22:46 +0200
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="dc3eNFft"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=WN1sWrbpQPeuda0UCaP6pXY7VrqNRa63OmxJgJQKExeLdEYx7ckK107chPMuYt5ehIUB0XOFVpcrffcmKv8oBci+h3G9ILS/W0jxu8+iezcczMxRpT4pNrCh6v5SlEHEbp6T5W2sOv0Do0stxGLekbmeturtePVkr6axLjlEzJk7INIX6Xt5IjlYLHvHoq0Pc+UYXmZW/jsbCM15BK9ssmx/wCbscKHzZ32T20ZOIMMXKSwJ4a8DTx/ljJLH745WrWhOvDYboAiV+Kaqk7rS2aH64N+eACZyjEbEZyOpYVHpREuoNN1+dHCsK/ZgmZbV3sUDUV1mC7SZs7nUNR24HQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=eE/ivmwC/mKydYp2GbXEK5c0sWTCmGnKzhxo6OoupPY=;
+ b=nMuX4HPZyU//PeYHoxJku99Z/WVdpklgKhk7c+fy1BJMjbM7Sxfgvxo/vAJOaoA2EbZOfBRYKSYb/5h2TCbi9YY/PqPN9pphoDsMB7Xb1Tv2oVE9dQymtKAIJdPgOMDXuyVgojL4EJbJ6eKfR2gM2cNXwYHXHdhuPVgrgKPkfNA/R5jHvFs5pQNbhxIlZ2ViXnlqfOlmPbc1oveG9y6rG6kAd2oYubNeXGlLP32wPSejXHpva0JfwgpczXDk0sVla6vv7AqepIZPZU76mqy2bkQU1IEiikSaYDIRbXwFm4HTnGuxlUaq+rd2CcmbKigOthPXCVZmOl8bxA7ac65LtA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=eE/ivmwC/mKydYp2GbXEK5c0sWTCmGnKzhxo6OoupPY=;
+ b=dc3eNFft7GrXrkiyBZcNAamxUjl7urj+kcbuMKYJhIFAh8YZWuVrQF4RdzsMyQt0x7TX6VJCrGUPF/PFmYA+nKeLLAtvBzMv8cP5TeS+YvUckVgnKegadXs6nO3n4nyvDzTcs3Z9Vw3WpRMFBhQZMwxHDDBDjhxvJzayP0B1hkp0yokdSLhorLCA4Ud7N8of2yC3Pi7FGbzgdP/NwzgIt1/iIvYv1UllOjlfi9+Jt7gblyRef6ShmnuX3/rHYRC3Z7qV/bhBGwGe5ludqOFMpgDapJ+fNsgZcYD3cRtusETDFJWCd0uZjwmwsAQfMhMS6uATczmD1zRNk32GzvMWug==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
+ by AS8PR04MB7927.eurprd04.prod.outlook.com (2603:10a6:20b:2ad::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Fri, 4 Sep
+ 2026 15:23:24 +0000
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0360.008; Fri, 4 Sep 2026
+ 15:23:24 +0000
+Date: Fri, 4 Sep 2026 10:23:15 -0500
+From: Frank Li <Frank.li@oss.nxp.com>
+To: Nora Schiffer <nora.schiffer@ew.tq-group.com>
+Cc: Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, linux@ew.tq-group.com,
+	devicetree@vger.kernel.org, imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/2] ARM: dts: imx7-tqma7: correctly specify PMIC voltage
+ constraints
+Message-ID: <apriY-siS9INTsEI@SMW015318>
+References: <9a916f24b610cc60e0efd13296f281e00b41391e.1788335665.git.nora.schiffer@ew.tq-group.com>
+ <aphKnnReHQed9ahY@SMW015318>
+ <090650a9be0df463b3d8ea49932cafa45c72c26c.camel@ew.tq-group.com>
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <090650a9be0df463b3d8ea49932cafa45c72c26c.camel@ew.tq-group.com>
+X-ClientProxiedBy: CY5PR15CA0241.namprd15.prod.outlook.com
+ (2603:10b6:930:66::10) To GV2PR04MB11799.eurprd04.prod.outlook.com
+ (2603:10a6:150:2cf::9)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [REGRESSION] Power9 pseries boot hang in v7.2-rc6, narrowed to
- PowerPC GENERIC_ENTRY conversion window
-To: Mukesh Kumar Chaurasiya <mkchauras@gmail.com>
-Cc: Venkat Rao Bagalkote <venkat88@linux.ibm.com>,
- Shrikanth Hegde <sshegde@linux.ibm.com>, LKML
- <linux-kernel@vger.kernel.org>, linuxppc-dev
- <linuxppc-dev@lists.ozlabs.org>, Madhavan Srinivasan <maddy@linux.ibm.com>,
- "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
- Peter Zijlstra <peterz@infradead.org>,
- Linux kernel regressions list <regressions@lists.linux.dev>
-References: <96dae110-f79b-4e54-8a9b-514369019b5d@linux.ibm.com>
- <e27eeaf4-c2c9-4ef7-9e1c-0a5fb45755d0@linux.ibm.com>
- <6d1b5f38-f4e4-46ca-88b4-7c18dd6c6280@linux.ibm.com>
- <anq72IebDSu-wWbb@li-1a3e774c-28e4-11b2-a85c-acc9f2883e29.ibm.com>
- <ansZjSJMWMV8DDF-@li-1a3e774c-28e4-11b2-a85c-acc9f2883e29.ibm.com>
- <2f7e6c34-7258-4b20-a38e-cedebccb835f@linux.ibm.com>
- <985770a7-e488-456a-a9fa-aa71f1cbafd5@leemhuis.info>
- <appZ1UB1tzKz3IY9@li-1a3e774c-28e4-11b2-a85c-acc9f2883e29.ibm.com>
-From: Thorsten Leemhuis <regressions@leemhuis.info>
-Content-Language: de-DE, en-US
-In-Reply-To: 
- <appZ1UB1tzKz3IY9@li-1a3e774c-28e4-11b2-a85c-acc9f2883e29.ibm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-PPP-Message-ID: <178853536760.332824.6991298509015054257@mxe9fb.netcup.net>
-X-Rspamd-Server: rspamd-worker-8404
-X-Rspamd-Queue-Id: 276FA5FAB5
-X-NC-CID: o/w1lT5fDgOK6gXaBrvPIBFhIb+UL7T+sDpvHEat68+j6lsB9MY=
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|AS8PR04MB7927:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2ea852ce-be57-4b88-f5d4-08df0a987601
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|7416014|376014|23010399003|19092799006|366016|13003099007|6133799003|10067099003|11063799006|56012099006|4143699003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	Dabj6XU/6EcAsVzsiH1k/uNRB8opuxdxu9zqXEnGqEj5tw6ib5dSg0ftdbFvOFlx+o+MoAOsjsCbtBNObZ4egmbXg6ZDRz9RgZZLx3D5n0XwfPe2d9oEFg0dATPgKQhaLUNkFKTcQ/+YZWszkvki7ZtzYGqmEBiIuk6+RTVT0rE9dQJZCUlhWwPQjfCTykL6U7PhVhal2FuhkrSICksVlri3QjqLUXjmQ19CGYt9nxKCzBjaq6Qx/bfU9l8vRc8WnwPAlLQr8ach01IZBvqrVBzqX76cR0FQdqXrjTecoPAlGC+Lose5Z0GkQVDO0aMJfttidVDVY5iXOSU3zvu68badOJ7okRxZ2Nd4wBgQQ1ltZMonhjG3Tk5lqyeAvYSHZYSaUL5X60amJe6h0wZkHej9H9nOqqedDs2KGqdmZY1dbY3MIJEkO4YqUUl445e3T3erEDw280qQ/XLsamNvmKNL8E9u3/h+lhRloZ/PaVdjTGIovxA/T5uWsYf/cXLGOTN+lPrqQDGGum/sSPSg/uQ+iIaiMKJNZ83X7gad7BUGMbjBAY4thBZ6vrAXu7BfudNBUNQ0nWB5t1J6AeoFLDNVqs0CB/p2fYE/8MJMzbc=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(7416014)(376014)(23010399003)(19092799006)(366016)(13003099007)(6133799003)(10067099003)(11063799006)(56012099006)(4143699003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?iso-8859-1?Q?RHBBb3+4lDzw3vtSRX0Rs3hLcdA356cQE2OGFLXyucJ04BKCRNj9KzT/uU?=
+ =?iso-8859-1?Q?xAXMaLtwRTG/sCvde7bC7qvYEs1H9fYMe6oOX8iqNI5rVxYGf/3OhjYv2u?=
+ =?iso-8859-1?Q?9Kc/r8NgbEiL7ufFCFMf/vdAcWXBje8RYAyYKydMo0me5hoQsIFt7OihJs?=
+ =?iso-8859-1?Q?F6jyO2PV6NBjhZ4/164PCjPIcpG2mPjIlZTGsyXTbwuHcDI22IfX6ioLWo?=
+ =?iso-8859-1?Q?seColSkbpdUwk3ct/9IJl6JLIAXMOZKWcB7OpkjXjZv7iCDdUn7BNIYx39?=
+ =?iso-8859-1?Q?XbWcqMEDe0ljh4gIiwScZPPeS3x9DxysHh/2pZUkgMU8b+b9/AhLlUtPAf?=
+ =?iso-8859-1?Q?swuZqRJA2hsxVYZzB+lUEh3sADamUYpwlm8vGzD3d1wfFxnf/sH+r0WxFX?=
+ =?iso-8859-1?Q?AWaDvvcZrpgLS3PXO/0tY8L2XeipnqMIrfmZnQmziHhW3iGH6M/X1IcpQc?=
+ =?iso-8859-1?Q?VpWp130mc2OHbpujTA02C1yYyoaJ10EqY97tJiEual+BZgcMtQaGFJhBUK?=
+ =?iso-8859-1?Q?8SAgPTF+o3zO+/MPWN2yfLT9N2Eg7R/HJn/W3zBMEdcAB4fzJ3SeLJ11Nj?=
+ =?iso-8859-1?Q?it6xCE6cGFOPLzFdcBa0pXVPkUB+SIks4BdsNpGz8S066SFesBBBWwErP1?=
+ =?iso-8859-1?Q?Ly9DCsksBo4gJqKh5m5rL3vnChq7XKdXvHXNlSWlcSUgjwAsMy4D03Tovo?=
+ =?iso-8859-1?Q?EppFFh2wT12C6MOFo0a+2Neg8E+J5qtwYWyXKZBIyl6oYq0d9sr/j7Sksx?=
+ =?iso-8859-1?Q?yUQ99Lm0HK9akOrTGe9xCPsFrpdODrOd+9/+22hBh5npTcszotGGw9Yp+Z?=
+ =?iso-8859-1?Q?J2m/f4rd8T6b6ywnXmMBgi9OsJ1pm743dlH4pjyP0bp+Mo/xcdInTcjeGz?=
+ =?iso-8859-1?Q?n3L1ADcwF4vWsurR7p01xAOPjrH914t4+c4iQuG1iCNxZG0HBiykTGn1sj?=
+ =?iso-8859-1?Q?twDY9aWYK9wx6SaEgq87fr7W45kwJLoDrk3PPRdru0oEOifxYQNFvXij8Q?=
+ =?iso-8859-1?Q?2Ia9NU1RVDSHhzGXo2o+Vs+C6NXZhedC+7CCJJyCj9gbG5FouwUH7K6+mT?=
+ =?iso-8859-1?Q?ArY/f40cvT4A4D2NMLQFJqvdemP6kZ6AYy5GKDF8hEQ0u/voYzSyw8Bj5l?=
+ =?iso-8859-1?Q?zKOxfFdS1DdPqosrL/ft30D/3FbMuicf8uDNwrlRuZkoXwSlES/VA3t6Zc?=
+ =?iso-8859-1?Q?gIzJEFYYQyy+B5azA0vozE8JOMUbrHeDhBRu469xQ76PNiyxn2hHksPKIG?=
+ =?iso-8859-1?Q?GRzCRwsz31sTSfJu4oCV7xntzw7g8q36yBROLYge3zfjsrykdfsxuEeZpu?=
+ =?iso-8859-1?Q?/HhwIzREJ6o0uE66c0h6i6r/C7/pXqPfaN45jUAsK30T1dx8GnILqq0vhl?=
+ =?iso-8859-1?Q?gJTDnjfNHpIa9rlMOzA76rFzjkkAlWYdsUBjgVjJ9ZWONrvAmI2ZOjJ1LZ?=
+ =?iso-8859-1?Q?Ej6ZTlXBGt5+1EdZy0DJy1haoZ/KG9b3gvU6YbgQWSlbXOVPDp1WZYx6Tc?=
+ =?iso-8859-1?Q?GKzF/jY8xA+CMmfPM0t1v1K/ArQkkO5TZmQt/yv6fO1sgrzxAApZNWDGjo?=
+ =?iso-8859-1?Q?vbFfrA5WIX36YXl+guE7PtzWmVFVT/Fqx+KMiGiqS1a794LLkVjiPY354D?=
+ =?iso-8859-1?Q?UlXDgE9e5vxmQ1ChLhRlr4f6pvsP5sqpbE2Jmzn9rkKEhl3IbKtuo4HxAF?=
+ =?iso-8859-1?Q?fyFkXbESLc0KHkAysqcBRR9ePkMGHZFrqB7iVAncOlbZNm/0/PDamwCtrb?=
+ =?iso-8859-1?Q?FsoQDWCXt1Go3kKqs5LEgI3r4T2fjoj7eYqgYhvqqIlnk/jkRtDkUIA36o?=
+ =?iso-8859-1?Q?Cwh29zD/3KYfL1LY44psjLiPf7SPN039KDsvwt0Z1RSZpMT2Reve?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2ea852ce-be57-4b88-f5d4-08df0a987601
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Sep 2026 15:23:24.4551
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: UwJ9ZELRzLqMw+V+m6TdbLgo5dscp96BwmC9hCtzfyUxvc89uZeuh56R9c88PbOS8pqtluGMVPJsIwGwEs0U3zcQoCKzzjXHgkdQExvY0UO1/IfTCVwvcUlI63DGzZth
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB7927
 
-On 9/4/26 07:43, Mukesh Kumar Chaurasiya wrote:
-> On Thu, Sep 03, 2026 at 01:22:35PM +0200, Thorsten Leemhuis wrote:
->> On 8/12/26 07:16, Venkat Rao Bagalkote wrote:
->>> On 11/08/26 6:16 pm, Mukesh Kumar Chaurasiya wrote:
->>>> On Tue, Aug 11, 2026 at 11:37:45AM +0530, Mukesh Kumar Chaurasiya wrote:
->>>>> On Mon, Aug 10, 2026 at 05:19:27PM +0530, Venkat Rao Bagalkote wrote:
->>>>>> On 04/08/26 8:23 pm, Shrikanth Hegde wrote:
->>>>>>> On 8/4/26 2:04 PM, Venkat Rao Bagalkote wrote:
->>>>>>>>
->>>>>>>> I'm seeing a boot regression on a Power9 pseries LPAR. The system
->>>>>>>> hangs very early during boot after:
->>>>>>>>
->>>>>>>> Quiescing Open Firmware ...
->>>>>>>> Booting Linux via __start() ...
->>>>>>>>
->>>>>>> That is strange. not sure where to look at without any logs.
->>>>>>> Is it a specific config that fails or this specific LPAR that fails?
->>>>>>>
->>>>> Is this a specific lpar or all power9 pseries are exhibiting same
->>>>> behaviour?
->>> Its specific to a lpar.
+On Thu, Sep 03, 2026 at 12:11:36PM +0200, Nora Schiffer wrote:
+> On Wed, 2026-09-02 at 11:11 -0500, Frank Li wrote:
+> > On Wed, Sep 02, 2026 at 10:05:37AM +0200, Nora Schiffer wrote:
+> > > regulator-(min|max)-microvolt refer to the supported voltages according
+> > > to board design, not the possible range of the regulators themselves.
+> >
+> > I think make sense, but any document or mail list can be refer to?
+> >
+> > Frank
 >
-> I am working on this, [...]
-Great, thx.
-> Can you also confirm the same.
-Na, sorry, can't help, I'm not affected, I'm just keeping an eye on
-regression to ensure they are fixed.
+> Hi Frank,
+>
+> I've occasionally seen this being mentioned in reviews like [1] when the
+> regulator-min/max was used incorrectly. The binding docs [2] say:
+>
+>   regulator-min-microvolt:
+>     description: smallest voltage consumers may set
+>
+>   regulator-max-microvolt:
+>     description: largest voltage consumers may set
 
-Ciao, Thorsten
+I suggest create patch to make it clearer, and check what said by dt team
+and Mark.  If they agree your change, we can refer it in future.
+
+Frank
+
+>
+> which is not as clear as I would like... Right now I don't have a source that
+> feels definitive enough to include it in the commit description.
+>
+> Best,
+> Nora
+>
+>
+> [1] https://lore.kernel.org/all/7b23de30-06e3-4f02-a8a5-90791628ceed@gmail.com/
+> [2]
+> https://www.kernel.org/doc/Documentation/devicetree/bindings/regulator/regulator.yaml
+>
+>
+> >
+> > > Update the configuration for the TQMa7x's PMIC and also add a comment
+> > > regarding the PMIC's VCC_SD switching feature.
+> > >
+> > > Fixes: a80a1af6ec8a ("ARM: dts: tq imx7 common board support")
+> > > Signed-off-by: Nora Schiffer <nora.schiffer@ew.tq-group.com>
+> > > ---
+> > >  arch/arm/boot/dts/nxp/imx/imx7-tqma7.dtsi | 40 +++++++++++++----------
+> > >  1 file changed, 23 insertions(+), 17 deletions(-)
+> > >
+> > > diff --git a/arch/arm/boot/dts/nxp/imx/imx7-tqma7.dtsi b/arch/arm/boot/dts/nxp/imx/imx7-tqma7.dtsi
+> > > index e1f740edfb763..7f49c80fef4c6 100644
+> > > --- a/arch/arm/boot/dts/nxp/imx/imx7-tqma7.dtsi
+> > > +++ b/arch/arm/boot/dts/nxp/imx/imx7-tqma7.dtsi
+> > > @@ -46,8 +46,8 @@ pfuze3000: pmic@8 {
+> > >
+> > >  		regulators {
+> > >  			sw1a_reg: sw1a {
+> > > -				regulator-min-microvolt = <700000>;
+> > > -				regulator-max-microvolt = <3300000>;
+> > > +				regulator-min-microvolt = <1000000>;
+> > > +				regulator-max-microvolt = <1225000>;
+> > >  				regulator-boot-on;
+> > >  				regulator-always-on;
+> > >  				regulator-ramp-delay = <6250>;
+> > > @@ -55,34 +55,33 @@ sw1a_reg: sw1a {
+> > >
+> > >  			/* use sw1c_reg to align with pfuze100/pfuze200 */
+> > >  			sw1c_reg: sw1b {
+> > > -				regulator-min-microvolt = <700000>;
+> > > -				regulator-max-microvolt = <1475000>;
+> > > +				regulator-min-microvolt = <1000000>;
+> > > +				regulator-max-microvolt = <1000000>;
+> > >  				regulator-boot-on;
+> > >  				regulator-always-on;
+> > >  				regulator-ramp-delay = <6250>;
+> > >  			};
+> > >
+> > >  			sw2_reg: sw2 {
+> > > -				regulator-min-microvolt = <1500000>;
+> > > -				regulator-max-microvolt = <1850000>;
+> > > +				regulator-min-microvolt = <1800000>;
+> > > +				regulator-max-microvolt = <1800000>;
+> > >  				regulator-boot-on;
+> > >  				regulator-always-on;
+> > >  			};
+> > >
+> > >  			sw3a_reg: sw3 {
+> > > -				regulator-min-microvolt = <900000>;
+> > > -				regulator-max-microvolt = <1650000>;
+> > > +				regulator-min-microvolt = <1350000>;
+> > > +				regulator-max-microvolt = <1350000>;
+> > >  				regulator-boot-on;
+> > >  				regulator-always-on;
+> > >  			};
+> > >
+> > >  			swbst_reg: swbst {
+> > > -				regulator-min-microvolt = <5000000>;
+> > > -				regulator-max-microvolt = <5150000>;
+> > > +				/* Not connected and left unconfigured */
+> > >  			};
+> > >
+> > >  			snvs_reg: vsnvs {
+> > > -				regulator-min-microvolt = <1000000>;
+> > > +				regulator-min-microvolt = <3000000>;
+> > >  				regulator-max-microvolt = <3000000>;
+> > >  				regulator-boot-on;
+> > >  				regulator-always-on;
+> > > @@ -95,18 +94,25 @@ vref_reg: vrefddr {
+> > >
+> > >  			vgen1_reg: vldo1 {
+> > >  				regulator-min-microvolt = <1800000>;
+> > > -				regulator-max-microvolt = <3300000>;
+> > > +				regulator-max-microvolt = <1800000>;
+> > >  				regulator-always-on;
+> > >  			};
+> > >
+> > >  			vgen2_reg: vldo2 {
+> > > -				regulator-min-microvolt = <800000>;
+> > > -				regulator-max-microvolt = <1550000>;
+> > > +				regulator-min-microvolt = <1500000>;
+> > > +				regulator-max-microvolt = <1500000>;
+> > >  				regulator-always-on;
+> > >  			};
+> > >
+> > >  			vgen3_reg: vccsd {
+> > > -				regulator-min-microvolt = <2850000>;
+> > > +				/*
+> > > +				 * Specified values refer to 3.3V operation; voltage for 1.8V
+> > > +				 * operation is derived from this.
+> > > +				 *
+> > > +				 * The base board should usually mux GPIO1_IO08 to SD1_VSELECT for
+> > > +				 * automatic switching of SD card IO voltage.
+> > > +				 */
+> > > +				regulator-min-microvolt = <3300000>;
+> > >  				regulator-max-microvolt = <3300000>;
+> > >  				regulator-always-on;
+> > >  			};
+> > > @@ -118,13 +124,13 @@ vgen4_reg: v33 {
+> > >  			};
+> > >
+> > >  			vgen5_reg: vldo3 {
+> > > -				regulator-min-microvolt = <1800000>;
+> > > +				regulator-min-microvolt = <3300000>;
+> > >  				regulator-max-microvolt = <3300000>;
+> > >  				regulator-always-on;
+> > >  			};
+> > >
+> > >  			vgen6_reg: vldo4 {
+> > > -				regulator-min-microvolt = <1800000>;
+> > > +				regulator-min-microvolt = <3300000>;
+> > >  				regulator-max-microvolt = <3300000>;
+> > >  				regulator-always-on;
+> > >  			};
+> > > --
+> > > TQ-Systems GmbH | Mühlstraße 2, Gut Delling | 82229 Seefeld, Germany
+> > > Amtsgericht München, HRB 105018
+> > > Geschäftsführer: Detlef Schneider, Rüdiger Stahl, Stefan Schneider
+> > > https://www.tq-group.com/
+> > >
+> > >
+>
+> --
+> TQ-Systems GmbH | Mühlstraße 2, Gut Delling | 82229 Seefeld, Germany
+> Amtsgericht München, HRB 105018
+> Geschäftsführer: Detlef Schneider, Rüdiger Stahl, Stefan Schneider
+> https://www.tq-group.com/
