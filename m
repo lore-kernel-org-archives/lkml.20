@@ -1,174 +1,108 @@
-Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com [209.85.216.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from gate2.alliedtelesis.co.nz (gate2.alliedtelesis.co.nz [202.36.163.20])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86E76175A68
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 00:59:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 794BC352C4E
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 01:01:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.36.163.20
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788483542; cv=none; b=Wk4rNrNvIttviWT3eICY4hHqQOclfDCi9J6bmOm7aawwTumupVdGbVrVnKKy7+v27x4ojwGn6N/DmxeoAVIdL7exo18cKv2ZuueAWMrV0snIEvJAIGUqQutde/kp4Of6hdcW7wKsFleopXLi7WrTI/8xROd/PTKIYYaPPEPTDfY=
+	t=1788483709; cv=none; b=fbckwz7f4x/GvHBjXZnkngNThRJY1m/u8VAT91OGpEzNcVOVwieMDVvehSO/0+4UdxkfIfKK5lwUD/Q6Ss1Hh/EECXT4HRfuRuza4lywWx9OzYV82zvzGB7RSRLtGwoQi5FsegErSy9FDJ5h91WQq2Cc49ApVyYgcSFqGr1jlzM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788483542; c=relaxed/simple;
-	bh=CesoFYRKsw+O5SXSx4jdD1WFIkboSdaXwuphwY8rR+I=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=iLpO/E0VZky6AqEYnCCG14/VmneSx/fUF1QtWnbFXdXwva62AHvH9ZHdt8iwEWz6UZZORcVHXJyR7+hEAg/ukyK7LU/RvIowxkWXwf2kAfCBWMiQ1h7A5nqt+xtOzN4le8AS5jocqRh9OTr/dGTEirr5SEfui1S4Qw1ST3NJyUY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=asu.edu; spf=pass smtp.mailfrom=asu.edu; dkim=pass (2048-bit key) header.d=asu.edu header.i=@asu.edu header.b=XHvMvCPM; arc=none smtp.client-ip=209.85.216.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=asu.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=asu.edu
+	s=arc-20240116; t=1788483709; c=relaxed/simple;
+	bh=qR5cExiPS9KyaHYAZsu33BfCpqnivwwfHuela8nEbJA=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=qXvf1K10w1zssNmQhEvq28zjdL7XANKVxzflaIkYwLCkBlCpPfNSAApdBEm3fstAP1k2IT7A2/TMu6xevwy87AgF+5mMGYPVh7/IRkVBjB3CvJWd1FpIBmTOt1TFCN+hoxCx1zX+wGpwjk2sWMGEZA8rwZFPa/sZUALiYw+jMNU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=alliedtelesis.co.nz; spf=pass smtp.mailfrom=alliedtelesis.co.nz; dkim=pass (2048-bit key) header.d=alliedtelesis.co.nz header.i=@alliedtelesis.co.nz header.b=smRPWcJN; arc=none smtp.client-ip=202.36.163.20
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=alliedtelesis.co.nz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alliedtelesis.co.nz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=asu.edu header.i=@asu.edu header.b="XHvMvCPM"
-Received: by mail-pj1-f42.google.com with SMTP id 98e67ed59e1d1-3969e82ff8fso518584a91.0
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 17:59:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=asu.edu; s=google; t=1788483540; x=1789088340; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=xro6XTnPAcOxfN1ZCDIt/YDKaZpg9rHm46KS1h7Fng8=;
-        b=XHvMvCPMJkxv3OGU7jfHr0oWw8LQ1u+b7eB9CNnFvGiQ64IGla6Bdpl8fzJ8P5jQqF
-         AtNcdZlfkhzcVo9laDroGN15REanUt6O5f2dd6zetJB62MnfMCJ8/FVtjszifoT6nqKM
-         yHpk9GO9MkVAtxR20xBGHfWGHBR9kovhlbgai9sZ/NUH0x8ppAmEAJBsSVFBKik5oSU4
-         elsK4TbwVgPaGJSsvPkDYgZkTVIPfL9AhmjS/rAHsL8v9903yf87KbC41IsvE4vIxbUR
-         hvNsLxgYTqLuohfbOKRTGLaHXrSd74yhkQxGuqqti2TcxWOBK5c5QrvZTh5ootxoy4xl
-         Cqqw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788483540; x=1789088340;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=xro6XTnPAcOxfN1ZCDIt/YDKaZpg9rHm46KS1h7Fng8=;
-        b=Seh5MZKpMBGRhIPlxmzEmQGcunrcntSMthjmPfELTxLHQkIlncV/r5myLj0++fvpXn
-         UN8/pPZ0INsc85zVVfNDg5piTe03JZU7XklTRU51CVIgGXQCiV8dBNNAkMYgS+ROYUAB
-         CYYiM15So1IeI4JWFntNFv4EzUQH77cUUxUP4zdWRpSAlPtoFu0JDS66+KbQ648N5KH5
-         B2vjFw5ku/bLGan3gz+Ud3TwhVHXWUUrRDkZUWxeVdswK7coPe0VzdF+KnOMnLDd24WQ
-         W3dnwhSdlNi0eTFoX/+xMbc5Q1wtQlrymX2Nkfar9fW57PjGyg1UdrbNgocx2A9ad1y+
-         veDg==
-X-Forwarded-Encrypted: i=1; AKwUvByPuW7atMbqtg/0ijOReT3K34l6aY9CzYjsh68cO/tHpZ1wmVjsFTbjHGsjpFyG3IOTl5TJdR7DlaJXPiA=@vger.kernel.org
-X-Gm-Message-State: AFuF++n5F/El01nFcdgtWs3uwyA51d8ig1gNSmXmmdprBAu62zg2fTF0
-	7wFv/8Kuxvv+H9z4GtC2vHIxJG1mxgDUnE8CT5we0aMZIiBE49sRU7g5i0BtUV7mVw==
-X-Gm-Gg: AYBFou0sVp7Doo/E0nre24dLlm10OIB74FJ9lb5OCE0tSkzsQSHPacwshtM73IXkvJ/
-	KS25oJKkyCx8HniPWPtk+XqOMbLL+z9khxiv0diefK8hkpDwQMi4JlE+d/n7rUXKPG0I/PRqOw2
-	3GCBZ1W8N5bvW4Z6oqepwwO6NgSb90j578+rlhXWbdSlubCPsjnM7kRfbNz3//XzAF3QeD0aDJL
-	hkBVWiDDV6ig/p4E4FsokAWgUeXMj9CV1q7EVp8YWoBQ8hCh3+MIen+3UlHUK4wNIK7TR5E+XKg
-	SgvXPegN1E9zqeUzh+hr5CYvWM0+6knVDYwGFc4+7cVmYR2BZsjWvpjGiWR0V3g5LUKjYOne5Y8
-	v94U0fFefy75F5eOVqX840oyf/hIknLUC8y4v0tQdFbdcaMRqHebuibq0Es6B3ZEon2cy62uJBi
-	CQObueAAAjGuGduEnAG0KneeES+Wkkl50+mEZeXdHcrxv92gUn8uyiuDFRz77xuxra3VfvH7Pks
-	0ZUY9EUnvy5nCliQl112aGP7mzqJQk0xTvPHQ==
-X-Received: by 2002:a17:90b:52c4:b0:36a:5d1f:7b6 with SMTP id 98e67ed59e1d1-39b260d3375mr3880175a91.2.1788483539796;
-        Thu, 03 Sep 2026 17:58:59 -0700 (PDT)
-Received: from p1.. (129-219-8-31.nat.asu.edu. [129.219.8.31])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339b024715sm2416474eec.17.2026.09.03.17.58.58
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 03 Sep 2026 17:58:59 -0700 (PDT)
-From: Xiang Mei <xmei5@asu.edu>
-To: Eric Dumazet <edumazet@google.com>,
-	Neal Cardwell <ncardwell@google.com>,
-	Kuniyuki Iwashima <kuniyu@google.com>,
-	"David S . Miller" <davem@davemloft.net>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>
-Cc: netdev@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=alliedtelesis.co.nz header.i=@alliedtelesis.co.nz header.b="smRPWcJN"
+Received: from svr-chch-seg1.atlnz.lc (mmarshal3.atlnz.lc [10.32.18.43])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(Client did not present a certificate)
+	by gate2.alliedtelesis.co.nz (Postfix) with ESMTPS id E21DC2C06D3;
+	Fri,  4 Sep 2026 12:53:56 +1200 (NZST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alliedtelesis.co.nz;
+	s=mail181024; t=1788483236;
+	bh=tS5IVUhZl3MhnvZyQVV7cXvwri1cCTVKG6/g9gtV6Jo=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=smRPWcJNYCDwKuMBWaaESXD1+0kOKM6MHsIT796Lz5F5PeTtGtZTcyPTPcOtykkoE
+	 qYTW07EIEjK8pIGPxsY1Oa25PxRHI/h4wIydRLa0h5ABpLr8+WR1C7QRqoHwhjnZkB
+	 ZC6sF442rH2ipmzNQYG8wX8kB+T0hPtVQ8eF4MYOCW38u9LDPiUmEpR7LctpSrs76b
+	 srtM4lBEEDiTmzqWDtd6n//rqLsUMlweT7BSV2AumCBIr+6VWwk06oV74IQlHZoQBL
+	 uQlbNbQwlDO7WNW2154weBdL1d8C8j4hE9WG9lyl9v5uB5Y7rMobz3FXO8Gy1BCbDq
+	 4Pgtu6RwdR6Lw==
+Received: from pat.atlnz.lc (Not Verified[10.32.16.33]) by svr-chch-seg1.atlnz.lc with Trustwave SEG (v8,2,6,11305)
+	id <B6a9a16a40000>; Fri, 04 Sep 2026 12:53:56 +1200
+Received: from aryans-dl.ws.atlnz.lc (aryans-dl.ws.atlnz.lc [10.33.12.26])
+	by pat.atlnz.lc (Postfix) with ESMTP id B986B13EE4D;
+	Fri,  4 Sep 2026 12:53:56 +1200 (NZST)
+Received: by aryans-dl.ws.atlnz.lc (Postfix, from userid 1844)
+	id B873E605E4; Fri,  4 Sep 2026 12:53:56 +1200 (NZST)
+From: Aryan Srivastava <aryan.srivastava@alliedtelesis.co.nz>
+To: Guenter Roeck <linux@roeck-us.net>
+Cc: linux-hwmon@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Dmitry Safonov <0x7f454c46@gmail.com>,
-	Salam Noureddine <noureddine@arista.com>,
-	Francesco Ruggeri <fruggeri@arista.com>,
-	David Ahern <dsahern@kernel.org>,
-	co+2c72469dbbec34af@bugs.sh,
-	stable@vger.kernel.org,
-	Xiang Mei <xmei5@asu.edu>
-Subject: [PATCH net] net/tcp-ao: transfer tcp_ao_info to the TIME_WAIT socket
-Date: Thu,  3 Sep 2026 17:58:51 -0700
-Message-ID: <20260904005851.149071-1-xmei5@asu.edu>
-X-Mailer: git-send-email 2.43.0
+	Aryan Srivastava <aryan.srivastava@alliedtelesis.co.nz>
+Subject: [PATCH v0 1/2] hwmon: pmbus: Fix vout_mode parsing
+Date: Fri,  4 Sep 2026 12:53:49 +1200
+Message-ID: <20260904005351.2136374-2-aryan.srivastava@alliedtelesis.co.nz>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260904005351.2136374-1-aryan.srivastava@alliedtelesis.co.nz>
+References: <20260904005351.2136374-1-aryan.srivastava@alliedtelesis.co.nz>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: quoted-printable
+X-SEG-SpamProfiler-Analysis: v=2.4 cv=CKmJXgrD c=1 sm=1 tr=0 ts=6a9a16a4 a=KLBiSEs5mFS1a/PbTCJxuA==:117 a=VdqzKS8jKosA:10 a=SraTm1qjkgrBK5f-9HQA:9 a=3ZKOabzyN94A:10
+X-SEG-SpamProfiler-Score: 0
+x-atlnz-ls: pat
 
-tcp_ao_time_wait() gives the TIME_WAIT socket a reference to the full
-socket's tcp_ao_info but leaves tp->ao_info pointing at the same object.
-That is only safe if the full socket is going away. On the tcp_fin()
-FIN_WAIT2 path (and TCP_CLOSING in tcp_rcv_state_process()) tcp_done()
-skips inet_csk_destroy_sock(), so the socket lives on in TCP_CLOSE with
-its fd open while the hashed TIME_WAIT socket reads the same tcp_ao_info
-from softirq, serialised against nothing.
+Currently this parsing assumes the top-most bit of the register is
+unset, allowing it to match against all 2bit numbers. In the case where
+the top bit is set, the parsing fails as the extracted value is always a
+3 bit number.
 
-An unprivileged user can turn that into a NULL deref: tcp_disconnect()
-does not clear ao_info, so connect(AF_UNSPEC) + listen() reaches
-TCP_LISTEN where TCP_AO_DEL_KEY accepts del_async=1 and NULLs
-ao_info->rnext_key, which tcp_v4_timewait_ack() then dereferences
-unchecked. The triggering segment need not be authenticated, as
-tcp_v4_rcv()'s do_time_wait: path skips tcp_inbound_hash().
+AND the read value after the bit shift to ensure only 2 bits are being
+parsed out.
 
-The refcount keeps the object allocated for both sockets, but nothing
-keeps its contents coherent: the setsockopt writers hold the full
-socket's lock while the TIME_WAIT reader runs in softirq, and no lock
-spans the two. Make the transition a handover, as the sk_omem_alloc
-charge moved here already implies: clear tp->ao_info instead of taking a
-second reference, leaving the TIME_WAIT socket as sole owner. Such a
-socket no longer exposes TCP-AO state (TCP_AO_INFO and TCP_AO_DEL_KEY
-return -ENOENT); that state describes the finished connection and
-belongs to the TIME_WAIT socket that keeps updating it.
-
-  Oops: general protection fault, probably for non-canonical address
-    0xdffffc0000000010: 0000 [#1] SMP KASAN NOPTI
-  KASAN: null-ptr-deref in range [0x0000000000000080-0x0000000000000087]
-  RIP: 0010:tcp_v4_rcv (net/ipv4/tcp_ipv4.c:1055 net/ipv4/tcp_ipv4.c:2333)
-  Call Trace:
-   <IRQ>
-   ip_protocol_deliver_rcu (net/ipv4/ip_input.c:207)
-   ip_local_deliver_finish (net/ipv4/ip_input.c:241)
-   ip_local_deliver (net/ipv4/ip_input.c:262)
-   ip_rcv (net/ipv4/ip_input.c:612)
-   __netif_receive_skb_one_core (net/core/dev.c:6264)
-   process_backlog (net/core/dev.c:6728)
-   __napi_poll (net/core/dev.c:7787)
-   net_rx_action (net/core/dev.c:8007)
-   handle_softirqs (kernel/softirq.c:645)
-   do_softirq.part.0 (kernel/softirq.c:546)
-   </IRQ>
-   <TASK>
-   __local_bh_enable_ip (kernel/softirq.c:473)
-   __dev_queue_xmit (net/core/dev.c:4961)
-   ip_finish_output2 (net/ipv4/ip_output.c:236)
-   ip_output (net/ipv4/ip_output.c:437)
-   __ip_queue_xmit (net/ipv4/ip_output.c:533)
-   __tcp_transmit_skb (net/ipv4/tcp_output.c:1716)
-   tcp_connect (net/ipv4/tcp_output.c:4383)
-   tcp_v4_connect (net/ipv4/tcp_ipv4.c:345)
-   __inet_stream_connect (net/ipv4/af_inet.c:684)
-   inet_stream_connect (net/ipv4/af_inet.c:755)
-   __sys_connect (net/socket.c:2183)
-   __x64_sys_connect (net/socket.c:2189)
-   do_syscall_64 (arch/x86/entry/syscall_64.c:84)
-   entry_SYSCALL_64_after_hwframe (arch/x86/entry/entry_64.S:121)
-   </TASK>
-  Kernel panic - not syncing: Fatal exception in interrupt
-
-Fixes: decde2586b34 ("net/tcp: Add TCP-AO sign to twsk")
-Cc: stable@vger.kernel.org
-Reported-by: co+2c72469dbbec34af@bugs.sh
-Closes: https://lore.kernel.org/all/YG9s0PiBKJZcXAKld3MToa1IVRJOUoKiaA57%40bugs.sh/
-Assisted-by: Claude:claude-opus-4-8
-Signed-off-by: Xiang Mei <xmei5@asu.edu>
+Signed-off-by: Aryan Srivastava <aryan.srivastava@alliedtelesis.co.nz>
 ---
- net/ipv4/tcp_ao.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/hwmon/pmbus/pmbus.c      | 2 +-
+ drivers/hwmon/pmbus/pmbus_core.c | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/net/ipv4/tcp_ao.c b/net/ipv4/tcp_ao.c
-index bb7bbc20ba3f..27525f90398b 100644
---- a/net/ipv4/tcp_ao.c
-+++ b/net/ipv4/tcp_ao.c
-@@ -428,7 +428,7 @@ void tcp_ao_time_wait(struct tcp_timewait_sock *tcptw, struct tcp_sock *tp)
- 			omem += tcp_ao_sizeof_key(key);
- 		}
- 
--		refcount_inc(&ao_info->refcnt);
-+		rcu_assign_pointer(tp->ao_info, NULL);
- 		atomic_sub(omem, &(((struct sock *)tp)->sk_omem_alloc));
- 		rcu_assign_pointer(tcptw->ao_info, ao_info);
- 	} else {
--- 
-2.43.0
+diff --git a/drivers/hwmon/pmbus/pmbus.c b/drivers/hwmon/pmbus/pmbus.c
+index 7a7eac90d62e..b629acbffbfb 100644
+--- a/drivers/hwmon/pmbus/pmbus.c
++++ b/drivers/hwmon/pmbus/pmbus.c
+@@ -121,7 +121,7 @@ static int pmbus_identify(struct i2c_client *client,
+=20
+ 		vout_mode =3D pmbus_read_byte_data(client, 0, PMBUS_VOUT_MODE);
+ 		if (vout_mode >=3D 0 && vout_mode !=3D 0xff) {
+-			switch (vout_mode >> 5) {
++			switch ((vout_mode >> 5) & 0x3) {
+ 			case 0:
+ 				break;
+ 			case 1:
+diff --git a/drivers/hwmon/pmbus/pmbus_core.c b/drivers/hwmon/pmbus/pmbus=
+_core.c
+index 5f69c1420b4e..55391db5b414 100644
+--- a/drivers/hwmon/pmbus/pmbus_core.c
++++ b/drivers/hwmon/pmbus/pmbus_core.c
+@@ -2753,7 +2753,7 @@ static int pmbus_identify_common(struct i2c_client =
+*client,
+ 		 * Not all chips support the VOUT_MODE command,
+ 		 * so a failure to read it is not an error.
+ 		 */
+-		switch (vout_mode >> 5) {
++		switch ((vout_mode >> 5) & 0x3) {
+ 		case 0:	/* linear mode      */
+ 			if (data->info->format[PSC_VOLTAGE_OUT] !=3D linear)
+ 				return -ENODEV;
+--=20
+2.55.0
 
