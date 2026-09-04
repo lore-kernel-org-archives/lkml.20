@@ -1,96 +1,74 @@
-Received: from mail.jetone.com.tw (mail.arestech.com.tw [210.61.96.229])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 562B13CAE7F;
-	Fri,  4 Sep 2026 08:01:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.61.96.229
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 4006733ADB1;
+	Fri,  4 Sep 2026 08:01:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788508870; cv=none; b=UqfJ2OrC87m9lMSjYPw2heXknr02XCzq+z0kp8fnVk2YYivJSTRM8jdO/z3N/43zLJqE/bWHFMkMo774pgMja9gTCsmepsS1IwV4jrC5N/wnTOhqf6zrMH36FW5NZbu/OJlMg654lB8Fot0rlwNdlURflZM/aWBFi7FRWnTQJEo=
+	t=1788508891; cv=none; b=Iy3fm7tnqo9htMSWiY1S9e7ykcEw1fnyLFN4XrORnxVt8pLpzGafquu+i9z+DDIyi7d77/588GZ55y9ef/hbxjQN0SJjnFAWNYNwXv+lHFKoU1lTeEn2KUIENqQqqk/ZKVSSj9t41l0b/K1ugPVOSMqiddRm0MQmayEtvP+qiUc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788508870; c=relaxed/simple;
-	bh=dBVFzNkm7C/8meYf7vsNJU9XTGhVurtsIEQb9dBqdBE=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=VpjO/SvJobxKXwP8DQ0FQxcSdOGgqHi3RV3cPwQEOVPIcoakH0Z14iw8ZFAs0TpPJqarTvoLZe8zjxWAKpVTHwB6kTXYjGI2jDBmFY6KT9f5Pt1YcHU/T/lkrpme+4xmFAW4DdlPWLBPKNAi0abU8r1A2cjf3AU5yiFT5cd483A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=jetone.com.tw; spf=pass smtp.mailfrom=jetone.com.tw; arc=none smtp.client-ip=210.61.96.229
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=jetone.com.tw
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jetone.com.tw
-X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 68480wi763293343, This message is accepted by code: ctloc85258
-Received: from mail.jetone.local ([192.168.0.53])
-	by mail.jetone.com.tw (8.15.2/3.29/5.94) with ESMTP id 68480wi763293343;
-	Fri, 4 Sep 2026 16:00:58 +0800
-Received: from ian-lin-DREAMBOOK-PRO-14V.jetone.local (192.168.0.137) by
- VM-EX2019.JETONE.LOCAL (192.168.0.53) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1258.34; Fri, 4 Sep 2026 16:00:58 +0800
-From: Ian Lin <ian.lin@jetone.com.tw>
-To: Johan Hovold <johan@kernel.org>
-CC: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-        <linux-usb@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-        Ian Lin
-	<ian.lin@jetone.com.tw>
-Subject: [PATCH] USB: serial: option: add Compal EXC-T1 support
-Date: Fri, 4 Sep 2026 16:00:46 +0800
-Message-ID: <20260904080046.56772-1-ian.lin@jetone.com.tw>
-X-Mailer: git-send-email 2.43.0
+	s=arc-20240116; t=1788508891; c=relaxed/simple;
+	bh=b9Mw3aFGpBMrQOIkrZcenLoyU6lVn1++jOl+6R0djPE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=dQPtSU0jgIr4Yr/sScRQWPaxyZRrbYNqDKDeB2vgr0wIClb9EuQ3w8hpOstGldfZVhcOqZD8YFQK0wWzlKnqokUMaA3XZ7K+SdZzeGtawA0bp3cZx1h5TZ1BU2/fV4dSlzjKmWjAwpGoxf/z8yLXe/KoQDtPAETe4DeMHPODd/Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=t3y5OxEg; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="t3y5OxEg"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 29CA7153B;
+	Fri,  4 Sep 2026 01:01:23 -0700 (PDT)
+Received: from [10.57.5.232] (unknown [10.57.5.232])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 741953F7D8;
+	Fri,  4 Sep 2026 01:01:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1788508886; bh=b9Mw3aFGpBMrQOIkrZcenLoyU6lVn1++jOl+6R0djPE=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=t3y5OxEgZLeP8TAormzrNnWsmfPr2of6O8saz7pejGRA7VadiAtCJuF+HXM0MKqUm
+	 eFhbITrPmNuF2kFYwsiqQMqxHgNo3jXlUp1jS1VQQ/xpTrokSBLgRFf0U36LI3SqcR
+	 UG50iQTFOCuaJ+DsYD5P8wwp/56gD6wLlP0TbLis=
+Message-ID: <03b270ab-4a39-4a82-b970-c0c10f400549@arm.com>
+Date: Fri, 4 Sep 2026 09:01:35 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: VM-EX2019.JETONE.LOCAL (192.168.0.53) To
- VM-EX2019.JETONE.LOCAL (192.168.0.53)
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1 1/1] thermal: sysfs: switch to use scnprintf() to
+ suppress truncation warning
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org
+Cc: "Rafael J. Wysocki" <rafael@kernel.org>,
+ Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>
+References: <20260817103324.1020212-1-andriy.shevchenko@linux.intel.com>
+Content-Language: en-US
+From: Lukasz Luba <lukasz.luba@arm.com>
+In-Reply-To: <20260817103324.1020212-1-andriy.shevchenko@linux.intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-The Compal EXC-T1 is a Qualcomm MDM9207-based LTE modem which reports
-"EXC-x1" as its USB product string. It exposes diagnostic, modem, AT,
-and NMEA ports as vendor-specific interfaces with subclass 0x10 and
-protocols 0x01 through 0x04.
 
-Add exact interface matches for these four ports, leaving the ff/ff/ff
-interface unbound.
 
-Relevant output from usb-devices:
+On 8/17/26 11:33, Andy Shevchenko wrote:
+> Switch the sysfs code to use scnprintf() to avoid warnings about potential
+> truncation of the names of the sysfs attributes. We can't increase the buffer
+> size because the size is the part of an ABI for some reason. Note, with
+> the current size of buffer the affected attributes have a room for up to
+> 1000 names, which ought to be enough for all cases. There is no functional
+> change, as the same limitation was implied before.
 
-T:  Bus=03 Lev=02 Prnt=03 Port=03 Cnt=01 Dev#=  6 Spd=480  MxCh= 0
-D:  Ver= 2.00 Cls=00(>ifc ) Sub=00 Prot=00 MxPS=64 #Cfgs=  1
-P:  Vendor=04b7 ProdID=4d22 Rev=03.18
-S:  Manufacturer=CEI
-S:  Product=EXC-x1
-C:  #Ifs= 6 Cfg#= 1 Atr=a0 MxPwr=500mA
-I:  If#= 0 Alt= 0 #EPs= 2 Cls=ff(vend.) Sub=10 Prot=01 Driver=option
-I:  If#= 1 Alt= 0 #EPs= 3 Cls=ff(vend.) Sub=10 Prot=02 Driver=option
-I:  If#= 2 Alt= 0 #EPs= 3 Cls=ff(vend.) Sub=10 Prot=03 Driver=option
-I:  If#= 3 Alt= 0 #EPs= 3 Cls=ff(vend.) Sub=10 Prot=04 Driver=option
-I:  If#= 4 Alt= 0 #EPs= 1 Cls=ff(vend.) Sub=ff Prot=ff Driver=(none)
-I:  If#= 5 Alt= 0 #EPs= 3 Cls=ff(vend.) Sub=10 Prot=05 Driver=qmi_wwan
+Right, it doesn't touch the real truncation check problem only avoids
+the complain from the tool. We can think about this later in some
+redesign.
 
-Tested on a Compal EXC-T1 modem using an Ubuntu kernel build. The four
-serial interfaces bound to option and exposed ttyUSB3 through ttyUSB6.
+> 
+> Fixes: c56f5c0342df ("Thermal: Make Thermal trip points writeable")
+> Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+> ---
+>   drivers/thermal/thermal_sysfs.c | 12 ++++++------
+>   1 file changed, 6 insertions(+), 6 deletions(-)
 
-Assisted-by: Codex:GPT-5
-Signed-off-by: Ian Lin <ian.lin@jetone.com.tw>
----
- drivers/usb/serial/option.c | 4 ++++
- 1 file changed, 4 insertions(+)
 
-diff --git a/drivers/usb/serial/option.c b/drivers/usb/serial/option.c
-index 03c3785a1..a42c37450 100644
---- a/drivers/usb/serial/option.c
-+++ b/drivers/usb/serial/option.c
-@@ -2433,6 +2433,10 @@ static const struct usb_device_id option_ids[] = {
- 	  .driver_info = RSVD(5) },
- 	{ USB_DEVICE_INTERFACE_CLASS(0x0489, 0xe167, 0xff),                     /* Foxconn T99W640 MBIM */
- 	  .driver_info = RSVD(3) },
-+	{ USB_DEVICE_AND_INTERFACE_INFO(0x04b7, 0x4d22, 0xff, 0x10, 0x01) },	/* Compal EXC-T1 */
-+	{ USB_DEVICE_AND_INTERFACE_INFO(0x04b7, 0x4d22, 0xff, 0x10, 0x02) },
-+	{ USB_DEVICE_AND_INTERFACE_INFO(0x04b7, 0x4d22, 0xff, 0x10, 0x03) },
-+	{ USB_DEVICE_AND_INTERFACE_INFO(0x04b7, 0x4d22, 0xff, 0x10, 0x04) },
- 	{ USB_DEVICE_AND_INTERFACE_INFO(0x04b7, 0x8217, 0xff, 0xff, 0x30) },	/* Compal EXM-G1x */
- 	{ USB_DEVICE_AND_INTERFACE_INFO(0x04b7, 0x8217, 0xff, 0xff, 0x40) },
- 	{ USB_DEVICE_AND_INTERFACE_INFO(0x04b7, 0x8217, 0xff, 0xff, 0x60) },
-
-base-commit: 7f11480cda081de78a05d8c97073df66326b50b3
--- 
-2.43.0
+Reviewed-by: Lukasz Luba <lukasz.luba@arm.com>
 
