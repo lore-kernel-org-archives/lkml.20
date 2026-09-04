@@ -1,67 +1,70 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AE954CCDE5
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 01:55:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC50629B781
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 01:56:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788486937; cv=none; b=kS9T9kxzegXpnFYnehiO+cGQE4W1DZwapgF3i3/jY8pjk9MUH2a29tZHnpy+/Xkmb4pFtKQuBtFs/tTpJWhOSGsVnIx93ZfY8rZ9sh+mpdUZWqGs4ZDVlWMZzZdPc3q7apdYeUyvDi8f+0fLvl6jzUCSWRIRBorJ2cNYTuuOTxQ=
+	t=1788486965; cv=none; b=J+JYyJ9aBv7l1L/tRMCx/D2YVyIXPzRem7A2iXwV8b+eGkiD6buw68CpGrAY0Dik1AGgaJ+M6AtQAZbATepfShy68AlO7MNKH9gHNI2MttdsEQBDGqNmHfslhnTJc3HRaV1qRJ5gSzvrdIA/XuM2esq0CjrFiGXR23Esu3pZSEk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788486937; c=relaxed/simple;
-	bh=ZgwDVtQnY1nLTpS0A1GIpWM6lUVR1xvZ2v2mrPk76SE=;
-	h=Date:From:To:Cc:Subject:Content-Type:MIME-Version:Message-ID; b=vE7B2A2DwLU+7fQK5GHt7iSiDzzuae6HP418RYC2IfH5AzsexK2IYI3X64FCuRVin81hxOh42WMw1Kg1HIfcZr2qUygY2jbKMQ/NHr4qh6FGeb8Qh0VB/ZDRDWizA7q2LPbaOo71uykLKBvoKXlWRxbPB2MzAxPKE+QjAV7xsfQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=gm6RUVY9; arc=none smtp.client-ip=117.135.210.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1788486965; c=relaxed/simple;
+	bh=bRXvSak7IyTMYzEzEYWjVO7TV9U5Tt9PbaxRxU4UUUc=;
+	h=Message-ID:Date:MIME-Version:Cc:Subject:To:References:From:
+	 In-Reply-To:Content-Type; b=RNorPeF3zE1M8ECPuUBUb+FCUtcfW1fRKbraQ3o/CanWqVNt82pb5/a9R3DEFiHK6ACtIKqUkv5RUaG0fGEvRdoPcnKOT5uIxajhWbzL0bLuW8fGuS7qjO4vW8hrel2l4/M5j8zZVq4PU9/j14DUKGH5szt8ARV1Yp/Ad2XBGC8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GrQyCcYW; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="gm6RUVY9"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
-	Message-ID; bh=ZgwDVtQnY1nLTpS0A1GIpWM6lUVR1xvZ2v2mrPk76SE=; b=g
-	m6RUVY93M5GvYVZnk6Vn+GsEaVu43fFP7kJ3K6XTeQDco3LiWMjDzS7CN1qOaghw
-	ZQjM3JU0dPp3AQKtf6/tFEYCzbtNIzpNns5gtjH2g/4Fg9aaqoGfuJuP6rzjfkpN
-	/99qFzhsFVpTOyZTnDLWYFagqr5UsFOJCLnPPnc9yg=
-Date: Fri, 4 Sep 2026 09:55:04 +0800 (CST)
-From: CJ <firefly0158@163.com>
-To: shaggy@kernel.org
-Cc: jfs-discussion@lists.sourceforge.net, linux-kernel@vger.kernel.org,
-	syzbot+6ca45cc69eba4e310924@syzkaller.appspotmail.com
-Subject: [BUG] jfs: WARNING in dbAdjTree from dbJoin
-X-Priority: 3
-X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
- 20260511(2e539873) Copyright (c) 2002-2026 www.mailtech.cn 163com
-X-NTES-SC: AL_Qu2TCviTuUEr4iOeZ+kdnk8aj+g+UcCwufkj24Bfc+8GgRv84DoEfW1FPnbL6uekLwG0vT6TaBlX0txmU4J4fnsTSiBTfJuMH49KmoPoRw==
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset=GBK
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GrQyCcYW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F10FD1F000E9;
+	Fri,  4 Sep 2026 01:56:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788486964;
+	bh=Suo1Ecr1VzKsfn3mGXhGaibOPyeH7RYyKh+Q65B/hIc=;
+	h=Date:Cc:Subject:To:References:From:In-Reply-To;
+	b=GrQyCcYWDgmZSb6m0HXIj1WPeg/f1R8mqKS5en+IBl3l2N3VTFLUUpXchRgNF4PG6
+	 S1U+v0Tct3w4bTBINPXB12z8w+U90lXN4g08DBI3rmQrZNt4pHWW29/FzNxQw9Ryx0
+	 B+XJXGdr5h8JKNcVkarJQncKaGyv1qJyfu85Jh/aCnArtdBQuKyW4bqhZmdZAGv5/F
+	 hmu4+jtU/UdfKLN3ig3MGJRaCofFgCSMBSUoMsKWGMfu79SZzl6NtZt66gYxiZ0sff
+	 xbvgZz6J3a2KpCjsfI/W6P4Da9a1yNajPGcyr5F5Pkld3JdT3ouA6D/LRP8ajiCNlh
+	 Yn5nDecf6CdUA==
+Message-ID: <d0293f62-e999-4339-8bd2-b321551825b1@kernel.org>
+Date: Fri, 4 Sep 2026 09:56:00 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <5fdd200b.18c7.1a06a206a31.Coremail.firefly0158@163.com>
-X-Coremail-Locale: zh_CN
-X-CM-TRANSID:kygvCgDXPzf4JJpqbAo_AA--.9314W
-X-CM-SenderInfo: piluvw1o1qikqy6rljoofrz/xtbC3RiIOmqaJPip4QAA3T
-X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
+User-Agent: Mozilla Thunderbird
+Cc: chao@kernel.org, Jaegeuk Kim <jaegeuk@kernel.org>,
+ Daeho Jeong <daeho43@gmail.com>, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v9 04/11] f2fs: describe orphan block layout dynamically
+To: Kelvin Zhang <zhangxp1998@gmail.com>,
+ linux-f2fs-devel@lists.sourceforge.net
+References: <cover.1788479509.git.zhangxp1998@gmail.com>
+ <99c37e861d74328fa6203c58284dc33505d326ad.1788479509.git.zhangxp1998@gmail.com>
+Content-Language: en-US
+From: Chao Yu <chao@kernel.org>
+In-Reply-To: <99c37e861d74328fa6203c58284dc33505d326ad.1788479509.git.zhangxp1998@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-CkhpLAoKCkkgYW0gcmVwb3J0aW5nIHRoYXQgV0FSTklORyBpbiBkYkpvaW4gYXBwZWFycyB0byBy
-ZW1haW4gcmVwcm9kdWNpYmxlIHdpdGggYQptaWdyYXRlZCBzeXprYWxsZXIgcmVwcm9kdWNlciBv
-biBMaW51eCA3LjItcmMzLiBUaGUgdGVzdGVkIEhFQUQgY29tbWl0IGlzCmExM2MxNDBjYzI4OWMw
-YjdiMzc3MGJjZTViM2FkNDJhYjM1MDc0YWEuCgoKVGhlIHJlcHJvZHVjZXIgbW91bnRzIGEgY3Jh
-ZnRlZCBKRlMgaW1hZ2UgYW5kIGZyZWVzIGJsb2NrcyB3aGlsZSB0cnVuY2F0aW5nCmFuZCBldmlj
-dGluZyBhbiBpbm9kZSB0aHJvdWdoIHRoZSBsYXp5LWNvbW1pdCBwYXRoLgoKCmRiSm9pbigpIGNh
-bGxzIGRiQWRqVHJlZSgpIHdpdGggaW5jb25zaXN0ZW50IGRtYXAgdHJlZSBzdGF0ZSwgdHJpZ2dl
-cmluZyB0aGUKc2FtZSB3YXJuaW5nIHBhdGggcmVwcmVzZW50ZWQgaW4gdGhlIHNvdXJjZSBhbmQg
-dGFyZ2V0IHJlcG9ydHMuCgoKVGhpcyBsb29rcyBsaWtlIG1hbGZvcm1lZCBidWRkeS10cmVlIG1l
-dGFkYXRhIGlzIG5vdCByZWplY3RlZCBiZWZvcmUKZGJKb2luKCkgYXR0ZW1wdHMgdG8gbWVyZ2Ug
-YW5kIGFkanVzdCB0aGUgZG1hcCB0cmVlLgoKClRoaXMgaXNzdWUgd2FzIHByZXZpb3VzbHkgcmVw
-b3J0ZWQgYXQ6CgoKaHR0cHM6Ly9zeXprYWxsZXIuYXBwc3BvdC5jb20vYnVnP2V4dGlkPTZjYTQ1
-Y2M2OWViYTRlMzEwOTI0CgoKUmVwcm9kdWNlcjoKCgpzeXogcmVwcm9kdWNlcjogaHR0cHM6Ly9w
-YXN0ZWJpbi5jb20vcmF3L1lQa3FHQkxVCgoKY29uc29sZSBvdXRwdXQ6IGh0dHBzOi8vcGFzdGVi
-aW4uY29tL3Jhdy9uNkR6eFQ1NAprZXJuZWwgY29uZmlnOiBodHRwczovL3Bhc3RlYmluLmNvbS9y
-YXcvZWc5U0FiOXEKCgpLZXJuZWw6CgoKSEVBRCBjb21taXQ6IGExM2MxNDBjYzI4OWMwYjdiMzc3
-MGJjZTViM2FkNDJhYjM1MDc0YWEKZ2l0IHRyZWU6IHRvcnZhbGRzL2xpbnV4Cmtlcm5lbCB2ZXJz
-aW9uOiA3LjIuMC1yYzMgIzEgUFJFRU1QVChmdWxsKQp0ZXN0ZWQgdGFnOiB2Ny4yLXJjMwoKCkxl
-dCBtZSBrbm93IGlmIHlvdSBuZWVkIG1vcmUgZGV0YWlscyBvciB0ZXN0aW5nLgoKCkJlc3QgcmVn
-YXJkcwoK
+On 9/4/26 07:56, Kelvin Zhang wrote:
+> An on-disk orphan block contains a variable-length array of 32-bit
+> inode numbers followed by a fixed footer at the end of the block. A
+> compile-time whole-block structure cannot represent the footer position
+> when the block size varies at runtime.
+> 
+> Remove struct f2fs_orphan_block, introduce
+> struct f2fs_orphan_block_footer, and compute sbi->orphans_per_block
+> dynamically in init_sb_info(). Add helpers to access the inode entry array
+> and footer from a block buffer.
+> 
+> Update orphan inode recovery, checkpointing, and mount paths to use the
+> parameterized helpers. This preserves the on-disk format while decoupling
+> orphan handling from compile-time constants.
+> 
+> Signed-off-by: Kelvin Zhang <zhangxp1998@gmail.com>
+
+Reviewed-by: Chao Yu <chao@kernel.org>
+
+Thanks,
