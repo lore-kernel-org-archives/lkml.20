@@ -1,100 +1,78 @@
-Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com [209.85.214.178])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9872147729B
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 12:29:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D253D481643;
+	Fri,  4 Sep 2026 12:29:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788524974; cv=none; b=uwRt7APFjeAOqXTBfqmkl6CnQZxMs2/+zOGYmYoZODkusUBHvtIzDCg2fLTgheimLjRQl/Lr+QPWxACZfXtMgHqoMKC2eFjvrOUHl8GF9g11sg6ivirMnS+vm2kBxZ4Fg/9wlDYQQQswK3Ugvuxy0dL42bvotI/FiHiflrNUIGo=
+	t=1788524981; cv=none; b=LBLuqMM/oU0I8B5N/SOz9nIVxkC1VYpYk6AxAJX3ux5BQKIsACUff0bcUC7/BqkL/OhpwSrxs8YmGjsUTaOhxfmNC2lSJ9Uxy53Qi6Res7FeUiw2K3FFab8UXDT02tMPR+NJKSUvM2r6oBQwheVnGgM/e2xGTWx6Bho4pZ/vusA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788524974; c=relaxed/simple;
-	bh=0c1ko//hfP9QAeCnKs/jLI0AzW/KEtk3G1WLyauue2A=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=BxjONXs9LBddE4N87tKlQeBEpmFWX52nYU4053NsroXSCxna68piEDSYIKvURet3tnhKDGFHGslkSktSgkQfYd2RVt3NQvFuHlpgPWhwcj4e7Mr/M42RIMNPUvsSkl+eiAEaO0zj8uVE0QbaGflBXeFNrTUC3FxQhmm7uRDIdxo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=b7+7olec; arc=none smtp.client-ip=209.85.214.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788524981; c=relaxed/simple;
+	bh=PiE6KAbCrx0HruWK15RJpph5P3xZDaq+6706Z76R9b8=;
+	h=Content-Type:MIME-Version:Message-Id:In-Reply-To:References:
+	 Subject:From:To:Cc:Date; b=qiLlGjK7Mr9+xsXBLz84CXEap7vpHPLi7G/bCb/wa8hiG2YdKCzUbiRZxt0hAi207WTqsUMIl7t67EPFHR4UKcCwWtQZTxwcfiCIUgeyMeXkkUl5lFm5lI9UrzNOP5LSpq9rdG9l6bdyLnPjBkHnljvT+BrT07EMKf/9jbqsoks=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NP0sS3jm; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="b7+7olec"
-Received: by mail-pl1-f178.google.com with SMTP id d9443c01a7336-2d5cad1a6baso8424885ad.3
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 05:29:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788524972; x=1789129772; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=dWZruK0ZIrQsrjPFytanT6zOdaghlPpGRZrX5Aq6eGQ=;
-        b=b7+7olecLkeFqvSYWJE+c5YoeVC3tApGjsbCMN41SEIZzG7O0Mn8Ig+xKXgm70vK2z
-         XWXj1vQeuVwTvVa+TuGdGN1Ut4gHRD6Dkh+YbYCRpIX9Ku4W2i0zKMDJJI0ZhMQyXli5
-         vnP116cjyKoAWMdI8okEPKMsxqWOZZ3bvjx96wtH3LW0DeJ86vithJwRrO7ctiQzcQ2/
-         z29nCgZBLyou9sQ7VmboEGKwVrYjdrXtNg7CrumQD8/AaGbOCJDgNdaplrab6OFIzg+J
-         dr8nsD2322hKwJ1W2FZC0paEKrSPfGyR6a96Zx9RfqnMtjq25ZoDf6oTSViUDoLyqhqi
-         s3Ag==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788524972; x=1789129772;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=dWZruK0ZIrQsrjPFytanT6zOdaghlPpGRZrX5Aq6eGQ=;
-        b=BbuCd8ebRThqvbXszFZy/OvjI2EZc1LwQ1Qfe5hmBFa6gMEw1EHF9LYv57wWEq+PFR
-         mshoQZQpp5oO3TQiP71cvbuRO6UgMu/T35akUm1jmYIpwVTMl6Qg1x6FHD6FpE++Fu7t
-         xbeq92UzTco+zQXcxaE/+su2TKrOQVvEfKz2P2LUk1P7XpVXLRgbcgJkU4n7L/M+Vgds
-         wsAziS5JuOIHEWkQitY8e7WyFiJyXqqlPARQiKUq+F2vWFw2Pavhltz5YpwvbTl+YffW
-         8p9BhZgX7nZ3Kd9WPpguDKvM4Mxr90zqI96yU822JEn8uow4oyqO1YuzstvoUi/3hsby
-         Hz2g==
-X-Gm-Message-State: AFuF++nBjiqpr9pPfzp1N9y6fwpQXnM1jEei1qIAoTGLuIRRv9buH1QU
-	ctL6i2T1UvUGvuzhih3pf14777z6ow7c6wUqGmM33Ho2ZAKnIBsz2ONfoDw2av/es00=
-X-Gm-Gg: AYBFou1F7W4sOuaC9rQ2rR9OfaWpoFk4l7/ZzjAE7hY5EVPGRW5vCFcAf0Xptl+6clC
-	hlJp24YPjQTcxHqVd1SCCXS6ih7DKta9wAdt+25ookaV5PM0/LwNCIe7BJl5RvoM9VHiymzI5jg
-	y//ymibuinZBTJlyfRYOgPh+Z7RJCjumiPOddjDxuJ+h7tjq1Gt24H4VKYZdpUPASS3XTtKlx6+
-	eXQ+aFlmlw+aoQW0sDZccN7QLXFAYSgMp9/C1kGYJ/w+ROx6ja33cqNGEjsPKjCMWSTM5g3U13D
-	4rrEs6T0+w8YDtPv0vB3cL7PnVnAuZ41JzRcryxd2jCNFW74FqDZLXr+t0+tvrOl2nHHGt7kZ92
-	gQCFl6bnUo+u0AIsXytJEEYMqEXEXlLbYbHxFaxgVIZYbr/CFQbUSKmc3PHVb8bkoICeoVad2y5
-	Dvfn9HCLk1RHvuCdrpzpWnM/tDjLGl3oWv4y5NIEp82T7PMC32j4qiqrMgZFb1w1Atssy7vAVxb
-	fsXO0/WWyyrkM0=
-X-Received: by 2002:a17:90b:2784:b0:395:4de5:1054 with SMTP id 98e67ed59e1d1-39b26272bdcmr9935635a91.16.1788524971597;
-        Fri, 04 Sep 2026 05:29:31 -0700 (PDT)
-Received: from volcano9f6e-hostos.amd.com ([165.204.217.251])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339b9f68e4sm6762159eec.24.2026.09.04.05.29.29
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 04 Sep 2026 05:29:30 -0700 (PDT)
-From: Hemanth Selam <hemanth.selam@gmail.com>
-To: Breno Leitao <leitao@debian.org>,
-	Andreas Hindborg <a.hindborg@kernel.org>
-Cc: linux-kernel@vger.kernel.org
-Subject: [PATCH] configfs: fix typo "atleast" in comment
-Date: Fri,  4 Sep 2026 17:59:25 +0530
-Message-ID: <20260904122927.34360-1-hemanth.selam@gmail.com>
-X-Mailer: git-send-email 2.48.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NP0sS3jm"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2C8481F00A3D;
+	Fri,  4 Sep 2026 12:29:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788524979;
+	bh=PiE6KAbCrx0HruWK15RJpph5P3xZDaq+6706Z76R9b8=;
+	h=In-Reply-To:References:Subject:From:To:Cc:Date;
+	b=NP0sS3jmFM244rY3zX1Z4j7KzVxIstVaLQ9vZrMMOOWkjANvba0+fXtked7EzzdpY
+	 yvgjGxHYn+V7/W1eNVM/QrxniQSExPrgdiVYELX6YMqjkQ1SKgtsn3E7Y0gw9+hVwD
+	 iGDl/J5VJmuzE6apFDsnFGGSt0PybupWLDgLcza1nliPvOMtMCJLgVzfXSx7wqOvDu
+	 NlQbZrPQWBrKRBt+F7JQugjTBPSrMW8jk6yLMc/tnQ+4DI5uM6+ae55EDvx+46dKvH
+	 Fb3QOmD+20RgloJKRnq9xJiPXdwhD+eqPC4N2VSCdNVN+dfhHjhpva2tsLYsKhZmmz
+	 /YcxslP/7UTvA==
+Content-Type: multipart/mixed; boundary="===============2140836779584207408=="
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Message-Id: <e473cea93e948db9c27dc4ae0e993eb3e09011e7cbe8c8e4b305c3b12d866502@mail.kernel.org>
+In-Reply-To: <20260904111731.673341-2-main.kalliope@gmail.com>
+References: <20260904111731.673341-2-main.kalliope@gmail.com>
+Subject: Re: [PATCH bpf-next v2 1/2] bpf, mips: Factor register moves into helpers
+From: bot+bpf-ci@kernel.org
+To: main.kalliope@gmail.com,ast@kernel.org,daniel@iogearbox.net,andrii@kernel.org,eddyz87@gmail.com,memxor@gmail.com,johan.almbladh@anyfinetworks.com,paulburton@kernel.org,tsbogend@alpha.franken.de
+Cc: martin.lau@linux.dev,song@kernel.org,yonghong.song@linux.dev,jolsa@kernel.org,emil@etsalapatis.com,ihor.solodrai@linux.dev,bpf@vger.kernel.org,linux-mips@vger.kernel.org,linux-kernel@vger.kernel.org,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
+Date: Fri,  4 Sep 2026 12:29:38 +0000 (UTC)
 
-Correct "atleast" to "at least", reported by scripts/checkpatch.pl using
-the misspelling list in scripts/spelling.txt.  Only touches comments, no
-code changes.
+--===============2140836779584207408==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-Assisted-by: Cursor:claude-opus-5
-Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
+> BPF_MOVSX carries its source width in insn->off. Both MIPS JITs
+> currently lower register MOV instructions directly in build_insn().
+> Keeping the forthcoming MOVSX width switch there would split the move
+> operation between dispatcher cases and backend emitters.
+>
+> Factor ALU32 and ALU64 register moves into helpers for each backend and
+> route the existing MOV paths through them. The helpers own the complete
+> move operation, including MIPS32 register-pair handling and the ALU32
+> upper-half state. This keeps the following MOVSX width decoding inside
+> one per-backend, per-width-class move emitter rather than in dispatcher
+> case arms or generic primitives.
+
+This isn't a bug, but the second paragraph seems to repeat the rationale
+already given in the first. The first paragraph explains that keeping the
+MOVSX width switch in build_insn() would split the move operation between
+dispatcher cases and backend emitters. The second paragraph restates this
+as keeping MOVSX width decoding inside one per-backend, per-width-class
+move emitter rather than in dispatcher case arms or generic primitives.
+
+Could the two be collapsed into a single sentence about why the move
+lowering needs to live in one emitter?
+
+
 ---
- fs/configfs/inode.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
+See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
 
-diff --git a/fs/configfs/inode.c b/fs/configfs/inode.c
-index 68290fe0e374..976bb48e267b 100644
---- a/fs/configfs/inode.c
-+++ b/fs/configfs/inode.c
-@@ -58,7 +58,7 @@ int configfs_setattr(struct mnt_idmap *idmap, struct dentry *dentry,
- 			sd_iattr->ia_ctime = current_time(inode);
- 		sd->s_iattr = sd_iattr;
- 	}
--	/* attributes were changed atleast once in past */
-+	/* attributes were changed at least once in past */
- 
- 	error = simple_setattr(idmap, dentry, iattr);
- 	if (error)
--- 
-2.48.1
-
+CI run summary: https://github.com/kernel-patches/bpf/actions/runs/33869345053
+--===============2140836779584207408==--
