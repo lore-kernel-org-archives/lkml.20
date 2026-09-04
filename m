@@ -1,134 +1,160 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42BAD448B97
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 10:05:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DA1843DA26
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 10:06:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788516340; cv=none; b=ceH6QmT0eDX1yq42Q8eCk8s7zfV4JGCR+Xdi2z4ORWKEpU8UJT/H0vSK1zwZG2jIxSvRfCJOFeiPxwRoCtp6HoIkFjfcBimP2o4azdUHC8m0tRssSMgJ4O5bpZUh8hhWv5sSgBQgk1yO0VeMASPU5BGLlcfdcK8EKDGO3QgZHDc=
+	t=1788516373; cv=none; b=fktDFcMVQxKknZYRu62WmdK/9dIi+TVb2ne3w0/8urRuyJV/ToQnIycUy8+S3Cz8QDoZ2qls8Cv4ySgxB8wl7cyzDXVc7UAnzXp1z8dg4VAbVZ8V5Q+205hz5VRX394bvhvUr2mvDYZmtz0Cp/tqe+H+iKJv1zPllXfF7U9Yy2U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788516340; c=relaxed/simple;
-	bh=PonluXIqpdK5YVnIwW1ZKIfyugR2p2Y9j8kib4Q/qvI=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=imKLhWv5lfoDJBHxH/xP8oT3784V2soY9gpoePHIl3dQDdpE3+GKtbwyhBufC0oiu9E2r/7r1VHBGBIoSkeNG4P/bjTnuy2Af/d6PIbu4QNu9WWT+GqUhssm+Km1LKfTMsZM1zPSVGubk9mOxFYfhj4A9PjUJeq3e/bj7RYIsSc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LiDI5Usg; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788516373; c=relaxed/simple;
+	bh=MRY0JI9EKn0ggme0Z9KTU7DsPTID6/q5B95pvaODbT0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=jXzXtBqA+qya/Bk6m7M9aVA5tapKzmCtXcEpu0bQV0gvTk3YM/uzxQTpUAYA7a/AEtIuvdPFxvJrZcS0x+SNn4qZpu41hnI8yohh+Lm9iARheqyt3lrTEgUzUn2+GNI0s32PRlUJhKrLDlFJR/xF7+jpPLS9xPWxSV6XA9MDH8g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=ZH4VTZD3; arc=none smtp.client-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LiDI5Usg"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E68D61F00ADB
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 10:05:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788516338;
-	bh=+MVFKDGPp4UWg5sRJHXl+lvkq3CQatW3Z5Cpu0PPOY4=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=LiDI5UsgHWTMHnyuAJRu5WXd2blippVQ1EjhRDEiBVHQ+3z2JeRZ7R53hOD1lolVb
-	 C+GBw5OeE5d/vLIEaSG7Hl67OAu9YiFjGonBOvbUZ7mS0owGTCQMuGZ9My3t1oAxDx
-	 TdBADZ9QCT/R0vce7ePuixbj18GeKoiU30YrRDIl1BafpXXldjqpG9L/ZQ0xGJm1Sx
-	 mA8zl8wyH1P3N8ek3cUmLg0mbQ4L1EBqyyAcZiHVS8se1XwFD3ZvjdsElneRPQrmUO
-	 qGz1LijHMM6LD5/ot3wF/SDDkmuTfEEmJvMcOwdgCQMtWr2iwtsrSg6L6/FWeXOI1R
-	 cBedRM+M4XtBw==
-Received: by mail-lf1-f48.google.com with SMTP id 2adb3069b0e04-5b4afc8465eso1073063e87.2
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 03:05:38 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBzaNP+4d4Q0gOSFfkr6PzcSqt7PowVySsfP8MUbzUGdBtOB6KNw1N/+lbL8IGdXQbFiM/JfAw+3h6G38Z8=@vger.kernel.org
-X-Gm-Message-State: AFuF++kiuonFk8XkFfQwUHV9D9w2tlPWLF3dfBdHWiLNiLMSBcvzucCo
-	e93SUuNSvIUDg5KK5PZm6v7KYArQ6nWI8cf3Uc5U4hL1vihg+OLyF9dDcT8kOcL1aPPfdRPMmc2
-	OMcQ5JZ1f3YYBdQuf480e8VYvVcVt85s=
-X-Received: by 2002:a05:6512:2521:b0:5b6:1a7c:fd84 with SMTP id
- 2adb3069b0e04-5b61a7cfeb4mr382887e87.42.1788516337225; Fri, 04 Sep 2026
- 03:05:37 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="ZH4VTZD3"
+Received: from pps.filterd (m0353729.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68464Mn73254224;
+	Fri, 4 Sep 2026 10:06:02 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=HAJTgY
+	BKg3fKvAiJ558+O1UQkjeF4ppuqg6h+ykwFro=; b=ZH4VTZD3C6bbWR6jJVA2KO
+	t4xBPTjFCXNY5RF1IJCZnUTpGuMWBTkblp3LI/xyUNRKZx/53R8WY9dI3abUiaMW
+	4Hs1G3MGDyygVhJb0PXiDXcjwxmKUxgj3ITwOhFNkm0zJZM7L9PJZhll0gQlcOvH
+	TdcaSDaGmbLtvUMpYmqGxLBfcbfyK/wACDwFRipFlmC+VZHmfkoJh9aJd6uHZEjN
+	aILJzg/J0UhP5vv7msRl+EoMdrrJ1zOnpr+U0OtLWpflAmPmewrvd6NoC9x6w7eb
+	4+MM63jbdnilLQi9oUrNJeCrpWSMDemoOHuuCShHor3m5xDrZPxY8R07dCbquNIQ
+	==
+Received: from ppma12.dal12v.mail.ibm.com (dc.9e.1632.ip4.static.sl-reverse.com [50.22.158.220])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gbq3rt1pg-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Fri, 04 Sep 2026 10:06:01 +0000 (GMT)
+Received: from pps.filterd (ppma12.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma12.dal12v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 6849uOEq010327;
+	Fri, 4 Sep 2026 10:06:00 GMT
+Received: from smtprelay01.fra02v.mail.ibm.com ([9.218.2.227])
+	by ppma12.dal12v.mail.ibm.com (PPS) with ESMTPS id 4gc9rqvjxp-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Fri, 04 Sep 2026 10:06:00 +0000 (GMT)
+Received: from smtpav02.fra02v.mail.ibm.com (smtpav02.fra02v.mail.ibm.com [10.20.54.101])
+	by smtprelay01.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 684A5uWd44171664
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Fri, 4 Sep 2026 10:05:56 GMT
+Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 62EC72006A;
+	Fri,  4 Sep 2026 10:05:56 +0000 (GMT)
+Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 7E5402005A;
+	Fri,  4 Sep 2026 10:05:53 +0000 (GMT)
+Received: from [9.124.221.192] (unknown [9.124.221.192])
+	by smtpav02.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Fri,  4 Sep 2026 10:05:53 +0000 (GMT)
+Message-ID: <f1d356ae-9f95-4139-903d-5ec1783278ca@linux.ibm.com>
+Date: Fri, 4 Sep 2026 15:35:52 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <6044499.DvuYhMxLoT@rafael.j.wysocki> <20260904094030.2455645-1-peixin.xie@linux.spacemit.com>
-In-Reply-To: <20260904094030.2455645-1-peixin.xie@linux.spacemit.com>
-From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Date: Fri, 4 Sep 2026 12:04:36 +0200
-X-Gmail-Original-Message-ID: <CAJZ5v0hLz3=RVDD3YeT0=Xk0w_fLmGTCGMuYyZhX10th3-xtSw@mail.gmail.com>
-X-Gm-Features: AcwNN1XfOQA-QVk9dEc9RzdSjjBbI02RHKxBUUUm3VlDAMgsThBFfV2VTf3DEXo
-Message-ID: <CAJZ5v0hLz3=RVDD3YeT0=Xk0w_fLmGTCGMuYyZhX10th3-xtSw@mail.gmail.com>
-Subject: Re: [PATCH v3 0/4] ACPI: scan: Adjust power management initialization
- and PCI devices handling
-To: Peixin Xie <peixin.xie@linux.spacemit.com>
-Cc: rafael@kernel.org, andriy.shevchenko@linux.intel.com, hansg@kernel.org, 
-	helgaas@kernel.org, ilpo.jarvinen@linux.intel.com, linux-acpi@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-pci@vger.kernel.org, 
-	linux-pm@vger.kernel.org, lukas@wunner.de, mika.westerberg@linux.intel.com, 
-	sakari.ailus@linux.intel.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 1/3] powerpc/numa: Simplify find_primary_domain_index
+To: Srikar Dronamraju <srikar@linux.ibm.com>,
+        linuxppc-dev <linuxppc-dev@lists.ozlabs.org>,
+        Madhavan Srinivasan <maddy@linux.ibm.com>,
+        Michael Ellerman <mpe@ellerman.id.au>,
+        Nicholas Piggin <npiggin@gmail.com>,
+        "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>
+Cc: skiboot@lists.ozlabs.org, arbab@linux.ibm.com, mahesh@linux.ibm.com,
+        Ritesh Harjani <ritesh.list@gmail.com>,
+        "Mike Rapoport (Microsoft)" <rppt@kernel.org>,
+        Andrew Morton <akpm@linux-foundation.org>,
+        linux-kernel@vger.kernel.org
+References: <20260902123458.340456-5-srikar@linux.ibm.com>
+ <20260902123458.340456-6-srikar@linux.ibm.com>
+Content-Language: en-US
+From: Shrikanth Hegde <sshegde@linux.ibm.com>
+In-Reply-To: <20260902123458.340456-6-srikar@linux.ibm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Authority-Analysis: v=2.4 cv=EIc2FVZC c=1 sm=1 tr=0 ts=6a9a980a cx=c_pps
+ a=bLidbwmWQ0KltjZqbj+ezA==:117 a=bLidbwmWQ0KltjZqbj+ezA==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=uAbxVGIbfxUO_5tXvNgY:22 a=VnNF1IyMAAAA:8
+ a=eDlDjDsLvsYrmFaFoiYA:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA0MDA5MSBTYWx0ZWRfXwyWWIlbNsHBm
+ QXCLk1QsebeKZB8AnivQGYN7dwutRtTBqjHoo2j3s1Bnn094N0R3OKlgkkq8aIWerARvhbOX3VX
+ gMPq/FiXpdA+GUVIOoFx16Q66pqBwARsP5rM/Thea5eiJ27QbM2hrSelDN7tWZLvIySmqOguDd+
+ l9yXdJTF00anyAfhQTbSgCyCYB6wrh4ICnWfJbvDQBI7/FBO7H7eL2sBDS3Kp14tD656UWw5Y2W
+ 3gWI+8Q5BC5ihk+Yzjco/avAI3PmF73PLCXQQBlFSbSKZQoNs8Ion/5V9xRH0zCCEGOxuzmmvOK
+ DPTFtZ11KUqTA9U9MAS4+lmIaZTtZ8LfWW0lHYrjRCT+L07QmaNK/dile2Nfjlzkg/uI0bYugfa
+ T4zdfDKAaVxV0LvV8ZlYxS0MH1C5alEmYhQRlQT5WQRXeZ19rud8DiNAZb+MYtxsY+a6LI9C+oD
+ 2bkxFG3RBnkDhuBTtVQ==
+X-Proofpoint-GUID: _vvNfrb4YUhBjf_ZCh6dlG4WvITRi9BC
+X-Proofpoint-ORIG-GUID: Mff89xAGMEEiMOICzw41UsY9Eum749AZ
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA0MDA5MSBTYWx0ZWRfX0sk+wHPuhAMc
+ xkooS29DZvHVqb4EfU8TytB3SJiU5j6uZfULrw08CiT4pxw01G/pwdhFA2tZO+1iKlsk/22zSwy
+ rtrvzqi/+TmXqRw3wzRGWOccPXfyt/c=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-04_02,2026-09-03_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 impostorscore=0 suspectscore=0 priorityscore=1501 clxscore=1011
+ phishscore=0 spamscore=0 adultscore=0 lowpriorityscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609040091
 
-On Fri, Sep 4, 2026 at 11:41=E2=80=AFAM Peixin Xie
-<peixin.xie@linux.spacemit.com> wrote:
->
-> Hi Rafael,
->
-> On Thu, 03 Sep 2026 18:57:09 +0200, Rafael J. Wysocki wrote:
-> > Hi All,
-> >
-> > This is an update of
-> >
-> > https://lore.kernel.org/linux-acpi/5144065.31r3eYUQgx@rafael.j.wysocki/
-> >
-> > that adds 1 patch, 3 two patches, and addresses review comments in patc=
-h [2/4].
-> >
-> > The new patch drops in v3 is a cleanup relocating the acpi_bus_init_pow=
-er()
-> > declaration to an internal header file in the core ACPI support code (p=
-atch
-> > [3/4]).
-> >
-> > One of the patches dropped from the v2 has been folded into patch [2/4]
-> > and the other two have become cleanups on top of this series that can b=
-e
-> > done later.
-> >
-> > Overall, the series aims at addressing a few issues present in the core=
- ACPI
-> > device enumeration code, mostly related to the acpi_bus_attach() functi=
-on.
-> >
-> > The first one is that, on some systems, ACPI power management is initia=
-lized
-> > twice for devices that have missing dependencies to start with.  An att=
-empt
-> > to address this issue had been made during the 7.3 merge window, but it=
- had
-> > to be reverted [1].  The approach used here is roughly the same as in t=
-he
-> > reverted commit, but it takes PCI devices (which are a special case) in=
-to
-> > account.
-> >
-> > In addition to the above, ACPI power management may be initialized prem=
-aturely
-> > for device objects whose parents are not ready for enumeration.
-> >
-> > The other issues are that flags are unnecessarily cleared by acpi_bus_a=
-ttach()
-> > for devices with missing dependencies and PCI devices are handled by
-> > acpi_bus_attach() like any other devices which is a mistake.
-> >
-> > Please see the changelogs of individual patches for details.
-> >
-> > Thanks!
-> >
-> >
-> > Link: https://lore.kernel.org/linux-acpi/20260820-acpi-power-resource-r=
-ef-fix-v2-1-29818173ea13@linux.spacemit.com/ [1]
->
-> I tested the complete v3 series on the SpacemiT K3 RISC-V Pico-ITX platfo=
-rm
-> where the original duplicate ACPI PowerResource reference issue was
-> observed.
->
-> The power resource left on by firmware is now turned off as unused after
-> the namespace scan. After the device dependency is satisfied, the power
-> resource is turned on once for the device and is turned off normally
-> during runtime suspend. Runtime resume also works correctly.
->
-> Tested-by: Peixin Xie <peixin.xie@linux.spacemit.com>
 
-Thank you!
+
+On 9/2/26 6:05 PM, Srikar Dronamraju wrote:
+> Initialize the return value once and use a single exit path in
+> find_primary_domain_index().
+> 
+> This is a small cleanup that keeps the existing behavior unchanged while
+> making the control flow easier to follow.
+> 
+
+Reviewed-by: Shrikanth Hegde <sshegde@linux.ibm.com>
+
+> Signed-off-by: Srikar Dronamraju <srikar@linux.ibm.com>
+> ---
+> Changelog from v1:
+> - Handle comments from Christophe Leroy
+> 
+>   arch/powerpc/mm/numa.c | 7 ++-----
+>   1 file changed, 2 insertions(+), 5 deletions(-)
+> 
+> diff --git a/arch/powerpc/mm/numa.c b/arch/powerpc/mm/numa.c
+> index f4cf3ae036de..c44a80d8fc11 100644
+> --- a/arch/powerpc/mm/numa.c
+> +++ b/arch/powerpc/mm/numa.c
+> @@ -432,7 +432,7 @@ static void __init initialize_form2_numa_distance_lookup_table(void)
+>   
+>   static int __init find_primary_domain_index(void)
+>   {
+> -	int index;
+> +	int index = -1;
+>   	struct device_node *root;
+>   
+>   	/*
+> @@ -502,12 +502,9 @@ static int __init find_primary_domain_index(void)
+>   		distance_ref_points_depth = MAX_DISTANCE_REF_POINTS;
+>   	}
+>   
+> -	of_node_put(root);
+> -	return index;
+> -
+>   err:
+>   	of_node_put(root);
+> -	return -1;
+> +	return index;
+>   }
+>   
+>   static void __init get_n_mem_cells(int *n_addr_cells, int *n_size_cells)
+
