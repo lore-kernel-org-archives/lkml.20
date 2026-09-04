@@ -1,84 +1,139 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C50DC49EC45;
-	Fri,  4 Sep 2026 14:17:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D87934BA9E5
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 14:17:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788531442; cv=none; b=kDVSz1azsA3+AsVrIVqZ2gUVboSjR3xKog7RV63veccl4tMdLvDIrRaGdwDHtmA3CFvtx5KGp7a5aflu0uXvnAAQ8fmsofnYu2vzWUth3TsmPNk4BywiznTWYF7Wa1P61SAE69VIczJFhFHwTiEtE/0J+NPoCdH474JoMH0rV28=
+	t=1788531445; cv=none; b=VDMD52xBCxI5XUX4CImjtnUQ4XKGg9UlrgrQehbqis6mSAZuNyUnuVazE2xHt3eoB5Y94yiM+X6tk+7o9kT5q6So4nhbbzZxiN7tt0Czv+4/c/OXqVrM/QRDd6EtE6y0/MSxmYvwVeiPoFlH4u0mYVsnV80ZdpLpivYU9LZksGQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788531442; c=relaxed/simple;
-	bh=pT9sdg+CfMTYJSz0VcJtLaqEyqz4UIzLUnqcZ9zN/Ts=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=BLNpEbE0JslOKJSa+aH9JAE3zbKtL4dGCxHn+JE7nyXEY+Rv0hIMzftPEEsIZdn3aZjKFp/jsl5FweeImURZUHvYuDupjdFeidttF7/x23n8HkZVL7oxnyL0l8pVQs05jWjFL2T1TZvulmRlpJE+PIGPkj7eRZ+xbBZoYv8IV2U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hDCTJ43U; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788531445; c=relaxed/simple;
+	bh=D2t6B1YS33bYDK84WqJqNPxeuOe8w02R1XfEYryLAhc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=MEiJKHlXHxEqofDsKoGuCYK/Cn2GDJ2vh7/Vp0UqiwgDHp/IFXJWR/nLGxvAB3oheZL69xUwlwbzJuEoqM1XmxI8uUxbFgmff2cOaWKk0FFEo+hhVtN31zgcvcdmbo4jnqXZl4MFYCRuEzLLMIL6AQdpoaupeBjoSllY276qeVc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=MyScEaj5; arc=none smtp.client-ip=74.125.227.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hDCTJ43U"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 640B71F00A3D;
-	Fri,  4 Sep 2026 14:17:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788531441;
-	bh=Qy6d4nELX8J/khKPdYa1XVS0tZxs5YB/dlFsCmQO1/0=;
-	h=From:To:Cc:Subject:Date;
-	b=hDCTJ43Uz4E0nD/07uj4/5gp6XPWVuy9P8YWX5oy4FXEUCHLhMv5d2Y6aEiOdoq6g
-	 6Eq0U/U01hRpLPsa8ZMaMG+Lb+6FCMBggltrf9KwuLo8qbLNrt1EPhHin+YxjfyryN
-	 DkEyhjW6a8ft8Y1Bj0Qw4U+NBejedLdrD0a5R8ga47KX5OVnpIOkuWqyXhLYZvT/DD
-	 a2UV1NHwtNOExDmdORfXVXrqeOVKmo/JWokaSu/sWweTlFuE5aCX526PfHBSXMSkoJ
-	 Gm+2wOvoLNwdK0Cqb7qbCtO3USC2vck9gZ1Sbrhg85ySBfQP7t96Ko4aTgoIikm+aT
-	 p4Cb3Qxlo01Og==
-From: Thorsten Blum <blum@kernel.org>
-To: Peter Zijlstra <peterz@infradead.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Arnaldo Carvalho de Melo <acme@kernel.org>,
-	Namhyung Kim <namhyung@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Ian Rogers <irogers@google.com>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	James Clark <james.clark@linaro.org>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	x86@kernel.org,
-	"H. Peter Anvin" <hpa@zytor.com>,
-	Kees Cook <kees@kernel.org>,
-	"Gustavo A. R. Silva" <gustavoars@kernel.org>
-Cc: Thorsten Blum <blum@kernel.org>,
-	linux-perf-users@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-hardening@vger.kernel.org
-Subject: [PATCH] perf/x86/intel: Annotate x86_pmu::hybrid_pmu with __counted_by_ptr
-Date: Fri,  4 Sep 2026 16:17:00 +0200
-Message-ID: <20260904141659.224248-2-blum@kernel.org>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="MyScEaj5"
+Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2d6ff3aca07so97325ad.1
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 07:17:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1788531443; x=1789136243; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=60ByTjtXefcxnqfTN2YbLnHfehKM3hxAEVNuYOtMxjU=;
+        b=MyScEaj5nKVAXEo7j+AgSvNFk3FyevLaQijrZ4qQhnj54PaVyoFnydjwij5MaX+n7Z
+         /rGsbPB7+Jy9P+/9cFfmrs4ZeRJ2gGum8tlp7x2CMDPqoBpcTaoK4oY1cp8W4Eva3EMO
+         PFvg1yzH8WCSvJ2CGIUZDAVhwypkxdQ1usZxMhLH/zSQ4BPFN8I6RzEf2ouhQo5dkK60
+         uzz7Jzgj1k5j0ijbf37gJBN93EHGhrbsfGoDc6BbFoKswHQWwDXYRP+bz+3xLJg/d/mQ
+         QIAwRiEicmDTtTtehDJEmPnQg+z+v1SkMKT2Q13arDcN7dsCdpqfdgLHR8tpfup7pyVe
+         3A+g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788531443; x=1789136243;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=60ByTjtXefcxnqfTN2YbLnHfehKM3hxAEVNuYOtMxjU=;
+        b=NPwkMhNefcplUybn5IeRF+pzrF2+KxsVLsZcW5M7wlAg1KEsKBxZ+lSZ8crMW6xn6J
+         uudlWrO0VyZDovazNuQ+nDliX82gsEaQRD0ucvOJ0sFS+mUplH9E6QH/2s1UJcwjdAzz
+         vBD02y3YfjFAc2z3Z/fs7dAFbe1ByPtnjFCFx8rfGZrYrachY7Gg2HWypIkMqb5JOC9P
+         YMgjn276WarVxMCBXjuwHLVJgHNJHujyUGjNVF5N0ZsU0hlULI8ut9Jk62oz240a4LWa
+         vdZo03v+vLGIlLYoQYxx63GoPATGYh/dnqq4juodcLN19XQzBDZ0kzptRqOfvVMAG7bu
+         b7XQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxGQAKgL1cilMmw8QmBOWYZlSKe1ZY13OgirbE3GQFgK/1WMk61a4PAHrRN/KY2wLA9EZ1IvoPiAKZqxXQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++nMEQqyouYvK3QUQJc4DGUPMHKQBb4EEN7zeYmEofmwi52aurXx
+	28PNfhuoRNk3qi38GdPQjecIsVuy1DO1vB8aZMPx78q34XWeERiSsMiqFOUv1pdtzg==
+X-Gm-Gg: AYBFou1zoi7liWs+lHZ3kPlHtXwdzAWIRLXUfYyA0rkJBHFNYUsy3r42R+qdCw/5xJt
+	qx2rF8b06NeVQVu+cok1gGzT53zz9o0fuZ211Q+1i4IKgX9aLTTkzg6Xsf+UrL+hoyoZxh5RHfK
+	3e0ctvYcG/YnHYPx9JP35hbzMLfrUyUEuVvw1DjB//hHC5EttUtmYtqtg0mb+w7PtQJccGJHror
+	+aoShOeHWfk9k1J7HuIKF7c2X9P8ezzDAQA+V582HH6J5EX2a2KrL4SYlGs7toyeTs9QJFwOwpi
+	Te+vL9AXL+yKsLZaWXL1OlOKjFTFZ6S+RAW+NtYezbDqaP0i0HuRrmaljxE+IjFvzNWxUizgFWO
+	7yb3fC5roZN3tGAo+dE/QtiDFgK5AQ3vro87T8DqVJ99afaDENGCTV9u9fNLKklWrMhu8udUkb3
+	AKBAzBo6hcRsC4sjiup4SopoX9E2kmniBfDgirmKWRXgGINwPruqT5UFaUKUtrJMEVo1JwDFdUe
+	9W8HrGtQFtlNTG/tEeWlC+d3MAI3KpA5kVH
+X-Received: by 2002:a17:903:3c2b:b0:2db:2225:d2fd with SMTP id d9443c01a7336-2db2225d395mr1063405ad.16.1788531441093;
+        Fri, 04 Sep 2026 07:17:21 -0700 (PDT)
+Received: from google.com (164.210.142.34.bc.googleusercontent.com. [34.142.210.164])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b25f8d2c5sm5029514a91.2.2026.09.04.07.17.19
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 04 Sep 2026 07:17:20 -0700 (PDT)
+Date: Fri, 4 Sep 2026 14:17:15 +0000
+From: Pranjal Shrivastava <praan@google.com>
+To: Abdifatah Suruur <suruurism@gmail.com>
+Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Eric Auger <eric.auger@redhat.com>,
+	Mostafa Saleh <smostafa@google.com>,
+	Alex Williamson <alex@shazbot.org>
+Subject: Re: [PATCH v3] vfio/platform: prevent read-only region mappings from
+ becoming writable
+Message-ID: <aprS65nZ3vi6TPxY@google.com>
+References: <20260903092907.419-1-suruurism@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=738; i=blum@kernel.org; h=from:subject; bh=pT9sdg+CfMTYJSz0VcJtLaqEyqz4UIzLUnqcZ9zN/Ts=; b=owGbwMvMwCUWt7pQ4caZUj3G02pJDFmzLt1OPvn2xc0f2Us6v9+KPPVzyhq9bdkPtxzOuJ004 Z5nTNVhz45SFgYxLgZZMUWWB7N+zPAtrancZBKxE2YOKxPIEAYuTgGYyJSLDP+rGi7FhXt7zbZe V+Tw2Ns9qWnry07/HWs6Q6auOvF5SzEvI8MePcObJ31e9hbveBL4VrjgZuN90Q+6By/afdzhsUq v9CQnAA==
-X-Developer-Key: i=blum@kernel.org; a=openpgp; fpr=1D60735E8AEF3BE473B69D84733678FD8DFEEAD4
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260903092907.419-1-suruurism@gmail.com>
 
-Add __counted_by_ptr() to x86_pmu::hybrid_pmu to improve access bounds
-checking via CONFIG_UBSAN_BOUNDS and CONFIG_FORTIFY_SOURCE.
+On Thu, Sep 03, 2026 at 12:29:07PM +0300, Abdifatah Suruur wrote:
+> vfio_platform_mmap() rejects writable mappings of regions without the
+> WRITE flag, but leaves VM_MAYWRITE set.  Userspace can map such a region
+> read-only and then upgrade the mapping to writable with mprotect().
+> 
+> Clear VM_MAYWRITE for regions without the WRITE flag, as i915 does for
+> its read-only objects and as fixed in drm/vc4 (CVE-2026-68445),
+> drm/panthor (CVE-2024-53071) and commit a5edadbae57e ("ptp: vmclock:
+> prevent read-only mappings from becoming writable").
+> 
+> Note this is defensive hardening: no in-tree platform driver currently
+> publishes a region without the WRITE flag.  The guard costs nothing and
+> keeps the mmap() interface honest if a read-only region ever appears.
+> 
+> Fixes: fad4d5b1f042 ("vfio/platform: support MMAP of MMIO regions")
+> Signed-off-by: Abdifatah Suruur <suruurism@gmail.com>
+> Reviewed-by: Mostafa Saleh <smostafa@google.com>
+> ---
+> v2: commit log now states plainly that the read-only path is
+> unreachable in practice, per Alex's review; dropped Cc: stable as
+> there is no reachable issue to backport.
+> v3: use 'commit <sha> ("<title>")' style for the vmclock reference
+> and point Fixes at the MMAP support commit, per Mostafa's review.
+> 
+> --- a/drivers/vfio/platform/vfio_platform_common.c
+> +++ b/drivers/vfio/platform/vfio_platform_common.c
+> @@ -594,7 +594,11 @@
+>  	if (!(vdev->regions[index].flags & VFIO_REGION_INFO_FLAG_WRITE)
+>  			&& (vma->vm_flags & VM_WRITE))
+>  		return -EINVAL;
+> 
+> +	/* Prevent read-only region mappings from being upgraded with mprotect() */
+> +	if (!(vdev->regions[index].flags & VFIO_REGION_INFO_FLAG_WRITE))
+> +		vm_flags_clear(vma, VM_MAYWRITE);
+> +
 
-Signed-off-by: Thorsten Blum <blum@kernel.org>
----
- arch/x86/events/perf_event.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Minor Nit: We seem to be evaluating this condition twice, back-to-back:
 
-diff --git a/arch/x86/events/perf_event.h b/arch/x86/events/perf_event.h
-index 71ed5b2acea2..b66691a4fc31 100644
---- a/arch/x86/events/perf_event.h
-+++ b/arch/x86/events/perf_event.h
-@@ -1050,7 +1050,7 @@ struct x86_pmu {
- 	 * unique capabilities.
- 	 */
- 	int				num_hybrid_pmus;
--	struct x86_hybrid_pmu		*hybrid_pmu;
-+	struct x86_hybrid_pmu		*hybrid_pmu __counted_by_ptr(num_hybrid_pmus);
- 	enum intel_cpu_type (*get_hybrid_cpu_type)	(void);
- };
- 
+if (!(vdev->regions[index].flags & VFIO_REGION_INFO_FLAG_WRITE))
+
+We could consolidate this into a single block to make the intent and
+flow cleaner:
+
+        /* Prevent read-only region mappings from [...] */
+        if (!(vdev->regions[index].flags & VFIO_REGION_INFO_FLAG_WRITE)) {
+            if (vma->vm_flags & VM_WRITE)
+                return -EINVAL;
+            vm_flags_clear(vma, VM_MAYWRITE);
+        }
+
+Apart from that,
+
+Reviewed-by: Pranjal Shrivastava <praan@google.com>
+
+Thanks,
+Praan
