@@ -1,109 +1,188 @@
-Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com [209.85.216.46])
+Received: from mta0.migadu.com (out-88.mta0.migadu.com [91.218.175.88])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B494211466
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 01:18:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C63023741
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 01:18:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.88
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788484707; cv=none; b=KpDMOBiBRqOyjtx8hUmHiwfsIHSLwrR4YOSjKwxHipHbv9m2A6pVTegh9j7b61zASASwoohr6pjF72/6W8NoBvNRWGo6uXT6WUHUKSUsv2cuqMpQlCX4s+77OY+A9ykmaXp9DBrEY6hFZ3nlXqXu2LxQrDY/m3EXoHGdqs7Dl4I=
+	t=1788484742; cv=none; b=Ff7WcJvhV3D87xTbJObPw132KE/S9Ue29ZHzm7WSu62rc6jHOKogzofKVru3rVucKTz2vfcSsg4RUxn+w0ezGsDmsi5nGs+v5MRvJM2IyPZYHNcvT+hUS8nztUkmunswaH5GA18RbxAEnlx6cTIVgdiKAnPgEhSKUm9T4hdaQ6s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788484707; c=relaxed/simple;
-	bh=gYbVwSamD5AxEVCquK+e+L4qZKQ7NpCzRyjlH8wqBBQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Z3gglX4qNrTT7YT3R1q40bgPn40DckbUS7hpm3MvzD+g05NlQBbfLrWYNPuE226Ul2op+KbWHPyKJdHZ3laNmCqRdSg56Hmpd/I0TERE2fJia94gGTwpnaHvPHtE3dxQyvZnDxjeGQCY67eeEWgPBBq72ArBh8t33e7MVjVF6OY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qNSA4oBk; arc=none smtp.client-ip=209.85.216.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788484742; c=relaxed/simple;
+	bh=pX4mprltnCki1qpdruO6HrE63FIOiVDHWjIkL4K12d4=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=Ik5qSz1kepZVmom4YCDYe3w5//xbmxhoqfmwUDK+tSbtMCrI6u0zyltkHYpJ3uNv/YMbSrSAS2gbYBNL3L3aW9R1s5paMZAzrT3fiGDgfHarkhLTXiz4AJ1e+HXozO1iux+0Bb2LlRGoy2InhiVuOZyJeR4ZQ/Tf8BtTM8LODgQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=BEK4pVEd; arc=none smtp.client-ip=91.218.175.88
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qNSA4oBk"
-Received: by mail-pj1-f46.google.com with SMTP id 98e67ed59e1d1-3965d3d9ab8so322952a91.3
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 18:18:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788484705; x=1789089505; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=ULiSgzHfmvT7NB3kNetHvVNjR8ABCL+iHYfHXbGS15U=;
-        b=qNSA4oBkkT+z7ZyacpXcv0gp5hXmjwda9aLkDK7eRWo+DseCIcdqHuL/9J/L6EZ+4p
-         do9RApq+Bhj3jQWCgwovCZaxU4ZZNf+G/snycs1G4gfCGc7aZ6IJ5/G3rvTmByz1R6rj
-         WYaEZd/Uh7/PH/8t0VbzgAPtKu7LIlflXWK3kPbS9cNXQifT2Gfz8dn1O9ZOTWc179Oa
-         yIWPCJ33+KAlxlSlA2slrLj4yII9+tcYwlijdhPxHQvhOPePVDiLLNuSSWS1quCbnx3V
-         kkLZpmJsn5POvG3xZRN+ljhMP0iwqpCcVpnwy4TfWfRE+Ye0Jf6t8ZsCbFlzGaXcEUkz
-         sFng==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788484705; x=1789089505;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ULiSgzHfmvT7NB3kNetHvVNjR8ABCL+iHYfHXbGS15U=;
-        b=nZ5UGcVSADGKSGxkpjTVMQ76sc86JYWsr+/Dzc7H5YdcPTzmpDjNBwD+hkKishPsp7
-         g2U23J+z3WeKdNhtMdr0DEbmPudyLzPaqk76DmK3coRDox4x6KDszPqXk25b1zLqC9mI
-         f3fUpIqBXcfbFsVgddFtKZm5pZ1GDJYlRmQ7mJPNxkUzx0o67QFY3zo2QTbvLsWMX1RP
-         FJGelCigJa0hs6Dc4IjEgo/SapciNdqhSvdnATNQys9ot0FEK0qFxkl1FQrleoLGx80+
-         +lkdAoERiQWzKPwIhLLT/Iu7+nbzcL87hvaGBpdmuJUspeYq0BBdB4RbttWf0wMOQ6st
-         l16g==
-X-Forwarded-Encrypted: i=1; AKwUvBwf5KH+mVbNPUq97KRjuwXxdjr9X2wmo6dYSmjJ33sqeoE6jXv4SIMQuWSx47E69FHH8D+/gnEH6UtdY5o=@vger.kernel.org
-X-Gm-Message-State: AFuF++kQtATLbSxTJatGMcouycgv3TyDLlOXe/GcBdIL12B6OTQc3uCV
-	KXIipDM9M3cGZ1RJV9fRTJro8q/loOS0zH6c7+n5MRygWcHhCOoPQckv
-X-Gm-Gg: AYBFou2hby2suP+Brk9WXWWqhCwgxykTEXvQQ4+xlvcGKMt8HFxJjO14uZTcefR8vkZ
-	QMMZ6KkPtcDAuYWhAhT2dTr7MsIqbdL6DKIfLBAj6ipPTTWi3ij0dv+UN8E9SpNqhwK/YWrBi1s
-	wUoqxW6HBd8ijwcXJZaJUJKj8yJqOlypjPvG3P6AyzzsRAps1ScUyb5oGaOSeWoxC7/ty4nwNCk
-	WYGCGgGNWQSySUfKNeXKGWeTHB5ngNydxoosVFCyyhGWyhZP9iVmbmtJYsfyj3yWbqqQyyHy8DY
-	46ysRAJIZrXG2W07Ksw4XnLGNeSmcYd4K/cZEIS4iBkWXjqtmcLasyuomKiNBoUGFV5uxVwPYxb
-	h7lBHoWFoKbuTjfSoOVMlM0m+FzEHaLTGo0UrnyVZ4BDOL0jAmCMfMHdteoeS+tJAuyy8Kqwo+p
-	64BHsPZgPGQZiTDAJO5pAmfW5OnTxFxz9lyHTJa2Wuf/5PgTVw3DhL0zndIB+M
-X-Received: by 2002:a17:90b:1dc3:b0:398:d6f4:c61a with SMTP id 98e67ed59e1d1-39b26207ee4mr3987950a91.17.1788484705186;
-        Thu, 03 Sep 2026 18:18:25 -0700 (PDT)
-Received: from localhost ([115.70.157.242])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b08ca63b3sm7852282a91.11.2026.09.03.18.18.24
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 03 Sep 2026 18:18:24 -0700 (PDT)
-Date: Fri, 4 Sep 2026 11:18:17 +1000
-From: Tsz Shan Chan <tsz.chan.dev@gmail.com>
-To: Andy Shevchenko <andriy.shevchenko@intel.com>
-Cc: Subhajit Ghosh <subhajit.ghosh@tweaklogic.com>, 
-	Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, 
-	Nuno =?utf-8?B?U8Oh?= <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, linux-iio@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Tsz Shan Chan <tchan@jacques.com.au>
-Subject: Re: [PATCH v2] iio: light: apds9306: fix default sampling frequency
- definition
-Message-ID: <apoYIkJGtnX8O0kN@fedora-1>
-References: <20260903-apds9306-v2-1-e8673986ae56@jacques.com.au>
- <apkmS32q9UI-qQw1@ashevche-desk.local>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="BEK4pVEd"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=pX4mprltnCki1qpdruO6HrE63FIOiVDHWjIkL4K12d4=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788484738; v=1; x=1789089538;
+ b=BEK4pVEdJDUrUtMGA2bmPS1aDXpdyB6cF0pmS3rHUNwetXLTOV/rFKmPG1K1DSyAbHzheowG
+ 9jcFf3BxLQCrmy7/j86K7b+De6U3JSRHoTQme0kW0uW/or1eUEwWU5c7NPIaCms4FmCIG5MsLX0
+ hQKu9vW/H4SQIXauQ0QA+NNk=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 36c46a2b2cd0163d;
+	Fri, 04 Sep 2026 01:18:48 +0000
+X-Mizu-Trace-ID: 36c46a2b2cd0163d
+X-Migadu-Flow: FLOW_OUT
+From: "Jose Fernandez (Anthropic)" <jose.fernandez@linux.dev>
+Subject: [PATCH RFC 0/8] arm64: ftrace: support CALL_OPS on kernels built
+ with kCFI
+Date: Fri, 04 Sep 2026 01:18:32 +0000
+Message-Id: <20260904-b4-arm64-callops-kcfi-v1-0-ce6687739b0c@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <apkmS32q9UI-qQw1@ashevche-desk.local>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAGgcmmoC/2WNwQrCMBBEf6Xs2aVpCQG9Cn6A1+IhSTd2NaYhU
+ RFK/92kHj3OY+bNApkSU4ZDs0CiN2eeQwndrgE76XAl5LFk6EWvxF5INBJ1eiiJVns/x4x36xi
+ lEJ0iGqUzAso2JnL82bwDnE9HuPxgfpkb2Wc11prRmdAkHexUkY+tke0G/z9gXb90wKFvrgAAA
+ A==
+X-Change-ID: 20260904-b4-arm64-callops-kcfi-40016eed4fb0
+To: Steven Rostedt <rostedt@goodmis.org>, 
+ Masami Hiramatsu <mhiramat@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
+ Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>, 
+ Nick Desaulniers <ndesaulniers@google.com>, 
+ Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>, 
+ Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
+ Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
+ Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>, 
+ Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>, 
+ Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, 
+ Emil Tsalapatis <emil@etsalapatis.com>, 
+ Puranjay Mohan <puranjay@kernel.org>, Xu Kuohai <xukuohai@huaweicloud.com>, 
+ Ard Biesheuvel <ardb@kernel.org>, 
+ Ilias Apalodimas <ilias.apalodimas@linaro.org>, 
+ Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
+ Gary Guo <gary@garyguo.net>, 
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+ Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
+ Danilo Krummrich <dakr@kernel.org>, 
+ Daniel Almeida <daniel.almeida@collabora.com>, 
+ Tamir Duberstein <tamird@kernel.org>, 
+ Alexandre Courbot <acourbot@nvidia.com>, 
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
+ Sami Tolvanen <samitolvanen@google.com>, Kees Cook <kees@kernel.org>
+Cc: Leon Hwang <leon.hwang@linux.dev>, 
+ Ihor Solodrai <ihor.solodrai@linux.dev>, 
+ Josh Poimboeuf <jpoimboe@kernel.org>, live-patching@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org, 
+ linux-kbuild@vger.kernel.org, llvm@lists.linux.dev, 
+ linux-arm-kernel@lists.infradead.org, bpf@vger.kernel.org, 
+ linux-efi@vger.kernel.org, rust-for-linux@vger.kernel.org, 
+ Ben Cressey <ben@cressey.dev>, 
+ "Florent Revest (Anthropic)" <florent.revest@linux.dev>, 
+ "Jose Fernandez (Anthropic)" <jose.fernandez@linux.dev>
+X-Mailer: b4 0.15.2
 
-On Thu, Sep 03, 2026 at 10:48:27AM +0300, Andy Shevchenko wrote:
-> On Thu, Sep 03, 2026 at 05:05:35PM +1000, Tsz Shan Chan wrote:
-> > APDS9306_SAMP_FREQ_10HZ is defined as 0.
-> > 
-> > According to the datasheet (Broadcom AV02-4755EN,
-> > https://docs.broadcom.com/doc/AV02-4755EN, page 11, ALS_MEAS_RATE),
-> 
-> Make it a tag
-> 
-> > bits[2:0] set the measurement rate:
-> > - 000: 25ms  (40Hz)
-> > - 001: 20ms  (20Hz)
-> > - 010: 100ms (10Hz)
-> > 
-> > Change APDS9306_SAMP_FREQ_10HZ from 0 to 2 to write the correct value
-> > for 10Hz.
-> 
-> Datasheet: $URL
-> 
-> > Fixes: 620d1e6c7a3f ("iio: light: Add support for APDS9306 Light Sensor")
-> > Signed-off-by: Tsz Shan Chan <tchan@jacques.com.au>
-> 
-> With that being addressed,
-> Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
+CALL_OPS and kCFI have been mutually exclusive on arm64 since commit
+baaf553d3bc3 ("arm64: Implement HAVE_DYNAMIC_FTRACE_WITH_CALL_OPS").
+kCFI checks the type hash at a fixed offset before the entry point, so
+every function needs the same number of prefix NOPs. Before clang 21 the
+compiler could not emit prefix NOPs without also adding the function to
+ftrace's table. Since commit 9315e22b0c0a ("arm64: ftrace: allow
+DIRECT_CALLS without CALL_OPS") a kCFI kernel can attach BPF
+trampolines. A trampoline out of BL range is reached through
+ftrace_caller. That path costs ~10 ns more per call than on a CALL_OPS
+kernel, plus ~4 ns for every extra ftrace_ops registered. Clang 21 takes
+a section name as a third argument of -fpatchable-function-entry [1].
+This series uses it to give every function three prefix NOPs while
+keeping untraced functions out of ftrace's table, and enables CALL_OPS
+under kCFI. The per-call cost drops by ~10 ns and stops growing with the
+number of ftrace_ops registered.
 
-Will fix it in v3. Thanks
+Patch 1 lets core ftrace skip a patch site the architecture rejects,
+which patch 4 relies on. Patch 2 takes the sorttable entry offset from
+Kconfig. Patch 3 lets notrace keep the prefix NOPs. Patch 4 makes the
+arm64 prefix layout configurable and refuses patch sites that do not
+fit. Patch 5 applies the prefix count where the type hash is emitted or
+read by hand. Patch 6 adds the compiler probe and enables CALL_OPS
+under CFI. Patch 7 uses five NOPs on ThinLTO kernels with BTI. Patch 8
+gives Rust functions the same prefix NOPs.
+
+The cost is text size, 4.8% of .text on a defconfig-based build with
+CFI and 7.4% with ThinLTO and BTI. CALL_OPS under CFI needs clang 21 or
+later, and Rust 1.98 or later with RUST=y. Commit d3359af21fc9e ("arm64:
+bti: Disable in-kernel BTI with recent versions of Clang") turns BTI
+off on clang 21 or later, so a mainline build has one or the other
+today. A module must be built with the same prefix count as its kernel,
+since vermagic does not carry the count.
+
+Numbers below are from a KVM guest on a Graviton4 host, v7.3-rc1 with
+and without this series, clang 21.1.4. Cost of a fentry program on a
+syscall, per call, the call with the program attached minus the call
+without it:
+
+  Kernel            | Trampoline   | Extra      || Per-call cost (ns)
+                    | vs. BL range | ftrace_ops || Median | Min  | Max
+  ==================+==============+============++========+======+======
+  kCFI, base        | out of range |          0 ||   32.9 | 32.6 | 33.4
+  kCFI, base        | out of range |         16 ||   92.6 | 92.4 | 96.3
+  kCFI, base        | in range     |          0 ||   21.3 | 21.0 | 21.8
+  ------------------+--------------+------------++--------+------+------
+  kCFI, this series | out of range |          0 ||   22.7 | 22.0 | 22.9
+  kCFI, this series | out of range |         16 ||   22.1 | 21.9 | 22.4
+  kCFI, this series | in range     |          0 ||   22.4 | 22.1 | 22.6
+  ------------------+--------------+------------++--------+------+------
+
+Mark Rutland discussed the uniform prefix with a section for untraced
+entries in 2022 [2]. His review of the DIRECT_CALLS series raised the
+cost of the ftrace_caller path [3]. Josh Poimboeuf's objtool support
+for arm64 livepatch [4] detects the prefix by the CALL_OPS layout and
+treats kCFI and CALL_OPS as never meeting, which this series changes.
+
+This is an RFC because it moves the kCFI type hash relative to the entry
+point on arm64 and every function carries the prefix NOPs. We would like
+the arm64 and CFI maintainers' view on that layout.
+
+[1] https://github.com/llvm/llvm-project/pull/131230
+[2] https://lore.kernel.org/all/Y1LBGZPMfCZ8A1bl@FVFF77S0Q05N/
+[3] https://lore.kernel.org/all/amjnf5gz0xP5PTSB@J2N7QTR9R3/
+[4] https://lore.kernel.org/all/cover.1786230311.git.jpoimboe@kernel.org/
+
+---
+Jose Fernandez (Anthropic) (8):
+      ftrace: Let ftrace_call_adjust() reject a patch site
+      scripts/sorttable: Make the arm64 before_func offset configurable
+      compiler_types: Let notrace keep the function prefix NOPs
+      arm64: ftrace: Make the CALL_OPS prefix layout configurable
+      arm64: cfi: Use CONFIG_ARM64_FUNCTION_PREFIX_NOPS for the type hash offset
+      arm64: ftrace: Support CALL_OPS on kernels built with kCFI
+      arm64: ftrace: Use five prefix NOPs on ThinLTO kernels with BTI
+      arm64: ftrace: Allow CALL_OPS on kCFI kernels built with Rust
+
+ arch/arm64/Kconfig                    |  27 +++++++-
+ arch/arm64/Makefile                   |  15 ++++-
+ arch/arm64/include/asm/cfi.h          |   8 +++
+ arch/arm64/include/asm/ftrace.h       |  16 +++++
+ arch/arm64/include/asm/linkage.h      |  11 ++++
+ arch/arm64/kernel/entry-ftrace.S      |  16 ++---
+ arch/arm64/kernel/ftrace.c            | 120 +++++++++++++++++++---------------
+ arch/arm64/kernel/pi/Makefile         |   2 +
+ arch/arm64/kernel/vdso/Makefile       |   2 +-
+ arch/arm64/net/bpf_jit_comp.c         |   8 ++-
+ drivers/firmware/efi/libstub/Makefile |   2 +-
+ include/linux/compiler_types.h        |   6 ++
+ kernel/trace/ftrace.c                 |   4 ++
+ rust/Makefile                         |   5 +-
+ scripts/Makefile                      |   3 +
+ scripts/sorttable.c                   |   7 +-
+ 16 files changed, 185 insertions(+), 67 deletions(-)
+---
+base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+change-id: 20260904-b4-arm64-callops-kcfi-40016eed4fb0
+
+Best regards,
+--  
+Jose Fernandez (Anthropic) <jose.fernandez@linux.dev>
+
