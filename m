@@ -1,70 +1,70 @@
-Received: from mail-yw1-f181.google.com (mail-yw1-f181.google.com [209.85.128.181])
+Received: from mail-yx1-f49.google.com (mail-yx1-f49.google.com [74.125.224.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90856493644
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B936474247
 	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 11:02:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.181
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788519739; cv=none; b=vA168c8r9FduJh81m8MG6B3EfCX3K4bx+229wv/aC3lmOvA0mMpfEzkkXCq8fDcUhsc2pTD8MjKYhNU/z2bEIRvQcgFHrpoN5QnEHjlyxeBG9UXfSK8vUryW3h5Fo++hPcYjyTqpxERnDKlev+GSP5cdJt4F+2BPDacwRgvqKlg=
+	t=1788519739; cv=none; b=MsLMpn2hD2iGIMHvPZJ85VJJz4Lo1CTpUii0MTFoPPM6dJtZbNFuQg1+Rx+NZmWLKj1B1E8a9klXEEFqrr9951l/Cf69mm/8q+d/vrRdF9lU8RrsHAVeyObJ8y8j/BfpgWcbVTbyzbxDWJvqCjkaVQllG5VOBKxzdDx1zsm2WQc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788519739; c=relaxed/simple;
-	bh=07+rRTXiTjhiXbi72kUeeMfUe9Z/3adRk3fPqN7NDGY=;
+	bh=nzZ3tYYwOg5bLMFto68XTfRRo45wUxudJgi+skiFmPE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=tiSgEa8CociP7LVmkkGokXMTSMl5AlecMWUxWt0PMeEWOiI6ZZL5Lrtc3E/HREH5x3EmYjWWfdmtvSQYP9JriwOhiAX6fiPPYtR+BqDzPQbLeJZPe05BfH71a5ZEG2hCBBkfuEip0o2ZhXgNG90D+o+kfvQu6dGoPRmJMjRaTII=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bZ4kOxZ0; arc=none smtp.client-ip=209.85.128.181
+	 MIME-Version; b=m1j3E0ru/4Hbo3yFOufaLpqWwk1nuE6Ji7YsaR/z6C7xJ05OoHG54hZyeh6banu8ryMFh5AcnP7rDnC6tIJvP+rhO61ZywcdTNoW37DRh8hhrB8Kgzy70fSwxEQPImIi7AP9NT4Jgeul23mZUH0zkk+xEKNh/jGTX8i9M+Xdg10=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=aaeXBeas; arc=none smtp.client-ip=74.125.224.49
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bZ4kOxZ0"
-Received: by mail-yw1-f181.google.com with SMTP id 00721157ae682-855c26cf490so7299087b3.0
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="aaeXBeas"
+Received: by mail-yx1-f49.google.com with SMTP id 956f58d0204a3-66d258d1effso170942d50.2
         for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 04:02:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20251104; t=1788519736; x=1789124536; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=sQLkEfjESf7gemBMJ4GXvain7prbX4HFssUR+m9rITM=;
-        b=bZ4kOxZ0W2wK0HNNTNS048cffIA41yJX+HPmoHX/s/Swr+vdB2Dmt/+Vw7s2pA438I
-         moS4/k4Kkx4hmzgseQVDTG5xkamwRu+/uu5B1jUZ8DTHuBRoGsuQtTqf3EuEyrD5WW5+
-         GeY0aY7VNH7ry592zcXfunnlzBAVy/Ua9x63JvZS2Xua6/rr/OBYCpb/7BRE7Iu4PamH
-         Mxnl3e8cPbD2aUdscI4b01+KwTcGIRQrdTJq5NcuGPt9pPqfl/UUMveNv63qiCtuiM7o
-         +WNICx31qsfcp2goeG3DzZa+bOyjP2OBR1uOKjgCCdibF57GfBF1MyFadfRFlm586sXr
-         DzmQ==
+        bh=I49JVXaD+oewM4OXh1s1+a0mjJ0I8MzDz2IeDKJ9/Gc=;
+        b=aaeXBeasdw18u7FdiEI0pGQlwNjQqjwh4HFCKs7UY8RDq7ndYfHp9Omkl7Ga/7jM3w
+         8jk2oOMCJRHO+AU4KqbB+hSDUrjfIvQFWR0WcLra75FLTI1lOyupP0/xv91Dn3e9IwQS
+         MvWgKQPfKc+HtquMjLJZH/8qMUGIzrZubtbYXUN1DDcDY1OOW+d1WYl0E/SzkFs+T5kL
+         LBCrO029bmzD8Vuiu5whJ+qGAeXQmU3V1AjJs8reSDhVQtCULWP4J1iijDUXFh5UyROh
+         TnKgHPr5taJ/TLXY/EdgT+lzb3cG2xDrZk2YZfip/wwObWe9RTnLr8/EqDnR4ngRzTmt
+         fydg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20251104; t=1788519736; x=1789124536;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=sQLkEfjESf7gemBMJ4GXvain7prbX4HFssUR+m9rITM=;
-        b=FJkvHGLu5SCv3CoCzOjhBjUVt7agOSZxlSdirsA2JUuYdiGcw/0TR3n9FwkgV+Ot1K
-         VuKtWe5F6K1BQtiOvizVx3fx8z7XwS0nIXCqM6BQUruWD0jsNJDiWsGvQW/BXOBdZhAg
-         0ON982HCtgfHh+9Qh63+Fbx+6+9qRdm+pi9HEZudk42ojvcxBtGXyTjaExoR8SWYTguq
-         PWiaRuhg0uQNoydgOu03MWkB+lqQk/O47JPJCfS1Drf59mu+HsHWwAwFy34ks7daau3e
-         x+N4eHSpodwa6mEb1Y015fzcegs1UozEScmG+jkAYVf90PnJpCqo6ikseDMlI9MRoPET
-         JzTQ==
-X-Gm-Message-State: AFuF++mw9qa1p5Ey9zvjsMEJZh4QVMXHLngEwUjdR5lVLMj68CVzNQmx
-	gs3dDLZ06wS8yxA28wEdNIKWiX/uJMsIWDvXsWxRKmv/Ytp5oHWMXsxn
-X-Gm-Gg: AYBFou0bAwE56PUvc2SWrD3f9isnLhy041ejHLJ18T6r1q6V0SdXPR/Le9ZXQSNriZ5
-	ExqdTb5TUtUBg8PsUj9EXI6fFFEOKJchhLEh7mlKqeyuRCktDTbNCfJH9DNg8AqgL19GOA87VBI
-	D+8eLubh0C7RIr9rh1siN9dL0rCGKMTrVh83MfV3PdnTBNO392USiefLRgIwqn+pey0GBSY6hq3
-	JiCxMkdUImfIOQpoQqYJh/Vvm9GnHCJRscm9Aq/7/22nfScoj8VOAKhojzuYfvo9ZMsh9Q1HTmh
-	n9hzs2kJwprl1ColgNeMiv9rW0GlMiYt/tAbGuQtBkL7MfHovSco4II2Yw4HWsBVADUCH8Vgm4k
-	FyWBg0Hc/+eTLAF2f0zh03ZaWiUQk8xdgu+nKq89ZcPNpwWH+X554UfzoWyhb5pYHBLGzuQc5LP
-	IzWM602CJXn9h20HJvB394jfW0YidGFcuCQgEpAurGGfvWk/tNYK1jlPKiluxJEE9wOyq8vGpT3
-	ewjQanezOoR+lyLYY84iYjdgA==
-X-Received: by 2002:a05:690e:128a:b0:66f:b413:8b7c with SMTP id 956f58d0204a3-66fb5ad7109mr1840078d50.43.1788519736455;
-        Fri, 04 Sep 2026 04:02:16 -0700 (PDT)
+        bh=I49JVXaD+oewM4OXh1s1+a0mjJ0I8MzDz2IeDKJ9/Gc=;
+        b=FqvexE4wSTZMoPkwNboliUyJ+eTptGK9uqqdUnheFfS1V45uflb1vJo0CsaRz5wXGA
+         j0nDA960J+l1eM64N6czmCF4rt+Ol5gIwMKAo2jdC5X/SuQI8A4Jiv1TDydSzV+bIYV7
+         H1XNuAkwgDXR1ld55Q+h7qn/hOc7851G7ESNihCZ8v6fHbPJn0eu0LgUhk5gLJ31z0OD
+         W7SIGvNYePbo1ZEsFxgPgeV5wuO3MjGkZ9DHkFzoyINjyy2GkswJyiMznTA2v19c3Cp/
+         +8JxRqRFCfZS0Uaglk966Yu9xz6ec/lt0vD/CeLg29utA2nQUntj4bCtYxZMPhkesuFd
+         jlSg==
+X-Gm-Message-State: AFuF++mqoqRURBE/XVnNojKRAJ+H7eQz+k3zhFc7q5StO/7r6tC7F4Sk
+	hTf5x9DgMOXF3ABl9uaJa4Py5ql4/NzkQLGs5gFWhXk/5PCtMcCXivIuS3BhQygyiCU=
+X-Gm-Gg: AYBFou2GzebrZmXrv5aYH4XlzOLTG4f/HLPwYShfiJJPRq+u92m567F8l4Q6GRavva8
+	vz/5zlU6W+JPDo/3iViavu4f8wzxb/cU45aEKhMiCFbkRA21LrILxNxUhkcKFx1Fx6od0IARnW9
+	Yto0BNdtTgJ/o6dE1zM729ISU7r1RLRf2TqqMNIN/Fi9QTMntJotaa7D9D2VPNUl+orcdf/u+Hc
+	rX+hO1pXRMDlHH4XHCUsEgVPtQ46hqrPmVVAuEhSHBFsyHi/JhDt+xLgck1yo9YlMRuJOpoVVEU
+	aIKu5WLyquUKqjY3jsDnQzVpx52imZJ4mcNb1iCHPiNWk8g2ft9AKzv9myzz21vgLegdd55PRPu
+	KGGbcUUQdo1CtX5bwt1vflZK1hAIZ3l9miE0Op1D4iyk3qA7zftr1IAzxiYnI4LGCmYce1WPTvY
+	Ii7kPZLLawyczGzvfijERYP829tkzI17eMQG2eGRDnObjZ7dglaJoT4jUqhPBYdIBVqeImrhI3b
+	ds/H6thD54tJ/j7C742ShEOaQ==
+X-Received: by 2002:a53:ac8e:0:b0:66c:ea12:95d9 with SMTP id 956f58d0204a3-66fb5975b49mr1880750d50.22.1788519732871;
+        Fri, 04 Sep 2026 04:02:12 -0700 (PDT)
 Received: from volcano9f6e-hostos.amd.com ([165.204.217.251])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339bdf44ffsm5454090eec.28.2026.09.04.04.02.13
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339bdf44ffsm5454090eec.28.2026.09.04.04.02.10
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 04 Sep 2026 04:02:15 -0700 (PDT)
+        Fri, 04 Sep 2026 04:02:11 -0700 (PDT)
 From: Hemanth Selam <hemanth.selam@gmail.com>
 To: Liam Girdwood <lgirdwood@gmail.com>,
 	Mark Brown <broonie@kernel.org>
 Cc: linux-kernel@vger.kernel.org
-Subject: [PATCH 2/2] regulator: fix repeated word in log message
-Date: Fri,  4 Sep 2026 16:32:01 +0530
-Message-ID: <20260904110203.10113-3-hemanth.selam@gmail.com>
+Subject: [PATCH 1/2] regulator: fix typos in comments
+Date: Fri,  4 Sep 2026 16:32:00 +0530
+Message-ID: <20260904110203.10113-2-hemanth.selam@gmail.com>
 X-Mailer: git-send-email 2.48.1
 In-Reply-To: <20260904110203.10113-1-hemanth.selam@gmail.com>
 References: <20260904110203.10113-1-hemanth.selam@gmail.com>
@@ -76,30 +76,80 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Drop the word written twice, reported by checkpatch.pl as a possible
-repeated word.
-
-Only the message text changes, no code changes.
+Fix typos in comments, reported by scripts/checkpatch.pl using the
+misspelling list in scripts/spelling.txt.  Only touches comments, no code
+changes.
 
 Assisted-by: Cursor:claude-opus-5
 Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
 ---
- drivers/regulator/tps6105x-regulator.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/regulator/ab8500-ext.c        | 2 +-
+ drivers/regulator/core.c              | 2 +-
+ drivers/regulator/pv88080-regulator.c | 4 ++--
+ include/linux/regulator/driver.h      | 2 +-
+ 4 files changed, 5 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/regulator/tps6105x-regulator.c b/drivers/regulator/tps6105x-regulator.c
-index a09c6ae6a0ce..7f99f3e90bec 100644
---- a/drivers/regulator/tps6105x-regulator.c
-+++ b/drivers/regulator/tps6105x-regulator.c
-@@ -65,7 +65,7 @@ static int tps6105x_regulator_probe(struct platform_device *pdev)
- 	/* This instance is not set for regulator mode so bail out */
- 	if (pdata->mode != TPS6105X_MODE_VOLTAGE) {
- 		dev_info(&pdev->dev,
--			"chip not in voltage mode mode, exit probe\n");
-+			"chip not in voltage mode, exit probe\n");
- 		return 0;
- 	}
+diff --git a/drivers/regulator/ab8500-ext.c b/drivers/regulator/ab8500-ext.c
+index b9955aa4e0d1..c0657362a102 100644
+--- a/drivers/regulator/ab8500-ext.c
++++ b/drivers/regulator/ab8500-ext.c
+@@ -88,7 +88,7 @@ static struct regulator_init_data ab8500_ext_regulators[] = {
+  * @update_reg: register to control on/off
+  * @update_mask: mask to enable/disable and set mode of regulator
+  * @update_val: bits holding the regulator current mode
+- * @update_val_hp: bits to set EN pin active (LPn pin deactive)
++ * @update_val_hp: bits to set EN pin active (LPn pin deactivate)
+  *                 normally this means high power mode
+  * @update_val_lp: bits to set EN pin active and LPn pin active
+  *                 normally this means low power mode
+diff --git a/drivers/regulator/core.c b/drivers/regulator/core.c
+index 6a4008f387b5..1e950260f441 100644
+--- a/drivers/regulator/core.c
++++ b/drivers/regulator/core.c
+@@ -3029,7 +3029,7 @@ static int _regulator_do_enable(struct regulator_dev *rdev)
+ 	 */
+ 	trace_regulator_enable_delay(rdev_get_name(rdev));
  
+-	/* If poll_enabled_time is set, poll upto the delay calculated
++	/* If poll_enabled_time is set, poll up to the delay calculated
+ 	 * above, delaying poll_enabled_time uS to check if the regulator
+ 	 * actually got enabled.
+ 	 * If the regulator isn't enabled after our delay helper has expired,
+diff --git a/drivers/regulator/pv88080-regulator.c b/drivers/regulator/pv88080-regulator.c
+index b96afbf11ff3..1f2c405fd2bd 100644
+--- a/drivers/regulator/pv88080-regulator.c
++++ b/drivers/regulator/pv88080-regulator.c
+@@ -432,7 +432,7 @@ static int pv88080_i2c_probe(struct i2c_client *i2c)
+ 	config.dev = chip->dev;
+ 	config.regmap = chip->regmap;
+ 
+-	/* Registeration for BUCK1, 2, 3 */
++	/* Registration for BUCK1, 2, 3 */
+ 	for (i = 0; i < PV88080_MAX_REGULATORS-1; i++) {
+ 		if (init_data)
+ 			config.init_data = &init_data[i];
+@@ -498,7 +498,7 @@ static int pv88080_i2c_probe(struct i2c_client *i2c)
+ 	pv88080_regulator_info[PV88080_ID_HVBUCK].desc.vsel_mask
+ 		= regmap_config->hvbuck_vsel_mask;
+ 
+-	/* Registeration for HVBUCK */
++	/* Registration for HVBUCK */
+ 	if (init_data)
+ 		config.init_data = &init_data[PV88080_ID_HVBUCK];
+ 
+diff --git a/include/linux/regulator/driver.h b/include/linux/regulator/driver.h
+index cc6ce709ec86..55cc519103ed 100644
+--- a/include/linux/regulator/driver.h
++++ b/include/linux/regulator/driver.h
+@@ -362,7 +362,7 @@ enum regulator_type {
+  * @off_on_delay: guard time (in uS), before re-enabling a regulator
+  *
+  * @poll_enabled_time: The polling interval (in uS) to use while checking that
+- *                     the regulator was actually enabled. Max upto enable_time.
++ *                     the regulator was actually enabled. Max up to enable_time.
+  *
+  * @of_map_mode: Maps a hardware mode defined in a DeviceTree to a standard mode
+  */
 -- 
 2.48.1
 
