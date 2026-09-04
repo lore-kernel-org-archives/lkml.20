@@ -1,94 +1,78 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49779254AFF;
-	Fri,  4 Sep 2026 01:37:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A16217D6
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 01:38:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788485830; cv=none; b=TWc72JikgvEWVRYxeIw1BLlssSMbsugMMw2RzZqwyt712l0qnAvpr1/jI9GaiTtGvlk0wbvuPl9VjtyP0UZS1bCGsF4ArJKyhj0hetLp0XQJQ052liWo4XR8qF1YVmKykQV3fgW7Mnf9BvRhpnZGou9ZGKGPmF+WFpZf83zPmbA=
+	t=1788485884; cv=none; b=hYsln+JuboHbZWirgjeaFh3NEm/X+FU6G6UC7aCJI0NU+9YugwOhSWF7ZKSkikeCZpP7+M3Nppgtbm2wSOHe+nRp3nnWk4muxmGDyI7If9NVKMBUNozc9Y6oUGXACGTH3mTWmg1f9tgd0wsgfy7Tqz8/23L6Y0tNRv43e2F7d8k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788485830; c=relaxed/simple;
-	bh=dKBRxKxAm6nvUOWr/yd7ttRY78JkpD5ti5XsPscx5O0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ZadxjlQMllpDmRT5zmwzW+/KqQoDu11IgUzWnEx3CHgd1yomyvK6NwypQqpLAbKhIcF2Vcv11ZhGUgxRIW4RDfbD3nvM8EG+Y/qmjAVVf2bq4m3rW6wSs5lNhtxQ8VCuluhcr/Ni3XVskhO7aw9cBaMJbiYAQeVkhsN9+KqFASI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=tS0es+Sf; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	s=arc-20240116; t=1788485884; c=relaxed/simple;
+	bh=1khus6Txz/WHyEV8lDS4TN54FptECd/u9MXjKaVsKWc=;
+	h=Date:From:To:CC:Subject:In-Reply-To:References:Message-ID:
+	 MIME-Version:Content-Type; b=i+wvBW/kUIv31BV/UCI9YXnyYVIhFrQ7AVkIyqNb646kIE4hLpvu841uU33JxK5kZe05Am+Aw6a3rN5Y6DyffAXkAJS4A7EQqP7r/nXa9y+1cPlenwGILCCaSEe34uM+QhyGQ5yDLchL0986O0GRL1VXxNXLyfbW6cSVWPYA2S8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DSGzunjy; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="tS0es+Sf"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=gPTzn4SqmsPbmc8R6JU50peWEpeHMIDKi5gnnllyFbw=; b=tS0es+SfJ8etMQ3WT7rt4WI31k
-	fjEPiSnk/vPw+AbwJ7rHYCIbSeUzue+4l0a+4Oaq9I67+MHcFNCEhV4zru8ddFxlua+MfZPNGSOtL
-	+6jHzc98O43rwas+ZZBK/mmy15eKAf5B6WymrG0uPRp+G70nZ2EiF0AojaTquHgbWiuQ=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1x2IrS-002pXi-8K; Fri, 04 Sep 2026 03:36:58 +0200
-Date: Fri, 4 Sep 2026 03:36:58 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Aleksei Sviridkin <f@lex.la>
-Cc: netdev@vger.kernel.org, hkallweit1@gmail.com, linux@armlinux.org.uk,
-	davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
-	pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [RFC PATCH net-next 6/9] net: mdio: add Airoha EN8811H MDIO
- device driver
-Message-ID: <79608b1e-ca10-48ef-978a-a6d8bab9a538@lunn.ch>
-References: <20260829052546.1152446-1-f@lex.la>
- <20260829052546.1152446-7-f@lex.la>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DSGzunjy"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CEC261F000E9;
+	Fri,  4 Sep 2026 01:38:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788485883;
+	bh=2QgYtI+OXpLEnlSqwZkWid2ba+zR00iyTlg1HGdnmDU=;
+	h=Date:From:To:CC:Subject:In-Reply-To:References;
+	b=DSGzunjyd4QB+bw/8DYrwq6mxe6LTIKjqBhmedGlRLMusLgqInZDQYdeZXmooovrh
+	 eU7b5iZNY+MIfnlfBgbRUAeMnpFg0idzTGaUOJ+ILaOw8DJaHv9bSzUe50VscwyF3/
+	 8/IIVAgflt2LIu5eEGCgxArwsXUixaIsRbQuXK48/3MsrctBGuDY3HVCsfPRtOXkju
+	 A2mmpEuXnmKnPvZUApCY/HoTZAJTSvuUqns6TTYrV+/VqIaXIm4vd2gsqG72EhOe2n
+	 lfXqOTiycsrIgWAGOECBskcKE8i8HxKBjahgc+qcoTXm0bRiD8iQMqe9kH+pp+78G3
+	 I3vccmeBwlpEw==
+Date: Thu, 03 Sep 2026 18:38:02 -0700
+From: Kees Cook <kees@kernel.org>
+To: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+CC: Linus Torvalds <torvalds@linux-foundation.org>, linux-kernel@vger.kernel.org,
+ Mark Brown <broonie@kernel.org>, Miguel Ojeda <ojeda@kernel.org>
+Subject: Re: [GIT PULL] hardening fix for v7.3-rc2
+User-Agent: K-9 Mail for Android
+In-Reply-To: <CANiq72=7msFj95ZYf5u5MfODci3J__KRxYEjZRL5Jj4gVyssLQ@mail.gmail.com>
+References: <202609020931.48FF902461@keescook> <CAHk-=whZQzNuBZdV1b1TBxRf+asBGtvnC=Ggu755GaOg_TYXgw@mail.gmail.com> <202609021647.3F67F66B@keescook> <CANiq72=7msFj95ZYf5u5MfODci3J__KRxYEjZRL5Jj4gVyssLQ@mail.gmail.com>
+Message-ID: <153F0BB6-98A2-4F53-BE82-16385BF01760@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260829052546.1152446-7-f@lex.la>
-
-> +
-> +#include "../phy/air_phy_lib.h"
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
 
-We try to avoid such paths. Please use include/net/phy/
 
-> +static void en8811h_mcu_fw_poll(struct work_struct *work)
-> +{
-> +	struct en8811h_mcu *mcu = container_of(to_delayed_work(work),
-> +					       struct en8811h_mcu, fw_poll);
-> +	struct device *dev = &mcu->mdiodev->dev;
-> +	int ret;
-> +
-> +	/* The chip enumerates as a C22 PHY; MMD access is indirect */
+On September 3, 2026 4:02:57 PM PDT, Miguel Ojeda <miguel=2Eojeda=2Esandon=
+is@gmail=2Ecom> wrote:
+>On Thu, Sep 3, 2026 at 1:49=E2=80=AFAM Kees Cook <kees@kernel=2Eorg> wrot=
+e:
+>>
+>> I have a fix for it with Rust, and it'll be in -next after -rc2 is out=
+=2E
+>> We still have real-world users that depend on randstruct, so I'd like t=
+o
+>> continue to make breakage visible via all*config builds, etc=2E
+>
+>Do you mean the ones we discussed in the past like e=2Eg=2E my
+>
+>  https://lore=2Ekernel=2Eorg/rust-for-linux/20260323130224=2E165738-1-oj=
+eda@kernel=2Eorg/
+>
+>or your
+>
+>  https://lore=2Ekernel=2Eorg/rust-for-linux/202512092319=2EECBB8613@kees=
+cook/
 
-This is an mdiodev. It is not enumerated. It is explicitly listed as a
-device on the bus with a compatible.
+Yes, this latter one=2E I was going to send it after rc2 and we could let =
+it bake for the whole dev cycle=2E
 
-C45 over C22 is a PHY concept, not an mdio device concept. In this
-case, this mdio device is special and does implement C45 over C22. But
-it is up to use to this driver to decided if you want to use it. I
-would probably look as bus->read_c45, and if it is not NULL use
-direct.
+-Kees
 
-I wounder if there are any boards using this devices which are not
-capable of direct?
-
-> +	mcu->waited_ms += mcu->poll_ms;
-> +	if (!mcu->warned && mcu->waited_ms >= EN8811H_FW_WARN_MS) {
-> +		/* Missing files resolve by themselves once installed; a bus
-> +		 * or register error will not, and deserves its own message.
-> +		 */
-> +		if (ret == -ENOENT)
-> +			dev_warn(dev, "still waiting for %s and %s\n",
-> +				 EN8811H_MD32_DM, EN8811H_MD32_DSP);
-> +		else
-> +			dev_warn(dev, "firmware download keeps failing: %pe\n",
-> +				 ERR_PTR(ret));
-
-dev_warn_once().
-
-	Andrew
+--=20
+Kees Cook
