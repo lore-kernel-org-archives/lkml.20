@@ -1,119 +1,120 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7396476072
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 14:23:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.227.140
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788531823; cv=pass; b=MWhZH5jtg2zXPllkdNZkdhuVdVE/nBzfgNjLdzXgwM7jEzEyd++t9+CYTnYwP4brGmhtKHLx+SjEfVTXwA1WItOR2f+Dg3ZS5UYMJUtrKP9DKHt+YP+5mrMSZkHMuQ2Tj04I9kV7d+hncYOlWE+ZcNRI6yFlGp2mY+lLWroxTXs=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788531823; c=relaxed/simple;
-	bh=DqWYMz6T6MwhxfrR8L63T0AJfuhb70RVs8VbzlNN7CI=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Xzrgzc1o9YcHyzj2HAIzRGpi6KXp2t8Phs39Hflk7B8wa5yaaX1SNmHiRRDy+JJydVEeZoIIl9A6EHR/DnAx2KzcDTOiYnPYDLAMsfBhiXxcQMJNXB4CgYTXpqBYOXwVafJl50iEHfxuOsFYk5v2NO4C77BZMcu71Bg1kmwAYy8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SE+m1Uz7; arc=pass smtp.client-ip=74.125.227.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC3C344999F;
+	Fri,  4 Sep 2026 14:24:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788531847; cv=none; b=PPHO21Dp6djfdTwepJlkw7B38NfSk7yH9+aIKQfgmScZWH7qF07B5dbGQEPQh66sMXnDo3gZAd2WO9iwu5z9qLzpogi2VH/z69VAxOCS59slVCsAkHQMQK9w1GJ2qSa49lqqlqKOn8O6iHY5z8XElFdhKbl8CiErJtYrjq/AKrg=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788531847; c=relaxed/simple;
+	bh=8SoOAs6P73WEvm4s5URytNP/T1UB1wZKCgqgjl0OJMc=;
+	h=Date:From:To:Subject:Cc:In-Reply-To:References:MIME-Version:
+	 Message-ID:Content-Type; b=tVXMGzFjBW+/T2N9mxELFzVh5vOnzz8pwm3+MhsXgbS2JyhGiGNU8y4eaVmPR/QavgGf5D2L6dsE+Vv7oDBJcD0s6uZaOBj6OonLfmseRYDf1KHjW7w/68EijEtcO0P24vUPBtg64OznltOiEjJoKCnUSHX/xdWZ38DBd8KP3JU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=TL1xXDcd; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=7g0Jgm40; arc=none smtp.client-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SE+m1Uz7"
-Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-39666bed441so138283a91.2
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 07:23:41 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788531821; cv=none;
-        d=google.com; s=arc-20260327;
-        b=SlzUx1PibtS0EazdtYqkKqsRWBxsu8C8MtWCOoeBzQGg/z4V7BmaTAAwz3dHtx1gdZ
-         4ubt2QnPd0LMq4uszbzXhxW1vE57WuTw8jpdRY3jgG2Rdcn0Mgxng77KfYFZoHdMwbkP
-         PuKA/KsNIezsou/UzP5s1HLW/KWjgPEoy6WZrY/57r4jHQ+1sN3wSUYeRE2JCw6rzqUQ
-         mH55QqDqqvO5Qngm6zjLLO/swc1PRZE23HU6QWbTljIX+fvkwP6447HBcCPg8bHd+ZjA
-         jVDMFvFWXgH9Ccj0w1lj1tnS5O1m7Gqtxcw73gRI2n5dVdVSNtF0A+0ef70qA0m7YxbA
-         KKMg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=v/IdbLiGLfNJWgT3may7e/Lmqs8svlFsWUM1fARTmC0=;
-        fh=s/2fKFCSWI804r2w8YReXPDTzO0rnmwIJHSOlGIDUe8=;
-        b=s01sX9E7KbdxSU9IDPBHN/O6o2PAEGOoDbW1ALZ6w9DWaB7lZaLWE19Xl5vQ3Xv1Ke
-         vWsbXpWhoELdX0N4Y+akZbt/Cvd6qmjM/2N/ggySJZt4RL80w2ddCEo52h0EKS4dTbtE
-         NpLXxA9gqThHe2TO355K4fL6zHXqwe6zB1U1tXvyJGMAs9XDRq3TlSwgyZgMC3jOTIA+
-         AFPRdhQowhauqJTN1McW6psJxgvlWc/XhiGBLklqlyu+LP264yquhO3iTZW5bImKV6yd
-         tGW+z3hIGkf5mbxF9vV6UBqw9A5ivbDNuU+qzmSWMNcEU4peSRWWE+abOREOrPiJPH8s
-         iTqw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788531821; x=1789136621; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=v/IdbLiGLfNJWgT3may7e/Lmqs8svlFsWUM1fARTmC0=;
-        b=SE+m1Uz7YHhKdLgyFemVCPJwdWmGT+jX73T1cZfJ3v6kaRe5prDNO6LFrnVTT/41Ou
-         Vq0SnmCnjhbD9VNtru7qb74ZSgqnW+3a/qMP8/U+8ZcJ3jZSjKJ//2rU4m4mSKEDMxZf
-         50J40VySG824d5qo7w+oa/si5Q9x4Rhd1s/c0R8K6RYBPZ9gpvvxiOH3UxjPYM+Nhsi2
-         Xs3t9oznZmgOG83M9btaGT5SJpgTTYda9gx9dJxND8HMJg5+FjMTC5/Ct2T2Q08R4x+d
-         E9BEyH28d31OsSLgygbiglEiOO43OYIugDISmAJ9O1ZRXMpsk/Zoc1qj+lv5GCbCVNr5
-         5+Dg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788531821; x=1789136621;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=v/IdbLiGLfNJWgT3may7e/Lmqs8svlFsWUM1fARTmC0=;
-        b=Jnoq9DtWs9+RG6BKIbW5sXuVcLyPTIRrTCushNCawPYB7AmfCGV7b8XrA8yCtHyTIM
-         ZWlwKs/vSHhHOR4ITnDiX3vJnHUXP5JtyXIFVQrOeKj+p1P1aNRfJVMwPqElo2xLvR5M
-         9M2vjdqAHo8OoOmVTt9C2tFY7hBkv0igCJbbRHnNYMqExlKzcvNNoNUl+EfSXw9aM2eZ
-         1e2mYUsctaF2z78j2crToWnO06aTpfkyr8KaAli98r47Gz9NazNR/HwzoVS1Z6/B/WVF
-         h/WSUjK8Oej1f0OLkF+5bJ+1HkSsmfrypoJ57mZWBcKf/rSrTTGuSVmaOAjhp/NHmFYo
-         PSeQ==
-X-Forwarded-Encrypted: i=1; AKwUvBz7OyTaVHQulvjJKeU4PbB3qc1DJNjdddhfD6TaQcZxyyfcCjA3Qk17UEj2svQ340heTTF7BmFHNwDa60Y=@vger.kernel.org
-X-Gm-Message-State: AFuF++kmwIHsXyIIfzwf07slcnNpi5rKVxxiFK1g/nAoLD0R7pint8o9
-	LD0KbV6s8zhdZbyECNisSKQTA5//JLUyBuH/cgEsXRft6aYyaeL1gtuparAYwxF7G6ETI6s2Z5S
-	0VMta4dOIspHBRH/xOu4SRDYtgQcXFMh8DPPIPxI=
-X-Gm-Gg: AYBFou3HlGWEdmnJUcQRi+TJRbjSWLak6xXE8q/I1no2gaaOZxvKq+qkDagYbYNYK0t
-	+FMe/FwfydaSCGJqDi/miYrwmPO5cPGDAhbSEBtZUJo+Iwat5OP+zsy3C8iiD8+02rEAfFmjZy1
-	DkOxNoPKZdYawegQzsSSj9GCYWcvpszrfnhTLRXKeDvoJifeUI+gt7BC/lZMmpl+TjeqWIp/23H
-	kfyskq9T05SZUECULt7FTwoylDI3iXfEN92lgFwsuOuailResMK5GnTgTqr28Zb2KqM5XrbQaEE
-	ZZg4cXH/09nQHIDQbl0WfIhyuLffDoua26whwvkTMYB9Jqaa0nMMLu8WzfHpUnhiAarr7wKGxEn
-	GTLd1e363Txiffe9J7BPlq9waZBb0zVuL0P1ewTDNF3GqGRV5r5TpUWi0dB9FNsuKlWF6k7M=
-X-Received: by 2002:a17:90b:3bcf:b0:396:d27c:8696 with SMTP id
- 98e67ed59e1d1-39b2693597emr6435720a91.4.1788531820989; Fri, 04 Sep 2026
- 07:23:40 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="TL1xXDcd";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="7g0Jgm40"
+Date: Fri, 04 Sep 2026 14:24:02 -0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1788531844;
+	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=whzepCPzZyY9K6z108eVpQznhXkiqb1y0/RzB8nFvXw=;
+	b=TL1xXDcdqIIPS6Rpkf738qC/7ga0nJv3y3Ixv2e/0gHfHYu2l+KkJrpdXtAz12hBCo7HzI
+	A99D4+l3d8baxMNXJMVCqMkbt/ZdrfYG1lJk5KMSzQM7VRuJj50WeuMvZIaQA4gCQqQANJ
+	STd4FJlUgCquFWRNRGXvSTUqO55ZXlWWvlpL0FkXrBs3oejAJ7K2fStX9kVMktEIoe6Qok
+	qQ8Hx49VX3grxWmh/UeNIldZBAmEzw+rHq6L+e1t6xqKreQ1RJxr/Y4J0+YiwlV0W5l36G
+	ret/gNdOE4BIYJot1q/xxvUghfbmUAPswY2WxxD1y1kTcEd/NCyliRaGQ92XFw==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1788531844;
+	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=whzepCPzZyY9K6z108eVpQznhXkiqb1y0/RzB8nFvXw=;
+	b=7g0Jgm40FbQgkjD17KICESjdyg02BsTP4wahJzDM49wpa8mu/x4rOdm8wVttULasgcUork
+	0ya/F7G0F6X41ODQ==
+From: "tip-bot2 for Maulik Shah" <tip-bot2@linutronix.de>
+Sender: tip-bot2@linutronix.de
+Reply-to: linux-kernel@vger.kernel.org
+To: linux-tip-commits@vger.kernel.org
+Subject:
+ [tip: irq/drivers] arm64: dts: qcom: purwa: Drop the Hamoa workaround for PDC
+Cc: Maulik Shah <maulik.shah@oss.qualcomm.com>,
+ Thomas Gleixner <tglx@kernel.org>,
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Abel Vesa <abel.vesa@oss.qualcomm.com>, x86@kernel.org,
+ linux-kernel@vger.kernel.org
+In-Reply-To: <20260806-purwa-pdc-v4-3-62467f4b4ddc@oss.qualcomm.com>
+References: <20260806-purwa-pdc-v4-3-62467f4b4ddc@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260904122002.27960-1-hemanth.selam@gmail.com>
-In-Reply-To: <20260904122002.27960-1-hemanth.selam@gmail.com>
-From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
-Date: Fri, 4 Sep 2026 16:23:28 +0200
-X-Gm-Features: AcwNN1WTRRMr7Y3iQTAP8AzxwhPX7ZjceOE95KyFxklhpavQwwkWcnNoQDcihuo
-Message-ID: <CANiq72=QNpuvP01TfXEkjj4i7p4QU5WGj4mjHjrKyrUMsjEwWw@mail.gmail.com>
-Subject: Re: [PATCH] kbuild: fix typo "funtions" in comment
-To: Hemanth Selam <hemanth.selam@gmail.com>
-Cc: Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>, linux-kernel@vger.kernel.org, 
-	linux-kbuild@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Message-ID: <178853184226.3717435.15723787173998149166.tip-bot2@tip-bot2>
+Robot-ID: <tip-bot2@linutronix.de>
+Robot-Unsubscribe:
+ Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
+Precedence: bulk
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Fri, Sep 4, 2026 at 3:11=E2=80=AFPM Hemanth Selam <hemanth.selam@gmail.c=
-om> wrote:
->
-> Correct "funtions" to "functions", reported by scripts/checkpatch.pl usin=
-g
-> the misspelling list in scripts/spelling.txt.  Only touches comments, no
-> code changes.
->
-> Assisted-by: Cursor:claude-opus-5
-> Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
+The following commit has been merged into the irq/drivers branch of tip:
 
-Welcome! I noticed this one in my spam folder.
+Commit-ID:     13ca1c0b7d8a3ab1e59cb3e780c1dd7441e22515
+Gitweb:        https://git.kernel.org/tip/13ca1c0b7d8a3ab1e59cb3e780c1dd7441e=
+22515
+Author:        Maulik Shah <maulik.shah@oss.qualcomm.com>
+AuthorDate:    Thu, 06 Aug 2026 14:26:29 +05:30
+Committer:     Thomas Gleixner <tglx@kernel.org>
+CommitterDate: Fri, 04 Sep 2026 16:21:02 +02:00
 
-But, yeah, it looks wrong:
+arm64: dts: qcom: purwa: Drop the Hamoa workaround for PDC
 
-Fixes: 5270316c9fec ("kbuild: Use -fmin-function-alignment when available")
+X1P42100 (Purwa) shares the X1E80100 (Hamoa) PDC device, but the hardware
+register bug addressed in commit e9a48ea4d90b ("irqchip/qcom-pdc:
+Workaround hardware register bug on X1E80100") is already fixed in
+X1P42100 silicon.
 
-Thanks!
+X1E80100 compatible forces the software workaround. Use the X1P42100
+specific compatible string for the PDC node to remove the workaround.
 
-Cheers,
-Miguel
+Fixes: f08edb529916 ("arm64: dts: qcom: Add X1P42100 SoC and CRD")
+Signed-off-by: Maulik Shah <maulik.shah@oss.qualcomm.com>
+Signed-off-by: Thomas Gleixner <tglx@kernel.org>
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+Link: https://patch.msgid.link/20260806-purwa-pdc-v4-3-62467f4b4ddc@oss.qualc=
+omm.com
+---
+ arch/arm64/boot/dts/qcom/purwa.dtsi | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/qcom/purwa.dtsi b/arch/arm64/boot/dts/qcom/p=
+urwa.dtsi
+index c698e6c..4348dd3 100644
+--- a/arch/arm64/boot/dts/qcom/purwa.dtsi
++++ b/arch/arm64/boot/dts/qcom/purwa.dtsi
+@@ -224,6 +224,11 @@
+ 	compatible =3D "qcom,x1p42100-qmp-gen4x4-pcie-phy";
+ };
+=20
++/* X1P42100 PDC is same as X1E80100, but without hardware register bug */
++&pdc {
++	compatible =3D "qcom,x1p42100-pdc", "qcom,pdc";
++};
++
+ &qfprom {
+ 	gpu_speed_bin: gpu-speed-bin@119 {
+ 		reg =3D <0x119 0x2>;
