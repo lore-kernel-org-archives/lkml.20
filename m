@@ -1,30 +1,29 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.3])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C2923FCB37
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 08:53:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D14A24266B8
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 08:54:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.3
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788512040; cv=none; b=hnBxxvio5DtcnmqbSB8K1GfVOXrMUP6qh90Xbb5xtRV0SO5A69qHsiY2qpcOLrQslTLnOrCfXrEAyEevf67YNkpWDMwnSFVjVrY0uWO2gnlHoZsF6H13imjJj+byFHBFhb0KOcAyMiNlkbo9nbZWhrfDC0e8X6lSZmF+mBpeY0E=
+	t=1788512045; cv=none; b=WtHZe0U8Tm4mMTJGiCGsVxnkWxrxqPbwEEDoaZypm3yoj6MVh2HVBThHmLkeo36FmI4JmWmZN0XVYHP1+DYkSYeN+sEX1AxHHJNu4/eQkadGrrcFBRyG9cgcOcbAPIo+Rxzrq5zSyBz5GdPqHtMNYEqg0s8mkqKQmwvYROov80Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788512040; c=relaxed/simple;
-	bh=ujPoI3WZTYZJvu+8KsGsqjcJJ02tCGGjG7jqVeIHUw0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ZQbB/RQslYVfS16r4xwMbmT/LX+1KKhivcXlJI0388zdgTDKdSEA3DE5voLXUTS9U8qyKi1aMoQStJo+Y4dO3T1wZVIIpxxJQHP0ngd/bD3AjBArlIia0tA8e5L+kA7+w18iVybbHel68HFyng/Un0aXbznuNel+c3H6SmEoYX8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=UdscEhvB; arc=none smtp.client-ip=220.197.31.4
+	s=arc-20240116; t=1788512045; c=relaxed/simple;
+	bh=es3xO/5vCj2hjB4Kh/quLgi5QdTKKBNemUcXuTx3l9M=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=rGbHA6+mvHGZzYIR0DWWRx1nGoLqkNZmyQbiU4JtK0YPpWxF51SX2irD0ZEsqZqgBAu5mSlPC3mW1/lsNML5h6BecndFUcW4nwXcdSmAVh+cbwhqqHGVeP4QZCPxDlEj7hLSnEoZ0UwqTg5W/Y4mILr0UTXPjDbmqZWY/TxPF9I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=nroUVOIR; arc=none smtp.client-ip=220.197.31.3
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="UdscEhvB"
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="nroUVOIR"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=L8
-	Sqz3pezr4ceawkMz9qGzXiScCqUayQXqF2L7MGyIc=; b=UdscEhvBHsLKHhHsrX
-	1gY9f2W8U/+msd5qLjKYDB1ajdYDiGwqkDCgYaSZpDbmZxlS9/Gkl3CLYDNkY08H
-	xCw6SXWushHqJ9lDoIpdId0DuEuOLXm6uCVZ7SVXL3o5w1FfLxr5PzRTtTRmM45O
-	iL00MtHnxfOWe+NwtXo+cT2cE=
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=sm
+	6LXl42Py9NAMOB7pZKBDL3T3H09vMLPL2UrRFAFTI=; b=nroUVOIRbOcJw6uVpO
+	jCr8L+7Xmt0OUp8NkMvUbj0grkqs8P6JCz9ITlfAOAQg5Ib+O50qiKkT+W3m1vgC
+	siEyoIWFTnXYtsV9UZC/Q6FnudDCMOnasbT390d3KNxTQJwAhAQBIoJXDZTscqDh
+	+XtVmkp7Kub+bs+aOyLbqFqFU=
 Received: from localhost (unknown [])
-	by gzsmtp5 (Coremail) with SMTP id QCgvCgCnpR3fhppqbSRxPw--.20264S2;
-	Fri, 04 Sep 2026 16:52:48 +0800 (CST)
+	by gzga-smtp-mtada-g0-1 (Coremail) with SMTP id _____wCHn9PchppqUwtsAg--.49854S2;
+	Fri, 04 Sep 2026 16:52:45 +0800 (CST)
 From: Hui Su <sh_def@163.com>
 To: peterz@infradead.org,
 	mingo@redhat.com,
@@ -41,12 +40,10 @@ Cc: juri.lelli@redhat.com,
 	connoro@google.com,
 	jstultz@google.com,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v3 2/2] sched/cache: Drive cache task tick from execution context
-Date: Fri,  4 Sep 2026 16:52:44 +0800
-Message-ID: <20260904085244.799276-3-sh_def@163.com>
+Subject: [PATCH v3 0/2] sched: Fix execution-context tick handling under proxy execution
+Date: Fri,  4 Sep 2026 16:52:42 +0800
+Message-ID: <20260904085244.799276-1-sh_def@163.com>
 X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260904085244.799276-1-sh_def@163.com>
-References: <20260904085244.799276-1-sh_def@163.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -54,103 +51,73 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:QCgvCgCnpR3fhppqbSRxPw--.20264S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxXFyxGw1DWr17XF15uF45Jrb_yoWrJFWUpa
-	yDWa17Jr4kJayjgFy8Z3ykAr13G3sava43KFs5Jw4Fkr1rtw1Y9Fyjq3W2vr4Yvr10ka42
-	vr4j9347Gr1jgr7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jjHqcUUUUU=
-X-CM-SenderInfo: xvkbvvri6rljoofrz/xtbC6QAbemqahuCAeAAA3m
+X-CM-TRANSID:_____wCHn9PchppqUwtsAg--.49854S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxJw1kGryUZw4DKF18AryfXrb_yoW5ZrWUpF
+	ZYgF43Jrn7KFy2yF1xAwsYga4fuFs3Aw13Ww4DG348ur98JF18KryIqw1jvFyUZr92vF92
+	vrn093Z3ury5taDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jbmiiUUUUU=
+X-CM-SenderInfo: xvkbvvri6rljoofrz/xtbCwR4aeWqaht7MUAAA3I
 
-Cache-aware scheduling accounts CPU runtime to the mm of the task
-actually executing. update_se() passes the execution task to
-account_mm_sched() for this purpose.
+Proxy execution separates the scheduling context in rq->donor from the
+execution context in rq->curr. Scheduler tick hooks which operate on
+execution-context state must use rq->curr, while scheduling-context
+state must continue to use the donor.
 
-With proxy execution, however, sched_tick() invokes task_tick() for the
-scheduling context in rq->donor. task_tick_cache() is currently called
-from task_tick_fair(), so it is skipped when a fair task executes on
-behalf of an RT or deadline donor.
+Move NUMA and cache task tick handling into a common execution-context
+helper. This ensures that both hooks run when a fair task executes on
+behalf of an RT or deadline donor, while the remaining fair-class tick
+bookkeeping stays associated with the scheduling context.
 
-In that case account_mm_sched() continues to advance runtime accounting
-for rq->curr, while task_tick_cache() does not advance the corresponding
-mm scan epoch. Once the epoch becomes stale, account_mm_sched() can
-invalidate the mm's preferred LLC.
+Changes in v2 (since v1):
+- Move NUMA and cache execution-context tick handling from
+  task_tick_fair() to sched_tick().
+- Invoke the hooks when rq->curr is a fair task, allowing them to run
+  when the donor belongs to another scheduling class.
+- Add the corresponding calls to sched_tick_remote() to preserve
+  full-dynticks behavior.
 
-Move cache tick handling into sched_tick_exec_ctx(), alongside NUMA tick
-handling, and run it when the execution context is a fair task. Use the
-same helper from sched_tick() and sched_tick_remote() so both tick paths
-handle the execution context consistently.
+Changes in v3 (since v2):
+- Factor NUMA and cache execution-context tick handling into
+  sched_tick_exec_ctx(), keeping sched_tick() and sched_tick_remote()
+  in sync.
+- Keep sched_tick_remote()'s existing curr-based scheduling-class
+  dispatch unchanged and invoke the common helper afterward.
+- Reword the NUMA rationale around execution-context state and the
+  task/mm associated with the execution context, with sum_exec_runtime as
+  supporting state rather than the sole reason for the change.
+- Document why misfit, overutilized and core-scheduling tick handling
+  remains associated with the scheduling context.
+- Keep the task_tick_core() consumed-slice accounting issue discussed
+  during review separate from this series.
 
-Keep the remaining task_tick_fair() bookkeeping with its task argument,
-since misfit, overutilized, and core scheduling state belong to the
-scheduling context.
+Link: https://lore.kernel.org/r/20260903041154.2479761-1-sh_def@163.com
 
-Fixes: df0d98475954 ("sched/cache: Introduce infrastructure for cache-aware load balancing")
-Suggested-by: Tim Chen <tim.c.chen@linux.intel.com>
-Signed-off-by: Hui Su <sh_def@163.com>
----
- kernel/sched/core.c  |  1 +
- kernel/sched/fair.c  | 11 +++++++----
- kernel/sched/sched.h |  1 +
- 3 files changed, 9 insertions(+), 4 deletions(-)
+Tested with CONFIG_SCHED_PROXY_EXEC=y and all four NUMA/cache
+configuration combinations, including W=1 scheduler object builds and
+a full bzImage/modules build.  The first commit was also built
+independently, and a CONFIG_NO_HZ_FULL=y kernel was built and booted.
 
-diff --git a/kernel/sched/core.c b/kernel/sched/core.c
-index 4db55e4ace9e..7b8d4b06207d 100644
---- a/kernel/sched/core.c
-+++ b/kernel/sched/core.c
-@@ -5771,6 +5771,7 @@ static void sched_tick_exec_ctx(struct rq *rq)
- 
- 	if (static_branch_unlikely(&sched_numa_balancing))
- 		task_tick_numa(rq, curr);
-+	task_tick_cache(rq, curr);
- }
- 
- /*
-diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
-index 55f0460e4ae3..c519bb193850 100644
---- a/kernel/sched/fair.c
-+++ b/kernel/sched/fair.c
-@@ -1774,7 +1774,7 @@ void account_mm_sched(struct rq *rq, struct task_struct *p, s64 delta_exec)
- 	}
- }
- 
--static void task_tick_cache(struct rq *rq, struct task_struct *p)
-+void task_tick_cache(struct rq *rq, struct task_struct *p)
- {
- 	struct callback_head *work = &p->cache_work;
- 	struct mm_struct *mm = p->mm;
-@@ -1996,7 +1996,7 @@ static inline void account_mm_sched(struct rq *rq, struct task_struct *p,
- 
- void init_sched_mm(struct task_struct *p) { }
- 
--static void task_tick_cache(struct rq *rq, struct task_struct *p) { }
-+void task_tick_cache(struct rq *rq, struct task_struct *p) { }
- 
- static inline int get_pref_llc(struct task_struct *p,
- 			       struct mm_struct *mm)
-@@ -15042,8 +15042,11 @@ static void task_tick_fair(struct rq *rq, struct task_struct *curr, int queued)
- 	if (queued)
- 		return;
- 
--	task_tick_cache(rq, curr);
--
-+	/*
-+	 * Misfit, overutilized and core scheduling state belong to the
-+	 * scheduling context, and therefore stay with @curr rather than
-+	 * rq->curr. See sched_tick_exec_ctx() for execution-context work.
-+	 */
- 	update_misfit_status(curr, rq);
- 	check_update_overutilized_status(task_rq(curr));
- 
-diff --git a/kernel/sched/sched.h b/kernel/sched/sched.h
-index 4d619f272b15..5d1f5ee47bf1 100644
---- a/kernel/sched/sched.h
-+++ b/kernel/sched/sched.h
-@@ -4153,6 +4153,7 @@ void sched_domains_free_llc_id(int cpu);
- 
- extern void init_sched_mm(struct task_struct *p);
- void task_tick_numa(struct rq *rq, struct task_struct *p);
-+void task_tick_cache(struct rq *rq, struct task_struct *p);
- 
- extern u64 avg_vruntime(struct cfs_rq *cfs_rq);
- extern int entity_eligible(struct cfs_rq *cfs_rq, struct sched_entity *se);
+A temporary QEMU proxy-mutex reproducer exercised both a normal FAIR
+path and a FAIR execution task running on behalf of an SCHED_FIFO donor.
+Using the same workload with QEMU 11.1.0 exposing two L3 domains, the
+unpatched kernel did not invoke task_tick_numa() or task_tick_cache() for
+the FAIR execution task during proxy execution.  With this series, both
+hooks were repeatedly observed with rq->curr while rq->donor remained the
+RT scheduling context.  NUMA task work was queued for the execution task;
+cache work was also queued and its mm scan epoch advanced.  Three proxy
+episodes completed, and the normal FAIR path was observed with
+rq->curr == rq->donor.  The full-dynticks remote tick path was observed
+invoking sched_tick_exec_ctx() on CPU 1.  No warnings, BUGs, oopses or
+panics were observed.
+
+The instrumentation and reproducer were kept outside this series.
+
+Hui Su (2):
+  sched/numa: Drive NUMA task tick from execution context
+  sched/cache: Drive cache task tick from execution context
+
+ kernel/sched/core.c  | 15 +++++++++++++++
+ kernel/sched/fair.c  | 18 +++++++++---------
+ kernel/sched/sched.h |  2 ++
+ 3 files changed, 26 insertions(+), 9 deletions(-)
 
