@@ -1,76 +1,38 @@
-Received: from mail-pg1-f170.google.com (mail-pg1-f170.google.com [209.85.215.170])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCA8D476078
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 13:49:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.170
+Received: from zg8tmtyylji0my4xnjeumjiw.icoremail.net (zg8tmtyylji0my4xnjeumjiw.icoremail.net [162.243.161.220])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 41E864A2A4E;
+	Fri,  4 Sep 2026 13:49:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.243.161.220
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788529751; cv=none; b=CBIrPhizMEP2PfhkXpnwu6R50WHnzxAb93/NU4wDiOUTt4+voa+qAyrxOzIW4/VxsOBzAWbkDmOUxHnJCV00LCFUY/gx8nHYACmPMAE/50YBTxXyOwmgtJESZRK3z/NYuF7bDHgeB9aAuBzdw3jXaKXbUEvJNxzZqt/0gKliuZc=
+	t=1788529763; cv=none; b=ApjScsmDu4xuZWvatMyHWDwDOu5ecejWX7dUn0J8dl24IuY8s+S32CzhexgxoM0dz+2vZrn+m3sh+D0m7VUTYyq+6PIGw0aDhh7+aRRWHk9lCu8X0bffdOhQOCZaBMRlBMRPa1yqQ8SEUGXlyIS0KMuItuHxBIpuVrfGInYZIg8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788529751; c=relaxed/simple;
-	bh=9Ns4ghOs8PLCySKAYGuPPTtS6qsiHfgzhNih4mkhjLA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=NtPaN6ZErSXAajYo+vLYEOiKmfKZqv9OiOyPOiZxBws5ECC8mesaebEeLqOq+iyq89kxoFW6ilBAsOCo9ruxCnZ0iTDl2Ih7T5JaM/TgGCSpmPDnyCPt7eJJx8AKkzUZEnQg0yA3lodppq1A4qCBTh181zVeNLUViwXoGcYsc3c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZYOI4PTa; arc=none smtp.client-ip=209.85.215.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZYOI4PTa"
-Received: by mail-pg1-f170.google.com with SMTP id 41be03b00d2f7-cc1cf287ef8so1036201a12.3
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 06:49:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788529749; x=1789134549; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=DIW572LpZg88/9zoCd0pfmQgexIR84aCpztA1cYPl3M=;
-        b=ZYOI4PTa11mmNYFoVudoEk5ccAMAKEG3tr5ZIVt3UD2YrxdxUrmwDGQfkQBh7WlMcO
-         /R1A0cwdr3d1v3gVzlaA01K7PTyUJxz+6fa9kpbc06YHn5eIlUq9w7931abteLm3e1P7
-         +WeQINSvyQ0GnOkfSQJhKioehrGm8oQ/GXsJLCE8a4S1j86H1CienfCo1pL0r+b6rKyi
-         AThF2x/lln/HB4kcvGME7vr9fE5NA2XNiPTZm85cf4H2amkHp0b+KADvi5p8pxMfvF68
-         tc4PxMdRs551yzrD4aM9/7HDy63JXaH77DBe320+gOzwQCo/QA8qEpuzwGFJIW2g2C9A
-         7row==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788529749; x=1789134549;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=DIW572LpZg88/9zoCd0pfmQgexIR84aCpztA1cYPl3M=;
-        b=mQjbkio76++RN01xxfRNUuy1QdAjjQ0of0WTDWwx8kEX9c26NzWwvrPtvHhmd1vy8T
-         SnftpD/OsjUvEhcmWELECC9N6dcyApD34DwJTL0F3FDyv5qyo6d+1O93urWHjSNNjhoA
-         GFNspdDPrm9DongudPqYOCgYCd45L2BU5r/xEsRGO9EjcNd8dZGT+JF1DBK33Oxt0tCe
-         YzGckGBSC2Yv8ObVKPNoOfG0O5w8ky1ngzDsjcT5sTCJLOuU2ugcSW29TRPJHj1Ri3WD
-         PpvyPPT2LFTTFQyY0UZYU3hh/tv7A8MLtA+DFbSLhCyLnUkghPdHt7v82KxyMl6o9rE8
-         yILg==
-X-Forwarded-Encrypted: i=1; AKwUvByDJ2hX3xM+iVbJIhB7UPJpVo8ZMn4pru45wth1HKgWsDFUybD7knK2g+TGKwngJ3ro+pn0LWLUoeqQQ3Q=@vger.kernel.org
-X-Gm-Message-State: AFuF++lfGB/2ChFhgVlECvUzSXRsBXg8wYjuHZyPUPk+7+xf7yDipOdc
-	a30hZUepokclQLLmFPcU1zQ9ik+FWf8E2Ttesex4ocA5G5GJbFe8g/xS
-X-Gm-Gg: AYBFou3TyrDyJYn9zPTMuOeIienzduCve0s7fhZ6biwPgxQqufna6Td3kliqM6pPvRC
-	2JN97LiLzYjdgG+B0yIuCdSMPin2DXOkoaj0N1DZ2sYYWRhtQPTMjP53EFBGq+N1h+nuiYtawiv
-	+pYRlXqU5j7JxmZueCi5UU+GqeFlkp3wnX/pLskrjWspRdBAbkexq2r7gYQ5O1cNaE37Awe4BL/
-	+C3B+wuQzoZueon3BQwN5ruoC82/fIosuEFc2wvmTJPF7/INF7k6pky7Bfr+q2iszw8czqni4wm
-	zkw3X/PLBeG8f3R1odHRzcy0pnnrcALG8H0JlYvCRIJFlN8tdVIusF2JTAx/5+mY6t01AdlkrJK
-	L7iP2ln58bSwq1FRZocayaRVk8CfaC/2M3GjMNcAVX0k9mSudGcSXtSYXvoyUlDarur5U/lnh8s
-	/n5rqV4X50sJMsiWPZJvU8yz5O0aWltGF9c5DCb3vI9Ou2qdWBr2Pwf4CYbspIFfzfZlu06erPU
-	vkOQ03u8mPUaTw=
-X-Received: by 2002:a17:90b:5287:b0:38f:dec8:f7e9 with SMTP id 98e67ed59e1d1-39b26202ea4mr9184929a91.12.1788529749056;
-        Fri, 04 Sep 2026 06:49:09 -0700 (PDT)
-Received: from d.home.yangfl.dn42 ([2a09:bac5:661b:3050::4d0:46])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b08bcc060sm12561892a91.3.2026.09.04.06.49.05
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 04 Sep 2026 06:49:08 -0700 (PDT)
-From: David Yang <mmyangfl@gmail.com>
-To: netdev@vger.kernel.org
-Cc: David Yang <mmyangfl@gmail.com>,
-	Andrew Lunn <andrew@lunn.ch>,
-	Vladimir Oltean <olteanv@gmail.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH net-next] net: dsa: motorcomm: Handle degenerated blink delays
-Date: Fri,  4 Sep 2026 21:47:46 +0800
-Message-ID: <20260904134752.635133-1-mmyangfl@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	s=arc-20240116; t=1788529763; c=relaxed/simple;
+	bh=3SXRMRMqTwVSy4jcRmG6pKzLM4R603s1n0fh2maGVbs=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=XbiEyNXp2y/3pSYw4zj+qi+MKrFOuS1ZI5NLSlhCvaZe2ch1s4QVQQ9Yni3bbkrmLzgg3iBX+Jbm3PJ5GScD8q6HaM3Iwz4MhfGxyiefJEzsxqpYN8L+Reke54HWNjA25g2MPkZbozDCcN1QHaZ3PFMO9FRn2eopIworEhHfMPA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=162.243.161.220
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
+Received: from zju.edu.cn (unknown [10.98.66.117])
+	by mtasvr (Coremail) with SMTP id _____wAnET9TzJpqbG_uAA--.631S3;
+	Fri, 04 Sep 2026 21:49:08 +0800 (CST)
+Received: from localhost.localdomain (unknown [10.98.66.117])
+	by mail-app3 (Coremail) with SMTP id zS_KCgA3cXRSzJpq_WTuBA--.64619S2;
+	Fri, 04 Sep 2026 21:49:06 +0800 (CST)
+From: Fan Wu <fanwu01@zju.edu.cn>
+To: linux-cifs@vger.kernel.org
+Cc: sfrench@samba.org,
+	pc@manguebit.org,
+	ronniesahlberg@gmail.com,
+	sprasad@microsoft.com,
+	tom@talpey.com,
+	bharathsm@microsoft.com,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Fan Wu <fanwu01@zju.edu.cn>,
+	Song Li <songl@zju.edu.cn>
+Subject: [PATCH] smb: client: fix cifsFileInfo reference leak in deferred close
+Date: Fri,  4 Sep 2026 13:48:11 +0000
+Message-Id: <20260904134811.338427-1-fanwu01@zju.edu.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -78,29 +40,87 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zS_KCgA3cXRSzJpq_WTuBA--.64619S2
+X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
+X-CM-DELIVERINFO: =?B?X/nDcgXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
+	sfnZPoDCNGYdHSfuFmYJL54WNt83ay2J0i+S7+PPVtfzwfE9cPXZJtUAGV6RxEt2ReoGE4
+	nVCfbKY8Wu6drHXg51HN5RPxYw6l01w8CbPzC/8w
+X-Coremail-Antispam: 1Uk129KBj93XoWxAr4DGrWkGFyDGw17ZF4rtFc_yoW5Jw15pF
+	WYgry5Jr95GrW7Kw1UXanrW3WYvFn7AF45ur97WF1fAas5J3yaqr4ftayqgF4xC395A3W0
+	qF4UZayqvr4UZacCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
+	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+	0xBIdaVrnRJUUU9Gb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2
+	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+	0_Cr1j6rxdM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v2
+	6rxl6s0DM2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq07x20xvEncxIr21l57IF6x
+	kI12xvs2x26I8E6xACxx1l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v2
+	6r1j6r18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2
+	Ij64vIr41lF7xvr2IYc2Ij64vIr40E4x8a64kEw24l42xK82IYc2Ij64vIr41l4I8I3I0E
+	4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGV
+	WUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_
+	Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r1j6r4UMIIF0xvE42xK8VAvwI8IcIk0rV
+	WUJVWUCwCI42IY6I8E87Iv67AKxVWxJVW8Jr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8
+	JrUvcSsGvfC2KfnxnUUI43ZEXa7IU85l1PUUUUU==
 
-The LED core defines delay_on == 0 as steady off and delay_off == 0 as
-steady on, which was treated as a blink in our LED driver. Fix it.
+When cifs_close() defers a close, it hands the cifsFileInfo reference
+of the closing struct file to the queued work. Each execution of
+smb2_deferred_work_close() drops one such reference.
 
-Fixes: 9af9a8168213 ("net: dsa: motorcomm: Add LED support")
-Signed-off-by: David Yang <mmyangfl@gmail.com>
+deferred_close_scheduled can be false while the work is pending: the
+workqueue clears PENDING when the callback starts to run, before the
+callback clears the flag under deferred_lock. A close in that
+interval requeues the running work, and the callback then clears the
+flag, leaving the requeued work pending with the flag down. A later
+cifs_open() can reuse the handle and its cifs_close() reaches the
+same branch: queue_delayed_work() fails because the work is still
+pending, but cifs_close() returns without dropping the closing file's
+reference. The cifsFileInfo count stays pinned and its tlink, dentry
+and server handle are leaked.
+
+Check the return value and hand off the reference only when work was
+actually queued. Otherwise, use the shared _cifsFileInfo_put(), like
+the mod_delayed_work() branch above: the pending execution already
+owns its reference.
+
+This issue was found by an in-house static analysis tool.
+
+Fixes: c3f207ab29f7 ("cifs: Deferred close for files")
+Cc: stable@vger.kernel.org
+Assisted-by: Codex:gpt-5.6
+Co-developed-by: Song Li <songl@zju.edu.cn>
+Signed-off-by: Song Li <songl@zju.edu.cn>
+Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
 ---
- drivers/net/dsa/motorcomm/leds.c | 2 ++
- 1 file changed, 2 insertions(+)
+ fs/smb/client/file.c | 17 ++++++++++++-----
+ 1 file changed, 12 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/net/dsa/motorcomm/leds.c b/drivers/net/dsa/motorcomm/leds.c
-index 7d3c0f68d8ff..87a6b9cf6068 100644
---- a/drivers/net/dsa/motorcomm/leds.c
-+++ b/drivers/net/dsa/motorcomm/leds.c
-@@ -107,6 +107,8 @@ yt921x_led_blink_set(struct yt921x_priv *priv, int port, int group,
- 		       YT921X_LED_DUTY(1, 2);
- 
- 		use_cycle = false;
-+	} else if (!*onp || !*offp) {
-+		return yt921x_led_force_set(priv, port, group, *onp);
- 	} else {
- 		res = yt921x_led_blink_select(priv, *onp, *offp, &cycle, &duty);
- 		if (res)
--- 
-2.53.0
+diff --git a/fs/smb/client/file.c b/fs/smb/client/file.c
+index ac89c1ba56b1..acb6ac1bbddc 100644
+--- a/fs/smb/client/file.c
++++ b/fs/smb/client/file.c
+@@ -1490,11 +1490,18 @@ int cifs_close(struct inode *inode, struct file *file)
+ 				trace_smb3_close_cached(tcon->tid, tcon->ses->Suid,
+ 						cfile->fid.persistent_fid,
+ 						cifs_sb->ctx->closetimeo);
+-				queue_delayed_work(deferredclose_wq,
+-						&cfile->deferred, cifs_sb->ctx->closetimeo);
+-				cfile->deferred_close_scheduled = true;
+-				spin_unlock(&cinode->deferred_lock);
+-				return 0;
++				/*
++				 * Each queued execution owns one reference.
++				 * If nothing was queued, the reference of
++				 * the closing file is dropped below.
++				 */
++				if (queue_delayed_work(deferredclose_wq,
++						       &cfile->deferred,
++						       cifs_sb->ctx->closetimeo)) {
++					cfile->deferred_close_scheduled = true;
++					spin_unlock(&cinode->deferred_lock);
++					return 0;
++				}
+ 			}
+ 			spin_unlock(&cinode->deferred_lock);
+ 			_cifsFileInfo_put(cfile, true, false);
 
