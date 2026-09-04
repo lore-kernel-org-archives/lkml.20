@@ -1,355 +1,244 @@
-Received: from mail-oo1-f47.google.com (mail-oo1-f47.google.com [209.85.161.47])
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6F3A47668A
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 12:28:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7796E472539
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 12:29:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788524924; cv=none; b=TZv0wV0hXiY31IAhKTatDva5f6hQfN+czDpMtcAa3f5p3TxFSAUsBTbG+nVWaPCsGaG5NfDvzWBASauJg2pj/HgBRdsYdDkXMUJ8smsINnal7efngvMKMnYao7dwyipVffs+YkF01cKfgsatzKklbKnDJkGzJD1eNT/fSdC/760=
+	t=1788524944; cv=none; b=O99gnRwuBpqaDcCv74lQOfUi5TmTu74UgBGFDXSUTRnIRcfB23dcuQvqzCdW8IvF2Qev6rtriV3NIRqm4BO69Mq5vXZgmDHhFgfG3iFlhoFxYSbnvPoqbR2kP9YzDQHbdGmxbfd9S+ALLnZEKMyoKqS/nBZU/paltugihcCbRYQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788524924; c=relaxed/simple;
-	bh=h8BS5bxk78z1oqRh84a+PHZyjzcDNoENh49kf3YjRAE=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=DY+8lqxI7HQtNO9ufdaXrd72O6StK9+rDnJXVdxOUNNtWUXp8/701jyDci567jcLpaKbkivTiKGKq3Pa3sYMsUdGljSkZbG8hetv4n18lOKOUcgz1Lx4n3S+xspttfjnx4FPq9pSKrNYOfY2T0x0g+hcDVMbMVlcyZyRez3hCf0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CvKwEvP7; arc=none smtp.client-ip=209.85.161.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788524944; c=relaxed/simple;
+	bh=kINVtp9Tcy1uzfSPCqgfZTuR0AXIWvwWWaRfnsIc6rA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=JiZaLlwZeDf6w6dVNVtXE1tdCinBCeUUM7oQsE/sL5vQeagy8hWZhUigMiniFTypTly+pindW1H22bmKc88CRVIeUT3bIR8qO9R5iIrSsWrF/G3N19M1gkeXYQnxhZtPsPKF98klw8y1SrG7moQ59HKfLDGI8SdxayjZ0Ps+7bU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=EPYs0E8o; arc=none smtp.client-ip=209.85.128.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CvKwEvP7"
-Received: by mail-oo1-f47.google.com with SMTP id 006d021491bc7-6b12d146e6fso454049eaf.0
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 05:28:41 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="EPYs0E8o"
+Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-49557167508so10886485e9.1
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 05:29:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788524920; x=1789129720; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=cIW9OIZRIpMifzI6nMI3JateAvEhF/HPepLfHPvHkjQ=;
-        b=CvKwEvP7QyNw5wJy5Mo4VmAJnTqNUCc29r8A9cY0OybDDltE6m4eTUhkgralt5fwTx
-         R974rWKhzJ/65zwP5DvpuNsyDLKJA6v+m/dFYrMUYxA/HCkEd0PA2E+l1Zh/1OCaLwo5
-         Y1qBldQeH1royU2qn9diN1fiTpX7gZG19Xg2pDNa3FW108L607RySQkBzNxPUl27Goyl
-         ZMNYDmvjw5AKpmpV35oNSKLvfRd1aw/kVh1e2UbqSgaioFS91OZDdxwar5opp7PaGIr1
-         9DBKaRIGbhnYaaKw7BnfEgwxxH61mVFP/oIIglW+I71e+38Pch71OWXpmddnQdoxPv9q
-         0afg==
+        d=suse.com; s=google; t=1788524940; x=1789129740; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=wkKTYWKeG6QUBS922LjHNIJ7+OwGoSgdldmULUcOoY0=;
+        b=EPYs0E8o8KX/heV0KahZoy3jtMox1RXJ8SP1/dm/wPYixoCzGnwQx1dbm8QX1gjTe0
+         /IAttt2/8h69bIYrLxkRcu497Xp9BDVeHkP4cK78diZLjN/cUVQYiD9Qmiw5Z9e4I7RT
+         L4SE9GrUFck4RoI58lltcmxazD8cJmhq2Paeb7roDdHlTMongr4ZjRiZWeHXkmitJ+nP
+         WwKivE7/ZRfGlm/5NxK7GUEx7HpracWWEqII2MrD20iGkm/3wBtlr6Y8XahZgcDNJngH
+         2rNK7alhy5XbCvuUJZgBUMYBvjQvqJ5lLnPLZoeDlTMCR1DxyTtAXd/cUvNnZcZNuqEv
+         mQsA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788524920; x=1789129720;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=cIW9OIZRIpMifzI6nMI3JateAvEhF/HPepLfHPvHkjQ=;
-        b=f9MFPlAbACDkb92XG/nUXmc3e1KJ986jRlelfmUD+6x3lhbFpriJTNO9sCvEWWzlgd
-         Dm4uT3SoScNnFYDji6E7lO50jnRxA9VrsHURshTCoRIz/2BtJVXEzfUKUNCXvlx0XDNe
-         yZBsJ3UkV697lwX74h4LV/0/johs8q+wwxq7s4TeH3Fxa714ViaK3CflPam6Fu6ZuX03
-         8H1RIGYGQTC/xG7ERAktenUMnJbnC6AFmYescuqpCSj4uwEEFhB9G5ipBAFLC8/1k1L2
-         SEu8EjcvWy029M0LEXSj9ju6WiVZzd3mX8gHW6FTU2eGlVJkwrJrwvK8STz/fja21i+K
-         3zzw==
-X-Gm-Message-State: AFuF++mJnondNxemDIH0OUzSmlJxZA7dYBBl3uG1OI8gnjIrZCEC8Am2
-	eIoJEeQmthZ19vmU3iku9KIkQErmd8HCj9m/hhYuIAouSJ/4IDL80xfp
-X-Gm-Gg: AYBFou1vNoDvNPJqplKECSnur1LrXRdOugAw1BYZi8BoJvYhOySA5f5JZE91z3bPNtL
-	xbyRDsNLmNJkgi+ptDMS3243mOIniDmJWZ6LbIXkGBY+LzaX/RdGbSNnmF7OWHVXL/4Oj0WY+U/
-	XUUxlf37XaKeevnYqexq6uwv0L6ZGiMCYruJKfBIh7jGpXWy3Ocv0yh8GIUsnHc06+Jqew7Ml6j
-	NqRqpm5qWfRFmrwQIC5BHuh7R1E2akwzgutPIQFurDts5iJNUzFkYv1po6JdEu+Y1i70/GMemJw
-	58BEK+RmLK5OoIYoSp4Dq2dZXqOP6TY0DfBFi1l3NV30SUmdbOVetDjT16zYsCjgJI583BL0slL
-	DtP9JtNDTewV+yBdL0v2tzSFdyUcejxpXUlKG4+SJ9J9yTYcs3h7t4eaesN4kwsO9bxCSpPueLu
-	Uzskke1qhMXOPqN4EcGi056ymucUl2uktnWRS/RZI90yGijiZB9AO2wd+oUw0bcWbjaOXWMnNOl
-	4cwAVlw7no4F0s=
-X-Received: by 2002:a05:6820:1613:b0:6aa:da04:b56f with SMTP id 006d021491bc7-6b6fa7e183amr3785516eaf.3.1788524920421;
-        Fri, 04 Sep 2026 05:28:40 -0700 (PDT)
-Received: from volcano9f6e-hostos.amd.com ([165.204.217.251])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339b8f44d7sm6461610eec.22.2026.09.04.05.28.37
+        d=1e100.net; s=20251104; t=1788524940; x=1789129740;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=wkKTYWKeG6QUBS922LjHNIJ7+OwGoSgdldmULUcOoY0=;
+        b=O0Mzk7eWpuFmeYv3DOKPDlcvRhZ6admme8TpixgTFpLIkDR3u+N/V+tqR/gevdg/K0
+         vk/JZnU7IJHrEZQhOzLnHzQwd7z5m19zKVAuPEr4qsBIn4TJPpukLR+vkQvX2gtDIj1+
+         IRnHW2++uHQ0Ojhd//zGu7P7le/ZnTLP/zMj639WOvTOfK7bgNGGWYgaZeX4Jflh7TN+
+         DDImhWGlEbwv6hBa7CJHjn84W6a06Y7tQxSm+HAFA4UP61DMgDbb9jJZDLWEa4+RSz8I
+         gezdWFi3tc2llSWGQiikQC7wWJNzPWRcp2+6ZSZhZM5SIq9IQMU5bup0apCH2WqOtCIs
+         vAkA==
+X-Forwarded-Encrypted: i=1; AKwUvBx3JYgP6cewb2JEsuC6q3CXr4HMEyJFbSFRML5ksT7xzsuA0mcwB2AldnkOSgXxlNgQxiQ0bJyg5MKFkCE=@vger.kernel.org
+X-Gm-Message-State: AFuF++l5KXiatJEtYVyNcl9PEpKWDQ8kDrhJArVdjH+/Ikd027QiDLfP
+	fEkRJ6eB6sPwJZNeyAp//cSu4CXiS6QGWzYqXfnyAw3RZwpZVR/H2vJztllK+OVMvH8=
+X-Gm-Gg: AYBFou3kzRxi4k5fCPBLhrgdgjiknaNF/7vQhipiQDvCYXJ6+/qhcnOTxOUA9aBrrz7
+	eGKPhNrSf6PlhWzttmqBOms2eKxvDufQ96YvD9VbDyLXCeNJfS1FpSBIXWRUPx+qlh4PSm8C4tT
+	gwkBf3qjkEEXT8hRBwhQ1NR0JBdQm/5Wz6/p1fs55pq3iQ3c5Q7eLn3Mpi6lps4c5sORZn2nn4D
+	JQsBk0vNQpipydmDjhUEjNK8cX+lIMLAzmLXsGuxaC6MFWUWbWFKZ3uziAFRM45nSni5zy1Yfgm
+	bNA3GmUqfVgQol33O53J7bK9xIFSWC6t+aI1REsMHBQGKyNe9SLoNXWSFLyBMZugUIXH8Hq1sMU
+	1PQG9igU3vK5SEDXjF2vM+LOLTHiNY2r+tDFxPJBa+5/kQbQzCSQA9vheTVAjgX51eYDDAfyjJK
+	w4sGt+UguwKbVZv4h5jWhMceEJx82K9zCdUThnXLID+ayOZo7l8Bo5/ViraPKuFw==
+X-Received: by 2002:a05:600c:6087:b0:49c:d52e:d0ea with SMTP id 5b1f17b1804b1-49cf81e3454mr99528635e9.4.1788524939473;
+        Fri, 04 Sep 2026 05:28:59 -0700 (PDT)
+Received: from pathway.suse.cz ([176.114.240.130])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cee5f912esm153375065e9.4.2026.09.04.05.28.57
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 04 Sep 2026 05:28:40 -0700 (PDT)
-From: Hemanth Selam <hemanth.selam@gmail.com>
-To: Lee Jones <lee@kernel.org>,
-	Support Opensource <support.opensource@diasemi.com>,
-	Matti Vaittinen <mazziesaccount@gmail.com>,
-	=?UTF-8?q?Andr=C3=A9=20Draszik?= <andre.draszik@linaro.org>
-Cc: linux-kernel@vger.kernel.org,
-	mfd@lists.linux.dev,
-	linux-samsung-soc@vger.kernel.org
-Subject: [PATCH] mfd: fix typos in comments
-Date: Fri,  4 Sep 2026 17:58:28 +0530
-Message-ID: <20260904122834.33723-1-hemanth.selam@gmail.com>
-X-Mailer: git-send-email 2.48.1
+        Fri, 04 Sep 2026 05:28:58 -0700 (PDT)
+Date: Fri, 4 Sep 2026 14:28:56 +0200
+From: Petr Mladek <pmladek@suse.com>
+To: Jinjie Ruan <ruanjinjie@huawei.com>
+Cc: bcrl@kvack.org, viro@zeniv.linux.org.uk, brauner@kernel.org,
+	jack@suse.cz, tytso@mit.edu, adilger.kernel@dilger.ca,
+	libaokun@linux.alibaba.com, ojaswin@linux.ibm.com,
+	ritesh.list@gmail.com, yi.zhang@huawei.com, sforshee@kernel.org,
+	akpm@linux-foundation.org, rostedt@goodmis.org,
+	andriy.shevchenko@linux.intel.com, linux@rasmusvillemoes.dk,
+	senozhatsky@chromium.org, kees@kernel.org, tglx@kernel.org,
+	linux-fsdevel@vger.kernel.org, linux-aio@kvack.org,
+	linux-kernel@vger.kernel.org, linux-ext4@vger.kernel.org,
+	linux-riscv@lists.infradead.org
+Subject: Re: [PATCH v3 0/8] Convert barrier pairs to acquire/release for
+ better performance
+Message-ID: <apq5iLOF8lAQ_ZVU@pathway.suse.cz>
+References: <20260902074805.398540-1-ruanjinjie@huawei.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260902074805.398540-1-ruanjinjie@huawei.com>
 
-Fix typos in comments, reported by scripts/checkpatch.pl using the
-misspelling list in scripts/spelling.txt.  Only touches comments, no code
-changes.
+Adding Risc-V list into Cc.
 
-Assisted-by: Cursor:claude-opus-5
-Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
----
- drivers/mfd/88pm800.c                |  2 +-
- drivers/mfd/kempld-core.c            |  2 +-
- drivers/mfd/max8998.c                |  2 +-
- drivers/mfd/rave-sp.c                |  6 +++---
- drivers/mfd/si476x-i2c.c             |  2 +-
- include/linux/mfd/da9063/registers.h |  2 +-
- include/linux/mfd/db8500-prcmu.h     | 32 ++++++++++++++--------------
- include/linux/mfd/lp8788.h           |  2 +-
- include/linux/mfd/max8998.h          |  2 +-
- include/linux/mfd/palmas.h           |  2 +-
- include/linux/mfd/rohm-bd71828.h     |  2 +-
- include/linux/mfd/samsung/core.h     |  2 +-
- include/linux/mfd/si476x-core.h      |  2 +-
- include/linux/mfd/twl.h              |  2 +-
- 14 files changed, 31 insertions(+), 31 deletions(-)
+On Wed 2026-09-02 15:47:57, Jinjie Ruan wrote:
+> Hi,
+> 
+> This series converts some existing smp_wmb()/smp_rmb() barrier pairs to
+> smp_store_release()/smp_load_acquire() across various subsystems.
+> 
+> Background
+> ==========
+> 
+> Many architectures support load acquire and store release instructions
+> which can replace explicit memory barriers and save cycles. As noted
+> in the ARM architecture reference [1]:
+> 
+>   "Weaker ordering requirements that are imposed by Load-Acquire and
+>    Store-Release instructions allow for micro-architectural
+>    optimizations, which could reduce some of the performance impacts
+>    that are otherwise imposed by an explicit memory barrier.
+> 
+>    If the ordering requirement is satisfied using either a Load-Acquire
+>    or Store-Release, then it would be preferable to use these
+>    instructions instead of a DMB."
+> 
+> On arm64, a typical seqcount [2] read loop requires 13 cycles with DMB
+> barriers. Replacing the read barrier with smp_load_acquire() reduces
+> this to 8 cycles on an Ampere Altra.
 
-diff --git a/drivers/mfd/88pm800.c b/drivers/mfd/88pm800.c
-index e9941da58b18..aac630322b3c 100644
---- a/drivers/mfd/88pm800.c
-+++ b/drivers/mfd/88pm800.c
-@@ -275,7 +275,7 @@ static int device_gpadc_init(struct pm80x_chip *chip,
- 		goto out;
- 
- 	/*
--	 * the defult of PM800 is GPADC operates at 100Ks/s rate
-+	 * the default of PM800 is GPADC operates at 100Ks/s rate
- 	 * and Number of GPADC slots with active current bias prior
- 	 * to GPADC sampling = 1 slot for all GPADCs set for
- 	 * Temprature mesurmants
-diff --git a/drivers/mfd/kempld-core.c b/drivers/mfd/kempld-core.c
-index b64729918dfd..47062f876e5d 100644
---- a/drivers/mfd/kempld-core.c
-+++ b/drivers/mfd/kempld-core.c
-@@ -37,7 +37,7 @@ static void kempld_get_hardware_mutex(struct kempld_device_data *pld)
- 
- static void kempld_release_hardware_mutex(struct kempld_device_data *pld)
- {
--	/* The harware mutex is released when 1 is written to the mutex bit. */
-+	/* The hardware mutex is released when 1 is written to the mutex bit. */
- 	iowrite8(KEMPLD_MUTEX_KEY, pld->io_index);
- }
- 
-diff --git a/drivers/mfd/max8998.c b/drivers/mfd/max8998.c
-index eb13bbaeda55..5032eab05bb4 100644
---- a/drivers/mfd/max8998.c
-+++ b/drivers/mfd/max8998.c
-@@ -146,7 +146,7 @@ static struct max8998_platform_data *max8998_i2c_parse_dt_pdata(
- 
- 	/*
- 	 * ToDo: the 'wakeup' member in the platform data is more of a linux
--	 * specfic information. Hence, there is no binding for that yet and
-+	 * specific information. Hence, there is no binding for that yet and
- 	 * not parsed here.
- 	 */
- 	return pd;
-diff --git a/drivers/mfd/rave-sp.c b/drivers/mfd/rave-sp.c
-index 05d26d92df03..53c57bafea8f 100644
---- a/drivers/mfd/rave-sp.c
-+++ b/drivers/mfd/rave-sp.c
-@@ -331,7 +331,7 @@ static u8 rave_sp_reply_code(u8 command)
- 		return command + 0x20;
- 	case 0xE0 ... 0xEF:
- 		/*
--		 * Events emitted by all versions of the firmare use
-+		 * Events emitted by all versions of the firmware use
- 		 * least significant bit to get an ACK code
- 		 */
- 		return command | 0x01;
-@@ -544,7 +544,7 @@ static size_t rave_sp_receive_buf(struct serdev_device *serdev,
- 				 * NOTE: The above means that only the
- 				 * frame started by third SOF, sent
- 				 * after this one will have a chance
--				 * to get throught.
-+				 * to get through.
- 				 */
- 				goto reset_framer;
- 			case RAVE_SP_DLE:
-@@ -595,7 +595,7 @@ static size_t rave_sp_receive_buf(struct serdev_device *serdev,
- 
- 	/*
- 	 * The only way to get out of the above loop and end up here
--	 * is throught consuming all of the supplied data, so here we
-+	 * is through consuming all of the supplied data, so here we
- 	 * report that we processed it all.
- 	 */
- 	return size;
-diff --git a/drivers/mfd/si476x-i2c.c b/drivers/mfd/si476x-i2c.c
-index 9bce720a0a08..6351aef2d3bb 100644
---- a/drivers/mfd/si476x-i2c.c
-+++ b/drivers/mfd/si476x-i2c.c
-@@ -222,7 +222,7 @@ int si476x_core_stop(struct si476x_core *core, bool soft)
- 	atomic_set(&core->is_alive, 0);
- 
- 	if (soft) {
--		/* TODO: This probably shoud be a configurable option,
-+		/* TODO: This probably should be a configurable option,
- 		 * so it is possible to have the chips keep their
- 		 * oscillators running
- 		 */
-diff --git a/include/linux/mfd/da9063/registers.h b/include/linux/mfd/da9063/registers.h
-index 7b8364bd08a0..376c5d330599 100644
---- a/include/linux/mfd/da9063/registers.h
-+++ b/include/linux/mfd/da9063/registers.h
-@@ -14,7 +14,7 @@
- #define DA9063_I2C_PAGE_SEL_SHIFT	1
- #define	DA9063_EVENT_REG_NUM		4
- 
--/* Page selection I2C or SPI always in the begining of any page. */
-+/* Page selection I2C or SPI always in the beginning of any page. */
- /* Page 0 : I2C access 0x000 - 0x0FF	SPI access 0x000 - 0x07F */
- /* Page 1 :				SPI access 0x080 - 0x0FF */
- /* Page 2 : I2C access 0x100 - 0x1FF	SPI access 0x100 - 0x17F */
-diff --git a/include/linux/mfd/db8500-prcmu.h b/include/linux/mfd/db8500-prcmu.h
-index c939c9a1170a..87a28c4f1d81 100644
---- a/include/linux/mfd/db8500-prcmu.h
-+++ b/include/linux/mfd/db8500-prcmu.h
-@@ -337,31 +337,31 @@ enum sia_mmdsp_stat {
-  * @SYSCLKOK_ERR: The SYSCLK is not available in the given time
-  * @BOOT_ERR: Romcode has not validated the XP70 self reset in the given time
-  * @ROMCODESAVECONTEXT: The Romcode didn.t correctly save it secure context
-- * @VARMHIGHSPEEDVALTO_ERR: The ARM high speed supply value transfered
-+ * @VARMHIGHSPEEDVALTO_ERR: The ARM high speed supply value transferred
-  *          through I2C has not been correctly executed in the given time
-- * @VARMHIGHSPEEDACCESS_ERR: The command value of VarmHighSpeedVal transfered
-+ * @VARMHIGHSPEEDACCESS_ERR: The command value of VarmHighSpeedVal transferred
-  *             through I2C has not been correctly executed in the given time
-- * @VARMLOWSPEEDVALTO_ERR:The ARM low speed supply value transfered through
-+ * @VARMLOWSPEEDVALTO_ERR:The ARM low speed supply value transferred through
-  *                     I2C has not been correctly executed in the given time
-- * @VARMLOWSPEEDACCESS_ERR: The command value of VarmLowSpeedVal transfered
-+ * @VARMLOWSPEEDACCESS_ERR: The command value of VarmLowSpeedVal transferred
-  *             through I2C has not been correctly executed in the given time
-- * @VARMRETENTIONVALTO_ERR: The ARM retention supply value transfered through
-+ * @VARMRETENTIONVALTO_ERR: The ARM retention supply value transferred through
-  *                     I2C has not been correctly executed in the given time
-- * @VARMRETENTIONACCESS_ERR: The command value of VarmRetentionVal transfered
-+ * @VARMRETENTIONACCESS_ERR: The command value of VarmRetentionVal transferred
-  *             through I2C has not been correctly executed in the given time
-- * @VAPEHIGHSPEEDVALTO_ERR: The APE highspeed supply value transfered through
-+ * @VAPEHIGHSPEEDVALTO_ERR: The APE highspeed supply value transferred through
-  *                     I2C has not been correctly executed in the given time
-- * @VSAFEHPVALTO_ERR: The SAFE high power supply value transfered through I2C
-+ * @VSAFEHPVALTO_ERR: The SAFE high power supply value transferred through I2C
-  *                         has not been correctly executed in the given time
-- * @VMODSEL1VALTO_ERR: The MODEM sel1 supply value transfered through I2C has
-+ * @VMODSEL1VALTO_ERR: The MODEM sel1 supply value transferred through I2C has
-  *                             not been correctly executed in the given time
-- * @VMODSEL2VALTO_ERR: The MODEM sel2 supply value transfered through I2C has
-+ * @VMODSEL2VALTO_ERR: The MODEM sel2 supply value transferred through I2C has
-  *                             not been correctly executed in the given time
-- * @VARMOFFACCESS_ERR: The command value of Varm ON/OFF transfered through
-+ * @VARMOFFACCESS_ERR: The command value of Varm ON/OFF transferred through
-  *                     I2C has not been correctly executed in the given time
-- * @VAPEOFFACCESS_ERR: The command value of Vape ON/OFF transfered through
-+ * @VAPEOFFACCESS_ERR: The command value of Vape ON/OFF transferred through
-  *                     I2C has not been correctly executed in the given time
-- * @VARMRETACCES_ERR: The command value of Varm retention ON/OFF transfered
-+ * @VARMRETACCES_ERR: The command value of Varm retention ON/OFF transferred
-  *             through I2C has not been correctly executed in the given time
-  * @CURAPPWRSTISNOTBOOT:Generated when Arm want to do power state transition
-  *             ApBoot to ApExecute but the power current state is not Apboot
-@@ -376,11 +376,11 @@ enum sia_mmdsp_stat {
-  *                    been correctly executed in the given time
-  * @ARMREGU2VALTO_ERR: The ArmRegu2 value transferred through I2C has not
-  *                    been correctly executed in the given time
-- * @VAPEREGUVALTO_ERR: The VApeRegu value transfered through I2C has not
-+ * @VAPEREGUVALTO_ERR: The VApeRegu value transferred through I2C has not
-  *                    been correctly executed in the given time
-- * @VSMPS3REGUVALTO_ERR: The VSmps3Regu value transfered through I2C has not
-+ * @VSMPS3REGUVALTO_ERR: The VSmps3Regu value transferred through I2C has not
-  *                      been correctly executed in the given time
-- * @VMODREGUVALTO_ERR: The VModemRegu value transfered through I2C has not
-+ * @VMODREGUVALTO_ERR: The VModemRegu value transferred through I2C has not
-  *                    been correctly executed in the given time
-  */
- enum mbox_to_arm_err {
-diff --git a/include/linux/mfd/lp8788.h b/include/linux/mfd/lp8788.h
-index fd17bec2a33e..e8c50bd38a8a 100644
---- a/include/linux/mfd/lp8788.h
-+++ b/include/linux/mfd/lp8788.h
-@@ -34,7 +34,7 @@
- #define LP8788_ALM_IRQ		"ALARM_IRQ"
- 
- enum lp8788_int_id {
--	/* interrup register 1 : Addr 00h */
-+	/* interrupt register 1 : Addr 00h */
- 	LP8788_INT_TSDL,
- 	LP8788_INT_TSDH,
- 	LP8788_INT_UVLO,
-diff --git a/include/linux/mfd/max8998.h b/include/linux/mfd/max8998.h
-index 5473f1983e31..ad2ad24412fb 100644
---- a/include/linux/mfd/max8998.h
-+++ b/include/linux/mfd/max8998.h
-@@ -45,7 +45,7 @@ enum {
- /**
-  * max8998_regulator_data - regulator data
-  * @id: regulator id
-- * @initdata: regulator init data (contraints, supplies, ...)
-+ * @initdata: regulator init data (constraints, supplies, ...)
-  * @reg_node: DT node of regulator (unused on non-DT platforms)
-  */
- struct max8998_regulator_data {
-diff --git a/include/linux/mfd/palmas.h b/include/linux/mfd/palmas.h
-index dabcc0dea802..1d872363820a 100644
---- a/include/linux/mfd/palmas.h
-+++ b/include/linux/mfd/palmas.h
-@@ -251,7 +251,7 @@ enum tps65917_regulators {
- 	TPS65917_NUM_REGS,
- };
- 
--/* External controll signal name */
-+/* External control signal name */
- enum {
- 	PALMAS_EXT_CONTROL_ENABLE1      = 0x1,
- 	PALMAS_EXT_CONTROL_ENABLE2      = 0x2,
-diff --git a/include/linux/mfd/rohm-bd71828.h b/include/linux/mfd/rohm-bd71828.h
-index 39fe275a8117..ea9b1a8f495f 100644
---- a/include/linux/mfd/rohm-bd71828.h
-+++ b/include/linux/mfd/rohm-bd71828.h
-@@ -186,7 +186,7 @@ enum {
- #define BD71828_REG_RTC_ALM2		0x63
- #define BD71828_REG_RTC_START		BD71828_REG_RTC_SEC
- 
--/* Charger/Battey */
-+/* Charger/Battery */
- #define BD71828_REG_CHG_STATE		0x65
- #define BD71828_REG_CHG_FULL		0xd2
- #define BD71828_REG_CHG_EN		0x6F
-diff --git a/include/linux/mfd/samsung/core.h b/include/linux/mfd/samsung/core.h
-index 6191f409de94..e489ca0d55ed 100644
---- a/include/linux/mfd/samsung/core.h
-+++ b/include/linux/mfd/samsung/core.h
-@@ -106,7 +106,7 @@ struct sec_platform_data {
- /**
-  * sec_regulator_data - regulator data
-  * @id: regulator id
-- * @initdata: regulator init data (contraints, supplies, ...)
-+ * @initdata: regulator init data (constraints, supplies, ...)
-  */
- struct sec_regulator_data {
- 	int				id;
-diff --git a/include/linux/mfd/si476x-core.h b/include/linux/mfd/si476x-core.h
-index d9e3a322134c..40866d7162c9 100644
---- a/include/linux/mfd/si476x-core.h
-+++ b/include/linux/mfd/si476x-core.h
-@@ -97,7 +97,7 @@ enum si476x_power_state {
-  * @command: Wait queue for wainting on the command comapletion.
-  * @cts: Clear To Send flag set upon receiving first status with CTS
-  * set.
-- * @tuning: Wait queue used for wainting for tune/seek comand
-+ * @tuning: Wait queue used for wainting for tune/seek command
-  * completion.
-  * @stc: Similar to @cts, but for the STC bit of the status value.
-  * @power_up_parameters: Parameters used as argument for POWER_UP
-diff --git a/include/linux/mfd/twl.h b/include/linux/mfd/twl.h
-index b31e07fa4d51..238d9dcefc35 100644
---- a/include/linux/mfd/twl.h
-+++ b/include/linux/mfd/twl.h
-@@ -739,7 +739,7 @@ int twl4030_sih_setup(struct device *dev, int module, int irq_base);
- #define TWL4030_REG_VUSB3V1	19
- 
- /* TWL6030 SMPS/LDO's */
--/* EXTERNAL dc-to-dc buck convertor controllable via SR */
-+/* EXTERNAL dc-to-dc buck converter controllable via SR */
- #define TWL6030_REG_VDD1	30
- #define TWL6030_REG_VDD2	31
- #define TWL6030_REG_VDD3	32
--- 
-2.48.1
+I wonder if this is true on all other architectures:
 
+  + It seems that Arm gets the gain because the instruction
+    does both load/store + barrier. It helps even when
+    the barrier is full.
+
+  + Some other architectures need two instructions. One for the
+    load/store and the other for the barrier. But the barrier
+    is weaker, it synchronizes just reads or just writes.
+
+For example, I see the following in riscv/include/asm/barrier.h:
+
+<paste riscv/include/asm/barrier.h>
+#define smp_mb()	RISCV_FENCE(rw, rw)
+#define smp_rmb()	RISCV_FENCE(r, r)
+#define smp_wmb()	RISCV_FENCE(w, w)
+
+#define smp_store_release(p, v)						\
+do {									\
+	RISCV_FENCE(rw, w);						\
+	WRITE_ONCE(*p, v);						\
+} while (0)
+
+#define smp_load_acquire(p)						\
+({									\
+	typeof(*p) ___p1 = READ_ONCE(*p);				\
+	RISCV_FENCE(r, rw);						\
+	___p1;								\
+})
+</paste riscv/include/asm/barrier.h>
+
+I wonder whether:
+
+  + RISCV_FENCE(r, r) is faster than RISCV_FENCE(r, rw)
+  + RISCV_FENCE(w, w) is faster than RISCV_FENCE(rw, w)
+
+so it might cause performance regression there...
+
+Best Regards,
+Petr
+
+> We also observed significant barrier overhead while profiling Unxibench
+> syscall test on arm64: a single getuid() call is ~8ns slower than on
+> a comparable x86 system, with the dominant cost in map_id_up()'s smp_rmb(),
+> which is a DMB ISHLD on arm64. Converting it to smp_load_acquire() allows
+> the use of LDAR, eliminating the measurable overhead.
+> 
+> This motivated a broader search for existing barrier pairs that can
+> be converted to the lighter acquire/release semantics.
+> 
+> Changes
+> =======
+> 
+> Each patch in this series targets a specific barrier pair where the
+> publish/subscribe pattern is already present:
+> 
+> - Writers populate data, then publish a flag/count/pointer via
+>   smp_store_release()
+> 
+> - Readers load the flag/count/pointer via smp_load_acquire(), then
+>   consume the data
+> 
+> This preserves the existing memory ordering guarantees while allowing
+> architectures with native acquire/release instructions (e.g. arm64's
+> STLR/LDAR) to avoid the cost of full one-way barriers (DMB ISHST/ISHLD).
+> On architectures without native support, the generated code is
+> generally no worse than the explicit barrier pair.
+> 
+> The conversions are mechanical and no functional change is intended.
+> 
+> Testing (Kunpeng HIP09 arm64 server)
+> ====================================
+> 
+> 1. UNIXBENCH syscall
+> 	Baseline: 715.27
+> 	Patched:  718.83
+> 	Improvement: +0.50%
+> 
+> 2. fs/aio (fio + null_blk, 4 jobs):
+> 	Baseline: 1441k IOPS, 86.46us
+> 	Patched:  1452k IOPS, 85.80us
+> 	Improvement: ~0.8%
+> 
+> Both improvements are consistent across runs and align with the
+> expected savings from replacing DMB with LDAR/STLR on arm64.
+> 
+> [1]: https://support.arm.com/documentation/102336/0100/Load-Acquire-and-Store-Release-instructions
+> [2]: https://github.com/torvalds/linux/commit/d0dd066a0fa26d55c19ace9e89dedd9504c5bcba
+> 
+> Changes in v3:
+> - Add Reviewed-by.
+> - Split out network patch set as Kuniyuki suggested.
+> - Link to v2: https://lore.kernel.org/all/20260901024234.135119-1-ruanjinjie@huawei.com/
+> 
+> Changes in v2:
+> - Fix pre-existing issue for ext4 and 8021q [3].
+> - Fix missing copy_mnt_idmap() udapte [3].
+> - Drop nacked isotp patch.
+> - Add test data.
+> - Add Reviewed-by and update fs patch as Jan suggested.
+> 
+> [3]: https://sashiko.dev/#/patchset/20260825095422.3166067-1-ruanjinjie%40huawei.com
+> 
+> Jinjie Ruan (8):
+>   user_namespace: Use acquire/release for nr_extents synchronization
+>   lib/vsprintf: Use acquire/release for ptr_key publication
+>   fs: aio: Use acquire/release for ring->tail publication
+>   fs: Use acquire/release for fdtable resize synchronization
+>   pidfs: Use test_bit_acquire() for attr flag tests
+>   super: Use acquire for SB_BORN check in super_cache_count()
+>   ext4: Fix out-of-bounds read in ext4_get_group_info()
+>   ext4: Convert group-count barrier protocol to acquire/release
+> 
+>  fs/aio.c                | 10 ++++------
+>  fs/ext4/balloc.c        |  2 +-
+>  fs/ext4/ext4.h          | 10 +++-------
+>  fs/ext4/mballoc.c       |  6 ++----
+>  fs/ext4/resize.c        | 19 +++++++++++--------
+>  fs/file.c               | 10 ++++------
+>  fs/mnt_idmapping.c      |  5 ++---
+>  fs/pidfs.c              |  6 ++----
+>  fs/super.c              |  6 ++----
+>  kernel/user_namespace.c | 24 +++++++++++++-----------
+>  lib/vsprintf.c          | 11 ++++-------
+>  11 files changed, 48 insertions(+), 61 deletions(-)
+> 
+> -- 
+> 2.34.1
