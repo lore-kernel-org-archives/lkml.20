@@ -1,68 +1,67 @@
-Received: from mail-oi1-f174.google.com (mail-oi1-f174.google.com [209.85.167.174])
+Received: from mail-oi1-f171.google.com (mail-oi1-f171.google.com [209.85.167.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B760742E8FF
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 22:11:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02D7F450413
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 22:11:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788559883; cv=none; b=CRallxKNd8QkB3zjhYp/mJlJLiiCvduMa0kig5XJ9wTfxGjQZ4TbVJ2EFKhCb4xPvS6Inn+9mcfN5NDHC0963OZf0zSPqqov0PiK+f0GthQzvvGPIfneASfP2HWWD02tmp0Raa3POSKo5W4a3ABEHpmTTXBjMOaFFTdMndQDAvM=
+	t=1788559888; cv=none; b=dOau+uDqkXG0QxymB4fqceOrlVpU72pPAeaLXSnWrr45l0kPNC54TdySlc3sQaiAHAS6vwo1nvvVSE9fpxF4NfewBlbonmSQpl4VofJbsWAIrXebb1bFFTo4XveF1DrPkBtja8L3SBd9Y1v3aSeoEdk9nDewIha96o6MiNbQfI4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788559883; c=relaxed/simple;
-	bh=Deeaer94Jcor75gpy0lfZKp/okGWx/opCeDuktVE8UE=;
+	s=arc-20240116; t=1788559888; c=relaxed/simple;
+	bh=4mIrQseGaDrWXOkGj+VmtS3xT3kzP+fkmkBCoKYUU7I=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=HcD0fHIA4QY+kOkKSYEYllkos0+t7nWxC8aQgQDKyapEnsbmBo4Iu6mwBdyzCbT02F3x4tsjKY+KlByvThDXQvQaPvHwKNTLAOolE3zbZHUBqGfg/pYNzC44BfGeizjQWIt0O48qw7r7STrs3i8fJuUYes/A/Hoh6EyE0aW3glA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=Mkgb7hR0; arc=none smtp.client-ip=209.85.167.174
+	 In-Reply-To:To:Cc; b=lH55lYgZH87xE46fywNuM9R7tF879v3Mexkxyar91/ghzVtiGwcYVuBcmD51EDkOugAkcj9YedwFnx0yOvvVPQXubEbzF0CyPGcY0kCb6jQ0xPwX8PnZ3fch8kbOkEeWMsSd6TxbevsJINkHKH0kL/FQ0tr6QhevrcLjSlnmF+E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=kEXUa+jN; arc=none smtp.client-ip=209.85.167.171
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="Mkgb7hR0"
-Received: by mail-oi1-f174.google.com with SMTP id 5614622812f47-4a46a53abc9so1671198b6e.3
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 15:11:19 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="kEXUa+jN"
+Received: by mail-oi1-f171.google.com with SMTP id 5614622812f47-4a45b3f0becso1274195b6e.1
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 15:11:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1788559878; x=1789164678; darn=vger.kernel.org;
+        d=baylibre.com; s=google; t=1788559884; x=1789164684; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=9HoM0Lsd38dzgIye43DGA6aABLqWH/nbPq1XRZEAe5E=;
-        b=Mkgb7hR0v1OGhQmCiMzs9hEAtpgHYfnziMakyvMHpvyrzc9u+mh9pNXmPV0htOB/b1
-         Fj2PnEGf5kfnEEgs6Fh7vkhosgpxloPa/PiaQ5o3N/uQYVo9smS6JDBDcnKI2WCC8MSl
-         eUL3YrqbkxeClTKm1yeg0S5REXxBMlcZixVvDapru4PPlA/qONKZrQ5ykAKx63zUbd8L
-         wDunw2zTZZKgh7SYnx2WXfjWfDJQNpgksjpnl0N00rDwgESMrxbDsmYP3OWBANxIKwLB
-         Wazg50muZBPRVBeUeiRNbj6VLjaKZXSlg99B+Hmp82JKN3KkLxm8/m6Z5Tn+uxnlJ54i
-         he/w==
+        bh=oxj4NP1Iiq6S7QGXGCteoLSsgcXgpsaLfh9MJtp5gfo=;
+        b=kEXUa+jNsszt+1RTNnDYmbNl+SPwL4HoN7QcMbA5GMpIOzgdwvBlEfx48dTSAan0Oj
+         xdplGynd4TuoD8huD/vtMH/lxokEX3bnlKJ6AmCZZxCE5cEZa0bQzRTbyqtR0GpssX5q
+         hlnr1EX1hEKg21juGenQ+0SwbWn5+4lnem4L7aN8slhMC8QKuHcAo6rGBeGqABJ0KYxM
+         Pql7stQG93t8WWseg1otADND+E19hCapBCa81WcwbtW156AR8+oLyM9xza1nGANtXrMj
+         yLsmhluTNWCzi1yxomzSpAGKVDo6sy1gDwd1ktO0KqFajRY3BhPksBD17gKIk3nj8Vsa
+         EnYw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788559878; x=1789164678;
+        d=1e100.net; s=20251104; t=1788559884; x=1789164684;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=9HoM0Lsd38dzgIye43DGA6aABLqWH/nbPq1XRZEAe5E=;
-        b=RllIyf5wg9L4WD6/4qd12z6UwrJYtGXK/OX8POiF1X5c1rj30SfiK9YolvUoWART9f
-         ZKuPyU/5M7kB6PeNpfqnZQalrAfJjCSjSVkILjtjAP1AKYIIrF7D3VgCqQyHu4dGSYPW
-         X7NveKCYvi1ss6S54FDrxPHgcqD6ptdWodV3V4n4oZYxTlfEkUEB7A+lCFqbqqqpin5/
-         TSBDyBpOAIw9Ekju+mR91gP/ZvfduHdrPRwfBLySgm4n7584v3mbtzfl/ygAOKD0pEYH
-         tkp2hXCsa9W3ZcadbsDPvcWPutEdlKa3oVKBfiwaF7vcEdbP64SurhWue+mZG/keeXNN
-         xTvA==
-X-Forwarded-Encrypted: i=1; AKwUvBx9d/WL/6Q6lQYBmkt8Df9FzUjNYV4d0CuYaPKfTuUu9OXR90cZ+euvb5xwBy4vivzv6qw4ZMZmgnowPz4=@vger.kernel.org
-X-Gm-Message-State: AFuF++kKKmQ1BHhOnLHGZkBBDY7wC5oQyLFymWhiSmLwhFzXhxvkeiB1
-	urBAjdvOJTiQHc4Urb7sRu2R33iZf6WEH9sObjEXRkS5gQgZq7El5jetUhAOTdXJp6g=
-X-Gm-Gg: AYBFou2tYB0E3NFL9royR/v0+Wpt54aZDwNqbal8azmbrNs+i2vASuw+E2yub5HU5fI
-	T300lOYRagujk3RpXNQ4Cw1dW2EVcPIo7rb47wrGhvQNLiMrMkt/L5j6E+z3BEY+VneC6zzKmz4
-	eS+08u73FSms7b2onw1Rb7TyJY5kxijis8LAhRkvpvoiO22MDjd/n4bYAb8ttHHZ0NhRCZDmi48
-	n1qFggVbEzxlvnZiEBqOJ8CRfQGWtUJYaNEYNOraFtKZbUPY3pQJX5DOJyhquvWDmj9erIVShQw
-	FokNHwC/R+/KpGOLCnYFq9rNG4n16xmye7R+XiRqU4UUtv4V5RsEp4rVMqfs+5MAVFARQrPNVvE
-	ZTzke7pisUPfBTA/lVZ5yADIfDo1kArsP2EBm2vLJZfTZ83KnZwSYGmizcqnQaMaFtMlpKuJQjP
-	USlTjlAWjCD0ZGrFpCwz6qpZsHceprVUt405hB+AE9R4TNCmqewCgTWTkR0voLGvpt6g==
-X-Received: by 2002:a05:6808:1450:b0:4b9:e5fa:8906 with SMTP id 5614622812f47-4b9e5fa8e2dmr3891282b6e.25.1788559878050;
-        Fri, 04 Sep 2026 15:11:18 -0700 (PDT)
+        bh=oxj4NP1Iiq6S7QGXGCteoLSsgcXgpsaLfh9MJtp5gfo=;
+        b=J1mYjU2l4K4sry2ETkx1V1Fl3TU5UGY9u6JL6uLWp7P5xCLn8YFeLIPEZ/LQqt27kz
+         IcobbUSvJn5jUIJs4ofzdHEgLeRzbdQTXPHGPsldXUQBZr1i6VYNYKYVuEOEGWC2Ph4t
+         b1t31Wy6M19ANLUqB4GbXgklAq/Xyf2AC4ZhMSXJYljH/sx4N5D/N5VTHSS1epjXmel7
+         v1jH6NQ8KK14Bc2OuoQzYbMGkIwLcCpWup0bYiCy8SUTNvoCQlai22iRJhWxFPPEcNbm
+         c7m0jM3mQu1vX8HH5d8dapCDRHc4NmqHJ85YvLAx12yR3egxiRLImsB6F2kdt9YuLAjI
+         m7uQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxEBNohMTav9OTg61o26sxaOXPl/VBaxRH+TeXlSshZVKaIoYm26YYFZyoIiaKuHge7gBI5QnY/MpMTB1E=@vger.kernel.org
+X-Gm-Message-State: AFuF++nOTNL+M7P3eS7r4pkpQ008CrfkE/1FMrK00r21lj7N6Mycl1X+
+	S3sOPPQxtOpAx6JSKGGM/8Vbb4EdpMGeRgaQl4ooOUdi1pMTO+DwgvLJ1hrU3pYKNxQ=
+X-Gm-Gg: AYBFou0xLoGVXHNMfHs6jTmBTOtorfNCFzGfJBVfEq1vIX5Gm34FqO1GjdSBlDx5Gpx
+	PjhThDUX+FhbIcCx4qxRYI3bLZXwFBrOXQNl3ixTE80j8maNSUST3mLHrDm8uepmNi8HX2jQniu
+	Fi3HeOxvr9gqlN1CrrAkU2KX5f1uRhhx1wxYS+Ls0OMaG33T/jClodX0pAfN1a0Rzb18VmpngVD
+	trr79viAv1FkeXW7fMOnN7hbj8dTrsDz+2HrvUPLNCdzEjy2rlBmS1sJlUN4Q3ROWNFmvhZ15iN
+	CRwPtuStVb2XTwyV4PiO7kq0ja8f17A7ZgWkuxIr68mrx4FIvijYIZyJ4tmlm1EcEQGFxMLUuUw
+	lOVc7mmizcwlMwRBG+g6N0Kyq8s0xkPiIK2yBS79owu3INJFVjWT1vm4d4geaaa2Zx1zuSU4TgO
+	Aws39VVgHX7xBzX148OFenVxkeQpOQsl+da4UI0reoyvd22RoG1O6PmIy4SzwSNW4uMg==
+X-Received: by 2002:a05:6808:1406:b0:4b5:a7a3:25ee with SMTP id 5614622812f47-4b96252944fmr6559379b6e.20.1788559884399;
+        Fri, 04 Sep 2026 15:11:24 -0700 (PDT)
 Received: from [127.0.1.1] ([2600:8803:e7e4:500:4324:3ccf:e2bf:d545])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-4b970d1ff95sm3187113b6e.6.2026.09.04.15.11.17
+        by smtp.gmail.com with ESMTPSA id 5614622812f47-4b970d1ff95sm3187113b6e.6.2026.09.04.15.11.23
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 04 Sep 2026 15:11:17 -0700 (PDT)
+        Fri, 04 Sep 2026 15:11:23 -0700 (PDT)
 From: "David Lechner (TI)" <dlechner@baylibre.com>
-Date: Fri, 04 Sep 2026 17:09:49 -0500
-Subject: [PATCH v2 04/10] iio: adc: ti-ads112c14: add burnout current
- support
+Date: Fri, 04 Sep 2026 17:09:53 -0500
+Subject: [PATCH v2 08/10] iio: ABI: add sinc4+sinc1+pf1 filter_type
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -71,7 +70,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260904-iio-adc-ti-ads112c14-filter-support-v2-4-f86592360658@baylibre.com>
+Message-Id: <20260904-iio-adc-ti-ads112c14-filter-support-v2-8-f86592360658@baylibre.com>
 References: <20260904-iio-adc-ti-ads112c14-filter-support-v2-0-f86592360658@baylibre.com>
 In-Reply-To: <20260904-iio-adc-ti-ads112c14-filter-support-v2-0-f86592360658@baylibre.com>
 To: Jonathan Cameron <jic23@kernel.org>, 
@@ -81,252 +80,38 @@ Cc: Chris Hall <c-hall@ti.com>, Patrick Edwards <pedwards@ti.com>,
  Kurt Borja <kuurtb@gmail.com>, linux-iio@vger.kernel.org, 
  linux-kernel@vger.kernel.org, "David Lechner (TI)" <dlechner@baylibre.com>
 X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=8219; i=dlechner@baylibre.com;
- h=from:subject:message-id; bh=Deeaer94Jcor75gpy0lfZKp/okGWx/opCeDuktVE8UE=;
- b=owEBbQGS/pANAwAKAcLMIAH/AY/AAcsmYgBqm0HLI/LcF2uFgi749qeP4XAV2xYp7pM+IL06m
- ltn56+eUyuJATMEAAEKAB0WIQTsGNmeYg6D1pzYaJjCzCAB/wGPwAUCaptBywAKCRDCzCAB/wGP
- wNCXB/4kmgkZ2SJO9DpFYZJFLGhp5F1aWWkv/W80bs4CftaqCZePRqw6lv565QMYQ7IZN4z58n7
- FbKlDkJ+igL6/1kUhrSi8W/bP1ZTXOYKTvwbew9ow6wsUlInSnIzvaxidp7P9GiUdDch67taS+M
- x4eamqR5D/ZhA79lQTHIZB3zRNipSVK+yHabX27ufWbpUA+1BjW7KiyNMp0mtiEUx6J9C45u7bX
- r057J0D7dlNeCZuQvgEWIIwY/SPPclATdBxhXGVju9oU7rqvmqtl8YSzSCY8aaWKrrbBrJx3oh4
- aI/pNNcM+LuE+sUViOtXJlFCy04eknaVuCAFgNz3Ck0YDTAb
+X-Developer-Signature: v=1; a=openpgp-sha256; l=859; i=dlechner@baylibre.com;
+ h=from:subject:message-id; bh=4mIrQseGaDrWXOkGj+VmtS3xT3kzP+fkmkBCoKYUU7I=;
+ b=owEBbQGS/pANAwAKAcLMIAH/AY/AAcsmYgBqm0HlQXdNNIv6P1pCGYX3k0ytCkSsrBvRFD/gx
+ 8Xp0vh7buCJATMEAAEKAB0WIQTsGNmeYg6D1pzYaJjCzCAB/wGPwAUCaptB5QAKCRDCzCAB/wGP
+ wOjrB/wP+pIBS0ZXanR7Fag75lIXHQ8UPkpwn3bDpjabLNeuTguY43lX/pl3e5xPSXNgq2n8JmD
+ 7IM5RXzKz/vQupNeKlsz+iAbseCmomlK4hVfkMzus/pUb+wpWpOTAlTQN5v0z//RJmG8ocka2bZ
+ kQjgPg4pKRmrQzpyFYyD1ss42q7k+JKcJTY9bukatphXZKGU7g/pIpPpBkIjPllx9ZZN8MHAP6I
+ H2YevGAlw6t4zFIyP/MOZ6kr5Vy0xtsQJnEoVYbxlyLUYh54wrfCcVf6V7ZFVBws0edtP3zTrcm
+ trxOOshaBjbYzagMhFWzAn8/db8LvuCDK+SGkiVeS1SXnq+b
 X-Developer-Key: i=dlechner@baylibre.com; a=openpgp;
  fpr=8A73D82A6A1F509907F373881F8AF88C82F77C03
 
-Add a custom attribute via ext_info when a channel has a burnout current
-specified in the devicetree. This adds an in_{voltageY,resistanceY,
-voltageY-voltageX}_burnoutraw sysfs attribute for the channel that
-performs a single conversion (same as _raw attribute) except that it
-enables the burnout current. The chip also has a restriction that input
-chopping cannot be enabled when burnout current is enabled, so we also
-disable input chopping when burnout current is active.
+Document "sinc4+sinc1+pf1" as a valid value for the filter_type
+attributes (used by the ti-ads112c14 driver).
 
 Signed-off-by: David Lechner (TI) <dlechner@baylibre.com>
 ---
- drivers/iio/adc/ti-ads112c14.c | 125 ++++++++++++++++++++++++++++++++++++++---
- 1 file changed, 116 insertions(+), 9 deletions(-)
+ Documentation/ABI/testing/sysfs-bus-iio | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/iio/adc/ti-ads112c14.c b/drivers/iio/adc/ti-ads112c14.c
-index 06b962fbde5e..c03789c3d95e 100644
---- a/drivers/iio/adc/ti-ads112c14.c
-+++ b/drivers/iio/adc/ti-ads112c14.c
-@@ -76,6 +76,11 @@
- #define   ADS112C14_DEVICE_CFG_PWDN			BIT(7)
- #define   ADS112C14_DEVICE_CFG_STBY_MODE		BIT(6)
- #define   ADS112C14_DEVICE_CFG_BOCS			GENMASK(5, 4)
-+#define     ADS112C14_DEVICE_CFG_BOCS_DISABLED		  0
-+#define     ADS112C14_DEVICE_CFG_BOCS_200_nA		  1
-+#define     ADS112C14_DEVICE_CFG_BOCS_1_uA		  2
-+#define     ADS112C14_DEVICE_CFG_BOCS_10_uA		  3
-+
- #define   ADS112C14_DEVICE_CFG_CLK_SEL			BIT(3)
- #define   ADS112C14_DEVICE_CFG_CONV_MODE		BIT(2)
- #define     ADS112C14_DEVICE_CFG_CONV_MODE_CONTINUOUS	  0
-@@ -251,6 +256,7 @@ struct ads112c14_measurement {
- 	u8 idac2_mux;
- 	u8 iadc_count;
- 	u8 gain_val;
-+	u8 burnout;
- 	bool global_chop;
- 	bool bipolar;
- 	int scale_available[ARRAY_SIZE(ads112c14_pga_gains_x10)][2];
-@@ -461,7 +467,8 @@ static const struct regmap_config ads112c14_regmap_config = {
- };
- 
- static int ads112c14_prepare_measurement_channel(struct ads112c14_data *data,
--						 const struct iio_chan_spec *chan)
-+						 const struct iio_chan_spec *chan,
-+						 bool en_burnout)
- {
- 	struct ads112c14_measurement *measurement = &data->measurements[chan->scan_index];
- 	u32 refp_buf_en, refn_buf_en, ref_val, ref_sel;
-@@ -515,7 +522,8 @@ static int ads112c14_prepare_measurement_channel(struct ads112c14_data *data,
- 	ret = regmap_update_bits(data->regmap, ADS112C14_REG_DATA_RATE_CFG,
- 				 ADS112C14_DATA_RATE_CFG_GC_EN,
- 				 FIELD_PREP(ADS112C14_DATA_RATE_CFG_GC_EN,
--					    measurement->global_chop));
-+					    (measurement->global_chop &&
-+					     !en_burnout) ? 1 : 0));
- 	if (ret)
- 		return ret;
- 
-@@ -613,10 +621,11 @@ static int ads112c14_prepare_sys_mon_channel(struct ads112c14_data *data,
- }
- 
- static int ads112c14_prepare_channel(struct ads112c14_data *data,
--				     const struct iio_chan_spec *chan)
-+				     const struct iio_chan_spec *chan,
-+				     bool en_burnout)
- {
- 	if (chan->channel < ADS112C14_SYS_MON_CHANNEL_BASE)
--		return ads112c14_prepare_measurement_channel(data, chan);
-+		return ads112c14_prepare_measurement_channel(data, chan, en_burnout);
- 
- 	return ads112c14_prepare_sys_mon_channel(data, chan);
- }
-@@ -674,14 +683,14 @@ static int ads112c14_wait_for_conversion_poll(struct ads112c14_data *data)
- 
- static int ads112c14_single_conversion(struct ads112c14_data *data,
- 				       const struct iio_chan_spec *chan,
--				       u8 *buf, bool for_scan)
-+				       u8 *buf, bool en_burnout, bool for_scan)
- {
- 	struct i2c_client *client = to_i2c_client(regmap_get_device(data->regmap));
- 	int ret;
- 
- 	guard(mutex)(&data->lock);
- 
--	ret = ads112c14_prepare_channel(data, chan);
-+	ret = ads112c14_prepare_channel(data, chan, en_burnout);
- 	if (ret)
- 		return ret;
- 
-@@ -742,7 +751,7 @@ static int ads112c14_read_raw(struct iio_dev *indio_dev,
- 		if (IIO_DEV_ACQUIRE_FAILED(claim))
- 			return -EBUSY;
- 
--		ret = ads112c14_single_conversion(data, chan, buf, false);
-+		ret = ads112c14_single_conversion(data, chan, buf, false, false);
- 		if (ret)
- 			return ret;
- 
-@@ -1030,7 +1039,7 @@ static irqreturn_t ads112c14_trigger_handler(int irq, void *private)
- 
- 		ret = ads112c14_single_conversion(data, chan,
- 						  (u8 *)&data->scan[offset++],
--						  true);
-+						  false, true);
- 		if (ret) {
- 			dev_err_once(indio_dev->dev.parent,
- 				     "failed to read channel %d: %pe; additional errors will be suppressed\n",
-@@ -1072,7 +1081,7 @@ static int ads112c14_buffer_postenable(struct iio_dev *indio_dev)
- 
- 	guard(mutex)(&data->lock);
- 
--	ret = ads112c14_prepare_channel(data, chan);
-+	ret = ads112c14_prepare_channel(data, chan, false);
- 	if (ret)
- 		return ret;
- 
-@@ -1127,6 +1136,74 @@ static const struct iio_buffer_setup_ops ads112c14_buffer_setup_ops = {
- 	.predisable = ads112c14_buffer_predisable,
- };
- 
-+static ssize_t ads112c14_read_burnout_raw(struct iio_dev *indio_dev,
-+					  uintptr_t private,
-+					  struct iio_chan_spec const *chan,
-+					  char *buf)
-+{
-+	struct ads112c14_data *data = iio_priv(indio_dev);
-+	struct ads112c14_measurement *measurement;
-+	int ret, ret2, val;
-+	u8 raw_buf[3];
-+
-+	if (chan->channel >= ADS112C14_SYS_MON_CHANNEL_BASE)
-+		return -EINVAL;
-+
-+	measurement = &data->measurements[chan->scan_index];
-+	if (!measurement->burnout)
-+		return -EINVAL;
-+
-+	IIO_DEV_ACQUIRE_DIRECT_MODE(indio_dev, claim);
-+	if (IIO_DEV_ACQUIRE_FAILED(claim))
-+		return -EBUSY;
-+
-+	ret = regmap_update_bits(data->regmap, ADS112C14_REG_DEVICE_CFG,
-+				 ADS112C14_DEVICE_CFG_BOCS,
-+				 FIELD_PREP(ADS112C14_DEVICE_CFG_BOCS,
-+					    measurement->burnout));
-+	if (ret)
-+		return ret;
-+
-+	ret = ads112c14_single_conversion(data, chan, raw_buf, true, false);
-+
-+	/*
-+	 * Important to always turn off burnout current even if the conversion
-+	 * fails so that it does not affect subsequent measurements.
-+	 */
-+	ret2 = regmap_update_bits(data->regmap, ADS112C14_REG_DEVICE_CFG,
-+				  ADS112C14_DEVICE_CFG_BOCS,
-+				  FIELD_PREP(ADS112C14_DEVICE_CFG_BOCS,
-+					     ADS112C14_DEVICE_CFG_BOCS_DISABLED));
-+	if (ret < 0)
-+		return ret;
-+	if (ret2)
-+		return ret2;
-+
-+	switch (data->chip_info->resolution_bits) {
-+	case 16:
-+		val = get_unaligned_be16(raw_buf);
-+		break;
-+	case 24:
-+		val = get_unaligned_be24(raw_buf);
-+		break;
-+	default:
-+		return -EINVAL;
-+	}
-+
-+	if (measurement->bipolar)
-+		val = sign_extend32(val, data->chip_info->resolution_bits - 1);
-+
-+	return sysfs_emit(buf, "%d\n", val);
-+}
-+
-+static const struct iio_chan_spec_ext_info ads112c14_ext_info_burnout[] = {
-+	{
-+		.name = "burnoutraw",
-+		.read = ads112c14_read_burnout_raw,
-+	},
-+	{ }
-+};
-+
- static int ads112c14_populate_idac_mag(u32 current_nA, u8 *idac_mag)
- {
- 	u32 current_uA = current_nA / (NANO / MICRO);
-@@ -1172,6 +1249,7 @@ static int ads112c14_parse_channels(struct iio_dev *indio_dev,
- 	device_for_each_named_child_node_scoped(dev, child, "channel") {
- 		struct ads112c14_measurement *measurement = &data->measurements[i];
- 		struct iio_chan_spec *spec = &channels[i];
-+		const char *propname;
- 
- 		spec->indexed = 1;
- 		spec->scan_index = i;
-@@ -1295,6 +1373,35 @@ static int ads112c14_parse_channels(struct iio_dev *indio_dev,
- 		measurement->global_chop = fwnode_property_read_bool(child,
- 								     "input-chopping");
- 
-+		propname = "burn-out-current-nanoamp";
-+		if (fwnode_property_present(child, propname)) {
-+			u32 burnout_nA;
-+
-+			ret = fwnode_property_read_u32(child, propname, &burnout_nA);
-+			if (ret)
-+				return dev_err_probe(dev, ret,
-+						     "failed to read %s property\n",
-+						     propname);
-+
-+			switch (burnout_nA) {
-+			case 200:
-+				measurement->burnout = ADS112C14_DEVICE_CFG_BOCS_200_nA;
-+				break;
-+			case 1000:
-+				measurement->burnout = ADS112C14_DEVICE_CFG_BOCS_1_uA;
-+				break;
-+			case 10000:
-+				measurement->burnout = ADS112C14_DEVICE_CFG_BOCS_10_uA;
-+				break;
-+			default:
-+				return dev_err_probe(dev, -EINVAL,
-+						     "invalid %s value\n", propname);
-+			}
-+
-+			if (measurement->burnout != ADS112C14_DEVICE_CFG_BOCS_DISABLED)
-+				spec->ext_info = ads112c14_ext_info_burnout;
-+		}
-+
- 		if (fwnode_property_present(child, "reference-sources")) {
- 			ret = fwnode_property_match_property_string(child,
- 				"reference-sources", ads112c14_vref_source_names,
+diff --git a/Documentation/ABI/testing/sysfs-bus-iio b/Documentation/ABI/testing/sysfs-bus-iio
+index a4f5595722ad..a8e1cb8e7490 100644
+--- a/Documentation/ABI/testing/sysfs-bus-iio
++++ b/Documentation/ABI/testing/sysfs-bus-iio
+@@ -2380,6 +2380,7 @@ Description:
+ 		* "sinc4+lp" - Sinc4 + Low Pass Filter.
+ 		* "sinc4+sinc1" - Sinc4 + averaging by 8. Low 1st conversion
+ 		  time.
++		* "sinc4+sinc1+pf1" - Sinc4 + Sinc1 + device specific Post Filter 1.
+ 		* "sinc4+rej60" - Sinc4 + 60Hz rejection.
+ 		* "sinc5" - The digital sinc5 filter. Excellent noise
+ 		  performance
 
 -- 
 2.43.0
