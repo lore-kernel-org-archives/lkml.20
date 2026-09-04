@@ -1,136 +1,153 @@
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
+Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9004517BC3
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 18:55:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B27FB446067
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 18:59:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788548149; cv=none; b=JYvD+Frdatc4s8nNpapUdtKUfrSTMxQqqOmOhDBhuFiGS6tHok9dRp+4qsSOyjNZvoDhM6bMqWXAsO1iGejdugfLGdurdbmHaBbJtpJbPMxEs07GObQvcaWJK1sDp8UEsq57KJMmwUaMng//JyX4l/sTwg/5UWH1m6/CdzaZEGw=
+	t=1788548401; cv=none; b=LFpyv606IwmtJcbuLDd1lT3SEtM3bj2ledaHnSeP0TcaSWTFDh4ps8LD5bgfnllMznz7g0t+MFshr9FTNluOHl0VaFbbTR84XaIRyyfWMwuodCcQ6ITywzqt0LnJX1wQ5z6LkhsK5IXFS+OZFDU+ORTZihfJizcpIxYf/uZysvs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788548149; c=relaxed/simple;
-	bh=0NORGIkug1vpAvzWXIzBHkSvbxPib6PIHpFRP5Q7Op0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=TlvoQvBN3TNIjGtOOgBhHupGP3O4ogGzvndQnzLvKZknKz/ThXOoWZ/js11yNTme/KXWi7cNyrapgBR7N/+Fx5otxPJ5PpoNpP1QLdEUSt3jWUl/Fw9AuohzhDIt7F4sPmEHiNvrrivZ4XggSg6s1SG+YuFbZXHyPsdDMkmD2t4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=lex.la; spf=pass smtp.mailfrom=lex.la; dkim=pass (2048-bit key) header.d=lex.la header.i=@lex.la header.b=kyzONtvo; arc=none smtp.client-ip=209.85.128.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=lex.la
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lex.la
+	s=arc-20240116; t=1788548401; c=relaxed/simple;
+	bh=QfIOm9qjscdWeWlm04aDK//HpPrtUmsRY+AmxoetIe8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=J3ch5t0QDt4XnoLSk4o1oVgZiFlZc+btiN2AUifT8vZh2ikvntmPp330aAzzu/h8oSqchke0nKeC3x57O0gEEOez9qolHWnXcdoNQsMLM8XQ0KnP2/4LvUr5j8oV286AmfEYTiugI6vg6uknfldEC7nsWe/K+3MDxCgB9Xuebrw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Tfon+UEt; arc=none smtp.client-ip=209.85.221.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=lex.la header.i=@lex.la header.b="kyzONtvo"
-Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-49b0d78a801so13136615e9.2
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 11:55:47 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Tfon+UEt"
+Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-47f96c5b722so935789f8f.0
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 11:59:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=lex.la; s=google; t=1788548146; x=1789152946; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=770Nkcotd4mXRhWdRLFuBCumpZlPw+psjVw7wcTW4Fg=;
-        b=kyzONtvohE/icR0rf2joY+yH7xsM2DrOWvSliBbQFPg4ouzaO8qGCL9/ws3c0Yoocf
-         wn3SMAG08vIgtoQzi58Pnnx1pxmw7KA5dal/jfaRL3+euwh8KqAqa7rUgeFP0FX7S3ih
-         e+m+VTWoXbWgvgpwPrTg4L1DA1bOw4P3ey+j7u45H0CrgSSMFZG/Q6DD1QyhWAkiJHCU
-         EIgd7Hr2wSPfi6TPLDztLOhQ9ytiyHkzjp/DMN46qQs3+11Bo9xWEHCbcAQ0BId8e+3t
-         0s8JzBfAvx7knC8BztjEKLgxsK0N3x4QNd8Bjs18tI0d0x8e+EsBE+SBkrEnnTgRPTMP
-         ckxw==
+        d=gmail.com; s=20251104; t=1788548396; x=1789153196; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:sender:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=ejK+DzZdkjdTSZQ6HpLTpLuVFk/6KLPxLDA+OP9jq3o=;
+        b=Tfon+UEtBWMtGM6GrsprOJLv7FY7idUqS59Gd653woEv7OmIMi/xkIeqkKVtOyz+wY
+         kYmgHTeZW9BGhLvWXVbne9s9ozXiAA1hyHz2QTHcmwdYs3GVRVq59x3VW5+TSqd0TAJz
+         iCTkrlj1pqS2V3eQn8vE7mQaiKtKGQ6yW98tSoRXh8Je+lYD/3N5mG3REOKZU5I2SyUy
+         5Hrf2nTr6RQn54cNNJVK1phH6Fq+8GRA5icMXrPMst4mVRbLk7nRz2uRhR+ZHfdOTNxd
+         WGghj6Gb0aXxoLR0D4eSsPw6zu5HiY5NNkx+B+VvxLUWUkrGT/1x2vvHS14UJURbk153
+         bHLQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788548146; x=1789152946;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=770Nkcotd4mXRhWdRLFuBCumpZlPw+psjVw7wcTW4Fg=;
-        b=ANeYnID9JM3RQLnNtueEd59N6rWAF8RhbgDHg9l1LzNZnt5J42Wd1WvxwInVysz+t4
-         peBY22urOhKH3w0yDEhcGc9hobOH90kc4+nk5lTwRy+S3V2pU1M7bXKZVpGec8Z0LB6P
-         jRE+51t48HdxdTR/r2KgyOkWsNegaBchQUlV5/8ERVjtV3TPqmMBMfiBnt4OcAbuqnth
-         FpG0aY7PhP/7EwlL7SpL4QzejvZujk9H7LUZQi1D6leaJRwe9FiQUU17nh4HHRPRg6qW
-         FlpHomMhM0wMWyWPyo4Gu/TcAinPzWuRdzFlBdxpNILGlxqs6TCOuYBvIahlKKEj77c6
-         gaGA==
-X-Forwarded-Encrypted: i=1; AKwUvBwWszesAfJnJe0MwCstRHWbd2+EZith4S+LTjmXWo+f7voLlH1huG82wMrI6i4lmQeRJmLAEbM/rin9Kp4=@vger.kernel.org
-X-Gm-Message-State: AFuF++lH3HoJ8uOOwHrSRVjACNN4CEdaGV0Wsj8lNo2jer5tFu0KrarL
-	jFgh/eJdtvqJ/H98Iw+gOalRaYKT62LrUGz87L55DFH5lD1PRrwSM6qfPHqOEZraUvI=
-X-Gm-Gg: AYBFou0CV6f/szLt90EFl4CmFnyJJxh3dpftX4p77e8mmkc+bg4hYIssPnI6D1u837m
-	IdRMVinHhl4lHE1tTnzd5meiuT6itLtoMSVpGilEsCKjo1pXy9G34r06W/t51Y4t+580mgEct3o
-	HPYqv9eUZcqGPWG2kjs89YHa4IPhv2iGgXoUeR6Xx2pyLlffhRZtRzSIdoJcAPtkS7LCfo5zKyG
-	HnYa4+pQ1+4Q3WAWbVr7qdaMd4tRN9Af1sJXT5VkhcQlaJAiIqzGeQhQhowv45D37Ureykd74Qc
-	9hhBOnzWXjA/UfC5/seXK9Ieht1OdEBtN5f9FA0Z23LawM+l0CMs8XYWXN9SFPgB8+feEZiQonB
-	FMEweUyONF99eddQ3PZ/ybQ6rMf/aS9AazB1lCFXRYWWmwgh4p0HY7nR3aSqsj9756GL3Pq3L3X
-	rileFrR6sGT66gp7OLnCVzpr+bn5/wTDUJ7Vdf0js=
-X-Received: by 2002:a05:600c:19cf:b0:499:726a:a017 with SMTP id 5b1f17b1804b1-49cf7fe601bmr74931135e9.1.1788548145720;
-        Fri, 04 Sep 2026 11:55:45 -0700 (PDT)
-Received: from remote-01 ([84.17.55.227])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cfd3f815bsm40176455e9.4.2026.09.04.11.55.44
+        d=1e100.net; s=20251104; t=1788548396; x=1789153196;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:sender:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=ejK+DzZdkjdTSZQ6HpLTpLuVFk/6KLPxLDA+OP9jq3o=;
+        b=KOJFKBRbMWhCYzUY5c7d+i+9b63p7oowlMxVyZcfhXjqbvgwhcohABBrZztEhLbKzu
+         CH9Hr3MnYOq7yo9VaSLt/sOJHXsgSLuLk8vtbnnTj3T3ZVRdNANi8fd9i3kj5OXqlQjc
+         3WYW2Po98RCvP8OLV3+3o3eqggrwCjPF9UnheJJKp4+SPqIHtQkyBCfQwArrDSrCcpva
+         07HY4NxAbSUVgR8oes2mOlahQnx2CgU7fwPaz1PRf7lw88DzVDUdbZYuXnI57BFuSSed
+         i5q8c0A5GltSxTbjSgfK6getWsxvUrwwBGm8SVPNRRswaGtK3mwoqxFWqCO+QZ35PhAe
+         AoXg==
+X-Gm-Message-State: AFuF++kCHqpm0ENIvCWzg6c8UoklrBXprqMLHYJsReWltUIc21FlUEPg
+	5ifLcw5OBCc0Nl/AMH8z9OmzmMgxFBf9dbrFBGqQEQ6azDx1Fyusuvg=
+X-Gm-Gg: AYBFou3sUm+vEWxMQL3ON5s7FxMg4s8HQJqdk99Nqcfq1M1RP2nLkSUB6pmvwhTrBSu
+	ZITNcHXr0kpq0l/1xlyWr3vR1xdw/57dJ0JdFSa3KVOMcOWxzYthM/RTj8PfP/bCYwZNEUUhIhM
+	xqz93H/Dx1w5IeLiFKCiXqnJJcP43+8mE1lUnsCy6QNflkh50Lc0yzjI15kiDk5nq9L2mMIyoGg
+	gXvQ/InVcSfOyBXSyY9rcYSRxcPHe/z/v3xiod/WlTiPLGJoU6F595y9MN1wRsxeWQlT5vrs5Wx
+	Jw7jLew6jScMWGabgoCT9tsrvrK9YuE1esmm/IReunK2rIAFqeGGOs6QAFXYf14Dq8qsBdheAkm
+	ar/R1TbXiycKMuFMRj1xazrpBo7b1TkVEWAVrxAZWvTBGQ0XEQ6H2IhTHCVxfMevUkIepAhsUZy
+	b4PNH5Hwfb7AZDXUcS2l4xV1/MrfxOvM4HSjSUwWhL7o//qTXMl5lzGtPwg8LsZHBdUel765o0r
+	g9uIunlPG/LUiTrBqRK9oeDUCeMYTOtP1p1/gQ4NLE1A7qVBAXE83H6qvgs1bgJOnA0uonSpelA
+	w2oV
+X-Received: by 2002:a05:6000:2c09:b0:484:3621:6341 with SMTP id ffacd0b85a97d-4858729b772mr9957701f8f.15.1788548395612;
+        Fri, 04 Sep 2026 11:59:55 -0700 (PDT)
+Received: from nn ([2001:1ab8:1003:0:5454:f357:ba89:4e22])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4858d2693e8sm4752822f8f.3.2026.09.04.11.59.54
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 04 Sep 2026 11:55:45 -0700 (PDT)
-From: Aleksei Sviridkin <f@lex.la>
-To: Andrew Lunn <andrew@lunn.ch>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	Russell King <linux@armlinux.org.uk>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>
-Cc: Vladimir Oltean <vladimir.oltean@nxp.com>,
-	"Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH net] net: phylink: initialise link_state before a forced major config
-Date: Fri,  4 Sep 2026 18:55:40 +0000
-Message-ID: <20260904185540.2844261-1-f@lex.la>
-X-Mailer: git-send-email 2.53.0
+        Fri, 04 Sep 2026 11:59:54 -0700 (PDT)
+Sender: N B <gen.benner@gmail.com>
+From: =?UTF-8?q?Nerijus=20Bend=C5=BEi=C5=ABnas?= <nerijus.bendziunas@gmail.com>
+To: =?UTF-8?q?Toke=20H=C3=B8iland-J=C3=B8rgensen?= <toke@toke.dk>,
+	linux-wireless@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Subject: [PATCH v2] wifi: ath9k_htc: count length-discarded frames in the RX stats
+Date: Fri,  4 Sep 2026 21:59:46 +0300
+Message-ID: <20260904185946.813562-1-nerijus.bendziunas@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-phylink_resolve() leaves link_state on the stack unpopulated on its
-disable and link-failed branches, which set only link_state.link.
-phylink_apply_manual_flow() then reads the struct's advertising on
-every mode but MLO_AN_FIXED, and has done so since long before
-force_major_config existed.
+ath9k_rx_prepare() drops short and malformed frames with a log message
+and nothing counts them, so a burst of drops cannot be told apart from
+a quiet link in the statistics. The recv debugfs file already prints
+rx_len_err in its LENGTH-ERR line, but nothing increments it on
+ath9k_htc.
 
-force_major_config turns that into a write to the hardware. It is the
-only trigger for the major-config block that does not require
-mac_config, so phylink_major_config() programs the MAC for whatever
-the stack held, a zeroed interface is PHY_INTERFACE_MODE_NA, and the
-write-back stores it in pl->link_config.interface.
+Count the three length drops in rx_stats.rx_len_err so the existing
+line reports them.
 
-phylink_replay_link_end() is the only in-tree setter, and
-sja1105_static_config_reload() calls it for every port that has a
-phylink instance, regardless of admin state. On a stopped port
-phylink_run_resolve() no-ops, so the flag outlives the call. The next
-resolve consumes it whatever branch it takes; an unpopulated branch is
-where that does damage.
-
-Found while developing a series that attaches a late PHY from a
-delayed work item and sets this flag there, so the PHY attached after
-its port was already up. The link stayed down until the port was
-cycled 29 minutes later. With this patch on the same board the same
-attach programs the MAC for 2500base-x rather than unknown, and the
-PHY's interrupt fires without a port bounce where it had stayed at
-zero throughout the failure.
-
-Fixes: 96969b132bf1 ("net: phylink: introduce helpers for replaying link callbacks")
-Assisted-by: LLM
-Signed-off-by: Aleksei Sviridkin <f@lex.la>
+Assisted-by: Claude:claude-fable-5-1
+Signed-off-by: Nerijus Bendžiūnas <nerijus.bendziunas@gmail.com>
 ---
- drivers/net/phy/phylink.c | 2 ++
- 1 file changed, 2 insertions(+)
+Changes in v2:
+- Sent on its own; in v1 this was patch 2/2 of "cope with lost WMI
+  reads", which it has nothing to do with.
+- Add Assisted-by, rewrite the commit message, rebase onto ath-next. No
+  code change.
 
-diff --git a/drivers/net/phy/phylink.c b/drivers/net/phy/phylink.c
-index 3ec3bb439109..a1458da8111b 100644
---- a/drivers/net/phy/phylink.c
-+++ b/drivers/net/phy/phylink.c
-@@ -1630,8 +1630,10 @@ static void phylink_resolve(struct work_struct *w)
+ drivers/net/wireless/ath/ath9k/htc.h          | 2 ++
+ drivers/net/wireless/ath/ath9k/htc_drv_txrx.c | 3 +++
+ 2 files changed, 5 insertions(+)
+
+diff --git a/drivers/net/wireless/ath/ath9k/htc.h b/drivers/net/wireless/ath/ath9k/htc.h
+index 6c33e898b300..0bdb300f0ad7 100644
+--- a/drivers/net/wireless/ath/ath9k/htc.h
++++ b/drivers/net/wireless/ath/ath9k/htc.h
+@@ -328,6 +328,7 @@ static inline struct ath9k_htc_tx_ctl *HTC_SKB_CB(struct sk_buff *skb)
+ #ifdef CONFIG_ATH9K_HTC_DEBUGFS
+ #define __STAT_SAFE(hif_dev, expr)	do { ((hif_dev)->htc_handle->drv_priv ? (expr) : 0); } while (0)
+ #define CAB_STAT_INC(priv)		do { ((priv)->debug.tx_stats.cab_queued++); } while (0)
++#define RX_LEN_ERR_INC(priv)		((priv)->debug.rx_stats.rx_len_err++)
+ #define TX_QSTAT_INC(priv, q)		do { ((priv)->debug.tx_stats.queue_stats[q]++); } while (0)
  
- 	if (pl->phylink_disable_state) {
- 		pl->link_failed = false;
-+		link_state = pl->link_config;
- 		link_state.link = false;
- 	} else if (pl->link_failed) {
-+		link_state = pl->link_config;
- 		link_state.link = false;
- 		retrigger = true;
- 	} else if (pl->act_link_an_mode == MLO_AN_FIXED) {
+ #define TX_STAT_INC(hif_dev, c) \
+@@ -383,6 +384,7 @@ void ath9k_htc_get_et_stats(struct ieee80211_hw *hw,
+ #define RX_STAT_ADD(hif_dev, c, a)	do { } while (0)
+ 
+ #define CAB_STAT_INC(priv)
++#define RX_LEN_ERR_INC(priv)
+ #define TX_QSTAT_INC(priv, c)
+ 
+ static inline void ath9k_htc_err_stat_rx(struct ath9k_htc_priv *priv,
+diff --git a/drivers/net/wireless/ath/ath9k/htc_drv_txrx.c b/drivers/net/wireless/ath/ath9k/htc_drv_txrx.c
+index bed7ea2425a0..3c1e4fad5ad1 100644
+--- a/drivers/net/wireless/ath/ath9k/htc_drv_txrx.c
++++ b/drivers/net/wireless/ath/ath9k/htc_drv_txrx.c
+@@ -988,6 +988,7 @@ static bool ath9k_rx_prepare(struct ath9k_htc_priv *priv,
+ 	if (skb->len < HTC_RX_FRAME_HEADER_SIZE) {
+ 		ath_err(common, "Corrupted RX frame, dropping (len: %d)\n",
+ 			skb->len);
++		RX_LEN_ERR_INC(priv);
+ 		goto rx_next;
+ 	}
+ 
+@@ -999,6 +1000,7 @@ static bool ath9k_rx_prepare(struct ath9k_htc_priv *priv,
+ 		ath_err(common,
+ 			"Corrupted RX data len, dropping (dlen: %d, skblen: %d)\n",
+ 			rs_datalen, skb->len);
++		RX_LEN_ERR_INC(priv);
+ 		goto rx_next;
+ 	}
+ 
+@@ -1011,6 +1013,7 @@ static bool ath9k_rx_prepare(struct ath9k_htc_priv *priv,
+ 		ath_dbg(common, ANY,
+ 			"Short RX data len, dropping (dlen: %d)\n",
+ 			rs_datalen);
++		RX_LEN_ERR_INC(priv);
+ 		goto rx_next;
+ 	}
+ 
 
-base-commit: 641d03105cc0d2437e32fdeec164f91a4ccef6c4
+base-commit: 1d8e73163ef933624341075f576e2f36ef9133f7
 -- 
-2.53.0
+2.55.0
 
