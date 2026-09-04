@@ -1,74 +1,83 @@
-Received: from out30-111.freemail.mail.aliyun.com (out30-111.freemail.mail.aliyun.com [115.124.30.111])
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.3])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43BFB32143D
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 02:38:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.111
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59098274FD1
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 02:38:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.3
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788489504; cv=none; b=V6AoocmCzJofY5Y0tWMFXeEZVJN6+MAsMylRyBNFDfrulyfxIcIdmHbAoim3b/X9F3BuaOo/gNLcU1EvVXZnGbJxaDzyhxENCpb09TeG3miv5jdI1WZ3kVt+Sb7XVXogoUrynvJNNtXGiV8ILZGU0nFwpk3x7fq0D2qkeHIDZTw=
+	t=1788489525; cv=none; b=ZTj2KGHOy5rSVMSm+WO1tS4Ax9QbBjsaL6Yl23D26KGdEhVnVaPXq6H+9AgFqUHOsS2BWe4GQtlNUlYkm2nTthVAil8hlT9pds6Z8smcK8IQQg6rU1MQrnjJ6fpHvlKSmDT3EvR2sUvwDzEZFjYm0cuTPOLpVsBSdIsZDBoZTn4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788489504; c=relaxed/simple;
-	bh=NZvrE3f4qBvniBtxQ7hbL/KmGZVos+phA6Orddec4Fs=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=J+K5MEm/Llzs6YcBL/3kYQAvAGFUvivoAfCpTSIaNrXiiX+Wo8EsNN9P6V+O9vYzCpUco41zhZ4N+DEJqGSCQoyzZ5nTlB6dAo9VK1YO44zCwlQkU/w8G0FIVlOz0ekyNfDJcm8lB5o+ozynKRXy7b1LSG4o8MWpa2VTzvquRmM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=qjPohMq8; arc=none smtp.client-ip=115.124.30.111
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	s=arc-20240116; t=1788489525; c=relaxed/simple;
+	bh=0bGq7sU8qZSEyxyWfBBpggJ5z9LnMGTnpYkjjyeQWlM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=oXDyXb8YEgo5dwLNGO43l8alxh596XwPglqNYPIuolpJaysCQW0vMzNO2+ljnBx6cWIh6PK+ZqgpcFOI6LKFjRufcAIrSEjsyuHSbbNqqE1/VAsaKL9RkQTSSOKUZ2aulCnmiVl++Can5kRVctCXUH/zaElWr0U/s5/+zqsWlzs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=fbj6maN0; arc=none smtp.client-ip=117.135.210.3
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="qjPohMq8"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1788489494; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
-	bh=1iDbS/2opdWj5daik4HnLoHkAw0htao1fAwdVPxrQ6Q=;
-	b=qjPohMq8L4HHw3RJRIhLCiAJwW6xe5iJYEx03iuM+YYT7digHisecPeEuRJso4lOQtw1OF4PsvMXeiuUiUUGrCeilQXQR14tz/s/HVTHj/BhqMIj4DSDSefm0sODI3k0knoVd4tx88z5aqlWCSG1MZso2oxZdcBjjBjYNokXAQI=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R121e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033045098064;MF=baolin.wang@linux.alibaba.com;NM=1;PH=DS;RN=22;SR=0;TI=SMTPD_---0XAHJ71n_1788489491;
-Received: from 30.74.144.116(mailfrom:baolin.wang@linux.alibaba.com fp:SMTPD_---0XAHJ71n_1788489491 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Fri, 04 Sep 2026 10:38:12 +0800
-Message-ID: <9d4b2f36-5fd1-47e4-9f35-a3fef2913bb1@linux.alibaba.com>
-Date: Fri, 4 Sep 2026 10:38:11 +0800
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="fbj6maN0"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=0b
+	Gq7sU8qZSEyxyWfBBpggJ5z9LnMGTnpYkjjyeQWlM=; b=fbj6maN0czwt919mHo
+	ISwaKZlydnTej9TxwCjUyxHqbkiYDqufx5gfR/iuh+xKOtHjsmo93C8FL5gyv6p3
+	Rc/9YLb+A9eTDOR8s7wZr7Q0rj30Xc+6qgIfozwKfp4IvQLcXLIhBiI2WBN0a+Or
+	rdCOHoP+p8E5xQbbAOkjVVjeU=
+Received: from localhost (unknown [])
+	by gzsmtp2 (Coremail) with SMTP id PSgvCgBHE_rRLppqOkclOg--.47269S2;
+	Fri, 04 Sep 2026 10:37:06 +0800 (CST)
+From: Hui Su <sh_def@163.com>
+To: tj@kernel.org
+Cc: mingo@redhat.com,
+	peterz@infradead.org,
+	juri.lelli@redhat.com,
+	vincent.guittot@linaro.org,
+	dietmar.eggemann@arm.com,
+	rostedt@goodmis.org,
+	bsegall@google.com,
+	mgorman@suse.de,
+	vschneid@redhat.com,
+	kprateek.nayak@amd.com,
+	jstultz@google.com,
+	hannes@cmpxchg.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] sched/cputime: Account cgroup fields to the scheduling context
+Date: Fri,  4 Sep 2026 10:37:05 +0800
+Message-ID: <20260904023705.106589-1-sh_def@163.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <apmuywWz3c0keI2i@slm.duckdns.org>
+References: <apmuywWz3c0keI2i@slm.duckdns.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 7/7] mm/mglru: batch move folios to the second-oldest
- gen's LRU
-To: "Barry Song (Xiaomi)" <baohua@kernel.org>, akpm@linux-foundation.org,
- linux-mm@kvack.org
-Cc: axelrasmussen@google.com, baoquan.he@linux.dev, chenridong@xiaomi.com,
- david@kernel.org, hannes@cmpxchg.org, kasong@tencent.com,
- lianux.mm@gmail.com, linux-kernel@vger.kernel.org, ljs@kernel.org,
- lyugaofei@xiaomi.com, mhocko@kernel.org, qi.zheng@linux.dev,
- shakeel.butt@linux.dev, stevensd@chromium.org, wangzicheng@honor.com,
- weixugc@google.com, yuanchu@google.com, zhangbo56@xiaomi.com,
- Xueyuan Chen <xueyuan.chen21@gmail.com>
-References: <20260901232421.40157-1-baohua@kernel.org>
- <20260901232421.40157-8-baohua@kernel.org>
-From: Baolin Wang <baolin.wang@linux.alibaba.com>
-In-Reply-To: <20260901232421.40157-8-baohua@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:PSgvCgBHE_rRLppqOkclOg--.47269S2
+X-Coremail-Antispam: 1Uf129KBjvdXoW7Xr4DCry5GF4DKF1kXw48Crg_yoWxKwb_Ww
+	srtry8trWDAF9Fyw4IvF1SqrWkW3y7t34DWw4UGFWfZFyFkFyvqF42qrnxZFyxJa47ta15
+	JrZ3ZFWfGwn2qjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUvcSsGvfC2KfnxnUUI43ZEXa7IUULID3UUUUU==
+X-CM-SenderInfo: xvkbvvri6rljoofrz/xtbCwhIBYGqaLtIzzgAA3A
 
+Hello Tejun,
 
+Thanks for the review.
 
-On 9/2/26 7:24 AM, Barry Song (Xiaomi) wrote:
-> Detect folios that need to move from the oldest generation to
-> the second-oldest generation, and batch-move them together.
-> This can significantly reduce the sys time of inc_min_seq(),
-> especially when the other type is significantly behind the
-> preferred type.
-> 
-> Assisted-by: gemini:gemini-3.6-flash
-> Signed-off-by: Barry Song (Xiaomi) <baohua@kernel.org>
-> Reviewed-by: Baoquan He <baoquan.he@linux.dev>
-> Tested-by: Xueyuan Chen <xueyuan.chen21@gmail.com>
-> Reviewed-by: Lian Wang <lianux.mm@gmail.com>
-> ---
+You're right that cputime_adjust() reconciles the user/system split
+against the total usage, so my description of this as a user-visible
+cpu.stat inconsistency was too strong.
 
-I have the same taste as Baoquan[1]. :) Anyway, it's up to you.
-Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
+My patch followed the cgroup accounting behavior introduced by
+aa4f74dfd42b, where cgroup_account_cputime() charges CPU time to the
+donor, and tried to make the tick and vtime cgroup field accounting
+follow the same context.
 
-[1] https://lore.kernel.org/linux-mm/ao6zFSzx6mOl874A@fedora/#t
+Following your suggestion, the simpler fix is to make cgroup CPU usage
+follow the execution context as well, matching the per-task and
+thread-group accounting. That would also let me drop the cputime boundary
+and donor lifetime machinery from this patch.
+
+Thanks,
+Hui
+
