@@ -1,114 +1,194 @@
-Received: from mail-oo1-f71.google.com (mail-oo1-f71.google.com [209.85.161.71])
+Received: from mail-yw1-f175.google.com (mail-yw1-f175.google.com [209.85.128.175])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 330613644C1
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 20:46:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.71
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 302603E5A08
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 20:47:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.175
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788554787; cv=none; b=SgJs8eeaGnSmXLp8s+dYDFXZfT1cJgVrjjDyAuXdczKXIvlneRPj26rYGOOSb6+oycT9JSeFohAdr4sGPI3GTpIIkTPjjQSskMAudrWbreD5Loqi4MDICsxgHwz70KGE0JwBWehxGvFRiXDYqdqEWlEINcsyU+CLwUZXEbKYWXI=
+	t=1788554829; cv=none; b=DFBUsACpospREJehpZxowxSZp2bhmwGsUt8jKNmj2cysxRE0VxxBAD+7/MgFMRcTSzdnbnbOuzhwYhO16w+xiIAv8ElI3WnF+f/GoXk3wUEQDCFbR96rH307kO6SL6ImPqcUJnc5v/wvWp3+w6B4x0Z/ePf77nHAsIrrxFNVdJk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788554787; c=relaxed/simple;
-	bh=zHoit6yLi3fXOCiRdtBQT2k7fF7NAw0hJ+ckUM7JHuk=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=WTnON8VnbxYQ9wnLED88uYTpLKpkKCqeQUVoDQDm6dDrX6fjtMQ3KxRC6vZCRBmxFchTuO/J3fGvD/q4uHONzmt7haE4KCqor7Vx7309fKeWDYD/25VKr2ZZ3BZBd0Ro+vCGB2B1y/fbo4PkuRmJP5uYh1mZA37EXmwWw3n5cMo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.161.71
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oo1-f71.google.com with SMTP id 006d021491bc7-6b131719584so1783066eaf.2
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 13:46:24 -0700 (PDT)
+	s=arc-20240116; t=1788554829; c=relaxed/simple;
+	bh=VqRTI1vSnxqFnngxsPxK1C9AC5MxqlqL7Rry6uCm37k=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=l1zMfKvMc8g3ip3hBt0FA9ypLqV4ILXdt4YdDYCRkAvG7hnm0aypjiC5tMHrVlVhbrN/yo3MMLR6AX7P9duZlAGHjtxV8TBYlSKiIhUy5Dp7ZdiBCY/Y8xZClZHfktjNg7LIZJouX5Hdk1lJ3OpSba9FgWqO5VYuC9lR8/V0XgQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XlFNGKSo; arc=none smtp.client-ip=209.85.128.175
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XlFNGKSo"
+Received: by mail-yw1-f175.google.com with SMTP id 00721157ae682-81f3b227a4aso21369277b3.1
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 13:47:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788554824; x=1789159624; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=bt1HqSrLvYKEai7M5FJi0Yxz+CgX3DRE2Qu0CFMj0Ww=;
+        b=XlFNGKSoL562DbhqLVPpHZYqOT4tW40WxfEqRe2KEMUaK7u47t8iprHFOWdz+dbRxP
+         UqI7INtC1nEW/VOIzAtzsda7amhpZJ7mmphJuedYgVDQo3f53AxD60eAYtq7lbVEur/5
+         sE38ansDBhn9tDeARp+F1n3Rn+scZJEU119PAzy9gXiNxZ+DmAYhfHEL+ToBzNGsBJ+9
+         JsClHSyoWU3HDPPZW5aIjDTzaxprMwKGzomgmbD6HSMEkckpXJZdP7HG727ZTkvxxZQs
+         fLyKLhhn/RtDDq+v218tAyyq2cT/phKnq7IQ2DNpXJLovXi0+18hczXWa/NnHUmaRTg2
+         ujpw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788554783; x=1789159583;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=pWzV16Ft4hj12P0wEeA5w+i7D224GdQ4JfXKDriSivw=;
-        b=SVOwH7cJcNCuuUClHPPFEsupHWqaZQaNRr04yy6L1HJ1WHydbPyOHbe9wPwfPSt9ul
-         Qd2U520YpGnE34QDNTLMF8Xpnq830bqyCwdeknOrKc/l33t9tgY64uqD01ON/o5Wv7Cu
-         t9uaRe0l2Ox/mjfWKZniMQOtgGOEmy/3eQWVh8hBDYeaxL3JA+L1iekcyH+eQiLl5RUb
-         NKEzmfwr7Ut/LpEkmm6PwAj2+9hf2DFcSNTKEwcrla3cD9TKpg1ZCbyCodtF44+OgZjJ
-         A5+hgsv7Tw5mrPZGbLRZS1mGy2AAcmNeA76x3YQ9GqPNHRaJZCXdLpqdg03RYyW1sU22
-         SxhQ==
-X-Gm-Message-State: AFuF++nIoEvvwpTNKJnOxItf4wMKQHHoKQraQFs1kO1+/nESycI4R3JG
-	Q8TxZmoMwCeK46mIL+QSgY0lz9kdsQzqqhneYsBIGyoT9EcnpqMpVgKblRl+n9lCM7VDOxIcyLw
-	3mpGZ93AvzA9sLnVNvm534UZEi4UK49jPqTgGXBZ1JRy6edest50nMNvDXW0=
+        d=1e100.net; s=20251104; t=1788554824; x=1789159624;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=bt1HqSrLvYKEai7M5FJi0Yxz+CgX3DRE2Qu0CFMj0Ww=;
+        b=KG0o+xDbqu7HeYtquaZKgYHXTYq1V9dDI5KusVTG1IXI6/WD2hMjZLkP2UWcZYTM1l
+         9huFlPOZwBc7soFgS2RsLuGZUqBF7Mh15wCHqLc1UojwRtjIxYfQwncmxlEvpv1JHpg/
+         9LlxePkOYiUYcXNjb6ng94yj2cmrtd90zjdypw/ZGaiku8oYRzC1MhU/3fcJ13Nu3TC9
+         051yosDzfQAikxPvsxFNpfxcy+U2CoRmxaop+2p86FTgO2VeqtbMmIEO1j/rrnbkVnrI
+         Yj+8ulStOMR7sWEo/pxzRQLVk58yMqsUFIFX/GZvBYHRkn9xGg6Vd4yCH/rIyvbel4xS
+         ZiHA==
+X-Forwarded-Encrypted: i=1; AKwUvBzaK+xrraN9H7B/HCwZd0ExQA1zGAXPcr3tXI0blR7GsCnLbS1FzBrOM6vI6JZ8uMJ2zuRcOtsoHadOx0s=@vger.kernel.org
+X-Gm-Message-State: AFuF++nkfM8EOx/eZHnE/fg1z6QfAmQGA1y/dvCoSYmrKttjZlD5pBlF
+	BDHOC6JxorMReqLS+L+RpxGjv6GDJlNxfhcajmv8THUR66lMpfkUUd54
+X-Gm-Gg: AYBFou0/N0A0/ajnAAFc7g1UHU8s3hOoA9a7v6cgdG5/cJUdFpSaV5LdjgXtAymqszI
+	KJjioMUm6PEcncExncoFuXZzUzTrzaauUPty65P0riJYRarCRkd3O5d93GlXnnmOuDmK0k3uZYf
+	ohygxcRwt1v4l5JmFMHbr76T3hmlFmretAYnLz2egUWCYoVDZsply/1n+6jCp+Ljs67BnTBX4JT
+	XDMzeXQNCd6xRpupUjmsxllMXhv3tUNjrArZRNM8HQdehHiNrY+5BPw1pzMuTd919fQcOpeGIP3
+	16kEj54zXDKWv5d6luImRF10LkogfjEhRLA9ywgjbNnwW7DGD/CLEN2kMVG3EwFEXA6iAy1J/gn
+	K0M+ZxL3Y/yu5ohUHPTx3HcQfGuucgaKpcpU0MRYfz6HXBg6VVahpbbblp+9BkrHkT+PCQKEoQ4
+	fBzOg9hNzSnVRfs6eFmUCnE0tDjSnxmwpoNPQHtOk6Y4iVDiEs5dWZDRcXb1fCe2UfahzA
+X-Received: by 2002:a05:690c:5310:b0:873:5ddf:d865 with SMTP id 00721157ae682-8735ddfdac0mr10268087b3.48.1788554823272;
+        Fri, 04 Sep 2026 13:47:03 -0700 (PDT)
+Received: from localhost ([2804:30c:94d:7300:da0f:c2c1:1aa6:43da])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8714a0ae915sm26231117b3.24.2026.09.04.13.47.02
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 04 Sep 2026 13:47:02 -0700 (PDT)
+Date: Fri, 4 Sep 2026 17:47:56 -0300
+From: Marcelo Schmitt <marcelo.schmitt1@gmail.com>
+To: Conor Dooley <conor@kernel.org>
+Cc: Marcelo Schmitt <marcelo.schmitt@analog.com>, linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux@analog.com, jic23@kernel.org, nuno.sa@analog.com,
+	dlechner@baylibre.com, andy@kernel.org,
+	Michael.Hennerich@analog.com, robh@kernel.org, krzk+dt@kernel.org,
+	conor+dt@kernel.org, corbet@lwn.net, skhan@linuxfoundation.org
+Subject: Re: [PATCH v1 08/13] dt-bindings: iio: adc: adi,ad4134: Document SPI
+ connection mode
+Message-ID: <apsufKf-EOvTfpwf@debian-BULLSEYE-live-builder-AMD64>
+References: <cover.1788368334.git.marcelo.schmitt@analog.com>
+ <d9b759d29fa8ca12b6cf083e180b2556ca4533f0.1788368334.git.marcelo.schmitt@analog.com>
+ <20260903-liquefy-prologue-9ec914cccf04@spud>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:f08:b0:6b1:b23c:2142 with SMTP id
- 006d021491bc7-6b6fa5e819cmr6179657eaf.1.1788554783551; Fri, 04 Sep 2026
- 13:46:23 -0700 (PDT)
-Date: Fri, 04 Sep 2026 13:46:23 -0700
-In-Reply-To: <6a972e63.610165a0.2b3dfd.0001.GAE@google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6a9b2e1f.a5e650b3.363816.0001.GAE@google.com>
-Subject: Re: [syzbot] [raid?] WARNING in create_strip_zones (2)
-From: syzbot <syzbot+a32ff75e417c0f49a8e9@syzkaller.appspotmail.com>
-To: linux-kernel@vger.kernel.org, linux-raid@vger.kernel.org, 
-	magiclinan@didiglobal.com, song@kernel.org, syzkaller-bugs@googlegroups.com, 
-	xiao@kernel.org, yukuai@fnnas.com, yukuai@fygo.io
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260903-liquefy-prologue-9ec914cccf04@spud>
 
-syzbot has found a reproducer for the following issue on:
+On 09/03, Conor Dooley wrote:
+> On Wed, Sep 02, 2026 at 02:24:02PM -0300, Marcelo Schmitt wrote:
+> > Document how AD4134 chips are connected to the host SPI controller
+> > according to different wiring configurations.
+> > 
+> > Signed-off-by: Marcelo Schmitt <marcelo.schmitt@analog.com>
+> > ---
+> >  .../bindings/iio/adc/adi,ad4134.yaml          | 22 +++++++++++++++++++
+> >  1 file changed, 22 insertions(+)
+> > 
+> > diff --git a/Documentation/devicetree/bindings/iio/adc/adi,ad4134.yaml b/Documentation/devicetree/bindings/iio/adc/adi,ad4134.yaml
+> > index ea6d7e026419..d843c02a394a 100644
+> > --- a/Documentation/devicetree/bindings/iio/adc/adi,ad4134.yaml
+> > +++ b/Documentation/devicetree/bindings/iio/adc/adi,ad4134.yaml
+> > @@ -131,6 +131,28 @@ properties:
+> >      enum: [ free-running, gated ]
+> >      default: gated
+> >  
+> > +  adi,spi-mode:
+> > +    $ref: /schemas/types.yaml#/definitions/string
+> > +    enum: [ no-cs, 4-wire, one-channel-chain, two-channel-chain ]
+> > +    description: |
+> > +      This property indicates the SPI wiring configuration.
+> > +
+> > +      When this property is omitted, it is assumed that the device is using
+> > +      'no-cs' wiring. When this property is present, it indicates that the
+> > +      device is using one of the following wiring configurations:
+> 
+...
+> I'd also really appreciate a dts example for a system
+> with one-channel-chain or two-channel-chain looks, given the second
+> device may require different supplies etc. I have no impression in my
+> head of how the dt would be constructed, so I'd like to see wht you have
+> in mind.
 
-HEAD commit:    bc35965f6940 Merge tag 'mm-hotfixes-stable-2026-09-03-17-4..
-git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
-console output: https://syzkaller.appspot.com/x/log.txt?x=12271215580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=8c5c3949d762a91f
-dashboard link: https://syzkaller.appspot.com/bug?extid=a32ff75e417c0f49a8e9
-compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
-C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=173f2b49580000
+I've added the daisy-chain modes for completeness. It has the same semantics of
+ad7944 (daisy-)chain, despite the wiring being different. It looks like the
+supplies for the chained devices are simply assumed to be there (unless I'm
+missing something?). Though, now that I'm checking how to configure AD4134
+for daisy-chain, I'm not sure how we could set them in dt. For 3 devices,
+we would have
 
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+a32ff75e417c0f49a8e9@syzkaller.appspotmail.com
+    spi {
+        ...
+        adc@0 {
+            compatible = "adi,ad4134";
+            reg = <0>;
+            spi-rx-bus-width = <1>, <1>; /* 2 lanes of 1 bit each */
 
-------------[ cut here ]------------
-!(flags & __GFP_NOWARN)
-WARNING: mm/slub.c:7013 at __kvmalloc_node_noprof+0x646/0x9b0 mm/slub.c:7013, CPU#3: syz-executor142/6020
-Modules linked in:
-CPU: 3 UID: 0 PID: 6020 Comm: syz-executor142 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-RIP: 0010:__kvmalloc_node_noprof+0x646/0x9b0 mm/slub.c:7013
-Code: c1 e8 2e 07 ff ff 4d 85 f6 0f 85 b6 fd ff ff 48 81 fb ff ff ff 7f 0f 86 4d fd ff ff 41 81 e4 00 20 00 00 0f 85 9c fd ff ff 90 <0f> 0b 90 e9 93 fd ff ff 41 be 10 00 00 00 e9 88 fd ff ff be 42 01
-RSP: 0018:ffffc900036bf948 EFLAGS: 00010246
-RAX: 0000000000000001 RBX: 0000000200000000 RCX: 0000000200000000
-RDX: 0000000000000000 RSI: ffffffff8c620f00 RDI: ffffffff8e6b6938
-RBP: 00000000001fffff R08: 00000000000029c0 R09: 00000000ffffffff
-R10: 0000000000000001 R11: 0000000000000000 R12: 0000000000000000
-R13: 00000000000029c0 R14: 0000000000000000 R15: 00000000ffffffff
-FS:  0000555559921400(0000) GS:ffff8880d5e60000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 000055bcaf223cc0 CR3: 0000000055943000 CR4: 0000000000352ef0
-Call Trace:
- <TASK>
- create_strip_zones+0x57f/0x1fa0 drivers/md/raid0.c:150
- raid0_run+0x341/0x410 drivers/md/raid0.c:424
- md_run+0xc2f/0x2510 drivers/md/md.c:6779
- do_md_run+0x36/0x660 drivers/md/md.c:6880
- md_ioctl+0x27eb/0x36d0 drivers/md/md.c:8515
- blkdev_ioctl+0x5ad/0x6f0 block/ioctl.c:798
- vfs_ioctl fs/ioctl.c:51 [inline]
- __do_sys_ioctl fs/ioctl.c:597 [inline]
- __se_sys_ioctl fs/ioctl.c:583 [inline]
- __x64_sys_ioctl+0x18e/0x210 fs/ioctl.c:583
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x7f76d13e162b
-Code: 00 48 89 44 24 18 31 c0 48 8d 44 24 60 c7 04 24 10 00 00 00 48 89 44 24 08 48 8d 44 24 20 48 89 44 24 10 b8 10 00 00 00 0f 05 <89> c2 3d 00 f0 ff ff 77 1c 48 8b 44 24 18 64 48 2b 04 25 28 00 00
-RSP: 002b:00007ffc9fbd7ba0 EFLAGS: 00000246 ORIG_RAX: 0000000000000010
-RAX: ffffffffffffffda RBX: 0000000000000003 RCX: 00007f76d13e162b
-RDX: 0000000000000000 RSI: 00000000400c0930 RDI: 0000000000000003
-RBP: 0000000000000004 R08: 0000000000000000 R09: 0000000000000000
-R10: 0000000000000000 R11: 0000000000000246 R12: 00007f76d143a032
-R13: 0000000000000002 R14: 00007f76d1464cc0 R15: 0000000000000002
- </TASK>
+            <supplies, clock, and other properties ...> 
 
+            #daisy-chained-devices = <2>;
 
----
-If you want syzbot to run the reproducer, reply with:
-#syz test: git://repo/address.git branch-or-commit-hash
-If you attach or paste a git patch, syzbot will apply it before testing.
+            adi,spi-mode = "4-wire";
+        };
+    };
+
+But, the peripheral needs a register write to set the DOUT lines to 2-line
+daisy-chain and it doesn't seem to have register access propagation. So, we
+would need
+
+    spi {
+        ...
+        adc@0 {
+            compatible = "adi,ad4134";
+            spi-rx-bus-width = <1>, <1>; /* 2 lanes of 1 bit each */
+
+            <supplies, clock, and other properties ...> 
+
+            #daisy-chained-devices = <2>;
+
+            adi,spi-mode = "4-wire";
+        };
+        adc@1 {
+            compatible = "adi,ad4134";
+            <supplies, clock, and other properties ...> 
+
+            adi,spi-mode = "4-wire";
+        };
+        adc@2 {
+            compatible = "adi,ad4134";
+            <supplies, clock, and other properties ...> 
+
+            adi,spi-mode = "4-wire";
+        };
+    };
+with adc@1 and adc@2 only set for register access. Even if not a dt-doc issue,
+that might (probably) lead to interface issues. The top of the daisy-chain may
+want to read from the other ADCs, but those could also be requested by IIO sysfs
+operations.
+
+> 
+> > +
+> > +      * no-cs: The datasheet calls this "minimum I/O mode". In this mode, the CS
+> > +        line is not used (tied to GND).
+> > +      * 4-wire: Specifies a conventional SPI wiring configuration.
+> > +      * one-channel-chain: In this mode, the DOUT0 line of one chip is connected
+> > +        to DOUT2 of the next chip upstream in the chain. Only the data interface
+> > +        of the upmost device in the stream is in direct connection with the
+> > +        digital host.
+> > +      * two-channel-chain: In this mode, the DOUT0 and DOUT1 lines of one chip
+> > +        are respectively connected to DOUT2 and DOUT3 of the next chip upstream
+> > +        in the chain. Only the data interface of the upmost device in the stream
+> > +        is in direct connection with the digital host.
+> > +
+
+With best regards,
+Marcelo
