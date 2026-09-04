@@ -1,151 +1,196 @@
-Received: from mail-vk1-f170.google.com (mail-vk1-f170.google.com [209.85.221.170])
+Received: from mail-qt1-f177.google.com (mail-qt1-f177.google.com [209.85.160.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7980D51E451
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 18:14:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.221.170
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788545679; cv=pass; b=qzByxxPUMS5pQXIzTI5DVgnHWu5TemQNb8f/j5bg80EsvEhZaPaUzVTGsTX1N1+QHncDtXIyo81UuFKTCq1JkR83m8x5D4Yk0p3V1qaYOL83apnQgzIQbXbnicpA3O8MrEuZjQFx0TVqLbVYiiZKlN6UzTXGc2cuXPhu32nRA30=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788545679; c=relaxed/simple;
-	bh=5m/pay81xmy/8S45ZPXzH94fItYQkJjMwnM4hRsn4PU=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=CajR0lKA+ipuS7dqMOErWb/8gaGctK0nBfUcL1ASrNiI5Mf+yVOSKF3hHQ97HyZkY5pt/+WpWuG3fHSQaKs61nNKsGf+aViZI2NKnZLuCkKU4u8Ci/HB0nQF5+OzhNz2VBCL838j2fnVOEvu+xcXdcCeQZ/m8WDI4xON3a6jDpc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=tm4555GZ; arc=pass smtp.client-ip=209.85.221.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B90E50AC3B
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 18:17:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.177
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788545843; cv=none; b=Rapw1IXZyT63mOtKJdX5PN1mATI21u2b/Nb4jKgtUU4QgWG4RQma1pyPlktrKXEn8a28Vk89MqMFUODrotg/v7pDvHNSRVf4De9Ch6azx0/EsvprvnV/b9+VmkW/2n0944qh/4jhvzgNFLNSpWFhpnfkLd/QCS4gEqOyazWwKHk=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788545843; c=relaxed/simple;
+	bh=FzJ+I38C/zByyZcVwFSqq+jX11hoEYOCqOxOXIWGNIQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=JVAk3t+GSB8uS4wdhj/j9pomA9tgSIY0+Sap85KZ1KKmt1QlymECumq+Fw8VHouIivGaloxXy+mNtaLZqfQnEE8arRTHwjWitcdFHwoy8y8qWp0SKrPJer+JDPGWGTcwHE2dwb5uKGcLUxx1AUZ6LNy/xdaAY/m6VVedlstIJZA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lBeL/ucg; arc=none smtp.client-ip=209.85.160.177
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="tm4555GZ"
-Received: by mail-vk1-f170.google.com with SMTP id 71dfb90a1353d-5bf5370d38fso544678e0c.2
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 11:14:37 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788545676; cv=none;
-        d=google.com; s=arc-20260327;
-        b=bYG1GpNGyKzFTqAKnOOMnaS73lX/PHSTteUhBfoKMD21IOkJvDK5k89RnGRQ2o8wwY
-         yQr6fbTxjXXGPxBCfhYdj3jOZO/m6ltMPcRELEbJ/ZHWzdXgSHPHHzrDOLSs0CLqAm8u
-         PP32p+9j5Yg+ZLQxuGy7ewX9p3im43vPmVP2L3slwxN6tRMsb0O2r7n58zTaCjYP642r
-         WXLnBO8LB94dHTqHuh5smx6CR0/HzmF1JDrzPn0VAKZg+nOerZLUePOO6WJRGFl86dLs
-         UvJ/NVbiRK4EQZRqx36dRNUowTPDAgiRI8cFBYSHWk0dYfz7Cz/16nWgEe1AoSSvOLUf
-         9BhQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=5f1sSkMWsx0NynE5i1A0A1wBIJQk0ydoeFqLf0ZyvTY=;
-        fh=N0J4ZmnxKmE06Gwq4rKyaMNDpdW/aFQUhFPgeOLMZ58=;
-        b=mjbCoU9lUZ5Cswgt6heZcYFj65XXWo1y1BrOIhjf+0wmNUD+At/7+a3IxNYn5gJyL4
-         EGKn8N91HB/mYCc5FguWYQghLwKEUW89aDqa0TLPajYL+Z9LMhmeEkDqmnA85NSGWis6
-         Vnkq38zwh7tTxNwjjwXsJhhZaP0J6ERhRTtlKHn3aeBWgnaC1HGloC6qxRdvt0ClSKs2
-         sgUtB3StSCegtBUud5wX0W7QKGam9Wmwp5oW4/k+wHXD30Kiquwr6tPm5kgVy1BVLRLR
-         1RJ1slbCuszZ3rB5LIrt/vcpb5fqkDXaZNHUSGuVVDy4D/0Wi0K6C98pWyoefJJKK5Uj
-         nEhw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lBeL/ucg"
+Received: by mail-qt1-f177.google.com with SMTP id d75a77b69052e-51c2a449c57so17506461cf.1
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 11:17:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1788545676; x=1789150476; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=5f1sSkMWsx0NynE5i1A0A1wBIJQk0ydoeFqLf0ZyvTY=;
-        b=tm4555GZrmGJdnr2hCjcQSWWu8EgaJU6DCuJ95RGmpz0dKnYV9hOlGV7Yn72NAOokJ
-         5pHA0HlGK+85VHiL9Qu0Wv3T6ydqdphE6rCFZZ87diy1REW6v7PRwLrvFxNiJ/e2MvI8
-         5cVgO1TlLAhESrP+MxoUfBoMDm13EX5hd8seCujicR9At3MQh7/1h/fgDwcjR31ZwnZn
-         b5VquPb/OL7+gYdJh/6IZp9FfOn2IZAe5ZQZwA0H2t7xTYe7mEHHdL9I2yBrTKrl5U3r
-         gwAdVSy4IUepNwWnalpHRuViPJWvY9Q0oAcMX6YwEDdnAvGF8wpCxhrCn3ZwSPplNKHl
-         lUBg==
+        d=gmail.com; s=20251104; t=1788545839; x=1789150639; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:sender:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=uab2fOtm4yAsqFy9TswrjvUe9GKOQl3AP6YlD7jY3r0=;
+        b=lBeL/ucgqgeMx7EKp4flSdivpfYGFObU9dZDeX6RVYrF+JzByoSThFzgr1mBqjTyVJ
+         Z0sC0SqzS5YHzLwX+nrCRrQgHEaUAeIY83hkgVSKknO1H4jNfC2OHu1I0gvNM7lcoAYS
+         iXmgvwpS6SP+qwSUgxwv6jXwO4aH7LSOxAZFXHXyx4WvOnk6uRmf/EIFrrjovg2m9qlQ
+         Xe3C7THtQgSjyW4/QZTrXXUfbjZZahTUs+AwFt30gLu7uQCAB+62RCrjxHS6KDT6cuEE
+         gzEaE3W5cX48GrJjI54lB8TJmYBp5oOxs11yVOfNKfhGXGzp5KA2IPw1BKnHQt71pCt9
+         G43w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788545676; x=1789150476;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=5f1sSkMWsx0NynE5i1A0A1wBIJQk0ydoeFqLf0ZyvTY=;
-        b=n3T0cXoeDGKowCgZtiGBgNeTeF/xvX1ytY/+ZC/Eksfr+HZsQsAgwPt8z5qjgp+4Ur
-         QMVmGGXwOCFz80IN865MlfFO97GVMoLBzASKziB3BcE/wx/mv/zyh/jScsDZIVdxJXFf
-         lxpnQCg6ldCPgWMLa1SWj8471GcxpoRe/C3KLRGCa6+To07U3DjQUWBgPd35Q6n+4l35
-         aWMNLAPW/4xhGFp+nEbocoMTLi0kj/3Zqrj6mMD7AaMpM0ziv4c71qMWJRrXP4bIV8tE
-         8XD3iYEIwBwB6keQtrSRUVQAovyZcXgeU46tgt9Fgb7CkCmhaEiRCfjbGXpvfdALh+xH
-         8d2g==
-X-Forwarded-Encrypted: i=1; AKwUvBwPyTzHH26Z0hlHSbnYUPjkob9Y+PuNuIJJBgTcHLidbFg1yptria8w84BhJWkj6ZV5n05dRTmf+8LDzOw=@vger.kernel.org
-X-Gm-Message-State: AFuF++n4L0ZamGlxp8m+MLG2bekvfalsojME4iS3e25EIzViip30IVNU
-	xO1VX74jlQJEGUZm8PoMzeCc3VoS69JBO27yMyvIaFro/RlIH1nRZ7P/Gb0XrE2HV4Jg/ZEiRom
-	BOMis22jQEJgRMHL2Wnq9ojwxfL9hH1zwaDn6dQ8=
-X-Gm-Gg: AYBFou10+GNe1PgnWf1uC4A1CsXPb/F7zqPmbIVRWJsoxgpaaW1MtCSNKjPHFhQjLse
-	gs3566tD38dS2pc0zZKNvdAG1lafJivBWqNx5m+wXYOuUi/Rdxt8VYIdR7epomyUUBkwy0D1Q7Q
-	YOEDDONlKeIFrenKOsfPXg/9cZ8hSp2fEg7NdoetkyF7Lo9qvxEXn2uCyqxyMjq4+KaTLvbX1IK
-	RyKuhvSO/E8wb2PIenFUbU8PwehtTn49gC8KqZE0rrC9ZeJDzTvOxsueNzu1dAsocN01umGacqe
-	EDSATiPoj5W17sf1KIaAfGaSATviT931e1rye0tOGbluFuB7IPNHd15i2+KqzP0p2BQ5WKG8AWV
-	NlBRjnio9J2ODqMLYJuRSaRUmzqIASpvEHX3qdoDOADzLXZh9H45q
-X-Received: by 2002:a05:6122:2890:b0:56f:6cc0:681e with SMTP id
- 71dfb90a1353d-5c7ed2baa42mr3536633e0c.1.1788545675619; Fri, 04 Sep 2026
- 11:14:35 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1788545839; x=1789150639;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:sender:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=uab2fOtm4yAsqFy9TswrjvUe9GKOQl3AP6YlD7jY3r0=;
+        b=GCYt/MRupVDHyXFTC1TgCGmTKPscJzWg5SCkgjpq55TuMm0XgWX4CxIdQ6P3OytOdJ
+         iYe9Y5DoAtcuSDeQz8vhxVRuYjjt5toxgs68ODGL2DxlAZKF6hx+XvJS/EM9HvhtFFBS
+         w329RG9/mrI+gUH/kc8VfpB+YGWqiOo8aAxT9BUjGpklRVowsZRW4H5QRWdYQGpLGL7U
+         tgIsgySGaR9BaoxJ+2vY/0E2LiCpwBnZgHaE5nbOWmOcGCIQU/9E04mOYZbrQgyxs2oI
+         xXOwsz/vzjRsoNhNi1E2gtBT3X0HBH8xeuvXuIK65fNxZfS+AJoV1Bp/uCxkBZ++vLXd
+         v72w==
+X-Forwarded-Encrypted: i=1; AKwUvBxl88yM1fL7i7pzV/SPY23SDhnvofvjwvvZ6anw8U/HKDAoC4W+H9ksPW/q1RP2QLDQol71k5Gya1HmDiI=@vger.kernel.org
+X-Gm-Message-State: AFuF++md8ZU5KxNXA+chJFj7tJpKzioEcwH3R/+PkL98OLN9ri4HdwJ0
+	jRDdT/vVBJmMMZGJZ2nTsNXoXI199loPpWycgw7iVvcg+ck0JP33o7E=
+X-Gm-Gg: AYBFou2SRRbkUCR4jvjI9Sv6zE+cfIC7/CNmFQaxgwivOqysvBUmwsKOetg+Cp9V6Ya
+	c3kYte0PBjyIhJ8wiAo0+R4Rw9R2zZxSqn5qRP0voKbvhgJJ/fmJI5qZXy3Bu4RkLFPPtA3B4bB
+	T/A325ThhCYzDNr/fLX7AtZ+55/5EpzEmoI4rny5WaiIwfikWOQu1FCTrU154bakwNddAM0vDFf
+	td0Iw9NDmLGtpoQcQdjOQGeVNB4YdJ5IjTjvOwN6Db8uVGD9v/js4Ib8iqR6eO/QKJLaTxHj/oE
+	epMNW68yV/aUyA0EkEhEq8omq0qSkluiJOF1y2IxmOgQNtT08r3hwxX0nqQDlUdLw9LzCEjlddu
+	Fw738HGGEQJaAqrvHdaVxCTy2UY4n2C/MBqgZRbsqg82PwGDmxK+0QVIafxkoF7pKbeFA9RN9xE
+	Y1FYY/103i5M/LZZ12x/Ow9fR7+fym0dmkpeVEf1NeJslg9lk2OsAe2jqRjOIBR6K6Wu30TrpBM
+	FiHlEbflLNH0U0VRr7GGlQL4xdGOVcWMfv8AXtU54HxyUuIg6exaO3hay+MrhnS72S9IF7NboLo
+	3NTMYZ/BIECebmw=
+X-Received: by 2002:a05:622a:1209:b0:52e:d3aa:8fa9 with SMTP id d75a77b69052e-5305498b876mr73285421cf.32.1788545838768;
+        Fri, 04 Sep 2026 11:17:18 -0700 (PDT)
+Received: from nn ([2001:1ab8:1003:0:5454:f357:ba89:4e22])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-53054116c5fsm26113391cf.10.2026.09.04.11.17.17
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 04 Sep 2026 11:17:18 -0700 (PDT)
+Sender: N B <gen.benner@gmail.com>
+From: =?UTF-8?q?Nerijus=20Bend=C5=BEi=C5=ABnas?= <nerijus.bendziunas@gmail.com>
+To: =?UTF-8?q?Toke=20H=C3=B8iland-J=C3=B8rgensen?= <toke@toke.dk>,
+	linux-wireless@vger.kernel.org
+Cc: Simon Wunderlich <sw@simonwunderlich.de>,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2] wifi: ath9k: stop a failed register read from opening the RX filter
+Date: Fri,  4 Sep 2026 21:17:09 +0300
+Message-ID: <20260904181709.788886-1-nerijus.bendziunas@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260903232428.i.323-kees@kernel.org> <20260903232438.60394-2-kees@kernel.org>
-In-Reply-To: <20260903232438.60394-2-kees@kernel.org>
-From: Bill Wendling <morbo@google.com>
-Date: Fri, 4 Sep 2026 11:14:19 -0700
-X-Gm-Features: AcwNN1XbDAT0_I910Gdu5ymI8yT08JVoK5EGJlbHpxWo_G4-k7gg2DjgPv2W0vw
-Message-ID: <CAGG=3QUHtqFVCEcnxXO9fan_RBT_jjWtBbA8ECpQeiC1dKMnvg@mail.gmail.com>
-Subject: Re: [PATCH 2/2] randstruct: report bad casts as warnings rather than notes
-To: Kees Cook <kees@kernel.org>
-Cc: Vincent Mailhol <mailhol@kernel.org>, Nathan Chancellor <nathan@kernel.org>, 
-	Nick Desaulniers <ndesaulniers@google.com>, Justin Stitt <justinstitt@google.com>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-kernel@vger.kernel.org, 
-	linux-hardening@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Hi Kees,
+On the USB devices a register read is a WMI round trip, and
+ath9k_regread() reports a timeout as -1. The spectral trigger reads
+AR_RX_FILTER and AR_PHY_ERR back through ath9k_hw_getrxfilter(), ORs in
+the PHY error bits and writes both registers. A timed-out read stores
+0xffffffff in one of them, the device forwards every frame and PHY
+error to the host, and the full RX ring drops the FFT reports the scan
+was started for.
 
-On Thu, Sep 3, 2026 at 4:24=E2=80=AFPM Kees Cook <kees@kernel.org> wrote:
->
-> find_bad_casts() reports a cast between two randomized structure pointer
-> types with inform(), which renders as a "note:". It has done so since
-> the plugin was originally added, while using error() freely for attribute
-> misuse, UAPI structs, and version mismatches.
->
-> Clang's implementation of the same check has always been stricter:
-> it rejects such a cast as a full error. There is no reason for the GCC
-> side to be effectively silent about the same problem.
->
-> Build tested ARCH=3Dx86_64 with CONFIG_RANDSTRUCT_FULL=3Dy and GCC 14.2.0=
-:
-> allmodconfig clean, and defconfig clean under three different random
-> seeds. A deliberate bad cast is still reported, now as a warning, at the
-> correct line and column.
->
-> Signed-off-by: Kees Cook <kees@kernel.org>
-> ---
->  scripts/gcc-plugins/randomize_layout_plugin.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/scripts/gcc-plugins/randomize_layout_plugin.c b/scripts/gcc-=
-plugins/randomize_layout_plugin.c
-> index e2bd9ba08089..1e66f45fe29b 100644
-> --- a/scripts/gcc-plugins/randomize_layout_plugin.c
-> +++ b/scripts/gcc-plugins/randomize_layout_plugin.c
-> @@ -22,7 +22,7 @@
->  #define ORIG_TYPE_NAME(node) \
->         (TYPE_NAME(TYPE_MAIN_VARIANT(node)) !=3D NULL_TREE ? ((const unsi=
-gned char *)IDENTIFIER_POINTER(TYPE_NAME(TYPE_MAIN_VARIANT(node)))) : (cons=
-t unsigned char *)"anonymous")
->
-> -#define INFORM(loc, msg, ...)  inform(loc, "randstruct: " msg, ##__VA_AR=
-GS__)
-> +#define INFORM(loc, msg, ...)  warning_at(loc, 0, "randstruct: " msg, ##=
-__VA_ARGS__)
+Add ath9k_hw_enable_rxfilter(), which sets the requested filter bits,
+the matching AR_PHY_ERR bits and AR_RXCFG_ZLFDMA with REG_SET_BIT() and
+reads nothing back, and use it in the spectral trigger. It sets bits in
+AR_PHY_ERR where ath9k_hw_setrxfilter() overwrites the register. With
+firmware 1.4 and later REG_SET_BIT() is one read-modify-write done by
+the firmware; older firmware still reads from the host and is not
+helped.
 
-Why not make this an error instead of a warning?
+Fixes: e93d083f42a1 ("ath9k: add spectral scan feature")
+Cc: stable@vger.kernel.org
+Assisted-by: Claude:claude-fable-5-1
+Signed-off-by: Nerijus Bendžiūnas <nerijus.bendziunas@gmail.com>
+---
+Changes in v2:
+- Describe the whole of ath9k_hw_enable_rxfilter(): it also sets the
+  AR_PHY_ERR bits and AR_RXCFG_ZLFDMA, and sets bits in AR_PHY_ERR where
+  ath9k_hw_setrxfilter() overwrites it. Say that the fix does not help
+  firmware older than 1.4.
+- Add Assisted-by, rewrite the commit message, rebase onto ath-next. No
+  code change.
 
--bw
+ .../net/wireless/ath/ath9k/common-spectral.c  |  7 ++---
+ drivers/net/wireless/ath/ath9k/hw.c           | 29 +++++++++++++++++++
+ drivers/net/wireless/ath/ath9k/hw.h           |  1 +
+ 3 files changed, 32 insertions(+), 5 deletions(-)
 
->  #define MISMATCH(loc, how, ...)        INFORM(loc, "casting between rand=
-omized structure pointer types (" how "): %qT and %qT\n", __VA_ARGS__)
->
->  __visible int plugin_is_GPL_compatible;
-> --
-> 2.34.1
->
+diff --git a/drivers/net/wireless/ath/ath9k/common-spectral.c b/drivers/net/wireless/ath/ath9k/common-spectral.c
+index ca01a07f6630..73c1eb4ebe0e 100644
+--- a/drivers/net/wireless/ath/ath9k/common-spectral.c
++++ b/drivers/net/wireless/ath/ath9k/common-spectral.c
+@@ -716,7 +716,6 @@ void ath9k_cmn_spectral_scan_trigger(struct ath_common *common,
+ 				 struct ath_spec_scan_priv *spec_priv)
+ {
+ 	struct ath_hw *ah = spec_priv->ah;
+-	u32 rxfilter;
+ 
+ 	if (IS_ENABLED(CONFIG_ATH9K_TX99))
+ 		return;
+@@ -730,10 +729,8 @@ void ath9k_cmn_spectral_scan_trigger(struct ath_common *common,
+ 		return;
+ 
+ 	ath_ps_ops(common)->wakeup(common);
+-	rxfilter = ath9k_hw_getrxfilter(ah);
+-	ath9k_hw_setrxfilter(ah, rxfilter |
+-				 ATH9K_RX_FILTER_PHYRADAR |
+-				 ATH9K_RX_FILTER_PHYERR);
++	ath9k_hw_enable_rxfilter(ah, ATH9K_RX_FILTER_PHYRADAR |
++				     ATH9K_RX_FILTER_PHYERR);
+ 
+ 	/* TODO: usually this should not be necessary, but for some reason
+ 	 * (or in some mode?) the trigger must be called after the
+diff --git a/drivers/net/wireless/ath/ath9k/hw.c b/drivers/net/wireless/ath/ath9k/hw.c
+index e08ab73fcacb..caa221ce0d32 100644
+--- a/drivers/net/wireless/ath/ath9k/hw.c
++++ b/drivers/net/wireless/ath/ath9k/hw.c
+@@ -2905,6 +2905,35 @@ void ath9k_hw_setrxfilter(struct ath_hw *ah, u32 bits)
+ }
+ EXPORT_SYMBOL(ath9k_hw_setrxfilter);
+ 
++/*
++ * Turn extra bits on in the RX filter without reading the current value back.
++ *
++ * On USB a register read is a WMI round trip that can time out, and
++ * ath9k_regread() reports that failure as -1, which is indistinguishable from
++ * a genuine all-ones read. Feeding it into a read-modify-write stores
++ * 0xffffffff in AR_RX_FILTER, enabling every filter bit at once, and the
++ * device then floods the host with every frame and PHY error it sees. Set only
++ * the requested bits so that no read is involved.
++ */
++void ath9k_hw_enable_rxfilter(struct ath_hw *ah, u32 bits)
++{
++	u32 phybits = 0;
++
++	if (bits & ATH9K_RX_FILTER_PHYRADAR)
++		phybits |= AR_PHY_ERR_RADAR;
++	if (bits & ATH9K_RX_FILTER_PHYERR)
++		phybits |= AR_PHY_ERR_OFDM_TIMING | AR_PHY_ERR_CCK_TIMING;
++
++	REG_SET_BIT(ah, AR_RX_FILTER, bits);
++
++	if (phybits) {
++		REG_SET_BIT(ah, AR_PHY_ERR, phybits);
++		/* PHY errors are reported in zero length frames. */
++		REG_SET_BIT(ah, AR_RXCFG, AR_RXCFG_ZLFDMA);
++	}
++}
++EXPORT_SYMBOL(ath9k_hw_enable_rxfilter);
++
+ bool ath9k_hw_phy_disable(struct ath_hw *ah)
+ {
+ 	if (ath9k_hw_mci_is_enabled(ah))
+diff --git a/drivers/net/wireless/ath/ath9k/hw.h b/drivers/net/wireless/ath/ath9k/hw.h
+index b942b8303d8f..f102f73a0114 100644
+--- a/drivers/net/wireless/ath/ath9k/hw.h
++++ b/drivers/net/wireless/ath/ath9k/hw.h
+@@ -1055,6 +1055,7 @@ void ath9k_hw_get_channel_centers(struct ath_hw *ah,
+ 				  struct chan_centers *centers);
+ u32 ath9k_hw_getrxfilter(struct ath_hw *ah);
+ void ath9k_hw_setrxfilter(struct ath_hw *ah, u32 bits);
++void ath9k_hw_enable_rxfilter(struct ath_hw *ah, u32 bits);
+ bool ath9k_hw_phy_disable(struct ath_hw *ah);
+ bool ath9k_hw_disable(struct ath_hw *ah);
+ void ath9k_hw_set_txpowerlimit(struct ath_hw *ah, u32 limit, bool test);
+
+base-commit: 1d8e73163ef933624341075f576e2f36ef9133f7
+-- 
+2.55.0
+
