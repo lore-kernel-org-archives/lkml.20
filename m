@@ -1,121 +1,114 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 824224E3EE8;
-	Fri,  4 Sep 2026 20:20:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FDD150C2B4;
+	Fri,  4 Sep 2026 20:22:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.20
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788553216; cv=none; b=RNlVyf0mAOLTXzzZsJT698p5M3xuk3Sv77dU/YZtZ0VUmTOR/iRL9Mi9iVQt9TmbW3d47zanyZb9BkU1PKAks8pv43IMzq6OST8Ejlr22Z98/AeishmNt70q2Q4k0Q4qikjD32LO/rxGgG4D2Yqzf1fLYd1NcLyOcMn4cSdQnAw=
+	t=1788553369; cv=none; b=n0TlV/+roniCUnLFnyeKu0Z0Yqp+MPcCSdbFRACqV0dfsi5uMesObO4+XmYAy2iql/kRzWDEC7ygja70YoNVf2GuK2myTj+iCIZcSkqI0bWH9Zf5BOSsbjBCEuiEwjDfP8T78YEnPYHVUOSgqj623wB4FhkDH6cn0izE+NmVdkM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788553216; c=relaxed/simple;
-	bh=Ror87dz6TYSCbKbiMSUgMR90TJNW5BKFterfbdl2OwM=;
-	h=From:Date:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=PrZoe6Bn45oFyYQEUpsjPvmW0IQxA3lLCiHsSC+nhjlxaCX/WJYGHmpQpil2QW+sr4k9nbv0d+M2AwtO9jKFtXkNdvQ5fkjbYLRNo3+3OzIW9hhzLnrv7A4sQoNpI7TizI744W8PMjkhSfFjMEkEkZDwxC8A99FacKG9Ovg3Gyk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Baoa53N7; arc=none smtp.client-ip=192.198.163.18
+	s=arc-20240116; t=1788553369; c=relaxed/simple;
+	bh=bw2W1qZcmf7Blll3N+n4993Jy+r1dnnoyRkosVN9X3c=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=rRSXrx/llNHPkw6Hs/hbWtUX9W9RXG4kLUE+Zx6LLvnMT/0a2BLS0vz3+fmTxk4fpeKSemQNvxlrHdZavKRFi6jxzqd74wAOAZUIMaeENkbPJD8DizwVwEi+JFU95EBUJDVD7fpY8ojttfl56C0YlgcgOhwNZyIah9f525LvDao=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=k3g1n8F/; arc=none smtp.client-ip=198.175.65.20
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Baoa53N7"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="k3g1n8F/"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788553212; x=1820089212;
-  h=from:date:to:cc:subject:in-reply-to:message-id:
-   references:mime-version;
-  bh=Ror87dz6TYSCbKbiMSUgMR90TJNW5BKFterfbdl2OwM=;
-  b=Baoa53N7/93VR8CxfxJr2aqtxM7bEStsbChYPIOGY7qy3c+4wxWa3GWf
-   JIRpZLsrJ9+MkWarUeKlquYROijQjy2vgV9dAc/FaAcEUDbCrpjjOBIL7
-   P4qG2N5jB2hTrzmgmGnROIo/m+veXNMOpLFmcG7033AZ6uiGeM664rjNp
-   /5pnplVRm/XUkpCQpXqsycudAOe1r5iEhFxtVM4V+oTZqH++rX0/tg6Wy
-   ig9iwGrZetbuE8anXp/IdoaR9XOBC01aYe1vSs1OUyEkE3SrzLpaEejb1
-   z7qA/kGBgbXaGE0IHheZma1EXT+ufqw0ivsZE/wv0ejTJMAGOtf9t1lW+
-   Q==;
-X-CSE-ConnectionGUID: R24qYB3VSKe8lgoJ3h8/wg==
-X-CSE-MsgGUID: YmfhhpwIRZq45L/22AeniQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11896"; a="88204208"
+  t=1788553366; x=1820089366;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=bw2W1qZcmf7Blll3N+n4993Jy+r1dnnoyRkosVN9X3c=;
+  b=k3g1n8F/aD/jpnFi9XnkXmKsQZETcxMRV9JNzg8lPgY+haI/5MBwTAwX
+   aK1nqllu8W+9A16bfH9VnqyI7fm3ca3Jb2yJbTDQW/mqwexRvBa27mRgz
+   D4W+0G987FVWiGsjL0CwA+/ZhlTcWqs3g/X2KK+P6CbehB/QXKqjWNQGP
+   EJJLj19nsGclwvIlVRgOM3YFJ0617RtTD87VeFvni1IKimMKcLYLmcqKb
+   Us8rjVKbHaCAtLP79AtKL3WAV9TagmTzVbxWqbIhEu7WCijVhDAruyhO0
+   AfliXATnh8i0BhEKKDy6Bpoz8+A/9rJxMIs/nggGMgRaZuPJEEe24l6RL
+   w==;
+X-CSE-ConnectionGUID: nLj1Fk5kRE6CQ0pVY2BT9g==
+X-CSE-MsgGUID: DJzCqKjPRHSrVg4CSSXMSw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11896"; a="88825203"
 X-IronPort-AV: E=Sophos;i="6.25,262,1779174000"; 
-   d="scan'208";a="88204208"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
-  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Sep 2026 13:20:10 -0700
-X-CSE-ConnectionGUID: MD2pHQeuTpaaG3WHmvxiDA==
-X-CSE-MsgGUID: 5YFhksYaRO2aAdIh2xaVQA==
+   d="scan'208";a="88825203"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Sep 2026 13:22:44 -0700
+X-CSE-ConnectionGUID: WwKLNACWRFaeMh5EWjuZfA==
+X-CSE-MsgGUID: 1blCz6W6S2mCem8ip/60xw==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,262,1779174000"; 
-   d="scan'208";a="300003332"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.40])
-  by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Sep 2026 13:20:07 -0700
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Date: Fri, 4 Sep 2026 23:20:03 +0300 (EEST)
-To: "Yury M." <yurypm@arista.com>
-cc: Lukas Wunner <lukas@wunner.de>, bhelgaas@google.com, 
-    linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org, 
-    James Sewart <jamessewart@arista.com>
-Subject: Re: [PATCH] PCI: Stop waiting for link status after config read
- failure
-In-Reply-To: <6f916404-63b5-40a3-a429-befe42a08629@arista.com>
-Message-ID: <4186a2bb-2f4d-e536-0acf-cfa4994e2cb4@linux.intel.com>
-References: <20260904111318.1063858-1-yurypm@arista.com> <apq3kd9_qsURNpKu@wunner.de> <6f916404-63b5-40a3-a429-befe42a08629@arista.com>
+Received: from ettammin-mobl3.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.86])
+  by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Sep 2026 13:22:38 -0700
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+	by kekkonen.fi.intel.com (Postfix) with SMTP id CBA3511F7F4;
+	Fri, 04 Sep 2026 23:22:37 +0300 (EEST)
+Date: Fri, 4 Sep 2026 23:22:37 +0300
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: Chen-Yu Tsai <wenst@chromium.org>
+Cc: Bartosz Golaszewski <brgl@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	Daniel Scally <djrscally@gmail.com>,
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Danilo Krummrich <dakr@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Wei Deng <wei.deng@oss.qualcomm.com>,
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+	linux-acpi@vger.kernel.org, driver-core@lists.linux.dev,
+	linux-pm@vger.kernel.org, linux-usb@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-mediatek@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Alan Stern <stern@rowland.harvard.edu>,
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Subject: Re: [PATCH v8 02/16] device property: Add
+ fwnode_graph_get_next_port_endpoint()
+Message-ID: <apsojRC47DnD-PZC@kekkonen.localdomain>
+References: <20260904084158.1341550-1-wenst@chromium.org>
+ <20260904084158.1341550-3-wenst@chromium.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="8323328-392614970-1788553203=:1170"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260904084158.1341550-3-wenst@chromium.org>
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
+On Fri, Sep 04, 2026 at 04:41:41PM +0800, Chen-Yu Tsai wrote:
+> Due to design constraints of the power sequencing API, the consumer
+> must first be sure that the other side is actually a provider, or it
+> will continually get -EPROBE_DEFER when requesting the power
+> sequencing descriptor.
+> 
+> In the upcoming USB power sequencing integration, the USB hub driver
+> first needs to check whether a graph connection exists, and whether
+> the other side of the connection is a supported connector type. The
+> USB port is tied to a "port" firmware node, and this new helper will
+> be used to get the endpoint under the known "port" firmware node.
+> 
+> Sashiko points out that the |prev| reference put is not done if |port|
+> is NULL. However it seems that the fwnode_*() and of_*() API design
+> implicitly makes the functions no-ops if the passed in node is NULL.
+> So this new addition follows the same pattern.
 
---8323328-392614970-1788553203=:1170
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: QUOTED-PRINTABLE
+I'd put this last paragraph after the '---' line.
 
-On Fri, 4 Sep 2026, Yury M. wrote:
+> 
+> Cc: Sakari Ailus <sakari.ailus@linux.intel.com>
+> Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+> Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+> Signed-off-by: Chen-Yu Tsai <wenst@chromium.org>
 
-> what to you think about this check:
-> if ((pcie_capability_read_word(pdev, PCI_EXP_LNKSTA, &lnksta) ||=C2=A0
-> PCI_POSSIBLE_ERROR(lnksta)) && pci_dev_is_disconnected(pdev))
-> =C2=A0 =C2=A0 return -ENODEV;
+Reviewed-by: Sakari Ailus <sakari.ailus@linux.intel.com>
 
-Apparently you're ignoring my feedback. :-(
-
---
- i.
-=20
-> On 9/4/26 13:20, Lukas Wunner wrote:
-> > On Fri, Sep 04, 2026 at 11:13:18AM +0000, Yury Murashka wrote:
-> > > With a nested PCIe topology with multiple layers of hotplug, a link c=
-an go
-> > > down near the bottom of the topology shortly before a link above it g=
-oes
-> > > down. In that case, pcie_wait_for_link_status() can wait for the full
-> > > timeout while every read of the link status register fails because th=
-e
-> > > device has disappeared.
-> > >=20
-> > > Return immediately when reading the link status fails so event proces=
-sing
-> > > can continue.
-> > [...]
-> > > +++ b/drivers/pci/pci.c
-> > > @@ -4580,7 +4581,8 @@ static int pcie_wait_for_link_status(struct pci=
-_dev
-> > > *pdev,
-> > >     =09end_jiffies =3D jiffies +
-> > > msecs_to_jiffies(PCIE_LINK_RETRAIN_TIMEOUT_MS);
-> > >   =09do {
-> > > -=09=09pcie_capability_read_word(pdev, PCI_EXP_LNKSTA, &lnksta);
-> > > +=09=09if (pcie_capability_read_word(pdev, PCI_EXP_LNKSTA, &lnksta))
-> > > +=09=09=09return -ENODEV;
-> > >   =09=09if ((lnksta & lnksta_mask) =3D=3D lnksta_match)
-> > >   =09=09=09return 0;
-> > >   =09=09msleep(1);
-> > It might be clearer if you check for pci_dev_is_disconnected() directly
-> > instead of relying on a PCIBIOS_DEVICE_NOT_FOUND return value which is
-> > generated as a side effect of the device being gone.
-> >=20
-> > Thanks,
-> >=20
-> > Lukas
->=20
->=20
---8323328-392614970-1788553203=:1170--
+-- 
+Sakari Ailus
