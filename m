@@ -1,83 +1,90 @@
-Received: from mail-pf1-f225.google.com (mail-pf1-f225.google.com [209.85.210.225])
+Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 243E435E1B8
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 23:23:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.225
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71FB438DC6F
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 23:25:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788564226; cv=none; b=ORhOhidc3y6JWHsM/VLKZSIMja5rYrXATpQt1Kh1/7sYJmvl+BQrbjtfMYcXBbLm12EWSdepfHHAC5und5VuLOA54ToIEcCi8cEFDazrOU8hYuVtBMp+0C81raM+4r28+8Z2EwQLCpN3mBDldjYk7+mLCZSX/Zlj7ZzKTXijIPY=
+	t=1788564304; cv=none; b=c/IeXMowzyISexveozvRc/RGZqFzT2r9jLinxIEv6Ei3v+E7ZEuRPa9pPRpSfMzqz9UC50O9h3CYaUYokHzsOXILonLcFXP7z3XJv9HXWzxNhjoj1mTvvxjSxvCn+/BBWO1ARCOCoFYCUfvWHAYelyX8WH0b8kt6gy+Fa9nF7gY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788564226; c=relaxed/simple;
-	bh=1D/6Tr5xBcXUuHizxCrM5fO+eUcmJoNR2aK9tSGyl/k=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=s8mcADI1EeMH2bubjHvFJk3oQarEDc/NBH3dffMOBcr+E2jeL9hfu3cLX4Z9nAyhdR+jDL+0a3Y5L5mOzKaOERiDVPy8RQ3A4zeBLO5nzZTbHZSetjKtUfUb7wRSXOvdBczw0lqS+mwfMpEOkQDH4xAj38APUqCrUaoieO1y+qM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=everpuredata.com; spf=pass smtp.mailfrom=everpuredata.com; dkim=pass (2048-bit key) header.d=everpuredata.com header.i=@everpuredata.com header.b=yAE/0u7+; arc=none smtp.client-ip=209.85.210.225
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=everpuredata.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=everpuredata.com
+	s=arc-20240116; t=1788564304; c=relaxed/simple;
+	bh=K1s3LaP7Jy4m4cGgbuRjp7GOXlBBFK1CH2OoNIQ1nqo=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=KWgQMuc4o4zuQcBw9lu+++CnKWvbD4+lZkIydnccLmLLydGJ05AUylj8niXLJQSl+mhCxJV+nE48yQAF+HHcfGxlscBCCyNX2A1VePMJiGbabqiinIRiavduh3Mn6fu/55EpEqN7EMTIFnpa2TdGZwYiRcHQa8PA4KIhNvkkXek=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=lex.la; spf=pass smtp.mailfrom=lex.la; dkim=pass (2048-bit key) header.d=lex.la header.i=@lex.la header.b=N3zRa16v; arc=none smtp.client-ip=209.85.221.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=lex.la
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lex.la
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=everpuredata.com header.i=@everpuredata.com header.b="yAE/0u7+"
-Received: by mail-pf1-f225.google.com with SMTP id d2e1a72fcca58-8485b358552so1358622b3a.2
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 16:23:45 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=lex.la header.i=@lex.la header.b="N3zRa16v"
+Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-482f9309813so1431653f8f.1
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 16:25:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=everpuredata.com; s=google; t=1788564224; x=1789169024; darn=vger.kernel.org;
+        d=lex.la; s=google; t=1788564300; x=1789169100; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=1D/6Tr5xBcXUuHizxCrM5fO+eUcmJoNR2aK9tSGyl/k=;
-        b=yAE/0u7+VHGr4bWCbQNrzOItj33W7N4Ee3rgPgfi/NnNKw+gYNmyJq2lHHmN3sYeHe
-         Q1Dcm/52Vb+E02e+3DQbMRaOP+JPdOVFYG9tCL3NTjqjfTdF20tJtbCf/rltRTykSCXP
-         qfULlKkb/ljU8wRa/Oy0bZhOcqEOaZYohIDCLW5LfoDrYpkzR+D+rWCmn3SbKSa1uL2t
-         1bS4sPJ0Tq1C25Skc+Pq5qBZVnUJWN0urOdSDND4y1aV8rRww3bDYdbwlflanwa67mGP
-         AQ62U+H7Spc7pfbS0NEmODLfl4nob17Vc7H2T+oQ4j0BBrtzMohC418QFNNbWzapLMYZ
-         nqCw==
+        bh=K1s3LaP7Jy4m4cGgbuRjp7GOXlBBFK1CH2OoNIQ1nqo=;
+        b=N3zRa16v+cz43pk6LTT/24nkrJRqiMgJf7RCCzI6PVa08F9SXLe+Ob5E/XCQq5FlT4
+         iDf6+Ho7SC/QcxGAhSyPnuLHM5qu9yBRNloHTlYpjpdk/4pWwEj2URKMWghwV9aOAcHw
+         PnDBhxys2tLUovBqn0OjbUDXXANcPRHmr0bOa761CzNBW/WIjNC0qh7zmbMVXBaATLYI
+         m6OPzMN8ft/kR/nEYz9x1f6aflYc2iM3RPyTz6wFXesanNukdGJXSPqPl9vvIgT3e46d
+         WEBh2xi2AT9D1jjoQI+GT0hV3TLD+NQm7SvDthJr/mLHf0P+KVl+tU2t+0bUO7kdaozv
+         ZaIg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788564224; x=1789169024;
+        d=1e100.net; s=20251104; t=1788564300; x=1789169100;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=1D/6Tr5xBcXUuHizxCrM5fO+eUcmJoNR2aK9tSGyl/k=;
-        b=P6e5RLT5Db92ybHgomcx274cIa7LDGtsW2jj+4rU1LZS1f4FPtBR/z17RP/LUcfqcC
-         uOA2NDiwXdAEaqR8cwz3f3IvchaZZqtXyYKhQLx4xWsDsg6DLQz59q0zcZeBdDKoBXlS
-         a1dsIpr9dWNn2XhvlZHLfJUN1E9bcic/JmeOQ0TaGyFJCLOSXdykI/o13iO4INCh3qz2
-         fhgW8K+zpsSww8pW3VNLuWQLFK0u9ICkrypOuuxuNxl1NozCH7t5Xfr+NV/MKDpmrK9s
-         sDtdOkkLgctgNVLCusnvfqjolT3JcOiBcEbgCkFO0LjRC3UryMjrsZN8u/xB3VfM1uXx
-         MwFA==
-X-Forwarded-Encrypted: i=1; AKwUvBzP7LAA1cI+muM6DGTkCeN7M0EfUh2MLrGUypVUFDFi4jT3gW11PDXSv54+pycsR96bJmJhPkl5ciUzZ60=@vger.kernel.org
-X-Gm-Message-State: AFuF++n0XqQqjh1UFpnQgOT4n9OCvcdS2Yf6KYMCpskZScbNTUPKewKz
-	AoefXD8/VPk8ro5ncoQ/gg9ecWyw1OU8c/TUiSPpxCdxDEir/PQe/aXq6WqdKH6y9xgWTNihD91
-	v78g9xvKYlsNJZjJtWd81Mus8O00FgQFkdHNO
-X-Gm-Gg: AYBFou1PNa6Kx2O7Pv4xCkET0bQBDZHgIakpMVf+dASWtKoChpT9MdYT8r0k/+oXM3e
-	0k/Uv580hnCEGg57m+qsWBg/TRmyCObqg/JIeKT8/GgblvY5AKi/1EziEH8yErhQG7d8Yx02kVQ
-	CliVdm2QNHNB6NnbK4q866LSMwvn6+FV2oJiCBLh8B4Al0Uupct1dBll7eqi2LZ/qogZgAwFzWh
-	YamJzPvHPHXlvd18jKucC6/QtKMa558CVT63yQ1wyR9Yz0xOVZrVeHnY7q+2HLSEO02hKxs3y63
-	I6F+bmEUF8AbSQizd+n1Hz1lwCYTg5yFiC2U2vNVtXXoOVjnuBVVzIVLcXbkYG8iXtnJN74JNRI
-	3RIut7DFD1Zlf7eE+fKOKCXyW9U5K2sHaKmiES4E=
-X-Received: by 2002:a05:6a00:2c94:b0:848:3f07:c5a2 with SMTP id d2e1a72fcca58-86167aab584mr11848768b3a.4.1788564224491;
-        Fri, 04 Sep 2026 16:23:44 -0700 (PDT)
-Received: from c14-smtp-2023.dev.purestorage.com ([208.88.158.129])
-        by smtp-relay.gmail.com with ESMTPS id d2e1a72fcca58-86150750808sm1257514b3a.4.2026.09.04.16.23.43
+        bh=K1s3LaP7Jy4m4cGgbuRjp7GOXlBBFK1CH2OoNIQ1nqo=;
+        b=OYWjWObZx6JZpwraw9O03ne+QjpK+GUilvcptI15ryz3W/p/JBJ+rOyrcDvw/ph5ap
+         DaWJphF8djY0NR64Akl8nMt8qJOSddIaIJl2oEt/bvQy8cC0vlC6+cFLVmYUeF208myk
+         5ktRrdOC7253MuuQqz4YiHN6UeVJYF9geTyyXOpsWv5VOXD0/Dttq/jRG0R2HaETPYKc
+         FoDmKWkE3Fcf5Moq3pTYmNHQtSCMnYQkk2+gf7fffcG6L8KLVf6AcTviz5QIvR1rtPkI
+         boZsumUC8EQ+P/DO5Sf9yZvJKJbl4fmDWpg7zygn2rxKyC/YpZqi/OpvTpvMexagYcX2
+         x8Zg==
+X-Forwarded-Encrypted: i=1; AKwUvBzWCcaHZA/u7N5gYmwAlVk8OLhx9bZvBbm/cjXaM621YMXkvZrob5XxlCBebIiIdIZu2yu26vC+zcjatWA=@vger.kernel.org
+X-Gm-Message-State: AFuF++nhk3M8ZpfN8jCFwUVGJIZVTu4TxnNiEqV4TxriHY/5yr1DUpj3
+	b0K0mR0FyRwN3Ae8/eAA3JYSmP/ayzHctPpPQLdujqH77R7ftFQIhRfanCVSCVtgC9c=
+X-Gm-Gg: AYBFou2jf+79sy9/CJSHo+1+ozc6CV6t7I3+ccvCY10zsjmkR4e67dWi9zMA01AVIBx
+	5AJfugA0jo1d3xxvdkkzcjx/zG5V8wrWG9X4mT+adXrXagmrkjY+0S3CroarjAr/OZgMz/JFusF
+	AtY767on2hxoqhiAUFRoCIiz9pO1ZFRjqoL2XWCp+PWQeNiB8XfeMwPlRVxw25KBW0vsPbc6CQa
+	PjOVq1oUvdKvxC/BXLmtJtfKWHrtxWkEx28hoQSu8mjK0rV/GtXTn6Pwb6Yfp1rDki9gXnL1bIk
+	CE6Eh7xQA0MZIi5zikUIyZBO76/30tjy8ROoWzstS6Ge2/00Dbbb4FMC3wWbigjxODWey1yt+yM
+	fpG3fuex5qS6o9DL/W5DWfx1r6vbhUX3HtOI3pgz2JrLzuRgAqt00yDC+ea4mIbXAA7G5v8AhUW
+	fMtFyDFXCYzlAVt7B/QAe0XKloaaxJ308HNrQ9Frc=
+X-Received: by 2002:a05:6000:2508:b0:485:8c16:5ee5 with SMTP id ffacd0b85a97d-4858e8bd21dmr3475598f8f.31.1788564300124;
+        Fri, 04 Sep 2026 16:25:00 -0700 (PDT)
+Received: from remote-01 ([84.17.55.227])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4859207c28fsm461764f8f.5.2026.09.04.16.24.58
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 04 Sep 2026 16:23:44 -0700 (PDT)
-X-Relaying-Domain: everpuredata.com
-Received: from irdv-tmenninger.dev.purestorage.com (irdv-tmenninger.dev.purestorage.com [10.32.149.15])
-	by c14-smtp-2023.dev.purestorage.com (Postfix) with ESMTPS id 0239C340200;
-	Fri,  4 Sep 2026 16:23:43 -0700 (PDT)
-From: Tim Menninger <tmenninger@everpuredata.com>
-To: Chuck Lever <cel@kernel.org>
-Cc: Trond Myklebust <trondmy@kernel.org>,
-	Anna Schumaker <anna@kernel.org>,
-	Tejun Heo <tj@kernel.org>,
-	Lai Jiangshan <jiangshanlai@gmail.com>,
-	linux-nfs@vger.kernel.org,
+        Fri, 04 Sep 2026 16:24:59 -0700 (PDT)
+From: Aleksei Sviridkin <f@lex.la>
+To: Aleksander Jan Bajkowski <olek2@wp.pl>
+Cc: Vladislav Karmanov <vladislav.karmanov.dev@gmail.com>,
+	chester.a.unal@arinc9.com,
+	daniel@makrotopia.org,
+	andrew@lunn.ch,
+	olteanv@gmail.com,
+	nbd@nbd.name,
+	lorenzo@kernel.org,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	linux@armlinux.org.uk,
+	dqfext@gmail.com,
+	matthias.bgg@gmail.com,
+	angelogioacchino.delregno@collabora.com,
+	netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Eric Badger <ebadger@everpuredata.com>,
-	Jon Curley <jcurley@everpuredata.com>
-Subject: Re: [PATCH RFC 6/8] SUNRPC: Reduce rpciod workqueue contention
-Date: Fri,  4 Sep 2026 23:23:42 +0000
-Message-Id: <20260904232342.1907377-1-tmenninger@everpuredata.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <336623df-ead4-4802-91c5-aa3e785f2971@slotpi15m67>
-References: <336623df-ead4-4802-91c5-aa3e785f2971@slotpi15m67>
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org
+Subject: Re: [PATCH net v5 1/2] net: dsa: mt7530: populate lpi_interfaces to fix EEE support
+Date: Fri,  4 Sep 2026 23:24:54 +0000
+Message-ID: <20260904232454.391138-1-f@lex.la>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <780c9e93-ca6d-4481-8709-c8e5058f0073@wp.pl>
+References: <20260903123644.23800-1-f@lex.la> <20260903123644.23800-2-f@lex.la> <780c9e93-ca6d-4481-8709-c8e5058f0073@wp.pl>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -86,28 +93,29 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-I realized the bad state correlates with where the RDMA CQs' completion
-work runs.
+On Sat, 5 Sep 2026 01:10:33 +0200, Aleksander Jan Bajkowski wrote:
+> I'm a little confused by this patch. At the same time, there are patches
+> floating around mailing list to disable EEE on the MT7530 PHY[1]. Does
+> the EEE work, or is it broken?
 
-This client has 16 RDMA transports and 32 CQs. The CQs receive 32
-consecutive completion vectors out of the mlx5 device's 63-vector ring.
-Depending on the global round-robin starting point, all 32 CQ workers can
-execute on NUMA node 0, or they can split 17/15 between the two NUMA nodes.
+Both, at different layers, and the two patches don't collide.
 
-On unpatched mainline (940de590b839 without your patch set), I tested five
-consecutive allocation windows. On three of those, all 32 CQs executed on
-NUMA node 0. On the other two they fell with a 17/15 split. All five
-sustained ~46 GB/s.
+The MT7530 internal GE PHY really does have broken EEE, and Vladislav's
+patch fixes that in the PHY driver where it belongs. Mine is on the MAC
+side: since the phylink managed EEE conversion, lpi_interfaces was left
+empty for every mt753x port, so phylink never saw the MAC as EEE capable
+and ethtool answered "Not supported" everywhere, including on boards
+whose PHY is fine.
 
-With your v2 applied, all-local windows fall to roughly 24-28 GB/s while
-split windows sustain ~46 GB/s.
+They compose, and the PHY wins. phy_disable_eee() clears
+eee_cfg.tx_lpi_enabled and fills eee_disabled_modes, phy.c:1027 builds
+phydev->enable_tx_lpi from that flag, phylink copies it into
+pl->phy_enable_tx_lpi at phylink.c:1997, and phylink_activate_lpi() is
+gated on (pl->mac_supports_eee && pl->phy_enable_tx_lpi) at
+phylink.c:1583. A PHY that disabled EEE keeps LPI off no matter what the
+MAC declares.
 
-I also tested this by changing only mlx5 IRQ affinity. I redirected
-completion vectors 20-34 from node 0 to CPUs 24-38 on node 1. CQ allocation
-windows 5-36 and 6-37, which would otherwise be entirely local and slow,
-then sustained ~46 GB/s with their CQs split 17/15 across the nodes.
-
-So the CQ allocation determines whether the regression is exposed, but
-mainline is insensitive to that placement. The series introduces the
-performance sensitivity. This also explains why v2 appeared
-nondeterministic with respect to the rpciod affinity scope alone.
+So with both applied, boards with the broken MT7530 PHY stay EEE off
+through the PHY driver, and boards with a working PHY get back the
+ability to turn it on. Mine doesn't enable anything by itself, LPI stays
+off until userspace asks.
