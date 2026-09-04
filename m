@@ -1,43 +1,46 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B207D4A8FF7
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 13:40:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07FB64AA001;
+	Fri,  4 Sep 2026 13:40:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788529240; cv=none; b=rI1VJb4RevB10rTeFl37QnVB/ji69qA1ZzLuDwpsVPaDJl1WNKX5zy8aLclN52o48JndDmzbTiekSA56oj0QGwMQCBj9Bp2yZTuGUKVzSgET5dPn0AcuNYIsKu5U4fI41hxA/u4W8lA0PdBGsZrqOD4sJDhIPafovTIaKURN1EE=
+	t=1788529243; cv=none; b=Ky6bDnT09Gv/eIgiZ9HbjeTsJdfegGkGwFliUMSpTNGqNZnOPgycYnpAZzxQ66pxP5AqZBSeeVPFBkC2EzVTQHlZPerUnX9/FsgwuABsyVD0X5Qen7n36gAg89qPg0onSoAFopDQcl7BTtxLfh0B+rcTCf/dV7IpsRSoBL738DA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788529240; c=relaxed/simple;
-	bh=PTqqvSeFhON+Jt8RgtMNEFzjpFUeqXY2vM6JFpcRd94=;
+	s=arc-20240116; t=1788529243; c=relaxed/simple;
+	bh=ANdPafT8ZSrJJO6g4leyNj64YxEhHDEl6gnKgeHHiec=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=o2NbssY2iiLXFlCpINVscl/Ps8277mF47AKsoe2Admnpo684Plqf3Psklfe3Em4JWB3dg2Nl+9mGF3anS2SpxWjEP9KSH1l4OYVfedU1XMQoU5sQoTJLK3owOJQ9Q3Rpp8LjhvnptFTrtugU5p/HwkeYe2bRk0G4xJUjST7i898=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Jb6dn99S; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=dB7D7SKCW91hzbF46WYP0QxficTfDPm/FeebIrX6ggxS4mq2QR1AIHeY8B0EXa2w3WCSgJAhpfH11cMqf4eAuNvB7e+P55V6NjZmRN9H+HrR+aiXHMnXFMuAsW9sfMMGs6E8ONjL6oMXu5rCLvWD8TcQ5yF0tVz64vYTcKHMAM8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RyNRLXWp; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Jb6dn99S"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9C7431F00A3F;
-	Fri,  4 Sep 2026 13:40:37 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RyNRLXWp"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C2ADB1F00A3D;
+	Fri,  4 Sep 2026 13:40:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788529239;
-	bh=W3ARUUquBVjLU+1vMyfZoZfrmendLIctkuhpFI/Kg7o=;
+	s=k20260515; t=1788529241;
+	bh=w5BleKMYPEzBnvbvt1SnxpNmZhMc1N9txPtpLqhEb+s=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=Jb6dn99SHoZzyXuXQRPUgv51JwOKuRj63FzJ9QsNmwpWPZW59VzrQe5sLB5nW1ynl
-	 52dTvtZco7ZMyjnJU9qFvzPwEbNainZpIq1STMEungRbCRJhe+QBtsGPDtpu0HfmGs
-	 EeH69FrOq2ZGihfizt8SO766Wow/ZPu6WODJQ+4vzdF9dFPQb+LHNRAXFtpNvrW195
-	 /RrHRwq8zLHsh/UMdFzvHuRPjZM45Ul4+Uk//1BeTneS0yrzhI2epLmcUs/eundO91
-	 d4rgJnOHGIbufQqzttFBt+0TOhlOMbhZhzByelI0+AIHUE2skIgikiE2s3Zd+E8j1s
-	 L0sFuzThX/NMQ==
+	b=RyNRLXWpz9O5yPxAqpgC1ssktH6LIgjCA8rAGGJdoHxytVJpU2e4CiYNDyi66hFKN
+	 16szjn5f0awDmwkPfFX1o9J5jRz07cALR6m0IMZfXWXEoAaKruP5BPfgN7B9omGV/3
+	 YhPrGsKjnM8FVeijyhBg5nPG8eijiX3hhSkO9IR+/Fl+cGLbB4GqaEySNyxIgpAMGV
+	 r5a3uuuBJQ3oVqR4u0xaXRsqx7Rm9aJy20S6iwLtvqP9dg7N1i8iZdT92Khze9TOaB
+	 c1kLeOqgwbkhEgudyW9q7+4iWjAxwIEQcG4g06pLj0sOANpsRxA3puXcvEDupF+4vu
+	 EhBkX/ncWxg1A==
 From: Michael Walle <mwalle@kernel.org>
 To: Pratyush Yadav <pratyush@kernel.org>, 
  Takahiro Kuwano <takahiro.kuwano@infineon.com>, 
- Miquel Raynal <miquel.raynal@bootlin.com>, 
  Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>, 
- Takino <stayer.opt1f@icloud.com>, Michael Walle <mwalle@kernel.org>
-Cc: linux-mtd@lists.infradead.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20260811064512.42520-1-mwalle@kernel.org>
-References: <20260811064512.42520-1-mwalle@kernel.org>
-Subject: Re: [PATCH] mtd: spi-nor: xmc: add locking to XM25QH128A
-Message-Id: <178852923736.3340372.17741813626485935143.b4-ty@b4>
-Date: Fri, 04 Sep 2026 15:40:37 +0200
+ Tudor Ambarus <tudor.ambarus@linaro.org>, 
+ Miquel Raynal <miquel.raynal@bootlin.com>
+Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
+ linux-mtd@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org
+In-Reply-To: <20260811-perso-rww-fixes-v1-1-5866a70e5d1c@bootlin.com>
+References: <20260811-perso-rww-fixes-v1-1-5866a70e5d1c@bootlin.com>
+Subject: Re: [PATCH] mtd: spi-nor: Unprepare legacy controllers upon RWW
+ wait interruption
+Message-Id: <178852923952.3340372.11391066199956007622.b4-ty@b4>
+Date: Fri, 04 Sep 2026 15:40:39 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -49,13 +52,20 @@ Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.16.0
 
 
-On Tue, 11 Aug 2026 08:44:44 +0200, Michael Walle wrote:
-> Add support for locking to the XM25QH128A part.
+On Tue, 11 Aug 2026 17:56:23 +0200, Miquel Raynal wrote:
+> All the parallel locking helpers (spi_nor_prep_and_lock(),
+> spi_nor_prep_and_lock_pe() and spi_nor_prep_and_lock_rd()) call
+> spi_nor_prep() then wait with a killable sleep. If the sleep gets
+> killed, we leave the controller in its prepared state.
+> 
+> Call ->unprepare() in these cases.
+> 
+> [...]
 
 Applied, thanks!
 
-[1/1] mtd: spi-nor: xmc: add locking to XM25QH128A
-      commit: 3c2464c70284eb5443a18ea7ee2f815a06d91a5b
+[1/1] mtd: spi-nor: Unprepare legacy controllers upon RWW wait interruption
+      commit: f594a33f9721f08facd98d0a31adc14ff6da9d70
 
 Best regards,
 -- 
