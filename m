@@ -1,69 +1,81 @@
-Received: from mail-pg1-f169.google.com (mail-pg1-f169.google.com [209.85.215.169])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mo4-p01-ob.smtp.rzone.de (mo4-p01-ob.smtp.rzone.de [81.169.146.167])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A30D47B41C
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 10:53:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.169
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788519206; cv=none; b=e+A6gAUT0ZMtCZXSB9fLNfBWxg22piiFusZL3w7FxxfvDnAbtnI/dwj0FAuY5rw+aC9yJZY6UMHAphkcLZ7NLbsD2hC/FNCa+keKiglFIkcXR2kL9HTUCepYUwBvqnxjnFcwOwZt7F/eq5ItxwKGpNu+6WOJfIiGNJDr/SPfhE8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788519206; c=relaxed/simple;
-	bh=Uo0nJNWyQeugzeZ71OV+2aOLYFmZFM+SLpYSMzCZIWU=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=L+jWVasY6ajoqde0TGmzLWhiETG7YUdVuI6JPAVo//zz5Gagnartu6OQuZHzivZnPrJnnyYdUSP1t/1Nydz6bLfQrTtXUICH0fVKZ5zQHn1wO/nBCRRyhCoXN69VoGzkrFqrBsJPVwvdvtUFjByQvhj89wvS6seiCjt2ltFYXi8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bapG/pt6; arc=none smtp.client-ip=209.85.215.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 919714756DF;
+	Fri,  4 Sep 2026 10:53:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=81.169.146.167
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788519210; cv=pass; b=MN9zhUHNVKcjKoEIR17tn5Lcifa7q8uUll8IMBwhHzeIOrdnQ9TKWOSoJGbZ99mL15eNrjWDMNklehYSJwmbBXus0Zlhk/qnm4HmJrhEUVRCzI5Sxyn+5YieDT8WkqrxouUU4atS0U/26YXJrA6QKLNiYpXlWhMDnztXMJ/fLFk=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788519210; c=relaxed/simple;
+	bh=bUXXiVv035eDx9LTrbOItIjefLEYbJxl1oyafsR16C4=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Type; b=AUtErapTcYwJYkGEEiDJTv92ZPd5A9vg0r0tAT9MH/IG/sUpWCC78V2aSFBKRkBvj5ZI0IkX7L5widaslzXFf8ebXTib7W5p0rCLyc6jqGVntCfC+6cUsQevGGDttxuI7Lfldx0BbTm4/mXojey5EkvPf0JRkPybCiFsbr9nNPE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=iokpp.de; spf=none smtp.mailfrom=iokpp.de; dkim=pass (2048-bit key) header.d=iokpp.de header.i=@iokpp.de header.b=OiHQdapQ; dkim=permerror (0-bit key) header.d=iokpp.de header.i=@iokpp.de header.b=VfhI3yce; arc=pass smtp.client-ip=81.169.146.167
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=iokpp.de
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=iokpp.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bapG/pt6"
-Received: by mail-pg1-f169.google.com with SMTP id 41be03b00d2f7-cbee846deecso1247783a12.1
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 03:53:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788519199; x=1789123999; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ZpIP2MYSsGgQmoU6USafOMMVUmfThh8Xiz9qk2fLfyA=;
-        b=bapG/pt6JLaGyer+ME3IOo4ak5/hS3tmHIAYg99AFRmeN5r1gQGQb2c3Wo9G4ksCVU
-         1kwA0/G07x/wswDM2/sSwiWiUnSwNGG6z7YK14FQqZ95COFCytCHuVQMJRocsiWwsYdt
-         Da2diZ2UfCYg3q0JJX43+GFhMCMF2JT329uYxZrU12dkoC0pOcaTayeafujInulmFJdZ
-         XplPNc7RCiccSSZumVS+yu4w8sykXOcVU9KF1jsiOYtUWv1u3rFtSjNj6M+g30vQ5FaE
-         6CEQ/TEs9/JWfIg7Ybr6jfTx6GFwHBmOk6IwswyziNVe3hCwAI3Ji3ygg87GQO8czX+d
-         0a+g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788519199; x=1789123999;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ZpIP2MYSsGgQmoU6USafOMMVUmfThh8Xiz9qk2fLfyA=;
-        b=T/SDy92izRZhXJUaFCIAJMmgwYnpsKYLLCs1iV63ZhHRCG9HHzUNx/BIzCvZXaz+f3
-         ckHMWlQIBjxFB2iRN3eS9ZAnu85Fm6m53rNEd6IuFRdDxfKeIMIjdfbIoyzHhh/4Xozm
-         ykEBO1/oEI8uViB0QX+8w3BRWLQA0NAIuWTKwuIZ5Grzog4ijJtYwZqhF1DIfFRS0kp9
-         4C0to2ViPY15Cbce1IbSXaNUmICoPME7EyIK4MgHAim0Lwzg+B50OG2kn/T+BVAtHSzp
-         Di1yVII7ZCeGmL4vv1ig15TL+wdwQrA7TJBwjxXqKva/Yq78l4HUQSPhO3Kf2IQkfJkn
-         +k8Q==
-X-Gm-Message-State: AFuF++l/5EsnL5tduwBvoWTohHfwgWVt5ML9YlRNO4nLMtkl1zz7tsEc
-	J9bdHRLt8+iXUd2G2KZKUsYSGUgy1fDtFz8jVUpEvWWlLDbsnxCRVGAh
-X-Gm-Gg: AYBFou3MEcbSLrBJ0gdeqMH6alF92ytzbN4e5pp+HjfoS4rl8eDAifqUFRUTAF7ULtx
-	upBpvgKVIGrNjEwukU5M5jZbqwM92Uf2z9STg8Mxl6VlhPUKxJsBzu71JPLR0yRPU690/k1XVZt
-	cMqm7i5GdOp3u/erp88X1uubi2U8qG9gZX3lNXNup6lxMh5rBlS3diJ0LhjWcOPUmDe3HyQH//K
-	PVXuzOdN/LZBYGck4LVD5ERH9hk5Ai55RDGPhRvENGoaSImC7NTwPOdZa3prl/6OhGeyoabRC5B
-	MKRsVM5+x5xZKcj5Kmx5/vHwwiVjlRQQuatcJUnRO8Egdmq0o4N1acIhp2juEBqdzNViinp3wpf
-	FqVYsLmNDCMGttMzubwrxuKCrbqGiQWdFu3beMRhQFQaWWFdI5GRXr/EHGpQDp06+C/XwhES99g
-	3wz4Ng85jE6t2ANhg3p+QQnY2S61R6uRW8efX9vlI2dTRkO8iSIXJIP6Z689XNm2i3WY4A+VOhx
-	FfAe6Fcs+1zMx5s219wNrnAmw==
-X-Received: by 2002:a05:6a21:3204:b0:3c3:bbe6:95c7 with SMTP id adf61e73a8af0-3da3a0a910amr8553364637.17.1788519199395;
-        Fri, 04 Sep 2026 03:53:19 -0700 (PDT)
-Received: from volcano9f6e-hostos.amd.com ([165.204.217.251])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339af25062sm8624311eec.16.2026.09.04.03.53.16
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 04 Sep 2026 03:53:18 -0700 (PDT)
-From: Hemanth Selam <hemanth.selam@gmail.com>
-To: =?UTF-8?q?Toke=20H=C3=B8iland-J=C3=B8rgensen?= <toke@toke.dk>
-Cc: linux-kernel@vger.kernel.org,
-	linux-wireless@vger.kernel.org
-Subject: [PATCH] wifi: ath9k: fix typo "upto" in comments
-Date: Fri,  4 Sep 2026 16:23:12 +0530
-Message-ID: <20260904105313.33238-1-hemanth.selam@gmail.com>
-X-Mailer: git-send-email 2.48.1
+	dkim=pass (2048-bit key) header.d=iokpp.de header.i=@iokpp.de header.b="OiHQdapQ";
+	dkim=permerror (0-bit key) header.d=iokpp.de header.i=@iokpp.de header.b="VfhI3yce"
+ARC-Seal: i=1; a=rsa-sha256; t=1788519124; cv=none;
+    d=strato.com; s=strato-dkim-0002;
+    b=ZSUzOt+BcavtYYJ0q6FSgeboDQjR9c1R09ZPD2Tp0lOp/2EozTaO+4U0FBnmfALyFH
+    FU8LygXUfVxXRjlcn0v6MJfAPFOS9UxR/Fs/RO5RLV70NR9nSKhaAN7RpBXY/tTzkBt6
+    tR0dYmU4KsWUTI7Nv71h0mVNfAslfOXE9svmxUFz34RhcTOoYaMCaEjKNUdNdgF0onMn
+    Kr4xv/VaI9frOeQ+tA1wMPOpbwhhQX0Z0Tr/OituOs8TPXD17V+WJgRHC60JlLpdOO8S
+    gTK10HExBO/lQeGmXjdCbJ3PyemzO7hNyFZhyt/zqrAghb3xn3OojF+o0DAX+TiXnfzJ
+    R7nA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1788519124;
+    s=strato-dkim-0002; d=strato.com;
+    h=Message-Id:Date:Subject:Cc:To:From:Cc:Date:From:Subject:Sender;
+    bh=kAhvbBh0y8XmQwwqp6+NOqBPmhrCPGrOA+dkTWjQAHU=;
+    b=bDd5M0y9gA+uCVFCLCK1WE8U2htdjUqsJHLRv/N30B730qSlHetp4vl5YEmGZNkT+C
+    wTkomcDW0VCoszl2UdGKSR0tAyzoD7UdHOVu+WUR+GDEOZiHcqaelWYi+6SZwoaIYjDl
+    HsN3yQWPISTDxfKGcVT+jtWepwKMDwOhwmIh3hT1z1Vx/t8tkqqMg6XjgQJgSXj1ekTp
+    pAOabJTCCzjI+OlD4scBiaaTjemW9i2L7r9Gg3E5ZKZrCwMZap/aD+vfI9CW6YJIpTkd
+    XcwjI/226tNiv5SrBqzfo8Em9VtHKHyxa08E5Q/YHwOwCOK841tG1svUMuyEbL5ShqhN
+    YjjQ==
+ARC-Authentication-Results: i=1; strato.com;
+    arc=none;
+    dkim=none
+X-RZG-CLASS-ID: mo01
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1788519124;
+    s=strato-dkim-0002; d=iokpp.de;
+    h=Message-Id:Date:Subject:Cc:To:From:Cc:Date:From:Subject:Sender;
+    bh=kAhvbBh0y8XmQwwqp6+NOqBPmhrCPGrOA+dkTWjQAHU=;
+    b=OiHQdapQY2fbSngMsdkwLACy0ftWtGnaqbUU+vsbtd8S4TI3Z4JEe7FjDkPmw2ivzW
+    CviqS1Fm/Z8XB6F68XjkWQX//5lo2trLxyRbqLslopCxjHyl6yNl9kQUX3NIwKbz3U7S
+    lyuX6QbloWjqjUSbtBPQ8JZM7Abhy9DfJx/wZjdcvNW46aVyKf800xIfscFw5jrDDfXa
+    GMKgKEJXl+uTXddQcHtSwucbuLC9zjiv99avMmaT65Ld+/FdU89cyB+BjXyjcEOYOqhe
+    FKoWBmV0jYKZN5I0AuN8JR2pDh30Ns8wzpFjOMar4KO1U0KrNQQbY6OqPDuIyiV0zGlZ
+    KNKA==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1788519124;
+    s=strato-dkim-0003; d=iokpp.de;
+    h=Message-Id:Date:Subject:Cc:To:From:Cc:Date:From:Subject:Sender;
+    bh=kAhvbBh0y8XmQwwqp6+NOqBPmhrCPGrOA+dkTWjQAHU=;
+    b=VfhI3yceMOxBtz+bJyaLuadhh9n3CmADVT+8zXNL+ludZ3GCMp+ayx+hLBpGehZKIV
+    y1WyvTDwGDhqB8+L67Dw==
+X-RZG-AUTH: ":LmkFe0i9dN8c2t4QQyGBB/NDXvjDB6pBSfNuhhDSDt3O2J2YOom0XQaPis+nU/xK"
+Received: from Munilab01-lab.micron.com
+    by smtp.strato.de (RZmta 55.6.2 AUTH)
+    with ESMTPSA id ze37e1284Aq32Dw
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
+	(Client did not present a certificate);
+    Fri, 4 Sep 2026 12:52:03 +0200 (CEST)
+From: Bean Huo <beanhuo@iokpp.de>
+To: linux-nvme@lists.infradead.org,
+	kbusch@kernel.org,
+	hch@lst.de
+Cc: axboe@kernel.dk,
+	sagi@grimberg.me,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	bob.beckett@collabora.com,
+	Bean Huo <beanhuo@micron.com>,
+	Gaurav Sinha <gsinha@micron.com>
+Subject: [PATCH] nvme-pci: add NVME_QUIRK_DMAPOOL_ALIGN_512 for Micron 4100AT
+Date: Fri,  4 Sep 2026 12:51:55 +0200
+Message-Id: <20260904105155.1402065-1-beanhuo@iokpp.de>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -71,32 +83,52 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="us-ascii"
 
-Correct "upto" to "up to", reported by scripts/checkpatch.pl using the
-misspelling list in scripts/spelling.txt.  Only touches comments, no code
-changes.
+From: Bean Huo <beanhuo@micron.com>
 
-Assisted-by: Cursor:claude-opus-5
-Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
+The Micron 4100AT fetches PRP Lists in 512 byte strides, but the driver
+allocates small PRP List descriptors in 256 byte strides.  A descriptor
+in the last 256 bytes of a dmapool page makes the controller read past
+the page: the access lands on an adjacent IOVA, the IOMMU faults the
+command. That last block only became reachable with commit da9619a30e73
+("dmapool: link blocks across pages"), so this affects v6.4 and later.
+
+Align the small descriptor pool to 512 bytes, as commit ebefac564796
+("nvme-pci: 512 byte aligned dma pool segment quirk") already does for
+another controller with the same erratum.  The last block then starts
+at offset 0xE00 and the fetch stays inside the page.
+
+Cc: <stable@vger.kernel.org> # 6.4.x: ebefac564796: nvme-pci: 512 byte aligned dma pool segment quirk
+Cc: <stable@vger.kernel.org> # 6.4.x
+Signed-off-by: Gaurav Sinha <gsinha@micron.com>
+Signed-off-by: Bean Huo <beanhuo@micron.com>
 ---
- drivers/net/wireless/ath/ath9k/htc_drv_main.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+Notes for reviewers (not part of the commit message):
 
-diff --git a/drivers/net/wireless/ath/ath9k/htc_drv_main.c b/drivers/net/wireless/ath/ath9k/htc_drv_main.c
-index 0d6272ac0dac..af92bb25f74b 100644
---- a/drivers/net/wireless/ath/ath9k/htc_drv_main.c
-+++ b/drivers/net/wireless/ath/ath9k/htc_drv_main.c
-@@ -1826,8 +1826,8 @@ struct base_eep_header *ath9k_htc_get_eeprom_base(struct ath9k_htc_priv *priv)
- 	struct base_eep_header *pBase = NULL;
- 	/*
- 	 * This can be done since all the 3 EEPROM families have the
--	 * same base header upto a certain point, and we are interested in
--	 * the data only upto that point.
-+	 * same base header up to a certain point, and we are interested in
-+	 * the data only up to that point.
- 	 */
- 
- 	if (AR_SREV_9271(priv->ah))
+* Why the two Cc: stable lines: this device needs the quirk from v6.4
+  on, but the quirk itself only exists from v6.13.  Older trees, such
+  as the 6.12 LTS where we found this, need ebefac564796 first.  The
+  first line asks stable to pick that commit before this one, and the
+  second gives 6.4 as the starting version.
+
+* Why no Fixes: tag: the only candidate is da9619a30e73, and that
+  commit is not wrong.  It fixed an off-by-one that had been hiding this
+  device erratum.  Blaming it did not seem fair, so we left the tag out.
+  Happy to add one if the maintainers prefer.
+
+diff --git a/drivers/nvme/host/pci.c b/drivers/nvme/host/pci.c
+index db5fc9bf6627..d6dec3ba41f4 100644
+--- a/drivers/nvme/host/pci.c
++++ b/drivers/nvme/host/pci.c
+@@ -4141,6 +4141,8 @@ static const struct pci_device_id nvme_id_table[] = {
+ 		.driver_data = NVME_QUIRK_IGNORE_DEV_SUBNQN },
+ 	 { PCI_DEVICE(0x1344, 0x6001),   /* Micron Nitro NVMe */
+ 		 .driver_data = NVME_QUIRK_BOGUS_NID, },
++	{ PCI_DEVICE(0x1344, 0x6004),	/* Micron 4100AT */
++		.driver_data = NVME_QUIRK_DMAPOOL_ALIGN_512, },
+ 	{ PCI_DEVICE(0x1c5c, 0x1504),   /* SK Hynix PC400 */
+ 		.driver_data = NVME_QUIRK_DISABLE_WRITE_ZEROES, },
+ 	{ PCI_DEVICE(0x1c5c, 0x174a),   /* SK Hynix P31 SSD */
 -- 
-2.48.1
-
+2.43.0
