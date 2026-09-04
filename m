@@ -1,141 +1,153 @@
-Received: from mail-oo2-f2.google.com (mail-oo2-f2.google.com [74.125.231.130])
+Received: from mail-oo1-f44.google.com (mail-oo1-f44.google.com [209.85.161.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F4C240B0FE
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 12:04:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 897DC477984
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 12:04:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788523469; cv=none; b=cxVKNhvvj0BCrm/MGgGM64Qga03UVghEqhxBISGhF+vlfqvRlOxRtpVVzkrkGK2kj8PQ3b5gXjdFRPat87RqwYMNcVckgPvOkSDSArHfMqhOE7bnraBOUAGYq+m5SzcIE/ckQMHAX3IX3EgggxI+Y3psyCGBsLsm9+jTMtmo6T0=
+	t=1788523477; cv=none; b=d2YAmL03K6DcF/GxRTpIdtxtI1/iRUgg/I2SL7zIG+z84BeEt2UGNazltUodJhF/+2TBG0Vv5paWUgP7p74vt9bmknzGISxkWXjVVpGEznLe2Td7bQAN5EKZ/SbG/R4JsqWNQLX6SLyxKbd9QPcs0xlGf1dwWZr2ZdGTNRUZq+U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788523469; c=relaxed/simple;
-	bh=fPbUSObR6eZ/+Io4h3mYEmMLDZes6MDRBPVGwOK1S/c=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=bvRIwqfBlox0OhC3Wzqm+uFHXt4Ev0wD/SxMq7B822q7SQI3C314XwNMRMdL27to6388vruRDyl49xAVySaIuq35Vkk/NYPsM3tHK0k6yKn9vWRQhx5g8coA9F6zpcVY64EZlrAxA4cvzHPl6P6IE3bdQAy2qBwFWLhru3Ho7L8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=74.125.231.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oo2-f2.google.com with SMTP id 006d021491bc7-6b6c9ce1ad6so270373eaf.1
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 05:04:28 -0700 (PDT)
+	s=arc-20240116; t=1788523477; c=relaxed/simple;
+	bh=sT39qbeBdcKVZPKp8dHBTJYvcY8iTBXm47Uar5LqFdI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=X2QamjVhKnkwJ4qGtTetUtY6Ics97bpqZGmyAn3ORhaUS5IRQE+Ju1bAr9BuozhmV+U9H02QJjEGt3UJF1HCelujl9vlAF9FViHyWhJWkeVIjIqfT3nNDBfMftzAu/EecGumXyMRkFEWjbiNX1f32aIMllytpjGB5KL0pxbcI7M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bEjYriLG; arc=none smtp.client-ip=209.85.161.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bEjYriLG"
+Received: by mail-oo1-f44.google.com with SMTP id 006d021491bc7-6b1afdf5196so371779eaf.2
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 05:04:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788523474; x=1789128274; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=45a89UjRbWNWb7/GnsM0msepV7nJy8o7xzN6rsFFgTI=;
+        b=bEjYriLGG+Od733d+V26W0wGlUkxVLC+05UU77y5p9gbMDSeR5WIrumOjBqa5JeK+9
+         SKyig2gnA+h5kxpuJbkBuAqgkZ3dhJOVaKW3CCLsmtXbW7y9TMCPcrEr12R+58/FkCdi
+         Nu51uWgTfwtJls9ViA8cJDNhBmaQ6LtCbhV83U8xEeaK/dZ2FTsXMQOe0GcPuSI9xnml
+         Q5llIeYnkiaa7IsZnEKsvXm3a0hH30ufBI59174BgKVPzsLn+RfNZAwo9J3mzNoWM0AU
+         cHzOIs4STqxfWZL1S/eYi4GXHwqP0xURW4kebNeBDoWJyiM4hGdUffft9t4wGRZb2muf
+         OlfA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788523467; x=1789128267;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=SupJpdwSLj9zgEkdQSeNPXRZOkTr8HuxtyuLc8U7ACc=;
-        b=WynKVMQsEdisJ9pib0+wcAHjh7TaP1r0HOv4L3+rsrG0GLY1RwozhjWZ/F3AkphCxU
-         gf5MvUZoFa4kF2CXEhlay2YlRWS31rbZcddiyfod2CTUPqTaN28C4vgniPd+ZB/UfgSf
-         TqDbLqXPKc+xbVMO4U79DsLXrU3OJFhvDXkHSjrIVcryn2UG84PGWxUwXAls7QICRsWs
-         oUlJqq5NkK401c+KmATdsF6KX9zvb7RI2yRcB7fsUXQQ1a99NuZpZH25gjRio+3l7r4u
-         SMPMySKAKNwmXmaZZos+knj8DGX3hR/QvvSTzuJY2QRZZ95glWLXmiUBj2WffdUJOM0b
-         Y+EA==
-X-Forwarded-Encrypted: i=1; AKwUvBw+78pCSrFP76bu9Pf5gJCuDjZaI4a3PEfRNn+O5C2DYrpJjEiemfzgld6cfsJFCaS2OzJAX9BXGvg0tuE=@vger.kernel.org
-X-Gm-Message-State: AFuF++mAgdzCx2CQwzaxl0CGxQICZXcY6KjEhWFWJU8yhBHmjQDBDkdu
-	c1gI50SJITLgynhzyYD58oZufCyHZBmQh2kAqf+zFUwyatgKgkrfdMs8V9NmS7XN+NnVja0UoX2
-	50nq4lOwPRLKXPafDSrlJ1Fx2I+9i9XaBp8VB3da0GMmDJc3TSfKGVg8WJ74=
+        d=1e100.net; s=20251104; t=1788523474; x=1789128274;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=45a89UjRbWNWb7/GnsM0msepV7nJy8o7xzN6rsFFgTI=;
+        b=TeTGOGh1AUlLjCckWCB80gotpi0ei5eMB89vaGXZRQNsRtVKWAPQ/lvD66O4pzSO3I
+         j6xUOEd/KCGJf0qwGxVG3jsJ0fU5ikBepnojRo/XUI24DwxM5E6q07uyB65sskFwox6p
+         Cmbg+Zumdill97nC46VGR1Tad1GJ9PYsgD3+uPbm0lNnCiKByj3dCVV1mMLK4zkMd24C
+         mEO5ffnMWhGPEzadPgiHGLtNhzffE02liog6icT63Jg0n8RbEKQK1AWO5HaSNFEd/Fch
+         uFDufgz5L0QtFXdPbcmU1t7xsizkhdTS7xqjnd3vFleNN9wWzf8Kmhl5ir2/AV0stsqV
+         32eg==
+X-Gm-Message-State: AFuF++k8zbgEgZewdz1zkJXIfYGzWmil7JkpQxo1c03+ERBZewBDd43o
+	Fh219hpOaJIUmCihQYKy1ZbIYwcRtfbdBmbAkjHA2FbU3dYijXTIWJvLiTg7kGZwSFk=
+X-Gm-Gg: AYBFou0Rc0j2yI06VV6p6ctizYssrZ7JHWkiOTZBcGakxlqUWVGSsaRQ+WY2nLwWUfW
+	AgQIo55U1yiA+dCbbd9W2Bw9CrHEFPWcarkrPUSQMyDqTmz0UT1IMqJB3pMYvFN+a6s5rtvoH0g
+	9XGabHYn3YM+D0UU3JRJvJUsPgX7SlM+FspbsFEvSOH3GQa/9yKkhHqP7V8UUSyMpVOqKLKMrpS
+	EO1P9Co1tyepgkKed49QZgsrcA7/s0cgj1pT0bnwUfOWdieB9Kjaunq6TVHdfx44DWYlFWP2WkZ
+	t6NmvlcWUS2mlFjOpahXALG79E/G/Unu6m5L0HjYo0yFg38S9vjnf5WOhwqpd9uAvQNbnvY5TlC
+	0DZoJQDzgfdhVW9aycU0D61boZXJu9qops1/Whc+Udn2AIPjqA7LzPyHBIyU4dRJVoAztx2mXIq
+	frjkZrhF2vj5yVn9Eyfi1vQeXwYziNfTMpJRVsFPmkiuFTnLWSAlYZB7aw8064qVC8DfnX2NXkm
+	hQ400n0Uk4QjoY=
+X-Received: by 2002:a05:6820:a06:b0:6b7:46e9:9708 with SMTP id 006d021491bc7-6b746e9a219mr2090272eaf.56.1788523474232;
+        Fri, 04 Sep 2026 05:04:34 -0700 (PDT)
+Received: from volcano9f6e-hostos.amd.com ([165.204.217.251])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339b8f787esm5770422eec.23.2026.09.04.05.04.33
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 04 Sep 2026 05:04:33 -0700 (PDT)
+From: Hemanth Selam <hemanth.selam@gmail.com>
+To: 
+Cc: linux-kernel@vger.kernel.org
+Subject: [PATCH 0/3] drm: fix typos and repeated words in comments
+Date: Fri,  4 Sep 2026 17:34:15 +0530
+Message-ID: <20260904120430.17224-1-hemanth.selam@gmail.com>
+X-Mailer: git-send-email 2.48.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:c0d4:10b0:6b7:83d6:293f with SMTP id
- 006d021491bc7-6b783d6301dmr1065951eaf.66.1788523467122; Fri, 04 Sep 2026
- 05:04:27 -0700 (PDT)
-Date: Fri, 04 Sep 2026 05:04:27 -0700
-In-Reply-To: <6a964b83.99c12218.408a8.0001.GAE@google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6a9ab3cb.9266084e.bf0d7.0668.GAE@google.com>
-Subject: Re: [syzbot] [ext4?] general protection fault in __bh_submit
-From: syzbot <syzbot+41453ea05ab61c075f1f@syzkaller.appspotmail.com>
-To: jack@suse.com, linux-ext4@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	pavankumaryalagada@gmail.com, syzkaller-bugs@googlegroups.com, tytso@mit.edu
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-syzbot has found a reproducer for the following issue on:
+This corrects 3 misspellings and repeated words in comments.  Each is a
+separate patch so that any one of them can be dropped without touching
+the rest.
 
-HEAD commit:    9d80aa4617b3 Add linux-next specific files for 20260903
-git tree:       linux-next
-console output: https://syzkaller.appspot.com/x/log.txt?x=15fa38f9580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=bb4a32c282cc2ec7
-dashboard link: https://syzkaller.appspot.com/bug?extid=41453ea05ab61c075f1f
-compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
-syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=17c228f9580000
-C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=13fa38f9580000
+Nothing outside comments changes.  Every touched C file was checked by
+dropping its comments, replacing each string literal with a placeholder
+and collapsing whitespace; what remained was identical before and after,
+so the compiled code cannot differ.
 
-Downloadable assets:
-disk image: https://storage.googleapis.com/syzbot-assets/417a63e8ac61/disk-9d80aa46.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/a1d004c189c1/vmlinux-9d80aa46.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/97413e5bd243/bzImage-9d80aa46.xz
-mounted in repro: https://storage.googleapis.com/syzbot-assets/21b9bcefd2ef/mount_0.gz
-  fsck result: failed (log: https://syzkaller.appspot.com/x/fsck.log?x=100508f9580000)
+The mistakes were found with scripts/checkpatch.pl against the list in
+scripts/spelling.txt.  The scanning, the edits and the changelogs were
+produced with Cursor running the claude-opus-5 model, from a request to
+find and fix spelling mistakes across the tree, and every correction was
+then re-checked by the comparison described above.  Words that name an
+identifier were left alone deliberately, even when they read as typos,
+because correcting the prose would make the comment disagree with the
+code it describes.
 
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+41453ea05ab61c075f1f@syzkaller.appspotmail.com
+Tested by building x86_64 defconfig at v7.3-rc1-269-gbc35965f6940, which
+is clean.  Nothing else was built, so any patch touching code that
+x86_64 defconfig does not compile has been read but not compiled.
 
-Oops: general protection fault, probably for non-canonical address 0xdffffc0000000001: 0000 [#1] SMP KASAN PTI
-KASAN: null-ptr-deref in range [0x0000000000000008-0x000000000000000f]
-CPU: 0 UID: 0 PID: 4945 Comm: jbd2/sda1-8 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 07/24/2026
-RIP: 0010:const_folio_flags include/linux/page-flags.h:345 [inline]
-RIP: 0010:folio_test_dropbehind include/linux/page-flags.h:600 [inline]
-RIP: 0010:__bh_submit+0x22d/0x8d0 fs/buffer.c:1109
-Code: c1 e8 03 48 89 44 24 18 42 80 3c 20 00 74 08 48 89 df e8 f6 e7 d7 ff 48 89 5c 24 28 48 8b 1b 4c 8d 7b 08 4c 89 f8 48 c1 e8 03 <42> 80 3c 20 00 74 08 4c 89 ff e8 d4 e7 d7 ff 4d 8b 3f 4c 89 fe 48
-RSP: 0018:ffffc9000753f868 EFLAGS: 00010202
-RAX: 0000000000000001 RBX: 0000000000000000 RCX: ffffffff84b9a9a9
-RDX: 0000000000000001 RSI: 0000000000000004 RDI: ffff8880739467a0
-RBP: 0000000000009801 R08: ffff8880739467ff R09: 1ffff1100e728cff
-R10: dffffc0000000000 R11: ffffed100e728d00 R12: dffffc0000000000
-R13: ffff888073946780 R14: ffff888076b240e0 R15: 0000000000000008
-FS:  0000000000000000(0000) GS:ffff888124cc0000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 00007ffa1d208708 CR3: 000000000eb48000 CR4: 00000000003526f0
-Call Trace:
- <TASK>
- jbd2_journal_commit_transaction+0x2285/0x5c80 fs/jbd2/commit.c:751
- kjournald2+0x3bc/0x740 fs/jbd2/journal.c:200
- kthread+0x38b/0x480 kernel/kthread.c:436
- ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
- ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
- </TASK>
-Modules linked in:
----[ end trace 0000000000000000 ]---
-RIP: 0010:const_folio_flags include/linux/page-flags.h:345 [inline]
-RIP: 0010:folio_test_dropbehind include/linux/page-flags.h:600 [inline]
-RIP: 0010:__bh_submit+0x22d/0x8d0 fs/buffer.c:1109
-Code: c1 e8 03 48 89 44 24 18 42 80 3c 20 00 74 08 48 89 df e8 f6 e7 d7 ff 48 89 5c 24 28 48 8b 1b 4c 8d 7b 08 4c 89 f8 48 c1 e8 03 <42> 80 3c 20 00 74 08 4c 89 ff e8 d4 e7 d7 ff 4d 8b 3f 4c 89 fe 48
-RSP: 0018:ffffc9000753f868 EFLAGS: 00010202
-RAX: 0000000000000001 RBX: 0000000000000000 RCX: ffffffff84b9a9a9
-RDX: 0000000000000001 RSI: 0000000000000004 RDI: ffff8880739467a0
-RBP: 0000000000009801 R08: ffff8880739467ff R09: 1ffff1100e728cff
-R10: dffffc0000000000 R11: ffffed100e728d00 R12: dffffc0000000000
-R13: ffff888073946780 R14: ffff888076b240e0 R15: 0000000000000008
-FS:  0000000000000000(0000) GS:ffff888124cc0000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 00007ffa1d208708 CR3: 000000007f076000 CR4: 00000000003526f0
-----------------
-Code disassembly (best guess):
-   0:	c1 e8 03             	shr    $0x3,%eax
-   3:	48 89 44 24 18       	mov    %rax,0x18(%rsp)
-   8:	42 80 3c 20 00       	cmpb   $0x0,(%rax,%r12,1)
-   d:	74 08                	je     0x17
-   f:	48 89 df             	mov    %rbx,%rdi
-  12:	e8 f6 e7 d7 ff       	call   0xffd7e80d
-  17:	48 89 5c 24 28       	mov    %rbx,0x28(%rsp)
-  1c:	48 8b 1b             	mov    (%rbx),%rbx
-  1f:	4c 8d 7b 08          	lea    0x8(%rbx),%r15
-  23:	4c 89 f8             	mov    %r15,%rax
-  26:	48 c1 e8 03          	shr    $0x3,%rax
-* 2a:	42 80 3c 20 00       	cmpb   $0x0,(%rax,%r12,1) <-- trapping instruction
-  2f:	74 08                	je     0x39
-  31:	4c 89 ff             	mov    %r15,%rdi
-  34:	e8 d4 e7 d7 ff       	call   0xffd7e80d
-  39:	4d 8b 3f             	mov    (%r15),%r15
-  3c:	4c 89 fe             	mov    %r15,%rsi
-  3f:	48                   	rex.W
+Hemanth Selam (3):
+  drm: fix typos in comments
+  drm: fix repeated words in comments
+  drm/vmwgfx: fix repeated word in log message
 
+ drivers/dma-buf/sync_debug.h                           | 2 +-
+ drivers/gpu/drm/bridge/parade-ps8622.c                 | 2 +-
+ drivers/gpu/drm/bridge/samsung-dsim.c                  | 2 +-
+ drivers/gpu/drm/bridge/tc358767.c                      | 6 +++---
+ drivers/gpu/drm/display/drm_dp_mst_topology.c          | 2 +-
+ drivers/gpu/drm/drm_drv.c                              | 2 +-
+ drivers/gpu/drm/drm_syncobj.c                          | 2 +-
+ drivers/gpu/drm/gma500/oaktrail_lvds.c                 | 2 +-
+ drivers/gpu/drm/gma500/power.c                         | 2 +-
+ drivers/gpu/drm/gma500/psb_drv.h                       | 4 ++--
+ drivers/gpu/drm/imx/dcss/dcss-ctxld.c                  | 2 +-
+ drivers/gpu/drm/loongson/lsdc_drv.c                    | 2 +-
+ drivers/gpu/drm/mgag200/mgag200_g200se.c               | 2 +-
+ drivers/gpu/drm/nouveau/dispnv50/tile.h                | 2 +-
+ drivers/gpu/drm/nouveau/nouveau_bios.c                 | 2 +-
+ drivers/gpu/drm/nouveau/nouveau_exec.c                 | 2 +-
+ drivers/gpu/drm/nouveau/nouveau_led.c                  | 2 +-
+ drivers/gpu/drm/nouveau/nvkm/engine/gr/ctxnv50.c       | 2 +-
+ drivers/gpu/drm/nouveau/nvkm/engine/gr/gf100.c         | 4 ++--
+ drivers/gpu/drm/omapdrm/dss/dispc.c                    | 4 ++--
+ drivers/gpu/drm/omapdrm/omap_gem.c                     | 2 +-
+ drivers/gpu/drm/panel/panel-novatek-nt36672a.c         | 2 +-
+ drivers/gpu/drm/panel/panel-samsung-s6e63j0x03.c       | 2 +-
+ drivers/gpu/drm/qxl/qxl_gem.c                          | 2 +-
+ drivers/gpu/drm/renesas/rcar-du/rcar_lvds.c            | 2 +-
+ drivers/gpu/drm/scheduler/sched_main.c                 | 4 ++--
+ drivers/gpu/drm/sun4i/sun4i_tcon.c                     | 2 +-
+ drivers/gpu/drm/tiny/panel-mipi-dbi.c                  | 2 +-
+ drivers/gpu/drm/ttm/ttm_pool.c                         | 2 +-
+ drivers/gpu/drm/vc4/vc4_hdmi.c                         | 2 +-
+ drivers/gpu/drm/vc4/vc4_regs.h                         | 2 +-
+ drivers/gpu/drm/virtio/virtgpu_ioctl.c                 | 2 +-
+ drivers/gpu/drm/vmwgfx/device_include/vm_basic_types.h | 2 +-
+ drivers/gpu/drm/vmwgfx/ttm_object.c                    | 2 +-
+ drivers/gpu/drm/vmwgfx/vmwgfx_drv.h                    | 6 +++---
+ drivers/gpu/drm/vmwgfx/vmwgfx_execbuf.c                | 6 +++---
+ drivers/gpu/drm/vmwgfx/vmwgfx_kms.h                    | 2 +-
+ drivers/gpu/drm/vmwgfx/vmwgfx_resource.c               | 2 +-
+ drivers/gpu/drm/vmwgfx/vmwgfx_so.h                     | 2 +-
+ drivers/gpu/drm/vmwgfx/vmwgfx_surface.c                | 2 +-
+ drivers/gpu/drm/xlnx/zynqmp_dp.c                       | 2 +-
+ drivers/gpu/ipu-v3/ipu-prg.c                           | 2 +-
+ include/drm/drm_framebuffer.h                          | 4 ++--
+ include/drm/drm_plane.h                                | 2 +-
+ include/uapi/drm/nouveau_drm.h                         | 2 +-
+ include/uapi/drm/vmwgfx_drm.h                          | 2 +-
+ kernel/cgroup/dmem.c                                   | 2 +-
+ 47 files changed, 58 insertions(+), 58 deletions(-)
 
----
-If you want syzbot to run the reproducer, reply with:
-#syz test: git://repo/address.git branch-or-commit-hash
-If you attach or paste a git patch, syzbot will apply it before testing.
+-- 
+2.48.1
+
