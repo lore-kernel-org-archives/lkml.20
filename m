@@ -1,33 +1,87 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B591358378
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 06:09:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D79A3414DF6
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 06:09:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788502146; cv=none; b=rvsTL5JcjznP0IMTt4f3WrbZHrb4RZm8cJeZ6+sOQgmyXJ5JIiXtqJ79TzFOCPAtcQv/7SL70UhbVKhkxEniOtG898UWxyVWuVADNqi/n+YtjxrivppQYtqN4j3Ayglyj6aw2CCVj29niJK6cZLFs6KoVVnIOrVGPVu/wPPLglM=
+	t=1788502197; cv=none; b=q3/LfK78oFEK6H1bHVL2NeM16CzpiSf1QopmO9ZiIQpC2FYnHrk3Nfa9j54pT9DmfGk6YPVtz7XnrPmjIPZSMxwZs1Qu384W7owi4SuN17AQauNql2UCOD3zzUksRqHhcCeaY2LP5lzrvpjYk1G/axxD/EiFT0ncwlfGtAXeook=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788502146; c=relaxed/simple;
-	bh=LBPbRZp1f+8cw5F5N0PI862DQqPSwANXb7HOqvJ+NLM=;
+	s=arc-20240116; t=1788502197; c=relaxed/simple;
+	bh=6i1H7/7wQUtpbrY5xzX/0W4P8TBzBKtLRiVT/SoT7ls=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Umi3NsmpP3Z5Ugwx0GmvCrp5dlCD7G4pdUlZx8NxsHKYjDFRSrIF2Ckaus+7hCZes5hHGI/tWbDaINgItKmBQK0cpXMGgxN3sdEQIGD+2TiOxIW/j3LCTYs39DwusmGKzF12nP7SGL4OyrLwiKN4KnmowhgfSDMESDZuyabhsKY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=P1fXFY/S; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=L6IW8QFveEOwlVDAMg++0iJvLmK2MpeEqdyv+VcNV4Qhx1w6HMFlQZ+AenoZIoYMXFXEAMXGCXHHN0icpvrF0wc5B1OY6qIldR//rZlztu5c10+/qWRdW0EDcZSgPQbR9V1f0yKlmwz8sVzI93B9IDPUD8NQQU57vSTeLkkrDHs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=AJ0VNFv1; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=a09VwbJS; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="P1fXFY/S"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1CF8F1F00A3E;
-	Fri,  4 Sep 2026 06:09:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788502145;
-	bh=ykfieVvZNqtUa+4jWvCQTTFA2b6xsuqBfoeLrAe0uqQ=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=P1fXFY/Say3wJWn/3DLEhCoWyCe4uU/Z6AO/b3p409SgNVUl9xYp6kruuLVDZ3F0K
-	 pN9jh74KW6FRGbnzMu9loZiTKh/oudilsJKCVmVzBB/EkJTWNPaB7HREAc73/0jLNP
-	 qMS/KiggcALQ3y6RKrap4Nt+w791sW748pityCX7BIKok98/HvOzMrSU0APumOMxdW
-	 hTLwYQMyH18P+qFsvS8gwEJyAce8fFmqKwybrqhEOYJ16BrxzYuxRT6oNmuVAanRR3
-	 +7wRHhVUGXmw+woevJ4N6pjl27QYzthF8hMiFqiWP8Aeg2Tj0xcgB0oL4cZW7GKq/I
-	 S4sKdnz/d6gtw==
-Message-ID: <5c42b080-cdcb-43c8-9bf9-15f79339f0da@kernel.org>
-Date: Fri, 4 Sep 2026 08:09:00 +0200
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="AJ0VNFv1";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="a09VwbJS"
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68462k8I2886656
+	for <linux-kernel@vger.kernel.org>; Fri, 4 Sep 2026 06:09:54 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	toQXcTH0dbYcAFdl5EjWItBSNnEY93ZM4mZFCsTYmHY=; b=AJ0VNFv1xDVDBSVz
+	KoJgiGxblWZQ+uOGSLDeYQVFq2t7yCAGXUj+JrgF7dNtbZDzKoae0nCEEahBXe2w
+	500aUGcmg+LO3TM4dk2PXc+4kwAsa7yLQkTIp8o3ezwYQc5/MY6yADr7c0coirIq
+	eb/63gLiiFUK47FHiWw5AbJWsdb7X5O3V2gtyXt6eSJIHutneQ7v0ytvPZYfJh3P
+	/e96YI1wiXkogsbivyr9UUs7T4yv29wZHooCp4irattsRDS9a/DCyq35ZcniqV4q
+	pjeDbA+B5jxlE1R3XeF16anijzr0BYV6aV+APFWInfuJBmNXIQIFU5uj1HKMsgK2
+	IhjPlw==
+Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gfp780eps-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 06:09:54 +0000 (GMT)
+Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-395543dc382so922737a91.0
+        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 23:09:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1788502194; x=1789106994; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=toQXcTH0dbYcAFdl5EjWItBSNnEY93ZM4mZFCsTYmHY=;
+        b=a09VwbJSpxWqNoGZu/bBtNKK38qIMIMuuQAfofT+fCulQO+EMY1LuUgTrOVn+iw2lX
+         ggD+9VgQRMIinkI+IBM4fTHt52Yx1LpDcrO5K2dpg29WYYfIxGJ6726tNljNK0YHEjfs
+         NYAbouzTuTZDCgq5dme+klnZMcCSroYR3twAQFjPv0xfCpNJH4gfgxCMuG/aW4IpYR/h
+         ib3Ln5LwFSHZsuVAOHzayOUZfkwiW+8AgSiOhAYhlN0gTzF5B+m/kXCmMH+h2YoktjJG
+         xWkaeOKlVtR+Z9mWFPbeN+DLSpbPERu5BynBjgo2/VD2jcYB0Ckd9ISmMTwBiY86RhNQ
+         3nxA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788502194; x=1789106994;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=toQXcTH0dbYcAFdl5EjWItBSNnEY93ZM4mZFCsTYmHY=;
+        b=iD5NFdkWLtDbbdi6wdQmSznVCZmy0mG3qJJ/yOalUXJAluPFxqphqwfemTI1PNfr0p
+         dEypMcJXf2pCoBGJERK8hdQEQWI9p4Sr//rzaK+AS/00Lbc1hu721u6ZP3KxFKqJ1XVX
+         ix38FEHd0BYMzOg7SD4f0YgGLgfXrU/BUDE+oqtWWqTDMjMsLy3zT00by3ssFuXKphA+
+         L+ob+jEasKIhDufjzadxK+c61/NDA/AQe8fwHeKoTO8Frr0gE8pl+IcWXX8gPRFtT+3G
+         0CEh+wQvdUz55cs54ZxDtSLoblXYrAxwZUs92Ok0aWkQauuYYSJI8ttGktpCNr1oBW63
+         kMDg==
+X-Forwarded-Encrypted: i=1; AKwUvBwLQFpYC1huTeE8MVvPskZ5CsnXE1WAzRKIolE2g9W4op5Z/W4c3DYHsw18wNxtvjSYJ7dzmX67kzPwQEY=@vger.kernel.org
+X-Gm-Message-State: AFuF++kNeYIRscNWY4cNcadu2dXSmNUJAJTqHlQWLR1oUdY6/66VeBYt
+	lNdjzqAZJITbZJXsx8eH3MHsqi5q7EZe38a2TrowACWDKGqyxDBC1a2Qvn80lCuZC/W+roJL/h6
+	4vl3s3DZNVwuNfB17M+Y0Ym2fdgwdUTsh8ZLxhL7M7OK0yzi+zmIdQxN86nnItJQpzUc=
+X-Gm-Gg: AYBFou2KwDN29FjfZCddjE5x+BZzpbo56d66rFsnaumHTDBOn8gnLac5DhAInDnYo/k
+	OmEI38FEpONibf08H+4cYkiqP2CxZ17nBnJMwZfYZF6GAc5pqR818RZbhwsSoQkWc8SAw5YBKIf
+	ujOCnXXqmi/hR5cM1jHu6V3kHjYEyZdT8dra+y3PnLA+kHeyPEpxKN+7Qj6RcW+RgCXHS3g/bld
+	djeH+Hh3BVHrtb2gadIna9Xo6x05z9E9IiFXCQ7Oohn7ldKMM8HotAMwhfneff0L0cvvf6AjpDk
+	ejGq5/Fm9kFfBV27gv/NFzQzKbkk32/eL3BDY5z7DdSRQxCmCUQICzaz6Xc8hdNXhLw+0XbS29Q
+	T+fFV8pJ8jw6ZlpX7vFoe/fd62mb94TQUU6PaVqNjA8+HfjHWW/yDXhZaqCtsfNkcIPnY
+X-Received: by 2002:a17:90b:5606:b0:398:9be6:f997 with SMTP id 98e67ed59e1d1-39b262dfaeamr6332349a91.22.1788502193742;
+        Thu, 03 Sep 2026 23:09:53 -0700 (PDT)
+X-Received: by 2002:a17:90b:5606:b0:398:9be6:f997 with SMTP id 98e67ed59e1d1-39b262dfaeamr6332268a91.22.1788502193296;
+        Thu, 03 Sep 2026 23:09:53 -0700 (PDT)
+Received: from [192.168.1.5] ([122.177.244.184])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b08c3a526sm8911619a91.10.2026.09.03.23.09.47
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 03 Sep 2026 23:09:52 -0700 (PDT)
+Message-ID: <fd9f1fac-e4e7-453e-a830-a32e8be2f965@oss.qualcomm.com>
+Date: Fri, 4 Sep 2026 11:39:46 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -35,117 +89,105 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] powerpc/entry: Fix double accounting of user time on
- interrupt entry
-To: Aboorva Devarajan <aboorvad@linux.ibm.com>,
- Madhavan Srinivasan <maddy@linux.ibm.com>, linuxppc-dev@lists.ozlabs.org,
- Mukesh Kumar Chaurasiya <mchauras@linux.ibm.com>
-Cc: Shrikanth Hegde <sshegde@linux.ibm.com>, linux-kernel@vger.kernel.org,
- Ritesh Harjani <ritesh.list@gmail.com>,
- "Nysal Jan K . A ." <nysal@linux.ibm.com>
-References: <20260904025831.3439809-1-aboorvad@linux.ibm.com>
-Content-Language: fr-FR
-From: "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>
-In-Reply-To: <20260904025831.3439809-1-aboorvad@linux.ibm.com>
+Subject: Re: [PATCH v2 5/7] usb: dwc3: add xhci-reset-on-resume property for
+ power-loss resume
+To: Faisal Hassan <faisal.hassan@oss.qualcomm.com>,
+        Thinh Nguyen <Thinh.Nguyen@synopsys.com>
+Cc: Sriram Dash <sriram.dash@oss.qualcomm.com>,
+        Jack Pham <jack.pham@oss.qualcomm.com>,
+        Shazad Hussain <shazad.hussain@oss.qualcomm.com>,
+        linux-arm-msm@vger.kernel.org, linux-usb@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+        Mathias Nyman <mathias.nyman@intel.com>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        Philipp Zabel <p.zabel@pengutronix.de>,
+        Wesley Cheng <wesley.cheng@oss.qualcomm.com>
+References: <20260903153827.3463313-1-faisal.hassan@oss.qualcomm.com>
+ <20260903153827.3463313-6-faisal.hassan@oss.qualcomm.com>
+Content-Language: en-US
+From: Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>
+In-Reply-To: <20260903153827.3463313-6-faisal.hassan@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA0MDA1NSBTYWx0ZWRfX2fc75IuAaBUC
+ Pqi/Yvpvn9ksQqIw1P9dsSTJr61n9yMEZRcytHQJuGeTSiHPeHPImuDPBNSa9nR0rVdi29rjXqL
+ 0DeGI8D8rue+wfVIIXIvkW1ST37XOYU=
+X-Proofpoint-ORIG-GUID: 490zi00IJjReKRBUvTqFo2QQKeAXfFsX
+X-Authority-Analysis: v=2.4 cv=ab5RWxot c=1 sm=1 tr=0 ts=6a9a60b2 cx=c_pps
+ a=0uOsjrqzRL749jD1oC5vDA==:117 a=oP200lxkGh9fc4MeAAR85Q==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
+ a=EUspDBNiAAAA:8 a=UW7aF9AyQ5xqPRIsElAA:9 a=QEXdDO2ut3YA:10
+ a=mQ_c8vxmzFEMiUWkPHU9:22
+X-Proofpoint-GUID: 490zi00IJjReKRBUvTqFo2QQKeAXfFsX
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA0MDA1NSBTYWx0ZWRfX4BhzMOHinlvl
+ DbZxDK045YoE6Syk8jiia+k7P4izV0YtSw3XRnW8HJsS7s3UHhQhIaa8Sht6h9YKvr1P8cYCWDp
+ 5SdyFn9fdnawuDEnAEKMY9YzN3VMi5rSBUAJkuaQE5XhTLxfgwv7o5SwzdKVrvLNPLRRy4bUQFh
+ 8uC2MIIRuApm1B2APbhJ9bogEaRVFquwQ5krSuwvZJgytYgAmXOpx6sfiFAP7Z3aOkno+AXCVrD
+ 2nu3FfhPMAICGUfhh1KuPvBMbn9jvX8Xp3sw7XEhTx/tDFqqLcrM/hKg2ZO8q1rkwBHzeQwgdzP
+ VqnI+CtvppAdcA2Nfs8YqDQjNQX+Hgqn/E7fDXFQLoo4Wwq4y/eX+c+diKgdArcoDNTw+2vcTLF
+ 3ZwoEeGITlZruewtu0JvMCdQKAMtRZitvYuy9RCNru8rf7xY7GVTcoe0hlDP7NjzpKaNsnhhpWK
+ bsqgoIxKF8d75QUp8tg==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-04_02,2026-09-03_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 phishscore=0 clxscore=1015 impostorscore=0 suspectscore=0
+ lowpriorityscore=0 adultscore=0 bulkscore=0 priorityscore=1501 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609040055
 
 
 
-Le 04/09/2026 à 04:58, Aboorva Devarajan a écrit :
-> Since the switch to generic entry, an interrupt from user mode
-> accounts user time twice: once in arch_interrupt_enter_prepare()
-> and again in arch_enter_from_user_mode(), which irqentry_enter()
-> invokes for the same interrupt:
+On 9/3/2026 9:08 PM, Faisal Hassan wrote:
+> On platforms where the USB controller loses power during system
+> suspend, like SA8255P, resume triggers a Host Controller Error
+> requiring full reinitialization.
 > 
-> 	arch_interrupt_enter_prepare()
-> 	  account_cpu_user_entry()		/* first */
-> 	irqentry_enter()
-> 	  arch_enter_from_user_mode()
-> 	    account_cpu_user_entry()		/* second */
+> The xhci driver supports XHCI_RESET_ON_RESUME to handle this,
+> but dwc3 previously lacked platform-specific quirk configuration.
+> Add a device property "xhci-reset-on-resume" that enables this
+> quirk for controllers needing complete reinitialization after
+> power loss during suspend.
 > 
-> The second call charges the same interval again, because
-> account_cpu_user_entry() accumulates the time spent in user mode
-> since the last return to user space.
+> Let dwc3 manage the quirk for the usb controller using
+> software properties.
 > 
-> The two calls come from the GENERIC_ENTRY preparation series,
-> where each step was a no-op on its own. Commit 09a9d3a8499d
-> ("powerpc: introduce arch_enter_from_user_mode") added the hook
-> with the user-time accounting in it, but nothing called it yet.
-> Commit 893082ac769b ("powerpc: Prepare for IRQ entry exit")
-> copied interrupt_enter_prepare() verbatim into entry-common.h as
-> arch_interrupt_enter_prepare(); that copy was equally unused, as
-> handlers still called interrupt_enter_prepare().
+> Co-developed-by: Sriram Dash <sriram.dash@oss.qualcomm.com>
+> Signed-off-by: Sriram Dash <sriram.dash@oss.qualcomm.com>
+> Signed-off-by: Faisal Hassan <faisal.hassan@oss.qualcomm.com>
+> ---
+>   drivers/usb/dwc3/core.c | 4 ++++
+>   drivers/usb/dwc3/core.h | 5 +++++
+>   drivers/usb/dwc3/host.c | 5 ++++-
+>   3 files changed, 13 insertions(+), 1 deletion(-)
 > 
-> Commit bee25f97ad24 ("powerpc: Enable GENERIC_ENTRY feature")
-> made both live. On the syscall side it did the full conversion:
-> system_call_exception() now accounts once through the hook via
-> syscall_enter_from_user_mode(), rather than calling
-> account_cpu_user_entry() directly. On the interrupt side it
-> switched the handler macros to arch_interrupt_enter_prepare()
-> followed by irqentry_enter(), which also runs the hook, but the
-> accounting in arch_interrupt_enter_prepare() was not removed to
-> match. The double accounting starts with that commit.
-> 
-> With CONFIG_VIRT_CPU_ACCOUNTING_NATIVE=y this roughly doubles the
-> reported user time of any workload that takes interrupts. The
-> other accounting modes compile account_cpu_user_entry() to an
-> empty stub, so they are not affected.
-> 
-> Remove the accounting from arch_interrupt_enter_prepare() and rely
-> on arch_enter_from_user_mode(), which already runs for both
-> syscalls and interrupts. The duplicate account_stolen_time() call
-> is removed the same way.
-> 
-> On a pseries LPAR a busy loop reports 6s user time in 3s elapsed
-> (~210% CPU) before the fix, and 3s (~105% CPU) after it:
-> 
->    $ python3 -c 'while True: pass' &
->    $ sleep 3; ps -p $! -o etime,time,pcpu
-> 
->              ELAPSED     TIME  %CPU
->    Before      00:03 00:00:06   210
->    After       00:03 00:00:03   105
-> 
-> A 50% load reports ~70% usr / 30% idle before the fix, and
-> ~49% usr / 51% idle after it:
-> 
->    $ taskset -c 6 stress-ng --cpu 1 --cpu-load 50 &
->    $ mpstat -P 6 1
-> 
->              CPU    %usr   %idle
->    Before      6   69.74   30.26
->    After       6   48.51   50.50
-> 
-> Fixes: bee25f97ad24 ("powerpc: Enable GENERIC_ENTRY feature")
-> Reviewed-by: Mukesh Kumar Chaurasiya (IBM) <mkchauras@gmail.com>
-> Signed-off-by: Aboorva Devarajan <aboorvad@linux.ibm.com>
+> diff --git a/drivers/usb/dwc3/core.c b/drivers/usb/dwc3/core.c
+> index fd5c2cd36c59..eb6ffd5148a7 100644
+> --- a/drivers/usb/dwc3/core.c
+> +++ b/drivers/usb/dwc3/core.c
+> @@ -1712,6 +1712,10 @@ static void dwc3_get_software_properties(struct dwc3 *dwc,
+>   					       &gsbuscfg0_reqinfo);
+>   		if (!ret)
+>   			dwc->gsbuscfg0_reqinfo = gsbuscfg0_reqinfo;
+> +
+> +		if (!dwc->xhci_reset_on_resume &&
+> +		    device_property_read_bool(tmpdev, "xhci-reset-on-resume"))
+> +			dwc->xhci_reset_on_resume = true;
+>   	}
 
-Reviewed-by: Christophe Leroy (CS GROUP) <chleroy@kernel.org>
+xHCI plat does look for properties in xhci device node as well as the 
+ones above it in the parent chain:
 
- > ---> Changes in v2:
->   - Explain which commits introduced each accounting call and how
->     they overlapped in commit message.
->   - Drop the code comment.
-> 
-> v1: https://lore.kernel.org/linuxppc-dev/20260902050628.2553909-1-aboorvad@linux.ibm.com/
-> 
->   arch/powerpc/include/asm/entry-common.h | 2 --
->   1 file changed, 2 deletions(-)
-> 
-> diff --git a/arch/powerpc/include/asm/entry-common.h b/arch/powerpc/include/asm/entry-common.h
-> index c5adb5006361..000fa925e26a 100644
-> --- a/arch/powerpc/include/asm/entry-common.h
-> +++ b/arch/powerpc/include/asm/entry-common.h
-> @@ -222,8 +222,6 @@ static inline void arch_interrupt_enter_prepare(struct pt_regs *regs)
->   
->   	if (user_mode(regs)) {
->   		kuap_lock();
-> -		account_cpu_user_entry();
-> -		account_stolen_time();
->   	} else {
->   		kuap_save_and_lock(regs);
->   		/*
-> 
-> base-commit: fb442a6673ff1046bf67754957d95880fdb394b5
+"
+	/* Iterate over all parent nodes for finding quirks */
+	for (tmpdev = &pdev->dev; tmpdev; tmpdev = tmpdev->parent) {
+"
 
+So adding device_add_software_node in dwc3_qcom must be sufficient.
+
+Regards,
+Krishna,
