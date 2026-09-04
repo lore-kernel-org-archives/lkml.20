@@ -1,90 +1,85 @@
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CF6038A734;
-	Fri,  4 Sep 2026 03:37:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF0E23C8C52;
+	Fri,  4 Sep 2026 03:38:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.109.113.108
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788493050; cv=none; b=krka2KLgXzzOiUkSXp5Ze0TmdD21Ed3S8Qb5vm2/fDYrgOL6R4M4wrvrYT9X+RYmbHezC2e7CaRhV2WvbOGbHVIwtG+n4pD98f0qENHOT01XzzS7w4zfOTaZMYQiTUhqQ/FL+cUJk0VFdmj5t4j288uAmHH8f4FR0feLMT0DIqg=
+	t=1788493103; cv=none; b=nqNXNHEDYK2KPaHgpi4HLz+ElKi6JaNWhHUzNZ0SS1yKGkc0pN92vA8GA6G+yKRHiXE/bbR3DJ4BVwdYGcf2vbd/XrThP6qfk1Qzv1PHgouQD8sgO6l8TBMEc2EkIU+QYOWycV3g4CsXBQRan99JpmeXtabeAcIZW8PasRnRs8w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788493050; c=relaxed/simple;
-	bh=iG4xhvwpyn0mUG5F9kgfH1IlHOda8aWCkvFsoumb8KE=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=t/Uk7MLzC1AVeN8nbXJ9WCd6AnkSXmt1Sb3YF4GTcKB9TCyNqvoK5WIR+CVbvNflo09SfZWOP+PL0kOIUaikeB5Gdwv/yaIw1yw/1QFru1+EnQuX8sKBOUaVA/7DG6Z8tWREqB2T9yOIXzcYfwZcyAdSg6Nc9JSi6N+EfYZlTpI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: e8bd2e4ca81111f19a56ed5b684f684d-20260904
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:2395e2af-0c29-4e0d-9846-b5e1cc9f27cc,IP:0,U
-	RL:0,TC:0,Content:-25,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTIO
-	N:release,TS:-25
-X-CID-META: VersionHash:7db8b62,CLOUDID:2ad675b60dda10f76224ad2b3975a187,BulkI
-	D:nil,BulkQuantity:0,SF:81|82|83|102|136|850|865|898,TC:nil,Content:0|15|5
-	0|99,EDM:-3|-100,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:
-	0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: e8bd2e4ca81111f19a56ed5b684f684d-20260904
-X-User: huangwei@kylinos.cn
-Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
-	(envelope-from <huangwei@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 1720470805; Fri, 04 Sep 2026 11:37:09 +0800
-From: Huang Wei <huangwei@kylinos.cn>
-To: =?UTF-8?q?Iv=C3=A1n=20Ezequiel=20Rodriguez?= <ivanrwcm25@gmail.com>
-Cc: Huang Wei <huangwei@kylinos.cn>,
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] usb: typec: ucsi: fix teardown races with late notifications
-Date: Fri,  4 Sep 2026 11:37:05 +0800
-Message-Id: <20260904033705.725405-1-huangwei@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20260903030356.58597-1-ivanrwcm25@gmail.com>
-References: <20260903030356.58597-1-ivanrwcm25@gmail.com>
+	s=arc-20240116; t=1788493103; c=relaxed/simple;
+	bh=B/Uwu3tSJCx/BGi14uLQD7KBnCJ9U1h3zvdgO7QlpK8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=HlGHiKxR9NgQZF2in3QArkSzZWCfEGPPju4vVjHM8QWD7D7Mcze6r29hzGF05JIM/7+L/JGyJxNgark6Bkxx7nEVnOzePwO47xk8DF/JKrShIVWSbKNHNFE/K1V0HiGyGdNv6iossXblrNgQWvWu33fN+13YXfj9laRRLwYNJEc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de; spf=pass smtp.mailfrom=alien8.de; dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b=Z7s8VEGG; arc=none smtp.client-ip=65.109.113.108
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b="Z7s8VEGG"
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 3719A40E016C;
+	Fri,  4 Sep 2026 03:38:19 +0000 (UTC)
+X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
+Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
+	header.d=alien8.de
+Received: from mail.alien8.de ([127.0.0.1])
+	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
+	with ESMTP id OunsccZEpS6a; Fri,  4 Sep 2026 03:38:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
+	t=1788493089; bh=puQU8kxmxcVlZJ33kJImb3eTEgEbDYI/ctH1clNKuRE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=Z7s8VEGGVGNdr03uNrd96I2wtGpHKZ8FXvGtwCm89Igi4AoWxSUuxBOrt55qH/wme
+	 52QFiFEO6iavP5aJOq+MTUekz191tC7puYD38DuCcad3FeKhHiORwKjNcQMfxfa1cr
+	 HM4gnLJMn5YfYrDMjH9Tb/GVT2FwhakvbHyMbY9+7qjx+TOyLt+2WrWrwhZAZv/852
+	 /aJAdiXktBL0Ikd/DmOOukjgL8qUDSn0O91/wZhHs1rOLQrqmuI0EZjdJAcz2zPBnI
+	 53feFWzvRaLp0TQQFlEmtz/zzjkOmh6Xgu4iaXfntnUzUnQQLczfNKEZOoLZ+NIoUa
+	 LHX7+Z3h20SzwOU5EmVrwwOv9A3J4cgeXg1AGEn+IlCO9mTNFa3E+h6zN4qxmW9ncr
+	 NcITqx+cfbmv186YVAE6NiV/JU+PmiBr+kQ/+BkYFNJYzL14OnYrvZ7Ac8sCSU754E
+	 PLXGFwKF8o9Ed46XzzqKn3ZD7D4dm68vL2ZRKjBKdbkV0sU3EQ9HLz2SOZWNCbL2te
+	 lu8/AayQg8Pao0P9DUeq//3NP6ZZjCakudWlrisMUaLoTUmmLNQ7HjxuFtYgpPEq/D
+	 HcX8x6MS3hGNC2tWKKHlEVvqOtMXbl9UVuyZhfyDbd67U8GXDRUsULJjwkx332iRze
+	 Fht+vggHmVFBILqhx/V0d+Oc=
+Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::46])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
+	(No client certificate requested)
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 8CBD240E027F;
+	Fri,  4 Sep 2026 03:37:54 +0000 (UTC)
+Date: Thu, 3 Sep 2026 20:37:51 -0700
+From: Borislav Petkov <bp@alien8.de>
+To: Reinette Chatre <reinette.chatre@intel.com>
+Cc: Ben Horgan <ben.horgan@arm.com>, x86@kernel.org, james.morse@arm.com,
+	fenghuay@nvidia.com, linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, tglx@linutronix.de,
+	mingo@redhat.com, dave.hansen@linux.intel.com, hpa@zytor.com,
+	corbet@lwn.net, linux-doc@vger.kernel.org, dave.martin@arm.com
+Subject: Re: [PATCH v5 0/3] x86,fs/resctrl,arm_mpam: Factor MBA parse-time
+ conversion to be per-arch
+Message-ID: <20260904033751.GCapo9D5ZZXWuQkIpc@fat_crate.local>
+References: <20260709093111.367851-1-ben.horgan@arm.com>
+ <165e7636-d7e9-4d16-aad1-657b4a9698d0@intel.com>
+ <b0a7035e-7ffe-4e22-a4ae-a177640234b8@intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <b0a7035e-7ffe-4e22-a4ae-a177640234b8@intel.com>
 
-Hi Iván,
+On Thu, Sep 03, 2026 at 08:40:48AM -0700, Reinette Chatre wrote:
+> Could you please consider this series for inclusion during this cycle? It applies cleanly on
+> top of v7.3-rc1.
+> 
+> Please do let us know if you have a preference for how changes touching all parts
+> of resctrl (filesystem, x86, Arm) should be handled.
 
-I've been poking at the ucsi teardown path lately so I took a closer
-look at this. The race is real, and moving acpi_remove_notify_handler()
-ahead of ucsi_unregister()/ucsi_destroy() is clearly the right call for
-the ACPI path.
+Lemme have a look.
 
-One thing I couldn't convince myself of: does acpi_remove_notify_handler()
-wait for a handler that's already running on another CPU? From what I
-can tell ACPICA removes the handler node under the device lock but
-doesn't flush an in-flight dispatch, so a notify that's already entered
-ucsi_acpi_notify() could still dereference ua->ucsi after the handler
-is gone and ucsi_destroy() has freed it. The reorder handles new
-notifies fine, I just wasn't sure it handles the one that's already
-mid-flight. Did you look at that?
+-- 
+Regards/Gruss,
+    Boris.
 
-On the ucsi.c changes: setting ntfy to 0 before NULLing the connector
-array looks right to me, ucsi_connector_change() bails on ntfy before
-it touches the connector. But ucsi_notify_common() also does
-complete(&ucsi->complete) and the backend's read_cci(), neither of
-which is gated by ntfy. So for the non-ACPI backends (glink, ccg)
-that can't be fixed by reordering the ACPI handler -- is the ucsi.c
-part actually enough on its own, or do they need their own teardown
-ordering? Put differently, is the ACPI reorder the only real fix and
-the rest belt-and-suspenders?
-
-Only build-tested too -- would help to know how the race was found
-and what makes the reorder sufficient on its own.
-
-Not objecting, I'd just like to understand the in-flight case.
-
-Thanks,
-Huang Wei
+https://people.kernel.org/tglx/notes-about-netiquette
