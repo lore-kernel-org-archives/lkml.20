@@ -1,307 +1,635 @@
-Received: from mx0b-00230701.pphosted.com (mx0b-00230701.pphosted.com [148.163.158.9])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vs1-f52.google.com (mail-vs1-f52.google.com [209.85.217.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EEFF3C943F;
-	Fri,  4 Sep 2026 23:11:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.158.9
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788563486; cv=fail; b=HINE0ft5ucbp7En2tmzqz41C6lWxRliypCShAGCE82dNwGLphZOV4+TNErg4RrsTv05vs4QSbPSZLarJtTWhp2Ok65YlGlWztuxZXCXVIkBzMqqc6DZm6tk5EFoAvbUiU5pfaZMjOIR5nyG8hWqoynkBrHUg5hLQB4W29PrDHxk=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788563486; c=relaxed/simple;
-	bh=KmqWKYRhckKkLQI+KHH0eMPLtmsRXdxu+bL4RIFvjcs=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=ppmE8qAUBY10lMUAzf1TwQs8eUC9Dx6Nq8X5LtR6GaK4tJ/uZxvmeFuRou5l1i904noWgEO3R7yhK8BU1ZVV2OVWFOesuGfSCDX3NJLuJZVa8JfjcRm67F4oLbofmrukTJaqQFeurIZLjdZ5TLEtJfI1Xql3k9d2oyjp9nPLGHs=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=synopsys.com; spf=pass smtp.mailfrom=synopsys.com; dkim=pass (2048-bit key) header.d=synopsys.com header.i=@synopsys.com header.b=mYsO9rTM; dkim=pass (2048-bit key) header.d=synopsys.com header.i=@synopsys.com header.b=l9jZYfLQ; dkim=fail (1024-bit key) header.d=synopsys.com header.i=@synopsys.com header.b=pBMWSpXc reason="signature verification failed"; arc=fail smtp.client-ip=148.163.158.9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=synopsys.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=synopsys.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D25E23C141A
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 23:12:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.217.52
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788563575; cv=none; b=IOnV2z5fnGMcaWUMBD9x294OH+9Qah5f4yCD2oUzXjbhCgfnwRtd8w37UE7MiJKNcpL5NA6Z0BVn3VIKODSoczvdw1+7mYnV9nntBjber1tnhbS84LKg74nhcUaBtaHmMvQWMZXkQDTl9TsX5VNkKcE2sbRsCuEbaIFJSIuTu2g=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788563575; c=relaxed/simple;
+	bh=DzlHABer7agnmDFqIt5UKBGqffNOPw21BqPF+Xdn0TA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=WrL8Py/6Krd2Kc+nelMHrAjLR8CCSiWZOdPcJ0+ugl9j6jMc+V6Gj5SZPupFaWC5Cx4eDAPLn1hGTDrrFvnCc/gKZeI4fB2FnOzDvXR0rV8+7zN+wGTaplvV9L6vIR0hNdMz5K8O4KXyJGYjxwxEgkEXOTI9/R/jgV1lpG1UvSA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=B+vWiiQn; arc=none smtp.client-ip=209.85.217.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=synopsys.com header.i=@synopsys.com header.b="mYsO9rTM";
-	dkim=pass (2048-bit key) header.d=synopsys.com header.i=@synopsys.com header.b="l9jZYfLQ";
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=synopsys.com header.i=@synopsys.com header.b="pBMWSpXc"
-Received: from pps.filterd (m0098572.ppops.net [127.0.0.1])
-	by mx0b-00230701.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 684Kd1TW3795104;
-	Fri, 4 Sep 2026 16:11:02 -0700
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=synopsys.com; h=
-	cc:content-id:content-transfer-encoding:content-type:date:from
-	:in-reply-to:message-id:mime-version:references:subject:to; s=
-	pfptdkimsnps; bh=KmqWKYRhckKkLQI+KHH0eMPLtmsRXdxu+bL4RIFvjcs=; b=
-	mYsO9rTMwyIb0MC1a6MDMorSL9HHPyueAU5oWPjEvCP3G1MsI6lAgYmlIYe6CH+J
-	eoeQAQ7cy7Ron1n1tH7tTrLLDH2vVn6WnkduJ4X6fjwMOpeNdh/5wFvZILftJoIV
-	il+LngYZemv6o9gzpizRkzO0QUk46NE2bj/VzrkW/lMQsVbv8ZAKsK/3lJYk+Ssu
-	A+Ooxm+7OUiE94SsGyVpKrqVUGUs7JHvXvwxTJMAmHYGUTJSawznziLQVmRcTNlC
-	oe5ulQA/7tVc6A2NSpRZBonfVAMfYV7l/MzIVMPgRY7MT/t0O0TEgV19xZ4d0CVl
-	epE/tqBMSd1H/GQLpKcJyQ==
-Received: from smtprelay-out1.synopsys.com (smtprelay-out1.synopsys.com [149.117.73.133])
-	by mx0b-00230701.pphosted.com (PPS) with ESMTPS id 4gg076bvya-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Fri, 04 Sep 2026 16:11:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=synopsys.com; s=mail;
-	t=1788563461; bh=KmqWKYRhckKkLQI+KHH0eMPLtmsRXdxu+bL4RIFvjcs=;
-	h=From:To:CC:Subject:Date:References:In-Reply-To:From;
-	b=l9jZYfLQyvq2ws2mz4kaXL30Xfs95DH6jY3F4FsN3gWn2aqLQOCwvwA9/RV7Vlk9Q
-	 KSD9bHmreEFNfRSEPDd13HDEmALvmllNCHeas90v/vACDEun05IfyT8eoKuNA8sWQh
-	 yViebdB73vFGRfkjG0B5zCNE7fVHT6JefsmqUTp5XizKXnBK3J1hPZbikcgIu2eWuO
-	 6L0xr51xAAcRpUH5np1eVvcO1RNWtv0JnsAeD85mw5c8yJI5+BTI9poAGKvKzEUL9i
-	 sdbb1LOrXfqOAW1INPTcoFRJ4Ih8ejAbTG+QtuSn2HgDzvaupCYTmky3p3Q2nHpSwA
-	 i7SRhzCQJShfA==
-Received: from mailhost.synopsys.com (badc-mailhost3.synopsys.com [10.192.0.81])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits)
-	 client-signature RSA-PSS (2048 bits))
-	(Client CN "mailhost.synopsys.com", Issuer "SNPSica2" (verified OK))
-	by smtprelay-out1.synopsys.com (Postfix) with ESMTPS id 143B94035D;
-	Fri,  4 Sep 2026 23:11:00 +0000 (UTC)
-Received: from o365relay-in.synopsys.com (sv2-o365relay1.synopsys.com [10.202.1.137])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits)
-	 client-signature RSA-PSS (2048 bits))
-	(Client CN "o365relay-in.synopsys.com", Issuer "Sectigo Public Server Authentication CA OV R36" (not verified))
-	by mailhost.synopsys.com (Postfix) with ESMTPS id 7237EA0079;
-	Fri,  4 Sep 2026 23:11:00 +0000 (UTC)
-Authentication-Results: o365relay-in.synopsys.com; dmarc=pass (p=reject dis=none) header.from=synopsys.com
-Authentication-Results: o365relay-in.synopsys.com; spf=pass smtp.mailfrom=synopsys.com
-Authentication-Results: o365relay-in.synopsys.com;
-	dkim=pass (1024-bit key; unprotected) header.d=synopsys.com header.i=@synopsys.com header.a=rsa-sha256 header.s=selector1 header.b=pBMWSpXc;
-	dkim-atps=neutral
-Received: from CY3PR08CU001.outbound.protection.outlook.com (mail-cy3pr08cu00101.outbound.protection.outlook.com [40.93.6.105])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-384) server-signature RSA-PSS (2048 bits) server-digest SHA256
-	 client-signature RSA-PSS (2048 bits) client-digest SHA256)
-	(Client CN "mail.protection.outlook.com", Issuer "DigiCert SHA2 Secure Server CA" (not verified))
-	by o365relay-in.synopsys.com (Postfix) with ESMTPS id 7283E40082;
-	Fri,  4 Sep 2026 23:10:58 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=fG275p+S/ZDyZfyYk62jjV6JFga8lV/+XuwSqXAiy4IdWpUQiv3REtN8rTJtAG83vW+N7ZuIvBKaRiJpL3u5frfpKfHpSurj9o7gmblkcAw2161p4hf9HZJo+XViMvwgy0XxvObPFqXAj02NPDfRhnyzq9s129xYpeRYYpOvC4TIFRVXDi5iwEs46xwLmIFfP/Nv/tv2dbM7dOomWfzlOPUrIW81sgLwsAH69a3Kj7dLWPfF6rDMsMsPo2CuE/u40pfvPVD65pvT+K+bj3FXbosOXueq2Hs2qUs86gWBPVhA56OyBZzqW1Xp3bHCyz4mqgHUFgtmILAAOF+jqdda7Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=KmqWKYRhckKkLQI+KHH0eMPLtmsRXdxu+bL4RIFvjcs=;
- b=uPyu+dqB6cVDCPb/ejhooarVhWCDp+pmg2dXdHiA+V8zjwig+aXMzkpexDke3hbFUXn8qk3ufB6L+u35T26LuhAWv0LS1oamrt6lHURMGBtloI59bQJzFs4nU8C51u4T5sW2xW24AmNOOYqrGm8CMyPP1gijAkTd2VmZzQIcpU7WJoxZ6WL3GDIBCRxRD5j05GM3W9ZrpzV9tzjQrroo9KAcoTrOQ3ETfGlyo63WqVZVCCIBpaEo7zQR7XsTh1WEjJKE3y9CAby7lKc054UVCUcTHtOVaR9f7Pmy3Ws5HR6vYmdTMosGdtF7puwCjv9OD+vUIA74sF3sui95qVeZ5g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=synopsys.com; dmarc=pass action=none header.from=synopsys.com;
- dkim=pass header.d=synopsys.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=synopsys.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=KmqWKYRhckKkLQI+KHH0eMPLtmsRXdxu+bL4RIFvjcs=;
- b=pBMWSpXcvIRVusXw3Cr/lVH4ZTKWE97VZztRtdpQYW7OpBTSHjYsXhQJySL5Y8o5V/13zuECgGHAgI+G+CnN/vPav6pny3iUNlkEmQSqTJjq8WtYUg/5Vq51Z4N7Yhz1jx8ituPT5gTyaTld5PoiFskDqSJPVRx/4YvJ4P8kxKo=
-Received: from PH0PR12MB7486.namprd12.prod.outlook.com (2603:10b6:510:1e9::6)
- by CH1PR12MB9669.namprd12.prod.outlook.com (2603:10b6:610:2af::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Fri, 4 Sep
- 2026 23:10:54 +0000
-Received: from PH0PR12MB7486.namprd12.prod.outlook.com
- ([fe80::7df9:b25e:9216:f109]) by PH0PR12MB7486.namprd12.prod.outlook.com
- ([fe80::7df9:b25e:9216:f109%6]) with mapi id 15.21.0360.008; Fri, 4 Sep 2026
- 23:10:54 +0000
-X-SNPS-Relay: synopsys.com
-From: Thinh Nguyen <Thinh.Nguyen@synopsys.com>
-To: Marek Vasut <marek.vasut+renesas@mailbox.org>
-CC: "linux-usb@vger.kernel.org" <linux-usb@vger.kernel.org>,
-        Thanh Quan <thanh.quan.xn@renesas.com>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Geert Uytterhoeven <geert+renesas@glider.be>,
-        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        Thinh Nguyen <Thinh.Nguyen@synopsys.com>,
-        "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-        "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-        "linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>
-Subject: Re: [PATCH v7 2/2] usb: dwc3: dwc3-generic-plat: Add Renesas R-Car
- Gen5 DWC3 xHCI USB controller glue
-Thread-Topic: [PATCH v7 2/2] usb: dwc3: dwc3-generic-plat: Add Renesas R-Car
- Gen5 DWC3 xHCI USB controller glue
-Thread-Index: AQHdO+uGBNvN5yv4ukWNq8N29dqOpra/DW4A
-Date: Fri, 4 Sep 2026 23:10:54 +0000
-Message-ID: <aptP39nVZPFLgekY@vbox>
-References: <20260903213031.314473-1-marek.vasut+renesas@mailbox.org>
- <20260903213031.314473-2-marek.vasut+renesas@mailbox.org>
-In-Reply-To: <20260903213031.314473-2-marek.vasut+renesas@mailbox.org>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: PH0PR12MB7486:EE_|CH1PR12MB9669:EE_
-x-ms-office365-filtering-correlation-id: 31597b96-d36e-4be0-6e5c-08df0ad9c572
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|376014|7416014|23010399003|1800799024|366016|38070700021|6133799003|4143699003|11063799006|10067099003|22082099003|18002099003|56012099006;
-x-microsoft-antispam-message-info:
- heTIsnLt6LQzHvZAh+HVt9Ueb7Fk4ayVewq6HVwTskwhPiHChztmYfylBfGfJvDkA+h4B4THtd5Jn0QqihMf801522f0YqXDd7IvaH0gatvEEjoky78pK+mlGviuPKxMYg2oRvq6StZzoi1y7KyTpEgFXvkDtv3ySX1zjtuaGKeGh1gDNup7kAIj5do0gIA1/oMZAHQPX2Cp4Aaftu1Lq3JUBQj//OnGeQ0OBaHcnq/xJ188K8TMzS5mdXvHwyt9gEl5+aPgVxUdcck3rF28+xBg6iC7ZlgUSJiQ4z37eqJ/AOgOnPZF7OPzf2PI9cnZNqBDWKk6sC37zbCzB4egdFGh0JuQG5cX9B3NmmkWUHgaLKpn1lgmyTaHZkensvntiEoRJZ7Z6CKQ8EvZ1X3LerIxvYUzh0pwFVT++WY2maAR7LvujblsRiS+mV2Jy1INKDhFbE2EuV3IOjp69ZNPI1pH9EOnjMKcK/8DFj2nc6+q7Uw+OJQF19xQys2/hOYzb+eKcwr+T8gNkuvHbI7jhW4se4vurqEsKhhu+g+CYiC+x3IeWIZan21tZ2XOeFcbvYlI4XDa60ViLc2JwxMeoLbfQOEmRwSRwe2/2xtaSQHLbuGFgJ0dh1HYYjm3I7ft0bUUp4tML8/7z4Ny5a/3oNqxNopxCt+Fa2KEbLuMG4cIzoPGQemEMvOBhNz3IZnWw5roVown+0Yb5z+Nwmacl+cD+vHWxywzWyDk5q86XeI=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH0PR12MB7486.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(23010399003)(1800799024)(366016)(38070700021)(6133799003)(4143699003)(11063799006)(10067099003)(22082099003)(18002099003)(56012099006);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?utf-8?B?WDVYZlZKcHc0ZlhiTk44L2hHbDJPeDllbUE1RDJwbWFlaHR1OEpTTWk3UkFo?=
- =?utf-8?B?a0toVWZ1aTlxYkFvNnVBN1FjaXJ6Um9tcU4vcVhOYlVVTExOajRRVWJHUVBO?=
- =?utf-8?B?VzUvQzBEMEhCWVVmbkpHRkxndTlzdzBPRFpBWk9iV1hXck5lZjZzZmphbzNF?=
- =?utf-8?B?QnQ4OWVJSUdRMkFva2FMdW9nV0FRcTZaRzg1c3hieFRCRU5FOXg3d28wZWQ1?=
- =?utf-8?B?aFJHT1dwcngrUnM5djY2aHFvaXFSemlsdGs4QVVYWFBoU0M2a2xNSGd5OUVS?=
- =?utf-8?B?MEtOdjhtcVlXMUYxNU1tWXZXTHhkUWE2dGlPQmE5ZUZLanpxTnFuVmpPRlpn?=
- =?utf-8?B?Qldaa21uS0I2RDhBdGxtenU1MWhBRzZtRHJDSmFvM1d0VEIwNUZWRVNKQ2h4?=
- =?utf-8?B?WFl4eXgrdWFLVTU5Z3ZDOXAxMnFNNytXV1d2ejRSTEpuTUlseXpKM1kvNU4w?=
- =?utf-8?B?MGFaUjljTjVxMDVaVDN2WmNDSXBLQStxclo0eUpNeU5xMGlnamhxY0l2bFdt?=
- =?utf-8?B?NnA5ZmVBYkY3cFJCMVJ4MXZNUFBUdDhDMy94a2I4ZnNOV1MwbjNNaHp3VUM5?=
- =?utf-8?B?Y0VvbTV5Q0NZNkxiT2xKOVFGUzhNU0dUNnEzc3BtZXFxUTAwMnZjcUdWZ3Vv?=
- =?utf-8?B?bWtjR1FPc01HYjZXOSs0TE5TOHh0WWpvQ1A2N3hUcUlFclQzZkJ0aUwyYkVr?=
- =?utf-8?B?VEV3MklkdDgrMkVFRHdIc2xCckttcU5kNHJ0dGVzS3RUcWd5clNRWU9uYXFu?=
- =?utf-8?B?MVVDWllDQlM4MnVtVDV6NVlaU2lrYXUwSlh2M09hMGl0bXViN3RNUXdWdHdu?=
- =?utf-8?B?b1R6eVJZd2NEWDBDaGR5Y2ZnRkxBd01scXBhNXVoeVVMN0R2cGt4aTVyY09h?=
- =?utf-8?B?U0dNajB1YW5lMDlYNy9HZXFHekExNEwzc1pzOXE5aG5qQWJRMy9hcTRRQmph?=
- =?utf-8?B?V3pWVDIrcStOT0s3UktIamNhSWZ2M0ZJaHkvQlBpVlpkRmh0STFmOERYK2pJ?=
- =?utf-8?B?OWxrcXQ1VWw1VWd5OEtreGh4N2xIaHFkcjlpVjNHdlArdWh1RDE3ajd5Tmxu?=
- =?utf-8?B?dmZTL3VheE1DaUN1QjI5UUJLWEpUOTRnMEgzMmJEaWRTYXRvM0szZ243amt2?=
- =?utf-8?B?VUF1UERvRGgrWEhZM0RpZGdUTi90TkJJWGpPOUpZaCs3LzJ1Tmp2TWJWNmhi?=
- =?utf-8?B?czU0YkRGK01VRVY3OTF1U1U3b0hFa2VRTmxqMTF5T1R0ZjVVWDdKSlZVdGFZ?=
- =?utf-8?B?OWtVL3Y5TnhsWUxKbUl1UTc4NGZFZ0VIK0kya1lZcXh4MFhWeHd4UzhWZkho?=
- =?utf-8?B?VnlZRjlSRDN1THE1Z2lZeUJ5RlZEYytvZUxnZzRWeVZjbjZBbjFmc3dWUFV1?=
- =?utf-8?B?NHpQUHV6bXZqaWhjTHN1SFZWVW15Vzlsb0FQeHhuaEhxbmc3blE2RTlINTlG?=
- =?utf-8?B?QStrbDNPMUloTGFRWkcraFYzYnFyUmxzU3RBSTRqQjg1SUxoMzh6R3BTVVNo?=
- =?utf-8?B?L2I2ekszemVhWm5VZW9VTmR0TnNwNFZvblJhSko4ZGdpTFU2bDRHcnR6RGpO?=
- =?utf-8?B?cWNoL1IrWitSa2lOVkFHSWN6K0lRVUwxUFhoZXlXQi9sWWtYQjFkUmZrclBN?=
- =?utf-8?B?NDNqcVhtYUFJNjYxU3F3K0JpdTBTV2FBS3c0Y1JkclJWamwwY2FaZ0JSS3lo?=
- =?utf-8?B?bDdXeTJ3UzZaSTBsUUkzWGtISXQyaHRCVGlBRTNFMUREV2pjQ2NoaHU2cUM5?=
- =?utf-8?B?ZlR3dkp1aGNuWkZpVllodjVwMHhzT0V0a3N3bWRxV2w5ajlWOGFDU3JlYWp1?=
- =?utf-8?B?akZVN3YvTndjM2NwZHU5RlFvTm1MS3ZPUjdFRXJTNE9GL2UrUEUwdDhaaWU1?=
- =?utf-8?B?b2Vacjl6bStDMHM5c3I0UkFUUUFOK0N5bkhMUjBnU0hDQUlZTWFHZEtSZUo4?=
- =?utf-8?B?V2o4bVdaem55SG9TMll6OEw0bHJDbi9KR0FCenkxQjdRNmllZW1RR3BXcnFF?=
- =?utf-8?B?SFczZHRzaEhZa3ZDRXNuVldrRW9ReXVVTDZCcFFaTHU1eVVZbkczL2pXZitI?=
- =?utf-8?B?WXlVYWJWNnlxU1AvcFA5NUkvSXUzVGdrdE5VVEwraVhtTEVsQjhvV0NzYUgv?=
- =?utf-8?B?MTdERUpKNmJPZ21GODV0bXhBdEEvYmFEOXRPbkhxSjVNL1ZrYjdKQUVMRDRl?=
- =?utf-8?B?eFErM1dNMVdoaGRwdTVubytJL1RoNmdiQldNSUMyWGhQeXl3WWZTVEFiZkl2?=
- =?utf-8?B?K1cwRUYvcDZFM0ZuSHhSNnh6M2VoZlVqNWtKWWhvMlVZaDNWVGVoZmRyYXA4?=
- =?utf-8?B?S0RzK3R5TE5xWFF1NU1mRDdCN2lHa0trdEdQTW1uNGJkWFRBYmpWdz09?=
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <17643C63F635624480490CD10697CE91@namprd12.prod.outlook.com>
-Content-Transfer-Encoding: base64
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="B+vWiiQn"
+Received: by mail-vs1-f52.google.com with SMTP id ada2fe7eead31-777ae5e5caeso549329137.2
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 16:12:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788563570; x=1789168370; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=g2eDylLE3V6dYau/12iY8HPICkZuGDPWHe/ewwDQP+k=;
+        b=B+vWiiQnQAXs4FztEqpvZ+Ifg1Qu5UGl3Te8Uc3mN4zisoWC5sHBQ0/T7X5dNi0sAf
+         qOipCvW0oJbXNn4Z/WxWKa/OrEwHPv5Wt5mV6+pg71xanVLToKVraxECuHJ5PftXZyK2
+         IhIc4Mmano7s/J49UliV5taIeA6G81k10s19SHiJPGAlckkZPVUN4e/T8xyJrtr2obOi
+         7rp6e+Ty0VXkP2f7eie20D6aFg+PtxMqpa+2Z/kaRg7UxDvmz//OFv8pQ8M+jqB0CQ7F
+         H9QhfmBW99PeMcXt7OIW87vWzA7fKYeueZe9ZKTa5dGi/vV+KFPK9jHPinawnBCOIXET
+         KeAQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788563570; x=1789168370;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=g2eDylLE3V6dYau/12iY8HPICkZuGDPWHe/ewwDQP+k=;
+        b=NMCM6u3LNLJtUEYvbKqPlXqfpt1AXJrENlN64o8MO3COD/zwOLfIsI1bz1gZLUz0cX
+         13+onwK/RaG/XA8/LB6o0izjRXKlYKDfTtmJDgD/YYJHavaTCCMe9tvr5QMDzIW5utnk
+         LIUJCsdLwFw8I1CzpvcEHmKGoGNeMKo//lyQOaNEk3SC/Fgfs33+nAbzjCG2gH5M32Ec
+         6uUrRfgmy3cr18XBy+NAl6A2TMEO0dOThVaEbMe5pL5t88ktvyzfmJmYdVn8frlOM2Tl
+         6Yc+U6VGj/IlYYBto22z3OBXWDnetnnp+oTPS5WvYSUecm3sh38yWU0QpN0n3gqCuGjU
+         IPAw==
+X-Gm-Message-State: AFuF++nol8v1DBDc/+c2zYw28gMGtYZ+Km+OH7Tu/tXgTGSV14bYWPv+
+	B0x78D0D3K1lJiuqyKSsWtLndRKroPpwsLpYd2U1q8tMAC2qAt+sDcLZ
+X-Gm-Gg: AYBFou1M74+7UyS2L0UXSKEvYqYor8Gu35ARjcuj5vrFJo0afD3VsVsAO1nJTaG21xK
+	xTx6vBRNl5dLiwxR8le4EXXTWetLIEW2L9qlJDFGy5TOIam5bSTByyYpfGi7t4fTg7CFHBH7zGk
+	gXAqQ1hl58xKy4bbRSKYsNKFS1BUhwY/TRK9GwYmsvrOmGBvE/GaKV+XzihzFF/t5i/j2X3LU4a
+	jeQnd/CNPyVzJGbxt+QN93En6yWyvHY+5TOqcAsZ5LS7wSJzdOLNUFkzLC7HRQ89sjYJdMZbgIh
+	VzfW276abDB1TmX6Ew8CZ1JJ+fg1Z10ISPwSa4xhnHu3J39aauLvxRPx0smMc0ffKk0VfMVUZqj
+	nfCyQv87MhJ8GKmfwcoedIzuMpbsH9F78dj2FAdC0r4TaV8TYZcRkycUPJFNo1J5yR0M4vHrfXQ
+	IqMS37aaNkubEkcjNgmluO2q5niK4BIu20FhpFeqs+QTPW7kBzYE9PtQ9kg6v01beBD48H5RYDK
+	PVQYWbgpmXZKwtrpHhGdUaRFB6e9Jjz
+X-Received: by 2002:a05:6102:a53:b0:789:1216:bb8d with SMTP id ada2fe7eead31-78a4a871937mr2913826137.6.1788563569404;
+        Fri, 04 Sep 2026 16:12:49 -0700 (PDT)
+Received: from Biostar-A520MT.. ([187.94.13.245])
+        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-78a47b19369sm2880161137.9.2026.09.04.16.12.44
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 04 Sep 2026 16:12:48 -0700 (PDT)
+From: Breno Rodrigues Alves <breno3011alves@gmail.com>
+To: torvalds@linux-foundation.org
+Cc: linux-kernel@vger.kernel.org,
+	gregkh@linuxfoundation.org,
+	arnd@arndb.de,
+	linux-clk@vger.kernel.org,
+	linux-input@vger.kernel.org,
+	linux-media@vger.kernel.org,
+	linux-pci@vger.kernel.org,
+	linux-usb@vger.kernel.org,
+	linux-sound@vger.kernel.org,
+	linux-staging@lists.linux.dev,
+	linux-fbdev@vger.kernel.org,
+	linux-security-module@vger.kernel.org,
+	Breno Rodrigues Alves <breno3011alves@gmail.com>
+Subject: [PATCH] Kconfig: purge twenty-nine legacy ghost options
+Date: Fri,  4 Sep 2026 20:12:40 -0300
+Message-ID: <20260904231240.87106-1-breno3011alves@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked:
-	Ws7VLJGdvkBYn+Gb2WyHA9KOmsz+CiHlqCI5glF35x0LNWGRcBY+R/JnxHs9acXeBTEMLuS/1EOSu9YDsfdIex+4WPsKPpSb45eFLOry++GKqPkEh0IMn8He4rbmi4EEmQ/Bq157HEqzmIAgIDSRbEi5fyHM+pZLL1IfZoodx9xc5xHnsNbGNUWMsA4sQCAwVxUW8GC4WijxRtJkurgkN9WdVI2baQdsnWAIdlmFF86ssBCJPhG7reYqnIP0QW2zu/MhjSMK7ADmO82U+y8kiW7WxBxGMmyTCS1vERkRpbsYg7to4EO6ay+c3mYa4LuMHF8cpPs/GlbF9MquPMOcag==
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0:
-	lIUihqs9WGoO/8ygLbECO7cy/Pn9w7s74FGhlGenwIOkNuN6+rR/07/UHW5iWJv2UuSA+38drvf0SyDaTQIK5/cWap7qooabzg6rP9seU+ZdwqVa2bYu8entveNHSi13CXwqQAtnVJXyDxZpH4grNPZVu/1WjT6ZpeS+V0vwkt5FQAViNuzm7DEMCyhTwPCXZW3JXGDFKtjhYqsSW1OcBmbbRhspwfzajngrH2QKnpDz5NMoTTA4NFlsFUgqB7xLoaRcVrPrzK9/vBQaxpLXlb7IgT7oP38aXfu1Neckino5AVXx7hF+/aYbduhIh99UppnkJ5Qkw1NwqTyCx72GxdukoK3uOOieRd4TUXoR2BjKxudk/jGuPx3CKFJp7KVK2AOgFn4tXn+FDbfxSqZocCzXZOd+K0UuiKh/bQVTo3p2bZhj9SOnq0HijH3GKAZo/u4/QinW0NkLRC/BIP2n31NyLTOthI0JdPav8PHuKJiw7GKntsBdhSpTckeEksz2QS2ETzqKNdeIroExwIyToCQ+yINzg2vN7MwZoE7XtKgYxsNCyxywXd8NKYGThxRGqCa/IRiYb+Xh0R3y+X3RxaHxgEdU5S/OcKZgvzTYRFxOlyepJ52LfBwUECZTvJ+09J2ZCw5V5wYe+WryUd9ClA==
-X-OriginatorOrg: synopsys.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: PH0PR12MB7486.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 31597b96-d36e-4be0-6e5c-08df0ad9c572
-X-MS-Exchange-CrossTenant-originalarrivaltime: 04 Sep 2026 23:10:54.6394
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: c33c9f88-1eb7-4099-9700-16013fd9e8aa
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: mv4w14ueczLuqFJHrZgC/la7S02vz7vC+VF+mCMnJ7uXL+aGmaznBhoGJutu0bJQ9qLKjPKU0Axw6+zC2pcNHA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH1PR12MB9669
-X-Authority-Analysis: v=2.4 cv=P+cKQCAu c=1 sm=1 tr=0 ts=6a9b5006 cx=c_pps
- a=8EbXvwLXkpGsT4ql/pYRAw==:117 a=8EbXvwLXkpGsT4ql/pYRAw==:17
- a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19 a=lCpzRmAYbLLaTzLvsPZ7Mbvzbb8=:19
- a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=qPHU084jO2kA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=tU_645BZ7FZt8VqRJtHG:22 a=jSPayVjLy6xbsuKauFBc:22
- a=yC-0_ovQAAAA:8 a=b3CbU_ItAAAA:8 a=VwQbUJbxAAAA:8 a=ag1SF4gXAAAA:8
- a=jIQo8A4GAAAA:8 a=lxBZA_8-wvyZqx2DzZMA:9 a=QEXdDO2ut3YA:10
- a=Rv2g8BkzVjQTVhhssdqe:22 a=Yupwre4RP9_Eg_Bd0iYG:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA0MDIxNSBTYWx0ZWRfX5jTd8ElIDUt7
- dNj1C0A8NR7+le77vRw4PGJ1VgK3frqKhWY3WfStBiZfKDTUTRPcHrxnya4PJMHBWZm0j1akbiz
- vQncPVWQ1XjOqfLdXUMLN25CQ8jC/bmzCmiCehqG/BulUF1oDBoRm8vlo4VmOONsIzi/YCy+MLf
- Vdjee6GKRLtj1cp52Ef/4hltgW68rioDqsaMncD7NMboMmjAMsgFwy3qJWCkEqtxcJyFHdNSqq3
- LiVZdLhxqRVP9PM5akeau1ATNFo943ZgV2gie7JYCkcYMI6waB66Op0a1NRkUqEEqFfPskv5Yjg
- 9j+xE5cUA3SvgQ6a48xoi+PtPAmdHpI6SCEI+gUpK7wiEZv8U1VaDNSWRIOWolwLrYz5TxihJF0
- R6//njtnLafLiCNOl3xEqlP28U10ya0V58o3ozcpbH7NdjnXrWQ/BIde3PBBVpyZ1M1X/wEErJf
- EiQuU3UE4V2s3Q26mow==
-X-Proofpoint-GUID: z0pQzheOrreYQ2jQ3tjQicf3-sryFfrM
-X-Proofpoint-ORIG-GUID: z0pQzheOrreYQ2jQ3tjQicf3-sryFfrM
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA0MDIxNSBTYWx0ZWRfX8h5QNX2tUZvc
- F77t21c5Cx16aJCUiEpNI+avnbAXrvJJx3KvfzLTVZlkes+Tefq3DkAmfQLS1jv11CxNTauRDv1
- YXvCP1yGYomBWIJYIspYR4CGLFdRE4o=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-04_06,2026-09-03_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_active_cloned_notspam
- policy=outbound_active_cloned score=0 clxscore=1015 impostorscore=0
- priorityscore=1501 phishscore=0 suspectscore=0 lowpriorityscore=0
- malwarescore=0 adultscore=0 bulkscore=0 spamscore=0 classifier=typeunknown
- authscore=0 authtc= authcc= route=outbound adjust=0 reason=mlx scancount=1
- engine=8.22.0-2606150000 definitions=main-2609040215
+Content-Transfer-Encoding: 8bit
 
-T24gVGh1LCBTZXAgMDMsIDIwMjYsIE1hcmVrIFZhc3V0IHdyb3RlOg0KPiBGcm9tOiBUaGFuaCBR
-dWFuIDx0aGFuaC5xdWFuLnhuQHJlbmVzYXMuY29tPg0KPiANCj4gVGhlIFJlbmVzYXMgUi1DYXIg
-R2VuNSBTb0MgY29udGFpbnMgbXVsdGlwbGUgaW5zdGFuY2VzIG9mIERXQzMgVVNCDQo+IGNvbnRy
-b2xsZXIgd2l0aCBnbHVlIGxvZ2ljIHdyYXBwZXIgYXJvdW5kIHRoZW0uIEV4dGVuZCB0aGUgZ2Vu
-ZXJpYw0KPiBEV0MzIHBsYXRmb3JtIGRyaXZlciB3aXRoIFJlbmVzYXMgUi1DYXIgR2VuNSBnbHVl
-IGxvZ2ljIHNwZWNpZmljcy4NCj4gDQo+IFNpZ25lZC1vZmYtYnk6IFRoYW5oIFF1YW4gPHRoYW5o
-LnF1YW4ueG5AcmVuZXNhcy5jb20+DQo+IENvLWRldmVsb3BlZC1ieTogTWFyZWsgVmFzdXQgPG1h
-cmVrLnZhc3V0K3JlbmVzYXNAbWFpbGJveC5vcmc+DQo+IFNpZ25lZC1vZmYtYnk6IE1hcmVrIFZh
-c3V0IDxtYXJlay52YXN1dCtyZW5lc2FzQG1haWxib3gub3JnPg0KPiAtLS0NCj4gQ2M6IENvbm9y
-IERvb2xleSA8Y29ub3IrZHRAa2VybmVsLm9yZz4NCj4gQ2M6IEdlZXJ0IFV5dHRlcmhvZXZlbiA8
-Z2VlcnQrcmVuZXNhc0BnbGlkZXIuYmU+DQo+IENjOiBHcmVnIEtyb2FoLUhhcnRtYW4gPGdyZWdr
-aEBsaW51eGZvdW5kYXRpb24ub3JnPg0KPiBDYzogS3J6eXN6dG9mIEtvemxvd3NraSA8a3J6aytk
-dEBrZXJuZWwub3JnPg0KPiBDYzogUm9iIEhlcnJpbmcgPHJvYmhAa2VybmVsLm9yZz4NCj4gQ2M6
-IFRoaW5oIE5ndXllbiA8VGhpbmguTmd1eWVuQHN5bm9wc3lzLmNvbT4NCj4gQ2M6IGRldmljZXRy
-ZWVAdmdlci5rZXJuZWwub3JnDQo+IENjOiBsaW51eC1rZXJuZWxAdmdlci5rZXJuZWwub3JnDQo+
-IENjOiBsaW51eC1yZW5lc2FzLXNvY0B2Z2VyLmtlcm5lbC5vcmcNCj4gQ2M6IGxpbnV4LXVzYkB2
-Z2VyLmtlcm5lbC5vcmcNCj4gLS0tDQo+IFYyOiBFeHRlbmQgZHdjMy1nZW5lcmljLXBsYXQgZHJp
-dmVyIGluc3RlYWQNCj4gVjM6IEhhbmRsZSBtYXhpbXVtLXNwZWVkIGFzIG9wdGlvbmFsIHByb3Bl
-cnR5LCB0ZXN0IGZvciBVU0IgMyBQSFkNCj4gICAgIG5vbi1wcmVzZW5jZSB0byBkZXRlcm1pbmUg
-d2hldGhlciB0aGUgY29udHJvbGxlciBpcyBVU0IgMiBvbmx5LA0KPiAgICAgY29uc2lkZXIgb3B0
-aW9uYWwgbWF4aW11bS1zcGVlZCBEVCBwcm9wZXJ0eSwgYnV0IGlmIGl0IGlzIG1pc3NpbmcNCj4g
-ICAgIHRoZW4gZGVmYXVsdCB0byBtYXhpbXVtIGNvbnRyb2xsZXIgY2FwYWJpbGl0aWVzIGJhc2Vk
-IG9uIHRoZQ0KPiAgICAgcHJlc2VuY2Ugb2YgUEhZIHBoYW5kbGVzLg0KPiBWNDogTm8gY2hhbmdl
-DQo+IFY1OiAtIERyb3Agc3VwZXJmbHVvdXMgY29kZSBjb21tZW50DQo+ICAgICAtIERyb3AgZHVw
-bGljYXRlIHNwZWVkID49IFVTQl9TUEVFRF9MT1cgdGVzdA0KPiBWNjogUmVpbnN0YXRlIHNwZWVk
-ID49IFVTQl9TUEVFRF9MT1cgdGVzdCB0byBhdm9pZCB0cmlnZ2VyaW5nIG9uIFVTQl9TUEVFRF9V
-TktOT1dODQo+IFY3OiBEcm9wIHdpcmVsZXNzIFVTQiBjaGVjaw0KPiAtLS0NCj4gIGRyaXZlcnMv
-dXNiL2R3YzMvZHdjMy1nZW5lcmljLXBsYXQuYyB8IDUxICsrKysrKysrKysrKysrKysrKysrKysr
-KysrKysNCj4gIDEgZmlsZSBjaGFuZ2VkLCA1MSBpbnNlcnRpb25zKCspDQo+IA0KPiBkaWZmIC0t
-Z2l0IGEvZHJpdmVycy91c2IvZHdjMy9kd2MzLWdlbmVyaWMtcGxhdC5jIGIvZHJpdmVycy91c2Iv
-ZHdjMy9kd2MzLWdlbmVyaWMtcGxhdC5jDQo+IGluZGV4IGNhNjlhYzBlYjA3Y2UuLjMyNDk3YWI2
-ZjA2NWUgMTAwNjQ0DQo+IC0tLSBhL2RyaXZlcnMvdXNiL2R3YzMvZHdjMy1nZW5lcmljLXBsYXQu
-Yw0KPiArKysgYi9kcml2ZXJzL3VzYi9kd2MzL2R3YzMtZ2VuZXJpYy1wbGF0LmMNCj4gQEAgLTcx
-LDYgKzcxLDUxIEBAIHN0YXRpYyBpbnQgZHdjM19laWM3NzAwX2luaXQoc3RydWN0IGR3YzNfZ2Vu
-ZXJpYyAqZHdjM2cpDQo+ICAJcmV0dXJuIDA7DQo+ICB9DQo+ICANCj4gK3N0YXRpYyBpbnQgZHdj
-M19yZW5lc2FzX3JjYXJfZ2VuNV9pbml0KHN0cnVjdCBkd2MzX2dlbmVyaWMgKmR3YzNnKQ0KPiAr
-ew0KPiArCXN0cnVjdCBkZXZpY2UgKmRldiA9IGR3YzNnLT5kZXY7DQo+ICsJc3RydWN0IHBsYXRm
-b3JtX2RldmljZSAqcGRldiA9IHRvX3BsYXRmb3JtX2RldmljZShkZXYpOw0KPiArCWVudW0gdXNi
-X2RldmljZV9zcGVlZCBzcGVlZCA9IHVzYl9nZXRfbWF4aW11bV9zcGVlZChkZXYpOw0KPiArCWJv
-b2wgdXNiMm9ubHkgPSBmYWxzZTsNCj4gKwl2b2lkIF9faW9tZW0gKmdsdWU7DQo+ICsNCj4gKwkv
-KiBObyBVU0IgMyBQSFkgaW4gRFQgbWVhbnMgdGhpcyBpcyBzdXJlbHkgVVNCIDIgY29udHJvbGxl
-ciAqLw0KPiArCWlmIChkZXZpY2VfcHJvcGVydHlfbWF0Y2hfc3RyaW5nKGRldiwgInBoeS1uYW1l
-cyIsICJ1c2IzLXBoeSIpIDwgMCkNCj4gKwkJdXNiMm9ubHkgPSB0cnVlOw0KPiArDQo+ICsJaWYg
-KHNwZWVkID49IFVTQl9TUEVFRF9MT1cgJiYgc3BlZWQgPD0gVVNCX1NQRUVEX0hJR0gpDQo+ICsJ
-CXVzYjJvbmx5ID0gdHJ1ZTsNCj4gKw0KPiArCWdsdWUgPSBkZXZtX3BsYXRmb3JtX2lvcmVtYXBf
-cmVzb3VyY2VfYnluYW1lKHBkZXYsICJnbHVlIik7DQo+ICsJaWYgKElTX0VSUihnbHVlKSkNCj4g
-KwkJcmV0dXJuIFBUUl9FUlIoZ2x1ZSk7DQo+ICsNCj4gKwkvKg0KPiArCSAqIFRoZSBkYXRhc2hl
-ZXQgZGVzY3JpYmVzIGluaXRpYWxpemF0aW9uIHByb2NlZHVyZSB3aXRob3V0IGZ1bGwNCj4gKwkg
-KiBpbmZvcm1hdGlvbiBhYm91dCB0aGUgcmVnaXN0ZXJzLiBUaGVyZWZvcmUsIHRoZSBzb3VyY2Ug
-Y29kZSBpcw0KPiArCSAqIGJhc2VkIG9uIHRoZSBiYXJlIG1ldGFsIGNvZGUgc2hhcmVkIGJ5IHRo
-ZSBib2FyZCB0ZWFtLg0KPiArCSAqLw0KPiArCXdyaXRldygweDIxMSwgZ2x1ZSArIDB4MjYpOw0K
-PiArDQo+ICsJLyogVVNCMiBkb2VzIG5lZWQgYWRkaXRpb25hbCByZWdpc3RlciBwcm9ncmFtbWlu
-Zy4gKi8NCj4gKwlpZiAoIXVzYjJvbmx5KQ0KPiArCQlyZXR1cm4gMDsNCj4gKw0KPiArCXdyaXRl
-dygweDExLCBnbHVlICsgMHg4MWMpOw0KPiArCXdyaXRldygweDAsIGdsdWUgKyAweDgxYSk7DQo+
-ICsJd3JpdGV3KDB4MSwgZ2x1ZSArIDB4ODAyKTsNCj4gKw0KPiArCXVzbGVlcF9yYW5nZSgxMDAw
-MCwgMjAwMDApOw0KPiArDQo+ICsJd3JpdGV3KDB4MCwgZ2x1ZSArIDB4ODAyKTsNCj4gKwl3cml0
-ZXcoMHgxLCBnbHVlICsgMHgyYSk7DQo+ICsJd3JpdGV3KDB4MSwgZ2x1ZSArIDB4ODFhKTsNCj4g
-Kw0KPiArCXVzbGVlcF9yYW5nZSgxMDAwMCwgMjAwMDApOw0KPiArDQo+ICsJcmV0dXJuIDA7DQo+
-ICt9DQo+ICsNCj4gIHN0YXRpYyBpbnQgZHdjM19zcGFjZW1pdF9rMV9pbml0KHN0cnVjdCBkd2Mz
-X2dlbmVyaWMgKmR3YzNnKQ0KPiAgew0KPiAgCXN0cnVjdCBkZXZpY2UgKmRldiA9IGR3YzNnLT5k
-ZXY7DQo+IEBAIC0yMzEsMTEgKzI3NiwxNyBAQCBzdGF0aWMgY29uc3Qgc3RydWN0IGR3YzNfZ2Vu
-ZXJpY19jb25maWcgZWljNzcwMF9kd2MzID0gIHsNCj4gIAkucHJvcGVydGllcyA9IERXQzNfREVG
-QVVMVF9QUk9QRVJUSUVTLA0KPiAgfTsNCj4gIA0KPiArc3RhdGljIGNvbnN0IHN0cnVjdCBkd2Mz
-X2dlbmVyaWNfY29uZmlnIHJlbmVzYXNfcmNhcl9nZW41X2R3YzMgPSB7DQo+ICsJLmluaXQgPSBk
-d2MzX3JlbmVzYXNfcmNhcl9nZW41X2luaXQsDQo+ICsJLnByb3BlcnRpZXMgPSBEV0MzX0RFRkFV
-TFRfUFJPUEVSVElFUywNCj4gK307DQo+ICsNCj4gIHN0YXRpYyBjb25zdCBzdHJ1Y3Qgb2ZfZGV2
-aWNlX2lkIGR3YzNfZ2VuZXJpY19vZl9tYXRjaFtdID0gew0KPiAgCXsgLmNvbXBhdGlibGUgPSAi
-c3BhY2VtaXQsazEtZHdjMyIsICZzcGFjZW1pdF9rMV9kd2MzfSwNCj4gIAl7IC5jb21wYXRpYmxl
-ID0gInNwYWNlbWl0LGszLWR3YzMiLCB9LA0KPiAgCXsgLmNvbXBhdGlibGUgPSAiZnNsLGxzMTAy
-OGEtZHdjMyIsICZmc2xfbHMxMDI4X2R3YzN9LA0KPiAgCXsgLmNvbXBhdGlibGUgPSAiZXN3aW4s
-ZWljNzcwMC1kd2MzIiwgJmVpYzc3MDBfZHdjM30sDQo+ICsJeyAuY29tcGF0aWJsZSA9ICJyZW5l
-c2FzLHJjYXItZ2VuNS1kd2MzIiwgJnJlbmVzYXNfcmNhcl9nZW41X2R3YzN9LA0KPiAgCXsgLmNv
-bXBhdGlibGUgPSAic3RhcmZpdmUsamhiMTAwLWR3YzMiLCB9LA0KPiAgCXsgLyogc2VudGluZWwg
-Ki8gfQ0KPiAgfTsNCj4gLS0gDQo+IDIuNTMuMA0KPiANCg0KQWNrZWQtYnk6IFRoaW5oIE5ndXll
-biA8VGhpbmguTmd1eWVuQHN5bm9wc3lzLmNvbT4NCg0KVGhhbmtzLA0KVGhpbmg=
+You can keep a dead config option around for a while out of sympathy.
+After a couple of releases it stops being "transitional" and starts
+being "you are confusing every user who greps for it". These options
+select nothing, gate nothing, and -- I checked by hand, this is not a
+regex accident -- are referenced by exactly nobody in the tree.
+
+Evidence for each removal:
+  * no CONFIG_<sym> reference outside the Kconfig definition itself
+  * no <sym> reference as an 'if'/'select'/'depends on' target
+  * no mention in any defconfig, any Documentation, or any source build
+  * the code they used to gate is gone (removed or folded into a real
+    driver that already has its own, functioning config symbol)
+
+Headliners of the graveyard:
+  - HID_THINGM: help text literally said "will be removed soon". Well.
+    Gone now. The blink(1) driver is HJID_LED.
+  - USB_CONFIGFS_F_TCM: the real fabric always built via USB_F_TCM; the
+    "CONFIGFS" name was a leftover from when someone could not decide
+    what to call the thing.
+  - USB_EHCI_TEGRA, USB_OCTEON_OHCI, USB_OHCI_HCD_SSB: help text says
+    "driver was removed, use X instead". The other X already exists.
+  - PANEL: proudly labeled "OLD OPTION" with its own "Deprecated
+    options" section in the file. The actual parport lcd driver has
+    always been PARPORT_PANEL.
+  - COMMON_CLK_MT6765_*: seven sysclk entries with no matching object
+    in the Makefile. Zero files built, zero regrets.
+  - The usual kconfig-vandalism suspects (HAVE_PWRCTL, REGULATOR_MT6316,
+    INTERCONNECT_MTK_MT8196, CLK_SUNXI_PRCM_SUN9I, DVB_ULE_DEBUG, ...).
+
+Validated: defconfig, olddefconfig and randconfig parse clean on both
+x86_64 and arm64; headers_install (the target that replaced the dearly
+departed headers_check, which this tree does not have) succeeds with a
+clean UAPI on both architectures. Because someone will ask: yes, I
+checked the s390/arm/riscv No, I did not delete any arch/* Kconfig, and
+no, I did not touch a single include/uapi/ file.
+
+Why should you care? Because "make menuconfig" allegedly lets people
+configure the kernel, and leaving a menu full of options that do
+nothing makes them feel like they have a choice when they really are
+just being sold snake oil. Clean it up.
+
+Signed-off-by: Breno Rodrigues Alves <breno3011alves@gmail.com>
+---
+ drivers/auxdisplay/Kconfig            |  8 -----
+ drivers/clk/mediatek/Kconfig          | 42 ------------------------
+ drivers/clk/sunxi/Kconfig             |  7 ----
+ drivers/hid/Kconfig                   |  9 ------
+ drivers/interconnect/mediatek/Kconfig |  6 ----
+ drivers/media/dvb-core/Kconfig        | 11 -------
+ drivers/media/platform/Kconfig        |  6 ----
+ drivers/misc/Kconfig                  |  4 ---
+ drivers/pci/controller/dwc/Kconfig    | 14 --------
+ drivers/pci/pwrctrl/Kconfig           |  9 ------
+ drivers/regulator/Kconfig             | 12 -------
+ drivers/staging/media/Kconfig         | 13 --------
+ drivers/usb/gadget/Kconfig            | 14 --------
+ drivers/usb/host/Kconfig              | 46 ---------------------------
+ drivers/video/fbdev/core/Kconfig      |  6 ----
+ security/apparmor/Kconfig             |  9 ------
+ sound/soc/tegra/Kconfig               | 36 ---------------------
+ 17 files changed, 252 deletions(-)
+
+diff --git a/drivers/auxdisplay/Kconfig b/drivers/auxdisplay/Kconfig
+index 1ea7c0391..24acd0d39 100644
+--- a/drivers/auxdisplay/Kconfig
++++ b/drivers/auxdisplay/Kconfig
+@@ -541,11 +541,3 @@ config ARM_CHARLCD
+ 
+ endif # AUXDISPLAY
+ 
+-#
+-# Deprecated options
+-#
+-config PANEL
+-	tristate "Parallel port LCD/Keypad Panel support (OLD OPTION)"
+-	depends on PARPORT
+-	select AUXDISPLAY
+-	select PARPORT_PANEL
+diff --git a/drivers/clk/mediatek/Kconfig b/drivers/clk/mediatek/Kconfig
+index b059d4457..94a8a0a6f 100644
+--- a/drivers/clk/mediatek/Kconfig
++++ b/drivers/clk/mediatek/Kconfig
+@@ -181,12 +181,6 @@ config COMMON_CLK_MT6765_CAMSYS
+        help
+          This driver supports MediaTek MT6765 camsys clocks.
+ 
+-config COMMON_CLK_MT6765_GCESYS
+-       tristate "Clock driver for MediaTek MT6765 gcesys"
+-       depends on COMMON_CLK_MT6765
+-       help
+-         This driver supports MediaTek MT6765 gcesys clocks.
+-
+ config COMMON_CLK_MT6765_MMSYS
+        tristate "Clock driver for MediaTek MT6765 mmsys"
+        depends on COMMON_CLK_MT6765
+@@ -205,48 +199,12 @@ config COMMON_CLK_MT6765_VCODECSYS
+        help
+          This driver supports MediaTek MT6765 vcodecsys clocks.
+ 
+-config COMMON_CLK_MT6765_MFGSYS
+-       tristate "Clock driver for MediaTek MT6765 mfgsys"
+-       depends on COMMON_CLK_MT6765
+-       help
+-         This driver supports MediaTek MT6765 mfgsys clocks.
+-
+ config COMMON_CLK_MT6765_MIPI0ASYS
+        tristate "Clock driver for MediaTek MT6765 mipi0asys"
+        depends on COMMON_CLK_MT6765
+        help
+          This driver supports MediaTek MT6765 mipi0asys clocks.
+ 
+-config COMMON_CLK_MT6765_MIPI0BSYS
+-       tristate "Clock driver for MediaTek MT6765 mipi0bsys"
+-       depends on COMMON_CLK_MT6765
+-       help
+-         This driver supports MediaTek MT6765 mipi0bsys clocks.
+-
+-config COMMON_CLK_MT6765_MIPI1ASYS
+-       tristate "Clock driver for MediaTek MT6765 mipi1asys"
+-       depends on COMMON_CLK_MT6765
+-       help
+-         This driver supports MediaTek MT6765 mipi1asys clocks.
+-
+-config COMMON_CLK_MT6765_MIPI1BSYS
+-       tristate "Clock driver for MediaTek MT6765 mipi1bsys"
+-       depends on COMMON_CLK_MT6765
+-       help
+-         This driver supports MediaTek MT6765 mipi1bsys clocks.
+-
+-config COMMON_CLK_MT6765_MIPI2ASYS
+-       tristate "Clock driver for MediaTek MT6765 mipi2asys"
+-       depends on COMMON_CLK_MT6765
+-      help
+-         This driver supports MediaTek MT6765 mipi2asys clocks.
+-
+-config COMMON_CLK_MT6765_MIPI2BSYS
+-       tristate "Clock driver for MediaTek MT6765 mipi2bsys"
+-       depends on COMMON_CLK_MT6765
+-       help
+-         This driver supports MediaTek MT6765 mipi2bsys clocks.
+-
+ config COMMON_CLK_MT6779
+ 	tristate "Clock driver for MediaTek MT6779"
+ 	depends on (ARCH_MEDIATEK && ARM64) || COMPILE_TEST
+diff --git a/drivers/clk/sunxi/Kconfig b/drivers/clk/sunxi/Kconfig
+index 5e2f92bfe..3ba500b9d 100644
+--- a/drivers/clk/sunxi/Kconfig
++++ b/drivers/clk/sunxi/Kconfig
+@@ -32,11 +32,4 @@ config CLK_SUNXI_PRCM_SUN8I
+ 	  Those are usually needed for the PMIC communication,
+ 	  mostly.
+ 
+-config CLK_SUNXI_PRCM_SUN9I
+-	bool "Legacy A80 PRCM driver"
+-	default ARCH_SUNXI
+-	help
+-	  Legacy clock driver for the A80 PRCM clocks. Those are
+-	  usually needed for the PMIC communication, mostly.
+-
+ endif
+diff --git a/drivers/hid/Kconfig b/drivers/hid/Kconfig
+index a81bf51cb..082dc3f5c 100644
+--- a/drivers/hid/Kconfig
++++ b/drivers/hid/Kconfig
+@@ -1296,15 +1296,6 @@ config HID_TOPRE
+ 	  Say Y for N-key rollover support on Topre REALFORCE R2 108/87 key and
+           Topre REALFORCE R3S 87 key keyboards.
+ 
+-config HID_THINGM
+-	tristate "ThingM blink(1) USB RGB LED"
+-	depends on LEDS_CLASS
+-	select HID_LED
+-	help
+-	Support for the ThingM blink(1) USB RGB LED. This driver has been
+-	merged into the generic hid led driver. Config symbol HID_THINGM
+-	just selects HID_LED and will be removed soon.
+-
+ config HID_THRUSTMASTER
+ 	tristate "ThrustMaster devices support"
+ 	depends on USB_HID
+diff --git a/drivers/interconnect/mediatek/Kconfig b/drivers/interconnect/mediatek/Kconfig
+index 9fd3f2170..a7aebfa1a 100644
+--- a/drivers/interconnect/mediatek/Kconfig
++++ b/drivers/interconnect/mediatek/Kconfig
+@@ -28,9 +28,3 @@ config INTERCONNECT_MTK_MT8195
+ 	  This is a driver for the MediaTek bus interconnect on MT8195-based
+ 	  platforms.
+ 
+-config INTERCONNECT_MTK_MT8196
+-	tristate "MediaTek MT8196 interconnect driver"
+-	depends on INTERCONNECT_MTK_DVFSRC_EMI
+-	help
+-	  This is a driver for the MediaTek bus interconnect on MT8196-based
+-	  platforms.
+diff --git a/drivers/media/dvb-core/Kconfig b/drivers/media/dvb-core/Kconfig
+index 8b3f2d53c..c6a97add8 100644
+--- a/drivers/media/dvb-core/Kconfig
++++ b/drivers/media/dvb-core/Kconfig
+@@ -67,14 +67,3 @@ config DVB_DEMUX_SECTION_LOSS_LOG
+ 
+ 	  If you are unsure about this, say N here.
+ 
+-config DVB_ULE_DEBUG
+-	bool "Enable DVB net ULE packet debug messages"
+-	depends on DVB_CORE
+-	help
+-	  Enable extra log messages meant to detect problems while
+-	  handling DVB network ULE packet loss inside the Kernel.
+-
+-	  Should not be enabled on normal cases, as logs can
+-	  be very verbose.
+-
+-	  If you are unsure about this, say N here.
+diff --git a/drivers/media/platform/Kconfig b/drivers/media/platform/Kconfig
+index 2c7699b66..dbef2275f 100644
+--- a/drivers/media/platform/Kconfig
++++ b/drivers/media/platform/Kconfig
+@@ -22,12 +22,6 @@ config SDR_PLATFORM_DRIVERS
+ 	help
+ 	  Say Y here to enable support for platform-specific SDR Drivers.
+ 
+-config DVB_PLATFORM_DRIVERS
+-	bool "DVB platform devices"
+-	depends on MEDIA_DIGITAL_TV_SUPPORT
+-	help
+-	  Say Y here to enable support for platform-specific Digital TV drivers.
+-
+ config V4L_MEM2MEM_DRIVERS
+ 	bool "Memory-to-memory multimedia devices"
+ 	depends on VIDEO_DEV
+diff --git a/drivers/misc/Kconfig b/drivers/misc/Kconfig
+index 7364931da..2e37b3e08 100644
+--- a/drivers/misc/Kconfig
++++ b/drivers/misc/Kconfig
+@@ -434,10 +434,6 @@ config XILINX_SDFEC
+ 
+ 	  If unsure, say N.
+ 
+-config MISC_RTSX
+-	tristate
+-	default MISC_RTSX_PCI || MISC_RTSX_USB
+-
+ config OPEN_DICE
+ 	tristate "Open Profile for DICE driver"
+ 	depends on OF_RESERVED_MEM
+diff --git a/drivers/pci/controller/dwc/Kconfig b/drivers/pci/controller/dwc/Kconfig
+index dcfbe7e22..c43b3bde5 100644
+--- a/drivers/pci/controller/dwc/Kconfig
++++ b/drivers/pci/controller/dwc/Kconfig
+@@ -121,20 +121,6 @@ config PCI_IMX6_HOST
+ 	  on DesignWare hardware and therefore the driver re-uses the
+ 	  DesignWare core functions to implement the driver.
+ 
+-config PCI_IMX6_EP
+-	bool "Freescale i.MX6/7/8 PCIe controller (endpoint mode)"
+-	depends on ARCH_MXC || COMPILE_TEST
+-	depends on PCI_ENDPOINT
+-	select PCIE_DW_EP
+-	select PCI_HOST_COMMON
+-	select PCI_IMX6
+-	select PCI_PWRCTRL_GENERIC
+-	help
+-	  Enables support for the PCIe controller in the i.MX SoCs to
+-	  work in endpoint mode. The PCI controller on i.MX is based
+-	  on DesignWare hardware and therefore the driver re-uses the
+-	  DesignWare core functions to implement the driver.
+-
+ config PCI_LAYERSCAPE
+ 	tristate "Freescale Layerscape PCIe controller (host mode)"
+ 	depends on OF && (ARM || ARCH_LAYERSCAPE || COMPILE_TEST)
+diff --git a/drivers/pci/pwrctrl/Kconfig b/drivers/pci/pwrctrl/Kconfig
+index 9eec767cd..853dd16b0 100644
+--- a/drivers/pci/pwrctrl/Kconfig
++++ b/drivers/pci/pwrctrl/Kconfig
+@@ -39,12 +39,3 @@ config PCI_PWRCTRL_TC9563
+ 	  MAC is connected as endpoint device. Other two downstream ports are
+ 	  supposed to connect to external device.
+ 
+-# deprecated
+-config HAVE_PWRCTL
+-	bool
+-	select HAVE_PWRCTRL
+-
+-# deprecated
+-config PCI_PWRCTL_PWRSEQ
+-	tristate
+-	select PCI_PWRCTRL_PWRSEQ
+diff --git a/drivers/regulator/Kconfig b/drivers/regulator/Kconfig
+index 89789ac7a..2c4d5b53e 100644
+--- a/drivers/regulator/Kconfig
++++ b/drivers/regulator/Kconfig
+@@ -22,7 +22,6 @@ menuconfig REGULATOR
+ 
+ 	  If unsure, say no.
+ 
+-
+ if REGULATOR
+ 
+ config REGULATOR_DEBUG
+@@ -900,16 +899,6 @@ config REGULATOR_MT6315
+ 	  This driver supports the control of different power rails of device
+ 	  through regulator interface.
+ 
+-config REGULATOR_MT6316
+-	tristate "MT6316 SPMI PMIC regulator driver"
+-	depends on SPMI
+-	select REGMAP_SPMI
+-	help
+-	  Say Y here to enable support for 2+2, 3+1 and 4 phase regulators
+-	  found in the MediaTek MT6316 BP, CP, DP, HP, VP and TP SPMI PMICs.
+-	  This driver supports the control of different power rails of device
+-	  through regulator interface.
+-
+ config REGULATOR_MT6323
+ 	tristate "MediaTek MT6323 PMIC"
+ 	depends on MFD_MT6397
+@@ -1726,7 +1715,6 @@ config REGULATOR_TPS65185
+ 	  so it is found in E-Book readers.
+ 	  If HWWON is enabled, it also provides temperature measurement.
+ 
+-
+ config REGULATOR_TPS65217
+ 	tristate "TI TPS65217 Power regulators"
+ 	depends on MFD_TPS65217
+diff --git a/drivers/staging/media/Kconfig b/drivers/staging/media/Kconfig
+index 06cbc5c54..2d3e70b49 100644
+--- a/drivers/staging/media/Kconfig
++++ b/drivers/staging/media/Kconfig
+@@ -16,7 +16,6 @@ menuconfig STAGING_MEDIA
+ 
+ 	  If in doubt, say N here.
+ 
+-
+ if STAGING_MEDIA && MEDIA_SUPPORT
+ 
+ # Please keep them in alphabetic order
+@@ -38,16 +37,4 @@ source "drivers/staging/media/sunxi/Kconfig"
+ 
+ source "drivers/staging/media/tegra-video/Kconfig"
+ 
+-menuconfig STAGING_MEDIA_DEPRECATED
+-	bool "Media staging drivers (DEPRECATED)"
+-	default n
+-	help
+-	  This option enables deprecated media drivers that are
+-	  scheduled for future removal from the kernel.
+-
+-	  If you wish to work on these drivers to prevent their removal,
+-	  then contact the linux-media@vger.kernel.org mailing list.
+-
+-	  If in doubt, say N here.
+-
+ endif
+diff --git a/drivers/usb/gadget/Kconfig b/drivers/usb/gadget/Kconfig
+index 76521555e..f05eb1bb7 100644
+--- a/drivers/usb/gadget/Kconfig
++++ b/drivers/usb/gadget/Kconfig
+@@ -492,20 +492,6 @@ config USB_CONFIGFS_F_PRINTER
+ 	  For more information, see Documentation/usb/gadget_printer.rst
+ 	  which includes sample code for accessing the device file.
+ 
+-config USB_CONFIGFS_F_TCM
+-	bool "USB Gadget Target Fabric"
+-	depends on TARGET_CORE
+-	depends on USB_CONFIGFS
+-	select USB_LIBCOMPOSITE
+-	select USB_F_TCM
+-	help
+-	  This fabric is a USB gadget component. Two USB protocols are
+-	  supported that is BBB or BOT (Bulk Only Transport) and UAS
+-	  (USB Attached SCSI). BOT is advertised on alternative
+-	  interface 0 (primary) and UAS is on alternative interface 1.
+-	  Both protocols can work on USB2.0 and USB3.0.
+-	  UAS utilizes the USB 3.0 feature called streams support.
+-
+ source "drivers/usb/gadget/legacy/Kconfig"
+ 
+ endif # USB_GADGET
+diff --git a/drivers/usb/host/Kconfig b/drivers/usb/host/Kconfig
+index 10cff12a3..06999ba3d 100644
+--- a/drivers/usb/host/Kconfig
++++ b/drivers/usb/host/Kconfig
+@@ -281,20 +281,6 @@ config USB_EHCI_HCD_AT91
+ 	  Enables support for the on-chip EHCI controller on
+ 	  Atmel chips.
+ 
+-config USB_EHCI_TEGRA
+-	tristate "NVIDIA Tegra HCD support"
+-	depends on ARCH_TEGRA
+-	select USB_CHIPIDEA
+-	select USB_CHIPIDEA_HOST
+-	select USB_CHIPIDEA_TEGRA
+-	select USB_GADGET
+-	help
+-	  This option is deprecated now and the driver was removed, use
+-	  USB_CHIPIDEA_TEGRA instead.
+-
+-	  Enable support for the internal USB Host Controllers
+-	  found in NVIDIA Tegra SoCs. The controllers are EHCI compliant.
+-
+ config USB_EHCI_HCD_PPC_OF
+ 	bool "EHCI support for PPC USB controller on OF platform bus"
+ 	depends on PPC
+@@ -530,23 +516,6 @@ config USB_OHCI_HCD_PCI
+ 	  Enables support for PCI-bus plug-in USB controller cards.
+ 	  If unsure, say Y.
+ 
+-config USB_OHCI_HCD_SSB
+-	bool "OHCI support for Broadcom SSB OHCI core (DEPRECATED)"
+-	depends on (SSB = y || SSB = USB_OHCI_HCD)
+-	select USB_HCD_SSB
+-	select USB_OHCI_HCD_PLATFORM
+-	help
+-	  This option is deprecated now and the driver was removed, use
+-	  USB_HCD_SSB and USB_OHCI_HCD_PLATFORM instead.
+-
+-	  Support for the Sonics Silicon Backplane (SSB) attached
+-	  Broadcom USB OHCI core.
+-
+-	  This device is present in some embedded devices with
+-	  Broadcom based SSB bus.
+-
+-	  If unsure, say N.
+-
+ config USB_OHCI_EXYNOS
+ 	tristate "OHCI support for Samsung S5P/Exynos SoC Series"
+ 	depends on ARCH_S5PV210 || ARCH_EXYNOS || COMPILE_TEST
+@@ -562,21 +531,6 @@ config USB_OHCI_HCD_PLATFORM
+ 
+ 	  If unsure, say N.
+ 
+-config USB_OCTEON_OHCI
+-	bool "Octeon on-chip OHCI support (DEPRECATED)"
+-	depends on CAVIUM_OCTEON_SOC
+-	default USB_OCTEON_EHCI
+-	select USB_OHCI_BIG_ENDIAN_MMIO if CPU_BIG_ENDIAN
+-	select USB_OHCI_LITTLE_ENDIAN
+-	select USB_OHCI_HCD_PLATFORM
+-	help
+-	  This option is deprecated now and the driver was removed, use
+-	  USB_OHCI_HCD_PLATFORM instead.
+-
+-	  Enable support for the Octeon II SOC's on-chip OHCI
+-	  controller.  It is needed for low-speed USB 1.0 device
+-	  support.  All CN6XXX based chips with USB are supported.
+-
+ endif # USB_OHCI_HCD
+ 
+ config USB_UHCI_HCD
+diff --git a/drivers/video/fbdev/core/Kconfig b/drivers/video/fbdev/core/Kconfig
+index 8d1993e0b..14860a1ae 100644
+--- a/drivers/video/fbdev/core/Kconfig
++++ b/drivers/video/fbdev/core/Kconfig
+@@ -155,12 +155,6 @@ config FB_IOMEM_HELPERS
+ 	select FB_CFB_IMAGEBLIT
+ 	select FB_IOMEM_FOPS
+ 
+-config FB_IOMEM_HELPERS_DEFERRED
+-	bool
+-	depends on FB_CORE
+-	select FB_DEFERRED_IO
+-	select FB_IOMEM_HELPERS
+-
+ config FB_SYSMEM_HELPERS
+ 	bool
+ 	depends on FB_CORE
+diff --git a/security/apparmor/Kconfig b/security/apparmor/Kconfig
+index a1f3749bd..508fd7f02 100644
+--- a/security/apparmor/Kconfig
++++ b/security/apparmor/Kconfig
+@@ -35,15 +35,6 @@ config SECURITY_APPARMOR_DEBUG_ASSERTS
+ 	  points. If the assert is triggered it will trigger a WARN
+ 	  message.
+ 
+-config SECURITY_APPARMOR_DEBUG_MESSAGES
+-	bool "Debug messages enabled by default"
+-	depends on SECURITY_APPARMOR_DEBUG
+-	default n
+-	help
+-	  Set the default value of the apparmor.debug kernel parameter.
+-	  When enabled, various debug messages will be logged to
+-	  the kernel message buffer.
+-
+ config SECURITY_APPARMOR_INTROSPECT_POLICY
+ 	bool "Allow loaded policy to be introspected"
+ 	depends on SECURITY_APPARMOR
+diff --git a/sound/soc/tegra/Kconfig b/sound/soc/tegra/Kconfig
+index fdc954028..e52f7cb9e 100644
+--- a/sound/soc/tegra/Kconfig
++++ b/sound/soc/tegra/Kconfig
+@@ -192,15 +192,6 @@ config SND_SOC_TEGRA_AUDIO_GRAPH_CARD
+ config SND_SOC_TEGRA_MACHINE_DRV
+ 	tristate
+ 
+-config SND_SOC_TEGRA_RT5631
+-	tristate "SoC Audio support for Tegra boards using an RT5631 codec"
+-	depends on SND_SOC_TEGRA && I2C && GPIOLIB
+-	select SND_SOC_TEGRA_MACHINE_DRV
+-	select SND_SOC_RT5631
+-	help
+-	  Say Y or M here if you want to add support for SoC audio on Tegra
+-	  boards using the RT5631 codec, such as Transformer.
+-
+ config SND_SOC_TEGRA_RT5640
+ 	tristate "SoC Audio support for Tegra boards using an RT5640 codec"
+ 	depends on I2C && GPIOLIB
+@@ -276,24 +267,6 @@ config SND_SOC_TEGRA_MAX98090
+ 	  Say Y or M here if you want to add support for SoC audio on Tegra
+ 	  boards using the MAX98090 codec, such as Venice2.
+ 
+-config SND_SOC_TEGRA_MAX98088
+-	tristate "SoC Audio support for Tegra boards using a MAX9808x codec"
+-	depends on I2C && GPIOLIB
+-	select SND_SOC_TEGRA_MACHINE_DRV
+-	select SND_SOC_MAX98088
+-	help
+-	  Say Y or M here if you want to add support for SoC audio on Tegra
+-	  boards using the MAX98088 codec, such as LG X3.
+-
+-config SND_SOC_TEGRA_RT5677
+-	tristate "SoC Audio support for Tegra boards using a RT5677 codec"
+-	depends on I2C && GPIOLIB
+-	select SND_SOC_TEGRA_MACHINE_DRV
+-	select SND_SOC_RT5677
+-	help
+-	  Say Y or M here if you want to add support for SoC audio on Tegra
+-	  boards using the RT5677 codec, such as Ryu.
+-
+ config SND_SOC_TEGRA_SGTL5000
+ 	tristate "SoC Audio support for Tegra boards using a SGTL5000 codec"
+ 	depends on I2C && GPIOLIB
+@@ -304,15 +277,6 @@ config SND_SOC_TEGRA_SGTL5000
+ 	  boards using the SGTL5000 codec, such as Apalis T30, Apalis TK1 or
+ 	  Colibri T30.
+ 
+-config SND_SOC_TEGRA_CPCAP
+-	tristate "SoC Audio support for Tegra boards using a CPCAP codec"
+-	depends on I2C && GPIOLIB && MFD_CPCAP
+-	select SND_SOC_TEGRA_MACHINE_DRV
+-	select SND_SOC_CPCAP
+-	help
+-	  Say Y or M here if you want to add support for SoC audio on Tegra
+-	  boards using the CPCAP codec, such as Motorola Atrix 4G or Droid X2.
+-
+ endif
+ 
+ endmenu
+-- 
+2.43.0
+
