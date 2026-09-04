@@ -1,75 +1,68 @@
-Received: from mail-pg1-f175.google.com (mail-pg1-f175.google.com [209.85.215.175])
+Received: from mail-oo1-f49.google.com (mail-oo1-f49.google.com [209.85.161.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F607365A14
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 10:40:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.175
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 583B03A4F2C
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 10:41:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788518421; cv=none; b=kxS8VzXWaaqxJn235WZx3E7V3jORu/NraP+Fk2b/IJkqmkW/fwXd+jch9JJdZdGoOo69rMoiYZD/J4O5uRBGWUcN5kQepnYelqjExChrJ5JIb4jJw6wIt0aF2tN8pzWI1WmccHm2hEyn625R2oF1C8C0/+/zNvTqj/msawgmvZA=
+	t=1788518473; cv=none; b=cuiNsXF1gNVK/sjJBw03xIf3+btdghsCcNSDpurxEi9au+2yXy9aT+7yB8iUq6JbXfx8G5TBwXWDoLQH+flZ2F2Tx5Qjz4tlKKEQu/OuY9nrhG5Jma4orCorBnRZGDm+OcGO+4KU2xEeUCPtXHCyywJZ/mCozBkkNM+e5UR/WXw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788518421; c=relaxed/simple;
-	bh=80EQ+j08nxlitM2qb+nj2AYVXhhWaOPF3lwiA9bPMhE=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Vs4XQ6g4p7QHTHYpEkl12KZ76h7yboS3U3qj2sjvMWUdrEWvQTHksZV6kFtWOaY0XiavTQ95/cqZqnMlWMKuomJfV+NwwshDhQ8je3zqXhj8Cf319NImNKeXDSE/KNTQ10URm0IsEch8nifRiIJLoAmZ/3TFJhQDcKzvqcYYJ/k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=iWJtqXGg; arc=none smtp.client-ip=209.85.215.175
+	s=arc-20240116; t=1788518473; c=relaxed/simple;
+	bh=ttTga9zi+MXP27L+it5mmsUm4houwLSBBY/F+hKXvL0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=TQRVfi+8VvCSHJ/SfKfiYV9kGYOJLapFAz7uWz4okmJAJTJCJVW9KvtUjvdoMSNLcQrkGLZ5duzSdh3sHWD9HPdvPgG0/8cr9yjLcl0fDXQgD6/vD/mjYymdlvFwG9ZktOZvHSyGpc13w3NcERfKFCUZ6NNf3HnEjVm4CjplrvU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cKKAmIOp; arc=none smtp.client-ip=209.85.161.49
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="iWJtqXGg"
-Received: by mail-pg1-f175.google.com with SMTP id 41be03b00d2f7-cc147d86bebso894473a12.0
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 03:40:20 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cKKAmIOp"
+Received: by mail-oo1-f49.google.com with SMTP id 006d021491bc7-6b132a5009eso658711eaf.1
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 03:41:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788518420; x=1789123220; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1788518471; x=1789123271; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=0VsgyU3plemw9VdUhVnU63XatTfyzeFs9qQpNpEGdpU=;
-        b=iWJtqXGgYgtabsarZf5IxwGyMOrNVlUbrC+OVrQIzUMx0KJmanyrrZwZ7n1P24jIVM
-         lDW5pimSpCkrf9odpdVtsZ/E+y/yWjmAKNmmQgZUnX3pJwaR1imeJsugDx6zVVhbWp8r
-         vIsYFXaSSYoy5W5EcoO9oawDyGsjEgoRyJOeRvaaqXWQorVe8clQ6byBetSYDoY5HLvj
-         swknlYzUY5srfAP6IQlV899LXCXEAzQknGusMCznCKGM6N5hRUr43VBQRC8cUle4O2JV
-         WrZi0ZQeHDChcrlfHut8Nys6ZrPatgXQzTJTM2tqFUdPOmvsJlkjRZSSwBsAlTUBysie
-         2X2A==
+        bh=016ob45JWFW9n0q2Hnw2HATnyW0C246HNQzTFfFfgjY=;
+        b=cKKAmIOpoGZMvCNe8LWhifjOS2rHiSkS9w5wSo5jiyG8vXIm3mLzIheNqEXcjg0I69
+         tl7Dv+XzcJ7EynLHJeZq/fIDujMqGt1jyC9Ty7AtRRl7x63SzecIJ3a/ypmmFI4p89fi
+         9nEdJyKsniYvr4jGKk+mOX1G6AMe+jIfgPSzJKlwsaAmMn+EBW74s2UiZ5NHiuDkPkk1
+         XLko82RElnb79Dk7zQmN8gds2+KKz6oRLXPn75U5FcDWHMshGTbrXFnjtk0TT4IeXZzA
+         jXrElOiCFzgLPm1KUsmwpBWCBOMNbRoiWBodZWBl82tIBN7WHDYoVJoI0Odc0vU2tvRx
+         cdsA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788518420; x=1789123220;
+        d=1e100.net; s=20251104; t=1788518471; x=1789123271;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=0VsgyU3plemw9VdUhVnU63XatTfyzeFs9qQpNpEGdpU=;
-        b=jKXmXLgB8Fd4xRIAbLBPfwEIX6/T52pr/U/Q6+AOgmlTGNc6gaynlMbZEh/KnpIw1W
-         S2RUwQx6VJKOTG0hP4uwt/JDguccTH8jLWBo9svl107fDQ31kDAYpKrbZEBjQKKKLgPp
-         eJe794+2ZJVSCauIqMp5VrwjkBXo1KUzP16Cbv11iqmKNyyCnMgKv3CTGNsbC0o8ts96
-         AN3Xn+BfgiXANYXBwL8usrKCYPK0La3gcUzPNCLqlMhie5Y+jwsok2XFhRrpQ1GIfc6Z
-         gFWPL6la3HHvzgTsIZYdzHvgzNjhuLmzyLJp2La9mLT6qTRZmX5R626Hp7vXg6uqTaU3
-         U81w==
-X-Gm-Message-State: AFuF++mKzhPG58LABuZ/sKS5O2X0CE34zDNDIzWRNuBZaxpzqKvyMqLd
-	s6MIq9kS1UmLECS4roWvSjIfTKgOeuF9bp+PPrwwcQTYLXMfCiMmIhZU
-X-Gm-Gg: AYBFou1wGskxKpGwhdsVyj3lGTeMvIuXss6uN9nzDb8RBhorAzdf7WQPE4/JSLaozLM
-	qqSZ0TtXLs75tTa/CIq2z4NsvLd3XJb0qJzK/Uzpoo3fGi1ANaW1b5srCerGRLKU8zU1TNcfzFG
-	bRU5B54n3oQBCsjPe72YGfDAiV1sIFRx5gFKNZoh8ArNfoDSmnMYdeN37SXqywnC15Y+6y7E4PF
-	k6AzZdNgbKuhQ8GC8n6JSJBzP3RlDYq8kg1MR/ngWWIMET8J9oYHeVSSdjlrZPOtU8qdgCiI+fF
-	fQPRy1HXFkEiV7M4lVlFJr4vmxlou/H5ueFAwxB+fyB6touLK00j9kkTs/aQse0o7GzhxgMF+uR
-	D70/2x/2FDLnfwtAp1XTvQYZM3tBU1TDAc3C5yA2NqQmq1F30GS7QNQCofeMlhBqe765XUu5m5F
-	0JUKYsMvd4r53JbHyh3kXaTKkXkenj6Gbt3YMbWjpMzzqgbwPDqVO8fS78viZO9RSUJw47u3h1N
-	T8+raqHTnpKnjM=
-X-Received: by 2002:a17:90b:3fd0:b0:36b:de66:92c3 with SMTP id 98e67ed59e1d1-39b07fed101mr13892803a91.10.1788518419735;
-        Fri, 04 Sep 2026 03:40:19 -0700 (PDT)
+        bh=016ob45JWFW9n0q2Hnw2HATnyW0C246HNQzTFfFfgjY=;
+        b=YKS8lvBL8al3rxK5HkPFWJTU5VMAakbfiatMZ68ozS2T7O6QbULIz4gJxXx6/GUdBF
+         gHbYqqYm6Ip8Ia5T/2oXkI1eFbphjw1+TvPvUluq8a4IYykbHs0GCn09cHjLU/ZTy6dP
+         HSATZp8i9DQy3Hq8m2b6tq++nbYUpIM1NsXBs77HcGNGeB/N4pOlzyIkQ9oUyJokpK/N
+         BabDK6Wx7xmV+eHpRIZu2tpy4Kd58G72XGIstiqC+MnKAOyGxg/5Omcmh5XwJaQRHVmO
+         00FUPuclBPtYSfT4+uGZrU8atKIkQ2m7u3ull8VDwCpdoLku9TDJFCywl2rGaeWEOd3F
+         KlBg==
+X-Gm-Message-State: AFuF++kniCenI8y4VHpIEoKD5NcaYL+bgUTfZz8hTm6X5NwIIIjwKbZW
+	gXp8TvEuSqNRWQn1GAXpGdBJ1P2MlW1icYGyUB9NDHQPPwrrcBR1XDP1ywKJHQ4EIIM=
+X-Gm-Gg: AYBFou2A3Aq87dMGU5oT67Lt64MY/9E/Y9rYxqTIfAftvD5nEcPbpurEYceO6QefvGj
+	BFCNVE9tiPd213xOaynlIp6nWR5H/CySoPqlDkm3pbtpLh/JHH0qgWdxggUK9bPDE7AL9Rzsf1o
+	nv6GwV2C7Z26IT/s37r3+688iFsL9s7WE1/FimZqyyI85lnr5s7VspKvDjDvxfDIZylo4XWUCVj
+	wYRvixv3khyn9uiuGys0s/jEK3xXRjuVm7kGUPVKpPMiotfcAzo8Dr6lI/VJwGt68eAMlQ6u5ve
+	6vHYy/IVGcrFMW1La6sgtzqFhEQJJouW+HWQqiP+aTGWtD1QNH3MDygaKkM8cJLUEFvYf0kMQ8B
+	TMfyHb8wTpqejtsJA513V8BAutsbG29twhNim5u00ZsSlDfoCRx6XvVU/+8tXhmR88spEofJTMi
+	GXnMk+CqZryZVwMZBjDyGMtHjsNaZDXH3ZS4yTJS8LEHlrCFcPREvAXw8+qyAJCRC77tQ9yYJyB
+	xUDJjTEZ2toBNs=
+X-Received: by 2002:a05:6820:8109:b0:6b7:46fa:1698 with SMTP id 006d021491bc7-6b746fa1a1cmr1758553eaf.45.1788518470860;
+        Fri, 04 Sep 2026 03:41:10 -0700 (PDT)
 Received: from volcano9f6e-hostos.amd.com ([165.204.217.251])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339b6036fcsm6112649eec.20.2026.09.04.03.40.16
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1432435ec2bsm5319267c88.3.2026.09.04.03.41.09
+        for <linux-kernel@vger.kernel.org>
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 04 Sep 2026 03:40:19 -0700 (PDT)
+        Fri, 04 Sep 2026 03:41:10 -0700 (PDT)
 From: Hemanth Selam <hemanth.selam@gmail.com>
-To: Davidlohr Bueso <dave@stgolabs.net>,
-	Jonathan Cameron <jic23@kernel.org>,
-	Dave Jiang <dave.jiang@intel.com>,
-	Alison Schofield <alison.schofield@intel.com>,
-	Vishal Verma <vishal.l.verma@intel.com>,
-	Dan Williams <djbw@kernel.org>,
-	Ira Weiny <iweiny@kernel.org>,
-	Li Ming <ming.li@zohomail.com>
-Cc: linux-kernel@vger.kernel.org,
-	linux-cxl@vger.kernel.org
-Subject: [PATCH] tools/testing: fix typo "occuring" in comment
-Date: Fri,  4 Sep 2026 16:10:12 +0530
-Message-ID: <20260904104013.11549-1-hemanth.selam@gmail.com>
+To: 
+Cc: linux-kernel@vger.kernel.org
+Subject: [PATCH 0/2] mdio-mux: fix typos in comments
+Date: Fri,  4 Sep 2026 16:11:03 +0530
+Message-ID: <20260904104107.12832-1-hemanth.selam@gmail.com>
 X-Mailer: git-send-email 2.48.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -79,29 +72,35 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Correct "occuring" to "occurring", reported by scripts/checkpatch.pl using
-the misspelling list in scripts/spelling.txt.  Only touches comments, no
-code changes.
+This corrects 2 misspellings in comments.  Each is a separate patch so
+that any one of them can be dropped without touching the rest.
 
-Assisted-by: Cursor:claude-opus-5
-Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
----
- tools/testing/cxl/test/mem.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Nothing outside comments changes.  Every touched C file was checked by
+dropping its comments, replacing each string literal with a placeholder
+and collapsing whitespace; what remained was identical before and after,
+so the compiled code cannot differ.
 
-diff --git a/tools/testing/cxl/test/mem.c b/tools/testing/cxl/test/mem.c
-index 7b756000a1a6..3d8a6d2b69d7 100644
---- a/tools/testing/cxl/test/mem.c
-+++ b/tools/testing/cxl/test/mem.c
-@@ -246,7 +246,7 @@ static void mes_add_event(struct mock_event_store *mes,
- }
- 
- /*
-- * Vary the number of events returned to simulate events occuring while the
-+ * Vary the number of events returned to simulate events occurring while the
-  * logs are being read.
-  */
- static atomic_t event_counter = ATOMIC_INIT(0);
+The mistakes were found with scripts/checkpatch.pl against the list in
+scripts/spelling.txt.  The scanning, the edits and the changelogs were
+produced with Cursor running the claude-opus-5 model, from a request to
+find and fix spelling mistakes across the tree, and every correction was
+then re-checked by the comparison described above.  Words that name an
+identifier were left alone deliberately, even when they read as typos,
+because correcting the prose would make the comment disagree with the
+code it describes.
+
+Tested by building x86_64 defconfig at v7.3-rc1-269-gbc35965f6940, which
+is clean.  Nothing else was built, so any patch touching code that
+x86_64 defconfig does not compile has been read but not compiled.
+
+Hemanth Selam (2):
+  mdio-mux: fix typo "framwork" in comment
+  mii: fix typo "asymetric" in comment
+
+ include/linux/mdio-mux.h | 2 +-
+ include/uapi/linux/mii.h | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
 -- 
 2.48.1
 
