@@ -1,144 +1,242 @@
-Received: from mail-pg1-f182.google.com (mail-pg1-f182.google.com [209.85.215.182])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D062452BE50
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 22:24:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.182
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C88652B1EC;
+	Fri,  4 Sep 2026 22:24:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788560675; cv=none; b=fpv1FQw5obB28GI17PGNak2FKDqZ45CSQSDgd16sc5pCJiAn1COGWW8uJrFAaCFdLnKoJajGLE/IYnMyMb5xiPPcVKjRixSBoUBqUYz7O2n1gmTbq81Z5sOsNq46R9+MCt9oE6Hf/VBKnDVoYBL6zuEdOu1fSZEoqHHfjFW+0LE=
+	t=1788560685; cv=none; b=OXv8fBmMNK4gU3s8xTpuMMlceJt/7PhWV/dXkIMLIZufmGxb/fdv74TWLxI0eMnibmFc/6kZFsal6nEjVJEnZh710ml4UqQxTYwNUakByfKGQpPdr8r2wBRTSUnlOP832eW+W3wMSK9LcsE84l7f1jA117liJ6QycVdA5N2nBkM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788560675; c=relaxed/simple;
-	bh=3yfBn1WOKGcBed81Nlc6oSVXKJPNrdGjHRd+VzAbRwI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=cu6uJlIENe7ogRC6frQB8/FoESgE6YeHylHbicFJO2GMSb8w3ximZiN/DeOEDC8O9dLIxdNlIESYmWtEJgm+WQcLLrkhhg8jWgUR8HdbjwE24+oBovoKksyEd/Zccsze7plLNO3C3NS0hc03VOEgD4AMIDAdumlK5WnXX+j+eNE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=GtirbCBi; arc=none smtp.client-ip=209.85.215.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	s=arc-20240116; t=1788560685; c=relaxed/simple;
+	bh=cuotVeQizc7mKopPKuLr3bkYQMwWFlcqNgHHAafSG2w=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=EXav4fqOJCW8ifCwE3cugZsA/ZN+CKXS6czqiA53HbRijB014ta+/+dmie+e5041/aFegtl14tuOtcDRHgjDx8kBQrDLFBVM3AsHRQBz2J3uA0zd7XneTj0sA/hmGweHn8vEb5qAwumrFzHRwvsEwmLucd7QCe0ETmcz0Wcc44E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OF2xIf4/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="GtirbCBi"
-Received: by mail-pg1-f182.google.com with SMTP id 41be03b00d2f7-cc1c3c90074so1304805a12.2
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 15:24:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1788560667; x=1789165467; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=eSoy4tzP5/vZd/n79Ub53Qw/sODynJmx2A4LOY3bVO0=;
-        b=GtirbCBix0Ds6pelGWNduaI5DqrO9m0/xSFbJNyrN9QCtgIsiNPefSN4X2cSwdrfZu
-         2BLpbI46XUeKsayPIK7n4lChRbGMeJQwXY7K71IaltGDBYjOwouT6oz1oMM3123GBoki
-         3R3wWbaLE5odTJnRTi2nGlvWqriMZlUy0U1BE72i11I3nAZ8tkTo2yDbX+r8Rlivj+P7
-         jyV7nAwI2X2Phziysdoo9Zz5kLaGhdugR4qmvUECBNqTjwfzTJo5M4vWjvNAEnKad78a
-         NKbm0+SgHQ666xirrfRITglTHd4nZTRHMUMrdJqgF1QhNdpeZ2aksEJV/Y9FI0Y35Xax
-         X22A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788560667; x=1789165467;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=eSoy4tzP5/vZd/n79Ub53Qw/sODynJmx2A4LOY3bVO0=;
-        b=CmNHmVxJfjBpZohclsoyUWT/V4ODHdun5MLRHr/ZkRTBQuvKwF6vF10t9IB+bVI6/6
-         3yRXmEePtQllJx9VjHWQ7GQRGv+N8GjEdV8ZYTxGmDTM+ZfOvpCJ0eKmvVo+D5U8FPZS
-         wkED+GpaeGzra7b+gVOeDIIQUtxpFJpX3bh6nj6SsI3L2VZyu2eFNHlsP+9xMbe1BHFU
-         SIVVZ86lG9aVmRh1UnC+kqGYAIP/R+490dUqkUXuZQhpCdklUZOUYkdVnUa5p2rDSuql
-         OaHEtVEAB/Qcg803QuV8MFzTBG24wcw9hL38RlfT8zKuRc6RizFKTegl/myzoFnltqMo
-         6csA==
-X-Forwarded-Encrypted: i=1; AKwUvBxsddd3/n+jRTeyDFmTB9m0LjC3OeB4tQcTsXb8gk05YlXURRJgZphDvZWnuOH3aUrEGPz+mUUgc/lMX1I=@vger.kernel.org
-X-Gm-Message-State: AFuF++lPRyb7UOsNqxe69CQzIDeDfWNWHw0LmYQyWOHyza7TP+XGjls3
-	8vOfKTsyk/HEL9w8wcs9Q63brG8f/rFnCOgzshxqjNphU8eo68J7IMnPchCf6vaV0g==
-X-Gm-Gg: AYBFou2od3ORpLGNQeZ7RsAY/uH0lHiixLnrFnnhd+KSZxytiASjWAWtcXbvExwJKF+
-	2BUMjFukifvGnorqw/fuyJ1Q7TWSHN6uZlOI30lvK4eenTIgNhMhAY0/WnW26qUPE4B2r/0r4sa
-	LeGBsFTuHuWs0C9YXc+PByFbM8b5u1LkfzKkuTef57fy6tstETZXH/s/9wNkAGwBqavPb/hwqnI
-	5X8qdHzZrV31P46VTOjUEO1hFrSkJ4Sg/3AgVBj6uQ9Q928WaXNvGNOqfgIq6jBcbvLn6S+XymB
-	jMpQkbMHXfod1vdQJSq77l4z9W9A2NUxaxke8mQkQlgmrka9o3JuluoIhwHPPTAUUC2zmm9XmHr
-	0PeA0fK53jqcgpdgO0Rzy8EtPvmoSGTfw+bs8gDqumu5KecxN1Jjsu2j9Ip9ScNvlb22lMRRPBX
-	UjFds5S39uhH6+hS7wpPZvtoDu3mSFfcQcPvnFMRqNYHAFmyxrtvw8tKYeNArPY/VDi9uMzmGY6
-	sxOQb8p+5+4dClZPBnatH4TsNogXQ==
-X-Received: by 2002:a05:6a00:2e99:b0:84c:4b58:2cec with SMTP id d2e1a72fcca58-8616b26f6bfmr12056954b3a.15.1788560666130;
-        Fri, 04 Sep 2026 15:24:26 -0700 (PDT)
-Received: from google.com (132.200.185.35.bc.googleusercontent.com. [35.185.200.132])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-86153a1c1basm1621740b3a.52.2026.09.04.15.24.24
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 04 Sep 2026 15:24:25 -0700 (PDT)
-Date: Fri, 4 Sep 2026 22:24:21 +0000
-From: David Matlack <dmatlack@google.com>
-To: Jason Gunthorpe <jgg@nvidia.com>
-Cc: Logan Odell <loganodell@google.com>, arnd@arndb.de,
-	pasha.tatashin@soleen.com, rppt@kernel.org, pratyush@kernel.org,
-	graf@amazon.com, akpm@linux-foundation.org, pbonzini@redhat.com,
-	maz@kernel.org, oupton@kernel.org, seanjc@google.com,
-	bhelgaas@google.com, alex@shazbot.org, kevin.tian@intel.com,
-	dwmw2@infradead.org, baolu.lu@linux.intel.com, joro@8bytes.org,
-	will@kernel.org, robin.murphy@arm.com, linux-arch@vger.kernel.org,
-	linux-kernel@vger.kernel.org, kexec@lists.infradead.org,
-	linux-mm@kvack.org, kvm@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev,
-	linux-pci@vger.kernel.org, iommu@lists.linux.dev
-Subject: Re: [RFC PATCH 0/3] liveupdate: Move to feature flags for LUO and
- memfd ABI compatibility
-Message-ID: <aptFFYqcSiBdMLE8@google.com>
-References: <20260903023452.721732-1-loganodell@google.com>
- <20260904160009.GV4157646@nvidia.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OF2xIf4/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2CC851F00A3F;
+	Fri,  4 Sep 2026 22:24:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788560680;
+	bh=NwsHrgnR2e6+9VnSSk2KeT/+t3tJWBzUO9TJLFGYEuc=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=OF2xIf4/PS2XM2knFwDbQYd/CUFuyszOeYi6fEeShthPzieIbWm67MV6wVVxun6d9
+	 HAjmWqx25gVkoZe4X1wzc/7jDfmUFHHzsvTau0sDBmi6Jd5BMLAzD6FebWxnR6tCra
+	 EozHUGrzoD9Wmi1Ck5ukzFRbDk9Rdjd0msksZIcAg/JsrjshxDY3rhBNeeZE3Btopk
+	 ke00Z+n8wEpFM7qxX+oiGUJ2FOgvZd3LFyOfvDGbcEEgDFyaas6RpItGoG6A8oDQEq
+	 i6kReCtmciCaKZE9FVFR5xpN+HXubWqCzyZhSdBycWzyD93NZjFXYTMuLOwZudda11
+	 rmCKMNawSrIlA==
+Subject: Re: [PATCH net v3] net: qualcomm: rmnet: require CAP_NET_ADMIN in the
+ real device netns for config ops
+From: netdev-bot+sashiko@kernel.org
+To: suruurism@gmail.com
+Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ subash.a.kasiviswanathan@oss.qualcomm.com, sean.tranchetti@oss.qualcomm.com,
+ horms@kernel.org, kuba@kernel.org
+Date: Fri, 04 Sep 2026 22:24:39 +0000
+Message-ID: <178856067967.219967.7550358106155720232@kernel.org>
+In-Reply-To: <20260829170656.15548-1-suruurism@gmail.com>
+References: <20260829170656.15548-1-suruurism@gmail.com>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260904160009.GV4157646@nvidia.com>
 
-On 2026-09-04 01:00 PM, Jason Gunthorpe wrote:
-> On Wed, Sep 02, 2026 at 07:34:49PM -0700, Logan Odell wrote:
-> > We're including maintainers from all subsystems that currently is or
-> > will be expected to participate in live update to ensure alignment on
-> > the path forward for compatibility.
-> > 
-> > Currently, Live Update Orchestrator (LUO) and its file handlers rely on
-> > monolithic compatibility strings (such as "luo-v5" and "memfd-v1") to
-> > validate ABI compatibility across kexec live updates. Any modification
-> > to serialized structures requires bumping the version string, which
-> > strictly breaks compatibility between adjacent kernels even when changes
-> > are additive, backwards-compatible, or optional.
-> 
-> That was the intention, I aruged strongly that upstream does not want
-> to maintain a CSP matrix of endless kernel version combinations. That
-> is far too much work to push on maintainers. Upstream would do much
-> less, maybe only same-version, depending.
+Thank you for your contribution! Sashiko AI review found 3 potential
+issue(s) to consider:
 
-We received basically the opposite stance from Sean regarding the KVM
-LUO ABI:
+Critical: 0 · High: 0 · Medium: 1 · Low: 2
 
-��https://lore.kernel.org/kvm/aoSCCTTBn9D5hqzk@google.com/
+- [Medium] Wrong reference netns in the new capability gate on the
+  ndo_del_slave path.
+- [Low] The two comments added above the new gates in rmnet_add_bridge()
+  (lines 452-456) and rmnet_del_bridge() (lines 512-516) were copied…
+- [Low] The new capability rejections return -EPERM silently.
 
-So we're trying to use this series to get some alignment across LUO
-ABIs.
+--
 
-> > This RFC series transitions LUO and subsystem file handlers to use
-> > granular feature bitmasks instead of compatibility strings. We replace
-> > the compatibility string with a header structure that includes some
-> > reserved space to define the features that are included after the
-> > feature.
-> 
-> The compatability string is only a small part of it, you also need a
-> serializing ABI that can handle some random mixmash of these
-> features. Ie the various TLV schemes that were all proposed. What is
-> the plan here?
+net: qualcomm: rmnet: require CAP_NET_ADMIN in the real device netns for config ops
 
-The proposal here (which is inspired by the KVM UAPI) is to ensure every
-LUO ABI struct has 2 properties:
+This adds rtnl_dev_link_net_capable() gates to rmnet_changelink(),
+rmnet_add_bridge() and rmnet_del_bridge() so that a caller privileged only
+in the rmnet device's netns can no longer rewrite the rmnet port state
+attached to a real device living in another netns.  rmnet_del_bridge() also
+grows local priv/real_dev lookups for the new check.
 
- 1. A field to encode options/features (e.g. u64 flags).
- 2. A way way to grow without breaking backward compatibility (e.g. so
-    we can add new fields).
+A few questions below.
 
-Each flag can mean whatever it needs to. e.g. It can indicate the
-precence of one or more fields (i.e. new fields in the struct), or it
-can mean a field now has a different meaning (i.e. union in the struct).
+> diff --git a/drivers/net/ethernet/qualcomm/rmnet/rmnet_config.c b/drivers/net/ethernet/qualcomm/rmnet/rmnet_config.c
+> index bed6f63facf2..6feafc55a7e9 100644
+> --- a/drivers/net/ethernet/qualcomm/rmnet/rmnet_config.c
+> +++ b/drivers/net/ethernet/qualcomm/rmnet/rmnet_config.c
+> @@ -312,6 +312,14 @@ static int rmnet_changelink(struct net_device *dev, struct nlattr *tb[],
+>  	if (!rmnet_is_real_dev_registered(real_dev))
+>  		return -ENODEV;
+>  
+> +	/*
+> +	 * The rtnl path only checks CAP_NET_ADMIN against dev_net(dev),
+> +	 * but the port state mutated below is attached to real_dev, which
+> +	 * may live in a different netns.
+> +	 */
+> +	if (!rtnl_dev_link_net_capable(dev, dev_net(real_dev)))
+> +		return -EPERM;
+> +
 
-This would enable adding support for new features without breaking
-backward compatibility. Downstream users would have to ensure their
-kernel does not start using a new feature while it can still rollback to
-a version that does not support the new feature.
+[Severity: Low]
+This isn't a bug, but should the new rejection report through extack?
+
+Both rmnet_changelink() and rmnet_add_bridge() take a
+struct netlink_ext_ack *extack, and every other error return in those two
+functions fills it in:
+
+	NL_SET_ERR_MSG_MOD(extack, "MUX ID already exists");
+	NL_SET_ERR_MSG_MOD(extack, "Invalid MTU on real dev");
+	NL_SET_ERR_MSG_MOD(extack, "more than one rmnet dev attached");
+	NL_SET_ERR_MSG_MOD(extack, "more than one bridge dev attached");
+	NL_SET_ERR_MSG_MOD(extack, "slave cannot be another rmnet dev");
+
+The closest peer users of the same gate do report the reason, e.g. in
+macvlan_changelink():
+
+	    !rtnl_dev_link_net_capable(dev, dev_net(vlan->lowerdev))) {
+		NL_SET_ERR_MSG(extack,
+			       "Changing shared macvlan port settings requires CAP_NET_ADMIN in the lower device network namespace");
+		return -EPERM;
+
+Since the generic rtnetlink capability check also returns -EPERM for
+RTM_NEWLINK/RTM_SETLINK, can user space tell the two denials apart as
+written?
+
+>  	port = rmnet_get_port_rtnl(real_dev);
+>  
+>  	if (data[IFLA_RMNET_MUX_ID]) {
+
+[ ... ]
+
+> @@ -441,6 +449,14 @@ int rmnet_add_bridge(struct net_device *rmnet_dev,
+>  	struct rmnet_port *port, *slave_port;
+>  	int err;
+>  
+> +	/*
+> +	 * The rtnl path only checks CAP_NET_ADMIN against dev_net(dev),
+> +	 * but the port state mutated below is attached to real_dev, which
+> +	 * may live in a different netns.
+> +	 */
+
+[Severity: Low]
+This isn't a bug, but the comment appears to have been copied from the
+rmnet_changelink() hunk without adjusting it.
+
+rmnet_add_bridge() and rmnet_del_bridge() have no dev parameter or local:
+
+	int rmnet_add_bridge(struct net_device *rmnet_dev,
+			     struct net_device *slave_dev,
+			     struct netlink_ext_ack *extack)
+
+	int rmnet_del_bridge(struct net_device *rmnet_dev,
+			     struct net_device *slave_dev)
+
+The rtnl entry point for these two is RTM_SETLINK IFLA_MASTER via
+do_set_master() and ndo_add_slave/ndo_del_slave, where the caller was
+checked against dev_net(slave_dev) rather than a changelink on dev.  Could
+both comments name slave_dev instead of the non-existent dev?
+
+Also, the three added blocks use the form with '/*' alone on the first
+line, while the surrounding comments in this file put text on the first
+line, e.g. just below in the same function:
+
+	/* If there is more than one rmnet dev attached, its probably being
+	 * used for muxing. Skip the briding in that case
+	 */
+
+> +	if (!rtnl_dev_link_net_capable(rmnet_dev, dev_net(real_dev)))
+> +		return -EPERM;
+> +
+>  	port = rmnet_get_port_rtnl(real_dev);
+>  
+>  	/* If there is more than one rmnet dev attached, its probably being
+
+[ ... ]
+
+> @@ -489,7 +505,19 @@ int rmnet_add_bridge(struct net_device *rmnet_dev,
+>  int rmnet_del_bridge(struct net_device *rmnet_dev,
+>  		     struct net_device *slave_dev)
+>  {
+> -	struct rmnet_port *port = rmnet_get_port_rtnl(slave_dev);
+> +	struct rmnet_priv *priv = netdev_priv(rmnet_dev);
+> +	struct net_device *real_dev = priv->real_dev;
+> +	struct rmnet_port *port;
+> +
+> +	/*
+> +	 * The rtnl path only checks CAP_NET_ADMIN against dev_net(dev),
+> +	 * but rmnet_unregister_bridge() below clears the bridge state of
+> +	 * the real device's port, which may live in a different netns.
+> +	 */
+> +	if (!rtnl_dev_link_net_capable(rmnet_dev, dev_net(real_dev)))
+> +		return -EPERM;
+
+[Severity: Medium]
+Is rmnet_dev the right reference device for the gate on the del path?
+
+rtnl_dev_link_net_capable() short-circuits when the two namespaces are
+equal:
+
+net/core/rtnetlink.c:rtnl_dev_link_net_capable() {
+	return net_eq(link_net, dev_net(dev)) ||
+	       ns_capable(link_net->user_ns, CAP_NET_ADMIN);
+}
+
+On ndo_del_slave the netns the rtnl layer actually verified CAP_NET_ADMIN
+against is dev_net(slave_dev), and rmnet_dev is simply whatever master is
+already linked:
+
+net/core/rtnetlink.c:do_set_master() {
+	struct net_device *upper_dev = netdev_master_upper_dev_get(dev);
+	...
+		if (ops->ndo_del_slave) {
+			err = ops->ndo_del_slave(upper_dev, dev);
+	...
+}
+
+There is no netns-equality requirement on that master link, and nothing
+seems to forbid moving the rmnet vnd device out of the slave's netns:
+rmnet_vnd_setup() does not set dev->netns_immutable,
+__dev_change_net_namespace() only refuses netns_immutable devices, and
+rmnet_config_notify_cb() reacts to NETDEV_UNREGISTER only when
+rmnet_is_real_dev_registered(dev) is true, which is false for the vnd
+device, so moving rmnet_dev does not tear the bridge down.
+
+If rmnet_dev ends up in real_dev's netns A while slave_dev stays in netns
+B, then net_eq(dev_net(real_dev), dev_net(rmnet_dev)) is true, ns_capable()
+is never evaluated, and a caller holding CAP_NET_ADMIN only in B can run
+"ip link set <slave> nomaster" and reach:
+
+drivers/net/ethernet/qualcomm/rmnet/rmnet_config.c:rmnet_unregister_bridge() {
+		real_port = rmnet_get_port_rtnl(real_dev);
+		real_port->bridge_ep = NULL;
+		real_port->rmnet_mode = RMNET_EPMODE_VND;
+}
+
+which is the cross-netns port mutation the commit message describes.
+Reaching that state does need a prior CAP_NET_ADMIN-in-A action to move
+rmnet_dev, so the window is narrow.
+
+Would using slave_dev as the reference device on both bridge paths close
+this?  On the add path the two are equivalent, since do_set_master()
+resolves the new master with __dev_get_by_index(dev_net(slave_dev),
+ifindex), so passing slave_dev there too would make the invariant
+explicit.
+
+> +
+> +	port = rmnet_get_port_rtnl(slave_dev);
+>  
+>  	rmnet_unregister_bridge(port);
+>
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260829170656.15548-1-suruurism%40gmail.com
