@@ -1,116 +1,130 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f177.google.com (mail-pg1-f177.google.com [209.85.215.177])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C43A54C6815
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 14:48:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A42C8384CEE
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 14:48:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.177
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788533287; cv=none; b=rvLSmQV82KFfiWqSbSOZOmLFtHSU/3lRCXnUb4Z2fYYzel0Pja5D9Vt20kQln4rVAZFxydIm+7Zxt9VYwOfrZMhLj2nWWAEosDvzXFFyWDgDI29Bq1z15Yw2zLWDF+ctqN/tx+BXojibVkoL0IqAjoniWef3Mhvxj3pi6wc/yuM=
+	t=1788533333; cv=none; b=sZw7oU2sO/JCMUrWl7czOHBLRFFnVgD3HqJxh58u+0c5nE4t8rKFIWt5gNSJ5U3uB+TpNGVErS76yc7l3UxMssTBaYJV+zVu5MR63AtUWXOEfbgfWZVbzKAkZ005QIco9Wcp0jYwIZqwvyLk1m6G+cPyw2/w8u/TY7JiH2nA40w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788533287; c=relaxed/simple;
-	bh=eHrkji1LCDq9SXQrLhrqzmHXrhlF4tZoe5C2NEWGRtI=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Subject:Cc:To:From:
-	 References:In-Reply-To; b=Rbs5FY63pMcNoODFOTFnfgO1EbkSOhQI3Onysr4C8DH5+Qm6B1KOh7d+xFCYWEWw1WwYA/snKWBYRxMkdXCbfSOltY3A0zo7vwD6a8sTMDb61+wwnf/1lFLATKj1QwYByXdu4HENrAe9fr18yR7zy5pJv5ek2IPdzpyXeEC5Tuo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=YixLadOF; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="YixLadOF"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id F0D851A19AB;
-	Fri,  4 Sep 2026 14:48:02 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id B55026057F;
-	Fri,  4 Sep 2026 14:48:02 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 19E5F11C7AE8F;
-	Fri,  4 Sep 2026 16:47:52 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1788533281; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=WG6jc4T+xg/xDGKYL/X/qc4fpUcaXjV/4duU3TUqWFI=;
-	b=YixLadOFPb7oaSYwtBDqAsSPkqXYHNAWlrv35SKjptFimjAOxY3yHxoNmra9+TbFFlDjzC
-	PqFJIvDHQur8vg/p8D5gBEP2v68DZ+NYnT3NLKeeEFnMkZcJwTj9oPNn5M19caNmMtnzMx
-	kLdjrvLzWVgRgSHfMhpg1J8aG3TQT2ElDp19KyEutDa15Y3yojmYZhE8YK+vIrop5OFlqE
-	5OE2Hyp86aWILt4Za0M5a2Veh7kKxaqBaCtGWkwCGw0SbAuAaCZ330O3C8uNCDmIBKr1AM
-	7BgDyiy4YTlId54+JpOsJ3kMcbsYOosivJ2+6RtJOO5JFp4nbDxmDD27GjvPhw==
+	s=arc-20240116; t=1788533333; c=relaxed/simple;
+	bh=TcGIo92RiATa8vkGJVdjHgxt9WlzbewL1KtAW6cGFCg=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=b3G3uhVN/dxd6JKGFmLiaWWFJUXvR2nlCchJ9DR6+UDBI/WaBdHIo0LmWtnHgeNdbRqRW5VPSWzGWBckVjJx5YCZeHpMCa8T+WECEh63W1B70jfn3YLAWCYq2ooSn1U/mE2UMOEFOzCcm/5f8gYFdhKPXopK1jbM2o28KnQihAE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.215.177
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-pg1-f177.google.com with SMTP id 41be03b00d2f7-c9e7391839cso1103749a12.0
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 07:48:51 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788533331; x=1789138131;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=iy22q1YzKGiQPGN9B1bpmbrGTjC/sYmYXe5uXN4aXJo=;
+        b=mFN7SXA1oEfMBoPNXMC4EYWowds8BjsdVfgQHRuKVh/5E4cytLQBbsPPyH0p1RT61m
+         +Jac934PV0DMZJ/rulmYCHkokSo6V474sD/0JvbQbsP4cHtMDu8ibKWsBDQOwpKBV9+Z
+         TESwlJ0KYeg/tsA/MwQx51ETWJ8yyspwwJDZugRmNMGXrSV+1XOaDX/9CtpEZKxqkj7L
+         Li2VKPahPtEwjEj/2C37S+raTC24ZSerw7pY7y8dd93VaHQNIanMtDB9b1Nh73cLGYLg
+         XpLYyGpdx3qu+IxTVDm+OY+Pu354hY7JDFMl20395B7SHkC3sXv3PJOQ53eWH7Oh8OGj
+         CCrA==
+X-Forwarded-Encrypted: i=1; AKwUvBwD90cJUKiJe/Ld6qtaUDOliEJ5NdhZlgNW6yKOhbPC874pMIcQHeohvEHldQ4/Xi4bkvftjhnAuyFUqS8=@vger.kernel.org
+X-Gm-Message-State: AFuF++nyhCm2X8OcIlYs1C5mxETioi7APFazzBU8tuua7BrKDf2OJrVS
+	8R8sj4z7gXzr6p6hOcEmJFcykzrBz5fIs6hxZ2A1TAcdpFx4Q9dLY/2d0RZQSj9J
+X-Gm-Gg: AYBFou1+iev5ysCi4skRmOKYQMwO6wCjuVaDeMjMt74SgrJzicH3Db1sZAjWRYI8ujm
+	whiLDJy71YtYDSj1H8EzDqSwRsZvD7ZnuV5HYrIVpqsrvdeM0iQegms3rIZo6YpFhmnKZY35ZqZ
+	5eKfaVDGkG4I0c26ehm0PpUNu6WRNgtlDwwJdIAuprfsMvRV8k6thxXWFCd5B1dUsKT4AVX5FJa
+	i0165Zdw6w1c3wbPDlsRQVLjqwF1nZD/AeKLnIJgHSF5wfA+4jdFKCO9+mTk00mmcpkEcwFaxCk
+	EW8woKepAd8Mzkeh78RHZSlgSzMn5yvs9tB5Job1lSuHh5KCAIxKXKM7qMH/8eO8ZZ3/oTImrzG
+	gksabArIfrErvGPH9Ls9VWb6u1kuPQ7u+SQhJFrfIY1lnfML6iRVLE31wpSLkYvVhWOxUgCmiCS
+	Ux4kdIvagnlv/KOqow/ZmDgvxB1UC5ArA/LIBIzN55zwfiMO+7F0nP2dXdHt5Q1myaEkpsu1PY6
+	4QmhloazVM7uH/x/JRf2W8wIQ==
+X-Received: by 2002:a05:6a21:134b:b0:3c4:1916:9d40 with SMTP id adf61e73a8af0-3da39fb757emr10022035637.12.1788533330872;
+        Fri, 04 Sep 2026 07:48:50 -0700 (PDT)
+Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com. [209.85.216.42])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc4554b5642sm922787a12.32.2026.09.04.07.48.49
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 04 Sep 2026 07:48:49 -0700 (PDT)
+Received: by mail-pj1-f42.google.com with SMTP id 98e67ed59e1d1-3964e480f76so1218334a91.1
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 07:48:49 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBy4EmFIv7333p0ai42osD7MitCh0eX8lHaQL2Bf0dZewZcX0K3UEspdcZuPKcqXFtXO5n/RWhUM9Jfhhpk=@vger.kernel.org
+X-Received: by 2002:a05:6102:2d04:b0:785:eb33:87a8 with SMTP id
+ ada2fe7eead31-78a4a883885mr1900429137.4.1788532960799; Fri, 04 Sep 2026
+ 07:42:40 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Fri, 04 Sep 2026 16:47:51 +0200
-Message-Id: <DL6M4Q7I9197.2TQXYZ3CANZHI@bootlin.com>
-Subject: Re: [PATCH v2] drm/bridge: samsung-dsim: fix TE GPIO lifetime for
- host attach
-Cc: <andrzej.hajda@intel.com>, <neil.armstrong@linaro.org>,
- <rfoss@kernel.org>, <Laurent.pinchart@ideasonboard.com>, <jonas@kwiboo.se>,
- <jernej.skrabec@gmail.com>, <luca.ceresoli@bootlin.com>,
- <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>, "Li
- Youhong" <liyouhong@kylinos.cn>
-To: "Li Youhong" <dayou5941@163.com>, <inki.dae@samsung.com>,
- <jagan@amarulasolutions.com>, <m.szyprowski@samsung.com>
-From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
-X-Mailer: aerc 0.22.0
-References: <20260904014958.1572918-1-dayou5941@163.com>
-In-Reply-To: <20260904014958.1572918-1-dayou5941@163.com>
-X-Last-TLS-Session-Version: TLSv1.3
+MIME-Version: 1.0
+References: <cover.1788338320.git.geert+renesas@glider.be> <2cf42d7ef9b452efbab3007ec2c2340cf87adbbf.1788338320.git.geert+renesas@glider.be>
+ <20260904-fabulous-lionfish-of-cookies-0d614c@sudeepholla>
+In-Reply-To: <20260904-fabulous-lionfish-of-cookies-0d614c@sudeepholla>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Fri, 4 Sep 2026 16:42:29 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdU_u1ticUomZffY8iU2GoWgyTNDPaL2O6KB7yucr47dDA@mail.gmail.com>
+X-Gm-Features: AcwNN1WAkp69Or55f6uh4v6WhdtMEG7Qz9QclhM1mQOZ0FBl4cYNnC9KwnYi2zM
+Message-ID: <CAMuHMdU_u1ticUomZffY8iU2GoWgyTNDPaL2O6KB7yucr47dDA@mail.gmail.com>
+Subject: Re: [PATCH v3 01/12] dt-bindings: clock: renesas,r8a78000-cpg: Add
+ renesas,scmi-firmware property
+To: Sudeep Holla <sudeep.holla@kernel.org>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Stephen Boyd <sboyd@kernel.org>, 
+	Brian Masney <bmasney+clk@redhat.com>, Jerome Brunet <jbrunet+clk@baylibre.com>, 
+	Cristian Marussi <cristian.marussi@arm.com>, Saravana Kannan <saravanak@kernel.org>, 
+	Ulf Hansson <ulfh@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, 
+	"Rafael J . Wysocki" <rafael@kernel.org>, Marek Vasut <marek.vasut+renesas@mailbox.org>, 
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, 
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, Kevin Hilman <khilman@baylibre.com>, 
+	Vinod Koul <vkoul@kernel.org>, Wolfram Sang <wsa+renesas@sang-engineering.com>, 
+	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>, 
+	=?UTF-8?Q?Cl=C3=A9ment_Le_Goffic?= <clegoffic@baylibre.com>, 
+	devicetree@vger.kernel.org, arm-scmi@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-clk@vger.kernel.org, 
+	linux-pm@vger.kernel.org, linux-renesas-soc@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-Hello Li,
+Hi Sudeep,
 
-On Fri Sep 4, 2026 at 3:49 AM CEST, Li Youhong wrote:
-> From: Li Youhong <liyouhong@kylinos.cn>
+On Fri, 4 Sept 2026 at 16:03, Sudeep Holla <sudeep.holla@kernel.org> wrote:
+> On Wed, Sep 02, 2026 at 01:29:17PM +0200, Geert Uytterhoeven wrote:
+> > On systems using the ARM System Control and Management Interface (SCMI),
+> > the Clock Pulse Generator hardware registers must not be accessed
+> > directly.  Instead, the SCMI message protocol must be used for inquiry,
+> > configuration, and control of clocks.
 >
-> When the Exynos DSI driver was generalized into samsung-dsim, the TE
-> GPIO acquisition was switched from gpiod_get_optional() to
-> devm_gpiod_get_optional() while keeping the matching gpiod_put() calls.
-> That combination is wrong for a managed descriptor.
->
-> However, dropping the puts and keeping the managed get is also wrong:
-> samsung_dsim_register_te_irq() runs from the DSI host attach callback,
-> and host detach/reattach can happen without destroying the device that
-> owns the managed action. A second attach would then request the GPIO
-> again without having released it.
->
-> Switch back to a non-managed gpiod_get_optional() and keep the explicit
-> gpiod_put() on the request_irq() error path and in
-> samsung_dsim_unregister_te_irq().
->
-> Fixes: e7447128ca4a ("drm: bridge: Generalize Exynos-DSI driver into a Sa=
-msung DSIM bridge")
-> Suggested-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
-> Signed-off-by: Li Youhong <liyouhong@kylinos.cn>
-> ---
-> v2:
-> - Prefer non-devm gpiod_get_optional() and keep gpiod_put(), because TE
->   GPIO is acquired in host attach and must be released on host detach
->
->  drivers/gpu/drm/bridge/samsung-dsim.c | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
->
-> --- a/drivers/gpu/drm/bridge/samsung-dsim.c
-> +++ b/drivers/gpu/drm/bridge/samsung-dsim.c
-> @@ -1862,7 +1862,8 @@ static int samsung_dsim_register_te_irq(struct sams=
-ung_dsim *dsi, struct device
->  	int te_gpio_irq;
->  	int ret;
->
-> -	dsi->te_gpio =3D devm_gpiod_get_optional(dev, "te", GPIOD_IN);
-> +	/* Released on host detach; do not use the managed get. */
-> +	dsi->te_gpio =3D gpiod_get_optional(dev, "te", GPIOD_IN);
+> Why is this node needed in the devicetree at all or why is it not disabled
+> so that any driver in the OSPM is not probed at all.
 
-The comment is not really needed, this should be obvious by reading the
-code. No need to resend just for that, I can remove it while applying.
+The node is needed so the corresponding driver can bind against it.
+The driver takes care of remapping DT hardware descriptions to the
+abstractions offered by the SCMI firmware when SCMI must be used.
 
-Other than that it's OK:
-Reviewed-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Tested-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+> > Add a "renesas,scmi-firmware" property to distinguish between systems
+> > with and without SCMI, and to indicate which SCMI firmware interface
+> > provider to communicate with.
+> >
+>
+> I still don't see the need for this if you disable the node, so still
 
-Luca
+The node is not disabled.
 
---
-Luca Ceresoli, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+> NACK. Sorry if I have missed some discussions, please present the information
+> as part of this patch in the commit log if not the actual binding itself.
+
+That's why we have cover letter, with links to previous versions and
+discussions.
+Thanks!
+
+Gr{oetje,eeting}s,
+
+                        Geert
+
+-- 
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
