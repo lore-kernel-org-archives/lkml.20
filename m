@@ -1,89 +1,78 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f179.google.com (mail-pf1-f179.google.com [209.85.210.179])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADC893DD873
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 08:12:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C04B3DDB07
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 08:13:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.179
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788509543; cv=none; b=qcO8i2Ydbs85xTzwy9KnYsIr1YreK+DxDx84dUZZ+H/ZbWHNSUa4dsQxwrXtQWO3Od+NnCZAeJoyjlXmsQRRGJ524bLKxJwGmnUJyGO4HSWknLVjxTfFSM5wwdQ6/X1fcQkbUPf/a6xTB8722/8+urE3ifAz5izntXBAOYldf+k=
+	t=1788509600; cv=none; b=FU5/CQXRDkRIm/WzP3052kzuLrA+Nh5uIAIrThSkr/wDq29wX359zvMH7Li0IS0VqtSHegTF1U1dkNTm6LcDXArZNIAoqT1CN36aKumoTzM0NFah0y+FDMmOHYGH1dFPyeWA5ufG+WiPmveLhLV+Hm1xwC2WtHZC0wsW8ALSunM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788509543; c=relaxed/simple;
-	bh=ji+1+eoWr7g3B/Fu80eL2dpRSbi+oZVwM3gbBGOFmIs=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=kx5d8YWVfnE7IKRwT+gaPVhSyE3zwySiKnk3mwNbIVhFDi/t8mBs753CPhIzQh7kTIkpFlx9AcRxceZgT6apBLjPWmYEsOAvblPyETpOEfV4HB1Ue013W4VsbH7sE9OL4BWSuKVDvHTAwXFmmw/PRQXvCACDeMn6fxgTImH9OII=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=i3ySIlDm; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=TV36WcT+; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1788509600; c=relaxed/simple;
+	bh=ttsZXUpX/RbFo0lv4pHgTj09rIccNhb/+DkQ1zy3hw8=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=RNFfoasxWIG+cds+2cd5Ao+oxOAa7pKwPBU5PMJktHsXJWx6x3rAH0ydw1otbnag5z1RPlE0o1YdamnT8urc7kwEw0TzrqmTQnon7uK3bO6kF5Wzgd8wcCWtIw8WJ39ihgZTs2gRVL1QCfcgQw8+f19VYH8a3/M6sEJlNbMdr40=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LNnMMvlX; arc=none smtp.client-ip=209.85.210.179
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="i3ySIlDm";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="TV36WcT+"
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6847mv1V2430383
-	for <linux-kernel@vger.kernel.org>; Fri, 4 Sep 2026 08:12:20 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=qcppdkim1; bh=fYOgoHy9wmPlB6HPGaAQVHVyL9xOfEZSABU
-	zx83Oli4=; b=i3ySIlDmBdIx4usUIXvLrhWx/UIFqrKhGJXQ6pmL0KwGFP6HjUz
-	z5+1xGXwvsgk0kGhZOjgjFR4BqLUeruKkZ0G2Vr6dfAQt3cla8IrPamp6a6I8ms4
-	OB049DsQ6VZxyphRrGThr8NjFf1oQuZq/0EaZVQ9ZMWIRnSUoLae2wcEM+ZZ6EbA
-	Hs2nW4VqeuZdOVjj6PwxjMsc7JCP5Wl1V/i65dxOO/6BAf+zYwiVAczE7f/IbXcv
-	/GcHzUBBY3FG0gV3RUu+TPb20lr33mkCpWj3L9TX9xnlmslrj9yEQP7sANbluvK/
-	+qCnS40Mbwrt+feNvenI5pgqWcBAkdDsywA==
-Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com [209.85.219.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gfk921b3y-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 08:12:19 +0000 (GMT)
-Received: by mail-qv1-f72.google.com with SMTP id 6a1803df08f44-91030f96c70so9625876d6.0
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 01:12:19 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LNnMMvlX"
+Received: by mail-pf1-f179.google.com with SMTP id d2e1a72fcca58-8525efa7274so542920b3a.2
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 01:13:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1788509539; x=1789114339; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=fYOgoHy9wmPlB6HPGaAQVHVyL9xOfEZSABUzx83Oli4=;
-        b=TV36WcT+AEPsvX/oked2aUkrsi/4eNWnbEW+xINUJ9k7g+WDeZ0C4pqDczl7SfCd1e
-         AaC2r59jyTIoj83jpAwMku3cHbdWp5d6TobWLptmAnm0ib5juDPTbEWar+bor80ammpL
-         /IjEq9VMjnbyU0pqWboQWKas5G6SFY1KaqPWrxzsjVLrH6WO4oOhGs4GnT1ItJLpK1fs
-         8N0OkCVrf6LNLRbv8wSvsNLrhp9JGAR0MmKkLUjW9jl5ekUTUP990WV9Van5qARtrmjE
-         mAuoS5V6VIL+BjxqwjYCoDn2ZAc2FJb+7fnlHTMsHb54YYSFTznrN03bw5CA2HeP2qr6
-         eKOg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788509539; x=1789114339;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1788509594; x=1789114394; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=fYOgoHy9wmPlB6HPGaAQVHVyL9xOfEZSABUzx83Oli4=;
-        b=WJfFClsMWmxtV4ug8hAVN46JS4rF8s3KMmI7PHXUVV2YsGAiJLaA1pgVhVXO1HSYCp
-         x7eBFHMGNA9wRzxMmOXfeYl7VTyf8agqeI3KiNEQmjA0cnlYIvTQqENAG9Svmk/9iZVt
-         evy00PDXqDNR9eaHzbrXuXvrnC/mOe5ExUnN3mEsoDDdI36ji7MVqYH4JrJq2QEaZx7o
-         peKtojbLoZU4RsgX2OVFwN8PjT9IssR5SKxPfMoHkKNn/DkCzYwY/p3k/E9ZiscW7Qai
-         8aSJ1uNw2+Njc/xI1RBtrEISciUWHSo7VNsQVucuGTUTNLi526B1ZIglSs57UjLcr4PR
-         rNlg==
-X-Forwarded-Encrypted: i=1; AKwUvBw+Nags4G3CwdDCVb9GzZPuUyr+oOTdfsKSEyE1cgSl8vs6BrGaw6DLiZmYCdcqIYbkN8vbg0fWFteYChA=@vger.kernel.org
-X-Gm-Message-State: AFuF++nbJYoabyaM0rjNzlOsWh6kt34+bEpmgeAvd14F2ceBxVxOGbQE
-	O1vHD5XIER8Lh8lof3M8xYbNmX1+L92DDzyV47+BqKkrkb//8ib6w7WhesS9G+4AXnSvY27ZwU6
-	KvEHovHjqqzgge+fRBq5KC9/6UUD2i7KwXrO40rm16zkXkK/8Is11rX37ckdXuhlwIQE=
-X-Gm-Gg: AYBFou2nxSxIVA9Cz3+pmNbxP6/A2QiYN/mwGQdSuiXSUMxMlkXN0jf7NKTGDE89du+
-	YSM/TTmBvefBm5iH93Z7T7/QgX+NeN2hvLSNeONKpWhS9dOnXAWtab5/fK9LABbZG3L0pjvqufE
-	j4TfV6jvJKoH/5bIh2uQuNxWaUtOLL7gpYRq6ThXdP5/PgFxYsDEfGRUqwde6ENWD1QqfbGBupk
-	zk7gBU7ipM6HEkN3GUWgm2+b/+0nKHwhlGGvfyZH0HMmVK2b4sVf4nJrw5XYtqNDcLqhEbnU/Fa
-	GJhKSjj6G2wu7so5LrpY2osw6p2HZVRuGhup3yri6m4lW/Win2AgcVw6J9O146k2adpxMMfLASD
-	yrIgUOq5Qc8/l/VJucplE6+k1DDP2x8syGqOFVF+5O8lipB5t/gY4tz4Bag==
-X-Received: by 2002:a05:620a:290a:b0:939:ca4:4d5f with SMTP id af79cd13be357-939803240c2mr425009685a.5.1788509538968;
-        Fri, 04 Sep 2026 01:12:18 -0700 (PDT)
-X-Received: by 2002:a05:620a:290a:b0:939:ca4:4d5f with SMTP id af79cd13be357-939803240c2mr425005885a.5.1788509538469;
-        Fri, 04 Sep 2026 01:12:18 -0700 (PDT)
-Received: from uffe-tuxpro14.. (h-178-174-189-39.A498.priv.bahnhof.se. [178.174.189.39])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c260d4aa01dsm71610666b.15.2026.09.04.01.12.16
+        bh=0pDAJ5Zbgk6FV/+bTUIcqCISS5VxMKMSD1bvgwX22t8=;
+        b=LNnMMvlXtXfLXE6U/RjfySygnXI/zK60bM5nRi/J4R147vkvb2KwiPLbdI45gHFFri
+         XlNJFoL/gCloEuxwekNPbGQ9mGtdX7/NBffHFz8juwyGUC+vf08lP9Om3rIxyHSzU+Bc
+         Du+YNG5sRmTs7onpR9mFQImz5I5FoFfwjEawuZIUlDPNwBwm1ulpTT5FaVVIBmSXmEz2
+         IokMOjyjPboSAN4yLJBxiFYoZIS3UBX0fnqeRnZmjV/xO+lqAUaWxc6VYhDuzEISPaG8
+         I77mn5FFrhFtmBSK68+0nxgfxfT+/urJMjywzT5nf5/Hck9w84NCH8OZKnfO+llmCS8s
+         iM9w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788509594; x=1789114394;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=0pDAJ5Zbgk6FV/+bTUIcqCISS5VxMKMSD1bvgwX22t8=;
+        b=sujNB3i1ZgrNS5wmXmrNmrbuLgqfnDLxAtRMdUZ3NQjBT4Pd2yEY77+e4wGcjg1Rs6
+         vwn3d3MLDHdgYzIOxB5lgiFRgVUXtDZ/jvKB2NJ5WTQ14ucn4h7s1QR2S4efKRdvldoY
+         Z9PiozDHM4GHQ6K/hH/lqy+GVYvLpyq7Rkl8s5ke8EQFci52+AIshG29YdpjynC9EPi/
+         rLmZXsEUztKVhluxEohdTjR22nlFecmf8AIDrgPYMqnz1yi3B/Hq2Yn9meDP95I5uXJL
+         YcPqF+5DXalXtIzJ7sycVT5xlPEBiP3ZQ0idvv/LdUZt9UkzKbTTWf4PMuGclSCQU91q
+         FRAw==
+X-Forwarded-Encrypted: i=1; AKwUvBwCY53EG8WbthuEWScjbNwAK5ZoP7H6wnOPXDjCDoEqFEGJ6IYoc90GhGrndAGde3iALjj5SV77Bcx9PBc=@vger.kernel.org
+X-Gm-Message-State: AFuF++kg0Z4OGYB6VN8gy9d8z/vZIxNFdbJCymyN1UuFM0e9mFnKG+x/
+	06ESagM66XNo2+ulyJBiuZWaMwiIV09WDvs3+0qkyAZLIZJqdExTfsjm
+X-Gm-Gg: AYBFou37FOFNtYuyn870BY2QD5b39EQOOK1m3uQkK54wuMEZ5x0vkuuFds6y7Rt0Bn7
+	VQF6k5zBwXDa53DOr2lfHqtMXfIWktEPbP9jlRQL1S6Hy+2T2YwI8zBywOCdeIngmeZsineTNDR
+	5q8Wi487f0uu/xoKzkrJQMe1t35nUEykJALdImWPeVhVQI0NyaUtSQYIGKH2b/Vw4nXcd9LcnwY
+	12Do4Aowcxu9sl//b0eegUOuLSDGlgV2fmfGu0uWzgyhywMJWBDipTUo07pPSp7me+UsOh44Eta
+	TM35423NHguOutFq4rXDklFANp8sRsSehEPrX4XLHKtYvXZCY2sDdy/fFA4F44DIBHzo19vmzdy
+	boTArwqJtwKWb6OI1ca6Y99drKxCqjjNmqZnOs5QomKtk0WL0ey3F4yWsHXkrvoTkOQjh/wTQHk
+	lME/KZBsVcrQaQjg4BYJ5xW3Z+Az010QQfoXy5jibdAfyyhpGhAphZXve669IytbRR+XoLmOxpy
+	w+I/lIYDXxVFMIReuk=
+X-Received: by 2002:a05:6a00:4289:b0:852:38ea:3fd with SMTP id d2e1a72fcca58-861676b276dmr6641062b3a.11.1788509594279;
+        Fri, 04 Sep 2026 01:13:14 -0700 (PDT)
+Received: from celestia.taila51cc2.ts.net ([2402:1980:8929:bbae:36df:3680:44d3:b5e1])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-86152c2a52asm862512b3a.30.2026.09.04.01.13.11
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 04 Sep 2026 01:12:17 -0700 (PDT)
-From: Ulf Hansson <ulf.hansson@oss.qualcomm.com>
-To: Linus <torvalds@linux-foundation.org>, linux-pm@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-Cc: Ulf Hansson <ulf.hansson@oss.qualcomm.com>,
-        linux-arm-kernel@lists.infradead.org
-Subject: [GIT PULL] pmdomain/cpuidle fixes for v7.3-rc2
-Date: Fri,  4 Sep 2026 10:12:15 +0200
-Message-ID: <20260904081215.215528-1-ulf.hansson@oss.qualcomm.com>
-X-Mailer: git-send-email 2.43.0
+        Fri, 04 Sep 2026 01:13:13 -0700 (PDT)
+From: Liew Rui Yan <aethernet65535@gmail.com>
+To: sj@kernel.org
+Cc: aethernet65535@gmail.com,
+	akpm@linux-foundation.org,
+	damon@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v2.1] mm/damon/core: fix false positive in damos_quota_is_full() when esz is zero
+Date: Fri,  4 Sep 2026 16:07:41 +0800
+Message-ID: <20260904081324.3972-1-aethernet65535@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260903140521.98604-1-sj@kernel.org>
+References: <20260903140521.98604-1-sj@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -91,80 +80,79 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA0MDA3NSBTYWx0ZWRfXyZg170TQM/Bb
- fA7BIFi8kxgIvPAL+7Tavo7VON4yQtBiLhPY/rdR+P71th72v+NOqYxuRZ+j7osIV21bVGTzKgd
- 9W2JVh23R9TBPEQ5BhvbaeE+OMa181iIhwTeEltf8o/0uNYRcIluZPXYCqWj8yWA0PSa+D0iU4O
- 0nOwy7iGvDi2E/cSR/I3TIwhyX/czBCaeiV/4SsmLJmQIbkquLpXnDavJpYMQN1F9otxuR5A5k7
- jlpEHFVcK6B+peV9zn0bPR68peV5qb69fn1k4QAgPLprIKOrHnQXqtaza2hr1LfT5nG0SQ2qw2o
- YSlZRdDT4rgRNw9tB+8YY8hhtH5TXQSeO7UG9KzTVY/n017v4NDDYiRe3+v9P/hLIBLotfkBk4U
- mcFPdocfCZalv25YSAotO0iqjCg89OWRc6k+56WyKY/S85h5UOdfCYsJaaTsHUvPP7J4VBhMom1
- B0DLDodPofjWIdEAlSQ==
-X-Authority-Analysis: v=2.4 cv=Oc2oyBTY c=1 sm=1 tr=0 ts=6a9a7d63 cx=c_pps
- a=7E5Bxpl4vBhpaufnMqZlrw==:117 a=h7aNHqOhPKB91FvYUefsSA==:17
- a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22 a=VwQbUJbxAAAA:8
- a=mg6DjbED1CunOJUx780A:9 a=pJ04lnu7RYOZP9TFuWaZ:22
-X-Proofpoint-ORIG-GUID: rvpB3fchHuGq1Hjzmu1MFoW_Ciadp9Qx
-X-Proofpoint-GUID: rvpB3fchHuGq1Hjzmu1MFoW_Ciadp9Qx
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA0MDA3NSBTYWx0ZWRfX7+wuU6ZsGpzN
- NCd6q/yMVrT2xmxtgQVAHp53VHbPgfmevRMtAhw5HpX3sVN4U9oJNnWuoZniJCg87Q/DQ3bwmK0
- lUVgzY3DP/iY5ohHvyQXpQMnBRQ8pqk=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-04_02,2026-09-03_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 adultscore=0 impostorscore=0 bulkscore=0 suspectscore=0
- priorityscore=1501 spamscore=0 clxscore=1015 phishscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609040075
 
-Hi Linus,
+On Thu, 03 Sep 2026 07:05:20 -0700 SJ Park <sj@kernel.org> wrote:
 
-Here's a pull-request with a couple of pmdomain and cpuidle fixes intended for
-v7.3-rc2. Details about the highlights are as usual found in the signed tag.
+> On Thu,  3 Sep 2026 20:41:48 +0800 Liew Rui Yan <aethernet65535@gmail.com> wrote:
+> 
+> > On Wed, 02 Sep 2026 17:33:50 -0700 SJ Park <sj@kernel.org> wrote:
+> > 
+> > > On Thu,  3 Sep 2026 06:31:38 +0800 Liew Rui Yan <aethernet65535@gmail.com> wrote:
+> [...]
+> > First, I would like to clarify my intention to avoid any
+> > misunderstanding.  My actual goal is to fix the semantic of the
+> > qt_exceeds statistic, rather than necessarily changing the underlying
+> > logic of damos_quota_is_full().
+> > 
+> > Currently, there is an issue with how qt_exceeds is incremented.  When
+> > the quota is set very small, qt_exceeds increases frequently.  This
+> > produces a statistical trend that looks almost identical to the
+> > continuous increments caused by the Temporal Goal being achieved.
+> > 
+> > The original intent of introducing qt_exceeds is to let users easily
+> > notice if the quota is too small.
+> > 
+> > Commit Messages [1]:
+> > 
+> >     mm/damon/schemes: account how many times quota limit has exceeded
+> > 
+> >     If the time/space quotas of a given DAMON-based operation scheme is too
+> >     small, the scheme could show unexpectedly slow progress.  However, there
+> >     is no good way to notice the case in runtime.  This commit extends the
+> >     DAMOS stat to provide how many times the quota limits exceeded so that
+> >     the users can easily notice the case and tune the scheme.
+> > 
+> > However, under the current behavior, users are forced to manually ignore
+> > or filter out the qt_exceeds increments that occur after the Temporal
+> > Goal is achieved.  This adds an unnecessary burden to the users and
+> > contradicts the core goal of making it "easy" for them to tune the
+> > scheme.
+> 
+> Still I feel the problem is unclear.  Why the users need to manually ignore or
+> filter out the increments under what situation?  Knowing specific and detailed
+> case would be helpful.  Are you or some people you know doing that and feeling
+> it is too much?  If so, what is the real use case?  For what purpose and how
+> DAMON is being used?  Why and how the ignorance of qt_exceeds is being done and
+> how painful it is?
 
-Please pull this in!
+First, I'd like to clarify that this isn't a problem encountered by a
+real user, it's just a scenario I came up with.
 
-Kind regards
-Ulf Hansson
+1. Users sample qt_exceeds periodically (e.g., every 10 minutes).
 
+2. Within this 10 minute sampling interval, the counter aggregates both
+   the real quota exhaustions and the increments caused by esz==0.
 
-The following changes since commit cee9395acd8043be0644b25c34bfa86623f2b935:
+3. When users notice a high qt_exceeds value, they eventually realize
+   (perhaps by reading the code or documentation) that it includes the
+   counts from the esz==0 state.
 
-  Linux 7.3-rc1 (2026-08-30 13:34:40 -0700)
+4. To get the actual quota exhaustion statistics, the user is now forced
+   to perform additional testing and implement external filtering to
+   separate the esz==0 increments from the real exceeds.
 
-are available in the Git repository at:
+Even if we explicitly state in the documentation that qt_exceeds
+includes the esz==0 counts, it still burdens the user.  The user still
+has to figure out how to filter out the esz==0 increments externally to
+get the signal they actually care about.
 
-  git://git.kernel.org/pub/scm/linux/kernel/git/ulfh/linux-pm.git tags/pmdomain-v7.3-rc1
+Honestly, I struggle to imagine any valid use case where a user would
+actually rely on the qt_exceeds increments caused by esz==0 to make
+decisions.
 
-for you to fetch changes up to 2b0ac85512b7f67479127b2713254490662eb13d:
+If the only purpose of qt_exceeds is to let users "easily notice" if the
+quota is too small, forcing them to manually filter out the noise
+defeats that purpose.
 
-  cpuidle: dt_idle_genpd: kfree() the original name allocation (2026-09-01 17:28:56 +0200)
-
-----------------------------------------------------------------
-pmdomain providers:
- - mediatek: Fix Kconfig for Airoha power domains
- - qcom: Revert adding the missing power domains for Eliza
-
-cpuidle:
- - psci: Fix support for probe deferral by dropping the faux device
- - dt_idle_genpd: Free the original name allocation
-
-----------------------------------------------------------------
-Abel Vesa (1):
-      Revert "pmdomain: qcom: rpmhpd: Add missing MXC and MMCX power domains for Eliza"
-
-Christian Marangi (1):
-      pmdomain: airoha: fix unselectable AIROHA_CPU_PM_DOMAIN kconfig
-
-Linkai Gong (1):
-      cpuidle: dt_idle_genpd: kfree() the original name allocation
-
-Ulf Hansson (1):
-      cpuidle: psci: Fix support for probe deferral by dropping the faux device
-
- drivers/cpuidle/cpuidle-psci.c    | 42 +++++++++++++++------------------------
- drivers/cpuidle/dt_idle_genpd.c   |  3 +--
- drivers/pmdomain/mediatek/Kconfig |  5 +++--
- drivers/pmdomain/qcom/rpmhpd.c    |  4 ----
- 4 files changed, 20 insertions(+), 34 deletions(-)
+Best regards,
+Rui Yan
