@@ -1,94 +1,125 @@
-Received: from canpmsgout07.his.huawei.com (canpmsgout07.his.huawei.com [113.46.200.222])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 456B63563EB;
-	Fri,  4 Sep 2026 02:45:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.222
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B722A35DA64;
+	Fri,  4 Sep 2026 02:47:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788489937; cv=none; b=Zx37Y2gv1eEO+OvQNDcSHyPZDssaKfpx05ErLYbEbRA2fEsgzl0B56DrEv6yc7RQaeMJxY8G3T914TjrNlYtsRb6hi0HhQ8W6y1YJdLsMhiCcj8KC4PE00uLBjLHHk1STwUIqTvHtlY2CmxyTdig2RHj3y3e7kNrFiLGLRNUzdc=
+	t=1788490041; cv=none; b=JCMIeJghHieFO58MD5s4HKexkxQoNUGubyOWE0L6KRLMW+qDtMSC8vPqajl8dGiNJ7r0F02o4XIyFzsTbuOOUpWTsIIEmKCdRZMXPY0rz0xXsdzJwFBQg7d2vtNDCgohjpanz0lp96gsd6OYsu8FGnqBAr9H78cHZei3exzANHc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788489937; c=relaxed/simple;
-	bh=svFL5GVsyMxjyZIfVZFUtOkSOeDAIlVTUrJgAyi3XSk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=Xsxh4Im8jhHFIAISgVGvYH1z3bLElq1tVPBAUTV/VmhyGpvSBCrthmtjCXmh3+t/ljY1jzhSDmz7rIiYPMDdJ9lmspkVM7wa0we0e/9RbD+aKgsABFDvC3Dvoukglx3xe6Tv0VZLEgvolx3aP1TftANMOtLDFKrLPpr108Xi2zA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=cINy1kgF; arc=none smtp.client-ip=113.46.200.222
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	s=arc-20240116; t=1788490041; c=relaxed/simple;
+	bh=ywz8jRsqA3EsvEqGc9pY+R+20urVhWiJ8KhDSKW4BHg=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=iC14dyPtKuCNIOKKGk+PVAU+uRgTUAu+U1RqfRhq1b9JL0Yn4Zf7E9T/IiMqSRsYxkYdqTFXmAvQ9BAQRZwP+/iZNwshSsa0ysjXP0/sIzgIiN+8rYKWT+m2EDv7MbyyIeUpEPLAJaeBqqFs9Fa3TkYKYWG4GEKd34dUgABaqUM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realsil.com.cn; spf=pass smtp.mailfrom=realsil.com.cn; dkim=pass (2048-bit key) header.d=realsil.com.cn header.i=@realsil.com.cn header.b=a/9VVkwY; arc=none smtp.client-ip=211.75.126.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realsil.com.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realsil.com.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="cINy1kgF"
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=svFL5GVsyMxjyZIfVZFUtOkSOeDAIlVTUrJgAyi3XSk=;
-	b=cINy1kgFclwLdhJA3KbeBlH1oUeCPoLQa8e/26fjaRkyyiDD2TOnlfdkf6We6uYk4b6fV6AC9
-	n6/JPCwwZa0Gxdh72Ayfj8EX49k2wnXcSM4NG5FbTbIh2awM3Rh598vgapeiOnJoEE4Vlr6ImR8
-	ajTzc6Un2pGtwVwidjVZTcQ=
-Received: from mail.maildlp.com (unknown [172.19.163.15])
-	by canpmsgout07.his.huawei.com (SkyGuard) with ESMTPS id 4hbgXS4jZgzLlXF;
-	Fri,  4 Sep 2026 10:34:32 +0800 (CST)
-Received: from kwepemo100012.china.huawei.com (unknown [7.202.195.139])
-	by mail.maildlp.com (Postfix) with ESMTPS id B080840578;
-	Fri,  4 Sep 2026 10:45:23 +0800 (CST)
-Received: from [10.67.120.222] (10.67.120.222) by
- kwepemo100012.china.huawei.com (7.202.195.139) with Microsoft SMTP Server
+	dkim=pass (2048-bit key) header.d=realsil.com.cn header.i=@realsil.com.cn header.b="a/9VVkwY"
+X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 6842kjUI34102286, This message is accepted by code: ctloc85258
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realsil.com.cn;
+	s=dkim; t=1788490006;
+	bh=ywz8jRsqA3EsvEqGc9pY+R+20urVhWiJ8KhDSKW4BHg=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:MIME-Version;
+	b=a/9VVkwYZapq2CZYbRYcwrBOVwqKDaMHb6ErCunFgSrwhHGg7dSz6GsD4mMDMkH7Z
+	 dtsvSjeOaDWU9IEugea5SHE/L6hu5QmUsCFx90g5BjQPm9yyA2WJnuInverACv/T4g
+	 UNzgllTlHr+LkiOiBLbR3BGC8HxGwIwxEIVgS8dHT43QY5pjCHgNNK8P+iN+0YcA4p
+	 8wG2jtPHiX0hiZnMxlPbniO9dbhpPiU4AI1tqLRYwRp5b4BWQdWDS2+A4YOhsaQxUG
+	 aJ9uAA0g29bfYj/8VJR7m53JcAoGj7CSVtZ4BZlGWANjKp04xRa00j56zUFcLWIIp3
+	 Alc+VWewABa1A==
+Received: from RS-EX-MBS3.realsil.com.cn ([172.29.17.103])
+	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 6842kjUI34102286
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Fri, 4 Sep 2026 10:46:45 +0800
+Received: from RS-EX-MBS3.realsil.com.cn (172.29.17.103) by
+ RS-EX-MBS3.realsil.com.cn (172.29.17.103) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.36; Fri, 4 Sep 2026 10:45:22 +0800
-Message-ID: <4f755a7f-0a55-4292-892a-28346ed235a4@huawei.com>
-Date: Fri, 4 Sep 2026 10:45:22 +0800
+ 15.2.2562.43; Fri, 4 Sep 2026 10:46:45 +0800
+Received: from RS-EX-MBS3.realsil.com.cn ([172.29.17.103]) by
+ RS-EX-MBS3.realsil.com.cn ([172.29.17.103]) with mapi id 15.02.2562.043; Fri,
+ 4 Sep 2026 10:46:44 +0800
+From: Javen <javen_xu@realsil.com.cn>
+To: "netdev-bot+sashiko@kernel.org" <netdev-bot+sashiko@kernel.org>
+CC: "hkallweit1@gmail.com" <hkallweit1@gmail.com>, "nic_swsd@realtek.com"
+	<nic_swsd@realtek.com>, "andrew+netdev@lunn.ch" <andrew+netdev@lunn.ch>,
+	"davem@davemloft.net" <davem@davemloft.net>, "edumazet@google.com"
+	<edumazet@google.com>, "kuba@kernel.org" <kuba@kernel.org>,
+	"pabeni@redhat.com" <pabeni@redhat.com>, "horms@kernel.org"
+	<horms@kernel.org>, "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: RE: [net-next,v12,1/7] r8169: add support for multi irqs
+Thread-Topic: [net-next,v12,1/7] r8169: add support for multi irqs
+Thread-Index: AQHdO+SwSF+mLp6wXkqeIRUODtunHLa9tgzA
+Date: Fri, 4 Sep 2026 02:46:44 +0000
+Message-ID: <50122c7ae7704e6485684b2d2bac92e0@realsil.com.cn>
+References: <20260831053940.620-2-javen_xu@realsil.com.cn>
+ <178846812155.3394541.6579774818900952909@kernel.org>
+In-Reply-To: <178846812155.3394541.6579774818900952909@kernel.org>
+Accept-Language: zh-CN, en-US
+Content-Language: zh-CN
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 0/3] perf/core: sched_task() dispatch and branch entry
- fixes
-To: Puranjay Mohan <puranjay@kernel.org>, Peter Zijlstra
-	<peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, Arnaldo Carvalho de
- Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>
-CC: Mark Rutland <mark.rutland@arm.com>, Alexander Shishkin
-	<alexander.shishkin@linux.intel.com>, Jiri Olsa <jolsa@kernel.org>, Ian
- Rogers <irogers@google.com>, Adrian Hunter <adrian.hunter@intel.com>, James
- Clark <james.clark@linaro.org>, Usama Arif <usama.arif@linux.dev>, Will
- Deacon <will@kernel.org>, Anshuman Khandual <anshuman.khandual@arm.com>, Ravi
- Bangoria <ravi.bangoria@amd.com>, Thomas Gleixner <tglx@kernel.org>, Borislav
- Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, "H. Peter
- Anvin" <hpa@zytor.com>, <x86@kernel.org>, <linux-perf-users@vger.kernel.org>,
-	<linux-arm-kernel@lists.infradead.org>, <bpf@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>
-References: <20260810133540.1947118-1-puranjay@kernel.org>
-From: wuyifan <wuyifan50@huawei.com>
-In-Reply-To: <20260810133540.1947118-1-puranjay@kernel.org>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: kwepems100002.china.huawei.com (7.221.188.206) To
- kwepemo100012.china.huawei.com (7.202.195.139)
 
-Hi Puranjay,
-
-On 8/10/2026 9:35 PM, Puranjay Mohan wrote:
-> These three fixes were found while adding BRBE support for
-> bpf_get_branch_snapshot() on arm64 and were carried in that series until
-> v6 [1]. They do not depend on it, so they go on their own; the version
-> number continues from that series to avoid two numbering schemes for the
-> same patches.
-perf record -C <cpu> -b [<command>] triggers a NULL pointer dereference
-in armv8pmu_sched_task().
-
-Commit fa9d27773873 ("perf: arm_pmu: Kill last use of per-CPU cpu_armpmu
-pointer") changed armv8pmu_sched_task() from reading the per-CPU
-cpu_armpmu variable to dereferencing pmu_ctx->pmu via
-to_arm_pmu(pmu_ctx->pmu). Meanwhile, commit bd2756811766 ("perf:
-Rewrite core context handling") made __perf_pmu_sched_task() pass
-cpc->task_epc to pmu->sched_task(). cpc->task_epc is only non-NULL
-while a task context is scheduled in; CPU-bound events do not schedule a
-task context, so cpc->task_epc stays NULL. The NULL argument is dereferenced
-and crashes.
-
-With the patches applied, perf record -C <cpu> -b no longer crashes,
-and system-wide perf record -b -e <event> -a alongside a task-bound event
-on a different CPU runs without any WARN_ON.
-
-Tested-by: Yifan Wu <wuyifan50@huawei.com>
-
+Pg0KPj4gK3N0YXRpYyBpbnQgcnRsODE2OV9yZXF1ZXN0X2lycShzdHJ1Y3QgcnRsODE2OV9wcml2
+YXRlICp0cCkgew0KPj4gKyAgICAgc3RydWN0IG5ldF9kZXZpY2UgKmRldiA9IHRwLT5kZXY7DQo+
+PiArICAgICBzdHJ1Y3QgbmFwaV9zdHJ1Y3QgKm5hcGk7DQo+PiArICAgICBpbnQgaSwgcmM7DQo+
+PiArDQo+PiArICAgICBmb3IgKGkgPSAwOyBpIDwgdHAtPmlycV9udmVjczsgaSsrKSB7DQo+PiAr
+ICAgICAgICAgICAgIG5hcGkgPSAmdHAtPnJ0bDgxNjlfbmFwaVtpXTsNCj4+ICsgICAgICAgICAg
+ICAgcmMgPSBwY2lfcmVxdWVzdF9pcnEodHAtPnBjaV9kZXYsIGksIHJ0bDgxNjlfaW50ZXJydXB0
+LA0KPj4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBOVUxMLCBuYXBpLCAiJXMt
+JWQiLCBkZXYtPm5hbWUsIGkpOw0KPj4gKyAgICAgICAgICAgICBpZiAocmMpDQo+PiArICAgICAg
+ICAgICAgICAgICAgICAgZ290byBmcmVlX2lycTsNCj4+ICsgICAgIH0NCj4+ICsgICAgIHJldHVy
+biAwOw0KPg0KPlsgLi4uIF0NCj4NCj4+IEBAIC01MTA3LDggKzUxNjIsNyBAQCBzdGF0aWMgaW50
+IHJ0bF9vcGVuKHN0cnVjdCBuZXRfZGV2aWNlICpkZXYpDQo+Pg0KPj4gICAgICAgcnRsX3JlcXVl
+c3RfZmlybXdhcmUodHApOw0KPj4NCj4+IC0gICAgIGlycWZsYWdzID0gcGNpX2Rldl9tc2lfZW5h
+YmxlZChwZGV2KSA/IElSUUZfTk9fVEhSRUFEIDoNCj5JUlFGX1NIQVJFRDsNCj4+IC0gICAgIHJl
+dHZhbCA9IHJlcXVlc3RfaXJxKHRwLT5pcnEsIHJ0bDgxNjlfaW50ZXJydXB0LCBpcnFmbGFncywg
+ZGV2LT5uYW1lLCB0cCk7DQo+PiArICAgICByZXR2YWwgPSBydGw4MTY5X3JlcXVlc3RfaXJxKHRw
+KTsNCj4+ICAgICAgIGlmIChyZXR2YWwgPCAwKQ0KPj4gICAgICAgICAgICAgICBnb3RvIGVycl9y
+ZWxlYXNlX2Z3XzI7DQo+DQo+W1NldmVyaXR5OiBNZWRpdW1dDQo+RG9lcyB0aGlzIGRyb3AgdGhl
+IElSUUZfTk9fVEhSRUFEIHRoYXQgY29tbWl0IDg3MGY1MzFlMTc4ZSAoInI4MTY5OiBzZXQNCj5J
+UlFGX05PX1RIUkVBRCBpZiBNU0koWCkgaXMgZW5hYmxlZCIpIGFkZGVkPw0KPg0KPnBjaV9yZXF1
+ZXN0X2lycSgpIGhhcmRjb2RlcyB0aGUgZmxhZ3MgYW5kIGhhcyBubyB3YXkgdG8gZXhwcmVzcw0K
+PklSUUZfTk9fVEhSRUFEOg0KPg0KPmRyaXZlcnMvcGNpL2lycS5jOnBjaV9yZXF1ZXN0X2lycSgp
+IHsNCj4gICAgICAgIHVuc2lnbmVkIGxvbmcgaXJxZmxhZ3MgPSBJUlFGX1NIQVJFRDsNCj4NCj4g
+ICAgICAgIGlmICghaGFuZGxlcikNCj4gICAgICAgICAgICAgICAgaXJxZmxhZ3MgfD0gSVJRRl9P
+TkVTSE9UOw0KPiAgICAgICAgLi4uDQo+ICAgICAgICByZXQgPSByZXF1ZXN0X3RocmVhZGVkX2ly
+cShwY2lfaXJxX3ZlY3RvcihkZXYsIG5yKSwgaGFuZGxlciwgdGhyZWFkX2ZuLA0KPiAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgaXJxZmxhZ3MsIGRldm5hbWUsIGRldl9pZCk7IH0N
+Cj4NCj5XaXRoIGhhbmRsZXIgIT0gTlVMTCB0aGUgZmxhZ3MgYXJlIGV4YWN0bHkgSVJRRl9TSEFS
+RUQsIHNvIG9uIGEga2VybmVsDQo+Ym9vdGVkIHdpdGggdGhyZWFkaXJxcywgb3Igd2l0aCBDT05G
+SUdfUFJFRU1QVF9SVCwgX19zZXR1cF9pcnEoKSByZWFjaGVzOg0KDQpIaSBIZWluZXIsDQoNCklu
+IHByZXZpb3VzIHJldmlzaW9ucywgSSB3YXMgc3VnZ2VzdGVkIHRvIHVzZSB0aGUgbmV3IGFwaSBw
+Y2lfcmVxdWVzdF9pcnEoKS4gSG93ZXZlciwgc2luY2UgaXQgaGFyZGNvZGVzIElSUUZfU0hBUkVE
+IGFuZCBkb2VzIG5vdCBhY2NlcHQgY3VzdG9tIGZsYWdzLCBpdCBkcm9wcyBJUlFGX05PX1RIUkVB
+RCBmb3IgTVNJL01TSS1YLiANCg0KVG8gYXZvaWQgdGhpcyBwZXJmb3JtYW5jZSByZWdyZXNzaW9u
+IGRldGVjdGVkIGJ5IGFpLCBzaG91bGQgSSByZXZlcnQgdG8gdXNpbmcgcmVxdWVzdF9pcnEoKSAr
+IHBjaV9pcnFfdmVjdG9yKCkgaW4gdjEzPyBDb3VsZCB5b3UgcGxlYXNlIGFkdmlzZSBvbiB0aGUg
+YmVzdCBhcHByb2FjaCBmb3IgdjEzPw0KDQpUaGFua3MsDQpKYXZlbg0KDQo+DQo+a2VybmVsL2ly
+cS9tYW5hZ2UuYzppcnFfc2V0dXBfZm9yY2VkX3RocmVhZGluZygpIHsNCj4gICAgICAgIGlmIChu
+ZXctPmZsYWdzICYgKElSUUZfTk9fVEhSRUFEIHwgSVJRRl9QRVJDUFUgfCBJUlFGX09ORVNIT1Qp
+KQ0KPiAgICAgICAgICAgICAgICByZXR1cm4gMDsNCj4gICAgICAgIC4uLg0KPiAgICAgICAgbmV3
+LT5mbGFncyB8PSBJUlFGX09ORVNIT1Q7DQo+ICAgICAgICAuLi4NCj4gICAgICAgIG5ldy0+dGhy
+ZWFkX2ZuID0gbmV3LT5oYW5kbGVyOw0KPiAgICAgICAgbmV3LT5oYW5kbGVyID0gaXJxX2RlZmF1
+bHRfcHJpbWFyeV9oYW5kbGVyOyB9DQo+DQo+c28gcnRsODE2OV9pbnRlcnJ1cHQoKSBiZWNvbWVz
+IGZvcmNlLXRocmVhZGVkIGFuZCB0aGUgdmVjdG9yIGlzIG1hc2tlZCB1bnRpbA0KPnRoZSB0aHJl
+YWQgcnVucywgd2hpY2ggaXMgd2hhdCA4NzBmNTMxZTE3OGUgc2V0IG91dCB0byBhdm9pZC4NCj4N
+Cj5Ud28gcmVsYXRlZCBvYnNlcnZhdGlvbnMgb24gdGhlIHNhbWUgY2hhbmdlOiBNU0kgYW5kIE1T
+SS1YIHZlY3RvcnMgYXJlIG5vdw0KPnJlcXVlc3RlZCBhcyBJUlFGX1NIQVJFRCBldmVuIHRob3Vn
+aCB0aGV5IGFyZSBub3Qgc2hhcmVhYmxlLCBhbmQgdGhlIG5hbWUNCj5yZWdpc3RlcmVkIGluIC9w
+cm9jL2ludGVycnVwdHMgY2hhbmdlcyBmcm9tICI8aWZuYW1lPiIgdG8gIjxpZm5hbWU+LTxOPiIu
+DQo+U2hvdWxkIHRoZSBjaGFuZ2Vsb2cgbWVudGlvbiB0aGUgbmFtZSBjaGFuZ2U/DQo+DQo+PiBA
+QCAtNTA3NCw3ICs1MTI3LDEwIEBAIHN0YXRpYyB2b2lkIHJ0bDgxNjlfbmV0cG9sbChzdHJ1Y3Qg
+bmV0X2RldmljZQ0KPj4gKmRldikgIHsNCj4+ICAgICAgIHN0cnVjdCBydGw4MTY5X3ByaXZhdGUg
+KnRwID0gbmV0ZGV2X3ByaXYoZGV2KTsNCj4+DQo+PiAtICAgICBydGw4MTY5X2ludGVycnVwdCh0
+cC0+aXJxLCB0cCk7DQo+PiArICAgICBmb3IgKGludCBpID0gMDsgaSA8IHRwLT5pcnFfbnZlY3M7
+IGkrKykgew0KPj4gKyAgICAgICAgICAgICBydGw4MTY5X2ludGVycnVwdChwY2lfaXJxX3ZlY3Rv
+cih0cC0+cGNpX2RldiwgaSksDQo+PiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICZ0
+cC0+cnRsODE2OV9uYXBpW2ldKTsNCj4+ICsgICAgIH0NCj4+ICB9DQo+PiAgI2VuZGlmDQoNCg==
