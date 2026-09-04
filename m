@@ -1,73 +1,89 @@
-Received: from mail-oo1-f72.google.com (mail-oo1-f72.google.com [209.85.161.72])
+Received: from va-2-54.ptr.blmpb.com (va-2-54.ptr.blmpb.com [209.127.231.54])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2BFD4A3F04
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 14:20:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E07047CA8C
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 14:20:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.231.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788531607; cv=none; b=LwAT0v+KPARt8JteC8my1LmG3zmzLFcq1hB191TKn85H9rdzvIP7l96ayTKAQF52/bfHolZqwrjzMFencYxhRSaLY09tbIyQRay2Vuw2+AoEJZZ/z3OrT+0k4fmsWgXwKQ2tQYDMouhI2WHP7gCnCc5yVO+6qqNU6HtrtPTrg8A=
+	t=1788531649; cv=none; b=tHCrOkc8/bGG8DvDdMOODf1vEoNEQ+lsYDidz//mSOJ3A7NLOZW74WFuIzqyW8udx1iAIr8YoFpAjBnuP/yHPuOdUDS/dwyW+Uaj5IeP6zSzd9izy6mMsqzGCQ0WNVC9cJrJdcl8dmw77uagae3P2h3u7p+iMqsR7tNsvrX+ie8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788531607; c=relaxed/simple;
-	bh=5QTzQkaquEkuqB2VHwFUo9nweDR6n7uiUf8NNEkaIRg=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=Wg2QyH1cr8r5DqmfwP8hhndm5zrPJAIvAaVgdLo9OAC6b///wBMJ4s4EM0SJfWeGyJcyokrxYkR8xYjd5yR3fBRVf5LP2q4FgdE88yr6IRMIs47D44G4uLbmDg7QsnDoKFK8zNmnBZM3k7VbRl0h3R90+MKeUPrpxeFQQhkLG3c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.161.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oo1-f72.google.com with SMTP id 006d021491bc7-6b1b7932ec2so1015166eaf.3
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 07:20:05 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788531604; x=1789136404;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=5hmrIKQOakYmkCXthZpE69u5jBNtoxxcF5MgpGPDI7M=;
-        b=Fo8UsEj8jrIGNZ+cXBD7EHj1MOAAvkHIP65hSYbxvBfQVTitFWs+uY63MP2NluBShR
-         gnqTW6wAtD5s4sfYFYklrPEqZhmtnFyuVLUovdjERL4piCaPOsXaFhH3w8DxU07UcUCJ
-         6ynZBR+nddF7FEa4J+WcSDNXCyHfJy2YBEA/ZWjIpqciSwfE/Hb9FwqVz0b2NhfCySoQ
-         187Xs3jRqQhBRPOI6fb2hEQ9XZAxYZvpd+/HaUufBCeyDhWbluoOkMeO6x2Y/ncOXjaX
-         ndYpI11R3sXLW24FAECKT2frN9eg5CnE2W6qnznvroA92FKFeZRYzyxRhAOW2j/5ZbOu
-         CpeQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwUOb7+ITDKpHHgUujkT842PEjiSddYiUTyFleEn38Vufy1+0Qd9RwrATOch3RpYw58D59yYJXD0iklKdg=@vger.kernel.org
-X-Gm-Message-State: AFuF++kHD5BvRtVq2dnIn5WkH60es7AyndnaAU2ddKlXhf6ppWRwx4lc
-	aT7DhorqFINaWZbVj9Py7KwKH2uveEjjj4GRS0KvJw93hKlgdL7Atf5a6zebysULFBU1CLoUYlf
-	GpqaCHLRde6Awk4rzfqPMMtWvloU+OL2vQKTY5TCSoZZqpDNEW4kskn2FRzQ=
+	s=arc-20240116; t=1788531649; c=relaxed/simple;
+	bh=XMOxL1c0A94oZSLcygUZbFVd7X6Zt3RyopugXAxLBoE=;
+	h=References:In-Reply-To:To:Cc:Subject:Mime-Version:Content-Type:
+	 From:Date:Message-Id; b=DsGSRnCBFfattiMWSwf/xbEt3m1vEPk+rjsH7xKY55tu8OAWihYNgnoz8ixeUhX8tyExHbjrdy5+hLfGdwCLj2hlLgzK4ubvEYfoPz+T4Ppql2V0LCTnHYvt679HRkpb3MEx5/tQk89erQ/dgD77niDZ8CtSriE4X7w130qpqO0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fygo.io; spf=pass smtp.mailfrom=fygo.io; dkim=pass (2048-bit key) header.d=fygo-io.20200929.dkim.larksuite.com header.i=@fygo-io.20200929.dkim.larksuite.com header.b=Egvxi66X; arc=none smtp.client-ip=209.127.231.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fygo.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fygo.io
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=fygo-io.20200929.dkim.larksuite.com header.i=@fygo-io.20200929.dkim.larksuite.com header.b="Egvxi66X"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=s1; d=fygo-io.20200929.dkim.larksuite.com; t=1788531634;
+  h=from:subject:mime-version:from:date:message-id:subject:to:cc:
+ reply-to:content-type:mime-version:in-reply-to:message-id;
+ bh=baCydwiONp911QmibUtX1HsIKgihZFpyLW4M1bykxT8=;
+ b=Egvxi66XxNMA6b/1wMf1vQbLUcIryoWnMZrssD1N2WCi7BPKbFsNQ3yi3ybllNuiZ6Q0Iq
+ qEwI95gkUP/7lQG/JajHpLR2941nxQIpFc0ZWyac91VDo/h3zlvg4um6nXmZX3Ho5TbAEM
+ EInJ97M+rxKQknv8MNWBd3eZCWLVk/CRphE4kruSB8wlOZ3af7ZLkwnV8RfyZkw7MEoILG
+ 5TIThIaFTq6dZKVNeP3xXdzX1MdkQ9eLu+oJexLaBnQwtP/thxlqqcWLJgYPcbHukI0uuv
+ 3A9TtPLlR27EiPbRi0hidXxJVLQLaZzRseOZLUoWbnNBZQxVSM2C0WNCCio29g==
+References: <20260904123730.39849-1-hemanth.selam@gmail.com>
+In-Reply-To: <20260904123730.39849-1-hemanth.selam@gmail.com>
+To: "Hemanth Selam" <hemanth.selam@gmail.com>
+Cc: "Kent Overstreet" <kent.overstreet@linux.dev>, 
+	<linux-kernel@vger.kernel.org>, <linux-bcache@vger.kernel.org>
+Subject: Re: [PATCH] md: bcache: fix typo "idel" in comment
+Received: from smtpclient.apple ([120.245.64.136]) by smtp.larksuite.com with ESMTPS; Fri, 04 Sep 2026 14:20:32 +0000
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-Received: by 2002:a05:6820:603:b0:6b7:8415:d784 with SMTP id
- 006d021491bc7-6b78415d7fdmr2019869eaf.47.1788531604438; Fri, 04 Sep 2026
- 07:20:04 -0700 (PDT)
-Date: Fri, 04 Sep 2026 07:20:04 -0700
-In-Reply-To: <20260904134424.201467-1-adrianox@gmail.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6a9ad394.d07ac993.c20e9.0002.GAE@google.com>
-Subject: Re: [syzbot] [fs?] KASAN: slab-use-after-free Write in do_bad_area
-From: syzbot <syzbot+7bf725ed337e37307001@syzkaller.appspotmail.com>
-To: adrianox@gmail.com, linux-kernel@vger.kernel.org, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+X-Lms-Return-Path: <lba+26a9ad3b1+d6fc04+vger.kernel.org+colyli@fygo.io>
+From: "Coly Li" <colyli@fygo.io>
+Date: Fri, 4 Sep 2026 22:20:20 +0800
+X-Original-From: Coly Li <colyli@fygo.io>
+Message-Id: <C3B46A2F-C85E-4CB6-8093-D1E184FF1DC9@fygo.io>
+Content-Transfer-Encoding: quoted-printable
+X-Mailer: Apple Mail (2.3864.700.51.1.1)
 
-Hello,
+> 2026=E5=B9=B49=E6=9C=884=E6=97=A5 20:37=EF=BC=8CHemanth Selam <hemanth.se=
+lam@gmail.com> =E5=86=99=E9=81=93=EF=BC=9A
+>=20
+> Correct "idel" to "idle", reported by scripts/checkpatch.pl using the
+> misspelling list in scripts/spelling.txt.  Only touches comments, no code
+> changes.
+>=20
+> Assisted-by: Cursor:claude-opus-5
+> Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
 
-syzbot has tested the proposed patch and the reproducer did not trigger any issue:
 
-Reported-by: syzbot+7bf725ed337e37307001@syzkaller.appspotmail.com
-Tested-by: syzbot+7bf725ed337e37307001@syzkaller.appspotmail.com
+Take it into my for-next.
 
-Tested on:
+Thanks.
 
-commit:         bc35965f Merge tag 'mm-hotfixes-stable-2026-09-03-17-4..
-git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=156b08f9580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=c74f18ede748dc5f
-dashboard link: https://syzkaller.appspot.com/bug?extid=7bf725ed337e37307001
-compiler:       aarch64-linux-gnu-gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
-userspace arch: arm64
-patch:          https://syzkaller.appspot.com/x/patch.diff?x=11c138f9580000
+Coly Li
 
-Note: testing is done by a robot and is best-effort only.
+> ---
+> drivers/md/bcache/writeback.c | 2 +-
+> 1 file changed, 1 insertion(+), 1 deletion(-)
+>=20
+> diff --git a/drivers/md/bcache/writeback.c b/drivers/md/bcache/writeback.=
+c
+> index 4b237074f453..7734fe0dd429 100644
+> --- a/drivers/md/bcache/writeback.c
+> +++ b/drivers/md/bcache/writeback.c
+> @@ -162,7 +162,7 @@ static bool idle_counter_exceeded(struct cache_set *c=
+)
+> int counter, dev_nr;
+>=20
+> /*
+> - * If c->idle_counter is overflow (idel for really long time),
+> + * If c->idle_counter is overflow (idle for really long time),
+> * reset as 0 and not set maximum rate this time for code
+> * simplicity.
+> */
+> --=20
+> 2.48.1
+>
