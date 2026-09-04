@@ -1,118 +1,196 @@
-Received: from mail-oo1-f49.google.com (mail-oo1-f49.google.com [209.85.161.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D737438DC68
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 02:58:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.161.49
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788490726; cv=pass; b=orrh6kXWT6uJoVDOYq8wOpKPc1dgrdxL53jdz2lSCattRBhzzv5ZD1/A+H9Bsd76iIm9yEJZh9E01HMgOWMwDTtKxZRiAbfs2aws7wqL503uzOS3ckH7DgVacPc8aCDrY7gb71031FaxS9nSfN0Jt5w/UyJEXmoa2ohhgu3AKoQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788490726; c=relaxed/simple;
-	bh=ohcAoa2FqlAFpZfcLm/C+18VPqWSAZUo72wqSUYvF/U=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=lHIWK06PPS66oYXtfdfSrnJdRLockTHPjfNcBgJbJgHix8w8GNFJ06lxawPSIPCkzce9oxMDUKQzgtq1b56p4Q4CJakqsmftR2KUB6K/WraAS1+prE5xx5UQL9tyWjltYTwf1V/MpPWO4svCnEc0tdob/p/8AgYKEdPJNHy2Exk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gGbR5e1s; arc=pass smtp.client-ip=209.85.161.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88E503AFAEC
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 02:58:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788490729; cv=none; b=f6BtHHg554kATwPVP4AggetJlv7HJbz1uB7v1vkDMLafWNjKVowj6EDIavgHh3ipbemFv/aa7OSOtIKQUDIJS3b9533KZ5O5CkK2H0BoS3JkjueiVZqwMZW24wryL0XnPZgALoAtV/K+vqxfKTTSamki3WviahkqybqxaIhJyXE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788490729; c=relaxed/simple;
+	bh=w2ZPqyMg0hY8zy4lHxP0yghfkNnLuc29syjg5x/2siM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=q2vuQVL5dUPhb7xCLrT0aC7Uvdhe4KmyKYubANZA5t102EQc/0je2xUq2qIk25qlmxYtbo4IGhKH/j06NWQyn2+UzSvbsCTquIZqvbPsW5xcXE1OoWgpOlIzZ4YCvvY4+Ga2dF2rb+E9Zq0iwjAY8XzW8Gco8zwAxDnmDKWrIyU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=sBjjob1O; arc=none smtp.client-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gGbR5e1s"
-Received: by mail-oo1-f49.google.com with SMTP id 006d021491bc7-6aaf3f54dbeso458210eaf.2
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 19:58:44 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788490724; cv=none;
-        d=google.com; s=arc-20260327;
-        b=bktJunfyvI6CW1LrekUh8xCrV0ArDJY6FzpfuD9SbEjcXGV+6KPAIhStriGzHQCAZY
-         VPsHRNOX0QGGfDNPw8OQdC/csD7FMuGKNombV0X0v6SA3HDnkVfKnDMK9OydzVzI4wU4
-         b7DZ3Lalat710N0rZWAIbY2LVVH2MnFB9pL41A1GQzn3uW1B/3POuuTRFZ9cSrqqkEuX
-         KyFg7qnbbUTj5hyJwTG4wUV2oHShU5ICobqGI6NR6niWKvnzQ8Xg8QawbNvkDv3+3zqG
-         SrLCT8MJIP0OMnJWzfCS9NshCBbydZNZ4YcgWJTCKV/EFmwP9TDRqeOIco5MG2Oc1Rhe
-         g5CA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=C/Pg1OYVasvFa7HwTUQsQp/KKEQyF3FXJpBXL7jnOXg=;
-        fh=IVB8foN/2KF8HElAm/q6y385xGnHQ0lfQWBVGKVN0zk=;
-        b=iUnXNptAtaQVzH5qarn8bpETCb+tcB1zuuZp9fM7qddw4Nsd70PjGsPeijR2ePdcRA
-         viUSG8K07wnuq5sUiQTe5m9SAz/4zOKrFbMrlKinBd4kNzXHir3VoFA8MCOdBLIaXzRI
-         yoJ2TDYcS/F0MRgy62Hv6TQaH2W6P71LZcVDrlKgYZe2aAgtQVvsyiSqvK/2130mIrkz
-         1MLI3x2wVR1nZXdt4byIvyhl4nLGa0Sk7ezURbSzizi/4dA0KVdiBtcEt7dHOAQzmRX1
-         Wz15BaY3JURRhUbwhV5IPqv9x0YmSONE4GI3JceD0sKXykzO+wZwfpStvJubDI1A8rUY
-         zxmQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788490724; x=1789095524; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=C/Pg1OYVasvFa7HwTUQsQp/KKEQyF3FXJpBXL7jnOXg=;
-        b=gGbR5e1sYpUAkBwjJzIGRAmjvl7nyjq8fKrhAsYeoGI+GLxx/sXleY5QkArJToArhn
-         WsGVpfIDg8R+kmj2jrPwNbq14WWULLP+TyOTlvUGNjQgIUH3JC9qwP4+RCWKjYnRebcJ
-         bqonujEjs77o/lHSqzOvN8zZQBgINTZkJo53mk8tyLvEyjxNrVME34MaqtvjYVRNAf91
-         soiBlEvt9YZVqBTaNavekSNsms8kGgUsasC233HO0v+76X5Wve44xNU6u0/ds/BdEEES
-         /vi2bd/cYB7DQCkHJY+YlBhZ/i2qGXip+UHBaoGJf/Ho7e2zQMSVx/koKGt9aT5l0FTa
-         MNNQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788490724; x=1789095524;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=C/Pg1OYVasvFa7HwTUQsQp/KKEQyF3FXJpBXL7jnOXg=;
-        b=HKXcvL0pkTIQh3QWzlqhHQRtK3PEvvkoyu+9fHANbIu6lvtIaUGdM22UVCZfdEKRXC
-         OA+scqoBdtNQBmyFyqEjZFLyJ1hhSpw0deC8KkUnxOYI5g6wQhfOcWoCTKdscxAsBrva
-         kdNuioobmjHG6yD2xSN0v1OT5GOpQy10sovcwlrS6nr4BvzNgyZZNeiggD+5GvRBNbSk
-         L6hNtiI9vWxrPWeKSUsm31Xl2gaAIsVTyE8JRmyRCMhycIvoQ8tkt8XJ5hGmGYTJ6ZG7
-         26ingRu88gq3xl1BC1QYhpoNE55lbf2B71Y71XF3fmt860uvOciRQQkKqokoAoyId23z
-         OFUA==
-X-Forwarded-Encrypted: i=1; AKwUvBzi7UEkFolSGIVyk1QrZPNNFdydqFtG+nicUe5FVwOx8gvcfQGB/xwMDLNsyWLB1rfRRkqHex7pSBfkRMU=@vger.kernel.org
-X-Gm-Message-State: AFuF++l5AXqchMrXz0b3OzxkoMbtmn9cjF7Fl07FDLGLdn2gfJDMBIbT
-	1l/dD6A6SgYA2AUKcPjdb7TyaqtPx/6w4XhJSS4QxsO/FJDBb1fzj+WmxjpG8Y4xBp2Q9lpNvFL
-	fBcodJM9hUS3ies9KmlDPjeOxX9wTWufW2AubNNc=
-X-Gm-Gg: AYBFou3uYLfk8u7QXkKmeAyEUPP9w+cZknZK/CWqLJkI73BUSxmeShw4kbFsppGdMcV
-	BjHLgf3c5+7dByXwTzfxB3Xb8jgaqX184DPupctMruuAdSP0XG0cvlXCVubVdc4z1iE/UDahS6B
-	G/1gXfkGYrTbEBM2LUVhDgB4HdFxtGoqQfG9Ow44sVR3Fvr0uj9f1K9W3fLs1bnwKe1F+X09596
-	DCE08vbRIqhewOXzyAgLyYy1VF/MunHjQJN2exjjiNZPR7hFgkokGfdyQNoqomaFhhKaTT62DZ8
-	7GNEyBtLVvaXhlqyUNwilTdIP8mg7mTR1k+TFGXd6D5nZHSB6gZpTok+afdcQwoN6PM8sOLGDxf
-	fGQ==
-X-Received: by 2002:a05:6820:4d09:b0:6b1:a667:f0f5 with SMTP id
- 006d021491bc7-6b6fcedc374mr2662257eaf.20.1788490723613; Thu, 03 Sep 2026
- 19:58:43 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="sBjjob1O"
+Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68401mao210605;
+	Fri, 4 Sep 2026 02:58:41 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=pp1; bh=MS9O0KQITrNvh4YnJynMJV63sZc3hghW0hjdnMkCT
+	Tg=; b=sBjjob1OO7+Cb0NmsZB/kBEVCwxo5A5m/sGiWk9Rcg1F9TptM8fu9NQgP
+	/ubv4ZX9vg7sfnCqJ7KqMqZOAxuqhrAV2IyuXyiO2dNfoGdBkZ3eYIwLj6r83qTX
+	523OdQlkwrbI6AN8suFqcs0Sn0Itr8RCMwrVE2MVjkonIFHG+gyEXHwgaB2mmlVj
+	Xxlnhe+lbIMU5inOroRQZIPLjNvWeNEHWjD5WEujmW8si918+sHPFiwJoHepAECz
+	weTY+TqsLKZbXw9KZcSwl6oqdu7nUMOWZLugmPUSkf0gt/Pk/gY/DMGTzY02HY+L
+	9GyQ+VKvqPcrK7WP3Q5eEGgkG+DFQ==
+Received: from ppma21.wdc07v.mail.ibm.com (5b.69.3da9.ip4.static.sl-reverse.com [169.61.105.91])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gbq558bq2-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Fri, 04 Sep 2026 02:58:40 +0000 (GMT)
+Received: from pps.filterd (ppma21.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma21.wdc07v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 6842uhLw004484;
+	Fri, 4 Sep 2026 02:58:39 GMT
+Received: from smtprelay07.fra02v.mail.ibm.com ([9.218.2.229])
+	by ppma21.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4gcarkjrq9-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Fri, 04 Sep 2026 02:58:39 +0000 (GMT)
+Received: from smtpav03.fra02v.mail.ibm.com (smtpav03.fra02v.mail.ibm.com [10.20.54.102])
+	by smtprelay07.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6842wZV951511604
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Fri, 4 Sep 2026 02:58:35 GMT
+Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 4F41B20043;
+	Fri,  4 Sep 2026 02:58:35 +0000 (GMT)
+Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 8CA9820040;
+	Fri,  4 Sep 2026 02:58:32 +0000 (GMT)
+Received: from aboo.ibm.com.com (unknown [9.84.232.156])
+	by smtpav03.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Fri,  4 Sep 2026 02:58:32 +0000 (GMT)
+From: Aboorva Devarajan <aboorvad@linux.ibm.com>
+To: Madhavan Srinivasan <maddy@linux.ibm.com>, linuxppc-dev@lists.ozlabs.org,
+        Mukesh Kumar Chaurasiya <mchauras@linux.ibm.com>
+Cc: Christophe Leroy <chleroy@kernel.org>,
+        Shrikanth Hegde <sshegde@linux.ibm.com>, linux-kernel@vger.kernel.org,
+        Ritesh Harjani <ritesh.list@gmail.com>,
+        "Nysal Jan K . A ." <nysal@linux.ibm.com>,
+        Aboorva Devarajan <aboorvad@linux.ibm.com>
+Subject: [PATCH v2] powerpc/entry: Fix double accounting of user time on interrupt entry
+Date: Fri,  4 Sep 2026 08:28:30 +0530
+Message-ID: <20260904025831.3439809-1-aboorvad@linux.ibm.com>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260903143514.532023-1-mmyangfl@gmail.com> <20260903143514.532023-4-mmyangfl@gmail.com>
- <ff900ceb-82eb-4356-97f2-4af75480a8c4@lunn.ch>
-In-Reply-To: <ff900ceb-82eb-4356-97f2-4af75480a8c4@lunn.ch>
-From: David Yang <mmyangfl@gmail.com>
-Date: Fri, 4 Sep 2026 10:58:06 +0800
-X-Gm-Features: AcwNN1Vpfq1P5xyA5NbGbzAdYSjcZdkfGeFIvs9EXqucGAsB1VfYDEYnrSQoIgA
-Message-ID: <CAAXyoMNd1mR_EvCLhjvmKjCzDDXCqWdka-Gn1e8_atnnvGvw1w@mail.gmail.com>
-Subject: Re: [PATCH net-next 3/4] net: dsa: motorcomm: Use u64_stats_t for MIB stats
-To: Andrew Lunn <andrew@lunn.ch>
-Cc: netdev@vger.kernel.org, Vladimir Oltean <olteanv@gmail.com>, 
-	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	Russell King <linux@armlinux.org.uk>, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA0MDAyMSBTYWx0ZWRfX9RCQErDH+Gr1
+ QbEMzG5gub3ajO4r4tQ793QXwjIFaWjI0cOQunvNjA3Nrge7vxbvB+vCuzXW8fTZlbtJY/1mFdr
+ WusE+lOgyhp7w9oP9sCQVacIP0CmjJjF0kCDXzy6wXNLndCBQEQ+0UAKtF4p12gDdC0fP1Um75C
+ 5OpERmAl0Bx4yw/TCUWnEEJ0L/DJnlIXAA0MndE+VDuqNPbep4JWBpSUEM6UVdnCBT/14SLokW7
+ IdUQz1r4LBwEuC8ZGV5Glk/srrYka7hWJkwuKPuBQWII4ERGZJSl/WbO9u0yZR0NcO+I5OqfQuZ
+ X/5chKa9qNvp38IrttLrvtdiqoRzOW4tEMBtxQAwYxAW3gtOT/Ixdv0OzeoAfy+fXN+V0yV9NKX
+ sSJDPofA+BBjCtnBogFLCwTHcQI/6Q8gF8dDV+zb8OYm3r7gT67pUplMSjzOvViRXbWYSzHFQ0Y
+ edEcneX4VL499UNEiPQ==
+X-Proofpoint-ORIG-GUID: oLwQf3Cg5RhnoHr2Csc4yQnsJY5em0LN
+X-Authority-Analysis: v=2.4 cv=CNgamxrD c=1 sm=1 tr=0 ts=6a9a33e1 cx=c_pps
+ a=GFwsV6G8L6GxiO2Y/PsHdQ==:117 a=GFwsV6G8L6GxiO2Y/PsHdQ==:17
+ a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
+ a=U7nrCbtTmkRpXpFmAIza:22 a=VwQbUJbxAAAA:8 a=VnNF1IyMAAAA:8 a=pGLkceISAAAA:8
+ a=vAT63eVcdtpXN5Bls-IA:9
+X-Proofpoint-GUID: tR4UP0n87co6_IJJne5qi5rYQOSaMm-m
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA0MDAyMSBTYWx0ZWRfX4a9nwOt5rQFk
+ I453HLdhGuayv6z2HzwtENOCTK3ZExwUzmFakBNzyTqfTPWJvuW9k5u3duhc9PgVkobREs+4kVq
+ GeSZzXLNgnTarSyG0gTOJuXZ8Zvp/AM=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-03_07,2026-09-03_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 bulkscore=0 suspectscore=0 phishscore=0 lowpriorityscore=0
+ priorityscore=1501 clxscore=1015 impostorscore=0 adultscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609040021
 
-On Fri, Sep 4, 2026 at 12:25=E2=80=AFAM Andrew Lunn <andrew@lunn.ch> wrote:
->
-> On Thu, Sep 03, 2026 at 10:35:08PM +0800, David Yang wrote:
-> > 64-bit variables might not be atomic on 32-bit architectures, and could
-> > lead to load/store tearing. Use u64_stats_t to ensure consistency.
->
-> Can this patch also be broken up. It should be possible to use
-> u64_stats_read() without changing the locking? So one patch which only
-> does u64_stats_read(). You should then be able to add the syncp
-> code. And lastly the mutex changes. That then allows you to explain
-> why the mutex changes are safe in the commit message.
->
->     Andrew
+Since the switch to generic entry, an interrupt from user mode
+accounts user time twice: once in arch_interrupt_enter_prepare()
+and again in arch_enter_from_user_mode(), which irqentry_enter()
+invokes for the same interrupt:
 
-u64_stats_read are meant to be used with syncp. This sounds like an
-incorrect partial patch, works only because of the internal
-implementation of u64_stats_t.
+	arch_interrupt_enter_prepare()
+	  account_cpu_user_entry()		/* first */
+	irqentry_enter()
+	  arch_enter_from_user_mode()
+	    account_cpu_user_entry()		/* second */
+
+The second call charges the same interval again, because
+account_cpu_user_entry() accumulates the time spent in user mode
+since the last return to user space.
+
+The two calls come from the GENERIC_ENTRY preparation series,
+where each step was a no-op on its own. Commit 09a9d3a8499d
+("powerpc: introduce arch_enter_from_user_mode") added the hook
+with the user-time accounting in it, but nothing called it yet.
+Commit 893082ac769b ("powerpc: Prepare for IRQ entry exit")
+copied interrupt_enter_prepare() verbatim into entry-common.h as
+arch_interrupt_enter_prepare(); that copy was equally unused, as
+handlers still called interrupt_enter_prepare().
+
+Commit bee25f97ad24 ("powerpc: Enable GENERIC_ENTRY feature")
+made both live. On the syscall side it did the full conversion:
+system_call_exception() now accounts once through the hook via
+syscall_enter_from_user_mode(), rather than calling
+account_cpu_user_entry() directly. On the interrupt side it
+switched the handler macros to arch_interrupt_enter_prepare()
+followed by irqentry_enter(), which also runs the hook, but the
+accounting in arch_interrupt_enter_prepare() was not removed to
+match. The double accounting starts with that commit.
+
+With CONFIG_VIRT_CPU_ACCOUNTING_NATIVE=y this roughly doubles the
+reported user time of any workload that takes interrupts. The
+other accounting modes compile account_cpu_user_entry() to an
+empty stub, so they are not affected.
+
+Remove the accounting from arch_interrupt_enter_prepare() and rely
+on arch_enter_from_user_mode(), which already runs for both
+syscalls and interrupts. The duplicate account_stolen_time() call
+is removed the same way.
+
+On a pseries LPAR a busy loop reports 6s user time in 3s elapsed
+(~210% CPU) before the fix, and 3s (~105% CPU) after it:
+
+  $ python3 -c 'while True: pass' &
+  $ sleep 3; ps -p $! -o etime,time,pcpu
+
+            ELAPSED     TIME  %CPU
+  Before      00:03 00:00:06   210
+  After       00:03 00:00:03   105
+
+A 50% load reports ~70% usr / 30% idle before the fix, and
+~49% usr / 51% idle after it:
+
+  $ taskset -c 6 stress-ng --cpu 1 --cpu-load 50 &
+  $ mpstat -P 6 1
+
+            CPU    %usr   %idle
+  Before      6   69.74   30.26
+  After       6   48.51   50.50
+
+Fixes: bee25f97ad24 ("powerpc: Enable GENERIC_ENTRY feature")
+Reviewed-by: Mukesh Kumar Chaurasiya (IBM) <mkchauras@gmail.com>
+Signed-off-by: Aboorva Devarajan <aboorvad@linux.ibm.com>
+---
+Changes in v2:
+ - Explain which commits introduced each accounting call and how
+   they overlapped in commit message.
+ - Drop the code comment.
+
+v1: https://lore.kernel.org/linuxppc-dev/20260902050628.2553909-1-aboorvad@linux.ibm.com/
+
+ arch/powerpc/include/asm/entry-common.h | 2 --
+ 1 file changed, 2 deletions(-)
+
+diff --git a/arch/powerpc/include/asm/entry-common.h b/arch/powerpc/include/asm/entry-common.h
+index c5adb5006361..000fa925e26a 100644
+--- a/arch/powerpc/include/asm/entry-common.h
++++ b/arch/powerpc/include/asm/entry-common.h
+@@ -222,8 +222,6 @@ static inline void arch_interrupt_enter_prepare(struct pt_regs *regs)
+ 
+ 	if (user_mode(regs)) {
+ 		kuap_lock();
+-		account_cpu_user_entry();
+-		account_stolen_time();
+ 	} else {
+ 		kuap_save_and_lock(regs);
+ 		/*
+
+base-commit: fb442a6673ff1046bf67754957d95880fdb394b5
+-- 
+2.54.0
