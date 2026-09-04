@@ -1,171 +1,101 @@
-Received: from mail-pf1-f179.google.com (mail-pf1-f179.google.com [209.85.210.179])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19CE1376BC1
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 07:02:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D8594052D4;
+	Fri,  4 Sep 2026 07:02:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.151
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788505364; cv=none; b=oVaRDxmuNV7Ic2wEOBMpFUmQ+gCZiBsvxGp2ovA5MpkY2VYQW4sRYV6TWwH8tYGD3mzE7167E90UjfF9WzhlN6GCR58ZD6DG7HKkOgbOo1sMgOgFR36y68MaiyGnKn5oGTr8uafAkobbcpIxTYM+LNZKH1GIgmcflpPprbE3VQk=
+	t=1788505380; cv=none; b=HwS+vLgFQz3jLWsSmpd1U+/GyL5KnLFnzqiDwAxuPLi9cKvBEnPLsnqHJJuk7I9GZxkYhgihS5lPhNV2SRTawQeR/g1j5buDsI7qewkfPefgRpKgO0m5d0LVndaZLMyGQ3t8WS5lOMMsrASR+D7G7aKZcqiXUsNkTM0ibpVTXnU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788505364; c=relaxed/simple;
-	bh=wlEB4C0G8iL1zL5QqV1RDLM5AXvGH7Ul86u3lxq4Gwk=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=TQCWvuKg+gpvEujr/VUxbmVF+u3oaYR9Y0bTAIY9g2BU67FfRj0QHVr4jebctN4S45DQO182LdQbI3vBNwrBsMuQYcFhlUVm03zjebz6FZvgheG6Yh7AXsUnfExnVSSHVx63tViw38Mt1JA+6T+cwLDn1HjQxmglzUeq1vK+w5g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hz4/bgCO; arc=none smtp.client-ip=209.85.210.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788505380; c=relaxed/simple;
+	bh=LDWBVc1y+1fryeW3GilPMmIhntjcCvC5Zt4gLC2u4w4=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=rKzbnGGAFOSfZ6JS9gL4GmWyIKonJHYCU6ROFAXcwebux1pmKljQVzTzWn1aGP3OBUH55ogZY0QLMqY6mw1yeBrze9U2lHf/K4R+z7TZqd7k85jNOkkhAGEdyY1XjVdeGEfEOGlUoMFJCLBOOI9J52dMCG1CPpsLAWXKI5OklLA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=BiEbd8l9; arc=none smtp.client-ip=80.241.56.151
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hz4/bgCO"
-Received: by mail-pf1-f179.google.com with SMTP id d2e1a72fcca58-853c947bfefso566672b3a.0
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 00:02:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788505362; x=1789110162; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=q6cTYhMb2zRw6Y8e+XQksOjoym37tvoa/7IkI38NMAM=;
-        b=hz4/bgCO3dpaJ5Fa4zGb0WoHQQ/S4WkM9SYHT6FSYZ5UciqQJcGpPa/99JD6mw5JHb
-         /FqV+fY1dhoYZ1u4+hPw1jeqlCUCftxSW8oHrrSsoiF89Qh8l7pZP8g0YdoG6ofYckTm
-         KKZvtFHvuIJlfwgss6xXdIqsfV6FMb0u8CGeRjMdG8IgLyfqcy/q1NnImT0z8sRqcqcS
-         Nd6uBAc1UUJFLQGMPL8tQ6Cy0qamnnl6d6pkW0l6vvWmoSBko5OfnTtT0hcnF88hcNJn
-         PKDkB0sF0VTLJ2KgPN4Wbbc0DyxLznh0h0JQM1C5nybSgpcsA6rfu9y3LBkgKonuLJ2a
-         yXAg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788505362; x=1789110162;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=q6cTYhMb2zRw6Y8e+XQksOjoym37tvoa/7IkI38NMAM=;
-        b=b9Ft0mBC8kHOpshLc/sODWm6gwV9mu1V4ekopF39R+f7e0RZ/Ruy5V6aumGEbnqEsX
-         2feR14oJH7MUwjqp2RG/Jw9K+9eAC0NFHNp4nHoRUIEzTbfNzNTkg4K91oml4d+Anpcr
-         8umQgPt7SGDpyuWnOf20M1YTJxdNE7mD3jEU0+O+MEFMEmIKdYB348cspBrD+jFubZdx
-         EPbZiDqx2TpqI+MU1onpsi70u6uZYUJHA2R1cCNGECnYofRuKmeEvoZmAhBj6Eo7Sm3M
-         yZotRZWOhO51D2E4g0oVuJM3aVIwluB/i6hSX9yUlrwftWyqLnERhQuRZAVfp51ReShr
-         odYg==
-X-Forwarded-Encrypted: i=1; AKwUvBz8I+YO/ynXBORdrdFgsukAdsXGBqrn+kj5NfhdVC3YaNkBWje6novtq9724jf6uw+mHo1CToCoos1OBLI=@vger.kernel.org
-X-Gm-Message-State: AFuF++kn48YN4HJ4OakQ0dj6cg0I/9lmKJJ2jAZRvJZm0ngPxT6lCI0c
-	HNrYvGFl+iaJc1Q7Ct+9G4egKA0kZ8ud+HsasMyF1Ilni5NilmG4ywQ=
-X-Gm-Gg: AYBFou16fLInnuNSgNY97ssGKCIBKI5ZMZmLUhRIy/RpnUzdg0FVNWT/JncE4og7kL8
-	p9ZNzDotmR61mT2PwqVryEo6MkX82cREGJoUxRnROEnfncaGSC482c7w47mu6tIlR5nL6gXimfJ
-	/krEqua2MMnYVkPqcsKqaZnr99FvdG5fZsoqMJXfeSh7Eg2tLiydG9xrrthSHG4YCTC3Utzu+X8
-	d8BR4DTf24s7K92xetKiXvp9Sc36sBB9ob+E2PdzRIvkZphim30ivEGD59Xq8FmpEgPN4a7ENl0
-	QAuAIT6ao3tavhw+2lmb+qw3fl9/z6tBtNS3Yp/YrCCQFhQXmj4t4GJ8zLQqG551hUrg4vKnHVj
-	OOkuaGvyX4tYSUICGVTAh6Vq7P5II/bbmqmBcGEqTBKmzwUqKy8A0cO+dRHqyr+foEwsxivI7Go
-	pWBBImwAOmbNtUBvVHciKuq6ijFdRPULQLY7HFz9aBee6tESXVi/riB2l87ec0gC+US6CJBup2b
-	Y50QVl3A1tuVA==
-X-Received: by 2002:a05:6a00:3d51:b0:857:72f8:dca7 with SMTP id d2e1a72fcca58-8619c8845f8mr2621172b3a.13.1788505362292;
-        Fri, 04 Sep 2026 00:02:42 -0700 (PDT)
-Received: from ydg-Zenbook-14-UM3406GA ([211.230.25.193])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8615273e3a0sm755511b3a.23.2026.09.04.00.02.36
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 04 Sep 2026 00:02:41 -0700 (PDT)
-From: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
-To: Alexei Starovoitov <ast@kernel.org>,
-	Andrii Nakryiko <andrii@kernel.org>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Eduard Zingerman <eddyz87@gmail.com>,
-	Emil Tsalapatis <emil@etsalapatis.com>,
-	Ihor Solodrai <ihor.solodrai@linux.dev>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Martin KaFai Lau <martin.lau@linux.dev>,
-	Puranjay Mohan <puranjay@kernel.org>,
-	Shuah Khan <shuah@kernel.org>,
-	Song Liu <song@kernel.org>,
-	Will Deacon <will@kernel.org>,
-	Xu Kuohai <xukuohai@huaweicloud.com>,
-	Yonghong Song <yonghong.song@linux.dev>
-Cc: bpf@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	Xu Kuohai <xukuohai@huawei.com>,
-	Donggeun Yoo <donggeunyoo.kernel@gmail.com>
-Subject: [PATCH bpf 2/2] selftests/bpf: cover the exception callback using its own BPF stack
-Date: Fri,  4 Sep 2026 16:02:10 +0900
-Message-ID: <20260904070210.4163193-3-donggeunyoo.kernel@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260904070210.4163193-1-donggeunyoo.kernel@gmail.com>
-References: <20260904070210.4163193-1-donggeunyoo.kernel@gmail.com>
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="BiEbd8l9"
+Received: from smtp2.mailbox.org (smtp2.mailbox.org [10.196.197.2])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4hbnV64XTpz8tYt;
+	Fri, 04 Sep 2026 09:02:54 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1788505374; h=from:from:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=vkTXhSUxZlPterV5lsTm8TrVGWaiq1FzBIugDqMjlws=;
+	b=BiEbd8l92lFlcr7LOcHlM8gA643/Vc9+1R88BCQ7NzVLApWfJAPWQCSWRvFFy281WlhDw0
+	PezwhO4w2JR7tNEQQH7wLJ0xpNY13YGV850R808XXB6pO40xbojMW1Jh0ww70CgKNGs8lh
+	vppiq1JZ+oEiD1LcYM53MrdvvtqC44Pn7ihn+GGfL4EtqliQOErxqEXF1uNwiWVwKF0B/F
+	WjEPHaFa0wQcZSKfF4PtK60sCOedyJUXgI7yYCs41ZSnXP/gqvEGIQYK36fPK8MqTy9YnF
+	avdvHuMEJGM2V3bz6DXJopyh4JfC1x/4kFC+6+DNIkJs4M6qUk0kttMe+oU18g==
+Message-ID: <fcecfac828dc3f338d59125d6f0306534e1e2429.camel@mailbox.org>
+Subject: Re: [PATCH v2] drm/sched: Create a fake device for KUnit tests
+From: Philipp Stanner <phasta@mailbox.org>
+Reply-To: phasta@kernel.org
+To: oushixiong1025@163.com, Matthew Brost <matthew.brost@intel.com>
+Cc: Danilo Krummrich <dakr@kernel.org>, Philipp Stanner <phasta@kernel.org>,
+  Christian =?ISO-8859-1?Q?K=F6nig?=	 <ckoenig.leichtzumerken@gmail.com>,
+ Maarten Lankhorst	 <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>,  Thomas Zimmermann <tzimmermann@suse.de>, David
+ Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, Shixiong Ou	
+ <oushixiong@kylinos.cn>, stable@vger.kernel.org
+Date: Fri, 04 Sep 2026 09:02:47 +0200
+In-Reply-To: <20260903121558.782854-1-oushixiong1025@163.com>
+References: <20260903121558.782854-1-oushixiong1025@163.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MBO-RS-META: 4djizz5oszf5r9qr1y37yya6k5mi3tz1
+X-MBO-RS-ID: 75dbe8cd375fafa4137
 
-The existing exception tests do not reach a callback that materializes
-BPF_REG_FP into a register. They either throw from the main program,
-where BPF_REG_FP already holds the value the callback needs, or use a
-callback whose only stack accesses are frame pointer relative, which the
-arm64 JIT rewrites to be stack pointer relative.
+On Thu, 2026-09-03 at 20:15 +0800, oushixiong1025@163.com wrote:
+>=20
 
-Add a test that throws from a subprogram using its own BPF stack, with a
-callback that hands the address of a local variable to
-bpf_probe_read_kernel(). The helper and the callback have to name the
-same slot for the value read back to be the one the helper stored.
+[=E2=80=A6]
 
-Signed-off-by: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
----
- .../selftests/bpf/prog_tests/exceptions.c     |  1 +
- .../testing/selftests/bpf/progs/exceptions.c  | 29 +++++++++++++++++++
- 2 files changed, 30 insertions(+)
+> +
+> =C2=A0#include "sched_tests.h"
+> =C2=A0
+> =C2=A0/*
+> @@ -288,6 +290,7 @@ static const struct drm_sched_backend_ops drm_mock_sc=
+heduler_ops =3D {
+> =C2=A0 */
+> =C2=A0struct drm_mock_scheduler *drm_mock_sched_new(struct kunit *test, l=
+ong timeout)
+> =C2=A0{
+> +	static unsigned int instance;
 
-diff --git a/tools/testing/selftests/bpf/prog_tests/exceptions.c b/tools/testing/selftests/bpf/prog_tests/exceptions.c
-index 3588d6f97fd4..639866ce09a9 100644
---- a/tools/testing/selftests/bpf/prog_tests/exceptions.c
-+++ b/tools/testing/selftests/bpf/prog_tests/exceptions.c
-@@ -55,6 +55,7 @@ static void test_exceptions_success(void)
- 	RUN_SUCCESS(exception_ext, 0);
- 	RUN_SUCCESS(exception_ext_mod_cb_runtime, 35);
- 	RUN_SUCCESS(exception_throw_subprog, 1);
-+	RUN_SUCCESS(exception_throw_subprog_stack_cb, 0x1234);
- 	RUN_SUCCESS(exception_assert_nz_gfunc, 1);
- 	RUN_SUCCESS(exception_assert_zero_gfunc, 1);
- 	RUN_SUCCESS(exception_assert_neg_gfunc, 1);
-diff --git a/tools/testing/selftests/bpf/progs/exceptions.c b/tools/testing/selftests/bpf/progs/exceptions.c
-index c8d716fbd419..cac4e082139a 100644
---- a/tools/testing/selftests/bpf/progs/exceptions.c
-+++ b/tools/testing/selftests/bpf/progs/exceptions.c
-@@ -212,6 +212,35 @@ int exception_throw_subprog(struct __sk_buff *ctx)
- 	return 0;
- }
- 
-+__u64 exception_cb_stack_src = 0x1234;
-+
-+/* The address handed to the helper has to be this callback's own stack
-+ * slot, not one from a frame that is already gone.
-+ */
-+__noinline int exception_cb_stack(u64 cookie)
-+{
-+	volatile __u64 val = 0xdead;
-+
-+	bpf_probe_read_kernel((void *)&val, sizeof(val), &exception_cb_stack_src);
-+	return val;
-+}
-+
-+/* Throws from a subprogram that has a stack of its own. */
-+__noinline static int throwing_subprog_stack(struct __sk_buff *ctx)
-+{
-+	volatile __u64 pad[4] = {};
-+
-+	bpf_throw(pad[0]);
-+	return 0;
-+}
-+
-+SEC("tc")
-+__exception_cb(exception_cb_stack)
-+int exception_throw_subprog_stack_cb(struct __sk_buff *ctx)
-+{
-+	return throwing_subprog_stack(ctx);
-+}
-+
- __noinline int assert_nz_gfunc(u64 c)
- {
- 	volatile u64 cookie = c;
--- 
-2.53.0
+I know statics are initialized to 0 automatically, but writing it out
+explicitly is probably advantageous for readability, especially since
+we're incrementing.
 
+> =C2=A0	struct drm_sched_init_args args =3D {
+> =C2=A0		.ops		=3D &drm_mock_scheduler_ops,
+> =C2=A0		.num_rqs	=3D DRM_SCHED_PRIORITY_COUNT,
+> @@ -297,11 +300,19 @@ struct drm_mock_scheduler *drm_mock_sched_new(struc=
+t kunit *test, long timeout)
+> =C2=A0		.name		=3D "drm-mock-scheduler",
+> =C2=A0	};
+> =C2=A0	struct drm_mock_scheduler *sched;
+> +	struct device *dev;
+> +	char name[64];
+> =C2=A0	int ret;
+> =C2=A0
+> =C2=A0	sched =3D kunit_kzalloc(test, sizeof(*sched), GFP_KERNEL);
+> =C2=A0	KUNIT_ASSERT_NOT_NULL(test, sched);
+> =C2=A0
+> +	snprintf(name, sizeof(name), "%s-%u", args.name, ++instance);
+
+Any particular reason why you begin with index 1?
