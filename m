@@ -1,216 +1,132 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D5EC493633;
-	Fri,  4 Sep 2026 12:54:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CE6B44682F;
+	Fri,  4 Sep 2026 12:55:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788526494; cv=none; b=D0zg5d9+xk779BG7htt8iB5Ft7p+fDAt20T51Vf7mLym9BkPF2MQwZgr994elKyiUaKJPVJlHrIvByBQ5K9av3KfixlW5HZMLgIUz/MK2kEyyuwOT17Dz2Z4SHh52W6LOtCB+4htTlP/KvbQWY6jxhoUI2/Kp0UMcRcQ5TYhcJs=
+	t=1788526508; cv=none; b=SGtk4ec5bHEa5Nu4lfAg5LExf7P0SpMw1wO0e276FZdmgvyD2zXlfm7/j70mCg4qT8yyCFdF1IHKy1T36XBZjqjNNtV0xmNVdkYauPWHgq5W827e6wbVana/c+rtnjyYq5hlXRoxBIPb7ivB/mmlGBQWG8a7uUrVAed01d3/iyY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788526494; c=relaxed/simple;
-	bh=hGvlZUn7/Ambf9YcNv/eAm7mw97nQrTLcReNYt6Uk4I=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=iLevpTQ7BsRrLwqydDtVALvW3Sd99pst9b3FMyw79LuZ9ECnUtSY8lVKTKkh/UxgAw0M0zuH8N60vfh2wat5KRYwv3QK7DNlsrFOwVNvFHyZ+8qRNOKkDjSMocsdiTu8bWybOOvOly12FAyR8aAhyi+V8q6z2sp2xtX5Ek26QbU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 30C1A1F00A3E;
-	Fri,  4 Sep 2026 12:54:49 +0000 (UTC)
-From: Claudiu Beznea <claudiu.beznea+renesas@tuxon.dev>
-To: geert+renesas@glider.be,
-	linusw@kernel.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	magnus.damm@gmail.com,
-	prabhakar.mahadev-lad.rj@bp.renesas.com
-Cc: claudiu.beznea@tuxon.dev,
-	linux-renesas-soc@vger.kernel.org,
-	linux-gpio@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>,
-	Wolfram Sang <wsa+renesas@sang-engineering.com>
-Subject: [PATCH v7 5/5] pinctrl: renesas: rzg2l: Add RZ/G3S support for selecting the I3C power source
-Date: Fri,  4 Sep 2026 15:54:25 +0300
-Message-ID: <20260904125425.412632-6-claudiu.beznea+renesas@tuxon.dev>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260904125425.412632-1-claudiu.beznea+renesas@tuxon.dev>
-References: <20260904125425.412632-1-claudiu.beznea+renesas@tuxon.dev>
+	s=arc-20240116; t=1788526508; c=relaxed/simple;
+	bh=TfD52jOzf+a1JoDQPQQivlY/fszqgwWGK2WVitDtjIw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=Tcvd2TAeE+MsHlQ8BdU6qUXM9JnUJ/oq8i4vJPJI68gj5v2tDXyTTh7qVmCSWijWucS2suAvMbtHM7yjozQzUnRc6nbwa4vy6PKq9gBV3Juma97pwOaIX0/QUyBOc3869qHqMr7TAt0DNhZq+hNfd5uG6njOuyul32K2SyiCzSE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NgdrKgO3; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NgdrKgO3"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 041F31F00A3D;
+	Fri,  4 Sep 2026 12:55:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788526506;
+	bh=+jAa/+gW4uJqMlBI4roLSbcXFG/6ATTWTZkTBgaLylU=;
+	h=From:To:Cc:Subject:Date;
+	b=NgdrKgO3pYOaTZTNkfrAnZN17U54JyRhb4gYeRM1VQUwfFHOL7ypUm94UGF8PdCLb
+	 VdP9JlTRZw5Nv1sxN0netJ+uzxVN8DYKA28mKvvXqbg4KpuE/ZApE63HNeHtt2HBIq
+	 ycqPZg7mcWFEcKfWdBmx7d9gcjRfIUI19VRBPpntkrtS0XFyWaYDjCmIUTQ+IOkQhE
+	 evGFgKm2IL/lxYdXl3j8eMbaUPdmgVqNbP2V+gytI/90fWDHfUlKVGycB8XVH8dCgI
+	 IbSCdJU4YQa1H5sFJsT28bQOW7IqcAI/BhIfhiuEbxPv6HASMT4mktx74rjlTlOXfW
+	 JmwiENSxD1ldw==
+From: "Rafael J. Wysocki" <rafael@kernel.org>
+To: Linux ACPI <linux-acpi@vger.kernel.org>
+Cc: LKML <linux-kernel@vger.kernel.org>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Subject: [PATCH v1] ACPI: glue: Reduce debug noise from acpi_device_notify()
+Date: Fri, 04 Sep 2026 14:55:03 +0200
+Message-ID: <2868233.mvXUDI8C0e@rafael.j.wysocki>
+Organization: Linux Kernel Development - Intel
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="UTF-8"
 
-From: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
+From: "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>
 
-The Renesas RZ/G3S I3C pins can be powered at either 1.8V or 1.2V. The
-pin controller provides a register to select between these two options.
-Update the Renesas RZ/G2L pin controller driver to allow selecting the
-I3C power source on RZ/G3S SoC.
+When debug is enabled in the ACPI glue code that handles binding
+devices to ACPI companions, acpi_device_notify() produces a lot of
+message noise related to devices that have no ACPI companions.
 
-Tested-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
-Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
-Signed-off-by: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
+Reduce that noise by checking the most obvious cases, ACPI device
+objects and devices without a bus type, directly and returning from
+acpi_device_notify() in these cases without printing any debug
+messages.
+
+Also make the debug messages that get printed more informative and
+change the format prefix to "ACPI/glue", so it is easier to filter
+these messages.
+
+Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
 ---
+ drivers/acpi/glue.c |   34 ++++++++++++++++++++--------------
+ 1 file changed, 20 insertions(+), 14 deletions(-)
 
-Changes in v7:
-- collected tags
-
-Changes in v6:
-- used bit 23 to define PIN_CFG_IO_VMC_I3C
-- described the I3C power sources according to the new method; due
-  to this didn't collect the Wolfram's Tb tag.
-
-Changes in v5:
-- due to patch 3 from this series:
--- dropped the definitions for PVDD_I3C_1200, PVDD_I3C_1800
--- dropped available_i3c_ps[] array and fill everything in available_ps[]
--- dropped the adjustments from rzg2l_pwr_reg_val_to_ps() and
-   rzg2l_ps_to_pwr_reg_val(), rzg2l_ps_is_supported() and
-   rzg2l_pinctrl_pinconf_set()
--- dropped the tags
-
-Changes in v4:
-- none
-
-Changes in v3:
-- collected tags
-
-Changes in v2:
-- none
-
- drivers/pinctrl/renesas/pinctrl-rzg2l.c | 30 +++++++++++++++++++++++++
- 1 file changed, 30 insertions(+)
-
-diff --git a/drivers/pinctrl/renesas/pinctrl-rzg2l.c b/drivers/pinctrl/renesas/pinctrl-rzg2l.c
-index 6696e32909c3..9bf3743dc1ce 100644
---- a/drivers/pinctrl/renesas/pinctrl-rzg2l.c
-+++ b/drivers/pinctrl/renesas/pinctrl-rzg2l.c
-@@ -70,6 +70,7 @@
- #define PIN_CFG_PVDD1833_OTH_ISO_POC	BIT(20) /* known on RZ/G3L only */
- #define PIN_CFG_WDTOVF_N_POC		BIT(21) /* known on RZ/G3L only */
- #define PIN_CFG_IO_VMC_SD2		BIT(22) /* known on RZ/G3L only */
-+#define PIN_CFG_IO_VMC_I3C		BIT(23)
- 
- #define RZG2L_SINGLE_PIN		BIT_ULL(63)	/* Dedicated pin */
- #define RZG2L_VARIABLE_CFG		BIT_ULL(62)	/* Variable cfg for port pins */
-@@ -256,6 +257,7 @@ static const struct pin_config_item renesas_rzv2h_conf_items[] = {
-  * @oen: OEN register offset
-  * @qspi: QSPI register offset
-  * @other_poc: OTHER_POC register offset
-+ * @i3c_set: I3C_SET register offset
+--- a/drivers/acpi/glue.c
++++ b/drivers/acpi/glue.c
+@@ -6,7 +6,7 @@
+  * Copyright (c) 2005 Intel Corp.
   */
- struct rzg2l_register_offsets {
- 	u16 pwpr;
-@@ -265,6 +267,7 @@ struct rzg2l_register_offsets {
- 	u16 oen;
- 	u16 qspi;
- 	u16 other_poc;
-+	u16 i3c_set;
- };
  
- /**
-@@ -272,6 +275,7 @@ struct rzg2l_register_offsets {
-  * @other_poc_pvdd1833_oth_awo_poc: PVDD1833_OTH_AWO_POC mask
-  * @other_poc_pvdd1833_oth_iso_poc: PVDD1833_OTH_ISO_POC mask
-  * @other_poc_wdtovf_n_poc: WDTOVF_N_POC mask
-+ * @i3c_set_poc: I3C_SET_POC mask
-  */
- struct rzg2l_register_masks {
- 	union {
-@@ -281,6 +285,11 @@ struct rzg2l_register_masks {
- 			u8 other_poc_pvdd1833_oth_iso_poc;
- 			u8 other_poc_wdtovf_n_poc;
- 		};
+-#define pr_fmt(fmt) "ACPI: " fmt
++#define pr_fmt(fmt) "ACPI/glue: " fmt
+ 
+ #include <linux/acpi_iort.h>
+ #include <linux/export.h>
+@@ -354,22 +354,33 @@ void acpi_device_notify(struct device *d
+ 	struct acpi_device *adev;
+ 	int ret;
+ 
++	/* ACPI devices have no ACPI companions. */
++	if (dev->bus == &acpi_bus_type)
++		return;
 +
-+		/* RZ/G3S masks */
-+		struct {
-+			u8 i3c_set_poc;
-+		};
- 	};
- };
+ 	ret = acpi_bind_one(dev, NULL);
+ 	if (ret) {
+-		struct acpi_bus_type *type = acpi_get_bus_type(dev);
+-
+-		if (!type)
+-			goto err;
++		struct acpi_bus_type *type;
  
-@@ -394,6 +403,7 @@ struct rzg2l_pinctrl_pin_settings {
-  * @oen: Output Enable register cache
-  * @other_poc: OTHER_POC register cache
-  * @qspi: QSPI registers cache
-+ * @i3c_set: I3C_SET register cache
-  */
- struct rzg2l_pinctrl_reg_cache {
- 	u8	*p;
-@@ -413,6 +423,7 @@ struct rzg2l_pinctrl_reg_cache {
- 	u8	oen;
- 	u8	other_poc;
- 	u8	qspi;
-+	u8	i3c_set;
- };
- 
- struct rzg2l_pinctrl {
-@@ -501,6 +512,10 @@ static const struct rzg2l_pinctrl_ps_desc available_ps[] = {
- 	RZG2L_PINCTRL_PS_DESC(1800, 1, PIN_CFG_WDTOVF_N_POC, RZG2L_IOLH_IDX_1V8),
- 	RZG2L_PINCTRL_PS_DESC(3300, 0, PIN_CFG_WDTOVF_N_POC, RZG2L_IOLH_IDX_3V3),
- 
-+	/* I3C I/O voltage domains */
-+	RZG2L_PINCTRL_PS_DESC(1200, 1, PIN_CFG_IO_VMC_I3C, RZG2L_IOLH_IDX_NA),
-+	RZG2L_PINCTRL_PS_DESC(1800, 0, PIN_CFG_IO_VMC_I3C, RZG2L_IOLH_IDX_NA),
++		/* Skip devices without bus types. */
++		if (!dev->bus)
++			return;
 +
- 	/* Software voltage domains */
- 	RZG2L_PINCTRL_PS_DESC(1800, 0, PIN_CFG_SOFT_PS, RZG2L_IOLH_IDX_1V8),
- 	RZG2L_PINCTRL_PS_DESC(2500, 0, PIN_CFG_SOFT_PS, RZG2L_IOLH_IDX_2V5),
-@@ -1199,6 +1214,11 @@ static int rzg2l_caps_to_pwr_reg(const struct rzg2l_register_offsets *regs,
- 			*mask = masks->other_poc_wdtovf_n_poc;
- 		return 0;
- 	}
-+	if (caps & PIN_CFG_IO_VMC_I3C) {
-+		*offset = regs->i3c_set;
-+		*mask = masks->i3c_set_poc;
-+		return 0;
-+	}
- 
- 	return -EINVAL;
++		type = acpi_get_bus_type(dev);
++		if (!type) {
++			dev_dbg(dev, "No matching ACPI bus type description\n");
++			return;
++		}
+ 		adev = type->find_companion(dev);
+ 		if (!adev) {
+ 			dev_dbg(dev, "ACPI companion not found\n");
+-			goto err;
++			return;
+ 		}
+ 		ret = acpi_bind_one(dev, adev);
+-		if (ret)
+-			goto err;
+-
++		if (ret) {
++			dev_dbg(dev, "Binding to ACPI companion failed\n");
++			return;
++		}
+ 		if (type->setup) {
+ 			type->setup(dev);
+ 			goto done;
+@@ -391,11 +402,6 @@ void acpi_device_notify(struct device *d
+ done:
+ 	acpi_handle_debug(ACPI_HANDLE(dev), "Bound to device %s\n",
+ 			  dev_name(dev));
+-
+-	return;
+-
+-err:
+-	dev_dbg(dev, "No ACPI support\n");
  }
-@@ -2570,6 +2590,8 @@ static const struct rzg2l_dedicated_configs rzg3s_dedicated_pins[] = {
- 	{ "AUDIO_CLK1", RZG2L_SINGLE_PIN_PACK(0x2, 0, PIN_CFG_IEN) },
- 	{ "AUDIO_CLK2", RZG2L_SINGLE_PIN_PACK(0x2, 1, PIN_CFG_IEN) },
- 	{ "WDTOVF_PERROUT#", RZG2L_SINGLE_PIN_PACK(0x6, 0, PIN_CFG_IOLH_A | PIN_CFG_SOFT_PS) },
-+	{ "I3C_SDA", RZG2L_SINGLE_PIN_PACK(0x9, 0, (PIN_CFG_IEN | PIN_CFG_IO_VMC_I3C)) },
-+	{ "I3C_SCL", RZG2L_SINGLE_PIN_PACK(0x9, 1, (PIN_CFG_IEN | PIN_CFG_IO_VMC_I3C)) },
- 	{ "SD0_CLK", RZG2L_SINGLE_PIN_PACK(0x10, 0, (PIN_CFG_IOLH_B | PIN_CFG_IO_VMC_SD0)) },
- 	{ "SD0_CMD", RZG2L_SINGLE_PIN_PACK(0x10, 1, (PIN_CFG_IOLH_B | PIN_CFG_IEN |
- 						     PIN_CFG_IO_VMC_SD0)) },
-@@ -3792,6 +3814,8 @@ static int rzg2l_pinctrl_suspend_noirq(struct device *dev)
- 	cache->oen = readb(pctrl->base + pctrl->data->hwcfg->regs.oen);
- 	if (regs->other_poc)
- 		cache->other_poc = readb(pctrl->base + regs->other_poc);
-+	if (regs->i3c_set)
-+		cache->i3c_set = readb(pctrl->base + regs->i3c_set);
  
- 	if (pctrl->syscon) {
- 		int ret;
-@@ -3834,6 +3858,8 @@ static int rzg2l_pinctrl_resume_noirq(struct device *dev)
- 		writeb(cache->qspi, pctrl->base + regs->qspi);
- 	if (regs->other_poc)
- 		writeb(cache->other_poc, pctrl->base + regs->other_poc);
-+	if (regs->i3c_set)
-+		writeb(cache->i3c_set, pctrl->base + regs->i3c_set);
- 
- 	raw_spin_lock_irqsave(&pctrl->lock, flags);
- 	rzg2l_oen_write_with_pwpr(pctrl, cache->oen);
-@@ -3950,8 +3976,12 @@ static const struct rzg2l_hwcfg rzg3s_hwcfg = {
- 		.pwpr = 0x3000,
- 		.sd_ch = 0x3004,
- 		.eth_poc = 0x3010,
-+		.i3c_set = 0x301c,
- 		.oen = 0x3018,
- 	},
-+	.masks = {
-+		.i3c_set_poc = BIT(2),
-+	},
- 	.iolh_groupa_ua = {
- 		/* 1v8 power source */
- 		[RZG2L_IOLH_IDX_1V8] = 2200, 4400, 9000, 10000,
--- 
-2.43.0
+ void acpi_device_notify_remove(struct device *dev)
+
+
 
