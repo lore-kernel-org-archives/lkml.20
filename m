@@ -1,33 +1,33 @@
 Received: from smtpout.efficios.com (smtpout.efficios.com [158.69.130.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AFF83E5A07
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 16:07:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 604E249B1E8
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 16:07:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=158.69.130.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788538082; cv=none; b=EWhW1+x03QS6/ABXvfKExKaxvsXY+S6yJYJ3XQsl+YMi3GvPt7jPxeayLEgTlCzNIlxHmaSfpMXaR6Ih3bW5pRcFduC7D3LUAqfg0qF1rzGtD04703E+iQBc2bn78BucrYkpfC52oeDRuhq6zF/jwZelWrqp6dLiSec7u7H4yio=
+	t=1788538084; cv=none; b=fdbFYaFbv6wJps9UKocf2ZaGU5TSZr6XivoeLuBv6H2/DmNhNEAXkU1DVyfsXVBFPTQ8g4Udo4JT4Er4f17JMPve3iW62NZI6BzfnLti/tVpPhTZDuAkBoCKr/u5szS7ibv7xDuGPkDGXNEgLX8yxZUbeATXAMzqYYJ4LrLShlg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788538082; c=relaxed/simple;
-	bh=FRBzQuF9NKvbTxzaWx4pzpaKcPAZeQr1CV0FO/0Fhpg=;
+	s=arc-20240116; t=1788538084; c=relaxed/simple;
+	bh=vUk2Qy+wWuwkPKXrWW5oqDWUEunpPdYcZyIzmWzLvHQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=FZlEwqUgs8Ly6axnkw+K6S2niG8D25Bb6ALd7QmkHyBF6+wgOeHApiYuhmQ7cFZgw63MZnSbTMbpFOZlzOEnRyhHQMAJBUbs52i1Z2nqQ4YaUyAIeuRRERiE1QSTGvJgHpSX7ZLbTGABUqWR2ut6bHUhA9vnHPf4eeCF/IYdRlQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=efficios.com; spf=pass smtp.mailfrom=efficios.com; dkim=pass (2048-bit key) header.d=efficios.com header.i=@efficios.com header.b=iAI7MDjK; arc=none smtp.client-ip=158.69.130.18
+	 MIME-Version; b=HgzxXkQHeB+em0dNxUoe9dFvs3OZ0jWw9vorCztOnCVTnab+QlpywC5wgsfkmV0cNHnMGTvMYJfCZwQKgmRLDmfI2vN86YroPhXeFHovvmNUR92Kyz99tmhLhGCj9Qqim8X/zrsg8PuSnklWmLCgNcKUteJE7AckgpjWTZZI/tc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=efficios.com; spf=pass smtp.mailfrom=efficios.com; dkim=pass (2048-bit key) header.d=efficios.com header.i=@efficios.com header.b=u41Mh3jE; arc=none smtp.client-ip=158.69.130.18
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=efficios.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=efficios.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=efficios.com header.i=@efficios.com header.b="iAI7MDjK"
+	dkim=pass (2048-bit key) header.d=efficios.com header.i=@efficios.com header.b="u41Mh3jE"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=efficios.com;
 	s=smtpout1; t=1788538058;
-	bh=Tup5QvhrUxBuHbOp/mUBjVWrl1apXEgoVpX9q/lsPY8=;
+	bh=f61pjVNcG3vfV4ruWkC/0g9a79TuVBC5x25qutrEOrw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=iAI7MDjKfQGX3aAx+Rv3MxGlwtRFZ3Q7uJJnX/myA4eyvbhkxvesBifrbSflySDKc
-	 qtfTvjE/PtSh/PiLzn6BXZmhyUq08ouLgs4IhSv8U5jkZp5uIbl/bYTIyuGJcBZydY
-	 wWIRzX9MxfPtbmjfmk7o3nanb2aBY3kQ+Q2TMgorh4b8Ad+WaZ/XnQ5kWqS072icfc
-	 AQCO8nUlCP94jI4O3VTtUWAJadMaOi7OHemMo8/aObgKGDKL2ontawa/yYgUxFZGQd
-	 F9xqcYpzfa4XaHL0p9d11yI26EWY8CEGEbfSxYdGbBA+2kRfm9jO6twR58jzAmpgYs
-	 L5SAfK70Ou0Ng==
+	b=u41Mh3jEJRteYmwrd/a6v5pGZjWY66A+h8ipRzrmzS3bE2DGea24bwVQTv/7LmmnP
+	 5jdwHYRjYfuTMJTkWkcdSUiYquVshrj5KNIbsFdDpAGxIm67v3HqzwTYBOlNW5CqeT
+	 H+jDSf1VbWmEF1odRRacFujOa1TEP8CVcqMX9gLgN1/oMHHI4YVPxvIDfUQRVHZy8P
+	 0wwbWkTGHByec34uO88Kq9m4bj6ORAL74aDmWok6qzSLF1l12ORYa54kCd5TMWDcrp
+	 CQ7xLAgUhYcjnxoCAAyV+TBGUp+KNJlfzNEf3HrW+oJuWPW+K+nyM3y5S/RHoigJTS
+	 vTrJw3/XHN9wA==
 Received: from compudjdev.. (mtl.efficios.com [216.120.195.104])
-	by smtpout.efficios.com (Postfix) with ESMTPSA id 4hc1Zf19WkzWWX;
+	by smtpout.efficios.com (Postfix) with ESMTPSA id 4hc1Zf2MC5zXNR;
 	Fri, 04 Sep 2026 12:07:38 -0400 (EDT)
 From: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
 To: Andrew Morton <akpm@linux-foundation.org>
@@ -66,9 +66,9 @@ Cc: linux-kernel@vger.kernel.org,
 	David Carlier <devnexen@gmail.com>,
 	Josh Law <objecting@objecting.org>,
 	linux-mm@kvack.org
-Subject: [PATCH v22 06/10] lib: inline percpu_counter_tree_items_size with boot-safety sentinel
-Date: Fri,  4 Sep 2026 12:07:18 -0400
-Message-ID: <20260904160734.23445-7-mathieu.desnoyers@efficios.com>
+Subject: [PATCH v22 07/10] lib/hpcc: Document that accuracy is a property of settled counters
+Date: Fri,  4 Sep 2026 12:07:19 -0400
+Message-ID: <20260904160734.23445-8-mathieu.desnoyers@efficios.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260904160734.23445-1-mathieu.desnoyers@efficios.com>
 References: <20260904160734.23445-1-mathieu.desnoyers@efficios.com>
@@ -80,25 +80,15 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Replace the out-of-line percpu_counter_tree_items_size() function with a
-static inline that loads the __ro_after_init variable
-__percpu_counter_tree_items_size directly. This eliminates a function
-call on paths that compute mm_struct flexible array layout offsets.
+Answer a report from Sashiko at:
+https://sashiko.dev/#/patchset/20260901182857.26690-1-mathieu.desnoyers@efficios.com
 
-Initialize the variable to SIZE_MAX as a sentinel value, and add a
-WARN_ON_ONCE check in the inline accessor to catch any accidental use
-before percpu_counter_tree_subsystem_init() sets the real value based on
-nr_cpu_ids. An early misuse would produce an absurd offset that triggers
-the warning with a stack trace pointing at the offending caller, rather
-than silently computing wrong memory offsets.
+This change is documentation only. The bound describes a settled tree;
+the two-counter comparisons read their operands independently. No code
+change.
 
-percpu_counter_tree_subsystem_init() sets the variable to the runtime
-value immediately after deriving counter_config from nr_cpu_ids,
-before calculate_accuracy_topology(). After boot, __ro_after_init moves
-the variable into read-only memory.
-
-On !CONFIG_SMP, the existing inline returning 0 is unchanged and
-requires no sentinel.
+I considered and rejected the preempt_disable() proposed by Sashiko and
+an alternative dual pre/post counters design.
 
 Signed-off-by: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
 Cc: "Paul E. McKenney" <paulmck@kernel.org>
@@ -136,82 +126,85 @@ Cc: Josh Law <objecting@objecting.org>
 Cc: Andrew Morton <akpm@linux-foundation.org>
 Cc: linux-mm@kvack.org
 ---
- include/linux/percpu_counter_tree.h | 19 ++++++++++++++++++-
- lib/percpu_counter_tree.c           | 24 ++++++++----------------
- 2 files changed, 26 insertions(+), 17 deletions(-)
+ Documentation/core-api/percpu-counter-tree.rst |  4 ++++
+ include/linux/percpu_counter_tree.h            | 10 +++++++---
+ lib/percpu_counter_tree.c                      |  6 ++++--
+ 3 files changed, 15 insertions(+), 5 deletions(-)
 
+diff --git a/Documentation/core-api/percpu-counter-tree.rst b/Documentation/core-api/percpu-counter-tree.rst
+index 196da056e7b4..bb13e28bef11 100644
+--- a/Documentation/core-api/percpu-counter-tree.rst
++++ b/Documentation/core-api/percpu-counter-tree.rst
+@@ -43,6 +43,10 @@ This allows reading an approximated value at the root, which has a
+ bounded accuracy (minimum/maximum possible precise sum range) determined
+ by the tree topology.
+ 
++The bounded accuracy is a property of the settled tree. While updates are
++in flight the transient error can exceed it, bounded by the number of
++updaters and their increment size.
++
+ Use Cases
+ =========
+ 
 diff --git a/include/linux/percpu_counter_tree.h b/include/linux/percpu_counter_tree.h
-index 3e8a820e2d1d..4095acdc879b 100644
+index 4095acdc879b..d593806b4ab2 100644
 --- a/include/linux/percpu_counter_tree.h
 +++ b/include/linux/percpu_counter_tree.h
-@@ -101,7 +101,24 @@ struct percpu_counter_tree {
- 	} approx_accuracy_range;
- };
- 
--size_t percpu_counter_tree_items_size(void);
-+extern size_t __percpu_counter_tree_items_size __ro_after_init;
-+
-+/*
-+ * percpu_counter_tree_items_size - Query the size required for counter tree items.
-+ *
-+ * Query the size of the memory area required to hold the counter tree
-+ * items. This depends on the hardware topology and is invariant after
-+ * boot.
-+ *
-+ * Return: Size required to hold tree items.
-+ */
-+static inline
-+size_t percpu_counter_tree_items_size(void)
-+{
-+	WARN_ON_ONCE(__percpu_counter_tree_items_size == SIZE_MAX);
-+	return __percpu_counter_tree_items_size;
-+}
-+
- int percpu_counter_tree_init_many(struct percpu_counter_tree *counters, struct percpu_counter_tree_level_item *items,
- 				  unsigned int nr_counters, unsigned long batch_size, gfp_t gfp_flags);
- int percpu_counter_tree_init(struct percpu_counter_tree *counter, struct percpu_counter_tree_level_item *items,
+@@ -93,7 +93,8 @@ struct percpu_counter_tree {
+ 	 * The "under" accuracy is larger than the "over" accuracy because the negative range of a
+ 	 * two's complement signed integer is one unit larger than the positive range. This delta
+ 	 * is summed for each tree item, which leads to a significantly larger "under" accuracy range
+-	 * compared to the "over" accuracy range.
++	 * compared to the "over" accuracy range. The accuracy range is a bound on a settled counter:
++	 * one with no update in progress.
+ 	 */
+ 	struct {
+ 		unsigned long under;
+@@ -169,6 +170,8 @@ long percpu_counter_tree_approximate_sum(struct percpu_counter_tree *counter)
+  * slightly larger than the "over" range.
+  * Those values are derived from the hardware topology and the counter tree batch size.
+  * They are invariant for a given counter tree.
++ * The bounds describe a settled counter: one with no update in progress.
++ * An update in flight between its per-CPU increment and its carry propagation is not covered.
+  * Using this function should not be typically required, see the following functions instead:
+  * * percpu_counter_tree_approximate_compare(),
+  * * percpu_counter_tree_approximate_compare_value(),
+@@ -341,8 +344,9 @@ long percpu_counter_tree_precise_sum_positive(struct percpu_counter_tree *counte
+  * @precise_min: Minimum possible value for precise sum (output).
+  * @precise_max: Maximum possible value for precise sum (output).
+  *
+- * Calculate the minimum and maximum precise values for a given
+- * approximation and (under, over) accuracy range.
++ * Calculate the minimum and maximum precise values for a given approximation
++ * and (under, over) accuracy range. The accuracy range is a bound on a settled
++ * tree: one with no update in progress.
+  *
+  * The range of the approximation as a function of the precise sum is expressed as:
+  *
 diff --git a/lib/percpu_counter_tree.c b/lib/percpu_counter_tree.c
-index 5c8fc2dcdc16..cfa5b04e05d7 100644
+index cfa5b04e05d7..cd71581f56bb 100644
 --- a/lib/percpu_counter_tree.c
 +++ b/lib/percpu_counter_tree.c
-@@ -653,22 +653,9 @@ void percpu_counter_tree_set(struct percpu_counter_tree *counter, long v)
- }
- EXPORT_SYMBOL_GPL(percpu_counter_tree_set);
- 
--/*
-- * percpu_counter_tree_items_size - Query the size required for counter tree items.
-- *
-- * Query the size of the memory area required to hold the counter tree
-- * items. This depends on the hardware topology and is invariant after
-- * boot.
-- *
-- * Return: Size required to hold tree items.
-- */
--size_t percpu_counter_tree_items_size(void)
--{
--	if (!nr_cpus_order)
--		return 0;
--	return counter_config->nr_items * sizeof(struct percpu_counter_tree_level_item);
--}
--EXPORT_SYMBOL_GPL(percpu_counter_tree_items_size);
-+/* Initialize to SIZE_MAX to catch early boot misuses. */
-+size_t __percpu_counter_tree_items_size __ro_after_init = SIZE_MAX;
-+EXPORT_SYMBOL_GPL(__percpu_counter_tree_items_size);
- 
- static void __init calculate_accuracy_topology(void)
- {
-@@ -697,6 +684,11 @@ int __init percpu_counter_tree_subsystem_init(void)
- 		return -1;
- 	}
- 	counter_config = &per_nr_cpu_order_config[nr_cpus_order];
-+	if (!nr_cpus_order)
-+		__percpu_counter_tree_items_size = 0;
-+	else
-+		__percpu_counter_tree_items_size = counter_config->nr_items *
-+			sizeof(struct percpu_counter_tree_level_item);
- 	calculate_accuracy_topology();
- 	return 0;
- }
+@@ -483,7 +483,8 @@ int compare_delta(long delta, unsigned long accuracy_neg, unsigned long accuracy
+  * answer if the counters are found to be either less than or greater
+  * than the other. However, if the approximated comparison returns
+  * 0, the counters respective sums are found to be within the two
+- * counters accuracy range.
++ * counters accuracy range. The two counters are read independently;
++ * the result is not an atomic snapshot of both.
+  *
+  * Return:
+  * * %0		- Counters @a and @b do not differ by more than the sum of their respective
+@@ -532,7 +533,8 @@ EXPORT_SYMBOL_GPL(percpu_counter_tree_approximate_compare_value);
+  * As an optimization, it uses the approximate counter comparison
+  * to quickly compare counters which are far apart. Only cases where
+  * counter sums are within the accuracy range require precise counter
+- * sums.
++ * sums. The two counters are read independently; the result is not an
++ * atomic snapshot of both.
+  *
+  * Return:
+  * * %0		- Counters are equal.
 -- 
 2.43.0
 
