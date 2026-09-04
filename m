@@ -1,63 +1,63 @@
-Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com [209.85.214.177])
+Received: from mail-pl1-f180.google.com (mail-pl1-f180.google.com [209.85.214.180])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7226745199D
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 12:09:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.177
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D12F47426F
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 12:09:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.180
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788523746; cv=none; b=QfD41AXBOReClXBQURsG0pIfayXR0kdEr2jWGEi2DcDVHla8/5tvPE5xrj9AorXNFq01qxCHh47xnVA/19SS0IWT4toGK88j6JgxZB2WT42CD4c+4/aN9X2uzl1SXMzdyJ+VGFKto5JKJrHko61FQa6GtrBrvOVL4NsFefsrMvk=
+	t=1788523751; cv=none; b=Mw8VmGVG5+MKRcVbT64c7l6zBzjn+h9yqMW2lxtAXULQGjI4ojqbjBE/IJAZDJJbzlRYdIR2vlVRrzsMkxJW4uI1nB+jpfZgmF/0izl2FSq22exiNx6kiMlyAQWfu+pewROix6Gs6gFv17tSdIsYiANfNux92iVS19MFtwyh75s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788523746; c=relaxed/simple;
-	bh=NcXwWXmhVjryGEnQr581Nhv6ZM+emy6UqygPrXp1ruw=;
+	s=arc-20240116; t=1788523751; c=relaxed/simple;
+	bh=QDbW+PP7RmEGFUx5i7K/d9Z75hrQRBhakSjU3DZDJmk=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=qXH+788DvrnndoAuwPNgbsej+IgbXIi/mz1Tn9/Vt3rAwI8z4FiCD9R2JvjSljKxH5ARI1dIBtrqNZcbAda7pRN/m2tdTN/54M/UF94YgP7ivkfGeO7Jwxn6Ulpu3Llj/xDMDwpik0k/hC8Wwch1t/zEq2ipeewfh57BRysYseU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Zu088o7/; arc=none smtp.client-ip=209.85.214.177
+	 MIME-Version; b=FYDydx6Pc6uNznHY+LmMZIaEnKnwYGjmYq4niLtQmPc/X23V0tK5BliFQ7oGfFJT4l4yiCWeAOrPpPS4mx3iG3cZ4qDbA/Mn7k9tjsKFQlIiUepYAUEOwi483tlSdeDZ+gsDKARPDVJtRBL4tHYum3WRrAhFASTiAUIbixRuemQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=folFgJRo; arc=none smtp.client-ip=209.85.214.180
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Zu088o7/"
-Received: by mail-pl1-f177.google.com with SMTP id d9443c01a7336-2d9b60c652aso10614295ad.1
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 05:09:05 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="folFgJRo"
+Received: by mail-pl1-f180.google.com with SMTP id d9443c01a7336-2d6efd73032so17610985ad.0
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 05:09:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788523745; x=1789128545; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1788523748; x=1789128548; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=IQCIgSCuNjJ7y5qzvIFZL3CGDF0zKBh+R98GPUNlTOY=;
-        b=Zu088o7/modtFtpjeXoSKGMun73FoZ//8Pjutg1AWnnAexiRnfVZPmUCDawHiAHJkU
-         OTHW1eVQfGsurO2RzO7It9ORvM3/INufMlNqC5HzViKOdCMlttmaKu90H0iip9osCVy/
-         Gdo2YDhL0Xm6u9G7k9BD3J1esx8xEzWbiy2gaI3BW9GJYJJDXMtflZhmOf3tS5UKy4i2
-         6Z701hjj+ifcOZvbUCTZtTZYJ77M8Cczr2WoRfY3XMWUZO0fkVWPU8f83vzyR5mobPxx
-         vAjKCn/1uovJm3H1ZE0JMBKrgEug/hTjEg+pGD0bkJOqhmkqiMN7W6oAMmeD18wnbh/B
-         OWpA==
+        bh=Bi/TyPhd7e1pxmGeouC4FIAlsi+yXBXw89IpRah4BD0=;
+        b=folFgJRoHzimU0LTR5b9uuQJQXfJy589U133D8FwiFPM33vd6/7crtLxErJPIrJTIy
+         3gUXanVT5rqMu+zHHNL2NleQUu4qwKmBRSr89n7kSwZvrTEarE6GiwoBj51Eq53ieH0N
+         aGDU18naaLZsUiekxXjA4IoNF1rQH6dQrbC6HzT67ddYdAq4ktlRJ8aMR+IDJBTa0Wk/
+         9Vbwe1lg4rrR/thWjJBTR2+dgc/qRggWq0Fr7LyUQWxrwN5BOBS3zhlvpOPzfeTBqK/P
+         vQYu5yFBw0o1sTJnhFg6PYdGw3uB/pJkFxMJiTaXEFeYYFn3PpSz2zj/uwBBAkhA4jGf
+         Xegg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788523745; x=1789128545;
+        d=1e100.net; s=20251104; t=1788523748; x=1789128548;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=IQCIgSCuNjJ7y5qzvIFZL3CGDF0zKBh+R98GPUNlTOY=;
-        b=kp/m2p4iDCaMRIevKNR9JlGeEdHJxqLvKQc3l5MoaXusZm2K1zkeXfOJTVe+leCm6z
-         2qlSmupHEquBZFlr9mJBkqlxMJ+wXEWartIlVyHC/bOD+u1OnnGacllQMqXhndMMxWPE
-         pDPmNt60oKFEoZ8c+jry91yefQOYffo3ySGJZUOGxw4RCiIgF9qJPsWOrDj7fOughvg3
-         ucjR9aITGUGea65g7jFnjCAkVqMS91Z8wJ6p6IsckyKXCHqqlvjRzOTzcyjw0xHn93X7
-         2Gb2mmyHkyyxhONdOo6xQM7H5atdXp2fL1GOUdpOUU4GXFOXqPkxPGdGkXjAKVg3XBY4
-         sK8A==
-X-Gm-Message-State: AFuF++lj0lwjcN/r1u3gXvM8hZ+Vq8PCIVysGOcsptPvycmHpwDg4PDv
-	XE0EI6aG3DyRccInXCFNYn9YnK7QKzKmhSEB43NdSO3hRGop18qG/mwFZjQUo1hamwE=
-X-Gm-Gg: AYBFou33UPYZbgYzWToLEqyMo5NquWGK4E6nQ2INxYY99Qg/e7eickw9Mld+SvWDf9c
-	pA7woey74Yl1RP0OJ181HHE5HgaXySmqtdsI1i1a5Pss2CDV5ZqHKuX87sRcyE6zmOFsAuVsa+3
-	3cnn5g4PY+WNR3wI2FNee1XvzGIWyRYkCoUTb31LBiqaxBaTPT0+hOeP1jwKpS7qBx2ogwL6IJL
-	X0okuxst8Qa7T9HcWv3blr9qtJcjwSsWi0JDn4ft9fIUhmlXqbeXRI/uinIpR7dOQw7qCNPSNev
-	4Sn89QVwdUxoi2LE+orBcsRO27UjYTxCtTkDGZ3e6EHfgKfHZjxGAuCt/gqTw9nR65Q/gbYhQaV
-	V8DYeSjRl0A4q5FxF9Ua68Et2xpa7HogbkCWNyCtdUmflv73VpVsUQs6kJZBwFHHTEwGLxsMTnv
-	UPaDCxptivRks/vH/ijATiDOr8v5HMEoz8nDojdKOWrVxr5Sk2G/DEpVr1Dnln+nL88EaLwD6Lg
-	paESI+k200++z8=
-X-Received: by 2002:a17:90b:57cd:b0:398:c150:e7b3 with SMTP id 98e67ed59e1d1-39b2609f356mr9550298a91.4.1788523744553;
-        Fri, 04 Sep 2026 05:09:04 -0700 (PDT)
+        bh=Bi/TyPhd7e1pxmGeouC4FIAlsi+yXBXw89IpRah4BD0=;
+        b=E5r8dRgnrJvd8qTOGRwTx+zMtoC4w8xtB/HLLuyylVooEebA93BwxXtstpgrCDcrkC
+         Zxlx86lbxbr8T7fm+krqnlUzp2CpTl65nS3cjz5QNZIokssSae9xnwEYYJogMbhCELb/
+         FXcy0a1/yNxDcHPUk0Qjv9+3Fa06J+M0R9xmDNEftwlxMiPaHqgKrhW2F/aImqI5C27U
+         ennc7A4uQYynaEMmWbpC5Vcx299NhnwVwvGekunMlgI1CkHTKGDI+tag0JL4gSiEob8F
+         eQBjct8/mrp+Kck3yHvXWR6bcvgoN3ulA+5h33yyP9PHIriWen4fmexnWK/0PEkBH4j/
+         2OQA==
+X-Gm-Message-State: AFuF++my/L1acpwRtlQWtmX7cLYcfOK+udv8/HnVJRAzUc/HdmdNDI4L
+	bRpP9tc7zknKK8SKQq8L8N64QzDh1DQc5ifOGEP5dARqH6q0rZfAuzGW
+X-Gm-Gg: AYBFou1a6KrPwO4F5e0pzhtTShYhOdOB62ZIlLsHO3fwiV9LvntU9X4RzbiBWaZ7pUz
+	7qq9ZJTpQw/toHw24YwRk5+e1OuT2Bvc3wLH9muikZ6PBlgRgGta/NI5ThkLq1j2eycYd9ATu1T
+	587HJuwbK8JlTpjkepq3k1IbJpUYYb6/9BXsih2XzsrD9BBcTbQ1whisHwyHlS0qQhrt8jfxMze
+	z+vrDNOiWSUwCpUkeYkBrXVc0juwvzrmOP7LatnW7MqJGcx0GwIyxCi1grwskIHqZHxlqaebneW
+	fAk1WziCQlKATvkvpxq6PDBZw5LIL43ZIqOPpI0B/mGX36WrO/jj0myDkOeK0n7ESARFhsOgKIs
+	0prBMC9d1c23DCzQ1svZwWOAgsgdG+AJJAZz2CqvUBDqfQ61q+OpY1L2yKDghIH1h6YUxbiu/5y
+	VyKpkljPxRdO6E/oROgI9KeA/XgIzn/48aLUFFC/upJWFk7Iy7Zhz+FngAUtFub9Ab8cGLMtAEP
+	lRBxpmxtnXyiKA=
+X-Received: by 2002:a17:90b:2e46:b0:38f:a81:15b1 with SMTP id 98e67ed59e1d1-39b08653554mr16439244a91.19.1788523748053;
+        Fri, 04 Sep 2026 05:09:08 -0700 (PDT)
 Received: from volcano9f6e-hostos.amd.com ([165.204.217.251])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339a62be87sm5730826eec.6.2026.09.04.05.09.01
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339a62be87sm5730826eec.6.2026.09.04.05.09.05
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 04 Sep 2026 05:09:04 -0700 (PDT)
+        Fri, 04 Sep 2026 05:09:07 -0700 (PDT)
 From: Hemanth Selam <hemanth.selam@gmail.com>
 To: "K. Y. Srinivasan" <kys@microsoft.com>,
 	Haiyang Zhang <haiyangz@microsoft.com>,
@@ -66,9 +66,9 @@ To: "K. Y. Srinivasan" <kys@microsoft.com>,
 	Long Li <longli@microsoft.com>
 Cc: linux-kernel@vger.kernel.org,
 	linux-hyperv@vger.kernel.org
-Subject: [PATCH 1/2] hv: fix typo "substract" in comment
-Date: Fri,  4 Sep 2026 17:38:54 +0530
-Message-ID: <20260904120857.20431-2-hemanth.selam@gmail.com>
+Subject: [PATCH 2/2] tools/hv: fix typo "retrive" in comment
+Date: Fri,  4 Sep 2026 17:38:55 +0530
+Message-ID: <20260904120857.20431-3-hemanth.selam@gmail.com>
 X-Mailer: git-send-email 2.48.1
 In-Reply-To: <20260904120857.20431-1-hemanth.selam@gmail.com>
 References: <20260904120857.20431-1-hemanth.selam@gmail.com>
@@ -80,29 +80,28 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Correct "substract" to "subtract", reported by scripts/checkpatch.pl using
+Correct "retrive" to "retrieve", reported by scripts/checkpatch.pl using
 the misspelling list in scripts/spelling.txt.  Only touches comments, no
 code changes.
 
 Assisted-by: Cursor:claude-opus-5
 Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
 ---
- drivers/hv/channel.c | 2 +-
+ tools/hv/hv_get_dns_info.sh | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/hv/channel.c b/drivers/hv/channel.c
-index f4370617deac..c36ec14529b9 100644
---- a/drivers/hv/channel.c
-+++ b/drivers/hv/channel.c
-@@ -79,7 +79,7 @@ static inline u32 hv_ring_gpadl_send_hvpgoffset(u32 offset)
- 	 * therefore leaving a (PAGE_SIZE - HV_HYP_PAGE_SIZE) gap.
- 	 *
- 	 * And to calculate the effective send offset in gpadl, we need to
--	 * substract this gap.
-+	 * subtract this gap.
- 	 */
- 	return (offset - (PAGE_SIZE - HV_HYP_PAGE_SIZE)) >> HV_HYP_PAGE_SHIFT;
- }
+diff --git a/tools/hv/hv_get_dns_info.sh b/tools/hv/hv_get_dns_info.sh
+index 268521234d4b..288821565eee 100755
+--- a/tools/hv/hv_get_dns_info.sh
++++ b/tools/hv/hv_get_dns_info.sh
+@@ -1,6 +1,6 @@
+ #!/bin/sh
+ 
+-# This example script parses /etc/resolv.conf to retrive DNS information.
++# This example script parses /etc/resolv.conf to retrieve DNS information.
+ # In the interest of keeping the KVP daemon code free of distro specific
+ # information; the kvp daemon code invokes this external script to gather
+ # DNS information.
 -- 
 2.48.1
 
