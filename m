@@ -1,124 +1,148 @@
-Received: from mail-lj1-f181.google.com (mail-lj1-f181.google.com [209.85.208.181])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03F5531197C
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 08:24:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.181
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788510286; cv=pass; b=CP6js+OE6+qeqrjP/nEvVJgQ/84+yvGR6ZzfXVYcHlJxX3QOg3fbJuY8qj6SxQn726I4fwYjUFIWc6Fr2mdYdZAeokkg6TAEBWdqNW4RyZsfFuluL1ScAS4hZdfO2B/BniJ1m+G97hWWiKIVhxz+aJNF/D3a1KsrhTEXvIxULcs=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788510286; c=relaxed/simple;
-	bh=y7sH0qo3GiXsyGYAiNNzndufWc7qUUuBehGgJtjwLPY=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Cnw3xffMPwf5+UuZoW7dO3ZQlyuuO6ysSHuAaAQMcqvKFkilYKW0UOsyZJ59zjwGXQU4aDA1CH0yoO2icOslBg6jGAxDDxZP88K/JNnyvk3C1QeL3tpjx2STAJQg3gk91dzEcv8BhRSv07jUaLb7Lt1HxRazK5+bH/VHgkyK3dA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=btJ+WiKf; arc=pass smtp.client-ip=209.85.208.181
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D7633A1A55;
+	Fri,  4 Sep 2026 08:25:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788510315; cv=none; b=mfKrzbJEwqgvjkGy5IJkj722HSFbRYJ36wvA+PE5QxJuoIuHeURI1UQR+l3QpdEsNkRiKVupm4ioadFni4yfX2V8WaHWHFd2vQTcmMfOlGsuBP3uT49ekuBsRiptdNOoSeg+QilGTtHuTvjExCQ6XllJ6mobFfdDF6H37pICBSE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788510315; c=relaxed/simple;
+	bh=UDPnaDGN0cR9jdX2OcNPa6XVzzHVDqU566S0sdnx58c=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=DMufw3d3qEfI855vWX23Tmj4k3riWteiixM/GsDbWoRHLf1sy8Ymjnc35jIC5WQaIdYBM+fu1RLbvT8kdzo0NFTHaR22uIiFiJBP8N5a4zdNUFdcgIBb3qzCV4LVbhHBd7JX0luMGzsCPkm3LhmSm9KEERxEoRRLrqYyIE+JwSE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jYzhgz46; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="btJ+WiKf"
-Received: by mail-lj1-f181.google.com with SMTP id 38308e7fff4ca-3a20367cf82so7491191fa.1
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 01:24:44 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788510283; cv=none;
-        d=google.com; s=arc-20260327;
-        b=fGghWZN7JXCd4mlBXT0KhXRznRPN2ZrNCQHvTfHGXPcOKjRdQu47bi0TX0OTIx26hV
-         mqcYWTJq5omvxz8m47XuHuSWM332w44IjvS1Sc/RRGDI88bDJAhJ2Kt1OQeH3jaY+9vc
-         2tvZCoszWWkdc39T/4sgeVfF77sglKRTgtnugyb5zSvrTsP9izXiwDCn0ynRsMGUkJZ3
-         Yjykf3NZXqx1Z4wZS2pjZEN4YAlKd8qJ1a+nqsbDGsK2vT0Gz+erjMjzPClmdSTrMsGX
-         40nLYd33vDbJIYFCDje2hifaPLMK5xIFRuTdlvEdMIpzsh/KBDvIBV1xzBYTvzo4HjNU
-         +G5A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=dXb1ScaV1KsEhcA/AL+HD48Eief08Xf8oe+ZEn2sFII=;
-        fh=wqpym5wdywHKX1k4LfSuYEIgziUVveNNjJlYs87qQ4Q=;
-        b=NLHiv9aYeVTOwS8wTF9aWH4cr02odx6sOaJWrmg3MNYCZGy5YMC5Yv2fHhkL74zGqc
-         yLJU14UE7vkeKAKrBQjkm9foIqbqKar5qkFSXe4MmLlRiMEcDg0b045SDQPWzbqCCS8d
-         QNz4F3I9v0vtJ7LkBYo7cbCXSxYMYWAHRTDkhFs9HwxPmH0Z2GFKAl4jWkc5/S0VVu25
-         8/Ilx0+X6t7UQkYRGkXFbRg8bCvtxUEBomCr+yK5xejfWuYzb1N5nxp8sBAvvZejM4y+
-         pjooM+bL0oFgHk7Y1qpT/SxgYy+X8C4BIk7IVAnEwuXHDIvD9nE4PHh27DKrv4YJ9kaR
-         Y66w==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1788510283; x=1789115083; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=dXb1ScaV1KsEhcA/AL+HD48Eief08Xf8oe+ZEn2sFII=;
-        b=btJ+WiKfekJwZNs6J6HPdk7ZlxzDXwc/sB68QuV/m1npwByZQYsqL/6fAqvlXm6qDO
-         wW3MthUcdc8Iy4dTLN8rP4LpX3AzGGglFcYY2zh2g6/s27DQPgkMgBcvrqTNPsrmgHXI
-         m0QdTfMj/BQYiUYf5htQdcpoLPO0pmMBtOVuETY/y7+6Qe1+cPEHW/y7n2BfUsqwtQGH
-         k1H0ysjBWZdS1R0rTsTu90R3ktl2j1TSAx/tYEL4tG/PKXo9Qf9vU5FN37vkDrntormW
-         1XwLBHFlrZN1dhBQxZADWv6oYd590C/FVqqZdlsR7NDf3LJvCZIXCZV9PNGpOb1Z86Og
-         YoUQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788510283; x=1789115083;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=dXb1ScaV1KsEhcA/AL+HD48Eief08Xf8oe+ZEn2sFII=;
-        b=Q7YXf2ezVwGykVcY2Z+W7/F4GFJYMi73eqWVAKkMfiY7dXvLKFzApBnN0Lev/zDdMI
-         rF9ED4M5ffXzuu0hQYatnlGpVMA7IrEFfQl59dkPmD08fosNZs+Ied72ox0/46vNwfUD
-         uwemwhy4lAEiBLUpcByyvK3z5pcWpFJZnt0Z/aowkvzc7FnuHRM5bFY8SuyZmWhk4fZj
-         JFdA5HkVGijSTpnoyvoCpUjlKbVNbJuR1I/Cr4ByL6NijqZ0PKBJr3yfx/vzetYZIFMq
-         ni6gh7c15p06xG6upmm8Oezb40B1Q/YyS8eEUM3HewatEDZXki/hJIe/fmuQN6melRkp
-         2CGQ==
-X-Gm-Message-State: AFuF++labqFeuk4oJDtor7qcSZ5SKvgctyPKtmEYqIPhWtMAGErfCUgR
-	UtnMQS+FfHCanXt3kDfps5oO7jhfwag4A1Tzx0iqgFkYHmUZNkV3dUBH4jGSEfKqx+qIUuX/NSc
-	09RXg782up0gr8Ytp+KVCQWnqrvwxOZizLUg/7rPGGGQ1PmRqfD0ZINs=
-X-Gm-Gg: AYBFou2qyRB74H6vihRdZoS/dBsuJeREDOhn0gFa2CmLY5kwpS1TwbasNtYfuWjHBPW
-	qlRQ9yMIB7WrlD7+tYK5D3RXFfo8uSYz2mfxHAARO5SflSzwsH6xxcdRRIa79E8f/JoC96yARUK
-	nAKXL/x+3PFzlUMK4W7Ol6l1zxNmIADdq8gfatfXhsYbWmdtzoQhrImOEt3a0lZzFUw+pKHUwGP
-	SCeRkdOmRc2vLJBfreWRnKIXHUMQzbcV5ehzRNIjD0NenVIx3C15rLI9m784OkY2j3c1VY2di6h
-	g/kRHnJo1skMJMF+Gf2t+Vut5EEbWth5NU595v5URlV+F49na0Ro7oyl8mOWxP7imXCY1onvJ3L
-	07nlbHiklq1UdbA==
-X-Received: by 2002:a2e:bc09:0:b0:3a3:7680:67f4 with SMTP id
- 38308e7fff4ca-3a37680699dmr1855311fa.19.1788510282786; Fri, 04 Sep 2026
- 01:24:42 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jYzhgz46"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F170B1F00A3D;
+	Fri,  4 Sep 2026 08:25:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788510312;
+	bh=rccA36EyuXOhMqphuckpFvf8Da7GhE5PelXowHSaKKU=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=jYzhgz46a22ezQusLxk9qVWzQI2UXXiD8DvEw/lOqkhOwdgrCWcO1PeVLXJQtj5a/
+	 Mcfwj2o6LtGuledzus610SHt1SyAQvI86ZINLZpIhtF2VF74lauraRJIXGzwPMv6UG
+	 H56+HTYNcZHd+wcjFFv+F2AxBzXaQTMeHKICum90zwAIpr+jAHb6T8t5lguaRQ9t97
+	 apn1TZ22uiUV2x/KtlgbQ4IpEUbB0fxwq0HYxBD8jGWmMfM4D6uqX/5B5u3jLnn8na
+	 gOZ9ym87/tUs5+GmYkYFRb9iaAs8vYA47cMEWF8pL8wyIKjDBho1F51y2u4HQvcge1
+	 fe4Vbz8zJgbwg==
+Message-ID: <a6ce8684-116b-42f2-a88c-154eb86bad59@kernel.org>
+Date: Fri, 4 Sep 2026 10:25:07 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260903165251.481362-1-marco.crivellari@suse.com>
- <20260903165251.481362-2-marco.crivellari@suse.com> <c02681b23c71737d9a84dea194b24691@kernel.org>
-In-Reply-To: <c02681b23c71737d9a84dea194b24691@kernel.org>
-From: Marco Crivellari <marco.crivellari@suse.com>
-Date: Fri, 4 Sep 2026 10:24:30 +0200
-X-Gm-Features: AcwNN1WlGOaLjlQF17ifhPWAnRGVM40fl8NxS5vd03xU0uNCWzBzYr2BWEoBTp0
-Message-ID: <CAAofZF7vrkxiOu-qS5A2fAXpxhu0swXBtqJqJL3XEjEacoySiQ@mail.gmail.com>
-Subject: Re: [PATCH v2 1/2] workqueue: Make alloc_workqueue() unbound by default
-To: Tejun Heo <tj@kernel.org>
-Cc: linux-kernel@vger.kernel.org, Lai Jiangshan <jiangshanlai@gmail.com>, 
-	Frederic Weisbecker <frederic@kernel.org>, Sebastian Andrzej Siewior <bigeasy@linutronix.de>, 
-	Michal Hocko <mhocko@suse.com>, Breno Leitao <leitao@debian.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 0/8] mm/page_owner: Add PID/TGID/COMM and cgroup
+ filtering
+To: Zhen Ni <zhen.ni@easystack.cn>, Andrew Morton <akpm@linux-foundation.org>
+Cc: David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
+ "Liam R . Howlett" <liam@infradead.org>, Mike Rapoport <rppt@kernel.org>,
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
+ Randy Dunlap <rdunlap@infradead.org>,
+ Brendan Jackman <brendan.jackman@linux.dev>,
+ Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>,
+ linux-mm@kvack.org, linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Steven Rostedt <rostedt@goodmis.org>
+References: <20260903041819.1776630-1-zhen.ni@easystack.cn>
+From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=vbabka@kernel.org; keydata=
+ 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
+In-Reply-To: <20260903041819.1776630-1-zhen.ni@easystack.cn>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Thu, Sep 3, 2026 at 8:42=E2=80=AFPM Tejun Heo <tj@kernel.org> wrote:
->
-> Hello, Marco.
->
-> On Thu, Sep 03, 2026 at 06:52:50PM +0200, Marco Crivellari wrote:
-> > +     if (unlikely(!(flags & (WQ_UNBOUND | WQ_PERCPU)))) {
-> > +             flags |=3D WQ_UNBOUND;
-> > +             wq_unbound_by_default =3D true;
->
-> WQ_BH without WQ_PERCPU passes the __WQ_BH_ALLOWS check above and then ge=
-ts
-> WQ_UNBOUND here, putting a BH workqueue on an unbound pool. WQ_BH should
-> imply WQ_PERCPU.
->
-> Thanks.
+On 9/3/26 06:18, Zhen Ni wrote:
+> This patch series adds process and memory cgroup filtering support to
+> page_owner. Following the previous series that introduced print_mode and
+> NUMA node filters:
+>   https://lore.kernel.org/linux-mm/20260707115411.1714314-1-zhen.ni@easystack.cn/
+> 
+> This series adds filtering capabilities to page_owner, allowing users to
+> filter output by specific processes and memory cgroups. Users can now
+> filter page_owner output by PID, TGID, COMM (with wildcard support), and
+> memory cgroup path. This makes page_owner debugging more focused and
+> efficient for tracking memory allocations in specific contexts.
 
-Hello Tejun,
+I wonder about the usefulness of all the new filters. In my experience
+page_owner is useful to find a kernel memory leak code, and for that the
+stacktraces are most useful. Dealing with things like pid/tgid/comm/cgroups
+sounds more like your aim is to profile and optimize particular userspace to
+use less kernel memory? In that case, isn't it rather the area of memory
+allocation profiling (or maybe tracing with bpf), not page_owner?
 
-Thanks for the review, I will fix it for v3.
+Moreover, tracing or bpf can already do such kind of filtering and AFAIK
+ftrace filters for tracepoints are nice and generic, while this is adding a
+bunch of custom parsing and filtering. So that makes me somewhat sceptical.
 
---=20
-
-Marco Crivellari
-
-SUSE Labs
+> Targeted filtering provides significant performance benefits on large memory
+> servers by reducing both execution time and output size. By filtering at the
+> kernel level before reading, only relevant page allocations are processed,
+> dramatically reducing the amount of data that needs to be handled in userspace.
+> 
+> This series extends page_owner filtering capabilities with:
+> - PID filtering
+> - TGID filtering
+> - COMM filtering with wildcard support
+> - Cgroup (memcg) filtering for containerized environments
+> 
+> The series is organized as follows:
+> 
+> Patches 1-3: Add PID, TGID, and COMM filtering support to page_owner
+>   - Support filtering by process ID
+>   - Support filtering by thread group ID
+>   - Support filtering by command name with wildcards
+> 
+> Patch 4: Refactor memcg handling to prepare for cgroup filter support
+> Patch 5: Add memory cgroup filtering support
+> 
+> Patches 6-7: Update page_owner_filter tool with corresponding features
+> 
+> Patch 8: Update documentation
+> 
+> These filters are particularly useful for:
+> - Debugging memory leaks in specific processes
+> - Analyzing memory usage in containerized environments
+> - Isolating allocations from specific services or applications
+> 
