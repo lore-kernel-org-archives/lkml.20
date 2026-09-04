@@ -1,77 +1,157 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8379F46A611;
-	Fri,  4 Sep 2026 11:03:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B2364A0EFF
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 11:03:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788519800; cv=none; b=FFBy2jb61La1HZi+V7QpClOTowGQfN5O9E7EA79t+OisZB1c4/g9KCCBujrRHvTv9fFeQNxeWSJLfxsOLN6b9EfwHcoduRDXVJsLCnklFgRm4siZ/dJslkaBn0vArqpwjsyk43dqdwdgr07Bf1atznBakNNf1hVXZQSsnClYXvs=
+	t=1788519804; cv=none; b=tGhAt/tQPRAddpKJqb7/3bKYZyi9DahbgEuOUHuF/U3W4XxEJbAs08V4KE8cz4ahi+hlqaVdag717X3k6BilDi5pAOFJpI7xDbReu6AQsXmOvVWwMwcGX6jhTjpiIugmuiMjpRYVLknUIN3N6vtKTniWSBLBthOMQoV6tpmi7bk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788519800; c=relaxed/simple;
-	bh=18YVgvMB0DxfzK9LvsfMuvJ/rt2ebukRfBITnVymCoM=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=tsoJBNTHGt4PNTb/fxfCWE+FNMOrwPFlnD2Xc+Hig4nsb2JGZnLjoCmHpN+PQorZk31U5hswljAZAjmFv0rxzY28frpu0sGIiN06dRYdhGz/UGXPIZ4rdeG8rdkkU6vauqiLOlirZS0cVu3XIX+gS5V+8wMrXDpeHX8JqOk7ZOw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eWC/7QvE; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788519804; c=relaxed/simple;
+	bh=/YAx8MC10uzdTgsDitdwzw6jiSPZxT0069IctUl7Rb0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=KulnXg5L2o77FPTm2eyntka+gWC+7NGp2hY27xzvdWSZi8wayfqw7Tj/iJzMMS5rfeqWzSabqSGln5EX9qjACir/fgGwqY0AWrv/wechXnX83jGFBcJqN0gyYjBAYwlIEyrDOwQ8i/a5Mnq9bfjF5VKf+SKdq3WdDZhMccQvQ5Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=TXuoX34j; arc=none smtp.client-ip=209.85.128.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eWC/7QvE"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 66AE11F00A3D;
-	Fri,  4 Sep 2026 11:03:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788519799;
-	bh=uByyCyO/7thPi8sX7zSsrc24iP4tYdZOGq5Jf523xR0=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=eWC/7QvEnpf7dgBL3lABZwTbo+2vbFDMbEcdbqdKD6O3wimagBJopxr93DzvAn7Ok
-	 A3f0dmJHDGYmXPVea9TUnFD2fC5JRZB400ymVKBN9lHrCJbQYPpIB8zIW0xrEwTDnQ
-	 7Eqfb8w2V3abc+UT2ysjWcmw9Y/xD4bmxUPYn/sotHc1n4TnxV6PKtnaAsj5pJidXO
-	 bGci5SSnGQmamWUVtUdWoZ0g7/8jY+qaRq5G0MMPDJhit37O2cDBzA1Kq24hl9Tp2v
-	 pa4W/X54s18UrHV6ULC4maTlfryoVNyLlVXzrXGG52clfQ/a/k8+PorZ2KfiI1qt5Z
-	 KfoArmgpWmEnw==
-From: Christian Brauner <brauner@kernel.org>
-To: Alexander Viro <viro@zeniv.linux.org.uk>, YANXIN LI <fadouse@pm.me>
-Cc: Jan Kara <jack@suse.cz>, Andrew Morton <akpm@linux-foundation.org>, 
- linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
- security@kernel.org, stable@vger.kernel.org
-In-Reply-To: <20260718190300.867109-1-fadouse@pm.me>
-References: <20260718190300.867109-1-fadouse@pm.me>
-Subject: Re: [PATCH] ufs: use u64 for directory size in ufs_last_byte
-Message-Id: <20260904-vergeben-macht-dienen-d958c8314f6f@brauner>
-Date: Fri, 04 Sep 2026 13:03:13 +0200
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="TXuoX34j"
+Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-49b8687630fso8066095e9.3
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 04:03:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1788519800; x=1789124600; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=iAzMXnghmszFTGloo//dFfYy6w4a4fM9ms+SI1CrG18=;
+        b=TXuoX34jeKGK/2iXIkvFxyHZgpOeFsiff3tD6SrETvmAx0IjMmoXTzrYFosXL5vNmD
+         hou2j7BiLqVoNVgjuRT2HB1qqipZtHsCEJMySHYCn9d4y035GPwxNexeYWLs1/bC/djP
+         n+yH0Y6M7AVKUrxIsgNgOHb/XR1LVkR0ZN5QIZSvrRgmHwXO12+8pj7MEZfUBIxFJj4w
+         9oynn3WTYzP8LqddN8KhoO5w7KCelxPm1juXQZkQiGiUpobz/6Yp8iTgFDSVrIJB359b
+         ECQj8gxdDGAY5Z8MVsQ3TW2XnVa4RA3hiZKOjmp+wh1UBtmbA3GGWzIG+twzdyWdW2Ta
+         NKlg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788519800; x=1789124600;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=iAzMXnghmszFTGloo//dFfYy6w4a4fM9ms+SI1CrG18=;
+        b=ZPY/M+ha3lak/2BSPx+lwbB8DjEsf/OnTn/i+LDjzSWklq0xbtpen7dlkEbq3SwAwn
+         mXQblB96gk0Ny4ieuvplBOWya8yFxG5N2ZKRYFP4WadcaW4gFrozFinwi5jAgsXQR4Z2
+         DHOj14WQ4T4yWUzwoy3Jwov2Rc4PwWglgroeQUyevDGtMIgf8Qe31DAF/14i7ePS63Ah
+         fuwt+PZe96YzxXaLd7rUKoT+YBdBPRFhZvZdltusZH/7nc3yvsmDvCVIv0kZQ1WGcl7P
+         /2xES76mcrRgWlDappXm9dg31zYPDNmnD0+tRqFw0YNOchptEf3VsTTw7k8ehscpYSu6
+         jlAA==
+X-Forwarded-Encrypted: i=1; AKwUvBwCClE4+VuTkG70ZcNXa7aQhbEALR3UCqeZjXmhnPd2Il1BQgjYQFCmjf9NP16N8sCLNrBsHx+IaV8cTI4=@vger.kernel.org
+X-Gm-Message-State: AFuF++myLHiWeZ5fQch9G2BYn0C/biSXJTEjhbwflDMROESzgHxNJiqO
+	uIHiVeZYDbDMw/H7BPsvYaoI7GxvTr0OItYhYiHWbDPOAvEeaT0Iw+/oyXG3rCngeh4=
+X-Gm-Gg: AYBFou2GnqILLu5UtinN2GY9M5iUvW809k1loZ6udtdReqxnJgXitHAGH3FUyw2G/1Y
+	IG7I+GgboVtmv/RQ3NSevMLxlir3X3Je29mXvEluRUT2YXDtonbH9XaQRXvpDAAG1OydqtWSP03
+	YPLwXKCs1G86ey81BWH/BLdZ1CUzs+04nLXjtxyoEjmxC4E4HpCkg2qWZG8Tl15hBIbwr5Gpt1t
+	FhiuenorZDIBllW8nNoXino6CMjypETaF53x08767IvkbdQczW9yZ2603kY9YAA6vFcEus2Onn9
+	WhgOoot1iGp2Bz2HG5ICPu+u4VmfXcPqcawqvoNgh2iZwo43pbAWETDCEZz+nNsXXgj4f849v5N
+	VpFsoMWZaEe8AUSgYmbBgN53YnQ8Uojt0c/lIJSzD1rOcCng2ZrH/xiAPMZ+Z49WiuLFZWfCSfV
+	CE+3xMsrN12+roFTmQ+XTWtWpR+bz5qLU5PPt/YEGe7TKX+WL/vDQ2YN9gWyaMevDz5ubr2qOZg
+	w==
+X-Received: by 2002:a05:600c:1c24:b0:498:952:e276 with SMTP id 5b1f17b1804b1-49cf824894cmr51170215e9.8.1788519798302;
+        Fri, 04 Sep 2026 04:03:18 -0700 (PDT)
+Received: from localhost (109-81-91-122.rct.o2.cz. [109.81.91.122])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cf7703cc7sm64453115e9.4.2026.09.04.04.03.17
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 04 Sep 2026 04:03:17 -0700 (PDT)
+Date: Fri, 4 Sep 2026 13:03:15 +0200
+From: Michal Hocko <mhocko@suse.com>
+To: Ye Liu <ye.liu@linux.dev>
+Cc: "Peter Zijlstra (Intel)" <peterz@infradead.org>,
+	Marco Elver <elver@google.com>, Ye Liu <liuye@kylinos.cn>,
+	Yi Tao <escape@linux.alibaba.com>, Tejun Heo <tj@kernel.org>,
+	Bart Van Assche <bvanassche@acm.org>,
+	Christian Brauner <brauner@kernel.org>,
+	linux-kernel@vger.kernel.org, Oleg Nesterov <oleg@redhat.com>
+Subject: Re: [PATCH 1/8] mm: introduce for_each_process_rcu and
+ for_each_thread_rcu
+Message-ID: <apqlcw1qJd3QjsMq@tiehlicka>
+References: <20260904083001.553587-1-ye.liu@linux.dev>
+ <20260904083001.553587-2-ye.liu@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.17-dev-db0b7
-X-Developer-Signature: v=1; a=openpgp-sha256; l=878; i=brauner@kernel.org;
- h=from:subject:message-id; bh=18YVgvMB0DxfzK9LvsfMuvJ/rt2ebukRfBITnVymCoM=;
- b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWTNWlr8i21iZz/fmrurtHnfbZNX2pU+a8HkCJlZJv9Xr
- fbxfSp+taOUhUGMi0FWTJHFod0kXG45T8Vmo0wNmDmsTCBDGLg4BWAi+mcZGW7ObNnZsf/E6/8O
- lx5JKqVUsBnsFc1eo9Ke5m3m8/ayvyIjw8Kkh1UbJt2+tdDfydW1opijavWxhBfzLASfHeXrZKm
- 5wwgA
-X-Developer-Key: i=brauner@kernel.org; a=openpgp;
- fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260904083001.553587-2-ye.liu@linux.dev>
 
-On Sat, 18 Jul 2026 19:03:07 +0000, YANXIN LI wrote:
-> ufs: use u64 for directory size in ufs_last_byte
+You want to CC Oleg at least. Now added
 
-Applied to the vfs-7.4.misc branch of the vfs/vfs.git tree.
-Patches in the vfs-7.4.misc branch should appear in linux-next soon.
+Also prefixing this patch with mm is confusing as this has nothing to do
+with mm.
 
-Please report any outstanding bugs that were missed during review in a
-new review to the original patch series allowing us to drop it.
+On Fri 04-09-26 16:29:53, Ye Liu wrote:
+> From: Ye Liu <liuye@kylinos.cn>
+> 
+> Introduce for_each_process_rcu(), for_each_thread_rcu() and
+> for_each_process_thread_rcu() macros that acquire the RCU read lock
+> before the iteration starts and release it when the loop is left, so
+> that the RCU read-side critical section is scoped to the loop body
+> instead of an externally managed rcu_read_lock()/rcu_read_unlock()
+> pair.
+> 
+> Signed-off-by: Ye Liu <liuye@kylinos.cn>
 
-It's encouraged to provide Acked-bys and Reviewed-bys even though the
-patch has now been applied. If possible patch trailers will be updated.
+Apparat from potential naming changes this makes a lot of sense to me.
+Many users really need RCU in the scope of iteration and this simplifies
+the code and it makes less prone to bugs.
 
-Note that commit hashes shown below are subject to change due to rebase,
-trailer updates or similar. If in doubt, please check the listed branch.
+I do not really care much about the naming TBH
+Acked-by: Michal Hocko <mhocko@suse.com>
+> ---
+>  include/linux/sched/signal.h | 19 +++++++++++++++++++
+>  1 file changed, 19 insertions(+)
+> 
+> diff --git a/include/linux/sched/signal.h b/include/linux/sched/signal.h
+> index 584ae88b435e..fe0c41dc99a1 100644
+> --- a/include/linux/sched/signal.h
+> +++ b/include/linux/sched/signal.h
+> @@ -2,6 +2,7 @@
+>  #ifndef _LINUX_SCHED_SIGNAL_H
+>  #define _LINUX_SCHED_SIGNAL_H
+>  
+> +#include <linux/cleanup.h>
+>  #include <linux/rculist.h>
+>  #include <linux/signal.h>
+>  #include <linux/sched.h>
+> @@ -663,6 +664,24 @@ extern bool current_is_single_threaded(void);
+>  #define for_each_process_thread(p, t)	\
+>  	for_each_process(p) for_each_thread(p, t)
+>  
+> +/*
+> + * RCU-internal variants: automatically acquire and release the RCU read
+> + * lock around the iteration.  Equivalent to scoped_guard(rcu) combined
+> + * with the respective non-_rcu variant.
+> + */
+> +#define for_each_process_rcu(p) \
+> +	scoped_guard(rcu) \
+> +	for (p = &init_task ; (p = next_task(p)) != &init_task ; )
+> +
+> +#define for_each_thread_rcu(p, t) \
+> +	scoped_guard(rcu) \
+> +	__for_each_thread((p)->signal, t)
+> +
+> +/* Careful: this is a double loop, 'break' won't work as expected. */
+> +#define for_each_process_thread_rcu(p, t) \
+> +	scoped_guard(rcu) \
+> +	for_each_process(p) for_each_thread(p, t)
+> +
+>  typedef int (*proc_visitor)(struct task_struct *p, void *data);
+>  void walk_process_tree(struct task_struct *top, proc_visitor, void *);
+>  
+> -- 
+> 2.25.1
+> 
 
-tree:   https://git.kernel.org/pub/scm/linux/kernel/git/vfs/vfs.git
-branch: vfs-7.4.misc
-
-[1/1] ufs: use u64 for directory size in ufs_last_byte
-      https://git.kernel.org/vfs/vfs/c/1eff23433e73
-
+-- 
+Michal Hocko
+SUSE Labs
