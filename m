@@ -1,189 +1,184 @@
-Received: from mail-qt1-f171.google.com (mail-qt1-f171.google.com [209.85.160.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78FBD3C09F1
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 16:06:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.171
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788538000; cv=pass; b=egEwS2jpD8xbc+gnEtIemaG7WvKchd0ITzo87fQhgjl5qhn9S/+owUAONGeOpWxnLlJo/eNfW3vqIEIvarwxllqPZyUtt5HLKj4YE+5SMu7vRnDF3d1HnERA/6eqG6gNx4tCgeFoEXszkwO3IFmasIx5yOnc8bSU4duWXxN+Zc0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788538000; c=relaxed/simple;
-	bh=81yPo9M5ElN1gDtv45+koc/0H7KjctAvGpwkt1L6p28=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=MvOIMXudRIYXSHhiPCdxD5OGve6SyY7/0ZMh5jpDtpqbXR41NYxIkTZjA/4u8FrY+aPH6SFSOhEynYL8RGQsC+HcgwtzEO3zM4tP+ifqvDJozme3OYzDXwF4BmLsr9hcnKH37uHwGmbxwyZpUlrOILnjo1cED5LF6nWP5AlgiQ4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=purestorage.com; spf=pass smtp.mailfrom=purestorage.com; dkim=pass (2048-bit key) header.d=purestorage.com header.i=@purestorage.com header.b=CO7OP1fU; arc=pass smtp.client-ip=209.85.160.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=purestorage.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=purestorage.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52B573D891E;
+	Fri,  4 Sep 2026 16:06:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788538006; cv=none; b=guoa+55/Suqt0BGLQlJHA8fVq5JijMevWO9UWLdrJaGXimoBluRRNhg/S/nj+zpveRSVSY1EQf5fQUkO5r2Tn9NMIKGWcLJjIBmQqeIMuQUZ3uudbNddQtCwfK0zWGvjKGueLdjw7aGX/c0SVvKKE58gLVSnP1pGC0cNlLOst54=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788538006; c=relaxed/simple;
+	bh=xeQiDBPvVXf3mhzDJuaGWk/QtgZ3jOrmHhgWPeOL0fM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=foRyaRTifEFjAnfoe601QO64aLxUJdGE0KAbdr8LKYWnpmcg9wKXFVgiY+GoLNgQxUlsFURl4VbmWiMUhBvUJxQKsYAKu5utA5SjHwDsBLKcZZSI7bKr6vrgT/3LFg9UjyYVyDhvjL8OBPJX/k3jBdTRrh4b41KipRxAXhpdzAM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dRPBiL1A; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=purestorage.com header.i=@purestorage.com header.b="CO7OP1fU"
-Received: by mail-qt1-f171.google.com with SMTP id d75a77b69052e-5301db51586so16565791cf.1
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 09:06:33 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788537991; cv=none;
-        d=google.com; s=arc-20260327;
-        b=SZXeMjRRAoFFnpcpD9m6cFWp9L6dCFam9Ifsw7OB/J5Omnq2isaGjdUUp9QJng137Z
-         VN9AuIXP2JXci4l/+YW1nfC9Fj5EJyZok1rj3/b73t6W0hvRUj4QB9bmGM3XbjpTpjx0
-         QHkiIM+NXvsJVjsALN+xCrZqjMA7Ia6mrsG3aBvs/3A/N2HkJim2KVx0LhbYr8Mh20mc
-         nIU6NJHnk6bmAa6SITu76Sb+Bd871/+LI0QsqgnssUgbEJtt9E10O+sFXvnBUzZpLnOw
-         74YVg9Y+uToE/Jr8hcz2twPnKaxDQArNQzb8GTWgmk1NLwUqSWcaBxVfCC7TJUnOtQHT
-         9BPQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=N1hoE3BcOuTiBC0ROHOK0Yvi5yLAEC063uLBYyUjYyI=;
-        fh=yJg+OQVIUq8R2FrNCstcuhpRGqM3VV9wz5VKhrLx8D0=;
-        b=X1ng3N7ENexHcQ+05RMq3qjUGe43dPmkS8JdrxAITj2UXpxbYJ/+2cBjnEoFpMzuR1
-         BCf9ZUrSpI8bBlxMKWgM5mpzu16ch+DFi2WdJgLJF+4GmTU+mZHz7zU9y6rla3J6SdPf
-         ntqghDfYkxgo2tiKskBA0xaeJ3xjLWo8E11xAOnZrmYsA9z+F4R+x6VTtsg6IwrkvqKW
-         dMrtlgwHlYox6Lq8S2rryXlUjbqUkqrnkOPv7WabVrt3i6bRnnDPcrVWFgKAoFmRce91
-         a0Ih8mMzOpOHCcSpQdpNhyXWeTwFJJM/gbCTutcQbVlI5wz3grwZbi+xRTOTk0CuJVxL
-         GlDg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=purestorage.com; s=google2022; t=1788537991; x=1789142791; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=N1hoE3BcOuTiBC0ROHOK0Yvi5yLAEC063uLBYyUjYyI=;
-        b=CO7OP1fU++97e8JD8pK/ItAvq0Qw1kIHXiSAUP9hV7K63sBmfEMnX5bwoKNj8gZVdX
-         uIRQwce5WaR4HBSDJB32/LFhJwciOTTgeUqyVGjZf37N8bMt/9PU58gG+p1q4039S8qW
-         uYjwynzgrzb+Rkuy5zKmYondHTrVtbUI+NiHVGEqcGVDos3oW4jrBHR4kEjgQdx/0a8k
-         H+dwaXyUJrQsmpv//Ewevd7MClTp7tHrYc6TbjZh/p2Ey8YTljvxYga/+D1bT+30x3ut
-         bSBcgD589E61sW0gdszDzWLWAe6LX6LsPCZNK028FdZNdy94oY9fOXtoO9XPGq7Lpsx6
-         ZWiw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788537991; x=1789142791;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=N1hoE3BcOuTiBC0ROHOK0Yvi5yLAEC063uLBYyUjYyI=;
-        b=oXRBKYlvqmZ5uA+6pTXa3K6msI40LKxq5t+fkmYtlBtJc5S0+9ZmJc/ucDeYj7Rh4O
-         a6L3Ir6l07L53eQaF0rbcBKgHxRR1lpLU16o0i0UJRldfbeVIziR3hyp/jrlR64WMIdp
-         GmjFo4bsTLl80ryY+snXqREubpnZvZeBgkpt4t/19anUr9lyse0xM3SZQ7qdSjElRHgr
-         fpoQsziFxfUQ3EkL0Pt3Iehe9ofpn6ber1Tr6FXJyaIsJruWowWxS3yWQuLZWJlvSzXL
-         NjMrsjtu5h+w5ckIhH+VG2ww0KD/+kvCMmcauBEnqtn35LLl8yuzTWeS0W+7wsuqA7hq
-         y0SQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzafg223QQqFGSBRz0Ix200Jfd4UrD9CPAPRXK58ULKFYUdHsE2IQA/2c2TchhCflCBBZ7p8HHHY5brSFM=@vger.kernel.org
-X-Gm-Message-State: AFuF++mjjoScEn5bojFDvjNPhDFqvWc4NPD8OAAfUbchRxW8Es2fCSRF
-	nri+DxXsSjFmwRe9N1NylB4mkzUKLehtKB4HW96QcslCBmcJ7/08rdFJ5p53PRsFrJ5x4gKWlqf
-	O/gPXpl8bp67f6Ybs+a0Axau7yronpLqk8PRs80hEEw==
-X-Gm-Gg: AYBFou16PMCTY0ki8AzKoMNMBEWQlSkD5wzU2FQy71reLhCbfCDAjEqbz6gvQcmUasI
-	d8PD3VmPFN1nymNVSp15Kpn+nERqfRYZmxdK+ab71THq8n/yan9PiF+p5HuImfNETy6KUVizFjj
-	zjm8+IRZAg8ajRvYJ/Hjg/zgYKnLgvLCjb8nCbKdx6RNTMF18o5w2geRfKg7tq+xvKCr8aJlt1E
-	AkTCehdjjx/aViyXkeyKYVm7Az0KF7+1D3NMzQLL0KT70pFJcNIQU6xLL3wxsH0mrd4YwUUzLiG
-	qcVfgejELq3p4UcJEkaPf+Eqn8iOZSWw6ijlK2Vt9yLU
-X-Received: by 2002:a05:622a:1801:b0:51e:47a4:4851 with SMTP id
- d75a77b69052e-530548007d2mr71368811cf.8.1788537991012; Fri, 04 Sep 2026
- 09:06:31 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dRPBiL1A"
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 4CCD51F00A3E;
+	Fri,  4 Sep 2026 16:06:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788538001;
+	bh=ja9SnIsCHUkvSSnRXW4N3nERb2UOdb8zsr0Mp+uth98=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=dRPBiL1AdUqoGi/4NbKu6IP4bkjX9VQL3dblGC4i4B9rhVO3JEjLbyIhQKCbpPLZ3
+	 eIIRrDGCcsDJpt+k2cBoSd8pZcC6mkP0h3z3wU+3rHuiqTvwQRH6s10/5zKwMubKfE
+	 bHLz8kpi6M9tqeGsxYXDZcDS7x9Pxuik8QEXbwtoCpXgph/Ps3lBe3w6g+VCBRkxfT
+	 Fk90V9J5qMnPQdz1DzJOwN/1if6rl6CRBl5CYrR5u1QgmhqU+yEISLZqFOwwCKWqWg
+	 Vx7Cg/Xs9UMaGfbROxYibLuQTfCS0axG8U0rRjQEoDvke/Fv0uKKToG3Vi2vnhbxUp
+	 +mXg8fSBqM9ng==
+Date: Fri, 4 Sep 2026 09:06:40 -0700
+From: "Darrick J. Wong" <djwong@kernel.org>
+To: Carlos Maiolino <cem@kernel.org>
+Cc: Hemanth Selam <hemanth.selam@gmail.com>, linux-kernel@vger.kernel.org,
+	linux-xfs@vger.kernel.org
+Subject: Re: [PATCH 2/2] xfs: fix repeated words in comments
+Message-ID: <20260904160640.GA1933798@frogsfrogsfrogs>
+References: <20260904112909.8197-1-hemanth.selam@gmail.com>
+ <20260904112909.8197-3-hemanth.selam@gmail.com>
+ <aprEgoAcpxbOblRi@andromeda.toxiclabs.cc>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260824225648.316962-1-sgogte@purestorage.com>
- <20260824225648.316962-3-sgogte@purestorage.com> <c98fe50c-172a-4e53-a30c-5416c40cb23f@grimberg.me>
-In-Reply-To: <c98fe50c-172a-4e53-a30c-5416c40cb23f@grimberg.me>
-From: "Surabhi Gogte (she/her)" <sgogte@purestorage.com>
-Date: Fri, 4 Sep 2026 09:05:54 -0700
-X-Gm-Features: AcwNN1XhIVrpE7jN0V-XwLfoyOZss61tkf_W80mr0zcm_FEIDqHY0YVSwMaXnEs
-Message-ID: <CAMof9cWdXR_040SDs2N=3ETvdmxvjx+OokfkSDr7DzVbLbuenQ@mail.gmail.com>
-Subject: Re: [PATCH v2 2/2] nvme-tcp: parallelize I/O queue allocation and startup
-To: Sagi Grimberg <sagi@grimberg.me>
-Cc: Keith Busch <kbusch@kernel.org>, Jens Axboe <axboe@kernel.dk>, Christoph Hellwig <hch@lst.de>, 
-	linux-nvme@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	mkhalfella@purestorage.com, randyj@purestorage.com, adailey@purestorage.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <aprEgoAcpxbOblRi@andromeda.toxiclabs.cc>
 
-On Sun, Aug 30, 2026 at 3:00=E2=80=AFPM Sagi Grimberg <sagi@grimberg.me> wr=
-ote:
->
->
->
-> On 25/08/2026 1:56, Surabhi Gogte wrote:
-> > Similar to commit 2a8513091d2f ("nvme-rdma: parallelize I/O queue
-> > allocation and startup"), refactor nvme tcp I/O queue setup to use asyn=
-c
-> > API, combining allocation and startup into a single parallel operation
-> > per queue. This reduces connection and reconnection setup time when
-> > there are delays in establishing connections, which is especially
-> > important for high-core-count hosts.
-> >
-> > Key changes:
-> > - Use async API to facilitate parallel calls for io queue setup.
-> > - Add nvme_tcp_setup_ctx for propagating errors from async workers.
-> > - Remove nvme_tcp_start_io_queues() and __nvme_tcp_alloc_io_queues();
-> >    their logic is folded into nvme_tcp_setup_io_queues() and
-> >    nvme_tcp_configure_io_queues().
-> > - Allocate the io tag set before the queues so that the queue range is
-> >    known, and only set up the reconnect grow case if the queue count
-> >    actually increased.
-> > - Serialize the cpu scan and claim in nvme_tcp_set_queue_io_cpu() with =
-a
-> >    spinlock, as concurrent callers would otherwise select the same cpu.
-> >    The per-cpu counters no longer need to be atomics.
-> > - Use init_net in nvme_tcp_alloc_queue() instead of the namespace of
-> >    current, which is no longer the connecting task once the allocation
-> >    runs from a worker. A controller is not guaranteed to be tied to a
-> >    namespace, as the reconnect and error recovery paths already run fro=
-m
-> >    a workqueue in init_net.
->
-> Well, I think this is breaking 1be52169c3488ef98582ed553ab35cefa3978817
->
-Trying to understand how this breaks the commit 1be52169c348. Added my
-understanding later in the thread.
+On Fri, Sep 04, 2026 at 03:16:29PM +0200, Carlos Maiolino wrote:
+> On Fri, Sep 04, 2026 at 04:59:04PM +0530, Hemanth Selam wrote:
+> > Drop words accidentally written twice, reported by checkpatch.pl as a
+> > possible repeated word.  Only touches comments, no code changes.
+> > 
+> > Assisted-by: Cursor:claude-opus-5
+> > Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
+> 
+> There are no need for these two be in separated patches, and please get
+> rid of the model there. We are not allowing models to be specified in
+> the patch descriptions anymore.
 
-> > @@ -154,6 +156,12 @@ struct nvme_tcp_queue {
-> >   static DEFINE_MUTEX(nvme_tcp_ctrl_mutex);
-> >   static LIST_HEAD_GUARDED(nvme_tcp_ctrl_list, nvme_tcp_ctrl_mutex);
-> >
-> > +struct nvme_tcp_setup_ctx {
->
-> nvme_tcp_queue_setup_ctx?
->
+I agree, all these minor edits could be a single largish patch.
 
-Yeah, can rename it.
+--D
 
-> > +     spin_unlock(&nvme_tcp_cpu_queues_lock);
-> >   out:
-> >       dev_dbg(ctrl->ctrl.device, "queue %d: using cpu %d\n",
-> >               qid, queue->io_cpu);
-> > @@ -1846,7 +1856,7 @@ static int nvme_tcp_alloc_queue(struct nvme_ctrl =
-*nctrl, int qid,
-> >               queue->cmnd_capsule_len =3D sizeof(struct nvme_command) +
-> >                                               NVME_TCP_ADMIN_CCSZ;
-> >
-> > -     ret =3D sock_create_kern(current->nsproxy->net_ns,
-> > +     ret =3D sock_create_kern(&init_net,
->
-> I don't think we can just change this...
-
-Passing init_net explicitly does change behavior on the synchronous connect
-path. However, with queue allocation now moved into an async worker,
-current->nsproxy->net_ns resolves to init_net in that context anyway, so
-the initial connect path already loses the caller's netns regardless of
-which argument is passed.
-
-If the goal is to actually preserve the caller's netns through the full
-ctrl lifecycle - initial connect, reconnect, and error recovery; it can
-be pinned at ctrl creation like:
-
-    nvme_tcp_alloc_ctrl():
-            to_tcp_ctrl(ctrl)->net =3D get_net(current->nsproxy->net_ns);
-
-    nvme_tcp_free_ctrl():
-            put_net(to_tcp_ctrl(ctrl)->net);
-
-    nvme_tcp_alloc_queue():
-            sock_create_kern(to_tcp_ctrl(ctrl)->net, ...);
-
-This captures the caller's netns while still in userspace context, then
-carries it through all async paths =E2=80=94 so reconnect and error recover=
-y
-also honor the original netns rather than falling back to the kworker's
-init_net.
-
-Is this approach preferred?
+> > ---
+> >  fs/xfs/libxfs/xfs_exchmaps.c   | 2 +-
+> >  fs/xfs/libxfs/xfs_inode_buf.c  | 2 +-
+> >  fs/xfs/scrub/agheader_repair.c | 2 +-
+> >  fs/xfs/scrub/alloc_repair.c    | 2 +-
+> >  fs/xfs/scrub/reap.c            | 2 +-
+> >  fs/xfs/xfs_bmap_item.c         | 2 +-
+> >  fs/xfs/xfs_zone_alloc.c        | 2 +-
+> >  fs/xfs/xfs_zone_gc.c           | 2 +-
+> >  8 files changed, 8 insertions(+), 8 deletions(-)
+> > 
+> > diff --git a/fs/xfs/libxfs/xfs_exchmaps.c b/fs/xfs/libxfs/xfs_exchmaps.c
+> > index 3efed37cb98a..6a66b6075e0a 100644
+> > --- a/fs/xfs/libxfs/xfs_exchmaps.c
+> > +++ b/fs/xfs/libxfs/xfs_exchmaps.c
+> > @@ -395,7 +395,7 @@ xfs_exchmaps_one_step(
+> >  	/*
+> >  	 * Re-add both mappings.  We exchange the file offsets between the two
+> >  	 * maps and add the opposite map, which has the effect of filling the
+> > -	 * logical offsets we just unmapped, but with with the physical mapping
+> > +	 * logical offsets we just unmapped, but with the physical mapping
+> >  	 * information exchanged.
+> >  	 */
+> >  	swap(irec1->br_startoff, irec2->br_startoff);
+> > diff --git a/fs/xfs/libxfs/xfs_inode_buf.c b/fs/xfs/libxfs/xfs_inode_buf.c
+> > index e4c3f7b24e95..0340e2189921 100644
+> > --- a/fs/xfs/libxfs/xfs_inode_buf.c
+> > +++ b/fs/xfs/libxfs/xfs_inode_buf.c
+> > @@ -626,7 +626,7 @@ xfs_dinode_verify(
+> >  	 * have di_nlink track the link count, even if the actual filesystem
+> >  	 * only supported V1 inodes (i.e. di_onlink).  When writing out the
+> >  	 * ondisk inode, it would set both the ondisk di_nlink and di_onlink to
+> > -	 * the the incore di_nlink value, which is why we cannot check for
+> > +	 * the incore di_nlink value, which is why we cannot check for
+> >  	 * di_nlink==0 on a V1 inode.  V2/3 inodes would get written out with
+> >  	 * di_onlink==0, so we can check that.
+> >  	 */
+> > diff --git a/fs/xfs/scrub/agheader_repair.c b/fs/xfs/scrub/agheader_repair.c
+> > index 2104512f1ee1..493efa2b2f0d 100644
+> > --- a/fs/xfs/scrub/agheader_repair.c
+> > +++ b/fs/xfs/scrub/agheader_repair.c
+> > @@ -1352,7 +1352,7 @@ xrep_iunlink_mark_ondisk(
+> >  
+> >  /*
+> >   * Walk an iunlink bucket's inode list.  For each inode that should be on this
+> > - * chain, clear its entry in in iunlink_bmp because it's ok and we don't need
+> > + * chain, clear its entry in iunlink_bmp because it's ok and we don't need
+> >   * to touch it further.
+> >   */
+> >  STATIC int
+> > diff --git a/fs/xfs/scrub/alloc_repair.c b/fs/xfs/scrub/alloc_repair.c
+> > index dce6ab0429dc..84ae88ca027a 100644
+> > --- a/fs/xfs/scrub/alloc_repair.c
+> > +++ b/fs/xfs/scrub/alloc_repair.c
+> > @@ -338,7 +338,7 @@ xrep_cntbt_extent_cmp(
+> >  }
+> >  
+> >  /*
+> > - * Sort the free extents by length so so that we can put the records into the
+> > + * Sort the free extents by length so that we can put the records into the
+> >   * cntbt in the correct order.  Don't let userspace kill us if we're resorting
+> >   * after allocating btree blocks.
+> >   */
+> > diff --git a/fs/xfs/scrub/reap.c b/fs/xfs/scrub/reap.c
+> > index fcd14c1703ea..d1f4b7159af2 100644
+> > --- a/fs/xfs/scrub/reap.c
+> > +++ b/fs/xfs/scrub/reap.c
+> > @@ -172,7 +172,7 @@ static inline bool xreap_is_dirty(const struct xreap_state *rs)
+> >  }
+> >  
+> >  /*
+> > - * Decide if we need to roll the transaction to clear out the the log
+> > + * Decide if we need to roll the transaction to clear out the log
+> >   * reservation that we allocated to buffer invalidations.
+> >   */
+> >  static inline bool xreap_want_binval_roll(const struct xreap_state *rs)
+> > diff --git a/fs/xfs/xfs_bmap_item.c b/fs/xfs/xfs_bmap_item.c
+> > index 89f6e79a955f..aa5b41629747 100644
+> > --- a/fs/xfs/xfs_bmap_item.c
+> > +++ b/fs/xfs/xfs_bmap_item.c
+> > @@ -339,7 +339,7 @@ xfs_bmap_update_get_group(
+> >  
+> >  	/*
+> >  	 * Bump the intent count on behalf of the deferred rmap and refcount
+> > -	 * intent items that that we can queue when we finish this bmap work.
+> > +	 * intent items that we can queue when we finish this bmap work.
+> >  	 * This new intent item will bump the intent count before the bmap
+> >  	 * intent drops the intent count, ensuring that the intent count
+> >  	 * remains nonzero across the transaction roll.
+> > diff --git a/fs/xfs/xfs_zone_alloc.c b/fs/xfs/xfs_zone_alloc.c
+> > index bdbb60cc5d5b..f678015457c9 100644
+> > --- a/fs/xfs/xfs_zone_alloc.c
+> > +++ b/fs/xfs/xfs_zone_alloc.c
+> > @@ -826,7 +826,7 @@ xfs_get_cached_zone(
+> >  }
+> >  
+> >  /*
+> > - * Stash our zone in the inode so that is is reused for future allocations.
+> > + * Stash our zone in the inode so that is reused for future allocations.
+> >   *
+> >   * The open_zone structure will be pinned until either the inode is freed or
+> >   * until the cached open zone is replaced with a different one because the
+> > diff --git a/fs/xfs/xfs_zone_gc.c b/fs/xfs/xfs_zone_gc.c
+> > index 5fdcf98a2133..54b70ed2922f 100644
+> > --- a/fs/xfs/xfs_zone_gc.c
+> > +++ b/fs/xfs/xfs_zone_gc.c
+> > @@ -46,7 +46,7 @@
+> >   * before remapping.
+> >   *
+> >   * Once a zone does not contain any valid data, be that through GC or user
+> > - * block removal, it is queued for for a zone reset.  The reset operation
+> > + * block removal, it is queued for a zone reset.  The reset operation
+> >   * carefully ensures that the RT device cache is flushed and all transactions
+> >   * referencing the rmap have been committed to disk.
+> >   */
+> > -- 
+> > 2.48.1
+> > 
+> > 
+> 
