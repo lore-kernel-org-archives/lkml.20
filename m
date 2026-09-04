@@ -1,74 +1,73 @@
-Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com [209.85.216.54])
+Received: from mail-pf1-f178.google.com (mail-pf1-f178.google.com [209.85.210.178])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE2B546EF64
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 11:37:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A924E472F6A
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 11:38:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.178
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788521877; cv=none; b=tY8Ul2yE/A24BBPObRpUH8jLgFX1E20Df17C0uiIV9N60lTgAf3tylWdVj5w1+hrFJBwis4vf/Yu/qRnjlDX0gTVk2Ei3gqFxz0zmA5ulDtNpIz5xX3Bap8gEH8/LUwJRV97G/PlbyC4z6VnOiIa03u531+UXzoFofPasR2AElw=
+	t=1788521932; cv=none; b=qtS/ItEuIrYoASBprTJA9oITa6Q0AcR+C86PYdM4EXiXSED+d/vXGuRQvHNlgLtuKFGTGGPVgLSHKnDPWZSJlzNS70J+wFsv9FmSrTSIrWp9Tgv7DboTJIXHLv0akiGiOCXniFGBmSBEijNeq7BgZKgBuZpiijBa8ZN5BEOHn6E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788521877; c=relaxed/simple;
-	bh=qWMJGM8AnYVp2OPlKLVXba+UrM9RAuLKyMuqrtk60g4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=axxohElB+JNvU9UBI90yttxzf+a0ZQStcZNQ9bOaFasbg8t9F7AqkLivE0R7C2EESLo+Z6HEipdu4PomdOqvqD5sm+q4JFjB1eXuXvlXv1Gz65J0PlqnByGTu3JljyOw18HXAH9BxMTTDa8JP03cdbGRIfgv/OGln3Emf1dkFec=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=W8RHm80y; arc=none smtp.client-ip=209.85.216.54
+	s=arc-20240116; t=1788521932; c=relaxed/simple;
+	bh=2i2Xb8uVLvqRW1pz7h4o9josiq0uLULk+sapGI+s3A0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=I5Uh4uRLX9cKZn7CbTuje7HyDVqR1fooDyEpLoqZtNJOCVlYow7KQGXm17/puwtOVr5tBDxoVJ3X4bHTO9StORoIFsIQpf1sfDMkCe/BNckUWp2HHsa0QFQ8OY154een4IoEEr2DmR716EE0MckQjOMFuvxsl51tyMa7xz77hM8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=o3CWuJiK; arc=none smtp.client-ip=209.85.210.178
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="W8RHm80y"
-Received: by mail-pj1-f54.google.com with SMTP id 98e67ed59e1d1-38e42560ebcso736874a91.1
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 04:37:55 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="o3CWuJiK"
+Received: by mail-pf1-f178.google.com with SMTP id d2e1a72fcca58-855d2bfae95so2449147b3a.1
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 04:38:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788521875; x=1789126675; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=SG8v6QpE6WfnDLt4tJvRslvwmOMs90K2S2OxyydENuE=;
-        b=W8RHm80y6Tm6cfm9uhX2RTPNAf3oL2gM1QQx3jKBN3EmtdH6R9BXA1Y8wz3SUr6ALH
-         vuUa24BN7+y6Gc2Erga6ZbMWggBXgjWLT3z+BBb0VNSBNscKQxGAIv78hCdhxgugpcdt
-         6BDW0QvDWjwY64fdynuY3JtdHlELM95BILcJf7jCZRsHPdXD3ZdsSr2lcB34H+/MeeBO
-         lEzzK9ZUqe4ujp8bVTfeweR3tJ3Q5o2NjTo7tdRVeOdRuC8WAOBmq0JrlA06O/kWOcP0
-         DOYv7HHmUgO94o5wHXsn1Bm5ticdYV/loEky8mpMx+eBc7qpzPNjbWxa1RPJOTKuWvTL
-         TZdA==
+        d=gmail.com; s=20251104; t=1788521930; x=1789126730; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=NbJnvaFrEWBOaiHZ7Qvxbvf9YF4N/gpby3k4LTlunUQ=;
+        b=o3CWuJiKpa8mEDJTGyIRHlaaSq5xrYaObV0Qu9/Df79wHlWhLR1Tz7rNBC6xqVQ0X9
+         DzUurYuFZ1FV8GuGY/4HT8IVDE5CZbnGmCgm36H7klDRCx7OA0HwgMDMxWhYnZ4eTubh
+         sQyr2+fk5/pO1tM5JY5CUhQ0DBV3TCrd5lWItY7mQJSpsoB59ShRRokAQB4CtO5XZYgW
+         05KUnJBOqCrDU/FTdCsDu9T4rfdd8qb3DrWItC5a8EhBh/e0T7Y1vfT12ZuvQ5jiPBjp
+         J2NaBilROvES3naFgKDmqtfR/M+pRSFIw9oxSCUGwDLVIzWNk8xCsYEtRSVMRuGK42Cr
+         VdnQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788521875; x=1789126675;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=SG8v6QpE6WfnDLt4tJvRslvwmOMs90K2S2OxyydENuE=;
-        b=YERapbHW2qie73HaNZIM3ZPdcalMv3NMshdaczuDgh+LwGI/n9rLGMzcQFakI3lX8V
-         NfBQ5sOP9eq1FqWZsS/V1ztA5AALefAgc6S+7I9GDii3ffu2apnVmO2t4eS8XbVsKc+g
-         wGHLQHqRX5WtOlfJ48kADP9XQMBRgzaIEM++vnw56wT3+0DzX4SK3c919BUcL3lJ+13c
-         u7p+inDaVXk1ewzaE6/Z97orKeV32HI7UtmRnPC7SXTnyMTERULtHt46kLld3r6MLpCs
-         xFjxe+xWUjThsXvOVmfX8B6jCBcQfWVsZhdUxF5jtbBZncndR9dUgH2h/c3NcgZNLEBU
-         tE0Q==
-X-Gm-Message-State: AFuF++lHgV5JVm9F2PcZvWdwLSm8WiD6CHCwpd9d5gAPNFM4cXOz8j9S
-	Df2WNP+GLCZwKoT9+w9N+O6Kddc7AssJq3B+TY5wdL2PPr80JIJOcK+H
-X-Gm-Gg: AYBFou3Kj9VNbm9t9dI3yykogij3kQ5KcnkVZHtZAV4ELgU8jkuVf2NxRkpDDY4KAVM
-	4QsJ+CKl55FJY8awx0MgfMWdg+2RCaiJwc3F+8bNYKgN+yX6ftbqbPMsgLU85h+Tc/UM8SnDUMw
-	TpERkAToqleyGadAu2vYAHMj+Pd5+iKZsNHbAMzgFQhKcO//JO6X7q1NQgSB48RyV5YsMIH2MVc
-	vGh6v0BD3/f0hinSVUjl6mCP9L3LcyOfQU8cM84P0qwXhCAJYeMH19Rf8cniVl390PLNLNp79L/
-	jPETHakNNnQs4jL7s1z4V0yKB4lnuaOtWfLPNmaO6he+pqMCcb/xWtxP3xLZ8WLWNIpFdkC6BiZ
-	Jn0ThQYlew0Ur0vzTrHre+p7rXlFLM+aVjrJaML6fEH7tv355ZW09xihbM6mVfftay/Sy1GzIME
-	y3AN4j0TdMc6oF0PDN/WU0xXIdU+p7u2+0nqfhAAboaMAq0WIAllSr1vg8VPkrRlBnvuevwdCer
-	aYZK4QssKArTK8=
-X-Received: by 2002:a17:90b:5346:b0:395:f0e8:9e13 with SMTP id 98e67ed59e1d1-39b26190fd9mr8964352a91.7.1788521874944;
-        Fri, 04 Sep 2026 04:37:54 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1788521930; x=1789126730;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=NbJnvaFrEWBOaiHZ7Qvxbvf9YF4N/gpby3k4LTlunUQ=;
+        b=QA8MO4X5799xZfwlkN56oerGStMmmX7Pq34pjwn62uFqarTj/UN8NthnWCXpGQ8ehF
+         bK2nY2h1ezuMqkFy3yBNQIDQpCe63Y/E7yG1zbDXUtcCL6WA2ZDKwo+jqoiS0qYl7Sbp
+         trwVVT0bHadj9qycROKXMSwDGtlO+KncrVxZoQwWP/GY332JUUZYMr6l88GT58VNBEd5
+         rPUgviCpLKlune3U4x2VPfGT3lN9t5V3NVFEjrCZNO94OAV3nrx9tgXlOwDbyhFTZnFc
+         sZHNSIno606t8PMpo8QLGpqRCr+vhiHXpWIAnp09OnOKymzb5qo2Wn6/tJgifBY5fGwT
+         CNjA==
+X-Gm-Message-State: AFuF++nMo7uquUEpad+dEoNoN4Gz2b3zgHV3nzBBdptKX0T6Vsc6JX/n
+	5AOtY3OiACZ+eOEfQB+5sRsJJndL07G7c1i8V3erq+iZEtJLE+dTGzlv
+X-Gm-Gg: AYBFou0lmcPhFWtFL4xDm4m+chJ2lqdbyYVUpWVG5i8mq4Nyr2b+VjzeWAa5IPk28ip
+	hRPX9WjzReGZIfE/0DE1he+80f4OivOnPAz1fYJOBhSSjNM3J0jxr5geHtkgnzGqApuuP+1JvWh
+	+Cdrye/jgrws7F3WNb1yemEjUDBu+F9Yvc3h7AdhcjaBsARnhv+pmlA0/i8nOeiTbqNcJckBNPQ
+	ARw75AEob3uOr1TsFFnf/TcIz7faoQEBBRTWzmHjo9jGqouVn5xef+aXlUEhuVoXpQRkBHpNUmH
+	5u50IGxhb4Cwku1bqJbu/7UwiImGiywSHyQ8la1u1EEPaFMZ8J8f2WvPJR/iRy7glfqQpQJJRLt
+	ZBetP1pVN3xi8tD1Qxhpl1LIxXxW151QEGev3J+27yVJkEXaWbAProSTQ1rUsYCTQYs9p+LENSZ
+	g0c4FaEOxHBbNeA+GVK85Scl7/3vpxI9+Jfo+4xGJFjN1nX2T+I3IQZTYu35sChMK9Ina7bjfSC
+	ScLhkPCds0G1e8=
+X-Received: by 2002:a17:90b:280a:b0:398:cb8f:c308 with SMTP id 98e67ed59e1d1-39b076add5fmr14777101a91.0.1788521929594;
+        Fri, 04 Sep 2026 04:38:49 -0700 (PDT)
 Received: from volcano9f6e-hostos.amd.com ([165.204.217.251])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339ac24d7esm9102897eec.15.2026.09.04.04.37.53
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339b314cfcsm6379588eec.19.2026.09.04.04.38.46
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 04 Sep 2026 04:37:54 -0700 (PDT)
+        Fri, 04 Sep 2026 04:38:49 -0700 (PDT)
 From: Hemanth Selam <hemanth.selam@gmail.com>
-To: Wim Van Sebroeck <wim@linux-watchdog.org>,
-	Guenter Roeck <linux@roeck-us.net>
-Cc: linux-kernel@vger.kernel.org,
-	linux-watchdog@vger.kernel.org
-Subject: [PATCH 2/2] watchdog: fix repeated words in comments
-Date: Fri,  4 Sep 2026 17:07:41 +0530
-Message-ID: <20260904113744.19872-3-hemanth.selam@gmail.com>
+To: Arnd Bergmann <arnd@arndb.de>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Frank Haverkamp <haver@linux.ibm.com>,
+	Bryan Tan <bryan-bt.tan@broadcom.com>,
+	Vishnu Dasa <vishnu.dasa@broadcom.com>,
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>
+Cc: linux-kernel@vger.kernel.org
+Subject: [PATCH] misc: fix typos in comments
+Date: Fri,  4 Sep 2026 17:08:40 +0530
+Message-ID: <20260904113843.21367-1-hemanth.selam@gmail.com>
 X-Mailer: git-send-email 2.48.1
-In-Reply-To: <20260904113744.19872-1-hemanth.selam@gmail.com>
-References: <20260904113744.19872-1-hemanth.selam@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -77,88 +76,140 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Drop words accidentally written twice, reported by checkpatch.pl as a
-possible repeated word.  Only touches comments, no code changes.
+Fix typos in comments, reported by scripts/checkpatch.pl using the
+misspelling list in scripts/spelling.txt.  Only touches comments, no code
+changes.
 
 Assisted-by: Cursor:claude-opus-5
 Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
 ---
- drivers/watchdog/pc87413_wdt.c | 2 +-
- drivers/watchdog/wdt.c         | 4 ++--
- drivers/watchdog/wdt977.c      | 2 +-
- drivers/watchdog/wdt_pci.c     | 4 ++--
- 4 files changed, 6 insertions(+), 6 deletions(-)
+ drivers/char/lp.c                       | 2 +-
+ drivers/misc/gehc-achc.c                | 2 +-
+ drivers/misc/genwqe/card_base.c         | 6 +++---
+ drivers/misc/genwqe/card_ddcb.c         | 4 ++--
+ drivers/misc/genwqe/card_utils.c        | 2 +-
+ drivers/misc/vmw_vmci/vmci_datagram.c   | 2 +-
+ drivers/misc/vmw_vmci/vmci_queue_pair.c | 2 +-
+ 7 files changed, 10 insertions(+), 10 deletions(-)
 
-diff --git a/drivers/watchdog/pc87413_wdt.c b/drivers/watchdog/pc87413_wdt.c
-index fbf835d112b8..7c17f9eb1f8a 100644
---- a/drivers/watchdog/pc87413_wdt.c
-+++ b/drivers/watchdog/pc87413_wdt.c
-@@ -333,7 +333,7 @@ static int pc87413_status(void)
-  *	@ppos: pointer to the position to write. No seeks allowed
+diff --git a/drivers/char/lp.c b/drivers/char/lp.c
+index 24417a00dfe9..6e99e7c7a9b7 100644
+--- a/drivers/char/lp.c
++++ b/drivers/char/lp.c
+@@ -30,7 +30,7 @@
+  * CAREFUL will block a bit after in lp_check_status().
+  *				Andrea Arcangeli, 15 Oct 1998
+  * Obsoleted and removed all the lowlevel stuff implemented in the last
+- * month to use the IEEE1284 functions (that handle the _new_ compatibilty
++ * month to use the IEEE1284 functions (that handle the _new_ compatibility
+  * mode fine).
+  */
+ 
+diff --git a/drivers/misc/gehc-achc.c b/drivers/misc/gehc-achc.c
+index 9792189c0923..2c1222edb5dc 100644
+--- a/drivers/misc/gehc-achc.c
++++ b/drivers/misc/gehc-achc.c
+@@ -369,7 +369,7 @@ static int ezport_firmware_flash_data(struct spi_device *spi,
+ 	dev_dbg(&spi->dev, "EzPort verify flashed data...\n");
+ 	ret = ezport_firmware_compare_data(spi, data, size);
+ 
+-	/* allow missing FW verfication in secure mode */
++	/* allow missing FW verification in secure mode */
+ 	if (ret == -EACCES)
+ 		ret = 0;
+ 
+diff --git a/drivers/misc/genwqe/card_base.c b/drivers/misc/genwqe/card_base.c
+index e602eb3c51fa..aed6d57b955d 100644
+--- a/drivers/misc/genwqe/card_base.c
++++ b/drivers/misc/genwqe/card_base.c
+@@ -286,7 +286,7 @@ int genwqe_flash_readback_fails(struct genwqe_dev *cd)
+  * @cd: GenWQE device information
   *
-  *	A write to a watchdog device is defined as a keepalive signal. Any
-- *	write of data will do, as we we don't define content meaning.
-+ *	write of data will do, as we don't define content meaning.
-  */
- 
- static ssize_t pc87413_write(struct file *file, const char __user *data,
-diff --git a/drivers/watchdog/wdt.c b/drivers/watchdog/wdt.c
-index 3980d60bacd8..86aedaec1fef 100644
---- a/drivers/watchdog/wdt.c
-+++ b/drivers/watchdog/wdt.c
-@@ -311,7 +311,7 @@ static irqreturn_t wdt_interrupt(int irq, void *dev_id)
-  *	@ppos: pointer to the position to write. No seeks allowed
+  * Note: From a design perspective it turned out to be a bad idea to
+- * use codes here to specifiy the frequency/speed values. An old
++ * use codes here to specify the frequency/speed values. An old
+  * driver cannot understand new codes and is therefore always a
+  * problem. Better is to measure out the value or put the
+  * speed/frequency directly into a register which is always a valid
+@@ -904,7 +904,7 @@ static int genwqe_reload_bistream(struct genwqe_dev *cd)
   *
-  *	A write to a watchdog device is defined as a keepalive signal. Any
-- *	write of data will do, as we we don't define content meaning.
-+ *	write of data will do, as we don't define content meaning.
-  */
- 
- static ssize_t wdt_write(struct file *file, const char __user *buf,
-@@ -406,7 +406,7 @@ static long wdt_ioctl(struct file *file, unsigned int cmd, unsigned long arg)
-  *	open and on opening we load the counters. Counter zero is a 100Hz
-  *	cascade, into counter 1 which downcounts to reboot. When the counter
-  *	triggers counter 2 downcounts the length of the reset pulse which
-- *	set set to be as long as possible.
-+ *	set to be as long as possible.
-  */
- 
- static int wdt_open(struct inode *inode, struct file *file)
-diff --git a/drivers/watchdog/wdt977.c b/drivers/watchdog/wdt977.c
-index 4f449ac4dda4..1627b589d817 100644
---- a/drivers/watchdog/wdt977.c
-+++ b/drivers/watchdog/wdt977.c
-@@ -298,7 +298,7 @@ static int wdt977_release(struct inode *inode, struct file *file)
-  *      @ppos: pointer to the position to write. No seeks allowed
+  * Condition for the health-thread to trigger:
+  *   a) when a kthread_stop() request comes in or
+- *   b) a critical GFIR occured
++ *   b) a critical GFIR occurred
   *
-  *      A write to a watchdog device is defined as a keepalive signal. Any
-- *      write of data will do, as we we don't define content meaning.
-+ *      write of data will do, as we don't define content meaning.
-  */
+  * Informational GFIRs are checked and potentially printed in
+  * GENWQE_HEALTH_CHECK_INTERVAL seconds.
+@@ -1210,7 +1210,7 @@ static int genwqe_probe(struct pci_dev *pci_dev,
+ }
  
- static ssize_t wdt977_write(struct file *file, const char __user *buf,
-diff --git a/drivers/watchdog/wdt_pci.c b/drivers/watchdog/wdt_pci.c
-index 3918a600f2a0..3468c831d90a 100644
---- a/drivers/watchdog/wdt_pci.c
-+++ b/drivers/watchdog/wdt_pci.c
-@@ -347,7 +347,7 @@ static irqreturn_t wdtpci_interrupt(int irq, void *dev_id)
-  *	@ppos: pointer to the position to write. No seeks allowed
+ /**
+- * genwqe_remove() - Called when device is removed (hot-plugable)
++ * genwqe_remove() - Called when device is removed (hot-pluggable)
+  * @pci_dev:	PCI device information struct
   *
-  *	A write to a watchdog device is defined as a keepalive signal. Any
-- *	write of data will do, as we we don't define content meaning.
-+ *	write of data will do, as we don't define content meaning.
-  */
+  * Or when driver is unloaded respecitively when unbind is done.
+diff --git a/drivers/misc/genwqe/card_ddcb.c b/drivers/misc/genwqe/card_ddcb.c
+index 969178573940..07e2c1be22d9 100644
+--- a/drivers/misc/genwqe/card_ddcb.c
++++ b/drivers/misc/genwqe/card_ddcb.c
+@@ -460,7 +460,7 @@ static int genwqe_check_ddcb_queue(struct genwqe_dev *cd,
+ /**
+  * __genwqe_wait_ddcb(): Waits until DDCB is completed
+  * @cd:         pointer to genwqe device descriptor
+- * @req:        pointer to requsted DDCB parameters
++ * @req:        pointer to requested DDCB parameters
+  *
+  * The Service Layer will update the RETC in DDCB when processing is
+  * pending or done.
+@@ -543,7 +543,7 @@ int __genwqe_wait_ddcb(struct genwqe_dev *cd, struct ddcb_requ *req)
+ 		return -EINVAL;
+ 	}
  
- static ssize_t wdtpci_write(struct file *file, const char __user *buf,
-@@ -443,7 +443,7 @@ static long wdtpci_ioctl(struct file *file, unsigned int cmd,
-  *	open and on opening we load the counters. Counter zero is a 100Hz
-  *	cascade, into counter 1 which downcounts to reboot. When the counter
-  *	triggers counter 2 downcounts the length of the reset pulse which
-- *	set set to be as long as possible.
-+ *	set to be as long as possible.
+-	/* Severe error occured. Driver is forced to stop operation */
++	/* Severe error occurred. Driver is forced to stop operation */
+ 	if (cd->card_state != GENWQE_CARD_USED) {
+ 		dev_err(&pci_dev->dev,
+ 			"[%s] err: DDCB#%d forced to stop (rc=%d)\n",
+diff --git a/drivers/misc/genwqe/card_utils.c b/drivers/misc/genwqe/card_utils.c
+index e3b5fb337182..7c57cb881d7f 100644
+--- a/drivers/misc/genwqe/card_utils.c
++++ b/drivers/misc/genwqe/card_utils.c
+@@ -1003,7 +1003,7 @@ u64 genwqe_read_vreg(struct genwqe_dev *cd, u32 reg, int func)
+  * @cd:	        genwqe device descriptor
+  *
+  * Note: From a design perspective it turned out to be a bad idea to
+- * use codes here to specifiy the frequency/speed values. An old
++ * use codes here to specify the frequency/speed values. An old
+  * driver cannot understand new codes and is therefore always a
+  * problem. Better is to measure out the value or put the
+  * speed/frequency directly into a register which is always a valid
+diff --git a/drivers/misc/vmw_vmci/vmci_datagram.c b/drivers/misc/vmw_vmci/vmci_datagram.c
+index 6193a22c3ab5..73b43b097f92 100644
+--- a/drivers/misc/vmw_vmci/vmci_datagram.c
++++ b/drivers/misc/vmw_vmci/vmci_datagram.c
+@@ -434,7 +434,7 @@ EXPORT_SYMBOL_GPL(vmci_datagram_create_handle_priv);
+  * @out_handle: vmci_handle that is populated as a result of this function.
+  *
+  * Creates a host context datagram endpoint and returns a handle to
+- * it.  Same as vmci_datagram_create_handle_priv without the priviledge
++ * it.  Same as vmci_datagram_create_handle_priv without the privilege
+  * flags argument.
   */
- 
- static int wdtpci_open(struct inode *inode, struct file *file)
+ int vmci_datagram_create_handle(u32 resource_id,
+diff --git a/drivers/misc/vmw_vmci/vmci_queue_pair.c b/drivers/misc/vmw_vmci/vmci_queue_pair.c
+index 46bba9bef553..e1a11820be01 100644
+--- a/drivers/misc/vmw_vmci/vmci_queue_pair.c
++++ b/drivers/misc/vmw_vmci/vmci_queue_pair.c
+@@ -2668,7 +2668,7 @@ static ssize_t qp_dequeue_locked(struct vmci_queue *produce_q,
+  * @consume_qsize:      Desired size of the consumer queue.
+  * @peer:       ContextID of the peer.
+  * @flags:      VMCI flags.
+- * @priv_flags: VMCI priviledge flags.
++ * @priv_flags: VMCI privilege flags.
+  *
+  * This is the client interface for allocating the memory for a
+  * vmci_qp structure and then attaching to the underlying
 -- 
 2.48.1
 
