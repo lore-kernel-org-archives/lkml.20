@@ -1,80 +1,80 @@
-Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com [209.85.167.200])
+Received: from mail-ot1-f72.google.com (mail-ot1-f72.google.com [209.85.210.72])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 870543D9DBB
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D325E46A5F2
 	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 12:33:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.200
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788525211; cv=none; b=B9lPd4NNXpqtHPL3TiHWtitX3GOfgNqmAA6peiTVbGt/giyXp+k14eWA5R38lEGuDjX6rdpp0o7Wx7RlkQdNl24I8hT2tGJcG6+2TTYGjUjxgpxda1p+urq3NteGRwDgclGk6ZD06IF8TQieh2TrxxeaWuKG4n8ZliSzhJD3m9A=
+	t=1788525211; cv=none; b=G92ys5Mby+MvlgibDs+mRC4jY6mxokZMl6tIEDnmtjq8WMms1MU/MsnFt2cLxcKTNSidWOkS7qr65dcDuBv8+ftDIs6l5pLcagNki69QrUeLWedN8sZfg9lmeFdNw1obKIhglRRvJlwPCQYJX4z5NjpPwgwvrNpfvkHgCqpeY7U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788525211; c=relaxed/simple;
-	bh=NBVirhb0SL42QOwJElnmD9fRBSdfW/OD70HSlLvV2ME=;
-	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=upl5X1YG92AdF6GOQL9jngvBWjROK70Y1WSGg9a+2YyFrFpYObQTn1md5DNr5lTwX7k6ofNY62TItQm6slPLNKLYZlu6wokG4n3Za1bYWT9d4SArq+daYA7p9Jy2iIdnz+g9kBG+aB68YHzZbx/ZfzR16WhMpqZa/gIF5JeVcsc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.200
+	bh=XpNXi1xH2DOV/XtZTlBnCCrc1J7S/a5D05nOmI3eWBQ=;
+	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=ok7iaCZku6u3dpphyCU4AdqR4L+RCiXoTli2XfU+BpXg9zp78u/XEwhWqbAigOWIVMYbvLXr7gjPeB/drH5Q3nS0GsxPxptuVPUhr/r48V2yXXud/SP5Kc82BT5NgGrUCJmxgsUUyLaA2zfL1NFB2wY0SMtcXmOQN7EmSwWxEug=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.210.72
 Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f200.google.com with SMTP id 5614622812f47-4a49f09233dso727097b6e.2
+Received: by mail-ot1-f72.google.com with SMTP id 46e09a7af769-7f4e98783d1so599315a34.2
         for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 05:33:29 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20251104; t=1788525208; x=1789130008;
         h=content-type:to:from:subject:message-id:date:mime-version
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=o7oOdj2qZ+5JD70IABcjfJnmxAKde2HwU/wgYhYPXAE=;
-        b=WOW24V0wtrrX63ZF9M35iMEnPtLScYaMCo+erkVJ+cQs5BfXbqB+7zGlgOR0zM7BzE
-         hSol0OYgHhSoLcdIWa5ZtdqA0LB2pezCK1/8+Wa1aqTOHI644YdAdcIOCagrnM+AGTpy
-         FD+BiViXQOxPUZ1dyNVIlNhBugtsa7XT2PhdvjOdEFl0hnH5nNZdHY4yuaAlMef/mXv1
-         L1Q02mFVmiDduAd1bJhvMraf8zabkGbzLZ4R8dXSgyorrWMVSvqC3E2XwCyXGyTIlq+Z
-         XeXxT+1hKHM//BrIzkKZR8LxvPYFMDLnrcRIpDtejmbrrUf4JKhVzprll/ExAfMyIKT/
-         fCaw==
-X-Forwarded-Encrypted: i=1; AKwUvBx+0NkkY63ixM4pov5KD6RZIg12vmNqVJnHO5S6bnvVRtejkqaQyAWjf91yEi4aZ50vZhLLpj9qPgrb0Lw=@vger.kernel.org
-X-Gm-Message-State: AFuF++lKLSaYj7AALzeezPSZMdGOYreWggpQaUEY43VyRc+5LvfrujLO
-	rU+uTaKI4PQKGXArq2SDqj3n0UBVnDZ7sDdcwI/NAUFAzlDd8xKg+uMRFZKi9/iKrO7xItNsX0S
-	85TmnsBQYxHXdMidnng0d9FJr2eMWLLmaEgSWXB+xSr+im89Y1KvvjyT5EF0=
+        bh=PChFQ1uJwWrgo/iDvaB7Cf3epUdPSjK9Uf6XBaEekNU=;
+        b=UNicNobkP3LxGmCoBXFHUNtikd8DPO0+Puz+28+VbUV7fQm/aUeJuDKBccPv9pTyCQ
+         rLEeUO99plKxx8K24NKOxOenr+xvRMTmOxTocSddsWRSJEn6pnEeAkz9yoOhG3eQtybY
+         7Uz2vjkiUoyY/+HXzGOoXrvqGNYd6f94WlPvQzhJJv4wuMxKjoO1rj8y8gmdGuzg4flP
+         E2oJ/gscMfX6umnEzdz2wqXcLDzWPR2fs8fUW40JqBH/seyczrZ47riEHfaWQM9VOB7q
+         qXTdPxUqxplou/dDuBw8WKcE5FtsDUOUsHAI5fAnXbpUWPiBDdzFhoYrKDxTX0RgxiqY
+         y/YQ==
+X-Forwarded-Encrypted: i=1; AKwUvByKt82EwR4eanGTyQKY8nVYdmEBHh+7E8xte4l2rkLhVtWKGO8jyn14Nd5epcJLjo/WT3KXTxtLyuhWj0Y=@vger.kernel.org
+X-Gm-Message-State: AFuF++kPDHs8xwx4cmXfM9uoYQOPisHCj6jLnE4AvzGo6dQYebBTOZhy
+	3KMo3/Gcp522q/ziQd4jl+CI5AZGkwRTQ2bGqiME8eRBs/O4DqiWuvN+9SvBqOv1Zk0Yrml5bQL
+	vYsn/m4HFQ+B5Y6vT5KEBKbG7/zTc73CWG7LT1iZ8NathAro+eG5Ou8J7K44=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a4a:e847:0:b0:6b7:46e9:9700 with SMTP id
- 006d021491bc7-6b746e9a360mr2235866eaf.48.1788525208507; Fri, 04 Sep 2026
+X-Received: by 2002:a05:6820:217:b0:6b7:8396:f3d2 with SMTP id
+ 006d021491bc7-6b78396f8a2mr1596711eaf.52.1788525208741; Fri, 04 Sep 2026
  05:33:28 -0700 (PDT)
 Date: Fri, 04 Sep 2026 05:33:28 -0700
 X-Google-Appengine-App-Id: s~syzkaller
 X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6a9aba98.efa90033.8a9e.0000.GAE@google.com>
-Subject: [syzbot] Monthly bluetooth report (Sep 2026)
-From: syzbot <syzbot+list2fd463303e674a91d50c@syzkaller.appspotmail.com>
-To: linux-bluetooth@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	luiz.dentz@gmail.com, marcel@holtmann.org, syzkaller-bugs@googlegroups.com
+Message-ID: <6a9aba98.efa90033.8a9e.0001.GAE@google.com>
+Subject: [syzbot] Monthly ntfs3 report (Sep 2026)
+From: syzbot <syzbot+listd4ec4791a83e9272b425@syzkaller.appspotmail.com>
+To: almaz.alexandrovich@paragon-software.com, linux-kernel@vger.kernel.org, 
+	ntfs3@lists.linux.dev, syzkaller-bugs@googlegroups.com
 Content-Type: text/plain; charset="UTF-8"
 
-Hello bluetooth maintainers/developers,
+Hello ntfs3 maintainers/developers,
 
-This is a 31-day syzbot report for the bluetooth subsystem.
+This is a 31-day syzbot report for the ntfs3 subsystem.
 All related reports/information can be found at:
-https://syzkaller.appspot.com/upstream/s/bluetooth
+https://syzkaller.appspot.com/upstream/s/ntfs3
 
-During the period, 3 new issues were detected and 4 were fixed.
-In total, 20 issues are still open and 110 have already been fixed.
-There are also 6 low-priority issues.
+During the period, 1 new issues were detected and 0 were fixed.
+In total, 18 issues are still open and 94 have already been fixed.
+There is also 1 low-priority issue.
 
 Some of the still happening issues:
 
 Ref Crashes Repro Title
-<1> 9720    Yes   WARNING in call_timer_fn
-                  https://syzkaller.appspot.com/bug?extid=6fb78d577e89e69602f9
-<2> 598     Yes   WARNING: ODEBUG bug in hci_release_dev (2)
-                  https://syzkaller.appspot.com/bug?extid=b170dbf55520ebf5969a
-<3> 391     No    WARNING in l2cap_chan_del
-                  https://syzkaller.appspot.com/bug?extid=3272785b7a1fc9b510f6
-<4> 62      Yes   WARNING in l2cap_chan_send
-                  https://syzkaller.appspot.com/bug?extid=b6919040d9958e2fc1ae
-<5> 7       No    WARNING in hci_send_cmd (4)
-                  https://syzkaller.appspot.com/bug?extid=00f5a866124dc44cce14
-<6> 250     Yes   KASAN: slab-use-after-free Read in bt_accept_unlink
-                  https://syzkaller.appspot.com/bug?extid=a1595e656a83ea5b78eb
+<1> 3780    Yes   possible deadlock in attr_data_get_block (2)
+                  https://syzkaller.appspot.com/bug?extid=262a71e9d2faf8747085
+<2> 616     Yes   possible deadlock in mi_read (2)
+                  https://syzkaller.appspot.com/bug?extid=17f812893d5906837f33
+<3> 528     Yes   possible deadlock in ntfs_fallocate
+                  https://syzkaller.appspot.com/bug?extid=adacb2b0c896bc427962
+<4> 138     No    KMSAN: uninit-value in ntfs_iomap_begin (2)
+                  https://syzkaller.appspot.com/bug?extid=4b4ec878e25fafefa70f
+<5> 79      Yes   possible deadlock in ntfs_readdir
+                  https://syzkaller.appspot.com/bug?extid=cfc6e8106bec1c524f7d
+<6> 61      Yes   WARNING in errseq_set (2)
+                  https://syzkaller.appspot.com/bug?extid=57f9327d593d301ce2a2
 
 ---
 This report is generated by a bot. It may contain errors.
