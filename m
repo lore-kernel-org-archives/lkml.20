@@ -1,207 +1,232 @@
-Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
+Received: from mail-oi1-f180.google.com (mail-oi1-f180.google.com [209.85.167.180])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E766439890A
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 12:02:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 978F936F434
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 12:02:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.180
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788523346; cv=none; b=GLTsGwXbqZOfhWpBaQFhRfnIDvKGpmjkQ5J10pJtKrezN6OF8CtWtiFJEHr79Kqa2AJiLt01cPZFZw4GdOwkUkhfR9e8/ckcJsntP/4knsv8w9OaILNOwfbxemy34lObQizWwixCCxtwWx9YrPG0/vYatH5Wwydxu/u1baWRAXs=
+	t=1788523358; cv=none; b=uEp7b2XomwWu7jmTw8NtCXA1KlcXAlLzn7+6hqvDhawqSMYlXfXZg2MikGJ3+iz9fX2SvzI5+RkxjLGIfnMZepXF6PYQGnS+iJOPm1RTlmgd1rJu7qUdJNVnJ/QboDUg2YU2ZEUiVeNqns3LK1B98pmfDJjZnd7q+Z7V/xw+6Pw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788523346; c=relaxed/simple;
-	bh=cljt56npTkW7GuXOtH41oqLarj2iVtJJdz/cZ0wpCMs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=qYt13KMI0qGcnop+TXNZr+Q+DO8gh+GUjGU/hGL67ORc1mDt7LvIJMGvfM0JMlJpyvVLjZzao/ySbcd5ARcPFH7TgQE5atBEP2wuzZnw+6i+MAAXBRT2rs+TFxglTxV1r4++I/9c+LQxNGGSNdczFftIjGSjq71wwA/QqB5KMZc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fQvrwkBA; arc=none smtp.client-ip=209.85.221.42
+	s=arc-20240116; t=1788523358; c=relaxed/simple;
+	bh=s8SKeylEysro1sH2xJXAtX81kBJVTjdmeRiVYzGnYCs=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=WR7XQrI5VvFt0EbRQ7VqM/vTO+DyZ95aQ67K6Uz+FuGfHJ5JNJRsAKqhkd8Mug7HQttE9COLuyN4yy3SWr1vI2bVNe+OkY5lrE+qSG6GUIvR6lY/OZ0BKWlnrebbBXkNLxUhVDIsiskrQY4+ccK7MT2hzqn+ivbrPW7MIhn2JDE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VGhv6XzZ; arc=none smtp.client-ip=209.85.167.180
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fQvrwkBA"
-Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-48436216a98so584724f8f.0
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 05:02:24 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VGhv6XzZ"
+Received: by mail-oi1-f180.google.com with SMTP id 5614622812f47-4b383347fa6so1591762b6e.0
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 05:02:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788523343; x=1789128143; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=F+qgxqWEXAb9q775gpw7sG7cGIPG1UapQc2itwhgTTQ=;
-        b=fQvrwkBALDUCNYK+k3gd7HUEVRQ+T+vqVJI6aoSzmw9+Vg0DNMT85VC6uf9ch0zyuO
-         Lowv2d/zisEa/IBftrZSYMTUBL98tz9vXBuCQ9UxgC7PTT15UDBp8jM62oDXxAXVyQkf
-         35vUZBD5vEIfJrfmUPWND4+Oh5/9SN7j6RYiCBsVWjvr9B8vuvnXgoomN5w57wG/z/8T
-         X9k0NDw5seaTRr2TljhgpKZh2BfjxNwB6CF4ClVdzxDYyMZ8sLecFsTWlYo74pr4rY7t
-         kzmOGxFcSl+ORTeX8QHteM/KMwHU4HIQcDrl1nOXDlE66cuu6U3j8ujU/FZpG0N8u+wc
-         zy3g==
+        d=gmail.com; s=20251104; t=1788523355; x=1789128155; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=MSrHHKF/QU1b/Dh6LeXUkOxqaikEIYdeQRpXfVfhK+M=;
+        b=VGhv6XzZlORdv9EYIsYVDvoG8+whMIO7Fomjly8dikgho+H+26wAvLy6qzANEoMeqb
+         UHVAn8dwNI17yB35+VMW6zKrzMBqad8L6gvnq9SEb1h58Bo+UlNBC3UDatu3v/jcvn4y
+         l6m90uYuWNceQAZROXF7dOh82JFP6uXaf5ZPNuON3nxJ4GY9ptCU7q9GzvUWakYG3SP8
+         x612DF0m+0LZELgRP0OVkQ0J6YroEEHRsY/mLDgN1m2iGbPf70k5qGkleT1/fMg1Udfn
+         xX4iJG3WpxpN/C+KdSMXP3sPtp9XqWIGz5jsSUTXLs64uipGxCWbuK5hPReScJ4BCErA
+         HG2w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788523343; x=1789128143;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=F+qgxqWEXAb9q775gpw7sG7cGIPG1UapQc2itwhgTTQ=;
-        b=NLX90RYzscbLvtW0FcUccr8sWGD+FhpORYlywvrk9CBru5dfAC9Bak5LISMHfBn6tX
-         2PozPi2NUfI5DoP5MIY6SxRIwRFUHKLI9Jh855GJeB0PoZ7BWD3aWb6L/JFH9V32W22A
-         BY2yP5m1qlQzQleH1VPbfBqEVTIeViX5k/fXfiov+7BMGSCG6fNdrxuMxFlivE0jaIRY
-         qxkwZBNr7XKCuYS6wtVQo3yGOUhH454U/0zOSSwX3YMv0BXsMKzzcQns8GFMCbJy03v3
-         Hp0LjjLF52oqNfm2OPjz3N/5JjvB3u4/fsBuYIu7ZQwltVPzKgX7YRO8zAf11oI+qCt4
-         NDlQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzHQYWTYlqD4zl8OEmOq/KOCblpS6HkgZrm3rfLrUQ+juQ0hdR/z2LmfakjUE+sn9UUlkW+3lvRX+Yw/kM=@vger.kernel.org
-X-Gm-Message-State: AFuF++nof0AjVt9OPFCsSveoTFtVFLlhQhG344zdAJt+VKiLTgEm8J4W
-	ptcJjlyGw09Fji6o7w1iu336C7AXpQ+VtCUNP0eM5CsOXyb9G25la9Ak
-X-Gm-Gg: AYBFou2XFHKyvShO7e2Br15koYcfyiLZBoCrgeyrWhoN/BcibtnbzzodgTSwJr4kl3i
-	aApEWRLTGOevcwPLPUsxBq3mB/Gy+SZH0YtMpia3ktBOlaM7DiG2DYklEW11rBlFwsjQEHGBYUx
-	J1gx7Hu5b6Iye4YN2sy7og8CfxIkzN+nnkpCE9DPZffUZjZgBeuZcanZC4KXGQMZ/kyZ/+lixCB
-	Vv5lYo+scZER/FoIk3p0zgrnPaOu1OYTCsWXJATjJEitM1ZwLoEKr3gPRH0NGLhxYHDY6EjKyLq
-	XSk2vN9M2j6ql+Sdc7/8kPazLdjmtKY0JA8bh7luehZHZZb+yPWpk1jbO75rPcWGMFB7gb4ycGU
-	KZSYNHjWdA33RnUdHyK85+AyCYRBpNP7XidiRmQi5GptxyZAi3axlF4VvH65K64oACZ37CoE/gC
-	jPRJq90kCnUjOm53hpzkyyTGWDYEphXNwaFjaaO66obRgWtapJ+2IwG4hjmri8P6GcqMdjxSZ27
-	vvY3lL10CeADHwY4ON4z/HNH2Z7ZcGAcPwfs+ZfFBF/SuNdaelkn5d3EOU3AddoFnVXyR6jEw==
-X-Received: by 2002:a5d:5f94:0:b0:485:8c17:975b with SMTP id ffacd0b85a97d-4858c1798cfmr2792947f8f.29.1788523342687;
-        Fri, 04 Sep 2026 05:02:22 -0700 (PDT)
-Received: from ernest.hoecke-nb (248.201.173.83.static.wline.lns.sme.cust.swisscom.ch. [83.173.201.248])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-485883be709sm5726091f8f.21.2026.09.04.05.02.21
+        d=1e100.net; s=20251104; t=1788523355; x=1789128155;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=MSrHHKF/QU1b/Dh6LeXUkOxqaikEIYdeQRpXfVfhK+M=;
+        b=TG6wXFpgETCd1DfchdykpMeNKVt/yDmPWyWoO7z4zDAizjztpXtPhvw7fbKYOUK9jw
+         XYSeN4b5g7NyeHyLh8xrPJxYxXc2QkAjIkPYMntw3exHaGcmO9Em9LaH4SxrUupxE65w
+         Xeui6Sig7RSrNEgxRHkz0A5y6NvSZCWpOrucQe3tWU9brweYlMz4a5Nd0AarEIOIqk0L
+         D7ZrlPwrchl9IibflnDVCIpS1BCKhOXvAoKE6Xg3QfrtGt4oXWl0Tf9c/dkerIP93vQG
+         ULb2YB/GsqGUWNXvhzrr8cuxOv5oFH9gPzg6JB+d/xkjiOGFrbH1etAtezZQPtjezjBn
+         ikQg==
+X-Gm-Message-State: AFuF++kebi6KfkOcuRUlzWRIWGgs2DOjLaifzOd5/xvE6QZdTH9588RQ
+	b+qj6BRpFr+zahyDMBk8JGqHwPqwvDyodajC68g/TOLQSSKlknfSlzkg
+X-Gm-Gg: AYBFou2leVjuvHxZ/lJx8y9d0OMEJdPP2Crt9ccVaLGuAevbV7/D4yU4tViaApbxXiy
+	LbFzYJVnB734Xxv9ooJ0OOnvSp1fTH1hP4tul1bEPZu1YLdz+CMG+7K3CpEPrMILMt53pd+KsOv
+	hGaQVylZ0a5Jv6ThfUi2lwvr3lXhEQGlNxhpaKPfdwFcq1E0Nhsjn3dI+G47gRIE7DsxVmzkcdB
+	NLIYmaY9tjQFK+HspuiE9IFwjDNCZcDRlIbiFY1iF5ub2iIFzPQl9OmyBrdt1JjSjfBu3FZOh4G
+	BAIuWjcEaQgNa1FN53GirpZ6yghGnMIwhqgjKPvznXRu7jdoJzMMo5BWoczGrC6x0jEjNztJJnn
+	qLIfYyvzzBqvt2IO/vzhlUcswnQWl8n7mjeAJ6ts17nxGDLI7qecCEJUfVbsO6rSwPPXU2gdUSt
+	ORrJty1XKUCXtA9NOcefBCXiSmJSBQ2Mvanq2jkv4D5xYZHz9NsPfen3HBz8M68zSYJ6JsHPtPK
+	aNMZ7BMM++8MgPl/9D2jKV8nE4=
+X-Received: by 2002:a05:6820:1791:b0:6b7:f498:cec3 with SMTP id 006d021491bc7-6b7f498e151mr266433eaf.35.1788523355085;
+        Fri, 04 Sep 2026 05:02:35 -0700 (PDT)
+Received: from volcano9f6e-hostos.amd.com ([165.204.217.251])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1432435648esm7713194c88.5.2026.09.04.05.02.31
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 04 Sep 2026 05:02:22 -0700 (PDT)
-Date: Fri, 4 Sep 2026 14:02:20 +0200
-From: Ernest Van Hoecke <ernestvanhoecke@gmail.com>
-To: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Cc: tessolveupstream@gmail.com, andrzej.hajda@intel.com, 
-	neil.armstrong@linaro.org, rfoss@kernel.org, Laurent.pinchart@ideasonboard.com, 
-	jonas@kwiboo.se, jernej.skrabec@gmail.com, maarten.lankhorst@linux.intel.com, 
-	mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch, 
-	marex@denx.de, valentin@compulab.co.il, philippe.schenker@toradex.com, 
-	alexander.stein@ew.tq-group.com, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 1/1] drm: bridge: ti-sn65dsi83: Fix DSI mode flags for
- stable LVDS output
-Message-ID: <3hfae2i2i2toxbo7hg2if6pztaswgnfj65xfm2c4ofljc6jhua@slaqoewn4mxq>
-References: <20260412053811.662461-2-tessolveupstream@gmail.com>
- <DHTJJRKD65L4.1P7X5O20V1W2Q@bootlin.com>
- <c4c33f14-0da0-447a-ab82-2e2f65c09c07@gmail.com>
- <7056b23b-ed81-4d79-b782-5cfcb0102ef7@gmail.com>
- <60a24977-b181-40e4-bcf6-38b65af293e2@gmail.com>
- <DI18PL73UQKR.2YZVZ21V69H7O@bootlin.com>
- <e88af0b7-388d-4b0a-8eb2-a367e24e84fb@gmail.com>
- <DIMMKNT9RHYM.1BRF1S1V5SIKI@bootlin.com>
- <1716be56-ac43-440b-a5df-58cbf571ba95@gmail.com>
- <DINH3J2SM26P.3KE6GE9VPB1OC@bootlin.com>
+        Fri, 04 Sep 2026 05:02:34 -0700 (PDT)
+From: Hemanth Selam <hemanth.selam@gmail.com>
+To: Jani Nikula <jani.nikula@linux.intel.com>,
+	Rodrigo Vivi <rodrigo.vivi@intel.com>,
+	Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+	Tvrtko Ursulin <tursulin@ursulin.net>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>
+Cc: linux-kernel@vger.kernel.org,
+	intel-gfx@lists.freedesktop.org,
+	intel-xe@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org
+Subject: [PATCH 1/2] drm/i915: fix typos in comments
+Date: Fri,  4 Sep 2026 17:32:20 +0530
+Message-ID: <20260904120225.15868-2-hemanth.selam@gmail.com>
+X-Mailer: git-send-email 2.48.1
+In-Reply-To: <20260904120225.15868-1-hemanth.selam@gmail.com>
+References: <20260904120225.15868-1-hemanth.selam@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <DINH3J2SM26P.3KE6GE9VPB1OC@bootlin.com>
+Content-Transfer-Encoding: 8bit
 
-Hi Luca,
-Hi Sudarshan,
+Fix typos in comments, reported by scripts/checkpatch.pl using the
+misspelling list in scripts/spelling.txt.  Only touches comments, no code
+changes.
 
-On Wed, May 20, 2026 at 01:38:36PM +0200, Luca Ceresoli wrote:
-> Hello,
-> 
-> On Wed May 20, 2026 at 11:04 AM CEST, tessolveupstream wrote:
-> 
-> [...]
-> 
-> >>> We have not received any further updates from TI regarding this issue, and
-> >>> at this point, we are not sure if we will get additional feedback from them.
-> >>> As you had mentioned earlier that the patch could be considered after
-> >>> waiting for some time, could you please let us know how we can proceed
-> >>> further from here?
-> >>
-> >> I am getting some feedback from TI, but it is taking some time.
-> >>
-> >> For the time being I think it is clear that HBP and HFP are required, and
-> >> so removing the MIPI_DSI_MODE_VIDEO_NO_HFP and MIPI_DSI_MODE_VIDEO_NO_HBP
-> >> in your patch seems to be fully correct, even though this had no effect on
-> >> the panel I tested.
-> >>
-> >> I'm still trying to get some better info to ensure that switching from
-> >> burst mode to non-burst mode is not expected to have side effects.
-> >>
-> >> For thi reason, I think it would be great if you could send a new version
-> >> with two separate patches: the first one enabling HFP and HBP and which can
-> >> be applied right away, the second to disable burst mode for which I'd wait
-> >> a bit longer for TI feedback. You can keep the Tested-by lines.
-> >>
-> >
-> > Thanks for the clarification. I just wanted to confirm my understanding
-> > regarding the patch split you suggested.
-> >
-> > From your comments, my understanding is that the first patch would only
-> > enable HFP and HBP by removing MIPI_DSI_MODE_VIDEO_NO_HFP and
-> > MIPI_DSI_MODE_VIDEO_NO_HBP, while keeping burst mode enabled, so the mode
-> > flags would become:
-> >
-> > dsi->mode_flags = MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_VIDEO_BURST |
-> >           MIPI_DSI_MODE_VIDEO_NO_HSA | MIPI_DSI_MODE_NO_EOT_PACKET;
-> >
-> > Then, the second patch would only disable burst mode, resulting in:
-> >
-> > dsi->mode_flags = MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_VIDEO_NO_HSA |
-> >           MIPI_DSI_MODE_NO_EOT_PACKET;
-> >
-> > Could you please confirm whether my understanding is correct?
-> 
-> Yes, correct.
-> 
-> > Also, from our testing, when using:
-> >
-> > dsi->mode_flags = MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_VIDEO_BURST |
-> >           MIPI_DSI_MODE_VIDEO_NO_HSA | MIPI_DSI_MODE_NO_EOT_PACKET;
-> >
-> > we are not able to get display output.
-> 
-> This is the case for the panel I worked on as well. In the practice we both
-> observe that non-burst mode is what fixes the panel, but there is no clear
-> explanation of the reason in the docs (that's what I hope to discover from
-> TI).
->
-I am testing a DSI panel on our Verdin iMX8MP module, and noticed that
-this caused a regression.
+Assisted-by: Cursor:claude-opus-5
+Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
+---
+ drivers/gpu/drm/i915/display/icl_dsi.c      | 2 +-
+ drivers/gpu/drm/i915/display/intel_hdcp.c   | 2 +-
+ drivers/gpu/drm/i915/display/intel_hdmi.c   | 4 ++--
+ drivers/gpu/drm/i915/display/intel_vdsc.c   | 2 +-
+ drivers/gpu/drm/i915/display/intel_vrr.c    | 2 +-
+ drivers/gpu/drm/i915/display/skl_scaler.c   | 2 +-
+ drivers/gpu/drm/i915/display/vlv_dsi.c      | 2 +-
+ drivers/gpu/drm/i915/gem/i915_gem_context.c | 2 +-
+ drivers/gpu/drm/i915/gt/intel_migrate.c     | 2 +-
+ 9 files changed, 10 insertions(+), 10 deletions(-)
 
-In v4 of this series only the change removing NO_HFP and NO_HBP was
-applied. [1]
+diff --git a/drivers/gpu/drm/i915/display/icl_dsi.c b/drivers/gpu/drm/i915/display/icl_dsi.c
+index ea0cdb7822f3..d2b1a0b68260 100644
+--- a/drivers/gpu/drm/i915/display/icl_dsi.c
++++ b/drivers/gpu/drm/i915/display/icl_dsi.c
+@@ -958,7 +958,7 @@ gen11_dsi_set_transcoder_timings(struct intel_encoder *encoder,
+ 	/* TRANS_HSYNC register to be programmed only for video mode */
+ 	if (is_vid_mode(intel_dsi)) {
+ 		if (intel_dsi->video_mode == NON_BURST_SYNC_PULSE) {
+-			/* BSPEC: hsync size should be atleast 16 pixels */
++			/* BSPEC: hsync size should be at least 16 pixels */
+ 			if (hsync_size < 16)
+ 				drm_err(display->drm,
+ 					"hsync size < 16 pixels\n");
+diff --git a/drivers/gpu/drm/i915/display/intel_hdcp.c b/drivers/gpu/drm/i915/display/intel_hdcp.c
+index e56df337dc6d..0003dd7b106b 100644
+--- a/drivers/gpu/drm/i915/display/intel_hdcp.c
++++ b/drivers/gpu/drm/i915/display/intel_hdcp.c
+@@ -787,7 +787,7 @@ int intel_hdcp_auth_downstream(struct intel_connector *connector)
+ 
+ 	/*
+ 	 * When V prime mismatches, DP Spec mandates re-read of
+-	 * V prime atleast twice.
++	 * V prime at least twice.
+ 	 */
+ 	for (i = 0; i < tries; i++) {
+ 		ret = intel_hdcp_validate_v_prime(connector, shim,
+diff --git a/drivers/gpu/drm/i915/display/intel_hdmi.c b/drivers/gpu/drm/i915/display/intel_hdmi.c
+index 8a019d3574df..59af06443476 100644
+--- a/drivers/gpu/drm/i915/display/intel_hdmi.c
++++ b/drivers/gpu/drm/i915/display/intel_hdmi.c
+@@ -3234,7 +3234,7 @@ intel_hdmi_dsc_get_num_slices(const struct intel_crtc_state *crtc_state,
+ #define HDMI_DSC_PEAK_PIXEL_RATE		2720000
+ /*
+  * Rates at which the source and sink are required to process pixels in each
+- * slice, can be two levels: either atleast 340000KHz or atleast 40000KHz.
++ * slice, can be two levels: either at least 340000KHz or at least 40000KHz.
+  */
+ #define HDMI_DSC_MAX_ENC_THROUGHPUT_0		340000
+ #define HDMI_DSC_MAX_ENC_THROUGHPUT_1		400000
+@@ -3267,7 +3267,7 @@ intel_hdmi_dsc_get_num_slices(const struct intel_crtc_state *crtc_state,
+ 
+ 	/*
+ 	 * As per spec, the rate at which the source and the sink process
+-	 * the pixels per slice are at two levels: atleast 340Mhz or 400Mhz.
++	 * the pixels per slice are at two levels: at least 340Mhz or 400Mhz.
+ 	 * This depends upon the pixel clock rate and output formats
+ 	 * (kslice adjust).
+ 	 * If pixel clock * kslice adjust >= 2720MHz slices can be processed
+diff --git a/drivers/gpu/drm/i915/display/intel_vdsc.c b/drivers/gpu/drm/i915/display/intel_vdsc.c
+index 8f06c3a4d56d..e61808dc2ce6 100644
+--- a/drivers/gpu/drm/i915/display/intel_vdsc.c
++++ b/drivers/gpu/drm/i915/display/intel_vdsc.c
+@@ -378,7 +378,7 @@ int intel_dsc_compute_params(struct intel_crtc_state *pipe_config)
+ 
+ 	/*
+ 	 * From XE_LPD onwards we supports compression bpps in steps of 1
+-	 * upto uncompressed bpp-1, hence add calculations for all the rc
++	 * up to uncompressed bpp-1, hence add calculations for all the rc
+ 	 * parameters
+ 	 *
+ 	 * We don't want to calculate all rc parameters when the panel
+diff --git a/drivers/gpu/drm/i915/display/intel_vrr.c b/drivers/gpu/drm/i915/display/intel_vrr.c
+index 51e4f3309b8b..4e1e849ab150 100644
+--- a/drivers/gpu/drm/i915/display/intel_vrr.c
++++ b/drivers/gpu/drm/i915/display/intel_vrr.c
+@@ -46,7 +46,7 @@ bool intel_vrr_is_capable(struct intel_connector *connector)
+ 	/*
+ 	 * DP Sink is capable of VRR video timings if
+ 	 * Ignore MSA bit is set in DPCD.
+-	 * EDID monitor range also should be atleast 10 for reasonable
++	 * EDID monitor range also should be at least 10 for reasonable
+ 	 * Adaptive Sync or Variable Refresh Rate end user experience.
+ 	 */
+ 	switch (connector->base.connector_type) {
+diff --git a/drivers/gpu/drm/i915/display/skl_scaler.c b/drivers/gpu/drm/i915/display/skl_scaler.c
+index 7994b983d509..066fb0587aa3 100644
+--- a/drivers/gpu/drm/i915/display/skl_scaler.c
++++ b/drivers/gpu/drm/i915/display/skl_scaler.c
+@@ -194,7 +194,7 @@ skl_update_scaler(struct intel_crtc_state *crtc_state, bool force_detach,
+ 
+ 	/*
+ 	 * if plane is being disabled or scaler is no more required or force detach
+-	 *  - free scaler binded to this plane/crtc
++	 *  - free scaler bound to this plane/crtc
+ 	 *  - in order to do this, update crtc->scaler_usage
+ 	 *
+ 	 * Here scaler state in crtc_state is set free so that
+diff --git a/drivers/gpu/drm/i915/display/vlv_dsi.c b/drivers/gpu/drm/i915/display/vlv_dsi.c
+index 8829f365592e..693084164713 100644
+--- a/drivers/gpu/drm/i915/display/vlv_dsi.c
++++ b/drivers/gpu/drm/i915/display/vlv_dsi.c
+@@ -1028,7 +1028,7 @@ static void bxt_dsi_get_pipe_config(struct intel_encoder *encoder,
+ 	adjusted_mode_sw = &crtc->config->hw.adjusted_mode;
+ 
+ 	/*
+-	 * Atleast one port is active as encoder->get_config called only if
++	 * At least one port is active as encoder->get_config called only if
+ 	 * encoder->get_hw_state() returns true.
+ 	 */
+ 	for_each_dsi_port(port, intel_dsi->ports) {
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_context.c b/drivers/gpu/drm/i915/gem/i915_gem_context.c
+index c58ffa5a8fa6..ee9d2991f162 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_context.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_context.c
+@@ -1378,7 +1378,7 @@ static struct intel_engine_cs *active_engine(struct intel_context *ce)
+ 	list_for_each_entry_reverse(rq, &ce->timeline->requests, link) {
+ 		bool found;
+ 
+-		/* timeline is already completed upto this point? */
++		/* timeline is already completed up to this point? */
+ 		if (!i915_request_get_rcu(rq))
+ 			break;
+ 
+diff --git a/drivers/gpu/drm/i915/gt/intel_migrate.c b/drivers/gpu/drm/i915/gt/intel_migrate.c
+index aff5aca591e6..86927e0c76e2 100644
+--- a/drivers/gpu/drm/i915/gt/intel_migrate.c
++++ b/drivers/gpu/drm/i915/gt/intel_migrate.c
+@@ -643,7 +643,7 @@ calculate_chunk_sz(struct drm_i915_private *i915, bool src_is_lmem,
+ {
+ 	if (ccs_bytes_to_cpy && !src_is_lmem)
+ 		/*
+-		 * When CHUNK_SZ is passed all the pages upto CHUNK_SZ
++		 * When CHUNK_SZ is passed all the pages up to CHUNK_SZ
+ 		 * will be taken for the blt. in Flat-ccs supported
+ 		 * platform Smem obj will have more pages than required
+ 		 * for main memory hence limit it to the required size
+-- 
+2.48.1
 
-For us, the display worked before that change. So with
-MIPI_DSI_MODE_VIDEO_BURST | MIPI_DSI_MODE_VIDEO_NO_HBP |
-MIPI_DSI_MODE_VIDEO_NO_HFP: things are fine.
-
-But with only MIPI_DSI_MODE_VIDEO_NO_HBP | MIPI_DSI_MODE_VIDEO_NO_HFP
-removed, it no longer works. I can verify that if I also remove
-MIPI_DSI_MODE_VIDEO_BURST, things work fine again.
-
-How can we proceed, will we be applying the removal of
-MIPI_DSI_MODE_VIDEO_BURST soon?
-
-I think we'll need to either revert this and later apply both together
-when ready, or apply the second patch now as well. Right now, it broke
-the DSI panel behind a TI sn65dsi83 bridge on v7.3-rc1.
-
-[1] https://lore.kernel.org/all/178164296717.254857.3522055507948798930.b4-ty@b4/
-
-Thanks,
-Ernest
-> 
-> On the other hand the HBP and HFP are clearly required by the docs, so it
-> should be fine to enable those without waiting for further info from
-> TI. This is not fixing your and my panel, but it's a fix, no doubt.
-> 
-> > I just wanted to mention this
-> > observation in case it is relevant to the patch split discussion.
-> >
-> > Additionally, regarding the Tested-by tags you mentioned earlier,
-> > should I carry them forward to both patches, or would you prefer them
-> > only on the applicable patch?
-> 
-> I'd say yes. People who sent these tags have tested a patch that is the sum
-> of the two future patches, so I'd say it's OK to keep the R-by on both
-> patches.
-> 
-> Thanks for your patience. We'll get to the bottom of this issue! :)
-> 
-> Luca
-> 
-> --
-> Luca Ceresoli, Bootlin
-> Embedded Linux and Kernel engineering
-> https://bootlin.com
