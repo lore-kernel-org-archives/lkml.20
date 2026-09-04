@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12924EEC0
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 01:54:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A035928373
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 01:55:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788486849; cv=none; b=ahWayufGkiJZms42QBdRQd1YxJuyRs2EHBEbuXF5HTeEl3/BxSYEporIVZKzap35p+V0H7qCKcXbTVlSE8241AG5dAUWnrHxOhRmFe7RFlalklQ7kepW8ShWp2iKthfGenwVS4haNXbiRO6WZgciJY0KJPD/AsW6QYLg7m9G7kE=
+	t=1788486911; cv=none; b=HN07IZZuZ8aGLKAStuOYJNcpUJHjeAJuPQZp1Miy3e+sIGzWGuP9Bp2hfGlMoWSmq77rJ554xthUxOg3mFshMHm0mV1/oXUUxiagP+3za4chRiw2pUQZI8BApMGhQrotdAxGQu45GxfBANXgVVP86i6pyBvWWJ6qHdxhsJQKUfY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788486849; c=relaxed/simple;
-	bh=cF4pabPAvNTJVZ1A0H8ef/xg4V+WfFaUS+JONTzWQsc=;
+	s=arc-20240116; t=1788486911; c=relaxed/simple;
+	bh=XiZacOsd9e7x12bTkP5pfxuaRoaRhwCtss3NK5h7SZk=;
 	h=Message-ID:Date:MIME-Version:Cc:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=bibDDnAp93K6njJRxUY+qxmk5biV9rCcD7V1aucMnWu8GWBsVrCg2CbL4zqYpMTSj2fuw80JuZp7Mj1z7ZMbLOUa7P4+LpHJszMsztt/cHkrnjJSqT4vCRVYzn5+ANK1C+hGJ0Pmct40yrKLRWKTYwYdnZb0D/SPP5r5EuleggU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CMKUXVIc; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=Q9UG/s4iajZumtbkY00piHuNgZvxjpY57VgymQxypuhbnsDTRrjCSXzVJJJ3UFJ9f00I4dk8JdbM7F/93deeRhHWp/VXtv/KGl92ign4Smy13HYuBjn95sBmnhJHmzvmUagfMCgTSJ7botgnX7GlxKC4J6Z1vIzn7YwxzL1LMYc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KzKsuTnh; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CMKUXVIc"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4EBF01F000E9;
-	Fri,  4 Sep 2026 01:54:06 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KzKsuTnh"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 36D4A1F000E9;
+	Fri,  4 Sep 2026 01:55:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788486847;
-	bh=1WRoLVevLW92ZIPX07qRkQmYsWzRclwhzP39wqjr+bk=;
+	s=k20260515; t=1788486910;
+	bh=lVKjIS0Eg5XrAPg/zdYHxfOR4gtQ/JfSPCvfuoElJzw=;
 	h=Date:Cc:Subject:To:References:From:In-Reply-To;
-	b=CMKUXVIcZ6FuF1ROV9ZJT6R2Q95SSvruGs49Sv0hA7bSd9RFkNWYiUAgbV58voFZ+
-	 ke9r38PWwkptBTb2GMHnsS27+jbFh18HhTR+fWi5/jnMkfMekFhw97UEMOUUP5U5mT
-	 6CizXrmkEBH1vUD4zW47IWTn81OQQCuSswXSkxN8xxhICylz41H8ZuQtEbk7tGjEyv
-	 W/sZl4/7LCnSmIIsrPkoYZDU8dPBqcG+3T83nm0hIxFMvwsgY+nShDflqc35v9hlE2
-	 W8/j8eLUFh6rCLOd2UnrLfVGgKAEcCgwdzlSIMyr2egr54Fin9anhZaA9ZYtPvd/1s
-	 PfSu0ih6WO2NA==
-Message-ID: <b4b114dc-f161-4759-b508-3d34519a041a@kernel.org>
-Date: Fri, 4 Sep 2026 09:54:04 +0800
+	b=KzKsuTnhbu08hAl35NHp5kRKiPwA9bs3Po95oJxzJTtR9AETBC6/3WG5B1/A7Ge+W
+	 Sis+Wk6cX7sVRJfCDDOyCPprL1OrW3ZOHjfOLYVyn/H1goWT+VTUvQSFRGetUIDYvO
+	 nzZEp0Xkc6ftQS8dV2wXVh3QyGlXEgkcP5SJaCV8a86JUgQkN8uwHae0NTVS/EnUC7
+	 rH+FSv5HG/OwlALrny2jzO2+1Sr8PmPktax6KtXrnQSA53YYyjBbZOar/ZBF7KGlNQ
+	 0gFSUpDqAbVu0m8i8075SIijHmIs9itigYZt/ivHydZdawzwXaZ2o+ckBO5HtE0MvI
+	 nS61xtVYegc+g==
+Message-ID: <d988b67a-3b1f-43de-b317-375be828fa26@kernel.org>
+Date: Fri, 4 Sep 2026 09:55:07 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -37,32 +37,33 @@ MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Cc: chao@kernel.org, Jaegeuk Kim <jaegeuk@kernel.org>,
  Daeho Jeong <daeho43@gmail.com>, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v9 02/11] f2fs: describe SIT block layout dynamically
+Subject: Re: [PATCH v9 03/11] f2fs: describe NAT block layout dynamically
 To: Kelvin Zhang <zhangxp1998@gmail.com>,
  linux-f2fs-devel@lists.sourceforge.net
 References: <cover.1788479509.git.zhangxp1998@gmail.com>
- <10843e36038ce78374ef20fe8c19f6ec392bc078.1788479509.git.zhangxp1998@gmail.com>
+ <f019fbdf97004b6dc2cbacd3a215b163a1761359.1788479509.git.zhangxp1998@gmail.com>
 Content-Language: en-US
 From: Chao Yu <chao@kernel.org>
-In-Reply-To: <10843e36038ce78374ef20fe8c19f6ec392bc078.1788479509.git.zhangxp1998@gmail.com>
+In-Reply-To: <f019fbdf97004b6dc2cbacd3a215b163a1761359.1788479509.git.zhangxp1998@gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
 On 9/4/26 07:56, Kelvin Zhang wrote:
-> An SIT block consists of an on-disk array of struct f2fs_sit_entry elements
-> whose total capacity depends on the filesystem block size. The existing
-> fixed SIT_ENTRY_PER_BLOCK macro hardcodes a 4KB block size.
+> A NAT block is a filesystem-block-sized array of struct f2fs_nat_entry
+> elements. The compile-time NAT_ENTRY_PER_BLOCK definition hardcodes the
+> NAT capacity to a 4KB block size.
 > 
-> Convert the entries array in struct f2fs_sit_block into a C flexible array
-> member, and calculate sbi->sit_entries_per_block dynamically in
+> Replace the fixed array in struct f2fs_nat_block with a C flexible
+> array member, and calculate sbi->nat_entries_per_block dynamically in
 > init_sb_info().
 > 
-> Parameterize SIT indexing helpers (SIT_ENTRY_PER_BLOCK, SIT_BLOCK_OFFSET,
-> SIT_BLK_CNT, and f2fs_start_segno) to take struct f2fs_sb_info *sbi, and
-> update all call sites across segment management, checkpointing, and mount.
+> Parameterize NAT geometry helpers (NAT_ENTRY_PER_BLOCK,
+> NAT_BLOCK_OFFSET, f2fs_start_nid, NAT_BLK_CNT, and
+> f2fs_nat_bitmap_size) with sbi. Update call sites across node management,
+> checkpointing, GC, and sysfs.
 > 
-> This is a layout-only change; valid 4KB filesystems retain identical
-> runtime geometry and behavior.
+> This is a layout-only change without behavioral differences for 4KB
+> blocks.
 > 
 > Signed-off-by: Kelvin Zhang <zhangxp1998@gmail.com>
 
