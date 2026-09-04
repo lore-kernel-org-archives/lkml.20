@@ -1,97 +1,143 @@
-Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
+Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D4E7414A0E;
-	Fri,  4 Sep 2026 05:34:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.133
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 089FE3EC6AE;
+	Fri,  4 Sep 2026 05:37:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.109.113.108
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788500091; cv=none; b=ednOIG1/sc8+Bo5A3eAvHoxr5GP1Y/8ohTfuHBgB9C2NbIlRBT3TZXPA+rtgiKTulIyhIA9Lj/zHAli0y7J8oln/GaCrrmT9ZpBcwZHPldBqSnMTfrkGkT46RBLNLccVrdE6lMtBreLqe7vsKZqUN4zQs98foSVVBEwAxeqv3tc=
+	t=1788500231; cv=none; b=ssm324hS1Lyu3QRHuC2r4hIPGNz6dEFznDjyEpEzBXx1G++POOLooijiFUZtkDPWD2r50TGVMZPvOlhC7ycsPTA1yydTkpAJZrlProglYCGI4PUU9IRAr+sgyOIAwtcfjgfxOHgqYBVasKJXtUhtdeuyYl08zN5JAlgr2jIeeWo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788500091; c=relaxed/simple;
-	bh=LoSIabbGCm3jmP8IHBvygHcW64OGDNns/l+oY3HHAo0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=g2n+LthfXIOyPuWdqCefifeJzEgUQgUBoMomVnCXZZLWusIQnUiwpKUb6pRyZnnep+vu6LidaRo82M8pAKomBEbXoSNJD7jeX4RDkYPFEqeVXzOQLexTYVLo4KNtvYSKxi4gdWYPqn5EzKO+6j8+TdNq55RmTuCmMdbRX1KdE0o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=NKESFmSW; arc=none smtp.client-ip=198.137.202.133
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	s=arc-20240116; t=1788500231; c=relaxed/simple;
+	bh=YamtZz9+eQOYPv+YW8vL3uLKsyhCQDtRxjSncZweHpQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=oPdy7pGfnrsQ9aLDz0XEyb1rkx0i15s8V4swgnQ5QerNr8kwBguWTfyqCY8ETluzS/jmgS0fcDjRD9FyM9K+Or0Rbd51Qa1GLQY27nCi+EpnNIc1LyPnLqdmc0oTi9LxcQoODei4KaZbTExjtwgyq07pG6ot7M5NAnW6QRnOkFo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de; spf=pass smtp.mailfrom=alien8.de; dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b=ZDzvN7Y0; arc=none smtp.client-ip=65.109.113.108
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="NKESFmSW"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
-	Content-Type:In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
-	Message-ID:Sender:Reply-To:Content-ID:Content-Description;
-	bh=noERAy98ksBHJQxSSGOOcw+tFMb50cbPWoj0qJBP4Mo=; b=NKESFmSWQ8HRKMj5l8wqqHRElj
-	u+rcPL79KhjjEA2tcRYWH7yB1+oMOgFkQLlVFmvs67LksmNgMx46iHvj9nElPIaJmqGcVv0uGAKHM
-	YMJSE9e8KhRnZHFBW47GNbYxpR4Er+bUZBOxqzO7+PeQkqit5uPdiZG9jsPigRrigTNPNepBmZXc3
-	6tJHJZsTM1WFVmavMCI0IQCfu4dO3fuLtFjVsEy1biOnvY00gCBAP0mhRsWe1Kw6UdKwMNrQzg+hf
-	zop3u9f8PwvBj7fpJETU+kj2M1HfcKEt9oEB/nUDLFC8GWNjiRqV26efiIZCD+bMsykTYjL3TJVYY
-	eyOs9evQ==;
-Received: from [50.53.43.113] (helo=[192.168.254.34])
-	by bombadil.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
-	id 1x2MZW-000000014fy-12qQ;
-	Fri, 04 Sep 2026 05:34:42 +0000
-Message-ID: <24c2aa21-d491-4ee2-9d53-de593353f2cc@infradead.org>
-Date: Thu, 3 Sep 2026 22:34:41 -0700
+	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b="ZDzvN7Y0"
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id A3B7040E027F;
+	Fri,  4 Sep 2026 05:37:06 +0000 (UTC)
+X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
+Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
+	header.d=alien8.de
+Received: from mail.alien8.de ([127.0.0.1])
+	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
+	with ESMTP id pKegr_u4LegG; Fri,  4 Sep 2026 05:36:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
+	t=1788500216; bh=ftrzNRf6UL0Q9cjf7/RMWWmmexT6aW3INzb1nPqO/CM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=ZDzvN7Y0JVjScpzouOD1KJZ2MDv2FfI3ujcAAvt4JjwdaU4b9clCldd6kbyyMlwIY
+	 JLhhIiNwzCrfhxABKHANxKgpgh+gXZrkP0VuXJIOVYO6mzd2IJSXlPvEawfATO8+e/
+	 nkYVwH7DujZyT4xTHF6AS33MkkLobt65TnAzVxThu4oaEZ9+z9TOopgBfZl4y8ctN0
+	 Z6y5UdFGVC+iwWAFVFXW+BoDazh1vL1P1gnmxusFJV8yaOlP2gy6Bfa2G980TNXSV6
+	 MEpcAmbw937MjPE1xYijVgi0EkGVKaqWEWM9VwQ515Cs02awj39VEQfyieZnQV+sm1
+	 F4qxipLYawjY4c+Ke4YqmgwVG7pJpCNzPnXJPVBEPGPCwsh7Ls8qTCULGPigP2Sjwv
+	 g5cc7L9j0rtVg/0vAVPShLIjBwnU6KqZfOaaISEcdEcsFwqvmOBcrHN0iimJ1C3u/m
+	 owRi/hp+wx5Tk1OqNF0fCNlHugoMnGuDRl5WZk34vIZHmej8s47f2QkwouOT94wklc
+	 wFAIxAkVssPGZChuXjj6PZ0LGs3TZRRaKA4LOKGFIv3fkbSvkY8kwIYWlMDrioppFQ
+	 ypHUvwnbeuAPpI6ILN0KRFT0O3EFfyJJCcpiQ7HAqRoUAwrzeO/qlCFfYp7FOfiRN4
+	 EQL1LNuPEPxwuFGQjUX+TPsY=
+Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::46])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
+	(No client certificate requested)
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 0A6C940E00E6;
+	Fri,  4 Sep 2026 05:36:44 +0000 (UTC)
+Date: Thu, 3 Sep 2026 22:36:41 -0700
+From: Borislav Petkov <bp@alien8.de>
+To: Lin Wang <wanglin@open-hieco.net>
+Cc: yazen.ghannam@amd.com, mario.limonciello@amd.com, tglx@linutronix.de,
+	mingo@redhat.com, dave.hansen@linux.intel.com,
+	"H. Peter Anvin" <hpa@zytor.com>, bhelgaas@google.com,
+	x86@kernel.org, linux-pci@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 4/5] x86/amd_node: Skip SMN setup on Hygon Fam18h
+ models 0x04-0x08
+Message-ID: <20260904053641.GDappY6bdy4hAwyxaK@fat_crate.local>
+References: <20260901071700.3255382-1-wanglin@open-hieco.net>
+ <20260901071700.3255382-5-wanglin@open-hieco.net>
+ <20260902024833.GJapeOgRJ50RAZvI3e@fat_crate.local>
+ <5c6ebbf5-3b3c-47e7-800d-adb4049cd636@open-hieco.net>
+ <20260902151340.GAapg9JDQMt2WTkjLM@fat_crate.local>
+ <20724518-2bf0-40ac-a5a9-1b2fe9df2b0c@open-hieco.net>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] docs: verify/bisect: fix typos, formating and
- punctuation
-To: Manuel Ebner <manuelebnerli@mailbox.org>,
- Thorsten Leemhuis <linux@leemhuis.info>, Jonathan Corbet <corbet@lwn.net>,
- Shuah Khan <skhan@linuxfoundation.org>
-Cc: linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260903154336.732305-3-manuelebnerli@mailbox.org>
- <4c379bf7-e518-4a06-8b12-134f39a45785@infradead.org>
- <6ba88e25314a5818f8fb31dc3a2165f6786e890d.camel@mailbox.org>
-Content-Language: en-US
-From: Randy Dunlap <rdunlap@infradead.org>
-In-Reply-To: <6ba88e25314a5818f8fb31dc3a2165f6786e890d.camel@mailbox.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20724518-2bf0-40ac-a5a9-1b2fe9df2b0c@open-hieco.net>
 
-
-
-On 9/3/26 10:18 PM, Manuel Ebner wrote:
-> On Thu, 2026-09-03 at 09:59 -0700, Randy Dunlap wrote:
->> Hi Manual,
->>
->> On 9/3/26 8:43 AM, Manuel Ebner wrote:
->>> Improve readability.
->>>
->>> Signed-off-by: Manuel Ebner <manuelebnerli@mailbox.org>
->>> Reviewed-by: Randy Dunlap <rdunlap@infradead.org>
->>
->> It looks like you might be misusing the Reviewed-by: tag here.
->> My only reply (to v1 of this patch) was:
->>   https://lore.kernel.org/linux-doc/0475c09c-e165-41a5-b654-5c6aefeaab0b@infradead.org/
+On Thu, Sep 03, 2026 at 09:49:58AM +0800, Lin Wang wrote:
 > 
-> My thought process was: when I include all you suggestions and your message ends with
->> All of the other changes LGTM.
 > 
-> you are good with the result. Thus Reviewed.
+> On 9/2/2026 11:13 PM, Borislav Petkov wrote:
+> > On Wed, Sep 02, 2026 at 02:22:13PM +0800, Lin Wang wrote:
+> > > Please let me know how you would prefer this to be handled.
+> > 
+> > Well, X86_FEATURE_ZEN isn't Hygon apparently. Otherwise, we wouldn't be having
+> > this conversation. And we wouldn't need ugly workarounds like that.
+> > 
+> > Which means, you cannot set it on Hygon. Instead, you should check vendor or
+> > define your own X86_FEATURE_HYGON if you think it would be useful to denote
+> > common set of features between all Hygon cores.
+> > 
+> > Reusing an AMD-specific flag but then having different hardware which needs
+> > hacks and workarounds to the code is not what you do. Hygon is a different
+> > vendor and it should be treated as such - not piggyback on AMD code.
+> > 
+> > Unless you wanna piggyback. But then you have to extract it properly and make
+> > it generic so that it can be shared. I have been asking all people submitting
+> > Hygon code to do that and you are starting to do it but then you need to stick
+> > to it and do only that.
+> > 
+> 
+> Hi Boris,
+> 
+> Thanks for clarifying the direction.
+> 
+> My proposed approach is to use explicit vendor checks to make
+> init_amd_nbs() and amd_smn_init() AMD-only. Hygon node enumeration and
+> SMN setup would remain in Hygon code.
+> 
+> Sashiko's concern with v3 was that the AMD initializers were restricted
+> while Hygon call sites remained. However, as currently implemented, the
+> AMD NB and SMN paths are based on AMD topology assumptions and cannot
+> provide the Hygon node and SMN mappings.
+> 
+> I would first stop the affected Hygon call sites from entering those AMD
+> paths, and then make the two initializers AMD-only in the same series.
+> Later driver support would use the Hygon interfaces.
+> 
+> Would this ordering address the Sashiko concern?
 
-I understand, but still, it should be explicit (or you could ask).
+This should address my concerns - we can then see what Sashiko complains
+about and sanity-check it.
 
-> I probably did this a couple more times with you and others.
-> 
-> I'm sorry and I'll pay more attention to this.
-> 
->> and in that email I did not write "Reviewed-by: /me".
->> Just because I commented on it does not mean that it merits
->> a Reviewed-by: tag.
->> I.e., a Reviewed-by: tag must be explicitly written by the reviewer
->> for it to be included in a patch.
->>
->> Please see Documentation/process/submitting-patches.rst for more info,
-> 
-> I'll reread it.
+And I explained it already - you basically carve out/split/separate Hygon
+paths from AMD paths and you basically forget X86_FEATURE_ZEN. I don't care if
+Zen and Hygon systems are/were the same or almost the same.
 
-Thanks.
+Obviously they will start diverging so you can carve out Hygon-specific pieces
+now and then keep adding new functionality to them. Just as if this is
+a completely different x86 CPU.
+
+This way, the code is untangled from the very beginning and there won't be any
+ugly and unmaintainable
+
+	if (vendor)
+
+sprinkling all over the x86 AMD code where neither you nor we will be happy
+about going forward.
+
+Thx.
+
 -- 
-~Randy
+Regards/Gruss,
+    Boris.
 
+https://people.kernel.org/tglx/notes-about-netiquette
