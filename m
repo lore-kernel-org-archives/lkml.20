@@ -1,119 +1,74 @@
-Received: from mta1.migadu.com (out-11.mta1.migadu.com [95.215.58.11])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from abb.hmeau.com (abb.hmeau.com [180.181.231.80])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E29C446C18
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 09:46:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 673803F1676;
+	Fri,  4 Sep 2026 09:46:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=180.181.231.80
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788515198; cv=none; b=IeTT1sb3dV3QHlA/qMs1w7MPGapMXbrhZkoBb5cTuBAFybpZYMWY2jp0+oah8Mkj5KUDWyB3KST6GAVfoTN177sz5m7jHswyJZ8e9TKIbgS8tJXwxc5y6l42z1xbEODB36XOGlRWYoGeNathqEPCbH7Db4k5Twc9PTIOf0a8RmU=
+	t=1788515203; cv=none; b=nMZya5E/7eEWKxl3wm/muaZPmCrkbnfQaF5FtCd0+k5wfMj0Egthln/zcqPNCSLl2oWQlsOlrpvoqN6BTNKUWo9L+MfkZg5sJ5tbvBTdsem9R4V/V7vp06P3Dv30x4IhBWul1FRZyTt/GkU2sO/Ori6rIpPXGhf1mq8FNQpTX6U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788515198; c=relaxed/simple;
-	bh=/egS0JLq3DdP+ELRV2+UfNnFQyripc/bTgQpMQb2RyA=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=AsCRj1gHZoZ1O2u+44xvoYZG81Vp57UwEwIBu/PXE8F8KxWaVo+DvNFM0ydP69YM8XJKf1z5PWIWBZzSkECRM+rvjoqXfyFZ6kHgRErXXxOgbTJ/9aXvjLDbfkhM3QS0F8L4hwydwEG24NA2dYW/f3eIYokiuWafHXsyZqZ81ok=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=qW3oOuJB; arc=none smtp.client-ip=95.215.58.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1788515203; c=relaxed/simple;
+	bh=N0l9nDbmBTBehxz5mZsryvLmuCEEgbSTaKbh0ginApw=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To; b=R2iCYW5Gk4Zkheu53LoCh+K8VDV6hYleWJXaBdOT7d/4KvU2SUiO0/6pbrchyXI2h1KJTzPMwF5XJUNLCCghhxchKiDRoFSrkEWWRi0CAILHA3zHDXqxuj7WTff9VZV0RF4U+yPaH9W1xNB9IEJ9Z5Bl7t5GTsG/86HM8nagzpQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au; spf=pass smtp.mailfrom=gondor.apana.org.au; dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b=hqQIgrjg; arc=none smtp.client-ip=180.181.231.80
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gondor.apana.org.au
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="qW3oOuJB"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=/egS0JLq3DdP+ELRV2+UfNnFQyripc/bTgQpMQb2RyA=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788515195; v=1; x=1789119995;
- b=qW3oOuJBe29Tupcqm9ATJ9aRgS3psFQXuPso1euycC7858JUW3MBvmxVRvaPD+zzUfcrM3rb
- 00VakCJQPwc+h8kR+79Z/WbkPVEFCi1Epwmau5Nz+ojPkq6GlC//NVhlb3sFC2nLYH79tCgIsA2
- H6mQkg8uB6wDBdNuWqEMvqSk=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 8f911b791d4dc657;
-	Fri, 04 Sep 2026 09:46:34 +0000
-X-Mizu-Trace-ID: 8f911b791d4dc657
-X-Migadu-Flow: FLOW_OUT
-From: "Hui Zhu" <hui.zhu@linux.dev>
-To: Johannes Weiner <hannes@cmpxchg.org>,
-	Michal Hocko <mhocko@kernel.org>,
-	Roman Gushchin <roman.gushchin@linux.dev>,
-	Shakeel Butt <shakeel.butt@linux.dev>,
-	Muchun Song <muchun.song@linux.dev>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	David Hildenbrand <david@kernel.org>,
-	Qi Zheng <qi.zheng@linux.dev>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Kairui Song <kasong@tencent.com>,
-	Barry Song <baohua@kernel.org>,
-	Axel Rasmussen <axelrasmussen@google.com>,
-	Yuanchu Xie <yuanchu@google.com>,
-	Wei Xu <weixugc@google.com>,
-	cgroups@vger.kernel.org,
-	linux-mm@kvack.org,
+	dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b="hqQIgrjg"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=gondor.apana.org.au; s=h01; h=In-Reply-To:Content-Type:MIME-Version:
+	Message-ID:Subject:Cc:To:From:Date:cc:to:subject:message-id:date:from:
+	content-type:references:reply-to;
+	bh=wqTo49i+gokHhCKvNLAgA2RH/mQ1olz1bWffX3pIh10=; b=hqQIgrjgDkqcl7dU99bwDH3buQ
+	2I0GSVjUJkSX7OLuyC8BpgWw/8NPuEhwzovpmYtp6pdD6YnAE1heGjgrP3chXYzuIXmDU4hzRM1md
+	eKLbpVVcgMRsVNzGKwO0Q4HcAGp0oLgAEEunjuNkB3IUExG/pWCgdGZq4GBT7ePJF/bHkLq0DP2YO
+	Mzn4NtpznvOGuFHi/W9M4WjdXoHgG6WRf+RMSQfdALIzErWqAn/y6cuf7j2aAw/SoAbglZBhcw2Wv
+	uN21UL8wgGeSm2oQldHrhFK1EV++8s6YmCapheBw+HlIXhcqktAGB1C20Cb2OjUS08SOnIQUscObT
+	uG/RlFPg==;
+Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
+	by formenos.hmeau.com with smtp (Exim 4.98.2 #2 (Debian))
+	id 1x2QVG-0000000AmxU-3iIh;
+	Fri, 04 Sep 2026 17:46:35 +0800
+Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation); Fri, 04 Sep 2026 19:46:34 +1000
+Date: Fri, 4 Sep 2026 19:46:34 +1000
+From: Herbert Xu <herbert@gondor.apana.org.au>
+To: Jiawen Liu <1298662399@qq.com>
+Cc: dsaxena@plexity.net, olivia@selenic.com, linux-crypto@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Cc: Hui Zhu <zhuhui@kylinos.cn>
-Subject: [PATCH v3 3/3] mm: memcg: skip the RCU lock when the memcg is not dying
-Date: Fri,  4 Sep 2026 17:45:56 +0800
-Message-ID: <0db657472c5278b2e2b87fbca7590b47ca520303.1788514750.git.zhuhui@kylinos.cn>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <cover.1788514750.git.zhuhui@kylinos.cn>
-References: <cover.1788514750.git.zhuhui@kylinos.cn>
+Subject: Re: [PATCH] char: omap-rng: fix runtime PM cleanup
+Message-ID: <apqTen-69j7XUR7Q@gondor.apana.org.au>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <tencent_1DBD00BAFF365506D40F166D40DEE8F63B0A@qq.com>
+X-Newsgroups: apana.lists.os.linux.cryptoapi,apana.lists.os.linux.kernel
 
-From: Hui Zhu <zhuhui@kylinos.cn>
+Jiawen Liu <1298662399@qq.com> wrote:
+> Clean up runtime PM on deferred probe.
+> 
+> omap_rng_probe leaks runtime PM state if devm_clk_get returns
+> -EPROBE_DEFER after pm_runtime_resume_and_get succeeds. Direct return
+> skips put/disable.
+> 
+> Route -EPROBE_DEFER paths through resource-matched runtime PM cleanup in
+> omap_rng_probe.
+> 
+> Signed-off-by: jiawen <1298662399@qq.com>
 
-get_non_dying_memcg_start() takes rcu_read_lock() on every stat update, but
-the lock only protects the upward walk to a non-dying ancestor, which
-happens solely while a memcg is being offlined.  The dying check itself
-reads the CSS_DYING flag of a memcg the caller already holds a reference
-to, so it is safe without the lock.
+Please use your full name in the Sign-off.
 
-Check memcg_is_dying() first and return immediately when the memcg is
-alive, taking the RCU lock only on the rare dying path.  On an anon
-fault/charge churn workload in a memcg this recovers the ~0.6% overhead
-added by the previous patch (4368077 vs 4343159 pages/s before, back to
-~4377000 pages/s after).
+Sashiko had something to say about this patch:
 
-Signed-off-by: Hui Zhu <zhuhui@kylinos.cn>
-Acked-by: Shakeel Butt <shakeel.butt@linux.dev>
----
- mm/memcontrol.c | 14 ++++++++++++++
- 1 file changed, 14 insertions(+)
+https://sashiko.dev/#/patchset/tencent_1DBD00BAFF365506D40F166D40DEE8F63B0A%40qq.com
 
-diff --git a/mm/memcontrol.c b/mm/memcontrol.c
-index b3d1ac3fe0aa..f454d02746e9 100644
---- a/mm/memcontrol.c
-+++ b/mm/memcontrol.c
-@@ -813,6 +813,17 @@ static long memcg_state_val_in_pages(int idx, long val)
- static inline struct mem_cgroup *
- get_non_dying_memcg_start(struct mem_cgroup *memcg, bool *rcu_locked)
- {
-+	/*
-+	 * Fast path: the caller holds a reference to @memcg, so reading
-+	 * its CSS_DYING flag without the RCU lock is safe.  The RCU lock
-+	 * is only needed to walk up to a non-dying ancestor, which
-+	 * happens only while a memcg is actually being offlined.
-+	 */
-+	if (!memcg_is_dying(memcg)) {
-+		*rcu_locked = false;
-+		return memcg;
-+	}
-+
- 	rcu_read_lock();
- 	*rcu_locked = true;
- 
-@@ -824,6 +835,9 @@ get_non_dying_memcg_start(struct mem_cgroup *memcg, bool *rcu_locked)
- 
- static inline void get_non_dying_memcg_end(bool rcu_locked)
- {
-+	if (!rcu_locked)
-+		return;
-+
- 	rcu_read_unlock();
- }
- 
+Thanks,
 -- 
-2.53.0
-
+Email: Herbert Xu <herbert@gondor.apana.org.au>
+Home Page: http://gondor.apana.org.au/~herbert/
+PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
