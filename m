@@ -1,185 +1,252 @@
-Received: from mail-pg1-f169.google.com (mail-pg1-f169.google.com [209.85.215.169])
+Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com [209.85.216.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10D1E392820
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 22:52:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD297390223
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 22:57:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788562362; cv=none; b=fvG5SJdkTr6KQ2ZwX8Y5ENXZTJVatUUp7zHvi6GeKL1+xe2rKzEKJjD3XVGcec0AG/FQiZm8+BBL3iP3OaKWUQjcJPcQ5L1r/r6wmF3d1PILe6daV3CTVZ6+FT0fqaXC+h1QUb3xJ9mumVDSXs0PveVoTWF7rGKwDPuvx0G2nfE=
+	t=1788562629; cv=none; b=CjCRQS/JhXbIayjLfqg7JORKpmGxkMWh0PssetpRGXFc/ud80YrGoPslVHGlnoQrsfbQAWZ05T7Pah5zBAx6Wo6qDAnFo/lOHIHmxbO1zgpXQLnED24IIphvSrXx5lxPzJVBBey9lzYxlQVOFgLqGgHviSuCsns9XOZosMAcCsU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788562362; c=relaxed/simple;
-	bh=F9YyMrK/ieXXHAG3Dn29zLg5oec8wSTghFcQMhOJVD0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=RJLlIhYm0z4BDpU+9+NlUyWRZJW6IGE1QX9dkJvZ6+AXCD/HRKSSBo/RMq2VpDKH7u9ua/7ynPZX3fEu1FWCSZZ/cCwFPiR+KBvaTOQdDojN5LnX/14crgy2dmxrUXwV6OtD+ZHdhF+Kv/UKegyb6UsyS5eMDSkyX0ZQJ3vivus=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=purestorage.com; spf=pass smtp.mailfrom=purestorage.com; dkim=pass (2048-bit key) header.d=purestorage.com header.i=@purestorage.com header.b=T4wGSfX9; arc=none smtp.client-ip=209.85.215.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=purestorage.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=purestorage.com
+	s=arc-20240116; t=1788562629; c=relaxed/simple;
+	bh=dzEvNmjdyNIVi6iYSCSIFXaRFg+2yslmOVwcjZe1bEo=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=SCoOfgEdHL9Otg1sjQZ41LWkTsg62+YFilyZbzj/z+OWXIwsvjbJXSP+x2Ldx8t7X7SgiXZWXw38rjEyTyuyYqnWSSytCnEYHdmfv/XavGa+2k51p+Nhvs/ZG63hLWaURYLRjxgywz+aeMNpUB5CJbXdEIPq54v4DWIvllUYFYs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=B9myiEYV; arc=none smtp.client-ip=209.85.216.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=purestorage.com header.i=@purestorage.com header.b="T4wGSfX9"
-Received: by mail-pg1-f169.google.com with SMTP id 41be03b00d2f7-cc439bfb2d8so1086540a12.2
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 15:52:39 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="B9myiEYV"
+Received: by mail-pj1-f50.google.com with SMTP id 98e67ed59e1d1-398e9698a70so1364314a91.0
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 15:57:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=purestorage.com; s=google2022; t=1788562359; x=1789167159; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=9yzepECPMNjg/OdUAVeUwMwVkBXuiCtJbev3HxuW5js=;
-        b=T4wGSfX9xjsb7/Jq32zf65BfNMh1nyWPegavGT+iN2FAGdKwIK/xIOK/s2dgxql/lh
-         mfxCeSK4+pFU1vgi5pvMrxMWDH/4EI2EkUw4Sp+Rwph0uLQms9XPEiPyF5C11DEHrb+h
-         z/sdUARWbXKIXrl/CqmLjor4XlWnYX2wij6Lc9V0kDDD256Er0bl2ev4RD/ZEDddaoq/
-         XEczSVQG/fRZRgbe4lrjTuAs7dsAHFyLGwF0VECm2k367qQdOK+PEZy9n+3sCDkMDoyT
-         KKBkRsiJiCfEkhgtzMvIbA/sQWKnvr9iBHGaPPEq2UPwg8bgGxEJhSuhSALp9D2mfTn3
-         /foQ==
+        d=chromium.org; s=google; t=1788562626; x=1789167426; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=y0qNwPkJWJhdb13h4cmrx4hOhK/NXhQErJYGrT9/AmE=;
+        b=B9myiEYVJFRW2vQsxbOzMFOiopL0j54Ex4bhdxDJwEMXoyV0Kj3H5msnKjPdw0siVp
+         /+Ryvcq47jBWZDcZbnWj0AaqqhM1i6AZnMsTU7G3PHknBIaBy+O3IWDptlLDOu4ZaUJ5
+         b/8iKvJeo0vhIq2wEDStnKHyukTCzbuiXryz8=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788562359; x=1789167159;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=9yzepECPMNjg/OdUAVeUwMwVkBXuiCtJbev3HxuW5js=;
-        b=isD2QYWCmx7zDO6ZP/CimW0w9XTReEt7k9lJ5aFwVkEOVeAD5mfo0C38xiBU7zC2qd
-         fXDYdZQrwkGdEO/7kfL0BY8AE+oy3IdPULxvQy3OsCM5WDNNKJ8qCWPHuxLqtFRR1SMj
-         emDesUQa1CKsvE2y/+FFhKqR+5pKonlz/dKlw1nud7VUni0R4IyFWu4DO2Z7CVaHLFkA
-         BCucSLKHXG9pK9J8gWLKL7bIf5YqCYuTTzkl1xETzbhEhm5M258cu0eE13ZJ5L4MpDNh
-         vV8PQT9z0dkuEVzxgGZ91+HhnMGb32o8ys8ADVVJhiE49xyBkET7Yfwja8HDm+gATGEj
-         5qGg==
-X-Forwarded-Encrypted: i=1; AKwUvBziRmYgSR0WZcozcPLz2xyHqGHA063ls8/ZnOaTB8kLuNpT0sKSWAuPXKHwgrmlc6M7dros932hnV7S/Gg=@vger.kernel.org
-X-Gm-Message-State: AFuF++kEDq4DAsnPnTKkpXQ10jyK0+wqefOMX8cWH+1U53riLTHiO/kr
-	PRvYKfmtwwqH6Skd7gLZVuxc1GB4iY2enpme7Yre1T1VI8pvjf6RqhWSvCGKOjtE1Do=
-X-Gm-Gg: AYBFou2fQzvwogvU3LPZ3M1JeTbYO7QB6m5Z+xcDvh+3Sxf8AmpWyf9KC7vMl9rSJrU
-	mzWLzFmnSB004iReUMuOzY/G+uRyHzBwmR0h1LX7M+b6DwFeDHqMsf+pFUIB+lClh3vwZr2bMjV
-	u0vNeMF3z8snq3+m/swFYdvNIk4y+bneT0Q6RsY8Y5EYTKdnBqhdqrPFDPvlXhPIV/9fHZAeBju
-	TWG6cnOVLYS9JX/8GXkeix4/Wz5zYZyINDI4tST9m1dnkz/fFkA/RUEoJv2AJEVONgtS1+Ur0nd
-	dTpYt/L/l7q/dHR5gLl6jnCkP/CGYr7ABhiieU0cW35+4rUegGZrZtAFGiQi6lhG92O7UoIXK5L
-	w5A2MYyBQ1DWyATD763hXaYNFhcpk0VsQXCXIedOm2VfH86FGCAjSWMx4v0wMizYSgKD/Y+9iIk
-	HY+LiQSYzN8TIzL+mONGr3ZimQVaGsBDKR0GPIt6N6E6Cm2JJQBgltw0442eWvPHsHnf8=
-X-Received: by 2002:a05:6a20:7f8c:b0:3bf:6d96:ac40 with SMTP id adf61e73a8af0-3da39e44fdemr12661784637.12.1788562358777;
-        Fri, 04 Sep 2026 15:52:38 -0700 (PDT)
-Received: from medusa.lab.kspace.sh ([2607:fb90:9c20:7a99::791d])
-        by smtp.googlemail.com with ESMTPSA id 5a478bee46e88-3339ac24d7esm14641633eec.15.2026.09.04.15.52.37
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 04 Sep 2026 15:52:38 -0700 (PDT)
-Date: Fri, 4 Sep 2026 15:52:36 -0700
-From: Mohamed Khalfella <mkhalfella@purestorage.com>
-To: Sagi Grimberg <sagi@grimberg.me>
-Cc: Justin Tee <justin.tee@broadcom.com>,
-	Naresh Gottumukkala <nareshgottumukkala83@gmail.com>,
-	Paul Ely <paul.ely@broadcom.com>,
-	Chaitanya Kulkarni <kch@nvidia.com>, Christoph Hellwig <hch@lst.de>,
-	Jens Axboe <axboe@kernel.dk>, Keith Busch <kbusch@kernel.org>,
-	James Smart <jsmart833426@gmail.com>,
-	Hannes Reinecke <hare@suse.de>,
-	Randy Jennings <randyj@purestorage.com>,
-	Dhaval Giani <dgiani@purestorage.com>,
-	Aaron Dailey <adailey@purestorage.com>,
-	linux-nvme@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v5 10/16] nvme-tcp: Use CCR to recover controller that
- hits an error
-Message-ID: <20260904225236.GB5552-mkhalfella@purestorage.com>
-References: <20260712022437.3743117-1-mkhalfella@purestorage.com>
- <20260712022437.3743117-11-mkhalfella@purestorage.com>
- <3bc07e43-750d-4e8d-a209-e1d45acbb230@grimberg.me>
+        d=1e100.net; s=20251104; t=1788562626; x=1789167426;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=y0qNwPkJWJhdb13h4cmrx4hOhK/NXhQErJYGrT9/AmE=;
+        b=FtYhcgA0yNzXUxo01xymhUNvrOdZl+sOumt8wg/jJNr/5KXvlsuirkzTL1de2tfWNQ
+         2LqK9tJqmkBxjOlvPZfTibpc7Xg7Uml9ex+4+eb3iWCPfoirxzSSnNn+FuQ/K/ltKzYD
+         6LFNObqWf215/4rOhpxf7PfVBexI3yPdCs1R03QFbdAXljWOxatxvlyM6fSe3GI1RB/e
+         UIWqY8g3y0Q7N9duicgnBQmDCkYSjuIUEcdhJeZg0/FrSSmTQgKAhBCfJ1F2ZxmT/kZF
+         7Z6eO5WhTV1W6uM1xP2G03D3iSOYYnMyeVkVffRMd5xR8ETrLJoOgtbMBTtZSJiPr3J2
+         czDw==
+X-Forwarded-Encrypted: i=1; AKwUvBwh5nBNWZCdCX5UALURQteUjROf5WyX25aNhzwwCgf55beG1UaI0RYo39AhNNuWwCAdziiCKF5yiVGG/Cs=@vger.kernel.org
+X-Gm-Message-State: AFuF++moV1c5PYE6XRJWW8fQ7c15fqoCckVi3OC6j5DwzkRXGuU5AIH8
+	I18ukh+RWpr3K/GgbmNqdTUS9WdDXJ6x/2sJB3l/yHh/UflOdFMNinaVPJQ208oYmw==
+X-Gm-Gg: AYBFou19ZMzK0KXMDwaCnNCGW7Z7Kc9W8xGgCNiIJNVa6Iuh53812JjLfT7wmw0xANi
+	y6Lm4oaBuphg+Td7BdOUfWhexIu1246k97vxFuY18u2xe/XH7NQzZesXcRGdxOrZlRJJFAjc5uv
+	e6ZEgXbOGjj4v0/DKoZ7FWjzw9MyFlPQPiSkeZ1iBcilk4omOl7M0afa4OfI4RnXYRxQqrBsvF4
+	3mRb5LT0MDGLomVLQ0lDae+R2XYu9+0e/zrts1wHDnV/jdBez5s3fKYuwtbPd5beuTQootz3u1r
+	ZwTI1LyTsYie7tgd7eSB91vjOLD1flvBIT2rQA46GmgxOZXUictevLgkY70NRjakDkozOrB+6fX
+	9DngOa99ofsUhXm93s++GE2aY+tbj4rm4fy73GK/leN6x4JA8w5LBtZVw48SE9S0PY8dZSZR2tl
+	RxLWpn14WXv+LqB9eQE2HCfWMFy0sXF3ImMzKHIO6EVdI00roYI7l6eczJ0tzk+QjXkGa02XTph
+	t0wuKE8UNLXHoWiAd0kgeG4UqeX0x0fHjIX4Tw=
+X-Received: by 2002:a17:90b:3852:b0:38e:9ef9:eb97 with SMTP id 98e67ed59e1d1-39b26272d69mr13463573a91.16.1788562625925;
+        Fri, 04 Sep 2026 15:57:05 -0700 (PDT)
+Received: from localhost ([2a00:79e0:2e7c:8:5597:62ab:c321:4a7f])
+        by smtp.gmail.com with UTF8SMTPSA id 5a478bee46e88-3339aa37dbdsm8157345eec.11.2026.09.04.15.57.03
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 04 Sep 2026 15:57:04 -0700 (PDT)
+From: Brian Norris <briannorris@chromium.org>
+To: Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Cc: Chen-Yu Tsai <wenst@chromium.org>,
+	linux-mediatek@lists.infradead.org,
+	Julius Werner <jwerner@chromium.org>,
+	linux-kernel@vger.kernel.org,
+	Conor Dooley <conor+dt@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	linux-arm-kernel@lists.infradead.org,
+	Brian Norris <briannorris@chromium.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Doug Anderson <dianders@chromium.org>,
+	chrome-platform@lists.linux.dev,
+	Tzung-Bi Shih <tzungbi@kernel.org>,
+	devicetree@vger.kernel.org
+Subject: [PATCH v2] arm64: dts: mediatek: Add #{address,size}-cells to Chromium-based /firmware
+Date: Fri,  4 Sep 2026 15:56:22 -0700
+Message-ID: <20260904155621.v2.1.I33d1d66d4724587a981f706243cdc2f264670a40@changeid>
+X-Mailer: git-send-email 2.55.0.979.g7e5102b832-goog
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <3bc07e43-750d-4e8d-a209-e1d45acbb230@grimberg.me>
+Content-Transfer-Encoding: 8bit
 
-On Sun 2026-08-23 04:03:18 +0300, Sagi Grimberg wrote:
-> 
-> 
-> On 12/07/2026 5:23, Mohamed Khalfella wrote:
-> > An alive nvme controller that hits an error now will move to FENCING
-> > state instead of RESETTING state. ctrl->fencing_work attempts CCR to
-> > terminate inflight IOs. Regardless of the success or failure of CCR
-> > operation the controller is transitioned to RESETTING state to continue
-> > error recovery process.
-> >
-> > Signed-off-by: Mohamed Khalfella <mkhalfella@purestorage.com>
-> > ---
-> >   drivers/nvme/host/tcp.c | 30 +++++++++++++++++++++++++++++-
-> >   1 file changed, 29 insertions(+), 1 deletion(-)
-> >
-> > diff --git a/drivers/nvme/host/tcp.c b/drivers/nvme/host/tcp.c
-> > index ba5c7b3e2a7c..a1711dd1d3c2 100644
-> > --- a/drivers/nvme/host/tcp.c
-> > +++ b/drivers/nvme/host/tcp.c
-> > @@ -161,6 +161,7 @@ struct nvme_tcp_ctrl {
-> >   	struct sockaddr_storage src_addr;
-> >   	struct nvme_ctrl	ctrl;
-> >   
-> > +	struct work_struct	fencing_work;
-> >   	struct work_struct	err_work;
-> >   	struct delayed_work	connect_work;
-> >   	struct nvme_tcp_request async_req;
-> > @@ -605,6 +606,12 @@ static void nvme_tcp_init_recv_ctx(struct nvme_tcp_queue *queue)
-> >   
-> >   static void nvme_tcp_error_recovery(struct nvme_ctrl *ctrl)
-> >   {
-> > +	if (nvme_change_ctrl_state(ctrl, NVME_CTRL_FENCING)) {
-> > +		dev_warn(ctrl->device, "starting controller fencing\n");
-> > +		queue_work(nvme_wq, &to_tcp_ctrl(ctrl)->fencing_work);
-> > +		return;
-> > +	}
-> > +
-> >   	if (!nvme_change_ctrl_state(ctrl, NVME_CTRL_RESETTING))
-> >   		return;
-> >   
-> > @@ -2494,12 +2501,29 @@ static void nvme_tcp_reconnect_ctrl_work(struct work_struct *work)
-> >   	nvme_tcp_reconnect_or_remove(ctrl, ret);
-> >   }
-> >   
-> > +static void nvme_tcp_fencing_work(struct work_struct *work)
-> > +{
-> > +	struct nvme_tcp_ctrl *tcp_ctrl = container_of(work,
-> > +			struct nvme_tcp_ctrl, fencing_work);
-> > +	struct nvme_ctrl *ctrl = &tcp_ctrl->ctrl;
-> > +	unsigned long rem;
-> > +
-> > +	rem = nvme_fence_ctrl(ctrl);
-> > +	if (rem)
-> > +		dev_info(ctrl->device, "CCR failed, starting error recovery\n");
-> > +
-> > +	nvme_change_ctrl_state(ctrl, NVME_CTRL_FENCED);
-> > +	if (nvme_change_ctrl_state(ctrl, NVME_CTRL_RESETTING))
-> > +		queue_work(nvme_reset_wq, &tcp_ctrl->err_work);
-> > +}
-> > +
-> >   static void nvme_tcp_error_recovery_work(struct work_struct *work)
-> >   {
-> >   	struct nvme_tcp_ctrl *tcp_ctrl = container_of(work,
-> >   				struct nvme_tcp_ctrl, err_work);
-> >   	struct nvme_ctrl *ctrl = &tcp_ctrl->ctrl;
-> >   
-> > +	flush_work(&to_tcp_ctrl(ctrl)->fencing_work);
-> 
-> Agree we shouldn't be here with fencing work running.
+Chromium/Depthcharge bootloaders may dynamically add a few device nodes
+to a system's DTB under a /firmware node. A typical DT looks something
+like the following:
 
-Right, nvme_tcp_fencing_work() above queus tcp_ctrl->err_work. This
-flush makes aure that fencing is 100% done before we proceed with
-resetting.
+/ {
+        firmware {
+                ranges;
 
-> 
-> >   	if (nvme_tcp_key_revoke_needed(ctrl))
-> >   		nvme_auth_revoke_tls_key(ctrl);
-> >   	nvme_stop_keep_alive(ctrl);
-> > @@ -2542,6 +2566,7 @@ static void nvme_reset_ctrl_work(struct work_struct *work)
-> >   		container_of(work, struct nvme_ctrl, reset_work);
-> >   	int ret;
-> >   
-> > +	flush_work(&to_tcp_ctrl(ctrl)->fencing_work);
-> 
-> Isn't it being called in nvme_stop_ctrl? - perhaps it should be called 
-> in ->stop_ctrl() callback.
-> 
-> Other than that, this looks reasonable to me.
+                coreboot {
+                        compatible = "coreboot";
+                        reg = <...>;
+                        ...;
+                };
+        };
+};
 
-This flush_work() is needed in case nvme_tcp_fencing_work() loses the
-race of transitioning the controller from FENCED to RESETTING. The
-moment we move to FENCED anything can reset the controller. For example,
-userspace can do that. If we lose the race then tcp_ctrl->err_work will
-not be queued. That means reset work needs to flush fencing_work.
+Notably, the /firmware node has an empty 'ranges', but does not have
+address/size-cells.
+
+Commit 6e5773d52f4a ("of/address: Fix WARN when attempting translating
+non-translatable addresses") started requiring #address-cells for a
+device's parent if we want to use the reg resource in a device node.
+This leads to errors like the following:
+
+[    7.763870] coreboot_table firmware:coreboot: probe with driver coreboot_table failed with error -22
+
+Add appropriate #{address,size}-cells to work around the problem.
+
+Note that Google has also patched the Depthcharge bootloader source to
+add {address,size}-cells [1], but bootloader updates are typically
+delivered only via Google OS updates. Not all users install Google
+software updates, and even if they do, Google may not produce updated
+binaries for all/older devices.
+
+[1] https://lore.kernel.org/all/20241209092809.GA3246424@google.com/
+    https://crrev.com/c/6051580 ("coreboot: Insert #address-cells and
+    #size-cells for firmware node")
+
+Closes: https://lore.kernel.org/all/aeKlYzTiL0OB1y3g@google.com/
+Fixes: 6e5773d52f4a ("of/address: Fix WARN when attempting translating non-translatable addresses")
+Signed-off-by: Brian Norris <briannorris@chromium.org>
+Reviewed-by: Chen-Yu Tsai <wenst@chromium.org>
+Reviewed-by: Douglas Anderson <dianders@chromium.org>
+---
+v1 series:
+https://lore.kernel.org/all/20260428200712.2660635-1-briannorris@chromium.org/
+
+There is a little more background in the v1 cover letter. I didn't feel
+like a new cover letter was needed for a single patch-resend.
+
+Changes in v2:
+ * resent separately from the series, since the rest were applied by
+   their maintainers
+ * trim other-arch maintainers from CC list
+ * Add Reviewed-by
+ * Add missing linux-mediatek@lists.infradead.org Cc. It claims to be
+   moderated, and its "join" seems broken, so I'll probably get bounced.
+   (https://lists.openwrt.org/mailman/subscribe/linux-mediatek is
+   disabled, and linux-mediatek-join@lists.openwrt.org gives me error 550)
+ * otherwise, no change from v1
+
+ arch/arm64/boot/dts/mediatek/mt8173-elm.dtsi     | 5 +++++
+ arch/arm64/boot/dts/mediatek/mt8183-kukui.dtsi   | 5 +++++
+ arch/arm64/boot/dts/mediatek/mt8186-corsola.dtsi | 5 +++++
+ arch/arm64/boot/dts/mediatek/mt8188-geralt.dtsi  | 5 +++++
+ arch/arm64/boot/dts/mediatek/mt8192-asurada.dtsi | 5 +++++
+ arch/arm64/boot/dts/mediatek/mt8195-cherry.dtsi  | 5 +++++
+ 6 files changed, 30 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/mediatek/mt8173-elm.dtsi b/arch/arm64/boot/dts/mediatek/mt8173-elm.dtsi
+index a0573bc359fb..777da2129e77 100644
+--- a/arch/arm64/boot/dts/mediatek/mt8173-elm.dtsi
++++ b/arch/arm64/boot/dts/mediatek/mt8173-elm.dtsi
+@@ -16,6 +16,11 @@ aliases {
+ 		mmc2 = &mmc3;
+ 	};
+ 
++	firmware {
++		#address-cells = <2>;
++		#size-cells = <2>;
++	};
++
+ 	memory@40000000 {
+ 		device_type = "memory";
+ 		reg = <0 0x40000000 0 0x80000000>;
+diff --git a/arch/arm64/boot/dts/mediatek/mt8183-kukui.dtsi b/arch/arm64/boot/dts/mediatek/mt8183-kukui.dtsi
+index 69cab9f9c530..fa359440ed60 100644
+--- a/arch/arm64/boot/dts/mediatek/mt8183-kukui.dtsi
++++ b/arch/arm64/boot/dts/mediatek/mt8183-kukui.dtsi
+@@ -22,6 +22,11 @@ chosen {
+ 		stdout-path = "serial0:115200n8";
+ 	};
+ 
++	firmware {
++		#address-cells <2>;
++		#size-cells <2>;
++	};
++
+ 	backlight_lcd0: backlight_lcd0 {
+ 		compatible = "pwm-backlight";
+ 		pwms = <&pwm0 0 500000>;
+diff --git a/arch/arm64/boot/dts/mediatek/mt8186-corsola.dtsi b/arch/arm64/boot/dts/mediatek/mt8186-corsola.dtsi
+index ff20376a44d7..2b327d9ef65e 100644
+--- a/arch/arm64/boot/dts/mediatek/mt8186-corsola.dtsi
++++ b/arch/arm64/boot/dts/mediatek/mt8186-corsola.dtsi
+@@ -26,6 +26,11 @@ chosen {
+ 		stdout-path = "serial0:115200n8";
+ 	};
+ 
++	firmware {
++		#address-cells = <2>;
++		#size-cells = <2>;
++	};
++
+ 	memory@40000000 {
+ 		device_type = "memory";
+ 		/* The size should be filled in by the bootloader. */
+diff --git a/arch/arm64/boot/dts/mediatek/mt8188-geralt.dtsi b/arch/arm64/boot/dts/mediatek/mt8188-geralt.dtsi
+index f382f90c48f5..c65805f2a7e0 100644
+--- a/arch/arm64/boot/dts/mediatek/mt8188-geralt.dtsi
++++ b/arch/arm64/boot/dts/mediatek/mt8188-geralt.dtsi
+@@ -41,6 +41,11 @@ dmic-codec {
+ 		wakeup-delay-ms = <100>;
+ 	};
+ 
++	firmware {
++		#address-cells = <2>;
++		#size-cells = <2>;
++	};
++
+ 	memory@40000000 {
+ 		device_type = "memory";
+ 		/* The size will be filled in by the bootloader */
+diff --git a/arch/arm64/boot/dts/mediatek/mt8192-asurada.dtsi b/arch/arm64/boot/dts/mediatek/mt8192-asurada.dtsi
+index 40d34b16dc80..e8ebbb74987f 100644
+--- a/arch/arm64/boot/dts/mediatek/mt8192-asurada.dtsi
++++ b/arch/arm64/boot/dts/mediatek/mt8192-asurada.dtsi
+@@ -25,6 +25,11 @@ chosen {
+ 		stdout-path = "serial0:115200n8";
+ 	};
+ 
++	firmware {
++		#address-cells = <2>;
++		#size-cells = <2>;
++	};
++
+ 	memory@40000000 {
+ 		device_type = "memory";
+ 		reg = <0 0x40000000 0 0x80000000>;
+diff --git a/arch/arm64/boot/dts/mediatek/mt8195-cherry.dtsi b/arch/arm64/boot/dts/mediatek/mt8195-cherry.dtsi
+index ef7afc436aef..f06ca2bc165d 100644
+--- a/arch/arm64/boot/dts/mediatek/mt8195-cherry.dtsi
++++ b/arch/arm64/boot/dts/mediatek/mt8195-cherry.dtsi
+@@ -42,6 +42,11 @@ dmic-codec {
+ 		wakeup-delay-ms = <50>;
+ 	};
+ 
++	firmware {
++		#address-cells = <2>;
++		#size-cells = <2>;
++	};
++
+ 	memory@40000000 {
+ 		device_type = "memory";
+ 		reg = <0 0x40000000 0 0x80000000>;
+-- 
+2.55.0.979.g7e5102b832-goog
+
