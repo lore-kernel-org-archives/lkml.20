@@ -1,138 +1,71 @@
-Received: from e3i605.smtp2go.com (e3i605.smtp2go.com [158.120.86.93])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oo1-f69.google.com (mail-oo1-f69.google.com [209.85.161.69])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E43340B11F
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 04:47:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=158.120.86.93
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E243D3D9029
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 04:50:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.69
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788497237; cv=none; b=OA0RUNV+lmTtlkbLsKZ1QX87LGDx3W8nNpTi/lAo8oDcYQOBi9iQgNU14vMeegDildNjlSyW25evk9t6OStYmQcjrNGEq4QMb+oT6sLfLyzpukk/GUQ7SjWACUowjUrD9/OHEu5ONMqUXHozwWbxf30Ca21Y8wqHwvILo7NZyv0=
+	t=1788497406; cv=none; b=qJdWIPYWaOhrLP3q4TTdmtx/AVeGYeLAFVft1lVijbK4gJMrmeaYsi5E6r0duX2FgQkbS+E9X823VHTD9lLGg7ZZMCjXrlKnwTekdg3IgYjjZ0r6bZ644DHAlYG0V8c7keLzK7yDIZPnkaRU8+twxTzFae/zavbUdQ6PMR9aVA4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788497237; c=relaxed/simple;
-	bh=9E68qfCxaPzmD3m+GTXzaxJVndMAABhJd88SvAymKvw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=tFfqlmyvy+Zl7SBudqQh0kzqYEHAQEYrgpKJV4LjwUHppmVkK2azaIxm4UHLw/UpIvWOTdsUzPUUh4TQfBGXevjb5lW3nBtZaG7qrO+GfnHMLVrEmWAJFXF398i65xh/f8zoi4tETl61waumNB5+ci701w6pShhFk8CQk8VYCHM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ait.place; spf=pass smtp.mailfrom=em943033.ait.place; dkim=pass (2048-bit key) header.d=ait.place header.i=@ait.place header.b=bpGDptHv; arc=none smtp.client-ip=158.120.86.93
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ait.place
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=em943033.ait.place
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ait.place header.i=@ait.place header.b="bpGDptHv"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ait.place;
- i=@ait.place; q=dns/txt; s=s943033; t=1788497231; h=from : subject :
- to : message-id : date : list-unsubscribe : list-unsubscribe-post;
- bh=621XTYcsZ6zvvOUg6Eb3VR5r2xUBCu+A38ELVbjgWac=;
- b=bpGDptHv89T7VhMlOy+YawNQssOj7B8QDzPg2KYhCsyQ5QffK2VUV2RP4hh3LLA+vtmrX
- PKj1wIYNCUCZG/u/B3g/ddt9t/UZfpLr0RnDDUDkA8A2kiZHTnw/YMnokRdkV4qDx7DzhK4
- WBNIdrZtUUC0PWQr2Enlc/YTrUKyyN2vPwpdrGXUVWCqFUzFpYZGq5cHWbdyQTNh/xC2doS
- eWsDCmYzZPOLpTYM/z4Abdi6Lyuj5k5Vo1BBMU9+7ClCBLLPQHK+XTI7yfmKixmfoA2FrMU
- NItRfUI7vpWjdkNJOjdgNPQZpiWeXGFbiGEvHI1fuYbGJ0QEvz7BpCMKJ5mw==
-Received: from [10.191.245.51] (helo=omarchy.bb.online.no)
-	by smtpcorp.com with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
-	(Exim 4.99.4)
-	(envelope-from <jonathanjansen@ait.place>)
-	id 1x2LpT-4o5NDgrjDEn-oUeG;
-	Fri, 04 Sep 2026 04:47:07 +0000
-From: Jonathan Jansen <jonathanjansen@ait.place>
-To: linux-input@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org,
-	jikos@kernel.org,
-	bentiss@kernel.org,
-	dmitry.torokhov@gmail.com,
-	linux-api@vger.kernel.org,
-	jonathanjansen@ait.place
-Subject: [PATCH v2] HID: input: map System Microphone Mute LED
-Date: Fri,  4 Sep 2026 06:47:05 +0200
-Message-ID: <20260904044705.1060507-1-jonathanjansen@ait.place>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260904022903.607880-1-ait@ait.place>
-References: <20260904022903.607880-1-ait@ait.place>
+	s=arc-20240116; t=1788497406; c=relaxed/simple;
+	bh=U2BqdsZ8gB5XuyY/fHJkXNvZPUkdI7vWfQkCFggnb1k=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=IIvVDhvHfoIgT3+ThB4STLvuk5gJNf+xC+JG/p6cveFRtpzwlawsR6g+zTxaLP61wRMTd7Byt+p8CBOTJJBoA9Sqm69yKjsqz2Q34VwHErHFkOa5R7TYmv4KA0bpdRL41LXxE9EjwyjflOlhXuC2GfKvaoccxcq+NNAKDcDSq3U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.161.69
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oo1-f69.google.com with SMTP id 006d021491bc7-6b0e7370be1so675492eaf.0
+        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 21:50:02 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788497402; x=1789102202;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=NKTdf5FN7Ekb1VMEfUS0M3cXGmKqY/cRVtokL7Q4zBM=;
+        b=bwrn6UTdOhifqGe3sKLQuTje5h9mAibAHGUM5Rj49PKcAFGtrabRBXtOjjE17pFJM4
+         eajZ4RKVK+efL4ELesEr7Oht0V1MOk99RXmi8qKKBD5HqCVdx9aa8udRJtMjKG/4OEJE
+         CaMHP15jDJHsfXShTt7zglGJbPeQPxHPrDdZ8IfNviovUfMcKNQn/kz0+A9Lsd9HbZaA
+         JsU6tBVRP6t86ZPoJuk5u7yrNXIOt/0QvmPXjixIyhj7gil8MqVHTr4eNgXyoZaV9q6R
+         6kLwDAN2G8GPzojFSPFs3IfEQLSOn2DI6xhq5Xm8wuTEzNv73HuKwNoqzxBr9QpkCP+X
+         J66Q==
+X-Gm-Message-State: AFuF++lpBGRHsALzkxQ5lQwyU7tEo507ob3weoCG0js2HYNC8gZogjRs
+	ORfUqNjVODsmHDS0wH9vlWu36bSpwkeXCuLfCXOxbWO0A6xitSfjFNaMYUXYbUFuElrhTDZyLWY
+	i+m97wGiUwAbCeghom/YRadng5UWv4lAvVQtgSHoKOFB+6EGUWfvphbnjD2w=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Report-Abuse: Please forward a copy of this message, including all headers, to <abuse-report@smtp2go.com>
-Feedback-ID: 943033m:943033ayMjrpg:943033soucOInEYf
-X-smtpcorp-track: WIJsAmxVTzu8.OCUvS9wtYeXj.BoSJxwFW3zB
+X-Received: by 2002:a05:6820:190d:b0:6a3:6f5d:4d6c with SMTP id
+ 006d021491bc7-6b58341fd2emr4941137eaf.6.1788497401925; Thu, 03 Sep 2026
+ 21:50:01 -0700 (PDT)
+Date: Thu, 03 Sep 2026 21:50:01 -0700
+In-Reply-To: <937cda14-9b1b-4eb3-92d4-f31afacb9b0c@me.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6a9a4df9.9266084e.bf0d7.0456.GAE@google.com>
+Subject: Re: [syzbot] [media?] WARNING in cx25840_init
+From: syzbot <syzbot+9123948aef13fe92d706@syzkaller.appspotmail.com>
+To: linux-kernel@vger.kernel.org, m.harisawan@icloud.com, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-HUTRR110 defines LED page usage 0x57 as System Microphone Mute.
+Hello,
 
-The usage is currently ignored, so the indicator stays dark and
-userspace falls back to per-vendor code in hid-lenovo,
-hid-playstation, hid-plantronics.
+syzbot has tested the proposed patch and the reproducer did not trigger any issue:
 
-Map it to a new LED_MICMUTE. It appears as
-/sys/class/leds/inputN::micmute and uses the "audio-micmute"
-trigger from snd-ctl-led, so the LED follows the system-wide
-mic mute state the same way LED_MUTE (page 0x09) already does
-for speaker mute.
+Reported-by: syzbot+9123948aef13fe92d706@syzkaller.appspotmail.com
+Tested-by: syzbot+9123948aef13fe92d706@syzkaller.appspotmail.com
 
-LED_MICMUTE takes the next free code (0x0b).
+Tested on:
 
-Link: https://www.usb.org/sites/default/files/hutrr110-systemmicrophonemute.pdf
+commit:         a500db78 Merge tag 'selinux-pr-20260903' of git://git...
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=16d008f9580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=5e4e3a0e188a497e
+dashboard link: https://syzkaller.appspot.com/bug?extid=9123948aef13fe92d706
+compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
+patch:          https://syzkaller.appspot.com/x/patch.diff?x=1779cb49580000
 
-Signed-off-by: Jonathan Jansen <jonathanjansen@ait.place>
----
-
-Notes:
-    Changes since v1: rewrote the commit message; no functional changes.
-
- drivers/hid/hid-debug.c                | 2 +-
- drivers/hid/hid-input.c                | 1 +
- drivers/input/input-leds.c             | 1 +
- include/uapi/linux/input-event-codes.h | 1 +
- 4 files changed, 4 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/hid/hid-debug.c b/drivers/hid/hid-debug.c
-index f44e6e708..92a950105 100644
---- a/drivers/hid/hid-debug.c
-+++ b/drivers/hid/hid-debug.c
-@@ -3550,7 +3550,7 @@ static const char *leds[LED_MAX + 1] = {
- 	[LED_KANA] = "Kana",		[LED_SLEEP] = "Sleep",
- 	[LED_SUSPEND] = "Suspend",	[LED_MUTE] = "Mute",
- 	[LED_MISC] = "Misc",		[LED_MAIL] = "Mail",
--	[LED_CHARGING] = "Charging",
-+	[LED_CHARGING] = "Charging",	[LED_MICMUTE] = "Mic Mute",
- };
- 
- static const char *repeats[REP_MAX + 1] = {
-diff --git a/drivers/hid/hid-input.c b/drivers/hid/hid-input.c
-index edd6bbf83..727374dd5 100644
---- a/drivers/hid/hid-input.c
-+++ b/drivers/hid/hid-input.c
-@@ -990,6 +990,7 @@ static void hidinput_configure_usage(struct hid_input *hidinput, struct hid_fiel
- 		case 0x27:  map_led (LED_SLEEP);    break;    /*   "Stand-By"                 */
- 		case 0x4c:  map_led (LED_SUSPEND);  break;    /*   "System Suspend"           */
- 		case 0x09:  map_led (LED_MUTE);     break;    /*   "Mute"                     */
-+		case 0x57:  map_led (LED_MICMUTE);  break;    /*   "System Microphone Mute"   */
- 		case 0x4b:  map_led (LED_MISC);     break;    /*   "Generic Indicator"        */
- 		case 0x19:  map_led (LED_MAIL);     break;    /*   "Message Waiting"          */
- 		case 0x4d:  map_led (LED_CHARGING); break;    /*   "External Power Connected" */
-diff --git a/drivers/input/input-leds.c b/drivers/input/input-leds.c
-index b08d1d08d..6522079a4 100644
---- a/drivers/input/input-leds.c
-+++ b/drivers/input/input-leds.c
-@@ -36,6 +36,7 @@ static const struct {
- 	[LED_SLEEP]	= { "sleep" } ,
- 	[LED_SUSPEND]	= { "suspend" },
- 	[LED_MUTE]	= { "mute", AUDIO_TRIGGER("audio-mute") },
-+	[LED_MICMUTE]	= { "micmute", AUDIO_TRIGGER("audio-micmute") },
- 	[LED_MISC]	= { "misc" },
- 	[LED_MAIL]	= { "mail" },
- 	[LED_CHARGING]	= { "charging" },
-diff --git a/include/uapi/linux/input-event-codes.h b/include/uapi/linux/input-event-codes.h
-index 3528168f7..bc374821c 100644
---- a/include/uapi/linux/input-event-codes.h
-+++ b/include/uapi/linux/input-event-codes.h
-@@ -983,6 +983,7 @@
- #define LED_MISC		0x08
- #define LED_MAIL		0x09
- #define LED_CHARGING		0x0a
-+#define LED_MICMUTE		0x0b
- #define LED_MAX			0x0f
- #define LED_CNT			(LED_MAX+1)
- 
--- 
-2.55.0
-
+Note: testing is done by a robot and is best-effort only.
