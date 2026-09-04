@@ -1,229 +1,210 @@
-Received: from mail-ed2-f12.google.com (mail-ed2-f12.google.com [74.125.228.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-00364e01.pphosted.com (mx0a-00364e01.pphosted.com [148.163.135.74])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8290503BC0
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 22:34:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.76
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788561276; cv=pass; b=G8Gn/kRfS4QJVwIlWkr6ETdlZgY//TtRuFDG2JgXVkjMnIXfjiTuIZ/o7l2JnMW7UkDEkj6l4OtkcyG/v3qvKTk0K8WR/a5GiQ0jlZ79X4k8opXa1Ld04L/sVvBBOqcGNYXnwnQEBcy6FjGR1DxjRxxHjbgWv4bQdjPhC1s2CYI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788561276; c=relaxed/simple;
-	bh=zQzEewI4ZvoZshQfZVFvWPcbJeYMDctnRHy7ajATikE=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=eHlWpFsor5P0SkKZDzhIapoZ3vFpbpayi9sN0irl8iWeV1lETT+hpT6BlFaHxLBi58Bc3Oj16ShcAQUfSmW8LJDuErQtew/wjfg8nEU+eG0j5wQygoL1ZGb+S8qoecoe6tRvaIQ4dF9kZ7TLb5RAfu38KuJxvZF+7TDkH53hOcw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=i5L5bfoR; arc=pass smtp.client-ip=74.125.228.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1A81517BA3
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 22:35:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.135.74
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788561315; cv=none; b=uLLbHxwjhbQvkmqH36zI3iUmazlMK929/UfdYNp8q88iiPapCriwa7h71e17Qj+5Gfn2m1GvGPoCFLIL0Lq62suI6qzVWUVq2cFhNiG8nOjy5d9fZOcvYSm48dJxVbXwzbPGiVCk686rImoa3DwvyUfArpiKsiuKzn7rr+S6/mg=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788561315; c=relaxed/simple;
+	bh=DA84oxU3rQPrvSsuP6rsi2zMphGkpHQDobH17fbWDNc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=YMxPaiPfb50SlIDCikAAaJyjoLiNY2SUuSUQnRFuvKs8RxGOLWBq0cmUW+zGkIkYrvxdi51qvWwgN9PkSJrElM6lKl1Q/9ccENBWJvoYENhcgQqOH7krjH1a1A6LzUaLScQg3QUuTt2CZ+5Tx28mX3vNEo0btHxF/GtsgAYvd54=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=columbia.edu; spf=pass smtp.mailfrom=columbia.edu; dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b=OM83EIbe; dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b=p4AhNWtA; arc=none smtp.client-ip=148.163.135.74
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=columbia.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=columbia.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="i5L5bfoR"
-Received: by mail-ed2-f12.google.com with SMTP id 4fb4d7f45d1cf-6a5d8fd8d88so1966a12.0
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 15:34:33 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788561272; cv=none;
-        d=google.com; s=arc-20260327;
-        b=lE5Fj6X27TTmJokg4A8Ns7tx2ulPYlACVq085KL+1JgBoTVQr4X8oA+IOaSGbVvCl+
-         mLDb46KYvcolxa2HVVywglAryNWzo9BpK5zDdpbGDadIO5/VWdOShUuUj0y2vu0es4qO
-         zAmUjgLPWfoa85ZwhzKMIN04yx9rBd9VJ1kG8HG2lhB2sYq+QtpMjnrxo+UUbXYuvOv8
-         XEgXWPgDaR9pyUPfXexev7AiCF/pTXXUitYA0eBXRDjVYqVVhosNhf44nxmQacu+BjXv
-         R6RiFPJt2KdZBxV5z/EgeNaorcRqum94Fl5sH25WaYkJRtzoVmDmu1yDE02K5HzkEkds
-         eNIQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=vWyLFB322c+K8udyWMay6dKIPqFbfWlPPY8Vkro08BM=;
-        fh=1jvfeg8SL9kCSd8zxtsS25O6lz6dbvyOrHeoylbcNEc=;
-        b=MPi9KHh6CljtRX47wNUpWb2X0ONIZp+gwB95aSYihDBJ40kktxnToWRoQmL9babqAQ
-         0fj+Z/WhNIKFBmV3ruC3El+6eFvG9yr4SqO3cKYymEfO/S2C+VgOuEjD4EheeZEFyeRw
-         GHRcoeEzXUIhDql3F8q4OYIdG8jh7678W38YRRkPMG9nPlpP2VdqqinbepO+c7FzrOLA
-         L6eMiFXQV2NCYZjYJEup/NWVk4pJysdn8T/U5KPHqq1B3NPTsZfuktN/FD3s4hkj3lmn
-         lsy95SwrZXJUkUgnU2rmK3XJNqJE/CPTxBHeHwkZYEtfBkPPtlWYf4vaJ0uKdtGgg7hd
-         vhrQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b="OM83EIbe";
+	dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b="p4AhNWtA"
+Received: from pps.filterd (m0167068.ppops.net [127.0.0.1])
+	by mx0a-00364e01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 684MXuuC3598371
+	for <linux-kernel@vger.kernel.org>; Fri, 4 Sep 2026 18:35:12 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=columbia.edu; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pps01; bh=NS3I
+	WLMNep/DrvoibIPUp7dIa6zL29X7BYhj1p+bdp0=; b=OM83EIbeyrJBmKFxiBn7
+	95BjxB368qVNGNObkjZ85O1d248QOiUYlzhhJJep+Gt6Hi2B8Fzo7oVG64eJc/tj
+	zbc2s9qp5g61Kxn9jIQmS3ffGdAlGQCLFIZHun44tpLrXKQNNfvb8FNBH5XRYio2
+	Z0cVo9Dhz5NYwVILy/CkqWJ4AHXPq0IB3wvtxsLVRMEl30S7UHiN5mLrnAZYCkPg
+	El3m/66187L/MxMuSPzMn+/WT6GRdkqqrMx3xhVwRJ1iy26arqEVzNfdiHL4NoDp
+	xnLYfSKwSetCrD1jSwhPGIAgpUmWjZfBSh9+fhBno0Kz/ApUcGuNj1MCJ7bpAC3u
+	VQ==
+Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
+	by mx0a-00364e01.pphosted.com (PPS) with ESMTPS id 4gg0a83krg-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 18:35:11 -0400 (EDT)
+Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-92e5e38fbc5so253211085a.2
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 15:35:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1788561272; x=1789166072; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=vWyLFB322c+K8udyWMay6dKIPqFbfWlPPY8Vkro08BM=;
-        b=i5L5bfoRS1hv4oOobsDflFsRUVPWpYm7PnaTb7K/SiND3QTD2asCSX6JMLk89t7gia
-         Et0q2++NrSbsAmKON8ON/J7DlxIFzHbIOSVzqm4bE5C+ntGaN0GNPMrSxm/2MJaE9wci
-         dhwnIFJm/hgGnFTmjB4AcV39R7IidOlxs81lxDxiS+OOxUizpmU0v/QWlE1IkvpBBNl6
-         rK8q9i0BKxUVGn2BkMYB7tyY4dQb44Y1ZGZyl90LEEmv8g36gL58GKeirCd919NuMg/w
-         9BzAVtdrjXjKhi+eXZ2UhWt+Z6VUu6P6eqZsUsls5GrXcGIMavLSeZMC6BrPb7tRMqo5
-         6UKA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788561272; x=1789166072;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=columbia.edu; s=lionmail; t=1788561311; x=1789166111; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=vWyLFB322c+K8udyWMay6dKIPqFbfWlPPY8Vkro08BM=;
-        b=U2CyfhVhPfnvtdxqiUBpxIwiWHMKhrMFKuHuZfoA7WQZeEZexyrYu/AI/xmx5bUnJr
-         3XZupb2gB+6J3JgymT4De88EK2FLyR16yIL7raqq+uytGhyJ/fMImdwmV0WHEcyDmXpP
-         S40RL84j0WJ+FhJ2VSaGXwQBZGt8K7Xc98eL6lbw63bIR6vtvK8DHWLdeSVM81PpHxhn
-         o/uYt3IrdM1tNLPCl9oIXWgVH+cv58hT/ha46PPljAg1Ntx6/BrgHI4HHQ3VPsM/fHJ1
-         zq1ZFHEbgx11Pds2RPHNWEdmV1A9u6KcgnOXQpd2WtjHDVqrsH7jD40gWkm7idimQtcd
-         yp5A==
-X-Forwarded-Encrypted: i=1; AKwUvBw2g3AnlsyLh9ihJHlCyGCXhmfvz8aKktHaLZklRARtADc6muhTV1ZlffD9P2YSheFv9562NBH+ywkulBg=@vger.kernel.org
-X-Gm-Message-State: AFuF++kwbEylRMyAzR8zmdwEWqKGSHOMdh+9UcF0VMzisGGPLNXJQR9z
-	0TzJvgjopAJn0wgT8xr0AuvO+hFXvvWD+TRt/X2hnQl0ZedL+oQlVuO3CQzAa+s9u06CdGRi+bq
-	8/CzXDGl81hiGUC8Y3Hlb8K3+PUyn1hhX+o/9UZ4K
-X-Gm-Gg: AYBFou1e8BLpb0GUeWwNF+YJGuu0LcYz/Fnam1nHzKn/UOZft3QqgtZf+PVVfyDPzWZ
-	zNtK3CkYyJaGpPjcfp2lRqIjem4sPLln8Gha29DwdCIkfy/Sanoygjpz6IFb/1aCWj82ttw0pBp
-	mOF8DLi9KbR4HLFGB0RrC3v9ORdmcO0UxCjakcz8RQpNhFnxURgAgEdGoChN4qR8wFHwnanLUE6
-	4nXZWob8udUG7FjIh0s/A/QmhaIq71lh+h4okzMmgrJsLJfz0Rxk+SY+5wfq57ZOO+Ju6C8hhJw
-	YcY6kS9WJdBfW3ayBXBAYKXF2f2M2eyaMtHCFiVaJpt/
-X-Received: by 2002:a05:6402:21c6:b0:6a6:96df:215b with SMTP id
- 4fb4d7f45d1cf-6a7f682710amr11857a12.14.1788561271594; Fri, 04 Sep 2026
- 15:34:31 -0700 (PDT)
+        bh=NS3IWLMNep/DrvoibIPUp7dIa6zL29X7BYhj1p+bdp0=;
+        b=p4AhNWtAX8wTG5vcPeNMdAcvakpQAgw5k6QYrC1/brPsb0ngW6tTBFeahesat9odxP
+         3/CeRuSUVwltWS+YmhVbW32ySRK+wgeoOP1mAg5qJNFADd22/RTTdMNo4WY+nsgFcy3r
+         tIM/Lc66jspSRsVFs4xxPN+Iyz68ZXTVepvBh/ovG2zevFudQ6nymIw3vOLr+xw+dd+A
+         EMIVdCQHwdZQI0YqVYI0xQPp60no3jNtSJVJQMeZMMAwOv+upZeY/nwE2mtrIFqpUx++
+         99tApD++TY7WQocdN+Vb/ljMdRb2f+sL2dbkP2mxUEqvWoG27jkwA13Ty0hfNuxG3/9t
+         MyHQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788561311; x=1789166111;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=NS3IWLMNep/DrvoibIPUp7dIa6zL29X7BYhj1p+bdp0=;
+        b=G146GyxbtwRZ2pvqz6C2OoKEJ4LPVZkT5MSvFOOJUf+B02/4Jqosy8O88bBut8zyUM
+         OzGWaH2OX0Ze5aeVfqoOikatSIQgC+bHvTTe92DNIfvrYPD7WuYxovABSDKmcHQiGaLC
+         cjPtIjPQW8tXr4KPihGCy2Wgsl/x3pGiotd0i7c9vqE+rKDGOzDhW8VNjKFR9yXJ6FPt
+         7tVzUB1BzyLsaWhVaxvaTR6VaRDnnTLU2e/5R5n+BOmw3jfDd68BEtaECKH44OVXxn7j
+         Fuef+H1NtlzvHfT4fORk38IJqvqCLqG9/Y4Tj4ITI8/agkMM54jyRu4/whSiX5x+8cqn
+         L8+w==
+X-Forwarded-Encrypted: i=1; AKwUvBxUOW44SGW03XLvyJOpb3u6utfwORaTZS7TitFgf+kYOoGfFvUfV99BdyQ6jFrSuSUEtdKxWZ+YZ2nHkQ4=@vger.kernel.org
+X-Gm-Message-State: AFuF++mmY843ZbCWqqpMpm7CRomlC3IZC+jE/WjzHHxt1RlW0XU2R4jg
+	3YKoGmmB2wxO0nhpIbvTw7/xBb/OekNuM//3K+woiWggzqEk8+cxzRuGu2pTxfwimzV3tfE14x8
+	Aa9PGTAEMkZn0E62WmcRmrHGvMQe+tzW8xZVzrTmbvYx0KLRl0PFS2+x83Ei6Vg==
+X-Gm-Gg: AYBFou0mqL1HUZoHvCZo3rSSBisyklezqaYylG51pZz2sYFMbu5m5+5qK9f3hGPgju0
+	MYvy8OeqpVCFfkF5fM5te2hmlfw3UcDv4eVzxafH95kmSdPjpOhwF2JvJ4KRt3U7dqH/ciCzrZh
+	HDshvbIfzTOzVuI655/nWnhPT4sIBo/I2aGZleH2Cm02SaTSrlqnv3xuPqfxn6PHJPF1Mtoe2Mq
+	sLQNzTr4LHwB3Z+b7GxPZfyymBpVqaaIYd417zpTvS5LWHFRo0cGaFPPkbc9zhPhLboiTxzaFHE
+	g+D8fapzAvrl1YUsDlKI1SKmJFUSjr5McwrlfqaR6xJnLzhMOCc9EpUvRahlILHEGEBjtRJwkEC
+	VfrS6WdvFdZr1BHX8FI8cChHMfTTddS+UitzhQsORrn810QtDqXl4
+X-Received: by 2002:a05:620a:44c3:b0:939:8905:ce9b with SMTP id af79cd13be357-9398905d927mr531684585a.17.1788561310786;
+        Fri, 04 Sep 2026 15:35:10 -0700 (PDT)
+X-Received: by 2002:a05:620a:44c3:b0:939:8905:ce9b with SMTP id af79cd13be357-9398905d927mr531679985a.17.1788561310278;
+        Fri, 04 Sep 2026 15:35:10 -0700 (PDT)
+Received: from [10.207.49.22] (nat-128-59-177-158.net.columbia.edu. [128.59.177.158])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91040664be1sm31193686d6.18.2026.09.04.15.35.09
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 04 Sep 2026 15:35:09 -0700 (PDT)
+Message-ID: <789e5449-fc8b-4ef4-9571-26abd514681b@columbia.edu>
+Date: Fri, 4 Sep 2026 18:35:09 -0400
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260824123954.315112-1-zhang_wei@open-hieco.net> <20260824123954.315112-2-zhang_wei@open-hieco.net>
-In-Reply-To: <20260824123954.315112-2-zhang_wei@open-hieco.net>
-From: Jim Mattson <jmattson@google.com>
-Date: Fri, 4 Sep 2026 15:34:19 -0700
-X-Gm-Features: AcwNN1W2CL3MX24WexOB2cU1f7wgDBrCrUSExLWQoABuDUy_PRYgrmgU2-Tp_bU
-Message-ID: <CALMp9eQoMn5BxXfu9ut5EZVGipfiZzbQz32mpi3TCjA6fA7jCw@mail.gmail.com>
-Subject: Re: [PATCH v5 1/8] KVM: x86: Add helper to provide intercept linear addresses
-To: Tina Zhang <zhang_wei@open-hieco.net>
-Cc: Sean Christopherson <seanjc@google.com>, kvm@vger.kernel.org, 
-	Paolo Bonzini <pbonzini@redhat.com>, Shuah Khan <shuah@kernel.org>, zhouyanjing@hygon.cn, 
-	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 1/2] f2fs: complete dropbehind write bios in task
+ context
+To: Wenjie Qi <qwjhust@gmail.com>, jaegeuk@kernel.org, chao@kernel.org
+Cc: linux-f2fs-devel@lists.sourceforge.net, linux-kernel@vger.kernel.org,
+        hch@lst.de, jack@suse.cz, axboe@kernel.dk, baohua@kernel.org,
+        linux-block@vger.kernel.org, linux-fsdevel@vger.kernel.org,
+        linux-mm@kvack.org, qiwenjie@xiaomi.com
+References: <cover.1788438786.git.qiwenjie@xiaomi.com>
+ <c4e69fb1ffd6c6fd968683c690ba29f2b98c9fa8.1788438786.git.qiwenjie@xiaomi.com>
+Content-Language: en-US
+From: Tal Zussman <tz2294@columbia.edu>
+In-Reply-To: <c4e69fb1ffd6c6fd968683c690ba29f2b98c9fa8.1788438786.git.qiwenjie@xiaomi.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA0MDIwOSBTYWx0ZWRfXye8VUTVNs78l
+ QVAD02SmerboezlCnhgSHZIMrsC/mWA8YzVPZR5NmBXx79YUpUanBjRshypVtgVhWCnRnul7hpQ
+ sqTpD0uEK8ID/tMuFZDOSfRA8oFyoba9126OPhXtyW+WhM0VhA5O
+X-Proofpoint-GUID: x_3E3EkED2IMHFNJsKICywH0ZIozh2lt
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA0MDIwOSBTYWx0ZWRfX4IO9PjjZpEUF
+ Q3VZxp7knWjagKiii3vUXsUPVufwogTWbAPrP4lseurSTz18Kq53k5ytpXUH5o45hb13PCkKv0t
+ ST3sgQk/UNUiQ/zIBVYJxPOiBbkR4SSLnore7L7X881rTCsotDrkILy36pHmT2rLhDZrLCZlmIQ
+ FXUsBpISJvynV9oBaUtqBMZlhLEpJpNUZ9OZMMvQdXT6YNGxEhzPtSb+82VumEU7bNMm4mjqxiM
+ 3F/oGmc1fqlbwktuRoxH/dkJBcLHOdHGk4m4p6w3uFdtrTHLytx++z8YP+VJpbmtrEPfOUzUZev
+ hp6PyJ7mvUZLqLB2fut0wv39li1L0q3DCqjRC/sjMfdVQPOuTcEit2TniwaPjv65iQqLmK7JzYy
+ WxMZUkAqRPj0dQJDA+KNrSX7TbBwyYQgNDaORQMmZkCoAYz2lMtUXHP14Sb/pe1ff6QJriICt07
+ cSNOHov37AYRfiaCbQA==
+X-Proofpoint-ORIG-GUID: x_3E3EkED2IMHFNJsKICywH0ZIozh2lt
+X-Authority-Analysis: v=2.4 cv=MZpcfZ/f c=1 sm=1 tr=0 ts=6a9b479f cx=c_pps
+ a=qKBjSQ1v91RyAK45QCPf5w==:117 a=tLges04aSNaZGVAfhBIy2A==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=x7bEGLp0ZPQA:10 a=A0y_DWxS2BwA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=Da8U98TiO7q1upZEImrf:22 a=usPcmh10W0ubT8QP8_c3:22
+ a=IeNN-m2dAAAA:8 a=r4jUT_wghbJ-rGNBW1sA:9 a=QEXdDO2ut3YA:10
+ a=NFOGd7dJGGMPyQGDc5-O:22
+X-Proofpoint-Virus-Version: vendor=nai engine=6900 definitions=11896
+ signatures=596817
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=10 spamscore=0 malwarescore=0 phishscore=0 impostorscore=10
+ clxscore=1015 suspectscore=0 priorityscore=1501 adultscore=0
+ lowpriorityscore=10 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2609040209
 
-On Mon, Aug 24, 2026 at 5:40=E2=80=AFAM Tina Zhang <zhang_wei@open-hieco.ne=
-t> wrote:
->
-> Add get_intercept_linear_addr() to compute the linear address for
-> intercepts that report one, and pass the result through
-> x86_instruction_info.
->
-> Handle INVLPG as the initial user.  INVLPG's memory operand is decoded
-> with NoAccess, and thus src_val does not contain the operand address.
-> Compute the address from the decoded segment base and effective address
-> in the emulator, where the operand state is available.
->
-> This allows intercept handlers to use the linear address directly
-> without duplicating the emulator's address calculation.
->
-> Signed-off-by: Tina Zhang <zhang_wei@open-hieco.net>
+On 9/3/26 3:59 PM, Wenjie Qi wrote:
+> Buffered RWF_DONTCACHE writes invalidate dropbehind folios at writeback
+> completion. Mark these bios BIO_COMPLETE_IN_TASK so the block layer runs
+> F2FS completion in task context when needed.
+> 
+> Use the same flag to keep normal and dropbehind folios from merging in the
+> IPU and OPU paths. Classify the original page-cache folio rather than an
+> encrypted or compressed replacement folio.
+> 
+> Keep the existing large-ATC completion path unchanged.
+> 
+> Signed-off-by: Wenjie Qi <qiwenjie@xiaomi.com>
 > ---
->  arch/x86/kvm/emulate.c     | 29 +++++++++++++++++++++--------
->  arch/x86/kvm/kvm_emulate.h |  1 +
->  2 files changed, 22 insertions(+), 8 deletions(-)
->
-> diff --git a/arch/x86/kvm/emulate.c b/arch/x86/kvm/emulate.c
-> index 8071b372d233..a0e57b64cadd 100644
-> --- a/arch/x86/kvm/emulate.c
-> +++ b/arch/x86/kvm/emulate.c
-> @@ -410,6 +410,26 @@ static int em_salc(struct x86_emulate_ctxt *ctxt)
->         _fault ? X86EMUL_UNHANDLEABLE : X86EMUL_CONTINUE; \
->  })
->
-> +static unsigned long seg_base(struct x86_emulate_ctxt *ctxt, int seg)
+>   fs/f2fs/data.c | 18 +++++++++++++++---
+>   1 file changed, 15 insertions(+), 3 deletions(-)
+> 
+> diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
+> index 21f396ebe22..b0fedacfd12 100644
+> --- a/fs/f2fs/data.c
+> +++ b/fs/f2fs/data.c
+> @@ -503,6 +503,8 @@ static struct bio *__bio_alloc(struct f2fs_io_info *fio, int npages)
+>   	bio = bio_alloc_bioset(bdev, npages,
+>   				fio->op | fio->op_flags | f2fs_io_flags(fio),
+>   				GFP_NOIO, &f2fs_bioset);
+> +	if (!is_read_io(fio->op) && folio_test_dropbehind(fio->folio))
+> +		bio_set_flag(bio, BIO_COMPLETE_IN_TASK);
+>   	bio->bi_iter.bi_sector = sector;
+>   	if (is_read_io(fio->op)) {
+>   		bio->bi_end_io = f2fs_read_end_io;
+> @@ -793,6 +795,13 @@ static bool page_is_mergeable(struct f2fs_sb_info *sbi, struct bio *bio,
+>   	return bio->bi_bdev == f2fs_target_device(sbi, cur_blkaddr, NULL);
+>   }
+>   
+> +static bool f2fs_bio_dropbehind_mergeable(struct bio *bio,
+> +					  struct f2fs_io_info *fio)
 > +{
-> +       if (ctxt->mode =3D=3D X86EMUL_MODE_PROT64 && seg < VCPU_SREG_FS)
-> +               return 0;
-> +
-> +       return ctxt->ops->get_cached_segment_base(ctxt, seg);
+> +	return bio_flagged(bio, BIO_COMPLETE_IN_TASK) ==
+> +		folio_test_dropbehind(fio->folio);
 > +}
 > +
-> +static u64 get_intercept_linear_addr(struct x86_emulate_ctxt *ctxt,
-> +                                    enum x86_intercept intercept)
-> +{
-> +       u64 la;
-> +
-> +       if (intercept !=3D x86_intercept_invlpg)
-> +               return 0;
-> +
-> +       la =3D seg_base(ctxt, ctxt->src.addr.mem.seg) + ctxt->src.addr.me=
-m.ea;
-> +       return ctxt->mode =3D=3D X86EMUL_MODE_PROT64 ? la : (u32)la;
-> +}
 
-The linear address calculation here is replicated from __linearize().
-Perhaps something like:
+So I'm admittedly not very familiar with f2fs, but why is it necessary
+to prevent merging here? For iomap, we concluded that merging was fine,
+as it just results in some extra folios getting resolved in task context
+(see commit efbde6f9f449 ("iomap: use BIO_COMPLETE_IN_TASK for dropbehind
+writeback")).
 
-static u64 get_invlpg_linear_addr(struct x86_emulate_ctxt *ctxt)
-{
-        unsigned int max_size;
-        ulong linear;
+>   static bool io_type_is_mergeable(struct f2fs_bio_info *io,
+>   						struct f2fs_io_info *fio)
+>   {
+> @@ -985,8 +994,10 @@ int f2fs_merge_page_bio(struct f2fs_io_info *fio)
+>   
+>   	trace_f2fs_submit_folio_bio(data_folio, fio);
+>   
+> -	if (bio && !page_is_mergeable(fio->sbi, bio, *fio->last_block,
+> -						fio->new_blkaddr))
+> +	if (bio &&
+> +	    (!page_is_mergeable(fio->sbi, bio, *fio->last_block,
+> +				fio->new_blkaddr) ||
+> +	     !f2fs_bio_dropbehind_mergeable(bio, fio)))
+>   		f2fs_submit_merged_ipu_write(fio->sbi, &bio, NULL);
+>   alloc_new:
+>   	if (!bio) {
+> @@ -1086,7 +1097,8 @@ void f2fs_submit_page_write(struct f2fs_io_info *fio)
+>   	    (!io_is_mergeable(sbi, io->bio, io, fio, io->last_block_in_bio,
+>   			      fio->new_blkaddr) ||
+>   	     !f2fs_crypt_mergeable_bio(io->bio, fio_inode(fio),
+> -				bio_folio->index, fio)))
+> +				bio_folio->index, fio) ||
+> +	     !f2fs_bio_dropbehind_mergeable(io->bio, fio)))
+>   		__submit_merged_bio(io);
+>   alloc_new:
+>   	if (io->bio == NULL) {
+> -- 
+> 2.43.0
+> 
 
-        if (intercept !=3D x86_intercept_invlpg)
-                return 0;
-
-        __linearize(ctxt, ctxt->src.addr.mem, &max_size, 1,
-ctxt->mode, &linear, X86EMUL_F_INVLPG);
-        return linear;
-}
-
-
-
->  static int emulator_check_intercept(struct x86_emulate_ctxt *ctxt,
->                                     enum x86_intercept intercept,
->                                     enum x86_intercept_stage stage)
-> @@ -427,6 +447,7 @@ static int emulator_check_intercept(struct x86_emulat=
-e_ctxt *ctxt,
->                 .src_type   =3D ctxt->src.type,
->                 .dst_type   =3D ctxt->dst.type,
->                 .ad_bytes   =3D ctxt->ad_bytes,
-> +               .intercept_linear_addr =3D get_intercept_linear_addr(ctxt=
-, intercept),
-
-Maybe:
-+               .invlpg_linear_addr =3D get_invlpg_linear_addr(ctxt, interc=
-ept),
-
->                 .rip        =3D ctxt->eip,
->                 .next_rip   =3D ctxt->_eip,
->         };
-> @@ -520,14 +541,6 @@ static u32 desc_limit_scaled(struct desc_struct *des=
-c)
->         return desc->g ? (limit << 12) | 0xfff : limit;
->  }
->
-> -static unsigned long seg_base(struct x86_emulate_ctxt *ctxt, int seg)
-> -{
-> -       if (ctxt->mode =3D=3D X86EMUL_MODE_PROT64 && seg < VCPU_SREG_FS)
-> -               return 0;
-> -
-> -       return ctxt->ops->get_cached_segment_base(ctxt, seg);
-> -}
-> -
->  static int emulate_exception(struct x86_emulate_ctxt *ctxt, int vec,
->                              u32 error, bool valid)
->  {
-> diff --git a/arch/x86/kvm/kvm_emulate.h b/arch/x86/kvm/kvm_emulate.h
-> index 3e375af15c03..9eda648a1314 100644
-> --- a/arch/x86/kvm/kvm_emulate.h
-> +++ b/arch/x86/kvm/kvm_emulate.h
-> @@ -51,6 +51,7 @@ struct x86_instruction_info {
->         u8  src_type;           /* type of source operand               *=
-/
->         u8  dst_type;           /* type of destination operand          *=
-/
->         u8  ad_bytes;           /* size of src/dst address              *=
-/
-> +       u64 intercept_linear_addr;      /* arch-reported linear address, =
-if any */
-
-+       u64 invlpg_linear_addr;      /* linear address, if invlpg */
-
->         u64 rip;                /* rip of the instruction               *=
-/
->         u64 next_rip;           /* rip following the instruction        *=
-/
->  };
->
-> base-commit: 1b731e5ded480bd1e5546aed35584238661ce72e
-> --
-> 2.43.7
->
-
-I don't really like special-casing INVLPG, but I don't see an easy alternat=
-ive.
