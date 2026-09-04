@@ -1,124 +1,86 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B0E55237A6;
-	Fri,  4 Sep 2026 18:14:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32FE951E45B;
+	Fri,  4 Sep 2026 18:14:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788545671; cv=none; b=V+QptS8YzP22PlT0TmIKYJU81/Z2Ix4u79qSlYaEISL0ju04NtWgMPajW9qwu15lmBej307Nc7Yayrf19eU88K0AUJ1yw4xB0qFbZaZKPLIdLNcxCM4N0XiyXOfS033FELg4mIBViXyruHvFCy+NPybqoTtgDK5FxlIeN2slwzQ=
+	t=1788545679; cv=none; b=FYWdNnmOnkmlNgshavH1RUFLUwKNo+GbuzZfiepolLHBegDvQS5Urq9B6WlG9fPdPp19dh/hzIu7Yf9zpe4e5+hlKWsEaTi2ImYpGBb5/n9J/YTWekYKpT6be79HLlF9wf57EwC/7dpfeFMk2obYdznN0+Urtk2/Qn4/uUhxQyc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788545671; c=relaxed/simple;
-	bh=cCJhHuXkOjQp1Eqv6VprY7vuc10xchl2ZZlRu8bksOU=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=q8PhRu6CenugT83IdMgNvwGaL/KKBwuIvxlxP7sJyzh3BkL5rrmGm9Vnw1Sw34o7sR3SkKWGwOj7T7V673gGgYMmCPPFPuNtUELldy8YJ+nE1dWewrvETF++Vg2njcPpBgsu3T/Yv9EoQamZ0v3+TPaS0fna62t0jEvzkPjnzTI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=CPUXp8RC; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1788545679; c=relaxed/simple;
+	bh=y+bmBfxgdZRu8/WaJZlGjGMCYtltdMuFHG8Dk+wiLyU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=t/1Mo0BF8TQB1OPoj+FHtkXpK6KAFlmkRle9YVNZ1iAtzukzrBSuSVafxoMkASm9mEZgtm0sW6CB6JP30FhUV2Z1aw3O7WBMPI1Y5PPFu12yryWeLt4SiY7K89/QVW21mMzl1TAYByL+sBwOZS1doPtbg/LVcAQrbtSwsUv3xvA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Mi/Lo+Cq; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="CPUXp8RC"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id DF2CB1A19C3;
-	Fri,  4 Sep 2026 18:14:28 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id B313A6057F;
-	Fri,  4 Sep 2026 18:14:28 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 45B7911C78158;
-	Fri,  4 Sep 2026 20:14:25 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1788545667; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=xJa2SIgs5+/YUcOMPI/QW/gbwXsr/EhtwgH6qw1Zg80=;
-	b=CPUXp8RC5qfQo249zMudJN7keL5nvy8sE2OR/YfEjvXVC/RheoImipXihndzmzPSlxUzot
-	BvjfPZJ8suY4I/fSromVo6MKYDmeCS3RMN7z4dgEVrMIJT2JTPfWMFe5E7nMUmiZOlz7lU
-	neO1OiEEWrskuPSOCZoI01gY82O3yYWP/yDdoO5DXO8aetx3WshWiml3X0aabR8GlezrCw
-	Qa87RnYFdPM2J54/oSn1CfscPErQpXYzUVOjTxz3viko8iynYkNtaBgKg3rKIWG7qGElFJ
-	bHxopfqRmIBqQgzQXORj7gAj3K8u2SnaDdmj4oRt/4txrmgK8s4j9BajVW1xLg==
-From: Miquel Raynal <miquel.raynal@bootlin.com>
-Date: Fri, 04 Sep 2026 20:13:02 +0200
-Subject: [PATCH v5 25/25] mtd: spi-nor: debugfs: Expose SR opcodes and QE
- mask
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Mi/Lo+Cq"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5226E1F00A3D;
+	Fri,  4 Sep 2026 18:14:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788545677;
+	bh=PmQzA/sVHLKqaojPdDB1mXMUb5EHle9cFpeog9QN+gw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Mi/Lo+Cq90i5cP0QgPI7iikCfwZfaVNeVSsUgOQ/nA3+xM4ZeyhAyP+ePSrNIy/+/
+	 zE8Tg4j7TVbUFiro20luaggZcaQbxbHV7Y+tG7aVuykEGVXOnDAQgCj2etpIkdO1XL
+	 2XM29PprBDgYg/5i08509yndfikxrA7OF9dacYBFwxnBuLN7hzUxz21RWfbAG4h61G
+	 QOPC3gaudl+dQ/CnhBGU4j+1ghDonGjsVDGs2k+0SXOImrEMXxuKVElGJ0D3dpcaHX
+	 cQYXFHExIf1sJyk7ISWEO/YvfBbGzfFg0Ke+lAq2v0qHQmDhZv/PDmHOZONkxPiyWn
+	 I2Z9lK6O+lK2w==
+Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
+	id C754A1AC52F1; Fri, 04 Sep 2026 19:14:33 +0100 (BST)
+Date: Fri, 4 Sep 2026 19:14:33 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Miquel Raynal <miquel.raynal@bootlin.com>
+Cc: md.alam@oss.qualcomm.com, Johan Alvarado <contact@c127.dev>,
+	konradybcio@kernel.org, pengpeng@iscas.ac.cn, j4g8y7@gmail.com,
+	quic_varada@quicinc.com, quic_srichara@quicinc.com,
+	linux-spi@vger.kernel.org, linux-mtd@lists.infradead.org,
+	linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] spi: spi-qpic-snand: publish the ECC context to
+ snandc->qspi
+Message-ID: <apsKiRC-bn7oPS2P@sirena.co.uk>
+References: <20260825013848.1056946-1-contact@c127.dev>
+ <178854349408.1467647.16557341714581809344.b4-ty@bootlin.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260904-winbond-v7-1-spi-nor-rv-addition-v5-25-2909a45fe4fa@bootlin.com>
-References: <20260904-winbond-v7-1-spi-nor-rv-addition-v5-0-2909a45fe4fa@bootlin.com>
-In-Reply-To: <20260904-winbond-v7-1-spi-nor-rv-addition-v5-0-2909a45fe4fa@bootlin.com>
-To: Pratyush Yadav <pratyush@kernel.org>, Michael Walle <mwalle@kernel.org>, 
- Takahiro Kuwano <takahiro.kuwano@infineon.com>, 
- Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>, 
- Nicolas Ferre <nicolas.ferre@microchip.com>, 
- Alexandre Belloni <alexandre.belloni@bootlin.com>, 
- Claudiu Beznea <claudiu.beznea@tuxon.dev>, Jonathan Corbet <corbet@lwn.net>, 
- Shuah Khan <skhan@linuxfoundation.org>, 
- Randy Dunlap <rdunlap@infradead.org>
-Cc: Steam Lin <STLin2@winbond.com>, Hsin-Yi Wang <hsinyi@chromium.org>, 
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
- linux-mtd@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
- linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, 
- Miquel Raynal <miquel.raynal@bootlin.com>
-X-Mailer: b4 0.14.3
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="b283S8Tm5n9MmedD"
+Content-Disposition: inline
+In-Reply-To: <178854349408.1467647.16557341714581809344.b4-ty@bootlin.com>
+X-Cookie: My vaseline is RUNNING...
 
-Expose Status Register opcodes based on the flash capabilities
-discovered while parsing the SFDP QER field.
 
-Value '0' indicates an absence of opcode (non supported), we do not
-print anything in that case.
+--b283S8Tm5n9MmedD
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-The QE bit is also displayed.
+On Fri, Sep 04, 2026 at 07:38:14PM +0200, Miquel Raynal wrote:
+> On Mon, 24 Aug 2026 20:38:48 -0500, Johan Alvarado wrote:
+> > qcom_spi_ooblayout_ecc() and qcom_spi_ooblayout_free() read the ECC
+> > configuration through snandc->qspi->ecc. qcom_spi_probe() points it at a
 
-Example on a W25Q02JV-M:
+> [1/1] spi: spi-qpic-snand: publish the ECC context to snandc->qspi
+>       commit: 93bc7c4d2f4198586a6dbd7797c3bbf1ca845761
 
-$ grep opcodes -A10 /sys/kernel/debug/spi-nor/spi0.0/params
-opcodes
- read		0xec
-  dummy cycles	6
- erase		0xdc
- program	0x34
- SR1 read	0x05
- SR2 read	0x35
- SR1+SR2 write	0x01
- QE		SR2 bit 1
- 8D extension	none
+Oh?
 
-Tested-by: Takahiro Kuwano <takahiro.kuwano@infineon.com>
-Signed-off-by: Miquel Raynal <miquel.raynal@bootlin.com>
----
- drivers/mtd/spi-nor/debugfs.c | 15 +++++++++++++++
- 1 file changed, 15 insertions(+)
+--b283S8Tm5n9MmedD
+Content-Type: application/pgp-signature; name="signature.asc"
 
-diff --git a/drivers/mtd/spi-nor/debugfs.c b/drivers/mtd/spi-nor/debugfs.c
-index 5c738786145f..3f8d586a7622 100644
---- a/drivers/mtd/spi-nor/debugfs.c
-+++ b/drivers/mtd/spi-nor/debugfs.c
-@@ -104,6 +104,21 @@ static int spi_nor_params_show(struct seq_file *s, void *data)
- 	seq_printf(s, "  dummy cycles\t%u\n", nor->read_dummy);
- 	seq_printf(s, " erase\t\t0x%02x\n", nor->erase_opcode);
- 	seq_printf(s, " program\t0x%02x\n", nor->program_opcode);
-+	seq_printf(s, " SR1 read\t0x%02x\n", params->opcodes.read_sr1);
-+	if (params->opcodes.read_sr2)
-+		seq_printf(s, " SR2 read\t0x%02x\n", params->opcodes.read_sr2);
-+	if (params->opcodes.write_sr1)
-+		seq_printf(s, " SR1 write\t0x%02x\n", params->opcodes.write_sr1);
-+	if (params->opcodes.write_sr2)
-+		seq_printf(s, " SR2 write\t0x%02x\n", params->opcodes.write_sr2);
-+	if (params->opcodes.write_sr1_and_sr2)
-+		seq_printf(s, " SR1+SR2 write\t0x%02x\n",
-+			   params->opcodes.write_sr1_and_sr2);
-+
-+	if (params->qe_mask[0] || params->qe_mask[1])
-+		seq_printf(s, " QE\t\tSR%d bit %d\n",
-+			   params->qe_mask[0] ? 1 : 2,
-+			   ffs(params->qe_mask[0] | params->qe_mask[1]) - 1);
- 
- 	switch (params->cmd_ext_type) {
- 	case SPI_NOR_EXT_NONE:
+-----BEGIN PGP SIGNATURE-----
 
--- 
-2.54.0
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqbCokACgkQJNaLcl1U
+h9ATgQf/dI7Qk3Q5n9dlJsVPpF710sRJlyIVEwDCz5R7Vs8ciOj8eHvUTXXOEbYK
+yNNzYEaKEEfgwI9ryihBPeSdMQNR0qHsOqFiMFi5aP6wBe918CPtYkyCu+sIrj5y
+G4qRjRJkfznrSwqvFED//KX2IOFXpI9FzjLoKcNKcpFZvVW1H/gKEU6jvR7KYYBE
+QYpQs7FIsSIbv7g270pm+kqb+K4Lt8IYXtWa+jyDSBiPMdPvYLbO9FMAqKnyS5zi
+aN5HP4Q7WWNdG0ohl/itKF8Fq7HxqFO9Cs1gZiNY3ypjfNxLpJXanUowS0VNPdeb
+jF01Bt7GyFGZ2+Q0x4xm5ZVp5t3o6g==
+=I5SC
+-----END PGP SIGNATURE-----
 
+--b283S8Tm5n9MmedD--
