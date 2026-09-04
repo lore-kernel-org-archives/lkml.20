@@ -1,139 +1,106 @@
-Received: from mail-qt1-f176.google.com (mail-qt1-f176.google.com [209.85.160.176])
+Received: from mail-oo1-f44.google.com (mail-oo1-f44.google.com [209.85.161.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F1D1486BA9
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 12:34:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.176
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54CFC43B6CB
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 12:35:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788525298; cv=none; b=HqWA2mesDx3J4CH0S4mPlboanEViRBY9ICZ69joUE6KhsR2s0sKp4AlN1sxI92D69r+IjtuMSGXzyl5Mx3wIIFTNupUJpeHEcrZbXLrsZvVJ3CwA/FqVr2uUnUyrMXJOpp5rjIotFo4pCWjEirH8ygIejiCPCGR87A1Mi92DbCM=
+	t=1788525347; cv=none; b=IfLqbrIrwyuyIC/wOEHDDnxccCoguYjEzMi8IVxMKP93I4B131vGDS/4qGnF6GyyvGaoBrTyHcDYubHF+r4DCWd/EUGHUqEdMZo+uGVbowY+jYjyaUDwvmFRnwC2q7lZHL+nbdFG9BZB1gAs0jQ++GmWwwehYyu8/HKnBlA8iQo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788525298; c=relaxed/simple;
-	bh=xioRLTaKtQKL260SUtxj34bS0YbzGsBJwB6PF9pf6rY=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
-	 References:In-Reply-To; b=Q7cN2Q9/g1X2pLaLix4LR+OBiBqBSrHR54Jr55oxhTLog5P/xW8QjTsL/st7v+mGDVdOqQMOJbdRo6xpmtdLY1xu4XMk0+RDgvTroTWg1n2NMHnZKRirYri0cHXg5QmVxeqzIwmBP8VAmL6DiyGVEYKxjY2u2Qmkh3P+JY0RIx0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VHXMPxtq; arc=none smtp.client-ip=209.85.160.176
+	s=arc-20240116; t=1788525347; c=relaxed/simple;
+	bh=Su95zggUUdyFpq4wB0rqbFIBSPzBhJpY9wYuq1ZyxVg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=R9Imwd074XHQe85cjxYJLeTWfSx+snahOaKSIxoQTD5X0u+zdbi2YbyoiezWklGyHFJWwOuw/jPMne1v+qGzw7Bn5rZ7mi8gHZvijNkZTb3EJudbAaiiG2nC9Fsncsj5Hh27GZeRcGPjA08NjAxe+h8z1OcvgKKp/36cKmuMWaQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DFCNRXFf; arc=none smtp.client-ip=209.85.161.44
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VHXMPxtq"
-Received: by mail-qt1-f176.google.com with SMTP id d75a77b69052e-52fa6005224so9126751cf.1
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 05:34:56 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DFCNRXFf"
+Received: by mail-oo1-f44.google.com with SMTP id 006d021491bc7-6b1334a3b16so750409eaf.1
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 05:35:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788525295; x=1789130095; darn=vger.kernel.org;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-type:content-transfer-encoding:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=paqRFyHFvX+txrKAZySjILGu4egNb8auPfRKWSQjZAM=;
-        b=VHXMPxtqBCDRzTjtUe6mD5PCszf6l5ot3oTcufOcoijf0K2UHvyVD86IN5YRDej8Y5
-         y4m5DPxSr4fylCwFVPCSegEm+tboEM8iZdjx/7GGNCtaV8mskIktZf200nIB7FHhGdj+
-         dFV2FQKLekWZ0ieXUc/ornS7EoJ2Xwne+9FZNBcaGDtUPDJNKJF0qk8Q2/usj2BI++6u
-         6pNeawZ0+EwpIZRizNyDEJzk2Dg5X31pCavkF8CMTrNbkswdK7kwZzR7LC/1gfc3UfHk
-         3uDCUvLfwyZ++0gB4rcO9jvXeSawxugywlkJBwnmudhtXr8Qi+PyfHraMilU38Oq+Wsp
-         g0Nw==
+        d=gmail.com; s=20251104; t=1788525345; x=1789130145; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=B21cgOwWVDrYkwcZ3p5D4CkG259sMk6IiqLR4i8Gme4=;
+        b=DFCNRXFf9sBlcqo/2cUiVW1U8r2KyMQBNiDelBnmEo5PueOM3eE9bS6yj23N/EYvtl
+         mATxjWo3V/vJxadchFrOkrXaCCbG2GnozZu6A5/5x0a+IuBu53JU7b/36HgZDpL/F7Yc
+         7E8e5TqKSLef+OUTeGbAVrWdVadg3G3rkDd4hI7LxL9FcKvKy//CmXjHSbMMNFQntuz5
+         /DkVaWJHYdJY9aPLEBWXIF9YxeW+h5t/hlImW7npmVp2Dl6iaMxeEnda6zIqp/P6CVaU
+         YFhudR3zpTTDRbECF38WPUZz1kXxjNcFvnXN1G/jjyYnNiVIHM5rN2RcjbAgHnIp8EFM
+         VFfA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788525295; x=1789130095;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-type:content-transfer-encoding:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=paqRFyHFvX+txrKAZySjILGu4egNb8auPfRKWSQjZAM=;
-        b=AgWarsLoUFYRM/e4v0i6c32dsepSSDy6mxzuSQ1ycbeEfP+HW0YcsEA0ooRr3Wt8Fc
-         Tt/FRecU1L5S61BaoiCxEa9+5ww55beB278W4aq5D8qfQ0HVxjbzYjZzxJ9nFjGfZRr/
-         VkngEhmikjfBJnFhIsoEfbcFpKh+U9dqPx1Xovvxg8eVJRKCAssD3SKKfYbHhsGuHQjP
-         d/G/49x+6Mh80xbwPWBEu0eOvf9Y7+e8/iIFpCHteY301ftEad825JYhNtTyoLeNuX1X
-         dWy+JtUMkrKkzXdbQh6SjmmV7wBzybySrtBuvwEK+ZPn0BMbO21ceGG4txaDX74m1CKH
-         UOfQ==
-X-Forwarded-Encrypted: i=1; AKwUvBx9eCg1/4D04NsR0jYNuzYZuimx+JK2SQ6HrTPdM7zFqPPP0NkuZsDsyIj3+ygWxWlsAs3mwBvmHUSh8QY=@vger.kernel.org
-X-Gm-Message-State: AFuF++kPv5gQtAhZZeeglGrxbVniknkVePb6Ya94060a1ezKTmM1wDUb
-	JDhOwOZH2hG25pyg5CshZyaOJDDnIEtyiDYTpNQiReumNaDRgyXG0lgT
-X-Gm-Gg: AYBFou1mJHlXLA/UKJLvuE6TFsfd0EhgCvXXn3aI77B9m+iDaSjqFxatjL1xNh+FNuV
-	bE5fkSlbOTD0p5uN1kj+R6SzKsBwGfelCrObjd13A7fC257ylkm5LEvvvvR68xVAy3k8beVkkAk
-	HgjZ3mSKUtL+x48aBO1UNSRaewSmM/Q9BoIBxf8Ir4o/gAPZctoZPKfWYoFJ3tELCt+lmDVXV+L
-	qkAVOAp6sHHrxB3BvFHxRuXMY0CiE+p4PTFLszS/VtTu/AOOjWkOF1oVu+SAQK8g2pdRdIT/9DV
-	5Zg4lMe4GKTQrQPYQ1X4FkAk7MnfLmxTrNawKaLxgXUlp5q+IKlRvmoX1ZbNTP1O8NBkClTGw1A
-	yTQF7u+ZBiaEJZiBZpdQ3VO7MUgPm/eAUHZ/GU2iQrPCZQwqezNvxv86ovLDAYsFY3dylnhFsiK
-	rktxZObnVucBLYEJUgEfzNqf35UipfXvOxoTjMUHc88bQX4ZkH5DMG6jqO8G3Bn4S0Lg==
-X-Received: by 2002:a05:622a:50d:b0:530:42e5:f3a4 with SMTP id d75a77b69052e-53054a0db44mr57968521cf.45.1788525294879;
-        Fri, 04 Sep 2026 05:34:54 -0700 (PDT)
-Received: from localhost ([2600:4040:9399:4000:e553:72e5:7d37:c7ef])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-910406976a5sm19170816d6.39.2026.09.04.05.34.52
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 04 Sep 2026 05:34:54 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1788525345; x=1789130145;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=B21cgOwWVDrYkwcZ3p5D4CkG259sMk6IiqLR4i8Gme4=;
+        b=ctpd/8uh9NaRrJbori6H0i+8PqRfeBV6dTUAgwS5POwVe2IXCQruc5bIRn3JQTFxTf
+         bHUA+7gWwLNj4g0h6sdVtlBRxqM2MaUcZCSBQ+j5TRbReOqPaRFYuNJ5VGj2HYVHPVGK
+         6+uXk92y/rvUVvsLsWvWFOC+BfmRtlX60c/X3GCDCloMnvl9rhZc6uFK6+zzURN0+L76
+         xim6pVVECT4eXJBEHT0/jmh0GZfL/++91+RkuJ3ew4mdZ4T6nUBX2aEsWcEnPIbLXj/3
+         JTRxJ4CWq7ieuS1csQHzWb2au1yb1d1XKKDQDcNAwDg24pcoqf5xYaZMpenalg062I/s
+         lBiQ==
+X-Gm-Message-State: AFuF++kPZZBwoxwwwl/RThrC0tXr7ipWTR7wYQV+adwy/9R7aQn00vNE
+	Yv/+UZx9hyayqFpYvyooYoPSR80yuqqQuCTQTsWLxtPvndnVoB5UKk7cZiwH40iQmNY=
+X-Gm-Gg: AYBFou2bpIdv7MDWkRQnXY6NTHLRTtNIeoyjmLPrP/EAzhxN983De6gRsWlPe+nq1Bj
+	TVFEtScBwzjP6jJXUbwfGEZqFn1K5ZoskJnU4x7TH/BrdT2ZZ9zCYXG9BGZj2q6Ttg8dBAq9DVF
+	4a44UBwWV8/5t2dElo/pPHhp3fAyQcFDHvrp2Cye5PeI9lZXDCZlWdfeAdxeI5rLsn7gnmjHiui
+	QVr37C+SqNh2jIAUUEasXz+xzhPmkAORlfXRyaNU3eB02XyZ0j6g3t+mN8dWbG5ofxFHX4rtC3y
+	nV6t97a3FVkn3n51Y1zYdKTUYoj7O7YcKtTb7t/eY1DQQZfSVIDaKI2IMa7moY99YI67cKodmZ2
+	Rm24aOhQlLSkCoBbWDSrUM6gtmc2kBBiJsbrMiMDL1NcScLP4kH2bYrG0HYOOpyJH+vGLb5+pHb
+	RGhJ898eyRV03pn7w4KyidEAkpyEoW84aFVLDjzBgh0YXYl26XJj0+58hhLKViev0MeGC3RtISZ
+	MRWAvodaASwPGI=
+X-Received: by 2002:a05:6820:4c16:b0:6b7:83d6:2933 with SMTP id 006d021491bc7-6b783d62fb5mr1561588eaf.54.1788525344962;
+        Fri, 04 Sep 2026 05:35:44 -0700 (PDT)
+Received: from volcano9f6e-hostos.amd.com ([165.204.217.251])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1432423f99fsm6229374c88.1.2026.09.04.05.35.43
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 04 Sep 2026 05:35:44 -0700 (PDT)
+From: Hemanth Selam <hemanth.selam@gmail.com>
+To: 
+Cc: linux-kernel@vger.kernel.org
+Subject: [PATCH 0/2] firmware: fix typos in comments
+Date: Fri,  4 Sep 2026 18:05:37 +0530
+Message-ID: <20260904123541.38602-1-hemanth.selam@gmail.com>
+X-Mailer: git-send-email 2.48.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Fri, 04 Sep 2026 08:34:52 -0400
-Message-Id: <DL6JAWKEPFAP.3P0KFDGLBO3CX@gmail.com>
-Cc: "Aleksandr Loktionov" <aleksandr.loktionov@intel.com>, "Alexei Lazar"
- <alazar@nvidia.com>, "Alexei Starovoitov" <ast@kernel.org>, "Allison
- Henderson" <allison.henderson@oracle.com>, "Antonio Quartulli"
- <antonio@openvpn.net>, "Anubhav Singh" <anubhavsinggh@google.com>, "Bobby
- Eshleman" <bobbyeshleman@meta.com>, "Boris Pismenny" <borisp@nvidia.com>,
- <bpf@vger.kernel.org>, "Carolina Jubran" <cjubran@nvidia.com>, "Chris Mi"
- <cmi@nvidia.com>, "Cosmin Ratiu" <cratiu@nvidia.com>, "Daniel Borkmann"
- <daniel@iogearbox.net>, "Daniel Zahka" <daniel.zahka@gmail.com>, "David
- Wei" <dw@davidwei.uk>, "Doruk Tan Ozturk" <doruk@0sec.ai>, "Dragos Tatulea"
- <dtatulea@nvidia.com>, "Gal Pressman" <gal@nvidia.com>, "Jacob Keller"
- <Jacob.e.keller@intel.com>, "Jesper Dangaard Brouer" <hawk@kernel.org>,
- "Jianbo Liu" <jianbol@nvidia.com>, "John Fastabend"
- <john.fastabend@gmail.com>, "Kees Cook" <kees@kernel.org>, "Lama Kayal"
- <lkayal@nvidia.com>, "Leon Romanovsky" <leon@kernel.org>, "open list"
- <linux-kernel@vger.kernel.org>, <linux-kselftest@vger.kernel.org>,
- <linux-rdma@vger.kernel.org>, "Mark Bloch" <mbloch@nvidia.com>, "Matthieu
- Baerts (NGI0)" <matttbe@kernel.org>, "Patrisious Haddad"
- <phaddad@nvidia.com>, "Petr Machata" <petrm@nvidia.com>, "Raed Salem"
- <raeds@nvidia.com>, "Rahul Rameshbabu" <rrameshbabu@nvidia.com>, "Richard
- Gobert" <richardbgobert@gmail.com>, "Saeed Mahameed" <saeedm@nvidia.com>,
- "Shuah Khan" <shuah@kernel.org>, "Shuah Khan" <skhan@linuxfoundation.org>,
- "Simon Horman" <horms@kernel.org>, "Stanislav Fomichev" <sdf@fomichev.me>,
- "Stanislav Fomichev" <sdf.kernel@gmail.com>, "Willem de Bruijn"
- <willemb@google.com>, "Willem de Bruijn" <willemdebruijn.kernel@gmail.com>
-Subject: Re: [PATCH net-next V3 13/15] selftests: drv-net: gro: Extract
- shared helpers into gro_lib.py
-From: "Daniel Zahka" <daniel.zahka@gmail.com>
-To: "Tariq Toukan" <tariqt@nvidia.com>, "Andrew Lunn"
- <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, "Eric
- Dumazet" <edumazet@google.com>, "Jakub Kicinski" <kuba@kernel.org>,
- <netdev@vger.kernel.org>, "Paolo Abeni" <pabeni@redhat.com>, "Sabrina
- Dubroca" <sd@queasysnail.net>
-X-Mailer: aerc 0.21.0-threadmapfix
-References: <20260903085215.3691657-1-tariqt@nvidia.com>
- <20260903085215.3691657-14-tariqt@nvidia.com>
-In-Reply-To: <20260903085215.3691657-14-tariqt@nvidia.com>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Thu Sep 3, 2026 at 4:52 AM EDT, Tariq Toukan wrote:
-> From: Cosmin Ratiu <cratiu@nvidia.com>
->
-> Bits and pieces of gro.py are needed by a second test file:
-> - dmac resolution
-> - the ethtool/sysfs feature dance
-> - the HW GRO setup logic
-> - the gro binary invocation
-> - the retry loop
->
-> Move them to gro_lib.py, installed via TEST_FILES (like psp_lib.py).
->
-> hw/gro_hw.py keeps its own copies for now since they diverged.
->
-> Signed-off-by: Cosmin Ratiu <cratiu@nvidia.com>
-> Reviewed-by: Dragos Tatulea <dtatulea@nvidia.com>
-> Signed-off-by: Tariq Toukan <tariqt@nvidia.com>
-> ---
->  tools/testing/selftests/drivers/net/Makefile  |   1 +
->  tools/testing/selftests/drivers/net/gro.py    | 200 ++----------------
->  .../testing/selftests/drivers/net/gro_lib.py  | 194 +++++++++++++++++
->  3 files changed, 217 insertions(+), 178 deletions(-)
->  create mode 100644 tools/testing/selftests/drivers/net/gro_lib.py
->
+This corrects 2 misspellings in comments.  Each is a separate patch so
+that any one of them can be dropped without touching the rest.
 
-Conflicts with:
-f225a7317c18 ("selftests: drv-net: split gro.py into one test per coalescin=
-g mode")
+Nothing outside comments changes.  Every touched C file was checked by
+dropping its comments, replacing each string literal with a placeholder
+and collapsing whitespace; what remained was identical before and after,
+so the compiled code cannot differ.
 
-I will take a look at the other patches now in case I can provide any
-feedback before reposting.
+The mistakes were found with scripts/checkpatch.pl against the list in
+scripts/spelling.txt.  The scanning, the edits and the changelogs were
+produced with Cursor running the claude-opus-5 model, from a request to
+find and fix spelling mistakes across the tree, and every correction was
+then re-checked by the comparison described above.  Words that name an
+identifier were left alone deliberately, even when they read as typos,
+because correcting the prose would make the comment disagree with the
+code it describes.
+
+Tested by building x86_64 defconfig at v7.3-rc1-269-gbc35965f6940, which
+is clean.  Nothing else was built, so any patch touching code that
+x86_64 defconfig does not compile has been read but not compiled.
+
+Hemanth Selam (2):
+  firmware: fix typo "upto" in comments
+  perf: fix typo "binded" in comment
+
+ drivers/firmware/ti_sci.c   | 4 ++--
+ drivers/perf/dwc_pcie_pmu.c | 2 +-
+ 2 files changed, 3 insertions(+), 3 deletions(-)
+
+-- 
+2.48.1
+
