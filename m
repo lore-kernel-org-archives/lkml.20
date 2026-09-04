@@ -1,38 +1,37 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 877AF41DE15;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66C2641D108;
 	Fri,  4 Sep 2026 06:39:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788503954; cv=none; b=esHAGyFTLQsSXUpGD9G13P9LGNQUxGQK6+HoCtGkaHARXjg5ip+jXjTndN74RsrFSbNN+6kCRhD+s1jOYHDtpjPO9ukhd3z0r7KxcbPCbrTYxz9BF6EMHa7XlHVOjLbSr2FxnDJuX+YD8LmqLE90TAqww8s/8wS1yfOtL+rvHGo=
+	t=1788503954; cv=none; b=t8cXKxrpJpwEHk4WpeuJxHb1KfH4Bno1nCSIb+CAR12Wu4QG8QT7XVcTLPILdRXeyvDj5W+S5hDX+0NdeUGqrHnRQSyxyeYZeT4t4i2qd8lc0nmFkTVVhIJhnEu5riaPX5zmZMbenSQnqQAZm45bkLnXSdkmeKnfVRhRfi9TNQA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788503954; c=relaxed/simple;
-	bh=fTYrlYc/jDOyyW1JHqcXVgR7s43Ok1EE/6NxZ45lwiI=;
+	bh=hp7bqmHn9P6jHYwnNUYIruS99llCyau/ChCTrkE9I+E=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=bYJ/UyAQVDTE9b8bq4lwAOf8kaF9pL4K+ZTkUV6+wFbAg/+MRa4AjCyMHGR/vj0/0UlQ/U3yXAgce4tXzA+Q1RjsJ4jM4QM9QummsOMhmanvnIYtnUXZ+gJXeLVhcpmngv3uxNHilG99eITLb1NKmxaYhrPV5XsfDGOJIjzTW5E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=duUIYKs6; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=HhT6jOi8ZYD+79XpLArLrIGSuS9SLEkOht0hrhN4/cRfctZusdqAn78reVNgnYOSksNjjS4x+/3/5S05WzQfs3Je/w5qsacwP8MURZLCFsjOkk4jAcEPXVL7Hu239ofwc/xygr9bDu117P5C0K9qQv5jLOQrnzTbvpikKGe5FW4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oPL32G+Z; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="duUIYKs6"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 48586C2BD04;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oPL32G+Z"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 0341FC32786;
 	Fri,  4 Sep 2026 06:39:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1788503954;
-	bh=fTYrlYc/jDOyyW1JHqcXVgR7s43Ok1EE/6NxZ45lwiI=;
+	bh=hp7bqmHn9P6jHYwnNUYIruS99llCyau/ChCTrkE9I+E=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=duUIYKs6eNciXHDXf3PrPNgOzFM9CWwZAHcSMGmIJflXJ5SDdwfBi5RF8E+fZBnao
-	 x6z+vZjO9GIUj4G1OiAXkHqeVC0uX8rOApEpVkqnqsh6wgVxACRcpXb7XSvs1yOYsV
-	 fS97DuXLuG6AeVJgfkNKtWiuFTquLDPiPkuHvnPQF7jOZAWLNlY2DvFXSrtWrA/Fu2
-	 T2qlwk/pVbO5ZEaNWf9MjcB8WR5An2vw0S2zA5l0kH93NjYmk9/Ja8JT7qNukyLaMH
-	 CagptAK4RqDhkn2nvJIqcVezzdkAIuTro0zZwLjh3vu0+oeqwAn7ZqfgY7i8naE3Hf
-	 vXzQZAvDY+r/A==
+	b=oPL32G+ZuZtggFJ398oR+poRz623D+8RQ71t+9NLK03kNPBIjD/uup3O32ZZJizY+
+	 iSief4NGkLXdHw/BOxigBSqsr++2hYvFcf+8h+QSxUt3BaD0fEp91x5WE/UrTQ0NtS
+	 zJtVTRLzixVC6p92AxsXvO40l+kX/9hhoP+dsGseAXYx/RtEf6+YBPrSWDAhVBllrE
+	 g5XTLV5RsGhHSZVvQXfT+AAi1uYnMNwF94BWmAfstFFHj134Z8gyBS7jbCwcFouwGd
+	 YivqHt4TQNhawTQ9Cz0lj/dypOXlp/ZPNPdb4So07ApmYNUZcM5RiT53I3hqWFQA48
+	 3do3HpoxLVElQ==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 33E05C79F85;
-	Fri,  4 Sep 2026 06:39:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id DAD4CC79F82;
+	Fri,  4 Sep 2026 06:39:13 +0000 (UTC)
 From: Long Zhao via B4 Relay <devnull+longzhao.ambarella.com@kernel.org>
-Date: Fri, 04 Sep 2026 14:38:15 +0800
-Subject: [PATCH v6 08/13] gpio: regmap: support write_data_after_dir and
- girq
+Date: Fri, 04 Sep 2026 14:38:11 +0800
+Subject: [PATCH v6 04/13] dt-bindings: pinctrl: add Ambarella CV75 pinctrl
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -41,7 +40,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260904-cv75-v5-v6-8-e918514cb3b1@ambarella.com>
+Message-Id: <20260904-cv75-v5-v6-4-e918514cb3b1@ambarella.com>
 References: <20260904-cv75-v5-v6-0-e918514cb3b1@ambarella.com>
 In-Reply-To: <20260904-cv75-v5-v6-0-e918514cb3b1@ambarella.com>
 To: Arnd Bergmann <arnd@arndb.de>, Krzysztof Kozlowski <krzk@kernel.org>, 
@@ -63,11 +62,11 @@ Cc: Long Zhao <longzhao@ambarella.com>, Rob Herring <robh@kernel.org>,
  linux-gpio@vger.kernel.org, linux-serial@vger.kernel.org, 
  linux-kernel@vger.kernel.org
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788503951; l=4540;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788503951; l=6330;
  i=longzhao@ambarella.com; s=20260730; h=from:subject:message-id;
- bh=KycT9tCUaJK+3T2peLT5loHlf/DpTwIq3Pwde6A3W6c=;
- b=Yb23nkmcQvpXY7/MoTocT7QJWIK3F4m2m54gDR1qN0PDiBGMbkb4FJ/91BRR5mrthdQi1qzVs
- qx5/ITDsDUhCeZu4N+N6Qx+4OV8CtPULThI0gb+Vf3gmmR6jYjN3Izw
+ bh=XEvKncSGovDF7OgNkB6DKQG+ZkDy9YW2XQhMlWM+4n0=;
+ b=J85/StinRj7wAPEfbN+dp3uPD4R+wEdU/zQ/jETw4vUnxggpithWNm1aXZWtOyc1Fq6bsa7B7
+ IjYvYIV9HyCBW/Lq+AoURDZm5qv0zCEcn5pXsb1RIkUcpBuXRctnFKe
 X-Developer-Key: i=longzhao@ambarella.com; a=ed25519;
  pk=/xGhPTOX0/eYsyTWzyjjgAIW1Z/YD+IlnOnvcdRozow=
 X-Endpoint-Received: by B4 Relay for longzhao@ambarella.com/20260730 with
@@ -77,127 +76,259 @@ Reply-To: longzhao@ambarella.com
 
 From: Long Zhao <longzhao@ambarella.com>
 
-Add an optional write-after-direction-output quirk for controllers
-that ignore data-register writes while a line is still configured as
-input, and allow drivers to pass an existing gpio_irq_chip through
-gpio_regmap_register() so IRQ setup can stay with the caller.
+Document the CV75 pin controller binding using generic function and
+groups properties for pinmux configuration.
 
 Signed-off-by: Long Zhao <longzhao@ambarella.com>
 ---
- drivers/gpio/gpio-regmap.c  | 24 +++++++++++++++++++++++-
- include/linux/gpio/regmap.h | 13 +++++++++++++
- 2 files changed, 36 insertions(+), 1 deletion(-)
+ .../bindings/pinctrl/ambarella,cv75-pinctrl.yaml   | 239 +++++++++++++++++++++
+ 1 file changed, 239 insertions(+)
 
-diff --git a/drivers/gpio/gpio-regmap.c b/drivers/gpio/gpio-regmap.c
-index 51b4d69b8740..b4b492a1765c 100644
---- a/drivers/gpio/gpio-regmap.c
-+++ b/drivers/gpio/gpio-regmap.c
-@@ -33,6 +33,7 @@ struct gpio_regmap {
- 	unsigned int reg_dir_out_base;
- 	unsigned long *fixed_direction_mask;
- 	unsigned long *fixed_direction_output;
-+	bool write_data_after_dir;
- 
- #ifdef CONFIG_REGMAP_IRQ
- 	int regmap_irq_line;
-@@ -273,7 +274,15 @@ static int gpio_regmap_direction_output(struct gpio_chip *chip,
- 
- 	gpio_regmap_set(chip, offset, value);
- 
--	return gpio_regmap_set_direction(chip, offset, true);
-+	ret = gpio_regmap_set_direction(chip, offset, true);
-+	if (ret)
-+		return ret;
+diff --git a/Documentation/devicetree/bindings/pinctrl/ambarella,cv75-pinctrl.yaml b/Documentation/devicetree/bindings/pinctrl/ambarella,cv75-pinctrl.yaml
+new file mode 100644
+index 000000000000..34054bc56c3b
+--- /dev/null
++++ b/Documentation/devicetree/bindings/pinctrl/ambarella,cv75-pinctrl.yaml
+@@ -0,0 +1,239 @@
++# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/pinctrl/ambarella,cv75-pinctrl.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
 +
-+	/* Some controllers ignore data writes while the line is still an input. */
-+	if (gpio->write_data_after_dir)
-+		gpio_regmap_set(chip, offset, value);
++title: Ambarella CV75 Pin Controller
 +
-+	return 0;
- }
- 
- void *gpio_regmap_get_drvdata(struct gpio_regmap *gpio)
-@@ -311,6 +320,14 @@ struct gpio_regmap *gpio_regmap_register(const struct gpio_regmap_config *config
- 	if (config->reg_dir_out_base && config->reg_dir_in_base)
- 		return ERR_PTR(-EINVAL);
- 
-+	if (config->girq && config->irq_domain)
-+		return ERR_PTR(-EINVAL);
++maintainers:
++  - Long Zhao <longzhao@ambarella.com>
 +
-+#ifdef CONFIG_REGMAP_IRQ
-+	if (config->girq && config->regmap_irq_chip)
-+		return ERR_PTR(-EINVAL);
-+#endif
++description:
++  The Ambarella CV75 pin controller configures pin multiplexing, bias and
++  drive strength for the main GPIO banks. Pin groups and their mux settings
++  are defined by the pin controller driver and selected by function and group
++  names.
 +
- 	gpio = kzalloc_obj(*gpio);
- 	if (!gpio)
- 		return ERR_PTR(-ENOMEM);
-@@ -376,6 +393,8 @@ struct gpio_regmap *gpio_regmap_register(const struct gpio_regmap_config *config
- 			    config->fixed_direction_output, chip->ngpio);
- 	}
- 
-+	gpio->write_data_after_dir = config->write_data_after_dir;
++allOf:
++  - $ref: pinctrl.yaml#
 +
- 	/* if not set, assume there is only one register */
- 	gpio->ngpio_per_reg = config->ngpio_per_reg;
- 	if (!gpio->ngpio_per_reg)
-@@ -390,6 +409,9 @@ struct gpio_regmap *gpio_regmap_register(const struct gpio_regmap_config *config
- 	if (!gpio->reg_mask_xlate)
- 		gpio->reg_mask_xlate = gpio_regmap_simple_xlate;
- 
-+	if (config->girq)
-+		chip->irq = *config->girq;
++properties:
++  compatible:
++    const: ambarella,cv75-pinctrl
 +
- 	ret = gpiochip_add_data(chip, gpio);
- 	if (ret < 0)
- 		goto err_free_bitmap_output;
-diff --git a/include/linux/gpio/regmap.h b/include/linux/gpio/regmap.h
-index 06255756710d..f94dd95d330f 100644
---- a/include/linux/gpio/regmap.h
-+++ b/include/linux/gpio/regmap.h
-@@ -7,6 +7,7 @@ struct device;
- struct fwnode_handle;
- struct gpio_regmap;
- struct gpio_chip;
-+struct gpio_irq_chip;
- struct irq_domain;
- struct regmap;
- 
-@@ -34,6 +35,11 @@ struct regmap;
-  * @ngpio_per_reg:	(Optional) Number of GPIOs per register
-  * @irq_domain:		(Optional) IRQ domain if the controller is
-  *			interrupt-capable
-+ * @girq:		(Optional) Interrupt chip settings for the gpio_chip,
-+ *			prepared by the driver as for a direct gpiochip
-+ *			registration. The gpio_chip will then create and
-+ *			manage its own IRQ domain. Mutually exclusive with
-+ *			@irq_domain and @regmap_irq_chip.
-  * @reg_mask_xlate:     (Optional) Translates base address and GPIO
-  *			offset to a register/bitmask pair. If not
-  *			given the default gpio_regmap_simple_xlate()
-@@ -48,6 +54,11 @@ struct regmap;
-  *			(Optional) Bitmap representing the fixed direction of
-  *			the GPIO lines. Useful when there are GPIO lines with a
-  *			fixed direction mixed together in the same register.
-+ * @write_data_after_dir:
-+ *			(Optional) Write the output value again after
-+ *			switching a line to output in ->direction_output().
-+ *			Needed for hardware which ignores data register
-+ *			writes while the line is configured as an input.
-  * @drvdata:		(Optional) Pointer to driver specific data which is
-  *			not used by gpio-remap but is provided "as is" to the
-  *			driver callback(s).
-@@ -95,8 +106,10 @@ struct gpio_regmap_config {
- 	int reg_stride;
- 	int ngpio_per_reg;
- 	struct irq_domain *irq_domain;
-+	const struct gpio_irq_chip *girq;
- 	unsigned long *fixed_direction_mask;
- 	unsigned long *fixed_direction_output;
-+	bool write_data_after_dir;
- 
- #ifdef CONFIG_REGMAP_IRQ
- 	struct regmap_irq_chip *regmap_irq_chip;
++  reg:
++    maxItems: 1
++    description: IOMUX registers
++
++  ambarella,drive-strength-syscon:
++    $ref: /schemas/types.yaml#/definitions/phandle
++    description: RCT syscon containing the drive-strength registers.
++
++  ambarella,pull-syscon:
++    $ref: /schemas/types.yaml#/definitions/phandle
++    description: Secure scratchpad syscon containing the pull registers.
++
++patternProperties:
++  "^[a-z0-9-]+-pins$":
++    type: object
++    allOf:
++      - $ref: pinmux-node.yaml#
++      - $ref: pincfg-node.yaml#
++    additionalProperties: false
++
++    properties:
++      function:
++        enum:
++          - can0
++          - can1
++          - clk_au
++          - dmic0
++          - enet0
++          - hsync0
++          - hsync1
++          - i2c0
++          - i2c1
++          - i2c2
++          - i2c3
++          - i2cs
++          - i2s0
++          - i2s1
++          - ir
++          - pwm0
++          - pwm1
++          - pwm2
++          - pwm3
++          - pwm4
++          - pwm5
++          - pwm6
++          - pwm7
++          - pwm8
++          - pwm9
++          - pwm10
++          - pwm11
++          - sdmmc0
++          - sdmmc1
++          - snand
++          - spi0
++          - spi1
++          - spi2
++          - spi3
++          - spi_slave
++          - spinor
++          - uart0
++          - uart1
++          - uart2
++          - uart3
++          - uart4
++          - vin_master_sync
++          - vsync0
++          - vsync1
++          - vsync2
++          - vsync3
++          - wdt
++
++      groups:
++        items:
++          enum:
++            - can0
++            - can1
++            - clk_au
++            - dmic0
++            - enet_2nd_ref_clk_a
++            - enet_2nd_ref_clk_b
++            - enet_ext_osc_clk
++            - enet0_ptp_pps_o
++            - hsync0
++            - hsync1
++            - i2c0_a
++            - i2c0_b
++            - i2c1_a
++            - i2c1_b
++            - i2c2
++            - i2c3_a
++            - i2c3_b
++            - i2c3_c
++            - i2cs_a
++            - i2cs_b
++            - i2cs_c
++            - i2cs_d
++            - i2s0
++            - i2s1
++            - ir
++            - pwm0
++            - pwm1
++            - pwm2
++            - pwm3
++            - pwm4_a
++            - pwm4_b
++            - pwm5_a
++            - pwm5_b
++            - pwm6_a
++            - pwm6_b
++            - pwm7_a
++            - pwm7_b
++            - pwm8_a
++            - pwm8_b
++            - pwm9_a
++            - pwm9_b
++            - pwm10_a
++            - pwm10_b
++            - pwm11_a
++            - pwm11_b
++            - rgmii0
++            - rmii0
++            - sdmmc0_1bit
++            - sdmmc0_4bit
++            - sdmmc0_cd
++            - sdmmc0_hs_sel
++            - sdmmc0_reset
++            - sdmmc0_wp
++            - sdmmc1_1bit
++            - sdmmc1_4bit
++            - sdmmc1_cd
++            - sdmmc1_hs_sel
++            - sdmmc1_reset
++            - sdmmc1_wp
++            - snand
++            - spi0
++            - spi1
++            - spi2
++            - spi3_a
++            - spi3_b
++            - spi3_c
++            - spi_slave_a
++            - spi_slave_b
++            - spi_slave_c
++            - spi_slave_d
++            - spi_slave_e
++            - spinor
++            - uart0
++            - uart1
++            - uart1_flow
++            - uart2_a
++            - uart2_b
++            - uart2_c
++            - uart2_flow_a
++            - uart2_flow_b
++            - uart3_a
++            - uart3_b
++            - uart3_flow_a
++            - uart3_flow_b
++            - uart4_a
++            - uart4_b
++            - uart4_flow_a
++            - uart4_flow_b
++            - vin_master_sync_a
++            - vin_master_sync_b
++            - vin_master_sync_c
++            - vin_master_sync_d
++            - vin_master_sync_e
++            - vsync0
++            - vsync1
++            - vsync2
++            - vsync3
++            - wdt_a
++            - wdt_b
++            - wdt_c
++            - wdt_d
++            - wdt_e
++            - wdt_f
++        minItems: 1
++        maxItems: 6
++        uniqueItems: true
++
++      bias-disable: true
++      bias-pull-down: true
++      bias-pull-up: true
++
++      drive-strength:
++        enum: [3, 4, 5, 6, 7, 8, 9, 12]
++
++    required:
++      - function
++      - groups
++
++required:
++  - compatible
++  - reg
++  - ambarella,drive-strength-syscon
++  - ambarella,pull-syscon
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    pinctrl: pinctrl@e4010000 {
++        compatible = "ambarella,cv75-pinctrl";
++        reg = <0xe4010000 0x1000>;
++        ambarella,drive-strength-syscon = <&rct>;
++        ambarella,pull-syscon = <&scratchpad>;
++
++        uart0-pins {
++            function = "uart0";
++            groups = "uart0";
++            bias-disable;
++            drive-strength = <8>;
++        };
++    };
 
 -- 
 2.34.1
