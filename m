@@ -1,267 +1,217 @@
-Received: from outbound.st.icloud.com (st-2004j-snip4-11.eps.apple.com [57.103.78.231])
+Received: from CO1PR03CU002.outbound.protection.outlook.com (mail-westus2azon11010006.outbound.protection.outlook.com [52.101.46.6])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 045D8481650
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 13:45:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=57.103.78.231
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788529541; cv=none; b=YJrINN69XdEJOe8WfMQiHfy2d1SBj6ahb1AYY4hjcrrVLqznsyqygmjaOSvKyH4eZYcfpUqcpdJX1mBW2AF5lOsuySbiD0Q5TjxelImFwXpGWaogRqvKrJFfKmVgsjDZ6JeefVEvr87rq2xDI179JfDVubfxqXuizyhkG3Pivus=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788529541; c=relaxed/simple;
-	bh=l2BcgrnR4trAMrLF00/7bQbtJDHRq05zFROr9Lb6Qqg=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ZaP6Iwb7r+0kE9Mmmu/iX54UYghpkrPSeF0kSMQGRoETYHU5wdWBEKIZdb4NJxQm/pvOqgCjwbHrVV+5bHS2TVOWj4/aVdPz3hFlaLq7pfcEebbRttzCGLw3xTS2aYGoGSsupkhBFDSe3LIBcs4q1xfsy24L3b8xs/ZsfMJBXpQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pinon1.fr; spf=pass smtp.mailfrom=pinon1.fr; dkim=pass (2048-bit key) header.d=pinon1.fr header.i=@pinon1.fr header.b=YrIQ1YWN; arc=none smtp.client-ip=57.103.78.231
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pinon1.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pinon1.fr
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB54A3EF65B
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 13:46:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.46.6
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788529562; cv=fail; b=S5vMVKADL3gql6jZFa8Am0nrZqWw7F7r6eGFhlu8QLGSIY9o9V3g31tbrGcr5C2cUdVmu7qA/y1+Nm8P7JwqXoHikZHk5sjs31zaApTaMdIHDl8ajC2arDvN3kCprrGPhBG7yz32DBbZ/mB9sLOQqmvY0gXt/SRVHLMJ0Rf22ck=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788529562; c=relaxed/simple;
+	bh=UBsz0hE7DEWBK+EAevhoYISW6RYXpfZUwK2AZBxYPNk=;
+	h=Content-Type:Date:Message-Id:To:Cc:Subject:From:References:
+	 In-Reply-To:MIME-Version; b=i544+CElgWiCDy7eE6lxp8GvgbiTrA9L3I1B6slmGS08RDjgj7uc01HhoV3HNX0xL82nDHzypjcZRGw2h8DR3e2FgFThnYlykjgs1KRWwAcl/7pMY8O6f8BGEcxCevY2Jmp/QEodSsffVaphPKZukPu7d3g5KurUsPlLmYHJcFc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=EY6cw+Wy; arc=fail smtp.client-ip=52.101.46.6
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pinon1.fr header.i=@pinon1.fr header.b="YrIQ1YWN"
-Received: from outbound.st.icloud.com (unknown [127.0.0.2])
-	by p00-icloudmta-asmtp-us-east-1a-100-percent-9 (Postfix) with ESMTPS id 0D463180040E;
-	Fri, 04 Sep 2026 13:45:33 +0000 (UTC)
-X-ICL-RepId: 01a06caa-e39e-7ca8-935b-a277ecf51f3f
-X-ICL-Out-Info: HUtFAUMHWwJACUgBTUQeDx5WFlZNRAJCTQBKHVwPXxxBDUwdXAFaEhVdRUMEUhlAFXkIWgNYBQNeXwoTC1NWQhlXF11cGQ1AUEsbDlUXA1ccVkVcGEMJXQVXHB0eQ0VbE1UXRgkZCF0dGQhHHwowA0IOVgNDB0UALRkcV1BHAlwfV0kdC0VLXxldRQ9fB1kEQABIB1wEXwdCDVYGVAJeC0gUSR4dXg5AAlw4QwRZBFxBFx5BUxcfSwBcRVAYRB9dHWYcXABWAlw=
-Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pinon1.fr; s=sig1; t=1788529536; x=1791121536; bh=ulFeF7Yf0kLNH7l0sGo34JSosacDywEjcilC8tQk6eI=; h=From:To:Subject:Date:Message-ID:MIME-Version:x-icloud-hme; b=YrIQ1YWNV1Ge4KEPAl9NJfBmP/dDUjpEMAtK0f83x716DosYSJD9LPkpBO6rSJJJkTy+vIc4gG56P/7y0jm6O+ZjNJhXddlytVVvaNUKsidEllBEpmU4TAiCH3EututEjupukxLrEJrtlQPn2z0V+b5C9TnTdQvEoE1eamPKW+MrRXKqab2U6+iUGqyeSuuFV2y5MACDVl3NqzUnzjGTp2Vo+a5f8HX02xjdTT91vMqseKQbekKA5iOyhZtuQTHAgZi+hXaICZn6YTRHyZi8jbuO/2CQDcCSnK27sWURDNTyqmmFKot/vUudHAN+dIiDeULlz3mmjd/Wt9DDlV4NNw==
-mail-alias-created-date: 1575045973000
-Received: from 2a01cb0a80256b8bfbb9c8b6ea0a448d.ipv6.abo.wanadoo.fr (unknown [17.156.216.30])
-	by p00-icloudmta-asmtp-us-east-1a-100-percent-9 (Postfix) with ESMTPSA id CCA1918012B8;
-	Fri, 04 Sep 2026 13:45:31 +0000 (UTC)
-From: Pierre Pinon <pierre@pinon1.fr>
-To: Jason Chen <jason.z.chen@intel.com>,
-	Jimmy Su <jimmy.su@intel.com>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	linux-media@vger.kernel.org
-Cc: Pierre Pinon <pierre@pinon1.fr>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Hans de Goede <hansg@kernel.org>,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 1/2] media: i2c: ov08x40: Implement the selection API
-Date: Fri,  4 Sep 2026 15:45:23 +0200
-Message-ID: <20260904134524.595598-1-pierre@pinon1.fr>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="EY6cw+Wy"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=x6rN4fMiYHflyHK1phpgiaJcVYhljudFqq3+53LAE+i66016zxQSv7e+I/GU3qryBidfpQlzRoUelQLyZB3P7TwP5+tzqX7Yi67jIJcFz4B1AsjuUuTDPJz/488Uev/ah/kFvWMjw/Okff3hpW/v10qYXlVViD0sXjxnzgcMPFdlGMMHBW0W5m2hsxiZV3Qomj+8bKSwPHifp24sQSStBXMDWz+Wp0uxDzwzLF7psym1FImNCYxqe99z19QCdhzus1TOeyisgYn0D2kQ+nqBZt6nrLSONbdN6qAItXnyxxXWwhU3Dp3zwvM1NAAJJJ/F0pZVToneKzfWZgOrzsRiZw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=HoXXoCcEJH1OVqXmAA+mWcDb1RFyRkgwQCA0LrBXxcA=;
+ b=CzwSvO+f/T70zcNh0aSC1wSAXl1yvHG6znWU+8uAuBN0oMRDxP4dDVqurkyVd2g1TeXNSlw5zfPKQ3WZiwhYl5EHdb9mEBQfZcWh/6bavPiIqrShgUz6wf0FywjMU/dlq95IVgNTNxUA9/3f2mrxEl65j05/owguEm67tdi7ADvmD8sSAxxniY50rUU0vzivmx7ypbfbDhYQoR8c+iqZQHPk/HOxzgIqMgx3h9Aw/ZgKVfsNB1olouzuQqvNXED+NzztEp+k9+RwY5601CesnaMSq73cWDn0Ck4/ZgYCJR5qSBZ8r5WfEVOqIl76ZBdCzqoV9sPGM/HGBc3ijyrJ3w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=HoXXoCcEJH1OVqXmAA+mWcDb1RFyRkgwQCA0LrBXxcA=;
+ b=EY6cw+WyEaLRNBEtbpywFOW78nwre7wClqLzZupjfOKBBEGOPiGRR72RB1NyCSb5vKkJnuto8SEPWEyBDAO2yIOlT0kEDPyNZ3RgOEwoUrkGQkMD0X7cxUBhTu6XL/EAnj90QA89WWgknG4vM6Uopa3c7zgCQ2IfW5N7Ngo8Ko8RDI10uC1g9LcPqPxridRWa4FCbzG7g40H8/AlC41NV7C9mJsSOHYZVm3zPkwh+AtoLN5mv+LLpLTecV4DrRTtCE7s7qVzVydhsiO2bqM2vWflmlzYTvE8MiI8xIXeL/HgwFgmV+cdGiD7bWYVObM5tNIOPNQAHHFv1jEOVRRKgw==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from MW4PR12MB6873.namprd12.prod.outlook.com (2603:10b6:303:20c::17)
+ by PH7PR12MB7257.namprd12.prod.outlook.com (2603:10b6:510:205::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Fri, 4 Sep
+ 2026 13:45:53 +0000
+Received: from MW4PR12MB6873.namprd12.prod.outlook.com
+ ([fe80::a338:bd2c:3a38:ece1]) by MW4PR12MB6873.namprd12.prod.outlook.com
+ ([fe80::a338:bd2c:3a38:ece1%5]) with mapi id 15.21.0382.007; Fri, 4 Sep 2026
+ 13:45:52 +0000
+Content-Type: text/plain; charset=UTF-8
+Date: Fri, 04 Sep 2026 22:45:49 +0900
+Message-Id: <DL6KT855MS5M.DJ394FNCITCP@nvidia.com>
+To: "Gary Guo" <gary@garyguo.net>
+Cc: "John Hubbard" <jhubbard@nvidia.com>, "Danilo Krummrich"
+ <dakr@kernel.org>, "Timur Tabi" <ttabi@nvidia.com>, "Alistair Popple"
+ <apopple@nvidia.com>, "Eliot Courtney" <ecourtney@nvidia.com>, "Zhi Wang"
+ <zhiw@nvidia.com>, "David Airlie" <airlied@gmail.com>, "Simona Vetter"
+ <simona@ffwll.ch>, "Bjorn Helgaas" <bhelgaas@google.com>, "Miguel Ojeda"
+ <ojeda@kernel.org>, "Alex Gaynor" <alex.gaynor@gmail.com>, "Boqun Feng"
+ <boqun.feng@gmail.com>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
+ <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
+ Hindborg" <a.hindborg@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>,
+ "Trevor Gross" <tmgross@umich.edu>, <nova-gpu@lists.linux.dev>, "LKML"
+ <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v3 09/14] gpu: nova-core: recover the GSP receive path
+ from corrupt framing
+From: "Alexandre Courbot" <acourbot@nvidia.com>
+Content-Transfer-Encoding: quoted-printable
+References: <20260903031514.1515905-1-jhubbard@nvidia.com>
+ <20260903031514.1515905-10-jhubbard@nvidia.com>
+ <DL6H5DZZH2LO.2G3VISAA35F0T@nvidia.com>
+ <DL6HNIUL8F4C.2BK4H023OWBVK@garyguo.net>
+In-Reply-To: <DL6HNIUL8F4C.2BK4H023OWBVK@garyguo.net>
+X-ClientProxiedBy: TYCP286CA0105.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:400:2b4::15) To MW4PR12MB6873.namprd12.prod.outlook.com
+ (2603:10b6:303:20c::17)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA0MDEyNCBTYWx0ZWRfXwxA3FsQ/J3tF
- gFlBeP/jTThhAesJEwJbTIIWLGNiyaXjzQpAmp+RkqfWbJ3KoDSuJ+dH+4EaaB9XTizGEjHU65P
- 19wU+k+nSrE9/OL7vLRgDUWYP81uGINO3o7aHL4PqXSlL33tuGrUvj3PaRc7d7g8exrunuWQf4S
- 2xxCr3kq/BcftaQhsKgnk4l4JwHlhRYmNq79JRUAmwt0mLcK7A2fPlJUd+imvJROtmA4wgD0fMm
- V/QYIqN+xVK6kyH5v+XoM6Zfak9594f1llqzMYmsqQucK4KaNzc5Kdr5A15rC2UHscIsVWsT45P
- bBV5ZuBOdEIb38ZURXEzpS06sxc4KUbeU2rltSjz3gJfZ3JLX8hGqe568M+nZs=
-X-Authority-Info-Out: v=2.4 cv=aqW/yCZV c=1 sm=1 tr=0 ts=6a9acb7e
- cx=c_apl:c_pps:t_out a=oyWFxbOnq+dmhQrAPgaJYA==:117
- a=oyWFxbOnq+dmhQrAPgaJYA==:17 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=yJXyil-0ACudoi44DJgA:9
-X-Proofpoint-ORIG-GUID: LaQG4DQX-O1EV0I4oaTYjM53cuN5-5X1
-X-Proofpoint-GUID: LaQG4DQX-O1EV0I4oaTYjM53cuN5-5X1
-X-JNJ: AAAAAAAB0zvTdTDvlqBDMJbU+eM4V3OCmUHWt2ReLgzx37i+ghj9sq+ZaOMVklBB60leBwdpy9bya/Vdb2RrSZ38uRDUz9+KrI3SRNFk5JyyLk2rmxrJGmIUQmvgYggloTvf95+LvylymV/pCO9Tk78iJi+wzu59eqKZLUz1HuvU+IAqa+E6+0qDR9UuckXK6eqHZte/AXTwS/Yh5VUnxeJ5Rw1nu7hfHRke+v28AWN2m0Bhobmy4a/6MAiMNqfubWvZGQStHRKZlUR3efXyHBtoxlEpYy8i1OYCwa5XSnWMWi5TylWmd5Kx6CeppLhXuHEx+i97gWk3oqaIGu+gzTEJdLiSWG4fdop6y9AcLV7mbXxLEGgj0+BpJtdNhXmG2OXZBSpxA/+OHqMeIhvoKfP9CaPM9/msNqZD8qqfSmc7Jipu/loA6vhRTQGaVLyo4d8jizsWs0t7swTqSny5WXBzRB3J45w9dmxbdrnDtHPZc+GPkPUIP3u0GuC7V4xR/+1jXuTYXTh0KPP4wXC+BBgRPRvgBkxo3LO/EEjYvjjeH2cC8cj3iZgYgHnF6YxRTBOIH4bgN/VD3xCQFZ4UyI/paaYheH+p5PpXLq5oh9Q04Hr+vlF/JrO827rguxO4VTu1+NV4aYTGKO0kxTZb71fUcpMH/zhTiWHHCcjf75WCPYAwJCcb5Gx9V+iZcc5x4I4qCO9B2hzUizvbA+vQhVMqNP0mgRsl7XJqcaSWBErTpQ4cSTiPjTjVq3+t0zcp62w7lSb8o/zhxQsnSl55q06yD7262cpAKpNfacayICNoL8BjjvGiURAM5PC+dktn5ZCUKfwCl3flzRkOlso7mcanytP4n9cIE00azg7ZSHJiqoWEOcrHaaRlT6FmYatFx4h+yG1l4HrKocruo7c1NnmEJqq8y2ci2ReVwCYap0Z8pBMNsfSrgLtGBFS46N8wjyddR3cMTeR6fJB75Q1ES+p7Bvq+vv2
- vghWI5yKvaZyZwo2dKSxt+v3IQwsCZnGR/sYIKZlZe1mmQEE06RvbSbiMOOGg1QzNvZZvvVJ0culB5quoCs9y6B8SLrEyniuwv0ViwLV1v/2p5AZ91IIFC7YgqhlYzSnKkYhwbo9sWBWhnHnMc/K9T/oWESJv35QqnJ7aCZAIfFqoBen0ENHbdkRdBLWsR7IQmcQXmUU4fs/BpqVtu4SQgWwG9XMJP+f8adVlxXMPtePR+cLOBavOFIc5f4EQOjzK2zuAevjnoC59ACaECT83uIC/W3Kgg5//MzHM+C2SR2vM33vBGk2P/NqA946vzZ3E/w==
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MW4PR12MB6873:EE_|PH7PR12MB7257:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7b9b5308-3608-43bd-f72e-08df0a8ad5f9
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|7416014|23010399003|10070799003|366016|376014|22082099003|18002099003|56012099006|11063799006|10067099003|4143699003|6133799003;
+X-Microsoft-Antispam-Message-Info:
+	GWVZUPa+fj89hcezJDv/QB2N6InDblMGb4wcthedyQFeUef/IagKYCnW44WenyF2TEjFC8B+Hqs0z3FWdcEmW8xuYrSon2ucUytecfaeS2PNZyyub0cliDtWnhL1Vd0T1etjxikDdMCUGpJCsKeKXRJvh9KeEHTHEXa+bTfGUW8Jkau/spujA9HfouFbsGw4XOPTkCxhz11rRbERPo11VvVseMdymqzucaOHHd3pA8xfDvk0g60bEgdZMvmv5Y35QWkmE/ORt9c34S6S2n3k4I0mqy1pveH5Ym5BqSind376dEljvva41H2hfxdbS47ai3wAwI/S9m7Em+265/U6CUgYAa8j5N57BBBPI4V/3sGzFmcdBJ/XjZ3xzuZAUhsNAC7+aTGYga5YITRAyRc5LDsErqK/wUXxOT+NsTOuUH+N+7p06hj/zwLPj9NxhSk619JK+qq1DUn6YajQrMLHv71Q8SbRkLlyR+exC2MtziMLCdgalrbCTMv7tmKw4pdJo2jF4zaiR5NGkgMw9RsbbqoTZcq1xWzD/0TF3hvRpnkSwFoZBBHEAbFh1VQ6X+iDMiFZI2djoMvVoUoPCdzA2+5lVrwry76YEsig7VmcTD1IcJCmEUFOvsTs1frz+ompDvvKAtCf5OAn/SSDc9G7LnkJHNJ4sA0UkWgreuznRL4=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW4PR12MB6873.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(7416014)(23010399003)(10070799003)(366016)(376014)(22082099003)(18002099003)(56012099006)(11063799006)(10067099003)(4143699003)(6133799003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?Y21QcmdOajhyZWE5YjFXOUpyR1BadTZZL0k5SzNMNE43bEc3UXVqelNuMW1G?=
+ =?utf-8?B?SXpQZC9ZZnQzcnVKRnRtZldzbFpNWHNjYVVQbGF2YnQvYitSaks3bytzdnJF?=
+ =?utf-8?B?eHdSaVU4cWhTVGdONzZwcnc5OWRwT3drOUNlZmxPUnNFZlpxeDh1aFRLd2pE?=
+ =?utf-8?B?QTN3cVh2bGdRUWFrQVloM0NSRVFPaDZVeEZlWTIxOUVqdTlqZTVCNEhCeWVQ?=
+ =?utf-8?B?eGhhRXJqUUliQTJ2ejZZb0FvZkhuTGdDU2RDWlVqZkp2WFBmQTNwb3ExT1VY?=
+ =?utf-8?B?UEZ3L2VmNWtOSnhyS1hqa2JQb1RaaGpNOTl4UTlBL3R6Y0ZDVUhmeHg4bmM5?=
+ =?utf-8?B?eGRIWmxRRU5rNmxJMmVkNzUrVGNQKzlKOHdEbFcycllOQk13ZnZUM1doNUhm?=
+ =?utf-8?B?UTNLcUNoRFR0ZzNVZFIxd0ZuaWJxamJ0dm5CeU1sMWcvSkprR3pGK3VUUS9U?=
+ =?utf-8?B?L1lERS9VTTZXd0Jzck83eEdXbXJiRW9hWDFmNWdKd0phYnNIQ3poazBYTXFX?=
+ =?utf-8?B?TXcxRjd2NjhSb0dqQ3hKYk9kQXZ2bHFuOEltNUtvNkx0dmhMYXMrRDdkS0xy?=
+ =?utf-8?B?N056QU41MXFmQS9VdXpYYzF1dk5tMUttMjNUTkhSSksrblJJdHVaQWdHbXcx?=
+ =?utf-8?B?RkxrSHRKSHB5dnIwRzdRa21NM2pCMEhqZm1WUDQ2QU8zZHJQbUc1UEN1NTc1?=
+ =?utf-8?B?YmtTZ0NvaG04TEZUdjVYeG4zc2JzWHZoWm5zWFFKUytURFJkQzQwVVpvd0Zs?=
+ =?utf-8?B?cGJmMVlMNWdDWVVpcW9KazBFc1Y3RytHcWZ6bksxSnNMV1NIc1JUY0poOW1j?=
+ =?utf-8?B?dlhEMlhIZXNGM1c4NEZ2dTJJalNma0xPOVB3WllkSko5TWNEM1duVTZENHJ3?=
+ =?utf-8?B?MlZYakhZYzg2U3gwMjZiRmQ5YjhYUSs0RWV5bGNsQTU2TE56MzlDNHJHNEhG?=
+ =?utf-8?B?V1M4ZlQrTzV0bHpCRVRRempDV1l1T1ZmMDBvSlArZG9SWWw0WDQrRTFzQUlv?=
+ =?utf-8?B?QThvR096UUxtZjdwMVE3TnEwNlFMQTJRRlA2aytnN3IwRFlUb2graXZ4WXpt?=
+ =?utf-8?B?MkMxSVhhWE53S1RmMlo5R0k3ditRSUVTeG1ZL1kva2JyQnVEZ0haS0c0MDZP?=
+ =?utf-8?B?akh3L1I4YmkyVFlsQXNBUjVDRGljMkg5OUtKQ1EzWFB2czJTSGhPUDdKVmFY?=
+ =?utf-8?B?V2VyZTVwdGYyZ2JPSWZSRTdWNW83Zy85SWdzK2VuN1JSU0lGMnhYcWVLVjhY?=
+ =?utf-8?B?VUQ1dWNPMkRQYzlQZFNlMzBEb0pKOUFaclptSW9kU25hcTFaQ0w0b1JlK2Z4?=
+ =?utf-8?B?bHZ3eHpIb3JWV2lLK0x0d1dVbGlicVMxRXlFOFBaRmdDOTFqQ2ZQNTVuRUZP?=
+ =?utf-8?B?SE5BeVpvdk9xMkxKZERLUUx0blJCRDJvcEVDUm15N1d6OUM3UkhyV0krV2N2?=
+ =?utf-8?B?YWVubWIxV3gyZkpFRVRyMWhnbkR0S1JMR0t4d3RZbVhld3pmd3ljTXkzaitB?=
+ =?utf-8?B?OGNROEhZZ1J1ZkZieEoxakp6QU9WdTZhTkhTMWI4eS91Z3l1UEtGYncvaGF4?=
+ =?utf-8?B?NEVBNks0dTlCT25wWFIxN1dDcGRnbSt4TjNtTjVLNzMyZTM5dkZTcVBLbUFZ?=
+ =?utf-8?B?MXZuY1hDekY1bk8xaCtuMm5MTElSVk1VZ1NrbnlMVVQ3b1dvcE8vM05OS0hY?=
+ =?utf-8?B?UHJFdWhOU2FOYXEyM2xUNDhhNHh5bitKNkJ6K0MwWTdjck5WeTdwVTk2S1J0?=
+ =?utf-8?B?bk92R2FURFkxcGMweXg0WnpQL250a2JIYVJkQ0dzdlNmTGZ1K1NqbnNwbWhG?=
+ =?utf-8?B?WXYyOVVDQU95ZWJvSzltYTJiT01uTU00V204d1NYc0lJeE9adUNZRE1XaEFi?=
+ =?utf-8?B?dXRQcUJPcUxyWm9kb3pJd0JlMEhDVktnVmdWRDArNkNUY3BZNzJkMmxiVnZ3?=
+ =?utf-8?B?WWRlMXQ0Z0pCVXFvMWtwbzVTSG4zNkpISmt3R2VINnY0dHZjODMvMnNEV0lj?=
+ =?utf-8?B?bjBBUW5WNUx4WXVDNEhUZEFvdGV3UzV5RnBlZTg5MjVuQzlSY0NmQzZvTEw3?=
+ =?utf-8?B?RU1jUGtRelMwWUJjOXpxZWVIR3lSU0I4L1lIdlo0QStBVXZ3b29KTnByWVRW?=
+ =?utf-8?B?Z2R3K2ZDS1hpYUVHTzdBK1R2Q2RpNEFmcFZCRlRoUUJ2MUpMVEUwUWRlaUFW?=
+ =?utf-8?B?MThkL2I4akNCeVZ1b3BtaDJ3MUVlTWhKc29TUUVQekxudjVldGc0bk9NR1lS?=
+ =?utf-8?B?MFE3dmhLK0lrVXhBS283dno1WFZNZ2xWTDdhUU9iUnljUXFqNlg3T3Ezc3Nj?=
+ =?utf-8?B?QjBKR3hQMkZjSFJFQXFXWVJUYWxzT3VxQ3RxbEZ2V0RibEpObnJmcVEyc2hr?=
+ =?utf-8?Q?MgWOC7BzO7NQHCNON1nix6eKL6Dtuoth0SkacgDbr944W?=
+X-MS-Exchange-AntiSpam-MessageData-1: 9EYqcmidJYfJwQ==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7b9b5308-3608-43bd-f72e-08df0a8ad5f9
+X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6873.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Sep 2026 13:45:52.2933
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: k5KD88jM1H99ZB71pBLRdt9VXnSRDM8CnYw1CkMSpj5B1e8zRj2jmcoUwo12r/g2eDbQ7nbHh2ZQNHkd6I80dA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7257
 
-ov08x40 implements none of the selection targets: its pad ops carry only
-enum_mbus_code, get_fmt, set_fmt and enum_frame_size, and ov08x40_open()
-states "No crop or compose" outright.
+On Fri Sep 4, 2026 at 8:17 PM JST, Gary Guo wrote:
+> On Fri Sep 4, 2026 at 11:53 AM BST, Alexandre Courbot wrote:
+>> On Thu Sep 3, 2026 at 12:15 PM JST, John Hubbard wrote:
+>> <...>
+>>> @@ -838,23 +871,26 @@ fn receive_msg<M: MessageFromGsp>(&mut self, time=
+out: Delta) -> Result<M>
+>>>          let function =3D message.header.function();
+>>>          let seq =3D message.header.sequence();
+>>> =20
+>>> -        // Bind the result rather than returning early. The read point=
+er must advance past this
+>>> -        // message on every path.
+>>> +        // Every path must advance the read pointer past this message,=
+ including a failed decode.
+>>>          let result =3D if matches!(function, Ok(f) if f =3D=3D M::FUNC=
+TION) {
+>>> -            let (cmd, contents_1) =3D M::Message::from_bytes_prefix(me=
+ssage.contents.0).ok_or(EIO)?;
+>>> -            let mut sbuffer =3D SBufferIter::new_reader([contents_1, m=
+essage.contents.1]);
+>>> -
+>>> -            M::read(cmd, &mut sbuffer)
+>>> -                .map_err(|e| e.into())
+>>> -                .inspect(|_| {
+>>> -                    if !sbuffer.is_empty() {
+>>> -                        dev_warn!(
+>>> -                            &self.dev,
+>>> -                            "GSP message {:?} has unprocessed data\n",
+>>> -                            M::FUNCTION
+>>> -                        );
+>>> -                    }
+>>> -                })
+>>> +            match M::Message::from_bytes_prefix(message.contents.0) {
+>>> +                Some((cmd, contents_1)) =3D> {
+>>> +                    let mut sbuffer =3D SBufferIter::new_reader([conte=
+nts_1, message.contents.1]);
+>>> +
+>>> +                    M::read(cmd, &mut sbuffer)
+>>> +                        .map_err(|e| e.into())
+>>> +                        .inspect(|_| {
+>>> +                            if !sbuffer.is_empty() {
+>>> +                                dev_warn!(
+>>> +                                    &self.dev,
+>>> +                                    "GSP message {:?} has unprocessed =
+data\n",
+>>> +                                    M::FUNCTION
+>>> +                                );
+>>> +                            }
+>>> +                        })
+>>> +                }
+>>> +                None =3D> Err(EIO),
+>>
+>> This error path is the only one without a warning. How about:
+>>
+>>     None =3D> Err(EIO)
+>>         .inspect_err(|_| dev_warn!(&self.dev, "GSP message {:?} too shor=
+t\n", M::FUNCTION)),
+>
+> I don't see why we want to use `inspect_err` here (just to make it an one=
+liner?)
+>
+> Please do
+>
+>     None =3D> {
+>         dev_warn!(&self.dev, "GSP message {:?} too short\n", M::FUNCTION)=
+;
+>         Err(EIO)
+>     }
+>
+> Instead.
 
-libcamera requires V4L2_SEL_TGT_CROP_BOUNDS, V4L2_SEL_TGT_CROP_DEFAULT
-and V4L2_SEL_TGT_CROP from a sensor driver
-(Documentation/sensor_driver_requirements in the libcamera sources), and
-warns that support is scheduled to become mandatory. Without them it
-falls back to "crop == active area" for every mode:
-
-  'ov08x40 18-0036': Failed to retrieve the sensor crop rectangle
-  'ov08x40 18-0036': The sensor kernel driver needs to be fixed
-
-The practical consequence is worse than a warning. Because the crop
-rectangle is what distinguishes a binned mode (full-array crop, reduced
-output) from a cropped one (reduced crop, 1:1 output), libcamera cannot
-tell that 1928x1208 and 1928x1088 are 2x2 binned views of the whole
-array. It therefore never selects them, and satisfies small requests by
-centre-cropping the full resolution mode instead. On an IPU7 platform
-using the CPU software ISP, that path is unusable: the debayer window
-desyncs from the real line stride and every non-native resolution
-produces a uniformly saturated image.
-
-The mode register lists program only the low bytes of the vertical
-window (0x3803, 0x3807) and the output size (0x3808-0x380b). The
-horizontal window (0x3800/0x3801, 0x3804/0x3805) and the high bytes of
-the vertical window (0x3802, 0x3806) are never written and keep their
-power-on values, so they cannot be derived from the driver source. They
-were read back over I2C from the sensor on a Dell Pro 14 Premium PA14260
-and are identical in every mode:
-
-  0x3800/0x3801 = 0x0000     x_start = 0
-  0x3804/0x3805 = 0x0f1f     x_end   = 3871
-  0x3802        = 0x00       y_start high byte
-  0x3806        = 0x09       y_end high byte
-
-Combining those with the per-mode low bytes gives:
-
-  mode         crop (left, top, w, h)   output       binning
-  3856x2416    (0,   0, 3872, 2432)     3856x2416    1:1
-  3856x2176    (0, 112, 3872, 2208)     3856x2176    1:1
-  1928x1208    (0,   0, 3872, 2432)     1928x1208    2x2
-  1928x1088    (0, 120, 3872, 2192)     1928x1088    2x2
-
-The margins are consistent throughout: 16 columns and 16 or 32 rows for
-the 1:1 modes, and exactly 8 columns and 8 rows once the binned modes
-are scaled down, which supports the reading of the high bytes above.
-
-Report the full readable array as 3872x2432 for V4L2_SEL_TGT_CROP_BOUNDS
-and V4L2_SEL_TGT_NATIVE_SIZE, and the largest mode's crop for
-V4L2_SEL_TGT_CROP_DEFAULT.
-
-Two caveats, since I have no datasheet for this sensor. First, only the
-3856x2176 and 1928x1088 modes could be exercised on this hardware --
-libcamera never selects the other three -- so their register values were
-read directly and the remaining rows are derived from the same measured
-high bytes. Second, this sensor's largest mode reads the whole array, so
-CROP_DEFAULT (the active area) and CROP_BOUNDS (the readable area) come
-out equal; if OmniVision or Intel can confirm the true active area
-differs, CROP_DEFAULT should be narrowed accordingly.
-
-Signed-off-by: Pierre Pinon <pierre@pinon1.fr>
----
- drivers/media/i2c/ov08x40.c | 70 +++++++++++++++++++++++++++++++++++++
- 1 file changed, 70 insertions(+)
-
-diff --git a/drivers/media/i2c/ov08x40.c b/drivers/media/i2c/ov08x40.c
-index 5eaf454f4763..3de06e19803c 100644
---- a/drivers/media/i2c/ov08x40.c
-+++ b/drivers/media/i2c/ov08x40.c
-@@ -17,6 +17,15 @@
- #include <media/v4l2-fwnode.h>
- 
- #define OV08X40_REG_VALUE_08BIT		1
-+
-+/*
-+ * Full readable pixel array. The X window registers (0x3800/0x3801,
-+ * 0x3804/0x3805) and the high bytes of the Y window (0x3802, 0x3806) are never
-+ * programmed by the mode register lists, so they keep their power-on values;
-+ * these were read back from the sensor as 0x0000-0x0f1f and 0x00/0x09.
-+ */
-+#define OV08X40_NATIVE_WIDTH		3872U
-+#define OV08X40_NATIVE_HEIGHT		2432U
- #define OV08X40_REG_VALUE_16BIT		2
- #define OV08X40_REG_VALUE_24BIT		3
- 
-@@ -151,6 +160,9 @@ struct ov08x40_mode {
- 	/* Exposure calculation */
- 	u16 exposure_margin;
- 	u16 exposure_shift;
-+
-+	/* Analogue crop rectangle, in native pixel array coordinates */
-+	struct v4l2_rect crop;
- };
- 
- static const struct ov08x40_reg ov08x40_global_regs[] = {
-@@ -1232,6 +1244,12 @@ static const struct ov08x40_mode supported_modes[] = {
- 			.num_of_regs = ARRAY_SIZE(mode_3856x2416_regs),
- 			.regs = mode_3856x2416_regs,
- 		},
-+		.crop = {
-+			.left = 0,
-+			.top = 0,
-+			.width = 3872,
-+			.height = 2432,
-+		},
- 		.link_freq_index = OV08X40_LINK_FREQ_400MHZ_INDEX,
- 		.exposure_shift = 1,
- 		.exposure_margin = OV08X40_EXPOSURE_MAX_MARGIN,
-@@ -1247,6 +1265,12 @@ static const struct ov08x40_mode supported_modes[] = {
- 			.num_of_regs = ARRAY_SIZE(mode_3856x2176_regs_800mbps),
- 			.regs = mode_3856x2176_regs_800mbps,
- 		},
-+		.crop = {
-+			.left = 0,
-+			.top = 112,
-+			.width = 3872,
-+			.height = 2208,
-+		},
- 		.link_freq_index = OV08X40_LINK_FREQ_400MHZ_INDEX,
- 		.exposure_shift = 1,
- 		.exposure_margin = OV08X40_EXPOSURE_MAX_MARGIN,
-@@ -1263,6 +1287,12 @@ static const struct ov08x40_mode supported_modes[] = {
- 			.num_of_regs = ARRAY_SIZE(mode_1928x1208_regs),
- 			.regs = mode_1928x1208_regs,
- 		},
-+		.crop = {
-+			.left = 0,
-+			.top = 0,
-+			.width = 3872,
-+			.height = 2432,
-+		},
- 		.link_freq_index = OV08X40_LINK_FREQ_400MHZ_INDEX,
- 		.exposure_shift = 0,
- 		.exposure_margin = OV08X40_EXPOSURE_BIN_MAX_MARGIN,
-@@ -1278,6 +1308,12 @@ static const struct ov08x40_mode supported_modes[] = {
- 			.num_of_regs = ARRAY_SIZE(mode_3856x2176_regs_1500mbps),
- 			.regs = mode_3856x2176_regs_1500mbps,
- 		},
-+		.crop = {
-+			.left = 0,
-+			.top = 112,
-+			.width = 3872,
-+			.height = 2208,
-+		},
- 		.link_freq_index = OV08X40_LINK_FREQ_749MHZ_INDEX,
- 		.exposure_shift = 1,
- 		.exposure_margin = OV08X40_EXPOSURE_MAX_MARGIN,
-@@ -1293,6 +1329,12 @@ static const struct ov08x40_mode supported_modes[] = {
- 			.num_of_regs = ARRAY_SIZE(mode_1928x1088_regs_1500mbps),
- 			.regs = mode_1928x1088_regs_1500mbps,
- 		},
-+		.crop = {
-+			.left = 0,
-+			.top = 120,
-+			.width = 3872,
-+			.height = 2192,
-+		},
- 		.link_freq_index = OV08X40_LINK_FREQ_749MHZ_INDEX,
- 		.exposure_shift = 0,
- 		.exposure_margin = OV08X40_EXPOSURE_MAX_MARGIN,
-@@ -2055,10 +2097,38 @@ static const struct v4l2_subdev_video_ops ov08x40_video_ops = {
- 	.s_stream = ov08x40_set_stream,
- };
- 
-+static int ov08x40_get_selection(struct v4l2_subdev *sd,
-+				 struct v4l2_subdev_state *sd_state,
-+				 struct v4l2_subdev_selection *sel)
-+{
-+	struct ov08x40 *ov08x = to_ov08x40(sd);
-+
-+	switch (sel->target) {
-+	case V4L2_SEL_TGT_CROP:
-+		mutex_lock(&ov08x->mutex);
-+		sel->r = ov08x->cur_mode->crop;
-+		mutex_unlock(&ov08x->mutex);
-+		return 0;
-+	case V4L2_SEL_TGT_NATIVE_SIZE:
-+	case V4L2_SEL_TGT_CROP_BOUNDS:
-+		sel->r.left = 0;
-+		sel->r.top = 0;
-+		sel->r.width = OV08X40_NATIVE_WIDTH;
-+		sel->r.height = OV08X40_NATIVE_HEIGHT;
-+		return 0;
-+	case V4L2_SEL_TGT_CROP_DEFAULT:
-+		sel->r = supported_modes[0].crop;
-+		return 0;
-+	}
-+
-+	return -EINVAL;
-+}
-+
- static const struct v4l2_subdev_pad_ops ov08x40_pad_ops = {
- 	.enum_mbus_code = ov08x40_enum_mbus_code,
- 	.get_fmt = ov08x40_get_pad_format,
- 	.set_fmt = ov08x40_set_pad_format,
-+	.get_selection = ov08x40_get_selection,
- 	.enum_frame_size = ov08x40_enum_frame_size,
- };
- 
-
-base-commit: 26cf1fa3d28a98a0cb08ae1929c71f681e5d2dcc
--- 
-2.55.0
-
+Yeah looking again at my suggestion it seems a bit nonsensical to use
+`inspect_err` from an environment where it will trigger unconditionally.
+Shorter is not always better. Let's use your version.
