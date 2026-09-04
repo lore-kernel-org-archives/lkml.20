@@ -1,193 +1,100 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com [209.85.216.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F39025B2F4
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 12:30:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=170.10.129.124
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788525015; cv=pass; b=ugEfc1dtoY3oIgiXUkjzeB+2BJ6NKNo1taUK5d1dZWHATWpNCRkAeVZS8edSykYfg+MxPsjD2/ZW2V31c7SXbCGcVib3gLTi1QJiJfqBzZwz3Sa86kjqwXReymJXxS2CygYVL2LeOkF+xboo3RL+PSk1Y74sxHoMfwD70cB0bc0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788525015; c=relaxed/simple;
-	bh=I5BTR/HzEljtc2n+E1gWlsVC4e3Gg+56Gvfb2/y5hhk=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=DkA1pyY9/lRYSOEtxijBWysISL8W55AwdEde4udh20myvWG870774ClcOS+S1dx7or+FVYc0S9tgLYuZ07gcXICD/9WHOi0BmeX7XOTPwgHtzd7ebBHcsfs/zsj/JBH8uPQwlIqcaljJtxOeeKcMuO/Ryn88joXBrFIaFSEAsok=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=KRIs7YtW; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=HWw5D8XI; arc=pass smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A819483BE3
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 12:30:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.46
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788525026; cv=none; b=GQZY8T/FuLYaGgTFIq7xhujPX7OXcKJgcy/tMW507ww9Pgp2KTyODiBfH+u4o7iIG5s9qMUuX8aGLNp4CyE/apcp5INc9jU9TsNFB0LhHLPklcegM6BlZ71KrC2dS6uGu6bFlFQe5voBN3JS+Jq48vkjHewFHVidjW+ySs+G3Ug=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788525026; c=relaxed/simple;
+	bh=Fxorm3DS2+Aysgdl5P3byLfJY54JArob01AMvSl6ArI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=PXNY+OtJuAK6NluIK2N3UrdxuUqcbQh8Y9rtfgq88c8fh2SmxyoaaP/Ur4+2idJ69gxpZAjiyMVs79saDVI/i40TIaMqCAkuVX0ExzB7JmYXTOrdDcAy8IMuGwYg+Cy4cwQ7SORM8ytBaN8/oy2fQWl6K0js2JykSuPS23CZ8AU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=R/ShqAT/; arc=none smtp.client-ip=209.85.216.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="KRIs7YtW";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="HWw5D8XI"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1788525012;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=XtgStQ72qjXy85OqcnWwLSAXMnFcnfmb4j7jwPWJOV0=;
-	b=KRIs7YtWy+m06cEyEE9dScwW4HVxhuOcqRm45pAMBhA9DDKOZ6BZ12/oUm7m1FiKy7VWrX
-	xGUs8ZNrk+D8DQ6q1q9WZe/uTMEudsiNXqq39VJQKR9kHvrmtXo06fev6uFFT4hE0F/3Qe
-	TXjPTPJ0vTCqFLM97HTv/bZ9JLQHpm4=
-Received: from mail-yx1-f70.google.com (mail-yx1-f70.google.com
- [74.125.224.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-507--OWDhjl9N0yjY3Tm_60z6Q-1; Fri, 04 Sep 2026 08:30:09 -0400
-X-MC-Unique: -OWDhjl9N0yjY3Tm_60z6Q-1
-X-Mimecast-MFC-AGG-ID: -OWDhjl9N0yjY3Tm_60z6Q_1788525009
-Received: by mail-yx1-f70.google.com with SMTP id 956f58d0204a3-66f81a0f5c9so1062472d50.3
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 05:30:09 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788525009; cv=none;
-        d=google.com; s=arc-20260327;
-        b=DtnIGAYw7AsVoy+IZjazRioUkpptxfpVY8BMJEDizIo0kxdP9Hcf6wZhmZTDHgwN4V
-         gwAKmlosi4cqEAq/SBmBLHeJecHoluiLy4G1iygD6sUT2s6zxa/dZzKkGUbmVOC5ATbK
-         l22jzQ7krSfwKuYscEpV7bfvsj6VIABBqMTKQCkmTIuy8eZRRgRBIEdFHdq7B/3j9EE8
-         m3DTDqnDyi44nGbllr0wvg3KKhIpoRUTwB4x4AHtHvT3pHQ8PiQH24HpSrI4AeMkE3yO
-         7m67xUgiQOtdpw+CRl2RpKzyEwfDQfI5JeTH28Yz5hxLN2Wi2prXeBVHyWL3Yv5IJk13
-         Ms8Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=XtgStQ72qjXy85OqcnWwLSAXMnFcnfmb4j7jwPWJOV0=;
-        fh=PJ6sdCotBV1qasfVc9OY3rsOSKvmrtNp92uK82PcuuY=;
-        b=eTRf5msNAmNg3vORue/m8HDyDWjm8XCHyg18JwajrE+DUV1r9Xvnjo8+p6ePC7FeBT
-         DiWtPFXNi9w6C80jbswy3hzzWNptoLMIx7GkuQy1kMTLooZn4Gc3GL4HKuugNy92++Zh
-         qgVbRiULLQF9lFfVMIiT6NSOvvi3EVUr9U8v+P0OLAI4IQZ/KCXOxyxaRvP6JE1ddDUS
-         Q7WQvvUu6iepn8MsAIxwhXdoo/JsqSX4aJi0qu1R5OW+4NoSqDMmC/iHp4OPPeVihUUN
-         MHqHQo2PG06hvDZprzf++ZcgG1FBEEPy7GEdS3UAnjbWPv5HT5YmBQX4heiwrHB1r4LP
-         flow==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="R/ShqAT/"
+Received: by mail-pj1-f46.google.com with SMTP id 98e67ed59e1d1-39647184c73so2050553a91.1
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 05:30:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1788525009; x=1789129809; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=XtgStQ72qjXy85OqcnWwLSAXMnFcnfmb4j7jwPWJOV0=;
-        b=HWw5D8XIbLgR2wTFmyTuO47mPn+qpu9RM1DOIYEQwrmynxSsHx0g9doNSSmRR0QaDk
-         FR/2ydhWBKbbqiqyNBIzb8tfceKUnzXLFOYyb+Q0uhdI49z59JnF5gevDsLfKm2GDrxa
-         lOT5oGN8guWKEDRJkTDbRiMHuopos/vwkxTFOmVHfHPYwtGQkz4S6MHBgZx96oFHJ/Xz
-         jlxQiT0oFAP8Mx/HYTXn7EN6B4EG3GpemyDb0QLUZK9HKwqzRUb8rFUP/rhZWi/1H0WT
-         ScCe0I259GaZ6/MORSAR3ELjB0CamLCxHUmiksTyqjCQ9f889t76edSeX43SM3RNnEM/
-         2i5g==
+        d=gmail.com; s=20251104; t=1788525023; x=1789129823; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=vFvOCesDJE1WQsfXuAeNAFRnkI1SonLn2LJfZ1tDqrY=;
+        b=R/ShqAT/Hwejo4/Xio59QH/jnRTWr5my0G/DUGgdXD2JyeiHO8Nbi9aoHZabTCWX4w
+         88pPwiugFJFIkXfmUml3DLyLwxo/Td9FpziqXvVzIJHUBrEKPgwbsFVGxo+Mw2QIfGOj
+         A6y/NxbRn3LHK2+L55uXkTPMOg9Oy3Sq4w34JnT8mDtoGksv80q1oXit9Eg7//VQNtp9
+         EkEiUJLDQVZ73ptBkLnGWkFVw2XYzAAIYXmwZB9Dk4tjB0E3iuS8PEr7+jHLggtfPeGC
+         1viemVKCR9TUL+Chtqe62RKL4pHDBJs9yjl5UGo4CjS9uFDySmjrmtDVMhIelWTc6TEd
+         KElA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788525009; x=1789129809;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=XtgStQ72qjXy85OqcnWwLSAXMnFcnfmb4j7jwPWJOV0=;
-        b=KH89SlTSq1ppmeQ4GZQ3fCUmaRcY5BeybRvMe6r3711ZONr1y/lK3u397ASOmPiKZk
-         fhoradl08mUl0NNZt3AmGMNiB+Y8VrEBRILYsQe9R70GsXFjDBO05Pb/YutW21w0bNz6
-         cKuZMq7V6DClW436LqDgM4BVJ+wenuEPKwYbBTLOarxIyoUFuQN/ti7NI/LbyCgDtfP5
-         t21MxAcTVue+mBQ8Y9Bdlk6zQO1PpZFa3CRt/l2W3vuYHaIpupDKrkn1WRRoiLVp/IPN
-         Smz6JieOyJDYEdp4JLuyK8CgunhWPqbKxN97d5Br2KKD3oiojQoDJ3qS+93MnplKlz8e
-         51tA==
-X-Gm-Message-State: AFuF++n4bZvGWkDnPL5wzpXzXcZXjTATIBCDTtAmXhLOn+hgq9R7V38Y
-	oD4kURK5QksqCLUoKh6hdTPfmM2PocTL/AbvUnAt7YRYFqVuR8wA6ZkRFHWPDmewnoQaJ5ABzsC
-	SYRWpbzUIJQDxSWeBe5jk0KYHr+U07Xb+4Cc1zqHDqCdMLPgGNnBuNZGM0CvXAhz4jhKpiPxQbV
-	VRZcs9moYY2o5N+Ddz9bKmjYBNDEIRc7SNy4c44Q8M
-X-Gm-Gg: AYBFou17WlsxE4oXyvbmPlN9aEPHX7NVG5xU8dciapyn+R0Wth0b/xCo42V62/62WEv
-	VOUSEox6wBsitdI+D6o2QwTkMX9oriXW8QxBebmmdbiYt+ZIwtirz5pcaaJxT5EpvUMuA+2zF5E
-	CoH2xdGabbfvxRehCvDMwpbzRff6/RSgL1JMWmjVx6G1Ig/Rxt505oUtw7Hp6HCMbTIqlrdcwkI
-	a0a86uvOGaDZFGIamqg96v7OEPUaAt7bmt4KBZwv6s/
-X-Received: by 2002:a53:dd03:0:b0:66f:c1bc:c07b with SMTP id 956f58d0204a3-66fc1bccb91mr66223d50.67.1788525008566;
-        Fri, 04 Sep 2026 05:30:08 -0700 (PDT)
-X-Received: by 2002:a53:dd03:0:b0:66f:c1bc:c07b with SMTP id
- 956f58d0204a3-66fc1bccb91mr66213d50.67.1788525007971; Fri, 04 Sep 2026
- 05:30:07 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1788525023; x=1789129823;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=vFvOCesDJE1WQsfXuAeNAFRnkI1SonLn2LJfZ1tDqrY=;
+        b=bdm9L7s8+bBQX6Wc+vyUZcm3E3sRysf/2cXrKDXmVgpj3QVzIN2GGPNQKZhicdieUN
+         Ur/a5cdnWHhTipDBCbwYl5shFBGMGXX6Mo0BALrMrLLoClgV5FozoRJ7fUAJmptClSxl
+         VSeKJnDAGg/eRN3eDG97LGW9A2LWUu5K8De+2U2pI0mgLoFrA4KI4hbjIeMk/u3fk6MZ
+         qGw0fhVn5yekzUiFzNXwW47qD9bdEsGtSUJb/YwHYib3/9IpbwLOz/9xKQ0/VQjkGfnT
+         +ciPbDdQpopOIW8/OPn4rIZjS6QBlzHO1YkgvgMCP9mThBKlBLaUnS8oXDRqeQ6f/TMc
+         wxwQ==
+X-Gm-Message-State: AFuF++kRlHh8e6k0bl/Mqf9laGirY5rZgfySAOb23F9Mfy6281MfaCZi
+	L34HxUyLqkeurXG8ZDQFRRO7dxNm+0gymX51awnl1cv9E98Xd51Z0Kx1r9KdwQFbBzc=
+X-Gm-Gg: AYBFou17qxhiBmkXitG9SVrjDBdkGJQH14Wt6WoFxwNssEkNGVonpDJs3LNAOBCLXd5
+	9JNngtirS1SYUmeymMb5uZdpfKmYwaJcjUDrJ8a2yjwL8OeQ1rUMqF8OXQWspeVtLFjx3zG5AEU
+	muYlvP1DUEYkUt7UWCP6trIqJe5RzNYTmjGt5PPuUAzOKX+bm8ajnDc/vvHFyd0rwXSR7ucx62h
+	xEPCAs6APRv1uNFPiEr234J7pC/wEGtidkIThA+1VJQeDgf9PsMT/Yi83zAUXrnpbluAn7Bi1xu
+	B4xj5lkWpmT7LgCGOFBnY6DOti1CQJXi0ViZTPrNVp/mPRF3B+spXX/dHTDngxmQaI27J8grldS
+	FCyj9akNCBrpntIptA93Ldfr64J9neT/fX2f0tmCcP1JrloMgCqRFwng5f8dvD3b+PrmokyWzrK
+	l1z6AvZiWLFQCSYoMjB7glbMy5/gx3L3VoNCbmL/YlaYOMMroq9W4atFwaeMJXl1tKRbaMw9tJu
+	xdDnSMm7IG46lY=
+X-Received: by 2002:a17:90b:4b04:b0:396:4ce0:6400 with SMTP id 98e67ed59e1d1-39b07f33963mr15173478a91.2.1788525022476;
+        Fri, 04 Sep 2026 05:30:22 -0700 (PDT)
+Received: from volcano9f6e-hostos.amd.com ([165.204.217.251])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339af25062sm9587131eec.16.2026.09.04.05.30.20
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 04 Sep 2026 05:30:22 -0700 (PDT)
+From: Hemanth Selam <hemanth.selam@gmail.com>
+To: Len Brown <lenb@kernel.org>
+Cc: linux-kernel@vger.kernel.org,
+	linux-pm@vger.kernel.org
+Subject: [PATCH] turbostat: fix typo "intead" in comment
+Date: Fri,  4 Sep 2026 18:00:17 +0530
+Message-ID: <20260904123018.34947-1-hemanth.selam@gmail.com>
+X-Mailer: git-send-email 2.48.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260904112429.39814-1-hemanth.selam@gmail.com>
-In-Reply-To: <20260904112429.39814-1-hemanth.selam@gmail.com>
-From: Andreas Gruenbacher <agruenba@redhat.com>
-Date: Fri, 4 Sep 2026 14:29:57 +0200
-X-Gm-Features: AcwNN1UUnidSo_VDSIw3MRLX-0N_YQGsHOYA7b1CtjBhz2xIhMPaB_wEABGsBCc
-Message-ID: <CAHc6FU43bc6Fawpst1G_MhUuN9itSpoj10qguKpeNsBHeOyDNQ@mail.gmail.com>
-Subject: Re: [PATCH] gfs2: fix typos in comments
-To: Hemanth Selam <hemanth.selam@gmail.com>
-Cc: linux-kernel@vger.kernel.org, gfs2@lists.linux.dev
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Fri, Sep 4, 2026 at 1:24=E2=80=AFPM Hemanth Selam <hemanth.selam@gmail.c=
-om> wrote:
-> Fix typos in comments, reported by scripts/checkpatch.pl using the
-> misspelling list in scripts/spelling.txt.  Only touches comments, no code
-> changes.
->
-> Assisted-by: Cursor:claude-opus-5
-> Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
-> ---
->  fs/gfs2/bmap.c     | 2 +-
->  fs/gfs2/lock_dlm.c | 4 ++--
->  fs/gfs2/recovery.c | 2 +-
->  3 files changed, 4 insertions(+), 4 deletions(-)
->
-> diff --git a/fs/gfs2/bmap.c b/fs/gfs2/bmap.c
-> index 73c626971163..8c734450c998 100644
-> --- a/fs/gfs2/bmap.c
-> +++ b/fs/gfs2/bmap.c
-> @@ -1212,7 +1212,7 @@ const struct iomap_ops gfs2_iomap_ops =3D {
->   * @inode: The inode
->   * @lblock: The logical block number
->   * @bh_map: The bh to be mapped
-> - * @create: True if its ok to alloc blocks to satify the request
-> + * @create: True if its ok to alloc blocks to satisfy the request
->   *
->   * The size of the requested mapping is defined in bh_map->b_size.
->   *
-> diff --git a/fs/gfs2/lock_dlm.c b/fs/gfs2/lock_dlm.c
-> index cef4bdee92a8..47eec0c13025 100644
-> --- a/fs/gfs2/lock_dlm.c
-> +++ b/fs/gfs2/lock_dlm.c
-> @@ -431,7 +431,7 @@ static void gdlm_cancel(struct gfs2_glock *gl)
->   * 10. gfs2_control sets control_lock lvb =3D new gen + bits for failed =
-jids
->   * 12. gfs2_recover does journal recoveries for failed jids identified a=
-bove
->   * 14. gfs2_control clears control_lock lvb bits for recovered jids
-> - * 15. gfs2_control checks if recover_block =3D=3D recover_start (step 3=
- occured
-> + * 15. gfs2_control checks if recover_block =3D=3D recover_start (step 3=
- occurred
->   *     again) then do nothing, otherwise if recover_start > recover_bloc=
-k
->   *     then clear BLOCK_LOCKS.
->   *
-> @@ -809,7 +809,7 @@ static void gfs2_control_func(struct work_struct *wor=
-k)
->
->         /*
->          * No more jid bits set in lvb, all recovery is done, unblock loc=
-ks
-> -        * (unless a new recover_prep callback has occured blocking locks
-> +        * (unless a new recover_prep callback has occurred blocking lock=
-s
->          * again while working above)
->          */
->
-> diff --git a/fs/gfs2/recovery.c b/fs/gfs2/recovery.c
-> index 616c46aa3434..27777497677f 100644
-> --- a/fs/gfs2/recovery.c
-> +++ b/fs/gfs2/recovery.c
-> @@ -155,7 +155,7 @@ int __get_log_header(struct gfs2_sbd *sdp, const stru=
-ct gfs2_log_header *lh,
->   * @blk: the block to look at
->   * @head: the log header to return
->   *
-> - * Read the log header for a given segement in a given journal.  Do a fe=
-w
-> + * Read the log header for a given segment in a given journal.  Do a few
->   * sanity checks on it.
->   *
->   * Returns: 0 on success,
-> --
-> 2.48.1
+Correct "intead" to "instead", reported by scripts/checkpatch.pl using the
+misspelling list in scripts/spelling.txt.  Only touches comments, no code
+changes.
 
-Applied to for-next, thanks.
+Assisted-by: Cursor:claude-opus-5
+Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
+---
+ tools/power/x86/turbostat/turbostat.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Andreas
+diff --git a/tools/power/x86/turbostat/turbostat.c b/tools/power/x86/turbostat/turbostat.c
+index 920694c3c1ec..e2bb99d9b7a3 100644
+--- a/tools/power/x86/turbostat/turbostat.c
++++ b/tools/power/x86/turbostat/turbostat.c
+@@ -10448,7 +10448,7 @@ void pmt_init(void)
+ 			 * Set the scope to CPU, even though CWF report the counter per module.
+ 			 * CPUs inside the same module will read from the same location, instead of reporting zeros.
+ 			 *
+-			 * CWF with newer firmware might require a PMT_TYPE_XTAL_TIME intead of PMT_TYPE_TCORE_CLOCK.
++			 * CWF with newer firmware might require a PMT_TYPE_XTAL_TIME instead of PMT_TYPE_TCORE_CLOCK.
+ 			 */
+ 			pmt_add_counter(PMT_CWF_MC1E_GUID, seq, "CPU%c1e", PMT_TYPE_TCORE_CLOCK,
+ 					PMT_COUNTER_CWF_MC1E_LSB, PMT_COUNTER_CWF_MC1E_MSB, offset, SCOPE_CPU, FORMAT_DELTA, cpu_num, PMT_OPEN_TRY);
+-- 
+2.48.1
 
