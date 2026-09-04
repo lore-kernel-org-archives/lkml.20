@@ -1,69 +1,70 @@
-Received: from mail-oi1-f182.google.com (mail-oi1-f182.google.com [209.85.167.182])
+Received: from mail-pj2-f3.google.com (mail-pj2-f3.google.com [74.125.227.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F6F64908BA
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 12:53:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.182
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 461A31A9FBD
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 12:53:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788526424; cv=none; b=YJmNk/d+lV77kW4CKbL5vRnA0Vk1P0FfKKfAfgEytCxIRtmZDE3c87tVb5BCgseSivuxd1sujy0fR+YQ/IYf2zxYX2NhrQxkOw43bQZSiUSSMU/6n6u08XWwyO/Uj9D6WZ8iQZKnFfRNdBXKIwyYdadbU17P6ecnsdFOq0Oe8CU=
+	t=1788526436; cv=none; b=LI+ocU0GVtkkDb5V1xt5haDH8euRxZs8EAxNsL6M0h6bCPsGOrGZHrMG87BO5H1zYIPlb61/nPDofTPKh8j9ILWOZ1leGGOw0jutNI+vAkTinyfGwjlT1MEETeqaOeWTTpBrVCOdgSNRqwI0gDp7Bphut7izut7U1g/RL9S5OI0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788526424; c=relaxed/simple;
-	bh=yjPfhaBcxAXQGGaqhab4hyhaGjwtPFGhfMGgy5UWF+M=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Dzl31/wKsNgQErKZC85PAqxSQSBgHx/lrFMIek7mgsQ0rhR1aKr1rCscx/8ExV2yEAfCAwAw5SqxIx67DfMgsNy6QMt5IJtnbKdADcfOkfy9sLHP/rdQbLK36mtbBdS8qgOZGrqcMTn1ddh4IlkLfmydu/cPdQ7l00pIH3XBTF4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Dfwv+ZMn; arc=none smtp.client-ip=209.85.167.182
+	s=arc-20240116; t=1788526436; c=relaxed/simple;
+	bh=O5ksst4QO7T4APDDqPHlhvrKFXMgUKR+UwLxxyrNX5o=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=BLqs01aYotYydcedD71NnSq8/CvmNq6OgHd2vzHhOP50lqiQ98gePmuHZIakrqZ/oTqgwNS+QoMNzWn3TiR7HFoiieRbebupf4vNkNHQB/KdY2Q8eW7QbwcFcFfSr3kMT3eCPJMPl6SFCHX9SIVrE3K1/Bp9MzTtorBdiESzODw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FrWKVKMt; arc=none smtp.client-ip=74.125.227.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Dfwv+ZMn"
-Received: by mail-oi1-f182.google.com with SMTP id 5614622812f47-499f6e0bbabso699654b6e.0
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 05:53:42 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FrWKVKMt"
+Received: by mail-pj2-f3.google.com with SMTP id d9443c01a7336-2d6fff25530so2808555ad.0
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 05:53:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788526421; x=1789131221; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1788526435; x=1789131235; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=qnySQky5/l0Pdt4Xmc1PGw8QVcKDQCdeEtD6/k7Pdqo=;
-        b=Dfwv+ZMnsyWroltGOoHLy3NAvvJaRtIPAQoWzhPgZKwjT/qjL7TugEDX3oPk8p0IIG
-         avx/wLD1UO1JH0IzY3Cuj91RqS7ZfDd3+z6dyUNg0qMCWNDdj0l/lAIMa+LHPHy+vhUk
-         1rhMzDteUkhAHtK/9LksPuhn7T717QyjPYY/bNO/01K/M9d/Kv3fsml9Q5luPEcfcwje
-         lN+g3xTYP2B2hbJH+6tfMa1Ak4i4ZhpRQudCeHdffPZmxQQj8goHE/bcRq1+qnBDp1Si
-         KFYO5or2oBQAPA+S6ZshYnRpvcOjKZ3JJzuHWXB4WUvXp/vDzvnIqAjzhvctMCEEpCHG
-         0XJg==
+        bh=ZtfqFnnJCmvt5m9gYRF83xYN8G70Rbo/ygcbT9Wtq5c=;
+        b=FrWKVKMtlN3iBxWSJudnnRCUJXn65fla75ZO9mO9zaqmStkQZo5EnmNHi64INeI7zy
+         bPaSq01gBjr/cazwkluzXdxqqtghx/KLvhv3UIkjifqCRlE6KofGZMngTiDIWoRgzZNC
+         VbU5vAhbycaesGijYCEyK3Y5F1jQy5fqtshctz+mJj2NwWu26vxe8o6qWHwRotBdyaK3
+         xkMtWoybUHEZzHaq3qMm23OJR92HeNzyVe9Tyis3WHGL6jhTeQM5xaynkaEjkiuIqNyV
+         i9jaQ9e/PPtZbMVHKJynMP3vm76tzt3PyuQDxW+AyiPA8u5kCBd1Jq4xMY3EQCWzbHlo
+         lbyg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788526421; x=1789131221;
+        d=1e100.net; s=20251104; t=1788526435; x=1789131235;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=qnySQky5/l0Pdt4Xmc1PGw8QVcKDQCdeEtD6/k7Pdqo=;
-        b=jJeWl+KXDOwFnEl0pvMZ2Mxb7CBHhGT5493FaVRk8GjC+wLydvZYndEPTgvo7vB5ly
-         McyKDjjviZjqG5teHMegKWpUcbOAA2hx+Uv8cFnA4EITWnVe9A3wz0UnSQmgOyKuQsEc
-         bTwoLYRmjHZCtCva56z7hDTQxJR6ax6oCVwXFQNjtpyD4nVk6CHW4tJZPF/kmCV5TlCi
-         af1i+8t/1nlwlpdX5FELpzspYyxYrA0JC7ZPdy/8ZjXbhFxAwrWGe5aGWblSKwT+NRnJ
-         YLbIP/Uy+S9hQ2N0P6gEHbSimqSQPXxhHHq4w6Z4lIFr4Ccnyjz1mNmePbO2VYTQVciv
-         q1eQ==
-X-Gm-Message-State: AFuF++kHTvQnqvX7UygApjvPTSk2RhRDbnjnsxZ2ICDJKCmsyKdUjSpS
-	wgLrpnAEJp0Sm577RWIKjwOjXMSw4t41PzhJq9qZNGe1u+EKfdk6SU4h
-X-Gm-Gg: AYBFou11+ANMLqN6e4iqiZ6C0NjCasEYLwgP0CgmoHUr00NgrDrxFbnTfaHP9mpGG8Y
-	KSbXXOuWkywFlEhOmwgukbNh9oXKj/iiIsRVU4ykQCSCZ7n3Bpph3UQgU7jNvIBqMyiv1X81lP/
-	jM8iiAJ8m97JGzuTIc5pXvhdb8vgXE0b53q7qT8FfO+i5TNNYWm7UBmrSr2oorqg+Jpn3vzyxw7
-	BFNmfLJfKs2DinXHGE1Qppw/R1vxpv70ix4WtAuZbtYEK4IMgmEZnqj+/BnNGwQDCyGyFuORjUa
-	q0WMqmWg0kY5t/2YgTc7ooPmp0KHUI3opHRqqRqYTYXxRLPmuZHWh17fXndBcbImL4ECuPftizj
-	0oXmiEvIKb4CAtnlqkjY/6QKF77Hg5it10gkt6ezySZheaIrk3dVfGPP7eyNFqJmclGipDH+6P1
-	RlmMhhGd9KU97msZJwOU6OZTVJLnSeOarDT3ctpRxuATzFfTOK7lTUdDW6oyLBNbl12FGklaFSM
-	QBAtcOWcgyzjhw=
-X-Received: by 2002:a05:6808:13cc:b0:4b9:e5fa:890b with SMTP id 5614622812f47-4b9e5fa8da2mr1661457b6e.30.1788526421025;
-        Fri, 04 Sep 2026 05:53:41 -0700 (PDT)
-Received: from volcano9f6e-hostos.amd.com ([165.204.217.251])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1432435ec2bsm6101642c88.3.2026.09.04.05.53.39
+        bh=ZtfqFnnJCmvt5m9gYRF83xYN8G70Rbo/ygcbT9Wtq5c=;
+        b=XArtZkpuJ1Vc5IRTL2VeCVx492tMqGGE5iN/oU8+EWxhi5fAHx5d9R2KvejG72sF9h
+         QWT2cfMwi8i3088uUjCs5fm2KugBacDEU2ZJt4LUeMOQ1PF4LbNbh2TH9WqCdN56RRtr
+         l2X9UQe030Q5OmPAZOQYhjs8k/VKQhbFor43FEDAQbGH9ZYI+bQUGTCFXgB3bhXXEVt9
+         UidaS1cbh/kPG7uJq4eLAisrQAs7rTxnSu0HW/HyhYnvQ323mrj09cT1rAHm5FbvIi8J
+         igyZe5ivLD6SGayok2uy8F8Ny0ScQLcIyeZZjNnKuzPcKLeBWnZJZPbTwV1WzrW3OTCN
+         FLKQ==
+X-Forwarded-Encrypted: i=1; AKwUvByef5QhgkOaci7579/nj2CqwX/VvYUH704V+PgIrkeX6chxtW1++qN9JgazfJOn1er8nBmpaM/W+myS3+M=@vger.kernel.org
+X-Gm-Message-State: AFuF++kvlCReq7uNPCrkKcrT1qYVW971gUUyxNXjvugCfqDoPuV7dKp8
+	NR6ReQmXd5hw35/hiy+WBQLXAEmLJi9k+hfsICLvgS7lf1UsBVPSHE3t
+X-Gm-Gg: AYBFou0TqMxeQsVDJfji2Tu+LdnxJ3nN3qQbBaX4rYLBFpZOy3bgbLLWFh9u8VhDAWh
+	jRWmBm6XJ7xbaQwUIQZJJ8pJ3P/OBcufVtqZm/aUhrzM82T9NtJAUgx8a9FB9aM5H9K8EBIq+wx
+	wQINJCVYH2wEkyv4xCgIbxctAgxm7za7y68DEW1nmcY33PAwNaIvrI9ttYaGHjk+eXnJ1aAR2Fy
+	3PWZcALRm9r4b4LBTPQmaEWWaRQRw3AE0NRP1NoDldlu0gdBx3fqmNxM1cPJ6OaWUT25oT+9cC+
+	t3YvYbT3mIvLdfX2V4mpPfmN2PTsMPHV6zU1WZI0PGtWbJsBg/XLGVIvCLkz/q+31qxQAZiY1El
+	7vWKrCYWgTTE41r5SM/rDaN7L//q9meox8BQuWQKNC2ZboV6DUjc2JaF5xPRQBn7xS6e2gLPOd+
+	PAGkACryUVwE9piY+cIV5DLVO5wwGH9BWa2uA+IvcAl3RDtRHoPNAnYQCh1BYX
+X-Received: by 2002:a17:902:c944:b0:2d8:d4ce:9f33 with SMTP id d9443c01a7336-2db12756abcmr85940795ad.17.1788526434436;
+        Fri, 04 Sep 2026 05:53:54 -0700 (PDT)
+Received: from hyperV.. ([2001:268:73b2:7e:a03:6b27:c6a2:6f2b])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2db1497d9f9sm9036475ad.32.2026.09.04.05.53.52
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 04 Sep 2026 05:53:40 -0700 (PDT)
-From: Hemanth Selam <hemanth.selam@gmail.com>
-To: Richard Cochran <richardcochran@gmail.com>
-Cc: linux-kernel@vger.kernel.org,
-	netdev@vger.kernel.org
-Subject: [PATCH 0/8] net: fix typos and repeated words in comments
-Date: Fri,  4 Sep 2026 18:22:53 +0530
-Message-ID: <20260904125336.12749-1-hemanth.selam@gmail.com>
-X-Mailer: git-send-email 2.48.1
+        Fri, 04 Sep 2026 05:53:53 -0700 (PDT)
+From: yangfeng <yangfeng.lucky@gmail.com>
+To: tglx@kernel.org
+Cc: radu@rendec.net,
+	linux-kernel@vger.kernel.org,
+	yangfeng <yangfeng.lucky@gmail.com>
+Subject: [PATCH v2] irq/debug: implement missing FIXME in print_irq_desc()
+Date: Fri,  4 Sep 2026 21:51:17 +0900
+Message-ID: <20260904125205.15311-1-yangfeng.lucky@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -72,190 +73,76 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-This corrects 8 misspellings and repeated words in comments.  Each is a
-separate patch so that any one of them can be dropped without touching
-the rest.
+The original code ___PD(f) left a FIXME, so fix it.
+The maximum length of a macro is 19, so modify the printk() from 14 to 20.
 
-Nothing outside comments changes.  Every touched C file was checked by
-dropping its comments, replacing each string literal with a placeholder
-and collapsing whitespace; what remained was identical before and after,
-so the compiled code cannot differ.
+Signed-off-by: Yang Feng <yangfeng.lucky@gmail.com>
 
-The mistakes were found with scripts/checkpatch.pl against the list in
-scripts/spelling.txt.  The scanning, the edits and the changelogs were
-produced with Cursor running the claude-opus-5 model, from a request to
-find and fix spelling mistakes across the tree, and every correction was
-then re-checked by the comparison described above.  Words that name an
-identifier were left alone deliberately, even when they read as typos,
-because correcting the prose would make the comment disagree with the
-code it describes.
+v2:
+  - Implement missing FIXME in ___PD() with __irqd_to_state
+  - move the define of __irqd_to_state before "include debug.h" in internals.h
+  - Adjust printk() width from 14 to 20
+  - Use full legal name in Signed-off-by
+  - Rebase to latest master
 
-Tested by building x86_64 defconfig at v7.3-rc1-269-gbc35965f6940, which
-is clean.  Nothing else was built, so any patch touching code that
-x86_64 defconfig does not compile has been read but not compiled.
+---
+ kernel/irq/debug.h     | 13 ++++++-------
+ kernel/irq/internals.h |  4 ++--
+ 2 files changed, 8 insertions(+), 9 deletions(-)
 
-Hemanth Selam (8):
-  net: fix typos in comments
-  Documentation/networking: fix repeated word 'in' in comment
-  net: broadcom: fix repeated word 'will' in comment
-  net: llc: fix repeated word 'all' in comment
-  net: sfc: fix repeated words in comments
-  selftests: net: fix repeated word 'use' in comment
-  tools/net: fix repeated word 'with' in comment
-  net: usb: fix repeated words in log messages
-
- Documentation/networking/switchdev.rst                 |  2 +-
- drivers/net/dsa/bcm_sf2_cfp.c                          |  2 +-
- drivers/net/dsa/microchip/ksz_dcb.c                    |  2 +-
- drivers/net/dsa/realtek/rtl8366rb.c                    |  2 +-
- drivers/net/dsa/sja1105/sja1105_tas.c                  |  2 +-
- drivers/net/ethernet/3com/typhoon.h                    |  2 +-
- drivers/net/ethernet/8390/ax88796.c                    |  2 +-
- drivers/net/ethernet/airoha/airoha_eth.c               |  2 +-
- drivers/net/ethernet/allwinner/sun4i-emac.c            |  2 +-
- drivers/net/ethernet/amazon/ena/ena_eth_com.h          |  2 +-
- drivers/net/ethernet/amd/xgbe/xgbe-dev.c               |  2 +-
- drivers/net/ethernet/apm/xgene/xgene_enet_main.c       |  2 +-
- drivers/net/ethernet/atheros/atl1c/atl1c_hw.h          |  2 +-
- drivers/net/ethernet/atheros/atl1e/atl1e.h             |  2 +-
- drivers/net/ethernet/atheros/atl1e/atl1e_hw.c          |  2 +-
- drivers/net/ethernet/atheros/atl1e/atl1e_main.c        |  2 +-
- drivers/net/ethernet/atheros/atlx/atl1.c               |  2 +-
- drivers/net/ethernet/atheros/atlx/atl2.c               |  2 +-
- drivers/net/ethernet/broadcom/bcm63xx_enet.c           |  2 +-
- drivers/net/ethernet/broadcom/bcm63xx_enet.h           |  2 +-
- drivers/net/ethernet/broadcom/bcmsysport.h             |  2 +-
- drivers/net/ethernet/broadcom/bnx2x/bnx2x.h            |  4 ++--
- drivers/net/ethernet/broadcom/bnx2x/bnx2x_dcb.c        |  4 ++--
- drivers/net/ethernet/broadcom/bnx2x/bnx2x_hsi.h        |  2 +-
- drivers/net/ethernet/broadcom/bnx2x/bnx2x_init_ops.h   |  2 +-
- drivers/net/ethernet/broadcom/bnx2x/bnx2x_link.c       |  8 ++++----
- drivers/net/ethernet/broadcom/bnx2x/bnx2x_main.c       |  2 +-
- drivers/net/ethernet/broadcom/bnx2x/bnx2x_reg.h        |  4 ++--
- drivers/net/ethernet/brocade/bna/bfa_ioc.c             |  4 ++--
- drivers/net/ethernet/brocade/bna/bna_enet.c            |  4 ++--
- drivers/net/ethernet/calxeda/xgmac.c                   |  2 +-
- drivers/net/ethernet/cavium/liquidio/cn66xx_device.c   |  2 +-
- drivers/net/ethernet/cavium/liquidio/lio_core.c        |  2 +-
- drivers/net/ethernet/cavium/liquidio/octeon_config.h   |  4 ++--
- drivers/net/ethernet/cavium/liquidio/octeon_iq.h       |  2 +-
- drivers/net/ethernet/cavium/liquidio/octeon_main.h     |  2 +-
- drivers/net/ethernet/cavium/liquidio/octeon_nic.h      |  2 +-
- drivers/net/ethernet/cavium/liquidio/request_manager.c |  2 +-
- drivers/net/ethernet/cavium/thunder/nic.h              |  2 +-
- drivers/net/ethernet/cavium/thunder/nic_main.c         |  2 +-
- drivers/net/ethernet/chelsio/cxgb3/sge.c               |  2 +-
- drivers/net/ethernet/chelsio/cxgb4/cxgb4_dcb.c         |  2 +-
- drivers/net/ethernet/chelsio/cxgb4/cxgb4_ethtool.c     |  2 +-
- drivers/net/ethernet/chelsio/cxgb4/t4_hw.c             |  2 +-
- drivers/net/ethernet/chelsio/cxgb4vf/sge.c             |  2 +-
- drivers/net/ethernet/cirrus/cs89x0.c                   |  4 ++--
- drivers/net/ethernet/dec/tulip/de2104x.c               |  2 +-
- drivers/net/ethernet/dec/tulip/interrupt.c             |  4 ++--
- drivers/net/ethernet/dec/tulip/media.c                 |  2 +-
- drivers/net/ethernet/dec/tulip/tulip.h                 |  4 ++--
- drivers/net/ethernet/dec/tulip/winbond-840.c           |  2 +-
- drivers/net/ethernet/freescale/dpaa2/dpaa2-eth.c       |  2 +-
- drivers/net/ethernet/freescale/fman/fman_memac.c       |  2 +-
- drivers/net/ethernet/freescale/gianfar.c               |  2 +-
- drivers/net/ethernet/freescale/gianfar.h               |  2 +-
- drivers/net/ethernet/hisilicon/hns/hns_dsaf_misc.c     |  2 +-
- drivers/net/ethernet/hisilicon/hns/hns_dsaf_ppe.c      |  2 +-
- drivers/net/ethernet/hisilicon/hns/hns_enet.c          |  4 ++--
- .../net/ethernet/hisilicon/hns3/hns3pf/hclge_main.c    |  2 +-
- drivers/net/ethernet/hisilicon/hns3/hns3pf/hclge_tm.c  |  2 +-
- .../net/ethernet/hisilicon/hns3/hns3vf/hclgevf_main.c  |  2 +-
- drivers/net/ethernet/ibm/emac/emac.h                   |  2 +-
- drivers/net/ethernet/ibm/emac/phy.h                    |  2 +-
- drivers/net/ethernet/jme.h                             |  2 +-
- drivers/net/ethernet/marvell/mvpp2/mvpp2.h             |  2 +-
- drivers/net/ethernet/marvell/mvpp2/mvpp2_prs.c         |  8 ++++----
- drivers/net/ethernet/marvell/octeontx2/af/npc.h        |  4 ++--
- drivers/net/ethernet/marvell/octeontx2/af/rvu_nix.c    |  2 +-
- drivers/net/ethernet/marvell/octeontx2/nic/cn10k.c     |  2 +-
- .../net/ethernet/marvell/octeontx2/nic/otx2_dcbnl.c    |  2 +-
- drivers/net/ethernet/marvell/octeontx2/nic/otx2_pf.c   |  2 +-
- drivers/net/ethernet/marvell/pxa168_eth.c              |  4 ++--
- drivers/net/ethernet/mellanox/mlx4/eq.c                |  2 +-
- drivers/net/ethernet/mellanox/mlx5/core/en/tc/sample.c |  2 +-
- drivers/net/ethernet/mellanox/mlx5/core/lib/tout.c     |  2 +-
- drivers/net/ethernet/mellanox/mlxsw/i2c.c              |  2 +-
- drivers/net/ethernet/mellanox/mlxsw/reg.h              |  2 +-
- drivers/net/ethernet/natsemi/sonic.h                   |  2 +-
- drivers/net/ethernet/nvidia/forcedeth.c                |  4 ++--
- drivers/net/ethernet/qlogic/netxen/netxen_nic_ctx.c    |  2 +-
- drivers/net/ethernet/qlogic/qed/qed_cxt.c              |  2 +-
- drivers/net/ethernet/qlogic/qed/qed_dev.c              |  2 +-
- drivers/net/ethernet/qlogic/qed/qed_mcp.h              |  2 +-
- drivers/net/ethernet/qlogic/qlcnic/qlcnic.h            |  2 +-
- drivers/net/ethernet/qlogic/qlcnic/qlcnic_83xx_init.c  |  4 ++--
- drivers/net/ethernet/qlogic/qlcnic/qlcnic_ctx.c        |  2 +-
- drivers/net/ethernet/qlogic/qlcnic/qlcnic_main.c       |  4 ++--
- drivers/net/ethernet/qualcomm/emac/emac-mac.c          |  2 +-
- drivers/net/ethernet/realtek/8139too.c                 |  2 +-
- drivers/net/ethernet/realtek/rtase/rtase_main.c        |  2 +-
- drivers/net/ethernet/seeq/sgiseeq.c                    |  2 +-
- drivers/net/ethernet/sfc/bitfield.h                    |  2 +-
- drivers/net/ethernet/sfc/falcon/falcon.c               |  2 +-
- drivers/net/ethernet/sfc/mcdi_pcol.h                   | 10 +++++-----
- drivers/net/ethernet/sfc/siena/bitfield.h              |  2 +-
- drivers/net/ethernet/sfc/siena/mcdi_pcol.h             |  6 +++---
- drivers/net/ethernet/sfc/siena/ptp.c                   |  2 +-
- drivers/net/ethernet/sgi/meth.h                        |  2 +-
- drivers/net/ethernet/silan/sc92031.c                   |  6 +++---
- drivers/net/ethernet/sis/sis900.c                      |  2 +-
- drivers/net/ethernet/smsc/smsc9420.c                   |  2 +-
- drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c      |  2 +-
- drivers/net/ethernet/sun/cassini.h                     |  2 +-
- drivers/net/ethernet/synopsys/dwc-xlgmac-common.c      |  2 +-
- drivers/net/ethernet/synopsys/dwc-xlgmac-hw.c          |  2 +-
- drivers/net/ethernet/tehuti/tehuti.c                   |  8 ++++----
- drivers/net/ethernet/ti/tlan.c                         |  2 +-
- drivers/net/ethernet/toshiba/ps3_gelic_net.c           |  2 +-
- drivers/net/ethernet/toshiba/ps3_gelic_net.h           |  2 +-
- drivers/net/ethernet/toshiba/ps3_gelic_wireless.c      |  2 +-
- drivers/net/ethernet/via/via-rhine.c                   |  2 +-
- drivers/net/ethernet/via/via-velocity.c                | 10 +++++-----
- drivers/net/fddi/skfp/cfm.c                            |  2 +-
- drivers/net/fddi/skfp/ecm.c                            |  2 +-
- drivers/net/fddi/skfp/fplustm.c                        |  4 ++--
- drivers/net/fddi/skfp/h/hwmtm.h                        |  2 +-
- drivers/net/fddi/skfp/h/sba.h                          |  2 +-
- drivers/net/fddi/skfp/pcmplc.c                         |  2 +-
- drivers/net/fddi/skfp/rmt.c                            |  2 +-
- drivers/net/ipa/ipa_interrupt.h                        |  2 +-
- drivers/net/phy/bcm87xx.c                              |  2 +-
- drivers/net/phy/marvell.c                              |  2 +-
- drivers/net/ppp/ppp_generic.c                          |  4 ++--
- drivers/net/usb/asix_common.c                          |  2 +-
- drivers/net/usb/ax88179_178a.c                         |  4 ++--
- drivers/net/usb/sr9800.c                               |  2 +-
- drivers/net/wan/slic_ds26522.c                         |  2 +-
- drivers/s390/net/ctcm_main.c                           |  4 ++--
- drivers/s390/net/qeth_core.h                           |  2 +-
- include/net/inet_hashtables.h                          |  2 +-
- include/net/sock.h                                     |  2 +-
- net/ipv4/tcp.c                                         |  2 +-
- net/ipv4/tcp_input.c                                   |  2 +-
- net/ipv4/tcp_output.c                                  |  2 +-
- net/ipv6/calipso.c                                     |  4 ++--
- net/llc/llc_c_ac.c                                     |  2 +-
- net/llc/llc_conn.c                                     |  2 +-
- net/netlink/af_netlink.c                               |  2 +-
- net/sctp/protocol.c                                    |  4 ++--
- net/sctp/sm_make_chunk.c                               |  4 ++--
- net/sctp/sm_sideeffect.c                               |  2 +-
- net/sctp/transport.c                                   |  2 +-
- net/sctp/ulpqueue.c                                    |  2 +-
- samples/pktgen/README.rst                              |  2 +-
- tools/net/ynl/pyynl/ynl_gen_c.py                       |  2 +-
- tools/testing/selftests/drivers/net/team/options.sh    |  2 +-
- .../selftests/net/arp_ndisc_untracked_subnets.sh       |  4 ++--
- tools/testing/selftests/net/forwarding/lib.sh          |  2 +-
- tools/testing/selftests/net/ip_defrag.c                |  2 +-
- tools/testing/selftests/net/xfrm_policy.sh             |  2 +-
- 150 files changed, 194 insertions(+), 194 deletions(-)
-
+diff --git a/kernel/irq/debug.h b/kernel/irq/debug.h
+index 8ccb326d2977..451439135bed 100644
+--- a/kernel/irq/debug.h
++++ b/kernel/irq/debug.h
+@@ -3,10 +3,9 @@
+  * Debugging printout:
+  */
+ 
+-#define ___P(f) if (desc->status_use_accessors & f) printk("%14s set\n", #f)
+-#define ___PS(f) if (desc->istate & f) printk("%14s set\n", #f)
+-/* FIXME */
+-#define ___PD(f) do { } while (0)
++#define ___P(f) if (desc->status_use_accessors & f) printk("%20s set\n", #f)
++#define ___PS(f) if (desc->istate & f) printk("%20s set\n", #f)
++#define ___PD(f) if (__irqd_to_state(&(desc->irq_data)) & f) printk("%20s set\n", #f)
+ 
+ static inline void print_irq_desc(unsigned int irq, struct irq_desc *desc)
+ {
+@@ -39,9 +38,9 @@ static inline void print_irq_desc(unsigned int irq, struct irq_desc *desc)
+ 	___PS(IRQS_WAITING);
+ 	___PS(IRQS_PENDING);
+ 
+-	___PD(IRQS_INPROGRESS);
+-	___PD(IRQS_DISABLED);
+-	___PD(IRQS_MASKED);
++	___PD(IRQD_IRQ_INPROGRESS);
++	___PD(IRQD_IRQ_DISABLED);
++	___PD(IRQD_IRQ_MASKED);
+ }
+ 
+ #undef ___P
+diff --git a/kernel/irq/internals.h b/kernel/irq/internals.h
+index 0ce21dd45404..43fe07a25b66 100644
+--- a/kernel/irq/internals.h
++++ b/kernel/irq/internals.h
+@@ -77,6 +77,8 @@ enum {
+ 	IRQS_SYSFS		= 0x00004000,
+ };
+ 
++#define __irqd_to_state(d) ACCESS_PRIVATE((d)->common, state_use_accessors)
++
+ #include "debug.h"
+ #include "settings.h"
+ 
+@@ -215,8 +217,6 @@ static inline class_irqdesc_lock_t class_irqdesc_lock_constructor(unsigned int i
+ 
+ #define scoped_irqdesc		((struct irq_desc *)(__guard_ptr(irqdesc_lock)(&scope)))
+ 
+-#define __irqd_to_state(d) ACCESS_PRIVATE((d)->common, state_use_accessors)
+-
+ static inline unsigned int irqd_get(struct irq_data *d)
+ {
+ 	return __irqd_to_state(d);
 -- 
-2.48.1
+2.43.0
 
