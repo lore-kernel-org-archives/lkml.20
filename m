@@ -1,104 +1,105 @@
-Received: from mail-m1973198.qiye.163.com (mail-m1973198.qiye.163.com [220.197.31.98])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com [209.85.216.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F021B46C4CD;
-	Fri,  4 Sep 2026 10:38:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.98
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 681DD46E01F
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 10:38:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788518320; cv=none; b=oD6Fq25CmRNkN3/SiJxTD5R9P1PHT563MMPQ3qfN4vxYEmyY279EqtIK+W9UKk7cjXTZDobEFmAeJYZt+6X6h0xs/eeCnkalIqIkkNlfw8xeOpUolKjEjdZ4OMsdNrzhBBa3Z8HAa7AhxcrfOXVeciBdZ1prsoJAEL2Q+Y0NQgI=
+	t=1788518318; cv=none; b=D5qwcEP77MlEi/ZCG3Sd+N+/0ZgR3pWbmnToqH65LEKhCFBXTpWsKB8dCBSTFCXxhEj1s2VVSgAVXDgORKvTMBDQuQmyUeGPsXua34nNTZNG0zv0AWYA78FNIf7bSnNKLs8oc4tfcht9AY+0zMl+2sJgSLUXjWORuedGAbnUy5g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788518320; c=relaxed/simple;
-	bh=CVUn4oR5TBb1cbVUGQ67fEH7gdrl9s3ZKb0KDuGoxrM=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=ChCc5n0rbzJzsPsjEnH5x0UH+vb+zvbF74bibEvQyjPoEiidPad4fh6SkA2ecytyJ14g0XNHhstRTVyMDSljHxl0MFV1MqUfhoYpwkTmnukGX3S+tx8P1DMelazxnVo0sEGKjPFrw1RlPPCsvuHlhpunGx9l7aLeZqrPCOWOUlA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=thundersoft.com; spf=pass smtp.mailfrom=thundersoft.com; dkim=pass (1024-bit key) header.d=thundersoft.com header.i=@thundersoft.com header.b=ijMHZwCe; arc=none smtp.client-ip=220.197.31.98
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=thundersoft.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=thundersoft.com
+	s=arc-20240116; t=1788518318; c=relaxed/simple;
+	bh=hrqf0jyjkU0OW+EN/dkVrlGnsBCJhMrfjslOXtc4uDg=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=s5qSNKrhT7rD36WPbs4eoVXBN6JMOcD+AvH8o4fcv/6SXWTA5lIeQXj/Ld6WL6GvKW2eb7T+50wr7MXvXe7diXcjNyVdf/NfldZ1PRwOzl3G4IsFU4keKmSVCfq7+ni4FOAiZGLuFKpj4QTm6QarqfwTVKlkVS3xvgClBVu0uLo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sY4vUvG8; arc=none smtp.client-ip=209.85.216.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=thundersoft.com header.i=@thundersoft.com header.b="ijMHZwCe"
-Received: from [127.0.1.1] (unknown [36.129.139.90])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 4c8f646c2;
-	Fri, 4 Sep 2026 18:02:52 +0800 (GMT+08:00)
-From: Hongyang Zhao <hongyang.zhao@thundersoft.com>
-Date: Fri, 04 Sep 2026 18:02:25 +0800
-Subject: [PATCH v3 1/6] ASoC: dt-bindings: es8316: Document jack detect
- inversion
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sY4vUvG8"
+Received: by mail-pj1-f51.google.com with SMTP id 98e67ed59e1d1-3966791a6eeso964788a91.3
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 03:38:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788518316; x=1789123116; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=054o4Lr7yqy/ksle6dmyEe/GjMAK9Y9LzcGMY3tBvRY=;
+        b=sY4vUvG8LF8aXkEcg6GyLaV1A4tGzIGw+e61ZafNKhX8HLPhCTPbuTkDI9dlUq3K5V
+         01HPWF9cjvoF6+GXjcFdR6ILMuuw2ZT6gkfBRGKTWjrpYHwahOjhtl7zhP41oe8c/5gm
+         k6F/FxaQbt1ECqGkOJ0wIn4YJnKxzRFiQ+sxUxRNOebaQgGeWuS2aPYp8KeFUQddh5V4
+         TCALh2xF3RI+BCGeFyRRjArtoTvnRWmuZ+6ghTR5+DEKL6FXftqXs9czeOV/5jIbi5IA
+         ayvPbg3Q/CMGT6Mn1uLjrs7mYpxEwqe4E/ySuxSyiO9AptOWBoSWtUY88rpcXv79mlnz
+         KNGw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788518316; x=1789123116;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=054o4Lr7yqy/ksle6dmyEe/GjMAK9Y9LzcGMY3tBvRY=;
+        b=XptCRB1W73cXFq9z9FkBuK15L65ckr1BEUm6x/OdvAiXIthNXwkQ0KPqdDXFxWEr9C
+         urplPr+I6SvnZjzD47KoFJQVenxW4xpuKjZMSfhBcABPUZHuALuw/IWp4QNW/yi7NNof
+         LyVC+f4ECXQ/IDwS8JSXLbx5GBir9NWq6+QgzxIn8Fcev81fPXgq/88azTLFRwdhrHgc
+         GDcQEcxsoaYr5pci6cTCl+47alQiotBtuZCfC1pMD96YalRKOE82NJEUcU3UTitP89j6
+         g/PTyHjUGDYLK/vAjKD4d/Q3QXcU31S08JIcdhko5lYJljCGIj/eIBOwxPcU0Lj4pBNy
+         yZWw==
+X-Gm-Message-State: AFuF++k8byENAjtCxs6fv+tdGelnSxAcfjCKe/eFN4E7NeCjpct0prV8
+	dSjQSZampiqLgYO2a+u3Vo/GiYPSTAvWSOWK1n29zdcQUzlAiqWXH6BM
+X-Gm-Gg: AYBFou2SUhSSMqcY30s6h999VMZQD3OVaJ9VotDNrxyYD/Zu9xx4OP6QUGgIgPnBjas
+	NrrJ4nM0wEcfuahN7Dyw5x2DaHngOcapyODlzylu5aT+NByHl5I3CQx11UGh9vOOF+XaV3BQW99
+	09tfNBrcctphaoHcCrPKSa5v9VuWo+Oti2WbZav4Tm6Qrn1oFqyts6pzUkL3OzLAbZlzRWfOoDa
+	r4n226iqaNDx20dtDC14yoSL96Iv8AfppVRvHe9QxgLqqKvglioPi1BiMdo0gIkTBF3R5UyKG/e
+	pA7AenOeddc29+5UfG1vswiP2c3P9hLNqoq02AY0nq/bnNVIpA7cpkpJfLN3DZu6InuiKM/1kJw
+	qYa0flmG7IGWfDOH7xhN8ihpZl36xKJst912vt7dFxt9F+PjqRD81eciMCSVQegDSEXIx6bOCIR
+	KXUI4nMjSui6Ox+aG6sEVjnU6Z30A3F+A6lrTv7WymY5Wf8lIiWs4Szkx9G20mFZxaSZreP7YM7
+	Ph1Vdxhf6fMNgk=
+X-Received: by 2002:a17:90b:1a8f:b0:398:d2a0:87ff with SMTP id 98e67ed59e1d1-39b26101029mr7458449a91.1.1788518315763;
+        Fri, 04 Sep 2026 03:38:35 -0700 (PDT)
+Received: from volcano9f6e-hostos.amd.com ([165.204.217.251])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339aa33e96sm6021835eec.12.2026.09.04.03.38.33
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 04 Sep 2026 03:38:34 -0700 (PDT)
+From: Hemanth Selam <hemanth.selam@gmail.com>
+To: Christian Brauner <brauner@kernel.org>,
+	"Darrick J. Wong" <djwong@kernel.org>
+Cc: linux-kernel@vger.kernel.org,
+	linux-xfs@vger.kernel.org,
+	linux-fsdevel@vger.kernel.org
+Subject: [PATCH 2/2] iomap: fix repeated word 'the' in comment
+Date: Fri,  4 Sep 2026 16:08:23 +0530
+Message-ID: <20260904103825.8752-3-hemanth.selam@gmail.com>
+X-Mailer: git-send-email 2.48.1
+In-Reply-To: <20260904103825.8752-1-hemanth.selam@gmail.com>
+References: <20260904103825.8752-1-hemanth.selam@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260904-rubikpi-next-20260605-v3-1-f49146d85af3@thundersoft.com>
-References: <20260904-rubikpi-next-20260605-v3-0-f49146d85af3@thundersoft.com>
-In-Reply-To: <20260904-rubikpi-next-20260605-v3-0-f49146d85af3@thundersoft.com>
-To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Daniel Drake <drake@endlessm.com>, 
- Katsuhiro Suzuki <katsuhiro@katsuster.net>, 
- Matteo Martelli <matteomartelli3@gmail.com>, 
- Binbin Zhou <zhoubinbin@loongson.cn>, 
- Srinivas Kandagatla <srini@kernel.org>, Jaroslav Kysela <perex@perex.cz>, 
- Takashi Iwai <tiwai@suse.com>, Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>
-Cc: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>, 
- Roger Shimizu <rosh@debian.org>, linux-sound@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
- devicetree@vger.kernel.org, Hongyang Zhao <hongyang.zhao@thundersoft.com>, 
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788516170; l=1226;
- i=hongyang.zhao@thundersoft.com; s=20260127; h=from:subject:message-id;
- bh=CVUn4oR5TBb1cbVUGQ67fEH7gdrl9s3ZKb0KDuGoxrM=;
- b=mPWmOcmCD4WN4BrNZyhxRj2od3i2SInbiR169g+czYl7fakkXvq86Zf8wf3xDqeDMpkolmnbY
- 8gjOv/KdvEiBttgFa5RAcMwECh0C3/xZHB8JfshfHuOgfjZlXTYu+wn
-X-Developer-Key: i=hongyang.zhao@thundersoft.com; a=ed25519;
- pk=D9yL5W9Zj0lPBDAq9gzY++1849VlXuTWAkROzZ88J/4=
-X-HM-Tid: 0aa06bdf048509d5kunm6f63729aafb4c
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCShhLVh0eSx9IGExNHhgeSVYVFA
-	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlITVVKSUJVSkhCVUJLWVdZFhoPEhUdFFlBWU9LSFVKS0
-	lPT09IVUpLS1VKQktLWQY+
-DKIM-Signature: a=rsa-sha256;
-	b=ijMHZwCe9FOsfo++VSZn3ZRjgCFlgN+/c88OE8X8M7xzJn6RWk4cyBPlnDYDS5Mq34+FzE7zNe+Ha91Pv8Sp2xohkuJuKQDScyHVBKGTO0dSP7TBbEU5O5snq6vqQjA+ThsLrcyU80x7pqEPiZiCB1+MtP1IvVQjO+mdW23dxWs=; s=default; c=relaxed/relaxed; d=thundersoft.com; v=1;
-	bh=597yvAmbtpxqKhHT8WHhejI5xPg6hWppCyeJ96YlFRE=;
-	h=date:mime-version:subject:message-id:from;
+Content-Transfer-Encoding: 8bit
 
-The ES8316 driver supports the everest,jack-detect-inverted property to
-account for boards which invert the codec jack-detect signal. However,
-the property is not described by the binding, so a valid user of the
-driver fails schema validation because the binding rejects unknown
-properties.
+Drop the second 'the', reported by checkpatch.pl as a possible repeated
+word.  Only touches a comment, no code changes.
 
-Document the flag so boards can describe the jack-detect polarity used
-by their wiring.
-
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Signed-off-by: Hongyang Zhao <hongyang.zhao@thundersoft.com>
+Assisted-by: Cursor:claude-opus-5
+Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
 ---
- Documentation/devicetree/bindings/sound/everest,es8316.yaml | 5 +++++
- 1 file changed, 5 insertions(+)
+ fs/iomap/buffered-io.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/Documentation/devicetree/bindings/sound/everest,es8316.yaml b/Documentation/devicetree/bindings/sound/everest,es8316.yaml
-index f4ff23120c5b..9060358a9080 100644
---- a/Documentation/devicetree/bindings/sound/everest,es8316.yaml
-+++ b/Documentation/devicetree/bindings/sound/everest,es8316.yaml
-@@ -84,6 +84,11 @@ properties:
-   "#sound-dai-cells":
-     const: 0
- 
-+  everest,jack-detect-inverted:
-+    $ref: /schemas/types.yaml#/definitions/flag
-+    description:
-+      Defined to invert the jack detection.
-+
- required:
-   - compatible
-   - reg
-
+diff --git a/fs/iomap/buffered-io.c b/fs/iomap/buffered-io.c
+index 0a5ebfda90f1..d42751d6f5ff 100644
+--- a/fs/iomap/buffered-io.c
++++ b/fs/iomap/buffered-io.c
+@@ -1708,7 +1708,7 @@ static int iomap_zero_iter(struct iomap_iter *iter, bool *did_zero,
+  * @iomap_flags: Flags to set on the associated iomap to track the batch.
+  *
+  * Returns the folio count directly. Also returns the associated control flag if
+- * the the batch lookup is performed and the expected offset of a subsequent
++ * the batch lookup is performed and the expected offset of a subsequent
+  * lookup via out params. The caller is responsible to set the flag on the
+  * associated iomap.
+  */
 -- 
-2.43.0
+2.48.1
 
