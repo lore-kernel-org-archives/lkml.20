@@ -1,132 +1,130 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lj1-f178.google.com (mail-lj1-f178.google.com [209.85.208.178])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B6AE3A425B;
-	Fri,  4 Sep 2026 03:57:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788494237; cv=none; b=czdOag3so9IiTf2vSrlzLlPBesQe3ovrOdKcKSbhK+JX/RwkyItJIyxpMVe2k9zbvCfGhpL3+sQKVetl7lYRh2fWfDxGp2Ub/GO89dR1Li9UzsotH9vTEqkgJFjDJ4Ug7uyASuj8VHSu4K1UAGxXTISZxe/so3S2KJlCKFqkRq0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788494237; c=relaxed/simple;
-	bh=zoWcNchu1mDL4dZvwXmtA2OBYF7gnt3GvrOFN02XtR8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=JKFFCSZIjowfh4ra/EOKYHckY5bArieZfmpvlLq8BfzlmlI/oZ5BHquXZqzfOAHEA3Cc6gvBH+GxGk7zytqephelHtGU0PaBywtmZo9fbryHD34OUKp87mb3M6koDfC9JLK2KO5I4VTuqNONNyTlZ5u+xEOaPzA348vvVIUikgg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Vi882JGQ; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E6543D5642
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 04:00:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.178
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788494407; cv=pass; b=MqISevvMh9Sa6lxAYCaKLblu4OpPY7rBaqr1x+pKMeQKksg5f+rxXesJuSciC1LkLXEQatSd/GUGscJ0JInVrGQa02lJNs7+Lm+/T1GZMTXqUFeddr997VaRo7QCZ7dORDO4WgFZKSDr+/F3uYCUhzkL/MCaP8FrLXfVS08+Dm4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788494407; c=relaxed/simple;
+	bh=vhpL38NTQCYoHMG/9DQNSR9BiZVg0Lg7euVjakPkQP8=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=vEW1h95dZEQO6HgKk54NbHGRTtASp8aLvE6utsl91QD/8JKq1n4HTZRPzW8xHyiAPDN+67med6ZBD0cOKecclZ4fUg+6RwMo8u98e6/6vbI8F55B4M63TssBT8Ezcae6DGIeWZWPn70fYD3vUT2q98pt5lK6hEM2EiM26P2cE3s=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=otXpgKlV; arc=pass smtp.client-ip=209.85.208.178
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Vi882JGQ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D0FF51F00A3D;
-	Fri,  4 Sep 2026 03:57:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788494235;
-	bh=/NNRv+mWVY7vxTEqqjw7M6mHixxw3bgVvoFQRIB0Z5o=;
-	h=Date:Subject:To:References:From:In-Reply-To;
-	b=Vi882JGQTJxafuONFRXAFYRLP16gRfu16JANJ3Lz+fXSGem3L55jZIY/83GiivmaU
-	 tZ/t6Ia36FIWJf0wINR/DeYdP3vBRocJWZm/WSEuTiUvX59daaA6J90DEOXncBT4M2
-	 A5U/dYKgb22lspaZtMOkzaPeWR9wpoGSEufNZtf76QLKOtTJgAt7STdEv90y2HSfGb
-	 Ha2kH5OBs4vP4Mo1v+GG5wCPtQZCEl5ZHG/4XGF8CRJYk+6ALzs7rexUnrm/njiJzb
-	 4dV/zO09NWjERCCSYPdqbViLPH7xrEVpyYDsnKFvq/rdD/TqSyOYwk3GNBsf0Ic8gt
-	 7fEZZAHtxe6hQ==
-Message-ID: <927e0f8f-a656-45e4-a937-9de88b783073@kernel.org>
-Date: Fri, 4 Sep 2026 05:57:09 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="otXpgKlV"
+Received: by mail-lj1-f178.google.com with SMTP id 38308e7fff4ca-3a34f7ebcedso5334431fa.3
+        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 21:00:05 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788494403; cv=none;
+        d=google.com; s=arc-20260327;
+        b=S7xcUk+nWKyyOzl0pNK1/ttovyrjiLQLMB2ZjDvQJLvN5bWRIrFRIMSCcpBIC8ybJ0
+         QkX5R6qf847iN3Ioh1CriehLce66BtkfH7Epqc/OnsLm4hWGJ3AUzH8bhMGlcWeLRgAd
+         Pu0rB9b8xBL/F8kMIc0aGMHOZek3jIFV9O0ee7QWBX5lWBsVFjr9FtYFPXBteEHOwbrU
+         khuZ//TRajl5Q8xyaDjQ1gA3IdIAwZDTtjGqWUshTsue4US3ULcSdKd7MV80UGEfw0H5
+         DZsCTVqg13e+h+7RQJUorV+CELBIjTfRJ7j4dKjOT7yAhEN1H7X4mfCEHmAiwRHZ5AQJ
+         VC0Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=vhpL38NTQCYoHMG/9DQNSR9BiZVg0Lg7euVjakPkQP8=;
+        fh=5KeDCguiVszKuyHVgrWd0zkT9CLKlfuijjhomkjEnNk=;
+        b=G1btG7Ef1/En6ToWq/JiqK//5MpcnACYScTp2iFPZ/5pUwDZ6O+pgffn5hux/B8SDy
+         HcuenZIetkji8+ZpmWf6XopHviPFHprfSkWxdavZp+3crE/XmHRl3Cc/w11lFoEylLE4
+         D44wyOCVV8EymkPCjNPb8tgRhw/2D3/Wuj09xwKZlBmUxvJ6HwmNZRsAhtLU+/CRJiB1
+         /MhA/0RSZKHCDSiEmQOv+ZIsKEzcIAHCnnGTBHXUdrh9W+KcX3GpVqUP8vAyRGWfF+nP
+         v9XcL3CyTTEMn0MYiJ2awc8VOYr1GG8cziOnGnNtXfjH12dI7m9FL3ilv6oTWSRqoTB4
+         MNLA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788494403; x=1789099203; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=vhpL38NTQCYoHMG/9DQNSR9BiZVg0Lg7euVjakPkQP8=;
+        b=otXpgKlVkymNQc925O1lD/lsKCMQ+FWBz9CFHD0VTHjgDbLyQEWVXAghm307p6P04P
+         NVivmGGl+WMVPi82Top7UgE/+vGO1D/g+0pOPaUhKO+B4X+uXqM093dch+MsSPEv+OJk
+         8lnaES4xxXUg5Ambwe4DL5kE4epjp235y+Efhwi1v2XOao0vpQCqg8HBXH4qRMBIMERF
+         qP10YttU0abyXXh9VcUvqykKL90r5rNsbWmRfUzWQ+lJgbW8UuH7+Bq1tqNikgGWvBQY
+         8AUmBwwXZuWyHn7HrkHZbK4rISeRPEv76jOfOp3VCvQ2pQ3dU/1agJuC7Vs/WaZLPpH3
+         +PSw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788494403; x=1789099203;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=vhpL38NTQCYoHMG/9DQNSR9BiZVg0Lg7euVjakPkQP8=;
+        b=O40KG0wPyAnFgq3+9i27Af9LAsPaKGCTcxn3RFf52vHUcu/T12yWnW3+0jv3p68dIE
+         DXyaAWevwH/QMUkcOlFHeNz3GBeLhgfhXiGBkFtKe7hmtjiHzi704mVofvAjcP/vKOZV
+         Z3DtzIRxth/YB4DD6EC6h2hdb2S/RdzYlQb+aYgVfXWOWIP3QEMJRMFjDlM/D75EOAbQ
+         CalhU42R5KvuSUHOdzKbsfbkwyqpM+klfTJuNZ1gwIkUkw+wAbl0ihDPZgw6PfkcT9uH
+         edWJINeonbbLvoC7VVnVz6egYp5rmUzbY7zbbwsTmE49B5d+C7AvwWl6CpPlyv4XjcMV
+         0ITQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwWJjlx/hiFAbjOweCtpZqKhPfgDlBgBWS6h9KzXpKUju3lFhSAG3uwql+7a/kgFfReS+yioY0MA6PWtLs=@vger.kernel.org
+X-Gm-Message-State: AFuF++nxDjbTijucO/l2DIN2Lo7I2+7CAKNV61GiqJPAJ3zeyPsYQCsW
+	0/rWzinuuF9BemZRtzzJoUtCjrpejSFGQ3yGmWdzX4SUjLg/oBblbigJTZFNo/Jl+q4vHb8enYZ
+	IcFmBhNrcDm48EALMRd8NgbmFGbE9J1w=
+X-Gm-Gg: AYBFou25+pO3fnNc1JB+6bkqhu1bD586jVS201tWSBVqsQebOQQvJSJnQMnRO5pttvx
+	d6A4S0069Bvf9JxOrgSCqAm0IInUUXupAru6jwTgdpyYE0mULp+H0gBbdVva1JN7rI6HkoLpA2L
+	ybcCcZ7rfpHn3Q5mvqbgJQjJMh/56yVHTM4NGnqRevj+fFe2wTIVgc+ASmwkCAyWLLAQlVvccLd
+	V2q/B69XMjWPOUTUKxD20fXL79u+OJWIAvQXDcjXzklwbGCCs1WyaT7qYe4E7EFxGnZ+jO/E3Fa
+	bFJAmx4KpeIYkkvuG32QyJN+y+0kHfzOTakTLjeH8X5UuvbLtrIPjmrw7w==
+X-Received: by 2002:a05:6512:3406:b0:5b6:183b:d216 with SMTP id
+ 2adb3069b0e04-5b6183bd400mr238592e87.61.1788494403087; Thu, 03 Sep 2026
+ 21:00:03 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next] ppp: pass private data to channel callbacks
-To: Qingfang Deng <qingfang.deng@linux.dev>,
- Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
- <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Mitchell Blank Jr <mitch@sfgoth.com>, Chas Williams <3chas3@gmail.com>,
- Simon Horman <horms@kernel.org>, James Chapman <jchapman@katalix.com>,
- Kees Cook <kees@kernel.org>, Breno Leitao <leitao@debian.org>,
- Felix Fietkau <nbd@nbd.name>, Asim Viladi Oglu Manizada <manizada@pm.me>,
- Eric Woudstra <ericwouds@gmail.com>, linux-ppp@vger.kernel.org,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-atm-general@lists.sourceforge.net
-References: <20260904031153.30304-1-qingfang.deng@linux.dev>
-Content-Language: en-US
-From: Jiri Slaby <jirislaby@kernel.org>
-Autocrypt: addr=jirislaby@kernel.org; keydata=
- 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
-In-Reply-To: <20260904031153.30304-1-qingfang.deng@linux.dev>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <20260903231641.18536-1-hhkieu@gmail.com>
+In-Reply-To: <20260903231641.18536-1-hhkieu@gmail.com>
+From: Geraldo Nascimento <geraldogabriel@gmail.com>
+Date: Fri, 4 Sep 2026 00:59:51 -0300
+X-Gm-Features: AcwNN1X0uovzUyaqwk661Z8ri8kFZYFzajo-PGzk-Nkz45p8WS6ROgDm4XS2Pus
+Message-ID: <CAEsQvcuaNZvLxyxNH_NOy5qwTmkrk-A9QdVtZD0GiCtPwk4A+A@mail.gmail.com>
+Subject: Re: [PATCH] ALSA: usb-audio: add Pioneer DJ DDJ-SZ support
+To: Hanh Kieu <hhkieu@gmail.com>
+Cc: perex@perex.cz, tiwai@suse.com, linux-sound@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi,
+Hi everyone,
 
-On 04. 09. 26, 5:11, Qingfang Deng wrote:
-> PPP channel callbacks receive struct ppp_channel only to retrieve the
-> driver's private pointer. Pass that pointer directly instead.
+On Thu, Sep 3, 2026 at 8:18=E2=80=AFPM Hanh Kieu <hhkieu@gmail.com> wrote:
+>
+> The Pioneer DJ DDJ-SZ exposes its audio interface as USB vendor-specific
+> class (0xFF) rather than USB Audio Class, so it needs a quirks-table
+> entry like its sibling Pioneer devices (DJM-750, DJM-850, DJM-900NXS2,
+> DJM-450, DJM-V10) already have.
+>
+> The device presents 10 channels of S24_3LE audio in both directions,
+> fixed at 44.1kHz, on interface 0 altsetting 1: playback on endpoint
+> 0x01, capture on endpoint 0x82. The unit contains its own analog mixer,
+> and each playback channel pair feeds one of its physical channel strips:
+> 0/1, 2/3, 4/5 and 6/7 feed strips 1-4 respectively, and 8/9 feed the
+> booth output. The master output is produced in analog by that mixer and
+> is not carried over USB at all. On the capture side, channels 8/9 are
+> the mic input; capture channels 0-7 are not yet mapped to specific
+> physical inputs.
+>
+> Implicit feedback needs no quirk flag here: is_pioneer_implicit_fb() in
+> implicit.c already covers vendor 0x08e4 with a vendor-spec class
+> interface and two endpoints, and the driver duly reports endpoint 0x82
+> as the playback sync endpoint.
 
-We had type checking at least. What's the purpose of this patch, actually?
+Are you sure is_pioneer_implicit_fb() isn't returning false and you're
+picking up on a generic sync ep instead?
 
-> Signed-off-by: Qingfang Deng <qingfang.deng@linux.dev>
-> ---
->   drivers/net/ppp/ppp_async.c   | 13 ++++++-------
->   drivers/net/ppp/ppp_generic.c | 12 ++++++------
->   drivers/net/ppp/ppp_synctty.c | 13 ++++++-------
->   drivers/net/ppp/pppoe.c       |  8 ++++----
->   drivers/net/ppp/pptp.c        |  9 ++++-----
->   include/linux/ppp_channel.h   |  6 +++---
->   net/atm/pppoatm.c             | 21 ++++++++-------------
->   net/l2tp/l2tp_ppp.c           |  6 +++---
->   8 files changed, 40 insertions(+), 48 deletions(-)
-> 
-> diff --git a/drivers/net/ppp/ppp_async.c b/drivers/net/ppp/ppp_async.c
-> index ea7fe9608ffd..e73b0fce86b9 100644
-> --- a/drivers/net/ppp/ppp_async.c
-> +++ b/drivers/net/ppp/ppp_async.c
-> @@ -91,13 +91,12 @@ MODULE_ALIAS_LDISC(N_PPP);
->    * Prototypes.
->    */
->   static int ppp_async_encode(struct asyncppp *ap);
-> -static int ppp_async_send(struct ppp_channel *chan, struct sk_buff *skb);
-> +static int ppp_async_send(void *private, struct sk_buff *skb);
-thanks,
--- 
-js
-suse labs
+You should double-check that function is returning true or false because it
+will return false when USB_ENDPOINT_USAGE_IMPLICIT_FB isn't
+set on bmAttributes of a Isochronous IN EP.
+
+Thanks,
+Geraldo Nascimento
