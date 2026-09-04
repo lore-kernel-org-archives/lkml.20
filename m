@@ -1,37 +1,37 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A68138333F;
-	Fri,  4 Sep 2026 08:29:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39AD638333F;
+	Fri,  4 Sep 2026 08:29:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788510577; cv=none; b=VTxYnWBI2dT2xp2OeoAjFBt3gu/Mxg6yIPm2S5UizXi881UmDY3Xz4b5exTZVZpEH+8hkC8kDFJSKRDlsI358+nK4NAa3hnkr7c6Xf8Hf97XGvkv63EWqzKHN/AaLW6o2N+Wvah/+vFj8Y4yaBxCErBGaHIk8Z1vQTzVgLVay7k=
+	t=1788510597; cv=none; b=m7f27CqVbM7mhccWTa4sKtZJPMHBNTiWFPUksVQjYUmuZncxG4bbdRskVlVCA2HSDVfFGRX35Vi/w8QbGMUobJa5ihDomRfgeD+2RrEZOmD1M65lBuNgUD+q4GlnYIiGNLEc5f9oXW1MOr8iIxI4nK+PuMso4MOG2TWa6Duyb3g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788510577; c=relaxed/simple;
-	bh=ketV8lJC98MwT152y2+p29SZeDSTVYZ+8Fjsct4s0Cs=;
-	h=Message-ID:Date:From:To:Subject:In-Reply-To:References:Cc; b=KvY2u6PmTOHZpOPk6BQf/qehVr+Ahou9SRwdFPi4Mi+ehF8iZHKT5AIN9sj/WNweQzOEn1ohqM2FG0iB/4f56cKRQ0xd8yPDqxmA65ejFJwJN9DRRbm8yWpl/lqroOaVcOXyY4bZ4Uv57AiDK/Qn75d44BsCVTwlilNPlqB3Oc8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NrU1OzPy; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788510597; c=relaxed/simple;
+	bh=a8lJRFW2pSHST7KntCzdDhr8+8DhyXVYyA8zQrcZp+4=;
+	h=Message-ID:Date:From:To:Subject:In-Reply-To:References:Cc; b=THtXILvqiRlCNB29bF1k++tSe/jYlzlHDjjiHubYHma5na3Hw4rhmqTln4Kfgpong11P1GjTxATPir+spqALXUfPEdkLHWW1XCi4Yy/gCghb2vcvx1j9PxIpvPAmgKHrSB3f2vdeBZHbOG36nH0ts4QwuLz4Tab+Tffh5/eNquE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IOQEwmmg; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NrU1OzPy"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2FC721F00A3D;
-	Fri,  4 Sep 2026 08:29:35 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IOQEwmmg"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5147F1F00A3D;
+	Fri,  4 Sep 2026 08:29:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788510575;
-	bh=57+zfRWquEc7/m7zU9U9Jv+O6fWgkTCFuvFGHmL7CgQ=;
+	s=k20260515; t=1788510595;
+	bh=Hf2+Ic93e5NS9F8YWg601XTrq19GOkYx2bwFIAfD+Rk=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc;
-	b=NrU1OzPyAtJcQd2IbkJ0bwhfg/Y0v5rztSmztUnqZ8UF5Z4W4NBVriwtz/uEqC5PP
-	 EWT6q0yHiiFn66VKtWD5c8x3qQ/QprSwnyRYsMri69Tm1wy/af/KVpnHYgMFmEz5FS
-	 GcS4bJIc9w9xviUxreWGGeSTFpIdIMniUfiQgqg+MaVCGewJF+8TvZd3Zaz4c8Zm/1
-	 ks84AnlsD87w0tziRrIM9gSQcTLPD3cZGeeaNxVHLSxQFqH3X8uiTzSgdrn/9M1/yr
-	 snTpDqIvkrA68+/rmz7TdwxO1Z4LtBmkT6gnz4Etb3HXyu5dK72K7i3T+/WMSqeozl
-	 cCqRlh/xvwuHg==
-Message-ID: <94cc04ba62b25e87918820db4c548be5@kernel.org>
-Date: Fri, 04 Sep 2026 08:29:32 +0000
+	b=IOQEwmmgPFvVH8Lb5FfWv7nVkg9Q0tplPkuN+phV0vJrNgEN4v6VYVSDodxo96ZCD
+	 lTgcQ0KFoK2oP13UYjYBSLrmYtFAoQ39pJFPOkrY4G+aNEaYUO7lPjRfOI0MQNjac6
+	 OD7sXULWhSojKhnoTD88Ob5gMdfjI3Q9ssVzJ16OCvGbaz56qY9LuZaFLqgF0PH/St
+	 RTZbgEOAt633G4lO+vuXvWjw7VAkBq+WstleW7Lxl5Cwl/gLeOJzcpcoUxSob7sfYS
+	 v+7NiZnvjHePwFascVaelX+vjIDVzWMx1nuskzELBg4hnZdOM2oKp+IDkxRJ5r7gKt
+	 QXiEF8E4veDOQ==
+Message-ID: <e43d4e34d4a0f76f78877901d53d2f33@kernel.org>
+Date: Fri, 04 Sep 2026 08:29:52 +0000
 From: "Maxime Ripard" <mripard@kernel.org>
 To: "Liu Ying" <victor.liu@nxp.com>
-Subject: Re: [PATCH v6 05/13] drm/imx: dc: Add PRG support
-In-Reply-To: <20260904-imx8-dc-prefetch-v6-5-26643e3f6cb7@nxp.com>
-References: <20260904-imx8-dc-prefetch-v6-5-26643e3f6cb7@nxp.com>
+Subject: Re: [PATCH v6 06/13] drm/imx: dc: Add DPR channel support
+In-Reply-To: <20260904-imx8-dc-prefetch-v6-6-26643e3f6cb7@nxp.com>
+References: <20260904-imx8-dc-prefetch-v6-6-26643e3f6cb7@nxp.com>
 Cc: devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org, imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, "Conor
  Dooley" <conor+dt@kernel.org>, "David Airlie" <airlied@gmail.com>, "Dmitry
  Baryshkov" <lumag@kernel.org>, "Fabio Estevam" <festevam@gmail.com>, "Frank
@@ -48,12 +48,12 @@ List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 
-On Fri, 4 Sep 2026 15:54:55 +0800, Liu Ying wrote:
-> Display Prefetch Resolve Gasket(PRG) is a part of a FetchUnit's
-> prefetch engine.  It sits between a Display Prefetch Resolve
-> Channel(DPRC) and a FetchUnit.  Add a platform driver to support
-> the PRG.
-> 
+On Fri, 4 Sep 2026 15:54:56 +0800, Liu Ying wrote:
+> Display Prefetch Resolve Channel(DPRC) is a part of a prefetch engine.
+> It fetches display data, transforms it to linear format and stores it
+> to DPRC's RTRAM.  PRG, as the other part of a prefetch engine, acts as
+> a gasket between the RTRAM controller and a FetchUnit.  Add a platform
+> driver to support the DPRC.
 > 
 > [ ... ]
 
