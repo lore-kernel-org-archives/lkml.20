@@ -1,176 +1,179 @@
-Received: from out03.mta.xmission.com (out03.mta.xmission.com [166.70.13.233])
+Received: from DB3PR0202CU003.outbound.protection.outlook.com (mail-northeuropeazon11010038.outbound.protection.outlook.com [52.101.84.38])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E084B481647
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 12:06:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=166.70.13.233
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788523583; cv=none; b=cATFvU6/eOJLyg/SDIPD2NtVaWzBfrnm8wI3plYw03R4ks0X99xZlR7Z9fo6hDuW9zh3WGUjC8Lp74kbA0fuh5jIMiYGpzH9Jkh5EatdV6h6+kVfsC2d+Fm6TIwjjLclo8d4FBOdLDgu4+1lBPDykU01YGolYuyUQOdiiJ8HqVI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788523583; c=relaxed/simple;
-	bh=/ORfFco1F4drQGsF5t31hcJjMb5ghwHYvUrVtq1Azco=;
-	h=From:To:Cc:In-Reply-To:References:Date:Message-ID:MIME-Version:
-	 Content-Type:Subject; b=M7VCaDfQIbc1fd4HYzmyiWpLyZCcf4ir6MzIdxswd02QWbq/ij8JOEXWhTxtCg3zj5LdNIA8q8EJ2HqGg48PxUbcE7TG8guVhMukH3kNp4CQ6lyOfD06HiQqeFmrZ2YfHIyzTBNH/e/BIz4ynuYxuxk3jZoDl55Uh/sHcmFl510=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=xmission.com; spf=pass smtp.mailfrom=xmission.com; dkim=pass (1024-bit key) header.d=xmission.com header.i=@xmission.com header.b=kbOjni+G; arc=none smtp.client-ip=166.70.13.233
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=xmission.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xmission.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4BC847CA79;
+	Fri,  4 Sep 2026 12:06:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.84.38
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788523581; cv=fail; b=bLE4/vG3aLFnAOzxcRkfll3GvbJNiH0FAiGU+MPxhp+OxbyOHfR7vTqthth40LBNXpIFhAC0cuRleFoWpYm/w+dec6OoTF73Bak887U7uMEZIRjZP42xhkw8qgr6Td2/se/HTYwGTi1bGZsg0KfIFkjdECQN/1Ur7Zp0MRMDqSQ=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788523581; c=relaxed/simple;
+	bh=iFsn6XDiHgr097z54ZqpY7hmp43F2R4aKGZh0/gIRhM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=BccNdSoWpJstCer1T3xH0cDNO2bNPOW+s8vDMTMnS0iTEdoHMP7F0wT4TxtxUVwghUTfh+GnEpSQgDoORJ63gCt0sMa0vID+ls+skYgCcZloKOpjuIaSCl24EWSIdPe79rQYD5idy08iKffdhS/HRmYeyKWWx0dLLA9wiRwhAyM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com; spf=pass smtp.mailfrom=foss.st.com; dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b=OfgbReBQ; arc=fail smtp.client-ip=52.101.84.38
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foss.st.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=xmission.com header.i=@xmission.com header.b="kbOjni+G"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=simple/simple; d=xmission.com;
-	 s=xmission; h=Subject:Content-Type:MIME-Version:Message-ID:Date:References:
-	In-Reply-To:Cc:To:From:Sender:Reply-To:Content-Transfer-Encoding:Content-ID:
-	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
-	:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
-	List-Post:List-Owner:List-Archive;
-	bh=/ORfFco1F4drQGsF5t31hcJjMb5ghwHYvUrVtq1Azco=; b=kbOjni+G6al/jFwRkYVacXj2P/
-	iMyfA70DDC6uc5rzeaZjaAyztJcmhEWnB4LOp6c3zaar+2Um6Ns+cMTGMgYkJLYEVJEW4MtjEa3FR
-	FUBJ3cwvgyFB9fHudNpIpZ+F5aU2rWWcABKZ289NGfqfmosgTNyL19q/Bf2id5YeZO4c=;
-Received: from in02.mta.xmission.com ([166.70.13.52]:48372)
-	by out03.mta.xmission.com with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.93)
-	(envelope-from <ebiederm@xmission.com>)
-	id 1x2SgQ-003zkT-NX; Fri, 04 Sep 2026 06:06:14 -0600
-Received: from ip72-198-198-28.om.om.cox.net ([72.198.198.28]:46620 helo=email.froward.int.ebiederm.org.xmission.com)
-	by in02.mta.xmission.com with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.93)
-	(envelope-from <ebiederm@xmission.com>)
-	id 1x2SgP-0035SB-Kg; Fri, 04 Sep 2026 06:06:14 -0600
-From: "Eric W. Biederman" <ebiederm@xmission.com>
-To: Thomas Gleixner <tglx@kernel.org>
-Cc: LKML <linux-kernel@vger.kernel.org>,  Hyunwoo Kim <imv4bel@gmail.com>,
-  Oleg Nesterov <oleg@redhat.com>,  Frederic Weisbecker
- <frederic@kernel.org>,  Christian Brauner <brauner@kernel.org>,  Peter
- Zijlstra <peterz@infradead.org>,  John Stultz <jstultz@google.com>,  Ingo
- Molnar <mingo@kernel.org>,  Alexander Viro <viro@zeniv.linux.org.uk>
-In-Reply-To: <20260904112202.400768514@kernel.org> (Thomas Gleixner's message
-	of "Fri, 04 Sep 2026 13:22:49 +0200")
-References: <20260904112100.683893401@kernel.org>
-	<20260904112202.400768514@kernel.org>
-Date: Fri, 04 Sep 2026 07:06:08 -0500
-Message-ID: <871pb9cjbj.fsf@email.froward.int.ebiederm.org>
-User-Agent: Gnus/5.13 (Gnus v5.13)
+	dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b="OfgbReBQ"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Q7Coggf9wGowJNsSKLR3GN4tB9Tlu7C4Lh9i9I33bx870FoaDtXnFwSowO93/X6vVsixAEV2gjBCy76GEuSne2mmXgD0X94eImLOno159Upt0dkzxyaWVCwKmA5DjkPQKYqsDDBGHduiMGj1UzGAe9mOjRBW8NbYzGLKdooP5WU5wkI7IV5Is1+fuiBDFmsYelGzps0FCqHCsXrAPEDY/7H41i7doCaP9kZIdGfxNM1r0x3tSkh0xTqdyHP0f4HxmLqb0s8BDVtH1m7lwjbedC2Vp1g+dDbgwomXTCmYdWJTtmurCkVKMM4U1BEdlUy7fxltGKAyPYpb1VWXY5KnOQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=cu63453tnlNgodKSz6fxRHOGKcS1siGmfk1sqPQcOBg=;
+ b=JFgC/trTFtVM0XdXxqEPIZzHAMcTWjWmILp2ttQLl5lRltRfjY+etieYXVMqXdkQMfVpouHFSXxAl9iILuVkGgbIDwZfrLVgPf4WSBjbfMke+If8z1jgZW+NjBefrocCVP2SIfWTsfIda0Nos/nX9boztLfnsWYTCVoSZ0pfGUHd9CZLFO1IdY0+KVtJ7/3jkSqoyXHFAkKDVx7xM1V/1vF3gTT/ChP3MAeXFWhwbvkQXcSkE1/ZHsA1eE0lEgoMpk72chVW5WzY5HAg07InuC3wJ0ig0x10xb54hg9bFBPu1BW6G/wMuJjo7TfAtdnYjDCalL+3klchmH9eKAslTQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
+ 164.130.1.87) smtp.rcpttodomain=petermarshall.ca smtp.mailfrom=foss.st.com;
+ dmarc=fail (p=none sp=none pct=100) action=none header.from=foss.st.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=cu63453tnlNgodKSz6fxRHOGKcS1siGmfk1sqPQcOBg=;
+ b=OfgbReBQra6jHg9egvf0Hsez5NFiMk+8B3Ln97ZcmuqJxkkgmYuB/uI3cRkGcvXZQKhYJqXolNPRbdgEAJLRXm3xpS9qDShmfvbw7AW1s/gxcty4rurQkURO46CgYfReiXSDPZEOffPuZSZZRum/Niq47j8YVMPu8lrCw18EVBptcJEs5swSql4dryNDfUDc4Mg9ODKdK0AOkXZLi+11Fj9bguNVtFDg99XqIdh5NCc3NzoUQrE7Zs9eGLF3aYbGL5/RN69oxJd+NU399vbJ1JVhFTVEZowJIeymOZL7MaKGrpIzwGZ0sk7f+nnB6VM2J3Agg3xsE9EgdbZ747wVAA==
+Received: from AS9PR07CA0056.eurprd07.prod.outlook.com (2603:10a6:20b:46b::32)
+ by AM7PR10MB3608.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:20b:134::23) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Fri, 4 Sep
+ 2026 12:06:14 +0000
+Received: from AMS1EPF00000040.eurprd04.prod.outlook.com
+ (2603:10a6:20b:46b:cafe::6b) by AS9PR07CA0056.outlook.office365.com
+ (2603:10a6:20b:46b::32) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.406.3 via Frontend Transport; Fri, 4
+ Sep 2026 12:06:14 +0000
+X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 164.130.1.87)
+ smtp.mailfrom=foss.st.com; dkim=none (message not signed)
+ header.d=none;dmarc=fail action=none header.from=foss.st.com;
+Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
+ designate 164.130.1.87 as permitted sender) receiver=protection.outlook.com;
+ client-ip=164.130.1.87; helo=smtpO365.st.com;
+Received: from smtpO365.st.com (164.130.1.87) by
+ AMS1EPF00000040.mail.protection.outlook.com (10.167.16.37) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.382.8 via Frontend Transport; Fri, 4 Sep 2026 12:06:14 +0000
+Received: from ENXDAG1NODE4.st.com (10.75.129.197) by smtpo365.st.com
+ (10.250.44.74) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Fri, 4 Sep
+ 2026 14:08:10 +0200
+Received: from [10.130.78.67] (10.130.78.67) by ENXDAG1NODE4.st.com
+ (10.75.129.197) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Fri, 4 Sep
+ 2026 14:06:13 +0200
+Message-ID: <b7e8939f-646a-417b-b4ad-1785359c3343@foss.st.com>
+Date: Fri, 4 Sep 2026 14:06:02 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
-X-XM-SPF: eid=1x2SgP-0035SB-Kg;;;mid=<871pb9cjbj.fsf@email.froward.int.ebiederm.org>;;;hst=in02.mta.xmission.com;;;ip=72.198.198.28;;;frm=ebiederm@xmission.com;;;sPfnum=0;;;sPf=pass
-X-XM-AID: U2FsdGVkX18ook4WXEVJePT02q9ro+7v4QumrS6SgOY=
-X-Spam-Level: *
-X-Spam-Report: 
-	* -1.0 ALL_TRUSTED Passed through trusted hosts only via SMTP
-	*  0.1 BAYES_50 BODY: Bayes spam probability is 40 to 60%
-	*      [score: 0.5000]
-	*  0.7 XMSubLong Long Subject
-	*  1.5 XMNoVowels Alpha-numberic number with no vowels
-	*  0.0 T_TM2_M_HEADER_IN_MSG BODY: No description available.
-	* -0.0 DCC_CHECK_NEGATIVE Not listed in DCC
-	*      [sa07 1397; Body=1 Fuz1=1 Fuz2=1]
-	*  0.4 FVGT_m_MULTI_ODD Contains multiple odd letter combinations
-	*  0.2 XM_B_SpammyWords One or more commonly used spammy words
-	*  0.0 T_TooManySym_02 5+ unique symbols in subject
-	*  0.0 T_TooManySym_01 4+ unique symbols in subject
-X-Spam-DCC: XMission; sa07 1397; Body=1 Fuz1=1 Fuz2=1 
-X-Spam-Combo: *;Thomas Gleixner <tglx@kernel.org>
-X-Spam-Relay-Country: 
-X-Spam-Timing: total 623 ms - load_scoreonly_sql: 0.05 (0.0%),
-	signal_user_changed: 13 (2.0%), b_tie_ro: 11 (1.8%), parse: 0.97
-	(0.2%), extract_message_metadata: 4.3 (0.7%), get_uri_detail_list: 2.0
-	(0.3%), tests_pri_-2000: 3.5 (0.6%), tests_pri_-1000: 2.4 (0.4%),
-	tests_pri_-950: 0.97 (0.2%), tests_pri_-900: 0.98 (0.2%),
-	tests_pri_-90: 244 (39.2%), check_bayes: 242 (38.9%), b_tokenize: 9
-	(1.4%), b_tok_get_all: 9 (1.4%), b_comp_prob: 2.8 (0.4%),
-	b_tok_touch_all: 218 (34.9%), b_finish: 1.15 (0.2%), tests_pri_0: 333
-	(53.4%), check_dkim_signature: 0.59 (0.1%), check_dkim_adsp: 3.2
-	(0.5%), poll_dns_idle: 0.99 (0.2%), tests_pri_10: 2.4 (0.4%),
-	tests_pri_500: 10 (1.5%), rewrite_mail: 0.00 (0.0%)
-Subject: Re: [patch 7/8] posix-cpu-timers: Prevent enqueueing when
- PF_EXITING is set
-X-SA-Exim-Connect-IP: 166.70.13.52
-X-SA-Exim-Rcpt-To: viro@zeniv.linux.org.uk, mingo@kernel.org, jstultz@google.com, peterz@infradead.org, brauner@kernel.org, frederic@kernel.org, oleg@redhat.com, imv4bel@gmail.com, linux-kernel@vger.kernel.org, tglx@kernel.org
-X-SA-Exim-Mail-From: ebiederm@xmission.com
-X-SA-Exim-Scanned: No (on out03.mta.xmission.com); SAEximRunCond expanded to false
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 0/7] media: i2c: st-vd55g1: Genericize driver and add
+ VD55G0 support
+To: Peter Marshall <pm@petermarshall.ca>, Sakari Ailus
+	<sakari.ailus@linux.intel.com>, Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Sylvain Petinot <sylvain.petinot@foss.st.com>
+CC: <linux-kernel@vger.kernel.org>, <devicetree@vger.kernel.org>,
+	<linux-media@vger.kernel.org>, <platform-driver-x86@vger.kernel.org>, "Conor
+ Dooley" <conor+dt@kernel.org>, Daniel Scally <dan.scally@ideasonboard.com>,
+	Hans de Goede <hansg@kernel.org>, =?UTF-8?Q?Ilpo_J=C3=A4rvinen?=
+	<ilpo.jarvinen@linux.intel.com>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Rob Herring <robh@kernel.org>
+References: <20260902204549.657228-1-pm@petermarshall.ca>
+Content-Language: en-GB
+From: Benjamin Mugnier <benjamin.mugnier@foss.st.com>
+In-Reply-To: <20260902204549.657228-1-pm@petermarshall.ca>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: ENXCAS1NODE2.st.com (10.75.128.138) To ENXDAG1NODE4.st.com
+ (10.75.129.197)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AMS1EPF00000040:EE_|AM7PR10MB3608:EE_
+X-MS-Office365-Filtering-Correlation-Id: 006f9d33-cf00-42c5-4d9d-08df0a7ceaf0
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|376014|1800799024|23010399003|82310400026|36860700016|10067099003|56012099006|11063799006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	t22xT+5wVe/JPtLzVIFwUb8ecQtYha24LbTJYFjZyZAqOjIRZYjQrlTdBK9k7oKEUQvgyoCOdPjOyP3U9N/MhxCDV2aXFO4bMzi/clrlR2Om0k9LJuQEK/sscbbU3pjdLBKTcpb39artpU1DJvRprXnnLxgfT2A3LvGH01Dg0HJVbJW1AW2Aw256uPa13XYgrGIMcQp94zind0UXzCzS/kIH1eUZQWHYCT7YFd7hr2KifUn6pZZbzcUTG7UOsPIwB0iJSrT2WsnvaKzzQhEfNB+oJrn5uffqbKIiinqpifY6XcMfNbMKdWo2T1i5T5aLGTGJIymAgWE8tz+Qh/8IP72+Y+KPckNNL2iWUd72+N3dcSArphxcunTJeiU/dv4jRjEoQDEvWcVOZzeeDIXi95QELmKNWOcgJVE71KDahKpNflqCka3mLouebF129QiTI0CeCQjfeZMrR+KN3Tq98yJYpPdf4asiMOwcaXrvp+1Yh8Rkix+MNqcrhtyGaHZ6CI8nGIeKi94gR0+9m62P98uHbNeI5J7+3Hy5PUks0veLWuDrt2oTiZnoT+aPI2duu8snRg5jHM3ueWztYujlO7MtNQNw9zvJ2b8RWFvoj448e2BFjkc5jieMnmAaUSNJ0s9lVUpeNFs12mIX1aOpmbsCBTwkCg10UPSp4qQ0d3U=
+X-Forefront-Antispam-Report:
+	CIP:164.130.1.87;CTRY:;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(7416014)(376014)(1800799024)(23010399003)(82310400026)(36860700016)(10067099003)(56012099006)(11063799006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	jUOkGh4dXOeUHxu+3iilDn4ukrWqychr/a2KMB02dim5QNK5OpqTfOCVvrlXNC+x5h9SMy6d95zZjCR0bd1FAGkClla6qPkRnWZnckbS2Wz7J8b4769++Yj2UDVuXqOflCfi44Cqmg04l1iKPeUzpGLvPCtq6On/HWVZ8PS3eSnMsxG5FGJRSq1voqM4n8okoWeOAVrPYjRvlc7d8Ey7NqOoZbGWnww6BHPHTV7d8O0vlF4hI/IS2TQQK8NpozgOxgIHElouRBMaUjTyS1AOlT9HuC85Gdc+9YhXkyKxqG9SytcrY3uGrzsB2ntzPeaNYZzB+nISlmAwkLnGB0cmUH4bsZ2eQHSSJGrUpITorFCOdAob4+ul3gRSkXhlFaJ3AFMQaO6FO/Dyo0dBPuL2nP8iAbto8aqYBpXGN69K8Spj9F7TqsrXrabWSukQoJmv
+X-OriginatorOrg: foss.st.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Sep 2026 12:06:14.2913
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 006f9d33-cf00-42c5-4d9d-08df0a7ceaf0
+X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f;Ip=[164.130.1.87];Helo=[smtpO365.st.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	AMS1EPF00000040.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM7PR10MB3608
 
-Thomas Gleixner <tglx@kernel.org> writes:
+Hi Peter,
 
-> To prepare for cleaning up POSIX CPU timers in do_exit(), prevent
-> enqueueing POSIX CPU timers on a task which has PF_EXITING set.
->
-> Queueing a timer on such a task is pointless because the task won't expire
-> the timer anymore.
->
-> Pretending that the timer is armed allows to keep the POSIX timer mechanism
-> "working" so that the timer stays accessible up to the point where a task
-> is unhashed.
->
-> Signed-off-by: Thomas Gleixner <tglx@kernel.org>
-> ---
->  kernel/time/posix-cpu-timers.c |   27 +++++++++++++++++++++++++++
->  1 file changed, 27 insertions(+)
->
-> --- a/kernel/time/posix-cpu-timers.c
-> +++ b/kernel/time/posix-cpu-timers.c
-> @@ -628,6 +628,7 @@ static int posix_cpu_timer_del(struct k_
->  	}
->  
->  	if (!ret) {
-> +		WARN_ON_ONCE(cpu_timer_queued(&timer->it.cpu));
->  		put_pid(timer->it.cpu.pid);
->  		timer->it_status = POSIX_TIMER_DISARMED;
->  	}
-> @@ -674,6 +675,15 @@ void posix_cpu_timers_exit_group(struct
->  	cleanup_timers(&tsk->signal->posix_cputimers);
->  }
->  
-> +static inline bool task_can_enqueue(struct k_itimer *timer, struct task_struct *p)
-> +{
-> +	if (likely(!(p->flags & PF_EXITING)))
-> +		return true;
-> +
-> +	/* Allow TGID type unless the last thread is on the way out. */
-> +	return clock_pid_type(timer->it_clock) == PIDTYPE_TGID && atomic_read(&p->signal->live);
+Le 02/09/2026 à 22:45, Peter Marshall a écrit :
+> This patch series refactors the STMicroelectronics VD55G1 and VD65G4 image
+> sensor driver (vd55g1) into a generic VD55G family driver (vd55g) and adds
+> support for the VD55G0 monochrome sensor.
+> 
+> The VD55G0 sensor is found in devices such as the Microsoft Surface Pro 9 under
+> ACPI HID `SMO55F0`. It features a native resolution of 644 x 604 pixels and
+> differs from later variants in the family in several ways:
+> 
+> * It uses a different native resolution and register addresses mapping,
+>   requiring specification of generational feature differences.
+> * It lacks support for spatial and temporal HDR.
+> * It requires an exposure duty cycle limit to keep the illuminator current safe.
+> 
+> Tested on a Microsoft Surface Pro 9 (an Intel IPU6 platform with ACPI
+> HID "SMO55F0") running libcamera.
 
-Couldn't this be?
+I'm sorry I haven't read through your whole serie yet.
 
-	/* Allow TGID type unless the group is on the way out. */
-	return (clock_pid_type(timer->it_clock) == PIDTYPE_TGID) &&
-        	!(p->signal->flags & SIGNAL_GROUP_EXIT);
-> +}
+First thing first what is the point in refactoring both drivers into the
+same one ? I guess it should be addressed in your commit messages. To be
+fair it even looks to add complexity because even if the sensors share
+some IPs you might have notice they are in fact very different. I could
+even argue that the vd56g3 is closer to the vd55g1 than the vd55g0 is.
 
-I don't understand why we would want to re-arm a timer after it has
-been decided the group is dying.
+Plus having your commits merged will also require changes in libcamera.
 
-Plush I really don't like the idea of p->signal->live spreading to more
-places.  In the future that has the potential to complicate any changes
-to the group_dead calculation.
+Otherwise I'm interested in your patches 3 and 4. If I read it correctly
+they allow the Microsoft Surface Pro 9 to use the embedded vd55g0 right ?
 
->  /*
->   * Insert the timer on the appropriate list before any timers that
->   * expire later.  This must be called with the sighand lock held.
-> @@ -684,7 +694,24 @@ static void arm_timer(struct k_itimer *t
->  	struct cpu_timer *ctmr = &timer->it.cpu;
->  	u64 newexp = cpu_timer_getexpires(ctmr);
->  
-> +	lockdep_assert_held(&p->sighand->siglock);
-> +
->  	timer->it_status = POSIX_TIMER_ARMED;
-> +
-> +	/*
-> +	 * Don't enqueue timers when the task or the group is exiting. That
-> +	 * ensures that timer operations are still succeeding as long as the
-> +	 * tasks are visible, but won't enqueue the timers on the task or
-> +	 * process. They won't expire anyway because run_posix_cpu_timers()
-> +	 * exits early when PF_EXITING is set.
-> +	 *
-> +	 * Enqueue is skipped if PF_EXITING is set when the timer is per task
-> +	 * and when the last thread decremented p::signal::live to zero also for
-> +	 * per process timers.
-> +	 */
-> +	if (unlikely(!task_can_enqueue(timer, p)))
-> +		return;
-> +
->  	if (!cpu_timer_enqueue(&base->tqhead, ctmr))
->  		return;
->  
+> 
+> Peter Marshall (7):
+>   media: i2c: vd55g: move patch array to a separate firmware header
+>   dt-bindings: media: i2c: st,vd55g: rename and add VD55G0 variant
+>   media: ipu-bridge: Add VD55G0 to the list of supported sensors
+>   platform/x86: int3472: Add VD55G0 supply GPIO mapping
+>   media: i2c: st-vd55g: Add generic driver and VD55G0 support
+>   media: i2c: st-vd55g: Remove legacy vd55g1 remnants
+>   MAINTAINERS: Update ST VD55G camera driver entry
+> 
+>  .../i2c/{st,vd55g1.yaml => st,vd55g.yaml}     |   30 +-
+>  MAINTAINERS                                   |    7 +-
+>  drivers/media/i2c/Kconfig                     |   11 +
+>  drivers/media/i2c/Makefile                    |    2 +-
+>  drivers/media/i2c/vd55g-fw.h                  |  305 +++
+>  drivers/media/i2c/vd55g.c                     | 2166 +++++++++++++++++
+>  drivers/media/i2c/vd55g1.c                    | 2061 ----------------
+>  drivers/media/pci/intel/ipu-bridge.c          |    2 +
+>  drivers/platform/x86/intel/int3472/discrete.c |   18 +
+>  9 files changed, 2531 insertions(+), 2071 deletions(-)
+>  rename Documentation/devicetree/bindings/media/i2c/{st,vd55g1.yaml => st,vd55g.yaml} (76%)
+>  create mode 100644 drivers/media/i2c/vd55g-fw.h
+>  create mode 100644 drivers/media/i2c/vd55g.c
+>  delete mode 100644 drivers/media/i2c/vd55g1.c
+> 
+
+-- 
+Regards,
+Benjamin
+
