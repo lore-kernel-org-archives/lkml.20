@@ -1,147 +1,129 @@
-Received: from smtpbgau2.qq.com (smtpbgau2.qq.com [54.206.34.216])
+Received: from esa10.hc1455-7.c3s2.iphmx.com (esa10.hc1455-7.c3s2.iphmx.com [139.138.36.225])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBDB237F75D;
-	Fri,  4 Sep 2026 02:55:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.206.34.216
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DB7232143D;
+	Fri,  4 Sep 2026 02:56:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=139.138.36.225
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788490549; cv=none; b=gSk988m6/l44X6Lw7y652qPggg9NnG5wtWRQar1MTWyA5gAhEHrEqC0dg0KyXEPlSrhJABtNU906cc1XkopPXjgXKZmb5R68TR0WaUsTNVrQXb8xo0Y0+0iWMzJ1mB3pxT4wkbZ50x4dWSbIZvo4QLgDUiDNCUjgUAivIT8Iwkw=
+	t=1788490587; cv=none; b=NIjaiPa8Bwvy28tz9+AeIn52uVrtRChRUwTbcpL7qzAGC/6G4GmeBQ5jlqwogzDZqVlHB5REpligzuypmOGFVJgTQNfqrBU9PLBfZiWSDBC3a8vq0asrNI3akgerylLJ/5+dQfpQZp4X4atMk47Q2lVokymnI1RKhhsH/24yM38=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788490549; c=relaxed/simple;
-	bh=ayJK+HZz42MN9d+6Jv+414RKqVEQUF61wxmTPGFP8GY=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=XWzSEVnpzoI3TYb0Jh7tA/iyOMSO6mq9BX0D7ciLMlQC29xGpxDHDDij5PvfFXd5lYY6MrQxj2ytkmtfQXji/HmsJ4WVLFwJLv1KbBLSS9Bxit7kwqHiD5+JzmJhbzkAR9wKStUKf69BaZgge4Cp5Td2KAs7MoWwjGxAXa5TzkM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=nKuAQAEJ; arc=none smtp.client-ip=54.206.34.216
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
+	s=arc-20240116; t=1788490587; c=relaxed/simple;
+	bh=M50a07QYaknMt62mPLnYdnzYtmToSOSevFA9tewdmGg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=CW5W63HA8BxpBKyPpLFcGCQM/e/YjEg7BuHmalQv1TsSHVgS6f8DpVlgK8u3l6Ctsm2/QBKgAAhWT4CNWwyHGOFm2zeV1BZ7AP6Vxkle4SiHzE3VyrqmuPxb8wl3FUuGWVabqTtXqfvbhfUdzRrvYeHzwJx9AdaNGL6ADbmQQlw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=fujitsu.com; spf=pass smtp.mailfrom=fujitsu.com; dkim=pass (2048-bit key) header.d=fujitsu.com header.i=@fujitsu.com header.b=l/v2w5cS; arc=none smtp.client-ip=139.138.36.225
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=fujitsu.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fujitsu.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="nKuAQAEJ"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
-	s=onoh2408; t=1788490506;
-	bh=vNJNcmINo8z0o+qLjxXN5uDfE3solxvp/+KUbiVp1HA=;
-	h=From:To:Subject:Date:Message-ID:MIME-Version;
-	b=nKuAQAEJyn+2r7UCBrrL5k18wbNX2FpTlxduV2yv7jm0HR2ENEZLmG60sfE1yexlv
-	 2JB07XSeQc8nH2Fn7DLVAZHYtK/swfs4cl4Xf5q3w91hY4f4ptedxNJkMYIJ43E2oV
-	 oxUF/lOM8qWlcI+R42hCocArvDmkLydh/+BPBXVo=
-X-QQ-mid: zesmtpgz9t1788490501t82984c02
-X-QQ-Originating-IP: PNHvcRxiT/yvDV9slVVTV8ms5SAzjho/q2+6CCMqSBw=
-Received: from PEN202512010004 ( [113.57.152.160])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Fri, 04 Sep 2026 10:54:59 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 6873530075859553180
-EX-QQ-RecipientCnt: 10
-From: raoxu <raoxu@uniontech.com>
-To: brgl@kernel.org
-Cc: marcel@holtmann.org,
-	luiz.dentz@gmail.com,
-	linux-arm-msm@vger.kernel.org,
-	linux-bluetooth@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=fujitsu.com header.i=@fujitsu.com header.b="l/v2w5cS"
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=fujitsu.com; i=@fujitsu.com; q=dns/txt; s=fj2;
+  t=1788490589; x=1820026589;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=M50a07QYaknMt62mPLnYdnzYtmToSOSevFA9tewdmGg=;
+  b=l/v2w5cSr+3zdXno188Q4e1NqVhECpLCZ2GbRgoVG/9lQEszmGzIb3zA
+   PI3C4qmyPuIF5Na/wHrr6JwGr3t/vsbufKUsDDMOtNXYS90eVKP5RFlYs
+   mqJ9xoS9ix4sW54CyEX3AhULjBDsZm9cCUr2zuiXNjKzWfP2UjortMxQv
+   4DdsasUxvzpIjRIn7FFUdlwGjdpcVqfkLvSYnRbs3MR6gvquwn1sLz+nk
+   ocMPx21oRoXYhkVPqSvQVhYeWk5+tMjTexcbD9IqhEUa8yvxh6T+fAzGh
+   VrW771B18/AfTWQL80+F6Tykg0xXmSe8XcBbH3dLxICBE7W/pB86XPqw9
+   w==;
+X-CSE-ConnectionGUID: kTNC/za+Tmqz/nUUOYxD2g==
+X-CSE-MsgGUID: XtJQgjmHSaWn5Ef2T8jGzA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11895"; a="240020538"
+X-IronPort-AV: E=Sophos;i="6.25,260,1779116400"; 
+   d="scan'208";a="240020538"
+Received: from gmgwnl01.global.fujitsu.com ([52.143.17.124])
+  by esa10.hc1455-7.c3s2.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Sep 2026 11:55:18 +0900
+Received: from az2nlsmgm3.fujitsu.com (unknown [10.150.26.205])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by gmgwnl01.global.fujitsu.com (Postfix) with ESMTPS id DB1DA10000F3;
+	Fri,  4 Sep 2026 02:55:13 +0000 (UTC)
+Received: from az2uksmom4.o.css.fujitsu.com (unknown [10.151.22.204])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by az2nlsmgm3.fujitsu.com (Postfix) with ESMTPS id 8E0BA1802AC9;
+	Fri,  4 Sep 2026 02:55:13 +0000 (UTC)
+Received: from sm-arm-grace07 (unknown [10.124.178.20])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by az2uksmom4.o.css.fujitsu.com (Postfix) with ESMTPS id 5532740D1B9;
+	Fri,  4 Sep 2026 02:55:08 +0000 (UTC)
+Date: Fri, 4 Sep 2026 11:55:05 +0900
+From: Itaru Kitayama <itaru.kitayama@fujitsu.com>
+To: Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>,
+	Fuad Tabba <fuad.tabba@linux.dev>, Joey Gouly <joey.gouly@arm.com>,
+	Steffen Eiden <seiden@linux.ibm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Zenghui Yu <yuzenghui@huawei.com>,
+	Paolo Bonzini <pbonzini@redhat.com>, Shuah Khan <shuah@kernel.org>
+Cc: linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev,
+	kvm@vger.kernel.org, linux-kselftest@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	raoxu@uniontech.com,
-	stable@vger.kernel.org,
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Subject: [PATCH v2] Bluetooth: btqcomsmd: destroy RPMsg endpoints before freeing hci_dev
-Date: Fri,  4 Sep 2026 10:54:57 +0800
-Message-ID: <049D60B81C44FFA9+20260904025457.3523467-1-raoxu@uniontech.com>
-X-Mailer: git-send-email 2.50.1
+	Takayuki Okamoto <tokamoto@fujitsu.com>
+Subject: Re: [PATCH 0/2] 52-bit VA guest mode ID support
+Message-ID: <apozCZSi00UZhqLJ@sm-arm-grace07>
+References: <20260826-arm64-52bit-va-v1-0-14ec98211363@fujitsu.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpgz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz6b-0
-X-QQ-XMAILINFO: MkYdL7H1i+/EVbNJ6Qni/ZIs8lgbVIiHQXwwvHBwUKHO7w37/NEyKaWr
-	80Ofl+3lMHBHFEoJTUJGGieNj+X5ZTjLN8JZ6L5sBkMkpLc+JCBihfm20yJIS2x/91B3ZYI
-	wQOhR5SYhwu1PSqSe6Xa3odJS4wj5YIf5hvhzdqPH43v7dk8A+/pf4bXL9dIl90J2wXgNWO
-	zYMG2ljDHxx3LjdAOH2GBV022ccQ7PnLXWajmWcoEZXtfvMN058liuHy8jxnd/5yMuIflfy
-	XLvyO7WMmGHK/AAbd/lF9E1p14QrmmhNWYdGpYxD+9EtpImQjnmmcQrjK6Tm6OLgsM4dGUC
-	3EC9HESzSfL1DqtQfCQzgrh7lzpmEHM7/gk7+Q7uGohaaAt8AkRa01F7J5eAOigMcE7Pa2c
-	oLvr+J17bfSMfQuFE4KA4gJeWScO0GT+OmvXtTuiQudQx0Ge37xVMOX3mCaqOb5LKYnkyHf
-	xWKnQnqvHTkNeHyzlqie59+p5Z71f+IQ/Qp3G+hvt/WyLmVA8nSNpKQ8HGTfuoiO/h6Su7l
-	uZAgKDo3GBkEBmZEtOvopzzKgewKbAv/xlFCM8Y6sfPt94H+Ga3QspADTHUGpniLOMxT8f3
-	X3e0BAVxu3oHbfkwdZOlDexa0+qfEVgYwaod5m9PjnsuNL6C5i58zo8zb7QfcdWZLn/nrlk
-	bf5gVwJqeW1CQAszuDC+HMl+RIL1OA032dM4DcBSH5bz/WMdF2LiNO1IHWeuxSwVEQ6nVhB
-	lmNPKG4csuINhNYqf9B5AXYwk/UxpHkIvIEom/HvjICBMbIMc96l0k4I590HQedZtF/I6rG
-	SM2ak18xgvVO2Q7kwqnjLG51p3Tqm+9uC7+W5mrgmg38zEsGUQuWngcZFpgcgY0wCFI1yuP
-	hJCUQcx5VBGsC8uAmFbrfuGguSKeWohQTWLiAao1nPyEDYMThmvFlxFY9fmUgNcsaKUZ1/9
-	YlpoUuFi2kMfh3k/GfFGfyQXfbkd5dxaoMPfaSuPvXU+kAiGyB56uZWonkNwf0urNV6s5Pi
-	Nn1Rjh7hTlEUkA+9KUurQjoH+rY5ly6wfwyFzJkYubxv7Mzk5w91x8IeUROKYHCkkgYjDM3
-	n5LjdblA7Zh
-X-QQ-XMRINFO: Nq+8W0+stu50tPAe92KXseR0ZZmBTk3gLg==
-X-QQ-RECHKSPAM: 0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260826-arm64-52bit-va-v1-0-14ec98211363@fujitsu.com>
 
-From: Xu Rao <raoxu@uniontech.com>
+On Wed, Aug 26, 2026 at 06:18:33AM +0900, Itaru Kitayama wrote:
+> This patch series extends the arm64 KVM selftest framework
+> to support 52-bit guest virtual address (VA) modes in addition to
+> the existing 52-bit physical address (PA) configurations.
+> The motivation is to enable validation of LPA2 guest memory-management
+> behaviour in configurations that use a 52-bit VA space.
+> While the selftest framework already supports testing 52-bit PA
+> configurations, it lacks the ability to exercise guests running with
+> 52-bit virtual addresses, leaving part of the LPA2 functionality untested.
+> To address this, the series introduces new guest modes for 52-bit VA
+> operation, adds five-level page table support where required, and
+> performs runtime detection of host 52-bit VA capability so that
+> LPA2-enabled guest VA tests are executed only on supported systems.
+> 
+> Testing:
+> 
+> Built and tested on arm64.
+> Verified on QEMU with a V52-capable guest configuration.
+> Confirmed correct operation of high virtual address mappings by
+> exercising guest memory accesses in the 52-bit VA range.
+> 
+> Signed-off-by: Itaru Kitayama <itaru.kitayama@fujitsu.com>
+> Reviewed-by: Takayuki Okamoto <tokamoto@fujitsu.com>
 
-The command and ACL RPMsg endpoints store struct btqcomsmd as their
-callback private data. The receive callbacks dereference btq->hdev
-without taking an hci_dev reference.
+I'd appreciate any comments on this series.
 
-The current teardown order frees the hci_dev before destroying the RPMsg
-endpoints in both the hci_register_dev() error path and the driver remove
-path. If WCNSS delivers data in that window, the endpoint callback can
-run with an already freed hci_dev and pass it to the Bluetooth core.
+Thanks,
+Itaru.
 
-For qcom_smd endpoints, rpmsg_destroy_ept() closes the channel and clears
-the callback under the channel recv_lock. The receive path holds the same
-lock while invoking the callback, so destroying the endpoints first both
-prevents new callbacks and serializes with any callback already running.
-
-Destroy the command and ACL endpoints before hci_free_dev(). Keep
-hci_unregister_dev() first during remove so the HCI core stops issuing
-operations before the transport endpoints are shut down. In the full
-registration-error cleanup path, return directly after freeing the hci_dev
-to avoid falling through to the partial-construction labels and destroying
-the endpoints twice.
-
-Fixes: 5052de8deff5 ("soc: qcom: smd: Transition client drivers from smd to rpmsg")
-Fixes: 9a39a927be01 ("Bluetooth: btqcomsmd: Fix a resource leak in error handling paths in the probe function")
-Cc: stable@vger.kernel.org
-Acked-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Signed-off-by: Xu Rao <raoxu@uniontech.com>
----
-v2:
-- Add Acked-by from Bartosz Golaszewski and Reviewed-by from Dmitry
-  Baryshkov.
-- Resend as requested by Luiz Augusto von Dentz.
-
-Link: https://lore.kernel.org/linux-bluetooth/0CB2D8D715AB9933%2B20260713072543.3348755-1-raoxu@uniontech.com/
-
- drivers/bluetooth/btqcomsmd.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/bluetooth/btqcomsmd.c b/drivers/bluetooth/btqcomsmd.c
-index d2e13fcb6bab..d669ea4eb3eb 100644
---- a/drivers/bluetooth/btqcomsmd.c
-+++ b/drivers/bluetooth/btqcomsmd.c
-@@ -188,7 +188,10 @@ static int btqcomsmd_probe(struct platform_device *pdev)
- 	return 0;
- 
- hci_free_dev:
-+	rpmsg_destroy_ept(btq->cmd_channel);
-+	rpmsg_destroy_ept(btq->acl_channel);
- 	hci_free_dev(hdev);
-+	return ret;
- destroy_cmd_channel:
- 	rpmsg_destroy_ept(btq->cmd_channel);
- destroy_acl_channel:
-@@ -202,10 +205,11 @@ static void btqcomsmd_remove(struct platform_device *pdev)
- 	struct btqcomsmd *btq = platform_get_drvdata(pdev);
- 
- 	hci_unregister_dev(btq->hdev);
--	hci_free_dev(btq->hdev);
- 
- 	rpmsg_destroy_ept(btq->cmd_channel);
- 	rpmsg_destroy_ept(btq->acl_channel);
-+
-+	hci_free_dev(btq->hdev);
- }
- 
- static const struct of_device_id btqcomsmd_of_match[] = {
--- 
-2.50.1
+> ---
+> Itaru Kitayama (2):
+>       KVM: selftest: arm64: Support 5-level paging in stage 1 translation table
+>       KVM: selftests: arm64: Add 52-bit VA guest modes
+> 
+>  .../selftests/kvm/include/arm64/processor.h        |  2 +
+>  tools/testing/selftests/kvm/include/kvm_util.h     |  3 +
+>  tools/testing/selftests/kvm/lib/arm64/processor.c  | 87 ++++++++++++++++++++--
+>  tools/testing/selftests/kvm/lib/guest_modes.c      |  5 ++
+>  tools/testing/selftests/kvm/lib/kvm_util.c         | 11 +++
+>  5 files changed, 103 insertions(+), 5 deletions(-)
+> ---
+> base-commit: 8d3ae59288f1e7d58d76558a6ee96d533bc5019f
+> change-id: 20260825-arm64-52bit-va-32f1f4cd050d
+> 
+> Best regards,
+> --  
+> Itaru Kitayama <itaru.kitayama@fujitsu.com>
+> 
