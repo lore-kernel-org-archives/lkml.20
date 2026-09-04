@@ -1,89 +1,101 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CEE553911B5;
-	Fri,  4 Sep 2026 18:19:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5618938F65D
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 18:20:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788545983; cv=none; b=TpqsvXfvWssaCiZUaOXX87Q96hbqcGy0u+n5BnEt2c1TfG/7ytLPiYkeqYP5p/AErfAY22SHQ5da8NLCcwBS7C1uJrQDhW3hxYZ7MDo1WmIAL/elTyBJ2sQb4u7RN1Na/d+4kaowMP59gY3lIXd0atgtMVibgSGAVOYic8oCIhU=
+	t=1788546006; cv=none; b=GeJnIVWliRPT5xdsPulN7RxfmJhSN7rTHZd1AepxtY8PoHR322xa2sk88iRTySfscVNvWo7XBDo2lPqaA9251aiXOKjN7AlRiVFJd4JPvhHEvhiiM1XCWJEUAJrgAFK8tWD9Ld5ijc17GWArlz9L/foa2UJSIbXOhofH4prR948=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788545983; c=relaxed/simple;
-	bh=K67UAh45lnHiRxuKGWLeFyuTLdyFRfNm+f8uGnyvfx0=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=fxXgkAK/m3J5VmrzuTCFlKhJls5z7W7E7rYRkAsThdOTthCqUaRZmEVksKr0LxyrhflC5a8KGgsks5VUdyBLNvQRfQ3Fe85JAq2V/In2ac61Fzh6zbc+Mp5brTBvtNVouSC0JYubP8SHP8ATOYT4IcJPnH0F/ytwloiTBrXV0ec=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=a6ZJq9kI; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788546006; c=relaxed/simple;
+	bh=K2TGcBo0NbS6cos4zHFu92dLKPUihLxuwYfwU3OoI9I=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=DwRcUaB0lSoEI5kmf3KJrPP/uYqnqwziOu5wzh0habx06zQLC7BzQd+xqa7DRE9RM0R1Rr5W8jN7Aa/9aom0TYY+MXgTs4f3dEYtA4L6f98OqseyXIuDbiC/BvVuwTHqYle6i2yUMNL/559Ufw0cth/gRO2TBsRstg7tQ+FUQI4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=e02BFwue; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="a6ZJq9kI"
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id E370B1F00A3D;
-	Fri,  4 Sep 2026 18:19:41 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="e02BFwue"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BCDD91F00A3D;
+	Fri,  4 Sep 2026 18:20:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788545982;
-	bh=62jm9Q77S2sVZx0JPQ7aMm4YDbqkZyG9GTqZdJ8kxUg=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=a6ZJq9kIsIVCK6/Fjg8Td1RT85Fn0E0YjzWuzBazyUtqo1zVcL3MVaXQ2q6c/Izs7
-	 8N1MB9R/SUGbQG+sCokn3qiLjKV0KKHn5sHpIsyGEhNwhI2MUOV8jyZqX5UsSpmnWJ
-	 f5Dm+oBcKUBPSaoT4nvVnVTzZRu0du/Q2RqF1XXGCJcYfpgSgM4KLsfrMnHsEc/Yve
-	 d9egC3AmYhENDVAb9bujt9sVQ+Fve42gt+IQb4gCRU7kIs25Dhv0z53iuHGJ2JxobY
-	 RCgfnaKTuWG7DuJ0ZHc1MosIbgZ6yVOD+c8Uc5l++OJXRr3JaPgrPDoKJYqgo33foQ
-	 cKW/BmeJHDxbg==
-From: Nicolas Schier <nsc@kernel.org>
-To: Nathan Chancellor <nathan@kernel.org>, 
- Vlad Poenaru <vlad.wing@gmail.com>
-Cc: linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org, 
- regressions@lists.linux.dev, 
- =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>
-In-Reply-To: <20260902161347.4163577-1-vlad.wing@gmail.com>
-References: <20260902161347.4163577-1-vlad.wing@gmail.com>
-Subject: Re: [PATCH] kbuild: don't delete in-flight filechk temporaries in
- asm-headers
-Message-Id: <178854595964.42024.7648905452681649287.b4-ty@b4>
-Date: Fri, 04 Sep 2026 20:19:19 +0200
+	s=k20260515; t=1788546005;
+	bh=hWAMWTCVspgPae1UWmVXhHE0Xa+u/7brG0CwZz8F8vc=;
+	h=Date:From:To:Cc:Subject;
+	b=e02BFwuePHonUF1YIPD9m86xgm2JZJVc/6OOEEBLdl119PjE3e232pczq+BUXuq5+
+	 NrYPDac4tuZtDxDQ/8N2brCRnjyl/21VPBghfAWkJ+Z7uhlfPjVYdG1dpZ/WGXofFL
+	 /gI1IkEcrG5hV//QXEQJdwB7pFmM9up0KcT4XRnmEZR7+nbotC2tXi4EYm5jXN4dMh
+	 mHnZd7Q2xL2mLz7xZNqA63UYSmhOnvccXCRSfj3jB7G0xh8318DTlPhomo4ULMjV1I
+	 wLgAA4wq3WWGFXeL9aFbxap7JQ5ovmyFWlPaeZvcl6vHmDmNnWo8OPH++eVKwoVPIC
+	 4R7+e2yXhub2A==
+Date: Fri, 4 Sep 2026 19:20:00 +0100
+From: Will Deacon <will@kernel.org>
+To: torvalds@linux-foundation.org
+Cc: catalin.marinas@arm.com, mark.rutland@arm.com, maz@kernel.org,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	kernel-team@android.com
+Subject: [GIT PULL] arm64 fixes for -rc2
+Message-ID: <apsL0Jd_RUiP20Vd@willie-the-truck>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.17-dev-1f2f7
-X-Developer-Signature: v=1; a=openpgp-sha256; l=755; i=nsc@kernel.org;
- s=20250924; h=from:subject:message-id;
- bh=K67UAh45lnHiRxuKGWLeFyuTLdyFRfNm+f8uGnyvfx0=;
- b=owEBbQKS/ZANAwAKAQdSCnAWJhJpAcsmYgBqmwu2Djz4T/jH8vD193mYB/Tka2Kq+5JaLPktO
- zBde6kfFz+JAjMEAAEKAB0WIQSHQTenhzckp4G+wsYHUgpwFiYSaQUCapsLtgAKCRAHUgpwFiYS
- aY6CD/wKnFfvFi0SWkA9oRvBxG8GLVFkblgSXPSouPD2RzreZ690ag/EyY5gZqRe7wnhhXkh30t
- vuBPwg0ayCSA0xi56CE0LVl5YImVI9pOekJ46VbmUrpsrcaWA+muZR6smqExcu3g7RodscG0Kyc
- 6e92I80ayBLk/jcQ6u9kg5QFQEKwnfJYUMZhFW+gg0iiC0jxR83LCEKPIjT5z3NrmjOcgZ/fQZ1
- oJ6OPaupSBFlN+Db72U7Jo+lRNquJdh/iDPbO4phbNy34+REx8qByXhCMmI3huA7tkFTTITzxII
- XJ+rNcXTrxuZZREZnB5jf+/wMuYjgBpSvmQSpwFv8X5tcT9sxwF/xkvaIGfn+fO11TxQOqWoNdB
- Cm2cuLvFRRZWxEztUhnkJbvTGjji4tMwDF41O8II/M+gbTGJZ+Fy3OgIiO2l11NK21HEqTuQsg9
- +S6wLXk2W/8ya810whR7JsNOd2KGXvskr1jgac34BguFAeCvk7l4ucxqQnWRZpS/o41gN8E8LQF
- ZjTRO5mzzNn7cp4A0ePlIg8v7QjtqGge5J2sZaiL/eJmzy8xdGeB9i5ISXXWQWz0ZZxuVg3w5Up
- 1EvJjZbzRVYgZXkvAaINN4GUu6i/0z1q2YJb50OkV+cHs2tQeOzRJ1GkuYj7cDcTHpi/nItsm9s
- 0fhvUnB+eT8hf8w==
-X-Developer-Key: i=nsc@kernel.org; a=openpgp;
- fpr=18ED52DBE34F860EE9FBC82B7D97093255A0CE7F
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-On Wed, 02 Sep 2026 09:13:47 -0700, Vlad Poenaru wrote:
-> kbuild: don't delete in-flight filechk temporaries in asm-headers
+Hi Linus,
 
-Applied to kbuild/linux.git (kbuild-fixes-unstable), thanks!
+Please pull this batch of arm64 fixes for -rc2. As you can see from the
+tag, there's nothing Earth-shattering, but worthwhile fixes nonetheless.
 
-[1/1] kbuild: don't delete in-flight filechk temporaries in asm-headers
-      https://git.kernel.org/kbuild/c/94f7bba7
+Cheers,
 
-Please look out for regression or issue reports or other follow up
-comments, as they may result in the patch/series getting dropped,
-reverted or modified (e.g. trailers).
+Will
 
-Patches applied to the kbuild-fixes-unstable branch are accepted pending
-wider testing in linux-next and any post-commit review; they will
-generally be moved to the kbuild-fixes branch within about a week if
-no issues are found.
+--->8
 
-Best regards,
--- 
-Nicolas
+The following changes since commit cee9395acd8043be0644b25c34bfa86623f2b935:
 
+  Linux 7.3-rc1 (2026-08-30 13:34:40 -0700)
 
+are available in the Git repository at:
+
+  git://git.kernel.org/pub/scm/linux/kernel/git/arm64/linux.git tags/arm64-fixes
+
+for you to fetch changes up to 5445d64199626974269fcdf347769ad44b0bb53b:
+
+  arm64: Don't read GMID_EL1 when MTE is disabled (2026-09-03 13:03:23 +0000)
+
+----------------------------------------------------------------
+arm64 fixes for -rc2
+
+- Disable interrupts during page-table walk in show_pte()
+
+- Fix kexec_file_load() with 52-bit capable kernels on machines without
+  52-bit addressing
+
+- Fix MIDR matching in CPU errata handling for KVM guests
+
+- Avoid reading MTE-specific ID registers when MTE support is disabled
+
+----------------------------------------------------------------
+Breno Leitao (1):
+      arm64: trans_pgd: clone only the linear map that exists at runtime
+
+Fuad Tabba (1):
+      arm64: Don't read GMID_EL1 when MTE is disabled
+
+Karl Mehltretter (1):
+      arm64: mm: Fix the lockless page-table walk in show_pte()
+
+Khushit Shah (1):
+      arm64: errata: pass REVIDR when matching target implementation CPUs
+
+ arch/arm64/include/asm/cpu.h        |  1 +
+ arch/arm64/include/asm/cpufeature.h |  7 -------
+ arch/arm64/kernel/cpu_errata.c      |  2 +-
+ arch/arm64/kernel/cpufeature.c      | 33 +++++++++++++++++++++++++++++----
+ arch/arm64/kernel/cpuinfo.c         |  2 +-
+ arch/arm64/kernel/machine_kexec.c   |  3 ++-
+ arch/arm64/mm/fault.c               | 12 ++++++++----
+ 7 files changed, 42 insertions(+), 18 deletions(-)
