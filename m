@@ -1,239 +1,166 @@
-Received: from mail-pf1-f178.google.com (mail-pf1-f178.google.com [209.85.210.178])
+Received: from mail-pj1-f97.google.com (mail-pj1-f97.google.com [209.85.216.97])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B96A41B8ED
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 22:29:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 188482F5A12
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 22:31:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.97
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788560992; cv=none; b=klN9y8XTgSPSUlPWz1GPHCVHOMzwP3MLPFaAq21tBFlNpSjJBIJrkvrOByMnBKBNGWiZ7VzsW4PKxhsibgF+UExzxyhizlnbEN8LBW7n40ZwEos8KX/64Z0RJGK8ludMiNsssc81XoNhUu46aiymra6T3/oKn47CGTbAFRZFf5U=
+	t=1788561089; cv=none; b=ORKLt7JPXoJmSoC4YvmX7amAMDvLuUlZLIEFycztV1ohHsL6IvRpb8kcPBkz2qcd+FqtRZKPdoz43rU2z2fu9WyAhYQ8hCRSne5pSZoD0+uBQKwQjc3TQRWdXbeTVXBV3HOU5tzVvzQLQraRdYvPPkt3yI5fWWoNkQnBSCtaEUA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788560992; c=relaxed/simple;
-	bh=7RfzlHSqYRxJx2aHywatYf0OmJcrc01hTXBGWmCG8yk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=sVFpWvQF0ieikWlVwcYX5TuEGlmIvoxBKxTG5gHvad72jvyWcKVudDTtCClwozd0SnztawItohMLp29sZKyZs7KOfkCdmyn2CvFKaeKN8SnhlDtUGDjNwsVGZCJI7KpNGnrmgm3Fr6rKVIICdYnc/ULh6r3MybETs4ei+bcb9kA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=purestorage.com; spf=pass smtp.mailfrom=purestorage.com; dkim=pass (2048-bit key) header.d=purestorage.com header.i=@purestorage.com header.b=CwaQEf5D; arc=none smtp.client-ip=209.85.210.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=purestorage.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=purestorage.com
+	s=arc-20240116; t=1788561089; c=relaxed/simple;
+	bh=Qy/rrlsC2pBGv8adU6DP3A1uoqHQiz3kyPblKRNTvvs=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=QePKlwccIg1o0kyoAlTXnL7tg9GX0WncQ9wjBUWekIdeyZPnUp5Ce1MZuj9XkcpJtM2bRhH9jxcu+p3+liTtmGCM+OocsX4rjd/ZpS+E9mT0jOqJDAfhQuQgwO1WaE/2KVIfSTfAFNG4wtVQj3E2lFK9x7jo84rg4+Xw9pUtUpA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com; spf=fail smtp.mailfrom=broadcom.com; dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b=BXbQwpLH; arc=none smtp.client-ip=209.85.216.97
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=purestorage.com header.i=@purestorage.com header.b="CwaQEf5D"
-Received: by mail-pf1-f178.google.com with SMTP id d2e1a72fcca58-84faf0fa17eso1526861b3a.2
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 15:29:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=purestorage.com; s=google2022; t=1788560990; x=1789165790; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=l28Mnpox539s4is2ExkEzGdvcyxPfAUNIS6oNY0bXaY=;
-        b=CwaQEf5Dmw5LZiPGxbgCWkfXuId9xE7mp0h0ZAETJNicmIqFEWHfIjvkNthvr5QjM6
-         7pDyjLq3171gqSksDfNw7ayX15cILTeEUsEwW7uqOYvT4PaW2yKGcMk5epzQWvbAb3qx
-         jvy5I/kmU4pFDpiDH3etBe7On53B/UnsPUymGkjHPiJWIDFn6wWv19Fkr1rSFD/r7ztE
-         BrfYqTVJT12KlJ+Q/VJQaMuhDylanoQr5F3kMsXXvK68gGk/WWTVJUy6K1RPxOR+vp8i
-         zyV3A7MbCQ+zEenLlh/5ee8rePrqUfW8Plms4Saj9+mhm2VUXN1bMxngdcyEjtVj54TY
-         VAJQ==
+	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b="BXbQwpLH"
+Received: by mail-pj1-f97.google.com with SMTP id 98e67ed59e1d1-382ef647e20so1521614a91.1
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 15:31:27 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788560990; x=1789165790;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=l28Mnpox539s4is2ExkEzGdvcyxPfAUNIS6oNY0bXaY=;
-        b=n85dXGbRRr08JN3MzImpcJ1nThmDmAAf1wAMfM617s1fMwD7xwomQ2wH92zxbTVapk
-         J0yc1khsOVnapgzE2oPImhgzj02ycD5b17czGKxuZqTnjyTtu3M/EDgkjG8q1Ey9kEfv
-         5k4xfE3LEyiK5P5KNAgxI0kX57b+MpcTZMgvQLzsMwPAB072y/mUSQbly8lDSrloHPD8
-         xmX2haG7GNjPCcZS2WHclgKz5hfNOTRXySGiYwE5Pv7Jc1L3goSS53Q3SJF8JWqeOCMi
-         sJKGSd3gBGBWWqn9vH6b4g+fKxfNa0B6yJuImZumMguxDRxCttsHCcp3sSunsUrO2K68
-         pGSA==
-X-Forwarded-Encrypted: i=1; AKwUvBzrbP1mKDVrbB4wtZXJ/vCfgn/DB1lUOz1T0PBa0L8OeTbx7RpLn5zSlwQWwM01ruxcN1OrOWP1/mS4lqA=@vger.kernel.org
-X-Gm-Message-State: AFuF++mrU0BoOo2Cd9uS+1Su5NFr0y8Ou7s8DktkXY8fTLhGhEHpW78d
-	ww9qPIl58PbKyIWXIAULgVuZia/nKJaptNScKgy8o47PFSSvaOe6svuZ1T+rRJ6jrQg=
-X-Gm-Gg: AYBFou3RR0QlYtMlme2leB3WslLaL31WyA07T73z88q5Oo2ZS4BW8BcOjAspiZ0RAHr
-	nozPct2xAykEuXxBtroA15hVlk7HlYr5B84RhN4bTY9souKdES6BYdmHem+tuhfvHHbmgDVp7P1
-	UAOB99UzkyAzP26ARdk7x4r0j/kqrxZe/xSn0hLzG/xdhHsIxNFx+G3okgn3WpkJkO+DX23PpQj
-	nUjkDROYw+vrBCEkHA6bEfpKLzEPrG/8LbQXoREhUiufCWGQkEk15pC6Mdmiv7KFxceHsw2bfQv
-	WYmpBrsnmtQWB/cRBMueG6gRZ2h0GiMC4bExIWZp20jvl5LOU+yqOLz2aw6iPhMSsKm61MCTYiU
-	6IEa43yOxz7SHnIx8P9yLis8+rgCY1B0qA+Ftq4J/fHGRrj94ea0sfVI3QX3l3m7+bnZj1wp4e/
-	KQz9tcky8afDQDHs4abQXYBmrg1fj68MjYGrgkucOrG9+u6mjsvlv+FUkB8Ah/E2UiJ6/i5nZJQ
-	Kgnxw==
-X-Received: by 2002:a05:6a20:4394:b0:3d2:2afa:d7d with SMTP id adf61e73a8af0-3da3a091e07mr13501548637.18.1788560989531;
-        Fri, 04 Sep 2026 15:29:49 -0700 (PDT)
-Received: from medusa.lab.kspace.sh ([2607:fb90:9c20:7a99::791d])
-        by smtp.googlemail.com with ESMTPSA id a92af1059eb24-143243a9388sm8934860c88.10.2026.09.04.15.29.48
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 04 Sep 2026 15:29:48 -0700 (PDT)
-Date: Fri, 4 Sep 2026 15:29:46 -0700
-From: Mohamed Khalfella <mkhalfella@purestorage.com>
-To: Hannes Reinecke <hare@suse.de>
-Cc: Justin Tee <justin.tee@broadcom.com>,
-	Naresh Gottumukkala <nareshgottumukkala83@gmail.com>,
-	Paul Ely <paul.ely@broadcom.com>,
-	Chaitanya Kulkarni <kch@nvidia.com>, Christoph Hellwig <hch@lst.de>,
-	Jens Axboe <axboe@kernel.dk>, Keith Busch <kbusch@kernel.org>,
-	Sagi Grimberg <sagi@grimberg.me>,
-	James Smart <jsmart833426@gmail.com>,
-	Randy Jennings <randyj@purestorage.com>,
-	Dhaval Giani <dgiani@purestorage.com>,
-	Aaron Dailey <adailey@purestorage.com>,
-	linux-nvme@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v5 09/16] nvme: Implement cross-controller reset
- completion
-Message-ID: <20260904222946.GA5552-mkhalfella@purestorage.com>
-References: <20260712022437.3743117-1-mkhalfella@purestorage.com>
- <20260712022437.3743117-10-mkhalfella@purestorage.com>
- <b14ee42d-95f4-42d9-8b40-58c0f045b414@suse.de>
+        d=1e100.net; s=20251104; t=1788561087; x=1789165887;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:dkim-signature:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=X+ezEGSoxt4OIMmPGd47wsxyvlI7VYsc+xC/7giRRKU=;
+        b=bFPk/Em0rBig7Jn3YYzPem/JpbOUiJp7ztoOFrzJdTDsRe2YmCVbLyEtg2InGFucqQ
+         Go9bnHqLZVbn+iq1TMWSS1U5A98Mhlzdw/W9+uFItSHxn74/hBH+cMYiTQtKqeJphtm2
+         M8sYYplQDDooCUdaEXY34hogUBboq+gHFQXSAyAX7gDFganuy4gkmrgjqPtaFu62OsWp
+         wAsO20KNvPs9aEmaEMFsrnYIeuLeP4/ior+5ajhAN8v0A5SQPIqoLS1SFk7e2J9KMxIW
+         IkEqBCT0lBJbceUtdN95HKDkDZnS/mzdl5DJuOY6prVur94ftg376vkyfr1UG6+C47LZ
+         YvYQ==
+X-Forwarded-Encrypted: i=1; AKwUvByola0DJlXvprcCtHZ5nhgJ5IVyjphotkyvAK4biYzxh/c21zzhbs6oTnwg4xqA4LzwZjnMM3Ze727Xa7c=@vger.kernel.org
+X-Gm-Message-State: AFuF++kNhPj/z/CmiaCsml68D3RvYinwFsqJ/dHz0Hw1YkGAc5uYVZbM
+	unf4kFL2ZtQS75EXXG17m5H15JNKTvKNfx3vS6AVp+BTTTYcBYEbhBmkh6w/gDKZb4/5RzPo7jK
+	X+FRpY+kuVa8jOJV5SkuUeK7McphWzJXtr/vI80SPqaaLgGTiD3EkQqb2FFTkXAFY+Q90eoNZRL
+	fl1EWnW05vw8c7K1yY8J9MSoZW9AeZuUpWMtUc2kHiTPQy/XLwRBYEb5dTvmjFWTfFLFCiolSuM
+	7j45lwFJyNiZDS8sq3ZGeGl
+X-Gm-Gg: AYBFou2oElC6Hx6yaW7ShA9jgOoqVB5dN073lDtMhJFDPMTZNNhlKb9CVb2/LxvVOHI
+	UDb8ykM2mvriGDg3ig9jc5LY4OpjU/yFcNJtONnflPWn8VksuQO/gCDuivGlFcSBuYaKP166rrt
+	WWRrcwTuynYh5Tci1LI2Fuelx6UMqrY5LY7jJMeYmdsaU24/WVCawygw5fY2Y1nfCxNtd+5M6xb
+	AwtwSiUzC+AhKGB/cT0xewez8DaUVx3SGstS6cKFreZMU34MznH2A7gkxBo7NhwZ0c8SsVwJKd3
+	+legi+k6qgFvJu0vcZBZGuvxDSReqG3LaKeQN+yKd4O8LFGDWP79hzUQFDPFOwnksR1mNFbkLfl
+	y/Io4TN4qNFkdNmg2fsU3V3/FpYmtjR9Z2Odb3WZ73VgdPT02JPEQPspV6Yru6pyU5s7dmuSXGx
+	lRFJdRVD4t7kaSoUa6lhDtVVSZPvOl5QsXroKwNzCM
+X-Received: by 2002:a17:90b:3c05:b0:393:288:29e3 with SMTP id 98e67ed59e1d1-39b26106c44mr13197119a91.10.1788561087245;
+        Fri, 04 Sep 2026 15:31:27 -0700 (PDT)
+Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-27.dlp.protect.broadcom.com. [144.49.247.27])
+        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-39b2ba90a65sm1686929a91.6.2026.09.04.15.31.26
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Fri, 04 Sep 2026 15:31:27 -0700 (PDT)
+X-Relaying-Domain: broadcom.com
+X-CFilter-Loop: Reflected
+Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-92e53b8a302so280316985a.1
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 15:31:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=broadcom.com; s=google; t=1788561086; x=1789165886; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=X+ezEGSoxt4OIMmPGd47wsxyvlI7VYsc+xC/7giRRKU=;
+        b=BXbQwpLHI9RXqloN719NDx8gj04mM5rIZONgkkOW2CByGnJwEh/bA/iwavlUk/xcXn
+         gFTfKSGnJOdi0sZ3prI6o7+UbbXgUiTaAM2P7aUpRtzKpWsGHeNafDLOwRG9RvukPoMe
+         2QdsCx1B6rZlpW7OwDG94gAcYMG0eYOtxuMn8=
+X-Forwarded-Encrypted: i=1; AKwUvBz0muEhw5arg0uQNpCGt1Q6zse/6m3nuDrW8Uu4fwCjNx4GQ4Ft8gCqEIVpYrNzZQAOH0pZaGbM2zikZWY=@vger.kernel.org
+X-Received: by 2002:a05:620a:aa1b:b0:939:6dfa:48fd with SMTP id af79cd13be357-939804fa8d8mr821065385a.51.1788561086094;
+        Fri, 04 Sep 2026 15:31:26 -0700 (PDT)
+X-Received: by 2002:a05:620a:aa1b:b0:939:6dfa:48fd with SMTP id af79cd13be357-939804fa8d8mr821058085a.51.1788561085504;
+        Fri, 04 Sep 2026 15:31:25 -0700 (PDT)
+Received: from [10.67.48.245] ([192.19.223.252])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-9397f9ee8a4sm320403985a.3.2026.09.04.15.31.23
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 04 Sep 2026 15:31:24 -0700 (PDT)
+Message-ID: <ba415e15-8cc4-4fbf-a624-e1776a23392f@broadcom.com>
+Date: Fri, 4 Sep 2026 15:31:22 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <b14ee42d-95f4-42d9-8b40-58c0f045b414@suse.de>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] arm64: dts: broadcom: bcm2712-rpi-5-b: add spi0
+ interface
+To: Gregor Herburger <gregor.herburger@linutronix.de>,
+ Andrea della Porta <andrea.porta@suse.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Broadcom internal kernel review list
+ <bcm-kernel-feedback-list@broadcom.com>, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-rpi-kernel@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org
+References: <20260904-bcm2712-spi-v2-1-6f8fdfb030bc@linutronix.de>
+ <apqej5QyjOHu702A@apocalypse>
+ <i6fbcajsiol77m6x3dbcay6bgpxwhy5axayb2633yklxl6rswl@luknor3eryoo>
+Content-Language: en-US, fr-FR
+From: Florian Fainelli <florian.fainelli@broadcom.com>
+Autocrypt: addr=florian.fainelli@broadcom.com; keydata=
+ xsBNBFPAG8ABCAC3EO02urEwipgbUNJ1r6oI2Vr/+uE389lSEShN2PmL3MVnzhViSAtrYxeT
+ M0Txqn1tOWoIc4QUl6Ggqf5KP6FoRkCrgMMTnUAINsINYXK+3OLe7HjP10h2jDRX4Ajs4Ghs
+ JrZOBru6rH0YrgAhr6O5gG7NE1jhly+EsOa2MpwOiXO4DE/YKZGuVe6Bh87WqmILs9KvnNrQ
+ PcycQnYKTVpqE95d4M824M5cuRB6D1GrYovCsjA9uxo22kPdOoQRAu5gBBn3AdtALFyQj9DQ
+ KQuc39/i/Kt6XLZ/RsBc6qLs+p+JnEuPJngTSfWvzGjpx0nkwCMi4yBb+xk7Hki4kEslABEB
+ AAHNMEZsb3JpYW4gRmFpbmVsbGkgPGZsb3JpYW4uZmFpbmVsbGlAYnJvYWRjb20uY29tPsLB
+ IQQQAQgAywUCZWl41AUJI+Jo+hcKAAG/SMv+fS3xUQWa0NryPuoRGjsA3SAUAAAAAAAWAAFr
+ ZXktdXNhZ2UtbWFza0BwZ3AuY29tjDAUgAAAAAAgAAdwcmVmZXJyZWQtZW1haWwtZW5jb2Rp
+ bmdAcGdwLmNvbXBncG1pbWUICwkIBwMCAQoFF4AAAAAZGGxkYXA6Ly9rZXlzLmJyb2FkY29t
+ Lm5ldAUbAwAAAAMWAgEFHgEAAAAEFQgJChYhBNXZKpfnkVze1+R8aIExtcQpvGagAAoJEIEx
+ tcQpvGagWPEH/2l0DNr9QkTwJUxOoP9wgHfmVhqc0ZlDsBFv91I3BbhGKI5UATbipKNqG13Z
+ TsBrJHcrnCqnTRS+8n9/myOF0ng2A4YT0EJnayzHugXm+hrkO5O9UEPJ8a+0553VqyoFhHqA
+ zjxj8fUu1px5cbb4R9G4UAySqyeLLeqnYLCKb4+GklGSBGsLMYvLmIDNYlkhMdnnzsSUAS61
+ WJYW6jjnzMwuKJ0ZHv7xZvSHyhIsFRiYiEs44kiYjbUUMcXor/uLEuTIazGrE3MahuGdjpT2
+ IOjoMiTsbMc0yfhHp6G/2E769oDXMVxCCbMVpA+LUtVIQEA+8Zr6mX0Yk4nDS7OiBlvOwE0E
+ U8AbwQEIAKxr71oqe+0+MYCc7WafWEcpQHFUwvYLcdBoOnmJPxDwDRpvU5LhqSPvk/yJdh9k
+ 4xUDQu3rm1qIW2I9Puk5n/Jz/lZsqGw8T13DKyu8eMcvaA/irm9lX9El27DPHy/0qsxmxVmU
+ pu9y9S+BmaMb2CM9IuyxMWEl9ruWFS2jAWh/R8CrdnL6+zLk60R7XGzmSJqF09vYNlJ6Bdbs
+ MWDXkYWWP5Ub1ZJGNJQ4qT7g8IN0qXxzLQsmz6tbgLMEHYBGx80bBF8AkdThd6SLhreCN7Uh
+ IR/5NXGqotAZao2xlDpJLuOMQtoH9WVNuuxQQZHVd8if+yp6yRJ5DAmIUt5CCPcAEQEAAcLB
+ gQQYAQIBKwUCU8AbwgUbDAAAAMBdIAQZAQgABgUCU8AbwQAKCRCTYAaomC8PVQ0VCACWk3n+
+ obFABEp5Rg6Qvspi9kWXcwCcfZV41OIYWhXMoc57ssjCand5noZi8bKg0bxw4qsg+9cNgZ3P
+ N/DFWcNKcAT3Z2/4fTnJqdJS//YcEhlr8uGs+ZWFcqAPbteFCM4dGDRruo69IrHfyyQGx16s
+ CcFlrN8vD066RKevFepb/ml7eYEdN5SRALyEdQMKeCSf3mectdoECEqdF/MWpfWIYQ1hEfdm
+ C2Kztm+h3Nkt9ZQLqc3wsPJZmbD9T0c9Rphfypgw/SfTf2/CHoYVkKqwUIzI59itl5Lze+R5
+ wDByhWHx2Ud2R7SudmT9XK1e0x7W7a5z11Q6vrzuED5nQvkhAAoJEIExtcQpvGagugcIAJd5
+ EYe6KM6Y6RvI6TvHp+QgbU5dxvjqSiSvam0Ms3QrLidCtantcGT2Wz/2PlbZqkoJxMQc40rb
+ fXa4xQSvJYj0GWpadrDJUvUu3LEsunDCxdWrmbmwGRKqZraV2oG7YEddmDqOe0Xm/NxeSobc
+ MIlnaE6V0U8f5zNHB7Y46yJjjYT/Ds1TJo3pvwevDWPvv6rdBeV07D9s43frUS6xYd1uFxHC
+ 7dZYWJjZmyUf5evr1W1gCgwLXG0PEi9n3qmz1lelQ8lSocmvxBKtMbX/OKhAfuP/iIwnTsww
+ 95A2SaPiQZA51NywV8OFgsN0ITl2PlZ4Tp9hHERDe6nQCsNI/Us=
+In-Reply-To: <i6fbcajsiol77m6x3dbcay6bgpxwhy5axayb2633yklxl6rswl@luknor3eryoo>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
 
-On Mon 2026-07-13 09:11:24 +0200, Hannes Reinecke wrote:
-> On 7/12/26 4:23 AM, Mohamed Khalfella wrote:
-> > An nvme source controller that issues CCR command expects to receive an
-> > NVME_AER_NOTICE_CCR_COMPLETED when pending CCR succeeds or fails. Add
-> > ctrl->ccr_work to read NVME_LOG_CCR logpage and wakeup threads waiting
-> > on CCR completion.
-> > 
-> > Signed-off-by: Mohamed Khalfella <mkhalfella@purestorage.com>
-> > ---
-> >   drivers/nvme/host/core.c | 50 +++++++++++++++++++++++++++++++++++++++-
-> >   drivers/nvme/host/nvme.h |  1 +
-> >   2 files changed, 50 insertions(+), 1 deletion(-)
-> > 
-> > diff --git a/drivers/nvme/host/core.c b/drivers/nvme/host/core.c
-> > index a1deffc3cc00..18de3805eff8 100644
-> > --- a/drivers/nvme/host/core.c
-> > +++ b/drivers/nvme/host/core.c
-> > @@ -1943,7 +1943,8 @@ EXPORT_SYMBOL_GPL(nvme_set_queue_count);
-> >   
-> >   #define NVME_AEN_SUPPORTED \
-> >   	(NVME_AEN_CFG_NS_ATTR | NVME_AEN_CFG_FW_ACT | \
-> > -	 NVME_AEN_CFG_ANA_CHANGE | NVME_AEN_CFG_DISC_CHANGE)
-> > +	 NVME_AEN_CFG_ANA_CHANGE | NVME_AEN_CFG_CCR_COMPLETE | \
-> > +	 NVME_AEN_CFG_DISC_CHANGE)
-> >   
-> >   static void nvme_enable_aen(struct nvme_ctrl *ctrl)
-> >   {
-> > @@ -4974,6 +4975,48 @@ static void nvme_get_fw_slot_info(struct nvme_ctrl *ctrl)
-> >   	kfree(log);
-> >   }
-> >   
-> > +static void nvme_ccr_work(struct work_struct *work)
-> > +{
-> > +	struct nvme_ctrl *ctrl = container_of(work, struct nvme_ctrl, ccr_work);
-> > +	struct nvme_ccr_entry *ccr;
-> > +	struct nvme_ccr_log_entry *entry;
-> > +	struct nvme_ccr_log *log;
-> > +	int num_entries, ret, i;
-> > +	unsigned long flags;
-> > +
-> > +	log = kmalloc_obj(*log);
-> > +	if (!log)
-> > +		return;
-> > +
-> > +	ret = nvme_get_log(ctrl, 0, NVME_LOG_CCR, 0x01,
-> > +			   0x00, log, sizeof(*log), 0);
-> > +	if (ret)
-> > +		goto out;
-> > +
-> > +	spin_lock_irqsave(&ctrl->lock, flags);
-> > +	num_entries = min(le16_to_cpu(log->ne), NVMF_CCR_PER_PAGE);
-> > +	for (i = 0; i < num_entries; i++) {
-> > +		entry = &log->entries[i];
-> > +		if (entry->ccrs == NVME_CCR_STATUS_IN_PROGRESS)
-> > +			continue;
-> > +
-> > +		list_for_each_entry(ccr, &ctrl->ccr_list, list) {
-> > +			struct nvme_ctrl *ictrl = ccr->ictrl;
-> > +
-> > +			if (ictrl->cntlid != le16_to_cpu(entry->icid) ||
-> > +			    ictrl->ciu != entry->ciu)
-> > +				continue;
-> > +
-> > +			/* Complete matching entry */
-> > +			ccr->ccrs = entry->ccrs;
-> > +			complete(&ccr->complete);
+On 9/4/26 03:54, Gregor Herburger wrote:
+> Hi Andrea,
 > 
-> I _think_ we need a marker here to figure out if the completion was 
-> already called. Depending on how often the log gets updated it might
-> be that we're processing two AENs before the other thread in 
-> nvme_issue_wait_ccr() is able to process the completion and remove the 
-> element from the list, in which case we're issuing a double completion.
+> On Fri, Sep 04, 2026 at 12:33:51PM +0200, Andrea della Porta wrote:
+>> Hi Gregor,
+>>
+>> On 11:24 Fri 04 Sep     , Gregor Herburger wrote:
+>>> The Raspberry Pi 5 routes the spi0 of the rp1 chip to the pin header.
+>>> Add the rp1_spi0 node and its pinctrl node to the devicetree to enable
+>>> the spi interface.
+>>
+>> Just a nit-pick: in the comment it's stated that the spi interface is enabled,
+>> which is not true since rp1_usb inherit status="disabled" from its node
+>> definition. This is fine because the user would probably want to enable the
+>> spi interface through some overlay, so no need to resend the patch (at least
+>> for me), so:
+> Indeed. It could be rephrased to:
+> 
+> 	Add the rp1_spi0 node and its pinctrl nodes to the devicetree to make
+> 	the spi interface available.
+> 
+> @Florian: Should I send another version or do you want to change it yourself?
 
-Yes, processing two AENs can result in double completing ccr->complete.
-However, this is harmless. It causes complete->done to be incremented
-twice which is not an issue.
+I used that as the new version of your second paragraph, please let me 
+know if I should be making further adjustments.
 
-> 
-> > +		}
-> > +	}
-> > +	spin_unlock_irqrestore(&ctrl->lock, flags);
-> > +out:
-> > +	kfree(log);
-> > +}
-> > +
-> >   static void nvme_fw_act_work(struct work_struct *work)
-> >   {
-> >   	struct nvme_ctrl *ctrl = container_of(work,
-> > @@ -5050,6 +5093,9 @@ static bool nvme_handle_aen_notice(struct nvme_ctrl *ctrl, u32 result)
-> >   	case NVME_AER_NOTICE_DISC_CHANGED:
-> >   		ctrl->aen_result = result;
-> >   		break;
-> > +	case NVME_AER_NOTICE_CCR_COMPLETED:
-> > +		queue_work(nvme_wq, &ctrl->ccr_work);
-> > +		break;
-> >   	default:
-> >   		dev_warn(ctrl->device, "async event result %08x\n", result);
-> >   	}
-> > @@ -5238,6 +5284,7 @@ void nvme_stop_ctrl(struct nvme_ctrl *ctrl)
-> >   	nvme_stop_failfast_work(ctrl);
-> >   	flush_work(&ctrl->async_event_work);
-> >   	cancel_work_sync(&ctrl->fw_act_work);
-> > +	cancel_work_sync(&ctrl->ccr_work);
-> 
-> Might be good to have a WARN_ON(!list_empty(&ctrl->ccr_list)) here.
-
-I do not think we are missing a case where a CCR entry can be left in
-ccr_list. The only place that adds/deletes CCRs is nvme_issue_wait_ccr()
-which should be running while the controller in FENCING state.
-
-If the statement above is wrong, then there is a bug I need to fix. I
-think the code should be clear such that WARN_ON() is not needed.
-
-> 
-> >   	if (ctrl->ops->stop_ctrl)
-> >   		ctrl->ops->stop_ctrl(ctrl);
-> >   }
-> > @@ -5363,6 +5410,7 @@ int nvme_init_ctrl(struct nvme_ctrl *ctrl, struct device *dev,
-> >   	ctrl->quirks = quirks;
-> >   	ctrl->numa_node = NUMA_NO_NODE;
-> >   	INIT_WORK(&ctrl->scan_work, nvme_scan_work);
-> > +	INIT_WORK(&ctrl->ccr_work, nvme_ccr_work);
-> >   	INIT_WORK(&ctrl->async_event_work, nvme_async_event_work);
-> >   	INIT_WORK(&ctrl->fw_act_work, nvme_fw_act_work);
-> >   	INIT_WORK(&ctrl->delete_work, nvme_delete_ctrl_work);
-> > diff --git a/drivers/nvme/host/nvme.h b/drivers/nvme/host/nvme.h
-> > index 90b989302e21..578fedda9946 100644
-> > --- a/drivers/nvme/host/nvme.h
-> > +++ b/drivers/nvme/host/nvme.h
-> > @@ -422,6 +422,7 @@ struct nvme_ctrl {
-> >   	struct nvme_effects_log *effects;
-> >   	struct xarray cels;
-> >   	struct work_struct scan_work;
-> > +	struct work_struct ccr_work;
-> >   	struct work_struct async_event_work;
-> >   	struct delayed_work ka_work;
-> >   	struct delayed_work failfast_work;
-> 
-> Cheers,
-> 
-> Hannes
-> -- 
-> Dr. Hannes Reinecke                  Kernel Storage Architect
-> hare@suse.de                                +49 911 74053 688
-> SUSE Software Solutions GmbH, Frankenstr. 146, 90461 Nürnberg
-> HRB 36809 (AG Nürnberg), GF: I. Totev, A. McDonald, W. Knoblich
+Thanks!
+-- 
+Florian
