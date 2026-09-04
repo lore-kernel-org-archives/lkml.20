@@ -1,107 +1,133 @@
-Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com [209.85.216.48])
+Received: from mail-ot1-f49.google.com (mail-ot1-f49.google.com [209.85.210.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C509F371876
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 21:22:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 736CC4229B0
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 21:23:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788556952; cv=none; b=WNmQAM920w0npBE5dLV95mQPygUlIxPNVboyGEZQz4muYU+v6dBq8DPGAl2g+f8jBWYhV1u6flnHyxNu3U5VAWUs6WYqrJhZ5dIKdQ5L49VoBFYqpMCPOHfqwSpsIAWL0EEAtcbdmdfU1J+Jg84vn3iiiCEwui189v6ZDeMZOEY=
+	t=1788557020; cv=none; b=C6OqHCvlY+sAq/r3H4Lk6BJYy0/8T8iwC/nD4PeI6bzlXMh1WwfCEswSO/HnILFGvbDbshbajsNs+wGKvYWvOzKAIgimmJuB930Dcm2nSzQXsU8I3Ifq6d6IZ1Iz5tSs7bhyR83g1IQD0Ca9g4nf7zjz21Jnt2Tg0X/GQmI4kqk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788556952; c=relaxed/simple;
-	bh=sAxci377fn8+FnyuNLAMrG/6nTy5cwTzjBUe0YrHgbw=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=k1cq0C8TkLB5yT4CCC8KZXRg8z/BtV/oKO9iThU2rdtCzTh113LXKeePbZWPggSxbEOEEZ09k8VFUkR/3EeqVp/zqCIX46Yg7RbW5U5pk6hB0kCDv+qc8K4/3gqCgXfAZ/9R5XNJ3atETtShpnA/x2zLwITZJuyIDsOZqXrwdKw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UA3ujme3; arc=none smtp.client-ip=209.85.216.48
+	s=arc-20240116; t=1788557020; c=relaxed/simple;
+	bh=TnmhAN7UAS2ynuFEOPQLlzD2wvbIo/yeVWwhOMqNS58=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=dKWEzntd1miUn8ZRvhwEqDwpULsYmxM7VahP5mq0zQYxFBYnJjsQczgBlFiKtSHHxyN2KzojzsON2qQBc6KSEF86pNN/fq03jF/j4om6aCLehOj1QhmHFfhRClJ4q6WiugJ8K1KgeKdbuUYVM1hMtASSlVSB9l1EFy/M/xVgAD8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hShBIqEX; arc=none smtp.client-ip=209.85.210.49
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UA3ujme3"
-Received: by mail-pj1-f48.google.com with SMTP id 98e67ed59e1d1-382ef647e20so1466569a91.1
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 14:22:30 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hShBIqEX"
+Received: by mail-ot1-f49.google.com with SMTP id 46e09a7af769-7f4e6b5bd30so2055669a34.0
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 14:23:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788556950; x=1789161750; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=zDZS/yUUq6qUoww9Sgh++cO+lJPE83G9J2KfDK5Wa1w=;
-        b=UA3ujme3JkDKYZCyllqcSLDJIV8YV8hes/pRUDbBGHf3PkfFZE2ezXXpzOp4E+ERw8
-         6H6aRJBBeprBil7/pgqZ1+w1B+GCLOxDzJqp0gbEel27HXUQOvyAkm0PctWVsjQK7ZzU
-         Hw3E462g9tSWoQ61SZ0/28ohkEshTzsqLxHCgqnp3Oh86+HVeeaR7Choad1g02TaBVps
-         1AO7J4KuYUpchZ3S7V8iCtnREym3ytqqeUK80FZFyTFDF4nmSIJnm0ubWsBMc4uSjqos
-         PXVixrbJP9HUeS9okVUjycGPSQlon7LrBt9o5aXYGDpUElF2LILVZPbpeVrghdVsbvPS
-         h1aA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788556950; x=1789161750;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1788557016; x=1789161816; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=zDZS/yUUq6qUoww9Sgh++cO+lJPE83G9J2KfDK5Wa1w=;
-        b=LpSM9M6oO16bNLAIe/ehlT1sSfH9Y4vyXQXSjfEFyDFU19in36IzYk2QolU9pS7Li7
-         BFPQeXlyZCMogPwyUUROGOeoeIZod4kC0NK8A8Wcoxw3ti9ISuz/TlajPkyqZsQhVzg+
-         2v38qsuwdls+bf1TY1ImEOOrxueKKzATBjkjiVLoOD3K8b0DuB/U/mLkVygD8sZxfyIQ
-         I65twkTj9ccP5qvCqLkNUXpMYQXdd+UfodX/nNT1A34OKonk4BPiRzMey1gS4Mm8R47n
-         Mhm9sU+0TudTDtk8ELvUffdAAe99OU42MZCDBmAYRVHkOQbKjcosjp1WPhn78CwmBxLc
-         cZyA==
-X-Forwarded-Encrypted: i=1; AKwUvBwuLxFJps0F5vfu6j2hst7rbzb8E4uah0KOdaPUWO1VVq6dC1DObPVx7d6K9GHSreM8B/hoQT2THhlRBpw=@vger.kernel.org
-X-Gm-Message-State: AFuF++k22nOv+KzcK7grtlNzhkrr3e4hnLVwFfW2Rvddi5lKYpErMa3K
-	wCTHdCdOVdiB52u3PRTdk2dKLNs4CyTRB2E040svLSzzfOhAEH/24esh1c38yw==
-X-Gm-Gg: AYBFou2/QReJDv22UkEtcPxsrrHoYVYz/n2famz1BL3CYJb9WoVJ7ItNs9IJ4dOXOKE
-	zAEsWuwqL21MgESdF4YIV8HkVYe1DBvXtCIcoAvxB7FSmxNuejt4tkq0vEc7aIRwJ0NtQFvQ4MB
-	DWnOpZfOyLcpcN4fDa81XARYeAPS0jn9sXOYq3V6pTV0RpxX2mk0bRr8a0Opt/4/9LSMZ/AhdSh
-	kYbuAtSBQK7rtTyYsEKTECO4yFd+rBWa/nWjIIgy+snLC/Hnq5tv7iQo8unaTCXdNsrPHM6c1cL
-	TER4w5bwGwcGwDhdKr5ytCpWxm1FVJLccpI8nropfVhbXVhssuJwqMjiRhqbqhNAV0ezFXcSlEG
-	wTeqCUCJnPSu8IyyXEWkTfb3TjOxMJ3K1tfFYqYt9tY5PlytkHfyQMEHoISJTr7l2Vj0ilWvmaY
-	w2Umgt+WVxiH96cFZIK8tU6pZmeLCHaX0WISUy+IlZMHtcbdmW3qA8DXzh4lN1b2ijminv3wGsq
-	RIrW8MIRqx5HY8MmLm6dW2sr7ANzXckx0IfEzPeeJsBN1vF0p1SwoRvr1eFg8JEBKQ15HiiE8k2
-	OFlQZ2peoENcaCLg7aEtUaAdgzXryf3JbakuyW7+/rOwiP/kbg==
-X-Received: by 2002:a17:90b:224c:b0:398:9bd5:490f with SMTP id 98e67ed59e1d1-39b2624cf31mr11476690a91.22.1788556949925;
-        Fri, 04 Sep 2026 14:22:29 -0700 (PDT)
-Received: from ryzen.lan ([2601:644:8000:7a86::e34])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc45542dbbesm1315056a12.13.2026.09.04.14.22.26
+        bh=SP5FgDVql885MI97WgCQyPWKLiok3M5jguE0MrKj3qI=;
+        b=hShBIqEXlXU7ExGsDiGFf8YXaBrcUIXtvbFGZKB4PJCT0QLq5zQhefmyoxPKo1+Pcq
+         y16NU7Tc83rgkutIiroHqFe05pzYJfnkyyaenOQruzD3lMrjSfXSgcvKA0RSsDjJxtRU
+         jPDAaSeHRgEs6HnTnAHlocL1LJLyQClVIHHlVE9xKN4L5Tdkniu+qPIKYY2eWOb7+OzK
+         00GouZZRRHBTOC5b1OPg0LuC4K5q+vihoqfqZIBRLgFrRZ1Pd5+x4kf6aTFun1PB2+ma
+         E3Yyj/SiO53WvbLDGaBRCpin/0xp5T4spiqHU1JsI0+B6YaXIZSeQfVLxAno1dxmBPxj
+         amUw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788557016; x=1789161816;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=SP5FgDVql885MI97WgCQyPWKLiok3M5jguE0MrKj3qI=;
+        b=SyE7UrG6XdFteKin9Jqy+A4Q111pd0zqd62nFVyAanUMgmCsCQoGUoxVJf5rRckkMK
+         iqQR1Iyg5vw3bJNAeELjQZD0ZPBQFLTe7Q3C5lYWuQOvDgr8SWrWChE4Nn1LlltNOSUN
+         FH16X+S76k2LzpYcjgATTGeocPRRANzq5fgQlZB5UMR7WSmY+90JLgeOUvLrzseq993l
+         o5b46COwdmz4RiqxhsnShfbjHJ57PMvmdFF4HneYaivA1dKZhu4ErXawxBtcb5woxcGn
+         BN+iaqritekHeeOjfQTZ255iCDscu/EICCzHc1tBzPRFkNkXWxXUBbbSkjTzZt9OO6wf
+         mPzw==
+X-Forwarded-Encrypted: i=1; AKwUvBzv1c8/OdgPQi/MFABJqgU501+Bfms2ACUzSTTNCOhz/DsmWJWi1itStpcymLe2EtbhieILzJd0ANQdz1Q=@vger.kernel.org
+X-Gm-Message-State: AFuF++lK1VNI2f9VGrjtm3EO0cKG9d/AqE7tzFx+3ZcNfdWd/5naOEsV
+	ypaGQg6ZxrYHoZseRAgVLJCsIn3JdtDWP7qRaQhJ5uSz/8uNEq6ydjgu
+X-Gm-Gg: AYBFou2GMA8dZxHSL4kl82W6lZEY6C9fbrAVFkwEzpezT1YdphJP/Iut7Xm0Jcj1Cla
+	iBXL6WnpUBbwxroq9nqtiTBBboG+gqQWmtdzOZGkcRaz/0dLYY/uctLdzhH+g69zcXxVbQdwFI5
+	fFjvVlPoDW5PE/ETrt14Rlwooslkq10ebcfhVOLgDgxBLfzUy0cm5Zh0ORlXorWz8GB/4gmLCxn
+	w/SD/OIXeUZY5d87lSlQkUw6Jo71mmkJ0Vzz2zKlK4YiTs/86Go+1Fj1qiNDGYghDwt7qG9kvIG
+	ZIeNrYT8NHrb4O+Nc+cSyyTpam/4a6euGIlxPXNyHZotOrsu34STxhSkk4F5IPy73GFoUz4xuiU
+	YyEiPf1B8DJAELG4xVMi6W/ONeq8h0b0TmkjUGnzBGccm80YnI6kwJ3QL1I/9MriDjH+GcZf8jn
+	Ag3Sio5fbzbIMEno5FSAFpNINOrK4tr40EU8BBi6kRVfp92Wl9LuIksi/5XQAjCDwskr5Ir65XU
+	KCGsnjgf44PrgrircGIBq8H4XiraP1CGm8zU/M7PcvaZd03ZjZZxRolQlME5WO3SjMKnAcCFvle
+	n2EaFXoBV0ujL7IkzMRy8FTsop9qxH89YM3fXiKJmVQaoib5ptFywVtnges805/xThDWjo9xfO0
+	pSB33mPtnetxQV0FtnHM=
+X-Received: by 2002:a05:6820:1521:b0:6b5:ec3f:4983 with SMTP id 006d021491bc7-6b71ff594bfmr2962915eaf.30.1788557016267;
+        Fri, 04 Sep 2026 14:23:36 -0700 (PDT)
+Received: from [127.0.1.1] (184-96-151-165.hlrn.qwest.net. [184.96.151.165])
+        by smtp.gmail.com with ESMTPSA id 006d021491bc7-6b6dbedc6fasm4492259eaf.3.2026.09.04.14.23.35
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 04 Sep 2026 14:22:29 -0700 (PDT)
-From: Rosen Penev <rosenp@gmail.com>
-To: linux-wireless@vger.kernel.org
-Cc: =?UTF-8?q?Toke=20H=C3=B8iland-J=C3=B8rgensen?= <toke@toke.dk>,
-	linux-kernel@vger.kernel.org (open list)
-Subject: [PATCH ath-next] ath9k: delete channel-context timers on deinit
-Date: Fri,  4 Sep 2026 14:22:25 -0700
-Message-ID: <20260904212225.84813-1-rosenp@gmail.com>
-X-Mailer: git-send-email 2.55.0
+        Fri, 04 Sep 2026 14:23:35 -0700 (PDT)
+From: James Hilliard <james.hilliard1@gmail.com>
+Date: Fri, 04 Sep 2026 15:22:11 -0600
+Subject: [PATCH v2 1/3] dt-bindings: mtd: sunxi: Add randomized OOB flag
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260904-submit-sunxi-nand-vendor-oob-layout-v1-v2-1-b12074f4aca7@gmail.com>
+References: <20260904-submit-sunxi-nand-vendor-oob-layout-v1-v2-0-b12074f4aca7@gmail.com>
+In-Reply-To: <20260904-submit-sunxi-nand-vendor-oob-layout-v1-v2-0-b12074f4aca7@gmail.com>
+To: Miquel Raynal <miquel.raynal@bootlin.com>, 
+ Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>, 
+ Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Samuel Holland <samuel@sholland.org>, Maxime Ripard <mripard@kernel.org>
+Cc: linux-mtd@lists.infradead.org, devicetree@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev, 
+ linux-kernel@vger.kernel.org, James Hilliard <james.hilliard1@gmail.com>
+X-Mailer: b4 0.15.2
 
-ath9k_deinit_channel_context() cancels chanctx_work but does not delete
-the offchannel and sched timers set up by ath9k_init_channel_context().
-If either timer fires after deinit (e.g. during driver unload or
-suspend), it accesses sc->sc_ah which may already be freed by
-ath9k_hw_deinit(), causing a use-after-free.
+Allwinner NAND firmware stores the bad block marker through the
+controller randomizer. The mainline driver instead compensates the first
+two randomized bytes so that the marker remains plain on flash.
 
-Delete both timers with timer_delete_sync() before cancelling the work
-item.
+On H6 and H616, the firmware also uses a fixed protected user-data
+placement while mainline fills the OOB space left after ECC. Add an
+opt-in property selecting the firmware's normal-page format for the
+configured controller hardware-ECC geometry. This covers the
+vendor-specific randomizer, bad block marker representation and protected
+user-data placement needed to access BSP-derived images.
 
-Assisted-by: opencode:big-pickle
-Signed-off-by: Rosen Penev <rosenp@gmail.com>
+The property does not change raw-access semantics. Raw operations still
+bypass ECC and randomization and expose physical main and OOB bytes.
+
+Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
 ---
- drivers/net/wireless/ath/ath9k/channel.c | 2 ++
- 1 file changed, 2 insertions(+)
+ .../devicetree/bindings/mtd/allwinner,sun4i-a10-nand.yaml      | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
-diff --git a/drivers/net/wireless/ath/ath9k/channel.c b/drivers/net/wireless/ath/ath9k/channel.c
-index 8b27d8cc086a..92241c24a0a4 100644
---- a/drivers/net/wireless/ath/ath9k/channel.c
-+++ b/drivers/net/wireless/ath/ath9k/channel.c
-@@ -1363,6 +1363,8 @@ void ath9k_init_channel_context(struct ath_softc *sc)
+diff --git a/Documentation/devicetree/bindings/mtd/allwinner,sun4i-a10-nand.yaml b/Documentation/devicetree/bindings/mtd/allwinner,sun4i-a10-nand.yaml
+index 9d061e2216cb..8ecafc40ddcb 100644
+--- a/Documentation/devicetree/bindings/mtd/allwinner,sun4i-a10-nand.yaml
++++ b/Documentation/devicetree/bindings/mtd/allwinner,sun4i-a10-nand.yaml
+@@ -79,6 +79,16 @@ patternProperties:
+           minimum: 0
+           maximum: 1
  
- void ath9k_deinit_channel_context(struct ath_softc *sc)
- {
-+	timer_delete_sync(&sc->sched.timer);
-+	timer_delete_sync(&sc->offchannel.timer);
- 	cancel_work_sync(&sc->chanctx_work);
- }
++      allwinner,randomized-oob:
++        type: boolean
++        description:
++          Select the normal-page format used by Allwinner NAND firmware for
++          the configured controller hardware-ECC geometry. Normal page
++          transfers use the controller randomizer, the bad block marker remains
++          in its data stream instead of being compensated to stay plain on
++          flash, and protected user data uses the controller-specific placement
++          expected by the firmware.
++
+     unevaluatedProperties: false
  
+ required:
+
 -- 
-2.55.0
+2.53.0
 
