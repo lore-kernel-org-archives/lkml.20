@@ -1,195 +1,120 @@
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
+Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com [209.85.216.54])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF7733D45F7
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 08:37:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C3AE3EFD3D
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 08:37:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788511069; cv=none; b=nQm0JjgwxZM7HvoW40IEbZSDUqA4c8Ox86irYSny6ZciusYZpvZNkNi5GbiOcLWoBx5Tf4Pjk7LxYYtZrScWlJMy3cZUsNFKSlrVxxP4YN6OW1vp5aKWEF03S/b20e3fvt2zNRci0nbWfoq9MsYFIqO/ElE6LgmYLJOjYODY9SQ=
+	t=1788511073; cv=none; b=jwgCx2m4XhVGjVl4/X/kVGfBZqh3MRwa2W5gs7VseesCLj+hlOpht7miAQoHm8cbxogbEG9mfEZjOU1WYsT89WGQ5aXMjMnuRPkrMLLsWuakBwwwi2eTnu4nHuxRLFAyIqtiUQ04nyhM/jvTKNwyWSr5nmH6Bi08g5Ww3kTVkWI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788511069; c=relaxed/simple;
-	bh=JNVo3mCPeHl6ES3fr1l9fzdDZhXVPKNXb/7te67rFJA=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=PrevOrPQY2yQrsXgnmZKCYl1AOXiF04Es6P0euf5k9nmZ9V65LlIWaBxTPA3WPkI2Zh2l/wNN3B3w5/vypBxLpQWeLxziXvDALMn/cAQp8mwC4aGSbw5P6yOsHiXK0icOXAUljxNjcxZnvOKFk4DsF+dynEKtHx9eg3WMrLZVpI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=It9jDnEV; arc=none smtp.client-ip=209.85.128.46
+	s=arc-20240116; t=1788511073; c=relaxed/simple;
+	bh=cCl4KoVJWQx2i783J8UMLPXppXAg1VvX5JgeEJVvjKA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=QgRUmQjUTGLzVx4TiSEcjk3lONub18Y4/P54DrWrLG3kVtKo2/oxWzi7K+kymWWfXFw5tE7qvJAWwbupp0QWsIDX/WwKBdL+l92L3u8L1xQJ4smLvjliXhzniz2UpyCHGhh7Kh4UsQeRfrSYyUHdwyVD7f0wDkWpg1V/hqFKyJI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=i2AuOzcu; arc=none smtp.client-ip=209.85.216.54
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="It9jDnEV"
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4995b0343c1so9913385e9.3
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 01:37:47 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="i2AuOzcu"
+Received: by mail-pj1-f54.google.com with SMTP id 98e67ed59e1d1-39647aa9d52so850642a91.0
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 01:37:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788511066; x=1789115866; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=3s1LbH3i67Aex+XO8TqzHfYjkZ2LQ+Zdti2dOun8vp0=;
-        b=It9jDnEVCbZVR9s5JO3WJcHTmGDv4Qvre+NAB3GUZs1d8/27QCs3gM890sAJAfRu0X
-         QXW71DDQXO+Bm5q5BjpqOjxDgpRwnGLANq5vYPrpr5vu06y7qevH/bd+7zME9iSg2SyQ
-         O9XxjOIXzdz9zr0wVl1a4UG3RPYhyIurxSFVdnb/VYMOOPXHI2vbrFupWEyr4BOoTrWk
-         9yTZ5jvfCIzY002hPglb8hNKqvIW9iB+TZez5fD8kTaPwEF/k+pftgp6MvufxC546o12
-         RaXRMaiJSljwTsHyFmgEWatoGmCnDkVh+cjv7zxYkAG/xQL2srka43NFz0RhyAGDTxmv
-         ycYQ==
+        d=gmail.com; s=20251104; t=1788511071; x=1789115871; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=G6pXZOI1TlC9MwT6PyMRsLZ68Bknxu2fpSz6gtNlsdc=;
+        b=i2AuOzcueqqGIPi4liw/x82Epl7yeRA5Zz4FZoWZKKgyCX4r4mJrKiPaRNyT4vaqgT
+         vZ5921FFEEoPipaWNv6or/YNWU/Ve2McKUhhT5rQZQ7Pi4XnANnD1x73CJibNGW5Agms
+         /X7v0+XIo+t2OhK+UY02/oA/4nipXIkX28+FX5u574MdDgCs5OmWRBbQEraaK3AeBbYh
+         AZVZLmg1+o0k2bRlvz147UIxL2ceRqzq5wIhFBh1+eD9KNNtezn5zYQgpIJBKpSviQDS
+         jkDD7HWNgiPAFtGUaBaESMMFXiSpRLPtkXMclPPjWTw3pSr5P+C+i6a0PGBiOiqmpHMS
+         KW4A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788511066; x=1789115866;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=3s1LbH3i67Aex+XO8TqzHfYjkZ2LQ+Zdti2dOun8vp0=;
-        b=ewT902oEnMqC0u+gsSLF8XIlXYQP4DcxP8Jae63McPl1zuXFhTmTz6nVTsFmYZGXIj
-         j+07iJrOeI2HDvSmFTZYShsiktBRrjhjAYOQn54IVABc287o1hZwq8CnLe23NX8RO1er
-         6tyIfiLujSS5HrsDp51ugZxoW+WiQRjrMSr8s52fNIb8TK/oWpvDlAliTs/k/NATakHR
-         tTUJ5oQ4XELyaIwvYfCsl2NHFrbdyxUdOsXFs5UqDvSeUkN6zDVhRFFAjHDa+pSWWqbn
-         CHlNJMCM5KE8JfxinU8H3Zx0ZaKoPghW8IOKUhWja0kwIdalj21n4MD36+xztx1Dsoeg
-         caUQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzjduy/Thb5vell87jvzXbEET2XkDf8EjqxxqbveoCVsQbu7l2Drk0JoN3AvvksF3IoN198FYBrMt4OfTs=@vger.kernel.org
-X-Gm-Message-State: AFuF++m0/kXe2Xwc4G8YpGrQYjB9RrkFauOThZvj4sbFLn/1vGi2jPl+
-	98TEP3nXI28IH2nKWfJky+Yjy/xxZyCnrmJTDesgk4HtkGppCKhy2kGC
-X-Gm-Gg: AYBFou3vQe//MTNZevMDODuap7hcb5Bj5EvOcDg1INht9U64l1RaZ5n03TZHk2A0a1g
-	X1CbJ+3GhjPi9RhevbbGFenenG9YwYN2r9i6zXooB8Ci6Mq98jb3lcS/Hner4KJnY35iLUMWoGE
-	AkJ1/tandY9MWQorP/DGJRG/h7H0dMxBh4Nb+sgwBzo2zCK6dZlpebMPR/lcs5BBLB6gR5BP9gd
-	/OaazIGcDV3gubafBngOWVFt3tDQy2yh6AQC1fRQC5CZqEp7+hGLT+y5vMi+RCgiS+yu2RhxAiV
-	vwrGvwdLdTaBDJjSUOmhErXxBynyErbZs01QzyebRLHhfsrwJNqUnQG7YcAh0gTpbCk3dwxpZGL
-	XN/mSCz9qky93A3txoUSlsolYJBmf9TjgnGJr3kmXpp5JiHMDET1EPAKSpUqMw41H0Z5rwE9wgg
-	RNM5PARSVunQkxud2tKWZWR1sBPPSVRumJrB71MfC3Qiq4EVEFP61Y01gDijWVf4Rz6ZNqaiYvI
-	Xj9kzf4YjrGpmuTfVza3Cmc8A==
-X-Received: by 2002:a05:600c:5303:b0:49c:fa21:1c85 with SMTP id 5b1f17b1804b1-49cfa211d81mr22763385e9.26.1788511065589;
-        Fri, 04 Sep 2026 01:37:45 -0700 (PDT)
-Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cee5d4938sm137112065e9.2.2026.09.04.01.37.44
+        d=1e100.net; s=20251104; t=1788511071; x=1789115871;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=G6pXZOI1TlC9MwT6PyMRsLZ68Bknxu2fpSz6gtNlsdc=;
+        b=QlV23aZHmTX2b3dx++kqXBp5f1WN90x8pRcMqoI5/tbpZ50cPhSK+3eHz4jfxJUY7O
+         GbzYS3tRzt9joEYQAO8MLDnsYXJe2iG/rXP35FdPn6A8kkn+CAncnj35EL4UkwP/w9LV
+         SL/c8CGCR0vxzzF4cjkyKC2qq+kT7eJuOZk/xQbh5OMr7FvisRyRr0Iax+gvAzYRArkD
+         8+xOnNUN27Wasblg7d++XDZD1v++ob+SihT+9W/3RJP2ngLx2cduHErGA6gXPZjJWqIg
+         Y6L+hl47aHOR1aSMEeE3nlZkFpFQMqU5s+XsAJ+ujQjJZplbAYxRP24lnNN7ACg4e5m7
+         g7gA==
+X-Forwarded-Encrypted: i=1; AKwUvBzMhGBrrCeFPNvNRA0oz4bJ0Rs5jeojGI/CFv7z8Xwh5XC/fmtOV0qrIS6moOiQMIRsgrUCV68Noic4adI=@vger.kernel.org
+X-Gm-Message-State: AFuF++m9JVNL+rAZV+DNrRi74THlDzsX6LDocqVSR7vtjuXAVzmLawh+
+	BKSisjQULSL9UXh8RrdI1Pw60fXbzNMn6vKAXpTGqnRTvPo0dbAyTAxZ
+X-Gm-Gg: AYBFou3uUPeAsFSCXwD+/DQ8N8R2h+Kg2sFYn40/J8QeanC6hTOawV7M4FjmrrkA7VT
+	Ay2iYpASbtznv0jjCvVCDzwb7g6/6+TiiYTAIysdKXfzJpN1cI5yBntSO4N/r2bAy4TcZGwpiJh
+	y4JHZMQ5TkbXu1KzkOUX1tiSUn3rWvD0F64PKkNDdJ8GYJCYpPHiE96dUEpo4MjhUKIBuNAA9Fc
+	rqbNAgAejhsP2Ec+GKQUHFX8LGz6V3P1heABE2rS8IXcjNXi7qvnzQt64BmE0eAFtVe3i+LkG/J
+	xv41+aeoNevg32IvLH7Mt8hKM20H0KxI76ui4phhTNuvpmSgNT7zd1TzsOF1wMHMwzzBbBozWu7
+	m16pZPmQSBUVEOBon7NdZN8u2aRBNZ8lGcBSe6LB95ZmmNOP7jo5dcY0L2fAolGvIlRXjRpj55h
+	83V+s8Qfd6X33Ebvc3493/dIfjaiZi3X3Wyy38T9wmkv2k69L/gWeD8ctApKY=
+X-Received: by 2002:a17:90b:2b45:b0:398:ba46:1d9f with SMTP id 98e67ed59e1d1-39b27ea735bmr2719594a91.13.1788511071333;
+        Fri, 04 Sep 2026 01:37:51 -0700 (PDT)
+Received: from localhost ([2001:19f0:8000:3e6e:5400:6ff:fe38:3d01])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b261549f3sm3317687a91.16.2026.09.04.01.37.50
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 04 Sep 2026 01:37:45 -0700 (PDT)
-Date: Fri, 4 Sep 2026 09:37:43 +0100
-From: David Laight <david.laight.linux@gmail.com>
-To: Ridong Chen <ridong.chen@linux.dev>
-Cc: Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>,
- Roman Gushchin <roman.gushchin@linux.dev>, Shakeel Butt
- <shakeel.butt@linux.dev>, Andrew Morton <akpm@linux-foundation.org>, Muchun
- Song <muchun.song@linux.dev>, Kairui Song <kasong@tencent.com>, Qi Zheng
- <qi.zheng@linux.dev>, Barry Song <baohua@kernel.org>, Axel Rasmussen
- <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, Wei Xu
- <weixugc@google.com>, David Hildenbrand <david@kernel.org>, Lorenzo Stoakes
- <ljs@kernel.org>, Chris Down <chris@chrisdown.name>, Tejun Heo
- <tj@kernel.org>, Yu Zhao <yuzhao@google.com>, cgroups@vger.kernel.org (open
- list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)),
- linux-mm@kvack.org (open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER
- (MEMCG)), linux-kernel@vger.kernel.org, Ridong Chen
- <chenridong@xiaomi.com>, stable@vger.kernel.org
-Subject: Re: [PATCH v3 1/2] mm/page_counter: avoid integer overflow in
- effective_protection()
-Message-ID: <20260904093743.23cde26b@pumpkin>
-In-Reply-To: <20260903031952.1120321-2-ridong.chen@linux.dev>
-References: <20260903031952.1120321-1-ridong.chen@linux.dev>
-	<20260903031952.1120321-2-ridong.chen@linux.dev>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
+        Fri, 04 Sep 2026 01:37:50 -0700 (PDT)
+From: Inochi Amaoto <inochiama@gmail.com>
+To: Vinod Koul <vkoul@kernel.org>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Manivannan Sadhasivam <mani@kernel.org>
+Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	Inochi Amaoto <inochiama@gmail.com>,
+	linux-phy@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Yixun Lan <dlan@gentoo.org>,
+	Longbin Li <looong.bin@gmail.com>
+Subject: [PATCH v2 0/4] phy: core: Add phy bulk helpers support
+Date: Fri,  4 Sep 2026 16:37:04 +0800
+Message-ID: <20260904083709.425893-1-inochiama@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On Thu,  3 Sep 2026 11:19:51 +0800
-Ridong Chen <ridong.chen@linux.dev> wrote:
+As discussed in [1], some drivers may do not care the difference between
+phys. Instead, they only need to treat them as a group and operate them
+together. This means a bulk operation is needed.
 
-> From: Ridong Chen <chenridong@xiaomi.com>
-> 
-> effective_protection() scales a parent's protection by a ratio of page
-> counts, e.g. for recursive protection:
-> 
-> 	(parent_effective - siblings_protected) * (usage - protected)
-> 		/ (parent_usage - siblings_protected)
-> 
-> The multiply is done at unsigned long width before dividing. On systems
-> with >= 16TB RAM the product can exceed 2^64 and wrap, giving a bogus
-> protection value and silently breaking memory.min/low enforcement.
-> 
-> Use mul_u64_u64_div_u64() to multiply in a 128-bit intermediate. Because
-> usage and parent_usage are not read atomically (a child is charged
-> before its parent), usage - protected can briefly exceed the divisor,
-> making the quotient overflow 64 bits and trap (#DE on x86). Cap it so
-> the ratio stays <= 1.
-> 
-> Reported by the sashiko review tool [1].
-> 
-> [1] https://sashiko.dev/#/patchset/20260826133054.88529-1-ridong.chen@linux.dev?part=1
-> 
-> Fixes: bc50bcc6e00b ("mm: memcontrol: clean up and document effective low/min calculations")
-> Fixes: 8a931f801340 ("mm: memcontrol: recursive memory.low protection")
-> Cc: stable@vger.kernel.org
-> Assisted-by: Claude:claude-opus-4-8
-> Reviewed-by: Barry Song <baohua@kernel.org>
-> Signed-off-by: Ridong Chen <chenridong@xiaomi.com>
-> ---
->  mm/page_counter.c | 19 +++++++++++++------
->  1 file changed, 13 insertions(+), 6 deletions(-)
-> 
-> diff --git a/mm/page_counter.c b/mm/page_counter.c
-> index 661e0f2a5127..e8bd512069c5 100644
-> --- a/mm/page_counter.c
-> +++ b/mm/page_counter.c
-> @@ -8,6 +8,7 @@
->  #include <linux/page_counter.h>
->  #include <linux/atomic.h>
->  #include <linux/kernel.h>
-> +#include <linux/math64.h>
->  #include <linux/string.h>
->  #include <linux/sched.h>
->  #include <linux/bug.h>
-> @@ -356,7 +357,8 @@ static unsigned long effective_protection(unsigned long usage,
->  	 * otherwise get a smaller chunk than what they claimed.
->  	 */
->  	if (siblings_protected > parent_effective)
-> -		return protected * parent_effective / siblings_protected;
-> +		return mul_u64_u64_div_u64(protected, parent_effective,
-> +					   siblings_protected);
+Add some bulk helper functions for phy core by referencing the design of
+clock/reset subsystem. This can relieve the driver owners' life who needs
+to handle many phys, as well as each phy error reporting.
 
-On 32bit it is only necessary to use a 64bit intermediary.
-mul_u64_u64_div_u64() will drop back to the (probably faster) 64 by 64
-divide (and then maybe to a 64 by 32 one).
-But there is a lot of extra code before that happens.
+[1] https://lore.kernel.org/linux-pci/ak9KzNFF26B0Kttz@ashevche-desk.local/
 
->  
->  	/*
->  	 * Ok, utilized protection of all children is within what the
-> @@ -397,13 +399,18 @@ static unsigned long effective_protection(unsigned long usage,
->  	if (parent_effective > siblings_protected &&
->  	    parent_usage > siblings_protected &&
->  	    usage > protected) {
-> -		unsigned long unclaimed;
-> +		unsigned long unclaimed = parent_effective - siblings_protected;
-> +		unsigned long unprotected = usage - protected;
-> +		unsigned long parent_unprotected = parent_usage - siblings_protected;
->  
-> -		unclaimed = parent_effective - siblings_protected;
-> -		unclaimed *= usage - protected;
-> -		unclaimed /= parent_usage - siblings_protected;
-> +		/*
-> +		 * The usages aren't read atomically, so a child can transiently
-> +		 * appear to use more than its parent, making the ratio exceed 1
-> +		 * and the quotient overflow 64 bits (#DE on x86).  Cap it.
-> +		 */
-> +		unprotected = min(unprotected, parent_unprotected);
->  
-> -		ep += unclaimed;
-> +		ep += mul_u64_u64_div_u64(unclaimed, unprotected, parent_unprotected);
+Changed from v1:
+- https://lore.kernel.org/linux-phy/20260831025319.94886-1-inochiama@gmail.com/
+patch 1:
+1. Update document.
+patch 2:
+1. Fix document format.
+2. Fix several document description.
+patch 3:
+1. Split into two patches: one for non devm helpers, one for devm helpers.
+2. All the bulk helper now use unsigned int for counts.
+3. Fix multiple the while loop statement.
+4. Rename of_phy_get_parent_count() to of_phy_get_count().
+5. Fix some 80 line function problems.
+6. Use PTR_ERR_OR_ZERO() to simplify the error handle.
+7. Fix zero value in the document
+8. Use two separate release function for devm helpers.
 
-If the ratio is forced to 1 there is no point doing the scaling.
-So maybe:
-		if (likely(parent_unprotected > unprotected))
-			unclaimed = mul_u64_u64_div_u64(unclaimed, unprotected,
-							parent_unprotected);
-		ep += unclaimed;
-OTOH if the min() generates a cmov rather than a conditional branch
-then you don't get a statically mispredicted branch in the normal case
-(which is very likely with the empty 'else' branch).
+Inochi Amaoto (4):
+  phy: core: Add common helper to add phy phandle device link
+  phy: core: Add common helper for get phy phandle by index
+  phy: core: Add phy bulk data helper functions
+  phy: core: Add managed phy bulk data helper functions
 
-David
+ drivers/phy/phy-core.c  | 700 +++++++++++++++++++++++++++++++++++++---
+ include/linux/phy/phy.h | 186 +++++++++++
+ 2 files changed, 850 insertions(+), 36 deletions(-)
 
->  	}
->  
->  	return ep;
+--
+2.55.0
 
