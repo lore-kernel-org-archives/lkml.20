@@ -1,148 +1,161 @@
-Received: from mail-ej1-f48.google.com (mail-ej1-f48.google.com [209.85.218.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B24D24EE84D
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 16:24:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06C903B7B6E;
+	Fri,  4 Sep 2026 16:25:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788539086; cv=none; b=fjvKmkDpJI6NEfAVv6CDKbJcoaZm8FpLJg9wtQArGu485uZ0kZCBoZWC27lrv7s3gPtbqkdy/8n+goX6Ae/urIjDvDLlnU6t8wzGpRKYRx4rz5k81PfP4KwND7Q2BX8VKkxtjUJF58+LkZCv8yuUvZEJGbiU8RmZlng482S5LvU=
+	t=1788539106; cv=none; b=YMNGzoY9CijK2gOJpn6R1wqxIk1Cj6peneGD0UL28evN2hOKCBU9X39BxAcsq++facRxM29AxDMkGCkpYirrgLf7K/El8X1hLPp07dA1EKmuApt4liY5N1hvPgjHqJmlcynQzgYmHQLlQ+YlJpbVR/+xgoQZ/VD7OCmPw1tJRfI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788539086; c=relaxed/simple;
-	bh=xMVXOI/eqKNjl5OgqifxKtu/J24qZjnmemKOPlmR2s0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=c4pKOChAx5BthcqedDsEQFbkeQ8ewsWbaQZZyjlgHjIRdk7KdehTfehc8Pnm3/NC5claUGrYxyIjdW8ZBQbQIcW8jkSi+RNGTFIS4a6KELlbmfMyUqB3Oe7vEZN5i5WkYDOvSt+06lYTPWPlUlM+DhRZbDUanBordbuIOhq7Rsk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RuI0O6Ju; arc=none smtp.client-ip=209.85.218.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788539106; c=relaxed/simple;
+	bh=0QUzvxRMva/FxviYcdt9y7yjhNEdCgby1Rg2SX6fBVo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=KztIuOYmWx3FJoBPPd2Hhdt7cWFdMtP32/xvYVt8Ih6bPjKsWFAQ/nR4ujpwmoTwapbvUDPw4kViDjHiOh0nuWdjDn9JawPq8VDSNrGHod+pYbnUMBPold/hwScfxbl6V+pWd87bXtGvbPnDqKKo60Wd6Y7NAexCfE/HWod4JbE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WyFHp9Ge; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RuI0O6Ju"
-Received: by mail-ej1-f48.google.com with SMTP id a640c23a62f3a-c25ee9d1264so143635466b.3
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 09:24:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788539083; x=1789143883; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=2xhz5lG8Gdx41rhto7ZSmcPEqEZiPjxJkts6gS3A8P8=;
-        b=RuI0O6Ju3ylG5/lnGZ7ud7YiqP0tGb8bHTZmsmnYWL9Z1xLG2FXqu0nkA8GwaELkIU
-         j/oHg2d2wBzaOQl2fw9kTESeqk0qKrIhSVCkqPOQHC8+W9j9pN+NqeQYh/JnV3YtxTpL
-         OF+JCtGp4UXJBb+ehb7YBDYFPW3lIuzkoHCLBwmzWObxlp5Tw+dbhABJ/sekbMzrFyod
-         7T8+S2w4odE12zxYMra9oXzlRMiNX0cczn5SXWIU3yOzxhhmDv0o2mhsY7YLdvyr58v5
-         Ld+BTVJvBfvlsnr08ne11QNg0E3Q9ia2o8X67D4/VIAgVwvagBUBgUE1DTA4vEQ5GTLn
-         aIRA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788539083; x=1789143883;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=2xhz5lG8Gdx41rhto7ZSmcPEqEZiPjxJkts6gS3A8P8=;
-        b=FJ82kwup/LWd+0x9n3B5q4ctDwwzEK8DLxTtZx/VefZijeKgZwVPwNBtz9o6ZZAhYu
-         ibtoVXeXy0uJvuh6QxxNqwLByr1VcTD7Qvtu3CVwOW43Tp1V2BhX+iA4abDox/x5OAGh
-         9mMBHmRfXthF7dq68KdEncM1TxuIPTZY5o4wZq18z/hkRTw4Ax5IZkrjXdaGVE1wg4zq
-         KU0K6hrXU4Yj0lw687j6bqgmEE+JBpEGQ1aY4yKtYWwylhYXOsVmwYMQIeQyOCwpU4yx
-         CPJT6tkiKLPXXK0i1ebap7S2ocd4BPRuyQrst7kuSiZ/txzC2u/PrysEmo88VogmyNh4
-         tWXQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxOHip5b8HcTxSaIHucvOKtTh5TlbSR09pyrPxn+4+EXbXCoHQayPRd2yzxoGOgffGMh2E0ZYEVzo+nitY=@vger.kernel.org
-X-Gm-Message-State: AFuF++k9wyjV4jz8yJ0n51dOSgTkgEX/iUfT95kJv8xeV8n9D4qQbkwA
-	+eyqFcLRvqadShZ0W929szQ0zJXNcU0FMB3VbAWQNKu4KF3vCwCnCmBe
-X-Gm-Gg: AYBFou0/yoDFwJWXxtjnxqyBhTxbxjY+RGZZOHhn+9ureHogO480O1Jfcv38D+KyBv5
-	vR/BFFPCyss6kltJE0XSIa2oIjT+mIqUZ9HBeQPGqJbIuldYsxw8liY6Sl66QL/Ifqujy1FQoLe
-	zqgOmRt77hGeLrzYQGISQzJLUJa2/luZl4/1ND/aXzYGLNhGOqMdmwJr5psUOtb1Clr749GAJYg
-	oGOXWwy/xlg6KgvaXJmNelUGNPpvtMql6vJ2LNG0uSCm4YBHzEAB4xfedSQUY56P+o+1dah8h1J
-	i6dtS+EzGy7ZFtGa+w8PxLcAPjwJ+mtKJWxuEAQuscOUk3sVOCB+zeOSd9tKWtqmgheadQ+Gr7H
-	RdS2Bsa31OgNfkNNTd2dYNl+1C0MJhdscOyBtO90rTZ3ZONo6MDsE2RwYKrNheMkQfVqYP4rV6x
-	c6mwZk9kfGoYvNP6IjZKWGybiuknVChnex7aK9eQFprkogylLXLft0Q24nUzeF2sYskISZTU8mc
-	eJ4L6Fz+Sll2am1/+8Lm9OIfbvUWL8=
-X-Received: by 2002:a17:907:948f:b0:c25:895c:62dc with SMTP id a640c23a62f3a-c260c9e2465mr289293266b.14.1788539082694;
-        Fri, 04 Sep 2026 09:24:42 -0700 (PDT)
-Received: from buildhost.darklands.se ([2001:9b1:ff:d701:51eb:176f:63d9:53f8])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c260d4a8bacsm132556766b.17.2026.09.04.09.24.41
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 04 Sep 2026 09:24:42 -0700 (PDT)
-From: Magnus Lindholm <linmag7@gmail.com>
-To: richard.henderson@linaro.org,
-	mattst88@gmail.com,
-	linux-kernel@vger.kernel.org,
-	linux-alpha@vger.kernel.org
-Cc: linmag7@gmail.com
-Subject: [PATCH 3/3] alpha: load the MMU context when switch_mm() switches the current task
-Date: Fri,  4 Sep 2026 18:23:31 +0200
-Message-ID: <20260904162424.376504-4-linmag7@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260904162424.376504-1-linmag7@gmail.com>
-References: <20260904162424.376504-1-linmag7@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WyFHp9Ge"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 22A941F00A3D;
+	Fri,  4 Sep 2026 16:25:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788539104;
+	bh=KzIjMFSH1tNjnbsKNHaVpESmlSYBZ1Zva20ytbg13fA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=WyFHp9GeXwJKlncsYct5wjADPuVdgkLd2uSHFbC1mG55lAXc1U8XZoWXmnfmn9Dr2
+	 PXORo+2coJ7Mph4851ypNraMEIjoOMS5zCR3wcjtLWWfghetN0zc1n+EVb7FD2/U8l
+	 naTgQWztpPtatKKLKpxcMtowm4CHYIHi8CIt2tCvFG4729T85JbHsgYl4hOcPBSKe5
+	 9n2GlvulkZtYJ09c13UQtPuTLY4evPQHxn6dnQSXBKuq3QzLvYB9pvF/AuT24+2u/P
+	 wkSpUmHB4p4J9mFmKtXOvNAZ9oavWEkWa3uVk5jDbifS4N5aSsiiyRilgZ5DgCNRE3
+	 XDY810l320myw==
+Date: Fri, 4 Sep 2026 17:24:59 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: David Stevens <stevensd@google.com>
+Cc: Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, 
+	Roman Gushchin <roman.gushchin@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
+	Muchun Song <muchun.song@linux.dev>, Andrew Morton <akpm@linux-foundation.org>, 
+	cgroups@vger.kernel.org, linux-mm@kvack.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] memcg: Don't call schedule_work when no spinning is
+ allowed
+Message-ID: <aprp6GXv8poXXad9@gremlin>
+References: <20260831234339.280376-1-stevensd@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260831234339.280376-1-stevensd@google.com>
 
-ev5_switch_mm() only prepares the incoming PCB. The context is installed
-by PAL_swpctx, which alpha_switch_to() issues against that PCB on the way
-out of the scheduler.
+On Mon, Aug 31, 2026 at 04:43:39PM -0700, David Stevens wrote:
+> Memcg charging can be done from any context, but calling schedule_work()
+> isn't safe from an NMI. If memory.high is breached from a context where
+> spinning isn't allowed, use irq_work to schedule the reclaim work.
+>
+> Fixes: 3ac4638a734a ("memcg: make memcg_rstat_updated nmi safe")
+> Signed-off-by: David Stevens <stevensd@google.com>
 
-Two callers reach switch_mm_irqs_off() without going through
-alpha_switch_to(): kthread_use_mm(), which borrows an mm for the current
-kernel thread, and sched_force_init_mm() on the CPU-hotplug teardown path.
-Neither explicitly loads the context, so the task can carry on running
-under whatever was loaded before while current->mm says otherwise. Its
-user accesses can therefore resolve in the wrong address space, and
-because do_page_fault() resolves faults against current->mm without
-reloading, a fault taken that way repeats indefinitely.
+This is in mm-unstable and breaks the build for me :)
 
-sched_force_init_mm() needs CONFIG_HOTPLUG_CPU, which alpha does not
-support, so kthread_use_mm() is the only one of the two reachable in
-practice; the fix below tests the caller's identity rather than
-special-casing either one.
+In general - please don't rely on implicit header includes, if you're using
+functions from a header that's not included, add the include because your local
+config might happen to import it but another one might be broken.
 
-The scheduler passes the incoming task, which is not current until
-alpha_switch_to() runs; both direct callers pass current. Test for that
-and load the context the way activate_mm() does. Both hold interrupts
-disabled across switch_mm_irqs_off(), so this completes before any
-shootdown can be taken and needs no asn_lock handshake.
+$ make -j $(nproc) LLVM=1 mm/memcontrol.o
+  DESCEND objtool
+  CC      arch/x86/kernel/asm-offsets.s
+  UPD     include/generated/asm-offsets.h
+  CC      kernel/sched/rq-offsets.s
+  UPD     include/generated/rq-offsets.h
+  CALL    scripts/checksyscalls.sh
+  CC      mm/memcontrol.o
+mm/memcontrol.c:2859:6: error: call to undeclared function 'irq_work_queue'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+ 2859 |                                         irq_work_queue(&memcg->high_irq_work);
+      |                                         ^
+mm/memcontrol.c:4234:2: error: call to undeclared function 'init_irq_work'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+ 4234 |         init_irq_work(&memcg->high_irq_work, high_irq_work_func);
+      |         ^
+mm/memcontrol.c:4443:2: error: call to undeclared function 'irq_work_sync'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+ 4443 |         irq_work_sync(&memcg->high_irq_work);
+      |         ^
+3 errors generated.
+make[3]: *** [scripts/Makefile.build:290: mm/memcontrol.o] Error 1
+make[2]: *** [scripts/Makefile.build:551: mm] Error 2
+make[1]: *** [/home/lorenzo/kerndev/kernels/mm/Makefile:2229: .] Error 2
+make: *** [Makefile:248: __sub-make] Error 2
 
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Signed-off-by: Magnus Lindholm <linmag7@gmail.com>
----
- arch/alpha/include/asm/mmu_context.h | 9 ++++++++-
- 1 file changed, 8 insertions(+), 1 deletion(-)
+> ---
+>  include/linux/memcontrol.h |  1 +
+>  mm/memcontrol.c            | 12 +++++++++++-
+>  2 files changed, 12 insertions(+), 1 deletion(-)
+>
+> diff --git a/include/linux/memcontrol.h b/include/linux/memcontrol.h
+> index 8170bb8066a2..036d973ceca6 100644
+> --- a/include/linux/memcontrol.h
+> +++ b/include/linux/memcontrol.h
+> @@ -219,6 +219,7 @@ struct mem_cgroup {
+>  	spinlock_t	 peaks_lock;
+>
+>  	/* Range enforcement for interrupt charges */
+> +	struct irq_work high_irq_work;
+>  	struct work_struct high_work;
+>
+>  #ifdef CONFIG_ZSWAP
+> diff --git a/mm/memcontrol.c b/mm/memcontrol.c
+> index 6dc4888a90f3..5e2f749067cb 100644
+> --- a/mm/memcontrol.c
+> +++ b/mm/memcontrol.c
 
-diff --git a/arch/alpha/include/asm/mmu_context.h b/arch/alpha/include/asm/mmu_context.h
-index a829f557396d..caa6a9c4e3ca 100644
---- a/arch/alpha/include/asm/mmu_context.h
-+++ b/arch/alpha/include/asm/mmu_context.h
-@@ -130,6 +130,8 @@ __get_new_mm_context(struct mm_struct *mm, long cpu)
- 	return next;
- }
- 
-+extern void __load_new_mm_context(struct mm_struct *);
-+
- __EXTERN_INLINE void
- ev5_switch_mm(struct mm_struct *prev_mm, struct mm_struct *next_mm,
- 	      struct task_struct *next)
-@@ -139,6 +141,12 @@ ev5_switch_mm(struct mm_struct *prev_mm, struct mm_struct *next_mm,
- 	unsigned long mmc;
- 	long cpu = smp_processor_id();
- 
-+	/* A direct switch never reaches alpha_switch_to(); load it here.  */
-+	if (next == current) {
-+		__load_new_mm_context(next_mm);
-+		return;
-+	}
-+
- #ifdef CONFIG_SMP
- 	cpu_data[cpu].asn_lock = 1;
- 	barrier();
-@@ -160,7 +168,6 @@ ev5_switch_mm(struct mm_struct *prev_mm, struct mm_struct *next_mm,
- 	task_thread_info(next)->pcb.asn = mmc & HARDWARE_ASN_MASK;
- }
- 
--extern void __load_new_mm_context(struct mm_struct *);
- asmlinkage void do_page_fault(unsigned long address, unsigned long mmcsr,
- 			      long cause, struct pt_regs *regs);
- 
--- 
-2.43.0
+You need to add:
 
+#include <linux/irq_work.h> in this file.
+
+> @@ -2360,6 +2360,11 @@ static void high_work_func(struct work_struct *work)
+>  	reclaim_high(memcg, MEMCG_CHARGE_BATCH, GFP_KERNEL);
+>  }
+>
+> +static void high_irq_work_func(struct irq_work *work)
+> +{
+> +	schedule_work(&container_of(work, struct mem_cgroup, high_irq_work)->high_work);
+> +}
+> +
+>  /*
+>   * Clamp the maximum sleep time per allocation batch to 2 seconds. This is
+>   * enough to still cause a significant slowdown in most cases, while still
+> @@ -2752,7 +2757,10 @@ static int try_charge_memcg(struct mem_cgroup *memcg, gfp_t gfp_mask,
+>  		/* Don't bother a random interrupted task */
+>  		if (!in_task()) {
+>  			if (mem_high) {
+> -				schedule_work(&memcg->high_work);
+> +				if (allow_spinning)
+> +					schedule_work(&memcg->high_work);
+> +				else
+> +					irq_work_queue(&memcg->high_irq_work);
+>  				break;
+>  			}
+>  			continue;
+> @@ -4129,6 +4137,7 @@ static struct mem_cgroup *mem_cgroup_alloc(struct mem_cgroup *parent)
+>  		goto fail;
+>
+>  	INIT_WORK(&memcg->high_work, high_work_func);
+> +	init_irq_work(&memcg->high_irq_work, high_irq_work_func);
+>  	vmpressure_init(&memcg->vmpressure);
+>  	INIT_LIST_HEAD(&memcg->memory_peaks);
+>  	INIT_LIST_HEAD(&memcg->swap_peaks);
+> @@ -4337,6 +4346,7 @@ static void mem_cgroup_css_free(struct cgroup_subsys_state *css)
+>  		static_branch_dec(&memcg_bpf_enabled_key);
+>
+>  	vmpressure_cleanup(&memcg->vmpressure);
+> +	irq_work_sync(&memcg->high_irq_work);
+>  	cancel_work_sync(&memcg->high_work);
+>  	memcg1_remove_from_trees(memcg);
+>  	free_shrinker_info(memcg);
+>
+> base-commit: 8d3ae59288f1e7d58d76558a6ee96d533bc5019f
+> --
+> 2.55.0.897.gb25b4bd76c-goog
+>
+>
+
+--
+Cheers, Lorenzo
