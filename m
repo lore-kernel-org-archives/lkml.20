@@ -1,95 +1,81 @@
-Received: from lgeamrelo12.lge.com (lgeamrelo12.lge.com [156.147.23.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-123.mta1.migadu.com [95.215.58.123])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3125041B8F6
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 06:07:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.147.23.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88D1141CB31
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 06:07:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.123
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788502073; cv=none; b=PwrC/q9bQq2odAyLkZPBvyytZFXQ1DgUWZrnK4vl3IIvF6lJi1MgK/W+zu2jioZzGaWo+85Jxp/UXieFNbbOZiso0p07YLdrcxrPp3SEGjAxlMcjezzPPLNmYn888bSYnQoSX/6AROMSbLfxWpftJLfDlmqTLLN5YJYlHhOBYLI=
+	t=1788502078; cv=none; b=i3EUv5iX8BlTQy9l5RjD3X5Qi43HD2Mcd0c3xk73LJZlUze8REbeNg1PvB+qqXQrKUoPADwBXvPmuAY3X5G7JU6VpplWwcR/bJ+a+6G8/EM8uPO/CYVgQaHnqTW3aBAj52i1rQJGvrhlLEWPxM/JmpcJqVF7Tx0EzmuJEwJCLNA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788502073; c=relaxed/simple;
-	bh=uUyVtBlB3xa4kfI5hBH/AW2uWbAMM7OxdjtVgB9zCt0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=tB8OFx+a0GpE/pNZiewSMBv2XBVXCN1tO1G69oUwwbewJqXsY2YXMWjtk8VJmj2uC0PPhz04jvnM0RD720gCscNbj6SWtZKBYJ1Pq9m5nTwOdjIi/vBPC5DB/4w5P2OlVyxmVdTXc0/BNjp1uUio1X+dIMKdsfAQt9L10PDeDcA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lge.com; spf=pass smtp.mailfrom=lge.com; arc=none smtp.client-ip=156.147.23.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lge.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lge.com
-Received: from unknown (HELO lgeamrelo01.lge.com) (156.147.1.125)
-	by 156.147.23.52 with ESMTP; 4 Sep 2026 15:07:46 +0900
-X-Original-SENDERIP: 156.147.1.125
-X-Original-MAILFROM: youngjun.park@lge.com
-Received: from unknown (HELO yjaykim-PowerEdge-T330) (10.177.112.156)
-	by 156.147.1.125 with ESMTP; 4 Sep 2026 15:07:46 +0900
-X-Original-SENDERIP: 10.177.112.156
-X-Original-MAILFROM: youngjun.park@lge.com
-Date: Fri, 4 Sep 2026 15:07:46 +0900
-From: Youngjun Park <youngjun.park@lge.com>
-To: gaoguixing <gaoguixing@uniontech.com>
-Cc: kasong@tencent.com, linux-mm@kvack.org, linux-kernel@vger.kernel.org,
-	akpm@linux-foundation.org, chrisl@kernel.org,
-	shikemeng@huaweicloud.com, nphamcs@gmail.com, bhe@redhat.com,
-	baohua@kernel.org
-Subject: Re: [RFC PATCH] mm/swap: fix swap table count encoding for empty
- slots
-Message-ID: <appgMkDEZkgKID48@yjaykim-PowerEdge-T330>
-References: <2FDEE109C6578F17+20260904025411.106943-1-gaoguixing@uniontech.com>
+	s=arc-20240116; t=1788502078; c=relaxed/simple;
+	bh=eS+TwFxyuQDJqXHnp8bn/k1yAKU5y5vbImhUYOe1uDA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=cHQwO1UOPQaaB+/0gIj6bJtgynSxnAE/MTJzIc7LBoA3j2b5I5lRn0X6/+nTmDlBIFAh6SV65XuNtHMX4BIbaSw9QX4I9LuWkDIAdmiQHqMOv0ajdUVihhJ/LPypNFi60HY/VX7MrHFJNNMEcD66+dPNx+lLgi4GScoIdrTAjv0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=K+XNHRuk; arc=none smtp.client-ip=95.215.58.123
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="K+XNHRuk"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=eS+TwFxyuQDJqXHnp8bn/k1yAKU5y5vbImhUYOe1uDA=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788502074; v=1; x=1789106874;
+ b=K+XNHRukt4oyprgxrzLvhtKegLaVkDT3mC/HLvwcvUFt5ZVZfXDawh++RXnQTgRHx8RDzQiT
+ cX5k7NgKjtkMpRnIlEUSKjac+h00j8vFJ0NJmsV4eQm181BdKhe88bFT+yyAAdc3sY2fK6kdPfz
+ HAf0ifXp3MMGqtLnwYXs0YlI=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 67aa2e91fa35fe53;
+	Fri, 04 Sep 2026 06:07:54 +0000
+X-Mizu-Trace-ID: 67aa2e91fa35fe53
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <b965bb62-fcc8-4517-9947-24613650f1f5@linux.dev>
+Date: Fri, 4 Sep 2026 14:07:49 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <2FDEE109C6578F17+20260904025411.106943-1-gaoguixing@uniontech.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH bpf-next 1/2] selftests/bpf: Move verifier failure tests
+ out of test_global_percpu_data
+To: =?UTF-8?Q?Thi=C3=A9baud_Weksteen?= <tweek@google.com>,
+ Quentin Monnet <qmo@kernel.org>, Alexei Starovoitov <ast@kernel.org>,
+ Daniel Borkmann <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>,
+ Eduard Zingerman <eddyz87@gmail.com>,
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>, Shuah Khan <shuah@kernel.org>,
+ Emil Tsalapatis <emil@etsalapatis.com>
+Cc: Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>,
+ Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>,
+ Ihor Solodrai <ihor.solodrai@linux.dev>, Sid Nayyar <sidnayyar@google.com>,
+ linux-kernel@vger.kernel.org, bpf@vger.kernel.org,
+ linux-kselftest@vger.kernel.org
+References: <20260904031912.2133476-1-tweek@google.com>
+Content-Language: en-US
+From: Leon Hwang <leon.hwang@linux.dev>
+In-Reply-To: <20260904031912.2133476-1-tweek@google.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Fri, Sep 04, 2026 at 10:54:11AM +0800, gaoguixing wrote:
-....
->  mm/swapfile.c | 12 ++++++------
->  1 file changed, 6 insertions(+), 6 deletions(-)
+On 4/9/26 11:19, Thiébaud Weksteen wrote:
+> Commit 4c9241bd731a ("selftests/bpf: Add tests to verify global percpu
+> data") added test_global_percpu_data.c to LSKELS_EXTRA. Later, in commit
+> 1ed2294b31fc ("selftests/bpf: Test verifier log for global percpu data")
+> two verifier failure tests were added (verifier_strncmp and
+> verifier_snprintf), both marked as non-autoload (SEC("?kprobe")).
 > 
-> diff --git a/mm/swapfile.c b/mm/swapfile.c
-> index d6c5c25755be..02fd5ad94185 100644
-> --- a/mm/swapfile.c
-> +++ b/mm/swapfile.c
-> @@ -163,16 +163,16 @@ static void __swap_table_update_count(struct swap_cluster_info *ci,
->  				      unsigned char count)
->  {
->  	unsigned long swp_tb = __swap_table_get(ci, ci_off);
-> -	unsigned char flags = swap_table_count(count);
-> +	unsigned char tb_count = swap_table_count(count);
->  
->  	if (WARN_ON_ONCE(swp_tb_is_bad(swp_tb)))
->  		return;
-> -	if (!flags && swp_tb_is_null(swp_tb))
-> +	if (!tb_count && swp_tb_is_null(swp_tb))
->  		return;
-> -	if (flags && swp_tb_is_null(swp_tb))
-> -		swp_tb = shadow_to_swp_tb(NULL, flags);
-> -	else
-> -		swp_tb = __swp_tb_mk_count(swp_tb, flags);
-> +	if (tb_count && swp_tb_is_null(swp_tb))
-> +		swp_tb = shadow_to_swp_tb(NULL, 0);
-> +
-> +	swp_tb = __swp_tb_mk_count(swp_tb, tb_count);
->  	__swap_table_set(ci, ci_off, swp_tb);
->  }
->
-Hello,
+> When bpftool generates light skeletons, non-autoloaded programs are
+> skipped during loading, causing the loader program to store subsequent
+> program FDs into incorrect skeleton struct fields (e.g. dump_percpu_data's
+> FD was stored into verifier_strncmp's descriptor).
 
-If I understand correctly, this function was added during a custom
-kernel adaptation, and since the flags field mixes the count and the
-Z flag, you'd like to split out a dedicated helper for updating the
-swap count?
+IIUC, patch 2 will fix the issue totally.
 
-To me the layout and helpers in swap_table.h and swapfile.c already
-read well enough. A mistake is possible, but following how the flags
-field is used across swap_table.h and its callers was not hard.
-
-I can't quite see where this would apply or what it buys us from this
-diff alone. Could you progress & share the rationale and an actual patch on top
-of the upstream series?
+Better to add a subtest to verify both the issue and the fix?
 
 Thanks,
-Youngjun
- 
+Leon
+
+> [...]
+
