@@ -1,83 +1,136 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oo1-f47.google.com (mail-oo1-f47.google.com [209.85.161.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0FB4418A23
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 22:39:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 678C73911CF
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 22:39:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788561570; cv=none; b=Voob6ypE3I0XPjPL9qOAJqLXTOIMTBa3ShNsbgfrxFuW1odF2CViIz9GLBvdO3v1Fg5qdZNeOIIQmtdVW9vMsjXVggWklnfELIUO7G1DSQnD4uJ+QJ0UDEaT1ffQNH4K1s48nyFj7MWAF2iB0qz/02NLow7lYEun6wlNMSYHxEI=
+	t=1788561575; cv=none; b=gAHlzr3s7Iyy8lr1yqtmmqJXg69j1Mdu+65Cci73INtHSvJa9DrUbgt1XPGx0g2HDOzLhBWdrUQ8o2NHVMqw7Aiaf2LKl+QhMO0Zp6MPfgkAlha7N4QKevq82hvlCsdyYZKPwKzSTezZmAQet7hLwEC8zAb7Jg//XmQhgMAXbf4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788561570; c=relaxed/simple;
-	bh=llV8+t5XVFTw1AVjhesFZp1A/YnFQGo0lCxhv7P61wE=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=cyvW6RzgblPsn7eofwzPx4U1NV2HQCukoqXtGeH0b/wuBsWuw6+kmih+Qqb+K1iN8W1J43DshL0+hVPsrmkRwoUHSL+dedZiowLcBiuyhJGb5s6fpYvlOKuTJ9sTRfXVKrYDnHVUNljFZWd5qIHfZLniUozAnt7jNVhryHMXMDY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TmQSKZ88; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788561575; c=relaxed/simple;
+	bh=iBM2Aon1Yd8l6bN24Yt2ji5Rw3iayumL16MfoDmzTJ0=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=ovZPvygMSo0Yseo1sye8iJ0JXWQ65ZS9EI+AtIVAoOBIBHhAi35a6feBA/bxmEHksytQdxCSKorsJktZpX5C0vSh7qF8R51QL2ssMmhfCwTnYWfFQiCkvaCfUjvc1+/WXwvcvCQjW4U7sYJoxj7NhPruiktz66zQSHk8/Hw/g84=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IYqH4o1A; arc=none smtp.client-ip=209.85.161.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TmQSKZ88"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4484D1F01560
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 22:39:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788561568;
-	bh=llV8+t5XVFTw1AVjhesFZp1A/YnFQGo0lCxhv7P61wE=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=TmQSKZ88V4EGqJifsEp+kZ1YixheuM0ONQhC6ST5IL01g+nhibxZhhf862xYvGKiH
-	 zsL6NdJqRE+8cN1+VwhP5RbcocJ2qECR7DnI8Iv+IHuT7vV9bFqiv6IxNyNxc7AnKC
-	 jvnCWfirZFg+sfpoGgMmQfw5FMbvxJKL8jrVzg6wCknRaHWEIQW+26xRLPkPp6IIA0
-	 1Ij41r0fZpIF5xen12KtRMK1loX6JFhp82ACkNDplK8bRD363CGaVx4pITobwiNhEO
-	 UkWhB7Xwkr33bWh7UYYSA9OPrUsRBgpEwUZDefYoz68AWWve8POgu7uDBwiSMOKzcx
-	 qryaovYBoxAsg==
-Received: by mail-lf1-f52.google.com with SMTP id 2adb3069b0e04-5b6036e9c70so1222663e87.1
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 15:39:28 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBxwDy32OSKxqVplwyEp3TZgv4Jf0AFP+P7k4ze8wHSsyibCV3Zfw1JIj+r/9W78LfcEbqCpHRG5R4DNrjA=@vger.kernel.org
-X-Gm-Message-State: AFuF++kcbyqlYHCr0Rc9qwIQWe7tXagY/rewJyHNZse7q2/CCi6A4yBS
-	9+Hb5L3gf58dZvfWU+k15dQOgR7xNsS78AHtn/0NTohHiSjOluN/OLeXQH0CNKJ6EWEiWZYj8MU
-	QuloSJJn9ZFZW5jrPee8N4FXBuzjbz38=
-X-Received: by 2002:a05:6512:6186:b0:5b6:1a7c:3b with SMTP id
- 2adb3069b0e04-5b61a7c02e6mr1037141e87.62.1788561566902; Fri, 04 Sep 2026
- 15:39:26 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IYqH4o1A"
+Received: by mail-oo1-f47.google.com with SMTP id 006d021491bc7-6b1b233ca8dso898021eaf.2
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 15:39:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788561572; x=1789166372; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=5YxDY3gpgXUEyHB4LKpf5sbAqmUcywMUpLTIkNPDeQo=;
+        b=IYqH4o1AP1c1AWeKaC+Xt3UD84zClv+5pji7iy6ErgpjwSWXJzzVtWXoy+Pds9rC3R
+         y3R2KgttIifw1xkVKdRl+UXNqjXM3wiuTLEv9GWYYJybJA0Y1D1XjPuTypHNGdwqfT5a
+         NqEbItxhiZn22NuDWHTH06VBpRz9t1QKrkucdqkVuNeAcGSEWDm4l1Bb6fD7pNZSOW49
+         Xn9OyJFpu3h+FqIz6cZ1qhXoqMz1th3uGg0V36OQGZg46L7ChLOBc81ScvuTXhifB1ZS
+         zQe8/mZ38d/nS/NPCwOegscd9hJGoxAdEkmiVTDd55LDEMmuhgOXfr2A67fVpsSyyfpP
+         WVBg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788561572; x=1789166372;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=5YxDY3gpgXUEyHB4LKpf5sbAqmUcywMUpLTIkNPDeQo=;
+        b=mwp231is0MmUM2WKvTpcv/TqPudxd5uN7oQIr5mRdwcude+0zPEhpYhpZVnCbTdUpY
+         oAczm/yVOGqjGGi/OduY5uodbFVRLo79bNtk0uS7WFLqfsRzOYjUnRzS9BUTd48q3KtW
+         Ai5b80PO7AaTmf/O/W19Rs7Tqur4ru5u/XbKPuBVPptnlDjd2SQVYhEXkGraExBPMUei
+         q8zGK9BQaS1M0OO8fhyUOLjO1OAzBQ0JOFo+PIIDgBbNgb71TmLebHS5eyfHh2cOJ/m8
+         1QnDu1Oszw8uwpQ8954zv+ZBk+CRMk60zTZOVcXnh27G/KU884KmW+d7MVqLoOX7gL/3
+         WhpQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzR9qdEhmO6mFqn1ScndF9WqUCwyngVCSKeay9mULC6P8AR3bVdiEBnYYFCUDj+dktFOCDuYYeHri5aaJc=@vger.kernel.org
+X-Gm-Message-State: AFuF++llSsrowgFfb2V+2rGNtjSEUsi6YtrKgACPUhlk3Td/UvZ9bhby
+	jxLwI4YgkaXPnqL9JfCg3k0VSP0/nzBep3PXTPTSIKO9sSZ4KAv3lPBR
+X-Gm-Gg: AYBFou2i34tBkO0nmrG0EUr+T8AXUgmZoz7DrL1ibBuRGi6RTgfCXoRODRXUveWwfSS
+	Gm8Cfo0v23B/auExtA2kFX8sZWlCfKgkA4NJZSKddrLQGtKGXjc98ch/8pwe6+HHd6LskI8lXSm
+	CN5HcKCaCGDsAt8VyPNthEkjGB0dJJ+IxY7HUdLT6rAR6uAiTiDinLO1sAHIhIJUWkrmlDvoDnD
+	zOlWl37hQaQnUFCGor2Tn7ANz5uFt6TlqyT6tEbaSin/AnaaWalsCg6oOCI1k/74WzB0Jhghdzc
+	GZ5PKi41gcqNa2wqXJ2tU2BZJrGTjMw06tfBGYAR13b738EmgOBpfbuIuCrpChrGIVtvn2QN5+3
+	pZ4ahtgj4FfQRhfHHUOm2LQvxd2Km/vxURv1dTH1v7W+vZII05S3+8c3belBTxufDNujQ+8oktT
+	t+n0tzAi/8mrgT5Iqo58XrmphfE6wSOeEh9CIE77bUjt2cbzM8Zu81BZtnA1hPJ9bzf1chTill7
+	w/9Uuq6eu8g8oYabieBmujfwPn7XNVtatGeFaOOAOy+1nAFLS0t6onFWkqk54EolxvrRyPVu2vv
+	dF8efwt6jZYptmIdMRVVJIkPIQxXy+Kd1tnp05kivk+Kd+T9ZeYW1l7BCnkaBbW+opWcNK0QB1r
+	x01G9M0k7TrT68cWBlUI=
+X-Received: by 2002:a05:6820:1c87:b0:6a1:8192:4d89 with SMTP id 006d021491bc7-6b6fe2b1023mr6553755eaf.29.1788561572187;
+        Fri, 04 Sep 2026 15:39:32 -0700 (PDT)
+Received: from [127.0.1.1] (184-96-151-165.hlrn.qwest.net. [184.96.151.165])
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-475523da013sm3488655fac.1.2026.09.04.15.39.31
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 04 Sep 2026 15:39:31 -0700 (PDT)
+From: James Hilliard <james.hilliard1@gmail.com>
+Date: Fri, 04 Sep 2026 16:39:27 -0600
+Subject: [PATCH v2] mtd: rawnand: sunxi: fit maximized ECC step to page
+ size
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260904-cv75-v5-v6-0-e918514cb3b1@ambarella.com> <20260904-cv75-v5-v6-1-e918514cb3b1@ambarella.com>
-In-Reply-To: <20260904-cv75-v5-v6-1-e918514cb3b1@ambarella.com>
-From: Linus Walleij <linusw@kernel.org>
-Date: Sat, 5 Sep 2026 00:39:15 +0200
-X-Gmail-Original-Message-ID: <CAD++jLm3KLqaQZFsb2Yu0pERjCfrskL=x3arMtrY3Gq6X4rgZg@mail.gmail.com>
-X-Gm-Features: AcwNN1WuNL_yJJgNrKZTtl_t_1Ngwep6ljsejiCgS8bZ3EgANbDs_npxnarBzq8
-Message-ID: <CAD++jLm3KLqaQZFsb2Yu0pERjCfrskL=x3arMtrY3Gq6X4rgZg@mail.gmail.com>
-Subject: Re: [PATCH v6 01/13] dt-bindings: arm: add Ambarella CV75 platforms
-To: longzhao@ambarella.com
-Cc: Arnd Bergmann <arnd@arndb.de>, Krzysztof Kozlowski <krzk@kernel.org>, 
-	Alexandre Belloni <alexandre.belloni@bootlin.com>, soc@lists.linux.dev, 
-	linux-arm-kernel@lists.infradead.org, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, 
-	Bartosz Golaszewski <brgl@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	Jiri Slaby <jirislaby@kernel.org>, Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
-	=?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
-	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, Long Zhao <zl020895@163.com>, 
-	Lee Jones <lee@kernel.org>, mfd@lists.linux.dev, devicetree@vger.kernel.org, 
-	linux-clk@vger.kernel.org, linux-gpio@vger.kernel.org, 
-	linux-serial@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260904-submit-sunxi-nand-ecc-step-validation-v2-1-6e3ba6200948@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXNQQrCQAyF4auUrA3EwdrqVcTFdCZqRGOZjKVQe
+ nejrh7/5nsLGBdhg2OzQOFJTF7qETYNpFvUK6NkbwgU9nSgHdp7eEr10VlQo2bklNAqjzjFh+R
+ YXUDitttS3w8td+DWWPgi8+/ndP63Q3dO9YvDun4AApqGjokAAAA=
+X-Change-ID: 20260904-submit-sunxi-nand-ecc-step-validation-0e571088b5e7
+To: Miquel Raynal <miquel.raynal@bootlin.com>, 
+ Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>, 
+ Chen-Yu Tsai <wens@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Samuel Holland <samuel@sholland.org>, 
+ Boris Brezillon <bbrezillon@kernel.org>
+Cc: linux-mtd@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
+ linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org, James Hilliard <james.hilliard1@gmail.com>
+X-Mailer: b4 0.15.2
 
-On Fri, Sep 4, 2026 at 8:39=E2=80=AFAM Long Zhao via B4 Relay
-<devnull+longzhao.ambarella.com@kernel.org> wrote:
+When nand-ecc-maximize is set, the driver unconditionally selects a
+1024-byte ECC step. A NAND with a 512-byte page consequently produces
+zero ECC steps before the available OOB bytes are divided by the step
+count.
 
-> From: Long Zhao <longzhao@ambarella.com>
->
-> Add the Ambarella vendor prefix and CV75 EVK board compatible for the
-> initial SoC bring-up.
->
-> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-> Signed-off-by: Long Zhao <longzhao@ambarella.com>
+The older sunxi NAND controllers support 512-byte ECC blocks. Select the
+smaller of the page size and the preferred 1024-byte step, using a
+512-byte step for a 512-byte page while retaining 1024-byte steps for
+larger pages. Unsupported smaller steps and controllers without
+512-byte support continue to be rejected by the existing checks.
 
-Reviewed-by: Linus Walleij <linusw@kernel.org>
+Fixes: 4796d8655915 ("mtd: nand: sunxi: Support ECC maximization")
+Cc: stable@vger.kernel.org
+Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
+---
+Changes in v2:
+- fix ECC maximization at its source by selecting a 512-byte step for
+  512-byte pages instead of validating the derived step count
+- retain 1024-byte steps for larger pages and the existing capability checks
+- rebase on the current MTD nand/next branch
+- Link to v1: https://patch.msgid.link/20260811060651.227431-1-james.hilliard1@gmail.com
+---
+ drivers/mtd/nand/raw/sunxi_nand.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Yours,
-Linus Walleij
+diff --git a/drivers/mtd/nand/raw/sunxi_nand.c b/drivers/mtd/nand/raw/sunxi_nand.c
+index 83666dd6cb2a..de1e6b49f79a 100644
+--- a/drivers/mtd/nand/raw/sunxi_nand.c
++++ b/drivers/mtd/nand/raw/sunxi_nand.c
+@@ -2084,7 +2084,7 @@ static int sunxi_nand_hw_ecc_ctrl_init(struct nand_chip *nand,
+ 	if (nanddev->ecc.user_conf.flags & NAND_ECC_MAXIMIZE_STRENGTH) {
+ 		int bytes = mtd->oobsize;
+ 
+-		ecc->size = 1024;
++		ecc->size = min_t(unsigned int, mtd->writesize, 1024);
+ 		nsectors = mtd->writesize / ecc->size;
+ 
+ 		if (!nfc->caps->reg_user_data_len) {
+
+---
+base-commit: def559a215699aa2f2d8ef98f30156b9d562a154
+change-id: 20260904-submit-sunxi-nand-ecc-step-validation-0e571088b5e7
+
+Best regards,
+--  
+James Hilliard <james.hilliard1@gmail.com>
+
