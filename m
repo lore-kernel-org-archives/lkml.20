@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E223472F72
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 11:22:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6F8C46DFF1
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 11:22:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788520973; cv=none; b=dqbrAcw3Tfe1NlKaIdaKMgUBBBvrTIKtItvHDpidFEZWERgz3VI2ohTUJUw7a7/d35LySoQK+GqBKVaGOU6YshOBdxac4/BT9uTeu83bC1XefJeIO8cNvOHJn0x8gEXByM8uWoIPXzd+UZFGVNlan2X6EppvNyAbd7yVZ2uoifM=
+	t=1788520978; cv=none; b=DDffi81fr2XS1zBEjXEdlUOHUM21x9STT2WaFQ5Uy8QhVjPlsr9H9sYidxxDkUyz04tXlQjwbWk/WHYmNLof+t4kAFRKiUg1e4OUrmvRmo4xV0BK/NNZ9Sol5aSydUKxHzgP7Gf2iZZhGjPf8ba8f1myZNRD9EzRN71lsxdfm/M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788520973; c=relaxed/simple;
-	bh=knIRTAe2apaT7WsKjn236Vs8mYaHILNE7HiMwSnPr40=;
+	s=arc-20240116; t=1788520978; c=relaxed/simple;
+	bh=JSI9AccuNCUNfnVqUCUUG6x93n+rzkRG/xslGnsph/I=;
 	h=Date:Message-ID:From:To:Cc:Subject:References:MIME-Version:
-	 Content-Type; b=GC/KZYAIgX1zacu/zA7Oft9LDisKFU9RYtq755Shme9TiJyao8mt86mayjCgninfsZbzpDmxFzK6X3xr2KYgxEBDZwx9zft+qdKCNCJ3trziDWFxVFfy+iUOm3H2641tZh2rGwD+I6xif7nOWvWXBhwtA4bNvAnijPkSZuQVtlU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RDkHCvqP; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type; b=n3xA18HgL2OIvdFC1+FDouTzcfSBIJclLfzLYm0Xpj3zS9FrleXo7dWIzwYnS6z8IO/s8F32fZCPvqIaZD7IGMkR5uFfg0WgTX/ro7JAZ5soI0D7LWDbsWCh25InZnIbh9IPagjOlvx8GvBkkI0DzKpkaqSCoQaMSBZGtYGzbbA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=c/cp+K4a; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RDkHCvqP"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 10E961F00A3D;
-	Fri,  4 Sep 2026 11:22:50 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="c/cp+K4a"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BEDD31F00A3D;
+	Fri,  4 Sep 2026 11:22:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788520971;
-	bh=xFD3aGiuhZc+pCkwkvbcraGTuUDOKB9doW8Ry6Um8pQ=;
+	s=k20260515; t=1788520976;
+	bh=ni4vkoyk/WLmObCznYLfKvARCXRcIOlzhdoAoUGWpeQ=;
 	h=Date:From:To:Cc:Subject:References;
-	b=RDkHCvqPxxhlrzTpIfmThu5P+JbhL6UehHoFN3qgmDSBB75FH1lxlpj1wtM95BExK
-	 nHkJlw2vjI5tBMVc1JOsGGlo62VuXCNo6nZJ1MTbUYmPPr+GoN2XSybVoljeP1Kq4R
-	 fnhZZrEyl1sl32hOvOiKn3bPh1DBLLBznQKDW8mB2FkDKkmojt8oMCdM0INo0yVmwU
-	 SoSUYpVljCFirHwytNf4cdbGzcWcZioFmqG14Of+PM20pSx7wCycwfj+u2/SxhfAN2
-	 KvQf8L9Sz303BZkNOToksFxmOQV5adxq6jfVQJvlP5rZVboD3d2DOasoI5u3p+NqDD
-	 v2bYzWyjoDl0w==
-Date: Fri, 04 Sep 2026 13:22:49 +0200
-Message-ID: <20260904112202.400768514@kernel.org>
+	b=c/cp+K4aWmEqK6tgqssPY86VsOW0RsJncv48ryrH55lZShLakU7HMkT2rR41hGJX0
+	 gsJmvZieRfeinZcr3AH0MaUQgNvrHAWoHX7JWu9hK+SfHgq2dmRvv2BaAl5vn/Wqbj
+	 MH6nvQmIGDmkNNRHIW2XYmoZzV+OB06FcnFKk48TYEF2cFdlJ3eJZ1Qmi5MIC62IhQ
+	 wccK7k4d7JAEBBYAjWUXpMBnqHZAI5PL4nG20V46+kH4AWc7H4l0J+jKoE+P5M4Z65
+	 r0ohutYRQhXgoNsCAf4ZQJrvvmhUMEaZobuQb83sC5ZcSpZgdWsaQfP2ywk7qdAbzF
+	 vU77/rnicxPtQ==
+Date: Fri, 04 Sep 2026 13:22:53 +0200
+Message-ID: <20260904112202.454774247@kernel.org>
 User-Agent: quilt/0.69
 From: Thomas Gleixner <tglx@kernel.org>
 To: LKML <linux-kernel@vger.kernel.org>
@@ -40,8 +40,7 @@ Cc: Hyunwoo Kim <imv4bel@gmail.com>,
  Ingo Molnar <mingo@kernel.org>,
  Alexander Viro <viro@zeniv.linux.org.uk>,
  "Eric W. Biederman" <ebiederm@xmission.com>
-Subject: [patch 7/8] posix-cpu-timers: Prevent enqueueing when PF_EXITING is
- set
+Subject: [patch 8/8] posix-timers: Handle exit in do_exit() completely
 References: <20260904112100.683893401@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -51,70 +50,185 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 
-To prepare for cleaning up POSIX CPU timers in do_exit(), prevent
-enqueueing POSIX CPU timers on a task which has PF_EXITING set.
+Now that POSIX CPU timers cannot be enqueued on a task after PF_EXITING is
+set and process wide timers cannot be enqueued when PF_EXITING is set and
+the last thread in the group is exiting, it is possible to mop up POSIX
+timers in do_exit() completely.
 
-Queueing a timer on such a task is pointless because the task won't expire
-the timer anymore.
-
-Pretending that the timer is armed allows to keep the POSIX timer mechanism
-"working" so that the timer stays accessible up to the point where a task
-is unhashed.
+This requires to cancel an eventually pending POSIX CPU timer task work
+right there because do_exit() invokes exit_task_work() later, which would
+be acting on torn down data.
 
 Signed-off-by: Thomas Gleixner <tglx@kernel.org>
 ---
- kernel/time/posix-cpu-timers.c |   27 +++++++++++++++++++++++++++
- 1 file changed, 27 insertions(+)
+ include/linux/posix-timers.h   |    6 ++----
+ kernel/exit.c                  |   10 ++--------
+ kernel/time/posix-cpu-timers.c |   38 +++++++++++++++++++++++++++++++-------
+ kernel/time/posix-timers.c     |   15 +++++++++------
+ kernel/time/posix-timers.h     |    3 +++
+ 5 files changed, 47 insertions(+), 25 deletions(-)
 
+--- a/include/linux/posix-timers.h
++++ b/include/linux/posix-timers.h
+@@ -192,8 +192,6 @@ struct k_itimer {
+ } ____cacheline_aligned_in_smp;
+ 
+ void run_posix_cpu_timers(void);
+-void posix_cpu_timers_exit(struct task_struct *task);
+-void posix_cpu_timers_exit_group(struct task_struct *task);
+ void set_process_cpu_timer(struct task_struct *task, unsigned int clock_idx,
+ 			   u64 *newval, u64 *oldval);
+ 
+@@ -201,7 +199,7 @@ int update_rlimit_cpu(struct task_struct
+ 
+ #ifdef CONFIG_POSIX_TIMERS
+ void posixtimer_exec(void);
+-void posixtimer_exit(void);
++void posixtimer_exit(bool group_dead);
+ 
+ static inline void posixtimer_putref(struct k_itimer *tmr)
+ {
+@@ -231,7 +229,7 @@ static inline bool posixtimer_valid(cons
+ }
+ #else  /* CONFIG_POSIX_TIMERS */
+ static inline void posixtimer_exec(void) { }
+-static inline void posixtimer_exit(void) { }
++static inline void posixtimer_exit(bool group_dead) { }
+ static inline void posixtimer_sigqueue_getref(struct sigqueue *q) { }
+ static inline void posixtimer_sigqueue_putref(struct sigqueue *q) { }
+ #endif /* !CONFIG_POSIX_TIMERS */
+--- a/kernel/exit.c
++++ b/kernel/exit.c
+@@ -167,12 +167,6 @@ static void __exit_signal(struct release
+ 					lockdep_tasklist_lock_is_held());
+ 	spin_lock(&sighand->siglock);
+ 
+-#ifdef CONFIG_POSIX_TIMERS
+-	posix_cpu_timers_exit(tsk);
+-	if (group_dead)
+-		posix_cpu_timers_exit_group(tsk);
+-#endif
+-
+ 	if (group_dead) {
+ 		tty = sig->tty;
+ 		sig->tty = NULL;
+@@ -963,12 +957,12 @@ void __noreturn do_exit(long code)
+ 			panic("Attempted to kill init! exitcode=0x%08x\n",
+ 				tsk->signal->group_exit_code ?: (int)code);
+ 
+-		posixtimer_exit();
+-
+ 		if (tsk->mm)
+ 			setmax_mm_hiwater_rss(&tsk->signal->maxrss, tsk->mm);
+ 	}
+ 
++	posixtimer_exit(group_dead);
++
+ 	acct_collect(code, group_dead);
+ 	if (group_dead)
+ 		tty_audit_exit();
 --- a/kernel/time/posix-cpu-timers.c
 +++ b/kernel/time/posix-cpu-timers.c
-@@ -628,6 +628,7 @@ static int posix_cpu_timer_del(struct k_
- 	}
- 
- 	if (!ret) {
-+		WARN_ON_ONCE(cpu_timer_queued(&timer->it.cpu));
- 		put_pid(timer->it.cpu.pid);
- 		timer->it_status = POSIX_TIMER_DISARMED;
- 	}
-@@ -674,6 +675,15 @@ void posix_cpu_timers_exit_group(struct
- 	cleanup_timers(&tsk->signal->posix_cputimers);
+@@ -661,18 +661,29 @@ static void cleanup_timers(struct posix_
+ 	cleanup_timerqueue(&pct->bases[CPUCLOCK_SCHED].tqhead);
  }
  
-+static inline bool task_can_enqueue(struct k_itimer *timer, struct task_struct *p)
-+{
-+	if (likely(!(p->flags & PF_EXITING)))
-+		return true;
++static inline void posix_cpu_timers_exit_work(void);
 +
-+	/* Allow TGID type unless the last thread is on the way out. */
-+	return clock_pid_type(timer->it_clock) == PIDTYPE_TGID && atomic_read(&p->signal->live);
+ /*
+- * These are both called with the siglock held, when the current thread
+- * is being reaped.  When the final (leader) thread in the group is reaped,
+- * posix_cpu_timers_exit_group will be called after posix_cpu_timers_exit.
++ * Invoked from posixtimer_exit_task() after PF_EXITING was set in tsk::flags or
++ * from posixtimer_exec_cleanup().
+  */
+-void posix_cpu_timers_exit(struct task_struct *tsk)
++void posix_cpu_timers_exit_task(void)
+ {
+-	cleanup_timers(&tsk->posix_cputimers);
++	posix_cpu_timers_exit_work();
++
++	guard(spinlock_irq)(&current->sighand->siglock);
++	cleanup_timers(&current->posix_cputimers);
+ }
+-void posix_cpu_timers_exit_group(struct task_struct *tsk)
++
++/*
++ * Invoked from posixtimer_exit_group() after PF_EXITING was set in tsk::flags.
++ */
++void posix_cpu_timers_exit_group(void)
+ {
+-	cleanup_timers(&tsk->signal->posix_cputimers);
++	posix_cpu_timers_exit_task();
++
++	guard(spinlock_irq)(&current->sighand->siglock);
++	cleanup_timers(&current->signal->posix_cputimers);
+ }
+ 
+ static inline bool task_can_enqueue(struct k_itimer *timer, struct task_struct *p)
+@@ -1256,6 +1267,17 @@ static void posix_cpu_timers_work(struct
+ 	mutex_unlock(&cw->mutex);
+ }
+ 
++static inline void posix_cpu_timers_exit_work(void)
++{
++	/*
++	 * current->flags has PF_EXITING set so this can be done lockless and
++	 * with interrupts enabled as PF_EXITING prevents the interrupt from
++	 * scheduling the work.
++	 */
++	if (current->posix_cputimers_work.scheduled)
++		task_work_cancel(current, &current->posix_cputimers_work.work);
 +}
 +
  /*
-  * Insert the timer on the appropriate list before any timers that
-  * expire later.  This must be called with the sighand lock held.
-@@ -684,7 +694,24 @@ static void arm_timer(struct k_itimer *t
- 	struct cpu_timer *ctmr = &timer->it.cpu;
- 	u64 newexp = cpu_timer_getexpires(ctmr);
+  * Invoked from the posix-timer core when a cancel operation failed because
+  * the timer is marked firing. The caller holds rcu_read_lock(), which
+@@ -1386,6 +1408,8 @@ static inline void __run_posix_cpu_timer
+ 	lockdep_posixtimer_exit();
+ }
  
-+	lockdep_assert_held(&p->sighand->siglock);
++static inline void posix_cpu_timers_exit_work(void) { }
 +
- 	timer->it_status = POSIX_TIMER_ARMED;
-+
-+	/*
-+	 * Don't enqueue timers when the task or the group is exiting. That
-+	 * ensures that timer operations are still succeeding as long as the
-+	 * tasks are visible, but won't enqueue the timers on the task or
-+	 * process. They won't expire anyway because run_posix_cpu_timers()
-+	 * exits early when PF_EXITING is set.
-+	 *
-+	 * Enqueue is skipped if PF_EXITING is set when the timer is per task
-+	 * and when the last thread decremented p::signal::live to zero also for
-+	 * per process timers.
-+	 */
-+	if (unlikely(!task_can_enqueue(timer, p)))
-+		return;
-+
- 	if (!cpu_timer_enqueue(&base->tqhead, ctmr))
- 		return;
+ static void posix_cpu_timer_wait_running(struct k_itimer *timr)
+ {
+ 	cpu_relax();
+--- a/kernel/time/posix-timers.c
++++ b/kernel/time/posix-timers.c
+@@ -1116,17 +1116,20 @@ static void posixtimer_delete_timers(voi
+ 	}
+ }
  
+-void posixtimer_exit(void)
++void posixtimer_exit(bool group_dead)
+ {
+-	hrtimer_cancel(&current->signal->real_timer);
+-	posixtimer_delete_timers();
++	if (group_dead) {
++		hrtimer_cancel(&current->signal->real_timer);
++		posix_cpu_timers_exit_group();
++		posixtimer_delete_timers();
++	} else {
++		posix_cpu_timers_exit_task();
++	}
+ }
+ 
+ void posixtimer_exec(void)
+ {
+-	scoped_guard(spinlock_irq, &current->sighand->siglock)
+-		posix_cpu_timers_exit(current);
+-
++	posix_cpu_timers_exit_task();
+ 	posixtimer_delete_timers();
+ 	flush_itimer_signals();
+ }
+--- a/kernel/time/posix-timers.h
++++ b/kernel/time/posix-timers.h
+@@ -51,3 +51,6 @@ int common_timer_set(struct k_itimer *ti
+ 		     struct itimerspec64 *old_setting);
+ void posix_timer_set_common(struct k_itimer *timer, struct itimerspec64 *new_setting);
+ int common_timer_del(struct k_itimer *timer);
++
++void posix_cpu_timers_exit_task(void);
++void posix_cpu_timers_exit_group(void);
 
