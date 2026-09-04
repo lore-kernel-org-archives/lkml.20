@@ -1,166 +1,147 @@
-Received: from mail-pj1-f97.google.com (mail-pj1-f97.google.com [209.85.216.97])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 188482F5A12
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 22:31:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.97
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A48563A1A55;
+	Fri,  4 Sep 2026 22:32:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788561089; cv=none; b=ORKLt7JPXoJmSoC4YvmX7amAMDvLuUlZLIEFycztV1ohHsL6IvRpb8kcPBkz2qcd+FqtRZKPdoz43rU2z2fu9WyAhYQ8hCRSne5pSZoD0+uBQKwQjc3TQRWdXbeTVXBV3HOU5tzVvzQLQraRdYvPPkt3yI5fWWoNkQnBSCtaEUA=
+	t=1788561160; cv=none; b=bmaH49uKBXaiukvJCG/Cixmj03e0lAHx0OBxy1+TbQkHZoM9qqEGUjax5/3TEzWdlqW8+mv2ySlvKzN4oxNcUYg0I46OgEX7FYryVw3WDfhUFHn74Phgx5qbQEnONdaJdWsGXjOQgqyzAzZ/x58BKnHHnCwRFsQAbT7kGTYsnfQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788561089; c=relaxed/simple;
-	bh=Qy/rrlsC2pBGv8adU6DP3A1uoqHQiz3kyPblKRNTvvs=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=QePKlwccIg1o0kyoAlTXnL7tg9GX0WncQ9wjBUWekIdeyZPnUp5Ce1MZuj9XkcpJtM2bRhH9jxcu+p3+liTtmGCM+OocsX4rjd/ZpS+E9mT0jOqJDAfhQuQgwO1WaE/2KVIfSTfAFNG4wtVQj3E2lFK9x7jo84rg4+Xw9pUtUpA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com; spf=fail smtp.mailfrom=broadcom.com; dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b=BXbQwpLH; arc=none smtp.client-ip=209.85.216.97
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
+	s=arc-20240116; t=1788561160; c=relaxed/simple;
+	bh=mFphrMnbwWUpvBvBXFy9STaEKqwSmpXj0GVI8p19lWA=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=KlAM4LtYCz8/uhteiQQooeoQtktIA6nbh7YwHjJyMfa0pgOsG4jfIPMwrx+0EeNbf7EpnBDPBqJevNGgwjV6RMpPdiGZ2nR3FmZvVKiNCXebK0BoEWNHmS0ORVlH7Yipe5OMpBrHXfHHyzyT0wKqUocBqznErBpIh1XdOJhfXHQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KVQzArvU; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b="BXbQwpLH"
-Received: by mail-pj1-f97.google.com with SMTP id 98e67ed59e1d1-382ef647e20so1521614a91.1
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 15:31:27 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788561087; x=1789165887;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:dkim-signature:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=X+ezEGSoxt4OIMmPGd47wsxyvlI7VYsc+xC/7giRRKU=;
-        b=bFPk/Em0rBig7Jn3YYzPem/JpbOUiJp7ztoOFrzJdTDsRe2YmCVbLyEtg2InGFucqQ
-         Go9bnHqLZVbn+iq1TMWSS1U5A98Mhlzdw/W9+uFItSHxn74/hBH+cMYiTQtKqeJphtm2
-         M8sYYplQDDooCUdaEXY34hogUBboq+gHFQXSAyAX7gDFganuy4gkmrgjqPtaFu62OsWp
-         wAsO20KNvPs9aEmaEMFsrnYIeuLeP4/ior+5ajhAN8v0A5SQPIqoLS1SFk7e2J9KMxIW
-         IkEqBCT0lBJbceUtdN95HKDkDZnS/mzdl5DJuOY6prVur94ftg376vkyfr1UG6+C47LZ
-         YvYQ==
-X-Forwarded-Encrypted: i=1; AKwUvByola0DJlXvprcCtHZ5nhgJ5IVyjphotkyvAK4biYzxh/c21zzhbs6oTnwg4xqA4LzwZjnMM3Ze727Xa7c=@vger.kernel.org
-X-Gm-Message-State: AFuF++kNhPj/z/CmiaCsml68D3RvYinwFsqJ/dHz0Hw1YkGAc5uYVZbM
-	unf4kFL2ZtQS75EXXG17m5H15JNKTvKNfx3vS6AVp+BTTTYcBYEbhBmkh6w/gDKZb4/5RzPo7jK
-	X+FRpY+kuVa8jOJV5SkuUeK7McphWzJXtr/vI80SPqaaLgGTiD3EkQqb2FFTkXAFY+Q90eoNZRL
-	fl1EWnW05vw8c7K1yY8J9MSoZW9AeZuUpWMtUc2kHiTPQy/XLwRBYEb5dTvmjFWTfFLFCiolSuM
-	7j45lwFJyNiZDS8sq3ZGeGl
-X-Gm-Gg: AYBFou2oElC6Hx6yaW7ShA9jgOoqVB5dN073lDtMhJFDPMTZNNhlKb9CVb2/LxvVOHI
-	UDb8ykM2mvriGDg3ig9jc5LY4OpjU/yFcNJtONnflPWn8VksuQO/gCDuivGlFcSBuYaKP166rrt
-	WWRrcwTuynYh5Tci1LI2Fuelx6UMqrY5LY7jJMeYmdsaU24/WVCawygw5fY2Y1nfCxNtd+5M6xb
-	AwtwSiUzC+AhKGB/cT0xewez8DaUVx3SGstS6cKFreZMU34MznH2A7gkxBo7NhwZ0c8SsVwJKd3
-	+legi+k6qgFvJu0vcZBZGuvxDSReqG3LaKeQN+yKd4O8LFGDWP79hzUQFDPFOwnksR1mNFbkLfl
-	y/Io4TN4qNFkdNmg2fsU3V3/FpYmtjR9Z2Odb3WZ73VgdPT02JPEQPspV6Yru6pyU5s7dmuSXGx
-	lRFJdRVD4t7kaSoUa6lhDtVVSZPvOl5QsXroKwNzCM
-X-Received: by 2002:a17:90b:3c05:b0:393:288:29e3 with SMTP id 98e67ed59e1d1-39b26106c44mr13197119a91.10.1788561087245;
-        Fri, 04 Sep 2026 15:31:27 -0700 (PDT)
-Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-27.dlp.protect.broadcom.com. [144.49.247.27])
-        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-39b2ba90a65sm1686929a91.6.2026.09.04.15.31.26
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Fri, 04 Sep 2026 15:31:27 -0700 (PDT)
-X-Relaying-Domain: broadcom.com
-X-CFilter-Loop: Reflected
-Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-92e53b8a302so280316985a.1
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 15:31:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=broadcom.com; s=google; t=1788561086; x=1789165886; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=X+ezEGSoxt4OIMmPGd47wsxyvlI7VYsc+xC/7giRRKU=;
-        b=BXbQwpLHI9RXqloN719NDx8gj04mM5rIZONgkkOW2CByGnJwEh/bA/iwavlUk/xcXn
-         gFTfKSGnJOdi0sZ3prI6o7+UbbXgUiTaAM2P7aUpRtzKpWsGHeNafDLOwRG9RvukPoMe
-         2QdsCx1B6rZlpW7OwDG94gAcYMG0eYOtxuMn8=
-X-Forwarded-Encrypted: i=1; AKwUvBz0muEhw5arg0uQNpCGt1Q6zse/6m3nuDrW8Uu4fwCjNx4GQ4Ft8gCqEIVpYrNzZQAOH0pZaGbM2zikZWY=@vger.kernel.org
-X-Received: by 2002:a05:620a:aa1b:b0:939:6dfa:48fd with SMTP id af79cd13be357-939804fa8d8mr821065385a.51.1788561086094;
-        Fri, 04 Sep 2026 15:31:26 -0700 (PDT)
-X-Received: by 2002:a05:620a:aa1b:b0:939:6dfa:48fd with SMTP id af79cd13be357-939804fa8d8mr821058085a.51.1788561085504;
-        Fri, 04 Sep 2026 15:31:25 -0700 (PDT)
-Received: from [10.67.48.245] ([192.19.223.252])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-9397f9ee8a4sm320403985a.3.2026.09.04.15.31.23
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 04 Sep 2026 15:31:24 -0700 (PDT)
-Message-ID: <ba415e15-8cc4-4fbf-a624-e1776a23392f@broadcom.com>
-Date: Fri, 4 Sep 2026 15:31:22 -0700
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KVQzArvU"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 79D5B1F00A3D;
+	Fri,  4 Sep 2026 22:32:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788561159;
+	bh=N4XOuKI8bdF6QrOt8dFiolMnMsgRG8ZfclkPeoIoNPQ=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date;
+	b=KVQzArvUxiuJF5M0oi+G3BUMBRfQ53DgPJCvhYT1Fx/BmCxBq6OWFIdPvBAu9nYWc
+	 jt1+oqW2tbg4MXJWXn4tY3OaNolXg5EW10l6JeHRbW6fG+d0tKBPmbUhtr46a/WofO
+	 hVn/uVXJencrrSEmypj18S+dGwLIKw1rWK3ERffKP7H2mKVM8iFWUcwlGoqZFi69BQ
+	 gAHN3DGZAFU56CAKj+UAkyOR1awamUjITDsCzZlV2n26o9tEv0zZdsxKgCnjg6xcU1
+	 /Nm08svpaMHIrjoJpfxjmRkHXvYjIY0Cwfj9qauPiB3PuOtE9fTLH+s7fv5j4ePmot
+	 N8SUOOhtT8H1g==
+From: Thomas Gleixner <tglx@kernel.org>
+To: Aleksandr Nogikh <nogikh@google.com>, Edward Adam Davis <eadavis@qq.com>
+Cc: syzbot <syzbot+6d991f16f4bcc8eeea24@syzkaller.appspotmail.com>,
+ anna-maria@linutronix.de, frederic@kernel.org,
+ linux-kernel@vger.kernel.org, netdev <netdev@vger.kernel.org>,
+ syzkaller-bugs@googlegroups.com, Catalin Marinas
+ <catalin.marinas@arm.com>, Mark Rutland <mark.rutland@arm.com>, Will
+ Deacon <will@kernel.org>, syzkaller <syzkaller@googlegroups.com>
+Subject: Re: [syzbot] [kernel?] INFO: rcu detected stall in
+ __hrtimer_run_queues (3)
+In-Reply-To: <CANp29Y5A88TfpKi_rY4WkMEaDdxAwOhA6QSO=R272A2z4xJP2Q@mail.gmail.com>
+References: <6a95a3f2.99925153.16bd3d.0004.GAE@google.com>
+ <87o6eda9vj.ffs@fw13>
+ <CANp29Y5A88TfpKi_rY4WkMEaDdxAwOhA6QSO=R272A2z4xJP2Q@mail.gmail.com>
+Date: Sat, 05 Sep 2026 00:32:36 +0200
+Message-ID: <878q5g7im3.ffs@fw13>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] arm64: dts: broadcom: bcm2712-rpi-5-b: add spi0
- interface
-To: Gregor Herburger <gregor.herburger@linutronix.de>,
- Andrea della Porta <andrea.porta@suse.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Broadcom internal kernel review list
- <bcm-kernel-feedback-list@broadcom.com>, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-rpi-kernel@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org
-References: <20260904-bcm2712-spi-v2-1-6f8fdfb030bc@linutronix.de>
- <apqej5QyjOHu702A@apocalypse>
- <i6fbcajsiol77m6x3dbcay6bgpxwhy5axayb2633yklxl6rswl@luknor3eryoo>
-Content-Language: en-US, fr-FR
-From: Florian Fainelli <florian.fainelli@broadcom.com>
-Autocrypt: addr=florian.fainelli@broadcom.com; keydata=
- xsBNBFPAG8ABCAC3EO02urEwipgbUNJ1r6oI2Vr/+uE389lSEShN2PmL3MVnzhViSAtrYxeT
- M0Txqn1tOWoIc4QUl6Ggqf5KP6FoRkCrgMMTnUAINsINYXK+3OLe7HjP10h2jDRX4Ajs4Ghs
- JrZOBru6rH0YrgAhr6O5gG7NE1jhly+EsOa2MpwOiXO4DE/YKZGuVe6Bh87WqmILs9KvnNrQ
- PcycQnYKTVpqE95d4M824M5cuRB6D1GrYovCsjA9uxo22kPdOoQRAu5gBBn3AdtALFyQj9DQ
- KQuc39/i/Kt6XLZ/RsBc6qLs+p+JnEuPJngTSfWvzGjpx0nkwCMi4yBb+xk7Hki4kEslABEB
- AAHNMEZsb3JpYW4gRmFpbmVsbGkgPGZsb3JpYW4uZmFpbmVsbGlAYnJvYWRjb20uY29tPsLB
- IQQQAQgAywUCZWl41AUJI+Jo+hcKAAG/SMv+fS3xUQWa0NryPuoRGjsA3SAUAAAAAAAWAAFr
- ZXktdXNhZ2UtbWFza0BwZ3AuY29tjDAUgAAAAAAgAAdwcmVmZXJyZWQtZW1haWwtZW5jb2Rp
- bmdAcGdwLmNvbXBncG1pbWUICwkIBwMCAQoFF4AAAAAZGGxkYXA6Ly9rZXlzLmJyb2FkY29t
- Lm5ldAUbAwAAAAMWAgEFHgEAAAAEFQgJChYhBNXZKpfnkVze1+R8aIExtcQpvGagAAoJEIEx
- tcQpvGagWPEH/2l0DNr9QkTwJUxOoP9wgHfmVhqc0ZlDsBFv91I3BbhGKI5UATbipKNqG13Z
- TsBrJHcrnCqnTRS+8n9/myOF0ng2A4YT0EJnayzHugXm+hrkO5O9UEPJ8a+0553VqyoFhHqA
- zjxj8fUu1px5cbb4R9G4UAySqyeLLeqnYLCKb4+GklGSBGsLMYvLmIDNYlkhMdnnzsSUAS61
- WJYW6jjnzMwuKJ0ZHv7xZvSHyhIsFRiYiEs44kiYjbUUMcXor/uLEuTIazGrE3MahuGdjpT2
- IOjoMiTsbMc0yfhHp6G/2E769oDXMVxCCbMVpA+LUtVIQEA+8Zr6mX0Yk4nDS7OiBlvOwE0E
- U8AbwQEIAKxr71oqe+0+MYCc7WafWEcpQHFUwvYLcdBoOnmJPxDwDRpvU5LhqSPvk/yJdh9k
- 4xUDQu3rm1qIW2I9Puk5n/Jz/lZsqGw8T13DKyu8eMcvaA/irm9lX9El27DPHy/0qsxmxVmU
- pu9y9S+BmaMb2CM9IuyxMWEl9ruWFS2jAWh/R8CrdnL6+zLk60R7XGzmSJqF09vYNlJ6Bdbs
- MWDXkYWWP5Ub1ZJGNJQ4qT7g8IN0qXxzLQsmz6tbgLMEHYBGx80bBF8AkdThd6SLhreCN7Uh
- IR/5NXGqotAZao2xlDpJLuOMQtoH9WVNuuxQQZHVd8if+yp6yRJ5DAmIUt5CCPcAEQEAAcLB
- gQQYAQIBKwUCU8AbwgUbDAAAAMBdIAQZAQgABgUCU8AbwQAKCRCTYAaomC8PVQ0VCACWk3n+
- obFABEp5Rg6Qvspi9kWXcwCcfZV41OIYWhXMoc57ssjCand5noZi8bKg0bxw4qsg+9cNgZ3P
- N/DFWcNKcAT3Z2/4fTnJqdJS//YcEhlr8uGs+ZWFcqAPbteFCM4dGDRruo69IrHfyyQGx16s
- CcFlrN8vD066RKevFepb/ml7eYEdN5SRALyEdQMKeCSf3mectdoECEqdF/MWpfWIYQ1hEfdm
- C2Kztm+h3Nkt9ZQLqc3wsPJZmbD9T0c9Rphfypgw/SfTf2/CHoYVkKqwUIzI59itl5Lze+R5
- wDByhWHx2Ud2R7SudmT9XK1e0x7W7a5z11Q6vrzuED5nQvkhAAoJEIExtcQpvGagugcIAJd5
- EYe6KM6Y6RvI6TvHp+QgbU5dxvjqSiSvam0Ms3QrLidCtantcGT2Wz/2PlbZqkoJxMQc40rb
- fXa4xQSvJYj0GWpadrDJUvUu3LEsunDCxdWrmbmwGRKqZraV2oG7YEddmDqOe0Xm/NxeSobc
- MIlnaE6V0U8f5zNHB7Y46yJjjYT/Ds1TJo3pvwevDWPvv6rdBeV07D9s43frUS6xYd1uFxHC
- 7dZYWJjZmyUf5evr1W1gCgwLXG0PEi9n3qmz1lelQ8lSocmvxBKtMbX/OKhAfuP/iIwnTsww
- 95A2SaPiQZA51NywV8OFgsN0ITl2PlZ4Tp9hHERDe6nQCsNI/Us=
-In-Reply-To: <i6fbcajsiol77m6x3dbcay6bgpxwhy5axayb2633yklxl6rswl@luknor3eryoo>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On 9/4/26 03:54, Gregor Herburger wrote:
-> Hi Andrea,
-> 
-> On Fri, Sep 04, 2026 at 12:33:51PM +0200, Andrea della Porta wrote:
->> Hi Gregor,
+On Fri, Sep 04 2026 at 15:51, Aleksandr Nogikh wrote:
+> On Fri, Sep 4, 2026 at 7:00=E2=80=AFAM 'Thomas Gleixner' via syzkaller-bu=
+gs
+> <syzkaller-bugs@googlegroups.com> wrote:
+>> On Mon, Aug 31 2026 at 08:55, syzbot wrote:
 >>
->> On 11:24 Fri 04 Sep     , Gregor Herburger wrote:
->>> The Raspberry Pi 5 routes the spi0 of the rp1 chip to the pin header.
->>> Add the rp1_spi0 node and its pinctrl node to the devicetree to enable
->>> the spi interface.
+>> CC+: ARM64 folks. It's their magic git tree ....
 >>
->> Just a nit-pick: in the comment it's stated that the spi interface is enabled,
->> which is not true since rp1_usb inherit status="disabled" from its node
->> definition. This is fine because the user would probably want to enable the
->> spi interface through some overlay, so no need to resend the patch (at least
->> for me), so:
-> Indeed. It could be rephrased to:
-> 
-> 	Add the rp1_spi0 node and its pinctrl nodes to the devicetree to make
-> 	the spi interface available.
-> 
-> @Florian: Should I send another version or do you want to change it yourself?
+>> Maybe some day syzbot people get their act together and actually figure
+>> out who should be CC'ed. Hope dies last...
+>
+> In this particular case, the fact that the reproducer ran against the
+> arm64 tree does not mean the bug is arm64-specific. As shown on the
+> dashboard (https://syzkaller.appspot.com/bug?extid=3D6d991f16f4bcc8eeea24=
+),
+> most crashes are coming from the x86_64 instances.
 
-I used that as the new version of your second paragraph, please let me 
-know if I should be making further adjustments.
+Honestly I have no time to click through dashboards to figure this
+out. If you already have that information then please include it. With
+the gazillion of trees which have fresh patches in them it's not
+necessarily a wrong assumption that it might be tree specific. It's the
+same problem as bug reports against some random out of date kernel
+versions.
 
-Thanks!
--- 
-Florian
+> Judging by what reproducers do, it seems to be related to
+> net/sched/act_gate.c's gate_timer_func(), for which a patch has
+> recently been posted by Edward Adam Davis (Cc'd):
+> https://lore.kernel.org/all/tencent_19FD76F366C43D4737EE9682371A4BF87409@=
+qq.com/
+
+They look similar, but the reproducers are completely different and the
+act_gate backtrace shows the actual problematic code. It might be the
+same bug. Edward should be able to tell.
+
+> Syzbot attributes reports to maintainers based on the crash stack
+> trace rather than the git tree URL. Because CPU lockups and stalls in
+> a looping timer callback were caught inside kernel/time/hrtimer.c,
+> get_maintainer.pl pointed it at the timer subsystem.
+
+I get CC'ed on boatloads of reports which happen to show a back trace
+somewhere in the code I maintain. In the vast majority of cases the
+[hr]timer, interrupt ... core code is just the messenger. The hrtimer
+interrupt does not magically rearm timers rapidly or leaves NULL
+pointers around.
+
+Don't get me wrong. syszbot is extremly useful, but the amount of work
+it creates for those on the receiving end is not really managable and
+it's not surprising to me that a lot of reports just fall through the
+cracks in general. I try to avoid that, but at times I have to just deal
+with more important problems and by the time I come back to it there is
+a pile of new reports to wade through.
+
+So having better information in the report would make this definitely
+more managable for me and probably for others too:
+
+ - a quick summary that this happens on upstream too and is not
+   restricted to the tree which is in the report
+
+ - a TLDR summary of the reproducer operations so it can be seen quickly
+   which subsystems might be involved without decoding the reproducer
+   file manually.
+
+Also for these kind of issues the robot might grow some rules how to
+provide better debug information. Let's look at this particular report:
+
+  __run_hrtimer kernel/time/hrtimer.c:2028 [inline]
+  __hrtimer_run_queues+0x22c/0xbe0 kernel/time/hrtimer.c:2096
+  hrtimer_run_softirq+0x15c/0x21c kernel/time/hrtimer.c:2113
+  handle_softirqs+0x2ec/0xd98 kernel/softirq.c:622
+  __do_softirq+0x14/0x20 kernel/softirq.c:656
+  ____do_softirq+0x14/0x20 arch/arm64/kernel/irq.c:78
+  call_on_irq_stack+0x30/0x48 arch/arm64/kernel/entry.S:885
+  do_softirq_own_stack+0x20/0x2c arch/arm64/kernel/irq.c:83
+  invoke_softirq kernel/softirq.c:503 [inline]
+
+So it deduces that the lockup is in __hrtimer_run_queues(). So far so
+good.
+
+So if I'd had have the time to download and run the reproducer I would
+have enabled the hrtimer trace points with a relatively small trace
+buffer, added 'ftrace_dump_on_oops' to the command line and let the
+kernel dump it when it crashes. In case of a self rearming timer which
+keeps it in that loop, that surely would dump a series of
+start/expire/start/ events with the same timer and the expire_entry
+tracepoint would have the offending function in it.
+
+Just a thought, but maybe there is something which can be done.
+
+Let me stare at __hrtimer_run_queues() whether we can add some
+lightweight mechanism to prevent such issues.
+
+Thanks,
+
+        tglx
