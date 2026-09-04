@@ -1,92 +1,138 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C119A3D3308
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 20:11:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA3F8513573;
+	Fri,  4 Sep 2026 20:12:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788552705; cv=none; b=Ki9AkAPYCDXPSUafrvYjuA8WtkytVWz/49WQfvnGAdNCUL7BBPCbhALiXHUYEj4Lwnm85pJfk/+o+vy/kvORS16v7FSoqxDWYJGjAGoN0SZQ1tU4Nq9A7wBQJRQeEi0Vg/ir6FkfsNddEc6KxbRwO3j2gR3nh0D2MUEI1uZqf/Y=
+	t=1788552731; cv=none; b=gWjjpW26QC7J/rI5zxm7eJRBYwnM+9yBXHWBku8pkLrewa4gXJf3fQC3Dwezozhu0U4UhXl9D8jbL7R6yMlPvMzLc+bMZNxbvxJN5Hd6oQ814RouvVHShkZkpGkQmxGiBn9YbKWdqh4+Nb6/MQlzhbTLBxFT/ufM8C82P3kq4zY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788552705; c=relaxed/simple;
-	bh=tBgfHBdFaeHVulrE8oTTOyLS+2jY8CUbxzkSED5Fe14=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=i1Nm+d39nUoo0I43ZXnEEw/ReQCm+JZfZqpvvHT1uovdO+miyCMTTt5zc/XgItLURdDPIN0fSbtOQKVXJRaqruxASqZcIRHoryi8HDvyEQ40PcS3Xax8pNJYb3dKedY5pXUT1DbYIEhftIgZQoK1LT14/mXkK/zOFiHrOpYOXvU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Q28qFf3Z; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788552731; c=relaxed/simple;
+	bh=0YYXmV5N0W2pxZNdVpXYKT1de8LKSGeTOZvC9bxhiL8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=PCttHGeT1iZk3A14EgCNIqJLWMgbnFd6eaYvrLTtOhvptOAZeo56nBIbwyxjOWeIB+3IFzb50EzhVi5FzD0iXxE/EXdcSnCCXxYTgc6n0eataOFUg0YecttnGAPCj8YS1E5rYzq8K7r3olOsVHuPoyHwNo97P5R/ZnGy+hg1FBw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FiPDdWdy; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Q28qFf3Z"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 707841F00A3D;
-	Fri,  4 Sep 2026 20:11:40 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FiPDdWdy"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 478841F00A3D;
+	Fri,  4 Sep 2026 20:12:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788552702;
-	bh=YhgoeMH2mlO0KR6C9C/IXzyhZk9dXM8agxKda5kT4Xc=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=Q28qFf3Zxw2q4w3Pt9mx5Jd/+eVUNBfN6oWL79TYrKJvw5lWURicntlljg1xdv5+z
-	 XxabJ29ez9QLdrp7/l44X8c7SX+0lvDtlSTYEDSZVKkHTmxPeKaNw9ORI3gwbYBH6R
-	 B8XawKumSs8K/BptS3+qghekYAvRULz5eH4c20Yca2yA7BMykXADAyOj3xgLrnfLyw
-	 ZHvIJnLs9DHbprj1RAYZXr4/tdprxlfMLw3+rneFiYGmUzS2ez+KWJ7xVTJO31hJeY
-	 zDXsoX3DYC0/YmIZDWeWC0UBSsDfnTaOOtdbVkvgLmtYC6UFm7Nj9f+rwO3GNYqjFH
-	 vY/uhRrCUYHAg==
-From: Mark Brown <broonie@kernel.org>
-To: Liam Girdwood <lgirdwood@gmail.com>, 
- Diederik de Haas <diederik@cknow-tech.com>
-Cc: linux-kernel@vger.kernel.org, Andreas Kemnade <andreas@kemnade.info>, 
- Yufan Chen <ericterminal@gmail.com>, 
- Surendra Singh Chouhan <kr494167@gmail.com>, 
- Mario Rugiero <mrugiero@gmail.com>, linux-rockchip@lists.infradead.org
-In-Reply-To: <20260904144728.1629471-1-diederik@cknow-tech.com>
-References: <20260904144728.1629471-1-diederik@cknow-tech.com>
-Subject: Re: [PATCH] regulator: tps65185: Remove redundant dev_err_probe()
-Message-Id: <178853989858.632048.13657280228879604798.b4-ty@b4>
-Date: Fri, 04 Sep 2026 17:38:18 +0100
+	s=k20260515; t=1788552722;
+	bh=tiI2plDWeBhwWgqgp0Lt6N026JHuLCwaqyR957rXbKc=;
+	h=From:To:Cc:Subject:Date;
+	b=FiPDdWdy+ul3c1SV5X5HD2KgZFtJzY6VOU8zzE0x1MLxejiF/uT3NJ2VljrET5DLu
+	 mg1GbWnoOMtBbxn/9X3i3FKo+EapLXyBpesC+72RAiNAaWad8a6iTOWBTyql9iSWbr
+	 OWeFapliiwBpV5ADMdwBRw02BhgGRjwf3p/5Z5x+FRtZq6RhpLmyzCm4wcmCbbdTsG
+	 8/6L9m/g3bOg7EyXG3k1HXGD5m383fzSU+rdFSrVkotp2hyQdGUzFqQAZRzXrrZy7W
+	 jPxp/C+ONxrPTbPUXXm6cU+RJLDuKJH2tZvrW3+QXLXqIbXWN2zX3yTwAd4+KVjDh3
+	 OgDIoA1NdniRw==
+From: "Rafael J. Wysocki" <rafael@kernel.org>
+To: Linux ACPI <linux-acpi@vger.kernel.org>
+Cc: LKML <linux-kernel@vger.kernel.org>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Subject: [PATCH v3] ACPI: glue: Reduce debug noise from acpi_device_notify()
+Date: Fri, 04 Sep 2026 22:11:58 +0200
+Message-ID: <6048536.DvuYhMxLoT@rafael.j.wysocki>
+Organization: Linux Kernel Development - Intel
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1136; i=broonie@kernel.org;
- h=from:subject:message-id; bh=tBgfHBdFaeHVulrE8oTTOyLS+2jY8CUbxzkSED5Fe14=;
- b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBqmyX5dNG4OS5eph1ssfUGGn5p4JZl1mVH5mkkQ
- oazdDv14aSJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCapsl+QAKCRAk1otyXVSH
- 0P5gB/wJd73agvz/tRJsNifvwj3c2l+NwKuqlaVu23v8HGtYeD8mmDQODZ+Bsq+ntpLYwWTb/pv
- liECMctBYMsIFMXAuTC4sHJX9M8hTuZjatmHKks0rtxUlGu6vETDggxp/U6rwi/xSMf29A/lfdF
- UJck4xQ40Ime6mG7RTu9DkLEDyDXbFnEHQPUnXQJLunHBw5uSVWaWJltsv7A5op7au01OpuY2Xo
- ksEdRQUo0B8v204oxM80q2/j5GSixpu3ME806wjnaIe/mYtKVXoJIhg+RFc06Yc82Tj1eeMi8e/
- Sm/pzmWSTVRAHTWiUyud+uOMRvAfNhDBHcazDdTv9YDJ2CDm
-X-Developer-Key: i=broonie@kernel.org; a=openpgp;
- fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="UTF-8"
 
-On Fri, 04 Sep 2026 16:46:31 +0200, Diederik de Haas wrote:
-> regulator: tps65185: Remove redundant dev_err_probe()
+From: "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>
 
-Applied to
+When debug is enabled in the ACPI glue code that handles binding
+devices to ACPI companions, acpi_device_notify() produces a lot of
+message noise related to devices that have no ACPI companions.
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/regulator.git for-7.4
+Reduce that noise by checking the most obvious case, ACPI device
+objects, directly and returning from acpi_device_notify() in that
+case without printing any debug messages.  Also avoid printing a
+debug message when there is no matching ACPI companion lookup
+method for the given device, which is the case for the vast
+majority of devices.
 
-Thanks!
+Additionally, make the debug messages that get printed more informative
+and adjust the "success" debug message for devices whose ACPI companions
+have no ACPI handles (for example, they are fixed event buttons).
 
-[1/1] regulator: tps65185: Remove redundant dev_err_probe()
-      https://git.kernel.org/broonie/regulator/c/761f34e333ac
+Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
+---
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+v2 -> v3:
+   * Do not change pr_fmt() definition (Sashiko)
+   * adjust the "success" debug message for devices whose ACPI companions
+     have no ACPI handles
+   * Update changelog
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+v1 -> v2:
+   * Do not return early from acpi_device_notify() for devices
+     without a bus type (Sashiko)
+   * Do not print messages for devices without matching ACPI bus
+     type definition (the vast majority)
+   * Update changelog
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
+---
+ drivers/acpi/glue.c |   27 +++++++++++++++------------
+ 1 file changed, 15 insertions(+), 12 deletions(-)
 
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
+--- a/drivers/acpi/glue.c
++++ b/drivers/acpi/glue.c
+@@ -354,22 +354,27 @@ void acpi_device_notify(struct device *d
+ 	struct acpi_device *adev;
+ 	int ret;
+ 
++	/* ACPI devices have no ACPI companions. */
++	if (dev->bus == &acpi_bus_type)
++		return;
++
+ 	ret = acpi_bind_one(dev, NULL);
+ 	if (ret) {
+ 		struct acpi_bus_type *type = acpi_get_bus_type(dev);
+ 
+ 		if (!type)
+-			goto err;
++			return;
+ 
+ 		adev = type->find_companion(dev);
+ 		if (!adev) {
+ 			dev_dbg(dev, "ACPI companion not found\n");
+-			goto err;
++			return;
+ 		}
+ 		ret = acpi_bind_one(dev, adev);
+-		if (ret)
+-			goto err;
+-
++		if (ret) {
++			dev_dbg(dev, "Binding to ACPI companion failed\n");
++			return;
++		}
+ 		if (type->setup) {
+ 			type->setup(dev);
+ 			goto done;
+@@ -389,13 +394,11 @@ void acpi_device_notify(struct device *d
+ 		adev->handler->bind(dev);
+ 
+ done:
+-	acpi_handle_debug(ACPI_HANDLE(dev), "Bound to device %s\n",
+-			  dev_name(dev));
+-
+-	return;
+-
+-err:
+-	dev_dbg(dev, "No ACPI support\n");
++	if (adev->handle)
++		acpi_handle_debug(adev->handle, "Bound to device %s\n",
++				  dev_name(dev));
++	else
++		dev_dbg(dev, "Bound to ACPI device %s\n", dev_name(&adev->dev));
+ }
+ 
+ void acpi_device_notify_remove(struct device *dev)
 
-Thanks,
-Mark
+
 
