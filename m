@@ -1,104 +1,107 @@
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
+Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com [209.85.128.71])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDC1850AC11
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 16:45:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C46703BB672
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 16:46:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.71
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788540322; cv=none; b=i9E5YZJ3b+yl5MBAQ2L5vRGqEtp9c0GGPphj1KVx8yjZdI3nSdBwohEEbrZxyzckqAQxtw6pl7t/SX9o/GUGsST82PjVaatbv9E+dGwK5SK4OlKc6a3Jzy5F3rAcwgnzxQOY6XoukzR8wm18rUq/IW6eo0OFxVBKysJCmAaVTww=
+	t=1788540367; cv=none; b=DP5LN/GgtlV/6kx1zD+fyUUG377/upd6KX5S1DPonEfrfk8ePG3MzowhFSXbjF28G607RHAPTmxraYKm1vBzwBzBRSgkTdi/5eIY6l+Fya8pMlGVx+xP7oVkccLnaMibN2aMfWOZKdYZDvmzRYN/erwawonXVsU32BUpSgCj56s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788540322; c=relaxed/simple;
-	bh=LbKIi03ISeCz+kO0+SjDUGksD4whdOS1e3Afuc4ZIvA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=fgykknoXDRQId2cy+kgo09VZRi8HXwtasFH3I4ACA3g+IFxVvjpzbii7gk27r2lMBg5d+7fe4uMvBghxY0Dno6mKwdNMBoRPqz28mp4C7nqIIzOPOtSM+AP5eY53FXXBSNe+YCeLq/4UhB8KbiGyzelxdqWHFIUEBJBVIDnuslE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VXqvt0Us; arc=none smtp.client-ip=209.85.128.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788540367; c=relaxed/simple;
+	bh=hxQZMLwG6yecstcTEMEbqIUKya/zeWZiCbghCJI8fVQ=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=hzaNNZ4Y5c/PNz66QT6gXNbARi1GdMoU7Tw8MiD9bSDl+GSWvFkeDq8vfth30uCnZa1n7+mXmVXY6f5xi5r9NDNTzrJfNFhAF1kwUh2a0vpy9DfXSBP2NEwI38QYe1qSFwrJrqVwuGYQyMV1Gz2MOHX4Lg4Q0vo4ByNzK8GE/0M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--vdonnefort.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=vpkXyu6U; arc=none smtp.client-ip=209.85.128.71
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--vdonnefort.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VXqvt0Us"
-Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-49b8eeb3ff2so11460915e9.2
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 09:45:20 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="vpkXyu6U"
+Received: by mail-wm1-f71.google.com with SMTP id 5b1f17b1804b1-49b7c1dc61eso11047585e9.3
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 09:46:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788540319; x=1789145119; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=yah4I9qe1gWdvzoT8BPLgON6ATUn577HEvNphRVkQcA=;
-        b=VXqvt0UsDlG2YP9Xs2Eyz1Bhb+CYYSTe+Dyw1JGz1ySt4+cHyBO5DYYSsvpmk1E0KM
-         hFd67a5DvTBygTIl63GIcZ0AB+XbOxdw+Na/IE4m9yMm2kZAXiupweNe4KPcSDLPlOHv
-         aFZqfFDDNgF2nm4u/AgMikPIHkd9kq5+5OL75L0kqaW7sQEeXbbZLUDaaA0myqxr4Nf2
-         w3JzgFT7IkqCb0aWPZmccMLZviXVMGrUfOCUA5vynNIU+p90rC5/7BO9M2FgOd5ofoha
-         a/HZ63Dt7r9wTW2nzmxwEfhfis7jd7+auMUv8+C5iXMdnRfzcElX0MpO4aXpUJ4Ze5A5
-         YJgw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788540319; x=1789145119;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=google.com; s=20251104; t=1788540360; x=1789145160; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=yah4I9qe1gWdvzoT8BPLgON6ATUn577HEvNphRVkQcA=;
-        b=cDigvFTHhmGaUBpg8D/ogzpSt7aMMj3aOi9nN0EyJZZyiDXDvFsJOI8jwWDszR1mCq
-         5l4ulO+07+3hu0+qKQdk0ogZ/J8ef28S0/zO5iaVwflNNtJQ76VBs4pri9rB3zuwJoKf
-         6V0qHX1oVPso8jaAkPskZhNwftV6A4MKp85pHlsVzmLoxkAesyYZQbPcYGvw2Wh3BE1r
-         5w4qNrQWVwtk/4vwTGONfIcT1ES61PLv3i8bOllXBzKuvGD+cNjG0XYucvb0Xvo3/BG8
-         g5IC1eitYHA7NequfsuWQPJEygnNlWUK1UjJ2zaMBaKHQRP/BDxrGwu1KqY62r2dKG8C
-         p8Iw==
-X-Forwarded-Encrypted: i=1; AKwUvBzpkEzhen0AfVqEj5S+R3Ew5crM7EEw+rVJYVlUt5QiqvXnSZnzl8jpZl3YhH9lWUDVZFWc/iWxPGzc/9k=@vger.kernel.org
-X-Gm-Message-State: AFuF++kzwSd3WlbpJl/L3/nq6IB6m1Ei/vmedisDfeLxi+A9176dPCU7
-	vEOsUc+pnPxo6jsWajjHLTzyhRbIS82eOTkjZcZkDwUI/Y62xm9QGJaF
-X-Gm-Gg: AYBFou3PcEDKdgBCTVPB23LfEKNJWw1LX50imaMBBU7KKe2I2xUCHBTUG+4WOl1/vFh
-	utfjo1WdgQt7fQiVIz6eLDz70tx9kdOW3XC83bxFh3ayweeMWZcGdixFVuWRSmY+yNuBsEHK5HW
-	R0cxNpRa54F92xaZULXxRWY6DRdEFqCRlwuWLsDmwvFn+aUnVPvM7VWeCbsBmUzY41/S1cQSHNr
-	qYMqpZaDBcFmdfhGtVM/Z+roBhtszz9dQFCD6njlfBbzVMqpPGEr9UcoczcQDNJKpp+gVhSevk4
-	xLyr6tuGj4toHt9cAEFWs5dSZBgJJuX+8H3XX6DKeLRAm2QUbASIenVq2dZd/rJ9gPIqTQBDSFg
-	2zIBwTg10zTrVtJxj3VTN7czklRgPxPd6KSG2MKwp9hibRBUmwz/xiI3CI5t24PTp19Olcd0wvg
-	EOAGknGg5NQyBIP6OTbwXygVWrluZb1V2sbZvsJh/5839VbgN2HcSOV5VCf+apb+86LRQg1BhJp
-	ebkpsMVdEB8fVR2FR/IZ19ee47r0q4t4AmLZKkRYymKiUSKlE2gQb80FId1NUpove6wc92Aq7sx
-	GDzdAUqrRtHbmL3sZcD4KBkOGcyuPv9SLjeQkrDNReM1ipqM5aM6M/VSbn91qnZibtnz4Txvk0r
-	6
-X-Received: by 2002:a05:600c:474c:b0:49c:f4e1:4c2d with SMTP id 5b1f17b1804b1-49cf828cd70mr68770285e9.16.1788540318646;
-        Fri, 04 Sep 2026 09:45:18 -0700 (PDT)
-Received: from MBP-von-Karl.localdomain (dynamic-2a02-3100-a4f2-6901-14a0-23ad-a35e-aa8c.310.pool.telefonica.de. [2a02:3100:a4f2:6901:14a0:23ad:a35e:aa8c])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cee7fec25sm182752585e9.13.2026.09.04.09.45.17
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 04 Sep 2026 09:45:18 -0700 (PDT)
-Date: Fri, 4 Sep 2026 18:45:16 +0200
-From: Karl Mehltretter <kmehltretter@gmail.com>
-To: Frederic Weisbecker <frederic@kernel.org>
-Cc: Peter Zijlstra <peterz@infradead.org>, 
-	Thomas Gleixner <tglx@kernel.org>, Sebastian Andrzej Siewior <bigeasy@linutronix.de>, 
-	Clark Williams <clrkwllms@kernel.org>, Steven Rostedt <rostedt@goodmis.org>, 
-	Boqun Feng <boqun@kernel.org>, Lyude Paul <lyude@redhat.com>, 
-	Joel Fernandes <joelagnelf@nvidia.com>, Alexander Potapenko <glider@google.com>, 
-	linux-kernel@vger.kernel.org, linux-rt-devel@lists.linux.dev
-Subject: Re: [PATCH] softirq: Preserve interrupt context during IRQ exit
-Message-ID: <apr1aTzIZmQPZbQG@gmail.com>
-References: <20260903112737.49551-1-kmehltretter@gmail.com>
- <apmQrTzP0sTSReI1@localhost.localdomain>
+        bh=vWNAdrwGmNJRf6eRTL3iblh5LCxPTOBo/qfLWNuuaXo=;
+        b=vpkXyu6UIvcaSzsDleZpo1eGIF5yY+lTSnOrIhzO5QZNnnGlE05girF4gH4JixmfzK
+         50xri6fSK8PczTnr6MUN2GNZ8+fGTML/jfDv+s5+kKvZ++wKj7VArYmCwBJVzY6ok6dI
+         16uDI+uTmP0Yg6KEbmZgB6sHCemsYvLIbjQB4shpHvkoH7kgDoS2nOWxQZEH2nenm7E+
+         3BiM+0fozaacAidqi66ze+841KgVSvmBfvFH4/XaAMuhhVkqchiR0xAUWAbIZzMWhtfe
+         uABTOB/sIUCEkBAEiLLLocP8WBfBR0Pg6ItcfjHhreQXKjyE8b5B+xLeqVYHbYrjOjgY
+         io0g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788540360; x=1789145160;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=vWNAdrwGmNJRf6eRTL3iblh5LCxPTOBo/qfLWNuuaXo=;
+        b=ioJ9kJ+Pz1OcB4uap2Rn3Mck8JY5PErfHbQN6NMLz9qij/6DsqKga5dRgGQ3NESpeG
+         EYL1B3NZnYO5NA0IasUyqS0eb0ogBClwZanZQmv4YtMsfUux4aoKyZiL/ypBuM7wEWuM
+         ffAUL/kjyE6nA7KmEws8tebSo4Soe0dvIUO5ETCLiq0tv0K8rUoJjejwHMmnD6ju2H0p
+         V2WmUonL9dFRKTDbgXJ6j1hEAmalh0nwoRcXVPyIER818cPKdXyjY1EJrZfvnPkkh9jE
+         xkvhOVUVdF3F9xWOzKsbdOdkeIBnAH63Q9C9uHTLbbt6VlRBHy8OLnxoyKCCpeh23GLi
+         4z0A==
+X-Forwarded-Encrypted: i=1; AKwUvByb4pDppUGaZNngdxZfIJepfbEjuBGlDTH3q9Iyyy/oPKD9+v9Q5zbdTLc94E5t5MkMqdaZQ0p7GfvvbzA=@vger.kernel.org
+X-Gm-Message-State: AFuF++kI0oHZ0miN5lbVKrxovwBRHLvLCzRLIK6CWUoN2eifqIcennt1
+	GkaaXOv/NAfC8vIbZW6nUg3l3ltIPvhGxZ7dh0fIlAtn6mnpQ72qUC/hvwYENZS5SjM2pS44wUc
+	Xx/H08buvn+Q7FsL6RV+ReA==
+X-Received: from wmwb5-n2.prod.google.com ([2002:a05:600d:4445:20b0:49a:1b4c:be])
+ (user=vdonnefort job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:600c:a40f:b0:49c:fa21:e74b with SMTP id 5b1f17b1804b1-49cfa21e9a7mr42587355e9.33.1788540360049;
+ Fri, 04 Sep 2026 09:46:00 -0700 (PDT)
+Date: Fri,  4 Sep 2026 17:44:47 +0100
+In-Reply-To: <20260904164450.1345852-1-vdonnefort@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <apmQrTzP0sTSReI1@localhost.localdomain>
+Mime-Version: 1.0
+References: <20260904164450.1345852-1-vdonnefort@google.com>
+X-Mailer: git-send-email 2.55.0.979.g7e5102b832-goog
+Message-ID: <20260904164450.1345852-2-vdonnefort@google.com>
+Subject: [PATCH v10 1/4] ring-buffer: Allow splice reads on static buffers
+From: Vincent Donnefort <vdonnefort@google.com>
+To: rostedt@goodmis.org, mhiramat@kernel.org, 
+	linux-trace-kernel@vger.kernel.org
+Cc: mathieu.desnoyers@efficios.com, kernel-team@android.com, 
+	linux-kernel@vger.kernel.org, Vincent Donnefort <vdonnefort@google.com>
+Content-Type: text/plain; charset="UTF-8"
 
-On Thu, Sep 03, 2026 at 05:22:21PM +0100, Frederic Weisbecker wrote:
-> > +	if (softirq_count() == SOFTIRQ_OFFSET)
-> 
-> Any other value should be forbidden here.
-> It should just warn.
+ring_buffer_read_page() rejects splice (full=1) reads on static buffers
+(that is user-mapped, persistent or remote) because !read check assumes
+unread pages must be swapped. However for those buffers we have no other
+choice than memcpy the data.
 
-> > +
-> > +	if (softirq_count() == SOFTIRQ_OFFSET)
-> > +		lockdep_softirqs_on(_RET_IP_);
-> 
-> Same here, you should warn if softirq_count() != SOFTIRQ_OFFSET
-> 
+For the memcpy case, only return an error when the writer is still on
+the reader page for the splice interface to wait.
 
-Good point! I'll send a v2.
+Fixes: 117c39200d9d ("ring-buffer: Introducing ring-buffer mapping functions")
+Signed-off-by: Vincent Donnefort <vdonnefort@google.com>
 
-Thanks,
-Karl
+diff --git a/kernel/trace/ring_buffer.c b/kernel/trace/ring_buffer.c
+index b0963ac6fd16..84fd4cdd486f 100644
+--- a/kernel/trace/ring_buffer.c
++++ b/kernel/trace/ring_buffer.c
+@@ -7193,15 +7193,8 @@ int ring_buffer_read_page(struct trace_buffer *buffer,
+ 		unsigned int event_size;
+ 		unsigned int flags = 0;
+ 
+-		/*
+-		 * If a full page is expected, this can still be returned
+-		 * if there's been a previous partial read and the
+-		 * rest of the page can be read and the commit page is off
+-		 * the reader page.
+-		 */
+-		if (full &&
+-		    (!read || (len < (size - read)) ||
+-		     cpu_buffer->reader_page == cpu_buffer->commit_page))
++		/* If a full page is requested, it cannot be the commit page */
++		if (full && cpu_buffer->reader_page == cpu_buffer->commit_page)
+ 			return -1;
+ 
+ 		if (len > (size - read))
+-- 
+2.55.0.979.g7e5102b832-goog
+
