@@ -1,160 +1,228 @@
-Received: from mail-qk1-f182.google.com (mail-qk1-f182.google.com [209.85.222.182])
+Received: from mail-yw1-f178.google.com (mail-yw1-f178.google.com [209.85.128.178])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EDE54A4408
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 13:46:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.182
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 164DC4A5C4A
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 13:46:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.178
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788529590; cv=none; b=Wu683W8vUV/VA47gXWodAzHwkp+uI1o/+rb2T4V6cpWKdEkZLO7fvL7q2GMesAsCYn74b88gzo5TaFIw+BdZt+0snIK3xdy3jd8yRCrZg+Yx2WOlFJIoHfSlp4e+q7AMbPayEe9KdowdwBzmhe+MQJzzLydxFyx8cWtC65BBOO0=
+	t=1788529594; cv=none; b=hU0nR2GNTXi1fu/aGxdOgItZ7Zzl4A0BymkhymXWUU3GOpYwJRAkbA7CJKu9TH12/YnW8ggNYZOLXI5CcNmiWdn4UmWh5NpX5AxgaFxondaebqG3FZqlH2CvOd4Mz/1Kj2NdgJmY2e3cSZh79hZSjkCrr+gFEBntxCaKC4GFmxc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788529590; c=relaxed/simple;
-	bh=l7HBFW2oz1K7wlz0Cw/q76k0lqFcEvUDwHaz93CkcFM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Ec/tx4JzrXfPvMvoPXJFrFY/0TyOBF5m+apZPGGPS7+NclvThXPp7Fd9AZxsH3R76SVCUH2b2VIboUhh2Hdz60fKP9qQjgMrJkC6p2X8hkNcbssZBCSp7GBZ/Rhm4HB3Fu2xJt9rSSg4XDH/TyhEMM4RLfKIMvCcjkYJb8zBWmY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com; spf=pass smtp.mailfrom=riscstar.com; dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b=Z+px9OyB; arc=none smtp.client-ip=209.85.222.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=riscstar.com
+	s=arc-20240116; t=1788529594; c=relaxed/simple;
+	bh=m6CAE/76TRzV3kyyElyOiCVIZXdgvxUs4/XakeqgH64=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=YJLSa+QAYRCEz2GpSRJcmvYEEX9PcEjWxTYYbDFINhybmIDoN4ME0/nGSYyrThz/zCvZjPS0uIO/92n4O3amDRyBzyyHuqnT2OWJdIdx81oa3V3Epj5GVshRCaOFheh95rluW9taBtf5YDe732FV9X5Rz0sucVw2ufrsXZo6dck=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ldS1tPDa; arc=none smtp.client-ip=209.85.128.178
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b="Z+px9OyB"
-Received: by mail-qk1-f182.google.com with SMTP id af79cd13be357-92e50a650a0so98663185a.1
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 06:46:28 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ldS1tPDa"
+Received: by mail-yw1-f178.google.com with SMTP id 00721157ae682-86d43cdee51so12627877b3.2
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 06:46:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=riscstar-com.20251104.gappssmtp.com; s=20251104; t=1788529587; x=1789134387; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=X+Bw04n0AyQYjskAQ/JcmMjfV9T3RjIpfJoearHWcfU=;
-        b=Z+px9OyB3Q3YxOWoirmFuGtw0afVJ5jCKhh9O/Vpn7Jo9GJ1E5p6TRkyfY6vA2/uAD
-         ZbJL1XoZ5Jnmmq0KzQx1LUdt7+/a6QG3kduT5vjQ8uT6IQJXs5/pb+3D79zMrQzTY235
-         EUIzd26bg64xfstUm4yaWr5zg+/Q1GxfT8VLrfYUSB057r1Rmv5kBcA1ttHllTXZUBOx
-         tcH/9mLIzyW72ZOIQavXwnqJXjKkXMenuW2i8vBSLVlhWkCmyt0YX6LE6QQxK5DQvueO
-         a271Fxrf/YntIY60FXWCc+8O45KRQr6HGDXa/tWrivlCDKQQMWVgeO3Vk51/Bz4h21K+
-         zp8A==
+        d=gmail.com; s=20251104; t=1788529592; x=1789134392; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=h5E1eI2EQTTOSHZEjahKUxEQTbKv1V9kJEXVEsMI2UI=;
+        b=ldS1tPDaSUR3H0wZCPYZeYk8PrRNxy8JRpGeFx9UtEk8fF63F3jUiY0KcmfpiDtoHP
+         dgvH1VA094ABO95ZFXcl5fnyH393lY8/73SUwVbjjRHzHBK6x1r1sk5uiI5PBzwXE96u
+         R3vDbIR8Ap1hIirp61wJJ5heP72zX+T/CT/MThMDV+GDXi0w+Z8t1wpJ7iWHx0aqdMzx
+         9kFTFdJBXLTQY2Hs7S1/AXmJh5Ax+mZGufy9ywQByD5neD1ZooK+a7bqlIWBucreSAxw
+         riQDh+sOnRcRmRqpU4SzrdIBmrpk2sai9ZwxRCxpTZnNpHju+ciovQUqLlxqzLQKNT5i
+         VHVA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788529587; x=1789134387;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=X+Bw04n0AyQYjskAQ/JcmMjfV9T3RjIpfJoearHWcfU=;
-        b=Sb/q1GFoeyNPEzAFXXiHMn6ShaJaQ1NUIbqPCfqeDewGfIKb+K9llIkB/W+HV/cE7S
-         YJGqEpmZzAI3y0AWVlcuY4Hi2RNRErwIIHeXUVjJvjpfXd3OD99SQIwswYEn+/f28txy
-         PknMuddsoyBXDyThZaS7qUPyyRRpSc+rAAooqn29aTVnC/qwd8lbU74iZBsLHXdPr4v0
-         kbVpjZ93qwbihXzNgbJZ6AT+O6/+dGYTQm+EqBvpWLr/y6J7SDSRLaU0LzpqFGThTKMz
-         S7oJ13SxWTZTUDqbXiNQZYODXoDcMunBMqJOiEXQueTqNARoaQgz5uEfTDXCvdatLFvD
-         V2Hg==
-X-Forwarded-Encrypted: i=1; AKwUvBwHopsiZafcAon9eF0yCD/TJI7uOCeZXxqIktEHbPxDJywxA97PrnSqdfpSqKDSpN+P25fMZXF7G2A1ky4=@vger.kernel.org
-X-Gm-Message-State: AFuF++mDaR4mlnRtooIoM1gvmHUfAHdRSM/6Y9ocRgQTVEktwLQs+2ua
-	y55licfT1XqQ2D1v53ox78mUtg9Y21tWqeaEP/oAm6JBG9xz5mX9mr6DRVnug90qeYI=
-X-Gm-Gg: AYBFou0rznDQLvNAOx9PaYfHdnYdb+SmWW9fjzqnVX2v6LL/mFo0rF5+DH/ryqO5pCg
-	+D2aC0kiEuTUugujy5ixoymjrNf16aplh061ddskwygLMsZIOuwtg7BlmM12kCx0UaYH/T0UD4Q
-	g5ndAbENTYWN0h0UOWrjL3PQW9B3hmkpm1ARmFlkXwJepZDWH12NvpJBuw5ksFfx1yT5RNZzCRe
-	a1ZVRaR7hXnqcNybmsf555kUXRiiquk+FSU7EAg570KvY7cXGzylmLuBLXfQETVM69kuhgTP29b
-	np9E+Gkt+lXK2f4uGf1c+Q5wjosS628/dMy5YsRH/xc1SgDhr/AoSYNo4eV3eEVrqK9UlmRM2Oa
-	AqzFsc94mnC0fQV+6kLl0tddFffZMQ7OfO+DQvmIfMlz2JLxb4V+88Lk+ipBHqCCZIeIuBcK00q
-	lmXlGOwWEx6psUTqa/jvmxW1qU2HsLixZ+hhvLxNImWzekY/wwxic5rrbx5yclJtfQ
-X-Received: by 2002:a05:620a:a0c5:10b0:936:dbf1:f495 with SMTP id af79cd13be357-939802f6e18mr474878385a.1.1788529572210;
-        Fri, 04 Sep 2026 06:46:12 -0700 (PDT)
-Received: from zippy.localdomain ([73.62.185.64])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-9397fafc3a7sm211613885a.14.2026.09.04.06.46.11
+        d=1e100.net; s=20251104; t=1788529592; x=1789134392;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=h5E1eI2EQTTOSHZEjahKUxEQTbKv1V9kJEXVEsMI2UI=;
+        b=mdMfpr6oWe1JTaj8XY9dSCxJnFxptnzLlOkhYdqPuAnEoJgzE/RL2Hpet/Hzxh8f1W
+         8tLfHu2wVo41LbmjtA8l/aNtmjI8sexAV76ZHetz2p85hbBEifmQqkZ8GfH8mLZ3mhXR
+         6q9virk91Lz81YjrM0X45A79rwxQXe6ooXgoEiFSKdnJuZgOQ/nH/YGCuruCs+2ZR/vg
+         TNRzogrUgZvvkiHto/waGNw4w8hBESetsK3gUBJiEL85PnE18YUbBmfRhqojVuJlLFnf
+         oqA7CKsDO8jd366BADasprRge6Kr3bfA7d5+g6Zx+m1anyYHLdPNei6/aX8pDUbKLXmY
+         139A==
+X-Forwarded-Encrypted: i=1; AKwUvBzHtoJJN+DyT3kG6mtUeVxMwz/qr07YLPU17VhKrzyUBlo1CPHzBAXDRVcCTCtOCdDK01POSKJ8h70Dl30=@vger.kernel.org
+X-Gm-Message-State: AFuF++mHiyCfqozIb6rdGMogkOOjaOPQPEO7JaFv++VfFFFdYSaTY3bt
+	YVIl0hWmTqAja/b+kL1Vo3TLYQS0tYAYpZ/vEI7gpxWGyppnVrkfT6Y=
+X-Gm-Gg: AYBFou2J+KjAAT9p5jzYuvj/wZVmakHEnnPAADXbRubyBVvDCO3N6oE0//dvv8YNB61
+	bdOACIwmsBqe30d3Mn1eJU/X8g79+m6RnrH2vHp3Os2k+yh3/zcIJI6aEAeQN5QeRONHxPSc7wn
+	JpL9Z3iWMLWpsnt1rMaImhnIlyDLgYhs4mPq7hIYvMVh28TSCUlDs5t7sUfP3x4Bd1kGex9yT7u
+	1JlhrPhKcgDR63yLHiulks+ZVyAcCGQ+FdVvuT+1LtNww7yV3YsjSUc5ToxToj62rcgxhnAVQhL
+	k5eapCdU5tBV4h5NvCe5tDBXNzU2R+mmTkApQ7lFTX8KhyYck63XZDqrXqFq8HjFueLWdPoaZbg
+	2xV1EP4cSP7gQPzX6sH/FELE+gnYKYMv2pciBCmOCiy9lbeB921YUPVqMD6fUo1kkEH1BRgT/jN
+	YETQKPzTq6BKPKzx15vAsk7zEbwh84nVqHpMC59AUrDRR3Z73YAko/JFYeofd4mzy0q/iPN1tLX
+	Oqdyiq7U7+a8qxy6rFvuyCzHs9K9B0JuMdV1eg=
+X-Received: by 2002:a05:690c:e646:b0:873:5bb2:6c29 with SMTP id 00721157ae682-8735bb26efdmr2810627b3.48.1788529591777;
+        Fri, 04 Sep 2026 06:46:31 -0700 (PDT)
+Received: from localhost.localdomain ([186.158.238.108])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8714a49a660sm18067947b3.27.2026.09.04.06.46.25
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 04 Sep 2026 06:46:11 -0700 (PDT)
-From: Alex Elder <elder@riscstar.com>
-To: bhelgaas@google.com,
-	robh@kernel.org,
-	saravanak@kernel.org
-Cc: herve.codina@bootlin.com,
-	daniel@riscstar.com,
-	mohd.anwar@oss.qualcomm.com,
-	lorenzo.bianconi@oss.qualcomm.com,
-	linux-pci@vger.kernel.org,
-	devicetree@vger.kernel.org,
+        Fri, 04 Sep 2026 06:46:30 -0700 (PDT)
+From: =?UTF-8?q?Nicol=C3=A1s=20Antinori?= <nico.antinori.7@gmail.com>
+To: Andi Shyti <andi.shyti@kernel.org>,
+	Igor Korotin <igor.korotin@linux.dev>
+Cc: =?UTF-8?q?Nicol=C3=A1s=20Antinori?= <nico.antinori.7@gmail.com>,
+	Alexandre Courbot <acourbot@nvidia.com>,
+	Alice Ryhl <aliceryhl@google.com>,
+	Andreas Hindborg <a.hindborg@kernel.org>,
+	Benno Lossin <lossin@kernel.org>,
+	=?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
+	Boqun Feng <boqun@kernel.org>,
+	Brigham Campbell <me@brighamcampbell.com>,
+	Daniel Almeida <daniel.almeida@collabora.com>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Gary Guo <gary@garyguo.net>,
+	Jori Koolstra <jkoolstra@xs4all.nl>,
+	Miguel Ojeda <ojeda@kernel.org>,
+	=?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Tamir Duberstein <tamird@kernel.org>,
+	Trevor Gross <tmgross@umich.edu>,
+	linux-i2c@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
+	rust-for-linux@vger.kernel.org,
+	linux-kernel-mentees@lists.linux.dev,
 	Sashiko <sashiko-bot@kernel.org>
-Subject: [PATCH v4 1/4] PCI: of: avoid allocations in of_pci_prop_compatible()
-Date: Fri,  4 Sep 2026 08:46:03 -0500
-Message-ID: <20260904134607.1856121-2-elder@riscstar.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260904134607.1856121-1-elder@riscstar.com>
-References: <20260904134607.1856121-1-elder@riscstar.com>
+Subject: [PATCH v2] i2c: rust: avoid locking when performing I2cAdapter::inc_ref
+Date: Fri,  4 Sep 2026 10:44:43 -0300
+Message-ID: <20260904134600.340991-1-nico.antinori.7@gmail.com>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Three compatible strings are formatted in of_pci_prop_compatible().
-Their sizes are known in advance, and the largest is 16 bytes.
+The current implementation of `<I2cAdapter as
+AlwaysRefCounted>::inc_ref` relies on the C function `i2c_get_adapter`
+to increment module and device counters. This function acquires a lock,
+looks for the adapter in the IDR table, and, if found, increments the
+named counters before returning the adapter.
 
-Rather than dynamically allocating the space for those strings, just
-set aside a buffer on the stack large enough to hold all three.
+In the Rust API, the `I2cAdapter::get` method returns an
+`ARef<I2cAdapter>` upon success. Incrementing this reference count in an
+atomic context (for example, via `ARef::clone`, which relies on
+`AlwaysRefCounted::inc_ref`) could trigger a sleep-in-atomic bug due to
+the mutex locking inside `i2c_get_adapter`.
 
-This avoids a problem that Sashiko pointed out, where an allocation
-failure would cause subsequent crash because strlen() is called
-unconditionally in of_changeset_add_prop_string_array().
+Since cloning an `ARef` implies we already hold a valid reference to the
+adapter, the IDR table lookup and its associated lock are unnecessary.
+
+The fix consists of bypassing `i2c_get_adapter` and instead calling
+`__i2c_adapter_get` directly to increment the counters.
 
 Reported-by: Sashiko <sashiko-bot@kernel.org>
-Link: https://lore.kernel.org/sashiko-reviews/a647bd56-7dc8-4fec-9d96-834622054cdf@riscstar.com
-Signed-off-by: Alex Elder <elder@riscstar.com>
+Closes: https://sashiko.dev/#/patchset/20260524181151.24988-1-nico.antinori.7@gmail.com
+Signed-off-by: Nicolás Antinori <nico.antinori.7@gmail.com>
 ---
-v4: - Added this fix to the beginning of the series
+Note: There's Trevor Chan's patch [2] (make `AlwaysRefCounted::inc_ref`
+associated function) in review. If this patch lands first it may cause
+conflicts with that one. Please let me know if it is better to make this
+patch dependant on Trevor's one or wait until it merges.
 
- drivers/pci/of_property.c | 31 ++++++++++++++++++++-----------
- 1 file changed, 20 insertions(+), 11 deletions(-)
+Changelog:
+- v2:
+  - Implemented suggestion by Gary and Igor to add a C API and call it
+    directly from Rust.
+- v1: [1]
 
-diff --git a/drivers/pci/of_property.c b/drivers/pci/of_property.c
-index 75a358f73e694..a0632f932b5c6 100644
---- a/drivers/pci/of_property.c
-+++ b/drivers/pci/of_property.c
-@@ -324,27 +324,36 @@ static int of_pci_prop_intr_map(struct pci_dev *pdev, struct of_changeset *ocs,
- 	return ret;
+v1 Note:
+
+Citing the second part of Sashiko's report:
+
+> Furthermore, if the adapter is unregistered and removed from the IDR,
+> bindings::i2c_get_adapter() will return NULL and fail to increment the
+> reference count. Since inc_ref() ignores the return value, wouldn't
+> dropping that cloned ARef unconditionally call dec_ref()
+> (i2c_put_adapter)?
+>
+> Could this lead to an underflow, double-put, and a use-after-free of
+> the adapter and its module? Or if the IDR index was reused, might it
+> increment the new adapter's refcount while decrementing the old one
+> twice?
+
+I don't believe this situation is possible. When `i2c_del_adapter` is
+executed in `i2c-core-base.c`, the kernel waits for all references to be
+dropped prior to removing the device from the IDR. This guarantees that
+no `ARef` is still alive when the IDR removal happens, effectively
+eliminating the risk of an underflow, double-put, or calling `dec_ref`
+on an invalid reference.
+
+[1] https://lore.kernel.org/all/20260615201141.8920-1-nico.antinori.7@gmail.com/
+[2] https://lore.kernel.org/rust-for-linux/20260628100731.64885-1-trev@trevrosa.dev/T/#u
+
+ drivers/i2c/i2c-core-base.c | 17 +++++++++++------
+ include/linux/i2c.h         |  1 +
+ rust/kernel/i2c.rs          |  4 +++-
+ 3 files changed, 15 insertions(+), 7 deletions(-)
+
+diff --git a/drivers/i2c/i2c-core-base.c b/drivers/i2c/i2c-core-base.c
+index ddaacf876dad..03ad1bb539e9 100644
+--- a/drivers/i2c/i2c-core-base.c
++++ b/drivers/i2c/i2c-core-base.c
+@@ -2632,21 +2632,26 @@ i2c_new_scanned_device(struct i2c_adapter *adap,
  }
- 
-+/* The three compatible property strings have max sizes 12+1, 15+1, and 13+1 */
-+#define PROP_SIZE	16	/* Max size of each compatible string */
- static int of_pci_prop_compatible(struct pci_dev *pdev,
- 				  struct of_changeset *ocs,
- 				  struct device_node *np)
- {
- 	const char *compat_strs[PROP_COMPAT_NUM] = { 0 };
-+	char buf[PROP_COMPAT_NUM * PROP_SIZE] = { };
-+	char bufp = buf;
- 	int i, ret;
- 
--	compat_strs[PROP_COMPAT_PCI_VVVV_DDDD] =
--		kasprintf(GFP_KERNEL, "pci%x,%x", pdev->vendor, pdev->device);
--	compat_strs[PROP_COMPAT_PCICLASS_CCSSPP] =
--		kasprintf(GFP_KERNEL, "pciclass,%06x", pdev->class);
--	compat_strs[PROP_COMPAT_PCICLASS_CCSS] =
--		kasprintf(GFP_KERNEL, "pciclass,%04x", pdev->class >> 8);
-+	ret = snprintf(bufp, PROP_SIZE, "pci%x,%x", pdev->vendor, pdev->device);
-+	if (ret >= PROP_SIZE)
-+		return -EINVAL;
-+	compat_strs[PROP_COMPAT_PCI_VVVV_DDDD] = bufp;
-+	bufp += ret + 1;
- 
--	ret = of_changeset_add_prop_string_array(ocs, np, "compatible",
--						 compat_strs, PROP_COMPAT_NUM);
--	for (i = 0; i < PROP_COMPAT_NUM; i++)
--		kfree(compat_strs[i]);
-+	ret = snprintf(bufp, PROP_SIZE, "pciclass,%06x", pdev->class);
-+	if (ret >= PROP_SIZE)
-+		return -EINVAL;
-+	compat_strs[PROP_COMPAT_PCICLASS_CCSSPP] = bufp;
-+	bufp += ret + 1;
- 
--	return ret;
-+	ret = snprintf(bufp, PROP_SIZE, "pciclass,%04x", pdev->class >> 8);
-+	compat_strs[PROP_COMPAT_PCICLASS_CCSS] = bufp;
+ EXPORT_SYMBOL_GPL(i2c_new_scanned_device);
+
++bool __i2c_adapter_get(struct i2c_adapter *adapter)
++{
++	if (try_module_get(adapter->owner)) {
++		get_device(&adapter->dev);
++		return true;
++	}
++	return false;
++}
++EXPORT_SYMBOL(__i2c_adapter_get);
 +
-+	return of_changeset_add_prop_string_array(ocs, np, "compatible",
-+						  compat_strs, PROP_COMPAT_NUM);
+ struct i2c_adapter *i2c_get_adapter(int nr)
+ {
+ 	struct i2c_adapter *adapter;
+
+ 	mutex_lock(&core_lock);
+ 	adapter = idr_find(&i2c_adapter_idr, nr);
+-	if (!adapter)
+-		goto exit;
+
+-	if (try_module_get(adapter->owner))
+-		get_device(&adapter->dev);
+-	else
++	if (adapter && !__i2c_adapter_get(adapter))
+ 		adapter = NULL;
+
+- exit:
+ 	mutex_unlock(&core_lock);
+ 	return adapter;
  }
-+#undef PROP_SIZE
- 
- int of_pci_add_properties(struct pci_dev *pdev, struct of_changeset *ocs,
- 			  struct device_node *np)
--- 
-2.53.0
+diff --git a/include/linux/i2c.h b/include/linux/i2c.h
+index 14ab4d3055af..56832c8e58f5 100644
+--- a/include/linux/i2c.h
++++ b/include/linux/i2c.h
+@@ -907,6 +907,7 @@ static inline bool i2c_client_has_driver(struct i2c_client *client)
+ void i2c_clients_command(struct i2c_adapter *adap,
+ 			 unsigned int cmd, void *arg);
+
++bool __i2c_adapter_get(struct i2c_adapter *adapter);
+ struct i2c_adapter *i2c_get_adapter(int nr);
+ void i2c_put_adapter(struct i2c_adapter *adap);
+ unsigned int i2c_adapter_depth(struct i2c_adapter *adapter);
+diff --git a/rust/kernel/i2c.rs b/rust/kernel/i2c.rs
+index 0487bae811fb..2fc818da80cf 100644
+--- a/rust/kernel/i2c.rs
++++ b/rust/kernel/i2c.rs
+@@ -419,7 +419,9 @@ unsafe impl AlwaysRefCounted for I2cAdapter {
+     #[inline]
+     fn inc_ref(&self) {
+         // SAFETY: The existence of a shared reference guarantees that the refcount is non-zero.
+-        unsafe { bindings::i2c_get_adapter(self.index()) };
++        unsafe {
++            bindings::__i2c_adapter_get(&raw mut (*self.as_raw()));
++        }
+     }
+
+     #[inline]
+--
+2.47.3
 
