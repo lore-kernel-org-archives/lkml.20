@@ -1,64 +1,64 @@
-Received: from mail-pf1-f174.google.com (mail-pf1-f174.google.com [209.85.210.174])
+Received: from mail-pf1-f177.google.com (mail-pf1-f177.google.com [209.85.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A0AE4963A6
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 13:25:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 928B03F44FB
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 13:25:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.177
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788528312; cv=none; b=oGRgtvaKz1LDVjjT5ibpBT8P/mhqf+AFpkvSFrGFyp7OA3LtK9LJXchMu1JFCg/Gtl0xclm5qjG+wCbEwS65LLhxl2giQ4aqj7xEWEGjmjCmO3TjIRfc/j6nDWGl/C/ISd3gWlIgmBPnc0JadUY9UmgXEnLMrls0brVg1MLYZRI=
+	t=1788528319; cv=none; b=WzDGtApfcttRPalpA63guD12rZT3rZngisQm2rLAXa+8XV67yX9cvKAVkO0O+iE+uKDvtq0/duZmosgCHf8SM0MiIr393WJ5koSGNdPJ0wKh9ZemwiafYykmwnfbySSXBC734Cvs5hxxFPzs0185es49nvvfgvQBc5DwnTLWpvQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788528312; c=relaxed/simple;
-	bh=K/jiaZnVuaW5E5AeWCKVVN7yFU5/jENyifD0pDrIqBY=;
+	s=arc-20240116; t=1788528319; c=relaxed/simple;
+	bh=JCEfWe4srFMBNJ4IU6yb5jRT2Bq3G4Enf1em6g43bw4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=OQJOSHaD1TPJ1SE+pK6DovWAP35o7yuBgV5AaD33dzi84+rJPaHv6KGj85q1AGWEr5gATSOLARpBbV9yAowtA3l69ckd1QaFBBOJ0bEijUEfbu/JCj24qI5HLwupl1MFOFn7yjMH5jbYhzCfFWLpnBqbmgoIeupb9JGGCaRNiEU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=q1HgBy2C; arc=none smtp.client-ip=209.85.210.174
+	 MIME-Version; b=A7l4fMymBF0rp88yA2MIenMTJ6P+E0SAugtLjy+srI+9cXBr4qYgmCQzy6mZk/VSj7LJIgd0Gk2zwCpvW0ISt2c+KNVUIkRX7EoyhA1ROX3NLy2Y2/OEwrn7zrdtZhiVPGTzN+SHxNUpfpUcVUJGT5J0t0kLotdFOHVzjSjb5oo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LEJk7XEU; arc=none smtp.client-ip=209.85.210.177
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="q1HgBy2C"
-Received: by mail-pf1-f174.google.com with SMTP id d2e1a72fcca58-85c9a79590aso997624b3a.1
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 06:25:08 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LEJk7XEU"
+Received: by mail-pf1-f177.google.com with SMTP id d2e1a72fcca58-8568e3ed034so672091b3a.0
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 06:25:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788528308; x=1789133108; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1788528312; x=1789133112; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=CP/vbJtIF948iniYIw2bTcvHalRSWj3A4FS22l6l3aQ=;
-        b=q1HgBy2CB5uZU4eVTXalHWptpzMK4imJ22t19Le/bHEF+dHIij5XlEnUk+v5hfJWxp
-         PdLG/snQtTQTKrcuwaw7uGhG2GjqU4qzEn16AzfgJlwjDTfAPfrJ39tXFNwUXkeN8A97
-         guvQWqUZOf/avAsZ3c0JDeLBUG5I/s0VrjVcGmHHMnE9yGdIdi2ox1nd+1QGcy+b7q4n
-         OVULBsV8oDybD/b50OblbOfL7BhFfJVvjlQDwpXS8sXOyTfDPSbPBLanfzwCWYajiH/x
-         OfXbxD+WDLES8LkbeeHeg6glIw0/ru6WHoh/8Oc4DU8KKR53TBcLGUlFHd3gpyEQjtug
-         VlLw==
+        bh=u2CeoIWg3k0WZbamELoe7oneAzQm7kp/EWq+eOPXTPc=;
+        b=LEJk7XEUVVwrjg/8XotpZiCKQ+6q0N/8h0/9ijUMl6h6xYIhDX+n0jjNJn2uK3IXwK
+         U/+TMM3Yj8r4l3La9Qh8Ff6zQyMIE5BwoNuGtTbk3eJ8YFbYBhWPN8JYRKMNIe4R7/P0
+         RMJfddfnv35uGOO2ZFrPp2PRiz95bV0o6p34i/yfTbyebZCck5w8IxndFoHypKohOQlV
+         Ew5cigXIZKohFtbVxkcH18Eeoh4LIoYsZdw+IKbQn7YfREiOpI6GHsG/BgCnxmzx2Pkc
+         dJ+GxpCRJz1PTbDtest0yMFDrG43iP4Tj8c7gENEaSAwB+XS38tzbkoqm6ESkL4IweaA
+         qQVA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788528308; x=1789133108;
+        d=1e100.net; s=20251104; t=1788528312; x=1789133112;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=CP/vbJtIF948iniYIw2bTcvHalRSWj3A4FS22l6l3aQ=;
-        b=A/601aIAiNrg/VpqWMCSCqvZ+EsyE1RhMKg/vb73YPMMHjvyKFKulo40EQ8rxExdnr
-         brakLqrnbi/a2CgKN8YjjT2P5dqqUfgXI/09g2pla8VKxnIurid5efWGdb5rh3gk3TSX
-         JNspxZtSKnMXP0+BZRIP67/AVvwo+IvNKL4AMvszn16jwFeaf8z7Ea4Gz5Qw9eEjy65J
-         zDEClG5OoZ++vjzW9UcpgX3sRdkHik8kCudPSdh+ydNWUfWUe2LRYmfJdhKaViSdlB+W
-         VtBrU8GulEs7mNt9qW0KXq7qKP6tW1/quqSOs7h72xk6ezbIeHXxL9DUwxyRJPhllDh2
-         lbNw==
-X-Forwarded-Encrypted: i=1; AKwUvBzfHcS1p+ha3tWOH42Caon1zJ851rp2M/ABXKM2y4nj7deFjPmKQoTFqWKChDGc+Uptsf1ZG5VK0USAU1s=@vger.kernel.org
-X-Gm-Message-State: AFuF++n0Bhy+WBdz/Rh5nNog9Wn54UUKP1YStIqv3Wn+j4/clbhXzVvi
-	YnWNo08U+kMWjSGEGGk5bJy0RChpkrCF0F8YLRutSh/Ffn5BOTpAuf4A
-X-Gm-Gg: AYBFou2s5aVlSiX8l1X+ap0m8vnUl+aqzQyKuC/kLhxy/O3uJUfcLni5u9YsHuu9DR9
-	vNAEmDNRZs+A/ZxKkC8Ww6L3oqDO1ML2gBjCIBi87wdZtHaWFdn9032PJuSsL1Vw5UUAR5zB1Hb
-	VH22jfzS/v1MDApJjA6BFT8wQKlp/7nuGGkCGvmK89NryeA9xB5yUASwwcivrnl6LVYJMyAUghx
-	JqtL0Chtz6XkoyWDMe3//r/bowyM4xMq18/cMyPx/6BmtQ00qqO+vLrAlD8ASaTiB1eYlRYs8Zf
-	ENeKL8zuyMjwJA5TuLOs3RjOmc33bU0Cbw06p4x8Q859Z1s3q1ZonqKJ8pvaIoV+PC+1TYcBW5p
-	VZ5xT43qExMuM3hS86RTqUAjtT4mVMjHPt8Ah7im4L8FgKZKLIqGow2wNSgKrQB/9/vP06hsO8C
-	xv+nmrLfJpffgsPn6mGb+32CvWIn4FuJKmLVxxJ//Sr5H7pSYaimbaxT2MM3xX6YPBRGo7I6NQX
-	3Cp4l6aj5gmvvNhVQYMW2/u+1ZXAxDUxEfa3g==
-X-Received: by 2002:a05:6a00:2d0a:b0:851:b03a:fcb with SMTP id d2e1a72fcca58-86169b6bda4mr7057801b3a.14.1788528307602;
-        Fri, 04 Sep 2026 06:25:07 -0700 (PDT)
+        bh=u2CeoIWg3k0WZbamELoe7oneAzQm7kp/EWq+eOPXTPc=;
+        b=Dy5Gq5lYGQXeT2KZ5rNabtQJj4f5KAFUW85yLQLkGTKOH8fMD/od7YOo1nhKnCrwba
+         lCGyEDs4XK28zBkpCB5Rcm4Q2dbF793hkxlYbX0gogfD3yOnqRKPI7e6vG3Zm9tdwiYr
+         /dDNO6J/M2TEOZnCxro8FNZfnTliZxHu9L98yt/B5Mnp127rnf06bbqduc2K9xgnKrFk
+         +jN9bRFpWZA2zgl/r95ARvPDXywgd+ioseVA5rm//beSfTy6ROvGp0xnbyc7UZSbJDj9
+         LxCfAMy9EGnu1jeAZcorykIL/iFx0vvk4T2wcifnk2j7tMc0eZgzUaGN3dO91THIZBbg
+         zZVg==
+X-Forwarded-Encrypted: i=1; AKwUvBy1c+Kn97D9bfFPgtUb7Xgk0OLWjX6dPy6S1h6lcPKgJl/OItOM5IYpDkEtpCeU0quI5o5O0fdX4Z1Vplo=@vger.kernel.org
+X-Gm-Message-State: AFuF++l4RjLPqswYZakN4k3PkrXAyoQfRVcHC9a7+yWQ+IcEoVf8K8MM
+	Xny6E4akG/3fzEXCRk/63QZw15iWYY5Z/tz/z9GnjbbtrrOhzlWQeWgYrRtE0puO
+X-Gm-Gg: AYBFou2D1lEySA2n0djRa1QFxaXuPlBW47bCbJMP3Wd0Ovs35c7MufbXdxcpLTkN4sl
+	r/ef4ESgfQgLfyIaTnRmFs9aXVFkyslZjGM2lY5dBdgi7SBiyJVxmmFgCqv/ESgLIG7is3UZhW3
+	HWx5SA1x/DfODah8Z3uWlG1HCJaXCtEyCo8iQsRQtOSsrOmKjRb97Dp3fEZAkI95wob0NFcD8ZX
+	jf6sqNvOXO0fEL0yWsSmCR50p3H3umGCwhkT5ucL7c+RBYU99U1HORaYg5R5gsdFxbYmX7MWdaB
+	9370GviTiJJUrBmghg3BEo77n75OHp0XO6XLYcNEZQPensn7Otlc6N8S3rd7Z7hQCXJ7GqbWGoE
+	y4bg0BbtZM4ykA12ukxlWQtq8POuEAgeYeUnqzdnwhrciUefCTcl6m5bMmm59CfFYm/gkxKToly
+	AuL4sG5E9iMCU0+2YTEdGUmOzyjWKa4aCLQdVi3u2dsczLPk1VN7c+++wV4+qQxj8n9c9LXX5mk
+	rRpuLLRKIDEK2KHZB7/vrarw/f8UVwlq/H+4g==
+X-Received: by 2002:a05:6a00:2d1d:b0:857:7317:cff8 with SMTP id d2e1a72fcca58-8616b2718f4mr7870760b3a.25.1788528311735;
+        Fri, 04 Sep 2026 06:25:11 -0700 (PDT)
 Received: from NV-J4GCB44.nvidia.com ([103.74.125.162])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-86152c2a52asm1147302b3a.30.2026.09.04.06.25.04
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-86152c2a52asm1147302b3a.30.2026.09.04.06.25.07
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 04 Sep 2026 06:25:06 -0700 (PDT)
+        Fri, 04 Sep 2026 06:25:11 -0700 (PDT)
 From: Jianyue Wu <wujianyue000@gmail.com>
 To: Johannes Weiner <hannes@cmpxchg.org>,
 	Yosry Ahmed <yosry@kernel.org>,
@@ -68,12 +68,12 @@ To: Johannes Weiner <hannes@cmpxchg.org>,
 Cc: Chris Li <chrisl@kernel.org>,
 	linux-mm@kvack.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v5 0/3] mm/zswap: shrink zswap_entry via a pool id
-Date: Fri,  4 Sep 2026 21:24:53 +0800
-Message-ID: <cover.1788528216.git.wujianyue000@gmail.com>
+Subject: [PATCH v5 1/3] mm/zswap: release retired pools via queue_rcu_work() instead of synchronize_rcu()
+Date: Fri,  4 Sep 2026 21:24:54 +0800
+Message-ID: <f9d47f077f55e68b18ab883c9cdcd166ee950671.1788528216.git.wujianyue000@gmail.com>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260830114731.8322-1-wujianyue000@gmail.com>
-References: <20260830114731.8322-1-wujianyue000@gmail.com>
+In-Reply-To: <cover.1788528216.git.wujianyue000@gmail.com>
+References: <20260830114731.8322-1-wujianyue000@gmail.com> <cover.1788528216.git.wujianyue000@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -82,99 +82,62 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Every stored page has a struct zswap_entry, so its size is pure per-page
-overhead.  On 64-bit it is currently 56 bytes, of which 8 bytes are a
-pointer to the owning zswap_pool.
+When a pool's last reference is dropped, __zswap_pool_empty() removes it
+from the pool list and schedules __zswap_pool_release(), which calls
+synchronize_rcu() to wait for readers before tearing the pool down.
 
-Only a handful of pools are ever live: a new pool is created only when
-the compressor is (re)set, and pools are reused across compressor
-switches.  That makes a per-entry pool pointer more expensive than it
-needs to be, and the RCU list that currently tracks pools is more
-machinery than this needs once each pool already has a stable id.
+synchronize_rcu() is a synchronous, potentially long wait.  Replace it
+with queue_rcu_work(): __zswap_pool_empty() hands the pool to
+queue_rcu_work(), which waits for a grace period asynchronously and then
+runs __zswap_pool_release() from a worker for the sleepable teardown
+(__zswap_pool_empty() can run in atomic context and must not block).
+The grace-period guarantee is unchanged; the retirement path just no
+longer blocks on it.
 
-This series:
-
-  1. Releases retired pools with queue_rcu_work() instead of a worker
-     calling synchronize_rcu(), so the release worker no longer blocks
-     on an RCU grace period.
-  2. Replaces the zswap_pools list with an allocating xarray
-     (XA_FLAGS_ALLOC1 | XA_FLAGS_LOCK_BH) and a separate RCU-protected
-     current-pool pointer, giving each pool a stable small id.  Ids
-     start at 1.  The reserved id 0 is never allocated, so looking it
-     up resolves to NULL.  The table grows as needed up to 255 live
-     pools (u8 pool_idx), not a fixed slot array.
-  3. Stores that u8 pool id in each zswap_entry instead of the pool
-     pointer.  The u8 fits in padding after the bool referenced field,
-     so the entry shrinks from 56 to 48 bytes on 64-bit (~2MiB of
-     metadata saved per 1GiB of data held in zswap).
-
-Runtime compressor switching is preserved.  Pool ids are bounded to
-1..255 because struct zswap_entry stores the id in a u8.  The cap
-counts every id still in the xarray, including a killed pool that still
-has entries.  Ids are reused when a pool is erased.  Switching back to
-a compressor that still has a pool in the xarray resurrects it rather
-than allocating a new id.  If all usable ids are full, creating a pool
-for another compressor fails and the compressor switch is rejected.
-
-On 64-bit, struct zswap_entry is 56 -> 48 bytes, which fits 73 -> 85
-objects in a 4K slab.
-
-Benchmark (x86_64, compressor=lzo, MADV_PAGEOUT store + fault-in load):
-
-  - e2e store+load median latency: no measurable regression vs baseline
-    at matched stored_delta
-
-Each store, free, and decompress looks up the pool with xa_load()
-instead of following a pointer.  With only a handful of live pools the
-xarray walk is short.
-
-Testing
-=======
-
-- Boot with DEBUG_ATOMIC_SLEEP + lockdep/PROVE_RCU + KASAN:
-  zswap store/load, shrinker writeback, and compressor switch
-  (retire, then switch back to resurrect) pass
-
-This series is based on akpm/mm-unstable as of 2026-09-04
-(20cab322c95c).
-
-To: Johannes Weiner <hannes@cmpxchg.org>
-To: Yosry Ahmed <yosry@kernel.org>
-To: Nhat Pham <nphamcs@gmail.com>
-To: Chengming Zhou <chengming.zhou@linux.dev>
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: Chris Li <chrisl@kernel.org>
-Cc: linux-mm@kvack.org
-Cc: linux-kernel@vger.kernel.org
+Suggested-by: Yosry Ahmed <yosry@kernel.org>
 Signed-off-by: Jianyue Wu <wujianyue000@gmail.com>
-
-Changes since RFC v4:
-  - Replace the RCU pool list with an allocating xarray
-    (XA_FLAGS_ALLOC1 | XA_FLAGS_LOCK_BH) and a separate RCU-protected
-    current-pool pointer.
-  - Resolve entry->pool_idx with xa_load() under rcu_read_lock().
-  - Write pool_idx before the entry is stored in the swap tree, so a
-    lookup cannot see a stale pool_idx left over from slab reuse.
-  - Retire pools with queue_rcu_work() on system_percpu_wq.
-  - Drop the RFC tag.
-
-Link: https://lore.kernel.org/all/20260830114731.8322-1-wujianyue000@gmail.com/
-Link: https://lore.kernel.org/all/20260815-shrink_zswap_entry_0815_v2-v3-3-0171bd86a667@gmail.com/
-Link: https://lore.kernel.org/all/20260731-shrink_zswap_entry_v2-0-0-v2-0-e72083aa8734@gmail.com/
-Link: https://lore.kernel.org/all/20260726-shrink_zswap_entry_v1-0-0-v1-1-30957e4d0cb6@gmail.com/
-
+Acked-by: Yosry Ahmed <yosry@kernel.org>
 ---
-Jianyue Wu (3):
-  mm/zswap: release retired pools via queue_rcu_work() instead of
-    synchronize_rcu()
-  mm/zswap: replace the zswap_pools list with an allocating xarray
-  mm/zswap: reference the pool by id to shrink struct zswap_entry
+ mm/zswap.c | 12 +++++-------
+ 1 file changed, 5 insertions(+), 7 deletions(-)
 
- mm/zswap.c | 144 ++++++++++++++++++++++++++++++++++++-----------------
- 1 file changed, 97 insertions(+), 47 deletions(-)
-
-
-base-commit: 20cab322c95cea0327215bb81a05df69336032dd
+diff --git a/mm/zswap.c b/mm/zswap.c
+index f3ae3c81e48e..e456e5080531 100644
+--- a/mm/zswap.c
++++ b/mm/zswap.c
+@@ -155,7 +155,7 @@ struct zswap_pool {
+ 	struct crypto_acomp_ctx __percpu *acomp_ctx;
+ 	struct percpu_ref ref;
+ 	struct list_head list;
+-	struct work_struct release_work;
++	struct rcu_work release_rwork;
+ 	struct hlist_node node;
+ 	char tfm_name[CRYPTO_MAX_ALG_NAME];
+ };
+@@ -379,10 +379,8 @@ static void zswap_pool_destroy(struct zswap_pool *pool)
+ 
+ static void __zswap_pool_release(struct work_struct *work)
+ {
+-	struct zswap_pool *pool = container_of(work, typeof(*pool),
+-						release_work);
+-
+-	synchronize_rcu();
++	struct zswap_pool *pool = container_of(to_rcu_work(work),
++					       typeof(*pool), release_rwork);
+ 
+ 	/* nobody should have been able to get a ref... */
+ 	WARN_ON(!percpu_ref_is_zero(&pool->ref));
+@@ -406,8 +404,8 @@ static void __zswap_pool_empty(struct percpu_ref *ref)
+ 
+ 	list_del_rcu(&pool->list);
+ 
+-	INIT_WORK(&pool->release_work, __zswap_pool_release);
+-	schedule_work(&pool->release_work);
++	INIT_RCU_WORK(&pool->release_rwork, __zswap_pool_release);
++	queue_rcu_work(system_percpu_wq, &pool->release_rwork);
+ 
+ 	spin_unlock_bh(&zswap_pools_lock);
+ }
 -- 
 2.43.0
 
