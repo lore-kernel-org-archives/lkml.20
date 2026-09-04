@@ -1,228 +1,187 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com [209.85.214.182])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEBF1131E49
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 00:22:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06FB120D4FF
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 00:24:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788481371; cv=none; b=tlRIynS3CXakXpK2b+SzwpEGOORj1P236nOz7gFh+KM1N3JmH5hwsr7xQeRdBqTj3DfZHVGZfqU6N1lduCVEU7VkJC5EhMsKGc8kLMh9PS+DEHSw4pouxPCbR3NSEb392QcNMFPv+hXAP7nSfsrX+gK7FXnjxpQXileHEZ/SYcQ=
+	t=1788481457; cv=none; b=Oz20zLl17byslePJE+oyqp2v60RPlJBHDga8hQHfTbbjzZemzMUBX+IQZozY0ICQG1g05//nrTRLdWkAJx4gBXqIoAP4j7cUEOhxLPmj76k04+FrGHGCrrLIRstGSqJx4ADmDaMQiuTXTfyfEa9RXq9QTAffhEvB9hJhAILq7wc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788481371; c=relaxed/simple;
-	bh=2uROdXStm7aU7V/9xNpd1opPDVNPcCkRwe09yn3xaCY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Z6Fkhd+qMfLkRUdkvJr6x1/cZYpzZNn/jYRMEpOiRgcUesBKoZYDXhaRJaRwMFCIUGeY0iLUN7kiFjsnVFkZiCD48XseloH4Mwm9ujhd+/eIsg9FWbly+6QmJsGMh4QVNd9cB7XUADM8Nfu6/ytKSD08w+qcZ9DNqC8ESAJbPXc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gicqvsBy; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788481457; c=relaxed/simple;
+	bh=vI3w7Yfe6qPIBFjIgwMVs1BgewAMFw3n7X4YwNwR5v0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Jxr4Jjt9u8x9SY4i/osHy65FTfPgPxucKxAyUpfGghrYT4f+7vZ2XKt0OgD8yuC6gZKK2GBpADotHWvIatir+wBZk3DS8FLqtKbgn/S7vJ217tdeevXpiGrHopzR5cf+mxJTBY0qjrKIM3nlZGqYnpSJlhEfewU8JVxATw4T+z0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PTxo2Z9S; arc=none smtp.client-ip=209.85.214.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gicqvsBy"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 06B7B1F000E9;
-	Fri,  4 Sep 2026 00:22:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788481369;
-	bh=y2BAzD5wHFMDI0Tdchm9F35oeS9pHKExb3hvTSPu/hc=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=gicqvsBymTvjdLcjuS1ruinp8U4tujPXFLCOwmT4AVkN1uVesOw6xKE3DeWiorxrY
-	 VZ8U9LWPIvHU6ZIPH5I9drRjGboN+okakuA3rcJks41cdgbB8uCoTjIDf7zkNzPNxR
-	 WgaMG41cZAraxhybtzI4zcT8J7B6VqrpJ3zhJVWFbSKe5e4zoHfiXrKJdkR1lLVXxa
-	 LIyK4NnyzV0Rx9+M7Oh3Y5pxd3LTB2OcnJdYZfZQ2Ttg8FD/mm7X6NTb8Gi8XhBN51
-	 X1s7SCEMnxqG7XoSMl0bMJCtZYYjQ0/ESwVVmNcCJJ98QIfyTEPJAPDyolmquxhBlg
-	 EZ6avSmxjLR2A==
-From: SJ Park <sj@kernel.org>
-To: SJ Park <sj@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	David Hildenbrand <david@kernel.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Michal Hocko <mhocko@suse.com>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org,
-	Muchun Song <muchun.song@linux.dev>,
-	Oscar Salvador <osalvador@suse.de>
-Subject: Re: [PATCH] mm/memory: fix hugetlb_zap_begin() call in zap_vma_range_batched()
-Date: Thu,  3 Sep 2026 17:22:35 -0700
-Message-ID: <20260904002237.114959-1-sj@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260904000028.149656-1-sj@kernel.org>
-References: 
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PTxo2Z9S"
+Received: by mail-pl1-f182.google.com with SMTP id d9443c01a7336-2d6fe26ef1cso4992135ad.2
+        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 17:24:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788481455; x=1789086255; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=xGtEyL+SG/LvgHfix7kNxu8fbD/5RFe2NtGfqWXVEXc=;
+        b=PTxo2Z9SRS0jbFE22JIqohXwucRBb2UUWAbq/5L2+0/z/fn+Ri6YfJjiKoQWjv3+Xk
+         U75kkYdDW6N/EHRK71U9ZlyyxaXfdyNuOGPM+QpAYnXrBwihTHsCbXt9cIpzWBvngERT
+         uHnmMC1pGhcyMVAlJG9lKNvaAVLTnnnm83qQkWxmBO9BQgr66Y4Ow5J13EFKLND6rh+V
+         QPJLrlB/cIrLatLDWDKuOm39wuxTwYSy8D1vt7tnf+4Kor0rBKFttfa8z7UMv9ULYYPW
+         v4iLwbOwsDrGMX9tS64qmdQMGnELy/rJLWwGvsOd4DGIl4Db+Emmwqy09HZr5YFPXUBo
+         PQPQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788481455; x=1789086255;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=xGtEyL+SG/LvgHfix7kNxu8fbD/5RFe2NtGfqWXVEXc=;
+        b=EjbAI83IyjEm7kyCXRJsbM2KlgG58dlf39op9V0OCadbkhWVaq2dF28NWmirHPVWYW
+         mQiBWGa0SFVkwK+YYU78Dp1dS3bDSpiYiUrItA4oHGVy3GAZYSK4Bg+Yl1j6CN7+hAA/
+         kF5NFCqwU5Uk1rrujrsvc3iQxVcH/tVlZTtjoF/uYf4PDYSMfGur9xjwxjZwGGdElLuy
+         bepwC6pE3wQSMvAzFAYTpzEwyFOHWIwn38VNj/uEU7q9GLAATOb3COGznRlLoYv51lpW
+         k+qmS/f8mDIg8ixsFsgk9DQHYYytj76Crpe42l//lcwbTFZS2kxYJATn3KWEw6R4Bi03
+         XPmA==
+X-Forwarded-Encrypted: i=1; AKwUvByTnL/v0gF1IXUxMJW5NyajVnZCoTYmTrnZFYI6HqN25KzJMfgXygQUzQJkasgvqni8v1JducCHpwbbQ10=@vger.kernel.org
+X-Gm-Message-State: AFuF++l8KiRia+PuyhkHepslJg9ERrMSuGb5rqggPjoXLsRgcy5uOs2h
+	FljaA9yOk7r+ghGh1JFx0GVpCbCR8ejvoahZDi1qUjh2bA6FrSadVC8K
+X-Gm-Gg: AYBFou3UKPTBHbJecOxyVVHmxA9DJHIT01Sgyq3aSKX4uIcT5UJ85KssSfsidZG6WFk
+	1ylhZlSodu9alZR4DZUQNwEyZBx8upzEUEoibC/7HmEaoYt0xkjwmDWVkSsJXVv9qj+lam8npqX
+	xBXR2rG5DAmdI4BnVoIh3JDPvCgJ6lscWRmf653EYjYL4d//LU6k63fYBM4Tuv2WUIO8ST5Ml7J
+	+I7HEO9OIXRz8Qp77Z6eOIUnoh5J0/haMxm3Gyk5i286jgms01sprQLz53ESMFFUTRmO9t38+DS
+	f6EDO9RdWZ7JOUp/BLlpdT6idko+UdiB7tvucCpt6XTwf35FC5/H7MxL5VEZtvP5OWNWY6Tw8Zz
+	TzCsHxgU3qHvKkp/tFhVkwqZzOUbiajbxAiZjVTwgCTf2Wt2o53zqWp3xwxi7hsM3gnFQCAZ7eP
+	FlZYpkwXJclkUVWP3U7JpFwFt7Fgla9r9FQGhA96AwUbu4FPyZHfVSQFY9dK7X32I6zZvPOZmrt
+	e50cEHWcK1mGGf+j7iBIHCquxrlX+xJ1NmZHrbQtp5oICjjvCXGyNb6ecx/
+X-Received: by 2002:a17:90b:5343:b0:398:e46e:ade3 with SMTP id 98e67ed59e1d1-39b2628fc1amr3801873a91.23.1788481455199;
+        Thu, 03 Sep 2026 17:24:15 -0700 (PDT)
+Received: from [10.21.0.95] (wnpgmb0592w-ds02-161-177-131.dynamic.bellmts.net. [207.161.177.131])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b08bcc090sm7824281a91.4.2026.09.03.17.24.13
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 03 Sep 2026 17:24:14 -0700 (PDT)
+Message-ID: <d1a590c7-f526-4e70-a255-fccfb199be39@gmail.com>
+Date: Thu, 3 Sep 2026 19:24:12 -0500
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+User-Agent: Betterbird (Linux)
+Subject: Re: [BUG] SPD5118 Intermittent MR11 Corruption During Suspend/Resume
+To: Armin Wolf <W_Armin@gmx.de>, Guenter Roeck <linux@roeck-us.net>
+Cc: linux-hwmon@vger.kernel.org, linux-kernel@vger.kernel.org,
+ "Rafael J. Wysocki" <rafael@kernel.org>,
+ "linux-acpi@vger.kernel.org" <linux-acpi@vger.kernel.org>
+References: <46191fa9-fa4a-4c16-b618-2c0c6dc09102@gmx.de>
+ <531be24a-bad0-40f6-8e30-3d4da565afcb@gmail.com>
+ <a2efdc40-c73c-4892-9fea-9470c0f9823b@gmx.de>
+ <0388506d-9ddc-4825-bf28-95c8eef219b6@gmail.com>
+ <57a05dea-3cce-4ecf-bbe1-ab7464f8c224@gmx.de>
+ <a5d32ab5-f545-4e11-bf0b-88d3eaa68890@gmail.com>
+ <474a37bb-0774-4710-8458-ea28d7c54c89@gmx.de>
+ <c81e7caf-d3e4-4212-be9b-ec35d0a04086@gmail.com>
+ <c096b0d7-90c2-4d91-9776-9f109679c309@gmx.de>
+ <7ca2e621-e0a1-4eee-bcd1-2ded610f1beb@gmail.com>
+ <cff09168-9a88-494d-bc82-d9a5e4de22a7@roeck-us.net>
+ <e1a6a91d-d03e-4e7a-ba7b-9268284ce7e8@gmail.com>
+ <5480c69c-8e98-443e-96d7-30e64e886373@roeck-us.net>
+ <02dc7eb6-6d0d-4c0c-af10-b831d3f8ba06@gmx.de>
+Content-Language: en-US
+From: Matthew Bettencourt <matthew.bettencourt@gmail.com>
+In-Reply-To: <02dc7eb6-6d0d-4c0c-af10-b831d3f8ba06@gmx.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-On Thu,  3 Sep 2026 17:00:26 -0700 SJ Park <sj@kernel.org> wrote:
+Hello Guenter,
 
-> Commit f1fc44daf618 ("mm/hugetlb: don't lock private resv_map during
-> final unmap") added zap_details parameter to hugetlb_zap_begin().  But
-> the hugetlb_zap_begin() call in zap_vma_range_batched() is not updated.
-> As a result, build fails as below.  Fix it.
-> 
->   CC      mm/memory.o
-> .../mm/memory.c: In function ‘zap_vma_range_batched’:
-> .../mm/memory.c:2308:9: error: too few arguments to function ‘hugetlb_zap_begin’
->  2308 |         hugetlb_zap_begin(vma, &range.start, &range.end);
->       |         ^~~~~~~~~~~~~~~~~
-> In file included from .../mm/memory.c:48:
-> .../include/linux/hugetlb.h:253:20: note: declared here
->   253 | static inline void hugetlb_zap_begin(struct vm_area_struct *vma,
->       |                    ^~~~~~~~~~~~~~~~~
-> 
-> /* TODO: move below to commentary */
-> 
-> I didn't read the broken commit in depth.  This fix is only
-> build-tested.  I wanted to report the issue with this as a temporal fix,
-> but the broken commit doesn't have Link: tag.  So directly posting this
-> temporal and not very well verified fix first.
-> 
-> Fixes: Fixes: f1fc44daf618 ("mm/hugetlb: don't lock private resv_map during final unmap")
-> Signed-off-by: SJ Park <sj@kernel.org>
-> ---
->  mm/memory.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/mm/memory.c b/mm/memory.c
-> index fcf893f4b55e2..151a1bf512e00 100644
-> --- a/mm/memory.c
-> +++ b/mm/memory.c
-> @@ -2305,7 +2305,7 @@ void zap_vma_range_batched(struct mmu_gather *tlb,
->  
->  	mmu_notifier_range_init(&range, MMU_NOTIFY_CLEAR, 0, vma->vm_mm,
->  				address, end);
-> -	hugetlb_zap_begin(vma, &range.start, &range.end);
-> +	hugetlb_zap_begin(vma, &range.start, &range.end, details);
->  	update_hiwater_rss(vma->vm_mm);
->  	mmu_notifier_invalidate_range_start(&range);
->  	/*
+ >> - Do you have the latest BIOS installed on your system ?
+ >>   Some statements online seem to suggest that the problem
+ >>   _may_ be fixed with the latest BIOS on at least some
+ >>   of the affected systems.
 
-And this is not enough for some configs.
+Yup as of Sept 3 2026 I am running the latest BIOS, 4.43. I think a new 
+one is coming soonish as Asrock has started rolling out 4.50 on other 
+x870 motherboards
 
-# /home/lkhack/linux/mm/memory.c: In function 'unmap_vmas':
-# /home/lkhack/linux/mm/memory.c:2272:3: error: too many arguments to function 'hugetlb_zap_begin'
-#  2272 |   hugetlb_zap_begin(vma, &start, &end, &details);
-#       |   ^~~~~~~~~~~~~~~~~
-# In file included from /home/lkhack/linux/mm/memory.c:48:
-# /home/lkhack/linux/include/linux/hugetlb.h:322:20: note: declared here
-#   322 | static inline void hugetlb_zap_begin(
+ >> - Please boot the affected system with "usbcore.autosuspend=-1"
+ >>   kernel command line parameter.
+ >>   There are some claims online that this might resolve the problem.
+ >>   I have no idea why that would be the case, but I guess it does
+ >>   not hurt trying. Of course, if that _does_ work, we have yet another
+ >>   mystery to solve.
 
-Below change fixes the build on the config, too.
+I think we have another mystery to solve. I enabled 
+"usbcore.autosuspend=-1" as a boot parameter and the errors have cleared 
+up when I suspend/resume. I doubled checked this by removing 
+"usbcore.autosuspend=-1" from my boot parameters and the errors came back.
 
-'''
-diff --git a/include/linux/hugetlb.h b/include/linux/hugetlb.h
-index 63c85f2540c9f..0cdccafb83983 100644
---- a/include/linux/hugetlb.h
-+++ b/include/linux/hugetlb.h
-@@ -321,7 +321,8 @@ static inline void adjust_range_if_pmd_sharing_possible(
+ >> - Do you have memory with RGB-anything in the affected system ? If so,
+ >>   is it controlled by the BIOS ? If yes, please disable the 
+functionality
+ >>   if that is possible.
 
- static inline void hugetlb_zap_begin(
-                                struct vm_area_struct *vma,
--                               unsigned long *start, unsigned long *end)
-+                               unsigned long *start, unsigned long *end,
-+                               struct zap_details *details)
- {
- }
-
-'''
-
-So more complete version of the patch would look like below.  Forgive me
-posting v2 as a reply for this case.  I think this doesn't deserve a new
-thread.
+I checked my BIOS and all RGB options are disabled.
 
 
 Thanks,
-SJ
+Matthew
+On 9/3/26 5:47 PM, Armin Wolf wrote:
+> Am 03.09.26 um 23:05 schrieb Guenter Roeck:
+> 
+>> Hi Matthew,
+>>
+>> On 9/3/26 11:25, Matthew Bettencourt wrote:
+>>> Hello Guenter,
+>>>
+>>>  > This system [MSI PRO B850M-A WIF/7600x3d] does _not_ have a 
+>>> problem, or did I misunderstand the above ?
+>>>
+>>> That is correct. I was unable to replicate the issue with the MSI PRO 
+>>> B850M-A WIF and 7600x3d. The MR11 registered never got corrupted 
+>>> during sleep/resume and I never saw any piix4 errors logged when 
+>>> using my piix4 driver with the additional logging enabled.
+>>>
+>>> I never swapped the CPUs as that was more hassle than I was willing 
+>>> to do right now, but if it something that might be useful I can 
+>>> probably try that at some point.
+>>>
+>> I don't think that would help. From all the reports I browsed through
+>> so far, the common denominator seems to be that the affected systems use
+>> a X870 or X870E chipset.
+>>
+>> Anyway, couple of ideas:
+>>
+>> - Do you have the latest BIOS installed on your system ?
+>>   Some statements online seem to suggest that the problem
+>>   _may_ be fixed with the latest BIOS on at least some
+>>   of the affected systems.
+>>
+>> - Please boot the affected system with "usbcore.autosuspend=-1"
+>>   kernel command line parameter.
+>>   There are some claims online that this might resolve the problem.
+>>   I have no idea why that would be the case, but I guess it does
+>>   not hurt trying. Of course, if that _does_ work, we have yet another
+>>   mystery to solve.
+>>
+>> - Do you have memory with RGB-anything in the affected system ? If so,
+>>   is it controlled by the BIOS ? If yes, please disable the functionality
+>>   if that is possible.
+>>
+>> Thanks,
+>> Guenter 
+> 
+> According to the output of /proc/ioports, the root issue seems to be 
+> that the ACPI firmware
+> drives the SMBus controller and marks the affected IO ports as reserved, 
+> but acpi_check_region()
+> still tells the driver that the IO ports are available.
+> 
+> I already CCed the ACPI people to take a look at this.
+> 
+> Thanks,
+> Armin Wolf
+> 
 
-=== >8 ===
-From hackermail Thu Jan  1 00:00:00 1970
-From: SJ Park <sj@kernel.org>
-Date: Thu, 3 Sep 2026 16:52:06 -0700
-Subject: [PATCH v2] mm/memory: fix hugetlb_zap_begin() call in zap_vma_range_batched()
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: "Liam R. Howlett" <liam@infradead.org>
-Cc: David Hildenbrand <david@kernel.org>
-Cc: Lorenzo Stoakes <ljs@kernel.org>
-Cc: Michal Hocko <mhocko@suse.com>
-Cc: Mike Rapoport <rppt@kernel.org>
-Cc: Muchun Song <muchun.song@linux.dev>
-Cc: Oscar Salvador <osalvador@suse.de>
-Cc: Suren Baghdasaryan <surenb@google.com>
-Cc: Vlastimil Babka <vbabka@kernel.org>
-Cc: linux-kernel@vger.kernel.org
-Cc: linux-mm@kvack.org
-
-Commit f1fc44daf618 ("mm/hugetlb: don't lock private resv_map during
-final unmap") added zap_details parameter to hugetlb_zap_begin().  But
-the hugetlb_zap_begin() call in zap_vma_range_batched() is not updated.
-As a result, build fails as below.
-
-  CC      mm/memory.o
-.../mm/memory.c: In function ‘zap_vma_range_batched’:
-.../mm/memory.c:2308:9: error: too few arguments to function ‘hugetlb_zap_begin’
- 2308 |         hugetlb_zap_begin(vma, &range.start, &range.end);
-      |         ^~~~~~~~~~~~~~~~~
-In file included from .../mm/memory.c:48:
-.../include/linux/hugetlb.h:253:20: note: declared here
-  253 | static inline void hugetlb_zap_begin(struct vm_area_struct *vma,
-      |                    ^~~~~~~~~~~~~~~~~
-
-It also fails on !CONFIG_HUGETLB_PAGE config.
-
-    .../mm/memory.c: In function 'unmap_vmas':
-    .../mm/memory.c:2272:3: error: too many arguments to function 'hugetlb_zap_begin'
-     2272 |   hugetlb_zap_begin(vma, &start, &end, &details);
-          |   ^~~~~~~~~~~~~~~~~
-    In file included from .../mm/memory.c:48:
-    .../include/linux/hugetlb.h:322:20: note: declared here
-     322 | static inline void hugetlb_zap_begin(
-
-Fixes: Fixes: f1fc44daf618 ("mm/hugetlb: don't lock private resv_map during final unmap")
-Signed-off-by: SJ Park <sj@kernel.org>
----
-I didn't read the broken commit in depth.  This fix is only
-build-tested.  I wanted to report the issue with this as a temporal fix,
-but the broken commit doesn't have Link: tag.  So directly posting this
-temporal and not very well verified fix first.
-
-Changes from v1
-- v1: https://lore.kernel.org/20260904000028.149656-1-sj@kernel.org
-- Fix !CONFIG_HUGETLB_PAGE build.
-
- include/linux/hugetlb.h | 3 ++-
- mm/memory.c             | 2 +-
- 2 files changed, 3 insertions(+), 2 deletions(-)
-
-diff --git a/include/linux/hugetlb.h b/include/linux/hugetlb.h
-index 63c85f2540c9f..0cdccafb83983 100644
---- a/include/linux/hugetlb.h
-+++ b/include/linux/hugetlb.h
-@@ -321,7 +321,8 @@ static inline void adjust_range_if_pmd_sharing_possible(
- 
- static inline void hugetlb_zap_begin(
- 				struct vm_area_struct *vma,
--				unsigned long *start, unsigned long *end)
-+				unsigned long *start, unsigned long *end,
-+				struct zap_details *details)
- {
- }
- 
-diff --git a/mm/memory.c b/mm/memory.c
-index fcf893f4b55e2..151a1bf512e00 100644
---- a/mm/memory.c
-+++ b/mm/memory.c
-@@ -2305,7 +2305,7 @@ void zap_vma_range_batched(struct mmu_gather *tlb,
- 
- 	mmu_notifier_range_init(&range, MMU_NOTIFY_CLEAR, 0, vma->vm_mm,
- 				address, end);
--	hugetlb_zap_begin(vma, &range.start, &range.end);
-+	hugetlb_zap_begin(vma, &range.start, &range.end, details);
- 	update_hiwater_rss(vma->vm_mm);
- 	mmu_notifier_invalidate_range_start(&range);
- 	/*
-
-base-commit: 2d1388907095f676b59fe6dd22f244abc08408cf
--- 
-2.47.3
