@@ -1,75 +1,85 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail.avm.de (mail.avm.de [212.42.244.119])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A51FE4AA01F
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 18:31:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73FE651E437;
+	Fri,  4 Sep 2026 18:34:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.42.244.119
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788546709; cv=none; b=Rn2l/KhBoEUJ6/hqFTFIJTcN02oh01OKcTi6vircTNyv/yI3VZM0BwPzOnUomNY4Od3KRZWVSsgd10I/2cHtemkVINVPtUPlwMhSCBYiLxEmI/3Tls8RtWdk+5JtKKZr3mwY7bWdH9PxzxojjnBoRI4UZ+7tYrfCF7Pka3lqC34=
+	t=1788546868; cv=none; b=pLLJnPf/z+U5pilgikAJlc9TIO0LNXy/mLMLSkyI0y6oHgV6ig9qdtkxjtXNB7j1WIPOfRBJcsgPhCQfLvVJxMGxafOgT/CAIitSl8D1HMeeRZVnNQTFNfQphvOcsvFccrpdRdFaQTcadtxnRyl0BXcMDGnSNrOQZ+hYtO0cn6k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788546709; c=relaxed/simple;
-	bh=QnsG/88k4AwYZQ1AIOz3tt/8r8BB2ggrWu8fFatvZ9g=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=lbMMftBfrbW1TEq+j16Qy+EW3Wj0yYfiVvAJVP9KhTXVcXrEeyEqp/jCo+bBMRwJHqEG/31XDt1qRu/4jF8UvE61/oNIg+5eZt8mvlV6+f5NxN2yjR3HISqLnCzq8MG7P77JipDKnng22qOnkDSZY0L9fj6/YU6mIU2ciM/+pyg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=fp7eHj3I; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1788546868; c=relaxed/simple;
+	bh=lt27UchPaDdsqKXnly6UKAN5TMB885tT3yzomVzDTSE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=oifutjMi6Nai547jcNXBNoUYJYqlWXVBmDVvd8aWpAZv59x/kMSRZgVXlDewAgvPeNgxgNX9q8ihtifrZxmkyOv9RvoZrcqyGta+Ed6YMXEF7u+1+1FL81Z7y8/tvXjkPeWHFBiuf8FZGQcSUCscDy07awCfD/WG1/QTxzqlBzk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fritz.com; spf=pass smtp.mailfrom=fritz.com; dkim=pass (2048-bit key) header.d=fritz.com header.i=@fritz.com header.b=ZA7WEWT8; arc=none smtp.client-ip=212.42.244.119
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fritz.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fritz.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="fp7eHj3I"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 265E01A19C8;
-	Fri,  4 Sep 2026 18:31:45 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id DA9476057F;
-	Fri,  4 Sep 2026 18:31:44 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 2A6E511C78158;
-	Fri,  4 Sep 2026 20:31:36 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1788546699; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 in-reply-to:references; bh=P+rdDJwO1BaO3hbIt3/EpCrUPVPc1TD/epdBPBg67zI=;
-	b=fp7eHj3IgTf5mmV0IwpYZtRclyXlk0Pu+yb/2whutuBYdtRbH0GGwUk1RFS/YhdBbr6jVY
-	11Ldmbf6/7b+P6cE63ASK7GuMYSWSt46SltJ2AZo5+L+S3XgfCsqTlFqMcWn/nuE21Kok6
-	R/J2jfDbpjxXqY21hdD9yW+b7ILGSt/xNlFMmuFTzGkPV2FG1Dc+ET9z2d5xZcSNHarRyX
-	u2buxRlFFHMBE7SLdKF5PS5Wa1HO+LAEHb/p/ejyaV6iTMRqvzwvZxQ1bEtPnR6sRPo4Pd
-	uOjHeAYASW4OtFnszft1EIF2y0/Y+f2BVB7d8KMwA1qnLA95A8HXBJiqMGirnw==
-From: Miquel Raynal <miquel.raynal@bootlin.com>
-To: Mark Brown <broonie@kernel.org>
-Cc: md.alam@oss.qualcomm.com,  Johan Alvarado <contact@c127.dev>,
-  konradybcio@kernel.org,  pengpeng@iscas.ac.cn,  j4g8y7@gmail.com,
-  quic_varada@quicinc.com,  quic_srichara@quicinc.com,
-  linux-spi@vger.kernel.org,  linux-mtd@lists.infradead.org,
-  linux-arm-msm@vger.kernel.org,  linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] spi: spi-qpic-snand: publish the ECC context to
- snandc->qspi
-In-Reply-To: <apsKiRC-bn7oPS2P@sirena.co.uk> (Mark Brown's message of "Fri, 4
-	Sep 2026 19:14:33 +0100")
-References: <20260825013848.1056946-1-contact@c127.dev>
-	<178854349408.1467647.16557341714581809344.b4-ty@bootlin.com>
-	<apsKiRC-bn7oPS2P@sirena.co.uk>
-User-Agent: mu4e 1.12.12; emacs 30.2
-Date: Fri, 04 Sep 2026 20:31:35 +0200
-Message-ID: <874ig4zx4o.fsf@bootlin.com>
+	dkim=pass (2048-bit key) header.d=fritz.com header.i=@fritz.com header.b="ZA7WEWT8"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=fritz.com; s=mail;
+	t=1788546851; bh=lt27UchPaDdsqKXnly6UKAN5TMB885tT3yzomVzDTSE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=ZA7WEWT8PvUePYK6h0M0D7q9FCa4n+xSrwoZlC/l2d8QV8Eq+6s5toGo3mpg51wUt
+	 WyjWErMoTEmCwm57JC/a7HNycGlTlHpadYg52NJ3SE2+YVEb9e7r+GyGLj7sr2dyGP
+	 AQ0Kfbp6cWFUsIDM78q6si9tPIqsJdazRMJE3cWmPPPzIZcgRL6Es7hailiYu9C6cK
+	 t4fX6NRPRfkoYkk3ccnHOvMW7o+a9MWMDrCsDcQorktVLIKbR2TNkHshMy1uk08WEg
+	 Sc2Q3TH8xx370zszHMmilEbmbXmrN+SLUayGqs0ryjryH7k+PEV+1hQcUP2ZUqDXVB
+	 BAxMZT77o2jxg==
+Received: from [212.42.244.78] (helo=mail.avm.de)
+	by mail.avm.de with ESMTP (eXpurgate 4.57.1)
+	(envelope-from <n.schier@fritz.com>)
+	id 6a9b0f23-c6f5-7f0000032729-7f000001d34e-1
+	for <multiple-recipients>; Fri, 04 Sep 2026 20:34:11 +0200
+Received: from mail-auth.fritz.com (unknown [212.42.244.78])
+	by mail.avm.de (Postfix) with ESMTPS;
+	Fri,  4 Sep 2026 20:34:11 +0200 (CEST)
+Date: Fri, 4 Sep 2026 20:34:09 +0200
+From: Nicolas Schier <n.schier@fritz.com>
+To: Nathan Chancellor <nathan@kernel.org>
+Cc: Hemanth Selam <hemanth.selam@gmail.com>,
+	Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>,
+	linux-kernel@vger.kernel.org, linux-kbuild@vger.kernel.org
+Subject: Re: [PATCH] kbuild: fix typo "funtions" in comment
+Message-ID: <20260904-quick-gleaming-kakapo-aed84a@l-nschier-aarch64>
+References: <20260904122002.27960-1-hemanth.selam@gmail.com>
+ <CANiq72=QNpuvP01TfXEkjj4i7p4QU5WGj4mjHjrKyrUMsjEwWw@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CANiq72=QNpuvP01TfXEkjj4i7p4QU5WGj4mjHjrKyrUMsjEwWw@mail.gmail.com>
+Organization: FRITZ! Technology GmbH
+x-ms-reactions: disallow
+X-purgate-ID: 149429::1788546851-64C0BB9A-5D0DD5E9/0/0
+X-purgate-type: clean
+X-purgate-size: 805
+X-Notice: Whitelisted
+X-purgate: This mail is considered clean (visit https://www.eleven.de for further information)
+X-purgate: clean
+X-pfmilter: host: postfix-mx-02  mail-id: 46279A048E  external: no
 
-On 04/09/2026 at 19:14:33 +01, Mark Brown <broonie@kernel.org> wrote:
+On Fri, Sep 04, 2026 at 04:23:28PM +0200, Miguel Ojeda wrote:
+> On Fri, Sep 4, 2026 at 3:11 PM Hemanth Selam <hemanth.selam@gmail.com> wrote:
+> >
+> > Correct "funtions" to "functions", reported by scripts/checkpatch.pl using
+> > the misspelling list in scripts/spelling.txt.  Only touches comments, no
+> > code changes.
+> >
+> > Assisted-by: Cursor:claude-opus-5
+> > Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
+> 
+> Welcome! I noticed this one in my spam folder.
+> 
+> But, yeah, it looks wrong:
+> 
+> Fixes: 5270316c9fec ("kbuild: Use -fmin-function-alignment when available")
 
-> On Fri, Sep 04, 2026 at 07:38:14PM +0200, Miquel Raynal wrote:
->> On Mon, 24 Aug 2026 20:38:48 -0500, Johan Alvarado wrote:
->> > qcom_spi_ooblayout_ecc() and qcom_spi_ooblayout_free() read the ECC
->> > configuration through snandc->qspi->ecc. qcom_spi_probe() points it at a
->
->> [1/1] spi: spi-qpic-snand: publish the ECC context to snandc->qspi
->>       commit: 93bc7c4d2f4198586a6dbd7797c3bbf1ca845761
->
-> Oh?
+thanks for the patch and the Fixes: trailer.  As this is not relevant 
+for the build, Nathan will probably pick it up for kbuild-next (aka v7.4).
 
--ETOOMANYKEYWORDS ._.
-
-Dropped, my bad :)
+Reviewed-by: Nicolas Schier <n.schier@fritz.com>
