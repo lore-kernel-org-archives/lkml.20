@@ -1,95 +1,177 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61F6D4AE12F;
-	Fri,  4 Sep 2026 14:41:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2340E3D649C
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 14:41:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788532890; cv=none; b=WjvyOGFUA79DKstQqQX3H7A2G6lBdH1FHXDVWVC81uMyaNKu/AvaqM0PCccaGgagI1gYGL7nuouXfna+SlHs9mJJ5PsQ0Rnx/xNAQmhKhEDIaV9Rcgu1cvUL7Fzn2rDfjfOjxRfvxVV4nQCw9HfrtklEq/vr6LLM632qwsogpD4=
+	t=1788532919; cv=none; b=UduDnDBUiUkdWUBf9CUzMEGRZ1ytV6sQXCHJLIh8TkO2fH6yl+xNTZhjt5/oyBbg4Y8o7OL+NbTCBztIaOjYeshhzb3KA52ZQR0AhiGDOqmWsqSpm9l2prl5e6TOacETFjvMi4CLXhHWbjB5/l3+cZyqdmmyDiZVWCwuabg12eQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788532890; c=relaxed/simple;
-	bh=0OFX+kU+M74+gQHFuQ54KprjKZmepHcrpnuizWKwuF4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=P7TJSTqQpL8pjLsAgQw3y4eshLFPD5I1AClz5Vo2cHn3xzPF86c2y4FNOvcTX7WTQ5L92EwJMDzBriB6lmO1RsxrpjijynQWzYr1ag4+vg/1tWu250b+w1QMyYJn68+mkUt8GO8xD3xwGr+4JZRSsXVR9AAhzAfMzkDbHSwosXo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OovZey8R; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788532919; c=relaxed/simple;
+	bh=bfC4b+YyGgeatQ1fATA+K9JBkUpXUGu/jMc83tcDIHU=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=fuqryENdbuP4+LEh147qGVG+bv2Mb0TtLDAzv50TiJy/7VOOz3axd9lAEBsSd776b/QggIZl8Z2WvSgXy+iqKb9k2iZ6DNgCImIdMmXvGW09be1hKEqs9LhmluchNaBu44SPVHTC7ZFHqA40QGDD1xL4Ce/AJgqc9QVfdPfG7iM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=thegoodpenguin.co.uk; spf=pass smtp.mailfrom=thegoodpenguin.co.uk; dkim=pass (2048-bit key) header.d=thegoodpenguin-co-uk.20251104.gappssmtp.com header.i=@thegoodpenguin-co-uk.20251104.gappssmtp.com header.b=luTGLL9r; arc=none smtp.client-ip=209.85.221.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=thegoodpenguin.co.uk
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=thegoodpenguin.co.uk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OovZey8R"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 941431F00ACF;
-	Fri,  4 Sep 2026 14:41:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788532889;
-	bh=G5XXIVsnnMnL87uEXb7dOvLIfX/ZYGTR5Ky0opjA36I=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=OovZey8Rs3ade4fcOYYjtd+cbFN3b4Hsqe8UjRuqcGVhCASQQ6vfWRkuxbHJnSeyQ
-	 iiQy1jvXGXJEzm2j4kX1adCDoLyhA4afkmG+G00CB4Q2+zJKToa53hv3zTWsKvqq9q
-	 azC3PxhuSWcwg98xYKN9N90aUBBCVLcwTg75Rl8G5vXrqab5m/q5xL/UPAi3YJUW23
-	 pdoVMOtHEZRD60t54ahgGZsAZIkTFJUsP5zAMW9DZze8PPUhhQj8ykjjlklI0dIjQ/
-	 wAmPGmolvnvEjDh1M1GFvLwLaXSSKCA5TCj3Xr3ZItwewZNqQ7t3kR0jEYn5Z5ZUB+
-	 q7Cu3TnnpTExw==
-From: Arnaldo Carvalho de Melo <acme@kernel.org>
-To: Namhyung Kim <namhyung@kernel.org>
-Cc: Ingo Molnar <mingo@kernel.org>,
-	Thomas Gleixner <tglx@linutronix.de>,
-	James Clark <james.clark@linaro.org>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Ian Rogers <irogers@google.com>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	Clark Williams <williams@redhat.com>,
-	linux-kernel@vger.kernel.org,
-	linux-perf-users@vger.kernel.org,
-	Arnaldo Carvalho de Melo <acme@redhat.com>,
-	sashiko-bot <sashiko-bot@kernel.org>,
-	Stephane Eranian <eranian@google.com>
-Subject: [PATCH 5/5] perf jitdump: Size code_move event allocation with idr_size
-Date: Fri,  4 Sep 2026 11:40:57 -0300
-Message-ID: <20260904144058.3341-6-acme@kernel.org>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260904144058.3341-1-acme@kernel.org>
-References: <20260904144058.3341-1-acme@kernel.org>
+	dkim=pass (2048-bit key) header.d=thegoodpenguin-co-uk.20251104.gappssmtp.com header.i=@thegoodpenguin-co-uk.20251104.gappssmtp.com header.b="luTGLL9r"
+Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-482dbe4d247so656427f8f.2
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 07:41:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=thegoodpenguin-co-uk.20251104.gappssmtp.com; s=20251104; t=1788532915; x=1789137715; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=VKygCL74BDThnVT3iAYFENRkliGxbogoLWoSyJEG6go=;
+        b=luTGLL9ro5z9AKdRYW1LvdY55MA2aIVlSdbMGye64oMHI/mHypfpPPDYqALogSUJgH
+         6bq6Y2TGXtWBSOstz+BwAEOiOZfajcMziNuKKAqJzN2bczpFF0SI75Xoicxasb8AYq8j
+         QJbnXNUHKCjDqWzmIeVplj/Dnvp4spwW6gQPHRel2o/UGipnDF1y5D1aSoVTqatNeEs6
+         bm+OUJz62Y6P4Tf9nHxg+iqmu8Pjawz9RZ3+QPxjwYiS7PRVnhZudhlKu+YS2JnE8qlr
+         6KSJGgPHw3lzduRlkjg61QJw+ExVqZcUqwmGTofe2EjdIDovhRWVRczbm/YHo59HRsgb
+         XqpQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788532915; x=1789137715;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=VKygCL74BDThnVT3iAYFENRkliGxbogoLWoSyJEG6go=;
+        b=nHz9Poo3Q+gVBqqsaxu+EVH5qMG4jzjlRF3e0uKT6JrOYvsnBryi2zcZaRrMMdjyYg
+         x2gYHESSebXFLE4zH+OCkSaYvtY8ToM5jO+sSRFfRPVN202aERAMauapZlZNJEPTBOpd
+         DcNRfvnICYwoYlfd0TnesBugGDttfQ6qldydjGZ7oY5fj2C+Sc0Bb6yTESJ7bJJ299M5
+         Vf5RzvczbNVs/w4iQDYc97U72ksgGVppyUrllc+BH0xiTmF/t2QkV2R/K6NqGu4ixuE+
+         KHekIhGP5fg33pzQN78cnJV3P4Pl/matOrCD+kkSvCSXhIBjDq9TlxKAl2JT6HEVwXNW
+         kv4A==
+X-Forwarded-Encrypted: i=1; AKwUvBxkI2JJtmGhWFhCKxjAiO6OS0kwAdkj+aBP2pYTN90HbE5q30ayvZ5CbbrFyFS/LXUZY3aMYLv0b4r8N1w=@vger.kernel.org
+X-Gm-Message-State: AFuF++n0skIchBqALMrRPxFDIi3nNgjOyCTt/R8VRURcp7UB6SX7/vJ+
+	ZAGXQbVpjZtpAyWzGM6afO0c+qWRdCJLxaGsN/wxbkWLtW3ai8Exz+2JMPai6xCwPL0=
+X-Gm-Gg: AYBFou0Fq9kwS8JqmUs0h+n55eyKvEpgCfA6AnSns3Ono4P4i4nHT6ys6l00q8CJ+WL
+	DbfBHg5l/xLCUbfyrZ48dpSZYBL9lIauQZH8AxaKl+DyAsGOK5a2Z3xGCyiuEsxnI5EaNWtMsoY
+	jBM36CGxup2349JkE4xcQHRZrDJSJKSrhwlCgvDMIS+K6smnEpg6alKaUyA3+Ec8KgrhaTZVkQn
+	BDTtv8UPtJCZ8B64igQSO7Ui61Yi1S2VvMWVR188erzoGZw9IdO4L5pVwO75MvkoiDlDiI3Dxn7
+	WKRCwLGVd2a65Iah5Yliz87JmRLPBWlYSdb/t8JXqx6mNDq/SygxhV4YI++Zu7l4wsIEU/ZFioC
+	gb/HWx5wq7MgnptGoIgyb4b7rRPhZZIt+LA0bc1ffWsmDE/CMPjz11TPO2ZymifQW9Wbsd4F+TO
+	FiZl0mMwCgmGIxASgSqT/+79oOpjSxfJcuBQNFoy6SLZdO986yAgaTmD3ETLqO8sdIwsc/v4FFi
+	PnQzw==
+X-Received: by 2002:a05:6000:70b:b0:485:8be1:378d with SMTP id ffacd0b85a97d-4858be14b94mr8479608f8f.12.1788532915074;
+        Fri, 04 Sep 2026 07:41:55 -0700 (PDT)
+Received: from [10.42.0.1] ([2a00:23c7:1d1a:9c01:2568:24c4:f44a:8310])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48588133600sm7386392f8f.5.2026.09.04.07.41.54
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 04 Sep 2026 07:41:54 -0700 (PDT)
+From: Pawel Zalewski <pzalewski@thegoodpenguin.co.uk>
+Date: Fri, 04 Sep 2026 15:41:43 +0100
+Subject: [PATCH] edac: use named initializers for acpi_device_id
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260904-acpi-edac-v1-1-ef93d60bbda4@thegoodpenguin.co.uk>
+X-B4-Tracking: v=1; b=H4sIAKbYmmoC/yXMTQqAIBBA4avIrBMs+r9KtLBxqmlRohWBdPesl
+ h88XgBPjslDKwI4OtnztkakiQCc9TqRZBMNmcpK1ahcarQsyWiUQ2GqlEZUtakg9tbRyNf36vr
+ f/hgWwv0dwH0/P3IanG0AAAA=
+X-Change-ID: 20260904-acpi-edac-b5d71efc08d7
+To: Shravan Kumar Ramani <shravankr@nvidia.com>, 
+ David Thompson <davthompson@nvidia.com>, Borislav Petkov <bp@alien8.de>, 
+ Tony Luck <tony.luck@intel.com>, Zhao Qunqin <zhaoqunqin@loongson.cn>
+Cc: linux-edac@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Pawel Zalewski <pzalewski@thegoodpenguin.co.uk>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788532914; l=3128;
+ i=pzalewski@thegoodpenguin.co.uk; s=20260430; h=from:subject:message-id;
+ bh=bfC4b+YyGgeatQ1fATA+K9JBkUpXUGu/jMc83tcDIHU=;
+ b=414Kddax8VNBCpDeN0MZdMUSnT0VydtGGeQwzgkdV3b0TzFRxcl2szi8vZWsN4tzv9KH+KYYD
+ Yw+QEkbQq3XCoDRpvJ+7upGh7irf8efIJRMT6Qh9542xtYw0y79m1WL
+X-Developer-Key: i=pzalewski@thegoodpenguin.co.uk; a=ed25519;
+ pk=vHq4n9IonORH2GTzLv8r6CWAFHzgfBuNkQPXA8NSly0=
 
-From: Arnaldo Carvalho de Melo <acme@redhat.com>
+Use a named initializer for the acpi_device_id fields which
+makes the code more readable and consistent with how lists
+are initialized in the rest of the kernel code base. Also
+drop explicitly setting fields to 0 where it is redundant.
 
-jit_repipe_code_move() allocated the mmap2 event with a hardcoded
-+16, but computes event->mmap2.header.size as sizeof(event->mmap2)
-minus unused filename bytes plus idr_size.  When idr_size is larger
-than 16, header.size exceeds the allocation, so perf_data__write()
-reads past the heap allocation, leaking adjacent heap memory into the
-generated perf.data file.
+While we are at it - unify the list terminator to have
+a single space between the brackets and no trailing
+comma.
 
-Size the allocation with idr_size like jit_repipe_code_load() does.
-
-Reported-by: sashiko-bot <sashiko-bot@kernel.org>
-Cc: Stephane Eranian <eranian@google.com>
-Assisted-by: LLM
-Signed-off-by: Arnaldo Carvalho de Melo <acme@redhat.com>
+Signed-off-by: Pawel Zalewski <pzalewski@thegoodpenguin.co.uk>
 ---
- tools/perf/util/jitdump.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+This series is converting lists that contain the acpi_device_id
+struct, which is defined in the include/linux/device-id/acpi.h
+to make use of named initializers (which they do not use currently).
+This work is part of the on going effort in the kernel associated
+with device-ids [1]
 
-diff --git a/tools/perf/util/jitdump.c b/tools/perf/util/jitdump.c
-index f8b937a95fe84573..45a05316b3ca65b7 100644
---- a/tools/perf/util/jitdump.c
-+++ b/tools/perf/util/jitdump.c
-@@ -646,9 +646,10 @@ static int jit_repipe_code_move(struct jit_buf_desc *jd, union jr_entry *jr)
- 	idr_size = jd->machine->id_hdr_size;
+The plan is to convert acpi_device_id::driver_data to have an anonymous
+union, similarly to what was introduced for PCI and I2C device ID tables.
+The goal is to increase type-safety (as most of the existing casts are gone),
+to improve readability and to make use intent a bit more clear:
+
+```
+union {
+	kernel_ulong_t driver_data;
+	const void *driver_data_ptr;
+}
+```
+
+But for that to work all lists containing the structs need to use named
+initializers first to avoid triggering -Wmissing-braces. I already have
+patches that implement this and touching a lot of kernel subsystmes that
+use the acpi_device_id struct and that list keeps on growing. Therefore,
+I have decided to split the series per every subsystem into:
+- pre-clean-ups that convert the lists to use named initializers (this series)
+- actual implementations that make some of the modules use the new driver_data_ptr
+
+That way the task can be fragmented into manageable and independent
+chunks of work and makes this effort easier to review.
+
+Tested builds on a64 in Yocto using 7.3-rc1.
+
+[1] https://lore.kernel.org/all/cover.1780048925.git.u.kleine-koenig@baylibre.com/
+---
+ drivers/edac/bluefield_edac.c | 4 ++--
+ drivers/edac/loongson_edac.c  | 4 ++--
+ 2 files changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/edac/bluefield_edac.c b/drivers/edac/bluefield_edac.c
+index ae3bb7afa103e..472fc87627788 100644
+--- a/drivers/edac/bluefield_edac.c
++++ b/drivers/edac/bluefield_edac.c
+@@ -472,8 +472,8 @@ static void bluefield_edac_mc_remove(struct platform_device *pdev)
+ }
  
- 	/*
--	 * +16 to account for sample_id_all (hack)
-+	 * Sample ID is written past the end of the mmap2 record; size
-+	 * the allocation to account for it instead of a hardcoded +16.
- 	 */
--	event = calloc(1, sizeof(*event) + 16);
-+	event = calloc(1, sizeof(*event) + idr_size);
- 	if (!event)
- 		return -1;
+ static const struct acpi_device_id bluefield_mc_acpi_ids[] = {
+-	{"MLNXBF08", 0},
+-	{}
++	{ .id = "MLNXBF08" },
++	{ }
+ };
  
--- 
-2.55.0
+ MODULE_DEVICE_TABLE(acpi, bluefield_mc_acpi_ids);
+diff --git a/drivers/edac/loongson_edac.c b/drivers/edac/loongson_edac.c
+index 38745800ed01d..3ed4d34a33680 100644
+--- a/drivers/edac/loongson_edac.c
++++ b/drivers/edac/loongson_edac.c
+@@ -137,8 +137,8 @@ static void edac_remove(struct platform_device *pdev)
+ }
+ 
+ static const struct acpi_device_id loongson_edac_acpi_match[] = {
+-	{"LOON0010", 0},
+-	{}
++	{ .id = "LOON0010" },
++	{ }
+ };
+ MODULE_DEVICE_TABLE(acpi, loongson_edac_acpi_match);
+ 
+
+---
+base-commit: bc35965f6940a9bf834d54187b6088b8eb09206d
+change-id: 20260904-acpi-edac-b5d71efc08d7
+
+Best regards,
+--  
+Pawel Zalewski <pzalewski@thegoodpenguin.co.uk>
 
