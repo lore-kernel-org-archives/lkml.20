@@ -1,66 +1,65 @@
 Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C83354A99DF;
-	Fri,  4 Sep 2026 14:24:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E28C4AA569;
+	Fri,  4 Sep 2026 14:24:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788531851; cv=none; b=cjaeXagCynsHTz5HswjDM2BH9RnULd4DH3LZDypZOklDrMOZl1KPavShlg0T+TIhRfq7UEqoEWjGz+ipzi66pxCO0CeIFYhB/cQfUxZY9PFLEH21iFX2h43slJd3eoTsD0x9oZgPZtVn9fP6r7XJ4kY6jEuC4fceOgQ/3T39EUY=
+	t=1788531852; cv=none; b=diNR+eaYMW1Mq5YGGdjzkbqzAtDVJdrsgktrDb1xO0pxjPKVAc2Lyi7wjMf2dQuWdsMC15v/ZVtD6exD4a16+71d83sIwOwKEsPBF81Nt6waX3h9VTF+5OM8CV39KsV4O+xNDNbZKQ0ilGqiSBAkS5CNl++0Okvtr7X/WyvYd3M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788531851; c=relaxed/simple;
-	bh=723BIark2ULafR//ATcpJkae0OQIqid5BS3dPIZSRrY=;
+	s=arc-20240116; t=1788531852; c=relaxed/simple;
+	bh=cSeLWYPY/mcwIVrsEL4G7N7JU6xpFkt+FUXXo1QKlx8=;
 	h=Date:From:To:Subject:Cc:In-Reply-To:References:MIME-Version:
-	 Message-ID:Content-Type; b=CGN5PfF92Gi2vlEHabyHlrVzSvhLF2LErh/WNYo6m7qt44QymerLda8PC8wwpwWI0EHSaBlAiIxXOd4qZ8dc2NA+CmsrLoj6813AaDTjasaURGRt1WNpnp0VGjw+WWW4VJxjIzSvQYatolbhHIhDf1qRsiD+sOcx7c4ipV7vUA4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=sbhXKMR5; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=zX8em10v; arc=none smtp.client-ip=193.142.43.55
+	 Message-ID:Content-Type; b=cdPELMLmBn7RCc18UaT4NyQdVNLVpmx/mpIkCPCoiPFLXPz/wptdn9jrNDxWLX8MPQRW3koyAeRGJl8i3zsEyU2+CLstsIDJgl1Le3IuQ0oLW2pZWa1+LUM/v0gIrq4tUhQaMMq/aDehk4pZ6bAUAGSFgwIxsMpqrVKWh6K+Hk4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=RBW7bhFl; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=DbuzHIdC; arc=none smtp.client-ip=193.142.43.55
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="sbhXKMR5";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="zX8em10v"
-Date: Fri, 04 Sep 2026 14:24:05 -0000
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="RBW7bhFl";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="DbuzHIdC"
+Date: Fri, 04 Sep 2026 14:24:06 -0000
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1788531846;
+	s=2020; t=1788531848;
 	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=BAIIqhs3iuy1bQQX1THhDlN3YsVypGqjqmgWEfWILIc=;
-	b=sbhXKMR5DkYiGsmgulmRXCJXhlYp7bds5nsr7GSU2IoQd7od4jR++hN/ggvhoSFwL3x7tJ
-	Gbb8qWb6YQqi4iBo268yRnBKN+OeadEulecWC+DXzPXYlHPzBtyS0ly4oKlMrkwQljTjYq
-	gPYjXbc0LKe1ShHajNj1NFAfClQVg4lnLKtnMTR+nJR1ox0fASlBdZfjOBvw6MjwzzQGPx
-	MUOQxqAFtgOLvVkJKwZqzzNW60e2kDS13ue9rFmiyxOMC+rIQXD/2COYWFjli8l4QSNsOl
-	r0tjWVlUAlpa+RXoRzplGQr0UhUF0bWtqh1CZYYFaUHZJMPWigQ5c13sejbD2w==
+	bh=O6gvtUy8KYGiFyk6kS64PBPCxK7ZQAkHBrH7/+RyFQs=;
+	b=RBW7bhFlemi3WMxfe+Ub2XYIQjrVeSDxuv1wat766NIVV3lM7mp+dg+M+qNV92AD2I+zej
+	FSVge3dKq+IgVVyEx96pCtshuAdGCc6wy6WmpQJVRKSQyrvD72k3BZuC16fQOjfO4FAq7U
+	f5ZwTXkwJBsUgNmz5lQptPzz8V8BhJbUUh9tRqX/lSI+jkJXyBDH7EMClgeMuXiJgn2x/o
+	kqohrNdO1BGUo+GDEg5zFTNK/C9JetBE8whZbIedzS6YXd+AfusL9EDScUe9GhZ2I+m5Mn
+	uOMS8CLLo1t2mmPp9alsY4lqNeBTXkxPT5VyP07J9gJupNC5Eei9xOQtaxldRg==
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1788531846;
+	s=2020e; t=1788531848;
 	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=BAIIqhs3iuy1bQQX1THhDlN3YsVypGqjqmgWEfWILIc=;
-	b=zX8em10vml01BZlftAw9u4lMG4UKvR23Luk9fQWfEMvCN7ZKf6kZcfJnNqFhagkK+r8gfT
-	oLYkVIYAfq78ZPBA==
-From: "tip-bot2 for Maulik Shah" <tip-bot2@linutronix.de>
+	bh=O6gvtUy8KYGiFyk6kS64PBPCxK7ZQAkHBrH7/+RyFQs=;
+	b=DbuzHIdCMqdyr9SznkK9rcVkexjfte5+f2QixRDhUIEYsXGKwb58M8o+5urABBRru7l4Ag
+	HUfo1FvMWetOCUDQ==
+From: "tip-bot2 for Ju Nan" <tip-bot2@linutronix.de>
 Sender: tip-bot2@linutronix.de
 Reply-to: linux-kernel@vger.kernel.org
 To: linux-tip-commits@vger.kernel.org
-Subject: [tip: irq/drivers] dt-bindings: interrupt-controller: qcom,pdc:
- Document Purwa PDC
-Cc: Maulik Shah <maulik.shah@oss.qualcomm.com>,
- Thomas Gleixner <tglx@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, x86@kernel.org,
- linux-kernel@vger.kernel.org
-In-Reply-To: <20260806-purwa-pdc-v4-1-62467f4b4ddc@oss.qualcomm.com>
-References: <20260806-purwa-pdc-v4-1-62467f4b4ddc@oss.qualcomm.com>
+Subject: [tip: irq/urgent] irqchip/stm32mp-exti: Fix the unit of the
+ hwspinlock timeout
+Cc: Ju Nan <junan76@163.com>, Thomas Gleixner <tglx@kernel.org>,
+ Radu Rendec <radu@rendec.net>, Antonio Borneo <antonio.borneo@foss.st.com>,
+ stable@vger.kernel.org, x86@kernel.org, linux-kernel@vger.kernel.org,
+ maz@kernel.org
+In-Reply-To: <20260821024756.24927-2-junan76@163.com>
+References: <20260821024756.24927-2-junan76@163.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <178853184526.3717435.12876224447314180569.tip-bot2@tip-bot2>
+Message-ID: <178853184680.3717435.344979410009701519.tip-bot2@tip-bot2>
 Robot-ID: <tip-bot2@linutronix.de>
 Robot-Unsubscribe:
  Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
@@ -68,46 +67,70 @@ Precedence: bulk
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: quoted-printable
 
-The following commit has been merged into the irq/drivers branch of tip:
+The following commit has been merged into the irq/urgent branch of tip:
 
-Commit-ID:     9d6498c113b7132e21998b681748a10eb1c827fa
-Gitweb:        https://git.kernel.org/tip/9d6498c113b7132e21998b681748a10eb1c=
-827fa
-Author:        Maulik Shah <maulik.shah@oss.qualcomm.com>
-AuthorDate:    Thu, 06 Aug 2026 14:26:27 +05:30
+Commit-ID:     d31fbbade43f880b7e59e2b3a72722fe2725d93f
+Gitweb:        https://git.kernel.org/tip/d31fbbade43f880b7e59e2b3a72722fe272=
+5d93f
+Author:        Ju Nan <junan76@163.com>
+AuthorDate:    Fri, 21 Aug 2026 10:47:57 +08:00
 Committer:     Thomas Gleixner <tglx@kernel.org>
-CommitterDate: Fri, 04 Sep 2026 16:21:02 +02:00
+CommitterDate: Fri, 04 Sep 2026 16:19:04 +02:00
 
-dt-bindings: interrupt-controller: qcom,pdc: Document Purwa PDC
+irqchip/stm32mp-exti: Fix the unit of the hwspinlock timeout
 
-X1P42100 (Purwa) shares the X1E80100 (Hamoa) PDC device, but the hardware
-register bug addressed in commit e9a48ea4d90b ("irqchip/qcom-pdc:
-Workaround hardware register bug on X1E80100") is already fixed in
-X1P42100 silicon.
+HWSPNLCK_TIMEOUT is passed to hwspin_lock_timeout_in_atomic(), whose
+timeout argument is in milliseconds, not microseconds:
 
-X1E80100 compatible forces the software workaround. Add PDC compatible
-for purwa as "qcom,x1p42100-pdc" to remove the workaround from Purwa.
+  atomic_delay +=3D HWSPINLOCK_RETRY_DELAY_US;
+  if (atomic_delay > to * 1000)
+          return -ETIMEDOUT;
 
-Signed-off-by: Maulik Shah <maulik.shah@oss.qualcomm.com>
+So stm32mp_exti_set_type() asks for a 1 second timeout where the comment
+next to the macro says it wants 1 millisecond. The semaphore is polled
+with udelay() from a section that holds chip_data->rlock, a
+raw_spinlock_t, so preemption stays disabled for the whole wait on every
+configuration, PREEMPT_RT included.
+
+The hwspinlock core documents this explicitly:
+
+  If the mode is HWLOCK_IN_ATOMIC (called from an atomic context) the
+  timeout is handled with busy-waiting delays, hence shall not exceed
+  few msecs.
+
+Fixes: 5257169ade8c ("irqchip/stm32-exti: Use the hwspin_lock_timeout_in_atom=
+ic() API")
+Signed-off-by: Ju Nan <junan76@163.com>
 Signed-off-by: Thomas Gleixner <tglx@kernel.org>
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Acked-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Link: https://patch.msgid.link/20260806-purwa-pdc-v4-1-62467f4b4ddc@oss.qualc=
-omm.com
+Reviewed-by: Radu Rendec <radu@rendec.net>
+Reviewed-by: Antonio Borneo <antonio.borneo@foss.st.com>
+Cc: stable@vger.kernel.org
+Link: https://patch.msgid.link/20260821024756.24927-2-junan76@163.com
 ---
- Documentation/devicetree/bindings/interrupt-controller/qcom,pdc.yaml | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/irqchip/irq-stm32mp-exti.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/interrupt-controller/qcom,pdc.=
-yaml b/Documentation/devicetree/bindings/interrupt-controller/qcom,pdc.yaml
-index 8162a49..b3d19c8 100644
---- a/Documentation/devicetree/bindings/interrupt-controller/qcom,pdc.yaml
-+++ b/Documentation/devicetree/bindings/interrupt-controller/qcom,pdc.yaml
-@@ -58,6 +58,7 @@ properties:
-           - qcom,sm8650-pdc
-           - qcom,sm8750-pdc
-           - qcom,x1e80100-pdc
-+          - qcom,x1p42100-pdc
-       - const: qcom,pdc
+diff --git a/drivers/irqchip/irq-stm32mp-exti.c b/drivers/irqchip/irq-stm32mp=
+-exti.c
+index bf3a2de..a19e91f 100644
+--- a/drivers/irqchip/irq-stm32mp-exti.c
++++ b/drivers/irqchip/irq-stm32mp-exti.c
+@@ -22,7 +22,7 @@
 =20
-   reg:
+ #define IRQS_PER_BANK			32
+=20
+-#define HWSPNLCK_TIMEOUT		1000 /* usec */
++#define HWSPNLCK_TIMEOUT_MS		1
+=20
+ #define EXTI_EnCIDCFGR(n)		(0x180 + (n) * 4)
+ #define EXTI_HWCFGR1			0x3f0
+@@ -376,7 +376,7 @@ static int stm32mp_exti_set_type(struct irq_data *d, unsi=
+gned int type)
+ 	raw_spin_lock(&chip_data->rlock);
+=20
+ 	if (hwlock) {
+-		err =3D hwspin_lock_timeout_in_atomic(hwlock, HWSPNLCK_TIMEOUT);
++		err =3D hwspin_lock_timeout_in_atomic(hwlock, HWSPNLCK_TIMEOUT_MS);
+ 		if (err) {
+ 			pr_err("%s can't get hwspinlock (%d)\n", __func__, err);
+ 			goto unlock;
