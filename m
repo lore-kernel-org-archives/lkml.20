@@ -1,77 +1,45 @@
-Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com [209.85.216.47])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02B3347A884
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 11:44:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEFBA409624;
+	Fri,  4 Sep 2026 11:45:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788522293; cv=none; b=dQxE3borHLjhW6WDTDTM8YfCf7iudwXjHWFQzrdf/yERaTXEIcQ7MoFtANAF0LSN5XuhOav2mIlFTOljwWZJrR4+eqRNRapMF1lhMSpp8eFi21kzXltCH/lfmB+CPiMHU+14cQnzInJvXHT0TQ8z82U19njOl61+XiqiKC4yNRE=
+	t=1788522317; cv=none; b=Lue9i4nY+as8LSzOzpEPbovd7J/wk+M25UVQA3DXMNT5yEVR1gw+Lqt+1JwsEguKsSEjpiReAv+bODanEKjntIoL+W+x7eUfmZL6W63JNaPExfjLh4WT0G++TrIBsFdC16EshBSrqLzerAP4LiltnZqTjTtHLKHVvcblWdUNDkc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788522293; c=relaxed/simple;
-	bh=f0gT9nDAkrtabdRFcfGk0yhy1dGDAIe2OcfnU1Gwj7k=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=f0HInAzxNUtrknLe6t93fmcBKRzryEnY1m1BsPQGGE/jSGLLD53wjA+1lpSg1SRpep8gPdTfk3EAPdS5yt9k1Lusa8lFLjM6kIiY4+JPK8mU1BUlDwfIoUfTaL7CjFLkpSG5BYG+S4Y2FepMrP8FbsfdwBD1WFRErZSFhKvKKXU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=eFh6XJZ4; arc=none smtp.client-ip=209.85.216.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788522317; c=relaxed/simple;
+	bh=FaBeAMRHl+rx7geJPB4JImFJWNXCPdDdVLQ6qarzyo0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=pJCznAd8kv3YIJPm82d0bumJrIAoWDBAJ//kVTbQoiHWzBm6IaIexSXhzWcEZaU+zK7clq/iuRxH9Bl6vBle1vmbPEvMh0vDi8eQQD/3pG3GNc43LTHX8/S18aiNaNnWfoXBwBNQfg0FIcSTRQWgdFIsgArL19aBj0cfkB+gBco=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XdD6/emr; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="eFh6XJZ4"
-Received: by mail-pj1-f47.google.com with SMTP id 98e67ed59e1d1-39266382df6so723494a91.3
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 04:44:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788522291; x=1789127091; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=06PWMy5fl2kbdYldsZe2uJjhuT9csZqhdJsz7hBsTC8=;
-        b=eFh6XJZ41umfw7yYhKyQXetBknesNlupPYGvp1zWgfYf2QdfVYv6OF8Q18+FGdrSAC
-         vZjnm6iniQmw6dqhp0Enou5DnnfCwG0ZafHZ9+zBjEgLZqe7PBsKSC6tuBtQWiqsvi2N
-         0RT1qkiOz2P/Q9zDlTePHpOJhFTzZYxEvmAnsSoLEw4rIrGz0h5H4aACaAxeVSoE3adm
-         ooZOFh4ruL1dFMiUtinRzlCP0pS6IsKli3lt4VDau9zvBYTvll3jp7hECWzAu4XDPT2I
-         U+sAYoDSe1L6sSGP9i442t1nQSvlyRJ+TSLaos+zXztJ79/6Qqpjwulw+oBCGUxkosSS
-         uTqA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788522291; x=1789127091;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=06PWMy5fl2kbdYldsZe2uJjhuT9csZqhdJsz7hBsTC8=;
-        b=SqVqb74Gstd1+gBILx0ORvxeH4gNfIBRADKkWKftRS+Sg2QbFi2rO/c/z7Hi9twn3I
-         H5WzUJrw9Jx/0STXSblzTnU0SZcgQQvw9HbkoIQvd9h81E5e5HkqeokCe8P020N7ZdIZ
-         Q1JotJsWxKJ+NE+LO0BEb+l6z26aXC3KOKLSluxUg9dSte1fw+dq+8L6Num5u0cuSmy8
-         SfUpQthMlAJAbcW98fLZw794vy6GPtedtzrRBBp4qJGJKs/aw27olIu7zPEBsoFTE51m
-         N6KA8HohSPIPEhno9ho6eq5e7ilsaaj7D3HCoVi+kvbrywLMbvYc5tmYoNasm3/hsPyB
-         eaug==
-X-Gm-Message-State: AFuF++l1kaYPLaHP4vyIvPnZJZuegK4U9mYdhCL5CGpT8jgSB3zNmP8f
-	9/E9Ge8p7OwWTq2n72vmpRy5RkCN/uRI+zy62etVHb9ySeGmntwbb730
-X-Gm-Gg: AYBFou1mYdhDhy9irRC37o/GIQXDh+m92RnKyAC/CavsS3qs+GNSktwcRIu6hsyyEOl
-	IdmX3xOcvjmxgICk+tBPeLuBajtniXOMgXWjFo3Q/r3Mc2qUEHomUKuRtNRBd+YLk8uzuXHCt6H
-	QO662qvioXHNP+EgFTI+k9V0yI+zH+Q7IcbuWF99ap4sHhRI5xaP75vKt4bDuIG9o4dY2GmAbrl
-	AFaW8tDLEIPsUAnEL1Ux08Amc5XRWCXqYH61wwkEPasxjDRzb/Ei0VDBiKMAAgE7gHi+PJBOesy
-	BrZHZDSgU1efPwetuY3GekJkZPjqL1dHcn4wBp0A4iq4cZ915onEaWOLLCt8crnCZCK1JxAd2wu
-	VKlG1+IegGKQlIPSPlsmTK+Bk7BT16kNwNPqgbzX09H+X/xh3VidisJR3Iy1FfoWaTKj0q/IjQa
-	rO8+/gJxFQk17qfmqowPibzE3jV676KcZ0fHA3LY+nshbyqaSvA0zYNeeDISwfjXW8JrlTAsN2P
-	aMlwHqdGQarvO0=
-X-Received: by 2002:a17:90b:5606:b0:398:9be6:f997 with SMTP id 98e67ed59e1d1-39b262dfaeamr9192405a91.22.1788522291223;
-        Fri, 04 Sep 2026 04:44:51 -0700 (PDT)
-Received: from volcano9f6e-hostos.amd.com ([165.204.217.251])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339bbf1feesm6289702eec.26.2026.09.04.04.44.47
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 04 Sep 2026 04:44:50 -0700 (PDT)
-From: Hemanth Selam <hemanth.selam@gmail.com>
-To: Jiri Kosina <jikos@kernel.org>,
-	Benjamin Tissoires <bentiss@kernel.org>,
-	=?UTF-8?q?Filipe=20La=C3=ADns?= <lains@riseup.net>,
-	Bastien Nocera <hadess@hadess.net>,
-	Stefan Achatz <erazor_de@users.sourceforge.net>,
-	Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
-	=?UTF-8?q?Tomasz=20Paku=C5=82a?= <tomasz.pakula.oficjalny@gmail.com>,
-	Oleg Makarenko <oleg@makarenk.ooo>
-Cc: linux-kernel@vger.kernel.org,
-	linux-input@vger.kernel.org,
-	linux-usb@vger.kernel.org
-Subject: [PATCH] hid: fix typos in comments
-Date: Fri,  4 Sep 2026 17:14:40 +0530
-Message-ID: <20260904114444.28585-1-hemanth.selam@gmail.com>
-X-Mailer: git-send-email 2.48.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XdD6/emr"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 59FA61F00A3E;
+	Fri,  4 Sep 2026 11:45:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788522315;
+	bh=LwuY1rXitDNsVaFuMeOwWfQr8oiaOeC08TkleCwI42o=;
+	h=From:To:Cc:Subject:Date;
+	b=XdD6/emrU5rkPfWMRVXbfIoandoNpOuK2XWf3WDm0OP26AYSRWpMzTsFfU7HrdQnZ
+	 mCrcJSxldahWmJ//fy7ZJDhV9dmwO4URUVvEd/H3WBwm6dnrUZ6hipQ4qryJ2f7io1
+	 55Kx82LGhDfnDaPVLKbKvXBv2NzhUcHiSpNFg7SDFDIA3unXb8/Lot6tlqy2tdG2ED
+	 sF9QsTlSZBlGjq0DDDbOUEVlQat1217qT3MPJwm+PNzovt+IZWxT+WGvA+WF4YbTCR
+	 s5QEZqWeMEyaMEcP5oLW7lF12CXEL0XYxplGRRC1HZQGzrl+6ANr+HXiPbg7NnUZ0I
+	 GQ4zV8l6BueYw==
+Received: from johan by xi.lan with local (Exim 4.99.4)
+	(envelope-from <johan@kernel.org>)
+	id 1x2SM4-00000006z1P-40Db;
+	Fri, 04 Sep 2026 13:45:12 +0200
+From: Johan Hovold <johan@kernel.org>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jiri Slaby <jirislaby@kernel.org>
+Cc: linux-serial@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Johan Hovold <johan@kernel.org>,
+	stable@vger.kernel.org
+Subject: [PATCH v2] serial: fix ioctl hangup race
+Date: Fri,  4 Sep 2026 13:44:48 +0200
+Message-ID: <20260904114448.1664502-1-johan@kernel.org>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -80,150 +48,138 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Fix typos in comments, reported by scripts/checkpatch.pl using the
-misspelling list in scripts/spelling.txt.  Only touches comments, no code
-changes.
+The tty ioctls can race with hangup and end up calling into a tty
+driver for a device that is already gone or powered down.
 
-Assisted-by: Cursor:claude-opus-5
-Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
+Add the missing checks to make sure the port has not been hung up before
+accessing the hardware to avoid issues like kernel panic due to
+unclocked accesses.
+
+Note that TIOCGSERIAL, TIOCGICOUNT do not access hardware and are
+therefore not affected by the race.
+
+Fixes: 04f378b198da ("tty: BKL pushdown")
+Cc: stable@vger.kernel.org	# 2.6.26
+Signed-off-by: Johan Hovold <johan@kernel.org>
 ---
- drivers/hid/hid-appleir.c                        | 2 +-
- drivers/hid/hid-logitech-dj.c                    | 2 +-
- drivers/hid/hid-logitech-hidpp.c                 | 4 ++--
- drivers/hid/hid-roccat-kone.c                    | 2 +-
- drivers/hid/hid-roccat-kone.h                    | 2 +-
- drivers/hid/hid-speedlink.c                      | 2 +-
- drivers/hid/intel-ish-hid/ishtp-hid-client.c     | 2 +-
- drivers/hid/intel-ish-hid/ishtp/client-buffers.c | 2 +-
- drivers/hid/usbhid/hid-pidff.c                   | 2 +-
- 9 files changed, 10 insertions(+), 10 deletions(-)
 
-diff --git a/drivers/hid/hid-appleir.c b/drivers/hid/hid-appleir.c
-index adaa44a858ed..649ee5d8fe1e 100644
---- a/drivers/hid/hid-appleir.c
-+++ b/drivers/hid/hid-appleir.c
-@@ -118,7 +118,7 @@ struct appleir {
- static int get_key(int data)
+I botched the scoped_guard() conversion as Sashiko pointed out so here's
+a v2.
+
+Johan
+
+
+Changes in v2
+ - include TIOCMIWAIT which also access hardware
+ - replace broken scoped_guard() construct in wait loop
+
+
+ drivers/tty/serial/serial_core.c | 36 +++++++++++++++++++++++---------
+ 1 file changed, 26 insertions(+), 10 deletions(-)
+
+diff --git a/drivers/tty/serial/serial_core.c b/drivers/tty/serial/serial_core.c
+index 95774b0f1484..b0d3902fe4fc 100644
+--- a/drivers/tty/serial/serial_core.c
++++ b/drivers/tty/serial/serial_core.c
+@@ -896,7 +896,7 @@ static int uart_set_info(struct tty_struct *tty, struct tty_port *port,
+ 	upf_t old_flags, new_flags;
+ 	int retval;
+ 
+-	if (!uport)
++	if (!uport || tty_io_error(tty))
+ 		return -EIO;
+ 
+ 	new_port = new_info->port;
+@@ -1119,7 +1119,7 @@ static int uart_break_ctl(struct tty_struct *tty, int break_state)
+ 	guard(mutex)(&port->mutex);
+ 
+ 	uport = uart_port_check(state);
+-	if (!uport)
++	if (!uport || tty_io_error(tty))
+ 		return -EIO;
+ 
+ 	if (uport->type != PORT_UNKNOWN && uport->ops->break_ctl)
+@@ -1144,7 +1144,7 @@ static int uart_do_autoconfig(struct tty_struct *tty, struct uart_state *state)
+ 	 */
+ 	scoped_cond_guard(mutex_intr, return -ERESTARTSYS, &port->mutex) {
+ 		uport = uart_port_check(state);
+-		if (!uport)
++		if (!uport || tty_io_error(tty))
+ 			return -EIO;
+ 
+ 		if (tty_port_users(port) != 1)
+@@ -1199,7 +1199,7 @@ static void uart_enable_ms(struct uart_port *uport)
+  * FIXME: This wants extracting into a common all driver implementation
+  * of TIOCMWAIT using tty_port.
+  */
+-static int uart_wait_modem_status(struct uart_state *state, unsigned long arg)
++static int uart_wait_modem_status(struct tty_struct *tty, struct uart_state *state, unsigned long arg)
  {
+ 	struct uart_port *uport;
+ 	struct tty_port *port = &state->port;
+@@ -1213,9 +1213,17 @@ static int uart_wait_modem_status(struct uart_state *state, unsigned long arg)
+ 	uport = uart_port_ref(state);
+ 	if (!uport)
+ 		return -EIO;
+-	scoped_guard(uart_port_lock_irq, uport) {
+-		memcpy(&cprev, &uport->icount, sizeof(struct uart_icount));
+-		uart_enable_ms(uport);
++
++	scoped_guard(mutex, &port->mutex) {
++		if (tty_io_error(tty)) {
++			ret = -EIO;
++			goto out_deref;
++		}
++
++		scoped_guard(uart_port_lock_irq, uport) {
++			memcpy(&cprev, &uport->icount, sizeof(struct uart_icount));
++			uart_enable_ms(uport);
++		}
+ 	}
+ 
+ 	add_wait_queue(&port->delta_msr_wait, &wait);
+@@ -1245,6 +1253,7 @@ static int uart_wait_modem_status(struct uart_state *state, unsigned long arg)
+ 	}
+ 	__set_current_state(TASK_RUNNING);
+ 	remove_wait_queue(&port->delta_msr_wait, &wait);
++out_deref:
+ 	uart_port_deref(uport);
+ 
+ 	return ret;
+@@ -1567,7 +1576,7 @@ uart_ioctl(struct tty_struct *tty, unsigned int cmd, unsigned long arg)
+ 
+ 	/* This should only be used when the hardware is present. */
+ 	if (cmd == TIOCMIWAIT)
+-		return uart_wait_modem_status(state, arg);
++		return uart_wait_modem_status(tty, state, arg);
+ 
+ 	/* rs485_config requires more locking than others */
+ 	if (cmd == TIOCSRS485)
+@@ -1646,7 +1655,7 @@ static void uart_set_termios(struct tty_struct *tty,
+ 	guard(mutex)(&state->port.mutex);
+ 
+ 	uport = uart_port_check(state);
+-	if (!uport)
++	if (!uport || tty_io_error(tty))
+ 		return;
+ 
  	/*
--	 * The key is coded accross bits 2..9:
-+	 * The key is coded across bits 2..9:
- 	 *
- 	 * 0x00 or 0x01 (        )	key:  0		-> KEY_RESERVED
- 	 * 0x02 or 0x03 (  menu  )	key:  1		-> KEY_MENU
-diff --git a/drivers/hid/hid-logitech-dj.c b/drivers/hid/hid-logitech-dj.c
-index 1d619d2345e1..51aaee2e29e3 100644
---- a/drivers/hid/hid-logitech-dj.c
-+++ b/drivers/hid/hid-logitech-dj.c
-@@ -620,7 +620,7 @@ static const char hidpp_descriptor[] = {
-  *
-  * Right now, RF report types have the same report types (or report id's)
-  * than the hid report created from those RF reports. In the future
-- * this doesnt have to be true.
-+ * this doesn't have to be true.
-  *
-  * For instance, RF report type 0x01 which has a size of 8 bytes, corresponds
-  * to hid report id 0x01, this is standard keyboard. Same thing applies to mice
-diff --git a/drivers/hid/hid-logitech-hidpp.c b/drivers/hid/hid-logitech-hidpp.c
-index 1504de32b1c8..5273a5a7e7a0 100644
---- a/drivers/hid/hid-logitech-hidpp.c
-+++ b/drivers/hid/hid-logitech-hidpp.c
-@@ -110,7 +110,7 @@ MODULE_PARM_DESC(disable_tap_to_click,
-  * where as most newer devices use the FAP protocol. Both protocols are
-  * compatible with the underlying transport, which could be usb, Unifiying, or
-  * bluetooth. The message lengths are defined by the hid vendor specific report
-- * descriptor for the HIDPP_SHORT report type (total message lenth 7 bytes) and
-+ * descriptor for the HIDPP_SHORT report type (total message length 7 bytes) and
-  * the HIDPP_LONG report type (total message length 20 bytes)
-  *
-  * The RAP protocol uses both report types, whereas the FAP only uses HIDPP_LONG
-@@ -3354,7 +3354,7 @@ static int m560_input_mapping(struct hid_device *hdev, struct hid_input *hi,
- /*
-  * The Logitech K400 keyboard has an embedded touchpad which is seen
-  * as a mouse from the OS point of view. There is a hardware shortcut to disable
-- * tap-to-click but the setting is not remembered accross reset, annoying some
-+ * tap-to-click but the setting is not remembered across reset, annoying some
-  * users.
-  *
-  * We can toggle this feature from the host by using the feature 0x6010:
-diff --git a/drivers/hid/hid-roccat-kone.c b/drivers/hid/hid-roccat-kone.c
-index 3dae9eaa0b6f..5b84435cbe8f 100644
---- a/drivers/hid/hid-roccat-kone.c
-+++ b/drivers/hid/hid-roccat-kone.c
-@@ -842,7 +842,7 @@ static void kone_report_to_chrdev(struct kone_device const *kone,
- 
- /*
-  * Is called for keyboard- and mousepart.
-- * Only mousepart gets informations about special events in its extended event
-+ * Only mousepart gets information about special events in its extended event
-  * structure.
-  */
- static int kone_raw_event(struct hid_device *hdev, struct hid_report *report,
-diff --git a/drivers/hid/hid-roccat-kone.h b/drivers/hid/hid-roccat-kone.h
-index 65c800e3addc..13de9f14dc1e 100644
---- a/drivers/hid/hid-roccat-kone.h
-+++ b/drivers/hid/hid-roccat-kone.h
-@@ -165,7 +165,7 @@ enum kone_mouse_events {
- 	/* osd events are thought to be display on screen */
- 	kone_mouse_event_osd_dpi = 0xa0,
- 	kone_mouse_event_osd_profile = 0xb0,
--	/* TODO clarify meaning and occurence of kone_mouse_event_calibration */
-+	/* TODO clarify meaning and occurrence of kone_mouse_event_calibration */
- 	kone_mouse_event_calibration = 0xc0,
- 	kone_mouse_event_call_overlong_macro = 0xe0,
- 	kone_mouse_event_multimedia = 0xe1,
-diff --git a/drivers/hid/hid-speedlink.c b/drivers/hid/hid-speedlink.c
-index 22ee078c42c6..3196bb85ccc2 100644
---- a/drivers/hid/hid-speedlink.c
-+++ b/drivers/hid/hid-speedlink.c
-@@ -44,7 +44,7 @@ static int speedlink_event(struct hid_device *hdev, struct hid_field *field,
- {
- 	/* No other conditions due to usage_table. */
- 
--	/* This fixes the "jumpy" cursor occuring due to invalid events sent
-+	/* This fixes the "jumpy" cursor occurring due to invalid events sent
- 	 * by the device. Some devices only send them with value==+256, others
- 	 * don't. However, catching abs(value)>=256 is restrictive enough not
- 	 * to interfere with devices that were bug-free (has been tested).
-diff --git a/drivers/hid/intel-ish-hid/ishtp-hid-client.c b/drivers/hid/intel-ish-hid/ishtp-hid-client.c
-index ec5e8afe77bd..acfe25fd8b23 100644
---- a/drivers/hid/intel-ish-hid/ishtp-hid-client.c
-+++ b/drivers/hid/intel-ish-hid/ishtp-hid-client.c
-@@ -631,7 +631,7 @@ static int ishtp_get_report_descriptor(struct ishtp_cl *hid_ishtp_cl,
-  * @hid_ishtp_cl:	ISHTP client instance
-  * @reset:		true if called for init after reset
-  *
-- * This function complete the initializtion of the client. The summary of
-+ * This function complete the initialization of the client. The summary of
-  * processing:
-  * - Send request to enumerate the hid clients
-  *	Get the HID descriptor for each enumearated device
-diff --git a/drivers/hid/intel-ish-hid/ishtp/client-buffers.c b/drivers/hid/intel-ish-hid/ishtp/client-buffers.c
-index 45ddc9a047bc..6bac76249437 100644
---- a/drivers/hid/intel-ish-hid/ishtp/client-buffers.c
-+++ b/drivers/hid/intel-ish-hid/ishtp/client-buffers.c
-@@ -177,7 +177,7 @@ void ishtp_io_rb_free(struct ishtp_cl_rb *rb)
-  *
-  * Allocate and initialize request block
-  *
-- * Return: Allocted IO request block pointer
-+ * Return: Allocated IO request block pointer
-  */
- struct ishtp_cl_rb *ishtp_io_rb_init(struct ishtp_cl *cl)
- {
-diff --git a/drivers/hid/usbhid/hid-pidff.c b/drivers/hid/usbhid/hid-pidff.c
-index 22951b7ecd17..82150a72506b 100644
---- a/drivers/hid/usbhid/hid-pidff.c
-+++ b/drivers/hid/usbhid/hid-pidff.c
-@@ -20,7 +20,7 @@
- #define	PID_EFFECTS_MAX		64
- #define	PID_INFINITE		U16_MAX
- 
--/* Linux Force Feedback API uses miliseconds as time unit */
-+/* Linux Force Feedback API uses milliseconds as time unit */
- #define FF_TIME_EXPONENT	-3
- #define FF_INFINITE		0
- 
+@@ -1798,7 +1807,14 @@ static void uart_wait_until_sent(struct tty_struct *tty, int timeout)
+ 	 * 'timeout' / 'expire' give us the maximum amount of time
+ 	 * we wait.
+ 	 */
+-	while (!port->ops->tx_empty(port)) {
++	for (;;) {
++		mutex_lock(&state->port.mutex);
++		if (tty_io_error(tty) || port->ops->tx_empty(port)) {
++			mutex_unlock(&state->port.mutex);
++			break;
++		}
++		mutex_unlock(&state->port.mutex);
++
+ 		msleep_interruptible(jiffies_to_msecs(char_time));
+ 		if (signal_pending(current))
+ 			break;
 -- 
-2.48.1
+2.55.0
 
