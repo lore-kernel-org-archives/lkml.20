@@ -1,73 +1,117 @@
-Received: from gate2.alliedtelesis.co.nz (gate2.alliedtelesis.co.nz [202.36.163.20])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f198.google.com (mail-pg1-f198.google.com [209.85.215.198])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7954D353A8F
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 01:01:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.36.163.20
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55F0F35F5ED
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 01:03:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.198
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788483710; cv=none; b=JonE0H8OZAmS83KyNM1qzU5L+rEp5dyC5ijBfCzauTdpaPFo/J7DkYsyiiqfBALOqHq8wBJnMWjU9ZjEsL3wLaEI9FmB7N6PjEUUrKSdWOkhsPbSvPoXeavJaUcSwNm2P0/mrDVh5qWy3kidXZiqRoGxGNCZxrucwjIRD0Zmzz0=
+	t=1788483838; cv=none; b=SS2b9i/7Skp7l9a2dkg97ZiK1YtKc3WjlA1KEvXVF+OrHCM64WgTyUfoatLb7Phbia9/nCR6HAzmEpTNtbpMugO40P0vW+P4Vo3ztdIp/3aGAQylY7KDWhsbJWc67vKg9y52nOMGcVOMgzKkVl+Nn6/osJwbZ/I7Si+8IqTF7N4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788483710; c=relaxed/simple;
-	bh=q+UHUrSDoZC5kHS2G2RJgukngNrmU7yI/gbfKtZlMXg=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=AdbhbyigUmGwrtyP+q25eImlUqPbJK/dhZL/j7nR/67GlZx2ic+GKQ1ZdJ3PCFdxhIMyoPiALVOx8tVKKY3MgP1B0/KRlqe4+Eg5yYr4Gi2YYv8sGvc4kDuIY1NgUm3oV7LJXNwcHy2rQkpuXw+Dj0kZcSq8CyYUPIlqNTxrd+w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=alliedtelesis.co.nz; spf=pass smtp.mailfrom=alliedtelesis.co.nz; dkim=pass (2048-bit key) header.d=alliedtelesis.co.nz header.i=@alliedtelesis.co.nz header.b=nsTOHmEu; arc=none smtp.client-ip=202.36.163.20
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=alliedtelesis.co.nz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alliedtelesis.co.nz
+	s=arc-20240116; t=1788483838; c=relaxed/simple;
+	bh=sB5ja1hTvJ6hcTqcbO8S+itN3H8/xDjD8wQ5qsWLCg4=;
+	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=J/9P7iCw42nrmnDfoWvxZnq9p5qNriG1mn+uJop7IeIzLO4MgTJhVHzCWOKS3fSQMXJ5p2CWXLJ069bPXRMmUF2fIcVte3BQYYvDzIBpOiHigBOybXVCcBX56zRFt1BKpkaBZQ/CUcG8M7c+oS88snPWQcJfJRG2nvUAqc7cfxs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=GenV9GMR; arc=none smtp.client-ip=209.85.215.198
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=alliedtelesis.co.nz header.i=@alliedtelesis.co.nz header.b="nsTOHmEu"
-Received: from svr-chch-seg1.atlnz.lc (mmarshal3.atlnz.lc [10.32.18.43])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(Client did not present a certificate)
-	by gate2.alliedtelesis.co.nz (Postfix) with ESMTPS id C213B2C0658;
-	Fri,  4 Sep 2026 12:53:55 +1200 (NZST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alliedtelesis.co.nz;
-	s=mail181024; t=1788483235;
-	bh=J/K8/K1+Ixa47VueDg+9m0ERog2TgK5kRX/iVeVU4Vk=;
-	h=From:To:Cc:Subject:Date:From;
-	b=nsTOHmEuVLLKdIvWUVOli2aIHOZCGQHrf99uEN2RJKSAfOEnkq+4YFJGtcwTA2IZT
-	 2sDf/tz4rHv+hMpDio5vl2yCL4QJWN9DzlrDHzzgmy/hpGtvWmyBnr9aw/VzsDO7ZC
-	 a/gC2BXvlJEDZSepMSpngKIc5wwqtcGMqfXRkCwyyfg/BStTmdqtSrbxvUjhLz1bUR
-	 oo5btXWZEuT/K2QhxScVQHGOI603yeZnqp2U7IAHzN/t1NFpip19sO8TwI/LvM8wxE
-	 D3PjIoS/lRnx6qpM04SvWXiZr2+Hl7rpICaXkr+peI0h0HlRUcwVj2IqBhiXdnGNJ8
-	 v71m/HnMY0+zw==
-Received: from pat.atlnz.lc (Not Verified[10.32.16.33]) by svr-chch-seg1.atlnz.lc with Trustwave SEG (v8,2,6,11305)
-	id <B6a9a16a30000>; Fri, 04 Sep 2026 12:53:55 +1200
-Received: from aryans-dl.ws.atlnz.lc (aryans-dl.ws.atlnz.lc [10.33.12.26])
-	by pat.atlnz.lc (Postfix) with ESMTP id 88A8E13EE4D;
-	Fri,  4 Sep 2026 12:53:55 +1200 (NZST)
-Received: by aryans-dl.ws.atlnz.lc (Postfix, from userid 1844)
-	id 85CF0605E4; Fri,  4 Sep 2026 12:53:55 +1200 (NZST)
-From: Aryan Srivastava <aryan.srivastava@alliedtelesis.co.nz>
-To: Guenter Roeck <linux@roeck-us.net>
-Cc: linux-hwmon@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Aryan Srivastava <aryan.srivastava@alliedtelesis.co.nz>
-Subject: [PATCH v0 0/2] Add support for tps546e25
-Date: Fri,  4 Sep 2026 12:53:48 +1200
-Message-ID: <20260904005351.2136374-1-aryan.srivastava@alliedtelesis.co.nz>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="GenV9GMR"
+Received: by mail-pg1-f198.google.com with SMTP id 41be03b00d2f7-cc1c62f0d60so706110a12.1
+        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 18:03:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1788483835; x=1789088635; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :reply-to:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=g1/0D8PhzsqQbcuHEIiqrrUM/zjogKFZy1mLAKunYKo=;
+        b=GenV9GMRARLeAtFpTGF62FizTDpF33NvTqrsOkzy17ig8BuYvl9nv6n3nLeD//s9JA
+         nS58iOGE/GR306JrY9VnD26nWMV9+kLVCul4bbGuUivd3llFoZDOL7QYpZOCxmTn/22S
+         URbAIr/fPd48Cpg0KtLAzwVPxSSL2ps7X22d0PJR0dPpHUzMORfUvbuh/Y++w4p+XDLF
+         OBtuUxIoJ4Iy3aqeW72PqFkITn8v7nJsJW/QAbK2KB1jp65styzIhzvuV4QZqbQs+9OU
+         QFmnui6TfzBIfsWAVXEKjhP9wcU4Bnz8tMmlu2RaTjerQ9ykoFlWX+3q7pt8Bh0UzX3L
+         tjGg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788483835; x=1789088635;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :reply-to:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=g1/0D8PhzsqQbcuHEIiqrrUM/zjogKFZy1mLAKunYKo=;
+        b=JYlgIa3JfPjtSGTyR89W5nMxtBZOvpA24YcLQbP1bcsqZiveqDX03vVwIa5kCfrFkg
+         rLTx1/5PCSMtG4XujJtlQ1ZG2u8LDlBiAL7P1vSBpcts53QK9x7Si8wJ2QbYXsiJwKWb
+         SjVsK4dAZZvdngVbOWNEES8QcrJciQOf6+DiwbUFNPJDXBUYOvUY7P6Ew7CF2R2dOCoT
+         dEN5BsNyomGlXtYLBNWoRRWxGcXC+FL13VWtHv+qng1r2MLPye6ey97iR1GepOw2TSsl
+         3gYWZ3HEEoz6y+G7B1JKrgi43LFMNELkpzkt84fYzTWFf8K1tsV3V68xwB1R14mvrJky
+         OgvQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzvRXdY8l9FNtUB4zrTPmlSXMuxcDXSiCrVB8lryyys8uK3wg3ZZHca8HVdAX1z9OmVomjcaBD3xicaitA=@vger.kernel.org
+X-Gm-Message-State: AFuF++le5+Q19vraICfwJdBSY44hjpJdPdvurLxebPXC4w+6EzOfb7ys
+	7mR1XB+vMAcT/rN5x1T0BYD60Vdv5TuvCAFRtvJlA7hFU05aOrBWvkBJQTWocC6vRizOzmmSBYG
+	wOGlW3Q==
+X-Received: from pgbbm16.prod.google.com ([2002:a65:6e90:0:b0:c97:228f:37ae])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a20:cc8e:b0:3c4:36ef:3dc9
+ with SMTP id adf61e73a8af0-3da39fef37emr3912160637.17.1788483835141; Thu, 03
+ Sep 2026 18:03:55 -0700 (PDT)
+Reply-To: Sean Christopherson <seanjc@google.com>
+Date: Thu,  3 Sep 2026 18:03:45 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-X-SEG-SpamProfiler-Analysis: v=2.4 cv=CKmJXgrD c=1 sm=1 tr=0 ts=6a9a16a3 a=KLBiSEs5mFS1a/PbTCJxuA==:117 a=VdqzKS8jKosA:10 a=Um0FdliqR7N1uhMY-nYA:9 a=3ZKOabzyN94A:10
-X-SEG-SpamProfiler-Score: 0
-x-atlnz-ls: pat
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.55.0.979.g7e5102b832-goog
+Message-ID: <20260904010353.3175819-1-seanjc@google.com>
+Subject: [PATCH v3 0/8] KVM: VMX: Harden against interpreting TDX vCPU as vcpu_vmx
+From: Sean Christopherson <seanjc@google.com>
+To: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>
+Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Xiaoyao Li <xiaoyao.li@intel.com>, Kai Huang <kai.huang@intel.com>, 
+	Rick Edgecombe <rick.p.edgecombe@intel.com>, Binbin Wu <binbin.wu@linux.intel.com>, 
+	Yan Zhao <yan.y.zhao@intel.com>
+Content-Type: text/plain; charset="UTF-8"
 
-Add support to existing generic pmbus driver for tps546e25.=20
+Move and rename "all" (read: everything I could find) common helpers out of
+vmx.c and/or replace their vmx_ prefix with vt_, and then poison to_vmx() for
+all common .c files to harden KVM against misinterpreting a TDX vCPU as a VMX
+vCPU, i.e. consuming to_vmx() on a TDX vCPU.  Spotted when working through
+the bus lock series.
 
-Aryan Srivastava (2):
-  hwmon: pmbus: Fix vout_mode parsing
-  hwmon: pmbus: Add tps546e25 to generic pmbus
+v3:
+ - Collect tags. [Kai, Xiaoyao, Binbin]
+ - Move the poisoning to patch 1. [Xiaoyao]
+ - s/Disallowing/Disallow. [Binbin, Kai]
+ - s/vmx_needs_pi_wakeup/vt_needs_pi_wakeup. [Xiaoyao]
 
- drivers/hwmon/pmbus/pmbus.c      | 3 ++-
- drivers/hwmon/pmbus/pmbus_core.c | 2 +-
- 2 files changed, 3 insertions(+), 2 deletions(-)
+v2:
+ - https://lore.kernel.org/all/20260826171246.777729-1-seanjc@google.com
+ - Complete my train of though in patch 1's changelog. [Binbin]
+ - Rename vmx_handle_exit_irqoff() => vt_handle_exit_irqoff. [Binbin, Sashiko]
+ - Collect a review. [Binbin]
+ - Move and rename everything I could find, using a dummy "struct vcpu_vmx_tdx"
+   to allow relocating common inline helpers from vmx.h to common.h.
 
---=20
-2.55.0
+v1: https://lore.kernel.org/all/20260814161129.2177118-1-seanjc@google.com
+
+Sean Christopherson (8):
+  KVM: VMX: Disallow using to_vmx() in common VT code
+  KVM: VMX: Move the shared "IRQs off" exit handler(s) to common code
+  KVM: VMX: Move the shared NMI handler/trampoline to common code
+  KVM: VMX: Rename posted interrupt prefixes from "vmx" to "vt"
+  KVM: VMX: Rename EPT violation handler prefix from "vmx" to "vt"
+  KVM: VMX: Use dummy pseudo-overlay struct for to_vt() and vt_to_vcpu()
+  KVM: VMX: Move common VT getters/converters to common.h
+  KVM: VMX: Rename common exit info getters prefixes from "vmx" to "vt"
+
+ arch/x86/kvm/vmx/common.h      |  60 +++++++++++--
+ arch/x86/kvm/vmx/main.c        |  92 ++++++++++++++++++-
+ arch/x86/kvm/vmx/nested.c      |  36 ++++----
+ arch/x86/kvm/vmx/posted_intr.c |  24 ++---
+ arch/x86/kvm/vmx/posted_intr.h |   8 +-
+ arch/x86/kvm/vmx/tdx.c         |  32 +++----
+ arch/x86/kvm/vmx/vmx.c         | 155 ++++++++-------------------------
+ arch/x86/kvm/vmx/vmx.h         |  37 --------
+ arch/x86/kvm/vmx/x86_ops.h     |   1 -
+ 9 files changed, 229 insertions(+), 216 deletions(-)
+
+
+base-commit: 76671054f9a1ff6abb976583cd8da37650acdc97
+-- 
+2.55.0.979.g7e5102b832-goog
 
