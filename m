@@ -1,81 +1,169 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3B764457A3;
-	Fri,  4 Sep 2026 09:40:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69004448382;
+	Fri,  4 Sep 2026 09:40:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788514808; cv=none; b=sDTLNy5Qi1EMoHlXDAUxgwIDIM7VeYVSzpI4vEmgfqPt3uhbEHcqxW+cWZCWGvbvn8VtYUONSMI2VOfbu1DfdN//HzKfK+wG+9fsk5CIsckZ3HmVPElrlc9BLwzscqJO805Ipiz9gCaMfdfG1KUjGnT43SF4MYTasUzNMpqTjT8=
+	t=1788514817; cv=none; b=DGchiEWGobiIy5k2g3GzCtDGy9EhMH6L7iBGh7wl5QyMo8kb0No8Z4CR4xRP0IdOf1BWQKBNqUsLEP6w75taMXuctUXDBURGfO6u5FWGWhA4TJX6TWKizMQ7G/W831ESiLy3DN4NJNk6rt3sY1uQuywNr+vTeWgi3IwUYM/PGd0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788514808; c=relaxed/simple;
-	bh=8cq1SyG4CiKJy2jqYIRh9FXnJfo/t8IzNgo/+dKlNS4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=f4tyv5T89XiWd0zbw/KpwBBw/5KKjbWBzww477HKHl1kozyAU3ehcCIvDi0C/BcvV/mzT6JDN98q+VbJ7KyXVBo69gjkdWch7art9Y/15P4WEgrGHqNVq78hW50Gn/reWNE/+Nxi9+VX5AnTqSOvTegG5BwhBGTwnb3HaUgXAtw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CDhS9etO; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788514817; c=relaxed/simple;
+	bh=KmuLnXF/U44uMa55GVUVP5W7FcFy4MysXP6KDZ38D2Q=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=ZWGXdGmQTzVsqWMeNhIcVNwvII6g7bG3cOaf9FoK4qTfJXhrwY4bprs9RIlTNGLzRCzrID6Fvr3ZxNHIPpGl437QSif6joqCHm6TbNFK9MLvWnadZeiUZHDxIeU9AWK51UwUUQg4F85KxtB+ikG15Go52aDWeiinZHXHQ1y5wSw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=gTLB1Qep; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=julQ9gfr; arc=none smtp.client-ip=5.75.144.95
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CDhS9etO"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DEDBE1F00A3D;
-	Fri,  4 Sep 2026 09:40:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788514806;
-	bh=irtB4Gphur0hq/oa9u72227e10mQv5+zJ7j9flQSWKs=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=CDhS9etOg+i38SyDTYcp5f0Q79Eb+8hx9Zh53eDFMB/7tj3ZjjB+qaPd6T9w1Z7rg
-	 PMNhFVE8akcng0zh8eKSZBLqj54pag+ihQFA0SuLayr6bQVNV3Dpb9pYOtuhiJJc72
-	 Q9qQ/GTUOiSLIZXWih69N+pFbZz2J15NN4ApLyUOQpw/5+LudOT6zynLohfB5kVhsL
-	 JWZHpw7MeTNeH+yP3YOCRjdITc0ILwlx3/vA2tkvu/AcG8YtBSDBoZodtlWj0wPKnA
-	 2p2LsHQ9kOkEFWb3KKyE3LqBxt8HVcevJSeM39Zc8gPRlGYlM/4AwxUMKu1NB2m8QL
-	 JG2xsT8NMrnKQ==
-Date: Fri, 4 Sep 2026 11:40:02 +0200
-From: Christian Brauner <brauner@kernel.org>
-To: Oleg Nesterov <oleg@redhat.com>
-Cc: Daehyeon Ko <4ncienth@gmail.com>, Mateusz Guzik <mjguzik@gmail.com>, 
-	linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
-	syzbot+0aee5e8066eddbbe7397@syzkaller.appspotmail.com, syzbot+e8b3520b53e78e90034e@syzkaller.appspotmail.com
-Subject: Re: [PATCH v2] exit: hold a reference to thread_pid across
- proc_flush_pid
-Message-ID: <20260904-absehbar-dissident-rackern-b030022aa84e@brauner>
-References: <20260831001221.3755948-1-4ncienth@gmail.com>
- <apWWsqOzJny1v4ab@redhat.com>
+	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="gTLB1Qep";
+	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="julQ9gfr"
+DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Date:Subject:To:From; t=1788514807; bh=3tkVlnpw7+NBfWJJgluik5B
+	VtbGX5D0ZhS2q1Ia+1+o=; b=gTLB1QepB9c7bOkEJkkgFHDKZRT/2/Bcvt2hMdrRQMQ4tf3JGZ
+	bjsrGFNg1hp2aGhYzcc4Au5RnvvI8aqn86TykhdKWs+T3UFLjp4F/LCkMkD87iwQhQNRGDZqhh/
+	E80yyBTwOEKXbSz5nZsNIWixKGXufVva2JTwf8SZbrkipQ1ZMzD5IzuV4NYxFPZ1PQhW7EmGIOT
+	IpLbgcHbCNGDhBE14XlNVa1/bYqHpm20Xjp0Tn1LL8vd9Go1ElXvS0iOtH/IgE6EqKoQK8W8hb3
+	eByPuUK/SUvgmdOg+fzsiwMjYylNihn6KWsLoRA8z5FHMe2jKEwiY+YQIVE0NfL9BIw==;
+DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Date:Subject:To:From; t=1788514807; bh=3tkVlnpw7+NBfWJJgluik5B
+	VtbGX5D0ZhS2q1Ia+1+o=; b=julQ9gfr+eDtvvHGTorvWHSkvLaFHwz+o0Hbx2sx9DiGx6+PFc
+	fHnVpA+pR5ZeZsMDdpA0TS8S5ShV4s5+yrCw==;
+From: Bradley Morgan <brads@mainlining.org>
+To: linux-kernel@vger.kernel.org
+Cc: Tejun Heo <tj@kernel.org>,
+	Frederic Weisbecker <frederic@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Waiman Long <longman@redhat.com>,
+	Christian Brauner <brauner@kernel.org>,
+	Kees Cook <kees@kernel.org>,
+	Andy Walls <awalls@md.metrocast.net>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jiri Slaby <jirislaby@kernel.org>,
+	"Rafael J . Wysocki" <rafael@kernel.org>,
+	Viresh Kumar <viresh.kumar@linaro.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Bradley Morgan <brads@mainlining.org>,
+	linux-media@vger.kernel.org,
+	netdev@vger.kernel.org,
+	linux-serial@vger.kernel.org,
+	linux-pm@vger.kernel.org
+Subject: [PATCH v2 4/5] cpufreq: schedutil: convert to kthread_create_worker
+Date: Fri,  4 Sep 2026 09:40:07 +0000
+Message-ID: <b6768a4db5451e90e68befc3a9b498f1dfa52b1c.1788513591.git.brads@mainlining.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <cover.1788513591.git.brads@mainlining.org>
+References: <cover.1788513591.git.brads@mainlining.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <apWWsqOzJny1v4ab@redhat.com>
+Content-Transfer-Encoding: 8bit
 
-On Mon, Aug 31, 2026 at 04:58:58PM +0200, Oleg Nesterov wrote:
-> On 08/31, Daehyeon Ko wrote:
-> >
-> > Commit 0a36bad01731 ("release_task: kill the no longer needed
-> > get/put_pid(thread_pid)") removed the reference around proc_flush_pid().
-> > It assumed that free_pids(post.pids) at the end of release_task() would
-> > keep thread_pid alive until then.
-> >
-> > That assumption is wrong.  __change_pid() only records a detached PID in
-> > post.pids when pid_has_task() is false for every PIDTYPE.  If another task
-> > still uses the exiting task's PID as its process group or session ID,
-> > __unhash_process() removes the exiting task's PIDTYPE_PID link but leaves
-> > the PID out of post.pids.  release_task() therefore holds no reference to
-> > it after dropping tasklist_lock.
-> >
-> > The other task can then remove the remaining PIDTYPE links.  Its
-> > free_pids() call schedules delayed_put_pid(), and the RCU callback can free
-> > the PID before the first release_task() reaches proc_flush_pid().
-> 
-> Much better, thanks. The comment above get_pid(task_pid(p)) looks better too.
-> 
-> Acked-by: Oleg Nesterov <oleg@redhat.com>
-> 
-> 
-> > A tested source reproducer is available privately on request.  No
-> > controlled read or write, information leak, or privilege escalation is
-> > claimed.  The mainline patch applies directly to v6.19.y and newer;
-> > v6.16.y through v6.18.y need a context-adjusted backport.
-> 
-> Up to you and Christian (I am hoping we can take your fix), but I think
+Convert cpufreq_schedutil to use kthread_create_worker() instead of
+the deprecated kthread_run(kthread_worker_fn) pattern. The new API
+sets worker->task before the worker starts.
 
-Snatching it up, thanks!
+Signed-off-by: Bradley Morgan <brads@mainlining.org>
+---
+ kernel/sched/cpufreq_schedutil.c | 33 ++++++++++++++------------------
+ 1 file changed, 14 insertions(+), 19 deletions(-)
+
+diff --git a/kernel/sched/cpufreq_schedutil.c b/kernel/sched/cpufreq_schedutil.c
+index 49ccd6f1c185..5023c24d8a21 100644
+--- a/kernel/sched/cpufreq_schedutil.c
++++ b/kernel/sched/cpufreq_schedutil.c
+@@ -31,8 +31,7 @@ struct sugov_policy {
+ 	struct			irq_work irq_work;
+ 	struct			kthread_work work;
+ 	struct			mutex work_lock;
+-	struct			kthread_worker worker;
+-	struct task_struct	*thread;
++	struct			kthread_worker *worker;
+ 	bool			work_in_progress;
+ 
+ 	bool			limits_changed;
+@@ -586,7 +585,7 @@ static void sugov_irq_work(struct irq_work *irq_work)
+ 
+ 	sg_policy = container_of(irq_work, struct sugov_policy, irq_work);
+ 
+-	kthread_queue_work(&sg_policy->worker, &sg_policy->work);
++	kthread_queue_work(sg_policy->worker, &sg_policy->work);
+ }
+ 
+ /************************** sysfs interface ************************/
+@@ -669,7 +668,6 @@ static void sugov_policy_free(struct sugov_policy *sg_policy)
+ 
+ static int sugov_kthread_create(struct sugov_policy *sg_policy)
+ {
+-	struct task_struct *thread;
+ 	struct sched_attr attr = {
+ 		.size		= sizeof(struct sched_attr),
+ 		.sched_policy	= SCHED_DEADLINE,
+@@ -692,32 +690,29 @@ static int sugov_kthread_create(struct sugov_policy *sg_policy)
+ 		return 0;
+ 
+ 	kthread_init_work(&sg_policy->work, sugov_work);
+-	kthread_init_worker(&sg_policy->worker);
+-	thread = kthread_create(kthread_worker_fn, &sg_policy->worker,
+-				"sugov:%d",
+-				cpumask_first(policy->related_cpus));
+-	if (IS_ERR(thread)) {
+-		pr_err("failed to create sugov thread: %pe\n", thread);
+-		return PTR_ERR(thread);
++	sg_policy->worker = kthread_create_worker(0, "sugov:%d",
++						cpumask_first(policy->related_cpus));
++	if (IS_ERR(sg_policy->worker)) {
++		pr_err("failed to create sugov thread: %pe\n", sg_policy->worker);
++		return PTR_ERR(sg_policy->worker);
+ 	}
+ 
+-	ret = sched_setattr_nocheck(thread, &attr);
++	ret = sched_setattr_nocheck(sg_policy->worker->task, &attr);
+ 	if (ret) {
+-		kthread_stop(thread);
++		kthread_destroy_worker(sg_policy->worker);
+ 		pr_warn("%s: failed to set SCHED_DEADLINE\n", __func__);
+ 		return ret;
+ 	}
+ 
+-	sg_policy->thread = thread;
+ 	if (policy->dvfs_possible_from_any_cpu)
+-		set_cpus_allowed_ptr(thread, policy->related_cpus);
++		set_cpus_allowed_ptr(sg_policy->worker->task, policy->related_cpus);
+ 	else
+-		kthread_bind_mask(thread, policy->related_cpus);
++		kthread_bind_mask(sg_policy->worker->task, policy->related_cpus);
+ 
+ 	init_irq_work(&sg_policy->irq_work, sugov_irq_work);
+ 	mutex_init(&sg_policy->work_lock);
+ 
+-	wake_up_process(thread);
++	wake_up_process(sg_policy->worker->task);
+ 
+ 	return 0;
+ }
+@@ -728,8 +723,8 @@ static void sugov_kthread_stop(struct sugov_policy *sg_policy)
+ 	if (sg_policy->policy->fast_switch_enabled)
+ 		return;
+ 
+-	kthread_flush_worker(&sg_policy->worker);
+-	kthread_stop(sg_policy->thread);
++	kthread_flush_worker(sg_policy->worker);
++	kthread_destroy_worker(sg_policy->worker);
+ 	mutex_destroy(&sg_policy->work_lock);
+ }
+ 
+-- 
+2.47.3
+
