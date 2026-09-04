@@ -1,87 +1,97 @@
-Received: from mta1.migadu.com (out-50.mta1.migadu.com [95.215.58.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2D2A408035
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 05:33:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D4E7414A0E;
+	Fri,  4 Sep 2026 05:34:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.133
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788500020; cv=none; b=g68S1SMisnKfJbescenN20887NXWqWXXvbuz46jGGHn92ltUvVWcWhhhGa+z/mG7j4L5f2h/viaMErl2Tzog5Ki2aS8hnCExIEp1OWJWeB9cMO08j0RZAyVapU5yoB4UarDMRQxaYsv+6NwGvIIn1a9zc/B2ViOFjoMpQj0/0vs=
+	t=1788500091; cv=none; b=ednOIG1/sc8+Bo5A3eAvHoxr5GP1Y/8ohTfuHBgB9C2NbIlRBT3TZXPA+rtgiKTulIyhIA9Lj/zHAli0y7J8oln/GaCrrmT9ZpBcwZHPldBqSnMTfrkGkT46RBLNLccVrdE6lMtBreLqe7vsKZqUN4zQs98foSVVBEwAxeqv3tc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788500020; c=relaxed/simple;
-	bh=7KwgNRUvE81Flv3MCvzg9gLOP2UeUiR1MgUJyPfduP4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=eh5zjVUkH7eqgPWXO5IidMdbBA2X/9UBpYhevm2EhF1hzr6FFoZ+z2ZyPMI8IPpcP9oAkWVbBLMES/Mw7LBQyCxuBctOGEK60Fs0GVaJnKx/z9ibo5hP/gJlTCrxF7tctyrWhvhng/5H7ONLO51fwO4Q/kLgMhiWnf9o4VB1gFc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=s/fXJIUz; arc=none smtp.client-ip=95.215.58.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1788500091; c=relaxed/simple;
+	bh=LoSIabbGCm3jmP8IHBvygHcW64OGDNns/l+oY3HHAo0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=g2n+LthfXIOyPuWdqCefifeJzEgUQgUBoMomVnCXZZLWusIQnUiwpKUb6pRyZnnep+vu6LidaRo82M8pAKomBEbXoSNJD7jeX4RDkYPFEqeVXzOQLexTYVLo4KNtvYSKxi4gdWYPqn5EzKO+6j8+TdNq55RmTuCmMdbRX1KdE0o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=NKESFmSW; arc=none smtp.client-ip=198.137.202.133
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="s/fXJIUz"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=7KwgNRUvE81Flv3MCvzg9gLOP2UeUiR1MgUJyPfduP4=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788500015; v=1; x=1789104815;
- b=s/fXJIUzAtbiSf36KY3P7OvzYDYSdjttQUma3z90OPAXzp1iex34YZsj/aVuczyyCnzJvZ0i
- 8x0h0pGrJ3TToAZTp+Y57Edb4dC04Yu0xqxOvj92duB1HhWlcJEPoEUV4xc87LfaC4J3dYQq8dD
- RD0MJt2N8pM3PtT2o+n/tBJk=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta11.migadu.com with ESMTPS id 88679e7f5a2622ed;
-	Fri, 04 Sep 2026 05:33:35 +0000
-X-Mizu-Trace-ID: 88679e7f5a2622ed
-X-Migadu-Flow: FLOW_OUT
-Date: Fri, 4 Sep 2026 13:33:28 +0800
-From: Baoquan He <baoquan.he@linux.dev>
-To: Youngjun Park <youngjun.park@lge.com>
-Cc: Baoquan He <hebaoquan@kylinos.cn>, linux-mm@kvack.org,
-	akpm@linux-foundation.org, chrisl@kernel.org, kasong@tencent.com,
-	nphamcs@gmail.com, baohua@kernel.org, hannes@cmpxchg.org,
-	yosry@kernel.org, shikemeng@huaweicloud.com,
-	chengming.zhou@linux.dev, david@kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 14/16] mm, swap: refactor swapoff + add xswap_destroy
-Message-ID: <appYKKppIlwJ7vD7@fedora>
-References: <20260827094509.1016740-1-hebaoquan@kylinos.cn>
- <20260827094509.1016740-15-hebaoquan@kylinos.cn>
- <apkaxIJRdo4zwnS1@yjaykim-PowerEdge-T330>
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="NKESFmSW"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
+	Content-Type:In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
+	Message-ID:Sender:Reply-To:Content-ID:Content-Description;
+	bh=noERAy98ksBHJQxSSGOOcw+tFMb50cbPWoj0qJBP4Mo=; b=NKESFmSWQ8HRKMj5l8wqqHRElj
+	u+rcPL79KhjjEA2tcRYWH7yB1+oMOgFkQLlVFmvs67LksmNgMx46iHvj9nElPIaJmqGcVv0uGAKHM
+	YMJSE9e8KhRnZHFBW47GNbYxpR4Er+bUZBOxqzO7+PeQkqit5uPdiZG9jsPigRrigTNPNepBmZXc3
+	6tJHJZsTM1WFVmavMCI0IQCfu4dO3fuLtFjVsEy1biOnvY00gCBAP0mhRsWe1Kw6UdKwMNrQzg+hf
+	zop3u9f8PwvBj7fpJETU+kj2M1HfcKEt9oEB/nUDLFC8GWNjiRqV26efiIZCD+bMsykTYjL3TJVYY
+	eyOs9evQ==;
+Received: from [50.53.43.113] (helo=[192.168.254.34])
+	by bombadil.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
+	id 1x2MZW-000000014fy-12qQ;
+	Fri, 04 Sep 2026 05:34:42 +0000
+Message-ID: <24c2aa21-d491-4ee2-9d53-de593353f2cc@infradead.org>
+Date: Thu, 3 Sep 2026 22:34:41 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <apkaxIJRdo4zwnS1@yjaykim-PowerEdge-T330>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3] docs: verify/bisect: fix typos, formating and
+ punctuation
+To: Manuel Ebner <manuelebnerli@mailbox.org>,
+ Thorsten Leemhuis <linux@leemhuis.info>, Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>
+Cc: linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260903154336.732305-3-manuelebnerli@mailbox.org>
+ <4c379bf7-e518-4a06-8b12-134f39a45785@infradead.org>
+ <6ba88e25314a5818f8fb31dc3a2165f6786e890d.camel@mailbox.org>
+Content-Language: en-US
+From: Randy Dunlap <rdunlap@infradead.org>
+In-Reply-To: <6ba88e25314a5818f8fb31dc3a2165f6786e890d.camel@mailbox.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On 09/03/26 at 03:59pm, Youngjun Park wrote:
-> On Thu, Aug 27, 2026 at 05:45:04PM +0800, Baoquan He wrote:
-> > +/* Tear down a file-less xswap device by its swap type. */
-> > +static int xswap_destroy(int type)
-> > +{
-> > +	struct swap_info_struct *p;
-> > +
-> > +	p = swap_type_to_info(type);
-> > +	if (!p)
-> > +		return -EINVAL;
-> > +
-> > +	spin_lock(&swap_lock);
-> > +	if (!(p->flags & SWP_WRITEOK) || !(p->flags & SWP_XSWAP)) {
-> > +		spin_unlock(&swap_lock);
-> > +		return -EINVAL;
-> > +	}
-> > +	/* Refuse swapoff while the device is pinned for hibernation */
-> > +	if (p->flags & SWP_HIBERNATION) {
-> > +		spin_unlock(&swap_lock);
-> > +		return -EBUSY;
-> > +	}
+
+
+On 9/3/26 10:18 PM, Manuel Ebner wrote:
+> On Thu, 2026-09-03 at 09:59 -0700, Randy Dunlap wrote:
+>> Hi Manual,
+>>
+>> On 9/3/26 8:43 AM, Manuel Ebner wrote:
+>>> Improve readability.
+>>>
+>>> Signed-off-by: Manuel Ebner <manuelebnerli@mailbox.org>
+>>> Reviewed-by: Randy Dunlap <rdunlap@infradead.org>
+>>
+>> It looks like you might be misusing the Reviewed-by: tag here.
+>> My only reply (to v1 of this patch) was:
+>>   https://lore.kernel.org/linux-doc/0475c09c-e165-41a5-b654-5c6aefeaab0b@infradead.org/
 > 
-> non-blockfile swap device must not be chosen for Hibernation.
-> There is no space to hibernate.
+> My thought process was: when I include all you suggestions and your message ends with
+>> All of the other changes LGTM.
+> 
+> you are good with the result. Thus Reviewed.
 
-You areright.
+I understand, but still, it should be explicit (or you could ask).
 
-xswap devices are file-less and zswap-backed with no disk space,
-so they cannot host a hibernation image. Sashiko has reported this, v2
-excludes SWP_XSWAP devices from hibernation device discovery (both 
-find_first_swap() and __find_hibernation_swap_type()), so they are never
-chosen for hibernation.
+> I probably did this a couple more times with you and others.
+> 
+> I'm sorry and I'll pay more attention to this.
+> 
+>> and in that email I did not write "Reviewed-by: /me".
+>> Just because I commented on it does not mean that it merits
+>> a Reviewed-by: tag.
+>> I.e., a Reviewed-by: tag must be explicitly written by the reviewer
+>> for it to be included in a patch.
+>>
+>> Please see Documentation/process/submitting-patches.rst for more info,
+> 
+> I'll reread it.
+
+Thanks.
+-- 
+~Randy
+
