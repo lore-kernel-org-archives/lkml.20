@@ -1,136 +1,117 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 678E16FC3;
-	Fri,  4 Sep 2026 00:48:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 888A835AC24;
+	Fri,  4 Sep 2026 00:48:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788482929; cv=none; b=m/eaWLNQuVHY0wuh8M23xkP+ine7GqWR2K/FtYzh4pAu3N2eO/Moi4QuQFox5rgedFOq0VAAT+J/o4JTCWZM+qHoyjlO/QLMnM3aj7tSLJ0L2VU4xX2F3dSpg6Vp0oTEWitHITM53aSp3ezKzYB5Z2icdy1UmJCkPhd2gdf5QDg=
+	t=1788482940; cv=none; b=WgKvzDKqtCoZyeL50X1nowVNZabVJywLnxrfbwDa/CpHg6dl1vYYhChQr3riS2jTooSqLvzMdoQ74gcu7vYEOqQConzwwldrN/5zrLIiH/rX3EPjHSaPKZ4xMSATDyJ9HJ05m6YIBjCbdhQ9PawmFyl06wQTMY2p/1rp+7m7920=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788482929; c=relaxed/simple;
-	bh=jh5O5cyOclG+OYyDl9N1sQbIplNvsglrZxAJbd097No=;
-	h=Date:From:To:Cc:Subject:Message-Id:Mime-Version:Content-Type; b=JUigRbdXfzSsYwjs0+mplvEMzaw8/XtvT9MWYldEPhPuBiYsShrJSo8qyW7zHFxrkglhhtD4rwh5vYK96Y9SlvcA2Hd0X4olNQDoewA8OoCBYUOBhHucYuQBavuppbuxZ2VNawk7iWajimV3KRJh6vYv82aoD2y9hzAfojTzsXo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=av8liggb; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788482940; c=relaxed/simple;
+	bh=0NfL1FBn5PRUp3I7PHFGrui/+g0BRt71Xm1Aj63k5yk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=lusS+Ta30/7X9YC78Gw3HEAoFv8hU6IjvZIGT8rope7uMxpkT/bzNcchdF149Qd6IQargE4qfhd23ZMFCJI8pkdpSb/pXmWzg/jiXAr0bylpe8sBPf1CQG3RSFnSsOFP7wIblq7w9PstLE9EV09yZbL0fXpiRbIzr6kP8NSa3k8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=MT73j7U1; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="av8liggb"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C81D11F000E9;
-	Fri,  4 Sep 2026 00:48:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1788482928;
-	bh=fZiJnm472/wWBjeAyig4dXl/rRisSJv+rJypmqNg45g=;
-	h=Date:From:To:Cc:Subject;
-	b=av8liggbntRqzftSpXrzTrkaUzYy6Vz8VFx+yEzAnncDQhHkX69PGCq6Kcbkx57k6
-	 X7ekPLlCqHJWeBUN/c+OG1GBixVgh49MxLwYUEdSQVN93k9msX+Zow607ykTBVr5ej
-	 FUnhH8PKf4l05O3+eYaZKva0N6AjnyjomiNb4Izw=
-Date: Thu, 3 Sep 2026 17:48:47 -0700
-From: Andrew Morton <akpm@linux-foundation.org>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- mm-commits@vger.kernel.org
-Subject: [GIT PULL] hotfixes for 7.3-rc2
-Message-Id: <20260903174847.a7f81bd5400d48cc8d0feaf9@linux-foundation.org>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="MT73j7U1"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=MX0fU1qaIXjuWZjxnNPM585nVmSPQH32gHlipzrnk7A=; b=MT73j7U1n6pkOAi1i/uxe/9gSH
+	Dc8r27Fh0Pkl7NtfWQFFEuMIoTLEPkYADD0OV2GhEGF6+CpGUyr2uR/CSGHoVpDk1NfI1LzHrUpD+
+	31QxNyCP05uKiAyJxDLHskO64TcZVehS8NddaslxMMn9ozEPSx80pjcKwsoi4MusYaQE=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1x2I6s-002pHJ-Fb; Fri, 04 Sep 2026 02:48:50 +0200
+Date: Fri, 4 Sep 2026 02:48:50 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Aleksei Sviridkin <f@lex.la>
+Cc: netdev@vger.kernel.org, hkallweit1@gmail.com, linux@armlinux.org.uk,
+	davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
+	pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org,
+	conor+dt@kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [RFC PATCH net-next 3/9] net: phy: air: type the buckpbus core
+ on the bus and address
+Message-ID: <31659b56-3dd5-4942-a921-4fee9cea73fd@lunn.ch>
+References: <20260829052546.1152446-1-f@lex.la>
+ <20260829052546.1152446-4-f@lex.la>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260829052546.1152446-4-f@lex.la>
 
+On Sat, Aug 29, 2026 at 05:25:40AM +0000, Aleksei Sviridkin wrote:
+> The buckpbus accessors only need an MDIO bus and an address, but they
+> take a phy_device, which ties them to a probed PHY. An upcoming MDIO
+> device driver needs the same register access before any phy_device
+> exists, since it runs precisely to make the PHY presentable.
+> 
+> Retype the internal helpers onto (mii_bus, addr) and keep the exported
+> phy_device API as page-selecting wrappers around them. The file
+> already carries an mdio_device-typed accessor for the AN8811HB pbus,
+> so this follows an existing direction rather than opening a new one.
+> 
+> No functional change.
+> 
+> Assisted-by: LLM
+> Signed-off-by: Aleksei Sviridkin <f@lex.la>
+> ---
+>  drivers/net/phy/air_phy_lib.c | 85 +++++++++++++++++++----------------
+>  1 file changed, 46 insertions(+), 39 deletions(-)
+> 
+> diff --git a/drivers/net/phy/air_phy_lib.c b/drivers/net/phy/air_phy_lib.c
+> index 5141db19fa5e..e0fca5f285d2 100644
+> --- a/drivers/net/phy/air_phy_lib.c
+> +++ b/drivers/net/phy/air_phy_lib.c
+> @@ -14,31 +14,32 @@
+>  
+>  #include "air_phy_lib.h"
+>  
+> -static int __air_buckpbus_reg_read(struct phy_device *phydev,
+> +static int __air_buckpbus_reg_read(struct mii_bus *bus, int addr,
+>  				   u32 pbus_address, u32 *pbus_data)
+>  {
+>  	int pbus_data_low, pbus_data_high;
+>  	int ret;
+>  
+> -	ret = __phy_write(phydev, AIR_BPBUS_MODE, AIR_BPBUS_MODE_ADDR_FIXED);
+> +	ret = __mdiobus_write(bus, addr, AIR_BPBUS_MODE,
+> +			      AIR_BPBUS_MODE_ADDR_FIXED);
 
-Linus, please merge this batch of hotfixes.
+We have mdiodev_read() and mdiodev_write:
 
-There are no fixes (yet) for all the stuff we added in the most recent
-merge window.  Hopefully a good sign.
+static inline int mdiodev_read(struct mdio_device *mdiodev, u32 regnum)
+{
+	return mdiobus_read(mdiodev->bus, mdiodev->addr, regnum);
+}
 
-Thanks.
+static inline int mdiodev_write(struct mdio_device *mdiodev, u32 regnum,
+				u16 val)
+{
+	return mdiobus_write(mdiodev->bus, mdiodev->addr, regnum, val);
+}
 
+A PHY is a superset of an mdiodev....
 
-The following changes since commit 786262be6048deab760f68c8acc2c85607165894:
+struct phy_device {
+	struct mdio_device mdio;
 
-  Merge tag 'edac_updates_for_v7.3_rc2' of git://git.kernel.org/pub/scm/linux/kernel/git/ras/ras (2026-08-31 20:10:39 -0700)
+	/* Information about the PHY type */
+	/* And management functions */
+	const struct phy_driver *drv;
 
-are available in the Git repository at:
+So it might look better to add __mdiodev_read()/__mdiodev_write(), and
+have the PHY driver pass &phydev->mdio, and the firmware download
+driver can directly use its mdiodev.
 
-  git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm tags/mm-hotfixes-stable-2026-09-03-17-45
-
-for you to fetch changes up to 97d34aa65c29cca85e3e9050f4c936389b38a054:
-
-  mm/secretmem: properly account locked pages (2026-09-03 10:56:10 -0700)
-
-----------------------------------------------------------------
-18 hotfixes.  13 are cc:stable.  15 are for MM.
-
-All are singletons - please see the changelogs for details.
-
-----------------------------------------------------------------
-Baolin Wang (1):
-      mm: fix incorrect vm_flags usage when checking allowable orders for tmpfs
-
-Bryan Lim (1):
-      userfaultfd: reset err to be 0 when move_pages_ptes succeeded
-
-Eric Dumazet (2):
-      mm/mempolicy: fix sleeping allocation in alloc_pages_bulk_weighted_interleave()
-      Revert "once: don't use a work queue to reset sleepable static key"
-
-Geert Uytterhoeven (1):
-      MAINTAINERS: cover all of RAID
-
-Hui Su (1):
-      mm/migrate_device: avoid out-of-bounds writes for compound folios
-
-Kiryl Shutsemau (Meta) (1):
-      MAINTAINERS: add Kiryl as a THP reviewer
-
-Lance Yang (1):
-      MAINTAINERS: add Lance Yang as a hung task detector co-maintainer
-
-Longlong Xia (1):
-      mm/hugetlb: keep max_huge_pages when dissolving surplus folios
-
-Lorenzo Stoakes (ARM) (3):
-      MAINTAINERS: remove Lorenzo as THP co-maintainer
-      mm/mremap: reset unfaulted VMA page offset for MREMAP_DONTUNMAP
-      mm/secretmem: properly account locked pages
-
-Narek Jilavyan (1):
-      mm/hugetlb_cgroup: call page_counter_set_max() outside VM_BUG_ON()
-
-Shakeel Butt (1):
-      memcg: make the v1 soft limit knob inert
-
-Sourav Panda (1):
-      mm/hugetlb_cma: fix null nodemask dereference in hugetlb_cma_alloc_frozen_folio
-
-Thorsten Blum (1):
-      MAINTAINERS: mailmap: update entries for Thorsten Blum
-
-Usama Arif (1):
-      mm/huge_memory: transfer the pmd dirty bit to the folio on zap
-
-Wupeng Ma (1):
-      mm/hugetlb: fix missing migratable flag on same-node hugetlb migration
-
- .mailmap                                       |   3 +-
- Documentation/admin-guide/cgroup-v1/memory.rst |  49 ++---------
- MAINTAINERS                                    |  10 +--
- include/linux/sched/user.h                     |   3 +-
- lib/once.c                                     |   2 +-
- mm/huge_memory.c                               |   2 +
- mm/hugetlb.c                                   |  20 +++--
- mm/hugetlb_cgroup.c                            |   7 +-
- mm/hugetlb_cma.c                               |  21 ++++-
- mm/khugepaged.c                                |   6 --
- mm/madvise.c                                   |   8 ++
- mm/memcontrol-v1.c                             |  43 +++++----
- mm/mempolicy.c                                 |   2 +-
- mm/migrate_device.c                            |  18 ++++
- mm/mremap.c                                    |  22 +++--
- mm/secretmem.c                                 | 116 +++++++++++++++++++++++--
- mm/userfaultfd.c                               |   4 +-
- tools/testing/selftests/mm/memfd_secret.c      |  30 +------
- 18 files changed, 233 insertions(+), 133 deletions(-)
-
+	Andrew
