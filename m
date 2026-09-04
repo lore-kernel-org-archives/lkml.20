@@ -1,57 +1,57 @@
 Received: from mail-pf1-f199.google.com (mail-pf1-f199.google.com [209.85.210.199])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D67CA298991
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 00:24:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47B5D242D88
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 00:24:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788481478; cv=none; b=Y+HdgYob323ORHxembEj12upfLQ2BWSeHTIlPqLwJcyqieHPgXztzk2xP7XiFUlARgt7KBG+Zezv/TV+rWrcS9aG5LnWcLhSraznd8p5e/3Yh8GHRfiVa1OhbR1JsVLtN2ZpiH8YPFrSJ5c7NTbWTRDrVA8YM3Q87Jog9pe3bdU=
+	t=1788481481; cv=none; b=lsTosFgdJFER3nSfQyJ74gVqGxI+6Ojt2cNew8BJBNdm4oEYBlx+JtPt345anxSAfx3K6BKvPXtVZOdMQOKhoXWg0VDNILdGMTq9VWWPfCrwLM++nuni/0rQ9qe6L6mqjy8tBlqHpwE2zjwrO64pqXccQ/wF+wx7Ec4a3UJACyI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788481478; c=relaxed/simple;
-	bh=bL+/d2XsljvTdCWPxBEUMfQNuIdb2cAEkc/Lc8x6cmo=;
+	s=arc-20240116; t=1788481481; c=relaxed/simple;
+	bh=TzyTpIZvX8nCrYGQ78u757hq1EFVtnC4d3w5LisdstQ=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=c7k2EuF0SaMb9dUQASSF59ATBfRA6SaCGGUFhwPoGBOvANDwZRlgputpGJ+jO7iheAhV/7tq3GTzs5jVD6+lm8IxBbRsofXAH0/IIbWL1bNV2RUtFHVL6VD303dePVFZsEGhLT4psfmeH3TSpaixKZa5I2yvTouOtkotL4XnNDE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=pf9toYf3; arc=none smtp.client-ip=209.85.210.199
+	 To:Cc:Content-Type; b=e66ok7eIHKjZkfHkVcYSI5LhNICn6foDo/mYtugfVXBLhTff0sDJJPpTafJHqcA8ohuG7WbRD24cvcE03UO7wcU7XjwqicgYt5mGCJaQvJzga3ryoRJPG8bg8CcxT+/03O3BjZUNWgOmoM7PtAR3z1Rsgxxj8YSd1/WZPVAYTdM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=bAJLsUrT; arc=none smtp.client-ip=209.85.210.199
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="pf9toYf3"
-Received: by mail-pf1-f199.google.com with SMTP id d2e1a72fcca58-84e13b57b2cso453688b3a.1
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 17:24:33 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="bAJLsUrT"
+Received: by mail-pf1-f199.google.com with SMTP id d2e1a72fcca58-85599cf98e5so694592b3a.1
+        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 17:24:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1788481473; x=1789086273; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1788481479; x=1789086279; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:reply-to:from:to:cc:subject:date:message-id
          :reply-to:content-type;
-        bh=R1KMl6QKcbTWJGXOV2RsRhaC6Lo9OYh7u7lENzPYhXc=;
-        b=pf9toYf3KgDnmJNpBfQz0fgyL8XI5Gyjp0P7+Z9+bl99FwLM6WrzSiqnZxk3tU+Xbr
-         i/vZ+OSxOZ3T1vhiK9MsrBTmYJYpDp4gKvF1AAHLZk5J5LsNxfe5YPSSVeYxsDAMJUY4
-         JGpVi4A87HtybVwE+r0OiNE1c8aR/NHMGVTGugWqHDxVwCYT+8bBxvquk4EPwIXsaSlK
-         PO7BFRZQqb9kPmSu9lrurMRgMGGJxsjAeQtFUrSZbHijJH6Zs/7ScH07mUP8rmYx4Dqs
-         nayFAUs2zxLwe+QOPaw7gZ0OQGFkknKTkaXXMuond3ZA4jdP1tVkHcaubyLdlgoBMSl/
-         ZATg==
+        bh=ctpiOwQNgtLo4mnzlgvrJK29bFr1/fYhEIoXwvr6TRs=;
+        b=bAJLsUrTsHY0eU60SzvZDgtmXWPIpLSX2+qQM0q0NMW1uUQDswu+JN9NXlxKnUZa1R
+         6w2P5EeRnUZLah6v7XR1lKxR7ysDQOXBzfHproaWBt9gG12W5fS2Cgq6dF/eUy9NVEGr
+         7vGzLRnNp+70XZHpBJp40RUhvXzTZf7VYQJYIzJUCzcECxgEf9dYvZRdNOkMbjs8TFOh
+         RQz5kwQbfwy4kt9tFzpZlU8Tk/cx64rJGM84z7ZNkriXgvCwD6KUTzt9X5Mkx8Iu1NwG
+         y9vxvp1lsMGp2fvUPpcaRWona9wbw46s8oX1V6zv5ObunL3D4e5cNEjJQDekaNdoFKRY
+         QuUw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788481473; x=1789086273;
+        d=1e100.net; s=20251104; t=1788481479; x=1789086279;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:reply-to:x-gm-message-state:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=R1KMl6QKcbTWJGXOV2RsRhaC6Lo9OYh7u7lENzPYhXc=;
-        b=Hblu+AYysww7PQhyAo8GmzPdFumQi3lmBjranyMqDLiGSNfkwFdXmvCIa0Ne8YlN1U
-         7ecc8otuDNTpdYjam+i2xqMYYlxUw/WqToF0gliURfC3p4No08kAA9eQiK5AzCgwIbvb
-         p2RLpSah0+WKm6FnDnoEBdEn4p2merNpJeda28oQ2hwHfSdMymaJo7qelGyafv3A85pi
-         +0JdLPDCotkInnxUauoVnq8wKupFeKc5hnlrmbcuhnp39CRP43PnVI4OCbzo4OmtYFgk
-         Z8GaaeF866v3YL5efRGRwDG/Y0aYIBv42u8sMDvxBBfVuizg004xCemSHNaTx+VrKASM
-         UEFA==
-X-Forwarded-Encrypted: i=1; AKwUvByp16SZmgwvWx8FOnohRCQM3OG5D3wFJHKVPhidSn/mTXHmEbz3j4S/UGirBkoKfhHeOhZQ04wDGdHfM/U=@vger.kernel.org
-X-Gm-Message-State: AFuF++nFii2CUeGBGruPOAXPK2gcxuKm6klRqhbliLZugC9FIM8EP1Rg
-	RDiZyyk9+cnb4NdYXlxCNo7EFVIiiirmEoQcmhC+dCR4sdruqBOXDo7hjDaIufLDveNyOm6PvFh
-	l3PzU5w==
-X-Received: from pfw10.prod.google.com ([2002:a05:6a00:a26a:b0:845:e386:e036])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a00:3486:b0:851:804c:f4eb
- with SMTP id d2e1a72fcca58-86168099cb1mr3514654b3a.4.1788481472848; Thu, 03
- Sep 2026 17:24:32 -0700 (PDT)
+        bh=ctpiOwQNgtLo4mnzlgvrJK29bFr1/fYhEIoXwvr6TRs=;
+        b=XAG9qYOzInY0lkEBrYsaJo1jHlsbpOYk1pUKCQqG8x9fSlq8QruW64u/MTbBLv84dY
+         6LEMV7az7CTLuRKEX31k17FrNFw7P6zxrxgGfNx9npe+uJPk3lj4SxlFZL6MpKicXHQx
+         F9gXjKnJa+BRYAiQz4SmIPdZfaHyfXgVMA6/uUZki6bqaZjAgSv9Veb4wZfxC1zJkJs9
+         Hqdexz8Jf6ppv/CQIyPD1fFHxvgQnJTPhGMH0REHw9eLXe/flJHK/xQ17KmQ2xqz9/PU
+         MPxOVV8es9tbZLJ+0FsCNIPEYrnSs3QXKK9pqrHswxuqDKL1EWK38JLI3OAMoMadFbGt
+         GGdg==
+X-Forwarded-Encrypted: i=1; AKwUvBw1OIqFyCQ81Gv3fmHmgczAYV2GzRG+hNC65JJ41L9ZiFjAHL7kTViqvCckLcXuCSEBw8ECETkIm3eZyQc=@vger.kernel.org
+X-Gm-Message-State: AFuF++lhWhy9lI5XomXBgco2A857Rmp8qQ5auC5C8dY7J28YrlJQWy7k
+	DqZzbGmcxl+s+oJJ2z4Gl1t/tjEDr5CnHc0Ce8wsONONJgPLs/9uzpRSLOPNz7mW5ytGxXgobEa
+	JozF3nA==
+X-Received: from pfjd1.prod.google.com ([2002:a05:6a00:2441:b0:847:a13f:28e2])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a00:4c8f:b0:84f:5cd7:e3c6
+ with SMTP id d2e1a72fcca58-861662d4ce4mr3977869b3a.5.1788481478472; Thu, 03
+ Sep 2026 17:24:38 -0700 (PDT)
 Reply-To: Sean Christopherson <seanjc@google.com>
-Date: Thu,  3 Sep 2026 17:24:12 -0700
+Date: Thu,  3 Sep 2026 17:24:17 -0700
 In-Reply-To: <20260904002423.3154436-1-seanjc@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -61,9 +61,8 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
 References: <20260904002423.3154436-1-seanjc@google.com>
 X-Mailer: git-send-email 2.55.0.979.g7e5102b832-goog
-Message-ID: <20260904002423.3154436-7-seanjc@google.com>
-Subject: [PATCH v4 06/17] KVM: selftests: Assert success in vmptrst(), kill
- off vmptrstz()
+Message-ID: <20260904002423.3154436-12-seanjc@google.com>
+Subject: [PATCH v4 11/17] KVM: selftests: Add macros to handle simple VMX instructions
 From: Sean Christopherson <seanjc@google.com>
 To: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>
 Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org, f734222792@gmail.com, 
@@ -71,115 +70,107 @@ Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org, f734222792@gmail.com,
 	Yosry Ahmed <yosry@kernel.org>
 Content-Type: text/plain; charset="UTF-8"
 
-Assert success in vmptrst() instead of punting to the caller, as literally
-every user expects VMPTRST to succeed (and because '0' is a valid physical
-address).
+Add macros to build helpers for VMXON, VMPTRLD, and VMCLEAR, i.e. the VMX
+instructions that take a VMCS address as input, and don't have outputs.
+Getting the params right is annoying, especially when using KVM_ASM_SAFE().
+
+As a bonus, this adds non-asserting double-underscores versions of VMXON
+and VMCLEAR for "free".
 
 Signed-off-by: Sean Christopherson <seanjc@google.com>
 ---
- tools/testing/selftests/kvm/include/x86/vmx.h | 19 ++++---------------
- .../testing/selftests/kvm/x86/hyperv_evmcs.c  |  4 ++--
- tools/testing/selftests/kvm/x86/state_test.c  |  8 ++++----
- .../kvm/x86/vmx_preemption_timer_test.c       |  2 +-
- 4 files changed, 11 insertions(+), 22 deletions(-)
+ tools/testing/selftests/kvm/include/x86/vmx.h | 71 +++++++------------
+ 1 file changed, 26 insertions(+), 45 deletions(-)
 
 diff --git a/tools/testing/selftests/kvm/include/x86/vmx.h b/tools/testing/selftests/kvm/include/x86/vmx.h
-index a161dbee7e04..04f638fcd3ba 100644
+index 5c46ae95c4c3..3def8df902a2 100644
 --- a/tools/testing/selftests/kvm/include/x86/vmx.h
 +++ b/tools/testing/selftests/kvm/include/x86/vmx.h
-@@ -366,27 +366,16 @@ static inline int __vmptrld(u64 vmcs_pa)
- 	return vector ? vector : failed ? -EINVAL : 0;
+@@ -313,58 +313,39 @@ struct vmx_msr_entry {
+ 	__GUEST_ASSERT(!__r, __stringify(insn) "[0x%lx] hit %s",	\
+ 		       __pa, __r < 0 ? "VM-Fail" : ex_str(__r))
+ 
+-static inline void vmxon(u64 phys)
+-{
+-	u8 ret;
+-
+-	__asm__ __volatile__ ("vmxon %[pa]; setna %[ret]"
+-		: [ret]"=rm"(ret)
+-		: [pa]"m"(phys)
+-		: "cc", "memory");
+-
+-	__GUEST_ASSERT(!ret, "vmxon [0x%lx] failed", phys);
++#define BUILD_VMCS_ASM_HELPERS(insn)					\
++static inline int __##insn(u64 vmcs_pa)					\
++{									\
++	u64 error_code;							\
++	u8 vector;							\
++	u8 failed;							\
++									\
++	asm volatile(KVM_ASM_SAFE(__stringify(insn) " %[pa]")		\
++		     "\n\tsetna %[failed]"				\
++		     : KVM_ASM_SAFE_OUTPUTS(vector, error_code),	\
++		       [failed]"=qm"(failed)				\
++		     : [pa]"m"(vmcs_pa)					\
++		     : "cc", "memory", KVM_ASM_SAFE_CLOBBERS);		\
++									\
++	return vector ? vector : failed ? -EINVAL : 0;			\
++}									\
++									\
++static inline void insn(u64 vmcs_pa)					\
++{									\
++	int ret = __##insn(vmcs_pa);					\
++									\
++	GUEST_ASSERT_VMX_INSN_SUCCEEDED(insn, ret, vmcs_pa);		\
  }
  
--static inline int vmptrst(u64 *value)
-+static inline u64 vmptrst(void)
++BUILD_VMCS_ASM_HELPERS(vmxon)
++BUILD_VMCS_ASM_HELPERS(vmptrld)
++BUILD_VMCS_ASM_HELPERS(vmclear)
++
+ static inline void vmxoff(void)
  {
--	u64 tmp;
-+	u64 value = 0;
- 	u8 ret;
+ 	__asm__ __volatile__("vmxoff");
+ }
  
- 	__asm__ __volatile__("vmptrst %[value]; setna %[ret]"
--		: [value]"=m"(tmp), [ret]"=rm"(ret)
-+		: [value]"=m"(value), [ret]"=rm"(ret)
- 		: : "cc", "memory");
- 
--	*value = tmp;
--	return ret;
+-static inline void vmclear(u64 vmcs_pa)
+-{
+-	u8 ret;
+-
+-	__asm__ __volatile__ ("vmclear %[pa]; setna %[ret]"
+-		: [ret]"=rm"(ret)
+-		: [pa]"m"(vmcs_pa)
+-		: "cc", "memory");
+-
+-	__GUEST_ASSERT(!ret, "vmclear [0x%lx] failed\n", vmcs_pa);
 -}
 -
--/*
-- * A wrapper around vmptrst that ignores errors and returns zero if the
-- * vmptrst instruction fails.
-- */
--static inline u64 vmptrstz(void)
+-static inline int __vmptrld(u64 vmcs_pa)
 -{
--	u64 value = 0;
--	vmptrst(&value);
-+	__GUEST_ASSERT(!ret, "vmptrst failed");
- 	return value;
- }
- 
-diff --git a/tools/testing/selftests/kvm/x86/hyperv_evmcs.c b/tools/testing/selftests/kvm/x86/hyperv_evmcs.c
-index f953a9755a76..0c9cf620c87d 100644
---- a/tools/testing/selftests/kvm/x86/hyperv_evmcs.c
-+++ b/tools/testing/selftests/kvm/x86/hyperv_evmcs.c
-@@ -97,7 +97,7 @@ void guest_code(struct vmx_pages *vmx_pages, struct hyperv_test_pages *hv_pages,
- 	GUEST_SYNC(3);
- 	GUEST_ASSERT(load_evmcs(hv_pages));
- 	/* VMPTRST returns -1 until VMLAUNCH with eVMCS ptr set */
--	GUEST_ASSERT(vmptrstz() == -1);
-+	GUEST_ASSERT(vmptrst() == -1);
- 
- 	GUEST_SYNC(4);
- 
-@@ -123,7 +123,7 @@ void guest_code(struct vmx_pages *vmx_pages, struct hyperv_test_pages *hv_pages,
- 	GUEST_ASSERT(!vmlaunch());
- 	GUEST_ASSERT_EQ(vmreadz(VM_EXIT_REASON), EXIT_REASON_EXCEPTION_NMI);
- 	GUEST_ASSERT_EQ((vmreadz(VM_EXIT_INTR_INFO) & 0xff), NMI_VECTOR);
--	GUEST_ASSERT(vmptrstz() == hv_pages->enlightened_vmcs_gpa);
-+	GUEST_ASSERT(vmptrst() == hv_pages->enlightened_vmcs_gpa);
- 
- 	/*
- 	 * NMI forces L2->L1 exit, resuming L2 and hope that EVMCS is
-diff --git a/tools/testing/selftests/kvm/x86/state_test.c b/tools/testing/selftests/kvm/x86/state_test.c
-index 4a1056a6cb8d..9d4e0c1f7c18 100644
---- a/tools/testing/selftests/kvm/x86/state_test.c
-+++ b/tools/testing/selftests/kvm/x86/state_test.c
-@@ -78,17 +78,17 @@ static void vmx_l1_guest_code(struct vmx_pages *vmx_pages)
- 	GUEST_ASSERT(prepare_for_vmx_operation(vmx_pages));
- 	GUEST_SYNC(3);
- 	GUEST_ASSERT(load_vmcs(vmx_pages));
--	GUEST_ASSERT(vmptrstz() == vmx_pages->vmcs_gpa);
-+	GUEST_ASSERT(vmptrst() == vmx_pages->vmcs_gpa);
- 
- 	GUEST_SYNC(4);
--	GUEST_ASSERT(vmptrstz() == vmx_pages->vmcs_gpa);
-+	GUEST_ASSERT(vmptrst() == vmx_pages->vmcs_gpa);
- 
- 	prepare_vmcs(vmx_pages, vmx_l2_guest_code);
- 
- 	GUEST_SYNC(5);
--	GUEST_ASSERT(vmptrstz() == vmx_pages->vmcs_gpa);
-+	GUEST_ASSERT(vmptrst() == vmx_pages->vmcs_gpa);
- 	GUEST_ASSERT(!vmlaunch());
--	GUEST_ASSERT(vmptrstz() == vmx_pages->vmcs_gpa);
-+	GUEST_ASSERT(vmptrst() == vmx_pages->vmcs_gpa);
- 	GUEST_ASSERT(vmreadz(VM_EXIT_REASON) == EXIT_REASON_VMCALL);
- 
- 	/* Check that the launched state is preserved.  */
-diff --git a/tools/testing/selftests/kvm/x86/vmx_preemption_timer_test.c b/tools/testing/selftests/kvm/x86/vmx_preemption_timer_test.c
-index eb8021c33cd4..523aab667d85 100644
---- a/tools/testing/selftests/kvm/x86/vmx_preemption_timer_test.c
-+++ b/tools/testing/selftests/kvm/x86/vmx_preemption_timer_test.c
-@@ -73,7 +73,7 @@ void l1_guest_code(struct vmx_pages *vmx_pages)
- 	GUEST_ASSERT(vmx_pages->vmcs_gpa);
- 	GUEST_ASSERT(prepare_for_vmx_operation(vmx_pages));
- 	GUEST_ASSERT(load_vmcs(vmx_pages));
--	GUEST_ASSERT(vmptrstz() == vmx_pages->vmcs_gpa);
-+	GUEST_ASSERT(vmptrst() == vmx_pages->vmcs_gpa);
- 
- 	prepare_vmcs(vmx_pages, l2_guest_code);
- 
+-	u64 error_code;
+-	u8 vector;
+-	u8 failed;
+-
+-	asm volatile(KVM_ASM_SAFE("vmptrld %[pa]")
+-		     "\n\tsetna %[failed]"
+-		     : KVM_ASM_SAFE_OUTPUTS(vector, error_code),
+-		       [failed]"=qm"(failed)
+-		     : [pa]"m"(vmcs_pa)
+-		     : "cc", "memory", KVM_ASM_SAFE_CLOBBERS);
+-
+-	return vector ? vector : failed ? -EINVAL : 0;
+-}
+-
+-static inline void vmptrld(u64 vmcs_pa)
+-{
+-	int ret = __vmptrld(vmcs_pa);
+-
+-	GUEST_ASSERT_VMX_INSN_SUCCEEDED(vmptrld, ret, vmcs_pa);
+-}
+-
+ static inline u64 vmptrst(void)
+ {
+ 	u64 value = 0;
 -- 
 2.55.0.979.g7e5102b832-goog
 
