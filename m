@@ -1,85 +1,70 @@
-Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com [209.85.216.42])
+Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com [209.85.214.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EAEF54A4830
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 10:58:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CAD2472F82
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 10:59:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.177
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788519513; cv=none; b=fPfyK5COuIsMU7Ok073vUPjz8x9ZrnO6Q0IOMDkYOur1D7Y+i92Bo4ZbNxMKkPUlJDpP0X72FicLcRkourj17eM1+jHU9g3KFZqFxG9vyzTVBuo8sUnOc0MHHc5NWwqzdwWhvOXvD8wVhk7OL/ohL8x2IcIEsiTbDQOmFdIbwdo=
+	t=1788519566; cv=none; b=WtfteXkSK/VZUBdsvdkgj8vxPY/+kZwUP7WKz2PMaZ60R69vFEMcKRGM2i0VQeiGZ/4uvH2HBXwzr0bE1LECUDKcMhjYaihXZi9uBEYsCQVBtPzKw3FkK5YN6jcjtb81TrnxdGupPK24FQFguhSnwg9jlALA01vCjhftQfS4xMU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788519513; c=relaxed/simple;
-	bh=5yHQlDDHZS6dSVTjZsXMj1S4H7hxEwFqsfVwpTXeteQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=aVEsMiOyuDvrOQFWnO2pvDim1aIBCEAvJUZ3nhYyVt5vvJN0lMEs4LhjpVL0ag6Kw+57cRGC6c4URiIwnWod62wq7r+yMgB/tmtO8nKYpO/kkoywj2ar43WOu/Z5U9sB92JjMfE5x7Eol8oum17D1hWjO9s7KWq0XM58ZGQUv4M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dGl+VcAm; arc=none smtp.client-ip=209.85.216.42
+	s=arc-20240116; t=1788519566; c=relaxed/simple;
+	bh=cA8job6qXqmwzEdEB2IZJ+F2iSrbFrc51vamKL3/BKg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=a8RgrEL9pgEHGdZ+0cp6Id55LOHV1YRl6FfW5tYKFFJyv54L5JcfmVp6TpUqTOdPH3d8APaBXu99TIMtzjMFl6dlaVpqBwytTfStyVE1JqlUsGIxkk5kh2zsIasSTY8FGNmGk55T6ilfKo/tZXfrRYa8wNUJ89p7x8/qQIY4JU8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZPpjA/3I; arc=none smtp.client-ip=209.85.214.177
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dGl+VcAm"
-Received: by mail-pj1-f42.google.com with SMTP id 98e67ed59e1d1-398c1101c1bso827014a91.1
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 03:58:30 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZPpjA/3I"
+Received: by mail-pl1-f177.google.com with SMTP id d9443c01a7336-2ce98cb8165so9590235ad.1
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 03:59:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788519509; x=1789124309; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=PizEHm/PS46Gb7MqU/Rt95IUcZXQSacvCcrM5GSnGTo=;
-        b=dGl+VcAm7kClFdBOevqEH2I+irqA+wM/NvNwoos1I27k9nH4fxG9asrMi4aOErGWnm
-         SOIsBoUTgg1yk/0cJGQ2qPsOBINhP3if9Vw7XzswruzjfH7dXO/fb6HeNPsYfxcLlNxx
-         7jNnKFHLl+dZ5MTh4aW70AYP2951OuL4FruYw5v/A5eckFaOU6xWY9Xh2Z9xpm+1PYVB
-         DUGVg9CjS18Fy9USV9/8jk60YYVDsPf6Zt6TRHwXGNOYjmsrVZC1GQMp15yy277+xAK4
-         nGN8r52Qs6Toq/guZQZr03vheowiuN3JS5rZe8oHz9koeiDuA0fwBiL4v/Uvr5Lo2/V3
-         +MZQ==
+        d=gmail.com; s=20251104; t=1788519562; x=1789124362; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=CP9sB+DS2YKB5g2OI/tHIWoBap8Qzg/7HUSvRYLgoQs=;
+        b=ZPpjA/3IdY2qIE9R1WS6D3NqTwXGuJ4Z9qL7jqLVDY7RRyUB/pBrW4MSM7XS8HMSXI
+         Exl1kWRUdrIX2Sktz18jHNWLyoIonXbLm5Z30Fuc02mjF2rUwrwPj0S8+m2RoxSV0AUR
+         Lvn3dGjypxhoFPDKyox9fdbCPs6ORT+t+twwWDagddYwq85DXg4QFiR2vsaMhb4wWOAS
+         XllxAQy9e9s1C4A+6VRE4rdCodf71ZfxA1u2fYdituMvXhl/xmt3h+yOV7VdHcW2ZIVT
+         Kxpyi3l37vhcRl5WS08+i7rAnoFImpH0QBKwKRcdbtQaGFc2Ad/FlVBxgX0nrUNSHEcO
+         5q6Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788519509; x=1789124309;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=PizEHm/PS46Gb7MqU/Rt95IUcZXQSacvCcrM5GSnGTo=;
-        b=Jnpmn7vu6M5mLa5XHp4MNAg1itVHgtamkwMgVQyfvA0/EaIfLNp3eULi9hXqZAtS0S
-         K0Am5cgTXBXMYRIgn//vnPGi8PDGUVDE2sfrEZ5icQ1nt8El6JbFjhCh46uLmTNeIfaf
-         Eycx4rJB+J+AM2oxLzvaCYb6WG+U3l6+TliDIvrNzH0hZjtLsR+zJgnR8fqM0Jan+xN6
-         RlEefPnk0+v8UJcdtFIu9wzOdqf+T6yhSdZwdLisouICYdZ79kESb6lD9qEFho8K3rUS
-         9a9wF6/ZjF5wub6iwOqDfaeho+/NU1FGO/pPxew48YHYTqDCStdSgKz9TbgQI5WMXY1B
-         GFBw==
-X-Gm-Message-State: AFuF++ncq9UhkLf7TLPaIaPItcZLBqxREdP0Ypw2vAyl1llVkxLybYg7
-	SYS6NadfyIgirLTQWRw2Mx2M871jfzxzGZ13DtYr06r9IabR+SLOmyOH
-X-Gm-Gg: AYBFou3g0WtWSZval2Gx1HtU2qVQL+uKIXEkmdGPG9mxd+IL87TKTFlN1qqK4dRycOk
-	FV5HSCz2Q+j4lHNVKXqOcx1ZewJQ/RgzBPoJAVVRPxlVCc/ECnv6hRVNuz65xw+LbeGQTurefBl
-	UNTDYfOT6zkUJqU8IQTDgo0FhOYlp8ZuPILo70gt8TQZvV1kenLSXMWM+ee2/pAZr/40EoKUbBi
-	lOYie93i3RneX3XcKm5iR1WxnKXluDhz1Sxqiln2m6Q3XfuwSgPlw6bvSziQrue0QX7zRYT6RQR
-	dByOOHFfN1dbyxXo9IW9hDYXZlMbTETVlqDmOUWxDKWgGEU29DWT1BD7i17plSp8S3qp/3xA+3X
-	XQfTm6VAhPpcb4P6S0fup39n6UgDgwyLJyHiPjXDD9zbSoLqPKU6z9R0I//iRs3hS7O/j6HmglS
-	L+3dIzsAnQz421bn58FBETzFKvd39tTubvkJKnZxdxBbOsAZufxJsQ9w6YK6VfKi4CrEbK0dM4j
-	Mg810L9kDcODhTusRsomeqlYQ==
-X-Received: by 2002:a17:90b:1c0a:b0:398:d132:ba76 with SMTP id 98e67ed59e1d1-39b2623abfemr7468790a91.21.1788519509025;
-        Fri, 04 Sep 2026 03:58:29 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1788519562; x=1789124362;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=CP9sB+DS2YKB5g2OI/tHIWoBap8Qzg/7HUSvRYLgoQs=;
+        b=QOTU6igUl/JJ6ArptrP8yN7h81JTlE+x0DDKd/3WG/Du3qIrzlSbtRzPDvKu4gR4/e
+         1p6CH5R74TttHCP550nQPX4tAyY4kjmRsYqYLp0/EpZc6snCOSVZHJYm0rzSF8dMM3fz
+         wKYawe2YvwADpBTZkSVgKc9QOjNpzNgGsYbKHBYfOghf9oMCWk60g0Y5Yvcqa3gbqinc
+         Cn7A/eryTVQognyjTbdJS7tfRCc0V4qpNK/SBcA57bRL5jvwJNtuRfue6I1lkwzwrGxW
+         hJm0izg5OZ7fhsNU47OGxVTfSY/dXIJ3QEIDOrKq39MW81b+I4psjkdd17RbcQEaeQ1I
+         wJTQ==
+X-Gm-Message-State: AFuF++nz1DYCrEf/qOnTl677EZu1weAXtffyucgNRVy3gQM6SHoyAzo2
+	o2ggFeCjGrJ22DmGrT+Ifrl1U+SaMBtGVfpgxiU6qr12vfZaZSlHeWdn
+X-Gm-Gg: AYBFou1E/hbWXUirLzRl3t1KGq95IdtluVJMdldzTQyKHFFxKTurR29NFWWg3no78Kk
+	rgITzulFqD4HpMJ+YHvQ+ebmVVxKys1Uvjn5dstR6HfeHIkBcsand35r/VstxMBxq4MX5R4y6SB
+	IeiYSrwZg+Tvhyjyoy/ElH40EltXr+xSM3Be4B35OQOTqpCGVE92Ewdhj6VJv8zk8A78ELZI6Vi
+	wbmhaNZQU4cFgV7BTnTijGQMaIP1EUiSy0LNN7SeONsCiQnEGBH9T6VklTbPtOxTkyebePpWgHA
+	sQjB7yNqkgajyQfyHaGiCcOjQKyh5L3OyQbNi2xGEho96prk1tosBjrKiwphJuhEI4QKsy6Zw22
+	WJZW0rFJsypHakJWazE0Age8gXVw30r6qjTly+zuD484fb7oWDCnNK9yB8eEYFIokzQT6LxrNf1
+	dWuU4K14SYb1cO8k6bSBXgfKJuepAtZIjnE7IkNeJq3iVPZ97Spnrpi+TxeN8/NaYb2APruWBPG
+	3IUnEt8baJFB5Q=
+X-Received: by 2002:a17:902:ce8e:b0:2d8:d4d2:d138 with SMTP id d9443c01a7336-2dafb136d0emr102433505ad.20.1788519562511;
+        Fri, 04 Sep 2026 03:59:22 -0700 (PDT)
 Received: from volcano9f6e-hostos.amd.com ([165.204.217.251])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339b123731sm5523091eec.18.2026.09.04.03.58.24
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339a534152sm5731385eec.10.2026.09.04.03.59.18
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 04 Sep 2026 03:58:28 -0700 (PDT)
+        Fri, 04 Sep 2026 03:59:20 -0700 (PDT)
 From: Hemanth Selam <hemanth.selam@gmail.com>
-To: Alexei Starovoitov <ast@kernel.org>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Andrii Nakryiko <andrii@kernel.org>,
-	Eduard Zingerman <eddyz87@gmail.com>,
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
-	Martin KaFai Lau <martin.lau@linux.dev>,
-	Song Liu <song@kernel.org>,
-	Yonghong Song <yonghong.song@linux.dev>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Emil Tsalapatis <emil@etsalapatis.com>,
-	Ihor Solodrai <ihor.solodrai@linux.dev>,
-	Shuah Khan <shuah@kernel.org>
+To: Bartosz Golaszewski <brgl@kernel.org>,
+	Kent Gibson <warthog618@gmail.com>
 Cc: linux-kernel@vger.kernel.org,
-	bpf@vger.kernel.org,
-	linux-kselftest@vger.kernel.org
-Subject: [PATCH 7/7] selftests: bpf: fix repeated words in comments
-Date: Fri,  4 Sep 2026 16:27:37 +0530
-Message-ID: <20260904105743.39799-8-hemanth.selam@gmail.com>
+	linux-gpio@vger.kernel.org
+Subject: [PATCH] tools/gpio: fix typo "amount of times" in comment
+Date: Fri,  4 Sep 2026 16:29:14 +0530
+Message-ID: <20260904105915.4327-1-hemanth.selam@gmail.com>
 X-Mailer: git-send-email 2.48.1
-In-Reply-To: <20260904105743.39799-1-hemanth.selam@gmail.com>
-References: <20260904105743.39799-1-hemanth.selam@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -88,42 +73,29 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Drop words accidentally written twice, reported by checkpatch.pl as a
-possible repeated word.  Only touches comments, no code changes.
+Correct "amount of times" to "number of times", reported by
+scripts/checkpatch.pl using the misspelling list in scripts/spelling.txt.
+Only touches comments, no code changes.
 
 Assisted-by: Cursor:claude-opus-5
 Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
 ---
- tools/testing/selftests/bpf/libarena/src/asan.bpf.c | 2 +-
- tools/testing/selftests/bpf/progs/iters.c           | 2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
+ tools/gpio/gpio-hammer.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/tools/testing/selftests/bpf/libarena/src/asan.bpf.c b/tools/testing/selftests/bpf/libarena/src/asan.bpf.c
-index 5135d5c72a46..158d95c2520b 100644
---- a/tools/testing/selftests/bpf/libarena/src/asan.bpf.c
-+++ b/tools/testing/selftests/bpf/libarena/src/asan.bpf.c
-@@ -221,7 +221,7 @@ static __always_inline bool check_asan_args(s8 __arena *addr, size_t size,
- 		goto confirmed_valid;
- 
- 	/*
--	 * Wraparound is possible for values close to the the edge of the
-+	 * Wraparound is possible for values close to the edge of the
- 	 * 4GiB boundary of the arena (last valid address is 1UL << 32 - 1).
- 	 *
- 	 *
-diff --git a/tools/testing/selftests/bpf/progs/iters.c b/tools/testing/selftests/bpf/progs/iters.c
-index 62d7df9e80be..340670e89ba9 100644
---- a/tools/testing/selftests/bpf/progs/iters.c
-+++ b/tools/testing/selftests/bpf/progs/iters.c
-@@ -1511,7 +1511,7 @@ __naked int checkpoint_states_deletion(void)
- 	 * would get equal to one of the explored states and thus loop
- 	 * exploration would be finished (at-least for a specific path).
- 	 * Verifier evicts explored states with high miss to hit ratio
--	 * to to avoid comparing current state with too many explored
-+	 * to avoid comparing current state with too many explored
- 	 * states per instruction.
- 	 * This test is designed to "stress test" eviction policy defined using formula:
- 	 *
+diff --git a/tools/gpio/gpio-hammer.c b/tools/gpio/gpio-hammer.c
+index ba0866eb3581..1a21e5460242 100644
+--- a/tools/gpio/gpio-hammer.c
++++ b/tools/gpio/gpio-hammer.c
+@@ -145,7 +145,7 @@ int main(int argc, char **argv)
+ 		case 'o':
+ 			/*
+ 			 * Avoid overflow. Do not immediately error, we want to
+-			 * be able to accurately report on the amount of times
++			 * be able to accurately report on the number of times
+ 			 * '-o' was given to give an accurate error message
+ 			 */
+ 			if (i < GPIOHANDLES_MAX)
 -- 
 2.48.1
 
