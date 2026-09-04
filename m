@@ -1,140 +1,218 @@
-Received: from mta0.migadu.com (out-169.mta0.migadu.com [91.218.175.169])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpbgau2.qq.com (smtpbgau2.qq.com [54.206.34.216])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A57138DC79
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 03:24:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78E9D3B28D;
+	Fri,  4 Sep 2026 03:25:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.206.34.216
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788492253; cv=none; b=M2XhBK+WXi/bmcV13XztBEJdgTu+qJ4Xw8hxcZQ8qspsScz3jkPhMx9zAUv8mwenTRQlkiYAKniJSMiNYkhbaBXG+lW1wbx7z7mpvZPqKzs2Be8J2mZQaAZzc/aIr6MJnCD+5k0GmupegYQElLzAmnYqEyr7uIRJM3RXtRFRg8A=
+	t=1788492336; cv=none; b=BvzMRk4t5naZwYMrZ+4N+PFP5ESiCBlynQPoub4cTwCMEPq+TNgOd5I1pvMAF4cK45+6ArajUNvxt9nR30X8Tzu2yalYJeo5Wc1k9bLrLYPASGmIcd4YfzwM5yjRLW7lg6dxVxEfF1ZDFf7P44ShsRHthLKn4Ahmlaedf3dxFfA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788492253; c=relaxed/simple;
-	bh=AODDE3qRj81d1tj4XlbGSZLMRB5KcVA6K05GsD7cVN0=;
-	h=Message-ID:Date:MIME-Version:Cc:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=hqQT+70CUvGrHhcoPY0XyJj+HYjJPFDxITqI4oLgQP3Sb1JAEISbdOQoIXglJMkRQbcjjgAUd106kkJkAGsZ5/VzsK5td+50pDBbs/jKNGvv9fTWn1ANVjDvfC268N8Eoi9LUls1DCiUkq/ZUAzL2cpVDPA8ajGNwttQWNcDbCA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=KwNnt+4q; arc=none smtp.client-ip=91.218.175.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1788492336; c=relaxed/simple;
+	bh=6RFwegYkZvXOWUnvdsJi8ZI8LqlLw0kxnIMTaIT7GiQ=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Subject:From:To:Cc:
+	 References:In-Reply-To; b=oExyDQoOxkxEF4rM0b7AgLYtPBwoOX/rSwPnYmcrfi123zmPsk1MAgBNoJDSCmdt5esm/YetmMdsVf/acRLtpQSyduuwTqw3p+yRYbxJfYuG/hlMar/iOkcU4Fyf6wMQWIhETwyEfgo5igcuNNrkZ3se8cSE70djcHUX9Sf5l9w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com; spf=none smtp.mailfrom=linux.spacemit.com; dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b=Zj8yLUQl; arc=none smtp.client-ip=54.206.34.216
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="KwNnt+4q"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=AODDE3qRj81d1tj4XlbGSZLMRB5KcVA6K05GsD7cVN0=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788492249; v=1; x=1789097049;
- b=KwNnt+4q6tc8eIOY87WBZXmiVb/1rBad2jOPovbVFxOZSdR1vfFMoseTU7mfShbGVcWocJV/
- hGEKFTMwhFIR8VsGRo801fZjLThWzVxqgUKojdxzYpA6zjW7j+RK7C+ImMM4bLXYlNDGBLkXlPL
- s01bNl8/Nav7nmyc1MggGQfQ=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 1809903fe04b5f0a;
-	Fri, 04 Sep 2026 03:24:09 +0000
-X-Mizu-Trace-ID: 1809903fe04b5f0a
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <6dc39f3e-e62e-4209-aa93-9308d086bed2@linux.dev>
-Date: Fri, 4 Sep 2026 11:24:01 +0800
+	dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b="Zj8yLUQl"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
+	s=mxsw2412; t=1788492269;
+	bh=+fjce5Gv68gDb4c/l/fe5+Q4SZGtlsosTF1WEjjxUK8=;
+	h=Mime-Version:Date:Message-Id:Subject:From:To;
+	b=Zj8yLUQlyL2m6aW139jNLntDDWwOrrsU4IJ5v7dA4/ogtjFSLT7ga397YGm8m0fLP
+	 VR6QQcq+e07+VFKYPKW3A2kPtwwOWmw7ucELMob7u3CQdStIYPfjxTLBn7xtKkK+yP
+	 rjcANDqptKp07AifhFMujrBNb72RNpM8HH/TXIRA=
+X-QQ-mid: zesmtpsz4t1788492267t97a1c389
+X-QQ-Originating-IP: UUFOhxrmyWmafniu2RpwCuAxO+jazOpB/m3P/JOKzfU=
+Received: from = ( [120.237.158.181])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Fri, 04 Sep 2026 11:24:25 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 16749050241281996791
+EX-QQ-RecipientCnt: 19
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Cc: cui.tao@linux.dev, tj@kernel.org, linux-block@vger.kernel.org,
- josef@toxicpanda.com, cgroups@vger.kernel.org, linux-kernel@vger.kernel.org,
- david.laight.linux@gmail.com, haris.iqbal@linux.dev, cuitao@kylinos.cn,
- Yu Kuai <yukuai@huawei.com>
-Subject: Re: [PATCH v5] blk-throttle: fix divide-by-zero on legacy iops limit
- of 0
-To: yukuai@fygo.io, axboe@kernel.dk
-References: <20260904030607.1193800-1-cui.tao@linux.dev>
- <63b0770e-844a-4249-a64e-85b1e1978fab@fygo.io>
-From: Tao Cui <cui.tao@linux.dev>
-In-Reply-To: <63b0770e-844a-4249-a64e-85b1e1978fab@fygo.io>
+Mime-Version: 1.0
+Content-Type: multipart/signed;
+ boundary=a1891db0d9ec175249303eb0426fd87ee9cd330fcbf1e2986c4b86e25967;
+ micalg=pgp-sha512; protocol="application/pgp-signature"
+Date: Fri, 04 Sep 2026 11:24:22 +0800
+Message-Id: <DL67LEVCXFA5.39M5FO7JGKWZS@linux.spacemit.com>
+Subject: Re: [PATCH v4] clk: spacemit: k3: add CPU PLL rate tables
+From: "Troy Mitchell" <troy.mitchell@linux.spacemit.com>
+To: "Aurelien Jarno" <aurelien@aurel32.net>, "Troy Mitchell"
+ <troy.mitchell@linux.spacemit.com>
+Cc: "Michael Turquette" <mturquette@baylibre.com>, "Inochi Amaoto"
+ <inochiama@outlook.com>, "Alex Elder" <elder@riscstar.com>, "Haylen Chu"
+ <heylenay@4d2.org>, <stable@vger.kernel.org>, "Stephen Boyd"
+ <sboyd@kernel.org>, "Brian Masney" <bmasney+clk@redhat.com>, "Jerome
+ Brunet" <jbrunet+clk@baylibre.com>, "Yixun Lan" <dlan@kernel.org>, "Paul
+ Walmsley" <pjw@kernel.org>, "Palmer Dabbelt" <palmer@dabbelt.com>, "Albert
+ Ou" <aou@eecs.berkeley.edu>, "Alexandre Ghiti" <alex@ghiti.fr>,
+ <linux-clk@vger.kernel.org>, <linux-riscv@lists.infradead.org>,
+ <spacemit@lists.linux.dev>, <linux-kernel@vger.kernel.org>
+Content-Transfer-Encoding: quoted-printable
+X-Mailer: aerc 0.21.0-0-g5549850facc2
+References: <20260903-k3-pll5-pll8-1800mhz-v4-1-afafd9cb47d9@linux.spacemit.com> <apmuG46sBg2rGzCD@aurel32.net>
+In-Reply-To: <apmuG46sBg2rGzCD@aurel32.net>
+X-QQ-SENDSIZE: 520
+Feedback-ID: zesmtpsz:linux.spacemit.com:qybglogicsvrgz:qybglogicsvrgz3a-0
+X-QQ-XMAILINFO: MOsVgoF62rlXg2jMy+En6/iirgDaQNRxZyXqrMP91f3S8ZHwZMVbtaJr
+	7xM27fIaocapgAnzKqQp5stV87/ZpBc/zKO6PJuvevedWvY9zw5FFoz/3JV0FOolmEnfyGC
+	KjDSRkS7G/2zDvIQYc3c4B43MSMHXs+QROIIVuMkfPItNf6WkF9Y7SStWvLuxgOpFKYstbO
+	E8ya/Mp+URQBbu6hVxKByMG0w+zbXAdmPf4QIWRia/xGiAoA12zo5abK8p5vKQw175Y/fqy
+	QhpqPQ7UJt2FJz9OOEJ/4y1oK3RUMbKLQ9qE2VzjsksyZfQLQ+L7WkXbBGnLnwwC16AdJQL
+	c3om90lp2j49lBfkHhaXBT7xKbsguaHKhqILVfhS/FVpujLYZ2JPS+QfDKgQETZtj6uqOxh
+	kg6X35hm8x8RgX2peklC9yHTyQ3f3e/fdPc7s87d3fTANlIn/T8XqpEl/3/bGsPnONcXa7B
+	0sXLQttbLYKutcn0LixM7wet4tI/8mKTCd3h41glH6cC7jGk8rlri4LtHSnzkd1jZcKripf
+	j7xzsm+0gP1mZZk/bF5J9/xb2RSeGI6hWIsllNWajCGLR9ti/kF4k2PvomRof0NrYDxxKro
+	W6KEdmFMWSElR4hqEOvGx1ZOYr+w5X7FeR5N8RSwpQe1dSyyrM+gEZHcSvJylse8N9FQik2
+	2PcCN3bSLovT8BTREGCD3WTHja5a50R/R/KpXxpI5+QRi5gzv3Hm/sSnLiBVPsf12OqNpyS
+	3KakqTIoiABkNOmDDT8RHZAfjdN+kZDsUFc1ALiUafPZ6gkvJ1JyAwRJ98NRSbV+78b8Phx
+	ZPdnVCBsgFGHCQ4Rf12cdikVShykaPvkxFI+XLlvYy+FKt1oWpbdqslGxmNZwFH95egsF/T
+	6VBlf4GICSzNhi9PV+KiqZX88el5Wuso/zbDHiYVf6lzHJ/w6BtvayOw1V7/gR/NZgx9px2
+	JLd+d7MiCfKzoOmm1Feg3zd+IJ9kHQAfgo8M5sadAOwNonVfZoPYpXdoNwGjciuTFzjgjrf
+	XysuNksj4lxi/ZCYbN2eZu3ZD0rjZd35uug+7OwcN6CVmuRDz1lpqsHCNPFuuWfG3kT/8nV
+	WrB8WGoZVJunAMSLegddIhyZNsCfJsctV3Zpd4M/EhdJybl7oSG+olr+UCqxZK7nw==
+X-QQ-XMRINFO: Mp0Kj//9VHAxzExpfF+O8yhSrljjwrznVg==
+X-QQ-RECHKSPAM: 0
+
+--a1891db0d9ec175249303eb0426fd87ee9cd330fcbf1e2986c4b86e25967
+Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
 
+Hi Aurelien,
 
-
-在 2026/9/4 11:12, yu kuai 写道:
-> Hi,
-> 
-> 在 2026/9/4 11:06, Tao Cui 写道:
->> From: Tao Cui <cuitao@kylinos.cn>
->>
->> Writing a multiple of 2^32 (e.g. 4294967296) to a legacy cgroup v1
->> throttle iops file (blkio.throttle.{read,write}_iops_device) silently
->> truncates to 0: tg_set_conf() stores the sscanf-parsed u64 value into
->> an unsigned int field with no clamping. The cgroup v2 path,
->> tg_set_limit(), already clamps the same kind of value with
->> min_t(u64, val, UINT_MAX), but the legacy path never did. Note that
->> the "!v -> U64_MAX" mapping only catches an explicit zero and does not
->> catch a value that truncates to zero.
->>
->> With iops stored as 0, tg_update_has_rules() sets has_rules_iops[] and
->> the next IO reaches tg_within_iops_limit(), which computes
->>
->>      jiffy_wait = max(jiffy_wait, HZ / iops_limit + 1);
->>
->> triggering a divide-by-zero oops.
->>
->> Fix it in tg_set_conf() by clamping the value to UINT_MAX, consistent
->> with tg_set_limit(). This closes the truncation root cause: with 0 no
->> longer reachable as a stored limit, the HZ / iops_limit divide is never
->> hit.
->>
->> Signed-off-by: Tao Cui <cuitao@kylinos.cn>
->> Reviewed-by: Yu Kuai <yukuai@huawei.com>
-> This tag is wrong, please use yukuai@fygo.io.
-
-Sorry, will update right away.
-
->>
+On Fri Sep 4, 2026 at 1:27 AM +08, Aurelien Jarno wrote:
+> Hi Troy,
+>
+> On 2026-09-03 11:06, Troy Mitchell wrote:
+>> The K3 CPU PLL rate tables currently describe only one rate per PLL,
+>> although the hardware supports a wider range.
+>>=20
+>> PLL3 and PLL4 support rates from 1.05 to 2.4 GHz, while PLL5 and PLL8
+>> support rates from 1.05 to 2 GHz. Populate the tables with every
+>> supported rate in 50 MHz steps.
+>>=20
+>> Cc: stable@vger.kernel.org # 7.0+
+>> Signed-off-by: Troy Mitchell <troy.mitchell@linux.spacemit.com>
 >> ---
->> Changes in v5:
->> - Rebase onto current linux-next head (no code change, context shifted only).
->> - Add the Reviewed-by tag collected on v4.
->> - Link to v4: https://lore.kernel.org/r/20260722102459.253189-1-cui.tao@linux.dev
->>
+>> The corresponding U-Boot changes are available at:
+>>=20
+>> - Add the CPU PLL rate tables:
+>>   https://github.com/spacemit-com/uboot-2022.10/commit/787b5cf44c8dbc99d=
+b886d5522c0c9cd5a96ffd6
+>> - Correct the 1.10 GHz and 2.15 GHz table entries:
+>>   https://github.com/spacemit-com/uboot-2022.10/commit/16a775c20e9efb54c=
+a55352215e76eb3f12e6cf0
+>> ---
 >> Changes in v4:
->> - Drop the defensive "iops_limit == 0" check in tg_dispatch_iops_time():
->>    with the tg_set_conf() clamp in place, 0 can never be stored as a limit,
->>    so the runtime check only guards an unreachable state. (Yu Kuai)
->> - Drop the Fixes: tag: the unclamped write -- and the iops=0 behavior it
->>    can produce (calculate_io_allowed() returns 0, so no IO is issued) --
->>    long predates the commit that added the HZ / iops_limit divide, so
->>    attributing it there was incorrect. (Yu Kuai)
->>
+>> - Expand the update to every supported PLL3, PLL4, PLL5 and PLL8 rate.
+>> - Drop Aurelien Jarno's Reviewed-by and Tested-by trailers because the
+>>   patch scope has expanded.
+>> - Add U-Boot references for the complete tables and corrected entries.
+>> - Link to v3: https://patch.msgid.link/20260831-k3-pll5-pll8-1800mhz-v3-=
+1-530ed0978615@linux.spacemit.com
+>>=20
 >> Changes in v3:
->> - Drop the (u64) cast on UINT_MAX: the kernel's type-checked min() accepts
->>    two unsigned types of different width (both >= 4 bytes), so
->>    min(v, UINT_MAX) compiles clean. (David Laight)
->>
+>> - Mark the change for stable kernels starting with v7.0.
+>> - Add Aurelien Jarno's Reviewed-by and Tested-by trailers.
+>> - Rebase onto v7.3-rc1.
+>> - Link to v2: https://patch.msgid.link/20260810-k3-pll5-pll8-1800mhz-v2-=
+1-aabff510a797@linux.spacemit.com
+>>=20
 >> Changes in v2:
->> - Use a "void *field" local for the config write so the assignment reads
->>    *(u64 *)field / *(unsigned int *)field instead of the
->>    (type *)((void *)tg + of_cft(of)->private) casts.
->> - Use min(v, UINT_MAX) instead of min_t(u64, v, UINT_MAX).
+>> - Drop "clk: spacemit: re-enable PLLs after init"; the PLL init issue
+>>   will be handled in a separate series.
+>> - Send the K3 PLL5 and PLL8 1.8 GHz rate-table update as a standalone
+>>   patch.
+>> - Clarify that 1.8 GHz is nominal and 2 GHz is an overclocking rate.
+>> - Link to v1: https://patch.msgid.link/20260804-k3-pll5-pll8-1800mhz-v1-=
+0-a3a75866ce32@linux.spacemit.com
+>>=20
+>> To: Stephen Boyd <sboyd@kernel.org>
+>> To: Brian Masney <bmasney+clk@redhat.com>
+>> To: Jerome Brunet <jbrunet+clk@baylibre.com>
+>> To: Yixun Lan <dlan@kernel.org>
+>> To: Paul Walmsley <pjw@kernel.org>
+>> To: Palmer Dabbelt <palmer@dabbelt.com>
+>> To: Albert Ou <aou@eecs.berkeley.edu>
+>> To: Alexandre Ghiti <alex@ghiti.fr>
+>> Cc: linux-clk@vger.kernel.org
+>> Cc: linux-riscv@lists.infradead.org
+>> Cc: spacemit@lists.linux.dev
+>> Cc: linux-kernel@vger.kernel.org
 >> ---
->>   block/blk-throttle.c | 6 ++++--
->>   1 file changed, 4 insertions(+), 2 deletions(-)
->>
->> diff --git a/block/blk-throttle.c b/block/blk-throttle.c
->> index ffc3b70065d4..97ad7959d006 100644
->> --- a/block/blk-throttle.c
->> +++ b/block/blk-throttle.c
->> @@ -1383,10 +1383,12 @@ static ssize_t tg_set_conf(struct kernfs_open_file *of,
->>   	tg = blkg_to_tg(ctx.blkg);
->>   	tg_update_carryover(tg);
->>   
->> +	void *field = (void *)tg + of_cft(of)->private;
->> +
->>   	if (is_u64)
->> -		*(u64 *)((void *)tg + of_cft(of)->private) = v;
->> +		*(u64 *)field = v;
->>   	else
->> -		*(unsigned int *)((void *)tg + of_cft(of)->private) = v;
->> +		*(unsigned int *)field = min(v, UINT_MAX);
->>   
->>   	tg_conf_updated(tg, false);
->>   	ret = 0;
-> 
+>>  drivers/clk/spacemit/ccu-k3.c | 96 ++++++++++++++++++++++++++++++++++++=
++++++++
+>>  1 file changed, 96 insertions(+)
+>
+> Thanks for the patch, it makes sense to add all the values, to support=20
+> future firmware changes. The values match the ones in the vendor kernel.
+I forgot that you had a similar patch as well..
 
+>
+>> diff --git a/drivers/clk/spacemit/ccu-k3.c b/drivers/clk/spacemit/ccu-k3=
+.c
+>> index 92b930d5ff30..950bf531c734 100644
+>> --- a/drivers/clk/spacemit/ccu-k3.c
+>> +++ b/drivers/clk/spacemit/ccu-k3.c
+>> @@ -29,15 +29,91 @@ static const struct ccu_pll_rate_tbl pll2_rate_tbl[]=
+ =3D {
+>>  	CCU_PLLA_RATE(3000000000UL, 0x0b3e2000, 0x00000000, 0xa0558c8c),
+>>  };
+>> =20
+>> +/* Keep the firmware default as the first entry. */
+>>  static const struct ccu_pll_rate_tbl pll3_rate_tbl[] =3D {
+>> +	CCU_PLLA_RATE(2000000000UL, 0x0b292aaa, 0x0000ab00, 0xa0558686),
+>
+> Is it really necessary to put this entry first? I guess it's the current=
+=20
+> default frequency, but we have seen it can evolve. From my tests, the=20
+> driver seems to just keep the value configured by the firmware=20
+> independently from the table order, so I am not sure it's necessary.
+I think keeping it first is necessary. If the current register settings do
+not match any entry in the table, ccu_plla_init() falls back to the first
+entry:
+
+
+	ccu_plla_update_param(pll, &pll->config.rate_tbl[0]);
+
+[...]
+
+>>  };
+>
+> I have tested the patch, and I confirm it fixes the boot hang with newer=
+=20
+> firmware, and will fix it if the default firmware values change again.=20
+> My comments are just minor ones, so:
+>
+> Reviewed-by: Aurelien Jarno <aurelien@aurel32.net>
+> Tested-by: Aurelien Jarno <aurelien@aurel32.net>
+Thanks for the tags.
+
+>
+> Regards
+> Aurelien=20
+
+
+--=20
+Troy Mitchell
+
+--a1891db0d9ec175249303eb0426fd87ee9cd330fcbf1e2986c4b86e25967
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iIMEABYKACsWIQSL4Ay2cExaPXAQcU2YCe+A+TM0LwUCapo55g0caUB0cm95LXku
+b3JnAAoJEJgJ74D5MzQvWBABAOrdMzrm+oSmpz+4PbCFYU/sKXN1r/pnmybu2iWq
+K9rlAQDr7ekCrcf/gUilgr3y2rN7N0vIvjxWJ3Sylb1GzzXXAA==
+=DS8M
+-----END PGP SIGNATURE-----
+
+--a1891db0d9ec175249303eb0426fd87ee9cd330fcbf1e2986c4b86e25967--
