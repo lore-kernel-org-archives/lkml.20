@@ -1,63 +1,63 @@
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
+Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AE984CC281
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 14:54:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55B494D8DBD
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 14:54:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788533668; cv=none; b=a2y0nkXUOV6mAG5lyOQv4+DRERMTaaWt06o73sa389Y1HxWkw/NRRAJTRLggK8meGyKFbFX/Ugi2TiCRe8jOKsEMgXhmumq4ICVHq27E+QosG0MnopZJb40fUgyVK8O+wqhG1ZaPzusTfXGSJ0aaRs+u6dFAdwaIp4PSIcWE5ZY=
+	t=1788533672; cv=none; b=kEWyKgCV8NeSLLqrFPyz43pXI9jPCSxv8kRmHMfShO9sHO7Ag4t1kiwoSvFwerY/ngUk2ZVHS8KtCOIzBTsewZMUDjV/ypd/Q4didvvvPC5d2tJ77bg++JofYUn1VLgl7yq0ExkS7rh279ZGnm1tAU4Urtqos4JaXv4r2ipe5Rs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788533668; c=relaxed/simple;
-	bh=mSyr5ubBmdluKcCLSrzLFo733QFcQsmlfRW8JWiocpU=;
+	s=arc-20240116; t=1788533672; c=relaxed/simple;
+	bh=MpokLl5CyyQMTIasgPBtHRcPtVgy8CVCZmAYa4Qjsxs=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=RBFGLSCL/UDbP6n230LyjM7dMLxjw0G6H/obbeX/75YyOlgvfwqw9x9vks31OzXcUg0UfTUd02UVcvStm0ReDavFESX3Y+q3jqdpNhhEIUxXF8x1776yHHLLiZK7IwKTVqOyzz/4w2SJ3M/Xkazzs8qPndriGi5vqtufuEXTBLY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cUOA+1/o; arc=none smtp.client-ip=209.85.128.43
+	 MIME-Version; b=fifrvNdo8IMJ2UgSBFM8pBQGuHe4bln0E+bdMnt/yaHYmHTARPU+0DDSN9V3aQ4DMIEsJSa9nxT9/iKXqYwSbLp6ngh8HqJLyLPJ8KuloUs0i+m8p6p4DHgXCrm1CVyoEzduA4sPd5fHWN9qEVk5xn621cDNaJHOAzccIkhhqOU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ckVNCvRM; arc=none smtp.client-ip=209.85.221.44
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cUOA+1/o"
-Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-49b0dd3c9a0so9555895e9.1
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 07:54:24 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ckVNCvRM"
+Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-484374f54d0so680880f8f.3
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 07:54:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788533663; x=1789138463; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1788533667; x=1789138467; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=WsJst8PFRStuSDVwSJV/FL2xzbq9iEwS7FDAi7P/CCA=;
-        b=cUOA+1/o7JzQOGpeTS6W83NIwxj3jcDOdderJ/1NDShoQ0XTP/azkVRkufPSLUuj7y
-         IecpR1VMBUEDYOHicHIwOLxWFCHw6QUIRzTzKeFXk3dBJ/DM5GlMN3/Uow0XbmQJHTfa
-         1Ex7nhvIyGOaZ71XcqWmbF0jjzuWF7TcQpF+vtEZ7lImt/HEEXmLmq5feQGRcDGeBsQm
-         O0KO3xQIWFZz+g7vVVi3FRhNClBi9s5jiRn6tT16/Ahh2vuCQ5Zi4lsMDOaHQqgSfyHA
-         bqM+C6hTXDkGq4zHx3V0+d5c7K5z4/Mrpo2ep64SoHk9FZI2Elpfx0+VtfFnpGLZA0eI
-         VzSg==
+        bh=TWn588bvPgkOg4s+MpXI1REAHLgHCTvpnRnhLr6d9ks=;
+        b=ckVNCvRMf9fz/rUVaoVnVLEBzt9Ewiihhn/eMLivyTnUAAtw/k4pgzGYWslnvW4aSD
+         3bNaZDVUdnqhQ+/X6Fv7PQ6M54JGY//hLtO8CBmmgToS9hLMq4yBmeOgKbNWelRO6ZxV
+         N936rpgIExv7uTld6eomtDVA81/tfQX9vJZ8jmHsgGKScMl9iLeI8c9gYxENwHq03Sao
+         RgF9tBrzhaDfydESFNNEhWbFP8fjyYljty3STRX4APgsvAutcCY3DyZedA3p5aYS55+T
+         zzg7cdPNGBek7/atx7TN23zig47o0HiqU8qxlhfmsIy0uYP3B88KnpK7vsCUgLZQD1xk
+         X16g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788533663; x=1789138463;
+        d=1e100.net; s=20251104; t=1788533667; x=1789138467;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=WsJst8PFRStuSDVwSJV/FL2xzbq9iEwS7FDAi7P/CCA=;
-        b=f9fXBJukCo8qGF+9Kzm4ITpIDG33XQ73HqiH+EQx+U5AKdqMyFJE961rBdx1A9gRgB
-         VEq4R4DReg9WXRnmm9GuKnxeCTG9mRWyPUXKNPvL80G4vp8/db2b1hRhZrJ6oCLYf6Lb
-         YW9jhk1OimZyIcD2/oD504tv/nvLI1DCUtOxSMQAtHy0vGkLpwZHdt5VcUcAvTz15tEh
-         Plv/EZ5CRMuYrcNbWKfdnkjWIhV64noJhO0mqmonScnyZ9+wuGyTwB5HdxIlM+PB1XPz
-         3dRbN/cK+3HvA3DuYFCfwcil7bpysG5tpqqa2q1wdOLS7EiP13WN4D6WnS5V6gwzI3s9
-         L2Yg==
-X-Gm-Message-State: AFuF++lEz9N4L2xYJckQ70pf1U37b7Pf9xEoSn9dMhu5DCS+AAVCTtnm
-	FEcuzUF6soDGWD608vHdDRSgFGhGC9MSlIqf0g5wg0bl9Rjknm1Htpx2PtEOEFNW7I4=
-X-Gm-Gg: AYBFou24IqrGtE2LdtI/5uHUz6fpAH7+5ubmHMEm3jBwvwlzsdxaOrdaxu9YQLZonUK
-	f8LvyJWmtwRcbwrYBM9eTFyaHWz7ObVbEWE6etLfzZWcvxcfSaYF5LJiaavxILyMgU4sTNBN5sc
-	SKKgL8tll+Rcr88ohkFPSs+OPK86hgoPEUVUUpBZGIi3lauxpkjNa+ECu/TSTDzIA7GjjiHGOWD
-	uKfgV1OSKEI0sGjsKEsgQQTZyYuLp1+1fbw5RI78W7owoj3W6mQEzl/PMyKeabg+teeolTjgI+9
-	kgMiY88IatW5DFzo8DfPGRfSpg+6id1geNgxaAchlTqE84z8PzYJnbsSlOAke5fcgQ9Atv+WLEE
-	JfWRAtd3LSxM4upAZdffuQYHWTvEvdsWrdRi2Q6U18iYvPGP2NjSNmrxb2zTSSmWH37vY8T5934
-	37F3+UTj2RSCNrdS8y4H99Pzd0DK9jv/BH32d+Wdi/PDWPSjpbQlehhYjL+lvCCNEbNKVphojEt
-	b2BkKRgKH/n
-X-Received: by 2002:a05:600c:3507:b0:499:a5c8:c6f3 with SMTP id 5b1f17b1804b1-49cf7fe6900mr106125375e9.3.1788533663103;
-        Fri, 04 Sep 2026 07:54:23 -0700 (PDT)
+        bh=TWn588bvPgkOg4s+MpXI1REAHLgHCTvpnRnhLr6d9ks=;
+        b=tXlsHFWRBZ5XlFUD6NODOu+KwX5La9uDi5HtV5avhl1VXYTEqxJJ3g1bxnqUP5JMRY
+         sIU+HU1DLU+YUeFO2JO+/Q0ZIAxoW+wzZXQUzuzOHdZ6gSucT10k/GBpBmQ3j/U99SE0
+         Wu2In5N9sgaXYiO8yV7FVGj35HxRSiQ+vXsNxtoRiHMaoorHQBZVohwzh7PBlQXZtuJk
+         ac2YyRWulN8lE4IblRLt1uF0nuJQ1DKvUES9/9TEjdcPHDW9A8NnrHQKBDMwSSi3HH3Z
+         elqP5qeARI8fFNwoimOnC1ZjwPb/yh/Dqls0/1Z3TgmocoaDp9xcYERKEg+GrNPUYqce
+         /Kpw==
+X-Gm-Message-State: AFuF++kySyrT/JFDb1pixEJVkDlCPAP3Ox81OVeNGMS2RU8EnrDka/+o
+	Ga3LH0OYvJVdljtA7cnIX6ynnbrztL6pBiEl6KaEULaeASw2XWAj8y4E
+X-Gm-Gg: AYBFou0VBTLdy/VUv3flEf53imdErY3uARhsjzn8Erc5mtAmjlmB1j+QdX6c88Sus7G
+	JCR3Wdo2zOBpsqgr2lnCHDg8xmZpb9qeI4fbVJ4RZxY9wuAaclOOhtRKi9Br7ePYMlbQ7gI3dsY
+	4wJHNbh52U3UJJ0jwzKsJM6F9J+jeOEkZTlCo1uaifePeqSggx6p+a4YTlYJctvAqqy/gMgswQb
+	3rZleyMTHJBP0u3mC4WvQzmXk3QFuBnIjLvy+YgEtFaldhmYBt6OiYQSNgJY0wGzi9K7GxFjYUZ
+	o/nlgYtl0Mnt99ilVBRJNipxdFaPSkGOI2J3Zbly5uF+l3W2uub6WKdlOlVQZWFe5qFj/9MJk/Z
+	8TGw1GgvFn4dSCNOkexm8tFzMjHmQpKcnlz9iL+GqNhwLMOdSv3u5t9Bsop9Sh/HC0wR7CNXOv5
+	tBUymOsznVBQ90g4PSw539LjVbVituuxgfna/xMR0IL2j2E1X4SaZSmXKZWAKoK8WvCP2V/PKRv
+	Q==
+X-Received: by 2002:a05:6000:470a:b0:485:8101:dc40 with SMTP id ffacd0b85a97d-48587057037mr5818648f8f.9.1788533667239;
+        Fri, 04 Sep 2026 07:54:27 -0700 (PDT)
 Received: from dell-desktop ([2a02:587:4b5f:900:ef25:2f4:1792:4e6f])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-485885cb03asm6802799f8f.37.2026.09.04.07.54.21
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-485885cb03asm6802799f8f.37.2026.09.04.07.54.25
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 04 Sep 2026 07:54:22 -0700 (PDT)
+        Fri, 04 Sep 2026 07:54:26 -0700 (PDT)
 From: Anastasios Papagiannis <tasos.papagiannnis@gmail.com>
 To: bpf@vger.kernel.org
 Cc: linux-kernel@vger.kernel.org,
@@ -78,9 +78,9 @@ Cc: linux-kernel@vger.kernel.org,
 	utilityemal77@gmail.com,
 	sun.jian.kdev@gmail.com,
 	tasos.papagiannnis@gmail.com
-Subject: [PATCH bpf-next v4 3/7] bpf: Add user memory access kfuncs for mm_struct
-Date: Fri,  4 Sep 2026 17:53:36 +0300
-Message-ID: <20260904145340.40212-4-tasos.papagiannnis@gmail.com>
+Subject: [PATCH bpf-next v4 4/7] bpf: Allow reads through trusted-or-null BTF pointers
+Date: Fri,  4 Sep 2026 17:53:37 +0300
+Message-ID: <20260904145340.40212-5-tasos.papagiannnis@gmail.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260904145340.40212-1-tasos.papagiannnis@gmail.com>
 References: <20260904145340.40212-1-tasos.papagiannnis@gmail.com>
@@ -92,220 +92,100 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On CONFIG_MMU kernels, when security_bprm_check() runs, the argument and
-environment strings for the exec have been copied into bprm->mm. The new
-address space is not associated with a task_struct until exec_mmap(), so
-existing BPF user memory helpers cannot access it.
+Currently, a trusted-or-null pointer
+(i.e. PTR_TO_BTF_ID|PTR_TRUSTED|PTR_MAYBE_NULL) has to be checked
+for NULL before it can be dereferenced. Marking a field from
+PTR_TO_BTF_ID typing to trusted-or-null can reject programs that
+previously dereferenced the pointer directly. This is useful as we
+need to mark new fields as trusted in order to pass those as arguments
+to kfuncs.
 
-Add bpf_copy_from_user_mm() and bpf_copy_from_user_mm_str() kfuncs. Both
-take a struct mm_struct pointer directly, allowing callers to access
-trusted address spaces that are not associated with a task_struct.
+Allow reads through pointers marked as
+PTR_TO_BTF_ID|PTR_TRUSTED|PTR_MAYBE_NULL without an explicit NULL
+check. Treat these pointers as potentially faulting so the reads happen
+through BPF_PROBE_MEM. If a read produces another BTF pointer, clear its
+trusted flags and mark it as PTR_UNTRUSTED.
 
-bpf_copy_from_user_mm() has similar semantics to
-bpf_copy_from_user_task(). bpf_copy_from_user_mm_str() copies one
-NUL-terminated string and returns its size including the NUL terminator.
-It accepts BPF_F_PAD_ZEROS to clear unused destination bytes on success.
+This applies only to reads. Other cases still require an explicit NULL
+check. After such a check, the pointer retains PTR_TRUSTED and can be
+used normally.
 
-Refactor bpf_copy_from_user_task() and bpf_copy_from_user_task_str() to
-acquire the task's mm with get_task_mm() and delegate to the corresponding
-mm-based implementations. No behavior change is intended for the existing
-task-based interfaces.
+The unchecked read path has two consequences:
 
-Register both new kfuncs and mark them KF_SLEEPABLE because accessing a
-remote address space can fault.
+1. It uses BPF_PROBE_MEM, which is slower than a normal load. An
+   explicit NULL check refines the pointer to PTR_TRUSTED and allows a
+   normal load.
+
+2. A faulting read returns zero, which is indistinguishable from a
+   legitimately zero-valued field. Programs that need to distinguish
+   those cases must check the pointer before reading the field.
+
+The next patch updates current tests and also introduces more checks to
+ensure this change does not break anything.
 
 Signed-off-by: Anastasios Papagiannis <tasos.papagiannnis@gmail.com>
 ---
- kernel/bpf/helpers.c | 142 ++++++++++++++++++++++++++++++++++---------
- 1 file changed, 113 insertions(+), 29 deletions(-)
+ include/linux/bpf_verifier.h |  9 ++++++++-
+ kernel/bpf/verifier.c        | 12 +++++++++++-
+ 2 files changed, 19 insertions(+), 2 deletions(-)
 
-diff --git a/kernel/bpf/helpers.c b/kernel/bpf/helpers.c
-index b3cc5c8fc875..d3c564437ad0 100644
---- a/kernel/bpf/helpers.c
-+++ b/kernel/bpf/helpers.c
-@@ -32,6 +32,10 @@
- 
- #include "../../lib/kstrtox.h"
- 
-+__bpf_kfunc int bpf_copy_from_user_mm(void *dst, u32 dst__sz,
-+				      const void __user *unsafe_ptr__ign,
-+				      struct mm_struct *mm, u64 flags);
-+
- /* If kernel subsystem is allowing eBPF programs to call this function,
-  * inside its own verifier_ops->get_func_proto() callback it should return
-  * bpf_map_lookup_elem_proto, so that verifier can properly check the arguments
-@@ -682,22 +686,15 @@ const struct bpf_func_proto bpf_copy_from_user_proto = {
- BPF_CALL_5(bpf_copy_from_user_task, void *, dst, u32, size,
- 	   const void __user *, user_ptr, struct task_struct *, tsk, u64, flags)
- {
-+	struct mm_struct *mm;
- 	int ret;
- 
--	/* flags is not used yet */
--	if (unlikely(flags))
--		return -EINVAL;
--
--	if (unlikely(!size))
--		return 0;
--
--	ret = access_process_vm(tsk, (unsigned long)user_ptr, dst, size, 0);
--	if (ret == size)
--		return 0;
-+	mm = get_task_mm(tsk);
-+	ret = bpf_copy_from_user_mm(dst, size, user_ptr, mm, flags);
-+	if (mm)
-+		mmput(mm);
- 
--	memset(dst, 0, size);
--	/* Return -EFAULT for partial read */
--	return ret < 0 ? ret : -EFAULT;
-+	return ret;
+diff --git a/include/linux/bpf_verifier.h b/include/linux/bpf_verifier.h
+index ae9f606539f4..d3d7254cc1f6 100644
+--- a/include/linux/bpf_verifier.h
++++ b/include/linux/bpf_verifier.h
+@@ -1326,6 +1326,11 @@ static inline bool bpf_is_ptr_to_mem_or_btf_id(enum bpf_reg_type type)
+ 	}
  }
  
- const struct bpf_func_proto bpf_copy_from_user_task_proto = {
-@@ -3658,6 +3655,100 @@ __bpf_kfunc int bpf_copy_from_user_str(void *dst, u32 dst__sz, const void __user
- 	return ret + 1;
- }
- 
-+/**
-+ * bpf_copy_from_user_mm() - Copy data from an address space
-+ * @dst:             Destination address, in kernel space
-+ * @dst__sz:         Number of bytes to copy
-+ * @unsafe_ptr__ign: Source address in the address space
-+ * @mm:              Address space to copy from
-+ * @flags:           Reserved for future use; must be zero
-+ *
-+ * Copies data from the user address space associated with @mm. The destination
-+ * is zeroed if an attempted copy cannot be completed in full. Unsupported
-+ * flags return -EINVAL without modifying @dst.
-+ *
-+ * Return: 0 on success, -EINVAL if @flags is non-zero, or -EFAULT if the copy
-+ * fails or is partial.
-+ */
-+__bpf_kfunc int bpf_copy_from_user_mm(void *dst, u32 dst__sz,
-+				      const void __user *unsafe_ptr__ign,
-+				      struct mm_struct *mm, u64 flags)
++static inline bool bpf_is_trusted_or_null_btf_ptr(enum bpf_reg_type type)
 +{
-+	int ret;
-+
-+	if (unlikely(flags))
-+		return -EINVAL;
-+
-+	if (unlikely(!dst__sz))
-+		return 0;
-+
-+	if (unlikely(!mm)) {
-+		memset(dst, 0, dst__sz);
-+		return -EFAULT;
-+	}
-+
-+	ret = access_remote_vm(mm, (unsigned long)unsafe_ptr__ign,
-+			       dst, dst__sz, 0);
-+	if (ret == dst__sz)
-+		return 0;
-+
-+	memset(dst, 0, dst__sz);
-+	return ret < 0 ? ret : -EFAULT;
++	return type == (PTR_TO_BTF_ID | PTR_TRUSTED | PTR_MAYBE_NULL);
 +}
 +
-+/**
-+ * bpf_copy_from_user_mm_str() - Copy a string from an address space
-+ * @dst:             Destination address, in kernel space. This buffer must be
-+ *                   at least @dst__sz bytes long
-+ * @dst__sz:         Maximum number of bytes to copy, including the trailing NUL
-+ * @unsafe_ptr__ign: Source address in the address space
-+ * @mm:              Address space to copy from
-+ * @flags:           The only supported flag is BPF_F_PAD_ZEROS
-+ *
-+ * Copies a NUL-terminated string from the user address space associated with
-+ * @mm. If the string is too long, @dst is still NUL-terminated unless @dst__sz
-+ * is zero.
-+ *
-+ * If the flags are valid and BPF_F_PAD_ZEROS is set, the unused portion of
-+ * @dst is cleared on success and all of @dst is cleared on a copy failure.
-+ * Unsupported flags return -EINVAL without modifying @dst.
-+ *
-+ * Return: The number of copied bytes including the NUL terminator on success,
-+ * or a negative error code on failure.
-+ */
-+__bpf_kfunc int bpf_copy_from_user_mm_str(void *dst, u32 dst__sz,
-+					  const void __user *unsafe_ptr__ign,
-+					  struct mm_struct *mm, u64 flags)
-+{
-+	int ret;
-+
-+	if (unlikely(flags & ~BPF_F_PAD_ZEROS))
-+		return -EINVAL;
-+
-+	if (unlikely(dst__sz == 0))
-+		return 0;
-+
-+	if (unlikely(!mm)) {
-+		if (flags & BPF_F_PAD_ZEROS)
-+			memset(dst, 0, dst__sz);
-+		else
-+			*(char *)dst = '\0';
-+		return -EFAULT;
-+	}
-+
-+	ret = copy_remote_mm_str(mm, (unsigned long)unsafe_ptr__ign, dst, dst__sz, 0);
-+	if (ret < 0) {
-+		if (flags & BPF_F_PAD_ZEROS)
-+			memset(dst, 0, dst__sz);
-+		return ret;
-+	}
-+
-+	if (flags & BPF_F_PAD_ZEROS)
-+		memset(dst + ret, 0, dst__sz - ret);
-+
-+	return ret + 1;
-+}
-+
- /**
-  * bpf_copy_from_user_task_str() - Copy a string from an task's address space
-  * @dst:             Destination address, in kernel space.  This buffer must be
-@@ -3681,25 +3772,16 @@ __bpf_kfunc int bpf_copy_from_user_task_str(void *dst, u32 dst__sz,
- 					    const void __user *unsafe_ptr__ign,
- 					    struct task_struct *tsk, u64 flags)
+ static inline bool bpf_may_fault_on_deref(enum bpf_reg_type type)
  {
-+	struct mm_struct *mm;
- 	int ret;
- 
--	if (unlikely(flags & ~BPF_F_PAD_ZEROS))
--		return -EINVAL;
--
--	if (unlikely(dst__sz == 0))
--		return 0;
-+	mm = get_task_mm(tsk);
-+	ret = bpf_copy_from_user_mm_str(dst, dst__sz, unsafe_ptr__ign,
-+					mm, flags);
-+	if (mm)
-+		mmput(mm);
- 
--	ret = copy_remote_vm_str(tsk, (unsigned long)unsafe_ptr__ign, dst, dst__sz, 0);
--	if (ret < 0) {
--		if (flags & BPF_F_PAD_ZEROS)
--			memset(dst, 0, dst__sz);
--		return ret;
--	}
--
--	if (flags & BPF_F_PAD_ZEROS)
--		memset(dst + ret, 0, dst__sz - ret);
--
--	return ret + 1;
-+	return ret;
+ 	/*
+@@ -1333,7 +1338,9 @@ static inline bool bpf_may_fault_on_deref(enum bpf_reg_type type)
+ 	 * protection, that is, the ones bpf_convert_ctx_accesses() has to
+ 	 * turn a BPF_LDX into a BPF_PROBE_MEM one for.
+ 	 */
+-	return type == PTR_TO_BTF_ID || (type_flag(type) & PTR_UNTRUSTED);
++	return type == PTR_TO_BTF_ID ||
++	       (type_flag(type) & PTR_UNTRUSTED) ||
++	       bpf_is_trusted_or_null_btf_ptr(type);
  }
  
- /* Keep unsigned long in prototype so that kfunc is usable when emitted to
-@@ -4924,6 +5006,8 @@ BTF_ID_FLAGS(func, bpf_iter_bits_new, KF_ITER_NEW)
- BTF_ID_FLAGS(func, bpf_iter_bits_next, KF_ITER_NEXT | KF_RET_NULL)
- BTF_ID_FLAGS(func, bpf_iter_bits_destroy, KF_ITER_DESTROY)
- BTF_ID_FLAGS(func, bpf_copy_from_user_str, KF_SLEEPABLE)
-+BTF_ID_FLAGS(func, bpf_copy_from_user_mm, KF_SLEEPABLE)
-+BTF_ID_FLAGS(func, bpf_copy_from_user_mm_str, KF_SLEEPABLE)
- BTF_ID_FLAGS(func, bpf_copy_from_user_task_str, KF_SLEEPABLE)
- BTF_ID_FLAGS(func, bpf_get_kmem_cache)
- BTF_ID_FLAGS(func, bpf_iter_kmem_cache_new, KF_ITER_NEW | KF_SLEEPABLE)
+ static inline bool bpf_prog_has_arena_ctx_arg(const struct bpf_prog *prog)
+diff --git a/kernel/bpf/verifier.c b/kernel/bpf/verifier.c
+index 8f585ceb2cd5..386401fe051d 100644
+--- a/kernel/bpf/verifier.c
++++ b/kernel/bpf/verifier.c
+@@ -6116,6 +6116,15 @@ static int check_ptr_to_btf_access(struct bpf_verifier_env *env,
+ 	if (ret != PTR_TO_BTF_ID) {
+ 		/* just mark; */
+ 
++	} else if (bpf_is_trusted_or_null_btf_ptr(reg->type)) {
++		/*
++		 * An unchecked load through a trusted-or-NULL pointer is
++		 * fault-protected. Any pointer derived from that load must be
++		 * untrusted, as a fault produces a NULL value.
++		 */
++		clear_trusted_flags(&flag);
++		flag |= PTR_UNTRUSTED;
++
+ 	} else if (type_flag(reg->type) & PTR_UNTRUSTED) {
+ 		/* If this is an untrusted pointer, all pointers formed by walking it
+ 		 * also inherit the untrusted flag.
+@@ -6591,7 +6600,8 @@ static int check_mem_access(struct bpf_verifier_env *env, int insn_idx, struct b
+ 		if (!err && t == BPF_READ && value_regno >= 0)
+ 			mark_reg_unknown(env, regs, value_regno);
+ 	} else if (base_type(reg->type) == PTR_TO_BTF_ID &&
+-		   !type_may_be_null(reg->type)) {
++		   (!type_may_be_null(reg->type) ||
++		    (t == BPF_READ && bpf_is_trusted_or_null_btf_ptr(reg->type)))) {
+ 		err = check_ptr_to_btf_access(env, regs, reg, argno, off, size, t,
+ 					      value_regno);
+ 	} else if (reg->type == CONST_PTR_TO_MAP) {
 -- 
 2.55.0
 
