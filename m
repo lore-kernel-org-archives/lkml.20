@@ -1,186 +1,74 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8801F64A8D;
-	Fri,  4 Sep 2026 00:28:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE4902222AA;
+	Fri,  4 Sep 2026 00:29:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788481719; cv=none; b=iSvRW0uX8ivwO8rB7VyVH9zDcAo/wrBdmQyHQZKgVdbLqJc4Hr5/4YxGmucMUfHcl8Q9KcYIpSZM2FMlDjsRmXk1SH9nJk2KJNThFcMqUIKPY/3IEZiOP24G8dRt6KiGTaoz9AnJC+2JReiL39RIFAANPRqgd3IsKWKetOvLxew=
+	t=1788481754; cv=none; b=ZObTHY2ultBedzZlZsAl1NKwTYfbsXagwewcnr+KsAb3RokOzIcl0fqU+KRDh7Mq+MJqpFcuxgy/JUEgHP6/z7XjjKFcFGBs6cM5i0uoyYr/nZ6v2FAncn/w2tJgTp/59aPBjbYnaPOPc12W6oUo+KJR3BESRKweSW6WapHoRmk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788481719; c=relaxed/simple;
-	bh=E2pPTMj2y0igH8/fLVW/oBV18kRCmsEZu9oDLRGSds0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Fa0uESN2j58dPIsH0hFAvGDFNiL+B4DurarForCX5wIm4/n6SHOP7E3bPlSVI/LDivdox3FFrPL0rC2W8mu/jploRYHK2tjgxx771ZFWykIfGb30ftOJnuJqd+KKRMTi2Vi1nCurM8S/3C6/OVRfp3BMpJosGc13tOQGX7sgmmk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=a5TBCL0l; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788481754; c=relaxed/simple;
+	bh=lM2bBVpkOaY1gWE1D3o7+lOIyxR8QV8/FKxB7p2aH+U=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=rrQ/C8yhQZlXLsjXgOsqLshUmPdsSwIhQ4chC5sSGyAJ5yRaM5iNeSikLh+3Df32syshVIYLfuxfEDHVNKKsdx8pDI4yKBTvjFnv5x3243ktsdx1DmSi2U20XMUkWzOdY8AJ4tnsqY1kgspap+fLKYe2Lk8iCMxUZdCsPgIwQgk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=A+WhuVTp; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="a5TBCL0l"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D7A01F000E9;
-	Fri,  4 Sep 2026 00:28:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788481718;
-	bh=166TVcIhx+0QErke7o9FSwWx5qn3nWzpmAkGNjrnyxo=;
-	h=From:To:Cc:Subject:Date;
-	b=a5TBCL0lOqtdWhuMu8eqDhclsqwxPf/1VXkbfpNmnIcjvwjDn80KggTx9+l4jPfIG
-	 OJ+2gO/99uTovvA+HLAQNk5LgV3QqxyNxVMSYAF79F1BpUun4xBFzMQfE+3vUmDNY6
-	 I9q1gPKx6r5qi8ZelTUBBv7ECk7+bzrm2EzAwzD/JMclfrGieDUZQD2qPXAwtu0iDP
-	 4ngSvns5LNd+t3kVnYKkgTOCrR2urpvCBpUW7tIRO5x0g7jHIVcJnQP3p12iifdCwt
-	 7cQQjxOOvKQnP0CZVRPR14yV8SW4M8P/hwCJR/FRofKl3gJfW5cRlBaloEThAw0k7K
-	 yki2hn2G0y2FQ==
-From: SJ Park <sj@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: Nathan Gao <zcgao@amazon.com>,
-	"David Hildenbrand (Arm)" <david@kernel.org>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	Ryan Roberts <ryan.roberts@arm.com>,
-	SJ Park <sj@kernel.org>,
-	damon@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org,
-	stable@vger.kernel.org
-Subject: [PATCH v5] mm/damon/ops-common: use a page-aligned address in damon_ptep_mkold()
-Date: Thu,  3 Sep 2026 17:28:27 -0700
-Message-ID: <20260904002829.116381-1-sj@kernel.org>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="A+WhuVTp"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=/uuEwAKm6y69l4WVF1iKAcH7RsgH/xAYrU/IqgK4CdU=; b=A+WhuVTpXOk118hcIhD154rBsL
+	am9qmdaqvJR+rQWQGK7CIuPunLGzb2IZPgfh3ElZ4DeJEUmwXhgPaAHwSirXvb5PqtwxoVHgJZHKg
+	GI0JhAPO/vhXfkUZwviRK65xnDw8GfrPh57v0KWQ9924sKUSbroTbVtDyQK0V7dob844=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1x2Hnh-002p5U-4G; Fri, 04 Sep 2026 02:29:01 +0200
+Date: Fri, 4 Sep 2026 02:29:01 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Aleksei Sviridkin <f@lex.la>
+Cc: netdev@vger.kernel.org, hkallweit1@gmail.com, linux@armlinux.org.uk,
+	davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
+	pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org,
+	conor+dt@kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [RFC PATCH net-next 2/9] dt-bindings: net: ethernet-controller:
+ add slow-to-probe
+Message-ID: <c2f1d0ab-ff66-46cc-b6ed-897e760ad88b@lunn.ch>
+References: <20260829052546.1152446-1-f@lex.la>
+ <20260829052546.1152446-3-f@lex.la>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260829052546.1152446-3-f@lex.la>
 
-From: Nathan Gao <zcgao@amazon.com>
+On Sat, Aug 29, 2026 at 05:25:39AM +0000, Aleksei Sviridkin wrote:
+> A port can reference a PHY whose driver is not usable at connect
+> time because the PHY's firmware, or the module carrying its driver,
+> lives in a filesystem that is not mounted yet when the controller
+> probes. Today such a port is dropped at setup and stays unusable
+> for the whole uptime even though the PHY becomes fully functional
+> seconds later.
+> 
+> Add a boolean the port node can carry to declare this expected:
+> the connect keeps the port and attaches the PHY once it becomes
+> usable instead of failing.
 
-__damon_va_prepare_access_check() picks a random byte address within the
-region and stores it in r->sampling_addr. damon_va_mkold() passes it into
-a page table walk, which hands it to damon_ptep_mkold() as the address of
-the page to sample:
+That sentence does not parse for me. I have problems at the :
 
-  damon_va_mkold(mm, r->sampling_addr)
-    damon_va_walk_page_range(mm, addr, addr + 1)
-      damon_mkold_pmd_entry()
-        damon_ptep_mkold(pte, vma, addr)
-          ptep_test_and_clear_young(vma, addr, pte)
-          mmu_notifier_clear_young(mm, addr, addr + PAGE_SIZE)
+> +  slow-to-probe:
 
-For arm64, before commit 6f0e1142173a ("arm64: mm: support batch
-clearing of the young flag for large folios"), the contpte helper walked
-exactly CONT_PTES entries from the aligned-down page table pointer and
-used @addr only to pass down to each entry, so an unaligned value was
-harmless:
+Maybe this should include what entity is slow to probe, since this is
+in the MAC node, but it is not the MAC which is slower. We might also
+get the situation that the PCS needs firmware and is also slow to
+probe?
 
-        ptep = contpte_align_down(ptep);
-        addr = ALIGN_DOWN(addr, CONT_PTE_SIZE);
-        for (i = 0; i < CONT_PTES; i++, ptep++, addr += PAGE_SIZE)
-
-Now the range to walk is derived from @addr instead: end = addr +
-nr * PAGE_SIZE, rounded up to CONT_PTE_SIZE. For a sample in the last
-page of a contpte block, the sub-page offset puts end just past the
-block boundary, so the round-up lands a whole block further and the
-walk clears PTE_AF in CONT_PTES entries beyond the sampled block. For
-the last block in a page table page, those entries are past the end of
-that page, so the walk writes into the page that follows.
-
-Triggered by the full 7.1/7.2 kernel selftest suite on arm64 (EC2
-c/m6g.4xlarge). The kernel sometimes crashes at or shortly after the
-DAMON test.
-
-What the overrun does depends on the page that happens to follow the
-page table, so there is no single signature. If that page is read-only,
-the write faults in the sampling path itself:
-
-  Unable to handle kernel write to read-only memory at virtual address ffff0003c5d2d000
-    FSC = 0x0f: level 3 permission fault
-    CM = 0, WnR = 1, TnD = 0, TagAccess = 0
-  CPU: 10 UID: 0 PID: 3487 Comm: kdamond.2
-  pc : contpte_test_and_clear_young_ptes+0x70/0xc0
-  lr : damon_ptep_mkold+0x1e8/0x1f8
-  Call trace:
-   contpte_test_and_clear_young_ptes+0x70/0xc0 (P)
-   damon_mkold_pmd_entry+0x150/0x170
-   walk_pmd_range+0x110/0x2b0
-   walk_pud_range+0x10c/0x208
-   walk_pgd_range+0x134/0x258
-   __walk_page_range+0x98/0x1b0
-   walk_page_range_vma_unsafe+0x90/0x148
-   walk_page_range_vma+0x28/0x40
-   damon_va_walk_page_range+0x114/0x2b8
-   damon_va_prepare_access_checks+0xec/0x1a8
-   kdamond_fn+0x534/0x770
-   kthread+0x128/0x138
-   ret_from_fork+0x10/0x20
-
-Otherwise the page is writable, the PTE_AF clearing succeeds silently
-and the damage only surfaces later, in whatever happened to own the
-page, so the backtrace is unrelated to DAMON and differs between runs.
-
-Pass a page-aligned address to the ptep_test_and_clear_young() call in
-damon_ptep_mkold(), which is the only place DAMON can reach
-contpte_test_and_clear_young_ptes() from. Nothing else sees the aligned
-address, and r->sampling_addr itself is left as is, so the sampling and
-region bookkeeping semantics are unchanged.
-
-Fixes: 6f0e1142173a ("arm64: mm: support batch clearing of the young flag for large folios")
-Cc: Baolin Wang <baolin.wang@linux.alibaba.com>
-Cc: David Hildenbrand (Arm) <david@kernel.org>
-Cc: Ryan Roberts <ryan.roberts@arm.com>
-Cc: stable@vger.kernel.org
-Signed-off-by: Nathan Gao <zcgao@amazon.com>
-Reviewed-by: SJ Park <sj@kernel.org>
-Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
-Signed-off-by: SJ Park <sj@kernel.org>
----
-Changes From v4
-- v4: https://lore.kernel.org/20260902031655.84721-1-zcgao@amazon.com
-- Collect R-b: from Baolin.
-- Rebase to latest mm-new.
-
-V3 -> V4:
-- Align only the address that is passed to ptep_test_and_clear_young(),
-  rather than @addr for the whole of damon_ptep_mkold(), so the
-  mmu_notifier_clear_young() call keeps seeing the sampled address (SJ)
-
-V2 -> V3:
-- Move the alignment into damon_ptep_mkold(), instead of aligning in
-  damon_va_mkold() and damon_va_young().  The ptep_test_and_clear_young()
-  call in damon_ptep_mkold() is DAMON's only path to
-  contpte_test_and_clear_young_ptes(), so damon_ptep_mkold() is the
-  closest place in DAMON to the function that requires an aligned
-  address (SJ)
-
-V1 -> V2:
-- Align inside damon_va_mkold() and damon_va_young() rather than aligning
-  r->sampling_addr itself, so that sub-page sampling addresses remain
-  possible for future non-PTE access check primitives (SJ)
-- Point Fixes: at 6f0e1142173a instead of 3f49584b262c, since the
-  unaligned address was harmless before that commit (SJ)
-- Describe how the issue was noticed and what it does to the kernel (SJ)
-
-v3: https://lore.kernel.org/all/20260901201001.33271-1-zcgao@amazon.com/
-v2: https://lore.kernel.org/all/20260831221151.50561-1-zcgao@amazon.com/
-v1: https://lore.kernel.org/all/20260827193821.46115-1-zcgao@amazon.com/
-
- mm/damon/ops-common.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
-
-diff --git a/mm/damon/ops-common.c b/mm/damon/ops-common.c
-index 7a2e40bc7baed..7219c608b1952 100644
---- a/mm/damon/ops-common.c
-+++ b/mm/damon/ops-common.c
-@@ -61,7 +61,12 @@ void damon_ptep_mkold(pte_t *pte, struct vm_area_struct *vma, unsigned long addr
- 	 * device aspects.
- 	 */
- 	if (likely(pte_present(pteval)))
--		young |= ptep_test_and_clear_young(vma, addr, pte);
-+		/*
-+		 * Arch implementation of ptep_test_and_clear_young() may
-+		 * require aligned @addr
-+		 */
-+		young |= ptep_test_and_clear_young(vma, PAGE_ALIGN_DOWN(addr),
-+				pte);
- 	young |= mmu_notifier_clear_young(vma->vm_mm, addr, addr + PAGE_SIZE);
- 	if (young)
- 		folio_set_young(folio);
-
-base-commit: 87db3abd2b79ed6ccaaf6d3c25df6adbd8ea3596
--- 
-2.47.3
+	Andrew
