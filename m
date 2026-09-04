@@ -1,307 +1,237 @@
-Received: from mail-ot1-f48.google.com (mail-ot1-f48.google.com [209.85.210.48])
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D246B3C3F69
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 16:26:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 932F54F7971
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 16:27:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788539215; cv=none; b=ShPukuK34VZuUSv/T3FW6GkWudzprpQha58LAAXx2ehZVqojmVXjppW5bS47WH6TZYrOmDAz5Aim9Cg76bjdk/wcFtzVgwiEwy5aXhoarcikMCZQoeuCJeEx84zs/8PmMIbR7MJNJEG/7llYrRqndnOdWDCMXM748kg/yqK8Ou8=
+	t=1788539233; cv=none; b=SPxzUpu9JCPEgCvz8HNkX5uG3OxsARxiT5MiScBxJWdJu0aDZx/Q/5DRU+A8igS0ibrimir+yiZGaQ2DbEL/pnARdk2EVIqQBXcsJp1PwW6hmn6kfZGD6cKQ27LpoL6frXX67A5iAMc1oqd7A6SiiCGxqCj0c9I6sr/6eNc85n0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788539215; c=relaxed/simple;
-	bh=vXimrfvlJO1+npH1HVgTU7lHPCq/URewBHD4Sxg5WHA=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=AviKM6dcndUtHLD82xnuNSWIs69KKO9th2m4gHsOltv770dZp0QhLYwRtyEja7AjSUFFBhjmFHVvYW8sL13Kpb4Sbi0zd5Cw7vB3Mw6y5vXODJB+/o6nVjJL8MPq/ehDg5cUaf/6J7qRqIDmwkJhKZhqeGFQelwmqNv0pGCZLKo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=k8geMn4j; arc=none smtp.client-ip=209.85.210.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788539233; c=relaxed/simple;
+	bh=Bzqda/OM9WfC5QROOwP+UVPMJJ1L/EIMryh5/bfDl/s=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=uIVQwRaRWAR4iWrLue/yvZJd7mKv6rloyt8AAHyxs1cHDHKprzsGxJpZx4Kum4DRA32JG7PoV9U2LoGh9t7qG18c+bR7R+HLHYi5gofL/g8xwTttNGBCPFZyM7wcJBuRo+qMNe/lR06EV/F0larOER/tFFfy5rWfr54XxLuMKmE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=ZnyPxW47; arc=none smtp.client-ip=209.85.128.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="k8geMn4j"
-Received: by mail-ot1-f48.google.com with SMTP id 46e09a7af769-7f4df360cc9so1474532a34.1
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 09:26:53 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="ZnyPxW47"
+Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-49b8687630fso11062665e9.3
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 09:27:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788539213; x=1789144013; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:subject:from:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=BauMjs1SRuPjbFG+n0MnSau2eIvhuX4gcrdx4dJMYEY=;
-        b=k8geMn4jAQA6iCExRzStf5Kpa+k0fROR+Ada4Ifua2Zxll/s+qPhMdIseDIp8NoUwC
-         rbHyKgEcwFpA5umSW1/lQMq5OL+c2+vaHbMOo5QiOmSlH6Eawm0VMoWXw+2utXJvFSBE
-         S+Qzwxo9LE3fCb2baA/rcP3CDEFphBIAlw4s7/VWWxGpU51a1NiFDX+U8dEPOhI2tPpB
-         4NxFnZCSvSNxHs9eLysvFqC8vfr8Rp8sQikvP9/bG3pLpzmlVyciYage04R8cAGcqi8k
-         OQiTu9EsU52eU+/lJxjIWww65KO+r6dGu1TgYp6nm+hlT/tX5PZBBVpj2OySpazGuge/
-         9zfw==
+        d=suse.com; s=google; t=1788539230; x=1789144030; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=r44+M//4DhylFOBUCmAtsCMDMPsNkoNaCuU6IAuNSxs=;
+        b=ZnyPxW47L4xepgcFDH2vlsOPFkNmZhH/BPXeMI5vEX9wt+OnllLDzwcS9Ooq2JB7Gs
+         cRbW2Avs6bEhmdmqo8VUETlRjD/8MFQnInKs3MsF+FP+NmCaS5xFe70JpPdl5IOoLecf
+         3e5Fo4jO+BPmzU/3chOUVYqPklThCVnYx6J0tU2Se9HEXDgI+PpzERLVqSZ+1UrUQf/k
+         xF8A1VEFVSoyYOPEW2w3w+Fp9j+HrDj8YulsnK80iVpK48FQp0GfXrezWU6PVH18wQxa
+         BHNnyJHEqsF7WznVuDQLXS3XGYgS8RH5SVZHf1pi3ntC4d5ZHPAYWEnw43OcC6Lp+0Wh
+         ufMA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788539213; x=1789144013;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:subject:from:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=BauMjs1SRuPjbFG+n0MnSau2eIvhuX4gcrdx4dJMYEY=;
-        b=X/R8fShr7OJhYHFM83/2+tJ8b0v5rvj/qHFRCyzJ3BV3QIccWIFyt5o/XiDtd5HOFV
-         Mn2hJ9P7O0KpXSA8cvg6Pd/8vPq5ROFwC/F19xf4KjHEt1L3TDQcnL244chFamQXBLSy
-         KqZ4bN7mas+u2QK+TUEH5uSOgb5HdtHW3pcP70a4pO12xYJnPcqNdrWqRrMo8O2yaJsL
-         ziBYmRioBPClvO019xCM1YZ8pRC+QpInLz6r194A5aq7ZGicvw023H9VePBUVVs+3V9x
-         XNHx36G69ZJ4ZWMQT+sETgxZXSZY7P7s3lMev4YVCOfLAOUj/5mlKCNLySWhceMoH1h2
-         a9GA==
-X-Forwarded-Encrypted: i=1; AKwUvBzKgKBrZB6+15n+lq7G2ZxwDn+qGo56VoO2Mu2hrX1f5fQjQjqAs2WITyn+HPXoG7VQghpnqY25zGKa6dY=@vger.kernel.org
-X-Gm-Message-State: AFuF++mZfpLVXZPbL1R+Gcmsv2c0b5wqDzef5Q66g9lHzkRC+qgZN5U+
-	rfa9EoJBqvqbupUttByiAlulRjZW2gxTW4dN2l3hkP3YBBRMTU6EAAlV
-X-Gm-Gg: AYBFou0o3j2Zwx/gcjoD4+Fo9i3tCjpIZgDOE8Ca/INrACHZ6wr+MgbYpJctHeBz8CG
-	MrJBs3UwntN30v4GHRvDELMwM2sbzNuINh+plS6uxZNs+NRMf4Hi99E0iuKlLLohQmjbCPTBZwM
-	XRB4fVSDCl/IgjPTKMlkO2jP9Z4usoQZR9gZhawroILBGMXBIg9kqNLSCm+3B6SK3jsefyqHI8l
-	538My7/Qxdjt8JPbGU7JbDL5ageuItaguooI9K+wk32Y6FqsacYWErsx96S6ln4p8EcV86Z82xO
-	wrYfLnkFjXeERQApc9KN88VlF6JpMiwzw2yTc5bo0zR+WNUx7ZU9XfU0O9yrDXHYzSxfoi2GJ/L
-	WHjKzydJ9O60m9MbcR9Va2pF0HsEH+21zRVU/fR5dkTPCFjShmXU8l+8cSPdd+S4gPL5dv4WCYD
-	OYwpYDr6YVPlsnSctrnUXXdT1dsuT0Riqw9SpNe0KjVebCyV5MFMNWSct6zQdmuQoJF0loD7KIc
-	XldoI+cSakCYjM0JBllVukmvJ0+VccVEUPfjDXznQ7VCD2dGA==
-X-Received: by 2002:a05:6830:a20a:10b0:7f4:3f10:7843 with SMTP id 46e09a7af769-7f89bc593b4mr4528909a34.10.1788539212476;
-        Fri, 04 Sep 2026 09:26:52 -0700 (PDT)
-Received: from ?IPV6:2406:7400:56:e503:ad72:fda5:83e8:be95? ([2406:7400:56:e503:ad72:fda5:83e8:be95])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-7fa888f614dsm1849437a34.15.2026.09.04.09.26.46
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 04 Sep 2026 09:26:51 -0700 (PDT)
-Message-ID: <12268d64-08c7-421f-83e2-e6306fde9a88@gmail.com>
-Date: Fri, 4 Sep 2026 21:56:42 +0530
+        d=1e100.net; s=20251104; t=1788539230; x=1789144030;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=r44+M//4DhylFOBUCmAtsCMDMPsNkoNaCuU6IAuNSxs=;
+        b=IWRUHHQrZroMtcnUAP48dO8woRdoRKl+Dz5XZLfjL7MGqRTQw9zKiBSTAXfggk2DSC
+         BYorcdjSPWTLp5l1bLrigQ2f3cBdjDFYoj16lfzW/Kobk0PMCOoRcD2gYzqDWVZ7PSfh
+         3lNW4QWZCOjex8N0Ar0zr2K8l5ieUnhzZ0AbmWlOwBJjnC0WmPrBEbRneMVvV3m70aWv
+         WCAC5JHyWlXARaiVDgPwolSmMMy8M4ClV65Ckm1KyObt8Smyfscr6j0+9dN1npieH9+I
+         vCn2OcixsNnAJCcjr+6GqTSkKEo/MKo9T8Ctl+PC6qdEBEudxtrtDF+n+vIa9VyHh66l
+         O6xQ==
+X-Forwarded-Encrypted: i=1; AKwUvByspeJrcxOWFUwFOYTbe50PlOeKY/L99CpU+v44iDSxjHFukXtve/4Hx0MIU+EDjWdD8a4BMRkqgthPt0I=@vger.kernel.org
+X-Gm-Message-State: AFuF++nQHJiP81M7B0PgE5HwcUh2noleOmu/c0mG/jdpQQIj8Nny12Wv
+	qA1EnjDrDLdMHIIzp0nnIwHHv9pLHv2rOmJWUou4PzeXD0tuAfOY/qg9IrHc15lTmI8=
+X-Gm-Gg: AYBFou3dHiLkuzi6NPfH5u1ci3w2JeL3kOMG0gXxUfwv569KLFmeIkaWP8oiO9QWC5C
+	ODjoHXpZCgRpENC013gz6n3ebGozOO99jUYV0UKqHc4C01XsKSTvngnjQH9ZI6RA3qhdgicC5Jc
+	XAo86u47c9MAFg8546ZRJcIpkjEGtJj4vahq9AbfbVgifgzvdQ83X56pPbTzyK+fj+mQmy4Mb3N
+	tX+6dZV/lWploA/FpnATdfCjjVMuH60KqCvQdBMLsUHSQM/H88SzdmYxRKMdLujyQQycklLBV9O
+	y6E6LsKarZ4mKvGzckZbVv0izjx7Lk+oT5FYkPn8C6dQW7IjSEohJOXx/dhDTGgZI3+ia4VfOQY
+	fKvKpZ73aoPfhHTnxblDR2yo9unMXJLkqDPyQyTe9t0SlMEOJD4V/dImiXls6G+wbC8azIeVYPq
+	pbAvYZDN9oUqaKiF7QmFuvSp7NbL5vYtk9O4nw9Yt+6uLd0OpOckvjzn9aaf9F/8GRPMPnzusC5
+	A==
+X-Received: by 2002:a05:600c:190b:b0:49c:fa21:e743 with SMTP id 5b1f17b1804b1-49cfa21e92amr53496425e9.25.1788539229587;
+        Fri, 04 Sep 2026 09:27:09 -0700 (PDT)
+Received: from localhost (109-81-91-122.rct.o2.cz. [109.81.91.122])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cff8195ffsm20600285e9.14.2026.09.04.09.27.08
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 04 Sep 2026 09:27:09 -0700 (PDT)
+Date: Fri, 4 Sep 2026 18:27:08 +0200
+From: Michal Hocko <mhocko@suse.com>
+To: Yosry Ahmed <yosry@kernel.org>
+Cc: Charan Teja Kalla <quic_charante@quicinc.com>,
+	akpm@linux-foundation.org, mgorman@techsingularity.net,
+	david@redhat.com, vbabka@suse.cz, hannes@cmpxchg.org,
+	quic_pkondeti@quicinc.com, linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH V3 3/3] mm: page_alloc: drain pcp lists before oom kill
+Message-ID: <aprxXHSh-LyqaFCW@tiehlicka>
+References: <cover.1699104759.git.quic_charante@quicinc.com>
+ <a8e16f7eb295e1843f8edaa1ae1c68325c54c896.1699104759.git.quic_charante@quicinc.com>
+ <aphSYFTd12oia8K2@google.com>
+ <apkhSHr3by5Bf8jW@tiehlicka>
+ <CAO9r8zPCYNmJbkQEA62z75AB=ziWqGb38_E-ee_6o40Sz=zHXA@mail.gmail.com>
+ <apqppFukssaAQz3w@tiehlicka>
+ <CAO9r8zMBBhhqepbLR9buOOu7bpyLW+UTu55DjbCYrbBp56rkCw@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Dhruva G <goledhruva@gmail.com>
-Subject: Re: [PATCH v2 2/5] pmdomain: core: Allow a non-CPU device in a CPU PM
- domain to do power on
-To: Ulf Hansson <ulf.hansson@oss.qualcomm.com>,
- Sudeep Holla <sudeep.holla@kernel.org>,
- "Rafael J . Wysocki" <rafael@kernel.org>,
- Daniel Lezcano <daniel.lezcano@kernel.org>, linux-pm@vger.kernel.org
-Cc: Abel Vesa <abel.vesa@oss.qualcomm.com>,
- Lorenzo Pieralisi <lpieralisi@kernel.org>,
- Christian Loehle <christian.loehle@arm.com>,
- Maulik Shah <maulik.shah@oss.qualcomm.com>,
- Yuanfang Zhang <yuanfang.zhang@oss.qualcomm.com>,
- Sneh Mankad <sneh.mankad@oss.qualcomm.com>,
- Suzuki K Poulose <suzuki.poulose@arm.com>,
- linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260901111441.122436-1-ulf.hansson@oss.qualcomm.com>
- <20260901111441.122436-3-ulf.hansson@oss.qualcomm.com>
-Content-Language: en-US
-In-Reply-To: <20260901111441.122436-3-ulf.hansson@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAO9r8zMBBhhqepbLR9buOOu7bpyLW+UTu55DjbCYrbBp56rkCw@mail.gmail.com>
 
-On 01-09-2026 16:44, Ulf Hansson wrote:
-> A driver for a non-CPU device that is attached to a CPU PM domain (the
-> genpd has the GENPD_FLAG_CPU_DOMAIN configuration set), is currently not
-> able to power on the PM domain. More precisely, to power on a CPU PM domain
-> one of its corresponding CPUs needs to be woken up if they are idle.
+On Fri 04-09-26 09:09:35, Yosry Ahmed wrote:
+> On Fri, Sep 4, 2026 at 4:21 AM Michal Hocko <mhocko@suse.com> wrote:
+> >
+> > On Thu 03-09-26 07:03:33, Yosry Ahmed wrote:
+> > > On Thu, Sep 3, 2026 at 12:27 AM Michal Hocko <mhocko@suse.com> wrote:
+> > > >
+> > > > On Wed 02-09-26 16:49:48, Yosry Ahmed wrote:
+> > > > > On Sun, Nov 05, 2023 at 06:20:50PM +0530, Charan Teja Kalla wrote:
+> > > > > > pcp lists are drained from __alloc_pages_direct_reclaim(), only if some
+> > > > > > progress is made in the attempt.
+> > > > > >
+> > > > > > struct page *__alloc_pages_direct_reclaim() {
+> > > > > >     .....
+> > > > > >    *did_some_progress = __perform_reclaim(gfp_mask, order, ac);
+> > > > > >    if (unlikely(!(*did_some_progress)))
+> > > > > >       goto out;
+> > > > > > retry:
+> > > > > >     page = get_page_from_freelist();
+> > > > > >     if (!page && !drained) {
+> > > > > >         drain_all_pages(NULL);
+> > > > > >         drained = true;
+> > > > > >         goto retry;
+> > > > > >     }
+> > > > > > out:
+> > > > > > }
+> > > > > >
+> > > > > > After the above, allocation attempt can fallback to
+> > > > > > should_reclaim_retry() to decide reclaim retries. If it too return
+> > > > > > false, allocation request will simply fallback to oom kill path without
+> > > > > > even attempting the draining of the pcp pages that might help the
+> > > > > > allocation attempt to succeed.
+> > > > > >
+> > > > > > VM system running with ~50MB of memory shown the below stats during OOM
+> > > > > > kill:
+> > > > > > Normal free:760kB boost:0kB min:768kB low:960kB high:1152kB
+> > > > > > reserved_highatomic:0KB managed:49152kB free_pcp:460kB
+> > > > > >
+> > > > > > Though in such system state OOM kill is imminent, but the current kill
+> > > > > > could have been delayed if the pcp is drained as pcp + free is even
+> > > > > > above the high watermark.
+> > > > > >
+> > > > > > Fix this missing drain of pcp list in should_reclaim_retry() along with
+> > > > > > unreserving the high atomic page blocks, like it is done in
+> > > > > > __alloc_pages_direct_reclaim().
+> > > > > >
+> > > > > > Signed-off-by: Charan Teja Kalla <quic_charante@quicinc.com>
+> > > > >
+> > > > > [Sorry for thread necromancy]
+> > > > >
+> > > > > Hi Charan,
+> > > > >
+> > > > > Are you planning to respin this patch?
+> > > > >
+> > > > > I know that Michal was questioning the need for it. While doing some
+> > > > > stress testing I came across a couple of OOM kills that had significant
+> > > > > amount of memory in pcplists. Something that would have been prevented
+> > > > > by this patch.
+> > > >
+> > > > Could you share some numbers to see the scale of the problem?
+> > >
+> > > Sure, here's a sample from an OOM log (ignore mapped/free_mapped, it's
+> > > from the ALLOC_UNMAPPED series):
+> > >
+> > > [   40.336188] Mem-Info:
+> > > [   40.336195] active_anon:96 inactive_anon:1540181 isolated_anon:0
+> > >                 active_file:51 inactive_file:0 isolated_file:0
+> > >                 unevictable:382720 dirty:43 writeback:0
+> > >                 slab_reclaimable:20339 slab_unreclaimable:26597
+> > >                 mapped:382858 shmem:153 pagetables:8291
+> > >                 sec_pagetables:0 bounce:0
+> > >                 kernel_misc_reclaimable:0
+> > >                 free:17264 free_pcp:16890 free_cma:0
+> > > [   40.336199] Node 0 active_anon:384kB inactive_anon:6160724kB
+> > > active_file:204kB inactive_file:0kB unevictable:1530880kB
+> > > isolated(anon):0kB isolated(file):0kB mapped:1531432kB dirty:172kB
+> > > writeback:0kB shmem:612kB shmem_thp:0kB shmem_pmdmapped:0kB
+> > > anon_thp:10240kB kernel_stack:2576kB pagetables:33164kB
+> > > sec_pagetables:0kB all_unreclaimable? yes Balloon:0kB gpu_active:0kB
+> > > gpu_reclaim:0kB
+> > > [   40.336202] DMA32 free:34808kB boost:0kB min:11028kB low:13784kB
+> > > high:16540kB reserved_highatomic:0KB free_highatomic:0KB
+> > > free_mapped:11032KB active_anon:0kB inactive_anon:1487720kB
+> > > active_file:52kB inactive_file:20kB unevictable:393252kB
+> > > writepending:4kB zspages:0kB present:2096760kB managed:1991156kB
+> > > mlocked:393252kB bounce:0kB free_pcp:42404kB local_pcp:2460kB
+> > > free_cma:0kB
+> > > [   40.336205] lowmem_reserve[]: 0 5976 5976
+> > > [   40.336210] Normal free:34248kB boost:0kB min:34024kB low:42528kB
+> > > high:51032kB reserved_highatomic:0KB free_highatomic:0KB
+> > > free_mapped:34028KB active_anon:384kB inactive_anon:4672764kB
+> > > active_file:180kB inactive_file:0kB unevictable:1137628kB
+> > > writepending:168kB zspages:0kB present:6291456kB managed:6120144kB
+> > > mlocked:1137628kB bounce:0kB free_pcp:25156kB local_pcp:764kB
+> > > free_cma:0kB
+> > > [   40.336213] lowmem_reserve[]: 0 0 0
+> > >
+> > > As far as I can tell there's about ~65M of free memory stranded on
+> > > pcplists (in an 8G VM), which would have kept the amount of free
+> > > memory above the watermarks and prevented that specific OOM kill.
+> > > Although, as I mentioned before, this is a synthetic stress test.
+> > > Perhaps in practice it doesn't matter all that much in practice, but
+> > > it seems like the logical thing to do.
+> >
+> > yes, pcp lists are quite (unusually) high. Is it possible they simply
+> > got repopulated after the first direct reclaim run? Or is there
+> > something else(odd) going on?
 > 
-> The current support for a non-CPU device is that its driver can only
-> prevent an already powered on CPU PM domain from being powered off. This
-> leads to problems for a driver while probing its device or when it needs to
-> call pm_runtime_get_sync() to turn on the power for it. From the driver
-> point of view it looks like it all works fine, but when accessing the
-> device it may end up with various errors as the device may not be fully
-> powered on.
+> I think in this case there wasn't a lot of reclaimable memory (mostly
+> anon with no swap), so at some point direct reclaim didn't make any
+> progress. __alloc_pages_direct_reclaim() only drains the pcplists if
+> reclaim makes progress, I am not sure if that's intentional. An
+> alternative would be perhaps removing this condition, something like
+> this:
 > 
-> To fix the behavior for these types of devices, let's adjust the behaviour
-> in genpd_power_on() to wake up an idle CPU that belongs to it, in cases
-> when it's needed.
+> diff --git a/mm/page_alloc.c b/mm/page_alloc.c
+> index 8d79f76cdd0e1..98e9079240ad5 100644
+> --- a/mm/page_alloc.c
+> +++ b/mm/page_alloc.c
+> @@ -4592,11 +4592,12 @@ __alloc_pages_direct_reclaim(gfp_t gfp_mask,
+> unsigned int order,
+>         psi_memstall_enter(&pflags);
+>         *did_some_progress = __perform_reclaim(gfp_mask, order, ac);
+>         if (unlikely(!(*did_some_progress)))
+> -               goto out;
+> +               goto drain;
 > 
-> Link: https://lore.kernel.org/all/CAPx+jO-sCierYj8jnoKQHckJG16dOBxnNrsZVYO=38R2cLV8nw@mail.gmail.com/
-> Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
-> Signed-off-by: Ulf Hansson <ulf.hansson@oss.qualcomm.com>
-> ---
+>  retry:
+>         page = get_page_from_freelist(gfp_mask, order, alloc_flags, ac);
 > 
-> Changes in v2:
-> 	- Rename a function according to Abel's suggestion.
-> 
-> ---
->  drivers/pmdomain/core.c | 80 ++++++++++++++++++++++++++++++++++++++---
->  1 file changed, 75 insertions(+), 5 deletions(-)
-> 
-> diff --git a/drivers/pmdomain/core.c b/drivers/pmdomain/core.c
-> index 6ac1ce18fda3..97273ed2f825 100644
-> --- a/drivers/pmdomain/core.c
-> +++ b/drivers/pmdomain/core.c
-> @@ -10,6 +10,7 @@
->  #include <linux/idr.h>
->  #include <linux/kernel.h>
->  #include <linux/io.h>
-> +#include <linux/iopoll.h>
->  #include <linux/platform_device.h>
->  #include <linux/pm_opp.h>
->  #include <linux/pm_runtime.h>
-> @@ -19,11 +20,14 @@
->  #include <linux/slab.h>
->  #include <linux/err.h>
->  #include <linux/sched.h>
-> +#include <linux/smp.h>
->  #include <linux/suspend.h>
->  #include <linux/export.h>
->  #include <linux/cpu.h>
->  #include <linux/debugfs.h>
->  
-> +#include <trace/events/ipi.h>
-> +
->  /* Provides a unique ID for each genpd device */
->  static DEFINE_IDA(genpd_ida);
->  
-> @@ -32,7 +36,9 @@ static const struct bus_type genpd_provider_bus_type = {
->  	.name		= "genpd_provider",
->  };
->  
-> -#define GENPD_RETRY_MAX_MS	250		/* Approximate */
-> +#define GENPD_RETRY_MAX_MS		250		/* Approximate */
-> +#define GENPD_CPU_ON_POLL_PERIOD_US	100		/* 100us */
-> +#define GENPD_CPU_ON_TIMEOUT_US		5000000		/* 5s */
->  
->  #define GENPD_DEV_CALLBACK(genpd, type, callback, dev)		\
->  ({								\
-> @@ -1027,15 +1033,75 @@ static void genpd_power_off(struct generic_pm_domain *genpd, bool one_dev_on,
->  	}
->  }
->  
-> +static bool genpd_status_on(struct generic_pm_domain *genpd)
-> +{
-> +	bool is_on;
-> +
-> +	genpd_lock(genpd);
-> +	is_on = genpd_status_on_unlocked(genpd);
-> +	genpd_unlock(genpd);
-> +
-> +	return is_on;
-> +}
-> +
-> +static int genpd_wakeup_cpu(struct generic_pm_domain *genpd)
-> +{
-> +	unsigned int cpu;
-> +	bool is_on;
-> +	int ret;
-> +
-> +	/* Find the first online CPU in the genpd's cpumask. */
-> +	cpu = cpumask_first_and(genpd->cpus, cpu_online_mask);
-> +	if (cpu >= nr_cpu_ids)
-> +		return -EAGAIN;
-> +
-> +	genpd_unlock(genpd);
-> +
-> +	/* Send a IPI to wakeup the selected CPU. */
-> +	smp_send_reschedule(cpu);
-> +
-> +	/* Poll to wait for it to complete the power on sequence. */
-> +	ret = readx_poll_timeout(genpd_status_on, genpd, is_on, is_on,
-> +				 GENPD_CPU_ON_POLL_PERIOD_US,
-> +				 GENPD_CPU_ON_TIMEOUT_US);
+> +drain:
+>         /*
+>          * If an allocation failed after direct reclaim, it could be because
+>          * pages are pinned on the per-cpu lists or in high alloc reserves.
+> @@ -4608,7 +4609,6 @@ __alloc_pages_direct_reclaim(gfp_t gfp_mask,
+> unsigned int order,
+>                 drained = true;
+>                 goto retry;
+>         }
+> -out:
+>         psi_memstall_leave(&pflags);
 
-How is sleeping here made safe for IRQ-safe consumers and child domains?
-
-For a hypothetical example, consider an IRQ-safe SPI controller in an IRQ-safe child domain D,
-whose parent P is a CPU domain. CPU A is outside P, and CPU B belongs to P. Both domains are initially off.
-
-A runtime-resume request on CPU A follows this path in drivers/pmdomain/core.c:
-
-genpd_runtime_resume(SPI device)
--> lock D
--> genpd_power_on(D)
--> lock parent P
--> genpd_power_on(P)
--> genpd_wakeup_cpu(P)
-
-genpd_wakeup_cpu() drops P's lock and sends an IPI to CPU B, but D's spinlock remains held. readx_poll_timeout() 
-can then reach usleep_range() while D’s spinlock is still held.
-
-There is also a problem without the child domain: for an IRQ-safe device attached directly to P, __rpm_callback()
-leaves interrupts disabled. Dropping P’s lock restores the already-disabled interrupt state, so readx_poll_timeout()
-still cannot be used with a nonzero sleep interval and timeout.
-
-I have not reproduced this on a board; this is a hypothetical configuration illustrating the paths.
-
-Is there a restriction elsewhere that prevents either configuration? Otherwise, this wait cannot sleep,
-and the parent lock needs to be reacquired with the same nesting depth used by genpd_power_on().
-
-
-
-> +
-> +	genpd_lock(genpd);
-> +
-> +	/* Re-check the status as we have released the lock in between. */
-> +	if (ret || !genpd_status_on_unlocked(genpd))
-> +		return -EAGAIN;
-> +
-> +	return 0;
-> +}
-> +
-> +static bool genpd_need_alive_cpu(struct generic_pm_domain *genpd,
-> +				 struct device *dev)
-> +{
-> +	if (!genpd_is_cpu_domain(genpd))
-> +		return false;
-> +
-> +	/* This is not for CPU devices as those are managed differently. */
-> +	if (to_gpd_data(dev->power.subsys_data->domain_data)->cpu >= 0)
-> +		return false;
-> +
-> +	/*
-> +	 * If the current CPU doesn't belong to the genpd's cpumask, we need to
-> +	 * wake up one of those idle CPUs to power on the CPU domain correctly.
-> +	 */
-> +	return !cpumask_test_cpu(smp_processor_id(), genpd->cpus);
-> +}
-> +
->  /**
->   * genpd_power_on - Restore power to a given PM domain and its parents.
->   * @genpd: PM domain to power up.
-> + * @dev: The device that needs the PM domain to power on.
->   * @depth: nesting count for lockdep.
->   *
->   * Restore power to @genpd and all of its parents so that it is possible to
->   * resume a device belonging to it.
->   */
-> -static int genpd_power_on(struct generic_pm_domain *genpd, unsigned int depth)
-> +static int genpd_power_on(struct generic_pm_domain *genpd, struct device *dev,
-> +			  unsigned int depth)
->  {
->  	struct gpd_link *link;
->  	int ret = 0;
-> @@ -1043,6 +1109,10 @@ static int genpd_power_on(struct generic_pm_domain *genpd, unsigned int depth)
->  	if (genpd_status_on_unlocked(genpd))
->  		return 0;
->  
-> +	/* Special case for a device attached to a CPU domain. */
-> +	if (genpd_need_alive_cpu(genpd, dev))
-> +		return genpd_wakeup_cpu(genpd);
-> +
->  	/* Reflect over the entered idle-states residency for debugfs. */
->  	genpd_reflect_residency(genpd);
->  
-> @@ -1057,7 +1127,7 @@ static int genpd_power_on(struct generic_pm_domain *genpd, unsigned int depth)
->  		genpd_sd_counter_inc(parent);
->  
->  		genpd_lock_nested(parent, depth + 1);
-> -		ret = genpd_power_on(parent, depth + 1);
-> +		ret = genpd_power_on(parent, dev, depth + 1);
->  		genpd_unlock(parent);
->  
->  		if (ret) {
-> @@ -1307,7 +1377,7 @@ static int genpd_runtime_resume(struct device *dev)
->  
->  	genpd_lock(genpd);
->  	genpd_restore_performance_state(dev, gpd_data->rpm_pstate);
-> -	ret = genpd_power_on(genpd, 0);
-> +	ret = genpd_power_on(genpd, dev, 0);
->  	genpd_unlock(genpd);
->  
->  	if (ret)
-> @@ -3411,7 +3481,7 @@ static int __genpd_dev_pm_attach(struct device *dev, struct device *base_dev,
->  
->  	if (power_on) {
->  		genpd_lock(pd);
-> -		ret = genpd_power_on(pd, 0);
-> +		ret = genpd_power_on(pd, dev, 0);
->  		genpd_unlock(pd);
->  	}
->  
-
+Ideally if we can make the function call less hairy. Maybe we want to
+make draining part of the reclaim as the last resort when normal reclaim
+fails.
+-- 
+Michal Hocko
+SUSE Labs
