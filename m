@@ -1,70 +1,74 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-152.mta1.migadu.com [95.215.58.152])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BC8623AB9D
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 01:58:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9387B367F3A
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 01:58:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.152
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788487087; cv=none; b=UVT6QutMsZGKBrZ8x7GwAcTOrlYlr5wJKhe9mgjSfQqhY5guSX2/MmqKzpgJrI9GlcX8FSAEprbugqgLHrn8BVMF9tnTlYobFrEuQ9+tD/MtphD0Ykzr9QysLjNU5yOx6NBnBkt0GyO/h06HfdEA7yg07laBEHJ3hrH68qI4t2A=
+	t=1788487133; cv=none; b=nZ9ih8uIe8Fnmy4r5Mt8UAD5NpjJ/OO7pfUhD8KTgaisV1BL8KsCypLTJaXCVISxCBq8SO9Xs/bunGok/FeMZPFDwgRcdxYt8otXH0y6lAmoeS+uoKZS3o0En8ld4ha0Vp4Zd2Lbq51NZX/YThKLlkVv7k9wITrmlTy0fv93i9Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788487087; c=relaxed/simple;
-	bh=xIJVjAWyShnmoO9l270Msz1cOTeW5GVgw51GpKn5j3g=;
-	h=Message-ID:Date:MIME-Version:Cc:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=U3KoMG0+dJe3OqK3URGITOG1gAwe+3fkOFCELlZP6ndxBbGj/MdOjUhk0mhCXEh2yTZfBWiJFiG7Lfjh2SOpbFXxtL1mn61olpHMGGDKSr9abEXUb0p0WAQrkybPsgxyzvdKUI/BSqse1guoaIATlpkMJ7QywCvUNAon+ABDvyk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GHzZFcib; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788487133; c=relaxed/simple;
+	bh=2tiMvUnSR/ST76oXDqKEw7ZJIzjM25uNCKR7eJFzWeY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=qmF4FwLpzw0/01Z0R85TjUZVM5qIJU/oyeVxRG3RuEBQt+Ucm9HQgSEUheleQNLlKHg2rw/u9wQBb2m7HjARVPi9xukIMCR+PnXgJFb85+SWQOZRb1HwfiL2+1TX2bM0JAx6H3YazceWSym2Vt+Jn/dZYKlrNrcBzHZTA8zBJ68=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=AGd70xpp; arc=none smtp.client-ip=95.215.58.152
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GHzZFcib"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 388E51F000E9;
-	Fri,  4 Sep 2026 01:58:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788487085;
-	bh=5jRoPi4cTptirujGl8tv0MSWyBrX8XHDykK0aOfJU6s=;
-	h=Date:Cc:Subject:To:References:From:In-Reply-To;
-	b=GHzZFcibisKvc3McRLctaer1hVGVRWmT9Gg5rW4UE5d+dHNsCPkRsSL02nz0FZGfS
-	 q7fjUQRn02KHmiFBm6vqLi8XLjQQ06i2HRnhAdWqxAEeIuHBqlrntJJqXTVApFx9M5
-	 oHoSBfQlrNIpbsP7dbje+/RtXhCvhRfaICoyLcjb8ghH8FAiZ02jj9J0erXYfSIoBl
-	 8+me/L2HyES8KCLKuTKnOF2plowHOYYGOat4f/VVHAhZr2i1BgRKX1w5uSgLvN3SWD
-	 67Z0ji2zhw60pehjW31wwjIC9FRtrJ1zAc93b927kiFm8ZXw3W86QQvRRkb6v81o/y
-	 FWX+0lX/YnQNw==
-Message-ID: <e491de3c-b377-4530-9ecf-f12796705779@kernel.org>
-Date: Fri, 4 Sep 2026 09:58:02 +0800
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="AGd70xpp"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=2tiMvUnSR/ST76oXDqKEw7ZJIzjM25uNCKR7eJFzWeY=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788487129; v=1; x=1789091929;
+ b=AGd70xppFXz6nluKNlUNdSH3WjVrtzI0BMt68KwBJT3kN19Rl6c8HMdXRGPVkGFaLxFRRWEl
+ 9XQ3Es9pazxhDhzLvUDtJr1u6ebUXUkLoliKWs1SalLI05+H0YnkrjmPYIoIGcIAWia9sRxNpuw
+ No+u8fh/aMwyzFqJwvkhgtRo=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 70dcb5e667bf1113;
+	Fri, 04 Sep 2026 01:58:49 +0000
+X-Mizu-Trace-ID: 70dcb5e667bf1113
+X-Migadu-Flow: FLOW_OUT
+Date: Fri, 4 Sep 2026 09:58:39 +0800
+From: Hangbin Liu <hangbin.liu@linux.dev>
+To: Nikolay Aleksandrov <razor@blackwall.org>
+Cc: Matthieu Baerts <matttbe@kernel.org>, netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org, Hangbin Liu <liuhangbin@kylinos.cn>,
+	Jay Vosburgh <jv@jvosburgh.net>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Jussi Maki <joamaki@gmail.com>
+Subject: Re: [PATCH net v2] bonding: fix slave_cnt leak on XDP error paths
+Message-ID: <apolz0n6ktN3yG4f@fedora>
+References: <20260903-bond_slave_cnt-v2-1-02e27304ca36@kylinos.cn>
+ <62271715-fbd6-4047-9b69-b2bda40db056@kernel.org>
+ <fe5f07d4-775c-4fe1-a4e8-384dbc11d7e7@blackwall.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Cc: chao@kernel.org, Jaegeuk Kim <jaegeuk@kernel.org>,
- Daeho Jeong <daeho43@gmail.com>, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v9 05/11] f2fs: describe dentry block layout dynamically
-To: Kelvin Zhang <zhangxp1998@gmail.com>,
- linux-f2fs-devel@lists.sourceforge.net
-References: <cover.1788479509.git.zhangxp1998@gmail.com>
- <3a430f1eaa7b07583d83828477adff5a90ede9e8.1788479509.git.zhangxp1998@gmail.com>
-Content-Language: en-US
-From: Chao Yu <chao@kernel.org>
-In-Reply-To: <3a430f1eaa7b07583d83828477adff5a90ede9e8.1788479509.git.zhangxp1998@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <fe5f07d4-775c-4fe1-a4e8-384dbc11d7e7@blackwall.org>
 
-On 9/4/26 07:56, Kelvin Zhang wrote:
-> An on-disk directory block contains a bitmap, reserved padding, an
-> array of directory entries (struct f2fs_dir_entry), and matching filename
-> slots. A fixed compile-time structure couples their offsets to 4KB blocks
-> and relies on static reserved-space definitions.
+On Thu, Sep 03, 2026 at 02:53:29PM +0300, Nikolay Aleksandrov wrote:
+> Waaait a second, it is moved after slave arr update, yes that would cause those.
+> I missed it in the review, in my suggestion I specifically said it must be before
+> the slave array update because it uses slave_cnt.
 > 
-> Remove struct f2fs_dentry_block and compute region offsets (bitmap
-> bytes, directory-entry count, and filename slots) dynamically from the
-> filesystem block size. Access directory blocks through
-> struct f2fs_dentry_ptr views initialized with the runtime geometry.
-> 
-> Update directory operations, inline dentry handling, and recovery paths
-> to use the dynamic block layout. No functional change is introduced for
-> 4KB blocks.
-> 
-> Signed-off-by: Kelvin Zhang <zhangxp1998@gmail.com>
+> It must be moved up. :)
 
-Reviewed-by: Chao Yu <chao@kernel.org>
+Ah, I thought all the code between netdev_ops->ndo_bpf and
+bond_xdp_set_features() are xdp stuff and missed the bond_update_slave_arr()
+in the middle...
 
-Thanks,
+I need more careful when go though the code and do testing even with simplest
+change.
+
+Thanks
+Hangbin
