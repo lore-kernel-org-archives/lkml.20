@@ -1,120 +1,99 @@
-Received: from out28-50.mail.aliyun.com (out28-50.mail.aliyun.com [115.124.28.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BFD13B47D2;
-	Fri,  4 Sep 2026 09:32:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFB9D442B17
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 09:33:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788514383; cv=none; b=V5U60EOOvL9ppkCeN/6BPP+RcKCF9P8A0OrGsOodiU5BIsU0gLZZiIPj34CSzc1tp3i1gjFANqgrvk2VNQ8kt+NCZ2dzMzdLAZEsCJKKz7bFgm8j8VcEbSdwUF5Sw0/SYHKP+u189BAsQzACVeDCOcf2bsURDf558PQWHzvnfqY=
+	t=1788514385; cv=none; b=KaoH6LX2GE+7u5yjV9hfrmWy12/XEmU0DszbIQ0KUOzFqcsZf1ATE2W9/L5glBCo85uVCSRricKSPT/53NJxPdw6/FaqDkRCt7IlZl6RSwmHLOSHdqYQOx43ej0l0unXgkw7msy3wjR4MqaNMuSvibsdtSaMFIc7OjeWvIFXva0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788514383; c=relaxed/simple;
-	bh=uDjNDm2BsPA2C7dcfvbpVkSh1CdS1786TX//1NdaM8M=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=bX7GZaYGyv/OrHavAFTX2yhp0mpSRb+pJ5Vd7HrykfGlWvulcPovLveiEtTnyhNjrHRMAR9xAVgbuBlN8WmPdIhh7PEeORpZ3ScDLBr3w86qLpi+VlW8xm6QZOMtdb5utuZRUxGSYY+cxFHQOHPxJ1bdlnbtHNRPD+CwMNdDpDA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=edatec.cn; spf=pass smtp.mailfrom=edatec.cn; arc=none smtp.client-ip=115.124.28.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=edatec.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=edatec.cn
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.07477111|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.107521-0.000494494-0.891985;FP=14267351601926324789|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033032062159;MF=zjzhao@edatec.cn;NM=1;PH=DS;RN=9;RT=9;SR=0;TI=SMTPD_---.j5TQ-sI_1788514373;
-Received: from LAPTOP-VQRD5F43.hs.edatec.cn(mailfrom:zjzhao@edatec.cn fp:SMTPD_---.j5TQ-sI_1788514373 cluster:ay29)
-          by smtp.aliyun-inc.com;
-          Fri, 04 Sep 2026 17:32:54 +0800
-From: zjzhao@edatec.cn
-To: Jiri Slaby <jirislaby@kernel.org>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	linux-kernel@vger.kernel.org,
-	linux-serial@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	zjzhao <zjzhao@edatec.cn>
-Subject: Re: [PATCH 1/2] serial: wk2xxx: Add WK2xxx SPI UART driver
-Date: Fri,  4 Sep 2026 17:32:46 +0800
-Message-ID: <20260904093246.100569-1-zjzhao@edatec.cn>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <8f8a4946-e8e2-4683-b837-c783c40b81c1@kernel.org>
-References: <8f8a4946-e8e2-4683-b837-c783c40b81c1@kernel.org>
+	s=arc-20240116; t=1788514385; c=relaxed/simple;
+	bh=s46HHW4Euo/dZsXvgBesfmbB31mlgKeYt0eqjvjiDAQ=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=K1zTagI62X4d8QpAM6/fWiT/3yGrkOwTUpy/PRvfdL83uctDZfM88fRLcmtUmkpQO1yJ97tsGpGqz2lP3Yn5khlrBGS9gqq54m2a1L0t7iXlsj3PbSWbzCKTxfneOTtZuE56yjZgboREdomylHyVw3re3xTqjfnUPD8vxsogb0s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.199
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-4b28dbf4197so1075860b6e.2
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 02:33:03 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788514383; x=1789119183;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=hEiPujauQzePXZmlxDjSXNyf4SR83+1ho3+EUP8pfrA=;
+        b=eR+WfSbEZpU/WjM4/Oa4vliJNW4uSudR4pH5yH1DNUuYWmBHQPsnGoNIAi0wYYd4Qf
+         YXYHlhCZEshdati4zxCqg6G3YkMMPzPXsLl5oAwfbzaBgifhyNz9+6/zc6Ib64kArOBR
+         CDWwxJ53czl0kQ/pyKKudyc23A1fGuLiwkjqb8CZWNmv8ezUHjNaH2kZxpNPWTxbzTuJ
+         jkn63F/zTjzDI5kBMBIz7nmYkHFvSLfkx/3qTzDFejZ0DLui8xiyI1TOvJmMYrGJlgkj
+         m8krJd0tkDMBDRtS4iQJEVsJLXAUEtzBKbnU0WL9lL1MzFWOEVXAqLKXtS10ZqNet9qT
+         2/hA==
+X-Forwarded-Encrypted: i=1; AKwUvByk2DO0fqtkoyujO5zmKQjKVKuudqCfZNKOiy4Pdluz+aYBoUZeKhVxD3CB3ujWCltEJrdvo3uhZiW7jPo=@vger.kernel.org
+X-Gm-Message-State: AFuF++nJxV+INWVOQbzvzFZ0C2DAbQyrRMeslV4mFz/fMzF7LLaJVsrv
+	9UljD3su0vwEvPhPFpzV+wgi0QcUsRuiLjlKaY66Q8lAaQRA5kRTW7QJOCbE6pkjL8nKBpVG5ZK
+	Ihyz0YgwSfl6pOkQdR1jewyoRBK07Ia67DPmn/0Sh6UWVG9etsFmewEiLp1U=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-Received: by 2002:a05:6808:1209:b0:4a0:cf55:3cf0 with SMTP id
+ 5614622812f47-4b9613fc552mr3447399b6e.9.1788514382789; Fri, 04 Sep 2026
+ 02:33:02 -0700 (PDT)
+Date: Fri, 04 Sep 2026 02:33:02 -0700
+In-Reply-To: <20260904091018.606487-1-eadavis@sina.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6a9a904e.9266084e.bf0d7.060f.GAE@google.com>
+Subject: Re: [syzbot] [block?] general protection fault in blk_mq_quiesce_queue
+From: syzbot <syzbot+fefa0af09f7891b1800e@syzkaller.appspotmail.com>
+To: eadavis@sina.com, linux-kernel@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-From: zjzhao <zjzhao@edatec.cn>
+Hello,
 
-Hi Jiri,
+syzbot has tested the proposed patch but the reproducer is still triggering an issue:
+WARNING in nvme_loop_reset_ctrl_work
 
-thanks for the review. Answers and a [PATCH v2] follow; v2 also carries
-the Sashiko round-2 findings.
+------------[ cut here ]------------
+1
+WARNING: drivers/nvme/target/loop.c:457 at nvme_loop_reset_ctrl_work+0x1d4/0x620 drivers/nvme/target/loop.c:457, CPU#3: kworker/u33:3/62
+Modules linked in:
+CPU: 3 UID: 0 PID: 62 Comm: kworker/u33:3 Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+Workqueue: nvme-reset-wq nvme_loop_reset_ctrl_work
+RIP: 0010:nvme_loop_reset_ctrl_work+0x1d4/0x620 drivers/nvme/target/loop.c:457
+Code: 7c 08 84 d2 0f 85 b2 03 00 00 8b 9b dc f8 ff ff bf 01 00 00 00 83 eb 04 89 de e8 c7 fb 59 fb 83 fb 01 76 09 e8 4d 01 5a fb 90 <0f> 0b 90 e8 44 01 5a fb 48 83 c4 18 5b 5d 41 5c 41 5d 41 5e 41 5f
+RSP: 0018:ffffc900007dfbd8 EFLAGS: 00010293
+RAX: 0000000000000000 RBX: 00000000ffffffff RCX: 0000000000000000
+RDX: ffff888020f72580 RSI: ffffffff86b13ae3 RDI: ffff888020f72580
+RBP: 0000000000000000 R08: 0000000000000005 R09: 0000000000000001
+R10: 00000000ffffffff R11: 00000000000075fb R12: ffff8880299f83e8
+R13: ffff8880299f83ec R14: 0000000000000000 R15: ffff88802886b800
+FS:  0000000000000000(0000) GS:ffff888096c67000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 00000000f7f6e210 CR3: 000000004d58f000 CR4: 0000000000352ef0
+Call Trace:
+ <TASK>
+ process_one_work+0xac7/0x1b10 kernel/workqueue.c:3396
+ process_scheduled_works kernel/workqueue.c:3479 [inline]
+ worker_thread+0x5ef/0xe50 kernel/workqueue.c:3560
+ kthread+0x373/0x450 kernel/kthread.c:436
+ ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
+ ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+ </TASK>
 
-> Have you checked that there is no similar driver which could be only
-> extended?
 
-Yes. The only SPI/I2C UART bridge drivers in the tree are max3100.c,
-max310x.c and sc16is7xx.c. The latter two implement the 16550-style
-register set (THR/RHR, IER, IIR/FCR, LCR, MCR/MSR, LSR) over regmap,
-which is exactly what the WK2xxx does *not* provide: its register map
-and SPI protocol are proprietary (the sub-UART number and a page-select
-bit live in the SPI command byte, plus dedicated FIFO burst commands),
-it has no modem-control registers and only supports 8 data bits. Folding
-it into sc16is7xx/max310x would force a more capable shared layer to
-degrade, and it would mix two vendors into one binding. I take the
-kernel's own precedent (sc16is7xx and max310x are separate drivers even
-though sc16is7xx is derived from max310x) as confirmation that a
-dedicated driver is the right model.
+Tested on:
 
-> > +	scoped_guard(mutex, &s->reg_lock) { ... }
-> why is this one scoped?
+commit:         940de590 Merge tag 'hardening-v7.3-rc2' of git://git.k..
+git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
+console output: https://syzkaller.appspot.com/x/log.txt?x=116438f9580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=85bc5cc2fc7394d9
+dashboard link: https://syzkaller.appspot.com/bug?extid=fefa0af09f7891b1800e
+compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
+userspace arch: i386
+patch:          https://syzkaller.appspot.com/x/patch.diff?x=100438f9580000
 
-The early return inside made it scoped; that was overkill since the lock
-covers the whole function anyway. v2 uses a plain guard(mutex) for
-wk2xxx_port_reg_update() and wk2xxx_conf_port().
-
-> throttle/unthrottle, set_termios: this can be a guard too, right?
-
-Yes - v2 uses guard(uart_port_lock_irqsave).
-
-> What's the reason not to use any of the uart_port_tx* helpers?
-
-TX needs sleeping SPI transfers, which cannot run while the port
-spinlock is held. The helpers acquire port->lock around the drain, so
-they are not usable here; like sc16is7xx/max310x, TX is run from the
-kthread worker under a per-port mutex.
-
-> Why not guard?  (handle_tx)  /  And kill the goto then.
-
-Done in v2: guard(mutex) + scoped_guard(uart_port_lock_irqsave), the
-goto and the tail unlock are gone.
-
-> Should you perhaps cap the loop count as well?
-
-Done - the drain loop is now bounded by WK2XXX_IRQ_MAX_PASSES.
-
-> return IRQ_HANDLED ... bad for shared irqs
-
-Fixed in v2 (IRQ_NONE when nothing was pending).
-
-> Did you mean to use explicit u64?
-
-Fixed - the divisor computation now uses div_u64()/u64 and builds on
-32-bit.
-
-> req + rel are optional. Drop them.
-
-Done - request_port/release_port and their no-op helpers are dropped.
-
-> membase=(void __iomem *)~0 ... compiler/sparse not complain?
-
-Rather than fixing the cast I switched the ports to UPIO_BUS (as
-sc16is7xx/max310x do) and removed the membase workaround altogether.
-
-The v2 cover letter lists the full change set. Please review; happy to
-iterate.
-
-thanks,
-
---
-zjzhao
-EDATEC Technology Co., Ltd.
