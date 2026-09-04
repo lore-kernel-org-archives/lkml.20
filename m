@@ -1,78 +1,78 @@
-Received: from mail-vk1-f227.google.com (mail-vk1-f227.google.com [209.85.221.227])
+Received: from mail-pj1-f99.google.com (mail-pj1-f99.google.com [209.85.216.99])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3A934854E0
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 10:53:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.227
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B60A7483832
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 10:52:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.99
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788519191; cv=none; b=I0fEMulC5aV30WLMZlkscwh9StF//61GKBJmgHFC+e2BZrScerapD4yWVIZqDUMeehedqhC9kRl4nEP9wYFdXg/EhHkBOwmEwsgK+GIwI9e1ErTKir55H2WM7/r2dtTCwydqGavcPDlxgCmm1ZDAkF5HtfzJ/zz4fVwb7fscfE8=
+	t=1788519188; cv=none; b=lL8hvGWrEgLUTCmp9SToO/l80D37rZxMo+lWJSkAo6jR47F1r38nGbFxTGZm/L8BtLBLIPPbDdIT+63ghqiw8C5oeho+uf08PJeL4XsN8OnTAcg/BK5b1ZJrnk1cjDsWymodrPPPHnYT67W8z1maQG0Dc4ZbOgyAlx2yYfmT/ss=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788519191; c=relaxed/simple;
-	bh=HkTEqZ6sjlxxGMjaeue/XW0Df3UPtwFZcq2SgGPDeto=;
+	s=arc-20240116; t=1788519188; c=relaxed/simple;
+	bh=MV9tIIWIT/YQfz9uuSgYIm1h9SOD79kb4VSkx0pmjPg=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=IqV1loIf6nl8h2VxgmtmeVWiqZLjSwOQhntAaFvhkX8U+gmusOKnMVSDHce5G5HRqZRI3CwfzM1UZEzdJAmXtgA5H1fToOcKzvg7r/+jqX5f8UpE+0tfYIekocW2qm4/yuARnSq8dpmOFZdq9mnWVxGEQceqJbD/EIqv31mJXVU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com; spf=fail smtp.mailfrom=broadcom.com; dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b=PA8UzAAZ; arc=none smtp.client-ip=209.85.221.227
+	 MIME-Version; b=lIXNuOtpzvVdz+zOQVErPGGgaZnJCQ17glwUbs/NZa59c4BIu4e2V2UpuyyGc/Di2hG/NNyrBVzE8PQiX0H6Sad+DHYQDn7f1nDj8bp8J2W7aZZ+0xhEifW1ch1ul2Xk/MSHEXVxHTJZCjYh3wLY2eBd+7wC0bnuuR4cFOGSaoY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com; spf=fail smtp.mailfrom=broadcom.com; dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b=LSJ+CdRi; arc=none smtp.client-ip=209.85.216.99
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b="PA8UzAAZ"
-Received: by mail-vk1-f227.google.com with SMTP id 71dfb90a1353d-5c652293bcdso1065641e0c.1
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 03:53:01 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b="LSJ+CdRi"
+Received: by mail-pj1-f99.google.com with SMTP id 98e67ed59e1d1-398a4dcf289so1002575a91.2
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 03:52:56 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788519176; x=1789123976;
+        d=1e100.net; s=20251104; t=1788519174; x=1789123974;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:dkim-signature:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=+8/JgLbE54eU7oy503citsIF4dH0n9XMNj5rOPWa5Ac=;
-        b=ON7bBFEGBND0utICIcSChTA0KMuGvJBRzwBtpZMhCrLY91IsG8xGJ55amwljnl0bkf
-         52Q6x358mrhUW4AkYYcpwvi2VqegRcPTM7xs9XlfgHh6u+FTGRqUAAvJAcqATeyyaacp
-         +E7a6mQggzmMKQ2y92bI6bPVp+DJiPdt6afoUOVOBtcQyGRyUB2lx6cZhgVW3W0cYsuv
-         TpiOQkdMBSQAMqU4j9QY3LXMXlZE0wX3qpBzvwZQ1HJL4muIqZ1Dx8NaM1BBIlQnfloZ
-         dqoyIyEoucGF3SzruW/kLeT0cXuWTUhLWzVnV3UKNw5Tf9MxALNSvflcJaSCMx1Bx9JC
-         DyHw==
-X-Forwarded-Encrypted: i=1; AKwUvBxemBNeAi4IzZEyncR9e/vFQCSlfL8tMwvSZKYX8mZdh529hIZcCfnJzFZI9gSarr+9FAEchC8Qs4vVhFE=@vger.kernel.org
-X-Gm-Message-State: AFuF++l/TIe/Mg2qy+66jwC37ZMU0Zv4XuBUFoCODHO4DH1tpN1D0fIe
-	D5/KmwSXdTv3gZSyM3hH4u73Mk+dNgOypXVccyG0cOtZQ/ODFg123+qt8BpEJ6fy0faK9MOtFyY
-	hhxrs3b8KvJOlDi6fjEn45RP9Wym3nyMOSqPK/3MwZ4hbTUSKBnYe5230wQeiNqcTPSJyUszMtc
-	SOzH/kOUl+/tVqtA6+y9gI7C3vN3v+zFJBe8QeyEs+XhmSjJ5AzXrKIw7xspfjuzwCFNqUGvM34
-	bwqQD3H6z2qWj8IhieM
-X-Gm-Gg: AYBFou1G/sMzcTVo0+iTKO++bqANp3KeIPRFAswpMKzb3rDAEdnhWHHT+ZgvfnTFzxI
-	TDnPwIZD6cm212kT6z/84bgGc0xLNRyOwHbDm+xY29NPsU2sSSQU1pNtiLNB98q6FYONz7P+4bc
-	H9jwof7SaVhGOUzWc4yUCs++XFbsMO3eOS3itUU0+iin+NdFLdxaJw5kZ7kLhTwcOnx3HTGnpTW
-	ySkHlt1IuwKTrWzgTIBs4lZoOFTVv7fX54kFFGweo8h6O2YN4RpACNgBCegMZNePUgs2Z2EsziF
-	QsMgKWaUbOrrGskXFIGHROwVg8bqUeaG+j1HY/M7p+qqZfU15CsuRu7iStfdGAtDxWC0FyTiFmn
-	uGk9QKHkaT+GlYtQu0327YPKFFP2apWuJwjUSFO5RW7yMX4SEfFfGx4+Zkr0vsA4fjHl1DxgIvG
-	tCuGO/MgPQqmPKz6fZlY2uixcDg3Qabaubd/n7
-X-Received: by 2002:a05:6122:630f:b0:5bd:71cf:e97e with SMTP id 71dfb90a1353d-5c7ed7740e2mr1782655e0c.5.1788519176400;
-        Fri, 04 Sep 2026 03:52:56 -0700 (PDT)
-Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-125.dlp.protect.broadcom.com. [144.49.247.125])
-        by smtp-relay.gmail.com with ESMTPS id 71dfb90a1353d-5c7ec386e92sm1049194e0c.8.2026.09.04.03.52.56
+        bh=7yb3VFuLwxBId5gSlWRvWCWhTt6ZcrFM/a0JbdtByiQ=;
+        b=hk9aQjhUD5bXJEAXTQTSESPtbCGc0y+ENEx2Qoogr3r0tXrXKaKyKzjZxNeFZeUXJ7
+         7yanTQxbu8VZAazDyQEYH+hU2aMMuZTFpeBIJeaLfeReHAeYGasuluhyGRKBLXnggWca
+         HDwsHi7xXijsZuMNSYMqQCq7G3h32WVaZ+sLLLRk+fX9ul6un+YSO3l/3shdtCVDPFRL
+         dZ2g+Mpb4BMRWpnOiUMJRe9di5jbBz/59boUYCqGN4C1PesqdyorSbhTIUXP1G+ZwFeC
+         eFrAP0g+T4v6KCZkkkpUM2+L6aroxIFTtU3O/7ojTHEIFOnh0LtXRj5kkYhGiLInUOHt
+         8/Qw==
+X-Forwarded-Encrypted: i=1; AKwUvByW1x982bVE1WYQKxzAhplhbXTs8RljxJvuf+2HYsC6EiT0UmVJIigQ6zg+ranlHKEKzv/fKmEVvKfePEE=@vger.kernel.org
+X-Gm-Message-State: AFuF++nljWTrQCMMyTuKOXi2ji9/79rmsTyXl0y1WzX/fV8AhrZSSywR
+	E+KSwwRkIDXEbnGccdWqJbc/0FkiiHIJcuUzw4UrdJCVcXSyV9Qmj/F5rAf7ntOUtUF8um8BVhT
+	AUa/9cEIhqknl/8aRXDhZxUx4b1aE/1SvvxNLfsloWN1TapYbhM8ATaTnDXZ/SeYja8HbmkJ7vH
+	+PLQDr3q+ZW75ceIAa3TBpzKcIBYSMZszQjsP/d2y6mQNCdGA8VR7F/9BKNHjAsB1F8dRnIr4eT
+	4znhPDSab0VLGSvS+PT
+X-Gm-Gg: AYBFou3Au6EYsEVwIDybeGPFYuiy5XXnrqJTeNJu76U4F6fTiKIpk4om4iL/b2h5cko
+	+fI/ksz7rK6ei80wAslQtLewZTFiVwwunjelwgGC1IehWA3N+HOJ6jzIvzT33/jNFtBp+E3R51u
+	z8jMqyZbMpwYj33aeRp0L+C00qugkAsQyfMS6ayBNojdQfsXA1fFjoYumpJQ/RZ/dYXdzk5raFd
+	5sPhP3PPVxUBHKYDBmAxXLXdhzKqWT2TjZPKW/Hts+vMWp1eoTkHmXd9W9d2StmEpj0HG6JEzrx
+	5xaNA9wGcZ1dUXRL7uVlpyc40+YrkH7urPVEupF9l3r1UrzNSCCWDQzBe7+1qppVlOKQODciulD
+	GwHhnfczAJKRZfXJFMfdDrw6LWo3PyVxP3/P6VYfOTyVjGaDoxiCuNNpQ25YNfdmQrlVYBI3yyv
+	RhQnRjFm6kNu/xtY9qzKID+kONqizJkoGwbQ==
+X-Received: by 2002:a17:90b:1343:b0:38e:9eb2:9d43 with SMTP id 98e67ed59e1d1-39b261b1bcfmr9046343a91.16.1788519174004;
+        Fri, 04 Sep 2026 03:52:54 -0700 (PDT)
+Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-27.dlp.protect.broadcom.com. [144.49.247.27])
+        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-39aec95d327sm612263a91.3.2026.09.04.03.52.53
         for <linux-kernel@vger.kernel.org>
         (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Fri, 04 Sep 2026 03:52:56 -0700 (PDT)
+        Fri, 04 Sep 2026 03:52:53 -0700 (PDT)
 X-Relaying-Domain: broadcom.com
 X-CFilter-Loop: Reflected
-Received: by mail-pl1-f200.google.com with SMTP id d9443c01a7336-2cec4226c70so11332365ad.1
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 03:52:56 -0700 (PDT)
+Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-396901263b6so1689994a91.2
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 03:52:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=broadcom.com; s=google; t=1788519175; x=1789123975; darn=vger.kernel.org;
+        d=broadcom.com; s=google; t=1788519172; x=1789123972; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=+8/JgLbE54eU7oy503citsIF4dH0n9XMNj5rOPWa5Ac=;
-        b=PA8UzAAZXTVKgcELafUoYixYl17EyhOVR9a1vXHt/HQwvi8KjxFxNt+kXxTlJTuXqo
-         0BqXyNDYYF/lok8LVAbMoi+fk5bP8GHOlbCskjxNwfgVnQxTfCo5sxHkFq1YY8oVMvGR
-         AlGmZASRuKAK4iP7bldIG8Ua9X3uqyvjbuxGI=
-X-Forwarded-Encrypted: i=1; AKwUvByPblr/gcQ9NpGDIuR97OcNqS+HK8XBctqiZV1ddI8out9gVmhfH1GfoYcFs2h2KBaS+7CU8JyU8VMp5wg=@vger.kernel.org
-X-Received: by 2002:a17:903:3810:b0:2d6:3c22:99bf with SMTP id d9443c01a7336-2db124afcefmr84673525ad.9.1788519175238;
-        Fri, 04 Sep 2026 03:52:55 -0700 (PDT)
-X-Received: by 2002:a17:903:3810:b0:2d6:3c22:99bf with SMTP id d9443c01a7336-2db124afcefmr84673015ad.9.1788519174773;
-        Fri, 04 Sep 2026 03:52:54 -0700 (PDT)
+        bh=7yb3VFuLwxBId5gSlWRvWCWhTt6ZcrFM/a0JbdtByiQ=;
+        b=LSJ+CdRiBkHrW6GwQGDoakCZRYJng/ksTd3wb7ONDY9gowKjyVDbXI8CxObY4YlKT0
+         VTqlqSXK1hlLXiGDEd7k0h1afOVU2ok29z0YgERDm39bswqvHmvRIp37GXrbugZLb0MP
+         RX26YajnkPMsrNC8FI5gDdeGfAa/a38wXvf28=
+X-Forwarded-Encrypted: i=1; AKwUvBxNsnjBuV9sNA81fWs5XVkSe9tJ80eZj8dXwZOuPMvVClDKBGSQMWokHj6XecNLmYowrGgUUktkjSoS+Z0=@vger.kernel.org
+X-Received: by 2002:a17:90b:28ce:b0:38d:fda6:4873 with SMTP id 98e67ed59e1d1-39b26100cbfmr8695178a91.10.1788519169608;
+        Fri, 04 Sep 2026 03:52:49 -0700 (PDT)
+X-Received: by 2002:a17:90b:28ce:b0:38d:fda6:4873 with SMTP id 98e67ed59e1d1-39b26100cbfmr8695118a91.10.1788519169024;
+        Fri, 04 Sep 2026 03:52:49 -0700 (PDT)
 Received: from mgmt5.dhcp.broadcom.net ([192.19.222.250])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339a534d0asm6171170eec.8.2026.09.04.03.52.53
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339a534d0asm6171170eec.8.2026.09.04.03.52.48
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 04 Sep 2026 03:52:54 -0700 (PDT)
+        Fri, 04 Sep 2026 03:52:48 -0700 (PDT)
 From: Siva Reddy Kallam <siva.kallam@broadcom.com>
 To: leonro@nvidia.com,
 	jgg@nvidia.com,
@@ -85,10 +85,11 @@ To: leonro@nvidia.com,
 Cc: netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	linux-rdma@vger.kernel.org,
+	Mohammed Faraaz <mohammed.faraaz@broadcom.com>,
 	Siva Reddy Kallam <siva.kallam@broadcom.com>
-Subject: [PATCH 15/15] RDMA/bng_re: Register with ib-core
-Date: Fri,  4 Sep 2026 03:43:23 -0700
-Message-ID: <20260904104328.763768-16-siva.kallam@broadcom.com>
+Subject: [PATCH 13/15] RDMA/bng_re: Add AH verbs
+Date: Fri,  4 Sep 2026 03:43:21 -0700
+Message-ID: <20260904104328.763768-14-siva.kallam@broadcom.com>
 X-Mailer: git-send-email 2.43.5
 In-Reply-To: <20260904104328.763768-1-siva.kallam@broadcom.com>
 References: <20260904104328.763768-1-siva.kallam@broadcom.com>
@@ -101,126 +102,609 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
 
-This patch registers with ib-core
+From: Mohammed Faraaz <mohammed.faraaz@broadcom.com>
 
+This patch adds below verbs.
+- bng_re_create_ah
+- bng_re_destroy_ah
+- bng_re_query_ah
+
+Signed-off-by: Mohammed Faraaz <mohammed.faraaz@broadcom.com>
 Signed-off-by: Siva Reddy Kallam <siva.kallam@broadcom.com>
 ---
- drivers/infiniband/hw/bng_re/bng_dev.c | 79 ++++++++++++++++++++++++++
- 1 file changed, 79 insertions(+)
+ drivers/infiniband/hw/bng_re/bng_dev.c      |  16 ++
+ drivers/infiniband/hw/bng_re/bng_re.h       |   2 +
+ drivers/infiniband/hw/bng_re/bng_roce_hsi.h |  65 ++++++
+ drivers/infiniband/hw/bng_re/bng_sp.c       | 120 +++++++++++
+ drivers/infiniband/hw/bng_re/bng_sp.h       |  19 ++
+ drivers/infiniband/hw/bng_re/bng_verbs.c    | 215 ++++++++++++++++++++
+ drivers/infiniband/hw/bng_re/bng_verbs.h    |  29 +++
+ include/uapi/rdma/bng_re-abi.h              |   5 +
+ 8 files changed, 471 insertions(+)
 
 diff --git a/drivers/infiniband/hw/bng_re/bng_dev.c b/drivers/infiniband/hw/bng_re/bng_dev.c
-index 6e9df737c751..2633bb289f09 100644
+index 978b7efab03e..3ebdd777eca3 100644
 --- a/drivers/infiniband/hw/bng_re/bng_dev.c
 +++ b/drivers/infiniband/hw/bng_re/bng_dev.c
-@@ -5,6 +5,8 @@
- #include <linux/pci.h>
- #include <linux/auxiliary_bus.h>
+@@ -64,6 +64,11 @@ static const struct ib_device_ops bng_re_dev_ops = {
+ 	.destroy_srq		= bng_re_destroy_srq,
+ 	.alloc_hw_port_stats	= bng_re_alloc_hw_port_stats,
+ 	.get_hw_stats		= bng_re_ib_get_hw_stats,
++	.create_ah		= bng_re_create_ah,
++	.create_user_ah		= bng_re_create_ah,
++	.destroy_ah		= bng_re_destroy_ah,
++	.query_ah		= bng_re_query_ah,
++	INIT_RDMA_OBJ_SIZE(ib_ah, bng_re_ah, ib_ah),
+ 	INIT_RDMA_OBJ_SIZE(ib_srq, bng_re_srq, ib_srq),
+ 	INIT_RDMA_OBJ_SIZE(ib_cq, bng_re_cq, ib_cq),
+ 	INIT_RDMA_OBJ_SIZE(ib_pd, bng_re_pd, ib_pd),
+@@ -333,6 +338,11 @@ static void bng_re_dev_uninit(struct bng_re_dev *rdev)
+ {
+ 	int rc;
  
-+#include <net/addrconf.h>
++	if (rdev->dest_ah_wq) {
++		destroy_workqueue(rdev->dest_ah_wq);
++		rdev->dest_ah_wq = NULL;
++	}
 +
- #include <rdma/ib_verbs.h>
- #include <rdma/bng_re-abi.h>
+ 	if (rdev->bng_res.dpi_tbl.max)
+ 		bng_re_dealloc_dpi(&rdev->bng_res,
+ 				   &rdev->dpi_privileged);
+@@ -504,6 +514,12 @@ static int bng_re_dev_init(struct bng_re_dev *rdev)
+ 			      rdev, BNG_RE_DPI_TYPE_KERNEL);
+ 	if (rc)
+ 		goto deinit_mpc;
++	rdev->dest_ah_wq = alloc_ordered_workqueue("bng_re_dest_ah", 0);
++	if (!rdev->dest_ah_wq) {
++		rc = -ENOMEM;
++		goto deinit_mpc;
++	}
++	refcount_set(&rdev->pos_destah_cnt, 0);
  
-@@ -553,6 +555,73 @@ static int bng_re_dev_init(struct bng_re_dev *rdev)
+ 	return 0;
+ deinit_mpc:
+diff --git a/drivers/infiniband/hw/bng_re/bng_re.h b/drivers/infiniband/hw/bng_re/bng_re.h
+index 414768585e67..217383a2b252 100644
+--- a/drivers/infiniband/hw/bng_re/bng_re.h
++++ b/drivers/infiniband/hw/bng_re/bng_re.h
+@@ -301,6 +301,8 @@ struct bng_re_dev {
+ 	DECLARE_HASHTABLE(srq_hash, 8);  /* SRQ hash table */
+ 	struct bng_re_hw_stats		stats;
+ 	struct bng_re_ctx		ctx;
++	struct workqueue_struct		*dest_ah_wq;
++	refcount_t			pos_destah_cnt;
+ };
+ 
+ #define to_bng_re_dev(ptr, member)	\
+diff --git a/drivers/infiniband/hw/bng_re/bng_roce_hsi.h b/drivers/infiniband/hw/bng_re/bng_roce_hsi.h
+index 6c9d45464ef6..3001b9d4d056 100644
+--- a/drivers/infiniband/hw/bng_re/bng_roce_hsi.h
++++ b/drivers/infiniband/hw/bng_re/bng_roce_hsi.h
+@@ -6541,4 +6541,69 @@ struct mpc_event_resp_cmpl {
+ 	__le32	resp_data;
+ };
+ 
++#define AH_MODIFY_DATA_AH_MODIFY_FLAGS_AH_MODIFY_FLAGS_AH_CREATE      0x1UL
++#define AH_MODIFY_DATA_AH_MODIFY_FLAGS_AH_MODIFY_FLAGS_AH_DESTROY     0x2UL
++#define AH_MODIFY_DATA_AH_MODIFY_FLAGS_AH_MODIFY_FLAGS_XID_FIRST_USE  0x4UL
++
++struct ah_modify_data {
++	__le32	ah_modify_flags;
++	__le32	reserved_0;
++	u8	type;
++	u8	unused_1[3];
++	__le32	pd_id;
++	u8	hop_limit;
++	u8	traffic_class;
++	__le16	sgid_index;
++	__le32	dest_vlan_id_flow_label;
++	__le64	ah_handle;
++	__le32	dgid[4];
++	__le16	dest_mac[3];
++	u8	enable_cc;
++	u8	unused_2[1];
++	__le32	xid;
++	__le32	reserved_1;
++};
++
++struct mpc_ah_modify_cmd {
++	u8	req_type;
++	u8	req_subtype;
++	__le16	cookie;
++	__le16	target_id;
++	u8	resp_size;
++	u8	reserved;
++	__le64	resp_addr;
++	__le32	ah_modify_flags;
++	__le32	reserved_0;
++	u8	type;
++	u8	unused_1[3];
++	__le32	pd_id;
++	u8	hop_limit;
++	u8	traffic_class;
++	__le16	sgid_index;
++	__le32	dest_vlan_id_flow_label;
++	__le64	ah_handle;
++	__le32	dgid[4];
++	__le16	dest_mac[3];
++	u8	enable_cc;
++	u8	unused_2[1];
++	__le32	xid;
++	__le32	reserved_1;
++};
++
++struct mpc_ah_modify_cmpl {
++	u8	cmpl_type_reserved;
++	u8	error_code_mp_client;
++	u8	req_type;
++	u8	req_subtype;
++	__le32	opaque;
++	u8	v;
++	u8	reserved_0[7];
++	__le32	xid;
++	__le16	error_code;
++	u8	reserved_1[2];
++	u8	v2;
++	u8	reserved_2[3];
++	__le32	reserved_3;
++};
++
+ #endif /* _BNG_RE_HSI_H_ */
+diff --git a/drivers/infiniband/hw/bng_re/bng_sp.c b/drivers/infiniband/hw/bng_re/bng_sp.c
+index 26435fe4e892..b44af599e675 100644
+--- a/drivers/infiniband/hw/bng_re/bng_sp.c
++++ b/drivers/infiniband/hw/bng_re/bng_sp.c
+@@ -8,6 +8,8 @@
+ #include "bng_sp.h"
+ #include "bng_tlv.h"
+ #include "bng_re.h"
++#include "bng_re_mpc_roce.h"
++#include "bng_fp.h"
+ 
+ const struct bng_re_gid bng_re_gid_zero = {{0,}};
+ 
+@@ -1104,3 +1106,121 @@ int bng_re_qext_stat(struct bng_re_rcfw *rcfw, u32 fid,
+ 			  sbuf.sb, sbuf.dma_addr);
  	return rc;
  }
- 
-+static void bng_re_dispatch_event(struct ib_device *ibdev, struct ib_qp *qp,
-+				  u8 port_num, enum ib_event_type event)
++
++static int bng_sp_fill_mpc_ah_modify_parms(struct bng_re_res *res,
++					   struct ah_modify_data *data,
++					   struct bng_sp_ah *ah,
++					   bool for_destroy)
 +{
-+	struct ib_event ib_event;
++	u32 flags = 0;
 +
-+	ib_event.device = ibdev;
-+	if (qp) {
-+		ib_event.element.qp = qp;
-+		ib_event.event = event;
-+		if (qp->event_handler)
-+			qp->event_handler(&ib_event, qp->qp_context);
-+
++	if (for_destroy) {
++		flags |= AH_MODIFY_DATA_AH_MODIFY_FLAGS_AH_MODIFY_FLAGS_AH_DESTROY;
 +	} else {
-+		ib_event.element.port_num = port_num;
-+		ib_event.event = event;
-+		ib_dispatch_event(&ib_event);
++		flags |= AH_MODIFY_DATA_AH_MODIFY_FLAGS_AH_MODIFY_FLAGS_AH_CREATE;
++		flags |= AH_MODIFY_DATA_AH_MODIFY_FLAGS_AH_MODIFY_FLAGS_XID_FIRST_USE;
 +	}
++	data->ah_modify_flags = cpu_to_le32(flags);
++	data->ah_handle = cpu_to_le64((u64)ah);
++	data->xid = cpu_to_le32(ah->id);
++
++	if (!for_destroy) {
++		if (ah->pd)
++			data->pd_id = cpu_to_le32(ah->pd->id);
++		data->hop_limit = ah->hop_limit;
++		data->traffic_class = ah->traffic_class;
++		data->sgid_index = cpu_to_le16(ah->sgid_index);
++		data->dest_vlan_id_flow_label = cpu_to_le32(ah->flow_label | (ah->vlan_id << 16));
++		memcpy(data->dgid, ah->dgid.data, sizeof(data->dgid));
++		memcpy(data->dest_mac, ah->dmac, sizeof(ah->dmac));
++	}
++
++	dev_dbg(&res->pdev->dev, "MPC: AH modify params - AH ID=%d, flags=0x%x, for_destroy=%s\n",
++		ah->id, flags, for_destroy ? "true" : "false");
++
++	return 0;
 +}
 +
-+static int bng_re_register_ib(struct bng_re_dev *rdev)
++int bng_sp_fill_and_send_mpc_ah_modify(struct bng_re_res *res,
++				       struct bng_sp_ah **ahs,
++				       int num_ahs, bool for_destroy, bool block)
 +{
-+	struct ib_device *ibdev = &rdev->ibdev;
-+	int ret;
++	struct bng_re_dev *rdev = to_bng_re_dev(res, bng_res);
++	struct mpc_ah_modify_cmpl resp;
++	struct mpc_ah_modify_cmd cmd;
++	struct ah_modify_data *data;
++	struct bng_sp_ah *ah;
++	int rc = 0;
 +
-+	/* ib device init */
-+	ibdev->node_type = RDMA_NODE_IB_CA;
-+	strscpy(ibdev->node_desc, BNG_RE_DESC " HCA");
-+	ibdev->phys_port_cnt = 1;
++	/* for 1st iteration, don't allow batch */
++	if (num_ahs != 1)
++		return -EINVAL;
 +
-+	addrconf_addr_eui48((u8 *)&ibdev->node_guid, rdev->netdev->dev_addr);
++	ah = *ahs;
 +
-+	ibdev->num_comp_vectors	= rdev->nqr->num_msix - BNG_RE_MAX_RSVD_IRQ;
-+	ibdev->dev.parent = &rdev->aux_dev->pdev->dev;
-+	ibdev->local_dma_lkey = BNG_RE_RSVD_LKEY;
++	if (!for_destroy) {
++		if (res->is_vf)
++			return -EOPNOTSUPP;
 +
-+	ib_set_device_ops(ibdev, &bng_re_dev_ops);
-+	ret = ib_device_set_netdev(&rdev->ibdev, rdev->netdev, 1);
-+	if (ret)
-+		return ret;
++		if (res->ah_xids) {
++			int xid;
 +
-+	dma_set_max_seg_size(&rdev->aux_dev->pdev->dev, UINT_MAX);
-+	ibdev->uverbs_cmd_mask |= BIT_ULL(IB_USER_VERBS_CMD_POLL_CQ);
-+	return ib_register_device(ibdev, "bng_re%d", &rdev->aux_dev->pdev->dev);
-+}
++			xid = bng_re_xm_alloc_range(res->ah_xids, 1, 0);
++			if (xid < 0) {
++				dev_err(&res->pdev->dev,
++					"%s - error allocating ah xid\n", __func__);
++				return -ENOMEM;
++			}
++			ah->id = xid;
++		} else {
++			ah->id = 1;
++		}
++	}
 +
-+static int bng_re_ib_init(struct bng_re_dev *rdev)
-+{
-+	int rc;
-+	u32 event;
++	memset(&cmd, 0, sizeof(cmd));
++	memset(&resp, 0, sizeof(resp));
++	data = (struct ah_modify_data *)&cmd.ah_modify_flags;
 +
-+	/* Register ib dev */
-+	rc = bng_re_register_ib(rdev);
-+	if (rc) {
-+		pr_err("Failed to register with IB: %#x\n", rc);
++	bng_sp_fill_mpc_ah_modify_parms(res, data, ah, for_destroy);
++
++	cmd.resp_size = sizeof(resp) / BNG_RE_MPC_CQ_STRIDE;
++
++	/* Set MPC command type based on VF vs PF context */
++	if (res->is_vf) {
++		cmd.req_type = MPC_CMD_HDR_REQ_TYPE_PFVF;
++		cmd.req_subtype = MPC_CMD_HDR_REQ_SUB_TYPE_PFVF_AH_MODIFY;
++		dev_dbg(&res->pdev->dev, "MPC: [%s] VF path\n", __func__);
++	} else {
++		cmd.req_type = MPC_CMD_HDR_REQ_TYPE_RCA;
++		cmd.req_subtype = MPC_CMD_HDR_REQ_SUB_TYPE_RCA_AH_MODIFY;
++		dev_dbg(&res->pdev->dev, "MPC: [%s] PF path\n", __func__);
++	}
++
++	dev_dbg(&res->pdev->dev, "MPC: %s - sending to mpc: AH ID=%d, block=%s\n",
++		__func__, ah->id, block ? "true" : "false");
++
++	if (!rdev) {
++		dev_err(&res->pdev->dev, "%s: no rdev for MPC xmit\n", __func__);
++		return -ENODEV;
++	}
++
++	rc = bng_re_roce_mpc_xmit(rdev, &cmd, sizeof(cmd), &resp, sizeof(resp), block);
++
++	if (rc < 0) {
++		dev_err(&res->pdev->dev, "%s - error sending mpc:%d,%d",
++			__func__, ah->id, rc);
++
++		/* Cleanup on error */
++		if (!res->is_vf && res->ah_xids)
++			bng_re_xm_free_range(res->ah_xids, ah->id, true);
 +		return rc;
 +	}
-+	dev_info(rdev_to_dev(rdev), "Device registered with IB successfully");
-+	set_bit(BNG_RE_FLAG_ISSUE_ROCE_STATS, &rdev->flags);
 +
-+	event = netif_running(rdev->netdev) && netif_carrier_ok(rdev->netdev) ?
-+		IB_EVENT_PORT_ACTIVE : IB_EVENT_PORT_ERR;
++	dev_info(&res->pdev->dev, "MPC: AH %s completed for AH ID=%d\n",
++		 for_destroy ? "destroy" : "create", ah->id);
 +
-+	bng_re_dispatch_event(&rdev->ibdev, NULL, 1, event);
++	if (for_destroy && !res->is_vf && res->ah_xids)
++		bng_re_xm_free_range(res->ah_xids, ah->id, true);
 +
 +	return rc;
 +}
-+
- static int bng_re_add_device(struct auxiliary_device *adev)
- {
- 	struct bnge_auxr_priv *auxr_priv =
-@@ -575,8 +644,17 @@ static int bng_re_add_device(struct auxiliary_device *adev)
- 	if (rc)
- 		goto re_dev_dealloc;
+diff --git a/drivers/infiniband/hw/bng_re/bng_sp.h b/drivers/infiniband/hw/bng_re/bng_sp.h
+index d69d97e1940b..a6f688c0af3d 100644
+--- a/drivers/infiniband/hw/bng_re/bng_sp.h
++++ b/drivers/infiniband/hw/bng_re/bng_sp.h
+@@ -271,6 +271,22 @@ struct bng_re_hw_stats {
+ 	struct bng_re_rstat            rstat;
+ };
  
-+	rc = bng_re_ib_init(rdev);
-+	if (rc) {
-+		pr_err("Failed to register with IB: %s",
-+			auxr_priv->aux_dev.name);
-+		goto re_dev_uninit;
++struct bng_sp_ah {
++	struct bng_re_gid			dgid;
++	struct bng_sp_pd			*pd;
++	u32				id;
++	u8				sgid_index;
++	/* For Query AH if the hw table and SW table are different */
++	u8				host_sgid_index;
++	u8				traffic_class;
++	u32				flow_label;
++	u8				hop_limit;
++	u8				sl;
++	u8				dmac[6];
++	u16				vlan_id;
++	u8				nw_type;
++};
++
+ int bng_re_get_dev_attr(struct bng_re_rcfw *rcfw);
+ int bng_sp_alloc_sgid_tbl(struct bng_re_sgid_tbl *sgid_tbl, u16 size);
+ 
+@@ -312,5 +328,8 @@ int bng_re_qext_stat(struct bng_re_rcfw *rcfw, u32 fid,
+ 		     struct bng_re_ext_stat *estat);
+ int bng_re_get_roce_stats(struct bng_re_rcfw *rcfw,
+ 		     struct bng_roce_stats *stats);
++int bng_sp_fill_and_send_mpc_ah_modify(struct bng_re_res *res,
++				       struct bng_sp_ah **ahs,
++				       int num_ahs, bool for_destroy, bool block);
+ 
+ #endif
+diff --git a/drivers/infiniband/hw/bng_re/bng_verbs.c b/drivers/infiniband/hw/bng_re/bng_verbs.c
+index e48caefa64ee..c40f8686b6f6 100644
+--- a/drivers/infiniband/hw/bng_re/bng_verbs.c
++++ b/drivers/infiniband/hw/bng_re/bng_verbs.c
+@@ -1412,3 +1412,218 @@ int bng_re_destroy_srq(struct ib_srq *ib_srq, struct ib_udata *udata)
+ 
+ 	return 0;
+ }
++
++void bng_re_posted_destroy_ah(struct work_struct *work)
++{
++	struct bng_destroy_ah *ah = container_of(work, struct bng_destroy_ah, dwork.work);
++	struct bng_re_dev *rdev = ah->rdev;
++	struct bng_sp_ah *ahs[1];
++	u32 ah_ref_cnt = 0;
++	int rc = 0;
++
++	ahs[0] = &ah->sp_ah;
++
++	ah_ref_cnt = refcount_read(ah->ah_ref_cnt);
++	if (rdev->dest_ah_wq && ah_ref_cnt && ah->retry) {
++		ah->retry--;
++		queue_delayed_work(rdev->dest_ah_wq, &ah->dwork, BNG_RE_AH_DEST_DELAY);
++		return;
 +	}
 +
- 	return 0;
++	if (!ah->retry)
++		dev_dbg(rdev_to_dev(rdev), "Non-zero AH reference %d for AH id %d\n",
++			ah_ref_cnt, ah->sp_ah.id);
++
++	dev_dbg(&rdev->ibdev.dev,
++		"MPC: %s - sending AH modify(destroy) for: res:%p, ah:%p\n",
++		__func__, &rdev->bng_res, &ah->sp_ah);
++	rc = bng_sp_fill_and_send_mpc_ah_modify(&rdev->bng_res,
++						ahs, 1, true, false);
++	if (rc)
++		dev_err_ratelimited(&rdev->ibdev.dev,
++				    "%s failed to destroy AH id = %d rc = %d",
++				    __func__, ah->sp_ah.id, rc);
++	if (!ah_ref_cnt) {
++		kfree(ah->ah_ref_cnt);
++		ah->ah_ref_cnt = NULL;
++	}
++	kfree(ah);
++	refcount_dec(&rdev->pos_destah_cnt);
++}
++
++static u8 bng_re_stack_to_dev_nw_type(enum rdma_network_type ntype)
++{
++	u8 nw_type;
++
++	switch (ntype) {
++	case RDMA_NETWORK_IPV4:
++		nw_type = CMDQ_CREATE_AH_TYPE_V2IPV4;
++		break;
++	case RDMA_NETWORK_IPV6:
++		nw_type = CMDQ_CREATE_AH_TYPE_V2IPV6;
++		break;
++	default:
++		nw_type = CMDQ_CREATE_AH_TYPE_V1;
++		break;
++	}
++	return nw_type;
++}
++
++int bng_re_create_ah(struct ib_ah *ibah, struct rdma_ah_init_attr *init_attr,
++		     struct ib_udata *udata)
++{
++	struct ib_pd *ibpd = ibah->pd;
++	struct rdma_ah_attr *ah_attr = init_attr->ah_attr;
++	const struct ib_global_route *grh = rdma_ah_read_grh(ah_attr);
++	struct bng_re_dev *rdev = to_bng_re_dev(ibpd->device, ibdev);
++	struct bng_re_ah *ah = to_bng_re_ah(ibah);
++	const struct ib_gid_attr *sgid_attr;
++	struct bng_re_gid_ctx *ctx;
++	enum rdma_network_type nw_type;
++	int rc;
++
++	if (!(rdma_ah_get_ah_flags(ah_attr) & IB_AH_GRH)) {
++		ibdev_err(&rdev->ibdev, "Failed to create AH: GRH not set");
++		return -EINVAL;
++	}
++
++	ah->rdev = rdev;
++	if (ibpd) {
++		struct bng_re_pd *pd = container_of(ibpd, struct bng_re_pd, ib_pd);
++
++		ah->sp_ah.pd = &pd->sp_pd;
++	}
++
++	/* Supply the configuration for the HW */
++	memcpy(ah->sp_ah.dgid.data, grh->dgid.raw, sizeof(union ib_gid));
++	sgid_attr = grh->sgid_attr;
++	/* Get the HW context of the GID. The reference
++	 * of GID table entry is already taken by the caller.
++	 */
++	ctx = rdma_read_gid_hw_context(sgid_attr);
++	if (!ctx) {
++		ibdev_err(&rdev->ibdev, "Failed to read GID HW context");
++		return -EINVAL;
++	}
++	ah->sp_ah.sgid_index = ctx->idx;
++	ah->sp_ah.host_sgid_index = grh->sgid_index;
++	ah->sp_ah.flow_label = grh->flow_label;
++	ah->sp_ah.hop_limit = grh->hop_limit;
++	ah->sp_ah.traffic_class = grh->traffic_class;
++	ah->sp_ah.sl = rdma_ah_get_sl(ah_attr);
++
++	/* Get network type from GID attribute */
++	nw_type = rdma_gid_attr_network_type(sgid_attr);
++	ah->sp_ah.nw_type = bng_re_stack_to_dev_nw_type(nw_type);
++
++	memcpy(ah->sp_ah.dmac, ah_attr->roce.dmac, ETH_ALEN);
++
++	struct bng_sp_ah *ahp[1] = { &ah->sp_ah };
++
++	dev_dbg(&rdev->ibdev.dev, "MPC: %s - sending AH modify(create) for: res:%p, ah:%p\n",
++		__func__, &rdev->bng_res, &ah->sp_ah);
++	rc = bng_sp_fill_and_send_mpc_ah_modify(&rdev->bng_res,
++						ahp, 1, false, false);
++	if (rc) {
++		ibdev_err(&rdev->ibdev, "Failed to create HW AH");
++		return rc;
++	}
++
++	/* Allocate and initialize reference count for deferred destruction */
++	ah->ref_cnt = kzalloc_obj(*ah->ref_cnt, GFP_KERNEL);
++	if (!ah->ref_cnt) {
++		rc = -ENOMEM;
++		goto fail_destroy;
++	}
++	refcount_set(ah->ref_cnt, 1);
++
++	if (udata) {
++		struct bng_re_ah_resp resp = {};
++
++		resp.ah_id = ah->sp_ah.id;
++		rc = ib_copy_to_udata(udata, &resp,
++				      min(udata->outlen, sizeof(resp)));
++		if (rc) {
++			ibdev_err(&rdev->ibdev, "Failed to copy AH response");
++			goto fail_ref;
++		}
++	}
++
++	ibdev_dbg(&rdev->ibdev, "AH created with ID: %d", ah->sp_ah.id);
++	return 0;
++
++fail_ref:
++	kfree(ah->ref_cnt);
++	ah->ref_cnt = NULL;
++fail_destroy:
++	struct bng_sp_ah *ahs[1] = { &ah->sp_ah };
++
++	bng_sp_fill_and_send_mpc_ah_modify(&rdev->bng_res,
++					   ahs, 1, true, true);
++	return rc;
++}
++
++int bng_re_destroy_ah(struct ib_ah *ib_ah, u32 flags)
++{
++	struct bng_re_ah *ah = to_bng_re_ah(ib_ah);
++	struct bng_re_dev *rdev = ah->rdev;
++	struct bng_destroy_ah *pos_ah;
++	struct bng_sp_ah *ahs[1];
++	bool zero_ref = false;
++	bool block = true;
++	int rc = 0;
++
++	block = !!(flags & RDMA_DESTROY_AH_SLEEPABLE);
++	ahs[0] = &ah->sp_ah;
++
++	zero_ref = refcount_dec_and_test(ah->ref_cnt);
++	if (rdev->dest_ah_wq && (block || !zero_ref)) {
++		pos_ah = kzalloc_obj(*pos_ah, GFP_ATOMIC);
++		if (!pos_ah) {
++			rc = bng_sp_fill_and_send_mpc_ah_modify(&rdev->bng_res,
++								ahs, 1, true, block);
++			if (rc)
++				dev_err_ratelimited(&rdev->ibdev.dev,
++						    "%s id = %d dest_ah failed rc = %d",
++						    __func__, ah->sp_ah.id, rc);
++			if (zero_ref)
++				kfree(ah->ref_cnt);
++		} else {
++			INIT_DELAYED_WORK(&pos_ah->dwork, bng_re_posted_destroy_ah);
++			pos_ah->rdev = rdev;
++			pos_ah->ah_ref_cnt = ah->ref_cnt;
++			pos_ah->retry = BNG_RE_AH_DEST_RETRY;
++			memcpy(&pos_ah->sp_ah, &ah->sp_ah, sizeof(pos_ah->sp_ah));
++			refcount_inc(&rdev->pos_destah_cnt);
++			queue_delayed_work(rdev->dest_ah_wq, &pos_ah->dwork, 0);
++			/* We queued it, do not free ah->ref_cnt yet! */
++		}
++	} else {
++		rc = bng_sp_fill_and_send_mpc_ah_modify(&rdev->bng_res,
++							ahs, 1, true, block);
++		if (rc)
++			dev_err_ratelimited(&rdev->ibdev.dev,
++					    "%s id = %d dest_ah failed rc = %d",
++					    __func__, ah->sp_ah.id, rc);
++		if (zero_ref)
++			kfree(ah->ref_cnt);
++	}
++	return 0;
++}
++
++int bng_re_query_ah(struct ib_ah *ib_ah, struct rdma_ah_attr *ah_attr)
++{
++	struct bng_re_ah *ah = to_bng_re_ah(ib_ah);
++
++	ah_attr->type = ib_ah->type;
++	ah_attr->ah_flags = IB_AH_GRH;
++	rdma_ah_set_sl(ah_attr, ah->sp_ah.sl);
++	memcpy(ah_attr->roce.dmac, ah->sp_ah.dmac, ETH_ALEN);
++	rdma_ah_set_grh(ah_attr, NULL, 0,
++			ah->sp_ah.host_sgid_index,
++			0, ah->sp_ah.traffic_class);
++	rdma_ah_set_dgid_raw(ah_attr, ah->sp_ah.dgid.data);
++	rdma_ah_set_port_num(ah_attr, 1);
++	rdma_ah_set_static_rate(ah_attr, 0);
++	return 0;
++}
+diff --git a/drivers/infiniband/hw/bng_re/bng_verbs.h b/drivers/infiniband/hw/bng_re/bng_verbs.h
+index dd9fac0f33c0..c5643ee70885 100644
+--- a/drivers/infiniband/hw/bng_re/bng_verbs.h
++++ b/drivers/infiniband/hw/bng_re/bng_verbs.h
+@@ -75,6 +75,30 @@ struct bng_re_srq {
+ 	struct hlist_node	hash_entry;
+ };
  
-+re_dev_uninit:
-+	bng_re_dev_uninit(rdev);
- re_dev_dealloc:
- 	ib_dealloc_device(&rdev->ibdev);
- exit:
-@@ -586,6 +664,7 @@ static int bng_re_add_device(struct auxiliary_device *adev)
- static void bng_re_remove_device(struct bng_re_dev *rdev,
- 				 struct auxiliary_device *aux_dev)
++/* Deferred AH destruction constants */
++#define BNG_RE_AH_DEST_DELAY	msecs_to_jiffies(5000)
++#define BNG_RE_AH_DEST_RETRY	10
++
++struct bng_destroy_ah {
++	struct delayed_work	dwork;
++	struct bng_re_dev	*rdev;
++	struct bng_sp_ah	sp_ah;
++	refcount_t		*ah_ref_cnt;
++	u8			retry;
++};
++
++struct bng_re_ah {
++	struct ib_ah		ib_ah;
++	struct bng_re_dev	*rdev;
++	struct bng_sp_ah	sp_ah;
++	refcount_t		*ref_cnt;
++};
++
++static inline struct bng_re_ah *to_bng_re_ah(struct ib_ah *ibah)
++{
++	return container_of(ibah, struct bng_re_ah, ib_ah);
++}
++
+ static inline u32 bng_re_init_depth(u32 ent, struct bng_re_ucontext *uctx)
  {
-+	ib_unregister_device(&rdev->ibdev);
- 	bng_re_dev_uninit(rdev);
- 	ib_dealloc_device(&rdev->ibdev);
- }
+ 	/* roundup_pow_of_two(0) is undefined (UBSAN: shift by 64 on 64-bit). */
+@@ -147,6 +171,11 @@ int bng_re_modify_srq(struct ib_srq *ib_srq, struct ib_srq_attr *srq_attr,
+ 		      struct ib_udata *udata);
+ int bng_re_query_srq(struct ib_srq *ib_srq, struct ib_srq_attr *srq_attr);
+ int bng_re_destroy_srq(struct ib_srq *ib_srq, struct ib_udata *udata);
++int bng_re_create_ah(struct ib_ah *ib_ah, struct rdma_ah_init_attr *init_attr,
++		     struct ib_udata *udata);
++int bng_re_destroy_ah(struct ib_ah *ib_ah, u32 flags);
++int bng_re_query_ah(struct ib_ah *ib_ah, struct rdma_ah_attr *ah_attr);
++void bng_re_posted_destroy_ah(struct work_struct *work);
+ 
+ #endif /* __BNG_RE_VERBS_H__ */
+ 
+diff --git a/include/uapi/rdma/bng_re-abi.h b/include/uapi/rdma/bng_re-abi.h
+index 49931b7c1344..36bc902600be 100644
+--- a/include/uapi/rdma/bng_re-abi.h
++++ b/include/uapi/rdma/bng_re-abi.h
+@@ -75,4 +75,9 @@ struct bng_re_srq_resp {
+ 	__aligned_u64 comp_mask;
+ };
+ 
++struct bng_re_ah_resp {
++	__u32 ah_id;
++	__u64 comp_mask;
++} __attribute__((packed));
++
+ #endif /* __BNG_RE_UVERBS_ABI_H__*/
 -- 
 2.43.5
 
