@@ -1,97 +1,63 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B48924A8A2F;
-	Fri,  4 Sep 2026 13:40:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B207D4A8FF7
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 13:40:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788529239; cv=none; b=QaMTxSJ/lc2cK5TRaJouNsmoh8rV4xp1VoL/vgYbjAb4r7wiIhaWfkgQke//+UyJz+zRq4+mqnNBmGmei+LEgLQJfEemsbhkIyNl+kYeo6Phj2LvEXnpmL7C6BxNNlYxmUsIony3W685rYVo7jZMTA+6E8zuTjKaeQmby7JMCFE=
+	t=1788529240; cv=none; b=rI1VJb4RevB10rTeFl37QnVB/ji69qA1ZzLuDwpsVPaDJl1WNKX5zy8aLclN52o48JndDmzbTiekSA56oj0QGwMQCBj9Bp2yZTuGUKVzSgET5dPn0AcuNYIsKu5U4fI41hxA/u4W8lA0PdBGsZrqOD4sJDhIPafovTIaKURN1EE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788529239; c=relaxed/simple;
-	bh=oDTUjGw+6W/laJihCaI/nHIVNNBRUwU1ZUguXF7ceNo=;
-	h=Date:Content-Type:MIME-Version:From:Cc:To:In-Reply-To:References:
-	 Message-Id:Subject; b=nrfJKhoNebXvTkB3gjugN5GlAJDnudeip9FgwGtWJA/9jzH1N8bulld6+3+MU9z0DLspEv5hzESjaOI1QwH+h2I+SZk8fqOoOlILlhotyeFfF0AFea2sfeZX0Z1Cg0JcvN9OcV/kUYu5lOrucP7YOE/a75vpHZCszJWXJ5zomSs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QowOtgL7; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788529240; c=relaxed/simple;
+	bh=PTqqvSeFhON+Jt8RgtMNEFzjpFUeqXY2vM6JFpcRd94=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=o2NbssY2iiLXFlCpINVscl/Ps8277mF47AKsoe2Admnpo684Plqf3Psklfe3Em4JWB3dg2Nl+9mGF3anS2SpxWjEP9KSH1l4OYVfedU1XMQoU5sQoTJLK3owOJQ9Q3Rpp8LjhvnptFTrtugU5p/HwkeYe2bRk0G4xJUjST7i898=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Jb6dn99S; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QowOtgL7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 30ECF1F00A3E;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Jb6dn99S"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9C7431F00A3F;
 	Fri,  4 Sep 2026 13:40:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788529237;
-	bh=qSvx0dH2njZ5k/zFksKTcMGlm2nSFiXEvYGqs2t+ybA=;
-	h=Date:From:Cc:To:In-Reply-To:References:Subject;
-	b=QowOtgL77QVimOnRTCXdrXfBmc83w2GgoSYbfiQsdp3TRdT91e55tt8kx/1SgoDZf
-	 pYNfEXF6S7V7fC3mwvN3h3Rb0DV1yWA78Z4Mb9wMbLE9Wm5rNpNif2I8jwEa6IQIWe
-	 DGs+x+85+VhP1QxBX0nbHxwqZw6O9E1ZUiDuMVsxaJZHhuw9iV2ctqk/Lr9uPPAte3
-	 UWrl4r3lKO137HOaZROWzS3MsWvMeZd2ibAwVNP0fsnDXHEK21emIQDdUXhqSCvzFY
-	 Tfde95Xpix+MOEZW+rAWt0a4TuF6dEDnmTt0Ml3/UoMH7KQOtlpK4QhF50FPVlsQVD
-	 eemSoxeSsWt8A==
-Date: Fri, 04 Sep 2026 08:40:34 -0500
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	s=k20260515; t=1788529239;
+	bh=W3ARUUquBVjLU+1vMyfZoZfrmendLIctkuhpFI/Kg7o=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=Jb6dn99SHoZzyXuXQRPUgv51JwOKuRj63FzJ9QsNmwpWPZW59VzrQe5sLB5nW1ynl
+	 52dTvtZco7ZMyjnJU9qFvzPwEbNainZpIq1STMEungRbCRJhe+QBtsGPDtpu0HfmGs
+	 EeH69FrOq2ZGihfizt8SO766Wow/ZPu6WODJQ+4vzdF9dFPQb+LHNRAXFtpNvrW195
+	 /RrHRwq8zLHsh/UMdFzvHuRPjZM45Ul4+Uk//1BeTneS0yrzhI2epLmcUs/eundO91
+	 d4rgJnOHGIbufQqzttFBt+0TOhlOMbhZhzByelI0+AIHUE2skIgikiE2s3Zd+E8j1s
+	 L0sFuzThX/NMQ==
+From: Michael Walle <mwalle@kernel.org>
+To: Pratyush Yadav <pratyush@kernel.org>, 
+ Takahiro Kuwano <takahiro.kuwano@infineon.com>, 
+ Miquel Raynal <miquel.raynal@bootlin.com>, 
+ Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>, 
+ Takino <stayer.opt1f@icloud.com>, Michael Walle <mwalle@kernel.org>
+Cc: linux-mtd@lists.infradead.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20260811064512.42520-1-mwalle@kernel.org>
+References: <20260811064512.42520-1-mwalle@kernel.org>
+Subject: Re: [PATCH] mtd: spi-nor: xmc: add locking to XM25QH128A
+Message-Id: <178852923736.3340372.17741813626485935143.b4-ty@b4>
+Date: Fri, 04 Sep 2026 15:40:37 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-From: "Rob Herring (Arm)" <robh@kernel.org>
-Cc: krzk+dt@kernel.org, stanley_chang@realtek.com, afaerber@suse.com, 
- bartosz.golaszewski@oss.qualcomm.com, linux-spi@vger.kernel.org, 
- conor+dt@kernel.org, cy.huang@realtek.com, devicetree@vger.kernel.org, 
- broonie@kernel.org, linux-kernel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-realtek-soc@lists.infradead.org, 
- jyanchou@realtek.com, james.tai@realtek.com
-To: Yu-Chun Lin <eleanor.lin@realtek.com>
-In-Reply-To: <20260904031252.244280-2-eleanor.lin@realtek.com>
-References: <20260904031252.244280-1-eleanor.lin@realtek.com>
- <20260904031252.244280-2-eleanor.lin@realtek.com>
-Message-Id: <178852862340.96570.7431727982828977183.robh@kernel.org>
-Subject: Re: [PATCH 1/3] dt-bindings: spi: Add Realtek RTD1625 SPI support
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.16.0
 
 
-On Fri, 04 Sep 2026 11:12:50 +0800, Yu-Chun Lin wrote:
-> From: Jyan Chou <jyanchou@realtek.com>
-> 
-> Add DT binding schema for Realtek RTD1625 SPI Flash Controller
-> 
-> Signed-off-by: Jyan Chou <jyanchou@realtek.com>
-> Co-developed-by: Yu-Chun Lin <eleanor.lin@realtek.com>
-> Signed-off-by: Yu-Chun Lin <eleanor.lin@realtek.com>
-> ---
->  .../bindings/spi/realtek,rtd1625-nor.yaml     | 68 +++++++++++++++++++
->  1 file changed, 68 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/spi/realtek,rtd1625-nor.yaml
-> 
+On Tue, 11 Aug 2026 08:44:44 +0200, Michael Walle wrote:
+> Add support for locking to the XM25QH128A part.
 
-My bot found errors running 'make dt_binding_check' on your patch:
+Applied, thanks!
 
-yamllint warnings/errors:
+[1/1] mtd: spi-nor: xmc: add locking to XM25QH128A
+      commit: 3c2464c70284eb5443a18ea7ee2f815a06d91a5b
 
-dtschema/dtc warnings/errors:
-Documentation/devicetree/bindings/spi/realtek,rtd1625-nor.example.dts:18:18: fatal error: dt-bindings/clock/realtek,rtd1625-clk.h: No such file or directory
-   18 |         #include <dt-bindings/clock/realtek,rtd1625-clk.h>
-      |                  ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-compilation terminated.
-make[2]: *** [scripts/Makefile.dtbs:140: Documentation/devicetree/bindings/spi/realtek,rtd1625-nor.example.dtb] Error 1
-make[2]: *** Waiting for unfinished jobs....
-make[1]: *** [/builds/robherring/linux-dt-review/Makefile:1717: dt_binding_check] Error 2
-make: *** [Makefile:248: __sub-make] Error 2
-
-doc reference errors (make refcheckdocs):
-
-See https://patchwork.kernel.org/project/devicetree/patch/20260904031252.244280-2-eleanor.lin@realtek.com
-
-The base for the series is generally the latest rc1. A different dependency
-should be noted in *this* patch.
-
-If you already ran 'make dt_binding_check' and didn't see the above
-error(s), then make sure 'yamllint' is installed and dt-schema is up to
-date:
-
-pip3 install dtschema --upgrade
-
-Please check and re-submit after running the above command yourself. Note
-that DT_SCHEMA_FILES can be set to your schema file to speed up checking
-your schema. However, it must be unset to test all examples with your schema.
+Best regards,
+-- 
+Michael Walle <mwalle@kernel.org>
 
