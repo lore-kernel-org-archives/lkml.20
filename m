@@ -1,84 +1,69 @@
-Received: from mail-pg1-f174.google.com (mail-pg1-f174.google.com [209.85.215.174])
+Received: from mail-oi1-f182.google.com (mail-oi1-f182.google.com [209.85.167.182])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A4FA23A561
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 01:23:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54FCE347529
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 01:25:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788485012; cv=none; b=QP2MJ84gd3ZGPWhrXxzoEWke4no2A70cvhu5u48/wX8f5GVrcj/JUeZBEmXunUYmvmaGCnSjTbtT0w7lm4W0IsfThzCB1ha0JSwRJNUmxKRsERnwhjSe/F276bfD4Kk3RpBzPOdcBNcDJNGwvGWZWSozpMQvyeNAtcU7VMVF8pc=
+	t=1788485129; cv=none; b=sTULSW2OxEr50Zex2A6ow6BzT6+fLAP/+tAQUtwRHRmSyZknPBFRsL6EB8lbtLkNMciXoDGHTklhPbvmYKMtwVRsVE0PkA+vHEZYOahRaI23ZlWeTI5pPDpOENhy/NmrhM7Sy4/FW0WOcjIvzZdXup80UiagPyorJ+OvbQ8XL+M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788485012; c=relaxed/simple;
-	bh=GrZTQHRL+xr7CiDtU2wF/9vzloMtIaBswpy7OyErfqk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Y7LjJdbu/xYG0zILByuI85/6bzkQHHNJDN7XT3AY76jKfo1LXNupbCRqxVugW6JKn+ZiOTCZ939r7xdjn7AD4KMbIW8G1ianmaoHvC+u6QS5ATj5tXhS1B7TeWvlCuJbqcbpyo6bybJjOTLzfr3Y8PqgodOyTzxKLbsSJ5CFA4k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=j1Xd5/+o; arc=none smtp.client-ip=209.85.215.174
+	s=arc-20240116; t=1788485129; c=relaxed/simple;
+	bh=sNfirfIqNrT8whcliGYobgkY7UUaxK0r00OeZS569kc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=O323SMoPEeHnC24KMPBnkZpyp6TRMWU3JLQAHXezFFiVsjpTdPjM3Idm7fCGdVYNOkPrWf4W0Zhnq+2Mr20Pia7WRdyr/MpjQkUdUy9Yx8/9+6o+dHsNhm3SjBtN58biHJmZGnFH0fVXLErRRTqTGdfx/T9dpL+PsbnpbQufVFA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ekHHrS/v; arc=none smtp.client-ip=209.85.167.182
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="j1Xd5/+o"
-Received: by mail-pg1-f174.google.com with SMTP id 41be03b00d2f7-ca12086c06eso501363a12.0
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 18:23:30 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ekHHrS/v"
+Received: by mail-oi1-f182.google.com with SMTP id 5614622812f47-4ab70b882c5so365108b6e.2
+        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 18:25:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788485010; x=1789089810; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1788485127; x=1789089927; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Agf6KzSE2M9rfW3DTQHxsj+kTxob2VTdMv9WkSeHlI0=;
-        b=j1Xd5/+o+ZyU0lMFkD5JlrGA/85HyKmlnrtDPup8kQdRwaPYnDNfXEJ8lNBaguKjd0
-         dQoSDlVNdsWnFzdwWZRpVqQMx/mHH3esHKkUK7kXorNdAGbthz0E102gtSkreu7RHBoI
-         ibiQiVAv3EAa2kMrr72BfHR6Dbsi8FsR0AyPyx6la/kg6g4F3bNH95g7KyuV+5sQc8S/
-         IJLt17RhsFAOXmDJMB/fB8L4roIS8i02glOWoV5PS4akiRTyaavrTmMW+xDRiKtNe+nL
-         I6JQOJbbDL+nJ0Ua76E3Ml0xyZjHarEbcMUhjwRrsOYkqt5hjM34q7lJJDshObw5CHJp
-         vUbQ==
+        bh=ejryEK131qYRi5ya6nGJJVTstyu895uk0XBF3JQ7hB8=;
+        b=ekHHrS/vIkiC42zX/KKwe5h3Gyio53JQO24edu1R31YVlRdbnbm6MqHSjIzckT6q1A
+         poU42rNClTDQktCbHIVmpxLdr7ZPwndycUj16SgOUZ1oVCcN89o39tFtK6GMrbx3ICNh
+         1GSg32wEhApBkbb3F/uTdJ8MbUFOersgG5rtw0eO+k8jEXXfot0FCL90ipfvSdTlsnh7
+         EmI5ucpeF/+Z2lMIvTyDzmzjJIHT/LGkdOWoFJLHSU/+T8JXxAclcpNRIKm5v/DI1vQZ
+         iP+TiZG3Cb9hW3v7f4ZulIF4IxR4SnbHCpUYZ0VGyPd+l3UJQeon8JB+8LR3cB9bFGuy
+         T9JQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788485010; x=1789089810;
+        d=1e100.net; s=20251104; t=1788485127; x=1789089927;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Agf6KzSE2M9rfW3DTQHxsj+kTxob2VTdMv9WkSeHlI0=;
-        b=GkOkydfmVH//p/JTlkAretTIuyb0idzsBGpwh1BsBJ7wJsK6WlR+NEXdhM7rQmy49J
-         24qT4pBDBb4YC3Ae0yadyBMdD04de38V6dAYgkMVnsnFCnyFLIc0Yy4jYcKTRDtSzC9+
-         2/rZnEeMg8tf66fa0/JkOYiCVwY5yJyObqGsjzihSBTmbhBbkbb3cOEfOeoToS9fplc0
-         7Vbc5Ipi0zAzRMp9tCRQU3P387nx04CZVtu/HmoEMzzgwytO1qFhnTH6iOeRG4cgCsIq
-         2CMDHZORfWjZG0CCB3QnxwC9EYderLN2yXAr1dMEMnlWtu9QzOyh2lwxNW6Fq08bpmAl
-         x/kQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzfGNLcyIYI7ZlVMi6IidHNWTZsAQeJPukmzJ3cPBjEV0E+GwV+ikRcQ49bUh4E/XyydAkeqVVqpH2lgLQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++nZ5JhH8zRfDonpZrIHBguDoWkNcvV1lwzwspPxkdLgvAWAsLpR
-	jpjqSVSmYlZQfgyL9aNsJTVu41jzFFia2HTyhvIDAobsTP8GyaU1c9z7
-X-Gm-Gg: AYBFou18++3/HxRHmq4vpkoR1ZuhGkIbOW5xH7VwGNlW/iLfp1LHdhlWckfgjadqHU8
-	FDGbP4EDG1X0yIWQw+69Nu5IrLXIaFV2/Udoov2gyB7kGhDEnO/+pHg5jq57bU1zKAh+TSx+rur
-	QgWYYE+eghq8zM0iRHoNP0KvR4cyq87ABSwUkqM9Qii8auNjfA1I0mZUkuKON+Yp4GdTfW0drJ5
-	ADpxOgvWm4zER7WkxyoWTN9Z8OsoNgwgWWW7lI6ffXP2gfYlzoo6p5sBoJFL+AAeZKxYtnYGsOr
-	VcgILSYyPqPCHgLKTzdm5xDGD5aQKfncz5R9YaS9q31UMyU/wG6SFH3JDqxZcVeAI+2HbrS0Nk2
-	YpOZdvfeOjcZ/1c0Ps66xxDAtmuZeZyZ7Aw+ynw0JCwrzFcZhj1OtvoXUpWrU5uDTwVj5bYC1ZM
-	74F7prrraAgSq1hN+gvFDpagH6XJ4oXPohepHr2fWgQBDX6BNOILs9omCJKv3P4s80Zm0GAzGHJ
-	EHltWh5N9sKHdYsP2P5il+KBmWW6ZyMHSnOKSzeu/dL6LaXsVRD2DPa7nEZyqiu8Q==
-X-Received: by 2002:a17:90b:1a8f:b0:38e:9045:babe with SMTP id 98e67ed59e1d1-39b2612ed35mr3678175a91.7.1788485009621;
-        Thu, 03 Sep 2026 18:23:29 -0700 (PDT)
-Received: from hanzj-mi.. (ec2-99-79-140-187.ca-central-1.compute.amazonaws.com. [99.79.140.187])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b26123c99sm1513842a91.11.2026.09.03.18.23.16
+        bh=ejryEK131qYRi5ya6nGJJVTstyu895uk0XBF3JQ7hB8=;
+        b=DZkosZipEfSBy/cvZHVWw67t7zqpHLlepKKtNOJHA0IzgqVSb41HhxavL9y+EjGY6D
+         v3SbGVOIzSPFTmyW+DiPB8uHjTAA5GcvECQFo95yQorpIWQtIYyjESDGFrwvarXCSEh2
+         Ps2ukriBZkjmdNPGeDCBm5NgXZd8hJb5PWUMzwHo+qfdWVJiDtM1Lt0VtkPNX4oxTSX8
+         uRppnBbA7J/59Q8m0NaKoxps+DVRI8HkXnonUorIv+f3jk069SkcvzlgOoG/FsY01+vm
+         aVxYR2Rzrz1XZawFUTnLDU++DmrtidEeUKjgB2FMuXto0gWOSYLD82RAILN4ayVsw1l/
+         WMZQ==
+X-Gm-Message-State: AFuF++mWHHtjmUTkJ3+HpHNYR9I2m5KkB5oADNkAnTBzcdUpKJm0af/i
+	ZzKAvbhWCsatrbIo+TA9euHDsSWVMAb8Hk8mP1zkRmBaeKS2KdKpL9Qo
+X-Gm-Gg: AYBFou33Jzj1CndFhNLJA/ZnFOZufU1DrEoDvpLsen7Q+ZlcWNCIXMMJzuy/9fXtP3g
+	ZcP+2ZvyrLwM79YYUjfMHm3lIWT6sgGR4x1jnWTbpi1RFqd6g449vMGxAm63OIn4K/FmGucz0j+
+	IGVxGOdirqXkWbRzdxRwNJrRFkPWa1LXWd/vdvTARP8ikQHYXVIEx5Qx0j5l6jlTywDZOoOgUXY
+	6+YPgVCjdYBfosaylYz2rJNwXPOq8mdrtFaZQSJL/yFbrHkIxKr61/NA8IkAKG9tL5UQIg64inM
+	TLwwwF/OR6XXbAwhuxaP4vHJZq8hfRt40O0Puzi+kycqfdds1bawDQCWxaxkbEzC3gviokgZn1G
+	NLOPpItevDHL0DbyDniZbKlNrm75akwgK5DEUn2oc+TwEstcV9IfsvBjJ5D8moGfz9d7vW3F2uF
+	2ciD3qMlyoTPWQcR4IBtidJNcP4dS+LwblznFG/aSiRxmDVFkj0V2VOCHYtK3/76+PS8Q3QzGvT
+	ts5tPoXtDudj0eYx+Pjv8KP4TO5m0NNwOY=
+X-Received: by 2002:a05:6808:6804:b0:4b9:a8ac:483 with SMTP id 5614622812f47-4b9a8bb6affmr558377b6e.33.1788485127085;
+        Thu, 03 Sep 2026 18:25:27 -0700 (PDT)
+Received: from cachyos-x8664 (fixed-186-96-23-179.totalplay.net. [186.96.23.179])
+        by smtp.gmail.com with ESMTPSA id 5614622812f47-4b971675a96sm1054289b6e.11.2026.09.03.18.25.25
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 03 Sep 2026 18:23:29 -0700 (PDT)
-From: Zhijian Han <hanzhijian1991@gmail.com>
-To: Richard Zhu <hongxing.zhu@nxp.com>,
-	Lucas Stach <l.stach@pengutronix.de>,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	=?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>
-Cc: Rob Herring <robh@kernel.org>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	linux-pci@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	imx@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	sashiko-bot@kernel.org,
-	Zhijian Han <hanzhijian1991@gmail.com>
-Subject: [PATCH v7] PCI: imx6: fix resource leaks in probe error paths
-Date: Fri,  4 Sep 2026 09:23:07 +0800
-Message-ID: <20260904012307.3434449-1-hanzhijian1991@gmail.com>
-X-Mailer: git-send-email 2.43.0
+        Thu, 03 Sep 2026 18:25:26 -0700 (PDT)
+From: Diego Fernando Mancera Gomez <diegomancera.dev@gmail.com>
+To: gregkh@linuxfoundation.org
+Cc: linux-kernel@vger.kernel.org,
+	lkp@intel.com
+Subject: [PATCH] uio: fsl_elbc_gpcm: preserve platform_get_irq() errors
+Date: Thu,  3 Sep 2026 19:25:11 -0600
+Message-ID: <20260904012511.191397-1-diegomancera.dev@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -87,150 +72,36 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-imx_pcie_probe() leaks both pwrctrl devices and power domains on failure:
+In uio_fsl_elbc_gpcm_probe(), platform_get_irq() returns a negative errno
+on failure. Because irq is declared as unsigned int, the error check
+if (irq < 0) is never satisfied and negative error codes (such as
+-EPROBE_DEFER) bypass the error handling.
 
-- imx_pcie_attach_pd() attaches the "pcie" and "pcie_phy" power domains
-  and adds device links to them, but nothing detaches the domains or
-  removes the links on probe failure or deferral, so they leak.
+Change the local irq declaration from unsigned int to int so negative
+errors from platform_get_irq() reach the error check and are properly
+returned.
 
-- A failure of devm_pm_runtime_set_active_enabled() returns directly
-  without destroying the pwrctrl devices.
-
-- A partial failure inside imx_pcie_attach_pd() leaks the power domains
-  that were already attached.
-
-Add imx_pcie_detach_pd() to remove the device links and detach the power
-domains in reverse order of acquisition and register it with
-devm_add_action_or_reset() so they are released automatically on probe
-failure.
-
-Reported-by: sashiko-bot@kernel.org
-Link: https://lore.kernel.org/all/20260822013640.182C01F000E9@smtp.kernel.org/
-Fixes: 2c5768344f88 ("PCI: imx6: Move pci_pwrctrl_create_devices() to imx_pcie_probe()")
-Signed-off-by: Zhijian Han <hanzhijian1991@gmail.com>
+Fixes: c8295feb756f ("uio: fsl_elbc_gpcm: use platform helpers for resource and IRQ")
+Reported-by: kernel test robot <lkp@intel.com>
+Closes: https://lore.kernel.org/r/202608011915.yZ4ITuSe-lkp@intel.com/
+Signed-off-by: Diego Fernando Mancera Gomez <diegomancera.dev@gmail.com>
 ---
-Changes in v7:
-- Register the devm action before imx_pcie_attach_pd() and drop the
-  imx_pcie_detach_pd() calls from its error paths, since the devm
-  action already tears everything down on probe failure
+ drivers/uio/uio_fsl_elbc_gpcm.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Changes in v6:
-- Keep the device links stateless and remove them with device_link_del()
-  in imx_pcie_detach_pd() instead of using DL_FLAG_AUTOREMOVE_CONSUMER,
-  which creates managed links to power-domain devices that never bind a
-  driver and would trigger a WARN_ON in device_links_driver_bound()
+diff --git a/drivers/uio/uio_fsl_elbc_gpcm.c b/drivers/uio/uio_fsl_elbc_gpcm.c
+index 08cb150fb12f..e6394dd14e43 100644
+--- a/drivers/uio/uio_fsl_elbc_gpcm.c
++++ b/drivers/uio/uio_fsl_elbc_gpcm.c
+@@ -303,7 +303,7 @@ static int uio_fsl_elbc_gpcm_probe(struct platform_device *pdev)
+ 	char *uio_name = NULL;
+ 	struct resource *res;
+ 	void __iomem *base;
+-	unsigned int irq;
++	int irq;
+ 	u32 reg_br_cur;
+ 	u32 reg_or_cur;
+ 	u32 reg_br_new;
+-- 
+2.55.0
 
-Changes in v5:
-- Register imx_pcie_detach_pd() with devm_add_action_or_reset() instead
-  of calling it manually on the error paths
-
- drivers/pci/controller/dwc/pci-imx6.c | 56 +++++++++++++++++++++------
- 1 file changed, 44 insertions(+), 12 deletions(-)
-
-diff --git a/drivers/pci/controller/dwc/pci-imx6.c b/drivers/pci/controller/dwc/pci-imx6.c
-index 39790e66b98d..371b2a11d8f5 100644
---- a/drivers/pci/controller/dwc/pci-imx6.c
-+++ b/drivers/pci/controller/dwc/pci-imx6.c
-@@ -180,8 +180,12 @@ struct imx_pcie {
- 	struct imx_lut_data	luts[IMX95_MAX_LUT];
- 	/* power domain for pcie */
- 	struct device		*pd_pcie;
-+	/* device link for pcie power domain */
-+	struct device_link	*pd_link;
- 	/* power domain for pcie phy */
- 	struct device		*pd_pcie_phy;
-+	/* device link for pcie phy power domain */
-+	struct device_link	*pd_phy_link;
- 	struct phy		*phy;
- 	const struct imx_pcie_drvdata *drvdata;
- 
-@@ -639,10 +643,34 @@ static int imx6q_pcie_abort_handler(unsigned long addr,
- }
- #endif
- 
-+static void imx_pcie_detach_pd(struct imx_pcie *imx_pcie)
-+{
-+	if (!IS_ERR_OR_NULL(imx_pcie->pd_phy_link)) {
-+		device_link_del(imx_pcie->pd_phy_link);
-+		imx_pcie->pd_phy_link = NULL;
-+	}
-+	if (!IS_ERR_OR_NULL(imx_pcie->pd_link)) {
-+		device_link_del(imx_pcie->pd_link);
-+		imx_pcie->pd_link = NULL;
-+	}
-+	if (!IS_ERR_OR_NULL(imx_pcie->pd_pcie_phy)) {
-+		dev_pm_domain_detach(imx_pcie->pd_pcie_phy, true);
-+		imx_pcie->pd_pcie_phy = NULL;
-+	}
-+	if (!IS_ERR_OR_NULL(imx_pcie->pd_pcie)) {
-+		dev_pm_domain_detach(imx_pcie->pd_pcie, true);
-+		imx_pcie->pd_pcie = NULL;
-+	}
-+}
-+
-+static void imx_pcie_detach_pd_action(void *data)
-+{
-+	imx_pcie_detach_pd(data);
-+}
-+
- static int imx_pcie_attach_pd(struct device *dev)
- {
- 	struct imx_pcie *imx_pcie = dev_get_drvdata(dev);
--	struct device_link *link;
- 
- 	/* Do nothing when in a single power domain */
- 	if (dev->pm_domain)
-@@ -654,11 +682,11 @@ static int imx_pcie_attach_pd(struct device *dev)
- 	/* Do nothing when power domain missing */
- 	if (!imx_pcie->pd_pcie)
- 		return 0;
--	link = device_link_add(dev, imx_pcie->pd_pcie,
--			DL_FLAG_STATELESS |
--			DL_FLAG_PM_RUNTIME |
--			DL_FLAG_RPM_ACTIVE);
--	if (!link) {
-+	imx_pcie->pd_link = device_link_add(dev, imx_pcie->pd_pcie,
-+					    DL_FLAG_STATELESS |
-+					    DL_FLAG_PM_RUNTIME |
-+					    DL_FLAG_RPM_ACTIVE);
-+	if (!imx_pcie->pd_link) {
- 		dev_err(dev, "Failed to add device_link to pcie pd\n");
- 		return -EINVAL;
- 	}
-@@ -667,11 +695,11 @@ static int imx_pcie_attach_pd(struct device *dev)
- 	if (IS_ERR(imx_pcie->pd_pcie_phy))
- 		return PTR_ERR(imx_pcie->pd_pcie_phy);
- 
--	link = device_link_add(dev, imx_pcie->pd_pcie_phy,
--			DL_FLAG_STATELESS |
--			DL_FLAG_PM_RUNTIME |
--			DL_FLAG_RPM_ACTIVE);
--	if (!link) {
-+	imx_pcie->pd_phy_link = device_link_add(dev, imx_pcie->pd_pcie_phy,
-+						DL_FLAG_STATELESS |
-+						DL_FLAG_PM_RUNTIME |
-+						DL_FLAG_RPM_ACTIVE);
-+	if (!imx_pcie->pd_phy_link) {
- 		dev_err(dev, "Failed to add device_link to pcie_phy pd\n");
- 		return -EINVAL;
- 	}
-@@ -1951,6 +1979,10 @@ static int imx_pcie_probe(struct platform_device *pdev)
- 
- 	platform_set_drvdata(pdev, imx_pcie);
- 
-+	ret = devm_add_action_or_reset(dev, imx_pcie_detach_pd_action, imx_pcie);
-+	if (ret)
-+		return ret;
-+
- 	ret = imx_pcie_attach_pd(dev);
- 	if (ret)
- 		return ret;
-@@ -1975,7 +2007,7 @@ static int imx_pcie_probe(struct platform_device *pdev)
- 			pm_runtime_no_callbacks(dev);
- 			ret = devm_pm_runtime_set_active_enabled(dev);
- 			if (ret < 0)
--				return ret;
-+				goto err_pwrctrl_destroy;
- 		}
- 
- 		if (imx_check_flag(imx_pcie, IMX_PCIE_FLAG_SKIP_L23_READY))
