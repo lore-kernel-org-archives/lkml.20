@@ -1,191 +1,115 @@
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+Received: from mail-ot1-f72.google.com (mail-ot1-f72.google.com [209.85.210.72])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F9363AFD1A;
-	Fri,  4 Sep 2026 03:07:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 040C6377EB0
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 03:09:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788491237; cv=none; b=OeCUhGK/sxMDQ05cIDq7Qajnv6df3TMuv8x+BPw5nWJ6sTERZV6q9nDXh537lkC4/qBJbtJszbUvLSunfnB+ZXkne5N/LM/CXKJPKUq65tOjSg4iIk9Y2tueQLKZlfIUTbnjBLVUGTGILdQnyMECcQ/L4Z4QnxhTdljbgoszJHk=
+	t=1788491344; cv=none; b=kiHzFUOACypy+LCTVWYifoEWYEsBudau0nZIfygTk5TjjYesNGYGoWrdsdbrTTuBotUlyYWfOeHLCPWPdCc+FtSPvLhpw9NwARl4ilViQzu2mA5SxK2U/vWzdJsba3ilg0TKH4Rg7tIsknpqIvVGcWwenkUeSF81u9hUjBPTJG8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788491237; c=relaxed/simple;
-	bh=T8y3ofTDr/xY9kY7/+Hoqxcl3Ba822iAWe6om6iP3DM=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=NC/mf9aEfHt9EV2VwSaQbHtrAdxepY7MWKjgbPN86lN5t1sUmsGIqDSdI3UNDXOMhjiTRoO7A6YITrFg4boFsnOnNH5FV7aPZsi0g/i7bxGOn0cchqqZmJFSR4VSFJGUpZoySdfdteQOk6HZpdDZDnemY/JkNP1MfryZOMlZI3k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realsil.com.cn; spf=pass smtp.mailfrom=realsil.com.cn; dkim=pass (2048-bit key) header.d=realsil.com.cn header.i=@realsil.com.cn header.b=Nq6IJfJ1; arc=none smtp.client-ip=211.75.126.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realsil.com.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realsil.com.cn
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=realsil.com.cn header.i=@realsil.com.cn header.b="Nq6IJfJ1"
-X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 68436lZiA4111569, This message is accepted by code: ctloc85258
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realsil.com.cn;
-	s=dkim; t=1788491208;
-	bh=T8y3ofTDr/xY9kY7/+Hoqxcl3Ba822iAWe6om6iP3DM=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:MIME-Version;
-	b=Nq6IJfJ156mdqfRBL7xflucxamrnkmZMIVEm2rd44UJX4RZXP6gb9vS8Mraijo2CD
-	 QiXjSRWzAZ7J6439AvazCXdQm61oLKISm1ymin+EjnfdM8p3I+Suel1Dpir1G+2wAb
-	 rL0sxGC+5G8dRxX4fYK4BwXRvJNX8JCIN4GRsK7NdG9oU4Mo9FktQqk8i0wkTbgHop
-	 EfxGePxhIN83O3KEZoPkM6uhdJzgqibrE7gWURdQEEi1cBX5XGHQgRDdpiVeyvLGfq
-	 gkuPpai094lYTuXh0wGlQroLBL5Ho/MzfkiyKR65Q6euD5Zj6+8FdelbhnlJfIA78f
-	 M00Uooq27X6sQ==
-Received: from RS-EX-MBS4.realsil.com.cn ([172.29.17.104])
-	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 68436lZiA4111569
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Fri, 4 Sep 2026 11:06:48 +0800
-Received: from RS-EX-MBS3.realsil.com.cn (172.29.17.103) by
- RS-EX-MBS4.realsil.com.cn (172.29.17.104) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.43; Fri, 4 Sep 2026 11:06:47 +0800
-Received: from RS-EX-MBS3.realsil.com.cn ([172.29.17.103]) by
- RS-EX-MBS3.realsil.com.cn ([172.29.17.103]) with mapi id 15.02.2562.043; Fri,
- 4 Sep 2026 11:06:47 +0800
-From: Javen <javen_xu@realsil.com.cn>
-To: "netdev-bot+sashiko@kernel.org" <netdev-bot+sashiko@kernel.org>
-CC: "hkallweit1@gmail.com" <hkallweit1@gmail.com>, "nic_swsd@realtek.com"
-	<nic_swsd@realtek.com>, "andrew+netdev@lunn.ch" <andrew+netdev@lunn.ch>,
-	"davem@davemloft.net" <davem@davemloft.net>, "edumazet@google.com"
-	<edumazet@google.com>, "kuba@kernel.org" <kuba@kernel.org>,
-	"pabeni@redhat.com" <pabeni@redhat.com>, "horms@kernel.org"
-	<horms@kernel.org>, "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: RE: [net-next,v12,2/7] r8169: refactor RX path to prepare for
- multi-queue
-Thread-Topic: [net-next,v12,2/7] r8169: refactor RX path to prepare for
- multi-queue
-Thread-Index: AQHdO+Swc9QHW4C00UqNHoexVFoL/ra9vIWw
-Date: Fri, 4 Sep 2026 03:06:47 +0000
-Message-ID: <429c7a6c99df47d7b4e2638ee9df5101@realsil.com.cn>
-References: <20260831053940.620-3-javen_xu@realsil.com.cn>
- <178846812274.3394541.14036248825057917928@kernel.org>
-In-Reply-To: <178846812274.3394541.14036248825057917928@kernel.org>
-Accept-Language: zh-CN, en-US
-Content-Language: zh-CN
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+	s=arc-20240116; t=1788491344; c=relaxed/simple;
+	bh=TFiw3+rlof9d8hTcfoed+MRZI5OSNv9oJ+6vXKduEmE=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=XhVtbkmvFFgeh6GrNNsWjfoTQAGoX48rVuJ17H8l5dp5wn7QDKJyz/lqGlNHJQT0gLP+ZYGnmGm1lfVISejKMBqPafdtipWqiUIQQWbYiDaA36NPwBzZD4uqfrocr3lK5aiqUoytN7AzhxAWbSoKhBHImAXLO3JH2+QNpGNEH4A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.210.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-ot1-f72.google.com with SMTP id 46e09a7af769-7ec3b429610so778524a34.1
+        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 20:09:02 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788491342; x=1789096142;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=NJO9S81Lm7JAX9hAABPDjV3lYt4n/KmV9DT5CnYCcdA=;
+        b=dYKSSGdijPLOkwzBIY9FuCdnG+pgIbXn25SyeC0WCk42MUoA41UqahyuWsbdkSmG6R
+         3t5uJr0DZNCJ9+NGE61ntIPIeaon4fKcZXjO87D6O2M7FGeHHW3pLrN0nLY/RsCTh/ev
+         Lh6P/4Vt4fcyb8hql26e0RDXUcdLECZnUb1fuHs7P+EhVgH9V4gvsBiRjunhc8U8a4IJ
+         2VuZUW130ZV1m/IpY7GYpHc2rUSjpn0oY9ESPvsoGKof5q1MiwF2Vo3trjfD0Nodzvx0
+         2tXcPfW78Z6H6YWSYc7KvqmMx4CXUpLylAUmV+wOduHukvq+LR8AjsT7h2CkuUVEziYi
+         vfvg==
+X-Forwarded-Encrypted: i=1; AKwUvBxzqZu1ysdVkQ9l1s8555qP8hVFAZrEtstszALlObf9XVWPEvB9a+CQ/X3pRrfjtzmEMY9ye1z4riS+w+o=@vger.kernel.org
+X-Gm-Message-State: AFuF++mMOdbu5G36eDNVHALWPkOsGavXOsw2DCqTLl5q1DxGbOQGz0Az
+	ALvCV8CbQ2IV1y/GhBKKsg/CEknxozyaqnlL0/VqPg2mvzkr87WxctfrpgtjTLscFNJ3xYydHEU
+	JkiG805ztJIvjT8xQ4x64R3Ywis92+YLgXELHMETYjTHwlkgil/g7CBSvSkk=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+X-Received: by 2002:a05:6820:162b:b0:6b7:46fa:1699 with SMTP id
+ 006d021491bc7-6b746fa1a55mr855647eaf.46.1788491341938; Thu, 03 Sep 2026
+ 20:09:01 -0700 (PDT)
+Date: Thu, 03 Sep 2026 20:09:01 -0700
+In-Reply-To: <20260904023838.579889-1-eadavis@sina.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6a9a364d.9266084e.bf0d7.03e5.GAE@google.com>
+Subject: Re: [syzbot] [block?] general protection fault in blk_mq_quiesce_queue
+From: syzbot <syzbot+fefa0af09f7891b1800e@syzkaller.appspotmail.com>
+To: eadavis@sina.com, linux-kernel@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-PkNyaXRpY2FsOiAwIMK3IEhpZ2g6IDAgwrcgTWVkaXVtOiAzIMK3IExvdzogMA0KPg0KPi0gW01l
-ZGl1bV0gVW5kaXNjbG9zZWQgZnVuY3Rpb25hbCBjaGFuZ2UgZm9sZGVkIGludG8gYSBwYXRjaCB3
-aG9zZQ0KPiAgY2hhbmdlbG9nIHByb21pc2VzIGEgcHVyZSByZWZhY3RvcjogYFI4MTY5X1JYX1JJ
-TkdfQllURVNgIGlzIGNoYW5nZWTigKYNCj4tIFtNZWRpdW1dIFN0YXRlIGludHJvZHVjZWQgYnkg
-dGhpcyBwYXRjaCB0aGF0IGlzIG5ldmVyIGNvbnN1bWVkLCBhbmQgYQ0KPiAgbmV0ZGV2IHF1ZXVl
-IGNvdW50IGFkdmVydGlzZWQgdG8gdGhlIGNvcmUgdGhhdCBuZXZlciBtYXRjaGVzIHJlYWxpdHku
-DQo+LSBbTWVkaXVtXSBJUlFGX05PX1RIUkVBRCBpcyBzaWxlbnRseSBkcm9wcGVkIGZvciBNU0kv
-TVNJLVggdmVjdG9ycy4NCj4NCj4tLQ0KPg0KPnI4MTY5OiByZWZhY3RvciBSWCBwYXRoIHRvIHBy
-ZXBhcmUgZm9yIG11bHRpLXF1ZXVlDQo+DQo+VGhpcyBwYXRjaCBpbnRyb2R1Y2VzIHN0cnVjdCBy
-dGw4MTY5X3J4X3JpbmcgYW5kIG1vdmVzIHRoZSBSWCByaW5nIHN0YXRlIG91dCBvZg0KPnJ0bDgx
-NjlfcHJpdmF0ZSBpbnRvIGEgcGVyLXF1ZXVlIGFycmF5LCBhbmQgc3dpdGNoZXMgdGhlIG5ldGRl
-diBhbGxvY2F0aW9uIHRvDQo+ZGV2bV9hbGxvY19ldGhlcmRldl9tcXMoKSB3aXRoIHVwIHRvIDgg
-UlggcXVldWVzIHdoaWxlIG51bV9yeF9yaW5ncyBzdGF5cw0KPmF0IDEuDQo+DQo+PiBkaWZmIC0t
-Z2l0IGEvZHJpdmVycy9uZXQvZXRoZXJuZXQvcmVhbHRlay9yODE2OV9tYWluLmMNCj4+IGIvZHJp
-dmVycy9uZXQvZXRoZXJuZXQvcmVhbHRlay9yODE2OV9tYWluLmMNCj4+IGluZGV4IDg3ZWIxMDYx
-NmEwYy4uOTMxMWEwY2FiNGViIDEwMDY0NA0KPj4gLS0tIGEvZHJpdmVycy9uZXQvZXRoZXJuZXQv
-cmVhbHRlay9yODE2OV9tYWluLmMNCj4+ICsrKyBiL2RyaXZlcnMvbmV0L2V0aGVybmV0L3JlYWx0
-ZWsvcjgxNjlfbWFpbi5jDQo+PiBAQCAtNzQsOSArNzQsMTkgQEANCj4+ICAjZGVmaW5lIE5VTV9U
-WF9ERVNDICAyNTYgICAgIC8qIE51bWJlciBvZiBUeCBkZXNjcmlwdG9yIHJlZ2lzdGVycyAqLw0K
-Pj4gICNkZWZpbmUgTlVNX1JYX0RFU0MgIDI1NiAgICAgLyogTnVtYmVyIG9mIFJ4IGRlc2NyaXB0
-b3IgcmVnaXN0ZXJzICovDQo+PiAgI2RlZmluZSBSODE2OV9UWF9SSU5HX0JZVEVTICAoTlVNX1RY
-X0RFU0MgKiBzaXplb2Yoc3RydWN0IFR4RGVzYykpDQo+PiAtI2RlZmluZSBSODE2OV9SWF9SSU5H
-X0JZVEVTICAoTlVNX1JYX0RFU0MgKiBzaXplb2Yoc3RydWN0IFJ4RGVzYykpDQo+PiArDQo+PiAr
-LyoNCj4+ICsgKiBXb3JrYXJvdW5kIGZvciB0aGUgaGFyZHdhcmUgRE1BIHByZWZldGNoZXIuIFRo
-ZSBIL1cgbWlnaHQNCj4+ICthZ2dyZXNzaXZlbHkNCj4+ICsgKiBmZXRjaCBvbmUgbW9yZSBkZXNj
-cmlwdG9yIGV2ZW4gYWZ0ZXIgaGl0dGluZyB0aGUgUmluZ0VuZCBtYXJrLiBXZQ0KPj4gKyAqIGFs
-bG9jYXRlIHRoaXMgZXh0cmEgZHVtbXkgc3BhY2UgYXMgcGFkZGluZyB0byBwcmV2ZW50DQo+PiAr
-b3V0LW9mLWJvdW5kcw0KPj4gKyAqIGFjY2VzcyBhbmQgcG90ZW50aWFsIElPTU1VIGZhdWx0cy4N
-Cj4+ICsgKi8NCj4+ICsjZGVmaW5lIFI4MTY5X1JYX1JJTkdfQllURVMgICgoTlVNX1JYX0RFU0Mg
-KyAxKSAqIHNpemVvZihzdHJ1Y3QNCj4+ICtSeERlc2MpKQ0KPg0KPltTZXZlcml0eTogTWVkaXVt
-XQ0KPlRoZSBjaGFuZ2Vsb2cgZGVzY3JpYmVzIHRoaXMgcGF0Y2ggYXMgImEgcHJlcGFyYXRvcnkg
-cmVmYWN0b3Jpbmcgb2YgdGhlIFJYDQo+cGF0aCIsIGJ1dCB0aGlzIG1hY3JvIGNoYW5nZXMgYmVo
-YXZpb3VyIGZvciBldmVyeSBzdXBwb3J0ZWQgY2hpcC4gIFR3bw0KPnF1ZXN0aW9ucyBhYm91dCBp
-dC4NCj4NCj5GaXJzdCwgaWYgdGhlIGhhcmR3YXJlIHJlYWxseSBkb2VzICJmZXRjaCBvbmUgbW9y
-ZSBkZXNjcmlwdG9yIGV2ZW4gYWZ0ZXIgaGl0dGluZw0KPnRoZSBSaW5nRW5kIG1hcmsiLCB0aGVu
-IHRoZSBkcml2ZXIgYmVmb3JlIHRoaXMgcGF0Y2ggbGV0cyB0aGUgZGV2aWNlIERNQSBwYXN0DQo+
-dGhlIGVuZCBvZiB0aGUgcmluZyBvbiBhbGwgY2hpcCBnZW5lcmF0aW9ucy4gIFdvdWxkIHRoYXQg
-bWFrZSB0aGlzIGFuDQo+aW5kZXBlbmRlbnQgZml4IHRoYXQgd2FudHMgaXRzIG93biBwYXRjaCB3
-aXRoIGEgRml4ZXM6IHRhZywgc28gdGhhdCBzdGFibGUgdHJlZXMNCj5waWNrIGl0IHVwPyAgQXMg
-c3VibWl0dGVkIHRoZSBjaGFuZ2UgaXMgaW52aXNpYmxlIHRvIGJhY2twb3J0ZXJzLg0KPg0KPlNl
-Y29uZCwgc2l6ZW9mKHN0cnVjdCBSeERlc2MpIGlzIDE2IGFuZCBOVU1fUlhfREVTQyBpcyAyNTYs
-IHNvIHRoZSBvbGQNCj5yZXF1ZXN0IHdhcyBleGFjdGx5IDQwOTYgYnl0ZXMgYW5kIHRoZSBuZXcg
-b25lIGlzIDQxMTIgYnl0ZXM6DQo+DQo+ICAgICAgICBydGw4MTY5X2FsbG9jX3J4X2Rlc2MoKQ0K
-PiAgICAgICAgICBkbWFfYWxsb2NfY29oZXJlbnQoJnBkZXYtPmRldiwgUjgxNjlfUlhfUklOR19C
-WVRFUywgLi4uKQ0KPg0KPlNpbmNlIGRtYV9hbGxvY19jb2hlcmVudCgpIHJvdW5kcyB1cCB0byBh
-IHBvd2VyLW9mLXR3byBwYWdlIG9yZGVyLCBkb2VzIHRoaXMNCj50dXJuIHRoZSBwZXItcmluZyBj
-b2hlcmVudCBhbGxvY2F0aW9uIGZyb20gb25lIHBhZ2UgaW50byB0d28sIGRvdWJsaW5nIHRoZQ0K
-PmNvaGVyZW50IERNQSBmb290cHJpbnQgcGVyIFJYIHJpbmcgKGFuZCBlaWdodCB0aW1lcyB0aGF0
-IG9uY2UgdGhlIHJlc3Qgb2YgdGhlDQo+c2VyaWVzIGVuYWJsZXMgbXVsdGlwbGUgcmluZ3MpPyAg
-V291bGQgYWxsb2NhdGluZyBvbmUgcGFnZSBhbmQgcmVzZXJ2aW5nIHRoZQ0KPmxhc3QgZGVzY3Jp
-cHRvciBhcyB0aGUgcGFkLCBvciBkb2N1bWVudGluZyB0aGUgZXh0cmEgcGFnZSwgYmUgcHJlZmVy
-YWJsZT8NCj4NCj4+ICAjZGVmaW5lIFI4MTY5X1RYX1NUT1BfVEhSUyAgIChNQVhfU0tCX0ZSQUdT
-ICsgMSkNCj4+ICAjZGVmaW5lIFI4MTY5X1RYX1NUQVJUX1RIUlMgICgyICogUjgxNjlfVFhfU1RP
-UF9USFJTKQ0KPj4gKyNkZWZpbmUgUjgxNjlfTUFYX1JYX1FVRVVFUyAgOA0KPj4gKyNkZWZpbmUg
-UjgxNjlfREVGQVVMVF9SWF9RVUVVRVMgICAgICAxDQo+PiArI2RlZmluZSBSODE2OV9NQVhfVFhf
-UVVFVUVTICAxDQo+Pg0KPj4gICNkZWZpbmUgT0NQX1NURF9QSFlfQkFTRSAgICAgMHhhNDAwDQo+
-Pg0KPg0KPlsgLi4uIF0NCj4NCj4+IEBAIC03MjgsNiArNzM5LDE1IEBAIGVudW0gcnRsX2Rhc2hf
-dHlwZSB7DQo+PiAgICAgICBSVExfREFTSF8yNV9CUCwNCj4+ICB9Ow0KPj4NCj4+ICtzdHJ1Y3Qg
-cnRsODE2OV9yeF9yaW5nIHsNCj4+ICsgICAgIHUzMiBjdXJfcng7DQo+PiArICAgICB1MzIgZGly
-dHlfcng7DQo+DQo+W1NldmVyaXR5OiBNZWRpdW1dDQo+SXMgZGlydHlfcnggdXNlZCBhbnl3aGVy
-ZT8gIEdyZXBwaW5nIHRoZSB0cmVlIGF0IHRoZSBlbmQgb2YgdGhpcyBzZXJpZXMgcmV0dXJucw0K
-Pm9ubHkgdGhpcyBkZWNsYXJhdGlvbiBhbmQgdGhlIHNpbmdsZSBzdG9yZSBpbg0KPnJ0bDgxNjlf
-aW5pdF9yaW5nX2luZGV4ZXMoKSBiZWxvdyAtIHRoZXJlIGlzIG5vIGNvbXBhcmlzb24gYWdhaW5z
-dCBjdXJfcnggYW5kDQo+bm8gcmVmaWxsIG9yIGRvb3JiZWxsIGxvZ2ljIHJlYWRpbmcgaXQuICBT
-aG91bGQgdGhlIGZpZWxkIGJlIGRyb3BwZWQgdW50aWwgdGhlDQo+cGF0Y2ggdGhhdCBhY3R1YWxs
-eSBuZWVkcyBpdD8NCj4NCj4+ICsgICAgIHN0cnVjdCBSeERlc2MgKnJ4X2Rlc2NfYXJyYXk7DQo+
-PiArICAgICBkbWFfYWRkcl90IHJ4X2Rlc2NfcGh5X2FkZHJbTlVNX1JYX0RFU0NdOw0KPj4gKyAg
-ICAgZG1hX2FkZHJfdCByeF9waHlfYWRkcjsNCj4+ICsgICAgIHN0cnVjdCBwYWdlICpyeF9kYXRh
-YnVmZltOVU1fUlhfREVTQ107IH07DQo+PiArDQo+DQo+WyAuLi4gXQ0KPg0KPj4gQEAgLTI2MjAs
-OSArMjYzOCwyNiBAQCBzdGF0aWMgdm9pZCBydGxfaW5pdF9yeGNmZyhzdHJ1Y3QgcnRsODE2OV9w
-cml2YXRlDQo+KnRwKQ0KPj4gICAgICAgfQ0KPj4gIH0NCj4+DQo+PiArc3RhdGljIHZvaWQgcnRs
-ODE2OV9yeF9kZXNjX2luaXQoc3RydWN0IHJ0bDgxNjlfcHJpdmF0ZSAqdHApIHsNCj4+ICsgICAg
-IGZvciAoaW50IGkgPSAwOyBpIDwgdHAtPm51bV9yeF9yaW5nczsgaSsrKSB7DQo+PiArICAgICAg
-ICAgICAgIHN0cnVjdCBydGw4MTY5X3J4X3JpbmcgKnJpbmcgPSAmdHAtPnJ4X3JpbmdbaV07DQo+
-PiArDQo+PiArICAgICAgICAgICAgIG1lbXNldChyaW5nLT5yeF9kZXNjX2FycmF5LCAweDAsIFI4
-MTY5X1JYX1JJTkdfQllURVMpOw0KPj4gKyAgICAgfQ0KPj4gK30NCj4+ICsNCj4+ICBzdGF0aWMg
-dm9pZCBydGw4MTY5X2luaXRfcmluZ19pbmRleGVzKHN0cnVjdCBydGw4MTY5X3ByaXZhdGUgKnRw
-KSAgew0KPj4gLSAgICAgdHAtPmRpcnR5X3R4ID0gdHAtPmN1cl90eCA9IHRwLT5jdXJfcnggPSAw
-Ow0KPj4gKyAgICAgdHAtPmRpcnR5X3R4ID0gMDsNCj4+ICsgICAgIHRwLT5jdXJfdHggPSAwOw0K
-Pj4gKw0KPj4gKyAgICAgZm9yIChpbnQgaSA9IDA7IGkgPCB0cC0+bnVtX3J4X3JpbmdzOyBpKysp
-IHsNCj4+ICsgICAgICAgICAgICAgc3RydWN0IHJ0bDgxNjlfcnhfcmluZyAqcmluZyA9ICZ0cC0+
-cnhfcmluZ1tpXTsNCj4+ICsNCj4+ICsgICAgICAgICAgICAgcmluZy0+ZGlydHlfcnggPSAwOw0K
-Pj4gKyAgICAgICAgICAgICByaW5nLT5jdXJfcnggPSAwOw0KPj4gKyAgICAgfQ0KPj4gIH0NCj4+
-DQo+DQo+WyAuLi4gXQ0KPg0KPj4gQEAgLTQxODQsNTUgKzQyNDAsMTA3IEBAIHN0YXRpYyB2b2lk
-IHJ0bDgxNjlfcnhfY2xlYXIoc3RydWN0DQo+PiBydGw4MTY5X3ByaXZhdGUgKnRwKQ0KPg0KPlsg
-Li4uIF0NCj4NCj4+ICtzdGF0aWMgaW50IHJ0bDgxNjlfYWxsb2NfcnhfZGVzYyhzdHJ1Y3QgcnRs
-ODE2OV9wcml2YXRlICp0cCkgew0KPj4gKyAgICAgc3RydWN0IHBjaV9kZXYgKnBkZXYgPSB0cC0+
-cGNpX2RldjsNCj4+ICsgICAgIHN0cnVjdCBydGw4MTY5X3J4X3JpbmcgKnJpbmc7DQo+PiArDQo+
-PiArICAgICBmb3IgKGludCBpID0gMDsgaSA8IHRwLT5udW1fcnhfcmluZ3M7IGkrKykgew0KPj4g
-KyAgICAgICAgICAgICByaW5nID0gJnRwLT5yeF9yaW5nW2ldOw0KPj4gKyAgICAgICAgICAgICBy
-aW5nLT5yeF9kZXNjX2FycmF5ID0gZG1hX2FsbG9jX2NvaGVyZW50KCZwZGV2LT5kZXYsDQo+PiAr
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgUjgx
-NjlfUlhfUklOR19CWVRFUywNCj4+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAmcmluZy0+cnhfcGh5X2FkZHIsDQo+PiArICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgR0ZQX0tFUk5FTCk7DQo+
-PiArICAgICAgICAgICAgIGlmICghcmluZy0+cnhfZGVzY19hcnJheSkNCj4+ICsgICAgICAgICAg
-ICAgICAgICAgICByZXR1cm4gLUVOT01FTTsNCj4+ICsgICAgIH0NCj4+ICsgICAgIHJldHVybiAw
-Ow0KPj4gK30NCj4+ICsNCj4NCj5bIC4uLiBdDQo+DQo+PiBAQCAtNTY4OCw3ICs1ODEyLDEwIEBA
-IHN0YXRpYyBpbnQgcnRsX2luaXRfb25lKHN0cnVjdCBwY2lfZGV2ICpwZGV2LCBjb25zdA0KPnN0
-cnVjdCBwY2lfZGV2aWNlX2lkICplbnQpDQo+PiAgICAgICB1MzIgdHhjb25maWc7DQo+PiAgICAg
-ICB1MzIgeGlkOw0KPj4NCj4+IC0gICAgIGRldiA9IGRldm1fYWxsb2NfZXRoZXJkZXYoJnBkZXYt
-PmRldiwgc2l6ZW9mICgqdHApKTsNCj4+ICsgICAgIGRldiA9IGRldm1fYWxsb2NfZXRoZXJkZXZf
-bXFzKCZwZGV2LT5kZXYsIHNpemVvZigqdHApLA0KPj4gKyAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgUjgxNjlfTUFYX1RYX1FVRVVFUywNCj4+ICsgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgIFI4MTY5X01BWF9SWF9RVUVVRVMpOw0KPj4gKw0KPg0KPltTZXZlcml0
-eTogTWVkaXVtXQ0KPlRoaXMgYXNrcyB0aGUgY29yZSBmb3IgOCBSWCBxdWV1ZXMgb24gZXZlcnkg
-Y2hpcCwgYW5kIGFsbG9jX25ldGRldl9tcXMoKSBzZXRzDQo+ZGV2LT5yZWFsX251bV9yeF9xdWV1
-ZXMgPSByeHFzOg0KPg0KPm5ldC9jb3JlL2Rldi5jOmFsbG9jX25ldGRldl9tcXMoKSB7DQo+ICAg
-ICAgICAuLi4NCj4gICAgICAgIGRldi0+cmVhbF9udW1fcnhfcXVldWVzID0gcnhxczsNCj4gICAg
-ICAgIC4uLg0KPn0NCj4NCj5ydGxfc2V0dXBfcnhfcGFyYW1zKCkga2VlcHMgdHAtPm51bV9yeF9y
-aW5ncyBhdCAxLCBhbmQgdGhlcmUgaXMgbm8NCj5uZXRpZl9zZXRfcmVhbF9udW1fcnhfcXVldWVz
-KCkgY2FsbCBpbiB0aGUgZHJpdmVyLCBlaXRoZXIgaGVyZSBvciBhdCB0aGUgZW5kIG9mDQo+dGhl
-IHNlcmllcy4gIERvZXMgdGhhdCBsZWF2ZSBldmVyeSByODE2OSBkZXZpY2UgYWR2ZXJ0aXNpbmcg
-OCBSWCBxdWV1ZXMgdG8NCj51c2Vyc3BhY2UgLSAvc3lzL2NsYXNzL25ldC88ZGV2Pi9xdWV1ZXMv
-cngtMCB0aHJvdWdoIHJ4LTcgd2l0aCB0aGVpciBSUFMvUkZTDQo+a25vYnMsIHBsdXMgdGhlIG5l
-dGRldi1nZW5sIHF1ZXVlIGVudW1lcmF0aW9uIC0gd2hpbGUgb25seSByaW5nIDAgZXZlcg0KPnJl
-Y2VpdmVzIHBhY2tldHM/DQo+DQo+U2hvdWxkIHJ0bF9pbml0X29uZSgpIGNhbGwgbmV0aWZfc2V0
-X3JlYWxfbnVtX3J4X3F1ZXVlcyhkZXYsDQo+dHAtPm51bV9yeF9yaW5ncykgb25jZSB0aGUgcmlu
-ZyBjb3VudCBpcyBrbm93bj8NCg0KVGhpcyBpcyBpbmNvcnJlY3QuIFRoZSBkcml2ZXIgYWN0dWFs
-bHkgRE9FUyBjYWxsIG5ldGlmX3NldF9yZWFsX251bV9xdWV1ZXMoKQ0K
+Hello,
+
+syzbot has tested the proposed patch but the reproducer is still triggering an issue:
+WARNING in nvme_reset_ctrl_sync
+
+------------[ cut here ]------------
+!list_empty(&work->entry)
+WARNING: kernel/workqueue.c:2432 at __queue_work+0xee4/0x1370 kernel/workqueue.c:2432, CPU#0: syz-executor138/15710
+Modules linked in:
+CPU: 0 UID: 0 PID: 15710 Comm: syz-executor138 Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+RIP: 0010:__queue_work+0xee4/0x1370 kernel/workqueue.c:2432
+Code: 44 89 f6 e8 9e 35 3b 00 45 84 f6 0f 85 f7 f1 ff ff e9 54 7f 51 ff e8 7b 3b 3b 00 90 0f 0b 90 e9 7c f4 ff ff e8 6d 3b 3b 00 90 <0f> 0b 90 e9 95 f5 ff ff e8 5f 3b 3b 00 4c 89 e2 48 b8 00 00 00 00
+RSP: 0018:ffffc90006c27af8 EFLAGS: 00010093
+RAX: 0000000000000000 RBX: ffff888028a59800 RCX: 0000000000000001
+RDX: ffff888047318000 RSI: ffffffff81d000c3 RDI: ffff888047318000
+RBP: ffff88806de38b10 R08: 0000000000000001 R09: 0000000000000000
+R10: 0000000000000001 R11: 0000000000000000 R12: ffff88806de38b18
+R13: 1ffff92000d84f69 R14: ffff8880277bb800 R15: dffffc0000000000
+FS:  0000000000000000(0000) GS:ffff888096967000(0063) knlGS:00000000f7e0eb40
+CS:  0010 DS: 002b ES: 002b CR0: 0000000080050033
+CR2: 00000000f7e0eda4 CR3: 0000000053b7d000 CR4: 0000000000352ef0
+Call Trace:
+ <TASK>
+ queue_work_on+0x180/0x1e0 kernel/workqueue.c:2501
+ queue_work include/linux/workqueue.h:700 [inline]
+ nvme_reset_ctrl drivers/nvme/host/core.c:226 [inline]
+ nvme_reset_ctrl_sync+0x51/0xe0 drivers/nvme/host/core.c:236
+ nvme_sysfs_reset+0x35/0x80 drivers/nvme/host/sysfs.c:21
+ dev_attr_store+0x58/0x80 drivers/base/core.c:2509
+ sysfs_kf_write+0xf2/0x150 fs/sysfs/file.c:145
+ kernfs_fop_write_iter+0x3e0/0x5f0 fs/kernfs/file.c:345
+ new_sync_write fs/read_write.c:595 [inline]
+ vfs_write+0x6af/0x1050 fs/read_write.c:687
+ ksys_write+0x12a/0x250 fs/read_write.c:739
+ do_syscall_32_irqs_on arch/x86/entry/syscall_32.c:79 [inline]
+ __do_fast_syscall_32+0x13a/0x8b0 arch/x86/entry/syscall_32.c:291
+ do_fast_syscall_32+0x32/0x70 arch/x86/entry/syscall_32.c:316
+ entry_SYSENTER_compat_after_hwframe+0x84/0x8e
+RIP: 0023:0xf7e37fec
+Code: Unable to access opcode bytes at 0xf7e37fc2.
+RSP: 002b:00000000f7e0e69c EFLAGS: 00000293 ORIG_RAX: 0000000000000004
+RAX: ffffffffffffffda RBX: 0000000000000004 RCX: 0000000080000480
+RDX: 0000000000000001 RSI: 0000000000000000 RDI: 0000000000000000
+RBP: 00000000f7e3cd89 R08: 0000000000000000 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000292 R12: 0000000000000000
+R13: 0000000000000000 R14: 0000000000000000 R15: 0000000000000000
+ </TASK>
+
+
+Tested on:
+
+commit:         940de590 Merge tag 'hardening-v7.3-rc2' of git://git.k..
+git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
+console output: https://syzkaller.appspot.com/x/log.txt?x=16baa125580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=85bc5cc2fc7394d9
+dashboard link: https://syzkaller.appspot.com/bug?extid=fefa0af09f7891b1800e
+compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
+userspace arch: i386
+patch:          https://syzkaller.appspot.com/x/patch.diff?x=1172a125580000
+
