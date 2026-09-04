@@ -1,154 +1,243 @@
-Received: from mail-ed1-f42.google.com (mail-ed1-f42.google.com [209.85.208.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.avm.de (mail.avm.de [212.42.244.119])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BD023C0619
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 16:10:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FEBD3BB13B;
+	Fri,  4 Sep 2026 16:11:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.42.244.119
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788538223; cv=none; b=u0j4Hfxn3dTBAqzmY0CRFEUYrfgWl42+7dvZBGMyvxTzwtTaBuZ8SZRn4hgPEQosxlD4yXwVhrCxf9YXK1xl3glxDyOwFjUWPY4nQQK+5oOcI8jKzpDRD4u/NxsZW8KqUseJ0kpbCZ0Ln2MiG7oCcDRSb+zSKdZRfGKQI+Vowwc=
+	t=1788538278; cv=none; b=H4eLdiB+lj2SrKZE70k9pmLr0k4kKilg3tt/x3z7ilX+nciKCkx6IduhONZesw0P/ZQ3jOMRHsNA/gClRW+pikv9Om2ep5d++Mw7TJquESSI3ZzYENaYo9nYznBuXWwDLKQdijAfHEnTpyuRvbFv9HqDZZ5+hhF9GhYnGfDm4M8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788538223; c=relaxed/simple;
-	bh=vDfrPOwWEchegSl2fXTFH6NLC2+0Iy7qk1OaiikMJxQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=DgngUvzriUM/8hfzRq0LONjOskmDah7ZJ9hABQ/1PraYAzHWcI5a3SCiLrjMe0all7D5jroXCku6PuqMjaNLeO7BoN4mipn1kzaSRTsqHehgROt4EsSvNUfzcTrtHyY/2pyuY7B6ivhYM/G99FnoRLSp0/+FMH5s/llSGSnMOZA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=cDtCUJhk; arc=none smtp.client-ip=209.85.208.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	s=arc-20240116; t=1788538278; c=relaxed/simple;
+	bh=nnYs7e/Qa7TDSZX25IfmO66KGD1Y+331y3LUTS2+Uf8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=pjp4+94RTHvdWmaCPqpj4Q6pCgXNrfa8/rTNbneeBm5nLNgvRhArSpIKBTyumCcUdHuWZtbbAcNSyyY1jG9xDBKfl0HdogNDl/ZiD1S4vv2Wj37qMBg8Nv8m3O+t8qdytqgEulhxVwcLXBb2JFVQ5fRk5BmaMfQNAk2okzlf9J4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fritz.com; spf=pass smtp.mailfrom=fritz.com; dkim=pass (2048-bit key) header.d=fritz.com header.i=@fritz.com header.b=iwDQcXKk; arc=none smtp.client-ip=212.42.244.119
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fritz.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fritz.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="cDtCUJhk"
-Received: by mail-ed1-f42.google.com with SMTP id 4fb4d7f45d1cf-6a0de062db5so1536737a12.1
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 09:10:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1788538219; x=1789143019; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=e1Eo3Xs09Cv3zHO+VFGveYQjtgcEc68O1MBEL+U3hM0=;
-        b=cDtCUJhk/k0/HUjHFDUhAECM3lwqvVRejuZzX3ZCPL2YXReb6TMHgf/DpdP5bPeKCX
-         c7tSmJwUNvm3Takfu67jXHghTWTFzNW0jheW7gcOJgiuJ1snm7ZCa/7mSsuiV5XTHw75
-         PUq7590agvanyM6EkKUsb03pYwM6XLNVxsNdwWrkICmdOOhP8yrDUYFtaxgbyMQSpfrC
-         3VDCYQCPCZ6tqgx9nGmAhF1qnoi8GNpody0rOKewWWvCrbyWKMn23lrFjOhqkZyntyjt
-         ChJrre44Rkmp6nNjLwRMUjoVM6Oy6XzT/O5soX4QWEwimT3LpaE6an4pFx9MVoNxnG7b
-         aC3g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788538219; x=1789143019;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=e1Eo3Xs09Cv3zHO+VFGveYQjtgcEc68O1MBEL+U3hM0=;
-        b=EBhTUeoxjuFWOWqKGvgCBsBWia0nBEO5lYa1U8sNZy7Pbr3gsDzl7t54AZm/in+pk/
-         1NUrQwfKwD1j2fgAQPOYgcXgTl3mkXbWk/GaQtt8PLa4XoxPz7c+Q7xc3K5X52e2wMN2
-         GnpJxFYbSy+N/AgHzEK/wzmnV067UD7f0CGMGts6JTZuOTorzjwd/7zUw9EfcimaNjuA
-         Jh6q6jJtj/Se4I75kDKnArOIzNSDxGtxLhdvTOJcJM8rEWy9myERDDhTXsZFnl1nDUUE
-         wyG9snSukrtem4YGCYaYCXqlQ71gAyA+OrFqd4nYJxfC3HKvbt4bSeiSrEQaFd4Ilc9t
-         9p8g==
-X-Forwarded-Encrypted: i=1; AKwUvBwOj7JkWtUScUfVa4xbmqDFlu1XTlW0KCFDMGLx6hxNF9kss2u+gyywrfzCwpJQMgcdN5zOSkDFjbIqNG4=@vger.kernel.org
-X-Gm-Message-State: AFuF++mtGrcrzwDNjhMG3pytyShxosisETPlOnPQxKAk/nzD/SMF9FuV
-	5GNjOVfWSDQL3VzmUliHGQBneObjhSXDeuPA1+VvVmdQ2LwtSR+bpVO/Jq9EbZRvCeg=
-X-Gm-Gg: AYBFou3zle174f8vP/1ZbtOGuFU+NPfWF8yOHKR14ZKZdKW56TMMIQ+aUYjQwEgcInM
-	Eomu506QModjyrMakeLoK0cEHGpd8vlLHwx5+1SSRH0Wvk5rdZk43z+Am0lp29RakkpZVh2IakS
-	asgELs13tTmejhi2Njdh53f1qnW62TQsdud/Kgj7pnR9lNJ06na2pCVCGOTLPauQBQUEc07RRNO
-	x4A8/p5EEbMz0QbTwXlXHPRm8iQOuBcduI1e5KaI3CJdREaY7Ets1xpEgqWYeQA0d28gHakbWxY
-	PdCYy07HTBi53i4K8zqB9JYy4Zif96ZKIWeF8LKj/zGzRuZ+MWBJHnkeX2sy/phQgqHK4Ins/0z
-	z/WfYoLKgsaBwZxn3Tt1/LwZylXEO62r5Q3FRA1rzz5mIDsJwlEeWUMVg3Odf1amQEneKZs0B+U
-	zvi7UZgZYi6CdxeGxpOmr8hQmRDugVH7t6tZ7IW2WiP12f0S8vwF87xXrcXKN2H+0cknos8V4dx
-	pD7ociu9u7z104ZcMM7XL5/
-X-Received: by 2002:a17:907:c00e:b0:c25:254:292e with SMTP id a640c23a62f3a-c260c401012mr368173466b.0.1788538218984;
-        Fri, 04 Sep 2026 09:10:18 -0700 (PDT)
-Received: from ?IPV6:2a07:de40:8100:0:89a9:fd0e:583d:4a53? ([2001:af0:8000:1409:193:86:92:181])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c260d53e0b1sm126030366b.33.2026.09.04.09.10.18
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 04 Sep 2026 09:10:18 -0700 (PDT)
-Message-ID: <d2159a62-d64b-4e47-9e5b-9c409ae4de9b@suse.com>
-Date: Fri, 4 Sep 2026 18:10:17 +0200
+	dkim=pass (2048-bit key) header.d=fritz.com header.i=@fritz.com header.b="iwDQcXKk"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=fritz.com; s=mail;
+	t=1788538264; bh=nnYs7e/Qa7TDSZX25IfmO66KGD1Y+331y3LUTS2+Uf8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=iwDQcXKkIzBA62Kc3FhTrk8ibEggseUPiDD43/WYiDcK8AwUiq0ioXSUG7YR3c2CP
+	 eu2B/uxRQk7Tlvz7YnF6wo6X8uiqkE8ZOPNlHINKHdgcdJY007eUMBn5a8zzK178nL
+	 DbE7D5FuOIdb0xIpNJYs4NFsQV6UQEe50HqTl9ZFH8MBdh8JbeDjx1csW5w4MpzDVh
+	 +OTenYd9j+iKOaQssLW/G1NVq/0kl92MXnrZyDmm+oixae9njnC2AhoPuhMhiGahLP
+	 oni3hOVQYtbMq1jOSroMH31TZgGn+NGv/t9Jt4qI0dU5ym58oLk2CxkOzizJxf2Pyv
+	 4b/cuy25tl8AA==
+Received: from [212.42.244.78] (helo=mail.avm.de)
+	by mail.avm.de with ESMTP (eXpurgate 4.57.1)
+	(envelope-from <n.schier@fritz.com>)
+	id 6a9aed98-c6f5-7f0000032729-7f00000184b0-1
+	for <multiple-recipients>; Fri, 04 Sep 2026 18:11:04 +0200
+Received: from mail-auth.fritz.com (unknown [212.42.244.78])
+	by mail.avm.de (Postfix) with ESMTPS;
+	Fri,  4 Sep 2026 18:11:04 +0200 (CEST)
+Date: Fri, 4 Sep 2026 18:11:03 +0200
+From: Nicolas Schier <n.schier@fritz.com>
+To: Manuel Ebner <manuelebnerli@mailbox.org>
+Cc: Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
+	Gary Guo <gary@garyguo.net>,
+	=?utf-8?B?QmrDtnJu?= Roy Baron <bjorn3_gh@protonmail.com>,
+	Benno Lossin <lossin@kernel.org>,
+	Andreas Hindborg <a.hindborg@kernel.org>,
+	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Daniel Almeida <daniel.almeida@collabora.com>,
+	Tamir Duberstein <tamird@kernel.org>,
+	Alexandre Courbot <acourbot@nvidia.com>,
+	Onur =?utf-8?B?w5Z6a2Fu?= <work@onurozkan.dev>,
+	Nathan Chancellor <nathan@kernel.org>,
+	Nick Desaulniers <nick.desaulniers+lkml@gmail.com>,
+	Bill Wendling <morbo@google.com>,
+	Justin Stitt <justinstitt@google.com>, workflows@vger.kernel.org,
+	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
+	rust-for-linux@vger.kernel.org, llvm@lists.linux.dev
+Subject: Re: [PATCH] v2 Docs: changes.rst: introduce optional column
+Message-ID: <20260904-stirring-zircon-frog-ea6949@l-nschier-aarch64>
+References: <20260831151605.638172-2-manuelebnerli@mailbox.org>
+ <20260831152523.638881-1-manuelebnerli@mailbox.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 2/4] module: introduce SH_ENTSIZE_STANDALONE for
- separately allocated sections
-To: Hao Ge <hao.ge@linux.dev>
-Cc: Luis Chamberlain <mcgrof@kernel.org>, Daniel Gomez <da.gomez@kernel.org>,
- Sami Tolvanen <samitolvanen@google.com>, Aaron Tomlin <atomlin@atomlin.com>,
- Suren Baghdasaryan <surenb@google.com>,
- Andrew Morton <akpm@linux-foundation.org>, linux-modules@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-mm@kvack.org,
- Sashiko <sashiko-bot@kernel.org>, stable@vger.kernel.org
-References: <20260902081802.146145-1-hao.ge@linux.dev>
- <20260902081802.146145-3-hao.ge@linux.dev>
-Content-Language: en-US
-From: Petr Pavlu <petr.pavlu@suse.com>
-In-Reply-To: <20260902081802.146145-3-hao.ge@linux.dev>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="3LI1LwzTwlfX5+ls"
+Content-Disposition: inline
+In-Reply-To: <20260831152523.638881-1-manuelebnerli@mailbox.org>
+Organization: FRITZ! Technology GmbH
+x-ms-reactions: disallow
+X-purgate-ID: 149429::1788538264-00C33ADA-3F2AC763/0/0
+X-purgate-type: clean
+X-purgate-size: 7767
+X-Notice: Whitelisted
+X-purgate: This mail is considered clean (visit https://www.eleven.de for further information)
+X-purgate: clean
+X-pfmilter: host: postfix-mx-02  mail-id: 65769A026E  external: no
 
-On 9/2/26 10:18 AM, Hao Ge wrote:
-> SHF_ALLOC means, per the ELF spec, that a section occupies memory
-> during process execution. Some module sections occupy memory
-> outside the regular module layout, for example the percpu section
-> with its per-CPU allocations. The loader currently excludes such
-> a section from the layout by clearing its SHF_ALLOC, which
-> overloads the flag with a loader-internal meaning.
-> apply_relocations() needs a special case for the section, and
-> find_sec(".data..percpu") returns different results before and
-> after layout_and_allocate().
-> 
-> Introduce SH_ENTSIZE_STANDALONE to mark sections with a separate
-> allocation. The percpu section is its first user. layout_sections()
-> and move_module() skip marked sections, and apply_relocations() goes
-> back to testing only SHF_ALLOC.
-> 
-> No functional change intended.
-> 
-> Fixes: 4835f747d3ed ("alloc_tag: support for page allocation tag compression")
-> Reported-by: Sashiko <sashiko-bot@kernel.org>
-> Based-on-a-patch-by: Petr Pavlu <petr.pavlu@suse.com>
-> Link: https://lore.kernel.org/all/499bb60c-c6e3-43a3-bd92-95a0567ece5e@suse.com/
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Hao Ge <hao.ge@linux.dev>
+
+--3LI1LwzTwlfX5+ls
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+On Mon, Aug 31, 2026 at 05:25:22PM +0200, Manuel Ebner wrote:
+> The optional tag isn't obvious nor defined. Therefore replace with column.
+
+Why do you throw away the 'Command to check the version' column?  At=20
+work, we have a script that uses these commands to check the actual=20
+tooling versions.
+
+If there is a reason for change, please document it in the commit=20
+message.
+
+>=20
+> Signed-off-by: Manuel Ebner <manuelebnerli@mailbox.org>
 > ---
-> [...]
-> diff --git a/kernel/module/main.c b/kernel/module/main.c
-> index c32f1d370b73..078dae188aba 100644
-> --- a/kernel/module/main.c
-> +++ b/kernel/module/main.c
-> @@ -1618,14 +1618,8 @@ static int apply_relocations(struct module *mod, const struct load_info *info)
->  		if (infosec >= info->hdr->e_shnum)
->  			continue;
->  
-> -		/*
-> -		 * Don't bother with non-allocated sections.
-> -		 * An exception is the percpu section, which has separate allocations
-> -		 * for individual CPUs. We relocate the percpu section in the initial
-> -		 * ELF template and subsequently copy it to the per-CPU destinations.
-> -		 */
-> -		if (!(info->sechdrs[infosec].sh_flags & SHF_ALLOC) &&
-> -		    (!infosec || infosec != info->index.pcpu))
-> +		/* Don't bother with non-allocated sections. */
-> +		if (!(info->sechdrs[infosec].sh_flags & SHF_ALLOC))
->  			continue;
->  
->  		if (info->sechdrs[i].sh_flags & SHF_RELA_LIVEPATCH)
+>  Documentation/process/changes.rst | 84 +++++++++++++++----------------
+>  1 file changed, 42 insertions(+), 42 deletions(-)
+>=20
+> diff --git a/Documentation/process/changes.rst b/Documentation/process/ch=
+anges.rst
+> index b3fa980b63e3..905ac0f6cdc5 100644
+> --- a/Documentation/process/changes.rst
+> +++ b/Documentation/process/changes.rst
+> @@ -29,49 +29,49 @@ systems; obviously, if you don't have any PC Card har=
+dware, for example,
+>  you probably do not need to concern yourself with pcmciautils.
+> =20
+>  =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D =3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D  =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D
+> -        Program        Minimal version       Command to check the version
+> +        Program        Minimal version  Required for=20
 
-Please keep a comment about how .data..percpu is handled. This is not
-obvious and should be described explicitly.
+Do you want to align the column headers to the left or center them?
 
-Something like the following:
+>  =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D =3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D  =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D
+> -bash                   4.2              bash --version
+> -bc                     1.06.95          bc --version
+> -bindgen (optional)     0.71.1           bindgen --version
+> -binutils               2.30             ld -v
+> -bison                  2.0              bison --version
+> -btrfs-progs            0.18             btrfs --version
+> -Clang/LLVM (optional)  17.0.1           clang --version
+> -e2fsprogs              1.41.4           e2fsck -V
+> -flex                   2.5.35           flex --version
+> -gdb                    7.2              gdb --version
+> -genisoimage            1.1.11           genisoimage --version
+> -GNU awk (optional)     5.1.0            gawk --version
+> -GNU C                  8.1              gcc --version
+> -GNU make               4.0              make --version
+> -GNU tar                1.28             tar --version
+> -GRUB                   0.93             grub --version || grub-install -=
+-version
+> -gtags (optional)       6.6.5            gtags --version
+> -iproute2               6.14.0           ip -V
+> -iptables               1.4.2            iptables -V
+> -jfsutils               1.1.3            fsck.jfs -V
+> -kmod                   13               kmod -V
+> -liblzma                5.8.1            lzma -V
+> -lzop                   1.04             lzop -V
+> -mcelog                 0.6              mcelog --version
+> -mkimage (optional)     2017.01          mkimage --version
+> -mtools                 4.0.49           mtools -V
+> -nfs-utils              1.0.5            showmount --version
+> -openssl & libcrypto    1.0.0            openssl version
+> -pahole                 1.26             pahole --version
+> -pcmciautils            004              pccardctl -V
+> -PPP                    2.4.0            pppd --version
+> -procps                 3.2.0            ps --version
+> -Python                 3.9.x            python3 --version
+> -quota-tools            3.09             quota -V
+> -Rust (optional)        1.85.0           rustc --version
+> -Sphinx\ [#f1]_         3.4.3            sphinx-build --version
+> -squashfs-tools         4.0              mksquashfs -version
+> -syslinux               6.04             syslinux --version
+> -udev                   081              udevadm --version
+> -util-linux             2.10o            mount --version
+> -xfsprogs               2.6.0            xfs_db -V
+> +bash                   4.2             =20
+> +bc                     1.06.95         =20
+> +bindgen                0.71.1           generate Rust bindings
+> +binutils               2.30            =20
+> +bison                  2.0             =20
+> +btrfs-progs            0.18            =20
+> +Clang/LLVM             17.0.1           alternative to GNU C (gcc)
+> +e2fsprogs              1.41.4           ext4
+> +flex                   2.5.35          =20
+> +gdb                    7.2             =20
+> +genisoimage            1.1.11          =20
+> +GNU awk                5.1.0            objtool
+> +GNU C                  8.1             =20
+> +GNU make               4.0             =20
+> +GNU tar                1.28            =20
+> +GRUB                   0.93            =20
+> +gtags (optional)       6.6.5           =20
+> +iproute2               6.14.0          =20
+> +iptables               1.4.2           =20
+> +jfsutils               1.1.3           =20
+> +kmod                   13              =20
+> +liblzma                5.8.1           =20
+> +lzop                   1.04            =20
+> +mcelog                 0.6             =20
+> +mkimage                2017.01          ARCH=3Darc, arm, or powerpc
+> +mtools                 4.0.49          =20
+> +nfs-utils              1.0.5           =20
+> +openssl & libcrypto    1.0.0           =20
+> +pahole                 1.26            =20
+> +pcmciautils            004             =20
+> +PPP                    2.4.0           =20
+> +procps                 3.2.0           =20
+> +Python                 3.9.x           =20
+> +quota-tools            3.09            =20
+> +Rust                   1.85.0           CONFIG_RUST=3Dy
+> +Sphinx\ [#f1]_         3.4.3           =20
+> +squashfs-tools         4.0             =20
+> +syslinux               6.04            =20
+> +udev                   081             =20
+> +util-linux             2.10o           =20
+> +xfsprogs               2.6.0           =20
+>  =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D =3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D  =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D
+> =20
+>  .. [#f1] Sphinx is needed only to build the Kernel documentation
 
-		/*
-		 * Don't bother with non-allocated sections.
-		 *
-		 * Note that .data..percpu has separate allocations for
-		 * individual CPUs. We relocate the section in the
-		 * initial ELF template and subsequently copy it to the
-		 * per-CPU destinations.
-		 */
+I kind of like the "Required for" column w/ naming=20
+concrete Kconfig symbols or envs like ARCH.  I think it would be good to=20
+get this a bit more complete, where possible.
 
--- 
-Thanks,
-Petr
+Kind regards,
+Nicolas
+
+--3LI1LwzTwlfX5+ls
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCAAdFiEEDv+Fiet06YHnC6RpiMa8nIiabbgFAmqa7ZAACgkQiMa8nIia
+bbhLsxAAhafUzIFNr+ETq/XHjzw3SB44iaAWSzBjCmdDYU/w20d/EBrWySxiS27A
+4IY8XpSGUVdGbmgY1vC3PDVyLZ9xwMpYv65wkevFZM9D5FzJla9K9Mh5W6B6dUhy
+VNSFqfZ1vDHxRGW25ArjF5jwWFlGzHbbaMWtXuTDFSKPKB6o899aTU9TgY8G/G0p
+1R0YFo8Ldlv1bRw3MQyPbgL64TntjXxBrylKkmLa9rg9Qz34B9PzsR2O7QWvIN1w
+GCm5SewGQ7If43ELa9+p29RGH7ZivMod9IDdlTbAqQM73rdFVj/84vC/udWGCWrF
+k+HM/ml1LtxlgkDMschDnyb6+r+NVAPGeq+N5qmwPZyiLNkPWNoDa5gKhdSfriXA
+305AzMpiS7R1Q4IKYFz/VG9GLE7tnzCkIjzK13BYpqs5a+MCpvtx6CmDNywZxMkv
+2mw8XSM/nFBROLXwIFAlSb8KIC9336efMjzuBXR8QiuVuoajeaBWhfLDWBPKKPLZ
+OkxMiZ+bDjllesbpwEZWaMechDA926OXKK24zfZRLpp6IVJtz+WOrb0aHMY6KnCa
+PQIEDflE3sfS8E8tscPvKsYoIkJt5F+UqYa8IVJTUVgNkZcwZhd74vJd1/FVcCWJ
+jPYC4hteW1DkD3HX5TMBvaoFhTvnGGqVe//L4aJ4W0RJxOuf1Nw=
+=ALpV
+-----END PGP SIGNATURE-----
+
+--3LI1LwzTwlfX5+ls--
