@@ -1,57 +1,57 @@
-Received: from mail-pf1-f198.google.com (mail-pf1-f198.google.com [209.85.210.198])
+Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79547175A8A
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 01:03:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.198
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A563B352C4E
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 01:03:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.70
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788483838; cv=none; b=h7zBNcEIBX5mcTfLRgnfG+7SM5HupvdF0d3DIvG4YGe3Gb4pgAH6CH1DbdDzde5Dsbaj6In/wKHxYrUU5tAi8/WYLzfakmQxA1VWcDIa+J5fFWENH1AFNqNB0JZC6sMzlTd0OBIkQVtEN0K3phg2ROxtZXCPqSk+fKmq3F891HM=
+	t=1788483840; cv=none; b=Q5LPqeuwG8QpkGreaasO30ejvUZFB3g+gky3Jz/O4bJ1MMBwYGDwiPpxnGsBom+xxlUBq181WQVBu3+MM/ujpQstTQAaV/Q1F6f/jsd1MhyuM9W1eRht68VDBBuZ21F92o7nXCulEebMfjgDgEpdM8S0Wm+fGMbOFJ3W5DeBFrg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788483838; c=relaxed/simple;
-	bh=vdDOmhyTdL3/T+cUm/B+tgP10dz8metO6J41MD514SE=;
+	s=arc-20240116; t=1788483840; c=relaxed/simple;
+	bh=Z7WjmCyz0PA8ZuhgOlbJ2FSysCdg3wrQRYnbQ7PKCxM=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=s2BArWnVfMKUBc6QKooeWMm53ZBdEEi6E3A51JwzB/SSf9GBEE6amPKBbeXZoymFM67Y1065SimYpA6/4q0InwIZ++n1fHn2dTZdmaY948OPaz+DwJs76mhqt+5ExyTLAAroszK3C7MqoX37EueBBlB7GOI91vLFC5Ho8WI97p4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=t6vNVbgJ; arc=none smtp.client-ip=209.85.210.198
+	 To:Cc:Content-Type; b=tZgXCGoQn0VaoQuGz3yEj8G7BdXcuyj0qOSj0DPYSvsdWtVUJ0C6jlUt43/GZLJa54+aEDlIe1p3r+JFJJkNAZKYE45hFGwCUrOBoLPnggbSe7XvxC02QcRpcWTFRi7R+PqI4Mv37uUdzYK25UkXUu3SQWmwZHIxFpOQSvGaUxU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=GvweUmHG; arc=none smtp.client-ip=209.85.216.70
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="t6vNVbgJ"
-Received: by mail-pf1-f198.google.com with SMTP id d2e1a72fcca58-854f274dd69so239071b3a.1
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 18:03:57 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="GvweUmHG"
+Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-396b9ef3070so657753a91.3
+        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 18:03:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1788483837; x=1789088637; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1788483838; x=1789088638; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:reply-to:from:to:cc:subject:date:message-id
          :reply-to:content-type;
-        bh=TgaSozLRQmRkdK8Evd2A6YoYaj7A8H5aikOfjM35Ajs=;
-        b=t6vNVbgJlTSx3U/JBUjDsbfo4RQ4f2JfMueVDIRWTtwVVYh5bxzX1WNhnvtewHamhM
-         PlhYGoY/epStSC8uoG+H9Y13B59eNx5K6F5052xlvOCKy5JhMSsx0nVEpiD9lHMgZGEO
-         mm4nyZqtGXCkHkLItjIN0bzqd1orBZf3cFNbRuRz9LUWA0h9NX5r/Vu3+WzhVmCR3G+5
-         BDRBNhKIJGpNJ9aV957ZTWmnVLAAPo1KDvY+Dk2/iG1i0qm0nJihDB5shD6brhwGnl7H
-         ur2qctLin2aU0FwBDpLs3OjsArQ99fj40HpvB19MTFQyJR4wana+1iI1QWIoRgad9Jcu
-         idsw==
+        bh=rwIVt5DW98yzoIxj1eFFQhL2958LlabcKwUulILLX+Q=;
+        b=GvweUmHGUgfq0NmdYcn1V52BR5wd5eTXe9z2oRaOU70qWYVusnulXk1BUk+Ubwj1ks
+         5baujFqHGbGCZHOAHKIcdbhicpUn8gDXpxifiDA7tu/1dtRaVc06fmBVhGZ9r4xiCudn
+         Jrf7mt4q4/gsa0wr3loibuGLUl9Do5XLDTTxMWwH4pAv+psffL+Fca1f8Vy1syj3VTk4
+         utwOFobpkEZjb0xmUQLOid3YXypnWLlQgiZB1fLCjt/ib7XhjRZiPZeR9z7oy6pdUlaX
+         i4VoKDVIVg5091cmb4wl6CBTZwNu5EbsjMy19CuhY5ZlprxFlbyK3xUO3c8BnFGHBskS
+         BpGg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788483837; x=1789088637;
+        d=1e100.net; s=20251104; t=1788483838; x=1789088638;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:reply-to:x-gm-message-state:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=TgaSozLRQmRkdK8Evd2A6YoYaj7A8H5aikOfjM35Ajs=;
-        b=T5SMJ0V9aGbSp5OBBOURB61XE/jVko3J0NAKu1Yb6diRliRoJd6vtehpZ8ysPjKnxc
-         3WKZXR59zOjy1GHcm+ueicEUY/7F9Ui4fyf4w+uBrQ/fIAFj28D4lFOu0rysVML70Ubc
-         ZfSbSz8y0HqgNMCFCk+pdwgN+KRuZjpb4xBkhdNBg7snJBG4zWrNja8SGDtda6b4l+DV
-         b+KjoOHBgwgbuwrpNncuyQm9LbE+avLCiKb1/eRNe/wYntOBgbwPxVs8uzVHiaj1z2EQ
-         Q9UZQhAkgpgPyJJtR7j+DTtKkmUj0AxogN1tu89QqTpD2Q6CPHmoNv2x0dJDlT3aXi5L
-         mCvA==
-X-Forwarded-Encrypted: i=1; AKwUvBxvRrwd3Fg4/QD+ohoUpmkBpStW7YXkAtjs16ZrP6+xQrlBbVp3au4pMI/EzXlCO65pWbJuWwLvAs6R1Fc=@vger.kernel.org
-X-Gm-Message-State: AFuF++m//em6qjuhOOtRyUK7et0GWlbfN1syuVflRnXNSUiyosEn/XwV
-	LuzgqDKWbdKWp4s5f5G2LPOLddoRdv9V9G0nU3a24xDw5QaQUcQ6DQv2Ku9niwZpsv+AvFG+Nhs
-	pPWU0sg==
-X-Received: from pfbfo2.prod.google.com ([2002:a05:6a00:6002:b0:848:569f:3464])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a00:1151:b0:85d:84a5:b7bb
- with SMTP id d2e1a72fcca58-86168d8c2fdmr3602732b3a.18.1788483836443; Thu, 03
- Sep 2026 18:03:56 -0700 (PDT)
+        bh=rwIVt5DW98yzoIxj1eFFQhL2958LlabcKwUulILLX+Q=;
+        b=ZgNmcKuA6u1JD28ZF68eIBQ8Q5zpUc2Ctyj2qzQ6fJY4DMP71BL5vXhGqeKFt6KMxM
+         PNBdle7wQR/rwC74sdkLmNX4MBkO35m6n4n0YusGY+62TimSO5vxKKyndMlDb/xkQD7y
+         VHPv+i1eB54uqKzjA1uztcn0zR7RPVcSUmCK/9ia71AsOKptSWdFRemMWAoXYWbylXP0
+         ZovW/ANA17WNBLWUL1QnovgUpHRhzcyM4flHYKvT4hRcZi09MNZ3dvZzCcezyIqGnQKf
+         DUBG+w4fR3vCbHaOtBQJt+6qhLEALG2YxQszeAwdp9J8QIXiXi0KvswlVqpCgD8jxqF3
+         0zvg==
+X-Forwarded-Encrypted: i=1; AKwUvBwd2NPBqIs7smRla1CM4hnQC5h3wKf9rjWmpivshk3Njhp2eWPmfFwKTgpZ4Jar4ZRHnckDuI6RcjoTsvU=@vger.kernel.org
+X-Gm-Message-State: AFuF++nfcUFgb87RZ5l2j/MgiLIbPHKaWlce5uDyUdaYqP1biU0462EY
+	CgiUHC5eF0Ha+Un88ZPoAO5MggdK3MmfpVRLbJCVV2Vqo0FUeqC1hBU9j9Gu/9ecsdZaOmUSonx
+	mJ9owcg==
+X-Received: from pjtd16.prod.google.com ([2002:a17:90b:50:b0:384:f6e1:ff87])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:5866:b0:398:e73e:5a13
+ with SMTP id 98e67ed59e1d1-39b2613272amr3739100a91.9.1788483837661; Thu, 03
+ Sep 2026 18:03:57 -0700 (PDT)
 Reply-To: Sean Christopherson <seanjc@google.com>
-Date: Thu,  3 Sep 2026 18:03:46 -0700
+Date: Thu,  3 Sep 2026 18:03:47 -0700
 In-Reply-To: <20260904010353.3175819-1-seanjc@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -61,8 +61,9 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
 References: <20260904010353.3175819-1-seanjc@google.com>
 X-Mailer: git-send-email 2.55.0.979.g7e5102b832-goog
-Message-ID: <20260904010353.3175819-2-seanjc@google.com>
-Subject: [PATCH v3 1/8] KVM: VMX: Disallow using to_vmx() in common VT code
+Message-ID: <20260904010353.3175819-3-seanjc@google.com>
+Subject: [PATCH v3 2/8] KVM: VMX: Move the shared "IRQs off" exit handler(s)
+ to common code
 From: Sean Christopherson <seanjc@google.com>
 To: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>
 Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
@@ -71,48 +72,246 @@ Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org,
 	Yan Zhao <yan.y.zhao@intel.com>
 Content-Type: text/plain; charset="UTF-8"
 
-Poison to_vmx() in main.c and posted_intr.c so that attempting to interpret
-the vCPU as a VMX vCPU will fail at compile time, as opposed to failing at
-runtime, or worse corrupting state without outright failing.
+Move vmx_handle_exit_irqoff() and its helpers to common.h / main.c to
+capture that it's a common handler and to allow guarding against incorrectly
+using to_vmx().
 
-Note, to_tdx() is buried in tdx.c, i.e. isn't broadly reachable, and so
-doesn't need the same treatment as to_vmx().
+Opportunistically use a "vt" prefix instead of "vmx" to communicate that
+it's a shared handler.
 
+No functional change intended.
+
+Cc: Rick Edgecombe <rick.p.edgecombe@intel.com>
+Cc: Xiaoyao Li <xiaoyao.li@intel.com>
+Cc: Binbin Wu <binbin.wu@linux.intel.com>
+Cc: Kai Huang <kai.huang@intel.com>
+Cc: Yan Zhao <yan.y.zhao@intel.com>
 Reviewed-by: Xiaoyao Li <xiaoyao.li@intel.com>
 Reviewed-by: Kai Huang <kai.huang@intel.com>
 Tested-by: Kai Huang <kai.huang@intel.com>
 Signed-off-by: Sean Christopherson <seanjc@google.com>
 ---
- arch/x86/kvm/vmx/main.c        | 2 ++
- arch/x86/kvm/vmx/posted_intr.c | 2 ++
- 2 files changed, 4 insertions(+)
+ arch/x86/kvm/vmx/common.h  |  6 ++++
+ arch/x86/kvm/vmx/main.c    | 71 +++++++++++++++++++++++++++++++++++-
+ arch/x86/kvm/vmx/vmx.c     | 74 --------------------------------------
+ arch/x86/kvm/vmx/x86_ops.h |  1 -
+ 4 files changed, 76 insertions(+), 76 deletions(-)
 
+diff --git a/arch/x86/kvm/vmx/common.h b/arch/x86/kvm/vmx/common.h
+index 08005676702c..88f637c81353 100644
+--- a/arch/x86/kvm/vmx/common.h
++++ b/arch/x86/kvm/vmx/common.h
+@@ -74,6 +74,12 @@ static __always_inline bool is_td_vcpu(struct kvm_vcpu *vcpu) { return false; }
+ 
+ #endif
+ 
++static inline bool is_xfd_nm_fault(struct kvm_vcpu *vcpu)
++{
++	return vcpu->arch.guest_fpu.fpstate->xfd &&
++	       !kvm_is_cr0_bit_set(vcpu, X86_CR0_TS);
++}
++
+ static inline bool vt_is_tdx_private_gpa(struct kvm *kvm, gpa_t gpa)
+ {
+ 	/* For TDX the direct mask is the shared mask. */
 diff --git a/arch/x86/kvm/vmx/main.c b/arch/x86/kvm/vmx/main.c
-index 4c52ab8d0786..ea0d825e556d 100644
+index ea0d825e556d..9614f43e7987 100644
 --- a/arch/x86/kvm/vmx/main.c
 +++ b/arch/x86/kvm/vmx/main.c
-@@ -10,6 +10,8 @@
- #include "tdx.h"
- #include "tdx_arch.h"
+@@ -1,4 +1,5 @@
+ // SPDX-License-Identifier: GPL-2.0
++#include <linux/entry-common.h>
+ #include <linux/moduleparam.h>
  
-+#pragma GCC poison to_vmx
+ #include "x86_ops.h"
+@@ -878,6 +879,74 @@ static int vt_gmem_max_mapping_level(struct kvm *kvm, kvm_pfn_t pfn,
+ #define vt_op_tdx_only(name) NULL
+ #endif /* CONFIG_KVM_INTEL_TDX */
+ 
++static void handle_nm_fault_irqoff(struct kvm_vcpu *vcpu)
++{
++	/*
++	 * Save xfd_err to guest_fpu before interrupt is enabled, so the
++	 * MSR value is not clobbered by the host activity before the guest
++	 * has chance to consume it.
++	 *
++	 * Update the guest's XFD_ERR if and only if XFD is enabled, as the #NM
++	 * interception may have been caused by L1 interception.  Per the SDM,
++	 * XFD_ERR is not modified for non-XFD #NM, i.e. if CR0.TS=1.
++	 *
++	 * Note, XFD_ERR is updated _before_ the #NM interception check, i.e.
++	 * unlike CR2 and DR6, the value is not a payload that is attached to
++	 * the #NM exception.
++	 */
++	if (is_xfd_nm_fault(vcpu))
++		rdmsrq(MSR_IA32_XFD_ERR, vcpu->arch.guest_fpu.xfd_err);
++}
 +
- #ifdef CONFIG_KVM_INTEL_TDX
- static_assert(offsetof(struct vcpu_vmx, vt) == offsetof(struct vcpu_tdx, vt));
- 
-diff --git a/arch/x86/kvm/vmx/posted_intr.c b/arch/x86/kvm/vmx/posted_intr.c
-index 4a6d9a17da23..24221ba553be 100644
---- a/arch/x86/kvm/vmx/posted_intr.c
-+++ b/arch/x86/kvm/vmx/posted_intr.c
-@@ -14,6 +14,8 @@
- #include "vmx.h"
- #include "tdx.h"
- 
-+#pragma GCC poison to_vmx
++static void handle_exception_irqoff(struct kvm_vcpu *vcpu, u32 intr_info)
++{
++	/* if exit due to PF check for async PF */
++	if (is_page_fault(intr_info))
++		vcpu->arch.apf.host_apf_flags = kvm_read_and_reset_apf_flags();
++	/* if exit due to NM, handle before interrupts are enabled */
++	else if (is_nm_fault(intr_info))
++		handle_nm_fault_irqoff(vcpu);
++	/* Handle machine checks before interrupts are enabled */
++	else if (is_machine_check(intr_info))
++		kvm_machine_check();
++}
 +
++static void handle_external_interrupt_irqoff(struct kvm_vcpu *vcpu,
++					     u32 intr_info)
++{
++	unsigned int vector = intr_info & INTR_INFO_VECTOR_MASK;
++
++	if (KVM_BUG(!is_external_intr(intr_info), vcpu->kvm,
++	    "unexpected VM-Exit interrupt info: 0x%x", intr_info))
++		return;
++
++	kvm_before_interrupt(vcpu, KVM_HANDLING_IRQ);
++	x86_entry_from_kvm(EVENT_TYPE_EXTINT, vector);
++	kvm_after_interrupt(vcpu);
++
++	vcpu->arch.at_instruction_boundary = true;
++}
++
++static void vt_handle_exit_irqoff(struct kvm_vcpu *vcpu)
++{
++	if (to_vt(vcpu)->emulation_required)
++		return;
++
++	switch (vmx_get_exit_reason(vcpu).basic) {
++	case EXIT_REASON_EXTERNAL_INTERRUPT:
++		handle_external_interrupt_irqoff(vcpu, vmx_get_intr_info(vcpu));
++		break;
++	case EXIT_REASON_EXCEPTION_NMI:
++		handle_exception_irqoff(vcpu, vmx_get_intr_info(vcpu));
++		break;
++	case EXIT_REASON_MCE_DURING_VMENTRY:
++		kvm_machine_check();
++		break;
++	default:
++		break;
++	}
++}
++
+ #define VMX_REQUIRED_APICV_INHIBITS				\
+ 	(BIT(APICV_INHIBIT_REASON_DISABLED) |			\
+ 	 BIT(APICV_INHIBIT_REASON_ABSENT) |			\
+@@ -1002,7 +1071,7 @@ struct kvm_x86_ops vt_x86_ops __initdata = {
+ 	.load_mmu_pgd = vt_op(load_mmu_pgd),
+ 
+ 	.check_intercept = vmx_check_intercept,
+-	.handle_exit_irqoff = vmx_handle_exit_irqoff,
++	.handle_exit_irqoff = vt_handle_exit_irqoff,
+ 
+ 	.update_cpu_dirty_logging = vt_op(update_cpu_dirty_logging),
+ 
+diff --git a/arch/x86/kvm/vmx/vmx.c b/arch/x86/kvm/vmx/vmx.c
+index 504630f0eb40..adf2bc13bed2 100644
+--- a/arch/x86/kvm/vmx/vmx.c
++++ b/arch/x86/kvm/vmx/vmx.c
+@@ -5379,12 +5379,6 @@ bool vmx_guest_inject_ac(struct kvm_vcpu *vcpu)
+ 	       (kvm_get_rflags(vcpu) & X86_EFLAGS_AC);
+ }
+ 
+-static bool is_xfd_nm_fault(struct kvm_vcpu *vcpu)
+-{
+-	return vcpu->arch.guest_fpu.fpstate->xfd &&
+-	       !kvm_is_cr0_bit_set(vcpu, X86_CR0_TS);
+-}
+-
+ static int vmx_handle_page_fault(struct kvm_vcpu *vcpu, u32 error_code)
+ {
+ 	unsigned long cr2 = vmx_get_exit_qual(vcpu);
+@@ -7143,74 +7137,6 @@ void vmx_load_eoi_exitmap(struct kvm_vcpu *vcpu, u64 *eoi_exit_bitmap)
+ 	vmcs_write64(EOI_EXIT_BITMAP3, eoi_exit_bitmap[3]);
+ }
+ 
+-static void handle_nm_fault_irqoff(struct kvm_vcpu *vcpu)
+-{
+-	/*
+-	 * Save xfd_err to guest_fpu before interrupt is enabled, so the
+-	 * MSR value is not clobbered by the host activity before the guest
+-	 * has chance to consume it.
+-	 *
+-	 * Update the guest's XFD_ERR if and only if XFD is enabled, as the #NM
+-	 * interception may have been caused by L1 interception.  Per the SDM,
+-	 * XFD_ERR is not modified for non-XFD #NM, i.e. if CR0.TS=1.
+-	 *
+-	 * Note, XFD_ERR is updated _before_ the #NM interception check, i.e.
+-	 * unlike CR2 and DR6, the value is not a payload that is attached to
+-	 * the #NM exception.
+-	 */
+-	if (is_xfd_nm_fault(vcpu))
+-		rdmsrq(MSR_IA32_XFD_ERR, vcpu->arch.guest_fpu.xfd_err);
+-}
+-
+-static void handle_exception_irqoff(struct kvm_vcpu *vcpu, u32 intr_info)
+-{
+-	/* if exit due to PF check for async PF */
+-	if (is_page_fault(intr_info))
+-		vcpu->arch.apf.host_apf_flags = kvm_read_and_reset_apf_flags();
+-	/* if exit due to NM, handle before interrupts are enabled */
+-	else if (is_nm_fault(intr_info))
+-		handle_nm_fault_irqoff(vcpu);
+-	/* Handle machine checks before interrupts are enabled */
+-	else if (is_machine_check(intr_info))
+-		kvm_machine_check();
+-}
+-
+-static void handle_external_interrupt_irqoff(struct kvm_vcpu *vcpu,
+-					     u32 intr_info)
+-{
+-	unsigned int vector = intr_info & INTR_INFO_VECTOR_MASK;
+-
+-	if (KVM_BUG(!is_external_intr(intr_info), vcpu->kvm,
+-	    "unexpected VM-Exit interrupt info: 0x%x", intr_info))
+-		return;
+-
+-	kvm_before_interrupt(vcpu, KVM_HANDLING_IRQ);
+-	x86_entry_from_kvm(EVENT_TYPE_EXTINT, vector);
+-	kvm_after_interrupt(vcpu);
+-
+-	vcpu->arch.at_instruction_boundary = true;
+-}
+-
+-void vmx_handle_exit_irqoff(struct kvm_vcpu *vcpu)
+-{
+-	if (to_vt(vcpu)->emulation_required)
+-		return;
+-
+-	switch (vmx_get_exit_reason(vcpu).basic) {
+-	case EXIT_REASON_EXTERNAL_INTERRUPT:
+-		handle_external_interrupt_irqoff(vcpu, vmx_get_intr_info(vcpu));
+-		break;
+-	case EXIT_REASON_EXCEPTION_NMI:
+-		handle_exception_irqoff(vcpu, vmx_get_intr_info(vcpu));
+-		break;
+-	case EXIT_REASON_MCE_DURING_VMENTRY:
+-		kvm_machine_check();
+-		break;
+-	default:
+-		break;
+-	}
+-}
+-
  /*
-  * Maintain a per-CPU list of vCPUs that need to be awakened by wakeup_handler()
-  * when a WAKEUP_VECTOR interrupted is posted.  vCPUs are added to the list when
+  * The kvm parameter can be NULL (module initialization, or invocation before
+  * VM creation). Be sure to check the kvm parameter before using it.
+diff --git a/arch/x86/kvm/vmx/x86_ops.h b/arch/x86/kvm/vmx/x86_ops.h
+index 054fd14bb2e1..7ac02c68457f 100644
+--- a/arch/x86/kvm/vmx/x86_ops.h
++++ b/arch/x86/kvm/vmx/x86_ops.h
+@@ -27,7 +27,6 @@ void vmx_vcpu_reset(struct kvm_vcpu *vcpu, bool init_event);
+ void vmx_vcpu_load(struct kvm_vcpu *vcpu, int cpu);
+ void vmx_vcpu_put(struct kvm_vcpu *vcpu);
+ int vmx_handle_exit(struct kvm_vcpu *vcpu, fastpath_t exit_fastpath);
+-void vmx_handle_exit_irqoff(struct kvm_vcpu *vcpu);
+ int vmx_skip_emulated_instruction(struct kvm_vcpu *vcpu);
+ void vmx_update_emulated_instruction(struct kvm_vcpu *vcpu);
+ bool vmx_unhandleable_emulation_required(struct kvm_vcpu *vcpu);
 -- 
 2.55.0.979.g7e5102b832-goog
 
