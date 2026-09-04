@@ -1,33 +1,32 @@
 Received: from smtpout.efficios.com (smtpout.efficios.com [158.69.130.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C59AA3E16A9
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 876FA33BBB9
 	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 16:07:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=158.69.130.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788538071; cv=none; b=nZY9x9YL3kX2AvdQkNicXLNeuQ2l/NENg6ktFxnJ/h7Clilw+yHqRdEbRH+Sga44BaSvj3Qm4bFo/NhX/3AQOjMo/7ATmBTSYfRkCB4TLLnY4TGSzSspG+WfWlwoYrzltlOT31Y94S474ntoshkd8K6kROV56CxrOyaenETGS/8=
+	t=1788538070; cv=none; b=gePuaAW0g9BK5r9lYyQJDZsIarxjA8ESnYyFfR5oWCSm4sfhBazHDB9chmsFzK6xGOhKyO+gY8yC7GqWKz9Bt3M6FrR4Js3tYsFihVNEDPWrGcI50yJmtryzRRRHCwRx2UcS/pNKzqeoQ07b+1nBon8ElXV61iVype77gXc0jk0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788538071; c=relaxed/simple;
-	bh=hEnNJDWu/iKivIKNptkuLs6mjqBw72pkpWIdB/8pOYQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=rJnzsFe8YXXbwQYuaSGcU/3BO6txw/3pV5vVRKN4hYOhdyuW7YsmgY4jUo0zAtP/xm+iBt2cDaoD3HlZ3VYOEw7A0U3gNALHEh/cUtcZ5BO2UGaIieBMlwSZ/4/4P8jYXAE+TK/v6VXqFtxVafLgxhNNY/c4CxoBz/JNlDfUO7c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=efficios.com; spf=pass smtp.mailfrom=efficios.com; dkim=pass (2048-bit key) header.d=efficios.com header.i=@efficios.com header.b=lp9uu06z; arc=none smtp.client-ip=158.69.130.18
+	s=arc-20240116; t=1788538070; c=relaxed/simple;
+	bh=eGus+f2/UGXkaobm7zQlXxY0houb/tlPRMmcuXplSJA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=hfmE8WqaYODOjzVcYblvAblvKbNrVM1gI4gpxyaltVv1OlOu1+4yFgP8W41SSPij0RRmc6iwjldzTqc3r8l7Mg17cmFbT5JsRuo48I3KWZkAkdL+k/oKGu2qdW5RtAZRaETiHxunctfZDy57m4XKvobp6UP9hlEhsBBENNnpI7U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=efficios.com; spf=pass smtp.mailfrom=efficios.com; dkim=pass (2048-bit key) header.d=efficios.com header.i=@efficios.com header.b=rpdrEs39; arc=none smtp.client-ip=158.69.130.18
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=efficios.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=efficios.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=efficios.com header.i=@efficios.com header.b="lp9uu06z"
+	dkim=pass (2048-bit key) header.d=efficios.com header.i=@efficios.com header.b="rpdrEs39"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=efficios.com;
 	s=smtpout1; t=1788538057;
-	bh=hjDwQHd1TIkqr3Ad7cKo//QgmO9EQnnm4D2U1FbPu7k=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=lp9uu06zNPQl7khWMI1vssh/2dU1Ru/wZAZAUeCHuPfV7QBZkjo9/UElf5Q85z9+N
-	 qK9uSEPNd25d4bfkFlQPtjB9whU1NFhNgN0GGgI3y4mM6aAxIWHc0M4uivqu4ivxuX
-	 uBfY8e19VjWNXqsRO3un3IoAiKfu4FwnbL8NoK4lNCXZGqpP+RZwUhYct+psqbnrkC
-	 6bOilv2IVEERA4lEhML4qr8xAxkrKif90thNkbJOTJARFBsuWiAlcatrqLZfm3JP53
-	 rmUOG8CEP5PCmnYyt9BCHTBUA0xj9WfltXwXb/Pu3+z39kXsqndZJ1hFShSNAxxjfh
-	 OfT8AUlIRqi4Q==
+	bh=19kdMNiQwxNu9bc7s+IHFuS9MHPIUiSFua29/KmdJZg=;
+	h=From:To:Cc:Subject:Date:From;
+	b=rpdrEs39APtxZ6+3S5p+33a/iyA8sRLllVXkbtA+JmzTwH6mV1kw08UFj3xYwgvmd
+	 bwXQEkGIVdjWnmjJZ+JC0pJkg2SX+pQmQF8J4VAYNG7f+kvdQIFqemYWAOwtTDWxaR
+	 EyAPcGzv9EosvkaaKlfEOyDu9Uds6cc5Y4qc24ULbc0iq8Rym+26lo0up5voR2ls7u
+	 aYYxMEZEu7a2kT/s9/r4Ua+tB4yQTXCCWkyo4P3JUy3+WWe+x612vbQPx2CYCsKzZY
+	 mg/fZtIN6Ex3AhbGFb1Xb8uq8EKKr3mMnmPmfu1u6TfNNujBNg+RJX9jag9vGAwJA3
+	 5YNF0gPYLBayg==
 Received: from compudjdev.. (mtl.efficios.com [216.120.195.104])
-	by smtpout.efficios.com (Postfix) with ESMTPSA id 4hc1Zd5whLzWjm;
+	by smtpout.efficios.com (Postfix) with ESMTPSA id 4hc1Zd19WhzWWW;
 	Fri, 04 Sep 2026 12:07:37 -0400 (EDT)
 From: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
 To: Andrew Morton <akpm@linux-foundation.org>
@@ -66,12 +65,10 @@ Cc: linux-kernel@vger.kernel.org,
 	David Carlier <devnexen@gmail.com>,
 	Josh Law <objecting@objecting.org>,
 	linux-mm@kvack.org
-Subject: [PATCH v22 04/10] mm: reorder mm_struct flexible array to place mm_cpumask first
-Date: Fri,  4 Sep 2026 12:07:16 -0400
-Message-ID: <20260904160734.23445-5-mathieu.desnoyers@efficios.com>
+Subject: [PATCH v22 00/10] Hierarchical Percpu Counters for RSS
+Date: Fri,  4 Sep 2026 12:07:12 -0400
+Message-ID: <20260904160734.23445-1-mathieu.desnoyers@efficios.com>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260904160734.23445-1-mathieu.desnoyers@efficios.com>
-References: <20260904160734.23445-1-mathieu.desnoyers@efficios.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -80,43 +77,40 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Reorder the mm_struct flexible array layout from:
+Hi Andrew,
 
-  [HPCC tree items][mm_cpumask][mm_cid]
+Here is the hierarchical percpu counters for RSS accounting series
+rebased on top of v7.3-rc1. It includes a series of documentation and
+test code fixes done to answer a review from Sashiko at:
+https://sashiko.dev/#/patchset/20260901182857.26690-1-mathieu.desnoyers@efficios.com
 
-to:
+This aims at replacing the prior version of the series you had
+in mm.
 
-  [mm_cpumask][mm_cid][alignment padding][HPCC tree items]
+As a reminder, the goal here is to provide more precise RSS counters
+through /proc. A future step would be to also use these counters to
+speed up the OOM killer task selection when OOM is triggered by
+memcg. In whole-machine OOM situations, latency introduced by the
+OOM killer task selection may not be too much of an issue, but for
+memcg, where cgroups may routinely depend on the OOM killer, the
+acceptable latency tradeoff is quite different.
 
-The previous layout placed the HPCC tree items first, which required
-mm_cpumask() to skip past them using percpu_counter_tree_items_size().
-This created a boot-time initialization ordering dependency: any use of
-mm_cpumask() before percpu_counter_tree_subsystem_init() would compute
-the wrong pointer offset, reading from or writing to the HPCC items
-region instead of the actual cpumask.
+Thanks,
 
-On powerpc, switch_mm_irqs_off() accesses mm_cpumask() early in boot
-via VM_WARN_ON_ONCE(!cpumask_test_cpu(cpu, mm_cpumask(prev))), which
-could fire spuriously or cause silent memory corruption if the HPCC
-subsystem was not yet initialized.
+Mathieu
 
-By placing mm_cpumask first, mm_cpumask() remains a simple
-&mm->flexible_array with no runtime dependency on HPCC initialization.
-The HPCC tree items are accessed via get_rss_stat_items_offset(), which
-skips past the cpumask and mm_cid with appropriate cacheline alignment
-padding. This accessor is only used during mm_struct initialization
-(percpu_counter_tree_init_many), not on context switch or other hot
-paths.
+Mathieu Desnoyers (10):
+  lib: introduce hierarchical per-cpu counters
+  lib: test hierarchical per-cpu counters
+  mm: improve RSS counter approximation accuracy for proc interfaces
+  mm: reorder mm_struct flexible array to place mm_cpumask first
+  init: move percpu_counter_tree_subsystem_init() earlier in boot
+  lib: inline percpu_counter_tree_items_size with boot-safety sentinel
+  lib/hpcc: Document that accuracy is a property of settled counters
+  lib/hpcc: Clarify accuracy range documentation
+  lib/hpcc: Introduce wrapped delta helper
+  lib/tests/hpcc: Fix hotplug, module unload, and error handling
 
-Introduce the PERCPU_COUNTER_TREE_ITEMS_ALIGN() macro to handle the
-SMP cacheline alignment vs !SMP no-op in a single place, used by both
-the static init_mm flexible array initializer and the runtime offset
-computation.
-
-The cost is at most one cacheline (typically 64 bytes) of padding per
-mm_struct between the mm_cid data and the HPCC tree items.
-
-Signed-off-by: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
 Cc: "Paul E. McKenney" <paulmck@kernel.org>
 Cc: Steven Rostedt <rostedt@goodmis.org>
 Cc: Masami Hiramatsu <mhiramat@kernel.org>
@@ -151,146 +145,25 @@ Cc: David Carlier <devnexen@gmail.com>
 Cc: Josh Law <objecting@objecting.org>
 Cc: Andrew Morton <akpm@linux-foundation.org>
 Cc: linux-mm@kvack.org
----
- include/linux/mm.h                  |  1 +
- include/linux/mm_types.h            | 47 +++++++++++++++++------------
- include/linux/percpu_counter_tree.h |  3 ++
- kernel/fork.c                       |  4 ++-
- 4 files changed, 34 insertions(+), 21 deletions(-)
 
-diff --git a/include/linux/mm.h b/include/linux/mm.h
-index 7dd6fdda9bc8..ffbcd18c4ecb 100644
---- a/include/linux/mm.h
-+++ b/include/linux/mm.h
-@@ -3453,6 +3453,7 @@ static inline struct percpu_counter_tree_level_item *get_rss_stat_items(struct m
- 	unsigned long ptr = (unsigned long)mm;
- 
- 	ptr += offsetof(struct mm_struct, flexible_array);
-+	ptr += get_rss_stat_items_offset();
- 	return (struct percpu_counter_tree_level_item *)ptr;
- }
- 
-diff --git a/include/linux/mm_types.h b/include/linux/mm_types.h
-index 96ad6ac20b11..b26160b85f93 100644
---- a/include/linux/mm_types.h
-+++ b/include/linux/mm_types.h
-@@ -1435,11 +1435,12 @@ struct mm_struct {
- 	} __randomize_layout;
- 
- 	/*
--	 * The rss hierarchical counter items, mm_cpumask, and mm_cid
--	 * masks need to be at the end of mm_struct, because they are
-+	 * The mm_cpumask, mm_cid masks, and rss hierarchical counter
-+	 * items need to be at the end of mm_struct, because they are
- 	 * dynamically sized based on nr_cpu_ids.
--	 * The content of the flexible array needs to be placed in
--	 * decreasing alignment requirement order.
-+	 * The HPCC counter tree items are placed last and aligned
-+	 * with PERCPU_COUNTER_TREE_ITEMS_ALIGN to satisfy their
-+	 * cacheline alignment requirement.
- 	 */
- 	char flexible_array[] __mm_struct_flexible_array_aligned;
- };
-@@ -1478,25 +1479,18 @@ static inline void __mm_flags_set_mask_bits_word(struct mm_struct *mm,
- 			 MT_FLAGS_USE_RCU)
- extern struct mm_struct init_mm;
- 
--#define MM_STRUCT_FLEXIBLE_ARRAY_INIT									\
--{													\
--	[0 ... (PERCPU_COUNTER_TREE_ITEMS_STATIC_SIZE * NR_MM_COUNTERS) + sizeof(cpumask_t) + MM_CID_STATIC_SIZE - 1] = 0	\
--}
--
--static inline size_t get_rss_stat_items_size(void)
--{
--	return percpu_counter_tree_items_size() * NR_MM_COUNTERS;
-+#define MM_STRUCT_FLEXIBLE_ARRAY_INIT						\
-+{										\
-+	[0 ... PERCPU_COUNTER_TREE_ITEMS_ALIGN(					\
-+			sizeof(cpumask_t) + MM_CID_STATIC_SIZE)			\
-+	       + (PERCPU_COUNTER_TREE_ITEMS_STATIC_SIZE * NR_MM_COUNTERS)	\
-+	       - 1] = 0								\
- }
- 
- /* Future-safe accessor for struct mm_struct's cpu_vm_mask. */
- static inline cpumask_t *mm_cpumask(struct mm_struct *mm)
- {
--	unsigned long ptr = (unsigned long)mm;
--
--	ptr += offsetof(struct mm_struct, flexible_array);
--	/* Skip RSS stats counters. */
--	ptr += get_rss_stat_items_size();
--	return (struct cpumask *)ptr;
-+	return (struct cpumask *)&mm->flexible_array;
- }
- 
- static inline void mm_init_cpumask(struct mm_struct *mm)
-@@ -1593,8 +1587,6 @@ static inline cpumask_t *mm_cpus_allowed(struct mm_struct *mm)
- 	unsigned long bitmap = (unsigned long)mm;
- 
- 	bitmap += offsetof(struct mm_struct, flexible_array);
--	/* Skip RSS stats counters. */
--	bitmap += get_rss_stat_items_size();
- 	/* Skip cpu_bitmap */
- 	bitmap += cpumask_size();
- 	return (struct cpumask *)bitmap;
-@@ -1677,6 +1669,21 @@ static inline void mm_destroy_sched(struct mm_struct *mm) { }
- 
- #endif /* CONFIG_SCHED_CACHE */
- 
-+static inline size_t get_rss_stat_items_size(void)
-+{
-+	return percpu_counter_tree_items_size() * NR_MM_COUNTERS;
-+}
-+
-+/*
-+ * Return the offset of the RSS stat HPCC items within the mm_struct
-+ * flexible array. The items are placed after the cpumask and mm_cid,
-+ * aligned to the cacheline boundary required by the tree level items.
-+ */
-+static inline size_t get_rss_stat_items_offset(void)
-+{
-+	return PERCPU_COUNTER_TREE_ITEMS_ALIGN(cpumask_size() + mm_cid_size());
-+}
-+
- struct mmu_gather;
- extern void tlb_gather_mmu(struct mmu_gather *tlb, struct mm_struct *mm);
- extern void tlb_gather_mmu_fullmm(struct mmu_gather *tlb, struct mm_struct *mm);
-diff --git a/include/linux/percpu_counter_tree.h b/include/linux/percpu_counter_tree.h
-index 828c763edd4a..3e8a820e2d1d 100644
---- a/include/linux/percpu_counter_tree.h
-+++ b/include/linux/percpu_counter_tree.h
-@@ -66,6 +66,8 @@ struct percpu_counter_tree_level_item {
- 
- #define PERCPU_COUNTER_TREE_ITEMS_STATIC_SIZE	\
- 	(PERCPU_COUNTER_TREE_STATIC_NR_ITEMS * sizeof(struct percpu_counter_tree_level_item))
-+#define PERCPU_COUNTER_TREE_ITEMS_ALIGN(offset)	\
-+	ALIGN((offset), __alignof__(struct percpu_counter_tree_level_item))
- 
- struct percpu_counter_tree {
- 	/* Fast-path fields. */
-@@ -167,6 +169,7 @@ void percpu_counter_tree_approximate_accuracy_range(struct percpu_counter_tree *
- #else	/* !CONFIG_SMP */
- 
- #define PERCPU_COUNTER_TREE_ITEMS_STATIC_SIZE	0
-+#define PERCPU_COUNTER_TREE_ITEMS_ALIGN(offset)	(offset)
- 
- struct percpu_counter_tree_level_item;
- 
-diff --git a/kernel/fork.c b/kernel/fork.c
-index 5bad7a24d186..db398b6c5288 100644
---- a/kernel/fork.c
-+++ b/kernel/fork.c
-@@ -3126,7 +3126,9 @@ void __init mm_cache_init(void)
- 	 * dynamically sized based on the maximum CPU number this system
- 	 * can have, taking hotplug into account (nr_cpu_ids).
- 	 */
--	mm_size = sizeof(struct mm_struct) + cpumask_size() + mm_cid_size() + get_rss_stat_items_size();
-+	mm_size = sizeof(struct mm_struct) +
-+		PERCPU_COUNTER_TREE_ITEMS_ALIGN(cpumask_size() + mm_cid_size()) +
-+		get_rss_stat_items_size();
- 
- 	mm_cachep = kmem_cache_create_usercopy("mm_struct",
- 			mm_size, ARCH_MIN_MMSTRUCT_ALIGN,
+ .../core-api/percpu-counter-tree.rst          |  82 ++
+ include/linux/mm.h                            |  20 +-
+ include/linux/mm_types.h                      |  65 +-
+ include/linux/percpu_counter_tree.h           | 391 +++++++++
+ include/trace/events/kmem.h                   |   2 +-
+ init/main.c                                   |   2 +
+ kernel/fork.c                                 |  24 +-
+ lib/Kconfig                                   |  12 +
+ lib/Makefile                                  |   1 +
+ lib/percpu_counter_tree.c                     | 747 ++++++++++++++++++
+ lib/tests/Makefile                            |   2 +
+ lib/tests/percpu_counter_tree_kunit.c         | 583 ++++++++++++++
+ 12 files changed, 1899 insertions(+), 32 deletions(-)
+ create mode 100644 Documentation/core-api/percpu-counter-tree.rst
+ create mode 100644 include/linux/percpu_counter_tree.h
+ create mode 100644 lib/percpu_counter_tree.c
+ create mode 100644 lib/tests/percpu_counter_tree_kunit.c
+
 -- 
 2.43.0
 
