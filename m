@@ -1,142 +1,88 @@
-Received: from out162-62-57-252.mail.qq.com (out162-62-57-252.mail.qq.com [162.62.57.252])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BD3144A40F;
-	Fri,  4 Sep 2026 10:28:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.62.57.252
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CEE28390CB7;
+	Fri,  4 Sep 2026 10:29:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788517712; cv=none; b=uoWoyEjFSWpFg1Jl8udECi2YCPIn4SSI9/ZMdazngNemttXYxus3pRgaJiF5VsTx9nuOHCmSGsjAAlbdO9b6A3v0fW7xWeUStnjdj38XVNC/yyZWF+8i+7ZCGuc9Iglt6jLbUc5PxhDKBIIBqrr9JREHkaqPSbOMFOS0fftWPaM=
+	t=1788517785; cv=none; b=rbQyGdI2AF5udzhal1VZXAR9mmQeKXABLuFTGBhjgYW8Nb0f+Rtx7YU7BokhWN+k7hnYfCN8esn3kwir/CUnjvJXY97u99USdNCfLh/mmiZ+isCaNx09lVVm/oLfmF/2A/oYiNMPfSo8dML835vap4DI7s9dr4Y9Yp/Q2Mj+u/E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788517712; c=relaxed/simple;
-	bh=VwG46Gp/XoiLsGNlDYkbSmVmIWuzR2igKIrFYd0lTX4=;
-	h=Message-ID:From:To:Cc:Subject:Date:In-Reply-To:References:
-	 MIME-Version; b=rCHlLWBOl/8kO6t8nK7laV2FuiwzGXO8SGJ48GxwjB7k8oDHkGyOLFBPUtuRUtGS3FOhhcHVEenqi91nsTK5pwt2VS4VIjX0hIvTJVaZv7pgfP7M2Gfv/Z1e8OnSCg7v/PWKJ+z3YBgZ3scC6q0NvINf/i5yPTvQwmUjf8ZzrIE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com; spf=pass smtp.mailfrom=qq.com; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=aIajdNzb; arc=none smtp.client-ip=162.62.57.252
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+	s=arc-20240116; t=1788517785; c=relaxed/simple;
+	bh=29Sj+eziO1kqksXjmFLPRye1OGap9QWjDqk6tmiRTP8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=B/XyY6ZjroaYHJ3o0NJi//rdPG7vj0tuDAQHGaCt+IipEuvQnNFlmUsjunfXs4SM4nzfJ/MQnOgUD2ZObZTBqMYJ1LhYVFzXvJSi+9f5moQgVxdNrr3nVyXu2Tw0rloYXw1S7UK9/MxBts12XD65R2JVB8fsjUS6NlwA+EBN+Uc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gX2PEnHv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="aIajdNzb"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1788517703; bh=7LEq0udsdRFSQfGgzguwffOKv7bCMQnMZP/17uLi6go=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=aIajdNzbA+5ZKvSm6q1lelyq3zABEFUivSlT64LOCwcHzVFnnMj690RyED/GTQJ0R
-	 Ej0NNrkmOC1qXbguIJ54xdMriclIzZ8uoHXKJo/8GXm0PAamq79tMTvB6FxIm0J8Os
-	 s2fZAwlSz6ayHJagYZIA9ZN0s7BkTeJIZvS8eT00=
-Received: from ws006419.mbzu.ae ([5.195.0.150])
-	by newxmesmtplogicsvrszb51-1.qq.com (NewEsmtp) with SMTP
-	id 6BA1EAAE; Fri, 04 Sep 2026 18:26:58 +0800
-X-QQ-mid: xmsmtpt1788517618t5vmfugz9
-Message-ID: <tencent_0D4EB3807DBF6095A7F5A9455D902DBA9708@qq.com>
-X-QQ-XMAILINFO: OFpInORavztRyQdl1JiXuVC0ttpYKudvrsd0yTM3j58+cRNhGtvI0OUgLakqEe
-	 XoR1cxEtaMRllVnFD7q1rF8C6oDzmeCTimWdVhGZlRnc8nUnMM2FzdIGJBV32HhLLABdR1J+bolR
-	 WYeM1CBOYXKjH3N4yy0xD+3u2TCRWKXXdd2vos4KYSW3K8EyCuArr2pLMMJjicbu4X1h+tkYp0yp
-	 PTCfFQfdJfKHyRfqsjAQMrEizvwWg184DajnQgAeQi/L36TQu/ccO9T8fwdSYKN1CLlPxAxBkvZu
-	 9NUPsBGNMQ5exD77qOFVPg6e9n+c9UfsxablKEYzNGGBbsIKc07EpS8Hz/2J2nNytefpBguV/c+1
-	 e1dRdxT98vZQ3t5M+7vpiStAUUvr0jexLd1rdsBBAVF/JwYc1PocBYY8iTrfNbwr/fJ77WNEGu+i
-	 DHNJXysQTpAmSigjMpMgCD/RALMfo+XO+4eKKSGqSHoAJU7Kp3Al+TEgNmKrjbt8FXPL1UiC2wMs
-	 GND3ImU11ZogLnl4qUBR9lSPbkTiMCIZo4K9eWCJC79c771iuukw59D5FK3s00IXjzjE2U1Pa+02
-	 uAvr3TPsHyYweZV19G2YTr8mZiINnlxh5rweY+bAwXau//yTVdfOZT0nVdxodFcg3KpqsmTbNZIE
-	 +l6wBVBBmyzFeXQVtRBV0p9wz/o7YIOBomKhbZ2ujkVwWcVMQR8KzNcipW2mpsRUEUCqv4bvc5Tf
-	 OhpMQVlsu6fdze0tgdBUMcwDQZsZrYrPJE+I+vD1UU9DIrsxFkIiRVfEPRym7MHak/mF99bdrlq8
-	 9+Al3vkVMX3DYK9XyDtaf4WmDly7NF1CITPy8vn6I822TpHfKCBI36Ssj+++tyBNTazKLahSDda8
-	 1/fDiUd+n/q+OI20qDNDF18sEZRSSwQ4jltjKDf685gw4HcLuV3GW0OGa6N79n8MbEfgI2MLnfV7
-	 T/Lelf/ZVzZhst5hKi96VsZlnl+/CmMi0qHm+WgdmVgLmW6iE2VSsEPLsVR7l+U1iRkVTLRwONhd
-	 IdAIiO/EX+WWgZrgYglxSw4HS1swbXMoOQJZBVR/vdDJvNG4t3gjho6fa8hG86jBCtednP5gXF4R
-	 mISGL2
-X-QQ-XMRINFO: NS+P29fieYNwqS3WCnRCOn9D1NpZuCnCRA==
-From: Jiawen Liu <1298662399@qq.com>
-To: Deepak Saxena <dsaxena@plexity.net>,
-	Olivia Mackall <olivia@selenic.com>,
-	Herbert Xu <herbert@gondor.apana.org.au>,
-	Thomas Petazzoni <thomas.petazzoni@free-electrons.com>,
-	linux-crypto@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: stable@vger.kernel.org,
-	Jiawen Liu <1298662399@qq.com>
-Subject: [PATCH v2] char: omap-rng: fix runtime PM cleanup
-Date: Fri,  4 Sep 2026 14:26:54 +0400
-X-OQ-MSGID: <20260904102654.394495-1-1298662399@qq.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <tencent_1DBD00BAFF365506D40F166D40DEE8F63B0A@qq.com>
-References: <tencent_1DBD00BAFF365506D40F166D40DEE8F63B0A@qq.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gX2PEnHv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AD1C71F00A3D;
+	Fri,  4 Sep 2026 10:29:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788517783;
+	bh=J2UnILogmIqp5OMWhlZHu7jpPjsG5igcXjj6drLDMmQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=gX2PEnHvSzB6nu3GS4yoj7ieyiKVakFVVELYWlZW30alRNsYhZlTGGoHIH2nQamIO
+	 lmx9vkIalMbRt+ReVZPuYtFG4grjT5KManOcpF9OIHPtK9W8VDI+NYM/QXQLDrfE5h
+	 LB67+bl7X+BCNz1/XtjnmKIuGNtXhV8bRFwJww1Dl1za8mIdu1ILAgWB9HCnQGhsEV
+	 bnx9iIDeciU6SD7qlr8EMADPTB1HRi2c17q35nTfMX+bk9/VEjmo7gV7OA9bgf/2BO
+	 xCYtNUkE54yWWCKqPErmkdvBSezQ94llqJEdVV2bMsmSu17TqjFiMCQYKwV1XwuZy+
+	 B8g8WKl/lHy8w==
+Date: Fri, 4 Sep 2026 12:29:39 +0200
+From: Christian Brauner <brauner@kernel.org>
+To: Jan Kara <jack@suse.cz>
+Cc: Karl Mehltretter <kmehltretter@gmail.com>, 
+	Alexander Viro <viro@zeniv.linux.org.uk>, Paulo Alcantara <pc@manguebit.org>, 
+	linux-fsdevel@vger.kernel.org, linux-cifs@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] super: make iterate_supers_type() deletion-safe
+Message-ID: <20260904-astronaut-anpfiff-unbebaut-743381f4995a@brauner>
+References: <20260903013336.92081-1-kmehltretter@gmail.com>
+ <32afuwcqxfzvc2qwsvx6ecpyvbunr45wnvmezbbqzz25qtfn35@tvotjvtm3soe>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <32afuwcqxfzvc2qwsvx6ecpyvbunr45wnvmezbbqzz25qtfn35@tvotjvtm3soe>
 
-omap_rng_probe() enables runtime PM before requesting its optional clocks.
-If either devm_clk_get() returns -EPROBE_DEFER, the direct return leaves
-the runtime PM usage count elevated and runtime PM enabled. The second
-clock lookup can also leave the first clock enabled.
+On Thu, Sep 03, 2026 at 12:16:14PM +0200, Jan Kara wrote:
+> On Thu 03-09-26 03:33:36, Karl Mehltretter wrote:
+> > iterate_supers_type() drops sb_lock while invoking the callback and keeps
+> > only a passive reference to the current superblock. That reference keeps
+> > the object allocated, but does not keep its s_instances node linked.
+> > 
+> > After the callback releases s_umount, final teardown can unlink the current
+> > s_instances node. The iterator then advances through a reinitialized node.
+> > With the current hlist it stops without visiting the remaining superblocks.
+> > The unlink moved from generic_shutdown_super() to kill_super_notify(), but
+> > the cursor lifetime has been unsafe since the helper was introduced.
+> > 
+> > The CIFS DFS lookup can consequently miss a matching superblock and return
+> > -EINVAL.
+> > 
+> > Walk the global superblock list in reverse and filter it by filesystem
+> > type. A passive reference keeps its s_list node linked, and reverse
+> > traversal preserves newest-first visitation. Superblocks removed from
+> > fs_supers remain on the global list, but teardown marks them SB_DYING
+> > before unlinking them, so the existing filter excludes them.
+> > 
+> > This broadens the scan from superblocks of one type to all superblocks.
+> > The only in-tree caller is the CIFS DFS lookup, so the broader scan is
+> > limited to that path.
+> > 
+> > Fixes: 43e15cdbefea ("new helper: iterate_supers_type()")
+> > Cc: stable@vger.kernel.org
+> > Assisted-by: LLM
+> > Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+> 
+> Good spotting! But what I'm wondering about is whether we just shouldn't
+> move where we delete sb from fs_supers. Currently we do that in
+> kill_super_notify() to hide the sb from sget_fc() (which would otherwise
+> permanently retry and call test() for S_DEAD sb which can cause problems).
+> But if we just skipped S_DEAD superblocks in sget_fc(), we could move
+> removal from fs_supers list to put_super() (make it symmetric with the
+> handling of super_blocks list) and that would also fix
+> iterate_supers_type(). Christian, what do you think?
 
-Route each deferred-probe path through resource-matched cleanup. Return
-directly after cleanup so normal probe deferrals remain quiet.
-
-Fixes: 43ec540e6f9b ("hwrng: omap - move clock related code to omap_rng_probe()")
-Cc: stable@vger.kernel.org
-Signed-off-by: Jiawen Liu <1298662399@qq.com>
----
-Changes in v2:
-- Use the full author name in From and Signed-off-by.
-- Return directly after deferred-probe cleanup to keep deferrals quiet.
-- Add Fixes and Cc stable tags.
-
-v1: https://lore.kernel.org/all/tencent_1DBD00BAFF365506D40F166D40DEE8F63B0A@qq.com/
-Sashiko review: https://sashiko.dev/#/patchset/tencent_1DBD00BAFF365506D40F166D40DEE8F63B0A%40qq.com
-
- drivers/char/hw_random/omap-rng.c | 22 ++++++++++++++++++----
- 1 file changed, 18 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/char/hw_random/omap-rng.c b/drivers/char/hw_random/omap-rng.c
-index 5e8b50f15db7..c22d70a031e2 100644
---- a/drivers/char/hw_random/omap-rng.c
-+++ b/drivers/char/hw_random/omap-rng.c
-@@ -459,8 +459,10 @@ static int omap_rng_probe(struct platform_device *pdev)
- 	}
- 
- 	priv->clk = devm_clk_get(&pdev->dev, NULL);
--	if (PTR_ERR(priv->clk) == -EPROBE_DEFER)
--		return -EPROBE_DEFER;
-+	if (PTR_ERR(priv->clk) == -EPROBE_DEFER) {
-+		ret = -EPROBE_DEFER;
-+		goto err_pm_runtime;
-+	}
- 	if (!IS_ERR(priv->clk)) {
- 		ret = clk_prepare_enable(priv->clk);
- 		if (ret) {
-@@ -471,8 +473,10 @@ static int omap_rng_probe(struct platform_device *pdev)
- 	}
- 
- 	priv->clk_reg = devm_clk_get(&pdev->dev, "reg");
--	if (PTR_ERR(priv->clk_reg) == -EPROBE_DEFER)
--		return -EPROBE_DEFER;
-+	if (PTR_ERR(priv->clk_reg) == -EPROBE_DEFER) {
-+		ret = -EPROBE_DEFER;
-+		goto err_pm_runtime_clock_1;
-+	}
- 	if (!IS_ERR(priv->clk_reg)) {
- 		ret = clk_prepare_enable(priv->clk_reg);
- 		if (ret) {
-@@ -497,6 +501,16 @@ static int omap_rng_probe(struct platform_device *pdev)
- 
- 	return 0;
- 
-+err_pm_runtime_clock_1:
-+	if (!IS_ERR(priv->clk))
-+		clk_disable_unprepare(priv->clk);
-+	goto err_pm_runtime;
-+
-+err_pm_runtime:
-+	pm_runtime_put_sync(&pdev->dev);
-+	pm_runtime_disable(&pdev->dev);
-+	return ret;
-+
- err_register:
- 	priv->base = NULL;
- 	pm_runtime_put_sync(&pdev->dev);
--- 
-2.34.1
-
+Yes, that might work work.
