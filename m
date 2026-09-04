@@ -1,62 +1,64 @@
-Received: from mail-qt1-f175.google.com (mail-qt1-f175.google.com [209.85.160.175])
+Received: from mail-qv1-f52.google.com (mail-qv1-f52.google.com [209.85.219.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83FA538398E
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 21:33:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.175
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3313418A34
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 21:33:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788557615; cv=none; b=QktzF4T7F3WXU24jTDGLCvBfFNg+AKH4MY1pPXeSpnAosMs/h15Xhn5E9wleJSagCillUKOGKoDEd1GbewS+F5ahx4PSQl69UiqfS9MwgqK0CDUG2LN+be6HI1+maobmi1iNwxtp11vG+VvyeeWT/6aLmNolq/74leSKAgmShO8=
+	t=1788557618; cv=none; b=MpJHltUbXBWzXt8O7aT30bj/gTxNLqK2M4CIlsMzT0lCIOHW2+hrfk/6X/qoQB2B8bXrQEWLEkXaHdtPtgp/sQI4Clc7eAUp5wySOQQe68urV0Lz+0wmLME4NoLh7jZF2udGAX7boI/hCWT4VRca24jO1TQFaKadgLxv8gynvvM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788557615; c=relaxed/simple;
-	bh=anGfUtiHyTDnvv5CR6dVKodyZYcTvafQEd9tT4rOXZE=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=nR79kxaQw649UDZsGJWAtjY7GG3s+gVZxPUH2MaBjo4+joBlmd2tqwf3wgY+OnuGHwDd0I+XE6YNNuFfZkzW1QapqZVcqn4gxIvq8uZumLF0bZ3Qg7xmWq3eHCkt9xzbVbYPjL2mX2fczx9awzWG7Wawhi4Al7K2wkLC6KAbxkM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rbFQnX/z; arc=none smtp.client-ip=209.85.160.175
+	s=arc-20240116; t=1788557618; c=relaxed/simple;
+	bh=GHXhp2MUxIdV2IGw6djrOuEq3lqK+9Rv3RiIzHRNkEo=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=flg/6+MTueKpFxyO1qJVGyxphlwbt8VQ+8InlQNeIxhJAbkz51nNdFIR1f9hq1i+fc73EAx8MK+PucPxmvd9yIGojsOOY8Ex1hfBfQHnT1b0R1pH8yR1V9RZrGR0HbMTG5bL9Nwzcl91bWfzWahcp6Bt2U7w1SUXdxm5GSXPDjw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=P7jDbGsT; arc=none smtp.client-ip=209.85.219.52
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rbFQnX/z"
-Received: by mail-qt1-f175.google.com with SMTP id d75a77b69052e-52d7a3defe8so15912441cf.0
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 14:33:33 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="P7jDbGsT"
+Received: by mail-qv1-f52.google.com with SMTP id 6a1803df08f44-90e7bde5596so16184386d6.1
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 14:33:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788557612; x=1789162412; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Z5/Xia7rxdpyQybCgSGxs4a0QCDbKXZF9niLTTnJnSM=;
-        b=rbFQnX/zrudSA0i46pCEV9JRmDIPcVxWUpyKYuF6molEHQC6lfAYBgFxi5kIFsycSM
-         YONexQgkVuUVoULXi82d5IkG8N9obMUn3m5Mk6koaPa422u/RFAYSMviqkEgj0cbCogi
-         1g6PlBh9Zx6eBrRRiejzf/+pWEga6JEn5kMZaA0t8f8b9G7iphiYSDfCe/UamimfvocT
-         g5PtgVTgGRoFEx2pUfZBOvw8WdJlQpiH3vvxBsx+4DTiY/5cm7gtv6IOpE9F8O4633GG
-         vSN0Wi18LdVAvWycMFUClrotKwVG5p2qpHHBUq8HvQ3xtBvM8GhZNbSswH4+XL4YQZ9s
-         6LSQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788557612; x=1789162412;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1788557615; x=1789162415; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Z5/Xia7rxdpyQybCgSGxs4a0QCDbKXZF9niLTTnJnSM=;
-        b=LuSl3NWnydq+OU90xFY81q7o+WtOrl4Tslg7/inbqSRGITakXPqg+19Avd1N8Zu9mO
-         qjDEwqBkvfMrAmZrFfBySVpxHFEEQ6I/vJcArYQ9GtoEVd08LAXZJiULgMua7pdLezZn
-         f+LwkBdGw66fV1Yb2+v9YP1opbflB74nkPLWDNTUYvN8R8qqFRmsgCxvSsSo5cLRz2xp
-         CRiK8ZeVDGWeQ3rFGXlWVOh+gX7AW+ulSD2Ua11q8uf7DseTnsMs0N7vNOnuMVupRi7p
-         YM4mfV9xuydpG+WSs7ia2N0xc3jZhlpDto5RTwMdUroTLF1GPtlEWlCpzmbGvi7zmj74
-         ZY4w==
-X-Forwarded-Encrypted: i=1; AKwUvBwBykLkBg0+3QW5g1FXKL3oQNvVCwkK4f0Mvj3OPlgeIQ4oOvHiebEhJx3KmIiU1ePtLn/UuEUypxQ8bQ4=@vger.kernel.org
-X-Gm-Message-State: AFuF++llDjAmRaWayirzV8iTibHR5Kp3/KOAXER4t+Wo4HWHJg+r03e7
-	xkveZuLi31Cc0B/AEfaGlAQONvratxKbKlKS5Vxulx1vwRbAA85Wb0s=
-X-Gm-Gg: AYBFou17+KNcPQGl0V7b+/m2/RroDcjdEQG3xB0/gSr8dUWH75ff+P6zn98W7O2/ETe
-	UacRZJNuA4z7WAUMpevx0mXOyUo/HPH5wXIFd9rGPpvpbGxxkioWfiDzbFwi8LDaaJa83Ajd+sL
-	Cno8BZlnerJUMNlCqEBWaVcI4DvmX+OmzXHjtwLJxYaBI81DLY17JSNFt/pJDyWwVSa90S9pvWl
-	jr0/eOocGaEkg9i9jwD4T7pbRlrIHWsnYBHErsE5oAjH0npvWXlqfprsmxnnPi2D0t853MDQASt
-	0fJtx9EBkyk5R9LLduP57/GeHEca/WkrdR1WbXGLYADIVlIRexZWmRQrk+vPg1mnzlFPvG8/QIU
-	So1DxDKoaU+wHbwUlAdvshZbAn4dPMCpZfpRX4CH7FCchHID9QFDueLG9ycFCvU1JJScBVxMVqU
-	N8MSwGYMcTkSJ7wgtcGYcRHCZJIKlDZNCsYkJbVFN8ooNySYCM3u+ll7u532rmRAfV1cZhYDu7o
-	EILAy0f0wYThec=
-X-Received: by 2002:a05:622a:1493:b0:52e:12e6:6d7b with SMTP id d75a77b69052e-530549f8c81mr96143391cf.39.1788557612371;
-        Fri, 04 Sep 2026 14:33:32 -0700 (PDT)
+        bh=KWoJYzcW0AWxwtfPly+dHtM2f9cvjv3KZD392LRH0AA=;
+        b=P7jDbGsTKRwxwdqBGKyUajBtLqVaJ3m5eu4vp7EUQRQdpQik3/j1Beq9mDjQ4+6g1v
+         uxPu5UoTX/CiS8PQeT8y24osep+QJ59V/068ZNBA1yE4fn7sN64/TytFzxEcW/l+flAh
+         dsQn346KpQHSkm6oik8uLctS4mD35rzY4qnrWslUprlCKHql1IFQbZmS7OliITPjHs+B
+         pAHs3PA6PxPgh6qbo5hbDcNS5dVbsSnTrTnmFjrydiQzZGz4okg0uy1jJosV60MUfrMW
+         8SyjBAxxq1YWhDJH2eCPt+v+Ixn2n0w8fuOQiIKqH0qLqBtVgQ46Xb49weoFNVLP2uqA
+         YIaA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788557615; x=1789162415;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=KWoJYzcW0AWxwtfPly+dHtM2f9cvjv3KZD392LRH0AA=;
+        b=CTLuBOPg4YrBsXlaEi27wGpCp7lu0AzilN26BGsadkgd25Ta1zIqCTI4Fx3WqC0wtJ
+         8ZWhaK2kBNTl4lgYZM+vrJ+xJ1URINmCne/rmVLEm1OIsoMxJwSr5k8U6wSO1ylIo7Hn
+         3V97Zp1ra1f0vch0PO+X7ytRrHhGm5FLgYQEs7SVj9x7FJM/x6CWa9yifKxbjVoybFuA
+         pJY6oLsU+tHf3En6ayK3HL0XmOa42u9LcVMXLBpxTLC66YPEJg1a1MFSiQn8sUIwe5wX
+         WdUs2hHLVsyqyWNsZbxwIz2JEiSRzjqU/Lid6bydXVOCxqlcp5iRqXPRdWNNbqN8vwQn
+         TKLw==
+X-Forwarded-Encrypted: i=1; AKwUvBwoq2WIk7BC+6CauSoKNCS/0Kiu9Rn1o7oMsBwOprGiiDTMkBITVmlW/eA2Mr12U301MGIpYjTJkRsgZjM=@vger.kernel.org
+X-Gm-Message-State: AFuF++nxSnoL1p5lQm/R+SOkDurllWEWWRu7x7EwfJbiWeFeMi0n8lVE
+	dwROUh1VgYbIZ7n5Kfr8jR0cHbyC1xm0xRnhJHiRu0cUh++Z4pjk0xc=
+X-Gm-Gg: AYBFou2IiEYc3GPg+gGmQF3rHddLYJUnFoM0HivYYZ17TmxdKlR0kzqugqioLemhGhr
+	f2LU5lOiprc4h7lzgXaG6XPm0XtJ/c+0CTPdFyE8QPqC64a/SfyCLhU5Bv4pwMYM+PK6MFFkMdj
+	pV/yotQOifylnqSVciKC6hlOsVloNnkT6PC68Mgxc3jZcxO040RJAl+/yxvuCSnM/7AsVn/nSSL
+	q7G8HzLtIz7VIT2t8q2HXp1uT+A5bsrvOUxvvSZcKIyIs1kI1yJL04T1bbK4Ve0Q4e9ZndkOUQ6
+	UhU65r3k/QbGeylYWBe9dcLc+iKxvezhOnQRhmTINT6Sv/QKwNUsxtQrg+vrmsdYojqJPNkGsEV
+	ErMmFnh0OFLs465w1MjJ8v8yDhd5BibM32BqQwTTFBMfAba2e6pnOMr/UxX4PqcwhFRN+ohwePR
+	vYJn+iyQCNVK26uH7Fh1Vyss49A6hjp3QP/CFiJCuB08LQkwthFfvqpnIssKnZ9EyUR/DTpElHC
+	TBxLordbpVP2GDljo7LrU74sQ==
+X-Received: by 2002:a05:622a:11cd:b0:530:27d9:ffc2 with SMTP id d75a77b69052e-530546cf80fmr94981561cf.5.1788557614529;
+        Fri, 04 Sep 2026 14:33:34 -0700 (PDT)
 Received: from X570.phub.net.cable.rogers.com ([2607:fea8:744f:d200:9441:f2ae:56aa:8a81])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-53054227a0esm29646561cf.29.2026.09.04.14.33.30
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-53054227a0esm29646561cf.29.2026.09.04.14.33.32
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 04 Sep 2026 14:33:31 -0700 (PDT)
+        Fri, 04 Sep 2026 14:33:34 -0700 (PDT)
 From: Barzin Lotfabadi <barzin221@gmail.com>
 To: Chen-Yu Tsai <wens@kernel.org>,
 	Jernej Skrabec <jernej.skrabec@gmail.com>,
@@ -73,10 +75,12 @@ Cc: Ryan Walklin <ryan@testtoast.com>,
 	linux-arm-kernel@lists.infradead.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH 0/2] arm64: dts: allwinner: h616: add HDMI device tree nodes
-Date: Fri,  4 Sep 2026 17:33:27 -0400
-Message-ID: <20260904213329.3910099-1-barzin221@gmail.com>
+Subject: [PATCH 1/2] arm64: dts: allwinner: h616: add display engine and HDMI nodes
+Date: Fri,  4 Sep 2026 17:33:28 -0400
+Message-ID: <20260904213329.3910099-2-barzin221@gmail.com>
 X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260904213329.3910099-1-barzin221@gmail.com>
+References: <20260904213329.3910099-1-barzin221@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -85,78 +89,256 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Hi all,
+The H616 and its variants (H618, H700, T507) carry a Display Engine 3.3
+(DE33) block feeding a TCON TOP, a TV TCON and a DesignWare HDMI 2.0
+transmitter with an Allwinner-specific PHY.  None of this is described in
+the SoC .dtsi, so nothing probes and the HDMI port stays dark even though
+the DE33 mixer support is present in the sun4i DRM driver.
 
-These two patches add the device tree nodes needed for HDMI output on the
-Allwinner H616 family.  Tested on an Orange Pi Zero 3 (H618, 4GB), which
-drives a 1920x1080@60Hz desktop with these applied.
+Add the display pipeline:
 
-Mainline already has DE33 mixer support in the sun4i driver, but there are
-no display nodes at all in sun50i-h616.dtsi, so nothing probes.  Ryan
-Walklin's "arm64: dts: allwinner: h616: add LCD timing controller and
-display engine support" series adds the display engine, bus, mixer and TCON
-nodes, but states that HDMI output is not provided.  These patches are the
-missing HDMI half.
+  display-engine        - the DRM pipeline root
+  bus@1000000           - DE33 bus, holding the display clock controller
+                          and the mixer
+  clock@8000            - display clock controller
+  mixer@100000          - DE33 mixer 0
+  tcon-top@6510000      - TCON TOP, muxing the mixer onto the TCONs
+  lcd-controller@6515000 - TCON TV 0
+  hdmi@6000000          - DesignWare HDMI TX controller v2.12a
+  hdmi-phy@6010000      - Allwinner H616 HDMI PHY
 
-Every register address, clock index and reset line was read out of the
+All register addresses, clock indices and reset lines were read from the
 vendor device tree shipped with the board and translated to the mainline
 dt-bindings macros; the clock and reset numbering was verified identical
-between the vendor and mainline CCU headers before substitution.
+between the vendor and mainline CCU headers.
 
-Two things I would appreciate guidance on:
+The mixer's three register regions are named "layers", "top" and
+"display".  On DE33 the global control registers moved out of the mixer
+block into separate windows, and the driver looks up the latter two by
+name, so these names are load-bearing rather than decorative.
 
-1. Patch 1 currently also adds the display engine, bus, mixer and TCON
-   nodes, because Ryan's series has not landed and the HDMI nodes need
-   something to attach to.  If his series is merged first, I am happy to
-   respin this as an HDMI-only delta on top of it.  That is probably the
-   right shape; I did not want to post a series that applies to nothing in
-   the meantime.
+Everything is left disabled; boards opt in.
 
-2. These nodes alone are not sufficient for a picture.  Two driver changes
-   are also needed: an H616 variant in sun8i_hdmi_phy.c (only
-   a83t/h3/r40/a64/h6 exist today), and setting the TCON pad select bit in
-   sun4i_tcon.c.  Both exist in the Armbian sunxi-6.12 tree, authored by
-   The-going.  I have deliberately not included them here, because I cannot
-   provide a Signed-off-by on another developer's work.  If someone in a
-   position to carry those forward would like to, I am happy to help test.
-   Without them these nodes probe but produce no output.
 
-checkpatch is clean apart from one 103-column warning on a remote-endpoint
-line in patch 1; the identical construct at the same width already exists in
-sun50i-h6.dtsi:183, so I left it matching the surrounding convention.
-
-One implementation note worth recording, since it cost a boot cycle: the
-DE33 mixer's three register regions must be named "layers", "top" and
-"display".  The driver fetches the latter two by name, so a wrong name here
-surfaces as "invalid resource (null)" and a -EINVAL bind failure several
-layers away from the cause.
-
-Result on the board, with the two driver patches also applied:
-
-  sun4i-drm display-engine: bound 1100000.mixer (ops sun8i_mixer_ops)
-  sun4i-drm display-engine: bound 6510000.tcon-top (ops sun8i_tcon_top_ops)
-  sun4i-drm display-engine: bound 6515000.lcd-controller (ops sun4i_tcon_ops)
-  sun8i-dw-hdmi 6000000.hdmi: Detected HDMI TX controller v2.12a with HDCP
-  sun4i-drm display-engine: bound 6000000.hdmi (ops sun8i_dw_hdmi_ops)
-  [drm] Initialized sun4i-drm 1.0.0 for display-engine on minor 0
-
-with the connector reading "connected", EDID read correctly from the sink,
-and 1920x1080 among the reported modes.
-
-Full boot logs, the decompiled vendor device tree the nodes were derived
-from, and a photo of the running desktop are at:
-
-  https://github.com/BarzinL/h616-hdmi-mainline
-
-Based on mainline a500db7819c5.
-
-Barzin Lotfabadi (2):
-  arm64: dts: allwinner: h616: add display engine and HDMI nodes
-  arm64: dts: allwinner: orangepi-zero3: enable HDMI output
-
- arch/arm64/boot/dts/allwinner/sun50i-h616.dtsi     | 191 +++++++++++++++++++++
- .../dts/allwinner/sun50i-h618-orangepi-zero3.dts   |  25 +++
- 2 files changed, 216 insertions(+)
+Signed-off-by: Barzin Lotfabadi <barzin221@gmail.com>
+---
+diff --git a/arch/arm64/boot/dts/allwinner/sun50i-h616.dtsi b/arch/arm64/boot/dts/allwinner/sun50i-h616.dtsi
+index 1598e8625..21aa94482 100644
+--- a/arch/arm64/boot/dts/allwinner/sun50i-h616.dtsi
++++ b/arch/arm64/boot/dts/allwinner/sun50i-h616.dtsi
+@@ -7,7 +7,10 @@
+ #include <dt-bindings/clock/sun50i-h616-ccu.h>
+ #include <dt-bindings/clock/sun50i-h6-r-ccu.h>
+ #include <dt-bindings/clock/sun6i-rtc.h>
++#include <dt-bindings/clock/sun8i-de2.h>
++#include <dt-bindings/clock/sun8i-tcon-top.h>
+ #include <dt-bindings/reset/sun50i-h616-ccu.h>
++#include <dt-bindings/reset/sun8i-de2.h>
+ #include <dt-bindings/reset/sun50i-h6-r-ccu.h>
+ #include <dt-bindings/thermal/thermal.h>
+ 
+@@ -94,6 +97,12 @@ l2_cache: l2-cache {
+ 		};
+ 	};
+ 
++	de: display-engine {
++		compatible = "allwinner,sun50i-h6-display-engine";
++		allwinner,pipelines = <&mixer0>;
++		status = "disabled";
++	};
++
+ 	reserved-memory {
+ 		#address-cells = <2>;
+ 		#size-cells = <2>;
+@@ -965,6 +974,188 @@ ohci3: usb@5311400 {
+ 			status = "disabled";
+ 		};
+ 
++		bus: bus@1000000 {
++			compatible = "allwinner,sun50i-h616-de33",
++				     "allwinner,sun50i-a64-de2";
++			reg = <0x1000000 0x400000>;
++			allwinner,sram = <&sram_c 1>;
++			#address-cells = <1>;
++			#size-cells = <1>;
++			ranges = <0 0x1000000 0x400000>;
++
++			display_clocks: clock@8000 {
++				compatible = "allwinner,sun50i-h616-de33-clk";
++				reg = <0x8000 0x100>;
++				clocks = <&ccu CLK_DE>,
++					 <&ccu CLK_BUS_DE>;
++				clock-names = "mod", "bus";
++				resets = <&ccu RST_BUS_DE>;
++				#clock-cells = <1>;
++				#reset-cells = <1>;
++			};
++
++			mixer0: mixer@100000 {
++				compatible = "allwinner,sun50i-h616-de33-mixer-0";
++				reg = <0x100000 0x100000>,
++				      <0x8100 0x40>,
++				      <0x280000 0x20000>;
++				reg-names = "layers", "top", "display";
++				clocks = <&display_clocks CLK_BUS_MIXER0>,
++					 <&display_clocks CLK_MIXER0>;
++				clock-names = "bus", "mod";
++				resets = <&display_clocks RST_MIXER0>;
++
++				ports {
++					#address-cells = <1>;
++					#size-cells = <0>;
++
++					mixer0_out: port@1 {
++						reg = <1>;
++
++						mixer0_out_tcon_top_mixer0: endpoint {
++							remote-endpoint = <&tcon_top_mixer0_in_mixer0>;
++						};
++					};
++				};
++			};
++		};
++
++		tcon_top: tcon-top@6510000 {
++			compatible = "allwinner,sun50i-h6-tcon-top";
++			reg = <0x6510000 0x1000>;
++			clocks = <&ccu CLK_BUS_TCON_TOP>,
++				 <&ccu CLK_TCON_TV0>;
++			clock-names = "bus", "tcon-tv0";
++			clock-output-names = "tcon-top-tv0";
++			resets = <&ccu RST_BUS_TCON_TOP>;
++			#clock-cells = <1>;
++
++			ports {
++				#address-cells = <1>;
++				#size-cells = <0>;
++
++				tcon_top_mixer0_in: port@0 {
++					#address-cells = <1>;
++					#size-cells = <0>;
++					reg = <0>;
++
++					tcon_top_mixer0_in_mixer0: endpoint@0 {
++						reg = <0>;
++						remote-endpoint = <&mixer0_out_tcon_top_mixer0>;
++					};
++				};
++
++				tcon_top_mixer0_out: port@1 {
++					#address-cells = <1>;
++					#size-cells = <0>;
++					reg = <1>;
++
++					tcon_top_mixer0_out_tcon_tv: endpoint@2 {
++						reg = <2>;
++						remote-endpoint = <&tcon_tv_in_tcon_top_mixer0>;
++					};
++				};
++
++				tcon_top_hdmi_in: port@4 {
++					#address-cells = <1>;
++					#size-cells = <0>;
++					reg = <4>;
++
++					tcon_top_hdmi_in_tcon_tv: endpoint@0 {
++						reg = <0>;
++						remote-endpoint = <&tcon_tv_out_tcon_top_hdmi>;
++					};
++				};
++
++				tcon_top_hdmi_out: port@5 {
++					reg = <5>;
++
++					tcon_top_hdmi_out_hdmi: endpoint {
++						remote-endpoint = <&hdmi_in_tcon_top>;
++					};
++				};
++			};
++		};
++
++		tcon_tv: lcd-controller@6515000 {
++			compatible = "allwinner,sun50i-h6-tcon-tv",
++				     "allwinner,sun8i-r40-tcon-tv";
++			reg = <0x6515000 0x1000>;
++			interrupts = <GIC_SPI 66 IRQ_TYPE_LEVEL_HIGH>;
++			clocks = <&ccu CLK_BUS_TCON_TV0>,
++				 <&tcon_top CLK_TCON_TOP_TV0>;
++			clock-names = "ahb", "tcon-ch1";
++			resets = <&ccu RST_BUS_TCON_TV0>;
++			reset-names = "lcd";
++
++			ports {
++				#address-cells = <1>;
++				#size-cells = <0>;
++
++				tcon_tv_in: port@0 {
++					reg = <0>;
++
++					tcon_tv_in_tcon_top_mixer0: endpoint {
++						remote-endpoint = <&tcon_top_mixer0_out_tcon_tv>;
++					};
++				};
++
++				tcon_tv_out: port@1 {
++					reg = <1>;
++
++					tcon_tv_out_tcon_top_hdmi: endpoint {
++						remote-endpoint = <&tcon_top_hdmi_in_tcon_tv>;
++					};
++				};
++			};
++		};
++
++		hdmi: hdmi@6000000 {
++			compatible = "allwinner,sun50i-h616-dw-hdmi",
++				     "allwinner,sun50i-h6-dw-hdmi";
++			reg = <0x6000000 0x10000>;
++			reg-io-width = <1>;
++			interrupts = <GIC_SPI 63 IRQ_TYPE_LEVEL_HIGH>;
++			clocks = <&ccu CLK_BUS_HDMI>,
++				 <&ccu CLK_HDMI_SLOW>,
++				 <&ccu CLK_HDMI>,
++				 <&ccu CLK_HDMI_CEC>;
++			clock-names = "iahb", "isfr", "tmds", "cec";
++			resets = <&ccu RST_BUS_HDMI_SUB>;
++			reset-names = "ctrl";
++			phys = <&hdmi_phy>;
++			phy-names = "phy";
++			status = "disabled";
++
++			ports {
++				#address-cells = <1>;
++				#size-cells = <0>;
++
++				hdmi_in: port@0 {
++					reg = <0>;
++
++					hdmi_in_tcon_top: endpoint {
++						remote-endpoint = <&tcon_top_hdmi_out_hdmi>;
++					};
++				};
++
++				hdmi_out: port@1 {
++					reg = <1>;
++				};
++			};
++		};
++
++		hdmi_phy: hdmi-phy@6010000 {
++			compatible = "allwinner,sun50i-h616-hdmi-phy";
++			reg = <0x6010000 0x10000>;
++			clocks = <&ccu CLK_BUS_HDMI>,
++				 <&ccu CLK_HDMI_SLOW>;
++			clock-names = "bus", "mod";
++			resets = <&ccu RST_BUS_HDMI>;
++			reset-names = "phy";
++			#phy-cells = <0>;
++		};
++
+ 		rtc: rtc@7000000 {
+ 			compatible = "allwinner,sun50i-h616-rtc";
+ 			reg = <0x07000000 0x400>;
 
 -- 
 2.51.0
