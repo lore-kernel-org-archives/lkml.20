@@ -1,103 +1,134 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 419083793DF;
-	Fri,  4 Sep 2026 08:05:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AD003D5C12
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 08:05:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788509111; cv=none; b=eEsVCieAChe+rEFBaVQacg3H1cvnG77QLuJ6YXspreM+bg2nInX5MWZWQ/5Un8qGaWkSOZHASDgNXta1GMAhZdnyGK5nN2K+8DnoXX0UCScvwwXYaSdxKZVRusEBvaZqyg6ev4jz4qMB0cP5tFdDB/WQCnnBM48674zC8QAv9fQ=
+	t=1788509130; cv=none; b=JxMl9jrso6Agi+84TJ7qEWimOkTIsvDl36q+5ylcTc6GRpBbCnGyz5wphhSzuvwpCIo7TYvaZRvgKaLyLmvvxDVfvTFQ/40zboOQG43PW392RO4imQQMd9B/ASCNQjbN8LfT86MAcibIORfttdkivTruBQ0dCfEm2t3AqbnklMI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788509111; c=relaxed/simple;
-	bh=1Kc5Qzb9ZE6Unv1qjDSqEpoERMdsTLHhrTZXiAxSiwE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=B3+AhlNNfHl+5+vZd53we4YDshUGRMZ58wV9KHiOPjSJlEvcLDgkUir+tIZMHD6AcqFcdHG5ysqcsq5Jbya7KLDU0CsW2jQMF3Usrf57qFq9ahT2VzsxHLu4KncncghqLVG86oqK1mgXxwJ3jgSJQlvx6Lahw/BvYiMtDwyac6g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=L+wJVPa0; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788509130; c=relaxed/simple;
+	bh=jdiffeHYmFA8DNcP3BNSRC5Yis/Ko2nHBNrnJOxv9Ic=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=mGiqkXqncx2bmxhIVsWXbhChhuETGxg9toAr0xKlcSxdcbY8craoEU9PuKeORbLTxGqX0cedmDT8I2jB+a6iwufPAR2vM2FH0i0rXBOugok2gYA173M7FwKU1HyHfHB6+AST2IWK1vlIyqoajUhPf4ditP1oGJeuM6ZBAF3vE5Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QQsx8/Qi; arc=none smtp.client-ip=209.85.128.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="L+wJVPa0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B88C81F00A3D;
-	Fri,  4 Sep 2026 08:05:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788509109;
-	bh=TqNLCesX2SNrm7Jswp+E1v9760B2VFDRX1NjrjFhDbA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=L+wJVPa01ltnhm6yS8sGMmIdlggoMUkPoGV2isQtt9tvcl8J6ZiNou1NCbED3W601
-	 /SNBM0RgYXMNQ0BldNLlX1oZb51HBrlFbSyDsQ67bB2xnFysO8saIZ3cGyuVEPPj6X
-	 Jgg/704ElwA675dE66f5Gl7Jhglkk5VA72jhZXjLjsHlzWvzXOfNUTmGlSxX0vGsGa
-	 C/QqIQDWhpp3FzHk7r++EU4BYM4rXIyFL4Kx1DVh4GmBGFuIa1up6fkZs3Yw+S/b4o
-	 6LlG7ST1AnUFhD1YTgZMltJY6g82y+5yqxj22KKe97tTes2MiUwRWEviVk8QI+96ib
-	 Uu39LctKoYFtg==
-Received: from johan by xi.lan with local (Exim 4.99.4)
-	(envelope-from <johan@kernel.org>)
-	id 1x2Ov5-00000006jvW-0Kia;
-	Fri, 04 Sep 2026 10:05:07 +0200
-Date: Fri, 4 Sep 2026 10:05:07 +0200
-From: Johan Hovold <johan@kernel.org>
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Cc: Manivannan Sadhasivam <mani@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Vinod Koul <vkoul@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Bjorn Andersson <andersson@kernel.org>,
-	linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org,
-	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-	usb4-upstream@oss.qualcomm.com,
-	Raghavendra Thoorpu <rthoorpu@qti.qualcomm.com>,
-	Mika Westerberg <westeri@kernel.org>, Sven Peter <sven@kernel.org>,
-	Abel Vesa <abel.vesa@oss.qualcomm.com>,
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Subject: Re: [PATCH v4 3/5] phy: qualcomm: qmp-combo: Add preliminary USB4
- support
-Message-ID: <app7s9GZySBj7Mzs@hovoldconsulting.com>
-References: <20260820-topic-usb4phy-v4-0-aec9d2cb31f6@oss.qualcomm.com>
- <20260820-topic-usb4phy-v4-3-aec9d2cb31f6@oss.qualcomm.com>
- <iynrogny3didip7cui3ce3yq3woaqzrr7f4aqdzvls4j4mslfn@aww5qjpy3gdx>
- <b326edbf-fe34-426b-af19-912edc18ba84@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QQsx8/Qi"
+Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-49b965570d7so8008335e9.0
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 01:05:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788509127; x=1789113927; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=aE97C67i/6HILbYP0ZPZ0KdmA5bZduDkmUAlNiBx1QA=;
+        b=QQsx8/Qi8XXN5pTV+Jux39lQbM7JXsfxaEY9vf8I4+K4WuyPyy0tpQKj3tqwVMFwhu
+         rg9RjKJ/nXkrLQs3jFDm5BVMC7V0v/deoRONLbk1nWb2iYhyF1yxAU05wp19F0THJ0Bc
+         Jo+GHA54A5hH3tmFYyR6IakuAkGOivdqhf2tU0H+vIZHzvcX20rxT45UCTDbreh3ptQe
+         ujCs07aJJGizIu0W4Vn7igtSeqoFVTp6t6mJVpJi0O5fQU799NBbX9zGyfmKO3i0rcOC
+         zS8CUVRdc9SiDJViQE1qMfzg6ie8DvwJH8phklxucMGQScfhlyqyJ+yInN5uwkf4BZIm
+         RhkQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788509127; x=1789113927;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=aE97C67i/6HILbYP0ZPZ0KdmA5bZduDkmUAlNiBx1QA=;
+        b=kffma2Fav+5bB8/iPaI3dGYGlN5AVzAVLH7tAe3ddksQCU838oopSRzfxBrxWKPotl
+         L6C6YIVM1SVChO4NAtscThcHv8o8Pa5bA2RCklrCPaz5uo3QMJsjFrdsmMec4t2usuNE
+         iA9vizvgRV4s7gzvv9ABG63BC3DXub4bJOyOJg7ovYiYiJAx1ckuOM43r3ockTJOO/mA
+         mOMzlPJVQc021c7+4zngphD1MMXlFvRwZX6PxYIr+U+0CFUuUGUMlR1fYz+RdmWSFa1y
+         71y6p+sqS7DrD55A4n+7nJObOZI5P7hg3KMEqYsDTUnwmLKh4Y+gSQcacdgJ76hpmNID
+         bJBQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzLAV+S+5eeLlFyvBitA4IXtxPNX03NlPkN387XWDouHks7ClXOu8K2en+qtHHPaPl5x+dPbciubpm2ydo=@vger.kernel.org
+X-Gm-Message-State: AFuF++mdk9TZRvt79z51D3lz2Vox2K4iDxtauO45OiSwOqwgz/E/DWJx
+	wdTC+PM4i+RVedI7xwSfjyW/6S/pz5fzU3QwctzvsbbW4XyxKCBDYaI=
+X-Gm-Gg: AYBFou39Aj8+cIDI7MkG9XL1Cxbjq9xKjIVO4gzmXgaS5yOR+pYLejS1emggLd0QMK9
+	5H5hy2heje1PfpVAJiAtafbH4wBxMQcyQtt/iGFuGr4H/J3G0e/eLhnrncev4VaPl0LcpTEdFFD
+	IkbfhNvgjKXRqmLm4HhoHvgYk08aIzDH7NMSdCc5Nvvhfu/Zb4+Xn7JUBY0XttNsK7EK5zfMQnl
+	fPImq0iTei7tk/HyQls7ok2OWGRD+qic9Wq3FO5ppiARXRB69zWVzBJg2WG/JMHdtakQtUe2Him
+	vHg9/IguqzYX6ZOD/Ln8H8aMcd9ITnlhP3PWp3EEjpf6ggUc5bOVQjOP5oZYpybgIpE9AILC5xs
+	We0isLTLG3v+hlcU5S7NGZW1TG0YEmqMD9bRzJRlopiSI5RdwlT9DtY/5ymtiHGIYPJKZ6gNn9T
+	wsC9J6dFuTg3LMvmA3a9pUPdTl0ETz0w==
+X-Received: by 2002:a05:600c:46cf:b0:49c:fc6e:8cad with SMTP id 5b1f17b1804b1-49cfdb3a26amr7325095e9.17.1788509127332;
+        Fri, 04 Sep 2026 01:05:27 -0700 (PDT)
+Received: from debian.. ([2001:41d0:303:db6b::])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cf7703cc7sm53517855e9.4.2026.09.04.01.05.24
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 04 Sep 2026 01:05:25 -0700 (PDT)
+From: Tristan Madani <tristmd@gmail.com>
+To: Jiri Kosina <jikos@kernel.org>,
+	Benjamin Tissoires <bentiss@kernel.org>
+Cc: linux-input@vger.kernel.org,
+	bpf@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Tristan Madani <tristan@talencesecurity.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] HID: core: fix device cleanup on allocation failure
+Date: Fri,  4 Sep 2026 08:05:24 +0000
+Message-ID: <20260904080524.3872926-1-tristmd@gmail.com>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <b326edbf-fe34-426b-af19-912edc18ba84@oss.qualcomm.com>
+Content-Transfer-Encoding: 8bit
 
-On Fri, Sep 04, 2026 at 09:36:04AM +0200, Konrad Dybcio wrote:
-> On 9/1/26 2:44 PM, Manivannan Sadhasivam wrote:
-> > On Thu, Aug 20, 2026 at 04:24:12PM +0200, Konrad Dybcio wrote:
-> >> From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-> >>
-> >> Some Combo PHYs (so far only on SC8280XP, X1E80100 and Glymur), come in
-> >> a flavor called USB43DP, which as the name implies, features USB4, USB3
-> >> and DP signal processing capabilities. In that architecture, USB3 and
-> >> USB4 PHYs share the same USB_PLL while featuring separate logic spaces.
-> >> The DP part is roughly the same as on the instances without USB4.
-> 
-> [...]
-> 
-> >> +	case QMPPHY_MODE_USB4:
-> >> +		writel(USB4_MODE, com + QPHY_V3_DP_COM_PHY_MODE_CTRL);
-> >> +
-> >> +		/* bring both QMP USB and QMP DP PHYs PCS block out of reset */
-> >> +		/* TODO: disable DP PLL if there are no active tunnels after router setup */
-> > 
-> > 100 column width generally applies to code, not comments. Comments should still
-> > be wrapped to 80 columns.
-> 
-> I believe this isn't a real concern.. checkpatch certainly doesn't care:
-> 
-> # LONG_LINE_COMMENT     a comment starts before but extends beyond $max_line_length
-> # LONG_LINE_STRING      a string starts before but extends beyond $max_line_length
-> # LONG_LINE             all other lines longer than $max_line_length
-> 
-> (all take the same value, preset to 100 at the top of the file)
+From: Tristan Madani <tristan@talencesecurity.com>
 
-Checkpatch is just a dumb tool. The coding style says the preferred
-limit is 80 chars unless breaking it improves readability. And that
-exception generally does not apply to comments (e.g. unless it contains
-a URL or similar).
+hid_allocate_device() calls hid_destroy_device() in its error path when
+hid_bpf_device_init() fails.  hid_destroy_device() in turn calls
+hid_bpf_destroy_device() which invokes synchronize_srcu() and
+cleanup_srcu_struct() on the SRCU structure.  However, at this point
+init_srcu_struct() has not been called (or has failed), so the SRCU
+internal pointers are all zeroed from kzalloc.  Dereferencing them
+causes a general protection fault:
 
-Johan
+  general protection fault in check_init_srcu_struct
+  KASAN: null-ptr-deref in range [0x00000000000001c0-0x00000000000001c7]
+  Call Trace:
+   synchronize_srcu+0x1c/0x2b0
+   hid_bpf_destroy_device+0x64/0x90
+   hid_destroy_device+0x29/0x240
+   hid_allocate_device+0x420/0x4e0
+   uhid_dev_create2+0x161/0x890
+
+Fix this by replacing hid_destroy_device() with put_device() in the
+error path.  At this point in hid_allocate_device(), the device has
+been initialized (device_initialize) but not yet added (device_add),
+so put_device() is the correct cleanup call.  It triggers the release
+callback which frees the hid_device without attempting to clean up
+resources that were never set up.
+
+Found by syzkaller on Ubuntu 6.14.11 KASAN.
+
+Fixes: 6cd735f0e57a ("HID: bpf: protect HID-BPF prog_list access by a SRCU")
+Cc: stable@vger.kernel.org
+Signed-off-by: Tristan Madani <tristan@talencesecurity.com>
+---
+ drivers/hid/hid-core.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/hid/hid-core.c b/drivers/hid/hid-core.c
+index a3ff0514f9cdf..d8df23f67f1fd 100644
+--- a/drivers/hid/hid-core.c
++++ b/drivers/hid/hid-core.c
+@@ -3115,7 +3115,12 @@ struct hid_device *hid_allocate_device(void)
+ 	return hdev;
+ 
+ out_err:
+-	hid_destroy_device(hdev);
++	/*
++	 * hid_destroy_device() cannot be used here because
++	 * hid_bpf_device_init() failed and the SRCU struct was never
++	 * initialized.  Release the device directly.
++	 */
++	put_device(&hdev->dev);
+ 	return ERR_PTR(ret);
+ }
+ EXPORT_SYMBOL_GPL(hid_allocate_device);
+-- 
+2.47.3
+
