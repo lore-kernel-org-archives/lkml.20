@@ -1,127 +1,263 @@
-Received: from mail-lf1-f46.google.com (mail-lf1-f46.google.com [209.85.167.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 168B65111A8
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 17:45:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F37419CC0F;
+	Fri,  4 Sep 2026 17:45:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.97.179.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788543916; cv=none; b=Moj1tSiD+ZLred13p9KSSC7i3lF832DHD1WPwp0qS3lfeXjd20wABdei6h7sCAckfqv/TgQ0S6EoXFsecXVGAyivkF2dS/owmArYfyQUwejh4CipGqp8y4lw9On7DK9IYWo0qgF/4P8rLvVWCi3iQNggEPHKJhAMvyKBlgxAEMY=
+	t=1788543963; cv=none; b=FtfIgNPdCpF9g2wG3w6wnMRD8M3Vrc2CiDpo6W6jK3AsOaGga3CviFJQX7xclctyggjJtFtpfc+A0zgkDStdBFtk+pS0cQGlGeQfpJp+GWX3ikHer+iI/rZ6DUD5C0zSnjd6rTC3yBWhp8J074JRmIRkBoT45eRaFurBRvvavvY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788543916; c=relaxed/simple;
-	bh=5xeMxtX1fCh8OGl3ui+hhjKrfVCy12n88MgVgMcIa2M=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=KZGfPhCENrW4BwsrdZxxiT3uyDWrqU39cM1GMnwn5RfXdaHZr7Blh9OhVAC7Fw2CNPPMEMZpn5knOQW7qwdy887IiB7+A0ynZHS72yl9N7ixOrPos7sKHr0zPPzWMD6t+k6RvAkAhMpsrEM8uHHkEvixgyJsIQqXcVMHPfyPXiU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PmE0vyVY; arc=none smtp.client-ip=209.85.167.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788543963; c=relaxed/simple;
+	bh=IpIcXmZ5y3zAPIXH0ITLn7oZOKruZHk0aeMQju5DuzE=;
+	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
+	 Message-ID:Content-Type; b=liIdabv0fHEGSagt+zcALKdoTP26oHgIOD+yqxoMV7dNVVb3KwbEV6Ywr8evNoX6eIuomRnWopowKTrGrmXBu8RkX1G+M2rWr2yLizCR4SIdjktIBMudrSrLPBRVezbkyLnDV1fkMrUqbPHza16Zf5U9GoxxvFZaCM0BM7RSq/M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com; spf=pass smtp.mailfrom=igalia.com; dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b=pMU/YCpY; arc=none smtp.client-ip=213.97.179.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PmE0vyVY"
-Received: by mail-lf1-f46.google.com with SMTP id 2adb3069b0e04-5b0231a3e86so1167979e87.0
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 10:45:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788543913; x=1789148713; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=QUYDwrBykVcOFXxIJuB5joV8Yatru/7oqjgD9YEMvFo=;
-        b=PmE0vyVYyDsjh535BUj5s+uxbhla4+kQkFzqB0ORSzwk+GEVMGmGlDCC/8gW2NcIDN
-         jE2pwhQtAKLIt2F9e5+rNaIvjtAO0XYaGKRrhGYpsSpVxqpCMWvQ8Iny4iNg5gttuMGc
-         4FzrcF3ssQ4ooJxEml5SmvrtfVC3ZfHHYXABTHtjGqPYpeR5qOVkDl/oaOY9W+KE8x8H
-         elxs5MLq2j+vA0nU/8tCCTaCuTih6mUVokK+H/ZMUf26Q5l8vohKh4fg3bBdiv6BMF8u
-         VWkVNKOqT3UnViRsQ+DS1fRzO4z2qRLTj9AmeQdD/Tbsv/KyKu7Nq/SKJrOKbM4qhBb6
-         fdJg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788543913; x=1789148713;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=QUYDwrBykVcOFXxIJuB5joV8Yatru/7oqjgD9YEMvFo=;
-        b=GZnYZjct/3URfAe/VzGn6tVUUwPW7ZacYF4LoqVBe/4hO4sxmviHvC7SLgC7x6XEcO
-         5ziOOrsjfjKasUD7/QFg65x04MbhkJtSc1L6a9PYs+8T2HGxrAG5lXdHJP0ibDiZKd/J
-         PsIDJQBk0jMnWIfnEsxyd94cyy7Z6W3w+il+zddbbTpwNoY4FutJK5qXRw3hR25HEImO
-         7tjsI/7ESwDPZW2V0mwhdZUW8v+47OkeNIOwgLYK9Nm60thQM0AvoQIaEJJ0ju2/HFZn
-         junx+vp+8wmMjfc0VRYKu2C3sAewWemsz7wxOLAmA/vcI9R4uXBYNzMQSDkbHH4DTeex
-         DmCw==
-X-Forwarded-Encrypted: i=1; AKwUvBxltPsBBoF4rqE/YZ4pCl3yYS/C+tW04gS76iQsgovOmsJO/pEcoK2RbOr3XWMNqNLspuOKTIAdlK1Fepc=@vger.kernel.org
-X-Gm-Message-State: AFuF++mJEhXOdZSuzjqlsuQxqloPT5uVMmeimoSdy1unvkbHgFUzJqGg
-	XsJS29UpqwsGzZY01GiL8et1h8hsDXNeQ1+NN2RF8gwmM3mgzVoOREMo
-X-Gm-Gg: AYBFou0fZ/PF2IwKXjQ24PsHh7UmrDtIESmyOqsAYTrkrJDbTbaLAEAyMoQTrUwEsiQ
-	R/sEvkYzuHs8gdkYibZxPC8/uCZxA7fmDEqkNhwprSKDqDsF20dz+DvaTohSTsonLFDgdVpEYa4
-	uO8jq62RGfJ9wNlxVqMvJDvJ96Blcn4lbYh15z8uWq6xUUQy2evqgZg4JNp763LKeCg0bHGVyfk
-	6PKjseXfOrQ5J5BJJXfICarSD71yUihryQXpuS7nQaeh5rZ6VsmxWLx40BbJNTfjgEr9ZnJXPTs
-	PBgT9pbmo7ywW6aWoBR4dyhnWhm0SfC17eoIMj5fkELJ+VMVbJ69t74wfdCSqM5bfXEXvucClDr
-	yk/kDgikwSKPdnZ+v51oOCtU6BJb5hiMoA7NOa5f1sRUrS0JPZDpxgvupmoN8vDc/KICSTGnsTu
-	JVcHh9CLWFzAqeFyKJ9J5JKk+6pFWVzKWlD5GvNiRiJuUY90P0z+/+zD582U9ck9AJraUvkOZN8
-	UPK8eiL8xlAB4AJgzBvHqSokgMau+4G6eHXuCUpwPXq+brvqQfAhzZlBkNtMAAu7aaK4Z+faPRn
-	fnsNkRQ=
-X-Received: by 2002:a05:6512:3ca7:b0:5b6:1a7c:37 with SMTP id 2adb3069b0e04-5b61a7c0261mr894499e87.58.1788543912418;
-        Fri, 04 Sep 2026 10:45:12 -0700 (PDT)
-Received: from localhost ([188.234.148.119])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b616700006sm644118e87.57.2026.09.04.10.45.08
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 04 Sep 2026 10:45:10 -0700 (PDT)
-From: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
-To: tiwai@suse.de
-Cc: tiwai@suse.com,
-	perex@perex.cz,
-	jikos@kernel.org,
-	bentiss@kernel.org,
-	linux-sound@vger.kernel.org,
-	linux-input@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [RFC PATCH v6 2/2] ALSA: usb-audio: bind the Topping M62's vendor controls
-Date: Fri,  4 Sep 2026 22:45:07 +0500
-Message-ID: <20260904174507.3952588-1-mikhail.v.gavrilov@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260904171646.5301B1F00A3D@smtp.kernel.org>
-References: <20260904171646.5301B1F00A3D@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b="pMU/YCpY"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
+	s=20170329; h=Content-Transfer-Encoding:Content-Type:Message-ID:Subject:Cc:To
+	:From:Date:MIME-Version:From:Reply-To;
+	bh=3kJ7V4qqJDGktsGa6HvFkInxay1XxXTxaazUjY3g2Hg=; b=pMU/YCpYNVsT4y/cw1wUdM7zig
+	6FGELePr69ke+QNUk1G581g+plUqC63/ulntoNIxp4pmbIVxfOia9PckTHSRm7xpUciNq57SZzqVN
+	cbsILUiD8lzSdwcwFXmRLM5CfmP+hPRfm6lYmxFlKNBEyu4prtcCynH9vE1ksDe8NHMM4ChUZakqb
+	g9JR+994Oc+oJQ4Q0AJSntCNDkHoysIvAdma6HpwZmNS1nvN6HQ7sdhdssRvg1w9t7SZEOTJlyvat
+	sUbSdbal24ShKj5UheutEWEXP6HsQ9h5DXMVF9LQie/eE7V27D08mGmnS+RWfYNHD9zmSk/JT0i/e
+	OBepHvZQ==;
+Received: from maestria.local.igalia.com ([192.168.10.14] helo=mail.igalia.com)
+	by fanzine2.igalia.com with esmtps 
+	(Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+	id 1x2Xyg-00Ezrc-2e; Fri, 04 Sep 2026 19:45:26 +0200
+Received: from webmail.service.igalia.com ([192.168.21.45])
+	by mail.igalia.com with esmtp (Exim)
+	id 1x2Xye-001h2m-Ee; Fri, 04 Sep 2026 19:45:25 +0200
+Received: from localhost ([127.0.0.1] helo=webmail.igalia.com)
+	by webmail.service.igalia.com with esmtp (Exim 4.98.2)
+	(envelope-from <mfo@igalia.com>)
+	id 1x2Xye-00000006G3f-1esz;
+	Fri, 04 Sep 2026 19:45:24 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Date: Fri, 04 Sep 2026 14:45:23 -0300
+From: Mauricio Faria de Oliveira <mfo@igalia.com>
+To: Joel Granados <joel.granados@kernel.org>
+Cc: Kees Cook <kees@kernel.org>, Nathan Chancellor <nathan@kernel.org>,
+ Nicolas Schier <nsc@kernel.org>, "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo
+ Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
+ kernel-dev@igalia.com, linux-riscv@lists.infradead.org,
+ linux-kernel@vger.kernel.org, fsverity@lists.linux.dev,
+ keyrings@vger.kernel.org, bpf@vger.kernel.org,
+ linux-fsdevel@vger.kernel.org, linux-kbuild@vger.kernel.org,
+ netdev@vger.kernel.org, linux-wpan@vger.kernel.org,
+ lvs-devel@vger.kernel.org, netfilter-devel@vger.kernel.org,
+ coreteam@netfilter.org, linux-sctp@vger.kernel.org,
+ linux-rdma@vger.kernel.org, linux-s390@vger.kernel.org,
+ bridge@lists.linux.dev, mptcp@lists.linux.dev, rds-devel@oss.oracle.com,
+ virtualization@lists.linux.dev
+Subject: Re: [PATCH RFC v3 00/13] sysctl: add module aliases
+In-Reply-To: <mokz5pdtwswkyab4byfq7q7m6ac2g6ceoi6jflyxmaszaibzqa@su6m4kamtdpy>
+References: <20260819-sysctl-module-aliases-v3-0-aab90569365d@igalia.com>
+ <bpnqwggtidgiec5akns3fa5edbsvl7xf55dxabtwng2xspy4pn@ue554aii2ngk>
+ <53155340c897560bfc67e61ba9568fd6@igalia.com>
+ <mokz5pdtwswkyab4byfq7q7m6ac2g6ceoi6jflyxmaszaibzqa@su6m4kamtdpy>
+Message-ID: <b1a6cec17e7c828fcebe310ca2a0d25b@igalia.com>
+X-Sender: mfo@igalia.com
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+X-Spam-Report: NO, Score=-2.1, Tests=ALL_TRUSTED=-3,BAYES_50=0.8,KAM_DMARC_NONE=0.125,KAM_DMARC_STATUS=0.005
+X-Spam-Score: -20
+X-Spam-Bar: --
 
-> If usb_audio_probe() fails on a secondary interface, devres is
-> synchronously unwound and topping_master_teardown() runs while the
-> orphaned mixer is still in chip->mixer_list.
+On 2026-09-04 10:41, Joel Granados wrote:
+> On Thu, Aug 20, 2026 at 06:22:13PM -0300, Mauricio Faria de Oliveira wrote:
+>> On 2026-08-20 09:51, Joel Granados wrote:
+>> > On Wed, Aug 19, 2026 at 03:16:13PM -0300, Mauricio Faria de Oliveira wrote:
+>> >> This series adds 'sysctl:' aliases to modules that register sysctl tables; e.g.:
+>> >> 
+>> >>         $ modinfo ./mpls_router.ko  | grep sysctl:
+>> >>         alias:          sysctl:*/net/mpls/conf/*/input
+>> >>         alias:          sysctl:*/net/mpls/default_ttl
+>> >>         alias:          sysctl:*/net/mpls/ip_ttl_propagate
+>> >>         alias:          sysctl:*/net/mpls/platform_labels
+>> >> 
+>> >> It provides a trivial way to map /proc/sys files to modules (not trivial today),
+>> >> and for userspace to handle nonexistent /proc/sys files (e.g., procps's sysctl
+>> >> and systemd-sysctl applying tunables) with "modprobe sysctl:<...>" and a retry.
+>> >> 
+>> >> This is done almost automatically with register_sysctl(), register_net_sysctl()
+>> >> and friends as wrappers of MODULE_SYSCTL_TABLE (similar to MODULE_DEVICE_TABLE),
+>> >> which emits symbols for file2alias/modpost to find and parse the sysctl tables.
+>> >> 
+>> >> The big exception to 'almost' are sysctl tables and paths allocated or defined
+>> >> at runtime (e.g., per-namespace or per-device), as all information is required
+>> >> at build-time. Fortunately, such tables and paths are often based on 'templates'
+>> >> which are static and can be used.
+>> >> 
+>> >> This is done by plumbing the template table/path as optional arguments (macros
+>> >> with default values as default_gfp()), so not to create functions for all cases:
+>> >> 
+>> >>         register_sysctl(path, table [, table_tmpl [, path_tmpl]]);
+>> >>         register_net_sysctl(net, path, table [, table_tmpl[, path_tmpl]]);
+>> >>         register_net_sysctl_sz(net, path, table, size [, table_tmpl[, path_tmpl]]);
+>> > 
+>> > The "what" is described but I'm missing more clarity on the "why". Why
+>> > does this need to be trivial? Where is it that you will know the sysctl
+>> > file path of a module and not the module name or alias?
+>> 
+>> Thanks for looking at this.
+>> 
+>> The problem this feature addresses is sysctl settings not applied
+>> because modules aren't yet loaded when systemd-sysctl/procps's sysctl
+>> runs on boot, and the usage of /etc/modules as a workaround.
+> 
+> Sorry for insisting, but is it not possible to set the sysctls after the
+> modules have been loaded? Why is the order to first set the sysctl and
+> then load the module?
 
-That mixer does not exist, because this device has no secondary
-probes. snd_usb_create_streams() claims the streaming interfaces with
-usb_driver_claim_interface(), which binds them without calling probe,
-so usb_audio_probe() runs exactly once, on interface 0. The hardware
-agrees: /sys/kernel/debug/device_component lists one aggregate per
-card, both on :1.0, with :1.1 and :1.2 absent.
+No worries, and thanks for getting back to this.
 
-The other half is not there either. If that one probe fails,
-chip->num_interfaces is zero, so usb_audio_probe() calls
-snd_card_free(), which takes the mixer down through private_free() --
-and that removes the devres action and destroys the context before the
-driver core unwinds anything. There is nothing for the teardown to
-race.
+Yes, the former is possible and usually how that happens, but it is not
+guaranteed, thus the latter might happen -- unintentionally.
 
-The same premise sits under the findings I acted on in v4, v5 and v6,
-and I took it on trust instead of checking it. Those changes stay,
-because each is right on its own terms:
+For example, a sysctl setting can be configured in /etc/sysctl.d/*.conf,
+which is manually tested and confirmed to apply it correctly. However,
+that might have worked only because its module was inadvertently loaded
+earlier (e.g., for something else by the sysadmin, or by something else
+in the system). The next time the system boots, the module is not
+automatically loaded, thus the sysctl setting fails to be applied when
+the (previously working) /etc/sysctl.d/*.conf is parsed.
 
-  - topping_master_unbind() no longer looks its context up, which is
-    correct regardless: devres_release_all() moves every node off the
-    device before it calls a single release, so the lookup could never
-    have worked from an unwind, and the component does not need the
-    card from us anyway;
+Also, a sysctl setting may, or may not, be tied to a module; it can be
+built-in. This can change with kernel configuration, e.g., distro.
 
-  - the teardown is a devres action registered after
-    component_match_add(), so it unwinds before the match array that
-    component_unbind_all() walks -- the ordering is now expressed
-    rather than assumed;
+So, another example: a sysadmin learns of a sysctl setting in
+documentation tested with another distro, which has it built-in. It
+fails to apply on this distro, which has it in a module, because the
+module isn't loaded. (Now the sysadmin is left to figure that out, and
+then which kernel module provides the sysctl setting.) 
 
-  - topping_master_bind() returns -EPROBE_DEFER rather than warning
-    when the context is missing, which a WARN had no business doing
-    for a state the framework can reach.
+Note that both examples can be combined. (And the poor sysadmin is, in a
+reboot happening days/weeks/months later, left to also figure out that
+the sysctl setting is not applied, and whatever effect that caused,
+because that particular module was not loaded on boot, and should be
+added to /etc/modules).
 
-But none of them fixes a defect this device can reach, and I would
-rather say so here than leave the impression that the driver was
-crashing. A v7 cover letter will say the same.
+>> This can be addressed with a way for sysctl tools to load the module for
+>> a non-existent sysctl file path.
+>> For that, the mapping between a sysctl file path (known) and its module
+>> (unknown) needs to be trivial.
+> This touches on my question. How is the file path known and the module
+> not known? The module is the one providing the paths, not the other way
+> around. Why choose to just work with sysctl path lists and not include
+> the modules that go with them?
 
-Mikhail
+The sysctl tools and configuration files only know about the file path,
+not the module. The sysctl tools know the file path when parsing the
+configuration files, converting a 'dir.file = value' line into opening
+/proc/sys/dir/value and writing value into it.
+
+The format of configuration files only include file paths and values,
+but not modules, per sysctl.conf(5) and sysctl.d(5). This is reasonable,
+as there may, or may not, be a module for the sysctl setting (i.e.,
+module vs. built-in).
+
+Maybe I misunderstand the context for your questions; please let me
+know.
+Also, could you please clarify what you mean by 'include the modules
+that go with them' [sysctl path files] ?
+
+>> It may not seem serious at first, but I've seen this consume significant
+>> engineering time and impact production systems, in a previous technical
+>> support job.
+>> An example: cloud deployments with non-scalable network routing
+>> performance due to nf_conntrack_max not applied after reboot or an
+>> upgrade because the component which turned out to help with the
+>> /etc/modules workaround had its placement changed from network router
+>> nodes.
+> This is more understandable to me. The issue is that you loose the
+> relationship between sysctl paths and modules on updates. Are there
+> other cases where the module would not be loaded?
+
+In general, there is no guarantee that a module is loaded by the time a
+sysctl setting is about to be applied -- during system boot or even
+later.
+
+The example for system boot is covered previously. An example for
+'later' / after system boot: on network device testing which includes
+module unload/reload and sysctl settings for network performance, one
+might unload the module, and mistakenly first apply sysctl settings then
+reload the module, thus loosing the performance tuning on that one
+testing round.
+
+> And doesn't it create another problem where you will load modules that
+> you don't expect (on the update)?
+
+Sorry, not sure I understand the meaning of 'update' correctly, but yes,
+if there is a hard-coded module load (e.g., /etc/modules or in scripts),
+that happens. However, AFAICT, loading unexpected modules is less of a
+problem than not loading required modules, or may not be a problem.
+
+With an auto-load mechanism in place, hard-coding/force-load is not
+required, and neither problem (loading unexpected modules due to
+hard-coding, and not loading required modules due to lack of
+hard-coding) would happen, IIUIC.
+
+>> > Additionally, sysctls are not module specific; they are a way to
+>> > read/write kernel variables. Putting a module specific aspect in the
+>> > function arguments (that needs to be ignored in non-module cases) seems
+>> > wrong. Why not use the module subsys to add sysctl alias instead of the
+>> > sysctl subsys?
+>> 
+>> Fair point. The current design has 2 reasons:
+>> 
+>> 1) Use the 'path' argument (raised in [1]), only available in the
+>> register sysctl functions.
+>> 2) Use a more implicit/transparent approach, instead of more
+>> explicit/declarative approach. 
+> 
+> I get that the data is there and you would be able to do it, but it
+> still seems misplaced. Additionally, are you planning to move all the
+> modules to this scheme? If not, does that mean that some modules would
+> work and some wouldn't? And how would you make sure that modules would
+> use the correct call moving forward?
+
+This scheme currently covers all modules, AFAIK, as it is wrapped in the
+functions that register sysctl tables.
+
+On moving forward: usage of such functions in a way that breaks a
+requirement of this series (e.g., failing to specify the template
+table/path parameter(s), or not having constant initializers) hits a
+build error, as the requirements are actually from the compiler.
+
+>> I guess that a different design could use MODULE_SYSCTL_TABLE() as
+>> MODULE_DEVICE_TABLE(), declared per table instead of wrapped into
+>> register sysctl functions.
+>> However, it seems to require moving the value of the path argument (or
+>> its template) into the macro and still referencing it in the function
+>> (or its instantiation of the template), which adds obfuscation, to all
+>> callers. 
+>> 
+>> What do you think?
+> It might be that having it inside the module subsys is more work, but I
+> believe that there is the right place to have it. I still don't see that
+> adding a module specific arg to the sysctl register is a good thing.
+
+Ok, cool. I can work on a different design.
+
+Please just let me know whether you are OK with the remaining (above),
+and I'll be happy to tackle this.
+
+Thanks again,
+
+> 
+> 
+> Best
+
+-- 
+Mauricio
