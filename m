@@ -1,99 +1,85 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D86313B47DF;
-	Fri,  4 Sep 2026 17:01:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7AA9050EC15;
+	Fri,  4 Sep 2026 17:01:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788541263; cv=none; b=dZ6geeAWkclw0k/BwSI2RjqeOEQP29kU8DbEB6w94pzeUWlpGmkYmO14hrKY4X9WMhm1EA+/Q8mii/dpEF2K3ACuWdNA8rLFaGA53wYztJXfXav/W0Wh/74V2iC4wjXRhcGrYRUzp68yO068h9lj23OwqiX0VKShS76kQ9Phdcg=
+	t=1788541266; cv=none; b=H3aP1yo0XNGSjpRRZy6QK+YYc36lFfrd6zPcL/qevErxtbRYybE23A6fqonJcvqR88dZN0fIibVbmFOXp+Qae1dn7/9Lwsf6f7ItHIe8T7jV0CTeXPgdtFMYAeP34rrnV7Jqa9hFEXEefUbP3wFxmlKX4ML1YgiDzrUzh0OmMQE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788541263; c=relaxed/simple;
-	bh=RGHZWkjJxUEHYJxtwRhOiNDil71lm5pCZ3HGOizHOHQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=FpkCRsOKmdgA+rodzRi1Avpz0NOPfsoMOWATXoepUqJiEs1EhIF4wDGvGwAd//Ms1tGFizN7tcCgmQbHOdDZ30lBjvhFdzdso+NOv/T1bpyQ+Rr3N2yvb1b/keH7LxpDUOuRi8MzT2m39eHKgKwORwMgXMOfq4CJxDY4fmCmcPs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=U5JTKtWy; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788541266; c=relaxed/simple;
+	bh=44zkCpR+Q6trSzxeaV93VhjJiybQ3LcyKsvSiRb1yT4=;
+	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc; b=YoWyTjR8+f3KXM4UCzVkJxS6tJClfUqdSLap+deKlC+kjnA0bKI7DiQiuJn+/SWMbXWUEChJeFKPfIj19/M3Pmfa8u4776hQi6em2t9vsaqMhTb0GmqBIzAnvFbxviNUc9qsKKVmZQ8I8qdSLgMUF3p9/zu0J/sZxXvduFzBYSw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cgjJmslu; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="U5JTKtWy"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 547B11F00A3D;
-	Fri,  4 Sep 2026 17:01:01 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cgjJmslu"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5BC2D1F00A3D;
+	Fri,  4 Sep 2026 17:01:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788541261;
-	bh=z8I/bdfsFJJ9ZEIY1Swf6hTCVoPuUKZayHpE2OeGShg=;
-	h=Date:Subject:To:References:From:In-Reply-To;
-	b=U5JTKtWyyWC0iAnYQKEnDVcmo5u1tt2nTxmUFKfPDcFwz3vJr2NUGR4PapeJmsaX8
-	 JBDmFwjeYtfylFE0eK1Ju+jDr7eyxliEMNqHOyj3RcN7vNFXx+REdZzCav/pDgUSAK
-	 AVavcC35YIBHR978Xydryt7dX+Lf3zEOzcOqzHYMUC86B8MvkU1DO942mKkb31fO87
-	 wMdtC9D+Qm1AXYlM8eBcdEKj6pur1JJwYx32M05hyg9quHXuqDBqUMz1MKGmz8X97n
-	 SNscJAz2u6+NM1EU7Fn01ErZIsz0L7rY3sQqEAaxQIZOAWTemdui/+NxXrwMo667bx
-	 bxeD8iJ7UupGA==
-Message-ID: <08064970-d385-42d6-9f0c-6c4382bd4ebc@kernel.org>
-Date: Fri, 4 Sep 2026 12:01:00 -0500
+	s=k20260515; t=1788541265;
+	bh=lmyTQrEk9iItBhgUN5arNq8q8hxBJ/DcJrguueYMcac=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=cgjJmslukMCIalj3tVGBD9djY1BI/q4QeNgWVPemeUXS0enNoWHTCfA2amWThW9md
+	 593pdkllprOZnByQ1xPdYH6XYe9Bsd4M5zLgLeOnPAdUn9sfJbQxHj9w1bNSWOPnFw
+	 0yF6pXwvEwTSlGiwrR1MTD7ff+YeGM+RJT/x+B3cnmeU4tP3MYi58uHrxPu/d0QgnB
+	 AzfrCif9xxn18ORYgKBOVQ74LeB5+LnGdta7FbLXEENkGkF8R6IbsSAijRJ+u680Jb
+	 SMehwz2MnV1gCJj9xrZlXO3XWRjE1jeWuiL+wgH7Cz3gdmyM4iR6GQBSU0okWHpsW/
+	 XfvbV3eBzr5kg==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 5695E3924A53;
+	Fri,  4 Sep 2026 17:00:07 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 RESEND v2 0/5] Add Agilex5 support in SVC driver and
- FPGA configuration and partial reconfiguration support for Agilex5
-Content-Language: en-US
-To: Adrian Ng Ho Yin <adrian.ho.yin.ng@altera.com>, robh@kernel.org,
- krzk+dt@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org,
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH bpf-next v1] selftests/bpf: Fix flaky bpf_nf test when
+ random
+ NAT port is 0
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <178854120589.442795.9129340051112718540.git-patchwork-notify@kernel.org>
+Date: Fri, 04 Sep 2026 17:00:05 +0000
+References: <20260904073745.363314-1-jiayuan.chen@linux.dev>
+In-Reply-To: <20260904073745.363314-1-jiayuan.chen@linux.dev>
+To: Jiayuan Chen <jiayuan.chen@linux.dev>
+Cc: bpf@vger.kernel.org, andrii@kernel.org, eddyz87@gmail.com,
+ ihor.solodrai@linux.dev, ast@kernel.org, daniel@iogearbox.net,
+ memxor@gmail.com, martin.lau@linux.dev, song@kernel.org,
+ yonghong.song@linux.dev, jolsa@kernel.org, emil@etsalapatis.com,
+ shuah@kernel.org, chenyy23@mails.tsinghua.edu.cn, puranjay@kernel.org,
+ lorenzo@kernel.org, linux-kselftest@vger.kernel.org,
  linux-kernel@vger.kernel.org
-References: <cover.1786520346.git.adrian.ho.yin.ng@altera.com>
-From: Dinh Nguyen <dinguyen@kernel.org>
-In-Reply-To: <cover.1786520346.git.adrian.ho.yin.ng@altera.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
 
+Hello:
 
+This patch was applied to bpf/bpf.git (master)
+by Alexei Starovoitov <ast@kernel.org>:
 
-On 8/12/26 15:50, Adrian Ng Ho Yin wrote:
-> This series adds support for Agilex5 in the SVC driver and enables FPGA
-> configuration and partial reconfiguration on Altera Agilex5 SoC.
+On Fri,  4 Sep 2026 15:37:39 +0800 you wrote:
+> The bpf_nf test allocs a ct, sets snat and dnat with random addr and
+> port via bpf_ct_set_nat_info(), then looks the ct up and checks the
+> reply tuple against what was set.
 > 
-> On Agilex5 the DDR base address starts at 0x8000_0000, which is
-> outside the addressable range of the SDM. The SMMU is used to remap
-> DDR-allocated buffers to an IOVA within the SDM-accessible 0-512MB
-> window. Agilex5 REV B introduced a hardware SDM address remapper,
-> but it must be bypassed so no additional offset is applied to the
-> IOVA, keeping the implementation consistent across all Agilex5
-> revisions.
+> The port comes from bpf_get_prandom_u32() and can be 0. For
+> bpf_ct_set_nat_info(), port 0 means "port not specified", so only the
+> addr is mapped and the kernel keeps the original port. The check then
+> compares that port with 0 and fails, which shows up as a flaky
+> "Test for source natting" failure in CI [1][2].
 > 
-> Patch 1 adds the fpga-mgr child node and fpga-region to the Agilex5 DTSI,
-> and removes the disabled status from the smmu node to enable it, which is
-> always required on Agilex5 for the service layer to operate correctly.
+> [...]
 
-I've applied the DTS patch.
+Here is the summary with links:
+  - [bpf-next,v1] selftests/bpf: Fix flaky bpf_nf test when random NAT port is 0
+    https://git.kernel.org/bpf/bpf/c/5e8c349bc8d7
 
-> 
-> Patch 2 adds the SMC call definition for the SDM address remapper
-> configuration in stratix10-smc.h. This is a standalone header change with
-> no driver dependency.
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
 
-This patch just adds defines with no usage of them. Please add the usage.
-> 
-> Patch 3 fixes a pre-existing list corruption bug in
-> stratix10_svc_free_memory() where an unmatched free called
-> list_del(&svc_data_mem), corrupting the list head. It also cleans up
-> related coding style in svc_pa_to_va(). This fix is split out first so it
-> can be reviewed and backported independently.
-> 
-> Patch 4 adds all data-structure fields, macros, includes, helper function,
-> and allocation/free paths required for the DMA coherent mode. This covers
-> both the foundational types (dma_addr, use_dma_mem, dma_addr_offset,
-> SVC_SDM_DMA_ADDR_BITS/OFFSET) and the functional DMA allocation/free code,
-> keeping the structural and functional changes together so each intermediate
-> commit is bisect-safe.
-> 
-> Patch 5 integrates all of the above into probe: enforces SMMU presence for
-> intel,agilex5-svc, issues the remapper-bypass SMC, selects the DMA path,
-> initialises the controller fields, registers a devm cleanup action for
-> leaked buffers, and guards the error path against a NULL genpool.
 
-These 3 patches no longer apply cleanly. Please rebase on top of 
-socfpga_firmware_for_v7.4 and resend.
-
-Thanks,
-Dinh
