@@ -1,221 +1,165 @@
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+Received: from SN4PR0501CU005.outbound.protection.outlook.com (mail-southcentralusazon11011039.outbound.protection.outlook.com [40.93.194.39])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0B673EEAC4;
-	Fri,  4 Sep 2026 11:47:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788522433; cv=none; b=GjPw5P2SnEtE1kxG37FlOUgTgrCOdozvmwcVbWYxUJcr3hiOtOjMS3nJMwUcT4f0+omhjkFaS+LnaC4tGVrjzI6p2ZCgdec0f2h2OUYYKbW6cGMRhr+29jakarFjYTCjE9eek+LMYn5DlnlYOtMHzfO7ayedD088axvVtkE7DOI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788522433; c=relaxed/simple;
-	bh=VuFb0khT4wiqTugkfZjtaHMzuWAnCzywhRd175AwuNM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=caztx4oyosMhPV4iyPQ2cyVkvuGsP4kSCBPH68EL6EkO/xGiYMxbu3FiYltCUUzFGGc5xzpLB/teXU7yQ7gjk4p55kfoF+tA1G2PMbZPGSO1ICWJrykz/AJ4z1GozQqkV63KGUtV3t3EF3mr54qYQMTUgv0wAFAbt317gCLe3l4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=ZtqwcJXn; arc=none smtp.client-ip=148.163.156.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5CEB47ECF9;
+	Fri,  4 Sep 2026 11:47:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.194.39
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788522441; cv=fail; b=Go1+Hp9CIPh3j10LUh3BztCu+REI8GvbLhI7ahdd2eMQpbSBM9c/ANLw4NfcV60wq0zweFVuohVtotcA3wUA3TE/H4sj1SmrlAZaImiYgZuwCUuu999Q2HjLOpIM0slZER3czRad9v4pdgt2YwOWJvt5CuXUw5kUQ0RnTjIWN38=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788522441; c=relaxed/simple;
+	bh=8/gzKUfvo4Aqpqj98o8tivODkYcoxXGyiTdZyzpLQqU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=DkBQxmCa1vA0k7am6GKJH6Nnc3MvsuuRoT8NfNk1XmtppNRpBgNtMr2inSjOXkuOn/kKY9QG3NYfMdiLEcUANcFpON4An5ckXQx4APdYp3XdibV14H6SPYdxvAlNTjzzWNAmtnFdLtXvnO6tpe7Vi42s129noOB+VR8eRurt2FU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=qtkCgF71; arc=fail smtp.client-ip=40.93.194.39
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="ZtqwcJXn"
-Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 684AVULO1494058;
-	Fri, 4 Sep 2026 11:41:40 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=pp1; bh=CW3vxjA5wTt3e2Lkv1OSc2ps48i5Up
-	xjTiNuU2k3ZY4=; b=ZtqwcJXn5JjmXK2TedINfsQgvWM0AhEuCR8XMhF5sCghQ2
-	v230MU9wmpif2eXtIPwp5SCe9ncyfCxRPcTrpDXEkmD1miQCYnFc6Gg0se6DhOHK
-	ISZeX1ugcVanxPwHmfopz1JLGjknKWnVzWbUsbdYAeQifUpCGC0YmzdoDPHQiIjQ
-	Ehb+5yIWXzN9ao4EDI3kMKGdovDa7o8ruBgXpk6+kgM1EpQcUEWdEv2l+X+eJWZs
-	ZJ0WjNJmqWERrBJ1Rmo5mOTjR3fUZnBLdZDwLYzdXMhtTaKrN2k+A23z7NK77nsB
-	5hmnkJ2B9aWPjzJR8H+guVTJe5xyBizBVPTun6Xg==
-Received: from ppma13.dal12v.mail.ibm.com (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gbq55ajhe-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 04 Sep 2026 11:41:39 +0000 (GMT)
-Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma13.dal12v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 684BfHje002278;
-	Fri, 4 Sep 2026 11:41:38 GMT
-Received: from smtprelay01.fra02v.mail.ibm.com ([9.218.2.227])
-	by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 4gcbygvnb5-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 04 Sep 2026 11:41:38 +0000 (GMT)
-Received: from smtpav03.fra02v.mail.ibm.com (smtpav03.fra02v.mail.ibm.com [10.20.54.102])
-	by smtprelay01.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 684BfY7345154586
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Fri, 4 Sep 2026 11:41:34 GMT
-Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 9660E2004B;
-	Fri,  4 Sep 2026 11:41:34 +0000 (GMT)
-Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 506BB20040;
-	Fri,  4 Sep 2026 11:41:29 +0000 (GMT)
-Received: from dhcp-9-123-3-18.bl1-in.ibm.com (unknown [9.123.3.18])
-	by smtpav03.fra02v.mail.ibm.com (Postfix) with ESMTPS;
-	Fri,  4 Sep 2026 11:41:29 +0000 (GMT)
-Date: Fri, 4 Sep 2026 17:11:26 +0530
-From: Gautam Menghani <gautam@linux.ibm.com>
-To: Sean Christopherson <seanjc@google.com>
-Cc: Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>,
-        Paolo Bonzini <pbonzini@redhat.com>,
-        Tianrui Zhao <zhaotianrui@loongson.cn>, Bibo Mao <maobibo@loongson.cn>,
-        Huacai Chen <chenhuacai@kernel.org>, Anup Patel <anup@brainfault.org>,
-        Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
-        Albert Ou <aou@eecs.berkeley.edu>,
-        Christian Borntraeger <borntraeger@linux.ibm.com>,
-        Janosch Frank <frankja@linux.ibm.com>,
-        Claudio Imbrenda <imbrenda@linux.ibm.com>,
-        Fuad Tabba <fuad.tabba@linux.dev>, Joey Gouly <joey.gouly@arm.com>,
-        Steffen Eiden <seiden@linux.ibm.com>,
-        Suzuki K Poulose <suzuki.poulose@arm.com>,
-        Zenghui Yu <yuzenghui@huawei.com>, Atish Patra <atish.patra@linux.dev>,
-        Alexandre Ghiti <alex@ghiti.fr>, David Hildenbrand <david@kernel.org>,
-        linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev,
-        kvm@vger.kernel.org, loongarch@lists.linux.dev,
-        kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org,
-        linux-kernel@vger.kernel.org,
-        Itaru Kitayama <itaru.kitayama@fujitsu.com>,
-        Nicholas Piggin <npiggin@gmail.com>,
-        Ritesh Harjani <ritesh.list@gmail.com>
-Subject: Re: [PATCH v2 10/20] KVM: selftests: Add a wrapper API to allocate
- multiple page table pages
-Message-ID: <apquZpW2qQKO2ut6@dhcp-9-123-3-18.bl1-in.ibm.com>
-References: <20260902164123.2546762-1-seanjc@google.com>
- <20260902164123.2546762-11-seanjc@google.com>
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="qtkCgF71"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=q4ycy6o7ckbZqtTuKVcscbRBt4uapNFEAsEx8pM/A8PApMGT+Ts5CqXUWDF3DVgaRysBWHQf2jB/iPaggDFY+6HnSTQjCLhiOseWOQ5N0xGSdJ5g63R6S+DSZ1uZtK1V92q87pDw08a1VyR18xZ8T57NqmZQKsPAi1r0cw9PEzroI0OnKOrXgPHN8FMeNSa+6sK+GExv3w2JyjTDv4aErTGIpYebyLyOFJEF7290dy0AgtTInTX6wZGgxG+zWjjwZoQvqdZVqLN8OQ31Xdwky+2gPIPxsG4fiPBxScumEPOz41pZ4/CXK98xjXBYvXFDW0aaxiNkw56fJdgldndvlQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=4dtimgsOiLWju7xR18BevpBC5wIYxueT8dwQIiAjWlM=;
+ b=DpEDRkPOYJlFYRlPDtg4vHoQEVBXsB/SYCOlkfsTjZoDJHM9oABPgWA8fQKU5seKteOeIkAUeXKJ9R/eHh77Yf+/8/sjZRT+7JOhnxlwLaKSNeYjRG/WwQ/O198tHCZvVa20LsAs6fVw5YkMnCr1uRQmRcmMYczQmmrAgVZwbb60yEHQOBHtS7O577ZsgNd9tJbdRleSNc9rWhdBOBOwdkbhnWNKi835WSkTq7LNltLA5SRpLtREOla/9w9y4LiX9IYtWgMKzdkYz5NvFJQ/RE4R4dJQkptXhwDkuMTcaaAPAUx6mQKeT80oIYi0VjED/iarxEET7gvpmPTPcAnTrA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=4dtimgsOiLWju7xR18BevpBC5wIYxueT8dwQIiAjWlM=;
+ b=qtkCgF71heu11hOMB6FIyJEndGuUHfbv3/wwsT4YqjPCkOxBBPQRojIKa+1XrGDSH3yk4pQKrIm9kXouuZtocn6r0/uQSNvObIpgvP0aZWfnAsZkHC6fjL5gM5cfTr0J0jSfMZzgnNACgDG0hVFav6fDSXvfsMvmVVlfziqd3BbGg8PsZyZ3p4ZMh0fMgCScRDo/oPUFlEygCyJixn9VniQ8qHBKC0Jv+eVez0PmQCCyZTIfloWUwE0grnEwV/NIDUKBFRZC9ucHGzzcZUpPN7U1Mh7IkgghM8eZo+3bfPtOoj86WfGuF+H4aq5vbZbSKX+NSLo2zi2F0Yg72mmANQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from LV8PR12MB9620.namprd12.prod.outlook.com (2603:10b6:408:2a1::19)
+ by LV2PR12MB5824.namprd12.prod.outlook.com (2603:10b6:408:176::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Fri, 4 Sep
+ 2026 11:47:15 +0000
+Received: from LV8PR12MB9620.namprd12.prod.outlook.com
+ ([fe80::299d:f5e0:3550:1528]) by LV8PR12MB9620.namprd12.prod.outlook.com
+ ([fe80::299d:f5e0:3550:1528%4]) with mapi id 15.21.0360.008; Fri, 4 Sep 2026
+ 11:47:14 +0000
+Date: Fri, 4 Sep 2026 08:47:13 -0300
+From: Jason Gunthorpe <jgg@nvidia.com>
+To: Christian Brauner <brauner@kernel.org>
+Cc: syzbot <syzbot+7666ed2c3d42196bf7e3@syzkaller.appspotmail.com>,
+	jack@suse.cz, linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com,
+	viro@zeniv.linux.org.uk, Kevin Tian <kevin.tian@intel.com>,
+	iommu@lists.linux.dev
+Subject: Re: [syzbot] [fs?] memory leak in path_openat (4)
+Message-ID: <20260904114713.GP4157646@nvidia.com>
+References: <6a8efe2e.1d9ded08.62e62.00b2.GAE@google.com>
+ <20260904-clown-zersplittern-sequenz-987f972a607b@brauner>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260904-clown-zersplittern-sequenz-987f972a607b@brauner>
+X-ClientProxiedBy: BL1PR13CA0174.namprd13.prod.outlook.com
+ (2603:10b6:208:2bd::29) To LV8PR12MB9620.namprd12.prod.outlook.com
+ (2603:10b6:408:2a1::19)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260902164123.2546762-11-seanjc@google.com>
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA0MDEwNCBTYWx0ZWRfX0Aoocv+enqPy
- aAHT452RrJdq6SGsyysUOLwIt05V+7QWTcYIwPhxSJ8PpoZLIWaD0eknmM2AjE6j895e9ceNN9y
- n/MFYB7qDup5ZpVogUz9zCco9JBq7PIsp4p139vHdb3xAULB7scjdOrPgQaTHrNsxlx3QechR0B
- thNj5adTK1H6yFG0fUQs8l5P3Q07ZrZWnUQdLyXlAG5z5eagZB064/ZmfrBaBZqh3ecFAL8Xf8K
- dLY1A+9rj7dKrDJaQGKuYpHRMuQkc48MGlyetM4MQIltnExj3Ilh2S1xM8viLxBDLcnIrt1tFh6
- Ex4+C1O1XXJ6+2AIYfbt69aKnQksr7gupT44zIaWrQtaTqrfAzzuKBJqZpUduWJzXnD7V6p/K6g
- YqRwsMvR7Fj1lzVxu4q/By/jmikEq+An7rp4/XrW23m9IX3cp2CTBmuxKj/yw9U10c0TBqETXbe
- 0N1BmAqqrAebaBtq9JQ==
-X-Proofpoint-ORIG-GUID: FOemvUVA6EC5QNrBSWqfJgS9IV7SOAo1
-X-Authority-Analysis: v=2.4 cv=CNgamxrD c=1 sm=1 tr=0 ts=6a9aae74 cx=c_pps
- a=AfN7/Ok6k8XGzOShvHwTGQ==:117 a=AfN7/Ok6k8XGzOShvHwTGQ==:17
- a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=U7nrCbtTmkRpXpFmAIza:22 a=omOdbC7AAAAA:8
- a=1XWaLZrsAAAA:8 a=VnNF1IyMAAAA:8 a=PQm9XMsn1R9s6TzZnB4A:9 a=CjuIK1q_8ugA:10
-X-Proofpoint-GUID: oezkvRzJlqy-qd0w4ak4ksf3GbxB-t4v
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA0MDEwNCBTYWx0ZWRfX4JTqGICJcYX2
- 0ueBv90Fpcuo7VOTmVQ5oYB6OFExT2sdH7SJ6GMdoluxil3EZKa42dPYC6ihbQugc/GTpVH+fqy
- XbaXe1nlxV6xMxpI+8M+abze3HvmBMw=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-04_03,2026-09-03_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 bulkscore=0 suspectscore=0 phishscore=0 lowpriorityscore=0
- priorityscore=1501 clxscore=1011 impostorscore=0 adultscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609040104
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LV8PR12MB9620:EE_|LV2PR12MB5824:EE_
+X-MS-Office365-Filtering-Correlation-Id: 031c16d4-0fd8-4af3-aa9c-08df0a7a4395
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|376014|23010399003|366016|11063799006|5023799004|4143699003|6133799003|18002099003|22082099003|10067099003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	4AlGJtedph6/qkf/YVVY28JadJ0T2oHrVM49x3ctovf58zZjU9jft8hXMxeloC7jLwdBDuTZp+cZKhaevdAZpgHBJ+G5pzA+ekRZiFRVnfeZlPBLSxXk8gWkzZhefeQgPzsHH45YaUFAKg0AZWkB9e034nAE93Yz3mKsZQ+HFyr1YdKZiapI3SpdigyN9+ewJUXLI/rUqOYl5kw6X6tbQI8heGrXWsb3DhDHeg93guiA8w7H9RPwFrR57LU910LvO6cpW9v7FGORmGthfEsNuVV3P1akR3+rpIYRLLCmdLM9iVHMCmX3zKImltdqQUDdVmtu14NNeCq6KpEnndGfgqVJwPEjXDKi2TELirDRZWBhYPboZ0iPmQtQNd5zOjKcZaqzQ7e9eatxtCKMwHO4hpQL2aWoF0i/u74ki5eXCeyrCzKhETmIhSAoRhkt2aI5wc41F/2F1Ur/rtiZNVRKM5OJZC1BTVpaNJmAcmyl5upLTd6TF8S5vuwLiZjkVFmthQttj7iAlYuq9pEqS7Gkccf+k9O25cKZk/4/Dm1zTXdbTMakYfSsOgRdbgo60PFTzh7pa+LjUyTjFBF+546TQ7Hx81vylvzKfn85RmyVGoBE73EOd6VwisdSt3di4xn959fny4nO6arGhL3YUuq6kX2VvP9hKLx+Ylsdsmp6NPs=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LV8PR12MB9620.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(23010399003)(366016)(11063799006)(5023799004)(4143699003)(6133799003)(18002099003)(22082099003)(10067099003)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?STdmNVZVaVZ0bkE4V25xNnpQTEl6RUNnN1RsNDRsR3c5OStFektvWCszRlp5?=
+ =?utf-8?B?Q2xienlLQlFuZUlRbDVGMENGU3RDYUl4U0xEbHpkRnJROEtsd0hNUk1yOElx?=
+ =?utf-8?B?QmoxQ1cwNFJkYU1aUE1tZHRnRjUwLzhQN25PTTdsdnlTYUFZSUtkSXVKVG80?=
+ =?utf-8?B?UE1KcVorMWhyT3hNSndEbU42TWQ2aWRqT2l3TTI3NGp0dGIwZk15dHkyNXk2?=
+ =?utf-8?B?VDBBaHMzTzFpRTFRckhUQzlSanJvUmcxT2wzQU0vemlTTldHanlTMzlJWEtk?=
+ =?utf-8?B?azBoeTZZOFp1SlZ2QkZJVE1DdXVRbzFHUGZsVkhrcmlRb091U01QNVZSVlp2?=
+ =?utf-8?B?d0l6eEJCVDhuaXV5dmo3Mmtkc09ib01Rc1VoK3ByeE9BVWI5SFJva3dVQXVa?=
+ =?utf-8?B?UklGSVQ0NlRpd05NQzBrOHBNdmxzdStoaFk4YTFURHlTd1M4bUJ2RmxWRFg0?=
+ =?utf-8?B?VVRIeVVPTWlzSTdtRGdjc3o2c2RiVG9sY08wNjdzdkc1MzNiQzdXZEVkZ25O?=
+ =?utf-8?B?RXFkOUxyd0ZrMFpZMzZyZHhEbm8zK1hHSkY1OTg2dHNNRk5XTE54UWFpN0Zy?=
+ =?utf-8?B?YzdDTElUVTNmLzZzbXE5RmMxbWQ4SHd4cjhQQW00aWMwZndtZ1dPVGlwWC91?=
+ =?utf-8?B?b2hhYlBIbGhRS3VFYmJ5OWdYdW5XeGRkbTVPdGFrelUwMUR6VTZCSUxZT3Vq?=
+ =?utf-8?B?THF1OHBOSVY0WjY5a0t2MHVlUDFFOGh5V2JWUllhS1pyVEF1VUZuYTdSRDcv?=
+ =?utf-8?B?bFBNSVBIdXZqcFVnVUhCdm1heXgrZG9yUjdmOWErZVlBNmhmRHJma09aaUZw?=
+ =?utf-8?B?VDNIQWdMSEVhcE1RbWpGS3JOUXErM1c3cW5ESzNhSUhMcm5zcFhVVDJNVHo4?=
+ =?utf-8?B?QnRKc0F6STRucXdOT3RaQWRTL2FUbmlxOHoraGZCUFM3TFN1U3JCUWloOXQ0?=
+ =?utf-8?B?MlFiZ1AzSzNNS1JiQnRVVzlRajUxODYxakZaRFp6SEJvSE1uRWgwbVNFWFNl?=
+ =?utf-8?B?RDdDR0ExRTd1Z1hpSkdYTUZCZEJDVWZQckNiVko5cUMzV1h5N0EyQnVnZmRv?=
+ =?utf-8?B?cVd1NHlFNUtXRUdsSm9WRVhrU05FQUpvMUdKUG5kcDJBU1d3akM2anRWWThZ?=
+ =?utf-8?B?UWIxeGtqT0h1UzZpdEtjeitJTkhzRVdsZTBEcVRJcUYyNk01cGtFbFU2MitN?=
+ =?utf-8?B?b3lwa1RkYXl0Zko1RFY4WHpsTlJxZi9wU0xZdi9iLzVUSGFVT1hOMjhBUXJU?=
+ =?utf-8?B?NytHenNEc0FwZG9MejVtR09OeE1XcW1tNi9jUStBcFZDeUZTSkRrODBKRHVi?=
+ =?utf-8?B?cUY3L0pEMWwxZE94Q2JXZ2JEQ2xnend4TjhGR0dvYXR3aENTUWxwOHlZb3Av?=
+ =?utf-8?B?eHV1bWs0cVE5RzFBeHFSNVcyTm82N3BaYzh5MHdFQUpBS3MrQmxRQW5pUjFt?=
+ =?utf-8?B?WDBTbm9qcEw5aFhFSUNNRGs4Q2FESEg0Z2NrS3YxcDg2b0RTczU4N2h3Nits?=
+ =?utf-8?B?bnd6ODEvb1psRlZXcGJVeElFRmJVK2Y4R2dLTy9Pb3FXaGR0M01leDJiekxY?=
+ =?utf-8?B?UDFpblJDdXZxRUVCZkhDdDFjM29DbmJoMVVVSm9HL3VFajBXNk0wQVVUcXZp?=
+ =?utf-8?B?dm82UmZsa0xZREppUk44eDlOcVQ3eGdkV3RYcHg5VEdlZjVTaU1hYlJRQ1pJ?=
+ =?utf-8?B?cU1qZXk2S3Niam11Sk1XMCtzTW1xRUdpWE1CQkYzZHdVM2lOZzRKYU1qSmk2?=
+ =?utf-8?B?U0Iyb0wwZTR0Q0dLY0lxS3hoRlRBV1ZrbUZ2Q0JPM1J1QWNJTGVzUloyU1Yx?=
+ =?utf-8?B?ZG8zaWQvUTdGQmc3ekZWUnZMNXBLWWNOd0N0a2tRajVYNWNHR0wzQXNxeGgv?=
+ =?utf-8?B?aWpPdFd3bXdyZTRkNTV0Smhzc0ZnWWVHTVZ4QkpMRnl2S2F5aXlxVXZLSi8z?=
+ =?utf-8?B?bldzR1NkV3lOK2J0dEhiODJBV0srdjVYU3V5RTRQTWFtVnVmaWcyc0FkT1Nk?=
+ =?utf-8?B?YzFUY09qSGtuaGlvU2QrR3lJdmtBUFhGWEMrRm9pVkJWZ1NDUGtKSXlod29K?=
+ =?utf-8?B?cjUvZXFzZEpjYW9EWHZQWHVXQlFuSXM5Nk9BaU9DQ0N3elFvdysvZnlySVJr?=
+ =?utf-8?B?bVA3aEZ4SGlycUtWdGw3WkR6TnQ1SDRDNmJVWUdOa0EveHZoRFZQMGNOR2U3?=
+ =?utf-8?B?YThkZzh6LzFOUW1yVnVMa2hwcVFVZElKYU40TTVsNXE5aE9HMzFYTFV1c2ts?=
+ =?utf-8?B?cS9nSis0UkdnTFFmeEFkTEU3UElISStBTXJCa3FFSnlWRjh4dWtGRGw0dk1o?=
+ =?utf-8?Q?nt2jafBucWeMW6YI7y?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 031c16d4-0fd8-4af3-aa9c-08df0a7a4395
+X-MS-Exchange-CrossTenant-AuthSource: LV8PR12MB9620.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Sep 2026 11:47:14.8430
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: U3VtK121Q5M7A1HJPlqpRTdXSQpewlZejarxyX9xJq5Hoz7cFYQ9ZAxerL+YRqxW
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV2PR12MB5824
 
-On Wed, Sep 02, 2026 at 09:41:13AM -0700, Sean Christopherson wrote:
-> Add vm_alloc_page_table_pages() and use it throughout arch code to replace
-> open coded equivalents.
+On Fri, Sep 04, 2026 at 11:18:02AM +0200, Christian Brauner wrote:
+> Closing the fd does nothing. The hex dump shows the same pattern btw:
 > 
-> No functional change intended.
+>   - obj1 struct file @ ffff88812811f9c0, obj2 its LSM blob
+>   - obj3 iommufd_ctx @ ffff88811161cd80, first word = ffff88812811f9c0 → ictx->file is obj1
+>   - obj5 xa_node, its ->array = ffff88811161cd88 = &ictx->objects
+>   - obj4 iommufd_object: shortterm_users=1, users=1, type=4, id=1 → the IOAS with ioas_id == 1 from the repro
+>   - obj6 iopt_pages, kref == 1
 > 
-> Reviewed-by: Itaru Kitayama <itaru.kitayama@fujitsu.com>
-> Tested-by: Itaru Kitayama <itaru.kitayama@fujitsu.com>
-> Signed-off-by: Sean Christopherson <seanjc@google.com>
-> ---
->  tools/testing/selftests/kvm/include/kvm_util.h    | 9 +++++++--
->  tools/testing/selftests/kvm/lib/arm64/processor.c | 4 +---
->  tools/testing/selftests/kvm/lib/riscv/processor.c | 4 +---
->  tools/testing/selftests/kvm/lib/s390/processor.c  | 8 ++------
->  4 files changed, 11 insertions(+), 14 deletions(-)
+> Likely caused by f4986a72d6e4 ("iommufd: Add IOMMU_IOAS_MAP_FILE")
 > 
-> diff --git a/tools/testing/selftests/kvm/include/kvm_util.h b/tools/testing/selftests/kvm/include/kvm_util.h
-> index d9d39a8894e2..c56f342b16fd 100644
-> --- a/tools/testing/selftests/kvm/include/kvm_util.h
-> +++ b/tools/testing/selftests/kvm/include/kvm_util.h
-> @@ -1013,10 +1013,15 @@ static inline gpa_t vm_phy_page_alloc(struct kvm_vm *vm, gpa_t min_gpa,
->  	return vm_phy_pages_alloc(vm, 1, min_gpa, memslot);
->  }
->  
-> +static inline gpa_t vm_alloc_page_table_pages(struct kvm_vm *vm, size_t nr_pages)
-> +{
-> +	return vm_phy_pages_alloc(vm, nr_pages, KVM_GUEST_PAGE_TABLE_MIN_PADDR,
-> +				  vm->memslots[MEM_REGION_PT]);
-> +}
-> +
->  static inline gpa_t vm_alloc_page_table(struct kvm_vm *vm)
->  {
-> -	return vm_phy_page_alloc(vm, KVM_GUEST_PAGE_TABLE_MIN_PADDR,
-> -				 vm->memslots[MEM_REGION_PT]);
-> +	return vm_alloc_page_table_pages(vm, 1);
->  }
->  
->  /*
-> diff --git a/tools/testing/selftests/kvm/lib/arm64/processor.c b/tools/testing/selftests/kvm/lib/arm64/processor.c
-> index 01325bf4d36f..2dcaa2c4a038 100644
-> --- a/tools/testing/selftests/kvm/lib/arm64/processor.c
-> +++ b/tools/testing/selftests/kvm/lib/arm64/processor.c
-> @@ -115,9 +115,7 @@ void virt_arch_pgd_alloc(struct kvm_vm *vm)
->  	if (vm->mmu.pgd_created)
->  		return;
->  
-> -	vm->mmu.pgd = vm_phy_pages_alloc(vm, nr_pages,
-> -					 KVM_GUEST_PAGE_TABLE_MIN_PADDR,
-> -					 vm->memslots[MEM_REGION_PT]);
-> +	vm->mmu.pgd = vm_alloc_page_table_pages(vm, nr_pages);
->  	vm->mmu.pgd_created = true;
->  }
->  
-> diff --git a/tools/testing/selftests/kvm/lib/riscv/processor.c b/tools/testing/selftests/kvm/lib/riscv/processor.c
-> index ded5429f3448..c175dcd14114 100644
-> --- a/tools/testing/selftests/kvm/lib/riscv/processor.c
-> +++ b/tools/testing/selftests/kvm/lib/riscv/processor.c
-> @@ -69,9 +69,7 @@ void virt_arch_pgd_alloc(struct kvm_vm *vm)
->  	if (vm->mmu.pgd_created)
->  		return;
->  
-> -	vm->mmu.pgd = vm_phy_pages_alloc(vm, nr_pages,
-> -					 KVM_GUEST_PAGE_TABLE_MIN_PADDR,
-> -					 vm->memslots[MEM_REGION_PT]);
-> +	vm->mmu.pgd = vm_alloc_page_table_pages(vm, nr_pages);
->  	vm->mmu.pgd_created = true;
->  }
->  
-> diff --git a/tools/testing/selftests/kvm/lib/s390/processor.c b/tools/testing/selftests/kvm/lib/s390/processor.c
-> index fb9dab92d4d1..33f49d743b5f 100644
-> --- a/tools/testing/selftests/kvm/lib/s390/processor.c
-> +++ b/tools/testing/selftests/kvm/lib/s390/processor.c
-> @@ -20,9 +20,7 @@ void virt_arch_pgd_alloc(struct kvm_vm *vm)
->  	if (vm->mmu.pgd_created)
->  		return;
->  
-> -	gpa = vm_phy_pages_alloc(vm, PAGES_PER_REGION,
-> -				   KVM_GUEST_PAGE_TABLE_MIN_PADDR,
-> -				   vm->memslots[MEM_REGION_PT]);
-> +	gpa = vm_alloc_page_table_pages(vm, PAGES_PER_REGION);
->  	memset(addr_gpa2hva(vm, gpa), 0xff, PAGES_PER_REGION * vm->page_size);
->  
->  	vm->mmu.pgd = gpa;
-> @@ -38,9 +36,7 @@ static u64 virt_alloc_region(struct kvm_vm *vm, int ri)
->  {
->  	u64 taddr;
->  
-> -	taddr = vm_phy_pages_alloc(vm,  ri < 4 ? PAGES_PER_REGION : 1,
-> -				   KVM_GUEST_PAGE_TABLE_MIN_PADDR,
-> -				   vm->memslots[MEM_REGION_PT]);
-> +	taddr = vm_alloc_page_table_pages(vm, ri < 4 ? PAGES_PER_REGION : 1);
->  	memset(addr_gpa2hva(vm, taddr), 0xff, PAGES_PER_REGION * vm->page_size);
->  
->  	return (taddr & REGION_ENTRY_ORIGIN)
-> -- 
-> 2.55.0.966.g6673acef38-goog
+> Afaic,t, this should either reject based on file->f_op == &iommufd_fops.
+> But iiuc there's other cycles that can be formed.
+> For example, via a vfio device fd that's bound to the iommufd. It holds an iommufd_ctx reference via iommufd_ctx_from_fd().
+> So mapping a bound but unattached vfio fd builds the same cycle.
 > 
+> So probably this should do validation what type of file can actually be
+> used like shmem and hugepage file.
 
+Oh.. This is a bit of a pain because we rely on memfd_pin_folios() to
+determine if the file is acceptable or not. I prefer to keep that
+logic contained within the mm side.
 
-Acked-by: Gautam Menghani <gautam@linux.ibm.com>
+The issue is we don't always call memfd_pin_folios() inside the first
+system call. A normal user would, but syzkaller has arranged something
+a bit weird and out of order.
+
+So we need to figure out some validation to run before the mapping
+step..
+
+Thanks,
+Jason
