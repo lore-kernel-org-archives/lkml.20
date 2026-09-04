@@ -1,163 +1,96 @@
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D64B4EC661
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 15:24:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DA6C4A6CF7;
+	Fri,  4 Sep 2026 15:24:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788535447; cv=none; b=ZT3r6sH8XdrLgnqJn+rdY1Qs8vwkVoBdv5gR8FttU7dfXadGpHSslJ/8y29CXP3bjrQWBv2QOuGVO4M7mlBuI9hratldN/FNInNk7YeEbhyAVXFashDAyFfLU56bjdkQvcKFbW2lo/SBMIi1h/3HYUMINtqBZasq63l6/xrkVB4=
+	t=1788535481; cv=none; b=Jed1oQhNwOuYRQzxTVwU/lY3S+fjXLLsZUQ+fkxNz91qLX2itAq6SZZ3EWka8TY9LcpWt3HUMC9L/BxXrQvbQ84h/OAiBzdhBgpX7McyXbfiR79hmh20xtbmzkQYGbNyyn4we2omsrxJQjgv8PxHctSy7vTmWoAASDOUucD0VLA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788535447; c=relaxed/simple;
-	bh=3dZpk3ql/VOUcsd/ip7svqEsusEqDY6uWmgL27Pxopg=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=pHyib9b0mZ+Ykz8wL+5lk7rTH3fwa9oAIxDqLcCmBxUG7ynCB7cZ2IJCfuEegskcuYdPor66yvDz5YdSurXWIkZqwY8LhGTOcOdu+NoXRKPZhbaw6zFzI0sDA15JaK1ys4Y7wn2aOC8zDwXEM5IJlTBJ9j2nWznoFAoIt3k3piE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=thegoodpenguin.co.uk; spf=pass smtp.mailfrom=thegoodpenguin.co.uk; dkim=pass (2048-bit key) header.d=thegoodpenguin-co-uk.20251104.gappssmtp.com header.i=@thegoodpenguin-co-uk.20251104.gappssmtp.com header.b=IMP3AeYn; arc=none smtp.client-ip=209.85.128.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=thegoodpenguin.co.uk
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=thegoodpenguin.co.uk
+	s=arc-20240116; t=1788535481; c=relaxed/simple;
+	bh=6fmsaWjtmsGiT+1W8jdzJSZROBSQT6iVZWPnVRXvb24=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=L+IFmJP9TELYNzuz/2e6Z3eEBL0a0c/uQzdjKeurkmcDAgSF4x8r3HjnoBNuwILoiJWPSbfE1s+I9suLkQA7SHjkRXHmM/j4pVlYGTAJQcYfqsTKv6l5AEBIvBd+LT5F0XBxmxn5X4YGFFyqWHpOePFZpKDk6eXpsL0Bd2vWE5M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gAaJqYV5; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=thegoodpenguin-co-uk.20251104.gappssmtp.com header.i=@thegoodpenguin-co-uk.20251104.gappssmtp.com header.b="IMP3AeYn"
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-49b8be0409fso8146925e9.2
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 08:24:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=thegoodpenguin-co-uk.20251104.gappssmtp.com; s=20251104; t=1788535444; x=1789140244; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=G8jKhCG2cQQizumBfeZP6zYIa3G30UFI5xNJCludORg=;
-        b=IMP3AeYn2d0DlpZmv1kUV4dyQyi7cxwFRF411rcOLQFQ6oq5BMsMkwEUj06CrizGVs
-         ON7WmRyATPT7rCQir/bJ4Of/wo1CRQbohd8/vC4o0G+aGdOEQQGVT6sT3kOel5dHvo5K
-         yCb/+8UIfnZopKYVNxYLbzAyMVx+t4aMo3OyysdgvBS1d98JWDIbt/lI0T41pruYIrsI
-         XecNVlnPMW+mBuG4rR18xfpVze43EAvxq081JnprCZFQVcgcF2G7NCJivvbbJAcldtYl
-         mtl7lPtprpaFVDaAqA4zqLuZrnzNSNlSeIixL02Jiwmc0Elvy7XkmKIOsvD8RaIrQYsR
-         A4ag==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788535444; x=1789140244;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=G8jKhCG2cQQizumBfeZP6zYIa3G30UFI5xNJCludORg=;
-        b=nYzGzMrgBnVIqwMH50IpUeEjKH+k9Aa2WjGt/x2RPlGQBqmJNQq6y6zxPy6s9k9UNt
-         xBjU59/4HwV3yljw2r7DnBHhEuHMtvO2BxMLjLpTVcklyREwYwQEl39wn2xowlvHsV1H
-         FwmVbPDWYYbkmoHHVF67ChK6QoMnYcQwifyrE4A+Ji4Logq/IzP2P40iTvpioPH60RY+
-         FYQl010/h5/pR5+tB9qtU0ariVDOskOqIPagCSA0PGJmJ0WO5z5uj2Krb3vSPOmPq/oi
-         zyvNAGyZDJi+CJ8yA6SmXaAMj5r5BQMJVc0vntRMKh74L3z3qTKsEjSrMt0ygS2Eyv0x
-         5rFw==
-X-Forwarded-Encrypted: i=1; AKwUvBxiTlZKW+GjHrE2cV/3EJZTNpUGfjJ/J9bCcYv/r03NRk3Q6ZLdEh0ClZ5+inBwpByLrKpNre9Y9MWgj20=@vger.kernel.org
-X-Gm-Message-State: AFuF++lQN2iOv3AIToU0AyQ4wWwFntB39IbDipRd6IETm0OCNuIBm1B5
-	SPCHAFVbBELdkS7W778xDH+YvwTAW57NHybGKAOUZ+0/yB357jAdiErBa/stisq81nnIuTg5Uxi
-	MaFBW
-X-Gm-Gg: AYBFou1tVePiPwpMMrmIlQQh2To5/D5NT4yviKdoHpyrww2wMhuIdWlD1Pf4Itt1yIz
-	Mgq1c+jujvERqWg5Do0t6qxaAvASeSE/FkDbFzkwgzgqzYHpsYfYnMeSwlw41itTG32AcLx55Bp
-	8OS3pfggI/2MljMSYIlYEMg2G6PtgFm6mqZ/XC/A3CGAiyXOIpPp6UM0MgY3WiiRcrkcsYxiwd8
-	mU1nbZOlDmCDnNZ01/I70VWtx88efNowesA5M3w8Icm+Rkqc/T9Pf+z2OK99uwz30vrUeMWhh9l
-	jtCbW/yFgD3kz9fAUzFPkxT4ykWJmw1BercBqioF0C6sAarH56sBikjQdAVZqyBab3WnTAkh9xf
-	s2rXyLjVGJDaE8ObdLpnmchEwEeNe2kDyr02GE6ZxgBQwoytrOjOg2F/ccoyM3bqrE768u8boSf
-	j5UVGk9EZJ+Wr6zJJCnEEU8ITlDjfEE9y34ZSHip4cOUve6u8Kv27/SgeO3969g6TC89I9Ilp0K
-	bslKRXQtEiU4DTl
-X-Received: by 2002:a05:600c:4e0e:b0:499:bf8c:cfd1 with SMTP id 5b1f17b1804b1-49cf81e6063mr74559575e9.2.1788535444047;
-        Fri, 04 Sep 2026 08:24:04 -0700 (PDT)
-Received: from [10.42.0.1] ([2a00:23c7:1d1a:9c01:2568:24c4:f44a:8310])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cf7736132sm74890805e9.12.2026.09.04.08.24.03
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 04 Sep 2026 08:24:03 -0700 (PDT)
-From: Pawel Zalewski <pzalewski@thegoodpenguin.co.uk>
-Date: Fri, 04 Sep 2026 16:24:00 +0100
-Subject: [PATCH] firmware: google: use named initializers for
- acpi_device_id
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gAaJqYV5"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 71A6F1F00A3D;
+	Fri,  4 Sep 2026 15:24:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788535479;
+	bh=8QzDykqIjXkehR2kiOJYuKFa9ijzwIc4CC9FRe5iMxk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=gAaJqYV5+Ol7/up21Z+Am/5C5JWapas3/DqJNbaShrTU7sESVxp1i9nqU2gf+8LKw
+	 iLmQeEfoyymtWxs6F95T6jDQEsHsog4pVWKenT+Lw4eQXDqdI0Pp1v7LN/5sM34F5i
+	 4axShCx7Z2F4lZx0utBmt25Wc8qtfjqDpJM7imEm1xxkxWKILwy+9pqaYSGYBN4SrI
+	 xCAQ+H9QLVinBdGZrMbrxF4vyjrNw3Y2jWZ7pTGQ+cfHEN9e4YLAF4fEdBetok/W7/
+	 L4JV/tuG6Mo3Fr6xGAN+fjDpuYBXyvDFO+iaYo/A8ATyaPM3kdooqvuS8blaWMgQVH
+	 1p5aCAO7r7jMw==
+Date: Fri, 4 Sep 2026 17:24:33 +0200
+From: Carlos Maiolino <cem@kernel.org>
+To: Zizhi Wo <wozizhi@huaweicloud.com>
+Cc: dgc@kernel.org, djwong@kernel.org, hch@lst.de, 
+	linux-xfs@vger.kernel.org, linux-kernel@vger.kernel.org, yangerkun@huawei.com, 
+	chengzhihao1@huawei.com, wozizhi@huawei.com
+Subject: Re: [PATCH 0/5] xfs: remove leftover dead declarations in headers
+Message-ID: <aprh7OnJPCL-iIIK@andromeda.toxiclabs.cc>
+References: <20260904060648.1966130-1-wozizhi@huaweicloud.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260904-acpi-firmware-v1-1-7e4d7a09198e@thegoodpenguin.co.uk>
-X-B4-Tracking: v=1; b=H4sIAI/immoC/yXMyw5AMBBA0V+RWWtSguBXxGLUlJF4ZOqViH9XL
- M/i3gscCZODMrhAaGfH8+QRhQGYHqeOFLfeEOs404VOFJqFlWUZDxRSqSlsG+WIhBp8swhZPr9
- fVf92WzOQWd8J3PcD/9U4hHEAAAA=
-X-Change-ID: 20260904-acpi-firmware-5c9fd18aaea0
-To: Tzung-Bi Shih <tzungbi@kernel.org>, 
- Brian Norris <briannorris@chromium.org>, 
- Julius Werner <jwerner@chromium.org>
-Cc: chrome-platform@lists.linux.dev, linux-kernel@vger.kernel.org, 
- Pawel Zalewski <pzalewski@thegoodpenguin.co.uk>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788535443; l=2650;
- i=pzalewski@thegoodpenguin.co.uk; s=20260430; h=from:subject:message-id;
- bh=3dZpk3ql/VOUcsd/ip7svqEsusEqDY6uWmgL27Pxopg=;
- b=tYx/OWBgdFUcq+ZTe5T/sNIp89JKZ7ZAt3rHXtCEoUnmLWeieC6Go9T+oUjdpscHDmg+76l3t
- JuXdYWjlaDwACe2n4wyH5LoGG7dNgsnp6jEZozPFKH05aYvAWmGfAkm
-X-Developer-Key: i=pzalewski@thegoodpenguin.co.uk; a=ed25519;
- pk=vHq4n9IonORH2GTzLv8r6CWAFHzgfBuNkQPXA8NSly0=
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260904060648.1966130-1-wozizhi@huaweicloud.com>
 
-Use a named initializer for the acpi_device_id fields which
-makes the code more readable and consistent with how lists
-are initialized in the rest of the kernel code base. Also
-drop explicitly setting fields to 0 where it is redundant.
+On Fri, Sep 04, 2026 at 02:06:43PM +0800, Zizhi Wo wrote:
+> While reading the XFS log code I noticed that the implementation of
+> xlog_assign_tail_lsn() had already been removed, but its declaration was
+> left behind in the header. Such orphaned declarations (implementation gone,
+> no callers) can simply be dropped.
+> 
+> Suspecting more of these existed, I scanned the XFS headers (using GLM-5.2
+> to help, then verified each by hand) and this series removes the leftover
+> declarations I could confirm. Some of these have been stale for a long time
+> -- the oldest dates back to 2006.
+> 
+> Note that scrub still has a fair number of functions that do have
+> implementations but no callers (e.g. xchk_process_rt_error). I'm not sure
+> removing those is appropriate, since they may be intended for future use,
+> so they are not touched here.
+> 
+> Cleanup only, no functional change.
+> 
+> Zizhi Wo (5):
+>   xfs: remove unused xlog_assign_tail_lsn declarations
+>   xfs: remove unused xfs_iext_realloc declaration
+>   xfs: remove unused xfs_buf_iodone declaration
+>   xfs: remove unused kmem_to_page helper
+>   xfs: remove never-implemented scrub declarations
 
-Signed-off-by: Pawel Zalewski <pzalewski@thegoodpenguin.co.uk>
----
-This series is converting lists that contain the acpi_device_id 
-struct, which is defined in the include/linux/device-id/acpi.h 
-to make use of named initializers (which they do not use currently).
-This work is part of the on going effort in the kernel associated
-with device-ids [1]
+Honestly this all could have been a single patch, I don't believe the
+'when the last user was gone' matters at least for me as I could find if
+through a quick `git log` scan. Darrick was fine with it so I won't
+enforce it to be a single cleanup patch.
 
-The plan is to convert acpi_device_id::driver_data to have an 
-anonymous union, similarly to what was introduced for PCI and I2C
-device ID tables.The goal is to increase type-safety (as most of 
-the existing casts are gone), to improve readability and to make
-use intent a bit more clear:
+At least get rid of the "Assisted-By: <model>" thing and send a new
+version as we don't accept models discrimination anymore.
 
-```
-union {
-	kernel_ulong_t driver_data;
-	const void *driver_data_ptr;
-}
-```
+Carlos
 
-But for that to work all lists containing the structs need to 
-use named initializers first to avoid triggering -Wmissing-braces.
-I already have patches that implement this and touching a lot of
-kernel subsystmes that use the acpi_device_id struct and that list
-keeps on growing. Therefore, I have decided to split the series per
-every subsystem into:
-- pre-clean-ups that convert the lists to use named initializers
-(which is this series)
-- actual implementations that make some of the modules use the
-driver_data_ptr union member
-
-That way the task can be fragmented into manageable and independent
-chunks of work and makes this effort easier to review.
-
-Tested builds on a64 in Yocto using 7.3-rc1.
-
-[1] https://lore.kernel.org/all/cover.1780048925.git.u.kleine-koenig@baylibre.com/
----
- drivers/firmware/google/coreboot_table.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/firmware/google/coreboot_table.c b/drivers/firmware/google/coreboot_table.c
-index 25ee8cf53429..2c8c928fbb33 100644
---- a/drivers/firmware/google/coreboot_table.c
-+++ b/drivers/firmware/google/coreboot_table.c
-@@ -250,8 +250,8 @@ static void coreboot_table_remove(struct platform_device *pdev)
- 
- #ifdef CONFIG_ACPI
- static const struct acpi_device_id cros_coreboot_acpi_match[] = {
--	{ "GOOGCB00", 0 },
--	{ "BOOT0000", 0 },
-+	{ .id = "GOOGCB00" },
-+	{ .id = "BOOT0000" },
- 	{ }
- };
- MODULE_DEVICE_TABLE(acpi, cros_coreboot_acpi_match);
-
----
-base-commit: bc35965f6940a9bf834d54187b6088b8eb09206d
-change-id: 20260904-acpi-firmware-5c9fd18aaea0
-
-Best regards,
---  
-Pawel Zalewski <pzalewski@thegoodpenguin.co.uk>
-
+> 
+>  fs/xfs/scrub/common.h   |  1 -
+>  fs/xfs/scrub/scrub.h    |  1 -
+>  fs/xfs/scrub/tempfile.h |  4 ----
+>  fs/xfs/xfs_buf_item.h   |  1 -
+>  fs/xfs/xfs_inode.h      |  1 -
+>  fs/xfs/xfs_log.h        |  2 --
+>  fs/xfs/xfs_platform.h   | 11 -----------
+>  7 files changed, 21 deletions(-)
+> 
+> -- 
+> 2.52.0
+> 
+> 
