@@ -1,126 +1,132 @@
-Received: from mail-ed1-f54.google.com (mail-ed1-f54.google.com [209.85.208.54])
+Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54EB73EC814
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 18:28:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.54
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788546487; cv=pass; b=r4Y2c5GWULLjsrcPlSP100uDzomb3x0DW3EEQHdTpP5RzGzFutodEJk05pb+3wgiaO+cgCNLk+RGKsvBUMTejWLRIhioQU+r/xUx+m+Xcq+R1WgZ3afcfSiLRPy5e69iXr7j8IpDye5W0uO08GIx5ZmN6LcieezEt6S2jSkGdDE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788546487; c=relaxed/simple;
-	bh=kIYgiSZ7YV7WDfHeQrNvX8UYXcdwtFclhCQ/c6/wqkE=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=ICtA33qMICLODKx3BOQ7Q3ALKwUip3QScatIU6FVliIARSH0b8xnTPpbqR8D3YyoWNTXoaFBahY2vLBl7bzUvPIxQLngt7KOfYCqWqaHdZZMlkWLdYWZvW2eTqt6zNgcyzw9r0ODdh+9Nd5c3UavX8AGcxg+IahZmKLl7DnTY5c=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=U8j9eP2m; arc=pass smtp.client-ip=209.85.208.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDBDA51D536
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 18:30:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.49
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788546631; cv=none; b=rq1lFBXhz/43Og+PTX7ya7z3+I8aBmajNJOz9+aiF/UTGlDo3RqZN63kIr8PZtqpIoHFNDkVVbnzEt2vFbWhSRfZ9T23I/T3j8KgQNz3nc6faCcxj+6Rv8F18b/WBhS/rykl0ZfEsAMq9JWAsgcOqrzATob+VrZhvsy2xXeOZkI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788546631; c=relaxed/simple;
+	bh=HysE8E520xaY1nEBjzznqC8+2L5Rvn2iXKzzy72uc34=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=gqyPf7MhzEcdq/q3bJhBUTaADO2PqOvHxMXSMFaFzOASDyXMRozL9kFK6WECBtJxvXIW439gUbWwGQmvZy4jJvKZIxQMjHatqoQfSQObLUrPLjTwFHDuAxWc83n8RBQxcSymOcw6WDrwl5OhpaXaRdVUCxyQR0DjC1t3eg16ayA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nzm6ajfC; arc=none smtp.client-ip=209.85.221.49
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="U8j9eP2m"
-Received: by mail-ed1-f54.google.com with SMTP id 4fb4d7f45d1cf-6a6868f18aeso1970426a12.0
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 11:28:06 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788546484; cv=none;
-        d=google.com; s=arc-20260327;
-        b=QIcBRQidwlMxNnjyZpGhfomfhhHnVZeDCucDXHcxjyfOVn1j3og/yMHjNy+1QEkryq
-         uuKoiEN2BSAKQq0IabAvIxCYWye2KImD1TZmgtTsme4mmDx2UsKMLeFRcEaSj4loJSB/
-         6HB3Sse+JU+xrXwswjq42yD1V3VKsYoKFwzU6RXC/kPZ9si6g+VPd8Ci7lRkOySJjsE7
-         91wLJd35F2sJbH0GUEOubbiPwfePxpd2WZfmmWHS8yj7UNOBkw3lcS9A6pJ4c6JheEaK
-         ao3OR2zt6zNFs9v+pYWf/IomANBm1B2LEiQBB1CrIx6B7XZmPuz7n4CB9y8pDNFVjf4Z
-         iXFg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=gNbP/W4xLE3i1okNIsOPU2vpDyzXNTwhcTGTap6FKmM=;
-        fh=Q1v2jIndBKOImPadM6AgHwwVZhMegQe2oQMtHixm4IU=;
-        b=pCScAa98Hs2B3s+e026xLZb5mt7ftWC7BeuT2rvhzc+sQXp1hY3+jN2+M1i5MEaPE2
-         FV3oyiGJupEtDSsP8DVTIrkt+4n+LEHywGl3YTgk5J7BLmXDpie8+EivZ1a4iuwsoMcC
-         rG93xQQ6DuYGMEVlqg/I4bJ5NOW4pu7LtqNs0NWDx6cCsT2E/7chjclxEJT0Q29ZWyjd
-         VZXFCucln0VhkocrSPaUlcJuqNQhFKtLCS6Cwy4tzTvZMPPvVzrjYCPa1T+ahNa18jA8
-         wEVwE1pIXY4rvY4cmRkeGOLj9DAG7wh7lIAOMdLokXnEUsC7cMXYMWKrWTvBCguup1wP
-         T6Mg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nzm6ajfC"
+Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-47fe89fb333so877705f8f.3
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 11:30:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788546484; x=1789151284; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+        d=gmail.com; s=20251104; t=1788546628; x=1789151428; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=gNbP/W4xLE3i1okNIsOPU2vpDyzXNTwhcTGTap6FKmM=;
-        b=U8j9eP2mbXBIsGv4hDM3ZnWicQtE/2uZOHMaPJVosvWQtMRSyQb+sFCuwOPxOEzakI
-         aLnARD0Y1h8seX+ECcljWNOzyp1R3H3ZcVPZ3Gd4V8BQnrzchYrPuXM7mMtc7C+/cWvS
-         mNoD6HnUC99uv1o1KDacTTOCar+EduyyKe9WXLT4r4n5EOF1C22gRfnEyA5pEakEOh4r
-         /RjMB0ks192hUH9aR3uM2pHzCPNFdCjp4T3YXTV1rqisOiKKQX3evaBd+owUNPDXCBg3
-         TiHpWsxlyum9K6pHDe4A7273bcRAbBCqNVX22inTxe7AhH8S38elVWBtaTgEAAqZpD09
-         2eQQ==
+        bh=pS8SrzEdQfP6FKVjpNTwfBtizGm0EeLQRKJ2J54uwcY=;
+        b=nzm6ajfCFcVgwwdYB03s/LpHcVwvIjwinx1X8oHP+WzzyB4TXCJXDQRi8MozgJ7q8q
+         FXO6zHT1GfdltPqYzaRP1YUe0oHTp73XTZu9h60I7H3mGhRCeosYI0qbMNU3oPnS/kW7
+         CWyZR+Mqix9rYztnoxhzYvah7XGbEqIK7HcLdP55OP5ouEmzHU++tKlUFxQ+wxN9fJbS
+         kSVUhhgO5HGCLx7IIXjOelzEZW/8zr322Pfvaj+XvJT3Hmy2sPR/bCn/U/2CPOCJfYum
+         CuT+wGRCb0E2YpDW1Ik7CPYjZx9OlKvvOhoOUUwR0JI/83y+0/qZ3NuDTeCVtuRYKzHD
+         5kCw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788546484; x=1789151284;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20251104; t=1788546628; x=1789151428;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=gNbP/W4xLE3i1okNIsOPU2vpDyzXNTwhcTGTap6FKmM=;
-        b=J3htAM67ujH0ZiBdAi3vAFFNu0lMLifgFe1RowtZYJifGB1FF6So8G/5a/vdEncQbN
-         vH89NEGlaWGnDLwXYpGDOf1h5/m4O5jEDvMeV9K7LZm7CKEeiiXfC2LWxetx3avM/V6R
-         WwD6zMaCIbdQwG/fEa+CjDdMiNateyJ9Fv0+if5yUAxw309aG1DuDLn5zNBG8TQ79tjU
-         evbjn+41R6BdTNmCwtdg1PEyG4SwgkqZyzrQnBBIIbe5CUiecvjCEfTmdX6fitaHw4iL
-         zwCyyAylBjHbcSpfP+V2lxNxFcGD2NlXoVMWB1bJEAmOdXIOPMN6X8XC6hWZhO45QO3Q
-         HxRA==
-X-Gm-Message-State: AFuF++llfQxUEYdQIxyAZAtEQZqOGIdmi6jiIpm5/gxkj7nLSSEClS4M
-	LI/51kwsVtVW0x/s7/fdEt+bn5nbL7KQgoMJ2e3QraEk1CDN/12IAW1qnITQLmGMF4PFk5jUhlm
-	CHBua1/hG/JCPC48aExzfI2sm1mFTTmA=
-X-Gm-Gg: AYBFou0eXssA+KaCoXIXWVB9XAHAJsQYJ3Hd0jUyKiFUMwQYSGSWPIjbAy4Mhy80u+6
-	ghTA9tqQI4+98ZqPXQuSCN0Uv/cSKkFt92SyL+0wP64Qjl81l4cC81ndXo3OJXe2Ri/jn9rCo81
-	zrK7WZqqqzoN4kT+ZrhrQZA0J2gVSjqY6fsQjKG1SSk/Ly/EFsgIxRCrOy5r5GUmxZUQUdALay4
-	3DUoSgH+rF57pCQkSqr/3yxk8SEd7DQB/cKEP+ZgZxDL6NvG8KrtJAYJUX87oFklrHDwd2kth9G
-	jpSbI5YNf/6wQSluRux8UGW7dlnd5RJ+zG/pMTCvenibvOKvbkuJyjW09FuveW5h/esUVfxwx9y
-	hhOKQQ8GHowyedu9bzIo6flvC+eyvUnGBnZ8LiOgFMFTLSlRSOCDcUKKeflsAi6sfXvK12jgJZ3
-	WDdTu1nA1KrU3vOqUwE4Eo+/q7tUGLFAeGLUNWxP4ftaNEyK5IyD/TPYY=
-X-Received: by 2002:a05:6402:1d4d:b0:6a7:ee55:dcd9 with SMTP id
- 4fb4d7f45d1cf-6a7ee55de4bmr1867044a12.40.1788546483976; Fri, 04 Sep 2026
- 11:28:03 -0700 (PDT)
+        bh=pS8SrzEdQfP6FKVjpNTwfBtizGm0EeLQRKJ2J54uwcY=;
+        b=TXVeuHQMHGHgiRu4NSjK7sxz/UR0CRJtSHTVkMuOp4+8ba4A7/PhWopb0fMQRVHAeL
+         f9Oc0rBJIP/IIWBfP5dfzVHhz/msveOMeuOW2WcAmWqp90mXfEOS6qrOF8lrYlsa92wj
+         HPR1orRGeia0ydnXcM4FlLi03HiYt6dZzueD7Z19KcR1SyNVIlARplGlmsR6EN0UHgQT
+         aPDoRtHFt11Khys2lBEzoKHRjZZXWV9GNqCCXKxA5m64fFxVajMJ4rTiZgqkiRrO8TWC
+         srHRMwF4NXF7tU7yr/Zt/jpoccr8yF0PzxSvqvJAzDJ93TwX7Wigrn5HM0s7dSmtIrf8
+         T1nQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzUoNzLLxONy+RXiO8t7d1h6B0bl6gtJmLYvB0BdvzZj/nfYPuL9jAAZYll75xGhaBEU0e2VBxNEM1aVWw=@vger.kernel.org
+X-Gm-Message-State: AFuF++mMz7tcUUbC0NEDaC8ku9ePshz6bhe/tsrgdSd7p/ejZlUgGphb
+	S6P/kH0kV4xDct/i2ItFB4oHAeFDWY1ExjzWExFHTuOiXoCzrhKElPz4
+X-Gm-Gg: AYBFou12Kldia+XTu52vi53V+46F2wT0GHUR8MsZ/5ekjicdhkooMRBfaecv/XwLJEC
+	Xm4i9E0CUmGXep8eR2glsdjoDTtjvL1rA5aHtexqa81gIP5Ci/wRo930otdWvNSL6Z5UjEFRgry
+	DTcWpFIPel1lCWT9NyaJWId6ZbJNmXIkdZ7gKJuu6wK+P0O7yAOvRkYzEnhvMh74tLn8875sUNd
+	i9TQHGJPpuOuOS8gGGXqRg8MDNQmTtz5Np4V2ZsYqS72Z8sqn28EMWWhG9UCmA9sN3Yas+6X4nV
+	7iry02fcWiLk1rf3s5lDeD6HZlLnKxuVVpgZWSTN+tz67nqy6uTZORwXq35tFw2yWoxECj6IruT
+	neSapfaCwyVsdWEFEnsxPuTk7QZiTKcKfq8EQQ3z6v1ZsrHzXZSS7TGI2dCtaZJlMndKVW5+8FL
+	apkknpAxFumRWyE2jBVDHrn72+qoCNkT9fIy3LwhA7extolnVx/9KAt+3WZ7iDyjDAOCN5Nn39O
+	Y3OBA7K7YMec0VhgIikVA==
+X-Received: by 2002:a05:6000:250f:b0:485:8a47:5b8a with SMTP id ffacd0b85a97d-4858a475d57mr7048023f8f.39.1788546627780;
+        Fri, 04 Sep 2026 11:30:27 -0700 (PDT)
+Received: from foxbook (bfg95.neoplus.adsl.tpnet.pl. [83.28.44.95])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-485885bfe14sm8659525f8f.35.2026.09.04.11.30.26
+        (version=TLS1_2 cipher=AES128-SHA bits=128/128);
+        Fri, 04 Sep 2026 11:30:27 -0700 (PDT)
+Date: Fri, 4 Sep 2026 20:30:24 +0200
+From: Michal Pecio <michal.pecio@gmail.com>
+To: wakasio <scarabeeta@gmail.com>
+Cc: Mathias Nyman <mathias.nyman@intel.com>, Greg Kroah-Hartman
+ <gregkh@linuxfoundation.org>, linux-usb@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: xhci_hcd / ASMedia ASM4242: Bulk-OUT -EPROTO with Logitec
+ 0789:0308 during DVD+RW recording
+Message-ID: <20260904203024.52398f1f.michal.pecio@gmail.com>
+In-Reply-To: <20260904154652.65709-1-scarabeeta@gmail.com>
+References: <20260904154652.65709-1-scarabeeta@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260430221123.79947-1-rosenp@gmail.com> <20260903174710.yxgdfqjt5neryhjh@earshot>
- <CAKxU2N_SPEoxJ2jE_Dm2AtYW5vxU-Cx66knCDL21bPGdbpHhCw@mail.gmail.com> <20260904180343.ppckrd3ohix6ftyf@jockstrap>
-In-Reply-To: <20260904180343.ppckrd3ohix6ftyf@jockstrap>
-From: Rosen Penev <rosenp@gmail.com>
-Date: Fri, 4 Sep 2026 11:27:52 -0700
-X-Gm-Features: AcwNN1XLyC19AVAZpQEsxXl3GhdmSNTfJNBvK98SfkjT3U4vwc55YNcNsW9TbUc
-Message-ID: <CAKxU2N_f3XxNnYPxTYth2NXu6srX+aXZ3zRgunVdPPfMMJsJBw@mail.gmail.com>
-Subject: Re: [PATCH] firmware: ti_sci: simplify resource allocation
-To: Nishanth Menon <nm@ti.com>
-Cc: linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Fri, Sep 4, 2026 at 11:04=E2=80=AFAM Nishanth Menon <nm@ti.com> wrote:
->
-> On 13:34-20260903, Rosen Penev wrote:
-> [...]
->
-> > > make[5]: *** [scripts/Makefile.build:290: drivers/dma/ti/k3-udma.o] E=
-rror 1
-> > > make[4]: *** [scripts/Makefile.build:551: drivers/dma/ti] Error 2
-> > > make[3]: *** [scripts/Makefile.build:551: drivers/dma] Error 2
-> > > make[3]: *** Waiting for unfinished jobs....
-> > > make[2]: *** [scripts/Makefile.build:551: drivers] Error 2
-> > > make[1]: *** [/workdir/Makefile:2232: .] Error 2
-> > > make: *** [Makefile:248: __sub-make] Error 2
-> > >
-> > >
-> > > If I am not mistaken, k3-udma.c and k3-ringacc.c will be impacted. ca=
-n
-> > > you check and update the patch?
-> > Just the former.
->
-> OK, I would'nt be able to apply the patch which breaks build.
-There's already a v2 of this.
-> --
-> Regards,
-> Nishanth Menon
-> Key (0xDDB5849D1736249D) / Fingerprint: F8A2 8693 54EB 8232 17A3  1A34 DD=
-B5 849D 1736 249D
-> https://ti.com/opensource
+Hi,
+
+Please wrap your lines at 72 characters and maybe ask your LLM to write
+something that a human can read within reasonable timeframe ;)
+
+On Sat,  5 Sep 2026 00:46:52 +0900, wakasio wrote:
+> On an AMD X870E system with an onboard ASMedia ASM4242
+> USB4/Thunderbolt host controller (PCI ID 1b21:2426), a specific USB
+> Bulk-Only-Transport optical drive (HL-DT-ST BD-RE BU40N, running
+> "OmniDrive" third-party firmware) reliably fails during sustained
+> large writes (optical disc burning, i.e. SCSI WRITE(10) with large
+> multi-block data-out phases) when connected through this controller's
+> ports. The Bulk-OUT data-stage URB completes with -EPROTO after
+> transferring only part of the requested data, at an unpredictable
+> byte offset, well before completion.
+> 
+> The exact same physical cable, adapter, and drive succeed 100% of the
+> time (byte-perfect, verified via SHA-1 against known-good reference
+> images) on every other USB controller in the same machine (a separate
+> 10Gbps Type-C host path/controller, the chipset's own rear USB-A
+> ports, and a front-panel Type-C port). A second, completely different
+> USB mass-storage device (an internal DVD-RAM drive, HL-DT-ST DVDRAM
+> GUD1N, attached via an unrelated ASMedia USB-to-SATA bridge dongle)
+> succeeds 100% of the time on the same problem controller/port that
+> fails for the BU40N drive.
+> 
+> Read operations (large Bulk-IN transfers, e.g. ripping discs with the
+> same drive through the same controller) have never failed in several
+> days of prior use. The failure has so far only been observed with
+> this device/controller combination during sustained higher-rate
+> DVD+RW recording workloads. Bulk-OUT is necessary for the observed
+> failure, but is not by itself sufficient: CD-R and 2x DVD-RAM writes
+> on the same device/controller combination completed successfully (see
+> test matrix below).
+
+EPROTO would typically be bad link quality or some protocol violation
+by one or another end of the link. I guess you could try other cables;
+gigabit serial links are practically voodo magic.
+
+One quick check worth trying would be to see if xHCI "soft retries" are
+being used and to what effect. Run:
+
+  echo 'func handle_tx_event +p' >/proc/dynamic_debug/control
+  echo 'func xhci_reset_halted_ep +p' >/proc/dynamic_debug/control
+
+and see how much "Transfer error" and "Soft-reset ep" spam you get. Is
+it constant background noise or only one burst and then "Hard-reset"?
+
+Regards,
+Michal
