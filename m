@@ -1,60 +1,48 @@
-Received: from xmbghk7.mail.qq.com (xmbghk7.mail.qq.com [43.163.128.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-184.mta1.migadu.com [95.215.58.184])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A1553F4827;
-	Fri,  4 Sep 2026 15:27:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=43.163.128.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BD8F4EC661
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 15:28:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.184
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788535672; cv=none; b=TTZhduBlax8BifXSkSVm6Dd8NqiDcc1XlWTT4bH+bKY3dD94H/mDx3OSY8rV/zBQtvcG2DBdtRnRD7sJY0VU2X0kxsVs3OV4Fg6wN/fBb19vUBNC/SuFg1n1Yvw/JdTxq42Q7e0QvUb4DyuGXjIBxKkT4mXEIxXZqG1SB75Vlvg=
+	t=1788535684; cv=none; b=nWpsLVAj6S9l789gMm9wYQatZ9cuEq07qyEhAa/SDaOfOQPhrLqDgogPP9oW5YYsrBAmTMzXOAUXOgvWof1ef+s+sDFmHmdXJmSgiG02yNO9d+Foa6ydw4htMVWRBw8uTG+04fsdRdds4uOLnmX2duMjBO6B/sGsRT4BHrR8+Ms=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788535672; c=relaxed/simple;
-	bh=QQ8diKhFHWJAtIfnEYnoYfmqFG689W2ITKxC2kRfle8=;
-	h=Message-ID:From:To:Cc:Subject:Date:MIME-Version; b=bGahnDCFrZogzqoHZGxgTlCUdvmSalB6Gz5vFg70nk5WcajlLfnI9Q4JoOgy0aglQ4XeAn+cEPo/BtgAHaZvWve2AiUxgLpiW+4LV67jT/hR8UXpuIy3ki9oWyWupFf9H6t7dgCF1USdFHUSK9tnEmafxnRrche8zBgJRXIGSaA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com; spf=pass smtp.mailfrom=qq.com; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=NkMb9aZ4; arc=none smtp.client-ip=43.163.128.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+	s=arc-20240116; t=1788535684; c=relaxed/simple;
+	bh=khWOV4nhtNatbdG5MbKsnk+RFqMS0aXqdoGb+Au4O0w=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=S9NnrJVYrplGc82tgON9ON8lw0Rg7PyTFEfYNQmsQxuhFh7bBo/21NNJZklWFTH9u/defnIkVap4yM58UnnGZf1hSc53TCGtC8O5bkNP+N+ppK7fQU0mOwVJyL0wkKurxHWsKlxi84P0hcrbFd3NPTxDWU/oOT3paKnLUiL1siA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=jKxJP1lJ; arc=none smtp.client-ip=95.215.58.184
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="NkMb9aZ4"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1788535665; bh=p6YT/VL9q0sGuJwdEwSfwmPVh6F1cIy5Cuf+I+1m3tU=;
-	h=From:To:Cc:Subject:Date;
-	b=NkMb9aZ4Uo9h20yRv0PVotH630F/z8jzd9XjL8NZk65KeJ+US/STEItOF8cPoPfnG
-	 Yvm6tuDMjffwP8C6Pe9cZa0vJT8VA+i9uAV4ZJfLJ43oZ3R8BnhdOIwRTXjYKkdvGJ
-	 Gb/pGGpubeyB3WSQAxCX1LOwwMl99cpAOmxNc37E=
-Received: from xgyy.localdomain ([2408:8352:603:550:ac27:2fd0:a691:b668])
-	by newxmesmtplogicsvrszb51-0.qq.com (NewEsmtp) with SMTP
-	id 69A3BE9E; Fri, 04 Sep 2026 23:26:26 +0800
-X-QQ-mid: xmsmtpt1788535586txwovzsal
-Message-ID: <tencent_B5154AEA68C02E81646C47664F2DCCB5AD0A@qq.com>
-X-QQ-XMAILINFO: MPcqOQWpcFrmJuKMPTvtbXjGodpt6d+d7SviPalG30iDXb48r+pVjbpHJRdI2v
-	 K1GoT2F2rnc6PmJjuO83odnHf1lDpKVUCamhV3hI3OrEOglXWzqAL0BzN+KBOLkCBJUON5a2Kujk
-	 UHgkMob5VYyWH12KV6TYHpTQYJzPzoNHCvh5fOL3x1XQjlPHZdQkUKvuEr1Yd1pRM32BHYjX/m9p
-	 fAYjYpa+SQUIlAtQORNarMkYAfeSBlPvaXY+liUZTe7qKMR1WIj+XeoI1Egtpnb+75wfv3i5Onjj
-	 OXDM7CpzqxUKdXScLjK7/25KoVw5GItQe2O62oudn4/dfZfqDt0DIlW2QCtA9KfPufar14O2e7h4
-	 STRy4Uc46O53jc8yk2ylfBZhnP1nEvQR+0BfCfeFVATa1Oo5CZuWLCSM/M8TigutBuF+nOXH2snC
-	 NHprylyZ9rfZIIza7UJWhiCItfZjQ94khiKMlk040c9ipjJB/dgY96JCnFTal68YWIvJl3tJXORy
-	 jr2xQN22GS7lOP60m5Qdaq2cfabrcCtB+4xrntkWyYpKNDiZV7Jvb7RY2EaHP+bd2l/QrWy9fuWN
-	 TdURmnbxP6OIK2eb11Nvt9qMTTeLc2xFo4RD7NmhwXBdlBQV29hRQA7LRtpiURAF1ixdmX8O6P3E
-	 MNpUHTWpXgCfb8zhxXePRS8dCqI91L32g2Q/UBST2a9Kux6nvT4tQ/YbKS+sa60278rGc+9z6SGM
-	 7nZAtL5HBSpggMjEXjHf3ISBrupYeLiOg1Y/VNG36dgErg9laCx06F5JyGLWoNdDT21oX18fWQLk
-	 FZHX5MME4KE2PrLjKqxgwFdlGpqWQkdOWjqSBvYGblbQjSwz0MxJBoc/pLy5wQpOLRyU//kAdIqf
-	 Q4E0Jk0gxddAl/TMdbyr/t5DPQ1iuhsT3l1SxkiD426ZY9pnQhtFgz1K/JseKb1Ox08raMMT2+yj
-	 9YigaPNqjrnBCo46N3pfMTQI/5LrrELES5OT2VI0klYBKwUAk+6xCFw50Jalhr2FHCYRl8QKrdiu
-	 SI4G4SR3vIIPoLeCOqJ/XYMUMDWnPgxRdFrbTLTaErm7yKYU5+Mkx8D6fBBotsxZyoGsIy+VGrkL
-	 TH41ii6DKMHBLDhuxr1+GiTew7WfFwM/0iiRy4cxgwDAzJMhMx5HPdnrT1P6mKYvgRiWLBA0zO/B
-	 oFKXAT/NAINrzJUA==
-X-QQ-XMRINFO: NI4Ajvh11aEjEMj13RCX7UuhPEoou2bs1g==
-From: Zhu Ling <zhuling0805@qq.com>
-To: linux-can@vger.kernel.org
-Cc: mkl@pengutronix.de,
-	mailhol@kernel.org,
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="jKxJP1lJ"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=khWOV4nhtNatbdG5MbKsnk+RFqMS0aXqdoGb+Au4O0w=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788535680; v=1; x=1789140480;
+ b=jKxJP1lJrFjjelRnizRjNFUBDTuNWzt3kX+HdvT/UKAPwYNznbC/xZVNIIlN+gDCctsOBwqY
+ bPmNdeCNydYZ2NV6pxjfn8+MGMtkhrE4HBhBwLyvLIqWEHQpkFZHThKQy7rpEfcSC1lUAAZz2+/
+ xyEDz4vqMeMw8zR4zPn/og/g=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 202a343dba7560ad;
+	Fri, 04 Sep 2026 15:28:00 +0000
+X-Mizu-Trace-ID: 202a343dba7560ad
+X-Migadu-Flow: FLOW_OUT
+From: Kaitao Cheng <kaitao.cheng@linux.dev>
+To: Alexander Viro <viro@zeniv.linux.org.uk>,
+	Christian Brauner <brauner@kernel.org>,
+	Jan Kara <jack@suse.cz>,
+	Dan Williams <djbw@kernel.org>,
+	Matthew Wilcox <willy@infradead.org>
+Cc: Muchun Song <muchun.song@linux.dev>,
+	linux-fsdevel@vger.kernel.org,
+	nvdimm@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Zhu Ling <zhuling0805@qq.com>
-Subject: [PATCH net] can: netlink: fix static FD-NON-ISO mode validation
-Date: Fri,  4 Sep 2026 23:26:20 +0800
-X-OQ-MSGID: <20260904152622.40779-1-zhuling0805@qq.com>
-X-Mailer: git-send-email 2.43.0
+	Kaitao Cheng <kaitao.cheng@linux.dev>
+Subject: [PATCH 0/2] fs/dax: Clean up busy page lookup helpers
+Date: Fri,  4 Sep 2026 23:27:47 +0800
+Message-ID: <20260904152749.84493-1-kaitao.cheng@linux.dev>
+X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -63,43 +51,24 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-can_ctrlmode_changelink() calculates ctrlstatic_missing before removing
-CAN_CTRLMODE_FD_NON_ISO from the static control modes when CAN FD is
-disabled. Consequently, the exception has no effect and disabling CAN FD
-on a controller with a static FD-NON-ISO mode fails with -EOPNOTSUPP.
+The dax_layout_busy_page() and dax_layout_busy_page_range() helpers were
+originally exposed so filesystems could find pinned DAX pages before
+changing file layouts. Filesystem callers now use dax_break_layout(),
+which provides the complete operation, leaving no direct users of these
+lookup helpers outside fs/dax.c.
 
-Calculate ctrlstatic_missing after adjusting ctrlstatic, restoring the
-behavior from before the offending commit.
+Remove the unused whole-mapping wrapper and make the remaining range
+helper private to fs/dax.c. This reduces the exported DAX interface with
+no functional change.
 
-Fixes: 6742ca18cb41 ("can: netlink: add userland error messages")
-Cc: stable@vger.kernel.org
-Signed-off-by: Zhu Ling <zhuling0805@qq.com>
----
- drivers/net/can/dev/netlink.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Kaitao Cheng (2):
+  fs/dax: Remove unused dax_layout_busy_page()
+  fs/dax: Make dax_layout_busy_page_range() static
 
-diff --git a/drivers/net/can/dev/netlink.c b/drivers/net/can/dev/netlink.c
-index 766d455950f5..26983f1b4077 100644
---- a/drivers/net/can/dev/netlink.c
-+++ b/drivers/net/can/dev/netlink.c
-@@ -321,7 +321,6 @@ static int can_ctrlmode_changelink(struct net_device *dev,
- 	maskedflags = cm->flags & cm->mask;
- 	deactivated = ~cm->flags & cm->mask;
- 	notsupp = maskedflags & ~(priv->ctrlmode_supported | ctrlstatic);
--	ctrlstatic_missing = (maskedflags & ctrlstatic) ^ ctrlstatic;
- 
- 	if (notsupp) {
- 		NL_SET_ERR_MSG_FMT(extack,
-@@ -334,6 +333,7 @@ static int can_ctrlmode_changelink(struct net_device *dev,
- 	if (!(maskedflags & CAN_CTRLMODE_FD))
- 		ctrlstatic &= ~CAN_CTRLMODE_FD_NON_ISO;
- 
-+	ctrlstatic_missing = (maskedflags & ctrlstatic) ^ ctrlstatic;
- 	if (ctrlstatic_missing) {
- 		NL_SET_ERR_MSG_FMT(extack,
- 				   "missing required %s static control mode",
+ fs/dax.c            | 24 ++++++++----------------
+ include/linux/dax.h | 12 ------------
+ 2 files changed, 8 insertions(+), 28 deletions(-)
 
-base-commit: 641d03105cc0d2437e32fdeec164f91a4ccef6c4
 -- 
-2.43.0
+2.50.1 (Apple Git-155)
 
