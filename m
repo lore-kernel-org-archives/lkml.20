@@ -1,129 +1,84 @@
-Received: from meesny.iki.fi (meesny.iki.fi [195.140.195.201])
+Received: from canpmsgout12.his.huawei.com (canpmsgout12.his.huawei.com [113.46.200.227])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AA623A1A55;
-	Fri,  4 Sep 2026 08:18:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=195.140.195.201
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788509907; cv=pass; b=t3O6bsYXtqzMgfyScTnvk2Stl4rbtPCHJIefBH55DbJ4WT7H2j805LOOd51OOFYXDZVzNgVl3MYkKoccIVYORquba7awim9CaeEB4A31cRp9jI9eEjAA8ydfSekgMW6rtQ7ZRBRxUQ4lKuvu3Ku5GOa1I6crBqi21V4JAUCw76w=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788509907; c=relaxed/simple;
-	bh=Q2lKXmCTbe1Fz0DrCOCH3mugDRzyXRk4F6M5NHTm9MI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=pKUhWlOQ9s/wT+GlnGjDD9BmiUuwTrAQAb/CFtlnxtrtwdi0T/zXHzi0O6KLQWoX1/GUILJ1mlNoL5m7NrKzqN2Smeq2NuL7j9LOlttffnqQ46AkSNbt1P01OXfPzMXYewy8o3AMrJeR3iUDq0qVvVJcV6GAQ311H5t6JsuK3js=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iki.fi; spf=pass smtp.mailfrom=iki.fi; dkim=pass (1024-bit key) header.d=iki.fi header.i=@iki.fi header.b=YvXU9++w; arc=pass smtp.client-ip=195.140.195.201
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iki.fi
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iki.fi
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C9413E5A08;
+	Fri,  4 Sep 2026 08:18:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.227
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788509939; cv=none; b=k9ZzHQtGqlmf4V48jhrPoiR3aMzns9Rj1Yg4vSuoRDALAL3LmmaJ+klzVKoJoLkywmJ3LmuSCZ50J67axCzTKBwhUNaiHGynW2MFl8f5im9e6SzEhbc+QQrCpF4SVIVvXbldJrlJTnJC6P/vn9RlCcnDrKZASS+8RDljD8lMHQ4=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788509939; c=relaxed/simple;
+	bh=HNmXgmoAMksoht/4i8CVRwcYdk7auDsaJ38L54Gwr/8=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=CvogY/pSM/cXaazBBxbEJPj8c2R7uNoPf/loANayNQbMob0Apqvwvg+P1x50zYodXUB38DMs5nAT4RJB1E8rGSPSaH2a29XLc/o0LghQFRSdvC/xBC6RPlvOXjmCcuPmzUPnTbnngJdP51oEIQP67n8ZApBuWs7HNQ5V0gf/GWQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=wspXO/FI; arc=none smtp.client-ip=113.46.200.227
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=iki.fi header.i=@iki.fi header.b="YvXU9++w"
-Received: from hillosipuli.retiisi.eu (n18ws8cotq5gnfn8-1.v6.elisa-laajakaista.fi [IPv6:2001:99a:0:19f:4ce7:0:938c:d2f4])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: sailus)
-	by meesny.iki.fi (Postfix) with ESMTPSA id 4hbq961BhszyYR;
-	Fri, 04 Sep 2026 11:18:18 +0300 (EEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=iki.fi; s=meesny;
-	t=1788509898;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=kqEFpalpmG+kyV6JyFplYt2g7pNcxElzmsOOdBJo430=;
-	b=YvXU9++wQmpi9RGyg/yK+zy4uFATFFBz5ePUEgSJlGV2bpv+ke4bKim4A3pDj1yQ2iQmyA
-	+xJ17WwQnweVSonrXe/VhJSs1jId22J+txrjiKX+SkuTsSkpNbGh5QqLs3JYCKGUOI+OLm
-	e++LNtfvaJu+alh6gFfMVEyixRFrhks=
-ARC-Seal: i=1; a=rsa-sha256; d=iki.fi; s=meesny; cv=none; t=1788509898;
-	b=rrUJV69z6l8Vn1+LP/HJ3dabbxFo5ISnTfnoQbCQMx+tWPLh0Iy1n3BA/ts5++sTauMJq+
-	lRpPREJNEXfS5hcbiUhtKAd7K2ipKf9ahd2BKzq9wD9A7NVY97ooXhfr52ZuDig1DvIG9q
-	SEWUj67Rn/xPhIH2Xizu0fSjYBPn2+k=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=iki.fi;
-	s=meesny; t=1788509898;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=kqEFpalpmG+kyV6JyFplYt2g7pNcxElzmsOOdBJo430=;
-	b=i1cI5dvC54128hN8BDcv7b1P24WCiBnhntQJrrETQquOOy6JSOCPh0FHEnmf0jcv1Du2lb
-	3zbPSht7KEr/n9rVGEr2Sec4rOX542fPDdOGWjG4oSvfJx5PJYLgJ6NYfhkxZXOgFv5omE
-	/lU2bK9a4NT3ktBejf0qYxEBJNvV0cQ=
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=sailus smtp.mailfrom=sakari.ailus@iki.fi
-Received: from valkosipuli.retiisi.eu (valkosipuli.local [192.168.4.2])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by hillosipuli.retiisi.eu (Postfix) with ESMTPS id 98F05634C5B;
-	Fri, 04 Sep 2026 11:18:16 +0300 (EEST)
-Date: Fri, 4 Sep 2026 11:18:16 +0300
-From: Sakari Ailus <sakari.ailus@iki.fi>
-To: Kate Hsuan <hpa@redhat.com>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Hans de Goede <hansg@kernel.org>,
-	Hans Verkuil <hverkuil+cisco@kernel.org>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Jai Luthra <jai.luthra@ideasonboard.com>,
-	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 1/3] media: i2c: imx471: Add line length PCK setting
-Message-ID: <app-yOyzA32vQE7e@valkosipuli.retiisi.eu>
-References: <20260904075113.125751-1-hpa@redhat.com>
- <20260904075113.125751-2-hpa@redhat.com>
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="wspXO/FI"
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=RRZfaKoBvhh1M5ju2v6XxhyN2vsiPEHeXEVYqH14rsk=;
+	b=wspXO/FIwLnA579VlStpAUmo08I2COkXywCT/q8Xt98HVj95yxLy6jmtLGLRaOul0TnZ9L9Iw
+	bKRvIbk93pU2PEVjwAdUAqGzS+h8pNYmhnrNWlc9qcGOv2AiqcxVzsZnkjCl4YE8varVs6XAx8M
+	yqBDr4gq9l40KtfqQ/8q5nc=
+Received: from mail.maildlp.com (unknown [172.19.163.214])
+	by canpmsgout12.his.huawei.com (SkyGuard) with ESMTPS id 4hbpws3HCSznTVx;
+	Fri,  4 Sep 2026 16:07:41 +0800 (CST)
+Received: from dggpemr200001.china.huawei.com (unknown [7.185.36.96])
+	by mail.maildlp.com (Postfix) with ESMTPS id 897754056C;
+	Fri,  4 Sep 2026 16:18:53 +0800 (CST)
+Received: from huawei.com (10.50.85.155) by dggpemr200001.china.huawei.com
+ (7.185.36.96) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.11; Fri, 4 Sep
+ 2026 16:18:52 +0800
+From: Ran Hongyun <ranhongyun1@huawei.com>
+To: <namcao@linutronix.de>
+CC: <axboe@kernel.dk>, <bigeasy@linutronix.de>, <brauner@kernel.org>,
+	<clrkwllms@kernel.org>, <frederic@kernel.org>, <jack@suse.cz>,
+	<jdamato@fastly.com>, <john.ogness@linutronix.de>, <kprateek.nayak@amd.com>,
+	<linux-fsdevel@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<linux-rt-devel@lists.linux.dev>, <linux-rt-users@vger.kernel.org>,
+	<mkarsten@uwaterloo.ca>, <rostedt@goodmis.org>, <stable@vger.kernel.org>,
+	<torvalds@linux-foundation.org>, <viro@zeniv.linux.org.uk>,
+	<vschneid@redhat.com>, <xry111@xry111.site>, <ranhongyun1@huawei.com>,
+	<chengzhihao1@huawei.com>, <yangerkun@huawei.com>, <yi.zhang@huawei.com>,
+	<wozizhi@huawei.com>
+Subject: [QUESTION] Are these issues PREEMPT_RT-specific? 
+Date: Fri, 4 Sep 2026 16:11:41 +0800
+Message-ID: <20260904081149.3000727-1-ranhongyun1@huawei.com>
+X-Mailer: git-send-email 2.52.0
+In-Reply-To: <ec92458ea357ec503c737ead0f10b2c6e4c37d47.1752581388.git.namcao@linutronix.de>
+References: <ec92458ea357ec503c737ead0f10b2c6e4c37d47.1752581388.git.namcao@linutronix.de>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260904075113.125751-2-hpa@redhat.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: kwepems100001.china.huawei.com (7.221.188.238) To
+ dggpemr200001.china.huawei.com (7.185.36.96)
 
-Hi Kate,
+The commit eb0d280c2751 ("eventpoll: Replace rwlock with spinlock") aims to fix:
 
-On Fri, Sep 04, 2026 at 03:51:11PM +0800, Kate Hsuan wrote:
-> Add the line length PCK setting to the IMX471 driver. This parameter
-> determines the horizontal line scan duration and is used to calculate
-> and control the sensor frame rate.
-> Set the line length PCK value to 0x0a00 (matching the original value
-> in ipu6-drivers), which maintains a frame rate close to the datasheet
-> spec (~150 FPS in 2328x1304 binning mode).
+1.Priority inversion – On PREEMPT_RT, rwlock_t readers lack priority
+inheritance (PI), so a low-priority reader holding the lock can be
+preempted by a medium-priority task, blocking a high-priority writer
+indefinitely.
 
-This fits on fewer lines, please rewrap.
+2.Stall – A reader (p_read) holding the lock can be throttled by CFS
+bandwidth control and scheduled out. A writer (p_write) blocks waiting
+for the lock, and a timer thread (ktimers/n) needed to replenish p_read's
+runtime is blocked due to writer-fairness (286deb7ec03d). This forms a
+circular dependency and stalls the system.
 
-> 
-> Signed-off-by: Kate Hsuan <hpa@redhat.com>
-> ---
->  drivers/media/i2c/imx471.c | 2 ++
->  1 file changed, 2 insertions(+)
-> 
-> diff --git a/drivers/media/i2c/imx471.c b/drivers/media/i2c/imx471.c
-> index 4053aed84340..3c939f2a9056 100644
-> --- a/drivers/media/i2c/imx471.c
-> +++ b/drivers/media/i2c/imx471.c
-> @@ -91,6 +91,7 @@
->  #define IMX471_CSI_2_LANE_MODE			1
->  #define IMX471_CSI_4_LANE_MODE			3
->  
-> +#define IMX471_REG_LINE_LENGTH_PCK		CCI_REG16(0x0342)
->  #define IMX471_REG_X_ADD_STA			CCI_REG16(0x0344)
->  #define IMX471_REG_Y_ADD_STA			CCI_REG16(0x0346)
->  #define IMX471_REG_X_ADD_END			CCI_REG16(0x0348)
-> @@ -240,6 +241,7 @@ static const struct cci_reg_sequence mode_1928x1088_regs[] = {
->  	{ CCI_REG8(0x030d), 0x02 },
->  	{ CCI_REG8(0x030e), 0x00 },
->  	{ CCI_REG8(0x030f), 0x53 },
-> +	{ IMX471_REG_LINE_LENGTH_PCK, 2560 },
+Are these issues PREEMPT_RT-specific? 
 
-The register definition is nice but there's already a control for this.
-Could you do this via s_ctrl()?
+Any clarification would be appreciated.
 
-There's also another set addressing related issues here
-<URL:https://lore.kernel.org/linux-media/20260904075113.125751-1-hpa@redhat.com/T/#t>.
+Thanks,
+Ran Hongyun
 
->  	{ IMX471_REG_PLL_MULT_DRIV, IMX471_PLL_DUAL },
->  	{ CCI_REG8(0x3f4c), 0x81 },
->  	{ CCI_REG8(0x3f4d), 0x81 },
-
--- 
-Regards,
-
-Sakari Ailus
