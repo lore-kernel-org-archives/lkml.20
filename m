@@ -1,33 +1,33 @@
-Received: from mta0.migadu.com (out-110.mta0.migadu.com [91.218.175.110])
+Received: from mta0.migadu.com (out-124.mta0.migadu.com [91.218.175.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2E3B455176
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 10:10:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.110
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0557E45562E
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 10:10:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788516641; cv=none; b=rqlup/6WaeAzVMT3YXC8wEokvE+sd+vEb8+NvfRjZQvFyWyZjEApy/DCpxSBYRtmArX/KULvoeGzqdoyOl/hfY3oNBf3OlrJFHhP0IpVepz82W+TA1sGgvOdztV8azG1ijXClzpu5MxgEXZC/AIYDiHa2cTEVxHhXsae6OlDeAk=
+	t=1788516645; cv=none; b=MBXmnVmyE1xaE6P4rBK5EldyYxUrubyw4ggJEPIFHa+PzOvx9TkSH5FQnhxD8v3ABiMHfDJ/IHFbEn5eh3S9BrEwgoQxkehBpLFKqoB4o94qUmXfixHqZoI8F0n8EhjAVsNYJay+gt1gbObWi0LR5R7VMFQlM/sVWYCNhNEU8RI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788516641; c=relaxed/simple;
-	bh=PHW2ypkolV+36MeBrIflBY2kZtvuYhFSqnZa7Us0mSc=;
+	s=arc-20240116; t=1788516645; c=relaxed/simple;
+	bh=3cPgANBsAN0TCTPt7lj+YGACHJ2FHFsC3fuQuOraQMA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=l2hbkk6ZG5iTXe2qno2RYp3le07YgLIQN1XoaZptNfo6EYOXNGHWM9HbA9QMHP+z2X0BrykHPpxiSILjCNIGnUu8FTGHvuXhFgkc4x9/yPAHulV7XRlOTt8eLR/YWIfCcrJD0jlqukw5O8zZ1eTiI10hB3WVRSPIvKS+qqpMemc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=PXOgys01; arc=none smtp.client-ip=91.218.175.110
+	 MIME-Version; b=syV0n6zHGPRQSmOlgPxOLmsg8WuKJ/sZlgHqaHGi6BHHWBxTckImYHly8OJ8vJtW/BPwkCg08m2wXU/MSFupC1yz0qP12ySCvEWE6NrkNy/cWQl2dxEGCo1NbdHNtDNooNvUGLxOqRy4yDAGo51XZscm9JQSBGnQhIqvFOkXtJc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=jOYuemRc; arc=none smtp.client-ip=91.218.175.124
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="PXOgys01"
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="jOYuemRc"
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=PHW2ypkolV+36MeBrIflBY2kZtvuYhFSqnZa7Us0mSc=;
+DKIM-Signature: a=rsa-sha256; bh=3cPgANBsAN0TCTPt7lj+YGACHJ2FHFsC3fuQuOraQMA=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788516627; v=1; x=1789121427;
- b=PXOgys016DDQhBb/QNKwSkffh+43zc78rYU4UKbXwE6RWxIzonFp+epRA1onkLuvSzHVdEL+
- VNsS5zGIUqkzkGmkoqh91TGfrg5FhVDnPYpbgM595l95zXwS+ioLRT2IssUtaRA8U+rJAL9eGUb
- AG038oagG6EWQpo4yMmgyNv4=
+ t=1788516636; v=1; x=1789121436;
+ b=jOYuemRcWo5KL+QgZmCOv9MMIDTecQV4sy4qKJZoKBEmf5d3iNXBGG9bnLcIf1/rcI4GcegT
+ fTUoHhog/yvL5xoVRmK1vLBPfhssLCgKuA5gqPNvAsN6NJaLVLdygn8180W+R8x0Ym3nDkEmxor
+ QWjA6/7/PTIMc6MQxWL3/CAY=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id b181acf3ff0b524f;
-	Fri, 04 Sep 2026 10:10:27 +0000
-X-Mizu-Trace-ID: b181acf3ff0b524f
+Received: by smtp.migadu.com with ESMTPS id 031a72623a973772;
+	Fri, 04 Sep 2026 10:10:35 +0000
+X-Mizu-Trace-ID: 031a72623a973772
 X-Migadu-Flow: FLOW_OUT
 From: George Guo <dongtai.guo@linux.dev>
 To: rppt@kernel.org,
@@ -50,9 +50,9 @@ Cc: ilias.apalodimas@linaro.org,
 	linux-mm@kvack.org,
 	linux-kselftest@vger.kernel.org,
 	linux-efi@vger.kernel.org
-Subject: [PATCH v5 2/5] liveupdate: synchronize EFI KHO channel at execution
-Date: Fri,  4 Sep 2026 18:08:49 +0800
-Message-ID: <20260904100852.26006-3-dongtai.guo@linux.dev>
+Subject: [PATCH v5 4/5] LoongArch: enable kexec handover (KHO)
+Date: Fri,  4 Sep 2026 18:08:51 +0800
+Message-ID: <20260904100852.26006-5-dongtai.guo@linux.dev>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260904100852.26006-1-dongtai.guo@linux.dev>
 References: <20260904100852.26006-1-dongtai.guo@linux.dev>
@@ -66,128 +66,40 @@ Content-Transfer-Encoding: 8bit
 
 From: George Guo <guodongtai@kylinos.cn>
 
-The EFI KHO configuration table is a global channel. Updating it while
-a candidate kexec image is still being loaded can leave the channel
-pointing at the failed candidate even though the previous image remains
-installed. Synchronize it instead from the image selected for execution.
+Enable ARCH_SUPPORTS_KEXEC_HANDOVER for 64-bit LoongArch.  It selects
+EFI_KHO whenever KEXEC_HANDOVER is enabled, so LoongArch uses the
+architecture-agnostic EFI configuration table channel
+(LINUX_EFI_KEXEC_HANDOVER_GUID) introduced by this series to carry the
+KHO state across kexec.
 
-Use the actual scratch payload size rather than its page-aligned segment
-size, and propagate update failures before live-update serialization.
-Keep clearing the channel for cold and crash images best-effort.
+LoongArch boots through EFI without a device tree, so it cannot use the
+/chosen FDT path that arm64 and riscv use; the EFI configuration table
+channel is its handover transport.  No arch-specific setup.c reader or
+machine_kexec_file.c writer is needed -- both live in the generic EFI
+code.
 
+Co-developed-by: Kexin Liu <liukexin@kylinos.cn>
+Signed-off-by: Kexin Liu <liukexin@kylinos.cn>
 Signed-off-by: George Guo <guodongtai@kylinos.cn>
 ---
- kernel/crash_core.c                |  7 +++++++
- kernel/kexec_core.c                |  5 +++++
- kernel/kexec_internal.h            |  3 +++
- kernel/liveupdate/kexec_handover.c | 33 ++++++++++++++++++++++++++++++
- 4 files changed, 48 insertions(+)
+ arch/loongarch/Kconfig | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/kernel/crash_core.c b/kernel/crash_core.c
-index 2b36aa9fade0..6166ce4203d3 100644
---- a/kernel/crash_core.c
-+++ b/kernel/crash_core.c
-@@ -138,6 +138,13 @@ void __noclone __crash_kexec(struct pt_regs *regs)
- 		if (kexec_crash_image) {
- 			struct pt_regs fixed_regs;
+diff --git a/arch/loongarch/Kconfig b/arch/loongarch/Kconfig
+index a21f51e5815e..5eaa65578d58 100644
+--- a/arch/loongarch/Kconfig
++++ b/arch/loongarch/Kconfig
+@@ -685,6 +685,10 @@ config ARCH_SUPPORTS_KEXEC
+ config ARCH_SUPPORTS_KEXEC_FILE
+ 	def_bool 64BIT
  
-+			/*
-+			 * A crash image carries no KHO state: clear the
-+			 * transport so the crash kernel boots cold instead
-+			 * of reviving from stale state.
-+			 */
-+			(void)kho_sync_channel(kexec_crash_image);
++config ARCH_SUPPORTS_KEXEC_HANDOVER
++	def_bool 64BIT && EFI_STUB
++	select EFI_KHO if KEXEC_HANDOVER
 +
- 			crash_setup_regs(&fixed_regs, regs);
- 			crash_save_vmcoreinfo();
- 			machine_crash_shutdown(&fixed_regs);
-diff --git a/kernel/kexec_core.c b/kernel/kexec_core.c
-index dc770b9a6d05..147f5b5b23d4 100644
---- a/kernel/kexec_core.c
-+++ b/kernel/kexec_core.c
-@@ -1146,6 +1146,11 @@ int kernel_kexec(void)
- 		goto Unlock;
- 	}
- 
-+	/* Synchronize the handover transport with the image being executed. */
-+	error = kho_sync_channel(kexec_image);
-+	if (error)
-+		goto Unlock;
-+
- 	if (!kexec_image->preserve_context) {
- 		error = liveupdate_reboot();
- 		if (error)
-diff --git a/kernel/kexec_internal.h b/kernel/kexec_internal.h
-index 228bb88c018b..4d4c2290e85c 100644
---- a/kernel/kexec_internal.h
-+++ b/kernel/kexec_internal.h
-@@ -46,6 +46,7 @@ struct kexec_buf;
- int kho_locate_mem_hole(struct kexec_buf *kbuf,
- 			int (*func)(struct resource *, void *));
- int kho_fill_kimage(struct kimage *image);
-+int kho_sync_channel(struct kimage *image);
- #else
- static inline int kho_locate_mem_hole(struct kexec_buf *kbuf,
- 				      int (*func)(struct resource *, void *))
-@@ -54,5 +55,7 @@ static inline int kho_locate_mem_hole(struct kexec_buf *kbuf,
- }
- 
- static inline int kho_fill_kimage(struct kimage *image) { return 0; }
-+
-+static inline int kho_sync_channel(struct kimage *image) { return 0; }
- #endif /* CONFIG_KEXEC_HANDOVER */
- #endif /* LINUX_KEXEC_INTERNAL_H */
-diff --git a/kernel/liveupdate/kexec_handover.c b/kernel/liveupdate/kexec_handover.c
-index 39f489a258d9..3aa5c66dfc6d 100644
---- a/kernel/liveupdate/kexec_handover.c
-+++ b/kernel/liveupdate/kexec_handover.c
-@@ -14,6 +14,7 @@
- #include <linux/cma.h>
- #include <linux/kmemleak.h>
- #include <linux/count_zeros.h>
-+#include <linux/efi.h>
- #include <linux/kasan.h>
- #include <linux/kexec.h>
- #include <linux/kexec_handover.h>
-@@ -2074,6 +2075,38 @@ int kho_fill_kimage(struct kimage *image)
- 	return 0;
- }
- 
-+/*
-+ * Synchronize the handover transport with the image that is about to be
-+ * executed.  The EFI config table channel is global, while kexec keeps
-+ * separate images for a normal reboot and for crash.  Write the state of the
-+ * selected image immediately before it is executed, rather than while a
-+ * candidate image is being loaded, so a failed replacement cannot leave the
-+ * channel pointing at that failed image.
-+ *
-+ * An image loaded through the legacy kexec_load() syscall, a crash image, or
-+ * an image loaded while KHO is disabled carries no handover state.  Clear the
-+ * channel for those images so the next kernel boots cold instead of reviving
-+ * from stale state.  Clearing is best-effort because an absent channel cannot
-+ * affect a cold boot.
-+ */
-+int kho_sync_channel(struct kimage *image)
-+{
-+	int err;
-+
-+	if (!image->kho.fdt || !image->kho.scratch) {
-+		efi_kho_update(0, 0, 0, 0);
-+		return 0;
-+	}
-+
-+	err = efi_kho_update(image->kho.fdt, PAGE_SIZE,
-+			     image->kho.scratch->mem,
-+			     image->kho.scratch->bufsz);
-+	if (err)
-+		pr_warn("failed to update EFI config table: %d\n", err);
-+
-+	return err;
-+}
-+
- static int kho_walk_scratch(struct kexec_buf *kbuf,
- 			    int (*func)(struct resource *, void *))
- {
+ config ARCH_SELECTS_KEXEC_FILE
+ 	def_bool 64BIT
+ 	depends on KEXEC_FILE
 -- 
 2.53.0
 
