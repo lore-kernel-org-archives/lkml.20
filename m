@@ -1,159 +1,176 @@
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A00DC41A54B;
-	Fri,  4 Sep 2026 06:15:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE4E0419FC5;
+	Fri,  4 Sep 2026 06:15:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788502529; cv=none; b=ekqECcmqFdrU+qMkGQ7020MUv4Li1LWKXK6cPKkqYKitLDc8SEGvSqIZgvZVx/j2wnXE74ea/KXYxgMEvnUiPbbSPuLrQ2epMFgZhWWo33EIWsha1c+/ri1PgXKNLkNkOP1VwrM/O/17SQxIckU67SpNswi72zHoqIp7bt2XK54=
+	t=1788502553; cv=none; b=MEq25YGi3FLRLB8+MQVl5+oYDRDCiNiCmnW5TeBAK/3lgaR6rR70V0VuEiKLn1l2MiV7wxFRk96zjV6gEzKwkNzJDyaJyFC4I5EWa4B+fv1R4kgisvjCyU6HOUFLGAQ40sp8brw7TH8AQPoY2pfDx7r0hGA5y7oPdeTrLWe5p70=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788502529; c=relaxed/simple;
-	bh=w0py64JAiTHH54rlutyVKlhVTkMXKEtppjhX7QwE64A=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=f8X3r6XmEkIxKk72PlvY9DRaGv73KgeAzoY9qHCVp6/5Pc3ECNdagVaIB0m8wY1Qfn5/Lu1aMc8U15hCMV0rFbYyeFxvS/18r/cI5kCxGDgv47ltJPZYC64ylvk8QbU6usu2AcqMPu6qVG12niHI4mtTrW7+avWpcg4knvCzLpE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=kys6+e3P; arc=none smtp.client-ip=148.163.156.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1788502553; c=relaxed/simple;
+	bh=SSF/ODoH1hWI8LNvU2KFZrn/Rr+pMa9UmLANysbUfak=;
+	h=Date:From:To:Subject:Cc:In-Reply-To:References:MIME-Version:
+	 Message-ID:Content-Type; b=d+wxkDVs+mqp2GPjiUxXxDKVgNpmSv97g3h163fhQMXCcKJY/QavWB2orxpwyP95tDQC5gskuzMhjRQf7kppEb/SbTRhXgaKJJ/TYWXnEslQT6JtdIAhN2SlmqPLSaRRk7amtLYCGurAs4qgR6PwixU4c6FKNJ8FLdicbY5blv8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=N9YNLiv3; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=6p3jbfWL; arc=none smtp.client-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="kys6+e3P"
-Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68464K3D936887;
-	Fri, 4 Sep 2026 06:15:15 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=Zs+bfG
-	sceV55tHLs8SsiQNaKNP5DpPT1h08NiQJeLmw=; b=kys6+e3PJSyHnYq7fzDLKK
-	nxLoSQyOeIuSz7fD0Ow2wo/BXlRMIbVS6yBRRyhFObp8nq3uUnD4rdNJRl3m8XRB
-	MtHaeTcn2YXyCNpDfUrfGO+HR0rByklLHb53cnAtI1DHSR7jp3HunwOQjFIn9wtM
-	JiCvtCgb8OqmdQt0O+oPEN8brRAoQpW42S/LVPmn8CJvSptbxlcd8NA3H4zzLusn
-	e03052eoKEdUcYP7kf1VFv8FBPdhHEpPTAt0Fq9lSx0djTsNypV3/Em0gICsGuvc
-	KTc09bRS4ypLaGls3YFcHPky8CPkX8aFHRCPqoao+5m8AUZZU7c2Yftu+zGLOslQ
-	==
-Received: from ppma22.wdc07v.mail.ibm.com (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gbpx611yp-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 04 Sep 2026 06:15:14 +0000 (GMT)
-Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma22.wdc07v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 6846Bhbb004591;
-	Fri, 4 Sep 2026 06:15:13 GMT
-Received: from smtprelay06.fra02v.mail.ibm.com ([9.218.2.230])
-	by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4gecjauwc3-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 04 Sep 2026 06:15:13 +0000 (GMT)
-Received: from smtpav05.fra02v.mail.ibm.com (smtpav05.fra02v.mail.ibm.com [10.20.54.104])
-	by smtprelay06.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6846F9M939059788
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Fri, 4 Sep 2026 06:15:09 GMT
-Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 6FC7B20043;
-	Fri,  4 Sep 2026 06:15:09 +0000 (GMT)
-Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 495B720040;
-	Fri,  4 Sep 2026 06:15:03 +0000 (GMT)
-Received: from [9.61.247.46] (unknown [9.61.247.46])
-	by smtpav05.fra02v.mail.ibm.com (Postfix) with ESMTPS;
-	Fri,  4 Sep 2026 06:15:02 +0000 (GMT)
-Message-ID: <2e33d09e-fe99-4ba4-a5ef-d456a8a1c039@linux.ibm.com>
-Date: Fri, 4 Sep 2026 11:44:59 +0530
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="N9YNLiv3";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="6p3jbfWL"
+Date: Fri, 04 Sep 2026 06:15:47 -0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1788502549;
+	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=ZUdKDc/Wg5EHKgG4giHJA+LHGo60MVh8xOPek4fiFO8=;
+	b=N9YNLiv3VNVTJfSLXrLdVAeRHwNeD2dUArJyZKLAi21p1IjkDz784vw8l/XVtRkbL+caqY
+	6A/HDcY3Zk0uHRlwzdXMXrQqtvxQNJPOQkFdh8tn+sK2g+owi6my6IkPGiuPHYdHQbgVtf
+	n70WVa+2ejxtaoJ0DmJJ8DWnt+fmJcV8U7sLRVBVhFuZUzSgxEeQBhW+uCQCFqlwGbfu41
+	0EWKhZ0oxaGLfiZ7NaRRfzB/bQJeMsgm7bzcmPILrh4Jmnn+WCsWTWJZGvwaeFBRH3wzG/
+	/GLUuZHEIwdpd8tyRSGV6ushUb667XIGuN0EFBPMyAoUo6gTKRgm/VzUmYOu8A==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1788502549;
+	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=ZUdKDc/Wg5EHKgG4giHJA+LHGo60MVh8xOPek4fiFO8=;
+	b=6p3jbfWLs3uS3pKudFH/jAWxTuEaQyJJ+QIHVipXgL2b1TfjqZRIKC78w2RRygliXRIcYb
+	D6dRQDO8engkRPAQ==
+From: "tip-bot2 for Yao Kai" <tip-bot2@linutronix.de>
+Sender: tip-bot2@linutronix.de
+Reply-to: linux-kernel@vger.kernel.org
+To: linux-tip-commits@vger.kernel.org
+Subject:
+ [tip: locking/urgent] futex: Prevent rcuwait use-after-free during requeue PI
+Cc: Yao Kai <yaokai34@huawei.com>,
+ Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+ Thomas Gleixner <tglx@kernel.org>, stable@vger.kernel.org, x86@kernel.org,
+ linux-kernel@vger.kernel.org
+In-Reply-To: <20260901135453.3121948-3-bigeasy@linutronix.de>
+References: <20260901135453.3121948-3-bigeasy@linutronix.de>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 06/10] pseries/plpks: fix self-reference in plpks_var
- initializer
-To: Srish Srinivasan <ssrish@linux.ibm.com>, linux-integrity@vger.kernel.org,
-        keyrings@vger.kernel.org, linuxppc-dev@lists.ozlabs.org
-Cc: maddy@linux.ibm.com, mpe@ellerman.id.au, npiggin@gmail.com,
-        christophe.leroy@csgroup.eu, James.Bottomley@HansenPartnership.com,
-        jarkko@kernel.org, zohar@linux.ibm.com, linux-kernel@vger.kernel.org,
-        linux-security-module@vger.kernel.org, nayna@linux.ibm.com
-References: <20260831111738.334857-1-ssrish@linux.ibm.com>
- <20260831111738.334857-7-ssrish@linux.ibm.com>
-Content-Language: en-US
-From: R Nageswara Sastry <rnsastry@linux.ibm.com>
-In-Reply-To: <20260831111738.334857-7-ssrish@linux.ibm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Authority-Analysis: v=2.4 cv=PPc/P/qC c=1 sm=1 tr=0 ts=6a9a61f3 cx=c_pps
- a=5BHTudwdYE3Te8bg5FgnPg==:117 a=5BHTudwdYE3Te8bg5FgnPg==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=iQ6ETzBq9ecOQQE5vZCe:22 a=VnNF1IyMAAAA:8
- a=VwQbUJbxAAAA:8 a=t0uVcPVhsug3MTqwcVsA:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-GUID: lXQqJ2oKxUgKTmmqJZbwtT8LYI6mYxWM
-X-Proofpoint-ORIG-GUID: 4Qtsx4D5r3SaZlfsNS9vwQHV4c8k5Yw5
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA0MDA1NCBTYWx0ZWRfXzewx17SIbfep
- XZajJR3uK4eI1HZkTdj3yqOq5Gal/aSviAHOYZOxpwRmKOPvxsXeKhsm78IhopyNRsl6aju8ful
- 1hK+USxRsvnqRQT2+EzrCEGdotf5vPM=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA0MDA1NCBTYWx0ZWRfX6D6bRr6lv8g/
- +3ELmooVlxITlqaqQNWsJo2mck5veSTyJccfRXaGdXxVUWCEctgjto6xub+Mj1B1ajzWDaXSL9r
- Joeer+aOdicq962qTo3v6cNDVAub3NE4hEGypc3qZ+yfK5w3MN/gIQKBfB9+MRpItvN0ebqbCjE
- +TwZLlgbKc8b1mjoORNLML8T12ZkUv3SVCQunQjphKbnQX+6W9qnyNtHBBOan5nQc/br9k61HjN
- +P4jK9HGLUPc4INMFvIL9eycQzVto1ZMBjtupsngBKg2Jnib0PgSZtZjDMEorHeOmA7d5YDGdFi
- n5LNq0RJlNpWCUxr4DUuSZK5p38RNt899NHb+gYujFYNJqdOQ/FnLydQ3ehMWdE6P8idVWAK0aD
- gRLKlWYQdRg4bF3nx0rpXP6454J6Nce4L8ujm+JezL8T4ShrKkPFrBiiMpEqHMocg9w97IfVs3u
- zMbwvSODqY49lp4ojTQ==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-04_02,2026-09-03_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 phishscore=0 adultscore=0 suspectscore=0 bulkscore=0
- spamscore=0 priorityscore=1501 impostorscore=0 malwarescore=0
- lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2609040054
+Message-ID: <178850254720.3717435.17296001352461108074.tip-bot2@tip-bot2>
+Robot-ID: <tip-bot2@linutronix.de>
+Robot-Unsubscribe:
+ Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
+Precedence: bulk
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 
+The following commit has been merged into the locking/urgent branch of tip:
 
-On 31.08.2026 4:47 PM, Srish Srinivasan wrote:
-> In plpks_gen_wrapping_key() and plpks_wrap_object(), strlen(var.name) is
-> used to initialize var.namelen within the same struct initializer. This
-> references a member of var before initialization of var is complete.
->
-> Use the compile-time length of PLPKS_DEFAULT_WRAPKEY_LABEL instead.
->
-> Reported-by: R Nageswara Sastry <rnsastry@linux.ibm.com>
-> Fixes: 133aa79e211d ("pseries/plpks: add HCALLs for PowerVM Key Wrapping Module")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Srish Srinivasan <ssrish@linux.ibm.com>
-Tested-by: R Nageswara Sastry <rnsastry@linux.ibm.com>
+Commit-ID:     a3b8d46fe401cba3a5c46dea610e6eb3dc15370e
+Gitweb:        https://git.kernel.org/tip/a3b8d46fe401cba3a5c46dea610e6eb3dc1=
+5370e
+Author:        Yao Kai <yaokai34@huawei.com>
+AuthorDate:    Tue, 01 Sep 2026 15:54:52 +02:00
+Committer:     Thomas Gleixner <tglx@kernel.org>
+CommitterDate: Fri, 04 Sep 2026 08:14:15 +02:00
 
-Tested on ppc64le PowerVM LPARs on firmware with wrap/unwrap support,
-with and without Secure Boot enabled.
+futex: Prevent rcuwait use-after-free during requeue PI
 
-Verified that PKWM initialisation and trusted key seal/unseal work
-correctly with the compile-time label length fix in place.
-> ---
->   arch/powerpc/platforms/pseries/plpks.c | 4 ++--
->   1 file changed, 2 insertions(+), 2 deletions(-)
->
-> diff --git a/arch/powerpc/platforms/pseries/plpks.c b/arch/powerpc/platforms/pseries/plpks.c
-> index b553f7b130b6..d582c786ccad 100644
-> --- a/arch/powerpc/platforms/pseries/plpks.c
-> +++ b/arch/powerpc/platforms/pseries/plpks.c
-> @@ -939,7 +939,7 @@ int plpks_gen_wrapping_key(void)
->   	int rc = 0, pseries_status = 0;
->   	struct plpks_var var = {
->   		.name = PLPKS_DEFAULT_WRAPKEY_LABEL,
-> -		.namelen = strlen(var.name),
-> +		.namelen = sizeof(PLPKS_DEFAULT_WRAPKEY_LABEL) - 1,
->   		.policy = PLPKS_WRAPPINGKEY,
->   		.os = PLPKS_VAR_LINUX,
->   		.component = PLPKS_WRAPKEY_COMPONENT
-> @@ -1034,7 +1034,7 @@ int plpks_wrap_object(u8 **input_buf, u64 input_len, u16 wrap_flags,
->   	bool sb_enforce_bit = wrap_flags & BIT(1);
->   	struct plpks_var var = {
->   		.name = PLPKS_DEFAULT_WRAPKEY_LABEL,
-> -		.namelen = strlen(var.name),
-> +		.namelen = sizeof(PLPKS_DEFAULT_WRAPKEY_LABEL) - 1,
->   		.os = PLPKS_VAR_LINUX,
->   		.component = PLPKS_WRAPKEY_COMPONENT
->   	};
+On PREEMPT_RT, FUTEX_CMP_REQUEUE_PI can trigger a KASAN report
+(slab-out-of-bounds) in futex_requeue_pi_complete() invocation of
+rcuwait_wake_up().
 
--- 
-Thanks and Regards
-R.Nageswara Sastry
+The futex_q used by futex_wait_requeue_pi() is allocated on the waiter's
+stack. An early wakeup can race with a PI requeue as follows:
 
+        waiter                          requeue task
+        ------                          ------------
+futex_wait_requeue_pi()
+  futex_do_wait()
+    schedule()
+                                       futex_requeue
+                                         futex_proxy_trylock_atomic()
+                                           futex_requeue_pi_prepare()
+                                            Q_REQUEUE_PI_NONE -> Q_REQUEUE_PI=
+_IN_PROGRESS
+* timeout/ signal wakes waiter *
+  futex_requeue_pi_wakeup_sync()
+   Q_REQUEUE_PI_IN_PROGRESS -> Q_REQUEUE_PI_WAIT
+                                           requeue_pi_wake_futex
+                                             futex_requeue_pi_complete()
+                                               cmpxchg Q_REQUEUE_PI_WAIT -> Q=
+_REQUEUE_PI_LOCKED
+    rcuwait_wait_event()
+      if (atomic_read(&q->requeue_state) !=3D Q_REQUEUE_PI_WAIT)
+       break /* no schedule() */
+
+ /* q.pi_state->owner =3D=3D current */
+ futex_private_hash_put()
+ /* return from syscall */
+                                              rcuwait_wake_up(&q->requeue_wai=
+t)
+                                                /* q is gone */
+
+futex_requeue_pi_complete() publishes Q_REQUEUE_PI_LOCKED before
+calling rcuwait_wake_up(). The waiter observes this state in
+rcuwait_wait_event() before invoking schedule() in rcuwait_wait_event().
+Here, the waiter is free leave the syscall before requeue task can
+complete the wake.
+
+To address this race skip rcuwait_wake_up() in the Q_REQUEUE_PI_LOCKED
+case.
+This state is only published by requeue_pi_wake_futex(), which saves
+q->task before futex_requeue_pi_complete() and wakes the waiter via
+wake_up_state().
+
+This wake is intended to wake the waiter from its futex_do_wait() sleep.
+If the waiter is still sleeping there, it can not get into the
+Q_REQUEUE_PI_WAIT state (and require this removed wake).
+Should the waiter be woken up from futex_do_wait() by other means (as in
+this example) and sleep in futex_requeue_pi_wakeup_sync() then the
+wake_up_state() from requeue_pi_wake_futex() will wake it, too.
+Should the waiter task terminate before wake_up_state() had a chance to
+wake the task then the task pointer does not become invalid because the
+futex_hash_bucket::lock is held and the task pointer is RCU protected.
+
+[bigeasy: Updated comment and commit message]
+
+Fixes: 07d91ef510fb1 ("futex: Prevent requeue_pi() lock nesting issue on RT")
+Signed-off-by: Yao Kai <yaokai34@huawei.com>
+Signed-off-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+Signed-off-by: Thomas Gleixner <tglx@kernel.org>
+Reviewed-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+Cc: stable@vger.kernel.org
+Link: https://patch.msgid.link/20260901135453.3121948-3-bigeasy@linutronix.de
+---
+ kernel/futex/requeue.c | 12 ++++++++++--
+ 1 file changed, 10 insertions(+), 2 deletions(-)
+
+diff --git a/kernel/futex/requeue.c b/kernel/futex/requeue.c
+index 79823ad..b3f4a4b 100644
+--- a/kernel/futex/requeue.c
++++ b/kernel/futex/requeue.c
+@@ -154,8 +154,16 @@ static inline void futex_requeue_pi_complete(struct fute=
+x_q *q, int locked)
+ 	} while (!atomic_try_cmpxchg(&q->requeue_state, &old, new));
+=20
+ #ifdef CONFIG_PREEMPT_RT
+-	/* If the waiter interleaved with the requeue let it know */
+-	if (unlikely(old =3D=3D Q_REQUEUE_PI_WAIT))
++	/*
++	 * The waiter in futex_requeue_pi_wakeup_sync() can interleave with the
++	 * wake below: It will assign Q_REQUEUE_PI_IN_PROGRESS and here it will
++	 * be updated to Q_REQUEUE_PI_LOCKED (locked =3D 1). The rcuwait_wait_event=
+()
++	 * will already read Q_REQUEUE_PI_LOCKED and skip the schedule() invocation,
++	 * leading to an access of futex_q::requeue_wait after the waiter returned.
++	 * In this case only we skip the wake here and rely on following wake in
++	 * requeue_pi_wake_futex() to perform the wake if needed.
++	 */
++	if (unlikely(old =3D=3D Q_REQUEUE_PI_WAIT) && new !=3D Q_REQUEUE_PI_LOCKED)
+ 		rcuwait_wake_up(&q->requeue_wait);
+ #endif
+ }
