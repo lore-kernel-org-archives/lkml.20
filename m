@@ -1,105 +1,231 @@
-Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com [209.85.216.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBD1C38DC6F
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 23:17:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DE663905E0;
+	Fri,  4 Sep 2026 23:17:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788563868; cv=none; b=JB4GYlpZu451j8uO/jYAc48CakZ4hRJybl4u18P7xBdcjpuOtLlKhUjjCgl6FQaHU81Lb1cvR/jSB/ETXfYY1upV7jFBl2lD34J0LTIGZb0Fr5uE2M4iws6ALS7n59p7sEEsYb8qp92YgTiEXDatiW1UnpYNnG8qQWkczrMuCL4=
+	t=1788563880; cv=none; b=Wf0NaBGT3L6UbRUJmITlU64tt+IPqJiVrjQn0/ZJBZrY90bT3Q/7BWit9uq/UVbE/HYzdzPAgeWgOhRNBz810UND4pc02Ss0cAzQHUKRwTbOxuNG800pkw5yDlWeN9weQ3gGL2BZATQerIP4E0ZU9MCtAfZc99J3OLu9W5C6i/A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788563868; c=relaxed/simple;
-	bh=A/04IOhzca9uffUMpozsBDexgxl0SILtBWiA8ENvges=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=MuUjcdKqRLUHUXpn0ojOzLi6UXcQqw8iOKoQqa1xSW9qoZCq+CDEErBRY76OLI4XYDUuI5NQex9jvzrkUUcyesnT+8h0xOV4jQHejXLazwVa7vLOT5TSMcc36XUa0IdB4fFKUG3XRFMJzs6A/abTp+41VFkrAypw6JXIJ+f1t08=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=purestorage.com; spf=pass smtp.mailfrom=purestorage.com; dkim=pass (2048-bit key) header.d=purestorage.com header.i=@purestorage.com header.b=UCNCjcUy; arc=none smtp.client-ip=209.85.216.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=purestorage.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=purestorage.com
+	s=arc-20240116; t=1788563880; c=relaxed/simple;
+	bh=Je5rppzro5SvsrXH8xm34g6LDa+dhjB0Fuob0zI6ygw=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=lR+/iUHk+0tGNGILUf1gNlcvKQxZkfcv/slwZacvioPtKx5B3xyUCa7DOJZlFPungVXJjwPHevF/v3TLFTYWJO05u3EVeOt9Ksag/UPu4DKaviCyv42mF+wkX6L1AukeBCmfdRUvtjznxwmwf1FwvU92+0scb9KiHJARL0MNK00=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dlJtH9t0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=purestorage.com header.i=@purestorage.com header.b="UCNCjcUy"
-Received: by mail-pj1-f54.google.com with SMTP id 98e67ed59e1d1-3964dfb5a69so2140034a91.1
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 16:17:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=purestorage.com; s=google2022; t=1788563867; x=1789168667; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=VIk52XWO87XyisUAZMMmHhSekpI+pY0wXT0ih9gfa9s=;
-        b=UCNCjcUy6bIUE2CqLl4AP1AdA4Rtp9TutxKIfdcQWoszogzyH8MfHq066IRlD1XBXR
-         0eIhCtOJu0dxkUEi09A9dk+fMJbYawJxw2/6CNJK6flz7UJH2HDrbtJ2y9PI24hkurER
-         YFpM+408mOjhCQZ6XfGGfd2HCjOCIWQOcxzgKvdvc8IAbdPgtsPdzHFXWfWo4fbKB0Oz
-         ute/CmY+OhJR01R+U4aydruwxwrF2R4BuSzv/qAUyAPcgnGn/SEiourp2SkPavw3CkP6
-         3JEhQ39rG0MZHvwoABiTOXSjL76qYuosGSOnIkfY1lDKKdDY+ttdZT2jzjrHPR4Lb7ZW
-         12DQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788563867; x=1789168667;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=VIk52XWO87XyisUAZMMmHhSekpI+pY0wXT0ih9gfa9s=;
-        b=ACMqbPAkSwAJ9iOONW01JWZTX47tuIdQyH5IInVtvZgvk7/+JMq4bzKgRSzfdH7Xsm
-         DUoKONNiJDPDyhsAciS8IRBghGlmK4fYXMhgmHiPj62jL/Q+bYc7f2/Et5wFscChySwy
-         xzbgxcoKU9sfk01rFeVoynyFIP4u+0sTNRrUIQmnc6XQlxFWceVriGKp67hQWhLZpcVF
-         oc9s6psQxTFLEPNWZtDwPb4sgFLcQhiRYFSFDl6sbFyI83MitYRSER6YFQqTbBw90kuJ
-         kQhjqZiRdHVhH2E/EKAMOiu2Ul5Lw/hUlh4XaXakltsiQ0jGSYEJH2FChwiiJu9uFifk
-         YEJA==
-X-Forwarded-Encrypted: i=1; AKwUvByNybDs291e0Utv2IJj45M2fTGbnNlykYTMKoE7n/ldB+1JsLmHPmPsAXrye1lgqUVr7sDcui298n1SGcQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++lyhU+TW2hrDShvZ/BIgAG20/YL0KQkPlftVRJdxQVyM5oHauJY
-	TQp+NgY6Lepdcx1A1b2lucdOu5KlqagaLqTcVm7se2Xz0gA9jkIr+OIrOz38s/URSSU=
-X-Gm-Gg: AYBFou2i582cuTJRneGNjWr2I7TQ+ZArj4qxfu1ikSuRKTLyGrMVm1HDVDWiuX0UuzW
-	ldgyg+2FOfqg/8Tqh///hPO+JLmea3m4NJP5bzDOljbSA8AwKX6M3cV4NtAUd14URTmHVPLK8RH
-	q0Tnlz5opEsLZFRHhiV3vklTsL3QgR/yUlWf70BN0GoqB95r+k0JZ3DwL65C/C18L+4T2MLsO/W
-	gYt9uoM2zmcufuEUHyQr23fF1Sl9FyG/fsz9DfW/klj9jR10bRH0u/1K0YwvFonO2CXN4ia2OkH
-	YRIUVyuvacaZJsC9GFNR3HVCX2eSmBe75qD9Yif/+AlfJEEURK6QRed/oPq+huWWFsVizNw+oT1
-	UqKgF+R9672PaIEvtc5Gf7+lb85iL9S4RGv4NPOX5lrfrV+jPzOob3Py8EkXj7AL2gQXlN989EO
-	EtJCYL/7Y1m6y+wLBHz94TgepN06ectoleryO7DsuaksotgQRf1lwhPfy5txuUhSEERvCpbcvpz
-	SkinEg=
-X-Received: by 2002:a17:90b:55cf:b0:396:b918:c2a with SMTP id 98e67ed59e1d1-39b261b1a52mr16044908a91.12.1788563866851;
-        Fri, 04 Sep 2026 16:17:46 -0700 (PDT)
-Received: from medusa.lab.kspace.sh ([2607:fb90:9c20:7a99::791d])
-        by smtp.googlemail.com with ESMTPSA id 5a478bee46e88-3339ac24d7esm14779392eec.15.2026.09.04.16.17.46
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 04 Sep 2026 16:17:46 -0700 (PDT)
-Date: Fri, 4 Sep 2026 16:17:44 -0700
-From: Mohamed Khalfella <mkhalfella@purestorage.com>
-To: Sagi Grimberg <sagi@grimberg.me>
-Cc: Justin Tee <justin.tee@broadcom.com>,
-	Naresh Gottumukkala <nareshgottumukkala83@gmail.com>,
-	Paul Ely <paul.ely@broadcom.com>,
-	Chaitanya Kulkarni <kch@nvidia.com>, Christoph Hellwig <hch@lst.de>,
-	Jens Axboe <axboe@kernel.dk>, Keith Busch <kbusch@kernel.org>,
-	James Smart <jsmart833426@gmail.com>,
-	Hannes Reinecke <hare@suse.de>,
-	Randy Jennings <randyj@purestorage.com>,
-	Dhaval Giani <dgiani@purestorage.com>,
-	Aaron Dailey <adailey@purestorage.com>,
-	linux-nvme@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v5 03/16] nvmet: Implement CCR nvme command
-Message-ID: <20260904231744.GE5552-mkhalfella@purestorage.com>
-References: <20260712022437.3743117-1-mkhalfella@purestorage.com>
- <20260712022437.3743117-4-mkhalfella@purestorage.com>
- <6562686c-1a38-45da-9d99-bfa9a9736fc8@grimberg.me>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dlJtH9t0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4D4F61F00AC4;
+	Fri,  4 Sep 2026 23:17:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788563878;
+	bh=lgYUi4AtgkCgP00aYeaLm4y6mlTg/I5rBP1KsKrg/B4=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=dlJtH9t0SC1t2MSQvy+o3NhSUcQnSHYVlGvvktN0DUKgkD8U9I57UZ3OZSW0h8OQT
+	 OaNcBMxp91ifJCp/PS1uSs+nQjcM9OqCMIp3WZ8nedDYIDonF0P4Tg3ZwhIFreNNX0
+	 SVVwMrb368nIaT6KP5dEAz/CfruV3MHmJQpbWohjb3hRnZHa0AZTQBP45ZuTlXO20e
+	 ZVq0qS1BSrydGKibcDaNug+P1J7yObECxGsNN0qj4w2f7zaSTs5pLU7kOPuUHheMBv
+	 edbWyrXm937PhZ37+/wpisIYJCEr/xbgoziSGQ9c9SS9GBzBBqhd6P/VQlSrjtUhqq
+	 k+7VuOacnI5tg==
+From: Jakub Kicinski <kuba@kernel.org>
+To: hemendranaik@gmail.com
+Cc: Jakub Kicinski <kuba@kernel.org>,
+	netdev@vger.kernel.org,
+	davem@davemloft.net,
+	edumazet@google.com,
+	pabeni@redhat.com,
+	horms@kernel.org,
+	jiri@resnulli.us,
+	jhs@mojatatu.com,
+	shuah@kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	vishy0777@gmail.com,
+	tahiliani@nitk.edu.in
+Subject: Re: [PATCH net-next v5 2/3] selftests: tc-testing: add fq_pie per-flow class stats test
+Date: Fri,  4 Sep 2026 16:17:57 -0700
+Message-ID: <20260904231757.4082435-1-kuba@kernel.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260902035231.81866-3-hemendranaik@gmail.com>
+References: <20260902035231.81866-3-hemendranaik@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <6562686c-1a38-45da-9d99-bfa9a9736fc8@grimberg.me>
+Content-Transfer-Encoding: 8bit
 
-On Sun 2026-08-23 03:53:03 +0300, Sagi Grimberg wrote:
-> Would still like to have it simple where nvmet allows a single ccr command
-> per ctrl such that we don't need to build a list of waiters.
-> 
+This is an AI-generated review of your patch. The human sending this
+email has considered the AI review valid, or at least plausible.
+---
+selftests: tc-testing: add fq_pie per-flow class stats test
 
-I think we need to know any point which sctrl is resetting which ictrl.
-Without this information it will be difficult to implement CCR standard.
-We use struct nvmet_ccr for two purposes:
+This adds tdc case 83c0, which builds a TBF parent with an fq_pie child on
+$DUMMY, injects ping traffic, and then greps the output of 'tc -s class show'
+for per-flow fq_pie statistics.  It also flips case 83be so that 'flows 65536'
+is expected to be rejected.
 
-- Generate CCR logpage on sctrl.
-- Know which sctrl needs to send AEN when ictrl exits.
+A couple of questions about the new case below.
 
-> Otherwise,
-> Reviewed-by: Sagi Grimberg <sagi@grimberg.me>
+> diff --git a/tools/testing/selftests/tc-testing/tc-tests/qdiscs/fq_pie.json b/tools/testing/selftests/tc-testing/tc-tests/qdiscs/fq_pie.json
+> index 229fe1bf4a906..d4081fcb09336 100644
+> --- a/tools/testing/selftests/tc-testing/tc-tests/qdiscs/fq_pie.json
+> +++ b/tools/testing/selftests/tc-testing/tc-tests/qdiscs/fq_pie.json
+> @@ -12,10 +12,10 @@
+>          "setup": [
+>          ],
+>          "cmdUnderTest": "$TC qdisc add dev $DUMMY handle 1: root fq_pie flows 65536",
+> -        "expExitCode": "0",
+> +        "expExitCode": "2",
+>          "verifyCmd": "$TC qdisc show dev $DUMMY",
+>          "matchPattern": "qdisc fq_pie 1: root refcnt 2 limit 10240p flows 65536",
+> -        "matchCount": "1",
+> +        "matchCount": "0",
+
+[Severity: Low]
+This isn't a bug, the flip is correct: patch 1 of this series does add
+the cap in fq_pie_change():
+
+	if (!q->flows_cnt || q->flows_cnt > 65535)
+
+The only remark is about the commit message wording:
+
+  "Update case 83be to expect failure for 'flows 65536' after patch 1/3
+   caps the flows parameter at 65535."
+
+Once these land, "patch 1/3" no longer identifies anything in git history.
+Could the commit message name the change or the behaviour instead, so a
+backporter can pair this test flip with the kernel change?
+
+>          "teardown": [
+>          ]
+>      },
+> @@ -40,5 +40,32 @@
+> +    {
+> +        "id": "83c0",
+> +        "name": "FQ-PIE class stats accessible via tc class show",
+> +        "category": [
+> +            "qdisc",
+> +            "fq_pie"
+> +        ],
+> +        "plugins": {
+> +            "requires": "nsPlugin"
+> +        },
+> +        "setup": [
+> +            "$IP link set dev $DUMMY up || true",
+> +            "$IP addr add 10.10.11.10/24 dev $DUMMY || true",
+> +            "$TC qdisc add dev $DUMMY root handle 1: tbf rate 8bit burst 100b latency 100ms",
+> +            "$TC qdisc add dev $DUMMY parent 1:1 handle 2: fq_pie limit 100 flows 1",
+> +            "ping -c 50 -i 0.001 -s 500 10.10.11.11 -I $DUMMY > /dev/null 2>&1 || true"
+> +        ],
+
+[Severity: Medium]
+Can any of this ping traffic actually reach the fq_pie child?
+
+'burst 100b' sets q->max_size to 100 in tbf_change():
+
+net/sched/sch_tbf.c:tbf_change() {
+	...
+	if (tb[TCA_TBF_BURST]) {
+		max_size = nla_get_u32(tb[TCA_TBF_BURST]);
+		buffer = psched_l2t_ns(&rate, max_size);
+	...
+}
+
+and tbf_enqueue() drops oversized non-GSO packets before they are handed to
+the child qdisc:
+
+net/sched/sch_tbf.c:tbf_enqueue() {
+	if (qdisc_pkt_len(skb) > q->max_size) {
+		if (skb_is_gso(skb) &&
+		    skb_gso_validate_mac_len(skb, q->max_size))
+			return tbf_segment(skb, sch, to_free);
+		return qdisc_drop(skb, sch, to_free);
+	}
+	...
+}
+
+'ping -s 500' produces roughly 542-byte frames (500 payload + 8 ICMP +
+20 IP + 14 Ethernet), so all 50 packets look like they are dropped in TBF
+and fq_pie never sees a packet.  $DUMMY is IFF_NOARP (dummy_setup() in
+drivers/net/dummy.c), so the neighbour goes straight to NUD_NOARP and the
+ICMP frames really do reach the qdisc, and there are no ARP solicitations
+that could stand in as smaller traffic.
+
+With nothing queued, fq_pie_walk() skips the flow entirely:
+
+net/sched/sch_fq_pie.c:fq_pie_walk() {
+	for (i = 0; i < q->flows_cnt; i++) {
+		if (list_empty(&q->flows[i].flowchain)) {
+			arg->count++;
+			continue;
+		}
+	...
+}
+
+so no 'class fq_pie 2:N' line is printed and the verify step sees 0 matches
+against matchCount 1.  Existing cases using the same
+'tbf rate 8bit burst 100b' parent in
+tools/testing/selftests/tc-testing/tc-tests/infra/qdiscs.json keep the ping
+payload at the default 56 bytes so the frame stays under max_size.  Would
+dropping '-s 500' (or raising the TBF burst above the frame size) be the
+intent here?
+
+> +        "cmdUnderTest": "$TC -s class show dev $DUMMY",
+> +        "expExitCode": "0",
+> +        "verifyCmd": "$TC -s class show dev $DUMMY",
+> +        "matchPattern": "class fq_pie 2:[0-9]+ .*prob .*delay .*deficit",
+> +        "matchCount": "1",
+
+[Severity: Medium]
+Which iproute2 version prints these tokens?
+
+The 'prob', 'delay' and 'deficit' strings correspond to the new UAPI added
+by the first patch of this series:
+
+include/uapi/linux/pkt_sched.h
+	struct tc_fq_pie_cl_stats {
+		__u64 prob;
+		__u32 delay;
+		__s32 deficit;
+		__u32 avg_dq_rate;
+		__u32 dq_rate_estimating;
+	};
+
+fq_pie_dump_class_stats() exports that as an opaque TCA_STATS_APP blob:
+
+net/sched/sch_fq_pie.c:fq_pie_dump_class_stats() {
+	...
+	if (idx < q->flows_cnt)
+		return gnet_stats_copy_app(d, &xstats, sizeof(xstats));
+}
+
+and tc_fill_tclass() tags the class dump with the qdisc kind:
+
+net/sched/sch_api.c:tc_fill_tclass() {
+	...
+	if (nla_put_string(skb, TCA_KIND, q->ops->id))
+		goto nla_put_failure;
+	...
+}
+
+so tc routes the blob to q_fq_pie's existing print_xstats, which only knows
+the legacy qdisc counters (pkts_in, overlimit, overmemory, dropped,
+ecn_mark, new_flow_count, new_flows_len, old_flows_len, memory_used) and
+has no notion of the new type discriminator.  With any released tc the
+regex matches 0 times while matchCount is 1, and tdc has no iproute2
+version gating, so the case fails permanently rather than being skipped.
+
+The commit message says:
+
+  "The test fails on a kernel without fq_pie class ops."
+
+Should it also state the required iproute2 change, since the case cannot
+pass on a patched kernel with a shipped tc either?
+
+> +        "teardown": [
+> +            "$TC qdisc del dev $DUMMY handle 1: root",
+> +            "$IP addr del 10.10.11.10/24 dev $DUMMY || true"
+> +        ]
+>      }
+>  ]
