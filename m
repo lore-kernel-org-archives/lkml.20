@@ -1,92 +1,115 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com [209.85.214.169])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B798345561A;
-	Fri,  4 Sep 2026 10:49:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E181C45561A
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 10:49:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788518947; cv=none; b=dZDcC8PdL+vYhbdZ8MKmSpK+Ki39mD7iSKNN7XlNpZT3ShtRQMPG7J4iQNLZBWrtQvhm7RjnSIY/W6J/m13E2Hl9FIsmfhdzOc4/vdubNfrZ007VRne+vve/q3ZNf+jGm5dzOHpOwohbI8D0qsB0QiquCW8E2bU3ju92yBAOH7w=
+	t=1788518952; cv=none; b=G7AEJ7LQpIEh1mbCOAVvauEPPBZr0ZDgie1gWMWkebnc82DjRwdzki5//trTRYFohT7evRBmbX+DbijJSC7f60hcSJaSA3NsEDxtvReJGlA5Rj9c/WGSQ3535s25R47DGwnRN2omIRACiiJ8a0yNVkUcYnbVjjfA+PDIG7nNjoM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788518947; c=relaxed/simple;
-	bh=2S3/1jTF9RJ2NObcRpD89k9eqJm1kLBuxbxmhKJB4aM=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=Ixr+K6j6jiNLJWI93uYwUmHsFTuRiuwWZXJrozbQrnV3+DSXtxEVMgxiNe4j+dgveRxRAhKwv0v0HDxFjmgISePk34+46J9Z5oB5P9KqbxSVi2sSt7HrPdj8i9Siyfkq0x2vIVCj0dCMTm2IgC8vwiQrmfCZ+Qc3JDDVqPb4OdQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hPS5W0hh; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788518952; c=relaxed/simple;
+	bh=SdE4jBbiwJu+r9Un4aRkVsZu5RF066wmpfkAvH/D8jo=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Gl/jAuYZfV1rN80L4migh4bu2ncu826CGeSD/MSk4g3qhxy7FWoanLkLyGjHqvheOC0BRiz3cdlrIa8G88jNl1wu9eS9O/EMHB2I/HAIE+ZaeygDPUKidw+60DxAkkOFKsHGVv5Afj4UtH6iLTWLt+akBWUkNi1Yos+L5g3/WQg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KR+Gl7vX; arc=none smtp.client-ip=209.85.214.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hPS5W0hh"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 168291F00A3E;
-	Fri,  4 Sep 2026 10:49:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788518946;
-	bh=P6j7tkt/1tMb+BxD83MOj2+xMJC9l03hjJiKyFN5ipA=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=hPS5W0hhNqs/RkGAkjZ9OF/lbleE2T2L3OdMGqw1uRAE0hx3Nxv/xpqF87qTUXd6M
-	 033GxzjEufSysYZtWbhsrguAKIOCQ87O+mBRU4e9AQKLpp3M0DxSoO1zdsYRyDxXcu
-	 MlrNM64xjI0SHzGjHEtx+cm0wdlhLSuu9fwlQ7e24Qt6lZyi6gq4FzXFW3kBMqIXnc
-	 F+7xJm+b6t95qIU+h5VOyqXoaidXiRVZXxKVUzi+pL9Wtst/mG+6HDsvV4EzKUNi6m
-	 /nUQaYw68ft2N9YKXpNX97CvKgn/79GPg5MJxTg/gJdFBV6fvS8y/jb0eK9aIBCH21
-	 v1KMEyaXq3pZA==
-From: Christian Brauner <brauner@kernel.org>
-To: Tejun Heo <tj@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>, 
- =?utf-8?q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>, 
- Alexander Viro <viro@zeniv.linux.org.uk>, 
- Shaojie Sun <sunshaojie@kylinos.cn>
-Cc: Jan Kara <jack@suse.cz>, Pavel Tikhomirov <ptikhomirov@virtuozzo.com>, 
- cgroups@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
- linux-kernel@vger.kernel.org
-In-Reply-To: <20260903064828.126643-1-sunshaojie@kylinos.cn>
-References: <20260903064828.126643-1-sunshaojie@kylinos.cn>
-Subject: Re: (subset) [PATCH v2 0/3] drop BUG_ON() NULL checks in namespace
- copy helpers
-Message-Id: <20260904-gewirbelt-bankraub-bereden-53ffb98b9799@brauner>
-Date: Fri, 04 Sep 2026 12:48:43 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KR+Gl7vX"
+Received: by mail-pl1-f169.google.com with SMTP id d9443c01a7336-2d91ded8174so7169915ad.1
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 03:49:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788518950; x=1789123750; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=I08m2HnQ/PSHt9c8bjpjQoWnw8928pNE4cB9PyVP9mc=;
+        b=KR+Gl7vXd9ZoAjgU/eTt0DmEWtCXeujqQSpuWHvAZF0PF7aR+NUnzBSyXI7uL2p6YK
+         zshQCKDcB08aEyHinBbSmgC0oDqpp9grQsMavd2FCkmPldUjGOuRvvtAku3FXrptYTvP
+         XjHsXr2KaaXN4vvUSkLiUNENQGUPjPQ2W839AcgQ571L/NFpUANMVISQ4zuQP+vTXGDC
+         XoiGnyw7w94hqGw6FlQkCyFx3efahVFiQ+LujQnOI76cpIj8qAMv0Ii4TZIN1u30cOyr
+         +BcT+jTnSly8d2JUJiU5Jc/s+l65PWNQI8LziQnoH2iIwWKpKIDdCCJhGbgQcNnW2BxO
+         mX9A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788518950; x=1789123750;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=I08m2HnQ/PSHt9c8bjpjQoWnw8928pNE4cB9PyVP9mc=;
+        b=rHx8r6t/19nk2J8u0+VGKdnoKqMfv9UcerOBswDtZDWWOgXSWntv3akjMpkf7Sq+9c
+         +xQr/lOJQhGP/7gKXfOYsCRQADjQ3oFZU7Y9kHV8bg9zKLC+uA/PUqLFsmWVxWS3u6cc
+         9xq4nIy3+adygZz8izs3Qd3gD2HwJNr94HdiJoZAs1H02vpUIPXQ9IZt0HLK47X2WKeC
+         PLnqbUofPYeOs9Uc7fZSjfIeDaefxDKFJRqBWxe/XXlkLBngc+JMcnsdp0DHKh5+5Rge
+         dOT1hpH5O+Rww2FrImmfIRFVnoHOlFy2CSUS+QmnjWHslJOo8d+pqvszF+maO3x46hzH
+         lYzg==
+X-Gm-Message-State: AFuF++mR2rkXRwo5izKjtFoOK72r8nAV0UflCOa3tEcSW1E1e9qz1das
+	62OvHecLqw+KqKGl8ERH50czWxUmRHSnw6m0WFIpOSuJ1gDOg+2KZwXHWuhFSyly7Cg=
+X-Gm-Gg: AYBFou3unUo7k2E9oFwGH7e78K1j04EVEhPO29rgSFbtTMjHGHKP3QA2RPBK4sOFUex
+	DjgfM7NVYYJ76wkcpIwp8UQhICi2ktYiF3pZiavcU8ztKMQmj6kZru6hSePAdAEdC2ptcJrtq3o
+	6xpphppbutfqP1YXQmM6Q391siMWV5IeZoO7c+7oyeUWlWshHo/3haO9MKyjNM7K37kvJ4fkst2
+	uRh+CUIQEypwN0nRhNLbK8SOf0zNL6R2Bpu+70RmO77sACcG/vHhVoPUCxuAjfySxB8gNNTxoUu
+	7BaHTQ0JuzxCdOTK+slY1X3keA6M1i8TolCVelcQXjQZ0ol2OhfBjmd+zcf46qsTr5R9YIvHR4J
+	+MnZ69UcSiwKnaB+sLjI9gqEDYvOgsZGeqI8zEcpA0SFZAma7Xv3XXFQ2VZ45U+CLUj6wTg5ZGP
+	B4d3kLPFKopmbrejtO8ORgNuRSSbmeKa8APJgYXmjLhpxxEyeJ8YFG7bwWXIdw7KdRaVOfJtXcr
+	rtyxQNPluuysRA=
+X-Received: by 2002:a17:903:2c9:b0:2c9:e846:a57e with SMTP id d9443c01a7336-2db12147668mr83223635ad.0.1788518950171;
+        Fri, 04 Sep 2026 03:49:10 -0700 (PDT)
+Received: from volcano9f6e-hostos.amd.com ([165.204.217.251])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339af25062sm8583927eec.16.2026.09.04.03.49.05
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 04 Sep 2026 03:49:09 -0700 (PDT)
+From: Hemanth Selam <hemanth.selam@gmail.com>
+To: Andrew Morton <akpm@linux-foundation.org>,
+	David Hildenbrand <david@kernel.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>,
+	Jann Horn <jannh@google.com>,
+	Pedro Falcato <pfalcato@suse.de>,
+	Arnd Bergmann <arnd@arndb.de>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org
+Subject: [PATCH 2/5] char: fix typo "funcion" in comment
+Date: Fri,  4 Sep 2026 16:18:47 +0530
+Message-ID: <20260904104854.25272-3-hemanth.selam@gmail.com>
+X-Mailer: git-send-email 2.48.1
+In-Reply-To: <20260904104854.25272-1-hemanth.selam@gmail.com>
+References: <20260904104854.25272-1-hemanth.selam@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.17-dev-db0b7
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1296; i=brauner@kernel.org;
- h=from:subject:message-id; bh=2S3/1jTF9RJ2NObcRpD89k9eqJm1kLBuxbxmhKJB4aM=;
- b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWTNWiTnbf70fEHV6gUXF4d1/JYPdvdfo87N/kmbucxlZ
- sW99f5WHaUsDGJcDLJiiiwO7Sbhcst5KjYbZWrAzGFlAhnCwMUpABPJlmZkWBoiL9gyOWb7uwyB
- LyvCzFQD3q7ImcVoff+7+JOZK5YEf2H4H7FY3/6V5sGMvR8XiP5UrPBTODF1xx3Db7pnH1a1Mu7
- P4AIA
-X-Developer-Key: i=brauner@kernel.org; a=openpgp;
- fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
+Content-Transfer-Encoding: 8bit
 
-On Thu, 03 Sep 2026 14:48:25 +0800, Shaojie Sun wrote:
-> drop BUG_ON() NULL checks in namespace copy helpers
-> 
-> v2:
-> - Reworked into a 3-patch series that simply drops the BUG_ON()s
->   instead of replacing them with WARN_ON_ONCE() + error return,
->   following the discussion with Tejun. Now also covers copy_utsname()
->   and copy_mnt_ns() so that all copy_*_ns() helpers behave
->   consistently.
-> 
-> [...]
+Correct "funcion" to "function", reported by scripts/checkpatch.pl using
+the misspelling list in scripts/spelling.txt.  Only touches comments, no
+code changes.
 
-Applied to the namespace-7.4.misc branch of the vfs/vfs.git tree.
-Patches in the namespace-7.4.misc branch should appear in linux-next soon.
+Assisted-by: Cursor:claude-opus-5
+Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
+---
+ drivers/char/mem.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Please report any outstanding bugs that were missed during review in a
-new review to the original patch series allowing us to drop it.
-
-It's encouraged to provide Acked-bys and Reviewed-bys even though the
-patch has now been applied. If possible patch trailers will be updated.
-
-Note that commit hashes shown below are subject to change due to rebase,
-trailer updates or similar. If in doubt, please check the listed branch.
-
-tree:   https://git.kernel.org/pub/scm/linux/kernel/git/vfs/vfs.git
-branch: master
-
-[2/3] uts: drop BUG_ON() in copy_utsname()
-      https://git.kernel.org/vfs/vfs/c/d54cc3a5272c
-[3/3] fs: namespace: drop BUG_ON() in copy_mnt_ns()
-      https://git.kernel.org/vfs/vfs/c/4141e148e629
+diff --git a/drivers/char/mem.c b/drivers/char/mem.c
+index 63253d1de5d7..f9db486d7029 100644
+--- a/drivers/char/mem.c
++++ b/drivers/char/mem.c
+@@ -76,7 +76,7 @@ static inline bool should_stop_iteration(void)
+ }
+ 
+ /*
+- * This funcion reads the *physical* memory. The f_pos points directly to the
++ * This function reads the *physical* memory. The f_pos points directly to the
+  * memory location.
+  */
+ static ssize_t read_mem(struct file *file, char __user *buf,
+-- 
+2.48.1
 
