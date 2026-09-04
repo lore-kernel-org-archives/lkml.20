@@ -1,85 +1,82 @@
-Received: from mail-pg1-f198.google.com (mail-pg1-f198.google.com [209.85.215.198])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BB373AA19B
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 02:59:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.198
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 837C229B781;
+	Fri,  4 Sep 2026 03:01:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788490753; cv=none; b=c7MBBEuqkXGY43ElhI1bN6UkjFX5OG1Et2Cvs0aRSjAC/wKVWDu7UPKafqFdjIb2bw3DbtSlRt5nW3ycM6+RsjYtJq2LHPegLrhmyw9FhVmo8Dt2pGm2LGHweMDc/4JJUq1fOSde3VL+zI4B2vqi5KSx0DFw5aWMpnrKQ4BP/OY=
+	t=1788490862; cv=none; b=qV6aSNxz+Et1nNc5hhmei/9BPQlKbsC1sAWIK7hIkWXopFZlJUzKYPQcvZKRtsZll790ZtFvRHP+gyc6+AUtoGn6ctRY+rFa7hegRdIOI0u+9SJNnjFI8Q/M09BqFByOj7aXeD+BZdZeY6s7REeoqede8wFvv5mk4ERfvkwwUjE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788490753; c=relaxed/simple;
-	bh=P3KGJqvLDVQEGw1qKiFatH8JZpCFUTHLvw8aN5u+gYM=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=n+t1nu3Qa8AcJUNEQMrXlw3rzk0LKCYzXaDqKXr44JqkHRBFyUxCHBl6Jd+nO/IiUaGHXFa0xPqw9VBOhG/46TzGi4kMVEzp8BUCZh7bFLU4YLhJGqGiMik1Gc1AU2vHPw4i9Eg+4fVza5TCmHn7YxkADmHKdp5htkxyxbMI+t0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--rathodpriyank.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=sBqHiJDd; arc=none smtp.client-ip=209.85.215.198
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--rathodpriyank.bounces.google.com
+	s=arc-20240116; t=1788490862; c=relaxed/simple;
+	bh=Y4wQ8Wn+gn9c4agb/hKRqOV+AwGG0fXfgBPp4Bk8tjY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=jDy82zIGfBUbiez7boYFkBXD57DKOzACH7Bj9Lh281As9BxWZuwTNEgdAhGGoJeDgxUbuwQdUGmamBwC+CYx3Bh8XA/FcxnYyHqoNO00g8M7eaebsevOtAPgEHl/lXx7ZBEXIkuglJLAUsQdfPCMHoqNyewet2Y2rfvdj2xryig=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=EJzp/zKI; arc=none smtp.client-ip=198.175.65.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="sBqHiJDd"
-Received: by mail-pg1-f198.google.com with SMTP id 41be03b00d2f7-cc42a07d04aso724766a12.1
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 19:59:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1788490752; x=1789095552; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=P3KGJqvLDVQEGw1qKiFatH8JZpCFUTHLvw8aN5u+gYM=;
-        b=sBqHiJDdKVIO0hTeivgkpF4DwsbAQSasR8LFgpAk8JcbyD0EJX3TEOhXmk9vIyvu1O
-         UiCdupVTGl9/dvSy9SO0b6lXbGqTMMItwlT6I/aBjdvUqYxHtW6IdNGzABYjmTTztWR+
-         soUb9OjWP5GOZLAmqc4pagHsJKpGT345KvIudX9di3ZMjCE+3whY6bPs3x5ftBwHNBGn
-         kfyxlNKoswj1CCBnxcEE239uYWiBoKqLnpXuQ4AdA6zIqqaAVnkCqjvrzq8AR+6rF5BK
-         Nbpvn5AEa7jGeYhtgKALDOmM2MW/lG8ZDVQJiRIJTY1Z65WRoTp2pOSKfllZXcpUIT8G
-         KH5g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788490752; x=1789095552;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=P3KGJqvLDVQEGw1qKiFatH8JZpCFUTHLvw8aN5u+gYM=;
-        b=GvMVKk97yPju9YB0z9qLfzSTSGJWlz8n2kou/sm297X6tePcp+s74auYL9gWQfZUmr
-         Ydwm7N/8go8VqJ49Le5DIa9A1rSFxmj4gSeo/xft/P/kRef9lycwuZsZM3zkyoojfB0r
-         h13ivXvUdHxAuLh2BtOZcKj2NhJY+rG7Q3zhDYGJqJLOK72VGpT71a2TnJ81eR5+DKZc
-         OrNnnk8f/IO7AyQDV+PcgHSlUn4+psK8LlIWsP+ZP+G1g3KnjqxHuRtKq5UdHtW5dwpY
-         qbzTGzKmgb5wU6HDBDVTVVP5KvV+iFePMkqvsb2kkS0+4/E1GcFcW8n95Sh7cu6nbX2D
-         0idQ==
-X-Forwarded-Encrypted: i=1; AKwUvBx3AUPZPBX/66TQMybtgLRvTxewGQlz9rzxX8OZIJ/mqHMmlD4ZeUU87ffJg23SxJRgBjJrSiDDrNPLwHw=@vger.kernel.org
-X-Gm-Message-State: AFuF++lDQAztP/Y+Ij8Q5r8xL4oKoGtmyO8EeHoczUdFTp1zLnBwQ7KR
-	np3+sc9WEeb0Le3zJJD3gPZ0hhLKR0cd9RmKeAtPxyU8O284NDl+3w0mWpucFFPG82Hnrh/RIlW
-	fVEjYn+GRAmL1gHY6g46mGlFKURLs97WzWA==
-X-Received: from pgbm1-n1.prod.google.com ([2002:a05:6a02:6181:10b0:c85:6deb:ee45])
- (user=rathodpriyank job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:6300:6708:b0:3cc:eea9:f757 with SMTP id adf61e73a8af0-3da3a00565emr4270762637.16.1788490751460;
- Thu, 03 Sep 2026 19:59:11 -0700 (PDT)
-Date: Fri,  4 Sep 2026 02:59:11 +0000
-In-Reply-To: <20260803-b4-fix-aer-memleaks-v2-0-fd199b0171fd@google.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="EJzp/zKI"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788490861; x=1820026861;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=Y4wQ8Wn+gn9c4agb/hKRqOV+AwGG0fXfgBPp4Bk8tjY=;
+  b=EJzp/zKIccVoHadRWq2dw0tXhemTmpSPRMfjhmK05bIcSt3euSqwlxqI
+   UN2YJ3ISSr5rJHX5Gl7kS7PYeuVKDIUMiiwHUOdS5DsjIxDHk9bWN546e
+   EoXevpg1nVx+kEjw/8+Xi6VTvAVUpi01Yyh0190tbymESkO7yuNLajQ+v
+   wxjGPPqz/JFwEPCA5zI1DSmSy/Z47NBbRCyvPaaOepwe/eWaO/H2HUECV
+   2LBc9UlV4kIASKuPP9LZdIgX4xQSqCiXGQ994y6cJRPxIZScoZQtYhvSx
+   Tmd8Fz/E/LFEYJSHIoGyNA8pUU4ooRK+IhRKCWg0HpHKusNOZAhVhWtwy
+   Q==;
+X-CSE-ConnectionGUID: +JahrDrkScaBHhZhpI0wEw==
+X-CSE-MsgGUID: kRUcZDqeSoel6qP9LR6rSA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11895"; a="99318816"
+X-IronPort-AV: E=Sophos;i="6.25,260,1779174000"; 
+   d="scan'208";a="99318816"
+Received: from fmviesa010.fm.intel.com ([10.60.135.150])
+  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Sep 2026 20:01:00 -0700
+X-CSE-ConnectionGUID: PV1xzFIfRta1JZjjEWHXKA==
+X-CSE-MsgGUID: z0nDE6DmQQOT97SEBpkXTw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,260,1779174000"; 
+   d="scan'208";a="266231293"
+Received: from binbinwu-mobl.ccr.corp.intel.com (HELO [10.124.245.162]) ([10.124.245.162])
+  by fmviesa010-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Sep 2026 20:00:57 -0700
+Message-ID: <38d13237-71e8-4b82-8f21-7317fd27f50c@linux.intel.com>
+Date: Fri, 4 Sep 2026 11:00:55 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260803-b4-fix-aer-memleaks-v2-0-fd199b0171fd@google.com>
-X-Mailer: git-send-email 2.55.0.1003.g10538fe699-goog
-Message-ID: <20260904025911.3960034-1-rathodpriyank@google.com>
-Subject: Re: [PATCH v2 0/2] PCI/AER: Fix ghes_estatus_pool memory leaks in
- error handling
-From: Priyank Rathod <rathodpriyank@google.com>
-To: Mahesh J Salgaonkar <mahesh@linux.ibm.com>, "Oliver O'Halloran" <oohall@gmail.com>, 
-	Bjorn Helgaas <bhelgaas@google.com>
-Cc: linuxppc-dev@lists.ozlabs.org, linux-pci@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Priyank Rathod <rathodpriyank@google.com>
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 8/8] KVM: VMX: Rename common exit info getters prefixes
+ from "vmx" to "vt"
+To: Sean Christopherson <seanjc@google.com>
+Cc: Paolo Bonzini <pbonzini@redhat.com>, kvm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Xiaoyao Li <xiaoyao.li@intel.com>,
+ Kai Huang <kai.huang@intel.com>, Rick Edgecombe
+ <rick.p.edgecombe@intel.com>, Yan Zhao <yan.y.zhao@intel.com>
+References: <20260904010353.3175819-1-seanjc@google.com>
+ <20260904010353.3175819-9-seanjc@google.com>
+Content-Language: en-US
+From: Binbin Wu <binbin.wu@linux.intel.com>
+In-Reply-To: <20260904010353.3175819-9-seanjc@google.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hi Bjorn, Mahesh, Oliver,
+On 9/4/2026 9:03 AM, Sean Christopherson wrote:
+> Rename all common prefixes for the APIs that get exit information common to
+> VMX and TDX from "vmx" to "vt" to capture that they are used for both VMX
+> and TDX vCPUs.
+> 
+> No functional change intended.
+> 
+> Reviewed-by: Xiaoyao Li <xiaoyao.li@intel.com>
+> Reviewed-by: Kai Huang <kai.huang@intel.com>
+> Tested-by: Kai Huang <kai.huang@intel.com>
+> Signed-off-by: Sean Christopherson <seanjc@google.com>
 
-Gentle ping on this 2-patch series fixing two memory leaks in PCIe AER error
-handling (ghes_estatus_pool exhaustion on kfifo overflow and when pci_dev
-is missing).
-
-The series has been reviewed clean by Sashiko AI and compiles with W=1
-(0 errors, 0 warnings). Could you please take a look when you have a chance?
-
-Patchwork: https://patchwork.kernel.org/project/linux-pci/list/?series=1139683
-
-Thanks,
-Priyank
+Reviewed-by: Binbin Wu <binbin.wu@linux.intel.com>
