@@ -1,96 +1,120 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A3891CD2C
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 21:17:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 116721CD2C;
+	Fri,  4 Sep 2026 21:17:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788556663; cv=none; b=M0FGwyahToJZRTfkk+dn9TFeeJZ0SGNq4uRXTs/SZjtMt2ba4UsJeDoe+AoT2q11XoOsy9RKeFJNIZ+q68XPKgoaFEX7LhmFEDdU/5h/+NsP3gpmXmGNpY0y9YBqE5VR5MdqtjzQzvSGJPX7Ryw3ouJOpXYkVOPxBbo1+4oqJ/s=
+	t=1788556679; cv=none; b=gtuDEvkN3fIEMy23pxwlipEDj9V4F7pzn8jeiOJABQkjzjSIMHjGeEBkrxgmdBfnRBkGcIhXa+zERC/2tZed6FpCUAu+C0KIB4u/7cgeLExSFETcSNzAobeloF+KkFJ+KO43AcNelq3nexyhUUxyiLOKyzSFtGZhc0V/C1Fx/N0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788556663; c=relaxed/simple;
-	bh=oslDozt+vCsSOw9ZT9jQInhRaqqyq1JIJuFOCkXBVEc=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=hGO8ttqOnSyfMA1btD2QCI5ZMnlyKgNvrSc1s+BUKE6OsuBRzYFHyruNqotzLncNvSA5S3wPDz9k5t7/hrEtedjnGmW+zpw0Vyermheg9lUtGzxhuNhSXac1+RZiGD+WCRTpbla3NbMJhJGQGtHR1oGb6yb4dqjHLOBFyOzpKWg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DAXeduBN; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788556679; c=relaxed/simple;
+	bh=vSdMM/5gpnDT7T8x46xxXgkVXn801UrRB1DfeEKnwwI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Hv2E8qDNRXhpU1Iq3Dbnhy/zrHYGhK6Jifm0tskVeG8KKduIp++iOC4VUYFuVYDmZZEq9iWa6iMquIxq4ygjiiugkBrhXOU/N8Pqm0vFwfVbyNQ0jDSF35Fk+/mEIbREmZ7TrtJmCZV4GvcokHKQoC1sJxMDj6QG2Bx8qJzgeRA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bm0U/QCT; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DAXeduBN"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0F3001F00A3D;
-	Fri,  4 Sep 2026 21:17:40 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bm0U/QCT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 245461F00A3D;
+	Fri,  4 Sep 2026 21:17:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788556661;
-	bh=i1sEyFqDIaopEgC7aV8NUispTeYpv8Rgj4dSnhfoB9A=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=DAXeduBNZ5t0XX8PnWEklNZyoaZZcQaD+Bcw/8pE9zHlbTyd9B5wErfhojDtlYanv
-	 q6KmTWzsTYDjl5YZz7opjR//8ppODX8OMf4KkkVL4wUnM3+arQ+a5RCW40jcW+9kXb
-	 jnb+AVTiyaMA6bOUXwcIqoeLb4MsiYPOv+lJWPP0L6Hr7rtbB/hpMq5BG0wqTk43ty
-	 vLvhhynt0vvo7gmPYxuVvF5Kmbee3wGEmM8N6/Zq+KPt19pujZMQB5B//XfDrwQliZ
-	 n15Qf2xBi+exZ2y8CxWxW8p07PxdzkP5gNgZu8/ntJBwPnGHIpe7H7kStaJAB7KWny
-	 Tb5tRm7SRkUkA==
-From: Thomas Gleixner <tglx@kernel.org>
-To: Steven Rostedt <rostedt@goodmis.org>, Ye Liu <ye.liu@linux.dev>
-Cc: "Peter Zijlstra (Intel)" <peterz@infradead.org>, Marco Elver
- <elver@google.com>, Ye Liu <liuye@kylinos.cn>, Yi Tao
- <escape@linux.alibaba.com>, Tejun Heo <tj@kernel.org>, Bart Van Assche
- <bvanassche@acm.org>, Christian Brauner <brauner@kernel.org>,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/8] mm: introduce for_each_process_rcu and
- for_each_thread_rcu
-In-Reply-To: <20260904122536.1079b279@gandalf.local.home>
-References: <20260904083001.553587-1-ye.liu@linux.dev>
- <20260904083001.553587-2-ye.liu@linux.dev>
- <20260904122536.1079b279@gandalf.local.home>
-Date: Fri, 04 Sep 2026 23:17:38 +0200
-Message-ID: <87ecf87m31.ffs@fw13>
+	s=k20260515; t=1788556677;
+	bh=0L3yJWBuGxxyn+2aUUPOzcCWgLt4R0SmyiyBXOHBamc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=bm0U/QCT/ijumLpbh5woHAXMEtHhaZyaxFV/5VfbxPceKCp4Br6y/Jtj7rZZRvESd
+	 bXJZ/ziiObPdDs/HxtxgeeSQSbcqvha5Edd2Kxum7clIZJAMXJ57ZTE3AAGt0TtCJy
+	 ohr3plWHRC+u30/ULbf4PMLEfP3rix8VeRFUaiMFrdA+5qeytxtw7HjYSyvdrSL4uo
+	 ssLDl5M4tJe/yZKFuQVD34ERZTsDsfXSXGKqv/DXKzmFQ+il5mqfEc50scZhP2mG/0
+	 MtpmGOIwOzSeHv4pwanL2wX7F+Ghp81nNCH00EKqqL11AOMq3hxSJ/fIS5F8cd952p
+	 ++o3eIDXXl9/g==
+Date: Fri, 4 Sep 2026 18:17:54 -0300
+From: Arnaldo Carvalho de Melo <acme@kernel.org>
+To: Aaron Tomlin <atomlin@atomlin.com>
+Cc: peterz@infradead.org, mingo@redhat.com, namhyung@kernel.org,
+	mark.rutland@arm.com, alexander.shishkin@linux.intel.com,
+	jolsa@kernel.org, irogers@google.com, adrian.hunter@intel.com,
+	james.clark@linaro.org, howardchu95@gmail.com, neelx@suse.com,
+	chjohnst@mail.com, sean@ashe.io, steve@abita.co,
+	rishil1999@outlook.com, linux-perf-users@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH perf-tools-next v6 1/5] perf trace: Fix error checking in
+ btf_struct_scnprintf()
+Message-ID: <aps1gjTwaMbDNQWa@x2>
+References: <20260824133122.751733-1-atomlin@atomlin.com>
+ <20260824133122.751733-2-atomlin@atomlin.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260824133122.751733-2-atomlin@atomlin.com>
 
-On Fri, Sep 04 2026 at 12:25, Steven Rostedt wrote:
-> On Fri,  4 Sep 2026 16:29:53 +0800
-> Ye Liu <ye.liu@linux.dev> wrote:
->> +#define for_each_thread_rcu(p, t) \
->> +	scoped_guard(rcu) \
->> +	__for_each_thread((p)->signal, t)
->> +
->
-> I would rename it to: *_rculock()
->
-> as there are already *_rcu() list iterators that are used to be done within
-> an rcu locked region. Using just *_rcu() would make it confusing to know if
-> the rcu lock was taken or if the loop is expected to be locked within RCU.
+On Mon, Aug 24, 2026 at 09:31:18AM -0400, Aaron Tomlin wrote:
+> btf_dump__dump_type_data() returns the positive number of bytes dumped on
+> success, or a negative error code (e.g., -EINVAL) on failure.
+> 
+> Currently, btf_struct_scnprintf() checks if btf_dump__dump_type_data()
+> returns 0. When a negative error code is returned on failure, this check
+> evaluates to false, causing the function to proceed down the success path
+> and advance arg->augmented.args past the unprinted struct data before
+> returning 0.
+> 
+> Consequently, when syscall__scnprintf_args() falls back to the default
+> argument beautifier upon receiving 0 from trace__btf_scnprintf(), the
+> fallback beautifier or subsequent arguments read from an erroneously
+> advanced augmented arguments buffer.
+> 
+> Fix this by checking for '<= 0' ensuring that on any failure or 0-byte
+> dump, 0 is returned without modifying the augmented arguments pointer.
+> 
+> Fixes: cb32035214b9 ("perf trace: Pretty print augmented struct args using BTF")
+> Reported-by: sashiko-bot <sashiko-bot@kernel.org>
+> Signed-off-by: Aaron Tomlin <atomlin@atomlin.com>
+> ---
+>  tools/perf/builtin-trace.c | 4 +++-
+>  1 file changed, 3 insertions(+), 1 deletion(-)
+> 
+> diff --git a/tools/perf/builtin-trace.c b/tools/perf/builtin-trace.c
+> index c3c7f1f85c53..1bc39f674f11 100644
+> --- a/tools/perf/builtin-trace.c
+> +++ b/tools/perf/builtin-trace.c
+> @@ -1066,7 +1066,9 @@ static size_t btf_struct_scnprintf(const struct btf_type *type, struct btf *btf,
+>  		return 0;
+>  
+>  	/* pretty print the struct data here */
+> -	if (btf_dump__dump_type_data(btf_dump, type_id, arg->augmented.args->value, type->size, &dump_data_opts) == 0)
+> +	if (btf_dump__dump_type_data(btf_dump, type_id,
+> +				     arg->augmented.args->value,
+> +				     type->size, &dump_data_opts) <= 0)
+>  		return 0;
 
-Ack.
+Applied the series, only change I made was:
 
->> +/* Careful: this is a double loop, 'break' won't work as expected. */
->> +#define for_each_process_thread_rcu(p, t) \
->> +	scoped_guard(rcu) \
->> +	for_each_process(p) for_each_thread(p, t)
->
-> I would not do this one. It is prone to bugs. As it is a double loop, the
-> way to "break" is to do a goto. That will be bug to have a goto jump out of
-> a scoped_guard().
+diff --git a/tools/perf/builtin-trace.c b/tools/perf/builtin-trace.c
+index c3c7f1f85c530196..4c8f91f0f854b382 100644
+--- a/tools/perf/builtin-trace.c
++++ b/tools/perf/builtin-trace.c
+@@ -1066,7 +1066,7 @@ static size_t btf_struct_scnprintf(const struct btf_type *type, struct btf *btf,
+                return 0;
 
-No. Scopes can be left by any valid termination mechanism. 
+        /* pretty print the struct data here */
+-       if (btf_dump__dump_type_data(btf_dump, type_id, arg->augmented.args->value, type->size, &dump_data_opts) == 0)
++       if (btf_dump__dump_type_data(btf_dump, type_id, arg->augmented.args->value, type->size, &dump_data_opts) <= 0)
+                return 0;
 
-The only problematic case of leaving a scoped_guard() with goto is when
-the goto is actually implemented as an ASM goto. See the comment above
-arch_unsafe_get_user() in linux/uaccess.h.
+        consumed = sizeof(*augmented_arg) + augmented_arg->size;
+(END)
+acme@number:~/git/pahole$
 
-But I agree that requiring a goto to break out of the nested loop is
-nasty especially when it's not well documented. The copied original
-comment is pretty useless.
+As this source code allows for longer lines, having it like above helps
+in reviewing, we can see straight away what the change was. There was a
+clash a few patches later that expected that reflow to be in place, I
+adjusted that as well, no code changes in both cases.
 
-Thanks,
+Please avoid reflowing things.
 
-        tglx
+Thanks for your work, appreciated!
 
-
-
-
-
-
-
+- Arnaldo
