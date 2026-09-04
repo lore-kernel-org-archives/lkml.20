@@ -1,180 +1,201 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CE263B7771
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 16:06:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=192.198.163.12
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788537966; cv=fail; b=lHHjnL0pNmIwg7gxs21r5JtCrn0o1Mjy15EqW0ZfiHU2SNS/X+gfuRdkpeIw8df46PuBQOG3yiHfeyXblBdJPyvqVi5j6+KH1RK1DzUAfQOYbUV93vSQExmrMWZ0xIH3gpm0dzMp+sVTY4E1RT34UcYVHhZqUBXIIjBPZrkQGBk=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788537966; c=relaxed/simple;
-	bh=HdWHDevmIrJV9SxrXE30BjGtBNT1r5JocFz9zSfNm70=;
-	h=Date:From:To:CC:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=KSRwu39a7Vksrb7A7X/d8U3lEBWrm5Z+FqbpxU7J97Ehexn28lTl2a1Rms9LeiJ6h4XTndRkBiaWgV+HicqM8nREHjqRRGq9OVs6egWOvVaGiCNu7Pw/kYTxH5FuvmLagk9RlcioxWOa9Iy3DU9vNHdXTx4v38ViUGAy7bZb1Zc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=WGtMS3XS; arc=fail smtp.client-ip=192.198.163.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 078563E2AD7;
+	Fri,  4 Sep 2026 16:06:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788537968; cv=none; b=ttdkDh6Rdt69n92W9mSa1l51zYLjJklBUjM0A+frEJ7kHtSu4XkY19UqneUVJ2Cdm1p1OdBBLZOwMh4Igku7hrKsbwWCTXzjTv3ADtBkiyWhiA+lWpQV749FORPgzOSoThw3//tmq0YRSvtHloNSneUZhqTd0mMWizzrPv292xQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788537968; c=relaxed/simple;
+	bh=wKT5Ui1EPtHOVPo2Vwsp3PWAj+c9yDv7Ium4FUQIUAQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=UROIXD3XseaKoA7fnfdPx/GlTEWYy+0ztIOOxZRBc4R/xGwNKcyKEuxLreAyRNoyIZzlSbPsYRVDr7ko3jI1rM6M8ksJ3zSMYjOorEDHEc7mPdUBAuxymegeUN6zdx+Y7rwuV+LCJ8HnQcG0qS1CxNz7GEm2i+HZYuBaoKdfK1I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=m7v47NWL; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="WGtMS3XS"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788537964; x=1820073964;
-  h=date:from:to:cc:subject:message-id:references:
-   in-reply-to:mime-version;
-  bh=HdWHDevmIrJV9SxrXE30BjGtBNT1r5JocFz9zSfNm70=;
-  b=WGtMS3XSJb1X4pgja77Gfs+UT7imvHC5I+5kH/WHk2o9rjv20dTzBG3r
-   rgFBmN7Zoxvs+9c55qQwBPJY4ZtWx+HYx9+enMvLl2QV7pIFle+wG5Hcn
-   8Y7Mg98LIOPsExQJ7BEqEfLaBIo3B4aaf3WmvqbPezVgMO/xHtnquE0q+
-   Mzhse5HNFCpjt8K2aYdc549lT4A77D2kHDjApeDIkePDMfFF8cSxhj30a
-   20N8CPZ8X3vJ4C/VPZPI+/GucnWULYU9O9y7srY7DI+KMqBRxzvVog6ok
-   7FxFCdZerjV0+rytw0ttlisL5Qkqxr3V++uQ26HO4sBIORJlBQKnFbz5e
-   g==;
-X-CSE-ConnectionGUID: FxyblC8OT4ui+hwfjkhNAA==
-X-CSE-MsgGUID: ooWNd6dnTvmBKHAYNo4b0A==
-X-IronPort-AV: E=McAfee;i="6800,10657,11895"; a="92861234"
-X-IronPort-AV: E=Sophos;i="6.25,262,1779174000"; 
-   d="scan'208";a="92861234"
-Received: from fmviesa001.fm.intel.com ([10.60.135.141])
-  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Sep 2026 09:06:03 -0700
-X-CSE-ConnectionGUID: oRNH2lfATjWooDKV9IY+Rg==
-X-CSE-MsgGUID: 1ij20ouISLC97KgetUwQFA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,262,1779174000"; 
-   d="scan'208";a="294958724"
-Received: from orsmsx902.amr.corp.intel.com ([10.22.229.24])
-  by fmviesa001.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Sep 2026 09:06:02 -0700
-Received: from ORSMSX901.amr.corp.intel.com (10.22.229.23) by
- ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Fri, 4 Sep 2026 09:06:01 -0700
-Received: from ORSEDG901.ED.cps.intel.com (10.7.248.11) by
- ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46 via Frontend Transport; Fri, 4 Sep 2026 09:06:01 -0700
-Received: from DM1PR04CU001.outbound.protection.outlook.com (52.101.61.64) by
- edgegateway.intel.com (134.134.137.111) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Fri, 4 Sep 2026 09:06:00 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=y9pA51QoCe2mdddjyCRXpxbJe0mbk6Y7BiHjaoqpHQoxSd31/VfZubTJI7GR8xy4WUhe1eMEUTRDAXHstZWa5DOu0jQ1fshEohFJ/LpJLcGAm+frxzS2y+J+UfaE6EDZW3by8NqvOiDX2ES01dFWf7e+u4XxZEeX6ZbavyMjKBbBTEVNx4KbkJCxjf+3HGkudzCH04OkJkEawZwvGhAfCOBVpKlXLIAJwLoyWsFYp7GSP+22RLEH4n7QkUCUq48DLcKatSOoY1zGeUgQxdLBuFl0lPgIsAikYCktrHEmp2tsvFlZKSJ+Lre4c66JjUfnny5KF0KQcmrGtKso0G9e3w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=eh66GLNj8q03SvSq9brpYO8uzFBdaSEM5/r2/84usbY=;
- b=Zt12N+xSxA9eAIodXuF/Zb4Zxv8sCU6Z562vXt12iHPNmZl9PFUvVZnp00hoEna5ADKPS9lLIrYawGUjeE9nLJVP5aqaW4vVr7/8ZXPacWvoCzix6sls6rYqlWkj3IZNWirId4sV5YVxlLra7/rEhVe1h5Usoj3NFYd0EnpYuYUWV9le1aBdpsfvvclW/1enuMXa9JETe7JaGDuYJosrnzTz0UQJoPUKT/yLLPVNInJndDBIRHeE0uMtNfhwGJi/jsC3EifdMXlUnbrGIbHWrR+MHEnzcpB6wcvQkh3WtvldUeRF0Ge6B90ohEwesQypFj9yBhDKRi6i8LWkL0LgyQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from DM4PR11MB6020.namprd11.prod.outlook.com (2603:10b6:8:61::19) by
- SA1PR11MB8255.namprd11.prod.outlook.com (2603:10b6:806:252::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Fri, 4 Sep
- 2026 16:05:51 +0000
-Received: from DM4PR11MB6020.namprd11.prod.outlook.com
- ([fe80::3058:1480:e4ac:5765]) by DM4PR11MB6020.namprd11.prod.outlook.com
- ([fe80::3058:1480:e4ac:5765%4]) with mapi id 15.21.0382.007; Fri, 4 Sep 2026
- 16:05:51 +0000
-Date: Fri, 4 Sep 2026 23:52:22 +0800
-From: Chen Yu <yu.c.chen@intel.com>
-To: Hui Su <sh_def@163.com>
-CC: <peterz@infradead.org>, <mingo@redhat.com>, <tim.c.chen@linux.intel.com>,
-	<kprateek.nayak@amd.com>, <juri.lelli@redhat.com>,
-	<vincent.guittot@linaro.org>, <dietmar.eggemann@arm.com>,
-	<rostedt@goodmis.org>, <bsegall@google.com>, <mgorman@suse.de>,
-	<vschneid@redhat.com>, <connoro@google.com>, <jstultz@google.com>,
-	<linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v3 1/2] sched/numa: Drive NUMA task tick from execution
- context
-Message-ID: <aprpNg3a6fAm8Wdc@fengwei-dev>
-References: <20260904085244.799276-1-sh_def@163.com>
- <20260904085244.799276-2-sh_def@163.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <20260904085244.799276-2-sh_def@163.com>
-X-ClientProxiedBy: KU0P306CA0077.MYSP306.PROD.OUTLOOK.COM
- (2603:1096:d10:2b::6) To DM4PR11MB6020.namprd11.prod.outlook.com
- (2603:10b6:8:61::19)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="m7v47NWL"
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id BC16C1F00A3D;
+	Fri,  4 Sep 2026 16:06:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788537966;
+	bh=mdDU4tlM62w6TFDpVrbMGhhp97tiGc1QdOq6Vx8EayM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=m7v47NWLw1w/cDnwxPGbsUdDyEln6g9Vx4bOBqYAvSXG+vGPxI4GFOFRN4xATioMj
+	 WBUHJrw4NkAoBWCvdtNi3XJBuREANq0/3ydfx1wQML4oyB7OhegSfJOwcE+a78g7zq
+	 cYZrUJ9fuoCqW+lzP3NI+Ch4qxkk3K1VmRx3WK3Xme+O0re6dAePRCY4NSyOGfskiI
+	 dpVOPhtGLfS3mVktkF0gq8zSxW0QRgTPM+GxuAIHGUuH4p/i1CRCzca4g9meVk6764
+	 HVScR0//ctz35VsVxqTImsBHkLzVKHiNN0LQ0MJvgdL2OQNbs3aL7PkyHv8tz6bMoU
+	 rYw8qRvU14GbQ==
+Date: Fri, 4 Sep 2026 09:06:06 -0700
+From: "Darrick J. Wong" <djwong@kernel.org>
+To: Hemanth Selam <hemanth.selam@gmail.com>
+Cc: Carlos Maiolino <cem@kernel.org>, linux-kernel@vger.kernel.org,
+	linux-xfs@vger.kernel.org
+Subject: Re: [PATCH 1/2] xfs: fix typos in comments
+Message-ID: <20260904160606.GY1933798@frogsfrogsfrogs>
+References: <20260904112909.8197-1-hemanth.selam@gmail.com>
+ <20260904112909.8197-2-hemanth.selam@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR11MB6020:EE_|SA1PR11MB8255:EE_
-X-MS-Office365-Filtering-Correlation-Id: cde8fd18-4ce9-4721-0fc0-08df0a9e6436
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|23010399003|1800799024|7416014|376014|6133799003|56012099006|10067099003|5023799004|4143699003|11063799006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: yWFgd6XRhGNxgY1NVDLikdS1qKDE6n4+Ci0z+JDXpxkVyUwoe0SUaieFTWsTJmBiFa+OdymNTBWnWJw9vJ2s929DIhLW2bHcozss+MGRrz7ePm2jrlzvHI9dv3lR1/vB4B7C6RYiJvcKqGIKJMe0jAmqsVHDYyovHIBxs9LQycx9WvBOTl5Y7dFq1lHiKnXV3Qmf6RaTjhZlydgE+uKUtc6fCmwYx55jFR7MX9PwTZxwF2aFQ7GIfqVvYbKN9rARSjlwt+WfdXATmDhdQiT3c+ChNt30Yp6E4lotwLMWi1/2yO86ewKRRPK8s0Oz6Ur95yF0k2Oo4jbvvO/KUbK7e6xatM5OLbo5VZgkeuYc8wkoojqvfaiByvWdEY0+KYNvsqDhVXDj6+7k9y5ujoeff1weGbU9CRcX5XT0AgNMxT74mAPT6bEfjwuwSlj8xE/FZraySS57aHYVWALSFCZRKuYpDUhz1Cox5RKe1XfVY9c2AuBYQjHmGayURPqZIRk9GjvFzIGG+x98mA3t3ZvXw3RzfFebFcjQXWLRwMHwktEg8uI8kg5ntAAuBGzrHs6wToerivawhPTTzorrtXHBaE3tM+eV6kt2ShSbly6YGjNTtsLm+PJLVY3e1zrhPWRGfwjAoHarqU9Ss8ZHEn1XxRG4Q+5HEMtlS/9SpeJD5As=
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM4PR11MB6020.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(1800799024)(7416014)(376014)(6133799003)(56012099006)(10067099003)(5023799004)(4143699003)(11063799006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?d8x38h0P9gJQjOP/O5uG2TY4Zb46dQL7bKBE2ih+ggQVNqsXZD32N/jWmRsR?=
- =?us-ascii?Q?kIgADNk7JM8x2u6jbfB8/YAoUwpBPjjXnkSViD8HYaumyQt039+y4XFdxiUw?=
- =?us-ascii?Q?t/LJjkpJNE+voM9nnxFX5zhF9olyX/cXxTOeieDELDMDKGWmlqZutaIAKL3M?=
- =?us-ascii?Q?nnK+PnZh6T1D1JY+SPctqO4RpmDorwC7lxFxqPbJeQYXdzEE54kv1rEv4Sz4?=
- =?us-ascii?Q?pyyN5i5JtJtuPyef0y4/zo9GkJINC/IIHuncBldOMHDrqRfFcVJmPFrXAZq6?=
- =?us-ascii?Q?H0FPPp2WOWnt/zPO8+B615RJY4JhiW0gyn9YGXM8Wd7+xCMH/5C4YfW6BWes?=
- =?us-ascii?Q?vwnJypoI0GoA6h5h708ozVCmxeIPSSEDY2qvJbS5Gl8Ts0gHOgvhkmYBCVmt?=
- =?us-ascii?Q?a9TBDEV8vzvtnZwVkTpj6PtHnNLTAOSc/5grwszNezTpKNR6DAMu0H2Zw3Qp?=
- =?us-ascii?Q?KsCDv+Duk5KvQLR67ODrHuuIWVC24Qgr5gyROxPzoBlhJQqXUFOTXqQjmAQE?=
- =?us-ascii?Q?wFXIS5pwmJtQ/03L+gq3REDdNGciK2Qlj4yDNynoKSmSIfKXxzZs8PdhLMDG?=
- =?us-ascii?Q?blDb313+fAkGeS1DzELL7jVxVktlYXPdp8IEJyirU2X5dzt1KKXxMmY0tBSH?=
- =?us-ascii?Q?1+e90xuOS6d/YKB/gBmYrNohnCuop9U7LBRmNdCZvAjwUvlBXTFKKJtL/PY3?=
- =?us-ascii?Q?EkKYrPDXdJ54ryWJNm7i5g7+lofmOAYDbaRDw0khiJMyoQXjC9oLUfeJXNxE?=
- =?us-ascii?Q?45UGRwv/2LLh+CQGz++s/yVr9bJGc34UToPyCP5b1qdGqfaLk3lrzN2owrG9?=
- =?us-ascii?Q?WHM5QqV0FLAPA0+IrlhHwJqhufO0vL7zHWKtko9ZVktR0GizxLCajR2wUw3a?=
- =?us-ascii?Q?5juS9kUpG0f7mkOxqGNeZ5lNxVP+Wf3U1egObcYvqLddg8Xt+iFNgvuwkRXC?=
- =?us-ascii?Q?vP9K8h8VXVF75kAdoJaQ1PsEe0p4XXAkNvdYM/lo23k/bNA4YOE6tFjIaLNB?=
- =?us-ascii?Q?duYx/wNOpfKydeTV9HAHleFV+S7yQ186PmSC+vcO4jI4DUBKwIx6EfCtx8So?=
- =?us-ascii?Q?Rs0BtqX+mlal4+KAeHpGDe48Ewh9NOTvwajX3+fAWMfxZVqKf2CRamPHJ2V1?=
- =?us-ascii?Q?JPvCdr3Ssj5z8shiv0gpmuqZVfV/tb6nWnEC10/hwwFbIXWDzdtWL5TWsNhl?=
- =?us-ascii?Q?UhskWxWcyOypSGd1Z6JbqnyW0W/mB49WSG9uVsv3d2s7ozhcIbXZv6Pcbr7R?=
- =?us-ascii?Q?SMzYwEQhIGF7snjrZv62Edoa8bjUXUL2cpdn+t+n7KBoV3XY1fiMk4sbWbha?=
- =?us-ascii?Q?/y5YFrS7rQHc9MFrxeeIHVt/woOS+3fJCWeMB2is4ZY+8icDNwzj/qggWQd2?=
- =?us-ascii?Q?7iIfAw0FFX6hlPG4/KTuP926fOf4rx0IjRpiVuFnBa7mE42I5M62zVM+u+PQ?=
- =?us-ascii?Q?Z78qmL4lnMsCl6ji/bIjLHMPjR0PflDllO/b+tbBd6f7om3Qb7gZQQ/eo+dx?=
- =?us-ascii?Q?BKKL7eF5rPj8fDXaIKspMRQy0OTIus5UhSlTY124XPJJ6thWoGP5swa9KN9D?=
- =?us-ascii?Q?luJY7BQBgTkFUo0/OeAJxm+ZdKVQYA4R1Ra3oLT45Ji4oFKQof1GTaD61s84?=
- =?us-ascii?Q?Azu2Z1KubTh7uIoZLKhNrZEEkpWzv3wpuChhpydmk5CyhUK9XWNXCSLIepSi?=
- =?us-ascii?Q?jRqAwCyyAzGbLylw0kCmIXPUILVOgsxsGlZpLEiiy/y+O17XOlOPiGoA9hwV?=
- =?us-ascii?Q?TSgdbgZhVg=3D=3D?=
-X-Exchange-RoutingPolicyChecked: G4Af10yeiX5pqsPO11966Ik7QxFV/1er99XuanVs3CvNPYkP9ndvJUxY9+nfEZL6IkWAxTiep/b2/ylX8xv9GqYXQgjNxs2F07rVZWU1FFWaqFgIXupyHItth+yFse2t86UV2HoqJlMslrOmrcoCMLWBYECUVbWWjdKtKjXmPGBne5wdFhfGXkSl4NGzQ7DIUgLQtuDWSQ5Lv5nyqSCXNiXiojUZF3zbMJMGUljDQBFhu9Us8flmu76CanidQvC8PmpYUYD6GXZRci/An1LM+D3iYSyLwydCZ+XeIucNOV7GRwItBVa7urAWD+OKeJYF8uKkelpxO/zdXkHrO4eB4Q==
-X-MS-Exchange-CrossTenant-Network-Message-Id: cde8fd18-4ce9-4721-0fc0-08df0a9e6436
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR11MB6020.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Sep 2026 16:05:51.4987
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: jfiWug4LL+slVRZIIhr9yAKI2QFa5TNbQ2yRP8kukqWzU8kkM6qIrCupqMy0gVgqITV5I0PhDdGwbnSU0vS6VA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR11MB8255
-X-OriginatorOrg: intel.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260904112909.8197-2-hemanth.selam@gmail.com>
 
-On Fri, Sep 04, 2026 at 04:52:43PM +0800, Hui Su wrote:
-> Proxy execution separates the scheduling context in rq->donor from the
-> execution context in rq->curr. sched_tick() invokes task_tick() for the
-> donor's scheduling class.
+On Fri, Sep 04, 2026 at 04:59:03PM +0530, Hemanth Selam wrote:
+> Fix typos in comments, reported by scripts/checkpatch.pl using the
+> misspelling list in scripts/spelling.txt.  Only touches comments, no code
+> changes.
 > 
-> task_tick_numa() operates on state associated with the task actually
-> executing, including its mm and NUMA work state. With proxy execution,
-> rq->donor provides the scheduling context while rq->curr identifies the
-> execution context.
-> 
-> Task-level execution runtime is likewise accounted to rq->curr, and
-> task_tick_numa() uses that runtime to drive periodic NUMA scanning.
-> Keeping task_tick_numa() under task_tick_fair() also means that it is not
-> invoked when a fair task executes on behalf of an RT or deadline donor.
-> 
-> Move NUMA tick handling into a scheduler helper for the execution
-> context, and invoke it from both sched_tick() and sched_tick_remote().
-> 
+> Assisted-by: Cursor:claude-opus-5
+> Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
 
-Both patches look good to me, let me launch a test and verify it works
-as expected and report back later.
+Reviewed-by: "Darrick J. Wong" <djwong@kernel.org>
 
-thanks,
-Chenyu
+--D
+
+> ---
+>  fs/xfs/libxfs/xfs_ag.h        | 2 +-
+>  fs/xfs/libxfs/xfs_alloc.c     | 4 ++--
+>  fs/xfs/libxfs/xfs_attr_leaf.c | 2 +-
+>  fs/xfs/libxfs/xfs_errortag.h  | 2 +-
+>  fs/xfs/libxfs/xfs_format.h    | 2 +-
+>  fs/xfs/scrub/dirtree.c        | 2 +-
+>  fs/xfs/xfs_inode.c            | 2 +-
+>  fs/xfs/xfs_log_cil.c          | 2 +-
+>  fs/xfs/xfs_platform.h         | 2 +-
+>  9 files changed, 10 insertions(+), 10 deletions(-)
+> 
+> diff --git a/fs/xfs/libxfs/xfs_ag.h b/fs/xfs/libxfs/xfs_ag.h
+> index fd22fe598931..ee636b66a72f 100644
+> --- a/fs/xfs/libxfs/xfs_ag.h
+> +++ b/fs/xfs/libxfs/xfs_ag.h
+> @@ -207,7 +207,7 @@ xfs_perag_next(
+>  }
+>  
+>  /*
+> - * Per-ag geometry infomation and validation
+> + * Per-ag geometry information and validation
+>   */
+>  xfs_agblock_t xfs_ag_block_count(struct xfs_mount *mp, xfs_agnumber_t agno);
+>  void xfs_agino_range(struct xfs_mount *mp, xfs_agnumber_t agno,
+> diff --git a/fs/xfs/libxfs/xfs_alloc.c b/fs/xfs/libxfs/xfs_alloc.c
+> index d99602bcc16f..f762dcce8d13 100644
+> --- a/fs/xfs/libxfs/xfs_alloc.c
+> +++ b/fs/xfs/libxfs/xfs_alloc.c
+> @@ -3487,7 +3487,7 @@ xfs_alloc_read_agf(
+>  }
+>  
+>  /*
+> - * Pre-proces allocation arguments to set initial state that we don't require
+> + * Pre-process allocation arguments to set initial state that we don't require
+>   * callers to set up correctly, as well as bounds check the allocation args
+>   * that are set up.
+>   */
+> @@ -3608,7 +3608,7 @@ xfs_alloc_vextent_finish(
+>  	 * ABBA AGF deadlocks because a future allocation attempt in this
+>  	 * transaction may attempt to lock a lower number AGF.
+>  	 *
+> -	 * We can't release the AGF until the transaction is commited, so at
+> +	 * We can't release the AGF until the transaction is committed, so at
+>  	 * this point we must update the "first allocation" tracker to point at
+>  	 * this AG if the tracker is empty or points to a lower AG. This allows
+>  	 * the next allocation attempt to be modified appropriately to avoid
+> diff --git a/fs/xfs/libxfs/xfs_attr_leaf.c b/fs/xfs/libxfs/xfs_attr_leaf.c
+> index b6288395f853..2c80f4fd0b78 100644
+> --- a/fs/xfs/libxfs/xfs_attr_leaf.c
+> +++ b/fs/xfs/libxfs/xfs_attr_leaf.c
+> @@ -1715,7 +1715,7 @@ xfs_attr3_leaf_add_work(
+>  			/*
+>  			 * This freemap entry starts at the old end of the
+>  			 * leaf entry array, so we need to adjust its base
+> -			 * upward to accomodate the larger array.
+> +			 * upward to accommodate the larger array.
+>  			 */
+>  			diff = sizeof(struct xfs_attr_leaf_entry);
+>  		} else if (ichdr->freemap[i].size > 0 &&
+> diff --git a/fs/xfs/libxfs/xfs_errortag.h b/fs/xfs/libxfs/xfs_errortag.h
+> index 6de207fed2d8..f0c83f1f0b3b 100644
+> --- a/fs/xfs/libxfs/xfs_errortag.h
+> +++ b/fs/xfs/libxfs/xfs_errortag.h
+> @@ -83,7 +83,7 @@
+>  #define XFS_RANDOM_DEFAULT				100
+>  
+>  /*
+> - * Table of errror injection knobs.  The parameters to the XFS_ERRTAG macro are:
+> + * Table of error injection knobs.  The parameters to the XFS_ERRTAG macro are:
+>   *   1. The XFS_ERRTAG_ flag but without the prefix;
+>   *   2. The name of the sysfs knob; and
+>   *   3. The default value for the knob.
+> diff --git a/fs/xfs/libxfs/xfs_format.h b/fs/xfs/libxfs/xfs_format.h
+> index dd0ed046fbe9..1a7a7e60a170 100644
+> --- a/fs/xfs/libxfs/xfs_format.h
+> +++ b/fs/xfs/libxfs/xfs_format.h
+> @@ -1051,7 +1051,7 @@ enum xfs_dinode_fmt {
+>   * block is 1KB in size.
+>   *
+>   * With XFS_MAX_EXTCNT_DATA_FORK_SMALL representing maximum extent count and
+> - * with 1KB sized blocks, a file can reach upto,
+> + * with 1KB sized blocks, a file can reach up to,
+>   * 1KB * (2^31) = 2TB
+>   *
+>   * This is much larger than the theoretical maximum size of a directory
+> diff --git a/fs/xfs/scrub/dirtree.c b/fs/xfs/scrub/dirtree.c
+> index b2cf6e5439d9..469ba30670f0 100644
+> --- a/fs/xfs/scrub/dirtree.c
+> +++ b/fs/xfs/scrub/dirtree.c
+> @@ -994,7 +994,7 @@ xchk_dirtree(
+>  	return error;
+>  }
+>  
+> -/* Does the directory targetted by this scrub have no parents? */
+> +/* Does the directory targeted by this scrub have no parents? */
+>  bool
+>  xchk_dirtree_parentless(const struct xchk_dirtree *dl)
+>  {
+> diff --git a/fs/xfs/xfs_inode.c b/fs/xfs/xfs_inode.c
+> index 030a7c8f2c12..621513d7215e 100644
+> --- a/fs/xfs/xfs_inode.c
+> +++ b/fs/xfs/xfs_inode.c
+> @@ -2669,7 +2669,7 @@ xfs_irele(
+>  }
+>  
+>  /*
+> - * Ensure all commited transactions touching the inode are written to the log.
+> + * Ensure all committed transactions touching the inode are written to the log.
+>   */
+>  int
+>  xfs_log_force_inode(
+> diff --git a/fs/xfs/xfs_log_cil.c b/fs/xfs/xfs_log_cil.c
+> index 639f875a8fb2..defd121690f5 100644
+> --- a/fs/xfs/xfs_log_cil.c
+> +++ b/fs/xfs/xfs_log_cil.c
+> @@ -1369,7 +1369,7 @@ xlog_cil_cleanup_whiteouts(
+>   * allocation context. However, we do not want to block on memory reclaim
+>   * recursing back into the filesystem because this push may have been triggered
+>   * by memory reclaim itself. Hence we really need to run under full GFP_NOFS
+> - * contraints here.
+> + * constraints here.
+>   */
+>  static void
+>  xlog_cil_push_work(
+> diff --git a/fs/xfs/xfs_platform.h b/fs/xfs/xfs_platform.h
+> index 5d542e95fe44..745d715b4c64 100644
+> --- a/fs/xfs/xfs_platform.h
+> +++ b/fs/xfs/xfs_platform.h
+> @@ -153,7 +153,7 @@ static inline void delay(long ticks)
+>  /*
+>   * XFS wrapper structure for sysfs support. It depends on external data
+>   * structures and is embedded in various internal data structures to implement
+> - * the XFS sysfs object heirarchy. Define it here for broad access throughout
+> + * the XFS sysfs object hierarchy. Define it here for broad access throughout
+>   * the codebase.
+>   */
+>  struct xfs_kobj {
+> -- 
+> 2.48.1
+> 
+> 
