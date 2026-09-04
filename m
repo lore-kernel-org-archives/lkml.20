@@ -1,311 +1,169 @@
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from SJ2PR03CU001.outbound.protection.outlook.com (mail-westusazon11012070.outbound.protection.outlook.com [52.101.43.70])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF89F4570FD
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 10:12:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.41
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788516781; cv=none; b=t7n/zbAXRuVH2fgcIzzZlgw4EoTfHllu5M80+LnZsUcgTLM9dOS6ag6rLgpPC8Ds5WWfvSVfu9HERa8cUhwyG+Ekh7XHtxrJrlL8sDZ/U1aEFbMeAaLwBvwFwam9qNMR74mL3dC09pxpY20aaCPEGEubRjmTkI+lS6/kO5fpyeo=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788516781; c=relaxed/simple;
-	bh=4DxJyEuA+T0h7/bpEIXzn7e/8Z/b3XxwkEaB7qbGt10=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=pNVpFlUdWXnUkIydsM3JurSpZcS1Ehh4yYYdupAA1QzxpmVmhJOk3Ri72KHAYIRKCzW3AJmQAdWOhAYjYN/LWmmqV+0xaVUmn6h3RHQANrFTxhrKnbbRwuvhN76gkwD9/e1rVKJPXI5C/o9El6eOimDPC8r6RfG3d/f0zq+pIYw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=amarulasolutions.com; spf=pass smtp.mailfrom=amarulasolutions.com; dkim=pass (1024-bit key) header.d=amarulasolutions.com header.i=@amarulasolutions.com header.b=EAT9PjnZ; arc=none smtp.client-ip=209.85.128.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=amarulasolutions.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amarulasolutions.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEF72453A44;
+	Fri,  4 Sep 2026 10:13:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.43.70
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788516794; cv=fail; b=UXVKMDy2EYGeXPBNbu8DUs/CHCnJpuu25/EgfjVUH535uht9nYDtG/bLwwBHUEhNGmYra9YNALRQsRMHSLtiBhS3RdKwiRn5EZFg2dRZlxraahFnYHpGStRLyWQzbrG/FZT08a6VcdY0sV0AsrjQ9yFxrvgLUoMSxT431ZdGFEg=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788516794; c=relaxed/simple;
+	bh=EY+DzYJTeIdF1IE+gPNtaoPAL0t77bOpaDE8cSOLP4g=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=BP4R229wIbKHu/Cc/s0/wZl5cwVCxKDjruYJSC+B8brn8tLcSak7QjRVOQnpfFmlimYUQSP0GcGK8J89kMkzTnlduQquCOrn5v9sgqx9Qc4X0q4PdKXEBzFmIHq5ZXTVUq2gGtBYlRZpiHak4m7VbQAYDkY1+YSw7cqvSWgwTWs=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=py1u5l3k; arc=fail smtp.client-ip=52.101.43.70
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amarulasolutions.com header.i=@amarulasolutions.com header.b="EAT9PjnZ"
-Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-49a97714f5dso6855275e9.0
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 03:12:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=amarulasolutions.com; s=google; t=1788516777; x=1789121577; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=hWVY1uMj4PCC62NWVYIfzX5Mbc8Yyn+zUzGlrLMkZwU=;
-        b=EAT9PjnZ4sXey1wMqnFBV52H3I5CcprIwv6RHm7rk1O+YBZYEymVoR9zm6kUgBH4gm
-         zO39nA37/GbvVKDT7q0TWARcDtV+sx6xJNNELbMSbtOKruP+Jd4jAEneL65kr56Fvxln
-         WgfzVLvBlZMsoldQF+kMfCqzx5wWti9J4OnyM=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788516777; x=1789121577;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=hWVY1uMj4PCC62NWVYIfzX5Mbc8Yyn+zUzGlrLMkZwU=;
-        b=emKWvglPqUEEAeoUJFUf8sMN+moxyTWvXwCRQQrAUpPT2ff1JGP88Ol+9t9HDO1O5j
-         YstvihhEoqpOCDmiY8sDY3VnfEpI4/xgnW6OMx+/DsB8qbkXCgtPNwFwfllhb6nCZknu
-         YKRFxNLxBFk22nm51x6tgNpeLvArqHvME9b6tBcIVWwyn8W81/jWrISpJUIksQ56Wrp7
-         oz1Pi3ojNo2ao9IK4KVPj+TWNYfFUvCvlQC22o52JV/7QkxiLPO1hFG226svnrOs0Bxh
-         o1LfO29aE9xe8GWxjKqIB0ZOQHttdXamKrzkVQaRrMcgpXubUU0lgtNU6zMUV/EtxZmg
-         L4wQ==
-X-Gm-Message-State: AFuF++k1otyh8GF2ybAvIWpbcF/LO3XPu1EDHwO212WwqgtYmXhXRGBJ
-	4TdmCjqHGqrDwWqiIiU+dpOt0CSIQlCug0bXvrf5uoWVtmuWJUVVG3mi5QgEw8w/zsZFP9e8dfq
-	xxLBWSLo=
-X-Gm-Gg: AYBFou3tqHwN67cSzkX6uz2lEJy/RQk0YFwnfV5UF+MFr/SjgoOzhZilDaxA+e/t3JQ
-	EAW7u0s1mJglJt+wUcipITfw3tJ099MYWgvKiEYLhsmS7DQF2RKmvRvTgWgTIWvRSoCrQlmBbOr
-	LjkuTlHu8UWmYLcsmtzK8qY3akcDEEyYzR3TaF4jq8wDsVn0qa35/4MYaaRdahqK8917JRQj0Bv
-	Jcl/N8I0BmF/PsNxdG5W8WHBukOzjWUZZhSC86SssLSBWku5Zq0s+Z5QVYSIvkIZdCrBqJlYn1O
-	50OQ29pmOEyGB963PgXWvRz7fiX5uSQedF1xWJgYNHk29X2GVbWB85PfrYD7jBO11VsNpQlpGUv
-	LNq0MXbE5qWcam2xATqG1S8MCZOZiKqbupzTWTdNoOQxbn5u0UkYpMk6RWWEUtUiCz4B9QSM4iS
-	iZTGHr2vpBu3VbTceaCEo1+8n6N8xcPK4gFFVyBzqy+84BaNDlL1DKtgX/+qz1r2Xy2U1PVzKcG
-	b6dTq5658ZxigzdnCTLZ5an/sE+fuuD+9jEKgfHTkp37NBrdewDbZb2bSqy18CrK9mWS48s2clu
-	wzCTvwXMLmqYaRUfW54NfcpsY4iMwOxahLY2TnNFxqxnmlI/GAmJfjo=
-X-Received: by 2002:a05:600c:37c8:b0:49c:cee2:a508 with SMTP id 5b1f17b1804b1-49cf826c4e2mr44990695e9.16.1788516776720;
-        Fri, 04 Sep 2026 03:12:56 -0700 (PDT)
-Received: from dario-ThinkPad-P14s-Gen-5.amarulasolutions.com (host-95-245-93-90.retail.telecomitalia.it. [95.245.93.90])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48588390e30sm5317990f8f.7.2026.09.04.03.12.55
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 04 Sep 2026 03:12:56 -0700 (PDT)
-From: Dario Binacchi <dario.binacchi@amarulasolutions.com>
-To: linux-kernel@vger.kernel.org
-Cc: michael@amarulasolutions.com,
-	linux-amarula@amarulasolutions.com,
-	Dario Binacchi <dario.binacchi@amarulasolutions.com>,
-	Peng Fan <peng.fan@nxp.com>,
-	Abel Vesa <abelvesa@kernel.org>,
-	Brian Masney <bmasney+clk@redhat.com>,
-	Fabio Estevam <festevam@gmail.com>,
-	Frank Li <Frank.Li@nxp.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Stephen Boyd <sboyd@kernel.org>,
-	imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	linux-clk@vger.kernel.org
-Subject: [PATCH v14 4/4] clk: imx: pll14xx: support spread spectrum clock generation
-Date: Fri,  4 Sep 2026 12:06:33 +0200
-Message-ID: <20260904101243.412006-5-dario.binacchi@amarulasolutions.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260904101243.412006-1-dario.binacchi@amarulasolutions.com>
-References: <20260904101243.412006-1-dario.binacchi@amarulasolutions.com>
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="py1u5l3k"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=FC43MuQONbYgd5BI86INNNKGcvNkmZqiA7T+6c3MrIBOsb1rb4YdjiZ7fpdx0efDkOottFOPrPAzH159v6qApVnOfjLPDwNrG6QiswpblqJfsR5DZgOoV46BFue6po6AX9NfvKsT7zzbW5WrehweICMFhdvHuYbPHEfliyFoq/jCi85Z9akIH9BoNro6nzyk7fogLOw8TbY6LjcimpYW/ZF/5aR5RMHUpwdDHhbUcc7xXnYYM6FVwB4dO7GYcrBY4Lh8oS4VwKZK9uVlndWzTX56O9MORb15QrAixtC7sA0ewfr6pxmKIIE9LWTivUvu1g4yXW5qrtbYLzR9IZDViQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Bc9udo52fl2HPR56uC2nWQrcdxjU1eGKvulC+ntihQU=;
+ b=dBZN9WWGqZksEwyBWl415Hrt0PS8GuFUAlt8yka89laW26LF9B21WG+mA+SHUWKziyotQ0mAVBBnDTpqLqHjriAo9WJeOmwS0bZm9m8zoijBkWduz7C0obL3mIpmZJck42nUBdDYr8rk8WRbzddTBYZ9OgIn0V0U95mcsX6i+DzOO6fcpUQ+P9jOtyarV+4bTB+qRRdt8gOJGlNPIIp3dgczlbKs94JSUTyfMg1teQpW7ngekad6WSaKmqgNAyW8bbv0DM0ud3mk1la7Kl9g6eKJHZCS5fnW9VwKNxMC0uZ+q3dMgW/uF1zLhbrLeIsw3GSMWqaf2u+n6IEzz9qUqw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Bc9udo52fl2HPR56uC2nWQrcdxjU1eGKvulC+ntihQU=;
+ b=py1u5l3kwM5Ea1MfP0jsMMW0ZqLWRg0gQ82QeryXMtUoNMCmM8vbQHLckpVfx4OBqfYkk25NDjaI/UcHMVfQqgGwTQmZKlVj2HerBZo0v9fe/9wbqSPl7TIwZRRC7REVeB3FPx23N+5Rj/HyiL7NjHS4hZFWkaDYnJqK/umrMp4=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from BL4PR12MB9505.namprd12.prod.outlook.com (2603:10b6:208:591::16)
+ by DS7PR12MB6021.namprd12.prod.outlook.com (2603:10b6:8:87::5) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.360.13; Fri, 4 Sep 2026 10:13:09 +0000
+Received: from BL4PR12MB9505.namprd12.prod.outlook.com
+ ([fe80::73aa:eb8c:a86b:5a83]) by BL4PR12MB9505.namprd12.prod.outlook.com
+ ([fe80::73aa:eb8c:a86b:5a83%5]) with mapi id 15.21.0360.008; Fri, 4 Sep 2026
+ 10:13:09 +0000
+Message-ID: <399db967-050d-48dc-afb5-5c77ee9cce65@amd.com>
+Date: Fri, 4 Sep 2026 15:43:01 +0530
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 2/5] iommu/amd: Fix DTE clearing and rename
+ iommu_ignore_device()
+To: Jason Gunthorpe <jgg@nvidia.com>
+Cc: Pranjal Shrivastava <praan@google.com>, iommu@lists.linux.dev,
+ linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Joerg Roedel <joro@8bytes.org>,
+ Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>,
+ Ankit Soni <ankit.soni@amd.com>, Bjorn Helgaas <bhelgaas@google.com>,
+ Samiullah Khawaja <skhawaja@google.com>, sashiko-bot@kernel.org
+References: <20260824122347.1588592-3-praan@google.com>
+ <178759520117.3131778.15279605903087565179.b4-review@b4>
+ <ao1vJxkZsJpr1qXG@google.com> <20260825114916.GT244917@nvidia.com>
+ <ao3RF0w_AXo5EXxv@google.com> <20260825175315.GD3325090@nvidia.com>
+ <ao3oHn8HiXIx5Wrl@google.com> <50ffc453-f918-47f8-9556-9813308690a9@amd.com>
+ <20260826122147.GA3666382@nvidia.com>
+ <bfb7be5b-2da3-4bd3-8146-9bd079011a75@amd.com>
+ <20260828115331.GC3922654@nvidia.com>
+Content-Language: en-US
+From: Vasant Hegde <vasant.hegde@amd.com>
+In-Reply-To: <20260828115331.GC3922654@nvidia.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: PN3PR01CA0185.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:c01:be::9) To BL4PR12MB9505.namprd12.prod.outlook.com
+ (2603:10b6:208:591::16)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL4PR12MB9505:EE_|DS7PR12MB6021:EE_
+X-MS-Office365-Filtering-Correlation-Id: b20f2807-30be-4390-d4db-08df0a6d1ef6
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|376014|366016|23010399003|22082099003|56012099006|10067099003|11063799006|4143699003|6133799003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	45eI5d2iwkgG2F8D8kH+1LeWq+bPNvGZ5wD0SO4gp9FGuQpQemYZDXZjdMZSvEYjhi8gT0jPnpBUo8LHr0GcW9xHnJQGmikx+4tzXD+tbZu3iZ9TvJxOCcCChfQnLPDE5/uFeQM9eX6YVuHee5uB8S/wpqmy7Fufe2SpLAM3wR0CXER0HCBLjNTfyrweAmOfWZphx/qFbxE/E8WSE6a8pT5ORM83gTpFy6PqKScjkot+0O3brLcaw5rDLQ7STUeeqM866dIrOoeKbBY8NGrQZ93ZyNgrTiN9J3oadpDUcKqJ2wFnx9UXdeOICtRMoX2jhdTMPP12UBbUaQVFDpJXs22wK8y9Jx/gtBymCsOYd7Z1FoO9KVaAU99joygV5DBspbf+86/rYVFjhisBkJyDcyCAroEkmWQFvxeCq9Ip6zq5AIMTczWz2ld8b+5KBmBE+hdZwctLzSg08DXrX8auiNlkmxN6gYd8fjN4x/LyXu/w8/yBXb5frhLNaHek4r54rCF1s1MTug+bX0SPrWENuDtuOthnTJHp+svDDJbcgedxKZUWDksc6luc5m/UFOFdzphBav9qaBTF4e74KIhHHhadjIiNZeDpOIPUBsqq3xmgOLSH11eGGgqy+JG4axhKteKjMxZVdVRz0bs2/2HxS3ghJi79wRsmUMvHJc+jD7I=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BL4PR12MB9505.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(366016)(23010399003)(22082099003)(56012099006)(10067099003)(11063799006)(4143699003)(6133799003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?dUE5OStVTi9NNysrMGdoQ0RzOVJFV1hYUWZ5NHBaOXh3SDUwdGtsZzdSUmUw?=
+ =?utf-8?B?SmxSYzQ1ZFB6SGs4dnNwN1hYdkVyblpaN0FOQU93ZkdkZjY4VUJ0M0VRVlNq?=
+ =?utf-8?B?NElyZGNyWHhzbEhoQmZVcXlqUm1BNXQ3Z0Z0T2cwVytWMXpHYW9FZVFMSWNp?=
+ =?utf-8?B?WFFrMUUyZ0tNUzg5bjMzczg3Y2JCd0dyOWRicXdpT3hiZCt4THBHUmVyVkty?=
+ =?utf-8?B?azJodTB4dUYvdFc1V0gzU2FrM3Z6Z3VjaTE4SXdoQU5rcTdMSE10T3c1eTZh?=
+ =?utf-8?B?cFNTbWs3T3lTRDRpbUp2eWdCb2hLUGMzSWpqbHorbFpsa1dIb01UbkYvcm45?=
+ =?utf-8?B?MG9KUVN5N0ZzNzJjd3RIT09xU1lFNjV1N1FiaWx2bUVlRStweGFQbk12dnlt?=
+ =?utf-8?B?QWNhbEI1ajQ2VjdKYndPMmdRd3FvNWJLdkprcUpMYkxORHVoVHlEY2pYRGgr?=
+ =?utf-8?B?VVZoZnFyak05RU9WRzBZbXVKQnB2anhBNzNuZzBKa3ozSHdXQzByVWlEVDRy?=
+ =?utf-8?B?a0RsM0dDa1dIa2c4blNFN3dTSUd2azdsUFdhZUlTWjExdEpHN1hxSGFPcUtt?=
+ =?utf-8?B?MVBIRG9TRFFRTzROT09RY1VMRzR0cjRjSi9kaXc0cjZiZXpCSHVDK0dobTls?=
+ =?utf-8?B?V0NGNlFBSWEweTNwUU5RbWJVTGZhbEVvN1k5YWVuZncrNGhlaUp6YUd4eXVt?=
+ =?utf-8?B?cEx2T0l5QWIxMVhMRHRUbnRWN0IvQXZHajFuRzdacE0xTVZSQUZ1N1lYaFd0?=
+ =?utf-8?B?eUJGRzBFUE5JdE4xQ2N5Zk5pWUJrSmw2WmZtdVYrSkFGM3puVXBlR2dRTFVs?=
+ =?utf-8?B?MnFrc3FMOTR2aXJjME01OUw2NTRSS0xsNTdCTVVpaDlnUE9PL2tZcGozN0k3?=
+ =?utf-8?B?V2xzWGtkb2hPa3RKRWg3SDVYY3NwaDVsc2UrY244UGlpMDl3LzR3dHF0bUtN?=
+ =?utf-8?B?ZkhhWU43Z3AzbXpmT0NFMzdkVDFENHZaZDNGakkvbTExVGs1MFVHTXNjZUJS?=
+ =?utf-8?B?L3pTUzhTRVhPWmdiRyt5VThUMnFiZzVsTWJ0ZVdsVWZrcElEdjZ5MlVmcXY1?=
+ =?utf-8?B?WkF6VllLNTF3bTJqK3pOWHFScDhvQ2dtME44cjc3U2FNK0hTUXcvZFp6UGtu?=
+ =?utf-8?B?eDhVMjNwTG1LVkxpR3NLSnFXSmJ0WmlOaVJKOTFHV0tNc0pOakp5S0lVTi9x?=
+ =?utf-8?B?UzBUbTAvMFpPd3lMbmtUR1c3RXJMb2ZiZzdxaTFPeUk2dGlnVGM1RFoycmNX?=
+ =?utf-8?B?UXVHVVQxbGE3ZVQ4TDE2SUkrODNtVWtzQTlCQ3FhS01RZ0ZablhETTFYZi83?=
+ =?utf-8?B?eWFFVjEvS1dFSUltSGFXanVOWHVKNitPRXgrbDNuNFloanhRS254WHdjVWZM?=
+ =?utf-8?B?QWFZeG4rVDY2R1E2ZzNTYy9lN3hFRmUxM2c5Vmx2NXU4QVdmVVlkTW9qYUMw?=
+ =?utf-8?B?SHZ3SnoxV0xEQXoxVkZTS2JmcFhRd2tmZ0o5WEJRVFJtUmFKQU9WL2YzN0Jj?=
+ =?utf-8?B?by9qbWc0ZURJNHorM0FjNEdtcVZDdVgyLzFKLzQ1c1oxNzkxdkpDU1JNMGU4?=
+ =?utf-8?B?TnNuRURuSVFqSlJiSzkyVUUycWYwQzd2YUI0dDBtQlpZam9WRFB3VGJWb3FU?=
+ =?utf-8?B?eUN1VEFZR3U0RVdKWk8xeGpQSEJuYURudzM2a01pY25VTFg5ZS8rbTlSNHV6?=
+ =?utf-8?B?bWY2Tlh4L0o5cCtxbmtNdkJPV1ZKK3liOU5qNG9wdS9CQkErd0crUFRodE1F?=
+ =?utf-8?B?TXJBejJPQkNaWGljd0RiMFJON1hjcGtjVFhPRlRNVkwxaldIYmh3U1BzYnhh?=
+ =?utf-8?B?SzhLcUFUUk9zaG9SeC9yaE1nLzNoL2thdDRlTnNCRXJpSlpUSmg3R1NaK0NU?=
+ =?utf-8?B?dEFmUDRxd09JSHBKK3dOL01ySFVWSml5SW5OamowVEU2bVVoQUJES0ZpM211?=
+ =?utf-8?B?R1lYK1QrZTl2bEZ2bkI5VzVmc2wwMHlsclhBblhIWXBxMlZlaHhHZmplaFVr?=
+ =?utf-8?B?bmRvNEg0dWduU3FBZUZicmVwdGQ0bitKRVFkTHNoUmNxeHpHNTdIaUUzcmda?=
+ =?utf-8?B?Z2tJTmsySHVsRHlLV2JMRGVrOWdTcERySlhjLzFZWWZOUXhJNStML3dJeGhq?=
+ =?utf-8?B?VzBtbU9FUFNSdjMweFZnb3JVSFhId3VHenc3NHU5bjljRkEzeUN4THk1TnpT?=
+ =?utf-8?B?bkJOajV3VlplNHFKclA4azhrR2FWZGhqM0FYSTdGdGZOQWtiTm43TnB0aDMv?=
+ =?utf-8?B?KzFVTGNOQ2xXM2xHdWt6NHFndng4N1pyR09WR29Id0wvTit3VEc3Vys5K0VJ?=
+ =?utf-8?B?c1NtTnFrRUJsNE5NcVJkZTRTMWdCck43VHFvdkxmY0c1Nm1MdzY1dz09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b20f2807-30be-4390-d4db-08df0a6d1ef6
+X-MS-Exchange-CrossTenant-AuthSource: BL4PR12MB9505.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Sep 2026 10:13:09.8074
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: f7XLRDHAViRmAXRxtc4JFBfnB8rw7Q4nS7SkGSZDn0jQvSAYeXzNIuLNPTbzB31qFCZzMKMQxU/RYf+aRbMkzw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB6021
 
-Add support for spread spectrum clock (SSC) generation to the pll14xx
-driver.
+Jason,
 
-Tested on the video PLL of i.MX8MN and i.MX8MP based boards.
 
-Reviewed-by: Peng Fan <peng.fan@nxp.com>
-Signed-off-by: Dario Binacchi <dario.binacchi@amarulasolutions.com>
+On 8/28/2026 5:23 PM, Jason Gunthorpe wrote:
+> On Fri, Aug 28, 2026 at 10:46:48AM +0530, Vasant Hegde wrote:
+>>> Having the driver boot up with all DTEs programmed to identity (eg
+>>> 0'd) and then try to fix them to blocking after the iommu probes
+>>> devices is security backwards.
+>>
+>> During boot, it only sets dte.v bit.
+> 
+> First it clears it to fully 0, what does 0 do in HW?
 
----
+IF DTE is fully zero, then all requests are blocked for that devid.
 
-Changes in v14:
- - Rate limit the warnings on out of range SSC parameters, as they are
-   re-evaluated on every rate change.
- - Add a comment on why the mrr computation cannot overflow.
- - Add Reviewed-by of Peng Fan.
+> 
+> It doesn't make sense that you'd pass over the DTEs after
+> probing if the original 0'd DTE was actually blocking?
 
-Changes in v12:
- - Apply the SSC settings also from the set_spread_spectrum() callback
-   to handle the case the clock framework skips set_rate() if the
-   requested rate is unchanged.
+During boot, it sets certain default values includ dte.v. It doesn't clear
+everything.  In probe path, if probe fails then its clearing it entirely.
 
-Changes in v11:
- - Drop the dt-bindings/clock/clock.h include and use the enum
-   clk_ssc_method values from clk-provider.h, as clk-scmi-oem.c does.
- - Disable SSC and clear the modulation fields in SSCG_CTRL when no
-   spread method is configured, so that a setup left enabled by the
-   bootloader is not kept active.
- - Skip the SSC setup instead of dividing by zero when modfreq_hz is
-   zero or mfr truncates to zero.
- - Reject mfr and mrr values that do not fit the MFREQ_CTL and MRAT_CTL
-   register fields instead of letting FIELD_PREP silently truncate
-   them. This also prevents the 10000 * mfr multiplication from
-   overflowing.
- - Compute the mfr divisor in 64-bit arithmetic, as the 32-bit product
-   could wrap with out of range modfreq_hz values.
+May be we should just remove ignore_device() completely? as
+  - normal boot, its not yet configured, so no DMA is allowed
+  - kdump boot, old DTE is still valid and let it continue?
 
-Changes in v10:
-- Drop 'Reviewed-by' tag of Peng Fan.
-- Adapt the driver to the new infrastructure. Implement the
-  set_spread_spectrum() and get the modulation parameters from
-  struct clk_spread_spectrum.
 
-Changes in v9:
-- Add 'Reviewed-by' tag of Peng Fan.
-
- drivers/clk/imx/clk-pll14xx.c | 103 ++++++++++++++++++++++++++++++++++
- 1 file changed, 103 insertions(+)
-
-diff --git a/drivers/clk/imx/clk-pll14xx.c b/drivers/clk/imx/clk-pll14xx.c
-index b6f1cc9f5700..84e081193f24 100644
---- a/drivers/clk/imx/clk-pll14xx.c
-+++ b/drivers/clk/imx/clk-pll14xx.c
-@@ -13,6 +13,7 @@
- #include <linux/export.h>
- #include <linux/io.h>
- #include <linux/iopoll.h>
-+#include <linux/math64.h>
- #include <linux/slab.h>
- #include <linux/spinlock.h>
- #include <linux/jiffies.h>
-@@ -22,6 +23,8 @@
- #define GNRL_CTL	0x0
- #define DIV_CTL0	0x4
- #define DIV_CTL1	0x8
-+#define SSCG_CTRL	0xc
-+
- #define LOCK_STATUS	BIT(31)
- #define LOCK_SEL_MASK	BIT(29)
- #define CLKE_MASK	BIT(11)
-@@ -33,6 +36,13 @@
- #define KDIV_MASK	GENMASK(15, 0)
- #define KDIV_MIN	SHRT_MIN
- #define KDIV_MAX	SHRT_MAX
-+#define SSCG_ENABLE	BIT(31)
-+#define MFREQ_CTL_MASK	GENMASK(19, 12)
-+#define MRAT_CTL_MASK	GENMASK(9, 4)
-+#define SEL_PF_DOWN_SPREAD	0
-+#define SEL_PF_UP_SPREAD	1
-+#define SEL_PF_CENTER_SPREAD	2
-+#define SEL_PF_MASK	GENMASK(1, 0)
- 
- #define LOCK_TIMEOUT_US		10000
- 
-@@ -44,6 +54,7 @@ struct clk_pll14xx {
- 	int rate_count;
- 	s16 delta_k;
- 	spinlock_t lock;
-+	struct clk_spread_spectrum ss_conf;
- };
- 
- #define to_clk_pll14xx(_hw) container_of(_hw, struct clk_pll14xx, hw)
-@@ -366,6 +377,62 @@ static int clk_pll1416x_set_rate(struct clk_hw *hw, unsigned long drate,
- 	return 0;
- }
- 
-+static void __clk_pll1443x_set_spread_spectrum(struct clk_hw *hw,
-+					       unsigned long parent_rate,
-+					       unsigned int pdiv,
-+					       unsigned int mdiv)
-+{
-+	struct clk_pll14xx *pll = to_clk_pll14xx(hw);
-+	struct clk_spread_spectrum *conf = &pll->ss_conf;
-+	u32 sscg_ctrl, mfr, mrr, sel_pf;
-+
-+	sscg_ctrl = readl_relaxed(pll->base + SSCG_CTRL);
-+	sscg_ctrl &= ~(SSCG_ENABLE | MFREQ_CTL_MASK | MRAT_CTL_MASK | SEL_PF_MASK);
-+
-+	switch (conf->method) {
-+	case CLK_SPREAD_CENTER:
-+		sel_pf = SEL_PF_CENTER_SPREAD;
-+		break;
-+	case CLK_SPREAD_UP:
-+		sel_pf = SEL_PF_UP_SPREAD;
-+		break;
-+	case CLK_SPREAD_DOWN:
-+		sel_pf = SEL_PF_DOWN_SPREAD;
-+		break;
-+	default:
-+		/* No spread: disable modulation and clear any stale state */
-+		goto out;
-+	}
-+
-+	if (!conf->modfreq_hz || !parent_rate || !pdiv)
-+		goto out;
-+
-+	mfr = div64_u64(parent_rate, (u64)conf->modfreq_hz * pdiv * BIT(5));
-+	if (!mfr || mfr > FIELD_MAX(MFREQ_CTL_MASK)) {
-+		pr_warn_ratelimited("%s: SSC disabled, modulation frequency (%u Hz) out of range\n",
-+				    clk_hw_get_name(hw), conf->modfreq_hz);
-+		goto out;
-+	}
-+
-+	/*
-+	 * No overflow: the core limits spread_bp to 10000 and mdiv is a 10-bit
-+	 * field, so the product is at most 10000 * 1023 * 64 < 2^32.
-+	 */
-+	mrr = (conf->spread_bp * mdiv * BIT(6)) / (10000 * mfr);
-+	if (!mrr || mrr > FIELD_MAX(MRAT_CTL_MASK)) {
-+		pr_warn_ratelimited("%s: SSC disabled, spread (%u permyriad) out of range\n",
-+				    clk_hw_get_name(hw), conf->spread_bp);
-+		goto out;
-+	}
-+
-+	sscg_ctrl |= SSCG_ENABLE | FIELD_PREP(MFREQ_CTL_MASK, mfr) |
-+		FIELD_PREP(MRAT_CTL_MASK, mrr) |
-+		FIELD_PREP(SEL_PF_MASK, sel_pf);
-+
-+out:
-+	writel_relaxed(sscg_ctrl, pll->base + SSCG_CTRL);
-+}
-+
- static int clk_pll1443x_set_rate(struct clk_hw *hw, unsigned long drate,
- 				 unsigned long prate)
- {
-@@ -390,6 +457,9 @@ static int clk_pll1443x_set_rate(struct clk_hw *hw, unsigned long drate,
- 		writel_relaxed(FIELD_PREP(KDIV_MASK, rate.kdiv),
- 			       pll->base + DIV_CTL1);
- 
-+		__clk_pll1443x_set_spread_spectrum(hw, prate, rate.pdiv,
-+						   rate.mdiv);
-+
- 		spin_unlock_irqrestore(&pll->lock, flags);
- 
- 		return 0;
-@@ -411,6 +481,8 @@ static int clk_pll1443x_set_rate(struct clk_hw *hw, unsigned long drate,
- 
- 	writel_relaxed(FIELD_PREP(KDIV_MASK, rate.kdiv), pll->base + DIV_CTL1);
- 
-+	__clk_pll1443x_set_spread_spectrum(hw, prate, rate.pdiv, rate.mdiv);
-+
- 	spin_unlock_irqrestore(&pll->lock, flags);
- 
- 	/*
-@@ -437,6 +509,36 @@ static int clk_pll1443x_set_rate(struct clk_hw *hw, unsigned long drate,
- 	return 0;
- }
- 
-+static int clk_pll1443x_set_spread_spectrum(struct clk_hw *hw,
-+					    const struct clk_spread_spectrum *ss_conf)
-+{
-+	struct clk_pll14xx *pll = to_clk_pll14xx(hw);
-+	struct clk_hw *parent = clk_hw_get_parent(hw);
-+	unsigned long parent_rate = parent ? clk_hw_get_rate(parent) : 0;
-+	unsigned long flags;
-+	u32 div_ctl0;
-+
-+	spin_lock_irqsave(&pll->lock, flags);
-+
-+	pll->ss_conf = *ss_conf;
-+
-+	/*
-+	 * Apply the configuration to the hardware right away, using the
-+	 * current PLL dividers: the clock framework does not call set_rate()
-+	 * if the requested rate is unchanged, so relying on it would leave
-+	 * the SSC settings unapplied when the PLL is already at the target
-+	 * rate (e.g. configured by the bootloader).
-+	 */
-+	div_ctl0 = readl_relaxed(pll->base + DIV_CTL0);
-+	__clk_pll1443x_set_spread_spectrum(hw, parent_rate,
-+					   FIELD_GET(PDIV_MASK, div_ctl0),
-+					   FIELD_GET(MDIV_MASK, div_ctl0));
-+
-+	spin_unlock_irqrestore(&pll->lock, flags);
-+
-+	return 0;
-+}
-+
- static int clk_pll14xx_prepare(struct clk_hw *hw)
- {
- 	struct clk_pll14xx *pll = to_clk_pll14xx(hw);
-@@ -509,6 +611,7 @@ static const struct clk_ops clk_pll1443x_ops = {
- 	.recalc_rate	= clk_pll14xx_recalc_rate,
- 	.determine_rate = clk_pll1443x_determine_rate,
- 	.set_rate	= clk_pll1443x_set_rate,
-+	.set_spread_spectrum = clk_pll1443x_set_spread_spectrum,
- };
- 
- struct clk_hw *imx_dev_clk_hw_pll14xx(struct device *dev, const char *name,
--- 
-2.43.0
+-Vasant
 
