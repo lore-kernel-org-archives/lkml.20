@@ -1,42 +1,47 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 447AA3EEAD0
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 11:37:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id BE1F03B14D9
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 11:37:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788521838; cv=none; b=oyMifSnvTSsdGo8zPIc3vcJ2eBuWMCeDDT4WCtqM4rT7SWiT+SWBvhSKBd3X2f6bIR9lcSGiGBLpokIv5tHpvmdX6ETf41uuV/k4W0xDqFnGVvruunKjTQ5Er85s5+TpWSoZqtzw2Ve/ixuAafq9wl9wccPX/DlxiwImpP30BaI=
+	t=1788521848; cv=none; b=ul80WHfmKadrl7CxLN1mqw73hn0nGCr9yCsOQN/aAsjA6T87gYL1DhlQNA8X+0FHaJa1Z4GMtWSa7rRiEYjFnxjUTON6HVBQ7AchUmZzYl5zqZCaGFBRxi+pBxGKU7uxnBGR9/+AU94mW2VWL09Z1pvU2A4nAC1nUgVATVHjuH4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788521838; c=relaxed/simple;
-	bh=Fa5dbv0spbKSAtPxdw5J3md6VmMneJMVMqrLHQatWAA=;
+	s=arc-20240116; t=1788521848; c=relaxed/simple;
+	bh=m2jJiBlsGUl4iHLP2o7iADnOmSK5Bj/o7he5EW66eco=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=iZgZ1Mv7aRxbNMHcvDhuh6ebuVlqtg5eu2ypeRMFN11lsVEx4507Kgt4qgJs5KvuRlnC5lWg7pdyDGEvq5DC1Sj0aiteDICcEVkN6i3ophZvOZDgmVdQ5L6FfLxMDyghY4Ll+PHH8gqc9zSno98HkouKvLpd+UFXZvSPah8Cp1g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KWq7GcWu; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=X0ytpoR0Jnm1FVPSCbBvZNyTCTt4FT/phsDx2scCzWv237ktJYzbtHN4TvgIWCKTcTlj7AfPCkIeiTE+UKi17iRRk03zUgTf1zMLkTijjYx6tulOcGl2haOL8XmpMMxLCrScJHGYM9/9mRCESEK1ZdKTdot9mqdnJcdo9aBeDX4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=eiar/h/1; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KWq7GcWu"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C12061F00A3D;
-	Fri,  4 Sep 2026 11:37:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788521836;
-	bh=M35ChtJ6LeX4aN5jhdAT3A6U190niCHvw/nKaSgFqhI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=KWq7GcWu3wYuI1i2MlTQzlbxBnc4tNFM/6s4h7dMYSE6I0N2cGP/fp7HPiIHQxh/H
-	 vtVqJiRPDoR7if5qb8DFO534owlOw9gQXNo5zmU2dJ8HYRmZnhwEa58iPMZXzv9UE+
-	 7eynM2QcakmyT8b76x4X1eZsQvet590ZDD1xjGxuiRcyLa7IJ3jC25g+rj/KMSLKYU
-	 BgYDlNc9JiKrSR+XsIyxQfuLKilVh/ZuYOlobrkuieEesA2y5C1x3up434CncgWH2t
-	 +zO+0dHkCCjJLpn4iIzDwNficQBNigwJK6akSlRwWqr+zvZhIjPcQ06WCBHOdzbcfv
-	 kp+o+XibdDIww==
-Date: Fri, 4 Sep 2026 12:37:11 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Hemanth Selam <hemanth.selam@gmail.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
-	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
-	Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, linux-kernel@vger.kernel.org, 
-	linux-mm@kvack.org
-Subject: Re: [PATCH 5/5] tools/testing: fix typo "mergable" in comment
-Message-ID: <apqtOmwcvDaA8cp9@gremlin>
-References: <20260904104854.25272-1-hemanth.selam@gmail.com>
- <20260904104854.25272-6-hemanth.selam@gmail.com>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="eiar/h/1"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 6699C153B;
+	Fri,  4 Sep 2026 04:37:22 -0700 (PDT)
+Received: from thinkpad-e142931.arm.com (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 2F1323F7D8;
+	Fri,  4 Sep 2026 04:37:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1788521846; bh=m2jJiBlsGUl4iHLP2o7iADnOmSK5Bj/o7he5EW66eco=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=eiar/h/118H3a26KLPtyaEh01KpT6iuhc/C4MWOEQVSZ71ewPamnAN4Sh8c8NOBT5
+	 tf8GjBQDEl+RQyte6ly7DVyLotsZugzcktiZLPkqB4ujHbpMgcQUZ3Z2umKCC/eKYP
+	 DNTgvTtQVNGmE01bJbFg1pGSyX2iOOzLE+dDleTM=
+Date: Fri, 4 Sep 2026 12:37:17 +0100
+From: Wei-Lin Chang <weilin.chang@arm.com>
+To: Marc Zyngier <maz@kernel.org>
+Cc: Wang Han <wanghan@linux.alibaba.com>, 
+	linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev, linux-kernel@vger.kernel.org, 
+	oupton@kernel.org, tabba@google.com, joey.gouly@arm.com, seiden@linux.ibm.com, 
+	suzuki.poulose@arm.com, catalin.marinas@arm.com, will@kernel.org, ljs@kernel.org, 
+	itaru.kitayama@fujitsu.com
+Subject: Re: [PATCH v5 0/6] KVM: arm64: nv: Implement nested stage-2 reverse
+ map (new data structure)
+Message-ID: <nhqjbq4kwx2n7id4eovyhg4htgbh34m57o2vx2swbuxc5lu2pl@xelx6xh2qvq6>
+References: <20260810205038.118843-1-weilin.chang@arm.com>
+ <20260902163500.1841671-1-wanghan@linux.alibaba.com>
+ <877bl26aqg.wl-maz@kernel.org>
+ <wsnf276xrun3g4hjr3t6alprapctg5z4kpj422v3hujqdjnrsa@swq4blkqvvj5>
+ <875x0l5udh.wl-maz@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -45,41 +50,64 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260904104854.25272-6-hemanth.selam@gmail.com>
+In-Reply-To: <875x0l5udh.wl-maz@kernel.org>
 
-On Fri, Sep 04, 2026 at 04:18:50PM +0530, Hemanth Selam wrote:
-> Correct "mergable" to "mergeable", reported by scripts/checkpatch.pl using
-> the misspelling list in scripts/spelling.txt.  Only touches comments, no
-> code changes.
->
-> Assisted-by: Cursor:claude-opus-5
-> Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
+On Fri, Sep 04, 2026 at 08:49:14AM +0100, Marc Zyngier wrote:
 
-This one I'd drop, as a series of mine I'm going to send soon removes it from
-the kernel altogether, and I don't want conflicts on a typo fix :)
+[...]
 
-Thanks!
+> > > >
+> > > > The L1 was started with 8 vCPUs and 32 GiB of RAM using:
+> > > > 
+> > > >   qemu-system-aarch64 -smp 8 -m 32G \
+> > > >     -machine virt,accel=kvm,gic-version=3,virtualization=on \
+> > > >     -cpu host -nographic -enable-kvm \
+> > > >     -drive if=pflash,format=raw,readonly=on,file=pflash0_bak.img \
+> > > >     -drive if=pflash,format=raw,file=pflash1_bak.img \
+> > > >     -drive file=./ubuntu-vm.qcow2,format=qcow2,if=virtio,cache=none,aio=native \
+> > > >     -nic user,model=virtio-net-pci,hostfwd=tcp::11234-:22 \
+> > > >     -serial mon:stdio
+> > > > 
+> > > 
+> > > Puzzling. If you are only running an L1 in VHE mode, there is no
+> > > shadow S2, and therefore nothing to unmap. For shadow S2s to be built
+> > > and affect the MMU notifiers, you need to run an L2.
+> > 
+> > I was thinking the same at first, but realized even with L1 in VHE mode
+> > there is a small period of time where L1 runs in its EL1 during boot, so
+> > one nested MMU will become valid for each vCPU. That causes
+> > kvm_nested_s2_unmap() to iterate through the entire IPA space 8 times
+> > (-smp 8).
+> 
+> It should be one nested MMU for the whole VM, not one per vcpu.
+> That's assuming they share the same VMID+VTCR.
 
-> ---
->  tools/testing/vma/include/dup.h | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/tools/testing/vma/include/dup.h b/tools/testing/vma/include/dup.h
-> index 4c58487b764e..302a6774fca5 100644
-> --- a/tools/testing/vma/include/dup.h
-> +++ b/tools/testing/vma/include/dup.h
-> @@ -353,7 +353,7 @@ enum {
->  #define VMA_ACCESS_FLAGS mk_vma_flags(VMA_READ_BIT, VMA_WRITE_BIT, VMA_EXEC_BIT)
->
->  /*
-> - * Special vmas that are non-mergable, non-mlock()able.
-> + * Special vmas that are non-mergeable, non-mlock()able.
->   */
->  #define VM_SPECIAL (VM_IO | VM_DONTEXPAND | VM_PFNMAP | VM_MIXEDMAP)
->
-> --
-> 2.48.1
->
+(sigh) Yes, rookie mistake from me as always.
 
---
-Cheers, Lorenzo
+> 
+> > What I am curious about is whether one single notifier unmap is enough
+> > to hang L1, or were there multiple notifier unmaps.
+> > 
+> > QEMU with -machine virt uses 40 IPA bits only, unmapping that takes:
+> > 1024  (4KB pages,  unmapping 1GB per iteration)
+> > 32768 (16KB pages, unmapping 32MB per iteration)
+> > 2048  (64KB pages, unmapping 512MB per iteration)
+> > iterations for each page size. There aren't many mappings in each
+> > iteration too. Does this really take that long on real hardware (even if
+> > this must be done 8 times)?
+> 
+> This should be close to being at zero cost, so something else is
+> amiss.
+> 
+> Could you please have a look?
+
+Of course.
+
+Thanks,
+Wei-Lin Chang
+
+> 
+> 	M.
+> 
+> -- 
+> Jazz isn't dead. It just smells funny.
