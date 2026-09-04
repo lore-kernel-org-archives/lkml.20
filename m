@@ -1,137 +1,101 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com [209.85.214.176])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 656F348124D;
-	Fri,  4 Sep 2026 12:16:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC4D938B7B0
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 12:17:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.176
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788524206; cv=none; b=n5PtUP4a8XCnOe2TRigZz/LA+TwNnY2F+gopuGgk6mTxiJ+L6PuJHTX+1Mp3SfVYR+NGeiAR9A2Q8P1J6TzHHZOJfsG3HbotNsQze1rJP6ZjDTPMW4SOSGl8AOD3BWaYBvTWRK1ZHRGv0IMSio0245sZ8joJji6NqzJA5YWgS8U=
+	t=1788524248; cv=none; b=JwdTTHSkU48TKP4T706tnDrnpAEVEZJXUwWUoX8n9Yttw4uM75zEK3nnghNJbbPIdGrMAVxq4nmSCuoG/3t2XyeYSMirqVBlQR9PUrStwF+pVCxlk4JNt33k7NMVFng0zyPbdqrHDn9Zj1PEgcvCFf3M0cs4kbOVU71xfTlYATQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788524206; c=relaxed/simple;
-	bh=Jey8dTHOMZL8lhnLz/EEl3ZPEZ/I9uIeImx25dVzMjE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=m1E2NiiF+xnqDkVkF2Tmc039+k1a51AQr3ul6VzbhEzK3sIDNeyn+Ooybsu/fHA7+2aqCeoVZWoPWVXiy38WhvbRhJ4mfIk0M7GgGhmwTr2MKB1znutHG08/rksuv80JFCtisf8UAIWC2frNKdv7Edpqiaylsf+RMdDZNbkuJnE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mu+FEdit; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788524248; c=relaxed/simple;
+	bh=TecfBGAvKHdDFhumf+AYPFs3AHxxmquB2jC+WMzYir4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=gl1H9wx61+PG5qtN3JagfMNWdx6vQ61oMX9Niw9zPCf9QHJB//pvOLXvrJbR6mKg1NGJi8wZnqM1VjCYgJdqLk1XpqHCkXB+xt9vHQ8QovFRb1sxey0ZlaDrhrXo+zFaJQb8BUwtvy6WIQs4RvxW272W+NmgpugldKAFt1lxSC0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WRYAlHP1; arc=none smtp.client-ip=209.85.214.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mu+FEdit"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ED0B61F00A3E;
-	Fri,  4 Sep 2026 12:16:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788524205;
-	bh=CVzSSbg8XaitZU0IkO8eE2sTOp/ww7mlfLdDvjSnX2s=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=mu+FEditeFfFWeBQsjsOVdiyitKk6CkH6ibVFyfuaecAV4bM4QIW02DQV3LDNYkdB
-	 DYqIG+n415agvw+nw4fukOIh+OkXSoGaug+j4bw25BpQigNpuS7Pp7C6xKlEUMbIEE
-	 x6IsSYwP7vu6jDRi0CmIJhPs2xbLuhPXQeH+2dKjzpeogLjmJQkZtaq8HiSn5O4qdY
-	 hk2TTGga7vCGp050/nBj7gqyFsjBrW1RyMzCye7S1p5KCzXDEqpo8sZP9jUgAk68Oi
-	 rSPum/esWrV6+bQQ4qq0Kd7NB9fSh8LKdchZlUF4iP4hMzQIxxv9J4J/c5Is3a2tQv
-	 ZBovheJJhygbQ==
-Date: Fri, 4 Sep 2026 13:16:38 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Mark Brown <broonie@kernel.org>
-Cc: Catalin Marinas <catalin.marinas@arm.com>, 
-	Will Deacon <will@kernel.org>, Marc Zyngier <maz@kernel.org>, Joey Gouly <joey.gouly@arm.com>, 
-	Suzuki K Poulose <suzuki.poulose@arm.com>, Shuah Khan <shuah@kernel.org>, Oliver Upton <oupton@kernel.org>, 
-	Fuad Tabba <fuad.tabba@linux.dev>, Peter Maydell <peter.maydell@linaro.org>, 
-	Leonardo Bras <leo.bras@arm.com>, Wei-Lin Chang <weilin.chang@arm.com>, 
-	Yao Yuan <yaoyuan@linux.alibaba.com>, linux-arm-kernel@lists.infradead.org, linux-doc@vger.kernel.org, 
-	kvmarm@lists.linux.dev, linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v20 04/14] KVM: arm64: Ensure GCS memory effects are
- visible
-Message-ID: <apqyNz7cKC8thMfN@gremlin>
-References: <20260901-arm64-gcs-v20-0-f31750bdfadb@kernel.org>
- <20260901-arm64-gcs-v20-4-f31750bdfadb@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WRYAlHP1"
+Received: by mail-pl1-f176.google.com with SMTP id d9443c01a7336-2d72ae08fa1so8466585ad.2
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 05:17:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788524246; x=1789129046; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=w/vMjatRG+Xa1KbAjG9cSshrhcYtsz05PGoniHIQT7U=;
+        b=WRYAlHP1lpF0IWr/DPjJhNnWrUI//+GgvC3TVV+5XSNWw4Wx52Ad7YDemxCrTa4EKd
+         rlo1kGTIlCHU06gJa/4OgCw6cPbibg1MyTAU0r2ul+6rmXo2iMLbqW2opuSyXF/UR6qP
+         NoluqikwHI7mdkjvBz0Dq+QI61shVXTJCdXegW6kAbzuqZX5imZWQdfqmI0l13CVs9sG
+         clCn3ZkUmhXPgAz/FZL/zzv1Scl45vJ69CykyBP7tiRNzihUBq17Xx4xwmPw2nHKZJEc
+         X1ghX84G9hUfrCLWA8sXhlgahNV7WPT1iCmLjfEW83AnBT3psPCNkC7s0SVVn29bjNJa
+         zVNQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788524246; x=1789129046;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=w/vMjatRG+Xa1KbAjG9cSshrhcYtsz05PGoniHIQT7U=;
+        b=OBkSqI3TUO08YOrtDJWOo9h/Tq2T/esc2VFhlVH/Hh36WjyOzaFSnz2XIxEOFb79u9
+         u/OALDflqL9BtuE3eX07HbI9zrMpA8/vUEpYDIzUl4MwLNAJlMJRyJjrNfqtmSoVODT+
+         LFtWhXjjsXWmCOXm6sIwCAZ5l+8CepsHG1gl1N5tJlMP3/OZ5tcIjs19ntuD8aKeK/rn
+         5Lm/EngJoIxUpi2iXHnMF7x2IcL/IJgr36f/UepMdtge4Qpaz98hrlEGaMBkszg30l+s
+         8EqfS2nFMtzoRstfqt+tXpk7XpXopCOpj//p2JvNjUMbG2AknPfRhsCMvFFc/mKySEV8
+         BLdA==
+X-Gm-Message-State: AFuF++kdPaTTE7o+lGF8fHCZKOT0swQAi/Z6ulj6qDizGDMcFJ01PTGm
+	TKmZYm4NcNrYk1YFH6qPQ32xUNQeA7hrYbmzJnIPYspiau2StnbAay+a
+X-Gm-Gg: AYBFou19qt6AoqIFaGiEgURJbv8BfwSkIiq0k87AdVht/Ok1lfnUV2UcoQZiwJURBo2
+	bAzfhp/b4ByZoB7Eu9ULIZ6pisIykWJ+mKCbEYRUdMxhuAQEuf5tQ53MCZ8Zx+oE0yRETBWLEXm
+	U9l3Sxd82dwzLmaAyQyO7DUghD5vUMPyNcK2k5eTBWR8AI7yEAADshxguZAx2SSI0G4cHnENpqh
+	5sGYZydWMk/MIKeojol+HILUO/YpPv2QC45jv0WLE+xIm6/nMVvqWtrT5QrhdMDAKKqkm5YMaJH
+	2jqKcpsfKSNF/3CnYHI8uMMSQDEWWF2SzkQwKfoyG2fSpC0cogTkJoB8Mfw53Y9acC9vwsaq57A
+	CsVOmVl11IB8YteZWZ3SqNYPx/Qsm2wfNUeNq6BTK+lnByEfjglYoWqXjZjU5wV9wm14mITPFMP
+	nrtXO+N8Ed+qPhEl3IS+TmhDKhTjuG1Domxn2ktMJNmz9hG+oPBDeGFcmDpNl0h+Ek1iz/w3zvM
+	iv8QjBi5DjeOx4=
+X-Received: by 2002:a17:90b:2b8c:b0:398:9be6:f995 with SMTP id 98e67ed59e1d1-39b262aaf48mr9514623a91.20.1788524245830;
+        Fri, 04 Sep 2026 05:17:25 -0700 (PDT)
+Received: from volcano9f6e-hostos.amd.com ([165.204.217.251])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339bdf44ffsm5882212eec.28.2026.09.04.05.17.23
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 04 Sep 2026 05:17:25 -0700 (PDT)
+From: Hemanth Selam <hemanth.selam@gmail.com>
+To: Jiri Kosina <jikos@kernel.org>,
+	Arnd Bergmann <arnd@arndb.de>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: linux-kernel@vger.kernel.org
+Subject: [PATCH] char: fix typo "threds" in comment
+Date: Fri,  4 Sep 2026 17:47:20 +0530
+Message-ID: <20260904121721.26144-1-hemanth.selam@gmail.com>
+X-Mailer: git-send-email 2.48.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260901-arm64-gcs-v20-4-f31750bdfadb@kernel.org>
+Content-Transfer-Encoding: 8bit
 
-On Tue, Sep 01, 2026 at 10:47:02PM +0100, Mark Brown wrote:
-> In order to allow efficient implementation of GCS implementations are
-> permitted to do GCS specific caching, with barriers implicit in stack
-> switch operations and GCSB DSYNC as an explicit barrier.  Since we do
-> not use GCS in the hypervisor or host kernel the hypervisor cannot rely
-> on any barriers being present in vCPU context switches other than those
-> it explicitly inserts.  Add explicit barriers when loading and saving
-> vCPU state.
->
-> Signed-off-by: Mark Brown <broonie@kernel.org>
+Correct "threds" to "threads", reported by scripts/checkpatch.pl using the
+misspelling list in scripts/spelling.txt.  Only touches comments, no code
+changes.
 
-LGTM so:
+Assisted-by: Cursor:claude-opus-5
+Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
+---
+ drivers/char/apm-emulation.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+diff --git a/drivers/char/apm-emulation.c b/drivers/char/apm-emulation.c
+index 389874f44967..c1c8905965e9 100644
+--- a/drivers/char/apm-emulation.c
++++ b/drivers/char/apm-emulation.c
+@@ -78,7 +78,7 @@ struct apm_queue {
+  *	5: APM_IOC_SUSPEND ioctl returns
+  *
+  *	6: the notifier invoked from the core PM code timed out waiting
+- *	   for all relevant threds to enter ACKED state and puts those
++ *	   for all relevant threads to enter ACKED state and puts those
+  *	   that haven't into ACKTO
+  *	7: those threads issue APM_IOC_SUSPEND ioctl too late,
+  *	   get an error
+-- 
+2.48.1
 
-> Reviewed-by: Yuan Yao <yaoyuan@linux.alibaba.com>
-> ---
->  arch/arm64/kvm/arm.c               | 7 +++++++
->  arch/arm64/kvm/hyp/nvhe/hyp-main.c | 7 +++++++
->  2 files changed, 14 insertions(+)
->
-> diff --git a/arch/arm64/kvm/arm.c b/arch/arm64/kvm/arm.c
-> index 8b080804bc90..52f53f682e6a 100644
-> --- a/arch/arm64/kvm/arm.c
-> +++ b/arch/arm64/kvm/arm.c
-> @@ -755,6 +755,13 @@ void kvm_arch_vcpu_put(struct kvm_vcpu *vcpu)
-
-So this seems to be where -> vCPU unscheduled so the right place to do it.
-
->  			vcpu_set_flag(vcpu, PKVM_HOST_STATE_DIRTY);
->  	}
->
-> +	/*
-> +	 * Ensure any GCS memory effects from the outgoing vCPU are
-> +	 * visible elsewhere.
-> +	 */
-> +	if (kvm_has_gcs(vcpu->kvm))
-> +		gcsb_dsync();
-
-Makes sense.
-
-I did notice the curious:
-
-static inline void gcsb_dsync(void)
-{
-	asm volatile(".inst 0xd503227f" : : : "memory");
-}
-
-And various sludging around suggests this is HINT #19 and guaranteed to be a nop
-on arches that don't implement the feature :)
-
-> +
->  	kvm_vcpu_put_debug(vcpu);
->  	kvm_arch_vcpu_put_fp(vcpu);
->  	if (has_vhe())
-> diff --git a/arch/arm64/kvm/hyp/nvhe/hyp-main.c b/arch/arm64/kvm/hyp/nvhe/hyp-main.c
-> index 9a3b92e626ad..534db037c5f6 100644
-> --- a/arch/arm64/kvm/hyp/nvhe/hyp-main.c
-> +++ b/arch/arm64/kvm/hyp/nvhe/hyp-main.c
-> @@ -261,6 +261,13 @@ static void sync_hyp_vcpu(struct pkvm_hyp_vcpu *hyp_vcpu)
-
-And here similar for pKVM.
-
->  	fpsimd_sve_sync(&hyp_vcpu->vcpu);
->  	sync_debug_state(hyp_vcpu);
->
-> +	/*
-> +	 * Ensure any GCS memory effects from the outgoing vCPU are
-> +	 * visible elsewhere even if the host skips syncing.
-> +	 */
-> +	if (kvm_has_gcs(hyp_vcpu->vcpu.kvm))
-> +		gcsb_dsync();
-> +
->  	if (pkvm_hyp_vcpu_is_protected(hyp_vcpu)) {
->  		host_vcpu->arch.ctxt = hyp_vcpu->vcpu.arch.ctxt;
->  	} else {
->
-> --
-> 2.47.3
->
->
-
---
-Cheers, Lorenzo
