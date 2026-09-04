@@ -1,75 +1,100 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ot1-f46.google.com (mail-ot1-f46.google.com [209.85.210.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7CD846D579
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 11:22:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6026947A88D
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 11:22:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788520968; cv=none; b=jvzDbfisG6i/bJDwI7uoERWURd66c1h3P1ewND5flIMgvxdLceYoLyD+maLUKTlZp0we7Xi09fvlFgIn3Rn1fsZuUoJGrRodjQShGR04hTxC9etzGluoo++cnfp+oye+bHyATaD8N/Rm+D3w7Qo/U4hTAyZebxT5k9euSChBtPY=
+	t=1788520972; cv=none; b=JzQY8zRs7ZEA2elU7GtLL6Ils9h6e/FJ3Lv234fGgQWVEkFmdXcT3jjn+54SCeH0vezpO6sJMFZuYUhj+y3kDNaDZ8cw0nBPgI79We3WsTBAIcsTz/8MP7zVaH4Ocdkon3yasXB0q7tw348up1tavbHs5GB4N+4IVtb9Zn1NLKw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788520968; c=relaxed/simple;
-	bh=uBWdguZhKLwWAGj+MT+ns1Y+NwJ1sgUA3lnnzSWT8ik=;
-	h=Date:Message-ID:From:To:Cc:Subject:References:MIME-Version:
-	 Content-Type; b=bkCaNqxTi/Ih6vfkt6h1c0xx71b6aDo/WUddmLOqP+0EN7Xm8UNLjIiEgX4viQHIiXHf8Sz3G/4pJ6CCAuQT0CPvunRuJUJ9yeRT3oDyOHNDPjDDV2uUQ1MPa+VqTmS2kCDQ/clEgHkZOAR3hNVGp0oIHyYwerDganNFucLTKTI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FmLykmem; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788520972; c=relaxed/simple;
+	bh=wz6YM46xHkXs4il6af+Vt1ZkBsZHlLckbjXtp0VAzrc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=A/uAzMKGqXqarxV4M4BxVaq/7ezmS2HRpDr0SHlNFrecBS6RqMv4PGWsGPeBvzrE7ZRIVtrRmFymDmimd5Ft8klJdQC6kW4TCGUAWuk3DzSL2igN2LPrjfQRBAV0hJpVp1iwe0ekjwwbsQm1sAhj70mvP8o0JOUun4HQ7P7ie74=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HUAgM0Wg; arc=none smtp.client-ip=209.85.210.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FmLykmem"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BD6A21F00A3D;
-	Fri,  4 Sep 2026 11:22:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788520967;
-	bh=XCJDub5utZU3Jv9WsWOzQRSnYRJS9t/LC5211PDv630=;
-	h=Date:From:To:Cc:Subject:References;
-	b=FmLykmembCGqCpQwM/uWGAOpk1Foj8dojuRirZbQ9CfDRqgO0d01RVQFwTuEwImSW
-	 jNoctT0bbMDHAkoMTShufhXoLTcaSpxeD/LoDeUhvnklz8Wj13hd2vRA9SGBVwf6zx
-	 /h5YZh4V/HxI2h8vEzroo7T+6Siv0y4xG5NSTDv+lAD9n5txRjlgbmP8lKy12lQ9Wy
-	 873utP5okMPbR4xyaP2FawiozhseEp3GMPHPkilkhu9KLt9BXSCaCOCgwfGxldNifQ
-	 MGfju06M6izjzzVyaFEFMdAnwGbCi2RC5z0mamS+XN6zsKHjqaiTKAcWRvbggLjV6D
-	 2csJLRTwVwZeg==
-Date: Fri, 04 Sep 2026 13:22:44 +0200
-Message-ID: <20260904112202.348410055@kernel.org>
-User-Agent: quilt/0.69
-From: Thomas Gleixner <tglx@kernel.org>
-To: LKML <linux-kernel@vger.kernel.org>
-Cc: Hyunwoo Kim <imv4bel@gmail.com>,
- Oleg Nesterov <oleg@redhat.com>,
- Frederic Weisbecker <frederic@kernel.org>,
- Christian Brauner <brauner@kernel.org>,
- Peter Zijlstra <peterz@infradead.org>,
- John Stultz <jstultz@google.com>,
- Ingo Molnar <mingo@kernel.org>,
- Alexander Viro <viro@zeniv.linux.org.uk>,
- "Eric W. Biederman" <ebiederm@xmission.com>
-Subject: [patch 6/8] posix-cpu-timers: Use PF_EXITING to indicate exit
-References: <20260904112100.683893401@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HUAgM0Wg"
+Received: by mail-ot1-f46.google.com with SMTP id 46e09a7af769-7f4f53975e6so803043a34.3
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 04:22:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788520970; x=1789125770; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ZZs6p2NyvyQpcXi5jWHBOyk2COwmthPP9SgDVrLOsXY=;
+        b=HUAgM0WgfsOuxV9rHMP3pw9T2kHsyonMzQFrxs0IwU6tKiYQTV8VWvrgzZYsow7DQ8
+         APl4BbxeNLYsX9KLphkril2UC0FH/oAeGD3adykFAw2iJbnVwdfqIWTDTZtIdsAjeYiN
+         Mrca7YPXpGlKl4cWdVtTry+i5PnlraXwYAJlPpNpXW4P9kiwWERx2GKkdM2lEoN99SvY
+         3cGmPnWqKQVuzuwb7V2foE+Lm5kzH2S9htQM8PXgQGEd+DrPB5n1L5E/tjnqLea2B5Qg
+         UAVxjaD2BfzMsy5PDd9b80auErPVcvgqQOIpXvlyDUZnUZO7shvX2DY6610h5MIGylZk
+         gR/A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788520970; x=1789125770;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ZZs6p2NyvyQpcXi5jWHBOyk2COwmthPP9SgDVrLOsXY=;
+        b=KxjoMwzhmv8TltKq+Hfzmw93PujmBRDqCvFvyNV1Vdn+CDGsoM5geZGmnWL2iQJFp/
+         nW5E9Cam1sz9qCrqDb14XVFghA5R0uatWdPG3uU/FGXq2QdgGGUr+ZjGcxsZN4Z7kCuE
+         P3h6rTGA+AqXklWOZoLhvtN3dnRmu8q1lZuFabhr8QcGxlDx8i9dPEPQPdKYgtwcqpM5
+         /XgbWYoGOhINkTG+d+I8Nt9YwLE7Nb2Mv01rObmcILStOjuSV8s6AhHCWywcGuv5PX6k
+         lzNQI/dTtN53fx+gpOyooaSyJXMEe4HxNyIQt7hMKs8QepBnkdqhyS8bC6HuwIdWF4JK
+         FE1Q==
+X-Gm-Message-State: AFuF++liq1OLKUL7SnJJBMotsRcuV5c3kNAt5VMfwYLDReW5Wn1jFZS0
+	4mz6GVyWsm/eBDO8LwL+mI2k0Jj/pHt15o1Z8t23D75i/dgNTtBZj6j1LmpxOJOARjE=
+X-Gm-Gg: AYBFou3Uiffm/hvQidLiyPiGU34Gwmw6cQ6ecgLUPqkYyYew44FFqMNWiTB/eAW0KH/
+	g5s8tMzJ087g1DhhKiD1qTUtEd0LOdsSonQZ5NOBD12IxSbDVxoc60W6kl29F9LAPn0yibGfsoF
+	Ov5bkQAHLcBYCz+9DT7SgEyjwctBE7opmmbuDPt0wLG/dLfvyOsTIteIgLRFhQ5P5/00/poq8Mm
+	33xZrko9+GWQlnCuGIkABCGyCJsDuwLbE9khBYgfj7bXDuDWFTuD1QBAf0QwRhFkO6D3AM962zS
+	vAMpRmCa9qG+xoyQt9bpnHvGbpZYkkkE0tbgwxNUulepIpyPfV/B+MScHTZ3TvFJ/vb6496XO7f
+	GaU3tzdGMHcZ0EfXviDBaecUK8lzFs2YUyUr1YoOA+UBQcjCg55M17nZ8qR2N0YrCvioBhLk++u
+	xWsyV0GK2gBu+YWxdQ+IKcbDlHJTFK1C0YplqMOpzXumCat1Uutgqia6JN3ZEiLdmEvtVG0RIAc
+	ITur03989BaBE8=
+X-Received: by 2002:a05:6820:8108:b0:6b1:b771:bc43 with SMTP id 006d021491bc7-6b6fc5ce9b6mr3961712eaf.23.1788520970208;
+        Fri, 04 Sep 2026 04:22:50 -0700 (PDT)
+Received: from volcano9f6e-hostos.amd.com ([165.204.217.251])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339a534d0asm6398612eec.8.2026.09.04.04.22.48
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 04 Sep 2026 04:22:49 -0700 (PDT)
+From: Hemanth Selam <hemanth.selam@gmail.com>
+To: Geert Uytterhoeven <geert@linux-m68k.org>
+Cc: linux-kernel@vger.kernel.org,
+	linux-m68k@lists.linux-m68k.org
+Subject: [PATCH] m68k: fix typo "eanble" in comment
+Date: Fri,  4 Sep 2026 16:52:44 +0530
+Message-ID: <20260904112245.37109-1-hemanth.selam@gmail.com>
+X-Mailer: git-send-email 2.48.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Right now POSIX CPU timers use task::exit_state to check whether a task is
-exiting. That works correctly, but exit_state is set later in do_exit() and
-too late for allowing to cleanup POSIX timers earlier.
+Correct "eanble" to "Enable", reported by scripts/checkpatch.pl using the
+misspelling list in scripts/spelling.txt.  Only touches comments, no code
+changes.
 
-It does not matter in case of exit whether the cutoff is a bit earlier.
-
-Signed-off-by: Thomas Gleixner <tglx@kernel.org>
+Assisted-by: Cursor:claude-opus-5
+Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
 ---
- kernel/time/posix-cpu-timers.c |    2 +-
+ arch/m68k/include/asm/m53xxacr.h | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
---- a/kernel/time/posix-cpu-timers.c
-+++ b/kernel/time/posix-cpu-timers.c
-@@ -1505,7 +1505,7 @@ void run_posix_cpu_timers(void)
- 	 * posix_cpu_timer_del() may fail to lock_task_sighand(tsk) and
- 	 * miss timer->it.cpu.firing != 0.
- 	 */
--	if (tsk->exit_state)
-+	if (tsk->flags & PF_EXITING)
- 		return;
+diff --git a/arch/m68k/include/asm/m53xxacr.h b/arch/m68k/include/asm/m53xxacr.h
+index 692f90e7fecc..a29ad33aaf05 100644
+--- a/arch/m68k/include/asm/m53xxacr.h
++++ b/arch/m68k/include/asm/m53xxacr.h
+@@ -32,7 +32,7 @@
+ #define CACR_DCM_PRE	0x00000200	/* Cache inhibited, precise */
+ #define CACR_DCM_IMPRE	0x00000300	/* Cache inhibited, imprecise */
+ #define CACR_WPROTECT	0x00000020	/* Write protect*/
+-#define CACR_EUSP	0x00000010	/* Eanble separate user a7 */
++#define CACR_EUSP	0x00000010	/* Enable separate user a7 */
  
- 	/*
+ /*
+  * Define the Access Control register flags.
+-- 
+2.48.1
 
