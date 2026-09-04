@@ -1,75 +1,50 @@
-Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com [209.85.216.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 681DD46E01F
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 10:38:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51F3146AF2C;
+	Fri,  4 Sep 2026 10:38:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.97.179.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788518318; cv=none; b=D5qwcEP77MlEi/ZCG3Sd+N+/0ZgR3pWbmnToqH65LEKhCFBXTpWsKB8dCBSTFCXxhEj1s2VVSgAVXDgORKvTMBDQuQmyUeGPsXua34nNTZNG0zv0AWYA78FNIf7bSnNKLs8oc4tfcht9AY+0zMl+2sJgSLUXjWORuedGAbnUy5g=
+	t=1788518337; cv=none; b=P4nAJUoRYTuHliUy7A83RdXnMQedEaB/jPt5ZFfPN8Q/dsPvtXxZKGTnW2WToIsc3QsAwwLOwATdL2FOGRarPu/zAooLgPQfhqIKbPMmdk1mCJWzWWs+AvTu1ft7/AbG55eTRvPIo93v/NRNKM1HhSOftFHRxo6iMBkuS5HX++8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788518318; c=relaxed/simple;
-	bh=hrqf0jyjkU0OW+EN/dkVrlGnsBCJhMrfjslOXtc4uDg=;
+	s=arc-20240116; t=1788518337; c=relaxed/simple;
+	bh=+HuJRv9MxBWoIl1CqVAhOCJ8Nb9U+afeGbiwDFQ1MhE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=s5qSNKrhT7rD36WPbs4eoVXBN6JMOcD+AvH8o4fcv/6SXWTA5lIeQXj/Ld6WL6GvKW2eb7T+50wr7MXvXe7diXcjNyVdf/NfldZ1PRwOzl3G4IsFU4keKmSVCfq7+ni4FOAiZGLuFKpj4QTm6QarqfwTVKlkVS3xvgClBVu0uLo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sY4vUvG8; arc=none smtp.client-ip=209.85.216.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 MIME-Version; b=PGVJFQJMp63VvtwGR8+m5DuUXsqXLqOUGvGyXP9ctQQj4Cf1wwtDkMGs+ulGsr4YdsU328US10d1x6HMi/dN2rs0U4dTPdvVqWR/Jr3BsaZBHDK4ZWxi1xBFDNSXZNre12qtXMQZ0rF+z2giHc/brfEEn9HKyVPwkssbURO/bpU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com; spf=pass smtp.mailfrom=igalia.com; dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b=YmhHk22J; arc=none smtp.client-ip=213.97.179.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sY4vUvG8"
-Received: by mail-pj1-f51.google.com with SMTP id 98e67ed59e1d1-3966791a6eeso964788a91.3
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 03:38:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788518316; x=1789123116; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=054o4Lr7yqy/ksle6dmyEe/GjMAK9Y9LzcGMY3tBvRY=;
-        b=sY4vUvG8LF8aXkEcg6GyLaV1A4tGzIGw+e61ZafNKhX8HLPhCTPbuTkDI9dlUq3K5V
-         01HPWF9cjvoF6+GXjcFdR6ILMuuw2ZT6gkfBRGKTWjrpYHwahOjhtl7zhP41oe8c/5gm
-         k6F/FxaQbt1ECqGkOJ0wIn4YJnKxzRFiQ+sxUxRNOebaQgGeWuS2aPYp8KeFUQddh5V4
-         TCALh2xF3RI+BCGeFyRRjArtoTvnRWmuZ+6ghTR5+DEKL6FXftqXs9czeOV/5jIbi5IA
-         ayvPbg3Q/CMGT6Mn1uLjrs7mYpxEwqe4E/ySuxSyiO9AptOWBoSWtUY88rpcXv79mlnz
-         KNGw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788518316; x=1789123116;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=054o4Lr7yqy/ksle6dmyEe/GjMAK9Y9LzcGMY3tBvRY=;
-        b=XptCRB1W73cXFq9z9FkBuK15L65ckr1BEUm6x/OdvAiXIthNXwkQ0KPqdDXFxWEr9C
-         urplPr+I6SvnZjzD47KoFJQVenxW4xpuKjZMSfhBcABPUZHuALuw/IWp4QNW/yi7NNof
-         LyVC+f4ECXQ/IDwS8JSXLbx5GBir9NWq6+QgzxIn8Fcev81fPXgq/88azTLFRwdhrHgc
-         GDcQEcxsoaYr5pci6cTCl+47alQiotBtuZCfC1pMD96YalRKOE82NJEUcU3UTitP89j6
-         g/PTyHjUGDYLK/vAjKD4d/Q3QXcU31S08JIcdhko5lYJljCGIj/eIBOwxPcU0Lj4pBNy
-         yZWw==
-X-Gm-Message-State: AFuF++k8byENAjtCxs6fv+tdGelnSxAcfjCKe/eFN4E7NeCjpct0prV8
-	dSjQSZampiqLgYO2a+u3Vo/GiYPSTAvWSOWK1n29zdcQUzlAiqWXH6BM
-X-Gm-Gg: AYBFou2SUhSSMqcY30s6h999VMZQD3OVaJ9VotDNrxyYD/Zu9xx4OP6QUGgIgPnBjas
-	NrrJ4nM0wEcfuahN7Dyw5x2DaHngOcapyODlzylu5aT+NByHl5I3CQx11UGh9vOOF+XaV3BQW99
-	09tfNBrcctphaoHcCrPKSa5v9VuWo+Oti2WbZav4Tm6Qrn1oFqyts6pzUkL3OzLAbZlzRWfOoDa
-	r4n226iqaNDx20dtDC14yoSL96Iv8AfppVRvHe9QxgLqqKvglioPi1BiMdo0gIkTBF3R5UyKG/e
-	pA7AenOeddc29+5UfG1vswiP2c3P9hLNqoq02AY0nq/bnNVIpA7cpkpJfLN3DZu6InuiKM/1kJw
-	qYa0flmG7IGWfDOH7xhN8ihpZl36xKJst912vt7dFxt9F+PjqRD81eciMCSVQegDSEXIx6bOCIR
-	KXUI4nMjSui6Ox+aG6sEVjnU6Z30A3F+A6lrTv7WymY5Wf8lIiWs4Szkx9G20mFZxaSZreP7YM7
-	Ph1Vdxhf6fMNgk=
-X-Received: by 2002:a17:90b:1a8f:b0:398:d2a0:87ff with SMTP id 98e67ed59e1d1-39b26101029mr7458449a91.1.1788518315763;
-        Fri, 04 Sep 2026 03:38:35 -0700 (PDT)
-Received: from volcano9f6e-hostos.amd.com ([165.204.217.251])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339aa33e96sm6021835eec.12.2026.09.04.03.38.33
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 04 Sep 2026 03:38:34 -0700 (PDT)
-From: Hemanth Selam <hemanth.selam@gmail.com>
-To: Christian Brauner <brauner@kernel.org>,
-	"Darrick J. Wong" <djwong@kernel.org>
-Cc: linux-kernel@vger.kernel.org,
-	linux-xfs@vger.kernel.org,
-	linux-fsdevel@vger.kernel.org
-Subject: [PATCH 2/2] iomap: fix repeated word 'the' in comment
-Date: Fri,  4 Sep 2026 16:08:23 +0530
-Message-ID: <20260904103825.8752-3-hemanth.selam@gmail.com>
-X-Mailer: git-send-email 2.48.1
-In-Reply-To: <20260904103825.8752-1-hemanth.selam@gmail.com>
-References: <20260904103825.8752-1-hemanth.selam@gmail.com>
+	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b="YmhHk22J"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
+	s=20170329; h=Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:
+	Cc:To:From:From:Reply-To; bh=f/JuPB5ODbW76qoUQlyBQI5XfcE9nTaSz3hiDI+DXao=; b=
+	YmhHk22JBrUbGDHpYRNbBL0jBnVM0MOr95Bu0oe7NIGMZZWZlGiDw+zFiAO2IVmOA1TlYVF4M8RBY
+	8O/tSk6N75BnNKNGlyHNIkqWu00sPR6YDTnkDen26wkpmRqetBSxxM0Gj2HhdUt5u/NMVn4RWnpV6
+	iCYMOMnk9nJwzHZk6npKQasXCHsLPVJl04lj2J8EBrP7jRF/ZRYVuIKpd6GBdhb7t2GyhaI8I0J8O
+	xK9lU94i32GcArR+Q7mMG/9i2+waGmdgRlWe1JKWcdGv2vPMB38zGfb66r9/PPf9rYM8P3KYXuFH0
+	O8TTshyX8nFtbuBkCsRHusUFzmFcdp6KqA==;
+Received: from bl21-120-122.dsl.telepac.pt ([2.82.120.122] helo=localhost)
+	by fanzine2.igalia.com with esmtpsa 
+	(Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+	id 1x2RJl-00Eq0n-A4; Fri, 04 Sep 2026 12:38:45 +0200
+From: Luis Henriques <luis@igalia.com>
+To: Miklos Szeredi <miklos@szeredi.hu>,
+	Amir Goldstein <amir73il@gmail.com>,
+	Chen Linxuan <me@black-desk.cn>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>
+Cc: fuse-devel@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	Matt Harvey <mharvey@jumptrading.com>,
+	kernel-dev@igalia.com,
+	Luis Henriques <luis@igalia.com>
+Subject: [RFC PATCH v3 2/8] selftests/fuse: convert fusectl test to fuse3
+Date: Fri,  4 Sep 2026 11:39:14 +0100
+Message-ID: <20260904103920.4471-3-luis@igalia.com>
+In-Reply-To: <20260904103920.4471-1-luis@igalia.com>
+References: <20260904103920.4471-1-luis@igalia.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -78,28 +53,112 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Drop the second 'the', reported by checkpatch.pl as a possible repeated
-word.  Only touches a comment, no code changes.
+Since it is probably not worth adding new fuse kselftests based on fuse2,
+it is a good idea to convert the single existing test to fuse3.  The
+conversion is trivial, as it only requires some changes to function
+signatures (the gettattr and truncate fuse operations), and to the filler()
+helper.
 
-Assisted-by: Cursor:claude-opus-5
-Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
+Signed-off-by: Luis Henriques <luis@igalia.com>
+Reviewed-by: Amir Goldstein <amir73il@gmail.com>
 ---
- fs/iomap/buffered-io.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ .../selftests/filesystems/fuse/Makefile       | 20 +++++++------------
+ .../selftests/filesystems/fuse/fuse_mnt.c     | 17 +++++++++-------
+ 2 files changed, 17 insertions(+), 20 deletions(-)
 
-diff --git a/fs/iomap/buffered-io.c b/fs/iomap/buffered-io.c
-index 0a5ebfda90f1..d42751d6f5ff 100644
---- a/fs/iomap/buffered-io.c
-+++ b/fs/iomap/buffered-io.c
-@@ -1708,7 +1708,7 @@ static int iomap_zero_iter(struct iomap_iter *iter, bool *did_zero,
-  * @iomap_flags: Flags to set on the associated iomap to track the batch.
-  *
-  * Returns the folio count directly. Also returns the associated control flag if
-- * the the batch lookup is performed and the expected offset of a subsequent
-+ * the batch lookup is performed and the expected offset of a subsequent
-  * lookup via out params. The caller is responsible to set the flag on the
-  * associated iomap.
+diff --git a/tools/testing/selftests/filesystems/fuse/Makefile b/tools/testing/selftests/filesystems/fuse/Makefile
+index 95a1ee947ca7..a3ee9b3a2f5d 100644
+--- a/tools/testing/selftests/filesystems/fuse/Makefile
++++ b/tools/testing/selftests/filesystems/fuse/Makefile
+@@ -4,31 +4,25 @@ CFLAGS += -Wall -O2 -g $(KHDR_INCLUDES)
+ 
+ TEST_GEN_PROGS := fusectl_test
+ TEST_GEN_PROGS += write_extend_eof_test
+-TEST_GEN_FILES := fuse_mnt
+-
+-# fuse_acl_cache_test requires libfuse3; add it only when the library is present.
+-ACL_CFLAGS := $(shell pkg-config fuse3 --cflags 2>/dev/null)
+-ACL_LDLIBS := $(shell pkg-config fuse3 --libs 2>/dev/null)
+-ifneq ($(ACL_CFLAGS),)
+ TEST_GEN_PROGS += fuse_acl_cache_test
+-endif
++TEST_GEN_FILES := fuse_mnt
+ 
+ include ../../lib.mk
+ 
+ $(OUTPUT)/write_extend_eof_test: LDLIBS += -lpthread
+ 
+-VAR_CFLAGS := $(shell pkg-config fuse --cflags 2>/dev/null)
++VAR_CFLAGS := $(shell pkg-config fuse3 --cflags 2>/dev/null)
+ ifeq ($(VAR_CFLAGS),)
+-VAR_CFLAGS := -D_FILE_OFFSET_BITS=64 -I/usr/include/fuse
++VAR_CFLAGS := -D_FILE_OFFSET_BITS=64 -I/usr/include/fuse3
+ endif
+ 
+-VAR_LDLIBS := $(shell pkg-config fuse --libs 2>/dev/null)
++VAR_LDLIBS := $(shell pkg-config fuse3 --libs 2>/dev/null)
+ ifeq ($(VAR_LDLIBS),)
+-VAR_LDLIBS := -lfuse -pthread
++VAR_LDLIBS := -lfuse3 -pthread
+ endif
+ 
+ $(OUTPUT)/fuse_mnt: CFLAGS += $(VAR_CFLAGS)
+ $(OUTPUT)/fuse_mnt: LDLIBS += $(VAR_LDLIBS)
+ 
+-$(OUTPUT)/fuse_acl_cache_test: CFLAGS += $(ACL_CFLAGS)
+-$(OUTPUT)/fuse_acl_cache_test: LDLIBS += $(ACL_LDLIBS)
++$(OUTPUT)/fuse_acl_cache_test: CFLAGS += $(VAR_CFLAGS)
++$(OUTPUT)/fuse_acl_cache_test: LDLIBS += $(VAR_LDLIBS)
+diff --git a/tools/testing/selftests/filesystems/fuse/fuse_mnt.c b/tools/testing/selftests/filesystems/fuse/fuse_mnt.c
+index d12b17f30fad..5d335fa5cf05 100644
+--- a/tools/testing/selftests/filesystems/fuse/fuse_mnt.c
++++ b/tools/testing/selftests/filesystems/fuse/fuse_mnt.c
+@@ -4,7 +4,7 @@
+  * Creates a simple FUSE filesystem with a single read-write file (/test)
   */
--- 
-2.48.1
-
+ 
+-#define FUSE_USE_VERSION 26
++#define FUSE_USE_VERSION 31
+ 
+ #include <fuse.h>
+ #include <stdio.h>
+@@ -20,7 +20,8 @@ static char *content;
+ static size_t content_size = 0;
+ static const char test_path[] = "/test";
+ 
+-static int test_getattr(const char *path, struct stat *st)
++static int test_getattr(const char *path, struct stat *st,
++			struct fuse_file_info *fi)
+ {
+ 	memset(st, 0, sizeof(*st));
+ 
+@@ -41,14 +42,15 @@ static int test_getattr(const char *path, struct stat *st)
+ }
+ 
+ static int test_readdir(const char *path, void *buf, fuse_fill_dir_t filler,
+-			off_t offset, struct fuse_file_info *fi)
++			off_t offset, struct fuse_file_info *fi,
++			enum fuse_readdir_flags flags)
+ {
+ 	if (strcmp(path, "/"))
+ 		return -ENOENT;
+ 
+-	filler(buf, ".", NULL, 0);
+-	filler(buf, "..", NULL, 0);
+-	filler(buf, test_path + 1, NULL, 0);
++	filler(buf, ".", NULL, 0, FUSE_FILL_DIR_DEFAULTS);
++	filler(buf, "..", NULL, 0, FUSE_FILL_DIR_DEFAULTS);
++	filler(buf, test_path + 1, NULL, 0, FUSE_FILL_DIR_DEFAULTS);
+ 
+ 	return 0;
+ }
+@@ -107,7 +109,8 @@ static int test_write(const char *path, const char *buf, size_t size,
+ 	return size;
+ }
+ 
+-static int test_truncate(const char *path, off_t size)
++static int test_truncate(const char *path, off_t size,
++			 struct fuse_file_info *fi)
+ {
+ 	if (strcmp(path, test_path) != 0)
+ 		return -ENOENT;
