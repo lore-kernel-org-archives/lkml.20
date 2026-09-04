@@ -1,196 +1,1577 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 197123EDE4A
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 08:55:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA13D3CB2DB
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 08:55:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788512131; cv=none; b=EizSeU3aUB97BLXKocQ5XcsBzYc8X0J76xBG51k3Crjaxek0sJkO00XZXCESVIB74wf0GqnLEzzE9rDrON9LRAqiYLqgbyHKw4huOAJCaguUHPwNRBGNCVof2EIGeaPy8/xlquiHdozO5ND2dIXj8mAty3FySpr+M77UDwYHb14=
+	t=1788512124; cv=none; b=c7EcOu2xBybXaZ1R7pCDvEuRDUSZpBPSYgg5EIVDsuRLl83MwcUzf9MVnetMnt92uoFwFwCq8FVih94hi+Hk4m3eyJx2xSdbpFLu880ad3/yYhUYMEpzGbJwUlMjQ9OZU6l2JPkJVfG/dt4HLDDgwLayIoHoLwqKChQ6rtItdNU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788512131; c=relaxed/simple;
-	bh=4IIv9yG4m7qxm3IqrT9DQAomNx8kM3TWRYVx0cDnJRE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=MvjwRxu1T2RIgsp/I8dBjjdbpoRkRNeDPJVWzJWa9JIYROEu1a+VMLUxf9ZYCMeBLrqHNwWCng3ZtwACHBF+eb4q23afT6Z+aAg2gBkiByLzVhcTk9Xs42/epgeH7HENP6gtjJSENCOutUKxvwsnXubP3y2EhNUHz9tBMdrQofU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=LD88kmsY; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=GHSRva5s; arc=none smtp.client-ip=170.10.133.124
+	s=arc-20240116; t=1788512124; c=relaxed/simple;
+	bh=6hc/AWHhblYdAwReqqyXAKPrlXDpV5gsEs4AU71M/ZU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=VK1IAmHFcfJAefkbQcFFLievo1lCTOL6Faef5koo0eETTl2Iok18vJ/ftg3CVM0nvz0ies3oNlLj03bpVjJx/WJ48zAXyTVo2EiFkY1NvgnfIqDv4D4MYAEbGHU/hP6BhcfNfbMYVqI/co0YRkgV2E/cKr2rNvm5SJO/iLcFUmA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=Tsw19bcE; arc=none smtp.client-ip=170.10.129.124
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="LD88kmsY";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="GHSRva5s"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="Tsw19bcE"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1788512127;
+	s=mimecast20190719; t=1788512119;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=JKkhm4P3owmRu88ixnc//OXNGkRZebTXD50nAJpfW/8=;
-	b=LD88kmsYbCnbK9xEC8DoWeKi4Hd/N547tbI1yVQDjqMcQTgkyBVioWs+KRNcDqBK6zyM49
-	BkvBVjeC3aU/KzH8dj/HNC8kA72VAwKtfElezDzFroFxA//75hP+XAMRCZ/6ICPc/BEZwo
-	tftBY4YPQ9zKfw5GbVahcNkPDcFuHT8=
-Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
- [209.85.128.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-132-sjbPC4WGNQCpPXHkkjOR_g-1; Fri, 04 Sep 2026 04:55:26 -0400
-X-MC-Unique: sjbPC4WGNQCpPXHkkjOR_g-1
-X-Mimecast-MFC-AGG-ID: sjbPC4WGNQCpPXHkkjOR_g_1788512125
-Received: by mail-wm1-f70.google.com with SMTP id 5b1f17b1804b1-49953abe51fso5402575e9.1
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 01:55:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1788512125; x=1789116925; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=JKkhm4P3owmRu88ixnc//OXNGkRZebTXD50nAJpfW/8=;
-        b=GHSRva5sMEryUDA+/igHn9JZyq/Ve7JP5ZnPCnu6cuz3I8o5mit2MG5KusK5KcWkBp
-         Ap1txZYb9A+KXqzb4u+2ZHiD9EF7Pl0lven+DH3EM6dS24QbUJcRp1wzA/fUHPQdK100
-         6Rx569cSI21p2Z/19KergekHvDRPygtC3FUSyasvQrnPEELV4tJrx3BDLI28CZ9hCL2h
-         MbJVibU+45X5b0J6D3SepvT4Q5u9xeop7m7QGO1N5xETnikFp/xHTfeTAliqDNTUaDr9
-         oVFWs9/mDdKP7v6WX0SObfBCHD1DQWFU2pl0x3cl/lMsHbnxLR5JZ0APMOv8y+eR41IH
-         WbBw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788512125; x=1789116925;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=JKkhm4P3owmRu88ixnc//OXNGkRZebTXD50nAJpfW/8=;
-        b=Uik6Zy/G9GxvHTCsriUQYe9KJ7oR/sbHWo+IkawnptqkUPYx8hQ9mnw4Pv25A3x3bc
-         JLZFcwqM5Fn+zQtPu0uG6NdnjVFYiLgSzY18aLehM3H4noN7yLFfFSwX/Jpyv+/sgEpK
-         RSrt55+6e7ErE63uHPoOx5SYQEpC6mUddAYrFy0LJ0WE3R9ZLIBtCL9sZJTcvEd+aqjy
-         E8mC5gMBeWVJBJm91Bgbzwev2z3Fps65U3yOzUd14b66fQPbzC3oWkx4YX6X5kAZzplP
-         bt1LnH9jzB/HfcqBpKtp2hFQ/p+sLI+p86u2QPzvU4nFXQfTILK48vZTlBHzUBqPAROX
-         TThw==
-X-Forwarded-Encrypted: i=1; AKwUvBy6PrifWg/RPZj44staN3b3FW2Ch8AhTK24VqhBrlRjRO0K/uLzl6d9K0hoyl3wvieidGm74xeiZC1zqXU=@vger.kernel.org
-X-Gm-Message-State: AFuF++mmP+AqBmFFFKDIqe3Ybt+lmmpqHPqHLsz2EwuW95jYZ2R3NYAr
-	VNuPeH9hg/1MBe+NKm5W08DppiCDdNfyix1qGqrb6dfxWCmHWdynKGGp9cDnMuW70UQGF1yriyC
-	hZ0tylK0+lUe+l80SZg56JeuGpbynjI00rANpGeWPJaA61PjpsxY/phFJ62s88o++7g==
-X-Gm-Gg: AYBFou0zCAhJi7a5F/UdYrRuohJMsTyl0nxWBEU0gtLejxmT6vRSEp1P2F5cmsRdUDa
-	6aYe3sVDRjcgUuDvx3YOUxSsT+EpA47GU5bZlJRSjnltSEJOZwSSIseSWUTFAg5XUlXR4uv+Rlo
-	cR9dAlMo9wnrI12S2MGj5xZffUSOjh/jIBIlbWJJ868fs9f4GEPjOHlu2tPz4iBycdMxhzqPPTI
-	UkQeGy42BEkZuU7dKyd5WhnxOO2P1FrN9bB31jwonYz+87KTQNgJuwXnlt7+vSSQcsC2WWE8i/e
-	UHmKcloSX+Et4qVsXq5eIqkqS3E+twWdzhGrQZM9uYWiTolzPTplJrRYFCpZyJx4QGbaGnYmw77
-	iiVYItu5nnl/CzoOyrpyo4b+OCdnmsNi/pa+L0RjfY3vkfg==
-X-Received: by 2002:a05:600c:1c29:b0:49c:fc6c:be03 with SMTP id 5b1f17b1804b1-49cfc6cc06cmr18966935e9.26.1788512124651;
-        Fri, 04 Sep 2026 01:55:24 -0700 (PDT)
-X-Received: by 2002:a05:600c:1c29:b0:49c:fc6c:be03 with SMTP id 5b1f17b1804b1-49cfc6cc06cmr18966125e9.26.1788512123997;
-        Fri, 04 Sep 2026 01:55:23 -0700 (PDT)
-Received: from sgarzare-redhat (host-79-53-30-11.retail.telecomitalia.it. [79.53.30.11])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ce46696e8sm128248985e9.0.2026.09.04.01.55.21
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 04 Sep 2026 01:55:23 -0700 (PDT)
-Date: Fri, 4 Sep 2026 10:55:17 +0200
-From: Stefano Garzarella <sgarzare@redhat.com>
-To: Bobby Eshleman <bobbyeshleman@gmail.com>
-Cc: "David S. Miller" <davem@davemloft.net>, 
-	Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, 
-	Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
-	Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
-	Stefan Hajnoczi <stefanha@redhat.com>, "Michael S. Tsirkin" <mst@redhat.com>, 
-	Jason Wang <jasowangio@gmail.com>, Xuan Zhuo <xuanzhuo@linux.alibaba.com>, 
-	Eugenio =?utf-8?B?UMOpcmV6?= <eperezma@redhat.com>, Shuah Khan <shuah@kernel.org>, 
-	Randy Dunlap <rdunlap@infradead.org>, virtualization@lists.linux.dev, netdev@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, kvm@vger.kernel.org, 
-	linux-kselftest@vger.kernel.org, sargun@sargun.me, jlinbox@meta.com, 
-	Bobby Eshleman <bobbyeshleman@meta.com>
-Subject: Re: [PATCH net-next 0/6] vsock: assign the guest vsock device to a
- network namespace
-Message-ID: <apqGcFDFm9_Wtw4q@sgarzare-redhat>
-References: <20260902-vsock-guest-ns-v1-0-9995383e9a8b@meta.com>
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=tFcq3n0owsivGm1YQlNcpjT4tAlo8407zFavt1w+BVs=;
+	b=Tsw19bcELbqBgiIzGKlZhM9oyModH2bhwDNXFzch1fqt+am6v7VtffsnnlhMgmySsSvUkH
+	cQjtCmI4TTS3CQgzBcGVdMXmH+P0GSCpsNy0/CYqlS2pF14cVr+qvQe6LSE7/B8wBVlwJF
+	DAAHgTDPlgagCzEuOTVU2hloo0f9y5Y=
+Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-621-GXoE5s2VOiaB_Ijd_LBZFQ-1; Fri,
+ 04 Sep 2026 04:55:16 -0400
+X-MC-Unique: GXoE5s2VOiaB_Ijd_LBZFQ-1
+X-Mimecast-MFC-AGG-ID: GXoE5s2VOiaB_Ijd_LBZFQ_1788512116
+Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id AE16A180AA45;
+	Fri,  4 Sep 2026 08:55:15 +0000 (UTC)
+Received: from tglozar-thinkpadt14gen5.tpbc.csb (headnet05.pony-001.prod.iad2.dc.redhat.com [10.2.32.117])
+	by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 90B0D1800640;
+	Fri,  4 Sep 2026 08:55:12 +0000 (UTC)
+From: Tomas Glozar <tglozar@redhat.com>
+To: Steven Rostedt <rostedt@goodmis.org>,
+	Tomas Glozar <tglozar@redhat.com>
+Cc: John Kacur <jkacur@redhat.com>,
+	Luis Goncalves <lgoncalv@redhat.com>,
+	Crystal Wood <crwood@redhat.com>,
+	Costa Shulyupin <costa.shul@redhat.com>,
+	Wander Lairson Costa <wander@redhat.com>,
+	LKML <linux-kernel@vger.kernel.org>,
+	linux-trace-kernel <linux-trace-kernel@vger.kernel.org>
+Subject: [PATCH v3] rtla: Simplify osnoise tracer option setting code
+Date: Fri,  4 Sep 2026 10:55:00 +0200
+Message-ID: <20260904085500.488905-1-tglozar@redhat.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii; format=flowed
-Content-Disposition: inline
-In-Reply-To: <20260902-vsock-guest-ns-v1-0-9995383e9a8b@meta.com>
+Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
 
-On Wed, Sep 02, 2026 at 04:00:46PM -0700, Bobby Eshleman wrote:
->vsock network namespaces let a host put each VM in a namespace of its
->own. A guest has no equivalent yet. It has a single G2H device that
->cannot be assigned to a network namespace.
+Each osnoise tracer option (in /sys/kernel/tracing/osnoise) used by RTLA
+requires four functions to be defined:
 
-Thanks for this, I'll do a proper review next week, in the mean time 
-some comments below:
+- static osnoise_get_<opt>() - to get the current value of the option
+  and save it into struct osnoise_context's orig_<opt> field,
+- osnoise_set_<opt>() - to set the value of the option requested by the
+  user after reading and saving the original with osnoise_get_<opt>(),
+  and save it into <opt> field of struct osnoise_context,
+- osnoise_restore_<opt>() - restore the value recorded in orig_<opt>,
+- static osnoise_put_<opt>() - restore the value recorded in orig_<opt>
+  and update <opt> to reflect that.
 
->
->This series lets a guest move that device into a network namespace. A
->new ioctl on /dev/vsock, IOCTL_VM_SOCKETS_ASSIGN_G2H_NETNS, assigns the
->device to the namespace of the calling process. The namespace's existing
+The logic is duplicated for all the options, except for cpus (which is
+the only string option) and period/runtime (which are handled together
+and feature extra checks).
 
-Why an ioctl?
+Deduplicate by moving the common code in get/set/restore/put into common
+helper functions local to osnoise.c. The original set/restore/put
+functions are reduced to wrappers generated using a set of X macros:
 
-I'm asking because I'd like to know if you've already considered any 
-alternatives (sysfs, netlink, etc.)
+- OSNOISE_LL_OPTIONS, which invokes the OSNOISE_LL_OPTION macro for all
+  "long long" options,
+- OSNOISE_FLAG_OPTIONS, which invokes the OSNOISE_FLAG_OPTION macro for
+  all flag options (boolean values in osnoise/options file).
 
-How do you think the ioctl should be used? Should we provide an 
-userspace tool, or extending some existing tools?
+Those are also used to auto-generate the corresponding fields in struct
+osnoise_context, plus initialization and restoration code for them.
 
-Thanks,
-Stefano
+There are a few minor changes in the refactored code:
 
->ns_mode then decides who may use it: a "global" namespace shares the
->device with every other global namespace, and a "local" namespace keeps
->the host connection to itself. The device starts out in the initial
->namespace, so until the ioctl is issued nothing has moved and no mode
->has changed. There is no explicit unassign as assigning the device back
->to the initial namespace is equivalent.
->
->The ioctl requires CAP_NET_ADMIN in the initial user namespace.
->
->Connections that can no longer reach the device after a move are reset,
->so that a namespace which has lost access cannot keep using a socket it
->opened while it still had access. Following netdevs, the device returns
->to the initial namespace when the namespace it was moved to is deleted.
->
->Transports opt in through a new netns_assign_allow callback. Only
->virtio-vsock implements it here.
+- osnoise_set_<opt>() now distinguishes between -2 (option cannot be
+  set) and -1 (option not present in kernel) for all options.
+- OSNOISE_OPTION_INIT_VAL and OSNOISE_TIME_INIT_VAL are removed and
+  replaced with a plain -1; all unsigned long long fields are changed to
+  signed long long, consistent with pre-existing "%lld" format string in
+  osnoise_write_ll_config().
+- osnoise_restore_<opt>() now correctly resets the <opt> field (not
+  orig_<opt>) for all options.
 
-Why? (Not asking to support all the others, asking to explain the reason 
-or ask helps from others to extend it)
+The change is intended to simplify adding and modifying tracer options.
+It also makes the code shorter by a bit over 500 lines.
 
-Thanks,
-Stefano
+Assisted-by: Claude:claude-opus-4-6
+Signed-off-by: Tomas Glozar <tglozar@redhat.com>
+---
+v2: https://lore.kernel.org/linux-trace-kernel/20260708083017.162824-1-tglozar@redhat.com/
 
->
->Patch 1 is just a const cleanup that patch 2 needs. The remaining
->patches are actual implementation and tests.
->
->Based off of Stefano's original series:
->https://lore.kernel.org/all/20200116172428.311437-1-sgarzare@redhat.com/
->
->Suggested-by: Stefano Garzarella <sgarzare@redhat.com>
->Link: https://lore.kernel.org/all/20200427142518.uwssa6dtasrp3bfc@steredhat/
->
->Signed-off-by: Bobby Eshleman <bobbyeshleman@meta.com>
->---
->Bobby Eshleman (6):
->      vsock: constify the transport in vsock_for_each_connected_socket()
->      vsock: add IOCTL_VM_SOCKETS_ASSIGN_G2H_NETNS
->      vsock/virtio: support guest device network namespace
->      selftests/vsock: add a helper to assign the g2h device to a netns
->      selftests/vsock: test the guest vsock device network namespace
->      selftests/vsock: test the assign ioctl privilege checks
->
-> Documentation/admin-guide/sysctl/net.rst           |  18 +
-> include/linux/virtio_vsock.h                       |   2 +
-> include/net/af_vsock.h                             |   9 +-
-> include/uapi/linux/vm_sockets.h                    |   6 +
-> net/vmw_vsock/af_vsock.c                           | 200 ++++++++-
-> net/vmw_vsock/virtio_transport.c                   |  28 +-
-> net/vmw_vsock/virtio_transport_common.c            |  28 +-
-> tools/testing/selftests/vsock/.gitignore           |   1 +
-> tools/testing/selftests/vsock/Makefile             |   3 +-
-> tools/testing/selftests/vsock/config               |   1 +
-> tools/testing/selftests/vsock/vmtest.sh            | 461 ++++++++++++++++++++-
-> .../selftests/vsock/vsock_assign_g2h_netns.c       |  45 ++
-> 12 files changed, 774 insertions(+), 28 deletions(-)
->---
->base-commit: d0ec95a8a4e79f2fd6063fc8932415db8c227689
->change-id: 20260831-vsock-guest-ns-d06af451da67
->
->Best regards,
->-- 
->Bobby Eshleman <bobbyeshleman@meta.com>
->
+v3 changes:
+- Rename second argument of osnoise_set_##name() for long long options from
+  "name" to "value" to mirror "onoff" in the same function pattern for boolean
+  options. 
+
+v1: https://lore.kernel.org/linux-trace-kernel/20260612115121.54862-1-tglozar@redhat.com/T
+
+v2 changes (mostly suggestions from Crystal Wood):
+- Reduce code inside macros by moving as much code as possible into helper
+  functions (new or existing) that take the struct field pointers as arguments.
+- Remove "get" functions from the macro, as they are no longer used anywhere.
+- Replace OSNOISE_OPTION_INIT_VAL and OSNOISE_TIME_INIT_VAL with a unified -1
+  value for "unset" (values > INT64_MAX never worked anyway, as
+  osnoise_write_ll_config() always used "%lld" to format the value).
+- Add detailed comments to the helper functions, as one of the issues of the
+  code was the logic being hard to understand.
+- Move some details about the macros from the commit message into a comment.
+
+ tools/tracing/rtla/src/common.h  |   96 +--
+ tools/tracing/rtla/src/osnoise.c | 1093 +++++++++---------------------
+ tools/tracing/rtla/src/osnoise.h |   33 +-
+ 3 files changed, 381 insertions(+), 841 deletions(-)
+
+diff --git a/tools/tracing/rtla/src/common.h b/tools/tracing/rtla/src/common.h
+index 04b287a03f6d4..0de02347a3138 100644
+--- a/tools/tracing/rtla/src/common.h
++++ b/tools/tracing/rtla/src/common.h
+@@ -6,9 +6,42 @@
+ #include "trace.h"
+ #include "utils.h"
+ 
++/*
++ * OSNOISE_LL_OPTIONS - list of long long options backed by tracefs files.
++ *   OSNOISE_LL_OPTION(field_name, tracefs_path)
++ *
++ * OSNOISE_FLAG_OPTIONS - list of boolean options backed by osnoise/options.
++ *   OSNOISE_FLAG_OPTION(field_name, option_string)
++ *
++ * These X-macro lists are invoked in four places:
++ *  - struct osnoise_context field declarations (common.h),
++ *  - function declarations for osnoise_set_<opt>/osnoise_restore_<opt> (common.h),
++ *  - function definitions for set/restore/put (osnoise.c),
++ *  - context initialization and teardown in osnoise_context_alloc() and
++ *    osnoise_put_context() (osnoise.c).
++ */
++#define OSNOISE_LL_OPTIONS \
++	OSNOISE_LL_OPTION(stop_us,		"osnoise/stop_tracing_us")		\
++	OSNOISE_LL_OPTION(stop_total_us,	"osnoise/stop_tracing_total_us")	\
++	OSNOISE_LL_OPTION(print_stack,		"osnoise/print_stack")			\
++	OSNOISE_LL_OPTION(tracing_thresh,	"tracing_thresh")			\
++	OSNOISE_LL_OPTION(timerlat_period_us,	"osnoise/timerlat_period_us")		\
++	OSNOISE_LL_OPTION(timerlat_align_us,	"osnoise/timerlat_align_us")
++
++#define OSNOISE_FLAG_OPTIONS \
++	OSNOISE_FLAG_OPTION(irq_disable,	"OSNOISE_IRQ_DISABLE")	\
++	OSNOISE_FLAG_OPTION(workload,		"OSNOISE_WORKLOAD")	\
++	OSNOISE_FLAG_OPTION(timerlat_align,	"TIMERLAT_ALIGN")
++
+ /*
+  * osnoise_context - read, store, write, restore osnoise configs.
+  */
++#define OSNOISE_LL_OPTION(name, path)			\
++	long long		orig_##name;		\
++	long long		name;
++#define OSNOISE_FLAG_OPTION(name, option_str)		\
++	int			orig_opt_##name;	\
++	int			opt_##name;
+ struct osnoise_context {
+ 	int			flags;
+ 	int			ref;
+@@ -16,50 +49,17 @@ struct osnoise_context {
+ 	char			*curr_cpus;
+ 	char			*orig_cpus;
+ 
+-	/* 0 as init value */
+-	unsigned long long	orig_runtime_us;
+-	unsigned long long	runtime_us;
+-
+-	/* 0 as init value */
+-	unsigned long long	orig_period_us;
+-	unsigned long long	period_us;
+-
+-	/* 0 as init value */
+-	long long		orig_timerlat_period_us;
+-	long long		timerlat_period_us;
+-
+-	/* 0 as init value */
+-	long long		orig_tracing_thresh;
+-	long long		tracing_thresh;
+-
+-	/* -1 as init value because 0 is disabled */
+-	long long		orig_stop_us;
+-	long long		stop_us;
+-
+-	/* -1 as init value because 0 is disabled */
+-	long long		orig_stop_total_us;
+-	long long		stop_total_us;
+-
+-	/* -1 as init value because 0 is disabled */
+-	long long		orig_print_stack;
+-	long long		print_stack;
+-
+-	/* -1 as init value because 0 is off */
+-	int			orig_opt_irq_disable;
+-	int			opt_irq_disable;
+-
+-	/* -1 as init value because 0 is off */
+-	int			orig_opt_workload;
+-	int			opt_workload;
++	long long		orig_runtime_us;
++	long long		runtime_us;
+ 
+-	/* -1 as init value because 0 is off */
+-	int			orig_opt_timerlat_align;
+-	int			opt_timerlat_align;
++	long long		orig_period_us;
++	long long		period_us;
+ 
+-	/* 0 as init value */
+-	unsigned long long	orig_timerlat_align_us;
+-	unsigned long long	timerlat_align_us;
++	OSNOISE_LL_OPTIONS
++	OSNOISE_FLAG_OPTIONS
+ };
++#undef OSNOISE_LL_OPTION
++#undef OSNOISE_FLAG_OPTION
+ 
+ extern volatile int stop_tracing;
+ 
+@@ -173,15 +173,21 @@ common_threshold_handler(const struct osnoise_tool *tool);
+ int osnoise_set_cpus(struct osnoise_context *context, char *cpus);
+ void osnoise_restore_cpus(struct osnoise_context *context);
+ 
+-int osnoise_set_workload(struct osnoise_context *context, bool onoff);
++#define OSNOISE_LL_OPTION(name, path)							\
++	int osnoise_set_##name(struct osnoise_context *context, long long name);	\
++	void osnoise_restore_##name(struct osnoise_context *context);
++#define OSNOISE_FLAG_OPTION(name, option_str)					\
++	int osnoise_set_##name(struct osnoise_context *context, bool onoff);	\
++	void osnoise_restore_##name(struct osnoise_context *context);
++OSNOISE_LL_OPTIONS
++OSNOISE_FLAG_OPTIONS
++#undef OSNOISE_LL_OPTION
++#undef OSNOISE_FLAG_OPTION
+ 
+ void osnoise_destroy_tool(struct osnoise_tool *top);
+ struct osnoise_tool *osnoise_init_tool(char *tool_name);
+ struct osnoise_tool *osnoise_init_trace_tool(const char *tracer);
+ bool osnoise_trace_is_off(struct osnoise_tool *tool, struct osnoise_tool *record);
+-int osnoise_set_stop_us(struct osnoise_context *context, long long stop_us);
+-int osnoise_set_stop_total_us(struct osnoise_context *context,
+-			      long long stop_total_us);
+ 
+ int common_apply_config(struct osnoise_tool *tool, struct common_params *params);
+ int top_main_loop(struct osnoise_tool *tool);
+diff --git a/tools/tracing/rtla/src/osnoise.c b/tools/tracing/rtla/src/osnoise.c
+index 4ff5dad013b10..e3de0b2ca76c1 100644
+--- a/tools/tracing/rtla/src/osnoise.c
++++ b/tools/tracing/rtla/src/osnoise.c
+@@ -124,16 +124,40 @@ void osnoise_put_cpus(struct osnoise_context *context)
+ 	context->orig_cpus = NULL;
+ }
+ 
+-/*
+- * osnoise_read_ll_config - read a long long value from a config
++/**
++ * osnoise_read_ll_config - read a long long value from a tracefs config
++ * @rel_path: tracefs-relative path to the config file
++ * @set_value: pointer to the cached value set by RTLA, or -1 if unset
++ * @orig_value: pointer to the cached original value read from tracefs, or -1 if unread
++ *
++ * Returns the current effective value for the config at @rel_path. If RTLA has
++ * already written a value (@set_value != -1), that value is returned. If the
++ * original has already been read (@orig_value != -1), that cached value is
++ * returned. Otherwise, reads the value from tracefs, caches it in @orig_value
++ * (so it can later be restored), and returns it.
+  *
+- * returns -1 on error.
++ * This is the shared read primitive used by both the manually implemented
++ * get functions (osnoise_get_runtime, osnoise_get_period) and the
++ * OSNOISE_LL_OPTION-generated set/restore/put functions.
++ *
++ * Returns the config value on success, -1 on error.
+  */
+-static long long osnoise_read_ll_config(char *rel_path)
++static long long osnoise_read_ll_config(char *rel_path,
++					long long *set_value,
++					long long *orig_value)
+ {
+ 	long long retval;
+ 	char *buffer;
+ 
++	if (*set_value != -1)
++		/* option has been set by RTLA already */
++		return *set_value;
++
++	if (*orig_value != -1)
++		/* RTLA has already read the option */
++		return *orig_value;
++
++	/* current value is not known to RTLA yet, read it from tracefs */
+ 	buffer = tracefs_instance_file_read(NULL, rel_path, NULL);
+ 	if (!buffer)
+ 		return -1;
+@@ -145,51 +169,110 @@ static long long osnoise_read_ll_config(char *rel_path)
+ 
+ 	free(buffer);
+ 
++	if (retval < 0)
++		goto out_err;
++
++	/* save the value and return it */
++	*orig_value = retval;
+ 	return retval;
++
++out_err:
++	return -1;
+ }
+ 
+-/*
+- * osnoise_write_ll_config - write a long long value to a config in rel_path
++/**
++ * osnoise_write_ll_config - write a long long value to a tracefs config
++ * @rel_path: tracefs-relative path to the config file
++ * @value: the value to write
++ * @set_value: pointer to the cached value set by RTLA, or -1 if unset
++ * @orig_value: pointer to the cached original value read from tracefs, or -1 if unread
+  *
+- * returns -1 on error.
++ * Writes @value to the config at @rel_path. Before writing, calls
++ * osnoise_read_ll_config() to ensure the original value is cached in
++ * @orig_value (enabling later restoration). On successful write, records
++ * the new value in @set_value.
++ *
++ * This is the shared write primitive used by both the manually implemented
++ * write functions (__osnoise_write_runtime, __osnoise_write_period) and the
++ * OSNOISE_LL_OPTION-generated set/restore/put functions.
++ *
++ * Returns 0 on success, -1 on read error (option likely unknown to kernel),
++ * or -2 on write error.
+  */
+-static long long osnoise_write_ll_config(char *rel_path, long long value)
++static int osnoise_write_ll_config(char *rel_path,
++				   long long value,
++				   long long *set_value,
++				   long long *orig_value)
+ {
+-	char buffer[BUFF_U64_STR_SIZE];
++	long long curr = osnoise_read_ll_config(rel_path, set_value, orig_value);
+ 	long long retval;
++	char buffer[BUFF_U64_STR_SIZE];
++
++	if (curr == -1)
++		/* read failed, option likely unknown to kernel */
++		return -1;
+ 
+ 	snprintf(buffer, sizeof(buffer), "%lld\n", value);
+ 
+ 	debug_msg("setting %s to %lld\n", rel_path, value);
+ 
+ 	retval = tracefs_instance_file_write(NULL, rel_path, buffer);
+-	return retval;
++
++	if (retval < 0)
++		/* write failed, hard error */
++		return -2;
++
++	/* record the set value and return success */
++	*set_value = value;
++	return 0;
+ }
+ 
+-/*
+- * osnoise_get_runtime - return the original "osnoise/runtime_us" value
++/**
++ * osnoise_restore_ll_config - restore a long long config to its original value
++ * @rel_path: tracefs-relative path to the config file
++ * @set_value: pointer to the cached value set by RTLA, or -1 if unset
++ * @orig_value: pointer to the cached original value read from tracefs, or -1 if unread
+  *
+- * It also saves the value to be restored.
++ * Restores the config at @rel_path to the value cached in @orig_value (which
++ * was saved by a prior osnoise_read_ll_config() or osnoise_write_ll_config()
++ * call). If the original was never read, or if the current set value already
++ * matches the original, no write is performed. After restoring, clears
++ * @set_value to -1 to indicate RTLA no longer overrides this config.
++ *
++ * This is the shared restore primitive used by both the manually implemented
++ * restore function (osnoise_restore_runtime_period) and the
++ * OSNOISE_LL_OPTION-generated restore/put functions.
+  */
+-unsigned long long osnoise_get_runtime(struct osnoise_context *context)
++static void osnoise_restore_ll_config(char *rel_path,
++				      long long *set_value,
++				      long long *orig_value)
+ {
+-	long long runtime_us;
++	int retval;
+ 
+-	if (context->runtime_us != OSNOISE_TIME_INIT_VAL)
+-		return context->runtime_us;
++	if (*orig_value == -1)
++		return;
+ 
+-	if (context->orig_runtime_us != OSNOISE_TIME_INIT_VAL)
+-		return context->orig_runtime_us;
++	if (*orig_value == *set_value)
++		goto out_done;
+ 
+-	runtime_us = osnoise_read_ll_config("osnoise/runtime_us");
+-	if (runtime_us < 0)
+-		goto out_err;
++	retval = osnoise_write_ll_config(rel_path, *orig_value, set_value, orig_value);
++	if (retval < 0)
++		err_msg("Could not restore original value for %s\n", rel_path);
+ 
+-	context->orig_runtime_us = runtime_us;
+-	return runtime_us;
++out_done:
++	*set_value = -1;
++}
+ 
+-out_err:
+-	return OSNOISE_TIME_INIT_VAL;
++/*
++ * osnoise_get_runtime - return the original "osnoise/runtime_us" value
++ *
++ * It also saves the value to be restored.
++ */
++long long osnoise_get_runtime(struct osnoise_context *context)
++{
++	return osnoise_read_ll_config("osnoise/runtime_us",
++				      &context->runtime_us,
++				      &context->orig_runtime_us);
+ }
+ 
+ /*
+@@ -197,57 +280,29 @@ unsigned long long osnoise_get_runtime(struct osnoise_context *context)
+  *
+  * It also saves the value to be restored.
+  */
+-unsigned long long osnoise_get_period(struct osnoise_context *context)
++long long osnoise_get_period(struct osnoise_context *context)
+ {
+-	long long period_us;
+-
+-	if (context->period_us != OSNOISE_TIME_INIT_VAL)
+-		return context->period_us;
+-
+-	if (context->orig_period_us != OSNOISE_TIME_INIT_VAL)
+-		return context->orig_period_us;
+-
+-	period_us = osnoise_read_ll_config("osnoise/period_us");
+-	if (period_us < 0)
+-		goto out_err;
+-
+-	context->orig_period_us = period_us;
+-	return period_us;
+-
+-out_err:
+-	return OSNOISE_TIME_INIT_VAL;
++	return osnoise_read_ll_config("osnoise/period_us",
++				      &context->period_us,
++				      &context->orig_period_us);
+ }
+ 
+ static int __osnoise_write_runtime(struct osnoise_context *context,
+-				   unsigned long long runtime)
++				   long long runtime)
+ {
+-	int retval;
+-
+-	if (context->orig_runtime_us == OSNOISE_TIME_INIT_VAL)
+-		return -1;
+-
+-	retval = osnoise_write_ll_config("osnoise/runtime_us", runtime);
+-	if (retval < 0)
+-		return -1;
+-
+-	context->runtime_us = runtime;
+-	return 0;
++	return osnoise_write_ll_config("osnoise/runtime_us",
++				       runtime,
++				       &context->runtime_us,
++				       &context->orig_runtime_us);
+ }
+ 
+ static int __osnoise_write_period(struct osnoise_context *context,
+-				  unsigned long long period)
++				  long long period)
+ {
+-	int retval;
+-
+-	if (context->orig_period_us == OSNOISE_TIME_INIT_VAL)
+-		return -1;
+-
+-	retval = osnoise_write_ll_config("osnoise/period_us", period);
+-	if (retval < 0)
+-		return -1;
+-
+-	context->period_us = period;
+-	return 0;
++	return osnoise_write_ll_config("osnoise/period_us",
++				       period,
++				       &context->period_us,
++				       &context->orig_period_us);
+ }
+ 
+ /*
+@@ -258,11 +313,11 @@ static int __osnoise_write_period(struct osnoise_context *context,
+  * to set the runtime and period if they are != 0.
+  */
+ int osnoise_set_runtime_period(struct osnoise_context *context,
+-			       unsigned long long runtime,
+-			       unsigned long long period)
++			       long long runtime,
++			       long long period)
+ {
+-	unsigned long long curr_runtime_us;
+-	unsigned long long curr_period_us;
++	long long curr_runtime_us;
++	long long curr_period_us;
+ 	int retval;
+ 
+ 	if (!period && !runtime)
+@@ -272,7 +327,7 @@ int osnoise_set_runtime_period(struct osnoise_context *context,
+ 	curr_period_us = osnoise_get_period(context);
+ 
+ 	/* error getting any value? */
+-	if (curr_period_us == OSNOISE_TIME_INIT_VAL || curr_runtime_us == OSNOISE_TIME_INIT_VAL)
++	if (curr_period_us == -1 || curr_runtime_us == -1)
+ 		return -1;
+ 
+ 	if (!period) {
+@@ -309,13 +364,13 @@ int osnoise_set_runtime_period(struct osnoise_context *context,
+  */
+ void osnoise_restore_runtime_period(struct osnoise_context *context)
+ {
+-	unsigned long long orig_runtime = context->orig_runtime_us;
+-	unsigned long long orig_period = context->orig_period_us;
+-	unsigned long long curr_runtime = context->runtime_us;
+-	unsigned long long curr_period = context->period_us;
++	long long orig_runtime = context->orig_runtime_us;
++	long long orig_period = context->orig_period_us;
++	long long curr_runtime = context->runtime_us;
++	long long curr_period = context->period_us;
+ 	int retval;
+ 
+-	if ((orig_runtime == OSNOISE_TIME_INIT_VAL) && (orig_period == OSNOISE_TIME_INIT_VAL))
++	if ((orig_runtime == -1) && (orig_period == -1))
+ 		return;
+ 
+ 	if ((orig_period == curr_period) && (orig_runtime == curr_runtime))
+@@ -326,8 +381,8 @@ void osnoise_restore_runtime_period(struct osnoise_context *context)
+ 		err_msg("Could not restore original osnoise runtime/period\n");
+ 
+ out_done:
+-	context->runtime_us = OSNOISE_TIME_INIT_VAL;
+-	context->period_us = OSNOISE_TIME_INIT_VAL;
++	context->runtime_us = -1;
++	context->period_us = -1;
+ }
+ 
+ /*
+@@ -337,498 +392,81 @@ void osnoise_put_runtime_period(struct osnoise_context *context)
+ {
+ 	osnoise_restore_runtime_period(context);
+ 
+-	if (context->orig_runtime_us != OSNOISE_TIME_INIT_VAL)
+-		context->orig_runtime_us = OSNOISE_TIME_INIT_VAL;
+-
+-	if (context->orig_period_us != OSNOISE_TIME_INIT_VAL)
+-		context->orig_period_us = OSNOISE_TIME_INIT_VAL;
+-}
+-
+-/*
+- * osnoise_get_timerlat_period_us - read and save the original "timerlat_period_us"
+- */
+-static long long
+-osnoise_get_timerlat_period_us(struct osnoise_context *context)
+-{
+-	long long timerlat_period_us;
+-
+-	if (context->timerlat_period_us != OSNOISE_TIME_INIT_VAL)
+-		return context->timerlat_period_us;
+-
+-	if (context->orig_timerlat_period_us != OSNOISE_TIME_INIT_VAL)
+-		return context->orig_timerlat_period_us;
+-
+-	timerlat_period_us = osnoise_read_ll_config("osnoise/timerlat_period_us");
+-	if (timerlat_period_us < 0)
+-		goto out_err;
+-
+-	context->orig_timerlat_period_us = timerlat_period_us;
+-	return timerlat_period_us;
+-
+-out_err:
+-	return OSNOISE_TIME_INIT_VAL;
+-}
+-
+-/*
+- * osnoise_set_timerlat_period_us - set "timerlat_period_us"
+- */
+-int osnoise_set_timerlat_period_us(struct osnoise_context *context, long long timerlat_period_us)
+-{
+-	long long curr_timerlat_period_us = osnoise_get_timerlat_period_us(context);
+-	int retval;
+-
+-	if (curr_timerlat_period_us == OSNOISE_TIME_INIT_VAL)
+-		return -1;
+-
+-	retval = osnoise_write_ll_config("osnoise/timerlat_period_us", timerlat_period_us);
+-	if (retval < 0)
+-		return -1;
+-
+-	context->timerlat_period_us = timerlat_period_us;
+-
+-	return 0;
+-}
+-
+-/*
+- * osnoise_restore_timerlat_period_us - restore "timerlat_period_us"
+- */
+-void osnoise_restore_timerlat_period_us(struct osnoise_context *context)
+-{
+-	int retval;
+-
+-	if (context->orig_timerlat_period_us == OSNOISE_TIME_INIT_VAL)
+-		return;
+-
+-	if (context->orig_timerlat_period_us == context->timerlat_period_us)
+-		goto out_done;
+-
+-	retval = osnoise_write_ll_config("osnoise/timerlat_period_us", context->orig_timerlat_period_us);
+-	if (retval < 0)
+-		err_msg("Could not restore original osnoise timerlat_period_us\n");
+-
+-out_done:
+-	context->timerlat_period_us = OSNOISE_TIME_INIT_VAL;
+-}
+-
+-/*
+- * osnoise_put_timerlat_period_us - restore original values and cleanup data
+- */
+-void osnoise_put_timerlat_period_us(struct osnoise_context *context)
+-{
+-	osnoise_restore_timerlat_period_us(context);
+-
+-	if (context->orig_timerlat_period_us == OSNOISE_TIME_INIT_VAL)
+-		return;
+-
+-	context->orig_timerlat_period_us = OSNOISE_TIME_INIT_VAL;
+-}
+-
+-/*
+- * osnoise_get_timerlat_align_us - read and save the original "timerlat_align_us"
+- */
+-static long long
+-osnoise_get_timerlat_align_us(struct osnoise_context *context)
+-{
+-	long long timerlat_align_us;
+-
+-	if (context->timerlat_align_us != OSNOISE_OPTION_INIT_VAL)
+-		return context->timerlat_align_us;
+-
+-	if (context->orig_timerlat_align_us != OSNOISE_OPTION_INIT_VAL)
+-		return context->orig_timerlat_align_us;
+-
+-	timerlat_align_us = osnoise_read_ll_config("osnoise/timerlat_align_us");
+-	if (timerlat_align_us < 0)
+-		goto out_err;
+-
+-	context->orig_timerlat_align_us = timerlat_align_us;
+-	return timerlat_align_us;
+-
+-out_err:
+-	return OSNOISE_OPTION_INIT_VAL;
+-}
+-
+-/*
+- * osnoise_set_timerlat_align_us - set "timerlat_align_us"
+- */
+-int osnoise_set_timerlat_align_us(struct osnoise_context *context, long long timerlat_align_us)
+-{
+-	long long curr_timerlat_align_us = osnoise_get_timerlat_align_us(context);
+-	int retval;
+-
+-	if (curr_timerlat_align_us == OSNOISE_OPTION_INIT_VAL)
+-		return -1;
+-
+-	retval = osnoise_write_ll_config("osnoise/timerlat_align_us", timerlat_align_us);
+-	if (retval < 0)
+-		return -1;
+-
+-	context->timerlat_align_us = timerlat_align_us;
+-
+-	return 0;
+-}
+-
+-/*
+- * osnoise_restore_timerlat_align_us - restore "timerlat_align_us"
+- */
+-void osnoise_restore_timerlat_align_us(struct osnoise_context *context)
+-{
+-	int retval;
+-
+-	if (context->orig_timerlat_align_us == OSNOISE_OPTION_INIT_VAL)
+-		return;
+-
+-	if (context->orig_timerlat_align_us == context->timerlat_align_us)
+-		goto out_done;
+-
+-	retval = osnoise_write_ll_config("osnoise/timerlat_align_us",
+-				   context->orig_timerlat_align_us);
+-	if (retval < 0)
+-		err_msg("Could not restore original osnoise timerlat_align_us\n");
+-
+-out_done:
+-	context->timerlat_align_us = OSNOISE_OPTION_INIT_VAL;
+-}
+-
+-/*
+- * osnoise_put_timerlat_align_us - restore original values and cleanup data
+- */
+-void osnoise_put_timerlat_align_us(struct osnoise_context *context)
+-{
+-	osnoise_restore_timerlat_align_us(context);
+-
+-	if (context->orig_timerlat_align_us == OSNOISE_OPTION_INIT_VAL)
+-		return;
+-
+-	context->orig_timerlat_align_us = OSNOISE_OPTION_INIT_VAL;
+-}
+-
+-/*
+- * osnoise_get_stop_us - read and save the original "stop_tracing_us"
+- */
+-static long long
+-osnoise_get_stop_us(struct osnoise_context *context)
+-{
+-	long long stop_us;
+-
+-	if (context->stop_us != OSNOISE_OPTION_INIT_VAL)
+-		return context->stop_us;
+-
+-	if (context->orig_stop_us != OSNOISE_OPTION_INIT_VAL)
+-		return context->orig_stop_us;
+-
+-	stop_us = osnoise_read_ll_config("osnoise/stop_tracing_us");
+-	if (stop_us < 0)
+-		goto out_err;
+-
+-	context->orig_stop_us = stop_us;
+-	return stop_us;
+-
+-out_err:
+-	return OSNOISE_OPTION_INIT_VAL;
+-}
+-
+-/*
+- * osnoise_set_stop_us - set "stop_tracing_us"
+- */
+-int osnoise_set_stop_us(struct osnoise_context *context, long long stop_us)
+-{
+-	long long curr_stop_us = osnoise_get_stop_us(context);
+-	int retval;
+-
+-	if (curr_stop_us == OSNOISE_OPTION_INIT_VAL)
+-		return -1;
+-
+-	retval = osnoise_write_ll_config("osnoise/stop_tracing_us", stop_us);
+-	if (retval < 0)
+-		return -1;
+-
+-	context->stop_us = stop_us;
+-
+-	return 0;
+-}
+-
+-/*
+- * osnoise_restore_stop_us - restore the original "stop_tracing_us"
+- */
+-void osnoise_restore_stop_us(struct osnoise_context *context)
+-{
+-	int retval;
+-
+-	if (context->orig_stop_us == OSNOISE_OPTION_INIT_VAL)
+-		return;
+-
+-	if (context->orig_stop_us == context->stop_us)
+-		goto out_done;
+-
+-	retval = osnoise_write_ll_config("osnoise/stop_tracing_us", context->orig_stop_us);
+-	if (retval < 0)
+-		err_msg("Could not restore original osnoise stop_us\n");
+-
+-out_done:
+-	context->stop_us = OSNOISE_OPTION_INIT_VAL;
+-}
+-
+-/*
+- * osnoise_put_stop_us - restore original values and cleanup data
+- */
+-void osnoise_put_stop_us(struct osnoise_context *context)
+-{
+-	osnoise_restore_stop_us(context);
+-
+-	if (context->orig_stop_us == OSNOISE_OPTION_INIT_VAL)
+-		return;
+-
+-	context->orig_stop_us = OSNOISE_OPTION_INIT_VAL;
+-}
+-
+-/*
+- * osnoise_get_stop_total_us - read and save the original "stop_tracing_total_us"
+- */
+-static long long
+-osnoise_get_stop_total_us(struct osnoise_context *context)
+-{
+-	long long stop_total_us;
+-
+-	if (context->stop_total_us != OSNOISE_OPTION_INIT_VAL)
+-		return context->stop_total_us;
+-
+-	if (context->orig_stop_total_us != OSNOISE_OPTION_INIT_VAL)
+-		return context->orig_stop_total_us;
+-
+-	stop_total_us = osnoise_read_ll_config("osnoise/stop_tracing_total_us");
+-	if (stop_total_us < 0)
+-		goto out_err;
+-
+-	context->orig_stop_total_us = stop_total_us;
+-	return stop_total_us;
+-
+-out_err:
+-	return OSNOISE_OPTION_INIT_VAL;
+-}
+-
+-/*
+- * osnoise_set_stop_total_us - set "stop_tracing_total_us"
+- */
+-int osnoise_set_stop_total_us(struct osnoise_context *context, long long stop_total_us)
+-{
+-	long long curr_stop_total_us = osnoise_get_stop_total_us(context);
+-	int retval;
+-
+-	if (curr_stop_total_us == OSNOISE_OPTION_INIT_VAL)
+-		return -1;
+-
+-	retval = osnoise_write_ll_config("osnoise/stop_tracing_total_us", stop_total_us);
+-	if (retval < 0)
+-		return -1;
+-
+-	context->stop_total_us = stop_total_us;
+-
+-	return 0;
+-}
+-
+-/*
+- * osnoise_restore_stop_total_us - restore the original "stop_tracing_total_us"
+- */
+-void osnoise_restore_stop_total_us(struct osnoise_context *context)
+-{
+-	int retval;
+-
+-	if (context->orig_stop_total_us == OSNOISE_OPTION_INIT_VAL)
+-		return;
+-
+-	if (context->orig_stop_total_us == context->stop_total_us)
+-		goto out_done;
+-
+-	retval = osnoise_write_ll_config("osnoise/stop_tracing_total_us",
+-			context->orig_stop_total_us);
+-	if (retval < 0)
+-		err_msg("Could not restore original osnoise stop_total_us\n");
+-
+-out_done:
+-	context->stop_total_us = OSNOISE_OPTION_INIT_VAL;
+-}
+-
+-/*
+- * osnoise_put_stop_total_us - restore original values and cleanup data
+- */
+-void osnoise_put_stop_total_us(struct osnoise_context *context)
+-{
+-	osnoise_restore_stop_total_us(context);
+-
+-	if (context->orig_stop_total_us == OSNOISE_OPTION_INIT_VAL)
+-		return;
+-
+-	context->orig_stop_total_us = OSNOISE_OPTION_INIT_VAL;
+-}
+-
+-/*
+- * osnoise_get_print_stack - read and save the original "print_stack"
+- */
+-static long long
+-osnoise_get_print_stack(struct osnoise_context *context)
+-{
+-	long long print_stack;
+-
+-	if (context->print_stack != OSNOISE_OPTION_INIT_VAL)
+-		return context->print_stack;
+-
+-	if (context->orig_print_stack != OSNOISE_OPTION_INIT_VAL)
+-		return context->orig_print_stack;
+-
+-	print_stack = osnoise_read_ll_config("osnoise/print_stack");
+-	if (print_stack < 0)
+-		goto out_err;
+-
+-	context->orig_print_stack = print_stack;
+-	return print_stack;
+-
+-out_err:
+-	return OSNOISE_OPTION_INIT_VAL;
+-}
+-
+-/*
+- * osnoise_set_print_stack - set "print_stack"
+- */
+-int osnoise_set_print_stack(struct osnoise_context *context, long long print_stack)
+-{
+-	long long curr_print_stack = osnoise_get_print_stack(context);
+-	int retval;
+-
+-	if (curr_print_stack == OSNOISE_OPTION_INIT_VAL)
+-		return -1;
+-
+-	retval = osnoise_write_ll_config("osnoise/print_stack", print_stack);
+-	if (retval < 0)
+-		return -1;
+-
+-	context->print_stack = print_stack;
+-
+-	return 0;
+-}
+-
+-/*
+- * osnoise_restore_print_stack - restore the original "print_stack"
+- */
+-void osnoise_restore_print_stack(struct osnoise_context *context)
+-{
+-	int retval;
+-
+-	if (context->orig_print_stack == OSNOISE_OPTION_INIT_VAL)
+-		return;
+-
+-	if (context->orig_print_stack == context->print_stack)
+-		goto out_done;
+-
+-	retval = osnoise_write_ll_config("osnoise/print_stack", context->orig_print_stack);
+-	if (retval < 0)
+-		err_msg("Could not restore original osnoise print_stack\n");
+-
+-out_done:
+-	context->print_stack = OSNOISE_OPTION_INIT_VAL;
+-}
+-
+-/*
+- * osnoise_put_print_stack - restore original values and cleanup data
+- */
+-void osnoise_put_print_stack(struct osnoise_context *context)
+-{
+-	osnoise_restore_print_stack(context);
+-
+-	if (context->orig_print_stack == OSNOISE_OPTION_INIT_VAL)
+-		return;
+-
+-	context->orig_print_stack = OSNOISE_OPTION_INIT_VAL;
+-}
+-
+-/*
+- * osnoise_get_tracing_thresh - read and save the original "tracing_thresh"
+- */
+-static long long
+-osnoise_get_tracing_thresh(struct osnoise_context *context)
+-{
+-	long long tracing_thresh;
+-
+-	if (context->tracing_thresh != OSNOISE_OPTION_INIT_VAL)
+-		return context->tracing_thresh;
+-
+-	if (context->orig_tracing_thresh != OSNOISE_OPTION_INIT_VAL)
+-		return context->orig_tracing_thresh;
+-
+-	tracing_thresh = osnoise_read_ll_config("tracing_thresh");
+-	if (tracing_thresh < 0)
+-		goto out_err;
+-
+-	context->orig_tracing_thresh = tracing_thresh;
+-	return tracing_thresh;
+-
+-out_err:
+-	return OSNOISE_OPTION_INIT_VAL;
+-}
+-
+-/*
+- * osnoise_set_tracing_thresh - set "tracing_thresh"
+- */
+-int osnoise_set_tracing_thresh(struct osnoise_context *context, long long tracing_thresh)
+-{
+-	long long curr_tracing_thresh = osnoise_get_tracing_thresh(context);
+-	int retval;
+-
+-	if (curr_tracing_thresh == OSNOISE_OPTION_INIT_VAL)
+-		return -1;
+-
+-	retval = osnoise_write_ll_config("tracing_thresh", tracing_thresh);
+-	if (retval < 0)
+-		return -1;
+-
+-	context->tracing_thresh = tracing_thresh;
+-
+-	return 0;
+-}
+-
+-/*
+- * osnoise_restore_tracing_thresh - restore the original "tracing_thresh"
+- */
+-void osnoise_restore_tracing_thresh(struct osnoise_context *context)
+-{
+-	int retval;
+-
+-	if (context->orig_tracing_thresh == OSNOISE_OPTION_INIT_VAL)
+-		return;
+-
+-	if (context->orig_tracing_thresh == context->tracing_thresh)
+-		goto out_done;
+-
+-	retval = osnoise_write_ll_config("tracing_thresh", context->orig_tracing_thresh);
+-	if (retval < 0)
+-		err_msg("Could not restore original tracing_thresh\n");
+-
+-out_done:
+-	context->tracing_thresh = OSNOISE_OPTION_INIT_VAL;
+-}
+-
+-/*
+- * osnoise_put_tracing_thresh - restore original values and cleanup data
++	if (context->orig_runtime_us != -1)
++		context->orig_runtime_us = -1;
++
++	if (context->orig_period_us != -1)
++		context->orig_period_us = -1;
++}
++
++/*
++ * Long long option set/restore/put functions, generated from OSNOISE_LL_OPTIONS.
++ */
++#define OSNOISE_LL_OPTION(name, path)						\
++int osnoise_set_##name(struct osnoise_context *context, long long value)	\
++{										\
++	return osnoise_write_ll_config(path,					\
++				       value,					\
++				       &context->name,				\
++				       &context->orig_##name);			\
++}										\
++										\
++void osnoise_restore_##name(struct osnoise_context *context)			\
++{										\
++	osnoise_restore_ll_config(path, &context->name, &context->orig_##name);	\
++}										\
++										\
++static void osnoise_put_##name(struct osnoise_context *context)			\
++{										\
++	osnoise_restore_##name(context);					\
++										\
++	if (context->orig_##name == -1)						\
++		return;								\
++										\
++	context->orig_##name = -1;						\
++}
++OSNOISE_LL_OPTIONS
++#undef OSNOISE_LL_OPTION
++
++/**
++ * osnoise_get_option - read a boolean flag from osnoise/options
++ * @option: the option name string to look for (e.g. "OSNOISE_IRQ_DISABLE")
++ * @set_value: pointer to the cached value set by RTLA, or -1 if unset
++ * @orig_value: pointer to the cached original value read from tracefs, or -1 if unread
++ *
++ * Returns the current state of the flag @option. If RTLA has already written a
++ * value (@set_value != -1), that value is returned. If the original has already
++ * been read (@orig_value != -1), that cached value is returned. Otherwise, reads
++ * the "osnoise/options" file from tracefs, checks whether @option appears with or
++ * without a "NO_" prefix, caches the result in @orig_value (so it can later be
++ * restored), and returns it.
++ *
++ * This is the shared read primitive used by the OSNOISE_FLAG_OPTION-generated
++ * set/restore/put functions.
++ *
++ * Returns 1 if enabled, 0 if disabled, or -1 on error (option unknown to kernel).
+  */
+-void osnoise_put_tracing_thresh(struct osnoise_context *context)
+-{
+-	osnoise_restore_tracing_thresh(context);
+-
+-	if (context->orig_tracing_thresh == OSNOISE_OPTION_INIT_VAL)
+-		return;
+-
+-	context->orig_tracing_thresh = OSNOISE_OPTION_INIT_VAL;
+-}
+-
+-static int osnoise_options_get_option(char *option)
++static int osnoise_get_option(char *option,
++			      int *set_value,
++			      int *orig_value)
+ {
+-	char *options = tracefs_instance_file_read(NULL, "osnoise/options", NULL);
++	char *options;
+ 	char no_option[128];
+ 	int retval = 0;
+ 	char *opt;
+ 
++	if (*set_value != -1)
++		/* option has been set by RTLA already */
++		return *set_value;
++
++	if (*orig_value != -1)
++		/* RTLA has already read the option */
++		return *orig_value;
++
++	/* current value is not known to RTLA yet, read it from tracefs */
++	options = tracefs_instance_file_read(NULL, "osnoise/options", NULL);
+ 	if (!options)
+-		return OSNOISE_OPTION_INIT_VAL;
++		return -1;
+ 
+ 	/*
+ 	 * Check first if the option is disabled.
+@@ -847,207 +485,138 @@ static int osnoise_options_get_option(char *option)
+ 	if (opt)
+ 		retval = 1;
+ 	else
+-		retval = OSNOISE_OPTION_INIT_VAL;
++		retval = -1;
+ 
+ out_free:
+ 	free(options);
+-	return retval;
+-}
+-
+-static int osnoise_options_set_option(char *option, bool onoff)
+-{
+-	char no_option[128];
+-
+-	if (onoff)
+-		return tracefs_instance_file_write(NULL, "osnoise/options", option);
+-
+-	snprintf(no_option, sizeof(no_option), "NO_%s", option);
+-
+-	return tracefs_instance_file_write(NULL, "osnoise/options", no_option);
+-}
+-
+-static int osnoise_get_irq_disable(struct osnoise_context *context)
+-{
+-	if (context->opt_irq_disable != OSNOISE_OPTION_INIT_VAL)
+-		return context->opt_irq_disable;
+-
+-	if (context->orig_opt_irq_disable != OSNOISE_OPTION_INIT_VAL)
+-		return context->orig_opt_irq_disable;
+-
+-	context->orig_opt_irq_disable = osnoise_options_get_option("OSNOISE_IRQ_DISABLE");
+-
+-	return context->orig_opt_irq_disable;
+-}
+-
+-int osnoise_set_irq_disable(struct osnoise_context *context, bool onoff)
+-{
+-	int opt_irq_disable = osnoise_get_irq_disable(context);
+-	int retval;
+-
+-	if (opt_irq_disable == OSNOISE_OPTION_INIT_VAL)
+-		return -1;
+-
+-	if (opt_irq_disable == onoff)
+-		return 0;
+-
+-	retval = osnoise_options_set_option("OSNOISE_IRQ_DISABLE", onoff);
+-	if (retval < 0)
+-		return -1;
+-
+-	context->opt_irq_disable = onoff;
+ 
+-	return 0;
+-}
+-
+-static void osnoise_restore_irq_disable(struct osnoise_context *context)
+-{
+-	int retval;
+-
+-	if (context->orig_opt_irq_disable == OSNOISE_OPTION_INIT_VAL)
+-		return;
+-
+-	if (context->orig_opt_irq_disable == context->opt_irq_disable)
+-		goto out_done;
+-
+-	retval = osnoise_options_set_option("OSNOISE_IRQ_DISABLE", context->orig_opt_irq_disable);
+ 	if (retval < 0)
+-		err_msg("Could not restore original OSNOISE_IRQ_DISABLE option\n");
+-
+-out_done:
+-	context->orig_opt_irq_disable = OSNOISE_OPTION_INIT_VAL;
+-}
+-
+-static void osnoise_put_irq_disable(struct osnoise_context *context)
+-{
+-	osnoise_restore_irq_disable(context);
+-
+-	if (context->orig_opt_irq_disable == OSNOISE_OPTION_INIT_VAL)
+-		return;
+-
+-	context->orig_opt_irq_disable = OSNOISE_OPTION_INIT_VAL;
+-}
+-
+-static int osnoise_get_workload(struct osnoise_context *context)
+-{
+-	if (context->opt_workload != OSNOISE_OPTION_INIT_VAL)
+-		return context->opt_workload;
+-
+-	if (context->orig_opt_workload != OSNOISE_OPTION_INIT_VAL)
+-		return context->orig_opt_workload;
++		goto out_err;
+ 
+-	context->orig_opt_workload = osnoise_options_get_option("OSNOISE_WORKLOAD");
++	/* save the value and return it */
++	*orig_value = retval;
++	return retval;
+ 
+-	return context->orig_opt_workload;
++out_err:
++	return -1;
+ }
+ 
+-int osnoise_set_workload(struct osnoise_context *context, bool onoff)
++/**
++ * osnoise_set_option - write a boolean flag to osnoise/options
++ * @option: the option name string (e.g. "OSNOISE_IRQ_DISABLE")
++ * @onoff: the desired state (true to enable, false to disable)
++ * @set_value: pointer to the cached value set by RTLA, or -1 if unset
++ * @orig_value: pointer to the cached original value read from tracefs, or -1 if unread
++ *
++ * Sets the flag @option to the state @onoff. Before writing, calls
++ * osnoise_get_option() to ensure the original value is cached in @orig_value
++ * (enabling later restoration). If the current value already matches @onoff,
++ * no write is performed. On successful write, records the new state in
++ * @set_value.
++ *
++ * This is the shared write primitive used by the OSNOISE_FLAG_OPTION-generated
++ * set/restore/put functions.
++ *
++ * Returns 0 on success, -1 on read error (option likely unknown to kernel),
++ * or -2 on write error.
++ */
++static int osnoise_set_option(char *option,
++			      bool onoff,
++			      int *set_value,
++			      int *orig_value)
+ {
+-	int opt_workload = osnoise_get_workload(context);
++	int curr = osnoise_get_option(option, set_value, orig_value);
++	char no_option[128];
+ 	int retval;
+ 
+-	if (opt_workload == OSNOISE_OPTION_INIT_VAL)
++	if (curr == -1)
++		/* read failed, option likely unknown to kernel */
+ 		return -1;
+ 
+-	if (opt_workload == onoff)
++	if (curr == onoff)
+ 		return 0;
+ 
+-	retval = osnoise_options_set_option("OSNOISE_WORKLOAD", onoff);
+-	if (retval < 0)
+-		return -2;
+-
+-	context->opt_workload = onoff;
+-
+-	return 0;
+-}
+-
+-static void osnoise_restore_workload(struct osnoise_context *context)
+-{
+-	int retval;
+-
+-	if (context->orig_opt_workload == OSNOISE_OPTION_INIT_VAL)
+-		return;
+-
+-	if (context->orig_opt_workload == context->opt_workload)
+-		goto out_done;
+-
+-	retval = osnoise_options_set_option("OSNOISE_WORKLOAD", context->orig_opt_workload);
+-	if (retval < 0)
+-		err_msg("Could not restore original OSNOISE_WORKLOAD option\n");
+-
+-out_done:
+-	context->orig_opt_workload = OSNOISE_OPTION_INIT_VAL;
+-}
+-
+-static void osnoise_put_workload(struct osnoise_context *context)
+-{
+-	osnoise_restore_workload(context);
+-
+-	if (context->orig_opt_workload == OSNOISE_OPTION_INIT_VAL)
+-		return;
+-
+-	context->orig_opt_workload = OSNOISE_OPTION_INIT_VAL;
+-}
+-
+-static int osnoise_get_timerlat_align(struct osnoise_context *context)
+-{
+-	if (context->opt_timerlat_align != OSNOISE_OPTION_INIT_VAL)
+-		return context->opt_timerlat_align;
+-
+-	if (context->orig_opt_timerlat_align != OSNOISE_OPTION_INIT_VAL)
+-		return context->orig_opt_timerlat_align;
+-
+-	context->orig_opt_timerlat_align = osnoise_options_get_option("TIMERLAT_ALIGN");
+-
+-	return context->orig_opt_timerlat_align;
+-}
+-
+-int osnoise_set_timerlat_align(struct osnoise_context *context, bool onoff)
+-{
+-	int opt_timerlat_align = osnoise_get_timerlat_align(context);
+-	int retval;
+-
+-	if (opt_timerlat_align == OSNOISE_OPTION_INIT_VAL)
+-		return -1;
+-
+-	if (opt_timerlat_align == onoff)
+-		return 0;
++	if (onoff) {
++		retval = tracefs_instance_file_write(NULL, "osnoise/options", option);
++	} else {
++		snprintf(no_option, sizeof(no_option), "NO_%s", option);
++		retval = tracefs_instance_file_write(NULL, "osnoise/options", no_option);
++	}
+ 
+-	retval = osnoise_options_set_option("TIMERLAT_ALIGN", onoff);
+ 	if (retval < 0)
++		/* write failed, hard error */
+ 		return -2;
+ 
+-	context->opt_timerlat_align = onoff;
+-
++	/* record the set value and return success */
++	*set_value = onoff;
+ 	return 0;
+ }
+ 
+-static void osnoise_restore_timerlat_align(struct osnoise_context *context)
++/**
++ * osnoise_restore_option - restore a boolean flag to its original value
++ * @option: the option name string (e.g. "OSNOISE_IRQ_DISABLE")
++ * @set_value: pointer to the cached value set by RTLA, or -1 if unset
++ * @orig_value: pointer to the cached original value read from tracefs, or -1 if unread
++ *
++ * Restores the flag @option to the state cached in @orig_value (which was saved
++ * by a prior osnoise_get_option() or osnoise_set_option() call). If the original
++ * was never read, or if the current set value already matches the original, no
++ * write is performed. After restoring, clears @set_value to -1 to indicate RTLA
++ * no longer overrides this option.
++ *
++ * This is the shared restore primitive used by the OSNOISE_FLAG_OPTION-generated
++ * restore/put functions.
++ */
++static void osnoise_restore_option(char *option,
++				   int *set_value,
++				   int *orig_value)
+ {
+ 	int retval;
+ 
+-	if (context->orig_opt_timerlat_align == OSNOISE_OPTION_INIT_VAL)
++	if (*orig_value == -1)
+ 		return;
+ 
+-	if (context->orig_opt_timerlat_align == context->opt_timerlat_align)
++	if (*orig_value == *set_value)
+ 		goto out_done;
+ 
+-	retval = osnoise_options_set_option("TIMERLAT_ALIGN", context->orig_opt_timerlat_align);
++	retval = osnoise_set_option(option, *orig_value, set_value, orig_value);
+ 	if (retval < 0)
+-		err_msg("Could not restore original TIMERLAT_ALIGN option\n");
++		err_msg("Could not restore original %s option\n", option);
+ 
+ out_done:
+-	context->orig_opt_timerlat_align = OSNOISE_OPTION_INIT_VAL;
+-}
+-
+-static void osnoise_put_timerlat_align(struct osnoise_context *context)
+-{
+-	osnoise_restore_timerlat_align(context);
+-
+-	if (context->orig_opt_timerlat_align == OSNOISE_OPTION_INIT_VAL)
+-		return;
+-
+-	context->orig_opt_timerlat_align = OSNOISE_OPTION_INIT_VAL;
+-}
++	*set_value = -1;
++}
++
++/*
++ * Flag option set/restore/put functions, generated from OSNOISE_FLAG_OPTIONS.
++ */
++#define OSNOISE_FLAG_OPTION(name, option_str)				\
++int osnoise_set_##name(struct osnoise_context *context, bool onoff)	\
++{									\
++	return osnoise_set_option(option_str,				\
++				  onoff,				\
++				  &context->opt_##name,			\
++				  &context->orig_opt_##name);		\
++}									\
++									\
++void osnoise_restore_##name(struct osnoise_context *context)		\
++{									\
++	osnoise_restore_option(option_str,				\
++			       &context->opt_##name,			\
++			       &context->orig_opt_##name);		\
++}									\
++									\
++static void osnoise_put_##name(struct osnoise_context *context)		\
++{									\
++	osnoise_restore_##name(context);				\
++									\
++	if (context->orig_opt_##name == -1)				\
++		return;							\
++									\
++	context->orig_opt_##name = -1;					\
++}
++OSNOISE_FLAG_OPTIONS
++#undef OSNOISE_FLAG_OPTION
+ 
+ enum {
+ 	FLAG_CONTEXT_NEWLY_CREATED	= (1 << 0),
+@@ -1083,29 +652,23 @@ struct osnoise_context *osnoise_context_alloc(void)
+ 
+ 	context = calloc_fatal(1, sizeof(*context));
+ 
+-	context->orig_stop_us		= OSNOISE_OPTION_INIT_VAL;
+-	context->stop_us		= OSNOISE_OPTION_INIT_VAL;
+-
+-	context->orig_stop_total_us	= OSNOISE_OPTION_INIT_VAL;
+-	context->stop_total_us		= OSNOISE_OPTION_INIT_VAL;
+-
+-	context->orig_print_stack	= OSNOISE_OPTION_INIT_VAL;
+-	context->print_stack		= OSNOISE_OPTION_INIT_VAL;
+-
+-	context->orig_tracing_thresh	= OSNOISE_OPTION_INIT_VAL;
+-	context->tracing_thresh		= OSNOISE_OPTION_INIT_VAL;
+-
+-	context->orig_opt_irq_disable	= OSNOISE_OPTION_INIT_VAL;
+-	context->opt_irq_disable	= OSNOISE_OPTION_INIT_VAL;
+-
+-	context->orig_opt_workload	= OSNOISE_OPTION_INIT_VAL;
+-	context->opt_workload		= OSNOISE_OPTION_INIT_VAL;
+-
+-	context->orig_opt_timerlat_align	= OSNOISE_OPTION_INIT_VAL;
+-	context->opt_timerlat_align		= OSNOISE_OPTION_INIT_VAL;
+-
+-	context->orig_timerlat_align_us	= OSNOISE_OPTION_INIT_VAL;
+-	context->timerlat_align_us	= OSNOISE_OPTION_INIT_VAL;
++	/* First allocate manually implemented options... */
++	context->orig_runtime_us = -1;
++	context->runtime_us	 = -1;
++	context->orig_period_us	 = -1;
++	context->period_us	 = -1;
++
++	/* ...then the automatically generated ones. */
++#define OSNOISE_LL_OPTION(name, path)		\
++	context->orig_##name	 = -1;		\
++	context->name		 = -1;
++#define OSNOISE_FLAG_OPTION(name, option_str)	\
++	context->orig_opt_##name = -1;		\
++	context->opt_##name	 = -1;
++	OSNOISE_LL_OPTIONS
++	OSNOISE_FLAG_OPTIONS
++#undef OSNOISE_LL_OPTION
++#undef OSNOISE_FLAG_OPTION
+ 
+ 	osnoise_get_context(context);
+ 
+@@ -1126,17 +689,17 @@ void osnoise_put_context(struct osnoise_context *context)
+ 	if (!(context->flags & FLAG_CONTEXT_DELETED))
+ 		return;
+ 
++	/* First restore the original values of the options... */
+ 	osnoise_put_cpus(context);
+ 	osnoise_put_runtime_period(context);
+-	osnoise_put_stop_us(context);
+-	osnoise_put_stop_total_us(context);
+-	osnoise_put_timerlat_period_us(context);
+-	osnoise_put_print_stack(context);
+-	osnoise_put_tracing_thresh(context);
+-	osnoise_put_irq_disable(context);
+-	osnoise_put_workload(context);
+-	osnoise_put_timerlat_align(context);
+-	osnoise_put_timerlat_align_us(context);
++
++	/* ...then the automatically generated ones. */
++#define OSNOISE_LL_OPTION(name, path)		osnoise_put_##name(context);
++#define OSNOISE_FLAG_OPTION(name, option_str)	osnoise_put_##name(context);
++	OSNOISE_LL_OPTIONS
++	OSNOISE_FLAG_OPTIONS
++#undef OSNOISE_LL_OPTION
++#undef OSNOISE_FLAG_OPTION
+ 
+ 	free(context);
+ }
+diff --git a/tools/tracing/rtla/src/osnoise.h b/tools/tracing/rtla/src/osnoise.h
+index 340ff5a64e6e4..6d94fc0e29b21 100644
+--- a/tools/tracing/rtla/src/osnoise.h
++++ b/tools/tracing/rtla/src/osnoise.h
+@@ -18,44 +18,15 @@ struct osnoise_params {
+ 
+ #define to_osnoise_params(ptr) container_of(ptr, struct osnoise_params, common)
+ 
+-/*
+- * *_INIT_VALs are also invalid values, they are used to
+- * communicate errors.
+- */
+-#define OSNOISE_OPTION_INIT_VAL	(-1)
+-#define OSNOISE_TIME_INIT_VAL	(0)
+-
+ struct osnoise_context *osnoise_context_alloc(void);
+ int osnoise_get_context(struct osnoise_context *context);
+ void osnoise_put_context(struct osnoise_context *context);
+ 
+ int osnoise_set_runtime_period(struct osnoise_context *context,
+-			       unsigned long long runtime,
+-			       unsigned long long period);
++			       long long runtime,
++			       long long period);
+ void osnoise_restore_runtime_period(struct osnoise_context *context);
+ 
+-void osnoise_restore_stop_us(struct osnoise_context *context);
+-void osnoise_restore_stop_total_us(struct osnoise_context *context);
+-
+-int osnoise_set_timerlat_period_us(struct osnoise_context *context,
+-				   long long timerlat_period_us);
+-void osnoise_restore_timerlat_period_us(struct osnoise_context *context);
+-
+-int osnoise_set_tracing_thresh(struct osnoise_context *context,
+-			       long long tracing_thresh);
+-void osnoise_restore_tracing_thresh(struct osnoise_context *context);
+-
+-void osnoise_restore_print_stack(struct osnoise_context *context);
+-int osnoise_set_print_stack(struct osnoise_context *context,
+-			    long long print_stack);
+-
+-int osnoise_set_timerlat_align_us(struct osnoise_context *context,
+-				  long long timerlat_align_us);
+-void osnoise_restore_timerlat_align_us(struct osnoise_context *context);
+-
+-int osnoise_set_timerlat_align(struct osnoise_context *context, bool onoff);
+-
+-int osnoise_set_irq_disable(struct osnoise_context *context, bool onoff);
+ void osnoise_report_missed_events(struct osnoise_tool *tool);
+ int osnoise_apply_config(struct osnoise_tool *tool, struct osnoise_params *params);
+ 
+-- 
+2.55.0
 
