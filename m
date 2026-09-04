@@ -1,67 +1,67 @@
-Received: from mail-oi1-f172.google.com (mail-oi1-f172.google.com [209.85.167.172])
+Received: from mail-oi1-f174.google.com (mail-oi1-f174.google.com [209.85.167.174])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9C4D442B23
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 22:11:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B760742E8FF
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 22:11:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788559883; cv=none; b=TwZV0tUL+zWtF1y9ljsaYDnILHDuYJQX6NTiL37/g1lXqmzOfFhMM824Y7wXme60A/2a0UU+gl2Z5g8J4kgVkcMkp6u1G7nRy+koVT7xeqG0vBg010vwRPDPvVcX1/3tCCLggE+U6HbC/0dTnoqy9v0069axVZp1sB94mHsufMg=
+	t=1788559883; cv=none; b=CRallxKNd8QkB3zjhYp/mJlJLiiCvduMa0kig5XJ9wTfxGjQZ4TbVJ2EFKhCb4xPvS6Inn+9mcfN5NDHC0963OZf0zSPqqov0PiK+f0GthQzvvGPIfneASfP2HWWD02tmp0Raa3POSKo5W4a3ABEHpmTTXBjMOaFFTdMndQDAvM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788559883; c=relaxed/simple;
-	bh=l9Q45b3Na0r37AULknN0n4Ws7BStWk9ckJ7bJVedIH4=;
+	bh=Deeaer94Jcor75gpy0lfZKp/okGWx/opCeDuktVE8UE=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=g3XrFUOyFIxN4QfGp9YQu2UI6sSSU/mMz7Vv+v8bAi5B/SNDYzTM6+DdH+NL0ac0UYrWDAWkbT3RB+pCe9ncHn3xUIPwVJv1MTyGSZgeu+NK1MwP15/SralN/EvaC6wu09NGspu3lf0nFBVvwRgc1trzU9Uxa/JajxaRH71Yu6k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=Syj9XQ6B; arc=none smtp.client-ip=209.85.167.172
+	 In-Reply-To:To:Cc; b=HcD0fHIA4QY+kOkKSYEYllkos0+t7nWxC8aQgQDKyapEnsbmBo4Iu6mwBdyzCbT02F3x4tsjKY+KlByvThDXQvQaPvHwKNTLAOolE3zbZHUBqGfg/pYNzC44BfGeizjQWIt0O48qw7r7STrs3i8fJuUYes/A/Hoh6EyE0aW3glA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=Mkgb7hR0; arc=none smtp.client-ip=209.85.167.174
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="Syj9XQ6B"
-Received: by mail-oi1-f172.google.com with SMTP id 5614622812f47-4b38ea4c63aso1369708b6e.1
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 15:11:18 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="Mkgb7hR0"
+Received: by mail-oi1-f174.google.com with SMTP id 5614622812f47-4a46a53abc9so1671198b6e.3
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 15:11:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=baylibre.com; s=google; t=1788559878; x=1789164678; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=CkINITabsJkMFaMz+O6WBQXk3MjQkP9P7TfGAk4KvJ8=;
-        b=Syj9XQ6BWdfoRjyTE7cLtF8Wi1O4tzV3XsrcbeeY2BnlDff7B8BV1J91N+4FKJe0Q6
-         pEqxgITOvNWnrgWEP7L8kOH+vCk4pflcH7o88+7xsjC4+a/RSaXcBEU/XngSR2Z4AJvV
-         K9Ui+8inkcsqqD5bc7VftMC5Zw9NC99g59pKuIbisgTGo+oOy30g9tyOCXysoXa6/JNW
-         ceRV/Ft1yn6nCNr85AFtjyogLaLIlY5dz1sb1QgbpcbUI7pgiFk6JLtsZYUT+RGTpZcR
-         2vGLPdxTAkoHddq/GrzTkOrWRqZLZOdULcsnu7FJF//6ZG8Jy3hfl6wkmsb2RAw1zINw
-         u6QQ==
+        bh=9HoM0Lsd38dzgIye43DGA6aABLqWH/nbPq1XRZEAe5E=;
+        b=Mkgb7hR0v1OGhQmCiMzs9hEAtpgHYfnziMakyvMHpvyrzc9u+mh9pNXmPV0htOB/b1
+         Fj2PnEGf5kfnEEgs6Fh7vkhosgpxloPa/PiaQ5o3N/uQYVo9smS6JDBDcnKI2WCC8MSl
+         eUL3YrqbkxeClTKm1yeg0S5REXxBMlcZixVvDapru4PPlA/qONKZrQ5ykAKx63zUbd8L
+         wDunw2zTZZKgh7SYnx2WXfjWfDJQNpgksjpnl0N00rDwgESMrxbDsmYP3OWBANxIKwLB
+         Wazg50muZBPRVBeUeiRNbj6VLjaKZXSlg99B+Hmp82JKN3KkLxm8/m6Z5Tn+uxnlJ54i
+         he/w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20251104; t=1788559878; x=1789164678;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=CkINITabsJkMFaMz+O6WBQXk3MjQkP9P7TfGAk4KvJ8=;
-        b=aJ0BJgTPcbeVK/5dxlFpP5EDWr4jTQWUkoAIPbdL7NaH3rvG2JixMecCcRu1OzRpaG
-         Cm8tacS+27ij6lGb5IMW2G7odawzepy6fW1mUnNzEf8l07mwGi/+KUyIxhRQUKv5dTO7
-         tHvO8i+p75ZUFwhcjFiKTV0K3ioNb2fPpMOcoDeh8DU2BAcFqX/GvDa5JEgTG+MS6aOJ
-         /M3EhsAyCJ5l6w82iNY0DCaIwXTiDD8lj39ZICPWvi9vxzJwR1NMNhdVPr24Hv4h9fy/
-         +NDBanaoZjst4dcbSps2A6zbZtUgaa3Na94B3MidnxHbIioU/cEIIyRfVVzNQyjMLoSW
-         y4rg==
-X-Forwarded-Encrypted: i=1; AKwUvByZY3Sb94j+W8EN0A0tBDBOnzZnxnERz305/MLdSDOrULjnf8/5aO225VyGiXXt4SfViA3AJqWN0AnEGf8=@vger.kernel.org
-X-Gm-Message-State: AFuF++k2T07lpDKQS0DtB8bts2qPtd4dwB/GuHmaBBVrsaCRQto9D9yx
-	y54/1bxEOV9s7QtCXl7mI6/0awnySSArKk8cDUF3Zmc+prLMYJ+djO5gidaHRxku6S8=
-X-Gm-Gg: AYBFou1d7+9rjyQmxLEwnPtn8GMWwOglVZ9oH5HNgyl9ZG+63IS/nxHaCHGmkCVwkRk
-	CCKL+9ysMNG6vZfPsdZQPv3hI4ZGmaTCjlyuvaRqgmzYjr6kQmMTpQFZbA92fDEMQVymvRBtthN
-	190pjIqQWO6QCl4Kg4DiQaUIIWkkx8IACbnp6ZKDApmMiO9GM5wfmGfy744QntgZ1u+zanVanZa
-	iVL7TSQbSO8bOefdSwEbilXS11YibuvfXwU2zX9BpPD/l2rC/Ts04GRLnDt+WeHaFe+wa+pqpAx
-	GufgBy7zCtWVZEh8JWEjJjod6Y1y4kNxI06I6RlCyZrYOrT1I6q+NGkyoFNvYI9yJWodlOyekXZ
-	5U9MxAiAvMIk5CBMUuVOOKEHMEaO8Pykn8Io33JQVGocOL7WxMN9wt5eZXWIy0tcsNPWoXBGNLs
-	RyuOhwc0t0HoP18ABZHv+Ns1TPgW5H/aJ1j08u0z3YNDIzPY1PNSDlTtdgkCfdKb1/rw==
-X-Received: by 2002:a05:6808:5187:b0:4a3:ff0a:e407 with SMTP id 5614622812f47-4b962843ed4mr8194737b6e.15.1788559876969;
-        Fri, 04 Sep 2026 15:11:16 -0700 (PDT)
+        bh=9HoM0Lsd38dzgIye43DGA6aABLqWH/nbPq1XRZEAe5E=;
+        b=RllIyf5wg9L4WD6/4qd12z6UwrJYtGXK/OX8POiF1X5c1rj30SfiK9YolvUoWART9f
+         ZKuPyU/5M7kB6PeNpfqnZQalrAfJjCSjSVkILjtjAP1AKYIIrF7D3VgCqQyHu4dGSYPW
+         X7NveKCYvi1ss6S54FDrxPHgcqD6ptdWodV3V4n4oZYxTlfEkUEB7A+lCFqbqqqpin5/
+         TSBDyBpOAIw9Ekju+mR91gP/ZvfduHdrPRwfBLySgm4n7584v3mbtzfl/ygAOKD0pEYH
+         tkp2hXCsa9W3ZcadbsDPvcWPutEdlKa3oVKBfiwaF7vcEdbP64SurhWue+mZG/keeXNN
+         xTvA==
+X-Forwarded-Encrypted: i=1; AKwUvBx9d/WL/6Q6lQYBmkt8Df9FzUjNYV4d0CuYaPKfTuUu9OXR90cZ+euvb5xwBy4vivzv6qw4ZMZmgnowPz4=@vger.kernel.org
+X-Gm-Message-State: AFuF++kKKmQ1BHhOnLHGZkBBDY7wC5oQyLFymWhiSmLwhFzXhxvkeiB1
+	urBAjdvOJTiQHc4Urb7sRu2R33iZf6WEH9sObjEXRkS5gQgZq7El5jetUhAOTdXJp6g=
+X-Gm-Gg: AYBFou2tYB0E3NFL9royR/v0+Wpt54aZDwNqbal8azmbrNs+i2vASuw+E2yub5HU5fI
+	T300lOYRagujk3RpXNQ4Cw1dW2EVcPIo7rb47wrGhvQNLiMrMkt/L5j6E+z3BEY+VneC6zzKmz4
+	eS+08u73FSms7b2onw1Rb7TyJY5kxijis8LAhRkvpvoiO22MDjd/n4bYAb8ttHHZ0NhRCZDmi48
+	n1qFggVbEzxlvnZiEBqOJ8CRfQGWtUJYaNEYNOraFtKZbUPY3pQJX5DOJyhquvWDmj9erIVShQw
+	FokNHwC/R+/KpGOLCnYFq9rNG4n16xmye7R+XiRqU4UUtv4V5RsEp4rVMqfs+5MAVFARQrPNVvE
+	ZTzke7pisUPfBTA/lVZ5yADIfDo1kArsP2EBm2vLJZfTZ83KnZwSYGmizcqnQaMaFtMlpKuJQjP
+	USlTjlAWjCD0ZGrFpCwz6qpZsHceprVUt405hB+AE9R4TNCmqewCgTWTkR0voLGvpt6g==
+X-Received: by 2002:a05:6808:1450:b0:4b9:e5fa:8906 with SMTP id 5614622812f47-4b9e5fa8e2dmr3891282b6e.25.1788559878050;
+        Fri, 04 Sep 2026 15:11:18 -0700 (PDT)
 Received: from [127.0.1.1] ([2600:8803:e7e4:500:4324:3ccf:e2bf:d545])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-4b970d1ff95sm3187113b6e.6.2026.09.04.15.11.13
+        by smtp.gmail.com with ESMTPSA id 5614622812f47-4b970d1ff95sm3187113b6e.6.2026.09.04.15.11.17
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 04 Sep 2026 15:11:15 -0700 (PDT)
+        Fri, 04 Sep 2026 15:11:17 -0700 (PDT)
 From: "David Lechner (TI)" <dlechner@baylibre.com>
-Date: Fri, 04 Sep 2026 17:09:48 -0500
-Subject: [PATCH v2 03/10] iio: adc: ti-ads112c14: add continuous mode
+Date: Fri, 04 Sep 2026 17:09:49 -0500
+Subject: [PATCH v2 04/10] iio: adc: ti-ads112c14: add burnout current
  support
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -71,7 +71,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260904-iio-adc-ti-ads112c14-filter-support-v2-3-f86592360658@baylibre.com>
+Message-Id: <20260904-iio-adc-ti-ads112c14-filter-support-v2-4-f86592360658@baylibre.com>
 References: <20260904-iio-adc-ti-ads112c14-filter-support-v2-0-f86592360658@baylibre.com>
 In-Reply-To: <20260904-iio-adc-ti-ads112c14-filter-support-v2-0-f86592360658@baylibre.com>
 To: Jonathan Cameron <jic23@kernel.org>, 
@@ -81,277 +81,252 @@ Cc: Chris Hall <c-hall@ti.com>, Patrick Edwards <pedwards@ti.com>,
  Kurt Borja <kuurtb@gmail.com>, linux-iio@vger.kernel.org, 
  linux-kernel@vger.kernel.org, "David Lechner (TI)" <dlechner@baylibre.com>
 X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=8104; i=dlechner@baylibre.com;
- h=from:subject:message-id; bh=l9Q45b3Na0r37AULknN0n4Ws7BStWk9ckJ7bJVedIH4=;
- b=owEBbQGS/pANAwAKAcLMIAH/AY/AAcsmYgBqm0HFhPBkrZGiL8eDZSYH9sOM3kV6Jtt6VYxUt
- SpsuISDTzaJATMEAAEKAB0WIQTsGNmeYg6D1pzYaJjCzCAB/wGPwAUCaptBxQAKCRDCzCAB/wGP
- wAAEB/90rNcsdeuJothe1lQBEeHTKsF6AiNZ8tIZUEkvPH8U0HVCUF0ITlJWqji+/DSngK14sdI
- NscwVCgbWWznZBY4ewVghWtVEAvR53bj8JRz39uRQ6yD8ZBDrEnkL+EGmin7U3qnyjehIG5C9Sj
- KxYoyqhZsF/RdzJvrcvx6RfWLIZZXEoc8y7b+fBluRL4lNQSPcryqwDfEWg3UZHR9xC/JGoVVBM
- Iu5J+Ms6HwpyFJkxWz+/VcNzeOvojnScnTsRmrROt+E4OAQlr8x4Ww1niFjQQu6+bX8zKTnkXTL
- UdVxazEEPAxEK0C24TICzwtAylA44ZF0Yp8G+WwkEjy5/vA1
+X-Developer-Signature: v=1; a=openpgp-sha256; l=8219; i=dlechner@baylibre.com;
+ h=from:subject:message-id; bh=Deeaer94Jcor75gpy0lfZKp/okGWx/opCeDuktVE8UE=;
+ b=owEBbQGS/pANAwAKAcLMIAH/AY/AAcsmYgBqm0HLI/LcF2uFgi749qeP4XAV2xYp7pM+IL06m
+ ltn56+eUyuJATMEAAEKAB0WIQTsGNmeYg6D1pzYaJjCzCAB/wGPwAUCaptBywAKCRDCzCAB/wGP
+ wNCXB/4kmgkZ2SJO9DpFYZJFLGhp5F1aWWkv/W80bs4CftaqCZePRqw6lv565QMYQ7IZN4z58n7
+ FbKlDkJ+igL6/1kUhrSi8W/bP1ZTXOYKTvwbew9ow6wsUlInSnIzvaxidp7P9GiUdDch67taS+M
+ x4eamqR5D/ZhA79lQTHIZB3zRNipSVK+yHabX27ufWbpUA+1BjW7KiyNMp0mtiEUx6J9C45u7bX
+ r057J0D7dlNeCZuQvgEWIIwY/SPPclATdBxhXGVju9oU7rqvmqtl8YSzSCY8aaWKrrbBrJx3oh4
+ aI/pNNcM+LuE+sUViOtXJlFCy04eknaVuCAFgNz3Ck0YDTAb
 X-Developer-Key: i=dlechner@baylibre.com; a=openpgp;
  fpr=8A73D82A6A1F509907F373881F8AF88C82F77C03
 
-Add support for continuous mode in the TI ADS112C14 ADC driver. In this
-mode the ADC itself is starting each conversion, so we add a trigger
-based on the DRDY interrupt to read each sample. This mode is also
-limited in that only one channel can be enabled at a time since the
-chip does not have a sequencer or simultaneous sampling capability.
-Continuous mode will only be used when this new trigger is the current
-trigger.
+Add a custom attribute via ext_info when a channel has a burnout current
+specified in the devicetree. This adds an in_{voltageY,resistanceY,
+voltageY-voltageX}_burnoutraw sysfs attribute for the channel that
+performs a single conversion (same as _raw attribute) except that it
+enables the burnout current. The chip also has a restriction that input
+chopping cannot be enabled when burnout current is enabled, so we also
+disable input chopping when burnout current is active.
 
 Signed-off-by: David Lechner (TI) <dlechner@baylibre.com>
 ---
- drivers/iio/adc/ti-ads112c14.c | 153 ++++++++++++++++++++++++++++++++++++++++-
- 1 file changed, 151 insertions(+), 2 deletions(-)
+ drivers/iio/adc/ti-ads112c14.c | 125 ++++++++++++++++++++++++++++++++++++++---
+ 1 file changed, 116 insertions(+), 9 deletions(-)
 
 diff --git a/drivers/iio/adc/ti-ads112c14.c b/drivers/iio/adc/ti-ads112c14.c
-index 23f15be303fb..06b962fbde5e 100644
+index 06b962fbde5e..c03789c3d95e 100644
 --- a/drivers/iio/adc/ti-ads112c14.c
 +++ b/drivers/iio/adc/ti-ads112c14.c
-@@ -9,6 +9,7 @@
-  */
- 
- #include <linux/bitfield.h>
-+#include <linux/bitmap.h>
- #include <linux/cleanup.h>
- #include <linux/completion.h>
- #include <linux/crc8.h>
-@@ -18,6 +19,7 @@
- #include <linux/i2c.h>
- #include <linux/iio/buffer.h>
- #include <linux/iio/iio.h>
-+#include <linux/iio/trigger.h>
- #include <linux/iio/trigger_consumer.h>
- #include <linux/iio/triggered_buffer.h>
- #include <linux/interrupt.h>
-@@ -257,10 +259,12 @@ struct ads112c14_measurement {
- struct ads112c14_data {
- 	const struct ads112c14_chip_info *chip_info;
- 	struct regmap *regmap;
-+	struct iio_trigger *drdy_trig;
- 	/* Synchronizes access to register value fields. */
- 	struct mutex lock;
- 	int drdy_irq;
- 	struct completion drdy_completion;
-+	bool continuous_mode;
- 	bool i2c_crc_enabled;
- 	u32 avdd_uV;
- 	u32 ext_ref_uV;
-@@ -280,11 +284,18 @@ static irqreturn_t ads112c14_drdy_irq_handler(int irq, void *private)
- 	struct iio_dev *indio_dev = private;
- 	struct ads112c14_data *data = iio_priv(indio_dev);
- 
--	complete(&data->drdy_completion);
-+	if (READ_ONCE(data->continuous_mode))
-+		iio_trigger_poll(data->drdy_trig);
-+	else
-+		complete(&data->drdy_completion);
- 
- 	return IRQ_HANDLED;
- }
- 
-+static const struct iio_trigger_ops ads112c14_trigger_ops = {
-+	.validate_device = iio_trigger_validate_own_device,
-+};
+@@ -76,6 +76,11 @@
+ #define   ADS112C14_DEVICE_CFG_PWDN			BIT(7)
+ #define   ADS112C14_DEVICE_CFG_STBY_MODE		BIT(6)
+ #define   ADS112C14_DEVICE_CFG_BOCS			GENMASK(5, 4)
++#define     ADS112C14_DEVICE_CFG_BOCS_DISABLED		  0
++#define     ADS112C14_DEVICE_CFG_BOCS_200_nA		  1
++#define     ADS112C14_DEVICE_CFG_BOCS_1_uA		  2
++#define     ADS112C14_DEVICE_CFG_BOCS_10_uA		  3
 +
- static bool ads112c14_writeable_reg(struct device *dev, unsigned int reg)
- {
- 	switch (reg) {
-@@ -695,6 +706,13 @@ static int ads112c14_single_conversion(struct ads112c14_data *data,
- 					data->i2c_crc_enabled);
- }
- 
-+static bool ads112c14_using_drdy_trigger(struct iio_dev *indio_dev)
-+{
-+	struct ads112c14_data *data = iio_priv(indio_dev);
-+
-+	return data->drdy_trig && indio_dev->trig == data->drdy_trig;
-+}
-+
- static int ads112c14_read_raw(struct iio_dev *indio_dev,
- 			      struct iio_chan_spec const *chan,
- 			      int *val, int *val2, long mask)
-@@ -898,6 +916,19 @@ static int ads112c14_write_raw_get_fmt(struct iio_dev *indio_dev,
- 	}
- }
- 
-+static int ads112c14_update_scan_mode(struct iio_dev *indio_dev,
-+				      const unsigned long *scan_mask)
-+{
-+	/* Only continuous mode is limited to a single channel. */
-+	if (!ads112c14_using_drdy_trigger(indio_dev))
-+		return 0;
-+
-+	if (!iio_validate_scan_mask_onehot(indio_dev, scan_mask))
-+		return -EINVAL;
-+
-+	return 0;
-+}
-+
- static int ads112c14_debugfs_reg_access(struct iio_dev *indio_dev,
- 					unsigned int reg,
- 					unsigned int writeval,
-@@ -952,6 +983,19 @@ static int ads112c14_read_label(struct iio_dev *indio_dev,
- 	return sysfs_emit(label, "%s\n", label_source);
- }
- 
-+static const struct iio_chan_spec *
-+ads112c14_first_active_channel(struct iio_dev *indio_dev)
-+{
-+	unsigned int scan_mask_len = iio_get_masklength(indio_dev);
-+	unsigned int i;
-+
-+	i = find_first_bit(indio_dev->active_scan_mask, scan_mask_len);
-+	if (i == scan_mask_len)
-+		return NULL;
-+
-+	return &indio_dev->channels[i];
-+}
-+
- static irqreturn_t ads112c14_trigger_handler(int irq, void *private)
- {
- 	struct iio_poll_func *pf = private;
-@@ -961,6 +1005,26 @@ static irqreturn_t ads112c14_trigger_handler(int irq, void *private)
- 	u32 i;
- 	int ret;
- 
-+	if (ads112c14_using_drdy_trigger(indio_dev)) {
-+		const struct iio_chan_spec *chan;
-+
-+		chan = ads112c14_first_active_channel(indio_dev);
-+		if (!chan)
-+			goto out;
-+
-+		ret = ads112c14_scan_read(data, (u8 *)&data->scan[0]);
-+		if (ret) {
-+			dev_err_once(indio_dev->dev.parent,
-+				     "failed to read channel %d: %pe; additional errors will be suppressed\n",
-+				     chan->channel, ERR_PTR(ret));
-+			goto out;
-+		}
-+
-+		iio_push_to_buffers_with_ts(indio_dev, data->scan,
-+					    sizeof(data->scan), pf->timestamp);
-+		goto out;
-+	}
-+
- 	iio_for_each_active_channel(indio_dev, i) {
- 		const struct iio_chan_spec *chan = &indio_dev->channels[i];
- 
-@@ -988,10 +1052,81 @@ static const struct iio_info ads112c14_info = {
- 	.read_avail = ads112c14_read_avail,
- 	.write_raw = ads112c14_write_raw,
- 	.write_raw_get_fmt = ads112c14_write_raw_get_fmt,
-+	.update_scan_mode = ads112c14_update_scan_mode,
- 	.debugfs_reg_access = ads112c14_debugfs_reg_access,
- 	.read_label = ads112c14_read_label,
+ #define   ADS112C14_DEVICE_CFG_CLK_SEL			BIT(3)
+ #define   ADS112C14_DEVICE_CFG_CONV_MODE		BIT(2)
+ #define     ADS112C14_DEVICE_CFG_CONV_MODE_CONTINUOUS	  0
+@@ -251,6 +256,7 @@ struct ads112c14_measurement {
+ 	u8 idac2_mux;
+ 	u8 iadc_count;
+ 	u8 gain_val;
++	u8 burnout;
+ 	bool global_chop;
+ 	bool bipolar;
+ 	int scale_available[ARRAY_SIZE(ads112c14_pga_gains_x10)][2];
+@@ -461,7 +467,8 @@ static const struct regmap_config ads112c14_regmap_config = {
  };
  
-+static int ads112c14_buffer_postenable(struct iio_dev *indio_dev)
+ static int ads112c14_prepare_measurement_channel(struct ads112c14_data *data,
+-						 const struct iio_chan_spec *chan)
++						 const struct iio_chan_spec *chan,
++						 bool en_burnout)
+ {
+ 	struct ads112c14_measurement *measurement = &data->measurements[chan->scan_index];
+ 	u32 refp_buf_en, refn_buf_en, ref_val, ref_sel;
+@@ -515,7 +522,8 @@ static int ads112c14_prepare_measurement_channel(struct ads112c14_data *data,
+ 	ret = regmap_update_bits(data->regmap, ADS112C14_REG_DATA_RATE_CFG,
+ 				 ADS112C14_DATA_RATE_CFG_GC_EN,
+ 				 FIELD_PREP(ADS112C14_DATA_RATE_CFG_GC_EN,
+-					    measurement->global_chop));
++					    (measurement->global_chop &&
++					     !en_burnout) ? 1 : 0));
+ 	if (ret)
+ 		return ret;
+ 
+@@ -613,10 +621,11 @@ static int ads112c14_prepare_sys_mon_channel(struct ads112c14_data *data,
+ }
+ 
+ static int ads112c14_prepare_channel(struct ads112c14_data *data,
+-				     const struct iio_chan_spec *chan)
++				     const struct iio_chan_spec *chan,
++				     bool en_burnout)
+ {
+ 	if (chan->channel < ADS112C14_SYS_MON_CHANNEL_BASE)
+-		return ads112c14_prepare_measurement_channel(data, chan);
++		return ads112c14_prepare_measurement_channel(data, chan, en_burnout);
+ 
+ 	return ads112c14_prepare_sys_mon_channel(data, chan);
+ }
+@@ -674,14 +683,14 @@ static int ads112c14_wait_for_conversion_poll(struct ads112c14_data *data)
+ 
+ static int ads112c14_single_conversion(struct ads112c14_data *data,
+ 				       const struct iio_chan_spec *chan,
+-				       u8 *buf, bool for_scan)
++				       u8 *buf, bool en_burnout, bool for_scan)
+ {
+ 	struct i2c_client *client = to_i2c_client(regmap_get_device(data->regmap));
+ 	int ret;
+ 
+ 	guard(mutex)(&data->lock);
+ 
+-	ret = ads112c14_prepare_channel(data, chan);
++	ret = ads112c14_prepare_channel(data, chan, en_burnout);
+ 	if (ret)
+ 		return ret;
+ 
+@@ -742,7 +751,7 @@ static int ads112c14_read_raw(struct iio_dev *indio_dev,
+ 		if (IIO_DEV_ACQUIRE_FAILED(claim))
+ 			return -EBUSY;
+ 
+-		ret = ads112c14_single_conversion(data, chan, buf, false);
++		ret = ads112c14_single_conversion(data, chan, buf, false, false);
+ 		if (ret)
+ 			return ret;
+ 
+@@ -1030,7 +1039,7 @@ static irqreturn_t ads112c14_trigger_handler(int irq, void *private)
+ 
+ 		ret = ads112c14_single_conversion(data, chan,
+ 						  (u8 *)&data->scan[offset++],
+-						  true);
++						  false, true);
+ 		if (ret) {
+ 			dev_err_once(indio_dev->dev.parent,
+ 				     "failed to read channel %d: %pe; additional errors will be suppressed\n",
+@@ -1072,7 +1081,7 @@ static int ads112c14_buffer_postenable(struct iio_dev *indio_dev)
+ 
+ 	guard(mutex)(&data->lock);
+ 
+-	ret = ads112c14_prepare_channel(data, chan);
++	ret = ads112c14_prepare_channel(data, chan, false);
+ 	if (ret)
+ 		return ret;
+ 
+@@ -1127,6 +1136,74 @@ static const struct iio_buffer_setup_ops ads112c14_buffer_setup_ops = {
+ 	.predisable = ads112c14_buffer_predisable,
+ };
+ 
++static ssize_t ads112c14_read_burnout_raw(struct iio_dev *indio_dev,
++					  uintptr_t private,
++					  struct iio_chan_spec const *chan,
++					  char *buf)
 +{
 +	struct ads112c14_data *data = iio_priv(indio_dev);
-+	const struct iio_chan_spec *chan;
-+	int ret;
++	struct ads112c14_measurement *measurement;
++	int ret, ret2, val;
++	u8 raw_buf[3];
 +
-+	if (!ads112c14_using_drdy_trigger(indio_dev))
-+		return 0;
-+
-+	chan = ads112c14_first_active_channel(indio_dev);
-+	if (!chan)
++	if (chan->channel >= ADS112C14_SYS_MON_CHANNEL_BASE)
 +		return -EINVAL;
 +
-+	guard(mutex)(&data->lock);
++	measurement = &data->measurements[chan->scan_index];
++	if (!measurement->burnout)
++		return -EINVAL;
 +
-+	ret = ads112c14_prepare_channel(data, chan);
-+	if (ret)
-+		return ret;
++	IIO_DEV_ACQUIRE_DIRECT_MODE(indio_dev, claim);
++	if (IIO_DEV_ACQUIRE_FAILED(claim))
++		return -EBUSY;
 +
 +	ret = regmap_update_bits(data->regmap, ADS112C14_REG_DEVICE_CFG,
-+				 ADS112C14_DEVICE_CFG_CONV_MODE,
-+				 FIELD_PREP(ADS112C14_DEVICE_CFG_CONV_MODE,
-+					    ADS112C14_DEVICE_CFG_CONV_MODE_CONTINUOUS));
++				 ADS112C14_DEVICE_CFG_BOCS,
++				 FIELD_PREP(ADS112C14_DEVICE_CFG_BOCS,
++					    measurement->burnout));
 +	if (ret)
 +		return ret;
 +
-+	WRITE_ONCE(data->continuous_mode, true);
++	ret = ads112c14_single_conversion(data, chan, raw_buf, true, false);
 +
-+	ret = regmap_write(data->regmap, ADS112C14_REG_CONVERSION_CTRL,
-+			   ADS112C14_CONVERSION_CTRL_START);
-+	if (ret) {
-+		WRITE_ONCE(data->continuous_mode, false);
-+		regmap_update_bits(data->regmap, ADS112C14_REG_DEVICE_CFG,
-+				   ADS112C14_DEVICE_CFG_CONV_MODE,
-+				   FIELD_PREP(ADS112C14_DEVICE_CFG_CONV_MODE,
-+					      ADS112C14_DEVICE_CFG_CONV_MODE_SINGLE_SHOT));
++	/*
++	 * Important to always turn off burnout current even if the conversion
++	 * fails so that it does not affect subsequent measurements.
++	 */
++	ret2 = regmap_update_bits(data->regmap, ADS112C14_REG_DEVICE_CFG,
++				  ADS112C14_DEVICE_CFG_BOCS,
++				  FIELD_PREP(ADS112C14_DEVICE_CFG_BOCS,
++					     ADS112C14_DEVICE_CFG_BOCS_DISABLED));
++	if (ret < 0)
 +		return ret;
++	if (ret2)
++		return ret2;
++
++	switch (data->chip_info->resolution_bits) {
++	case 16:
++		val = get_unaligned_be16(raw_buf);
++		break;
++	case 24:
++		val = get_unaligned_be24(raw_buf);
++		break;
++	default:
++		return -EINVAL;
 +	}
 +
-+	return 0;
++	if (measurement->bipolar)
++		val = sign_extend32(val, data->chip_info->resolution_bits - 1);
++
++	return sysfs_emit(buf, "%d\n", val);
 +}
 +
-+static int ads112c14_buffer_predisable(struct iio_dev *indio_dev)
-+{
-+	struct ads112c14_data *data = iio_priv(indio_dev);
-+	int ret;
-+
-+	if (!ads112c14_using_drdy_trigger(indio_dev))
-+		return 0;
-+
-+	guard(mutex)(&data->lock);
-+
-+	WRITE_ONCE(data->continuous_mode, false);
-+
-+	ret = regmap_write(data->regmap, ADS112C14_REG_CONVERSION_CTRL,
-+			   ADS112C14_CONVERSION_CTRL_STOP);
-+	if (ret)
-+		return ret;
-+
-+	return regmap_update_bits(data->regmap, ADS112C14_REG_DEVICE_CFG,
-+				  ADS112C14_DEVICE_CFG_CONV_MODE,
-+				  FIELD_PREP(ADS112C14_DEVICE_CFG_CONV_MODE,
-+					     ADS112C14_DEVICE_CFG_CONV_MODE_SINGLE_SHOT));
-+}
-+
-+static const struct iio_buffer_setup_ops ads112c14_buffer_setup_ops = {
-+	.postenable = ads112c14_buffer_postenable,
-+	.predisable = ads112c14_buffer_predisable,
++static const struct iio_chan_spec_ext_info ads112c14_ext_info_burnout[] = {
++	{
++		.name = "burnoutraw",
++		.read = ads112c14_read_burnout_raw,
++	},
++	{ }
 +};
 +
  static int ads112c14_populate_idac_mag(u32 current_nA, u8 *idac_mag)
  {
  	u32 current_uA = current_nA / (NANO / MICRO);
-@@ -1480,6 +1615,19 @@ static int ads112c14_probe(struct i2c_client *client)
- 				       0, dev_name(dev), indio_dev);
- 		if (ret)
- 			return ret;
-+
-+		data->drdy_trig = devm_iio_trigger_alloc(dev, "%s-dev%d-drdy",
-+							 info->name,
-+							 iio_device_id(indio_dev));
-+		if (!data->drdy_trig)
-+			return -ENOMEM;
-+
-+		data->drdy_trig->ops = &ads112c14_trigger_ops;
-+		iio_trigger_set_drvdata(data->drdy_trig, indio_dev);
-+
-+		ret = devm_iio_trigger_register(dev, data->drdy_trig);
-+		if (ret)
-+			return ret;
- 	}
+@@ -1172,6 +1249,7 @@ static int ads112c14_parse_channels(struct iio_dev *indio_dev,
+ 	device_for_each_named_child_node_scoped(dev, child, "channel") {
+ 		struct ads112c14_measurement *measurement = &data->measurements[i];
+ 		struct iio_chan_spec *spec = &channels[i];
++		const char *propname;
  
- 	ads112c14_populate_tables(data);
-@@ -1490,7 +1638,8 @@ static int ads112c14_probe(struct i2c_client *client)
+ 		spec->indexed = 1;
+ 		spec->scan_index = i;
+@@ -1295,6 +1373,35 @@ static int ads112c14_parse_channels(struct iio_dev *indio_dev,
+ 		measurement->global_chop = fwnode_property_read_bool(child,
+ 								     "input-chopping");
  
- 	ret = devm_iio_triggered_buffer_setup(dev, indio_dev,
- 					      iio_pollfunc_store_time,
--					      ads112c14_trigger_handler, NULL);
-+					      ads112c14_trigger_handler,
-+					      &ads112c14_buffer_setup_ops);
- 	if (ret)
- 		return ret;
- 
++		propname = "burn-out-current-nanoamp";
++		if (fwnode_property_present(child, propname)) {
++			u32 burnout_nA;
++
++			ret = fwnode_property_read_u32(child, propname, &burnout_nA);
++			if (ret)
++				return dev_err_probe(dev, ret,
++						     "failed to read %s property\n",
++						     propname);
++
++			switch (burnout_nA) {
++			case 200:
++				measurement->burnout = ADS112C14_DEVICE_CFG_BOCS_200_nA;
++				break;
++			case 1000:
++				measurement->burnout = ADS112C14_DEVICE_CFG_BOCS_1_uA;
++				break;
++			case 10000:
++				measurement->burnout = ADS112C14_DEVICE_CFG_BOCS_10_uA;
++				break;
++			default:
++				return dev_err_probe(dev, -EINVAL,
++						     "invalid %s value\n", propname);
++			}
++
++			if (measurement->burnout != ADS112C14_DEVICE_CFG_BOCS_DISABLED)
++				spec->ext_info = ads112c14_ext_info_burnout;
++		}
++
+ 		if (fwnode_property_present(child, "reference-sources")) {
+ 			ret = fwnode_property_match_property_string(child,
+ 				"reference-sources", ads112c14_vref_source_names,
 
 -- 
 2.43.0
