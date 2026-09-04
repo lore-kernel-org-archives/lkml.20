@@ -1,132 +1,110 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CE6B44682F;
-	Fri,  4 Sep 2026 12:55:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD1964949E0;
+	Fri,  4 Sep 2026 12:55:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788526508; cv=none; b=SGtk4ec5bHEa5Nu4lfAg5LExf7P0SpMw1wO0e276FZdmgvyD2zXlfm7/j70mCg4qT8yyCFdF1IHKy1T36XBZjqjNNtV0xmNVdkYauPWHgq5W827e6wbVana/c+rtnjyYq5hlXRoxBIPb7ivB/mmlGBQWG8a7uUrVAed01d3/iyY=
+	t=1788526512; cv=none; b=SRVejlQ2Xwiv+pjDbCScu074nA6zXk85OEU7sokjSBK9ghI/QMKf1bustBohbtkRBHc8rSZsKF/asB8kX2L1e0QOvjwKWc4jsCFGbNKjc87o2nv3ulj4rDTlNtWTCWFtKXT/6Vkr9KwHlXw0RSaM8Dqlu22rwJuB3cDwpptgJKw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788526508; c=relaxed/simple;
-	bh=TfD52jOzf+a1JoDQPQQivlY/fszqgwWGK2WVitDtjIw=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=Tcvd2TAeE+MsHlQ8BdU6qUXM9JnUJ/oq8i4vJPJI68gj5v2tDXyTTh7qVmCSWijWucS2suAvMbtHM7yjozQzUnRc6nbwa4vy6PKq9gBV3Juma97pwOaIX0/QUyBOc3869qHqMr7TAt0DNhZq+hNfd5uG6njOuyul32K2SyiCzSE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NgdrKgO3; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788526512; c=relaxed/simple;
+	bh=HAsslAULdDb8Ba96cVtVypmzvw9RPOMnBvl+X9X+L1k=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=uAXycL3gDYQoTFur4oSgVYANhwz2KF6tJY7tgXqfcYfCbqAJOpwL0qlwzDZD1TSksJIKTLeX6pvh17uEHENbZOYdxz7xNdnSI6vBOqp/VJdKavEhOJKR9UIKQkgHIv7yQTawps/Dfpjb+kUmpD5u5ysoqG2FhCjpPs8Z8O2rz0w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Mh0qjwkw; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NgdrKgO3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 041F31F00A3D;
-	Fri,  4 Sep 2026 12:55:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788526506;
-	bh=+jAa/+gW4uJqMlBI4roLSbcXFG/6ATTWTZkTBgaLylU=;
-	h=From:To:Cc:Subject:Date;
-	b=NgdrKgO3pYOaTZTNkfrAnZN17U54JyRhb4gYeRM1VQUwfFHOL7ypUm94UGF8PdCLb
-	 VdP9JlTRZw5Nv1sxN0netJ+uzxVN8DYKA28mKvvXqbg4KpuE/ZApE63HNeHtt2HBIq
-	 ycqPZg7mcWFEcKfWdBmx7d9gcjRfIUI19VRBPpntkrtS0XFyWaYDjCmIUTQ+IOkQhE
-	 evGFgKm2IL/lxYdXl3j8eMbaUPdmgVqNbP2V+gytI/90fWDHfUlKVGycB8XVH8dCgI
-	 IbSCdJU4YQa1H5sFJsT28bQOW7IqcAI/BhIfhiuEbxPv6HASMT4mktx74rjlTlOXfW
-	 JmwiENSxD1ldw==
-From: "Rafael J. Wysocki" <rafael@kernel.org>
-To: Linux ACPI <linux-acpi@vger.kernel.org>
-Cc: LKML <linux-kernel@vger.kernel.org>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Subject: [PATCH v1] ACPI: glue: Reduce debug noise from acpi_device_notify()
-Date: Fri, 04 Sep 2026 14:55:03 +0200
-Message-ID: <2868233.mvXUDI8C0e@rafael.j.wysocki>
-Organization: Linux Kernel Development - Intel
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Mh0qjwkw"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 46676C2BCC7;
+	Fri,  4 Sep 2026 12:55:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1788526512;
+	bh=HAsslAULdDb8Ba96cVtVypmzvw9RPOMnBvl+X9X+L1k=;
+	h=From:Subject:Date:To:Cc:Reply-To:From;
+	b=Mh0qjwkwwC8zdthFEp4Eq3OL5Xl3QwOBA8hPTdEJxXx30bEV6Ls7Ttd/dD2AOgCkf
+	 umkm+M1Xz8eRdqWK+lR3ZmTxvr0t5P11McxNWXTVPcC+n9L25hrLtTJXZCXZzgrrTe
+	 mjLRKPY+6O1NdSQsQIcpTtsMy/oovm/FTG465xdnGrSzgN7h5Ijs/HsK3IFV7T2THm
+	 PizReOmsr+jtAAc8wflnUFkiB7gc3VTr7jYImY4IsGU24I7vvPlr8k+dQFgcjtAB0D
+	 09TDW/AISaNI6C+ag5/FeMsPyU/R62obXyVppAnksG9XMwpjmfnPKIXXbNYfVJIF16
+	 UWbX1Z9pR4wRA==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1366AC624D3;
+	Fri,  4 Sep 2026 12:55:12 +0000 (UTC)
+From: Muzaffer Kadir via B4 Relay <devnull+muzafferkadir.mainlining.org@kernel.org>
+Subject: [PATCH v4 0/2] Add pinctrl support for MSM8952
+Date: Fri, 04 Sep 2026 15:55:07 +0300
+Message-Id: <20260904-msm8952-pinctrl-v4-0-671475ed1397@mainlining.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3XNTQqDMBCG4atI1k3JjD+JXfUepQujiQ7UKIlIi
+ 3j3Rjct2C7fD+aZhQXjyQR2SRbmzUyBBhcjOyWs7irXGk5NbIYCC6Gg4H3oVZkjH8nVk39wXaN
+ uMpWVWACLV6M3lp67eLvH7ihMg3/tD2bY1v/WDFzwSqJEXTcISl77ityDHLn2PPiWbeCMXwiKI
+ 4IR0Ra10lKnstQ/kfSDlCI7ImlEAEQOubU2h/SArOv6Bj1iGKk9AQAA
+X-Change-ID: 20260816-msm8952-pinctrl-bc2bd4849261
+To: Bartosz Golaszewski <brgl@kernel.org>, 
+ Bjorn Andersson <andersson@kernel.org>, Linus Walleij <linusw@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
+ linux-arm-msm@vger.kernel.org, linux-gpio@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Muzaffer Kadir <muzafferkadir@mainlining.org>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788526510; l=1688;
+ i=muzafferkadir@mainlining.org; s=20260816; h=from:subject:message-id;
+ bh=HAsslAULdDb8Ba96cVtVypmzvw9RPOMnBvl+X9X+L1k=;
+ b=YbTucvoOYRPXCnRqBAlaMo3c66QxauVdKq3k/PJEQrQJmUrC+rfszaXPIwO71EqGqioXABWaz
+ rSGij4Pq1sHD3MYucxRFvx39OmHpS4joSoDB6P6qqal9F8b5dRKLuf9
+X-Developer-Key: i=muzafferkadir@mainlining.org; a=ed25519;
+ pk=4zkv4suQ3cYcO4Z7CrV8JSSjEGLBGepUtvQCFjgnYIU=
+X-Endpoint-Received: by B4 Relay for muzafferkadir@mainlining.org/20260816
+ with auth_id=954
+X-Original-From: Muzaffer Kadir <muzafferkadir@mainlining.org>
+Reply-To: muzafferkadir@mainlining.org
 
-From: "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>
+MSM8952 has pinctrl system that is similar to MSM8917 pinctrl, but it
+has some differences in some of the pins and their functions.
+This driver tested on General Mobile GM 5 Plus.
 
-When debug is enabled in the ACPI glue code that handles binding
-devices to ACPI companions, acpi_device_notify() produces a lot of
-message noise related to devices that have no ACPI companions.
-
-Reduce that noise by checking the most obvious cases, ACPI device
-objects and devices without a bus type, directly and returning from
-acpi_device_notify() in these cases without printing any debug
-messages.
-
-Also make the debug messages that get printed more informative and
-change the format prefix to "ACPI/glue", so it is easier to filter
-these messages.
-
-Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
+Signed-off-by: Muzaffer Kadir <muzafferkadir@mainlining.org>
 ---
- drivers/acpi/glue.c |   34 ++++++++++++++++++++--------------
- 1 file changed, 20 insertions(+), 14 deletions(-)
+Changes in v4:
+- Revert back accidentally changed dt-bindings gpio regex.
+- Link to v3: https://lore.kernel.org/r/20260904-msm8952-pinctrl-v3-0-110515fff513@mainlining.org
 
---- a/drivers/acpi/glue.c
-+++ b/drivers/acpi/glue.c
-@@ -6,7 +6,7 @@
-  * Copyright (c) 2005 Intel Corp.
-  */
- 
--#define pr_fmt(fmt) "ACPI: " fmt
-+#define pr_fmt(fmt) "ACPI/glue: " fmt
- 
- #include <linux/acpi_iort.h>
- #include <linux/export.h>
-@@ -354,22 +354,33 @@ void acpi_device_notify(struct device *d
- 	struct acpi_device *adev;
- 	int ret;
- 
-+	/* ACPI devices have no ACPI companions. */
-+	if (dev->bus == &acpi_bus_type)
-+		return;
-+
- 	ret = acpi_bind_one(dev, NULL);
- 	if (ret) {
--		struct acpi_bus_type *type = acpi_get_bus_type(dev);
--
--		if (!type)
--			goto err;
-+		struct acpi_bus_type *type;
- 
-+		/* Skip devices without bus types. */
-+		if (!dev->bus)
-+			return;
-+
-+		type = acpi_get_bus_type(dev);
-+		if (!type) {
-+			dev_dbg(dev, "No matching ACPI bus type description\n");
-+			return;
-+		}
- 		adev = type->find_companion(dev);
- 		if (!adev) {
- 			dev_dbg(dev, "ACPI companion not found\n");
--			goto err;
-+			return;
- 		}
- 		ret = acpi_bind_one(dev, adev);
--		if (ret)
--			goto err;
--
-+		if (ret) {
-+			dev_dbg(dev, "Binding to ACPI companion failed\n");
-+			return;
-+		}
- 		if (type->setup) {
- 			type->setup(dev);
- 			goto done;
-@@ -391,11 +402,6 @@ void acpi_device_notify(struct device *d
- done:
- 	acpi_handle_debug(ACPI_HANDLE(dev), "Bound to device %s\n",
- 			  dev_name(dev));
--
--	return;
--
--err:
--	dev_dbg(dev, "No ACPI support\n");
- }
- 
- void acpi_device_notify_remove(struct device *dev)
+Changes in v3:
+- Added missing functions and removed unnecessary functions
+  with Konrad Dybcio's suggestions.
+- Because of the changes on functions, I changed dt-bindings too.
+  Dropped Krzysztof's Reviewed-By attribute because of the changes.
+- Rebased and Tested on linux-next, next-20260902 tag.
+- Link to v2: https://lore.kernel.org/r/20260820-msm8952-pinctrl-v2-0-bf2b8b7b379b@mainlining.org
 
+Changes in v2:
+- Reworded dt-bindings commit as Krzysztof suggested.
+- Added depends and default to kconfig entry of pinctrl
+- Link to v1: https://lore.kernel.org/r/20260816-msm8952-pinctrl-v1-0-a7272bcd2187@mainlining.org
+
+---
+Muzaffer Kadir (2):
+      dt-bindings: pinctrl: qcom: Add MSM8952 pinctrl
+      pinctrl: qcom: Add MSM8952 tlmm pinctrl driver
+
+ .../bindings/pinctrl/qcom,msm8952-pinctrl.yaml     |  146 +++
+ drivers/pinctrl/qcom/Kconfig.msm                   |    8 +
+ drivers/pinctrl/qcom/Makefile                      |    1 +
+ drivers/pinctrl/qcom/pinctrl-msm8952.c             | 1194 ++++++++++++++++++++
+ 4 files changed, 1349 insertions(+)
+---
+base-commit: 32b6ef9a5d0eca44f9cd91f52f4faa89f145a0de
+change-id: 20260816-msm8952-pinctrl-bc2bd4849261
+
+Best regards,
+-- 
+Muzaffer Kadir <muzafferkadir@mainlining.org>
 
 
