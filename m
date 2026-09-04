@@ -1,74 +1,77 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0E751A9F91
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 14:49:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C41904CA771;
+	Fri,  4 Sep 2026 14:50:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788533389; cv=none; b=UjyYX+gCpz2oI+q9yJeY/Oy1YMpNHRYWO6tkJ5og8tYB3zbQAUkESHuq3aqJ/yGWGn33uidKVJlhTox6zGGEfBuYLr3rNffkV962JBWyXfnDLgy0aJylwdN5TJg6uwgDeXVKoCieRdEbyIQc0XVGfnc7FZ50352P4Y2uyrnUIHE=
+	t=1788533430; cv=none; b=OGNjUCI8cI9bkht9p1mfcVtatjlirmDmNGCd6ulmwnn4hK2yv+3yDVaQi5C+Hkkket1Quh8ELRK+oR0NmPnnXPbR3paatK8M5CjYNDj0hS/PDX6bq6TlioZs46+YynG1t+0uodEhalVbNeBjpY/PnwOYbrpgUxrTttyNEmMeLmM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788533389; c=relaxed/simple;
-	bh=36Plo14KgAefMpDB9Dy8pviz2kZPwv6sETX9rekYKQM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=Z0lzBTGxUFhN2DuC8rVvRILafrkJ9jpY2K025Cv8yx4PZTsj4yLguu9m0s5ZTG5+AhB4q9FBlViEwkHQLoDz+veMFE3ePoakOndNBllT/yw/kaxM9Rlyb2jWPNRcS47HGSYXTeQuPwugmjhhzIDfrbR6wjcjqhzVHLUECygmAHs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HrZrB6+X; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788533430; c=relaxed/simple;
+	bh=8ojOrGp13esXg76h4gTL8CQTn5Ov7uDdomCjzDitXi8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=MOuINSAeXasNDo5iat4fEkuS2t2pksCkwgj3U1Hp2lkhscLGaNEXn8nJ8UeFRFtziM/efZnrm18mbHnXxDU4qEIm4OQahxDJbfQuj7UPp+3wDl5Fg/PVgc2ecVPEkfKa/yYMq4xDWJ3XIlDACK6N82X9894UvXO5IXtuFQtSxm8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ERFnMCX2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HrZrB6+X"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3F8C91F00A3D;
-	Fri,  4 Sep 2026 14:49:46 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ERFnMCX2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0AAE01F00A3D;
+	Fri,  4 Sep 2026 14:50:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788533388;
-	bh=D8QP+kbZpQDntP1Tn0kRj3eRn2VrXYnQZO0ZaU5rhW8=;
-	h=From:To:Cc:Subject:Date;
-	b=HrZrB6+XKVeTKBRp6ZHAm3pMUVe/b+VHffHbaQ1TFnLcC32ptUS5VE6USRIWadLFN
-	 ZT5AJp8VcE65mN4oEiJOcTp8s0+yTarqerV7mKCo4LvvrtlqQaX25R7fQrQMJ8RuWU
-	 s3tWmp2vxZeP5tCwWd9IMXICnSpDXeGWmCPUiTjSe2ARmGu1YJ5a6rODeHs0FA13xO
-	 IuTf3f5fNCaG/djDUVsLv5Ai6BeUgDpLWQo2s0/ADPf8kXmSdvYwaTytkTnTpszC6x
-	 kHaQypMs/4EmSsxJIU2AGQ1DQ/ZpH81vplkqu2n7VE/2RbKdOgagK9SchPns9IwStM
-	 bpyGN0Ouoyxig==
-From: Thomas Gleixner <tglx@kernel.org>
-To: LKML <linux-kernel@vger.kernel.org>
-Cc: linux-arm-kernel@lists.infradead.org, linux-riscv@lists.infradead.org,
- Radu Rendec <radu@rendec.net>, Marc Zyngier <maz@kernel.org>, Anup Patel
- <anup@brainfault.org>, Paul Walmsley <pjw@kernel.org>
-Subject: Interrupt chip driver maintainence
-Date: Fri, 04 Sep 2026 16:49:44 +0200
-Message-ID: <871pb9841j.ffs@fw13>
+	s=k20260515; t=1788533429;
+	bh=+A9vTFErWfQT0RtCnGKfq03NBjCr7KCzxcGcktHMDQI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ERFnMCX2zNVEuOaXAwLazkhogMvrT14LMjH/m83rRv88+dPJLGzjJRh9zjPS1zWXb
+	 OdU+AMylNgfqQbitJvYOm6n9G90SQ6+qXAEH2VhEKfBUP4vKCHLviHFhc+RDBTO+0p
+	 8px9SXQFFy3lvHTUTemU13jnF55xDgxYUju7NigbZPmjxWUlWlnhmJG0kvFmFqzJud
+	 OXKgTeRsIkbxRxQ9az6v163g2nk+JxX21tUsBCIoOJ1Z5jSqaGbSP20kVLo+Wu3Kfi
+	 8gnZUp3C1LG4op9el7Sjq4yvt/i2d6LyO7sa+xxzJ3rN0xI1cW5M8GwMZykaGkVo9q
+	 eEtA7hWBeLEYA==
+Date: Fri, 4 Sep 2026 09:50:27 -0500
+From: "Rob Herring (Arm)" <robh@kernel.org>
+To: Hardeep Sharma <hardeep.sharma@oss.qualcomm.com>
+Cc: Bartosz Golaszewski <brgl@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Robert Marko <robimarko@gmail.com>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+	Ulf Hansson <ulfh@kernel.org>, linux-arm-msm@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	Taniya Das <taniya.das@oss.qualcomm.com>,
+	Radu Rendec <radu@rendec.net>, Brian Masney <bmasney@redhat.com>,
+	Guru Das Srinagesh <linux@gurudas.dev>,
+	linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org,
+	Linus Walleij <linusw@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
+	Michael Turquette <mturquette@baylibre.com>,
+	linux-gpio@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	Georgi Djakov <djakov@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>, linux-clk@vger.kernel.org
+Subject: Re: [PATCH v5 12/15] dt-bindings: interrupt-controller: qcom,pdc:
+ Add Kuno compatible string
+Message-ID: <178853342626.688235.4218772368232817802.robh@kernel.org>
+References: <20260827-kuno-soc-support-v5-0-6d47636a8f09@oss.qualcomm.com>
+ <20260827-kuno-soc-support-v5-12-6d47636a8f09@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
-
-Folks!
-
-I'm wading through my inbox full of patches for interrupt chip drivers
-and I'm thoroughly annoyed. The way how this works today is not
-sustainable.
-
-Patches end up in my and Radu's inbox and all we can do is go through
-them mostly on a formal basis, but it's out of our scope to look at the
-correctness vs. a particular hardware. In the past I just picked up
-patches when I had the gut feeling they are remotely correct, but I'm
-tired of this.
-
-I've just marked about 20 patches and patch series obsolete due to zero
-feedback from the relevant architecture/SoC people who were on Cc.
-
-And I'm going to do that from now on very consequently. If the
-architecture, SoC experts can't be bothered to look after their stuff,
-then don't expect me to suck all of this crap up and then deal with the
-complaints when it breaks.
-
-I'm still going to pick up obvious and simple bug fixes, but for
-anything which requires deep knowledge on the underlying hardware, I'm
-going to just mark them obsolete when they molded in my inbox unreviewed
-by the people who understand it for six weeks.
-
-Thanks,
-
-        Thomas
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260827-kuno-soc-support-v5-12-6d47636a8f09@oss.qualcomm.com>
 
 
+On Thu, 27 Aug 2026 23:21:15 +0530, Hardeep Sharma wrote:
+> Document the Power Domain Controller found on the Qualcomm Kuno SoC.
+> 
+> Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> Signed-off-by: Hardeep Sharma <hardeep.sharma@oss.qualcomm.com>
+> ---
+>  Documentation/devicetree/bindings/interrupt-controller/qcom,pdc.yaml | 1 +
+>  1 file changed, 1 insertion(+)
+> 
+
+Applied, thanks!
 
