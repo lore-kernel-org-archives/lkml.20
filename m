@@ -1,63 +1,63 @@
-Received: from mail-oo1-f52.google.com (mail-oo1-f52.google.com [209.85.161.52])
+Received: from mail-oo1-f41.google.com (mail-oo1-f41.google.com [209.85.161.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81B8547728A
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 12:06:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 108434756DF
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 12:06:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788523575; cv=none; b=uIkC5lDklAPMIpWf+Sesa7XKuvFwDKa/tz1arL6C5c62jr9w1gq6VVF/uDROUBZwXlVfoXnmF9xrSPCe7t4/bqYIQA+ftP0+6+8SV/Cv9GqreK7VOm7DXflec5P8OA938B4SWxHtfODjlf2f1U5BxIHD9wq0lWkSqNOuaqkaSVo=
+	t=1788523583; cv=none; b=GHbvI9uWhj3Yxwv6sW6CvBx/ZRolPT60hCCsoBH/d0CBcF2RGH+c570KdPNq2gL7kgpCNKhNYZ6OQFIilFB+xVfKLRibJVmDoKPXK83dm42TveqKb6fbfRLYfw9+SonMquhCbJopWqHHlHe5kFjZP+JWkWrl6HivdysOVKM1/vs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788523575; c=relaxed/simple;
-	bh=O/ZeYLolTcCfV0GvkpQQktrGnB00dKmW9lHeT4GOfjI=;
+	s=arc-20240116; t=1788523583; c=relaxed/simple;
+	bh=sPN9S2SipzeCvUtPxw8RMcHggMANadY+KjgyyNcHFCg=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=d4FqIcKp3H7L7H1PdJIjyYvGgMUyy4J6IxNmsjdWt0E5X7rk4DuyUfB8zlXJ7jiXIuXo6U3C8jml3RRk/p/+Z1SgdRr/WnJeserg2hTBQufLVe6Axo2nDTGXl+e6A5l3NYTufBasQ67HepBtBxpJMVygGtaXN0S01TfzjaoWoGI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=P0c35STP; arc=none smtp.client-ip=209.85.161.52
+	 MIME-Version; b=E4qOENzfxbFNmuk4BtDVX2JRuX0dGrhoxfz7mM1/9Qk2GfRTxsQihKa+47V7QgL3xG9qcsb39Tcy+T+/nY0fcK79m4Qdshkzylu8DVQVLYdwAbYsko/PNVvbCt5CGTQvsePo4E2uciqgE9G9YafvZXYVBPUGKIUxek0TmMDx6jg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pOasWwII; arc=none smtp.client-ip=209.85.161.41
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="P0c35STP"
-Received: by mail-oo1-f52.google.com with SMTP id 006d021491bc7-6b1b1cb72d0so459068eaf.1
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 05:06:13 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pOasWwII"
+Received: by mail-oo1-f41.google.com with SMTP id 006d021491bc7-6b1c75f0049so694766eaf.3
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 05:06:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788523572; x=1789128372; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1788523580; x=1789128380; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=mUnqZgZG6/HByiIclaEltYHSMp4tHK+7pXJmI++LxBc=;
-        b=P0c35STPXPt3j5o3eoPvy1d3b0J6TzjYOrWKKDW81YQ+MBNHsszAB9TNiLfaLv7IRD
-         HC7jLMKR3T6rf+qU10PuT4rg2xSlnMUZX3KDQWWBwI+ayE2s5PU/GABq9Kv/ryv/T9SE
-         7IABuegaA6Rrt7xY3DDYUh1sl465+96Fx00w9yk4MPiiQPETDBwAwFCO4O5aWWm1lMLq
-         NHPh3AyJv2+cV6LJDPXUxnQisfceIWDu0Tkbdw7OJMve6JSeXAtg+utI0EqCMu5wzQlE
-         PzowV6Th4F4sOqfFmvKuq7VBKjKJE+KG5Lrr4vG7ZVMYN6BqMPQCrNG9/od9mKoRTSRB
-         Zf2g==
+        bh=LpjAUK45k2PJKSjdfeljwO5d42gX8uNwxDJAnF1e9RY=;
+        b=pOasWwIIt9BWLLuuZudzx+UGJbRieNF7J8i2WiRkGX4FoAzr4GhhsuYut5iK67QYv4
+         LB0l5Tz+evzfTwkGHRQwQ1cSSFdUD6dMH1R5upg7WYBEdc7MoeEVq/nJ4sAiQRiAJopw
+         /pHnaWp9OUQkV4diQ4zBct1poQRc30Eu9AVD0WKnftiY+ZvKUl8gFIe5QmEStM+4rz4t
+         iW2kgpubuMAlDR6OBFsEs4/+YF/itI6NhoZ2KtAGlEQSoDOpUnFFGZ8zji/vfxfP78rw
+         vjkfZTWym/IEMLrBMU/scCc3cU8T62srYnbwpbk0l+une4hZfCSgxQZpYVU4pvWG5WXT
+         wr8A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788523572; x=1789128372;
+        d=1e100.net; s=20251104; t=1788523580; x=1789128380;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=mUnqZgZG6/HByiIclaEltYHSMp4tHK+7pXJmI++LxBc=;
-        b=jIvu9on8httOZNojoxvdh5jP0aWcE9x8U3xtPzEGIBclhI9IRavRVMpA/WyGk1pnUR
-         Ge1JiRc03o5IpmPsWrg+f2dNjvaO2/H9H+79lhL4z2Lvpo3+buSSqXZMflj3K/Yxs6Uh
-         PQAYdS9fFR13ooZqxcIOno8is8+yXMa8KsvJICLmQzy+eXcYI6l1UuaXNVbJS0Yk8iry
-         p5YiYnucSNlUiv8IE5lFERc0EEj789AqWLP+tJ+xYUhE3pnubL9X29V1c6H4+e7Yc9G1
-         kgU75s//H/7NjyamNLbwaCFBu+Ookb/DazkGk9UZsjMVvJDdc4Z9JjEmlBUqQV9OkT8D
-         hvIw==
-X-Gm-Message-State: AFuF++n5EQI7+yfvSkXAIZOBBjR5gfmI9ADO9muhZNrbKS8E2S3rFZRe
-	2SW2QHFZoRbkeYS02JyU9ZRLipc63Xb7kfKUn+o3zuARrmmphxvDvOWx
-X-Gm-Gg: AYBFou1rVcVzzeRGpPXfNDDi0ryckZ5XFd2JjeKsBWAk9zlujIzjV3I9I/Mcv6FO9wO
-	Gi2bt7TbUXAw5z11phzwPxen0bu8XZQV/QthIDXVgY0ysH0j/Ogh9vcfYMx0FyHegKMb4Hot5t1
-	ku9Peof5V9hYw3HyUg9rMfXhQJ+I9c4yHbjvQ+xwBMoQaIZXPlkuNPDz6W0sJTyHtNzhp8H+/iV
-	/ueOFE+wgq0JFb8dZIu7QuyYOu8unT9I8HuKmn8fLHwaFlXb7qBU7Jvc37SpzZKlLCQ7tf/MMnI
-	6Z0l+EzneqkWJEDYmKEwvOCMTWioIHVsl4d/yBGi9AJsZmahWHd5mwqEcOzOBiiUYs0jaGI9hMi
-	sGtqVw2GXbCB6O0BfnpXc280vP3ORdZxKYsIqAOJap8rsq1W7ZwPqLfOFWPtsl2phVzUlmMjupO
-	lR/6TuSoHb6+Je5ht88nUfYNE87RBueS4XuJeNUPVLHFimqxwo0HTAZBfkeOhjW85DXRsEyp6lA
-	zOJz68a113umtg=
-X-Received: by 2002:a05:6820:1992:b0:6b1:4173:ca4a with SMTP id 006d021491bc7-6b6fafe071emr3681918eaf.11.1788523572254;
-        Fri, 04 Sep 2026 05:06:12 -0700 (PDT)
+        bh=LpjAUK45k2PJKSjdfeljwO5d42gX8uNwxDJAnF1e9RY=;
+        b=Pjv0O62OcONtjmg1jYTj/LNCQxzWtWUWx+0OGBSdU5pENSWjZMVfkBXnowFoYHMnIp
+         YgtfutFsJz+jsYuPDKbqu6C0wZHzgVG5rywcR1r7+4WceolQyqtVl/x9cg77eBSdLcl2
+         qeY1+9StRJqOrmCcCmLH44m26P4Z6YtbzyTRMlfs4YHT8W3D4yMPCYLCBxoO/m1f/x6Y
+         MXsGAk2+tvilPQiYpfKFyKSKwd7khtC1dzg03no9DBMMqFAvDslQyOKU5JpP2iNoQUHO
+         QIWvG/iHEqsH2VsLBYETZuFbPKv17c4COtbEQ4/th7RYIY/R77/ejqdsZYyAKeGBSKts
+         pGdQ==
+X-Gm-Message-State: AFuF++nkeJSCQIpdbsW4fWZ3iY9HHUqJ+rUvR/Fl6bL4a0jFuvDga9Wq
+	AlvTD4l1pSMD+bNGjHWSoOG8eYKMz9uVitc/IfbCRcByFfstl2x6RTqB
+X-Gm-Gg: AYBFou00ibMHHd/hgyq3JfkzfPaB42t4dMH0s/gmc0hs+uemkZCOzPCWORDoBpYDrrP
+	TlzujZ3Z7XNGIrS9+BU14TkW/fZtp6SjLgDAYF4KxP/SMhhA3laAGB0COVmJnN0wcS8EcpZ33w4
+	N7p2ZO5VnRie/l+Q6kpxL0OVfz++yORPEG7LYMUB7f/w+VQXMJqpvxgELg0ZwAH6qRpStsoeAuk
+	aHT0xgFNzQ7HAIrPOlh8UZ3TXYtHTT5i4Nj3cR98UH+pVo1r1sRYxoxu9yaK2LY7U8RIOP07jkz
+	LBiCRlf+L+qcNrcaMe2C0J9jid0u5BrP+gnINaQYIYHkpa7cwyZwu82en6fo4+ihECjm8uHBArK
+	VLggmA9PGP7muxA8gr+AIeppCJZBL/ePdJcHXUFkAPphdDgTeXzGiFSBo0O24A09o8Q56owR2sx
+	mxJCjP48ZZsYKYNaEkO/RC9yW+aijniJos3m93/w3GGFwH/BxSCTI7FUQoIMJTmNzbqQ2F9331V
+	+ZTsx4FWFb5LJyYcGKqVDuHGw==
+X-Received: by 2002:a4a:e914:0:b0:6b2:69bf:c8d7 with SMTP id 006d021491bc7-6b6fb3df17emr3896155eaf.10.1788523579864;
+        Fri, 04 Sep 2026 05:06:19 -0700 (PDT)
 Received: from volcano9f6e-hostos.amd.com ([165.204.217.251])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339b8f44d7sm6321674eec.22.2026.09.04.05.06.07
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339b8f44d7sm6321674eec.22.2026.09.04.05.06.13
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 04 Sep 2026 05:06:11 -0700 (PDT)
+        Fri, 04 Sep 2026 05:06:19 -0700 (PDT)
 From: Hemanth Selam <hemanth.selam@gmail.com>
 To: Rob Clark <robin.clark@oss.qualcomm.com>,
 	Sean Paul <sean@poorly.run>,
@@ -68,14 +68,21 @@ To: Rob Clark <robin.clark@oss.qualcomm.com>,
 	Jessica Zhang <jesszhan0024@gmail.com>,
 	Marijn Suijten <marijn.suijten@somainline.org>,
 	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>
+	Simona Vetter <simona@ffwll.ch>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	Sumit Semwal <sumit.semwal@linaro.org>,
+	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
 Cc: linux-kernel@vger.kernel.org,
 	linux-arm-msm@vger.kernel.org,
 	dri-devel@lists.freedesktop.org,
-	freedreno@lists.freedesktop.org
-Subject: [PATCH 1/2] drm/msm: fix typos in comments
-Date: Fri,  4 Sep 2026 17:35:56 +0530
-Message-ID: <20260904120601.18363-2-hemanth.selam@gmail.com>
+	freedreno@lists.freedesktop.org,
+	linux-media@vger.kernel.org,
+	linaro-mm-sig@lists.linaro.org
+Subject: [PATCH 2/2] drm: fix repeated words in comments
+Date: Fri,  4 Sep 2026 17:35:57 +0530
+Message-ID: <20260904120601.18363-3-hemanth.selam@gmail.com>
 X-Mailer: git-send-email 2.48.1
 In-Reply-To: <20260904120601.18363-1-hemanth.selam@gmail.com>
 References: <20260904120601.18363-1-hemanth.selam@gmail.com>
@@ -87,127 +94,90 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Fix typos in comments, reported by scripts/checkpatch.pl using the
-misspelling list in scripts/spelling.txt.  Only touches comments, no code
-changes.
+Drop words accidentally written twice, reported by checkpatch.pl as a
+possible repeated word.  Only touches comments, no code changes.
 
 Assisted-by: Cursor:claude-opus-5
 Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
 ---
- drivers/gpu/drm/msm/adreno/a5xx_power.c     | 2 +-
- drivers/gpu/drm/msm/adreno/adreno_gpu.c     | 2 +-
- drivers/gpu/drm/msm/disp/mdp5/mdp5_plane.c  | 2 +-
- drivers/gpu/drm/msm/dsi/dsi.c               | 2 +-
- drivers/gpu/drm/msm/dsi/dsi_manager.c       | 2 +-
- drivers/gpu/drm/msm/msm_gem.h               | 2 +-
- drivers/gpu/drm/msm/msm_ringbuffer.h        | 2 +-
- drivers/gpu/drm/msm/registers/gen_header.py | 2 +-
- 8 files changed, 8 insertions(+), 8 deletions(-)
+ drivers/gpu/drm/msm/adreno/a6xx_gmu.c  | 4 ++--
+ drivers/gpu/drm/msm/msm_gem.c          | 4 ++--
+ drivers/gpu/drm/msm/msm_gem_shrinker.c | 2 +-
+ include/uapi/drm/msm_drm.h             | 4 ++--
+ 4 files changed, 7 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/adreno/a5xx_power.c b/drivers/gpu/drm/msm/adreno/a5xx_power.c
-index d6da7351cfbb..95f432de2bcc 100644
---- a/drivers/gpu/drm/msm/adreno/a5xx_power.c
-+++ b/drivers/gpu/drm/msm/adreno/a5xx_power.c
-@@ -8,7 +8,7 @@
- /*
-  * The GPMU data block is a block of shared registers that can be used to
-  * communicate back and forth. These "registers" are by convention with the GPMU
-- * firwmare and not bound to any specific hardware design
-+ * firmware and not bound to any specific hardware design
+diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
+index 27cac853975f..16fed0066f00 100644
+--- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
++++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
+@@ -1759,7 +1759,7 @@ static int a6xx_gmu_rpmh_arc_votes_init(struct device *dev, u32 *votes,
+ 		}
+ 
+ 		/*
+-		 * Look for a level in in the secondary list that matches. If
++		 * Look for a level in the secondary list that matches. If
+ 		 * nothing fits, use the maximum non zero vote
+ 		 */
+ 
+@@ -2378,7 +2378,7 @@ int a6xx_gmu_init(struct a6xx_gpu *a6xx_gpu, struct device_node *node)
+ 	if (ret)
+ 		goto err_memory;
+ 
+-	/* Allocate memory for for the HFI queues */
++	/* Allocate memory for the HFI queues */
+ 	ret = a6xx_gmu_memory_alloc(gmu, &gmu->hfi, SZ_16K, 0, "hfi");
+ 	if (ret)
+ 		goto err_memory;
+diff --git a/drivers/gpu/drm/msm/msm_gem.c b/drivers/gpu/drm/msm/msm_gem.c
+index c4cff3d53d81..7ad450b574bf 100644
+--- a/drivers/gpu/drm/msm/msm_gem.c
++++ b/drivers/gpu/drm/msm/msm_gem.c
+@@ -502,8 +502,8 @@ void msm_gem_unpin_locked(struct drm_gem_object *obj)
+ 
+ /* Special unpin path for use in fence-signaling path, avoiding the need
+  * to hold the obj lock by only depending on things that a protected by
+- * the LRU lock.  In particular we know that that we already have backing
+- * and and that the object's dma_resv has the fence for the current
++ * the LRU lock.  In particular we know that we already have backing
++ * and that the object's dma_resv has the fence for the current
+  * submit/job which will prevent us racing against page eviction.
   */
- 
- #define AGC_INIT_BASE REG_A5XX_GPMU_DATA_RAM_BASE
-diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.c b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-index 8cd2020d4b7e..667ed411076d 100644
---- a/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-+++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-@@ -518,7 +518,7 @@ int adreno_set_param(struct msm_gpu *gpu, struct msm_context *ctx,
- 			return UERR(EINVAL, drm, "requires per-process pgtables");
- 
- 		/*
--		 * We can only swtich to VM_BIND mode if the VM has not yet
-+		 * We can only switch to VM_BIND mode if the VM has not yet
- 		 * been created:
- 		 */
- 		if (ctx->vm)
-diff --git a/drivers/gpu/drm/msm/disp/mdp5/mdp5_plane.c b/drivers/gpu/drm/msm/disp/mdp5/mdp5_plane.c
-index 841f444a8d68..cb9606c21ba2 100644
---- a/drivers/gpu/drm/msm/disp/mdp5/mdp5_plane.c
-+++ b/drivers/gpu/drm/msm/disp/mdp5/mdp5_plane.c
-@@ -245,7 +245,7 @@ static int mdp5_plane_atomic_check_with_state(struct drm_crtc_state *crtc_state,
- 			new_hwpipe = true;
- 
- 		/*
--		 * (re)allocte hw pipe if we're either requesting for 2 hw pipes
-+		 * (re)allocate hw pipe if we're either requesting for 2 hw pipes
- 		 * or we're switching from 2 hw pipes to 1 hw pipe because the
- 		 * new src_w can be supported by 1 hw pipe itself.
- 		 */
-diff --git a/drivers/gpu/drm/msm/dsi/dsi.c b/drivers/gpu/drm/msm/dsi/dsi.c
-index 3c9f01ed6271..1a1a59151e5c 100644
---- a/drivers/gpu/drm/msm/dsi/dsi.c
-+++ b/drivers/gpu/drm/msm/dsi/dsi.c
-@@ -246,7 +246,7 @@ int msm_dsi_modeset_init(struct msm_dsi *msm_dsi, struct drm_device *dev,
- 	if (msm_dsi_is_bonded_dsi(msm_dsi) &&
- 	    !msm_dsi_is_master_dsi(msm_dsi)) {
- 		/*
--		 * Do not return an eror here,
-+		 * Do not return an error here,
- 		 * Just skip creating encoder/connector for the slave-DSI.
- 		 */
- 		return 0;
-diff --git a/drivers/gpu/drm/msm/dsi/dsi_manager.c b/drivers/gpu/drm/msm/dsi/dsi_manager.c
-index 959daa88b1d0..36c7ae94b1c8 100644
---- a/drivers/gpu/drm/msm/dsi/dsi_manager.c
-+++ b/drivers/gpu/drm/msm/dsi/dsi_manager.c
-@@ -347,7 +347,7 @@ static void dsi_mgr_bridge_post_disable(struct drm_bridge *bridge,
+ void msm_gem_unpin_active(struct drm_gem_object *obj)
+diff --git a/drivers/gpu/drm/msm/msm_gem_shrinker.c b/drivers/gpu/drm/msm/msm_gem_shrinker.c
+index 9d2788f79ace..d84cbb64bc56 100644
+--- a/drivers/gpu/drm/msm/msm_gem_shrinker.c
++++ b/drivers/gpu/drm/msm/msm_gem_shrinker.c
+@@ -47,7 +47,7 @@ with_vm_locks(void (*fn)(struct drm_gem_object *obj),
+ 	      struct drm_gem_object *obj)
+ {
  	/*
- 	 * Do nothing with the host if it is slave-DSI in case of bonded DSI.
- 	 * It is safe to call dsi_mgr_phy_disable() here because a single PHY
--	 * won't be diabled until both PHYs request disable.
-+	 * won't be disabled until both PHYs request disable.
+-	 * Track last locked entry for for unwinding locks in error and
++	 * Track last locked entry for unwinding locks in error and
+ 	 * success paths
  	 */
- 	if (is_bonded_dsi && !IS_MASTER_DSI_LINK(id))
- 		goto disable_phy;
-diff --git a/drivers/gpu/drm/msm/msm_gem.h b/drivers/gpu/drm/msm/msm_gem.h
-index dff60cbc9d95..a8e983b243b8 100644
---- a/drivers/gpu/drm/msm/msm_gem.h
-+++ b/drivers/gpu/drm/msm/msm_gem.h
-@@ -346,7 +346,7 @@ msm_gem_unlock(struct drm_gem_object *obj)
- 
- /**
-  * msm_gem_lock_vm_and_obj() - Helper to lock an obj + VM
-- * @exec: the exec context helper which will be initalized
-+ * @exec: the exec context helper which will be initialized
-  * @obj: the GEM object to lock
-  * @vm: the VM to lock
+ 	struct drm_gpuvm_bo *vm_bo, *last_locked = NULL;
+diff --git a/include/uapi/drm/msm_drm.h b/include/uapi/drm/msm_drm.h
+index 3d363f12f66a..9b6b30189230 100644
+--- a/include/uapi/drm/msm_drm.h
++++ b/include/uapi/drm/msm_drm.h
+@@ -102,7 +102,7 @@ struct drm_msm_timespec {
   *
-diff --git a/drivers/gpu/drm/msm/msm_ringbuffer.h b/drivers/gpu/drm/msm/msm_ringbuffer.h
-index 3631ec283c6e..486280ca478e 100644
---- a/drivers/gpu/drm/msm/msm_ringbuffer.h
-+++ b/drivers/gpu/drm/msm/msm_ringbuffer.h
-@@ -101,7 +101,7 @@ struct msm_ringbuffer {
- 
- 	/*
- 	 * preempt_lock protects preemption and serializes wptr updates against
--	 * preemption.  Can be aquired from irq context.
-+	 * preemption.  Can be acquired from irq context.
- 	 */
- 	spinlock_t preempt_lock;
- 
-diff --git a/drivers/gpu/drm/msm/registers/gen_header.py b/drivers/gpu/drm/msm/registers/gen_header.py
-index d3b56a9d84fb..d6bfb7b7d7b3 100644
---- a/drivers/gpu/drm/msm/registers/gen_header.py
-+++ b/drivers/gpu/drm/msm/registers/gen_header.py
-@@ -576,7 +576,7 @@ class Parser(object):
-             raise self.error(e)
- 
-     def parse_varset(self, attrs):
--        # Inherit the varset from the enclosing domain if not overriden:
-+        # Inherit the varset from the enclosing domain if not overridden:
-         varset = self.current_varset
-         if "varset" in attrs:
-             varset = self.enums[attrs["varset"]]
+  * With VM_BIND enabled, userspace does not include a submit_bo table in the
+  * SUBMIT ioctl (this will be rejected), the resident set is determined by
+- * the the VM_BIND ops.
++ * the VM_BIND ops.
+  *
+  * Enabling VM_BIND will fail on devices which do not have per-process pgtables.
+  * And it is not allowed to disable VM_BIND once it has been enabled.
+@@ -366,7 +366,7 @@ struct drm_msm_vm_bind_op {
+ 	__u64 obj_offset;
+ 	/** @iova: Address to operate on */
+ 	__u64 iova;
+-	/** @range: Number of bites to to map/unmap */
++	/** @range: Number of bites to map/unmap */
+ 	__u64 range;
+ 	/** @flags: Bitmask of MSM_VM_BIND_OP_FLAG_x */
+ 	__u32 flags;
 -- 
 2.48.1
 
