@@ -1,100 +1,193 @@
-Received: from mail-pf1-f172.google.com (mail-pf1-f172.google.com [209.85.210.172])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58CCE48A2D7
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 12:34:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AB6248C3E9;
+	Fri,  4 Sep 2026 12:34:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788525243; cv=none; b=TzQq4fi2dva3kpJ0LXXXgDcttkL6RXTtCn7NBs9/5C7c6dQdQbVpjr6g7wt2p67CQNkz3CJXYmQ8LckshUVdX1imszQR6Tcxau/4FRKQYupjIm+BdRuUkvhZH0xNdj2jIwtHzRYNQPrtUgUTdtqACCdFGW7kUYMPe2YfSdHdFqw=
+	t=1788525260; cv=none; b=BOqMHZTrrRsyW1ZEsJoIWcU4u3PQ/smfBazfW7d/M1XX1U15bma3xNNJJ4Ns3AwmI2XsHc4SUrE+O7O707koyx8YS9XLYMyQJQ5kRgmBjCOfG+B/9cNeXYqJzhckjEdj04Gaa6BvVOVOvqB825NBMcsKwxz9Km0disFXshJBCRI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788525243; c=relaxed/simple;
-	bh=Skd9sFGVupjNb49dheKYVjsjANwr0mvKquEjxnqtDAo=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=NFcuE6rT5oU9UC5omkUy2Nm7vaggXWUm/d8HFJWf4Nq7IDMt6klSEXqj7BNGYyn2+x7CFO7lp95R7ToqdSxRb6iQNstrNXaegNIsAmHH7lcgsrvem3UZ42TbSH0DJVwBASZOKp7it+0iJ2+zshmEooXk3vg/eFaUnKg+05gALsA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LQFXkZEL; arc=none smtp.client-ip=209.85.210.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788525260; c=relaxed/simple;
+	bh=4c7Krb3S4ZZ17EpNtME83ACwkw+9XKh09GENnHQO7jo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=VHWDIoOZYIT+pLsSIdBxebHe7KLN861VuKx74WpWdUBgReE3IFY0GoL7AVbIQfKCrJxYUu08DFcAH/8ocovWtQxHCgz/vweUvF5p7lhsqAN00oo2013Mg7nFpmgRljvq6WGH/YQAojvmZdxr86iI3APerExLnKVR5/sQflf81NM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=UZhb/9LX; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LQFXkZEL"
-Received: by mail-pf1-f172.google.com with SMTP id d2e1a72fcca58-85339ed040aso728731b3a.1
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 05:34:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788525242; x=1789130042; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=bR8WQ5EQXaV1EyU8v3N7xZtL4bw50Ua0ZSK8OwOEQ8s=;
-        b=LQFXkZELWmeA3mxuok/98puDYznIWkyPYzM+Ks9X5D0No+0EhiyaS3xkwKRBjYnj3N
-         l+dM+w9AfA6M/KRHtOoeEkcgXQAeYsPijjphloCgHcNT8FMXxmmKyvLKlUacsyuwYPDV
-         3XRordLDL2BsKhvkXD91ZNebxkoedPUeaDQ2FFRGgQpXQyzOl8KlgnFvePZkleDFDhhY
-         H5Dmno/o7TjtBQLsaWpM79KJ8PskABdbPE1+3IU8JsJz8rG1krEyjTWQLfQf1pPQWM8P
-         AASc32At0djdBkop5BnPVrbmw9mwBFcNsRA6HILTKGAgyflQKJG4xHGN6MbSX8gjdR3s
-         iSfQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788525242; x=1789130042;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=bR8WQ5EQXaV1EyU8v3N7xZtL4bw50Ua0ZSK8OwOEQ8s=;
-        b=FuN82guQ/HbSmniYY3AmWcPdcuukCnawDNKHROSfspvys7+TVBcVYVxBAjyjdLBnCU
-         xCMTWWp7/urcpeOVPpw2s65c9V9SGDdLOmweLqaIC/E1d3jCym+qGD/myUMxkysaMh4C
-         oIX4iQPwGs2ps4LMQJD/hSfUB9Pmw0ryDduqPqNvRwys/eXmIrl72gQVWJ4lqFwI7Ww+
-         5lyL22Qjy4XcFPhL5m71Z/puCZHlRLb8+LyCSuAXscgvK5jkCarD/zcKq7nI0CoITQvH
-         JJ2Ibiu3TTjZcn2t9nuox4PE4haxuuPWESbQoI09hq+myva80cRttClk8v3+AubGBAPg
-         w+VA==
-X-Gm-Message-State: AFuF++kmX9YvVmTMWLBjYb8+uooYphVEqZOGNLntRkvOW+AhJkEhzjeK
-	wDZxQBZFrBVgs19tEajk8cjpYXcrbIujlIEo1VCJWvf/+YFM0NPfCWcv
-X-Gm-Gg: AYBFou0GKNlfvjkO/A69RhIa6sWBWAJOvmoicSdPtd//yhv3lwwN6Z+TCo6R/PNgSLm
-	mYqdVpWyupcxiE7HwPNyGq7cAu9P+HhMvX3veScnC998BFWCOmZHaob4Vc72tVQB0uXR8bHYq+a
-	Y06iR/PI6ESKHdYowyhkoYLgR1aA0xf3vl+GP+LLAGl9s7Y/Q6/VQyzYoziiaS5u2qH+/6ULNnC
-	2YVa4x44U5lIdqD5aXkJG42ilRZozwyOVpnOAnbNizBUm/2NbkeygS/MEPsB4IkW9rUq2V0XCIQ
-	D0pVJLd6EJezJPTDWDO0UrweRjyowDjYmOO/EUELEls7sx8dHnLamRjOJIaHnswhzHZJgzBy7bN
-	v1Atw+mcDVRf/W6FgnFZ05QVNLoVrwRMQKvaLz8TLhV6rYoMWGYNw7e7b4ZS/E/2/7adFXegGXC
-	zOrUj8aUivPz2FLCMzdc+friqHd+dTr3eZWORcIq+0A6clOPpUTSxCHj2w8PkEO+93SP9UevXq8
-	HOKsWDvVeD/9pNoC/FILFcyFA==
-X-Received: by 2002:a17:90a:d010:b0:38e:bbf1:de3f with SMTP id 98e67ed59e1d1-39b26272ef9mr9807288a91.12.1788525241489;
-        Fri, 04 Sep 2026 05:34:01 -0700 (PDT)
-Received: from volcano9f6e-hostos.amd.com ([165.204.217.251])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3342af0bc08sm4465310eec.17.2026.09.04.05.33.59
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 04 Sep 2026 05:34:01 -0700 (PDT)
-From: Hemanth Selam <hemanth.selam@gmail.com>
-To: David Howells <dhowells@redhat.com>,
-	Marc Dionne <marc.dionne@auristor.com>
-Cc: linux-kernel@vger.kernel.org,
-	linux-afs@lists.infradead.org
-Subject: [PATCH] afs: fix repeated word 'the' in comment
-Date: Fri,  4 Sep 2026 18:03:55 +0530
-Message-ID: <20260904123356.37452-1-hemanth.selam@gmail.com>
-X-Mailer: git-send-email 2.48.1
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="UZhb/9LX"
+Received: from [192.168.88.20] (91-158-153-178.elisa-laajakaista.fi [91.158.153.178])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id D97C92023;
+	Fri,  4 Sep 2026 14:32:38 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1788525162;
+	bh=4c7Krb3S4ZZ17EpNtME83ACwkw+9XKh09GENnHQO7jo=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=UZhb/9LXvNGfyCliwic1zTpddMYdYQ5Bq8VoujVhv0Vqnw1KU1Nv6OYSZe20LDG86
+	 AXvw0Z4rV6B3HbGm0XsTtBSA1VHiHWCVQnVRHzAPhbXc0WR5qVi8MWpQBHR43V9gXR
+	 0twaCkh2lgoqYe45ruy+H2zgqpE/9ojUxCZrorW0=
+Message-ID: <a64864e0-3f10-4f81-b304-c45ef932817a@ideasonboard.com>
+Date: Fri, 4 Sep 2026 15:34:08 +0300
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/3] drm: fix typos in comments
+To: phasta@kernel.org, Hemanth Selam <hemanth.selam@gmail.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Inki Dae <inki.dae@samsung.com>, Jagan Teki <jagan@amarulasolutions.com>,
+ Marek Szyprowski <m.szyprowski@samsung.com>,
+ Patrik Jakobsson <patrik.r.jakobsson@gmail.com>,
+ Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>,
+ Lucas Stach <l.stach@pengutronix.de>, Frank Li <Frank.Li@nxp.com>,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>, Jianmin Lv <lvjianmin@loongson.cn>,
+ Qianhai Wu <wuqianhai@loongson.cn>, Huacai Chen <chenhuacai@kernel.org>,
+ Mingcong Bai <jeffbai@aosc.io>, Xi Ruoyao <xry111@xry111.site>,
+ Icenowy Zheng <zhengxingda@iscas.ac.cn>, Dave Airlie <airlied@redhat.com>,
+ Jocelyn Falempe <jfalempe@redhat.com>, Lyude Paul <lyude@redhat.com>,
+ Danilo Krummrich <dakr@kernel.org>, Jessica Zhang <jesszhan0024@gmail.com>,
+ Gerd Hoffmann <kraxel@redhat.com>,
+ Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Magnus Damm <magnus.damm@gmail.com>, Matthew Brost
+ <matthew.brost@intel.com>, Chen-Yu Tsai <wens@kernel.org>,
+ Samuel Holland <samuel@sholland.org>, Huang Rui <ray.huang@amd.com>,
+ Matthew Auld <matthew.auld@intel.com>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>,
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
+ Dmitry Osipenko <dmitry.osipenko@collabora.com>,
+ Gurchetan Singh <gurchetansingh@chromium.org>, Chia-I Wu
+ <olvaffe@gmail.com>, Zack Rusin <zack.rusin@broadcom.com>,
+ Broadcom internal kernel review list
+ <bcm-kernel-feedback-list@broadcom.com>, Michal Simek
+ <michal.simek@amd.com>, Philipp Zabel <p.zabel@pengutronix.de>,
+ Natalie Vock <nat@pixelcluster.dev>, Tejun Heo <tj@kernel.org>,
+ Johannes Weiner <hannes@cmpxchg.org>, =?UTF-8?Q?Michal_Koutn=C3=BD?=
+ <mkoutny@suse.com>
+Cc: linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
+ imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+ nouveau@lists.freedesktop.org, virtualization@lists.linux.dev,
+ spice-devel@lists.freedesktop.org, linux-renesas-soc@vger.kernel.org,
+ linux-sunxi@lists.linux.dev, cgroups@vger.kernel.org
+References: <20260904120430.17224-1-hemanth.selam@gmail.com>
+ <20260904120430.17224-2-hemanth.selam@gmail.com>
+ <8b4194fcb6fdb11af10fc81a1a7c915ad71003a0.camel@mailbox.org>
+From: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+Content-Language: en-US
+In-Reply-To: <8b4194fcb6fdb11af10fc81a1a7c915ad71003a0.camel@mailbox.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-Drop the second 'the', reported by checkpatch.pl as a possible repeated
-word.  Only touches a comment, no code changes.
+Hi,
 
-Assisted-by: Cursor:claude-opus-5
-Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
----
- fs/afs/flock.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+On 04/09/2026 15:13, Philipp Stanner wrote:
+> On Fri, 2026-09-04 at 17:34 +0530, Hemanth Selam wrote:
+>> Fix typos in comments, reported by scripts/checkpatch.pl using the
+>> misspelling list in scripts/spelling.txt.  Only touches comments, no code
+>> changes.
+>>
+>> Assisted-by: Cursor:claude-opus-5
+>> Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
+>> ---
+>>   drivers/dma-buf/sync_debug.h                           | 2 +-
+>>   drivers/gpu/drm/bridge/parade-ps8622.c                 | 2 +-
+>>   drivers/gpu/drm/bridge/samsung-dsim.c                  | 2 +-
+>>   drivers/gpu/drm/bridge/tc358767.c                      | 6 +++---
+>>   drivers/gpu/drm/display/drm_dp_mst_topology.c          | 2 +-
+>>   drivers/gpu/drm/drm_drv.c                              | 2 +-
+>>   drivers/gpu/drm/gma500/oaktrail_lvds.c                 | 2 +-
+>>   drivers/gpu/drm/gma500/power.c                         | 2 +-
+>>   drivers/gpu/drm/gma500/psb_drv.h                       | 4 ++--
+>>   drivers/gpu/drm/imx/dcss/dcss-ctxld.c                  | 2 +-
+>>   drivers/gpu/drm/loongson/lsdc_drv.c                    | 2 +-
+>>   drivers/gpu/drm/mgag200/mgag200_g200se.c               | 2 +-
+>>   drivers/gpu/drm/nouveau/dispnv50/tile.h                | 2 +-
+>>   drivers/gpu/drm/nouveau/nouveau_bios.c                 | 2 +-
+>>   drivers/gpu/drm/nouveau/nouveau_exec.c                 | 2 +-
+>>   drivers/gpu/drm/nouveau/nouveau_led.c                  | 2 +-
+>>   drivers/gpu/drm/nouveau/nvkm/engine/gr/ctxnv50.c       | 2 +-
+>>   drivers/gpu/drm/nouveau/nvkm/engine/gr/gf100.c         | 2 +-
+>>   drivers/gpu/drm/omapdrm/dss/dispc.c                    | 4 ++--
+>>   drivers/gpu/drm/omapdrm/omap_gem.c                     | 2 +-
+>>   drivers/gpu/drm/panel/panel-novatek-nt36672a.c         | 2 +-
+>>   drivers/gpu/drm/panel/panel-samsung-s6e63j0x03.c       | 2 +-
+>>   drivers/gpu/drm/qxl/qxl_gem.c                          | 2 +-
+>>   drivers/gpu/drm/renesas/rcar-du/rcar_lvds.c            | 2 +-
+>>   drivers/gpu/drm/scheduler/sched_main.c                 | 4 ++--
+>>   drivers/gpu/drm/sun4i/sun4i_tcon.c                     | 2 +-
+>>   drivers/gpu/drm/tiny/panel-mipi-dbi.c                  | 2 +-
+>>   drivers/gpu/drm/ttm/ttm_pool.c                         | 2 +-
+>>   drivers/gpu/drm/vc4/vc4_hdmi.c                         | 2 +-
+>>   drivers/gpu/drm/vc4/vc4_regs.h                         | 2 +-
+>>   drivers/gpu/drm/virtio/virtgpu_ioctl.c                 | 2 +-
+>>   drivers/gpu/drm/vmwgfx/device_include/vm_basic_types.h | 2 +-
+>>   drivers/gpu/drm/vmwgfx/ttm_object.c                    | 2 +-
+>>   drivers/gpu/drm/vmwgfx/vmwgfx_drv.h                    | 6 +++---
+>>   drivers/gpu/drm/vmwgfx/vmwgfx_execbuf.c                | 2 +-
+>>   drivers/gpu/drm/vmwgfx/vmwgfx_kms.h                    | 2 +-
+>>   drivers/gpu/drm/vmwgfx/vmwgfx_so.h                     | 2 +-
+>>   drivers/gpu/drm/vmwgfx/vmwgfx_surface.c                | 2 +-
+>>   drivers/gpu/drm/xlnx/zynqmp_dp.c                       | 2 +-
+>>   drivers/gpu/ipu-v3/ipu-prg.c                           | 2 +-
+>>   include/drm/drm_framebuffer.h                          | 4 ++--
+>>   include/drm/drm_plane.h                                | 2 +-
+>>   include/uapi/drm/nouveau_drm.h                         | 2 +-
+>>   include/uapi/drm/vmwgfx_drm.h                          | 2 +-
+>>   kernel/cgroup/dmem.c                                   | 2 +-
+>>   45 files changed, 53 insertions(+), 53 deletions(-)
+> 
+> That's a lot of churn
+> 
+>>
+>> diff --git a/drivers/dma-buf/sync_debug.h b/drivers/dma-buf/sync_debug.h
+>>
+> 
+> […]
+> 
+> 
+>> -	/* DPI interface clock limitation: upto 100 MHz */
+>> +	/* DPI interface clock limitation: up to 100 MHz */
+>>   	if (mode->clock > 100000)
+>>   		return MODE_CLOCK_HIGH;
+>>
+> 
+> […]
+> 
+>>   
+>> -/* For multiple GPU driver instance co-exixt in the system */
+>> +/* For multiple GPU driver instance co-exist in the system */
+>>   
+>>
+> 
+> […]
+> 
+>>   
+>> -	/* set ltps timming 0, 1 */
+>> +	/* set ltps timing 0, 1 */
+> 
+> 
+> Places like these are certainly candidates that one might want to git-
+> blame to figure out more about the background.
+> 
+> Not sure if the cost-benefit-ratio would then pay off?
+I would skip these. Fixing a typo in a key-word (say, a register name) 
+would be useful, but I'm not sure if any of these count.
 
-diff --git a/fs/afs/flock.c b/fs/afs/flock.c
-index f0e96a35093f..2b1d6eb02553 100644
---- a/fs/afs/flock.c
-+++ b/fs/afs/flock.c
-@@ -151,7 +151,7 @@ static void afs_next_locker(struct afs_vnode *vnode, int error)
- }
- 
- /*
-- * Kill off all waiters in the the pending lock queue due to the vnode being
-+ * Kill off all waiters in the pending lock queue due to the vnode being
-  * deleted.
-  */
- static void afs_kill_lockers_enoent(struct afs_vnode *vnode)
--- 
-2.48.1
+  Tomi
 
