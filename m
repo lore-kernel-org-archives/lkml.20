@@ -1,89 +1,80 @@
-Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C3F04D2EDA;
-	Fri,  4 Sep 2026 17:36:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.109.113.108
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3E383DA7CC
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 17:37:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788543407; cv=none; b=bxeu9hp1+018/LuatEWpsqC6jEAf+CnsvQLouFf+k7LXuu2Z3KyOr9N3S9N9J1zNAr4civ8hUwq0+x3TyWLcAbes7C4eO4c51wHhU73FWdEwAB0HJUeFOHOZFzhzNPEI+KjPmYGuinBWioMCgYNXiY3Q7efRLpACkIi5hq0oTU8=
+	t=1788543476; cv=none; b=qJZ3bwJmSLU/MAXyCDZk9QzIsEo+WmQusgekM7et20MMdfb8xIKkO2jl9y/TmggUY/2AMHTPh/Dfttk7g1B407fRP2UqBp0jXSJculP/3trJ8vPkTBfbgAZPJadda9PKa7WSQ1GVFgzA5geIlFc0EikFM487S4BmZZNRBAHyU4w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788543407; c=relaxed/simple;
-	bh=LtPqv1/yvY6KKIOUaDEWiR5sC9h1b5X+oyNs/rOvIwM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ZPf3krM7X/IyBsql9Hykr1kz7O5kQtqve1qu5FHI8Ocf82Ob/SrruUGOjxOPnwoVW9ktddxZlcd5fgOmXH+SgRbcaR3uHFJHw+5c6IdsUMEAjX4vCzAY/vxY/KMIM8eoBwZTcVaIqJ045whd3JbLnhJIGxDGDSxRVhQBCSYzBz0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de; spf=pass smtp.mailfrom=alien8.de; dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b=SoziP6Hb; arc=none smtp.client-ip=65.109.113.108
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
+	s=arc-20240116; t=1788543476; c=relaxed/simple;
+	bh=ZpZ45xiAlB+4IooyikvfI6oO0AW6kFrfdX8SmCt6Fsg=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=hBefWXYe9edPUOZPmOMgD7FNW+ccchkrHQLMgwiQvXMdlYHdqo55YtPCQunHK/SwYMOAncZHc06BULgVPwjSVoVnsz7GYky/7EC2QRpdXWyiT8EyfhrSMJViYtKIiRVDPmSIZt8UMu0YB20M7U71nc6dLrAAQXQlAgBMf4kntvI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=f/ZPwRO7; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b="SoziP6Hb"
-Received: from localhost (localhost.localdomain [127.0.0.1])
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 819D340E02C2;
-	Fri,  4 Sep 2026 17:36:41 +0000 (UTC)
-X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
-Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
-	header.d=alien8.de
-Received: from mail.alien8.de ([127.0.0.1])
-	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
-	with ESMTP id hQ3Yhrf6A5cH; Fri,  4 Sep 2026 17:36:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
-	t=1788543392; bh=4w+spAm0uWWwcup+mfvYNUXNY0jRbWl51yfDyG8aFs4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=SoziP6HbLj77a89rc3xWyhElxy2OnAwmmK+WrgAWWIowVnwNSlV+oP46ADmBwVsnd
-	 yCEKWpz3K2lWB1VolczTE64gpfHrdUl+el0VDrMnsndNuYGmChPaqu5L7dPxINIzzL
-	 iuZWueIvng7XPakfJPeYd2tpu341BU0eVn5SZ68LFkA77z2dtsGXio5ZYkw2nev0ru
-	 O88KY8ucs9tL1wuesqPVECx/dX6fjGRoToFiD4G2c+KIREQpyGnPLbM45xOSveEiWB
-	 +hqfmycEwh+nAegtmwmlXbH0fl+TGhVOFpCJEBL7Hp97ebjtjWm2jkymey1VarA2ow
-	 i6smdbjmsWdEUQiFTqdG79gR7dIlPU3Mdq7MT+ezbk2uvqIn/sTIEFzXqATPY9DPYa
-	 A8BI9unS0kprXvhhQvDdqQtmNjAVvcJHZu7kysAaHn9voLOft+hpxCZpSa4/xbGHxO
-	 ap7SZ+gPS6kEVc3rHPlDaLlIf0NQMfKT8BJc/gVy7CmNZmIVTuHbGfGvoSYPSaWW6H
-	 8nK5X0IEYhHpMIw7Vy6ac0333i/LIuDFycDtPorkXY+qT9Bp7AWrgT845p8BAwGSEe
-	 MSD4u2dXsebxSD2hcn79dCdxNSKCLKIl7j3asJDV7TP6vbLFgNg34+dhJuHygbiROH
-	 s0rJNoKjpmdhxq2T36DCqYGk=
-Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::2a])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
-	(No client certificate requested)
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 4DD0440E024B;
-	Fri,  4 Sep 2026 17:36:18 +0000 (UTC)
-Date: Fri, 4 Sep 2026 10:36:15 -0700
-From: Borislav Petkov <bp@alien8.de>
-To: Reinette Chatre <reinette.chatre@intel.com>
-Cc: Ben Horgan <ben.horgan@arm.com>, x86@kernel.org, james.morse@arm.com,
-	fenghuay@nvidia.com, linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, tglx@linutronix.de,
-	mingo@redhat.com, dave.hansen@linux.intel.com, hpa@zytor.com,
-	corbet@lwn.net, linux-doc@vger.kernel.org, dave.martin@arm.com
-Subject: Re: [PATCH v5 0/3] x86,fs/resctrl,arm_mpam: Factor MBA parse-time
- conversion to be per-arch
-Message-ID: <20260904173615.GOapsBjyiT7uXHd-Qc@fat_crate.local>
-References: <20260709093111.367851-1-ben.horgan@arm.com>
- <165e7636-d7e9-4d16-aad1-657b4a9698d0@intel.com>
- <b0a7035e-7ffe-4e22-a4ae-a177640234b8@intel.com>
- <20260904033751.GCapo9D5ZZXWuQkIpc@fat_crate.local>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="f/ZPwRO7"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 13FED4E41518;
+	Fri,  4 Sep 2026 17:37:52 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id C2D4C6057F;
+	Fri,  4 Sep 2026 17:37:51 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 16DB811C78705;
+	Fri,  4 Sep 2026 19:37:43 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1788543466; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=NGCtegBMvxhNV72n4BBpE6YScdV3H5CF5sxKQIzh0Ns=;
+	b=f/ZPwRO7/I98nP+2Y3r7GcCxegsAiq2CPVsDw6AWSZ4bOAkfqTNfEq7YMLZWuTGAwzdM0l
+	0o3SKr06fPLG7rC6Np8Pa4qyAGdG7QnpxWUP3IiYlmoEF7ywWc+YVbycvBFsi3e4xuEwY+
+	Cl/saTLeRbixzd5XnGjIsfvpaEIiq2RESr6kPYe0Cdh62+mVl0BxVb3eEHMmpvZeFdq+6C
+	H0ge0sDfjLMHHcF7t0YcuC2osRS0yhzGOw/HoupNYP2+6i9nxdZayfCne8GglwvEzUNTvg
+	MRjBP/NLNXyw+XYCGtJsBsYUn8TdVzAynGznF/HyL/4edq16WpZERk8JicYC5g==
+From: Miquel Raynal <miquel.raynal@bootlin.com>
+To: joern@lazybastard.org, richard@nod.at, vigneshr@ti.com, 
+ linux-mtd@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ Pei Xiao <xiaopei01@kylinos.cn>
+Cc: syzbot+b320a4d5f65a61dbbf89@syzkaller.appspotmail.com, 
+ =?utf-8?q?J=C3=B6rn_Engel?= <joern@barelysecure.org>, 
+ stable@vger.kernel.org
+In-Reply-To: <25ec7ba58facdf29b42ca43dcf11cd98e2089a5f.1786589041.git.xiaopei01@kylinos.cn>
+References: <25ec7ba58facdf29b42ca43dcf11cd98e2089a5f.1786589041.git.xiaopei01@kylinos.cn>
+Subject: Re: [PATCH v3] mtd: block2mtd: Fix divide error when erase_size is
+ zero
+Message-Id: <178854346368.1467647.15981574582759186211.b4-ty@bootlin.com>
+Date: Fri, 04 Sep 2026 19:37:43 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260904033751.GCapo9D5ZZXWuQkIpc@fat_crate.local>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-Mailer: b4 0.14.3
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Thu, Sep 03, 2026 at 08:37:51PM -0700, Borislav Petkov wrote:
-> Lemme have a look.
+On Thu, 13 Aug 2026 10:48:12 +0800, Pei Xiao wrote:
+> The erase size is parsed from the "block2mtd" module parameter and can
+> be set to zero. add_device() then evaluates
+> 
+>         if (size % erase_size)
+> 
+> with a zero divisor, which triggers a divide error:
+> 
+> [...]
 
-Sashiko has comments:
+Applied to mtd/fixes, thanks!
 
-https://sashiko.dev/#/patchset/20260709093111.367851-1-ben.horgan%40arm.com
+[1/1] mtd: block2mtd: Fix divide error when erase_size is zero
+      commit: b5965c4221165045e19736794ca5f48ae3d67142
 
-Please address them: if valid, fix them, if not, explain why they don't need
-to be fixed.
+Patche(s) should be available on mtd/linux.git and will be
+part of the next PR (provided that no robot complains by then).
 
-Thx.
+Kind regards,
+Miquèl
 
--- 
-Regards/Gruss,
-    Boris.
-
-https://people.kernel.org/tglx/notes-about-netiquette
