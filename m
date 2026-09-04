@@ -1,186 +1,86 @@
-Received: from bg-bec.cloudflare-smtp.org (bg-bec.cloudflare-smtp.org [104.30.16.142])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD2CA1CD2C
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 21:18:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=104.30.16.142
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B30CA3AA1AE;
+	Fri,  4 Sep 2026 21:19:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.133
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788556696; cv=none; b=gUZ+Dy7q3hHhYGJdoQcoTxZi1Ck3PrihvCan5Shadkf8BaCk0F+14TWBT8KQtdYKLbvCG7cZHQpDQv/M3tfsFR8fvqSmpcNodpP9Cjlf5/pV43xHyD35csji86n3kyjw5DUecChbQzLKnl6LL4tv/ZtWDmxY+XHKrgn7GcNhyCE=
+	t=1788556787; cv=none; b=SpAyM6DLZUwAzJl9qXeA4Mhb1T+pFVe2CSegW9gqj06lYGBbaTbuLULnI+tSCqp2kLkytbyGvSZUW57BGgceNd2gRXEFgMCjUb4C9ojacYmcWH7a2RGqOS14rcibj5DEPnOXZU1bbF1EwevO2do4MtO7FGmOpM+H27t2tqCyxcY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788556696; c=relaxed/simple;
-	bh=sG3ErCOG4uiHIICpCOwdYPuTGSZmkwC6RROfqDy/PLo=;
-	h=Message-ID:From:Date:Subject:To:Cc:MIME-Version:Content-Type; b=kRqwKPt9bYLV8D+eMN1IIwoAKWA49hl0YXSjwHES05ifIgLLhIm7ZHKR5Sny2/kjp80DYLwj3mXgtK4eIHWUbm4I676yYz44r3eomsNoUm34/xe/x/W97mVdExn4kx66ymcF09wmsZyosbDVJj9AE3vior55yBp8vl//eNZ2uX0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bugs.sh; spf=pass smtp.mailfrom=cf-bounce.bugs.sh; dkim=pass (2048-bit key) header.d=cloudflare-smtp.org header.i=@cloudflare-smtp.org header.b=akKMKprz; dkim=pass (2048-bit key) header.d=bugs.sh header.i=@bugs.sh header.b=H7MoP9jN; arc=none smtp.client-ip=104.30.16.142
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bugs.sh
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cf-bounce.bugs.sh
+	s=arc-20240116; t=1788556787; c=relaxed/simple;
+	bh=hNAUqoB3Z6T9xcVaTisYvLXhaz4p7JHu9B8bQwwVxFo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=XLFz/l5R7GMc2IcSfcyiIr8G1Vg9SNgvy6sv8/E5ZWMiH0N/yhVsBS9yRL2Ax1lEGlesJ9CkEtO+2IIAeZEDCyn0DSMy7XJKul3v+yQXylYelfIcBkvqV6uLH9y68VXet/v+3JKXQ5y8vvYqM3LlApUzFOa54B5UrYLS4nmg02k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=a8rE68eX; arc=none smtp.client-ip=198.137.202.133
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cloudflare-smtp.org header.i=@cloudflare-smtp.org header.b="akKMKprz";
-	dkim=pass (2048-bit key) header.d=bugs.sh header.i=@bugs.sh header.b="H7MoP9jN"
-DKIM-Signature: v=1; a=rsa-sha256; s=cf2024-1; d=cloudflare-smtp.org; c=relaxed/relaxed;
-	h=Cc:To:Subject:Date:From:Feedback-ID:from:reply-to:resent-date
-	:resent-from:resent-to:resent-cc:in-reply-to:references:list-id:list-help
-	:list-unsubscribe:list-unsubscribe-post:list-subscribe:list-post
-	:list-owner:list-archive; t=1788556694; x=1789161494; bh=tZxFD+4jm1eZVyWz8d
-	GpTcv5maGZf3AgPhJold/6k3M=; b=akKMKprziixsHwFMK1pt7r7pjzlUund6HR0SxwnZ0rsPH
-	hk0x6t05ajtGJ5pjSNFbyxZbqqLPU7VsE7l8R2hiOoEqypD3n9bEezRXT6fSWqQj1jO7YtmH92v
-	+Ty7ML6B0HDytwXjlcSuwmpfHx+O/mN9EX/mqU/YrbDaLgD77qJZk6FBxOZYHJqrl+D4rVxd0i4
-	B0rsXoNIh8yuIX2MnFCH3Z6IvjD1kYYJU7y4sk6ULR/KU1adTDvu+C1dZHaaUVDNeeue9fjk1Rk
-	lEgjgn1b4O06d5fEOeURRzk8yUKhkdBtPwnNXGyNO9Sn+RKmKyC7gRMVzyI8t8MOy3l7kNGw==;
-DKIM-Signature: v=1; a=rsa-sha256; s=cf-bounce; d=bugs.sh; c=relaxed/relaxed;
-	h=Cc:To:Subject:Date:From:Feedback-ID:from:reply-to:resent-date
-	:resent-from:resent-to:resent-cc:in-reply-to:references:list-id:list-help
-	:list-unsubscribe:list-unsubscribe-post:list-subscribe:list-post
-	:list-owner:list-archive; t=1788556694; x=1789161494; bh=tZxFD+4jm1eZVyWz8d
-	GpTcv5maGZf3AgPhJold/6k3M=; b=H7MoP9jNdtuNohfK3qECkSWxTgqWki2utVtsrd9WioYOb
-	T7L0TeBF3lYsw2xOJ5C1JYVwLrRfrxaPydz4bhpmwrdz1ssXtbvvVzuZXeXVEtcdgdH0Z593Z/q
-	+QzJUsAcvTABiuSb8GnPMdHObx7cayyctZ6xAG7YJ9o6xPISJ4hdU1ftjWRhJB0maoqyViXWDAN
-	aqah5vE7a6oENg3N0kZTS9K1kZEiJCTDlhWw0HNjJt4F771ES5POQZ9imF9QoB1ReeNaROCy4Y2
-	BLCa0XQca4aIQXCoLx9haqYqJjufSMjhkHvVEhlCi8V5yNFr3tgQ2/W6UxDYIxt/CpLpyaQQ==;
-Feedback-ID: bugs.sh:5:6:Cloudflare
-Message-ID: <upsCxxaJjg2FJWhfCx6KjFXLlh8o4IhaHKJi@bugs.sh>
-From: co <co+5e2bcf11e7027510@bugs.sh>
-Date: Fri, 04 Sep 2026 21:17:50 +0000
-Subject: [BUG] drivers/net: out-of-bounds in pcan_usb_decode_buf()
-To: linux-can@vger.kernel.org, "Marc Kleine-Budde" <mkl@pengutronix.de>, "Vincent
- Mailhol" <mailhol@kernel.org>
-Cc: "Petr Mladek" <pmladek@suse.com>, "Geert Uytterhoeven" <geert+renesas@glider.be>,
- =?utf-8?b?U3TDqXBoYW5lIEdyb3NqZWFu?= <s.grosjean@peak-system.fr>, "Oleg
- Nesterov" <oleg@redhat.com>, "Biju Das" <biju.das.jz@bp.renesas.com>, "Song
- Liu" <song@kernel.org>, linux-kernel@vger.kernel.org, co <co+5e2bcf11e7027510@bugs.sh>
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="a8rE68eX"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
+	Content-Type:In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
+	Message-ID:Sender:Reply-To:Content-ID:Content-Description;
+	bh=gWhmwhXHiiEP6GTAYLPlvkBu8e2aLuQ2dYa1FSut00E=; b=a8rE68eXsjEwUbNFBOFarc/8FN
+	nwljakc2/vlFYDAz3d272jKnocOcttDlJJUUG0ZB5NU1pRV0IFU3mMlOnGOFe/xOyaWZzQ1iojc+k
+	U72yxY8v7rvgbJm/fPBbcbi2EKqsZTgxkFXmSWGkSx56M+51ZkO3xKXe+sfe7DMP9WD3Eu8+ByhZ9
+	uA8isYO5brYcE4OQYQHHGPQeHTAS8HFG8dl6Gmg8tfVuc4Etzzf+P8dLIBbNVVpvAxptBWtId1UuD
+	zhq6mbYqPCN3UdC4oGj5JmYQUV9+kLkBavdqOzreKWJLVzoA+gg+Jb0Z/zQKRRcqQjL4rJgElUa6+
+	Z0GHq6BA==;
+Received: from [50.53.43.113] (helo=[192.168.254.34])
+	by bombadil.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
+	id 1x2bK3-00000003JLm-3Q0u;
+	Fri, 04 Sep 2026 21:19:43 +0000
+Message-ID: <3c93e656-2c1a-452e-94d1-e4628624f5e3@infradead.org>
+Date: Fri, 4 Sep 2026 14:19:38 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-
-We found a bug reachable in:
-
-    path    drivers/net/can/usb/peak_usb
-    crash   out-of-bounds in pcan_usb_decode_buf()
-    commit  2f1baf1fc892 ("Merge tag 'trace-v7.2-rc7' of git://git.kernel.o=
-rg/pub/scm/linux/kernel/git/trace/linux-trace")
-
-Config, environment, the sanitizer report and a C reproducer follow.
-
-=3D=3D Notes =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-    If you patch the bug based on our artifacts, a tag would be
-    appreciated:
-
-Reported-by: co+5e2bcf11e7027510@bugs.sh
-
-    Everything in this mail is validated by the reproducer below.
-
-    We also hold an LLM-generated root-cause analysis and a candidate
-    patch. The patch passes an A/B test: the same reproducer panics the
-    unpatched kernel and runs clean on the patched one. Neither has had
-    human review, so both still require validation before you send or
-    apply them. Available on:
-
-        patch.diff  https://bugs.sh/b/5e2bcf11e7027510/patch.diff
-        report.md   https://bugs.sh/b/5e2bcf11e7027510/report.md
-
-    This is an open science project. The code and the full set of PoCs
-    are not public at this moment, as we intend to disclose our findings
-    in an ethical way.
-
-    Happy to test patches. Complaints and suggestions about our work
-    are welcome at:
-
-        cedalion@bugs.sh
-
-=3D=3D Environment =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-    Reproduced on  2f1baf1fc892 ("Merge tag 'trace-v7.2-rc7' of git://git.k=
-ernel.org/pub/scm/linux/kernel/git/trace/linux-trace")
-    VM setup       https://bugs.sh/b/5e2bcf11e7027510/run.sh
-    config         https://bugs.sh/b/5e2bcf11e7027510/config.gz
-    poc            https://bugs.sh/b/5e2bcf11e7027510/repro.c
-
-=3D=3D Sanitizer Report =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-BUG: KASAN: slab-out-of-bounds in pcan_usb_decode_buf (drivers/net/can/usb/=
-peak_usb/pcan_usb.c:563 drivers/net/can/usb/peak_usb/pcan_usb.c:630 drivers=
-/net/can/usb/peak_usb/pcan_usb.c:740 drivers/net/can/usb/peak_usb/pcan_usb.=
-c:758)
-Read of size 1 at addr ffff8880253816c1 by task swapper/1/0
-Call Trace:
-<IRQ>
-dump_stack_lvl (lib/dump_stack.c:94 lib/dump_stack.c:120)
-print_report (mm/kasan/report.c:378 mm/kasan/report.c:482)
-kasan_report (mm/kasan/report.c:595)
-pcan_usb_decode_buf (drivers/net/can/usb/peak_usb/pcan_usb.c:563 drivers/ne=
-t/can/usb/peak_usb/pcan_usb.c:630 drivers/net/can/usb/peak_usb/pcan_usb.c:7=
-40 drivers/net/can/usb/peak_usb/pcan_usb.c:758)
-peak_usb_read_bulk_callback (drivers/net/can/usb/peak_usb/pcan_usb_core.c:2=
-67)
-__usb_hcd_giveback_urb (drivers/usb/core/hcd.c:1657)
-usb_hcd_giveback_urb (drivers/usb/core/hcd.c:1741)
-dummy_timer (drivers/block/aoe/aoedev.c:523 (discriminator 1) drivers/block=
-/aoe/aoedev.c:298 (discriminator 1) drivers/block/aoe/aoedev.c:377 (discrim=
-inator 1))
-__hrtimer_run_queues (kernel/time/hrtimer.c:2067 kernel/time/hrtimer.c:2124)
-hrtimer_run_softirq (kernel/time/hrtimer.c:2141)
-handle_softirqs (kernel/softirq.c:645)
-__irq_exit_rcu (kernel/softirq.c:679 kernel/softirq.c:519 kernel/softirq.c:=
-767)
-irq_exit_rcu (kernel/softirq.c:784)
-sysvec_apic_timer_interrupt (arch/x86/kernel/apic/apic.c:1062 (discriminato=
-r 35) arch/x86/kernel/apic/apic.c:1062 (discriminator 35))
-</IRQ>
-asm_sysvec_apic_timer_interrupt (./arch/x86/include/asm/idtentry.h:674)
-default_idle (./arch/x86/include/asm/paravirt.h:62 arch/x86/kernel/process.=
-c:768)
-default_idle_call (kernel/sched/idle.c:122)
-do_idle (kernel/sched/idle.c:199 kernel/sched/idle.c:355)
-cpu_startup_entry (kernel/sched/idle.c:454 (discriminator 1))
-start_secondary (arch/x86/kernel/smpboot.c:312)
-common_startup_64 (arch/x86/kernel/head_64.S:418)
-Allocated by task 5007:
-kasan_save_stack (mm/kasan/common.c:57)
-kasan_save_track (mm/kasan/common.c:78)
-__kasan_kmalloc (mm/kasan/common.c:398 mm/kasan/common.c:415)
-__kmalloc_noprof (./include/linux/kasan.h:263 mm/slub.c:5414 mm/slub.c:5439)
-peak_usb_ndo_open (./include/linux/slab.h:995 drivers/net/can/usb/peak_usb/=
-pcan_usb_core.c:451 drivers/net/can/usb/peak_usb/pcan_usb_core.c:583)
-__dev_open (net/core/dev.c:1724)
-__dev_change_flags (net/core/dev.c:9812)
-netif_change_flags (net/core/dev.c:9877)
-dev_change_flags (net/core/dev_api.c:68)
-devinet_ioctl (net/ipv4/devinet.c:1199)
-inet_ioctl (net/ipv4/af_inet.c:1009)
-sock_do_ioctl (net/socket.c:1325)
-sock_ioctl (net/socket.c:1446)
-__x64_sys_ioctl (fs/ioctl.c:51 fs/ioctl.c:597 fs/ioctl.c:583 fs/ioctl.c:583)
-do_syscall_64 (arch/x86/entry/syscall_64.c:61 arch/x86/entry/syscall_64.c:8=
-4)
-entry_SYSCALL_64_after_hwframe (arch/x86/entry/entry_64.S:121)
-The buggy address belongs to the object at ffff888025381680
-which belongs to the cache kmalloc-64 of size 64
-The buggy address is located 1 bytes to the right of
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] asm-generic: fix repeated word 'the' in comment
+To: Hemanth Selam <hemanth.selam@gmail.com>, Arnd Bergmann <arnd@arndb.de>
+Cc: linux-kernel@vger.kernel.org, linux-arch@vger.kernel.org
+References: <20260904105221.31836-1-hemanth.selam@gmail.com>
+Content-Language: en-US
+From: Randy Dunlap <rdunlap@infradead.org>
+In-Reply-To: <20260904105221.31836-1-hemanth.selam@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
 
----
-The report format is based on syzbot bug report.
 
-This report is generated by a bot. It may contain errors.
-See https://github.com/n132/cedalion for more information.
+On 9/4/26 3:52 AM, Hemanth Selam wrote:
+> Drop the second 'the', reported by checkpatch.pl as a possible repeated
+> word.  Only touches a comment, no code changes.
+> 
+> Assisted-by: Cursor:claude-opus-5
 
-For any issue with this report, reach out to cedalion@bugs.sh
+Eh? What did claude-opus do here?
 
-If the report is already addressed, let us know by replying with:
-#co fix: <commit hash>
+> Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
 
-If the report is a duplicate of another one, reply with:
-#co dup: <lore link>
+Acked-by: Randy Dunlap <rdunlap@infradead.org>
+Thanks.
 
-If you want to undo deduplication, reply with:
-#co undup
+> ---
+>  include/uapi/asm-generic/fcntl.h | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/include/uapi/asm-generic/fcntl.h b/include/uapi/asm-generic/fcntl.h
+> index 883cfd7de2ef..f901ad3e6a7e 100644
+> --- a/include/uapi/asm-generic/fcntl.h
+> +++ b/include/uapi/asm-generic/fcntl.h
+> @@ -153,7 +153,7 @@
+>   * record  locks, but are "owned" by the open file description, not the
+>   * process. This means that they are inherited across fork() like BSD (flock)
+>   * locks, and they are only released automatically when the last reference to
+> - * the the open file against which they were acquired is put.
+> + * the open file against which they were acquired is put.
+>   */
+>  #define F_OFD_GETLK	36
+>  #define F_OFD_SETLK	37
 
-
+-- 
+~Randy
