@@ -1,130 +1,123 @@
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 376AE4A9D4B
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 14:14:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 190B24AD4AE
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 14:14:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788531269; cv=none; b=redqUirQ7SL1gICcBPqWy1DcSFyqppGV5PQTRc7KrmOnUs4w8zGbWCImKSXVxbvmtpREMIDc0sxdeZhZb/tbo2aL+ymnrePqsoyYEKOMGqEID6g/6uSUSpzZj5vEBZP9ENiEJMytns6AFGeD8SJCTjjT4ZSACmDjirIDuz2TXbw=
+	t=1788531275; cv=none; b=A3PNcjGuRIxdKSGO0VH50kLVx5WfFYiUvIcDdRbEnvZl6D7tD50dHlTa6Edw9vl65DkXwdo9/pJPqf8rpb0djI6Wn9Veu7R5W2MZtI6hFMwthJ6P5xxAoj2PayHod4rMv9vp0FfY0F3ici19/uxmxVwAvN/DqPRyVGDzxD7Gp1U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788531269; c=relaxed/simple;
-	bh=Nwh6qKR0V+XnjPWwHnDPQggNun+470bR9FEfgGFIKDs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ttFYjjxYIzlBolT1eq2tmb/2uHtEwWVHKLKQlnBCIP3K6p+eYEML6ymvGfHibtQBl0461lNK6SkiqLYoox5Gajoog4Wn19aUVKsg9baj7mGpQh+u8TN5MrwRY+euAeU74mSRZQwYcl4ZWpNdB44L+gnHU/YKfwnScF+EUSTtI1k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ojA3+U2v; arc=none smtp.client-ip=209.85.128.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788531275; c=relaxed/simple;
+	bh=ktkv47pn0bie3bf0YELiJC2P4OGo0W2kFNuUqfVo43w=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ToYRHWFoAFJ7Yx0PB5Fio7vqcE/UBaZ9HyOpAqVYsXd2nRT4B6WOWsgM/Ij9/MlN8G1h35dqlhEemuO4dHkDR+6OCXBEYtagpHBA7CO0gn1fVjdauRbO2UzFWvuSm96y1H3HExf6b1WE/1wkZdigZa6fs+xZ/adK2j1rhjai6tU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=Xh/o/W0b; arc=none smtp.client-ip=209.85.128.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ojA3+U2v"
-Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-49b8eeb3ff2so9753915e9.2
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 07:14:27 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="Xh/o/W0b"
+Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-49cd9add88aso7231035e9.3
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 07:14:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788531266; x=1789136066; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Ci5sK1VA/AFzZLFsaPwTu74VZ2hcdCO7IieHuFxzFO8=;
-        b=ojA3+U2vtBobsb0saxAsmVJOOvZ0tinQJcBN0YktONA64T/b7CefZwY4MdgDa3kyNp
-         KzMbJ4/+bOvLJEC4Flqfd+1YI4qeKtorHab+rkbQhmODA70xCc/l6t18wBuwQtpblH8X
-         wkS426Jyz17mqX9LXKqWcOcfSLScgA4dm94tRJmHdLZq2lnD0L9wZR5v0M91tqZVPG3w
-         f4F0FcwaRnSsWTHUAJU7cL7l9fRjqH0JovlEL+S+6LPn8dFBG0ozl/jzUg0H7B13huK/
-         8HdhJUNidMa7dSKcyMZqg3OY7b1tUIirVnJn0AmNvP7imn4jz3Z/KBb8u5MY0l+eTSVo
-         gGiA==
+        d=suse.com; s=google; t=1788531272; x=1789136072; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=AdLN0jpTzIDZUhkcyyu9ICM6wLzBcsSldAZnVs/Xqxc=;
+        b=Xh/o/W0b+TKCuV6Re1KY1GSRuBDze1Aey6e7xdWPhPkxsOW214qpTm53n5+DkfaU5p
+         Ku5/4l1x5HlVB83F27RprL2uFYadgJ39vTgE6LFOtzH+VW0M/euZw+vnGp4XI8t0OhV/
+         PB3gburNhoy8woOKk0PyXWP4hY9f02QvptaN2cQFss/3QF3TxV4I+6rwJoDIrYa93ggZ
+         UbDwK3yg9qCCyRn/Gd72ywrH0yfxaQuC687qalpdTHl7lYBytqX3uCDojJzIei+DXSPW
+         h1p7bfJENc7s/kC3CP/TV5UAeh0Huo4dnQnwUJvUQYXziVOqTU2FLySv1mc7ZzosvbuB
+         zbkg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788531266; x=1789136066;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=Ci5sK1VA/AFzZLFsaPwTu74VZ2hcdCO7IieHuFxzFO8=;
-        b=SW9vDMVd5OL8fM875hHSDuhdpOPASP02a3xMfPgT4tBIHw8WfWnQ+ejqf9aL8xrYdH
-         ajDXasfmRK3Zk5s6Cn7drsWUyGT3SD3Qsh7NahMd6tFQ/cunhtzTefnnH45+dq8kvMfX
-         SQjRfX6KLy/p3XRf3z2IG6uTBL9xQkqyUVbW4Lq+aRxD7Bjv0sZrkftysmIgBs1FUc7D
-         bnO39KyteZhOcUyeGsKhJyHALuwsinMT6bVi9QznKIXlb3T71kQ3mZEjwZ1ioty8vrPo
-         BYRqDjk+YSj8Sd77iIifE1sHD1Dhi/T5lTjKdjjGVcLlm9B1bU0Zwl/pPj/hMZf1Dq/5
-         h12g==
-X-Forwarded-Encrypted: i=1; AKwUvBwn0DIjODzXhbjik8PZISOnpifVX+LWn7Q6vVdmTsPLveVN5dECdLapXMpW5cWi4LaSNZdjxnauuEm6Gok=@vger.kernel.org
-X-Gm-Message-State: AFuF++lvHi7M1X+1EFTkJarPoscYJ8DK9KHwUkLfWFX1Pw04uCnzHHA4
-	nLPwthRhWeCvHkOZt3aPdYfaincQLnQ7pZVztCFnO8Q85GTIK+PSdlUR
-X-Gm-Gg: AYBFou1enjbXGM3nAtH2yP159BbdNtBIeqwOvRzsK+3NsT5nuWHir+esRNJIy0J8tm3
-	VAneVRiQwjDOIPlmsiJwuXdGq+1hXh2RwrJRGYTS+j7LSyRS8XB7pK6SFwh5qpy9dy/PfzjSCcV
-	591WgvnaQ9bHEZtgUlL2a5sC5p+34l4Tc0T98oRzZqdySI3NwozvX/KzINC2YqhEfx0WbSeo+63
-	/HdLtrUA+PadvgFb6yCNcTDwMUV/fbxUX90WiMNix/46oIfpIUHKz/eEW0yFKB+8ooA0pKwidGM
-	XU0E9Zp9UAR8ZcO8LYCSb21jv3Z5MwzDJCxc3gdCI4MbfN09Q/BxSTPc8H3xZQgzYb3W+BwxGqv
-	OcWxa8N8agRTHL7zqUswGiOeGsFJiCtA1biBF5e9JaUtjBp2MHiSIYoe4FidhhbOqJpu42WvEHX
-	iVV4OVhv9/FE2e4dOWPpT13+b1UGMMxcB5lUKfI9/2uGPlboPzAxLf9yxI61YhDoqEpp08eFX/e
-	QAJhBaLGIKLzg==
-X-Received: by 2002:a05:600c:138e:b0:49c:d818:8771 with SMTP id 5b1f17b1804b1-49cf8240ba5mr60011755e9.7.1788531265797;
-        Fri, 04 Sep 2026 07:14:25 -0700 (PDT)
-Received: from localhost (ip87-106-108-193.pbiaas.com. [87.106.108.193])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49d00031c95sm263125e9.11.2026.09.04.07.14.25
+        d=1e100.net; s=20251104; t=1788531272; x=1789136072;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=AdLN0jpTzIDZUhkcyyu9ICM6wLzBcsSldAZnVs/Xqxc=;
+        b=alXRgXtoF2QDgGWVbQCazyz0H5YeS7u1LplBKoB2M1lGOLEkeZHRPVDeWUYHywbAuc
+         1bs0vQkE6jz6u2Hba3ZFJFVJTE9XVnsXlzacYeRdbSNea2o01Cj4ZwbfL5gdYlOTebe1
+         sXvisX2O6pALndwM+CmuA2X3BP01GpWZOpSsr+/p97q8CnjC32ngxNBjHwcTBynhuWtA
+         U3TQ0Xaz2+xYY7AqfqesU3WvZwyPlg/hvxGwtgBZ92xg0uJSt3beBf9xRNzDGwzfWgEK
+         0KQ6UBiOlbRxkr2O4n+IoFjRomplq33tuQPbbiw+liQf4+uLc5YEeW9OYJzRAHEOMMWK
+         mg5A==
+X-Gm-Message-State: AFuF++l+iSwbxecGf3Eq9J934Uo3keZ9WOCR7WG16OZIK99bKTztirBp
+	r/6Q11O58mflwAK0VONoXrny16JoZ8beJgi++Duo5yS33AOkSVAnt38KVlhXn7Ut/NKFiiGcWMv
+	YAxHcoYQ=
+X-Gm-Gg: AYBFou3ZIlHNmd5sSVgURC3PJh9UcPFhEQ2S0X9amNwvb95XylbkXuofYUjZ1/hVKP2
+	csXQTJVfu5OwtV90hKiVzDTl81CAywc4XC44Vhu3qqk7JpDoaj1Wj5AuQcKX9N7+ZBj9RJ1wftt
+	40jjOPGFjtGK/EdxZUsvf05pWCPFHN+MFjJirbnq3CcLqY2mX+KmHGIY5p3hYBfft1nsasu4lNq
+	dpgsSVIpJs4OrpaD2J+yEm5mtgOBuAr03Ji6CQwoWNSz5HqxBuoFmf1DTyjG68PGwBZ0Iz7gV1r
+	dJi6/9Sj9wY2AigmEEHsLeZ2Ep62FGDGPEfHdQzTSkpSXQZlqfqAlR4gldgJAc8yb68E6YVk2am
+	T6ktER48cY3SvB5qYuI2fbcdDaF4iIf9U2MQOhI9+N19CjmBBAmGhusfluPELj9uO+3jgMfd5lN
+	AX3o5O/2542/DiaduVYEPE23Avi4x8bMzkMvwc1EeD0An4w6918mypOPu84TnQ97jQAnhPir8lb
+	/VJe9SbXA==
+X-Received: by 2002:a05:600c:83c8:b0:499:cd34:100d with SMTP id 5b1f17b1804b1-49cf82353cemr68857095e9.7.1788531272184;
+        Fri, 04 Sep 2026 07:14:32 -0700 (PDT)
+Received: from localhost.localdomain ([2a00:6d43:105:c401:e307:1a37:2e76:ce91])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cf5135353sm84723225e9.2.2026.09.04.07.14.31
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 04 Sep 2026 07:14:25 -0700 (PDT)
-Date: Fri, 4 Sep 2026 16:14:09 +0200
-From: =?iso-8859-1?Q?G=FCnther?= Noack <gnoack3000@gmail.com>
-To: Ye Liu <ye.liu@linux.dev>
-Cc: Thomas Gleixner <tglx@kernel.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Ingo Molnar <mingo@redhat.com>, Will Deacon <will@kernel.org>,
-	Boqun Feng <boqun@kernel.org>,
-	"Paul E. McKenney" <paulmck@kernel.org>,
-	Frederic Weisbecker <frederic@kernel.org>,
-	Neeraj Upadhyay <neeraj.upadhyay@kernel.org>,
-	Joel Fernandes <joelagnelf@nvidia.com>,
-	Josh Triplett <josh@joshtriplett.org>,
-	Uladzislau Rezki <urezki@gmail.com>,
-	Juri Lelli <juri.lelli@redhat.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Masami Hiramatsu <mhiramat@kernel.org>,
-	Josh Poimboeuf <jpoimboe@kernel.org>, Ye Liu <liuye@kylinos.cn>,
-	Pavel Machek <pavel@kernel.org>, Lance Yang <lance.yang@linux.dev>,
-	Petr Mladek <pmladek@suse.com>, Waiman Long <longman@redhat.com>,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+        Fri, 04 Sep 2026 07:14:31 -0700 (PDT)
+From: Marco Crivellari <marco.crivellari@suse.com>
+To: linux-kernel@vger.kernel.org
+Cc: Tejun Heo <tj@kernel.org>,
 	Lai Jiangshan <jiangshanlai@gmail.com>,
-	Zqiang <qiang.zhang@linux.dev>,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
-	Valentin Schneider <vschneid@redhat.com>,
-	K Prateek Nayak <kprateek.nayak@amd.com>,
-	Mark Rutland <mark.rutland@arm.com>, linux-kernel@vger.kernel.org,
-	linux-pm@vger.kernel.org, rcu@vger.kernel.org,
-	linux-trace-kernel@vger.kernel.org
-Subject: Re: [PATCH 5/8] kernel: convert process/thread iterators to
- for_each_*_rcu
-Message-ID: <20260904.84b04948b1fc@gnoack.org>
-References: <20260904083001.553587-1-ye.liu@linux.dev>
- <20260904083001.553587-6-ye.liu@linux.dev>
+	Frederic Weisbecker <frederic@kernel.org>,
+	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+	Marco Crivellari <marco.crivellari@suse.com>,
+	Michal Hocko <mhocko@suse.com>,
+	Breno Leitao <leitao@debian.org>
+Subject: [PATCH v3 0/2] workqueue: Make WQ_UNBOUND the default behavior
+Date: Fri,  4 Sep 2026 16:14:19 +0200
+Message-ID: <20260904141421.287647-1-marco.crivellari@suse.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260904083001.553587-6-ye.liu@linux.dev>
 
-On Fri, Sep 04, 2026 at 04:29:57PM +0800, Ye Liu wrote:
-> diff --git a/kernel/hung_task.c b/kernel/hung_task.c
-> index 6fcc94ce4ca9..76871f78497f 100644
-> --- a/kernel/hung_task.c
-> +++ b/kernel/hung_task.c
-> @@ -337,9 +336,7 @@ static void check_hung_uninterruptible_tasks(unsigned long timeout)
->  			hung_task_info(t, timeout, this_round_count);
->  		}
->  	}
-> - unlock:
-> -	rcu_read_unlock();
-> -
-> +unlock:
->  	if (!this_round_count)
->  		return;
+Hi,
 
-The label name "unlock" is misleading now.  There is no further unlock
-happening after it any more.
+Currently alloc_workqueue() make sure one among WQ_UNBOUND or WQ_PERCPU is
+present. This is enforced warning and setting WQ_PERCPU as default when
+alloc_workqueue() without WQ_PERCPU or WQ_UNBOUND.
 
-–Günther
+[ P1 ] change this behavior: if no flags are specified, WQ_UNBOUND is
+set by default, changing the default behavior when flags are not present.
+
+The WARN_ONCE() when neither flags are present has been removed and it has
+been replaced by pr_warn_once(): from now on, every alloc_users()
+without WQ_PERCPU will be considered unbound.
+
+Q: I decided to pr_warn_once() just to make sure users are aware of the new
+behavior. It makes sense or we can just drop it directly?
+I don't think the WARN_ONCE() is appropriate now, for this specific path.
+
+[ P2 ] updates the documentation accordingly.
+
+Thanks!
+
+---
+Changes in v3:
+- WQ_BH require WQ_PERCPU
+
+Link to v2: https://lore.kernel.org/all/20260903165251.481362-1-marco.crivellari@suse.com/
+
+Changes in v2:
+- if/else to add/drop WQ_UNBOUND/WQ_PERCPU moved before wq_size assignment
+
+Link to v1: https://lore.kernel.org/all/20260903152204.401638-1-marco.crivellari@suse.com/
+
+Marco Crivellari (2):
+  workqueue: Make alloc_workqueue() unbound by default
+  doc: Update WQ_UNBOUND documentation
+
+ Documentation/core-api/workqueue.rst |  2 ++
+ kernel/workqueue.c                   | 44 ++++++++++++++++++----------
+ 2 files changed, 30 insertions(+), 16 deletions(-)
+
+-- 
+2.55.0
+
