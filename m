@@ -1,81 +1,67 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from MRWPR03CU001.outbound.protection.outlook.com (mail-francesouthazon11011059.outbound.protection.outlook.com [40.107.130.59])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 561CA40B109
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 09:10:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788513059; cv=none; b=CEDiK6Gpqyy9pBlUO+Wa3GeuMs0E9ywdisRki7eqXBMcDQwZkJLqVBrti0XZE6VpcBYRl9sZMOf84wWvle7ul1qR5V7SUe4YyWcwwe7+PGftLVcunPDgeOQv6I6Nn7Xg7/NguxfI3kF8DtiRv28uPSUhEXpypV16k4v/GJQ1mGE=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788513059; c=relaxed/simple;
-	bh=FSqLmFFWynM3dhMtG+D32sIhYShCNas9l7dUuWNA9Ds=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=YfumqJApsW6m2PAsb0avNIZNPhCMeI7loKNGwb3vxFP/sUWrWczJ5/NFUOY8zylC7cjG3yEdN87r86qN7wg7Yb0pjVuMIfW7IbcsZXzRfUsbMbokxuBP6HtT77yiEElWLgiJt8oTaWVx4YhYoBZOeIhezFJwppXIWm0DcbKjTZY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=gKWahthA; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=guXWm3mU; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=dc5WYa2w; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=NSgxGS7M; arc=none smtp.client-ip=195.135.223.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46DEA42E8FF;
+	Fri,  4 Sep 2026 09:11:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.130.59
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788513067; cv=fail; b=VNgUH/v+y8wljiyr6jOCJGVcG/+7+giwi6l6ls5VSOp2B8yLJZf2ZAsScytj36tFE5+3T5ylQ5IuSiU2FSStpcbLdxi2hpec+AiMNYlLtrhLTIRXZBy7qz+oqSjLRE1FKIrRzOEycpn1uiVmuYwzTZHgDH511yEnEy8AsWhOaJg=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788513067; c=relaxed/simple;
+	bh=nMSZjDawsFA/XM7w+rCsVn0SrsWvBmKh4K53kn0UUWI=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:CC:References:
+	 In-Reply-To:Content-Type; b=S2LyS1y9ZashlqIsRjMiAqSELTUwbPBKgkjy08MlwQ3FDQGNyNNziVta1KGDnEZc1W+WtzK+IBMNEibbkwDAHVBlQYhnnicWMZGAkUYExkspwUySzOVTdh3aAu57IcCsENXvMbVqqvtaAxi+jbiKKzUoQKHa0OSsvErNzDT9PNc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com; spf=pass smtp.mailfrom=foss.st.com; dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b=WShB0RDT; arc=fail smtp.client-ip=40.107.130.59
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foss.st.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="gKWahthA";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="guXWm3mU";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="dc5WYa2w";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="NSgxGS7M"
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 160C322BDC;
-	Fri,  4 Sep 2026 09:10:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1788513051; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=S6jsTYpICTUf4u4QyZalLiQN/qK381mHNqNvyPemu3I=;
-	b=gKWahthAe16LZQthoIJzc6yMzwOkvQioLYwTFuZIyetOP0HfhcI8Ds5MHyy13oaKp1aoJ5
-	yYcHrh1qjr8b8xto7v4hiLuZBEakIcLI8txhJaREeuuhtPo6U3GWMENFUqX1aCWkNlFGed
-	Suwie64h6zIPeLitsW2mjgqIwteTrEo=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1788513051;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=S6jsTYpICTUf4u4QyZalLiQN/qK381mHNqNvyPemu3I=;
-	b=guXWm3mUQrItdrsnxQqpyEpWbYMjPXv/zAmiOTAme+RTYCaWjSX2HuJf7Ie0ZbNupddnEF
-	gPlux1FAdntSSNBA==
-Authentication-Results: smtp-out1.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=dc5WYa2w;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=NSgxGS7M
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1788513047; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=S6jsTYpICTUf4u4QyZalLiQN/qK381mHNqNvyPemu3I=;
-	b=dc5WYa2wF4aDRVxwgoEPxxPSr951QvaeJwOWNnXacoE3DLPk9IXncA83IAHB7YwSXrVEbA
-	8PIesOVJNBQSMkXLS4Gwk6Nvb3FkM47eFZNnsa794NWNe71TQwNbtEgiv6KVnI63UTEdhb
-	8jZGr+QSvQuh5qKW0n7T1Mc27ggLUE4=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1788513047;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=S6jsTYpICTUf4u4QyZalLiQN/qK381mHNqNvyPemu3I=;
-	b=NSgxGS7MJTUpgiBocjQPgLbMIOyIKcg73BVrSkKZBhgTcuy5Y8Ihv+BWcAKZniYxKP33eL
-	TYtZGPRW8qnfT7CQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id AF4B113738;
-	Fri,  4 Sep 2026 09:10:45 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id hd5pKRWLmmqRdwAAD6G6ig
-	(envelope-from <tzimmermann@suse.de>); Fri, 04 Sep 2026 09:10:45 +0000
-Message-ID: <bccaf050-baee-4c16-97c4-1751ef3ecdb7@suse.de>
-Date: Fri, 4 Sep 2026 11:10:45 +0200
+	dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b="WShB0RDT"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Iijn9OV/3hEbS2LeNMnfgXqTvw9zbE7VY5WCvxnuibAmvCNheB3+5oapGmSHgy7QICL2aksBT5VTpuZBybA7s5QAj+/5dgNoDooDLXdDCldB48adomCSxzv152M366kDYDcpOf5Z9dWp3YGl9GbFQRxwgE9E70t/pdHLhTDF7UTH5JsJIzFiddZV96bEQBZj5aNc8KwNRFlxIX54xvSkoGSNX3Y3a8T4arYQ2W4Tef+nYWquJLq9BZWSH4ClaxUEci/HnL1KYT5kjiFhah/BBCAwNmZHEGYC3Fj3TVjvHCNu86ETBS57nPu3d/3QGWdLjvt412queHMSF4xXptl1LQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=NKnd/NrrzMM1L+HbhJfTzGv/GuYL8PflnYH9A3PisGY=;
+ b=m1sDws6uhGquPykV7O5Tz4CfuIfEqSfqndStRh4q53134BaSD3Tl3Qong2m5oL4ZQyuzfufa/xqKchbZr1lYkDCVR6A0ENVQpcQzyAXqM3W76XdiJyL8YdvYTAw3f/7Zk1bS9DaX8jRirWdgQwe5Nf3Ds1Op1sHimx6JAUYIuPHiE+jO3xRu7+LHzFpJRtq26F1L/3KDspShSzAXPTvK8gMElwS17cxoJAFTBoJXU+sbeKb5144TlxDx6gb4YQYynJ+Zkx0TE+atFLU2SYJ36UCl+IyLAMBlJ3IYxEgTCxFaQq7lqKfVpBntyx74s/zarRwuIp/rF8NsFPi6a3eM0g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
+ 164.130.1.88) smtp.rcpttodomain=oss.nxp.com smtp.mailfrom=foss.st.com;
+ dmarc=fail (p=none sp=none pct=100) action=none header.from=foss.st.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=NKnd/NrrzMM1L+HbhJfTzGv/GuYL8PflnYH9A3PisGY=;
+ b=WShB0RDT9vr0U0dv03ab4J+KxVmnvi74XvccqsGRjTSInDx9mnBbmTFLU0IHw+IEK8Ja163PYF1dVXJOagr8DrMvD1dJY9yA7kBYPQPbM67Bme/4jfQ6H6oExM4yoq/YpZR0BAlUHjPzRdSs2qzK/JBoNNl3AQfDADDtydf6dCh+s4GWNXLb1wXibj0D5D+ecrweGuSe0Dz6J6ZU4hz+u6uIdMT6se4k4yAfc6ya4rr7SFHRXWez/TYhA62asxgvP3Hoj04HemGf+FERBHWxTEe8bsGl6SAMAbzpru825Hl95cJuqTeAFGPuFDpOgqHbPSMwIjHNRC1NLdwhh0G3SA==
+Received: from PR1P264CA0083.FRAP264.PROD.OUTLOOK.COM (2603:10a6:102:345::14)
+ by VI3PR10MB756752.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:800:377::24) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Fri, 4 Sep
+ 2026 09:10:57 +0000
+Received: from ZR1PEPF0000E6B5.eurprd07.prod.outlook.com
+ (2603:10a6:102:345::4) by PR1P264CA0083.outlook.office365.com
+ (2603:10a6:102:345::14) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.12 via Frontend Transport; Fri, 4
+ Sep 2026 09:10:57 +0000
+X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 164.130.1.88)
+ smtp.mailfrom=foss.st.com; dkim=none (message not signed)
+ header.d=none;dmarc=fail action=none header.from=foss.st.com;
+Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
+ designate 164.130.1.88 as permitted sender) receiver=protection.outlook.com;
+ client-ip=164.130.1.88; helo=smtpO365.st.com;
+Received: from smtpO365.st.com (164.130.1.88) by
+ ZR1PEPF0000E6B5.mail.protection.outlook.com (10.167.241.68) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.382.8 via Frontend Transport; Fri, 4 Sep 2026 09:10:56 +0000
+Received: from ENXDAG1NODE4.st.com (10.75.129.197) by smtpo365.st.com
+ (10.250.44.75) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Fri, 4 Sep
+ 2026 11:08:13 +0200
+Received: from [10.48.87.20] (10.48.87.20) by ENXDAG1NODE4.st.com
+ (10.75.129.197) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Fri, 4 Sep
+ 2026 11:10:54 +0200
+Message-ID: <a4be2ef7-8987-481a-a329-52c809bbddb3@foss.st.com>
+Date: Fri, 4 Sep 2026 11:10:54 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -83,148 +69,198 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v14 3/5] drm/sysfb: Update coreboot framebuffer Kconfig
- symbol
-To: Sean Rhodes <sean@starlabs.systems>, linux-kernel@vger.kernel.org
-Cc: Hans de Goede <hansg@kernel.org>,
- =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
- Corentin Chary <corentin.chary@gmail.com>, "Luke D. Jones"
- <luke@ljones.dev>, Denis Benato <denis.benato@linux.dev>,
- Prasanth Ksr <prasanth.ksr@dell.com>, Jorge Lopez <jorge.lopez2@hp.com>,
- Mark Pearson <mpearson-lenovo@squebb.ca>,
- "Derek J. Clark" <derekjohn.clark@gmail.com>,
- Joshua Grisham <josh@joshuagrisham.com>, Will Deacon <will@kernel.org>,
- Douglas Anderson <dianders@chromium.org>,
- "Kiryl Shutsemau (Meta)" <kas@kernel.org>,
- Huacai Chen <chenhuacai@kernel.org>, Chen-Yu Tsai <wenst@chromium.org>,
- platform-driver-x86@vger.kernel.org, Dell.Client.Kernel@dell.com,
- Tzung-Bi Shih <tzungbi@kernel.org>, Brian Norris <briannorris@chromium.org>,
- Julius Werner <jwerner@chromium.org>,
- Javier Martinez Canillas <javierm@redhat.com>,
- Bjorn Helgaas <bhelgaas@google.com>, Danilo Krummrich <dakr@kernel.org>,
- =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig_=28The_Capable_Hub=29?=
- <u.kleine-koenig@baylibre.com>,
- Titouan Ameline de Cadeville <titouan.ameline@gmail.com>,
- Laxman Acharya Padhya <acharyalaxman8848@gmail.com>,
- Yidi Lin <yidilin@google.com>, Kees Cook <kees@kernel.org>,
- Takashi Sakamoto <o-takashi@sakamocchi.jp>, chrome-platform@lists.linux.dev,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org,
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Geert Uytterhoeven <geert@linux-m68k.org>, Arnd Bergmann <arnd@arndb.de>,
- Eric Biggers <ebiggers@kernel.org>, Luca Weiss <luca.weiss@fairphone.com>,
- Michal Simek <michal.simek@amd.com>, Sven Peter <sven@kernel.org>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Linus Walleij <linusw@kernel.org>, Drew Fustini <fustini@kernel.org>,
- linux-arm-kernel@lists.infradead.org, soc@lists.linux.dev
-References: <cover.1788284852.git.sean@starlabs.systems>
- <1748b8899ec772cc435dc57dc55f76c15da95f0a.1788284852.git.sean@starlabs.systems>
+Subject: Re: [Linux-stm32] [PATCH v2 1/3] dmaengine: vchan: add
+ vchan_chan_name() to get channel device name
+From: Amelie Delaunay <amelie.delaunay@foss.st.com>
+To: <Frank.Li@oss.nxp.com>, Jacky Huang <ychuang3@nuvoton.com>, Shan-Chun Hung
+	<schung@nuvoton.com>, Vinod Koul <vkoul@kernel.org>, Frank Li
+	<Frank.Li@kernel.org>, Paul Cercueil <paul@crapouillou.net>, Eugeniy Paltsev
+	<Eugeniy.Paltsev@synopsys.com>, Andy Shevchenko
+	<andriy.shevchenko@linux.intel.com>, Binbin Zhou <zhoubinbin@loongson.cn>,
+	Patrice Chotard <patrice.chotard@foss.st.com>, Maxime Coquelin
+	<mcoquelin.stm32@gmail.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	Steven Rostedt <rostedt@goodmis.org>, Masami Hiramatsu <mhiramat@kernel.org>,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, Thierry Reding
+	<thierry.reding@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>, "Ludovic
+ Desroches" <ludovic.desroches@microchip.com>, Viresh Kumar
+	<vireshk@kernel.org>, Keguang Zhang <keguang.zhang@gmail.com>,
+	=?UTF-8?Q?Andreas_F=C3=A4rber?= <afaerber@suse.de>, Manivannan Sadhasivam
+	<mani@kernel.org>, Daniel Mack <daniel@zonque.org>, Haojian Zhuang
+	<haojian.zhuang@gmail.com>, Robert Jarzmik <robert.jarzmik@free.fr>, "Chen-Yu
+ Tsai" <wens@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>, "Samuel
+ Holland" <samuel@sholland.org>, Kelvin Cao <kelvin.cao@microchip.com>, "Logan
+ Gunthorpe" <logang@deltatee.com>, Laxman Dewangan <ldewangan@nvidia.com>,
+	Vignesh Raghavendra <vigneshr@ti.com>
+CC: <imx@lists.linux.dev>, Frank Li <Frank.Li@nxp.com>,
+	<linux-actions@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
+	<linux-mips@vger.kernel.org>, <linux-tegra@vger.kernel.org>,
+	<dmaengine@vger.kernel.org>, <linux-sunxi@lists.linux.dev>,
+	<linux-stm32@st-md-mailman.stormreply.com>,
+	<linux-arm-kernel@lists.infradead.org>, <linux-trace-kernel@vger.kernel.org>
+References: <20260903-dma-chan_dev-rename-v2-0-0db305b6c716@nxp.com>
+ <20260903-dma-chan_dev-rename-v2-1-0db305b6c716@nxp.com>
+ <4e3a2f00-ec1d-426e-b71b-fcd9fabe6b86@foss.st.com>
 Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <1748b8899ec772cc435dc57dc55f76c15da95f0a.1788284852.git.sean@starlabs.systems>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+In-Reply-To: <4e3a2f00-ec1d-426e-b71b-fcd9fabe6b86@foss.st.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Spam-Score: -3.01
-X-Rspamd-Queue-Id: 160C322BDC
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Spam-Level: 
-X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-3.01 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	FREEMAIL_CC(0.00)[kernel.org,linux.intel.com,gmail.com,ljones.dev,linux.dev,dell.com,hp.com,squebb.ca,joshuagrisham.com,chromium.org,vger.kernel.org,redhat.com,google.com,baylibre.com,sakamocchi.jp,lists.linux.dev,ffwll.ch,lists.freedesktop.org,oss.qualcomm.com,linux-m68k.org,arndb.de,fairphone.com,amd.com,bootlin.com,lists.infradead.org];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	TO_DN_SOME(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	DKIM_TRACE(0.00)[suse.de:+];
-	R_RATELIMIT(0.00)[to_ip_from(RL6ryso6x4fcxrmhyqqhqmnwey)];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	TO_MATCH_ENVRCPT_SOME(0.00)[];
-	RCPT_COUNT_GT_50(0.00)[51];
-	DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	TAGGED_RCPT(0.00)[];
-	MID_RHS_MATCH_FROM(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim,suse.de:email,suse.de:mid,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.com:url]
-X-Spam-Flag: NO
+X-ClientProxiedBy: STKCAS1NODE1.st.com (10.75.128.134) To ENXDAG1NODE4.st.com
+ (10.75.129.197)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: ZR1PEPF0000E6B5:EE_|VI3PR10MB756752:EE_
+X-MS-Office365-Filtering-Correlation-Id: 72641aa2-d6b6-4e01-7cc6-08df0a646def
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|23010399003|1800799024|36860700016|376014|7416014|13003099007|921020|22082099003|18002099003|11063799006|56012099006|4143699003|10067099003|41080700001;
+X-Microsoft-Antispam-Message-Info:
+	hkhJ19OyXulv8Xh99h/xuMwKJ2h0ajYi0fQvNsIIKAZtYsMyhWrOlyN+rJrFxJQMVg7L4MKIhVr4ZnMcnHhgklA6aeRDXyBwhl30hP/KqKAxpK5KZns5fiRCE+5DNArivbwvaTqf6aSDt1E7GZ0/AjjMqkviDpscluExruw88jRybYFZN4+xXvvF6QQMdXTzR9rqnahanb8rkx0KYL1dwNbsjTa4CulG7oFOQtxOQ9HYhhdOn/BLxGnCnvWQnIoByRP3G0Dr8Ybx1bQpoaC+xbzng3EFfqDMaRAf2Iy8lZH2krvsCezNx0ZrDYhp8kIKYa6T6EpICNQexDg7cCxsWXCPJU5FH9BGVpdf84uawvL7XFRGkI7S5Ym3im4tBlWKkOCAFRgQvUpKpk5niE7gVP59v/AVBDcLZI3zD0JicRI7pN1DGBTDQLWhaTvi+YeCB0S7nwhA/lXbOTakh4KUV1cy3ateybqCFVlEkhmfki1hxyFnppbAwdS7ti8qoDeq5zG3OasfdQ330niyOEaw+djiG1NVP1MtAbB4cwsSGR0GEvjVaocMDyQbWiwM5wL/b+/wNMN6Auqk7vphMtZz8+VPorcuu2M+w/yrwdF88a6ThN7OWxnPTc7WtSXgUwGMrNPTyUJR2+PqQR32MDqOd+8VFRI1GIv+UQg7zMDecZbOBwtWuwyWn/QUo86e0DoW
+X-Forefront-Antispam-Report:
+	CIP:164.130.1.88;CTRY:;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(23010399003)(1800799024)(36860700016)(376014)(7416014)(13003099007)(921020)(22082099003)(18002099003)(11063799006)(56012099006)(4143699003)(10067099003)(41080700001);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	YYh4pdgkdzU87tRyjQQvuvz20nvXo49VEjT/MveM6K3Cq2IuXuJiYRxvIgOipIqUUYNeXnTPPy4D/HOJSjnsD7Hps3pIJ/iKDU0RI+zwEVn2R6LI4Rfl4MdvpDdyNwJU2G85Zy7Aj6zWfUaeLS9np+uxRvVeusgGuOP2VbOLW/MqbMUZbesBU9rTLk5+toniC4XtsPUE74lVzZFItXUzEKXt4csHttFvKqdQyP8mDAoBLsDkkhMnFdL+IaBS46O9WgezJ3A/eYChK0K7mIkJUpIdAnYIckI3Z+Q7W+vrScCf5vCOf+PcQP8HqJnYPVdQW7mGisCOwKemhB4mjo+naZlvAgNemhapt6DvrSZzXL0g5zMvJNsdtCWIo49BdqvoDWSiYc+HbtLEdKMUV5U2UZtCJLWJwW1V182bob1zhKPfbnE3L4upyvpVW+Lu0Jga
+X-OriginatorOrg: foss.st.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Sep 2026 09:10:56.6350
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 72641aa2-d6b6-4e01-7cc6-08df0a646def
+X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f;Ip=[164.130.1.88];Helo=[smtpO365.st.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	ZR1PEPF0000E6B5.eurprd07.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI3PR10MB756752
 
+On 9/4/26 10:35, Amelie Delaunay wrote:
+> Hi Frank,
+> 
+> On 9/3/26 22:53, Frank.Li@oss.nxp.com wrote:
+>> From: Frank Li <Frank.Li@nxp.com>
+>>
+>> Introduce vchan_chan_name() to obtain the DMA channel device name.
+>>
+>> Use a dedicated helper instead of directly accessing dma_chan::dev
+>> so callers remain unaffected by an upcoming rename of the struct member.
+>>
+>> Signed-off-by: Frank Li <Frank.Li@nxp.com>
+>> ---
+>>   drivers/dma/arm-dma350.c                     |  2 +-
+>>   drivers/dma/loongson/loongson2-apb-cmc-dma.c |  2 +-
+>>   drivers/dma/stm32/stm32-dma.c                |  2 +-
+>>   drivers/dma/stm32/stm32-dma3.c               |  4 ++--
+> 
+> Could you move the driver updates from this patch to the next one? I 
+> don’t understand why the drivers above are modified here, while others 
+> are deferred to "[PATCH v2 2/3] dmaengine: use dma_chan_name() helper to 
+> get per-channel device name".
+> 
 
+Oh, okay — my bad. I've just looked at v1, and I now understand that you 
+split the vchan_chan_name() and dma_chan_name() updates.
+I didn’t catch that at first glance because your cover letter hasn’t 
+changed between v1 and v2.
+"1st patch: use the existing helper dma_chan_name() to reduce rename 
+differences.
+2nd patch: rename drivers/dma"
 
-Am 01.09.26 um 19:48 schrieb Sean Rhodes:
-> The coreboot firmware directory rename introduces COREBOOT_FRAMEBUFFER as
-> the user-facing symbol while retaining GOOGLE_FRAMEBUFFER_COREBOOT as a
-> transitional compatibility symbol.
->
-> Make DRM_COREBOOTDRM depend on the new symbol. This keeps the DRM
-> dependency aligned with the renamed firmware option without changing
-> runtime behavior.
->
-> Signed-off-by: Sean Rhodes <sean@starlabs.systems>
-
-Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
-
-> ---
->   drivers/gpu/drm/sysfb/Kconfig | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/sysfb/Kconfig b/drivers/gpu/drm/sysfb/Kconfig
-> index f7e48178885e..2bfcd59bfe6d 100644
-> --- a/drivers/gpu/drm/sysfb/Kconfig
-> +++ b/drivers/gpu/drm/sysfb/Kconfig
-> @@ -10,7 +10,7 @@ config DRM_SYSFB_HELPER
->   config DRM_COREBOOTDRM
->   	tristate "Coreboot framebuffer driver"
->   	depends on DRM && MMU
-> -	depends on GOOGLE_FRAMEBUFFER_COREBOOT
-> +	depends on COREBOOT_FRAMEBUFFER
->   	select APERTURE_HELPERS
->   	select DRM_CLIENT_SELECTION
->   	select DRM_GEM_SHMEM_HELPER
-
--- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Jochen Jaser, Andrew McDonald, (HRB 36809, AG Nürnberg)
-
+> Regards,
+> Amelie
+> 
+>>   drivers/dma/virt-dma.h                       | 11 +++++++++++
+>>   5 files changed, 16 insertions(+), 5 deletions(-)
+>>
+>> diff --git a/drivers/dma/arm-dma350.c b/drivers/dma/arm-dma350.c
+>> index 09403aca8bb06..52f5242ea3327 100644
+>> --- a/drivers/dma/arm-dma350.c
+>> +++ b/drivers/dma/arm-dma350.c
+>> @@ -512,7 +512,7 @@ static int d350_alloc_chan_resources(struct 
+>> dma_chan *chan)
+>>   {
+>>       struct d350_chan *dch = to_d350_chan(chan);
+>>       int ret = request_irq(dch->irq, d350_irq, IRQF_SHARED,
+>> -                  dev_name(&dch->vc.chan.dev->device), dch);
+>> +                  vchan_chan_name(&dch->vc), dch);
+>>       if (!ret)
+>>           writel_relaxed(CH_INTREN_DONE | CH_INTREN_ERR, dch->base + 
+>> CH_INTREN);
+>> diff --git a/drivers/dma/loongson/loongson2-apb-cmc-dma.c b/drivers/ 
+>> dma/loongson/loongson2-apb-cmc-dma.c
+>> index 1c9a542edc859..2f1c8c4fd0654 100644
+>> --- a/drivers/dma/loongson/loongson2-apb-cmc-dma.c
+>> +++ b/drivers/dma/loongson/loongson2-apb-cmc-dma.c
+>> @@ -678,7 +678,7 @@ static int loongson2_cmc_dma_probe(struct 
+>> platform_device *pdev)
+>>               return lchan->irq;
+>>           ret = devm_request_irq(dev, lchan->irq, 
+>> loongson2_cmc_dma_chan_irq, IRQF_SHARED,
+>> -                       dev_name(chan2dev(lchan)), lchan);
+>> +                       vchan_chan_name(&lchan->vchan), lchan);
+>>           if (ret)
+>>               return ret;
+>>       }
+>> diff --git a/drivers/dma/stm32/stm32-dma.c b/drivers/dma/stm32/stm32- 
+>> dma.c
+>> index d3ad78562a140..3e8151e2ad75a 100644
+>> --- a/drivers/dma/stm32/stm32-dma.c
+>> +++ b/drivers/dma/stm32/stm32-dma.c
+>> @@ -1668,7 +1668,7 @@ static int stm32_dma_probe(struct 
+>> platform_device *pdev)
+>>           ret = devm_request_irq(&pdev->dev, chan->irq,
+>>                          stm32_dma_chan_irq, 0,
+>> -                       dev_name(chan2dev(chan)), chan);
+>> +                       vchan_chan_name(&chan->vchan), chan);
+>>           if (ret) {
+>>               dev_err(&pdev->dev,
+>>                   "request_irq failed with err %d channel %d\n",
+>> diff --git a/drivers/dma/stm32/stm32-dma3.c b/drivers/dma/stm32/stm32- 
+>> dma3.c
+>> index 4724e7fa0008e..1ee1bd22703fb 100644
+>> --- a/drivers/dma/stm32/stm32-dma3.c
+>> +++ b/drivers/dma/stm32/stm32-dma3.c
+>> @@ -1892,10 +1892,10 @@ static int stm32_dma3_probe(struct 
+>> platform_device *pdev)
+>>           chan->irq = ret;
+>>           ret = devm_request_irq(&pdev->dev, chan->irq, 
+>> stm32_dma3_chan_irq, 0,
+>> -                       dev_name(chan2dev(chan)), chan);
+>> +                       vchan_chan_name(&chan->vchan), chan);
+>>           if (ret) {
+>>               dev_err_probe(&pdev->dev, ret, "Failed to request 
+>> channel %s IRQ\n",
+>> -                      dev_name(chan2dev(chan)));
+>> +                      vchan_chan_name(&chan->vchan));
+>>               goto err_clk_disable;
+>>           }
+>>       }
+>> diff --git a/drivers/dma/virt-dma.h b/drivers/dma/virt-dma.h
+>> index 59d9eabc8b674..dd023a3831209 100644
+>> --- a/drivers/dma/virt-dma.h
+>> +++ b/drivers/dma/virt-dma.h
+>> @@ -209,6 +209,17 @@ static inline void 
+>> vchan_free_chan_resources(struct virt_dma_chan *vc)
+>>       vchan_dma_desc_free_list(vc, &head);
+>>   }
+>> +/**
+>> + * vchan_chan_name - Return vchan DMA channel device name
+>> + * @vc: virtual channel
+>> + *
+>> + * Return: The name of the DMA channel device
+>> + */
+>> +static inline const char *vchan_chan_name(struct virt_dma_chan *vc)
+>> +{
+>> +    return dma_chan_name(&vc->chan);
+>> +}
+>> +
+>>   /**
+>>    * vchan_synchronize() - synchronize callback execution to the 
+>> current context
+>>    * @vc: virtual channel to synchronize
+>>
+> 
+> _______________________________________________
+> Linux-stm32 mailing list
+> Linux-stm32@st-md-mailman.stormreply.com
+> https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
 
