@@ -1,33 +1,36 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-19.mta1.migadu.com [95.215.58.19])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A035928373
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 01:55:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5F171A6808
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 01:55:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.19
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788486911; cv=none; b=HN07IZZuZ8aGLKAStuOYJNcpUJHjeAJuPQZp1Miy3e+sIGzWGuP9Bp2hfGlMoWSmq77rJ554xthUxOg3mFshMHm0mV1/oXUUxiagP+3za4chRiw2pUQZI8BApMGhQrotdAxGQu45GxfBANXgVVP86i6pyBvWWJ6qHdxhsJQKUfY=
+	t=1788486925; cv=none; b=q1q+IzMEDQVv8kXtWBRqg/E/LtWcg+MFEawhynyZ5mJvEk1+Ldoqqt8o/7MHa8J06PlUuZ91MsQuY/qBA1oSrivg+uJl1IYParmtOpABaSd+jlmBYtjTcyOZjkk4sxZRs+1gjK07YTSYTpGgHkG+f+tySagXrfiRr7rmszmt/ac=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788486911; c=relaxed/simple;
-	bh=XiZacOsd9e7x12bTkP5pfxuaRoaRhwCtss3NK5h7SZk=;
-	h=Message-ID:Date:MIME-Version:Cc:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=Q9UG/s4iajZumtbkY00piHuNgZvxjpY57VgymQxypuhbnsDTRrjCSXzVJJJ3UFJ9f00I4dk8JdbM7F/93deeRhHWp/VXtv/KGl92ign4Smy13HYuBjn95sBmnhJHmzvmUagfMCgTSJ7botgnX7GlxKC4J6Z1vIzn7YwxzL1LMYc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KzKsuTnh; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788486925; c=relaxed/simple;
+	bh=DVuNyZ7EXHoYVxNEMvSHfqDkBER0yL8vohLELNvu600=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
+	 In-Reply-To:Content-Type; b=IOADTiPsdByhCK5zelVL3+4JOYJCh6FxlCvWjS2N8kws7ousWaNdM8BLFLIIJjkPt1TQY+L27HP3887WrDo/C0EPWr0ZfVIeLxvmEi4Kz1RcrMkPnRCKABQ0F+EeaMCipVE/tm39kg1rwrlTSXdRMHf02p3iK3NqSm75ke1GQ5c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=GZjtowSh; arc=none smtp.client-ip=95.215.58.19
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KzKsuTnh"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 36D4A1F000E9;
-	Fri,  4 Sep 2026 01:55:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788486910;
-	bh=lVKjIS0Eg5XrAPg/zdYHxfOR4gtQ/JfSPCvfuoElJzw=;
-	h=Date:Cc:Subject:To:References:From:In-Reply-To;
-	b=KzKsuTnhbu08hAl35NHp5kRKiPwA9bs3Po95oJxzJTtR9AETBC6/3WG5B1/A7Ge+W
-	 Sis+Wk6cX7sVRJfCDDOyCPprL1OrW3ZOHjfOLYVyn/H1goWT+VTUvQSFRGetUIDYvO
-	 nzZEp0Xkc6ftQS8dV2wXVh3QyGlXEgkcP5SJaCV8a86JUgQkN8uwHae0NTVS/EnUC7
-	 rH+FSv5HG/OwlALrny2jzO2+1Sr8PmPktax6KtXrnQSA53YYyjBbZOar/ZBF7KGlNQ
-	 0gFSUpDqAbVu0m8i8075SIijHmIs9itigYZt/ivHydZdawzwXaZ2o+ckBO5HtE0MvI
-	 nS61xtVYegc+g==
-Message-ID: <d988b67a-3b1f-43de-b317-375be828fa26@kernel.org>
-Date: Fri, 4 Sep 2026 09:55:07 +0800
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="GZjtowSh"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=DVuNyZ7EXHoYVxNEMvSHfqDkBER0yL8vohLELNvu600=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788486921; v=1; x=1789091721;
+ b=GZjtowSh0OaeMmOsq55r5ox0KdPuhP5lQTcG27ZsH3dbw1vC3y7m9M8pnx/59djLdhNcu2BZ
+ p1bjWdfCTgJwQtJrDJH4km41N0vPdOqZiLKDywfPU3E6jy2/Xs0sx8L5nwiPCyDbg9QLVlXLmg7
+ 1igFmU2ehZrPejucCS0SpLo8=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 86530bbb6701146c;
+	Fri, 04 Sep 2026 01:55:20 +0000
+X-Mizu-Trace-ID: 86530bbb6701146c
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <7d1f1c95-5dad-4124-858c-7c8e3119f437@linux.dev>
+Date: Fri, 4 Sep 2026 09:55:14 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -35,38 +38,172 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Cc: chao@kernel.org, Jaegeuk Kim <jaegeuk@kernel.org>,
- Daeho Jeong <daeho43@gmail.com>, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v9 03/11] f2fs: describe NAT block layout dynamically
-To: Kelvin Zhang <zhangxp1998@gmail.com>,
- linux-f2fs-devel@lists.sourceforge.net
-References: <cover.1788479509.git.zhangxp1998@gmail.com>
- <f019fbdf97004b6dc2cbacd3a215b163a1761359.1788479509.git.zhangxp1998@gmail.com>
-Content-Language: en-US
-From: Chao Yu <chao@kernel.org>
-In-Reply-To: <f019fbdf97004b6dc2cbacd3a215b163a1761359.1788479509.git.zhangxp1998@gmail.com>
+Subject: Re: [PATCH v3 1/7] cgroup/cpuset: Factor out child partition
+ validation
+From: Ridong Chen <ridong.chen@linux.dev>
+To: Waiman Long <longman@redhat.com>, Guopeng Zhang
+ <guopeng.zhang@linux.dev>, cgroups@vger.kernel.org
+Cc: tj@kernel.org, hannes@cmpxchg.org, mkoutny@suse.com, shuah@kernel.org,
+ linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
+ Guopeng Zhang <zhangguopeng@kylinos.cn>
+References: <20260902102615.79189-1-guopeng.zhang@linux.dev>
+ <20260902102615.79189-2-guopeng.zhang@linux.dev>
+ <5842edcd-9283-4a87-afc9-50e51962368e@redhat.com>
+ <5e0d1386-b094-4d4e-8569-e6b584f955c5@linux.dev>
+In-Reply-To: <5e0d1386-b094-4d4e-8569-e6b584f955c5@linux.dev>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 9/4/26 07:56, Kelvin Zhang wrote:
-> A NAT block is a filesystem-block-sized array of struct f2fs_nat_entry
-> elements. The compile-time NAT_ENTRY_PER_BLOCK definition hardcodes the
-> NAT capacity to a 4KB block size.
-> 
-> Replace the fixed array in struct f2fs_nat_block with a C flexible
-> array member, and calculate sbi->nat_entries_per_block dynamically in
-> init_sb_info().
-> 
-> Parameterize NAT geometry helpers (NAT_ENTRY_PER_BLOCK,
-> NAT_BLOCK_OFFSET, f2fs_start_nid, NAT_BLK_CNT, and
-> f2fs_nat_bitmap_size) with sbi. Update call sites across node management,
-> checkpointing, GC, and sysfs.
-> 
-> This is a layout-only change without behavioral differences for 4KB
-> blocks.
-> 
-> Signed-off-by: Kelvin Zhang <zhangxp1998@gmail.com>
 
-Reviewed-by: Chao Yu <chao@kernel.org>
 
-Thanks,
+On 9/4/2026 9:25 AM, Ridong Chen wrote:
+> 
+> 
+> On 9/4/2026 2:33 AM, Waiman Long wrote:
+>> On 9/2/26 6:26 AM, Guopeng Zhang wrote:
+>>> From: Guopeng Zhang <zhangguopeng@kylinos.cn>
+>>>
+>>> compute_partition_effective_cpumask() checks whether each valid child
+>>> partition remains covered by the parent exclusive CPU mask and whether it
+>>> would consume all remaining CPUs of a populated parent.
+>>>
+>>> Factor these two checks into child_partition_error() so the same rules can
+>>> be reused when evaluating a proposed parent configuration. This is a
+>>> preparatory refactoring with no intended functional change.
+>>>
+>>> Signed-off-by: Guopeng Zhang <zhangguopeng@kylinos.cn>
+>>> ---
+>>>   kernel/cgroup/cpuset.c | 38 +++++++++++++++++++++++++++++---------
+>>>   1 file changed, 29 insertions(+), 9 deletions(-)
+>>>
+>>> diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
+>>> index 8f24171b6055..6994dc75d940 100644
+>>> --- a/kernel/cgroup/cpuset.c
+>>> +++ b/kernel/cgroup/cpuset.c
+>>> @@ -2085,6 +2085,26 @@ static int update_parent_effective_cpumask(struct 
+>>> cpuset *cs, int cmd,
+>>>       return 0;
+>>>   }
+>>> +/*
+>>> + * Return the error that will invalidate a child partition under a proposed
+>>> + * parent partition configuration.
+>>> + */
+>>> +static enum prs_errcode
+>>> +child_partition_error(struct cpuset *child,
+>>> +              const struct cpumask *partition_cpus,
+>>> +              const struct cpumask *remaining_cpus,
+>>> +              bool parent_populated)
+>> I think you should add some functional comments on what "partition_cpus" and 
+>> "remaining_cpus" are supposed to be so that caller knows what to pass into 
+>> this helper.
+> 
+> Would it help to rename them to excpus and local_excpus?
+> local already implies "excluding children" (just like cgroup.stat.local), so I 
+> think that makes the intent clearer.
+> 
+
+Regarding the naming: child_partition_error is a bit odd — it sounds like it's 
+validating a hierarchical child partition, but it's actually validating the 
+partition itself (the child argument). The parent is only needed as context for 
+the validation logic, not because we're checking a subordinate partition.
+
+I'd suggest renaming it to something like:
+
+```
+static enum prs_errcode cs_partition_error(struct cpuset *cs, ...)
+
+```
+
+That would better reflect what the function actually does.
+
+On a related note, the current partition validation logic is scattered across 
+the code. I think we should consider consolidating it into a common set of 
+helpers, perhaps like:
+
+
+```
+static enum prs_errcode validate_partition(struct cpuset *cs, struct cpuset 
+*trialcs, struct cpuset *parent)
+{
+...
+}
+
+static enum prs_errcode validate_local_partition(struct cpuset *cs, struct 
+cpuset *trialcs, struct cpuset *parent)
+{
+	// local partion specific check
+	// call validate_partition
+	
+}
+
+static enum prs_errcode validate_remote_partition(struct cpuset *cs, struct 
+cpuset *trialcs, struct cpuset *parent)
+{
+	// remote partion specific check
+	// call validate_partition
+}
+
+```
+
+
+>>> +{
+>>> +    if (!cpumask_subset(child->effective_xcpus, partition_cpus))
+>>> +        return PERR_INVCPUS;
+>>> +
+>>> +    if (parent_populated &&
+>>> +        cpumask_subset(remaining_cpus, child->effective_xcpus))
+>>> +        return PERR_NOCPUS;
+>>> +
+>>> +    return PERR_NONE;
+>>> +}
+>>> +
+>>>   /**
+>>>    * compute_partition_effective_cpumask - compute effective_cpus for partition
+>>>    * @cs: partition root cpuset
+>>> @@ -2121,6 +2141,8 @@ static void compute_partition_effective_cpumask(struct 
+>>> cpuset *cs,
+>>>       rcu_read_lock();
+>>>       cpuset_for_each_child(child, css, cs) {
+>>> +        enum prs_errcode child_err;
+>>> +
+>>>           if (!is_partition_valid(child))
+>>>               continue;
+>>> @@ -2129,15 +2151,13 @@ static void 
+>>> compute_partition_effective_cpumask(struct cpuset *cs,
+>>>            * partition root.
+>>>            */
+>>>           WARN_ON_ONCE(is_remote_partition(child));
+>>> -        WRITE_ONCE(child->prs_err, 0);
+>>> -        if (!cpumask_subset(child->effective_xcpus,
+>>> -                    cs->effective_xcpus))
+>>> -            WRITE_ONCE(child->prs_err, PERR_INVCPUS);
+>>> -        else if (populated &&
+>>> -             cpumask_subset(new_ecpus, child->effective_xcpus))
+>>> -            WRITE_ONCE(child->prs_err, PERR_NOCPUS);
+>>> -
+>>> -        if (child->prs_err) {
+>>> +        WRITE_ONCE(child->prs_err, PERR_NONE);
+>>> +        child_err = child_partition_error(child, cs->effective_xcpus,
+>>> +                          new_ecpus, populated);
+>>> +        if (child_err)
+>>> +            WRITE_ONCE(child->prs_err, child_err);
+>>> +
+>>
+>> You can ignore the inital PERR_NONE write and always write the child_err value 
+>> into child->prs_err.
+>>
+>> Not big issue, just some nits.
+>>
+>> Cheers,
+>> Longman
+>>
+>>> +        if (child_err) {
+>>>               int old_prs = child->partition_root_state;
+>>>               /*
+>>
+> 
+
+-- 
+Best regards
+Ridong
+
