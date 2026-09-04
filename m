@@ -1,192 +1,101 @@
-Received: from out198-12.us.a.mail.aliyun.com (out198-12.us.a.mail.aliyun.com [47.90.198.12])
+Received: from mx0b-0016f401.pphosted.com (mx0b-0016f401.pphosted.com [67.231.156.173])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B01857080D;
-	Fri,  4 Sep 2026 03:12:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=47.90.198.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF0D6248F64;
+	Fri,  4 Sep 2026 03:13:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=67.231.156.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788491566; cv=none; b=PFKtXf/ZT36iecNGPldn8iwzmBhjyliVJdAIR3qNQhcrRF2HGQ5KJr8XhsnTFoLXt7VHa4WgF1/o29VsJwqP6/K91p75mW49hKR98EL5DCR4k6fv81k8y0Wsq94yCjtK3MumWmr2nZMH11PvnN1zly8TDyTEJWpaUA5O4aDSzyQ=
+	t=1788491582; cv=none; b=bWK2WAw7vbMmx6NmnRd/I0tnxYIeDKWWJ/ArSbtHkC849nTrAPfQDQui0YF257NYV7M2jEKeEoOaeLx0TgBWUKvQOlFKtvDoEO9QIOqWnBH6tNZvjXpXSlSS2emevT0hItJDgx/yqGdipqcrdrqIia/z6h7DJOlMapL0f0GCfFI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788491566; c=relaxed/simple;
-	bh=7VDLthI2uZIfqh43XHAT4dnHqFIJAeZHKF+9HPx/EiU=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=u6ZCl/lkgAqXYwYRQ2JDE6SpQu246QogmFgl8lehZzaTXBOTMK/mbwW+D5Kb2p+OIxI7mVbIl6jvnGxkQ8HBOe708WUeHmVOxdtyGv5F+x5SQfRKBJFx+GdFdKvH0178DqIwEE26EZ2oxpo+MmKYCuQzOpmJ/u36ZeAPr1cxFLM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=open-hieco.net; spf=pass smtp.mailfrom=open-hieco.net; arc=none smtp.client-ip=47.90.198.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=open-hieco.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=open-hieco.net
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.07436402|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_alarm|0.00867014-0.000596182-0.990734;FP=5927377541413799312|1|1|2|0|-1|-1|-1;HT=maildocker-contentspam033037028158;MF=fuhao@open-hieco.net;NM=1;PH=DS;RN=17;RT=17;SR=0;TI=SMTPD_---.j531Mf2_1788491537;
-Received: from higon..(mailfrom:fuhao@open-hieco.net fp:SMTPD_---.j531Mf2_1788491537 cluster:ay29)
-          by smtp.aliyun-inc.com;
-          Fri, 04 Sep 2026 11:12:25 +0800
-From: Fu Hao <fuhao@open-hieco.net>
-To: peterz@infradead.org,
-	mingo@redhat.com,
-	acme@kernel.org,
-	namhyung@kernel.org,
-	tglx@kernel.org,
-	bp@alien8.de,
-	dave.hansen@linux.intel.com,
-	x86@kernel.org,
-	alexander.shishkin@linux.intel.com,
-	jolsa@kernel.org,
-	irogers@google.com,
-	james.clark@linaro.org,
-	hpa@zytor.com
-Cc: linux-perf-users@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	tingyin.duan@gmail.com,
-	Fu Hao <fuhao@open-hieco.net>
-Subject: [PATCH v5 4/5] perf/x86/uncore: Add L3 PMU support for Hygon family 18h model 6h
-Date: Fri,  4 Sep 2026 11:12:12 +0800
-Message-Id: <d45936ac077e5a62dae6f40edcafa13644620ed5.1788404433.git.fuhao@open-hieco.net>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <cover.1788404433.git.fuhao@open-hieco.net>
-References: <cover.1788404433.git.fuhao@open-hieco.net>
+	s=arc-20240116; t=1788491582; c=relaxed/simple;
+	bh=dVCosq1tcEgjE/dFQV0G11RaG8J/41FPXOJOzWXwlg0=;
+	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=S9VYEjkRF8KUAWREUFF5Kbnn2kc8YpYN/QKBqWFQf7WkJ+SHfiUBYsTInufHMcMEYR0GPbngrkgr9ZSXuiQW4DoiUaCWltuNbUriQoNxa83+P7IRj/eSplAYMG8Gpoed1681pMSYHbz3owWyxFuekH84ITkjlpcDQ2B2zc7BIDQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=marvell.com; spf=pass smtp.mailfrom=marvell.com; dkim=pass (2048-bit key) header.d=marvell.com header.i=@marvell.com header.b=VAoxUHOJ; arc=none smtp.client-ip=67.231.156.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=marvell.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=marvell.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=marvell.com header.i=@marvell.com header.b="VAoxUHOJ"
+Received: from pps.filterd (m0045851.ppops.net [127.0.0.1])
+	by mx0b-0016f401.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6842poZ62476467;
+	Thu, 3 Sep 2026 20:12:20 -0700
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=marvell.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=pfpt0220; bh=dVCosq1tcEgjE/dFQV0G11RaG
+	8J/41FPXOJOzWXwlg0=; b=VAoxUHOJ8MQl5/Rp5OD1tAW26KcBXFYp8QJKuJ9WW
+	vlbG3zL8cPQ1cAm67FuHux59QlFNPR55c53Gk5ydAFrJox6Uqv36CFOPGqcJbQ1x
+	jIZnj7HVGz7Cz1+DFs2e69c2mvXE1Xst1P7hJgd4gUgw/5b5ZMLiFxIcDAkYqUiI
+	ckt0x460oX038AnbiKZTqjvZuj/D9dphXZJ17H3pMEi42/XJb/juz3UxiOEP/xvg
+	hGnKepMX1eOIBQT7+6aXC2wd0Is4AbuJjZZUS+KrD4HsaKkh1744R/qNLZsNxMxB
+	L6EfotVmn8fTDmub8jJSFqYJgWhVA15gTZq7S7/WCZ1eQ==
+Received: from dc6wp-exch02.marvell.com ([4.21.29.225])
+	by mx0b-0016f401.pphosted.com (PPS) with ESMTPS id 4gfdwn1gsx-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 03 Sep 2026 20:12:20 -0700 (PDT)
+Received: from DC6WP-EXCH02.marvell.com (10.76.176.209) by
+ DC6WP-EXCH02.marvell.com (10.76.176.209) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1544.25; Thu, 3 Sep 2026 20:12:20 -0700
+Received: from maili.marvell.com (10.69.176.80) by DC6WP-EXCH02.marvell.com
+ (10.76.176.209) with Microsoft SMTP Server id 15.2.1544.25 via Frontend
+ Transport; Thu, 3 Sep 2026 20:12:20 -0700
+Received: from rkannoth-OptiPlex-7090 (unknown [10.28.36.165])
+	by maili.marvell.com (Postfix) with SMTP id DC00E3F70AA;
+	Thu,  3 Sep 2026 20:12:15 -0700 (PDT)
+Date: Fri, 4 Sep 2026 08:42:09 +0530
+From: Ratheesh Kannoth <rkannoth@marvell.com>
+To: <bpf@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+        <netdev@vger.kernel.org>
+CC: <andrew+netdev@lunn.ch>, <ast@kernel.org>, <daniel@iogearbox.net>,
+        <davem@davemloft.net>, <edumazet@google.com>, <hawk@kernel.org>,
+        <john.fastabend@gmail.com>, <kuba@kernel.org>, <pabeni@redhat.com>,
+        <sdf@fomichev.me>, <sgoutham@marvell.com>
+Subject: Re: [PATCH v12 net-next] octeontx2-pf: add mqprio bandwidth offload
+ for NIX TX schedulers
+Message-ID: <apo3CVfUw2-aXF8F@rkannoth-OptiPlex-7090>
+References: <20260903023324.3078284-1-rkannoth@marvell.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <20260903023324.3078284-1-rkannoth@marvell.com>
+X-Proofpoint-ORIG-GUID: Qf-bO91l1soTFeIK7IMrwtXUEMoDajc-
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA0MDAyNyBTYWx0ZWRfXy1MfE+QOZijj
+ 0hEqzoiStWwKg6uOJBM/U0+0ZDghOuzd38oaAu8PUMOljI2CN4a2kaWUfQHM2MWvYbtxerjoj3L
+ FJc6zc3cvBXxCyun4u1vfPMB83WlNgE=
+X-Proofpoint-GUID: Qf-bO91l1soTFeIK7IMrwtXUEMoDajc-
+X-Authority-Analysis: v=2.4 cv=ZIrnX37b c=1 sm=1 tr=0 ts=6a9a3714 cx=c_pps
+ a=gIfcoYsirJbf48DBMSPrZA==:117 a=gIfcoYsirJbf48DBMSPrZA==:17
+ a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=l0iWHRpgs5sLHlkKQ1IR:22 a=QXcCYyLzdtTjyudCfB6f:22 a=M5GUcnROAAAA:8
+ a=LVN581Q_2Dy9vVtsR9IA:9 a=CjuIK1q_8ugA:10 a=ZXulRonScM0A:10
+ a=OBjm3rFKGHvpk9ecZwUJ:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA0MDAyNyBTYWx0ZWRfX2slmeiWm/gzs
+ 9H8VxRLOkEoV8pNVIhyO7hvwCwm6YM1m6H4FV559u4K7D0DK4blM7iRRjNVFNYVIxhbyjzDWOYV
+ LjSKn9Mf/8ikIguBxqwUwbp+mtXxpwws1MQqkuac4IQeTmtPazoFdIitxz0H5d+kHVW2qAfwc4f
+ lmjAbvgb4PMaL3FncsRCqIzR0JoIEWuOtMEt8ODHznLNF7wFwrrqGpIV4h0CG9UFfBtapXoahnK
+ DU8MM9jCkXaP0Z1N88Yvj2v6DViComr4sTYdLOgoV51KSJmU4NfaFrSbr+8pcfJM0DJCg3h3O0y
+ JRVZOafuhvSu7RDWKdb/ztr9QPTk1PTDOfiygyE1geO3GjSJJEBOW1U9hYM6rplQYKlgNMr2LjC
+ 75bv6Ow3KlCPaR98MERFzYRHUHa8bwOLzjpM0WeAZBEar371DZ3frVifExhmYJoKcIpd+B2MW41
+ UIZyEbnkzrTsZ6WU4Zw==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-04_01,2026-09-03_01,2025-10-01_01
 
-Adjust the L3 PMU slicemask and threadmask for Hygon family 18h
-model 6h processor.
+On 2026-09-03 at 08:03:24, Ratheesh Kannoth (rkannoth@marvell.com) wrote:
+> Add TC_SETUP_QDISC_MQPRIO offload for channel-mode mqprio with
+> TC_MQPRIO_SHAPER_BW_RATE. Program per-queue MDQ CIR/PIR through the
+> NIX TX scheduler mailbox for each non-QoS transmit queue. When offload
+> is active, allocate one SMQ per such queue, parent every MDQ under
+> TL4[0], and map each traffic class min/max rate to the queue(s) in that
+> class.
 
-Signed-off-by: Fu Hao <fuhao@open-hieco.net>
-Tested-by: Tingyin Duan <tingyin.duan@gmail.com>
----
- arch/x86/events/amd/uncore.c      | 48 ++++++++++++++++++++++++++++++-
- arch/x86/include/asm/perf_event.h |  8 ++++++
- 2 files changed, 55 insertions(+), 1 deletion(-)
+will address sashiko comments in v13
 
-diff --git a/arch/x86/events/amd/uncore.c b/arch/x86/events/amd/uncore.c
-index dbc00b6dd..fa7a1c70e 100644
---- a/arch/x86/events/amd/uncore.c
-+++ b/arch/x86/events/amd/uncore.c
-@@ -309,6 +309,14 @@ amd_f17h_uncore_is_visible(struct kobject *kobj, struct attribute *attr, int i)
- 	       attr->mode : 0;
- }
- 
-+static umode_t
-+hygon_f18h_m6h_uncore_is_visible(struct kobject *kobj, struct attribute *attr, int i)
-+{
-+	return boot_cpu_data.x86 == 0x18 &&
-+	       boot_cpu_data.x86_model >= 0x6 && boot_cpu_data.x86_model <= 0xf	?
-+	       attr->mode : 0;
-+}
-+
- static umode_t
- amd_f19h_uncore_is_visible(struct kobject *kobj, struct attribute *attr, int i)
- {
-@@ -360,6 +368,8 @@ DEFINE_UNCORE_FORMAT_ATTR(enallslices,	enallslices,	"config:46");		   /* F19h L3
- DEFINE_UNCORE_FORMAT_ATTR(enallcores,	enallcores,	"config:47");		   /* F19h L3 */
- DEFINE_UNCORE_FORMAT_ATTR(sliceid,	sliceid,	"config:48-50");	   /* F19h L3 */
- DEFINE_UNCORE_FORMAT_ATTR(rdwrmask,	rdwrmask,	"config:8-9");		   /* PerfMonV2 UMC */
-+DEFINE_UNCORE_FORMAT_ATTR(slicemask4,	slicemask,	"config:28-31");	   /* F18h L3 */
-+DEFINE_UNCORE_FORMAT_ATTR(threadmask32,	threadmask,	"config:32-63");	   /* F18h L3 */
- 
- /* Common DF and NB attributes */
- static struct attribute *amd_uncore_df_format_attr[] = {
-@@ -389,6 +399,12 @@ static struct attribute *amd_f17h_uncore_l3_format_attr[] = {
- 	NULL,
- };
- 
-+/* F18h M06h unique L3 attributes */
-+static struct attribute *hygon_f18h_m6h_uncore_l3_format_attr[] = {
-+	&format_attr_slicemask4.attr,	/* slicemask */
-+	NULL,
-+};
-+
- /* F19h unique L3 attributes */
- static struct attribute *amd_f19h_uncore_l3_format_attr[] = {
- 	&format_attr_coreid.attr,	/* coreid */
-@@ -414,6 +430,12 @@ static struct attribute_group amd_f17h_uncore_l3_format_group = {
- 	.is_visible = amd_f17h_uncore_is_visible,
- };
- 
-+static struct attribute_group hygon_f18h_m6h_uncore_l3_format_group = {
-+	.name = "format",
-+	.attrs = hygon_f18h_m6h_uncore_l3_format_attr,
-+	.is_visible = hygon_f18h_m6h_uncore_is_visible,
-+};
-+
- static struct attribute_group amd_f19h_uncore_l3_format_group = {
- 	.name = "format",
- 	.attrs = amd_f19h_uncore_l3_format_attr,
-@@ -443,6 +465,11 @@ static const struct attribute_group *amd_uncore_l3_attr_update[] = {
- 	NULL,
- };
- 
-+static const struct attribute_group *hygon_uncore_l3_attr_update[] = {
-+	&hygon_f18h_m6h_uncore_l3_format_group,
-+	NULL,
-+};
-+
- static const struct attribute_group *amd_uncore_umc_attr_groups[] = {
- 	&amd_uncore_attr_group,
- 	&amd_uncore_umc_format_group,
-@@ -821,6 +848,12 @@ static int amd_uncore_l3_event_init(struct perf_event *event)
- 		mask = AMD64_L3_F19H_THREAD_MASK | AMD64_L3_EN_ALL_SLICES |
- 		       AMD64_L3_EN_ALL_CORES;
- 
-+	if (boot_cpu_data.x86 == 0x18 &&
-+	    boot_cpu_data.x86_model >= 0x6 &&
-+	    boot_cpu_data.x86_model <= 0xf)
-+		mask = ((config & HYGON_L3_SLICE_MASK) ? : HYGON_L3_SLICE_MASK) |
-+		       ((config & HYGON_L3_THREAD_MASK) ? : HYGON_L3_THREAD_MASK);
-+
- 	hwc->config |= mask;
- 
- 	return 0;
-@@ -878,7 +911,8 @@ int amd_uncore_l3_ctx_init(struct amd_uncore *uncore, unsigned int cpu)
- 	pmu->rdpmc_base = RDPMC_BASE_LLC;
- 	pmu->group = amd_uncore_ctx_gid(uncore, cpu);
- 
--	if (boot_cpu_data.x86 >= 0x17) {
-+	if (boot_cpu_data.x86_vendor == X86_VENDOR_AMD &&
-+	    boot_cpu_data.x86 >= 0x17) {
- 		*l3_attr++ = &format_attr_event8.attr;
- 		*l3_attr++ = &format_attr_umask8.attr;
- 		*l3_attr++ = boot_cpu_data.x86 >= 0x19 ?
-@@ -905,6 +939,18 @@ int amd_uncore_l3_ctx_init(struct amd_uncore *uncore, unsigned int cpu)
- 		.module		= THIS_MODULE,
- 	};
- 
-+	if (boot_cpu_data.x86_vendor == X86_VENDOR_HYGON &&
-+	    boot_cpu_data.x86 == 0x18) {
-+		*l3_attr++ = &format_attr_event8.attr;
-+		*l3_attr++ = &format_attr_umask8.attr;
-+		if (boot_cpu_data.x86_model >= 0x6 && boot_cpu_data.x86_model <= 0xf) {
-+			*l3_attr++ = &format_attr_threadmask32.attr;
-+			pmu->pmu.attr_update = hygon_uncore_l3_attr_update;
-+		} else {
-+			*l3_attr++ = &format_attr_threadmask8.attr;
-+		}
-+	}
-+
- 	if (perf_pmu_register(&pmu->pmu, pmu->pmu.name, -1)) {
- 		free_percpu(pmu->ctx);
- 		pmu->ctx = NULL;
-diff --git a/arch/x86/include/asm/perf_event.h b/arch/x86/include/asm/perf_event.h
-index 1eb13673e..f448e93ec 100644
---- a/arch/x86/include/asm/perf_event.h
-+++ b/arch/x86/include/asm/perf_event.h
-@@ -91,6 +91,14 @@
- #define AMD64_L3_COREID_MASK				\
- 	(0x7ULL << AMD64_L3_COREID_SHIFT)
- 
-+#define HYGON_L3_SLICE_SHIFT				28
-+#define HYGON_L3_SLICE_MASK				\
-+	(0xFULL << HYGON_L3_SLICE_SHIFT)
-+
-+#define HYGON_L3_THREAD_SHIFT				32
-+#define HYGON_L3_THREAD_MASK				\
-+	(0xFFFFFFFFULL << HYGON_L3_THREAD_SHIFT)
-+
- #define X86_RAW_EVENT_MASK		\
- 	(ARCH_PERFMON_EVENTSEL_EVENT |	\
- 	 ARCH_PERFMON_EVENTSEL_UMASK |	\
--- 
-2.34.1
+pw-bot: changes-requested
 
+>
