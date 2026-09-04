@@ -1,144 +1,326 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E26C0393DF1;
-	Fri,  4 Sep 2026 14:54:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B683E4D2EC4
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 14:54:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788533682; cv=none; b=Hty5Btyg9oFM2NsaiH4+NblTYKW4/T0BAHE9wmxBRlJpQr/RYoPVbvbd79yZtNzmhnNbEYHG3+InVwObHDB7k+kRA6vwudZinrWYfytTsUEyOvzebqTZL0mqfmB1yC90b9/i6WwlA3xj5LiZkQteX9UD49lrezdFF9teVN9E+uY=
+	t=1788533684; cv=none; b=BbzQHpo2KRmEX+b78Yr6+2paFCNyFgsbdw+70o1MBXcFQPi4LZXk5Qf3QuYhGeraZRk6ytq2YmfNkVLdvL6HoFS2GAifjxMktft0lJquPu722rX9xwNtxQ7F5qnsfQL3XvB/IshBFyTMhJ6i5AbJCWiH752uohsjq+vj7GfgWh8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788533682; c=relaxed/simple;
-	bh=Q+JDnlRSCW0BDvMmKpcvy7dgiXBS7TsdLb3fKiuLZow=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=qGA84cQ7FaOQe2Ndky2A2JIpACA+fUcemzIn3hVAPJZ9gZeIIV0JUpFgW1cPHOoXQ2R1B7Qshq869VA7U33nptUSjZAz28G6CO3bGBFLwYx341SzHNYJCEmp/FxgrZb1D0tCaSmP40rLvQjvwx3PrGRLXUJJgO8e0MLLEh1sSgk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=U2s7Ycjf; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788533684; c=relaxed/simple;
+	bh=nSBS+rlhEpu4GtYBRlDxNT0IMhKXrWZBlDW7Ai/0My4=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=bl/jvQYmqmN/9xalSpnGTuWpCTlWrOAxgH9DTWQ2wi3laVX4ySM0OloQEGe3vUxP4gOJgTvtx5nwWC1mjRJEZ6Y+prcBe4YyTnjzlW9b6Kvn5yHz6Jm4HEidMkJmqpgcRtWowE5HTjJQi2Az0bP71oR+gzvaXGqmHn1mmJa77G8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NeUnNc6q; arc=none smtp.client-ip=209.85.221.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="U2s7Ycjf"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 264BC1F00A3D;
-	Fri,  4 Sep 2026 14:54:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788533679;
-	bh=jWj3uM89dGfcaIeOwT5pkyubX8JmIb1Dz9DYUSqygQo=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=U2s7Ycjf+yMmOw6OYlIb2odTik+RSEfcf5loRPcFZ6Av1OeuuAar2RcnDm809qkyL
-	 ItL9iYMNOp+ZDDt0EwHcVYhO2VwowaACExuztAl7cIP0r46/FFIim3IfZMq5vkdhp7
-	 Fu3q7zclqvYBbk1KsQ99nWei31ydMjgl0EgjXxIXec2PWrDgqDsGdlZXgpIERR9bud
-	 HtrcnSezcf8GRO0cFCeEsmcy5l3zW0W9qC2qBmOpT6Cs6R3hcSnUiPSfNjuL2ihJz1
-	 KjMpWYCHDDa2/9y9DjvlOb4ENEcnWygZ2u5cZRx9xtMITIo9UV4XPYN2TWY0fz7H9n
-	 7oFZnH81XQ8LA==
-Received: from sofa.misterjones.org ([185.219.108.64] helo=lobster-girl.misterjones.org)
-	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.98.2)
-	(envelope-from <maz@kernel.org>)
-	id 1x2VJN-00000004uLv-137C;
-	Fri, 04 Sep 2026 14:54:37 +0000
-Date: Fri, 04 Sep 2026 15:57:11 +0100
-Message-ID: <87se3p3vzs.wl-maz@kernel.org>
-From: Marc Zyngier <maz@kernel.org>
-To: Doug Anderson <dianders@chromium.org>
-Cc: Thomas Gleixner <tglx@kernel.org>,
-	Mayank Rungta <mrungta@google.com>,
-	Wim Van Sebroeck <wim@linux-watchdog.org>,
-	Guenter Roeck <linux@roeck-us.net>,
-	Radu Rendec <radu@rendec.net>,
-	linux-watchdog@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org,
-	"Kirill A. Shutemov" <kas@kernel.org>
-Subject: Re: [PATCH v3 1/5] genirq: Synchronize in-flight handlers during NMI teardown
-In-Reply-To: <CAD=FV=ULeHqEZE-a9vV9F6vVMLVBPDTeXTgnmU_Bqui8sc1ZZA@mail.gmail.com>
-References: <20260902-qcom-wdt-nmi-series-v3-0-f3999362a9ea@google.com>
-	<20260902-qcom-wdt-nmi-series-v3-1-f3999362a9ea@google.com>
-	<87fqzp8jex.ffs@fw13>
-	<87wlt13zj1.wl-maz@kernel.org>
-	<CAD=FV=ULeHqEZE-a9vV9F6vVMLVBPDTeXTgnmU_Bqui8sc1ZZA@mail.gmail.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
- FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
- (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NeUnNc6q"
+Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-48441a2ba1bso710483f8f.1
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 07:54:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788533679; x=1789138479; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=6KgsraBrUcToWRNGkqj8MPFUdOM/wW4nUtZo/xB90w4=;
+        b=NeUnNc6qKrmQtnlaVQHHlJsXdpNoutZofZO7ymoqynJjVxw9q0EUOs1dMt7OA9KY9W
+         HZBkxQZENISCsfReNDrbTTlYgvWBcGN9kCl/Skxf8R3GTiw9oHr8mG8d2gk+nOmBvKRn
+         p1nunW9JTFscHG0uCf+3fZoke/JZZOKWJQaDYSQ0OIiTgi5Qq+cidP6Z/i2R/SYUtva2
+         V8lQKe0XQwOUIVAibI8KOj5cdzp9z6zXaFSzUhbk7zJRKtsFdWyj99xsNSuzoh4cU5Yn
+         1s4cgL+EBmY2IkBl8JmfVI0F4oAtAZNOo7TB4EZM1mMUPxjbLQYoAW+sPyeVrxQmT/dP
+         njfw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788533679; x=1789138479;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=6KgsraBrUcToWRNGkqj8MPFUdOM/wW4nUtZo/xB90w4=;
+        b=Er60hqfm1QtlnqjfH/N2JAhIkfEc8SHPK8+JrWfG8OFLNS6oB8XNofOL5/GELU2xws
+         kdf+mGFaWh6eXcu5eBHSzzJWtJ1Z2zs/fjW+wdAkVYoMgDfnaVzct5TofZNJkT60nGiB
+         +B4ffy4RSq2EEqu4gBX1nUE2q7+yiFYqJAhtXhUqKapsnbFX0LUJNTpTsRyT/4IATcRf
+         4jljZdXZ3KaDACJoG7a/zywI/h45q2xgCUZul6L62Z5WIvt1B85fiSTz5wZMq0iugtTe
+         NNG9uCtc+4yG1uTCT/3UuFo4146y2Ys4HI+1C8EZK+smVzj/zehHoM1u13ZnKtiTcbeS
+         lK3w==
+X-Gm-Message-State: AFuF++k8cdZtn/7fi/tnkj60ihWxDANkDvwC9xE/nbQNvyPmcfsruhFs
+	eyRxjuuOK4M/KzegFNwcGJoqytX1QcTCpTGysFKJ0xWempWjVsAHjPUz
+X-Gm-Gg: AYBFou0HdmfGkMpA2qfJ1uzJsfSb4xu642EI+0R3KFUxM0nsOEhGlYQ3Nr37xvnm9BY
+	758N+0kAjqVZ2EDHyuOnzNXxYs0lK+wBSaRo4u3sqbvP862vt5I3dZXtW9UbCh9aIoDfDcFe7vp
+	4Qdpeyj364Sa/r9jpyH2ROpYdNH1Sz2CAEa1pSi9Uo6Pxj9QkM5JscxmfdjvzdxxZCIvI1G6XR+
+	TUl7q447zNB79Ak/7FifrkOKXjX7PNYFnvWlHSfJrPHLZnZZRaPD2IglWEwUAYL6iULYBP2o6uL
+	DxBzwmzdi4zNUYpqf7pcp/3nQ39IMPnYuNo3fe4jWEf9wJGpT16ukGKn2D2L3dIP29oqiZG2UZ2
+	Hdc5YbZOAYNQELtDC0fhw1OYe2aoKh2cwy8NjRjOsm437xrVhVfybXkONDmFw0F1CQKCDuNuN1z
+	eETMS2NUs83OHYIaYd9w2pmZni/4TyDj8xHEL71S9+dHrigvXqEY64SrlbRXrIlYftqmyTMjRmG
+	g==
+X-Received: by 2002:a05:6000:25fe:b0:485:8cb8:b838 with SMTP id ffacd0b85a97d-4858cb8b900mr3127211f8f.7.1788533679283;
+        Fri, 04 Sep 2026 07:54:39 -0700 (PDT)
+Received: from dell-desktop ([2a02:587:4b5f:900:ef25:2f4:1792:4e6f])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-485885cb03asm6802799f8f.37.2026.09.04.07.54.37
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 04 Sep 2026 07:54:38 -0700 (PDT)
+From: Anastasios Papagiannis <tasos.papagiannnis@gmail.com>
+To: bpf@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org,
+	linux-fsdevel@vger.kernel.org,
+	viro@zeniv.linux.org.uk,
+	brauner@kernel.org,
+	akpm@linux-foundation.org,
+	david@kernel.org,
+	ast@kernel.org,
+	daniel@iogearbox.net,
+	andrii@kernel.org,
+	eddyz87@gmail.com,
+	memxor@gmail.com,
+	kpsingh@kernel.org,
+	matt@bobrowski.net,
+	song@kernel.org,
+	utilityemal77@gmail.com,
+	sun.jian.kdev@gmail.com,
+	tasos.papagiannnis@gmail.com
+Subject: [PATCH bpf-next v4 7/7] selftests/bpf: Test mm_struct user memory kfuncs with linux_binprm
+Date: Fri,  4 Sep 2026 17:53:40 +0300
+Message-ID: <20260904145340.40212-8-tasos.papagiannnis@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260904145340.40212-1-tasos.papagiannnis@gmail.com>
+References: <20260904145340.40212-1-tasos.papagiannnis@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-X-SA-Exim-Connect-IP: 185.219.108.64
-X-SA-Exim-Rcpt-To: dianders@chromium.org, tglx@kernel.org, mrungta@google.com, wim@linux-watchdog.org, linux@roeck-us.net, radu@rendec.net, linux-watchdog@vger.kernel.org, linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, kas@kernel.org
-X-SA-Exim-Mail-From: maz@kernel.org
-X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Hey Doug,
+Add a sleepable BPF LSM program attached to bprm_check_security to test
+bpf_copy_from_user_mm() and bpf_copy_from_user_mm_str() on CONFIG_MMU
+kernels.
 
-On Fri, 04 Sep 2026 15:34:12 +0100,
-Doug Anderson <dianders@chromium.org> wrote:
->=20
-> Hi,
->=20
-> On Fri, Sep 4, 2026 at 6:38=E2=80=AFAM Marc Zyngier <maz@kernel.org> wrot=
-e:
-> >
-> > On Fri, 04 Sep 2026 10:17:42 +0100,
-> > Thomas Gleixner <tglx@kernel.org> wrote:
-> > >
-> > > NMIs are strictly per CPU interrupts. So how is this supposed to work
-> > > correctly when looking at irqchip_state(ACTIVE) ?
-> > >
-> > > Marc?
-> >
-> > I have no idea what this is trying to achieve.
-> >
-> > This can only work for a global interrupt, not for a CPU-private
-> > interrupt, since in general you can't observe the state of the
-> > interrupt on another CPU.
-> >
-> > My guess is that the OP is trying to trigger an NMI using a global
-> > interrupt, which we never intended to be supported. That's not to say
-> > that it cannot be supported, but this patch seems to be breaking the
-> > core use case...
->=20
-> The overall goal is to take the watchdog bark interrupt (which is a
-> GIC Shared Peripheral Interrupt) and promote it to NMI. An example of
-> that interrupt in the device tree for one Qualcomm board:
->=20
-> interrupts =3D <GIC_SPI 0 IRQ_TYPE_EDGE_RISING>;
->=20
-> The patches in this series seem to accomplish that. With the current
-> arm64 pseudo-NMI implemnttion, requesting as NMI just bumps up the
-> priority of an interrupt to "NMI" level and that works fine on SPIs as
-> well. On arm64/GIC interrupts are routed to a single CPU anyway, so
-> requesting it with `IRQF_PERCPU | IRQF_NOBALANCING` didn't seem
-> absurd.
+Starting at bprm->p, verify that bpf_copy_from_user_mm() can copy the
+contiguous NUL-separated argument and environment data. Then use
+bpf_copy_from_user_mm_str() to read each argument and environment string
+separately, advancing the offset by the length returned from each call.
 
-Not absurd, but the implementation as suggested has the potential to
-break per-CPU NMIs if you check for the active state on the wrong CPU.
+Skip the test on !CONFIG_MMU. In that configuration, exec argument and
+environment strings remain in bprm->page[] until the binary loader
+transfers them to the new process stack, so they are not accessible
+through bprm->mm at the bprm_check_security hook.
 
-Also, checking for that state doesn't mean the kernel is free of
-reference on this interrupt, as you look at the HW state, not the
-kernel's.
+Signed-off-by: Anastasios Papagiannis <tasos.papagiannnis@gmail.com>
+---
+ .../bpf/prog_tests/copy_from_user_bprm.c      |  72 ++++++++++
+ .../selftests/bpf/progs/copy_from_user_bprm.c | 123 ++++++++++++++++++
+ 2 files changed, 195 insertions(+)
+ create mode 100644 tools/testing/selftests/bpf/prog_tests/copy_from_user_bprm.c
+ create mode 100644 tools/testing/selftests/bpf/progs/copy_from_user_bprm.c
 
-> The biggest problem we had was properly cleaning up the NMI at module
-> "unload" time. To make that work, we needed a way to synchronize the
-> NMIs to ensure they were quiescent before the module was unloaded.
-> That's what this patch is attempting, and is mostly attempting to
-> respond to Sashiko feedback on earlier patches.
->
-> I don't think Mayank is tied to any particular implementation and the
-> overall goal here is to allow the watchdog bark interrupt to run at an
-> elevated level so it can produce good backtraces even if all the CPUs
-> in the system are locked up and the buddy lockup detector doesn't
-> fire. Is this something you think should be doable? If so, what's the
-> best way for Mayank to go about doing it?
+diff --git a/tools/testing/selftests/bpf/prog_tests/copy_from_user_bprm.c b/tools/testing/selftests/bpf/prog_tests/copy_from_user_bprm.c
+new file mode 100644
+index 000000000000..b2325b193576
+--- /dev/null
++++ b/tools/testing/selftests/bpf/prog_tests/copy_from_user_bprm.c
+@@ -0,0 +1,72 @@
++// SPDX-License-Identifier: GPL-2.0
++
++#include <errno.h>
++#include <sys/wait.h>
++#include <unistd.h>
++
++#include <test_progs.h>
++
++#include "copy_from_user_bprm.skel.h"
++
++void test_copy_from_user_bprm(void)
++{
++	char arg0[] = "first";
++	char arg1[] = "second-argument";
++	char env0[] = "SOME_ENV=a";
++	char env1[] = "OTHER_ENV=something";
++	struct copy_from_user_bprm *skel;
++	pid_t child;
++	int status;
++
++	skel = copy_from_user_bprm__open_and_load();
++	if (!ASSERT_OK_PTR(skel, "open_and_load"))
++		return;
++
++	/*
++	 * On !CONFIG_MMU, exec strings are held in bprm->page[] rather than
++	 * being mapped in bprm->mm.
++	 */
++	if (!skel->kconfig->CONFIG_MMU) {
++		printf("%s:SKIP: test requires CONFIG_MMU\n", __func__);
++		test__skip();
++		goto out;
++	}
++
++	if (!ASSERT_OK(copy_from_user_bprm__attach(skel), "attach"))
++		goto out;
++
++	child = fork();
++	if (!ASSERT_GE(child, 0, "fork"))
++		goto out;
++
++	if (!child) {
++		char *const argv[] = { arg0, arg1, NULL };
++		char *const envp[] = { env0, env1, NULL };
++
++		skel->bss->monitored_pid = getpid();
++		execve("/bin/true", argv, envp);
++		_exit(errno);
++	}
++
++	if (!ASSERT_EQ(waitpid(child, &status, 0), child, "waitpid"))
++		goto out;
++
++	if (ASSERT_TRUE(WIFEXITED(status), "child_exited"))
++		ASSERT_EQ(WEXITSTATUS(status), EPERM, "exec_errno");
++
++	ASSERT_EQ(skel->bss->bprm_argc, 2, "bprm_argc");
++	ASSERT_EQ(skel->bss->bprm_envc, 2, "bprm_envc");
++	ASSERT_EQ(skel->bss->data_len_match, 1, "data_len_match");
++	ASSERT_EQ(skel->bss->invalid_flags_ret, -EINVAL, "invalid_flags_ret");
++	ASSERT_EQ(skel->bss->copy_ret, 0, "copy_ret");
++	ASSERT_EQ(skel->bss->str_arg0_ret, sizeof(arg0), "str_arg0_ret");
++	ASSERT_EQ(skel->bss->str_arg1_ret, sizeof(arg1), "str_arg1_ret");
++	ASSERT_EQ(skel->bss->str_env0_ret, sizeof(env0), "str_env0_ret");
++	ASSERT_EQ(skel->bss->str_env1_ret, sizeof(env1), "str_env1_ret");
++	ASSERT_EQ(skel->bss->data_match, 1, "data_match");
++	ASSERT_EQ(skel->bss->str_args_match, 1, "str_args_match");
++	ASSERT_EQ(skel->bss->str_envs_match, 1, "str_envs_match");
++
++out:
++	copy_from_user_bprm__destroy(skel);
++}
+diff --git a/tools/testing/selftests/bpf/progs/copy_from_user_bprm.c b/tools/testing/selftests/bpf/progs/copy_from_user_bprm.c
+new file mode 100644
+index 000000000000..b334a157419e
+--- /dev/null
++++ b/tools/testing/selftests/bpf/progs/copy_from_user_bprm.c
+@@ -0,0 +1,123 @@
++// SPDX-License-Identifier: GPL-2.0
++
++#include "vmlinux.h"
++
++#include <bpf/bpf_helpers.h>
++#include <bpf/bpf_tracing.h>
++#include <errno.h>
++#include "bpf_misc.h"
++
++char _license[] SEC("license") = "GPL";
++
++static const char expected_data[] = "first\0second-argument\0"
++				    "SOME_ENV=a\0OTHER_ENV=something";
++static const char expected_arg0[] = "first";
++static const char expected_arg1[] = "second-argument";
++static const char expected_env0[] = "SOME_ENV=a";
++static const char expected_env1[] = "OTHER_ENV=something";
++
++int monitored_pid;
++int bprm_argc;
++int bprm_envc;
++int data_len_match;
++int invalid_flags_ret;
++int copy_ret;
++int str_arg0_ret;
++int str_arg1_ret;
++int str_env0_ret;
++int str_env1_ret;
++int data_match;
++int str_args_match;
++int str_envs_match;
++
++extern bool CONFIG_MMU __kconfig __weak;
++
++extern int bpf_copy_from_user_mm(void *dst, u32 dst__sz,
++				 const void *unsafe_ptr__ign,
++				 struct mm_struct *mm, u64 flags) __ksym;
++
++extern int bpf_copy_from_user_mm_str(void *dst, u32 dst__sz,
++				     const void *unsafe_ptr__ign,
++				     struct mm_struct *mm, u64 flags) __ksym;
++
++SEC("lsm.s/bprm_check_security")
++int BPF_PROG(check_exec_args, struct linux_binprm *bprm)
++{
++	u32 pid = bpf_get_current_pid_tgid() >> 32;
++	char data[sizeof(expected_data)] = {};
++	struct mm_struct *mm;
++	char arg0[32] = {};
++	char arg1[32] = {};
++	char env0[32] = {};
++	char env1[32] = {};
++	u64 offset = 0;
++	u64 data_len;
++
++	if (!CONFIG_MMU)
++		return 0;
++
++	if (pid != monitored_pid)
++		return 0;
++
++	mm = bprm->mm;
++	if (!mm)
++		return 0;
++
++	bprm_argc = bprm->argc;
++	bprm_envc = bprm->envc;
++
++	/* this is the total size of args and envs starting from bprm->p */
++	data_len = bprm->exec - bprm->p;
++	data_len_match = data_len == sizeof(expected_data);
++
++	invalid_flags_ret = bpf_copy_from_user_mm(data,
++						  sizeof(data), (void *)bprm->p, mm, ~0ULL);
++
++	copy_ret = bpf_copy_from_user_mm(data, sizeof(data), (void *)bprm->p,
++					 mm, 0);
++	if (copy_ret)
++		return 0;
++
++	data_match =
++		!__builtin_memcmp(data, expected_data, sizeof(expected_data));
++
++	/* arg0 is at bprm->p */
++	str_arg0_ret = bpf_copy_from_user_mm_str(arg0, sizeof(arg0),
++						 (void *)(bprm->p + offset),
++						 mm, BPF_F_PAD_ZEROS);
++	if (str_arg0_ret != sizeof(expected_arg0))
++		return 0;
++	offset += str_arg0_ret;
++
++	/* arg1 is at bprm->p + sizeof(arg0) */
++	str_arg1_ret = bpf_copy_from_user_mm_str(arg1, sizeof(arg1),
++						 (void *)(bprm->p + offset),
++						 mm, BPF_F_PAD_ZEROS);
++	if (str_arg1_ret != sizeof(expected_arg1))
++		return 0;
++	offset += str_arg1_ret;
++
++	/* env0 is at bprm->p + sizeof(arg0) + sizeof(arg1) */
++	str_env0_ret = bpf_copy_from_user_mm_str(env0, sizeof(env0),
++						 (void *)(bprm->p + offset),
++						 mm, BPF_F_PAD_ZEROS);
++	if (str_env0_ret != sizeof(expected_env0))
++		return 0;
++	offset += str_env0_ret;
++
++	/* env1 is at bprm->p + sizeof(arg0) + sizeof(arg1) + sizeof(env0) */
++	str_env1_ret = bpf_copy_from_user_mm_str(env1, sizeof(env1),
++						 (void *)(bprm->p + offset),
++						 mm, BPF_F_PAD_ZEROS);
++	if (str_env1_ret != sizeof(expected_env1))
++		return 0;
++
++	str_args_match =
++		!__builtin_memcmp(arg0, expected_arg0, sizeof(expected_arg0)) &&
++		!__builtin_memcmp(arg1, expected_arg1, sizeof(expected_arg1));
++	str_envs_match =
++		!__builtin_memcmp(env0, expected_env0, sizeof(expected_env0)) &&
++		!__builtin_memcmp(env1, expected_env1, sizeof(expected_env1));
++
++	return data_match && str_args_match && str_envs_match ? -EPERM : 0;
++}
+-- 
+2.55.0
 
-The only thing I can think of right now is some equivalent to
-IRQD_IRQ_INPROGRESS done in a lockless manner. It doesn't have to be
-atomic if you can guarantee that it is checked on the target CPU only,
-after having disabled the interrupt.
-
-But this is rather ugly, and I'm pretty sure Thomas will haete this
-just as much.
-
-	M.
-
---=20
-Jazz isn't dead. It just smells funny.
