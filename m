@@ -1,177 +1,164 @@
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from MW6PR02CU001.outbound.protection.outlook.com (mail-westus2azon11012053.outbound.protection.outlook.com [52.101.48.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DD824A3F09
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 14:14:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788531299; cv=none; b=iosmtRlN4eNyaXtmtlyzMYOdXWZYMg7UQTT8KLP+uf814qcpBk1vTfglsaJefWJ3J0L31C61F1pQUJC8fxABYb7xIzYLZhnNXk+Z2raIrqSeQWIXiStiAzThCbNBG7AlN5G1fbNxCdWL1gdK5ZZ84tChYH5ZiQo4hxfdb9ShIdU=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788531299; c=relaxed/simple;
-	bh=Vco+tt9wJ74DGFvZbAlxOqlG86N7PGrXSABKBzWaNSQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=CXC2//KD6o75wSiOvHHpvmH6NsJpveEwO8JXajtd1elXr02FHjnE4PVIj5pFmB/dPTE89E25Bcd7ydU42hcX/VnSo0l6zQzYux/j8kSClh/CDcMs9bxQqgPO1GwyPKSYt5xNDN4cVLiqu0wOY0hnSPMEOt/kxmsytmlsyfA9MwI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=JvK0KlaS; arc=none smtp.client-ip=209.85.128.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F243B3876CC;
+	Fri,  4 Sep 2026 14:15:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.48.53
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788531339; cv=fail; b=De2qRmW63TmMuypQ9DM7QxgbvH6jbANZIMo8yqIjsEAJyL4fBO7MoRgWc10LQnQ/i6OeyAAG/z0MIqfmbBOmsBYzMuUJR5dKZos4BF5rBa2t8bbL12cOh+pf/rrL0iqLI9gokrOdgJDcrFhF4oeekETPernoCyeUdMUz0cDhfjw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788531339; c=relaxed/simple;
+	bh=jz+kOTZy8sSGCkGKDsbjNh9bwhJP8zhhuItms6mXQVk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=QG1lTMdMXSgGd7D5jXMjrCGTymuLiLrSS/ZdWwUWb4on9FpVKPvjRV7BjILGNrDJTFt5n2IhoTmg2KiqGx/rK5DMuIYYYlMliepPWS1+qXaEZoTGwYg994PmO2XisE4KtXRFnod5eiF0M1jhaUHDSjo6Fgvr4MLGFAc9WJ3HOUk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=iRDcEYfO; arc=fail smtp.client-ip=52.101.48.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="JvK0KlaS"
-Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-49ccfbe062eso8751895e9.3
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 07:14:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1788531295; x=1789136095; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=5Mr8T4131YI10eAtmcwASZgkYb228WFu6m+uWsWDaTE=;
-        b=JvK0KlaSthCWlXx7A+qAueOFP+9LLC90s5Bax3MMv5Rhi+ywFhtV9PJA6pRNCC8QnF
-         w50+jqX3nkZKxM2NPWDH5lxSdlQeqZHv3h7CgfvaPkdOfkbVGtJ9NT0Wx9vpFzTgbG+I
-         0Aylk4egGwC9ZKGDQ0u3u8ILzS6/qNT46jKmefjbJrn9HxIXZTgA7X97Ytj//R0vDlnT
-         D/YLVUd0vb1uDySNQ7W+8GUKtAJCQfWKjeUWNc8XeJFcBneZGBpdZ/1bW+LOh1fyyS0F
-         kh7xOlZXyEjc0PX72c+Jwx5m0/YY74PEqPjJpqNLkFSwV+cJH9s03gFiWRIpVh9dektI
-         edzQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788531295; x=1789136095;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=5Mr8T4131YI10eAtmcwASZgkYb228WFu6m+uWsWDaTE=;
-        b=AcQ7LhbM9VJ0Wj5dvTs+pGGaeCsY+KAe+OB2ZDuz8l2BSx674XqcRNSLg0bMNqmnjn
-         ELETp/ltDX8CYChLB0AUn0bqHuQRq8W46o4nN9lg06Esb3Ujm15NhsAjeBa99o8LbuYn
-         xBbcStlW5Hfvy1aL6/fvQwWTpJBTmZrMo4AYcHiM/0qgRdahan2/22z2DEfyfsKjOehP
-         0BDe/bHPcVwCcCj73tip35u8KW1iyvS34AYeLB4X452jMZNekbt3MIEOq/VSgeMMkx6u
-         Qu1P/aLJ5M45r3bYKs6GIvQxYLWQwt7MWI/H6ZkSyA+eW0/94xinFjLKzyXSp0XpiOXf
-         z3mQ==
-X-Gm-Message-State: AFuF++kNhqP1F8SfUA4qaLmI/8QpswaOXhmTtNGiEGJgNvtbEE+aa8ck
-	xxI/VrVYWq7q/drmhfTQc26bDurpI/LrCOCczfinJKfg9B2qnq/WM/12QEcNDAhwHm6zoaN4nOk
-	OAb4XHdk=
-X-Gm-Gg: AYBFou1LChbwW2uZpByul9/oOTdSSDUyPylwm27+JLeVFfYm5Ey6OwR4OVCCQJPtVYd
-	+ltNlzz3UCkyFEaXfTg6GMt/vGzSYQ2LqSPU1ug20R1XWvwxjByM/TeLIBcgqexzp5stpDwJy3e
-	cpkYSCuT8LBN0zgw1xD0OybqphRu1MkDGSL2RYArxS51g9hZED4C+bqkp8c1McC7q2mgB8/Q5hF
-	YkTpA+As+Vii2y56DJOPoW9khACVLHlduf8qhePulI5sq0fOn+uMbR4u7qPWFaPEMwUSn8DqZPw
-	JiPgL1wEnW2R6KGkKIfZdkMQinN76cUaPPcjXVnZh7Sh/x+APVMa1V2D6T1M9ufVPZ7tDcHYJh9
-	iyfNqHasgdjw7byXmMWVeKauqjlx6E2jFBY1SAZvVUYHwd232zK6XUKBEa79M36zUpvk+bgNxXb
-	FQ+5nhoUEWAw9ZqceG4FEuRE2kLxZymKwqOtNy2/7K+OUCiYdbv+nQ4ofi469W6fALVgnYxc6Qx
-	mANgMQqOxZf3ZcjpwyR3Q==
-X-Received: by 2002:a05:600c:a087:b0:49c:f467:7ce0 with SMTP id 5b1f17b1804b1-49cf81dc377mr57263965e9.3.1788531272977;
-        Fri, 04 Sep 2026 07:14:32 -0700 (PDT)
-Received: from localhost.localdomain ([2a00:6d43:105:c401:e307:1a37:2e76:ce91])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cf5135353sm84723225e9.2.2026.09.04.07.14.32
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 04 Sep 2026 07:14:32 -0700 (PDT)
-From: Marco Crivellari <marco.crivellari@suse.com>
-To: linux-kernel@vger.kernel.org
-Cc: Tejun Heo <tj@kernel.org>,
-	Lai Jiangshan <jiangshanlai@gmail.com>,
-	Frederic Weisbecker <frederic@kernel.org>,
-	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
-	Marco Crivellari <marco.crivellari@suse.com>,
-	Michal Hocko <mhocko@suse.com>,
-	Breno Leitao <leitao@debian.org>
-Subject: [PATCH v3 1/2] workqueue: Make alloc_workqueue() unbound by default
-Date: Fri,  4 Sep 2026 16:14:20 +0200
-Message-ID: <20260904141421.287647-2-marco.crivellari@suse.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260904141421.287647-1-marco.crivellari@suse.com>
-References: <20260904141421.287647-1-marco.crivellari@suse.com>
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="iRDcEYfO"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ciLePMDH3ecWM1H6IFIqiCu0lNapiKOJJe4qZ523LA7bUXRGFzkg11erFTjwGRmXrscxTSPe9lLbazjPcvRwxNqj3oswvYiMbFl4TeajV3SjCSMchQ9JoX1obupbQfzjTpuIfsRI0IEJnw7PzCTosSPoQQ2JeVWPrGj5hbgV69LHkn/c18Upy+dMRWqxI0qXEQQnm4r6ajxY0fjLpaXCSRkEQBL3YedunA09znvM5BUDaKDLG7sLkOjyRIZHWpO3pDXubmvyPGhcNihz60OwyEeHRybEN+uaGV6KbTmPQ+6PvUskAfkrfBXBHMeR+Zpzzrw+oZSCWRnGPc5KInNhPQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=d1lY+2VwuN67dTt6SfJE39ZXzNTyyZ6IZ/DQYnSrzi4=;
+ b=lYQKVoKwmTkEPmdA4A5piiAyBzJ4aA3b1T4+9ux/Xb+TY5EZUl3dpRP4IKR1PflMmhffPdSphYnb8mhToUsyqZS3P3trOmwQynpFTdWQnmSpoM2Vfuyq7ARLigKpCa/BOefkQmARfuy9GTAftrk6v2oxSZjEIfQ52BPhxs7wnx24tHe0C2R7Nx6FylkIVmT4+XQjA8U0+x6YG/rwWR6r91ulXgu69JZtb6V5PbvWyfvcWyguWaBO1TBPytBXUhQyNMDnzaie32HZJ7bhHClPmoIMIiHx//QTuzaYciV5RBu3/R8y98ryt0wosbgmoRFP56Ruieoj+ttOf4cMClED6Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=d1lY+2VwuN67dTt6SfJE39ZXzNTyyZ6IZ/DQYnSrzi4=;
+ b=iRDcEYfODbeqWO2YyfUNnubkj7OUHr7gMjF8p+MFgLryjXCSlVzoCLn1A3XTYIWQD5opRESpD2byO2tEE+UZmFQTJqQXSOJe98v6qfIbCMqiqVUudgMBZR4rNNf1HL6FTJkK2xJ/IqSQW7KpSyE8Zf5HEmNibhoI+LAON/4eBf/r+Hj+UNu631nRvOmTREJYdjMyi080wHICyj4+pqF3SwuHk8loSkeMH5c7pcGo0NIzH2QVL0c4l07aGMJ2oO10wfTLpSDAWOlQXtk5YatGtdpV6ha/OaHAJ03lMIf4cyH2FdYgJWZcbMOoxcYYEcabejUmradBAnPVesUjmupaRw==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from LV8PR12MB9620.namprd12.prod.outlook.com (2603:10b6:408:2a1::19)
+ by CH3PR12MB8210.namprd12.prod.outlook.com (2603:10b6:610:129::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Fri, 4 Sep
+ 2026 14:15:27 +0000
+Received: from LV8PR12MB9620.namprd12.prod.outlook.com
+ ([fe80::299d:f5e0:3550:1528]) by LV8PR12MB9620.namprd12.prod.outlook.com
+ ([fe80::299d:f5e0:3550:1528%4]) with mapi id 15.21.0360.008; Fri, 4 Sep 2026
+ 14:15:27 +0000
+Date: Fri, 4 Sep 2026 11:15:25 -0300
+From: Jason Gunthorpe <jgg@nvidia.com>
+To: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+Cc: Nicolin Chen <nicolinc@nvidia.com>, will@kernel.org,
+	robin.murphy@arm.com, joro@8bytes.org, bhelgaas@google.com,
+	praan@google.com, kevin.tian@intel.com, kees@kernel.org,
+	smostafa@google.com, baolu.lu@linux.intel.com,
+	linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev,
+	linux-kernel@vger.kernel.org, linux-pci@vger.kernel.org,
+	skaestle@nvidia.com, mmarrid@nvidia.com, skolothumtho@nvidia.com,
+	bbiber@nvidia.com, harsha.v@oss.qualcomm.com
+Subject: Re: [PATCH v3 08/13] iommu/arm-smmu-v3: Disable PRI when no IRQ
+ handler is registered
+Message-ID: <20260904141525.GT4157646@nvidia.com>
+References: <cover.1788222485.git.nicolinc@nvidia.com>
+ <0b5282c7e850f1a1c650e43670899b4ef5335efd.1788222486.git.nicolinc@nvidia.com>
+ <178846311318.1308030.4956293524348641228.b4-review@b4>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <178846311318.1308030.4956293524348641228.b4-review@b4>
+X-ClientProxiedBy: YT4PR01CA0337.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:fc::12) To LV8PR12MB9620.namprd12.prod.outlook.com
+ (2603:10b6:408:2a1::19)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LV8PR12MB9620:EE_|CH3PR12MB8210:EE_
+X-MS-Office365-Filtering-Correlation-Id: b224616d-34bd-4583-d00f-08df0a8ef7b2
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|23010399003|376014|7416014|1800799024|4143699003|56012099006|10067099003|5023799004|11063799006|6133799003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	cj6o93DOtzG9tIsxlJLafbUYVCnWcmoKw15J1edSYvX/MjlpW6y/aZ1NUpDHdyUe8OtkrqE4cCLqZMeABS5vRB+b3z/+BnGCwFt6ja1OZudnZL9KX0c+4nlN8fJzsizbMiBuhB7+6Te/FTpzSG+67lSbDWIVZATUnK//Wrn/r5eVgt420LI0rOiO8whr+7S7y2TQBBwLu2rZHgvLgOi9Ldr6XSgVhmvmtpZgFV1HGoFqiJ/QYkNkcCTL4biiUBx+O9wv3NUXu4rIaLcEz7EOp1fbSW7+emb3VMUBt2NsUCPFPNo4JYHoatyFITzbTs1qZVEk8tWYADx5zInVA66Um7AiHXDvbJ9CHjEPgm4bv53kxUJy45Mi8HEJeyrR7ipKrmjxy6Epyf0u21wtPms3+6cAvEYkE9j04PQvn6PVCsNQI/TSwzOTqbF79Bn23gxhcNDT/aBzIrHbFLdpG98qKV3zf5snD1ziXC3TOM5UwLKeqpdxfE1qbyN1z4YirE1alJXsKmqR4KQA+o0R599vUO6t/vCzk0B+QOx1Km9XlEK6wKdIBsCFPAVhZwkHEmfe7qeXYgtRDQY7I4zHy31c7rOQ6scR9O9Eu1K/qECG4qNl/KI6IHgFsmwmQ5yprSfEcjNRGOQicQo5NAFqYQuiQNRz5NJXsJn7USvgcRXtm/c=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LV8PR12MB9620.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(376014)(7416014)(1800799024)(4143699003)(56012099006)(10067099003)(5023799004)(11063799006)(6133799003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?afiA+0MirxS2iqTWECQO1rAhYVCi+wtRmrIMLCyfhRrNy+yP14bytwRh60v6?=
+ =?us-ascii?Q?9I7xa/hmgGjqc16JDfm0yNdzgv8TKDaCxDyx5oDlzfiA1TiKQ+H6dJufVORF?=
+ =?us-ascii?Q?ezIprlY8tdvBb7b+6JvdKKFK8nfzUTBSUOo9LUF8yt5mRqv64TX9BPondfAd?=
+ =?us-ascii?Q?Ke4/ybSDf+dPjZ7WZ6x3sOG7oun0WoAsQW1ZqBFK/CyawTAdYMpoZQ2uUkGZ?=
+ =?us-ascii?Q?pzawVcEURy/EE/hgT686FzW4zo+mCljTV6auOjYtPqfKh2zTq217Q67j+J/k?=
+ =?us-ascii?Q?1OJadZ+KNlo8amNZyr5Onq9NuYaAL+/FiUJGd1ZYkv2AGT/xVCVCISRcX669?=
+ =?us-ascii?Q?lSgs4p3lr/5yfW2gvg5tyXDh9mgoXfGZIs162SZWmKDPujSVSdNsZTSem5nC?=
+ =?us-ascii?Q?zZF9sSjtvQnHSeZSkHSNnKoA0aXWsSHHA0+bXv6UR4Wto1iHzj+UfL1OE7/i?=
+ =?us-ascii?Q?L7ClZ83UbCfulHQG/jBiPBbJeqQeOklxoAuEPDtabedQtGyO9H5XCKfNKsVL?=
+ =?us-ascii?Q?jOKOC6elyF1mlX3RrKmg3/EQaWDVTj2BEjTfhlu4cG8tD6iGEcLtqAvb3gLx?=
+ =?us-ascii?Q?4Ffk6qpjXw6+3D1Hl2b9dQh+5MYwwfJVIREGU0fvz/qqa71RWHKMoi27efgE?=
+ =?us-ascii?Q?vOpV288aZ9hKyOHOwXuFTU3uXKRiu7efKWMgHUOdToZvcQ5OlmDkn6srAwQw?=
+ =?us-ascii?Q?VNiv2Wm0QSwzgX6FiZSHwO21qnCDG0HEj/J5NWywrtry4+sSxhvZqX9hQBgP?=
+ =?us-ascii?Q?89dl55NmpZC4lMnBbu7rqOpP1GiJkpP7gNYLbCqBXURLKyYPmlV8n+B4q+wu?=
+ =?us-ascii?Q?oSntD5P7PQ+KjGK/iKIXQusTZtsanqECm81KyKGNeE/IDZ0HqsMuWsMcWJuC?=
+ =?us-ascii?Q?h4QRQje5HpBHsWiqGdLf2PDtZOFFU8oqIUlYqDDTHDE2mOehPBX17/czX1LJ?=
+ =?us-ascii?Q?nUwxCsqupqXYKYTj/VnhvU6C53ffStleLAW4xzAyyj5jgh3SXW5JIqwWpR8f?=
+ =?us-ascii?Q?yZ/YqSl1MwBLqk9jlHkESIUcolGl3TQjJgmL/OtYwqredBondGWkRnB1VXAn?=
+ =?us-ascii?Q?p1thJF+8z1eW1Nl24Qyu02tIOFR1dR5nEBnOLHJp49y32Yot9vSHXDZo8S4e?=
+ =?us-ascii?Q?llp9ptHIDDBf/6S6dIiHiiopgxhj27xEm0QxyETpx4ea3VpYcyQShB8Z7M/X?=
+ =?us-ascii?Q?YDIDbrNHAlr9bdH6E9BgL5D+TxXVgyL4Cg6w85PcttHChdbTtGDwtscd2lct?=
+ =?us-ascii?Q?vYlFXfMx0kouIrMjIEkAq0o7XtFQgpAUYsd6DVGZa/xKY1tG8AXaD5wZcPrB?=
+ =?us-ascii?Q?Wy1PjcRxrU7jv/+WSdfjByHeGgx4bgX4n32E8sEH3PDWmZm2noTjSvqCzkDF?=
+ =?us-ascii?Q?4CRMXtRnq7Hk4BNBKXtztLvalMunaK+6eoX7OSwmXBfdKIcceZ+ciJy1RMyn?=
+ =?us-ascii?Q?TSndFSqFnTLQVErfxzW9npc/FiutOvV1TiAS+NDHeBUEby2y8FyN0+/tem3g?=
+ =?us-ascii?Q?54fqAmG++yoWnVt702RjyH9f7wkP7SueQ1YfAKV7MzQbe4/dvGsggi01on/H?=
+ =?us-ascii?Q?QMUwc0ZrT0znYCIRuBaHB5Nh2rW8XJ6rRs/3gBSGDRDNN9m79D1TS6hckG50?=
+ =?us-ascii?Q?6PDE7RmMOK7W3WwC+RlTGRXik98/UXxaBOzVEz10HrkOkQoaMG7tGaUd46/I?=
+ =?us-ascii?Q?eXrJdEHHwMrZ/SMMveiMR3Njx8Zzxe8dUM0wXHxKpsOgULOR?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b224616d-34bd-4583-d00f-08df0a8ef7b2
+X-MS-Exchange-CrossTenant-AuthSource: LV8PR12MB9620.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Sep 2026 14:15:26.9288
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: KIplqGmouBkyhgcDk/+8OaYt9zly9KHSSEfrLWFTs33++foTK0tBR5jmDbbCO5HG
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8210
 
-Currently alloc_workqueue() ensure that one among WQ_PERCPU or WQ_UNBOUND
-is present. Now every user has one among these two flags.
+On Thu, Sep 03, 2026 at 12:18:33PM -0700, Jonathan Cameron wrote:
+> > arm_smmu_setup_irqs() has three failure paths that leave the priq without
+> > a handler: a missing priq IRQ line, devm_request_threaded_irq() failure on
+> > the priq IRQ, and devm_request_threaded_irq() failure on the combined IRQ.
+> > Each path warned but kept ARM_SMMU_FEAT_PRI set in smmu->features.
+> > 
+> > With FEAT_PRI still set, arm_smmu_setup_irqs() enables IRQ_CTRL_PRIQ_IRQEN
+> > against a handler that does not exist, and a later change would then have
+> > arm_smmu_probe_device() call pci_enable_pri() on PCIe endpoints, allowing
+> > them to issue PRI Page Requests that pile up in the priq with no drainer.
+> > Separately, arm_smmu_device_reset() has already enabled CR0_PRIQEN before
+> > it invoked arm_smmu_setup_irqs(), so the hardware queue would stay enabled
+> > regardless of what setup_irqs decides.
+> > 
+> > Clear ARM_SMMU_FEAT_PRI in all three failure paths, so that subsequent code
+> > treats PRI as unavailable. And disable CR0_PRIQEN after the setup function
+> > returns.
+> > 
+> > A kdump kernel cannot service page requests: strip FEAT_PRI when detecting
+> > features, so downstream PRI setup is skipped.
+> 
+> Dumb question - why can't a kdump kernel service page requests?
+> I'm nowhere near familiar enough with that stuff and I suspect I'm not
+> the only one who might be in that state and reading this series.
+> Configuration choice, or a fundamental thing?
 
-In order to achive the future goal of removing WQ_UNBOUND from the code,
-start changing the default behavior making alloc_workqueue() act this way:
+The initial issue is the streams are left in whatever state the crash
+kernel had them in, so it can be generating a bunch of PRIs with no
+place to put them.
 
-  - if WQ_PERCPU and WQ_UNBOUND are present: remove WQ_PERCPU (as before)
-  - if neither are present: add WQ_UNBOUND
+Though eventually we may find a device where dropping them is not good
+and they need to be NAK'd promptly..
 
-The WARN_ONCE() when neither flags are present has been removed and it has
-been replaced by pr_warn_once(): from now on, every alloc_users()
-without WQ_PERCPU will be considered unbound.
+But I think the real motivation here is to save memory in the kdump
+kernel..
 
-The pr_warn_once() will be removed along with WQ_UNBOUND in the future.
-
-Link: https://lore.kernel.org/all/20250221112003.1dSuoGyc@linutronix.de/
-Suggested-by: Tejun Heo <tj@kernel.org>
-Signed-off-by: Marco Crivellari <marco.crivellari@suse.com>
----
- kernel/workqueue.c | 44 ++++++++++++++++++++++++++++----------------
- 1 file changed, 28 insertions(+), 16 deletions(-)
-
-diff --git a/kernel/workqueue.c b/kernel/workqueue.c
-index 1ae3732a2c51..59a43bf1b30d 100644
---- a/kernel/workqueue.c
-+++ b/kernel/workqueue.c
-@@ -5895,12 +5895,33 @@ static struct workqueue_struct *__alloc_workqueue(const char *fmt,
- 	struct workqueue_struct *wq;
- 	size_t wq_size;
- 	int name_len;
-+	bool wq_unbound_by_default = false;
-+	bool wq_dropped_percpu = false;
- 
- 	if (flags & WQ_BH) {
- 		if (WARN_ON_ONCE(flags & ~__WQ_BH_ALLOWS))
- 			return NULL;
- 		if (WARN_ON_ONCE(max_active))
- 			return NULL;
-+		flags |= WQ_PERCPU;
-+	}
-+
-+	/*
-+	 * Every caller that doesn't explicitly specify WQ_PERCPU will be
-+	 * unbound (WQ_UNBOUND) by default.
-+	 *
-+	 * If both flags are present at the same time, WQ_PERCPU will be
-+	 * removed.
-+	 *
-+	 * This must happen before wq_size is computed below, since that
-+	 * depends on the finalized WQ_UNBOUND flag.
-+	 */
-+	if (unlikely(!(flags & (WQ_UNBOUND | WQ_PERCPU)))) {
-+		flags |= WQ_UNBOUND;
-+		wq_unbound_by_default = true;
-+	} else if (unlikely((flags & WQ_PERCPU) && (flags & WQ_UNBOUND))) {
-+		flags &= ~WQ_PERCPU;
-+		wq_dropped_percpu = true;
- 	}
- 
- 	/* see the comment above the definition of WQ_POWER_EFFICIENT */
-@@ -5927,22 +5948,13 @@ static struct workqueue_struct *__alloc_workqueue(const char *fmt,
- 		pr_warn_once("workqueue: name exceeds WQ_NAME_LEN. Truncating to: %s\n",
- 			     wq->name);
- 
--	/*
--	 * One among WQ_PERCPU and WQ_UNBOUND must be set, but not both.
--	 * - If neither is set, default to WQ_PERCPU
--	 * - If both are set, default to WQ_UNBOUND
--	 *
--	 * This code can be removed after workqueue are unbound by default
--	 */
--	if (unlikely(!(flags & (WQ_UNBOUND | WQ_PERCPU)))) {
--		WARN_ONCE(1, "workqueue: %s is using neither WQ_PERCPU or WQ_UNBOUND. "
--			  "Setting WQ_PERCPU.\n", wq->name);
--		flags |= WQ_PERCPU;
--	} else if (unlikely((flags & WQ_PERCPU) && (flags & WQ_UNBOUND))) {
--		WARN_ONCE(1, "workqueue: %s uses both WQ_PERCPU and WQ_UNBOUND. "
--			  "Dropped WQ_PERCPU, keeping WQ_UNBOUND.\n", wq->name);
--		flags &= ~WQ_PERCPU;
--	}
-+	if (unlikely(wq_unbound_by_default))
-+		pr_warn_once("workqueue: %s is using neither WQ_PERCPU or WQ_UNBOUND. "
-+			     "Setting WQ_UNBOUND.\n", wq->name);
-+
-+	WARN_ONCE(wq_dropped_percpu,
-+		  "workqueue: %s uses both WQ_PERCPU and WQ_UNBOUND. "
-+		  "Dropped WQ_PERCPU, keeping WQ_UNBOUND.\n", wq->name);
- 
- 	if (flags & WQ_BH) {
- 		/*
--- 
-2.55.0
-
+Jason
