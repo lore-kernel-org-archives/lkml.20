@@ -1,144 +1,266 @@
-Received: from ixit.cz (ixit.cz [84.42.129.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oo1-f47.google.com (mail-oo1-f47.google.com [209.85.161.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B315450402
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 12:00:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=84.42.129.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20FBC450402
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 12:00:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788523241; cv=none; b=MY2ki1nV/bi1VVhxCAxHsI4EVp27Ok7ajqEBYNBR8JsG9HMmQ1pch+pZ3R/4Le0mwRI7jLQ9aj1l8EEZP+iagvSCGqMpkO9H4z41gmh0RiHcnjMAdjpFCBDVXcCdZfIQgeX2d6v4c0ZY11bGn6qKfbh4Ps/6W40qK0IHeGl8x54=
+	t=1788523251; cv=none; b=cesuSfzY5a54Z5WXVNgkWNpyaqbMgf2Xow4djqIK+3QrWlUhaOOrH3H45LdPHdAodzXwCeqd2Co7SUiTOZqyw8b4cqhbQUPCOU2vu3Vm9GXY5xM0e3Hn8ekxPZ2jNeV14zjvW2EVwRiDQJvlO0ApMsrqNWlLSe90k1wq3J+Vizk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788523241; c=relaxed/simple;
-	bh=e4K79EczHFJNQuBdexWnWvn7s185mGbXsOBXOOjRqTs=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Ao2qHnNGt4DfB+3WYOS0HJDs/iqleWWGvFOImqTTOQ5IvNh5L4TBDYWs78auJiCb5SlWkPI2622axpsaWYSJaYnPxYRJWbsJ3f1lAN87f/yWpyg51cSOFdYme+PbTqiT85Kqxjby5sj7YeF6p9elw0QRY/6sGI84QtHrr2A1nBo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz; spf=pass smtp.mailfrom=ixit.cz; dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b=0GVJR2dd; arc=none smtp.client-ip=84.42.129.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
+	s=arc-20240116; t=1788523251; c=relaxed/simple;
+	bh=tgzbIPgObNfzTqdWukG3gJH+qDh8mkR4mmdrDFn52SE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=dtO0cGUdEKm0NZkf7T/3L0gNvSSQWIqEgCUrIpFFpTuivc38fHpMW2gyIN0/h+vhW0uHgc63I8ZBxT4NqtAX7FIsYclBVteZq1dYioBom2BAuZdoDLEppHxEOS6krBOrFsvye0MVKdv3BWsL3hAcTZ2/KJuoM5RDE44IESuIKUk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hAMHBPxm; arc=none smtp.client-ip=209.85.161.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b="0GVJR2dd"
-Received: from [10.0.0.152] (unknown [10.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange x25519)
-	(No client certificate requested)
-	by ixit.cz (Postfix) with ESMTPSA id 373955340856;
-	Fri, 04 Sep 2026 14:00:31 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
-	t=1788523231;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=mgOf2xL48ibr3i6+D+XESN6DdSuugvEcc3NBGI3oc9U=;
-	b=0GVJR2ddFcpRTfEsYU/TW20zlEQBYt91AixJFaNu8wHUT2Ebmgk42EcqN2XV56Fio7wFn+
-	oV71fPfazgkIF2s8HI6v+Z2/B9LLESZNknFflyou1F1AFkmWRwcT3OCbpKMfkbCOGQK7N0
-	rmiOLa/mWvBvkWNxAvvNfu0FHqGNH/8=
-Message-ID: <dc3ba062-a548-4a9b-984e-a8f2473606dd@ixit.cz>
-Date: Fri, 4 Sep 2026 14:00:31 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hAMHBPxm"
+Received: by mail-oo1-f47.google.com with SMTP id 006d021491bc7-6aa9606ddadso654345eaf.0
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 05:00:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788523249; x=1789128049; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Cdwh6y3M+pLav29KCQa8Qo6nyd9KjrKDGE7FGjYXep8=;
+        b=hAMHBPxm75d3BcXYKxis74S7KGOihMxhRYCH91T4mkyxwsEzDzYkP/9CY1w1mD/2ZP
+         mF1sorwoudWxnvfAylsb0gJMqt17pMmhOmw0xQZtQd1Za4qoOSOYzHFOgnleUoppdF3b
+         omazehEKgWLZRiZLpdrDoj2XruRoBBESCNpgzdH3TIVoXMPfHMa61i+S2tQGViJ8iQDD
+         zF1VkzDAs6hiReUBiMr3ciJCk8sOGU4q1eb9cwU7DrjwHtCBhpQVhl0CY66kPIuDv2aY
+         WR+n7UKJqlU54xtSAmAeZ27wZZTCcYSVxr9Vcs8qIrVoaygvweFyLAilA/HusRixzG5q
+         Eajw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788523249; x=1789128049;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Cdwh6y3M+pLav29KCQa8Qo6nyd9KjrKDGE7FGjYXep8=;
+        b=pGnW/tmnIaCYYyv6pR7DcBpxB6jmCAUoJwrPnzyM6gwORsmzbKzSH1y/pZHttqJEvp
+         lk5k7sMkHL41sA8W7BNNS86X5I0Xhuf7dKIiaEa2jorMoxpTctPTai/q+zbiFBNxnreZ
+         8a7oMd+P+6kyvTta/NxH5tmpk01BIywTiFnx4jrE20KSIpRvoy9k+aAJUoTgu2kS5XCS
+         QYMSpeRpTv3bpqzuzjxB1DkhgJkipq/yRdMTRCnSGfVLKWkdXU8vwb46hWyzC3vQNEt0
+         IannQwNd1yT//wOQ3c2JKbe3IivUx2y2fTvZmfWPEOkE4z5PzCS1wQNxvTjanQW3rOVD
+         AaMw==
+X-Gm-Message-State: AFuF++mKyXtYsekcnM1tSZ8B5Y5bwUHks0yh69XaCmXMR1yDCQR8EkkD
+	A90KlCfMa71LuD9dFFT3ZAD+6phC67hSioEkUTWAnvOQZ5vHCQ4+k/wQDVcOnKXapmA=
+X-Gm-Gg: AYBFou1MX1oJAWphUv24bZ7QNygngcEO/h0GpET6pVwvxhnGzj/3YwufA652zSiJMw2
+	waqBCOVv8FMGDjgWb1Bpvb/PcJuTPY9QV+oIpVm4hdPmMuQt1feGqJRjRLkN6n9zoTynXMm//Na
+	aPNtzxYArXEtxEH5KZ+d30c+nFITYixYuUKrn/Hi0r7zMTfOR3pwg0EwtvT2Z5V+D/sGIBCx7fz
+	gCfmFZ7pST6GjXZ25Rgulk28oN+SFndHHufWNAu28nKOV6nPOrmoRQKbVAaaTYad7DQG/WcwmCi
+	ClcH2idlmZ4A20aT4pV6Tm1fMdF3scP50p4Mf4gkKT2z+zAEFpROdEV/smNWZp+4nCq9a56mV8M
+	BXPYv519NmdIwJeJzkwq93V8UBzPHXCnJkV2FZWGjzZWBt8iCEnHnHytNEln8ge6or3ofV+Iwr1
+	flwqHHY2kZWy5gHhse9aaMGmt6dY389kF9J3flaZZWQQ0+dv4IIjlMbIWGw+SU6h1TOLam2aKkA
+	j13yI5DkekoArQx57Lgx1k3RQ==
+X-Received: by 2002:a05:6820:3107:b0:6b7:8415:d786 with SMTP id 006d021491bc7-6b78425d662mr1220467eaf.49.1788523248229;
+        Fri, 04 Sep 2026 05:00:48 -0700 (PDT)
+Received: from volcano9f6e-hostos.amd.com ([165.204.217.251])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14324356931sm10164241c88.4.2026.09.04.05.00.46
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 04 Sep 2026 05:00:47 -0700 (PDT)
+From: Hemanth Selam <hemanth.selam@gmail.com>
+To: 
+Cc: linux-kernel@vger.kernel.org
+Subject: [PATCH 0/3] drm: fix typos and repeated words in comments
+Date: Fri,  4 Sep 2026 17:30:06 +0530
+Message-ID: <20260904120044.14303-1-hemanth.selam@gmail.com>
+X-Mailer: git-send-email 2.48.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] nfc: fix typo "occured" in comments
-To: Hemanth Selam <hemanth.selam@gmail.com>
-Cc: linux-kernel@vger.kernel.org, oe-linux-nfc@lists.linux.dev
-References: <20260904114632.31336-1-hemanth.selam@gmail.com>
-Content-Language: en-US, cs-CZ
-From: David Heidelberg <david@ixit.cz>
-Autocrypt: addr=david@ixit.cz; keydata=
- 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
-In-Reply-To: <20260904114632.31336-1-hemanth.selam@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 04/09/2026 13:46, Hemanth Selam wrote:
-> Correct "occured" to "occurred", reported by scripts/checkpatch.pl using
-> the misspelling list in scripts/spelling.txt.  Only touches comments, no
-> code changes.
-> 
-> Assisted-by: Cursor:claude-opus-5
-> Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
-> ---
->   drivers/nfc/microread/i2c.c | 2 +-
->   drivers/nfc/pn544/i2c.c     | 2 +-
->   drivers/nfc/st21nfca/i2c.c  | 2 +-
->   3 files changed, 3 insertions(+), 3 deletions(-)
-> 
-Heya, you don't need Artificial Intelligence for that, you can use
+This corrects 3 misspellings and repeated words in comments.  Each is a
+separate patch so that any one of them can be dropped without touching
+the rest.
 
-$ codespell drivers/nfc/*
-drivers/nfc/fdp/fdp.c:123: nd ==> and, 2nd
-drivers/nfc/fdp/fdp.c:126: nd ==> and, 2nd
-drivers/nfc/fdp/fdp.c:127: nd ==> and, 2nd
-drivers/nfc/fdp/fdp.c:138: nd ==> and, 2nd
-drivers/nfc/fdp/i2c.c:270: inclue ==> include
-drivers/nfc/microread/i2c.c:42: occured ==> occurred
-drivers/nfc/nfcmrvl/uart.c:180: sate ==> state
-drivers/nfc/pn533/uart.c:35: propability ==> probability
-drivers/nfc/pn533/uart.c:144: errornous ==> erroneous
-drivers/nfc/pn533/usb.c:215: stange ==> strange, stage, stance
-drivers/nfc/pn544/i2c.c:172: occured ==> occurred
-drivers/nfc/port100.c:104: Theses ==> These, Thesis
-drivers/nfc/st-nci/i2c.c:3: familly ==> family
-drivers/nfc/st-nci/ndlc.c:111: aknowledge ==> acknowledge
-drivers/nfc/st-nci/ndlc.c:172: aknowledge ==> acknowledge
-drivers/nfc/st-nci/spi.c:215: functionnalities ==> functionalities
-drivers/nfc/st21nfca/core.c:468: respone ==> response, respond
-drivers/nfc/st21nfca/i2c.c:28: mecanism ==> mechanism
-drivers/nfc/st21nfca/i2c.c:69: occured ==> occurred
-drivers/nfc/st21nfca/i2c.c:365: mecanism ==> mechanism
-drivers/nfc/st21nfca/i2c.c:385: corrupeted ==> corrupted
-drivers/nfc/st95hf/core.c:455: milisecond ==> millisecond
-drivers/nfc/st95hf/core.c:487: milisecond ==> millisecond
-drivers/nfc/st95hf/core.c:493: milisecond ==> millisecond
-drivers/nfc/st95hf/core.c:524: milisecond ==> millisecond
-drivers/nfc/st95hf/core.c:634: cofigure ==> configure
-drivers/nfc/st95hf/core.c:787: cant ==> can't
+Nothing outside comments changes.  Every touched C file was checked by
+dropping its comments, replacing each string literal with a placeholder
+and collapsing whitespace; what remained was identical before and after,
+so the compiled code cannot differ.
 
-Feel free to check validity and fix everything relevant (sometimes it report 
-false-positive).
+The mistakes were found with scripts/checkpatch.pl against the list in
+scripts/spelling.txt.  The scanning, the edits and the changelogs were
+produced with Cursor running the claude-opus-5 model, from a request to
+find and fix spelling mistakes across the tree, and every correction was
+then re-checked by the comparison described above.  Words that name an
+identifier were left alone deliberately, even when they read as typos,
+because correcting the prose would make the comment disagree with the
+code it describes.
 
-David
+Tested by building x86_64 defconfig at v7.3-rc1-269-gbc35965f6940, which
+is clean.  Nothing else was built, so any patch touching code that
+x86_64 defconfig does not compile has been read but not compiled.
+
+Hemanth Selam (3):
+  drm: fix typos in comments
+  drm/amd: fix repeated words in comments
+  drm/amdgpu: fix typo in log message
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c  |  2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c       |  4 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c      |  2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c       |  2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c       |  2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c       |  4 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ih.c        |  2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_job.h       |  2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_pll.c       |  2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c       |  4 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_rap.c       |  2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c       |  4 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c     |  2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_umc.h       |  2 +-
+ drivers/gpu/drm/amd/amdgpu/cik.c              |  2 +-
+ drivers/gpu/drm/amd/amdgpu/cik_sdma.c         |  2 +-
+ drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c        |  2 +-
+ drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c         |  2 +-
+ drivers/gpu/drm/amd/amdgpu/gfxhub_v11_5_0.c   |  2 +-
+ drivers/gpu/drm/amd/amdgpu/gfxhub_v12_0.c     |  2 +-
+ drivers/gpu/drm/amd/amdgpu/gfxhub_v2_1.c      |  2 +-
+ drivers/gpu/drm/amd/amdgpu/gfxhub_v3_0.c      |  2 +-
+ drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c         |  2 +-
+ drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c         |  2 +-
+ drivers/gpu/drm/amd/amdgpu/ih_v6_0.c          |  2 +-
+ drivers/gpu/drm/amd/amdgpu/ih_v6_1.c          |  2 +-
+ drivers/gpu/drm/amd/amdgpu/ih_v7_0.c          |  2 +-
+ drivers/gpu/drm/amd/amdgpu/mes_v11_0.c        |  2 +-
+ drivers/gpu/drm/amd/amdgpu/mes_v12_0.c        |  4 +-
+ drivers/gpu/drm/amd/amdgpu/mes_v12_1.c        |  4 +-
+ drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c       |  2 +-
+ drivers/gpu/drm/amd/amdgpu/mmhub_v2_3.c       |  2 +-
+ drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c         |  4 +-
+ drivers/gpu/drm/amd/amdgpu/mxgpu_nv.c         |  4 +-
+ drivers/gpu/drm/amd/amdgpu/psp_gfx_if.h       |  4 +-
+ drivers/gpu/drm/amd/amdgpu/ta_xgmi_if.h       |  2 +-
+ drivers/gpu/drm/amd/amdgpu/umc_v6_1.h         |  2 +-
+ drivers/gpu/drm/amd/amdgpu/umc_v6_7.c         |  2 +-
+ drivers/gpu/drm/amd/amdgpu/umc_v6_7.h         |  2 +-
+ drivers/gpu/drm/amd/amdgpu/umc_v8_10.h        |  2 +-
+ drivers/gpu/drm/amd/amdgpu/umc_v8_7.h         |  2 +-
+ drivers/gpu/drm/amd/amdgpu/uvd_v4_2.c         |  2 +-
+ drivers/gpu/drm/amd/amdgpu/uvd_v5_0.c         |  2 +-
+ drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c         |  4 +-
+ drivers/gpu/drm/amd/amdgpu/uvd_v7_0.c         |  6 +-
+ drivers/gpu/drm/amd/amdgpu/vce_v1_0.c         |  2 +-
+ drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c         |  6 +-
+ drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c         |  4 +-
+ drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c         |  2 +-
+ drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c         |  2 +-
+ drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c         |  2 +-
+ drivers/gpu/drm/amd/amdgpu/vi.c               |  2 +-
+ drivers/gpu/drm/amd/amdkfd/kfd_chardev.c      |  2 +-
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  2 +-
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_irq.h |  2 +-
+ .../amd/display/dc/clk_mgr/dcn21/rn_clk_mgr.c |  2 +-
+ .../display/dc/clk_mgr/dcn301/vg_clk_mgr.c    |  2 +-
+ .../display/dc/clk_mgr/dcn31/dcn31_clk_mgr.c  |  2 +-
+ .../dc/clk_mgr/dcn314/dcn314_clk_mgr.c        |  2 +-
+ .../display/dc/clk_mgr/dcn35/dcn35_clk_mgr.c  |  2 +-
+ .../gpu/drm/amd/display/dc/core/dc_resource.c |  2 +-
+ drivers/gpu/drm/amd/display/dc/dc.h           |  2 +-
+ drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c  |  2 +-
+ drivers/gpu/drm/amd/display/dc/dc_types.h     |  2 +-
+ .../gpu/drm/amd/display/dc/dce/dce_audio.c    |  8 +--
+ drivers/gpu/drm/amd/display/dc/dce/dce_dmcu.c |  2 +-
+ .../drm/amd/display/dc/dce/dce_link_encoder.h |  2 +-
+ drivers/gpu/drm/amd/display/dc/dce/dce_opp.c  |  4 +-
+ .../amd/display/dc/dce/dce_stream_encoder.c   |  4 +-
+ .../dc/dce110/dce110_timing_generator.c       |  2 +-
+ .../gpu/drm/amd/display/dc/dcn20/dcn20_vmid.c |  2 +-
+ .../display/dc/dio/dcn10/dcn10_link_encoder.h |  2 +-
+ .../drm/amd/display/dc/dml/calcs/dcn_calcs.c  |  2 +-
+ .../dc/dml/dcn30/display_mode_vba_30.c        |  2 +-
+ .../dc/dml/dcn31/display_mode_vba_31.c        |  4 +-
+ .../drm/amd/display/dc/dml/dcn32/dcn32_fpu.c  |  2 +-
+ .../dc/dml2_0/display_mode_core_structs.h     |  2 +-
+ .../dml2_0/dml21/dml21_translation_helper.c   |  2 +-
+ .../display/dc/dml2_0/dml21/dml21_wrapper.h   |  2 +-
+ .../dc/dml2_0/dml21/inc/dml_top_types.h       |  2 +-
+ .../src/dml2_core/dml2_core_dcn4_calcs.c      | 12 ++--
+ .../dml2_core/dml2_core_dcn5_calcs_dchub.c    |  8 +--
+ .../dml2_core_dcn5_calcs_dsc_latency.c        |  8 +--
+ .../dml2_0/dml21/src/dml2_mcg/dml2_mcg_dcn4.c |  2 +-
+ .../alternate_pstate_shared_lib.c             |  4 +-
+ .../dml21/src/dml2_top/dml2_top_soc15.c       |  4 +-
+ .../dml2_0/dml21/src/dml2_top/dml2_top_utm.c  |  2 +-
+ .../src/inc/dml2_internal_shared_types.h      |  2 +-
+ .../amd/display/dc/dml2_0/dml2_mall_phantom.c |  2 +-
+ .../dc/gpio/dcn315/hw_factory_dcn315.c        |  2 +-
+ .../display/dc/gpio/dcn32/hw_factory_dcn32.c  |  2 +-
+ .../amd/display/dc/hubp/dcn401/dcn401_hubp.c  |  2 +-
+ drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h   |  8 +--
+ .../dc/link/protocols/link_dp_capability.c    |  4 +-
+ .../link/protocols/link_edp_panel_control.c   |  4 +-
+ .../drm/amd/display/dc/opp/dcn10/dcn10_opp.c  |  2 +-
+ .../amd/display/dc/optc/dcn401/dcn401_optc.c  |  2 +-
+ .../dc/resource/dcn20/dcn20_resource.c        |  2 +-
+ .../dc/resource/dcn30/dcn30_resource.c        |  2 +-
+ .../dc/resource/dcn301/dcn301_resource.c      |  2 +-
+ .../dc/resource/dcn302/dcn302_resource.c      |  2 +-
+ .../dc/resource/dcn303/dcn303_resource.c      |  2 +-
+ .../dc/resource/dcn31/dcn31_resource.c        |  2 +-
+ .../dc/resource/dcn314/dcn314_resource.c      |  2 +-
+ .../dc/resource/dcn315/dcn315_resource.c      |  4 +-
+ .../dc/resource/dcn316/dcn316_resource.c      |  2 +-
+ .../dc/resource/dcn32/dcn32_resource.c        |  4 +-
+ .../dc/resource/dcn321/dcn321_resource.c      |  2 +-
+ .../dc/resource/dcn35/dcn35_resource.c        |  2 +-
+ .../dc/resource/dcn351/dcn351_resource.c      |  2 +-
+ .../dc/resource/dcn36/dcn36_resource.c        |  2 +-
+ .../dc/resource/dcn401/dcn401_resource.c      |  2 +-
+ .../dc/resource/dcn60/dcn60_resource.c        |  6 +-
+ .../gpu/drm/amd/display/dmub/src/dmub_srv.c   |  4 +-
+ .../display/include/grph_object_ctrl_defs.h   |  2 +-
+ drivers/gpu/drm/amd/include/atombios.h        | 56 +++++++++----------
+ drivers/gpu/drm/amd/include/atomfirmware.h    |  2 +-
+ drivers/gpu/drm/amd/include/mes_v11_api_def.h |  2 +-
+ drivers/gpu/drm/amd/include/pptable.h         |  2 +-
+ drivers/gpu/drm/amd/pm/amdgpu_pm.c            | 16 +++---
+ .../gpu/drm/amd/pm/legacy-dpm/legacy_dpm.c    |  2 +-
+ .../amd/pm/powerplay/hwmgr/hardwaremanager.c  |  4 +-
+ .../drm/amd/pm/powerplay/hwmgr/vega20_hwmgr.c |  2 +-
+ .../drm/amd/pm/powerplay/smumgr/ci_smumgr.c   |  2 +-
+ .../pm/powerplay/smumgr/polaris10_smumgr.c    |  2 +-
+ .../drm/amd/pm/powerplay/smumgr/smu7_smumgr.c |  4 +-
+ .../amd/pm/powerplay/smumgr/tonga_smumgr.c    |  4 +-
+ drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c     |  2 +-
+ drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h |  6 +-
+ .../inc/pmfw_if/smu11_driver_if_arcturus.h    |  2 +-
+ .../inc/pmfw_if/smu11_driver_if_navi10.h      |  2 +-
+ .../inc/pmfw_if/smu13_driver_if_v13_0_0.h     |  4 +-
+ .../swsmu/inc/pmfw_if/smu14_driver_if_v14_0.h |  4 +-
+ .../inc/pmfw_if/smu15_driver_if_v15_0_8.h     |  2 +-
+ .../gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c   |  2 +-
+ .../drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c  |  2 +-
+ .../drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c  |  2 +-
+ .../drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c  |  2 +-
+ .../drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c  |  2 +-
+ drivers/gpu/drm/radeon/atombios.h             | 34 +++++------
+ drivers/gpu/drm/radeon/cik.c                  | 14 ++---
+ drivers/gpu/drm/radeon/evergreen.c            |  4 +-
+ drivers/gpu/drm/radeon/pptable.h              |  2 +-
+ drivers/gpu/drm/radeon/r600.c                 |  6 +-
+ drivers/gpu/drm/radeon/r600_dpm.c             |  2 +-
+ drivers/gpu/drm/radeon/radeon.h               |  2 +-
+ drivers/gpu/drm/radeon/radeon_cs.c            |  2 +-
+ drivers/gpu/drm/radeon/radeon_device.c        | 16 +++---
+ drivers/gpu/drm/radeon/radeon_display.c       |  2 +-
+ drivers/gpu/drm/radeon/radeon_drv.c           |  2 +-
+ drivers/gpu/drm/radeon/radeon_fence.c         |  4 +-
+ drivers/gpu/drm/radeon/radeon_gem.c           |  2 +-
+ drivers/gpu/drm/radeon/radeon_legacy_crtc.c   |  4 +-
+ drivers/gpu/drm/radeon/radeon_uvd.c           |  2 +-
+ drivers/gpu/drm/radeon/radeon_vm.c            |  2 +-
+ drivers/gpu/drm/radeon/rs690.c                |  4 +-
+ drivers/gpu/drm/radeon/rs780_dpm.c            |  2 +-
+ drivers/gpu/drm/radeon/rv770.c                |  2 +-
+ drivers/gpu/drm/radeon/si.c                   |  2 +-
+ drivers/gpu/drm/radeon/uvd_v1_0.c             |  4 +-
+ 160 files changed, 281 insertions(+), 281 deletions(-)
+
+-- 
+2.48.1
+
