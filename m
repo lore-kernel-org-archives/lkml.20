@@ -1,188 +1,142 @@
-Received: from mout.gmx.net (mout.gmx.net [212.227.17.22])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qv1-f50.google.com (mail-qv1-f50.google.com [209.85.219.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89BB4503BCF;
-	Fri,  4 Sep 2026 16:39:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.227.17.22
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5A6F4EE86B
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 16:40:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788539997; cv=none; b=C7HaSdk3i3HFoEiB2areqhjUMMhO5dM9O28bNk6Dq0nPnih2M0CdCpyxBqOz/rp7D+7MOz1IM+vXtJnUc09BKTrXeea5Uoq+VHqxnn4O6yJ5nkWF74GLcPIdFc54r7ZuvT530b1jUNvKNjFt6e9kkd+BJcnpU2lf9/F6gpqjOW8=
+	t=1788540026; cv=none; b=k5/BVf0GnmhTiiaSbHSrprkjvj8y/ZqXHbmPDpHsooBh3oNFKfn73k+7mimpJBQxxHEnK0whSANNETMK5wx1Bdsss7aSM7klzIsO5U0BrP5fSexEyG9A8w0P1q/yOCca5onMQjmef3h3xm7HZEyvDPaRowfq7gMAQlphPhJ2cm8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788539997; c=relaxed/simple;
-	bh=eLcIG1CDS4fNnXKHOTIQDLLSdwcHjpfJv5wJJ9Sl8mU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=KBLCZMpMj2SIl7PzMSAptrBwEBQAFMIjdUQVeisidI9SY37ANeQKdMpOVBg9+w/2quhTYTzIVuAhJVV98MqlsPDUTXYBLLPr4HNETg1BRCJJ4bkNz0Fz34cAqiHs6otSDw81HDQkiqKwxxvZs1pFMsdFqXaZeJ9zr2LSDj3Vw8c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.net; spf=pass smtp.mailfrom=gmx.net; dkim=pass (2048-bit key) header.d=gmx.net header.i=wahrenst@gmx.net header.b=f/4uIeeM; arc=none smtp.client-ip=212.227.17.22
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmx.net
+	s=arc-20240116; t=1788540026; c=relaxed/simple;
+	bh=jqtuzC0nR43l61D6gvcZaII5xgpzEmMh90Esg3ewQrM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Zxm7KQqEXUpHCrY2jz5QUgpEipcsgzHSbbYGM8DBbw+cC/8puzXRyJz8ZxTcwr4LA6qSPfx7w1K21Q4QgXuxvzFFUBJ3/6PX7qpYwjAcTXBcO0EaGnEcQ/pbtLPwlbGeTwqdCbipi0Lf6GfRxd2DiaActC/ZWItOf8P2EZJisP4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu; spf=fail smtp.mailfrom=g.harvard.edu; dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.b=B6Og1LYN; arc=none smtp.client-ip=209.85.219.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=g.harvard.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmx.net header.i=wahrenst@gmx.net header.b="f/4uIeeM"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.net;
-	s=s31663417; t=1788539993; x=1789144793; i=wahrenst@gmx.net;
-	bh=eLcIG1CDS4fNnXKHOTIQDLLSdwcHjpfJv5wJJ9Sl8mU=;
-	h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
-	 References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:cc:content-transfer-encoding:
-	 content-type:date:from:message-id:mime-version:reply-to:subject:
-	 to;
-	b=f/4uIeeMwZjyM/RbGJWXXmrbYIGotAIDKX5DYvyilP8okhlWc6Tn/Pf2fjLrD9Dg
-	 xzmCIwJZA3E4JYNmQ/GltJUz4aEcnLepnkXbhRp3ULE6jpUTf4PaZh+MMoS5p9Nt8
-	 A26Wc4+Fq4io+r6Ju73Ez233U0oy/G1Z242odIl9138mmAVtK0hygZeptcSNqp5iH
-	 CvPiJA5sypoX7mb8nNYAEu+2QCUZQASrj6IWaq0uYqJo++Hh9M1tsWt8iWZ99FwQp
-	 BI1FNun94S6Lnm9ssSPfTohidgMjbiksVAMoMr7RLsaF4Pd3EpzZJoyexGZHb1ODF
-	 Ze0DKgQg+hRzaF2lBA==
-X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
-Received: from client.hidden.invalid by mail.gmx.net (mrgmx104
- [212.227.17.168]) with ESMTPSA (Nemesis) id 1MtwUm-1wjd7k44r6-00w9jZ; Fri, 04
- Sep 2026 18:39:53 +0200
-Message-ID: <20a09866-27d1-4dd7-b61a-c0533af17ac2@gmx.net>
-Date: Fri, 4 Sep 2026 18:39:52 +0200
+	dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.b="B6Og1LYN"
+Received: by mail-qv1-f50.google.com with SMTP id 6a1803df08f44-90f9f8553e0so14613146d6.1
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 09:40:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=rowland.harvard.edu; s=google; t=1788540024; x=1789144824; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=1nkJa0DEiZl3J7FyRvj4qHDW8diym9PfM40Ci/vpZoM=;
+        b=B6Og1LYNEV7SN1XqVxnfFoI/W1mYZTFHrmXDgGOgAcR6zdA8m+i9FInIDLATRwtMGT
+         VbE3/C+oI3NVT11Ge9pKk+U0LGi1GJ18jVPAw+vFyYN7aNaqH2TGT0HKAS1ezdQTo8PB
+         HzqPUsHBn1DJNskgwgr1MQQ7iL0fvMVGWj0vhfnU6WKkCPmQc/XYjFBxnlpmly5LnlCq
+         eTU5HQhIhcIs1iq2QH2Wj/Fpv2+5wv4QhCbZsxNTKIY/mZZ6DtNR1H5MdiuIw5asOQii
+         xgdD7M+0fEkQLI9nZQoNC5YuIJZU1QrWsku4KvL4Q7rnRgnbDueEjLXSNzm2cs1RDn28
+         6wIg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788540024; x=1789144824;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=1nkJa0DEiZl3J7FyRvj4qHDW8diym9PfM40Ci/vpZoM=;
+        b=hVtOaStn0JeBK3+dSX169P930SEMYFoKwv/GEMzNcVs+aBXCbbJjpddV4FlhJTINrv
+         AH+oYJxXC7OLk3VlM9Am3JZFVOUUTraX0vNcxXEQ+lQsQgc6c0mmKFjTS2vM+VHVPybt
+         /JXTJuKKWZSJUekcZBZFAlBHsl8wWCFLroS9QD5p8mVBSvQQzVQkiDJprn8mBoHrAc6W
+         8p8tL8LoKXD3WWS8dUMdaW/golK+D3hebbi/MSjMhdZjbaBLsGtQ8RKx0sVQWfwef8+3
+         mwFAJ8hfC0LDmJ31OXoBYqcAhtyQzL/NNojL/wbDDC/0JGG47xJzXzEDJLOqAnhEvCnF
+         WkUg==
+X-Forwarded-Encrypted: i=1; AKwUvBwnRGdPWuhUfXoIb2FLHFmjV8e9B5kymh+eFnx/4Yeho2inbdw1VTKb0O99Z22zsgIPWNfRzzZk3hDMIjk=@vger.kernel.org
+X-Gm-Message-State: AFuF++kOGUQwHmr3XFsFh3s+p2mren/6Ic1q/jxD1YLEv46TNVVBFJew
+	kajhxArGxeCSrZRmljXbf9OKwJiTJtwC3hRjBNLl21Q3lMs5Kq7m99NgskbUUtUBRw==
+X-Gm-Gg: AYBFou1UsmUE1lF0I6YuDcN7Z9URIbKC5tMdIFNssxl2z2vlCYt3Q2yRb1Z+OPn6P0I
+	eJ9uQ+dsjoyYqX/uU7i970XBvHCm618W9PesO3ZKMSs2Gho3LzdmUOqdxXTgQ6nHjkpUu8Ct8yA
+	tDyUeLfZ9neeNwKevwO16Jjo2aFfCYw1PaR32HPOnqg4eU1ENeTW7gu+W0h8pVZWZ7gRhZ+4VIT
+	wK4gxB5i2+YfDGwUiG6rSuXti1S5J1XhSteNGox0W431FlMV2FU1bNMkmqapRrCRlGm+bVLQ272
+	XYPpZVhqmqRzIBSX3y0m+9hEt/1Q8xyG0xF+vm/LwHazE+2/9aZn7U9Jbpr4CuFhNCwdPwdyLBg
+	t7ARJqCM3r+Vu4OMqVPHKh71cGh1oMfFf/4d068CACQe5SbV9h3ZHQKsx8EgsSkD3i/lb0QRF3q
+	SE6EObjN17axKij+Z0Dio71v79j4Gtt1j54fGSEp1iMsFqEuzrfbFm1/9y03wyCA==
+X-Received: by 2002:a05:620a:8017:b0:939:6ec8:6928 with SMTP id af79cd13be357-9398037ac44mr706361285a.16.1788540023360;
+        Fri, 04 Sep 2026 09:40:23 -0700 (PDT)
+Received: from rowland.harvard.edu ([2601:19b:d01:d210::7544])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-9397fafc3a7sm246420885a.14.2026.09.04.09.40.21
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 04 Sep 2026 09:40:22 -0700 (PDT)
+Date: Fri, 4 Sep 2026 12:40:20 -0400
+From: Alan Stern <stern@rowland.harvard.edu>
+To: Chen-Yu Tsai <wenst@chromium.org>
+Cc: Bartosz Golaszewski <brgl@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	Daniel Scally <djrscally@gmail.com>,
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Danilo Krummrich <dakr@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Wei Deng <wei.deng@oss.qualcomm.com>,
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+	linux-acpi@vger.kernel.org, driver-core@lists.linux.dev,
+	linux-pm@vger.kernel.org, linux-usb@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-mediatek@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Subject: Re: [PATCH v8 07/16] usb: core: Move struct usb_port and related
+ APIs to port.h
+Message-ID: <6bc3c29d-aa38-4e59-a4f5-2c480ef9c748@rowland.harvard.edu>
+References: <20260904084158.1341550-1-wenst@chromium.org>
+ <20260904084158.1341550-8-wenst@chromium.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 3/4] firmware: raspberrypi: Add reboot mode support
-To: Gregor Herburger <gregor.herburger@linutronix.de>,
- Florian Fainelli <florian.fainelli@broadcom.com>,
- Broadcom internal kernel review list
- <bcm-kernel-feedback-list@broadcom.com>, Ray Jui <rjui@broadcom.com>,
- Scott Branden <sbranden@broadcom.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Eric Anholt <eric@anholt.net>
-Cc: linux-rpi-kernel@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- devicetree@vger.kernel.org
-References: <20260904-rpi-tryboot-v4-0-fdee8bc53ff7@linutronix.de>
- <20260904-rpi-tryboot-v4-3-fdee8bc53ff7@linutronix.de>
-Content-Language: en-US
-From: Stefan Wahren <wahrenst@gmx.net>
-Autocrypt: addr=wahrenst@gmx.net; keydata=
- xjMEZ1dOJBYJKwYBBAHaRw8BAQdA7H2MMG3q8FV7kAPko5vOAeaa4UA1I0hMgga1j5iYTTvN
- IFN0ZWZhbiBXYWhyZW4gPHdhaHJlbnN0QGdteC5uZXQ+wo8EExYIADcWIQT3FXg+ApsOhPDN
- NNFuwvLLwiAwigUCZ1dOJAUJB4TOAAIbAwQLCQgHBRUICQoLBRYCAwEAAAoJEG7C8svCIDCK
- JQ4BAP4Y9uuHAxbAhHSQf6UZ+hl5BDznsZVBJvH8cZe2dSZ6AQCNgoc1Lxw1tvPscuC1Jd1C
- TZomrGfQI47OiiJ3vGktBc44BGdXTiQSCisGAQQBl1UBBQEBB0B5M0B2E2XxySUQhU6emMYx
- f5QR/BrEK0hs3bLT6Hb9WgMBCAfCfgQYFggAJhYhBPcVeD4Cmw6E8M000W7C8svCIDCKBQJn
- V04kBQkHhM4AAhsMAAoJEG7C8svCIDCKJxoA/i+kqD5bphZEucrJHw77ujnOQbiKY2rLb0pE
- aHMQoiECAQDVbj827W1Yai/0XEABIr8Ci6a+/qZ8Vz6MZzL5GJosAA==
-In-Reply-To: <20260904-rpi-tryboot-v4-3-fdee8bc53ff7@linutronix.de>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Provags-ID: V03:K1:g/6/c2eS4Uc57lTxFQeg5Zd+3fdinY2sk2MgSPjBVv4Ph4mTg5H
- UjoWiYTAe+MG/UWravVWfbCeEm11rHhzHnZiVq4guO6mrOufMI89AsbPkhwnxdipm8ZY9Cd
- 6a3H4aZE5SZa/FJMpxHWZWVh+QXpf2NF7zniW7H4OId2ykLLuKCx1jGVeNmziiGd7+YSflB
- YyDelrZqnxZVBKLBSoznw==
-X-Spam-Flag: NO
-UI-OutboundReport: notjunk:1;M01:P0:YM7ql6wY9FM=;cX1cPkkWkkk5vb+JZpmHJPjloLo
- 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
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260904084158.1341550-8-wenst@chromium.org>
 
-Am 04.09.26 um 09:46 schrieb Gregor Herburger:
-> The Raspberry Pi firmware has a tryboot mode where it tries to boot from
-> another partition. This can be used to create a A/B update scheme.
->
-> To enable this on the next boot, the RPI_FIRMWARE_SET_REBOOT_FLAGS
-> message must be sent to the firmware. Add support for this by
-> registering a reboot mode driver.
->
-> Furthermore, safely registering the reboot mode requires adjusting the
-> teardown sequence. Replace the manually called rpi_firmware_put() with a
-> devres-managed called (devm_add_action_or_reset). Without this, the
-> cleanup function of devm_reboot_mode_register() would trigger a
-> use-after-free error by attempting to access the firmware context after
-> it had already been freed by rpi_firmware_remove().
->
-> Signed-off-by: Gregor Herburger <gregor.herburger@linutronix.de>
-Tested-by: Stefan Wahren <wahrenst@gmx.net>
+On Fri, Sep 04, 2026 at 04:41:46PM +0800, Chen-Yu Tsai wrote:
+> |struct usb_port| and its matching container_of() macro should live in
+> its own port.h, matching the split we have for .c files.
+> 
+> Move them as described. Also move usb_port_is_power_on(), since in the
+> next change its |struct usb_hub *| parameter will be changed to
+> |struct usb_port *|, and becomes a non-static function that only
+> references |struct usb_port|.
+> 
+> port.h is only included from hub.h, as a subsequent patch will directly
+> use fields from |struct usb_port| in a static inline helper in hub.h.
+> The USB internal headers don't have header guards to help with this.
+> 
+> Also drop 'extern' from the header declaration of usb_port_is_power_on().
+> This is not needed in modern C.
+> 
+> Suggested-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+> Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+> Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+> Signed-off-by: Chen-Yu Tsai <wenst@chromium.org>
+> ---
 
-I tested with a Raspberry Pi 3 B Plus i didn't see any regressions
+> diff --git a/drivers/usb/core/port.h b/drivers/usb/core/port.h
+> new file mode 100644
+> index 000000000000..00f7500af336
+> --- /dev/null
+> +++ b/drivers/usb/core/port.h
+> @@ -0,0 +1,68 @@
+> +/* SPDX-License-Identifier: GPL-2.0 */
+> +/*
+> + * usb hub driver head file
+> + *
+> + * Copyright (C) 1999 Linus Torvalds
+> + * Copyright (C) 1999 Johannes Erdfelt
+> + * Copyright (C) 1999 Gregory P. Smith
+> + * Copyright (C) 2001 Brad Hards (bhards@bigpond.net.au)
+> + * Copyright (C) 2012 Intel Corp (tianyu.lan@intel.com)
 
-also the code looks fine to me
+These copyright notices are entirely inappropriate for this file.  As 
+far as I know, none of these people wrote any of the code you moved 
+here.
+
+Alan Stern
