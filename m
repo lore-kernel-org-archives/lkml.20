@@ -1,185 +1,127 @@
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ot1-f42.google.com (mail-ot1-f42.google.com [209.85.210.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6F7D40099B
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 11:34:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2321740099B
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 11:34:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788521690; cv=none; b=cYQc0rRMQJRviK8/yS0AQXSNcvHNXN9udbqYPyya263DUGqVA0oKbh+THzica/bmzX9sXvRhN8ZpCXwp1PMuZWP9vMaaeSZosXc3hzuPlXJxSAL08BzKFtHjXqzpQaxo+xao75luxKcWrHipKTM71a47vDXoQ0kbxgNVdDEZna4=
+	t=1788521697; cv=none; b=Jd86nf8bJQNKXAdabX7eLW67IfA1Zz/BO9yO2LrOIs1w9TemC8yvaAzXEh8ap8utkOiAtHia645Ag/H5Bl/nxQ0hE/+2+N0WmCoNN+WXmysVKn0gNygbfZntnfWo4F/PZwK/+BbD9OFoQVxkguM+BxS9CiAg9QmBS8RqvtAjqk0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788521690; c=relaxed/simple;
-	bh=aNFyDlOEdVMS9B+g61VLr36q7Bw+gBSrpf/KNHxrzoE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=UiECXqz9JQo5h3RmX8LtA34KWhcE8Rh5hAYMROzz+lI2f6aZFUJF/MM+OOWHYYTJpVNwkeBRidhT500UGwvouEgAv3Js8wudPdyaLv5BwND7NIKk29HT/OYWUdBHYw1iPT6R2lAj4Na5rwLm9ieAofKnSmTwgBrq1A9RyVHbkAk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=doIrXJ+1; arc=none smtp.client-ip=148.163.158.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1788521697; c=relaxed/simple;
+	bh=8nTYfAcd2ST1hp9O608pcfQAmbYkYhD0R0e9hwboxsc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=aEkxpo4ckgoBx2qpf61z1fke/xaIaCid8zbb0SuOhlP18U4W7J+yQ3+gNaBCyRccBSbYGTpbbWxoWiPgSI//r7t6ldzeNl1XMkKwgzIbDeycoH+8Nyk7384YBTyTnQfQBGoEFd9Nsr7j/uo3ep1n/CVcT6kAnZtiZkMJ5Ent/HI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rBJQ21oS; arc=none smtp.client-ip=209.85.210.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="doIrXJ+1"
-Received: from pps.filterd (m0360072.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 684AVp3J1536461;
-	Fri, 4 Sep 2026 11:34:35 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:to; s=pp1; bh=AnZXsQc5hzhg4mdkNFNmG
-	5Z6h2BQ91aM/5aosNwiPpw=; b=doIrXJ+17mrrR1QfLrkY1OfGHqIb9bebzS+8x
-	ZIXMN9fFnl+eBUl8q0lJ/QRY1K42bXlS5H3S3No05/aVsCFLcZ9BnP2FhhRInuOy
-	hxluP9MWq0MCfro51raeTnytZwafqqLlsGuNTKwW2gt0o3OZC13cZsr0ZqxmpjaV
-	HX0x9BUbGTGXZtuAiiyALpj+QG76J8xiSXOUumA7jafStAnOXlbOFpVo8sudK+OY
-	Vul62QuU0bxNTLI+IHkOQSDCbkXlcCkSOQMEb96qfZM5fqB26jlVTYot88Bt4cSS
-	ZS0pUypEjvc8P8NuE2gfVefJS+8sWEg/zzsQtln50d6pW6hog==
-Received: from ppma21.wdc07v.mail.ibm.com (5b.69.3da9.ip4.static.sl-reverse.com [169.61.105.91])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gbq2tsr91-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 04 Sep 2026 11:34:35 +0000 (GMT)
-Received: from pps.filterd (ppma21.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma21.wdc07v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 684BQOYi024811;
-	Fri, 4 Sep 2026 11:34:34 GMT
-Received: from smtprelay02.fra02v.mail.ibm.com ([9.218.2.226])
-	by ppma21.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4gcarkmskg-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 04 Sep 2026 11:34:34 +0000 (GMT)
-Received: from smtpav05.fra02v.mail.ibm.com (smtpav05.fra02v.mail.ibm.com [10.20.54.104])
-	by smtprelay02.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 684BYUOJ48497078
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Fri, 4 Sep 2026 11:34:30 GMT
-Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 7A0A320043;
-	Fri,  4 Sep 2026 11:34:30 +0000 (GMT)
-Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id DC8202004E;
-	Fri,  4 Sep 2026 11:34:27 +0000 (GMT)
-Received: from linux.ibm.com (unknown [9.126.150.29])
-	by smtpav05.fra02v.mail.ibm.com (Postfix) with SMTP;
-	Fri,  4 Sep 2026 11:34:27 +0000 (GMT)
-Date: Fri, 4 Sep 2026 17:04:27 +0530
-From: Srikar Dronamraju <srikar@linux.ibm.com>
-To: Shrikanth Hegde <sshegde@linux.ibm.com>
-Cc: linuxppc-dev <linuxppc-dev@lists.ozlabs.org>,
-        Madhavan Srinivasan <maddy@linux.ibm.com>,
-        Michael Ellerman <mpe@ellerman.id.au>,
-        Nicholas Piggin <npiggin@gmail.com>,
-        "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
-        skiboot@lists.ozlabs.org, arbab@linux.ibm.com, mahesh@linux.ibm.com,
-        Ritesh Harjani <ritesh.list@gmail.com>,
-        Andrew Morton <akpm@linux-foundation.org>,
-        "Mike Rapoport (Microsoft)" <rppt@kernel.org>,
-        linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 3/3] powerpc/numa: Support coregroup on PowerNV
-Message-ID: <apqsw16smYGV3q3w@linux.ibm.com>
-Reply-To: Srikar Dronamraju <srikar@linux.ibm.com>
-References: <20260902123458.340456-5-srikar@linux.ibm.com>
- <20260902123458.340456-8-srikar@linux.ibm.com>
- <c11197ac-ce7b-4fba-8ea5-4f38be9f7106@linux.ibm.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rBJQ21oS"
+Received: by mail-ot1-f42.google.com with SMTP id 46e09a7af769-7eb6573bd52so941998a34.3
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 04:34:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788521695; x=1789126495; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=SLoYBfY0wfOAGpSNCqGysKXGELddvDZ9oGBQRdtl5uQ=;
+        b=rBJQ21oSOr55leDpLNkkNxRtvXM88rJ6xCbkt4u510kpkbfyd245ZvU1tgU39Cqu59
+         y+4Y6TbGMgCJWgWEQHyQPhCFhJwOxtrhQHIUhmfU+JsY2HhyeTSYpk6y1CLfw/LDpXc8
+         EoVhNRlCARuHp1viQNEBDUVGMJ9T4k7Ye+FwSALcsEdLNx3eAcNO/6g/1Cz22cGgErNE
+         c0xiCZAuDzP6o48PiFEaCls/yZHXmCNw1KczuERf4mAiF7XNXdvGx6L72TeTjphAGeoJ
+         128DyFy24dJSih+Hp5xTkOW/Wpijx06l/PlYsKxkWZQj1NofYw5wi5C4SdVlakJW0+FZ
+         vONA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788521695; x=1789126495;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=SLoYBfY0wfOAGpSNCqGysKXGELddvDZ9oGBQRdtl5uQ=;
+        b=WnQgbnCwanPmXF2NQtsuQKz/8qvaJbCizpaOtfj9fY+dCmOgNMeRFqr3BlYOsojC8r
+         J+07+oJMLv7UC+wldrfBLmSRJa4/a2yzcoV2ot8C2FLW709uXatJH/+XGd+E6JYBorka
+         Kbz2bhO1ob0L3lD9mipu9DV728M08+DwCRWVfah773nQw2jEm2Yjbiv/NXdSf/3ZpcZE
+         n1qaYaQWylewL/uP0//sLKT8OxndtRCFLyO6cC/SzEvDjWBmLz7lUQb70VbEVhGhgoxS
+         +HtFc8xXrYY5fw5Uzqw33uBD+sGfcEG0BoEguoL27IdXh43HuWu9UEpYbflJUdFBQXxv
+         I3SA==
+X-Gm-Message-State: AFuF++ncnH4bJbyvdd7mAETQWtxSFKv0RH0QHR7gnLrZPVNWGFMktHUT
+	4ef0A6ToafsWh8eo/bzfBqkZ83eOaIXDuXKJSy39XdrfjRk+wRvKpxSA
+X-Gm-Gg: AYBFou0Dndf5pF5MVnsPRIeN/jbYcNhDPmZz/8O0I53d9xKSoUokDdsY5bxUkNrF6f3
+	cnYsZDltP0z3r0Yy8vTONh7q9vexJfGkbd1fLSKFn/dqYVWfYJ/gq1/zymgk0Mge5aP0SM+Fl52
+	6pbGu9wCr4tS/re1Bq+JvuS0B08l+h1lf7gEwzuw/oCghEGh9gV2a9mi0UzAdP1Qst7pQijkv8+
+	yMEktIyOv/7Bfwr0V4EPf9uhv+ODOkQu4tarrzue9mc3myB+UCjLBrizU1Loo5itGMmxXl9r4/m
+	ogA8Nbf0rN85WcGMMR7EwH9SsUFswJhoIsuQ0EbASCPbIMSzkyh0kpSEJCCyK2ntzcfDuWEs3/Y
+	vKtjkswv6JO8FtrCSv16cII/XyvuD92KnvwgATXQzYa4vSF7aEncM6y+OR6G1lqbtNCYmR6Squp
+	LE7Et75flIlKRVvT/6w3lZEQCdYE7QNS98B5C6uIldQ3RngCSMymVXOGfchDs9T34Tcup/7wZ8H
+	DQ5i2stT7sfu2w=
+X-Received: by 2002:a05:6820:162a:b0:6b3:6444:46e with SMTP id 006d021491bc7-6b6facde170mr3929160eaf.8.1788521694939;
+        Fri, 04 Sep 2026 04:34:54 -0700 (PDT)
+Received: from volcano9f6e-hostos.amd.com ([165.204.217.251])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-143243a9388sm6054536c88.10.2026.09.04.04.34.52
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 04 Sep 2026 04:34:54 -0700 (PDT)
+From: Hemanth Selam <hemanth.selam@gmail.com>
+To: Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Cc: linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org
+Subject: [PATCH 0/3] media: fix typos and repeated words in comments
+Date: Fri,  4 Sep 2026 17:04:41 +0530
+Message-ID: <20260904113450.15838-1-hemanth.selam@gmail.com>
+X-Mailer: git-send-email 2.48.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-In-Reply-To: <c11197ac-ce7b-4fba-8ea5-4f38be9f7106@linux.ibm.com>
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Authority-Analysis: v=2.4 cv=bc1bluPB c=1 sm=1 tr=0 ts=6a9aaccb cx=c_pps
- a=GFwsV6G8L6GxiO2Y/PsHdQ==:117 a=GFwsV6G8L6GxiO2Y/PsHdQ==:17
- a=8nJEP1OIZ-IA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=RzCfie-kr_QcCd8fBx8p:22 a=VwQbUJbxAAAA:8
- a=VnNF1IyMAAAA:8 a=gTBKziIoMwFYf8sqKhIA:9 a=wPNLvfGTeEIA:10
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA0MDEwNCBTYWx0ZWRfXyB9yyCKjeGrF
- 1eATvVcxOxHtZa+qN+/oUWrUi0HWhVMOFfg9WB+nH473yXLWJFf4Ebvt7t0XD9ONUZa98PQR1G8
- P2zoULXqSeMt2Q509lbvPo7otYTJ/Y8=
-X-Proofpoint-ORIG-GUID: ZPe1aEWAj9sJILkR9OHq9sqaw5TZzGbK
-X-Proofpoint-GUID: CEv9XwryGMlI8IMCptmP_OHLBYCKbMWk
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA0MDEwNCBTYWx0ZWRfX5yhY9n83ni2g
- Aav4cEnr9vUKO0Mpb1u6t4E4KdYeuNMC9R+Dkgc3EdwgNaqBrEbIeQgzlQukAcoTUzdIwqR92KW
- ckFV3121m2dGMMFiEb82Lwghx4fBBbuVhlczKEI/y5PlG+0D50VxhDXX3ssy37ryF+hR/VcrSv6
- J4n3ATWRB7K+eK+MndvS7BIIANtiCpFzVDv6XY6a6zs4572Pxlx7yWTH/PItppo3wZqEfb0Molk
- kKJIHi9b9QTww8fAYiaPiaU3NsyNrmZyBWJ7eyXtYdpSjCtdEzTc8KkHtF4uOs5eh9+UNGSPl0U
- /llQFRr5imn7XF+Nz5fkdqnoahD7UstqIrZnlrvYMk0nf3nQxQw89M2cWmog98yTgdXfKCOZ3xQ
- bZFdPlQO1ULaKSKdA7J32L2CqsecnWHi0v5wT+HEAg0MRz3FwlL08B4yv9rglcSzobJWC/SDnHS
- IyL6SKbL7Gsig75kPow==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-04_03,2026-09-03_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 suspectscore=0 adultscore=0 malwarescore=0 spamscore=0
- lowpriorityscore=0 phishscore=0 clxscore=1015 priorityscore=1501
- impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2609040104
+Content-Transfer-Encoding: 8bit
 
-* Shrikanth Hegde <sshegde@linux.ibm.com> [2026-09-04 15:34:50]:
+This corrects 3 misspellings and repeated words in comments.  Each is a
+separate patch so that any one of them can be dropped without touching
+the rest.
 
-Thanks Shrikanth for taking a look.
+Nothing outside comments changes.  Every touched C file was checked by
+dropping its comments, replacing each string literal with a placeholder
+and collapsing whitespace; what remained was identical before and after,
+so the compiled code cannot differ.
 
-> 
-> 
-> On 9/2/26 6:05 PM, Srikar Dronamraju wrote:
-> > Coregroup support on powerpc has so far been limited to PowerVM LPARs.
-> > However, PowerNV can also support coregroups when firmware exposes the
-> > required coregroup information through the associativity hierarchy.
-> > 
-> 
-> Existing firmware does expose this info already?
+The mistakes were found with scripts/checkpatch.pl against the list in
+scripts/spelling.txt.  The scanning, the edits and the changelogs were
+produced with Cursor running the claude-opus-5 model, from a request to
+find and fix spelling mistakes across the tree, and every correction was
+then re-checked by the comparison described above.  Words that name an
+identifier were left alone deliberately, even when they read as typos,
+because correcting the prose would make the comment disagree with the
+code it describes.
 
-The corresponding skiboot changes were sent to the skiboot mailing list.
+Tested by building x86_64 defconfig at v7.3-rc1-269-gbc35965f6940, which
+is clean.  Nothing else was built, so any patch touching code that
+x86_64 defconfig does not compile has been read but not compiled.
 
-> 
-> > Detect coregroup support by checking whether primary_domain_index is the
-> > penultimate domain in the CPU node's ibm,associativity property. On
-> > PowerNV, a non-penultimate primary_domain_index indicates that firmware
-> > provides an additional level for coregroup information.
-> > 
-> > This keeps the logic compatible with PowerVM systems, where
-> > primary_domain_index is likewise not the penultimate associativity
-> > domain.
-> > 
-> 
-> Could you please put the ibm,associativity on this powernv? as well
-> PowerVM's so that one understands it better?
+Hemanth Selam (3):
+  media: fix typos in comments
+  media: fix repeated words in comments
+  media: pci: fix repeated word in log message
 
-With this patch and the skiboot change, the ibm,associativity will look
-similar.
-
-For example on a Power10 Baremetal box with skiboot changes.
-
-$ lsprop /proc/device-tree/cpus/PowerPC,POWER10@*/ibm,associativity |& head -n 20
-PowerPC,POWER10@0/ibm,associativity
-		 00000005 00000000 00000000 00000000 00000000 00000000
-PowerPC,POWER10@100/ibm,associativity
-		 00000005 00000000 00000001 00000001 00000002 00000000
-PowerPC,POWER10@108/ibm,associativity
-		 00000005 00000000 00000001 00000001 00000002 00000002
-PowerPC,POWER10@10/ibm,associativity
-		 00000005 00000000 00000000 00000000 00000001 00000004
-PowerPC,POWER10@110/ibm,associativity
-		 00000005 00000000 00000001 00000001 00000003 00000004
-PowerPC,POWER10@118/ibm,associativity
-		 00000005 00000000 00000001 00000001 00000003 00000006
-PowerPC,POWER10@120/ibm,associativity
-		 00000005 00000000 00000001 00000001 00000002 00000008
-PowerPC,POWER10@128/ibm,associativity
-		 00000005 00000000 00000001 00000001 00000002 0000000a
-PowerPC,POWER10@130/ibm,associativity
-		 00000005 00000000 00000001 00000001 00000003 0000000c
-PowerPC,POWER10@138/ibm,associativity
-		 00000005 00000000 00000001 00000001 00000003 0000000e
-
-> 
-> > Signed-off-by: Srikar Dronamraju <srikar@linux.ibm.com>
-> > ---
-> > Changelog from v2:
-> > - Handle comments from Ritesh (one hunk needed to be moved from patch 2 to
-> >    patch 3 to build correctly)
-> > 
-> > Changelog from v1: https://lkml.kernel.org/r/20260524010017.140408-1-srikar@linux.ibm.com
-> > - Handle comments from Christophe Leroy; make code more flat
-> > 
-> >   arch/powerpc/mm/numa.c | 58 ++++++++++++++++++++++++++++++++++--------
-> >   1 file changed, 48 insertions(+), 10 deletions(-)
+ drivers/media/dvb-frontends/drxd_map_firm.h                   | 4 ++--
+ drivers/media/i2c/adv7175.c                                   | 2 +-
+ drivers/media/i2c/ccs/ccs-data.h                              | 4 ++--
+ drivers/media/i2c/hi847.c                                     | 2 +-
+ drivers/media/i2c/ov772x.c                                    | 2 +-
+ drivers/media/i2c/wm8739.c                                    | 2 +-
+ drivers/media/pci/cx18/cx23418.h                              | 2 +-
+ drivers/media/pci/saa7146/mxb.c                               | 4 ++--
+ drivers/media/pci/saa7164/saa7164-core.c                      | 2 +-
+ drivers/media/platform/mediatek/mdp/mtk_mdp_ipi.h             | 2 +-
+ drivers/media/platform/mediatek/vcodec/decoder/vdec_ipi_msg.h | 4 ++--
+ drivers/media/platform/renesas/rcar_drif.c                    | 2 +-
+ drivers/media/platform/renesas/vsp1/vsp1_dl.c                 | 2 +-
+ drivers/media/radio/si4713/si4713.c                           | 2 +-
+ drivers/media/usb/dvb-usb/dib0700_core.c                      | 2 +-
+ drivers/media/usb/gspca/ov519.c                               | 2 +-
+ drivers/media/usb/gspca/w996Xcf.c                             | 2 +-
+ .../atomisp/pci/isp/kernels/s3a/s3a_1.0/ia_css_s3a_types.h    | 4 ++--
+ drivers/staging/media/av7110/av7110.c                         | 2 +-
+ 19 files changed, 24 insertions(+), 24 deletions(-)
 
 -- 
-Thanks and Regards
-Srikar Dronamraju
+2.48.1
+
