@@ -1,612 +1,165 @@
-Received: from mta0.migadu.com (out-99.mta0.migadu.com [91.218.175.99])
+Received: from mail-oo2-f43.google.com (mail-oo2-f43.google.com [74.125.231.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0519A4F30C7
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 15:01:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.99
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788534114; cv=none; b=ELgleiKrOEfDRjgsQ3TyKmOXxQZlNEK4C0AW18xx5+TlX/uDZ6ufJkIEH/z4weDWPgR2Npmj7tJMesekuH6koEhROi/A1uhIlZTPHKrix+3dOAJEbHmD9nmevkCrUCxGwGQpcOEqd287pZEkZsQoNMQgRq9/CI93dfscxvp6qB8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788534114; c=relaxed/simple;
-	bh=4+uoy/By46qhUkPaUqn/0Bb8xzDQc27CqW2maV4I1sg=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=JbVauhELB9/2MphBsePSzO1SnTzJvDQWPkd8Dhuj3EdCmsL98ICcX6gj9No0fbOu5RTCbJjeH+ywo7nOrINpW7hqvgfGyq8yPpFn6b665sniSmNXJrGFIchgdhJU7a2G1XZIoB16ezmrlmBLDSl97MAHC4eqsCf7NQ6Qyvb1Lzc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=IEXND6Fe; arc=none smtp.client-ip=91.218.175.99
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E28BD4F30E8
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 15:01:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.231.171
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788534118; cv=pass; b=p9/aIA9hxFhai2A6/JIYmuFHc+YVfZuvU5GPJ8gGbN4SOKW7r1n3KSvG/hxFS8wFNKpqVhQ2xUSGYMnmsMajay6lY24GsQ25g8NyT5luXayMuiOoNpaR9j5beJ/EX2XacVud2vk7N8lKQ+okeVON4a7osDArn8SCmHqPPQo9TY8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788534118; c=relaxed/simple;
+	bh=qawKlECuj94epc81pQ0ynQTh+xHXUx6MRIkhuTgGTUQ=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=onVYupp18BVzOt1cGEc1fwW+Hi95ecfIpwT9hl86gc289A+pcTW1/fRjlgtgfJMk3yQzSVN5fiCupsCJRvu+TwhkLf94I+mbC0xExCK/JNx9DswtRZdan26LxQrmioSAUJEGfugdYT7wPb3H1ld1kn1IGe9MhVmFGIA4BaNvqf0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=purestorage.com; spf=pass smtp.mailfrom=purestorage.com; dkim=pass (2048-bit key) header.d=purestorage.com header.i=@purestorage.com header.b=G5Lo9wi9; arc=pass smtp.client-ip=74.125.231.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=purestorage.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=purestorage.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="IEXND6Fe"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=4+uoy/By46qhUkPaUqn/0Bb8xzDQc27CqW2maV4I1sg=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788534109; v=1; x=1789138909;
- b=IEXND6FedQosOLETw4zPzgzH9VhYvNAVd/0WaBVWCY56/qMKbU4mx/VXb+K9pgEMJdds2tGE
- 0yXMZP/s5P0sutgKXRI54MmE+F++tzbkfAlIy8Dcblxss/R1rzcgiK7AYrdexwdrEtI2Ox8HNJW
- d4dJldGlHf0ORr6RM3qb2n5g=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 7514b2a572fb1db6;
-	Fri, 04 Sep 2026 15:01:49 +0000
-X-Mizu-Trace-ID: 7514b2a572fb1db6
-X-Migadu-Flow: FLOW_OUT
-From: Denis Benato <denis.benato@linux.dev>
-To: linux-kernel@vger.kernel.org
-Cc: linux-input@vger.kernel.org,
-	"Benjamin Tissoires" <bentiss@kernel.org>,
-	"Jiri Kosina" <jikos@kernel.org>,
-	"Luke D . Jones" <luke@ljones.dev>,
-	"Mateusz Schwartz" <matthew.schwartz@linux.dev>,
-	"Denis Benato" <benato.denis96@gmail.com>,
-	"Jonathan LoBue" <jlobue10@gmail.com>,
-	"Khamunetri Clark" <khamunetriclark@gmail.com>,
-	"Derek J. Clark" <derekjohn.clark@gmail.com>,
-	Denis Benato <denis.benato@linux.dev>
-Subject: [PATCH v5 09/13] HID: asus: add support for response curve
-Date: Fri,  4 Sep 2026 14:58:40 +0000
-Message-ID: <20260904145845.184887-10-denis.benato@linux.dev>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260904145845.184887-1-denis.benato@linux.dev>
-References: <20260904145845.184887-1-denis.benato@linux.dev>
+	dkim=pass (2048-bit key) header.d=purestorage.com header.i=@purestorage.com header.b="G5Lo9wi9"
+Received: by mail-oo2-f43.google.com with SMTP id 46e09a7af769-7f4eb488690so57965a34.2
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 08:01:54 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788534113; cv=none;
+        d=google.com; s=arc-20260327;
+        b=daG9c80/dANIateg2oJtHwWtefUwGUZhJd/oaBTG65W+4qhSmidjlhkwDHNEyxozZg
+         aBWo/cZc7wDBX5F8B6MFwME1dYcVvd1g+nbDglhUgzjDLs/LDh+bD/vm9DG4NLMRZq1S
+         4ft0Y1EmAD6Lp9ckCAV4FKyHevzyPAlO/vqtqJ55Bi0eck6qJ9ADk1gFnpq5QS40uTqE
+         H2AxHCU7IJo6lUyHrf5tqtihlYmeuf8sWF2WJZMoS2OfwvqtCjMnbm5+tHFF44uladrQ
+         K1YiyIn7PbjVoM9b80s944oA4ooN9rRMssMmYULWyai08QZbrH9Z9wEbG1bJ6vwZ/MRr
+         UI3Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=WIcM0Ila/fL0qXdyT+6C5ZW2M8LEsnOQ1TQjy3IHFIY=;
+        fh=72UMYCsv+VrBRtzNoCpGRjFKuM6lDVUpaq+bXmoV2A8=;
+        b=qX/fcitvvD9oCeClxUrlzsYiQDLrKjfbIg45mFd3gSCnd+vqheUQfjcfGl5IQrkjZL
+         9DAvUdiiX9MIocALmItL8wbIl4eDoEhXxK6r5/lEz2JsX32ie983WvaLBXK3dc0WZhtR
+         d5peYM429j+njOt9SVsUIud8nePJ2zokUxJZ2hnmW8t1pCTR7hrHDCMMNllT1C5XF8iv
+         moZdBZbIgp2CHIuXf3623Tw4aijRw4zlDeWBo3ZwEWbbr9U8EK+KCFHZxRFH5tKKxvFS
+         3axG2PHZ/9QYaBRb6CECGWXCJPgbgxnS/ZyFC0C+LW/pQnzS/5ccArh9b7ABVzbQiZd4
+         x2GA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=purestorage.com; s=google2022; t=1788534113; x=1789138913; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=WIcM0Ila/fL0qXdyT+6C5ZW2M8LEsnOQ1TQjy3IHFIY=;
+        b=G5Lo9wi9vIz2qelbfApClafU5gpiWJqYajcAx0knOHDbf9UPwEhKxDx+DzDnFS114K
+         UsxKBxtA1LRPP6o+ImbJT5FUaOLDHmhhVqDGP8WJSpOGW0pmqTq2B8/M83EjSiqwZ3m5
+         SmcOG2p5djz+PNRoLWRtxp5NmhDNrFzLqAsB2l0CLjG50qiVl3C4z6EIXPG7my4iurgM
+         yiIjp/99KISO296CxZAb85hdu7SoamDRVi7BOTK07N+Xofr0mm1zxTBCW16XOGJl5gNu
+         pZapNW+0iNZqRypO/CgCLyMS9P0SjbOShnsR47dHsflsFpmenrJvQ+VpByn6ksAO+YuZ
+         tglQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788534113; x=1789138913;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=WIcM0Ila/fL0qXdyT+6C5ZW2M8LEsnOQ1TQjy3IHFIY=;
+        b=LlUiHxWu4oipsgSelYPe8wFTdWsYmO2SQvanWnDcXDn99wxAS4pODSVOvT1XAJ0vuS
+         wCtvimoSurCO9dV1lY/z2cH9HxIQsD3IaGXupniaiT9joPDwkWPQP8OlAtdkE1Oqv0dT
+         ph0j9tIUsiefAWMEtsQM7Ds4d0+DvWLVbzQJS/aHqEEIW5qxoHP84UbPNuQZuAZETFH6
+         aOlt00r6XcJ5unqJ7mIqoB3UyyKNpZ4tOdWAq4kJkF3iDiuMVEYeG+NRGUp2UPolYyo/
+         P05xF8sRnREs4CufiASC6OdrH5gMj7MPhgPBUJ+oFc4+N9axhdZCQxbVcZ1KjKSwN3QS
+         kxog==
+X-Forwarded-Encrypted: i=1; AKwUvByIm0JuP4FAGdvGovjBCMu2GUM4b9aF8agnGfMIsCEcNwklTSZ8ZKp5f/zkVQWXivZdQ04nMLMGsMwM7yI=@vger.kernel.org
+X-Gm-Message-State: AFuF++l/pO2hWcntXIT1Ko3ZMaUIkyhL3yNvxYcJEdHcCd4hZrTIc4/N
+	MbqPGg4l5Ay/Oy6OUyKE8TgL06Jy5gBbovWkVwr4zqSfVR6o0FMn8HM8NQk310/mHJzih6QNv1o
+	fYiHqbgQnmyRD4/zj42t0LaM4yP1qRJ1VBcBgx30H5w==
+X-Gm-Gg: AYBFou3oIDkKVY2/jLGeKarQxiV9AeJ8p1j5USuLlhugRI9wUwtGpsYQA8LigQwJEMp
+	SYiMRa8UezG0+gDWBDHnDfLqFW8W6LhS+Ln1g0caUTQZuoC480Sv7rjFDonaq9Uwuzd3ZlKI7Gr
+	s1aEa8UDE/6l+dVnzinocoF0M/u8vqmBGJa4eIVuToavSLxtIsMy5xqv+daTK9SxEIqv2r3dVhB
+	sWBxzM5lfGi+cdRqqLDZTgybR3rTPhvrESiE1hiPoj5xN17PlxvWdHHUvAKXTB+j9WV3EwljDJf
+	qBKabvNpAJTUODj2sibShxPQKcpxRCs/TW6RxlaHdlSD
+X-Received: by 2002:a05:6830:668c:b0:7e6:6f9f:7445 with SMTP id
+ 46e09a7af769-7fa438c3fb7mr2967139a34.3.1788534113297; Fri, 04 Sep 2026
+ 08:01:53 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260902225708.2379840-1-csander@purestorage.com>
+ <20260902225708.2379840-2-csander@purestorage.com> <CAJnrk1Z=JgOGH3m8aMRcK0fBRtnHLQutHGc5aqht3OU3uMQ_qw@mail.gmail.com>
+In-Reply-To: <CAJnrk1Z=JgOGH3m8aMRcK0fBRtnHLQutHGc5aqht3OU3uMQ_qw@mail.gmail.com>
+From: Caleb Sander Mateos <csander@purestorage.com>
+Date: Fri, 4 Sep 2026 08:01:42 -0700
+X-Gm-Features: AcwNN1Xah8sd8LB6WNip_SsEfqly8NYatZhdOo3fb9Luj2iVfa_QtBKTXyBpkbU
+Message-ID: <CADUfDZp2K5_E=PZ6rcyOzRPmRWSboKvTADmNT_L4W5mqoguX_A@mail.gmail.com>
+Subject: Re: [PATCH v2 1/2] io_uring/cmd: split io_uring_cmd_set_res() from io_uring_cmd_done()
+To: Joanne Koong <joannelkoong@gmail.com>
+Cc: Keith Busch <kbusch@kernel.org>, Jens Axboe <axboe@kernel.dk>, Christoph Hellwig <hch@lst.de>, 
+	Sagi Grimberg <sagi@grimberg.me>, linux-nvme@lists.infradead.org, io-uring@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-ROG ally devices allows configuring the response curve of both joysticks,
-therefore add the ability of userspace to modify the response curve by
-exposing relevant sysfs attributes.
+On Thu, Sep 3, 2026 at 11:11=E2=80=AFAM Joanne Koong <joannelkoong@gmail.co=
+m> wrote:
+>
+> On Wed, Sep 2, 2026 at 3:57=E2=80=AFPM Caleb Sander Mateos
+> <csander@purestorage.com> wrote:
+> >
+> > In preparation for setting the io_uring NVMe passthru CQE results from
+> > the blk-mq request completion rather than the task work callback, split
+> > out functions io_uring_cmd_set_res{,32}() from __io_uring_cmd_done().
+> > io_uring_cmd_done{,32}() now call io_uring_cmd_set_res{,32}() and then
+> > __io_uring_cmd_done(). This allows __io_uring_cmd_done() to be made
+> > CQE-size-agnostic, with 3 fewer arguments.
+> >
+> > Signed-off-by: Caleb Sander Mateos <csander@purestorage.com>
+>
+> Reviewed-by: Joanne Koong <joannelkoong@gmail.com>
+>
+> > ---
+> >  include/linux/io_uring/cmd.h | 23 +++++++++++++++++------
+> >  io_uring/uring_cmd.c         | 33 ++++++++++++++++++---------------
+> >  2 files changed, 35 insertions(+), 21 deletions(-)
+> >
+> > diff --git a/include/linux/io_uring/cmd.h b/include/linux/io_uring/cmd.=
+h
+> > index 331dcbefe72f..67f2ef700c43 100644
+> > --- a/include/linux/io_uring/cmd.h
+> > +++ b/include/linux/io_uring/cmd.h
+> > @@ -50,19 +50,21 @@ int io_uring_cmd_import_fixed_vec(struct io_uring_c=
+md *ioucmd,
+> >                                   const struct iovec __user *uvec,
+> >                                   size_t uvec_segs,
+> >                                   int ddir, struct iov_iter *iter,
+> >                                   unsigned issue_flags);
+> >
+> > +void io_uring_cmd_set_res(struct io_uring_cmd *, s32 ret);
+> > +void io_uring_cmd_set_res32(struct io_uring_cmd *, s32 ret, u64 res2);
+>
+> nit: it doesn't look like anywhere else in the header omits the param
+> name for the cmd, so maybe worth also having it here (and below) for
+> consistency?
 
-Assisted-by: opencode:glm-5.2
-Signed-off-by: Denis Benato <denis.benato@linux.dev>
-Signed-off-by: Luke Jones <luke@ljones.dev>
----
- drivers/hid/hid-asus.c | 473 ++++++++++++++++++++++++++++++++++++++++-
- 1 file changed, 470 insertions(+), 3 deletions(-)
+IMO the name "cmd" or "ioucmd" doesn't add anything on top of the
+argument type. But I can include it if people prefer it.
 
-diff --git a/drivers/hid/hid-asus.c b/drivers/hid/hid-asus.c
-index cddb72973bae..5c3749a914b7 100644
---- a/drivers/hid/hid-asus.c
-+++ b/drivers/hid/hid-asus.c
-@@ -134,6 +134,14 @@ MODULE_DESCRIPTION("Asus HID Keyboard and TouchPad");
- 
- #define TRKID_SGN       ((TRKID_MAX + 1) >> 1)
- 
-+#define ALLY_DEVICE_ATTR_WO(_name, _sysfs_name)				\
-+	struct device_attribute dev_attr_##_name =				\
-+		__ATTR(_sysfs_name, 0200, NULL, _name##_store)
-+
-+#define ALLY_DEVICE_ATTR_RW(_name, _sysfs_name)				\
-+	struct device_attribute dev_attr_##_name =				\
-+		__ATTR(_sysfs_name, 0644, _name##_show, _name##_store)
-+
- enum asus_work_action_type {
- 	FN_LOCK_SYNC,
- 	BRIGHTNESS_SET,
-@@ -178,6 +186,18 @@ struct asus_touchpad_info {
- 	int report_size;
- };
- 
-+struct ally_joystick_resp_curve_param {
-+	u8 move;
-+	u8 resp;
-+} __packed;
-+
-+struct ally_joystick_resp_curve {
-+	struct ally_joystick_resp_curve_param entry_1;
-+	struct ally_joystick_resp_curve_param entry_2;
-+	struct ally_joystick_resp_curve_param entry_3;
-+	struct ally_joystick_resp_curve_param entry_4;
-+} __packed;
-+
- struct ally_config {
- 	/* Must be locked if the data is being changed */
- 	struct mutex config_mutex;
-@@ -210,6 +230,9 @@ struct ally_config {
- 	/* Vibration settings */
- 	u8 vibration_intensity_left;
- 	u8 vibration_intensity_right;
-+
-+	struct ally_joystick_resp_curve left_curve;
-+	struct ally_joystick_resp_curve right_curve;
- };
- 
- /*
-@@ -1867,6 +1890,396 @@ static struct device_attribute dev_attr_right_trigger_range_upper_limit =
- static struct device_attribute dev_attr_right_trigger_range_upper_limit_range =
- 	__ATTR(range_upper_limit_range, 0444, right_trigger_range_upper_limit_range_show, NULL);
- 
-+enum ally_joystick_side {
-+	JOYSTICK_LEFT = 0,
-+	JOYSTICK_RIGHT,
-+};
-+
-+/**
-+ * ally_set_joystick_resp_curve() - Set joystick response curve parameters
-+ * @ally: ally handheld structure
-+ * @hdev: HID device
-+ * @side: which joystick side (0=left, 1=right)
-+ * @curve: response curve parameter structure
-+ *
-+ * Return: 0 on success, negative errno on failure
-+ */
-+static int ally_set_joystick_resp_curve(struct ally_handheld *ally,
-+					struct hid_device *hdev, enum ally_joystick_side side,
-+					struct ally_joystick_resp_curve *curve)
-+{
-+	const u8 payload[] = { side,
-+		curve->entry_1.move, curve->entry_1.resp,
-+		curve->entry_2.move, curve->entry_2.resp,
-+		curve->entry_3.move, curve->entry_3.resp,
-+		curve->entry_4.move, curve->entry_4.resp
-+	};
-+	int ret;
-+
-+	u8 *buf __free(kfree) = ally_alloc_cmd(CMD_SET_RESP_CURVE, payload, sizeof(payload));
-+	if (!buf)
-+		return -ENOMEM;
-+
-+	ret = ally_gamepad_send_packet(ally, hdev, buf, ROG_ALLY_REPORT_SIZE);
-+	if (ret < 0)
-+		return ret;
-+
-+	return 0;
-+}
-+
-+static int response_curve_apply(struct ally_handheld *ally,
-+				struct hid_device *hdev,
-+				struct ally_config *cfg, bool is_left)
-+{
-+	struct ally_joystick_resp_curve curve;
-+	int ret;
-+
-+	guard(mutex)(&cfg->config_mutex);
-+
-+	if (!cfg->resp_curve_support)
-+		return -EOPNOTSUPP;
-+
-+	curve = is_left ? cfg->left_curve : cfg->right_curve;
-+
-+	if (!(curve.entry_1.move < curve.entry_2.move &&
-+	      curve.entry_2.move < curve.entry_3.move &&
-+	      curve.entry_3.move < curve.entry_4.move))
-+		return -EINVAL;
-+
-+	ret = ally_set_joystick_resp_curve(ally, hdev,
-+					   is_left ? JOYSTICK_LEFT : JOYSTICK_RIGHT,
-+					   &curve);
-+	if (ret) {
-+		hid_err(hdev, "Failed to set joystick response curve: %d\n", ret);
-+		return ret;
-+	}
-+
-+	return 0;
-+}
-+
-+static ssize_t left_response_curve_apply_store(struct device *dev,
-+					       struct device_attribute *attr,
-+					       const char *buf, size_t count)
-+{
-+	struct hid_device *hdev = to_hid_device(dev);
-+	struct asus_drvdata *drvdata = hid_get_drvdata(hdev);
-+	struct ally_handheld *const ally = drvdata->rog_ally;
-+	struct ally_config *cfg;
-+	bool apply;
-+	int ret;
-+
-+	if (!ally)
-+		return -ENODEV;
-+
-+	cfg = ally_get_config(ally);
-+	if (!cfg)
-+		return -ENODEV;
-+
-+	ret = kstrtobool(buf, &apply);
-+	if (ret)
-+		return ret;
-+
-+	if (!apply)
-+		return count;
-+
-+	ret = response_curve_apply(ally, hdev, cfg, true);
-+	if (ret < 0)
-+		return ret;
-+
-+	return count;
-+}
-+
-+static ssize_t right_response_curve_apply_store(struct device *dev,
-+						struct device_attribute *attr,
-+						const char *buf, size_t count)
-+{
-+	struct hid_device *hdev = to_hid_device(dev);
-+	struct asus_drvdata *drvdata = hid_get_drvdata(hdev);
-+	struct ally_handheld *const ally = drvdata->rog_ally;
-+	struct ally_config *cfg;
-+	bool apply;
-+	int ret;
-+
-+	if (!ally)
-+		return -ENODEV;
-+
-+	cfg = ally_get_config(ally);
-+	if (!cfg)
-+		return -ENODEV;
-+
-+	ret = kstrtobool(buf, &apply);
-+	if (ret)
-+		return ret;
-+
-+	if (!apply)
-+		return count;
-+
-+	ret = response_curve_apply(ally, hdev, cfg, false);
-+	if (ret < 0)
-+		return ret;
-+
-+	return count;
-+}
-+
-+static ALLY_DEVICE_ATTR_WO(left_response_curve_apply, response_curve_apply);
-+static ALLY_DEVICE_ATTR_WO(right_response_curve_apply, response_curve_apply);
-+
-+static ssize_t response_curve_pct_show(struct device *dev,
-+				       char *buf,
-+				       struct ally_config *cfg, bool is_left,
-+				       unsigned int idx)
-+{
-+	struct ally_joystick_resp_curve *curve;
-+	int ret = -EINVAL;
-+
-+	guard(mutex)(&cfg->config_mutex);
-+
-+	if (!cfg->resp_curve_support)
-+		return -EOPNOTSUPP;
-+
-+	curve = is_left ? &cfg->left_curve : &cfg->right_curve;
-+
-+	switch (idx) {
-+	case 1:
-+		ret = sysfs_emit(buf, "%u\n", curve->entry_1.resp);
-+		break;
-+	case 2:
-+		ret = sysfs_emit(buf, "%u\n", curve->entry_2.resp);
-+		break;
-+	case 3:
-+		ret = sysfs_emit(buf, "%u\n", curve->entry_3.resp);
-+		break;
-+	case 4:
-+		ret = sysfs_emit(buf, "%u\n", curve->entry_4.resp);
-+		break;
-+	}
-+
-+	return ret;
-+}
-+
-+static ssize_t response_curve_move_show(struct device *dev,
-+					char *buf,
-+					struct ally_config *cfg, bool is_left,
-+					unsigned int idx)
-+{
-+	struct ally_joystick_resp_curve *curve;
-+	int ret = -EINVAL;
-+
-+	guard(mutex)(&cfg->config_mutex);
-+
-+	if (!cfg->resp_curve_support)
-+		return -EOPNOTSUPP;
-+
-+	curve = is_left ? &cfg->left_curve : &cfg->right_curve;
-+
-+	switch (idx) {
-+	case 1:
-+		ret = sysfs_emit(buf, "%u\n", curve->entry_1.move);
-+		break;
-+	case 2:
-+		ret = sysfs_emit(buf, "%u\n", curve->entry_2.move);
-+		break;
-+	case 3:
-+		ret = sysfs_emit(buf, "%u\n", curve->entry_3.move);
-+		break;
-+	case 4:
-+		ret = sysfs_emit(buf, "%u\n", curve->entry_4.move);
-+		break;
-+	}
-+
-+	return ret;
-+}
-+
-+static ssize_t response_curve_pct_store(struct device *dev,
-+					const char *buf, size_t count,
-+					struct ally_config *cfg, bool is_left,
-+					unsigned int idx)
-+{
-+	struct ally_joystick_resp_curve *curve;
-+	u8 value;
-+	int ret;
-+
-+	ret = kstrtou8(buf, 10, &value);
-+	if (ret)
-+		return ret;
-+
-+	if (value > 100)
-+		return -EINVAL;
-+
-+	guard(mutex)(&cfg->config_mutex);
-+
-+	if (!cfg->resp_curve_support)
-+		return -EOPNOTSUPP;
-+
-+	curve = is_left ? &cfg->left_curve : &cfg->right_curve;
-+
-+	switch (idx) {
-+	case 1:
-+		curve->entry_1.resp = value;
-+		break;
-+	case 2:
-+		curve->entry_2.resp = value;
-+		break;
-+	case 3:
-+		curve->entry_3.resp = value;
-+		break;
-+	case 4:
-+		curve->entry_4.resp = value;
-+		break;
-+	default:
-+		return -EINVAL;
-+	}
-+
-+	return count;
-+}
-+
-+static ssize_t response_curve_move_store(struct device *dev,
-+					 const char *buf, size_t count,
-+					 struct ally_config *cfg, bool is_left,
-+					 unsigned int idx)
-+{
-+	struct ally_joystick_resp_curve *curve;
-+	u8 value;
-+	int ret;
-+
-+	ret = kstrtou8(buf, 10, &value);
-+	if (ret)
-+		return ret;
-+
-+	if (value > 100)
-+		return -EINVAL;
-+
-+	guard(mutex)(&cfg->config_mutex);
-+
-+	if (!cfg->resp_curve_support)
-+		return -EOPNOTSUPP;
-+
-+	curve = is_left ? &cfg->left_curve : &cfg->right_curve;
-+
-+	switch (idx) {
-+	case 1:
-+		curve->entry_1.move = value;
-+		break;
-+	case 2:
-+		curve->entry_2.move = value;
-+		break;
-+	case 3:
-+		curve->entry_3.move = value;
-+		break;
-+	case 4:
-+		curve->entry_4.move = value;
-+		break;
-+	default:
-+		return -EINVAL;
-+	}
-+
-+	return count;
-+}
-+
-+#define DEFINE_JS_CURVE_PCT_FOPS(region, side)				\
-+	static ssize_t side##_response_curve_pct_##region##_show(	\
-+		struct device *dev, struct device_attribute *attr,	\
-+		char *buf)						\
-+	{								\
-+		struct hid_device *hdev = to_hid_device(dev);		\
-+		struct asus_drvdata *drvdata = hid_get_drvdata(hdev);	\
-+		struct ally_handheld *ally = drvdata->rog_ally;		\
-+		struct ally_config *cfg;				\
-+									\
-+		if (!ally)						\
-+			return -ENODEV;				\
-+									\
-+		cfg = ally_get_config(ally);				\
-+		if (!cfg)						\
-+			return -ENODEV;				\
-+									\
-+		return response_curve_pct_show(dev, buf, cfg,		\
-+					       side##_is_left, region);\
-+	}								\
-+									\
-+	static ssize_t side##_response_curve_pct_##region##_store(	\
-+		struct device *dev, struct device_attribute *attr,	\
-+		const char *buf, size_t count)				\
-+	{								\
-+		struct hid_device *hdev = to_hid_device(dev);		\
-+		struct asus_drvdata *drvdata = hid_get_drvdata(hdev);	\
-+		struct ally_handheld *ally = drvdata->rog_ally;		\
-+		struct ally_config *cfg;				\
-+									\
-+		if (!ally)						\
-+			return -ENODEV;				\
-+									\
-+		cfg = ally_get_config(ally);				\
-+		if (!cfg)						\
-+			return -ENODEV;				\
-+									\
-+		return response_curve_pct_store(dev, buf, count, cfg,	\
-+						side##_is_left, region);\
-+	}
-+
-+#define DEFINE_JS_CURVE_MOVE_FOPS(region, side)				\
-+	static ssize_t side##_response_curve_move_##region##_show(	\
-+		struct device *dev, struct device_attribute *attr,	\
-+		char *buf)						\
-+	{								\
-+		struct hid_device *hdev = to_hid_device(dev);		\
-+		struct asus_drvdata *drvdata = hid_get_drvdata(hdev);	\
-+		struct ally_handheld *ally = drvdata->rog_ally;		\
-+		struct ally_config *cfg;				\
-+									\
-+		if (!ally)						\
-+			return -ENODEV;				\
-+									\
-+		cfg = ally_get_config(ally);				\
-+		if (!cfg)						\
-+			return -ENODEV;				\
-+									\
-+		return response_curve_move_show(dev, buf, cfg,		\
-+						side##_is_left, region);\
-+	}								\
-+									\
-+	static ssize_t side##_response_curve_move_##region##_store(	\
-+		struct device *dev, struct device_attribute *attr,	\
-+		const char *buf, size_t count)				\
-+	{								\
-+		struct hid_device *hdev = to_hid_device(dev);		\
-+		struct asus_drvdata *drvdata = hid_get_drvdata(hdev);	\
-+		struct ally_handheld *ally = drvdata->rog_ally;		\
-+		struct ally_config *cfg;				\
-+									\
-+		if (!ally)						\
-+			return -ENODEV;				\
-+									\
-+		cfg = ally_get_config(ally);				\
-+		if (!cfg)						\
-+			return -ENODEV;				\
-+									\
-+		return response_curve_move_store(dev, buf, count, cfg,	\
-+						 side##_is_left, region);\
-+	}
-+
-+#define DEFINE_JS_CURVE_ATTRS(region, side)				\
-+	DEFINE_JS_CURVE_PCT_FOPS(region, side)				\
-+	DEFINE_JS_CURVE_MOVE_FOPS(region, side)				\
-+	static ALLY_DEVICE_ATTR_RW(side##_response_curve_pct_##region,	\
-+				   response_curve_pct_##region);	\
-+	static ALLY_DEVICE_ATTR_RW(side##_response_curve_move_##region,	\
-+				   response_curve_move_##region)
-+
-+/* Helper defines for "is_left" parameter in DEFINE_JS_CURVE_ATTRS macros */
-+#define left_is_left true
-+#define right_is_left false
-+
-+DEFINE_JS_CURVE_ATTRS(1, left);
-+DEFINE_JS_CURVE_ATTRS(2, left);
-+DEFINE_JS_CURVE_ATTRS(3, left);
-+DEFINE_JS_CURVE_ATTRS(4, left);
-+
-+DEFINE_JS_CURVE_ATTRS(1, right);
-+DEFINE_JS_CURVE_ATTRS(2, right);
-+DEFINE_JS_CURVE_ATTRS(3, right);
-+DEFINE_JS_CURVE_ATTRS(4, right);
-+
- static struct attribute *ally_config_attrs[] = {
- 	&dev_attr_xbox_controller.attr,
- 	NULL
-@@ -1891,6 +2304,15 @@ static struct attribute *left_joystick_axis_attrs[] = {
- 	&dev_attr_left_joystick_outer_threshold_range.attr,
- 	&dev_attr_left_joystick_anti_deadzone.attr,
- 	&dev_attr_left_joystick_anti_deadzone_range.attr,
-+	&dev_attr_left_response_curve_pct_1.attr,
-+	&dev_attr_left_response_curve_pct_2.attr,
-+	&dev_attr_left_response_curve_pct_3.attr,
-+	&dev_attr_left_response_curve_pct_4.attr,
-+	&dev_attr_left_response_curve_move_1.attr,
-+	&dev_attr_left_response_curve_move_2.attr,
-+	&dev_attr_left_response_curve_move_3.attr,
-+	&dev_attr_left_response_curve_move_4.attr,
-+	&dev_attr_left_response_curve_apply.attr,
- 	NULL
- };
- 
-@@ -1901,6 +2323,15 @@ static struct attribute *right_joystick_axis_attrs[] = {
- 	&dev_attr_right_joystick_outer_threshold_range.attr,
- 	&dev_attr_right_joystick_anti_deadzone.attr,
- 	&dev_attr_right_joystick_anti_deadzone_range.attr,
-+	&dev_attr_right_response_curve_pct_1.attr,
-+	&dev_attr_right_response_curve_pct_2.attr,
-+	&dev_attr_right_response_curve_pct_3.attr,
-+	&dev_attr_right_response_curve_pct_4.attr,
-+	&dev_attr_right_response_curve_move_1.attr,
-+	&dev_attr_right_response_curve_move_2.attr,
-+	&dev_attr_right_response_curve_move_3.attr,
-+	&dev_attr_right_response_curve_move_4.attr,
-+	&dev_attr_right_response_curve_apply.attr,
- 	NULL
- };
- 
-@@ -2014,6 +2445,25 @@ static struct ally_config *ally_config_create(struct hid_device *hdev, struct al
- 		cfg->right_trigger_max = 100;
- 		cfg->vibration_intensity_left = 100;
- 		cfg->vibration_intensity_right = 100;
-+
-+		/* Initialize default response curve values (linear) */
-+		cfg->left_curve.entry_1.move = 0;
-+		cfg->left_curve.entry_1.resp = 0;
-+		cfg->left_curve.entry_2.move = 33;
-+		cfg->left_curve.entry_2.resp = 33;
-+		cfg->left_curve.entry_3.move = 66;
-+		cfg->left_curve.entry_3.resp = 66;
-+		cfg->left_curve.entry_4.move = 100;
-+		cfg->left_curve.entry_4.resp = 100;
-+
-+		cfg->right_curve.entry_1.move = 0;
-+		cfg->right_curve.entry_1.resp = 0;
-+		cfg->right_curve.entry_2.move = 33;
-+		cfg->right_curve.entry_2.resp = 33;
-+		cfg->right_curve.entry_3.move = 66;
-+		cfg->right_curve.entry_3.resp = 66;
-+		cfg->right_curve.entry_4.move = 100;
-+		cfg->right_curve.entry_4.resp = 100;
- 	}
- 
- 	for (sysfs_i = 0; sysfs_i < ARRAY_SIZE(ally_attr_groups); sysfs_i++) {
-@@ -2027,10 +2477,11 @@ static struct ally_config *ally_config_create(struct hid_device *hdev, struct al
- 	}
- 
- 	/*
--	 * Skip the calibration and anti-deadzone groups when none of the
--	 * features they expose is supported.
-+	 * Skip the calibration, anti-deadzone and response curve groups when
-+	 * none of the features they expose is supported.
- 	 */
--	if (cfg->user_cal_support || cfg->anti_deadzone_support) {
-+	if (cfg->user_cal_support || cfg->anti_deadzone_support ||
-+	    cfg->resp_curve_support) {
- 		int cal_i;
- 
- 		for (cal_i = 0; cal_i < ARRAY_SIZE(ally_cal_attr_groups);
-@@ -2425,6 +2876,22 @@ static int hid_asus_ally_init(struct hid_device *hdev, struct ally_handheld *all
- 					 ret);
- 	}
- 
-+	if (cfg->resp_curve_support) {
-+		ret = ally_set_joystick_resp_curve(ally, hdev, JOYSTICK_LEFT,
-+							   &cfg->left_curve);
-+		if (ret < 0)
-+			hid_warn(hdev,
-+					 "Failed to restore left response curve: %d\n",
-+					 ret);
-+
-+		ret = ally_set_joystick_resp_curve(ally, hdev, JOYSTICK_RIGHT,
-+							   &cfg->right_curve);
-+		if (ret < 0)
-+			hid_warn(hdev,
-+					 "Failed to restore right response curve: %d\n",
-+					 ret);
-+	}
-+
- 	return 0;
- }
- 
--- 
-2.47.3
+>
+> > +
+> >  /*
+> >   * Completes the request, i.e. posts an io_uring CQE and deallocates @=
+ioucmd
+> >   * and the corresponding io_uring request.
+> >   *
+> >   * Note: the caller should never hard code @issue_flags and is only al=
+lowed
+> >   * to pass the mask provided by the core io_uring code.
+> >   */
+> > -void __io_uring_cmd_done(struct io_uring_cmd *cmd, s32 ret, u64 res2,
+> > -                        unsigned issue_flags, bool is_cqe32);
+> > +void __io_uring_cmd_done(struct io_uring_cmd *, unsigned issue_flags);
+>
+> Maybe worth adding a comment that any caller using this api needs to
+> set the res themselves before calling this?
 
+Sure, that's a good idea.
+
+Thanks,
+Caleb
