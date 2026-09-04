@@ -1,138 +1,113 @@
-Received: from mail-pf1-f181.google.com (mail-pf1-f181.google.com [209.85.210.181])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B00D3E5A07
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 23:41:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A52735E1B8;
+	Fri,  4 Sep 2026 23:42:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788565314; cv=none; b=gJKMHWBnsCVFJkZDvdHdykWh+m6nEec2T/PUlEhKCd4pUUDi1R07YqFJshsfoPWw87UPQ2+3QFk5VCVr8/JPfWDLeicR9i10ehha64TgaKRJ0b9w6BP2PXIcegpXEVL+9OosJhlohRxIU3cEeGGPGNxs/7H60mQqw9vPH0RJAt0=
+	t=1788565334; cv=none; b=ORNyV11hySzv7+0kzixqwaCR9aZFPlbDJGTkjnKZwKWzXwKI0KvfW44jbT3hVVBlgbowND1p7Bpdy1aSAHnjQFJbFF2cLE/q7Ubb3CheDHUdXvpZTBVYYvOXS6NJn3R/FgtVT1UMPahwd7IqNBval8CYzScrk4dMB9h77+STc/I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788565314; c=relaxed/simple;
-	bh=OQNwteterpbc3IOHurGDzXnqV1Q89ZIRmQiLUC8eJss=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=lTSRFnXNesp6EVf7tn6nvwEhn2Aytg9lQ/t2QGcOfyloHDBAvkCEmm41Z3DaXEmes+cbiWTi4zms4WgyrGc0Qo42h7h6L1qhmjz1PVZeBLoh7Hw/xiDWUPVD+ZzIBPA2K6KszHl0NwNOPl0aJcI7Q6kGA955WIjIIorG4jLqAU0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dEBECRrA; arc=none smtp.client-ip=209.85.210.181
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788565334; c=relaxed/simple;
+	bh=fuSOeb+rmWuQjo88nHrx7Sv5rD++tmKD84lWiFlygoA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=BxnMyE7HO0ilpHPbXYdFrufbjKkQyxCudwYknYH4x3eHrnOiBP+0Rcm2mUZl+rm36Krfe879gmVUAZhGmdte7h1pReFF3M+iOJMfhciHVqogMS7WkEKfa26d/IWgwqgSGkW+Hnc4OK8HH3zqBim34PD42JbNHcbJpHVKm86r0ss=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Gdqt5SJX; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dEBECRrA"
-Received: by mail-pf1-f181.google.com with SMTP id d2e1a72fcca58-84864086bfeso1344945b3a.1
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 16:41:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788565312; x=1789170112; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=z/JnKrPKxIxB56b012D9tUkjmwAdNUuaR74g8mPWh2k=;
-        b=dEBECRrA97rNsfsZnX8L/2Q/gSQEqnw35VCwKRMZh31vlqg/8EPDsKHCB8bknuATeS
-         FJ50k6uhD11+yISCMpzU5ViNxLIpzDeIky4ea8jMhDcC5XXO1ymvs3yw3rhB/nXrVRq9
-         yQLa7ujn6AFYlkH/zyIwXLpX/qxRlaPXRw/N/BaMwuKC/9zzNSmQWcQBwNQdf13y4HXl
-         Uh74a7Y0EvAjpfCNGrM62VGEMxclZXxeFAl/UpIbKUU+lohJyCmQBz86TefRr2LeIaok
-         2coXUJzA8haxVdQAtermXMU1WCJakjy0WzfUsCGsbPxzMKEObjkyGgfOQlT1e7TFaFeN
-         0cVA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788565312; x=1789170112;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=z/JnKrPKxIxB56b012D9tUkjmwAdNUuaR74g8mPWh2k=;
-        b=axPJcBDhJbg0cxFs84zqViNod3IxLQevwTWlwFIHW9y0ZTgD3T53ONziTmKziTxWlW
-         7nYOnmecfrM4BRvtaGgjU1t+Ch8BQ3NZ4BtWpQI20TYEm8t+UJYiFy1SJBOtTq6ZwNzw
-         VJxmAXnEWEidliR6IlFsEsVKjZhqdYjD0PmXBJKAmKT5R3adp+3FXJ46elNdwxJF9dsY
-         4iUQOPFPZNIZzIYNwxIdhoX24G0YaGmoKbQAfzy9Pip5XXujCURhEpqz5TCE/XNO7eeM
-         G3P60Pd9CQiedPWGBIet14gLfRYolp71s3Nd4qSf2nzOs9cFG+CQuPKMp4XzSotY+y4N
-         OHRQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwF2xCN+pwIHkydM6kORVeBVKxml+C0eX17I8XiX9ork7J0EmjLTp0cOqUjef5W26D7D5fgN/BslKKOfCM=@vger.kernel.org
-X-Gm-Message-State: AFuF++ly4JByJ7BFK7UCrgHyKR/meQ5ADlQbMCTvxgotu9fAxZqTnI9Q
-	Kvu08kNgz0+bu22B6Nu2L660/9SmaHxwhv+D3FsX12vid3iSmEzlaYHjK+G6WCfCExo=
-X-Gm-Gg: AYBFou2L5PfvzAE1HHTY5nqvYXyjuE376kuKk/+3VmFzMSZXNFx00SNaF8PeQWYFbSa
-	utBhfqeMiwZQMmlsTqWhVwAg8oy/JBg+iyiX2Wbi+dsuLsRxN/SvSzEaIkbTN5NucZY0juHmlNf
-	hp/0y21lVvGQ4BZRc8wLeZkg1nyaAlH0UBWh+4lwbzsdyzwMaeKVvE6WurE5J0W5VDccz27OarB
-	YcS3dfm67tIQN0wBTAwONNAzDG+eFh4XXIgYOpRvbUcaxTqfwMVrKlNnW23T6fBOvrhWsHVt3jl
-	Ih3aGzApkmnL/4YkljGDkPGL3GUttqQF+Mtm1s2C9pKfbAgXA4NbYgqwB8LsXno6DGF4vs18zux
-	4VRTIc53iBtfNdzjFI870Wka4QiWvEHggRnTM7WI0zucAssNMvJDEs/OT2bBjpFLtIHQNYT5tt/
-	ES0wciqVCfGpDy9MnS/LghItsrhASNNhTLhky9o1SAAGDzU+orL4I14Z0r1XrDVqa9p/1BUspLn
-	Wi9jmmQFqg9sGNQ7ui4fIXf7JbB1CynB7WOLiEuyEqd
-X-Received: by 2002:a05:6a21:7482:b0:3d3:aec2:4dc7 with SMTP id adf61e73a8af0-3da3a0aa9e9mr14334818637.19.1788565312325;
-        Fri, 04 Sep 2026 16:41:52 -0700 (PDT)
-Received: from Biostar-A520MT.. ([187.94.13.245])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1432435ec2bsm8592131c88.3.2026.09.04.16.41.50
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 04 Sep 2026 16:41:51 -0700 (PDT)
-From: Breno Rodrigues Alves <breno3011alves@gmail.com>
-To: corbet@lwn.net
-Cc: linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Breno Rodrigues Alves <breno3011alves@gmail.com>
-Subject: [PATCH] docs: admin-guide: remove obsolete lcd-panel-cgram documentation
-Date: Fri,  4 Sep 2026 20:41:48 -0300
-Message-ID: <20260904234148.88329-1-breno3011alves@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Gdqt5SJX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DB3FC1F00A3D;
+	Fri,  4 Sep 2026 23:42:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788565333;
+	bh=QX/Fk9Tx6db3qemKOlBvpuCPR/MFN0GxUuQE1UCmKLM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Gdqt5SJXIY6rADw0cFuZkF88o7xGpLE5dTARUOG8k6vrtZbDKGYbEhM2zyZz3qPw7
+	 LfMfmb28a2O+GcRdOlITDr0ctgUcbpq3Zw/scOhPo3dLYU1T30/ZupBN2lKhMlq/jt
+	 R52bWRnD/fvql07Y5CZEGiZsrneXZtLryjFaM1rEJEIOwx3jJ35tPMr7nSiAHTFBbd
+	 9jQSXhhTGIAbZOWFw77ejB3FcPnO4re9MocBTcnfjEIND/vrXvkeuyBp+oUhwcV1Gp
+	 aXzu16AmFu5JSz+qCgn2lWHypGRkyckcDcIfj5g3EBhMYTPtVD9ZsgaVbYuBGn43Di
+	 zsNevJYUD6LUw==
+Date: Fri, 4 Sep 2026 18:42:11 -0500
+From: Rob Herring <robh@kernel.org>
+To: nina_kuo@novatek.com.tw
+Cc: andi.shyti@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org,
+	krzk+dt@kernel.org, linux-i2c@vger.kernel.org,
+	linux-kernel@vger.kernel.org, shihpei_hsu@novatek.com.tw,
+	toby_chui@novatek.com.tw, Ben Huang <Ben_Huang@novatek.com.tw>
+Subject: Re: [PATCH v8 1/3] dt-bindings: i2c: Add Novatek NT72676 I2C
+ controller
+Message-ID: <20260904134834.GA3514178-robh@kernel.org>
+References: <20260903160434.GA3629759-robh@kernel.org>
+ <20260904054024.35245-1-nina_kuo@novatek.com.tw>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260904054024.35245-1-nina_kuo@novatek.com.tw>
 
-Now that CONFIG_PANEL (the legacy parallel port LCD support) has been
-permanently purged from the Kconfig tree, its associated documentation
-is a ghost reference.
+On Fri, Sep 04, 2026 at 01:40:25PM +0800, nina_kuo@novatek.com.tw wrote:
+> From: Ben Huang <Ben_Huang@novatek.com.tw>
+> 
+> Hi,
+> 
+> Thanks for the review.
+> 
+> On Friday, September 4, 2026 12:05 AM, Rob Herring <robh@kernel.org> wrote:
+> >> +description:
+> >> +  Novatek NT72676 SoC provides two I2C controller variants, generic I2C and
+> >> +  STBC I2C.
+> >
+> > blank line between paragraphs and you need a '>' modifier on 
+> > 'description'.
+> 
+> I will change the top-level description to use the folded block style and
+> add blank lines between paragraphs.
+> 
+> >> +  The generic I2C controllers are accessible only by the host CPU and driven
+> >> +  by a 96 MHz AHB clock.
+> >> +  On the other hand, the STBC I2C controllers can be controlled by either the
+> >> +  host CPU or STBC (Standby Controller, an 8051-based microcontroller) and
+> >> +  driven by a 12 MHz STBC clock. Authentication with STBC is required before
+> >> +  the host CPU can access the STBC I2C controller registers.
+> >
+> > Is the programming model of the I2C controller different? If not, the 
+> > compatible should be the same.
+> 
+> The register layout and transfer programming model are the same, but these
+> are separate physical IP blocks with different hardware integration. They
+> have different interrupt sources and input clocks, and the STBC instance
+> requires an authentication and ownership-switch sequence before its
+> registers can be accessed by the host CPU. These differences are fixed
+> properties of the two IP blocks, so separate compatible strings are used.
 
-Remove the orphaned lcd-panel-cgram.rst file and clean up its entry
-from the admin-guide index to prevent any future Sphinx broken links.
+Different interrupts and clocks is every IP block. That's why we have 
+'interrupts' and 'clocks' properties.
 
-Signed-off-by: Breno Rodrigues Alves <breno3011alves@gmail.com>
----
- Documentation/admin-guide/index.rst           |  1 -
- Documentation/admin-guide/lcd-panel-cgram.rst | 27 -------------------
- 2 files changed, 28 deletions(-)
- delete mode 100644 Documentation/admin-guide/lcd-panel-cgram.rst
+For ownership switch, that can be based on having the 
+novatek,stbc-syscon property or not.
 
-diff --git a/Documentation/admin-guide/index.rst b/Documentation/admin-guide/index.rst
-index cd28dfe91..70c0bbc87 100644
---- a/Documentation/admin-guide/index.rst
-+++ b/Documentation/admin-guide/index.rst
-@@ -152,7 +152,6 @@ How to configure your hardware within your Linux system.
-    gpio/index
-    hw_random
-    laptops/index
--   lcd-panel-cgram
-    media/index
-    nvme-multipath
-    parport
-diff --git a/Documentation/admin-guide/lcd-panel-cgram.rst b/Documentation/admin-guide/lcd-panel-cgram.rst
-deleted file mode 100644
-index a3eb00c62..000000000
---- a/Documentation/admin-guide/lcd-panel-cgram.rst
-+++ /dev/null
-@@ -1,27 +0,0 @@
--======================================
--Parallel port LCD/Keypad Panel support
--======================================
--
--Some LCDs allow you to define up to 8 characters, mapped to ASCII
--characters 0 to 7. The escape code to define a new character is
--'\e[LG' followed by one digit from 0 to 7, representing the character
--number, and up to 8 couples of hex digits terminated by a semi-colon
--(';'). Each couple of digits represents a line, with 1-bits for each
--illuminated pixel with LSB on the right. Lines are numbered from the
--top of the character to the bottom. On a 5x7 matrix, only the 5 lower
--bits of the 7 first bytes are used for each character. If the string
--is incomplete, only complete lines will be redefined. Here are some
--examples::
--
--  printf "\e[LG0010101050D1F0C04;"  => 0 = [enter]
--  printf "\e[LG1040E1F0000000000;"  => 1 = [up]
--  printf "\e[LG2000000001F0E0400;"  => 2 = [down]
--  printf "\e[LG3040E1F001F0E0400;"  => 3 = [up-down]
--  printf "\e[LG40002060E1E0E0602;"  => 4 = [left]
--  printf "\e[LG500080C0E0F0E0C08;"  => 5 = [right]
--  printf "\e[LG60016051516141400;"  => 6 = "IP"
--
--  printf "\e[LG00103071F1F070301;"  => big speaker
--  printf "\e[LG00002061E1E060200;"  => small speaker
--
--Willy
--- 
-2.43.0
+> 
+> >> +  novatek,stbc-syscon:
+> >> +    $ref: /schemas/types.yaml#/definitions/phandle
+> >> +    description:
+> >> +      Phandle to the STBC system controller registers used to authenticate
+> >> +      host access and switch ownership of the STBC I2C controller.
+> >
+> > Sounds like this could be modelled as a hwlock? That's other platforms 
+> > mediate access to shared h/w. We really only want to have these syscon 
+> > phandles as a last resort.
+> 
+> The ownership mechanism is a one-time switch rather than a hardware lock.
+> The presence of the STBC I2C node in the Device Tree means that the
+> controller is assigned to the host CPU. The driver authenticates and switches
+> ownership during initialization, after which the controller remains under
+> host CPU control. The STBC does not access the controller concurrently, and
+> there is no runtime acquire/release or lock arbitration. Therefore, the
+> generic hwlock binding does not match this hardware mechanism.
 
+Okay.
+
+Rob
