@@ -1,96 +1,137 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mxct.zte.com.cn (mxct.zte.com.cn [183.62.165.209])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 006361BC2A;
-	Fri,  4 Sep 2026 00:44:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8362A2D46A1;
+	Fri,  4 Sep 2026 00:45:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=183.62.165.209
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788482655; cv=none; b=kkabesCNKSWx6CJ6SVNf2rufD//cKJnJTGqYOJZNLEfZCwxUqI3gqWfiCg299jccz6SZpq1u06L7tQ0BDZE6drl0MRhm0UQu3vmuEqFxhTrEB5ZGwsVmvTB1KiIziS+5HYjIzAacDqD4j1i36V+0XymAksTgHdSAf4RNUZzivLc=
+	t=1788482743; cv=none; b=h7jAlnpymhrAhSmZ5BUfwtGSDGfPFiTQi80OT++RuceeuTrkbJNflFdViZewTJ7qop4NmtK6SAGkGLTTual+rc0BRsvTBQLtCHKYv1QUC6Iwkf0UoU5ti4YcR17YwoWUVNMg/Liy4JEmoIbuMzD1BsHNXeAYoQAbGu97t+TE7no=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788482655; c=relaxed/simple;
-	bh=IpaniWpl4q+8kiIAFgq+x65paTc23TjQM5EsmdPM+OQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Qj+5PcO73RowR5Kw0uMpNint+Jw+ZkX4WNhd4+be6xmt4Qa6N66htuqB8Ke9XSzO41Wfe+qKcFab+pz3zDNsPDi6+W2rMjrKi4z1IgggYPJLgaXr0ngOpWUPbmC2Ps4/u+NeQUqUYdApgC/3uSE+mKkMvCBI0dVdaQgfnbpzqtY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=C8pOMMDh; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="C8pOMMDh"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 180D91F000E9;
-	Fri,  4 Sep 2026 00:44:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788482653;
-	bh=KraBssmMEiWIBzyn65iDWbUViqjTaiDbL8M21HHwgAw=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=C8pOMMDh1Z7TttwCKihKzuccCRBEZrjT7j/gIJuixvaPcRyABx0q5vkmdefdAFVEw
-	 gmTdX5+k8WBG43R6I6IRzTFITAC7liJ1tduPzDmZ+IzDSg+RSiDdPij31M3uA1LW3H
-	 IPUb55zkVjTROVZWmvIoa/qGLAtXc26UbslMIIMjedyl/0jBtwTf+taIQf6DDZb5Bb
-	 0pmW6bv7X/hyAAZHoW2MasZxmB/RjxFXbXEcbcmMORoVMvXtOBKaYARyejgBtGrTK3
-	 kdEbBsanlq6IiPYeeUGWDInPYRArnHJxb1xPD3TOhK8jGIhZ9rIX//UBtOleT/ZwIP
-	 /ZmeyT06BpDlw==
-From: SJ Park <sj@kernel.org>
-To: Zenghui Yu <zenghui.yu@linux.dev>
-Cc: SJ Park <sj@kernel.org>,
-	linux-mm@kvack.org,
-	linux-kselftest@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	akpm@linux-foundation.org,
-	david@kernel.org,
-	ljs@kernel.org,
-	liam@infradead.org,
-	vbabka@kernel.org,
-	rppt@kernel.org,
-	surenb@google.com,
-	mhocko@suse.com,
-	shuah@kernel.org,
-	ziy@nvidia.com,
-	baolin.wang@linux.alibaba.com,
-	nico.pache@linux.dev,
-	ryan.roberts@arm.com,
-	dev.jain@arm.com,
-	baohua@kernel.org,
-	lance.yang@linux.dev,
-	usama.arif@linux.dev,
-	Kiryl Shutsemau <kas@kernel.org>
-Subject: Re: [PATCH] selftests/mm: remove unreachable returns after ksft exit helpers
-Date: Thu,  3 Sep 2026 17:44:05 -0700
-Message-ID: <20260904004405.116994-1-sj@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260903135251.39593-1-zenghui.yu@linux.dev>
-References: 
+	s=arc-20240116; t=1788482743; c=relaxed/simple;
+	bh=0v0U5rlb46QD45G3LjSYu5WQAHvpNSoGbtWGcmZK4sE=;
+	h=Message-ID:Date:Mime-Version:From:To:Cc:Subject:Content-Type; b=RHPtyj5WQUNjAFAnGSokO2zOTZkfMmV8Fmv6HwMZdDZUyeHjBM7vjj4H0BQU+H12FfU+FC3KmvcU2t1tyjKNCUjV41AU8RiXFx5UDkvl35yp8StrFTgJ2GxNHOtpHVBcqbDBWzpq2GdrA8yrHVhwDYiFy4EbCM8yA63rjjVGvxs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn; spf=pass smtp.mailfrom=zte.com.cn; arc=none smtp.client-ip=183.62.165.209
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
+Received: from mse-fl1.zte.com.cn (unknown [10.5.228.132])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mxct.zte.com.cn (FangMail) with ESMTPS id 4hbd6f70C0z55y2L;
+	Fri, 04 Sep 2026 08:45:30 +0800 (CST)
+Received: from xaxapp05.zte.com.cn ([10.99.98.109])
+	by mse-fl1.zte.com.cn with SMTP id 6840jUc1087556;
+	Fri, 4 Sep 2026 08:45:30 +0800 (+08)
+	(envelope-from he.peilin@zte.com.cn)
+Received: from mapi (xaxapp04[null])
+	by mapi (Zmail) with MAPI id mid31;
+	Fri, 4 Sep 2026 08:45:30 +0800 (CST)
+X-Zmail-TransId: 2afb6a9a14aa0aa-a417d
+X-Mailer: Zmail v1.0
+Message-ID: <202609040845307827XHaxAT2PmgJc9jjPqfAP@zte.com.cn>
+Date: Fri, 4 Sep 2026 08:45:30 +0800 (CST)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+From: <he.peilin@zte.com.cn>
+To: <maxime.chevallier@bootlin.com>, <andrew+netdev@lunn.ch>,
+        <davem@davemloft.net>, <edumazet@google.com>, <kuba@kernel.org>,
+        <pabeni@redhat.com>, <mcoquelin.stm32@gmail.com>,
+        <alexandre.torgue@foss.st.com>, <vbridgers2013@gmail.com>,
+        <netdev@vger.kernel.org>, <linux-stm32@st-md-mailman.stormreply.com>,
+        <linux-kernel@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>
+Cc: <xu.xin16@zte.com.cn>, <jiang.kun2@zte.com.cn>
+Subject: =?UTF-8?B?W1BBVENIIG5ldCB2NV0gbmV0OiBzdG1tYWM6IHJlbW92ZSBzb2Z0d2FyZSBWTEFOIHRhZyBzdHJpcHBpbmc=?=
+Content-Type: text/plain;
+	charset="UTF-8"
+X-MAIL:mse-fl1.zte.com.cn 6840jUc1087556
+X-TLS: YES
+X-ENVELOPE-SENDER: he.peilin@zte.com.cn
+X-SOURCE-IP: 10.5.228.132 unknown Fri, 04 Sep 2026 08:45:30 +0800
+X-CLEAN: YES
+X-Fangmail-Anti-Spam-Filtered: true
+X-Fangmail-MID-QID: 6A9A14AA.002/4hbd6f70C0z55y2L
 
-'get_maintainer.pl --nogit --nogit-fallback' on mm-new suggests adding Kiryl.
-I added him.
+The software VLAN stripping logic in stmmac_rx_vlan() was originally
+introduced in 2014 by commit b93819854d6e ("stmmac: Add vlan rx for
+better GRO performance.") as a workaround to improve GRO performance,
+since at that time GRO could not handle frames with VLAN tags. However,
+this limitation was resolved in 2015 by commit 66e5133f19e9 ("vlan: Add
+GRO support for non hardware accelerated vlan"), which added GRO support
+for non-hardware-accelerated VLAN frames. Keeping a software fallback
+path for VLAN stripping is no longer necessary and only adds complexity.
 
-- Kiryl Shutsemau <kas@kernel.org>
+Fixes: b93819854d6e ("stmmac: Add vlan rx for better GRO performance.")
+Signed-off-by: Peilin He <he.peilin@zte.com.cn>
+Reviewed-by: xu xin <xu.xin16@zte.com.cn>
+Reviewed-by: Jiang Kun <jiang.kun2@zte.com.cn>
+---
+../net/ethernet/stmicro/stmmac/stmmac_main.c | 28 ++-----------------
+1 file changed, 2 insertions(+), 26 deletions(-)
 
-On Thu,  3 Sep 2026 21:52:51 +0800 Zenghui Yu <zenghui.yu@linux.dev> wrote:
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+index b2b7d0242dd3..2e3b0cf10d66 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+@@ -5021,24 +5021,6 @@ static netdev_features_t stmmac_features_check(struct sk_buff *skb,
+return vlan_features_check(skb, features);
+}
 
-> From: "Zenghui Yu (Huawei)" <zenghui.yu@linux.dev>
-> 
-> The ksft_exit*() helpers such as ksft_exit_fail_msg() are declared
-> __noreturn, and the ksft_exit() and ksft_finished() macros expand to calls
-> of them, always terminating the process via exit().  Any return statements
-> following such calls are unreachable, both at the end of main() and on
-> error paths of helper functions.
-> 
-> Remove all of them.  No functional change.
+-static void stmmac_rx_vlan(struct net_device *dev, struct sk_buff *skb)
+-{
+-   struct vlan_ethhdr *veth = skb_vlan_eth_hdr(skb);
+-   __be16 vlan_proto = veth->h_vlan_proto;
+-   u16 vlanid;
+-
+-   if ((vlan_proto == htons(ETH_P_8021Q) &&
+-        dev->features & NETIF_F_HW_VLAN_CTAG_RX) ||
+-       (vlan_proto == htons(ETH_P_8021AD) &&
+-        dev->features & NETIF_F_HW_VLAN_STAG_RX)) {
+-       /* pop the vlan tag */
+-       vlanid = ntohs(veth->h_vlan_TCI);
+-       memmove(skb->data + VLAN_HLEN, veth, ETH_ALEN * 2);
+-       skb_pull(skb, VLAN_HLEN);
+-       __vlan_hwaccel_put_tag(skb, vlan_proto, vlanid);
+-   }
+-}
+-
+/**
+* stmmac_rx_refill - refill used skb preallocated buffers
+* @priv: driver private structure
+@@ -5407,9 +5389,7 @@ static void stmmac_dispatch_skb_zc(struct stmmac_priv *priv, u32 queue,
+if (priv->hw->hw_vlan_en)
+/* MAC level stripping. */
+stmmac_rx_hw_vlan(priv, priv->hw, p, skb);
+-   else
+-       /* Driver level stripping. */
+-       stmmac_rx_vlan(priv->dev, skb);
++
+skb->protocol = eth_type_trans(skb, priv->dev);
 
-Makes sense and looks correct to me :)
+if (unlikely(!coe) || !stmmac_has_ip_ethertype(skb))
+@@ -5901,9 +5881,6 @@ static int stmmac_rx(struct stmmac_priv *priv, int limit, u32 queue)
+if (priv->hw->hw_vlan_en)
+/* MAC level stripping. */
+stmmac_rx_hw_vlan(priv, priv->hw, p, skb);
+-       else
+-           /* Driver level stripping. */
+-           stmmac_rx_vlan(priv->dev, skb);
 
-> 
-> Assisted-by: GLM-5.3 OpenCode
-> Signed-off-by: Zenghui Yu (Huawei) <zenghui.yu@linux.dev>
+skb->protocol = eth_type_trans(skb, priv->dev);
 
-Reviewed-by: SJ Park <sj@kernel.org>
-
-
-Thanks,
-SJ
-
-[...]
+@@ -7964,9 +7941,8 @@ static int __stmmac_dvr_probe(struct device *device,
+ndev->features |= ndev->hw_features | NETIF_F_HIGHDMA;
+ndev->watchdog_timeo = msecs_to_jiffies(watchdog);
+#ifdef STMMAC_VLAN_TAG_USED
+-   /* Both mac100 and gmac support receive VLAN tag detection */
+-   ndev->features |= NETIF_F_HW_VLAN_CTAG_RX | NETIF_F_HW_VLAN_STAG_RX;
+if (dwmac_is_xmac(priv->plat->core_type)) {
++       ndev->features |= NETIF_F_HW_VLAN_CTAG_RX;
+ndev->hw_features |= NETIF_F_HW_VLAN_CTAG_RX;
+priv->hw->hw_vlan_en = true;
+}
+--
+2.27.0
