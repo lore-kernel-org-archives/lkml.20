@@ -1,138 +1,180 @@
-Received: from mail-yw1-f180.google.com (mail-yw1-f180.google.com [209.85.128.180])
+Received: from mail-pf1-f174.google.com (mail-pf1-f174.google.com [209.85.210.174])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4F1A480356
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 13:25:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.180
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A0AE4963A6
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 13:25:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788528306; cv=none; b=Mo4gi1i4KNJiSPwu8P8ibfjzkHj5pDpRi4MkbqJtZD0YzDP6v5qrCMWvyVxk6YwQTt7jAk/KGG0fJt7+m9Hpoi/JW4d1C0e0brbP99/bixWqq5tGA764Fl03XRPYxPD03vVXpebP14bN+e6klNEY2AT8yNn5mjntS51Ae3iMJ2k=
+	t=1788528312; cv=none; b=oGRgtvaKz1LDVjjT5ibpBT8P/mhqf+AFpkvSFrGFyp7OA3LtK9LJXchMu1JFCg/Gtl0xclm5qjG+wCbEwS65LLhxl2giQ4aqj7xEWEGjmjCmO3TjIRfc/j6nDWGl/C/ISd3gWlIgmBPnc0JadUY9UmgXEnLMrls0brVg1MLYZRI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788528306; c=relaxed/simple;
-	bh=7IrgWckgLXmOp+bSbt2l3lsAkLznjIprg/+l63INEHk=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
-	 References:In-Reply-To; b=JQdoODJunzgL5L63m5TJ00ak1038NiS2Zd/98WutL+mv6tZP5BnQssd6CGTCSjsoNbGvhq+rp/Bzyu3G+w7VFAIO3PZi9duz1kUlJTYH4EH1QmDzf/vlkwNkGepCqS+Hup5OGFtxPHe3Lj5dxFroh+hVc34s+7MtSvaBkldTGp8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Io5VVGDp; arc=none smtp.client-ip=209.85.128.180
+	s=arc-20240116; t=1788528312; c=relaxed/simple;
+	bh=K/jiaZnVuaW5E5AeWCKVVN7yFU5/jENyifD0pDrIqBY=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=OQJOSHaD1TPJ1SE+pK6DovWAP35o7yuBgV5AaD33dzi84+rJPaHv6KGj85q1AGWEr5gATSOLARpBbV9yAowtA3l69ckd1QaFBBOJ0bEijUEfbu/JCj24qI5HLwupl1MFOFn7yjMH5jbYhzCfFWLpnBqbmgoIeupb9JGGCaRNiEU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=q1HgBy2C; arc=none smtp.client-ip=209.85.210.174
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Io5VVGDp"
-Received: by mail-yw1-f180.google.com with SMTP id 00721157ae682-86cba60d4f2so8399137b3.1
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 06:25:02 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="q1HgBy2C"
+Received: by mail-pf1-f174.google.com with SMTP id d2e1a72fcca58-85c9a79590aso997624b3a.1
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 06:25:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788528301; x=1789133101; darn=vger.kernel.org;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-type:content-transfer-encoding:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=EUxRc34t0qU8FOfG0VqqQu2j6hNUb8g29gyCmIO8xCk=;
-        b=Io5VVGDp+CZ4sCDGBJWKIvbBPJiL7wXPujE8eqUiy2X6aLrwI6V0GFNbQXCRooi4W6
-         Qv5uZ/hg1BMjSoax92jJEjOcRy92hppD5AEQHcoe/O5Dq7KBu2k9c2pZ8B3Bpld8afcE
-         wuM87A8bwdwP1lgwmI1ZktnAli1WGSTI5YNC7TlPLXUc2ymBT0EMQ9jwa9V29vtMZBq5
-         wJa7XJTZO8ERQw1jeQYt5PEVEsdK2bRNFCQFlFJSEYDaA4lHUPIEP7y58oqzk1qd1APh
-         UWHvjbNVibFz9VdcOa8UaxbWYmof45ePAT9TcR2qwvsIZOnD7LXS48aPU7YLQImIFvXy
-         4eCA==
+        d=gmail.com; s=20251104; t=1788528308; x=1789133108; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=CP/vbJtIF948iniYIw2bTcvHalRSWj3A4FS22l6l3aQ=;
+        b=q1HgBy2CB5uZU4eVTXalHWptpzMK4imJ22t19Le/bHEF+dHIij5XlEnUk+v5hfJWxp
+         PdLG/snQtTQTKrcuwaw7uGhG2GjqU4qzEn16AzfgJlwjDTfAPfrJ39tXFNwUXkeN8A97
+         guvQWqUZOf/avAsZ3c0JDeLBUG5I/s0VrjVcGmHHMnE9yGdIdi2ox1nd+1QGcy+b7q4n
+         OVULBsV8oDybD/b50OblbOfL7BhFfJVvjlQDwpXS8sXOyTfDPSbPBLanfzwCWYajiH/x
+         OfXbxD+WDLES8LkbeeHeg6glIw0/ru6WHoh/8Oc4DU8KKR53TBcLGUlFHd3gpyEQjtug
+         VlLw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788528301; x=1789133101;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-type:content-transfer-encoding:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=EUxRc34t0qU8FOfG0VqqQu2j6hNUb8g29gyCmIO8xCk=;
-        b=DLNfL6G5jtcqu2hA5KVqRVb9X8M1V9y4c05dYrziKaChPwrRSXn+oCnNr0LsF6Wyht
-         wO7BMvLvJN9kcTIcSkDOKSV8Xtxnc18alLww+f4BfbPZb3Jpy58tOcVpiZW6zNHGKwfe
-         dNkkG2NxRscp339OYUZGTtoRG4U8QCPaT3k0Ur6Do5zfVa0AkWPzr3oCn+VBEmGuuxcI
-         AuP/izrzsfZNIisy9iYhmKu3wU1YxcXhWo0WDP8OrWXtgzM6Xf/rvFfjQQcrbMQQuNFT
-         SikXI56WiJrHf5iPxRC+w9c0EBQElync4MU0iM8oB3nCtM6Cr7ITP8TeHFHIzoGWY6yi
-         QMGA==
-X-Forwarded-Encrypted: i=1; AKwUvBy2HWG6vAKgGML8IqxeLitSOdI+SMjVDSB1JtcugDbkyLtQwR8rRxgZ4LQi2FNr/uyKL8pA7YymXEdygTE=@vger.kernel.org
-X-Gm-Message-State: AFuF++lc4FHXYzLWfWHx32ecG4f31cMr8Q1BCYvfjUe+Xj0nQDz0FaKR
-	lnqonlliksusI1cjfV/t30CCgqLPDsxqzp8cmN8o4KfkzKR167+clvWt
-X-Gm-Gg: AYBFou3Z9yHhq6m1uSXOdx0BEiW4njv/79MCd5BllcpZA3uYrS7gVGhERFUggVLTfz8
-	Au4+wrOlJmhFRsFzFBJndxKpimlY1rJkIFrDFN+YONi55yL7e9+CrRRlVX1TQQbVqkDKGGJzYAt
-	nEJDXw/1dsTpGBPZ40geSQpWNXcTClAIBQnpVr4+s9QTjDncVPm8h8icqENSAHCAT4YhCsG7RXB
-	LVzAKLnbL/O4YAGCc/pCf6HlOIMxA4gXmi+ujnkiv9vEksjhJRaWhj8jmzSB+zIkirzWLbEDdcS
-	XaCnTlOiITl3rhON0m5whkK8hV8F/ChoiKQIUw08db7E9FmvPpgt0p8K4Z0oFgD7rL7Q/tSfn3n
-	17hq/1xqQEr1xpTLqTzUinf7XaL2O08huekavFIzXI42f+hRWW+xohwJMEz8/aPGABW4MU+L+8l
-	oEr82CFrJzEdoGroHYrs2S3mkuWYVnWHRsghgdIIherwLKz6NUn732Qx9HJNGcPRILtA==
-X-Received: by 2002:a05:690c:dd3:b0:873:5c6b:a2ff with SMTP id 00721157ae682-8735c6ba63bmr2923997b3.45.1788528301340;
-        Fri, 04 Sep 2026 06:25:01 -0700 (PDT)
-Received: from localhost ([2600:4040:9399:4000:e553:72e5:7d37:c7ef])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-910406bbb79sm20079006d6.47.2026.09.04.06.24.58
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 04 Sep 2026 06:25:00 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1788528308; x=1789133108;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=CP/vbJtIF948iniYIw2bTcvHalRSWj3A4FS22l6l3aQ=;
+        b=A/601aIAiNrg/VpqWMCSCqvZ+EsyE1RhMKg/vb73YPMMHjvyKFKulo40EQ8rxExdnr
+         brakLqrnbi/a2CgKN8YjjT2P5dqqUfgXI/09g2pla8VKxnIurid5efWGdb5rh3gk3TSX
+         JNspxZtSKnMXP0+BZRIP67/AVvwo+IvNKL4AMvszn16jwFeaf8z7Ea4Gz5Qw9eEjy65J
+         zDEClG5OoZ++vjzW9UcpgX3sRdkHik8kCudPSdh+ydNWUfWUe2LRYmfJdhKaViSdlB+W
+         VtBrU8GulEs7mNt9qW0KXq7qKP6tW1/quqSOs7h72xk6ezbIeHXxL9DUwxyRJPhllDh2
+         lbNw==
+X-Forwarded-Encrypted: i=1; AKwUvBzfHcS1p+ha3tWOH42Caon1zJ851rp2M/ABXKM2y4nj7deFjPmKQoTFqWKChDGc+Uptsf1ZG5VK0USAU1s=@vger.kernel.org
+X-Gm-Message-State: AFuF++n0Bhy+WBdz/Rh5nNog9Wn54UUKP1YStIqv3Wn+j4/clbhXzVvi
+	YnWNo08U+kMWjSGEGGk5bJy0RChpkrCF0F8YLRutSh/Ffn5BOTpAuf4A
+X-Gm-Gg: AYBFou2s5aVlSiX8l1X+ap0m8vnUl+aqzQyKuC/kLhxy/O3uJUfcLni5u9YsHuu9DR9
+	vNAEmDNRZs+A/ZxKkC8Ww6L3oqDO1ML2gBjCIBi87wdZtHaWFdn9032PJuSsL1Vw5UUAR5zB1Hb
+	VH22jfzS/v1MDApJjA6BFT8wQKlp/7nuGGkCGvmK89NryeA9xB5yUASwwcivrnl6LVYJMyAUghx
+	JqtL0Chtz6XkoyWDMe3//r/bowyM4xMq18/cMyPx/6BmtQ00qqO+vLrAlD8ASaTiB1eYlRYs8Zf
+	ENeKL8zuyMjwJA5TuLOs3RjOmc33bU0Cbw06p4x8Q859Z1s3q1ZonqKJ8pvaIoV+PC+1TYcBW5p
+	VZ5xT43qExMuM3hS86RTqUAjtT4mVMjHPt8Ah7im4L8FgKZKLIqGow2wNSgKrQB/9/vP06hsO8C
+	xv+nmrLfJpffgsPn6mGb+32CvWIn4FuJKmLVxxJ//Sr5H7pSYaimbaxT2MM3xX6YPBRGo7I6NQX
+	3Cp4l6aj5gmvvNhVQYMW2/u+1ZXAxDUxEfa3g==
+X-Received: by 2002:a05:6a00:2d0a:b0:851:b03a:fcb with SMTP id d2e1a72fcca58-86169b6bda4mr7057801b3a.14.1788528307602;
+        Fri, 04 Sep 2026 06:25:07 -0700 (PDT)
+Received: from NV-J4GCB44.nvidia.com ([103.74.125.162])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-86152c2a52asm1147302b3a.30.2026.09.04.06.25.04
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 04 Sep 2026 06:25:06 -0700 (PDT)
+From: Jianyue Wu <wujianyue000@gmail.com>
+To: Johannes Weiner <hannes@cmpxchg.org>,
+	Yosry Ahmed <yosry@kernel.org>,
+	Nhat Pham <nphamcs@gmail.com>,
+	Chengming Zhou <chengming.zhou@linux.dev>,
+	Andrew Morton <akpm@linux-foundation.org>
+Cc: Chris Li <chrisl@kernel.org>,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v5 0/3] mm/zswap: shrink zswap_entry via a pool id
+Date: Fri,  4 Sep 2026 21:24:53 +0800
+Message-ID: <cover.1788528216.git.wujianyue000@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260830114731.8322-1-wujianyue000@gmail.com>
+References: <20260830114731.8322-1-wujianyue000@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Fri, 04 Sep 2026 09:24:58 -0400
-Message-Id: <DL6KD9FKLYQ8.1HD909WP9YA21@gmail.com>
-Cc: "Aleksandr Loktionov" <aleksandr.loktionov@intel.com>, "Alexei Lazar"
- <alazar@nvidia.com>, "Alexei Starovoitov" <ast@kernel.org>, "Allison
- Henderson" <allison.henderson@oracle.com>, "Antonio Quartulli"
- <antonio@openvpn.net>, "Anubhav Singh" <anubhavsinggh@google.com>, "Bobby
- Eshleman" <bobbyeshleman@meta.com>, "Boris Pismenny" <borisp@nvidia.com>,
- <bpf@vger.kernel.org>, "Carolina Jubran" <cjubran@nvidia.com>, "Chris Mi"
- <cmi@nvidia.com>, "Cosmin Ratiu" <cratiu@nvidia.com>, "Daniel Borkmann"
- <daniel@iogearbox.net>, "Daniel Zahka" <daniel.zahka@gmail.com>, "David
- Wei" <dw@davidwei.uk>, "Doruk Tan Ozturk" <doruk@0sec.ai>, "Dragos Tatulea"
- <dtatulea@nvidia.com>, "Gal Pressman" <gal@nvidia.com>, "Jacob Keller"
- <Jacob.e.keller@intel.com>, "Jesper Dangaard Brouer" <hawk@kernel.org>,
- "Jianbo Liu" <jianbol@nvidia.com>, "John Fastabend"
- <john.fastabend@gmail.com>, "Kees Cook" <kees@kernel.org>, "Lama Kayal"
- <lkayal@nvidia.com>, "Leon Romanovsky" <leon@kernel.org>, "open list"
- <linux-kernel@vger.kernel.org>, <linux-kselftest@vger.kernel.org>,
- <linux-rdma@vger.kernel.org>, "Mark Bloch" <mbloch@nvidia.com>, "Matthieu
- Baerts (NGI0)" <matttbe@kernel.org>, "Patrisious Haddad"
- <phaddad@nvidia.com>, "Petr Machata" <petrm@nvidia.com>, "Raed Salem"
- <raeds@nvidia.com>, "Rahul Rameshbabu" <rrameshbabu@nvidia.com>, "Richard
- Gobert" <richardbgobert@gmail.com>, "Saeed Mahameed" <saeedm@nvidia.com>,
- "Shuah Khan" <shuah@kernel.org>, "Shuah Khan" <skhan@linuxfoundation.org>,
- "Simon Horman" <horms@kernel.org>, "Stanislav Fomichev" <sdf@fomichev.me>,
- "Stanislav Fomichev" <sdf.kernel@gmail.com>, "Willem de Bruijn"
- <willemb@google.com>, "Willem de Bruijn" <willemdebruijn.kernel@gmail.com>
-Subject: Re: [PATCH net-next V3 01/15] net/mlx5e: Generalize TC <-> IPsec
- mutual exclusion
-From: "Daniel Zahka" <daniel.zahka@gmail.com>
-To: "Tariq Toukan" <tariqt@nvidia.com>, "Andrew Lunn"
- <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, "Eric
- Dumazet" <edumazet@google.com>, "Jakub Kicinski" <kuba@kernel.org>,
- <netdev@vger.kernel.org>, "Paolo Abeni" <pabeni@redhat.com>, "Sabrina
- Dubroca" <sd@queasysnail.net>
-X-Mailer: aerc 0.21.0-threadmapfix
-References: <20260903085215.3691657-1-tariqt@nvidia.com>
- <20260903085215.3691657-2-tariqt@nvidia.com>
-In-Reply-To: <20260903085215.3691657-2-tariqt@nvidia.com>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Thu Sep 3, 2026 at 4:52 AM EDT, Tariq Toukan wrote:
-> -#ifdef CONFIG_MLX5_ESWITCH
-> -static int mlx5e_ipsec_block_tc_offload(struct mlx5_core_dev *mdev)
-> -{
-> -	struct mlx5_eswitch *esw =3D mdev->priv.eswitch;
-> -	int err =3D 0;
-> -
-> -	if (esw) {
-> -		err =3D mlx5_esw_lock(esw);
+Every stored page has a struct zswap_entry, so its size is pure per-page
+overhead.  On 64-bit it is currently 56 bytes, of which 8 bytes are a
+pointer to the owning zswap_pool.
 
-This appears to the last caller of mlx5_esw_lock(), so the function will
-be dead code after this patch.
+Only a handful of pools are ever live: a new pool is created only when
+the compressor is (re)set, and pools are reused across compressor
+switches.  That makes a per-entry pool pointer more expensive than it
+needs to be, and the RCU list that currently tracks pools is more
+machinery than this needs once each pool already has a stable id.
 
-> -		if (err)
-> -			return err;
-> -	}
-> -
-> -	if (mdev->num_block_ipsec) {
-> -		err =3D -EBUSY;
-> -		goto unlock;
-> -	}
-> -
-> -	mdev->num_block_tc++;
-> -
-> -unlock:
-> -	if (esw)
-> -		mlx5_esw_unlock(esw);
-> -
-> -	return err;
-> -}
+This series:
+
+  1. Releases retired pools with queue_rcu_work() instead of a worker
+     calling synchronize_rcu(), so the release worker no longer blocks
+     on an RCU grace period.
+  2. Replaces the zswap_pools list with an allocating xarray
+     (XA_FLAGS_ALLOC1 | XA_FLAGS_LOCK_BH) and a separate RCU-protected
+     current-pool pointer, giving each pool a stable small id.  Ids
+     start at 1.  The reserved id 0 is never allocated, so looking it
+     up resolves to NULL.  The table grows as needed up to 255 live
+     pools (u8 pool_idx), not a fixed slot array.
+  3. Stores that u8 pool id in each zswap_entry instead of the pool
+     pointer.  The u8 fits in padding after the bool referenced field,
+     so the entry shrinks from 56 to 48 bytes on 64-bit (~2MiB of
+     metadata saved per 1GiB of data held in zswap).
+
+Runtime compressor switching is preserved.  Pool ids are bounded to
+1..255 because struct zswap_entry stores the id in a u8.  The cap
+counts every id still in the xarray, including a killed pool that still
+has entries.  Ids are reused when a pool is erased.  Switching back to
+a compressor that still has a pool in the xarray resurrects it rather
+than allocating a new id.  If all usable ids are full, creating a pool
+for another compressor fails and the compressor switch is rejected.
+
+On 64-bit, struct zswap_entry is 56 -> 48 bytes, which fits 73 -> 85
+objects in a 4K slab.
+
+Benchmark (x86_64, compressor=lzo, MADV_PAGEOUT store + fault-in load):
+
+  - e2e store+load median latency: no measurable regression vs baseline
+    at matched stored_delta
+
+Each store, free, and decompress looks up the pool with xa_load()
+instead of following a pointer.  With only a handful of live pools the
+xarray walk is short.
+
+Testing
+=======
+
+- Boot with DEBUG_ATOMIC_SLEEP + lockdep/PROVE_RCU + KASAN:
+  zswap store/load, shrinker writeback, and compressor switch
+  (retire, then switch back to resurrect) pass
+
+This series is based on akpm/mm-unstable as of 2026-09-04
+(20cab322c95c).
+
+To: Johannes Weiner <hannes@cmpxchg.org>
+To: Yosry Ahmed <yosry@kernel.org>
+To: Nhat Pham <nphamcs@gmail.com>
+To: Chengming Zhou <chengming.zhou@linux.dev>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: Chris Li <chrisl@kernel.org>
+Cc: linux-mm@kvack.org
+Cc: linux-kernel@vger.kernel.org
+Signed-off-by: Jianyue Wu <wujianyue000@gmail.com>
+
+Changes since RFC v4:
+  - Replace the RCU pool list with an allocating xarray
+    (XA_FLAGS_ALLOC1 | XA_FLAGS_LOCK_BH) and a separate RCU-protected
+    current-pool pointer.
+  - Resolve entry->pool_idx with xa_load() under rcu_read_lock().
+  - Write pool_idx before the entry is stored in the swap tree, so a
+    lookup cannot see a stale pool_idx left over from slab reuse.
+  - Retire pools with queue_rcu_work() on system_percpu_wq.
+  - Drop the RFC tag.
+
+Link: https://lore.kernel.org/all/20260830114731.8322-1-wujianyue000@gmail.com/
+Link: https://lore.kernel.org/all/20260815-shrink_zswap_entry_0815_v2-v3-3-0171bd86a667@gmail.com/
+Link: https://lore.kernel.org/all/20260731-shrink_zswap_entry_v2-0-0-v2-0-e72083aa8734@gmail.com/
+Link: https://lore.kernel.org/all/20260726-shrink_zswap_entry_v1-0-0-v1-1-30957e4d0cb6@gmail.com/
+
+---
+Jianyue Wu (3):
+  mm/zswap: release retired pools via queue_rcu_work() instead of
+    synchronize_rcu()
+  mm/zswap: replace the zswap_pools list with an allocating xarray
+  mm/zswap: reference the pool by id to shrink struct zswap_entry
+
+ mm/zswap.c | 144 ++++++++++++++++++++++++++++++++++++-----------------
+ 1 file changed, 97 insertions(+), 47 deletions(-)
+
+
+base-commit: 20cab322c95cea0327215bb81a05df69336032dd
+-- 
+2.43.0
+
