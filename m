@@ -1,114 +1,84 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC3FA4EC646
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 15:19:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0FC34EE862
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 15:19:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788535154; cv=none; b=fNkUdEyhv7ZVkALnP3yFGjLhK+Mtp8kTLPPfKvEAmtvmvjBPmgJUbtCfkqTUsgLtkKX3t9hF1++2rKf3oHvCT9Xoo0q3F7e4IJ956f7x3zcSnxONHzdyc+SU0VcYmdAeVuJgt9Yj//UgRgcQSp2WBbXrFYDCD6CVhNHGstRWm0o=
+	t=1788535155; cv=none; b=Bbjt70HE5XwQTVPpr0Wj+Uf9vEc3JAjqtEqtaeC9oqZI7NDYMMKd/6oCr5Y5Jg16zjhCSljAeKDq3aBmD1OJ8WUpsNDBbNzeJ0JneBK+vZYmUcG/GY4SwnSxze+sThTxpq8CqS+rUJ6mphheplS3W3Kb9ZpcM2mQ6UYGKUJjMU8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788535154; c=relaxed/simple;
-	bh=YZazT4oZjVEcdtqEOh2rjHMVg3XbWfyLZ1BTcqpcZJ8=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=YwNZyib74g3VCjg8EqKzrj8RwjK7zho6Q9QvRUnBb0DKgMlpdEDztHjc1JsHEic4pXmy0p/O93pC2hO7uF0vMejNCLaJ//WJlaanaWdaVY1j72y24sow8RvyxwOk6SBGn27efTmynNDF+2DCVZGFmrNt35SxEjKvmq8XOXH6lSY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=HZ/uOW64; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1788535155; c=relaxed/simple;
+	bh=JdVCxnVQYFP4TOKeo9FsLFQFwC0NNmBlp0/i/P4coqo=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=OnGaHauQqUNVR6t/I2cQGohGxer8xRfK5Hgwj+al61GyzAEm51nu20gGpqCb1tC38o6w2DFciZ98HMgZ7VJe7xNOLLP1JrZ4zn2e8ShPD1B8pdvtq4PxQmF+wCtnTtWMdxZ1ibGnQckghELlaQOCEtHVftk++XHie6M5QqMpC+8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SIANVk6u; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="HZ/uOW64"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1788535151;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=B4EvanRHS6J3ohripixRgJnTJuSPOhK6F9EanOjwirY=;
-	b=HZ/uOW647RDJfKp4NyiLaNFqkCBB5OhnywR1T1Cx5+XXpyrW4FoZHSQjPcMQoxZpo9Yre/
-	kUF79hFKBtCFzOEdEUlky6BShH9ZE+jChd5oRq2VBbLlFvU7F8T6U+bqi0HQhkRWePjJPp
-	mpNd/1ngaYBAJeFrfCH1p/XWULh/8sE=
-Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-44-Qcwl6sO1PkynxBkbeiipeQ-1; Fri,
- 04 Sep 2026 11:19:03 -0400
-X-MC-Unique: Qcwl6sO1PkynxBkbeiipeQ-1
-X-Mimecast-MFC-AGG-ID: Qcwl6sO1PkynxBkbeiipeQ_1788535139
-Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 89EEA195FE03;
-	Fri,  4 Sep 2026 15:18:59 +0000 (UTC)
-Received: from aesteve-thinkpadp1gen8.rmtes.csb (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
-	by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 3F1F118005B2;
-	Fri,  4 Sep 2026 15:18:58 +0000 (UTC)
-From: Albert Esteve <aesteve@redhat.com>
-Date: Fri, 04 Sep 2026 17:18:48 +0200
-Subject: [PATCH v2 2/2] soc: qcom: smem: ignore multi remote host
- partitions
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SIANVk6u"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CD5141F00A3D;
+	Fri,  4 Sep 2026 15:19:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788535153;
+	bh=sb+7o6VluJUr4pgOxVOmEZU3X8Z5KwhcLH/28uXxjTc=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date;
+	b=SIANVk6ufrm7VG83T47c95+edZsJzGZbnpEcZv0Ya4ai4p3V5z2k4uEuxIqDUbKnU
+	 H7w31EVO2awHhTWwQuhL/ofA4xls7/5iSnSMWuRwm4WfNOJIP1cQfoBgBYOniWoUef
+	 cMArq5Ys6qiWMwXcjkNlqeNc8z5rY8zSdNRfllJblwXIRaqyLNEx0Zn7ZP/q2se79+
+	 46nfx1Lwr4Zx9VqHL8UkaHrpL9f1VZ0iftQ3iJtv994rnAj3gWwAN4ILku3C3YhMSP
+	 zak4BcJQUgBEHul9XptL6BzTkb78GR8+jVTpJPhIcrDnb88/a1DnJj4GL+fky7vhYb
+	 OZSBp1BRqCpPA==
+From: Thomas Gleixner <tglx@kernel.org>
+To: Qingshuang Fu <fuqingshuang@kylinos.cn>, Radu Rendec <radu@rendec.net>,
+ Andy Whitcroft <apw@canonical.com>, Joe Perches <joe@perches.com>, Herve
+ Codina <herve.codina@bootlin.com>
+Cc: linux-kernel@vger.kernel.org, Qingshuang Fu <fuqingshuang@kylinos.cn>
+Subject: Re: [PATCH v2] irqdomain: Auto-set IRQ_DOMAIN_FLAG_DESTROY_GC in
+ __irq_domain_instantiate()
+In-Reply-To: <20260904070943.934476-1-fuqingshuang@kylinos.cn>
+References: <20260902065939.441981-1-fuqingshuang@kylinos.cn>
+ <20260904070943.934476-1-fuqingshuang@kylinos.cn>
+Date: Fri, 04 Sep 2026 17:19:10 +0200
+Message-ID: <87se3p6o41.ffs@fw13>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260904-port-smem-v2-2-bb497dd3c48b@redhat.com>
-References: <20260904-port-smem-v2-0-bb497dd3c48b@redhat.com>
-In-Reply-To: <20260904-port-smem-v2-0-bb497dd3c48b@redhat.com>
-To: Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Albert Esteve <aesteve@redhat.com>, 
- Tony Truong <quic_truong@oss.qualcomm.com>
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788535133; l=1296;
- i=aesteve@redhat.com; s=20260827; h=from:subject:message-id;
- bh=cdDVa0xgpM9uyB7LE+x2F1bNpsmjlD7ehAPULbKbtP8=;
- b=o68sOhK8wCTeNniQDA2swgYAbvu/N9nqEpA5HWuIRWAoHdLHVEpRjpQyCVHR/lzIlImAXUHAC
- 9yeErdQ+B9iDuLigCCi+vZvK2YKtPI/cIvzhFb49ALOeCc0JMcU/jS2
-X-Developer-Key: i=aesteve@redhat.com; a=ed25519;
- pk=zI2RBeZgocwYm3AkJW4CtjoJnKoDZrfBl1xe5Ed6h+U=
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
+Content-Type: text/plain
 
-From: Tony Truong <quic_truong@oss.qualcomm.com>
+On Fri, Sep 04 2026 at 15:09, Qingshuang Fu wrote:
+> When a driver uses irq_domain_instantiate() with dgc_info to create
+> generic irq chips, the domain is expected to automatically clean up
+> the generic chips when irq_domain_remove() is called. However,
+> __irq_domain_instantiate() does not set the IRQ_DOMAIN_FLAG_DESTROY_GC
+> flag which is required by irq_domain_remove() to trigger cleanup.
+>
+> Currently all existing callers of irq_domain_instantiate() with dgc_info
+> manually set this flag, which is error-prone. If a future caller forgets to
+> set the flag, generic chips allocated by irq_domain_alloc_generic_chips()
+> will leak on domain removal.
+>
+> Set IRQ_DOMAIN_FLAG_DESTROY_GC right after irq_domain_alloc_generic_chips()
+> succeeds inside __irq_domain_instantiate().
+>
+> This makes automatic cleanup the default for all users that provide
+> dgc_info via irq_domain_instantiate().
+>
+> This is the correct location for several reasons:
+> - irq_domain_instantiate() is a high-level wrapper which internally
+>   allocates the generic chips, so it should also take responsibility
+>   for arranging their cleanup.
+> - Automatically setting the flag inside irq_domain_alloc_generic_chips()
+>   would affect legacy callers like __irq_alloc_domain_generic_chips(),
+>   some of which perform custom manual cleanup and could hit use-after-free.
+>
+> Fixes: e6f67ce32e8e ("irqdomain: Add support for generic irq chips creation before publishing a domain")
 
-SMEM now supports more than just 1-to-1 partitions. It is possible for
-a partition to have multiple remote host and the logic to handle that
-does not exist. For now, skip all partitions which has multiple remote
-hosts.
+This does not fix anything.
 
-Signed-off-by: Tony Truong <quic_truong@oss.qualcomm.com>
-Signed-off-by: Albert Esteve <aesteve@redhat.com>
----
- drivers/soc/qcom/smem.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+All users which invoke irq_domain_instantiate() with info->dgc_info
+populated set the flag, no?
 
-diff --git a/drivers/soc/qcom/smem.c b/drivers/soc/qcom/smem.c
-index 1456ff6df293..6c59eef6015e 100644
---- a/drivers/soc/qcom/smem.c
-+++ b/drivers/soc/qcom/smem.c
-@@ -89,6 +89,9 @@
- /* Processor/host identifier for the global partition */
- #define SMEM_GLOBAL_HOST	0xfffe
- 
-+/* Processor/host identifier for multi host partition */
-+#define SMEM_MULTI_HOST		0xfffc
-+
- /* Entry range check
-  * ptr >= start : Checks if ptr is greater than the start of access region
-  * ptr + size >= ptr: Check for integer overflow (On 32bit system where ptr
-@@ -1091,6 +1094,9 @@ qcom_smem_enumerate_partitions(struct qcom_smem *smem, u16 local_host)
- 		else
- 			continue;
- 
-+		if (remote_host == SMEM_MULTI_HOST)
-+			continue;
-+
- 		if (xa_load(&smem->partitions, remote_host)) {
- 			dev_err(smem->dev, "duplicate host %u\n", remote_host);
- 			return -EINVAL;
-
--- 
-2.55.0
-
+And instead of adding a bogus Fixes tag, you could have made a series
+which removes the redundant flag from the three perfectly fine working
+drivers.
