@@ -1,63 +1,76 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.3])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EC25347536;
-	Fri,  4 Sep 2026 01:43:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0E301A6808
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 01:46:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.3
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788486240; cv=none; b=cVWKOo4NdzB1bpWgjkuvwPDkkbFifxYUIDEX2k7a7xhQQKgkihbGZbgI/hWtOJiBGG41XGSG05uWDeI1/RHlA3eIb0AlZrFuCsTKEeldYYPYL7iZPw74tubF2+SmRNcM9iUHWWfzlwZtu8/khDucz+zDPHkB/tVvS3Fy1CRoD2A=
+	t=1788486422; cv=none; b=GsPOiy0QipuExaPolK3i3r1btPl1pbd4zxoeJSgfD8gySoE53b+ajEdyXbKuRBKHi6ed6FUIVZoGvrDV7DU5CzSQrujgV8oPvpUzltVKU6G7+9GAGC4su2NN8GUgLixry/mhobZ1lOip6deQyI97cO4DO/tSo3ZiipOwlRP1VTw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788486240; c=relaxed/simple;
-	bh=AdJLmpAFuK8x1Y/0XJQvufQwFe8ZC7cSctQMc+gDSVE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=u8+osK+rPplb/TVgb1q7DMm0yPce30lJgJ6+kOfIVxDHw+e0jOplrrW1FQ4j+1Ds+uJN2PbUTn5nXXUQeQtWzTf3gZaOI28CVI18BdcOqGjoWcUPyw0/LCb1V9aHPsBVAbqat4WaI6nweyG8/SfoAY3DccvTorbu6hIrOv876Pc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=wJxaOdaV; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	s=arc-20240116; t=1788486422; c=relaxed/simple;
+	bh=P9jK/W1SXw8+elQE0IMUfuRuqbUBrsprc3OZk9dZdfs=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ekRP6XCQJhY+4veJ1pi42E5xF9LBYTfMqSKHhaMjR+UwbZZcRs0uWn9G4O2QhDA6sq2/+ia7XqG57th++B/behjUtuOnEauLyHoIS9v5ixjh6f3GEdBK9ibOjsKeWRx85H26Vbd+NPTUeQ5RpgFujyXIBODfEwqvJCwlcIDYC+0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=D8JzgV6W; arc=none smtp.client-ip=117.135.210.3
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="wJxaOdaV"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=/dQiqbcR8vn2iti6+8xRgjt3v4roCt+kRO9rD0/T9Q8=; b=wJxaOdaVRNPTTVKg8wvYkkWmMf
-	4Z4R3H/VmNGE7PeCEBMs9NN6tymsnA7BIWbaYiTwj3WENn+gRBVJGi6NDMvNa85tnjXCkr2cx3fBS
-	M+L5R9kY+TCEW3fmGCrpTGLhLvkTflEBRgmFXjBLEYakKqUkOeZi7PNMb+iNbUgQ/zPQ=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1x2Iy7-002pau-QZ; Fri, 04 Sep 2026 03:43:51 +0200
-Date: Fri, 4 Sep 2026 03:43:51 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Aleksei Sviridkin <f@lex.la>
-Cc: netdev@vger.kernel.org, hkallweit1@gmail.com, linux@armlinux.org.uk,
-	davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
-	pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [RFC PATCH net-next 7/9] net: mdio: en8811h: add the nested
- pass-through bus
-Message-ID: <89e7053a-3c03-4411-a5c1-1cf050125b2d@lunn.ch>
-References: <20260829052546.1152446-1-f@lex.la>
- <20260829052546.1152446-8-f@lex.la>
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="D8JzgV6W"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=Message-ID:Date:MIME-Version:Subject:To:From:
+	Content-Type; bh=fQt31jEFrQa2alu2KDpObFxfs4FjKipi6DPc9sw38LI=;
+	b=D8JzgV6W1mSCvv06SzhvxasupJIV6BGPUjugAR1COQEuar8Q5M1OMHW0E/0LK0
+	23GQKysyNwBWoMMqK3OdqGBfqT8Bmi72pYUbwQbeSsDvLGhlnY7KQjy6/vk2bPP7
+	/xVeHOicTV8+IaDAYexqJ12g+I4qjtyzO7rMHrcF1E0EA=
+Message-ID: <58bcfcdf-167a-4553-bfcd-cd576e9379b0@163.com>
+Date: Fri, 4 Sep 2026 09:46:33 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260829052546.1152446-8-f@lex.la>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] exfat: clear the volume dirty flag only when remounting
+ read-only
+To: Namjae Jeon <linkinjeon@kernel.org>
+Cc: exfat@lists.linux.dev, linux-kernel@vger.kernel.org,
+ Sungjong Seo <sj1557.seo@samsung.com>, Yuezhang Mo <yuezhang.mo@sony.com>,
+ Chi Zhiling <chizhiling@kylinos.cn>
+References: <20260903092623.301981-1-chizhiling@163.com>
+ <CAKYAXd-YoYZfNGDJs1gjJPHZ4n5oe+r93y32Gyb=p8rUxzDeqg@mail.gmail.com>
+From: Chi Zhiling <chizhiling@163.com>
+In-Reply-To: <CAKYAXd-YoYZfNGDJs1gjJPHZ4n5oe+r93y32Gyb=p8rUxzDeqg@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-CM-TRANSID:_____wAX1ZX5IppqUvEYAg--.24064S2
+X-Coremail-Antispam: 1Uf129KBjvdXoWrKF1fAFyUZr1rXFykJr17trb_yoW3WrbE9w
+	s7uF48Aa4jyr13G3WFkryft39Iqws3uryjgrsrJr15Xa9rAF4fJrWDXFyrCa4fKFZrCFZx
+	Arn8C34xGa10gjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUvcSsGvfC2KfnxnUUI43ZEXa7IUj8sqtUUUUU==
+X-CM-SenderInfo: hfkl6xxlol0wi6rwjhhfrp/xtbC+BsIpWqaIvvCbgAA3L
 
-> +	bus->name = "airoha-en8811h";
-> +	snprintf(bus->id, MII_BUS_ID_SIZE, "%s", dev_name(dev));
-> +	bus->priv = mcu;
-> +	bus->parent = dev;
+On 9/4/26 7:28 AM, Namjae Jeon wrote:
+>> diff --git a/fs/exfat/super.c b/fs/exfat/super.c
+>> index a9ea36ba2693..268732571837 100644
+>> --- a/fs/exfat/super.c
+>> +++ b/fs/exfat/super.c
+>> @@ -775,9 +775,12 @@ static int exfat_reconfigure(struct fs_context *fc)
+>>          fc->sb_flags |= SB_NODIRATIME;
+>>
+>>          sync_filesystem(sb);
+>> -       mutex_lock(&sbi->s_lock);
+>> -       exfat_clear_volume_dirty(sb);
+>> -       mutex_unlock(&sbi->s_lock);
+>> +
+>> +       if ((fc->sb_flags & (SB_FORCE | SB_RDONLY)) == SB_RDONLY) {
+> Could we also add !sb_rdonly(sb) here?
+>              if ((fc->sb_flags & (SB_FORCE | SB_RDONLY)) == SB_RDONLY &&
+>                   !sb_rdonly(sb))
 
-Maybe set bus->phy_mask.
+Yes, this way we do not call exfat_clear_volume_dirty() when remounting 
+from RO to RO. I will update it in v2.
 
-Also, copy parent->irq[addr] to bus->irq[addr], so that interrupts
-work.
+Thanks.
 
-	Andrew
+
