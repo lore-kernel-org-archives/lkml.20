@@ -1,74 +1,80 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6203944213B;
-	Fri,  4 Sep 2026 09:57:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8844E441618;
+	Fri,  4 Sep 2026 09:58:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788515869; cv=none; b=nrbwtA2aWDeoOzFYJFJA2yAhYq3nVfy8ATeeMxv6ng0h5qxK1aFKBa6GGQEc+4PtZYnUqG4y7RDf97CmMz4q48791t6ZVTqL1JyfUUC3QDvraef+Z/n08mo8WpKshjy40vbYao1Dli4gh3e9e5Otx9Pu/6JncyUPFCqlnsS2kLo=
+	t=1788515883; cv=none; b=i41Dg79Tnj/ijrO+Ew6cX39Jq09LvfbzAt4JQLV3unBJy1dkN1fQCpokriZsJIckv3MdUq+YSSKXd5dcrQVDgjUEnYAwfKxA4nC9rvqjfgsqQ8jneDMp2MKzFipzqboprgMQXaSac/DqQp3iQewYBDbriit4mlhmq31xqn0E26E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788515869; c=relaxed/simple;
-	bh=/15UFxxirqrO6Bz4pIRkXUatQQguIa781LW8rPq7u7k=;
-	h=Mime-Version:Content-Type:Date:Message-Id:From:Subject:Cc:To:
-	 References:In-Reply-To; b=ho1aZrAFriayRsSxU9+5A4i4n0JFBUTtadcFQQL/6US6fp4y2LzgVgTsJtdK+2jJfeP55gwEpv55g1Z+sg8l5LVNVwW/ZsqRMsRg1BrnHXbAuCYg6Lk868ziUVfyo4uEq/Dsl4gjRtBLWayIuLdzWxnHpRR66QPGWuySku6a55k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BrXcC9Rz; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788515883; c=relaxed/simple;
+	bh=J4Uw3P4IlJYZ6wx9/AajjAoW9Zv4s9xp+fBZy1dlWWs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Em34yAQx/zYGbEwjiCsD4MudhJx5z66kzfdHiWOcc37wP8004Qyg3M+GU7ddmZFw5o6RIeR7BC61yDlk4KA3bR0iLayrtwf+wxqoe0J2iFnJIoLMlAr6h8LVY5kh5qVvZOgwckRDPYwgi8dFj8h64ItcygobAPLQevco5X3Yu/Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HXl+95NG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BrXcC9Rz"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 86D2F1F00A3D;
-	Fri,  4 Sep 2026 09:57:45 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HXl+95NG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7204F1F00A3D;
+	Fri,  4 Sep 2026 09:58:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788515867;
-	bh=/15UFxxirqrO6Bz4pIRkXUatQQguIa781LW8rPq7u7k=;
-	h=Date:From:Subject:Cc:To:References:In-Reply-To;
-	b=BrXcC9RzxRJ6NySORcZpN3sm3JkaldhaXPz+gnhZPMY1EadAYOkbv4Nh5Rpok4xMz
-	 jLBZqo3QXsnSPvLzrXQKY1lru15mUz64nWx8UpmzTZazPuNYvX6gj+3UchvxheCpgM
-	 TN00/LFSCsjOOJhFKBbSg0v7k4F4RQCiRRudG8ZSFo6wwe+TI7Ke0ptJ89XOYElo9Z
-	 MAsOxGQAco306BHkGjpdFKPw7xYp595gjA0o/3xytpx4/qOw2hgjndho2ZTTz9F0xM
-	 K2QBq067hYHrOEbggHjG6zJ7whSRFEImLMpJ4UZr6/zZPljZNHbYhmB2GaFs1rPIg2
-	 s9AyF43jcFZ1Q==
+	s=k20260515; t=1788515882;
+	bh=84RQjvUIbZegelFgUCwrD+5Gg8PBRCldn9ArQR1bQ0Q=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=HXl+95NGCkRn8wpoJGvYycHo6AFaZsZMhDw8m68jymnrceifFIzGIlqfOs8JNnCNS
+	 ndprzaCRxDNXYtrz2A2B0DjKXBH6/qTAXIJl/SoPyxrZwwkHwXB6h3YjDS0vQmpJbw
+	 FU64XqtGrRI0dTQ3q9MqUVCe8TPxCHSJpBuPjXmESI8ommzpz4g9wPhnMMD2eQW5wi
+	 YP0XLHJug5Crdf2Cd2Ewyc4Mfb4/a5hWceLXfL049a1IlD39ID5VMR9f4n5sg7k9KV
+	 KxpQtTMAYWOFgv0i20IDqwo0HOTgaE20eL3Pp1t+/HSyooz1pVXv/BSvyCbPv/CWYg
+	 blDgD6ygsVJgQ==
+Date: Fri, 4 Sep 2026 10:57:56 +0100
+From: Harry Yoo <harry@kernel.org>
+To: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
+Cc: Sebastian Andrzej Siewior <bigeasy@linutronix.de>, 
+	Clark Williams <clrkwllms@kernel.org>, Steven Rostedt <rostedt@goodmis.org>, 
+	Andrew Morton <akpm@linux-foundation.org>, Peter Zijlstra <peterz@infradead.org>, 
+	Alexei Starovoitov <ast@kernel.org>, Hao Li <hao.li@linux.dev>, Christoph Lameter <cl@gentwo.org>, 
+	David Rientjes <rientjes@google.com>, Roman Gushchin <roman.gushchin@linux.dev>, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, linux-rt-devel@lists.linux.dev, 
+	syzbot+acf142088e0182172e58@syzkaller.appspotmail.com, ThangNN99 <ngocthang2710.1999@gmail.com>
+Subject: Re: [PATCH] mm/slab: disallow kfree_rcu_sheaf() on PREEMPT_RT again
+Message-ID: <apqS7Z3F5Rtq7caz@nixos>
+References: <20260831-b4-kfree_rcu_hotfix-v1-1-4f0fb882638b@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Fri, 04 Sep 2026 11:57:44 +0200
-Message-Id: <DL6FYL70FVCX.10MCZIPFSVJ5G@kernel.org>
-From: "Danilo Krummrich" <dakr@kernel.org>
-Subject: Re: [PATCH v4 1/3] drm/sched: cache the timeline name to fix a
- use-after-free
-Cc: <phasta@kernel.org>, <christian.koenig@amd.com>, <tursulin@ursulin.net>,
- <matthew.brost@intel.com>, <dri-devel@lists.freedesktop.org>,
- <linux-kernel@vger.kernel.org>, <mdaenzer@redhat.com>,
- <alessio.belle@imgtec.com>, <luigi.santivetti@imgtec.com>,
- <stable@vger.kernel.org>
-To: "Jonghyuk Kim(MalHyuk)" <malhyuk97@gmail.com>
-References: <20260904080618.2098450-1-malhyuk97@gmail.com>
- <20260904080618.2098450-2-malhyuk97@gmail.com>
-In-Reply-To: <20260904080618.2098450-2-malhyuk97@gmail.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260831-b4-kfree_rcu_hotfix-v1-1-4f0fb882638b@kernel.org>
 
-On Fri Sep 4, 2026 at 10:06 AM CEST, Jonghyuk Kim(MalHyuk) wrote:
-> Fixes: 506aa8b02a8d ("dma-fence: Add safe access helpers and document the=
- rules")
-> Cc: stable@vger.kernel.org # we don't know since when
+On Mon, Aug 31, 2026 at 06:02:38PM +0200, Vlastimil Babka (SUSE) wrote:
+> This partially reverts commit 2a8bb29ec9b2 ("mm/slab: allow
+> kfree_rcu_sheaf() on PREEMPT_RT"). It was based on an assumption that
+> local_trylock() is safe on PREEMPT_RT from any context.
+> 
+> However kvfree_rcu() is also called by set_cpus_allowed_force() with
+> task_struct::pi_lock acquired and there it's not safe, as syzbot
+> has reported.
+> 
+> For the immediate fix, skip kfree_rcu_sheaf() on PREEMPT_RT again from
+> kvfree_call_rcu(). In theory, kfree_rcu_nolock() would have the same
+> problem when called from under pi_lock on PREEMPT_RT but that can
+> be addressed if such a caller is proposed.
+> 
+> Add an explanation comment, courtesy of Sebastian.
+> 
+> Reported-by: syzbot+acf142088e0182172e58@syzkaller.appspotmail.com
+> Closes: https://syzkaller.appspot.com/bug?extid=acf142088e0182172e58
+> Reported-by: ThangNN99 <ngocthang2710.1999@gmail.com>
+> Fixes: 2a8bb29ec9b2 ("mm/slab: allow kfree_rcu_sheaf() on PREEMPT_RT")
+> Signed-off-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
+> ---
 
-How is that? If there's a Fixes: tag it expresses that this commit introduc=
-ed
-the bug, so it should be known exactly since when it is present.
+Looks good to me,
+Reviewed-by: Harry Yoo (Meta) <harry@kernel.org>
 
-However, I don't think this is the correct Fixes: tag, the bug was present
-before. I think it was present all the way back to commit f556cb0caeec
-("drm/amd: add scheduler fence implementation (v2)").
-
-It is also not the case that it wasn't a bug before we had per-context
-schedulers, it's just that it became much more likely to trigger with
-per-context schedulers; nothing prevents the kernel from having a reference
-count of a DMA fence after the driver was unbound and hence the
-per-device/per-ring scheduler was torn down.
-
-More in general, putting "we don't know since when" for the stable folks is
-rough. If neither the author of the patch nor the maintainers of the subsys=
-tem
-can figure it out, how are the stable folks supposed to?
+-- 
+Cheers,
+Harry / Hyeonggon
