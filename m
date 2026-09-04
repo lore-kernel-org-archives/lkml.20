@@ -1,82 +1,144 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com [209.85.216.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FCB74A441C;
-	Fri,  4 Sep 2026 10:58:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E82AF483815
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 10:58:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788519488; cv=none; b=kDJoIu9D6TIhiV2v9+Z/eK80kl/gW5TfuFcVy6W25riYW6WTFE+06Oyj+2jscRA54QSL/nPTVi505UEklCS6vWV/CdUvoyHkuq3rCudd770YiR/aTpTsZbQVJqrT9pIl8rr837scmDZ1NNYJX8Bf1Ry3xFWnP8MiPiBCin7kMF8=
+	t=1788519489; cv=none; b=KXp1UyuUpRajB1nac2vPaFKQl5COKYS3x5nGxsUc8l9hLI4jTYP/cF2mHZuU2IDI70vyLi7YtwpHGL0aD6PJcmCtHFW8OrRwLqbd0VTqC39b5WgsqEpfAFFeqVZuRyzJxlDTXtSiC/5I/Hl0/mYdNH/HimsiKcZmOGiBXcXY038=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788519488; c=relaxed/simple;
-	bh=WAu37Wf9tMkWpoYzMfRhp+AkaKn9p9AEbTWk1OVWxNI=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=D+aES2U8g06p+T6LgpiEClya1Dn286P7fduRKSIHHzvy4F/+5f5Wuxxot9LVRVcF2zjZ7H8/THzL7mccBrPRpP/qVelttyjRYkoFbWkYseM/rYamgD6kD2JCVx9GaY/7gEwGe5NHyaGwgDQ9HX3yQU8G62bT2cAC5iv1MKZlvGk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ym5Jg6zg; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788519489; c=relaxed/simple;
+	bh=JtFt4j8cgUgUtFZaywPAlg51vNEpvkwM47kq5mj/13w=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=smdegj7Oc8kR4YNSXb2no+aGS8uLElrFPWL9GeJ59knjUglIf7HkTs+6Nt2rOpvfcOBIbRoiVj0hYZjmtiy8FpcCy6sMtVzK2E63EtsO2PU57LRw6visn3jeojtcjDHDQabuEXGUAtGNl1wlQ8oFBphyGcnIIFXl55buL0ly3Ls=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rcMM6y/1; arc=none smtp.client-ip=209.85.216.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ym5Jg6zg"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 06D251F00A3F;
-	Fri,  4 Sep 2026 10:58:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788519486;
-	bh=Bp0VHA1PwQw/uqdYstlZ0IWSYQFCuHVceyAYmCy4GKg=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=Ym5Jg6zgWavoQEPClP1C+O17d6qWP5qW6Nr0PodZGUnBoVGoqZd4pcFMOH+2hxrkh
-	 XkpmGoyf9jMKNpbOAEDzhopPZFTi9XmJHAtnrbnSgaM5pNLr90DvPns3KD1aBvD7+G
-	 rsXZR0xdZeVbUA84vx2ETzSX8ZcxV8lACHjirPOXyaQp8AlhmDTxr2v4LwqtMUHchS
-	 0mS+JpSSOhdeIX8zlJSXo16go/4jPqmRKvapXecFhcOkZL46ohHimhM5odiFjfw8a6
-	 kQSkS0gXxQmKjIw7S5M16AmNeBkU98BxsP6+vpy/AomQE9XyDkC1gJmEK5ZH5OvO/U
-	 mle2oekg4jVUA==
-From: Christian Brauner <brauner@kernel.org>
-To: linux-fsdevel@vger.kernel.org, viro@zeniv.linux.org.uk, 
- Tao Cui <cui.tao@linux.dev>
-Cc: jack@suse.cz, gregkh@linuxfoundation.org, linux-kernel@vger.kernel.org, 
- lxc-devel@lists.linuxcontainers.org, Tao Cui <cuitao@kylinos.cn>
-In-Reply-To: <20260903033625.1042796-1-cui.tao@linux.dev>
-References: <20260903033625.1042796-1-cui.tao@linux.dev>
-Subject: Re: [PATCH] devpts: reject max=0 instead of silently lifting the
- limit
-Message-Id: <20260904-umgedeutet-gegossen-narzissen-bbf3fc243694@brauner>
-Date: Fri, 04 Sep 2026 12:57:50 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rcMM6y/1"
+Received: by mail-pj1-f48.google.com with SMTP id 98e67ed59e1d1-38759bcd877so836645a91.2
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 03:58:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788519486; x=1789124286; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=gH9gg1qvejjX/sPdW+X7GvG6xfgdjVwQ/p+bz1yISpM=;
+        b=rcMM6y/1ucHSX+6iiz7HwLBqExzo8lJDQ4RgBIDizaeik0/2JIr6b25Yjz1spzBPzy
+         fq8mt8daUjrYqkuLXf+PXuqTz1oEtcHcsZuxRXwiKqcyA0kxP97sT9seewcZ2dfkQXvP
+         7Py1HDncvINLHyONVPwqeWCVO01v1UxY+zbZf1kRCdUzJG5m9QVV03SCeMH02v28LUrZ
+         DaxfmBrAn+pC80EXg4epAdpRKY/F8k8rA4DBZgUf64FwJ9dNgte/gsKxMvSUkSvEEovN
+         9WIKcggsMoJ7aTrZ+bOy1B84ZtZ+EzH6Vi5F4CpXaHZf7eIvf7E5FtRV7w+97Y9M2ajO
+         +m5w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788519486; x=1789124286;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=gH9gg1qvejjX/sPdW+X7GvG6xfgdjVwQ/p+bz1yISpM=;
+        b=FIfrkNSxHbujeyZoHvGBWteDPUopbJVNk3aO24ZOBzChrEPdOulJaFSOCVk5OnQnrM
+         pNHpE8rdCtmbB/GpKBOMdOrQusB1Zm4Df/JgTTBW5Hsfifey/uLdZOhdQex/ntkfhzWD
+         GEVrA/Easxw8ceWegLITGUSdEGh3k9A+B9k0H3KmU113I5T2fILr0dxJ4/RXYkowKYi+
+         LcEShHMreCIvd97ZNmLfIa8E96tPPPZ1Oy1Qagr+xFXfx7QUJWEYKX4+ETT3Pgs6Jlrr
+         ejLmemmKGsRqPGaKqlZ4hLqOuvI87H0zvwcZBMMTeOvW3guP5RH46IVQILP4Kbdd8C9a
+         gccA==
+X-Gm-Message-State: AFuF++mBDckxsQQGZZSpEp5TNpdmZ6zjFBMwq0RjGXSAzIX9dxdzK4ls
+	I+7VX/DVgJsI9igCrLnRnxW0FJsU3883XiroXVetd7swOKTIn9UEYy8L
+X-Gm-Gg: AYBFou1BnR0dxWARDnNId/EIYhQSgU+uXGYBbZp1+FRE7Ysk+zUEdkz3hn1ZZrmrsAZ
+	AAM9G+CI/WWzL1Dd2d5ESHrafF7+25V4f9RAtg06Y9cPyCXBZOILefS7d+w297bZKjIvMWhCVmV
+	TYoDL2sklzYdjFhJ/I4ChKJaBSjEITBN248pduhr4X6Np2h5M3BJuNKU3Cew8zOD+QLy3ad46o8
+	ry6iwoXNBC0JJpkANcL7I9d3s5BkIdUY3NGJE69HkCE04Z019/4BSHu2GYygMejf9LNyGAXmfL/
+	l/PCgVpE37CPO64748C975TqueXLUhPG7ntSDzaXJz4JCuRXwdB1Ofr+rseEoFywxgMtLhP5MH0
+	xWR4zda1gVbs7ZqUFWslWtzS+td0RAn7/A/QywgNf9M8Kg94neLk10Epqh6oDD8mTsXUfw/3hk4
+	x6UPeFi8MG9Mb+kGzHpDlhrqF4MydBoZbVuVsw+R1kYJwWhsJb2sDKvF+rb5YANFuXkPoxAB0Eg
+	y4y872aRZDEB6Q=
+X-Received: by 2002:a17:90b:3810:b0:398:9beb:5c18 with SMTP id 98e67ed59e1d1-39b26213a86mr7980524a91.19.1788519486242;
+        Fri, 04 Sep 2026 03:58:06 -0700 (PDT)
+Received: from volcano9f6e-hostos.amd.com ([165.204.217.251])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339b123731sm5523091eec.18.2026.09.04.03.58.00
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 04 Sep 2026 03:58:05 -0700 (PDT)
+From: Hemanth Selam <hemanth.selam@gmail.com>
+To: Alexei Starovoitov <ast@kernel.org>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Andrii Nakryiko <andrii@kernel.org>,
+	Eduard Zingerman <eddyz87@gmail.com>,
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+	Martin KaFai Lau <martin.lau@linux.dev>,
+	Song Liu <song@kernel.org>,
+	Yonghong Song <yonghong.song@linux.dev>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Emil Tsalapatis <emil@etsalapatis.com>,
+	Ihor Solodrai <ihor.solodrai@linux.dev>,
+	Hari Bathini <hbathini@linux.ibm.com>,
+	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+	Naveen N Rao <naveen@kernel.org>,
+	Madhavan Srinivasan <maddy@linux.ibm.com>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	Nicholas Piggin <npiggin@gmail.com>
+Cc: linux-kernel@vger.kernel.org,
+	bpf@vger.kernel.org,
+	linuxppc-dev@lists.ozlabs.org
+Subject: [PATCH 3/7] powerpc: net: fix typo "upto" in comments
+Date: Fri,  4 Sep 2026 16:27:33 +0530
+Message-ID: <20260904105743.39799-4-hemanth.selam@gmail.com>
+X-Mailer: git-send-email 2.48.1
+In-Reply-To: <20260904105743.39799-1-hemanth.selam@gmail.com>
+References: <20260904105743.39799-1-hemanth.selam@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.17-dev-db0b7
-X-Developer-Signature: v=1; a=openpgp-sha256; l=937; i=brauner@kernel.org;
- h=from:subject:message-id; bh=WAu37Wf9tMkWpoYzMfRhp+AkaKn9p9AEbTWk1OVWxNI=;
- b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWTNWmJ99dpah7B33Ul3/jDmLNldwed0QJrp5s5a40+PD
- r+0VFa52lHKwiDGxSArpsji0G4SLrecp2KzUaYGzBxWJpAhDFycAjCRnGcM/93fvBdh/72CJf6g
- ysfZp+4sF9ERfXHVnueCuPb1wGn7az0Y/kr1S1TvvP1961/TjrzDKqGl/gtLVPZyMNewbgtd2r3
- SngsA
-X-Developer-Key: i=brauner@kernel.org; a=openpgp;
- fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
+Content-Transfer-Encoding: 8bit
 
-On Thu, 03 Sep 2026 11:36:25 +0800, Tao Cui wrote:
-> devpts: reject max=0 instead of silently lifting the limit
+Correct "upto" to "up to", reported by scripts/checkpatch.pl using the
+misspelling list in scripts/spelling.txt.  Only touches comments, no code
+changes.
 
-I'll figure out the Fixes tag.
-
+Assisted-by: Cursor:claude-opus-5
+Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
 ---
+ arch/powerpc/net/bpf_jit_comp32.c | 2 +-
+ arch/powerpc/net/bpf_jit_comp64.c | 4 ++--
+ 2 files changed, 3 insertions(+), 3 deletions(-)
 
-Applied to the vfs-7.4.misc branch of the vfs/vfs.git tree.
-Patches in the vfs-7.4.misc branch should appear in linux-next soon.
-
-Please report any outstanding bugs that were missed during review in a
-new review to the original patch series allowing us to drop it.
-
-It's encouraged to provide Acked-bys and Reviewed-bys even though the
-patch has now been applied. If possible patch trailers will be updated.
-
-Note that commit hashes shown below are subject to change due to rebase,
-trailer updates or similar. If in doubt, please check the listed branch.
-
-tree:   https://git.kernel.org/pub/scm/linux/kernel/git/vfs/vfs.git
-branch: vfs-7.4.misc
-
-[1/1] devpts: reject max=0 instead of silently lifting the limit
-      https://git.kernel.org/vfs/vfs/c/7d1d1a34d29c
+diff --git a/arch/powerpc/net/bpf_jit_comp32.c b/arch/powerpc/net/bpf_jit_comp32.c
+index bfdc50740da8..cf8c1b49da25 100644
+--- a/arch/powerpc/net/bpf_jit_comp32.c
++++ b/arch/powerpc/net/bpf_jit_comp32.c
+@@ -23,7 +23,7 @@
+  *
+  *		[	prev sp		] <-------------
+  *		[   nv gpr save area	] 16 * 4	|
+- * fp (r31) -->	[   ebpf stack space	] upto 512	|
++ * fp (r31) -->	[   ebpf stack space	] up to 512	|
+  *		[     frame header	] 16		|
+  * sp (r1) --->	[    stack pointer	] --------------
+  */
+diff --git a/arch/powerpc/net/bpf_jit_comp64.c b/arch/powerpc/net/bpf_jit_comp64.c
+index fc9db691e820..8a1a00026c69 100644
+--- a/arch/powerpc/net/bpf_jit_comp64.c
++++ b/arch/powerpc/net/bpf_jit_comp64.c
+@@ -23,7 +23,7 @@
+  * Stack layout with frame:
+  * Layout when setting up our own stack frame.
+  * Note: r1 at bottom, component offsets positive wrt r1.
+- * Ensure the top half (upto local_tmp_var) stays consistent
++ * Ensure the top half (up to local_tmp_var) stays consistent
+  * with our redzone usage.
+  *
+  * tail_call_info - stores tailcall count value in main program's
+@@ -35,7 +35,7 @@
+  *		[   nv gpr save area	] (6 * 8)	|
+  *		[ addl. nv gpr save area] (12 * 8)	| <--- exception boundary/callback program
+  *		[    local_tmp_var	] 24		|
+- * fp (r31) -->	[   ebpf stack space	] upto 512	|
++ * fp (r31) -->	[   ebpf stack space	] up to 512	|
+  *		[     frame header	] 32/112	|
+  * sp (r1) --->	[    stack pointer	] --------------
+  *
+-- 
+2.48.1
 
