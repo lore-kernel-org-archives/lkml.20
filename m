@@ -1,153 +1,129 @@
-Received: from mail-oo1-f70.google.com (mail-oo1-f70.google.com [209.85.161.70])
+Received: from mail-qv1-f42.google.com (mail-qv1-f42.google.com [209.85.219.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF6D43B14B1
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 23:35:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.70
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788564953; cv=none; b=BopISZJuSQK/9hwa6BhwKtCWK4gt0PngVugj2y7uyJqBz1L8Jb1tTbFFsaxCs0SVttZ5tnoSrLH/tEkPIfkG5HsSCseLBfAzxUjSBLtj2y1cNAiG9moHWGankVqVTLxYJFB/fOKzIrhDTHeCGHDI/dSnY8Qf6/dh7iq/0PLeaJc=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788564953; c=relaxed/simple;
-	bh=9oFdzcNSXwfO30LxDKvwHi69W5gBCNxc+H63pnaXZgM=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=s77gJ7vfmztxTB8ogk3kLTzAdG5Un1MZxCM8yaRpsfmIJKPMEN+mnksu2PDmelN+QxiHG3xciRynKXQF4Q9NTP5grPovuziCmiM5woI7zJeg8RpctIUGGLelCGiXxCXzjHqK2j4YDx98l8fBjAebP9VGlpq4Zf+ciDgLXRgwyE0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.161.70
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oo1-f70.google.com with SMTP id 006d021491bc7-6b1a3f01d2aso2404061eaf.1
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 16:35:51 -0700 (PDT)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5034731716D
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 23:38:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.219.42
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788565117; cv=pass; b=tCRffC/EJKXh1l0TigLgcTpTnc9XCBU9NmlIBs8FNbl6ZcHd5Hc4OfD8d9UNBmXmoB5fTH7rH6XVvVnVW/OnY17XEJRVHz7LdIBrpPvlbK5oOs2EpQR7IVGWsUtHiZ0kEcoEIPPSpKDLhR3FOeBeozkPigGUzlc27ZY+REFwfOc=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788565117; c=relaxed/simple;
+	bh=OfjNU5ihH6zdhRpk+3D7wnnN3CuA8bJvDSzokOYZQlE=;
+	h=MIME-Version:From:Date:Message-ID:Subject:To:Cc:Content-Type; b=TRmC0uLZwxBgTrePNvGD3BN9C4D+OaN9dmXW2GMLF7lcn8L/+8YcH12VTOet51ZlZ8zhEHj/TepYgrZU9L9QOroAbLUTFPUeWDZskh+xs66HW9t30Uu6dc/8HvIHo74TAo4QOfZFRJpysRRCnR5AwVExV2Yp745DKSGaamevp0k=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=AF2kzGHw; arc=pass smtp.client-ip=209.85.219.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="AF2kzGHw"
+Received: by mail-qv1-f42.google.com with SMTP id 6a1803df08f44-90f9f8553e0so19045706d6.1
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 16:38:36 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788565115; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Is5STpJOgnO2Ia+zecObG8h3cLb8f0+ntp/OTqF92R3s8hS27wkKs0EX/954dTBd+M
+         C2nPPm1Pz3QC7ev64LnbV0ZxcvCRlyQVVIYDwvR6GWGPLm1ZvcOhVrMsNu9URPN9FziW
+         4MTj8QK+N+ep3QSZIF2TOMUeeYzy62ySK8/UVDLctydvj9ZghyvL356shb2YrNuhZ/1q
+         f47rEPUXpvmoPb3k3IGZMGJncm8e2y8VYOUZ2VtGFU8IC2+NgiV7+aJeNRM6XL3E7e56
+         hyULsGuy2KyAgCimylVqlUxsETllZWpkA+wUvWLzvqZaWVVYSigI2odJkhuUI+qjJz/Z
+         G78A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
+        bh=OfjNU5ihH6zdhRpk+3D7wnnN3CuA8bJvDSzokOYZQlE=;
+        fh=os5rhIsXdovFQLzxjZWIQZqW5WXKDb10+S3u1TzQLzU=;
+        b=arc7KPPQKnzSA5ppZAbgoJdHEOIssHOLBSYw4dKkWfyAJv9fvjsaomvsJwX3LYFqH3
+         /bDmkVGA65CfS3+BA6yuYVuQxFlbl1KEl6vQ8mNTpnAsCZ4B0eQ2YCMkUKBlELx+A2Tl
+         946H9c9NG+mZS7cvoCrRcsEpBDEIE2dqbEc8IIh4PalfnDHcdjueyrgI8upXYRUXloSl
+         iFXDvsCIIJUUP0bU3W5MOGPB9UuKygRQxSaJtPE1KCEpxZpVg/GtlexBD9GsH00ozZrb
+         efwTEXrBV2INAw1K9GGfb6qrFwV8BClS+as9oH9rIyquakEi9qlBNu5w2eTPpIWMCErc
+         p4ZA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788565115; x=1789169915; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:mime-version:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=OfjNU5ihH6zdhRpk+3D7wnnN3CuA8bJvDSzokOYZQlE=;
+        b=AF2kzGHwxtNyRchoqtNoLxE8wB+hVaVvH6vbHJjbBulFZUik2XjfSIHsJhiyAgaTtG
+         D/AeIMr5gWwD9HUj5T/8KRVL89MBZAybEk0ZGq7ALp9V5vdGsGkS2xGqvS4p75AS9/r7
+         8ny3cm7TUE7lECxX2stDHgHAtcfzyifWGsTnucSIeGMj5Ny0jLkGn37Kf4N4LhJ1Xvrz
+         njRVQwrOTi9NVCdcORgvs2VsI4lBAYpoV8fn2v6yKrDwtNUfUiFaqtZG9TGFU9cKMNCd
+         zvrTMLLbdsBcdqmF998EVY7xA8M+QFXN+bOO9qotrJ2nuxj73pA4us0Bh+1Wb3wZ85qG
+         IXyw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788564950; x=1789169750;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+        d=1e100.net; s=20251104; t=1788565115; x=1789169915;
+        h=content-type:cc:to:subject:message-id:date:from:mime-version
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to:content-type;
-        bh=/e6/5ePIMIpOYEhFajWQ9cvMB/27MDTyrWMi45Ge3YM=;
-        b=mSyoGNq/VDui02R77bR6DMIauo8wUgeQL1FnFu3dJSCl2hSoKbQ1kBafxRqiC/X2R6
-         XXtofXZL1bn8HtPOLKrTimtnNV7zx2ZcjiSvULZV7b7189BdlFb8mc2TDW8oLibprmNA
-         BToEZyDMgOfmzd1CyqrRDait6XuMK4sHhXl5TL8IwOQl0dxyIWdHFb+e4RIEtce5CYmk
-         1ZnNp3tzUEAQiC0AjIwhXsWzMTthmFq5GXYb+SextETa8tSvABHCLV3jJlA6II4K7srP
-         g10EvRQHM4z3ROhLb/5jYGGl8YSrqKlo0WJ2+PRm3fFUVIzUR5LsZe/iBJ3oFvT3OQjb
-         x56A==
-X-Gm-Message-State: AFuF++nIQIlPhA0aTZdgILFlWJ1QjnjJSDXRioJVDP+8+3wAM2ZYn3Df
-	/TIjbi1qiMUmIoTvpfwrcIm+7oL2+ovF8Rycmsvs1fV6T1z7DrIPmtfM4hvvhlD+xN+PZTmFhuG
-	BLP1SkF5vXGLGakgX3ZSflmi6zxtL7i/50F/71XKOGnT7Y1UNirsXISK/KGk=
+        bh=OfjNU5ihH6zdhRpk+3D7wnnN3CuA8bJvDSzokOYZQlE=;
+        b=F4sG9mfv9HLauJfu2vZZorxsvmzNSEbTYPBpDbbX9YfaZvWjnYAE4oEn00v34890Kb
+         XRDYcjRktqiO3gbWsVmfQ0rBp3QTTvpVrMtrvHlDMQX24WA8ASdiNC+GfmCiDBSUpkJe
+         C9CH2pVQ2sXvSe/ndW1r6tTLTx3BG1u9jLD1BtzphNFX3hmchf/p5ZgL1dQWis9fJ/Df
+         NIuF1U5HwP7Sr9K+1ODqnVWvLmQwqdFs9JWLHun0DRy/r57ZdJrw+wII2VE/p3rSclcz
+         XOu+9OIRN3g0MWws86agZoFA7aYY1IiaqcjIWhgIpjO5yjQ3AkQO1PcaKCMtn6KFjqbb
+         QCoQ==
+X-Forwarded-Encrypted: i=1; AKwUvBw/EGzZMtX34koHiHmo5YXMC9WDa38h0Tx8pbux8NuCu6dcCDb3uhg3TR5fzcI7R8VcP7uEqk5OUQ4F/vU=@vger.kernel.org
+X-Gm-Message-State: AFuF++mY8MkAZtcgSz1Ts9vh3o8r2GqSTTG98a2d0sBtYGI+31OZ5lh6
+	PVryqTOMyDAqvnsaeYJBa+kLkcxixHnPbCuUXVgDAkVqiyIkJhLo9cOYJ3vlWlewpMpAFuVjnIF
+	ceW1NJheVmxBYmgJJKlEEe+MwMZo00AIJJVRxuBk=
+X-Gm-Gg: AYBFou0epUpN3fCPaIf2vjVXprrOEXB6U3SVR3OQ8HcFMMmRffGdVd6/uhoQEDudOHK
+	0DqzPLA9YfKofgbhFaavYXsXHAqP/dhzlxCvGxlWoaD0l0yfkevXPNxkEISAeHhTQyoSw4zTKgb
+	ifEh9IW3XlwJMx//CawOa0rOzmKMtRSgzCWIdwXj85aIUDSoIs60NXun69lQI/zPJBmvKa8etNA
+	BQK3mmOhyb13o7AgAVTNk2QdIi1rb1cknGxhSKGpgJ0Fuh2OcQNKJFkTtFAaC25eNp672Fe4aPc
+	e8pLdFGegyKQ2ELJf0EBy2hQFY1ob/o6M8ekj4T3me83VZLjHPaPn4O9RUYjEIdBRCh8w71c+8J
+	SPKcJCJ5cDnXhzcdBGVqM+6mnlEhTb3izC30=
+X-Received: by 2002:ad4:5ae5:0:b0:910:44e5:8a46 with SMTP id
+ 6a1803df08f44-91044e58aecmr60519796d6.37.1788565115021; Fri, 04 Sep 2026
+ 16:38:35 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:1997:b0:6ae:4d93:cdc2 with SMTP id
- 006d021491bc7-6b6fa8dd522mr7326295eaf.5.1788564950524; Fri, 04 Sep 2026
- 16:35:50 -0700 (PDT)
-Date: Fri, 04 Sep 2026 16:35:50 -0700
-In-Reply-To: <6a9b3f7a.2e649fcc.1e1977.0001.GAE@google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6a9b55d6.a5e650b3.363816.0003.GAE@google.com>
-Subject: Forwarded: [PATCH] ocfs2: fix use-after-free in o2hb_region_dev_store
-From: syzbot <syzbot+3025e3e8fc0b928af8f5@syzkaller.appspotmail.com>
-To: linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com
+From: =?UTF-8?Q?Alexandre_Boissi=C3=A8re?= <edu.alexandre.boissiere@gmail.com>
+Date: Sat, 5 Sep 2026 01:38:23 +0200
+X-Gm-Features: AcwNN1W-luJDuFpEK771EUW4fuSGDlBXxkJ4J7p2SaudTyacF1tjANldXjDhIVQ
+Message-ID: <CAFiazsFb8TZUKp8oEx=4jkEHm9oLHn8M=c2ksBC1SbeF-zmM7g@mail.gmail.com>
+Subject: Question about desc_push_tail in Linux printk ringbuffer
+To: pmladek@suse.com
+Cc: john.ogness@linutronix.de, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 
-For archival purposes, forwarding an incoming command email to
-linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com.
+Hello,
 
-***
+I have recently been trying to understand how the Linux printk ring
+buffer works.
 
-Subject: [PATCH] ocfs2: fix use-after-free in o2hb_region_dev_store
-Author: kartikey406@gmail.com
+However, despite it being heavily commented, I cannot understand the
+logic behind the condition in the desc_miss case at the beginning of
+the desc_push_tail method (lines 716-719 in commit b6cf8b3, lines
+801-804 in the latest commit bf56987c).
 
-#syz test: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
+From what the comment says, it is meant to guard against another
+writer currently reserving the descriptor. My understanding is that
+this can only happen if there are concurrent calls to desc_reserve.
 
-Concurrent writes to a region's "dev" attribute can race, letting two
-tasks both allocate/free reg->hr_slot_data for the same region and
-causing a use-after-free. Add a per-region mutex to serialize
-o2hb_region_dev_store() against itself and against
-o2hb_region_release().
+I have been trying to figure out a scenario that would make this
+condition evaluate to true, but to no avail.
 
-Reported-by: syzbot+3025e3e8fc0b928af8f5@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=3025e3e8fc0b928af8f5
-Signed-off-by: Deepanshu Kartikey <kartikey406@gmail.com>
----
- fs/ocfs2/cluster/heartbeat.c | 23 +++++++++++++++++++----
- 1 file changed, 19 insertions(+), 4 deletions(-)
+The difficulty I am facing is that desc_push_tail is called with the
+value of the current tail (or the new head one wrap backwards), so for
+this condition to hold, the ID of the desired descriptor would need to
+be two wraps behind the new head?
 
-diff --git a/fs/ocfs2/cluster/heartbeat.c b/fs/ocfs2/cluster/heartbeat.c
-index 1c3def99bb07..6f03de1b6d4a 100644
---- a/fs/ocfs2/cluster/heartbeat.c
-+++ b/fs/ocfs2/cluster/heartbeat.c
-@@ -273,6 +273,9 @@ struct o2hb_region {
- 
- 	/* last hb status, 0 for success, other value for error. */
- 	int			hr_last_hb_status;
-+	/* Serializes dev_store() against itself and region_release() */
-+	struct mutex            hr_dev_write_mutex;
-+
- };
- 
- static inline struct block_device *reg_bdev(struct o2hb_region *reg)
-@@ -1616,7 +1619,10 @@ static void o2hb_region_release(struct config_item *item)
- 
- 	o2hb_quiesce_timeout(reg);
- 	o2net_unregister_and_flush_handler_list(&reg->hr_handler_list);
-+
-+	mutex_lock(&reg->hr_dev_write_mutex);
- 	o2hb_unmap_slot_data(reg);
-+	mutex_unlock(&reg->hr_dev_write_mutex);
- 
- 	if (reg->hr_bdev_file)
- 		fput(reg->hr_bdev_file);
-@@ -1879,9 +1885,6 @@ static ssize_t o2hb_region_dev_store(struct config_item *item,
- 	ssize_t ret = -EINVAL;
- 	int live_threshold;
- 
--	if (reg->hr_bdev_file)
--		return -EINVAL;
--
- 	/* We can't heartbeat without having had our node number
- 	 * configured yet. */
- 	reg->hr_node_num = o2nm_this_node();
-@@ -1906,12 +1909,20 @@ static ssize_t o2hb_region_dev_store(struct config_item *item,
- 	if (!S_ISBLK(fd_file(f)->f_mapping->host->i_mode))
- 		return -EINVAL;
- 
-+	if (mutex_lock_interruptible(&reg->hr_dev_write_mutex))
-+		return -ERESTARTSYS;
-+
-+	if (reg->hr_bdev_file) {
-+		ret = -EINVAL;
-+		goto out_unlock;
-+	}
-+
- 	reg->hr_bdev_file = bdev_file_open_by_dev(fd_file(f)->f_mapping->host->i_rdev,
- 			BLK_OPEN_WRITE | BLK_OPEN_READ, NULL, NULL);
- 	if (IS_ERR(reg->hr_bdev_file)) {
- 		ret = PTR_ERR(reg->hr_bdev_file);
- 		reg->hr_bdev_file = NULL;
--		return ret;
-+		goto out_unlock;
- 	}
- 
- 	sectsize = bdev_logical_block_size(reg_bdev(reg));
-@@ -2029,6 +2040,8 @@ static ssize_t o2hb_region_dev_store(struct config_item *item,
- 		fput(reg->hr_bdev_file);
- 		reg->hr_bdev_file = NULL;
- 	}
-+out_unlock:
-+	mutex_unlock(&reg->hr_dev_write_mutex);
- 	return ret;
- }
- 
-@@ -2149,6 +2162,8 @@ static struct config_item *o2hb_heartbeat_group_make_item(struct config_group *g
- 
- 	config_item_init_type_name(&reg->hr_item, name, &o2hb_region_type);
- 
-+	mutex_init(&reg->hr_dev_write_mutex);
-+
- 	/* this is the same way to generate msg key as dlm, for local heartbeat,
- 	 * name is also the same, so make initial crc value different to avoid
- 	 * message key conflict.
--- 
-2.34.1
+However, given the way the ringbuffer works, and if there is another
+writer, it should either contain the value of the tail if the other
+writer has done the head CAS in desc_reserve but hasn't reached the
+state_var CAS before the return statement; or the value of the tail
+one wrap forward (which is equal to the new head) if the other writer
+has finished both CAS.
 
+None of these two cases yield a descriptor ID that is two wraps behind
+the new head, hence my inquiry about this topic.
+
+Is there a scenario that would make this condition evaluate to true
+that I am missing?
+
+I hope my explanation is understandable enough.
+
+Thank you for your time, and best regards,
+Alexandre Boissiere
