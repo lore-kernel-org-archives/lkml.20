@@ -1,148 +1,136 @@
-Received: from ultrarisc.com (unknown [218.76.62.146])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 84C29346FC3;
-	Fri,  4 Sep 2026 06:01:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=218.76.62.146
+Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.153.233])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A77C638B7D4;
+	Fri,  4 Sep 2026 06:03:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.153.233
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788501718; cv=none; b=br7dV/Ipx6kvg9LuWWxP+P2h5z3D8NchLVV1/ugO5gnySYbne9PQxXcVl9Cm2PUJegNYhohPPugXbzOBPAzR82o50pxBE738mGAA8PMYbhirTxRVRG62AsG7e16ZHoKE7KoohFxf3bNgBEimz7qbYOHmsfi357hLOF7vZezxfgI=
+	t=1788501783; cv=none; b=GR/fTlvfwG7qd3zlRozRCDahi8iYr3RzLq/zq+b+Aoc2v1O8W3q3oHPr9ZGViHcHMnpj6Q3PnUdsiaAI6VFP6KfGJ9ERUhKQ/lj8jizFs6fVTtvbtO2InFHAGP+HpwIsFWEv61rHmHqag1wXGolWRCtYtinIqgOTg4a2cL1O94Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788501718; c=relaxed/simple;
-	bh=6w6Si8JgjupbPLn9IvLmhgJhBOpM0WXa7jWCi1Z6cbI=;
-	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
-	 References:Date:Message-Id; b=ZEGHJSz/FT5oeZlgoBnE2GgF74ghLoKekzVqRObJAQOWjXri2y+tJlYIo8j9DkylnqDaf/Ufadrr9MM9ta4e5pAzLnbGOyHt4c58ZiyjNHLLkuqWMTj4Ft/BKZCbbxHyuIDf5YV4CYLVSC1ifa0LwVhEts/I1IodTn4xZiWQRMA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ultrarisc.com; spf=none smtp.mailfrom=ultrarisc.com; dkim=pass (1024-bit key) header.d=ultrarisc.com header.i=@ultrarisc.com header.b=m1w6G2Js; arc=none smtp.client-ip=218.76.62.146
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ultrarisc.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=ultrarisc.com
+	s=arc-20240116; t=1788501783; c=relaxed/simple;
+	bh=dZwf146yjYnJuybOpC/hSEzpcgtrkMvvqhILrSjyusk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=JsV+8mFLnuxvOeVnok2XN7jiGv7epY8a7Jh5JcPaqO8En77c2//EpKHDQ9fY2MWaFnxn/hCvDkWtZSU2sEYuNIuG9NR3GAm8ctPfH4ljuEMGn/zED5qV2zbPhPquJ6tO1QSrwp5/IB5O7Nt8+OkQP6y0EDJIW+jWFJob4hhF22s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=eXXJmI8x; arc=none smtp.client-ip=68.232.153.233
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ultrarisc.com header.i=@ultrarisc.com header.b="m1w6G2Js"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=ultrarisc.com; s=dkim; h=Received:MIME-Version:Content-Type:
-	Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:
-	References:Date:Message-Id; bh=qxvFYtSORWPE4XH4lAVRbloEchSO4ipPm
-	XwG39eL3XA=; b=m1w6G2Js1KYV5PzPjNvkVsERZSadMo4n0gnT0LOumG/HhbOVD
-	H777NkBxN0d4mZzjTTr51BSNrjMYWtHUCyLN5ykLoUm+ID6nTVNjni7apYj1MhsO
-	N8l4lrodW2TL3rLmgH3lnJPScLkoGU0RK5R6a4UEnWGh9BmSDIaA2wqzkY=
-Received: from [127.0.0.1] (unknown [192.168.100.1])
-	by localhost.localdomain (Coremail) with SMTP id AQAAfwDHQAesXppqTT0AAA--.254S2;
-	Fri, 04 Sep 2026 14:01:17 +0800 (CST)
+	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="eXXJmI8x"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
+  t=1788501782; x=1820037782;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=dZwf146yjYnJuybOpC/hSEzpcgtrkMvvqhILrSjyusk=;
+  b=eXXJmI8xQzQp8m+C5SVcUemIxH0zzEpzbljN+GCSKi8AVn63URu3FP8v
+   ecJZrML5jnXLi4TTSm6nQBXuGz953Xt2zetlRRHr9ABSsKnPU0WhPAWY3
+   DncOlKqChzcIV3lM7xy7kiezkIymrhtGBuhfKKSo8m1GjslVV+ansd/nG
+   kw0oDJET2V7FFEfXzxL6gBbrDFQlEEE2Vuf20unXEImSibDMjqTGNcffl
+   H+Ov/XAjwgaVyB+9CmMY1YgdjaPDf0Jhc3qo1fCo8Lq6iwdJzoby80l9R
+   zKQ0kZ1Jn8If/QapRR4rQVqiDx0EphmvGJXyw3YIkY9tf87OGqrlvEXcw
+   g==;
+X-CSE-ConnectionGUID: qGZcB4xfSDiJ6SMpmfALPQ==
+X-CSE-MsgGUID: XPmTujQeRX6wDxkc2b2WLQ==
+X-IronPort-AV: E=Sophos;i="6.25,260,1779174000"; 
+   d="scan'208";a="63151664"
+X-Amp-Result: SKIPPED(no attachment in message)
+Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
+  by esa3.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Sep 2026 23:02:55 -0700
+Received: from chn-vm-ex02.mchp-main.com (10.10.87.72) by
+ chn-vm-ex2.mchp-main.com (10.10.87.31) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.2.2562.45; Thu, 3 Sep 2026 23:02:53 -0700
+Received: from [10.40.24.197] (10.10.85.11) by chn-vm-ex02.mchp-main.com
+ (10.10.85.144) with Microsoft SMTP Server id 15.1.2507.58 via Frontend
+ Transport; Thu, 3 Sep 2026 23:02:50 -0700
+Message-ID: <f7f2b901-e452-4c64-a782-c5151c78fa84@microchip.com>
+Date: Fri, 4 Sep 2026 11:32:49 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird Beta
+Subject: Re: [PATCH net-next 2/3] net: ethernet: oa_tc6: deliver the PHY
+ interrupt to phylib
+To: Andrew Lunn <andrew@lunn.ch>
+CC: <andrew+netdev@lunn.ch>, <davem@davemloft.net>, <edumazet@google.com>,
+	<kuba@kernel.org>, <pabeni@redhat.com>, <hkallweit1@gmail.com>,
+	<linux@armlinux.org.uk>, <netdev@vger.kernel.org>,
+	<UNGLinuxDriver@microchip.com>, <linux-kernel@vger.kernel.org>
+References: <20260901130948.212914-1-parthiban.veerasooran@microchip.com>
+ <20260901130948.212914-3-parthiban.veerasooran@microchip.com>
+ <dbb77cce-b574-42d9-8a26-a12a0446d1b9@lunn.ch>
+ <28cf906d-cd94-4497-9641-6220d57da3dd@microchip.com>
+ <b7386bf3-dfd0-4ddf-8a14-76c29cb8ac9b@lunn.ch>
+Content-Language: en-US
+From: Parthiban Veerasooran <parthiban.veerasooran@microchip.com>
+In-Reply-To: <b7386bf3-dfd0-4ddf-8a14-76c29cb8ac9b@lunn.ch>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH net-next 3/3] net: stmmac: Add UltraRISC DP1000 GMAC
- support
-From: Jia Wang <wangjia@ultrarisc.com>
-To: Maxime Chevallier <maxime.chevallier@bootlin.com>
-Cc: Andrew Lunn <andrew@lunn.ch>, Jia Wang <wangjia@ultrarisc.com>, 
- Andrew Lunn <andrew+netdev@lunn.ch>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
- Alexandre Torgue <alexandre.torgue@foss.st.com>, 
- Giuseppe Cavallaro <peppe.cavallaro@st.com>, 
- Jose Abreu <joabreu@synopsys.com>, netdev@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-stm32@st-md-mailman.stormreply.com, 
- linux-arm-kernel@lists.infradead.org
-In-Reply-To: <8611dff3-56ea-4798-8303-b0a8af84580e@bootlin.com>
-References: <20260901-dwmac-ultrarisc-v1-0-f19454814bcf@ultrarisc.com>
- <20260901-dwmac-ultrarisc-v1-3-f19454814bcf@ultrarisc.com>
- <910be156-b631-4b62-972a-79d9a9e38697@lunn.ch>
- <178842162417.2701756.3296149694160507506.b4-reply@b4>
- <1622b0a7-5516-4e72-b5e1-60c12b65b52e@lunn.ch>
- <8611dff3-56ea-4798-8303-b0a8af84580e@bootlin.com>
-Date: Fri, 04 Sep 2026 14:01:05 +0800
-Message-Id: <178850166577.1486454.10728134844652956076.b4-reply@b4>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788501666; l=2449;
- i=wangjia@ultrarisc.com; s=20260515; h=from:subject:message-id;
- bh=6w6Si8JgjupbPLn9IvLmhgJhBOpM0WXa7jWCi1Z6cbI=;
- b=o6bJEJIl2iIflheKi8feHmKqG99WDoqDO9RKKIEE7kBxcrr7p85xxGUeXA9HIOj71A3EkuwpB
- mtI33Oi3JQrAOwXck6meyteCpyEbOLmUo4jP3AB5fIHPUzIcOKVZ5HW
-X-Developer-Key: i=wangjia@ultrarisc.com; a=ed25519;
- pk=wGVm18siRScehKOkOz0WKxgxDy7IezHEszhnN4/TUCY=
-X-CM-TRANSID:AQAAfwDHQAesXppqTT0AAA--.254S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7uFy8GrW3trWUGF1fXrWxtFb_yoW8KF13pF
-	W293Wayw4DGF4I9w1Dt3W0vFWYgF18XFWjqw18K34ava90yF13Z3WrK3y5WasxWrZ7u3W2
-	vF18tF9rua98ZaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUU9l14x267AKxVW5JVWrJwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26r1j6r1xM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
-	6F4UM28EF7xvwVC2z280aVAFwI0_Jr0_Gr1l84ACjcxK6I8E87Iv6xkF7I0E14v26r4j6r
-	4UJwAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
-	I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r
-	4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02628v
-	n2kIc2xKxwCY1x0262kKe7AKxVW8ZVWrXwCY02Avz4vE-syl42xK82IYc2Ij64vIr41l4I
-	8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AK
-	xVWUGVWUWwC2zVAF1VAY17CE14v26r4a6rW5MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcV
-	AFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8I
-	cIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r
-	4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjTRNJ5oDUUUU
-X-CM-SenderInfo: pzdqwylld63zxwud2x1vfou0bp/1tbiAQAAEWqZGSQAUAAAsO
 
-On 2026-09-03 14:30 +0200, Maxime Chevallier wrote:
+On 03/09/26 7:24 pm, Andrew Lunn wrote:
+> EXTERNAL EMAIL: Do not click links or open attachments unless you know the content is safe
 > 
+> On Thu, Sep 03, 2026 at 06:32:26PM +0530, Parthiban Veerasooran wrote:
+>> Hi Andrew,
+>>
+>> Thank you for reviewing this patch series.
+>>
+>> On 02/09/26 6:13 am, Andrew Lunn wrote:
+>>> EXTERNAL EMAIL: Do not click links or open attachments unless you know the content is safe
+>>>
+>>> On Tue, Sep 01, 2026 at 06:39:47PM +0530, Parthiban Veerasooran wrote:
+>>>> The integrated PHY has no dedicated interrupt line; its interrupt is
+>>>> delivered in-band as the PHYINT bit in STATUS0, which raises the MAC-PHY
+>>>> SPI interrupt via the extended status. phy_mac_interrupt() only triggers
+>>>> a link-status re-read and cannot make the PHY driver read and acknowledge
+>>>> its interrupt source registers, so expose the PHY interrupt to phylib as a
+>>>> nested virtual IRQ instead.
+>>>>
+>>>> Use dummy_irq_chip as the irqchip, map a virtual IRQ and assign it to
+>>>> phydev->irq before phy_connect_direct() so phylib enters interrupt mode
+>>>> and uses the PHY driver's config_intr/handle_interrupt. Unmask PHYINT in
+>>>> INT_MASK0, and when it is seen in the extended status, dispatch
+>>>> handle_nested_irq() synchronously from the sleepable threaded IRQ. PHYINT
+>>>> is level triggered, so acking the PHY source there clears it before the
+>>>> next data chunk, avoiding a storm.
+>>>
+>>>
+>>>      9.2.8.7 PHYINT
+>>>
+>>>      Physical Layer Interrupt. When set, this bit indicates a service
+>>>      request from the underlying physical layer block.  Many physical
+>>>      layer implementations support an interrupt output for signaling
+>>>      events to the station controller. This bit is optional and will be
+>>>      implemented only if the underlying physical layer supports
+>>>      generating interrupts to a higher level. When implemented, this bit
+>>>      shall be cleared by acknowledging the underlying physical layer
+>>>      interrupt source(s). When not implemented, this bit shall be
+>>>      reserved with a read- only value of zero.
+>>>
+>>> At the moment, phylib is polling the PHY. That is guaranteed to work.
+>>>
+>>> The standard indicates this interrupt is optional. It might not be
+>>> implemented. phylib assumes that if there is an interrupt, the
+>>> interrupt works, and it does not poll. So any hardware which does not
+>>> implement this interrupt is now broken.
+>>>
+>>> Please find a way not to break other devices.
+>> Thank you for pointing it out. PHYINT is optional per the OA TC6 standard
+>> (section 9.2.8.7), and unconditionally setting up the virtual IRQ breaks
+>> devices that do not implement it.
+>>
+>> I checked both the OA TC6 standard (V1.1) and the LAN8650/1 datasheet, and
+>> there is no capability register bit to detect PHYINT support at runtime.
 > 
-> On 9/3/26 14:10, Andrew Lunn wrote:
-> >>> This looks to be 90% identical to dwmac-sophgo.c.
-> >>>
-> >>> Do you expect any further changes to this driver? Is everything
-> >>> supported? Are there more clocks? A GPIO for WoL?
-> >>>
-> >>> I'm just wondering if the common code should be pulled out, or even
-> >>> dwmac-sophgo.c made generic so it can handle all plain boring devices
-> >>> which have RGMII delays and not a lot else.
-> >>>
-> >>
-> >> The probe boilerplate is indeed largely similar because both drivers
-> >> use the common stmmac platform helpers. However, their platform-specific
-> >> requirements differ: Sophgo requires additional TX clock handling and
-> >> other configuration, while DP1000 requires fixed TX and RX delay
-> >> handling. ACPI support under development is also intended to use the
-> >> UltraRISC glue driver.
-> > 
-> > ACPI is going to be fun, since nobody does ACPI networking.
-> > 
-> > But how big is the change to the glue driver? I expect the change will
-> > be minor, a call to devm_stmmac_probe_config_acpi(), in addition to
-> > devm_stmmac_probe_config_dt(). Anything else?
-> 
-> I agree that if ACPI support is added, let's try to make it part of the
-> core.
-> 
-
-The ACPI support is still under development, but the current prototype
-adds ACPI device matching and ACPI-specific platform-data setup. Some
-common stmmac changes are also needed for ACPI-described platform
-resources and MDIO.
-
-> > 
-> > One problem the stmmac driver has is cut/paste glue driver
-> > development. The same code is repeated again and again. Russell King
-> > spent a lot of time and effort trying to reduce the duplication. So we
-> > should not be adding more duplicated code unless it is actually
-> > required.
-> 
-> It seems to me that all the RGMII handling could be made much more generic,
-> as this is commong pattern in glue drivers :
-> 
-> dwmac-sophgo has the "has_internal_rx_delay" field, and dwmac-eic7700 has
-> both has_internal_[r|t]x_delay.
-> 
-> With this third one, it makes sense to start sharing that logic across
-> glues.
-> 
-
-I agree. DP1000 is another user of this pattern, with fixed internal
-delays on both the TX and RX paths. I will look at moving this handling
-into the common stmmac platform code, leaving each glue driver to
-describe its internal delay capabilities.
+> I also did a quick check of the standard and could not find an
+> indication if interrupts were support. So a quirks flag does seem to
+> be the correct solution.
+Thank you for the confirmation. I will implement it in the next version.
 
 Best regards,
-Jia Wang
+Parthiban V>
+>     Andrew
 
