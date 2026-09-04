@@ -1,53 +1,66 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-219.mta1.migadu.com [95.215.58.219])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33A3444838E;
-	Fri,  4 Sep 2026 09:50:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEA3F447813
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 09:50:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.219
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788515442; cv=none; b=YY6tiuhI1Ei9x5DJ5BuO22y1PNQDuO66w+CkAUfS2ySsNd3BZEJ7EdPhhlCZMrM9iI1EdQx/A4o89Nr5LMAbwKD+SJciSMfT/J9D5ZxfZ5uOLvgxuuG1EgL9zc9q/3cE3HAWv1l5cyHcapAxW3ZGLhd161Guzl7fmms2XyUob6w=
+	t=1788515442; cv=none; b=aEZWxycStP/bo5LjffJ4pj9TbFIGmA5paOi1pOj+5VkDadOO64F/cN9uga8uxsc1qi6QMcD6krVDIADpl4e5phHpMs41IO5B8/m7nKQcaXITtETT9oMSOpAth8WOGf0DZCItCrhMY5mHNw/zKVpr/zQRvU30GnzU52zLUX9Ru0A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788515442; c=relaxed/simple;
-	bh=APxQx5dWo+xAcvxP1fewVRbuvrtZKgJKaoenzO4YTa0=;
+	bh=SlBX3aTzVhnrj3tpy1KFU3P3FZH9l3Z5w+HhiJfNOS0=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=KECoGqE5GzBblcT9c6rzOuupCUEzU3ISxv8ggjmEBw/GzvvpDF8WA731QtM1NSLiNuchgurwNIIqcP6wcdIfCKqGkofB6qLXfJmdLwOUJMPxAn+CDNVIK02ATj//PNuhd0wsWvHIU/C0Vs7JxsXrlXji0cHsXJNLOCmFWDoPuzo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UHm6nomu; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=cIyUbYvr8VkrvE53jwRw5rXUiCS7lJsNPF0Bg/GdkBiw6PykeJMUMeF5fJJftBSvFPUlHrHmJb9JKUeg1M8CflSLbBX1ZfPJcZd18O/wOgMehycxjwv+g76vo/ZnF1xmaI+k+6anDZykkrgcrcDQBAJ7F/htoUDIv6f+pnLvyKg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=CNOYj9kk; arc=none smtp.client-ip=95.215.58.219
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UHm6nomu"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CABF11F00A3E;
-	Fri,  4 Sep 2026 09:50:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788515440;
-	bh=Gq3cGAu0BaOnCuHNL8771EcN54SBHzT0LE23CmXIUFs=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=UHm6nomuV2o4fKvhorFuxrVUNFP7pTJ8udDQrDnCctOvAEbDVABSNzhz1H2THa1Fq
-	 88Mjpt43t81bgJheVt16X3gfUVGZ9kTlXvYe3PZGjWdq54Fh93I58dCEp75Pq0KNZB
-	 2Aro3+i28P3rJSkp0gAkiAuQu7570qNr2dbT2yIT8ZG5s4U1mmeU/QS0ZSTLIwwXsR
-	 DC5VJXHrqEl1m7h5NiV/7THPsEwstcRDBTRZS5zzOJCZEStr/QgHxeMfQb8sR1oJqv
-	 0cPm/BiAwXJeOnwDFkcF69D4jYoHGCZpnxk+Ld1cYhMRMAgEQ8E2byFKxEaCH746ez
-	 x0AKY0dYnCpgw==
-From: "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>
-To: linux-coco@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Cc: "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Greg KH <gregkh@linuxfoundation.org>,
-	Jeremy Linton <jeremy.linton@arm.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Sudeep Holla <sudeep.holla@arm.com>,
-	Will Deacon <will@kernel.org>,
-	Steven Price <steven.price@arm.com>,
-	Suzuki K Poulose <Suzuki.Poulose@arm.com>,
-	Andre Przywara <andre.przywara@arm.com>
-Subject: [PATCH v10 4/7] arm64: realm: Move Realm memory encryption ops to RSI code
-Date: Fri,  4 Sep 2026 15:19:57 +0530
-Message-ID: <20260904095000.1184861-5-aneesh.kumar@kernel.org>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="CNOYj9kk"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=SlBX3aTzVhnrj3tpy1KFU3P3FZH9l3Z5w+HhiJfNOS0=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788515438; v=1; x=1789120238;
+ b=CNOYj9kk3xz6BdYqI2vnZcLTXFzYquqq4z8jWxFdEZxcUacTMsiSk9UcUBRdJf8NVlhCr2UK
+ 9CL72jS1sfFtyQkYfqTBOtxns/mTackaCijXvOLH/UGdKawK9o2kZ0+S9zqTUPiXNbLhbcWadXJ
+ QShIigQGhs/orKUZcUfqs5Zg=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 3206c25e4c7eaa95;
+	Fri, 04 Sep 2026 09:50:38 +0000
+X-Mizu-Trace-ID: 3206c25e4c7eaa95
+X-Migadu-Flow: FLOW_OUT
+From: Jiayuan Chen <jiayuan.chen@linux.dev>
+To: bpf@vger.kernel.org
+Cc: Jiayuan Chen <jiayuan.chen@linux.dev>,
+	Alexei Starovoitov <ast@kernel.org>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Andrii Nakryiko <andrii@kernel.org>,
+	Eduard Zingerman <eddyz87@gmail.com>,
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+	Martin KaFai Lau <martin.lau@linux.dev>,
+	Song Liu <song@kernel.org>,
+	Yonghong Song <yonghong.song@linux.dev>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Emil Tsalapatis <emil@etsalapatis.com>,
+	Ihor Solodrai <ihor.solodrai@linux.dev>,
+	John Fastabend <john.fastabend@gmail.com>,
+	Stanislav Fomichev <sdf@fomichev.me>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Shuah Khan <shuah@kernel.org>,
+	Aditi Ghag <aditi.ghag@isovalent.com>,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org
+Subject: [PATCH bpf v2 2/2] selftests/bpf: Test bpf_sock_destroy() on a TIME_WAIT sock
+Date: Fri,  4 Sep 2026 17:49:37 +0800
+Message-ID: <20260904094954.63447-2-jiayuan.chen@linux.dev>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260904095000.1184861-1-aneesh.kumar@kernel.org>
-References: <20260904095000.1184861-1-aneesh.kumar@kernel.org>
+In-Reply-To: <20260904094954.63447-1-jiayuan.chen@linux.dev>
+References: <20260904094954.63447-1-jiayuan.chen@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -56,137 +69,172 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Realm memory encryption callbacks are CCA-specific. Keep the Realm callback
-registration with the RSI initialization code instead of pageattr.c, which
-only needs to provide the low-level page-attribute transition helper.
+Add a tcp_timewait subtest. The client shuts down first and the server
+closes after it, so the client sock ends up in TIME_WAIT. A tcp iterator
+then finds the timewait sock by the cookie it inherited from the client
+sock and destroys it. Iterate once more to make sure it is gone.
 
-Export __set_memory_enc_dec() within arm64 so the RSI code can wrap it with
-the Realm-specific encrypt/decrypt callbacks and warning policy.
+Without the previous fix bpf_sock_destroy() reads past the timewait sock
+and KASAN complains.
 
-No functional changes in this patch.
+  ./test_progs -a sock_destroy
 
-Signed-off-by: Aneesh Kumar K.V (Arm) <aneesh.kumar@kernel.org>
+  #444/1   sock_destroy/tcp_client:OK
+  #444/2   sock_destroy/tcp_server:OK
+  #444/3   sock_destroy/tcp_timewait:OK
+  #444/4   sock_destroy/udp_client:OK
+  #444/5   sock_destroy/udp_server:OK
+  #444/6   sock_destroy/trace_tcp_destroy_sock:OK
+  #444     sock_destroy:OK
+  Summary: 1/6 PASSED, 0 SKIPPED, 0/0 FAILED
+
+Signed-off-by: Jiayuan Chen <jiayuan.chen@linux.dev>
 ---
- arch/arm64/include/asm/mem_encrypt.h |  3 +--
- arch/arm64/mm/pageattr.c             | 38 +---------------------------
- drivers/firmware/arm_rmm/rsi.c       | 34 +++++++++++++++++++++++++
- 3 files changed, 36 insertions(+), 39 deletions(-)
+ .../selftests/bpf/prog_tests/sock_destroy.c   | 71 ++++++++++++++++++-
+ .../selftests/bpf/progs/sock_destroy_prog.c   | 30 ++++++++
+ 2 files changed, 100 insertions(+), 1 deletion(-)
 
-diff --git a/arch/arm64/include/asm/mem_encrypt.h b/arch/arm64/include/asm/mem_encrypt.h
-index f03b9d7b83b4..ef8b8463e52b 100644
---- a/arch/arm64/include/asm/mem_encrypt.h
-+++ b/arch/arm64/include/asm/mem_encrypt.h
-@@ -16,8 +16,7 @@ int arm64_mem_crypt_ops_register(const struct arm64_mem_crypt_ops *ops);
- 
- int set_memory_encrypted(unsigned long addr, int numpages);
- int set_memory_decrypted(unsigned long addr, int numpages);
--
--int realm_register_memory_enc_ops(void);
-+int __set_memory_enc_dec(unsigned long addr, int numpages, bool encrypt);
- 
- static inline bool force_dma_unencrypted(struct device *dev)
- {
-diff --git a/arch/arm64/mm/pageattr.c b/arch/arm64/mm/pageattr.c
-index bbe98ac9ad8c..14b2a3801f40 100644
---- a/arch/arm64/mm/pageattr.c
-+++ b/arch/arm64/mm/pageattr.c
-@@ -275,9 +275,7 @@ int set_direct_map_default_noflush(struct page *page)
- 				 PAGE_SIZE, set_mask, clear_mask);
+diff --git a/tools/testing/selftests/bpf/prog_tests/sock_destroy.c b/tools/testing/selftests/bpf/prog_tests/sock_destroy.c
+index 9c11938fe597..b90fab707338 100644
+--- a/tools/testing/selftests/bpf/prog_tests/sock_destroy.c
++++ b/tools/testing/selftests/bpf/prog_tests/sock_destroy.c
+@@ -110,6 +110,74 @@ static void test_tcp_server(struct sock_destroy_prog *skel)
+ 		close(serv);
  }
  
--static int __set_memory_enc_dec(unsigned long addr,
--				int numpages,
--				bool encrypt)
-+int __set_memory_enc_dec(unsigned long addr, int numpages, bool encrypt)
++static void test_tcp_timewait(struct sock_destroy_prog *skel)
++{
++	int serv = -1, clien = -1, accept_serv = -1, n;
++	struct timeval tv = {};
++	char buf[1];
++
++	serv = start_server(AF_INET6, SOCK_STREAM, NULL, 0, 0);
++	if (!ASSERT_GE(serv, 0, "start_server"))
++		goto cleanup;
++
++	clien = connect_to_fd(serv, 0);
++	if (!ASSERT_GE(clien, 0, "connect_to_fd"))
++		goto cleanup;
++
++	accept_serv = accept(serv, NULL, NULL);
++	if (!ASSERT_GE(accept_serv, 0, "serv accept"))
++		goto cleanup;
++
++	/*
++	 * Active close from the client, then close the server side. Once
++	 * recv() sees EOF the server FIN has been processed and the client
++	 * sock is in TIME_WAIT. Block without timeout so a loaded CI box
++	 * can't race us.
++	 */
++	if (!ASSERT_OK(setsockopt(clien, SOL_SOCKET, SO_RCVTIMEO, &tv,
++				  sizeof(tv)), "clear rcvtimeo"))
++		goto cleanup;
++	if (!ASSERT_OK(shutdown(clien, SHUT_WR), "client shutdown"))
++		goto cleanup;
++
++	/*
++	 * Make sure the server has seen the client FIN before it closes,
++	 * so the two FINs never cross.
++	 */
++	n = recv(accept_serv, buf, sizeof(buf), 0);
++	if (!ASSERT_EQ(n, 0, "server recv EOF"))
++		goto cleanup;
++
++	close(accept_serv);
++	accept_serv = -1;
++
++	/* block until return EOF */
++	n = recv(clien, buf, sizeof(buf), 0);
++	if (!ASSERT_EQ(n, 0, "client recv EOF"))
++		goto cleanup;
++
++	/* Run iterator program that destroys the timewait client sock. */
++	skel->bss->tw_found = 0;
++	start_iter_sockets(skel->progs.iter_tcp6_timewait);
++	if (!ASSERT_EQ(skel->bss->tw_found, 1, "timewait sock found"))
++		goto cleanup;
++
++	ASSERT_OK(skel->bss->tw_destroy_err, "destroy timewait sock");
++
++	/* The destroyed timewait sock must be gone. */
++	skel->bss->tw_found = 0;
++	start_iter_sockets(skel->progs.iter_tcp6_timewait);
++	ASSERT_EQ(skel->bss->tw_found, 0, "timewait sock destroyed");
++
++cleanup:
++	if (clien != -1)
++		close(clien);
++	if (accept_serv != -1)
++		close(accept_serv);
++	if (serv != -1)
++		close(serv);
++}
++
+ static void test_udp_client(struct sock_destroy_prog *skel)
  {
- 	unsigned long set_prot = 0, clear_prot = 0;
- 	phys_addr_t start, end;
-@@ -321,40 +319,6 @@ static int __set_memory_enc_dec(unsigned long addr,
- 				      __pgprot(PTE_PRESENT_INVALID));
- }
+ 	int serv = -1, clien = -1, n = 0;
+@@ -204,11 +272,12 @@ void test_sock_destroy(void)
+ 		test_tcp_client(skel);
+ 	if (test__start_subtest("tcp_server"))
+ 		test_tcp_server(skel);
++	if (test__start_subtest("tcp_timewait"))
++		test_tcp_timewait(skel);
+ 	if (test__start_subtest("udp_client"))
+ 		test_udp_client(skel);
+ 	if (test__start_subtest("udp_server"))
+ 		test_udp_server(skel);
+-
+ 	RUN_TESTS(sock_destroy_prog_fail);
  
--static int realm_set_memory_encrypted(unsigned long addr, int numpages)
--{
--	int ret = __set_memory_enc_dec(addr, numpages, true);
--
--	/*
--	 * If the request to change state fails, then the only sensible cause
--	 * of action for the caller is to leak the memory
--	 */
--	WARN(ret, "Failed to encrypt memory, %d pages will be leaked",
--	     numpages);
--
--	return ret;
--}
--
--static int realm_set_memory_decrypted(unsigned long addr, int numpages)
--{
--	int ret = __set_memory_enc_dec(addr, numpages, false);
--
--	WARN(ret, "Failed to decrypt memory, %d pages will be leaked",
--	     numpages);
--
--	return ret;
--}
--
--static const struct arm64_mem_crypt_ops realm_crypt_ops = {
--	.encrypt = realm_set_memory_encrypted,
--	.decrypt = realm_set_memory_decrypted,
--};
--
--int realm_register_memory_enc_ops(void)
--{
--	return arm64_mem_crypt_ops_register(&realm_crypt_ops);
--}
--
- int set_direct_map_valid_noflush(struct page *page, unsigned nr, bool valid)
- {
- 	unsigned long addr = (unsigned long)page_address(page);
-diff --git a/drivers/firmware/arm_rmm/rsi.c b/drivers/firmware/arm_rmm/rsi.c
-index 8e716f1c1e31..ada139d0e344 100644
---- a/drivers/firmware/arm_rmm/rsi.c
-+++ b/drivers/firmware/arm_rmm/rsi.c
-@@ -127,6 +127,40 @@ static int realm_ioremap_hook(phys_addr_t phys, size_t size, pgprot_t *prot)
+ cleanup:
+diff --git a/tools/testing/selftests/bpf/progs/sock_destroy_prog.c b/tools/testing/selftests/bpf/progs/sock_destroy_prog.c
+index 9e0bf7a54cec..0a8887543218 100644
+--- a/tools/testing/selftests/bpf/progs/sock_destroy_prog.c
++++ b/tools/testing/selftests/bpf/progs/sock_destroy_prog.c
+@@ -7,6 +7,8 @@
+ #include "bpf_tracing_net.h"
+ 
+ __be16 serv_port = 0;
++int tw_found = 0;
++int tw_destroy_err = 0;
+ 
+ int bpf_sock_destroy(struct sock_common *sk) __ksym;
+ 
+@@ -100,6 +102,34 @@ int iter_tcp6_server(struct bpf_iter__tcp *ctx)
  	return 0;
  }
  
-+static int realm_set_memory_encrypted(unsigned long addr, int numpages)
++SEC("iter/tcp")
++int iter_tcp6_timewait(struct bpf_iter__tcp *ctx)
 +{
-+	int ret = __set_memory_enc_dec(addr, numpages, true);
++	struct sock_common *sk_common = ctx->sk_common;
++	__u64 *val;
++	int key = 0;
 +
-+	/*
-+	 * If the request to change state fails, then the only sensible cause
-+	 * of action for the caller is to leak the memory
-+	 */
-+	WARN(ret, "Failed to encrypt memory, %d pages will be leaked",
-+	     numpages);
++	if (!sk_common)
++		return 0;
 +
-+	return ret;
++	if (sk_common->skc_family != AF_INET6)
++		return 0;
++
++	if (!bpf_skc_to_tcp_timewait_sock(sk_common))
++		return 0;
++
++	val = bpf_map_lookup_elem(&tcp_conn_sockets, &key);
++	if (!val)
++		return 0;
++	/* The timewait sock inherits the cookie of the closed client sock. */
++	if (bpf_get_socket_cookie(sk_common) != *val)
++		return 0;
++
++	tw_found++;
++	tw_destroy_err = bpf_sock_destroy(sk_common);
++
++	return 0;
 +}
-+
-+static int realm_set_memory_decrypted(unsigned long addr, int numpages)
-+{
-+	int ret = __set_memory_enc_dec(addr, numpages, false);
-+
-+	WARN(ret, "Failed to decrypt memory, %d pages will be leaked",
-+	     numpages);
-+
-+	return ret;
-+}
-+
-+static const struct arm64_mem_crypt_ops realm_crypt_ops = {
-+	.encrypt = realm_set_memory_encrypted,
-+	.decrypt = realm_set_memory_decrypted,
-+};
-+
-+static int realm_register_memory_enc_ops(void)
-+{
-+	return arm64_mem_crypt_ops_register(&realm_crypt_ops);
-+}
-+
- void __init arm64_rsi_init(void)
- {
- 	if (arm_smccc_1_1_get_conduit() != SMCCC_CONDUIT_SMC)
+ 
+ SEC("iter/udp")
+ int iter_udp6_client(struct bpf_iter__udp *ctx)
 -- 
 2.43.0
 
