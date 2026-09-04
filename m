@@ -1,103 +1,102 @@
-Received: from relayaws-01.paragon-software.com (relayaws-01.paragon-software.com [35.157.23.187])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f172.google.com (mail-pg1-f172.google.com [209.85.215.172])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A9FF472088;
-	Fri,  4 Sep 2026 10:54:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=35.157.23.187
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A581C48122F
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 10:54:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788519247; cv=none; b=rYt3nqLjZ4h9igaNDthfc0NsZ8VwRBTuHS/WbrF9jiP5z7B8qgnFO4Nfg7+DCZ9NEw9YNgwwNyEbkFW9Oj9NuZ608mSikCiwehiU5RM5ZyPTQFr0Bz4epnR/wkAlV6XpcU9t4+IwA1RI1Rv6AHWuMi5GhZ3Vv1O3x6Xl8VRL2C8=
+	t=1788519252; cv=none; b=WlA1HfDNjfFv4ufimeCgQty8yrgvlIX8VMFOOU0sKgeLOQs5d1JSS1HJEwfkQs6w0hAD+wr2nhTdErHukANIYJ2jkx4rkSbrXMcXo8KQnUX3Pp9WLodi7w2M7GW7KohQIAJtOABaC+V+kaxZ3K0yqopWCT+rmp0U7PONgo6156Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788519247; c=relaxed/simple;
-	bh=AuQmDI80L6Qo8i15LU1LctjI9xB8T8iXJn6A+skiQWM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=pqIrJr0NAxnhMThWUCA17F114MqcBanLgMkjM5fKvpfngJuc8PcJfF/nS9udCruEbABJcR3R4eXkt1EiFzI32xKv6CCwKM5344SnW1hkvQ94Uj/t8B/7FMDYeX3ErawMGzam82BWtr3oSfSrMXhrngswbrbQueavAtIz7FnKFQQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=paragon-software.com; spf=pass smtp.mailfrom=paragon-software.com; dkim=pass (1024-bit key) header.d=paragon-software.com header.i=@paragon-software.com header.b=vRZFRV+x; arc=none smtp.client-ip=35.157.23.187
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=paragon-software.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=paragon-software.com
+	s=arc-20240116; t=1788519252; c=relaxed/simple;
+	bh=K+nQpT1yhZUexOt12JUTWZJOQGJpBiBZlBVkJEnQ3ZA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=tHJ33V2PZHpZUZLQ75wyr7ZX3yeKivBz+67t1DkRdCd/BhVsKjDni/QiS0SZ8XKT1cnhaPaX8p8Bk/JADLqhJsEY9cJ5gF6Euht1Q7wwbj/YGfCoycXVOlQWUGf4ojDIB5WqAYlCI6ClHCbtvZhYMXAYtTlzzmN9h1ZowzCWL9g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BRppFQHZ; arc=none smtp.client-ip=209.85.215.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=paragon-software.com header.i=@paragon-software.com header.b="vRZFRV+x"
-Received: from relayfre-01.paragon-software.com (relayfre-01.paragon-software.com [176.12.100.13])
-	by relayaws-01.paragon-software.com (Postfix) with ESMTPS id ABC3632C;
-	Fri,  4 Sep 2026 10:55:02 +0000 (UTC)
-Authentication-Results: relayaws-01.paragon-software.com;
-	dkim=pass (1024-bit key; unprotected) header.d=paragon-software.com header.i=@paragon-software.com header.b=vRZFRV+x;
-	dkim-atps=neutral
-Received: from dlg2.mail.paragon-software.com (vdlg-exch-02.paragon-software.com [172.30.1.105])
-	by relayfre-01.paragon-software.com (Postfix) with ESMTPS id 8DB382206;
-	Fri,  4 Sep 2026 10:54:04 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BRppFQHZ"
+Received: by mail-pg1-f172.google.com with SMTP id 41be03b00d2f7-c9e607d81fcso579673a12.2
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 03:54:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=paragon-software.com; s=mail; t=1788519244;
-	bh=7qstcDk7tqVfdFyRK5jQ1nNUCM/E/gzwRPi1HUBSq4w=;
-	h=Date:Subject:To:CC:References:From:In-Reply-To;
-	b=vRZFRV+xb3Xy6QhCeD/Ww+9cs2iw/Kel8Emx2xxqR4YMabpZuLtcGlIYOFBHYBbVV
-	 3YuSqbJkoGiwc7hPRDdy75xKj6NqG3w27lXJZhLjkSvO2mDqA0quMtZ7iK5Wyql+bb
-	 X2LqhoAE/jktMa8jQtbr3fTOaQLsiGv9aw67MXR4=
-Received: from [192.168.95.128] (172.30.20.203) by
- vdlg-exch-02.paragon-software.com (172.30.1.105) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.7; Fri, 4 Sep 2026 13:54:03 +0300
-Message-ID: <65b90e7c-d3b1-41f9-b4fd-6a1d51b88e4c@paragon-software.com>
-Date: Fri, 4 Sep 2026 12:54:02 +0200
+        d=gmail.com; s=20251104; t=1788519251; x=1789124051; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=lWgrf7yZFJ77B58gypS+MDoL/u/LiBf8lDp/68qUMKU=;
+        b=BRppFQHZCJMFKSO2SxxwzPLyBof7LnLHg3iI+p+ifiI0bOyKdCzHEHoHHRupib9+YZ
+         VNit4o5TCR3WMvQhD96LIopVwVDSonQWel540pjdcgGaQBDyP80tV+J00bxn+yRsrIhC
+         4TxnhMlLJlbHVsTYext5VpalNgjiEm/R+iWnkSprofFWBe+ay9ssy2S1n4JfHCmYKV0A
+         tUgzhoeO2M2qyJEYnEshz2wYNH547IPjna8OKvB5BBNJwQSJwOfqeodWN2O0gIbsXH4K
+         IJaXyHIS7t/n6NfLw9msjUk6LKEwoQwz+n2p6xZRB3y4h+/W9RNtqWjQ0lzrq4z5z7fz
+         KDFg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788519251; x=1789124051;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=lWgrf7yZFJ77B58gypS+MDoL/u/LiBf8lDp/68qUMKU=;
+        b=jm81/kgessSNQBF5Gp37R3wgHUKi/5OlSUZQHfoCZ8huiiUg3KsqRx4RLJIsTNFCMd
+         6dZ40L+z5+gSYOkcv+IN8ef9ebrU/FQBbuqpVjfE05ZTDnEtMAYBw2/b/xlRIeJzO+5d
+         JkEMIwv4E6xWEyw0np1FfEpPxvLLfoY2m+XPT7N7OdkT7ODzlZT4yzNL2z7xdWuL9lw4
+         Z/teE5+NRN7MSPbbezGz5i+MgkJZQHFaRiaU7IvnLj2L6KJDtQDLUDeD1VHwzQbBsecT
+         +aq0wyWxlrVJS9pAAaENGlQlw8yMv10JrAQYrAa2zwi+Fl2GcHr658DTf0RkbG/+Iy3P
+         6YTg==
+X-Gm-Message-State: AFuF++n+Z0Wqn7ziaF+WLzWICrc2tL1HjuO3BfyOGQeBdilgP32WzCe7
+	jnuOP88fyl9WufUvbwEXJUI4GOVLlVtlIOzAiLIB2FD1o/9VqkDKT+cq9zYfwVgI
+X-Gm-Gg: AYBFou2PBR5K4CMCwkakSAgi9B3weyd1tRMGcE64Ca08FN33uYP9KFDktQvyP5ZAtYu
+	aZ1/uh4uswKXaoU6qcS+aPInHrCOB+SfQfMglwpmPZRQCuZNW7Qoo/0nkRXdwGiudkiZVw/hux+
+	tpQInH3LFe8jYfRXRRhSogF5YVCEOIWSGHeEhqWWrgO75BFGhp9aGlagqj6mAl9f1qG1oFc0cEq
+	iOeY7z6g06GHPd2T/3VjJYqi6ZyjVAiLPQf7x7CZ8kK+iYPb2Eff8z2tBHywXj5oFEB4/z34pr/
+	OtqtRMUmy1fd4DE7YWVMmMlw2gWizYiSP0Tz07NVY/gdHq21KARQQkb9CCXDjxaNzceVIwlWbXu
+	/mzVgwiO047SJzwK44KYOKJ8xQhx5VVW2XUXCCuLxBUDiKS6lWMXjjILxUGiO1ecEebXgRJukbQ
+	Qa+J3S+Sdbu58uopF77UTUntc7EnxYZzTOlQUMiN6oygyfw0Rs7G7XfTnIqBYPhpSZLV+gTGY6B
+	kTL4AiKYdkibDI=
+X-Received: by 2002:a17:90b:4fca:b0:38e:5b59:c2ff with SMTP id 98e67ed59e1d1-39b260dd278mr8201848a91.3.1788519250840;
+        Fri, 04 Sep 2026 03:54:10 -0700 (PDT)
+Received: from volcano9f6e-hostos.amd.com ([165.204.217.251])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-333c9db92b1sm5136836eec.9.2026.09.04.03.54.08
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 04 Sep 2026 03:54:10 -0700 (PDT)
+From: Hemanth Selam <hemanth.selam@gmail.com>
+To: Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>
+Cc: linux-kernel@vger.kernel.org,
+	linux-stm32@st-md-mailman.stormreply.com,
+	linux-arm-kernel@lists.infradead.org
+Subject: [PATCH] stmmac: fix typo "platfrom" in comment
+Date: Fri,  4 Sep 2026 16:24:04 +0530
+Message-ID: <20260904105406.34530-1-hemanth.selam@gmail.com>
+X-Mailer: git-send-email 2.48.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] fs/ntfs3: fix out-of-bounds write in
- ni_create_attr_list()
-To: hewei-gikaku <skyexpoc@gmail.com>, Weiming Shi <bestswngs@gmail.com>
-CC: Xiang Mei <xmei5@asu.edu>, <ntfs3@lists.linux.dev>,
-	<linux-fsdevel@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-References: <20260624053008.4885-2-xmei5@asu.edu>
- <20260626131122.1341-1-skyexpoc@gmail.com>
-Content-Language: en-US
-From: Konstantin Komarov <almaz.alexandrovich@paragon-software.com>
-In-Reply-To: <20260626131122.1341-1-skyexpoc@gmail.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: vdlg-exch-02.paragon-software.com (172.30.1.105) To
- vdlg-exch-02.paragon-software.com (172.30.1.105)
+Content-Transfer-Encoding: 8bit
 
-On 6/26/26 15:11, hewei-gikaku wrote:
+Correct "platfrom" to "Platform", reported by scripts/checkpatch.pl using
+the misspelling list in scripts/spelling.txt.  Only touches comments, no
+code changes.
 
-> Hi Weiming, Xiang,
->
-> I posted a fix for this exact ni_create_attr_list() out-of-bounds write
-> two weeks before this patch, to the same list and CC'ing the same
-> maintainer:
->
->    v1 (2026-06-10): https://lore.kernel.org/all/20260610002929.51765-1-skyexpoc@gmail.com/
->    v2 (2026-06-25): https://lore.kernel.org/all/20260625031932.9412-1-skyexpoc@gmail.com/
->
-> Same root cause, same Fixes: tag.  The two patches differ in how they fix
-> it, and the difference matters:
->
->    - This patch keeps the fixed al_aligned(record_size) buffer and returns
->      -EINVAL as soon as an entry would cross the buffer end.  Because each
->      ATTR_LIST_ENTRY (le_size(0) = 0x20) is larger than the minimum resident
->      attribute it represents (SIZEOF_RESIDENT = 0x18), the list can grow past
->      a single record_size for a sufficiently full base record, so this can
->      fail a normal setxattr/file operation with -EINVAL instead of handling
->      it.
->
->    - My v2 computes the exact list size from the attributes first and
->      allocates accordingly, closing the overflow without introducing that
->      regression.
->
-> Given the earlier posting and that v2 fixes the bug without rejecting
-> otherwise-valid records, I'd suggest taking v2.  I'm happy to rebase it or
-> adjust to whatever Konstantin prefers.
->
-> Thanks,
-> HE WEI
+Assisted-by: Cursor:claude-opus-5
+Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
+---
+ include/linux/stmmac.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Hello,
-
-Sorry for the delay.
-I'll stick to the He Wei patch for this fix.
-
-Regards,
-Konstantin
+diff --git a/include/linux/stmmac.h b/include/linux/stmmac.h
+index 4430b967abde..205216473ae3 100644
+--- a/include/linux/stmmac.h
++++ b/include/linux/stmmac.h
+@@ -81,7 +81,7 @@
+ struct clk;
+ struct stmmac_priv;
+ 
+-/* Platfrom data for platform device structure's platform_data field */
++/* Platform data for platform device structure's platform_data field */
+ 
+ struct stmmac_mdio_bus_data {
+ 	u32 phy_mask;
+-- 
+2.48.1
 
