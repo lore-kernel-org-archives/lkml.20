@@ -1,169 +1,163 @@
-Received: from SN4PR2101CU001.outbound.protection.outlook.com (mail-southcentralusazon11012022.outbound.protection.outlook.com [40.93.195.22])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74F963E49C3;
-	Fri,  4 Sep 2026 16:01:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.195.22
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788537695; cv=fail; b=WMkMGdKUV1cQeowDGOPivoGZkFvyVzOD95S1/kac+jZG4KIORibQ8TtysV/wrNTbAYLcOSnrj7LD2h2S6hwpprDHQMixZHny/VXfuGBueG+FJLn6l2AIsMnVN0scnL9uXZDTQNCNCOGnRC1uAWXkk1lqV9UiiqFmFdRmU6ONos4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788537695; c=relaxed/simple;
-	bh=YlMg8JdR8yc5W43UgpCSkci3tbOcs85zz/5FcLLxC2A=;
-	h=From:To:CC:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=NyYR4aq1j+VI4LajgzPss2eoMXZcMxmAsPq/QBKa6VxZGu9CbnTIW7DCneVsO64tsUP4IGnT5/E0ix0Wt5FJGUNe/Xuapg+TCmdagSBC8RVWpV9z14GDGjCEzXIpnN9aKHuUq8asEeCW3+Swu/9EDbD0hB/kAp+aAWcrLhtqJV4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=DbKgDUJb; arc=fail smtp.client-ip=40.93.195.22
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FB353E6DEC
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 16:01:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788537704; cv=none; b=TueyDEd+nys1BbfvyATJ2Pscn7DTyNS5hnXM/Pc0LHJzxAu1Y1vH3qWM0jNeQnzQLz+ssqweCqo+JqFQOWSkPL51xQFgHWHElEAYbVjTTioIsfh+ZtBdO1jSys2syRWpVJsY7lxQMvWnRODISGpmzCiOJlo9H/3K/zORK7k3dGU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788537704; c=relaxed/simple;
+	bh=zPud9uRaZUeYLvrNTFZirkjYRt/gCopw3esGeYvILK0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=uoURn4xLFOIoF30TRLHJjofDxhxRR+UIM6ma+SBIyiC/C7QEhffhHGEb581yZ7Q6+OVWxLCLY4qieATLyYdbWBOOZPbeuDx2D5kwVTZHgyCfQqEV/137W6FjSYnr3lStCHAlETH89EM2LljL+ZiPcm4IKOE+Q36BNcaFJWptaZM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Chil6rRr; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="DbKgDUJb"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=UlIKLgQZuawiBLxHd6oqQHHbwYsngru3eDZzVStYp56NqJBRFOltCZKf9dVkAbanV5AMS0y0E6ktvGr7/z5FGD35SRk7k1dJtAii+UTehCxy3g30/BixL38N4VyDPFfj7kjC7BM5AYCJisCQjtACkaFdszeTmCHynT2fUuJsdSFDXFOFAl2+MobJNlbnRaroXC9fEXkx6qF8DnwdQ2Z9hFmbfL+QYFzR7HvuIAF99wqVlQOnXaCqPUk+IXY39eBr12skaCYZwOXkVTBzfglTQVBIYHei3jR4b3iSCSHSJNPX5wwZzf/O9XocqCBvoKpedmxpa/s65b9/9B7wDqzV4g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=G88Pz0CDEVr+aJknGemmbb6N0mQtFDCW96SGMbPEGQc=;
- b=dEtRENPGBifE2M9xcP4tpuzMwCnN0p/UYcN80WhA9BLTkmPdWh5bMLrQl+yUR7FE/KCH31GGhyz7ZH2Rtq8o58+3LJgbuddDkVeL60ykbQsiw/5OPt01WAAeSmt0VgYUQjI+zpF/sf2dOfPrrAy28Vm/m+uxgq6jG0DAHsoGHcgIR/3kcXq+QBPt58pDpDAarhsbz813Pn30c2oqsO6hqdvveQXdKqlgEN1W1eyymgCQaRpNJ6RrXIsFTQ6m+x9rfb+qr/wyIdsamOM5QxgqszrNvD58ABIYv03kQw5c05BYRvRA1BvgQSjmZeGZ7obGBLacf6HhY5kq+mQRo3fuvQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.117.161) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=nvidia.com;
- dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=G88Pz0CDEVr+aJknGemmbb6N0mQtFDCW96SGMbPEGQc=;
- b=DbKgDUJb1WUIYakvhD06Gemr/91+UEfSjByWPiycezXbL5uw13b8nKIoVczV6dbQrzT83LVNtbyi0e8Ukkhln4hcxOTFP4fViG7rUmMbQrgCZOm5OQgLx3Weph8n5EzDoWfo+aWBe35TDDFiNtyhWa8TXj13cPbjhQuZJEM5HoJ3Lf5UYgAOPM0dqvUubiQjus4djfyD1kj/v4E3c4I99EVwLQFUJzsftbMR36WImlBlg+xwLw5GHYa0QxNTFxKqQ0JcrISDxK41H5IJW9r7H18xQxa+svdcjDGQVrEvHxCO+rbbRBhswbjxjovV48sWSUuOFvB4SySJdjXg/0nnDg==
-Received: from SJ0PR03CA0292.namprd03.prod.outlook.com (2603:10b6:a03:39e::27)
- by DM4PR12MB7527.namprd12.prod.outlook.com (2603:10b6:8:111::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.8; Fri, 4 Sep 2026
- 16:01:10 +0000
-Received: from SJ1PEPF000037A4.namprd04.prod.outlook.com
- (2603:10b6:a03:39e:cafe::4c) by SJ0PR03CA0292.outlook.office365.com
- (2603:10b6:a03:39e::27) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.12 via Frontend Transport; Fri, 4
- Sep 2026 16:01:06 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.117.161)
- smtp.mailfrom=nvidia.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.117.161 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.117.161; helo=mail.nvidia.com; pr=C
-Received: from mail.nvidia.com (216.228.117.161) by
- SJ1PEPF000037A4.mail.protection.outlook.com (10.167.244.136) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.382.8 via Frontend Transport; Fri, 4 Sep 2026 16:01:06 +0000
-Received: from rnnvmail201.nvidia.com (10.129.68.8) by mail.nvidia.com
- (10.129.200.67) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Fri, 4 Sep
- 2026 09:00:34 -0700
-Received: from tuxedo (10.126.231.37) by rnnvmail201.nvidia.com (10.129.68.8)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Fri, 4 Sep
- 2026 09:00:29 -0700
-From: Petr Machata <petrm@nvidia.com>
-To: Ruizhe Zhou <zhouruizhe@resnics.com>
-CC: Ido Schimmel <idosch@nvidia.com>, Petr Machata <petrm@nvidia.com>, "Andrew
- Lunn" <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, "Eric
- Dumazet" <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, "Paolo
- Abeni" <pabeni@redhat.com>, <netdev@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH net-next 10/14] mlxsw: pci: Remove obsolete 32-bit DMA
- mask fallback
-In-Reply-To: <20260903084339.870562-11-zhouruizhe@resnics.com> (Ruizhe Zhou's
-	message of "Thu, 3 Sep 2026 16:43:35 +0800")
-References: <20260903084339.870562-1-zhouruizhe@resnics.com>
-	<20260903084339.870562-11-zhouruizhe@resnics.com>
-User-Agent: mu4e 1.12.15; emacs 30.2
-Date: Fri, 4 Sep 2026 18:00:24 +0200
-Message-ID: <8733vpypk7.fsf@pmachata.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Chil6rRr"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8D48F1F00A3D;
+	Fri,  4 Sep 2026 16:01:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788537703;
+	bh=8+ocR7sGCB/9B0UdyCqbIbFztIKXJYrXR0zQcU6I5Pk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Chil6rRr5FT32LVSVmyd3qa03Z6aWYEodRak43Dgt3mp/StVMgtwJgJen31j+J38z
+	 HBqo9q1Pvh2oaYpcONL8zfTAcnHYvTPF0SnAc69CT5/OYBlnIEhj5aCjlnpaPQvLjB
+	 dcv36lkfAh39srnfz+qlMNJAPlKIom69Ukx5AF4QwkBFtUNtTYq0k9J2nBJESHMNtg
+	 RJ+A1XK/QIuaHPP+DMw4cdQd0pDrXmya7Yg23jvT2fBMtLyK484HXXm0pGQ1QXugN3
+	 eMVhHRqWzRfaIGE9kfcAtgwYRuvTRbuVD/x0MP+gJFe5o8lGC4ZWwvpgdkHH1rcsDz
+	 vdWIzqbTzQheg==
+Date: Fri, 4 Sep 2026 17:01:37 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Pedro Falcato <pfalcato@suse.de>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	"Liam R. Howlett" <liam@infradead.org>, David Hildenbrand <david@kernel.org>, 
+	Vlastimil Babka <vbabka@kernel.org>, Jann Horn <jannh@google.com>, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, Mike Kaplinskiy <mike@recall.ai>, 
+	zhaozhengzhuo <zhaozhengzhuo@uniontech.com>
+Subject: Re: [PATCH] mm/madvise: swap in CoW'd MAP_PRIVATE-file mappings on
+ MADV_WILLNEED
+Message-ID: <aprjOxDy3JCPb2oa@gremlin>
+References: <20260904-madv-will-need-map-private-v1-1-6b83cc99fcff@kernel.org>
+ <apriM1q4GzAgP7JQ@pedro-suse.tail5790ac.ts.net>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
-X-ClientProxiedBy: rnnvmail201.nvidia.com (10.129.68.8) To
- rnnvmail201.nvidia.com (10.129.68.8)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF000037A4:EE_|DM4PR12MB7527:EE_
-X-MS-Office365-Filtering-Correlation-Id: 505779f3-0f7a-474d-dab4-08df0a9dbab7
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|82310400026|36860700016|376014|1800799024|11063799006|56012099006|10067099003|4143699003|6133799003|18002099003|22082099003|13003099007;
-X-Microsoft-Antispam-Message-Info:
-	zX0Slw1MyEsFoziKML9MN7WCYfQh1B/eqrFDJqnZ4wbF0WH+ra90ZJhqR8DLWGk4jvtYwci53rApqqWsMGS2JiaXnJEfixGkl55f++z+oEbQS9oxIG6uHzX27uA4IM3lfStq5/h7nd6dEdeeNO7oLAMSX685g6Dms0rmnNZrCuCPQBZxSVwa7A/JvZE3RMKMDUw18iG25oePhRTBscgAn21nlgHesgumhpte0zWN30DqGUJs/ORFCQ188T53OnXznu5tadSuk9SRjh/1KP6iq/ftto0HNpT9JE1HAB2i8DFs0wQ8fAnZULJELay8VAYBQgWfFg1aHdixg4Xypguog9HQIrpZxImxUCsOxHctGubGKRjUN7IjADysVTQHNiwL5iPAUQ5JlTBJ6JZrSvabkOfFauG8S1MCykcy2uGz0S0UU/4n0UaK9IOmuS4hq3A0ipnvLDeapTL0KmoeK0fW4pHsrT7JgPI3Ii1B4zHT9VrDoFMprcHZZluOhvsLjBN3k8753/A1TebZ1yjNCcHbn4zkrECXWM2aJZbO4IeQNZe/dwnu+ivTqgONBt6KRIf9e4tbsJYNvdIsmK2QjdJhyFMzOsuyWA2it9RulS1zMSNR9NY5UtJTcbWhOExI01dt3QqH5aNa83IL08RLeL5f494S+qmwqbbVoY0nKEpk5IEDkLpomkvLmD7HcTpiiA+MOyaHJ7ydJ2VqnPH9taErgA==
-X-Forefront-Antispam-Report:
-	CIP:216.228.117.161;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge2.nvidia.com;CAT:NONE;SFS:(13230040)(23010399003)(82310400026)(36860700016)(376014)(1800799024)(11063799006)(56012099006)(10067099003)(4143699003)(6133799003)(18002099003)(22082099003)(13003099007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	0hGDeRLxLNoSNBSsmGnBdOjqiS2QQ66++NTbpIamUuBEsYYGBzNWrSA1aRJJNL1h7C+kqbQl6wKVatGK9/UsmYQSJ2K7gGnlzTi+shGJzf6JQ+wSL43hO9AGZs+ScM3MuT2AajqSp9iUjasepppNA4sZovdIjy/RQoTq/NYSV+q5EynKU5FH15ZGDQeptMcKhmnXLK3gkuSNppjwInGXa2psx0SXbN/z8hv0L3xp4bGZq7nkstNiD0R0YCQrW1Nc7Le4VR/0jL/LHHwnIezbC4syjAI6qjOHBOGBpu0oB79PT/9Q9K/eJj4vhN65e//PSCU7aQe/V6CfYpDd1DVQBAIu/6nPcuNnZ++OF546PRKKrPVu+IydfTYlBKPWCepxRMax/aVZrfg04u55BBd3U/zTGR+sL+WgOupQoBQSv2n0XIuBSOHTlTxJyU+mVDE4
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Sep 2026 16:01:06.7308
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 505779f3-0f7a-474d-dab4-08df0a9dbab7
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.161];Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SJ1PEPF000037A4.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB7527
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <apriM1q4GzAgP7JQ@pedro-suse.tail5790ac.ts.net>
 
-Ruizhe Zhou <zhouruizhe@resnics.com> writes:
-
-> The DMA API guarantees support for masks of 32 bits or wider and
-> explicitly identifies retrying a 32-bit mask after a 64-bit request as
-> incorrect:
-> https://docs.kernel.org/core-api/dma-api-howto.html#dma-addressing-capabilities
+On Fri, Sep 04, 2026 at 04:24:59PM +0100, Pedro Falcato wrote:
+> On Fri, Sep 04, 2026 at 04:12:53PM +0100, Lorenzo Stoakes (ARM) wrote:
+> > Currently MADV_WILLNEED treats file-backed and pure anonymous mappings
+> > entirely separately - using POSIX_FADV_WILLNEED (equivalent of a readahead)
+> > for the former and a tree walk and swap in to swap cache for the latter.
+> >
+> > MAP_PRIVATE-file backed mappings straddle the two and currently get treated
+> > as if they were purely file-backed, meaning any swapped out private pages
+> > remain swapped out.
+> >
+> > Resolve the issue by explicitly checking for CoW'd MAP_PRIVATE-file backed
+> > mappings and performing both walks in this case.
+> >
+> > Since the logic checks for vma->anon_vma this means un-CoW'd
+> > MAP_PRIVATE-file backed mappings retain only the single file walk.
+> >
+> > Reported-by: Mike Kaplinskiy <mike@recall.ai>
+> > Closes: https://lore.kernel.org/all/CABeknB_S2XJSHFgnHdgnN0rjzHhH4oQJs_APq9fvxHztQ_pgiA@mail.gmail.com/
+> > Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> > ---
+> >  mm/madvise.c | 6 ++++--
+> >  1 file changed, 4 insertions(+), 2 deletions(-)
+> >
+> > diff --git a/mm/madvise.c b/mm/madvise.c
+> > index 73c2901b9adb..d0510dd49dde 100644
+> > --- a/mm/madvise.c
+> > +++ b/mm/madvise.c
+> > @@ -297,10 +297,12 @@ static long madvise_willneed(struct madvise_behavior *madv_behavior)
+> >  	loff_t offset;
+> >
+> >  #ifdef CONFIG_SWAP
+> > -	if (!file) {
+> > +	if (!file || (vma_is_cow_mapping(vma) && vma->anon_vma)) {
 >
-> Remove the obsolete fallback while retaining the error check so that a
-> genuine DMA setup failure is still reported and aborts initialization.
-> Update the error message to identify the combined streaming and coherent
-> DMA mask operation.
+> Couldn't this all be simplified to
 >
-> Signed-off-by: Ruizhe Zhou <zhouruizhe@resnics.com>
-
-Doco: "dma_set_mask_and_coherent() never return fail when DMA_BIT_MASK(64)."
-
-Checking code, the only way that I see that dma_set_mask_and_coherent()
-returns error is if dma_supported() returns 0. This could happen if:
-
-- use_dma_iommu() fails, but that doesn't consider mask, so retrying
-  with 32 doesn't help.
-
-- if ops->dma_supported fails. But I checked several architectures where
-  mlxsw could even theoretically be relevant, and it's basically always
-  some mask > X type of expression, so retrying with a smaller mask does
-  not help.
-
-- The fallback of dma_direct_supported() is like that as well.
-
-So yeah. I think this is correct.
-
-Reviewed-by: Petr Machata <petrm@nvidia.com>
-
-> ---
->  drivers/net/ethernet/mellanox/mlxsw/pci.c | 7 ++-----
->  1 file changed, 2 insertions(+), 5 deletions(-)
+> 	if (vma->anon_vma) {
 >
-> diff --git a/drivers/net/ethernet/mellanox/mlxsw/pci.c b/drivers/net/ethernet/mellanox/mlxsw/pci.c
-> index bfe3268dfdc1..dceb69945d26 100644
-> --- a/drivers/net/ethernet/mellanox/mlxsw/pci.c
-> +++ b/drivers/net/ethernet/mellanox/mlxsw/pci.c
-> @@ -2429,11 +2429,8 @@ static int mlxsw_pci_probe(struct pci_dev *pdev, const struct pci_device_id *id)
->  
->  	err = dma_set_mask_and_coherent(&pdev->dev, DMA_BIT_MASK(64));
->  	if (err) {
-> -		err = dma_set_mask(&pdev->dev, DMA_BIT_MASK(32));
-> -		if (err) {
-> -			dev_err(&pdev->dev, "dma_set_mask failed\n");
-> -			goto err_pci_set_dma_mask;
-> -		}
-> +		dev_err(&pdev->dev, "dma_set_mask_and_coherent failed\n");
-> +		goto err_pci_set_dma_mask;
->  	}
->  
->  	if (pci_resource_len(pdev, 0) < MLXSW_PCI_BAR0_SIZE) {
+> ? swapin needs anon pages to have been faulted-in. Non-cow mappings won't
+> have an anon_vma, nor will fully empty anonymous VMAs (and that's fine).
+> Right?
+
+Hmm good point :)
+
+Though the
+
+	if (!file)
+		return 0;
+
+Would have to be outside of the block to avoid an anon unfaulted (nop) from
+being skipped.
+
+And it's a real improvement to have unfaulted anon skip...
+
+But I find that version is documenting what's going on a lot less.
+
+Since both anon and MAP_PRIVATE file-backed are CoW mappings we could just
+reference that.
+
+Andrew - could you swap the patch out in-place with below? Thanks!
+
+Cheers, Lorenzo
+
+----8<----
+From a706374a1186b6b4409a0e760e8728bcadba0c96 Mon Sep 17 00:00:00 2001
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Date: Thu, 3 Sep 2026 20:08:39 +0100
+Subject: [PATCH] mm/madvise: swap in CoW'd MAP_PRIVATE-file mappings on
+ MADV_WILLNEED
+
+Currently MADV_WILLNEED treats file-backed and pure anonymous mappings
+entirely separately - using POSIX_FADV_WILLNEED (equivalent of a readahead)
+for the former and a tree walk and swap in to swap cache for the latter.
+
+MAP_PRIVATE-file backed mappings straddle the two and currently get treated
+as if they were purely file-backed, meaning any swapped out private pages
+remain swapped out.
+
+Resolve the issue by explicitly checking for CoW'd MAP_PRIVATE-file backed
+mappings and performing both walks in this case.
+
+Since the logic checks for vma->anon_vma this means un-CoW'd
+MAP_PRIVATE-file backed mappings retain only the single file walk.
+
+Reported-by: Mike Kaplinskiy <mike@recall.ai>
+Closes: https://lore.kernel.org/all/CABeknB_S2XJSHFgnHdgnN0rjzHhH4oQJs_APq9fvxHztQ_pgiA@mail.gmail.com/
+Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+---
+ mm/madvise.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
+
+diff --git a/mm/madvise.c b/mm/madvise.c
+index 73c2901b9adb..963337f93a7a 100644
+--- a/mm/madvise.c
++++ b/mm/madvise.c
+@@ -297,11 +297,12 @@ static long madvise_willneed(struct madvise_behavior *madv_behavior)
+ 	loff_t offset;
+
+ #ifdef CONFIG_SWAP
+-	if (!file) {
++	if (vma_is_cow_mapping(vma) && vma->anon_vma) {
+ 		walk_page_range_vma(vma, start, end, &swapin_walk_ops, vma);
+ 		lru_add_drain(); /* Push any new pages onto the LRU now */
+-		return 0;
+ 	}
++	if (!file)
++		return 0;
+
+ 	if (shmem_mapping(file->f_mapping)) {
+ 		shmem_swapin_range(vma, start, end, file->f_mapping);
+--
+2.55.0
