@@ -1,62 +1,111 @@
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+Received: from abb.hmeau.com (abb.hmeau.com [180.181.231.80])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DDEB4334AD;
-	Fri,  4 Sep 2026 09:13:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49E633F660F;
+	Fri,  4 Sep 2026 09:13:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=180.181.231.80
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788513200; cv=none; b=N5Kp15fqY+25SspuHOvO25tiEehCQ50867EHbXaCq2xXBGpp2jjDlSmIKQk0/A0vvsArmF1NKmL1F/vRj73aa0PaZ36EAqrM+s2GZB2MR7qEdP7ASpQqvIptWd7E0rsG+ZY5i2FDwVX3Uw05hzwrpM4vijB/Pwc93364VjCwqhI=
+	t=1788513212; cv=none; b=Nw9a7Y88UiN+y3k5zSx5eWqe9OHrhNGEU6tjJmq2AaYkNzVsTRTuan5YsUVtvsstOoUMgW3iQIvKifFIHUBKud7X2E63lXMeSAQNLI3QqxN4FFLsWwd2UV4L0vMAs0Ev22a5/4wvmTmYY3m7YhvfeIqNO/VyX72Gigp10Z3NaJg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788513200; c=relaxed/simple;
-	bh=QucwaclOjyYHopgW8/mLC1xI5HcNHu4T0BXjt5NsW50=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=XrIkKCt3b7GGwbhoYFYMbZrsQMYYOJQ+J93tn+q6gqDGusYZXE25L9OdeX2p7wFkp8sg4s4gReGpVN0J8LGGOuCOP3mKCXdW+WvXFvHF+k5I4lGPROcmhb2otmczhxVkotjnP3j4uL9jBVTvG+g1FyKU/Mvof9bn3MAA3WHePqQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: d88b31dea84011f19a56ed5b684f684d-20260904
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:cfa902b0-1f0a-4bf3-8060-1d9ab420d2fe,IP:0,U
-	RL:0,TC:0,Content:-5,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
-	:release,TS:-5
-X-CID-META: VersionHash:7db8b62,CLOUDID:6472706a6be62be334e54d3a4e77b7ad,BulkI
-	D:nil,BulkQuantity:0,SF:81|82|83|102|865|898,TC:nil,Content:0|15|50|99,EDM
-	:-3,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0
-	,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: d88b31dea84011f19a56ed5b684f684d-20260904
-X-User: liuxixin@kylinos.cn
-Received: from [127.0.1.1] [(10.44.16.150)] by mailgw.kylinos.cn
-	(envelope-from <liuxixin@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 1127481883; Fri, 04 Sep 2026 17:13:08 +0800
-From: Xixin Liu <liuxixin@kylinos.cn>
-To: sudeep.holla@kernel.org
-Cc: arm-scmi@vger.kernel.org, cristian.marussi@arm.com, linux-arm-kernel@lists.infradead.org, linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org, liuxixin@kylinos.cn, mturquette@baylibre.com, sboyd@kernel.org
-Subject: Re: [PATCH v2 5/5] clk: scpi: use PLATFORM_DEVID_NONE for scpi-cpufreq
-Date: Fri, 4 Sep 2026 15:55:00 +0800
-Message-ID: <reply-scpi-hardening-v2-ping.20260904.liuxixin@kylinos.cn>
-In-Reply-To: <20260728-cuddly-alpaca-of-serenity-c0c824@sudeepholla>
-References: <cover.v2.1785200642.git.liuxixin@kylinos.cn> <fb51cfbfbb41.v2.1785200642.git.liuxixin@kylinos.cn> <20260728-cuddly-alpaca-of-serenity-c0c824@sudeepholla>
+	s=arc-20240116; t=1788513212; c=relaxed/simple;
+	bh=PNgOuWR3hWZ+geE3VJR3KqNxizclly7v01wx9I/J1iI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=VEpKOLyMAWQlcf83WHaNCrA7i4m0lC/3xRcBCsiFmyF98ksai5+hCRqgizQdexpZAa1IAQoZSIEKr6CUiX8E+RrqJ/zbp5zkK4pxuVHP6n87h6KrxGSwtq+TRxeRYxmOkgfTRfDZjEFmG937D7DcbPyF6ACrbonOw+PWWypVglM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au; spf=pass smtp.mailfrom=gondor.apana.org.au; dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b=W6sLDSIt; arc=none smtp.client-ip=180.181.231.80
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gondor.apana.org.au
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b="W6sLDSIt"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=gondor.apana.org.au; s=h01; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:cc:to:subject:message-id:date:
+	from:content-type:reply-to; bh=UiVtkh2Fc0czoI1SWhtXl+HBkwpgO0Sq6mnpA6bemS0=; 
+	b=W6sLDSItViY0Y5J7VKqwskPi9RJSPXUlfpIRTvFbdPrHRWvAJkKUUF1eIInXtq+tskjJotvJHVD
+	J6NbZdTFYDF9nM7R3eE0h54xu1J5EuiyWICdIrGeonCx1Kov7ztsYQElurBRCllGLYCC7oTsKaj1p
+	QgqXDzrh6cnK+bj14aGcXkgs9ea3IVUkfZ4LdVNo4ZW0x3wmayq34rLlK7eYmFupgqkrpbRegDw1T
+	gCLx/SJm0YicQGwYq7HemMUElhmIfZkS6rj7eQvswrNfs0W1hQTQOd18v80xz2HxkkcBpBUMge/4a
+	6UBxdgYf7qzAt5K4N2A4RoMgMJEyIlcn2E2A==;
+Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
+	by formenos.hmeau.com with smtp (Exim 4.98.2 #2 (Debian))
+	id 1x2PzB-0000000AmH4-2Mqv;
+	Fri, 04 Sep 2026 17:13:26 +0800
+Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation); Fri, 04 Sep 2026 19:13:25 +1000
+Date: Fri, 4 Sep 2026 19:13:25 +1000
+From: Herbert Xu <herbert@gondor.apana.org.au>
+To: Rosen Penev <rosenp@gmail.com>
+Cc: linux-crypto@vger.kernel.org, "David S. Miller" <davem@davemloft.net>,
+	open list <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCHv2] crypto: amcc - fix missing DMA memory barriers in
+ descriptor handling
+Message-ID: <apqLtd_LlMvzb6Mf@gondor.apana.org.au>
+References: <20260811044738.160653-1-rosenp@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Mailer: patches/scripts/send-local.py
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260811044738.160653-1-rosenp@gmail.com>
 
-Hi Sudeep,
+On Mon, Aug 10, 2026 at 09:47:38PM -0700, Rosen Penev wrote:
+> Fix two memory ordering bugs in the AMCC crypto driver:
+> 
+> 1. In crypto4xx_bh_tasklet_cb(), add a dma_rmb() between reading the
+>    PD_CTL_PE_DONE bit (with READ_ONCE) and reading the descriptor and DMA
+>    buffer data in crypto4xx_pd_done().  Without it, the CPU on a
+>    weakly-ordered architecture could read stale descriptor data before the
+>    hardware's writes are globally visible.
+> 
+> 2. In crypto4xx_build_pd(), add a dma_wmb() before writing
+>    PD_CTL_HOST_READY to ensure all descriptor and SA data is visible to
+>    the device before the ownership handover bit.  Also fix the descriptor
+>    field ordering: pd_ctl_len.w must be written before pd_ctl.w (which
+>    contains HOST_READY), not after, to prevent the hardware from fetching
+>    uninitialized length data.
+> 
+> Fixes: f6c48b76daa6 (crypto: amcc - Add crypto4xx-aead cryptographic
+>   AEAD accelerator driver)
+> Cc: stable@vger.kernel.org
+> Assisted-by: opencode:big-pickle
+> Signed-off-by: Rosen Penev <rosenp@gmail.com>
+> ---
+>  v2: add descriptions for write barriers.
+>  drivers/crypto/amcc/crypto4xx_core.c | 15 +++++++++++++--
+>  1 file changed, 13 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/crypto/amcc/crypto4xx_core.c b/drivers/crypto/amcc/crypto4xx_core.c
+> index fd010bfb7020..4b0ce165c198 100644
+> --- a/drivers/crypto/amcc/crypto4xx_core.c
+> +++ b/drivers/crypto/amcc/crypto4xx_core.c
+> @@ -876,11 +876,17 @@ int crypto4xx_build_pd(struct crypto_async_request *req,
+>  		}
+>  	}
+>  
+> +	pd->pd_ctl_len.w = 0x00400000 | (assoclen + datalen);
+> +	pd_uinfo->state = PD_ENTRY_INUSE | (is_busy ? PD_ENTRY_BUSY : 0);
+> +
+> +	/* make the pd_ctl_len and pd_uinfo->state writes above visible to
+> +	 * the device before the HOST_READY handover write below, so the
+> +	 * device never fetches a descriptor with stale length/state bits
+> +	 */
+> +	dma_wmb();
+>  	pd->pd_ctl.w = PD_CTL_HOST_READY |
+>  		((crypto_tfm_alg_type(req->tfm) == CRYPTO_ALG_TYPE_AEAD) ?
+>  			PD_CTL_HASH_FINAL : 0);
+> -	pd->pd_ctl_len.w = 0x00400000 | (assoclen + datalen);
+> -	pd_uinfo->state = PD_ENTRY_INUSE | (is_busy ? PD_ENTRY_BUSY : 0);
+>  
+>  	wmb();
+>  	/* write any value to push engine to read a pd */
 
-Just a gentle ping on this v2 series from 2026-07-28.
-Dropping the 5/5 cleanup on apply is fine with me.
-Could you please apply the rest when you have a chance?
+I would've thought that the hardware is only able to start reading
+after this wmb() and the subsequent writes.  If this isn't the case
+then plesae explain how the whole sequence works.
 
 Thanks,
-Xixin Liu
-
+-- 
+Email: Herbert Xu <herbert@gondor.apana.org.au>
+Home Page: http://gondor.apana.org.au/~herbert/
+PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
