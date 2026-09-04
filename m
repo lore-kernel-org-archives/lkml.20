@@ -1,140 +1,102 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oo1-f52.google.com (mail-oo1-f52.google.com [209.85.161.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6999481664
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 12:12:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.14
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EAFA847DD54
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 12:12:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788523948; cv=none; b=RjfiyF6poqCyiQNogYkuAojNNEMxK7/rL4E3Nlz2dGvs8g1aogKbk6+dbufiQF1j6UpF0n2b9S2kWqejjhD0SEbvA0n+V/sG2pWeSD7bWAeZIVr9sANVenGieYDKttphg2SHHBNUtkz3USffrevsmTbOBlmGhSCW+7OuBM76uR8=
+	t=1788523965; cv=none; b=tZRL6JwoykU+KSEd3FADl1hE13rcARtp6fdMnQZtDI0VErIfbXx9L+fppCf5VOPVsxCoi+m44n7C3ja//tlJbur8m7EU2eoibf2VgYcfi05rXlJ3n8FpjcAFZHvlPmpJYjSgFsw3t5Td1VbbC55yvhhmsM6vOpgCP+heUEk/mV0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788523948; c=relaxed/simple;
-	bh=E0lA48alQOV5DAKA7Dgq2IQfX7er/sDPIkAEhYWbWv8=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=gr6KQ5ego5oFnw9kncJJZV/9J7VO8w3eJSQ9fN612Svz8g8ywYphAUsZ72rxoWSudY6tYCze4GE73GMLay33VLq+7CkZYcubOvFOGTYC9mXv9dpJQE5jk5L6oPmyIHrr8YnakZTEVv9LJuYYkMTk7G6P1PaYdULBjbE2RuLx/j0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Qd/LpseC; arc=none smtp.client-ip=192.198.163.14
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1788523965; c=relaxed/simple;
+	bh=xcarBNs4mJZI83gK4Db3hpktDBPqsiL7sjYDUDwq2Ec=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=lITGQyepOrgC6meFbZql8+i1rSXWCXb95DYPe6xzo5yte5Tu9guTauZTH7OWVOWCrbMSzL8sXWnM4L5mmmiTWYnkQLXMLNI1kInAbkhTBAM011IDFYhsR32Aro6W6iEwelRs8bUbVB7Q7zhkUbRdOU0Gxq11UBfP9XoqTYL2TYg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GxYExYvA; arc=none smtp.client-ip=209.85.161.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Qd/LpseC"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788523946; x=1820059946;
-  h=from:to:cc:subject:in-reply-to:references:date:
-   message-id:mime-version;
-  bh=E0lA48alQOV5DAKA7Dgq2IQfX7er/sDPIkAEhYWbWv8=;
-  b=Qd/LpseC4CjENPCvNkb2JT6TRx9459y5B7+LQPZm1LZySSkiicgUD9m0
-   ehi7gSx5vUCiHNrKneJXMIrMzXvImVbL8PvHaxNSljNC11kIerj1VqPFb
-   OXgSBRYzcjngjXsYQa8MSyjgobXgjcx/BPCNtZdzu3bYWd1D+v8wPi+qQ
-   zHYslxuA/CA3+Kwtx86ESEEYcbmPM1FZPi2564rqgyHgoAdVTzsWFIYMB
-   DwQiiSS1QsCyZwRLAV7YHVAMxNkGBx1kk7lB2v9lf6g9H2vRN108u6c2c
-   0/AFPp+WwOxbKAI3sX5DCg2zCiUGJyCOg2nORK/yWow9kcF9b9hkMNU4e
-   g==;
-X-CSE-ConnectionGUID: CfciEWQqSHWUOB8F39RDVQ==
-X-CSE-MsgGUID: Y21KRCvPTJa1ym98aVRYlg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11895"; a="89045896"
-X-IronPort-AV: E=Sophos;i="6.25,262,1779174000"; 
-   d="scan'208";a="89045896"
-Received: from orviesa008.jf.intel.com ([10.64.159.148])
-  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Sep 2026 05:12:25 -0700
-X-CSE-ConnectionGUID: 0KqlmyJER52VyyqMz2M5IQ==
-X-CSE-MsgGUID: 7VeoqBnlQHmQVZBbtIer/Q==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,262,1779174000"; 
-   d="scan'208";a="269491621"
-Received: from abityuts-desk1.ger.corp.intel.com (HELO localhost) ([10.245.245.29])
-  by orviesa008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Sep 2026 05:12:22 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Hemanth Selam <hemanth.selam@gmail.com>, Joonas Lahtinen
- <joonas.lahtinen@linux.intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Zhenyu Wang <zhenyuw.linux@gmail.com>,
- Zhi Wang <zhi.wang.linux@gmail.com>
-Cc: linux-kernel@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-Subject: Re: [PATCH 2/2] drm/i915: fix repeated words in comments
-In-Reply-To: <20260904120225.15868-3-hemanth.selam@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-References: <20260904120225.15868-1-hemanth.selam@gmail.com>
- <20260904120225.15868-3-hemanth.selam@gmail.com>
-Date: Fri, 04 Sep 2026 15:12:19 +0300
-Message-ID: <4e651b9a124c47f5cbd07aee56f683c22252f172@intel.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GxYExYvA"
+Received: by mail-oo1-f52.google.com with SMTP id 006d021491bc7-6b1ab6d7239so757135eaf.1
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 05:12:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788523963; x=1789128763; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=oHqFc2mGX+CaMIBkySoDIKiS7dCIdlSLbp/YI65sUM0=;
+        b=GxYExYvANKm6SHivcYGYoB20tmeYqbASydOY0OnlL+FuFjirQtYIdAHoItV1+3uNtE
+         Lavw+apZDJ11uaFTXCHndH4u90tDuavd1Yu8uKFqNC3abGwm7XJec/lQVsuqDAWGCaX0
+         IW8zn0BtqwKDKRbicCFhFe6rq+E9r7HaCOOuoHQeuTZALgH+Xa1rulnb0e5bIYH+e7ex
+         ipedIuFQO8QFq5OaUKYiLPNF2ESpuidE3MDmhdp/d9GQNhH9qOtCtxeb8wjI/q3n5KuC
+         lbsLqsvZzdCJESY4u8eglu1sUt/fcaoZCRLJ79gR/eSaehLXWVY6J2G31VhuMnhd5Lrn
+         sRhQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788523963; x=1789128763;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=oHqFc2mGX+CaMIBkySoDIKiS7dCIdlSLbp/YI65sUM0=;
+        b=rUGA453qFG+QYf0At9ayKjCEX+aHSUdfCChs1rTVGoSfFOJPMWchXctaHcMBM9Q8vd
+         9tXq4BXvEPH3zrb+9h5CZ/WZneBz4unPblO5o6KYBmw30k8m5GURQwu2FETTP+fAHqJb
+         j4BZXtnROPw/filsF4V6YbqaAhZRqHwDmPx+RUs8k/S3g3a6N658fIhIqs38dwg+PUtc
+         ynk+xJ/5zLiR7vwOMMokEcargoYyLERamD4KwQ2RuLiNmD5ZwuWyti36hrQNaAvSq8Vf
+         cvSDk+SuD5X3tnkyM67CdoVIhKoGLqH4FdjLHGrpGB1xztB+zkhxAPmF7rp3KSa0L92R
+         YjVA==
+X-Gm-Message-State: AFuF++kq31ZDYnShjIxJNTGmpPtFGM/mzCvBZabVIxiAABC26AI2hMeH
+	ijT7wtz2AD6lbEs9e2Tp0UCmk/j8HeiVwsRPuv3GfyFSQPUVpMpbbq+p
+X-Gm-Gg: AYBFou0K/K5pJFjPeqrIWFCFh7qf0dbpch1ODjN8UN8TuzKswgRnwErHSy8XKO3Afkf
+	CHblf+wIRW3XNiq16+iwe0uxPIUCVr6oSuBCBqVO3iOG4v/i4ChtNcQpapqdIzhRvGF3s8t7YLp
+	8a1cRABBaDg3tzPp20/nm8R8fgpDnLePqSMVppnYsSS3lO/ZWbIeZYA6PZl7b5uxMC4s/UXagWV
+	Vtikx7fnp+MRbt15Qk8wXHh6VIc5eKOJo53VfWhkbter8JHzJlJ7dfcFJvM8hcnfgnzFGmT0izX
+	iSL9a+s4mczMhSiuVRZfQBBZtlfnjoRuwJ9zCbmYilLyjFNpiNjqtqxgPw44B0zA6NWVCbQfjCf
+	iqxUCDUfPcJaXNOmlYQLNp1RvfcugThTreDbR1iu0RtGCofqEEOhxQBDWY0C2ZYtlhFI1mvFZeC
+	MeEf+i/yEFwJhagMyQRus1apnonZAFKLgUXh1Mq9iJTzzedWklrxi2JFL2QO2SW+j1fOZegZCdG
+	D3OgTCpg64vDQw=
+X-Received: by 2002:a05:6820:16a3:b0:6b0:d7aa:5c18 with SMTP id 006d021491bc7-6b6fdbbf6acmr3679392eaf.29.1788523962635;
+        Fri, 04 Sep 2026 05:12:42 -0700 (PDT)
+Received: from volcano9f6e-hostos.amd.com ([165.204.217.251])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339885d29esm7140534eec.2.2026.09.04.05.12.40
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 04 Sep 2026 05:12:42 -0700 (PDT)
+From: Hemanth Selam <hemanth.selam@gmail.com>
+To: Viresh Kumar <viresh.kumar@linaro.org>,
+	Tushar Khandelwal <Tushar.Khandelwal@arm.com>,
+	Jassi Brar <jassisinghbrar@gmail.com>
+Cc: linux-kernel@vger.kernel.org
+Subject: [PATCH] mailbox: fix repeated word in log message
+Date: Fri,  4 Sep 2026 17:42:36 +0530
+Message-ID: <20260904121238.22991-1-hemanth.selam@gmail.com>
+X-Mailer: git-send-email 2.48.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Transfer-Encoding: 8bit
 
-On Fri, 04 Sep 2026, Hemanth Selam <hemanth.selam@gmail.com> wrote:
-> Drop words accidentally written twice, reported by checkpatch.pl as a
-> possible repeated word.  Only touches comments, no code changes.
->
-> Assisted-by: Cursor:claude-opus-5
-> Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
+Drop the word written twice, reported by checkpatch.pl as a possible
+repeated word.
 
-Reviewed-by: Jani Nikula <jani.nikula@intel.com>
+Only the message text changes, no code changes.
 
-> ---
->  drivers/gpu/drm/i915/gem/i915_gem_context_types.h | 2 +-
->  drivers/gpu/drm/i915/gt/uc/intel_guc.c            | 2 +-
->  drivers/gpu/drm/i915/gvt/scheduler.c              | 2 +-
->  drivers/gpu/drm/i915/i915_gem_evict.c             | 2 +-
->  4 files changed, 4 insertions(+), 4 deletions(-)
->
-> diff --git a/drivers/gpu/drm/i915/gem/i915_gem_context_types.h b/drivers/gpu/drm/i915/gem/i915_gem_context_types.h
-> index 0267c924634b..2c1f81d9c0d7 100644
-> --- a/drivers/gpu/drm/i915/gem/i915_gem_context_types.h
-> +++ b/drivers/gpu/drm/i915/gem/i915_gem_context_types.h
-> @@ -208,7 +208,7 @@ struct i915_gem_proto_context {
->  	/** @legacy_rcs_sseu: Client-set SSEU parameters for the legacy RCS */
->  	struct intel_sseu legacy_rcs_sseu;
->  
-> -	/** @single_timeline: See See &i915_gem_context.syncobj */
-> +	/** @single_timeline: See &i915_gem_context.syncobj */
->  	bool single_timeline;
->  
->  	/** @uses_protected_content: See &i915_gem_context.uses_protected_content */
-> diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc.c b/drivers/gpu/drm/i915/gt/uc/intel_guc.c
-> index 1c2764440323..c007faa54f2d 100644
-> --- a/drivers/gpu/drm/i915/gt/uc/intel_guc.c
-> +++ b/drivers/gpu/drm/i915/gt/uc/intel_guc.c
-> @@ -769,7 +769,7 @@ int intel_guc_resume(struct intel_guc *guc)
->   * This is a wrapper to create an object for use with the GuC. In order to
->   * use it inside the GuC, an object needs to be pinned lifetime, so we allocate
->   * both some backing storage and a range inside the Global GTT. We must pin
-> - * it in the GGTT somewhere other than than [0, GUC ggtt_pin_bias) because that
-> + * it in the GGTT somewhere other than [0, GUC ggtt_pin_bias) because that
->   * range is reserved inside GuC.
->   *
->   * Return:	A i915_vma if successful, otherwise an ERR_PTR.
-> diff --git a/drivers/gpu/drm/i915/gvt/scheduler.c b/drivers/gpu/drm/i915/gvt/scheduler.c
-> index 15fdd514ca83..3c3c9b695487 100644
-> --- a/drivers/gpu/drm/i915/gvt/scheduler.c
-> +++ b/drivers/gpu/drm/i915/gvt/scheduler.c
-> @@ -201,7 +201,7 @@ static int populate_shadow_context(struct intel_vgpu_workload *workload)
->  			workload->ring_context_gpa);
->  
->  	/* only need to ensure this context is not pinned/unpinned during the
-> -	 * period from last submission to this this submission.
-> +	 * period from last submission to this submission.
->  	 * Upon reaching this function, the currently submitted context is not
->  	 * supposed to get unpinned. If a misbehaving guest driver ever does
->  	 * this, it would corrupt itself.
-> diff --git a/drivers/gpu/drm/i915/i915_gem_evict.c b/drivers/gpu/drm/i915/i915_gem_evict.c
-> index c02ebd6900ae..11855d9a1210 100644
-> --- a/drivers/gpu/drm/i915/i915_gem_evict.c
-> +++ b/drivers/gpu/drm/i915/i915_gem_evict.c
-> @@ -273,7 +273,7 @@ i915_gem_evict_something(struct i915_address_space *vm,
->  	goto search_again;
->  
->  found:
-> -	/* drm_mm doesn't allow any other other operations while
-> +	/* drm_mm doesn't allow any other operations while
->  	 * scanning, therefore store to-be-evicted objects on a
->  	 * temporary list and take a reference for all before
->  	 * calling unbind (which may remove the active reference
+Assisted-by: Cursor:claude-opus-5
+Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
+---
+ drivers/mailbox/arm_mhuv2.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
+diff --git a/drivers/mailbox/arm_mhuv2.c b/drivers/mailbox/arm_mhuv2.c
+index d4077cd49360..94e25678f0af 100644
+--- a/drivers/mailbox/arm_mhuv2.c
++++ b/drivers/mailbox/arm_mhuv2.c
+@@ -610,7 +610,7 @@ static irqreturn_t mhuv2_sender_interrupt(int irq, void *data)
+ 		 * iteration if the interrupt came right after we cleared it but
+ 		 * before we read the stat register.
+ 		 */
+-		dev_dbg(dev, "Couldn't find the doorbell (%u) for the Tx interrupt interrupt\n",
++		dev_dbg(dev, "Couldn't find the doorbell (%u) for the Tx interrupt\n",
+ 			priv->ch_wn_idx);
+ 		return IRQ_NONE;
+ 	}
 -- 
-Jani Nikula, Intel
+2.48.1
+
