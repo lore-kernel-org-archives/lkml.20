@@ -1,88 +1,63 @@
-Received: from mta1.migadu.com (out-78.mta1.migadu.com [95.215.58.78])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C5343F4107
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 08:36:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.78
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 741313FA5FC;
+	Fri,  4 Sep 2026 08:36:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788510981; cv=none; b=A0nwnNMDe9Ho0vaFnUfdo//qWf3U/9kwyRakBkage8bQgj3/WqFn3ZcfyrVXEZCgDwoyrfcbGGieSTKwuQOsCtKPjVd++LKfIKQG1gWvlknEIB6nzncQ+g4u5/zVji6p83UlDVUQ5JDh7CoZIBiX5kyQAYwwxNlbX94lfwW/Onc=
+	t=1788510982; cv=none; b=jY9kTalO7aGMtzlQLCDj489+LT+VFnEIu913mFalv1jW9EBl2loNReJf7/pFc31rkPv7NVBmkaP31Xffgk9oRujBz13BKXWRM0N15csimVevfciP5Y0r4mj/ACDjfom595TVyegfE9KJ9eZvTRYkemTp3lYe1mmR/ZKFsvTUdno=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788510981; c=relaxed/simple;
-	bh=0LJHNxhVLG/qYZju6tQaq/vHtC/kswimquYT7U0GHmQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=IIlTGziWNRAfC/upKc3DEwYoXNPY33hpXNw99aLnWE9Y3tJLVN3pGE86xV8s5/TMNRjGf3WoUC3izC8zztT0DWDXoGyGzgX3oAbuRoM+ino44mOpKezfLLatatE+wojS0EjaiI50bAPKUgQgytoVWE+7flZ7W6X07O+I3JNeVGg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=AS0WGoKJ; arc=none smtp.client-ip=95.215.58.78
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1788510982; c=relaxed/simple;
+	bh=sJeCQmCfiCA/gI7xvdL6IoP4snfxd+zGOdMBpGPRNXc=;
+	h=Message-ID:Date:From:To:Subject:In-Reply-To:References:Cc; b=sVuMNH4dM0a+BrefWnf0Y73Km9BdXPrnAoTH7ZVDBrBuhwKXflVCNTPsTQFHxtLlq+y4I93p48V5bL6ZQbGyO/4TTXvGERrUapE9viC3SblcCM5J1hSt9dGLAab0qqYNu+TwtImg83uCmf4SMk3K9wRfbpvrGZHyqo/fngZBdKg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=G8qDtKLs; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="AS0WGoKJ"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=0LJHNxhVLG/qYZju6tQaq/vHtC/kswimquYT7U0GHmQ=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788510978; v=1; x=1789115778;
- b=AS0WGoKJepIO2wqRo/OQJg4CLU+T0N8pPZOtbIlde6z7odlbb8pCCCc2EEHNjZ/JCDj2AFwZ
- Vazytmx7riicqB9TTcig6SWuaQIUgzVcgk8x1qnIuWTRD8S6eIa9OJEjKPtYmAGLSajX/wXtyfo
- V2XvswJeA3F+EeO9/BVYwnMA=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 361b9677b4cad989;
-	Fri, 04 Sep 2026 08:36:18 +0000
-X-Mizu-Trace-ID: 361b9677b4cad989
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <4e445256-f9aa-4cc9-a2e1-fa45500dbba0@linux.dev>
-Date: Fri, 4 Sep 2026 09:26:32 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="G8qDtKLs"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2C3F91F00A3D;
+	Fri,  4 Sep 2026 08:36:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788510980;
+	bh=EARuoU2+4Ppoh54rAYFHVilx3BHYziNxsbRS7f9DEMY=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc;
+	b=G8qDtKLsfO5uMyax8B940NgODoxvvXXWhkN5OLQuKDcYFhH0CmeyRV2haSxb4LG7r
+	 MWSZsjXuzaG8vD/O/3jJvdMTlxYrsDfDWKGL2W9Q+AcdMqvt77uFbeWDDaasQyJnqU
+	 /ynXB1GjWw6KKQ8SSbsZQ/q43Eah1Qqzl92vO4wz6IlwenlJAPTNU/JYMFJ/Yf0XFC
+	 XAYUXkuVqpq6U/9dsPVEsY7h6ZPQ5DtCOMCIHMBsY5jIhW19m5HplwlhJ+ZAScasti
+	 U+RWvxHTlSJ0G15qbEZn4lU2AAEP+BbdZPg9md32G3USyPeb4oQEC4l6t4RlycdAXI
+	 Zm7UAgNa4yiiQ==
+Message-ID: <66a60c26351f41e6c9660f1f18cea9f5@kernel.org>
+Date: Fri, 04 Sep 2026 08:36:17 +0000
+From: "Maxime Ripard" <mripard@kernel.org>
+To: "Liu Ying" <victor.liu@nxp.com>
+Subject: Re: [PATCH v6 12/13] drm/imx: dc-fu: Get DPR channel
+In-Reply-To: <20260904-imx8-dc-prefetch-v6-12-26643e3f6cb7@nxp.com>
+References: <20260904-imx8-dc-prefetch-v6-12-26643e3f6cb7@nxp.com>
+Cc: devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org, imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, "Conor
+ Dooley" <conor+dt@kernel.org>, "David Airlie" <airlied@gmail.com>, "Dmitry
+ Baryshkov" <lumag@kernel.org>, "Fabio Estevam" <festevam@gmail.com>, "Frank
+ Li" <Frank.Li@nxp.com>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Maarten
+ Lankhorst" <maarten.lankhorst@linux.intel.com>, "Marek Vasut" <marek.vasut@mailbox.org>, "Maxime
+ Ripard" <mripard@kernel.org>, "Pengutronix Kernel Team" <kernel@pengutronix.de>, "Philipp
+ Zabel" <p.zabel@pengutronix.de>, "Rob Herring" <robh@kernel.org>, "Sascha
+ Hauer" <s.hauer@pengutronix.de>, "Shawn Guo" <shawnguo@kernel.org>, "Simona
+ Vetter" <simona@ffwll.ch>, "Thomas Zimmermann" <tzimmermann@suse.de>
+Content-Transfer-Encoding: 7bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] soundwire: cadence_master: wait and cancel cdns->work
- before clock stop
-To: Bard Liao <yung-chuan.liao@linux.intel.com>, linux-sound@vger.kernel.org,
- vkoul@kernel.org
-Cc: vinod.koul@linaro.org, linux-kernel@vger.kernel.org,
- peter.ujfalusi@linux.intel.com, bard.liao@intel.com, david.lin@intel.com
-References: <20260901031019.233254-1-yung-chuan.liao@linux.intel.com>
-Content-Language: en-US
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>
-In-Reply-To: <20260901031019.233254-1-yung-chuan.liao@linux.intel.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
 
-On 9/1/26 05:10, Bard Liao wrote:
-> A peripheral event could happen during the clock stop process. We need
-> to wait for the event be handled before stopping the bus clock.
-> Otherwise, we will get the IO transfer timed out issue.
+On Fri, 4 Sep 2026 15:55:02 +0800, Liu Ying wrote:
+> Add a helper dc_fu_get_dprc() to get DPR channel for FetchUnit.
+> And, call it from dc_{fl,fw)_bind() to get DPR channels for
+> FetchLayer and FetchWarp.
 > 
-> Fixes: af4cc917826f ("soundwire: cadence: mask Slave interrupt before stopping clock")
-> Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com>
-> Reviewed-by: David Lin <david.lin@intel.com>
-> Reviewed-by: Shuming Fan <shumingf@realtek.com>
-
-Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>
-
-> ---
->  drivers/soundwire/cadence_master.c | 7 +++++++
->  1 file changed, 7 insertions(+)
+> Reviewed-by: Frank Li <Frank.Li@nxp.com>
 > 
-> diff --git a/drivers/soundwire/cadence_master.c b/drivers/soundwire/cadence_master.c
-> index 6fa3739221ee..c41971f4f177 100644
-> --- a/drivers/soundwire/cadence_master.c
-> +++ b/drivers/soundwire/cadence_master.c
-> @@ -1702,6 +1702,13 @@ int sdw_cdns_clock_stop(struct sdw_cdns *cdns, bool block_wake)
->  		return 0;
->  	}
->  
-> +	/*
-> +	 * wait for any in-flight peripheral event handling to complete before stopping the clock.
-> +	 * No need to disable peripheral interrupts before canceling the work, as the peripheral
-> +	 * interrupts are already masked before the work is scheduled.
-> +	 */
-> +	cancel_work_sync(&cdns->work);
-> +
->  	/*
->  	 * Before entering clock stop we mask the Slave
->  	 * interrupts. This helps avoid having to deal with e.g. a
+> [ ... ]
 
+Acked-by: Maxime Ripard <mripard@kernel.org>
+
+Thanks!
+Maxime
