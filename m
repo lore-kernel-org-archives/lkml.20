@@ -1,71 +1,168 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B8133B2FF9;
-	Fri,  4 Sep 2026 08:57:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 626DD3B14D9;
+	Fri,  4 Sep 2026 08:57:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788512242; cv=none; b=VWIGYhxaC7H/APHkAeSRgwOau5hV26mMxOlWCjjP+Oz5+pz/03lrZQtrpwRWbup+ux63Oa8jXAIyGh1H3OWvHnR0Ub+gFxvkFeQOF8GxwskpmZfZ+1QnTymywR/+UKjgUgpNO1DYdKuSz/3545BSNl2LOcCWIAGWqqO0MzwSwzA=
+	t=1788512280; cv=none; b=Sn/tgHHp5PY67VKUSWlYIGAxroIovKHVXyBxwCvnDnT2/xHpMkSMNUm6FhCSf7Oh2XMRdDS6NxrpCQ/n4l4hNPK7XazlHm0mZO/psK+dHdtWpFUthurnv/izmvSfoCKt+dgLthNkFhyi/lPVd+Rj7rulPeDELW1Ys8MPy82Abfw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788512242; c=relaxed/simple;
-	bh=ERD8AXf7TXdChYSQwrK17KfmoT8D4LTgr4jpnf6Z4mg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Yy9Qh8aWrhdq68saHHqNmMzNXSjgJ9WZNx58fr/JTsMfXWsv5EMjtD/dMrNgYAMZ2TkroXL67fqzaXCxWKah8dY9J8lcffJ5knB6V6MSXIXCinDGOmXLrS62dF//6xMSWcWHEbeuNo3xli9T0X8YKqMjQ8XmzHWgJijHWJvlUY0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=m/2us4wd; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788512280; c=relaxed/simple;
+	bh=ItAgOmWZHah4VZWU9hUE3n8qwEZmfg2QY78XykHTKCk=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=pIlUSaeNIUQ95Padguoef49A0tZzlUXt13fenQfulCw9nuKkVOUi0FQc5PeV4ojtM1FichIBGkbGG1SmOK5ZGx8JRXIrqn3XlAGdgRM+MFWhBPjEFe7pDZI9XHS5WZYfVFKEvdex9wYTOFtX1QAcq4AafJbiCsjvK8faXqjPDZc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=B40G1lPS; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="m/2us4wd"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C6D9D1F00A3D;
-	Fri,  4 Sep 2026 08:57:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788512240;
-	bh=wWF99opmQx/qnYkYmHdnP27kszT/uZGrr1lE6vZT9p4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=m/2us4wdnkpYFO1XWnR8zKf8Q2e92y8D63Qdi/gR9cKDajjhCyPR3OIIn1/rGEyDs
-	 xXbr9ao9y5uARg/uh/N8WKN/uC+m5Prc9GfunqkwVZ7dfiFpejuMVUoMXfE9KSM8Zf
-	 a9as4npkAHJcgyd6AUP8qNys+kiD3OLgYtlJjvHm1GLlLnGdQ0oDPb8GPhz5CY2lEt
-	 tdAd9S/ikYCHFmRZMMXO+t9yaVYlyIv9ZgPzD2wOrquSEiBtNtUm3pIxMG+W9B2aD0
-	 tBGbImNH93TDY5VUn8KkGS4oJW8mkzDYGxrEvcZ5DJ/HggRgu+eIf2SxlQuNO2B1ra
-	 1D0Jkjzmjcl0Q==
-Received: from johan by xi.lan with local (Exim 4.99.4)
-	(envelope-from <johan@kernel.org>)
-	id 1x2Pja-00000006lYm-2QBo;
-	Fri, 04 Sep 2026 10:57:18 +0200
-Date: Fri, 4 Sep 2026 10:57:18 +0200
-From: Johan Hovold <johan@kernel.org>
-To: Adriano Cordova <adrianox@gmail.com>
-Cc: elder@kernel.org, gregkh@linuxfoundation.org,
-	greybus-dev@lists.linaro.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	syzbot+2fd6aefc361af86911d5@syzkaller.appspotmail.com,
-	Yang Zi <2959243019@qq.com>
-Subject: Re: [PATCH v2] greybus: operation: fix out-of-bounds write in
- message allocation
-Message-ID: <apqH7j3tQiXZqiOk@hovoldconsulting.com>
-References: <20260902145916.63052-1-adrianox@gmail.com>
- <apqDK5dHYGaJRwx1@hovoldconsulting.com>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="B40G1lPS"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 0087D4E41502;
+	Fri,  4 Sep 2026 08:57:50 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id C66726057F;
+	Fri,  4 Sep 2026 08:57:49 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 2358511C7A64B;
+	Fri,  4 Sep 2026 10:57:45 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1788512269; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=34b7Bgxp3x9PLa1m5wRwWiIKL6BceNCxaxsVLtWyi2c=;
+	b=B40G1lPSnWpdXk/CKxFqyw9eP36g1t3Nw9ZlPzXqHo8TIx8Mp34rN+Oqel70t9Zf8EM3Ps
+	S2v7En6gcV89Qf6wuWaywPCR23vtVKmWDqmUZ8C3n6n11Dlg7bFEFEJwAk9orVAo7DC51T
+	NcjD9A2V2aZwGDHxbO/Wvk/no9/E26MnPe0szKMQ6HDJArnltsTxWQRJuVfkTUlX43ZiZy
+	9IX8AhtAh7uXKer6HfK5+UMaYDx3UbL2Vt5VabTKVKpeTc8iwxxW+7EzPeybNuNA5OrQM4
+	utJqkzvZpw3vFRN7yEyth45ZR/6OTVhaSiaPKhRCp6J+xyCqW7XpP5fj7yFlIA==
+Date: Fri, 4 Sep 2026 10:57:43 +0200
+From: Herve Codina <herve.codina@bootlin.com>
+To: Bjorn Helgaas <helgaas@kernel.org>
+Cc: Angel J <iamanaws@httpd.dev>, Lizhi Hou <lizhi.hou@amd.com>,
+ "linux-pci@vger.kernel.org" <linux-pci@vger.kernel.org>,
+ "regressions@lists.linux.dev" <regressions@lists.linux.dev>,
+ "stable@vger.kernel.org" <stable@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ "linux-rpi-kernel@lists.infradead.org"
+ <linux-rpi-kernel@lists.infradead.org>, "robh@kernel.org"
+ <robh@kernel.org>, Andrea della Porta <andrea.porta@suse.com>,
+ "florian.fainelli@broadcom.com" <florian.fainelli@broadcom.com>
+Subject: Re: [REGRESSION] PCI: Dynamic OF node creation hangs on invalid
+ bridge configuration
+Message-ID: <20260904105743.1c396a8b@bootlin.com>
+In-Reply-To: <20260903231744.GA2281658@bhelgaas>
+References: <GXe6anuewkS4bLNwca3cYOmUxN9csc0TxLYGSBc1qNRmfrmvFlcmD62wEM23TxfzfuXAv4P3yvUv7pyraleARrL1Na-aN8w-t9uc1Igu8DA=@httpd.dev>
+	<20260903231744.GA2281658@bhelgaas>
+Organization: Bootlin
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <apqDK5dHYGaJRwx1@hovoldconsulting.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Fri, Sep 04, 2026 at 10:36:59AM +0200, Johan Hovold wrote:
-> On Wed, Sep 02, 2026 at 10:59:16AM -0400, Adriano Cordova wrote:
-> > The incoming message size from the device header (header.size) is
-> > trusted without checking that it is at least the size of the message
-> > header itself, but a value smaller than sizeof(struct gb_operation_msg_hdr)
-> > underflows request_size in gb_operation_create_incoming(), wraps around
-> > in gb_operation_message_alloc(), and results in a tiny buffer that is
-> > then written past its end in gb_operation_message_init().
+Hi Angel, Bjorn,
+
+On Thu, 3 Sep 2026 18:17:44 -0500
+Bjorn Helgaas <helgaas@kernel.org> wrote:
+
+> [+to Herve, Lizhi for PCI dynamic OF node stuff]
 > 
-> Is it really? I was under the impression the only issue here was the
-> potential zero-size-pointer deref.
+> On Sun, Aug 23, 2026 at 02:14:25AM +0000, Angel J wrote:
+> > Hello,
+> > 
+> > This regression was introduced in v6.17-rc1 and remains in the dynamic
+> > PCI OF node code. Linux 6.18 fails very early during boot on my Dell XPS
+> > 8940 when CONFIG_PCI_DYNAMIC_OF_NODES=y. The display goes black before
+> > any useful console or pstore output appears, and the machine remains
+> > hung.  
+> 
+> Oof, sorry, that's a terrible failure to debug.  Thanks for your
+> persistence in chasing it.
+> 
+> I don't think 49d63971f963 ("misc: rp1: RaspberryPi RP1 misc driver")
+> is a likely culprit by itself because there's just nothing there that
+> looks like it would relate to a Dell XPS 8940.
+> 
+> > Disabling CONFIG_PCI_DYNAMIC_OF_NODES makes the same kernel boot normally.
+> > Linux v6.19-rc5 also boots because the RP1 driver stopped selecting that
+> > option, not because the dynamic PCI OF node code changed.
+> > 
+> > Hardware:
+> > 
+> >   System: Dell XPS 8940, board 0K3CM7, BIOS 2.27.1 (2025-04-03)
+> >   CPU: Intel Core i7-11700 (Rocket Lake)
+> >   Triggering device: 0000:00:00.0, Intel 8086:4c43
+> >   Firmware boot: UEFI, ACPI-based x86_64
+> > 
+> > Test results:
+> > 
+> >   Linux 6.12.103: good
+> >   Linux v6.17-rc1: bad
+> >   Linux 6.18.44, CONFIG_PCI_DYNAMIC_OF_NODES=y: bad
+> >   Linux 6.18.44, CONFIG_PCI_DYNAMIC_OF_NODES=n: good
+> >   Linux 6.18.44, CONFIG_PCI_DYNAMIC_OF_NODES=y, skip invalid bridge: good
+> >   Linux v6.19-rc4: bad
+> >   Linux v6.19-rc5: good
+> >   Linux 4621c338d33f: bad
+> >   Linux e55feea3a03a: good
+> > 
+> > The first-parent boundary between the last two tests is:
+> > 
+> >   e55feea3a03a ("Merge tag 'soc-fixes-6.19' ...")
+> > 
+> > That merge contains ce26f588c831 ("misc: rp1: drop overlay support"), which
+> > removes:
+> > 
+> >   select PCI_DYNAMIC_OF_NODES
+> > 
+> > from MISC_RP1. The generated configurations differed only by:
+> > 
+> >   -CONFIG_PCI_DYNAMIC_OF_NODES=y
+> >   +# CONFIG_PCI_DYNAMIC_OF_NODES is not set
+> > 
+> > CONFIG_MISC_RP1=m in both. The known-bad 4621c338d33f and Linux 6.18.44
+> > both boot after disabling PCI_DYNAMIC_OF_NODES (and MISC_RP1, whose Kconfig
+> > select otherwise forces it on).
+> > 
+> > There is no RP1 device in this machine, and its driver does not probe.
+> > MISC_RP1 affects this x86 system only because its Kconfig select enables
+> > PCI_DYNAMIC_OF_NODES globally.
+> > 
+> > I narrowed the hang to dynamic OF node creation for 0000:00:00.0
+> > (8086:4c43), the Intel Rocket Lake-S integrated memory controller. On
+> > this machine it reports PCI class 0604 and header type 1, but it is bound
+> > to icl_uncore and is not a usable forwarding bridge:
+> > 
+> >   Bus: primary=ff, secondary=ff, subordinate=ff
+> >   I/O and memory bridge windows: invalid/all ones
+> >   kernel: bridge configuration invalid ([bus ff-ff]), reconfiguring
 
-You're right of course, there's a potential small (7 byte) OOB write
-here too.
+Is this PCI logs reported with PCI_DYNAMIC_OF_NODES=y or PCI_DYNAMIC_OF_NODES=n
+or always whatever the PCI_DYNAMIC_OF_NODES Kconfig value ?
 
-Johan
+A PCI class 0604 is a PCI-to-PCI bridge.
+
+Something in kernel code prevent the scan of this PCI-to-PCI bridge even if the
+kernel tries to reconfigure it. Indeed, the device is "Intel Rocket Lake-S
+integrated memory controller" and not a PCI-to-PCI bridge
+
+The of_pci_make_dev_node() is called by the PCI core [1] to create OF node for
+bridges.
+
+of_pci_make_dev_node() will set (device_type = "pci" in the created node).
+
+But if the device it is not a bridge, this is obviously wrong (even if I don't
+understand why it hangs the system).
+
+Maybe the test done at [1] should be improved to detect those wrong bridges.
+and skip the of_pci_make_dev_node() call when a wrong bridge is detected.
+
+[1] https://elixir.bootlin.com/linux/v7.2/source/drivers/pci/bus.c#L355
+
+
+Best regards,
+Hervé
