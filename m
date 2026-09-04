@@ -1,68 +1,80 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABBB03B0583;
-	Fri,  4 Sep 2026 21:21:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C45B1A6808;
+	Fri,  4 Sep 2026 21:21:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.133
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788556870; cv=none; b=CFd0VMV6GXxRyy+AF41OWQc6YAG1VgVfZgWUJ0NN4G56M71adOHWO1iIncD6BadMh/ofdHQOSh5c5Sw643hTNj75mihuujuToDAKMpak0neExiOY8iOpXXCp4i7GfWWwaqYN2MeFx+/vI8kgtpbQoY9gnx8dcR/dkndzxcnL59g=
+	t=1788556915; cv=none; b=SNMGen1ukDRi2XkU1Es4VYNIiPAax4nEwOEl3hepJiGuHT67930vTMeBjbgl6GkE7AGDyu2WH+ipBf9w6eJNGv4aTx9COxL8GLHx5XJCq5T9ubj/n3Bk6K4n2SZtoBUYS0PezoQuE96YLUVoemhbvIItQskRJSSRZGTulLQXFzU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788556870; c=relaxed/simple;
-	bh=ow/zXpa/eilavpoy7ibKNGTK1Mwz7lSkjoPBxcAUZWE=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=mh5hkiJmV9qUVVbQzqcbG8Tvsh8APskP5veK8PzbomRFyW46LT+UsFgAZD+DBkmorzILt+OxVllf0zeIpud1YqCoS4bIYhMiIWO02nEfw9U4EaP7jjxakeIqyBXUoeEVIm+cbIZ6/BNgoVbeK+xAwSpLZddeaKEECg3PR615/sA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OJNh2F13; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788556915; c=relaxed/simple;
+	bh=us4qeYtal2fhw+IJJx6NqEovqZ1XB9f9MSCX4yN1upk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=XqX2Fxk9l56LvlXmNPo8PljWwJKjDj+d0MXTWE9we2jfmIE+bligVubfjwhF/Ot4GFsPxs2jgPUBpr/7JXKrfr5KSco9676RtMM46p1yKIjxlAvm8VSUTm95xbODULT6eWWGumGyi4PQz5UZRy4MUeh01vChW9riwgymyqi7rMA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=k0NLGu/0; arc=none smtp.client-ip=198.137.202.133
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OJNh2F13"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E04621F00A3D;
-	Fri,  4 Sep 2026 21:21:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788556869;
-	bh=810qIrJpDWh09K9kiOgzNLqoPRq3TOZvKHQZ9uIXbHQ=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=OJNh2F136QTDXfXqn/x/sNTU41W2vOUXtSGgnjnhvUhVLk5yktSG4WaQLbYXmROX1
-	 tRp7E0AJJ0Uuonq2ZQ5Hvi6SDTeg+i9N5kL8XIevovUd9GXvv3h7cjursjeS7p3Gig
-	 DUPU+UAZypLywR3yNCNaF/veNamOFyp1ormbyyengO6t89lLUxcSuF83KqvVLY/aXQ
-	 FSKEbMHFwi0ESyyTnljDU+ekT4+X6u11UoyASXArh+Q+BcECp8Y9436zZV5BAb/kQT
-	 LFXrk/ACGFdIjQ/bHFBSRr93/xHElmOcpsFD1Ni641nc5zFCLtXUhe42XXMUzwrn9r
-	 7kmG4oF2j6zKw==
-Date: Fri, 4 Sep 2026 14:21:08 -0700
-From: Jakub Kicinski <kuba@kernel.org>
-To: Ratheesh Kannoth <rkannoth@marvell.com>
-Cc: <bpf@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- <netdev@vger.kernel.org>, <andrew+netdev@lunn.ch>, <ast@kernel.org>,
- <daniel@iogearbox.net>, <davem@davemloft.net>, <edumazet@google.com>,
- <hawk@kernel.org>, <john.fastabend@gmail.com>, <pabeni@redhat.com>,
- <sdf@fomichev.me>, <sgoutham@marvell.com>
-Subject: Re: [PATCH v12 net-next] octeontx2-pf: add mqprio bandwidth offload
- for NIX TX schedulers
-Message-ID: <20260904142108.72652338@kernel.org>
-In-Reply-To: <apo3CVfUw2-aXF8F@rkannoth-OptiPlex-7090>
-References: <20260903023324.3078284-1-rkannoth@marvell.com>
-	<apo3CVfUw2-aXF8F@rkannoth-OptiPlex-7090>
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="k0NLGu/0"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
+	Content-Type:In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
+	Message-ID:Sender:Reply-To:Content-ID:Content-Description;
+	bh=kKoOHaINlhwVoLTv92gGkMR8r2LaL+e1jAe/DtwX8bg=; b=k0NLGu/0Pra0KXsaH5coPmZPyA
+	+GJpSL8Nz2t5wAtoUjvuCM/Ode/ItcYTsBMSxus3bAu7cfJJKE3JpVgALzFz4nupnHzo9XK4QaCWJ
+	drOcu8MJlfnsD+iLX6ogrMdWAFUAAp1sePz43VWbt0D+6eRLl7xi6frFA5n8x4IJU40eiFgxEbRyW
+	LMLVzlUkcLlD+QnnyExqdKDQIqAPxHNIIpK15SvedvjHC4aJPjePfzN53vcrLSQFAmhZ5PzHKyMbd
+	8CDQUS3flrXOafk1omqgruhU4uSK+YESYABTRlzdrQFS3xn+SspsN1mGy+F6xlNPKQKO23XkQPm2J
+	yYkVG1BA==;
+Received: from [50.53.43.113] (helo=[192.168.254.34])
+	by bombadil.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
+	id 1x2bM8-00000003JSF-4AOy;
+	Fri, 04 Sep 2026 21:21:53 +0000
+Message-ID: <84686c67-51ed-40d0-bd59-97bf3bc8afe3@infradead.org>
+Date: Fri, 4 Sep 2026 14:21:52 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] driver core: fix typos in comments
+To: Hemanth Selam <hemanth.selam@gmail.com>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Daniel Scally <djrscally@gmail.com>,
+ Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+ Sakari Ailus <sakari.ailus@linux.intel.com>,
+ Bartosz Golaszewski <brgl@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ "Rafael J. Wysocki" <rafael@kernel.org>, Danilo Krummrich <dakr@kernel.org>,
+ Tejun Heo <tj@kernel.org>
+Cc: linux-kernel@vger.kernel.org, linux-acpi@vger.kernel.org,
+ driver-core@lists.linux.dev
+References: <20260904111816.31254-1-hemanth.selam@gmail.com>
+Content-Language: en-US
+From: Randy Dunlap <rdunlap@infradead.org>
+In-Reply-To: <20260904111816.31254-1-hemanth.selam@gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On Fri, 4 Sep 2026 08:42:09 +0530 Ratheesh Kannoth wrote:
-> On 2026-09-03 at 08:03:24, Ratheesh Kannoth (rkannoth@marvell.com) wrote:
-> > Add TC_SETUP_QDISC_MQPRIO offload for channel-mode mqprio with
-> > TC_MQPRIO_SHAPER_BW_RATE. Program per-queue MDQ CIR/PIR through the
-> > NIX TX scheduler mailbox for each non-QoS transmit queue. When offload
-> > is active, allocate one SMQ per such queue, parent every MDQ under
-> > TL4[0], and map each traffic class min/max rate to the queue(s) in that
-> > class.  
+
+
+On 9/4/26 4:18 AM, Hemanth Selam wrote:
+> Fix typos in comments, reported by scripts/checkpatch.pl using the
+> misspelling list in scripts/spelling.txt.  Only touches comments, no code
+> changes.
 > 
-> will address sashiko comments in v13
+> Assisted-by: Cursor:claude-opus-5
+> Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
+> ---
+>  drivers/base/property.c        | 2 +-
+>  drivers/base/transport_class.c | 2 +-
+>  include/linux/kernfs.h         | 2 +-
+>  3 files changed, 3 insertions(+), 3 deletions(-)
 
-Please wait for netdev-ai report before you respin
-https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260903023324.3078284-1-rkannoth@marvell.com
-It seems to have found 5 more issues 
+Acked-by: Randy Dunlap <rdunlap@infradead.org>
+Thanks.
 
-Yes the embargo is really long for you, because it takes you 10+
-revisions to get anything merged.
+-- 
+~Randy
