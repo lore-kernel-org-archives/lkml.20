@@ -1,124 +1,69 @@
-Received: from mta1.migadu.com (out-190.mta1.migadu.com [95.215.58.190])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09BBC374E74
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 22:47:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.190
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F003E37C106;
+	Fri,  4 Sep 2026 22:48:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788562052; cv=none; b=futuiGnUpfKD1ZWMTZLbv2PrOreffmm3dHwgFe6yjUBSBOb7ad398jWgtSxt9S3epAkvXmsfJ4BUij4fr/r+tV4aCL+d2eYPdeEymj8KsNvjle4uqM3IdKUAfbdCT6g3c2vI9yCs7YRXABRwlE8dqiLz/ecT5bMoW0wNFaIOrXY=
+	t=1788562116; cv=none; b=i0cqch9Qx5vfH73FUAN2GYdFAh5FAyuD8ufW2mhdiw9hd9/pGoukx7ryjiYjxkUTRoV7HwWuwDAbLBoyklGPaglr1v5/qj5mM6nQ5Q0RVGtftcR/ryBUlhSsn8RQ1lJ2SgYXfE1zIe0WypA/NODZPJFe8dpV4qyTctzYHqVqAj4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788562052; c=relaxed/simple;
-	bh=a9LWtZEwa63QJ3Ja33Gs2KV3YWbCdmNNXpX1BLghxQk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=bl8uEUQeJq9/WrsmuK9E+id+BiWq8LwWx7a2lfcEtV/lcLTMUCXlHFkJrTQDtEH3b/ZX1UJVa9xjBCxKIuIsfKUVgRPJhDKRMOI1MJzhpIxCqIGshIJCRYxSSo5qNOV/KVoFTNkSbfM86eKwhxku7J7nmgwj824S3jxqTQwj6K0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=uvmke9U0; arc=none smtp.client-ip=95.215.58.190
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1788562116; c=relaxed/simple;
+	bh=4OscWOtY7/qQx35eJEkFKvh7VtXbR+s+D5mjmlmhvno=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=thfMubZ617QGTAwWJXntM6cdGd9tPzyOgS+yJfzBI9vRt59HmbpSHp9A+axXq8WFFAMXOoJ+Wc3NCpwUtL7Ywfc91cLQnw2DfucvaBoDD6pv9pDqQNTudA1j1XwB50xpk0bRrUkahFtAEd6WdQoIVXO3oIcygq04PJS074XkmgY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NRDYKMM/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="uvmke9U0"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=a9LWtZEwa63QJ3Ja33Gs2KV3YWbCdmNNXpX1BLghxQk=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788562047; v=1; x=1789166847;
- b=uvmke9U0SECNi9AL1bXd/PYSoouG969CYCJqT+hKYaz5DTcBTMUrdHVOX81GM3+WfuNPXjfy
- Awh8hWU7jaLEQvJoSGruF6ZiVD5Vb6SvRlskOo/TUheP9q9aCMzVTzNs3ieOmT8i0ydlDrSR2JZ
- pTkfi8F6ygVbUSEZlGd4WLjU=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 1e87ab9cb44541fb;
-	Fri, 04 Sep 2026 22:47:27 +0000
-X-Mizu-Trace-ID: 1e87ab9cb44541fb
-X-Migadu-Flow: FLOW_OUT
-Date: Fri, 4 Sep 2026 15:47:22 -0700
-From: Shakeel Butt <shakeel.butt@linux.dev>
-To: Joshua Hahn <joshua.hahnjy@gmail.com>
-Cc: hannes@cmpxchg.org, mhocko@kernel.org, roman.gushchin@linux.dev, 
-	muchun.song@linux.dev, akpm@linux-foundation.org, david@kernel.org, ljs@kernel.org, 
-	liam@infradead.org, vbabka@kernel.org, rppt@kernel.org, surenb@google.com, 
-	dev@lankhorst.se, mripard@kernel.org, nat@pixelcluster.dev, tj@kernel.org, 
-	mkoutny@suse.com, osalvador@suse.de, cgroups@vger.kernel.org, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, kernel-team@meta.com
-Subject: Re: [PATCH v5 3/7] mm/page_counter: introduce per-page_counter stock
-Message-ID: <aptJ5qQfjMB-24WB@linux.dev>
-References: <20260831163752.2193337-1-joshua.hahnjy@gmail.com>
- <20260831163752.2193337-4-joshua.hahnjy@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NRDYKMM/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 905461F00A3D;
+	Fri,  4 Sep 2026 22:48:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788562114;
+	bh=dcMMpzKXk+4o4v8gygfCDQkrDpaxLX3I2e0qXzonfoM=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=NRDYKMM//3VhuBVR7nJ52fgqTXjcANw8+wJtAYy54+VxihLZjS/F/3keENWqi3tZK
+	 z/QpLxYqrmW833xPSXfZk/cLdRuhsnoG9g5Zjbta7fPUbMyn+NKUqOOCnet4zl4IMD
+	 3vMONNlCKg2fvB+C4krYHmZg+EZrp+k3d14TevXy+hX/Eb8xO4PEU9qfXr+QKg6Upj
+	 oFne4KGK6g7Td/6QR2Gk4d9Gv4UaSUy9LnuiwNjfSyODBCZE+U7f9EWjA7m855OAWM
+	 HbjmmeyvP/cWyuzoOK0BrNQ37ITS7gUgj/54W+/61BLVVWDkQNTYfUzQeBftsFykro
+	 xr2lnywr+h5gQ==
+Date: Fri, 4 Sep 2026 15:48:33 -0700
+From: Jakub Kicinski <kuba@kernel.org>
+To: Ratheesh Kannoth <rkannoth@marvell.com>
+Cc: <netdev-bot+sashiko@kernel.org>, <linux-kernel@vger.kernel.org>,
+ <netdev@vger.kernel.org>, <andrew+netdev@lunn.ch>, <davem@davemloft.net>,
+ <edumazet@google.com>, <pabeni@redhat.com>, <sgoutham@marvell.com>,
+ <hkelam@marvell.com>
+Subject: Re: [PATCH net-next] octeontx2-pf: report port connector type in
+ ethtool link ksettings
+Message-ID: <20260904154833.3b32ea6a@kernel.org>
+In-Reply-To: <apqI44Y5ooLOPeij@rkannoth-OptiPlex-7090>
+References: <20260901045857.2779326-1-rkannoth@marvell.com>
+	<178850876430.4131868.17635457333077226877@kernel.org>
+	<apqI44Y5ooLOPeij@rkannoth-OptiPlex-7090>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260831163752.2193337-4-joshua.hahnjy@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, Aug 31, 2026 at 09:37:47AM -0700, Joshua Hahn wrote:
-> In order to avoid expensive hierarchy walks on every memcg charge and
-> limit check, memcontrol uses per-cpu stocks (memcg_stock_pcp) to cache
-> pre-charged pages and introduce a fast path to try_charge_memcg.
-> 
-> However, there are a few quirks with the current implementation that
-> can be improved upon.
-> 
-> First, each memcg_stock_pcp can only cache the charges of 7 memcgs
-> (NR_MEMCG_STOCK). When an 8th memcg wants to cache its charge on a CPU,
-> a victim memcg is chosen among the 7 cached memcgs and is evicted,
-> losing all cached charges.
-> 
-> Second, stock draining is per-CPU rather than per-memcg. That is,
-> when a memcg is under pressure and must retrieve all cached charges,
-> it iterates through every CPU and drains the stock charges of all
-> present memcgs. This means that one under-pressure memcg evicts the
-> caches of all co-cpu-resident memcg stock caches.
-> 
-> Finally, stock is tightly coupled with memcg, so adding new
-> page_counters to memcg is an unscalable operation where only one counter
-> gets to use the fastpath.
-> 
-> We can address all of these concerns by pushing stock caches down to the
-> page_counter level, and making each counter responsible for its own
-> charge.
-> 
-> Introduce struct page_counter_stock along with its allocation, free, and
-> per-CPU drain helpers.
-> 
-> No functional change intended.
-> 
-> Suggested-by: Johannes Weiner <hannes@cmpxchg.org>
-> Signed-off-by: Joshua Hahn <joshua.hahnjy@gmail.com>
-> ---
->  include/linux/page_counter.h | 16 +++++++
->  mm/page_counter.c            | 90 ++++++++++++++++++++++++++++++++++++
->  2 files changed, 106 insertions(+)
-> 
-> diff --git a/include/linux/page_counter.h b/include/linux/page_counter.h
-> index 89a083f16fbf7..c1fe331f34e7e 100644
-> --- a/include/linux/page_counter.h
-> +++ b/include/linux/page_counter.h
-> @@ -5,8 +5,11 @@
->  #include <linux/atomic.h>
->  #include <linux/cache.h>
->  #include <linux/limits.h>
-> +#include <linux/workqueue_types.h>
->  #include <asm/page.h>
->  
-> +struct page_counter_stock;
-> +
->  struct page_counter {
->  	/*
->  	 * Make sure 'usage' does not share cacheline with any other field in
-> @@ -41,6 +44,13 @@ struct page_counter {
->  	unsigned long high;
->  	unsigned long max;
->  	struct page_counter *parent;
-> +	struct page_counter_stock __percpu *stock;
+On Fri, 4 Sep 2026 14:31:23 +0530 Ratheesh Kannoth wrote:
+> > - [Medium] otx2_get_link_ksettings()
+> >   (drivers/net/ethernet/marvell/octeontx2/nic/otx2_ethtool.c:1235)=E2=
+=80=A6
+> >
+> > --
+> >
+> > octeontx2-pf: report port connector type in ethtool link ksettings =20
+>=20
+> > Sashiko AI review =C2=B7 https://netdev-ai.bots.linux.dev/sashiko/#/pat=
+chset/20260901045857.2779326-1-rkannoth%40marvell.com =20
+>=20
+> i think, below sole issue can be ignored.
 
-On gcc 14.2.1, I get
-
-In file included from mm/page_counter.c:8:
-./include/linux/page_counter.h:47:44: error: expected ‘:’, ‘,’, ‘;’, ‘}’ or ‘__attribute__’ before ‘*’ token
-   47 |         struct page_counter_stock __percpu *stock;
-      |                                            ^
-
-I think you need an appropriate header in this file.
+No, the bot is right drivers should not blindly pass values between uAPI
+and the FW.
+--=20
+pw-bot: cr
