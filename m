@@ -1,99 +1,148 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4722445AC6;
-	Fri,  4 Sep 2026 10:35:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BBD146F4A1;
+	Fri,  4 Sep 2026 10:35:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788518138; cv=none; b=m2bGtFaJVclUoUXgBwah4pQMzxpRMc5YT0DqieCXMB8pY9fOQ5f4/MCw5sNZZrFk+4Lox5bNruH/+yLleBpVDByJHgGgbifR5lZZrOCLVicyvPCyg31efqsTgaRwcysyDehZ1j51NtTW6Kekpz86SS6mA/ecehn84mACgfNZfDA=
+	t=1788518138; cv=none; b=KLE0v2xbbURPKgbKrKE3up6uO/VFoslo6F6RUVkucCZY2igp+dj6L57ALgdzfZIOaf/Ij3i4qFsNul2ozGmVkmOHaCtGOoxu3wy6t9sOKW0qv4xp80Eem3wXVKl1puAvco8gZZzJlKs0jGNXsxKmq3iR40dEVRPMN4Uw9qBA+ms=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788518138; c=relaxed/simple;
-	bh=ifGW4IhadanzTNkJq0sUWSJNoZHVkSGpNG64Glyf8lk=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=clQfFzUJx6sCHK5z5vt3pHpEEZ1TRSY5GTjQQIg2rSjtLHTdWbweZkSlk0h/LelaKZ2Vr8L3XjSQSQvxzFhR8EUNr74HrJwg0/fAcQIkcKSjYP7+DdfWOZqSzhtbG0NNL6cLs69/G6ADizJV7SfE+6WRp0ow58sUGw4H4h09l+s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NtwiJQNm; arc=none smtp.client-ip=100.103.45.18
+	bh=SKULSKfuno+ueNu0AjGt23LpDeyuye6kvTlQxfI14G0=;
+	h=Date:From:To:CC:Subject:In-Reply-To:References:Message-ID:
+	 MIME-Version:Content-Type; b=JpF0Fu+HUwz227wvc5eGLkQtNFvaJG+0MNibDMqZS13hcfwZNlv4DM0d8zNVDPYW1QR0dl8i+uAOrm1xxxg4/TAEYjlsOmugaj1SdnjNCXSB+RbW+EiXkUEo4sXvCWCFLKY2blB1wMRpEMitRKedGiZaPKh+YuL1ZqlSjiDJuag=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=jLUK3uro; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=ieSebnxf; arc=none smtp.client-ip=5.75.144.95
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NtwiJQNm"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3F5E11F00A3D;
-	Fri,  4 Sep 2026 10:35:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788518136;
-	bh=zdjsjsW7gTao4JGqSdtTZcqDO/daSds2ybCp3eONEAQ=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=NtwiJQNmBfj5pcFUU1SRjet42Lr3ykAyOTfvl5s/CFq27c/0PRf0StcdZDxH3Jb66
-	 oMa/1VFXy+THz5WtX9Pv5+h/lZn1yVb1miLtQLueNchM3UqjnE8VK+Lrp9l8AdqKG8
-	 bxVd8V1DQEGLD8bexSfbqdXI6iyLTuIH8wDGSAwK8kwaQ9uKl0OHcZEqWNnogotGfr
-	 HkMLklu1eRbRSlU9OD4TNxiqb7nuVI7K4we3NHhhEAXsMr/X0F6r/bG8zokaU052sc
-	 nUxUgwa4LAVh8ideLSiv7yVMlmqQKLqib2U2W8a7Yeju2fuk3BXmeyM4Mvo2cuQ5sE
-	 3E2H3TV5eC4Sw==
-From: "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>
-To: linux-coco@lists.linux.dev,
-	kvmarm@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	iommu@lists.linux.dev
-Cc: "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Jason Gunthorpe <jgg@ziepe.ca>,
-	Marc Zyngier <maz@kernel.org>,
-	Marek Szyprowski <m.szyprowski@samsung.com>,
-	Robin Murphy <robin.murphy@arm.com>,
-	Steven Price <steven.price@arm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Will Deacon <will@kernel.org>
-Subject: [PATCH v6 6/9] swiotlb: Reject misaligned restricted DMA pools for CoCo guests
-Date: Fri,  4 Sep 2026 16:04:49 +0530
-Message-ID: <20260904103452.1197239-7-aneesh.kumar@kernel.org>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260904103452.1197239-1-aneesh.kumar@kernel.org>
-References: <20260904103452.1197239-1-aneesh.kumar@kernel.org>
+	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="jLUK3uro";
+	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="ieSebnxf"
+DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Subject:To:From:Date; t=1788518125; bh=IJ5O+OMRxzlXnTpP7WXm8UG
+	KXRpHVfEKgrPFOTuwCuk=; b=jLUK3urokkvA+3WXiyGtulLBSDkDFdht2Lj6bcSwqDpVmxW98N
+	Yu9dbgsRUm2l6QSpO2yRj/xkrf236hfanDk0cU5vnO5VrBzX0fUUcODN5Y3/C9dFSKlgo+APRf3
+	I4l7PFxshiTtPGU2A1wplMk4uMJi8dnRE5uCY/W3MBxXNyGhWUjJ/8/Hc65izm5vWnIrwzPvzsQ
+	tGek0x4adSvGpNAIKXxj6ELJuejVd8O9ahW2Dh4mK1andFDNwWZyEqmiHjMSpku52jbcCW34/WJ
+	dk2hEqcbKqwmLMZFZayOWoLAND+1GgK7z9WeSVHgLytfL/EZWkwc62qxa9Shr6BIOcg==;
+DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Subject:To:From:Date; t=1788518125; bh=IJ5O+OMRxzlXnTpP7WXm8UG
+	KXRpHVfEKgrPFOTuwCuk=; b=ieSebnxfCjP2z9WpDNu8VXn4gIzMcBrPQm1phBnVhyUeH+ZAEw
+	1nrSLfq2B1wWQfyHphQ+QuL91OE1tE34hIAA==;
+Date: Fri, 04 Sep 2026 11:35:25 +0100
+From: Bradley Morgan <brads@mainlining.org>
+To: Fuad Tabba <fuad.tabba@linux.dev>, Catalin Marinas <catalin.marinas@arm.com>,
+ Will Deacon <will@kernel.org>
+CC: Mark Rutland <mark.rutland@arm.com>, Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>,
+ Ben Horgan <ben.horgan@arm.com>, James Morse <james.morse@arm.com>,
+ Xi Ruoyao <xry111@xry111.site>, Marc Zyngier <maz@kernel.org>,
+ Fuad Tabba <tabba@google.com>, linux-arm-kernel@lists.infradead.org,
+ linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] arm64: mpam: Document when to set arm64.nompam
+In-Reply-To: <20260904103131.627392-1-fuad.tabba@linux.dev>
+References: <20260904103131.627392-1-fuad.tabba@linux.dev>
+Message-ID: <9CE4CF72-74D6-493D-9F92-2D14CDC05C68@mainlining.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain;
+ charset=utf-8
 Content-Transfer-Encoding: 8bit
 
-Restricted DMA pools are described by firmware reserved-memory nodes and
-are not resized or realigned by the kernel. For confidential-computing
-guests, such pools can only be shared safely when both the base address and
-size are aligned to the shared-granule size.
+On 4 September 2026 11:31:31 BST, Fuad Tabba <fuad.tabba@linux.dev> wrote:
+>arm64.nompam skips the MPAM2_EL2 and MPAMHCR_EL2 writes in
+>finalise_el2_state and leaves the ARM64_MPAM cpucap unset. Where EL3
+>firmware has cleared MPAM3_EL3.TRAPLOWER, the EL2 trap controls are
+>left unwritten, at reset values that are UNKNOWN, and KVM still hides
+>MPAM from the guest but no longer enables the traps that stop a guest
+>from using it. KVM never saves or restores MPAM0_EL1 and MPAM1_EL1, so
+>what one guest writes reaches the next guest and the host. Nor can the
+>kernel make the EL2 writes unconditionally: they trap to EL3 on the
+>firmware the option exists for, and TRAPLOWER cannot be read below EL3.
+>
+>Say so in mpam.rst, and add the rule and a pointer to the
+>kernel-parameters entry.
+>
+>Suggested-by: Ben Horgan <ben.horgan@arm.com>
+>Link: https://lore.kernel.org/all/CA+EHjTxeWxZiuSmnKLGLxTBXP4oJT7-LuffbPAyCSZZ5TW=5Ew@mail.gmail.com/
+>Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
+>---
+>
+>Notes:
+>    Changes since v1, the first three from Ben Horgan's review:
+>     - Put arm64.nompam under a new "Command line parameters" section.
+>     - Separate MPAM3_EL3.MPAMEN from TRAPLOWER, which v1 conflated.
+>     - Add that KVM does not save or restore MPAM0_EL1 and MPAM1_EL1.
+>     - Drop "No functional change intended." from the commit message.
+>    
+>    Bradley Morgan's Reviewed-by on v1 is not carried over: both
+>    paragraphs, the section heading and the commit message changed.
 
-Reject restricted DMA pools that are not aligned to
-mem_cc_shared_granule_size() when guest memory encryption is active.
+Still LGTM, the only arm device I own is pixel 7, and also a modern arm
+test-peoples-crap box. So from what I recall, my tag stands 
 
-Signed-off-by: Aneesh Kumar K.V (Arm) <aneesh.kumar@kernel.org>
----
- kernel/dma/swiotlb.c | 14 ++++++++++++++
- 1 file changed, 14 insertions(+)
+>    
+>    v1: https://lore.kernel.org/all/20260903084809.2027326-1-fuad.tabba@linux.dev/
+>
+> .../admin-guide/kernel-parameters.txt         |  3 ++-
+> Documentation/arch/arm64/mpam.rst             | 25 +++++++++++++++++++
+> 2 files changed, 27 insertions(+), 1 deletion(-)
+>
+>diff --git a/Documentation/admin-guide/kernel-parameters.txt b/Documentation/admin-guide/kernel-parameters.txt
+>index 68647ff4bdd24..e6d543de3cde5 100644
+>--- a/Documentation/admin-guide/kernel-parameters.txt
+>+++ b/Documentation/admin-guide/kernel-parameters.txt
+>@@ -575,7 +575,8 @@ Kernel parameters
+> 			Set instructions support
+> 
+> 	arm64.nompam	[ARM64] Unconditionally disable Memory Partitioning And
+>-			Monitoring support
+>+			Monitoring support. Only for a machine that does not
+>+			boot without it. See Documentation/arch/arm64/mpam.rst
+> 
+> 	arm64.nomte	[ARM64] Unconditionally disable Memory Tagging Extension
+> 			support
+>diff --git a/Documentation/arch/arm64/mpam.rst b/Documentation/arch/arm64/mpam.rst
+>index 67fe515ed501c..e66b1359d1282 100644
+>--- a/Documentation/arch/arm64/mpam.rst
+>+++ b/Documentation/arch/arm64/mpam.rst
+>@@ -87,6 +87,31 @@ The supported features are:
+>   MBWU monitors can be exposed to the user after support for more monitoring
+>   scopes is added to resctrl.
+> 
+>+Command line parameters
+>+=======================
+>+
+>+arm64.nompam
+>+------------
+>+Firmware controls MPAM through two bits of MPAM3_EL3. MPAMEN enables
+>+it: while set, the PARTID and PMG in the MPAMn_ELx registers label the
+>+CPU's memory requests. TRAPLOWER, which resets to 1, traps accesses to
+>+the MPAM system registers from the lower exception levels to EL3.
+>+Firmware must clear it, or handle the trap and emulate MPAM as disabled.
+>+Where it does neither, the CPUs still advertise MPAM in the ID registers,
+>+the kernel's MPAM register accesses trap to EL3, and the boot fails.
+>+``arm64.nompam`` exists for that firmware: it makes the kernel treat the
+>+CPUs as not implementing MPAM, so no MPAM system register is accessed.
+>+Set it only on a machine that does not boot without it.
+>+
+>+It is not a way to turn MPAM off. Where firmware has cleared TRAPLOWER,
+>+the option leaves the trap controls in MPAM2_EL2 and MPAMHCR_EL2
+>+unwritten, and their reset values are UNKNOWN. KVM still hides MPAM from
+>+guests but no longer enables the traps that stop a guest from using it,
+>+so a guest may be able to read and write MPAM0_EL1 and MPAM1_EL1. KVM
+>+does not save or restore them, so what one guest writes is still there
+>+when the next guest runs on that CPU, and when the host does. With MPAMEN
+>+set, EL0 and EL1 requests then carry that PARTID and PMG.
+>+
+> Reporting Bugs
+> ==============
+> If you are not seeing the counters or controls you expect please share
+> the
+>
 
-diff --git a/kernel/dma/swiotlb.c b/kernel/dma/swiotlb.c
-index f8936b03d942..d1bd06be628d 100644
---- a/kernel/dma/swiotlb.c
-+++ b/kernel/dma/swiotlb.c
-@@ -2037,6 +2037,20 @@ static int rmem_swiotlb_device_init(struct reserved_mem *rmem,
- 		 * if platform supports memory encryption,
- 		 * restricted mem pool is shared by default
- 		 */
-+		if (cc_platform_has(CC_ATTR_GUEST_MEM_ENCRYPT)) {
-+			size_t cc_shared_granule_size = mem_cc_shared_granule_size();
-+
-+			if (!IS_ALIGNED(rmem->base, cc_shared_granule_size) ||
-+			    !IS_ALIGNED(rmem->size, cc_shared_granule_size)) {
-+				dev_err(dev, "Restricted DMA pool must be aligned to %#zx bytes for memory encryption\n",
-+					cc_shared_granule_size);
-+				kfree(pool->areas);
-+				kfree(pool->slots);
-+				kfree(mem);
-+				return -EINVAL;
-+			}
-+		}
-+
- 		if (cc_platform_has(CC_ATTR_MEM_ENCRYPT)) {
- 			int ret;
- 
--- 
-2.43.0
-
+--- Thanks!
+https://lore.kernel.org/all/EE579805-42F2-4C58-B752-F28779EEB717@grrlz.net/
