@@ -1,120 +1,186 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from bg-bec.cloudflare-smtp.org (bg-bec.cloudflare-smtp.org [104.30.16.142])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 116721CD2C;
-	Fri,  4 Sep 2026 21:17:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD2CA1CD2C
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 21:18:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=104.30.16.142
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788556679; cv=none; b=gtuDEvkN3fIEMy23pxwlipEDj9V4F7pzn8jeiOJABQkjzjSIMHjGeEBkrxgmdBfnRBkGcIhXa+zERC/2tZed6FpCUAu+C0KIB4u/7cgeLExSFETcSNzAobeloF+KkFJ+KO43AcNelq3nexyhUUxyiLOKyzSFtGZhc0V/C1Fx/N0=
+	t=1788556696; cv=none; b=gUZ+Dy7q3hHhYGJdoQcoTxZi1Ck3PrihvCan5Shadkf8BaCk0F+14TWBT8KQtdYKLbvCG7cZHQpDQv/M3tfsFR8fvqSmpcNodpP9Cjlf5/pV43xHyD35csji86n3kyjw5DUecChbQzLKnl6LL4tv/ZtWDmxY+XHKrgn7GcNhyCE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788556679; c=relaxed/simple;
-	bh=vSdMM/5gpnDT7T8x46xxXgkVXn801UrRB1DfeEKnwwI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Hv2E8qDNRXhpU1Iq3Dbnhy/zrHYGhK6Jifm0tskVeG8KKduIp++iOC4VUYFuVYDmZZEq9iWa6iMquIxq4ygjiiugkBrhXOU/N8Pqm0vFwfVbyNQ0jDSF35Fk+/mEIbREmZ7TrtJmCZV4GvcokHKQoC1sJxMDj6QG2Bx8qJzgeRA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bm0U/QCT; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788556696; c=relaxed/simple;
+	bh=sG3ErCOG4uiHIICpCOwdYPuTGSZmkwC6RROfqDy/PLo=;
+	h=Message-ID:From:Date:Subject:To:Cc:MIME-Version:Content-Type; b=kRqwKPt9bYLV8D+eMN1IIwoAKWA49hl0YXSjwHES05ifIgLLhIm7ZHKR5Sny2/kjp80DYLwj3mXgtK4eIHWUbm4I676yYz44r3eomsNoUm34/xe/x/W97mVdExn4kx66ymcF09wmsZyosbDVJj9AE3vior55yBp8vl//eNZ2uX0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bugs.sh; spf=pass smtp.mailfrom=cf-bounce.bugs.sh; dkim=pass (2048-bit key) header.d=cloudflare-smtp.org header.i=@cloudflare-smtp.org header.b=akKMKprz; dkim=pass (2048-bit key) header.d=bugs.sh header.i=@bugs.sh header.b=H7MoP9jN; arc=none smtp.client-ip=104.30.16.142
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bugs.sh
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cf-bounce.bugs.sh
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bm0U/QCT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 245461F00A3D;
-	Fri,  4 Sep 2026 21:17:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788556677;
-	bh=0L3yJWBuGxxyn+2aUUPOzcCWgLt4R0SmyiyBXOHBamc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=bm0U/QCT/ijumLpbh5woHAXMEtHhaZyaxFV/5VfbxPceKCp4Br6y/Jtj7rZZRvESd
-	 bXJZ/ziiObPdDs/HxtxgeeSQSbcqvha5Edd2Kxum7clIZJAMXJ57ZTE3AAGt0TtCJy
-	 ohr3plWHRC+u30/ULbf4PMLEfP3rix8VeRFUaiMFrdA+5qeytxtw7HjYSyvdrSL4uo
-	 ssLDl5M4tJe/yZKFuQVD34ERZTsDsfXSXGKqv/DXKzmFQ+il5mqfEc50scZhP2mG/0
-	 MtpmGOIwOzSeHv4pwanL2wX7F+Ghp81nNCH00EKqqL11AOMq3hxSJ/fIS5F8cd952p
-	 ++o3eIDXXl9/g==
-Date: Fri, 4 Sep 2026 18:17:54 -0300
-From: Arnaldo Carvalho de Melo <acme@kernel.org>
-To: Aaron Tomlin <atomlin@atomlin.com>
-Cc: peterz@infradead.org, mingo@redhat.com, namhyung@kernel.org,
-	mark.rutland@arm.com, alexander.shishkin@linux.intel.com,
-	jolsa@kernel.org, irogers@google.com, adrian.hunter@intel.com,
-	james.clark@linaro.org, howardchu95@gmail.com, neelx@suse.com,
-	chjohnst@mail.com, sean@ashe.io, steve@abita.co,
-	rishil1999@outlook.com, linux-perf-users@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH perf-tools-next v6 1/5] perf trace: Fix error checking in
- btf_struct_scnprintf()
-Message-ID: <aps1gjTwaMbDNQWa@x2>
-References: <20260824133122.751733-1-atomlin@atomlin.com>
- <20260824133122.751733-2-atomlin@atomlin.com>
+	dkim=pass (2048-bit key) header.d=cloudflare-smtp.org header.i=@cloudflare-smtp.org header.b="akKMKprz";
+	dkim=pass (2048-bit key) header.d=bugs.sh header.i=@bugs.sh header.b="H7MoP9jN"
+DKIM-Signature: v=1; a=rsa-sha256; s=cf2024-1; d=cloudflare-smtp.org; c=relaxed/relaxed;
+	h=Cc:To:Subject:Date:From:Feedback-ID:from:reply-to:resent-date
+	:resent-from:resent-to:resent-cc:in-reply-to:references:list-id:list-help
+	:list-unsubscribe:list-unsubscribe-post:list-subscribe:list-post
+	:list-owner:list-archive; t=1788556694; x=1789161494; bh=tZxFD+4jm1eZVyWz8d
+	GpTcv5maGZf3AgPhJold/6k3M=; b=akKMKprziixsHwFMK1pt7r7pjzlUund6HR0SxwnZ0rsPH
+	hk0x6t05ajtGJ5pjSNFbyxZbqqLPU7VsE7l8R2hiOoEqypD3n9bEezRXT6fSWqQj1jO7YtmH92v
+	+Ty7ML6B0HDytwXjlcSuwmpfHx+O/mN9EX/mqU/YrbDaLgD77qJZk6FBxOZYHJqrl+D4rVxd0i4
+	B0rsXoNIh8yuIX2MnFCH3Z6IvjD1kYYJU7y4sk6ULR/KU1adTDvu+C1dZHaaUVDNeeue9fjk1Rk
+	lEgjgn1b4O06d5fEOeURRzk8yUKhkdBtPwnNXGyNO9Sn+RKmKyC7gRMVzyI8t8MOy3l7kNGw==;
+DKIM-Signature: v=1; a=rsa-sha256; s=cf-bounce; d=bugs.sh; c=relaxed/relaxed;
+	h=Cc:To:Subject:Date:From:Feedback-ID:from:reply-to:resent-date
+	:resent-from:resent-to:resent-cc:in-reply-to:references:list-id:list-help
+	:list-unsubscribe:list-unsubscribe-post:list-subscribe:list-post
+	:list-owner:list-archive; t=1788556694; x=1789161494; bh=tZxFD+4jm1eZVyWz8d
+	GpTcv5maGZf3AgPhJold/6k3M=; b=H7MoP9jNdtuNohfK3qECkSWxTgqWki2utVtsrd9WioYOb
+	T7L0TeBF3lYsw2xOJ5C1JYVwLrRfrxaPydz4bhpmwrdz1ssXtbvvVzuZXeXVEtcdgdH0Z593Z/q
+	+QzJUsAcvTABiuSb8GnPMdHObx7cayyctZ6xAG7YJ9o6xPISJ4hdU1ftjWRhJB0maoqyViXWDAN
+	aqah5vE7a6oENg3N0kZTS9K1kZEiJCTDlhWw0HNjJt4F771ES5POQZ9imF9QoB1ReeNaROCy4Y2
+	BLCa0XQca4aIQXCoLx9haqYqJjufSMjhkHvVEhlCi8V5yNFr3tgQ2/W6UxDYIxt/CpLpyaQQ==;
+Feedback-ID: bugs.sh:5:6:Cloudflare
+Message-ID: <upsCxxaJjg2FJWhfCx6KjFXLlh8o4IhaHKJi@bugs.sh>
+From: co <co+5e2bcf11e7027510@bugs.sh>
+Date: Fri, 04 Sep 2026 21:17:50 +0000
+Subject: [BUG] drivers/net: out-of-bounds in pcan_usb_decode_buf()
+To: linux-can@vger.kernel.org, "Marc Kleine-Budde" <mkl@pengutronix.de>, "Vincent
+ Mailhol" <mailhol@kernel.org>
+Cc: "Petr Mladek" <pmladek@suse.com>, "Geert Uytterhoeven" <geert+renesas@glider.be>,
+ =?utf-8?b?U3TDqXBoYW5lIEdyb3NqZWFu?= <s.grosjean@peak-system.fr>, "Oleg
+ Nesterov" <oleg@redhat.com>, "Biju Das" <biju.das.jz@bp.renesas.com>, "Song
+ Liu" <song@kernel.org>, linux-kernel@vger.kernel.org, co <co+5e2bcf11e7027510@bugs.sh>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260824133122.751733-2-atomlin@atomlin.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, Aug 24, 2026 at 09:31:18AM -0400, Aaron Tomlin wrote:
-> btf_dump__dump_type_data() returns the positive number of bytes dumped on
-> success, or a negative error code (e.g., -EINVAL) on failure.
-> 
-> Currently, btf_struct_scnprintf() checks if btf_dump__dump_type_data()
-> returns 0. When a negative error code is returned on failure, this check
-> evaluates to false, causing the function to proceed down the success path
-> and advance arg->augmented.args past the unprinted struct data before
-> returning 0.
-> 
-> Consequently, when syscall__scnprintf_args() falls back to the default
-> argument beautifier upon receiving 0 from trace__btf_scnprintf(), the
-> fallback beautifier or subsequent arguments read from an erroneously
-> advanced augmented arguments buffer.
-> 
-> Fix this by checking for '<= 0' ensuring that on any failure or 0-byte
-> dump, 0 is returned without modifying the augmented arguments pointer.
-> 
-> Fixes: cb32035214b9 ("perf trace: Pretty print augmented struct args using BTF")
-> Reported-by: sashiko-bot <sashiko-bot@kernel.org>
-> Signed-off-by: Aaron Tomlin <atomlin@atomlin.com>
-> ---
->  tools/perf/builtin-trace.c | 4 +++-
->  1 file changed, 3 insertions(+), 1 deletion(-)
-> 
-> diff --git a/tools/perf/builtin-trace.c b/tools/perf/builtin-trace.c
-> index c3c7f1f85c53..1bc39f674f11 100644
-> --- a/tools/perf/builtin-trace.c
-> +++ b/tools/perf/builtin-trace.c
-> @@ -1066,7 +1066,9 @@ static size_t btf_struct_scnprintf(const struct btf_type *type, struct btf *btf,
->  		return 0;
->  
->  	/* pretty print the struct data here */
-> -	if (btf_dump__dump_type_data(btf_dump, type_id, arg->augmented.args->value, type->size, &dump_data_opts) == 0)
-> +	if (btf_dump__dump_type_data(btf_dump, type_id,
-> +				     arg->augmented.args->value,
-> +				     type->size, &dump_data_opts) <= 0)
->  		return 0;
+We found a bug reachable in:
 
-Applied the series, only change I made was:
+    path    drivers/net/can/usb/peak_usb
+    crash   out-of-bounds in pcan_usb_decode_buf()
+    commit  2f1baf1fc892 ("Merge tag 'trace-v7.2-rc7' of git://git.kernel.o=
+rg/pub/scm/linux/kernel/git/trace/linux-trace")
 
-diff --git a/tools/perf/builtin-trace.c b/tools/perf/builtin-trace.c
-index c3c7f1f85c530196..4c8f91f0f854b382 100644
---- a/tools/perf/builtin-trace.c
-+++ b/tools/perf/builtin-trace.c
-@@ -1066,7 +1066,7 @@ static size_t btf_struct_scnprintf(const struct btf_type *type, struct btf *btf,
-                return 0;
+Config, environment, the sanitizer report and a C reproducer follow.
 
-        /* pretty print the struct data here */
--       if (btf_dump__dump_type_data(btf_dump, type_id, arg->augmented.args->value, type->size, &dump_data_opts) == 0)
-+       if (btf_dump__dump_type_data(btf_dump, type_id, arg->augmented.args->value, type->size, &dump_data_opts) <= 0)
-                return 0;
+=3D=3D Notes =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+    If you patch the bug based on our artifacts, a tag would be
+    appreciated:
 
-        consumed = sizeof(*augmented_arg) + augmented_arg->size;
-(END)
-acme@number:~/git/pahole$
+Reported-by: co+5e2bcf11e7027510@bugs.sh
 
-As this source code allows for longer lines, having it like above helps
-in reviewing, we can see straight away what the change was. There was a
-clash a few patches later that expected that reflow to be in place, I
-adjusted that as well, no code changes in both cases.
+    Everything in this mail is validated by the reproducer below.
 
-Please avoid reflowing things.
+    We also hold an LLM-generated root-cause analysis and a candidate
+    patch. The patch passes an A/B test: the same reproducer panics the
+    unpatched kernel and runs clean on the patched one. Neither has had
+    human review, so both still require validation before you send or
+    apply them. Available on:
 
-Thanks for your work, appreciated!
+        patch.diff  https://bugs.sh/b/5e2bcf11e7027510/patch.diff
+        report.md   https://bugs.sh/b/5e2bcf11e7027510/report.md
 
-- Arnaldo
+    This is an open science project. The code and the full set of PoCs
+    are not public at this moment, as we intend to disclose our findings
+    in an ethical way.
+
+    Happy to test patches. Complaints and suggestions about our work
+    are welcome at:
+
+        cedalion@bugs.sh
+
+=3D=3D Environment =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+    Reproduced on  2f1baf1fc892 ("Merge tag 'trace-v7.2-rc7' of git://git.k=
+ernel.org/pub/scm/linux/kernel/git/trace/linux-trace")
+    VM setup       https://bugs.sh/b/5e2bcf11e7027510/run.sh
+    config         https://bugs.sh/b/5e2bcf11e7027510/config.gz
+    poc            https://bugs.sh/b/5e2bcf11e7027510/repro.c
+
+=3D=3D Sanitizer Report =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+BUG: KASAN: slab-out-of-bounds in pcan_usb_decode_buf (drivers/net/can/usb/=
+peak_usb/pcan_usb.c:563 drivers/net/can/usb/peak_usb/pcan_usb.c:630 drivers=
+/net/can/usb/peak_usb/pcan_usb.c:740 drivers/net/can/usb/peak_usb/pcan_usb.=
+c:758)
+Read of size 1 at addr ffff8880253816c1 by task swapper/1/0
+Call Trace:
+<IRQ>
+dump_stack_lvl (lib/dump_stack.c:94 lib/dump_stack.c:120)
+print_report (mm/kasan/report.c:378 mm/kasan/report.c:482)
+kasan_report (mm/kasan/report.c:595)
+pcan_usb_decode_buf (drivers/net/can/usb/peak_usb/pcan_usb.c:563 drivers/ne=
+t/can/usb/peak_usb/pcan_usb.c:630 drivers/net/can/usb/peak_usb/pcan_usb.c:7=
+40 drivers/net/can/usb/peak_usb/pcan_usb.c:758)
+peak_usb_read_bulk_callback (drivers/net/can/usb/peak_usb/pcan_usb_core.c:2=
+67)
+__usb_hcd_giveback_urb (drivers/usb/core/hcd.c:1657)
+usb_hcd_giveback_urb (drivers/usb/core/hcd.c:1741)
+dummy_timer (drivers/block/aoe/aoedev.c:523 (discriminator 1) drivers/block=
+/aoe/aoedev.c:298 (discriminator 1) drivers/block/aoe/aoedev.c:377 (discrim=
+inator 1))
+__hrtimer_run_queues (kernel/time/hrtimer.c:2067 kernel/time/hrtimer.c:2124)
+hrtimer_run_softirq (kernel/time/hrtimer.c:2141)
+handle_softirqs (kernel/softirq.c:645)
+__irq_exit_rcu (kernel/softirq.c:679 kernel/softirq.c:519 kernel/softirq.c:=
+767)
+irq_exit_rcu (kernel/softirq.c:784)
+sysvec_apic_timer_interrupt (arch/x86/kernel/apic/apic.c:1062 (discriminato=
+r 35) arch/x86/kernel/apic/apic.c:1062 (discriminator 35))
+</IRQ>
+asm_sysvec_apic_timer_interrupt (./arch/x86/include/asm/idtentry.h:674)
+default_idle (./arch/x86/include/asm/paravirt.h:62 arch/x86/kernel/process.=
+c:768)
+default_idle_call (kernel/sched/idle.c:122)
+do_idle (kernel/sched/idle.c:199 kernel/sched/idle.c:355)
+cpu_startup_entry (kernel/sched/idle.c:454 (discriminator 1))
+start_secondary (arch/x86/kernel/smpboot.c:312)
+common_startup_64 (arch/x86/kernel/head_64.S:418)
+Allocated by task 5007:
+kasan_save_stack (mm/kasan/common.c:57)
+kasan_save_track (mm/kasan/common.c:78)
+__kasan_kmalloc (mm/kasan/common.c:398 mm/kasan/common.c:415)
+__kmalloc_noprof (./include/linux/kasan.h:263 mm/slub.c:5414 mm/slub.c:5439)
+peak_usb_ndo_open (./include/linux/slab.h:995 drivers/net/can/usb/peak_usb/=
+pcan_usb_core.c:451 drivers/net/can/usb/peak_usb/pcan_usb_core.c:583)
+__dev_open (net/core/dev.c:1724)
+__dev_change_flags (net/core/dev.c:9812)
+netif_change_flags (net/core/dev.c:9877)
+dev_change_flags (net/core/dev_api.c:68)
+devinet_ioctl (net/ipv4/devinet.c:1199)
+inet_ioctl (net/ipv4/af_inet.c:1009)
+sock_do_ioctl (net/socket.c:1325)
+sock_ioctl (net/socket.c:1446)
+__x64_sys_ioctl (fs/ioctl.c:51 fs/ioctl.c:597 fs/ioctl.c:583 fs/ioctl.c:583)
+do_syscall_64 (arch/x86/entry/syscall_64.c:61 arch/x86/entry/syscall_64.c:8=
+4)
+entry_SYSCALL_64_after_hwframe (arch/x86/entry/entry_64.S:121)
+The buggy address belongs to the object at ffff888025381680
+which belongs to the cache kmalloc-64 of size 64
+The buggy address is located 1 bytes to the right of
+
+
+---
+The report format is based on syzbot bug report.
+
+This report is generated by a bot. It may contain errors.
+See https://github.com/n132/cedalion for more information.
+
+For any issue with this report, reach out to cedalion@bugs.sh
+
+If the report is already addressed, let us know by replying with:
+#co fix: <commit hash>
+
+If the report is a duplicate of another one, reply with:
+#co dup: <lore link>
+
+If you want to undo deduplication, reply with:
+#co undup
+
+
