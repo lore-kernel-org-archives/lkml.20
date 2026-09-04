@@ -1,165 +1,95 @@
-Received: from mail-ej1-f48.google.com (mail-ej1-f48.google.com [209.85.218.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 889A7448D14
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 20:26:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.48
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788553612; cv=pass; b=OhF5z4XDzbEE5zJw/HfqtyJsERVG0VGTgJWwFjoadJmjjnYD15NE/DiU/mcwMVQ0hHms/ZUUE4CaPFf6m+0UPh/XAB4MpnwuiCXEyH38UypyNIvQyEnTkHcoVM+88rQFjjB7S/AF5pxH0BUpNWZkyVIkKPsVB2Slwjm5T6sGbd4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788553612; c=relaxed/simple;
-	bh=apsCJPAEvIxcNPrv06lf8gEHanZVwcDw0wrGmMSJ0Og=;
-	h=From:References:MIME-Version:In-Reply-To:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=ESNnUmEehfTCAsiQsHfTi1d3zOcDjuZs0ws1e+JDtPdY/mI9saSiEuOV8C1f2/MczRE2itecL1vMuaxwG0I6XJypTZMN2Fva2b8WCOBIyX2OKeZzTAmvrqAeucKNrNnYVU+Ax1es2SAgpLTHwM0HObNU6aL0Vok5fYtWcm/WEuM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=haSTrzaW; arc=pass smtp.client-ip=209.85.218.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="haSTrzaW"
-Received: by mail-ej1-f48.google.com with SMTP id a640c23a62f3a-c20e70a0962so186699366b.2
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 13:26:48 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788553606; cv=none;
-        d=google.com; s=arc-20260327;
-        b=jbJKK6lBMkO9W77rvpiFRyCfoF8Y78XKHKXQUoX3ljGrRc0SGoXVAxHhd9obys71yb
-         DaTivTWO5l5WoHEyk1b9yIcYX3EfOYx6ys4qZxni/oS0xKTACxrheA9uXerQxcJXQIoD
-         TvYLh6pgts8T1By9F3q+mzLqXQ9adaJ63O6vDM9V2QFuwgHkauapwaM9i3ynmera16zL
-         1CW4tQT3e1NaT7XDOHTzbGT1aSHXRDrkoAf1tqpjRbpMkrIUtoteLq0+l71df1miptgZ
-         oEgVhpwoVX1k4kuprmUHa+Gg7pirHCOALztIHl8PURcODlJHMSi12+yQTvQtTgeUX5at
-         DPmA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:in-reply-to:mime-version:references
-         :from:dkim-signature;
-        bh=uC9g/nTRfwFfgs5BRRrEUydMiSWINf/QbLL9mGYRBG4=;
-        fh=P2ylUAa3YFxqLcLOiHcz2TYNSinzJcggetMz4tYbQt0=;
-        b=ZXiPhzs17DXwAeT9ZN9r347ptczoS4sUmIkrbqxREgXLpWlagHEKcOXmolFnU5zk1X
-         g30HcLpPNqWCeIXhYU6Dd0Xk+gqgngbmikSj+QHIbTE/nRiQahfgOkcr02wvxg2CcDeC
-         kNgVpKx3t9IVJA2ebCkdSI9U8bydUuBthOgV7Ur7ZZ4e9vZZ9qIlEgUjzD4c/1dOs6GH
-         ZH82k3oem0/3d2XAtireQCMlus5QOVsGXzQvIXvFW61f3o5iPQgYPXnolXuDeui9PCCD
-         o9oWVpFdpuIYOzUao9fdAHCwJttnMSy1/fVKt/JqixPaYo7C1byN8MZ4dl5VGKVJXfix
-         P1Fg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1788553606; x=1789158406; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:in-reply-to:mime-version
-         :references:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=uC9g/nTRfwFfgs5BRRrEUydMiSWINf/QbLL9mGYRBG4=;
-        b=haSTrzaWX5OJ04nXMEULYY0HKzjqkZgR04cImDdjtwUipEAEcdqRFwnzfNBoKJIUnQ
-         p80NTflIJHwoySN4WuvJdtljR6Z3LU6/P9WgRxB7BI6zlhvfCTUMkKAOCFsTvr61HGNk
-         cwaqZmdU6TW1H/AGStz7Sr8znLLY72y5HwpRCS0N0WJNkAA5E0m5TkWWqMAlnbbqFJic
-         jxd3djtAa5GyQfK9+h0Zynju+QWPS/JepG+AvTY6auJzHueDTB622iy8CwtRdYvk5CoI
-         437cGXCsF02dsrdcyRFei6r8KMCR324/D6UNqynZCBsiCvbAWHrPAuBH9hvU/bbROq3m
-         cxIQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788553606; x=1789158406;
-        h=content-type:cc:to:subject:message-id:date:in-reply-to:mime-version
-         :references:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=uC9g/nTRfwFfgs5BRRrEUydMiSWINf/QbLL9mGYRBG4=;
-        b=SZWLRcQ0ovi/NjirV6kSACMgvRglPYRkTE0jLMpGvHAJeJpTdhK2gZ0fGnq+TJIhCy
-         UyayYteFIDs+iIlyqrJkblbqW9i3kL1a4VnSfjNV78hoaMsdhDDR2HpjGdxsNjfnZ+AI
-         wkTusVtXinpHBARpxTVJKe63g2CC9dr6vJq3TPoVFJuQet9q94DLRw4g9lKuj1XjqNe8
-         0/pQsVENWeGIYDkE3Wyyi9bccC3bYBhdAL0qs0gKxs16JalC68jEqvMiMraw6fiZC+QZ
-         800gl+TOQSd6CRLKJZFdm3i0p1X1xlsTyGnO/zu1KWP1O9sKatooX8fh+hHgTG0iaBj4
-         55rw==
-X-Forwarded-Encrypted: i=1; AKwUvBwmA8qtmTEqcb5QJQhjmqJUNf3vS5o45ujjjUAm8FI85NLapI/oALaVf9M0fQUCqEVrQV1gGaSjzg09gWk=@vger.kernel.org
-X-Gm-Message-State: AFuF++lHdbr5KZ+wRiFjvk0krcpI/M81xwPlKLyNM5b+sz9klU7stl6V
-	/GWHvlGp5JSmGirqoBOCINLYs+xLvOS4zem0Ct3QhHt3fsaAx5gSOkSlJ6Prl+vtmDdxDQ/vjtJ
-	Iw8ArFhQltB6A67+OkPV6Itj5CEAfFx8Putou9TtwAw==
-X-Gm-Gg: AYBFou2GvClX1XE25AY5RNW2iP4/8FcVkRR5O0k4WYipcYk4YhPfW+Ro17jehq4QvlH
-	2G8BWU2WTqBXEXV6r1EJugTIjh/p4It24dX2eUpx94C2YXpaLPGB3J5VRAyoHiFFEV/v2kfGQi0
-	W+A/pAZhjXTW+u5GLV9Qazu8S99xqu+fWb2VLxWSHMIbUNtxAT5JrITs/MeYjrJ5Y/xIf5bbwf3
-	q+u7RTiX4C8oX9QcPugm09etHMF1EO3uAUXfWF9WB0k4L4RDuvtjmMxAwZ6gpZw/SIfeZBc3Ksz
-	b1rmenKWW/C10B0HXayjc8P1avO4JbKwAqRigq5s9g==
-X-Received: by 2002:a17:906:ba82:b0:c19:5572:d234 with SMTP id
- a640c23a62f3a-c260c6a0ea0mr658955066b.1.1788553605796; Fri, 04 Sep 2026
- 13:26:45 -0700 (PDT)
-Received: from 753933720722 named unknown by gmailapi.google.com with
- HTTPREST; Fri, 4 Sep 2026 15:26:45 -0500
-Received: from 753933720722 named unknown by gmailapi.google.com with
- HTTPREST; Fri, 4 Sep 2026 15:26:45 -0500
-From: Angelo Dureghello <adureghello@baylibre.com>
-References: <20250121-coldfire-global-pool-v1-0-382a7235c2aa@yoseli.org>
- <20250121-coldfire-global-pool-v1-2-382a7235c2aa@yoseli.org>
- <Z5h0vvL0B5ktd3sM@infradead.org> <ba7ea0f0-be38-49a7-b416-3dc62c7e7425@yoseli.org>
- <Z5h70TL6lSWzGA4f@infradead.org> <8b453664-13b6-430c-a865-9675edcdf369@yoseli.org>
- <Z5h9ZySKFwHRjg0O@infradead.org> <44398a86-cf85-4c7b-85f1-de9beedc72fc@yoseli.org>
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 464F04FECF2;
+	Fri,  4 Sep 2026 20:27:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788553663; cv=none; b=hYqir7SGyOy2JYtLiuE7Z2p424NXnVo/2PC96RfkUBoIYtdecjw6mKYhtvZZs3ttlFFkeFXYMI/cO365TpaBgcTs0dPSHW1ukWWpKfvluCA60RShPhFAnl9LEAsxx+eN7//Kp+6w3aKOdHz9utEz0MES+nFm84wxBmPEpV12iHA=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788553663; c=relaxed/simple;
+	bh=bVEKSvzw0dN9Fi8lwDSBwxTVPXdWFQOikJ8eH4oAuNM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=bbwSx+71U8HEXenqKAnn6gHCpEmyAd158ihYjZm+xww088qZuqBkz+eU5m+XwqwQR9NwUIVQRTI/bbYnB1BQYErZal6tZb/zuqviRFH0ocCe4iVEtrpEyrTX/JX/w/MCjynxvPQNQqewgPst8c5gihV6EOcdORAJAHaqjFGbqNg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; arc=none smtp.client-ip=13.77.154.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microsoft.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
+Received: by linux.microsoft.com (Postfix, from userid 1202)
+	id F259E20B7167; Fri,  4 Sep 2026 13:26:56 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com F259E20B7167
+From: Long Li <longli@microsoft.com>
+To: Long Li <longli@microsoft.com>,
+	Konstantin Taranov <kotaranov@microsoft.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	"David S . Miller" <davem@davemloft.net>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Eric Dumazet <edumazet@google.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	Jason Gunthorpe <jgg@ziepe.ca>,
+	Leon Romanovsky <leon@kernel.org>,
+	Haiyang Zhang <haiyangz@microsoft.com>,
+	"K . Y . Srinivasan" <kys@microsoft.com>,
+	Wei Liu <wei.liu@kernel.org>,
+	Dexuan Cui <decui@microsoft.com>,
+	shradhagupta@linux.microsoft.com,
+	Simon Horman <horms@kernel.org>,
+	ernis@linux.microsoft.com,
+	stephen@networkplumber.org,
+	shirazsaleem@microsoft.com
+Cc: netdev@vger.kernel.org,
+	linux-rdma@vger.kernel.org,
+	linux-hyperv@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	bpf@vger.kernel.org,
+	sdf@fomichev.me,
+	daniel@iogearbox.net,
+	hawk@kernel.org,
+	ast@kernel.org,
+	john.fastabend@gmail.com
+Subject: [PATCH net] net: mana: restore the XDP program pointer when pre-allocation fails
+Date: Fri,  4 Sep 2026 13:26:40 -0700
+Message-ID: <20260904202640.3900685-1-longli@microsoft.com>
+X-Mailer: git-send-email 2.43.7
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-In-Reply-To: <44398a86-cf85-4c7b-85f1-de9beedc72fc@yoseli.org>
-Date: Fri, 4 Sep 2026 15:26:45 -0500
-X-Gm-Features: AcwNN1UeHDiIoMnhpwFKK6XEr1ozLUIj6HzYctMfqmwrWSoz_rKyl2uviZtEeDg
-Message-ID: <CALSJ-wBWQQMWnex9=bhdtdg1QM4KJ6eRvHNOi54ZtTfznQ8SjQ@mail.gmail.com>
-Subject: Re: [PATCH 2/2] arch: m68k: Add DMA mapping operations for Coldfire M5441x
-To: Jean-Michel Hautbois <jeanmichel.hautbois@yoseli.org>
-Cc: Christoph Hellwig <hch@infradead.org>, Geert Uytterhoeven <geert@linux-m68k.org>, 
-	Greg Ungerer <gerg@linux-m68k.org>, linux-m68k@lists.linux-m68k.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-Hi Jean-Muchel and all,
+mana_xdp_set() publishes the new program into apc->bpf_prog before it
+allocates anything, because mana_pre_alloc_rxbufs() sizes the buffers
+from it via mana_get_rxbuf_cfg(). When that allocation fails the
+function returns the error directly, skipping the err_dealloc_rxbuffs
+label which is the only place that restores the previous pointer.
 
-just asking if this job is in progress, since i have the same
-dspi issue open, and need dma eventually for other drivers.
+The attach is reported as failed, so the BPF core drops the reference it
+held for the caller and the program can be freed, while apc->bpf_prog
+still points at it. The next consumer of mana_xdp_get() - typically
+mana_chn_setxdp() from mana_alloc_queues() on the following ifup, or
+after a TX timeout reset - then calls bpf_prog_add() on freed memory.
 
-I can eventually help on this, i have hardware for testing.
+This is reachable from an ordinary "ip link set dev ethX xdp obj ..."
+whenever the per-queue RX buffer pre-allocation cannot be satisfied.
 
-On Wed, Jan 29, 2025 at 08:32:52AM +0100, Jean-Michel Hautbois wrote:
-> Hi Christoph,
->
-> On 28/01/2025 07:47, Christoph Hellwig wrote:
-> > On Tue, Jan 28, 2025 at 07:43:23AM +0100, Jean-Michel Hautbois wrote:
-> > > > It really should not be hard.  The dynamic mappings already work fine
-> > > > as m68k is using the generic code.  So the only thing you want is
-> > > > to dip into the glonal pool for coherent allocations. For that you
-> > > > need to select the DMA_GLOBAL_POOL config option and fill the pool
-> > > > with dma_init_global_coherent().
-> > > >
-> > >
-> > > Isn't it done in patch 1/2 ? Or did I miss something ?
-> >
-> > The point is that this is all you need.  No need for new dma ops.
-> >
->
-> Indeed, I tested it and it works fine.
-> I have removed the test in fec_main to be certain, but I think it would be
-> better to change the COLDFIRE_COHERENT_DMA conditional ?
-> What sounds like the most efficient way ?
-> I can' do:
->
-> - #if defined(CONFIG_COLDFIRE) && !defined(CONFIG_COLDFIRE_COHERENT_DMA)
-> + #if defined(CONFIG_COLDFIRE) && !defined(CONFIG_COLDFIRE_COHERENT_DMA) &&
-> !defined(CONFIG_DMA_GLOBAL_POOL)
->
-> I suppose it would be better to modify it in the Kconfig, but I can't find a
-> nice way to do it without having a circular dependency:
-> arch/m68k/Kconfig.cpu
-> @@ -555,6 +555,7 @@ config COLDFIRE_COHERENT_DMA
->         default y
->         depends on COLDFIRE
->         depends on !HAVE_CACHE_CB && !CACHE_D && !CACHE_BOTH
-> +       depends on DMA_GLOBAL_POOL
->
-> =>
-> error: recursive dependency detected!
->         symbol DMA_DIRECT_REMAP is selected by M68K_NONCOHERENT_DMA
->         symbol M68K_NONCOHERENT_DMA depends on COLDFIRE_COHERENT_DMA
->         symbol COLDFIRE_COHERENT_DMA depends on DMA_GLOBAL_POOL
->         symbol DMA_GLOBAL_POOL depends on DMA_DIRECT_REMAP
->
->
-> I will send a v2 with the global pool.
->
-> Thanks !
-> JM
->
->
-Regards,
-angelo
+Restore the previous program on that error path.
 
->
+Fixes: 730ff06d3f5c ("net: mana: Use page pool fragments for RX buffers instead of full pages to improve memory efficiency.")
+Signed-off-by: Long Li <longli@microsoft.com>
+---
+ drivers/net/ethernet/microsoft/mana/mana_bpf.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/drivers/net/ethernet/microsoft/mana/mana_bpf.c b/drivers/net/ethernet/microsoft/mana/mana_bpf.c
+index 53308e139cbe917b074dd381c83546fc74d7b79f..5c9961ee9747ab7747ce2f51eb40f3e7a55510cf 100644
+--- a/drivers/net/ethernet/microsoft/mana/mana_bpf.c
++++ b/drivers/net/ethernet/microsoft/mana/mana_bpf.c
+@@ -208,6 +208,7 @@ static int mana_xdp_set(struct net_device *ndev, struct bpf_prog *prog,
+ 		if (err) {
+ 			NL_SET_ERR_MSG_MOD(extack,
+ 					   "XDP: Insufficient memory for tx/rx re-config");
++			apc->bpf_prog = old_prog;
+ 			return err;
+ 		}
+ 
+-- 
+2.43.0
+
