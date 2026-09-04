@@ -1,299 +1,121 @@
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com [209.85.216.54])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3AC79490C0F
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 10:56:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CFED48CD6D
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 10:56:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788519413; cv=none; b=B4wS12olmsG/MUWth9QK7QnXfnvD9BpgjV6oY2fsbcIsKX0feCRGJ46qDOkMJalsADMSfr4xnA0Y6cuSWIe5VTbbz5yhYtqhCmg54rDpJ5O4oWRkoXumIoykZcb0JMfpgfZhy7Jr3WfnrspcMRvKAkL8tH68QxPg4I3RtnZi0kI=
+	t=1788519416; cv=none; b=fLeJ2cZcR7QUIUdo+Ki9X+9MCH1pfSNnlRxw9WFJ24hILNEMsGW1JqxhFUT5BHZgtZQFdP+YXJrpAV3MCEDtDJvcGmwO8npbzyk9vjT+BI81pPWpoU/zgP88JyLLIxgasrKqdkAASVl9wWrbSscjqzXeKA9pob0yy+ym3bt2YT0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788519413; c=relaxed/simple;
-	bh=rywAnVHedizvb/68yKvivbccv1PXlPLYrU5uJGws29w=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=leKwUjJqmGLPMDCNJ8eloSQmaPiT0udajH9uivMrlLevoyUl3LEbkcIfiHKZLw4e3gugb5hqzETALzNv8sqxA64ZfXVzBsjCb7uRvQRnN4lB1ae2W5kCem4B2TODs9cfy8O+1JnF82z9FtNOb7AMc/FEBEQQ1tPP3H9bZ4P2e0A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=Q38ZqPSo; arc=none smtp.client-ip=209.85.128.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1788519416; c=relaxed/simple;
+	bh=L3q78bqrpMJk/g5QJst8moEgJEW0mjslfg//pWTk2/o=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=jYpR8bjncGtIv2adyACgOhmjjg7pcggKEfG5zezPtkJrCgU4nzPW7H81WhLIhNVOiKp2lroXZlws/HHqCWC7YDGcjTeg0S7+OMESW7d+AsW0spePa+n15VlIK/jcGrtRoUJhRDh6Suj3etQanbuhVhrmztxYpMoiyNvLtN8b5xw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dU66HQU3; arc=none smtp.client-ip=209.85.216.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="Q38ZqPSo"
-Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-49556f97a9dso7507595e9.1
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 03:56:50 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dU66HQU3"
+Received: by mail-pj1-f54.google.com with SMTP id 98e67ed59e1d1-38759bcd877so835879a91.2
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 03:56:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1788519409; x=1789124209; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=gqZHXzkiJUtDXrZ/LGy/8d5EzRb7vWFnXqfYpjPHiOY=;
-        b=Q38ZqPSoByjFY825dHZNUjLrZhYZCQuKTB+TVrQefg8VxWLlu3gvcwJH6qLcOUmuL1
-         0b2A5+KvF4q3jq/bRHwev/GNdbFkFT/hG/dU2NUCMWi3+TlpvmidoMP+5FN4uRagcAJk
-         lcsMHj2puK0Jsnvtj95H82FmkW7f9LLM+UxBDvEUCGO31uulmhjFYwTYu/1fTnUPjpA4
-         aB/TZbcGQcQlTQYDfoIGr1chG4u7aesWqa9VUnYtwNIzidI2nrVteNWYrMHAcxXoTYfI
-         x8Xk1EaXooShMSHO2159ZxiCsw7bq1wbg0nZf2x8GM/1xXZBSS9Sq4hnzl9WOTUU0Mbq
-         zI6Q==
+        d=gmail.com; s=20251104; t=1788519412; x=1789124212; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=bIAgfjkMoEY865Ezpezchwh3HIj0Yl8K2XqbGFpjZ+U=;
+        b=dU66HQU3sdI3Rj0m0/x2nY7lwyBx72wHy9Em0pNLWyp5WEAAzAPBBqIUOwBocYZB7+
+         1+um0OZdOB3Omqj1boZcUrHw/NfMdXzr4VHdU71ZOmyiBdZLY+lHcyEFbNd/ps+K9q5v
+         JwH8XDcHqwcwWjMKfopA10iIZDWjBhgS9HT9vO7T9tw9m7jp5psjO6Y+aLwz+cUoNpbN
+         0oA7irvEAbxcdZ3i56rXUtPOEYn8acCd8RKWxNxsA6zhpbWd7jl3LUNscgKxF8ONdWop
+         BL7KNa5KOMPMu7FcmuIN1/r1b4W8ONNfBFfcG+Bo+papEwyS6UWySe+LTDx7Bpb+kcDW
+         TKuQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788519409; x=1789124209;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=gqZHXzkiJUtDXrZ/LGy/8d5EzRb7vWFnXqfYpjPHiOY=;
-        b=IRyKbyCdQ352i9FICsOztQthlSQg91eYnK8bSUacyC9iwzI31axB7L12ASCXK32/DF
-         5rXzkSe4InX+DuMkIzuT1Ufgu0XbjfVLKQ+5+fGRVV/Gwg1SU5VmNlU2TOwiTucKvxqq
-         kbZO0nXXVACjPofUEzEETBKBUQmivDgVXHEYiV6BNZgpQV2YnZM+8qg4ccP4q4YKRq/b
-         rPDSgjAmGaqSSJqs/Dp8saaexWizOYh3TLcYze1tKExXL0ky3exMZJ0X1KetQEc4mLRN
-         lK9spIqdMVz3slpd/AHfo/AOksVaQ0Hshw6Z6R7uhXI8n/EkfDVlbfEwyMwmGzQyCHta
-         0oBA==
-X-Forwarded-Encrypted: i=1; AKwUvByGaxiDV+nxkUQwbUenistDHU4TcqP6GksajYwkY5XKUKHGT+mw5g4+qo4sNtDEssvJAPIuY72ppXqJ9JE=@vger.kernel.org
-X-Gm-Message-State: AFuF++l7uPwP6d1T5K5sLy8o9f3agj26/EaHt8mh+2tghusHIGF7evhH
-	+1FWERSWp52RR6RpIqkvUklo7gko18tXMkGRaSQu6Xdjt6vrI6h5FMnkl+u+051O9xc=
-X-Gm-Gg: AYBFou18J4LiBcJOsztV0v7RUFcf15cAqzsCCHvvaTfR3bqcACoh8KR9N2bW6Qros1C
-	O4z/mvNjLap+fNVMhhLlRFyba3cFUSuSdoD4QQREu5ApcYEVHDvBmSjs6L8yHc4rT7cciwE550x
-	8d+qEqcbtQJBe/UH7uajaPPzCZTNtrWnyyFSYdJtm6tl7kcr1F3vtIb4RhrxrvaDuBX+PPXC5qF
-	x0kmjxmujTDwP36OG2a54uuPvfFH/NlaXkmST/PEf9KFN4l9TIk8UxGNK8ORabejyqw/uRnKa07
-	T1F6WCfAtJKyXiu2POppWpz/AUK5XUehS+yBa4PG/OHbkb9aHFlIm8k1ht/hKu9nJoMRvb0e2NT
-	vD2KxcwU7WHrodnRZZ5MS0oUumtEItc4KgASQtKRzRgVHX+a5hM5AECFLCVqSWcWog9qAVhep92
-	PwCEr7YwvN42+TwnQvyvNrruqfAQN0r40mhzmQWD4qMAJ69AWdWUx+M7z6PA+CuHNB4Zgpt9E5
-X-Received: by 2002:a05:600c:1551:b0:49c:fa21:e73e with SMTP id 5b1f17b1804b1-49cfa21e935mr32814925e9.20.1788519408950;
-        Fri, 04 Sep 2026 03:56:48 -0700 (PDT)
-Received: from [192.168.0.35] ([109.76.237.179])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ce46696e8sm132110525e9.0.2026.09.04.03.56.47
+        d=1e100.net; s=20251104; t=1788519412; x=1789124212;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=bIAgfjkMoEY865Ezpezchwh3HIj0Yl8K2XqbGFpjZ+U=;
+        b=lNtOwG1Gc0ZEZB5OhzIbPudy0sK+a2BQ7tE/prxvLEnbw7HnGkuzF33x7NQWT+Y9RK
+         7utPhnu6H06IYJ0Ka/yBHhlBjKVvlbDpELyyfcJyaCvOOtW78jH1Mxl1MrRW0gIXANA/
+         6dIMx23Kh1Fp98vCmrPzIAuS5pXN/CFHwZsvrbEPPg1xsa4jGn6XOixTh10Nqp8oh0Np
+         CJSK0s3i9xyLAG968x8bNTOmF3Lf2cAlBkzfBp9ywkFoNzLv9qcsHXscpSMm8WsKfrC5
+         r5jzE2dO4L4VQaL5UZKYvR8wq3AvQkDK3QFG73Km58cQdMdtyeqYPQv/FvjVlVbQZBa1
+         wxuA==
+X-Gm-Message-State: AFuF++m+mvcvWZAPZ/v7NONJo7BuSY5eCKFIyovCHsIXh+n9hfQuUQIT
+	mtOjnvOrxNYEMyEg5+lk7HlcmDOQo2araKTiBApdKzKQukQ35QAhoRn6P6/BOJd9w3s=
+X-Gm-Gg: AYBFou0U5i6hqGnkEisNLDy0a2+CohjdCljiaLGOmfy5zoUgferECTpuAUazZX1WsQL
+	f9bODqzCThWMdUQS5BfkV7xgq5zTsDZqczMr0FB+50fh3cSqzEK8HZuY7dhrAh6EON4KEo2s4Zf
+	pSCzGK2DVu4yQrqeUvATVNbhhQPfvRl6JuCPN1PLlcn998amB6+T80GotVj2AZ2bM8OJj0P+JSa
+	iaCHjPOotoNwc2KrbEdKmnVEUU7stAgW1R8yXdvGGa/x7ANWI1LYiX11jDB6Z2HRaKl7S55AyF6
+	u/AFP9d39b+sWQXRxGkNJ1wDm8s5GbPYxMBF9deOXu1d9BOeE1CF+acGodBOLzGYdKDyL5qnwiI
+	/yKxgrUGdpWRSO01Qm7ReDPxkpzHAI7lLfuvYAfikcn6Fl01Q+4Hzgg7F08NufAHj2ZcTNhM7AT
+	o/4rdcrVMhxah/VuEmRkw8bqi+Btr1EWR8E2MsDzVVCoZ1us2jaJTWHlSfDwPfeyT4R1CEZklNe
+	4hOSTYLoNw8FCc=
+X-Received: by 2002:a17:90b:3d89:b0:396:5fce:8e24 with SMTP id 98e67ed59e1d1-39b260d2ea8mr7099437a91.4.1788519412234;
+        Fri, 04 Sep 2026 03:56:52 -0700 (PDT)
+Received: from volcano9f6e-hostos.amd.com ([165.204.217.251])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339b6036fcsm6233396eec.20.2026.09.04.03.56.50
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 04 Sep 2026 03:56:48 -0700 (PDT)
-From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Date: Fri, 04 Sep 2026 11:56:36 +0100
-Subject: [PATCH v5 04/13] arm64: dts: qcom: x1e80100: Add CCI definitions
+        Fri, 04 Sep 2026 03:56:51 -0700 (PDT)
+From: Hemanth Selam <hemanth.selam@gmail.com>
+To: Brian Cain <bcain@kernel.org>
+Cc: linux-kernel@vger.kernel.org,
+	linux-hexagon@vger.kernel.org
+Subject: [PATCH] hexagon: fix typos in comments
+Date: Fri,  4 Sep 2026 16:26:46 +0530
+Message-ID: <20260904105647.38515-1-hemanth.selam@gmail.com>
+X-Mailer: git-send-email 2.48.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260904-x1e-camss-csi2-phy-dtsi-v5-4-dc81d85b599d@linaro.org>
-References: <20260904-x1e-camss-csi2-phy-dtsi-v5-0-dc81d85b599d@linaro.org>
-In-Reply-To: <20260904-x1e-camss-csi2-phy-dtsi-v5-0-dc81d85b599d@linaro.org>
-To: Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Bryan O'Donoghue <bod@kernel.org>, 
- Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, 
- Loic Poulain <loic.poulain@oss.qualcomm.com>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
- linux-media@vger.kernel.org, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=5073;
- i=bryan.odonoghue@linaro.org; h=from:subject:message-id;
- bh=rywAnVHedizvb/68yKvivbccv1PXlPLYrU5uJGws29w=;
- b=owEBbQKS/ZANAwAKASJxO7Ohjcg6AcsmYgBqmqPmucqSpOfnTbiNW8JbFpKsLlRayQwwTu4cp
- Wade1GdDZ2JAjMEAAEKAB0WIQTmk/sqq6Nt4Rerb7QicTuzoY3IOgUCapqj5gAKCRAicTuzoY3I
- Op+uD/9ti/e9IJ+VO+z8+NR814sOzWDRjQkOL3oPGWDqztky7rfH2+IKGZd2KpptonffN2POL3y
- B3Knt71B1Et2+Fl1jNkwllUhq+11KNeT2XOUus8QwQ1BICFMbGIvTkQvjvIqhOj5D+37XOQW6Ti
- HvJwBm04r+aPtp8RutIKdKrnuGr8UG6Juozjp6nYxpyNibpHdF3M28IAsU2OKu8PNfLN1prOD08
- 1Xo4qWT9M1l8gUryKBpoG//awAjoyD4UJMBV+K5zOce8ce4cOo6hVd0IDSzkhhh09m0H4FHXeSp
- MPuXT2UqjuDdWc0DMvIZUwyxVudT/qsA/5Wh7Mh3W9RE2Yi5NcUGcnfZFTwJOaCVs88+2dZMN1R
- DG5VI8HWuW/OWNLZMaGpUWpSQERvY/y5mx75abbph8N1iPmSHfIBNoOynWdJuKY5DsES/D0w5+h
- SuAACukZyv7/gruVFVLxTxLxtuc7HGktSH/l41/T1dpwyAp5EkbkwHwgCb9rVwyYVITREL1IsjJ
- Rxjxp/qfdbt/ieCjqUDhoXfNflpo68x6lYXuFgUZrkOKQL5l6CrmIr5qBt9w4y3wUNaUmdCqOO8
- enaZDfJsbG+7VWe2Kchmj0vUCCv/mxOIT0zFRjuiWMVoxT6BA8VNe3/qgrf5bKh5qrtDupAuNnO
- b32OsYyEmU4MG0g==
-X-Developer-Key: i=bryan.odonoghue@linaro.org; a=openpgp;
- fpr=E693FB2AABA36DE117AB6FB422713BB3A18DC83A
+Content-Transfer-Encoding: 8bit
 
-Add in two CCI buses.
+Fix typos in comments, reported by scripts/checkpatch.pl using the
+misspelling list in scripts/spelling.txt.  Only touches comments, no code
+changes.
 
-One bus has two CCI bus master pinouts:
-cci_i2c_sda0 = gpio101
-cci_i2c_scl0 = gpio102
-
-cci_i2c_sda1 = gpio103
-cci_i2c_scl1 = gpio104
-
-The second bus has two CCI bus master pinouts:
-cci_i2c_sda2 = gpio105
-cci_i2c_scl2 = gpio106
-
-aon_cci_i2c_sda3 = gpio235
-aon_cci_i2c_scl3 = gpio236
-
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Reviewed-by: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
-Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Assisted-by: Cursor:claude-opus-5
+Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
 ---
- arch/arm64/boot/dts/qcom/hamoa.dtsi | 150 ++++++++++++++++++++++++++++++++++++
- 1 file changed, 150 insertions(+)
+ arch/hexagon/include/asm/hexagon_vm.h | 2 +-
+ arch/hexagon/lib/memcpy.S             | 4 ++--
+ 2 files changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/arch/arm64/boot/dts/qcom/hamoa.dtsi b/arch/arm64/boot/dts/qcom/hamoa.dtsi
-index 9a8d6f020a391..9a854da9550c3 100644
---- a/arch/arm64/boot/dts/qcom/hamoa.dtsi
-+++ b/arch/arm64/boot/dts/qcom/hamoa.dtsi
-@@ -5551,6 +5551,84 @@ videocc: clock-controller@aaf0000 {
- 			#power-domain-cells = <1>;
- 		};
+diff --git a/arch/hexagon/include/asm/hexagon_vm.h b/arch/hexagon/include/asm/hexagon_vm.h
+index 9aa2493fe786..1a65dc6213b7 100644
+--- a/arch/hexagon/include/asm/hexagon_vm.h
++++ b/arch/hexagon/include/asm/hexagon_vm.h
+@@ -239,7 +239,7 @@ static inline long __vmintop_clear(long i)
+ #define HVM_EV_GENEX		2
+ #define HVM_EV_TRAP		8
+ #define HVM_EV_INTR		15
+-/* These shoud be nuked as soon as we know the VM is up to spec v0.1.1 */
++/* These should be nuked as soon as we know the VM is up to spec v0.1.1 */
+ #define HVM_EV_INTR_0		16
+ #define HVM_MAX_INTR		240
  
-+		cci0: cci@ac15000 {
-+			compatible = "qcom,x1e80100-cci", "qcom,msm8996-cci";
-+			reg = <0 0x0ac15000 0 0x1000>;
-+
-+			interrupts = <GIC_SPI 460 IRQ_TYPE_EDGE_RISING>;
-+
-+			clocks = <&camcc CAM_CC_CAMNOC_AXI_RT_CLK>,
-+				 <&camcc CAM_CC_CPAS_AHB_CLK>,
-+				 <&camcc CAM_CC_CCI_0_CLK>;
-+			clock-names = "camnoc_axi",
-+				      "cpas_ahb",
-+				      "cci";
-+
-+			power-domains = <&camcc CAM_CC_TITAN_TOP_GDSC>;
-+
-+			pinctrl-0 = <&cci0_default>;
-+			pinctrl-1 = <&cci0_sleep>;
-+			pinctrl-names = "default", "sleep";
-+
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+
-+			status = "disabled";
-+
-+			cci0_i2c0: i2c-bus@0 {
-+				reg = <0>;
-+				clock-frequency = <1000000>;
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+			};
-+
-+			cci0_i2c1: i2c-bus@1 {
-+				reg = <1>;
-+				clock-frequency = <1000000>;
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+			};
-+		};
-+
-+		cci1: cci@ac16000 {
-+			compatible = "qcom,x1e80100-cci", "qcom,msm8996-cci";
-+			reg = <0 0x0ac16000 0 0x1000>;
-+
-+			interrupts = <GIC_SPI 271 IRQ_TYPE_EDGE_RISING>;
-+
-+			clocks = <&camcc CAM_CC_CAMNOC_AXI_RT_CLK>,
-+				 <&camcc CAM_CC_CPAS_AHB_CLK>,
-+				 <&camcc CAM_CC_CCI_1_CLK>;
-+			clock-names = "camnoc_axi",
-+				      "cpas_ahb",
-+				      "cci";
-+
-+			power-domains = <&camcc CAM_CC_TITAN_TOP_GDSC>;
-+
-+			pinctrl-0 = <&cci1_default>;
-+			pinctrl-1 = <&cci1_sleep>;
-+			pinctrl-names = "default", "sleep";
-+
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+
-+			status = "disabled";
-+
-+			cci1_i2c0: i2c-bus@0 {
-+				reg = <0>;
-+				clock-frequency = <1000000>;
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+			};
-+
-+			cci1_i2c1: i2c-bus@1 {
-+				reg = <1>;
-+				clock-frequency = <1000000>;
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+			};
-+		};
-+
- 		camcc: clock-controller@ade0000 {
- 			compatible = "qcom,x1e80100-camcc";
- 			reg = <0 0x0ade0000 0 0x20000>;
-@@ -6148,6 +6226,78 @@ tlmm: pinctrl@f100000 {
- 			gpio-ranges = <&tlmm 0 0 239>;
- 			wakeup-parent = <&pdc>;
- 
-+			cci0_default: cci0-default-state {
-+				cci0_i2c0_default: cci0-i2c0-default-pins {
-+					/* cci_i2c_sda0, cci_i2c_scl0 */
-+					pins = "gpio101", "gpio102";
-+					function = "cci_i2c";
-+					drive-strength = <2>;
-+					bias-pull-up;
-+				};
-+
-+				cci0_i2c1_default: cci0-i2c1-default-pins {
-+					/* cci_i2c_sda1, cci_i2c_scl1 */
-+					pins = "gpio103", "gpio104";
-+					function = "cci_i2c";
-+					drive-strength = <2>;
-+					bias-pull-up;
-+				};
-+			};
-+
-+			cci0_sleep: cci0-sleep-state {
-+				cci0_i2c0_sleep: cci0-i2c0-sleep-pins {
-+					/* cci_i2c_sda0, cci_i2c_scl0 */
-+					pins = "gpio101", "gpio102";
-+					function = "cci_i2c";
-+					drive-strength = <2>;
-+					bias-pull-down;
-+				};
-+
-+				cci0_i2c1_sleep: cci0-i2c1-sleep-pins {
-+					/* cci_i2c_sda1, cci_i2c_scl1 */
-+					pins = "gpio103", "gpio104";
-+					function = "cci_i2c";
-+					drive-strength = <2>;
-+					bias-pull-down;
-+				};
-+			};
-+
-+			cci1_default: cci1-default-state {
-+				cci1_i2c0_default: cci1-i2c0-default-pins {
-+					/* cci_i2c_sda2, cci_i2c_scl2 */
-+					pins = "gpio105", "gpio106";
-+					function = "cci_i2c";
-+					drive-strength = <2>;
-+					bias-pull-up;
-+				};
-+
-+				cci1_i2c1_default: cci1-i2c1-default-pins {
-+					/* aon_cci_i2c_sda3, aon_cci_i2c_scl3 */
-+					pins = "gpio235", "gpio236";
-+					function = "aon_cci";
-+					drive-strength = <2>;
-+					bias-pull-up;
-+				};
-+			};
-+
-+			cci1_sleep: cci1-sleep-state {
-+				cci1_i2c0_sleep: cci1-i2c0-sleep-pins {
-+					/* cci_i2c_sda2, cci_i2c_scl2 */
-+					pins = "gpio105", "gpio106";
-+					function = "cci_i2c";
-+					drive-strength = <2>;
-+					bias-pull-down;
-+				};
-+
-+				cci1_i2c1_sleep: cci1-i2c1-sleep-pins {
-+					/* aon_cci_i2c_sda3, aon_cci_i2c_scl3 */
-+					pins = "gpio235", "gpio236";
-+					function = "aon_cci";
-+					drive-strength = <2>;
-+					bias-pull-down;
-+				};
-+			};
-+
- 			edp0_hpd_default: edp0-hpd-default-state {
- 				pins = "gpio119";
- 				function = "edp0_hot";
-
+diff --git a/arch/hexagon/lib/memcpy.S b/arch/hexagon/lib/memcpy.S
+index f8b3c02a8ad1..ae360be68b0d 100644
+--- a/arch/hexagon/lib/memcpy.S
++++ b/arch/hexagon/lib/memcpy.S
+@@ -291,7 +291,7 @@ memcpy:
+ 	if(noprolog) jump .Lnoprolog32;
+ 	align = offset;
+ }
+-/*  upto initial 7 bytes  */
++/*  up to initial 7 bytes  */
+ {
+ 	ldata0 = valignb(dataF8, data70, align);
+ 	ifbyte = tstbit(shift,#3);
+@@ -525,5 +525,5 @@ memcpy:
+ 	r25:24 = memd(sp+#8);	/*  restore r24+r25  */
+ 	r17:16 = memd(sp+#0);	/*  restore r16+r17  */
+ }
+-	deallocframe;	/*  restore r31 and incrment stack by 16  */
++	deallocframe;	/*  restore r31 and increment stack by 16  */
+ 	jumpr r31
 -- 
-2.55.0
+2.48.1
 
