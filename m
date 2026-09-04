@@ -1,58 +1,119 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A742D3F1653;
-	Fri,  4 Sep 2026 14:06:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A73FF4A3D35
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 14:06:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788530801; cv=none; b=kZRlojS8G62aGQlOuGG8CMbGvpII0AnI4+aOUsneS4Sg7WV5ERE/WG9CgbRzRCxcHdRlCWSTzETY69fween915658nfVZnDDfT38PNx+6KbTPvTsdmskbwXpVO1aQdVzXF4skYWkhlzdgYuLTLiVGmqop9vMj7D/pe0t5z8cp0c=
+	t=1788530815; cv=none; b=CaaKBmoW47NhsC2hNLGosdOSZsC4n/n4gKsGwGw6/LcC62kZ6RvyMOYODIpCyI0nNxbKMgyY3WFXtXeCEA0yvVoW+4kzh7Zb7MCs6JFQvN0BWHmIHa9aSnoXGV93diDLkGdhxu9mIHBmzCFbajCvKxCo3iRyrf4jaE3khdEU0fE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788530801; c=relaxed/simple;
-	bh=XnVDiGu274EUdebWL1IBsHvy2N1BGqVRy+c2kkjzZ60=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Z8atDFxFuRJig25nD+YSh0OhkJlhmX47xAT5/YzRewc7eVEG2I46a9/RQk8L2sKipwgtTaL+i2VhfzaFW5oQTkhXnzaH0CZWnEbaUxSgULEUWStSeTDc0MVrS4K8W/bfzdKcW9lQVkIQyTnOdENweLkswOT3ZJFk7T+Ryaz5K9w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=zZKnReiO; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	s=arc-20240116; t=1788530815; c=relaxed/simple;
+	bh=ichzwRGQuMRKN55HppDCxz8fwjm6tbc80DRWAaDoips=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=XSvHG3k+l4ziFeTSQVrV3rHWFSvH9ss921FilGT5kw+wnR3ljjP2F2eQyVVyQGQdTmEJczbAyRUjvNeuvZ6qkKEIaVfLCMm8R/YC3Sf6aEi7fhDef1xuMTFpyYpvmYD0O8DFE6DMW3d4n1m3A3mPB/ikDJsbVLEYJa8OBBSmB1s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ohC590BI; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="zZKnReiO"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=lvfH7ynNQ+zc9zKW7XQOlu+jjiRQgmuVWnL9D3qepdg=; b=zZKnReiOMycIR5rl5koVdm1280
-	cvQaAVFP3vGaTffD3YlgWw/u/nryeei3X1FOZGY31EtL0IYOSI6GcF70G3L7DZdkBFApbxfzANvUY
-	0WM0CuaeQb1JJ+L4jTbN+cjVjTYLP1cF01Qhdz//5RO1fC4TJ54QCRbD+lnu06gyxXzY=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1x2UYw-003080-8w; Fri, 04 Sep 2026 16:06:38 +0200
-Date: Fri, 4 Sep 2026 16:06:38 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Hemanth Selam <hemanth.selam@gmail.com>
-Cc: Richard Cochran <richardcochran@gmail.com>,
-	linux-kernel@vger.kernel.org, netdev@vger.kernel.org
-Subject: Re: [PATCH 0/8] net: fix typos and repeated words in comments
-Message-ID: <52ce81a2-84aa-41bf-ac67-cfdf137b896e@lunn.ch>
-References: <20260904125336.12749-1-hemanth.selam@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ohC590BI"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4D1281F00A3E
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 14:06:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788530813;
+	bh=CYXWK9ZBlYQ1rrbxgiW2csNEJRR76+o2ywAlbXk43nU=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=ohC590BIC7ov34+5Hj+5cGitlExSa2Uisv8yzDOuY1eoDZZuC8dvb73NJzRweSQHW
+	 1gqhUeROSKe7d6HiyLiLY3ruHKo7T6vrOKfJ7n/Cbna4aUIlA0ZCQQdtSJ/roMckEG
+	 WI+K1fWUdMfuDH4ogokm0L9fHBF4xRhOV06aJV62/lSEaaKDy+e6wHhTOXRewAfhQZ
+	 /QgHVq+WogbhZPUqH0Q7hFOQwcTydrYRb/846iuFb8X91S6AiQRuKbLJKiWAH4cCpE
+	 h2Ieo+q0XOXyDEHbfJMm0x2nKPzFeVqeZ7k9VAjNXDrhI9kiM53QJG+1zYOiWC3Og+
+	 JFLRqQGl6uL0A==
+Received: by mail-vk1-f180.google.com with SMTP id 71dfb90a1353d-5c7d1512dbfso894280e0c.1
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 07:06:53 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBxn6IpkLMxiAGB7Z/DAZ6r+iis68NWRMOHGlWPXaWsN7oHeNyUpkS3v286aATG5I1MVD2FM6vKZxMJhHps=@vger.kernel.org
+X-Gm-Message-State: AFuF++kxmNCY8lhw3PtMsItin6vsu6tyOIQTddDD4Mfl0k3GSjDCYbs6
+	PeYnmINdjEBxRMjS+CoTmJrKeMru8k5D4oTuv7tjAaHoR7hrv8EF4YdR4xlYzUQJzqT4luHDlS2
+	qN+zcCAEKrLYpIFmIXD2X7R6RRhuvHdI=
+X-Received: by 2002:a05:6122:881:b0:5c5:db2b:5baa with SMTP id
+ 71dfb90a1353d-5c7ed7cba16mr2788761e0c.6.1788530812518; Fri, 04 Sep 2026
+ 07:06:52 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260904125336.12749-1-hemanth.selam@gmail.com>
+References: <20260813081721.2645937-1-andriy.shevchenko@linux.intel.com>
+In-Reply-To: <20260813081721.2645937-1-andriy.shevchenko@linux.intel.com>
+From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
+Date: Fri, 4 Sep 2026 16:05:49 +0200
+X-Gmail-Original-Message-ID: <CAJZ5v0i0zfLa76q_6bvc01qf+z_c69P=YdPMPTWanThoVFqw6g@mail.gmail.com>
+X-Gm-Features: AcwNN1V1XWiibo4KjHzpgchDcE_kjPhfT3HjyCe1mQtdg9Z1pgsbb1NsECOPQDA
+Message-ID: <CAJZ5v0i0zfLa76q_6bvc01qf+z_c69P=YdPMPTWanThoVFqw6g@mail.gmail.com>
+Subject: Re: [PATCH v1 1/1] intel_idle: Replace min_t() with the better alternatives
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Cc: "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>, linux-pm@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, "Rafael J. Wysocki" <rafael@kernel.org>, 
+	Artem Bityutskiy <artem.bityutskiy@linux.intel.com>, Len Brown <lenb@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Fri, Sep 04, 2026 at 06:22:53PM +0530, Hemanth Selam wrote:
-> This corrects 8 misspellings and repeated words in comments.  Each is a
-> separate patch so that any one of them can be dropped without touching
-> the rest.
+On Thu, Aug 13, 2026 at 10:17=E2=80=AFAM Andy Shevchenko
+<andriy.shevchenko@linux.intel.com> wrote:
+>
+> Almost always use of min_t() is wrong. Replace it with min() and min3() a=
+s all
+> types are int and there is no point to use typed variant of it.
+>
+> Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+> ---
+>  drivers/idle/intel_idle.c | 8 +++-----
+>  1 file changed, 3 insertions(+), 5 deletions(-)
+>
+> diff --git a/drivers/idle/intel_idle.c b/drivers/idle/intel_idle.c
+> index b12b4f62752a..699665f24ecd 100644
+> --- a/drivers/idle/intel_idle.c
+> +++ b/drivers/idle/intel_idle.c
+> @@ -1792,9 +1792,7 @@ static bool __init intel_idle_cst_usable(void)
+>  {
+>         int cstate, limit;
+>
+> -       limit =3D min_t(int, min_t(int, CPUIDLE_STATE_MAX, max_cstate + 1=
+),
+> -                     acpi_state_table.count);
+> -
+> +       limit =3D min3(CPUIDLE_STATE_MAX, max_cstate + 1, acpi_state_tabl=
+e.count);
+>         for (cstate =3D 1; cstate < limit; cstate++) {
+>                 struct acpi_processor_cx *cx =3D &acpi_state_table.states=
+[cstate];
+>
+> @@ -1938,7 +1936,7 @@ static void __init intel_idle_init_cstates_acpi_lpi=
+(struct cpuidle_driver *drv)
+>
+>  static void __init intel_idle_init_cstates_acpi_cst(struct cpuidle_drive=
+r *drv)
+>  {
+> -       int cstate, limit =3D min_t(int, CPUIDLE_STATE_MAX, acpi_state_ta=
+ble.count);
+> +       int cstate, limit =3D min(CPUIDLE_STATE_MAX, acpi_state_table.cou=
+nt);
+>
+>         /*
+>          * If limit > 0, intel_idle_cst_usable() has returned 'true', so =
+all of
+> @@ -2018,7 +2016,7 @@ static bool __init intel_idle_off_by_default_lpi(un=
+signed int flags, u32 mwait_h
+>
+>  static bool __init intel_idle_off_by_default_cst(unsigned int flags, u32=
+ mwait_hint)
+>  {
+> -       int cstate, limit =3D min_t(int, CPUIDLE_STATE_MAX, acpi_state_ta=
+ble.count);
+> +       int cstate, limit =3D min(CPUIDLE_STATE_MAX, acpi_state_table.cou=
+nt);
+>
+>         /*
+>          * If limit > 0, intel_idle_cst_usable() has returned 'true', so =
+all of
+> --
 
-Nice to see a patch 0/X, but you somehow managed to not thread the
-other patches to this email?
-
-Please take a look at b4 prep, or git --send-email.
-
-       Andrew
+Applied as 7.4 material, thanks!
