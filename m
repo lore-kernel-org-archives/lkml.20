@@ -1,118 +1,192 @@
-Received: from mail-oo1-f53.google.com (mail-oo1-f53.google.com [209.85.161.53])
+Received: from mail-oi1-f177.google.com (mail-oi1-f177.google.com [209.85.167.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A96FB503BD0
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 17:13:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.161.53
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788542039; cv=pass; b=GApQejxEUw57b4qTNBOLtVE213wZILjpHXDZjIeoNDepsunRkEiKHUr80F9qo0TxF0yXg8mfvuYXXjHXQHhflOmv4Qi1L+PkZ0IkvKIiZZPYg/Rckr+RDopqo3qSmyGXXyYGNOStmPBnbXRXp+mXtUWVqBkmjLFbycBikGJ4yB8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788542039; c=relaxed/simple;
-	bh=gI9dUQ8wiv5lv2x0pFlCP4x8bszPw6o3peECtO1JUEw=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=ln4aOvxkzJ7pJ4ASmY483hvJ2VLvPD5h8lGxoLnnLxoOgAh3Hc4pzexxUo0kJLoZl+ibDuMkhJepaK06Gr6zetNgy4t4l06Z5Hw9PsCmYUvpfe9szgzR/tSWGX0aAiZzG2dKCgX2je7swVDyribdOdpqYb2v/rJ8XcKPq+2emjs=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cmjFENGP; arc=pass smtp.client-ip=209.85.161.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AECF23CE4B5
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 17:14:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.177
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788542057; cv=none; b=Q5d/dsbin/7bsmHcw+JknHOyUzRT5uNpNzjyreBQDgHcT5GFKV7djIQHQGfuHcVGcJQa89XUzie9Be2pT0ujnX2qTf0qf2op4yYA6DSnS0u/0YVLCH496GDEZ8BFpRLp6S0dpZw88JGAliiEKDEL/HZ3Y3pFU28BD1bGstM9Kxg=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788542057; c=relaxed/simple;
+	bh=Czx++Bv+Cuv0Yiguw7eimQMoiXbfQDnkXg54do1X9Tw=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=G/xta14rZ2zAAUapli2LKUiOW9GWErTBtB925fjOIxzFpW2XM2D9SVJs8LFNjXXUk403d//93lWvyTQKFvVYYPhBzZE+s+enugwzHvnDUsVg6J18sPetJN0oxhZ8a3LfkvMVDpV5yMdPWnppc2J/Z9uy6a9+O0bR6gB1+clhEJQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IA+Xf4Ke; arc=none smtp.client-ip=209.85.167.177
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cmjFENGP"
-Received: by mail-oo1-f53.google.com with SMTP id 006d021491bc7-6b3671a1b20so865551eaf.3
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 10:13:57 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788542036; cv=none;
-        d=google.com; s=arc-20260327;
-        b=jfnDW/xd8Pm/Lb9uCrSw/HEnl1rOhgcCbWW/BQO3JkR8rRqZDIv2VlpKmoClMAFawB
-         inMlY7r7SzqbNzv6+B13O5Y8ZHXB+QHjrQYIfC3cfimChGrB+moqPvqALjpE7O5Y90hK
-         kRjc+u7Tygz4tTV/QS84r11pZjtiPE1GoStUq5BCYnOYAMC1kE9PFX4V9D4Y0webkoeF
-         wyDy3653s5zw35cqRc4HSt0qD2/XlH8epgQu7dlk5idZ4MV6/bdBrzRQ2P3Rerj/fWJa
-         fvwaUYacwTkhtOQirp0qi6RkwqsWvb/zo5c5Yh7vJSWod4HOzFuuh5q9MsFvslsPwHVU
-         74qw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=2gGWC58DN3Hv47prtJd6tW+JLQXqnPK3pzZLxlOZTUk=;
-        fh=W41lLk9wF9/39j8Qh4zG1y1U5mnC/H5amly55NJ7xAM=;
-        b=q9Aq/GJJJ0KPQEzh1zjYD8lKEcAxKRAhz8fOu6dRqvieTArgiVTfRIoBfCFV5cmOCq
-         X3+QV/21EtCNw5muUgn4jNYxT+YxC0Nv1z4hoamBEtCXdS5+qFsE77UvtgMpYHwRsNoY
-         0MdVCst7V/mxoii5r017y8oxdjfcxguB13WPvziJzXTD+M52yqajcTvMqrntbce5dDWy
-         amcGtM9C1v6DlaSmISiR9kyVPo863YibQlheeyZ0IoeqYmQQpZFgQKi8Aziu7mvedeRi
-         9uIQb6Wh11T8wiSeYlAKCg+DZxcfaKKxSF2QbpMDBnADpoAN0AxLuZciyiy1VcvEirO6
-         h3Ug==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IA+Xf4Ke"
+Received: by mail-oi1-f177.google.com with SMTP id 5614622812f47-4b58562bdb4so935113b6e.1
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 10:14:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788542036; x=1789146836; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=2gGWC58DN3Hv47prtJd6tW+JLQXqnPK3pzZLxlOZTUk=;
-        b=cmjFENGP5SyGxdQBNSitTV8gGxIrh74w5lPUOHaTx9ul8oX2t18of6hDyTWfgI1Wcb
-         arNLfeiVNtK73LOcsUUGAwyKlz/JtxtLiWAz1p84miRF9CC9vmSfpZ6Tot0jGYWVIg9G
-         /dUdINDRi6nGdz8QDQoWGy71ltABzbJuU1X9o+zZTmM1io2bjRoz8QYMh4nWNYuOd6An
-         vT7n8SjWJkNa8Vkn5i1hqpsIwYxpweQLPXrhaWlDIZWNT9gk8GnL5kvEQl2ptEyWjMDC
-         UyuCmlm4dbDH5QwOvA71KKyRYHGpYJT8rJUSQFS8BvPtrbOXLSOqArpONZmWvYxS3R3b
-         OKSA==
+        d=gmail.com; s=20251104; t=1788542054; x=1789146854; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=gjaqkPTnppiQ9iMiGEGM/pFHCNqFkiCYfaf94LCABdI=;
+        b=IA+Xf4Ke7yec0AIxUsK86Lf/HgH6X20gDMkNlXcoLsoMAsNgsmvV6IsmailKeRVFcs
+         04AB7G2MJHiMXMQVyK4kGob1Y2ck9cL1VrB7wLuRcxcU6YNVUIsEtWwYZF574412KGZX
+         ZDaRhrsusJK0miESVxaqDAdHCNiUBdRDnZotkC1tZXptTwet4inkf+TSpmlYDkG4RHYd
+         X/PD5PDhSexfBI5QcVviDXo7bC10/B0PORVpPVb0pPq3PSFKvvgAFjLKhg0LaUiwJ2e1
+         lsLVf2dpbPRikKZMPOOtLPc8keDCR7HjcRZVcl3r33hz3dIsga/BfuEG3XeDSii5oZWP
+         1IoQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788542036; x=1789146836;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=2gGWC58DN3Hv47prtJd6tW+JLQXqnPK3pzZLxlOZTUk=;
-        b=UR98sHasvIOQjle2LLx4Bea5Yed8FczN7783VUfaM4/7ia27AnM184l3Jy10rs3aKk
-         MSQM81MY8OrAQpj8sIjkgeOJ3iy9U1P1xnpxAJ93q7wCwrSEcrG7jli9yp8a1CuCcfQ6
-         puuQB+mx4okXtVqJiA2QKe5G8dhPfWK9USwXZ1NnjSIQnxKczu50E1/urrq+gg0J6pJ7
-         Mcr14VD1dsNra8K1g3U5dBmc0zC4GFQec1iZoFzqPaHyb3XTG1LX5Mt6HWCZtUgJkMOh
-         wrNyc3xAgw50KzObj2lZ/3wqjO2zx1WNlvfQZIpbvPEQ936MCs1tlo2BHa2mbX3ZD86D
-         dlKw==
-X-Forwarded-Encrypted: i=1; AKwUvBxPWOjUMmjIMmCHzcjYbT+zo4bpivrlq+DZr8/tiOG9cE3bfRfVP3TYKldSXxm9bZMSEgoQMwdMdmIYzts=@vger.kernel.org
-X-Gm-Message-State: AFuF++mg9mQ5qX2wweV2V1pMYvr5TxJEXe8OqOhGw9RRMBP9OAj2Vj5Y
-	3fJbSoSzRXPIHRVREqPd4bHMQMdKKHllTytBf0oWicpwetY8V7kf30gqFw7kyHOdTLFwDrqvkAN
-	8T0+QF4wfeSOqDwfUeYbgDTBa/jumObw=
-X-Gm-Gg: AYBFou27RDMCtGcZnSigHigqTPmbpb+XgMqTUm6LR8l3qDObl+WNXt2appGAgGWVRLc
-	DfVwqXQxuAxTnyC5t1BVLZ2IHXJoS0KEL5didc7aTu7sOVaSGlCRSxGwt8BmvStVvH0xWY8lgOk
-	0lU6Z6CzfZf00F4HSc7XK1I8Y/bmfAndeYavk3N/YpRpfS4Xb3KBOYH9QCzWJQg8O4o5iTKii/1
-	qG3P4WIWWrdenOCN716Zjhd51wWl/L2geawb+Zdf9WS0dJz6uXmfN0hvYQFtUx4rigMLMQ8sSLa
-	5pspMRxJLwyPB0ZzzW9pjFA65LrLN0tuVMbOmrJVdnNNcPy7hcUDc2v6JK2KxsSrIlnYXGZSzLb
-	cGsn4EUKS9VuaAoA=
-X-Received: by 2002:a05:6820:290b:b0:6b1:39b1:80ee with SMTP id
- 006d021491bc7-6b6fe796fd6mr6700868eaf.24.1788542036124; Fri, 04 Sep 2026
- 10:13:56 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1788542054; x=1789146854;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=gjaqkPTnppiQ9iMiGEGM/pFHCNqFkiCYfaf94LCABdI=;
+        b=iM/r0bnrtTf/IMJEWqDpmHlq+X0RbonTW/yapF5bvMSIFmCV109riQivJoCsLJ8Q7e
+         qumtILqt/A0SeO4ASGut/rK+piksr8lABQiplCXPykjMoGw2xawphxKvRYhFIMJmxCR8
+         //fw4eT27BrtV3is+W712vmPMKwgoP4mvQiBg27lW662eeF8xhnPEa7GEfKb+V/IvJ7N
+         lKsQCY412XgzC8OgoufVPmaB6pVKda/gJI8e5s+sdI0pOExr4O1kFScEKXgrGcelWQ8l
+         J9ClpjWlPl9kkbFtMF/V6/oxFo38+6rJH0ZRZ6razUAbuD2yCIhr551q5VwXaQNpS7ch
+         sZSg==
+X-Forwarded-Encrypted: i=1; AKwUvBxvlCQdFFwKMODWmthFcx40w9gQMcv3xXkreEsg3juwjhvfyMEp+MkeLC6G4bOcMbuXu+Az2GAhyuEe0EE=@vger.kernel.org
+X-Gm-Message-State: AFuF++nw9Lf4ulhuccKHjE37JViAUs9AAD93AlnNvEgY4/YY0O1tYWKe
+	szzkCmdzuwNGZC2nkyl2LMw1gQHVPWhw6VfazzYW+cnocRHlsFBsTF/K
+X-Gm-Gg: AYBFou3w7EJOIJJOYGmNGw8UD7DYqhqoml8/ulaEpwv5UDdpR3M1Hlh0Wa8X4/nMrGS
+	6STt1LUKVlH1st3eubYmYDlsL5BeWOJT5FLVUBVVZJPUpdNW+qWP0iehDNLoSa4C2R2Qt9Z/h44
+	Kk8hjF5FgBtdDv1+2pjceGyRNlC3mDtTtzjAKJlbldNCbvQrK4GXx72KydheOjY6yew7x//VmY5
+	owXfolBx1gKBTzQ94pHDJW2NRG+walIpfnJL+tZe7M/l3WZQk4757ndJKcGTqc/MYxwSHApzdfp
+	L01sycHMLoNtmEr+aUb3EDaF0poUoT9MQ6S+8JCpydF98x3nLM1W5M0V3Q08EEkXslISJIwuhLU
+	xm21d2uDHLa+V/u2mUxONeuj79/uTnXawMjOn4IEj/NbvyDSy0VOMDqq9e8jejlHGBn0aK2OhY2
+	E2mcEyaGYkyug3Z60oRG2yJIT0JIyGrfUoDX8mZf/jPeTKWjKKlySTPYkyehqX7HV9ekUrLvljE
+	bZin9RXobCLiLg9aw==
+X-Received: by 2002:a05:6808:13c1:b0:496:11f1:f2ad with SMTP id 5614622812f47-4b95f94794cmr7013081b6e.6.1788542054195;
+        Fri, 04 Sep 2026 10:14:14 -0700 (PDT)
+Received: from localhost ([2a03:2880:10ff:a::])
+        by smtp.gmail.com with ESMTPSA id 5614622812f47-4b971675a96sm2865607b6e.11.2026.09.04.10.14.13
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 04 Sep 2026 10:14:13 -0700 (PDT)
+From: Joshua Hahn <joshua.hahnjy@gmail.com>
+To: Ackerley Tng via B4 Relay <devnull+ackerleytng.google.com@kernel.org>
+Cc: Alex Shi <alexs@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	David Hildenbrand <david@kernel.org>,
+	Dongliang Mu <dzm91@hust.edu.cn>,
+	Hongxiang Lou <louhongxiang@huawei.com>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	Jonathan Corbet <corbet@lwn.net>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	Miaohe Lin <linmiaohe@huawei.com>,
+	Michal Hocko <mhocko@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Muchun Song <muchun.song@linux.dev>,
+	Nhat Pham <nphamcs@gmail.com>,
+	Oscar Salvador <osalvador@suse.de>,
+	Peter Xu <peterx@redhat.com>,
+	Roman Gushchin <roman.gushchin@linux.dev>,
+	Shakeel Butt <shakeel.butt@linux.dev>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	jthoughton@google.com,
+	fvdl@google.com,
+	rientjes@google.com,
+	vannapurve@google.com,
+	Suren Baghdasaryan <surenb@google.com>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Wupeng Ma <mawupeng1@huawei.com>,
+	Yanteng Si <si.yanteng@linux.dev>,
+	linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org,
+	Ackerley Tng <ackerleytng@google.com>,
+	stable@vger.kernel.org
+Subject: Re: [PATCH 1/2] mm: hugetlb: Return -ENOSPC on memcg charge failure
+Date: Fri,  4 Sep 2026 10:14:11 -0700
+Message-ID: <20260904171412.191180-1-joshua.hahnjy@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260902-hugetlb-alloc-folio-memcg-charge-error-handling-v1-1-e3e8942c141b@google.com>
+References: 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260904095416.1692962-1-kyle.switch@motor-comm.com> <20260904095416.1692962-3-kyle.switch@motor-comm.com>
-In-Reply-To: <20260904095416.1692962-3-kyle.switch@motor-comm.com>
-From: David Yang <mmyangfl@gmail.com>
-Date: Sat, 5 Sep 2026 01:13:16 +0800
-X-Gm-Features: AcwNN1V_U66OwBJ7SqL1p4UY054Vk-Dy0fNkexu0AJl1AbJXTOiGV0jcR-p9lFU
-Message-ID: <CAAXyoMNLk4ApuaxxznrPReftf0TNaQEBVF0n4gmuryJxLYdvTw@mail.gmail.com>
-Subject: Re: [PATCH net-next v5 3/6] net: dsa: motorcomm: relocate MIB polling
- initialization to dsa_setup()
-To: Kyle Switch <kyle.switch@motor-comm.com>
-Cc: andrew@lunn.ch, olteanv@gmail.com, davem@davemloft.net, 
-	edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, 
-	linux@armlinux.org.uk, netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	ming.xu@motor-comm.com, xiaolin.xu@motor-comm.com, 
-	jianmin.wang@motor-comm.com, wei.zhang@gl-inet.com, sijia.huang@gl-inet.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Fri, Sep 4, 2026 at 5:54=E2=80=AFPM Kyle Switch <kyle.switch@motor-comm.=
-com> wrote:
->
-> Move MIB polling start from probe() to dsa_setup() so that it can
-> be conditionally enabled based on the actual switch family support,
-> avoiding attempts to enable it on unsupported switch families.
->
-> Signed-off-by: Kyle Switch <kyle.switch@motor-comm.com>
+On Wed, 02 Sep 2026 01:22:56 -0700 Ackerley Tng via B4 Relay <devnull+ackerleytng.google.com@kernel.org> wrote:
+
+> From: Ackerley Tng <ackerleytng@google.com>
+> 
+> When mem_cgroup_charge_hugetlb() fails with -ENOMEM, alloc_hugetlb_folio()
+> currently propagates this error. This results in the page fault handler
+> returning VM_FAULT_OOM.
+> 
+> Because HugeTLB allocations are high-order and use __GFP_RETRY_MAYFAIL,
+> they bypass the OOM killer. Returning VM_FAULT_OOM to the #PF handler
+> without triggering the OOM killer (or having it make progress) leads to
+> an infinite loop of retrying the fault.
+> 
+> Avoid this loop by returning -ENOSPC when charging fails, which maps to
+> VM_FAULT_SIGBUS, terminating the process cleanly.
+> 
+> Make mem_cgroup_charge_hugetlb() fault handling use a common error handling
+> path, the same handling used for hugetlb_cgroup_uncharge_cgroup{,_rsvd}(),
+> which also don't trigger the OOM killer and hence opt to terminate the
+> process with a SIGBUS.
+
+Hi Ackerley,
+
+I hope you are doing well! IIRC, this is the same fix as the one in
+[1] (in spirit) right? 
+
+I prefer this change since it is more obvious that we return
+-ENOSPC right there and then. Since this is a fix please feel free to
+add:
+
+Reviewed-by: Joshua Hahn <joshua.hahnjy@gmail.com>
+
+> Fixes: 991135774c0e0 ("memcg/hugetlb: introduce mem_cgroup_charge_hugetlb")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Ackerley Tng <ackerleytng@google.com>
 > ---
->  drivers/net/dsa/motorcomm/chip.c | 15 ++++++++-------
->  1 file changed, 8 insertions(+), 7 deletions(-)
+>  mm/hugetlb.c | 14 ++++++++++++--
+>  1 file changed, 12 insertions(+), 2 deletions(-)
+> 
+> diff --git a/mm/hugetlb.c b/mm/hugetlb.c
+> index 7857728457952..01b57f6d3b804 100644
+> --- a/mm/hugetlb.c
+> +++ b/mm/hugetlb.c
+> @@ -2823,7 +2823,6 @@ void wait_for_freed_hugetlb_folios(void)
+>   *
+>   * Return: A pointer to the allocated folio, or an ERR_PTR on failure.
+>   *         -ENOSPC if cgroup charging fails or no folio is available.
+> - *         -ENOMEM if mem cgroup charging fails.
+>   */
+>  struct folio *hugetlb_alloc_folio(struct hstate *h,
+>  		struct mempolicy_interpreted *mpoli, u8 alloc_flags)
+> @@ -2896,7 +2895,18 @@ struct folio *hugetlb_alloc_folio(struct hstate *h,
+>  		 * were committed to the folio and freeing the folio
+>  		 * would have cleared those up.
+>  		 */
+> -		return ERR_PTR(ret);
+> +		/*
+> +		 * Return -ENOSPC when this function fails to allocate
+> +		 * or charge a huge page. If a standard (PAGE_SIZE)
+> +		 * page allocation fails, the OOM killer is given a
+> +		 * chance to run, which may resolve the failure on
+> +		 * retry. However, for HugeTLB allocations, the OOM
+> +		 * killer is not triggered.  Returning -ENOMEM (or
+> +		 * anything resulting in VM_FAULT_OOM) would leak to
+> +		 * the #PF handler, causing it to loop indefinitely
+> +		 * retrying the fault.
+> +		 */
 
-I didn't see this patch being used afterwards (and patch 6 seems missing).
+NIT: I do feel like this comment block is a bit verbose, though. We just
+want to explain why we return -ENOSPC rather than -ENOMEM, maybe we can
+just explain that OOM killer not triggered --> retrying is futile?
 
-I'm not against the patch, but if you don't use it, please post it in
-another series.
+The change itself looks good though : -) and I don't want to block the
+fix. We can change the comment later.
+
+> +		return ERR_PTR(-ENOSPC);
+>  	}
+>  
+>  	return folio;
+> 
+> -- 
+> 2.55.0.970.g62bdec98f9-goog
+
+[1] https://lore.kernel.org/linux-mm/20260720-hugetlb-alloc-failure-fixes-v3-2-7d2a169aa9ee@google.com/
