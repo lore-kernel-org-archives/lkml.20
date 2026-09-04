@@ -1,131 +1,180 @@
-Received: from mail-pf1-f177.google.com (mail-pf1-f177.google.com [209.85.210.177])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56A62419FBB
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 06:16:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.177
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 610C03FA5D0;
+	Fri,  4 Sep 2026 06:16:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788502564; cv=none; b=YgrI5Ix5loE2+qCD+sshL6oNCeW2jeRr45LpF7mzLCvi5X9ktMxpGBzGwgbInkg5uohbBck9DzRr3FhgaJRcSWB446sKr3h4v/CuXqj7LcMwDrY44RKHoAsAxMDfy/CZcdPnUmAQi8x3IxE4oU+T169TJWUZeWMNMeLoCAn9xO4=
+	t=1788502600; cv=none; b=f8GVL4PsWQjF8EULSfpV64b6Xw9iywG1fwMlTUIjMR76mu5BVSFUwgVRrhRRFhuJHAb313p7JZ89teRgN9BHi8g0rBzMI7EiQ+Ph1yWIK8liBDuyfXb3S/M5RoeSanJ3cnIfLianl2hgFMwQR94HLhQxy/8139KzkHFU8FBvEl0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788502564; c=relaxed/simple;
-	bh=d+XQMxfmtF37dFBwLnZYYwWxlVcCUb15+TV0NlBbmF4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=bbUGFmMFfJPwI94AJsDW0T7X7HVXBNDd8rBZ72cttov5km52hspg0W/KlI+1X/X27t7oQkbCy6xEF+KI5GiYFQ0jr8A1g++LsIjsXVmUxanEDw44NIzr7jOMRSPKvkjhQ10yINAa6NiHnIzrm1I9IKglKkK1Pc59ZF3eacHyCz4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=tGPOlgJQ; arc=none smtp.client-ip=209.85.210.177
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788502600; c=relaxed/simple;
+	bh=vSDGdf1vwsNd5gQDQCFyT7aK7rU2dzcsMuzeIgNrJf0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=K5TKdiycmN8DnuOiKsl/cILi80Frxn6An5qhhZLPv3T8s+Xtn8emL/H0XGF5yoxLbvsr8lqVXZkVLiN+5VUn6UQ9bG9QMlV9kZpzE3kRRSuCS+V48bRwtWYnUzd6/FwLrf62L5pLIL5jvou2iH8G14HXPjYlnsX0xkiyybYNPVw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=bCG5Fquw; arc=none smtp.client-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="tGPOlgJQ"
-Received: by mail-pf1-f177.google.com with SMTP id d2e1a72fcca58-85339ed040aso487186b3a.1
-        for <linux-kernel@vger.kernel.org>; Thu, 03 Sep 2026 23:16:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788502562; x=1789107362; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=KbzS92DGnEavUtbT3swzYfSA4NDGZ/nU8LrjJMa9/B4=;
-        b=tGPOlgJQzHWoXGrwKqWlm288WkZdRO29wjLNqTbTv0xlH7yss9GPoyGYPltn9ENH3c
-         URcog6d1cBLpE5BhZVRXX8UxcrZZfRvV2yh180n8M8f+7Dk3fdIWQlCewenu6vKr21J0
-         RNgVkLmvDkakag1VgnxZ2Ar0BiswL0dvMP22wxBXaTN8WySmx6/i9FgbQYXqISfRN6Wa
-         D1aqMqDd+s1hoXWMeQ1/MSTxQbKQC1OARDA2l396RyLihYvfzmY9qkboMW3vKihoBPvM
-         RAguiSb5XsvgMAg9Cn+/4IZkf90P8UsHl1LwXaE+sS22uDaqnvtvQSzaAnh7tk2LL4Xo
-         SFYg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788502562; x=1789107362;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=KbzS92DGnEavUtbT3swzYfSA4NDGZ/nU8LrjJMa9/B4=;
-        b=WgeFlTM5kxF47fpWy1nN115Zh5fU/4NSuzxjTfZYLbE2C+U7C4lGf/v5WoUsRKJ+KP
-         u5GU3c3NubkRQ6llyPv4fmMAOLky9cj7h7nwv3Ni8I+ugJUTtpeIVHNkCTyc9u0uSV9h
-         9LYSk091tYC+3Nr6PtKGkX1pHOlrnbWxkDpIOoQgdB8i5ggMEBOCB51sDAqmbGb8AmGJ
-         xDSpBf4WGIMZ9pI32G3ZNZ7KDuhj28/XbQjATjrFvgzo5zK+Gu14i9hEdRpOZ+8fa8Rl
-         hZ+zNzxkPOTNnQLxvSAkO0RoMWp59XfBAnIKOw4isxDz+snknvGEpN1cqqgK4sLS3O4v
-         NyqA==
-X-Forwarded-Encrypted: i=1; AKwUvBwGUa6iz48vZCNYbsWmJRAJcyRqpFzle9pvzIOEi/gHrkjyeRNJTT+IJDWdHyQJEoUP4J8qzKgEaXEIk7M=@vger.kernel.org
-X-Gm-Message-State: AFuF++mSjslWDbMwhIHppqNYSRh+qLfpsvjVhQRvJ1uszPEOXD6tyXgP
-	jbmPwLEwDfpRJkTPgWzxwzdg1hmrWwFImNBYyrhhnCDEAgjnaMhXWqe1
-X-Gm-Gg: AYBFou3loE0TzLS61b/G4LZOuGTOt3GTEcX2bjQIt6Xpgu08dyYR3Y22Pq/fhHtx2X3
-	XXbX5L47Zv7+hVkslHdlzPRarxHmBC7K2DQ1ihvJXiaMkByirqP5iTat3HcbybW6quMrfECFwcz
-	i+DppGhFMrrM9Y+AnGuiXCHlAOS2hhs3DL4EhNLY2tULWFEGzkwNuCceNsQVLPJI/wzmKvbAo0Q
-	Hyhz2gdRcxR6o0eR14oIkTominNbynoeoSpdcDL6Pj/5YYmE3Pn8wAMrwnnieD6bCOZo5ev/uT2
-	X0uwDvJl4IBzpaWJD1SHmOtwKSVVW4RwsXTMAw/JrxqRmJFH2ZFQbMy8nAKixmgT8qKE5S8w0J7
-	HKWpGhCEtcxMkw6PUJj/1fPrtcqO4sSwWBTYzxlm+1hO1TT0Zu+R9In0mm4Hh8ebVnDZy6Z7bXD
-	klRM3aCpBITwaTskghEj5CGk/1phC1epHZK4XgL0acMmFF3mrGb3W6DPft81GdWp7YgSNnz5vQh
-	zOhQFE9Ulg=
-X-Received: by 2002:a05:6a00:10c9:b0:845:363e:12d9 with SMTP id d2e1a72fcca58-861660e3dacmr5209555b3a.3.1788502562476;
-        Thu, 03 Sep 2026 23:16:02 -0700 (PDT)
-Received: from osman.mioffice.cn ([43.224.245.178])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8615332dbdfsm753216b3a.42.2026.09.03.23.16.00
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 03 Sep 2026 23:16:02 -0700 (PDT)
-From: Zhan Xusheng <zhanxusheng1024@gmail.com>
-X-Google-Original-From: Zhan Xusheng <zhanxusheng@xiaomi.com>
-To: almaz.alexandrovich@paragon-software.com
-Cc: ntfs3@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	zhanxusheng@xiaomi.com
-Subject: [PATCH RESEND] fs/ntfs3: fix valid_size not being updated in attr_allocate_frame()
-Date: Fri,  4 Sep 2026 14:15:56 +0800
-Message-ID: <20260904061556.939195-1-zhanxusheng@xiaomi.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="bCG5Fquw"
+Received: from pps.filterd (m0353725.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68464Z7S3993927;
+	Fri, 4 Sep 2026 06:16:25 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=AbibkQ
+	dvmMRoMTgIWeQEXRDTHFLZe8F6+Zm4Tru5WBE=; b=bCG5Fquw2/IjJW6r298508
+	9n6uCwH56HzevLCbed2keCKIYFQi/cvdA/IqLu2dbfYkCd96IdHyED2dZPU+S7ws
+	JHHN+KPSDOq3j4yMdMES4WkLEr0lBkjm/2BDp9kav9e1HOK9h5eRcTN0RCbpzphM
+	mG5vsNL4c8YecLRemVboZU7hQymwSwK/xEG7BRF7ReZ5jclWfZcKrMuyG/olC+ol
+	Gc6i06ICKuMwe6ZWnOWs0am8HGSHVtGsB/mAc6NziY+YPmvH/5U2D4n2JkA+WFIe
+	THxc9A73fJML4rt8X/hYBUzUKrS7KdPS0NtKkgqWq9HLcPjDtZlZj9utRGd1ToRQ
+	==
+Received: from ppma11.dal12v.mail.ibm.com (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gbnue8k0c-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Fri, 04 Sep 2026 06:16:24 +0000 (GMT)
+Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma11.dal12v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 6846BhuL026541;
+	Fri, 4 Sep 2026 06:16:24 GMT
+Received: from smtprelay07.fra02v.mail.ibm.com ([9.218.2.229])
+	by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 4gcceykaqn-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Fri, 04 Sep 2026 06:16:23 +0000 (GMT)
+Received: from smtpav05.fra02v.mail.ibm.com (smtpav05.fra02v.mail.ibm.com [10.20.54.104])
+	by smtprelay07.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6846GKAO42074378
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Fri, 4 Sep 2026 06:16:20 GMT
+Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 1E8512004B;
+	Fri,  4 Sep 2026 06:16:20 +0000 (GMT)
+Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id EF3E520040;
+	Fri,  4 Sep 2026 06:16:13 +0000 (GMT)
+Received: from [9.61.247.46] (unknown [9.61.247.46])
+	by smtpav05.fra02v.mail.ibm.com (Postfix) with ESMTPS;
+	Fri,  4 Sep 2026 06:16:13 +0000 (GMT)
+Message-ID: <8159b55d-45d5-43e9-8cb0-571428a720ca@linux.ibm.com>
+Date: Fri, 4 Sep 2026 11:46:10 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 07/10] pseries/plpks: hide wrapping_features when
+ unsupported
+To: Srish Srinivasan <ssrish@linux.ibm.com>, linux-integrity@vger.kernel.org,
+        keyrings@vger.kernel.org, linuxppc-dev@lists.ozlabs.org
+Cc: maddy@linux.ibm.com, mpe@ellerman.id.au, npiggin@gmail.com,
+        christophe.leroy@csgroup.eu, James.Bottomley@HansenPartnership.com,
+        jarkko@kernel.org, zohar@linux.ibm.com, linux-kernel@vger.kernel.org,
+        linux-security-module@vger.kernel.org, nayna@linux.ibm.com
+References: <20260831111738.334857-1-ssrish@linux.ibm.com>
+ <20260831111738.334857-8-ssrish@linux.ibm.com>
+Content-Language: en-US
+From: R Nageswara Sastry <rnsastry@linux.ibm.com>
+In-Reply-To: <20260831111738.334857-8-ssrish@linux.ibm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-GUID: UJuBmFw9NMuEjy1KfBITFKiNLJ0AJyrj
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA0MDA1NCBTYWx0ZWRfXxHjM55lhqUbv
+ uLvj+MCwxroG8qb4SUv1JYu9CteNNcJgOQWmcytSA+sl8y7PVQ/p1229Ex5bSV/KNOIBjyN2hoZ
+ d4EbS7sQu/3HozB456CFRJ9wWFX4SrRFh+XxBIhs4NBIRj2w6oVdEFgqT2SCoB1WTQnQ6xqh1pp
+ unvPHZC4X+Xgxsiq+vKeHXQQLsQV+S2AGBCHrr2b7Bp3dDDZAhoW7tzh524Qh7My/Ln78a27bnB
+ aauBDIWPsCI1T7pSr/v84V30wG3nLQoai4Tc9kdu0VscxevtX6ITfcXHoMRlGGSJW7W/M0mksEk
+ xV6G9OvUnSIktKfT6lA7+FjM2ahD3IvzXDVsIermyX4Avww9TSEFI9ph+pPcTaXkjYgHQZGiUDZ
+ 0stz36Huu2dpy86fpBd/JU1x2k5uXDNIMkYanTZ18EKAiSBKqfl84pj4Q44yQ+BGc5GJ0Z2Q8Mj
+ uMNPAL9YjIklmssM5mg==
+X-Proofpoint-ORIG-GUID: taQ9suFacG0L0iiTtEI9m_ziNksHiFrU
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA0MDA1NCBTYWx0ZWRfX1q49YKGPmxYl
+ G2MyLt3LZDJbBhvkps8PS0JBmcKF7ZwlzhxDq9TrPtu8AUJdB2RuaP1xPJD8BOStQ/b5/ij8fs8
+ ICz1rztspMB8gXUZPS9kSi/Zwk/3oX8=
+X-Authority-Analysis: v=2.4 cv=B92JFutM c=1 sm=1 tr=0 ts=6a9a6239 cx=c_pps
+ a=aDMHemPKRhS1OARIsFnwRA==:117 a=aDMHemPKRhS1OARIsFnwRA==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=V8glGbnc2Ofi9Qvn3v5h:22 a=VwQbUJbxAAAA:8
+ a=VnNF1IyMAAAA:8 a=mUOOc771WLDZFK3RTqsA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-04_02,2026-09-03_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 spamscore=0 clxscore=1015 suspectscore=0 phishscore=0
+ lowpriorityscore=0 bulkscore=0 priorityscore=1501 impostorscore=0
+ malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2609040054
 
-At the end of attr_allocate_frame() the on-disk valid_size is meant to be
-updated to the value passed in via @new_valid:
 
-	valid_size = le64_to_cpu(attr_b->nres.valid_size);
-	if (new_valid != valid_size) {
-		attr_b->nres.valid_size = cpu_to_le64(valid_size);
-		mi_b->dirty = true;
-	}
+On 31.08.2026 4:47 PM, Srish Srinivasan wrote:
+> The PLPKS wrapping features config is only valid on systems that support
+> the "Key Wrapping" feature. Currently the config is always exposed, even
+> when the feature is unavailable.
+>
+> Add is_visible attribute_group callback to suppress the wrapping features
+> sysfs attribute when the "Key Wrapping" feature is not supported. Declare
+> the attribute group static const, as it is not modified after
+> initialization.
+>
+> Fixes: 447eb1d5ef00 ("pseries/plpks: expose PowerVM wrapping features via the sysfs")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Srish Srinivasan <ssrish@linux.ibm.com>
+Tested-by: R Nageswara Sastry <rnsastry@linux.ibm.com>
 
-but it writes back the old valid_size that was just read instead of
-new_valid, so the field is never actually changed even though the record
-is marked dirty -- the intended update is a no-op.
+Tested on ppc64le PowerVM LPARs:
+   - Firmware with wrap/unwrap support: 
+/sys/firmware/plpks/config/wrapping_features
+     is present and readable.
+   - Firmware without wrap/unwrap support: the wrapping_features attribute
+     is correctly absent from sysfs.
+> ---
+>   arch/powerpc/platforms/pseries/plpks-sysfs.c | 20 +++++++++++++++-----
+>   1 file changed, 15 insertions(+), 5 deletions(-)
+>
+> diff --git a/arch/powerpc/platforms/pseries/plpks-sysfs.c b/arch/powerpc/platforms/pseries/plpks-sysfs.c
+> index c2ebcbb41ae3..f2436229f323 100644
+> --- a/arch/powerpc/platforms/pseries/plpks-sysfs.c
+> +++ b/arch/powerpc/platforms/pseries/plpks-sysfs.c
+> @@ -45,6 +45,16 @@ static const struct attribute *config_attrs[] = {
+>   
+>   static struct kobject *plpks_kobj, *plpks_config_kobj;
+>   
+> +static umode_t plpks_config_attr_is_visible(struct kobject *kobj,
+> +					    struct attribute *attr, int n)
+> +{
+> +	if (attr == &attr_wrapping_features.attr &&
+> +	    !plpks_wrapping_is_supported())
+> +		return 0;
+> +
+> +	return attr->mode;
+> +}
+> +
+>   int plpks_config_create_softlink(struct kobject *from)
+>   {
+>   	if (!plpks_config_kobj)
+> @@ -52,13 +62,13 @@ int plpks_config_create_softlink(struct kobject *from)
+>   	return sysfs_create_link(from, plpks_config_kobj, "config");
+>   }
+>   
+> +static const struct attribute_group config_group = {
+> +	.attrs = (struct attribute **)config_attrs,
+> +	.is_visible = plpks_config_attr_is_visible,
+> +};
+> +
+>   static __init int plpks_sysfs_config(struct kobject *kobj)
+>   {
+> -	struct attribute_group config_group = {
+> -		.name = NULL,
+> -		.attrs = (struct attribute **)config_attrs,
+> -	};
+> -
+>   	return sysfs_create_group(kobj, &config_group);
+>   }
+>   
 
-ni_update_parent() spells the same read-compare-write out correctly a few
-hundred lines away, storing the newly derived value:
-
-	valid_le = cpu_to_le64(new_valid);
-	if (valid_le != attr->nres.valid_size) {
-		attr->nres.valid_size = valid_le;
-
-In practice that path, reached from ni_write_inode(), re-derives
-nres.valid_size from ni->i_valid on inode write-back, which normally masks
-this, so the visible impact is limited.  The assignment here is still
-wrong though; store @new_valid as intended.
-
-Fixes: be71b5cba2e6 ("fs/ntfs3: Add attrib operations")
-Signed-off-by: Zhan Xusheng <zhanxusheng@xiaomi.com>
----
-No changes; the fix is still needed on v7.3-rc1 and on the ntfs3 devel
-branch, which currently points at v7.3-rc1 as well.
-
-v1: https://lore.kernel.org/ntfs3/20260701061451.385659-1-zhanxusheng@xiaomi.com/
-
- fs/ntfs3/attrib.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/fs/ntfs3/attrib.c b/fs/ntfs3/attrib.c
-index b1c315206ffa..792838676352 100644
---- a/fs/ntfs3/attrib.c
-+++ b/fs/ntfs3/attrib.c
-@@ -1995,7 +1995,7 @@ int attr_allocate_frame(struct ntfs_inode *ni, CLST frame, size_t compr_size,
- 
- 		valid_size = le64_to_cpu(attr_b->nres.valid_size);
- 		if (new_valid != valid_size) {
--			attr_b->nres.valid_size = cpu_to_le64(valid_size);
-+			attr_b->nres.valid_size = cpu_to_le64(new_valid);
- 			mi_b->dirty = true;
- 		}
- 	}
-
-base-commit: a500db7819c50db59e55f1b4fa1c3baa5a2616f3
 -- 
-2.43.0
+Thanks and Regards
+R.Nageswara Sastry
 
