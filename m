@@ -1,111 +1,92 @@
-Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com [209.85.214.178])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 114A23AAF7E
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 10:49:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B798345561A;
+	Fri,  4 Sep 2026 10:49:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788518946; cv=none; b=KCHCWlgtpWCNCxWMdJ0CkQKAwSJqROI6Go3u6jXYKmUMIMrh6UDJwShNs3BPX2srO7KAe/yHKcheLpGPlC8ty2ZjhT88cxAAqUGI4PetbLgLjDRu0uWP9o8KW3+JcViicaZHKKK/W2D8tWMBf66LWJROTWwrE6N/0nM38NQPJxE=
+	t=1788518947; cv=none; b=dZDcC8PdL+vYhbdZ8MKmSpK+Ki39mD7iSKNN7XlNpZT3ShtRQMPG7J4iQNLZBWrtQvhm7RjnSIY/W6J/m13E2Hl9FIsmfhdzOc4/vdubNfrZ007VRne+vve/q3ZNf+jGm5dzOHpOwohbI8D0qsB0QiquCW8E2bU3ju92yBAOH7w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788518946; c=relaxed/simple;
-	bh=qVcynegpZm1yGmLZX8tUiOczHSGQ8PzLgexY1A3PAtA=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=toGcnNk/eS016TZEnM0cI3xoFMH+23v1sVrRZKkxCsq3sD7ln638oyujicjVNfWF7/XwSeeuWRiKUGxWXokr2UEhXl8+P0+4PgjRYL2BkjfVY1gFuYWNuGSYWfZJuJ4MPOvWJpFhZm1LABObMdG6nqz79KRzs/T4cHrlCaQBaMY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cuW4tsGp; arc=none smtp.client-ip=209.85.214.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788518947; c=relaxed/simple;
+	bh=2S3/1jTF9RJ2NObcRpD89k9eqJm1kLBuxbxmhKJB4aM=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=Ixr+K6j6jiNLJWI93uYwUmHsFTuRiuwWZXJrozbQrnV3+DSXtxEVMgxiNe4j+dgveRxRAhKwv0v0HDxFjmgISePk34+46J9Z5oB5P9KqbxSVi2sSt7HrPdj8i9Siyfkq0x2vIVCj0dCMTm2IgC8vwiQrmfCZ+Qc3JDDVqPb4OdQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hPS5W0hh; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cuW4tsGp"
-Received: by mail-pl1-f178.google.com with SMTP id d9443c01a7336-2d5335cf904so8012705ad.2
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 03:49:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788518944; x=1789123744; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=OlLVTDTkKLUK1RrWb8jn049QsgDUDcnIGDsaM7mMOOY=;
-        b=cuW4tsGpKXvePWLymjwDaiaxCBVjs+P4Cy4ul+5DcnhgBk1UzTospDY74Rz38fSLZN
-         GLQh128rehR+/MZ0kkN83btNk+B+UYoNIUN4O3EoUYGOck2nIfXmP0fDDPFsl7KGWn2g
-         Bcue/YWsV3tJ7ZiEZzWDzXd+vR6HqnBXjchV88YpbPcIh6w7sbogEB6vp+Za5TV6tbZw
-         ItNvI0Szwgdb+a/kUpIIYs2H0MzQ2VNg15ycdROh3UGkWoyMn64bqUa8nuCgUFBVLhUu
-         F0jGnKRmlRnfP/6975+YL5hb2nwQT0imefKsEgg0jMVZToCqZvb32AHZ61Fpug2JXYnA
-         1dXA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788518944; x=1789123744;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=OlLVTDTkKLUK1RrWb8jn049QsgDUDcnIGDsaM7mMOOY=;
-        b=OkdpNHArFRUEC33DLxFpQ6Nla/o2xRLTCRf1aa2n624NrQ5RGfxM0bS8AyCffQ57NU
-         pYR7XoeYpuVeCGu8vRALPZMAtPqJ6dhcvX9X2W2FANEys5KtVTl4VKNizGmbCGlA6Gua
-         P80iv+WQy/xXlj+n4iAc05QTv/Hs/ACskUKtdBXh5UVHA8BqriCXvDv0dCQ+0izcD28U
-         jJ1Zq4xcdwlVu1C8RAI6PWBbJIcPpLaZJoJgZj7MU2Ico5PMS5CfjpBZYhkI8VW1xo/3
-         S/7dPbEgg47xX4pCS09EY3GV0ZILW7io1RBsXBMnq/rAbYmqVUKpjd2CX9KB0w/U+6nR
-         GMCA==
-X-Gm-Message-State: AFuF++mFAkBDFPflZe/u3PK/bkDl2v6F3yatxpvfMIj3LTBuNFCnUKZx
-	Xr7Ls4eZMNdKWTYT+hK6kKeOgTj6yArt67LniIr/e3/EzBDJ4sqDLL+d
-X-Gm-Gg: AYBFou3LMhT1BrQF27dKqMimIjLsZ3sayO2z0RU/hYv0G/eakVrsVz2yDHLoiL57APm
-	GCpq3vskJsJKSkT1x276AoWAiDzJa6tM7a7MXd133A6kkwwMV5vaP/wD67LrAQKlvzNPcIYEEQx
-	qLG/39C4T8/8ugiQZwyozcwaBkEokr2Kx88Tprifo3wM+OwoZWF3BrdlBv5ecywjtTJdhx8plLd
-	aHmEYY97MYlYOS6qzK0ompkCDyERUIDInhLYbz/Ngffka94AY4ZYyieOQwZx3+9qDNWGi4G5c6l
-	/fVJbNva4yPND95ZcY/Pe2W129ASm0NWjKyoh+oR1BtxMaqNN65SNobeIWCyivtagG9wfHE6OYx
-	Uob4X4HJPExApKJBqFtd9RnkSf42/aEgx6h9oh42WqJuITKlchZcet4n8cWmqIIR33yFOfaa51z
-	4fgTZPuerpOJBKNKrFpWfxqQ/0y1xHCJQbEGRKgzgycrbVAne6QbE6x7OHWp5ChzHwLUm1hDV5T
-	6BudNvGVe7gF5Yqf+WxvstM+Q==
-X-Received: by 2002:a17:90b:586c:b0:398:a2ed:7b5c with SMTP id 98e67ed59e1d1-39b2623ef65mr8977929a91.24.1788518944271;
-        Fri, 04 Sep 2026 03:49:04 -0700 (PDT)
-Received: from volcano9f6e-hostos.amd.com ([165.204.217.251])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339af25062sm8583927eec.16.2026.09.04.03.49.00
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 04 Sep 2026 03:49:03 -0700 (PDT)
-From: Hemanth Selam <hemanth.selam@gmail.com>
-To: Andrew Morton <akpm@linux-foundation.org>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	David Hildenbrand <david@kernel.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Jann Horn <jannh@google.com>,
-	Arnd Bergmann <arnd@arndb.de>
-Cc: linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org,
-	linux-arch@vger.kernel.org
-Subject: [PATCH 1/5] asm-generic: fix typo "explicity" in comment
-Date: Fri,  4 Sep 2026 16:18:46 +0530
-Message-ID: <20260904104854.25272-2-hemanth.selam@gmail.com>
-X-Mailer: git-send-email 2.48.1
-In-Reply-To: <20260904104854.25272-1-hemanth.selam@gmail.com>
-References: <20260904104854.25272-1-hemanth.selam@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hPS5W0hh"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 168291F00A3E;
+	Fri,  4 Sep 2026 10:49:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788518946;
+	bh=P6j7tkt/1tMb+BxD83MOj2+xMJC9l03hjJiKyFN5ipA=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=hPS5W0hhNqs/RkGAkjZ9OF/lbleE2T2L3OdMGqw1uRAE0hx3Nxv/xpqF87qTUXd6M
+	 033GxzjEufSysYZtWbhsrguAKIOCQ87O+mBRU4e9AQKLpp3M0DxSoO1zdsYRyDxXcu
+	 MlrNM64xjI0SHzGjHEtx+cm0wdlhLSuu9fwlQ7e24Qt6lZyi6gq4FzXFW3kBMqIXnc
+	 F+7xJm+b6t95qIU+h5VOyqXoaidXiRVZXxKVUzi+pL9Wtst/mG+6HDsvV4EzKUNi6m
+	 /nUQaYw68ft2N9YKXpNX97CvKgn/79GPg5MJxTg/gJdFBV6fvS8y/jb0eK9aIBCH21
+	 v1KMEyaXq3pZA==
+From: Christian Brauner <brauner@kernel.org>
+To: Tejun Heo <tj@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>, 
+ =?utf-8?q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>, 
+ Alexander Viro <viro@zeniv.linux.org.uk>, 
+ Shaojie Sun <sunshaojie@kylinos.cn>
+Cc: Jan Kara <jack@suse.cz>, Pavel Tikhomirov <ptikhomirov@virtuozzo.com>, 
+ cgroups@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
+ linux-kernel@vger.kernel.org
+In-Reply-To: <20260903064828.126643-1-sunshaojie@kylinos.cn>
+References: <20260903064828.126643-1-sunshaojie@kylinos.cn>
+Subject: Re: (subset) [PATCH v2 0/3] drop BUG_ON() NULL checks in namespace
+ copy helpers
+Message-Id: <20260904-gewirbelt-bankraub-bereden-53ffb98b9799@brauner>
+Date: Fri, 04 Sep 2026 12:48:43 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.17-dev-db0b7
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1296; i=brauner@kernel.org;
+ h=from:subject:message-id; bh=2S3/1jTF9RJ2NObcRpD89k9eqJm1kLBuxbxmhKJB4aM=;
+ b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWTNWiTnbf70fEHV6gUXF4d1/JYPdvdfo87N/kmbucxlZ
+ sW99f5WHaUsDGJcDLJiiiwO7Sbhcst5KjYbZWrAzGFlAhnCwMUpABPJlmZkWBoiL9gyOWb7uwyB
+ LyvCzFQD3q7ImcVoff+7+JOZK5YEf2H4H7FY3/6V5sGMvR8XiP5UrPBTODF1xx3Db7pnH1a1Mu7
+ P4AIA
+X-Developer-Key: i=brauner@kernel.org; a=openpgp;
+ fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
 
-Correct "explicity" to "Explicitly", reported by scripts/checkpatch.pl
-using the misspelling list in scripts/spelling.txt.  Only touches comments,
-no code changes.
+On Thu, 03 Sep 2026 14:48:25 +0800, Shaojie Sun wrote:
+> drop BUG_ON() NULL checks in namespace copy helpers
+> 
+> v2:
+> - Reworked into a 3-patch series that simply drops the BUG_ON()s
+>   instead of replacing them with WARN_ON_ONCE() + error return,
+>   following the discussion with Tejun. Now also covers copy_utsname()
+>   and copy_mnt_ns() so that all copy_*_ns() helpers behave
+>   consistently.
+> 
+> [...]
 
-Assisted-by: Cursor:claude-opus-5
-Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
----
- include/uapi/asm-generic/mman-common.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Applied to the namespace-7.4.misc branch of the vfs/vfs.git tree.
+Patches in the namespace-7.4.misc branch should appear in linux-next soon.
 
-diff --git a/include/uapi/asm-generic/mman-common.h b/include/uapi/asm-generic/mman-common.h
-index ef1c27fa3c57..cf1418649b3a 100644
---- a/include/uapi/asm-generic/mman-common.h
-+++ b/include/uapi/asm-generic/mman-common.h
-@@ -62,7 +62,7 @@
- #define MADV_HUGEPAGE	14		/* Worth backing with hugepages */
- #define MADV_NOHUGEPAGE	15		/* Not worth backing with hugepages */
- 
--#define MADV_DONTDUMP   16		/* Explicity exclude from the core dump,
-+#define MADV_DONTDUMP   16		/* Explicitly exclude from the core dump,
- 					   overrides the coredump filter bits */
- #define MADV_DODUMP	17		/* Clear the MADV_DONTDUMP flag */
- 
--- 
-2.48.1
+Please report any outstanding bugs that were missed during review in a
+new review to the original patch series allowing us to drop it.
+
+It's encouraged to provide Acked-bys and Reviewed-bys even though the
+patch has now been applied. If possible patch trailers will be updated.
+
+Note that commit hashes shown below are subject to change due to rebase,
+trailer updates or similar. If in doubt, please check the listed branch.
+
+tree:   https://git.kernel.org/pub/scm/linux/kernel/git/vfs/vfs.git
+branch: master
+
+[2/3] uts: drop BUG_ON() in copy_utsname()
+      https://git.kernel.org/vfs/vfs/c/d54cc3a5272c
+[3/3] fs: namespace: drop BUG_ON() in copy_mnt_ns()
+      https://git.kernel.org/vfs/vfs/c/4141e148e629
 
