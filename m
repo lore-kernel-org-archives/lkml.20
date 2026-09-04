@@ -1,130 +1,119 @@
-Received: from mail-oa1-f45.google.com (mail-oa1-f45.google.com [209.85.160.45])
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2472447CA8C
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 14:23:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.45
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788531817; cv=none; b=kJTMDnAUkEqTM2B00H6od7VJxkMkHl4BAlzCs5LP5Cr9g4nBNfEO1t45dH78PVY46lDageo2t8/cFlwt+Wg3L98lcQ9eAKomyS2uCWRtxOgsvqHdrByczDp4v0XC9vmhqeJY7NPbEJ7HBugDjo6AQP9kWPGevH2X85Uu70dAaNE=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788531817; c=relaxed/simple;
-	bh=l5o0Kxh4QHmzyssrBdh7uVhR0p9YGe21u5DbK/NG40s=;
-	h=Date:From:To:CC:Subject:In-Reply-To:References:Message-ID:
-	 MIME-Version:Content-Type; b=hE3liUdTF2JMyxXH38JUJ9stWMkH+PoYsdIgWq8/62PMcrAGVPV2n6zWhYBtmo4GoWajMusZI32WkmRJFbgaZNmxei28xrAtC3bNaTltcMgY1VSTmRRya7UpyvgFWz7HkVdMAk6kxcgFuEQqZ416I++fK4jZ85TgwAd4PxEMQVY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=n+PbgRrK; arc=none smtp.client-ip=209.85.160.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7396476072
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 14:23:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.227.140
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788531823; cv=pass; b=MWhZH5jtg2zXPllkdNZkdhuVdVE/nBzfgNjLdzXgwM7jEzEyd++t9+CYTnYwP4brGmhtKHLx+SjEfVTXwA1WItOR2f+Dg3ZS5UYMJUtrKP9DKHt+YP+5mrMSZkHMuQ2Tj04I9kV7d+hncYOlWE+ZcNRI6yFlGp2mY+lLWroxTXs=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788531823; c=relaxed/simple;
+	bh=DqWYMz6T6MwhxfrR8L63T0AJfuhb70RVs8VbzlNN7CI=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Xzrgzc1o9YcHyzj2HAIzRGpi6KXp2t8Phs39Hflk7B8wa5yaaX1SNmHiRRDy+JJydVEeZoIIl9A6EHR/DnAx2KzcDTOiYnPYDLAMsfBhiXxcQMJNXB4CgYTXpqBYOXwVafJl50iEHfxuOsFYk5v2NO4C77BZMcu71Bg1kmwAYy8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SE+m1Uz7; arc=pass smtp.client-ip=74.125.227.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="n+PbgRrK"
-Received: by mail-oa1-f45.google.com with SMTP id 586e51a60fabf-459281bc13bso771104fac.2
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 07:23:35 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SE+m1Uz7"
+Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-39666bed441so138283a91.2
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 07:23:41 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788531821; cv=none;
+        d=google.com; s=arc-20260327;
+        b=SlzUx1PibtS0EazdtYqkKqsRWBxsu8C8MtWCOoeBzQGg/z4V7BmaTAAwz3dHtx1gdZ
+         4ubt2QnPd0LMq4uszbzXhxW1vE57WuTw8jpdRY3jgG2Rdcn0Mgxng77KfYFZoHdMwbkP
+         PuKA/KsNIezsou/UzP5s1HLW/KWjgPEoy6WZrY/57r4jHQ+1sN3wSUYeRE2JCw6rzqUQ
+         mH55QqDqqvO5Qngm6zjLLO/swc1PRZE23HU6QWbTljIX+fvkwP6447HBcCPg8bHd+ZjA
+         jVDMFvFWXgH9Ccj0w1lj1tnS5O1m7Gqtxcw73gRI2n5dVdVSNtF0A+0ef70qA0m7YxbA
+         KKMg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=v/IdbLiGLfNJWgT3may7e/Lmqs8svlFsWUM1fARTmC0=;
+        fh=s/2fKFCSWI804r2w8YReXPDTzO0rnmwIJHSOlGIDUe8=;
+        b=s01sX9E7KbdxSU9IDPBHN/O6o2PAEGOoDbW1ALZ6w9DWaB7lZaLWE19Xl5vQ3Xv1Ke
+         vWsbXpWhoELdX0N4Y+akZbt/Cvd6qmjM/2N/ggySJZt4RL80w2ddCEo52h0EKS4dTbtE
+         NpLXxA9gqThHe2TO355K4fL6zHXqwe6zB1U1tXvyJGMAs9XDRq3TlSwgyZgMC3jOTIA+
+         AFPRdhQowhauqJTN1McW6psJxgvlWc/XhiGBLklqlyu+LP264yquhO3iTZW5bImKV6yd
+         tGW+z3hIGkf5mbxF9vV6UBqw9A5ivbDNuU+qzmSWMNcEU4peSRWWE+abOREOrPiJPH8s
+         iTqw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788531815; x=1789136615; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id
-         :references:in-reply-to:user-agent:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=OPLJDNKSQZ2RpNMuFTNGRTC/xRNgD/y0SY0GD8UQRl0=;
-        b=n+PbgRrKUYff2XKoDG0RMPlt+S4R8DjRRFqoAG87cbG1V6hwTN//ZZBjJDq5X7A+2+
-         h5W0lgLNzDAb8n2aiVRBpJpSNuGECEejyXwldMnq4+ZerUgTLbkzi0kOSeJC+pte+Qcc
-         Lx1rZi5GVtRhmfRZTHRIiX1rgOUKImfJQ9rORNM0jMP0vckKWM2dmi7te/DWfi+fvd+S
-         uWbNoty1JRJkmNjoHOXMMwtQPtlNi6vng/y/cnrlFN8HtYADClG46V0g5ZN57B8e9JVv
-         8ApPhZj7+HWIqWFKFwI8JG3iCnlhivEGoqz3/3J5JXmHOZ1Zr+IoHSviIfzn9qfP5jx1
-         AAeg==
+        d=gmail.com; s=20251104; t=1788531821; x=1789136621; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=v/IdbLiGLfNJWgT3may7e/Lmqs8svlFsWUM1fARTmC0=;
+        b=SE+m1Uz7YHhKdLgyFemVCPJwdWmGT+jX73T1cZfJ3v6kaRe5prDNO6LFrnVTT/41Ou
+         Vq0SnmCnjhbD9VNtru7qb74ZSgqnW+3a/qMP8/U+8ZcJ3jZSjKJ//2rU4m4mSKEDMxZf
+         50J40VySG824d5qo7w+oa/si5Q9x4Rhd1s/c0R8K6RYBPZ9gpvvxiOH3UxjPYM+Nhsi2
+         Xs3t9oznZmgOG83M9btaGT5SJpgTTYda9gx9dJxND8HMJg5+FjMTC5/Ct2T2Q08R4x+d
+         E9BEyH28d31OsSLgygbiglEiOO43OYIugDISmAJ9O1ZRXMpsk/Zoc1qj+lv5GCbCVNr5
+         5+Dg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788531815; x=1789136615;
-        h=content-transfer-encoding:content-type:mime-version:message-id
-         :references:in-reply-to:user-agent:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20251104; t=1788531821; x=1789136621;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=OPLJDNKSQZ2RpNMuFTNGRTC/xRNgD/y0SY0GD8UQRl0=;
-        b=CNcSb65FaQh03gKuzK8bdj4J5CcmkiSz2yM7TJsIZ8VanYwDlSebvs4R+hmgSAOXg3
-         bMhzM4hPCmuQ+wDkm8bgjvkQu/Avuwda3qiXj3jxWPQZCxWhS1HdB7gM3qYBOnFi4dHL
-         KI05nmjUmvw3QAaAkborEYJUYOkUOPxjgJQy7b3ZM67GHsVLIgQrJo5+iMmxauF5SpSR
-         Otafy8NmUuTWLmIw7e+mIXFYsPhlyb0MSrg2cl/Er7gab7Qu3QPRHhHPZLl9xy1d1H8T
-         KE/oNODC4JcDTGi/iiovYWhcN8Cxg2eumtUS4Htk+nl31K1z7rXcf4D4d1tg3rNLxv9q
-         w8TQ==
-X-Forwarded-Encrypted: i=1; AKwUvBz+dL3I4qAM1oV6Cbd4cCgYqEPDSv3YN/3fQFtv96zNT+uBrIExFhicis86PVL2McZWHaOz+XwQRTObIy0=@vger.kernel.org
-X-Gm-Message-State: AFuF++nte+7xA77bvXM4+mKHog/IvmXReTef5mzNyKH1F8hkGRPUE8vW
-	dw7xGEhk4NO+wbKaRZ8v63655+RJeCosDtsIll5fwfKA/GnWDG5TUCXi
-X-Gm-Gg: AYBFou0cM4uLCVbQ4y42CAJyxDI8sTfmDMdzMOQlk6R479Alx9QEseMeDagmsf3YsrW
-	OWLhcfwxoalNxxy5wkfQNVmgUdALy62nSY+uuILtDkpd4BZNzLSXepXCrvjxiKrgaOgaci4chMu
-	VTKc9u5iZSsmOGccUGFfwMpQf7NomI46SLuUEU6aMzvOhYizE3sODIUbQtJohxH6OIa/oU12PCQ
-	FZbAMB5fMCVHAhSlNg4d7EAfBBQjNASGRSybr+k76xnp3EIqOffxUZYCJ/sR7UL8Lz7pDZr7tC5
-	3v1yzfjDBm46q9LJrzMZ3AcW/tHLOVvoGhag95IevnW+bKjdcLe1CbaphAKzAzwJJBeEiNh1Hp4
-	DxzuADk6k86sOuuHtHpvKabfE56Znuel0fZry+pQQNRsS/rSWXw/M2nHBFWqQ5eBQzlW0e6sNiT
-	1U/V6yOmyZukU8GIrEQixTnVUK1tZcufKBbkcdi5edu2KYFjqdIvlTrd4ZXb4tXYOaJ4Zrw4Kkd
-	++MboglXJckbiGb/buxWS2oBfI9EhfVfTHahbDouphcp0FA12/7VUdULT8=
-X-Received: by 2002:a05:6820:1f07:b0:6b1:c181:9386 with SMTP id 006d021491bc7-6b6fd5d0472mr4653800eaf.29.1788531814720;
-        Fri, 04 Sep 2026 07:23:34 -0700 (PDT)
-Received: from ehlo.thunderbird.net (108-228-232-20.lightspeed.sndgca.sbcglobal.net. [108.228.232.20])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339b6036fcsm7789074eec.20.2026.09.04.07.23.33
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 04 Sep 2026 07:23:34 -0700 (PDT)
-Date: Fri, 04 Sep 2026 07:23:20 -0700
-From: "Derek J. Clark" <derekjohn.clark@gmail.com>
-To: Tristan Madani <tristmd@gmail.com>, Jiri Kosina <jikos@kernel.org>,
- Benjamin Tissoires <bentiss@kernel.org>
-CC: linux-input@vger.kernel.org, linux-kernel@vger.kernel.org,
- Tristan Madani <tristan@talencesecurity.com>, stable@vger.kernel.org
-Subject: Re: [PATCH] HID: hid-oxp: use cancel_delayed_work_sync() in remove
-User-Agent: Thunderbird for Android
-In-Reply-To: <20260904105800.3923987-1-tristmd@gmail.com>
-References: <20260904105800.3923987-1-tristmd@gmail.com>
-Message-ID: <949B786B-375B-4F2F-B209-C135EC62E1A5@gmail.com>
+        bh=v/IdbLiGLfNJWgT3may7e/Lmqs8svlFsWUM1fARTmC0=;
+        b=Jnoq9DtWs9+RG6BKIbW5sXuVcLyPTIRrTCushNCawPYB7AmfCGV7b8XrA8yCtHyTIM
+         ZWlwKs/vSHhHOR4ITnDiX3vJnHUXP5JtyXIFVQrOeKj+p1P1aNRfJVMwPqElo2xLvR5M
+         9M2vjdqAHo8OoOmVTt9C2tFY7hBkv0igCJbbRHnNYMqExlKzcvNNoNUl+EfSXw9aM2eZ
+         1e2mYUsctaF2z78j2crToWnO06aTpfkyr8KaAli98r47Gz9NazNR/HwzoVS1Z6/B/WVF
+         h/WSUjK8Oej1f0OLkF+5bJ+1HkSsmfrypoJ57mZWBcKf/rSrTTGuSVmaOAjhp/NHmFYo
+         PSeQ==
+X-Forwarded-Encrypted: i=1; AKwUvBz7OyTaVHQulvjJKeU4PbB3qc1DJNjdddhfD6TaQcZxyyfcCjA3Qk17UEj2svQ340heTTF7BmFHNwDa60Y=@vger.kernel.org
+X-Gm-Message-State: AFuF++kmwIHsXyIIfzwf07slcnNpi5rKVxxiFK1g/nAoLD0R7pint8o9
+	LD0KbV6s8zhdZbyECNisSKQTA5//JLUyBuH/cgEsXRft6aYyaeL1gtuparAYwxF7G6ETI6s2Z5S
+	0VMta4dOIspHBRH/xOu4SRDYtgQcXFMh8DPPIPxI=
+X-Gm-Gg: AYBFou3HlGWEdmnJUcQRi+TJRbjSWLak6xXE8q/I1no2gaaOZxvKq+qkDagYbYNYK0t
+	+FMe/FwfydaSCGJqDi/miYrwmPO5cPGDAhbSEBtZUJo+Iwat5OP+zsy3C8iiD8+02rEAfFmjZy1
+	DkOxNoPKZdYawegQzsSSj9GCYWcvpszrfnhTLRXKeDvoJifeUI+gt7BC/lZMmpl+TjeqWIp/23H
+	kfyskq9T05SZUECULt7FTwoylDI3iXfEN92lgFwsuOuailResMK5GnTgTqr28Zb2KqM5XrbQaEE
+	ZZg4cXH/09nQHIDQbl0WfIhyuLffDoua26whwvkTMYB9Jqaa0nMMLu8WzfHpUnhiAarr7wKGxEn
+	GTLd1e363Txiffe9J7BPlq9waZBb0zVuL0P1ewTDNF3GqGRV5r5TpUWi0dB9FNsuKlWF6k7M=
+X-Received: by 2002:a17:90b:3bcf:b0:396:d27c:8696 with SMTP id
+ 98e67ed59e1d1-39b2693597emr6435720a91.4.1788531820989; Fri, 04 Sep 2026
+ 07:23:40 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
+References: <20260904122002.27960-1-hemanth.selam@gmail.com>
+In-Reply-To: <20260904122002.27960-1-hemanth.selam@gmail.com>
+From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+Date: Fri, 4 Sep 2026 16:23:28 +0200
+X-Gm-Features: AcwNN1WTRRMr7Y3iQTAP8AzxwhPX7ZjceOE95KyFxklhpavQwwkWcnNoQDcihuo
+Message-ID: <CANiq72=QNpuvP01TfXEkjj4i7p4QU5WGj4mjHjrKyrUMsjEwWw@mail.gmail.com>
+Subject: Re: [PATCH] kbuild: fix typo "funtions" in comment
+To: Hemanth Selam <hemanth.selam@gmail.com>
+Cc: Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>, linux-kernel@vger.kernel.org, 
+	linux-kbuild@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On September 4, 2026 3:58:00 AM PDT, Tristan Madani <tristmd@gmail=2Ecom> w=
-rote:
->From: Tristan Madani <tristan@talencesecurity=2Ecom>
+On Fri, Sep 4, 2026 at 3:11=E2=80=AFPM Hemanth Selam <hemanth.selam@gmail.c=
+om> wrote:
 >
->oxp_hid_remove() uses cancel_delayed_work() for all three delayed work
->items=2E  cancel_delayed_work() only dequeues a pending work item without
->waiting for a currently executing callback to finish=2E  If any of the
->work callbacks (oxp_rgb_queue_fn, oxp_btn_queue_fn, oxp_mcu_init_fn) is
->running at the time of removal, the callback continues executing
->concurrently with hid_hw_close() and hid_hw_stop(), accessing the HID
->device after it has been closed and stopped=2E
+> Correct "funtions" to "functions", reported by scripts/checkpatch.pl usin=
+g
+> the misspelling list in scripts/spelling.txt.  Only touches comments, no
+> code changes.
 >
->Use cancel_delayed_work_sync() instead to ensure that any in-progress
->work callback completes before device teardown proceeds=2E
->
->Fixes: 84910c459d65 ("HID: hid-oxp: Add OneXPlayer configuration driver")
->Cc: stable@vger=2Ekernel=2Eorg
->Signed-off-by: Tristan Madani <tristan@talencesecurity=2Ecom>
+> Assisted-by: Cursor:claude-opus-5
+> Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
 
+Welcome! I noticed this one in my spam folder.
 
-Hi Tristan,
+But, yeah, it looks wrong:
 
-LGTM, thanks=2E
+Fixes: 5270316c9fec ("kbuild: Use -fmin-function-alignment when available")
 
-Reviewed-by: Derek J=2E Clark <derekjohn=2Eclark@gmail=2Ecom>
->---
-> drivers/hid/hid-oxp=2Ec | 6 +++---
-> 1 file changed, 3 insertions(+), 3 deletions(-)
->
->diff --git a/drivers/hid/hid-oxp=2Ec b/drivers/hid/hid-oxp=2Ec
->index d2ded6b08ce9e=2E=2E1e691ebc1199e 100644
->--- a/drivers/hid/hid-oxp=2Ec
->+++ b/drivers/hid/hid-oxp=2Ec
->@@ -1552,9 +1552,9 @@ static int oxp_hid_probe(struct hid_device *hdev,
->=20
-> static void oxp_hid_remove(struct hid_device *hdev)
-> {
->-	cancel_delayed_work(&drvdata=2Eoxp_rgb_queue);
->-	cancel_delayed_work(&drvdata=2Eoxp_btn_queue);
->-	cancel_delayed_work(&drvdata=2Eoxp_mcu_init);
->+	cancel_delayed_work_sync(&drvdata=2Eoxp_rgb_queue);
->+	cancel_delayed_work_sync(&drvdata=2Eoxp_btn_queue);
->+	cancel_delayed_work_sync(&drvdata=2Eoxp_mcu_init);
-> 	hid_hw_close(hdev);
-> 	hid_hw_stop(hdev);
-> }
+Thanks!
 
+Cheers,
+Miguel
