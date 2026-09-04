@@ -1,72 +1,70 @@
-Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com [209.85.216.45])
+Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com [209.85.216.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2667946F484
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 10:36:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D2CE25D53B
+	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 10:37:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788518208; cv=none; b=pDTdXlXhUMpQGyfEMJ48yHMnGbsjaPJo972cUTRMBzWb/fQMI1OyakoWVXhHeBAxJltvst7w9+m4ldbpXb8r4F8QFONJxjDbpcOP0RR7KVFAvU3Z1WIwFkkw3TLkJObNoG5nI/o3wMUksi/lY9RtQZnwYcJVHWhejc00h17R9a0=
+	t=1788518259; cv=none; b=unPRGVHszTUU1+TJ1EBvw1bf3SVSxnfvdk2z5VFHciYYVzhNGmM2yTFyp0L+BBDcwQjRZEUYtRbLzKi3fGg54i+nB/wZjXTGRmqHscq/E/kEBsW8jV+8YtweYxKTiGQTNFobMYTTsceFU7ZPAgjtYOTqJTnOx8qZbRC3Wa1w7Hg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788518208; c=relaxed/simple;
-	bh=qFJWK4XlalipjZWdxFyEk9dVKmNr941TrXMsOpAVKvw=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=AnUX3bJWmsO44QlOBgnYSAAXsbX2SDZQqlKq4LmPXNP0T2HOQb0tWRO8OIJXwoxaCryiva16AL4JHkkvN1L+pdw3v7b/UdECa2zNR4z3zjWWhbz7iwBnpoD87lF+ccnngcPA3n2oKjEg3PB9agwcbuAPBjRrSJ7bExayoCv3WkM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Aq/jz3/c; arc=none smtp.client-ip=209.85.216.45
+	s=arc-20240116; t=1788518259; c=relaxed/simple;
+	bh=eCdrtFx92LOvn3zRMQuQf4je2cLrF15KZh5gW8zQuIE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=engVt7x+fLXQZo1x8bminLkAvgbeVgK8Vp9pTH3eS7ECBLIOKTvm9kgi9mW+vI/bUHS3z7QotVhYOYA7Me5l8sP6TmASTF6NbqZjUtILgI59QTvscxdze8KNkCsnLiDBhvXgMGSzxBCRRYqwVl8C/sUeDCPtQ1HyVu+7zNuuctA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SlYxKtj9; arc=none smtp.client-ip=209.85.216.52
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Aq/jz3/c"
-Received: by mail-pj1-f45.google.com with SMTP id 98e67ed59e1d1-39682983a0fso893286a91.3
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 03:36:46 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SlYxKtj9"
+Received: by mail-pj1-f52.google.com with SMTP id 98e67ed59e1d1-38e58034d05so679965a91.2
+        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 03:37:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788518206; x=1789123006; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1788518258; x=1789123058; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=d+9a8VqO2XLAPjwxvJ5EY/XQQ3jRr5YygAEnq28UsF8=;
-        b=Aq/jz3/c/krLpIcklkQDey8jkto1qkOpH6B1CtuWICfVmiva5a3LRytIfmz3StTvZP
-         q0qKUdiVM7IbzfWoq3UChoEO5sqXbIb6eYjG/yTUoSKuPPctUV+yq/w8GRr2nIGognM3
-         kk7j33vK+l9tNiU/h65tMd3XJYoVfD9XlehDY9TFz17e6i4UWXPy9DW3JaUMtJOH9Xcf
-         bJgpPTS32Dnrfylje4kU5SSK7FDZwG0v0uh4zOgXSRYN2uxjmlPr9RisWcl7iH97lAIY
-         uPY4FLrgLpygUbyiVDKjg3IebVrIAWAi7oF9lS2BIHAT3KRnD+lndaCr5EiHPSEnJXtJ
-         RGnw==
+        bh=BZQsFKP4jMyXxxqQrP5SytFPA0wlD3KzFUOMPf1X4dk=;
+        b=SlYxKtj94Rab66TfgjWSv/MPtQn2i05vzsOQ6uZOiyHN+oVk7DJH0QGXv/8+P5odLx
+         9QPgl3nkGvCTPL9NqvB1MWPOHhAb1fAD7Ol5+fMSMSJjqXCwlasohULQmEpQLBh7G34O
+         xFI/P69MFfAToAs4eHJc5eiL288W8Z06rreJyhNDP5uNDuPWrYHTGM+OSjApIFf8NT3Q
+         crumnodRjguprXT46p4fh0iZcBAPGtZl/a47meiOdWzDzQ2VTtYuoW/Z80VliWf86N6s
+         HuEzsCVl5h3nR3ILxxiMnCOC+mdBPKlsgYGRmYtiZrDu3cH0XkZQwH1auRMH2b01FluZ
+         Zj0g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788518206; x=1789123006;
+        d=1e100.net; s=20251104; t=1788518258; x=1789123058;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=d+9a8VqO2XLAPjwxvJ5EY/XQQ3jRr5YygAEnq28UsF8=;
-        b=mx6y8hb/WJD/ip3uVAtzAkILgsHWsPfcv6E0lia6FE0Y0JAiQd50QHB0NBhICTEmif
-         PdjF5//P16u/sbOm7IJGR2a/7zFULCH+E0eKJGLsVYs7wqN2TxYWbLAyq6nXxH+Eab6y
-         HyqhAMxquPN65/NlNk1vF+ENwUTKx8EyqCJVVUpAuerc/warBnjKuQ991fvUF2zHdiuU
-         I+I0wblTEM5yVNudTQeSIUkN9y+s6Aej1LBEIzKDUyXBZkysLU6QJEr342/qUBpBfAbD
-         wcc4h7FchSSG//mWqYv47v4to/dBwgSBSSRBAhn61ypmNoJQcM+I6oVPT+RJBs512tF5
-         Wi/w==
-X-Gm-Message-State: AFuF++k43ttSbYMZeIf43mPHPSbx3mXYXJO+PmHQoQzVuf/M42rR22j7
-	jx6oHPhN6j26xXe7O6hfBQ2h9KkfQUzlnbPLx6M+lRdh3dueiTxKiDE7VRrQYUo7
-X-Gm-Gg: AYBFou1TOI7LVsgh5QF0RbVXFmc43C92NaSYa55YVL6PpjIgGdjhiKfn3jTM33X8Kg3
-	G+3/guUtEnTwdfTgf7jU9JCaLdh+Kkdhkmt1+/CvD7S9hzifYLX5ISb0S/MJRFnSSLyTUFrZcWr
-	Sngfr6V28qi0Iu6nSaeTXl2IuIS6ZShldW4bzLAAnA0mtylceX55ddOtqj9kPjNk3H7JuavrTEe
-	rxCF92BdaroyVaV7KcX3Vcu78EejTc0zTqzRHKJaZsjN+xIpzzOFYMJvOYrruOs8xZz9UZcH9re
-	yVwhtHVxWYfCJTwJQw8WwyRA96t2Uh9Cn2GRFugroyzNd4MrszY6KKq6KZSx6jbB9No31XoGFTb
-	nCxyN66NcPXxbvlMPK/f8JBfttMuOfuKk3kCOEj9cHoJnI3XldvNXvSUsupdhTeJgSykklwA4Yg
-	xyl7PjHXY7SGLTKAXrm1ZYpjyQpuUYKmi7ppMdlGU0JNgkekkMaAQSsJmYXIUezYxzWhCyW/daz
-	HmMS6PcmfF6t9M=
-X-Received: by 2002:a17:90b:3b46:b0:398:dcfe:967a with SMTP id 98e67ed59e1d1-39b2620a2ecmr7198992a91.17.1788518206169;
-        Fri, 04 Sep 2026 03:36:46 -0700 (PDT)
+        bh=BZQsFKP4jMyXxxqQrP5SytFPA0wlD3KzFUOMPf1X4dk=;
+        b=jS9LlO+LizHjQhsfJSyY9LCBIbvsdSjxSVL02RHZfJWKet0EaYWplczAunFguXg6fK
+         ZDhNhQp2OqvO032BW6HRKI+nOzweBjc9XkR1qibT56VINuY7y2EdFNZpi4FztRtR7Tpp
+         zJ9t2sjWCX+5GFt2Fm/mkxfoGAL++EemFFbUPno/SJNFQeW2xkrEulwlN4CI3KTb9ew1
+         IEbkmsuexeeReGKiHbZcqbaWwkFiwZFV+KBv4HAM3YPV772b3suEbOy4yisUpPCvYQSl
+         rAwKA9vIEWqT3FrJyZcmPzLFiBDH+78Hzp7lJqORsSDgxaqJ1mkw/Zrb8P02iRe/avOG
+         c2Ng==
+X-Gm-Message-State: AFuF++krDGm7U5vvoYTeoKR6xoFaClYI0mu5DO1eb8+va5RndkAxVnGt
+	1qIofd89lQVYV5XIwM59B5YdxsH+MWEk60pg3TKORayAFiiSfTrz16AH
+X-Gm-Gg: AYBFou1edAIMxKghOwQhwPz4rAzawhGU0xT+2Yn/uPNPbtTGTkM3PPMYEm90Qj6kXds
+	7sLahQp/NeYV3ThcXbW23asfBLOCot6exfLdwfpBQ9CDolyX+8uUpxESqT6l/4mUmmgtYZm//4L
+	m3bN8oW81SYlwAiIZsHAd1A8CA8n/QrMB3QIJRU8/RaW9yVdIg+R5B0s2ucBma1EJM9VTBrCXwt
+	fms+SUByJ8d8hbQiVvuKNgYWcdnBuLkE9CRwtgJl62zlgiTUGGmcs2XUcX3Rbxf9wsS/jRoUXk4
+	btpBSX+OljNqJfNWjCVpjGJACwZEdk4IIR86Et4E6HNVScFR816cKhS6DlZGG8z6tul9eoxaRGZ
+	o14sb1n6qeP2Nb+LYIo49+YqY1cpxHdnjHP9soIx2xQgPovWTb3kt4iTaLuxLuIC8zCyw2EXxE0
+	4Qz/BVD2/Js/VHFFcEqVYuBlRq6Rk44wO7fDmPKdv6lrZnxHyHqYTvhDcgS5mZ7RTlIT3jJxGkR
+	FjQqfmzCuJKhZ4=
+X-Received: by 2002:a17:90b:17cd:b0:38f:aab1:5148 with SMTP id 98e67ed59e1d1-39b26272b4dmr6804930a91.13.1788518257765;
+        Fri, 04 Sep 2026 03:37:37 -0700 (PDT)
 Received: from volcano9f6e-hostos.amd.com ([165.204.217.251])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3342af0bc08sm3577976eec.17.2026.09.04.03.36.43
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339b9f68e4sm5981325eec.24.2026.09.04.03.37.35
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 04 Sep 2026 03:36:45 -0700 (PDT)
+        Fri, 04 Sep 2026 03:37:37 -0700 (PDT)
 From: Hemanth Selam <hemanth.selam@gmail.com>
-To: Tony Luck <tony.luck@intel.com>,
-	Reinette Chatre <reinette.chatre@intel.com>,
-	x86@kernel.org,
-	Dave Martin <Dave.Martin@arm.com>,
-	James Morse <james.morse@arm.com>,
-	Babu Moger <babu.moger@amd.com>
-Cc: linux-kernel@vger.kernel.org
-Subject: [PATCH] resctrl: fix typo "migrateable" in comments
-Date: Fri,  4 Sep 2026 16:06:05 +0530
-Message-ID: <20260904103606.4852-1-hemanth.selam@gmail.com>
+To: Sudeep Holla <sudeep.holla@kernel.org>,
+	Cristian Marussi <cristian.marussi@arm.com>
+Cc: linux-kernel@vger.kernel.org,
+	arm-scmi@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org
+Subject: [PATCH] firmware: arm_scmi: fix typo "upto" in comment
+Date: Fri,  4 Sep 2026 16:07:31 +0530
+Message-ID: <20260904103732.7320-1-hemanth.selam@gmail.com>
 X-Mailer: git-send-email 2.48.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -76,38 +74,29 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Correct "migrateable" to "migratable", reported by scripts/checkpatch.pl
-using the misspelling list in scripts/spelling.txt.  Only touches comments,
-no code changes.
+Correct "upto" to "up to", reported by scripts/checkpatch.pl using the
+misspelling list in scripts/spelling.txt.  Only touches comments, no code
+changes.
 
 Assisted-by: Cursor:claude-opus-5
 Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
 ---
- include/linux/resctrl.h | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/firmware/arm_scmi/driver.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/include/linux/resctrl.h b/include/linux/resctrl.h
-index dd09c2ce9a0f..c67652eec39b 100644
---- a/include/linux/resctrl.h
-+++ b/include/linux/resctrl.h
-@@ -547,7 +547,7 @@ void resctrl_arch_pre_mount(void);
+diff --git a/drivers/firmware/arm_scmi/driver.c b/drivers/firmware/arm_scmi/driver.c
+index ef29fd223287..fb45b8e6459d 100644
+--- a/drivers/firmware/arm_scmi/driver.c
++++ b/drivers/firmware/arm_scmi/driver.c
+@@ -477,7 +477,7 @@ void *scmi_notification_instance_data_get(const struct scmi_handle *handle)
+  *  - exactly 'next_token' may be NOT available so pick xfer_id >= next_token
+  *    using find_next_zero_bit() starting from candidate next_token bit
   *
-  * Some architectures need to sleep when first programming some of the counters.
-  * (specifically: arm64's MPAM cache occupancy counters can return 'not ready'
-- *  for a short period of time). Call from a non-migrateable process context on
-+ *  for a short period of time). Call from a non-migratable process context on
-  * a CPU that belongs to domain @d. e.g. use smp_call_on_cpu() or
-  * schedule_work_on(). This function can be called with interrupts masked,
-  * e.g. using smp_call_function_any(), but may consistently return an error.
-@@ -658,7 +658,7 @@ void resctrl_arch_config_cntr(struct rdt_resource *r, struct rdt_l3_mon_domain *
-  * @val:	Result of the counter read in bytes.
+- *  - all tokens ahead upto (MSG_TOKEN_ID_MASK - 1) are used in-flight but we
++ *  - all tokens ahead up to (MSG_TOKEN_ID_MASK - 1) are used in-flight but we
+  *    are plenty of free tokens at start, so try a second pass using
+  *    find_next_zero_bit() and starting from 0.
   *
-  * Called on a CPU that belongs to domain @d when "mbm_event" mode is enabled.
-- * Called from a non-migrateable process context via smp_call_on_cpu() unless all
-+ * Called from a non-migratable process context via smp_call_on_cpu() unless all
-  * CPUs are nohz_full, in which case it is called via IPI (smp_call_function_any()).
-  *
-  * Return:
 -- 
 2.48.1
 
