@@ -1,67 +1,106 @@
-Received: from abb.hmeau.com (abb.hmeau.com [180.181.231.80])
+Received: from out28-121.mail.aliyun.com (out28-121.mail.aliyun.com [115.124.28.121])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE2C94457CF;
-	Fri,  4 Sep 2026 09:54:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=180.181.231.80
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D8DB3E3169;
+	Fri,  4 Sep 2026 09:54:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.121
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788515658; cv=none; b=BGksa5KJZ7Fyl4cHoj0Wk5BHOlQhQiYjITrjHti63Sy8ecvHRzX6x9c7qmFLMlNpqNdrvFAJ/Rgidfx9W2yKg9moQrZjDYNbYLeUzGyJyswVTAEdAzBs9LJvXyEizUnZ9hX753ZNqP3fGge3C1cMXUPwhJpn1xV4BF/p+oEcrm4=
+	t=1788515682; cv=none; b=GV2dMm4a1AnGTo3sWG4QwRv8u5SnsEMpFqdaAeLXj/eWweFLMyX3Yd8i5gSW1QZkMhY7AEVCQPhclx4C82wSkZmg5eTNbev3lHJp8xU2dXCXdwdkOWiooVGzUgUspibxv68Hl5LjeSu4eNSoQxbLl+Q6Uz1ToS01+FY0ZJ/Tx9Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788515658; c=relaxed/simple;
-	bh=3PqPENhDICk5l2MTOQIpMr5kGQQZtXFajQe/+Akmgng=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=lj2uaDyfZ6xGZvRgNQzlKLNhjVtMoxqFyNrjSqwyvjq1kFfcK97K4Ftm5MuKFIo3yl0dVkgVpElLqADD9jjwD05dkIP3byB9QyEtlyACU+sogrjoTOXx1Sey6ub5NEDewcFhvR907Dv+jxYp0R9DI8y8f5cyPzUPDRYMjbXr8cw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au; spf=pass smtp.mailfrom=gondor.apana.org.au; dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b=Mq72b/Gu; arc=none smtp.client-ip=180.181.231.80
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gondor.apana.org.au
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b="Mq72b/Gu"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=gondor.apana.org.au; s=h01; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:cc:to:subject:message-id:date:
-	from:content-type:reply-to; bh=jkzKpJr5ODPtT7RRQbVPUAI/Zsdbk3dpgis03n8smN8=; 
-	b=Mq72b/GunvR0Xlpl9NbdUZ+OLvy2kFr/yMbov0R1vfLB2uQDJ94sAOBoDPf31+1aDqvNCKSQHan
-	18ZLLqijwjxEqyYWvVZd68hlp/oNqke9f71QnY6tKSY3Fe3ANVABcfOEhS74b59qIkGl0Mk8rb3x5
-	kU9kWTOpmaLDj7aP2fxqq7LCLJUun/7hV1iFCemIUXEN6QqzTA3d02peiI40ibBUfJbvlpl8fH1+0
-	dPRN+JzhEoM/WHvfDBbav7kC3Bv3WQ0mU38It/U6khtYvqB32QHX1Y+eFcvn5l7Vn9bmmxOYajbkO
-	3y4QxtUC9hJ+TYt1lv6Zo7YKp+yu2sAcRK1Q==;
-Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
-	by formenos.hmeau.com with smtp (Exim 4.98.2 #2 (Debian))
-	id 1x2Qce-0000000An6T-2EXA;
-	Fri, 04 Sep 2026 17:54:13 +0800
-Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation); Fri, 04 Sep 2026 19:54:12 +1000
-Date: Fri, 4 Sep 2026 19:54:12 +1000
-From: Herbert Xu <herbert@gondor.apana.org.au>
-To: Rosen Penev <rosenp@gmail.com>
-Cc: linux-crypto@vger.kernel.org, "David S. Miller" <davem@davemloft.net>,
-	open list <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCHv2] crypto: amcc: get irq and ioremap resource first
-Message-ID: <apqVRJ6Ln4hCoE6u@gondor.apana.org.au>
-References: <20260810191559.21977-1-rosenp@gmail.com>
+	s=arc-20240116; t=1788515682; c=relaxed/simple;
+	bh=4dBlCwGqJ641ux6Xw+LiNiNidcwzfczUEJ5ltuBeByI=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=QkXhWut2VmDoQ0Q6MzQ6Fm7AbsMe3K8ujNXSIrFwWnkqkLeKO/5uniFyYPgaPQazlYZZgb3AJjF+ebFZ73FvOKfhKkYqSNr5FaDQKPg9oPXlMw+u3j5HJ/srU1nDC1UXBiCzo5v01MYcx8S+r5bOtf+kNZZpcGcb4vR/WhslCsk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=motor-comm.com; spf=pass smtp.mailfrom=motor-comm.com; arc=none smtp.client-ip=115.124.28.121
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=motor-comm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=motor-comm.com
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.08430664|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.0110873-0.000117148-0.988796;FP=16318571532961603222|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033022149254;MF=kyle.switch@motor-comm.com;NM=1;PH=DS;RN=16;RT=16;SR=0;TI=SMTPD_---.j5Qgq4B_1788515675;
+Received: from motor-comm.com(mailfrom:kyle.switch@motor-comm.com fp:SMTPD_---.j5Qgq4B_1788515675 cluster:ay29)
+          by smtp.aliyun-inc.com;
+          Fri, 04 Sep 2026 17:54:36 +0800
+From: Kyle Switch <kyle.switch@motor-comm.com>
+To: andrew@lunn.ch,
+	olteanv@gmail.com,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	mmyangfl@gmail.com,
+	horms@kernel.org,
+	linux@armlinux.org.uk,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: ming.xu@motor-comm.com,
+	xiaolin.xu@motor-comm.com,
+	jianmin.wang@motor-comm.com,
+	wei.zhang@gl-inet.com,
+	sijia.huang@gl-inet.com
+Subject: [PATCH net-next v5 2/6] net: dsa: motorcomm: use max_ports from series_info for port bounds checking
+Date: Fri,  4 Sep 2026 17:54:12 +0800
+Message-Id: <20260904095416.1692962-2-kyle.switch@motor-comm.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20260904095416.1692962-1-kyle.switch@motor-comm.com>
+References: <20260904095416.1692962-1-kyle.switch@motor-comm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260810191559.21977-1-rosenp@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-On Mon, Aug 10, 2026 at 12:15:59PM -0700, Rosen Penev wrote:
-> These functions can return -EPROBE_DEFER and require no special setup
-> other than the platform_device which is already provided.
-> 
-> Avoids doing extra work when not needed.
-> 
-> Signed-off-by: Rosen Penev <rosenp@gmail.com>
-> ---
->  v2; remove now dead error check.
->  drivers/crypto/amcc/crypto4xx_core.c | 20 ++++++++++++--------
->  1 file changed, 12 insertions(+), 8 deletions(-)
+Replace the hardcoded YT921X_PORT_NUM macro with the per-series
+max_ports field in port validation. This removes family-specific
+constants from the common code path and simplifies adding new
+switch families with different port counts.
 
-Patch applied.  Thanks.
+No functional change for existing YT921X devices.
+
+Signed-off-by: Kyle Switch <kyle.switch@motor-comm.com>
+---
+ drivers/net/dsa/motorcomm/chip.c | 8 +++++---
+ 1 file changed, 5 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/net/dsa/motorcomm/chip.c b/drivers/net/dsa/motorcomm/chip.c
+index 557a0e07d8d7..7ae48e6636a0 100644
+--- a/drivers/net/dsa/motorcomm/chip.c
++++ b/drivers/net/dsa/motorcomm/chip.c
+@@ -357,7 +357,7 @@ static int yt921x_mbus_int_read(struct mii_bus *mbus, int port, int reg)
+ 	u16 val;
+ 	int res;
+ 
+-	if (port >= YT921X_PORT_NUM)
++	if (port >= priv->series_info->max_ports)
+ 		return U16_MAX;
+ 
+ 	mutex_lock(&priv->reg_lock);
+@@ -375,7 +375,7 @@ yt921x_mbus_int_write(struct mii_bus *mbus, int port, int reg, u16 data)
+ 	struct yt921x_priv *priv = mbus->priv;
+ 	int res;
+ 
+-	if (port >= YT921X_PORT_NUM)
++	if (port >= priv->series_info->max_ports)
+ 		return -ENODEV;
+ 
+ 	mutex_lock(&priv->reg_lock);
+@@ -390,6 +390,7 @@ yt921x_mbus_int_init(struct yt921x_priv *priv, struct device_node *mnp)
+ {
+ 	struct device *dev = to_device(priv);
+ 	struct mii_bus *mbus;
++	u32 max_ports;
+ 	int res;
+ 
+ 	mbus = devm_mdiobus_alloc(dev);
+@@ -402,7 +403,8 @@ yt921x_mbus_int_init(struct yt921x_priv *priv, struct device_node *mnp)
+ 	mbus->read = yt921x_mbus_int_read;
+ 	mbus->write = yt921x_mbus_int_write;
+ 	mbus->parent = dev;
+-	mbus->phy_mask = (u32)~GENMASK(YT921X_PORT_NUM - 1, 0);
++	max_ports = priv->series_info->max_ports;
++	mbus->phy_mask = (u32)~GENMASK(max_ports - 1, 0);
+ 
+ 	res = devm_of_mdiobus_register(dev, mbus, mnp);
+ 	if (res)
 -- 
-Email: Herbert Xu <herbert@gondor.apana.org.au>
-Home Page: http://gondor.apana.org.au/~herbert/
-PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
+2.25.1
+
