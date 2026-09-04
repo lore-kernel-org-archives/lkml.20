@@ -1,169 +1,181 @@
-Received: from mail-ed1-f43.google.com (mail-ed1-f43.google.com [209.85.208.43])
+Received: from mail-oi1-f172.google.com (mail-oi1-f172.google.com [209.85.167.172])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BB1D476056
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D69F1481643
 	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 12:16:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788524197; cv=none; b=P9lmkv7AP0C0h8zh7miqZ0HhB3/ZMswsDv6mgd1PKtdgDdOTfezqrs6vjyna4nA2KFYgG1ZjpC8Lll29u0KsJYYkBrbz62PJXFjFCxv1SiHtW9qYIHDXAtjvjJy0GZPuez9S/+PxguzOiJPnyd3glz4iFKs1JLtOtaKilKr26+Y=
+	t=1788524197; cv=none; b=QUdoZT99QFS4ytvuX/uwD4WINXWL2cJC2nlrgeKaHY5glUGtdRrQt4UCBLAezYMmJphhih1sFJW6dZJOMaQpav8sSaRY7VtEoN0haOnsNH5ftFy9Wiiu6oJY3HLymWuN3yQR0KYnB8xFoPoKEvMsGnFWexcwRvOU04zmduuqv+w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788524197; c=relaxed/simple;
-	bh=Mih/s/iaTNQ3AYU6LlfwTYiHV7v9uAhhnX40xc6A7xI=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
-	 In-Reply-To:Content-Type; b=RrjbZFtIrUpIwmgSdYLl1A/pRBsh/n5sv5etBmIaTpY0R5tLh5vJzX4gIMV0IdP3vxc5dI4rMrhl1XwLOCogIAxScJvKH2oyInoO82T65LlhA4L/OCA0dmAzMsMkYZxTy6ZHCSl61WfAAmCYQmFmEE4tVxriYXHC16j/xXAjOCg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qCBmfqt0; arc=none smtp.client-ip=209.85.208.43
+	bh=TsNOvbA0ErkQYr4k4Y2OT+QWzLIYwGJJUAjwZfFFrNY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=b4V19BuynOi8Lfd9UU07SrrUbc1jcwoLw4CY2eSiD86fwB1ZgQDcWosW0ifz0OX1u9V9TJ+8VQCpeH53/IM3zWD4xPazr2K3aaWcxXRmTLFGsFFUMQiDuIrWh+9bWxTRIyWXiQoTrFRGxRtP8EU5LFs3AoaZTcea63XTVcFlrRE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=E1en6Il1; arc=none smtp.client-ip=209.85.167.172
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qCBmfqt0"
-Received: by mail-ed1-f43.google.com with SMTP id 4fb4d7f45d1cf-69fab5a852cso1375703a12.0
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="E1en6Il1"
+Received: by mail-oi1-f172.google.com with SMTP id 5614622812f47-4b39befc6a8so530988b6e.1
         for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 05:16:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788524193; x=1789128993; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=bmyMOpfaX4h3t7GBum5n74Kd1I2b9Qp+ODDo5tAvT2c=;
-        b=qCBmfqt0B/sKDrrtbfSlwO20B/3vhHc0kzEMLY9OLkVHve5+kT/mUMfD50s+JZD9Fo
-         rFd0AqsfsD1NbhMPeNffZUH5+xGlqdtE1TVTWXy/RvFcimX+5W7to7r5o9y6ZpuTWo+p
-         8pAh6CPh8QZOWIHWtG/BXcI4PR4pLdMqub61PTnYYzLmP1H0buo3+KTIpEfhzhWNr2Av
-         yKTmLiP1oDxH4/m0RRbYlxEeJ3nI4ceyQ6wFQq6iJPtm1BmwnepQNgT4LOHA6YeSZOBe
-         ekbbsFirfhnDeZYsahJrTxwtRo0ujLGSZoZzRGZQrxKutGsAQp9xAOZz35CzwP8jpg0A
-         x+Fg==
+        d=gmail.com; s=20251104; t=1788524195; x=1789128995; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=n9lG93bvWAdHFThZPOqn3PZGlfcTpmPFX52MaXkuUFA=;
+        b=E1en6Il12LhZM0LQkO8omJ+07+1fv63o6tAjm7OCyizMhnweaQ+MtDun9gz6f8jRwj
+         r6/uxu/KCHcviNs5CndQqakt/3HhQc5unlhB6YaJ8XLBuwdKwQXKId4Q260TrbjsK068
+         DE9SFCPpx42creI8g9iSaoxRxpGqv4Mi9pG5Zfl+8smBprLWN0+EQhabSwHziqxLlJbB
+         guMdtgTVyKltS5BCvw+vBnqqzyixhpzL+5ONHQMsPjgMYBqrHjlEwJ+AiB6fABqrvvMH
+         KgyGRp5bIJgoiRoG7mSIzkaZg+8hktxuwlCnyXEaARVlZMYTW5bt13c7IbUcyZzWehvP
+         X9bg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788524193; x=1789128993;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20251104; t=1788524195; x=1789128995;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=bmyMOpfaX4h3t7GBum5n74Kd1I2b9Qp+ODDo5tAvT2c=;
-        b=XrzMGgyIVVHyOf2MiqItQORzg11rEMwqfTTvtv2PIn8M4Bp6tCaCWEHmFpSIzsM72m
-         JlHSailGjnHcB/R88Ib7eLii4hnAbWS+YABAeOm4niXHHoHwnvBlQb9+ut6je03+E+xs
-         sAW17AV3gbhguLf5gwvqlEcWXFb6dBiUAu1yGLohAUEhjKPRtJn+nQl5zVMhm1+HgcPP
-         s6cV+htSygLNT+sW9K9R8213o+uCGLnn9K7z5ZRbGcaLaBI/SwYu+J7XMIm7LZ6QR5C3
-         Z7wE02n4YjssImAxTo5TBP5khzpCJXbiXRv/mTkTK5TqRb8G0S6epQVGe0Dru/ukVQHR
-         F7Qg==
-X-Forwarded-Encrypted: i=1; AKwUvByNPJPefbJv3oCuUno8BLcCZ0fJmpCgMD20EPI3a8BN4MUfamWwt2WWMLF2WtpkV0FXBL7dmsuH9DY7Gng=@vger.kernel.org
-X-Gm-Message-State: AFuF++nAoFH8auuDd9eeVwFplgnP5YEwwZv1Vuye+N6e6HSbbMHj6qeg
-	sQV3Uy8i05PNnmEFKoVqMRuBWyRDWSto0xq64iD+fKjvho/UF8Ehgy5F
-X-Gm-Gg: AYBFou2szOJ/zpcIQTatCge8zA/Q4m6Dd7RPVdz8GqEImuWpiAbg2DcUEQMrQEQhJ/L
-	aXOxZccIV92+eg2km0GorRKnOF11oYBq5sE0iCw9xL68wYLEusAy05Yr6aA02abNagptCiHBeD1
-	BdzhqgNTbgG/GIPYBQo4fDe0lFRlLgyGYYKSXIW1jOcRsvAAvz2qj+tVeOhmVU9nuhsK8PCAq0M
-	ny1idqeBvd693u0IG2DCiP6O9dSZCARZwz4Uws6hoUZaH518va00imbKtSR8WMFW/B1GKMMXP/Y
-	0UkRKLGetuPi+XZai9g42Qkl+UqUp1+pn97M2iS12fDsB+tFaLjuLmwfiVPxa4zx1cSSrNN+HLu
-	gp2RH+PrvY7LF5DjQ5R2R2TxW59+hSGsw5qye3c/chYiS2U4QyK8sbRP5HPN5+YAC1jD7uqEPuK
-	mjxJuO9dNl8AQeqz+ycfsAmuneTB+pgbrDJ1+bm4DeMzIle2zLQGr/2Li4xsA8/eH/sDQ4SHKYE
-	IXzfBhvDYlBSXtvCNRc3YvZ1O4nkBiaL4BD7VuW/huU9X1osg/TUTWJZiiHIdpiUFr6meRxGq4c
-	bx6/sZ8JI8jmXKY/Bespm7lqNLhv7jcBSCThHueBPt46Y8XiJDmIvHN4V4eIE6M97OVwIu0dDwK
-	8zMb1pZ789zeJ443koF3PpjGE7ce4hw+wtSbdVk2gfMacRw==
-X-Received: by 2002:a05:6402:4592:b0:6a6:35ca:af8f with SMTP id 4fb4d7f45d1cf-6a7e8e92b23mr2244160a12.16.1788524193458;
-        Fri, 04 Sep 2026 05:16:33 -0700 (PDT)
-Received: from [192.168.100.51] (87-205-15-91.static.ip.netia.com.pl. [87.205.15.91])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a7e6bf337bsm1063392a12.26.2026.09.04.05.16.32
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 04 Sep 2026 05:16:32 -0700 (PDT)
-Message-ID: <493efefa-308b-4d3d-a6e9-841a3b118283@gmail.com>
-Date: Fri, 4 Sep 2026 14:16:31 +0200
+        bh=n9lG93bvWAdHFThZPOqn3PZGlfcTpmPFX52MaXkuUFA=;
+        b=M7kl5t8B1PtYMbxEBEfn97FMr61u6XFpRli8DPylwQeqMTIZNPLV047+nJdp3y8OIQ
+         HgDFZihooHjrXDXXVpuabI38F9ZPQA4RdUdtA1rQpTSNO7739PUbucZ3rN2JmTwhA+0s
+         88ruBAFpeZSG1oIxbNBv5AIM5MPtzRAhty9wXJoPllSDIZTuvTBcSQn7Ho8sinQtfdK+
+         plrmJ/1M7CH16Z1Tv1u/IP6WQHIsxR9bt49DuL+ctb4VT936l/NTorrbzgNkQPvXhPkK
+         P6U5Jp9AJdNDaRd3LsGvfvANEvu9+ZNAr+cAyNDjMqH3Ggno5zhgGm9O0z5KZtNNso95
+         Ztzw==
+X-Gm-Message-State: AFuF++mSqSFeIvRKMmy8HGulsM9265B7AFQT/4AkvhNTpuHTAUJulk4i
+	sSSUSwICMPwsr7D1XTYY1XZ61YiTSz7ZDUig3HgVFQY1e4qPUt2+cimd
+X-Gm-Gg: AYBFou0mhI//ddYz8qtzifjuJjoeMFvg0YgpTt297HNLSoinDr6Zv0gK4ToI22XAq8J
+	ogimXS6w1CT5yDoWB0xuDI+b7ZAk/qBYfA0yLK/Ytok+aD/uvmbtYiSBwn66V33+0XJNFOJE0lj
+	31eOKCdEwBpr8h/z1ytVHhZUnjUhejMnA1wSDOcy6jfbToR/9B1ZE+BLSOZWsZyPQcNMRvz8dl5
+	G1w9wFDROB/EIVEhmmYvxu4dM7sr3Vk6TFmpF3sBTaGCrCrlSpOH2QPjIzaiDfX1sGukMkjhEAo
+	t1D3lKcfwzAUJpKMc98eqi1JComhJ66BEFLRTXXP6hFTSvAa5fN5tmuUtCkB6/JohiuvBynNMuF
+	Vhruv0+J7OrnsvW6RzHGxkw/qqsl2Kz5mSNkNvCN+u8rM5f1BmNSzRmr4EGu3m16MXchuYZcsAK
+	R4+zxBN6edtIUVHOS4OFOv/23OYAw3HoHprWsH5ZYNMEYE4fkY7BidlcPhsE4dIFr8RN6c8Og0C
+	2nFsK++jqFm4I3c6/yd6C7IMw==
+X-Received: by 2002:a05:6820:1997:b0:6b7:46fc:1d1 with SMTP id 006d021491bc7-6b746fc022bmr2190770eaf.48.1788524194569;
+        Fri, 04 Sep 2026 05:16:34 -0700 (PDT)
+Received: from volcano9f6e-hostos.amd.com ([165.204.217.251])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339bbf1feesm6557284eec.26.2026.09.04.05.16.31
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 04 Sep 2026 05:16:34 -0700 (PDT)
+From: Hemanth Selam <hemanth.selam@gmail.com>
+To: =?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+	Michael Hennerich <Michael.Hennerich@analog.com>,
+	Mariel Tinaco <Mariel.Tinaco@analog.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Matti Vaittinen <mazziesaccount@gmail.com>
+Cc: linux-kernel@vger.kernel.org,
+	linux@analog.com,
+	linux-iio@vger.kernel.org
+Subject: [PATCH] iio: fix typos in comments
+Date: Fri,  4 Sep 2026 17:46:25 +0530
+Message-ID: <20260904121628.25537-1-hemanth.selam@gmail.com>
+X-Mailer: git-send-email 2.48.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] xarray: fix index jumping backwards in xas_find()
-From: Krystian Kaniewski <krystianmkaniewski@gmail.com>
-To: Mike Rapoport <rppt@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, syzbot <syzbot@kernel.org>,
- syzkaller-bugs@googlegroups.com, linux-fsdevel@vger.kernel.org,
- linux-mm@kvack.org, Matthew Wilcox <willy@infradead.org>,
- linux-kernel@vger.kernel.org, syzbot@lists.linux.dev
-References: <2992424b-2120-489e-9010-f45f46ed52c8@mail.kernel.org>
- <20260903112251.6114f91af953412d2355e5b3@linux-foundation.org>
- <app_o87YogZExbwm@kernel.org>
- <CAGJbn0f+s3U0G=1yUx7a10-buHgA_yu0REG01M8hgFo=t+3Y1g@mail.gmail.com>
-Content-Language: en-US
-In-Reply-To: <CAGJbn0f+s3U0G=1yUx7a10-buHgA_yu0REG01M8hgFo=t+3Y1g@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-I have fixed the test issue and submitted patch as v2. I'm sorry about 
-issue v1 caused, hopefully v2 is going to be fully correct now.
+Fix typos in comments, reported by scripts/checkpatch.pl using the
+misspelling list in scripts/spelling.txt.  Only touches comments, no code
+changes.
 
-On 9/4/2026 10:41 AM, Krystian Kaniewski wrote:
-> Hello,
->
-> Thanks for running tests on my patch. I've quickly looked into the test
-> result and the problem seems to be related to check_multi_find_4() test and
-> not the fix itself. I'll send a v2 patch once I get the test fixed.
->
-> pt., 4 wrz 2026 o 10:22 Mike Rapoport <rppt@kernel.org> napisał(a):
->
->> On Thu, Sep 03, 2026 at 11:22:51AM -0700, Andrew Morton wrote:
->>> On Thu,  3 Sep 2026 13:48:55 +0000 (UTC) "syzbot" <syzbot@kernel.org>
->> wrote:
->>>> From: Krystian Kaniewski <krystianmkaniewski@gmail.com>
->>>>
->>>> A bug in the XArray iterator xas_find() causes the iterator's index
->>>> (xas->xa_index) to jump backwards when iterating over a multi-index
->> entry
->>>> (like a THP) that resides in a non-leaf node and is concurrently split.
->>>>
->>>> When iterating over a multi-index entry in a non-leaf node, xas_load()
->> sets
->>>> xas->xa_offset to the base offset of the entry, but leaves
->> xas->xa_index at
->>>> the requested index. When the caller subsequently wants to advance to
->> the
->>>> next entry, xas_find() is called. xas_find() attempts to synchronize
->>>> xas->xa_offset with xas->xa_index before advancing. However, the fixup
->>>> logic was incorrectly restricted to leaf nodes (!xas->xa_node->shift).
->>>> Because the THP resides in a non-leaf node, the fixup is skipped.
->>>>
->>>> As a result, xas_find() simply increments xas->xa_offset and
->> recalculates
->>>> xas->xa_index based on this new offset. This causes xas->xa_index to
->> jump
->>>> backwards. If the THP was concurrently split, the entry at the new
->> offset
->>>> is a node pointer, so xas_find() descends into it and returns the
->> folio at
->>>> the backwards index. The caller (filemap_map_pages()) then calculates
->> the
->>>> PTE pointer based on this backwards index, resulting in an invalid
->> memory
->>>> access such as an out-of-bounds read or use-after-free on a page-table
->> page
->>>> freed via tlb_remove_table_rcu().
->>>>
->>>> To fix this, check if xas->xa_offset matches get_offset(xas->xa_index,
->>>> xas->xa_node). If it does not and the node is a non-leaf node, set
->>>> xas->xa_offset to get_offset(xas->xa_index, xas->xa_node) before
->> advancing.
->>>> Also add test cases in test_xarray to verify xas_find() behavior when
->>>> iterating over and splitting multi-index entries.
->>> Thanks.  But the changelog omits vital information: a description of
->>> the userspace-visible runtime effects of the bug.
->>>
->>>> Fixes: b803b42823d0 ("xarray: Add XArray iterators")
->>>> Assisted-by: Gemini:gemini-3.7-flash syzbot
->>>> Reported-by: syzbot+b72767277f29b6407083@syzkaller.appspotmail.com
->>>> Closes: https://syzkaller.appspot.com/bug?extid=b72767277f29b6407083
->>> I see from there that it was a use-after-free, detected by KASAN.  I'll
->>> update the changelog and I'll add cc:stable.
->>>
->>> I'll queue the patch for testing while awaiting review input.
->> The testing shows there are issues with this patch:
->>
->>
->> https://github.com/linux-mm/linux-mm/actions/runs/33815757662/job/100847425973
->>
->> And since it's in mm-unstable now it breaks all CI jobs :(
->>
->>>> Link:
->> https://syzkaller.appspot.com/ai_job?id=a01c56bd-74d0-411c-afb4-ee6f0cb6cb61
->>>
->> --
->> Sincerely yours,
->> Mike.
->>
+Assisted-by: Cursor:claude-opus-5
+Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
+---
+ drivers/iio/dac/ad8460.c             | 2 +-
+ drivers/iio/dummy/iio_simple_dummy.c | 2 +-
+ drivers/iio/light/ltr501.c           | 4 ++--
+ drivers/iio/pressure/rohm-bm1390.c   | 2 +-
+ drivers/iio/test/iio-test-rescale.c  | 4 ++--
+ 5 files changed, 7 insertions(+), 7 deletions(-)
+
+diff --git a/drivers/iio/dac/ad8460.c b/drivers/iio/dac/ad8460.c
+index a2292810e4cf..469294fd1783 100644
+--- a/drivers/iio/dac/ad8460.c
++++ b/drivers/iio/dac/ad8460.c
+@@ -304,7 +304,7 @@ static ssize_t ad8460_write_powerdown(struct iio_dev *indio_dev, uintptr_t priva
+ 	 * If powerdown is set, HVDAC is enabled and the HV driver is
+ 	 * enabled via HV_RESET in case it is in shutdown mode,
+ 	 * If powerdown is cleared, HVDAC is set to shutdown state
+-	 * as well as the HV driver. Quiescent current decreases and ouput is
++	 * as well as the HV driver. Quiescent current decreases and output is
+ 	 * floating (high impedance).
+ 	 */
+ 
+diff --git a/drivers/iio/dummy/iio_simple_dummy.c b/drivers/iio/dummy/iio_simple_dummy.c
+index 19fcdbbc11c6..28ae1e7b593d 100644
+--- a/drivers/iio/dummy/iio_simple_dummy.c
++++ b/drivers/iio/dummy/iio_simple_dummy.c
+@@ -116,7 +116,7 @@ static const struct iio_chan_spec iio_dummy_channels[] = {
+ 		BIT(IIO_CHAN_INFO_OFFSET) |
+ 		/*
+ 		 * in_voltage0_scale
+-		 * Multipler for userspace to apply post offset
++		 * Multiplier for userspace to apply post offset
+ 		 * when converting to standard units (microvolts)
+ 		 */
+ 		BIT(IIO_CHAN_INFO_SCALE),
+diff --git a/drivers/iio/light/ltr501.c b/drivers/iio/light/ltr501.c
+index fa0d16890c8b..52125fd52f75 100644
+--- a/drivers/iio/light/ltr501.c
++++ b/drivers/iio/light/ltr501.c
+@@ -478,7 +478,7 @@ static int ltr501_write_intr_prst(struct ltr501_data *data,
+ 		if (ret < 0)
+ 			return ret;
+ 
+-		/* period should be atleast equal to sampling period */
++		/* period should be at least equal to sampling period */
+ 		if (period < samp_period)
+ 			return -EINVAL;
+ 
+@@ -498,7 +498,7 @@ static int ltr501_write_intr_prst(struct ltr501_data *data,
+ 		if (ret < 0)
+ 			return ret;
+ 
+-		/* period should be atleast equal to rate */
++		/* period should be at least equal to rate */
+ 		if (period < samp_period)
+ 			return -EINVAL;
+ 
+diff --git a/drivers/iio/pressure/rohm-bm1390.c b/drivers/iio/pressure/rohm-bm1390.c
+index 57941fb4a535..db6b995afe86 100644
+--- a/drivers/iio/pressure/rohm-bm1390.c
++++ b/drivers/iio/pressure/rohm-bm1390.c
+@@ -267,7 +267,7 @@ static int bm1390_read_data(struct bm1390_data *data,
+ 	guard(mutex)(&data->mutex);
+ 	/*
+ 	 * We use 'continuous mode' even for raw read because according to the
+-	 * data-sheet an one-shot mode can't be used with IIR filter.
++	 * data-sheet a one-shot mode can't be used with IIR filter.
+ 	 */
+ 	ret = bm1390_meas_set(data, BM1390_MEAS_MODE_CONTINUOUS);
+ 	if (ret)
+diff --git a/drivers/iio/test/iio-test-rescale.c b/drivers/iio/test/iio-test-rescale.c
+index bcd4a607be19..de4a09f432c0 100644
+--- a/drivers/iio/test/iio-test-rescale.c
++++ b/drivers/iio/test/iio-test-rescale.c
+@@ -587,7 +587,7 @@ KUNIT_ARRAY_PARAM(iio_rescale_offset, offset_cases, case_to_desc);
+  * @str: The string to parse
+  * @nano: The number as an integer
+  *
+- * Returns 0 on success, or a negative error code if the string cound not be
++ * Returns 0 on success, or a negative error code if the string could not be
+  * parsed.
+  */
+ static int iio_str_to_nano(const char *str, s64 *nano)
+@@ -617,7 +617,7 @@ static int iio_str_to_nano(const char *str, s64 *nano)
+  * @real_str: The real value as a string
+  * @exp_str: The expected value as a string
+  *
+- * Returns a negative error code if the strings cound not be parsed, or the
++ * Returns a negative error code if the strings could not be parsed, or the
+  * relative error in parts-per-million.
+  */
+ static int iio_test_relative_error_ppm(const char *real_str, const char *exp_str)
+-- 
+2.48.1
+
