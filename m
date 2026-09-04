@@ -1,100 +1,198 @@
-Received: from mail-m32111.qiye.163.com (mail-m32111.qiye.163.com [220.197.32.111])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C1FF3C062F;
-	Fri,  4 Sep 2026 10:18:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.32.111
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98B523E557E;
+	Fri,  4 Sep 2026 10:18:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788517110; cv=none; b=Muhyxo13j+lk+GK6SKr1+nYit0RbzAIC7awxwyzpUb4292+WHSxjL8MmgsA+MpixZ+SdwLIONXZgVm418KW5q7vUQrFeCf1mnNK4okzo/K6ouYTdpHLQzRMDXhzfE6qZXFZwTTBAPmABXQHPEUDGouBsqjCrU6S2nW+9FHWoe5I=
+	t=1788517113; cv=none; b=kyVMoTrzDmxGCcgcuvd4gus9MizGVkZmQrMSINYybYau53CupRiuQhHvUlrkoTFZCVu8QlsAYMT5oz2qCEtVH488FgWeYOp9G/fY7z1TTGQYs2G63ro4Lp85oSrA+VmyitUJWvFzoTuA4fEIHCNjPRDkeGXRsBqdz5eg27Q8xFI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788517110; c=relaxed/simple;
-	bh=gDmAcN+5QP7ho2GcSrntOpFVXi+9Ked5dTnCchsTnFM=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=FHQzw+eKbCSB0oG2f5ocZWm/sZ539p8h+EzlxgG8lMy3OzXGvt2n2rF5pbgFq1xUT//zeT6IQmlrXmZFp5kXMbqeN1bR/AQooxZhoFnNzKRqpS40YOz5jjfYHu3xv3UkTyknAan2KRB+uvTlm6nT4PheB8uRBwspRoCPtVDqbsM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=thundersoft.com; spf=pass smtp.mailfrom=thundersoft.com; dkim=pass (1024-bit key) header.d=thundersoft.com header.i=@thundersoft.com header.b=QEfVAxRC; arc=none smtp.client-ip=220.197.32.111
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=thundersoft.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=thundersoft.com
+	s=arc-20240116; t=1788517113; c=relaxed/simple;
+	bh=oq+cZelW3ujf4BrdR2asPIBbVU8EA7VZbw7V1OVVmXo=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=bWLaaujXHbfOkgL1ymQPO+kmDFZZn1VIiBUdW1yxIgmvrAdXkq8w7brgdU8znbewRm2zRqjXEQU8Jn11QK96n0psYapa5s5loQ05NNtLO3wO/Ys4faaye1O5YalSKbt1/Pu5uzfwWhFmMUkuc0rXLaAssNpQD/HYGB7FOGmDKHQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VeD6Tsvu; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=thundersoft.com header.i=@thundersoft.com header.b="QEfVAxRC"
-Received: from [127.0.1.1] (unknown [36.129.139.90])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 4c8f646cb;
-	Fri, 4 Sep 2026 18:02:54 +0800 (GMT+08:00)
-From: Hongyang Zhao <hongyang.zhao@thundersoft.com>
-Date: Fri, 04 Sep 2026 18:02:26 +0800
-Subject: [PATCH v3 2/6] ASoC: dt-bindings: qcom,sm8250: Add RubikPi 3 sound
- card
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VeD6Tsvu"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 583791F00A3D;
+	Fri,  4 Sep 2026 10:18:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788517109;
+	bh=tw800+P4uDfhJ9ocmTWTBk5vEmN83SP+jsZApX/yv74=;
+	h=From:To:Cc:Subject:Date;
+	b=VeD6TsvuxNdszngd9kfRSkBJ6wa+qxTTVLQDoCKpXCgqM3cJiEvokNzjA3rxoeTTi
+	 MKqpiukio34QjfY74UOEleZKzmBCDhEaOZgLRF4nsRgjo4boReS7dBvvdH4L+8Agv/
+	 UheiOOtvWR52mJOsspkre/rzDUAGWb3jaigazXbTkTsVmbDmSEcuYr5Hlzbmoao8M5
+	 XdMkR1WsmH8Z0lfPojuOIreL3BXvH0yzmNvftiKypljjLqP4B89FE8ETuLNdYr1W4t
+	 GG3OxFHpAe6m/5nn8gwJDaHkUMpXRtIRruqKlK+LFkd1ZB4xByDyS+dH2m8zWWMCIj
+	 lPBfH2ns3cLUQ==
+From: "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>
+To: iommu@lists.linux.dev
+Cc: "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>,
+	Robin Murphy <robin.murphy@arm.com>,
+	Marek Szyprowski <m.szyprowski@samsung.com>,
+	Will Deacon <will@kernel.org>,
+	Marc Zyngier <maz@kernel.org>,
+	Steven Price <steven.price@arm.com>,
+	Suzuki K Poulose <Suzuki.Poulose@arm.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Jiri Pirko <jiri@resnulli.us>,
+	Jason Gunthorpe <jgg@ziepe.ca>,
+	Mostafa Saleh <smostafa@google.com>,
+	Petr Tesarik <ptesarik@suse.com>,
+	Alexey Kardashevskiy <aik@amd.com>,
+	Dan Williams <dan.j.williams@intel.com>,
+	Xu Yilun <yilun.xu@linux.intel.com>,
+	Madhavan Srinivasan <maddy@linux.ibm.com>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	Nicholas Piggin <npiggin@gmail.com>,
+	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+	Alexander Gordeev <agordeev@linux.ibm.com>,
+	Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
+	Heiko Carstens <hca@linux.ibm.com>,
+	Vasily Gorbik <gor@linux.ibm.com>,
+	Christian Borntraeger <borntraeger@linux.ibm.com>,
+	Sven Schnelle <svens@linux.ibm.com>,
+	Russell King <linux@armlinux.org.uk>,
+	Huacai Chen <chenhuacai@kernel.org>,
+	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+	Jiaxun Yang <jiaxun.yang@flygoat.com>,
+	Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	loongarch@lists.linux.dev,
+	linux-mips@vger.kernel.org,
+	linuxppc-dev@lists.ozlabs.org,
+	linux-riscv@lists.infradead.org,
+	linux-s390@vger.kernel.org,
+	x86@kernel.org
+Subject: [PATCH v3 0/4] dma: swiotlb: Centralize default pool policy and sizing
+Date: Fri,  4 Sep 2026 15:48:06 +0530
+Message-ID: <20260904101810.1193505-1-aneesh.kumar@kernel.org>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260904-rubikpi-next-20260605-v3-2-f49146d85af3@thundersoft.com>
-References: <20260904-rubikpi-next-20260605-v3-0-f49146d85af3@thundersoft.com>
-In-Reply-To: <20260904-rubikpi-next-20260605-v3-0-f49146d85af3@thundersoft.com>
-To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Daniel Drake <drake@endlessm.com>, 
- Katsuhiro Suzuki <katsuhiro@katsuster.net>, 
- Matteo Martelli <matteomartelli3@gmail.com>, 
- Binbin Zhou <zhoubinbin@loongson.cn>, 
- Srinivas Kandagatla <srini@kernel.org>, Jaroslav Kysela <perex@perex.cz>, 
- Takashi Iwai <tiwai@suse.com>, Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>
-Cc: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>, 
- Roger Shimizu <rosh@debian.org>, linux-sound@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
- devicetree@vger.kernel.org, Hongyang Zhao <hongyang.zhao@thundersoft.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788516170; l=1261;
- i=hongyang.zhao@thundersoft.com; s=20260127; h=from:subject:message-id;
- bh=gDmAcN+5QP7ho2GcSrntOpFVXi+9Ked5dTnCchsTnFM=;
- b=ic2UOxxmcYks/1trRTgX471naGiax7jeNr4BaKKuTFnwpsYM7ebCJR+ZS35Ki95VJcR7kVZg8
- QBenRasjwIbC7/XTvQlYdo/54Wq+yirPo7cz7HHf+J2I4bfqh3u1kv9
-X-Developer-Key: i=hongyang.zhao@thundersoft.com; a=ed25519;
- pk=D9yL5W9Zj0lPBDAq9gzY++1849VlXuTWAkROzZ88J/4=
-X-HM-Tid: 0aa06bdf0bf909d5kunm6f63729aafb62
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaSU5PVkoaQxpLTBpNGEIYGlYVFA
-	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlITVVKSUJVSkhCVUJLWVdZFhoPEhUdFFlBWU9LSFVKS0
-	lCQ0NMVUpLS1VLWQY+
-DKIM-Signature: a=rsa-sha256;
-	b=QEfVAxRCQajtt81f7CgjycHR/JjhSJZ/15MChhHAwjHU6sTT4hbQbBsEb5pu/SxRcSHnldj8799pQZigHPS+pqC0eBXPv75O/NEpKXVTzoX+59+8RReaZLxxhpJPX4eRHkIiIARsOkn6KgIDqkt0YiztvD3rvCHITEX0Ai3M+3A=; s=default; c=relaxed/relaxed; d=thundersoft.com; v=1;
-	bh=P6N15QBduQsHpT0mxLoWN9dWs6OuCxQrQWIy0/z8LCc=;
-	h=date:mime-version:subject:message-id:from;
+Content-Transfer-Encoding: 8bit
 
-The QCS6490-based Thundercomm RubikPi 3 routes primary MI2S to an
-external ES8316 headset codec and quaternary MI2S to the LT9611 HDMI
-bridge. This requires board-specific DAI clocking and jack setup in the
-sc8280xp machine driver.
+Hi,
 
-The existing QCM6490 and QCS6490 compatibles select machine data for
-boards using different codec and audio routing arrangements, so they
-cannot be used as compatible fallbacks for RubikPi 3.
+This series centralizes swiotlb default-pool selection and sizing, and
+simplifies the initialization flags used to describe pool placement.
 
-Add a dedicated compatible to select the RubikPi 3 machine data.
+The first patch replaces the addressing-limit argument with initialization
+flags and introduces explicit policies for the different reasons a default
+pool may be needed. Architectures now report DMA addressing constraints with
+SWIOTLB_INIT_ADDRESSING_LIMIT, while the core selects the corresponding pool
+policy.
 
-Signed-off-by: Hongyang Zhao <hongyang.zhao@thundersoft.com>
----
- Documentation/devicetree/bindings/sound/qcom,sm8250.yaml | 1 +
- 1 file changed, 1 insertion(+)
+The second patch moves the reduced sizing used when the pool is needed only
+for unaligned kmalloc bouncing from arm64 and RISC-V into the swiotlb core.
 
-diff --git a/Documentation/devicetree/bindings/sound/qcom,sm8250.yaml b/Documentation/devicetree/bindings/sound/qcom,sm8250.yaml
-index 1536fcd96d68..fc7bccdace0f 100644
---- a/Documentation/devicetree/bindings/sound/qcom,sm8250.yaml
-+++ b/Documentation/devicetree/bindings/sound/qcom,sm8250.yaml
-@@ -54,6 +54,7 @@ properties:
-           - qcom,sm8250-sndcard
-           - qcom,sm8450-sndcard
-           - qcom,x1e80100-sndcard
-+          - thundercomm,qcs6490-rubikpi3-sndcard
- 
-   audio-routing:
-     $ref: /schemas/types.yaml#/definitions/non-unique-string-array
+The third patch centralizes swiotlb sizing for memory-encrypted systems. It
+moves the existing x86 guest-sizing policy into the core. Host memory
+encryption retains the normal pool size, and a shared default pool is not
+selected solely for guest memory encryption when a restricted DMA pool is
+present.
 
+The fourth patch removes SWIOTLB_ANY. Pool placement is derived directly from
+SWIOTLB_INIT_ADDRESSING_LIMIT: pools required for limited DMA addressing are
+allocated below the architecture's low address limit, while other pools may
+be allocated anywhere in directly mapped memory. Xen continues to request a
+pool explicitly with SWIOTLB_INIT_REMAP without imposing a low-address
+constraint.
+
+Changes from v2:
+https://lore.kernel.org/all/20260813102521.1367737-1-aneesh.kumar@kernel.org
+* Rebase to latest tree.
+* Drop SWIOTLB_ANY and derive that based on SWIOTLB_INIT_ADDRESSING_LIMIT
+* Add SWIOTLB_INIT_REMAP.
+
+v1:
+https://lore.kernel.org/all/20260811134056.756015-1-aneesh.kumar@kernel.org
+
+Cc: Robin Murphy <robin.murphy@arm.com>
+Cc: Marek Szyprowski <m.szyprowski@samsung.com>
+Cc: Will Deacon <will@kernel.org>
+Cc: Marc Zyngier <maz@kernel.org>
+Cc: Steven Price <steven.price@arm.com>
+Cc: Suzuki K Poulose <Suzuki.Poulose@arm.com>
+Cc: Catalin Marinas <catalin.marinas@arm.com>
+Cc: Jiri Pirko <jiri@resnulli.us>
+Cc: Jason Gunthorpe <jgg@ziepe.ca>
+Cc: Mostafa Saleh <smostafa@google.com>
+Cc: Petr Tesarik <ptesarik@suse.com>
+Cc: Alexey Kardashevskiy <aik@amd.com>
+Cc: Dan Williams <dan.j.williams@intel.com>
+Cc: Xu Yilun <yilun.xu@linux.intel.com>
+Cc: Madhavan Srinivasan <maddy@linux.ibm.com>
+Cc: Michael Ellerman <mpe@ellerman.id.au>
+Cc: Nicholas Piggin <npiggin@gmail.com>
+Cc: "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>
+Cc: Alexander Gordeev <agordeev@linux.ibm.com>
+Cc: Gerald Schaefer <gerald.schaefer@linux.ibm.com>
+Cc: Heiko Carstens <hca@linux.ibm.com>
+Cc: Vasily Gorbik <gor@linux.ibm.com>
+Cc: Christian Borntraeger <borntraeger@linux.ibm.com>
+Cc: Sven Schnelle <svens@linux.ibm.com>
+Cc: Russell King <linux@armlinux.org.uk>
+Cc: Huacai Chen <chenhuacai@kernel.org>
+Cc: Thomas Bogendoerfer <tsbogend@alpha.franken.de>
+Cc: Jiaxun Yang <jiaxun.yang@flygoat.com>
+Cc: Paul Walmsley <pjw@kernel.org>
+Cc: Palmer Dabbelt <palmer@dabbelt.com>
+Cc: Albert Ou <aou@eecs.berkeley.edu>
+Cc: Thomas Gleixner <tglx@kernel.org>
+Cc: Ingo Molnar <mingo@redhat.com>
+Cc: Borislav Petkov <bp@alien8.de>
+Cc: Dave Hansen <dave.hansen@linux.intel.com>
+Cc: linux-arm-kernel@lists.infradead.org
+Cc: linux-kernel@vger.kernel.org
+Cc: loongarch@lists.linux.dev
+Cc: linux-mips@vger.kernel.org
+Cc: linuxppc-dev@lists.ozlabs.org
+Cc: linux-riscv@lists.infradead.org
+Cc: linux-s390@vger.kernel.org
+Cc: x86@kernel.org
+
+Aneesh Kumar K.V (Arm) (4):
+  dma: swiotlb: Centralize default pool policy selection
+  dma: swiotlb: Centralize minimal pool sizing
+  dma: swiotlb: Centralize memory-encryption pool sizing
+  dma: swiotlb: Remove SWIOTLB_ANY
+
+ Documentation/core-api/swiotlb.rst   |   8 +-
+ arch/arm/mm/init.c                   |   6 +-
+ arch/arm64/mm/init.c                 |  14 +-
+ arch/loongarch/kernel/setup.c        |   2 +-
+ arch/mips/cavium-octeon/dma-octeon.c |   2 +-
+ arch/mips/loongson64/dma.c           |   2 +-
+ arch/mips/sibyte/common/dma.c        |   2 +-
+ arch/powerpc/kernel/dma-swiotlb.c    |   4 +-
+ arch/powerpc/mm/mem.c                |  17 ++-
+ arch/powerpc/platforms/pseries/svm.c |  10 --
+ arch/powerpc/sysdev/fsl_pci.c        |   1 +
+ arch/riscv/mm/init.c                 |  24 +--
+ arch/s390/mm/init.c                  |   2 +-
+ arch/x86/include/asm/crash_reserve.h |   4 +-
+ arch/x86/include/asm/iommu.h         |   2 +
+ arch/x86/kernel/amd_gart_64.c        |   1 +
+ arch/x86/kernel/pci-dma.c            |  19 ++-
+ arch/x86/mm/mem_encrypt.c            |  24 ---
+ include/linux/swiotlb.h              |  19 ++-
+ kernel/dma/swiotlb.c                 | 214 ++++++++++++++++++++-------
+ 20 files changed, 236 insertions(+), 141 deletions(-)
+
+
+base-commit: 89a312991dc6e638a36adc43ccb91dbc25504c04
 -- 
 2.43.0
 
