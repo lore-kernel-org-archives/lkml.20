@@ -1,144 +1,123 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E13D43B5837;
-	Fri,  4 Sep 2026 07:46:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA46421CA13;
+	Fri,  4 Sep 2026 07:47:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788508005; cv=none; b=dFrEG4phU+6isdZshXi9k9an+o+ZsQqda+h1AHTqk6UYr08qoFr78tO+thFLJ/KftQ+Zmd1Z+717f0l7Fqnm/56mDYh5qmmF6ue7XOf27xx2RBN5UZFLc5UODNap3FEm4koRkHYRsdw1eYOZ/GpR2pcteZx9Wbyaze5yobjM1rc=
+	t=1788508022; cv=none; b=U53KigmOyPjOyi+NZ5pr9UvvgAGQZMXC9QOX6qfxudPEcgKzZ93cVSzFJK6XoDy3PwP2wL2OlxkBtVLoaR4moiChqmANaam8r4y8kKKJ4G5EJ1LJ0JZVCejk/SfWBQjdtczEPrg1nLBmE5m6X0iAUZAqB61Bqj/yeRbCnhrmlR0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788508005; c=relaxed/simple;
-	bh=CkZeulv6QbhQbxQAlOXX6Zc+UCqDcmjcHoUDCQrGh+0=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=PDjHZ8d6JbD0Vz3GAAGqAnTyP6L4VT81bS1M4J+LIOXf1QKsYQ2pAu621J/o5KcEvMO0Gzmp5pKQFsMpG0BMW2nMYeMCV5fYP1nH7YHmvjeBeyq66x7KOlzLxbtfpPdbTQ7DIteHJGysFFOunRS+yuEIEWlK1marHYPkLyhWOT8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EfFlHyFf; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788508022; c=relaxed/simple;
+	bh=injOFXYCg99MpqtN/NqbI9Hc4Oaro/Dhz9C/CiXUlqo=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=lGjtbzR01ALPnYdQU6wCntc+rpWEWCHqPgLxEPpoZD3lNIw6hYijF5atxS6aNaJPPXxrQMEajeWS9wAuJ2W4QnVIr0Ezufzd5iE9S1zMKSycXGPO5dQ7aB8gu9O1+JXT9x2kY6UuQ2G+dS6EDXEO0jbAjT5Jl32DlIC2wnQg064=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=giVOnXWZ; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=/nnKPpb8; arc=none smtp.client-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EfFlHyFf"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 692A31F00A3D;
-	Fri,  4 Sep 2026 07:46:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788508003;
-	bh=03eIS2DS8PjcdkHIfXExaV9bsKwUvGke/WEpmxbLmbc=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=EfFlHyFfqKG6y7UZgTKd2iocNdwfSUvzqahd8EmGsV2i52JgN5UfmRtR98vYT7UrG
-	 SSASpzd1t/jyACeK9wZJWJbzWtwrrqd3z0rtrtcIGFvxhT7pd/PiFBM9pP70F+IKLA
-	 HxygD9c5hDcf847EDo45GBdd1U893ROcDZb88cUBj30MjZQlw3TTjkfHNmHp48E6D2
-	 fF7rraOFUG7YTAFWvJbwk3sKyLLjGMUCIyQt2oWoHVLPxlHdGoukiecvuiwe92g7T9
-	 /vj5tLLsKKTItfpJ2168htwZm3k0fvlUhpbiGCg69OXEbTE5Nvg416Bfafe4s1NDKg
-	 qKxWtcNnTHZKw==
-Received: from sofa.misterjones.org ([185.219.108.64] helo=lobster-girl.misterjones.org)
-	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.98.2)
-	(envelope-from <maz@kernel.org>)
-	id 1x2OdF-00000004hTl-0MOb;
-	Fri, 04 Sep 2026 07:46:41 +0000
-Date: Fri, 04 Sep 2026 08:49:14 +0100
-Message-ID: <875x0l5udh.wl-maz@kernel.org>
-From: Marc Zyngier <maz@kernel.org>
-To: Wei-Lin Chang <weilin.chang@arm.com>
-Cc: Wang Han <wanghan@linux.alibaba.com>,
-	linux-arm-kernel@lists.infradead.org,
-	kvmarm@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	oupton@kernel.org,
-	tabba@google.com,
-	joey.gouly@arm.com,
-	seiden@linux.ibm.com,
-	suzuki.poulose@arm.com,
-	catalin.marinas@arm.com,
-	will@kernel.org,
-	ljs@kernel.org,
-	itaru.kitayama@fujitsu.com
-Subject: Re: [PATCH v5 0/6] KVM: arm64: nv: Implement nested stage-2 reverse map (new data structure)
-In-Reply-To: <wsnf276xrun3g4hjr3t6alprapctg5z4kpj422v3hujqdjnrsa@swq4blkqvvj5>
-References: <20260810205038.118843-1-weilin.chang@arm.com>
-	<20260902163500.1841671-1-wanghan@linux.alibaba.com>
-	<877bl26aqg.wl-maz@kernel.org>
-	<wsnf276xrun3g4hjr3t6alprapctg5z4kpj422v3hujqdjnrsa@swq4blkqvvj5>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
- FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
- (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="giVOnXWZ";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="/nnKPpb8"
+From: Gregor Herburger <gregor.herburger@linutronix.de>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1788508013;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=1mnRUam902TG8+jJPr9DI2ATj88hClkYZ0Txk+HpE6U=;
+	b=giVOnXWZxiO5DHF73h4PzYJe538ZCmKe1wB27ixUTbFktMDtJ9VEynjwGyPPP/Cav85Fog
+	B2n13/ISwdc7Vf2YxeWZ4e3Sl5b44yt2W7EZypeX7q02UD2khecS8X1ruqBw0OI1gRlmWF
+	05i8Ykp+2A3b3s6g335Ku9Gi9eaxK8rPyCKOKpFtQieN/B03m/S2RhXL93VfuIQg1jQd6s
+	R9sJViRV1w0NzH58soky3xmeUvlk2U7xsNEV+vChOMlufprSd+7Sb9bctr83A1bE5d44QM
+	HuViap9c2Na4eRimwKEnXZUAxTNcOo1hd+lYHoEh3dkhYN9s9R2l+qo/Lbhixg==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1788508013;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=1mnRUam902TG8+jJPr9DI2ATj88hClkYZ0Txk+HpE6U=;
+	b=/nnKPpb82xAr3FbYAKDXdDp4UOYKSsXJOV7YpGXXKHYGHx8gEveNNSW5IxytgxmtZj8AR5
+	M7CwtUGwcFcqJ7Cg==
+Subject: [PATCH v4 0/4] firmware: raspberrypi: Add support for the tryboot
+ mode
+Date: Fri, 04 Sep 2026 09:46:48 +0200
+Message-Id: <20260904-rpi-tryboot-v4-0-fdee8bc53ff7@linutronix.de>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-SA-Exim-Connect-IP: 185.219.108.64
-X-SA-Exim-Rcpt-To: weilin.chang@arm.com, wanghan@linux.alibaba.com, linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev, linux-kernel@vger.kernel.org, oupton@kernel.org, tabba@google.com, joey.gouly@arm.com, seiden@linux.ibm.com, suzuki.poulose@arm.com, catalin.marinas@arm.com, will@kernel.org, ljs@kernel.org, itaru.kitayama@fujitsu.com
-X-SA-Exim-Mail-From: maz@kernel.org
-X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAGh3mmoC/23NQQ6CMBCF4auQrq0pQ9OCK+9hXEA7yBhDSVuJx
+ nB3KcYoxuVL5vvnwQJ6wsB22YN5HCmQ6+chNxkzXd2fkJOdNwMBSigouB+IR39vnItcQgWmgkZ
+ o0GwWg8eWbkvtcHztcG3OaGJKpIuOQnT+vrwb83T3LqtVecy54LISTW6kkZUW+wv11+hdT7etR
+ ZbqI3z5Qqw9zL5VpQVrVF2D/ueLj9dCr32RvK1LaFGj1erXT9P0BP501bE8AQAA
+X-Change-ID: 20260623-rpi-tryboot-4292c92b0727
+To: Florian Fainelli <florian.fainelli@broadcom.com>, 
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
+ Ray Jui <rjui@broadcom.com>, Scott Branden <sbranden@broadcom.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Eric Anholt <eric@anholt.net>, 
+ Stefan Wahren <wahrenst@gmx.net>
+Cc: linux-rpi-kernel@lists.infradead.org, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ devicetree@vger.kernel.org, 
+ Gregor Herburger <gregor.herburger@linutronix.de>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788508013; l=2102;
+ i=gregor.herburger@linutronix.de; s=20260226; h=from:subject:message-id;
+ bh=injOFXYCg99MpqtN/NqbI9Hc4Oaro/Dhz9C/CiXUlqo=;
+ b=E1Yz8QJbd0SFChekiBWnZdNW4TSfqmfyaIE96cf3vKQiuJeQqIfUXPltTxM9WrpYM17C1t9c/
+ yMRISESo3hRAtt/B++nNss8U+IjZVuuSYg6QEAnKQCbFM+hhSA5/Idr
+X-Developer-Key: i=gregor.herburger@linutronix.de; a=ed25519;
+ pk=u72Lv7+/lS5CC1hmSrb17lv/6CK7HBh4Lvz77PHA5LM=
 
-On Thu, 03 Sep 2026 14:28:16 +0100,
-Wei-Lin Chang <weilin.chang@arm.com> wrote:
-> 
-> On Thu, Sep 03, 2026 at 08:43:35AM +0100, Marc Zyngier wrote:
-> > On Wed, 02 Sep 2026 17:35:00 +0100,
-> > Wang Han <wanghan@linux.alibaba.com> wrote:
-> > > 
-> > > Hi Wei-Lin,
-> > > 
-> > > I tested this series on a Yitian 710 system with an ARM Neoverse-N2 CPU
-> > > (128 CPUs, 2 NUMA nodes).
-> > > 
-> > > Test environment
-> > > ----------------
-> > > 
-> > >   L0 kernel: Linux v7.2-rc6
-> > >   L1 guest: Ubuntu 26.04 LTS, kernel 7.0.0-27-generic (aarch64)
-> > >   QEMU: 10.2.3
-> > > 
-> > > L0 NUMA balancing was enabled (`/proc/sys/kernel/numa_balancing=1`).
-> > > The host was booted with `kvm_arm.mode=nested`.
-> > > 
-> > > This series fixes a functional hang that is exposed when NUMA balancing is
-> > > enabled.  The previous nested stage-2 unmap path is too slow for this
-> > > workload, making the performance problem user-visible: NUMA balancing can
-> > > leave the L1 guest unable to make progress and eventually hang during boot.
-> > >
-> > > The L1 was started with 8 vCPUs and 32 GiB of RAM using:
-> > > 
-> > >   qemu-system-aarch64 -smp 8 -m 32G \
-> > >     -machine virt,accel=kvm,gic-version=3,virtualization=on \
-> > >     -cpu host -nographic -enable-kvm \
-> > >     -drive if=pflash,format=raw,readonly=on,file=pflash0_bak.img \
-> > >     -drive if=pflash,format=raw,file=pflash1_bak.img \
-> > >     -drive file=./ubuntu-vm.qcow2,format=qcow2,if=virtio,cache=none,aio=native \
-> > >     -nic user,model=virtio-net-pci,hostfwd=tcp::11234-:22 \
-> > >     -serial mon:stdio
-> > > 
-> > 
-> > Puzzling. If you are only running an L1 in VHE mode, there is no
-> > shadow S2, and therefore nothing to unmap. For shadow S2s to be built
-> > and affect the MMU notifiers, you need to run an L2.
-> 
-> I was thinking the same at first, but realized even with L1 in VHE mode
-> there is a small period of time where L1 runs in its EL1 during boot, so
-> one nested MMU will become valid for each vCPU. That causes
-> kvm_nested_s2_unmap() to iterate through the entire IPA space 8 times
-> (-smp 8).
+This adds support for the tryboot mode on Raspberry Pis. As there is no
+documentation other than the downstream implementation [0] the
+implementation is based on this.
 
-It should be one nested MMU for the whole VM, not one per vcpu.
-That's assuming they share the same VMID+VTCR.
+I tested this on Raspberry Pi 5 and therefore I only added the
+properties to this devicetree. But afaik this should work on all
+Raspberry Pis. I will add it to the correspondings dts if I get some
+hardware to test it.
 
-> What I am curious about is whether one single notifier unmap is enough
-> to hang L1, or were there multiple notifier unmaps.
-> 
-> QEMU with -machine virt uses 40 IPA bits only, unmapping that takes:
-> 1024  (4KB pages,  unmapping 1GB per iteration)
-> 32768 (16KB pages, unmapping 32MB per iteration)
-> 2048  (64KB pages, unmapping 512MB per iteration)
-> iterations for each page size. There aren't many mappings in each
-> iteration too. Does this really take that long on real hardware (even if
-> this must be done 8 times)?
+[0] https://github.com/raspberrypi/linux/commit/eb56da0c1925c07e8929ce4c9fe8aeafa7cb8c7b
 
-This should be close to being at zero cost, so something else is
-amiss.
+---
+Changes in v4:
+- fix use-after-free error by moving devm_add_action_or_reset before devm_add_action_or_reset 
+- Rebase onto v7.3-rc1
+- Link to v3: https://patch.msgid.link/20260707-rpi-tryboot-v3-0-fda82fe7ed76@linutronix.de
 
-Could you please have a look?
+Changes in v3:
+- fix use-after-free error by using devm_add_action_or_reset
+- ensure endianness of magic byte
+- refactor reboot mode registration into separate function
+- Link to v2: https://patch.msgid.link/20260630-rpi-tryboot-v2-0-f68d2dc6aa27@linutronix.de
 
-	M.
+Changes in v2:
+- Remove unnecessary reboot_mode_unregister().
+- dt-binding: restrict to mode-{normal,tryboot} and only allow 32bit value.
+- Link to v1: https://patch.msgid.link/20260626-rpi-tryboot-v1-0-490b1c4c4970@linutronix.de
 
--- 
-Jazz isn't dead. It just smells funny.
+---
+Gregor Herburger (4):
+      firmware: raspberrypi: reorder rpi_firmware_property_tag enum
+      dt-bindings: raspberrypi,bcm2835-firmware: Include 'reboot-mode.yaml'
+      firmware: raspberrypi: Add reboot mode support
+      arm64: dts: broadcom: bcm2712: Add reboot modes to firmware node
+
+ .../arm/bcm/raspberrypi,bcm2835-firmware.yaml      |  9 +++++
+ .../boot/dts/broadcom/bcm2712-rpi-5-b-base.dtsi    |  2 ++
+ drivers/firmware/Kconfig                           |  2 ++
+ drivers/firmware/raspberrypi.c                     | 40 +++++++++++++++++++---
+ include/soc/bcm2835/raspberrypi-firmware.h         | 22 ++++++------
+ 5 files changed, 60 insertions(+), 15 deletions(-)
+---
+base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+change-id: 20260623-rpi-tryboot-4292c92b0727
+
+Best regards,
+--  
+Gregor Herburger <gregor.herburger@linutronix.de>
+
