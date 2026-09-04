@@ -1,108 +1,83 @@
-Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C78DC4503E0;
-	Fri,  4 Sep 2026 09:40:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97E71430CDD;
+	Fri,  4 Sep 2026 09:41:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788514831; cv=none; b=oqT7jA7GrdsFZYR9ITCLjhaJXScit1gbYZqGCDg+qUB4wUe239ZHTrN5Rpd2FeSDtkvQ1Io0IMrsUxbi/xBcyfGAGZsSP3jGkG3qrFRibSAZiIN2gT+4hkrA3spFvy9oK6BdauhDTeGWgSzFMtObRZ+t5fSQiwEV+R0YDPOpTh4=
+	t=1788514862; cv=none; b=XLCgNh/6uokhNauhQv/cbDR02kJny6bgIpFzeNczVe6lJ8o55T7vVks7iD9u8+A6DlHIUgDCvCh9b13SlUG3aa3NBVI4IgBeVULN3Ldp8gF0p4Jsrll98H3O+fSOhZkgbqkLf7J50W6WPPwdSccRpYlm9s08Mn2W7mP+yyqli18=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788514831; c=relaxed/simple;
-	bh=u6ku6jmRU/n0Rn1nBuL9IyYY8MhYBi0W4eF2S7GbeAw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=flYOaweWNLuRDiKLDlHakG83NPKZMrHp33uzogFKXOMwlR+AsiaEQ1GaharTmCbKpzAy34W2V4pbF2il1zxVbQ+/QiLEhHO+1PSzGF5lstoOzTWHbTwvmdwNBg4Eo9drvWX0UOyp+msvggz54gW6yExUTdaGrevf+/iWgMArNbw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=A+5ohxxj; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=sMJzH2hO; arc=none smtp.client-ip=5.75.144.95
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
+	s=arc-20240116; t=1788514862; c=relaxed/simple;
+	bh=46rizbzGhnU1dmKHCvpXDFUJKLW3QO81WjIK7fMpwhU=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=NkTkYUoQikuY+IHNNYoR4MD7fAMvouhrGa/n+sz1WPFs1lozX34CpQ0wVkWcwMoC08JNGpsVVRttLymwKQR8xI+q8Uva+/RG0jCRBWSWTPDCenMdseEPsu2joLn29uk+CmLDqXTI1kAnjOjuYIPndIrRbJXbMzCzB+fldj/R/Hg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BSW7PkIW; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="A+5ohxxj";
-	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="sMJzH2hO"
-DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Date:Subject:To:From; t=1788514808; bh=GtJwjFEqunLh1MR0EZ6sNcj
-	Za1VU1Os+aybsH6L/GRo=; b=A+5ohxxjWovfA/Jszg0LKGD19mUbaRyfuhRuFjeJn7QC3ibqjW
-	5Rh9xeozv4vhGDqg1fB5/MGu98y1iSxr901lIN5B6Cdq1Y1LqjYGWbiyJTjL6ENCeUx6/6xebEa
-	SlIAe1mR8ROXdZVMvV/vMEZDiYEWG5oXObabAG18ordSMMLUaGuof1Db7FMSNxWL8YUIUya5Dc7
-	t1fA0vyWHcqlS6ism4B82kwpG420LIiNEfezI0pB/kWtfoawe9uDFSIs79JFETCjAyMPIj3ecLs
-	K4vmiRZFsF3pjFwMhW7DLKNbLleYpD2yfbaaaJC3ie4qn6/EKcqIAV3tP/sU9M1aZpg==;
-DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Date:Subject:To:From; t=1788514808; bh=GtJwjFEqunLh1MR0EZ6sNcj
-	Za1VU1Os+aybsH6L/GRo=; b=sMJzH2hOxCH9rBrCsj3cncajJ8ouO/wru6NMrciL5e44LGZc1X
-	gLeUe2PnXkrBcrfFsTX74E9czQ9HO51bEtAA==;
-From: Bradley Morgan <brads@mainlining.org>
-To: linux-kernel@vger.kernel.org
-Cc: Tejun Heo <tj@kernel.org>,
-	Frederic Weisbecker <frederic@kernel.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Waiman Long <longman@redhat.com>,
-	Christian Brauner <brauner@kernel.org>,
-	Kees Cook <kees@kernel.org>,
-	Andy Walls <awalls@md.metrocast.net>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>,
-	"Rafael J . Wysocki" <rafael@kernel.org>,
-	Viresh Kumar <viresh.kumar@linaro.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Bradley Morgan <brads@mainlining.org>,
-	linux-media@vger.kernel.org,
-	netdev@vger.kernel.org,
-	linux-serial@vger.kernel.org,
-	linux-pm@vger.kernel.org
-Subject: [PATCH v2 5/5] kthread: remove worker->task self assignment
-Date: Fri,  4 Sep 2026 09:40:08 +0000
-Message-ID: <c925e99c73bea9e0cdab656ba09453df7e81dcb2.1788513591.git.brads@mainlining.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <cover.1788513591.git.brads@mainlining.org>
-References: <cover.1788513591.git.brads@mainlining.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BSW7PkIW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A9A7F1F00A3D;
+	Fri,  4 Sep 2026 09:40:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788514861;
+	bh=YAV5wnqFZlzybVd7zTHQ45qyMjvxvv83jbqrRH2XBtA=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=BSW7PkIWXmrQ8c9RbjsMYB47lxRiy7uXu4vVNnktlUJy5V48w96nMmbwmtPUXTQnr
+	 3aPYG/z0RG0QOtgz6Kk3YOrX6Eo9hryA4D9MwJJhwADKf8YQmjVqiQRub6MY61hwB2
+	 puLEIYGneSLg1NfTg7OrcbgaW6HXcsy9dkoVrMeTALx9GXNqok0gbOJrcIm0WYvFwh
+	 mf6GFDyGvM5FxG9bia+ossI6lAXIZQ2+3wQmmTrjBFvNEbGWhZ243HvhSqo7U7r4AK
+	 nleEOgQ5b12HLYxclJFEwiFeo3sgeNqvmkMDVlvRToBp0LXAS9TjZcvzCrXRDbBSc8
+	 Y8IInVYddVTeA==
+From: Christian Brauner <brauner@kernel.org>
+To: Oleg Nesterov <oleg@redhat.com>, Daehyeon Ko <4ncienth@gmail.com>
+Cc: Mateusz Guzik <mjguzik@gmail.com>, linux-kernel@vger.kernel.org, 
+ linux-fsdevel@vger.kernel.org, 
+ syzbot+0aee5e8066eddbbe7397@syzkaller.appspotmail.com, 
+ syzbot+e8b3520b53e78e90034e@syzkaller.appspotmail.com
+In-Reply-To: <20260831001221.3755948-1-4ncienth@gmail.com>
+References: <20260831001221.3755948-1-4ncienth@gmail.com>
+Subject: Re: [PATCH v2] exit: hold a reference to thread_pid across
+ proc_flush_pid
+Message-Id: <20260904-weither-weswegen-aprikosen-ad8b1cdde9bc@brauner>
+Date: Fri, 04 Sep 2026 11:40:57 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.17-dev-db0b7
 
-All kthread worker users now create their workers with
-kthread_create_worker*(), which sets worker->task before the worker
-starts. The self assignment in kthread_worker_fn() is dead code now.
+On Mon, 31 Aug 2026 09:12:21 +0900, Daehyeon Ko wrote:
+> Commit 0a36bad01731 ("release_task: kill the no longer needed
+> get/put_pid(thread_pid)") removed the reference around proc_flush_pid().
+> It assumed that free_pids(post.pids) at the end of release_task() would
+> keep thread_pid alive until then.
+> 
+> That assumption is wrong.  __change_pid() only records a detached PID in
+> post.pids when pid_has_task() is false for every PIDTYPE.  If another task
+> still uses the exiting task's PID as its process group or session ID,
+> __unhash_process() removes the exiting task's PIDTYPE_PID link but leaves
+> the PID out of post.pids.  release_task() therefore holds no reference to
+> it after dropping tasklist_lock.
+> 
+> [...]
 
-Remove the assignment but keep the WARN_ON() as a sanity check for
-any OOT users still using the old API.
+Applied to the vfs.fixes branch of the vfs/vfs.git tree.
+Patches in the vfs.fixes branch should appear in linux-next soon.
 
-Suggested-by: Frederic Weisbecker <frederic@kernel.org>
-Signed-off-by: Bradley Morgan <brads@mainlining.org>
----
- kernel/kthread.c | 8 +++-----
- 1 file changed, 3 insertions(+), 5 deletions(-)
+Please report any outstanding bugs that were missed during review in a
+new review to the original patch series allowing us to drop it.
 
-diff --git a/kernel/kthread.c b/kernel/kthread.c
-index 63beb59b7a3d..643407647e79 100644
---- a/kernel/kthread.c
-+++ b/kernel/kthread.c
-@@ -987,12 +987,10 @@ int kthread_worker_fn(void *worker_ptr)
- 	struct kthread_worker *worker = worker_ptr;
- 	struct kthread_work *work;
- 
--	/*
--	 * FIXME: Update the check and remove the assignment when all kthread
--	 * worker users are created using kthread_create_worker*() functions.
-+	/* All workers are created with worker->task set. If this fires,
-+	 * the caller is broken.
- 	 */
--	WARN_ON(worker->task && worker->task != current);
--	worker->task = current;
-+	WARN_ON(worker->task != current);
- 
- 	if (worker->flags & KTW_FREEZABLE)
- 		set_freezable();
--- 
-2.47.3
+It's encouraged to provide Acked-bys and Reviewed-bys even though the
+patch has now been applied. If possible patch trailers will be updated.
+
+Note that commit hashes shown below are subject to change due to rebase,
+trailer updates or similar. If in doubt, please check the listed branch.
+
+tree:   https://git.kernel.org/pub/scm/linux/kernel/git/vfs/vfs.git
+branch: vfs.fixes
+
+[1/1] exit: hold a reference to thread_pid across proc_flush_pid
+      https://git.kernel.org/vfs/vfs/c/cdd812d0683d
 
