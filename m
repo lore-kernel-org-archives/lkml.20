@@ -1,155 +1,97 @@
-Received: from mail-oo2-f6.google.com (mail-oo2-f6.google.com [74.125.231.134])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 921CC476CCC
-	for <linux-kernel@vger.kernel.org>; Fri,  4 Sep 2026 22:23:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.134
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6334D51D521;
+	Fri,  4 Sep 2026 22:23:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788560616; cv=none; b=f2BqozVz4uW36VJ6HlhXr+9WTlWpPVfHOa4cdrqlrFt9Jp5UNhqNLwRrFyPHr94mkyTrJL9YcL5g7G6BI4z0tv2c77vdnNKCsNPSyj4aE7hfPE6Z1D4Gb+UF3YBjr+G9esdzCK4WUmpJvQO+Yr+SPKGkvBRsq10TQpvZ5qvMA60=
+	t=1788560620; cv=none; b=phJJzU6rCf3Wt7C1jMlPVINRuW9Yq4cnrz7E6wYrKTly0imBhioqDzf4EMkJQGONkzaobj9SltADcKPpOHs0pB/5baIz6xrC95/xhWuXenFsJAaOFGqpGHkVgZeSYWc6C6fJ7NmYnJiayKVbgzeQnPgNlEl4zTfP7AIrddsbcIA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788560616; c=relaxed/simple;
-	bh=blQx9O2GljPiDvE4oHqZaB4Q9lTVaxFla5bbqWs8PaQ=;
-	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=L5QylANIF/Fmybt/pz9dz6g/gDMGr9LesrzSBUoRqyjlLeRrY3UN91aOrRzSUL0F4xSpbJAahINL2axsqLPEMMdABWqTe2PCcC2Fn2+nrksWUHrfVTmLAFqKjxyDPNCAwi0QPL6Xq6Z5aqfg+A3ls3KgTZiH1MToA3RXAl1ogxw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=74.125.231.134
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oo2-f6.google.com with SMTP id 006d021491bc7-6b1b32cc57bso138363eaf.1
-        for <linux-kernel@vger.kernel.org>; Fri, 04 Sep 2026 15:23:32 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788560608; x=1789165408;
-        h=content-type:to:from:subject:message-id:date:mime-version
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=sxZDoFRvVAvGWSm+Ntioz7anQi0nXepD82NI5Zzbt8s=;
-        b=MKRlTIJAaVdOQh3785vLmh6FrdPWIjDXrg8DutUkfICHzxbGixatdaU5bssL1mVRUB
-         sUE6R7t5mprDGDuStRA4vdX+WcUrcKS3ogFJfzNlYCURwY4yCpSW4hHfCPIjbPOvpZ65
-         SH/PnRsRkotVyGlz9WME4tzOdAhqRRkjRWTRMq3xxFRb9tCCkzJgassmwdCa4HPAUhVG
-         gK3A4MiM90jbrxGWtI7T6i41PjMbB+N/nj8qg7txV0t+EH0/hfNkqVHpX13F7PjlZ4Ha
-         GG7pg7nVTK2C/JEr3JDyFQH/UeDH975btfuOxmPp6TM6kvBCpjnhxojeLjB4UPh/q+Wv
-         6XKQ==
-X-Forwarded-Encrypted: i=1; AKwUvBx7YGqn4oLbAwfpEkde7bw6OhVTFRJUkH3J8X3VeYXX1zAaeGQBIIJ+3UQOfp7pC3cPuY0gZaY80H2B9g4=@vger.kernel.org
-X-Gm-Message-State: AFuF++ntZcimzHsft5NDKwbqgGqCso6poKyaNoshCW5RMytAmjk34vgC
-	9OxYqOsh/Linz3pL49YuH5E+lrqIIJr4OnniDtMniNa2qEuxiRtbxxiobOvrHxcOcAKN//HPo7J
-	yZ+GMfjsK79368gQKGF2mz0kao3p0u3KJk6b+M3OoQPJj5fB+ilKZwQxG/dQ=
+	s=arc-20240116; t=1788560620; c=relaxed/simple;
+	bh=DbrmJphkU+FtkqCo6KuJQyvB/0cK3sFrs5dE/Hr0Tjk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=NKMWpe6qceXuWBsabkKvCdku+D8YVTxP7X206gm8TLqI/mJfvLBJojFWIyBNcYJq1frTgVfSlMYcTpHcwD/smvFqnNJrbFo8PFEdN3i1mmsqGMAr+lXYwp5cd/1IEljnAcDR2Syo431q0cZIhOnWOdthrSy9azkzU2/u6bOWwKo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=okAzbGk+; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="okAzbGk+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E287C1F00A3D;
+	Fri,  4 Sep 2026 22:23:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788560610;
+	bh=uBesz34PkuRI+A3kmsnVg/F1BggqGShtqUwBLMMecxU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=okAzbGk+TptytfnDjSkTRfZvR09QKWYg+fpd7yZ/700ec3wTsDADGqB6Qtum9bxxh
+	 um1Pe/KBim6/MIpyI6qmBer+EhjnQYZ+gSAKOlu4dGu3xbj9vL+hmywR7skHJb9O11
+	 cq43hYZnJ/y39P0L02z31xN+y/h7JKVkpEee+cD6HZ9Jn7Z0Q/gjptuTq7b6Q5+To5
+	 6pbounV8h1J0mkipKiZDDsFJuECpwXqAlttr+QvjYceyGl/ZRpHTo+Yxy/zUWYe7t9
+	 zkiDYH9r9gtGSfQGieCUU12TOq+5QxVp/F77EYOH1gUzgu7qUr+EqWL6sAgMNJ0Obb
+	 98H6iKcrMqK9Q==
+Date: Fri, 4 Sep 2026 19:23:27 -0300
+From: Arnaldo Carvalho de Melo <acme@kernel.org>
+To: Namhyung Kim <namhyung@kernel.org>
+Cc: Chun-Tse Shao <ctshao@google.com>,
+	"Mi, Dapeng" <dapeng1.mi@linux.intel.com>,
+	Ian Rogers <irogers@google.com>, Zide Chen <zide.chen@intel.com>,
+	linux-perf-users@vger.kernel.org,
+	Peter Zijlstra <peterz@infradead.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	James Clark <james.clark@linaro.org>,
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH RESEND v7 1/2] perf pmu intel: Generalize SNC cpumask
+ adjustment for multiple platforms
+Message-ID: <aptE3zO1DtInzbaP@x2>
+References: <20260527221934.3830896-1-ctshao@google.com>
+ <20260528001117.3BBF11F00A3A@smtp.kernel.org>
+ <CAJpZYjUiNdN3a6y+8rs=YP2Mgtj6EQJnkiB9TN_suWd8fGkoEg@mail.gmail.com>
+ <CAJpZYjUhw8+ouKTS82G6ih457=pHn18AtvwMCAcaTL9csKmdTg@mail.gmail.com>
+ <CAP-5=fVAckZihxg4djQn7iTGbNNT1vFLXt2En8mm8+COSs3GcQ@mail.gmail.com>
+ <29d02905-14fd-4c2a-86d0-a605e9d41b10@linux.intel.com>
+ <CAJpZYjVoxEjxmut5AL6dOpfTSBj9VZOs3qaawofDxWyTeaa8Ug@mail.gmail.com>
+ <apHBv6hhZN6CPlWE@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:820:b0:6b7:8396:f3c1 with SMTP id
- 006d021491bc7-6b78396f863mr3577644eaf.35.1788560608197; Fri, 04 Sep 2026
- 15:23:28 -0700 (PDT)
-Date: Fri, 04 Sep 2026 15:23:28 -0700
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6a9b44e0.a5e650b3.363816.0002.GAE@google.com>
-Subject: [syzbot] [block?] BUG: sleeping function called from invalid context
- in null_insert_page
-From: syzbot <syzbot+95fdab36405e5ffdb680@syzkaller.appspotmail.com>
-To: linux-block@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <apHBv6hhZN6CPlWE@google.com>
 
-Hello,
+On Fri, Aug 28, 2026 at 10:13:35AM -0700, Namhyung Kim wrote:
+> Hello,
+> 
+> On Fri, Aug 28, 2026 at 09:56:24AM -0700, Chun-Tse Shao wrote:
+> > Thank you Ian for bringing this back. Zide gave a Reviewed-by tag on
+> > v6, and v7 mainly addresses the Sashiko review.
+> > 
+> > To Arnaldo and Namhyung, Is this patch ready to be merged?
+> 
+> Please don't top-post.
+> 
+> > 
+> > On Fri, Aug 28, 2026 at 1:11 AM Mi, Dapeng <dapeng1.mi@linux.intel.com> wrote:
+> > >
+> > >
+> > > On 8/28/2026 1:28 PM, Ian Rogers wrote:
+> > > > On Tue, Jun 9, 2026 at 11:44 AM Chun-Tse Shao <ctshao@google.com> wrote:
+> > > >> Ping for attention.
+> > > > I suspect Arnaldo and Namhyung are waiting for feedback from Intel on
+> > > > these patches. If someone could check them it would be appreciated.
+> > >
+> > > I suppose Zide has checked these patches and gave the "reviewed-by" tags. :)
+> 
+> Sorry for missing this.
+> 
+> Arnaldo, can you please pick this up?
 
-syzbot found the following issue on:
+Merged, and I added an "Acked-by: Namhyung", taking this "please pick
+this up" as an ack.
 
-HEAD commit:    f1b8fa82cab7 Merge branch 'for-next/core' into for-kernelci
-git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/arm64/linux.git for-kernelci
-console output: https://syzkaller.appspot.com/x/log.txt?x=17b7e779580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=d1128bc53f2ef7f3
-dashboard link: https://syzkaller.appspot.com/bug?extid=95fdab36405e5ffdb680
-compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
-userspace arch: arm64
+Thanks!
 
-Unfortunately, I don't have any reproducer for this issue yet.
-
-Downloadable assets:
-disk image: https://storage.googleapis.com/syzbot-assets/932d85a2bda2/disk-f1b8fa82.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/5b6b8fb76e8d/vmlinux-f1b8fa82.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/c246b61ee396/Image-f1b8fa82.gz.xz
-
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+95fdab36405e5ffdb680@syzkaller.appspotmail.com
-
-BUG: sleeping function called from invalid context at ./include/linux/sched/mm.h:323
-in_atomic(): 0, irqs_disabled(): 0, non_block: 0, pid: 8414, name: syz.7.670
-preempt_count: 0, expected: 0
-RCU nest depth: 1, expected: 0
-1 lock held by syz.7.670/8414:
- #0: ffff800088d271a0 (rcu_read_lock){....}-{1:3}, at: rcu_lock_acquire include/linux/rcupdate.h:300 [inline]
- #0: ffff800088d271a0 (rcu_read_lock){....}-{1:3}, at: rcu_read_lock include/linux/rcupdate.h:840 [inline]
- #0: ffff800088d271a0 (rcu_read_lock){....}-{1:3}, at: blk_mq_dispatch_queue_requests+0x110/0x6d4 block/blk-mq.c:2872
-CPU: 0 UID: 0 PID: 8414 Comm: syz.7.670 Not tainted syzkaller #0 PREEMPT 
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 08/07/2026
-Call trace:
- show_stack+0x2c/0x3c arch/arm64/kernel/stacktrace.c:499 (C)
- __dump_stack+0x30/0x40 lib/dump_stack.c:94
- dump_stack_lvl+0xd8/0x12c lib/dump_stack.c:120
- dump_stack+0x1c/0x28 lib/dump_stack.c:129
- __might_resched+0x354/0x4c0 kernel/sched/core.c:9197
- __might_sleep+0x84/0xdc kernel/sched/core.c:9126
- might_alloc include/linux/sched/mm.h:323 [inline]
- slab_pre_alloc_hook mm/slub.c:4537 [inline]
- slab_alloc_node mm/slub.c:4897 [inline]
- __kmalloc_cache_noprof+0x88/0x5ec mm/slub.c:5485
- _kmalloc_noprof include/linux/slab.h:988 [inline]
- null_alloc_page drivers/block/null_blk/main.c:870 [inline]
- null_insert_page+0x94/0x4e8 drivers/block/null_blk/main.c:1019
- copy_to_nullb drivers/block/null_blk/main.c:1157 [inline]
- null_transfer drivers/block/null_blk/main.c:1271 [inline]
- null_handle_data_transfer drivers/block/null_blk/main.c:1300 [inline]
- null_handle_memory_backed+0x474/0x9d8 drivers/block/null_blk/main.c:1380
- null_process_cmd+0x118/0x1b0 drivers/block/null_blk/main.c:1434
- null_handle_cmd drivers/block/null_blk/main.c:1457 [inline]
- null_queue_rq+0x788/0xa88 drivers/block/null_blk/main.c:1703
- null_queue_rqs+0x108/0x204 drivers/block/null_blk/main.c:1717
- __blk_mq_flush_list block/blk-mq.c:2827 [inline]
- blk_mq_dispatch_queue_requests+0x33c/0x6d4 block/blk-mq.c:2872
- blk_mq_flush_plug_list+0x37c/0x494 block/blk-mq.c:2960
- __blk_flush_plug+0x364/0x440 block/blk-core.c:1266
- blk_finish_plug+0x68/0x90 block/blk-core.c:1293
- blkdev_writepages+0x128/0x184 block/fops.c:486
- do_writepages+0x284/0x47c mm/page-writeback.c:2571
- filemap_writeback+0x230/0x2bc mm/filemap.c:387
- filemap_fdatawrite_range mm/filemap.c:412 [inline]
- filemap_write_and_wait_range+0x90/0x114 mm/filemap.c:684
- filemap_write_and_wait include/linux/pagemap.h:65 [inline]
- sync_blockdev block/bdev.c:276 [inline]
- bdev_release+0x114/0x328 block/bdev.c:1129
- blkdev_release+0x20/0x34 block/fops.c:680
- __fput+0x338/0x74c fs/file_table.c:512
- fput_close_sync+0x10c/0x278 fs/file_table.c:617
- __do_sys_close fs/open.c:1511 [inline]
- __se_sys_close fs/open.c:1496 [inline]
- __arm64_sys_close+0x80/0x110 fs/open.c:1496
- __invoke_syscall arch/arm64/kernel/syscall.c:35 [inline]
- invoke_syscall+0x98/0x244 arch/arm64/kernel/syscall.c:49
- el0_svc_common+0xec/0x23c arch/arm64/kernel/syscall.c:121
- do_el0_svc+0x4c/0x5c arch/arm64/kernel/syscall.c:140
- el0_svc+0x64/0x260 arch/arm64/kernel/entry-common.c:758
- el0t_64_sync_handler+0x44/0x104 arch/arm64/kernel/entry-common.c:777
- el0t_64_sync+0x198/0x19c arch/arm64/kernel/entry.S:590
-
-
----
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
-
-syzbot will keep track of this issue. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
-
-If the report is already addressed, let syzbot know by replying with:
-#syz fix: exact-commit-title
-
-If you want to overwrite report's subsystems, reply with:
-#syz set subsystems: new-subsystem
-(See the list of subsystem names on the web dashboard)
-
-If the report is a duplicate of another one, reply with:
-#syz dup: exact-subject-of-another-report
-
-If you want to undo deduplication, reply with:
-#syz undup
+- Arnaldo
