@@ -1,81 +1,40 @@
-Received: from mo4-p01-ob.smtp.rzone.de (mo4-p01-ob.smtp.rzone.de [81.169.146.167])
+Received: from out198-2.us.a.mail.aliyun.com (out198-2.us.a.mail.aliyun.com [47.90.198.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 919714756DF;
-	Fri,  4 Sep 2026 10:53:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=81.169.146.167
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788519210; cv=pass; b=MN9zhUHNVKcjKoEIR17tn5Lcifa7q8uUll8IMBwhHzeIOrdnQ9TKWOSoJGbZ99mL15eNrjWDMNklehYSJwmbBXus0Zlhk/qnm4HmJrhEUVRCzI5Sxyn+5YieDT8WkqrxouUU4atS0U/26YXJrA6QKLNiYpXlWhMDnztXMJ/fLFk=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788519210; c=relaxed/simple;
-	bh=bUXXiVv035eDx9LTrbOItIjefLEYbJxl1oyafsR16C4=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Type; b=AUtErapTcYwJYkGEEiDJTv92ZPd5A9vg0r0tAT9MH/IG/sUpWCC78V2aSFBKRkBvj5ZI0IkX7L5widaslzXFf8ebXTib7W5p0rCLyc6jqGVntCfC+6cUsQevGGDttxuI7Lfldx0BbTm4/mXojey5EkvPf0JRkPybCiFsbr9nNPE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=iokpp.de; spf=none smtp.mailfrom=iokpp.de; dkim=pass (2048-bit key) header.d=iokpp.de header.i=@iokpp.de header.b=OiHQdapQ; dkim=permerror (0-bit key) header.d=iokpp.de header.i=@iokpp.de header.b=VfhI3yce; arc=pass smtp.client-ip=81.169.146.167
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=iokpp.de
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=iokpp.de
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=iokpp.de header.i=@iokpp.de header.b="OiHQdapQ";
-	dkim=permerror (0-bit key) header.d=iokpp.de header.i=@iokpp.de header.b="VfhI3yce"
-ARC-Seal: i=1; a=rsa-sha256; t=1788519124; cv=none;
-    d=strato.com; s=strato-dkim-0002;
-    b=ZSUzOt+BcavtYYJ0q6FSgeboDQjR9c1R09ZPD2Tp0lOp/2EozTaO+4U0FBnmfALyFH
-    FU8LygXUfVxXRjlcn0v6MJfAPFOS9UxR/Fs/RO5RLV70NR9nSKhaAN7RpBXY/tTzkBt6
-    tR0dYmU4KsWUTI7Nv71h0mVNfAslfOXE9svmxUFz34RhcTOoYaMCaEjKNUdNdgF0onMn
-    Kr4xv/VaI9frOeQ+tA1wMPOpbwhhQX0Z0Tr/OituOs8TPXD17V+WJgRHC60JlLpdOO8S
-    gTK10HExBO/lQeGmXjdCbJ3PyemzO7hNyFZhyt/zqrAghb3xn3OojF+o0DAX+TiXnfzJ
-    R7nA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1788519124;
-    s=strato-dkim-0002; d=strato.com;
-    h=Message-Id:Date:Subject:Cc:To:From:Cc:Date:From:Subject:Sender;
-    bh=kAhvbBh0y8XmQwwqp6+NOqBPmhrCPGrOA+dkTWjQAHU=;
-    b=bDd5M0y9gA+uCVFCLCK1WE8U2htdjUqsJHLRv/N30B730qSlHetp4vl5YEmGZNkT+C
-    wTkomcDW0VCoszl2UdGKSR0tAyzoD7UdHOVu+WUR+GDEOZiHcqaelWYi+6SZwoaIYjDl
-    HsN3yQWPISTDxfKGcVT+jtWepwKMDwOhwmIh3hT1z1Vx/t8tkqqMg6XjgQJgSXj1ekTp
-    pAOabJTCCzjI+OlD4scBiaaTjemW9i2L7r9Gg3E5ZKZrCwMZap/aD+vfI9CW6YJIpTkd
-    XcwjI/226tNiv5SrBqzfo8Em9VtHKHyxa08E5Q/YHwOwCOK841tG1svUMuyEbL5ShqhN
-    YjjQ==
-ARC-Authentication-Results: i=1; strato.com;
-    arc=none;
-    dkim=none
-X-RZG-CLASS-ID: mo01
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1788519124;
-    s=strato-dkim-0002; d=iokpp.de;
-    h=Message-Id:Date:Subject:Cc:To:From:Cc:Date:From:Subject:Sender;
-    bh=kAhvbBh0y8XmQwwqp6+NOqBPmhrCPGrOA+dkTWjQAHU=;
-    b=OiHQdapQY2fbSngMsdkwLACy0ftWtGnaqbUU+vsbtd8S4TI3Z4JEe7FjDkPmw2ivzW
-    CviqS1Fm/Z8XB6F68XjkWQX//5lo2trLxyRbqLslopCxjHyl6yNl9kQUX3NIwKbz3U7S
-    lyuX6QbloWjqjUSbtBPQ8JZM7Abhy9DfJx/wZjdcvNW46aVyKf800xIfscFw5jrDDfXa
-    GMKgKEJXl+uTXddQcHtSwucbuLC9zjiv99avMmaT65Ld+/FdU89cyB+BjXyjcEOYOqhe
-    FKoWBmV0jYKZN5I0AuN8JR2pDh30Ns8wzpFjOMar4KO1U0KrNQQbY6OqPDuIyiV0zGlZ
-    KNKA==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1788519124;
-    s=strato-dkim-0003; d=iokpp.de;
-    h=Message-Id:Date:Subject:Cc:To:From:Cc:Date:From:Subject:Sender;
-    bh=kAhvbBh0y8XmQwwqp6+NOqBPmhrCPGrOA+dkTWjQAHU=;
-    b=VfhI3yceMOxBtz+bJyaLuadhh9n3CmADVT+8zXNL+ludZ3GCMp+ayx+hLBpGehZKIV
-    y1WyvTDwGDhqB8+L67Dw==
-X-RZG-AUTH: ":LmkFe0i9dN8c2t4QQyGBB/NDXvjDB6pBSfNuhhDSDt3O2J2YOom0XQaPis+nU/xK"
-Received: from Munilab01-lab.micron.com
-    by smtp.strato.de (RZmta 55.6.2 AUTH)
-    with ESMTPSA id ze37e1284Aq32Dw
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
-	(Client did not present a certificate);
-    Fri, 4 Sep 2026 12:52:03 +0200 (CEST)
-From: Bean Huo <beanhuo@iokpp.de>
-To: linux-nvme@lists.infradead.org,
-	kbusch@kernel.org,
-	hch@lst.de
-Cc: axboe@kernel.dk,
-	sagi@grimberg.me,
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5F8C48A2BE;
+	Fri,  4 Sep 2026 10:53:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=47.90.198.2
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788519206; cv=none; b=iLu0cZ2bjAUtduEnspw16gv3f0K5JpurrwMqPd6JCDyPDfmJYGPeZL3RWwI4HKuqRoByGlnY0n6CRnBBo6qzdI6GcqVCOABMvwG3jIe5cUthRdYxh61pm1v4lxdv2Gutbylem7osa1V7VeDZefVnRlD3E3MeGt6wcI/4why+CMc=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788519206; c=relaxed/simple;
+	bh=xztsPd/TMFzMv0Wg74h698tgvWtWAqrGcRMUG/GE/dY=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=X5HHUZ2O7HvF8pgrbbucHSNALqkhvzQsLwQuCKGw6dCladW7Gz3p+cmG9TZ3gSZQEbemYlHFr79QW+lL8n5x/VzE6AOB1OvO4JV0o3png04KpNm/vtXleoDnKNgTS1LohH19ugdbvimViyKeOFPpYQfmrevicudXJFu7R+lA7UQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=edatec.cn; spf=pass smtp.mailfrom=edatec.cn; arc=none smtp.client-ip=47.90.198.2
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=edatec.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=edatec.cn
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.06893431|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.0304247-0.000288775-0.969287;FP=12853020966779489919|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033023018039;MF=zjzhao@edatec.cn;NM=1;PH=DS;RN=9;RT=9;SR=0;TI=SMTPD_---.j5V0J1L_1788519167;
+Received: from LAPTOP-VQRD5F43.hs.edatec.cn(mailfrom:zjzhao@edatec.cn fp:SMTPD_---.j5V0J1L_1788519167 cluster:ay29)
+          by smtp.aliyun-inc.com;
+          Fri, 04 Sep 2026 18:52:48 +0800
+From: zjzhao <zjzhao@edatec.cn>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jiri Slaby <jirislaby@kernel.org>
+Cc: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
 	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	bob.beckett@collabora.com,
-	Bean Huo <beanhuo@micron.com>,
-	Gaurav Sinha <gsinha@micron.com>
-Subject: [PATCH] nvme-pci: add NVME_QUIRK_DMAPOOL_ALIGN_512 for Micron 4100AT
-Date: Fri,  4 Sep 2026 12:51:55 +0200
-Message-Id: <20260904105155.1402065-1-beanhuo@iokpp.de>
-X-Mailer: git-send-email 2.34.1
+	linux-serial@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	zjzhao <zjzhao@edatec.cn>
+Subject: [PATCH v3 1/2] serial: wk2xxx: Add WK2xxx SPI UART driver
+Date: Fri,  4 Sep 2026 18:52:42 +0800
+Message-ID: <20260904105243.120769-2-zjzhao@edatec.cn>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260904105243.120769-1-zjzhao@edatec.cn>
+References: <20260904093341.100826-1-zjzhao@edatec.cn>
+ <20260904105243.120769-1-zjzhao@edatec.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -83,52 +42,1501 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain; charset="us-ascii"
 
-From: Bean Huo <beanhuo@micron.com>
+Add a driver for the WK2xxx SPI to UART bridge ICs (WK2124, WK2132,
+WK2168, WK2202 and WK2204) from WKmic (Chengdu Weikai Microelectronics).
+Each IC exposes two or four full-duplex UART channels with 256-byte
+RX/TX FIFOs through a single SPI slave interface and one interrupt line.
 
-The Micron 4100AT fetches PRP Lists in 512 byte strides, but the driver
-allocates small PRP List descriptors in 256 byte strides.  A descriptor
-in the last 256 bytes of a dmapool page makes the controller read past
-the page: the access lands on an adjacent IOVA, the IOMMU faults the
-command. That last block only became reachable with commit da9619a30e73
-("dmapool: link blocks across pages"), so this affects v6.4 and later.
+The driver is a rework of the vendor driver (https://github.com/britus/
+wk2xxx) modeled after the NXP sc16is7xx driver. It registers ttyWK0..N
+lines (IDA-allocated), uses a threaded IRQ with a kthread worker for
+register access, falls back to polling when the interrupt line is not
+described, and supports hardware flow control and RS485 where the IC
+provides them. Each UART channel is matched against a serial@N DT
+subnode, whose serial and RS-485 properties are applied to that channel
+only. The chip is reset and every sub-UART disabled at probe time, and
+the IRQ is requested only after all ports have been registered, so an
+early interrupt can never reach a port whose state is not ready yet.
+On removal the ports are unregistered (each open port is shut down,
+disabling its sub-UART) before the IRQ is freed.
 
-Align the small descriptor pool to 512 bytes, as commit ebefac564796
-("nvme-pci: 512 byte aligned dma pool segment quirk") already does for
-another controller with the same erratum.  The last block then starts
-at offset 0xE00 and the fetch stays inside the page.
+Also allocate PORT_WK2XXX (124) and add the SERIAL_WK2XXX Kconfig
+option.
 
-Cc: <stable@vger.kernel.org> # 6.4.x: ebefac564796: nvme-pci: 512 byte aligned dma pool segment quirk
-Cc: <stable@vger.kernel.org> # 6.4.x
-Signed-off-by: Gaurav Sinha <gsinha@micron.com>
-Signed-off-by: Bean Huo <beanhuo@micron.com>
+Tested on Raspberry Pi 5 boards (EDATEC IPC1200 with WK2132 on SPI0 and
+SBC2300 with WK2204 on SPI1); loopback TX/RX tests pass.
+
+Signed-off-by: zjzhao <zjzhao@edatec.cn>
 ---
-Notes for reviewers (not part of the commit message):
+ drivers/tty/serial/Kconfig       |   17 +
+ drivers/tty/serial/Makefile      |    1 +
+ drivers/tty/serial/wk2xxx.c      | 1401 ++++++++++++++++++++++++++++++
+ include/uapi/linux/serial_core.h |    3 +
+ 4 files changed, 1422 insertions(+)
+ create mode 100644 drivers/tty/serial/wk2xxx.c
 
-* Why the two Cc: stable lines: this device needs the quirk from v6.4
-  on, but the quirk itself only exists from v6.13.  Older trees, such
-  as the 6.12 LTS where we found this, need ebefac564796 first.  The
-  first line asks stable to pick that commit before this one, and the
-  second gives 6.4 as the starting version.
-
-* Why no Fixes: tag: the only candidate is da9619a30e73, and that
-  commit is not wrong.  It fixed an off-by-one that had been hiding this
-  device erratum.  Blaming it did not seem fair, so we left the tag out.
-  Happy to add one if the maintainers prefer.
-
-diff --git a/drivers/nvme/host/pci.c b/drivers/nvme/host/pci.c
-index db5fc9bf6627..d6dec3ba41f4 100644
---- a/drivers/nvme/host/pci.c
-+++ b/drivers/nvme/host/pci.c
-@@ -4141,6 +4141,8 @@ static const struct pci_device_id nvme_id_table[] = {
- 		.driver_data = NVME_QUIRK_IGNORE_DEV_SUBNQN },
- 	 { PCI_DEVICE(0x1344, 0x6001),   /* Micron Nitro NVMe */
- 		 .driver_data = NVME_QUIRK_BOGUS_NID, },
-+	{ PCI_DEVICE(0x1344, 0x6004),	/* Micron 4100AT */
-+		.driver_data = NVME_QUIRK_DMAPOOL_ALIGN_512, },
- 	{ PCI_DEVICE(0x1c5c, 0x1504),   /* SK Hynix PC400 */
- 		.driver_data = NVME_QUIRK_DISABLE_WRITE_ZEROES, },
- 	{ PCI_DEVICE(0x1c5c, 0x174a),   /* SK Hynix P31 SSD */
+diff --git a/drivers/tty/serial/Kconfig b/drivers/tty/serial/Kconfig
+index cf7dba473b20..5f7a71f377ac 100644
+--- a/drivers/tty/serial/Kconfig
++++ b/drivers/tty/serial/Kconfig
+@@ -1207,6 +1207,23 @@ config SERIAL_MXS_AUART_CONSOLE
+ 	help
+ 	  Enable a MXS AUART port to be the system console.
+ 
++config SERIAL_WK2XXX
++	tristate "WK2xxx SPI UART support"
++	depends on SPI_MASTER
++	select SERIAL_CORE
++	help
++	  This selects the WK2xxx SPI to UART bridge driver.
++	  Supported ICs are:
++
++	    WK2124
++	    WK2132
++	    WK2168
++	    WK2202
++	    WK2204
++
++	  To compile this driver as a module, choose M here: the module
++	  will be called wk2xxx.
++
+ config SERIAL_XILINX_PS_UART
+ 	tristate "Cadence (Xilinx Zynq) UART support"
+ 	depends on OF
+diff --git a/drivers/tty/serial/Makefile b/drivers/tty/serial/Makefile
+index bba7b21a4a1d..fdd13f3dd058 100644
+--- a/drivers/tty/serial/Makefile
++++ b/drivers/tty/serial/Makefile
+@@ -90,6 +90,7 @@ obj-$(CONFIG_SERIAL_TIMBERDALE)		+= timbuart.o
+ obj-$(CONFIG_SERIAL_TXX9)		+= serial_txx9.o
+ obj-$(CONFIG_SERIAL_UARTLITE)		+= uartlite.o
+ obj-$(CONFIG_SERIAL_VT8500)		+= vt8500_serial.o
++obj-$(CONFIG_SERIAL_WK2XXX)		+= wk2xxx.o
+ obj-$(CONFIG_SERIAL_XILINX_PS_UART)	+= xilinx_uartps.o
+ obj-$(CONFIG_SERIAL_ZS)			+= zs.o
+ 
+diff --git a/drivers/tty/serial/wk2xxx.c b/drivers/tty/serial/wk2xxx.c
+new file mode 100644
+index 000000000000..f8005bbec937
+--- /dev/null
++++ b/drivers/tty/serial/wk2xxx.c
+@@ -0,0 +1,1401 @@
++// SPDX-License-Identifier: GPL-2.0+
++/*
++ * WK2xxx SPI to UART bridge tty serial driver
++ *
++ * SPI-to-UART bridge ICs from WKmic (Chengdu Weikai Microelectronics):
++ * WK2124, WK2132, WK2168, WK2202 and WK2204. Each IC exposes two or four
++ * full-duplex UART channels with 256-byte RX/TX FIFOs through a single SPI
++ * slave interface and one interrupt line. The slave register set is split
++ * into two banks (page 0 / page 1) selected by the SPAGE register.
++ *
++ * This driver is a rework of the vendor "wk2xxx" driver (originally at
++ * https://github.com/britus/wk2xxx) and is modeled after the NXP sc16is7xx
++ * driver.
++ *
++ * (C) Copyright 2022 WKIC Ltd. by Xu XunWei Tech, Xuxunwei
++ * (C) Copyright 2024 EoF Software Labs, B. Eschrich
++ * Copyright (C) 2026 EDATEC Technology Co., Ltd. <zjzhao@edatec.cn>
++ */
++
++#include <linux/atomic.h>
++#include <linux/bits.h>
++#include <linux/bitfield.h>
++#include <linux/cache.h>
++#include <linux/cleanup.h>
++#include <linux/device.h>
++#include <linux/idr.h>
++#include <linux/interrupt.h>
++#include <linux/kfifo.h>
++#include <linux/kthread.h>
++#include <linux/math64.h>
++#include <linux/mod_devicetable.h>
++#include <linux/module.h>
++#include <linux/mutex.h>
++#include <linux/of.h>
++#include <linux/overflow.h>
++#include <linux/property.h>
++#include <linux/sched.h>
++#include <linux/serial.h>
++#include <linux/serial_core.h>
++#include <linux/slab.h>
++#include <linux/spi/spi.h>
++#include <linux/string.h>
++#include <linux/tty.h>
++#include <linux/tty_flip.h>
++#include <linux/units.h>
++#include <linux/workqueue.h>
++
++#define WK2XXX_NAME		"wk2xxx"
++#define WK2XXX_MAX_DEVS		8	/* Total number of lines. */
++#define WK2XXX_MAX_PORTS	4	/* Max number of ports per IC. */
++#define WK2XXX_FIFO_SIZE	256
++#define WK2XXX_MAX_SPI_LEN	30	/* Max bytes per SPI FIFO burst. */
++#define WK2XXX_MAX_TX_CHARS	200	/* Leave headroom in the TX FIFO. */
++#define WK2XXX_RXFIFO_LEVEL	0x40	/* RX FIFO trigger level. */
++#define WK2XXX_TXFIFO_LEVEL	0x01	/* TX FIFO trigger level. */
++#define WK2XXX_POLL_PERIOD_MS	10
++#define WK2XXX_IRQ_MAX_PASSES	8	/* Bound the IRQ drain loop. */
++
++/* SPI command byte: bit 6 = read, bit 7 = FIFO access. */
++#define WK2XXX_SPI_READ		BIT(6)
++#define WK2XXX_SPI_FIFO_WRITE	BIT(7)
++#define WK2XXX_SPI_FIFO_READ	(BIT(7) | BIT(6))
++
++/* Marker used to address registers located in page 1. */
++#define WK2XXX_PAGE1		BIT(7)
++
++/* Global registers. */
++#define WK2XXX_GENA_REG		0x00	/* Global UART enable */
++#define WK2XXX_GRST_REG		0x01	/* Global reset */
++#define WK2XXX_GMUT_REG		0x02	/* Master UART control */
++#define WK2XXX_GIER_REG		0x10	/* Global interrupt enable */
++#define WK2XXX_GIFR_REG		0x11	/* Global interrupt flag */
++
++/* Port (sub-UART) registers, page 0. */
++#define WK2XXX_SPAGE_REG	0x03	/* Register page select */
++#define WK2XXX_SCR_REG		0x04	/* Slave control */
++#define WK2XXX_LCR_REG		0x05	/* Line control */
++#define WK2XXX_FCR_REG		0x06	/* FIFO control */
++#define WK2XXX_SIER_REG		0x07	/* Slave interrupt enable */
++#define WK2XXX_SIFR_REG		0x08	/* Slave interrupt flag */
++#define WK2XXX_TFCNT_REG	0x09	/* TX FIFO count */
++#define WK2XXX_RFCNT_REG	0x0a	/* RX FIFO count */
++#define WK2XXX_FSR_REG		0x0b	/* FIFO status */
++#define WK2XXX_LSR_REG		0x0c	/* Line status */
++#define WK2XXX_FDAT_REG		0x0d	/* FIFO data */
++#define WK2XXX_FWCR_REG		0x0e	/* Flow control */
++#define WK2XXX_RS485_REG	0x0f	/* RS485 control */
++
++/* Port (sub-UART) registers, page 1. */
++#define WK2XXX_BAUD1_REG	(0x04 | WK2XXX_PAGE1)	/* Divisor Latch High */
++#define WK2XXX_BAUD0_REG	(0x05 | WK2XXX_PAGE1)	/* Divisor Latch Low */
++#define WK2XXX_PRES_REG		(0x06 | WK2XXX_PAGE1)	/* Fractional divisor */
++#define WK2XXX_RFTL_REG		(0x07 | WK2XXX_PAGE1)	/* RX FIFO trigger level */
++#define WK2XXX_TFTL_REG		(0x08 | WK2XXX_PAGE1)	/* TX FIFO trigger level */
++#define WK2XXX_FWTH_REG		(0x09 | WK2XXX_PAGE1)	/* Flow control high level */
++#define WK2XXX_FWTL_REG		(0x0a | WK2XXX_PAGE1)	/* Flow control low level */
++#define WK2XXX_XON1_REG		(0x0b | WK2XXX_PAGE1)	/* Xon word */
++#define WK2XXX_XOFF1_REG	(0x0c | WK2XXX_PAGE1)	/* Xoff word */
++#define WK2XXX_SADR_REG		(0x0d | WK2XXX_PAGE1)	/* RS485 auto address */
++#define WK2XXX_SAEN_REG		(0x0e | WK2XXX_PAGE1)	/* RS485 address mask */
++#define WK2XXX_RRSDLY_REG	(0x0f | WK2XXX_PAGE1)	/* RS485 RTS delay */
++
++/* SCR register bits. */
++#define WK2XXX_SCR_RXEN_BIT	BIT(0)
++#define WK2XXX_SCR_TXEN_BIT	BIT(1)
++
++/* LCR register bits. */
++#define WK2XXX_LCR_STPL_BIT	BIT(0)	/* Two stop bits */
++#define WK2XXX_LCR_PAM0_BIT	BIT(1)	/* Parity mode bit 0 */
++#define WK2XXX_LCR_PAM1_BIT	BIT(2)	/* Parity mode bit 1 */
++#define WK2XXX_LCR_PAEN_BIT	BIT(3)	/* Parity enable */
++#define WK2XXX_LCR_BREAK_BIT	BIT(5)	/* TX break */
++
++/* SIER register bits. */
++#define WK2XXX_SIER_RFTRIG_IEN_BIT	BIT(0)	/* RX FIFO trigger */
++#define WK2XXX_SIER_RXOUT_IEN_BIT	BIT(1)	/* RX time-out */
++#define WK2XXX_SIER_TFTRIG_IEN_BIT	BIT(2)	/* TX FIFO trigger */
++
++/* SIFR register bits. */
++#define WK2XXX_SIFR_RFTRIG_INT_BIT	BIT(0)
++#define WK2XXX_SIFR_RXOVT_INT_BIT	BIT(1)
++#define WK2XXX_SIFR_TFTRIG_INT_BIT	BIT(2)
++
++/* FSR register bits. */
++#define WK2XXX_FSR_TBUSY_BIT	BIT(0)
++#define WK2XXX_FSR_TFULL_BIT	BIT(1)
++#define WK2XXX_FSR_TDAT_BIT	BIT(2)
++#define WK2XXX_FSR_RDAT_BIT	BIT(3)
++#define WK2XXX_FSR_RFPE_BIT	BIT(4)	/* RX FIFO parity error */
++#define WK2XXX_FSR_RFFE_BIT	BIT(5)	/* RX FIFO frame error */
++#define WK2XXX_FSR_RFBI_BIT	BIT(6)	/* RX FIFO break */
++#define WK2XXX_FSR_RFOE_BIT	BIT(7)	/* RX FIFO overrun */
++#define WK2XXX_FSR_ERR_MASK	GENMASK(7, 4)
++
++/* LSR error bits, for use with uart_insert_char(). */
++#define WK2XXX_LSR_PE_BIT	BIT(0)
++#define WK2XXX_LSR_FE_BIT	BIT(1)
++#define WK2XXX_LSR_BI_BIT	BIT(2)
++#define WK2XXX_LSR_OE_BIT	BIT(3)
++#define WK2XXX_LSR_BRK_ERROR_MASK	(WK2XXX_LSR_OE_BIT | WK2XXX_LSR_PE_BIT | \
++					 WK2XXX_LSR_FE_BIT | WK2XXX_LSR_BI_BIT)
++/* Internal marker: drop all received data (termios CREAD is clear). */
++#define WK2XXX_LSR_IGNORE_DATA		BIT(7)
++
++/*
++ * FWCR register bits. The flow-control mode is selected by the FWM2-0
++ * field in bits 6-4 (WK2132 has no FWCR register; writing it is ignored).
++ */
++#define WK2XXX_FWCR_FWM_MASK	GENMASK(6, 4)
++#define WK2XXX_FWCR_FWM_RTS_CTS	FIELD_PREP(WK2XXX_FWCR_FWM_MASK, 0x3)
++
++/* RS485 register bits. */
++#define WK2XXX_RS485_RTSINV_BIT		BIT(0)
++#define WK2XXX_RS485_RTSEN_BIT		BIT(1)
++#define WK2XXX_RS485_RSRS485_BIT	BIT(6)
++
++struct wk2xxx_devtype {
++	const char	*name;
++	int		nr_uart;
++	unsigned long	crystal_freq;
++};
++
++#define WK2XXX_RECONF_IER	BIT(0)
++#define WK2XXX_RECONF_RS485	BIT(1)
++
++struct wk2xxx_one_config {
++	unsigned int	flags;
++	u8		ier_mask;
++	u8		ier_val;
++};
++
++struct wk2xxx_one {
++	struct uart_port	port;
++	struct mutex		tx_lock;	/* Serializes the TX path. */
++	struct kthread_work	tx_work;
++	struct kthread_work	reg_work;
++	struct wk2xxx_one_config config;
++	unsigned char		buf[WK2XXX_FIFO_SIZE];	/* RX buffer. */
++};
++
++struct wk2xxx_port {
++	const struct wk2xxx_devtype	*devtype;
++	struct spi_device		*spi;
++	struct mutex			reg_lock;	/* SPI register access. */
++	struct mutex			poll_lock;	/* Serializes polling start/stop. */
++	struct kthread_worker		kworker;
++	struct task_struct		*kworker_task;
++	struct kthread_delayed_work	poll_work;
++	bool				polling;
++	bool				irq_requested;
++	atomic_t			open_ports;
++	/*
++	 * Shared SPI transfer buffers. All SPI accesses are serialized by
++	 * s->reg_lock, so these are never used concurrently. Each buffer is
++	 * cache-line aligned so that DMA cache maintenance performed on a
++	 * buffer never invalidates a line shared with the fields above.
++	 */
++	u8				spi_tx[WK2XXX_MAX_SPI_LEN + 1] ____cacheline_aligned;
++	u8				spi_rx[WK2XXX_MAX_SPI_LEN + 1] ____cacheline_aligned;
++	struct wk2xxx_one		p[];
++};
++
++static DEFINE_IDA(wk2xxx_lines);
++
++static struct uart_driver wk2xxx_uart = {
++	.owner		= THIS_MODULE,
++	.driver_name	= WK2XXX_NAME,
++	.dev_name	= "ttyWK",
++	.nr		= WK2XXX_MAX_DEVS,
++};
++
++#define to_wk2xxx_one(p, e)	((container_of((p), struct wk2xxx_one, e)))
++
++static const struct wk2xxx_devtype wk2124_devtype = {
++	.name		= "WK2124",
++	.nr_uart	= 4,
++	.crystal_freq	= 11059200,
++};
++
++static const struct wk2xxx_devtype wk2132_devtype = {
++	.name		= "WK2132",
++	.nr_uart	= 2,
++	.crystal_freq	= 11059200,
++};
++
++static const struct wk2xxx_devtype wk2168_devtype = {
++	.name		= "WK2168",
++	.nr_uart	= 4,
++	.crystal_freq	= 11059200,
++};
++
++static const struct wk2xxx_devtype wk2202_devtype = {
++	.name		= "WK2202",
++	.nr_uart	= 2,
++	.crystal_freq	= 11059200,
++};
++
++static const struct wk2xxx_devtype wk2204_devtype = {
++	.name		= "WK2204",
++	.nr_uart	= 4,
++	.crystal_freq	= 11059200,
++};
++
++/*
++ * The following functions are the low-level SPI accessors. The caller must
++ * hold s->reg_lock, so that multi-byte accesses and page switches are
++ * performed atomically on the SPI bus.
++ */
++static int wk2xxx_spi_transfer(struct wk2xxx_port *s, const u8 *tx, u8 *rx,
++			       unsigned int len)
++{
++	struct spi_transfer xfer = {
++		.tx_buf = tx,
++		.rx_buf = rx,
++		.len = len,
++	};
++	struct spi_message msg;
++
++	spi_message_init(&msg);
++	spi_message_add_tail(&xfer, &msg);
++
++	return spi_sync(s->spi, &msg);
++}
++
++static int wk2xxx_raw_read(struct wk2xxx_port *s, u8 addr, u8 *val)
++{
++	u8 *tx = s->spi_tx;
++	u8 *rx = s->spi_rx;
++	int ret;
++
++	tx[0] = WK2XXX_SPI_READ | addr;
++	tx[1] = 0;
++	ret = wk2xxx_spi_transfer(s, tx, rx, 2);
++	if (ret) {
++		*val = 0;
++		return ret;
++	}
++
++	*val = rx[1];
++	return 0;
++}
++
++static int wk2xxx_raw_write(struct wk2xxx_port *s, u8 addr, u8 val)
++{
++	u8 *tx = s->spi_tx;
++	u8 *rx = s->spi_rx;
++
++	tx[0] = addr;
++	tx[1] = val;
++
++	return wk2xxx_spi_transfer(s, tx, rx, 2);
++}
++
++static unsigned int wk2xxx_port_addr(unsigned int portno, u8 reg)
++{
++	/* The sub-UART number is encoded in the upper nibble of the cmd byte. */
++	return (portno << 4) | reg;
++}
++
++static int wk2xxx_raw_port_read(struct wk2xxx_port *s, unsigned int portno,
++				u8 reg, u8 *val)
++{
++	int ret;
++
++	if (reg & WK2XXX_PAGE1) {
++		ret = wk2xxx_raw_write(s, wk2xxx_port_addr(portno, WK2XXX_SPAGE_REG), 1);
++		if (ret)
++			return ret;
++		ret = wk2xxx_raw_read(s, wk2xxx_port_addr(portno, reg & 0x0f), val);
++		wk2xxx_raw_write(s, wk2xxx_port_addr(portno, WK2XXX_SPAGE_REG), 0);
++		return ret;
++	}
++
++	return wk2xxx_raw_read(s, wk2xxx_port_addr(portno, reg & 0x0f), val);
++}
++
++static int wk2xxx_raw_port_write(struct wk2xxx_port *s, unsigned int portno,
++				 u8 reg, u8 val)
++{
++	int ret;
++
++	if (reg & WK2XXX_PAGE1) {
++		ret = wk2xxx_raw_write(s, wk2xxx_port_addr(portno, WK2XXX_SPAGE_REG), 1);
++		if (ret)
++			return ret;
++		ret = wk2xxx_raw_write(s, wk2xxx_port_addr(portno, reg & 0x0f), val);
++		wk2xxx_raw_write(s, wk2xxx_port_addr(portno, WK2XXX_SPAGE_REG), 0);
++		return ret;
++	}
++
++	return wk2xxx_raw_write(s, wk2xxx_port_addr(portno, reg & 0x0f), val);
++}
++
++/*
++ * Locked wrappers used outside the register sequences that already hold
++ * s->reg_lock.
++ */
++static int wk2xxx_reg_read(struct wk2xxx_port *s, u8 reg, u8 *val)
++{
++	guard(mutex)(&s->reg_lock);
++	return wk2xxx_raw_read(s, reg, val);
++}
++
++static int wk2xxx_reg_write(struct wk2xxx_port *s, u8 addr, u8 val)
++{
++	guard(mutex)(&s->reg_lock);
++	return wk2xxx_raw_write(s, addr, val);
++}
++
++static int wk2xxx_port_reg_read(struct wk2xxx_port *s, unsigned int portno,
++				u8 reg, u8 *val)
++{
++	guard(mutex)(&s->reg_lock);
++	return wk2xxx_raw_port_read(s, portno, reg, val);
++}
++
++static int wk2xxx_port_reg_write(struct wk2xxx_port *s, unsigned int portno,
++				 u8 reg, u8 val)
++{
++	guard(mutex)(&s->reg_lock);
++	return wk2xxx_raw_port_write(s, portno, reg, val);
++}
++
++static void wk2xxx_port_reg_update(struct wk2xxx_port *s, unsigned int portno,
++				   u8 reg, u8 mask, u8 val)
++{
++	u8 r = 0;
++
++	guard(mutex)(&s->reg_lock);
++	if (wk2xxx_raw_port_read(s, portno, reg, &r))
++		return;
++	wk2xxx_raw_port_write(s, portno, reg, (r & ~mask) | val);
++}
++
++static int wk2xxx_fifo_read(struct wk2xxx_port *s, unsigned int portno,
++			    u8 *buf, unsigned int len)
++{
++	u8 *tx = s->spi_tx;
++	u8 *rx = s->spi_rx;
++	int ret;
++
++	if (len == 0 || len > WK2XXX_MAX_SPI_LEN)
++		return -EINVAL;
++
++	/*
++	 * Take the register lock before touching the shared SPI buffers so a
++	 * concurrent transfer cannot observe (or be corrupted by) a partially
++	 * constructed command.
++	 */
++	guard(mutex)(&s->reg_lock);
++
++	memset(tx, 0, WK2XXX_MAX_SPI_LEN + 1);
++	tx[0] = wk2xxx_port_addr(portno, WK2XXX_SPI_FIFO_READ);
++
++	ret = wk2xxx_spi_transfer(s, tx, rx, len + 1);
++	if (ret)
++		return ret;
++
++	memcpy(buf, rx + 1, len);
++	return 0;
++}
++
++static int wk2xxx_fifo_write(struct wk2xxx_port *s, unsigned int portno,
++			     const u8 *buf, unsigned int len)
++{
++	u8 *tx = s->spi_tx;
++	u8 *rx = s->spi_rx;
++
++	if (len == 0 || len > WK2XXX_MAX_SPI_LEN)
++		return -EINVAL;
++
++	/*
++	 * Take the register lock before touching the shared SPI buffers so a
++	 * concurrent transfer cannot observe (or be corrupted by) a partially
++	 * constructed command.
++	 */
++	guard(mutex)(&s->reg_lock);
++
++	tx[0] = wk2xxx_port_addr(portno, WK2XXX_SPI_FIFO_WRITE);
++	memcpy(tx + 1, buf, len);
++
++	return wk2xxx_spi_transfer(s, tx, rx, len + 1);
++}
++
++static void wk2xxx_ier_set(struct uart_port *port, u8 bit)
++{
++	struct wk2xxx_one *one = to_wk2xxx_one(port, port);
++	struct wk2xxx_port *s = dev_get_drvdata(port->dev);
++
++	lockdep_assert_held_once(&port->lock);
++
++	one->config.flags |= WK2XXX_RECONF_IER;
++	one->config.ier_mask |= bit;
++	one->config.ier_val |= bit;
++	kthread_queue_work(&s->kworker, &one->reg_work);
++}
++
++static void wk2xxx_ier_clear(struct uart_port *port, u8 bit)
++{
++	struct wk2xxx_one *one = to_wk2xxx_one(port, port);
++	struct wk2xxx_port *s = dev_get_drvdata(port->dev);
++
++	lockdep_assert_held_once(&port->lock);
++
++	one->config.flags |= WK2XXX_RECONF_IER;
++	one->config.ier_mask |= bit;
++	one->config.ier_val &= ~bit;
++	kthread_queue_work(&s->kworker, &one->reg_work);
++}
++
++static void wk2xxx_stop_tx(struct uart_port *port)
++{
++	wk2xxx_ier_clear(port, WK2XXX_SIER_TFTRIG_IEN_BIT);
++}
++
++static void wk2xxx_stop_rx(struct uart_port *port)
++{
++	wk2xxx_ier_clear(port, WK2XXX_SIER_RFTRIG_IEN_BIT |
++			 WK2XXX_SIER_RXOUT_IEN_BIT);
++}
++
++static void wk2xxx_throttle(struct uart_port *port)
++{
++	/*
++	 * Stop draining the RX FIFO to apply back-pressure. The RX time-out
++	 * interrupt must be disabled too, otherwise remaining FIFO data would
++	 * still be pushed out and defeat the flow control request.
++	 */
++	guard(uart_port_lock_irqsave)(port);
++	wk2xxx_ier_clear(port, WK2XXX_SIER_RFTRIG_IEN_BIT |
++			 WK2XXX_SIER_RXOUT_IEN_BIT);
++}
++
++static void wk2xxx_unthrottle(struct uart_port *port)
++{
++	guard(uart_port_lock_irqsave)(port);
++	wk2xxx_ier_set(port, WK2XXX_SIER_RFTRIG_IEN_BIT |
++		       WK2XXX_SIER_RXOUT_IEN_BIT);
++}
++
++static void wk2xxx_handle_tx(struct uart_port *port)
++{
++	struct wk2xxx_one *one = to_wk2xxx_one(port, port);
++	struct wk2xxx_port *s = dev_get_drvdata(port->dev);
++	struct tty_port *tport = &port->state->port;
++	unsigned int portno = port->iobase;
++	unsigned int txlen, to_send, sent;
++	const unsigned char *tail;
++	u8 x_char, fsr, tfcnt;
++
++	guard(mutex)(&one->tx_lock);
++
++	/*
++	 * The serial core sets x_char and then calls start_tx() under the
++	 * port lock, so snapshot it under the same lock.
++	 */
++	scoped_guard(uart_port_lock_irqsave, port) {
++		x_char = port->x_char;
++		port->x_char = 0;
++
++		/* Nothing queued and no x_char: nothing to do. */
++		if (!x_char &&
++		    (kfifo_is_empty(&tport->xmit_fifo) || uart_tx_stopped(port))) {
++			wk2xxx_stop_tx(port);
++			return;
++		}
++	}
++
++	if (x_char) {
++		/*
++		 * A high-priority x_char goes out first, but do not return
++		 * here: pending xmit FIFO data still has to be drained (and
++		 * the TX trigger re-armed) below, otherwise it would be
++		 * stranded until the next start_tx().
++		 */
++		wk2xxx_port_reg_write(s, portno, WK2XXX_FDAT_REG, x_char);
++		scoped_guard(uart_port_lock_irqsave, port)
++			port->icount.tx++;
++	}
++
++	if (kfifo_is_empty(&tport->xmit_fifo) || uart_tx_stopped(port)) {
++		scoped_guard(uart_port_lock_irqsave, port) {
++			wk2xxx_stop_tx(port);
++		}
++		return;
++	}
++
++	/* Limit to the free space available in the TX FIFO. */
++	if (wk2xxx_port_reg_read(s, portno, WK2XXX_TFCNT_REG, &tfcnt))
++		return;
++	if (tfcnt == 0) {
++		if (wk2xxx_port_reg_read(s, portno, WK2XXX_FSR_REG, &fsr))
++			return;
++		txlen = (fsr & WK2XXX_FSR_TFULL_BIT) ? 0 : WK2XXX_FIFO_SIZE;
++	} else {
++		txlen = WK2XXX_FIFO_SIZE - tfcnt;
++	}
++	if (txlen > WK2XXX_MAX_TX_CHARS)
++		txlen = WK2XXX_MAX_TX_CHARS;
++
++	to_send = kfifo_out_linear_ptr(&tport->xmit_fifo, &tail, txlen);
++	sent = 0;
++	while (to_send) {
++		unsigned int chunk = min_t(unsigned int, to_send,
++					   WK2XXX_MAX_SPI_LEN);
++
++		if (wk2xxx_fifo_write(s, portno, tail, chunk))
++			break;
++		tail += chunk;
++		to_send -= chunk;
++		sent += chunk;
++	}
++	uart_xmit_advance(port, sent);
++
++	scoped_guard(uart_port_lock_irqsave, port) {
++		if (kfifo_len(&tport->xmit_fifo) < WAKEUP_CHARS)
++			uart_write_wakeup(port);
++
++		if (kfifo_is_empty(&tport->xmit_fifo))
++			wk2xxx_stop_tx(port);
++		else
++			wk2xxx_ier_set(port, WK2XXX_SIER_TFTRIG_IEN_BIT);
++	}
++}
++
++static void wk2xxx_handle_rx(struct uart_port *port)
++{
++	struct wk2xxx_one *one = to_wk2xxx_one(port, port);
++	struct wk2xxx_port *s = dev_get_drvdata(port->dev);
++	unsigned int portno = port->iobase;
++	unsigned int i, rxlen, len_p, chunk;
++	u8 fsr = 0, rfcnt = 0, lsr = 0, flag = TTY_NORMAL;
++
++	if (wk2xxx_port_reg_read(s, portno, WK2XXX_FSR_REG, &fsr))
++		return;
++
++	if (!(fsr & WK2XXX_FSR_RDAT_BIT))
++		return;
++
++	/* Get the number of bytes available in the RX FIFO. */
++	if (wk2xxx_port_reg_read(s, portno, WK2XXX_RFCNT_REG, &rfcnt))
++		return;
++	if (rfcnt == 0) {
++		/* The count may race with the FIFO status bit; retry once. */
++		if (wk2xxx_port_reg_read(s, portno, WK2XXX_RFCNT_REG, &rfcnt))
++			return;
++		rxlen = rfcnt ? rfcnt : WK2XXX_FIFO_SIZE;
++	} else {
++		rxlen = rfcnt;
++	}
++
++	/* Read the FIFO contents in chunks. */
++	len_p = 0;
++	while (rxlen) {
++		chunk = min_t(unsigned int, rxlen, WK2XXX_MAX_SPI_LEN);
++		if (wk2xxx_fifo_read(s, portno, one->buf + len_p, chunk))
++			return;
++		len_p += chunk;
++		rxlen -= chunk;
++	}
++	rxlen = len_p;
++
++	/* Map the FIFO status register error flags to line status. */
++	if (fsr & WK2XXX_FSR_ERR_MASK) {
++		if (fsr & WK2XXX_FSR_RFPE_BIT) {
++			port->icount.parity++;
++			lsr |= WK2XXX_LSR_PE_BIT;
++			flag = TTY_PARITY;
++		}
++		if (fsr & WK2XXX_FSR_RFFE_BIT) {
++			port->icount.frame++;
++			lsr |= WK2XXX_LSR_FE_BIT;
++			flag = TTY_FRAME;
++		}
++		if (fsr & WK2XXX_FSR_RFOE_BIT) {
++			port->icount.overrun++;
++			lsr |= WK2XXX_LSR_OE_BIT;
++			flag = TTY_OVERRUN;
++		}
++		if (fsr & WK2XXX_FSR_RFBI_BIT) {
++			port->icount.brk++;
++			lsr |= WK2XXX_LSR_BI_BIT;
++			flag = TTY_BREAK;
++		}
++	}
++
++	port->icount.rx += rxlen;
++
++	/* CREAD is clear: drain the FIFO and drop all received data. */
++	if (port->ignore_status_mask & WK2XXX_LSR_IGNORE_DATA)
++		return;
++
++	for (i = 0; i < rxlen; ++i) {
++		u8 ch = one->buf[i];
++
++		if (uart_handle_sysrq_char(port, ch))
++			continue;
++
++		if (lsr & port->ignore_status_mask)
++			continue;
++
++		uart_insert_char(port, lsr, WK2XXX_LSR_OE_BIT, ch, flag);
++	}
++
++	tty_flip_buffer_push(&port->state->port);
++}
++
++static bool wk2xxx_port_irq(struct wk2xxx_port *s, unsigned int portno)
++{
++	struct uart_port *port = &s->p[portno].port;
++	u8 sifr = 0, sier = 0;
++	bool rc = false;
++
++	if (wk2xxx_port_reg_read(s, portno, WK2XXX_SIFR_REG, &sifr) ||
++	    wk2xxx_port_reg_read(s, portno, WK2XXX_SIER_REG, &sier))
++		return false;
++
++	if (sifr & (WK2XXX_SIFR_RFTRIG_INT_BIT | WK2XXX_SIFR_RXOVT_INT_BIT)) {
++		wk2xxx_handle_rx(port);
++		rc = true;
++	}
++
++	if ((sifr & WK2XXX_SIFR_TFTRIG_INT_BIT) &&
++	    (sier & WK2XXX_SIER_TFTRIG_IEN_BIT)) {
++		wk2xxx_handle_tx(port);
++		rc = true;
++	}
++
++	return rc;
++}
++
++static irqreturn_t wk2xxx_irq(int irq, void *dev_id)
++{
++	struct wk2xxx_port *s = dev_id;
++	bool handled = false;
++	bool keep_polling;
++	int passes = WK2XXX_IRQ_MAX_PASSES;
++
++	do {
++		u8 gifr;
++		int i;
++
++		keep_polling = false;
++
++		if (wk2xxx_reg_read(s, WK2XXX_GIFR_REG, &gifr))
++			return IRQ_HANDLED; /* Bus error; give up this pass. */
++
++		if (!gifr)
++			break;
++
++		handled = true;
++
++		for (i = 0; i < s->devtype->nr_uart; ++i)
++			if (gifr & BIT(i))
++				keep_polling |= wk2xxx_port_irq(s, i);
++	} while (keep_polling && !s->polling && --passes);
++
++	return handled ? IRQ_HANDLED : IRQ_NONE;
++}
++
++static void wk2xxx_poll_proc(struct kthread_work *ws)
++{
++	struct wk2xxx_port *s = container_of(ws, struct wk2xxx_port,
++					     poll_work.work);
++
++	/* Reuse the IRQ handler; the interrupt ID is unused here. */
++	wk2xxx_irq(0, s);
++
++	/*
++	 * Only keep polling while at least one port is open. The last
++	 * shutdown cancels the pending instance (see wk2xxx_shutdown); a
++	 * poll that is already running when that happens must not re-queue
++	 * itself, otherwise it would outlive the cancelled one.
++	 */
++	if (atomic_read(&s->open_ports) > 0)
++		kthread_queue_delayed_work(&s->kworker, &s->poll_work,
++					   msecs_to_jiffies(WK2XXX_POLL_PERIOD_MS));
++}
++
++static void wk2xxx_tx_proc(struct kthread_work *ws)
++{
++	struct uart_port *port = &(to_wk2xxx_one(ws, tx_work)->port);
++
++	wk2xxx_handle_tx(port);
++}
++
++static void wk2xxx_start_tx(struct uart_port *port)
++{
++	struct wk2xxx_port *s = dev_get_drvdata(port->dev);
++	struct wk2xxx_one *one = to_wk2xxx_one(port, port);
++
++	kthread_queue_work(&s->kworker, &one->tx_work);
++}
++
++static void wk2xxx_reconf_rs485(struct uart_port *port)
++{
++	struct wk2xxx_port *s = dev_get_drvdata(port->dev);
++	u8 rs485 = 0;
++
++	if (port->rs485.flags & SER_RS485_ENABLED) {
++		rs485 = WK2XXX_RS485_RSRS485_BIT | WK2XXX_RS485_RTSEN_BIT;
++		if (port->rs485.flags & SER_RS485_RTS_AFTER_SEND)
++			rs485 |= WK2XXX_RS485_RTSINV_BIT;
++	}
++
++	wk2xxx_port_reg_write(s, port->iobase, WK2XXX_RS485_REG, rs485);
++}
++
++static int wk2xxx_config_rs485(struct uart_port *port, struct ktermios *termios,
++			       struct serial_rs485 *rs485)
++{
++	struct wk2xxx_one *one = to_wk2xxx_one(port, port);
++	struct wk2xxx_port *s = dev_get_drvdata(port->dev);
++
++	/*
++	 * RTS is driven by hardware and its timing cannot be influenced
++	 * from the driver. Non-zero RTS delays are rejected (sanitized to
++	 * zero) by the serial core.
++	 */
++	one->config.flags |= WK2XXX_RECONF_RS485;
++	kthread_queue_work(&s->kworker, &one->reg_work);
++
++	return 0;
++}
++
++static void wk2xxx_reg_proc(struct kthread_work *ws)
++{
++	struct wk2xxx_one *one = to_wk2xxx_one(ws, reg_work);
++	struct wk2xxx_port *s = dev_get_drvdata(one->port.dev);
++	struct wk2xxx_one_config config;
++	unsigned long irqflags;
++
++	uart_port_lock_irqsave(&one->port, &irqflags);
++	config = one->config;
++	memset(&one->config, 0, sizeof(one->config));
++	uart_port_unlock_irqrestore(&one->port, irqflags);
++
++	if (config.flags & WK2XXX_RECONF_IER)
++		wk2xxx_port_reg_update(s, one->port.iobase, WK2XXX_SIER_REG,
++				       config.ier_mask, config.ier_val);
++
++	if (config.flags & WK2XXX_RECONF_RS485)
++		wk2xxx_reconf_rs485(&one->port);
++}
++
++static unsigned int wk2xxx_tx_empty(struct uart_port *port)
++{
++	struct wk2xxx_port *s = dev_get_drvdata(port->dev);
++	u8 fsr = 0;
++
++	if (wk2xxx_port_reg_read(s, port->iobase, WK2XXX_FSR_REG, &fsr))
++		return TIOCSER_TEMT;
++
++	return (fsr & (WK2XXX_FSR_TDAT_BIT | WK2XXX_FSR_TBUSY_BIT)) ? 0 :
++		TIOCSER_TEMT;
++}
++
++static unsigned int wk2xxx_get_mctrl(struct uart_port *port)
++{
++	/* The WK2xxx does not expose modem control lines. */
++	return TIOCM_CTS | TIOCM_DSR | TIOCM_CAR;
++}
++
++static void wk2xxx_set_mctrl(struct uart_port *port, unsigned int mctrl)
++{
++	/* The WK2xxx does not support modem control lines. */
++}
++
++static void wk2xxx_enable_ms(struct uart_port *port)
++{
++	/* The WK2xxx does not have modem status registers. */
++}
++
++static void wk2xxx_break_ctl(struct uart_port *port, int break_state)
++{
++	struct wk2xxx_port *s = dev_get_drvdata(port->dev);
++
++	wk2xxx_port_reg_update(s, port->iobase, WK2XXX_LCR_REG,
++			       WK2XXX_LCR_BREAK_BIT,
++			       break_state ? WK2XXX_LCR_BREAK_BIT : 0);
++}
++
++/*
++ * Configure a sub-UART: disable interrupts and TX/RX, program the line
++ * control and baud rate registers and restore the previous state.
++ */
++static void wk2xxx_conf_port(struct uart_port *port, u8 lcr, u8 fwcr,
++			     u8 baud0, u8 baud1, u8 pres)
++{
++	struct wk2xxx_port *s = dev_get_drvdata(port->dev);
++	unsigned int portno = port->iobase;
++	u8 sier, scr, fsr;
++	int count = 200;
++
++	guard(mutex)(&s->reg_lock);
++
++	/* Disable all sub-UART interrupts. */
++	wk2xxx_raw_port_read(s, portno, WK2XXX_SIER_REG, &sier);
++	wk2xxx_raw_port_write(s, portno, WK2XXX_SIER_REG, 0);
++
++	/* Wait for the transmitter to become idle. */
++	do {
++		wk2xxx_raw_port_read(s, portno, WK2XXX_FSR_REG, &fsr);
++	} while ((fsr & WK2XXX_FSR_TBUSY_BIT) && count--);
++
++	/* Disable the transmitter and receiver. */
++	wk2xxx_raw_port_read(s, portno, WK2XXX_SCR_REG, &scr);
++	wk2xxx_raw_port_write(s, portno, WK2XXX_SCR_REG,
++			      scr & ~(WK2XXX_SCR_TXEN_BIT |
++				      WK2XXX_SCR_RXEN_BIT));
++
++	/* Program the line control register. */
++	wk2xxx_raw_port_write(s, portno, WK2XXX_LCR_REG, lcr);
++
++	/* Configure hardware flow control levels. */
++	if (fwcr) {
++		wk2xxx_raw_port_write(s, portno, WK2XXX_FWCR_REG, fwcr);
++		wk2xxx_raw_port_write(s, portno, WK2XXX_SPAGE_REG, 1);
++		wk2xxx_raw_port_write(s, portno, WK2XXX_FWTH_REG, 0xf0);
++		wk2xxx_raw_port_write(s, portno, WK2XXX_FWTL_REG, 0x80);
++		wk2xxx_raw_port_write(s, portno, WK2XXX_SPAGE_REG, 0);
++	}
++
++	/* Program the baud rate generator (page 1 registers). */
++	wk2xxx_raw_port_write(s, portno, WK2XXX_SPAGE_REG, 1);
++	wk2xxx_raw_port_write(s, portno, WK2XXX_BAUD0_REG, baud0);
++	wk2xxx_raw_port_write(s, portno, WK2XXX_BAUD1_REG, baud1);
++	wk2xxx_raw_port_write(s, portno, WK2XXX_PRES_REG, pres);
++	wk2xxx_raw_port_write(s, portno, WK2XXX_SPAGE_REG, 0);
++
++	/* Re-enable the transmitter and receiver. */
++	wk2xxx_raw_port_write(s, portno, WK2XXX_SCR_REG,
++			      scr | (WK2XXX_SCR_TXEN_BIT |
++				     WK2XXX_SCR_RXEN_BIT));
++
++	/* Restore the interrupt enable register. */
++	wk2xxx_raw_port_write(s, portno, WK2XXX_SIER_REG, sier);
++}
++
++static void wk2xxx_calc_divisor(unsigned long clk, unsigned int baud,
++				u8 *baud0, u8 *baud1, u8 *pres)
++{
++	unsigned int div, rem;
++
++	/* Never divide by zero; the serial core normally prevents this. */
++	if (baud == 0)
++		baud = 9600;
++
++	div = clk / (baud * 16);
++	if (div == 0)
++		div = 1;
++	div--;
++	*baud0 = div & 0xff;
++	*baud1 = (div >> 8) & 0xff;
++
++	rem = clk % (baud * 16);
++	*pres = (u32)div_u64((u64)rem * 100, baud);
++	*pres = (*pres + 50) / 100;
++}
++
++static void wk2xxx_set_termios(struct uart_port *port, struct ktermios *termios,
++			       const struct ktermios *old)
++{
++	unsigned int baud, read_mask, ignore_mask;
++	u8 lcr = 0, fwcr = 0;
++	u8 baud0, baud1, pres;
++
++	/* The WK2xxx supports 8 data bits only. */
++	termios->c_cflag &= ~CSIZE;
++	termios->c_cflag |= CS8;
++
++	/* Parity. */
++	if (termios->c_cflag & PARENB) {
++		lcr |= WK2XXX_LCR_PAEN_BIT;
++		switch (termios->c_cflag & (PARODD | CMSPAR)) {
++		case 0:
++			lcr |= WK2XXX_LCR_PAM1_BIT;	/* even */
++			break;
++		case PARODD:
++			lcr |= WK2XXX_LCR_PAM0_BIT;	/* odd */
++			break;
++		case CMSPAR:
++			break;				/* space */
++		case PARODD | CMSPAR:
++			lcr |= WK2XXX_LCR_PAM1_BIT |
++			       WK2XXX_LCR_PAM0_BIT;	/* mark */
++			break;
++		}
++	}
++
++	/* Stop bits. */
++	if (termios->c_cflag & CSTOPB)
++		lcr |= WK2XXX_LCR_STPL_BIT;
++
++	/* Determine the status masks to publish. */
++	read_mask = WK2XXX_LSR_OE_BIT;
++	if (termios->c_iflag & INPCK)
++		read_mask |= WK2XXX_LSR_PE_BIT | WK2XXX_LSR_FE_BIT;
++	if (termios->c_iflag & (BRKINT | PARMRK))
++		read_mask |= WK2XXX_LSR_BI_BIT;
++
++	ignore_mask = 0;
++	if (termios->c_iflag & IGNBRK)
++		ignore_mask |= WK2XXX_LSR_BI_BIT;
++	if (!(termios->c_cflag & CREAD))
++		ignore_mask |= WK2XXX_LSR_BRK_ERROR_MASK |
++			       WK2XXX_LSR_IGNORE_DATA;
++
++	/* Hardware flow control is configured in the chip below. */
++	if (termios->c_cflag & CRTSCTS)
++		fwcr = WK2XXX_FWCR_FWM_RTS_CTS;
++
++	/* Get the baud rate generator configuration. */
++	baud = uart_get_baud_rate(port, termios, old,
++				  port->uartclk / 16 / 0xffff,
++				  port->uartclk / 16);
++
++	wk2xxx_calc_divisor(port->uartclk, baud, &baud0, &baud1, &pres);
++	wk2xxx_conf_port(port, lcr, fwcr, baud0, baud1, pres);
++
++	/*
++	 * Publish the masks and flow-control status under the port lock; the
++	 * RX/TX paths read them from their kthread context.
++	 */
++	guard(uart_port_lock_irqsave)(port);
++	port->read_status_mask = read_mask;
++	port->ignore_status_mask = ignore_mask;
++	port->status &= ~(UPSTAT_AUTOCTS | UPSTAT_AUTORTS);
++	if (termios->c_cflag & CRTSCTS)
++		port->status |= UPSTAT_AUTOCTS | UPSTAT_AUTORTS;
++	uart_update_timeout(port, termios->c_cflag, baud);
++}
++
++static int wk2xxx_startup(struct uart_port *port)
++{
++	struct wk2xxx_port *s = dev_get_drvdata(port->dev);
++	unsigned int portno = port->iobase;
++	u8 reg;
++
++	scoped_guard(mutex, &s->reg_lock) {
++		/* Enable the sub-UART. */
++		wk2xxx_raw_read(s, WK2XXX_GENA_REG, &reg);
++		reg |= BIT(portno);
++		wk2xxx_raw_write(s, WK2XXX_GENA_REG, reg);
++
++		/* Reset the sub-UART. */
++		wk2xxx_raw_write(s, WK2XXX_GRST_REG, BIT(portno));
++
++		/* Enable the sub-UART interrupt in the global mask. */
++		wk2xxx_raw_read(s, WK2XXX_GIER_REG, &reg);
++		reg |= BIT(portno);
++		wk2xxx_raw_write(s, WK2XXX_GIER_REG, reg);
++
++		/* Enable RX FIFO trigger and RX time-out interrupts. */
++		wk2xxx_raw_port_write(s, portno, WK2XXX_SIER_REG,
++				      WK2XXX_SIER_RFTRIG_IEN_BIT |
++				      WK2XXX_SIER_RXOUT_IEN_BIT);
++
++		/* Enable the transmitter and receiver. */
++		wk2xxx_raw_port_read(s, portno, WK2XXX_SCR_REG, &reg);
++		reg |= WK2XXX_SCR_TXEN_BIT | WK2XXX_SCR_RXEN_BIT;
++		wk2xxx_raw_port_write(s, portno, WK2XXX_SCR_REG, reg);
++
++		/* Reset and configure the FIFOs. */
++		wk2xxx_raw_port_write(s, portno, WK2XXX_FCR_REG, 0xff);
++		wk2xxx_raw_port_write(s, portno, WK2XXX_FCR_REG, 0xfc);
++
++		/* Set the RX/TX FIFO trigger levels. */
++		wk2xxx_raw_port_write(s, portno, WK2XXX_SPAGE_REG, 1);
++		wk2xxx_raw_port_write(s, portno, WK2XXX_RFTL_REG,
++				      WK2XXX_RXFIFO_LEVEL);
++		wk2xxx_raw_port_write(s, portno, WK2XXX_TFTL_REG,
++				      WK2XXX_TXFIFO_LEVEL);
++		wk2xxx_raw_port_write(s, portno, WK2XXX_SPAGE_REG, 0);
++	}
++
++	kfifo_reset(&port->state->port.xmit_fifo);
++
++	/* Start the shared polling loop when the first port is opened. */
++	if (s->polling) {
++		guard(mutex)(&s->poll_lock);
++		if (atomic_inc_return(&s->open_ports) == 1)
++			kthread_queue_delayed_work(&s->kworker, &s->poll_work,
++						   msecs_to_jiffies(WK2XXX_POLL_PERIOD_MS));
++	}
++
++	return 0;
++}
++
++static void wk2xxx_shutdown(struct uart_port *port)
++{
++	struct wk2xxx_port *s = dev_get_drvdata(port->dev);
++	unsigned int portno = port->iobase;
++	u8 reg;
++
++	scoped_guard(mutex, &s->reg_lock) {
++		/* Disable the sub-UART interrupt in the global mask. */
++		wk2xxx_raw_read(s, WK2XXX_GIER_REG, &reg);
++		reg &= ~BIT(portno);
++		wk2xxx_raw_write(s, WK2XXX_GIER_REG, reg);
++
++		/* Disable all sub-UART interrupts. */
++		wk2xxx_raw_port_write(s, portno, WK2XXX_SIER_REG, 0);
++
++		/* Reset the sub-UART. */
++		wk2xxx_raw_read(s, WK2XXX_GRST_REG, &reg);
++		reg |= BIT(portno);
++		wk2xxx_raw_write(s, WK2XXX_GRST_REG, reg);
++
++		/* Disable the sub-UART. */
++		wk2xxx_raw_read(s, WK2XXX_GENA_REG, &reg);
++		reg &= ~BIT(portno);
++		wk2xxx_raw_write(s, WK2XXX_GENA_REG, reg);
++	}
++
++	/*
++	 * Stop the shared polling loop once the last port is closed. The
++	 * check and the cancel are serialized by poll_lock against a
++	 * concurrent open of another port, so the two cannot tear the
++	 * open_ports 0/1 boundary in a way that leaves the loop cancelled
++	 * while a port is still open.
++	 */
++	if (s->polling) {
++		guard(mutex)(&s->poll_lock);
++		if (atomic_dec_return(&s->open_ports) == 0)
++			kthread_cancel_delayed_work_sync(&s->poll_work);
++	}
++
++	kthread_flush_worker(&s->kworker);
++}
++
++static const char *wk2xxx_type(struct uart_port *port)
++{
++	return (port->type == PORT_WK2XXX) ? WK2XXX_NAME : NULL;
++}
++
++static void wk2xxx_config_port(struct uart_port *port, int flags)
++{
++	if (flags & UART_CONFIG_TYPE)
++		port->type = PORT_WK2XXX;
++}
++
++static int wk2xxx_verify_port(struct uart_port *port, struct serial_struct *s)
++{
++	if ((s->type != PORT_UNKNOWN) && (s->type != PORT_WK2XXX))
++		return -EINVAL;
++	if (s->irq != port->irq)
++		return -EINVAL;
++
++	return 0;
++}
++
++static const struct uart_ops wk2xxx_ops = {
++	.tx_empty	= wk2xxx_tx_empty,
++	.set_mctrl	= wk2xxx_set_mctrl,
++	.get_mctrl	= wk2xxx_get_mctrl,
++	.stop_tx	= wk2xxx_stop_tx,
++	.start_tx	= wk2xxx_start_tx,
++	.throttle	= wk2xxx_throttle,
++	.unthrottle	= wk2xxx_unthrottle,
++	.stop_rx	= wk2xxx_stop_rx,
++	.enable_ms	= wk2xxx_enable_ms,
++	.break_ctl	= wk2xxx_break_ctl,
++	.startup	= wk2xxx_startup,
++	.shutdown	= wk2xxx_shutdown,
++	.set_termios	= wk2xxx_set_termios,
++	.type		= wk2xxx_type,
++	.config_port	= wk2xxx_config_port,
++	.verify_port	= wk2xxx_verify_port,
++};
++
++static const struct serial_rs485 wk2xxx_rs485_supported = {
++	.flags = SER_RS485_ENABLED | SER_RS485_RTS_ON_SEND |
++		 SER_RS485_RTS_AFTER_SEND,
++	/* RTS timing is hardware-driven; RTS delays are not supported. */
++};
++
++static int wk2xxx_probe(struct spi_device *spi)
++{
++	const struct wk2xxx_devtype *devtype;
++	struct device *dev = &spi->dev;
++	struct wk2xxx_port *s;
++	unsigned long uartclk;
++	u32 clock_freq = 0;
++	bool port_registered[WK2XXX_MAX_PORTS];
++	u8 val;
++	int i, ret;
++
++	/* Setup SPI bus. The SPI mode follows the device tree (spi-cpha,
++	 * spi-cpol); it defaults to SPI mode 0 when unspecified.
++	 */
++	spi->bits_per_word = 8;
++	spi->max_speed_hz = spi->max_speed_hz ? : 10 * HZ_PER_MHZ;
++	ret = spi_setup(spi);
++	if (ret)
++		return ret;
++
++	devtype = spi_get_device_match_data(spi);
++	if (!devtype)
++		return dev_err_probe(dev, -ENODEV, "Failed to match device\n");
++
++	/* Allocate port structure. */
++	s = devm_kzalloc(dev, struct_size(s, p, devtype->nr_uart), GFP_KERNEL);
++	if (!s)
++		return dev_err_probe(dev, -ENOMEM,
++				     "Error allocating port structure\n");
++
++	s->devtype = devtype;
++	s->spi = spi;
++	mutex_init(&s->reg_lock);
++	mutex_init(&s->poll_lock);
++	atomic_set(&s->open_ports, 0);
++	dev_set_drvdata(dev, s);
++
++	/*
++	 * The WK2xxx has no identification register, so the best we can do
++	 * is to check that communication is at all possible.
++	 */
++	ret = wk2xxx_reg_read(s, WK2XXX_GENA_REG, &val);
++	if (ret)
++		return dev_err_probe(dev, ret, "Failed to read GENA register\n");
++
++	/* Crystal clock; allow an optional DT override. */
++	uartclk = devtype->crystal_freq;
++	if (device_property_read_u32(dev, "clock-frequency", &clock_freq) == 0) {
++		if (clock_freq == 0)
++			return dev_err_probe(dev, -EINVAL,
++					     "clock-frequency must not be zero\n");
++		uartclk = clock_freq;
++	}
++
++	/* Mark each port line and status as uninitialized. */
++	for (i = 0; i < devtype->nr_uart; ++i) {
++		s->p[i].port.line = WK2XXX_MAX_DEVS;
++		port_registered[i] = false;
++	}
++
++	kthread_init_worker(&s->kworker);
++	s->kworker_task = kthread_run(kthread_worker_fn, &s->kworker,
++				      "wk2xxx");
++	if (IS_ERR(s->kworker_task)) {
++		ret = PTR_ERR(s->kworker_task);
++		goto out_ports;
++	}
++	sched_set_fifo(s->kworker_task);
++
++	/*
++	 * Reset the chip and disable every sub-UART and its interrupt before
++	 * the ports are registered (and, in interrupt mode, before the IRQ is
++	 * requested).  The sub-UARTs stay disabled until a port is opened in
++	 * wk2xxx_startup(), so no stale pending condition can raise the IRQ
++	 * line while the ports are being set up.
++	 */
++	wk2xxx_reg_write(s, WK2XXX_GRST_REG, (1 << devtype->nr_uart) - 1);
++	wk2xxx_reg_write(s, WK2XXX_GENA_REG, 0);
++	wk2xxx_reg_write(s, WK2XXX_GIER_REG, 0);
++
++	if (spi->irq <= 0) {
++		/* Poll the device instead of using interrupts. */
++		s->polling = true;
++		kthread_init_delayed_work(&s->poll_work, wk2xxx_poll_proc);
++	}
++
++	for (i = 0; i < devtype->nr_uart; ++i) {
++		struct fwnode_handle *saved_fwnode = dev_fwnode(dev);
++		struct device_node *port_np = NULL;
++		struct device_node *child;
++
++		ret = ida_alloc_max(&wk2xxx_lines, WK2XXX_MAX_DEVS - 1,
++				    GFP_KERNEL);
++		if (ret < 0)
++			goto out_ports;
++
++		s->p[i].port.line = ret;
++
++		/* Locate the matching "serial@i" DT subnode, if any. */
++		for_each_available_child_of_node(dev->of_node, child) {
++			u32 reg;
++
++			if (!of_node_name_eq(child, "serial"))
++				continue;
++			if (of_property_read_u32(child, "reg", &reg))
++				continue;
++			if (reg == i) {
++				port_np = child;
++				break;
++			}
++		}
++
++		/* Initialize port data. */
++		s->p[i].port.dev	= dev;
++		s->p[i].port.irq	= spi->irq;
++		s->p[i].port.type	= PORT_WK2XXX;
++		s->p[i].port.fifosize	= WK2XXX_FIFO_SIZE;
++		s->p[i].port.flags	= UPF_FIXED_TYPE | UPF_LOW_LATENCY;
++		s->p[i].port.iobase	= i;
++		s->p[i].port.iotype	= UPIO_BUS;
++		s->p[i].port.uartclk	= uartclk;
++		s->p[i].port.rs485_config = wk2xxx_config_rs485;
++		s->p[i].port.rs485_supported = wk2xxx_rs485_supported;
++		s->p[i].port.ops	= &wk2xxx_ops;
++
++		mutex_init(&s->p[i].tx_lock);
++
++		kthread_init_work(&s->p[i].tx_work, wk2xxx_tx_proc);
++		kthread_init_work(&s->p[i].reg_work, wk2xxx_reg_proc);
++
++		/*
++		 * Temporarily retarget dev's fwnode to the per-port subnode
++		 * so uart_get_rs485_mode() picks up the per-port properties.
++		 */
++		if (port_np) {
++			device_set_node(dev, of_fwnode_handle(port_np));
++			ret = uart_get_rs485_mode(&s->p[i].port);
++			device_set_node(dev, saved_fwnode);
++			of_node_put(port_np);
++			if (ret)
++				goto out_ports;
++		}
++
++		/* Register port. */
++		ret = uart_add_one_port(&wk2xxx_uart, &s->p[i].port);
++		if (ret)
++			goto out_ports;
++
++		port_registered[i] = true;
++	}
++
++	/*
++	 * Request the IRQ only after every port is registered so that an early
++	 * interrupt can never reach a port whose port->state is not ready yet.
++	 * We first try to acquire the IRQ line as a level IRQ; if that
++	 * succeeds, we can allow sharing the interrupt as well.  In case the
++	 * interrupt controller doesn't support that, we fall back to a
++	 * non-shared falling-edge trigger.
++	 */
++	if (!s->polling) {
++		ret = request_threaded_irq(spi->irq, NULL, wk2xxx_irq,
++					   IRQF_TRIGGER_LOW | IRQF_SHARED |
++					   IRQF_ONESHOT, dev_name(dev), s);
++		if (ret)
++			ret = request_threaded_irq(spi->irq, NULL, wk2xxx_irq,
++						   IRQF_TRIGGER_FALLING |
++						   IRQF_ONESHOT,
++						   dev_name(dev), s);
++		if (ret) {
++			dev_err(dev, "Unable to request IRQ %i\n", spi->irq);
++			goto out_ports;
++		}
++		s->irq_requested = true;
++	}
++
++	return 0;
++
++out_ports:
++	if (s->irq_requested)
++		free_irq(spi->irq, s);
++
++	for (i = 0; i < devtype->nr_uart; i++) {
++		if (port_registered[i])
++			uart_remove_one_port(&wk2xxx_uart, &s->p[i].port);
++		if (s->p[i].port.line < WK2XXX_MAX_DEVS)
++			ida_free(&wk2xxx_lines, s->p[i].port.line);
++	}
++
++	if (!IS_ERR(s->kworker_task))
++		kthread_stop(s->kworker_task);
++
++	return ret;
++}
++
++static void wk2xxx_remove(struct spi_device *spi)
++{
++	struct wk2xxx_port *s = dev_get_drvdata(&spi->dev);
++	int i;
++
++	/*
++	 * Unregister the ports first.  Removing a port that is still open
++	 * hangs up its tty and runs wk2xxx_shutdown(), which disables the
++	 * sub-UART in the chip and drains the shared worker, so afterwards no
++	 * enabled interrupt source (and thus no queued TX/register work) can
++	 * target a port that is being torn down.
++	 */
++	for (i = 0; i < s->devtype->nr_uart; i++) {
++		uart_remove_one_port(&wk2xxx_uart, &s->p[i].port);
++		ida_free(&wk2xxx_lines, s->p[i].port.line);
++	}
++
++	/*
++	 * Every sub-UART is disabled now, so the chip can no longer raise the
++	 * IRQ line.  Free the IRQ; a handler already in flight only observes
++	 * disabled ports and returns IRQ_NONE.
++	 */
++	if (s->irq_requested)
++		free_irq(spi->irq, s);
++
++	if (s->polling)
++		kthread_cancel_delayed_work_sync(&s->poll_work);
++
++	kthread_flush_worker(&s->kworker);
++	kthread_stop(s->kworker_task);
++}
++
++static const struct of_device_id wk2xxx_dt_ids[] = {
++	{ .compatible = "wkmic,wk2124", .data = &wk2124_devtype },
++	{ .compatible = "wkmic,wk2132", .data = &wk2132_devtype },
++	{ .compatible = "wkmic,wk2168", .data = &wk2168_devtype },
++	{ .compatible = "wkmic,wk2202", .data = &wk2202_devtype },
++	{ .compatible = "wkmic,wk2204", .data = &wk2204_devtype },
++	{ }
++};
++MODULE_DEVICE_TABLE(of, wk2xxx_dt_ids);
++
++static const struct spi_device_id wk2xxx_id_table[] = {
++	{ "wk2124", (kernel_ulong_t)&wk2124_devtype },
++	{ "wk2132", (kernel_ulong_t)&wk2132_devtype },
++	{ "wk2168", (kernel_ulong_t)&wk2168_devtype },
++	{ "wk2202", (kernel_ulong_t)&wk2202_devtype },
++	{ "wk2204", (kernel_ulong_t)&wk2204_devtype },
++	{ }
++};
++MODULE_DEVICE_TABLE(spi, wk2xxx_id_table);
++
++static struct spi_driver wk2xxx_spi_driver = {
++	.driver = {
++		.name		= WK2XXX_NAME,
++		.of_match_table	= wk2xxx_dt_ids,
++	},
++	.probe		= wk2xxx_probe,
++	.remove		= wk2xxx_remove,
++	.id_table	= wk2xxx_id_table,
++};
++
++static int __init wk2xxx_init(void)
++{
++	int ret;
++
++	ret = uart_register_driver(&wk2xxx_uart);
++	if (ret)
++		return ret;
++
++	ret = spi_register_driver(&wk2xxx_spi_driver);
++	if (ret)
++		uart_unregister_driver(&wk2xxx_uart);
++
++	return ret;
++}
++module_init(wk2xxx_init);
++
++static void __exit wk2xxx_exit(void)
++{
++	spi_unregister_driver(&wk2xxx_spi_driver);
++	uart_unregister_driver(&wk2xxx_uart);
++}
++module_exit(wk2xxx_exit);
++
++MODULE_LICENSE("GPL");
++MODULE_AUTHOR("Xuxunwei");
++MODULE_AUTHOR("B. Eschrich");
++MODULE_AUTHOR("EDATEC Technology Co., Ltd. <zjzhao@edatec.cn>");
++MODULE_DESCRIPTION("WK2xxx SPI UART driver");
+diff --git a/include/uapi/linux/serial_core.h b/include/uapi/linux/serial_core.h
+index 377884e3856a..05c75d3ef479 100644
+--- a/include/uapi/linux/serial_core.h
++++ b/include/uapi/linux/serial_core.h
+@@ -234,6 +234,9 @@
+ /* Sunplus UART */
+ #define PORT_SUNPLUS	123
+ 
++/* WK2xxx SPI to UART bridge */
++#define PORT_WK2XXX	124
++
+ /* Generic type identifier for ports which type is not important to userspace. */
+ #define PORT_GENERIC	(-1)
+ 
 -- 
 2.43.0
+
