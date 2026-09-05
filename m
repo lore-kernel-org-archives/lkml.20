@@ -1,113 +1,90 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
+Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79399344DAD;
-	Sat,  5 Sep 2026 07:41:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.9
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D12AD3603EF;
+	Sat,  5 Sep 2026 07:42:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788594090; cv=none; b=tqCphtKXAXCM/Tc2H0csMrDB60d8iiSSywR1gO4ruZSfc9zF9gTh6ZxY8XkIJhruo8cevFaDClD7CEMzKP4nDXh61RHuq5puBZYgLCEon1cKS4sdHEhYwdy3zsr6zXuWsTG9FsCP0BaHzpPs3gmVZucNvezf+5liTTRiHMShL4g=
+	t=1788594137; cv=none; b=bvwk7XbXSoylPCOJ9a1Uy6dOVWwtZeOKzaPFhsAkZRvN78MwfXGZuiDZOmUJUSqHgAGTiGJcESsotdJjdOtPer13GziiqXPMdGIdHkPro8Rrpgh9L+DnCEXDcdyhpI+cDqyjAQRacBCK3qsgCoUW8NY+mvqKFbC1xbu1IcNm25o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788594090; c=relaxed/simple;
-	bh=fhMZ8Ksx5t6CnoJvQgXvkp1NCb4RYmtUZbECXQ0gwCo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=PA4d7FkOR7P01VevK5HHzIx2T3dUALz136MdakUvHC0Qzkkt3Rie1Kd02nRquht7J6d1IPyMeWfrroIhD0Wv+ddmD/XaUOWDM9XvYFYLXEplrkfGUXp6YvD3x7ocVJvOzC1pZdjOIimfA7kKZDBWQ13VmobPHJR9dB3TaZrQFK8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=ZXXriwFF; arc=none smtp.client-ip=198.175.65.9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1788594137; c=relaxed/simple;
+	bh=H/eaZqgq6qpTvuLcQTGlhufT/bMaJTRmkMp3ieW6DoE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=rwLMJlhjgQZQJQNGabftR4H76iQiUKwgYof0JlPT64DUQXYhT1EX8C7TPt2OyF5wEW0BUQMpbj9wnzSsggumMo/90KuRD6TPGyW6dbI2zPGbqiomZw/uxExEnCjYTX8ubobdAgl+S3yXDTDH2R1qMcS0YB/kzTPCfj2Z9Ka5j6A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=XARi4o6T; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=nQPnyGt0; arc=none smtp.client-ip=80.241.56.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="ZXXriwFF"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788594089; x=1820130089;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=fhMZ8Ksx5t6CnoJvQgXvkp1NCb4RYmtUZbECXQ0gwCo=;
-  b=ZXXriwFFarCXNa8tdV8pba0O/mfI5p6hXYspaBu/XDVORohtJPsNgGjI
-   PmvFwkgz9H+G3V1Exye+K/SWpCYozu3Ol28kMqn23wCX3qFAE8rF/FEMi
-   F4PCgMp7gMjwl7AlThljJJx53mTTxl8JJkTa9bLHjW9ahKBe/hNDp/1bY
-   aK1ynSczMDOD6PKzpvujLX7rK/KowL7vKc2WMewCiyXbx71PnUUkgfWiX
-   H2tjfJhHXFs4hMUBJpZqpKwNv9dmpteXoM3x7bNQiGkc8vQHHyi/eaIhE
-   03otMUoEomuTDQ6DjL4NT2bFf2A0aysnvhWOMeUozc/AwYFS2rcZZL9w/
-   Q==;
-X-CSE-ConnectionGUID: rZtooL1/TAWFQoeXmndnkw==
-X-CSE-MsgGUID: emGGBZ1bRkW5O6rI+L7A2g==
-X-IronPort-AV: E=McAfee;i="6800,10657,11896"; a="111862286"
-X-IronPort-AV: E=Sophos;i="6.25,263,1779174000"; 
-   d="scan'208";a="111862286"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
-  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Sep 2026 00:41:28 -0700
-X-CSE-ConnectionGUID: kW8K0IEZRDOw8nT6ZZREgQ==
-X-CSE-MsgGUID: S4YYYeLxSfSe8nUWM+E1lA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,263,1779174000"; 
-   d="scan'208";a="273782066"
-Received: from fpallare-mobl4.ger.corp.intel.com (HELO localhost) ([10.245.245.105])
-  by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Sep 2026 00:41:25 -0700
-Date: Sat, 5 Sep 2026 10:41:21 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Marcelo Schmitt <marcelo.schmitt1@gmail.com>
-Cc: Marcelo Schmitt <marcelo.schmitt@analog.com>, linux-iio@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux@analog.com, jic23@kernel.org, nuno.sa@analog.com,
-	dlechner@baylibre.com, andy@kernel.org,
-	Michael.Hennerich@analog.com, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, corbet@lwn.net, skhan@linuxfoundation.org
-Subject: Re: [PATCH v1 01/13] iio: Fix typo in vendor name
-Message-ID: <apvHoaG3wzm06XOp@ashevche-desk.local>
-References: <cover.1788368334.git.marcelo.schmitt@analog.com>
- <e508718734a06f005704051b8bc3d3d7a1a3b48d.1788368334.git.marcelo.schmitt@analog.com>
- <apkSNlQuQkjdNKvx@ashevche-desk.local>
- <apse4gHE2pblXnN2@debian-BULLSEYE-live-builder-AMD64>
- <apvHWCXRp-s7rcut@ashevche-desk.local>
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="XARi4o6T";
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="nQPnyGt0"
+Received: from smtp2.mailbox.org (smtp2.mailbox.org [10.196.197.2])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4hcQK01SvQzMlYK;
+	Sat, 05 Sep 2026 09:42:12 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1788594132;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=X5Hd7Q71LOMdduJNGEqX9EOif90ZZA++3BDP9oMJwCQ=;
+	b=XARi4o6TUXXS0xBx752ui8uGwmgh5PXlExAs6PrTcima0obBd5zUxljp+XciXwtbo+mcg5
+	B7wYjd+6d6zB1RaOZAkkSoCSirlRIpZuS2s/u26xmuMgRmRyfeFxQB2fZPjIPFJDB+nPzt
+	VtcxOwE/7O5vVRezh4BzKsEA32AbOM+3tGAYYcWE0JPLy0q87p8emBrLWAzPANxUOMCU6I
+	LokYg1PCpaSwQ8LOpoCKqbjDm+U1oBojr5s/UNVm5d6WYxGvoi18ss6BBPVpmVo2hKUECU
+	WEEDNdsLMBb5N4G9YwXaxahPVDspXoA+Imubd8j/bjhcucsSXJdpiWGX4Tq7GA==
+From: Manuel Ebner <manuelebnerli@mailbox.org>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1788594130;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=X5Hd7Q71LOMdduJNGEqX9EOif90ZZA++3BDP9oMJwCQ=;
+	b=nQPnyGt0V+XhPTPKmu279j5+cRyP3KqJyCu3gdI/YLnuFRByAArENSVKe4lXqamFNHLiMz
+	e/qsakJ7ZmRvFfXW5SOjHX6y+iJnCkCvBqo/8i9zPyMqYVWKB3rXp81TmjBDjRAoyn3Iq1
+	Rowczdd+4mo0kBzw9HnaPNul8p33MKE7La+s1pUHPg1aX8mISDcJOmu4ziEcqdIGElznGp
+	cFlp5KYnoltMlLwz3BnDEhPMC68znn/kPz63dQwMYdF3kwpc9sjD1DyP0rgbSvCLdfevj2
+	SdMi8ZE1+hhcCmly9CqdB7P7+OTzqp37kDouorhm5AkBPX2Lbb66rcn5umwfVg==
+To: Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>
+Cc: Manuel Ebner <manuelebnerli@mailbox.org>,
+	linux-input@vger.kernel.org,
+	linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] Documentation: input: Fix bracket
+Date: Sat,  5 Sep 2026 09:41:42 +0200
+Message-ID: <20260905074142.810529-2-manuelebnerli@mailbox.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <apvHWCXRp-s7rcut@ashevche-desk.local>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Transfer-Encoding: 8bit
+X-MBO-RS-META: g9zofrnjn499zh5m3pm1kwrtdtb9n8oy
+X-MBO-RS-ID: 321062bde63ba77fbae
 
-On Sat, Sep 05, 2026 at 10:40:13AM +0300, Andy Shevchenko wrote:
-> On Fri, Sep 04, 2026 at 04:41:22PM -0300, Marcelo Schmitt wrote:
-> > On 09/03, Andy Shevchenko wrote:
-> > > On Wed, Sep 02, 2026 at 02:21:34PM -0300, Marcelo Schmitt wrote:
+Add missing '(' to C snippet.
 
-...
+Signed-off-by: Manuel Ebner <manuelebnerli@mailbox.org>
+---
+ Documentation/input/notifier.rst | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-> > > > Now
-> > > > find drivers/iio/ -type f | xargs grep -i "Analog Device "
-> > > > finds no leftover occurrence of such typo.
-> > > > 
-> > > > Also,
-> > > > grep -nrIi drivers/iio/ -e "Analog Device" | wc -l
-> > > > and
-> > > > grep -nrIi drivers/iio/ -e "Analog Devices" | wc -l
-> > > > both count the same number of lines.
-> > > 
-> > > Why not `git grep ...`?
-> > > 
-> > Could be. I'm just more used to non-git grep.
-> 
-> The rationale here is that `grep` goes over filesystem (and files) while
-> `git grep` goes over index which requires much less resources to waste and
-> hence 10x faster or so). That said, I highly recommend using `git grep`
-> when it's applicable.
-
-One more important thing, it skips ignored or temporary files, while `grep`
-goes over all of them.
-
-...
-
-> > Thanks for suggestions to other patches too. Will apply them for v2.
-> 
-> You're welcome!
-
+diff --git a/Documentation/input/notifier.rst b/Documentation/input/notifier.rst
+index 824379399..e7facd1a1 100644
+--- a/Documentation/input/notifier.rst
++++ b/Documentation/input/notifier.rst
+@@ -31,7 +31,7 @@ In a rough C snippet, we have::
+     kbd_keycode(keycode) {
+ 	...
+ 	params.value = keycode;
+-	if (notifier_call_chain(KBD_KEYCODE,&params) == NOTIFY_STOP)
++	if ((notifier_call_chain(KBD_KEYCODE,&params) == NOTIFY_STOP)
+ 	    || !bound) {
+ 		notifier_call_chain(KBD_UNBOUND_KEYCODE,&params);
+ 		return;
 -- 
-With Best Regards,
-Andy Shevchenko
-
+2.54.0
 
