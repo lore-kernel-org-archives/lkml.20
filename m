@@ -1,116 +1,224 @@
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from hall.aurel32.net (hall.aurel32.net [195.154.119.183])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 686DA3F326B
-	for <linux-kernel@vger.kernel.org>; Sat,  5 Sep 2026 08:36:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B5FD453A5D;
+	Sat,  5 Sep 2026 08:40:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.154.119.183
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788597420; cv=none; b=Y5ZFKWRg0gpkaGWdYt64duVJv9QOP2nlWYUF07BZUOUTh8Uq3Du15PaEUSv4BZSkZ7m98yQK+o78Pl1VqIqhkh7PihMY3MUl4wHCxUqtoC9WWLOSkwUckTAcTjjMYc2r1OohJjUrkmTEPWBEmpt+7iyjm7Q0+8WckCvFI3E5vUM=
+	t=1788597619; cv=none; b=Qli4ec2suHPT1tyd5Z7EyPsCaULal+5iGv5h+pDAAFgfr2qT+13lvhXOnx796zpS2Xepm9Zyz8vom9pIA9J4SmrGfDA/zyPpa01/RTkqRkJzTRgYx//gcievKrm+1AoNV73OqHZMXqVHT8+fqMLajXnvM33CwY+MT839bh/Tv6Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788597420; c=relaxed/simple;
-	bh=wgggDzjHY+Ah8vECxyGt8Xj8OVmFIHcQoKQNaP/el0Q=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=HajBMDx7GuMJVZZsPkAApT0T0uHJ3Qsv7izqq9bTwncAanQDJhLdo/OEzq39EzBjYpz6EV6sn7Il/PyS63TeduYcAvZwHiKa2HwnJPue6ui3MKJRu3MRl7RX7SmUsBWnM+yZYhk2Q0lWndvaXeKan2rtVwiYDRenj75VH7XbAKM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TqQL3s4Q; arc=none smtp.client-ip=209.85.128.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788597619; c=relaxed/simple;
+	bh=bk0Ouotjoxu1esIV6U1bVjhwYvT7zeApUPizjjGMCSA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=C+PQ5uBi1Xg65uqeW5rr1c/SWQeKyeW6ek2a0dhTpIP48CD39+nuGWCwI/v6YjCiYxk5SFnm7oTSS/Cv1f32/PGVATJlVbVlBo1zRtSc9oz3yvvO4W+yGK8NR6FyqlyE8UhRQfANQxoBYGgKhNFMgySKHAnDRdpsdEFPd+up94Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=aurel32.net; spf=pass smtp.mailfrom=aurel32.net; dkim=pass (2048-bit key) header.d=aurel32.net header.i=@aurel32.net header.b=QDHMnrMp; arc=none smtp.client-ip=195.154.119.183
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=aurel32.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aurel32.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TqQL3s4Q"
-Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4956869750eso14265855e9.2
-        for <linux-kernel@vger.kernel.org>; Sat, 05 Sep 2026 01:36:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788597416; x=1789202216; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Ynaw8qDzMXNFxXhqOFzgHygfT9MJ5kBajiEceTkzYr8=;
-        b=TqQL3s4QiteOfHmMHxZLjjyRG4GapJvfOYGHiHSO3Enuk8RdI7KMBObTUXWSnnD/Uk
-         qc4aV5VIx7EgUnDw1fW5Ejr63JYchP3dn4955UOtBXX5+DbtWwzO0Ptefryy3vG/HKdw
-         v7GYox9BiJkZnmmrYHQv+SqHrX8tUlPYhD6NLtitgdxhmfU1TlRYzyfAm0M7CMapUO1k
-         DzaSlDG2HPzlhCAMYH8O3J/D8orB5NdAjihEfyFjJZT1SSaIz1iQ5kHkEyUHkxB+DGGr
-         DwvI86rIF1I9pgc7RsykIsuanhkg7Nglz7TXXnO9xVrvJgTOUAPF3JLlka+OQsVRwp/L
-         n0qw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788597416; x=1789202216;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Ynaw8qDzMXNFxXhqOFzgHygfT9MJ5kBajiEceTkzYr8=;
-        b=MnImutJ9bbzU+QdXHxVOAE2/y3ik0ew31ugk63Q5hHDm+Wd7tPydHj5v55P1zYepgT
-         cxPrD+7cmYKgtg/2vDh9LhkcO1tee8jf572mWcvocMuP2D4pfKRPpIYyyS+UrQ3zjWN0
-         sumYnENa7mJeK8Xk1eqnMTNeylJnEYna5r/VSGd+ztqUcdk7UQDAl8S+5SnIk1DtfabB
-         3Y3bQuoyZGX56cRZeKK5+B+kkEbpLwAAIZ/IfZTyDFoMzP/w3BOEfJwVUmYjCZHyiy7J
-         2R0z7yhqW9HCXTgVja+AqAeXDkaAbPa8pvvMZ1M1nbWuYztnNvQ6mWk5zSdSSCFbVu57
-         Z09g==
-X-Forwarded-Encrypted: i=1; AKwUvBzXlydy//UDRttgTbueHCKB3cX/YB9ZYxc+DGHqMUR4vIBXyjbV7HuYGcoeX2jYzHEL3SQ6/eaSJO5a9js=@vger.kernel.org
-X-Gm-Message-State: AFuF++k4X3iDFc07VatlxjyGL43m2f8keyV7jCMtpZ0VsKgIX3RlDMH7
-	TxKwkxR6b5iU67c057anB6mE7sOEGnDRtkVMK1OjDoDChSzZ13GDR95NSnK3MDuP
-X-Gm-Gg: AYBFou0GjIv2xBZYsf255LIbFWy8INYv5rSRh5j/wqs8vl2vagoURf4fzWgUtNXXbJg
-	EESx4/3aq768xMn+/w2Sew5p10R4dUHWTY2bSUEHd5bpfDfOrehkfvUd/zxXhKEAxqitF1on4oG
-	5Pt8UlQe5y0ymWoKH+UAkyR5DiVm05l0ofP+o+HjudDiEcib0Y4Db3MZRIJmNgFjPCXpjlb/p78
-	agsoNJte5f4N/lnui/uRj2LVE83b1APHprtSVuiapHojauCaPcOqmMrckk3TEPCrMlrWINgOmny
-	6ia1IJLhAylV+qRPbPQUuJbaS31qe1V+dOKYRWgfXRN7QWUtVhodwRd4J6M02uBATBbf3ZpQO0L
-	1r9yo1Xj1jssZxZo1do9J0a8oHOH6j0zoB3BGuXZb/rJdulR98JQVxuybHPooA8FBEWCjCGmsyz
-	7zwUGkDV6xzs2d88qdf7t40N73ndRvt9DJyXutTsqw+f/+e2j6xC/zbBwbsa26gO3+mwK6kLC2J
-	rUFrmajjN5NqIMsDA1lJ/obPy+wSS6APbbjnlNfxvzHQ6/bvU3x3sSfODi9PzkZGtlsMJPHZpp6
-	UqcJZLtBwTQRhp66IMBlCXo77j+nUQnPIXvlyv3phmsTxiFDtnvuzxHxDJdE2nGxdak=
-X-Received: by 2002:a05:600c:524b:b0:49c:fa20:cc08 with SMTP id 5b1f17b1804b1-49cfa20cd2cmr88077965e9.31.1788597415955;
-        Sat, 05 Sep 2026 01:36:55 -0700 (PDT)
-Received: from localhost.localdomain (dynamic-2a02-3100-a4eb-3001-c06d-af27-9fa2-ea53.310.pool.telefonica.de. [2a02:3100:a4eb:3001:c06d:af27:9fa2:ea53])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ce58da3acsm517436035e9.0.2026.09.05.01.36.55
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sat, 05 Sep 2026 01:36:55 -0700 (PDT)
-From: Karl Mehltretter <kmehltretter@gmail.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>
-Cc: Karl Mehltretter <kmehltretter@gmail.com>,
-	linux-serial@vger.kernel.org,
-	Jonathan Corbet <corbet@lwn.net>,
-	linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Subject: [PATCH] Documentation: rs485: Pull uart_get_rs485_mode() from serial_core.c
-Date: Sat,  5 Sep 2026 10:36:48 +0200
-Message-Id: <20260905083648.39026-1-kmehltretter@gmail.com>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+	dkim=pass (2048-bit key) header.d=aurel32.net header.i=@aurel32.net header.b="QDHMnrMp"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=aurel32.net
+	; s=202004.hall; h=In-Reply-To:Content-Type:MIME-Version:References:
+	Message-ID:Subject:Cc:To:From:Date:Content-Transfer-Encoding:From:Reply-To:
+	Subject:Content-ID:Content-Description:X-Debbugs-Cc;
+	bh=OAtLd3Ez46NTrxK5K3EUQO0fzQ/WT0nfCRvsp1/GzcE=; b=QDHMnrMpYnFG13HetmTJjIhNgR
+	UxI8DmKjBJOfihDnDTzJB2ko48fUwLYIF3Y1t+2ho+eSWGBMgtnlS9w/+0DlrEi5o19wCMvGm4zBI
+	owCMlbG9jTRE7wLlKysBzvS7romnk4qvTqPvhHi3nzxMl/3ikLkKviWWT5xWElMLhYZT/6wQ+6Eui
+	cqSAciacn73tarFevWe39zT0xXreeHvpuRERL9NsSjGQ9Gv4WmC91dHoArU6P+ISBP+DIxNZKH6mG
+	+r75pZPPYHKS7P4X5YUqo3f+4i+2sdd5Fw30QXsP+pg1VjP2VoH2NRBoXG2C8uZ+tWuSlitVO8nBi
+	PZHqE+xg==;
+Received: from authenticated user
+	by hall.aurel32.net with esmtpsa  (TLS1.3)  tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.98.2)
+	(envelope-from <aurelien@aurel32.net>)
+	id 1x2lwO-00000000IbO-0dYX;
+	Sat, 05 Sep 2026 10:40:00 +0200
+Date: Sat, 5 Sep 2026 10:39:59 +0200
+From: Aurelien Jarno <aurelien@aurel32.net>
+To: Troy Mitchell <troy.mitchell@linux.spacemit.com>
+Cc: Michael Turquette <mturquette@baylibre.com>,
+	Inochi Amaoto <inochiama@outlook.com>,
+	Alex Elder <elder@riscstar.com>, Haylen Chu <heylenay@4d2.org>,
+	stable@vger.kernel.org, Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	Yixun Lan <dlan@kernel.org>, Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	linux-clk@vger.kernel.org, linux-riscv@lists.infradead.org,
+	spacemit@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4] clk: spacemit: k3: add CPU PLL rate tables
+Message-ID: <apvVSlYm3ChVgErH@aurel32.net>
+Mail-Followup-To: Troy Mitchell <troy.mitchell@linux.spacemit.com>,
+	Michael Turquette <mturquette@baylibre.com>,
+	Inochi Amaoto <inochiama@outlook.com>,
+	Alex Elder <elder@riscstar.com>, Haylen Chu <heylenay@4d2.org>,
+	stable@vger.kernel.org, Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	Yixun Lan <dlan@kernel.org>, Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	linux-clk@vger.kernel.org, linux-riscv@lists.infradead.org,
+	spacemit@lists.linux.dev, linux-kernel@vger.kernel.org
+References: <20260903-k3-pll5-pll8-1800mhz-v4-1-afafd9cb47d9@linux.spacemit.com>
+ <apmuG46sBg2rGzCD@aurel32.net>
+ <DL67LEVCXFA5.39M5FO7JGKWZS@linux.spacemit.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="aPZdChsJ4jnX0xUn"
+Content-Disposition: inline
+In-Reply-To: <DL67LEVCXFA5.39M5FO7JGKWZS@linux.spacemit.com>
+User-Agent: Mutt/2.4.1 (2026-07-04)
 
-serial-rs485.rst asks include/uapi/linux/serial.h for both struct
-serial_rs485 and uart_get_rs485_mode(). The function and its kernel-doc
-comment live in drivers/tty/serial/serial_core.c, so the directive has
-never rendered it and the section shows only the structure.
+--aPZdChsJ4jnX0xUn
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Add a second directive for serial_core.c.
+Hi Troy,
 
-Fixes: 0f4648a1a6d3 ("Documentation: rs485: Mention uart_get_rs485_mode()")
-Assisted-by: LLM
-Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
----
- Documentation/driver-api/serial/serial-rs485.rst | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+On 2026-09-04 11:24, Troy Mitchell wrote:
+> Hi Aurelien,
+>=20
+> On Fri Sep 4, 2026 at 1:27 AM +08, Aurelien Jarno wrote:
+> > Hi Troy,
+> >
+> > On 2026-09-03 11:06, Troy Mitchell wrote:
+> >> The K3 CPU PLL rate tables currently describe only one rate per PLL,
+> >> although the hardware supports a wider range.
+> >>=20
+> >> PLL3 and PLL4 support rates from 1.05 to 2.4 GHz, while PLL5 and PLL8
+> >> support rates from 1.05 to 2 GHz. Populate the tables with every
+> >> supported rate in 50 MHz steps.
+> >>=20
+> >> Cc: stable@vger.kernel.org # 7.0+
+> >> Signed-off-by: Troy Mitchell <troy.mitchell@linux.spacemit.com>
+> >> ---
+> >> The corresponding U-Boot changes are available at:
+> >>=20
+> >> - Add the CPU PLL rate tables:
+> >>   https://github.com/spacemit-com/uboot-2022.10/commit/787b5cf44c8dbc9=
+9db886d5522c0c9cd5a96ffd6
+> >> - Correct the 1.10 GHz and 2.15 GHz table entries:
+> >>   https://github.com/spacemit-com/uboot-2022.10/commit/16a775c20e9efb5=
+4ca55352215e76eb3f12e6cf0
+> >> ---
+> >> Changes in v4:
+> >> - Expand the update to every supported PLL3, PLL4, PLL5 and PLL8 rate.
+> >> - Drop Aurelien Jarno's Reviewed-by and Tested-by trailers because the
+> >>   patch scope has expanded.
+> >> - Add U-Boot references for the complete tables and corrected entries.
+> >> - Link to v3: https://patch.msgid.link/20260831-k3-pll5-pll8-1800mhz-v=
+3-1-530ed0978615@linux.spacemit.com
+> >>=20
+> >> Changes in v3:
+> >> - Mark the change for stable kernels starting with v7.0.
+> >> - Add Aurelien Jarno's Reviewed-by and Tested-by trailers.
+> >> - Rebase onto v7.3-rc1.
+> >> - Link to v2: https://patch.msgid.link/20260810-k3-pll5-pll8-1800mhz-v=
+2-1-aabff510a797@linux.spacemit.com
+> >>=20
+> >> Changes in v2:
+> >> - Drop "clk: spacemit: re-enable PLLs after init"; the PLL init issue
+> >>   will be handled in a separate series.
+> >> - Send the K3 PLL5 and PLL8 1.8 GHz rate-table update as a standalone
+> >>   patch.
+> >> - Clarify that 1.8 GHz is nominal and 2 GHz is an overclocking rate.
+> >> - Link to v1: https://patch.msgid.link/20260804-k3-pll5-pll8-1800mhz-v=
+1-0-a3a75866ce32@linux.spacemit.com
+> >>=20
+> >> To: Stephen Boyd <sboyd@kernel.org>
+> >> To: Brian Masney <bmasney+clk@redhat.com>
+> >> To: Jerome Brunet <jbrunet+clk@baylibre.com>
+> >> To: Yixun Lan <dlan@kernel.org>
+> >> To: Paul Walmsley <pjw@kernel.org>
+> >> To: Palmer Dabbelt <palmer@dabbelt.com>
+> >> To: Albert Ou <aou@eecs.berkeley.edu>
+> >> To: Alexandre Ghiti <alex@ghiti.fr>
+> >> Cc: linux-clk@vger.kernel.org
+> >> Cc: linux-riscv@lists.infradead.org
+> >> Cc: spacemit@lists.linux.dev
+> >> Cc: linux-kernel@vger.kernel.org
+> >> ---
+> >>  drivers/clk/spacemit/ccu-k3.c | 96 ++++++++++++++++++++++++++++++++++=
++++++++++
+> >>  1 file changed, 96 insertions(+)
+> >
+> > Thanks for the patch, it makes sense to add all the values, to support=
+=20
+> > future firmware changes. The values match the ones in the vendor kernel.
+> I forgot that you had a similar patch as well..
+>=20
+> >
+> >> diff --git a/drivers/clk/spacemit/ccu-k3.c b/drivers/clk/spacemit/ccu-=
+k3.c
+> >> index 92b930d5ff30..950bf531c734 100644
+> >> --- a/drivers/clk/spacemit/ccu-k3.c
+> >> +++ b/drivers/clk/spacemit/ccu-k3.c
+> >> @@ -29,15 +29,91 @@ static const struct ccu_pll_rate_tbl pll2_rate_tbl=
+[] =3D {
+> >>  	CCU_PLLA_RATE(3000000000UL, 0x0b3e2000, 0x00000000, 0xa0558c8c),
+> >>  };
+> >> =20
+> >> +/* Keep the firmware default as the first entry. */
+> >>  static const struct ccu_pll_rate_tbl pll3_rate_tbl[] =3D {
+> >> +	CCU_PLLA_RATE(2000000000UL, 0x0b292aaa, 0x0000ab00, 0xa0558686),
+> >
+> > Is it really necessary to put this entry first? I guess it's the curren=
+t=20
+> > default frequency, but we have seen it can evolve. From my tests, the=
+=20
+> > driver seems to just keep the value configured by the firmware=20
+> > independently from the table order, so I am not sure it's necessary.
+> I think keeping it first is necessary. If the current register settings do
+> not match any entry in the table, ccu_plla_init() falls back to the first
+> entry:
+>=20
+>=20
+> 	ccu_plla_update_param(pll, &pll->config.rate_tbl[0]);
+>=20
+> [...]
 
-diff --git a/Documentation/driver-api/serial/serial-rs485.rst b/Documentation/driver-api/serial/serial-rs485.rst
-index f53043d21071..98d8d83718c6 100644
---- a/Documentation/driver-api/serial/serial-rs485.rst
-+++ b/Documentation/driver-api/serial/serial-rs485.rst
-@@ -50,7 +50,10 @@ RS485 Serial Communications
-    matching to the current configuration.
- 
- .. kernel-doc:: include/uapi/linux/serial.h
--   :identifiers: serial_rs485 uart_get_rs485_mode
-+   :identifiers: serial_rs485
-+
-+.. kernel-doc:: drivers/tty/serial/serial_core.c
-+   :identifiers: uart_get_rs485_mode
- 
- 4. Usage from user-level
- ========================
--- 
-2.53.0
+For the A100 cores, that indeed makes sense. For the X100 cores this=20
+line is never reached, as the line above just stops the PLL, basically=20
+stopping the cores:
 
+        if (ccu_plla_lookup_matched_entry(pll))
+                return 0;
+
+        ccu_plla_disable(hw);
+        ccu_plla_update_param(pll, &pll->config.rate_tbl[0]);
+
+Regards
+Aurelien
+
+--=20
+Aurelien Jarno                          GPG: 4096R/1DDD8C9B
+aurelien@aurel32.net                     http://aurel32.net
+
+--aPZdChsJ4jnX0xUn
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCgAdFiEEUryGlb40+QrX1Ay4E4jA+JnoM2sFAmqb1VsACgkQE4jA+Jno
+M2uixQ//RES8WuLUie3AuTbbVUU6IEn1sygwhNK59UGLSk29TXVz+3VON6s2OmTq
+GMdxB1n29RGXgMA18bU7rOaRkfVLIcY+hoRz0TU2nx3zxxV6AUD6QT8b0155iSGh
+KNG62S7LxgfbFX8/0PupM5otRdNLoSpDkR/cayfVo11BdnEI+yfpT0K0qEd79vYN
+MjNzi3xZzyT/92goW1gZvK3m/ZM8ZgYje0tkD0iWANlb6GZEiaCT1Y4rqmCxnicd
+G1zA2j0ifn+HdO5uAHLLU80I4nsN7cPxsBFYO5sHsAErWThO1PEFqRIxeVl52JwN
+gzt8LEZyr/hOqqcR2u8Lylq5DBwMDg5efztqq7rzDoTQnubtZ8iMo+Eh5vtUKY8V
++2dcBryJInjLSYz2I0inkQVogwR49QEl3U5DBrufZg4NyLZqQHACXdTQQ3ruh9M3
+ieZO5RrAWuAisTcqVpl92CNt/dskruNvkDbIONOpe2a2Jo11Qxf29X8tVIfQReO9
+ba2YDQFkYOz48j3RJ2qJOcA4uKHP1ySiVBE7I8TY85NUAizgbFMLQodvctbA1JkC
+RowF/E7qD1/EoGFiXBoYHdXFQzT9iZP2Dw5dPkDvzcMYkhQUKsMKNmg8xqqtPQha
+p+Lnbcifd5eU/osmu6aIQW/wevYNJH9asZDcg43cL3i34s54Uf0=
+=gEDa
+-----END PGP SIGNATURE-----
+
+--aPZdChsJ4jnX0xUn--
